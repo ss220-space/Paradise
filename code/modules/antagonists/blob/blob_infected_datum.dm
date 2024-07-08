@@ -21,8 +21,8 @@
 	var/burst_waited_time = 0
 	var/message_time = 0
 	var/is_tranformed = FALSE
-	var/time_to_burst_h = TIME_TO_BURST_ADDED_H
-	var/time_to_burst_l = TIME_TO_BURST_ADDED_L
+	var/time_to_burst_hight = TIME_TO_BURST_ADDED_HIGHT
+	var/time_to_burst_low = TIME_TO_BURST_ADDED_LOW
 	var/atom/movable/screen/time_to_burst_display
 	var/datum/action/innate/blob/comm/blob_talk_action
 	var/burst_wait_time
@@ -31,7 +31,7 @@
 /datum/antagonist/blob_infected/on_gain()
 	add_game_logs("has been blobized", owner)
 	var/return_value = ..()
-	burst_wait_time = rand(time_to_burst_l, time_to_burst_h)
+	burst_wait_time = rand(time_to_burst_low, time_to_burst_hight)
 	burst_waited_time = 0
 	if(start_process)
 		process_blob_player()
@@ -46,18 +46,18 @@
 
 /datum/antagonist/blob_infected/add_owner_to_gamemode()
 	var/datum/game_mode/mode= SSticker.mode
-	if(add_to_mode && mode && !(owner in mode.blob_infected))
+	if(add_to_mode && mode && !(owner in mode.blobs["infected"]))
 		mode.blob_win_count += BLOB_TARGET_POINT_PER_CORE
-		mode.blob_infected += owner
+		mode.blobs["infected"] += owner
 		mode.update_blob_objective()
 
 
 /datum/antagonist/blob_infected/remove_owner_from_gamemode()
 	var/datum/game_mode/mode= SSticker.mode
-	if(add_to_mode && mode && (owner in mode.blob_infected))
+	if(add_to_mode && mode && (owner in mode.blobs["infected"]))
 		if(!is_tranformed)
 			mode.blob_win_count -= BLOB_TARGET_POINT_PER_CORE
-		mode.blob_infected -= owner
+		mode.blobs["infected"] -= owner
 		mode.update_blob_objective()
 
 
@@ -217,8 +217,7 @@
 		core.overmind.mind.add_antag_datum(overmind)
 		core.lateblobtimer()
 		SSticker?.mode?.process_blob_stages()
-		if(!mode.is_blob_process)
-			mode.update_blob_objective()
+		mode.update_blob_objective()
 
 
 /datum/antagonist/blob_infected/proc/transform_to_overmind()

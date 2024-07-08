@@ -765,7 +765,7 @@
 
 	sections["eventmisc"] = memory_edit_eventmisc(H)
 
-	if(isliving(current) && current.can_be_blob)
+	if(isliving(current) && current.can_be_blob())
 		sections["blob"] = memory_edit_blob(current)
 
 	if(!issilicon(current))
@@ -2497,26 +2497,27 @@
 				add_conversion_logs(current, "De-blobed")
 
 			if("blob")
-				var/burst_time_h = input(usr, "Введите максимальное время до вылупления","Time:", TIME_TO_BURST_ADDED_H) as num
-				var/burst_time_l = input(usr, "Введите минимальное время до вылупления","Time:", TIME_TO_BURST_ADDED_L) as num
+				var/burst_time = input(usr, "Введите время до вылупления","Time:", TIME_TO_BURST_ADDED_HIGHT) as num
 				var/need_new_blob = alert(usr,"Нужно ли выбирать блоба из экипажа в случае попытки вылупления за пределами станции?", "", "Да", "Нет") == "Нет"
 				var/start_process = alert(usr,"Начинать отсчет до момента вылупления?", "", "Да", "Нет") == "Да"
-				if(!burst_time_h || !burst_time_l)
+				if(!burst_time || current.stat != DEAD)
 					return
 				var/datum/antagonist/blob_infected/blob_datum = new
 				blob_datum.need_new_blob = need_new_blob
 				blob_datum.start_process = start_process
-				blob_datum.time_to_burst_h = burst_time_h
-				blob_datum.time_to_burst_l = burst_time_l
+				blob_datum.time_to_burst_hight = burst_time
+				blob_datum.time_to_burst_low = burst_time
 				src.add_antag_datum(blob_datum)
 				log_admin("[key_name(usr)] has made [key_name(current)] into a \"Blob\"")
 				message_admins("[key_name_admin(usr)] has made [key_name_admin(current)] into a \"Blob\"")
 
 			if("burst")
 				var/warn_blob = alert(usr,"Предупреждать блоба при попытке вылупления за пределами станции?", "", "Да", "Нет") != "Да"
-				var/need_new_blob = alert(usr,"Нужно ли выбирать блоба из экипажа в случае попытки вылупления за пределами станции?", "", "Да", "Нет") == "Нет"
+				var/need_new_blob = alert(usr,"Нужно ли выбирать блоба из экипажа в случае попытки вылупления за пределами станции?", "", "Да", "Нет") == "Да"
 				if(alert(usr,"Вы действительно хотите лопнуть блоба? Это уничтожит персонажа игрока и превратит его в блоба.", "", "Да", "Нет") == "Да")
 					var/datum/antagonist/blob_infected/blob = has_antag_datum(/datum/antagonist/blob_infected)
+					if(!blob)
+						return
 					blob.warn_blob = warn_blob
 					blob.need_new_blob = need_new_blob
 					blob.burst_blob()
@@ -2918,9 +2919,7 @@
 
 
 /datum/mind/proc/make_Overmind()
-	if(!(src in SSticker.mode.blob_overminds))
-		SSticker.mode.blob_overminds += src
-		special_role = SPECIAL_ROLE_BLOB_OVERMIND
+	special_role = SPECIAL_ROLE_BLOB_OVERMIND
 
 /datum/mind/proc/make_Wizard()
 	if(!(src in SSticker.mode.wizards))

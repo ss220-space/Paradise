@@ -325,6 +325,23 @@
 	to_chat(grabber, "<span class='warning'>You try to pick up [src], but they slip out of your grasp!</span>")
 	to_chat(src, "<span class='warning'>[src] tries to pick you up, but you wriggle free of their grasp!</span>")
 
+/mob/living/simple_animal/mouse/blobinfected/proc/get_mind()
+	if(mind || !SSticker || !SSticker.mode)
+		return
+	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за мышь, зараженную Блобом?", ROLE_BLOB, TRUE, source = /mob/living/simple_animal/mouse/blobinfected)
+	if(!length(candidates))
+		log_and_message_admins("There were no players willing to play as a mouse infected with a blob.")
+		return
+	var/mob/M = pick(candidates)
+	key = M.key
+	var/datum/antagonist/blob_infected/blob_datum = new
+	blob_datum.time_to_burst_hight = TIME_TO_BURST_MOUSE_HIGHT
+	blob_datum.time_to_burst_low = TIME_TO_BURST_MOUSE_LOW
+	mind.add_antag_datum(blob_datum)
+	to_chat(src, "<span class='userdanger'>Теперь вы мышь, заражённая спорами Блоба. Найдите какое-нибудь укромное место до того, как вы взорветесь и станете Блобом! Вы можете перемещаться по вентиляции, нажав Alt+ЛКМ на вентиляционном отверстии.</span>")
+	log_game("[key] has become blob infested mouse.")
+	notify_ghosts("Заражённая мышь появилась в [get_area(src)].", source = src, action = NOTIFY_FOLLOW)
+
 /mob/living/simple_animal/mouse/fluff/clockwork
 	name = "Chip"
 	real_name = "Chip"

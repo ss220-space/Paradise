@@ -420,7 +420,7 @@
 		to_chat(user, span_warning("Central Command will not allow the shuttle to be called. Consider all contracts terminated."))
 		return
 
-	if(SSticker && SSticker.mode && SSticker.mode.is_blob_declared && SSshuttle.emergencyNoEscape)
+	if(SSticker?.mode?.blob_stage >= BLOB_STAGE_FIRST && SSshuttle.emergencyNoEscape)
 		to_chat(user, span_warning("Under directive 7-10, [station_name()] is quarantined until further notice."))
 		return
 

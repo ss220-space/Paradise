@@ -1,16 +1,24 @@
 #define BLOB_RESTRICTED_JOBS list(JOB_TITLE_CYBORG, JOB_TITLE_AI)
-#define BLOB_RESTRICTED_SPECIES list(SPECIES_MACNINEPERSON)
-#define TIME_TO_BURST_H 15 MINUTES
-#define TIME_TO_BURST_L 10 MINUTES
-#define TIME_TO_BURST_ADDED_H 7 MINUTES
-#define TIME_TO_BURST_ADDED_L 5 MINUTES
-#define TIME_TO_BURST_MOUSE_H 3 MINUTES
-#define TIME_TO_BURST_MOUSE_L 1 MINUTES
+#define BLOB_RESTRICTED_SPECIES list(SPECIES_MACNINEPERSON, SPECIES_SKELETON)
+#define TIME_TO_BURST_HIGHT 15 MINUTES
+#define TIME_TO_BURST_LOW 10 MINUTES
+#define TIME_TO_BURST_ADDED_HIGHT 7 MINUTES
+#define TIME_TO_BURST_ADDED_LOW 5 MINUTES
+#define TIME_TO_BURST_MOUSE_HIGHT 3 MINUTES
+#define TIME_TO_BURST_MOUSE_LOW 1 MINUTES
 #define BURST_FIRST_STAGE_COEF 0.5
 #define BURST_SECOND_STAGE_COEF 0.85
 #define FIRST_STAGE_COEF 0.2
 #define SECOND_STAGE_COEF 0.3
 #define THIRD_STAGE_COEF 0.8
+#define BLOB_STAGE_NONE -1
+#define BLOB_STAGE_ZERO 0
+#define BLOB_STAGE_FIRST 1
+#define BLOB_STAGE_SECOND 2
+#define BLOB_STAGE_THIRD 3
+#define BLOB_STAGE_STORM 4
+#define BLOB_STAGE_END 5
+#define BLOB_STAGE_POST_END 6
 #define BLOB_NONE_REPORT 0
 #define BLOB_FIRST_REPORT 1
 #define BLOB_SECOND_REPORT 2
@@ -27,7 +35,7 @@
 #define BLOB_BASE_TARGET_POINT 350
 #define BLOB_TARGET_POINT_PER_CORE 350
 #define BLOB_PLAYERS_PER_CORE 30
-#define AWAY_STATION_WARN "<span class='userdanger'>Вы готовы лопнуть, но это не подходящее место!  Вы должны вернуться на станцию!</span>"
+#define AWAY_STATION_WARN "<span class='userdanger'>Вы готовы лопнуть, но это не подходящее место! Вы должны вернуться на станцию!</span>"
 #define FIRST_STAGE_WARN "<span class='userdanger'>Вы чувствуете усталость и раздутость</span>"
 #define SECOND_STAGE_WARN "<span class='userdanger'>Вы чувствуете, что вот-вот лопнете</span>"
 

@@ -42,8 +42,8 @@
 			return
 		var/datum/antagonist/blob_infected/blob_datum = new
 		blob_datum.add_to_mode = FALSE
-		blob_datum.time_to_burst_h = TIME_TO_BURST_MOUSE_H
-		blob_datum.time_to_burst_l = TIME_TO_BURST_MOUSE_L
+		blob_datum.time_to_burst_hight = TIME_TO_BURST_MOUSE_HIGHT
+		blob_datum.time_to_burst_low = TIME_TO_BURST_MOUSE_LOW
 		L.mind.add_antag_datum(blob_datum)
 
 
@@ -53,10 +53,10 @@
 	if(!SSticker || !SSticker.mode)
 		return
 	status_alarm(FALSE)
-	if(GLOB.security_level != SEC_LEVEL_DELTA && !SSticker.mode.blob_end_sterted)
+	if(GLOB.security_level != SEC_LEVEL_DELTA && SSticker.mode.blob_stage < BLOB_STAGE_END)
 		SSticker.mode.start_blob_win()
 
-/datum/weather/blob_storm/proc/status_alarm(active)	//Makes the status displays show the radiation warning for those who missed the announcement.
+/datum/weather/blob_storm/proc/status_alarm(active)
 	if(active)
 		post_status(STATUS_DISPLAY_ALERT, "bio")
 	else
@@ -74,13 +74,13 @@
 	for(var/M in GLOB.player_list)
 		var/turf/mob_turf = get_turf(M)
 		if(mob_turf && (mob_turf.z in impacted_z_levels))
-			if(weather_message && isliving(M))
+			if(weather_message && can_weather_act(M))
 				to_chat(M, weather_message)
 			if(weather_sound)
 				SEND_SOUND(M, sound(weather_sound))
 	addtimer(CALLBACK(src, PROC_REF(wind_down)), weather_duration)
 
 /datum/weather/blob_storm/can_weather_act(mob/living/L)
-	if(!L.weather_immunities)
+	if(istype(L) && !L.weather_immunities)
 		return FALSE
-	return ..() && L.can_be_blob
+	return ..() && L.can_be_blob()

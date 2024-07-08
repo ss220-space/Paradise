@@ -45,7 +45,7 @@
 /mob/camera/blob/verb/create_shield_power()
 	set category = "Blob"
 	set name = "Create/Upgrade Shield Blob (15)"
-	set desc = "Создайте/улучшите крепкой плитки. Использование на существующей крепкой плитке превращает её в отражающую плитку, способную отражать большинство энергетических снарядов, но делая её намного слабее для остальных атак."
+	set desc = "Создайте/улучшите крепкую плитку. Использование на существующей крепкой плитке превращает её в отражающую плитку, способную отражать большинство энергетических снарядов, но делая её намного слабее для остальных атак."
 
 	var/turf/T = get_turf(src)
 	create_shield(T)
@@ -57,7 +57,7 @@
 
 	if(!S)
 		if(!B)//We are on a blob
-			to_chat(src, "Тут нет плитки блоба!")
+			to_chat(src, "Тут нет плитки!")
 			return
 
 		else if(!istype(B, /obj/structure/blob/normal))
@@ -83,7 +83,7 @@
 		else if (!can_buy(15))
 			return
 
-		to_chat(src, "<span class='warning'>Вы выделяете отражающую слизь на крепкую, позволяя ей отражать энергетические снаряды ценой снижения прочности.</span>")
+		to_chat(src, "<span class='warning'>Вы выделяете отражающую слизь на крепкую плитку, позволяя ей отражать энергетические снаряды ценой снижения прочности.</span>")
 
 		S.change_to(/obj/structure/blob/shield/reflective)
 		S.color = blob_reagent_datum.color
@@ -103,7 +103,7 @@
 	var/obj/structure/blob/B = (locate(/obj/structure/blob) in T)
 
 	if(!B)//We are on a blob
-		to_chat(src, "Тут нет плитки блоба!")
+		to_chat(src, "Тут нет плитки!")
 		return
 
 	if(!istype(B, /obj/structure/blob/normal))
@@ -178,7 +178,7 @@
 
 	var/obj/structure/blob/B = locate(/obj/structure/blob) in T
 	if(!B)
-		to_chat(src, "Тут нет плитки блоба!")
+		to_chat(src, "Тут нет плитки!")
 		return
 
 	if(!istype(B, /obj/structure/blob/normal))
@@ -247,9 +247,9 @@
 			var/mob/living/simple_animal/hostile/blob/blobbernaut/blobber = new (get_turf(b_fac))
 			qdel(b_fac)
 			blobber.key = C.key
-			if(blobber.mind in SSticker?.mode?.blobernauts)
-				SSticker?.mode?.blobernauts -= blobber.mind
-			SSticker?.mode?.blobernauts += blobber.mind
+			if(blobber.mind in SSticker?.mode?.blobs["blobernauts"])
+				SSticker?.mode?.blobs["blobernauts"] -= blobber.mind
+			SSticker?.mode?.blobs["blobernauts"] += blobber.mind
 			log_game("[blobber.key] has spawned as Blobbernaut")
 			to_chat(blobber, "<span class='biggerdanger'>Вы блобернаут! Вы должны помочь всем формам блоба в их миссии по уничтожению всего!</span>")
 			to_chat(blobber, "<span class='danger'>Вы исцеляетесь, стоя на плитках блоба, однако вы будете медленно разлагаться, если получите урон за пределами блоба.</span>")

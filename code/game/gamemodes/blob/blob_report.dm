@@ -45,21 +45,22 @@
 			interceptname = "Секретное постановление [command_name()]"
 			intercepttext += "<FONT size = 3><B>Постановление Nanotrasen</B>: Биоугроза не обнаружена</FONT><HR>"
 			intercepttext += "Дирректива 7-10 была отменена для [station_name()].<BR>"
-			if(is_codes_sent)
+			if(blob_stage == BLOB_STAGE_THIRD)
 				intercepttext += "Дирректива 7-12 была отменена для [station_name()].<BR>"
 			intercepttext += "Биоугроза уничтожена, либо ее остаточные следы не представляют опасности.<BR>"
 			intercepttext += "Вам приказано следующее:<BR>"
 			intercepttext += " 1. Уничтожьте все полученные засекреченные сообщения.<BR>"
 			intercepttext += " 2. В случае невозможности продолжать смену ввиду потерь среди экипажа или критического состояния станции, провести эвакуацию экипажа.<BR>"
-			if(is_codes_sent)
+			if(blob_stage == BLOB_STAGE_THIRD)
 				intercepttext += " 3. Код от боеголовки, как и ее назначение необходимо держать в строжайшей секретности.<BR>"
 			intercepttext += "Нарушение данных приказов может повлечь за собой расторжение контракта, со всеми вытекающими последствиями.<BR>"
 			intercepttext += "Конец сообщения."
-			for(var/mob/living/silicon/ai/aiPlayer in GLOB.player_list)
-				if(aiPlayer.client)
-					aiPlayer.laws.clear_zeroth_laws()
-					SSticker?.score?.save_silicon_laws(aiPlayer, additional_info = "блоб уничтожен, нулевой закон удален")
-					to_chat(aiPlayer, "Законы обновлены")
+			if(blob_stage == BLOB_STAGE_THIRD)
+				for(var/mob/living/silicon/ai/aiPlayer in GLOB.player_list)
+					if(aiPlayer.client)
+						aiPlayer.laws.clear_zeroth_laws()
+						SSticker?.score?.save_silicon_laws(aiPlayer, additional_info = "блоб уничтожен, нулевой закон удален")
+						to_chat(aiPlayer, "Законы обновлены")
 
 	print_command_report(intercepttext, interceptname, FALSE)
 	GLOB.event_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.", "Входящее засекреченное сообщение.", 'sound/AI/commandreport.ogg', from = "[command_name()] обновление")

@@ -24,7 +24,7 @@
 /atom/movable/screen/blob/JumpToNode
 	icon_state = "ui_tonode"
 	name = "Jump to Node"
-	desc = "Перемещает вашу камеру к выбранному узлу блоба."
+	desc = "Перемещает вашу камеру к выбранному узлу."
 
 /atom/movable/screen/blob/JumpToNode/Click()
 	if(isovermind(usr))
@@ -34,7 +34,7 @@
 /atom/movable/screen/blob/JumpToCore
 	icon_state = "ui_tocore"
 	name = "Jump to Core"
-	desc = "Перемещает вашу камеру к ядру вашего блоба."
+	desc = "Перемещает вашу камеру к вашему ядру."
 
 /atom/movable/screen/blob/JumpToCore/MouseEntered(location,control,params)
 	if(hud && hud.mymob && isovermind(hud.mymob))
@@ -50,7 +50,7 @@
 /atom/movable/screen/blob/Blobbernaut
 	icon_state = "ui_blobbernaut"
 	name = "Produce Blobbernaut (60)"
-	desc = "Производит сильного и умного блоббернаута из фабрики за 60 ресурсов.<br>Фабрика блоба будет уничтожена в процессе."
+	desc = "Производит сильного и умного блоббернаута из фабрики за 60 ресурсов.<br>Фабрика будет уничтожена в процессе."
 
 /atom/movable/screen/blob/Blobbernaut/Click()
 	if(isovermind(usr))
@@ -60,7 +60,7 @@
 /atom/movable/screen/blob/StorageBlob
 	icon_state = "ui_storage"
 	name = "Produce Storage Blob (40)"
-	desc = "Производит хранилище за 40 ресурсов.<br>Хранилища блобов увеличат ваш максимальный лимит ресурсов на 50."
+	desc = "Производит хранилище за 40 ресурсов.<br>Хранилища увеличат ваш максимальный лимит ресурсов на 50."
 
 /atom/movable/screen/blob/StorageBlob/Click()
 	if(isovermind(usr))

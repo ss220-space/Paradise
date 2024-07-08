@@ -19,7 +19,7 @@
 	id = "ripping_tendrils"
 	color = "#7F0000"
 	complementary_color = "#a15656"
-	message_living = ", и вы чувствуете, как ваша кожа рвется и сдирается."
+	message_living = ", и вы чувствуете, как ваша кожа рвется и слезает."
 
 /datum/reagent/blob/ripping_tendrils/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
@@ -52,7 +52,7 @@
 	id = "envenomed_filaments"
 	color = "#9ACD32"
 	complementary_color = "#b0cd73"
-	message_living = ", и вы чувствуете себя плохо и вас тошнит"
+	message_living = ", и вы чувствуете себя плохо. Вас тошнит"
 
 /datum/reagent/blob/envenomed_filaments/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
@@ -115,7 +115,7 @@
 	id = "b_sorium"
 	color = "#808000"
 	complementary_color = "#a2a256"
-	message = "Блоб врезается в вас и отбрасывает вас в сторону."
+	message = "Блоб врезается в вас и отбрасывает в сторону."
 
 /datum/reagent/blob/b_sorium/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)

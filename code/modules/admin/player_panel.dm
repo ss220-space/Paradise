@@ -413,8 +413,8 @@
 				else
 					dat += "<tr><td><i>Head not found!</i></td></tr>"
 			dat += "</table>"
-
-		if(SSticker && SSticker.mode && SSticker.mode.blob_infected.len)
+		var/list/blob_infected = SSticker?.mode?.blobs["infected"]
+		if(blob_infected && blob_infected.len)
 			var/datum/game_mode/mode = SSticker.mode
 			dat += "<br><table cellspacing=5><tr><td><B>Blob</B></td><td></td><td></td></tr>"
 			dat += "<tr><td><i>Progress: [GLOB.blobs.len]/[mode.blob_win_count]</i></td></tr>"
@@ -425,7 +425,7 @@
 				dat += "<tr><td><a href='?src=[UID()];delay_blob_end=1'>Delay blob end</a><br></td></tr>"
 			dat += "</table>"
 			dat += "<br><table cellspacing=5><tr><td><B>Blobs</B></td><td></td></tr>"
-			for(var/datum/mind/blob in mode.blob_infected)
+			for(var/datum/mind/blob in mode.blobs["infected"])
 				var/mob/M = blob.current
 				if(M)
 					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
@@ -434,7 +434,7 @@
 					dat += "<tr><td><i>Blob not found!</i></td></tr>"
 			dat += "</table>"
 			dat += "<br><table cellspacing=5><tr><td><B>Offsprings</B></td><td></td></tr>"
-			for(var/datum/mind/blob in mode.blob_offsprings)
+			for(var/datum/mind/blob in mode.blobs["offsprings"])
 				var/mob/M = blob.current
 				if(M)
 					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
@@ -445,7 +445,7 @@
 			dat += "</table>"
 
 			dat += "<br><table cellspacing=5><tr><td><B>Blobernauts</B></td><td></td></tr>"
-			for(var/datum/mind/blob in mode.blobernauts)
+			for(var/datum/mind/blob in mode.blobs["blobernauts"])
 				var/mob/M = blob.current
 				if(M)
 					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
