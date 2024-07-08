@@ -11,17 +11,9 @@
 			if(alarm)
 				alarm.ui_interact(usr)
 
-/obj/machinery/alarm/ui_state(mob/user)
-	if(isAI(user))
-		var/mob/living/silicon/ai/AI = user
-		if(!AI.lacks_power() || AI.apc_override)
-			return GLOB.always_state
-
-	else if(ishuman(user))
-		for(var/obj/machinery/computer/atmoscontrol/AC in range(1, user))
-			if(!AC.stat)
-				return GLOB.always_state
-
+/datum/ui_module/atmos_control/ui_state(mob/user)
+	if(isliving(usr) && !issilicon(usr))
+		return GLOB.human_adjacent_state
 	return GLOB.default_state
 
 /datum/ui_module/atmos_control/ui_interact(mob/user, datum/tgui/ui = null)
