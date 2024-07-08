@@ -19,8 +19,9 @@ GLOBAL_LIST_EMPTY(whitelist)
 	return ("[M.ckey]" in whitelist)
 */
 
-/proc/is_job_whitelisted(mob/M, var/rank)
-	if(guest_jobbans(rank))
+/proc/is_job_whitelisted(mob/M, rank)
+	return TRUE //Disable whitelist jobs until it will be rewritten
+	/*if(guest_jobbans(rank))
 		if(!CONFIG_GET(flag/usewhitelist))
 			return TRUE
 		if(CONFIG_GET(flag/disable_karma))
@@ -53,7 +54,7 @@ GLOBAL_LIST_EMPTY(whitelist)
 
 			qdel(job_read)
 	else
-		return TRUE
+		return TRUE*/
 
 
 
@@ -68,8 +69,9 @@ GLOBAL_LIST_EMPTY(alien_whitelist)
 		GLOB.alien_whitelist = splittext(text, "\n")
 
 //todo: admin aliens
-/proc/is_alien_whitelisted(mob/M, var/species)
-	if(!CONFIG_GET(flag/usealienwhitelist))
+/proc/is_alien_whitelisted(mob/M, species)
+	return TRUE //Disable whitelist species until it will be rewritten
+	/*if(!CONFIG_GET(flag/usealienwhitelist))
 		return TRUE
 	if(CONFIG_GET(flag/disable_karma))
 		return TRUE
@@ -103,7 +105,7 @@ GLOBAL_LIST_EMPTY(alien_whitelist)
 				. = TRUE
 				break
 
-		qdel(species_read)
+		qdel(species_read)*/
 /*
 	if(M && species)
 		for(var/s in alien_whitelist)
