@@ -9,6 +9,8 @@
 	var/list/override_squeak_sounds
 	/// Squeak probability
 	var/squeak_chance = 100
+	/// If parent is a mob we will not play squeek sounds if its dead
+	var/dead_check = FALSE
 
 	/// Mob, currently holding parent
 	var/mob/holder
@@ -36,7 +38,7 @@
 	)
 
 
-/datum/component/squeak/Initialize(custom_sounds, volume_override, chance_override, step_delay_override, use_delay_override, squeak_on_move, extrarange, falloff_exponent, fallof_distance)
+/datum/component/squeak/Initialize(custom_sounds, volume_override, chance_override, step_delay_override, use_delay_override, squeak_on_move, extrarange, falloff_exponent, falloff_distance, dead_check = FALSE)
 	if(!isatom(parent) || isarea(parent))
 		return COMPONENT_INCOMPATIBLE
 	RegisterSignal(parent, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_BLOB_ACT, COMSIG_ATOM_HULK_ATTACK, COMSIG_PARENT_ATTACKBY), PROC_REF(play_squeak))
@@ -54,6 +56,7 @@
 			if(istype(parent, /obj/item/clothing/shoes))
 				RegisterSignal(parent, COMSIG_SHOES_STEP_ACTION, PROC_REF(step_squeak))
 
+	src.dead_check = dead_check
 	override_squeak_sounds = custom_sounds
 	if(chance_override)
 		squeak_chance = chance_override
@@ -67,8 +70,8 @@
 		sound_extra_range = extrarange
 	if(isnum(falloff_exponent))
 		sound_falloff_exponent = falloff_exponent
-	if(isnum(fallof_distance))
-		sound_falloff_distance = fallof_distance
+	if(isnum(falloff_distance))
+		sound_falloff_distance = falloff_distance
 
 
 /datum/component/squeak/UnregisterFromParent()
@@ -78,6 +81,11 @@
 
 /datum/component/squeak/proc/play_squeak()
 	SIGNAL_HANDLER
+
+	if(dead_check && ismob(parent))
+		var/mob/mob_parent = parent
+		if(mob_parent.stat == DEAD)
+			return
 
 	if(prob(squeak_chance))
 		if(!override_squeak_sounds)

@@ -120,7 +120,7 @@
 
 /mob/living/simple_animal/frog/scream/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/squeak, squeak_sound, 50, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a frog or whatever
+	AddComponent(/datum/component/squeak, squeak_sound, 50, extrarange = SHORT_RANGE_SOUND_EXTRARANGE, dead_check = TRUE) //as quiet as a frog or whatever
 
 /mob/living/simple_animal/frog/toxic/scream
 	var/squeak_sound = list ('sound/creatures/frog_scream1.ogg','sound/creatures/frog_scream2.ogg')
@@ -128,7 +128,7 @@
 
 /mob/living/simple_animal/frog/toxic/scream/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/squeak, squeak_sound, 50, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a frog or whatever
+	AddComponent(/datum/component/squeak, squeak_sound, 50, extrarange = SHORT_RANGE_SOUND_EXTRARANGE, dead_check = TRUE) //as quiet as a frog or whatever
 
 /mob/living/simple_animal/frog/handle_automated_movement()
 	. = ..()
