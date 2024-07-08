@@ -432,11 +432,17 @@
 
 /// Returns TRUE if an air tank compatible helmet is equipped.
 /mob/living/carbon/proc/can_breathe_helmet()
-	return (isclothing(head) && (head.flags & AIRTIGHT))
+	if(!isclothing(head))
+		return FALSE
+	var/obj/item/clothing/C = head
+	return C.clothing_flags & AIRTIGHT
 
 /// Returns TRUE if an air tank compatible mask is equipped.
 /mob/living/carbon/proc/can_breathe_mask()
-	return (isclothing(wear_mask) && (wear_mask.flags & AIRTIGHT))
+	if(!isclothing(wear_mask))
+		return FALSE
+	var/obj/item/clothing/C = wear_mask
+	return C.clothing_flags & AIRTIGHT
 
 /// Returns TRUE if a breathing tube is equipped.
 /mob/living/carbon/proc/can_breathe_tube()
