@@ -6,7 +6,8 @@
 	name = "wall"
 	desc = "A huge chunk of metal used to seperate rooms."
 	icon = 'icons/turf/walls/wall.dmi'
-	icon_state = "wall"
+	icon_state = "wall-0"
+	base_icon_state = "wall"
 	plane = WALL_PLANE
 	var/rotting = 0
 
@@ -40,25 +41,29 @@
 	var/sheet_amount = 2
 	var/girder_type = /obj/structure/girder
 
-	canSmoothWith = list(
-	/turf/simulated/wall,
-	/turf/simulated/wall/r_wall,
-	/obj/structure/falsewall,
-	/obj/structure/falsewall/reinforced,
-	/obj/structure/falsewall/clockwork,
-	/turf/simulated/wall/rust,
-	/turf/simulated/wall/r_wall/rust,
-	/turf/simulated/wall/r_wall/coated,
-	/turf/simulated/wall/indestructible/metal,
-	/turf/simulated/wall/indestructible/reinforced,
-	/turf/simulated/wall/indestructible/reinforced/rusted,
-	)
-	smooth = SMOOTH_TRUE
+	smoothing_groups = SMOOTH_GROUP_WALLS
+	canSmoothWith = SMOOTH_GROUP_WALLS
+	smooth = SMOOTH_BITMASK
+
+/turf/simulated/wall/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+	return FALSE
 
 /turf/simulated/wall/BeforeChange()
 	for(var/obj/effect/overlay/wall_rot/WR in src)
 		qdel(WR)
 	. = ..()
+
+/turf/simulated/wall/Initialize(mapload)
+	. = ..()
+	if(smooth & SMOOTH_DIAGONAL_CORNERS && fixed_underlay) //Set underlays for the diagonal walls.
+		var/mutable_appearance/underlay_appearance = mutable_appearance(layer = TURF_LAYER, offset_spokesman = src, plane = FLOOR_PLANE)
+		if(fixed_underlay["space"])
+			generate_space_underlay(underlay_appearance, src)
+		else
+			underlay_appearance.icon = fixed_underlay["icon"]
+			underlay_appearance.icon_state = fixed_underlay["icon_state"]
+		fixed_underlay = string_assoc_list(fixed_underlay)
+		underlays += underlay_appearance
 
 //Appearance
 /turf/simulated/wall/examine(mob/user) // If you change this, consider changing the examine_status proc of false walls to match

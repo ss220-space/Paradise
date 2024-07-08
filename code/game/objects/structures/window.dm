@@ -683,22 +683,26 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it."
 	icon = 'icons/obj/smooth_structures/window.dmi'
 	icon_state = "window"
+	base_icon_state = "window"
 	max_integrity = 50
-	smooth = SMOOTH_TRUE
+	smooth = SMOOTH_BITMASK
 	cancolor = TRUE
-	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced)
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE
+	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
 
 /obj/structure/window/full/plasmabasic
 	name = "plasma window"
 	desc = "A plasma-glass alloy window. It looks insanely tough to break. It appears it's also insanely tough to burn through."
 	icon = 'icons/obj/smooth_structures/plasma_window.dmi'
-	icon_state = "plasmawindow"
+	icon_state = "plasma_window-0"
+	base_icon_state = "plasma_window"
 	shardtype = /obj/item/shard/plasma
 	glass_type = /obj/item/stack/sheet/plasmaglass
 	heat_resistance = 32000
 	max_integrity = 300
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced)
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE
+	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
 	explosion_block = 1
 	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
 
@@ -706,20 +710,25 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	name = "Paperframe Window"
 	desc = "Just looking at it's clean and simple design makes you at piece with your demons"
 	icon = 'icons/obj/smooth_structures/paperframe.dmi'
-	icon_state = "paperframe"
+	icon_state = "paperframe-0"
+	base_icon_state = "paperframe"
 	max_integrity = 50
-	smooth = SMOOTH_TRUE
+	smooth = SMOOTH_BITMASK
+	smoothing_groups = SMOOTH_GROUP_PAPERFRAME
+	canSmoothWith = SMOOTH_GROUP_PAPERFRAME
 	cancolor = FALSE
-	canSmoothWith = list(/obj/structure/window/full/paperframe)
 
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
 	desc = "A plasma-glass alloy window, with rods supporting it. It looks hopelessly tough to break. It also looks completely fireproof, considering how basic plasma windows are insanely fireproof."
 	icon = 'icons/obj/smooth_structures/rplasma_window.dmi'
-	icon_state = "rplasmawindow"
+	icon_state = "rplasma_window-0"
+	base_icon_state = "rplasma_window"
 	shardtype = /obj/item/shard/plasma
 	glass_type = /obj/item/stack/sheet/plasmarglass
-	smooth = SMOOTH_TRUE
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE
+	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
 	reinf = TRUE
 	max_integrity = 1000
 	explosion_block = 2
@@ -732,9 +741,11 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	name = "reinforced window"
 	desc = "It looks rather strong. Might take a few good hits to shatter it."
 	icon = 'icons/obj/smooth_structures/reinforced_window.dmi'
-	icon_state = "r_window"
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced)
+	icon_state = "reinforced_window-0"
+	base_icon_state = "reinforced_window"
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE
+	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
 	max_integrity = 100
 	reinf = TRUE
 	heat_resistance = 1600
@@ -747,12 +758,13 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	name = "tinted window"
 	desc = "It looks rather strong and opaque. Might take a few good hits to shatter it."
 	icon = 'icons/obj/smooth_structures/tinted_window.dmi'
-	icon_state = "tinted_window"
+	base_icon_state = "tinted_window"
 	opacity = TRUE
 
 /obj/structure/window/full/reinforced/ice
 	icon = 'icons/obj/smooth_structures/rice_window.dmi'
 	icon_state = "ice_window"
+	base_icon_state = "rice_window"
 	max_integrity = 150
 	cancolor = FALSE
 
@@ -761,14 +773,16 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	desc = "A alien alloy window. Looks like it regenerate all damage."
 	icon = 'icons/obj/smooth_structures/alien_window.dmi'
 	icon_state = "al_window"
+	base_icon_state = "alien_window"
 	shardtype = /obj/item/shard
 	glass_type = /obj/item/stack/sheet/abductorglass
 	heat_resistance = 1600
 	max_integrity = 300
-	smooth = SMOOTH_TRUE
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE
+	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
 	explosion_block = 1
 	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
-	canSmoothWith = list(/obj/structure/window/full/abductor)
 
 /obj/structure/window/full/abductor/Initialize(mapload, direct)
 	..()
@@ -778,14 +792,16 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	name = "shuttle window"
 	desc = "A reinforced, air-locked pod window."
 	icon = 'icons/obj/smooth_structures/shuttle_window.dmi'
-	icon_state = "shuttle_window"
+	icon_state = "shuttle_window-0"
+	base_icon_state = "shuttle_window"
 	max_integrity = 100
 	reinf = TRUE
 	heat_resistance = 1600
 	explosion_block = 3
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
-	smooth = SMOOTH_TRUE
-	canSmoothWith = null
+	smooth = SMOOTH_BITMASK
+	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE //+ SMOOTH_GROUP_SHUTTLE_PARTS
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE
 	glass_type = /obj/item/stack/sheet/titaniumglass
 
 /obj/structure/window/full/shuttle/narsie_act()
@@ -799,6 +815,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	desc = "A reinforced, air-locked shuttle window."
 	icon = 'icons/obj/smooth_structures/shuttle_window_gray.dmi'
 	icon_state = "shuttle_window_gray"
+	base_icon_state = "shuttle_window_gray"
 
 /obj/structure/window/full/shuttle/gray/tinted
 	opacity = TRUE
@@ -807,7 +824,8 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	name = "High-Tech shuttle window"
 	desc = "A reinforced, air-locked shuttle window."
 	icon = 'icons/obj/smooth_structures/shuttle_window_ninja.dmi'
-	icon_state = "shuttle_window_ninja"
+	icon_state = "shuttle_window_ninja-0"
+	base_icon_state = "shuttle_window_ninja"
 	armor = list("melee" = 50, "bullet" = 30, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 
 /obj/structure/window/full/shuttle/ninja/tinted
@@ -818,6 +836,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	desc = "An evil looking window of plasma and titanium."
 	icon = 'icons/obj/smooth_structures/plastitanium_window.dmi'
 	icon_state = "plastitanium_window"
+	base_icon_state = "plastitanium_window"
 	dir = FULLTILE_WINDOW_DIR
 	max_integrity = 100
 	fulltile = TRUE
@@ -825,8 +844,9 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	reinf = TRUE
 	heat_resistance = 1600
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
-	smooth = SMOOTH_TRUE
-	canSmoothWith = null
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM
+	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM
 	explosion_block = 3
 	level = 3
 	glass_type = /obj/item/stack/sheet/plastitaniumglass
@@ -909,8 +929,10 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 /obj/structure/window/reinforced/clockwork/fulltile
 	icon_state = "clockwork_window"
-	smooth = SMOOTH_TRUE
-	canSmoothWith = null
+	base_icon_state = "clockwork_window"
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE_BRONZE
+	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE_BRONZE
 	fulltile = TRUE
 	flags = PREVENT_CLICK_UNDER
 	dir = FULLTILE_WINDOW_DIR
@@ -920,8 +942,10 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 /obj/structure/window/reinforced/clockworkfake/fulltile
 	icon_state = "clockwork_window"
-	smooth = SMOOTH_TRUE
-	canSmoothWith = null
+	base_icon_state = "clockwork_window"
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE_BRONZE
+	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE_BRONZE
 	fulltile = TRUE
 	flags = PREVENT_CLICK_UNDER
 	dir = FULLTILE_WINDOW_DIR

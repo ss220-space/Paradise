@@ -38,6 +38,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	var/floor_tile = null //tile that this floor drops
 	var/prying_tool = TOOL_CROWBAR //What tool/s can we use to pry up the tile?
 	var/keep_dir = TRUE //When false, resets dir to default on changeturf()
+	smoothing_groups = SMOOTH_GROUP_FLOOR
 
 	footstep = FOOTSTEP_FLOOR
 	barefootstep = FOOTSTEP_HARD_BAREFOOT

@@ -137,6 +137,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	density = TRUE
 	anchored = TRUE
 	invisibility = INVISIBILITY_ABSTRACT
+	smoothing_groups = SMOOTH_GROUP_FILLER
 	var/obj/machinery/parent
 
 /obj/structure/filler/Destroy()
