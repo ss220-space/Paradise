@@ -39,10 +39,13 @@
 	desc = "Can hold various tools."
 	icon_state = "utilitybelt"
 	item_state = "utility"
+	item_color = "utilitybelt"
 	drop_sound = 'sound/items/handling/toolbelt_drop.ogg'
 	pickup_sound = 'sound/items/handling/toolbelt_pickup.ogg'
 	use_item_overlays = TRUE
+	var/dyeable = TRUE
 	can_hold = list(
+		/obj/item/clothing/gloves/color,
 		/obj/item/crowbar,
 		/obj/item/screwdriver,
 		/obj/item/weldingtool,
@@ -57,6 +60,46 @@
 		/obj/item/holosign_creator,
 		/obj/item/radio,
 		/obj/item/robotanalyzer)
+
+/obj/item/storage/belt/utility/white
+	item_color = "white"
+	item_state = "utility_white"
+	icon_state = "utilitybelt_white"
+
+/obj/item/storage/belt/utility/red
+	item_color = "red"
+	item_state = "utility_red"
+	icon_state = "utilitybelt_red"
+
+/obj/item/storage/belt/utility/blue
+	item_color = "blue"
+	item_state = "utility_blue"
+	icon_state = "utilitybelt_blue"
+
+/obj/item/storage/belt/utility/green
+	item_color = "green"
+	item_state = "utility_green"
+	icon_state = "utilitybelt_green"
+
+/obj/item/storage/belt/utility/yellow
+	item_color = "yellow"
+	item_state = "utility_yellow"
+	icon_state = "utilitybelt_yellow"
+
+/obj/item/storage/belt/utility/black
+	item_color = "black"
+	item_state = "utility_black"
+	icon_state = "utilitybelt_black"
+
+/obj/item/storage/belt/utility/orange
+	item_color = "orange"
+	item_state = "utility_orange"
+	icon_state = "utilitybelt_orange"
+
+/obj/item/storage/belt/utility/purple
+	item_color = "purple"
+	item_state = "utility_purple"
+	icon_state = "utilitybelt_purple"
 
 /obj/item/storage/belt/utility/full/populate_contents()
 	new /obj/item/screwdriver(src)
@@ -87,6 +130,7 @@
 	desc = "Holds tools, looks snazzy"
 	icon_state = "utilitybelt_ce"
 	item_state = "utility_ce"
+	dyeable = FALSE
 
 /obj/item/storage/belt/utility/chief/full/populate_contents()
 	new /obj/item/screwdriver/power(src)
