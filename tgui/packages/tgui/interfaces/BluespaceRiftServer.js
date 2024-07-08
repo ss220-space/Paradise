@@ -188,7 +188,7 @@ export const BluespaceRiftServer = (props, context) => {
   };
 
   return (
-    <Window width={570} heigth={400}>
+    <Window width={570} height={400}>
       <Window.Content scrollable>
         {goals && goals.map((goalData) => goal(goalData))}
         <Section title="Сканеры в сети">
