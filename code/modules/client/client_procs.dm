@@ -124,65 +124,6 @@
 	if(config && CONFIG_GET(flag/log_hrefs))
 		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
 
-	if(href_list["karmashop"])
-		if(CONFIG_GET(flag/disable_karma))
-			return
-
-		switch(href_list["karmashop"])
-			if("tab")
-				karma_tab = text2num(href_list["tab"])
-				karmashopmenu()
-				return
-			if("shop")
-				if(href_list["KarmaBuy"])
-					var/karma=verify_karma()
-					if(isnull(karma)) //Doesn't display anything if karma database is down.
-						return
-					switch(href_list["KarmaBuy"])
-						if("1")
-							karma_purchase(karma,5,"job", JOB_TITLE_BARBER)
-						if("2")
-							karma_purchase(karma,5,"job", JOB_TITLE_BRIGDOC)
-						if("3")
-							karma_purchase(karma,30,"job", JOB_TITLE_REPRESENTATIVE)
-						if("5")
-							karma_purchase(karma,30,"job", JOB_TITLE_BLUESHIELD)
-						if("6")
-							karma_purchase(karma,30,"job", JOB_TITLE_MECHANIC)
-						if("7")
-							karma_purchase(karma,45,"job", JOB_TITLE_JUDGE)
-						if("9")
-							karma_purchase(karma,30,"job", JOB_TITLE_PILOT)
-					return
-				if(href_list["KarmaBuy2"])
-					var/karma=verify_karma()
-					if(isnull(karma)) //Doesn't display anything if karma database is down.
-						return
-					switch(href_list["KarmaBuy2"])
-						if("1")
-							karma_purchase(karma,15,"species","Machine People",SPECIES_MACNINEPERSON)
-						if("2")
-							karma_purchase(karma,30,"species",SPECIES_KIDAN)
-						if("3")
-							karma_purchase(karma,30,"species",SPECIES_GREY)
-						if("4")
-							karma_purchase(karma,45,"species",SPECIES_VOX)
-						if("5")
-							karma_purchase(karma,45,"species",SPECIES_SLIMEPERSON)
-						if("6")
-							karma_purchase(karma,45,"species",SPECIES_PLASMAMAN)
-						if("7")
-							karma_purchase(karma,30,"species",SPECIES_DRASK)
-						if("8")
-							karma_purchase(karma,30,"species",SPECIES_MOTH)
-					return
-				if(href_list["KarmaRefund"])
-					var/type = href_list["KarmaRefundType"]
-					var/job = href_list["KarmaRefund"]
-					var/cost = href_list["KarmaRefundCost"]
-					karmarefund(type,job,cost)
-					return
-
 	switch(href_list["_src_"])
 		if("holder")	hsrc = holder
 		if("usr")		hsrc = mob
