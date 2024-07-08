@@ -372,7 +372,7 @@
 
 
 //Hulk Joke
-/obj/effect/proc_holder/spell/hulk_joke/create_new_targeting()
+/obj/effect/proc_holder/spell/hulk_joke
 	name = "Joke"
 	desc = "Пускает большое облако дыма, а так-же лечит вас. Хорошее решение если вам нужно отступить."
 	panel = "Hulk"
