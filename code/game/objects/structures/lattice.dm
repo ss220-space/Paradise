@@ -181,6 +181,15 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	number_of_rods = 3
 
+
+/obj/structure/lattice/catwalk/fireproof/Initialize(mapload)
+	. = ..()
+	var/static/list/give_turf_traits
+	if(!give_turf_traits)
+		give_turf_traits = string_list(list(TRAIT_LAVA_STOPPED, TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN))
+	AddElement(/datum/element/give_turf_traits, give_turf_traits)
+
+
 /obj/structure/lattice/catwalk/fireproof/wirecutter_act(mob/living/user, obj/item/I)
 	to_chat(user, "<span class='notice'>Вы начали срезать усиленные прутья, это займёт некоторое время...</span>")
 	if(!I.use_tool(src, user, 80, volume = I.tool_volume))

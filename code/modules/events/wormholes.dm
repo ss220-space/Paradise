@@ -64,7 +64,7 @@
 	. = list()	// we need no mask here
 
 
-/obj/effect/portal/wormhole/can_teleport(atom/movable/M)
+/obj/effect/portal/wormhole/can_teleport(atom/movable/M, silent = FALSE)
 	. = ..()
 
 	if(istype(M, /obj/singularity))
