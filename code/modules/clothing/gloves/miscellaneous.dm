@@ -7,7 +7,7 @@
 	transfer_prints = TRUE
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
-	body_parts_covered = null
+	body_parts_covered = HANDS
 	strip_delay = 40
 	put_on_delay = 20
 	clipped = 1
