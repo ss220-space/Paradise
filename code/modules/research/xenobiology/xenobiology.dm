@@ -391,10 +391,6 @@
 		if(!GLOB.med_hud_users.Find(SM))
 			var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 			medsensor.add_hud_to(SM)
-	if(istype(SM, /mob/living/simple_animal/borer))
-		var/mob/living/simple_animal/borer/B = SM
-		B.GrantBorerSpells()
-		B.hide_borer()
 	qdel(src)
 
 /obj/item/slimepotion/slime/steroid
