@@ -33034,7 +33034,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/cabin1)
 "fcr" = (
-/obj/structure/closet/secure_closet/detective,
+/obj/structure/closet/secure_closet/cabinet/detective,
 /obj/item/flash,
 /obj/item/restraints/handcuffs,
 /obj/item/storage/box/evidence,
@@ -69164,7 +69164,7 @@
 /turf/simulated/floor/plating,
 /area/medical/paramedic)
 "mfh" = (
-/obj/structure/closet/secure_closet/bar,
+/obj/structure/closet/secure_closet/cabinet/bar,
 /obj/item/gun/projectile/revolver/doublebarrel,
 /obj/item/gun/projectile/revolver/doublebarrel,
 /turf/simulated/floor/wood/fancy/light{
