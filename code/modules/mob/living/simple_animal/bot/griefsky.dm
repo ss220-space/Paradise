@@ -63,6 +63,19 @@
 	req_access = list(ACCESS_SYNDICATE)
 
 
+/mob/living/simple_animal/bot/secbot/griefsky/Initialize(mapload)
+	. = ..()
+	icon_state = "[base_icon][on]"
+	var/datum/job/detective/J = new/datum/job/detective
+	access_card.access += J.get_access()
+	prev_access = access_card.access
+
+
+/mob/living/simple_animal/bot/secbot/griefsky/Destroy()
+	QDEL_NULL(weapon)
+	return ..()
+
+
 /mob/living/simple_animal/bot/secbot/griefsky/back_to_idle()
 	..()
 	playsound(loc, 'sound/weapons/saberoff.ogg', 50, TRUE, -1)
@@ -73,25 +86,12 @@
 	light_color = LIGHT_COLOR_PURE_RED //if you see a red one. RUN!!
 
 
-/mob/living/simple_animal/bot/secbot/griefsky/Crossed(atom/movable/AM, oldloc)
-	..()
-	if(ismob(AM) && AM == target)
-		var/mob/living/carbon/C = AM
-		visible_message("[src] flails his swords and pushes [C] out of it's way!" )
-		C.Weaken(4 SECONDS)
+/mob/living/simple_animal/bot/secbot/griefsky/secbot_crossed(mob/living/carbon/arrived)
+	if(!iscarbon(arrived) || arrived != target || in_range(src, arrived))
+		return FALSE
 
-
-/mob/living/simple_animal/bot/secbot/griefsky/New()
-	..()
-	icon_state = "[base_icon][on]"
-	var/datum/job/detective/J = new/datum/job/detective
-	access_card.access += J.get_access()
-	prev_access = access_card.access
-
-
-/mob/living/simple_animal/bot/secbot/griefsky/Destroy()
-	QDEL_NULL(weapon)
-	return ..()
+	visible_message(span_danger("[src] flails his swords and pushes [arrived] out of it's way!"))
+	arrived.Weaken(4 SECONDS)
 
 
 /mob/living/simple_animal/bot/secbot/griefsky/UnarmedAttack(atom/A) //like secbots its only possible with admin intervention

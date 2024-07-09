@@ -13,6 +13,15 @@
 	var/obj/machinery/field/generator/FG1 = null
 	var/obj/machinery/field/generator/FG2 = null
 
+
+/obj/machinery/field/containment/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
 /obj/machinery/field/containment/Destroy()
 	FG1.fields -= src
 	FG2.fields -= src
@@ -54,15 +63,19 @@
 	else
 		..()
 
-/obj/machinery/field/containment/Crossed(mob/mover, oldloc)
-	if(isliving(mover))
-		var/mob/living/victim = mover
+
+/obj/machinery/field/containment/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(isliving(arrived))
+		var/mob/living/victim = arrived
 		if(victim.incorporeal_move)
 			return
-		shock_field(mover)
+		shock_field(victim)
 
-	if(ismachinery(mover) || isstructure(mover) || ismecha(mover))
-		bump_field(mover)
+	else if(ismachinery(arrived) || isstructure(arrived) || ismecha(arrived))
+		bump_field(arrived)
+
 
 /obj/machinery/field/containment/proc/set_master(master1,master2)
 	if(!master1 || !master2)
@@ -126,7 +139,7 @@
 		user.updatehealth()
 		bump_field(user)
 
-/obj/machinery/field/proc/bump_field(atom/movable/AM as mob|obj)
+/obj/machinery/field/proc/bump_field(atom/movable/AM)
 	if(hasShocked)
 		return 0
 	hasShocked = 1

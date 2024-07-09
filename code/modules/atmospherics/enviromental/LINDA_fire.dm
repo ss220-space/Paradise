@@ -61,13 +61,30 @@
 	var/fake = FALSE
 	var/burn_time = 0
 
-/obj/effect/hotspot/New()
-	..()
+
+/obj/effect/hotspot/Initialize(mapload)
+	. = ..()
 	if(!fake)
 		SSair.hotspots += src
 		perform_exposure()
 	dir = pick(GLOB.cardinal)
 	air_update_turf()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
+/obj/effect/hotspot/Destroy()
+	set_light_on(FALSE)
+	SSair.hotspots -= src
+	var/turf/simulated/T = loc
+	if(istype(T) && T.active_hotspot == src)
+		T.active_hotspot = null
+	if(!fake)
+		DestroyTurf()
+	return ..()
+
 
 /obj/effect/hotspot/proc/perform_exposure()
 	var/turf/simulated/location = loc
@@ -157,17 +174,6 @@
 			return 0*/
 	return 1
 
-// Garbage collect itself by nulling reference to it
-
-/obj/effect/hotspot/Destroy()
-	set_light_on(FALSE)
-	SSair.hotspots -= src
-	var/turf/simulated/T = loc
-	if(istype(T) && T.active_hotspot == src)
-		T.active_hotspot = null
-	if(!fake)
-		DestroyTurf()
-	return ..()
 
 /obj/effect/hotspot/proc/DestroyTurf()
 
@@ -185,10 +191,13 @@
 				T.to_be_destroyed = 0
 				T.max_fire_temperature_sustained = 0
 
-/obj/effect/hotspot/Crossed(mob/living/L, oldloc)
-	..()
-	if(isliving(L))
-		L.fire_act()
+
+/obj/effect/hotspot/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(isliving(arrived))
+		arrived.fire_act()
+
 
 /obj/effect/hotspot/singularity_pull()
 	return
@@ -197,8 +206,8 @@
 	fake = TRUE
 	burn_time = 30
 
-/obj/effect/hotspot/fake/New()
-	..()
+/obj/effect/hotspot/fake/Initialize(mapload)
+	. = ..()
 	if(burn_time)
 		QDEL_IN(src, burn_time)
 

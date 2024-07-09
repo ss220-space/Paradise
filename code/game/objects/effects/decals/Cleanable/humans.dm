@@ -40,6 +40,13 @@
 	if(!.)
 		dry_timer = addtimer(CALLBACK(src, PROC_REF(dry)), DRYING_TIME * (amount+1), TIMER_STOPPABLE)
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+		COMSIG_ATOM_EXITED = PROC_REF(on_exited),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
 /obj/effect/decal/cleanable/blood/Destroy()
 	if(dry_timer)
 		deltimer(dry_timer)
@@ -76,8 +83,67 @@
 		user.update_inv_gloves()
 		user.verbs += /mob/living/carbon/human/proc/bloody_doodle
 
+
 /obj/effect/decal/cleanable/blood/can_bloodcrawl_in()
 	return TRUE
+
+
+/obj/effect/decal/cleanable/blood/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(off_floor || !ishuman(arrived))
+		return
+
+	blood_decal_crossed(arrived)
+
+
+/obj/effect/decal/cleanable/blood/proc/on_exited(datum/source, atom/movable/departed, atom/newLoc)
+	SIGNAL_HANDLER
+
+	if(off_floor || !ishuman(departed))
+		return
+
+	blood_decal_uncrossed(departed)
+
+
+/obj/effect/decal/cleanable/blood/proc/blood_decal_crossed(mob/living/carbon/human/arrived)
+	if(istype(arrived.shoes, /obj/item/clothing/shoes) && blood_state && bloodiness)
+		var/obj/item/clothing/shoes/shoes = arrived.shoes
+		var/add_blood = 0
+		if(bloodiness >= BLOOD_GAIN_PER_STEP)
+			add_blood = BLOOD_GAIN_PER_STEP
+		else
+			add_blood = bloodiness
+		bloodiness -= add_blood
+		shoes.bloody_shoes[blood_state] = min(MAX_SHOE_BLOODINESS, shoes.bloody_shoes[blood_state] + add_blood)
+		if(length(blood_DNA))
+			shoes.add_blood(blood_DNA, basecolor)
+		shoes.blood_state = blood_state
+		shoes.blood_color = basecolor
+		update_icon()
+		shoes.update_icon()
+		arrived.update_inv_shoes()
+
+	else if(!arrived.shoes && arrived.num_legs > 0 && blood_state && bloodiness)//Or feet
+		var/add_blood = 0
+		if(bloodiness >= BLOOD_GAIN_PER_STEP)
+			add_blood = BLOOD_GAIN_PER_STEP
+		else
+			add_blood = bloodiness
+		bloodiness -= add_blood
+		arrived.bloody_feet[blood_state] = min(MAX_SHOE_BLOODINESS, arrived.bloody_feet[blood_state] + add_blood)
+		if(!arrived.feet_blood_DNA)
+			arrived.feet_blood_DNA = list()
+		arrived.blood_state = blood_state
+		arrived.feet_blood_DNA |= blood_DNA.Copy()
+		arrived.feet_blood_color = basecolor
+		update_icon()
+		arrived.update_inv_shoes()
+
+
+/obj/effect/decal/cleanable/blood/proc/blood_decal_uncrossed(mob/living/carbon/human/departed)
+	return
+
 
 /obj/effect/decal/cleanable/blood/splatter
 	random_icon_states = list("mgibbl1", "mgibbl2", "mgibbl3", "mgibbl4", "mgibbl5")

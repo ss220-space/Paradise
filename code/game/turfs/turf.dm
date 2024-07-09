@@ -198,18 +198,6 @@
 	// but not runtime when something gets deleted by a Bump/CanPass/Cross call
 
 	var/atom/mover_loc = mover.loc
-
-	// First, make sure it can leave its square
-	if(isturf(mover_loc))
-		// Nothing but border objects stop you from leaving a tile, only one loop is needed
-		var/movement_dir = get_dir(mover, src)
-		for(var/obj/obstacle in mover_loc)
-			if(obstacle == mover)
-				continue
-			if(!obstacle.CanExit(mover, movement_dir))
-				mover.Bump(obstacle)
-				return FALSE
-
 	var/border_dir = get_dir(src, mover)
 	var/can_pass_self = CanPass(mover, border_dir)
 	var/atom/movable/tompost_bump
@@ -794,15 +782,6 @@
 	// Prevents jaunting onto the AI core cheese, AI should always block a turf due to being a dense mob even when unanchored
 	if(locate(/mob/living/silicon/ai) in contents)
 		return TRUE
-
-	// in case of source_atom we are also checking if it can exit its turf contents
-	if(source_atom && isturf(source_atom.loc) && source_atom.loc != src)
-		var/movement_dir = get_dir(source_atom, src)
-		for(var/obj/obstacle in source_atom.loc)
-			if(obstacle == source_atom)
-				continue
-			if(!obstacle.CanExit(source_atom, movement_dir))
-				return TRUE
 
 	for(var/atom/movable/movable_content as anything in contents)
 		// We don't want to block ourselves

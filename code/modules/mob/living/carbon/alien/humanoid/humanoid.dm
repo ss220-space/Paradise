@@ -23,7 +23,7 @@
 	add_language(LANGUAGE_HIVE_XENOS)
 	..()
 	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/regurgitate)
-	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
+	AddElement(/datum/element/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
 	update_icons()
 
 
