@@ -96,7 +96,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/structure/lattice/catwalk/fireproof,
+/obj/structure/lattice/catwalk/mapping,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "au" = (
@@ -593,7 +593,7 @@
 	},
 /area/mine/living_quarters)
 "bT" = (
-/obj/structure/lattice/catwalk/fireproof,
+/obj/structure/lattice/catwalk/mapping,
 /obj/structure/railing/corner{
 	dir = 1
 	},
@@ -798,7 +798,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/lattice/catwalk/fireproof,
+/obj/structure/lattice/catwalk/mapping,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -850,7 +850,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/lattice/catwalk/fireproof,
+/obj/structure/lattice/catwalk/mapping,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "dh" = (
@@ -1217,7 +1217,7 @@
 	},
 /area/mine/production)
 "eW" = (
-/obj/structure/lattice/catwalk/fireproof,
+/obj/structure/lattice/catwalk/mapping,
 /obj/structure/transit_tube/crossing,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/mine/living_quarters)
@@ -1312,7 +1312,7 @@
 	},
 /area/mine/production)
 "fp" = (
-/obj/structure/lattice/catwalk/fireproof,
+/obj/structure/lattice/catwalk/mapping,
 /obj/structure/transit_tube/crossing/horizontal,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/mine/lobby)
@@ -1366,7 +1366,7 @@
 /area/lavaland/surface/outdoors/necropolis)
 "fD" = (
 /obj/structure/railing,
-/obj/structure/lattice/catwalk/fireproof,
+/obj/structure/lattice/catwalk/mapping,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "fE" = (
@@ -3024,7 +3024,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/structure/lattice/catwalk/fireproof,
+/obj/structure/lattice/catwalk/mapping,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "nX" = (
@@ -3416,7 +3416,7 @@
 /area/mine/necropolis)
 "rf" = (
 /obj/structure/transit_tube/diagonal/topleft,
-/obj/structure/lattice/catwalk/fireproof,
+/obj/structure/lattice/catwalk/mapping,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/mine/production)
 "rp" = (
@@ -3581,7 +3581,7 @@
 /area/mine/necropolis)
 "sF" = (
 /obj/structure/transit_tube/diagonal/topleft,
-/obj/structure/lattice/catwalk/fireproof,
+/obj/structure/lattice/catwalk/mapping,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/mine/storage)
 "sG" = (
@@ -3695,7 +3695,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/structure/lattice/catwalk/fireproof,
+/obj/structure/lattice/catwalk/mapping,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "tA" = (
@@ -3903,7 +3903,7 @@
 /turf/simulated/floor/plating,
 /area/mine/maintenance)
 "uU" = (
-/obj/structure/lattice/catwalk/fireproof,
+/obj/structure/lattice/catwalk/mapping,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/mine/production)
 "uZ" = (
@@ -4156,7 +4156,7 @@
 /area/mine/storage)
 "xt" = (
 /obj/structure/railing,
-/obj/structure/lattice/catwalk/fireproof,
+/obj/structure/lattice/catwalk/mapping,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "xw" = (
@@ -4205,7 +4205,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "xR" = (
-/obj/structure/lattice/catwalk/fireproof,
+/obj/structure/lattice/catwalk/mapping,
 /obj/structure/railing{
 	dir = 1
 	},
@@ -4291,7 +4291,7 @@
 	},
 /area/mine/living_quarters)
 "yr" = (
-/obj/structure/lattice/catwalk/fireproof,
+/obj/structure/lattice/catwalk/mapping,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/mine/storage)
 "yJ" = (
@@ -4353,7 +4353,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/structure/lattice/catwalk/fireproof,
+/obj/structure/lattice/catwalk/mapping,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -4675,7 +4675,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/lattice/catwalk/fireproof,
+/obj/structure/lattice/catwalk/mapping,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Bm" = (
@@ -4953,7 +4953,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "DP" = (
-/obj/structure/lattice/catwalk/fireproof,
+/obj/structure/lattice/catwalk/mapping,
 /obj/structure/railing{
 	dir = 8
 	},
@@ -5063,7 +5063,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "EJ" = (
-/obj/structure/lattice/catwalk/fireproof,
+/obj/structure/lattice/catwalk/mapping,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -5546,7 +5546,7 @@
 	},
 /area/mine/living_quarters)
 "Id" = (
-/obj/structure/lattice/catwalk/fireproof,
+/obj/structure/lattice/catwalk/mapping,
 /obj/structure/transit_tube/crossing,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/mine/storage)
@@ -5810,7 +5810,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/structure/lattice/catwalk/fireproof,
+/obj/structure/lattice/catwalk/mapping,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Km" = (
@@ -6149,7 +6149,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "MU" = (
-/obj/structure/lattice/catwalk/fireproof,
+/obj/structure/lattice/catwalk/mapping,
 /obj/structure/transit_tube/crossing/horizontal,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/mine/laborcamp/security)
@@ -6364,7 +6364,7 @@
 /area/lavaland/surface/outdoors)
 "PQ" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/lattice/catwalk/fireproof,
+/obj/structure/lattice/catwalk/mapping,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -6958,14 +6958,14 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Vs" = (
-/obj/structure/lattice/catwalk/fireproof,
+/obj/structure/lattice/catwalk/mapping,
 /obj/structure/railing/corner{
 	dir = 8
 	},
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Vt" = (
-/obj/structure/lattice/catwalk/fireproof,
+/obj/structure/lattice/catwalk/mapping,
 /obj/structure/railing{
 	dir = 4
 	},

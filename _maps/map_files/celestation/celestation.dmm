@@ -14865,6 +14865,8 @@
 /area/atmos)
 "bWZ" = (
 /obj/structure/table/reinforced,
+/obj/item/rcd/combat,
+/obj/item/clothing/glasses/meson/sunglasses,
 /obj/item/rcd_ammo,
 /obj/item/rcd_ammo,
 /obj/item/rcd_ammo,
