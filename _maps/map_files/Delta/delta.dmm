@@ -35989,6 +35989,9 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/structure/sign/double/no_idiots/left{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "dBG" = (
@@ -126081,6 +126084,9 @@
 /area/turret_protected/aisat)
 "xvt" = (
 /obj/effect/decal/warning_stripes/northeast,
+/obj/structure/sign/double/no_idiots/right{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "xvv" = (
