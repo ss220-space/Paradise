@@ -137,7 +137,7 @@
 
 	if(.) // If mob is null here, we deserve the runtime
 		mob.last_movement = world.time
-		mob.throwing?.finalize(FALSE)
+		mob.throwing?.finalize()
 
 		// At this point we've moved the client's attached mob. This is one of the only ways to guess that a move was done
 		// as a result of player input and not because they were pulled or any other magic.
