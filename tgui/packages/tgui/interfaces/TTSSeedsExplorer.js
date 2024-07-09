@@ -65,7 +65,7 @@ const getCheckboxGroup = (
 
 export const TTSSeedsExplorer = (props, context) => {
   return (
-    <Window width={550} height={800}>
+    <Window width={700} height={800}>
       <Window.Content>
         <TTSSeedsExplorerContent />
       </Window.Content>
