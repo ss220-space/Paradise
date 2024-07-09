@@ -10,6 +10,7 @@
 	strip_delay = 40
 	put_on_delay = 20
 	clipped = 1
+	undyeable = TRUE
 
 /obj/item/clothing/gloves/fingerless/weaver
 	name = "weaver chitin gloves"
