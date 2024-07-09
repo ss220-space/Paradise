@@ -208,5 +208,5 @@
 	icon_state = "catwalk"
 	give_turf_traits = list(TRAIT_LAVA_STOPPED, TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN)
 
-/obj/structure/lattice/catwalk/mining/deconstruction_hints(mob/user)
+/obj/structure/lattice/catwalk/mapping/deconstruction_hints(mob/user)
 	return
