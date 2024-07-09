@@ -723,6 +723,13 @@
 
 	return FALSE
 
+/mob/living/carbon/proc/BorerControlling()
+	if(has_brain_worms())
+		var/mob/living/simple_animal/borer/B = has_brain_worms()
+		if(B.controlling)
+			return TRUE
+	return FALSE
+
 /mob/living/carbon/proc/spawn_larvae()
 	set category = "Borer"
 	set name = "Reproduce"
