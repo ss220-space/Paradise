@@ -9,7 +9,6 @@
 	pixel_x = -32
 	pixel_y = -32
 	current_size = STAGE_TWO
-	appearance_flags = LONG_GLIDE
 	move_self = 1
 	grav_pull = 0
 	contained = 0
