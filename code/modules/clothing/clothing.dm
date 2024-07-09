@@ -607,8 +607,16 @@ BLIND     // can't see anything
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/shoes.dmi'
 		)
 
+
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/match) && src.loc == user)
+	if(istype(I, /obj/item/stack/tape_roll) && !silence_steps)
+		var/obj/item/stack/tape_roll/TR = I
+		if((!silence_steps) && TR.use(4))
+			silence_steps = TRUE
+			GetComponent(/datum/component/jackboots)?.ClearFromParent()
+			to_chat(user, "You tape the soles of [src] to silence your footsteps.")
+
+	else if(istype(I, /obj/item/match) && src.loc == user)
 		var/obj/item/match/M = I
 		if(M.matchignite()) // Match isn't lit, but isn't burnt.
 			user.visible_message("<span class='warning'>[user] strikes a [M] on the bottom of [src], lighting it.</span>","<span class='warning'>You strike the [M] on the bottom of [src] to light it.</span>")
@@ -616,9 +624,8 @@ BLIND     // can't see anything
 		else
 			user.visible_message("<span class='warning'>[user] crushes the [M] into the bottom of [src], extinguishing it.</span>","<span class='warning'>You crush the [M] into the bottom of [src], extinguishing it.</span>")
 			user.drop_item_ground(I)
-		return
 
-	if(I.tool_behaviour == TOOL_WIRECUTTER)
+	else if(I.tool_behaviour == TOOL_WIRECUTTER)
 		if(can_cut_open)
 			if(!cut_open)
 				playsound(src.loc, I.usesound, 100, 1)
@@ -627,7 +634,6 @@ BLIND     // can't see anything
 				update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
 			else
 				to_chat(user, "<span class='notice'>[src] have already had [p_their()] toes cut open!</span>")
-		return
 	else
 		return ..()
 
@@ -635,6 +641,7 @@ BLIND     // can't see anything
 /obj/item/clothing/shoes/update_name()
 	. = ..()
 	if(!cut_open)
+		name = initial(name)
 		return
 	name = "mangled [initial(name)]"
 
@@ -642,15 +649,20 @@ BLIND     // can't see anything
 /obj/item/clothing/shoes/update_desc()
 	. = ..()
 	if(!cut_open)
+		desc = initial(desc)
 		return
 	desc = "[initial(desc)] They have had their toes opened up."
 
 
 /obj/item/clothing/shoes/update_icon_state()
-	if(!cut_open)
-		return
-	icon_state = "[icon_state]_opentoe"
-	item_state = "[item_state]_opentoe"
+	var/base_icon_state = replacetext("[icon_state]", "_opentoe", "")
+	var/base_item_state = replacetext("[item_state]", "_opentoe", "")
+	if(cut_open)
+		icon_state = "[base_icon_state]_opentoe"
+		item_state = "[base_icon_state]_opentoe"
+	else
+		icon_state = base_icon_state
+		item_state = base_item_state
 	update_equipped_item(update_speedmods = FALSE)
 
 
@@ -742,9 +754,13 @@ BLIND     // can't see anything
 	// end up with a suffix of _open_open if adjusted twice, since their initial state is _open
 	var/base_icon_state = replacetext("[icon_state]", "_open", "")
 	var/base_item_state = replacetext("[item_state]", "_open", "")
-
-	icon_state = suit_adjusted ? base_icon_state : "[base_icon_state]_open"
-	item_state = suit_adjusted ? base_item_state : "[base_item_state]_open"
+	if(suit_adjusted || ignore_suitadjust)
+		icon_state = base_icon_state
+		item_state = base_item_state
+	else
+		icon_state = "[base_icon_state]_open"
+		item_state = "[base_item_state]_open"
+	update_equipped_item(update_speedmods = FALSE)
 
 
 // Proc used to check if suit storage is limited by item weight
