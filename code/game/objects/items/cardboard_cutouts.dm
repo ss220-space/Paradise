@@ -18,7 +18,7 @@
 /obj/item/twohanded/cardboard_cutout/attack_hand(mob/living/user)
 	if(user.a_intent == INTENT_HELP || pushed_over)
 		return ..()
-	user.visible_message("<span class='warning'>[user] толкает [src]!</span>", "<span class='danger'>Вы толкаете [src]!</span>")
+	user.visible_message("<span class='warning'>[user] толка[pluralize_ru(user.gender,"ет","ют")] [src]!</span>", "<span class='danger'>[pluralize_ru(user.gender,"Ты толкаешь","Вы толкаете")] [src]!</span>")
 	playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 	push_over()
 
@@ -33,20 +33,19 @@
 
 /obj/item/twohanded/cardboard_cutout/attack_self(mob/living/user)
 	. = ..()
-	if(HAS_TRAIT(src, TRAIT_WIELDED)){
-		if(pushed_over){
-			to_chat(user, "<span class='notice'>Вы поднимаете [src].</span>")
+	if(HAS_TRAIT(src, TRAIT_WIELDED))
+		if(pushed_over)
+			to_chat(user, "<span class='notice'>[pluralize_ru(user.gender,"Ты поднимаешь","Вы поднимаете")] [src].</span>")
 			desc = initial(desc)
 			icon = initial(icon)
 			icon_state = initial(icon_state) //This resets a cutout to its blank state - this is intentional to allow for resetting
 			pushed_over = FALSE
-		}
+		
 		var/image/I = image(icon = 'icons/obj/cardboard_cutout.dmi' , icon_state = src.icon_state, loc = user)
 		I.override = 1
 		I.color = color
 		user.add_alt_appearance("sneaking_mission", I, GLOB.player_list)
 		return
-	}
 	user.remove_alt_appearance("sneaking_mission")
 
 /obj/item/twohanded/cardboard_cutout/dropped(mob/living/user)
