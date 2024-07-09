@@ -4264,8 +4264,9 @@
 "aGE" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
-/obj/machinery/conveyor/north{
-	id = "cargodelivery"
+/obj/machinery/conveyor{
+	id = "cargodelivery";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/delivery)
@@ -4881,8 +4882,9 @@
 	},
 /area/crew_quarters/courtroom)
 "aKF" = (
-/obj/machinery/conveyor/north{
-	id = "QMLoad2"
+/obj/machinery/conveyor{
+	id = "QMLoad2";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -6091,10 +6093,6 @@
 /turf/simulated/floor/carpet/blue,
 /area/crew_quarters/trading)
 "aSl" = (
-/obj/machinery/conveyor{
-	dir = 9;
-	id = "garbage"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -6102,6 +6100,10 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
+/obj/machinery/conveyor{
+	id = "garbage";
+	dir = 9
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "aSy" = (
@@ -7828,8 +7830,9 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/trunk,
-/obj/machinery/conveyor/west{
-	id = "cargodisposals"
+/obj/machinery/conveyor{
+	id = "cargodisposals";
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/sorting)
@@ -10204,10 +10207,11 @@
 /area/atmos)
 "brF" = (
 /obj/structure/plasticflaps/mining,
-/obj/machinery/conveyor/west{
-	id = "QMLoad2"
-	},
 /obj/effect/spawner/lootdrop/maintenance/double,
+/obj/machinery/conveyor{
+	id = "QMLoad2";
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
 "brG" = (
@@ -10495,8 +10499,9 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
 "bta" = (
-/obj/machinery/conveyor/northwest{
-	id = "QMLoad2"
+/obj/machinery/conveyor{
+	id = "QMLoad2";
+	dir = 9
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -12838,13 +12843,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "bCh" = (
-/obj/machinery/conveyor{
-	dir = 8;
-	id = "garbage"
-	},
 /obj/structure/window/reinforced,
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/conveyor{
+	id = "garbage";
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -14547,12 +14552,12 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/captain)
 "bKF" = (
-/obj/machinery/conveyor{
-	dir = 5;
-	id = "garbage"
-	},
 /obj/structure/window/reinforced{
 	dir = 8
+	},
+/obj/machinery/conveyor{
+	id = "garbage";
+	dir = 5
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -14567,8 +14572,8 @@
 "bKK" = (
 /obj/machinery/recycler,
 /obj/machinery/conveyor{
-	dir = 4;
-	id = "garbage"
+	id = "garbage";
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -18798,18 +18803,20 @@
 /area/bridge)
 "cdQ" = (
 /obj/effect/decal/warning_stripes/east,
-/obj/machinery/conveyor/west{
-	id = "QMLoad2"
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/conveyor{
+	id = "QMLoad2";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "cdR" = (
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/conveyor/northwest/ccw{
-	id = "QMLoad2"
+/obj/machinery/conveyor/inverted{
+	id = "QMLoad2";
+	dir = 6
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -20331,8 +20338,9 @@
 /area/maintenance/fpmaint)
 "clQ" = (
 /obj/structure/plasticflaps/mining,
-/obj/machinery/conveyor/west{
-	id = "QMLoad2"
+/obj/machinery/conveyor{
+	id = "QMLoad2";
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
@@ -21372,14 +21380,16 @@
 /area/janitor)
 "cqZ" = (
 /obj/structure/plasticflaps,
-/obj/machinery/conveyor/west{
-	id = "cargodisposals"
+/obj/machinery/conveyor{
+	id = "cargodisposals";
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/sorting)
 "crg" = (
-/obj/machinery/conveyor/west{
-	id = "cargodisposals"
+/obj/machinery/conveyor{
+	id = "cargodisposals";
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/sorting)
@@ -21387,8 +21397,9 @@
 /obj/machinery/camera{
 	c_tag = "Cargo Backroom"
 	},
-/obj/machinery/conveyor/west{
-	id = "cargodisposals"
+/obj/machinery/conveyor{
+	id = "cargodisposals";
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/sorting)
@@ -21597,8 +21608,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/conveyor/west{
-	id = "cargodisposals"
+/obj/machinery/conveyor{
+	id = "cargodisposals";
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/sorting)
@@ -21641,8 +21653,9 @@
 	dir = 8
 	},
 /obj/structure/disposalpipe/trunk,
-/obj/machinery/conveyor/west{
-	id = "cargodisposals"
+/obj/machinery/conveyor{
+	id = "cargodisposals";
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/sorting)
@@ -21663,8 +21676,9 @@
 	},
 /area/hallway/secondary/entry/commercial)
 "csF" = (
-/obj/machinery/conveyor/northwest/ccw{
-	id = "cargodelivery"
+/obj/machinery/conveyor/inverted{
+	id = "cargodelivery";
+	dir = 6
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
@@ -23021,7 +23035,8 @@
 "cyH" = (
 /obj/machinery/conveyor_switch/oneway{
 	id = "cargodisposals";
-	name = "Cargo Disposals"
+	name = "Cargo Disposals";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -23634,8 +23649,9 @@
 	id_tag = "QMLoaddoor";
 	name = "supply dock loading door"
 	},
-/obj/machinery/conveyor/east{
-	id = "QMLoad"
+/obj/machinery/conveyor{
+	id = "QMLoad";
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
@@ -24933,8 +24949,9 @@
 	},
 /area/crew_quarters/serviceyard)
 "cGl" = (
-/obj/machinery/conveyor/east{
-	id = "QMLoad"
+/obj/machinery/conveyor{
+	id = "QMLoad";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -26073,7 +26090,8 @@
 "cLd" = (
 /obj/machinery/conveyor_switch/oneway{
 	id = "QMLoad2";
-	name = "Download"
+	name = "Download";
+	dir = 8
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
@@ -30101,8 +30119,9 @@
 /obj/structure/plasticflaps,
 /obj/structure/closet/crate/internals,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
-/obj/machinery/conveyor/north{
-	id = "cargodelivery"
+/obj/machinery/conveyor{
+	id = "cargodelivery";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
@@ -32022,8 +32041,9 @@
 	},
 /area/medical/research)
 "dko" = (
-/obj/machinery/conveyor/northeast{
-	id = "QMLoad"
+/obj/machinery/conveyor{
+	id = "QMLoad";
+	dir = 5
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -32062,8 +32082,9 @@
 /area/maintenance/asmaint3)
 "dkw" = (
 /obj/structure/plasticflaps/mining,
-/obj/machinery/conveyor/east{
-	id = "QMLoad"
+/obj/machinery/conveyor{
+	id = "QMLoad";
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
@@ -33563,8 +33584,9 @@
 	},
 /area/maintenance/starboard)
 "dqv" = (
-/obj/machinery/conveyor/northeast/ccw{
-	id = "cargodelivery"
+/obj/machinery/conveyor/inverted{
+	id = "cargodelivery";
+	dir = 10
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/delivery)
@@ -38618,8 +38640,9 @@
 /area/engine/engineering)
 "dMs" = (
 /obj/structure/plasticflaps,
-/obj/machinery/conveyor/west{
-	id = "cargodelivery"
+/obj/machinery/conveyor{
+	id = "cargodelivery";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/delivery)
@@ -42796,8 +42819,9 @@
 /area/hallway/primary/starboard/east)
 "egs" = (
 /obj/machinery/light,
-/obj/machinery/conveyor/west{
-	id = "cargodelivery"
+/obj/machinery/conveyor{
+	id = "cargodelivery";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
@@ -43691,8 +43715,9 @@
 	id_tag = "QMLoaddoor2";
 	name = "supply dock loading door"
 	},
-/obj/machinery/conveyor/west{
-	id = "QMLoad2"
+/obj/machinery/conveyor{
+	id = "QMLoad2";
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
@@ -45511,7 +45536,8 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/conveyor_switch/oneway{
 	dir = 8;
-	id = "garbage"
+	id = "garbage";
+	name = "Garbage"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -50854,11 +50880,13 @@
 /area/library)
 "fZe" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/conveyor/south/ccw{
-	id = "QMLoad2"
+/obj/machinery/conveyor{
+	id = "QMLoad2";
+	dir = 8
 	},
-/obj/machinery/conveyor/west{
-	id = "QMLoad2"
+/obj/machinery/conveyor{
+	id = "QMLoad2";
+	layer = 2.494
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -61034,16 +61062,16 @@
 	},
 /area/quartermaster/miningdock)
 "iuG" = (
-/obj/machinery/conveyor{
-	dir = 8;
-	id = "garbage"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
 	dir = 1
+	},
+/obj/machinery/conveyor{
+	id = "garbage";
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -65522,12 +65550,12 @@
 	},
 /area/hydroponics)
 "jyC" = (
-/obj/machinery/conveyor{
-	dir = 1;
-	id = "garbage"
-	},
 /obj/structure/window/reinforced{
 	dir = 8
+	},
+/obj/machinery/conveyor{
+	id = "garbage";
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -67365,9 +67393,9 @@
 "jWn" = (
 /obj/structure/plasticflaps,
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/conveyor/west{
-	dir = 1;
-	id = "cargodisposals"
+/obj/machinery/conveyor{
+	id = "cargodisposals";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
@@ -69516,15 +69544,15 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "kyY" = (
-/obj/machinery/conveyor{
-	dir = 8;
-	id = "garbage"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/window/reinforced,
+/obj/machinery/conveyor{
+	id = "garbage";
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "kzc" = (
@@ -70423,10 +70451,6 @@
 /obj/structure/disposaloutlet{
 	dir = 8
 	},
-/obj/machinery/conveyor{
-	dir = 8;
-	id = "garbage"
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
@@ -70437,6 +70461,10 @@
 	},
 /obj/structure/window/reinforced{
 	dir = 1
+	},
+/obj/machinery/conveyor{
+	id = "garbage";
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -78372,8 +78400,9 @@
 /area/hallway/primary/central/west)
 "mEg" = (
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/conveyor/east{
-	id = "QMLoad"
+/obj/machinery/conveyor{
+	id = "QMLoad";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -79135,8 +79164,9 @@
 /area/aisat/maintenance)
 "mME" = (
 /obj/structure/plasticflaps,
-/obj/machinery/conveyor/east{
-	id = "cargodelivery"
+/obj/machinery/conveyor{
+	id = "cargodelivery";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/delivery)
@@ -83572,8 +83602,9 @@
 	},
 /area/security/permahallway)
 "nNc" = (
-/obj/machinery/conveyor/north{
-	id = "QMLoad"
+/obj/machinery/conveyor{
+	id = "QMLoad";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -85239,8 +85270,8 @@
 /area/maintenance/library)
 "oht" = (
 /obj/machinery/conveyor{
-	dir = 4;
-	id = "garbage"
+	id = "garbage";
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -86577,13 +86608,15 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/machinery/conveyor/south/ccw{
-	id = "QMLoad2"
-	},
-/obj/machinery/conveyor/west{
-	id = "QMLoad2"
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/conveyor{
+	id = "QMLoad2";
+	dir = 8
+	},
+/obj/machinery/conveyor{
+	id = "QMLoad2";
+	layer = 2.494
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -97569,8 +97602,9 @@
 "qRa" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/warning_stripes/east,
-/obj/machinery/conveyor/east{
-	id = "QMLoad"
+/obj/machinery/conveyor{
+	id = "QMLoad";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -113376,11 +113410,13 @@
 	},
 /area/turret_protected/aisat)
 "uAf" = (
-/obj/machinery/conveyor/south/ccw{
-	id = "QMLoad2"
+/obj/machinery/conveyor{
+	id = "QMLoad2";
+	dir = 8
 	},
-/obj/machinery/conveyor/west{
-	id = "QMLoad2"
+/obj/machinery/conveyor{
+	id = "QMLoad2";
+	layer = 2.494
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -118890,11 +118926,9 @@
 	},
 /area/medical/genetics)
 "vOC" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/conveyor/northeast/ccw{
-	id = "QMLoad"
+/obj/machinery/conveyor/inverted{
+	id = "QMLoad";
+	dir = 10
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -119797,11 +119831,12 @@
 	},
 /area/gateway)
 "vXN" = (
-/obj/machinery/conveyor/west{
-	id = "cargodelivery"
-	},
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
+/obj/machinery/conveyor{
+	id = "cargodelivery";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
 "vXZ" = (
@@ -120650,11 +120685,13 @@
 /area/assembly/robotics)
 "wjh" = (
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/conveyor/south/ccw{
-	id = "QMLoad2"
+/obj/machinery/conveyor{
+	id = "QMLoad2";
+	dir = 8
 	},
-/obj/machinery/conveyor/west{
-	id = "QMLoad2"
+/obj/machinery/conveyor{
+	id = "QMLoad2";
+	layer = 2.494
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
