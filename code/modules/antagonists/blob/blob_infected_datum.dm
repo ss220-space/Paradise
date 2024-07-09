@@ -45,7 +45,7 @@
 
 
 /datum/antagonist/blob_infected/add_owner_to_gamemode()
-	var/datum/game_mode/mode= SSticker.mode
+	var/datum/game_mode/mode = SSticker.mode
 	if(add_to_mode && mode && !(owner in mode.blobs["infected"]))
 		mode.blob_win_count += BLOB_TARGET_POINT_PER_CORE
 		mode.blobs["infected"] += owner
@@ -53,7 +53,7 @@
 
 
 /datum/antagonist/blob_infected/remove_owner_from_gamemode()
-	var/datum/game_mode/mode= SSticker.mode
+	var/datum/game_mode/mode = SSticker.mode
 	if(add_to_mode && mode && (owner in mode.blobs["infected"]))
 		if(!is_tranformed)
 			mode.blob_win_count -= BLOB_TARGET_POINT_PER_CORE

@@ -15,7 +15,7 @@
 
 /datum/reagent/blob/ripping_tendrils //does brute and a little stamina damage
 	name = "Разрывающие щупальца"
-	description = "Наносит высокий урон травмами, а также урон выносливости."
+	description = "Наносит высокий урон <span class='red'>травмами</span>, а также урон <span style='color:#0000FF'>выносливости</span>."
 	id = "ripping_tendrils"
 	color = "#7F0000"
 	complementary_color = "#a15656"
@@ -31,7 +31,7 @@
 
 /datum/reagent/blob/boiling_oil //sets you on fire, does burn damage
 	name = "Кипящее масло"
-	description = "Наносит высокий урон ожогами и поджигает жертву."
+	description = "Наносит высокий урон <span style='color:#B68D00'>ожогами</span> и <span style='color:#FF4500'>поджигает</span> жертву."
 	id = "boiling_oil"
 	color = "#B68D00"
 	complementary_color = "#c0a856"
@@ -48,7 +48,7 @@
 
 /datum/reagent/blob/envenomed_filaments //toxin, hallucination, and some bonus spore toxin
 	name = "Ядовитые нити"
-	description = "Наносит высокий урон токсинами, вызывает галлюцинации и вводит споры в кровоток."
+	description = "Наносит высокий урон <span style='color:#9ACD32'>токсинами</span>, вызывает галлюцинации и вводит споры в кровоток."
 	id = "envenomed_filaments"
 	color = "#9ACD32"
 	complementary_color = "#b0cd73"
@@ -64,7 +64,7 @@
 
 /datum/reagent/blob/lexorin_jelly //does tons of oxygen damage and a little brute
 	name = "Лексориновое желе"
-	description = "Наносит средний урон травмами, но огромный урон гипоксией."
+	description = "Наносит средний урон <span class='red'>травмами</span>, но огромный урон <span style='color:#00FFFF'>гипоксией</span>."
 	id = "lexorin_jelly"
 	color = "#00FFC5"
 	complementary_color = "#56ebc9"
@@ -80,7 +80,7 @@
 
 /datum/reagent/blob/kinetic //does semi-random brute damage
 	name = "Кинетический желатин"
-	description = "Наносит случайный урон, в 0,33–2,33 раза превышающий стандартное количество."
+	description = "Наносит случайный урон <span class='red'>травмами</span>, в 0,33–2,33 раза превышающий стандартное количество."
 	id = "kinetic"
 	color = "#FFA500"
 	complementary_color = "#ebb756"
@@ -94,7 +94,7 @@
 
 /datum/reagent/blob/cryogenic_liquid //does low burn damage and stamina damage and cools targets down
 	name = "Криогенная жидкость"
-	description = "Наносит средний урон травмами, урон выносливости и вводит в жертв ледяное масло, замораживая их до смерти."
+	description = "Наносит средний урон <span class='red'>травмами</span>, урон <span style='color:#0000FF'>выносливости</span> и вводит в жертв <span style='color:#8BA6E9'>ледяное масло</span>, замораживая их до смерти."
 	id = "cryogenic_liquid"
 	color = "#8BA6E9"
 	complementary_color = "#a8b7df"
@@ -111,7 +111,7 @@
 
 /datum/reagent/blob/b_sorium
 	name = "Сорий"
-	description = "Наносит высокий урон травмами и отбрасывает людей в стороны."
+	description = "Наносит высокий урон <span class='red'>травмами</span> и <span style='color:#808000'>отбрасывает</span> людей в стороны."
 	id = "b_sorium"
 	color = "#808000"
 	complementary_color = "#a2a256"
@@ -154,7 +154,7 @@
 
 /datum/reagent/blob/radioactive_gel
 	name = "Радиоактивный гель"
-	description = "Наносит средний урон токсинами и небольшой урон травмами, но облучает тех, кого задевает."
+	description = "Наносит средний урон <span style='color:#9ACD32'>токсинами</span> и небольшой урон <span class='red'>травмами</span>, но <span style='color:#4B0082'>облучает</span> тех, кого задевает."
 	id = "radioactive_gel"
 	color = "#2476f0"
 	complementary_color = "#24f0f0"
@@ -170,7 +170,7 @@
 
 /datum/reagent/blob/teslium_paste
 	name = "Теслиевая паста"
-	description = "Наносит средний урон ожогами и вызывает удары током у тех, кого задевает, со временем."
+	description = "Наносит средний урон <span style='color:#B68D00'>ожогами<span> и вызывает <span style='color:#FFFFE0'>удары током</span> у тех, кого задевает, со временем."
 	id = "teslium_paste"
 	color = "#20324D"
 	complementary_color = "#412968"
