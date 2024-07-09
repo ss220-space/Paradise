@@ -74,34 +74,31 @@
 		return TRUE
 	return FALSE
 
-/obj/item/storage/toolbox/green/memetic/attackby(obj/item/I, mob/user)
-	if(activated)
-		if(istype(I, /obj/item/grab))
-			var/obj/item/grab/G = I
-			var/mob/living/victim = G.affecting
-			if(!user.HasDisease(/datum/disease/memetic_madness))
-				to_chat(user, "<span class='warning'>You can't seem to find the latch to open this.</span>")
-				return
-			if(!victim)
-				return
-			if(!victim.stat && !HAS_TRAIT(victim, TRAIT_RESTRAINED) && !HAS_TRAIT(victim, TRAIT_INCAPACITATED))
-				to_chat(user, "<span class='warning'>They're moving too much to feed to His Grace!</span>")
-				return
-			user.visible_message("<span class='userdanger'>[user] is trying to feed [victim] to [src]!</span>")
-			if(!do_after(user, 3 SECONDS, victim, NONE))
-				return
 
-			user.visible_message("<span class='userdanger'>[user] has fed [victim] to [src]!</span>")
+/obj/item/storage/toolbox/green/memetic/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !activated || !isliving(grabbed_thing))
+		return .
+	var/mob/living/victim = grabbed_thing
+	if(!grabber.HasDisease(/datum/disease/memetic_madness))
+		to_chat(grabber, span_warning("You can't seem to find the latch to open this."))
+		return .
+	if(!victim.stat && !HAS_TRAIT(victim, TRAIT_RESTRAINED) && !HAS_TRAIT(victim, TRAIT_INCAPACITATED))
+		to_chat(grabber, span_warning("They're moving too much to feed to His Grace!"))
+		return .
+	grabber.visible_message(span_userdanger("[grabber] is trying to feed [victim] to [src]!"))
+	if(!do_after(grabber, 3 SECONDS, victim, NONE))
+		return .
+	if(!grabber.HasDisease(/datum/disease/memetic_madness) || !grabber || !victim || grabber.pulling != victim)
+		return .
+	if(!victim.stat && !HAS_TRAIT(victim, TRAIT_RESTRAINED) && !HAS_TRAIT(victim, TRAIT_INCAPACITATED))
+		return .
+	grabber.visible_message(span_userdanger("[grabber] has fed [victim] to [src]!"))
+	to_chat(grabber, "<i><b><font face = Tempus Sans ITC>You have done well...</font></b></i>")
+	consume(victim)
+	force += 5
+	throwforce += 5
 
-			consume(victim)
-			qdel(G)
-
-			to_chat(user, "<i><b><font face = Tempus Sans ITC>You have done well...</font></b></i>")
-			force += 5
-			throwforce += 5
-			return
-
-	return ..()
 
 /obj/item/storage/toolbox/green/memetic/proc/consume(mob/living/L)
 	if(!L)

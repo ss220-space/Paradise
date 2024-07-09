@@ -54,8 +54,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 
 
 // You aren't allowed to move.
-/obj/machinery/gravity_generator/Move()
-	. = ..()
+/obj/machinery/gravity_generator/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	qdel(src)
 
 

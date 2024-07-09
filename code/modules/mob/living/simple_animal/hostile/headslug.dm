@@ -75,6 +75,9 @@
 	if(HAS_TRAIT(carbon_target, TRAIT_XENO_HOST))
 		to_chat(src, span_userdanger("A foreign presence repels us from this body. Perhaps we should try to infest another body?"))
 		return
+	if(HAS_TRAIT(carbon_target, TRAIT_LEGION_TUMOUR))
+		to_chat(src, span_userdanger("A disgusting tendrills repels us from this body. Perhaps we should try to infest another body?"))
+		return
 
 	face_atom(carbon_target)
 	do_attack_animation(carbon_target)

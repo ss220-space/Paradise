@@ -1156,6 +1156,10 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/conveyor_switch/oneway{
+	id = "mining_internal";
+	name = "mining conveyor"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -1795,8 +1799,10 @@
 	},
 /area/mine/laborcamp/security)
 "hZ" = (
-/obj/machinery/conveyor,
 /obj/structure/plasticflaps,
+/obj/machinery/conveyor{
+	id = "mining_internal"
+	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "ia" = (
@@ -3137,9 +3143,11 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/mine/living_quarters)
 "pg" = (
-/obj/machinery/conveyor,
 /obj/machinery/light/small{
 	dir = 8
+	},
+/obj/machinery/conveyor{
+	id = "mining_internal"
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)
@@ -6807,7 +6815,6 @@
 	},
 /area/mine/living_quarters)
 "UA" = (
-/obj/machinery/conveyor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -6816,6 +6823,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/machinery/conveyor{
+	id = "mining_internal"
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/production)

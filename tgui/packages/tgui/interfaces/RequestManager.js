@@ -24,16 +24,16 @@ export const RequestManager = (props, context) => {
 
   // Handle filtering
   let displayedRequests = requests.filter(
-    request => filteredTypes[request.req_type]
+    (request) => filteredTypes[request.req_type]
   );
   if (searchText) {
     const filterText = searchText.toLowerCase();
     displayedRequests = displayedRequests.filter(
-      request =>
+      (request) =>
         decodeHtmlEntities(request.message)
           .toLowerCase()
-          .includes(filterText)
-        || request.owner_name.toLowerCase().includes(filterText)
+          .includes(filterText) ||
+        request.owner_name.toLowerCase().includes(filterText)
     );
   }
 
@@ -49,8 +49,9 @@ export const RequestManager = (props, context) => {
               placeholder={'Search...'}
               mr={1}
             />
-          }>
-          {displayedRequests.map(request => (
+          }
+        >
+          {displayedRequests.map((request) => (
             <div className="RequestManager__row" key={request.id}>
               <div className="RequestManager__rowContents">
                 <h2 className="RequestManager__header">
@@ -85,7 +86,7 @@ const displayTypeMap = {
   'request_nuke': 'NUKE CODE',
 };
 
-const RequestType = props => {
+const RequestType = (props) => {
   const { requestType } = props;
 
   return (

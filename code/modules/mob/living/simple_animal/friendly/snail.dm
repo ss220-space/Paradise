@@ -33,7 +33,7 @@
 /mob/living/simple_animal/snail/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE	// why???
 
-/mob/living/simple_animal/snail/Move(atom/newloc, direct = NONE, glide_size_override = 0)
+/mob/living/simple_animal/snail/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/oldLoc = src.loc
 	. = ..()
 	if(.)

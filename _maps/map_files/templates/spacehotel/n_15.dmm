@@ -48,13 +48,11 @@
 /obj/machinery/door/poddoor{
 	opacity = 0
 	},
-/turf/space,
-/area/template_noop)
-"j" = (
-/obj/effect/view_portal/visual{
-	id = "turbinespace"
+/obj/effect/visual_portal{
+	id = "turbinespace";
+	frustrum = 1
 	},
-/turf/simulated/wall/indestructible/invisible/view_portal,
+/turf/space,
 /area/template_noop)
 "m" = (
 /turf/simulated/wall/indestructible/invisible/view_portal,
@@ -93,7 +91,7 @@ b
 d
 f
 i
-j
+m
 a
 "}
 (5,1,1) = {"

@@ -225,14 +225,15 @@
 // (Brainmob "enters/leaves" the MMI when piloting)
 // Also neatly handles basically every case where a brain
 // is inserted or removed from an MMI
-/obj/item/mmi/Entered(atom/movable/A)
-	if(radio && isbrain(A))
-		radio_action.Grant(A)
+/obj/item/mmi/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	if(radio && isbrain(arrived))
+		radio_action.Grant(arrived)
 
-/obj/item/mmi/Exited(atom/movable/A)
-	..()
-	if(radio && isbrain(A))
-		radio_action.Remove(A)
+/obj/item/mmi/Exited(atom/movable/departed, atom/newLoc)
+	. = ..()
+	if(radio && isbrain(departed))
+		radio_action.Remove(departed)
 
 /obj/item/mmi/syndie
 	name = "Syndicate Man-Machine Interface"
@@ -264,5 +265,5 @@
 /obj/item/mmi/contents_ui_distance(src_object, mob/living/user)
 	. = ..()
 	if((src_object in view(user.client)) && get_dist(src_object, src) <= user.client.maxview())
-		return STATUS_INTERACTIVE	// interactive (green visibility)
+		return UI_INTERACTIVE	// interactive (green visibility)
 	return user.shared_living_ui_distance()

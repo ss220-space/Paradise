@@ -290,6 +290,16 @@
 	desc = "A sign labelling an area where cargo ships dock."
 	icon_state = "cargo"
 
+/obj/structure/sign/med
+	name = "\improper MEDBAY"
+	desc = "A sign labelling an area where heal is real."
+	icon_state = "med"
+
+/obj/structure/sign/comand
+	name = "\improper BRIDGE"
+	desc = "A sign labelling an area where all heads drinks."
+	icon_state = "comand"
+
 /obj/structure/sign/security
 	name = "\improper SECURITY"
 	desc = "A sign labelling an area where the law is law."
@@ -312,6 +322,14 @@
 
 /obj/structure/sign/medbay/alt
 	icon_state = "bluecross2"
+
+/obj/structure/sign/directions/floor
+	name = "\improper Floor"
+	desc = "A direction sign, pointing out which floor you are."
+	icon_state = "level"
+
+/obj/structure/sign/directions/floor/alt
+	icon_state = "level_alt"
 
 /obj/structure/sign/directions/science
 	name = "\improper Research Division"

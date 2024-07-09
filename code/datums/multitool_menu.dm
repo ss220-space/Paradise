@@ -52,10 +52,10 @@
 		return TRUE
 	return FALSE
 
-/datum/multitool_menu_host/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/multitool_menu_host/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Multitool", multitool.name, 510, 420, master_ui, state)
+		ui = new(user, src, "Multitool", multitool.name)
 		ui.set_autoupdate(TRUE)
 		ui.open()
 

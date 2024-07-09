@@ -93,36 +93,36 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 			M.buffer = src
 			to_chat(user, "<span class='notice'>You log [src] in the [M]'s buffer.</span>")
 		return
-	if(stat != 0) //NOPOWER etc
-		return
-	if(istype(O, /obj/item/grab))
-		var/obj/item/grab/G = O
-		var/grabbed = G.affecting
-		if(ishuman(grabbed))
-			var/mob/living/carbon/human/target = grabbed
-			if(is_monkeybasic(target))
-				if(target.stat == 0)
-					to_chat(user, "<span class='warning'>The monkey is struggling far too much to put it in the recycler.</span>")
-				else
-					add_fingerprint(user)
-					user.drop_from_active_hand()
-					qdel(target)
-					target = null //we sleep in this proc, clear reference NOW
-					to_chat(user, "<span class='notice'>You stuff the monkey in the machine.</span>")
-					playsound(loc, 'sound/machines/juicer.ogg', 50, 1)
-					var/offset = prob(50) ? -2 : 2
-					animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 200) //start shaking
-					use_power(500)
-					grinded++
-					sleep(50)
-					pixel_x = initial(pixel_x)
-					to_chat(user, "<span class='notice'>The machine now has [grinded] monkey\s worth of material stored.</span>")
-			else
-				to_chat(user, "<span class='warning'>The machine only accepts monkeys!</span>")
-		else
-			to_chat(user, "<span class='warning'>The machine only accepts monkeys!</span>")
-		return
 	return ..()
+
+
+/obj/machinery/monkey_recycler/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || (stat & (NOPOWER|BROKEN)))
+		return .
+	if(!ishuman(grabbed_thing))
+		to_chat(grabber, span_warning("This machine only accepts humanoid!"))
+		return .
+	var/mob/living/carbon/human/victim = grabbed_thing
+	if(!is_monkeybasic(victim))
+		to_chat(grabber, span_warning("This machine only accepts lesser forms!"))
+		return .
+	if(!victim.stat)
+		to_chat(grabber, span_warning("[victim] is struggling far too much to put it in the recycler."))
+		return .
+	add_fingerprint(grabber)
+	to_chat(grabber, span_notice("You stuff [victim] in [src]."))
+	grabber.stop_pulling()
+	qdel(victim)
+	playsound(loc, 'sound/machines/juicer.ogg', 50, TRUE)
+	var/offset = prob(50) ? -2 : 2
+	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 200) //start shaking
+	use_power(500)
+	grinded++
+	sleep(5 SECONDS)
+	pixel_x = initial(pixel_x)
+	to_chat(grabber, span_notice("The machine now has [grinded] monkey\s worth of material stored."))
+
 
 /obj/machinery/monkey_recycler/attack_hand(mob/user)
 	if(stat != 0) //NOPOWER etc

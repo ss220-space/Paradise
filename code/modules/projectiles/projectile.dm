@@ -113,6 +113,14 @@
 	var/dismember_head = FALSE
 
 
+/obj/item/projectile/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
 /obj/item/projectile/proc/Range()
 	range--
 	if(damage && tile_dropoff)
@@ -242,10 +250,8 @@
 		return 50 //if the projectile doesn't do damage, play its hitsound at 50% volume
 
 
-/obj/item/projectile/Bump(atom/bumped_atom, custom_bump)
+/obj/item/projectile/Bump(atom/bumped_atom)
 	. = ..()
-	if(. || isnull(.))
-		return .
 
 	if(check_ricochet(bumped_atom) && check_ricochet_flag(bumped_atom) && ricochets < ricochets_max && is_reflectable(REFLECTABILITY_PHYSICAL))
 		ricochets++
@@ -351,7 +357,7 @@
 			step_towards(src, T)
 		if(original && (original.layer >= PROJECTILE_HIT_THRESHHOLD_LAYER || ismob(original)))
 			if(loc == get_turf(original) && !(original in permutated))
-				Bump(original, custom_bump = TRUE)
+				Bump(original)
 	if(QDELETED(src)) //deleted on last move
 		return
 	if(!forcemoved)
@@ -417,10 +423,11 @@
 	set_angle(get_angle(curloc, original))
 
 
-/obj/item/projectile/Crossed(atom/movable/AM, oldloc) //A mob moving on a tile with a projectile is hit by it.
-	..()
-	if(isliving(AM) && AM.density && !(pass_flags & PASSMOB))
-		Bump(AM, custom_bump = TRUE)
+/obj/item/projectile/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(arrived.density && !(pass_flags & PASSMOB) && isliving(arrived))
+		Bump(arrived)
 
 
 /obj/item/projectile/Destroy()

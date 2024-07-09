@@ -11,6 +11,14 @@
 	var/fire_stack_strength = 5
 
 
+/obj/structure/firepit/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
 /obj/structure/firepit/attack_hand(mob/living/user)
 	if(active)
 		toggleFirepit()
@@ -58,12 +66,18 @@
 	if(!active)
 		toggleFirepit()
 
-/obj/structure/firepit/Crossed(atom/movable/AM, oldloc)
-	if(active)
-		Burn()
-		if(ishuman(AM))
-			var/mob/living/carbon/human/H = AM
-			add_attack_logs(src, H, "Burned by a firepit (Lit by [lighter])", ATKLOG_ALMOSTALL)
+
+/obj/structure/firepit/proc/on_entered(datum/source, mob/living/carbon/human/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(!active)
+		return
+
+	Burn()
+
+	if(ishuman(arrived) && arrived.mind)
+		add_attack_logs(src, arrived, "Burned by a firepit (Lit by [lighter ? lighter : "Unknown"])", ATKLOG_ALMOSTALL)
+
 
 /obj/structure/firepit/proc/Burn()
 	var/turf/current_location = get_turf(src)
@@ -78,3 +92,4 @@
 			var/mob/living/L = A
 			L.adjust_fire_stacks(fire_stack_strength)
 			L.IgniteMob()
+
