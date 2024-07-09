@@ -210,8 +210,6 @@ SUBSYSTEM_DEF(air)
 	while(currentrun.len)
 		var/obj/machinery/atmospherics/M = currentrun[currentrun.len]
 		currentrun.len--
-		if(!M)
-			atmos_machinery -= M
 		if(!M || (M.process_atmos() == PROCESS_KILL))
 			atmos_machinery.Remove(M)
 		if(MC_TICK_CHECK)
