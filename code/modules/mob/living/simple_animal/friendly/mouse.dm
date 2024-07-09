@@ -338,7 +338,7 @@
 	blob_datum.time_to_burst_hight = TIME_TO_BURST_MOUSE_HIGHT
 	blob_datum.time_to_burst_low = TIME_TO_BURST_MOUSE_LOW
 	mind.add_antag_datum(blob_datum)
-	to_chat(src, "<span class='userdanger'>Теперь вы мышь, заражённая спорами Блоба. Найдите какое-нибудь укромное место до того, как вы взорветесь и станете Блобом! Вы можете перемещаться по вентиляции, нажав Alt+ЛКМ на вентиляционном отверстии.</span>")
+	to_chat(src, span_userdanger("Теперь вы мышь, заражённая спорами Блоба. Найдите какое-нибудь укромное место до того, как вы взорветесь и станете Блобом! Вы можете перемещаться по вентиляции, нажав Alt+ЛКМ на вентиляционном отверстии."))
 	log_game("[key] has become blob infested mouse.")
 	notify_ghosts("Заражённая мышь появилась в [get_area(src)].", source = src, action = NOTIFY_FOLLOW)
 
