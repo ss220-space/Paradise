@@ -464,7 +464,7 @@ GLOBAL_VAR(bomb_set)
 				to_chat(usr, "<span class='danger'>[src]'s screen blinks red! There is no plutonium core in [src]!</span>")
 				return
 			if(isblobinfected(usr.mind))
-				to_chat(usr, span_notice("Что-то внутри вас не дает вам это сделать.")
+				to_chat(usr, span_notice("Что-то внутри вас не дает вам это сделать."))
 				return
 			timing = !(timing)
 			update_icon()
