@@ -30,7 +30,7 @@
  *
  * Some final move delay calculations (doubling if you moved diagonally successfully)
  *
- * if mob throwing is set I believe it's unset at this point via a call to finalize
+ * If mob throwing is set I believe it's unset at this point via a call to finalize
  *
  * Finally if you're pulling an object and it's dense, you are turned 180 after the move
  * (if you ask me, this should be at the top of the move so you don't dance around)			// LATER
@@ -102,28 +102,10 @@
 	if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_MOVE, args) & COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE)
 		return FALSE
 
-	if(mob.pulledby && HAS_TRAIT(mob, TRAIT_RESTRAINED)) // Why being pulled while cuffed prevents you from moving
-		var/mob/puller = mob.pulledby
-		if(!puller.incapacitated() && !HAS_TRAIT(puller, TRAIT_HANDS_BLOCKED) && mob.Adjacent(puller))
-			to_chat(src, span_warning("Вы скованы и не можете пошевелиться!"))
-			move_delay = world.time + 1 SECONDS
-			return FALSE
-		puller.stop_pulling()
-
 	//We are now going to move
 	var/add_delay = mob.cached_multiplicative_slowdown
-
-	if(mob.pulling && mob.has_gravity())
-		var/mob/living/silicon/robot/robot = mob
-		if(!(STRONG in living_mob.mutations) && !isconstruct(living_mob) && !istype(living_mob, /mob/living/simple_animal/hostile/clockwork) && !istype(living_mob, /mob/living/simple_animal/hostile/guardian) && !(isrobot(mob) && (/obj/item/borg/upgrade/vtec in robot.upgrades))) //No slowdown for STRONG gene //Blood cult constructs //Clockwork constructs //Borgs with VTEC //Holopigs
-			add_delay *= min(1.4, mob.pulling.get_pull_push_speed_modifier(add_delay))
-
-	if(locate(/obj/item/grab, mob))
-		add_delay += 7
-
 	var/new_glide_size = DELAY_TO_GLIDE_SIZE(add_delay * ((NSCOMPONENT(direct) && EWCOMPONENT(direct)) ? sqrt(2) : 1))
 	mob.set_glide_size(new_glide_size) // set it now in case of pulled objects
-
 	//If the move was recent, count using old_move_delay
 	//We want fractional behavior and all
 	if(old_move_delay + world.tick_lag > world.time)
@@ -166,45 +148,24 @@
 			object.on_mob_move(direct, mob)
 
 
-///Process_Grab()
-///Called by client/Move()
-///Checks to see if you are being grabbed and if so attemps to break it
+/**
+ * Checks to see if you're being grabbed and if so attempts to break it
+ *
+ * Called by client/Move()
+ */
 /client/proc/Process_Grab()
-	if(LAZYLEN(mob.grabbed_by))
-		if(mob.incapacitated(INC_IGNORE_GRABBED)) // Can't break out of grabs if you're incapacitated
-			return TRUE
-		var/list/grabbing = list()
-
-		if(istype(mob.l_hand, /obj/item/grab))
-			var/obj/item/grab/G = mob.l_hand
-			grabbing += G.affecting
-
-		if(istype(mob.r_hand, /obj/item/grab))
-			var/obj/item/grab/G = mob.r_hand
-			grabbing += G.affecting
-
-		for(var/X in mob.grabbed_by)
-			var/obj/item/grab/G = X
-			switch(G.state)
-
-				if(GRAB_PASSIVE)
-					if(!grabbing.Find(G.assailant)) //moving always breaks a passive grab unless we are also grabbing our grabber.
-						qdel(G)
-
-				if(GRAB_AGGRESSIVE)
-					move_delay = world.time + 10
-					if(!prob(25))
-						return TRUE
-					mob.visible_message("<span class='danger'>[mob] вырыва[pluralize_ru(mob.gender,"ется","ются")] из хватки [G.assailant]!</span>")
-					qdel(G)
-
-				if(GRAB_NECK)
-					move_delay = world.time + 10
-					if(!prob(5))
-						return TRUE
-					mob.visible_message("<span class='danger'>[mob] вырыва[pluralize_ru(mob.gender,"ется","ются")] из захвата головы [G.assailant]!</span>")
-					qdel(G)
-	return FALSE
+	if(!mob.pulledby)
+		return FALSE
+	if(mob.pulledby == mob.pulling && mob.pulledby.grab_state == GRAB_PASSIVE) //Don't autoresist passive grabs if we're grabbing them too.
+		return FALSE
+	if(HAS_TRAIT(mob, TRAIT_INCAPACITATED))
+		move_delay = world.time + 1 SECONDS
+		return TRUE
+	else if(HAS_TRAIT(mob, TRAIT_RESTRAINED))
+		move_delay = world.time + 1 SECONDS
+		to_chat(mob, span_warning("Вы скованы и не можете пошевелиться!"))
+		return TRUE
+	return mob.resist_grab(moving_resist = TRUE)
 
 
 /**
@@ -222,8 +183,8 @@
  */
 /client/proc/Process_Incorpmove(direct)
 	var/turf/mobloc = get_turf(mob)
-	if(!isliving(mob))
-		return
+	if(!mobloc || !isliving(mob))
+		return FALSE
 	var/mob/living/L = mob
 	switch(L.incorporeal_move)
 		if(INCORPOREAL_NORMAL)
@@ -279,7 +240,7 @@
 				if(stepTurf.flags & NOJAUNT)
 					move_delay += 0.5 SECONDS
 					to_chat(L, span_warning("Святые силы блокируют Ваш путь."))
-					return
+					return FALSE
 				L.forceMove(stepTurf)
 			L.setDir(direct)
 	return TRUE
@@ -375,36 +336,6 @@
  */
 /mob/proc/mob_negates_gravity()
 	return FALSE
-
-
-/mob/proc/Move_Pulled(atom/target)
-	if(HAS_TRAIT(src, TRAIT_RESTRAINED) || !pulling)
-		return
-	if(isliving(src))	// temporary
-		var/mob/living/l_mob = src
-		if(!(l_mob.mobility_flags & MOBILITY_MOVE))
-			return
-	if(pulling.anchored || pulling.move_resist > move_force || !pulling.Adjacent(src))
-		stop_pulling()
-		return
-	if(isliving(pulling))
-		var/mob/living/living_pulling = pulling
-		if(living_pulling.buckled?.buckle_prevents_pull) //if they're buckled to something that disallows pulling, prevent it
-			stop_pulling()
-			return
-	if(target == loc && pulling.density)
-		return
-	var/pull_dir = get_dir(pulling.loc, target)
-	if(!Process_Spacemove(pull_dir))
-		return
-	if(isobj(pulling))
-		var/obj/object = pulling
-		if(object.obj_flags & BLOCKS_CONSTRUCTION_DIR)
-			var/obj/structure/window/window = object
-			var/fulltile = istype(window) ? window.fulltile : FALSE
-			if(!valid_build_direction(get_step(object, pull_dir), object.dir, is_fulltile = fulltile))
-				return
-	pulling.Move(get_step(pulling.loc, pull_dir), pull_dir, glide_size)
 
 
 /client/proc/check_has_body_select()

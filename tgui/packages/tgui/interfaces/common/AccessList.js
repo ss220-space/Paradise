@@ -1,7 +1,14 @@
 import { sortBy } from 'common/collections';
-import { Fragment } from 'inferno';
 import { useLocalState } from '../../backend';
-import { Box, Button, Flex, LabeledList, Section, Tabs } from '../../components';
+import {
+  Box,
+  Button,
+  Stack,
+  LabeledList,
+  Section,
+  Tabs,
+  Divider,
+} from '../../components';
 
 const diffMap = {
   0: {
@@ -21,72 +28,75 @@ const diffMap = {
 export const AccessList = (props, context) => {
   const {
     sectionButtons = null,
-    sectionFlexGrow = null,
     usedByRcd,
     rcdButtons,
     accesses = [],
     selectedList = [],
+    grantableList = [],
     accessMod,
     grantAll,
     denyAll,
     grantDep,
     denyDep,
   } = props;
-  const [
-    selectedAccessName,
-    setSelectedAccessName,
-  ] = useLocalState(context, 'accessName', accesses[0]?.name);
-  const selectedAccess = accesses
-    .find(access => access.name === selectedAccessName);
-  const selectedAccessEntries = sortBy(
-    entry => entry.desc,
-  )(selectedAccess?.accesses || []);
+  const [selectedAccessName, setSelectedAccessName] = useLocalState(
+    context,
+    'accessName',
+    accesses[0]?.name
+  );
+  const selectedAccess = accesses.find(
+    (access) => access.name === selectedAccessName
+  );
+  const selectedAccessEntries = sortBy((entry) => entry.desc)(
+    selectedAccess?.accesses || []
+  );
 
-  const checkAccessIcon = accesses => {
+  const checkAccessIcon = (accesses) => {
     let oneAccess = false;
     let oneInaccess = false;
     for (let element of accesses) {
       if (selectedList.includes(element.ref)) {
         oneAccess = true;
-      }
-      else {
+      } else {
         oneInaccess = true;
       }
     }
     if (!oneAccess && oneInaccess) {
       return 0;
-    }
-    else if (oneAccess && oneInaccess) {
+    } else if (oneAccess && oneInaccess) {
       return 1;
-    }
-    else {
+    } else {
       return 2;
     }
   };
 
   return (
     <Section
+      fill
+      scrollable
       title="Access"
-      flexGrow={sectionFlexGrow}
-      buttons={(
-        <Fragment>
+      buttons={
+        <>
           <Button
             icon="check-double"
             content="Select All"
             color="good"
-            onClick={() => grantAll()} />
+            onClick={() => grantAll()}
+          />
           <Button
             icon="undo"
             content="Deselect All"
             color="bad"
-            onClick={() => denyAll()} />
+            onClick={() => denyAll()}
+          />
           {sectionButtons}
-        </Fragment>
-      )}>
-      <Flex>
-        <Flex.Item>
+        </>
+      }
+    >
+      <Stack>
+        <Stack.Item grow basis="25%">
           <Tabs vertical>
-            {accesses.map(access => {
+            {accesses.map((access) => {
               const entries = access.accesses || [];
               const icon = diffMap[checkAccessIcon(entries)].icon;
               const color = diffMap[checkAccessIcon(entries)].color;
@@ -97,32 +107,38 @@ export const AccessList = (props, context) => {
                   color={color}
                   icon={icon}
                   selected={access.name === selectedAccessName}
-                  onClick={() => setSelectedAccessName(access.name)}>
+                  onClick={() => setSelectedAccessName(access.name)}
+                >
                   {access.name}
                 </Tabs.Tab>
               );
             })}
           </Tabs>
-        </Flex.Item>
-        <Flex.Item grow={1}>
-          <Flex>
-            <Flex.Item width="50%" mr={0.45}>
+        </Stack.Item>
+        <Stack.Item>
+          <Divider vertical />
+        </Stack.Item>
+        <Stack.Item grow basis="80%">
+          <Stack mb={1}>
+            <Stack.Item grow>
               <Button
                 fluid
                 icon="check"
                 content="Select All In Region"
                 color="good"
-                onClick={() => grantDep(selectedAccess.regid)} />
-            </Flex.Item>
-            <Flex.Item width="50%" ml={0}>
+                onClick={() => grantDep(selectedAccess.regid)}
+              />
+            </Stack.Item>
+            <Stack.Item grow>
               <Button
                 fluid
                 icon="times"
                 content="Deselect All In Region"
                 color="bad"
-                onClick={() => denyDep(selectedAccess.regid)} />
-            </Flex.Item>
-          </Flex>
+                onClick={() => denyDep(selectedAccess.regid)}
+              />
+            </Stack.Item>
+          </Stack>
           {!!usedByRcd && (
             <Box my={1.5}>
               <LabeledList>
@@ -132,16 +148,22 @@ export const AccessList = (props, context) => {
               </LabeledList>
             </Box>
           )}
-          {selectedAccessEntries.map(entry => (
+          {selectedAccessEntries.map((entry) => (
             <Button.Checkbox
               fluid
               key={entry.desc}
               content={entry.desc}
+              disabled={
+                grantableList.length > 0 &&
+                !grantableList.includes(entry.ref) &&
+                !selectedList.includes(entry.ref)
+              }
               checked={selectedList.includes(entry.ref)}
-              onClick={() => accessMod(entry.ref)} />
+              onClick={() => accessMod(entry.ref)}
+            />
           ))}
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };

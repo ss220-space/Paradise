@@ -691,7 +691,7 @@ Returns 1 if the chain up to the area contains the given typepath
 							continue
 						if(!isobj(O)) continue
 						O.loc.Exited(O)
-						O.setLoc(X,teleported=1)
+						O.setLoc(X, TRUE)
 						O.loc.Entered(O)
 					for(var/mob/M in T)
 						if(!M.move_on_shuttle)
@@ -2005,14 +2005,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	)
 	return _list
 
-// Check if the source atom contains another atom
-/atom/proc/contains(atom/location)
-	if(!location)
-		return FALSE
-	if(location == src)
-		return TRUE
-
-	return contains(location.loc)
 
 /**
   * Returns the clean name of an audio channel.

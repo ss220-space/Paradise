@@ -1,0 +1,9 @@
+'2024-07-01':
+  Zwei:
+  - bugfix: Demons Fixes (#5316)
+  - server: bugfix; Spacevine Spread Fix (#5301)
+  - bugfix: Rest Animation For Lying Simple Mobs (#5295)
+  - refactor: Swarming Component Rework (#5302)
+  - bugfix: Regrowth Limbs Fix (#5287)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#5318)

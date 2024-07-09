@@ -225,7 +225,7 @@ SUBSYSTEM_DEF(throwing)
 
 /datum/thrownthing/proc/hitcheck()
 	for(var/atom/movable/obstacle as anything in get_turf(thrownthing))
-		if(obstacle == thrownthing || (obstacle == thrower && !ismob(thrownthing)))
+		if(obstacle == thrownthing || obstacle == thrower)
 			continue
 		if(ismob(obstacle) && (thrownthing.pass_flags & PASSMOB))
 			continue

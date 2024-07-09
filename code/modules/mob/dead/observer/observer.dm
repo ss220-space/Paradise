@@ -33,8 +33,12 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	/// Defines from __DEFINES/hud.dm go here based on which huds the ghost has activated.
 	var/list/data_hud_seen = list()
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
-	var/health_scan = FALSE //does the ghost have health scanner mode on? by default it should be off
+	///does the ghost have health scanner mode on? by default it should be off
+	var/health_scan = FALSE
+	///does the ghost have gas scanner mode on? by default it should be off
 	var/gas_scan = FALSE
+	///does the ghost have plant scanner mode on? by default it should be off
+	var/plant_analyzer = FALSE
 	var/datum/orbit_menu/orbit_menu
 
 /mob/dead/observer/New(mob/body=null, flags=1)
@@ -168,8 +172,6 @@ Works together with spawning an observer, noted above.
 
 /mob/proc/ghostize(flags = GHOST_CAN_REENTER)
 	if(key)
-		if(player_logged) //if they have disconnected we want to remove their SSD overlay
-			cut_overlay(image('icons/effects/effects.dmi', icon_state = "zzz_glow"))
 		if(GLOB.non_respawnable_keys[ckey])
 			flags &= ~GHOST_CAN_REENTER
 		var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
@@ -242,16 +244,17 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return TRUE
 
 
-/mob/dead/observer/Move(atom/newloc, direct = NONE, glide_size_override = DEFAULT_GLIDE_SIZE)
-	setDir(direct)
-	ghostimage.setDir(dir)
+/mob/dead/observer/Move(atom/newloc, direct = NONE, glide_size_override = DEFAULT_GLIDE_SIZE, update_dir = TRUE)
+	// only update dir if we actually need it, so overlays won't spin on base sprites that don't have directions of their own
+	if(update_dir)
+		setDir(direct)
+		ghostimage.setDir(dir)
 
-	if(glide_size_override)
+	if(glide_size_override && glide_size_override != glide_size)
 		set_glide_size(glide_size_override)
 
 	if(newloc)
 		abstract_move(newloc)
-		update_parallax_contents()
 	else
 		var/turf/destination = get_turf(src)
 
@@ -517,10 +520,22 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(src, span_notice("Gas scan enabled."))
 		gas_scan = TRUE
 
+/mob/dead/observer/verb/toggle_plant_anaylzer()
+	set name = "Toggle Plant Analyzer"
+	set desc = "Toggles wether you can anaylze plants and seeds on click"
+	set category = "Ghost"
+
+	if(plant_analyzer)
+		to_chat(src, "<span class='notice'>Plant Analyzer disabled.</span>")
+		plant_analyzer = FALSE
+	else
+		to_chat(src, "<span class='notice'>Plant Analyzer enabled. Click on a plant or seed to analyze.</span>")
+		plant_analyzer = TRUE
+
 /mob/dead/observer/verb/view_manifest()
 	set name = "View Crew Manifest"
 	set category = "Ghost"
-	GLOB.generic_crew_manifest.ui_interact(usr, state = GLOB.observer_state)
+	GLOB.generic_crew_manifest.ui_interact(usr)
 
 
 //this is called when a ghost is drag clicked to something.

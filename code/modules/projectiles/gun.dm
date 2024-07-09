@@ -539,7 +539,7 @@
 			bayonet.forceMove(src)
 
 		var/overlay_type = "bayonet"	//Generic state.
-		if(bayonet.icon_state in icon_states('icons/obj/weapons/bayonets.dmi'))	//Snowflake state?
+		if(icon_exists('icons/obj/weapons/bayonets.dmi', bayonet.icon_state))	//Snowflake state?
 			overlay_type = bayonet.icon_state
 		bayonet_overlay = mutable_appearance('icons/obj/weapons/bayonets.dmi', overlay_type)
 		bayonet_overlay.pixel_x = bayonet_x_offset

@@ -284,9 +284,6 @@
 		SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
 		if(ishuman(target.pulledby)) // for some reason, pulledby isnt a list despite it being possible to be pulled by multiple people
 			excess_shock(user, target, target.pulledby, defib_ref)
-		for(var/obj/item/grab/G in target.grabbed_by)
-			if(ishuman(G.assailant))
-				excess_shock(user, target, G.assailant, defib_ref)
 
 		target.med_hud_set_health()
 		target.med_hud_set_status()

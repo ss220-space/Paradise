@@ -1,8 +1,6 @@
 /datum/cargo_quest/reagents
 	quest_type_name = "Chemical"
 	req_items = list(/obj/item/reagent_containers)
-	interface_icon = 'icons/obj/chemical.dmi'
-	interface_icon_state = "beakerlarge"
 
 	difficultly_flags = (QUEST_DIFFICULTY_EASY|QUEST_DIFFICULTY_NORMAL)
 
@@ -44,6 +42,9 @@
 			"initropidril" = list("volume" = 5, "reward" = 510),
 			"rotatium" = list("volume" = 15, "reward" = 135),
 		)
+
+/datum/cargo_quest/reagents/update_interface_icon()
+	interface_images += path2assetID(/obj/item/reagent_containers/glass/beaker/large)
 
 /datum/cargo_quest/reagents/add_goal(difficultly)
 	var/list/possible_reagents_list = repeated_reagents.Copy() + unique_reagents.Copy()
@@ -118,6 +119,6 @@
 	for(var/reagent_id in required_reagents)
 		var/datum/reagent/reagent = GLOB.chemical_reagents_list[reagent_id]
 		if(reagent.drink_icon)
-			interface_images += icon2base64(icon('icons/obj/drinks.dmi', reagent.drink_icon, SOUTH, 1))
+			interface_images += reagent_id
 		else
-			interface_images += icon2base64(icon('icons/obj/chemical.dmi', "beakerlarge", SOUTH, 1))
+			interface_images += path2assetID(/obj/item/reagent_containers/glass/beaker/large)

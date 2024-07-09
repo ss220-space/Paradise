@@ -113,22 +113,29 @@
 	. = ..()
 	apply_opacity_to_my_turfs(opacity)
 
+
 /obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/open()
-	if(..())
+	. = ..()
+	if(.)
 		apply_opacity_to_my_turfs(opacity)
 
+
 /obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/close()
-	if(..())
+	. = ..()
+	if(.)
 		apply_opacity_to_my_turfs(opacity)
+
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/Destroy()
 	apply_opacity_to_my_turfs(FALSE)
 	return ..()
 
+
 /obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/proc/apply_opacity_to_my_turfs(new_opacity)
 	for(var/turf/turf as anything in locs)
 		turf.set_opacity(new_opacity)
 	update_freelook_sight()
+
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/four_tile_hor
 	name = "Заваленный проход"

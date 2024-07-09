@@ -63,7 +63,7 @@
 	return ..()
 
 
-/obj/effect/immovablerod/wizard/Move(atom/newloc, direct = NONE, glide_size_override = 0)
+/obj/effect/immovablerod/wizard/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(get_dist(start_turf, get_turf(src)) >= max_distance)
 		qdel(src)
 		return

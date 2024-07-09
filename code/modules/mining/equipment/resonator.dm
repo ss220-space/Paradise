@@ -77,7 +77,10 @@
 	if(mode == RESONATOR_MODE_MATRIX)
 		icon_state = "shield2"
 		name = "resonance matrix"
-		RegisterSignal(src, list(COMSIG_MOVABLE_CROSSED, COMSIG_ATOM_ENTERED), PROC_REF(burst))
+		var/static/list/loc_connections = list(
+			COMSIG_ATOM_ENTERED = PROC_REF(burst),
+		)
+		AddElement(/datum/element/connect_loc, loc_connections)
 	. = ..()
 	creator = set_creator
 	parent_resonator = set_resonator
@@ -143,8 +146,8 @@
 	layer = ABOVE_ALL_MOB_LAYER
 	duration = 4
 
-/obj/effect/temp_visual/resonance_crush/New()
-	..()
+/obj/effect/temp_visual/resonance_crush/Initialize(mapload)
+	. = ..()
 	transform = matrix() * 1.5
 	animate(src, transform = matrix() * 0.1, alpha = 50, time = 4)
 

@@ -152,17 +152,6 @@
 	item_state = "lampgreen"
 
 
-
-/obj/item/flashlight/lamp/verb/toggle_light()
-	set name = "Toggle light"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-
-	attack_self(usr)
-
 //Bananalamp
 /obj/item/flashlight/lamp/bananalamp
 	name = "banana lamp"

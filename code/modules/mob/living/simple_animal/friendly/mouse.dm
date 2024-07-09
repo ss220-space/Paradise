@@ -57,7 +57,11 @@
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/squeak, list("[squeak_sound]" = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
+	AddComponent(/datum/component/squeak, list(squeak_sound), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE, dead_check = TRUE) //as quiet as a mouse or whatever
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability) && isturf(loc))
@@ -141,19 +145,24 @@
 			return
 	. = ..()
 
-/mob/living/simple_animal/mouse/pull_constraint(atom/movable/AM, show_message = FALSE) //Prevents mouse from pulling things
-	if(istype(AM, /obj/item/reagent_containers/food/snacks/cheesewedge))
+/mob/living/simple_animal/mouse/pull_constraint(atom/movable/pulled_atom, state, supress_message = FALSE) //Prevents mouse from pulling things
+	if(istype(pulled_atom, /obj/item/reagent_containers/food/snacks/cheesewedge))
 		return TRUE // Get dem
-	if(show_message)
-		to_chat(src, "<span class='warning'>You are too small to pull anything except cheese.</span>")
+	if(!supress_message)
+		to_chat(src, span_warning("You are too small to pull anything except cheese."))
 	return FALSE
 
-/mob/living/simple_animal/mouse/Crossed(AM as mob|obj, oldloc)
-	if(ishuman(AM))
-		if(!stat)
-			var/mob/M = AM
-			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
-	..()
+
+/mob/living/simple_animal/mouse/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	mouse_crossed(arrived)
+
+
+/mob/living/simple_animal/mouse/proc/mouse_crossed(atom/movable/arrived)
+	if(!stat && ishuman(arrived))
+		to_chat(arrived, span_notice("[bicon(src)] Squeek!"))
+
 
 /mob/living/simple_animal/mouse/ratvar_act()
 	new/mob/living/simple_animal/mouse/clockwork(loc)
@@ -465,7 +474,7 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 		GLOB.hamster_count--
 	. = ..()
 
-/mob/living/simple_animal/mouse/hamster/pull_constraint(atom/movable/AM, show_message = FALSE)
+/mob/living/simple_animal/mouse/hamster/pull_constraint(atom/movable/pulled_atom, state, supress_message = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/mouse/hamster/Life(seconds, times_fired)
@@ -492,9 +501,10 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 	holder_type = /obj/item/holder/hamster
 
 
-/mob/living/simple_animal/mouse/hamster/baby/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
-	if(show_message)
+/mob/living/simple_animal/mouse/hamster/baby/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
+	if(!supress_message)
 		to_chat(src, span_warning("Вы слишком малы чтобы что-то тащить."))
+	return FALSE
 
 
 /mob/living/simple_animal/mouse/hamster/baby/Life(seconds, times_fired)
@@ -507,14 +517,13 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 				mind.transfer_to(A)
 			qdel(src)
 
-/mob/living/simple_animal/mouse/hamster/baby/Crossed(AM as mob|obj, oldloc)
-	if(ishuman(AM))
-		if(!stat)
-			var/mob/M = AM
-			to_chat(M, "<span class='notice'>[bicon(src)] раздавлен!</span>")
-			death()
-			splat(user = AM)
-	..()
+
+/mob/living/simple_animal/mouse/hamster/baby/mouse_crossed(atom/movable/arrived)
+	if(!stat && ishuman(arrived))
+		to_chat(arrived, span_notice("[bicon(src)] раздавл[genderize_ru(gender, "ен", "на", "но")]!"))
+		death()
+		splat(user = arrived)
+
 
 #undef SNIFF
 #undef SHAKE

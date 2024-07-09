@@ -4,7 +4,7 @@
 /datum/map/celestation
 	name = "Celestation"
 	map_path = "_maps/map_files/celestation/celestation.dmm"
-	lavaland_path = "_maps/map_files/cerestation/Lavaland.dmm"//will be remapped latter
+	lavaland_path = "_maps/map_files/celestation/Lavaland.dmm"
 	traits = list(
 	list(MAIN_STATION, STATION_LEVEL = "Basement Floor", STATION_CONTACT, REACHABLE, AI_OK, ZTRAIT_UP),
 	list(STATION_LEVEL = "Main Floor", STATION_CONTACT, REACHABLE, AI_OK, ZTRAIT_UP, ZTRAIT_DOWN, ZTRAIT_BASETURF = /turf/simulated/openspace),
@@ -17,5 +17,4 @@
 	company_name  = "Nanotrasen"
 	company_short = "NT"
 	starsys_name  = "Epsilon Eridani"
-	admin_only = TRUE //TESTS!
-	//webmap_url = not added
+	webmap_url = "https://webmap.affectedarc07.co.uk/maps/ss1984/celestation/"

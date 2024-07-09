@@ -117,7 +117,7 @@
 
 /obj/item/clothing/shoes/magboots/clown/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg' = 1, 'sound/effects/clownstep2.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
+	AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg', 'sound/effects/clownstep2.ogg'), 50, falloff_exponent = 20) //die off quick please
 
 /obj/item/clothing/shoes/magboots/clown/equipped(mob/user, slot, initial)
 	. = ..()

@@ -19,7 +19,8 @@
 	var/compromised_integrity = FALSE
 	var/mob/camera/blob/overmind
 	creates_cover = TRUE
-	obj_flags = BLOCK_Z_OUT_DOWN // stops blob mobs from falling on multiz.
+	obj_flags = BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP // stops blob mobs from falling on multiz.
+
 
 /obj/structure/blob/Initialize(mapload)
 	. = ..()
@@ -29,6 +30,11 @@
 	if(atmosblock)
 		air_update_turf(1)
 	ConsumeTile()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /obj/structure/blob/Destroy()
 	if(atmosblock)
@@ -155,9 +161,12 @@
 		A.blob_act(src)
 	return 1
 
-/obj/structure/blob/Crossed(var/mob/living/L, oldloc)
-	..()
-	L.blob_act(src)
+
+/obj/structure/blob/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	arrived.blob_act(src)
+
 
 /obj/structure/blob/tesla_act(power)
 	..()

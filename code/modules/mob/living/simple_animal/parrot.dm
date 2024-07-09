@@ -312,7 +312,7 @@
 		drop_held_item(FALSE)
 
 
-/mob/living/simple_animal/parrot/Moved(atom/OldLoc, Dir, Forced)
+/mob/living/simple_animal/parrot/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(client && (parrot_state & PARROT_PERCH))
 		parrot_state = PARROT_WANDER

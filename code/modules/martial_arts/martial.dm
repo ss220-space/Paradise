@@ -41,6 +41,12 @@
 	var/in_stance = FALSE
 	/// The priority of which martial art is picked from all the ones someone knows, the higher the number, the higher the priority.
 	var/weight = 0
+	/// If provided, this overrides default time (in deciseconds) required to reinforce aggressive/neck grab to the next state.
+	var/grab_speed
+	/// If provided, this list will override victim's default resist chances for any grab state.
+	/// Examples: list(MARTIAL_GRAB_AGGRESSIVE = 60, MARTIAL_GRAB_NECK = 40, MARTIAL_GRAB_KILL = 5) or list(MARTIAL_GRAB_NECK = 5)
+	var/list/grab_resist_chances
+
 
 /datum/martial_art/New()
 	. = ..()
@@ -274,6 +280,23 @@
 			return "G"
 		if(MARTIAL_COMBO_STEP_HELP)
 			return "H"
+
+
+/// Returns martial art grab resist chance for passed grab state.
+/datum/martial_art/proc/get_resist_chance(grab_state)
+	if(!grab_resist_chances)
+		return null
+	switch(grab_state)
+		if(GRAB_AGGRESSIVE)
+			if(!isnull(grab_resist_chances[MARTIAL_GRAB_AGGRESSIVE]))	// can be 0 its a vaild number
+				return grab_resist_chances[MARTIAL_GRAB_AGGRESSIVE]
+		if(GRAB_NECK)
+			if(!isnull(grab_resist_chances[MARTIAL_GRAB_NECK]))
+				return grab_resist_chances[MARTIAL_GRAB_NECK]
+		if(GRAB_KILL)
+			if(!isnull(grab_resist_chances[MARTIAL_GRAB_KILL]))
+				return grab_resist_chances[MARTIAL_GRAB_KILL]
+
 
 //ITEMS
 
