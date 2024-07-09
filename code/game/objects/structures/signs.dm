@@ -13,7 +13,7 @@
 
 /obj/structure/sign/Initialize(mapload)
 	. = ..()
-	if(does_emissive)
+	if(does_emissive|random_number)
 		update_icon(UPDATE_OVERLAYS)
 
 
@@ -109,10 +109,10 @@
 /obj/structure/sign/double/no_idiots
 	name = "Counting sign"
 	desc = "Indicates how many days the station operates without idiots at the control panel"
-	random_number = TRUE
 
 /obj/structure/sign/double/no_idiots/left
 	icon_state = "no_idiots_left"
+	random_number = TRUE
 
 /obj/structure/sign/double/no_idiots/right
 	icon_state = "no_idiots_right"
