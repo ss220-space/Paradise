@@ -93,7 +93,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/structure/lattice/catwalk/mapping,
+/obj/structure/lattice/catwalk/fireproof,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "au" = (
@@ -214,7 +214,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/lattice/catwalk/mapping,
+/obj/structure/lattice/catwalk/fireproof,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "aI" = (
@@ -283,7 +283,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/lattice/catwalk/mapping,
+/obj/structure/lattice/catwalk/fireproof,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "aR" = (
@@ -674,7 +674,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/lattice/catwalk/mapping,
+/obj/structure/lattice/catwalk/fireproof,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "cp" = (
@@ -799,7 +799,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/lattice/catwalk/mapping,
+/obj/structure/lattice/catwalk/fireproof,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "cW" = (
@@ -1048,7 +1048,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/structure/lattice/catwalk/mapping,
+/obj/structure/lattice/catwalk/fireproof,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "ef" = (
@@ -1270,7 +1270,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/structure/lattice/catwalk/mapping,
+/obj/structure/lattice/catwalk/fireproof,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "fj" = (
@@ -1371,7 +1371,7 @@
 /area/lavaland/surface/outdoors/necropolis)
 "fD" = (
 /obj/structure/railing,
-/obj/structure/lattice/catwalk/mapping,
+/obj/structure/lattice/catwalk/fireproof,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "fE" = (
@@ -1395,7 +1395,7 @@
 /area/mine/living_quarters)
 "fM" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
-/obj/structure/lattice/catwalk/mapping,
+/obj/structure/lattice/catwalk/fireproof,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "fN" = (
@@ -3029,7 +3029,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/structure/lattice/catwalk/mapping,
+/obj/structure/lattice/catwalk/fireproof,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "nX" = (
@@ -3511,7 +3511,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/obj/structure/lattice/catwalk/mapping,
+/obj/structure/lattice/catwalk/fireproof,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "rV" = (
@@ -3709,7 +3709,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/structure/lattice/catwalk/mapping,
+/obj/structure/lattice/catwalk/fireproof,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "tA" = (
@@ -3730,7 +3730,7 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
-/obj/structure/lattice/catwalk/mapping,
+/obj/structure/lattice/catwalk/fireproof,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "tE" = (
@@ -4058,7 +4058,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/lattice/catwalk/mapping,
+/obj/structure/lattice/catwalk/fireproof,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "wD" = (
@@ -4147,14 +4147,14 @@
 /area/mine/storage)
 "xt" = (
 /obj/structure/railing,
-/obj/structure/lattice/catwalk/mapping,
+/obj/structure/lattice/catwalk/fireproof,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "xw" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	name = "scrubber outlet"
 	},
-/obj/structure/lattice/catwalk/mapping,
+/obj/structure/lattice/catwalk/fireproof,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "xH" = (
@@ -4349,7 +4349,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/lattice/catwalk/mapping,
+/obj/structure/lattice/catwalk/fireproof,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "ze" = (
@@ -4362,7 +4362,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
-/obj/structure/lattice/catwalk/mapping,
+/obj/structure/lattice/catwalk/fireproof,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "zi" = (
@@ -4415,7 +4415,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/structure/lattice/catwalk/mapping,
+/obj/structure/lattice/catwalk/fireproof,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "zt" = (
@@ -4665,7 +4665,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/structure/lattice/catwalk/mapping,
+/obj/structure/lattice/catwalk/fireproof,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Bm" = (
@@ -5699,7 +5699,7 @@
 /obj/structure/railing/corner{
 	dir = 1
 	},
-/obj/structure/lattice/catwalk/mapping,
+/obj/structure/lattice/catwalk/fireproof,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "JM" = (
@@ -5775,7 +5775,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/structure/lattice/catwalk/mapping,
+/obj/structure/lattice/catwalk/fireproof,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Km" = (
@@ -6957,7 +6957,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/structure/lattice/catwalk/mapping,
+/obj/structure/lattice/catwalk/fireproof,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Vw" = (
@@ -6986,7 +6986,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/structure/lattice/catwalk/mapping,
+/obj/structure/lattice/catwalk/fireproof,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "VE" = (
@@ -7475,7 +7475,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
-/obj/structure/lattice/catwalk/mapping,
+/obj/structure/lattice/catwalk/fireproof,
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "Zq" = (
