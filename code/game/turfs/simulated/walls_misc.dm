@@ -84,6 +84,7 @@
 	icon = 'icons/turf/walls/coated_reinforced_wall.dmi'
 	max_temperature = INFINITY
 	smooth = SMOOTH_BITMASK
+	icon_state = "coated_reinforced_wall-0"
 	base_icon_state = "coated_reinforced_wall"
 
 //Clockwork walls
@@ -92,6 +93,7 @@
 	desc = "A huge chunk of warm metal. The clanging of machinery emanates from within."
 	icon_state = "clockwork_wall-0"
 	base_icon_state = "clockwork_wall"
+	icon = 'icons/turf/walls/clockwork_wall.dmi'
 	canSmoothWith = SMOOTH_GROUP_CLOCKWORK_WALLS
 	smoothing_groups = SMOOTH_GROUP_CLOCKWORK_WALLS
 	smooth = SMOOTH_BITMASK

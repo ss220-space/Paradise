@@ -11,7 +11,7 @@
 	desc = "A huge chunk of metal used to seperate rooms."
 	anchored = TRUE
 	icon = 'icons/turf/walls/wall.dmi'
-	icon_state = "wall"
+	icon_state = "wall-0"
 	base_icon_state = "wall"
 
 	var/mineral = /obj/item/stack/sheet/metal
@@ -189,7 +189,7 @@
 	name = "reinforced wall"
 	desc = "A huge chunk of reinforced metal used to seperate rooms."
 	icon = 'icons/turf/walls/reinforced_wall.dmi'
-	icon_state = "r_wall"
+	icon_state = "r_wall-0"
 	base_icon_state = "r_wall"
 	walltype = /turf/simulated/wall/r_wall
 	mineral = /obj/item/stack/sheet/plasteel
@@ -218,7 +218,7 @@
 	name = "uranium wall"
 	desc = "A wall with uranium plating. This is probably a bad idea."
 	icon = 'icons/turf/walls/uranium_wall.dmi'
-	icon_state = "uranium"
+	icon_state = "uranium_wall-0"
 	base_icon_state = "uranium_wall"
 	mineral = /obj/item/stack/sheet/mineral/uranium
 	walltype = /turf/simulated/wall/mineral/uranium
@@ -244,7 +244,7 @@
 	name = "gold wall"
 	desc = "A wall with gold plating. Swag!"
 	icon = 'icons/turf/walls/gold_wall.dmi'
-	icon_state = "gold"
+	icon_state = "gold_wall-0"
 	base_icon_state = "gold_wall"
 	mineral = /obj/item/stack/sheet/mineral/gold
 	walltype = /turf/simulated/wall/mineral/gold
@@ -255,7 +255,7 @@
 	name = "silver wall"
 	desc = "A wall with silver plating. Shiny."
 	icon = 'icons/turf/walls/silver_wall.dmi'
-	icon_state = "silver"
+	icon_state = "silver_wall-0"
 	base_icon_state = "silver_wall"
 	mineral = /obj/item/stack/sheet/mineral/silver
 	walltype = /turf/simulated/wall/mineral/silver
@@ -266,7 +266,7 @@
 	name = "diamond wall"
 	desc = "A wall with diamond plating. You monster."
 	icon = 'icons/turf/walls/diamond_wall.dmi'
-	icon_state = "diamond"
+	icon_state = "diamond_wall-0"
 	base_icon_state = "diamond_wall"
 	mineral = /obj/item/stack/sheet/mineral/diamond
 	walltype = /turf/simulated/wall/mineral/diamond
@@ -279,7 +279,7 @@
 	name = "plasma wall"
 	desc = "A wall with plasma plating. This is definately a bad idea."
 	icon = 'icons/turf/walls/plasma_wall.dmi'
-	icon_state = "plasma"
+	icon_state = "plasma_wall-0"
 	base_icon_state = "plasma_wall"
 	mineral = /obj/item/stack/sheet/mineral/plasma
 	walltype = /turf/simulated/wall/mineral/plasma
@@ -310,7 +310,7 @@
 	name = "alien wall"
 	desc = "A strange-looking alien wall."
 	icon = 'icons/turf/walls/plasma_wall.dmi'
-	icon_state = "plasma"
+	icon_state = "plasma_wall-0"
 	base_icon_state = "plasma_wall"
 	mineral = /obj/item/stack/sheet/mineral/abductor
 	walltype = /turf/simulated/wall/mineral/abductor
@@ -322,7 +322,7 @@
 	name = "bananium wall"
 	desc = "A wall with bananium plating. Honk!"
 	icon = 'icons/turf/walls/bananium_wall.dmi'
-	icon_state = "bananium"
+	icon_state = "bananium_wall-0"
 	base_icon_state = "bananium_wall"
 	mineral = /obj/item/stack/sheet/mineral/bananium
 	walltype = /turf/simulated/wall/mineral/bananium
@@ -333,7 +333,7 @@
 	name = "sandstone wall"
 	desc = "A wall with sandstone plating."
 	icon = 'icons/turf/walls/sandstone_wall.dmi'
-	icon_state = "sandstone"
+	icon_state = "sandstone_wall-0"
 	base_icon_state = "sandstone_wall"
 	mineral = /obj/item/stack/sheet/mineral/sandstone
 	walltype = /turf/simulated/wall/mineral/sandstone
@@ -344,7 +344,7 @@
 	name = "wooden wall"
 	desc = "A wall with wooden plating. Stiff."
 	icon = 'icons/turf/walls/wood_wall.dmi'
-	icon_state = "wood"
+	icon_state = "wood_wall-0"
 	base_icon_state = "wood_wall"
 	mineral = /obj/item/stack/sheet/wood
 	walltype = /turf/simulated/wall/mineral/wood
@@ -355,7 +355,7 @@
 	name = "rough metal wall"
 	desc = "A wall with rough metal plating."
 	icon = 'icons/turf/walls/iron_wall.dmi'
-	icon_state = "iron"
+	icon_state = "iron_wall-0"
 	base_icon_state = "iron_wall"
 	mineral = /obj/item/stack/rods
 	mineral_amount = 5
@@ -367,7 +367,7 @@
 	name = "alien wall"
 	desc = "A wall with alien alloy plating."
 	icon = 'icons/turf/walls/abductor_wall.dmi'
-	icon_state = "abductor"
+	icon_state = "abductor_wall-0"
 	base_icon_state = "abductor_wall"
 	smooth = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	mineral = /obj/item/stack/sheet/mineral/abductor
@@ -379,7 +379,7 @@
 	name = "gingerbread wall"
 	desc = "Don't even try to bite it!"
 	icon = 'icons/turf/walls/gingerbread_wall.dmi'
-	icon_state = "gingerbread"
+	icon_state = "gingerbread_wall-0"
 	base_icon_state = "gingerbread_wall"
 	mineral = /obj/item/stack/sheet/gingerbread
 	mineral_amount = 5
@@ -401,7 +401,7 @@
 /obj/structure/falsewall/plastitanium
 	desc = "An evil wall of plasma and titanium."
 	icon = 'icons/turf/walls/plastitanium_wall.dmi'
-	icon_state = "shuttle"
+	icon_state = "plastitanium_wall-0"
 	base_icon_state = "plastitanium_wall"
 	mineral = /obj/item/stack/sheet/mineral/plastitanium
 	walltype = /turf/simulated/wall/mineral/plastitanium
@@ -414,7 +414,7 @@
 	desc = "A huge chunk of warm metal. The clanging of machinery emanates from within."
 	icon = 'icons/turf/walls/clockwork_wall.dmi'
 	base_icon_state = "clockwork_wall"
-	icon_state = "clockwork_wall"
+	icon_state = "clockwork_wall-0"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	mineral_amount = 1
 	smooth = SMOOTH_BITMASK
@@ -428,7 +428,7 @@
 	name = "clockwork wall"
 	desc = "A huge chunk of warm metal. The clanging of machinery emanates from within. You feel a wind."
 	icon = 'icons/turf/walls/clockwork_wall.dmi'
-	icon_state = "clockwork_wall"
+	icon_state = "clockwork_wall-0"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	mineral_amount = 1
 	canSmoothWith = SMOOTH_GROUP_CLOCKWORK_WALLS
