@@ -97,8 +97,8 @@ GLOBAL_LIST_INIT(tendrils, list())
 	return ..()
 
 /obj/effect/light_emitter/tendril
-	set_luminosity = 4
-	set_cap = 2.5
+	light_range = 4
+	light_power = 2.5
 	light_color = LIGHT_COLOR_LAVA
 
 /obj/effect/collapse
