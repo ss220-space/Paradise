@@ -36,6 +36,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/health_scan = FALSE //does the ghost have health scanner mode on? by default it should be off
 	var/gas_scan = FALSE
 	var/datum/orbit_menu/orbit_menu
+	var/show_orbiting_hud = FALSE
 
 /mob/dead/observer/New(mob/body=null, flags=1)
 	set_invisibility(GLOB.observer_default_invisibility)
@@ -407,6 +408,58 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 	forceMove(pick(turfs))
 	update_parallax_contents()
+/*
+   __________________________
+  /\                         \
+ /  \            ____         \
+/ \/ \          /\   \         \
+\ /\  \         \ \   \         \
+ \  \  \     ____\_\   \______   \
+  \   /\\   /\                \   \
+   \ /\/ \  \ \_______    _____\   \
+    \\/ / \  \/______/\   \____/    \
+     \ / /\\         \ \   \         \
+      \ /\/ \         \ \   \         \
+       \\/ / \         \ \   \         \
+  Maybe \ /   \         \ \   \         \
+         \\  /\\         \ \   \         \
+God Bless \ /\  \         \ \___\         \
+           \\    \         \/___/          \
+   this     \  \/ \                         \
+             \ /\  \_________________________\
+ shitcode     \  \ / ______________________  /
+               \  / ______________________  /
+		        \/_________________________/
+*/
+
+/// Показывает инвентарь моба, которого орбитирует призрак.
+/mob/dead/observer/proc/show_orbting_inventory()
+	if(!show_orbiting_hud)
+		create_mob_hud()
+		usr.hud_used.show_hud(HUD_STYLE_STANDARD)
+		return FALSE
+	if(istype(usr.orbiting, /mob/living/carbon/human) && show_orbiting_hud)
+		var/mob/living/carbon/human/owner = usr.orbiting
+		if(!owner.client)
+			to_chat(usr, "<span class='warning'>Вы не можете просматривать инвентарь неодушевлённых мобов.</span>")
+			return
+		usr.client.screen = list()
+		var/list/TMP = list()
+		for(var/atom/movable/screen/movable/action_button/A in owner.client.screen)
+			TMP += A
+		usr.client.screen = owner.client.screen - TMP
+		return TRUE
+
+	return FALSE
+
+
+/mob/dead/observer/verb/toggle_show_hud()
+	set category = "Ghost"
+	set name = "Toggle Orbiting Hud"
+	set desc = "Toggles: Shows hud of orbiting target, or no."
+	show_orbiting_hud = !show_orbiting_hud
+	if(show_orbting_inventory())
+		to_chat(usr, "[show_orbiting_hud ? "Вы включили отображение инвентаря." : "Вы выключили отображение инвентаря." ]")
 
 /mob/dead/observer/verb/follow()
 	set category = "Ghost"

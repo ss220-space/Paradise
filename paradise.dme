@@ -1074,7 +1074,6 @@
 #include "code\game\objects\items\documents.dm"
 #include "code\game\objects\items\flag.dm"
 #include "code\game\objects\items\gems.dm"
-#include "code\game\objects\items\gib_on_examine.dm"
 #include "code\game\objects\items\hand_item.dm"
 #include "code\game\objects\items\hourglass.dm"
 #include "code\game\objects\items\latexballoon.dm"
