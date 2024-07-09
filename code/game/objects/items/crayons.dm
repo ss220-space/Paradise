@@ -293,7 +293,7 @@
 				if(C.client)
 					C.EyeBlurry(6 SECONDS)
 					C.EyeBlind(2 SECONDS)
-					if(C.check_eye_prot() <= 0) // no eye protection? ARGH IT BURNS.
+					if(C.check_eye_prot() <= FLASH_PROTECTION_NONE) // no eye protection? ARGH IT BURNS.
 						C.Confused(6 SECONDS)
 						C.Weaken(6 SECONDS)
 				C.lip_style = "spray_face"

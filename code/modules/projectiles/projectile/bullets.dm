@@ -392,7 +392,7 @@
 	if(..(target, blocked))
 		var/mob/living/target_living = target
 
-		if(target_living.check_eye_prot() == 1)	// Just a visual effect for sunglasses users.
+		if(target_living.check_eye_prot() == FLASH_PROTECTION_FLASH)	// Just a visual effect for sunglasses users.
 			target_living.flash_eyes(intensity = 2, visual = TRUE)
 		else
 			target_living.flash_eyes(affect_silicon = TRUE)

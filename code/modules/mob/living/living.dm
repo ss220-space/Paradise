@@ -1260,13 +1260,13 @@
 
 
 /mob/living/proc/check_eye_prot()
-	var/number = 0
+	var/eye_prot = FLASH_PROTECTION_NONE
 	var/datum/antagonist/vampire/vampire = mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(vampire?.get_ability(/datum/vampire_passive/eyes_flash_protection))
-		number++
+		eye_prot += FLASH_PROTECTION_FLASH
 	if(vampire?.get_ability(/datum/vampire_passive/eyes_welding_protection))
-		number++
-	return number
+		eye_prot += FLASH_PROTECTION_FLASH
+	return eye_prot
 
 
 /mob/living/proc/check_ear_prot()

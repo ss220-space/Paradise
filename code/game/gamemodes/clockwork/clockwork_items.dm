@@ -1125,7 +1125,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/active = FALSE //If the visor is online
 	actions_types = list(/datum/action/item_action/toggle)
-	flash_protect = TRUE
+	flash_protect = FLASH_PROTECTION_FLASH
 	see_in_dark = 0
 	lighting_alpha = null
 

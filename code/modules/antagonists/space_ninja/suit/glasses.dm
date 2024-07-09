@@ -11,7 +11,7 @@
 	//Абилка
 	actions_types = list(/datum/action/item_action/ninja_glasses_toggle)
 	//Флаги
-	flash_protect = -1
+	flash_protect = FLASH_PROTECTION_SENSITIVE
 	vision_flags = 0
 	see_in_dark = 8 //Base human is 2
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
