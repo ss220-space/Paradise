@@ -2,7 +2,7 @@
 	name = "lattice"
 	desc = "A lightweight support lattice."
 	icon = 'icons/obj/smooth_structures/lattice.dmi'
-	icon_state = "lattice-0"
+	icon_state = "lattice-31"
 	base_icon_state = "lattice"
 	density = FALSE
 	anchored = TRUE
@@ -15,12 +15,18 @@
 	smooth = SMOOTH_BITMASK
 	smoothing_groups = SMOOTH_GROUP_LATTICE
 	obj_flags = BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
+	var/list/give_turf_traits = list(TRAIT_CHASM_STOPPED)
+
 
 /obj/structure/lattice/Initialize(mapload)
 	. = ..()
 	for(var/obj/structure/lattice/LAT in loc)
 		if(LAT != src)
 			QDEL_IN(LAT, 0)
+	if(length(give_turf_traits))
+		give_turf_traits = string_list(give_turf_traits)
+		AddElement(/datum/element/give_turf_traits, give_turf_traits)
+
 
 /obj/structure/lattice/examine(mob/user)
 	. = ..()
@@ -115,6 +121,7 @@
 	canSmoothWith = SMOOTH_GROUP_CATWALK
 	smoothing_groups = SMOOTH_GROUP_CATWALK
 	obj_flags = BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
+	give_turf_traits = list(TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN)
 
 /obj/structure/lattice/catwalk/deconstruction_hints(mob/user)
 	to_chat(user, "<span class='notice'>The supporting rods look like they could be <b>cut</b>.</span>")
@@ -180,14 +187,7 @@
 	icon_state = "catwalk"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	number_of_rods = 3
-
-
-/obj/structure/lattice/catwalk/fireproof/Initialize(mapload)
-	. = ..()
-	var/static/list/give_turf_traits
-	if(!give_turf_traits)
-		give_turf_traits = string_list(list(TRAIT_LAVA_STOPPED, TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN))
-	AddElement(/datum/element/give_turf_traits, give_turf_traits)
+	give_turf_traits = list(TRAIT_LAVA_STOPPED, TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN)
 
 
 /obj/structure/lattice/catwalk/fireproof/wirecutter_act(mob/living/user, obj/item/I)
@@ -199,12 +199,14 @@
 	new /obj/item/stack/fireproof_rods(get_turf(src), 3)
 	deconstruct()
 
+
 /obj/structure/lattice/catwalk/mapping
 	name = "reinforced catwalk"
 	desc = "A heavily reinforced catwalk used to build bridges in hostile environments. It doesn't look like anything could make this budge."
 	resistance_flags = INDESTRUCTIBLE
 	icon = 'icons/obj/smooth_structures/strong_catwalk.dmi'
 	icon_state = "catwalk"
+	give_turf_traits = list(TRAIT_LAVA_STOPPED, TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN)
 
 /obj/structure/lattice/catwalk/mining/deconstruction_hints(mob/user)
 	return
