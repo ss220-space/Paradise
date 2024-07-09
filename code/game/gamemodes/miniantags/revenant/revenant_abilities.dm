@@ -500,7 +500,7 @@
 		new/obj/effect/temp_visual/revenant(loc)
 		ChangeTurf(/turf/simulated/wall/rust)
 
-/turf/simulated/r_wall/defile()
+/turf/simulated/wall/r_wall/defile()
 	..()
 	if(prob(15))
 		new/obj/effect/temp_visual/revenant(loc)
