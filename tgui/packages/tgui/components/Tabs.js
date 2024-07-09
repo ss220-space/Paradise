@@ -4,53 +4,61 @@
  * @license MIT
  */
 
-import { classes } from 'common/react';
+import { canRender, classes } from 'common/react';
 import { computeBoxClassName, computeBoxProps } from './Box';
-import { Button } from './Button';
+import { Icon } from './Icon';
 
-export const Tabs = props => {
+export const Tabs = (props) => {
+  const { className, vertical, fill, fluid, children, ...rest } = props;
+  return (
+    <div
+      className={classes([
+        'Tabs',
+        vertical ? 'Tabs--vertical' : 'Tabs--horizontal',
+        fill && 'Tabs--fill',
+        fluid && 'Tabs--fluid',
+        className,
+        computeBoxClassName(rest),
+      ])}
+      {...computeBoxProps(rest)}
+    >
+      {children}
+    </div>
+  );
+};
+
+const Tab = (props) => {
   const {
     className,
-    vertical,
+    selected,
+    color,
+    icon,
+    leftSlot,
+    rightSlot,
     children,
     ...rest
   } = props;
   return (
     <div
       className={classes([
-        'Tabs',
-        vertical
-          ? 'Tabs--vertical'
-          : 'Tabs--horizontal',
+        'Tab',
+        'Tabs__Tab',
+        'Tab--color--' + color,
+        selected && 'Tab--selected',
         className,
         computeBoxClassName(rest),
       ])}
-      {...computeBoxProps(rest)}>
-      <div className="Tabs__tabBox">
-        {children}
-      </div>
+      {...computeBoxProps(rest)}
+    >
+      {(canRender(leftSlot) && <div className="Tab__left">{leftSlot}</div>) ||
+        (!!icon && (
+          <div className="Tab__left">
+            <Icon name={icon} />
+          </div>
+        ))}
+      <div className="Tab__text">{children}</div>
+      {canRender(rightSlot) && <div className="Tab__right">{rightSlot}</div>}
     </div>
-  );
-};
-
-const Tab = props => {
-  const {
-    className,
-    selected,
-    altSelection,
-    ...rest
-  } = props;
-  return (
-    <Button
-      className={classes([
-        'Tabs__tab',
-        selected && 'Tabs__tab--selected',
-        altSelection && selected && 'Tabs__tab--altSelection',
-        className,
-      ])}
-      selected={!altSelection && selected}
-      color="transparent"
-      {...rest} />
   );
 };
 

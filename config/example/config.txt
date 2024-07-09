@@ -191,7 +191,7 @@ MINPLAYERS DEVILAGENTS 25
 
 ## Whitelist for minor antags in ANTAG-PARADISE gamemode. Only antags from below will be choosen for random mode subtype (ANTAG_RANDOM).
 #ANTAG_PARADISE_RANDOM_MODE_WHITELIST TRAITOR
-#ANTAG_PARADISE_RANDOM_MODE_WHITELIST VAMPIRE 
+#ANTAG_PARADISE_RANDOM_MODE_WHITELIST VAMPIRE
 
 ## Chances for ANTAG-PARADISE gamemode subtypes.
 #ANTAG_PARADISE_MODE_SUBTYPES ANTAG_SINGLE 10
@@ -314,9 +314,6 @@ CHECK_RANDOMIZER
 ## Uncomment for automatic ban if proxy detected
 #PROXY_AUTOBAN
 
-## the whitelist
-#USEWHITELIST
-
 ## Use DB to load and store whitelist instead of text file.
 #USEWHITELIST_DATABASE
 
@@ -410,8 +407,22 @@ SSD_WARNING
 ## Malf and Rev will let the shuttle be called when the antags/protags are dead.
 #CONTINUOUS_ROUNDS
 
-## Uncomment to restrict non-admins from using humanoid alien races
-#USEALIENWHITELIST
+## List of playable races
+PLAYABLE_SPECIES Tajaran
+PLAYABLE_SPECIES Skrell
+PLAYABLE_SPECIES Unathi
+PLAYABLE_SPECIES Diona
+PLAYABLE_SPECIES Vulpkanin
+PLAYABLE_SPECIES Nian
+PLAYABLE_SPECIES Drask
+PLAYABLE_SPECIES Grey
+PLAYABLE_SPECIES Kidan
+PLAYABLE_SPECIES Machine
+PLAYABLE_SPECIES Nucleation
+PLAYABLE_SPECIES Plasmaman
+PLAYABLE_SPECIES Slime People
+PLAYABLE_SPECIES Vox
+PLAYABLE_SPECIES Wryn
 
 ## Comment this to unrestrict the number of alien players allowed in the round. The number represents the number of alien players for every human player.
 ALIEN_PLAYER_RATIO 0.2

@@ -44,7 +44,8 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 		COMSIG_ATOM_EXITED = PROC_REF(on_exited),
 	)
-	AddElement(/datum/element/connect_loc, loc_connections)
+	if(!QDELING(src))
+		AddElement(/datum/element/connect_loc, loc_connections)
 
 
 /obj/effect/decal/cleanable/blood/Destroy()

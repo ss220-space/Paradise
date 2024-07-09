@@ -7,8 +7,8 @@
 	icon_state = "flower_bud"
 	layer = SPACEVINE_MOB_LAYER
 	opacity = FALSE
-	canSmoothWith = list()
-	smooth = SMOOTH_FALSE
+	canSmoothWith = null
+	smooth = NONE
 	var/growth_time = 1200
 
 /obj/structure/alien/resin/flower_bud_enemy/New()

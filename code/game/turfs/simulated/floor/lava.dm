@@ -55,7 +55,7 @@
 	return TRUE
 
 /turf/simulated/floor/plating/lava/is_safe()
-	if(find_safeties() && ..())
+	if(HAS_TRAIT(src, TRAIT_LAVA_STOPPED) && ..())
 		return TRUE
 	return FALSE
 
@@ -63,10 +63,10 @@
 	. = FALSE
 
 	if(locate(/obj/vehicle/lavaboat) in src.contents)
-		return FALSE
+		return .
 
-	if(find_safeties())
-		return FALSE
+	if(HAS_TRAIT(src, TRAIT_LAVA_STOPPED))
+		return .
 
 	var/thing_to_check = src
 	if(AM)
@@ -164,8 +164,10 @@
 	baseturf = /turf/simulated/floor/plating/lava/smooth
 	icon = 'icons/turf/floors/lava.dmi'
 	icon_state = "unsmooth"
-	smooth = SMOOTH_MORE | SMOOTH_BORDER
-	canSmoothWith = list(/turf/simulated/floor/plating/lava/smooth)
+	base_icon_state = "lava"
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_FLOOR_LAVA
+	smoothing_groups = SMOOTH_GROUP_FLOOR_LAVA
 
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface
 	temperature = 300
@@ -182,8 +184,9 @@
 	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma
 	desc = "A flowing stream of chilled liquid plasma. You probably shouldn't get in."
 	icon = 'icons/turf/floors/liquidplasma.dmi'
+	base_icon_state = "liquidplasma"
 	icon_state = "unsmooth"
-	smooth = SMOOTH_MORE | SMOOTH_BORDER
+	smooth = SMOOTH_BITMASK
 
 	light_range = 3
 	light_power = 0.75
@@ -203,8 +206,9 @@
 
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma/burn_stuff(AM)
 	. = FALSE
-	if(find_safeties())
-		return FALSE
+
+	if(HAS_TRAIT(src, TRAIT_LAVA_STOPPED))
+		return .
 
 	var/thing_to_check = src
 	if(AM)

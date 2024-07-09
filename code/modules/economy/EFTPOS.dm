@@ -137,10 +137,13 @@
 			"Taargüs Taargüs","n4n07r453n 7074lly 5ux","Maya Normousbutt","Al Coholic","Stu Piddiddiot",
 			"Yuri Nator","HAI GUYZ! LEARN HA TO CHANGE SECURITY SETTINGS! LOL!!"))
 
-/obj/item/eftpos/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/eftpos/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/eftpos/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "EFTPOS", name, 800, 300, master_ui, state)
+		ui = new(user, src, "EFTPOS", name)
 		ui.open()
 
 /obj/item/eftpos/ui_data(mob/user)

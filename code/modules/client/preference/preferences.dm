@@ -831,9 +831,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if((job_support_low & JOB_FLAG_CIVILIAN) && (job.title != "Civilian"))
 				rank = "<font class='text-muted'>[GetPlayerAltTitle(job)]</font>"
 			lastJob = job
-			if(!is_job_whitelisted(user, job.title))
-				html += "<del class='[color]'>[rank]</del></td><td><span class='btn btn-sm btn-danger text-light border border-secondary disabled' style='padding: 0px 4px;'><b> \[КАРМА]</b></span></td></tr>"
-				continue
 			if(jobban_isbanned(user, job.title))
 				html += "<del class='[color]'>[rank]</del></td><td><span class='btn btn-sm btn-danger text-light border border-secondary disabled' style='padding: 0px 4px;'><b> \[ЗАБАНЕНО]</b></span></td></tr>"
 				continue
@@ -1561,19 +1558,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(new_age)
 						age = max(min(round(text2num(new_age)), AGE_MAX),AGE_MIN)
 				if("species")
-					var/list/new_species = list(SPECIES_HUMAN, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_VULPKANIN, SPECIES_MOTH)
+					var/list/new_species = list(SPECIES_HUMAN)
 					var/prev_species = species
-//						var/whitelisted = 0
-
-					if(CONFIG_GET(flag/usealienwhitelist)) //If we're using the whitelist, make sure to check it!
-						for(var/Spec in GLOB.whitelisted_species)
-							if(is_alien_whitelisted(user,Spec))
-								new_species += Spec
-//									whitelisted = 1
-//							if(!whitelisted)
-//								alert(user, "You cannot change your species as you need to be whitelisted. If you wish to be whitelisted contact an admin in-game, on the forums, or on IRC.")
-					else //Not using the whitelist? Aliens for everyone!
-						new_species += GLOB.whitelisted_species
+					new_species += CONFIG_GET(str_list/playable_species)
 
 					species = tgui_input_list(user, "Please select a species", "Character Generation", sortTim(new_species, cmp = /proc/cmp_text_asc))
 					if(!species)
@@ -2300,19 +2287,13 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							organ_data[organ] = "cybernetic"
 
 				if("clientfps")
-					var/version_message
-					if(user.client && user.client.byond_version < MINIMUM_FPS_VERSION)
-						version_message = "\nYou need to be using byond version [MINIMUM_FPS_VERSION] or later to take advantage of this feature, your version of [user.client.byond_version] is too low"
-					if(world.byond_version < MINIMUM_FPS_VERSION)
-						version_message += "\nThis server does not currently support client side fps. You can set now for when it does."
-					var/desiredfps = input(user, "Выберите желаемый FPS.[version_message]\n  0 = значение по умолчанию ([CONFIG_GET(number/clientfps)]) < РЕКОМЕНДОВАНО\n -1 = синхронизировано с сервером ([world.fps])\n20/40/50 = Может помочь при проблемах с плавностью.", "Настройка персонажа", clientfps)  as null|num
+					var/desiredfps = input(user, "Выберите желаемый FPS.\n  0 = значение по умолчанию ([CONFIG_GET(number/clientfps)]) < РЕКОМЕНДОВАНО\n -1 = синхронизировано с сервером ([world.fps])\n20/40/50 = Может помочь при проблемах с плавностью.", "Настройка персонажа", clientfps)  as null|num
 					if(!isnull(desiredfps))
 						clientfps = desiredfps
-						if(world.byond_version >= MINIMUM_FPS_VERSION && user.client && user.client.byond_version >= MINIMUM_FPS_VERSION)
-							if(clientfps)
-								parent.fps = clientfps
-							else
-								parent.fps = CONFIG_GET(number/clientfps)
+						if(clientfps)
+							parent.fps = clientfps
+						else
+							parent.fps = CONFIG_GET(number/clientfps)
 
 
 		else

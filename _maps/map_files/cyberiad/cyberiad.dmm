@@ -17871,9 +17871,6 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/solar/auxport)
-"bex" = (
-/turf/simulated/wall/shuttle/overspace,
-/area/shuttle/arrival/station)
 "bey" = (
 /obj/machinery/seed_extractor,
 /turf/simulated/floor/grass,
@@ -41065,9 +41062,6 @@
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
 /turf/simulated/floor/shuttle/plating,
-/area/shuttle/arrival/station)
-"cyX" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/shuttle/arrival/station)
 "cyY" = (
 /obj/effect/spawner/lootdrop/maintenance,
@@ -95549,11 +95543,11 @@ lTl
 aMs
 uTI
 uTI
-beh
-cyX
+cyU
+cyU
 cIF
-cyX
-beh
+cyU
+cyU
 uTI
 uTI
 lTl
@@ -96576,13 +96570,13 @@ aPQ
 aSd
 aSd
 aSd
-beh
+cyU
 cCf
 bba
 bba
 bba
 bba
-beh
+cyU
 aSd
 aSd
 aSd
@@ -97090,7 +97084,7 @@ aVf
 aSd
 aSd
 aSd
-beh
+cyU
 cCj
 cTS
 cTS
@@ -97347,13 +97341,13 @@ aPZ
 bLZ
 cmT
 aSd
-beh
+cyU
 bej
 aYZ
 aYZ
 aYZ
 cNI
-beh
+cyU
 aSd
 cVN
 bLZ
@@ -98118,13 +98112,13 @@ aRa
 aMD
 cnv
 aSd
-beh
+cyU
 cCn
 cTS
 cTS
 cTS
 cNN
-beh
+cyU
 aSd
 cVT
 aMD
@@ -98375,7 +98369,7 @@ aVf
 aSd
 aSd
 aSd
-beh
+cyU
 cCu
 aYZ
 aYZ
@@ -98889,13 +98883,13 @@ aPQ
 aSd
 aSd
 aSd
-cyX
-cyX
+cyU
+cyU
 aXw
 aXw
 aXw
-cyX
-cyX
+cyU
+cyU
 aSd
 aSd
 aSd
@@ -99146,13 +99140,13 @@ aPZ
 aRd
 aSd
 aUm
-bex
+cyU
 cCv
 aXx
 aXx
 aXx
 cNP
-bex
+cyU
 aUm
 aSd
 bjS
