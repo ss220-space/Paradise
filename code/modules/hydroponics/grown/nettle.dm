@@ -52,8 +52,8 @@
 	if(!ishuman(user))
 		return TRUE
 	var/mob/living/carbon/human/H = user
-	var/obj/item/clothing/gloves/G = H.gloves
-	if(G && G.clothing_flags & FINGERS_COVERED)
+	var/obj/item/clothing/gloves = H.gloves
+	if(isclothing(gloves) && gloves.clothing_flags & FINGERS_COVERED)
 		return TRUE
 	if(PIERCEIMMUNE in H.dna.species.species_traits)
 		return TRUE
