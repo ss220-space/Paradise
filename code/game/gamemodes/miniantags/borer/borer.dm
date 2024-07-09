@@ -724,8 +724,8 @@
 	return FALSE
 
 /mob/living/carbon/proc/BorerControlling()
-	var/mob/living/simple_animal/borer/B = has_brain_worms()
-	if(B && B.controlling)
+	var/mob/living/simple_animal/borer = has_brain_worms()
+	if(borer && borer.controlling)
 		return TRUE
 	return FALSE
 
