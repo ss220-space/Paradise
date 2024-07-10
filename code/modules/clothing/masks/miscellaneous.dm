@@ -523,7 +523,6 @@
 	flags_inv = HIDENAME|HIDEFACIALHAIR
 	adjusted_slot_flags = ITEM_SLOT_HEAD
 	adjusted_flags_inv = HIDENAME|HIDEFACIALHAIR|HIDEHEADHAIR
-	dyeable = TRUE
 	can_toggle = TRUE
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
@@ -542,10 +541,17 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi'
 		)
 	actions_types = list(/datum/action/item_action/adjust)
+	dying_key = DYE_REGISTRY_BANDANA
 
 
 /obj/item/clothing/mask/bandana/attack_self(mob/user)
 	adjustmask(user)
+
+
+/obj/item/clothing/mask/bandana/adjustmask(mob/living/user)
+	. = ..()
+	if(.)
+		undyeable = up ? TRUE : initial(undyeable)
 
 
 /obj/item/clothing/mask/bandana/red

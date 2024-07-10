@@ -58,6 +58,7 @@
 		var/area/A = V
 		if(A.z in impacted_z_levels)
 			impacted_areas |= A
+		CHECK_TICK
 
 /datum/weather/proc/telegraph()
 	if(stage == STARTUP_STAGE)
