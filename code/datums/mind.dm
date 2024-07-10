@@ -2918,9 +2918,6 @@
 		SSticker.mode.equip_syndicate(current)
 
 
-/datum/mind/proc/make_Overmind()
-	special_role = SPECIAL_ROLE_BLOB_OVERMIND
-
 /datum/mind/proc/make_Wizard()
 	if(!(src in SSticker.mode.wizards))
 		SSticker.mode.wizards += src

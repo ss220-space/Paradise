@@ -192,6 +192,8 @@
 	var/client/blob_client = null
 	var/turf/location = null
 	var/mob/living/C = owner.current
+	if(!C || !istype(C))
+		return
 	if(!GLOB.directory[ckey(owner.key)] || C.was_bursted)
 		return
 	blob_client = GLOB.directory[ckey(owner.key)]

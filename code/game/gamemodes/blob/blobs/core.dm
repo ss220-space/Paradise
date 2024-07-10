@@ -126,8 +126,6 @@
 		overmind = B
 		B.select_reagent()
 		color = overmind.blob_reagent_datum.color
-		if(B.mind && !B.mind.special_role)
-			B.mind.make_Overmind()
 		B.is_offspring = is_offspring
 		addtimer(CALLBACK(src, PROC_REF(add_datum_if_not_exist)), TIME_TO_ADD_OM_DATUM)
 		log_game("[B.key] has become Blob [is_offspring ? "offspring" : ""]")
@@ -138,9 +136,7 @@
 /obj/structure/blob/core/proc/lateblobcheck()
 	if(overmind)
 		overmind.add_points(60)
-		if(overmind.mind)
-			overmind.mind.make_Overmind()
-		else
+		if(!overmind.mind)
 			log_debug("/obj/structure/blob/core/proc/lateblobcheck: Blob core lacks a overmind.mind.")
 	else
 		log_debug("/obj/structure/blob/core/proc/lateblobcheck: Blob core lacks an overmind.")
