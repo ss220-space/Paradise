@@ -44,7 +44,7 @@ GLOBAL_PROTECT(log_end)
 
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_DEBUG|R_VIEWRUNTIMES, 0, C.mob) && (C.prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS))
-			to_chat(C, "DEBUG: [text]")
+			to_chat(C, "<span class='debug'>DEBUG: [text]</span>", MESSAGE_TYPE_DEBUG, confidential = TRUE)
 
 /proc/log_game(text)
 	if(CONFIG_GET(flag/log_game))

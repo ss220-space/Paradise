@@ -353,7 +353,7 @@
 
 /mob/proc/run_examinate(atom/A)
 	var/list/result = A.examine(src)
-	to_chat(src, chat_box_examine(result.Join("\n")))
+	to_chat(src, chat_box_examine(result.Join("\n")), MESSAGE_TYPE_INFO, confidential = TRUE)
 
 
 /mob/verb/mode()
