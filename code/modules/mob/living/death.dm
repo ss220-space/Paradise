@@ -52,7 +52,7 @@
 
 	set_stat(DEAD)
 	..()
-	burst_blob_on_die()
+	INVOKE_ASYNC(src, PROC_REF(burst_blob_on_die))
 	timeofdeath = world.time
 	add_attack_logs(src, src, "died[gibbed ? " (Gibbed)": ""]")
 
