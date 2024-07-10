@@ -10,6 +10,9 @@
 	if(!check_rights(R_PERMISSIONS))
 		return
 
+	var/datum/asset/permissions_asset = get_asset_datum(/datum/asset/simple/permissions)
+	permissions_asset.send(usr)
+
 	var/output = {"<!DOCTYPE html>
 <html>
 <meta charset="UTF-8">

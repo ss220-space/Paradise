@@ -50,4 +50,4 @@
 
 
 /obj/effect/proc_holder/spell/morph_spell/pass_airlock/proc/pass_check(mob/living/simple_animal/hostile/morph/user, obj/machinery/door/airlock/airlock)
-	return user.morphed || airlock.locked
+	return !user.morphed && !airlock.locked

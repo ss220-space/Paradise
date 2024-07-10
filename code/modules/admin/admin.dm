@@ -201,7 +201,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			body += "<br>"
 
 			//Monkey
-			if(issmall(M))
+			if(is_monkeybasic(M))
 				body += "<B>Monkeyized</B> | "
 			else
 				body += "<A href='?_src_=holder;monkeyone=[M.UID()]'>Monkeyize</A> | "
@@ -240,19 +240,18 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			if(M.dna && iscarbon(M))
 				body += "<br><br>"
 				body += "<b>DNA Blocks:</b><br><table border='0'><tr><th>&nbsp;</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>"
-				var/bname
-				for(var/block=1;block<=DNA_SE_LENGTH;block++)
-					if(((block-1)%5)==0)
-						body += "</tr><tr><th>[block-1]</th>"
-					bname = GLOB.assigned_blocks[block]
+				for(var/block in 1 to DNA_SE_LENGTH)
+					if(!((block - 1) % 5))
+						body += "</tr><tr><th>[block - 1]</th>"
+
 					body += "<td>"
-					if(bname)
-						var/bstate=M.dna.GetSEState(block)
-						var/bcolor="[(bstate)?"#006600":"#ff0000"]"
-						body += "<A href='?_src_=holder;togmutate=[M.UID()];block=[block]' style='color:[bcolor];'>[bname]</A><sub>[block]</sub>"
+					var/gene_name = GLOB.assigned_blocks[block]
+					if(gene_name)
+						var/text_color = "[M.dna.GetSEState(block) ? "#006600" : "#ff0000"]"
+						body += "<A href='?_src_=holder;togmutate=[M.UID()];block=[block]' style='color:[text_color];'>[gene_name]</A><sub>[block]</sub>"
 					else
 						body += "[block]"
-					body+="</td>"
+					body += "</td>"
 				body += "</tr></table>"
 
 			body += {"<br><br>

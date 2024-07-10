@@ -127,6 +127,22 @@
 	embedded_ignore_throwspeed_threshold = TRUE
 	/// Can this item be attached as a bayonet to the gun?
 	var/bayonet_suitable = FALSE
+	/// Used in combination with throwing martial art, to avoid sharpening checks overhead
+	var/default_force
+	/// Same as above
+	var/default_throwforce
+
+
+/obj/item/kitchen/knife/Initialize(mapload)
+	. = ..()
+	default_force = force
+	default_throwforce = throwforce
+
+
+/obj/item/kitchen/knife/sharpen_act(obj/item/whetstone/whetstone, mob/user)
+	. = ..()
+	default_force = force
+	default_throwforce = throwforce
 
 
 /obj/item/kitchen/knife/suicide_act(mob/user)
@@ -143,20 +159,20 @@
 	var/datum/martial_art/throwing/MA = throwingdatum?.thrower?.mind?.martial_art
 	if(istype(MA) && is_type_in_list(src, MA.knife_types, FALSE))
 		embed_chance = MA.knife_embed_chance
-		throwforce = get_throwforce() + MA.knife_bonus_damage
+		throwforce = default_throwforce + MA.knife_bonus_damage
 		shields_penetration = initial(shields_penetration) + MA.shields_penetration_bonus
 	. = ..()
 
 /obj/item/kitchen/knife/after_throw(datum/callback/callback)
 	embed_chance = initial(embed_chance)
-	throwforce = get_throwforce()
+	throwforce = default_throwforce
 	shields_penetration = initial(shields_penetration)
 	. = ..()
 
 /obj/item/kitchen/knife/attack(mob/living/target, mob/living/user, def_zone)
 	var/datum/martial_art/throwing/MA = user?.mind?.martial_art
 	if(istype(MA) && is_type_in_list(src, MA.knife_types, FALSE))
-		force = get_force() + MA.knife_bonus_damage
+		force = default_force + MA.knife_bonus_damage
 		if(user.zone_selected == BODY_ZONE_HEAD && user.a_intent == INTENT_HARM)
 			if(MA.neck_cut(target, user))
 				return TRUE
@@ -165,11 +181,11 @@
 /obj/item/kitchen/knife/attack_obj(obj/O, mob/living/user, params)
 	var/datum/martial_art/throwing/MA = user?.mind?.martial_art
 	if(istype(MA) && is_type_in_list(src, MA.knife_types, FALSE))
-		force = get_force() + MA.knife_bonus_damage
+		force = default_force + MA.knife_bonus_damage
 	. = ..()
 
 /obj/item/kitchen/knife/afterattack(atom/target, mob/user, proximity, params)
-	force = get_force()
+	force = default_force
 	. = ..()
 
 //this ensures that an afterattack will always be called for knives

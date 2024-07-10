@@ -270,24 +270,30 @@
 	/// Whether or not the proximity checker is listening for things crossing it.
 	var/active
 
-/obj/effect/abstract/proximity_checker/Initialize(mapload, datum/component/proximity_monitor/P)
+
+/obj/effect/abstract/proximity_checker/Initialize(mapload, datum/component/proximity_monitor/monitor)
 	. = ..()
-	monitor = P
+	src.monitor = monitor
+	if(monitor)
+		var/static/list/loc_connections = list(
+			COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+		)
+		AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /obj/effect/abstract/proximity_checker/Destroy()
 	monitor.proximity_checkers -= src
 	monitor = null
 	return ..()
 
-/**
- * Called when something crossed over the proximity_checker. Notifies the `hasprox_receiver` it has proximity with something.
- *
- * Arguments:
- * * atom/movable/AM - the atom crossing the proximity checker
- * * oldloc - the location `AM` used to be at
- */
-/obj/effect/abstract/proximity_checker/Crossed(atom/movable/AM, oldloc)
-	set waitfor = FALSE
-	. = ..()
-	if(active && AM != monitor.hasprox_receiver && !(AM in monitor.nested_receiver_locs))
-		monitor.hasprox_receiver.HasProximity(AM)
+
+/obj/effect/abstract/proximity_checker/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	proximity_check(arrived)
+
+
+/obj/effect/abstract/proximity_checker/proc/proximity_check(atom/movable/arrived)
+	if(active && arrived != monitor.hasprox_receiver && !(arrived in monitor.nested_receiver_locs))
+		monitor.hasprox_receiver.HasProximity(arrived)
+

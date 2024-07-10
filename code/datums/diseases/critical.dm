@@ -145,7 +145,7 @@
 /datum/disease/critical/hypoglycemia/has_cure()
 	if(ishuman(affected_mob))
 		var/mob/living/carbon/human/H = affected_mob
-		if(NO_HUNGER in H.dna.species.species_traits)
+		if((NO_HUNGER in H.dna.species.species_traits) && !isvampire(H))
 			return TRUE
 		if(ismachineperson(H))
 			return TRUE

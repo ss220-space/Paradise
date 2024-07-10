@@ -102,6 +102,7 @@ Class Procs:
 	max_integrity = 200
 	layer = BELOW_OBJ_LAYER
 	pass_flags_self = PASSMACHINE|LETPASSCLICKS
+	pull_push_slowdown = 1.3
 	var/stat = 0
 	var/emagged = 0
 	var/use_power = IDLE_POWER_USE
@@ -256,7 +257,7 @@ Class Procs:
 
 /obj/machinery/ui_status(mob/user, datum/ui_state/state)
 	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
-		return STATUS_CLOSE
+		return UI_CLOSE
 
 	return ..()
 

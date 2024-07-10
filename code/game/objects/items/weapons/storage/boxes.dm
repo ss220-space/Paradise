@@ -997,6 +997,15 @@
 	for(var/I in 1 to 3)
 		new /obj/item/wizard_armour_charge(src)
 
+/obj/item/storage/box/wizard/kit_spell_book
+	name = "набор волшебных книг"
+	desc = "Набор волшебных книг, купленных в волшебной книге, для волшебников, чтобы делать волшебство! ЗВУЧИТ ПРОСТО ВОЛШЕБНО!"
+	icon_state = "box_wizard"
+
+/obj/item/storage/box/wizard/kit_spell_book/populate_contents()
+		for(var/i = 1 to 4)
+				new /obj/item/spellbook/oneuse/random(src)
+
 /obj/item/storage/box/candythief
 	name = "набор радужных конфет"
 	desc = "Набор для самых маленьких и не уверенных в себе работников, обожающих простые пути, смешивая всевозможные в один. Поставляется с сосательной конфетой. Удобный набор если нужно где-то засесть и не выходить. Производитель не отвечает за возникающие акне и галлюцинации от вашего времяпровождения."
@@ -1148,6 +1157,19 @@
 	new /obj/item/clothing/suit/mr_chang_coat(src)
 	new /obj/item/clothing/shoes/mr_chang_sandals(src)
 	new /obj/item/clothing/head/mr_chang_band(src)
+
+
+/*
+ *  Plant DNA Disks Box
+ */
+/obj/item/storage/box/disks_plantgene
+	name = "plant data disks box"
+	icon_state = "disk_kit"
+
+/obj/item/storage/box/disks_plantgene/New()
+	..()
+	for(var/i in 1 to 7)
+		new /obj/item/disk/plantgene(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

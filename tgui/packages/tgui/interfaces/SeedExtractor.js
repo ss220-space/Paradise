@@ -1,296 +1,249 @@
-import { createSearch } from 'common/string';
-import { Fragment } from 'inferno';
+import { createSearch, decodeHtmlEntities } from 'common/string';
+import { classes } from '../../common/react';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Section, Button, NumberInput, Input, Divider, Flex, NoticeBox, Icon } from '../components';
+import {
+  Box,
+  Button,
+  Icon,
+  Input,
+  LabeledList,
+  Section,
+  Stack,
+  Tabs,
+  Table,
+} from '../components';
 import { Window } from '../layouts';
+import { ComplexModal, modalOpen } from './common/ComplexModal';
 
-const localeStrings ={
-  'title': 'Seeds',
-
-  'plantName': 'Plant',
-  'lifespan': 'Lifespan',
-  'endurance': 'Endurance',
-  'maturation': 'Maturation',
-  'production': 'Production',
-  'yield': 'Yield',
-  'potency': 'Potency',
-
-  'searchTooltip': 'Search..',
-  'sortByTooltip': 'Sort by',
-
-  'dispOneTooltip': 'Dispense one',
-  'dispAllTooltip': 'Dispense all',
-
-  'inStock': 'in stock',
-
-  'noContents': 'No seeds loaded.',
-  'emptySearchResult': 'No items matching your criteria was found!',
-};
-
-const sortTypes = {
-  'plantName': (a, b) => (a.display_name!==b.display_name ? (a.display_name>b.display_name? 1 : -1) : 0),
-  'lifespan': (a, b) => a.life - b.life,
-  'endurance': (a, b) => a.endr - b.endr,
-  'maturation': (a, b) => a.matr - b.matr,
-  'production': (a, b) => a.prod - b.prod,
-  'yield': (a, b) => a.yld - b.yld,
-  'potency': (a, b) => a.potn - b.potn,
-};
-
-export const SeedExtractor = (props, context) => {
+export const SeedExtractor = (properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    total,
-    capacity,
-    contents,
-  } = data;
+  const { loginState, currentPage } = data;
 
   return (
-    <Window>
-      <Window.Content className="Layout__content--flexColumn">
-        <Section title={localeStrings["title"]} buttons={(<SeedVaultSearch />)} m={0} p={0}>
-          <SeedVaultHeader seedsTotal={total} seedsCapacity={capacity} />
-        </Section>
-        {!contents
-          ? <NoticeBox m={0}> {localeStrings["noContents"]} </NoticeBox>
-          : <div class="Divider Divider__noMargin" />}
-        <Section flexGrow={1} stretchContents mt={0}>
-          {!!contents && (<SeedVaultContents />)}
-        </Section>
+    <Window theme="hydroponics" width={800} height={400}>
+      <ComplexModal />
+      <Window.Content>
+        <Stack fill vertical>
+          <Stack.Item>
+            <SeedExtractorActions />
+          </Stack.Item>
+          <SeedList />
+        </Stack>
       </Window.Content>
     </Window>
   );
 };
 
-const SeedVaultHeaderField = (props, context) => {
-  const {
-    name,
-    alpha,
-  } = props;
-
-  const [
-    _sortOrder,
-    setSortOrder,
-  ] = useLocalState(context, 'sort', { "field": "plantName", "desc": false });
-
-  return (
-    <Button fluid iconRight
-      icon={_sortOrder.field!==name ? "" : (_sortOrder.desc ? (!alpha ? "sort-amount-down" : "sort-alpha-down") : (!alpha ? "sort-amount-up" : "sort-alpha-up"))}
-      color="transparent"
-      textColor="white"
-      content={localeStrings[name]}
-      tooltip={localeStrings["sortByTooltip"]+" "+name.toLowerCase()}
-      tooltipPosition="bottom"
-      onClick={() => { (_sortOrder.field!==props.name ? setSortOrder({ "field": name, "desc": false }) : setSortOrder({ "field": name, "desc": !_sortOrder.desc })); }}
-    />
-  );
-};
-
-const SeedVaultSearch = (props, context) => {
-  const [
-    _searchText,
-    setSearchText,
-  ] = useLocalState(context, 'search', '');
-  return (
-    <Box mb="0.5rem" width="50vw" style={{ display: 'block' }}>
-      <Flex width="100%">
-        <Flex.Item mx={1} align="center"><Icon name="filter" /></Flex.Item>
-        <Flex.Item grow="1" mr="0.5rem">
-          <Input
-            placeholder={localeStrings["searchTooltip"]}
-            width="100%"
-            onInput={(_e, value) => setSearchText(value)}
-          />
-        </Flex.Item>
-      </Flex>
-    </Box>
-  );
-};
-
-const SeedVaultHeader = (props, context) => {
-  const {
-    seedsTotal,
-    seedsCapacity,
-  } = props;
-
-  return (
-    <Flex direction="row" textAlign="center" bold align="baseline" mt={0}>
-      <Flex.Item basis={"15vw"}>
-        <SeedVaultHeaderField name="plantName" alpha />
-      </Flex.Item>
-      <Flex.Item basis={"65vw"}>
-        <Flex direction="row">
-          <Flex.Item basis={0} grow={1} shrink={1}>
-            <SeedVaultHeaderField name="lifespan" />
-          </Flex.Item>
-          <Flex.Item basis={0} grow={1} shrink={1}>
-            <SeedVaultHeaderField name="endurance" />
-          </Flex.Item>
-          <Flex.Item basis={0} grow={1} shrink={1}>
-            <SeedVaultHeaderField name="maturation" />
-          </Flex.Item>
-          <Flex.Item basis={0} grow={1} shrink={1}>
-            <SeedVaultHeaderField name="production" />
-          </Flex.Item>
-          <Flex.Item basis={0} grow={1} shrink={1}>
-            <SeedVaultHeaderField name="yield" />
-          </Flex.Item>
-          <Flex.Item basis={0} grow={1} shrink={1}>
-            <SeedVaultHeaderField name="potency" />
-          </Flex.Item>
-        </Flex>
-      </Flex.Item>
-      <Flex.Item basis={0} grow={1} shrink={1} color="average">
-        {seedsTotal}/{seedsCapacity}
-      </Flex.Item>
-    </Flex>
-  );
-};
-
-const SeedVaultContents = (props, context) => {
-  const { act, data } = useBackend(context);
-  const {
-    contents,
-  } = data;
-
-  const [
-    searchText,
-    _setSearchText,
-  ] = useLocalState(context, 'search', '');
-
-  const [
-    sortOrder,
-    _setSortOrder,
-  ] = useLocalState(context, 'sort', { "field": "plantName", "desc": false });
-
-  const nameSearch = createSearch(searchText, pile => pile.display_name + pile.strain_text);
-
-  let piles = contents.filter(nameSearch).sort(sortTypes[sortOrder.field]);
-
-  if (sortOrder.desc) {
-    piles = piles.reverse();
+const seedFilter = (searchText) => {
+  const eq = (actual, test) => actual === test;
+  const ge = (actual, test) => actual >= test;
+  const le = (actual, test) => actual <= test;
+  let terms = searchText.split(' ');
+  let filters = [];
+  for (let term of terms) {
+    let parts = term.split(':');
+    if (parts.length === 0) {
+      continue;
+    }
+    if (parts.length === 1) {
+      filters.push((seed) =>
+        (seed.name + ' (' + seed.variant + ')')
+          .toLocaleLowerCase()
+          .includes(parts[0].toLocaleLowerCase())
+      );
+      continue;
+    }
+    if (parts.length > 2) {
+      return (seed) => false;
+    }
+    let searchVal;
+    let cmp = eq;
+    if (parts[1][parts[1].length - 1] === '-') {
+      cmp = le;
+      searchVal = Number(parts[1].substring(0, parts[1].length - 1));
+    } else if (parts[1][parts[1].length - 1] === '+') {
+      cmp = ge;
+      searchVal = Number(parts[1].substring(0, parts[1].length - 1));
+    } else {
+      searchVal = Number(parts[1]);
+    }
+    if (isNaN(searchVal)) {
+      return (seed) => false;
+    }
+    switch (parts[0].toLocaleLowerCase()) {
+      case 'l':
+      case 'life':
+      case 'lifespan':
+        filters.push((seed) => cmp(seed.lifespan, searchVal));
+        break;
+      case 'e':
+      case 'end':
+      case 'endurance':
+        filters.push((seed) => cmp(seed.endurance, searchVal));
+        break;
+      case 'm':
+      case 'mat':
+      case 'maturation':
+        filters.push((seed) => cmp(seed.maturation, searchVal));
+        break;
+      case 'pr':
+      case 'prod':
+      case 'production':
+        filters.push((seed) => cmp(seed.production, searchVal));
+        break;
+      case 'y':
+      case 'yield':
+        filters.push((seed) => cmp(seed.yield, searchVal));
+        break;
+      case 'po':
+      case 'pot':
+      case 'potency':
+        filters.push((seed) => cmp(seed.potency, searchVal));
+        break;
+      case 's':
+      case 'stock':
+      case 'c':
+      case 'count':
+      case 'a':
+      case 'amount':
+        filters.push((seed) => cmp(seed.amount, searchVal));
+        break;
+      default:
+        return (seed) => false;
+    }
   }
-
-  let no_results = (piles.length === 0);
-
-  return (
-    <Flex.Item grow={1} >
-      {!!no_results && (
-        <Box color="average"> {localeStrings["emptySearchResult"]} </Box>
-      )}
-      {!no_results && (
-        <Box className="SeedExtractor__Contents">
-          {piles.map(item => (
-            <SeedVaultContentsRow
-              key={item.vend}
-              displayName={item.display_name}
-              descriptionText={item.strain_text}
-              lifespanVal={item.life}
-              enduranceVal={item.endr}
-              maturationVal={item.life}
-              productionVal={item.prod}
-              yieldVal={item.yld}
-              potencyVal={item.potn}
-              vendIdx={item.vend}
-              pileStock={item.quantity} />
-          ))}
-        </Box>
-      )}
-    </Flex.Item>
-  );
-
+  return (seed) => {
+    for (let filter of filters) {
+      if (!filter(seed)) {
+        return false;
+      }
+    }
+    return true;
+  };
 };
 
-const SeedVaultContentsRow = (props, context) => {
+const SeedList = (properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    key,
-    displayName,
-    descriptionText,
-    lifespanVal,
-    enduranceVal,
-    maturationVal,
-    productionVal,
-    yieldVal,
-    potencyVal,
-    vendIdx,
-    pileStock,
-  } = props;
+  const { icons, seeds, vend_amount } = data;
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [vendAmount, setVendAmount] = useLocalState(context, 'vendAmount', 1);
+  const [sortId, _setSortId] = useLocalState(context, 'sortId', 'name');
+  const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', true);
   return (
-    <Fragment>
-      <Flex direction="row" textAlign="center" className="SeedExtractor__contents--row">
-        <Flex.Item basis={"15vw"} textAlign="left" bold>
-          <Box m={1}>
-            {displayName}
-          </Box>
-        </Flex.Item>
-        <Flex.Item basis={"65vw"} py={1}>
-          <table style={{ "width": "100%", "border": "0" }}>
-            <tr>
-              <td>
-                <Flex direction="row" textAlign="center">
-                  <Flex.Item basis={0} grow={1} shrink={1}>
-                    {lifespanVal}
-                  </Flex.Item>
-                  <Flex.Item basis={0} grow={1} shrink={1}>
-                    {enduranceVal}
-                  </Flex.Item>
-                  <Flex.Item basis={0} grow={1} shrink={1}>
-                    {maturationVal}
-                  </Flex.Item>
-                  <Flex.Item basis={0} grow={1} shrink={1}>
-                    {productionVal}
-                  </Flex.Item>
-                  <Flex.Item basis={0} grow={1} shrink={1}>
-                    {yieldVal}
-                  </Flex.Item>
-                  <Flex.Item basis={0} grow={1} shrink={1}>
-                    {potencyVal}
-                  </Flex.Item>
-                </Flex>
-              </td>
-            </tr>
-            <tr>
-              <td style={{ "font-size": "90%", "padding-top": "0.5em" }} >
-                {descriptionText}
-              </td>
-            </tr>
-          </table>
-        </Flex.Item>
-        <Flex.Item basis={0} grow={1} shrink={1} py={1}>
-          <Flex direction="column">
-            <Flex.Item color="good">
-              {pileStock} {localeStrings["inStock"]}
-            </Flex.Item>
-            <Flex.Item minHeight="25px" pt={1}>
-              <Button
-                icon="arrow-down"
-                content="1"
-                tooltip="Dispense one"
-                tooltipPosition="bottom-left"
-                onClick={() => act('vend',
-                  { index: vendIdx, amount: 1 })} />
-              <NumberInput
-                width="40px"
-                minValue={0}
-                value={0}
-                maxValue={pileStock}
-                step={1}
-                stepPixelSize={3}
-                onChange={(e, value) => act('vend',
-                  { index: vendIdx, amount: value })} />
-              <Button
-                icon="arrow-down"
-                content="All"
-                tooltip="Dispense all"
-                tooltipPosition="bottom-left"
-                onClick={() => act('vend',
-                  { index: vendIdx, amount: pileStock })} />
-            </Flex.Item>
-          </Flex>
-        </Flex.Item>
-      </Flex>
-      <Divider />
-    </Fragment>
+    <Stack.Item grow mt={0.5}>
+      <Section fill scrollable>
+        <Table className="SeedExtractor__list">
+          <Table.Row bold>
+            <SortButton id="name">Name</SortButton>
+            <SortButton id="lifespan">Lifespan</SortButton>
+            <SortButton id="endurance">Endurance</SortButton>
+            <SortButton id="maturation">Maturation</SortButton>
+            <SortButton id="production">Production</SortButton>
+            <SortButton id="yield">Yield</SortButton>
+            <SortButton id="potency">Potency</SortButton>
+            <SortButton id="amount">Stock</SortButton>
+          </Table.Row>
+          {!seeds
+            ? 'No seeds present.'
+            : seeds
+                .filter(seedFilter(searchText))
+                .sort((a, b) => {
+                  const i = sortOrder ? 1 : -1;
+                  if (typeof a[sortId] === 'number') {
+                    return (a[sortId] - b[sortId]) * i;
+                  }
+                  return a[sortId].localeCompare(b[sortId]) * i;
+                })
+                .map((seed) => (
+                  <Table.Row
+                    key={seed.id}
+                    onClick={() =>
+                      act('vend', {
+                        seed_id: seed.id,
+                        seed_variant: seed.variant,
+                        vend_amount: vendAmount,
+                      })
+                    }
+                  >
+                    <Table.Cell>
+                      <img
+                        className={classes(['seeds32x32', seed.image])}
+                        style={{
+                          'vertical-align': 'middle',
+                          width: '32px',
+                          margin: '0px',
+                          'margin-left': '0px',
+                        }}
+                      />
+                      {seed.name}
+                    </Table.Cell>
+                    <Table.Cell>{seed.lifespan}</Table.Cell>
+                    <Table.Cell>{seed.endurance}</Table.Cell>
+                    <Table.Cell>{seed.maturation}</Table.Cell>
+                    <Table.Cell>{seed.production}</Table.Cell>
+                    <Table.Cell>{seed.yield}</Table.Cell>
+                    <Table.Cell>{seed.potency}</Table.Cell>
+                    <Table.Cell>{seed.amount}</Table.Cell>
+                  </Table.Row>
+                ))}
+        </Table>
+      </Section>
+    </Stack.Item>
+  );
+};
+
+const SortButton = (properties, context) => {
+  const [sortId, setSortId] = useLocalState(context, 'sortId', 'name');
+  const [sortOrder, setSortOrder] = useLocalState(context, 'sortOrder', true);
+  const { id, children } = properties;
+  return (
+    <Stack.Item grow>
+      <Table.Cell>
+        <Button
+          color={sortId !== id && 'transparent'}
+          fluid
+          onClick={() => {
+            if (sortId === id) {
+              setSortOrder(!sortOrder);
+            } else {
+              setSortId(id);
+              setSortOrder(true);
+            }
+          }}
+        >
+          {children}
+          {sortId === id && (
+            <Icon name={sortOrder ? 'sort-up' : 'sort-down'} ml="0.25rem;" />
+          )}
+        </Button>
+      </Table.Cell>
+    </Stack.Item>
+  );
+};
+
+const SeedExtractorActions = (properties, context) => {
+  const { act, data } = useBackend(context);
+  const { vend_amount } = data;
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [vendAmount, setVendAmount] = useLocalState(context, 'vendAmount', 1);
+  return (
+    <Stack fill>
+      <Stack.Item grow>
+        <Input
+          placeholder="Search by name, variant, potency:70+, production:3-, ..."
+          fluid
+          onInput={(e, value) => setSearchText(value)}
+        />
+      </Stack.Item>
+      <Stack.Item>
+        Vend amount:
+        <Input
+          placeholder="1"
+          onInput={(e, value) =>
+            setVendAmount(Number(value) >= 1 ? Number(value) : 1)
+          }
+        />
+      </Stack.Item>
+    </Stack>
   );
 };

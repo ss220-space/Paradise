@@ -89,7 +89,7 @@
 	var/list/embedded_objects
 
 	/// Whether bodypart has an open incision from surgery
-	var/open = 0
+	var/open = ORGAN_CLOSED
 	/// Whether bodypart needs to be opened with a saw to access the internal organs. Can be a string with encasing description
 	var/encased = FALSE
 	/// Reference to item hidden in this bodypart after cavity surgery
@@ -105,14 +105,14 @@
 	light_on = FALSE
 
 
-/obj/item/organ/external/New(mob/living/carbon/holder)
+/obj/item/organ/external/New(mob/living/carbon/holder, special = ORGAN_MANIPULATION_NOEFFECT)
 	..()
 
 	if(dna?.species)
 		icobase = dna.species.icobase
 		deform = dna.species.deform
 	if(ishuman(holder))
-		replaced(holder, ORGAN_MANIPULATION_NOEFFECT)
+		replaced(holder, special)
 		sync_colour_to_human(holder)
 		properly_attached = TRUE
 
@@ -276,7 +276,7 @@
 			brute -= internal_damage
 
 	if(!silent && brute && has_fracture() && owner?.has_pain() && prob(40))
-		owner.emote("scream")	// Getting hit on broken hand hurts
+		INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")	// Getting hit on broken hand hurts
 	else if(brute && prob((brute + burn) * 4))
 		remove_splint(splint_break = TRUE, silent = silent)	// Taking damage to splinted limbs removes the splints
 
@@ -714,7 +714,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(I.sharp)
 		add_fingerprint(user)
 		if(!length(contents))
-			to_chat(user, span_warning("There is nothing left inside [src]!"))
+			user.balloon_alert(user, "внутри ничего нет!")
 			return
 
 		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
@@ -870,7 +870,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		playsound(owner, "bonebreak", 150, TRUE)
 
 		if(owner.has_pain())
-			owner.emote("scream")
+			INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 
 	status |= ORGAN_BROKEN
 	broken_description = pick("broken", "fracture", "hairline fracture")
@@ -929,7 +929,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if(splint_break)
 			owner.Stun(4 SECONDS)
 			if(owner.has_pain() && !silent)
-				owner.emote("scream")
+				INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 				owner.visible_message(
 					span_danger("[owner] screams in pain as [owner.p_their()] splint pops off their [name]!"),
 					span_userdanger("You scream in pain as your splint pops off your [name]!"),

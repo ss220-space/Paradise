@@ -370,6 +370,12 @@
 	else
 		ore_type = NOTHING
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
 /obj/machinery/bfl_receiver/Destroy()
 	qdel(receiver_light)
 	return ..()
@@ -392,11 +398,14 @@
 	update_icon(UPDATE_ICON_STATE)
 	T.ChangeTurf(turf_under.type)
 
-/obj/machinery/bfl_receiver/Crossed(atom/movable/AM, oldloc)
-	. = ..()
-	if(istype(AM, /obj/machinery/bfl_lens))
-		var/obj/machinery/bfl_lens/bfl_lens = AM
+
+/obj/machinery/bfl_receiver/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(istype(arrived, /obj/machinery/bfl_lens))
+		var/obj/machinery/bfl_lens/bfl_lens = arrived
 		bfl_lens.step_count = 0
+
 
 #undef PLASMA
 #undef SAND
@@ -495,7 +504,7 @@
 	return ..()
 
 
-/obj/machinery/bfl_lens/Move(atom/newloc, direction, movetime)
+/obj/machinery/bfl_lens/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(!.)
 		return
@@ -581,8 +590,9 @@
 	STOP_PROCESSING(SSprocessing, src)
 	qdel(src)
 
-/obj/effect/bfl_laser/Entered(atom/movable/AM)
-	burn_stuff(AM)
+/obj/effect/bfl_laser/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	burn_stuff(arrived)
 
 /obj/effect/bfl_laser/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	burn_stuff(AM)

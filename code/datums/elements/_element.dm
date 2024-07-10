@@ -41,7 +41,13 @@
 
 /// Finds the singleton for the element type given and attaches it to src
 /datum/proc/_AddElement(list/arguments)
+	if(QDELING(src))
+		var/datum/element/element_type = arguments[1]
+		stack_trace("We just tried to add the element [element_type] to a qdeleted datum, something is fucked")
+		return
 	var/datum/element/ele = SSdcs.GetElement(arguments)
+	if(!ele) // We couldn't fetch the element, likely because it was not an element.
+		return // the crash message has already been sent
 	arguments[1] = src
 	if(ele.Attach(arglist(arguments)) == ELEMENT_INCOMPATIBLE)
 		CRASH("Incompatible [arguments[1]] assigned to a [type]! args: [json_encode(args)]")
@@ -51,5 +57,7 @@
   * You only need additional arguments beyond the type if you're using [ELEMENT_BESPOKE]
   */
 /datum/proc/_RemoveElement(list/arguments)
-	var/datum/element/ele = SSdcs.GetElement(arguments)
+	var/datum/element/ele = SSdcs.GetElement(arguments, init_element = FALSE)
+	if(!ele) // We couldn't fetch the element, likely because it didn't exist.
+		return
 	ele.Detach(src)

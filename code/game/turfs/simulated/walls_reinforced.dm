@@ -2,8 +2,9 @@
 	name = "reinforced wall"
 	desc = "A huge chunk of reinforced metal used to separate rooms."
 	icon = 'icons/turf/walls/reinforced_wall.dmi'
-	icon_state = "r_wall"
-	opacity = 1
+	icon_state = "r_wall-0"
+	base_icon_state = "r_wall"
+	opacity = TRUE
 	density = TRUE
 	explosion_block = 2
 	explosion_vertical_block = 1
@@ -14,7 +15,9 @@
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/reinforced
 	can_dismantle_with_welder = FALSE
-
+	smooth = SMOOTH_BITMASK
+	smoothing_groups = SMOOTH_GROUP_WALLS
+	canSmoothWith = SMOOTH_GROUP_WALLS
 	var/d_state = RWALL_INTACT
 	var/can_be_reinforced = 1
 
@@ -237,11 +240,11 @@
 /turf/simulated/wall/r_wall/update_icon_state()
 	if(d_state)
 		icon_state = "r_wall-[d_state]"
-		smooth = SMOOTH_FALSE
+		smooth = NONE
 		clear_smooth_overlays()
 	else
-		smooth = SMOOTH_TRUE
-		icon_state = ""
+		smooth = SMOOTH_BITMASK
+		queue_smooth(src)
 
 
 /turf/simulated/wall/r_wall/devastate_wall()

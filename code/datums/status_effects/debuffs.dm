@@ -729,28 +729,35 @@
 		dreamer.emote("snore")
 
 
+#define DEFAULT_SLOWED_DELAY 10
+
 //SLOWED - slows down the victim for a duration and a given slowdown value.
 /datum/status_effect/incapacitating/slowed
 	id = "slowed"
-	var/slowdown_value = 10 // defaults to this value if none is specified
-
-/datum/status_effect/incapacitating/slowed/on_creation(mob/living/new_owner, set_duration, slowdown_value)
-	. = ..()
-	set_slowdown_value(slowdown_value)
-
-/datum/status_effect/incapacitating/slowed/proc/set_slowdown_value(slowdown_value)
-	if(isnum(slowdown_value))
-		src.slowdown_value = slowdown_value
+	/// Current multiplicative slowdown
+	var/slowdown_value
 
 
 /datum/status_effect/incapacitating/slowed/on_apply()
 	. = ..()
-	owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/status_effect/slowed, multiplicative_slowdown = slowdown_value)
+	set_slowdown_value(DEFAULT_SLOWED_DELAY)
 
 
 /datum/status_effect/incapacitating/slowed/on_remove()
 	. = ..()
-	owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/slowed)
+	set_slowdown_value(0)
+
+
+/datum/status_effect/incapacitating/slowed/proc/set_slowdown_value(new_slowdown_value = DEFAULT_SLOWED_DELAY)
+	if(!isnum(new_slowdown_value) || slowdown_value == new_slowdown_value)
+		return
+	slowdown_value = new_slowdown_value
+	if(slowdown_value != 0)
+		owner.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/status_effect/slowed, multiplicative_slowdown = slowdown_value)
+	else
+		owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/slowed)
+
+#undef DEFAULT_SLOWED_DELAY
 
 
 /datum/status_effect/transient/silence
@@ -917,8 +924,10 @@
 /datum/status_effect/transient/blindness
 	id = "blindness"
 
-/datum/status_effect/transient/blindness/on_apply()
+/datum/status_effect/transient/blindness/on_creation()
 	. = ..()
+	if(!.)
+		return
 	owner.update_blind_effects()
 
 /datum/status_effect/transient/blindness/on_remove()
@@ -943,8 +952,10 @@
 /datum/status_effect/transient/drugged
 	id = "drugged"
 
-/datum/status_effect/transient/drugged/on_apply()
+/datum/status_effect/transient/drugged/on_creation()
 	. = ..()
+	if(!.)
+		return
 	owner.update_druggy_effects()
 
 /datum/status_effect/transient/drugged/on_remove()
@@ -983,8 +994,10 @@
 			carbon.AdjustEyeBlurry(9 SECONDS)
 	carbon.update_disgust_alert()
 
-/datum/status_effect/transient/disgust/on_apply()
+/datum/status_effect/transient/disgust/on_creation()
 	. = ..()
+	if(!.)
+		return
 	owner.update_disgust_alert()
 
 /datum/status_effect/transient/disgust/on_remove()

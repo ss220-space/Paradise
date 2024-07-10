@@ -369,6 +369,8 @@ SUBSYSTEM_DEF(ticker)
 
 	// Do this 10 second after roundstart because of roundstart lag, and make it more visible
 	addtimer(CALLBACK(src, PROC_REF(handle_antagfishing_reporting)), 10 SECONDS)
+	// We delay gliding adjustment with time dilation to stop stuttering on the round start
+	addtimer(VARSET_CALLBACK(SStime_track, update_gliding, TRUE), 1 MINUTES)
 	return TRUE
 
 

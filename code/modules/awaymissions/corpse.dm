@@ -171,8 +171,10 @@
 		var/datum/disease/D = new disease
 		D.Contract(M)
 	M.adjustOxyLoss(oxy_damage)
-	M.adjustBruteLoss(brute_damage)
-	M.adjustFireLoss(burn_damage)
+	if(brute_damage)
+		M.apply_damage(brute_damage, BRUTE)
+	if(burn_damage)
+		M.apply_damage(burn_damage, BURN)
 	if(death)
 		M.death() //Kills the new mob
 	M.color = mob_color
@@ -399,7 +401,7 @@
 	if(!(NO_DNA in H.dna.species.species_traits))
 		H.dna.blood_type = pick("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-") //Чтобы им всем подряд не требовалась кровь одного типа
 		var/datum/dna/D = H.dna
-		if(!D.species.is_small)
+		if(!D.species.is_monkeybasic)
 			H.change_dna(D, TRUE, TRUE)
 
 //Instant version - use when spawning corpses during runtime

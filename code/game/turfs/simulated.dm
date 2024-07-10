@@ -36,16 +36,16 @@
 /turf/simulated/proc/MakeDry(wet_setting = TURF_WET_WATER, immediate = FALSE, amount = INFINITY)
 	SEND_SIGNAL(src, COMSIG_TURF_MAKE_DRY, wet_setting, immediate, amount)
 
-/turf/simulated/Entered(atom/A, atom/OL, ignoreRest = 0)
-	..()
-	var/mob/living/simple_animal/Hulk = A
-	if(istype(A, /mob/living/simple_animal/hulk))
+/turf/simulated/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	var/mob/living/simple_animal/Hulk = arrived
+	if(istype(arrived, /mob/living/simple_animal/hulk))
 		if(Hulk.body_position != LYING_DOWN)
 			playsound(src,'sound/effects/hulk_step.ogg', CHANNEL_BUZZ)
-		if(istype(A, /mob/living/simple_animal/hulk/clown_hulk))
+		if(istype(arrived, /mob/living/simple_animal/hulk/clown_hulk))
 			if(Hulk.body_position != LYING_DOWN)
 				playsound(src, "clownstep", CHANNEL_BUZZ)
-	if(istype(A, /mob/living/simple_animal/hostile/shitcur_goblin))
+	if(istype(arrived, /mob/living/simple_animal/hostile/shitcur_goblin))
 		playsound(src, "clownstep", CHANNEL_BUZZ)
 
 
@@ -139,12 +139,10 @@
 /turf/simulated/handle_slip(mob/living/carbon/slipper, weaken_amount, obj/slippable, lube_flags, tilesSlipped)
 	if(slipper.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 		return FALSE
-	if(!slipper.has_gravity())
+	if(!slipper.has_gravity(src))
 		return FALSE
 
-	var/slide_distance = tilesSlipped
-	if(lube_flags & SLIDE)
-		slide_distance = 4
+	var/slide_distance = isnull(tilesSlipped) ? 4 : tilesSlipped
 	if(lube_flags & SLIDE_ICE)
 		// Ice slides only go 1 tile, this is so you will slip across ice until you reach a non-slip tile
 		slide_distance = 1
@@ -154,29 +152,16 @@
 
 	var/obj/buckled_obj
 	if(slipper.buckled)
-		if(!(lube_flags & SLIP_IGNORE_NO_SLIP_WATER)) //can't slip while buckled unless it's lube.
+		//can't slip while buckled unless it's lube.
+		if(!(lube_flags & SLIP_IGNORE_NO_SLIP_WATER))
 			return FALSE
 		buckled_obj = slipper.buckled
 	else
-		if(!(lube_flags & SLIP_WHEN_LYING) && (slipper.body_position == LYING_DOWN || !(slipper.status_flags & CANKNOCKDOWN))) // can't slip unbuckled mob if they're lying or can't fall.
+		// can't slip unbuckled mob if they're lying or can't fall.
+		if(!(lube_flags & SLIP_WHEN_LYING) && (slipper.body_position == LYING_DOWN || !(slipper.status_flags & CANKNOCKDOWN)))
 			return FALSE
 		if(slipper.m_intent == MOVE_INTENT_WALK && (lube_flags & NO_SLIP_WHEN_WALKING))
 			return FALSE
-
-	if(buckled_obj)
-		buckled_obj.unbuckle_mob(slipper)
-		// This is added onto the end so they slip "out of their chair" (one tile)
-		lube_flags |= SLIDE_ICE
-		slide_distance = 1
-
-	if(slide_distance)
-		slipper.slide_distance = slide_distance
-		for(var/i in 1 to slide_distance)
-			spawn(i)
-				if(slipper.slide_distance < 0)
-					return
-				slipper.slide_distance--
-				step(slipper, slipper.dir)
 
 	if(!(lube_flags & SLIDE_ICE))
 		// Ice slides are intended to be combo'd so don't give the feedback
@@ -185,12 +170,29 @@
 
 	SEND_SIGNAL(slipper, COMSIG_ON_CARBON_SLIP)
 
-	slipper.moving_diagonally = NONE //If this was part of diagonal move slipping will stop it.
+	var/old_dir = slipper.dir
+	// If this was part of diagonal move slipping will stop it.
+	slipper.moving_diagonally = NONE
 	if(lube_flags & SLIDE_ICE)
-		// They need to be kept upright to maintain the combo effect (So don't knockdown)
+		// They need to be kept upright to maintain the combo effect (So don't weaken)
 		slipper.Immobilize(1 SECONDS)
 	else
 		slipper.stop_pulling()
 		slipper.Weaken(weaken_amount)
 
+	if(buckled_obj)
+		buckled_obj.unbuckle_mob(slipper)
+		// This is added onto the end so they slip "out of their chair" (one tile)
+		lube_flags |= SLIDE_ICE
+		slide_distance = 1
+
+	if(slide_distance)
+		var/turf/target = get_ranged_target_turf(slipper, old_dir, slide_distance)
+		if(lube_flags & SLIDE)
+			slipper.AddComponent(/datum/component/force_move, target, TRUE)
+		else if(lube_flags & SLIDE_ICE)
+			// spinning would be bad for ice, fucks up the next dir
+			slipper.AddComponent(/datum/component/force_move, target, FALSE)
+
 	return TRUE
+

@@ -825,7 +825,7 @@
 	},
 /area/security/permabrig)
 "ahR" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random_spawners/grille_50,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/asmaint5)
 "ahW" = (
@@ -2462,7 +2462,7 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "avS" = (
@@ -3938,7 +3938,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-8"
 	},
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random_spawners/grille_50,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -4278,7 +4278,7 @@
 /turf/simulated/floor/plating,
 /area/security/warden)
 "aKI" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/spawner/random_spawners/wall_rusted_30,
 /turf/simulated/wall,
 /area/maintenance/engineering)
 "aKJ" = (
@@ -5384,7 +5384,7 @@
 	},
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/head/kitty,
-/obj/item/clothing/suit/browntrenchcoat,
+/obj/item/clothing/suit/storage/browntrenchcoat,
 /obj/item/clothing/under/maid,
 /turf/simulated/floor/wood,
 /area/crew_quarters/cabin4)
@@ -6523,7 +6523,7 @@
 /area/storage/tech)
 "baS" = (
 /turf/simulated/wall/r_wall,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "baV" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plating{
@@ -6699,7 +6699,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bcd" = (
 /obj/machinery/status_display{
 	layer = 4
@@ -6837,7 +6837,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bcN" = (
 /turf/simulated/floor/carpet,
 /area/medical/psych)
@@ -6956,14 +6956,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bdA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bdB" = (
 /obj/structure/rack,
 /obj/structure/window/reinforced{
@@ -6973,7 +6973,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bdC" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -7064,7 +7064,7 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bet" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -7083,7 +7083,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bew" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin{
@@ -7233,7 +7233,7 @@
 "bfh" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bfi" = (
 /obj/effect/decal/warning_stripes/northwest,
 /obj/machinery/light{
@@ -7243,7 +7243,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bfk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/warning_stripes/north,
@@ -7251,7 +7251,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bfl" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -7260,7 +7260,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bfn" = (
 /obj/machinery/door/firedoor,
 /obj/effect/spawner/window/reinforced/polarized{
@@ -7452,7 +7452,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bgm" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -7467,7 +7467,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bgn" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -7484,7 +7484,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bgo" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -7495,7 +7495,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bgp" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -7512,7 +7512,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bgr" = (
 /obj/machinery/magnetic_controller{
 	autolink = 1;
@@ -7626,7 +7626,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bhk" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -7634,7 +7634,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bhm" = (
 /obj/structure/table,
 /obj/item/hand_tele,
@@ -7781,7 +7781,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bhX" = (
 /obj/structure/table,
 /obj/item/stack/sheet/glass/fifty,
@@ -7795,14 +7795,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bhY" = (
 /obj/machinery/light,
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bhZ" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
@@ -7821,7 +7821,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bib" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -8292,7 +8292,7 @@
 	},
 /area/medical/surgery/south)
 "bkS" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -13409,22 +13409,14 @@
 	},
 /area/bridge)
 "bNl" = (
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/atmos)
 "bNm" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4;
 	id = "n2_in"
 	},
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/atmos)
 "bNn" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -13586,11 +13578,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/atmos)
 "bOj" = (
 /turf/simulated/mineral/ancient,
@@ -13756,11 +13744,7 @@
 	pressure_checks_default = 2;
 	releasing = 0
 	},
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/atmos)
 "bPp" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -14985,22 +14969,14 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint3)
 "bUj" = (
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "bUk" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4;
 	id = "air_in"
 	},
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "bUp" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow{
@@ -15116,11 +15092,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "bUR" = (
 /obj/effect/turf_decal/siding/brown/corner{
@@ -15240,11 +15212,7 @@
 	pressure_checks_default = 2;
 	releasing = 0
 	},
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "bVs" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -15378,7 +15346,7 @@
 /turf/simulated/wall,
 /area/chapel/main)
 "bVQ" = (
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random_spawners/blood_20,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/apmaint2)
 "bVR" = (
@@ -15726,11 +15694,7 @@
 	dir = 1;
 	id = "mix_in"
 	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
 "bWX" = (
 /obj/machinery/requests_console{
@@ -15765,11 +15729,7 @@
 	c_tag = "Atmospherics Gas Mix Tank";
 	network = list("SS13","Engineering")
 	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
 "bXa" = (
 /obj/effect/spawner/window/reinforced/polarized{
@@ -15844,11 +15804,7 @@
 /turf/simulated/floor/engine/n20,
 /area/atmos)
 "bXB" = (
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
 "bXD" = (
 /obj/machinery/light/small{
@@ -15919,11 +15875,7 @@
 /area/atmos)
 "bYf" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
 "bYj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -16013,7 +15965,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bYO" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -16030,7 +15982,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bYR" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -16052,7 +16004,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bYT" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -16144,7 +16096,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "bZl" = (
 /obj/structure/flora/ausbushes/stalkybush,
 /obj/machinery/light,
@@ -16792,7 +16744,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarport)
 "cdQ" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/apmaint2)
 "cdS" = (
@@ -17716,9 +17668,7 @@
 	},
 /area/security/checkpoint2)
 "cjA" = (
-/mob/living/simple_animal/bot/secbot/armsky{
-	auto_patrol = 1
-	},
+/mob/living/simple_animal/bot/secbot/armsky,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -20593,7 +20543,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "cGt" = (
 /obj/structure/railing,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -20898,7 +20848,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "cIE" = (
 /obj/machinery/camera{
 	c_tag = "Rehabilitation Dome South 2";
@@ -21007,7 +20957,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "cJn" = (
 /obj/machinery/camera{
 	c_tag = "EVA Storage";
@@ -21020,7 +20970,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "cJo" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
@@ -21031,7 +20981,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "cJr" = (
 /obj/structure/dispenser/oxygen,
 /obj/effect/decal/cleanable/cobweb,
@@ -23206,7 +23156,7 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/maintenance/turbine)
 "cVu" = (
 /obj/structure/sign/fire,
@@ -23892,7 +23842,7 @@
 	},
 /area/hallway/secondary/entry/south)
 "dcN" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/obj/effect/spawner/random_spawners/wall_rusted_70,
 /turf/simulated/wall,
 /area/hallway/spacebridge/scidock)
 "dcS" = (
@@ -24112,7 +24062,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "ddQ" = (
 /obj/machinery/atmospherics/trinary/filter{
 	filter_type = 1;
@@ -24484,7 +24434,7 @@
 /area/hallway/primary/starboard/south)
 "dgb" = (
 /obj/machinery/turretid/stun{
-	control_area = "\improper AI Satellite Secondary Antechamber";
+	control_area = "AI Satellite Secondary Antechamber";
 	name = "AI Satellite Secondary Antechamber Turret Control";
 	pixel_y = 32;
 	req_access = list(75)
@@ -24556,7 +24506,7 @@
 	},
 /area/security/processing)
 "dgN" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random_spawners/grille_50,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/fpmaint)
 "dgO" = (
@@ -25890,7 +25840,7 @@
 	},
 /area/security/evidence)
 "dum" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -27994,7 +27944,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/plating,
 /area/hallway/primary/fore)
 "dRx" = (
@@ -30853,7 +30803,7 @@
 /area/quartermaster/miningdock)
 "eQT" = (
 /obj/effect/spawner/airlock/w_to_e/long,
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/spawner/random_spawners/wall_rusted_30,
 /turf/simulated/wall,
 /area/maintenance/apmaint2)
 "eRa" = (
@@ -31353,7 +31303,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "eYX" = (
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random_spawners/blood_20,
 /turf/simulated/floor/wood/fancy/oak,
 /area/maintenance/starboard)
 "eZm" = (
@@ -31953,7 +31903,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-8"
 	},
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random_spawners/grille_50,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -33755,7 +33705,8 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/door_timer/cell_4{
-	name = "General Population Cell A"
+	name = "General Population Cell A";
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -34122,7 +34073,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random_spawners/blood_20,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/starboard)
 "fSQ" = (
@@ -34908,7 +34859,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/toxins/xenobiology)
 "geL" = (
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/random_spawners/blood_5,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -35217,7 +35168,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/security/detectives_office)
 "glc" = (
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/random_spawners/blood_5,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "gld" = (
@@ -35988,7 +35939,7 @@
 /turf/simulated/wall,
 /area/maintenance/port2)
 "gyL" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "gyS" = (
@@ -36058,7 +36009,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "gzu" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random_spawners/fungus_30,
 /turf/simulated/wall,
 /area/clownoffice/secret)
 "gzv" = (
@@ -36148,7 +36099,7 @@
 	},
 /area/maintenance/disposal)
 "gBs" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random_spawners/grille_50,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/fsmaint4)
 "gBz" = (
@@ -36460,7 +36411,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random_spawners/grille_50,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/asmaint5)
 "gFu" = (
@@ -36592,7 +36543,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -37282,7 +37233,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random_spawners/grille_50,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -37811,7 +37762,7 @@
 	},
 /area/toxins/misc_lab)
 "gYY" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random_spawners/grille_50,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -38572,7 +38523,7 @@
 	},
 /area/ntrep)
 "hkG" = (
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "hkQ" = (
@@ -39660,7 +39611,7 @@
 	},
 /area/bridge)
 "hyQ" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random_spawners/grille_50,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/fore)
 "hyY" = (
@@ -39857,7 +39808,7 @@
 /turf/simulated/mineral/ancient/outer,
 /area/hallway/spacebridge/scidock)
 "hBZ" = (
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random_spawners/blood_20,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -42302,7 +42253,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/dirt_rare,
+/obj/effect/spawner/random_spawners/dirt_10,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -43492,7 +43443,7 @@
 	},
 /area/crew_quarters/kitchen)
 "iHn" = (
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random_spawners/fungus_70,
 /turf/simulated/wall,
 /area/clownoffice/secret)
 "iHo" = (
@@ -44287,7 +44238,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "iSk" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/fore)
 "iSo" = (
@@ -44777,7 +44728,7 @@
 /turf/simulated/floor/plating,
 /area/mine/unexplored/cere/orbiting)
 "iZb" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/spawner/random_spawners/wall_rusted_30,
 /turf/simulated/wall,
 /area/maintenance/disposal/south)
 "iZd" = (
@@ -45751,11 +45702,7 @@
 "jnB" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "jnH" = (
 /obj/structure/cable/orange{
@@ -46108,7 +46055,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random_spawners/grille_50,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -48472,7 +48419,7 @@
 	},
 /area/medical/virology/lab)
 "kbR" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "kca" = (
@@ -48620,11 +48567,7 @@
 /obj/machinery/atmospherics/air_sensor{
 	id_tag = "mix_sensor"
 	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/insulated/vacuum,
 /area/atmos)
 "kdN" = (
 /obj/structure/cable/orange{
@@ -49235,7 +49178,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/door_timer/cell_1,
+/obj/machinery/door_timer/cell_1{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -50355,7 +50300,7 @@
 /area/hallway/primary/starboard/south)
 "kCa" = (
 /turf/simulated/mineral/ancient,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "kCe" = (
 /obj/machinery/atmospherics/binary/pump/on{
 	dir = 1;
@@ -50595,7 +50540,7 @@
 	},
 /area/teleporter/quantum/docking)
 "kFc" = (
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random_spawners/fungus_70,
 /turf/simulated/wall,
 /area/maintenance/apmaint2)
 "kFg" = (
@@ -50616,7 +50561,7 @@
 /turf/simulated/floor/grass,
 /area/hallway/secondary/entry/south)
 "kFn" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/spawner/random_spawners/wall_rusted_30,
 /turf/simulated/wall,
 /area/clownoffice/secret)
 "kFw" = (
@@ -50660,7 +50605,7 @@
 /turf/simulated/wall/r_wall,
 /area/maintenance/port2)
 "kGp" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/spawner/random_spawners/wall_rusted_30,
 /turf/simulated/wall,
 /area/maintenance/fsmaint4)
 "kGG" = (
@@ -51344,7 +51289,7 @@
 	},
 /area/maintenance/asmaint5)
 "kQs" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/obj/effect/spawner/random_spawners/wall_rusted_70,
 /turf/simulated/wall,
 /area/maintenance/apmaint)
 "kQz" = (
@@ -51710,7 +51655,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "kUr" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/obj/effect/spawner/random_spawners/wall_rusted_70,
 /turf/simulated/wall,
 /area/maintenance/fsmaint4)
 "kUy" = (
@@ -52823,7 +52768,7 @@
 	},
 /area/hallway/secondary/entry)
 "lko" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/spawner/random_spawners/wall_rusted_30,
 /turf/simulated/wall,
 /area/maintenance/starboard)
 "lkp" = (
@@ -53240,7 +53185,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random_spawners/blood_20,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -53267,7 +53212,9 @@
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
 "lqR" = (
-/obj/machinery/vending/medical,
+/obj/structure/table/glass,
+/obj/item/soap/nanotrasen,
+/obj/item/storage/box/gloves,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
@@ -53676,7 +53623,7 @@
 	},
 /area/hallway/primary/starboard/north)
 "lxM" = (
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "lxX" = (
@@ -54348,7 +54295,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/library/game_zone)
 "lIS" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random_spawners/grille_50,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/starboard)
 "lIU" = (
@@ -54434,7 +54381,7 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint5)
 "lKk" = (
@@ -54680,7 +54627,7 @@
 	},
 /area/maintenance/fsmaint3)
 "lOR" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/fpmaint)
 "lOV" = (
@@ -55328,7 +55275,7 @@
 /turf/simulated/wall,
 /area/hallway/secondary/garden)
 "lXb" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/spawner/random_spawners/wall_rusted_30,
 /turf/simulated/wall,
 /area/maintenance/asmaint5)
 "lXf" = (
@@ -55784,11 +55731,7 @@
 	c_tag = "Atmospherics Air Tank";
 	network = list("SS13","Engineering")
 	},
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "mce" = (
 /obj/structure/flora/ausbushes/ppflowers,
@@ -56744,7 +56687,7 @@
 	},
 /area/security/brig)
 "mtj" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random_spawners/grille_50,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/fore2)
 "mtr" = (
@@ -56784,7 +56727,7 @@
 	},
 /area/hallway/primary/central)
 "mtM" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/obj/effect/spawner/random_spawners/wall_rusted_70,
 /turf/simulated/wall,
 /area/clownoffice/secret)
 "mtN" = (
@@ -57848,7 +57791,7 @@
 	},
 /area/engine/mechanic_workshop/hangar)
 "mHu" = (
-/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random_spawners/blood_20,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/starboard)
 "mHA" = (
@@ -57878,7 +57821,7 @@
 	},
 /area/engine/mechanic_workshop/hangar)
 "mHL" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/port)
 "mHP" = (
@@ -57949,7 +57892,7 @@
 /area/hallway/secondary/entry)
 "mID" = (
 /obj/structure/sign/pods,
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/spawner/random_spawners/wall_rusted_30,
 /turf/simulated/wall,
 /area/maintenance/starboard)
 "mIE" = (
@@ -58041,7 +57984,7 @@
 /turf/simulated/floor/plating,
 /area/hallway/primary/aft/west)
 "mKx" = (
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/random_spawners/blood_5,
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
 	},
@@ -58967,7 +58910,7 @@
 	},
 /area/engine/engineering)
 "mXg" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/obj/effect/spawner/random_spawners/wall_rusted_70,
 /turf/simulated/wall,
 /area/maintenance/engineering)
 "mXi" = (
@@ -59834,7 +59777,7 @@
 	dir = 4
 	},
 /obj/machinery/turretid/stun{
-	control_area = "\improper AI Upload Chamber";
+	control_area = "AI Upload Chamber";
 	name = "AI Upload Turret Control";
 	pixel_y = -24;
 	req_access = list(75)
@@ -61523,7 +61466,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -61655,7 +61598,7 @@
 	},
 /area/security/medbay)
 "nIV" = (
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/port)
 "nIZ" = (
@@ -62171,7 +62114,7 @@
 /turf/simulated/floor/plating,
 /area/hallway/primary/central)
 "nPE" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/obj/effect/spawner/random_spawners/wall_rusted_70,
 /turf/simulated/wall,
 /area/maintenance/fsmaint3)
 "nPH" = (
@@ -62345,7 +62288,7 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -62900,7 +62843,8 @@
 	dir = 4
 	},
 /obj/machinery/door_timer/cell_5{
-	name = "General Population Cell B"
+	name = "General Population Cell B";
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -63128,23 +63072,10 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/courtroom)
 "odu" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/spawner/random_spawners/wall_rusted_30,
 /turf/simulated/wall,
 /area/maintenance/apmaint2)
 "odx" = (
-/obj/structure/closet/crate/freezer,
-/obj/machinery/iv_drip,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
-/obj/item/reagent_containers/iv_bag/blood/diona,
-/obj/item/reagent_containers/iv_bag/blood/grey,
-/obj/item/reagent_containers/iv_bag/blood/kidan,
-/obj/item/reagent_containers/iv_bag/blood/nian,
-/obj/item/reagent_containers/iv_bag/blood/skrell,
-/obj/item/reagent_containers/iv_bag/blood/tajaran,
-/obj/item/reagent_containers/iv_bag/blood/unathi,
-/obj/item/reagent_containers/iv_bag/blood/vulpkanin,
-/obj/item/reagent_containers/iv_bag/blood/wryn,
 /obj/machinery/status_display{
 	pixel_x = 32
 	},
@@ -63655,7 +63586,7 @@
 /turf/simulated/wall,
 /area/maintenance/turbine)
 "okh" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/obj/effect/spawner/random_spawners/wall_rusted_70,
 /turf/simulated/wall,
 /area/maintenance/port)
 "okr" = (
@@ -64858,7 +64789,7 @@
 /turf/simulated/floor/glass/reinforced,
 /area/hallway/primary/starboard/north)
 "oDL" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/spawner/random_spawners/wall_rusted_30,
 /turf/simulated/wall,
 /area/maintenance/atmospherics)
 "oDP" = (
@@ -65670,7 +65601,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -66281,7 +66212,7 @@
 	},
 /area/maintenance/starboard)
 "oXC" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/spawner/random_spawners/wall_rusted_30,
 /turf/simulated/wall,
 /area/hallway/spacebridge/scidock)
 "oXD" = (
@@ -67085,11 +67016,7 @@
 /obj/machinery/atmospherics/air_sensor{
 	id_tag = "air_sensor"
 	},
-/turf/simulated/floor/engine{
-	name = "air floor";
-	nitrogen = 10580;
-	oxygen = 2644
-	},
+/turf/simulated/floor/engine/air,
 /area/atmos)
 "pkk" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -67328,7 +67255,11 @@
 /turf/simulated/floor/carpet,
 /area/lawoffice)
 "poz" = (
-/obj/machinery/vending/medical,
+/obj/structure/table/glass,
+/obj/item/storage/box/disks{
+	pixel_x = 2;
+	pixel_y = 2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplefull"
@@ -67376,7 +67307,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/medical/psych)
 "poV" = (
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/random_spawners/blood_5,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -67663,7 +67594,7 @@
 	desc = "A huge chunk of metal used to separate rooms. Nothing odd here, sir.";
 	name = "inconspicuous wall"
 	},
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/spawner/random_spawners/wall_rusted_30,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/asmaint5)
 "psm" = (
@@ -68236,7 +68167,7 @@
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology)
 "pzL" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/spawner/random_spawners/wall_rusted_30,
 /turf/simulated/wall,
 /area/mine/unexplored/cere/medical)
 "pzN" = (
@@ -69334,7 +69265,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -70517,7 +70448,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "qgE" = (
 /obj/structure/cable/orange{
 	icon_state = "0-8"
@@ -71972,7 +71903,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "qBN" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -72776,7 +72707,7 @@
 /area/medical/surgery/theatre)
 "qOA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/random_spawners/blood_5,
 /turf/simulated/floor/plating,
 /area/maintenance/electrical_shop)
 "qOD" = (
@@ -73405,7 +73336,7 @@
 	},
 /area/hallway/primary/fore/east)
 "qXp" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/spawner/random_spawners/wall_rusted_30,
 /turf/simulated/wall,
 /area/maintenance/fore)
 "qXr" = (
@@ -73668,13 +73599,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/engine/engineering)
-"rbn" = (
-/obj/machinery/vending/medical,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "whiteblue"
-	},
-/area/medical/medbay)
 "rbx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -74023,7 +73947,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/plating,
 /area/hallway/primary/fore)
 "rhG" = (
@@ -75149,7 +75073,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "ryD" = (
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/south)
 "ryH" = (
@@ -76603,11 +76527,7 @@
 /obj/machinery/atmospherics/air_sensor{
 	id_tag = "n2_sensor"
 	},
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/atmos)
 "rTC" = (
 /obj/structure/cable{
@@ -76929,7 +76849,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/door_timer/cell_2,
+/obj/machinery/door_timer/cell_2{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -77485,7 +77407,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "sft" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -77799,7 +77721,7 @@
 /obj/structure/cable/orange{
 	icon_state = "1-4"
 	},
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random_spawners/oil_20,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -78160,7 +78082,7 @@
 	},
 /area/engine/break_room)
 "spf" = (
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/random_spawners/blood_5,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/port)
 "spx" = (
@@ -78617,7 +78539,7 @@
 	},
 /area/medical/cmo)
 "swR" = (
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "swS" = (
@@ -79127,7 +79049,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/machinery/door_timer/cell_3,
+/obj/machinery/door_timer/cell_3{
+	pixel_y = -32
+	},
 /obj/structure/cable/orange{
 	icon_state = "1-8"
 	},
@@ -79724,7 +79648,7 @@
 /area/maintenance/asmaint5)
 "sOp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/random_spawners/blood_5,
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior/secondary)
 "sOu" = (
@@ -80179,7 +80103,7 @@
 /area/engine/engineering)
 "sUW" = (
 /turf/simulated/wall,
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "sUX" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/wood/fancy/oak,
@@ -80422,11 +80346,7 @@
 	c_tag = "Atmospherics Nitrogen Tank";
 	network = list("SS13","Engineering")
 	},
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/atmos)
 "taJ" = (
 /obj/machinery/light{
@@ -80750,7 +80670,7 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -80940,7 +80860,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/plating,
 /area/hallway/primary/starboard/north)
 "thI" = (
@@ -81261,7 +81181,6 @@
 	pixel_x = 2;
 	pixel_y = 2
 	},
-/obj/item/storage/box/syringes,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"
@@ -81908,7 +81827,6 @@
 /area/library)
 "tul" = (
 /obj/machinery/light,
-/obj/machinery/vending/medical,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
@@ -82722,7 +82640,7 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random_spawners/grille_50,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "tHB" = (
@@ -83451,7 +83369,7 @@
 	},
 /area/toxins/misc_lab)
 "tQI" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/spawner/random_spawners/wall_rusted_30,
 /turf/simulated/wall,
 /area/maintenance/fsmaint3)
 "tQO" = (
@@ -84605,7 +84523,7 @@
 /area/crew_quarters/kitchen)
 "ujX" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/plating,
 /area/maintenance/electrical_shop)
 "ujY" = (
@@ -85838,7 +85756,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random_spawners/grille_50,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -86379,7 +86297,7 @@
 	},
 /area/hallway/spacebridge/comeng)
 "uMe" = (
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/random_spawners/blood_5,
 /obj/item/toy/plushie/robo_corgi,
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
@@ -86586,7 +86504,7 @@
 	},
 /area/medical/medbreak)
 "uOk" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -87201,11 +87119,7 @@
 "vax" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/engine{
-	name = "n2 floor";
-	nitrogen = 100000;
-	oxygen = 0
-	},
+/turf/simulated/floor/engine/n2,
 /area/atmos)
 "vaQ" = (
 /obj/effect/landmark/tiles/burnturf,
@@ -87407,7 +87321,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "vdS" = (
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random_spawners/oil_20,
 /obj/effect/decal/cleanable/molten_object/large,
 /turf/simulated/floor/plating,
 /area/maintenance/electrical_shop)
@@ -87716,7 +87630,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "vjZ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -88546,7 +88460,7 @@
 /area/toxins/mixing)
 "vwC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/plasteel,
 /area/maintenance/electrical_shop)
 "vxd" = (
@@ -88571,7 +88485,7 @@
 	},
 /area/medical/virology/lab)
 "vxp" = (
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/plating,
 /area/maintenance/electrical_shop)
 "vxs" = (
@@ -88989,7 +88903,7 @@
 	},
 /area/medical/reception)
 "vFt" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/maintenance/starboard)
 "vFA" = (
@@ -89113,7 +89027,7 @@
 /obj/structure/cable/orange{
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random_spawners/grille_50,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -89636,7 +89550,7 @@
 /turf/simulated/floor/plating,
 /area/security/permabrig)
 "vOe" = (
-/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random_spawners/fungus_30,
 /turf/simulated/wall,
 /area/maintenance/apmaint2)
 "vOf" = (
@@ -89965,7 +89879,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "vRn" = (
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -90796,7 +90710,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint5)
 "wcp" = (
-/obj/machinery/vending/medical,
+/obj/structure/table/glass,
+/obj/item/storage/box/syringes,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -91834,7 +91749,7 @@
 	},
 /area/gateway)
 "wsm" = (
-/obj/effect/spawner/random_spawners/fungus_probably,
+/obj/effect/spawner/random_spawners/fungus_70,
 /turf/simulated/wall,
 /area/hallway/primary/aft/west)
 "wsu" = (
@@ -92805,7 +92720,7 @@
 	},
 /area/hallway/primary/central)
 "wFI" = (
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -93049,7 +92964,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint5)
 "wJc" = (
@@ -94416,7 +94331,7 @@
 	},
 /area/security/main)
 "xeL" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/spawner/random_spawners/wall_rusted_30,
 /turf/simulated/wall,
 /area/civilian/vacantoffice)
 "xeX" = (
@@ -95370,7 +95285,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ai_monitored/storage/eva)
+/area/storage/eva)
 "xuJ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -95852,7 +95767,7 @@
 	},
 /area/engine/engineering)
 "xAz" = (
-/obj/machinery/vending/medical,
+/obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitebluecorner";
@@ -96026,7 +95941,7 @@
 	},
 /area/chapel/office)
 "xCO" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint5)
 "xCP" = (
@@ -96771,7 +96686,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint5)
 "xMu" = (
@@ -96889,7 +96804,7 @@
 /obj/structure/cable/orange{
 	icon_state = "2-8"
 	},
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -97901,7 +97816,7 @@
 	},
 /area/assembly/robotics)
 "yhC" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -113179,9 +113094,9 @@ rNK
 rNK
 rNK
 rNK
-vva
-vva
-vva
+abE
+abE
+abE
 cRv
 abW
 mCL
@@ -113436,7 +113351,7 @@ rNK
 rNK
 rNK
 cRv
-vva
+abE
 cRv
 cRv
 cRv
@@ -113949,7 +113864,7 @@ rNK
 rNK
 rNK
 rNK
-vva
+abE
 cRv
 abW
 abW
@@ -114206,7 +114121,7 @@ rNK
 rNK
 rNK
 rNK
-vva
+abE
 cRv
 abW
 vva
@@ -136842,11 +136757,11 @@ rNK
 rNK
 rNK
 rNK
-vva
-vva
-vva
-vva
-vva
+abE
+abE
+abE
+abE
+abE
 cRv
 cRv
 abW
@@ -137103,8 +137018,8 @@ cRv
 cRv
 cRv
 cRv
-vva
-vva
+abE
+abE
 cRv
 cRv
 cRv
@@ -137361,12 +137276,12 @@ abW
 abW
 cRv
 cRv
-vva
-vva
-vva
-vva
-vva
-vva
+abE
+abE
+abE
+abE
+abE
+abE
 cRv
 abW
 abW
@@ -137619,11 +137534,11 @@ aaf
 aaf
 wIp
 cRv
-vva
+abE
 cRv
 cRv
 cRv
-vva
+abE
 cRv
 abW
 abW
@@ -137880,15 +137795,15 @@ cRv
 cRv
 abW
 cRv
-vva
+abE
 cRv
 abW
 abW
 abW
 abW
 cRv
-vva
-vva
+abE
+abE
 cRv
 cRv
 npV
@@ -138137,7 +138052,7 @@ aaf
 abW
 abW
 cRv
-vva
+abE
 cRv
 abW
 abW
@@ -138145,8 +138060,8 @@ abW
 cRv
 cRv
 cRv
-vva
-vva
+abE
+abE
 cRv
 aKp
 cSm
@@ -138394,7 +138309,7 @@ aaf
 abW
 abW
 cRv
-vva
+abE
 cRv
 abW
 abW
@@ -138403,8 +138318,8 @@ cRv
 rNK
 rNK
 rNK
-vva
-vva
+abE
+abE
 aKp
 uts
 ieC
@@ -138651,7 +138566,7 @@ aaf
 abW
 abW
 cRv
-vva
+abE
 cRv
 cRv
 cRv
@@ -138661,7 +138576,7 @@ cRv
 rNK
 rNK
 rNK
-vva
+abE
 aKp
 aKp
 qBa
@@ -138908,17 +138823,17 @@ aaf
 abW
 abW
 cRv
-vva
-vva
-vva
-vva
+abE
+abE
+abE
+abE
 cRv
 abW
 cRv
 rNK
 rNK
 rNK
-vva
+abE
 cRv
 abW
 jSL
@@ -139168,14 +139083,14 @@ cRv
 cRv
 cRv
 cRv
-vva
+abE
 cRv
 abW
 cRv
 rNK
 rNK
 rNK
-vva
+abE
 cRv
 cRv
 wZL
@@ -139425,7 +139340,7 @@ abW
 abW
 abW
 cRv
-vva
+abE
 cRv
 cRv
 cRv
@@ -139433,7 +139348,7 @@ rNK
 rNK
 rNK
 rNK
-vva
+abE
 rNK
 rNK
 nHE
@@ -139682,7 +139597,7 @@ cRv
 cRv
 abW
 cRv
-vva
+abE
 cRv
 cRv
 rNK
@@ -139939,7 +139854,7 @@ rNK
 cRv
 cRv
 cRv
-vva
+abE
 cRv
 cRv
 rNK
@@ -151035,7 +150950,7 @@ dxX
 bCj
 gSQ
 cKk
-rbn
+fxY
 uMh
 fxY
 odx

@@ -20,7 +20,7 @@ SUBSYSTEM_DEF(timer)
 	name = "Timer"
 	wait = 1 // SS_TICKER subsystem, so wait is in ticks
 	init_order = INIT_ORDER_TIMER
-
+	priority = FIRE_PRIORITY_TIMER
 	flags = SS_TICKER|SS_NO_INIT
 	offline_implications = "The game will no longer process timers. Immediate server restart recommended."
 	cpu_display = SS_CPUDISPLAY_HIGH
@@ -138,7 +138,7 @@ SUBSYSTEM_DEF(timer)
 				continue
 			ctime_timer.spent = 0
 			ctime_timer.timeToRun = REALTIMEOFDAY + ctime_timer.wait
-			BINARY_INSERT_TG(ctime_timer, clienttime_timers, /datum/timedevent, ctime_timer, timeToRun, COMPARE_KEY)
+			BINARY_INSERT(ctime_timer, clienttime_timers, /datum/timedevent, ctime_timer, timeToRun, COMPARE_KEY)
 		else
 			qdel(ctime_timer)
 
@@ -526,7 +526,7 @@ SUBSYSTEM_DEF(timer)
 	else if (timeToRun >= TIMER_MAX(timer_subsystem))
 		L = timer_subsystem.second_queue
 	if(L)
-		BINARY_INSERT_TG(src, L, /datum/timedevent, src, timeToRun, COMPARE_KEY)
+		BINARY_INSERT(src, L, /datum/timedevent, src, timeToRun, COMPARE_KEY)
 		return
 
 	// Get a local reference to the bucket list, this is faster than referencing the datum

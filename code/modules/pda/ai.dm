@@ -4,6 +4,7 @@
 	detonate = 0
 	ttone = "data"
 
+
 /obj/item/pda/silicon/proc/set_name_and_job(newname as text, newjob as text, newrank as null|text)
 	owner = newname
 	ownjob = newjob
@@ -11,7 +12,10 @@
 		ownrank = newrank
 	else
 		ownrank = ownjob
-	name = newname + " (" + ownjob + ")"
+
+	custom_name = newname
+	update_appearance(UPDATE_NAME)
+
 
 /obj/item/pda/silicon/verb/cmd_send_pdamesg()
 	set category = "AI IM"

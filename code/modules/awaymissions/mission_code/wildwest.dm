@@ -140,28 +140,36 @@
 	layer = 3
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blobpod"
-	var/triggerproc = "triggerrad1" //name of the proc thats called when the mine is triggered
-	var/triggered = 0
+	var/triggered = FALSE
 
-/obj/effect/meatgrinder/Crossed(AM as mob|obj, oldloc)
-	Bumped(AM)
+
+/obj/effect/meatgrinder/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
+/obj/effect/meatgrinder/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	INVOKE_ASYNC(src, PROC_REF(collide), arrived)
+
 
 /obj/effect/meatgrinder/Bumped(atom/movable/moving_atom)
+	. = ..()
+	collide(moving_atom)
 
-	if(triggered)
+
+/obj/effect/meatgrinder/proc/collide(atom/movable/moving_atom)
+	if(triggered || !ishuman(moving_atom))
 		return
-
-	if(ishuman(moving_atom))
-		for(var/mob/O in viewers(world.view, src.loc))
-			to_chat(O, "<font color='red'>[moving_atom] triggered the [bicon(src)] [src]</font>")
-		triggered = 1
-		call(src,triggerproc)(moving_atom)
-
-/obj/effect/meatgrinder/proc/triggerrad1(mob)
-	for(var/mob/O in viewers(world.view, src.loc))
-		do_sparks(3, 1, src)
-		explosion(mob, 1, 0, 0, 0)
-		qdel(src)
+	visible_message(span_warning("[moving_atom] triggered the [bicon(src)] [src]!"))
+	triggered = TRUE
+	do_sparks(3, 1, src)
+	explosion(src, 1, 0, 0, 0)
+	qdel(src)
 
 
 /////For the Wishgranter///////////

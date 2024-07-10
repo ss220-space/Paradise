@@ -210,7 +210,6 @@ GLOBAL_LIST_EMPTY(holopads)
 	var/area/area = get_area(src)
 	var/datum/browser/popup = new(user, "holopad", "[area] holopad", 400, 300)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
 
 /obj/machinery/hologram/holopad/Topic(href, href_list)
@@ -504,7 +503,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	return ..()
 
 
-/obj/effect/overlay/holo_pad_hologram/Process_Spacemove(movement_dir = NONE)
+/obj/effect/overlay/holo_pad_hologram/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
 

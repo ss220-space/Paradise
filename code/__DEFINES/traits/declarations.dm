@@ -11,6 +11,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //atom/movable traits
 /// Buckling yourself to objects with this trait won't immobilize you
 #define TRAIT_NO_IMMOBILIZE "no_immobilize"
+///Chasms will be safe to cross if there is something with this trait on it
+#define TRAIT_CHASM_STOPPER "chasm_stopper"
+/// `do_teleport` will not allow this atom to teleport
+#define TRAIT_NO_TELEPORT "no-teleport"
 
 //turf traits
 /// Prevent mobs on the turf from being affected by anything below that turf, such as a pulse demon going under it. Added by a /obj/structure with creates_cover set to TRUE
@@ -19,6 +23,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_TURF_IGNORE_SLOWDOWN "turf_ignore_slowdown"
 ///Mobs won't slip on a wet turf while it has this trait
 #define TRAIT_TURF_IGNORE_SLIPPERY "turf_ignore_slippery"
+///Chasms will be safe to cross while they've this trait.
+#define TRAIT_CHASM_STOPPED "chasm_stopped"
+///Lava will be safe to cross while it has this trait.
+#define TRAIT_LAVA_STOPPED "lava_stopped"
 
 //mob traits
 #define TRAIT_PACIFISM "pacifism"
@@ -33,12 +41,16 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_AI_UNTRACKABLE "AI_untrackable"
 #define TRAIT_FAKEDEATH "fakedeath"	//Makes the owner appear as dead to most forms of medical examination
 #define TRAIT_XENO_HOST "xeno_host"	//Tracks whether we're gonna be a baby alien's mummy.
+#define TRAIT_LEGION_TUMOUR "legion_tumour" //used in huds for special icon
 #define TRAIT_SHOCKIMMUNE "shockimmune"
 #define TRAIT_CHUNKYFINGERS "chunkyfingers"	//means that you can't use weapons with normal trigger guards.
 #define TRAIT_FORCE_DOORS "force_doors"
 #define TRAIT_EMOTE_MUTE "emote_mute"
 #define TRAIT_IGNORESLOWDOWN "ignoreslow"
 #define TRAIT_IGNOREDAMAGESLOWDOWN "ignoredamageslowdown"
+#define TRAIT_STRONG_GRABBER "strong_grabber"
+#define TRAIT_PUSHIMMUNE "push_immunity"
+
 /// "Magic" trait that blocks the mob from moving or interacting with anything. Used for transient stuff like mob transformations or incorporality in special cases.
 /// Will block movement, `Life()` (!!!), and other stuff based on the mob.
 #define TRAIT_NO_TRANSFORM "block_transformations"
@@ -80,8 +92,13 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Give us unsafe_unwrenching protection
 #define TRAIT_GUSTPROTECTION "gustprotection"
 
+/// Unlinks gliding from movement speed, meaning that there will be a delay between movements rather than a single move movement between tiles
+#define TRAIT_NO_GLIDE "no_glide"
+
 /// Apply this to make a mob not dense, and remove it when you want it to no longer make them undense, other sorces of undesity will still apply. Always define a unique source when adding a new instance of this!
 #define TRAIT_UNDENSE "undense"
+/// Holocigar trait to make a mob BADASS
+#define TRAIT_BADASS "trait_badass"
 
 /* Traits for ventcrawling.
  * Both give access to ventcrawling, but *_NUDE requires the user to be
@@ -115,6 +132,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_ADVANCED_SURGICAL "advanced_surgical"
 /// This trait makes it so that an item literally cannot be removed at all, or at least that's how it should be. Only deleted.
 #define TRAIT_NODROP "nodrop"
+
 
 ///Movement type traits for movables. See elements/movetype_handler.dm
 #define TRAIT_MOVE_GROUND "move_ground"

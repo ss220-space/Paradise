@@ -95,17 +95,16 @@
 	add_fingerprint(user)
 	startgibbing(user)
 
-/obj/machinery/gibber/attackby(obj/item/P, mob/user, params)
-	if(istype(P, /obj/item/grab))
-		var/obj/item/grab/G = P
-		if(G.state < 2)
-			to_chat(user, "<span class='danger'>You need a better grip to do that!</span>")
-			return
-		add_fingerprint(user)
-		move_into_gibber(user,G.affecting)
-		qdel(G)
-		return
 
+/obj/machinery/gibber/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE)
+		return .
+	add_fingerprint(grabber)
+	move_into_gibber(grabber, grabbed_thing)
+
+
+/obj/machinery/gibber/attackby(obj/item/P, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", P))
 		add_fingerprint(user)
 		return
@@ -119,6 +118,7 @@
 	if(default_deconstruction_crowbar(user, P))
 		return
 	return ..()
+
 
 /obj/machinery/gibber/MouseDrop_T(mob/target, mob/user, params)
 	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))

@@ -33,14 +33,18 @@
 /obj/item/thief_kit/twenty
 	possible_uses = 20
 	multi_uses = TRUE
+
 /obj/item/thief_kit/fifty
 	possible_uses = 50
 	multi_uses = TRUE
 
-/obj/item/thief_kit/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/thief_kit/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/thief_kit/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ThiefKit", name, 600, 900, master_ui, state)
+		ui = new(user, src, "ThiefKit", name)
 		ui.set_autoupdate(TRUE)
 		ui.open()
 

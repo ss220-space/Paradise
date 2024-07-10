@@ -3,9 +3,6 @@
 /area/awaymission/spacehotel
 	name = "Deep Space Hotel 419"
 	requires_power = FALSE
-	static_lighting = FALSE
-	base_lighting_alpha = 255
-	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/spacehotel/kitchen
 	name = "Hotel Kitchen"
@@ -17,16 +14,16 @@
 
 /area/awaymission/spacehotel/amazing_place
 	name = "Amazing Place"
-	requires_power = 0
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/spacehotel/snowland
 	name = "Snowland"
-	requires_power = 0
 
 /area/awaymission/spacehotel/undersea
 	name = "Undersea"
 	icon_state = "undersea"
-	requires_power = 0
 
 // "Directional" map template loader for N or S hotel room
 /obj/effect/landmark/map_loader/hotel_room
@@ -196,7 +193,7 @@
 	invisibility = INVISIBILITY_ABSTRACT
 	anchored = TRUE
 	density = FALSE
-	opacity = 0
+	opacity = FALSE
 	var/list/room_doors[0]			// assoc list of [room id]=hotel_door
 	var/list/vacant_rooms[0]		// list of vacant room doors
 	var/list/guests[0]				// assoc list of [guest mob]=room id

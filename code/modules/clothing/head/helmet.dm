@@ -16,6 +16,7 @@
 	dog_fashion = /datum/dog_fashion/head/helmet
 	pickup_sound = 'sound/items/handling/helmet_pickup.ogg'
 	drop_sound = 'sound/items/handling/helmet_drop.ogg'
+	undyeable = TRUE
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi',
@@ -34,6 +35,7 @@
 	if(.)
 		clothing_flags ^= visor_clothing_flags
 		flags_inv ^= visor_flags_inv
+		flags_inv_transparent ^= visor_flags_inv_transparent
 
 /obj/item/clothing/head/helmet/detective
 	name = "olive helmet"
