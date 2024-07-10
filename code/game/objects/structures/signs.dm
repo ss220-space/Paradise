@@ -25,7 +25,7 @@
 	if(does_emissive)
 		underlays += emissive_appearance(icon, "[icon_state]_lightmask", src)
 	if(random_number)
-		add_overlay(mutable_appearance(icon, "[pick("_num0","_num1","_num2","_num3","_num4","_num5","_num6","_num7","_num8","_num9","_num10","_numinf")]"))
+		add_overlay(mutable_appearance(icon, "_num[pick("0","1","2","3","4","5","6","7","8","9","10","inf")]"))
 	return
 
 /obj/structure/sign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
