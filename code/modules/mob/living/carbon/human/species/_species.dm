@@ -311,6 +311,11 @@
 		for(var/i in inherent_factions)
 			H.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
 
+	if((VIRUSIMMUNE in species_traits) && (LAZYLEN(H.diseases)))
+		for(var/datum/disease/D in H.diseases)
+			if(!D.ignore_immunity)
+				D.cure()
+
 	for(var/obj/item/item as anything in H.get_equipped_items())
 		if(QDELETED(item) || item.loc != H)	// wad deleted or dropped already
 			continue
@@ -686,7 +691,7 @@
 			target.drop_from_active_hand()
 			add_attack_logs(user, target, "Disarmed object out of hand", ATKLOG_ALL)
 		else
-			target.Slowed(2.5 SECONDS, 1)
+			target.Slowed(2.5 SECONDS, 0.5)
 			var/obj/item/I = target.get_active_hand()
 			if(I)
 				to_chat(target, span_warning("Your grip on [I] loosens!"))

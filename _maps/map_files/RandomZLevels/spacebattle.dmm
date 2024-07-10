@@ -5316,7 +5316,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/syndicate2)
 "pc" = (
-/turf/simulated/wall/shuttle/nodiagonal{
+/turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/awaymission/spacebattle/syndicate7)
@@ -7777,7 +7777,7 @@
 	},
 /area/awaymission/spacebattle/hallway1)
 "wa" = (
-/turf/simulated/wall/shuttle/nodiagonal{
+/turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/awaymission/spacebattle/syndicate1)
@@ -8870,7 +8870,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/spacebattle/hallway11)
 "yE" = (
-/turf/simulated/wall/shuttle/nodiagonal{
+/turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/awaymission/spacebattle/syndicate3)
@@ -14671,7 +14671,7 @@
 	},
 /area/awaymission/spacebattle/syndicate3)
 "OD" = (
-/turf/simulated/wall/shuttle/nodiagonal{
+/turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/awaymission/spacebattle/syndicate2)

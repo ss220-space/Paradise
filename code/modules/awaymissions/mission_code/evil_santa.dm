@@ -158,7 +158,7 @@
 	else
 		UnlockBlastDoors()
 
-/area/vision_change_area/awaymission/evil_santa/end/santa/Entered(mob/living/carbon/naughty)
+/area/vision_change_area/awaymission/evil_santa/end/santa/Entered(mob/living/carbon/naughty, area/old_area)
 	. = ..()
 	if(ismecha(naughty))
 		var/obj/mecha/robot = naughty

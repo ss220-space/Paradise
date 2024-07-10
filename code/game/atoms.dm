@@ -151,6 +151,8 @@
 	if(loc)
 		loc.InitializedOn(src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
 
+	SETUP_SMOOTHING()
+
 	SET_PLANE_IMPLICIT(src, plane)
 
 	ComponentInitialize()
@@ -1543,13 +1545,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(mover.throwing && (pass_flags_self & LETPASSTHROW))
 		return TRUE
 	return !density
-
-
-/// Returns true or false to allow the mover to exit turf with src
-/atom/proc/CanExit(atom/movable/mover, moving_direction)
-	SHOULD_CALL_PARENT(TRUE)
-	SHOULD_BE_PURE(TRUE)
-	return TRUE
 
 
 /**

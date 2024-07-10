@@ -10,6 +10,7 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	resistance_flags = NONE
+	undyeable = TRUE
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/mask.dmi',

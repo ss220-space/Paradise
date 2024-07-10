@@ -41,15 +41,15 @@
 
 
 /datum/cargo_quest/thing/update_interface_icon()
-	if(interface_icon && interface_icon_state)
-		interface_images += icon2base64(icon(interface_icon, interface_icon_state, SOUTH, 1))
+	if(item_for_show)
+		interface_images += path2assetID(item_for_show)
 		return
 	for(var/our_item in req_items)
 		var/obj/obj = our_item
 		if(initial(obj.icon) && initial(obj.icon_state))
-			interface_images += icon2base64(icon(initial(obj.icon), initial(obj.icon_state), SOUTH, 1))
+			interface_images += path2assetID(our_item)
 		else
-			interface_images += icon2base64(icon('icons/obj/storage.dmi', "box", SOUTH, 1))
+			interface_images += path2assetID(/obj/item/storage/box)
 
 /datum/cargo_quest/thing/length_quest()
 	return length(req_items)
@@ -112,7 +112,6 @@
 		/obj/item/organ/internal/lungs/slime = 185,
 		/obj/item/organ/internal/liver/grey = 200,
 		/obj/item/organ/internal/heart/slime = 210,
-		/obj/item/organ/external/wing/nian = 210,
 		/obj/item/organ/internal/liver/diona = 300,
 		/obj/item/organ/internal/lungs/unathi/ash_walker = 325,
 		/obj/item/organ/internal/lantern = 400
@@ -141,7 +140,7 @@
 		/obj/item/reagent_containers/food/snacks/omelette = 20,
 		/obj/item/reagent_containers/food/snacks/cheeseburger = 30,
 		/obj/item/reagent_containers/food/snacks/benedict = 30,
-		/obj/item/reagent_containers/food/snacks/monkeyburger = 30, 
+		/obj/item/reagent_containers/food/snacks/monkeyburger = 30,
 		/obj/item/reagent_containers/food/snacks/hotdog = 30,
 		/obj/item/reagent_containers/food/snacks/sausage = 20,
 		/obj/item/reagent_containers/food/snacks/pastatomato = 20,
@@ -158,7 +157,7 @@
 		/obj/item/reagent_containers/food/snacks/fishburger = 60,
 		/obj/item/reagent_containers/food/snacks/monkeysdelight = 60,
 		/obj/item/reagent_containers/food/snacks/pancake/choc_chip_pancake = 60,
-		/obj/item/reagent_containers/food/snacks/superbiteburger = 60, 
+		/obj/item/reagent_containers/food/snacks/superbiteburger = 60,
 		/obj/item/reagent_containers/food/snacks/sushi_TobikoEgg = 60,
 		/obj/item/reagent_containers/food/snacks/sushi_Unagi = 60,
 		/obj/item/reagent_containers/food/snacks/sliceable/salami = 60,
@@ -174,7 +173,7 @@
 		/obj/item/reagent_containers/food/snacks/chawanmushi = 90,
 	)
 	hard_items = list(
-		/obj/item/reagent_containers/food/snacks/sashimi = 120, 
+		/obj/item/reagent_containers/food/snacks/sashimi = 120,
 		/obj/item/reagent_containers/food/snacks/meatsteak/vulpkanin = 100,
 		/obj/item/reagent_containers/food/snacks/meatsteak/human = 100,
 		/obj/item/reagent_containers/food/snacks/meatsteak/slime = 100,
@@ -309,10 +308,8 @@
 	current_list = required_minerals.Copy()
 
 /datum/cargo_quest/thing/minerals/update_interface_icon()
-
 	for(var/mineral in required_minerals)
-		var/obj/obj = mineral
-		interface_images += icon2base64(icon(initial(obj.icon), initial(obj.icon_state), SOUTH, 1))
+		interface_images += path2assetID(mineral)
 
 /datum/cargo_quest/thing/minerals/length_quest()
 	var/stack_length
@@ -406,8 +403,7 @@
 
 /datum/cargo_quest/thing/botanygenes
 	quest_type_name = "Botany Genes on Disks"
-	interface_icon = 'icons/obj/module.dmi'
-	interface_icon_state = "datadisk_hydro"
+	item_for_show = /obj/item/disk/plantgene
 	req_items = list(/obj/item/disk/plantgene)
 	var/list/required_genes = list()
 	easy_items = list(
@@ -474,9 +470,7 @@
 
 /datum/cargo_quest/thing/genes
 	quest_type_name = "DNA Genes"
-	interface_icon = 'icons/obj/hypo.dmi'
-	interface_icon_state = "dnainjector"
-
+	item_for_show = /obj/item/dnainjector
 	req_items = list(/obj/item/dnainjector)
 	var/list/required_blocks = list()
 	normal_items = list(
@@ -578,8 +572,7 @@
 #define REQUIRED_BLOOD_AMOUNT 10
 /datum/cargo_quest/thing/virus
 	quest_type_name = "Viruses symptoms in vials (10u minimum)"
-	interface_icon = 'icons/obj/chemical.dmi'
-	interface_icon_state = "vial"
+	item_for_show = /obj/item/reagent_containers/glass/beaker/vial
 	req_items = list(/obj/item/reagent_containers/glass/beaker/vial)
 
 	var/list/required_symptoms = list()
@@ -683,8 +676,7 @@
 
 /datum/cargo_quest/thing/capsule
 	quest_type_name = "Mob in lazarus capsule"
-	interface_icon = 'icons/obj/mobcap.dmi'
-	interface_icon_state = "mobcap3"
+	item_for_show = /obj/item/mobcapsule
 	req_items = list(/obj/item/mobcapsule)
 
 	var/list/required_mobs = list()

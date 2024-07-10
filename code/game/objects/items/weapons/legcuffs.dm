@@ -27,9 +27,13 @@
 	var/obj/item/assembly/signaler/sig = null
 
 
-/obj/item/restraints/legcuffs/beartrap/New()
-	..()
-	icon_state = "[initial(icon_state)][armed]"
+/obj/item/restraints/legcuffs/beartrap/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_ICON_STATE)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 
 /obj/item/restraints/legcuffs/beartrap/Destroy()
@@ -109,16 +113,19 @@
 		return
 
 
-/obj/item/restraints/legcuffs/beartrap/Crossed(atom/movable/AM, oldloc)
-	..()
+/obj/item/restraints/legcuffs/beartrap/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
 
+	INVOKE_ASYNC(src, PROC_REF(triggered), arrived)
+
+
+/obj/item/restraints/legcuffs/beartrap/proc/triggered(mob/living/moving_thing)
 	if(!armed || !isturf(loc))
 		return
 
-	if(!iscarbon(AM) && !isanimal(AM))
+	if(!iscarbon(moving_thing) && !isanimal(moving_thing))
 		return
 
-	var/mob/living/moving_thing = AM
 	if(moving_thing.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 		return
 

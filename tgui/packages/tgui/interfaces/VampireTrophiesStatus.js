@@ -1,6 +1,6 @@
-import { useBackend } from "../backend";
-import { Button, Box, Table, Section } from "../components";
-import { Window } from "../layouts";
+import { useBackend } from '../backend';
+import { Button, Box, Table, Section, Stack } from '../components';
+import { Window } from '../layouts';
 
 const roundTenths = function (input) {
   return (Math.round(input * 10) / 10).toFixed(1);
@@ -8,19 +8,21 @@ const roundTenths = function (input) {
 
 export const VampireTrophiesStatus = (props, context) => {
   return (
-    <Window theme="nologo">
+    <Window theme="nologo" width={700} height={800}>
       <Window.Content scrollable>
-        <Trophies />
-        <Passives />
-        <InfectedTrophy />
-        <Lunge />
-        <MarkPrey />
-        <MetamorphosisBats />
-        <ResonantShriek />
-        <Anabiosis />
-        <SummonBats />
-        <MetamorphosisHound />
-        <LungeFinale />
+        <Stack fill vertical>
+          <Trophies />
+          <Passives />
+          <InfectedTrophy />
+          <Lunge />
+          <MarkPrey />
+          <MetamorphosisBats />
+          <ResonantShriek />
+          <Anabiosis />
+          <SummonBats />
+          <MetamorphosisHound />
+          <LungeFinale />
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -45,160 +47,187 @@ const Trophies = (props, context) => {
     icon_ears,
   } = data;
   return (
-    <Section
-      title="Trophies"
-      color="red"
-      textAlign="center"
-      verticalAlign="middle">
-
-      <Box display="inline-block" width="16.6%">
-        <Box
-          as="img"
-          src={`data:image/jpeg;base64,${icon_hearts}`}
-          verticalAlign="middle"
-          style={{
-            "margin-left": "-32px",
-            "margin-right": "-48px",
-            "margin-top": "-32px",
-            "margin-bottom": "-48px",
-            "height": "128px",
-            "width": "128px",
-            "-ms-interpolation-mode": "nearest-neighbor",
-          }} />
-        <Box bold textColor={hearts < trophies_max_crit ? "average" : "good"} fontSize="20px">
-          {hearts}
-        </Box>
-        <Button
-          tooltipPosition="right"
-          tooltip="Heart trophies are critical organs, that have increased the vitality and toughness of our kin for centuries. Maximum trophy amount of this type is 6."
-          content="HEARTS"
-          color="transparent"
-        />
-      </Box>
-      <Box display="inline-block" width="16.6%">
-        <Box
-          as="img"
-          src={`data:image/jpeg;base64,${icon_lungs}`}
-          verticalAlign="middle"
-          style={{
-            "margin-left": "-8px",
-            "margin-right": "-16px",
-            "margin-top": "-12px",
-            "margin-bottom": "-12px",
-            "height": "72px",
-            "width": "72px",
-            "-ms-interpolation-mode": "nearest-neighbor",
-          }} />
-        <Box bold textColor={lungs < trophies_max_crit ? "average" : "good"} fontSize="20px">
-          {lungs}
-        </Box>
-        <Button
-          tooltipPosition="right"
-          tooltip="Lungs trophies are critical organs, they have always been used in rituals to increase agility and endurance of our kin. Maximum trophy amount of this type is 6."
-          content="LUNGS"
-          color="transparent"
-        />
-      </Box>
-      <Box display="inline-block" width="16.6%">
-        <Box
-          as="img"
-          src={`data:image/jpeg;base64,${icon_livers}`}
-          verticalAlign="middle"
-          style={{
-            "margin-left": "-24px",
-            "margin-right": "-24px",
-            "margin-top": "-28px",
-            "margin-bottom": "-20px",
-            "height": "96px",
-            "width": "96px",
-            "-ms-interpolation-mode": "nearest-neighbor",
-          }} />
-        <Box bold textColor={livers < trophies_max_gen ? "average" : "good"} fontSize="20px">
-          {livers}
-        </Box>
-        <Button
-          tooltipPosition="right"
-          tooltip="Liver trophies have always been used in traditional vampire's rites to increase blood control, which reduces spells cost. Maximum trophy amount of this type is 10."
-          content="LIVERS"
-          color="transparent"
-        />
-      </Box>
-      <Box display="inline-block" width="16.6%">
-        <Box
-          as="img"
-          src={`data:image/jpeg;base64,${icon_kidneys}`}
-          verticalAlign="middle"
-          style={{
-            "margin-left": "-22px",
-            "margin-right": "-26px",
-            "margin-top": "-28px",
-            "margin-bottom": "-20px",
-            "height": "96px",
-            "width": "96px",
-            "-ms-interpolation-mode": "nearest-neighbor",
-          }} />
-        <Box bold textColor={kidneys < trophies_max_gen ? "average" : "good"} fontSize="20px">
-          {kidneys}
-        </Box>
-        <Button
-          tooltipPosition="left"
-          tooltip="Kidneys trophies are used by vampires as a catalysts to enhance various spell effects. Maximum trophy amount of this type is 10."
-          content="KIDNEYS"
-          color="transparent"
-        />
-      </Box>
-      <Box display="inline-block" width="16.6%">
-        <Box
-          as="img"
-          src={`data:image/jpeg;base64,${icon_eyes}`}
-          verticalAlign="middle"
-          style={{
-            "margin-left": "-26px",
-            "margin-right": "-22px",
-            "margin-top": "-22px",
-            "margin-bottom": "-26px",
-            "height": "96px",
-            "width": "96px",
-            "-ms-interpolation-mode": "nearest-neighbor",
-          }} />
-        <Box bold textColor={eyes < trophies_max_gen ? "average" : "good"} fontSize="20px">
-          {eyes}
-        </Box>
-        <Button
-          tooltipPosition="left"
-          tooltip="Eyes trophies are one of the most important ingredients to bypass any vision imperfections mortal bodies have. Maximum trophy amount of this type is 10."
-          content="EYES"
-          color="transparent"
-        />
-      </Box>
-      <Box display="inline-block" width="16.6%">
-        <Box
-          as="img"
-          src={`data:image/jpeg;base64,${icon_ears}`}
-          verticalAlign="middle"
-          style={{
-            "margin-left": "-8px",
-            "margin-right": "-8px",
-            "margin-top": "-8px",
-            "margin-bottom": "-8px",
-            "height": "64px",
-            "width": "64px",
-            "-ms-interpolation-mode": "nearest-neighbor",
-          }} />
-        <Box bold textColor={ears < trophies_max_gen ? "average" : "good"} fontSize="20px">
-          {ears}
-        </Box>
-        <Button
-          tooltipPosition="left"
-          tooltip="Ears trophies have always helped our kin to improve control over emotions and therefore increased scope of the spells. Maximum trophy amount of this type is 10."
-          content="EARS"
-          color="transparent"
-        />
-      </Box>
-    </Section>
+    <Stack.Item>
+      <Section
+        title="Trophies"
+        color="red"
+        textAlign="center"
+        verticalAlign="middle"
+      >
+        <Stack fill>
+          <Box inline width="16.6%">
+            <img
+              src={`data:image/jpeg;base64,${icon_hearts}`}
+              verticalAlign="middle"
+              style={{
+                'margin-left': '-32px',
+                'margin-right': '-48px',
+                'margin-top': '-32px',
+                'margin-bottom': '-48px',
+                'height': '128px',
+                'width': '128px',
+                '-ms-interpolation-mode': 'nearest-neighbor',
+              }}
+            />
+            <Box
+              bold
+              textColor={hearts < trophies_max_crit ? 'average' : 'good'}
+              fontSize="20px"
+            >
+              {hearts}
+            </Box>
+            <Button
+              tooltipPosition="right"
+              tooltip="Heart trophies are critical organs, that have increased the vitality and toughness of our kin for centuries. Maximum trophy amount of this type is 6."
+              content="HEARTS"
+              color="transparent"
+            />
+          </Box>
+          <Box inline width="16.6%">
+            <img
+              src={`data:image/jpeg;base64,${icon_lungs}`}
+              verticalAlign="middle"
+              style={{
+                'margin-left': '-8px',
+                'margin-right': '-16px',
+                'margin-top': '-12px',
+                'margin-bottom': '-12px',
+                'height': '72px',
+                'width': '72px',
+                '-ms-interpolation-mode': 'nearest-neighbor',
+              }}
+            />
+            <Box
+              bold
+              textColor={lungs < trophies_max_crit ? 'average' : 'good'}
+              fontSize="20px"
+            >
+              {lungs}
+            </Box>
+            <Button
+              tooltipPosition="right"
+              tooltip="Lungs trophies are critical organs, they have always been used in rituals to increase agility and endurance of our kin. Maximum trophy amount of this type is 6."
+              content="LUNGS"
+              color="transparent"
+            />
+          </Box>
+          <Box inline width="16.6%">
+            <img
+              src={`data:image/jpeg;base64,${icon_livers}`}
+              verticalAlign="middle"
+              style={{
+                'margin-left': '-24px',
+                'margin-right': '-24px',
+                'margin-top': '-28px',
+                'margin-bottom': '-20px',
+                'height': '96px',
+                'width': '96px',
+                '-ms-interpolation-mode': 'nearest-neighbor',
+              }}
+            />
+            <Box
+              bold
+              textColor={livers < trophies_max_gen ? 'average' : 'good'}
+              fontSize="20px"
+            >
+              {livers}
+            </Box>
+            <Button
+              tooltipPosition="right"
+              tooltip="Liver trophies have always been used in traditional vampire's rites to increase blood control, which reduces spells cost. Maximum trophy amount of this type is 10."
+              content="LIVERS"
+              color="transparent"
+            />
+          </Box>
+          <Box inline width="16.6%">
+            <img
+              src={`data:image/jpeg;base64,${icon_kidneys}`}
+              verticalAlign="middle"
+              style={{
+                'margin-left': '-22px',
+                'margin-right': '-26px',
+                'margin-top': '-28px',
+                'margin-bottom': '-20px',
+                'height': '96px',
+                'width': '96px',
+                '-ms-interpolation-mode': 'nearest-neighbor',
+              }}
+            />
+            <Box
+              bold
+              textColor={kidneys < trophies_max_gen ? 'average' : 'good'}
+              fontSize="20px"
+            >
+              {kidneys}
+            </Box>
+            <Button
+              tooltipPosition="left"
+              tooltip="Kidneys trophies are used by vampires as a catalysts to enhance various spell effects. Maximum trophy amount of this type is 10."
+              content="KIDNEYS"
+              color="transparent"
+            />
+          </Box>
+          <Box inline width="16.6%">
+            <img
+              src={`data:image/jpeg;base64,${icon_eyes}`}
+              verticalAlign="middle"
+              style={{
+                'margin-left': '-26px',
+                'margin-right': '-22px',
+                'margin-top': '-22px',
+                'margin-bottom': '-26px',
+                'height': '96px',
+                'width': '96px',
+                '-ms-interpolation-mode': 'nearest-neighbor',
+              }}
+            />
+            <Box
+              bold
+              textColor={eyes < trophies_max_gen ? 'average' : 'good'}
+              fontSize="20px"
+            >
+              {eyes}
+            </Box>
+            <Button
+              tooltipPosition="left"
+              tooltip="Eyes trophies are one of the most important ingredients to bypass any vision imperfections mortal bodies have. Maximum trophy amount of this type is 10."
+              content="EYES"
+              color="transparent"
+            />
+          </Box>
+          <Box inline width="16.6%">
+            <img
+              src={`data:image/jpeg;base64,${icon_ears}`}
+              verticalAlign="middle"
+              style={{
+                'margin-left': '-8px',
+                'margin-right': '-8px',
+                'margin-top': '-8px',
+                'margin-bottom': '-8px',
+                'height': '64px',
+                'width': '64px',
+                '-ms-interpolation-mode': 'nearest-neighbor',
+              }}
+            />
+            <Box
+              bold
+              textColor={ears < trophies_max_gen ? 'average' : 'good'}
+              fontSize="20px"
+            >
+              {ears}
+            </Box>
+            <Button
+              tooltipPosition="left"
+              tooltip="Ears trophies have always helped our kin to improve control over emotions and therefore increased scope of the spells. Maximum trophy amount of this type is 10."
+              content="EARS"
+              color="transparent"
+            />
+          </Box>
+        </Stack>
+      </Section>
+    </Stack.Item>
   );
 };
-
 
 const Passives = (props, context) => {
   const { act, data } = useBackend(context);
@@ -230,7 +259,8 @@ const Passives = (props, context) => {
       title="Vampire Passives"
       color="red"
       textAlign="center"
-      verticalAlign="middle">
+      verticalAlign="middle"
+    >
       <Table ml="2rem">
         <Table.Row>
           <Table.Cell width="33.3%">
@@ -240,9 +270,14 @@ const Passives = (props, context) => {
               content="Brute Protection:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
-              {hearts < trophies_max_crit ? Math.ceil(hearts * (trophies_brute / trophies_max_crit)) : trophies_brute}%
-              {hearts < trophies_max_crit ? "" : " (max)"}
+            <Box
+              inline
+              textColor={hearts < trophies_max_crit ? 'average' : 'good'}
+            >
+              {hearts < trophies_max_crit
+                ? Math.ceil(hearts * (trophies_brute / trophies_max_crit))
+                : trophies_brute}
+              %{hearts < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell width="33.3%">
@@ -252,9 +287,14 @@ const Passives = (props, context) => {
               content="Burn Protection:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
-              {hearts < trophies_max_crit ? Math.ceil(hearts * (trophies_burn / trophies_max_crit)) : trophies_burn}%
-              {hearts < trophies_max_crit ? "" : " (max)"}
+            <Box
+              inline
+              textColor={hearts < trophies_max_crit ? 'average' : 'good'}
+            >
+              {hearts < trophies_max_crit
+                ? Math.ceil(hearts * (trophies_burn / trophies_max_crit))
+                : trophies_burn}
+              %{hearts < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell width="33.3%">
@@ -264,9 +304,14 @@ const Passives = (props, context) => {
               content="Oxy Protection:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={lungs < trophies_max_crit ? "average" : "good"}>
-              {lungs < trophies_max_crit ? Math.ceil(lungs * (trophies_oxy / trophies_max_crit)) : trophies_oxy}%
-              {lungs < trophies_max_crit ? "" : " (max)"}
+            <Box
+              inline
+              textColor={lungs < trophies_max_crit ? 'average' : 'good'}
+            >
+              {lungs < trophies_max_crit
+                ? Math.ceil(lungs * (trophies_oxy / trophies_max_crit))
+                : trophies_oxy}
+              %{lungs < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
         </Table.Row>
@@ -278,9 +323,14 @@ const Passives = (props, context) => {
               content="Toxin Protection:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={livers < trophies_max_gen ? "average" : "good"}>
-              {livers < trophies_max_gen ? livers * (trophies_tox / trophies_max_gen) : trophies_tox}%
-              {livers < trophies_max_gen ? "" : " (max)"}
+            <Box
+              inline
+              textColor={livers < trophies_max_gen ? 'average' : 'good'}
+            >
+              {livers < trophies_max_gen
+                ? livers * (trophies_tox / trophies_max_gen)
+                : trophies_tox}
+              %{livers < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
@@ -290,9 +340,14 @@ const Passives = (props, context) => {
               content="Brain Protection:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={kidneys < trophies_max_gen ? "average" : "good"}>
-              {kidneys < trophies_max_gen ? kidneys * (trophies_brain / trophies_max_gen) : trophies_brain}%
-              {kidneys < trophies_max_gen ? "" : " (max)"}
+            <Box
+              inline
+              textColor={kidneys < trophies_max_gen ? 'average' : 'good'}
+            >
+              {kidneys < trophies_max_gen
+                ? kidneys * (trophies_brain / trophies_max_gen)
+                : trophies_brain}
+              %{kidneys < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
@@ -302,9 +357,14 @@ const Passives = (props, context) => {
               content="Clone Protection:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={kidneys < trophies_max_gen ? "average" : "good"}>
-              {kidneys < trophies_max_gen ? kidneys * (trophies_clone / trophies_max_gen) : trophies_clone}%
-              {kidneys < trophies_max_gen ? "" : " (max)"}
+            <Box
+              inline
+              textColor={kidneys < trophies_max_gen ? 'average' : 'good'}
+            >
+              {kidneys < trophies_max_gen
+                ? kidneys * (trophies_clone / trophies_max_gen)
+                : trophies_clone}
+              %{kidneys < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
         </Table.Row>
@@ -316,9 +376,14 @@ const Passives = (props, context) => {
               content="Stamina Protection:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={lungs < trophies_max_crit ? "average" : "good"}>
-              {lungs < trophies_max_crit ? Math.ceil(lungs * (trophies_stamina / trophies_max_crit)) : trophies_stamina}%
-              {lungs < trophies_max_crit ? "" : " (max)"}
+            <Box
+              inline
+              textColor={lungs < trophies_max_crit ? 'average' : 'good'}
+            >
+              {lungs < trophies_max_crit
+                ? Math.ceil(lungs * (trophies_stamina / trophies_max_crit))
+                : trophies_stamina}
+              %{lungs < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
@@ -328,9 +393,14 @@ const Passives = (props, context) => {
               content="Blood Cost Reduce:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={livers < trophies_max_gen ? "average" : "good"}>
-              {livers < trophies_max_gen ? livers * (trophies_blood / trophies_max_gen) : trophies_blood}
-              {livers < trophies_max_gen ? "" : " (max)"}
+            <Box
+              inline
+              textColor={livers < trophies_max_gen ? 'average' : 'good'}
+            >
+              {livers < trophies_max_gen
+                ? livers * (trophies_blood / trophies_max_gen)
+                : trophies_blood}
+              {livers < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
@@ -340,9 +410,12 @@ const Passives = (props, context) => {
               content="Suck Rate:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={kidneys < trophies_max_gen ? "average" : "good"}>
+            <Box
+              inline
+              textColor={kidneys < trophies_max_gen ? 'average' : 'good'}
+            >
               {suck_rate}s.
-              {kidneys < trophies_max_gen ? "" : " (max)"}
+              {kidneys < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
         </Table.Row>
@@ -354,8 +427,8 @@ const Passives = (props, context) => {
               content="Flash Protection:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={eyes < trophies_flash ? "bad" : "good"}>
-              {eyes < trophies_flash ? "LOCKED" : "UNLOCKED"}
+            <Box inline textColor={eyes < trophies_flash ? 'bad' : 'good'}>
+              {eyes < trophies_flash ? 'LOCKED' : 'UNLOCKED'}
             </Box>
           </Table.Cell>
           <Table.Cell>
@@ -365,8 +438,8 @@ const Passives = (props, context) => {
               content="Welding Protection:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={eyes < trophies_welding ? "bad" : "good"}>
-              {eyes < trophies_welding ? "LOCKED" : "UNLOCKED"}
+            <Box inline textColor={eyes < trophies_welding ? 'bad' : 'good'}>
+              {eyes < trophies_welding ? 'LOCKED' : 'UNLOCKED'}
             </Box>
           </Table.Cell>
           <Table.Cell>
@@ -376,8 +449,8 @@ const Passives = (props, context) => {
               content="X-Ray Vision:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={eyes < trophies_xray ? "bad" : "good"}>
-              {eyes < trophies_xray ? "LOCKED" : "UNLOCKED"}
+            <Box inline textColor={eyes < trophies_xray ? 'bad' : 'good'}>
+              {eyes < trophies_xray ? 'LOCKED' : 'UNLOCKED'}
             </Box>
           </Table.Cell>
         </Table.Row>
@@ -389,8 +462,8 @@ const Passives = (props, context) => {
               content="Ears Bang Protection:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={ears < trophies_bang ? "bad" : "good"}>
-              {ears < trophies_bang ? "LOCKED" : "UNLOCKED"}
+            <Box inline textColor={ears < trophies_bang ? 'bad' : 'good'}>
+              {ears < trophies_bang ? 'LOCKED' : 'UNLOCKED'}
             </Box>
           </Table.Cell>
         </Table.Row>
@@ -416,7 +489,8 @@ const InfectedTrophy = (props, context) => {
       title="Infected Trophy"
       color="red"
       textAlign="center"
-      verticalAlign="middle">
+      verticalAlign="middle"
+    >
       <Table italic="true" ml="2rem">
         <Table.Row>
           <Table.Cell width="33.3%">
@@ -426,9 +500,12 @@ const InfectedTrophy = (props, context) => {
               content="Flight Range:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={eyes < trophies_max_gen ? "average" : "good"}>
+            <Box
+              inline
+              textColor={eyes < trophies_max_gen ? 'average' : 'good'}
+            >
               {5 + eyes}
-              {eyes < trophies_max_gen ? "" : " (max)"}
+              {eyes < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell width="33.3%">
@@ -438,9 +515,12 @@ const InfectedTrophy = (props, context) => {
               content="AOE Range:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={ears < trophies_max_gen ? "average" : "good"}>
+            <Box
+              inline
+              textColor={ears < trophies_max_gen ? 'average' : 'good'}
+            >
               {Math.floor(ears / 4)}
-              {ears < trophies_max_gen ? "" : " (max)"}
+              {ears < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell width="33.3%">
@@ -450,9 +530,12 @@ const InfectedTrophy = (props, context) => {
               content="Damage:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
+            <Box
+              inline
+              textColor={hearts < trophies_max_crit ? 'average' : 'good'}
+            >
               {hearts * 5}
-              {hearts < trophies_max_crit ? "" : " (max)"}
+              {hearts < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
         </Table.Row>
@@ -464,9 +547,12 @@ const InfectedTrophy = (props, context) => {
               content="Stun Time:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
+            <Box
+              inline
+              textColor={hearts < trophies_max_crit ? 'average' : 'good'}
+            >
               {roundTenths(hearts / 2)}s.
-              {hearts < trophies_max_crit ? "" : " (max)"}
+              {hearts < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
@@ -476,9 +562,11 @@ const InfectedTrophy = (props, context) => {
               content="Grave Fever Chance:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={livers < trophies_max_gen ? "average" : "good"}>
-              {10 + livers * 3}%
-              {livers < trophies_max_gen ? "" : " (max)"}
+            <Box
+              inline
+              textColor={livers < trophies_max_gen ? 'average' : 'good'}
+            >
+              {10 + livers * 3}%{livers < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
         </Table.Row>
@@ -504,7 +592,8 @@ const Lunge = (props, context) => {
       title="Lunge"
       color="red"
       textAlign="center"
-      verticalAlign="middle">
+      verticalAlign="middle"
+    >
       <Table italic="true" ml="2rem">
         <Table.Row>
           <Table.Cell width="33.3%">
@@ -514,9 +603,12 @@ const Lunge = (props, context) => {
               content="Range:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={lungs < trophies_max_crit ? "average" : "good"}>
+            <Box
+              inline
+              textColor={lungs < trophies_max_crit ? 'average' : 'good'}
+            >
               {5 + lungs}
-              {lungs < trophies_max_crit ? "" : " (max)"}
+              {lungs < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell width="33.3%">
@@ -526,9 +618,12 @@ const Lunge = (props, context) => {
               content="AOE Range:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={ears < trophies_max_gen ? "average" : "good"}>
+            <Box
+              inline
+              textColor={ears < trophies_max_gen ? 'average' : 'good'}
+            >
               {1 + Math.floor(ears / 5)}
-              {ears < trophies_max_gen ? "" : " (max)"}
+              {ears < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell width="33.3%">
@@ -538,9 +633,12 @@ const Lunge = (props, context) => {
               content="Weaken Time:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
+            <Box
+              inline
+              textColor={hearts < trophies_max_crit ? 'average' : 'good'}
+            >
               {roundTenths(1 + hearts / 2)}s.
-              {hearts < trophies_max_crit ? "" : " (max)"}
+              {hearts < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
         </Table.Row>
@@ -552,9 +650,12 @@ const Lunge = (props, context) => {
               content="Confusion Time:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={kidneys < trophies_max_gen ? "average" : "good"}>
+            <Box
+              inline
+              textColor={kidneys < trophies_max_gen ? 'average' : 'good'}
+            >
               {roundTenths(kidneys * 2)}s.
-              {kidneys < trophies_max_gen ? "" : " (max)"}
+              {kidneys < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
@@ -564,9 +665,12 @@ const Lunge = (props, context) => {
               content="Bleeding Amount:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={kidneys < trophies_max_gen ? "average" : "good"}>
+            <Box
+              inline
+              textColor={kidneys < trophies_max_gen ? 'average' : 'good'}
+            >
               {kidneys * 10}
-              {kidneys < trophies_max_gen ? "" : " (max)"}
+              {kidneys < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
@@ -576,9 +680,12 @@ const Lunge = (props, context) => {
               content="Blood Gain:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={kidneys < trophies_max_gen ? "average" : "good"}>
+            <Box
+              inline
+              textColor={kidneys < trophies_max_gen ? 'average' : 'good'}
+            >
               {kidneys}
-              {kidneys < trophies_max_gen ? "" : " (max)"}
+              {kidneys < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
         </Table.Row>
@@ -604,7 +711,8 @@ const MarkPrey = (props, context) => {
       title="Mark the Prey"
       color="red"
       textAlign="center"
-      verticalAlign="middle">
+      verticalAlign="middle"
+    >
       <Table italic="true" ml="2rem">
         <Table.Row>
           <Table.Cell width="33.3%">
@@ -614,9 +722,12 @@ const MarkPrey = (props, context) => {
               content="Cast Range:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={eyes < trophies_max_gen ? "average" : "good"}>
+            <Box
+              inline
+              textColor={eyes < trophies_max_gen ? 'average' : 'good'}
+            >
               {3 + Math.floor(eyes / 2)}
-              {eyes < trophies_max_gen ? "" : " (max)"}
+              {eyes < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell width="33.3%">
@@ -626,9 +737,12 @@ const MarkPrey = (props, context) => {
               content="Duration:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={kidneys < trophies_max_gen ? "average" : "good"}>
+            <Box
+              inline
+              textColor={kidneys < trophies_max_gen ? 'average' : 'good'}
+            >
               {roundTenths(5 + kidneys)}s.
-              {kidneys < trophies_max_gen ? "" : " (max)"}
+              {kidneys < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell width="33.3%">
@@ -638,9 +752,12 @@ const MarkPrey = (props, context) => {
               content="Burns / 1s.:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
+            <Box
+              inline
+              textColor={hearts < trophies_max_crit ? 'average' : 'good'}
+            >
               {hearts}
-              {hearts < trophies_max_crit ? "" : " (max)"}
+              {hearts < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
         </Table.Row>
@@ -652,9 +769,11 @@ const MarkPrey = (props, context) => {
               content="Burns Chance:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
-              {hearts * 10}%
-              {hearts < trophies_max_crit ? "" : " (max)"}
+            <Box
+              inline
+              textColor={hearts < trophies_max_crit ? 'average' : 'good'}
+            >
+              {hearts * 10}%{hearts < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
@@ -664,9 +783,11 @@ const MarkPrey = (props, context) => {
               content="Madness Chance:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={eyes < trophies_max_gen ? "average" : "good"}>
-              {30 + eyes * 7}%
-              {eyes < trophies_max_gen ? "" : " (max)"}
+            <Box
+              inline
+              textColor={eyes < trophies_max_gen ? 'average' : 'good'}
+            >
+              {30 + eyes * 7}%{eyes < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
         </Table.Row>
@@ -692,7 +813,8 @@ const MetamorphosisBats = (props, context) => {
       title="Metamorphosis - Bats"
       color="red"
       textAlign="center"
-      verticalAlign="middle">
+      verticalAlign="middle"
+    >
       <Table italic="true" ml="2rem">
         <Table.Row>
           <Table.Cell width="33.3%">
@@ -702,9 +824,12 @@ const MetamorphosisBats = (props, context) => {
               content="Health:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
+            <Box
+              inline
+              textColor={hearts < trophies_max_crit ? 'average' : 'good'}
+            >
               {130 + hearts * 20}
-              {hearts < trophies_max_crit ? "" : " (max)"}
+              {hearts < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell width="33.3%">
@@ -714,9 +839,12 @@ const MetamorphosisBats = (props, context) => {
               content="Damage Threshold:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
+            <Box
+              inline
+              textColor={hearts < trophies_max_crit ? 'average' : 'good'}
+            >
               {3 + hearts * 2}
-              {hearts < trophies_max_crit ? "" : " (max)"}
+              {hearts < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell width="33.3%">
@@ -726,9 +854,12 @@ const MetamorphosisBats = (props, context) => {
               content="Speed:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={lungs < trophies_max_crit ? "average" : "good"}>
+            <Box
+              inline
+              textColor={lungs < trophies_max_crit ? 'average' : 'good'}
+            >
               {(-lungs * 0.05).toFixed(2)}
-              {lungs < trophies_max_crit ? "" : " (max)"}
+              {lungs < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
         </Table.Row>
@@ -740,9 +871,12 @@ const MetamorphosisBats = (props, context) => {
               content="Damage Low:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
+            <Box
+              inline
+              textColor={hearts < trophies_max_crit ? 'average' : 'good'}
+            >
               {10 + Math.floor(hearts / 2)}
-              {hearts < trophies_max_crit ? "" : " (max)"}
+              {hearts < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
@@ -752,9 +886,12 @@ const MetamorphosisBats = (props, context) => {
               content="Damage High:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
+            <Box
+              inline
+              textColor={hearts < trophies_max_crit ? 'average' : 'good'}
+            >
               {15 + hearts}
-              {hearts < trophies_max_crit ? "" : " (max)"}
+              {hearts < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
@@ -764,9 +901,12 @@ const MetamorphosisBats = (props, context) => {
               content="Life Leech:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={kidneys < trophies_max_gen ? "average" : "good"}>
+            <Box
+              inline
+              textColor={kidneys < trophies_max_gen ? 'average' : 'good'}
+            >
               {kidneys}
-              {kidneys < trophies_max_gen ? "" : " (max)"}
+              {kidneys < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
         </Table.Row>
@@ -778,9 +918,12 @@ const MetamorphosisBats = (props, context) => {
               content="Blood Gain:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={livers < trophies_max_gen ? "average" : "good"}>
+            <Box
+              inline
+              textColor={livers < trophies_max_gen ? 'average' : 'good'}
+            >
               {Math.floor(livers / 2)}
-              {livers < trophies_max_gen ? "" : " (max)"}
+              {livers < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
@@ -790,14 +933,16 @@ const MetamorphosisBats = (props, context) => {
               content="Fear Chance:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={eyes < trophies_max_gen ? "average" : "good"}>
-              {eyes * 3}%
-              {eyes < trophies_max_gen ? "" : " (max)"}
+            <Box
+              inline
+              textColor={eyes < trophies_max_gen ? 'average' : 'good'}
+            >
+              {eyes * 3}%{eyes < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
         </Table.Row>
       </Table>
-    </Section >
+    </Section>
   );
 };
 
@@ -818,7 +963,8 @@ const ResonantShriek = (props, context) => {
       title="Resonant Shriek"
       color="red"
       textAlign="center"
-      verticalAlign="middle">
+      verticalAlign="middle"
+    >
       <Table italic="true" ml="2rem">
         <Table.Row>
           <Table.Cell width="33.3%">
@@ -828,9 +974,12 @@ const ResonantShriek = (props, context) => {
               content="AOE Range:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={ears < trophies_max_gen ? "average" : "good"}>
+            <Box
+              inline
+              textColor={ears < trophies_max_gen ? 'average' : 'good'}
+            >
               {2 + Math.floor(ears / 3)}
-              {ears < trophies_max_gen ? "" : " (max)"}
+              {ears < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell width="33.3%">
@@ -840,9 +989,12 @@ const ResonantShriek = (props, context) => {
               content="Weaken Time:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
+            <Box
+              inline
+              textColor={hearts < trophies_max_crit ? 'average' : 'good'}
+            >
               {roundTenths(hearts / 3)}s.
-              {hearts < trophies_max_crit ? "" : " (max)"}
+              {hearts < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell width="33.3%">
@@ -852,9 +1004,12 @@ const ResonantShriek = (props, context) => {
               content="Confusion Time:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={kidneys < trophies_max_gen ? "average" : "good"}>
+            <Box
+              inline
+              textColor={kidneys < trophies_max_gen ? 'average' : 'good'}
+            >
               {roundTenths(kidneys)}s.
-              {kidneys < trophies_max_gen ? "" : " (max)"}
+              {kidneys < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
         </Table.Row>
@@ -866,9 +1021,12 @@ const ResonantShriek = (props, context) => {
               content="Brain Damage:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={eyes < trophies_max_gen ? "average" : "good"}>
+            <Box
+              inline
+              textColor={eyes < trophies_max_gen ? 'average' : 'good'}
+            >
               {eyes * 3}
-              {eyes < trophies_max_gen ? "" : " (max)"}
+              {eyes < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
         </Table.Row>
@@ -895,7 +1053,8 @@ const Anabiosis = (props, context) => {
       title="Anabiosis"
       color="red"
       textAlign="center"
-      verticalAlign="middle">
+      verticalAlign="middle"
+    >
       <Table italic="true" ml="2rem">
         <Table.Row>
           <Table.Cell width="33.3%">
@@ -905,9 +1064,12 @@ const Anabiosis = (props, context) => {
               content="Brute Heal:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
+            <Box
+              inline
+              textColor={hearts < trophies_max_crit ? 'average' : 'good'}
+            >
               {15 * (hearts + 4)}
-              {hearts < trophies_max_crit ? "" : " (max)"}
+              {hearts < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell width="33.3%">
@@ -917,9 +1079,12 @@ const Anabiosis = (props, context) => {
               content="Burn Heal:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
+            <Box
+              inline
+              textColor={hearts < trophies_max_crit ? 'average' : 'good'}
+            >
               {15 * (hearts + 4)}
-              {hearts < trophies_max_crit ? "" : " (max)"}
+              {hearts < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell width="33.3%">
@@ -929,9 +1094,12 @@ const Anabiosis = (props, context) => {
               content="Tox Heal:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={livers < trophies_max_gen ? "average" : "good"}>
+            <Box
+              inline
+              textColor={livers < trophies_max_gen ? 'average' : 'good'}
+            >
               {15 * (livers + 4)}
-              {livers < trophies_max_gen ? "" : " (max)"}
+              {livers < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
         </Table.Row>
@@ -943,9 +1111,12 @@ const Anabiosis = (props, context) => {
               content="Oxy Heal:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={lungs < trophies_max_crit ? "average" : "good"}>
+            <Box
+              inline
+              textColor={lungs < trophies_max_crit ? 'average' : 'good'}
+            >
               {15 * (lungs * 2 + 8)}
-              {lungs < trophies_max_crit ? "" : " (max)"}
+              {lungs < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
@@ -955,9 +1126,12 @@ const Anabiosis = (props, context) => {
               content="Clone Heal:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={kidneys < trophies_max_gen ? "average" : "good"}>
+            <Box
+              inline
+              textColor={kidneys < trophies_max_gen ? 'average' : 'good'}
+            >
               {15 * Math.round(kidneys / 2 + 2)}
-              {kidneys < trophies_max_gen ? "" : " (max)"}
+              {kidneys < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
@@ -967,9 +1141,12 @@ const Anabiosis = (props, context) => {
               content="Blood Restored:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={kidneys < trophies_max_gen ? "average" : "good"}>
+            <Box
+              inline
+              textColor={kidneys < trophies_max_gen ? 'average' : 'good'}
+            >
               {15 * (kidneys * 2 + 12)}
-              {kidneys < trophies_max_gen ? "" : " (max)"}
+              {kidneys < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
         </Table.Row>
@@ -981,9 +1158,12 @@ const Anabiosis = (props, context) => {
               content="Organ Heal:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={kidneys < trophies_max_gen ? "average" : "good"}>
+            <Box
+              inline
+              textColor={kidneys < trophies_max_gen ? 'average' : 'good'}
+            >
               {15 * Math.round(kidneys / 5 + 1)}
-              {kidneys < trophies_max_gen ? "" : " (max)"}
+              {kidneys < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
@@ -993,9 +1173,12 @@ const Anabiosis = (props, context) => {
               content="Remove Reagents:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={livers < trophies_max_gen ? "average" : "good"}>
+            <Box
+              inline
+              textColor={livers < trophies_max_gen ? 'average' : 'good'}
+            >
               {15 * (livers + 5)}
-              {livers < trophies_max_gen ? "" : " (max)"}
+              {livers < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
@@ -1005,9 +1188,11 @@ const Anabiosis = (props, context) => {
               content="Mend Fracture:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
-              {hearts * 4}%
-              {hearts < trophies_max_crit ? "" : " (max)"}
+            <Box
+              inline
+              textColor={hearts < trophies_max_crit ? 'average' : 'good'}
+            >
+              {hearts * 4}%{hearts < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
         </Table.Row>
@@ -1019,9 +1204,11 @@ const Anabiosis = (props, context) => {
               content="Heal Internal Bleeding:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
-              {hearts * 4}%
-              {hearts < trophies_max_crit ? "" : " (max)"}
+            <Box
+              inline
+              textColor={hearts < trophies_max_crit ? 'average' : 'good'}
+            >
+              {hearts * 4}%{hearts < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
@@ -1031,9 +1218,11 @@ const Anabiosis = (props, context) => {
               content="Regrow Limb:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={lungs < trophies_max_crit ? "average" : "good"}>
-              {lungs * 2}%
-              {lungs < trophies_max_crit ? "" : " (max)"}
+            <Box
+              inline
+              textColor={lungs < trophies_max_crit ? 'average' : 'good'}
+            >
+              {lungs * 2}%{lungs < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
@@ -1043,8 +1232,8 @@ const Anabiosis = (props, context) => {
               content="Fullpower Heal:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={full_power ? "good" : "bad"}>
-              {full_power ? "UNLOCKED" : "LOCKED"}
+            <Box inline textColor={full_power ? 'good' : 'bad'}>
+              {full_power ? 'UNLOCKED' : 'LOCKED'}
             </Box>
           </Table.Cell>
         </Table.Row>
@@ -1066,13 +1255,16 @@ const SummonBats = (props, context) => {
     ears,
   } = data;
   let allTrophies = hearts + lungs + livers + kidneys + eyes + ears;
-  let maxBats = 1 + (allTrophies < 40 ? Math.round(allTrophies / 2) : allTrophies < 52 ? 2 : 3);
+  let maxBats =
+    1 +
+    (allTrophies < 40 ? Math.round(allTrophies / 2) : allTrophies < 52 ? 2 : 3);
   return (
     <Section
       title="Summon Bats"
       color="red"
       textAlign="center"
-      verticalAlign="middle">
+      verticalAlign="middle"
+    >
       <Table italic="true" ml="2rem">
         <Table.Row>
           <Table.Cell width="33.3%">
@@ -1082,9 +1274,12 @@ const SummonBats = (props, context) => {
               content="Health:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
+            <Box
+              inline
+              textColor={hearts < trophies_max_crit ? 'average' : 'good'}
+            >
               {80 + hearts * 10}
-              {hearts < trophies_max_crit ? "" : " (max)"}
+              {hearts < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell width="33.3%">
@@ -1094,9 +1289,12 @@ const SummonBats = (props, context) => {
               content="Damage Threshold:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
+            <Box
+              inline
+              textColor={hearts < trophies_max_crit ? 'average' : 'good'}
+            >
               {3 + hearts}
-              {hearts < trophies_max_crit ? "" : " (max)"}
+              {hearts < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell width="33.3%">
@@ -1106,9 +1304,12 @@ const SummonBats = (props, context) => {
               content="Speed:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={lungs < trophies_max_crit ? "average" : "good"}>
+            <Box
+              inline
+              textColor={lungs < trophies_max_crit ? 'average' : 'good'}
+            >
               {(1 - lungs * 0.1).toFixed(2)}
-              {lungs < trophies_max_crit ? "" : " (max)"}
+              {lungs < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
         </Table.Row>
@@ -1120,9 +1321,12 @@ const SummonBats = (props, context) => {
               content="Damage Low:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
+            <Box
+              inline
+              textColor={hearts < trophies_max_crit ? 'average' : 'good'}
+            >
               {5 + Math.floor(hearts / 2)}
-              {hearts < trophies_max_crit ? "" : " (max)"}
+              {hearts < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
@@ -1132,9 +1336,12 @@ const SummonBats = (props, context) => {
               content="Damage High:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
+            <Box
+              inline
+              textColor={hearts < trophies_max_crit ? 'average' : 'good'}
+            >
               {10 + hearts}
-              {hearts < trophies_max_crit ? "" : " (max)"}
+              {hearts < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
@@ -1144,9 +1351,12 @@ const SummonBats = (props, context) => {
               content="Life Leech:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={kidneys < trophies_max_gen ? "average" : "good"}>
+            <Box
+              inline
+              textColor={kidneys < trophies_max_gen ? 'average' : 'good'}
+            >
               {kidneys}
-              {kidneys < trophies_max_gen ? "" : " (max)"}
+              {kidneys < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
         </Table.Row>
@@ -1158,9 +1368,12 @@ const SummonBats = (props, context) => {
               content="Blood Gain:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={livers < trophies_max_gen ? "average" : "good"}>
+            <Box
+              inline
+              textColor={livers < trophies_max_gen ? 'average' : 'good'}
+            >
               {Math.floor(livers / 2)}
-              {livers < trophies_max_gen ? "" : " (max)"}
+              {livers < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
@@ -1170,9 +1383,11 @@ const SummonBats = (props, context) => {
               content="Fear Chance:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={eyes < trophies_max_gen ? "average" : "good"}>
-              {Math.floor(eyes * 1.5)}%
-              {eyes < trophies_max_gen ? "" : " (max)"}
+            <Box
+              inline
+              textColor={eyes < trophies_max_gen ? 'average' : 'good'}
+            >
+              {Math.floor(eyes * 1.5)}%{eyes < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
@@ -1182,14 +1397,14 @@ const SummonBats = (props, context) => {
               content="Bats Amount:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={allTrophies < 52 ? "average" : "good"}>
+            <Box inline textColor={allTrophies < 52 ? 'average' : 'good'}>
               {maxBats}
-              {allTrophies < 52 ? "" : " (max)"}
+              {allTrophies < 52 ? '' : ' (max)'}
             </Box>
           </Table.Cell>
         </Table.Row>
       </Table>
-    </Section >
+    </Section>
   );
 };
 
@@ -1210,7 +1425,8 @@ const MetamorphosisHound = (props, context) => {
       title="Metamorphosis - Hound"
       color="red"
       textAlign="center"
-      verticalAlign="middle">
+      verticalAlign="middle"
+    >
       <Table italic="true" ml="2rem">
         <Table.Row>
           <Table.Cell width="33.3%">
@@ -1220,9 +1436,12 @@ const MetamorphosisHound = (props, context) => {
               content="Health:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
+            <Box
+              inline
+              textColor={hearts < trophies_max_crit ? 'average' : 'good'}
+            >
               {200 + hearts * 30}
-              {hearts < trophies_max_crit ? "" : " (max)"}
+              {hearts < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell width="33.3%">
@@ -1232,9 +1451,12 @@ const MetamorphosisHound = (props, context) => {
               content="Damage Threshold:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
+            <Box
+              inline
+              textColor={hearts < trophies_max_crit ? 'average' : 'good'}
+            >
               {10 + hearts * 3}
-              {hearts < trophies_max_crit ? "" : " (max)"}
+              {hearts < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell width="33.3%">
@@ -1244,9 +1466,12 @@ const MetamorphosisHound = (props, context) => {
               content="Speed:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={lungs < trophies_max_crit ? "average" : "good"}>
+            <Box
+              inline
+              textColor={lungs < trophies_max_crit ? 'average' : 'good'}
+            >
               {(-lungs * 0.05).toFixed(2)}
-              {lungs < trophies_max_crit ? "" : " (max)"}
+              {lungs < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
         </Table.Row>
@@ -1258,9 +1483,12 @@ const MetamorphosisHound = (props, context) => {
               content="Damage Low:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
+            <Box
+              inline
+              textColor={hearts < trophies_max_crit ? 'average' : 'good'}
+            >
               {15 + hearts}
-              {hearts < trophies_max_crit ? "" : " (max)"}
+              {hearts < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
@@ -1270,9 +1498,12 @@ const MetamorphosisHound = (props, context) => {
               content="Damage High:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
+            <Box
+              inline
+              textColor={hearts < trophies_max_crit ? 'average' : 'good'}
+            >
               {20 + hearts}
-              {hearts < trophies_max_crit ? "" : " (max)"}
+              {hearts < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
@@ -1282,9 +1513,11 @@ const MetamorphosisHound = (props, context) => {
               content="Fear Chance:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={eyes < trophies_max_gen ? "average" : "good"}>
-              {eyes * 3}%
-              {eyes < trophies_max_gen ? "" : " (max)"}
+            <Box
+              inline
+              textColor={eyes < trophies_max_gen ? 'average' : 'good'}
+            >
+              {eyes * 3}%{eyes < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
         </Table.Row>
@@ -1296,14 +1529,17 @@ const MetamorphosisHound = (props, context) => {
               content="Blood Cost:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={livers < trophies_max_gen ? "average" : "good"}>
+            <Box
+              inline
+              textColor={livers < trophies_max_gen ? 'average' : 'good'}
+            >
               {15 - livers} blood / 6s.
-              {livers < trophies_max_gen ? "" : " (max)"}
+              {livers < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
         </Table.Row>
       </Table>
-    </Section >
+    </Section>
   );
 };
 
@@ -1320,13 +1556,16 @@ const LungeFinale = (props, context) => {
     ears,
   } = data;
   let allTrophies = hearts + lungs + livers + kidneys + eyes + ears;
-  let maxBats = 1 + (allTrophies < 40 ? Math.round(allTrophies / 2) : allTrophies < 52 ? 2 : 3);
+  let maxBats =
+    1 +
+    (allTrophies < 40 ? Math.round(allTrophies / 2) : allTrophies < 52 ? 2 : 3);
   return (
     <Section
       title="Lunge Finale"
       color="red"
       textAlign="center"
-      verticalAlign="middle">
+      verticalAlign="middle"
+    >
       <Table italic="true" ml="2rem">
         <Table.Row>
           <Table.Cell width="33.3%">
@@ -1336,9 +1575,12 @@ const LungeFinale = (props, context) => {
               content="Search Range:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={lungs < trophies_max_crit ? "average" : "good"}>
+            <Box
+              inline
+              textColor={lungs < trophies_max_crit ? 'average' : 'good'}
+            >
               {5 + Math.round(lungs / 2)}
-              {lungs < trophies_max_crit ? "" : " (max)"}
+              {lungs < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell width="33.3%">
@@ -1348,9 +1590,12 @@ const LungeFinale = (props, context) => {
               content="AOE Range:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={ears < trophies_max_gen ? "average" : "good"}>
+            <Box
+              inline
+              textColor={ears < trophies_max_gen ? 'average' : 'good'}
+            >
               {Math.floor(ears / 5)}
-              {ears < trophies_max_gen ? "" : " (max)"}
+              {ears < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell width="33.3%">
@@ -1360,9 +1605,12 @@ const LungeFinale = (props, context) => {
               content="Weaken Time:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={hearts < trophies_max_crit ? "average" : "good"}>
+            <Box
+              inline
+              textColor={hearts < trophies_max_crit ? 'average' : 'good'}
+            >
               {roundTenths(1 + hearts / 2)}s.
-              {hearts < trophies_max_crit ? "" : " (max)"}
+              {hearts < trophies_max_crit ? '' : ' (max)'}
             </Box>
           </Table.Cell>
         </Table.Row>
@@ -1374,9 +1622,12 @@ const LungeFinale = (props, context) => {
               content="Confusion Time:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={kidneys < trophies_max_gen ? "average" : "good"}>
+            <Box
+              inline
+              textColor={kidneys < trophies_max_gen ? 'average' : 'good'}
+            >
               {roundTenths(kidneys * 2)}s.
-              {kidneys < trophies_max_gen ? "" : " (max)"}
+              {kidneys < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
@@ -1386,9 +1637,12 @@ const LungeFinale = (props, context) => {
               content="Bleeding Amount:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={kidneys < trophies_max_gen ? "average" : "good"}>
+            <Box
+              inline
+              textColor={kidneys < trophies_max_gen ? 'average' : 'good'}
+            >
               {kidneys * 5}
-              {kidneys < trophies_max_gen ? "" : " (max)"}
+              {kidneys < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
@@ -1398,9 +1652,12 @@ const LungeFinale = (props, context) => {
               content="Blood Gained:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={kidneys < trophies_max_gen ? "average" : "good"}>
+            <Box
+              inline
+              textColor={kidneys < trophies_max_gen ? 'average' : 'good'}
+            >
               {kidneys}
-              {kidneys < trophies_max_gen ? "" : " (max)"}
+              {kidneys < trophies_max_gen ? '' : ' (max)'}
             </Box>
           </Table.Cell>
         </Table.Row>
@@ -1412,9 +1669,9 @@ const LungeFinale = (props, context) => {
               content="Lunges Amount:"
               color="transparent"
             />
-            <Box display="inline-block" textColor={allTrophies < 50 ? "average" : "good"}>
+            <Box inline textColor={allTrophies < 50 ? 'average' : 'good'}>
               {1 + Math.floor(allTrophies / 10)}
-              {allTrophies < 50 ? "" : " (max)"}
+              {allTrophies < 50 ? '' : ' (max)'}
             </Box>
           </Table.Cell>
           <Table.Cell>
@@ -1430,4 +1687,3 @@ const LungeFinale = (props, context) => {
     </Section>
   );
 };
-

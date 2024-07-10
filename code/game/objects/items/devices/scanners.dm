@@ -370,7 +370,6 @@ REAGENT SCANNER
 	var/datum/browser/popup = new(user, "scanner", scan_title, window_width, window_height)
 	popup.set_content("[get_header(user)]<hr>[scan_data]")
 	popup.open(no_focus = 1)
-	popup.resize(window_width,window_height)
 
 /obj/item/healthanalyzer/proc/get_header(mob/user)
 	return "<a href='?src=[src.UID()];user=[user.UID()];clear=1'>Очистить</a><a href='?src=[src.UID()];user=[user.UID()];mode=1'>Локализация</a>[advanced ? "<a href='?src=[src.UID()];user=[user.UID()];print=1'>Печать отчета</a>" : ""]"

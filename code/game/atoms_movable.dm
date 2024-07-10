@@ -528,8 +528,6 @@
 			exited_loc.Exited(src, newloc)
 	else // Else there's just one loc to be exited.
 		oldloc.Exited(src, newloc)
-	for(var/atom/movable/movable in oldloc.contents)
-		movable.Uncrossed(src)
 	if(oldarea != newarea)
 		oldarea.Exited(src, newarea)
 
@@ -538,8 +536,6 @@
 			entered_loc.Entered(src, oldloc, old_locs)
 	else
 		newloc.Entered(src, oldloc, old_locs)
-	for(var/atom/movable/movable in (newloc.contents - src))
-		movable.Crossed(src, oldloc)
 	if(oldarea != newarea)
 		newarea.Entered(src, oldarea)
 
@@ -704,6 +700,11 @@
 
 	SEND_SIGNAL(src, COMSIG_MOVABLE_MOVED, old_loc, movement_dir, forced, old_locs, momentum_change)
 
+	if(old_loc)
+		SEND_SIGNAL(old_loc, COMSIG_ATOM_ABSTRACT_EXITED, src, movement_dir)
+	if(loc)
+		SEND_SIGNAL(loc, COMSIG_ATOM_ABSTRACT_ENTERED, src, old_loc, old_locs)
+
 	var/turf/old_turf = get_turf(old_loc)
 	var/turf/new_turf = get_turf(src)
 
@@ -716,8 +717,10 @@
 	return TRUE
 
 
-// Make sure you know what you're doing if you call this
-// You probably want CanPass()
+/**
+ * Make sure you know what you're doing if you call this.
+ * You probably want CanPass()
+ */
 /atom/movable/Cross(atom/movable/crossed_atom, border_dir)
 	. = TRUE
 	SEND_SIGNAL(src, COMSIG_MOVABLE_CROSS, crossed_atom, border_dir)
@@ -725,11 +728,10 @@
 	return CanPass(crossed_atom, border_dir)
 
 
-// Previously known as HasEntered()
-// This is automatically called when something enters your square
-/atom/movable/Crossed(atom/movable/AM, oldloc)
-	SEND_SIGNAL(src, COMSIG_MOVABLE_CROSSED, AM)
-	SEND_SIGNAL(AM, COMSIG_CROSSED_MOVABLE, src)
+/// Default byond proc that is deprecated for us in lieu of signals, do not call
+/atom/movable/Crossed()
+	SHOULD_NOT_OVERRIDE(TRUE)
+	CRASH("atom/movable/Crossed() was called!")
 
 
 /**
@@ -753,8 +755,15 @@
 	CRASH("Uncross() should not be being called, please read the doc-comment for it if you wonder why.")
 
 
-/atom/movable/Uncrossed(atom/movable/AM)
-	SEND_SIGNAL(src, COMSIG_MOVABLE_UNCROSSED, AM)
+/**
+ * default byond proc that is normally called on everything inside the previous turf
+ * a movable was in after moving to its current turf
+ * this is wasteful since the vast majority of objects do not use Uncrossed
+ * use connect_loc to register to COMSIG_ATOM_EXITED instead
+ */
+/atom/movable/Uncrossed()
+	SHOULD_NOT_OVERRIDE(TRUE)
+	CRASH("/atom/movable/Uncrossed() was called!")
 
 
 /atom/movable/Bump(atom/bumped_atom)
@@ -826,29 +835,19 @@
 				)
 				if(old_area && old_area != destarea)
 					old_area.Exited(src, destarea)
-
 				for(var/atom/left_loc as anything in (locs - new_locs))
 					left_loc.Exited(src, destination)
-				for(var/atom/movable/movable in oldloc.contents)
-					movable.Uncrossed(src)
 
 				for(var/atom/entering_loc as anything in (new_locs - locs))
 					entering_loc.Entered(src, oldloc)
-				for(var/atom/movable/movable in (destination.contents - src))
-					movable.Crossed(src, oldloc)
-
 				if(old_area && old_area != destarea)
 					destarea.Entered(src, old_area)
 			else
 				if(oldloc)
 					oldloc.Exited(src, destination)
-					for(var/atom/movable/movable in oldloc)
-						movable.Uncrossed(src)
 					if(old_area && old_area != destarea)
 						old_area.Exited(src, destarea)
 				destination.Entered(src, oldloc)
-				for(var/atom/movable/movable in (destination.contents - src))
-					movable.Crossed(src, oldloc)
 				if(destarea && old_area != destarea)
 					destarea.Entered(src, old_area)
 
@@ -959,9 +958,9 @@
 			if(z_move_flags & ZMOVE_FEEDBACK)
 				to_chat(rider || src, span_warning("There's nowhere to go in that direction!"))
 			return FALSE
-	if(z_move_flags & ZMOVE_FALL_CHECKS && (throwing || (movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || !has_gravity(start)))
+	if(z_move_flags & ZMOVE_FALL_CHECKS && (throwing || (movement_type & (FLYING|FLOATING)) || !has_gravity(start)))
 		return FALSE
-	if(z_move_flags & ZMOVE_CAN_FLY_CHECKS && (movement_type & MOVETYPES_NOT_TOUCHING_GROUND) && has_gravity(start))
+	if(z_move_flags & ZMOVE_CAN_FLY_CHECKS && (movement_type & (FLYING|FLOATING)) && has_gravity(start))
 		if(z_move_flags & ZMOVE_FEEDBACK)
 			if(rider)
 				to_chat(rider, span_notice("[src] is not capable of flight."))
@@ -1399,7 +1398,6 @@
 	if(isanimal(src))
 		return DEVOUR_TIME_ANIMAL
 	return DEVOUR_TIME_DEFAULT
-
 
 /// called when a mob gets shoved into an items turf. false means the mob will be shoved backwards normally, true means the mob will not be moved by the disarm proc.
 /atom/movable/proc/shove_impact(mob/living/target, mob/living/attacker)

@@ -23,7 +23,7 @@
 	},
 /area/lavaland/surface/outdoors)
 "ae" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/ruin/powered/animal_hospital)
 "af" = (
 /obj/effect/spawner/window,
@@ -267,7 +267,7 @@
 /area/ruin/powered/animal_hospital)
 "aG" = (
 /obj/structure/extinguisher_cabinet,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/ruin/powered/animal_hospital)
 "aJ" = (
 /turf/simulated/floor/plasteel/grimy{
@@ -782,7 +782,7 @@
 /area/lavaland/surface/outdoors)
 "cc" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/ruin/powered/animal_hospital)
 "cd" = (
 /obj/structure/table/reinforced,

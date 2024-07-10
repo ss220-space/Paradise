@@ -152,10 +152,10 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/sleeper/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/sleeper/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Sleeper", "Sleeper", 550, 775)
+		ui = new(user, src, "Sleeper", "Sleeper")
 		ui.open()
 
 /obj/machinery/sleeper/ui_data(mob/user)
@@ -463,7 +463,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.default_can_use_topic(src) != STATUS_INTERACTIVE)
+	if(usr.default_can_use_topic(src) != UI_INTERACTIVE)
 		return
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
 		return

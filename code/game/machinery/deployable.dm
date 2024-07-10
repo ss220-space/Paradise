@@ -120,13 +120,15 @@
 	desc = "Bags of sand. Self explanatory."
 	icon = 'icons/obj/smooth_structures/sandbags.dmi'
 	icon_state = "sandbags"
+	base_icon_state = "sandbags"
 	max_integrity = 280
 	proj_pass_rate = 20
 	pass_flags_self = LETPASSTHROW
 	bar_material = SAND
 	climbable = TRUE
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/barricade/sandbags, /turf/simulated/wall, /turf/simulated/wall/r_wall, /obj/structure/falsewall, /obj/structure/falsewall/reinforced, /turf/simulated/wall/rust, /turf/simulated/wall/r_wall/rust, /obj/structure/barricade/security)
+	smooth = SMOOTH_BITMASK
+	smoothing_groups = SMOOTH_GROUP_SANDBAGS
+	canSmoothWith = SMOOTH_GROUP_SECURITY_BARRICADE + SMOOTH_GROUP_SANDBAGS + SMOOTH_GROUP_WALLS
 	stacktype = null
 
 /obj/structure/barricade/security

@@ -47,23 +47,37 @@
 	var/list/params[0]		// what to send to the main object to indicate which sensor
 	var/trigger_limit = 5	// number of time we're allowed to trigger per ptick
 
-/obj/effect/portal_sensor/New(loc, o, ...)
-	..()
-	owner = o
+
+/obj/effect/portal_sensor/Initialize(mapload, owner, ...)
+	. = ..()
+	src.owner = owner
 	if(args.len >= 3)
 		params = args.Copy(3)
 	START_PROCESSING(SSobj, src)
 	trigger()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXITED = PROC_REF(on_exited),
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /obj/effect/portal_sensor/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/effect/portal_sensor/Crossed(A, oldloc)
-	trigger()
 
-/obj/effect/portal_sensor/Uncrossed(A)
-	trigger()
+/obj/effect/portal_sensor/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	INVOKE_ASYNC(src, PROC_REF(trigger))
+
+
+/obj/effect/portal_sensor/proc/on_exited(datum/source, atom/movable/departed, atom/newLoc)
+	SIGNAL_HANDLER
+
+	INVOKE_ASYNC(src, PROC_REF(trigger))
+
 
 /obj/effect/portal_sensor/process()
 	// check_light()

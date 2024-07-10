@@ -1,6 +1,12 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
-import { Section, Box, Button, Table, LabeledList, ProgressBar } from '../components';
+import {
+  Section,
+  Box,
+  Button,
+  Table,
+  LabeledList,
+  ProgressBar,
+} from '../components';
 import { Window } from '../layouts';
 import { TableRow, TableCell } from '../components/Table';
 
@@ -13,7 +19,7 @@ export const SupermatterMonitor = (props, context) => {
   }
 };
 
-const powerToColor = power => {
+const powerToColor = (power) => {
   if (power > 300) {
     return 'bad';
   } else if (power > 150) {
@@ -23,7 +29,7 @@ const powerToColor = power => {
   }
 };
 
-const temperatureToColor = temp => {
+const temperatureToColor = (temp) => {
   if (temp > 5000) {
     return 'bad';
   } else if (temp > 4000) {
@@ -33,7 +39,7 @@ const temperatureToColor = temp => {
   }
 };
 
-const pressureToColor = pressure => {
+const pressureToColor = (pressure) => {
   if (pressure > 10000) {
     return 'bad';
   } else if (pressure > 5000) {
@@ -46,15 +52,18 @@ const pressureToColor = pressure => {
 const SupermatterMonitorListView = (props, context) => {
   const { act, data } = useBackend(context);
   return (
-    <Window>
+    <Window width={600} height={325}>
       <Window.Content scrollable>
-        <Section title="Detected Supermatter Shards" buttons={
-          <Button
-            icon="sync"
-            content="Refresh"
-            onClick={() => act("refresh")}
-          />
-        }>
+        <Section
+          title="Detected Supermatter Shards"
+          buttons={
+            <Button
+              icon="sync"
+              content="Refresh"
+              onClick={() => act('refresh')}
+            />
+          }
+        >
           <Box m={1}>
             {data.supermatters.length === 0 ? (
               <h3>No shards detected</h3>
@@ -65,7 +74,7 @@ const SupermatterMonitorListView = (props, context) => {
                   <TableCell>Integrity</TableCell>
                   <TableCell>Details</TableCell>
                 </Table.Row>
-                {data.supermatters.map(sm => (
+                {data.supermatters.map((sm) => (
                   <TableRow key={sm}>
                     <TableCell>{sm.area_name}</TableCell>
                     <TableCell>{sm.integrity}%</TableCell>
@@ -73,9 +82,11 @@ const SupermatterMonitorListView = (props, context) => {
                       <Button
                         icon="sign-in-alt"
                         content="View"
-                        onClick={() => act('view', {
-                          view: sm.uid,
-                        })}
+                        onClick={() =>
+                          act('view', {
+                            view: sm.uid,
+                          })
+                        }
                       />
                     </TableCell>
                   </TableRow>
@@ -92,15 +103,18 @@ const SupermatterMonitorListView = (props, context) => {
 const SupermatterMonitorDataView = (props, context) => {
   const { act, data } = useBackend(context);
   return (
-    <Window>
+    <Window width={600} height={325}>
       <Window.Content>
-        <Section title="Crystal Status" buttons={
-          <Button
-            icon="caret-square-left"
-            content="Back"
-            onClick={() => act("back")}
-          />
-        }>
+        <Section
+          title="Crystal Status"
+          buttons={
+            <Button
+              icon="caret-square-left"
+              content="Back"
+              onClick={() => act('back')}
+            />
+          }
+        >
           <LabeledList>
             <LabeledList.Item label="Core Integrity">
               <ProgressBar
@@ -111,7 +125,8 @@ const SupermatterMonitorDataView = (props, context) => {
                 }}
                 minValue="0"
                 maxValue="100"
-                value={data.SM_integrity}>
+                value={data.SM_integrity}
+              >
                 {data.SM_integrity}%
               </ProgressBar>
             </LabeledList.Item>

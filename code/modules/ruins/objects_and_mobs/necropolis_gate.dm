@@ -23,6 +23,7 @@
 	var/obj/structure/opacity_blocker/sight_blocker
 	var/sight_blocker_distance = 1
 
+
 /obj/structure/necropolis_gate/Initialize()
 	. = ..()
 	setDir(SOUTH)
@@ -46,6 +47,12 @@
 	dais_overlay.layer = CLOSED_TURF_LAYER
 	add_overlay(dais_overlay)
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
 /obj/structure/necropolis_gate/Destroy(force)
 	if(force)
 		qdel(sight_blocker, TRUE)
@@ -63,10 +70,21 @@
 		return TRUE
 
 
-/obj/structure/necropolis_gate/CanExit(atom/movable/mover, moving_direction)
-	. = ..()
-	if(dir == moving_direction)
-		return !density || checkpass(mover)
+/obj/structure/necropolis_gate/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
+	SIGNAL_HANDLER
+
+	if(leaving.movement_type & PHASING)
+		return
+
+	if(leaving == src)
+		return // Let's not block ourselves.
+
+	if(pass_flags_self & leaving.pass_flags)
+		return
+
+	if(density && dir == get_dir(leaving, newLoc))
+		leaving.Bump(src)
+		return COMPONENT_ATOM_BLOCK_EXIT
 
 
 /obj/structure/opacity_blocker
@@ -265,9 +283,30 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	var/fallen = FALSE //If the tile is unusable
 	var/falling = FALSE //If the tile is falling
 
+
 /obj/structure/stone_tile/Initialize(mapload)
 	. = ..()
 	icon_state = "[tile_key][rand(1, tile_random_sprite_max)]"
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+	toggle_fallen(FALSE, TRUE)
+
+
+/obj/structure/stone_tile/proc/toggle_fallen(new_fallen, init)
+	if(new_fallen == fallen && !init)
+		return
+	. = new_fallen
+	fallen = new_fallen
+	var/static/list/give_turf_traits
+	if(!give_turf_traits)
+		give_turf_traits = string_list(list(TRAIT_LAVA_STOPPED, TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN))
+	if(fallen)
+		RemoveElement(/datum/element/give_turf_traits, give_turf_traits)
+	else
+		AddElement(/datum/element/give_turf_traits, give_turf_traits)
+
 
 /obj/structure/stone_tile/Destroy(force)
 	if(force || fallen)
@@ -278,24 +317,31 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 /obj/structure/stone_tile/singularity_pull()
 	return
 
-/obj/structure/stone_tile/Crossed(atom/movable/AM, oldloc)
+
+/obj/structure/stone_tile/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
 	if(falling || fallen)
 		return
-	var/turf/T = get_turf(src)
-	if(!islava(T) && !ischasm(T)) //nothing to sink or fall into
+
+	var/turf/our_turf = get_turf(src)
+	if(!islava(our_turf) && !ischasm(our_turf)) //nothing to sink or fall into
 		return
-	var/obj/item/I
-	if(isitem(AM))
-		I = AM
-	var/mob/living/L
-	if(isliving(AM))
-		L = AM
+
+	var/obj/item/item
+	var/mob/living/mob
+	if(isitem(arrived))
+		item = arrived
+	else if(isliving(arrived))
+		mob = arrived
+
 	switch(fall_on_cross)
 		if(COLLAPSE_ON_CROSS, DESTROY_ON_CROSS)
-			if((I && I.w_class >= WEIGHT_CLASS_BULKY) || (L && !(L.movement_type & MOVETYPES_NOT_TOUCHING_GROUND) && L.mob_size >= MOB_SIZE_HUMAN)) //too heavy! too big! aaah!
-				collapse()
+			if((item && item.w_class >= WEIGHT_CLASS_BULKY) || (mob && !(mob.movement_type & MOVETYPES_NOT_TOUCHING_GROUND) && mob.mob_size >= MOB_SIZE_HUMAN)) //too heavy! too big! aaah!
+				INVOKE_ASYNC(src, PROC_REF(collapse))
 		if(UNIQUE_EFFECT)
-			crossed_effect(AM)
+			INVOKE_ASYNC(src, PROC_REF(crossed_effect), arrived)
+
 
 /obj/structure/stone_tile/proc/collapse()
 	falling = TRUE
@@ -308,7 +354,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	else
 		playsound(src, 'sound/mecha/mechmove04.ogg', 50, TRUE)
 	animate(src, alpha = 0, pixel_y = pixel_y - 3, time = 5)
-	fallen = TRUE
+	toggle_fallen(TRUE)
 	if(break_that_sucker)
 		QDEL_IN(src, 10)
 	else
@@ -320,7 +366,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	animate(src, alpha = initial(alpha), pixel_x = initial(pixel_x), pixel_y = initial(pixel_y), time = 30)
 	sleep(30)
 	falling = FALSE
-	fallen = FALSE
+	toggle_fallen(FALSE)
 
 /obj/structure/stone_tile/proc/crossed_effect(atom/movable/AM, oldloc)
 	return

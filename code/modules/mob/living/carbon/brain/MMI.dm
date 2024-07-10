@@ -265,5 +265,5 @@
 /obj/item/mmi/contents_ui_distance(src_object, mob/living/user)
 	. = ..()
 	if((src_object in view(user.client)) && get_dist(src_object, src) <= user.client.maxview())
-		return STATUS_INTERACTIVE	// interactive (green visibility)
+		return UI_INTERACTIVE	// interactive (green visibility)
 	return user.shared_living_ui_distance()

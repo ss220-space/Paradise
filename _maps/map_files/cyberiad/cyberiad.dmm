@@ -17871,9 +17871,6 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/solar/auxport)
-"bex" = (
-/turf/simulated/wall/shuttle/overspace,
-/area/shuttle/arrival/station)
 "bey" = (
 /obj/machinery/seed_extractor,
 /turf/simulated/floor/grass,
@@ -29319,12 +29316,6 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/reception)
-"bPf" = (
-/obj/machinery/vending/medical,
-/turf/simulated/floor/plasteel{
-	icon_state = "whiteblue"
-	},
-/area/medical/reception)
 "bPi" = (
 /obj/effect/landmark/start/scientist,
 /obj/effect/decal/warning_stripes/south,
@@ -31395,11 +31386,11 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads/hop)
 "bVw" = (
-/obj/machinery/vending/medical,
 /obj/machinery/camera{
 	c_tag = "Medbay Corridor West";
 	dir = 4
 	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitebluecorner"
@@ -37064,7 +37055,7 @@
 /turf/simulated/wall,
 /area/medical/virology)
 "clf" = (
-/obj/machinery/vending/medical,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitegreen"
@@ -41065,9 +41056,6 @@
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
 /turf/simulated/floor/shuttle/plating,
-/area/shuttle/arrival/station)
-"cyX" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/shuttle/arrival/station)
 "cyY" = (
 /obj/effect/spawner/lootdrop/maintenance,
@@ -67926,7 +67914,7 @@
 /turf/simulated/wall,
 /area/maintenance/disposal)
 "lcE" = (
-/obj/machinery/vending/security/training,
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -95549,11 +95537,11 @@ lTl
 aMs
 uTI
 uTI
-beh
-cyX
+cyU
+cyU
 cIF
-cyX
-beh
+cyU
+cyU
 uTI
 uTI
 lTl
@@ -96576,13 +96564,13 @@ aPQ
 aSd
 aSd
 aSd
-beh
+cyU
 cCf
 bba
 bba
 bba
 bba
-beh
+cyU
 aSd
 aSd
 aSd
@@ -97090,7 +97078,7 @@ aVf
 aSd
 aSd
 aSd
-beh
+cyU
 cCj
 cTS
 cTS
@@ -97347,13 +97335,13 @@ aPZ
 bLZ
 cmT
 aSd
-beh
+cyU
 bej
 aYZ
 aYZ
 aYZ
 cNI
-beh
+cyU
 aSd
 cVN
 bLZ
@@ -98118,13 +98106,13 @@ aRa
 aMD
 cnv
 aSd
-beh
+cyU
 cCn
 cTS
 cTS
 cTS
 cNN
-beh
+cyU
 aSd
 cVT
 aMD
@@ -98375,7 +98363,7 @@ aVf
 aSd
 aSd
 aSd
-beh
+cyU
 cCu
 aYZ
 aYZ
@@ -98889,13 +98877,13 @@ aPQ
 aSd
 aSd
 aSd
-cyX
-cyX
+cyU
+cyU
 aXw
 aXw
 aXw
-cyX
-cyX
+cyU
+cyU
 aSd
 aSd
 aSd
@@ -99146,13 +99134,13 @@ aPZ
 aRd
 aSd
 aUm
-bex
+cyU
 cCv
 aXx
 aXx
 aXx
 cNP
-bex
+cyU
 aUm
 aSd
 bjS
@@ -122562,7 +122550,7 @@ nAA
 pCP
 bJJ
 uou
-bPf
+xxY
 chh
 cQn
 rpg
