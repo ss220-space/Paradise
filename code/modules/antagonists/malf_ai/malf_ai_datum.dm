@@ -94,10 +94,6 @@
 	antag_memory += "<b>Code Phrase</b>: <span class='red'>[phrases]</span><br>"
 	antag_memory += "<b>Code Response</b>: <span class='red'>[responses]</span><br>"
 
-	// Need to bring this functionality back to TGchat
-	// var/mob/traitor_mob = owner.current
-	// traitor_mob.client.chatOutput?.notify_syndicate_codes()
-
 	var/list/messages = list()
 	if(!silent)
 		messages.Add("<U><B>The Syndicate have provided you with the following codewords to identify fellow agents:</B></U>")
