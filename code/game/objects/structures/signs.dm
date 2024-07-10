@@ -13,7 +13,7 @@
 
 /obj/structure/sign/Initialize(mapload)
 	. = ..()
-	if(does_emissive|random_number)
+	if(does_emissive || random_number)
 		update_icon(UPDATE_OVERLAYS)
 
 
