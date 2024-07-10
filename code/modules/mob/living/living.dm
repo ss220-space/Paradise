@@ -1869,7 +1869,7 @@
 		return TRUE
 	face_atom(target)
 	if(!has_vision(information_only = TRUE))
-		to_chat(src, span_notice("Здесь что-то есть, но вы не видите — что именно."))
+		to_chat(src, chat_box_regular(span_notice("Здесь что-то есть, но вы не видите — что именно.")), MESSAGE_TYPE_INFO, confidential = TRUE)
 		return TRUE
 	return FALSE
 

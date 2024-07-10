@@ -3172,7 +3172,7 @@
 				GLOB.max_ex_flash_range = newBombCap
 				GLOB.max_ex_flame_range = newBombCap
 
-				message_admins("<span class='boldannounce'>[key_name_admin(usr)] changed the bomb cap to [GLOB.max_ex_devastation_range], [GLOB.max_ex_heavy_range], [GLOB.max_ex_light_range]</span>")
+				message_admins(span_boldannounceooc("[key_name_admin(usr)] changed the bomb cap to [GLOB.max_ex_devastation_range], [GLOB.max_ex_heavy_range], [GLOB.max_ex_light_range]"))
 				log_admin("[key_name(usr)] changed the bomb cap to [GLOB.max_ex_devastation_range], [GLOB.max_ex_heavy_range], [GLOB.max_ex_light_range]")
 
 			if("flicklights")

@@ -177,7 +177,7 @@
 		if("move")
 			var/destination = params["move"]
 			if(!options.Find(destination))
-				message_admins("[span_boldannounce("EXPLOIT: [ADMIN_LOOKUPFLW(usr)]")] attempted to move [shuttle_controller.shuttleId] to an invalid location! [ADMIN_COORDJMP(src)]")
+				message_admins("[span_boldannounceic("EXPLOIT: [ADMIN_LOOKUPFLW(usr)]")] attempted to move [shuttle_controller.shuttleId] to an invalid location! [ADMIN_COORDJMP(src)]")
 				return
 			switch(SSshuttle.moveShuttle(shuttle_controller.shuttleId, destination, TRUE, usr))
 				if(0)

@@ -2,7 +2,7 @@
 /proc/wrap_file(filepath)
 	if(IsAdminAdvancedProcCall())
 		// Admins shouldnt fuck with this
-		to_chat(usr, "<span class='boldannounce'>File load blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, span_boldannounceooc("File load blocked: Advanced ProcCall detected."))
 		log_and_message_admins("attempted to load files via advanced proc-call")
 		return
 
@@ -11,7 +11,7 @@
 /proc/wrap_file2text(filepath)
 	if(IsAdminAdvancedProcCall())
 		// Admins shouldnt fuck with this
-		to_chat(usr, "<span class='boldannounce'>File load blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, span_boldannounceooc("File load blocked: Advanced ProcCall detected."))
 		log_and_message_admins("attempted to load files via advanced proc-call")
 		return
 
@@ -34,7 +34,7 @@
 //Sends resource files to client cache
 /client/proc/getFiles()
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>Shelleo blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, span_boldannounceooc("Shelleo blocked: Advanced ProcCall detected."))
 		log_and_message_admins("attempted to call Shelleo via advanced proc-call")
 		return
 
@@ -43,7 +43,7 @@
 
 /client/proc/browse_files(root="data/logs/", max_iterations=10, list/valid_extensions=list(".txt",".log",".htm"))
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>Shelleo blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, span_boldannounceooc("Shelleo blocked: Advanced ProcCall detected."))
 		log_and_message_admins("attempted to call Shelleo via advanced proc-call")
 		return
 

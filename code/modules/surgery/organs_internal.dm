@@ -837,14 +837,17 @@
 
 	user.visible_message(
 		"[user] starts the incision on [target]'s [target_zone] with [tool].",
-		"You start the incision on [target]'s [target_zone] with [tool].")
+		"You start the incision on [target]'s [target_zone] with [tool].",
+		chat_message_type = MESSAGE_TYPE_COMBAT
+		)
 	return ..()
 
 /datum/surgery_step/cut_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 
 	user.visible_message(
 		span_notice("[user] has made an incision on [target]'s [target_zone] with [tool]."),
-		span_notice("You have made an incision on [target]'s [target_zone] with [tool].")
+		span_notice("You have made an incision on [target]'s [target_zone] with [tool]."),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return SURGERY_STEP_CONTINUE
 
@@ -852,7 +855,8 @@
 
 	user.visible_message(
 		span_warning("[user]'s hand slips, slicing open [target]'s [target_zone] in a wrong spot with [tool]!"),
-		span_warning("Your hand slips, slicing open [target]'s [target_zone] in a wrong spot with [tool]!")
+		span_warning("Your hand slips, slicing open [target]'s [target_zone] in a wrong spot with [tool]!"),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return SURGERY_STEP_RETRY
 
@@ -877,7 +881,7 @@
 	if(target_zone == BODY_ZONE_PRECISE_GROIN)
 		msg = "[user] starts to pry open the incision and rearrange the organs in [target]'s lower abdomen with [tool]."
 		self_msg = "You start to pry open the incision and rearrange the organs in [target]'s lower abdomen with [tool]."
-	user.visible_message(msg, self_msg)
+	user.visible_message(msg, self_msg, chat_message_type = MESSAGE_TYPE_COMBAT)
 	return ..()
 
 /datum/surgery_step/retract_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -889,7 +893,7 @@
 	if(target_zone == BODY_ZONE_PRECISE_GROIN)
 		msg = span_notice("[user] keeps the incision open on [target]'s lower abdomen with [tool].")
 		self_msg = span_notice("You keep the incision open on [target]'s lower abdomen with [tool].")
-	user.visible_message(msg, self_msg)
+	user.visible_message(msg, self_msg, chat_message_type = MESSAGE_TYPE_COMBAT)
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/generic/retract_carapace/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -901,7 +905,7 @@
 	if(target_zone == BODY_ZONE_PRECISE_GROIN)
 		msg = span_warning("[user]'s hand slips, damaging several organs [target]'s lower abdomen with [tool]")
 		self_msg = span_warning("Your hand slips, damaging several organs [target]'s lower abdomen with [tool]!")
-	user.visible_message(msg, self_msg)
+	user.visible_message(msg, self_msg, chat_message_type = MESSAGE_TYPE_COMBAT)
 	return SURGERY_STEP_RETRY
 
 // redefine cauterize for every step because of course it relies on get_organ()
@@ -932,7 +936,8 @@
 	var/zone = zone_name(target_zone)
 	user.visible_message(
 		"[user] is beginning to cauterize the incision on [target]'s [zone] with \the [tool].",
-		"You are beginning to cauterize the incision on [target]'s [zone] with \the [tool]."
+		"You are beginning to cauterize the incision on [target]'s [zone] with \the [tool].",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.custom_pain("Your [zone] is being burned!")
 	return ..()
@@ -941,7 +946,8 @@
 	var/zone = zone_name(target_zone)
 	user.visible_message(
 		span_notice("[user] cauterizes the incision on [target]'s [zone] with \the [tool]."),
-		span_notice("You cauterize the incision on [target]'s [zone] with \the [tool].")
+		span_notice("You cauterize the incision on [target]'s [zone] with \the [tool]."),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return SURGERY_STEP_CONTINUE
 
@@ -949,7 +955,8 @@
 	var/zone = zone_name(target_zone)
 	user.visible_message(
 		span_warning("[user]'s hand slips, leaving a small burn on [target]'s [zone] with \the [tool]!"),
-		span_warning("Your hand slips, leaving a small burn on [target]'s [zone] with \the [tool]!")
+		span_warning("Your hand slips, leaving a small burn on [target]'s [zone] with \the [tool]!"),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.apply_damage(3, BURN, target_zone)
 	return SURGERY_STEP_RETRY

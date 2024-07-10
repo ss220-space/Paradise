@@ -142,7 +142,7 @@
 
 /datum/admins/proc/log_admin_permission_modification(var/adm_ckey, var/new_permission)
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>Admin edit blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, span_boldannounceooc("Admin edit blocked: Advanced ProcCall detected."))
 		message_admins("[key_name(usr)] attempted to edit admin ranks via advanced proc-call")
 		log_admin("[key_name(usr)] attempted to edit admin ranks via advanced proc-call")
 		return

@@ -246,7 +246,7 @@ REAGENT SCANNER
 			if(H.reagents.reagent_list.len)
 				to_chat(user, "<span class='notice'>Subject contains the following reagents:</span>")
 				for(var/datum/reagent/R in H.reagents.reagent_list)
-					to_chat(user, "<span class='notice'>[R.volume]u of [R.name][R.overdosed ? "</span> - <span class = 'boldannounce'>OVERDOSING</span>" : ".</span>"]")
+					to_chat(user, "<span class='notice'>[R.volume]u of [R.name][R.overdosed ? "</span> - [span_boldannounceic("OVERDOSING")]" : ".</span>"]")
 			else
 				to_chat(user, "<span class = 'notice'>Subject contains no reagents.</span>")
 			if(H.reagents.addiction_list.len)
@@ -502,7 +502,7 @@ REAGENT SCANNER
 			if(H.reagents.reagent_list.len)
 				. += "Обнаружены реагенты:"
 				for(var/datum/reagent/R in H.reagents.reagent_list)
-					. += "&emsp;[R.volume]u [R.name][R.overdosed ? " - <span class='boldannounce'>ПЕРЕДОЗИРОВКА</span>" : "."]"
+					. += "&emsp;[R.volume]u [R.name][R.overdosed ? " - [span_boldannounceic("ПЕРЕДОЗИРОВКА")]" : "."]"
 			else
 				. += "Реагенты не обнаружены."
 			if(H.reagents.addiction_list.len)

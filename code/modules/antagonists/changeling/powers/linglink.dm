@@ -79,7 +79,7 @@
 
 	user.visible_message(span_danger("[user] stabs [target] with the proboscis!"), \
 						span_notice("You mold the [target]'s mind like clay, [target.p_they()] can now speak in the hivemind!"))
-	to_chat(target, "<font color=#800040>[span_boldannounce("You can now communicate in the changeling hivemind, say '[get_language_prefix(LANGUAGE_HIVE_CHANGELING)]' to communicate!")]")
+	to_chat(target, "<font color=#800040>[span_boldannounceic("You can now communicate in the changeling hivemind, say '[get_language_prefix(LANGUAGE_HIVE_CHANGELING)]' to communicate!")]")
 
 	for(var/mob/ling in GLOB.mob_list)
 		if(LAZYIN(ling.languages, GLOB.all_languages[LANGUAGE_HIVE_CHANGELING]))
