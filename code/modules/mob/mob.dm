@@ -101,7 +101,7 @@
 	usr.show_message(t, 1)
 
 
-/mob/proc/show_message(msg, type, alt, alt_typ, show_message_type)
+/mob/proc/show_message(msg, type, alt, alt_type, chat_message_type)
 
 	if(!client)
 		return

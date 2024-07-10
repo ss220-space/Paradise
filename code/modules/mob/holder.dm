@@ -43,9 +43,9 @@
 				return .
 	. = ..()
 
-/obj/item/holder/proc/show_message(var/message, var/m_type)
+/obj/item/holder/proc/show_message(message, m_type, chat_message_type)
 	for(var/mob/living/M in contents)
-		M.show_message(message,m_type)
+		M.show_message(message, m_type, chat_message_type)
 
 /obj/item/holder/emp_act(var/intensity)
 	for(var/mob/living/M in contents)

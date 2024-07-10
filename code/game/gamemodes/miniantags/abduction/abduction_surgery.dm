@@ -65,7 +65,7 @@
 /datum/surgery_step/internal/extract_organ/fail_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message(
 		span_warning("[user]'s hand slips, failing to extract anything!"),
-		span_warning("Your hand slips, failing to extract anything!),
+		span_warning("Your hand slips, failing to extract anything!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 	return SURGERY_STEP_RETRY

@@ -86,7 +86,7 @@
 /datum/surgery_step/slime/extract_core/fail_step(mob/living/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)
 	user.visible_message(
 		span_warning("[user]'s hand slips, tearing [target]'s flesh with \the [tool]!"),
-		span_warning("Your hand slips, tearing [target]'s flesh with \the [tool]!",
-		chat_message_type = MESSAGE_TYPE_COMBAT)
+		span_warning("Your hand slips, tearing [target]'s flesh with \the [tool]!"),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return SURGERY_STEP_RETRY
