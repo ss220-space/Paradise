@@ -66,7 +66,7 @@
 		F.teach(H)
 		H.adjustBrainLoss(50)
 		H.Weaken(10 SECONDS)
-		to_chat(H, "<span class='boldannounce'>Melee algorithms installed. Safety disabled.</span>")
+		to_chat(H, span_boldannounceic("Melee algorithms installed. Safety disabled."))
 		is_used = TRUE
 		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 

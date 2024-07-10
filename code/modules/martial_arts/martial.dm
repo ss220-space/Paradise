@@ -376,7 +376,7 @@
 		var/mob/living/carbon/human/H = user
 		var/datum/martial_art/plasma_fist/F = new/datum/martial_art/plasma_fist(null)
 		F.teach(H)
-		to_chat(H, "<span class='boldannounce'>You have learned the ancient martial art of Plasma Fist.</span>")
+		to_chat(H, span_boldannounceic("You have learned the ancient martial art of Plasma Fist."))
 		used = TRUE
 		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 
@@ -430,7 +430,7 @@
 			to_chat(user, "<span class='warning'>The mere thought of combat, let alone CQC, makes your head spin!</span>")
 			return
 
-	to_chat(user, "<span class='boldannounce'>You remember the basics of CQC.</span>")
+	to_chat(user, span_boldannounceic("You remember the basics of CQC."))
 
 	var/datum/martial_art/cqc/CQC = new(null)
 	CQC.teach(user)
@@ -450,7 +450,7 @@
 	if(!istype(user))
 		return
 	if(user.mind && user.mind.assigned_role == JOB_TITLE_CHEF)
-		to_chat(user, "<span class='boldannounce'>You completely memorise the basics of CQC.</span>")
+		to_chat(user, span_boldannounceic(">You completely memorise the basics of CQC."))
 		var/datum/martial_art/cqc/CQC = new(null)
 		CQC.teach(user)
 		user.temporarily_remove_item_from_inventory(src)
@@ -478,7 +478,7 @@
 /obj/item/mr_chang_technique/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
 		return
-	to_chat(user, "<span class='boldannounce'>You remember the basics of Aggressive Marketing Technique.</span>")
+	to_chat(user, span_boldannounceic("You remember the basics of Aggressive Marketing Technique."))
 
 	var/datum/martial_art/mr_chang/mr_chang = new(null)
 	mr_chang.teach(user)
@@ -496,7 +496,7 @@
 /obj/item/throwing_manual/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
 		return
-	to_chat(user, "<span class='boldannounce'>You remember the basics of knife throwing.</span>")
+	to_chat(user, span_boldannounceic("You remember the basics of knife throwing."))
 
 	var/datum/martial_art/throwing/MA = new
 	MA.teach(user)

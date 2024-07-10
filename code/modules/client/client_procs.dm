@@ -1069,7 +1069,7 @@
 	if(prefs)
 		prefs.load_preferences(usr)
 	if(prefs && prefs.discord_id && length(prefs.discord_id) < 32)
-		to_chat(usr, chat_box_red("<span class='darkmblue'>Аккаунт Discord уже привязан!<br>Чтобы отвязать используйте команду <span class='boldannounce'>!отвязать_аккаунт</span><br>В канале <b>#дом-бота</b> в Discord-сообществе!</span>"))
+		to_chat(usr, chat_box_red("<span class='darkmblue'>Аккаунт Discord уже привязан!<br>Чтобы отвязать используйте команду [span_boldannounceooc("!отвязать_аккаунт")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!</span>"))
 		return
 	var/token = md5("[world.time+rand(1000,1000000)]")
 	if(SSdbcore.IsConnected())
@@ -1080,7 +1080,7 @@
 			qdel(query_update_token)
 			return
 		qdel(query_update_token)
-		to_chat(usr, chat_box_notice("<span class='darkmblue'>Для завершения привязки используйте команду<br><span class='boldannounce'>!привязать_аккаунт [token]</span><br>В канале <b>#дом-бота</b> в Discord-сообществе!</span>"))
+		to_chat(usr, chat_box_notice("<span class='darkmblue'>Для завершения привязки используйте команду<br>[span_boldannounceooc("!привязать_аккаунт [token]")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!</span>"))
 		if(prefs)
 			prefs.load_preferences(usr)
 

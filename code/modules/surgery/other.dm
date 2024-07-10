@@ -399,7 +399,7 @@
 		"[user] reaches into [target]'s head with [tool].",
 		span_notice("You begin aligning [tool]'s light to the tumor on [target]'s brain...")
 	)
-	to_chat(target, span_boldannounce("A small part of your [brain.parent_organ_zone] pulses with agony as the light impacts it."))
+	to_chat(target, span_boldannounceic("A small part of your [brain.parent_organ_zone] pulses with agony as the light impacts it."))
 	return ..()
 
 /datum/surgery_step/internal/dethrall/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
@@ -428,7 +428,7 @@
 	var/obj/item/organ/external/E = target.get_organ(check_zone(B.parent_organ_zone))
 	user.visible_message("[user] shines light onto the tumor in [target]'s [E]!", span_notice("You cleanse the contamination from [target]'s brain!"))
 	if(target.vision_type) //Turns off their darksight if it's still active.
-		to_chat(target, span_boldannounce("Your eyes are suddenly wrought with immense pain as your darksight is forcibly dismissed!"))
+		to_chat(target, span_boldannounceic("Your eyes are suddenly wrought with immense pain as your darksight is forcibly dismissed!"))
 		target.set_vision_override(null)
 	SSticker.mode.remove_thrall(target.mind, 0)
 	target.visible_message(span_warning("A strange black mass falls from [target]'s [E]!"))

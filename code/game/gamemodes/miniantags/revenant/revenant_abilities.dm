@@ -68,7 +68,7 @@
 			if(do_after(src, 2 SECONDS, target, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM)) //how about now
 				if(!target.stat)
 					to_chat(src, "<span class='revenwarning'>They are now powerful enough to fight off your draining.</span>")
-					to_chat(target, "<span class='boldannounce'>You feel something tugging across your body before subsiding.</span>")
+					to_chat(target, span_boldannounceic("You feel something tugging across your body before subsiding."))
 					draining = FALSE
 					return //hey, wait a minute...
 				to_chat(src, "<span class='revenminor'>You begin siphoning essence from [target]'s soul.</span>")

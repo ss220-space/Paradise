@@ -12,7 +12,7 @@
 	weather_duration_upper = 120 SECONDS
 	weather_overlay = "ash_storm"
 
-	end_message = span_boldannounce("The shrieking wind whips away the last of the ash and falls to its usual murmur. It should be safe to go outside now.")
+	end_message = span_boldannounceic("The shrieking wind whips away the last of the ash and falls to its usual murmur. It should be safe to go outside now.")
 	end_duration = 30 SECONDS
 	end_overlay = "light_ash"
 

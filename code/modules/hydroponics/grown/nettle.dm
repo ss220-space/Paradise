@@ -84,7 +84,7 @@
 /obj/item/grown/nettle/death
 	seed = /obj/item/seeds/nettle/death
 	name = "deathnettle"
-	desc = "The <span class='danger'>glowing</span> nettle incites <span class='boldannounce'>rage</span> in you just from looking at it!"
+	desc = "The <span class='danger'>glowing</span> nettle incites [span_boldannounceic("rage")] in you just from looking at it!"
 	icon_state = "deathnettle"
 	force = 30
 	throwforce = 15

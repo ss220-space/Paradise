@@ -297,7 +297,7 @@ That prevents a few funky behaviors.
 /atom/proc/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(istype(card))
 		if(card.flush)
-			to_chat(user, span_boldannounce("ERROR:") + "AI flush is in progress, cannot execute transfer protocol.")
+			to_chat(user, span_boldannounceic("ERROR:") + "AI flush is in progress, cannot execute transfer protocol.")
 			return 0
 	return 1
 

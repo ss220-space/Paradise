@@ -330,7 +330,7 @@
 			if(3)
 				to_chat(user, "<span class='notice'>You begin planting the tumor that will control the new thrall...</span>")
 				user.visible_message("<span class='warning'>A strange energy passes from [user]'s hands into [target]'s head!</span>")
-				to_chat(target, "<span class='boldannounce'>You feel your memories twisting, morphing. A sense of horror dominates your mind.</span>")
+				to_chat(target, span_boldannounceic("You feel your memories twisting, morphing. A sense of horror dominates your mind."))
 		if(!do_after(user, 7.7 SECONDS, target, NONE)) //around 23 seconds total for enthralling
 			to_chat(user, "<span class='warning'>The enthralling has been interrupted - your target's mind returns to its previous state.</span>")
 			to_chat(target, "<span class='userdanger'>You wrest yourself away from [user]'s hands and compose yourself</span>")
@@ -719,7 +719,7 @@
 			return
 
 		to_chat(user, "<span class='shadowling'><b><i>You release a massive surge of power into [thrall]!</b></i></span>")
-		user.visible_message("<span class='boldannounce'><i>Red lightning surges into [thrall]'s face!</i></span>")
+		user.visible_message(span_boldannounceic("<i>Red lightning surges into [thrall]'s face!</i>"))
 		playsound(thrall, 'sound/weapons/egloves.ogg', 50, TRUE)
 		playsound(thrall, 'sound/machines/defib_zap.ogg', 50, TRUE)
 		user.Beam(thrall, icon_state="red_lightning",icon='icons/effects/effects.dmi',time=1)
@@ -755,7 +755,7 @@
 			return
 
 		to_chat(user, "<span class='shadowling'><b><i>You release a massive surge of power into [thrall]!</b></i></span>")
-		user.visible_message("<span class='boldannounce'><i>Red lightning surges from [user]'s hands into [thrall]'s chest!</i></span>")
+		user.visible_message(span_boldannounceic("<i>Red lightning surges from [user]'s hands into [thrall]'s chest!</i>"))
 		playsound(thrall, 'sound/weapons/egloves.ogg', 50, TRUE)
 		playsound(thrall, 'sound/machines/defib_zap.ogg', 50, TRUE)
 		user.Beam(thrall, icon_state="red_lightning",icon='icons/effects/effects.dmi',time=1)
@@ -769,7 +769,7 @@
 		thrall.update_revive()
 		thrall.Weaken(8 SECONDS)
 		thrall.emote("gasp")
-		thrall.visible_message("<span class='boldannounce'>[thrall] heaves in breath, dim red light shining in [thrall.p_their()] eyes.</span>", \
+		thrall.visible_message(span_boldannounceic("[thrall] heaves in breath, dim red light shining in [thrall.p_their()] eyes."), \
 								"<span class='shadowling'><b><i>You have returned. One of your masters has brought you from the darkness beyond.</b></i></span>")
 		playsound(thrall, "bodyfall", 50, TRUE)
 
@@ -825,7 +825,7 @@
 	user.visible_message("<span class='warning'>[user]'s eyes flash a bright red!</span>", \
 						"<span class='notice'>You begin to draw [target]'s life force.</span>")
 	target.visible_message("<span class='warning'>[target]'s face falls slack, [target.p_their()] jaw slightly distending.</span>", \
-						"<span class='boldannounce'>You are suddenly transported... far, far away...</span>")
+						span_boldannounceic("You are suddenly transported... far, far away..."))
 	extend_limit_pressed = TRUE
 
 	if(!do_after(user, 15 SECONDS, target, max_interact_count = 1))
