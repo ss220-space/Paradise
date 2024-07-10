@@ -1000,6 +1000,64 @@ GLOBAL_LIST_EMPTY(icon_dimensions)
 	sleep(duration)
 	cut_overlay(overlay_image)
 
+GLOBAL_LIST_EMPTY(bicon_cache)
+
+/// Gets a dummy savefile for usage in icon generation.
+/// Savefiles generated from this proc will be empty.
+/proc/get_dummy_savefile(from_failure = FALSE)
+	var/static/next_id = 0
+	if(next_id++ > 9)
+		next_id = 0
+	var/savefile_path = "tmp/dummy-save-[next_id].sav"
+	try
+		if(fexists(savefile_path))
+			fdel(savefile_path)
+		return new /savefile(savefile_path)
+	catch(var/exception/error)
+		// if we failed to create a dummy once, try again; maybe someone slept somewhere they shouldnt have
+		if(from_failure) // this *is* the retry, something fucked up
+			CRASH("get_dummy_savefile failed to create a dummy savefile: '[error]'")
+		return get_dummy_savefile(from_failure = TRUE)
+
+/**
+ * Converts an icon to base64. Operates by putting the icon in the iconCache savefile,
+ * exporting it as text, and then parsing the base64 from that.
+ * (This relies on byond automatically storing icons in savefiles as base64)
+ */
+/proc/icon2base64(icon/icon)
+	if(!isicon(icon))
+		return FALSE
+	var/savefile/dummySave = get_dummy_savefile()
+	WRITE_FILE(dummySave["dummy"], icon)
+	var/iconData = dummySave.ExportText("dummy")
+	var/list/partial = splittext(iconData, "{")
+	return replacetext(copytext_char(partial[2], 3, -5), "\n", "") //if cleanup fails we want to still return the correct base64
+
+/proc/bicon(obj, use_class = 1)
+	var/class = use_class ? "class='icon misc'" : null
+	if(!obj)
+		return
+
+	if(isicon(obj))
+		if(!GLOB.bicon_cache["\ref[obj]"]) // Doesn't exist yet, make it.
+			GLOB.bicon_cache["\ref[obj]"] = icon2base64(obj)
+
+		return "<img [class] src='data:image/png;base64,[GLOB.bicon_cache["\ref[obj]"]]'>"
+
+	// Either an atom or somebody fucked up and is gonna get a runtime, which I'm fine with.
+	var/atom/A = obj
+	var/key = "[istype(A.icon, /icon) ? "\ref[A.icon]" : A.icon]:[A.icon_state]"
+	if(!GLOB.bicon_cache[key]) // Doesn't exist, make it.
+		var/icon/I = icon(A.icon, A.icon_state, SOUTH, 1)
+		if(ishuman(obj)) // Shitty workaround for a BYOND issue.
+			var/icon/temp = I
+			I = icon()
+			I.Insert(temp, dir = SOUTH)
+		GLOB.bicon_cache[key] = icon2base64(I, key)
+	if(use_class)
+		class = "class='icon [A.icon_state]'"
+
+	return "<img [class] src='data:image/png;base64,[GLOB.bicon_cache[key]]'>"
 
 /// Checks if the given iconstate exists in the given file, caching the result. Setting scream to TRUE will print a stack trace ONCE.
 /proc/icon_exists(file, state, scream = FALSE)

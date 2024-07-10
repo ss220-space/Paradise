@@ -286,18 +286,6 @@
 	prefs.current_tab = 1
 	prefs.ShowChoices(usr)
 
-/client/verb/toggle_darkmode()
-	set name = "Toggle Darkmode"
-	set category = "Preferences"
-	set desc = "Toggles UI style between dark and light"
-	prefs.toggles ^= PREFTOGGLE_UI_DARKMODE
-	prefs.save_preferences(src)
-	if(prefs.toggles & PREFTOGGLE_UI_DARKMODE)
-		activate_darkmode()
-	else
-		deactivate_darkmode()
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Darkmode") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
-
 /client/verb/toggle_karma()
 	set name = "Toggle Karma Gains"
 	set category = "Special Verbs"
@@ -386,25 +374,3 @@
 	prefs.save_preferences(src)
 	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_MC_TABS) ? "now" : "no longer"] see the MC tabs on the top right.")
 
-
-
-/// Delete after tgui panel
-/client/verb/refresh_tgui()
-	set name = "Refresh TGUI"
-	set category = "Special Verbs"
-
-	var/choice = alert(usr,
-		"Use it ONLY if you have trouble with TGUI window.\
-		That's UI's with EYE on top-left corner.\
-		Otherwise, you can get a white window that will only close when you restart the game!", "Refresh TGUI", "Refresh", "Cancel")
-	if(choice != "Refresh")
-		return
-	var/refreshed_count = 0
-	for(var/window_id in tgui_windows)
-		var/datum/tgui_window/window = tgui_windows[window_id]
-		if(!window.locked)
-			window.acquire_lock()
-			continue
-		window.reinitialize()
-		refreshed_count++
-	to_chat(usr, "<span class='notice'>TGUI windows refreshed - [refreshed_count].<br>If you have blank window - restart the game, or open previous TGUI window.</span>")
