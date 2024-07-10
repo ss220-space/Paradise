@@ -178,8 +178,7 @@
 	if(!warned || warn_blob)
 		to_chat(C, AWAY_STATION_WARN)
 		message_admins("[key_name_admin(C)] was in space when the blobs burst, and will die if [C.p_they()] [C.p_do()] not return to the station.")
-		spawn(AWAY_AFTER_WARN_TIME)
-			burst_blob_in_space(TRUE)
+		addtimer(CALLBACK(src, PROC_REF(burst_blob_in_space), TRUE), AWAY_AFTER_WARN_TIME)
 	else
 		SSticker?.mode?.bursted_blobs_count++
 		log_admin("[key_name(C)] was in space when attempting to burst as a blob.")
