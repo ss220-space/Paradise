@@ -3,7 +3,6 @@ import { flow } from 'common/fp';
 import { toFixed } from 'common/math';
 import { pureComponentHooks } from 'common/react';
 import { decodeHtmlEntities } from 'common/string';
-
 import { useBackend, useLocalState } from '../backend';
 import {
   Box,
@@ -47,27 +46,21 @@ const SelectionView = (props, context) => {
   const { act, data } = useBackend(context);
   const { powermonitors } = data;
 
-  if (!powermonitors) {
-    return 'No working power monitor consoles in this sector detected.';
-  }
-
   return (
     <Section title="Select Power Monitor">
-      {Object.keys(powermonitors)
-        .sort((a, b) => (powermonitors[a] < powermonitors[b] ? -1 : 1))
-        .map((uid) => (
-          <Box key={uid}>
-            <Button
-              content={`${powermonitors[uid]} Power Monitoring Console`}
-              icon="arrow-right"
-              onClick={() =>
-                act('selectmonitor', {
-                  selectmonitor: uid,
-                })
-              }
-            />
-          </Box>
-        ))}
+      {powermonitors.map((p) => (
+        <Box key={p}>
+          <Button
+            content={p.Area}
+            icon="arrow-right"
+            onClick={() =>
+              act('selectmonitor', {
+                selectmonitor: p.uid,
+              })
+            }
+          />
+        </Box>
+      ))}
     </Section>
   );
 };
@@ -138,7 +131,7 @@ const DataView = (props, context) => {
             </Section>
           </Flex.Item>
           <Flex.Item grow={1}>
-            <Section position="relative" height="100%">
+            <Section fill ml={1}>
               <Chart.Line
                 fillPositionedParent
                 data={supplyData}
