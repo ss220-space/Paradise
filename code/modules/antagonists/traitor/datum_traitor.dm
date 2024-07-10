@@ -48,9 +48,6 @@
 		slaved.leave_serv_hud(owner)
 		owner.som = null
 
-	// Need to bring this functionality back to TGchat
-	// owner.current.client?.chatOutput?.clear_syndicate_codes()
-
 	if(hidden_uplink)
 		var/obj/item/uplink_holder = hidden_uplink.loc
 		if(!QDELETED(uplink_holder))
@@ -232,10 +229,6 @@
 
 	antag_memory += "<b>Code Phrase</b>: <span class='red'>[phrases]</span><br>"
 	antag_memory += "<b>Code Response</b>: <span class='red'>[responses]</span><br>"
-
-	// Need to bring this functionality back to TGchat
-	// var/mob/traitor_mob = owner.current
-	// traitor_mob.client.chatOutput?.notify_syndicate_codes()
 
 	var/list/messages = list()
 	if(!silent)
