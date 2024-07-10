@@ -6,9 +6,9 @@
 SUBSYSTEM_DEF(ping)
 	name = "Ping"
 	priority = FIRE_PRIORITY_PING
-	wait = 6 SECONDS
-	flags = SS_NO_INIT | SS_NO_FIRE
-	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME
+	wait = 4 SECONDS
+	flags = SS_NO_INIT
+	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 	cpu_display = SS_CPUDISPLAY_LOW
 	ss_id = "ping"
 
