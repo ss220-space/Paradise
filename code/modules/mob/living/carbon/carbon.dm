@@ -316,7 +316,7 @@
 			to_chat(src, "\t <a href='byond://?src=[UID()];embedded_object=[embedded.UID()];embedded_limb=[bodypart.UID()]' class='warning'>В твоем [bodypart.name] застрял [embedded]!</a>")
 
 	for(var/t in missing)
-		to_chat(src, "<span class='boldannounce'>У вас отсутствует [parse_zone(t)]!</span>")
+		to_chat(src, span_boldannounceic("У вас отсутствует [parse_zone(t)]!"))
 
 	if(H.bleed_rate)
 		to_chat(src, "<span class='danger'>У вас кровотечение!</span>")

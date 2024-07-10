@@ -308,7 +308,7 @@
 		for(var/datum/mind/head in heads)
 			var/target = (head in targets)
 			if(target)
-				text += "<span class='boldannounce'>Target</span>"
+				text += span_boldannounceooc("Target")
 			text += printplayer(head, 1)
 		text += "<br>"
 		to_chat(world, text)

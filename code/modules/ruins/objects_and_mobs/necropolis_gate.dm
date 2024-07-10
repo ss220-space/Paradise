@@ -109,7 +109,7 @@
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/structure/necropolis_gate/attack_hand(mob/user)
 	if(locked)
-		to_chat(user, "<span class='boldannounce'>Кажется, эта дверь [open ? "навеки открыта":"намертво запечатана"].</span>")
+		to_chat(user, span_boldannounceic("Кажется, эта дверь [open ? "навеки открыта":"намертво запечатана"]."))
 		return
 	toggle_the_gate(user)
 	return ..()
@@ -192,7 +192,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		var/safety = alert(user, "You think this might be a bad idea...", "Knock on the door?", "Proceed", "Abort")
 		if(safety == "Abort" || !in_range(src, user) || !src || open || changing_openness || user.incapacitated())
 			return
-		user.visible_message("<span class='warning'>[user] knocks on [src]...</span>", "<span class='boldannounce'>You tentatively knock on [src]...</span>")
+		user.visible_message("<span class='warning'>[user] knocks on [src]...</span>", span_boldannounceic("You tentatively knock on [src]..."))
 		playsound(user.loc, 'sound/effects/shieldbash.ogg', 100, 1)
 		sleep(50)
 	return ..()
