@@ -36,8 +36,8 @@
 #define BLOB_TARGET_POINT_PER_CORE 350
 #define BLOB_PLAYERS_PER_CORE 30
 #define AWAY_STATION_WARN span_userdanger("Вы готовы лопнуть, но это не подходящее место! Вы должны вернуться на станцию!")
-#define FIRST_STAGE_WARN span_userdanger("Вы чувствуете усталость и раздутость</span>")
-#define SECOND_STAGE_WARN span_userdanger("Вы чувствуете, что вот-вот лопнете</span>")
+#define FIRST_STAGE_WARN span_userdanger("Вы чувствуете усталость и раздутость.")
+#define SECOND_STAGE_WARN span_userdanger("Вы чувствуете, что вот-вот лопнете.")
 
 #define isblobbernaut(M) istype((M), /mob/living/simple_animal/hostile/blob/blobbernaut)
 
