@@ -20,6 +20,7 @@
 	icon_state = "captain"
 	item_state = "caparmor"
 	item_color = "captain"
+	dying_key = DYE_REGISTRY_UNDER
 
 /obj/item/clothing/under/rank/cargo
 	name = "quartermaster's jumpsuit"
@@ -267,6 +268,7 @@
 	icon_state = "oldman"
 	item_state = "oldman"
 	item_color = "oldman"
+	dying_key = DYE_REGISTRY_UNDER
 
 
 /obj/item/clothing/under/librarian
@@ -282,6 +284,7 @@
 	icon_state = "mime"
 	item_state = "mime"
 	item_color = "mime"
+	dying_key = DYE_REGISTRY_UNDER
 
 /obj/item/clothing/under/mime/nodrop
 
@@ -289,7 +292,6 @@
 /obj/item/clothing/under/mime/nodrop/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 
 /obj/item/clothing/under/rank/miner

@@ -9,6 +9,7 @@ import {
   BlockQuote,
   Box,
   Icon,
+  Stack,
 } from '../components';
 import { Window } from '../layouts';
 
@@ -64,8 +65,8 @@ const getCheckboxGroup = (
 
 export const TTSSeedsExplorer = (props, context) => {
   return (
-    <Window width={550} height={800}>
-      <Window.Content className="Layout__content--flexColumn">
+    <Window width={700} height={800}>
+      <Window.Content>
         <TTSSeedsExplorerContent />
       </Window.Content>
     </Window>
@@ -254,40 +255,48 @@ export const TTSSeedsExplorerContent = (props, context) => {
   });
 
   return (
-    <>
-      <Section title="Фильтры">
-        <LabeledList>
-          <LabeledList.Item label="Провайдеры">
-            {providerCheckboxes}
-          </LabeledList.Item>
-          <LabeledList.Item label="Пол">{genderesCheckboxes}</LabeledList.Item>
-          <LabeledList.Item label="Категории">
-            {categoriesCheckboxes}
-          </LabeledList.Item>
-          <LabeledList.Item label="Уровень подписки">
-            {donatorLevelsCheckboxes}
-          </LabeledList.Item>
-          <LabeledList.Item label="Фраза">{phrasesSelect}</LabeledList.Item>
-          <LabeledList.Item label="Поиск">{searchBar}</LabeledList.Item>
-        </LabeledList>
-      </Section>
-      <Section
-        scrollable
-        title={`Голоса (${availableSeeds.length}/${seeds.length})`}
-        flexGrow="1"
-      >
-        <Table>{seedsRow}</Table>
-      </Section>
-      <Section>
-        <BlockQuote>
-          <Box>
-            {`Для поддержания и развития сообщества в условиях растущих расходов часть голосов пришлось сделать доступными только за материальную поддержку сообщества.`}
-          </Box>
-          <Box mt={2} italic>
-            {`Подробнее об этом можно узнать в нашем Discord-сообществе.`}
-          </Box>
-        </BlockQuote>
-      </Section>
-    </>
+    <Stack vertical fill>
+      <Stack.Item>
+        <Section title="Фильтры" fill>
+          <LabeledList>
+            <LabeledList.Item label="Провайдеры">
+              {providerCheckboxes}
+            </LabeledList.Item>
+            <LabeledList.Item label="Пол">
+              {genderesCheckboxes}
+            </LabeledList.Item>
+            <LabeledList.Item label="Категории">
+              {categoriesCheckboxes}
+            </LabeledList.Item>
+            <LabeledList.Item label="Уровень подписки">
+              {donatorLevelsCheckboxes}
+            </LabeledList.Item>
+            <LabeledList.Item label="Фраза">{phrasesSelect}</LabeledList.Item>
+            <LabeledList.Item label="Поиск">{searchBar}</LabeledList.Item>
+          </LabeledList>
+        </Section>
+      </Stack.Item>
+      <Stack.Item grow>
+        <Section
+          scrollable
+          fill
+          title={`Голоса (${availableSeeds.length}/${seeds.length})`}
+        >
+          <Table>{seedsRow}</Table>
+        </Section>
+      </Stack.Item>
+      <Stack.Item>
+        <Section>
+          <BlockQuote>
+            <Box>
+              {`Для поддержания и развития сообщества в условиях растущих расходов часть голосов пришлось сделать доступными только за материальную поддержку сообщества.`}
+            </Box>
+            <Box italic>
+              {`Подробнее об этом можно узнать в нашем Discord-сообществе.`}
+            </Box>
+          </BlockQuote>
+        </Section>
+      </Stack.Item>
+    </Stack>
   );
 };

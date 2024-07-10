@@ -19,6 +19,7 @@
 #define INVESTIGATE_BOTANY "botany"
 #define INVESTIGATE_CARGO "cargo"
 #define INVESTIGATE_CRAFTING "crafting"
+#define INVESTIGATE_DEATHS "deaths"
 #define INVESTIGATE_ENGINE "engine"
 #define INVESTIGATE_EXPERIMENTOR "experimentor"
 #define INVESTIGATE_GRAVITY "gravity"
@@ -29,7 +30,6 @@
 #define INVESTIGATE_RESEARCH "research"
 #define INVESTIGATE_SYNDIE_CARGO "syndicate_cargo"
 #define INVESTIGATE_WIRES "wires"
-#define INVESTIGATE_DEATHS "deaths"
 
 //This is an external call, "true" and "false" are how rust parses out booleans
 #define WRITE_LOG(log, text) rustg_log_write(log, text, "true")

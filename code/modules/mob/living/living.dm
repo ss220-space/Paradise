@@ -446,14 +446,20 @@
 
 
 /// Special projectiles handling for living mobs
-/mob/living/proc/projectile_allow_through(obj/item/projectile, border_dir)
-	if(!(mobility_flags & (MOBILITY_REST|MOBILITY_LIEDOWN)))	// default behavior for generic mobs
+/mob/living/proc/projectile_allow_through(obj/item/projectile/projectile, border_dir)
+	// default behavior for generic mobs
+	if(!(mobility_flags & (MOBILITY_REST|MOBILITY_LIEDOWN)))
 		return !density
-	if(stat == DEAD)	// DEAD mobs are fine to skip if they are not dense or lying
+	// DEAD mobs are fine to skip if they are not dense or lying
+	if(stat == DEAD)
 		return !density || body_position == LYING_DOWN
-	if(density || body_position == STANDING_UP)	// always hitting dense/standing mobs
+	// always hitting dense/standing mobs
+	if(density || body_position == STANDING_UP)
 		return FALSE
-	return prob(67)	// 33% to hit lying mobs
+	// otherwise chance to hit is defined by the projectile var/hit_crawling_mobs_chance
+	if(projectile.hit_crawling_mobs_chance > 0 && projectile.hit_crawling_mobs_chance <= 100)
+		return !prob(projectile.hit_crawling_mobs_chance)
+	return FALSE
 
 
 /mob/living/tompost_bump_override(atom/movable/mover, border_dir)
@@ -1450,13 +1456,13 @@
 	return ..() && !(buckled && buckled.buckle_prevents_pull)
 
 
-/mob/living/proc/can_pull(supress_message = FALSE)
+/mob/living/proc/can_pull(hand_to_check, supress_message = FALSE)
 	if(pull_hand == PULL_WITHOUT_HANDS)
 		return TRUE
-	var/hand_occupied = hand ? l_hand : r_hand
-	if(hand_occupied || (!isnull(pull_hand) && hand == pull_hand))
+	var/hand_occupied = (hand_to_check == ACTIVE_HAND_LEFT) ? l_hand : r_hand
+	if(hand_occupied || (!isnull(pull_hand) && hand_to_check == pull_hand))
 		if(!supress_message)
-			to_chat(src, span_warning("Освободите [hand ? "левую" : "правую"] руку!"))
+			to_chat(src, span_warning("Освободите [(hand_to_check == ACTIVE_HAND_LEFT) ? "левую" : "правую"] руку!"))
 		return FALSE
 	return TRUE
 
@@ -1482,7 +1488,17 @@
 			return FALSE
 		stop_pulling()
 
-	if(!can_pull(supress_message))
+	// carbons can try to pull with other hand
+	if(iscarbon(src))
+		var/active_hand_available = can_pull(hand, supress_message = TRUE)
+		var/inactive_hand_available = can_pull(!hand, supress_message = TRUE)
+		if(!active_hand_available && !inactive_hand_available)
+			if(!supress_message)
+				can_pull(hand)	// we still need to inform user about his active hand unavailability
+			return FALSE
+		if(!active_hand_available && !swap_hand())
+			return FALSE
+	else if(!can_pull(hand, supress_message))
 		return FALSE
 
 	. = TRUE

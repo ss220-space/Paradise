@@ -1,6 +1,6 @@
 /obj/item/clothing/under/color
 	desc = "A standard issue colored jumpsuit. Variety is the spice of life!"
-	dyeable = TRUE
+	dying_key = DYE_REGISTRY_UNDER
 
 
 /obj/item/clothing/under/color/random/Initialize(mapload)

@@ -250,7 +250,7 @@
 /obj/proc/container_resist(mob/living)
 	return
 
-/obj/proc/on_mob_move(dir, mob/user)
+/obj/proc/on_mob_move(mob/user, dir)
 	return
 
 /obj/proc/makeSpeedProcess()
