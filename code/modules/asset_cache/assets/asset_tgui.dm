@@ -5,6 +5,13 @@
 		"tgui.bundle.css" = 'tgui/public/tgui.bundle.css'
 )
 
+/datum/asset/simple/tgui_panel
+	keep_local_name = TRUE
+	assets = list(
+		"tgui-panel.bundle.js" = 'tgui/public/tgui-panel.bundle.js',
+		"tgui-panel.bundle.css" = 'tgui/public/tgui-panel.bundle.css',
+	)
+
 /datum/asset/simple/namespaced/fontawesome
 	legacy = TRUE
 	assets = list(

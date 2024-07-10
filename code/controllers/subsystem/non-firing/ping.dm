@@ -2,7 +2,6 @@
  * Copyright (c) 2022 Aleksej Komarov
  * SPDX-License-Identifier: MIT
  */
-#define PING_BUFFER_TIME 25
 
 SUBSYSTEM_DEF(ping)
 	name = "Ping"
@@ -31,12 +30,14 @@ SUBSYSTEM_DEF(ping)
 	while (currentrun.len)
 		var/client/client = currentrun[currentrun.len]
 		currentrun.len--
-		if (!client || world.time - client.connection_time < PING_BUFFER_TIME || client.inactivity >= (wait-1))
-			if (MC_TICK_CHECK)
-				return
-			continue
-		winset(client, null, "command=.update_ping+[num2text(world.time+world.tick_lag*TICK_USAGE_REAL/100, 32)]")
+
+		if (client?.tgui_panel?.is_ready())
+			// Send a soft ping
+			client.tgui_panel.window.send_message("ping/soft", list(
+				// Slightly less than the subsystem timer (somewhat arbitrary)
+				// to prevent incoming pings from resetting the afk state
+				"afk" = client.is_afk(3.5 SECONDS),
+			))
+
 		if (MC_TICK_CHECK)
 			return
-
-#undef PING_BUFFER_TIME

@@ -8108,6 +8108,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"tgui-panel@workspace:packages/tgui-panel":
+  version: 0.0.0-use.local
+  resolution: "tgui-panel@workspace:packages/tgui-panel"
+  dependencies:
+    common: "workspace:*"
+    dompurify: "npm:2.5.0"
+    inferno: "npm:^7.4.11"
+    tgui: "workspace:*"
+    tgui-dev-server: "workspace:*"
+    tgui-polyfill: "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "tgui-polyfill@workspace:*, tgui-polyfill@workspace:packages/tgui-polyfill":
   version: 0.0.0-use.local
   resolution: "tgui-polyfill@workspace:packages/tgui-polyfill"
@@ -8165,7 +8178,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"tgui@workspace:packages/tgui":
+"tgui@workspace:*, tgui@workspace:packages/tgui":
   version: 0.0.0-use.local
   resolution: "tgui@workspace:packages/tgui"
   dependencies:
