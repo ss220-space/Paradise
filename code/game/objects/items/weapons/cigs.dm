@@ -80,7 +80,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/proc/check_smoking(mob/user)
 	var/mob/living/carbon/human = user
-	if(lit && human?.m_intent == MOVE_INTENT_RUN && !human.breathe())
+	if(ishuman(user) && lit && human.m_intent == MOVE_INTENT_RUN && !human.breathe())
 		return TRUE
 	return FALSE
 
@@ -88,7 +88,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 	SIGNAL_HANDLER
 	var/mob/living/carbon/human = user
 	if(prob(5) && check_smoking(human))
-		human.emote("cough", ignore_cooldowns = TRUE)
+		cough()
+
+/obj/item/clothing/mask/cigarette/proc/cough(mob/living/carbon/human)
+	human.emote("cough", ignore_cooldowns = TRUE)
 
 /obj/item/clothing/mask/cigarette/attack(mob/living/M, mob/living/user, def_zone)
 	if(istype(M) && M.on_fire)
@@ -297,7 +300,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		var/mob/living/M = loc
 		to_chat(M, "<span class='notice'>Your [name] goes out.</span>")
 		M.temporarily_remove_item_from_inventory(src, force = TRUE)		//Force the un-equip so the overlays update
-	var/mob/living/carbon/human/user = loc
+	var/mob/living/carbon/user = loc
 	UnregisterSignal(user, COMSIG_MOB_CLIENT_MOVED)
 	STOP_PROCESSING(SSobj, src)
 	qdel(src)
