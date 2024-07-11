@@ -248,10 +248,13 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 	if(contractor)
 		var/list/contractor_data = list(
-			available = uses >= contractor.tc_cost && world.time < contractor.offer_deadline,
+			available = uses >= contractor.tc_cost && world.time < contractor.offer_deadline && \
+			(SSticker?.mode?.contractor_accepted< CONTRACTOR_MAX_ACCEPTED || contractor.is_admin_forced),
 			affordable = uses >= contractor.tc_cost,
 			accepted = !isnull(contractor.contractor_uplink),
 			time_left = contractor.offer_deadline - world.time,
+			available_offers = CONTRACTOR_MAX_ACCEPTED - SSticker?.mode?.contractor_accepted,
+			is_admin_forced = contractor.is_admin_forced
 		)
 		data["contractor"] = contractor_data
 

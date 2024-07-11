@@ -44,7 +44,7 @@ export const Uplink = (props, context) => {
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
 
   return (
-    <Window width={900} height={600} theme="syndicate">
+    <Window width={900} height={650} theme="syndicate">
       <ComplexModal />
       <Window.Content scrollable>
         <Stack fill vertical>
@@ -95,16 +95,20 @@ export const Uplink = (props, context) => {
                   onClick={() => modalOpen(context, 'become_contractor')}
                   icon="suitcase"
                 >
-                  Contracting Opportunity
+                  Contracting Opportunity {!data.contractor.is_admin_forced && !data.contractor.accepted?
+                                          (data.contractor.available_offers>0)?
+                                          (<i>[Left:{data.contractor.available_offers}]</i>):
+                                          (<i>[Offers over]</i>)
+                                          :''}
                   {data.contractor.accepted ? (
                     <i>&nbsp;(Accepted)</i>
-                  ) : (
-                    <Countdown
-                      timeLeft={data.contractor.time_left}
-                      format={(v, f) => ' (' + f + ')'}
-                      bold
-                    />
-                  )}
+                  ) :
+                  (!data.contractor.is_admin_forced && data.contractor.available_offers<=0)?
+                    '':(<Countdown
+                        timeLeft={data.contractor.time_left}
+                        format={(v, f) => ' (' + f + ')'}
+                        bold
+                      />)}
                 </Tabs.Tab>
               )}
               <Tabs.Tab
@@ -540,6 +544,8 @@ modalRegisterBodyOverride('become_contractor', (modal, context) => {
   const isAvailable = !!data?.contractor?.available;
   const isAffordable = !!data?.contractor?.affordable;
   const isAccepted = !!data?.contractor?.accepted;
+  const { available_offers } = data.contractor || {};
+  const isAdminForced = !!data?.contractor?.is_admin_forced;
   return (
     <Section
       level="2"
@@ -571,6 +577,11 @@ modalRegisterBodyOverride('become_contractor', (modal, context) => {
         <br />
         More detailed instructions can be found within your kit, should you
         accept this offer.
+        {!isAdminForced?(<Box>
+        Hurry up. You are not the only one who received this offer. Their number is limited.
+        If other traitors accept all offers before you, you will not be able to accept one of them.
+        <br />
+        <b>Available offers: {available_offers}</b></Box>):''}
       </Box>
       <Button.Confirm
         disabled={!isAvailable || isAccepted}
@@ -592,7 +603,11 @@ modalRegisterBodyOverride('become_contractor', (modal, context) => {
                 ]
               : !isAffordable
                 ? 'Insufficient TC'
-                : 'Offer expired'
+                : !data.contractor.is_admin_forced?
+                  (data.contractor.available_offers>0)?
+                  (<i>[Left:{data.contractor.available_offers}]</i>):
+                  (<i>[Offers are over]</i>):
+                  'Offer expired'
         }
         position="absolute"
         right="1rem"

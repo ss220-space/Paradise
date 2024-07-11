@@ -2072,8 +2072,9 @@
 			if("contractor")
 				if(has_antag_datum(/datum/antagonist/contractor))
 					return
-
-				add_antag_datum(/datum/antagonist/contractor)
+				var/datum/antagonist/contractor/contractor_datum = new()
+				contractor_datum.is_admin_forced = TRUE
+				add_antag_datum(contractor_datum)
 
 				// Notify
 				log_admin("[key_name(usr)] has contractored [key_name(current)]")
@@ -2711,6 +2712,8 @@
 		return
 
 	contractor_datum.silent = TRUE
+	if(contractor_datum.contractor_uplink && !contractor_datum.is_admin_forced)
+		SSticker?.mode?.contractor_accepted--
 	remove_antag_datum(/datum/antagonist/contractor)
 
 
