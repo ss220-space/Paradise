@@ -71,7 +71,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	. = ..()
 	if(slot & ITEM_SLOT_MASK)
 		var/mob/living/carbon/human = user
-		RegisterSignal(human, COMSIG_MOB_CLIENT_MOVED, PROC_REF(on_move))
+		RegisterSignal(human, COMSIG_MOB_CLIENT_MOVED, PROC_REF(on_mob_move))
 
 /obj/item/clothing/mask/cigarette/dropped(mob/user, slot, silent)
 	var/mob/living/carbon/human = user
@@ -84,11 +84,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return TRUE
 	return FALSE
 
-/obj/item/clothing/mask/cigarette/proc/on_move(mob/user)
+/obj/item/clothing/mask/cigarette/proc/on_mob_move(mob/user, dir)
 	SIGNAL_HANDLER
 	var/mob/living/carbon/human = user
-	if(prob(5) && check_smoking(human))
-		human.say("*cough")
+	if(prob(5) && check_smoking())
+		human.emote("cough", ignore_cooldowns = TRUE)
 
 /obj/item/clothing/mask/cigarette/attack(mob/living/M, mob/living/user, def_zone)
 	if(istype(M) && M.on_fire)
