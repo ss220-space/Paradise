@@ -84,8 +84,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return TRUE
 	return FALSE
 
-/obj/item/clothing/mask/cigarette/proc/on_mob_move(mob/user, dir)
-	SIGNAL_HANDLER
+/obj/item/clothing/mask/cigarette/on_mob_move(mob/user, dir)
 	var/mob/living/carbon/human = user
 	if(prob(5) && check_smoking())
 		human.emote("cough", ignore_cooldowns = TRUE)
