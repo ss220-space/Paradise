@@ -449,7 +449,7 @@ God Bless \ /\  \         \ \___\         \
 			TMP += A
 		usr.client.screen = owner.client.screen - TMP
 		return TRUE
-
+					//Кто-нибудь, пожалуйста, сделайте тут функцию обновления инвентаря.
 	return FALSE
 
 
