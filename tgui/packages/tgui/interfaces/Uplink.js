@@ -95,7 +95,7 @@ export const Uplink = (props, context) => {
                   onClick={() => modalOpen(context, 'become_contractor')}
                   icon="suitcase"
                 >
-                   Contracting Opportunity
+                  Contracting Opportunity
                   {!data.contractor.is_admin_forced &&
                   !data.contractor.accepted ? (
                     data.contractor.available_offers > 0 ? (
@@ -605,7 +605,7 @@ modalRegisterBodyOverride('become_contractor', (modal, context) => {
         icon={isAvailable && !isAccepted && 'check'}
         color="good"
         content={
-           isAccepted ? (
+          isAccepted ? (
             'Accepted'
           ) : isAvailable ? (
             [
