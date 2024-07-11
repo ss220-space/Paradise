@@ -70,7 +70,7 @@
 	messages.Add("<b><font size=4 color=red>You have been offered a chance to become a Contractor.</font></b><br>")
 	messages.Add("<font color=red>[greet_text]</font>")
 	if(!is_admin_forced)
-	messages.Add("<b><i><font color=red>Hurry up. You are not the only one who received this offer. Their number is limited. \
+		messages.Add("<b><i><font color=red>Hurry up. You are not the only one who received this offer. Their number is limited. \
         			If other traitors accept all offers before you, you will not be able to accept one of them.</font></i></b>")
 	messages.Add("<b><i><font color=red>This offer will expire in 10 minutes starting now (expiry time: <u>[station_time_timestamp(time = offer_deadline)]</u>).</font></i></b>")
 	return messages
