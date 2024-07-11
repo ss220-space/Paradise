@@ -69,13 +69,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/equipped(mob/user, slot, initial)
 	. = ..()
-	if(slot & ITEM_SLOT_MASK)
-		var/mob/living/carbon/human/human = user
-		RegisterSignal(human, COMSIG_MOB_CLIENT_MOVED, PROC_REF(on_mob_move))
+	if(ishuman(user) && slot & ITEM_SLOT_MASK)
+		RegisterSignal(user, COMSIG_MOB_CLIENT_MOVED, PROC_REF(on_mob_move))
 
 /obj/item/clothing/mask/cigarette/dropped(mob/user, slot, silent)
-	var/mob/living/carbon/human/human = user
-	UnregisterSignal(human, COMSIG_MOB_CLIENT_MOVED)
+	UnregisterSignal(user, COMSIG_MOB_CLIENT_MOVED)
 	. = ..()
 
 /obj/item/clothing/mask/cigarette/proc/check_smoking(mob/user)
