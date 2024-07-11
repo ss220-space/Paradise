@@ -459,7 +459,7 @@
 	// otherwise chance to hit is defined by the projectile var/hit_crawling_mobs_chance
 	if(projectile.hit_crawling_mobs_chance > 0 && projectile.hit_crawling_mobs_chance <= 100)
 		return !prob(projectile.hit_crawling_mobs_chance)
-	return FALSE
+	return TRUE
 
 
 /mob/living/tompost_bump_override(atom/movable/mover, border_dir)
