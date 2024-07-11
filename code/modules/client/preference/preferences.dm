@@ -943,11 +943,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			overrides = list()
 	keybindings = list()
 	keybindings_overrides = overrides
-	for(var/kb in GLOB.keybindings)
-		var/datum/keybinding/KB = kb
-		var/list/keys = (overrides && overrides[KB.name]) || KB.keys
+	for(var/datum/keybinding/keybinding as anything in GLOB.keybindings)
+		var/list/keys = keybinding.keys
+		if(overrides?[keybinding.name])
+			keys = overrides[keybinding.name]
 		for(var/key in keys)
-			LAZYADD(keybindings[key], kb)
+			LAZYADD(keybindings[key], keybinding)
 
 	parent?.update_active_keybindings()
 	return keybindings

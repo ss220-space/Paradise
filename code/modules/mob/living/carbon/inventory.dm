@@ -83,13 +83,11 @@
 /mob/living/carbon/proc/update_legcuffed_status()
 	if(legcuffed)
 		throw_alert(ALERT_LEGCUFFED, /atom/movable/screen/alert/restrained/legcuffed, new_master = legcuffed)
-		if(m_intent == MOVE_INTENT_RUN)
-			toggle_move_intent()
+		toggle_move_intent(MOVE_INTENT_WALK)
 
 	else
 		clear_alert(ALERT_LEGCUFFED)
-		if(m_intent == MOVE_INTENT_WALK)
-			toggle_move_intent()
+		toggle_move_intent(MOVE_INTENT_RUN)
 
 	update_inv_legcuffed()
 
