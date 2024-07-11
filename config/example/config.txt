@@ -693,3 +693,14 @@ JOBS_HIGH_POP_MODE_AMOUNT 80
 ##How long to wait between messaging admins about occurences of a unique error
 #ERROR_MSG_DELAY 50
 
+## CLICK RATE LIMITING
+## This allows you to limit how clicks on objects in the game window.
+## This should be a higher then the interface limit to allow for the spam clickly nature of most battles.
+## Admins are exempt from these limits.
+## Hitting the minute limit notifies admins.
+## Set to 0 to disable.
+MAX_CLICKS_PER_MINUTE 400
+
+## Cooldown in seconds before clicking is allowed again.
+SECOND_CLICK_LIMIT 15
+

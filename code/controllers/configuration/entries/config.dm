@@ -798,3 +798,13 @@
 	default = 50
 	integer = FALSE
 
+
+/datum/config_entry/number/max_clicks_per_minute
+	default = 400
+	min_val = 0
+
+
+/datum/config_entry/number/second_click_limit
+	default = 15
+	min_val = 0
+

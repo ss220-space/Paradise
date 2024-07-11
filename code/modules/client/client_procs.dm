@@ -940,6 +940,53 @@
 			return
 		click_intercept_time = 0 //Just reset. Let's not keep re-checking forever.
 
+	var/list/modifiers = params2list(params)
+
+	var/button_clicked = LAZYACCESS(modifiers, "button")
+
+	var/dragged = LAZYACCESS(modifiers, "drag")
+	if(dragged && button_clicked != dragged)
+		return
+
+	var/mcl = CONFIG_GET(number/max_clicks_per_minute)
+	if(!holder && mcl)
+		var/minute = round(world.time, 600)
+
+		if(!clicklimiter)
+			clicklimiter = new(LIMITER_SIZE)
+
+		if(minute != clicklimiter[CURRENT_MINUTE])
+			clicklimiter[CURRENT_MINUTE] = minute
+			clicklimiter[MINUTE_COUNT] = 0
+
+		clicklimiter[MINUTE_COUNT] += 1
+
+		if(clicklimiter[MINUTE_COUNT] > mcl)
+			var/msg = "Your previous click was ignored because you've done too many in a minute."
+			if(minute != clicklimiter[ADMINSWARNED_AT]) //only one admin message per-minute. (if they spam the admins can just boot/ban them)
+				clicklimiter[ADMINSWARNED_AT] = minute
+				msg += " Administrators have been informed."
+				add_game_logs("hit the per-minute click limit of [mcl] clicks in a given game minute", src)
+				message_admins("[ADMIN_LOOKUPFLW(usr)] Has hit the per-minute click limit of [mcl] clicks in a given game minute")
+			to_chat(src, span_danger("[msg]"))
+			return
+
+	var/scl = CONFIG_GET(number/second_click_limit)
+	if(!holder && scl)
+		var/second = round(world.time, 10)
+		if(!clicklimiter)
+			clicklimiter = new(LIMITER_SIZE)
+
+		if(second != clicklimiter[CURRENT_SECOND])
+			clicklimiter[CURRENT_SECOND] = second
+			clicklimiter[SECOND_COUNT] = 0
+
+		clicklimiter[SECOND_COUNT] += 1
+
+		if(clicklimiter[SECOND_COUNT] > scl)
+			to_chat(src, span_danger("Your previous click was ignored because you've done too many in a second"))
+			return
+
 	//check if the server is overloaded and if it is then queue up the click for next tick
 	//yes having it call a wrapping proc on the subsystem is fucking stupid glad we agree unfortunately byond insists its reasonable
 	if(!QDELETED(object) && TRY_QUEUE_VERB(VERB_CALLBACK(object, TYPE_PROC_REF(/atom, _Click), location, control, params), VERB_HIGH_PRIORITY_QUEUE_THRESHOLD, SSinput, control))

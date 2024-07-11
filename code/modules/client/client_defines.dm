@@ -42,6 +42,8 @@
 
 	///Used for limiting the rate of topic sends by the client to avoid abuse
 	var/list/topiclimiter
+	///Used for limiting the rate of clicks sends by the client to avoid abuse
+	var/list/clicklimiter
 
 	// comment out the line below when debugging locally to enable the options & messages menu
 	control_freak = CONTROL_FREAK_ALL
