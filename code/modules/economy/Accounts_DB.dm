@@ -84,6 +84,7 @@ GLOBAL_VAR(current_date_string)
 						"account_number" = D.account_number,
 						"owner_name" = D.owner_name,
 						"suspended" = D.suspended ? "SUSPENDED" : "Active",
+						"money" = "[D.money]", // needs to be strings because of TGUI localeCompare
 						"account_index" = i)))
 
 				data["accounts"] = accounts

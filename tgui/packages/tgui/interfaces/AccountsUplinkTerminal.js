@@ -70,6 +70,7 @@ const AccountsRecordList = (properties, context) => {
               <SortButton id="owner_name">Account Holder</SortButton>
               <SortButton id="account_number">Account Number</SortButton>
               <SortButton id="suspended">Account Status</SortButton>
+              <SortButton id="money">Account Balance</SortButton>
             </Table.Row>
             {accounts
               .filter(
@@ -97,7 +98,7 @@ const AccountsRecordList = (properties, context) => {
                   }
                   onClick={() =>
                     act('view_account_detail', {
-                      account_num: account.account_number,
+                      index: account.account_index,
                     })
                   }
                 >

@@ -256,7 +256,7 @@ const MedicalRecordsView = (_properties, context) => {
               iconSpin={!!printing}
               content="Print Record"
               ml="0.5rem"
-              onClick={() => act('print_p')}
+              onClick={() => act('print_record')}
             />
           }
         >
