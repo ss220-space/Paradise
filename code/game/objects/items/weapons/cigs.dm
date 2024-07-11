@@ -294,8 +294,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 		var/mob/living/M = loc
 		to_chat(M, "<span class='notice'>Your [name] goes out.</span>")
 		M.temporarily_remove_item_from_inventory(src, force = TRUE)		//Force the un-equip so the overlays update
-	var/mob/living/carbon/human/user = loc
-	UnregisterSignal(user, COMSIG_MOB_CLIENT_MOVED)
 	STOP_PROCESSING(SSobj, src)
 	qdel(src)
 
