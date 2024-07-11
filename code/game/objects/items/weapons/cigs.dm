@@ -88,7 +88,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	SIGNAL_HANDLER
 	var/mob/living/carbon/human/human = user
 	if(prob(5) && check_smoking(human))
-		human.emote_cough()
+		human.emote("cough", ignore_cooldowns = TRUE, type_override = null)
 
 /obj/item/clothing/mask/cigarette/attack(mob/living/M, mob/living/user, def_zone)
 	if(istype(M) && M.on_fire)
