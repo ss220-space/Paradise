@@ -80,7 +80,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/proc/check_smoking(mob/user)
 	var/mob/living/carbon/human = user
-	if(ishuman(user) && lit && human.m_intent == MOVE_INTENT_RUN && !human.breathe())
+	if(lit && human?.m_intent == MOVE_INTENT_RUN && !human.breathe())
 		return TRUE
 	return FALSE
 
@@ -88,10 +88,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	SIGNAL_HANDLER
 	var/mob/living/carbon/human = user
 	if(prob(5) && check_smoking(human))
-		cough()
-
-/obj/item/clothing/mask/cigarette/proc/cough(mob/living/carbon/human)
-	human.emote("cough", ignore_cooldowns = TRUE)
+		human.emote("cough", ignore_cooldowns = TRUE)
 
 /obj/item/clothing/mask/cigarette/attack(mob/living/M, mob/living/user, def_zone)
 	if(istype(M) && M.on_fire)
