@@ -107,6 +107,7 @@ const AccountsRecordList = (properties, context) => {
                   </Table.Cell>
                   <Table.Cell>#{account.account_number}</Table.Cell>
                   <Table.Cell>{account.suspended}</Table.Cell>
+                  <Table.Cell>{account.money}</Table.Cell>
                 </Table.Row>
               ))}
           </Table>

@@ -81,7 +81,7 @@ GLOBAL_VAR(current_date_string)
 				for(var/i in 1 to length(GLOB.all_money_accounts))
 					var/datum/money_account/D = GLOB.all_money_accounts[i]
 					accounts.Add(list(list(
-						"account_number" = D.account_number,
+						"account_number" = "[D.account_number]",
 						"owner_name" = D.owner_name,
 						"suspended" = D.suspended ? "SUSPENDED" : "Active",
 						"money" = "[D.money]", // needs to be strings because of TGUI localeCompare
