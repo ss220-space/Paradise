@@ -86,7 +86,7 @@
 	if(gib_allowed && isliving(target))
 		var/mob/living/L = target
 		if(L.health <= -200)
-			L.visible_message("<span class='danger'>[L] has been terminated!</span>")
+			L.visible_message(span_danger("[L] has been terminated!"))
 			L.dust()
 
 /obj/item/projectile/beam/pulse/shot
