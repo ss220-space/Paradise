@@ -97,7 +97,7 @@
 /turf/simulated/floor/shuttle/syndicate,
 /area/shuttle/transport)
 "u" = (
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/shuttle/syndicate,
 /area/shuttle/transport)
 "y" = (
@@ -163,9 +163,7 @@
 /turf/simulated/floor/shuttle/syndicate,
 /area/shuttle/transport)
 "H" = (
-/obj/machinery/vending/boozeomat{
-	canmove = 0
-	},
+/obj/machinery/vending/boozeomat,
 /turf/simulated/floor/shuttle/syndicate,
 /area/shuttle/transport)
 "I" = (
@@ -182,7 +180,6 @@
 "L" = (
 /obj/machinery/disco{
 	anchored = 1;
-	canmove = 0
 	},
 /turf/simulated/floor/shuttle/syndicate,
 /area/shuttle/transport)
@@ -212,7 +209,7 @@
 /turf/simulated/floor/shuttle/syndicate,
 /area/shuttle/transport)
 "P" = (
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/random_spawners/blood_20,
 /turf/simulated/floor/shuttle/syndicate,
 /area/shuttle/transport)
 "S" = (
