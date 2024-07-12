@@ -2408,6 +2408,7 @@
 				if(!ninja_datum)
 					return
 
+				ninja_datum.change_species(current)
 				ninja_datum.equip_ninja()
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a ninja")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a ninja")
@@ -2902,6 +2903,7 @@
 	var/datum/antagonist/ninja/ninja_datum = new
 	ninja_datum.give_objectives = FALSE
 	ninja_datum.generate_antags = FALSE
+	ninja_datum.change_species(current)
 	add_antag_datum(ninja_datum)
 
 	if(!length(GLOB.ninjastart))

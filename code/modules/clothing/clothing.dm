@@ -13,8 +13,15 @@
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	var/alt_desc = null
-	/// What level of bright light protection item has. 1 = Flashers, Flashes, & Flashbangs | 2 = Welding | -1 = OH GOD WELDING BURNT OUT MY RETINAS
-	var/flash_protect = 0
+	/*
+	FLASH_PROTECTION_VERYVUNERABLE	-4 = just another "OH GOD WELDING BURNT OUT MY RETINAS".
+	FLASH_PROTECTION_SENSITIVE		-1 = OH GOD WELDING BURNT OUT MY RETINAS
+	FLASH_PROTECTION_NONE			 0 = Regular eyes with no protection or vulnerabilities.
+	FLASH_PROTECTION_FLASH			 1 = Flashers, Flashes, & Flashbangs.
+	FLASH_PROTECTION_WELDER			 2 = Welding.
+	*/
+	/// What level of bright light protection item has.
+	var/flash_protect = FLASH_PROTECTION_NONE
 	/// Sets the item's level of visual impairment tint, normally set to the same as flash_protect
 	var/tint = 0
 	/// Tint when its up
@@ -807,7 +814,7 @@ BLIND     // can't see anything
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	strip_delay = 50
 	put_on_delay = 50
 	resistance_flags = NONE

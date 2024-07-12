@@ -546,10 +546,10 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		to_chat(occupant, span_notice("<b>There is a bright flash!</b><br>\
 			<i>You feel like a new being.</i>"))
 		if(HAS_TRAIT(src, TRAIT_CMAGGED))
-			playsound(loc, 'sound/items/bikehorn.ogg', 50, 1)
+			playsound(loc, 'sound/items/bikehorn.ogg', 50, TRUE)
 			occupant.force_gene_block(GLOB.clumsyblock, TRUE, TRUE)
 			occupant.force_gene_block(GLOB.comicblock,, TRUE, TRUE)	//Until Genetics fixes you, this is your life now
-		occupant.flash_eyes(visual = 1)
+		occupant.flash_eyes(visual = TRUE)
 		clonemind = null
 
 
