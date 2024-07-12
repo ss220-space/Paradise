@@ -849,7 +849,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	return TRUE
 
-
 /obj/item/organ/external/proc/fracture(silent = FALSE)
 	if(!CONFIG_GET(flag/bones_can_break))
 		return FALSE
@@ -859,7 +858,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return FALSE
 	if(has_fracture() || cannot_break)
 		return FALSE
-
+	
 	if(owner && !silent)
 		owner.visible_message(
 			span_warning("You hear a loud cracking sound coming from \the [owner]."),
@@ -880,6 +879,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(prob(25))
 		release_restraints(silent = silent)
 
+	SEND_SIGNAL(owner, COMSIG_CARBON_RECEIVE_FRACTURE)
 	return TRUE
 
 
