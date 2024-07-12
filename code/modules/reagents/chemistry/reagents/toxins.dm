@@ -1217,8 +1217,7 @@
 	return ..()
 
 /datum/reagent/capulettium_plus/on_mob_delete(mob/living/M)
-	if(HAS_TRAIT(M, TRAIT_FAKEDEATH))
-		fakerevive(M)
+	fakerevive(M)
 	..()
 
 /datum/reagent/toxic_slurry
