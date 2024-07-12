@@ -58,8 +58,8 @@
 			return
 
 	// Rate limiting
-	var/mtl = 150 // 150 topics per minute
-	if(!holder) // Admins are allowed to spam click, deal with it.
+	var/mtl = CONFIG_GET(number/minute_topic_limit)
+	if(!holder && mtl) // Admins are allowed to spam click, deal with it.
 		var/minute = round(world.time, 600)
 		if (!topiclimiter)
 			topiclimiter = new(LIMITER_SIZE)
@@ -78,8 +78,8 @@
 			to_chat(src, "<span class='danger'>[msg]</span>")
 			return
 
-	var/stl = 10 // 10 topics a second
-	if (!holder) // Admins are allowed to spam click, deal with it.
+	var/stl = CONFIG_GET(number/second_topic_limit)
+	if(!holder && stl) // Admins are allowed to spam click, deal with it.
 		var/second = round(world.time, 10)
 		if (!topiclimiter)
 			topiclimiter = new(LIMITER_SIZE)
@@ -948,7 +948,7 @@
 	if(dragged && button_clicked != dragged)
 		return
 
-	var/mcl = CONFIG_GET(number/max_clicks_per_minute)
+	var/mcl = CONFIG_GET(number/minute_click_limit)
 	if(!holder && mcl)
 		var/minute = round(world.time, 600)
 
