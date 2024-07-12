@@ -297,18 +297,6 @@
 	else
 		to_chat(usr, "<span class='notice'>You have enabled karma gains.")
 
-/client/verb/toggle_popup_limiter()
-	set name = "Toggle Text Popup Limiter"
-	set category = "Preferences"
-	set desc = "Will let you limit the text input popups to one at a time."
-	prefs.toggles ^= PREFTOGGLE_TYPING_ONCE
-	prefs.save_preferences(src)
-	if(prefs.toggles & PREFTOGGLE_TYPING_ONCE)
-		to_chat(usr, "<span class='notice'>You have enabled text popup limiting.")
-	else
-		to_chat(usr, "<span class='notice'>You have disabled text popup limiting.")
-	return
-
 /client/verb/toggle_ghost_pda()
 	set name = "Show/Hide GhostPDA"
 	set category = "Preferences"

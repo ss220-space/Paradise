@@ -143,6 +143,12 @@
 	/// The client's movement keybindings to directions, which work regardless of modifiers.
 	var/list/movement_kb_dirs = list()
 
+	/// When to next alert admins that mouse macro use was attempted
+	var/next_mouse_macro_warning
+
+	/// Assigned say modal of the client
+	var/datum/tgui_say/tgui_say
+
 	///used to make a special mouse cursor, this one for mouse up icon
 	var/mouse_up_icon = null
 	///used to make a special mouse cursor, this one for mouse up icon

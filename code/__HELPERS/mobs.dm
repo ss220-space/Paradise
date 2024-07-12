@@ -509,8 +509,6 @@
 
 	return locate(/mob) in A
 
-// Suppress the mouse macros
-/client/var/next_mouse_macro_warning
 /mob/proc/LogMouseMacro(verbused, params)
 	if(!client)
 		return

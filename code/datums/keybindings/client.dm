@@ -9,38 +9,6 @@
 	. = ..()
 	C.adminhelp()
 
-/datum/keybinding/client/ooc
-	name = "OOC"
-	keys = list("F2", "O")
-
-/datum/keybinding/client/ooc/down(client/C)
-	. = ..()
-	C.ooc()
-
-/datum/keybinding/client/looc
-	name = "Локальный OOC"
-	keys = list("L")
-
-/datum/keybinding/client/looc/down(client/C)
-	. = ..()
-	C.looc()
-
-/datum/keybinding/client/say
-	name = "Say"
-	keys = list("F3", "T")
-
-/datum/keybinding/client/say/down(client/C)
-	. = ..()
-	C.mob.say_wrapper()
-
-/datum/keybinding/client/me
-	name = "Me"
-	keys = list("F4", "M")
-
-/datum/keybinding/client/me/down(client/C)
-	. = ..()
-	C.mob.me_wrapper()
-
 /datum/keybinding/client/t_fullscreen
 	name = "Переключить Fullscreen"
 	keys = list("F11")

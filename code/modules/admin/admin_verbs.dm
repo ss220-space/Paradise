@@ -961,6 +961,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	message_admins("[key_name_admin(usr)] deadmined themself.")
 	deadmin()
 	verbs += /client/proc/readmin
+	update_active_keybindings()
 	GLOB.deadmins += ckey
 	update_active_keybindings()
 	to_chat(src, "<span class='interface'>You are now a normal player.</span>")
@@ -1049,6 +1050,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 		var/client/C = GLOB.directory[ckey]
 		D.associate(C)
+		update_active_keybindings()
 		message_admins("[key_name_admin(usr)] re-adminned themselves.")
 		log_admin("[key_name(usr)] re-adminned themselves.")
 		update_active_keybindings()
