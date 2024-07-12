@@ -436,7 +436,6 @@
 #include "code\datums\diseases\vampire.dm"
 #include "code\datums\diseases\viruses\_virus.dm"
 #include "code\datums\diseases\viruses\anxiety.dm"
-#include "code\datums\diseases\viruses\babylon_feve.dm"
 #include "code\datums\diseases\viruses\beesease.dm"
 #include "code\datums\diseases\viruses\brainrot.dm"
 #include "code\datums\diseases\viruses\cadaver.dm"
