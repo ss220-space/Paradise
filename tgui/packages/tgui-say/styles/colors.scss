@@ -36,6 +36,12 @@ $_channel_map: (
   'Synd': #8f4a4b,
   'SyndTeam': #8f4a4b,
   'Whisper': #a4bad6,
+  'SyndTaip': #998e54,
+  'Soviet': #f7941d,
+  'SpidClan': #776f96,
+  'Alpha': #88910f,
+  'Beta': #1d83f7,
+  'Gamma': #d46549,
 );
 
 $channel_keys: map.keys($_channel_map) !default;
