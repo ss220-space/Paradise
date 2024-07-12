@@ -459,7 +459,7 @@
 	// otherwise chance to hit is defined by the projectile var/hit_crawling_mobs_chance
 	if(projectile.hit_crawling_mobs_chance > 0 && projectile.hit_crawling_mobs_chance <= 100)
 		return !prob(projectile.hit_crawling_mobs_chance)
-	return FALSE
+	return TRUE
 
 
 /mob/living/tompost_bump_override(atom/movable/mover, border_dir)
@@ -1259,7 +1259,7 @@
 
 
 //called when the mob receives a bright flash
-/mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/flash)
+/mob/living/proc/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash)
 	if(status_flags & GODMODE)
 		return FALSE
 	if(check_eye_prot() < intensity && (override_blindness_check || !(BLINDNESS in mutations)))
@@ -1269,13 +1269,13 @@
 
 
 /mob/living/proc/check_eye_prot()
-	var/number = 0
+	var/eye_prot = FLASH_PROTECTION_NONE
 	var/datum/antagonist/vampire/vampire = mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(vampire?.get_ability(/datum/vampire_passive/eyes_flash_protection))
-		number++
+		eye_prot += FLASH_PROTECTION_FLASH
 	if(vampire?.get_ability(/datum/vampire_passive/eyes_welding_protection))
-		number++
-	return number
+		eye_prot += FLASH_PROTECTION_FLASH
+	return eye_prot
 
 
 /mob/living/proc/check_ear_prot()
