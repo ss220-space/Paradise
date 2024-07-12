@@ -67,7 +67,7 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/transport)
 "D" = (
-/obj/effect/spawner/random_spawners/blood_maybe,
+/obj/effect/spawner/random_spawners/blood_20,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/transport)
 "E" = (

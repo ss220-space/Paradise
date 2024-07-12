@@ -117,7 +117,7 @@
 /obj/structure/railing/corner{
 	dir = 4
 	},
-/turf/simulated/floor/transparent/glass/reinforced/plasma,
+/turf/simulated/floor/glass/reinforced/plasma,
 /area/shuttle/administration)
 "oe" = (
 /obj/structure/chair/comfy/shuttle{
@@ -213,7 +213,7 @@
 "tM" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/glass/rag,
-/turf/simulated/floor/transparent/glass/reinforced/plasma,
+/turf/simulated/floor/glass/reinforced/plasma,
 /area/shuttle/administration)
 "tQ" = (
 /obj/structure/chair/sofa/corp{
@@ -265,7 +265,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/transparent/glass/reinforced/plasma,
+/turf/simulated/floor/glass/reinforced/plasma,
 /area/shuttle/administration)
 "wa" = (
 /turf/simulated/floor/plasteel{
@@ -297,7 +297,7 @@
 /obj/structure/railing/corner{
 	dir = 1
 	},
-/turf/simulated/floor/transparent/glass/reinforced/plasma,
+/turf/simulated/floor/glass/reinforced/plasma,
 /area/shuttle/administration)
 "xU" = (
 /turf/space,
@@ -343,7 +343,7 @@
 	},
 /area/shuttle/administration)
 "AM" = (
-/turf/simulated/floor/transparent/glass/reinforced/plasma,
+/turf/simulated/floor/glass/reinforced/plasma,
 /area/shuttle/administration)
 "Bd" = (
 /obj/structure/table/reinforced,
@@ -394,7 +394,7 @@
 /obj/structure/railing{
 	dir = 10
 	},
-/turf/simulated/floor/transparent/glass/reinforced/plasma,
+/turf/simulated/floor/glass/reinforced/plasma,
 /area/shuttle/administration)
 "Cr" = (
 /obj/structure/chair/comfy/shuttle/dark{
@@ -436,7 +436,7 @@
 	dir = 5
 	},
 /obj/structure/railing,
-/turf/simulated/floor/transparent/glass/reinforced/plasma,
+/turf/simulated/floor/glass/reinforced/plasma,
 /area/shuttle/administration)
 "Gz" = (
 /obj/machinery/disco/immobile,
@@ -480,7 +480,7 @@
 /area/shuttle/administration)
 "IB" = (
 /obj/structure/railing,
-/turf/simulated/floor/transparent/glass/reinforced/plasma,
+/turf/simulated/floor/glass/reinforced/plasma,
 /area/shuttle/administration)
 "Jx" = (
 /obj/structure/chair/sofa/corp/right,
@@ -493,7 +493,7 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
-/turf/simulated/floor/transparent/glass/reinforced/plasma,
+/turf/simulated/floor/glass/reinforced/plasma,
 /area/shuttle/administration)
 "Kz" = (
 /turf/space,
@@ -557,7 +557,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/turf/simulated/floor/transparent/glass/reinforced/plasma,
+/turf/simulated/floor/glass/reinforced/plasma,
 /area/shuttle/administration)
 "Pg" = (
 /obj/structure/railing{
@@ -577,13 +577,13 @@
 /area/shuttle/administration)
 "Pp" = (
 /obj/structure/chair/stool/bar/dark,
-/turf/simulated/floor/transparent/glass/reinforced/plasma,
+/turf/simulated/floor/glass/reinforced/plasma,
 /area/shuttle/administration)
 "Pq" = (
 /obj/structure/railing{
 	dir = 9
 	},
-/turf/simulated/floor/transparent/glass/reinforced/plasma,
+/turf/simulated/floor/glass/reinforced/plasma,
 /area/shuttle/administration)
 "Pt" = (
 /obj/item/storage/box/drinkingglasses,
@@ -675,7 +675,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
 	},
-/turf/simulated/floor/transparent/glass/reinforced/plasma,
+/turf/simulated/floor/glass/reinforced/plasma,
 /area/shuttle/administration)
 "SG" = (
 /obj/structure/chair/comfy/shuttle/dark{
@@ -753,7 +753,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/transparent/glass/reinforced/plasma,
+/turf/simulated/floor/glass/reinforced/plasma,
 /area/shuttle/administration)
 "TC" = (
 /obj/machinery/computer/shuttle/admin{
@@ -804,7 +804,7 @@
 /area/shuttle/administration)
 "Vd" = (
 /obj/structure/railing/corner,
-/turf/simulated/floor/transparent/glass/reinforced/plasma,
+/turf/simulated/floor/glass/reinforced/plasma,
 /area/shuttle/administration)
 "Vr" = (
 /obj/machinery/door/airlock/external{
@@ -912,7 +912,7 @@
 /area/shuttle/administration)
 "ZL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/transparent/glass/reinforced/plasma,
+/turf/simulated/floor/glass/reinforced/plasma,
 /area/shuttle/administration)
 
 (1,1,1) = {"
