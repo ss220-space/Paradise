@@ -3143,7 +3143,9 @@
 /obj/effect/step_trigger/teleporter{
 	teleport_x = 175;
 	teleport_y = 62;
-	teleport_z = 1
+	teleport_z = 1;
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2"
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -3199,7 +3201,9 @@
 /obj/effect/step_trigger/teleporter{
 	teleport_x = 175;
 	teleport_y = 61;
-	teleport_z = 1
+	teleport_z = 1;
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2"
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -3849,10 +3853,6 @@
 	icon_state = "ninja_walls_corners"
 	},
 /area/shuttle/ninja)
-"bQS" = (
-/obj/structure/lattice,
-/turf/simulated/wall/indestructible/reinforced,
-/area/centcom/zone3)
 "bQZ" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/coffee{
@@ -7127,18 +7127,10 @@
 	icon_state = "darkred"
 	},
 /area/syndicate_mothership/infteam)
-"dwm" = (
-/obj/structure/lattice,
-/turf/simulated/wall/indestructible/fakeglass,
-/area/centcom/bridge)
 "dwJ" = (
 /obj/structure/chair/stool/bar,
 /turf/simulated/floor/grass,
 /area/centcom/evac)
-"dwU" = (
-/obj/structure/lattice,
-/turf/simulated/wall/indestructible/reinforced,
-/area/centcom/supply)
 "dxk" = (
 /obj/machinery/vending/boozeomat,
 /obj/structure/sign/barsign{
@@ -8205,10 +8197,6 @@
 	},
 /turf/simulated/floor/indestructible/beach/water/deep/dense,
 /area/ninja/outside)
-"dXc" = (
-/obj/structure/lattice,
-/turf/simulated/wall/indestructible/fakeglass,
-/area/centcom/zone1)
 "dXq" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo3"
@@ -8885,10 +8873,6 @@
 	icon_state = "darkredaltstrip"
 	},
 /area/syndicate_mothership/jail)
-"enn" = (
-/obj/structure/lattice,
-/turf/simulated/wall/indestructible/fakeglass,
-/area/centcom/supply)
 "enO" = (
 /obj/structure/shuttle/engine/heater{
 	icon_state = "heater3x3_side";
@@ -10665,10 +10649,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/specops)
-"fjq" = (
-/obj/structure/lattice,
-/turf/simulated/wall/indestructible/reinforced,
-/area/centcom/evac)
 "fjA" = (
 /obj/effect/turf_decal/siding{
 	color = "#444444";
@@ -11087,12 +11067,6 @@
 	name = "Tatami"
 	},
 /area/ninja/outpost)
-"ftu" = (
-/obj/structure/falsewall/reinforced,
-/turf/simulated/floor/plasteel{
-	icon_state = "floorlattice"
-	},
-/area/centcom/zone1)
 "ftv" = (
 /obj/structure/window/full/reinforced{
 	armor = list("melee"=80,"bullet"=80,"laser"=0,"energy"=0,"bomb"=80,"bio"=100,"rad"=100,"fire"=80,"acid"=100);
@@ -12979,10 +12953,6 @@
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/shuttle/ussp)
-"giG" = (
-/obj/structure/lattice,
-/turf/simulated/wall/indestructible/fakeglass,
-/area/centcom/evac)
 "gjn" = (
 /obj/structure/chair/comfy/brown{
 	dir = 1
@@ -14056,7 +14026,9 @@
 /obj/effect/step_trigger/teleporter{
 	teleport_x = 175;
 	teleport_y = 63;
-	teleport_z = 1
+	teleport_z = 1;
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2"
 	},
 /obj/structure/railing{
 	pixel_y = 32;
@@ -14934,7 +14906,9 @@
 /obj/effect/step_trigger/teleporter{
 	teleport_x = 183;
 	teleport_y = 63;
-	teleport_z = 1
+	teleport_z = 1;
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2"
 	},
 /obj/structure/railing{
 	pixel_y = 32;
@@ -21065,11 +21039,6 @@
 	},
 /area/centcom/zone1)
 "kmM" = (
-/obj/structure/window/reinforced{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/structure/window/reinforced,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/specops)
@@ -23449,12 +23418,6 @@
 /obj/item/reagent_containers/food/drinks/cans/beer,
 /turf/simulated/floor/carpet,
 /area/centcom/evac)
-"lsT" = (
-/obj/structure/lattice,
-/turf/space{
-	icon_state = "black"
-	},
-/area/space)
 "lto" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/paper_bin/nanotrasen{
@@ -25129,7 +25092,9 @@
 /obj/effect/step_trigger/teleporter{
 	teleport_x = 175;
 	teleport_y = 60;
-	teleport_z = 1
+	teleport_z = 1;
+	icon_state = "x2";
+	icon = 'icons/mob/screen_gen.dmi'
 	},
 /obj/structure/railing{
 	layer = 4.3;
@@ -29347,7 +29312,9 @@
 /obj/effect/step_trigger/teleporter{
 	teleport_x = 216;
 	teleport_y = 26;
-	teleport_z = 1
+	teleport_z = 1;
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2"
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -29416,7 +29383,9 @@
 /obj/effect/step_trigger/teleporter{
 	teleport_x = 183;
 	teleport_y = 61;
-	teleport_z = 1
+	teleport_z = 1;
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2"
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -33387,9 +33356,9 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "puM" = (
-/obj/structure/lattice,
+/obj/structure/falsewall/reinforced,
 /turf/simulated/wall/indestructible/reinforced,
-/area/centcom/jail)
+/area/centcom/specops)
 "puO" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -36283,7 +36252,9 @@
 /obj/effect/step_trigger/teleporter{
 	teleport_x = 137;
 	teleport_y = 65;
-	teleport_z = 1
+	teleport_z = 1;
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -38344,7 +38315,9 @@
 /obj/effect/step_trigger/teleporter{
 	teleport_x = 205;
 	teleport_y = 89;
-	teleport_z = 1
+	teleport_z = 1;
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2"
 	},
 /turf/simulated/floor/plating,
 /area/centcom/specops)
@@ -39880,10 +39853,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/centcom/zone1)
-"srQ" = (
-/obj/structure/lattice,
-/turf/simulated/wall/indestructible/reinforced,
 /area/centcom/zone1)
 "sse" = (
 /obj/effect/decal/syndie_logo{
@@ -42470,11 +42439,6 @@
 /area/shuttle/vox)
 "tzC" = (
 /obj/effect/decal/warning_stripes/west,
-/obj/structure/window/reinforced{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/structure/window/reinforced,
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/zone3)
 "tzJ" = (
@@ -43677,14 +43641,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone1)
-"tZS" = (
-/obj/effect/decal/warning_stripes/west,
-/obj/structure/window/reinforced{
-	dir = 8;
-	layer = 2.9
-	},
-/turf/simulated/wall/indestructible/fakeglass,
-/area/centcom/zone3)
 "tZV" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
@@ -46720,10 +46676,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/zone1)
-"voV" = (
-/obj/structure/lattice,
-/turf/simulated/wall/indestructible/reinforced,
-/area/centcom/specops)
 "vpg" = (
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -48490,7 +48442,9 @@
 /obj/effect/step_trigger/teleporter{
 	teleport_x = 216;
 	teleport_y = 26;
-	teleport_z = 1
+	teleport_z = 1;
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2"
 	},
 /obj/structure/railing,
 /turf/simulated/floor/plasteel{
@@ -48560,7 +48514,9 @@
 	teleport_x = 135;
 	teleport_y = 16;
 	teleport_z = 1;
-	mobs_only = 1
+	mobs_only = 1;
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -48881,7 +48837,9 @@
 /obj/effect/step_trigger/teleporter{
 	teleport_x = 183;
 	teleport_y = 62;
-	teleport_z = 1
+	teleport_z = 1;
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2"
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -48986,10 +48944,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/specops)
-"wpv" = (
-/obj/structure/falsewall/reinforced,
-/turf/simulated/floor/plating,
-/area/centcom/zone1)
 "wpJ" = (
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/indestructible/grass,
@@ -51919,7 +51873,9 @@
 /obj/effect/step_trigger/teleporter{
 	teleport_x = 183;
 	teleport_y = 60;
-	teleport_z = 1
+	teleport_z = 1;
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2"
 	},
 /obj/structure/railing{
 	layer = 4.3;
@@ -86804,7 +86760,7 @@ mVX
 mVX
 mVX
 mVX
-jMD
+mVX
 mVX
 mVX
 mVX
@@ -87061,7 +87017,7 @@ mVX
 mVX
 mVX
 mVX
-jMD
+mVX
 mVX
 mVX
 mVX
@@ -87318,7 +87274,7 @@ mVX
 mVX
 mVX
 mVX
-jMD
+mVX
 mVX
 mVX
 mVX
@@ -87575,7 +87531,7 @@ mVX
 mVX
 mVX
 mVX
-jMD
+mVX
 mVX
 mVX
 mVX
@@ -87832,7 +87788,7 @@ mVX
 mVX
 mVX
 mVX
-jMD
+mVX
 mVX
 mVX
 mVX
@@ -87844,15 +87800,15 @@ wLM
 vNw
 wLM
 vNw
-giG
+wLM
 jMD
 jMD
 jMD
-giG
-vNw
 wLM
 vNw
 wLM
+vNw
+wLM
 mVX
 mVX
 mVX
@@ -87914,7 +87870,7 @@ mVX
 mVX
 mVX
 mVX
-puM
+pqb
 pqb
 pqb
 pqb
@@ -88141,7 +88097,7 @@ nAN
 nAN
 nAN
 nAN
-voV
+nAN
 nAN
 nAN
 nAN
@@ -88388,7 +88344,7 @@ mVX
 onc
 onc
 onc
-srQ
+onc
 nAN
 nAN
 nAN
@@ -88640,11 +88596,11 @@ fID
 fID
 fID
 fID
-srQ
 onc
 onc
-ftu
-ftu
+onc
+onc
+onc
 onc
 fID
 wiU
@@ -88872,11 +88828,11 @@ wLM
 vHZ
 wLM
 ctv
-giG
+wLM
 jMD
 jMD
 jMD
-giG
+wLM
 ctv
 wLM
 rBi
@@ -88885,12 +88841,6 @@ mVX
 mVX
 mVX
 onc
-srQ
-fID
-fID
-fID
-fID
-fID
 onc
 fID
 fID
@@ -88898,9 +88848,15 @@ fID
 fID
 fID
 onc
+fID
+fID
+fID
+fID
+fID
 onc
 onc
-wpv
+onc
+onc
 onc
 onc
 wiU
@@ -89129,11 +89085,11 @@ wLM
 ctv
 wLM
 ctv
-giG
+wLM
 mVX
 mVX
 mVX
-giG
+wLM
 ctv
 wLM
 ctv
@@ -89398,7 +89354,7 @@ wLM
 onc
 onc
 onc
-ftu
+onc
 onc
 onc
 fID
@@ -89893,7 +89849,7 @@ mVX
 mVX
 mVX
 iIs
-fjq
+iIs
 iIs
 iIs
 wLM
@@ -90145,23 +90101,23 @@ mVX
 mVX
 mVX
 iIs
-giG
 wLM
 wLM
 wLM
+wLM
 iIs
 iIs
 iIs
 iIs
+wLM
+elS
 wLM
 elS
 wLM
-elS
-giG
 iIs
 iIs
 iIs
-giG
+wLM
 elS
 wLM
 elS
@@ -91234,7 +91190,7 @@ kWm
 shl
 qDT
 shl
-bQS
+kWm
 kWm
 kWm
 pKU
@@ -91536,8 +91492,8 @@ myg
 myg
 ovc
 pqb
-cKq
-cKq
+pqb
+pqb
 mVX
 mVX
 mVX
@@ -92783,15 +92739,15 @@ kWm
 kWm
 kWm
 kWm
-tZS
-tZS
+tzC
+tzC
 kWm
 kWm
 vDP
 vDP
 kWm
 kWm
-tZS
+tzC
 tzC
 kWm
 kWm
@@ -92820,7 +92776,7 @@ efW
 nyo
 rkU
 oVf
-pqb
+cKq
 pqb
 mVX
 mVX
@@ -96821,7 +96777,7 @@ mVX
 mVX
 mVX
 mVX
-fjq
+iIs
 wLM
 wLM
 wLM
@@ -97354,7 +97310,7 @@ rBi
 ctv
 ctv
 iIs
-dXc
+ajO
 ajO
 onc
 iFr
@@ -97613,7 +97569,7 @@ ctv
 wLM
 mVX
 mVX
-srQ
+onc
 ajO
 ajO
 ajO
@@ -97701,8 +97657,8 @@ pqb
 pqb
 eEj
 wGf
-nAN
-nAN
+puM
+puM
 nAN
 pDG
 mVX
@@ -97877,7 +97833,7 @@ mVX
 mVX
 mVX
 mVX
-srQ
+onc
 onc
 onc
 onc
@@ -97959,8 +97915,8 @@ nAN
 nAN
 nAN
 nAN
+puM
 nAN
-eSL
 qBi
 mVX
 mVX
@@ -98141,7 +98097,7 @@ mVX
 mVX
 mVX
 mVX
-srQ
+onc
 onc
 onc
 onc
@@ -98217,7 +98173,7 @@ wOD
 sVH
 nAN
 jWu
-eSL
+nAN
 uua
 mVX
 mVX
@@ -98474,7 +98430,7 @@ lwX
 qOP
 nAN
 mIC
-eSL
+nAN
 pDG
 mVX
 aDl
@@ -98634,7 +98590,7 @@ mVX
 mVX
 fmc
 jMD
-giG
+wLM
 ctv
 tjJ
 ctv
@@ -98731,7 +98687,7 @@ lwX
 qOP
 nAN
 qLC
-eSL
+nAN
 qBi
 mVX
 mVX
@@ -98895,7 +98851,7 @@ wLM
 ctv
 pUv
 ctv
-giG
+wLM
 jMD
 jMD
 jMD
@@ -98926,8 +98882,8 @@ mVX
 mVX
 mVX
 mVX
-mVX
-dwm
+jMD
+hgc
 mYF
 tHM
 wxt
@@ -99148,7 +99104,7 @@ mVX
 mVX
 mVX
 mVX
-giG
+wLM
 ctv
 cCV
 ctv
@@ -99184,7 +99140,7 @@ jMD
 jMD
 jMD
 jMD
-dwm
+hgc
 ykf
 tHM
 wxt
@@ -99690,7 +99646,7 @@ mVX
 mVX
 mVX
 mVX
-srQ
+onc
 ajO
 ajO
 ajO
@@ -99940,7 +99896,7 @@ mVX
 mVX
 mVX
 mVX
-srQ
+onc
 onc
 onc
 ajO
@@ -100190,7 +100146,7 @@ mVX
 mVX
 mVX
 mVX
-srQ
+onc
 ajO
 ajO
 ajO
@@ -100440,7 +100396,7 @@ ctv
 wLM
 mVX
 mVX
-srQ
+onc
 ajO
 ajO
 ajO
@@ -101190,7 +101146,7 @@ mVX
 mVX
 mVX
 mVX
-fjq
+iIs
 wLM
 wLM
 wLM
@@ -107154,7 +107110,7 @@ fID
 fID
 fID
 fID
-enn
+ecV
 rzx
 gbo
 xhN
@@ -107878,7 +107834,7 @@ mVX
 mVX
 mVX
 iIs
-giG
+wLM
 wLM
 wLM
 wLM
@@ -108140,7 +108096,7 @@ mVX
 mVX
 mVX
 iIs
-fjq
+iIs
 iIs
 iIs
 wLM
@@ -109175,11 +109131,11 @@ wLM
 vHZ
 wLM
 ctv
-giG
+wLM
 jMD
 jMD
 jMD
-giG
+wLM
 ctv
 wLM
 rBi
@@ -109447,7 +109403,7 @@ mVX
 mVX
 mVX
 mVX
-srQ
+onc
 fID
 fID
 fID
@@ -109502,8 +109458,8 @@ uzP
 uzP
 thl
 tgn
-voV
-voV
+nAN
+nAN
 dTg
 dTg
 dTg
@@ -109724,7 +109680,7 @@ fID
 fID
 fID
 fID
-dwU
+afP
 dlT
 yeh
 tgA
@@ -109759,8 +109715,8 @@ uzP
 ocx
 rBs
 byz
-voV
-voV
+nAN
+nAN
 dTg
 dTg
 dTg
@@ -110191,7 +110147,7 @@ mVX
 mVX
 mVX
 mVX
-jMD
+mVX
 mVX
 mVX
 mVX
@@ -110203,11 +110159,11 @@ wLM
 vNw
 wLM
 vNw
-giG
+wLM
 jMD
 jMD
 jMD
-giG
+wLM
 vNw
 wLM
 vNw
@@ -110448,7 +110404,7 @@ mVX
 mVX
 mVX
 mVX
-lsT
+eWA
 eWA
 eWA
 eWA
@@ -110705,7 +110661,7 @@ mVX
 mVX
 mVX
 mVX
-lsT
+eWA
 eWA
 eWA
 eWA
@@ -110962,7 +110918,7 @@ mVX
 mVX
 mVX
 mVX
-lsT
+eWA
 eWA
 eWA
 eWA
@@ -111219,7 +111175,7 @@ mVX
 mVX
 mVX
 mVX
-lsT
+eWA
 eWA
 eWA
 eWA
