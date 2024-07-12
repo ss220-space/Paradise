@@ -3273,9 +3273,11 @@
 	)
 	refill_canister = /obj/item/vending_refill/pai
 
-/obj/machinery/vending/nta/ertarmory/consumables
+/obj/machinery/vending/security/ert
 	name = "NT ERT Consumables Gear"
 	desc = "A consumable equipment for different situations."
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	refill_canister = /obj/item/vending_refill/nta
 
 	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "sec_off"
@@ -3305,7 +3307,6 @@
 	refill_canister = /obj/item/vending_refill/nta
 
 /obj/machinery/vending/ntc
-	icon_state = "ntc"
 	req_access = list(ACCESS_CENT_GENERAL)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	refill_canister = /obj/item/vending_refill/nta
@@ -3319,6 +3320,31 @@
 	vend_overlay = "nta_vend"
 	deny_overlay = "nta_deny"
 	vend_overlay_time = 3 SECONDS
+
+/obj/machinery/vending/ntc/update_overlays()
+	. = list()
+
+	underlays.Cut()
+
+	. += base_icon_state
+
+	if(panel_open)
+		. += "nta_panel"
+
+	if((stat & NOPOWER) || force_no_power_icon_state)
+		. += "nta_off"
+		return
+
+	if(stat & BROKEN)
+		. += "nta_broken"
+	else
+		if(flick_sequence & FLICK_VEND)
+			. += vend_overlay
+
+		else if(flick_sequence & FLICK_DENY)
+			. += deny_overlay
+
+	underlays += emissive_appearance(icon, "nta_lightmask", src)
 
 /obj/machinery/vending/ntc/medal
 	name = "NT Cargo Encouragement"
@@ -3406,9 +3432,11 @@
 		/obj/item/grenade/clusterbuster/antiweed = 30
 	)
 
-/obj/machinery/vending/ntc/crates
+/obj/machinery/vending/ntcrates
 	name = "NT Cargo Preset Gear"
 	desc = "A already preset of equipments vendor for cargo."
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	refill_canister = /obj/item/vending_refill/nta
 
 	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "magivend_off"
@@ -3435,14 +3463,9 @@
 	desc = "A ERT Base equipment vendor"
 
 	icon_state = "nta_base"
-	panel_overlay = "nta_panel"
-	screen_overlay = "nta"
-	lightmask_overlay = "nta_lightmask"
-	broken_overlay = "nta_broken"
-	broken_lightmask_overlay = "nta_lightmask"
+	base_icon_state = "nta-blue"
 	vend_overlay = "nta_vend"
-	deny_overlay = "nta_deny"
-	vend_overlay_time = 3 SECONDS
+	deny_overlay = "nta-blue_deny"
 
 	products = list(
 		/obj/item/storage/box/responseteam/amber/commander = 100,
@@ -3456,9 +3479,11 @@
 		/obj/item/storage/box/responseteam/red/medic = 100,
 		/obj/item/storage/box/responseteam/red/janitor = 100)
 
-/obj/machinery/vending/ntc/resources
+/obj/machinery/vending/ntc_resources
 	name = "NT Matter Сompression Vendor"
 	desc = "Its vendor use advanced technology of matter compression and can have a many volume of resources."
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	refill_canister = /obj/item/vending_refill/nta
 
 	icon_state = "engi_off"
 	panel_overlay = "engi_panel"
@@ -3482,10 +3507,12 @@
 		/obj/item/stack/sheet/mineral/sandstone/fifty = 50,
 		/obj/item/stack/sheet/mineral/abductor/fifty = 50)
 
-/obj/machinery/vending/ntc/mech
+/obj/machinery/vending/mech/ntc
 	icon = 'icons/obj/machines/vending.dmi'
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	refill_canister = /obj/item/vending_refill/nta
 
-/obj/machinery/vending/ntc/mech/exousuit
+/obj/machinery/vending/mech/ntc/exousuit
 	name = "NT Exosuit Bluespace Transporter"
 	desc = "Fabricator with advanced technology of bluespace transporting of resources."
 	icon = 'icons/obj/machines/robotics.dmi'
@@ -3499,7 +3526,7 @@
 		/obj/mecha/working/ripley/firefighter = 10,
 		/obj/mecha/working/clarke = 10)
 
-/obj/machinery/vending/ntc/mech/equipment
+/obj/machinery/vending/mech/ntc/equipment
 	name = "NT Exosuit Bluespace Transporter"
 	desc = "Fabricator with advanced technology of bluespace transporting of resources."
 
@@ -3519,7 +3546,7 @@
 		/obj/item/mecha_parts/mecha_equipment/generator/nuclear = 10
 	)
 
-/obj/machinery/vending/ntc/mech/weapon
+/obj/machinery/vending/mech/ntc/weapon
 	name = "NT Exosuit Bluespace Transporter"
 	desc = "Fabricator with advanced technology of bluespace transporting of resources."
 
@@ -3545,7 +3572,7 @@
 		/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/amlg = 10,
 	)
 
-/obj/machinery/vending/ntc/mech/tools
+/obj/machinery/vending/mech/ntc/tools
 	name = "NT Exosuit Bluespace Transporter"
 	desc = "Fabricator with advanced technology of bluespace transporting of resources."
 
