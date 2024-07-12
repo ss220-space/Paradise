@@ -293,6 +293,7 @@
 		if(pre_antags[antag] == ROLE_NINJA)
 			var/datum/antagonist/ninja/ninja_datum = new
 			ninja_datum.antag_paradise_mode_chosen = TRUE
+			ninja_datum.change_species(antag.current)
 			antag.add_antag_datum(ninja_datum)
 
 	addtimer(CALLBACK(src, PROC_REF(initiate_antags)), rand(1 SECONDS, 10 SECONDS))

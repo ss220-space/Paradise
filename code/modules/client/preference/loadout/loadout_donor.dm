@@ -340,3 +340,10 @@
 	cost = 2
 	display_name = "Black Coat"
 	path = /obj/item/clothing/suit/blackcoat
+
+/datum/gear/donor/pda_beer
+	display_name = "PDA case \"BEER\""
+	path = /obj/item/pda_case/beer
+	donator_tier = 1
+	cost = 1
+

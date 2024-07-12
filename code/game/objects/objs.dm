@@ -61,7 +61,7 @@
 
 	// In the far future no checks are made in an overriding Topic() beyond if(..()) return
 	// Instead any such checks are made in CanUseTopic()
-	if(ui_status(usr, state, href_list) == STATUS_INTERACTIVE)
+	if(ui_status(usr, state, href_list) == UI_INTERACTIVE)
 		CouldUseTopic(usr)
 		return FALSE
 
@@ -250,7 +250,7 @@
 /obj/proc/container_resist(mob/living)
 	return
 
-/obj/proc/on_mob_move(dir, mob/user)
+/obj/proc/on_mob_move(mob/user, dir)
 	return
 
 /obj/proc/makeSpeedProcess()

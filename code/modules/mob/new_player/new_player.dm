@@ -253,10 +253,6 @@
 		if(!is_used_species_available(client.prefs.species))
 			to_chat(usr, "<span class='warning'>Выбранная раса персонажа недоступна для игры в данный момент! Выберите другого персонажа.</span>")
 			return
-		if(client.prefs.species in GLOB.whitelisted_species)
-			if(!is_alien_whitelisted(src, client.prefs.species) && CONFIG_GET(flag/usealienwhitelist))
-				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
-				return FALSE
 		if(CONFIG_GET(flag/tts_enabled))
 			if(!client.prefs.tts_seed)
 				to_chat(usr, "<span class='danger'>Вам необходимо настроить голос персонажа! Не забудьте сохранить настройки.</span>")
@@ -289,11 +285,6 @@
 			to_chat(usr, "<span class='warning'>Выбранная раса персонажа недоступна для игры в данный момент! Выберите другого персонажа.</span>")
 			return
 
-		if(client.prefs.species in GLOB.whitelisted_species)
-			if(!is_alien_whitelisted(src, client.prefs.species) && CONFIG_GET(flag/usealienwhitelist))
-				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
-				return FALSE
-
 		//Prevents people rejoining as same character.
 		if(!is_admin(usr)) //Админам можно всё
 			for(var/C in GLOB.human_names_list)
@@ -316,7 +307,6 @@
 	if(!job)	return 0
 	if(!job.is_position_available()) return 0
 	if(jobban_isbanned(src,rank))	return 0
-	if(!is_job_whitelisted(src, rank))	 return 0
 	if(!job.player_old_enough(client))	return 0
 	if(job.admin_only && !(check_rights(R_ADMIN, 0))) return 0
 	if(job.available_in_playtime(client))
@@ -345,8 +335,10 @@
 		return 0
 
 /mob/new_player/proc/is_used_species_available(species)
-	var/list/available_species = list(SPECIES_HUMAN, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_VULPKANIN, SPECIES_MOTH)
-	available_species += GLOB.whitelisted_species
+	if(has_admin_rights())
+		return TRUE
+	var/list/available_species = list(SPECIES_HUMAN)
+	available_species += CONFIG_GET(str_list/playable_species)
 	if(species in available_species)
 		return TRUE
 	else
@@ -465,7 +457,8 @@
 	SSticker.mode.latespawn(character)
 
 	if(character.mind.assigned_role == JOB_TITLE_CYBORG)
-		AnnounceCyborg(character, rank, join_message)
+		var/mob/living/silicon/robot/R = character
+		AnnounceCyborg(character, R.mind.role_alt_title ? R.mind.role_alt_title : JOB_TITLE_CYBORG, join_message)
 	else
 		SSticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
 		if(!IsAdminJob(rank))
@@ -672,7 +665,7 @@
 	var/datum/species/chosen_species
 	if(client.prefs.species)
 		chosen_species = GLOB.all_species[client.prefs.species]
-	if(!(chosen_species && (is_species_whitelisted(chosen_species) || has_admin_rights())))
+	if(!chosen_species)
 		// Have to recheck admin due to no usr at roundstart. Latejoins are fine though.
 		log_runtime(EXCEPTION("[src] had species [client.prefs.species], though they weren't supposed to. Setting to Human."), src)
 		client.prefs.species = SPECIES_HUMAN
@@ -685,7 +678,7 @@
 		client.prefs.language = LANGUAGE_NONE
 
 /mob/new_player/proc/ViewManifest()
-	GLOB.generic_crew_manifest.ui_interact(usr, state = GLOB.always_state)
+	GLOB.generic_crew_manifest.ui_interact(usr)
 
 
 /mob/new_player/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
@@ -702,10 +695,6 @@
 
 /mob/new_player/proc/has_admin_rights()
 	return check_rights(R_ADMIN, 0, src)
-
-/mob/new_player/proc/is_species_whitelisted(datum/species/S)
-	if(!S) return 1
-	return is_alien_whitelisted(src, S.name) || !CONFIG_GET(flag/usealienwhitelist) || !(IS_WHITELISTED in S.species_traits)
 
 /mob/new_player/get_gender()
 	if(!client || !client.prefs) ..()

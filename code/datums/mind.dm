@@ -2339,6 +2339,7 @@
 					return
 				SSticker.mode.shadows += src
 				special_role = SPECIAL_ROLE_SHADOWLING
+				SSticker.mode.recount_required_thralls()
 				to_chat(current, "<span class='shadowling'><b>Something stirs deep in your mind. A red light floods your vision, and slowly you remember. Though your human disguise has served you well, the \
 				time is nigh to cast it off and enter your true form. You have disguised yourself amongst the humans, but you are not one of them. You are a shadowling, and you are to ascend at all costs.\
 				</b></span>")
@@ -2407,6 +2408,7 @@
 				if(!ninja_datum)
 					return
 
+				ninja_datum.change_species(current)
 				ninja_datum.equip_ninja()
 				log_admin("[key_name(usr)] has equipped [key_name(current)] as a ninja")
 				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a ninja")
@@ -2451,12 +2453,12 @@
 			if("borgpanel")
 				var/mob/living/silicon/robot/R = current
 				var/datum/borgpanel/B = new(usr, R)
-				B.ui_interact(usr, state = GLOB.admin_state)
+				B.ui_interact(usr)
 				log_and_message_admins("has opened [R]'s Borg Panel.")
 			if("lawmanager")
 				var/mob/living/silicon/S = current
 				var/datum/ui_module/law_manager/L = new(S)
-				L.ui_interact(usr, state = GLOB.admin_state)
+				L.ui_interact(usr)
 				log_and_message_admins("has opened [S]'s law manager.")
 			if("unemag")
 				var/mob/living/silicon/robot/R = current
@@ -2901,6 +2903,7 @@
 	var/datum/antagonist/ninja/ninja_datum = new
 	ninja_datum.give_objectives = FALSE
 	ninja_datum.generate_antags = FALSE
+	ninja_datum.change_species(current)
 	add_antag_datum(ninja_datum)
 
 	if(!length(GLOB.ninjastart))

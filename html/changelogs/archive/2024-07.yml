@@ -1,4 +1,8 @@
 '2024-07-01':
+  Dimach:
+  - del: '"bugfix: Fixed death nettle and attack checks" (#5322)'
+  Shakalchik:
+  - bugfix: Blueshield gun duplicates (#5282)
   Zwei:
   - bugfix: Demons Fixes (#5316)
   - server: bugfix; Spacevine Spread Fix (#5301)
@@ -7,3 +11,99 @@
   - bugfix: Regrowth Limbs Fix (#5287)
   github-actions[bot]:
   - server: Automatic NanoMap Update (#5318)
+'2024-07-03':
+  Daeberdir:
+  - add: Towels. (#5313)
+  Den109G:
+  - tweak: Makes lattice two-way path block (#5317)
+  Rafnik02:
+  - add: You can now shove other people (#5285)
+  Vladisvell:
+  - add: Removed most of Object verbs for optimization (#5325)
+  Zwei:
+  - add: SSD And Unconscious Indicators (#5182)
+'2024-07-04':
+  FanTik-Ratge:
+  - refactor: Removed redundant wall pieces directions (#5303)
+  SAAD:
+  - tweak: Celestation is available now. (#5315)
+'2024-07-05':
+  SAAD:
+  - bugfix: Celestia - unincluded (#5346)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#5343)
+'2024-07-06':
+  BeebBeebBoob:
+  - tweak: Hotel Gate Big Fix (#5266)
+  Vladisvell:
+  - bugfix: Fixed incorrect positioning of clicks in space (#5350)
+  - bugfix: Syndie teleport no longer gibs you in openspace (#5356)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#5347)
+'2024-07-07':
+  Antoonij:
+  - bugfix: virus moment (#5351)
+  SHODAN:
+  - add: Full tile windows and new sprite  (#5365)
+  Vladisvell:
+  - bugfix: Fixed failed merge issue (#5366)
+  Zwei:
+  - refactor: CanExit Removal (#5311)
+  - refactor: Crossed/Uncrossed Removal (#5323)
+  - bugfix: Slowed Status Effect Correct Update (#5342)
+'2024-07-08':
+  Antoonij:
+  - bugfix: tips grammatic (#5369)
+  - bugfix: drask blood  (#5370)
+  - bugfix: hulk joke spell (#5380)
+  Dimach:
+  - server: port tgui4 from paradise (#4981)
+  - refactor: remove karmashop, refactor species whitelist (#5383)
+  ROdenFL:
+  - bugfix: 'cursed interfaces: floorpainter, MedicalRecords, SecurityRecords (#5384)'
+  - bugfix: fax and tooltip (#5390)
+  - bugfix: radio, airalarm, refresh tgui (#5387)
+  Rafnik02:
+  - tweak: lower slowed in shove. (#5334)
+  SAAD:
+  - tweak: Celestation improvements part1 (#5364)
+  SHODAN:
+  - bugfix: polarized full tile windows are working now (#5368)
+  - tweak: lifted layer shutter (#5382)
+  Vladisvell:
+  - bugfix: Made buttons above fulltile windows (#5381)
+  - refactor: 'Bitmask smoothing: initial implementation (#5341)'
+  Zwei:
+  - bugfix: Stop Ore Spawning In Qdeleted Turf (#5375)
+  - bugfix: Garrote Correct Messages (#5374)
+  - bugfix: AntiDrop Implant Fix (#5376)
+  - bugfix: Poll Overlays Fix (#5379)
+  - bugfix: Dead Mobs Squeek Fix (#5377)
+  - refactor: Chasms And Portals Refactor (#5330)
+'2024-07-09':
+  Den109G:
+  - bugfix: Now you can craft both tele consoles (#5402)
+  NightDawnFox:
+  - balance: all nanomed & sectech vendors reduced to 2 on each map (#5321)
+  ROdenFL:
+  - bugfix: (some additions to uplink, hehe) uplink, jump to mob, cryopodconsole,
+      tts final, admins shuttle manipulator (#5398)
+  SAAD:
+  - bugfix: Lavalend destroy transit tubes (#5400)
+  Vladisvell:
+  - bugfix: Smooth fixes for false wall (#5393)
+  - bugfix: 'Icon fixes: Eternal suffering edition (#5396)'
+  - bugfix: Another icon fixes (#5399)
+  - bugfix: 'Movement optimization: cut processing time for every move. (#5388)'
+  - add: Micro optimizations (#5378)
+  Zwei:
+  - bugfix: Catwalk Fix (#5397)
+  - bugfix: Taperoll And Clothing Overlays Fixes (#5401)
+  - qol: Free Hand Pull (#5391)
+  - tweak: Projectiles Ignore Lying Mobs (#5326)
+  - add: PDA Beer Case (#5166)
+  - refactor: Washing Machine Rework (#5068)
+  - refactor: Dominator Icon Updates Rework (#5075)
+'2024-07-10':
+  Zwei:
+  - bugfix: Fakedeath Removes Sleeping Overlay (#5403)

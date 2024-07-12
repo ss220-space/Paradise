@@ -13,8 +13,15 @@
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	var/alt_desc = null
-	/// What level of bright light protection item has. 1 = Flashers, Flashes, & Flashbangs | 2 = Welding | -1 = OH GOD WELDING BURNT OUT MY RETINAS
-	var/flash_protect = 0
+	/*
+	FLASH_PROTECTION_VERYVUNERABLE	-4 = just another "OH GOD WELDING BURNT OUT MY RETINAS".
+	FLASH_PROTECTION_SENSITIVE		-1 = OH GOD WELDING BURNT OUT MY RETINAS
+	FLASH_PROTECTION_NONE			 0 = Regular eyes with no protection or vulnerabilities.
+	FLASH_PROTECTION_FLASH			 1 = Flashers, Flashes, & Flashbangs.
+	FLASH_PROTECTION_WELDER			 2 = Welding.
+	*/
+	/// What level of bright light protection item has.
+	var/flash_protect = FLASH_PROTECTION_NONE
 	/// Sets the item's level of visual impairment tint, normally set to the same as flash_protect
 	var/tint = 0
 	/// Tint when its up
@@ -43,7 +50,6 @@
 	var/cooldown = 0
 	var/species_disguise
 	var/magical = FALSE
-	var/dyeable = FALSE
 	var/heal_bodypart = null	//If a bodypart or an organ is specified here, it will slowly regenerate while the clothes are worn. Currently only implemented for eyes, though.
 	var/heal_rate = 1
 	w_class = WEIGHT_CLASS_SMALL
@@ -285,6 +291,7 @@ BLIND     // can't see anything
 	body_parts_covered = HANDS
 	slot_flags = ITEM_SLOT_GLOVES
 	attack_verb = list("challenged")
+	clothing_flags = FINGERS_COVERED
 	var/transfer_prints = FALSE
 	var/pickpocket = 0 //Master pickpocket?
 	var/clipped = 0
@@ -607,8 +614,16 @@ BLIND     // can't see anything
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/shoes.dmi'
 		)
 
+
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/match) && src.loc == user)
+	if(istype(I, /obj/item/stack/tape_roll) && !silence_steps)
+		var/obj/item/stack/tape_roll/TR = I
+		if((!silence_steps) && TR.use(4))
+			silence_steps = TRUE
+			GetComponent(/datum/component/jackboots)?.ClearFromParent()
+			to_chat(user, "You tape the soles of [src] to silence your footsteps.")
+
+	else if(istype(I, /obj/item/match) && src.loc == user)
 		var/obj/item/match/M = I
 		if(M.matchignite()) // Match isn't lit, but isn't burnt.
 			user.visible_message("<span class='warning'>[user] strikes a [M] on the bottom of [src], lighting it.</span>","<span class='warning'>You strike the [M] on the bottom of [src] to light it.</span>")
@@ -616,9 +631,8 @@ BLIND     // can't see anything
 		else
 			user.visible_message("<span class='warning'>[user] crushes the [M] into the bottom of [src], extinguishing it.</span>","<span class='warning'>You crush the [M] into the bottom of [src], extinguishing it.</span>")
 			user.drop_item_ground(I)
-		return
 
-	if(I.tool_behaviour == TOOL_WIRECUTTER)
+	else if(I.tool_behaviour == TOOL_WIRECUTTER)
 		if(can_cut_open)
 			if(!cut_open)
 				playsound(src.loc, I.usesound, 100, 1)
@@ -627,7 +641,6 @@ BLIND     // can't see anything
 				update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
 			else
 				to_chat(user, "<span class='notice'>[src] have already had [p_their()] toes cut open!</span>")
-		return
 	else
 		return ..()
 
@@ -635,6 +648,7 @@ BLIND     // can't see anything
 /obj/item/clothing/shoes/update_name()
 	. = ..()
 	if(!cut_open)
+		name = initial(name)
 		return
 	name = "mangled [initial(name)]"
 
@@ -642,15 +656,20 @@ BLIND     // can't see anything
 /obj/item/clothing/shoes/update_desc()
 	. = ..()
 	if(!cut_open)
+		desc = initial(desc)
 		return
 	desc = "[initial(desc)] They have had their toes opened up."
 
 
 /obj/item/clothing/shoes/update_icon_state()
-	if(!cut_open)
-		return
-	icon_state = "[icon_state]_opentoe"
-	item_state = "[item_state]_opentoe"
+	var/base_icon_state = replacetext("[icon_state]", "_opentoe", "")
+	var/base_item_state = replacetext("[item_state]", "_opentoe", "")
+	if(cut_open)
+		icon_state = "[base_icon_state]_opentoe"
+		item_state = "[base_icon_state]_opentoe"
+	else
+		icon_state = base_icon_state
+		item_state = base_item_state
 	update_equipped_item(update_speedmods = FALSE)
 
 
@@ -742,9 +761,13 @@ BLIND     // can't see anything
 	// end up with a suffix of _open_open if adjusted twice, since their initial state is _open
 	var/base_icon_state = replacetext("[icon_state]", "_open", "")
 	var/base_item_state = replacetext("[item_state]", "_open", "")
-
-	icon_state = suit_adjusted ? base_icon_state : "[base_icon_state]_open"
-	item_state = suit_adjusted ? base_item_state : "[base_item_state]_open"
+	if(suit_adjusted || ignore_suitadjust)
+		icon_state = base_icon_state
+		item_state = base_item_state
+	else
+		icon_state = "[base_icon_state]_open"
+		item_state = "[base_item_state]_open"
+	update_equipped_item(update_speedmods = FALSE)
 
 
 // Proc used to check if suit storage is limited by item weight
@@ -791,7 +814,7 @@ BLIND     // can't see anything
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	strip_delay = 50
 	put_on_delay = 50
 	resistance_flags = NONE
@@ -822,6 +845,7 @@ BLIND     // can't see anything
 	hide_tail_by_species = null
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 	faction_restricted = list("ashwalker")
+	undyeable = TRUE
 	var/obj/item/tank/jetpack/suit/jetpack = null
 	var/jetpack_upgradable = FALSE
 
@@ -927,6 +951,10 @@ BLIND     // can't see anything
 	var/list/accessories
 	/// Whether we can roll down this uniform.
 	var/can_adjust = TRUE
+
+
+/obj/item/clothing/under/rank
+	dying_key = DYE_REGISTRY_UNDER
 
 
 /obj/item/clothing/under/rank/Initialize(mapload)

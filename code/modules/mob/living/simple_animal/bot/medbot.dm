@@ -105,8 +105,8 @@
 	radio_config = list("Common" = 1, "Medical" = 1, "Syndicate" = 1)
 
 
-/mob/living/simple_animal/bot/medbot/syndicate/New()
-	..()
+/mob/living/simple_animal/bot/medbot/syndicate/Initialize(mapload, new_skin)
+	. = ..()
 	Radio.syndiekey = new /obj/item/encryptionkey/syndicate
 
 
@@ -135,7 +135,7 @@
 		. += "medskin_[skin]"
 
 
-/mob/living/simple_animal/bot/medbot/New(loc, new_skin)
+/mob/living/simple_animal/bot/medbot/Initialize(mapload, new_skin)
 	..()
 	var/datum/job/doctor/J = new /datum/job/doctor
 	access_card.access += J.get_access()

@@ -14,6 +14,7 @@
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE			// То что у нас двигатели ломаются от пары пуль - бред
 	var/list/obj/structure/fillers = list()		// Для коллизии более больших двигателей
+	smoothing_groups = SMOOTH_GROUP_SHUTTLE_PARTS
 
 // Это временное решение, дабы движки были освещены. Я хотел сделать анимацию с перекрасом цветов света в синий при полёте, но не сделал. Надеюсь кто-то сделает.
 /obj/structure/shuttle/engine/Initialize(mapload)

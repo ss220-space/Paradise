@@ -101,6 +101,8 @@
 	if(length(vis_contents))
 		vis_contents.Cut()
 
+	SETUP_SMOOTHING()
+
 	levelupdate()
 	if(smooth)
 		queue_smooth(src)
@@ -198,18 +200,6 @@
 	// but not runtime when something gets deleted by a Bump/CanPass/Cross call
 
 	var/atom/mover_loc = mover.loc
-
-	// First, make sure it can leave its square
-	if(isturf(mover_loc))
-		// Nothing but border objects stop you from leaving a tile, only one loop is needed
-		var/movement_dir = get_dir(mover, src)
-		for(var/obj/obstacle in mover_loc)
-			if(obstacle == mover)
-				continue
-			if(!obstacle.CanExit(mover, movement_dir))
-				mover.Bump(obstacle)
-				return FALSE
-
 	var/border_dir = get_dir(src, mover)
 	var/can_pass_self = CanPass(mover, border_dir)
 	var/atom/movable/tompost_bump
@@ -306,7 +296,8 @@
 
 	var/old_baseturf = baseturf
 
-	SEND_SIGNAL(src, COMSIG_TURF_CHANGE, path)
+	var/list/post_change_callbacks = list()
+	SEND_SIGNAL(src, COMSIG_TURF_CHANGE, path, post_change_callbacks)
 
 	changing_turf = TRUE
 	qdel(src)	//Just get the side effects and call Destroy
@@ -322,6 +313,9 @@
 		LAZYOR(W.comp_lookup, old_comp_lookup)
 	if(old_signal_procs)
 		LAZYOR(W.signal_procs, old_signal_procs)
+
+	for(var/datum/callback/callback as anything in post_change_callbacks)
+		callback.InvokeAsync(W)
 
 	if(copy_existing_baseturf)
 		W.baseturf = old_baseturf
@@ -795,15 +789,6 @@
 	if(locate(/mob/living/silicon/ai) in contents)
 		return TRUE
 
-	// in case of source_atom we are also checking if it can exit its turf contents
-	if(source_atom && isturf(source_atom.loc) && source_atom.loc != src)
-		var/movement_dir = get_dir(source_atom, src)
-		for(var/obj/obstacle in source_atom.loc)
-			if(obstacle == source_atom)
-				continue
-			if(!obstacle.CanExit(source_atom, movement_dir))
-				return TRUE
-
 	for(var/atom/movable/movable_content as anything in contents)
 		// We don't want to block ourselves
 		if((movable_content == source_atom))
@@ -829,3 +814,53 @@
 	. = TRUE
 	grabber.Move_Pulled(src)
 
+/// Generates a space underlay for a turf
+/// This provides proper lighting support alongside just looking nice
+/// Accepts the appearance to make "spaceish", and the turf we're doing this for
+/proc/generate_space_underlay(mutable_appearance/underlay_appearance, turf/generate_for)
+	underlay_appearance.icon = 'icons/turf/space.dmi'
+	underlay_appearance.icon_state = "0"
+	SET_PLANE(underlay_appearance, PLANE_SPACE, generate_for)
+	if(!generate_for.render_target)
+		generate_for.render_target = ref(generate_for)
+	var/atom/movable/emissive_blocker/em_block = new(null, generate_for)
+	underlay_appearance.overlays += em_block
+	// We used it because it's convienient and easy, but it's gotta go now or it'll hang refs
+	QDEL_NULL(em_block)
+	// We're gonna build a light, and mask it with the base turf's appearance
+	// grab a 32x32 square of it
+	// I would like to use GLOB.starbright_overlays here
+	// But that breaks down for... some? reason. I think receiving a render relay breaks keep_together or something
+	// So we're just gonna accept  that this'll break with starlight color changing. hardly matters since this is really only for offset stuff, but I'd love to fix it someday
+	var/mutable_appearance/light = new(GLOB.default_lighting_underlays_by_z[generate_for.z])
+	light.render_target = ""
+	light.appearance_flags |= KEEP_TOGETHER
+	// Now apply a copy of the turf, set to multiply
+	// This will multiply against our light, so we only light up the bits that aren't "on" the wall
+	var/mutable_appearance/mask = new(generate_for.appearance)
+	mask.blend_mode = BLEND_MULTIPLY
+	mask.render_target = ""
+	mask.pixel_x = 0
+	mask.pixel_y = 0
+	mask.pixel_w = 0
+	mask.pixel_z = 0
+	mask.transform = null
+	mask.underlays = list() // Begone foul lighting overlay
+	SET_PLANE(mask, FLOAT_PLANE, generate_for)
+	mask.layer = FLOAT_LAYER
+
+	// Bump the opacity to full, will this work?
+	mask.color = list(0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,255, 0,0,0,0)
+	light.overlays += mask
+	underlay_appearance.overlays += light
+
+	// Now, we're going to make a copy of the mask. Instead of using it to multiply against our light
+	// We're going to use it to multiply against the turf lighting plane. Going to mask away the turf light
+	// And rely on LIGHTING_MASK_LAYER to ensure we mask ONLY that bit
+	var/mutable_appearance/turf_mask = new(mask.appearance)
+	SET_PLANE(turf_mask, LIGHTING_PLANE, generate_for)
+	turf_mask.layer = LIGHTING_LAYER
+	/// Any color becomes white. Anything else is black, and it's fully opaque
+	/// Ought to work
+	turf_mask.color = list(255,255,255,0, 255,255,255,0, 255,255,255,0, 0,0,0,0, 0,0,0,255)
+	underlay_appearance.overlays += turf_mask

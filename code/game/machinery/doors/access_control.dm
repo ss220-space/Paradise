@@ -59,17 +59,20 @@
 			return
 	ui_interact(user)
 
-/obj/item/access_control/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/access_control/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/access_control/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AirlockElectronics", name, 450, 575, master_ui, state)
+		ui = new(user, src, "AirlockElectronics", name)
 		ui.open()
 
 /obj/item/access_control/ui_data(mob/user)
 	var/list/data = list()
 	data["selected_accesses"] = selected_accesses
 	data["one_access"] = one_access
-	data["unrestricted_dir"] = dir2text(unres_access_from)
+	data["unrestricted_dir"] = unres_access_from
 	return data
 
 /obj/item/access_control/ui_static_data(mob/user)
@@ -88,11 +91,8 @@
 	// Mostly taken from the RCD code
 	switch(action)
 		if("unrestricted_access")
-			var/direction = text2dir(params["unres_dir"])
-			if(direction == unres_access_from)
-				unres_access_from = null // Deselecting
-				return
-			unres_access_from = direction
+			var/direction = text2num(params["unres_dir"])
+			unres_access_from ^= direction
 
 		if("set_one_access")
 			one_access = params["access"] == "one" ? TRUE : FALSE

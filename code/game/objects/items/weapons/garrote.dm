@@ -57,7 +57,7 @@
 		return
 
 	if(!ishuman(target))
-		to_chat(user, span_warning("You don't think that garroting [target] would be very effective..."))
+		user.balloon_alert(user, "неподходящая цель!")
 		return
 
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
@@ -69,15 +69,15 @@
 		return
 
 	if(user.dir != target.dir)
-		to_chat(user, span_warning("You cannot use [src] on [target] from that angle!"))
-		return
-
-	if(improvised && ((target.head && (target.head.flags_cover & HEADCOVERSMOUTH)) || (target.wear_mask && (target.wear_mask.flags_cover & MASKCOVERSMOUTH)))) // Improvised garrotes are blocked by mouth-covering items.
 		user.balloon_alert(user, "используйте сзади!")
 		return
 
+	if(improvised && ((target.head && (target.head.flags_cover & HEADCOVERSMOUTH)) || (target.wear_mask && (target.wear_mask.flags_cover & MASKCOVERSMOUTH)))) // Improvised garrotes are blocked by mouth-covering items.
+		user.balloon_alert(user, "мешает одежда!")
+		return
+
 	if(strangling)
-		to_chat(user, span_warning("You cannot use [src] on two people at once!"))
+		user.balloon_alert(user, "уже используется!")
 		return
 
 	user.stop_pulling()
