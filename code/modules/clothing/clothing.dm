@@ -284,6 +284,7 @@ BLIND     // can't see anything
 	body_parts_covered = HANDS
 	slot_flags = ITEM_SLOT_GLOVES
 	attack_verb = list("challenged")
+	clothing_flags = FINGERS_COVERED
 	var/transfer_prints = FALSE
 	var/pickpocket = 0 //Master pickpocket?
 	var/clipped = 0

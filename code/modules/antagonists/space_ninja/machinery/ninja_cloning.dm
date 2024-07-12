@@ -66,7 +66,9 @@
 	attempting = TRUE //One at a time!!
 	icon_state = "ninja_cloning_on"
 	ninja_ghost.forceMove(src.loc)
-	ninja = ninja_ghost.incarnate_ghost()
+	ninja = ninja_ghost.incarnate_ghost(TRUE)
+	ninja.real_name = ninja.mind.name
+	ninja.name = ninja.mind.name
 	var/datum/antagonist/ninja/ninja_datum = ninja.mind.has_antag_datum(/datum/antagonist/ninja)
 	ninja_datum.equip_ninja()
 	ninja.forceMove(src)
