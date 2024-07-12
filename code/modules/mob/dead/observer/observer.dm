@@ -432,7 +432,7 @@ God Bless \ /\  \         \ \___\         \
 		        \/_________________________/
 */
 
-/// Показывает инвентарь моба, которого орбитирует призрак.
+/// Показывает инвентарь моба, на которого призрак прожал "Orbit".
 /mob/dead/observer/proc/show_orbting_inventory()
 	if(!show_orbiting_hud)
 		create_mob_hud()
