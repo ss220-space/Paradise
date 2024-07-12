@@ -70,7 +70,7 @@
 		message_admins("[key_name_admin(usr)] has changed the security level to [get_security_level()].")
 	tmp_alertlevel = 0
 
-/obj/machinery/computer/communications/ui_act(action, params, datum/tgui/ui, datum/ui/state)
+/obj/machinery/computer/communications/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 	if(!is_secure_level(z))
