@@ -1,7 +1,3 @@
-/mob/living
-	var/was_bursted = FALSE
-	var/dusted = FALSE
-
 /mob/living/proc/can_be_blob()
 	return FALSE
 
@@ -26,9 +22,9 @@
 	return TRUE
 
 /mob/living/carbon/human/can_be_blob()
-  if(!dna)
-    return FALSE
-  return !(dna.species.name in BLOB_RESTRICTED_SPECIES)
+	if(!dna)
+		return FALSE
+	return !(dna.species.name in BLOB_RESTRICTED_SPECIES)
 
 /mob/living/simple_animal/can_be_blob()
 	return FALSE

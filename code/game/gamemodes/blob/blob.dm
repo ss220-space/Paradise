@@ -1,10 +1,17 @@
 /datum/game_mode
+	//List of of blobs, their offsprings and blobburnouts spawned by them
 	var/list/blobs = list("infected"=list(), "offsprings"=list(), "blobernauts"=list())
+	//Count of blob tiles to blob win
 	var/blob_win_count = BLOB_BASE_TARGET_POINT
+	//Number of resource produced by the core
 	var/blob_point_rate = 3
+	//Number of bursted blob infected
 	var/bursted_blobs_count = 0
+	//Total blob submode stage
 	var/blob_stage = BLOB_STAGE_NONE
+	//The need to delay the end of the game when the blob wins
 	var/delay_blob_end = FALSE
+	//Total blobs objective
 	var/datum/objective/blob_critical_mass/blob_objective
 
 
@@ -18,7 +25,9 @@
 	restricted_jobs = BLOB_RESTRICTED_JOBS
 	protected_species = BLOB_RESTRICTED_SPECIES
 
+	//Base count of roundstart blobs
 	var/cores_to_spawn = 1
+	//The number of players for which 1 more roundstart blob will be added.
 	var/players_per_core = BLOB_PLAYERS_PER_CORE
 
 

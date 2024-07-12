@@ -1737,7 +1737,9 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/blob_critical_mass
 	needs_target = FALSE
+	//Total blob tiles count
 	var/critical_mass = -2
+	//Needed blob tiles count
 	var/needed_critical_mass = -1
 
 

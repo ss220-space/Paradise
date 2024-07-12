@@ -11,21 +11,37 @@
 	clown_removal_text = "Избавившись от заражения блобом ты возвращаешься к своему неуклюжему, клоунскому \"я\"."
 	show_in_roundend = FALSE
 	show_in_orbit = FALSE
+	//Variable responsible for the need to add a mind to blob_infected list in game mode.
 	var/add_to_mode = TRUE
+	//Countdown to burst start.
 	var/start_process = TRUE
+	//Warnings about soon burst start.
 	var/start_messages = FALSE
+	//Is a new blob needed from the station crew if this one dies when trying to burst outside the station.
 	var/need_new_blob = FALSE
+	//Blob in the countdown to burst.
 	var/is_processing = FALSE
+	//Сountdown to burst process is interrupted.
 	var/stop_process = FALSE
+	//Need to warn about an attempt to burst outside the station.
 	var/warn_blob = TRUE
+	//Time elapsed from the start of the countdown to the bursting.
 	var/burst_waited_time = 0
+	//Time elapsed from last burst warning message.
 	var/message_time = 0
+	//Was there a transformation into a blob when bursting.
 	var/is_tranformed = FALSE
+	//Maximum time to burst.
 	var/time_to_burst_hight = TIME_TO_BURST_ADDED_HIGHT
+	//Minimum time to burst.
 	var/time_to_burst_low = TIME_TO_BURST_ADDED_LOW
+	//Blob infected hud screen.
 	var/atom/movable/screen/time_to_burst_display
+	//Blob talk ability
 	var/datum/action/innate/blob/comm/blob_talk_action
+	//Final time to burst.
 	var/burst_wait_time
+	//Total burst warning text
 	var/player_message
 
 /datum/antagonist/blob_infected/on_gain()
