@@ -11609,8 +11609,7 @@
 /area/ninja/outpost)
 "fEe" = (
 /obj/effect/turf_decal/caution/stand_clear{
-	pixel_x = 16;
-	initialized = 1
+	pixel_x = 16
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -25480,7 +25479,8 @@
 /obj/effect/step_trigger/teleporter{
 	teleport_x = 135;
 	teleport_y = 16;
-	teleport_z = 1
+	teleport_z = 1;
+	mobs_only = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -42758,7 +42758,8 @@
 /obj/effect/step_trigger/teleporter{
 	teleport_x = 203;
 	teleport_y = 41;
-	teleport_z = 1
+	teleport_z = 1;
+	mobs_only = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -48558,7 +48559,8 @@
 /obj/effect/step_trigger/teleporter{
 	teleport_x = 135;
 	teleport_y = 16;
-	teleport_z = 1
+	teleport_z = 1;
+	mobs_only = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
