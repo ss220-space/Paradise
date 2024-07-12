@@ -70,6 +70,7 @@
 	ninja.real_name = ninja.mind.name
 	ninja.name = ninja.mind.name
 	var/datum/antagonist/ninja/ninja_datum = ninja.mind.has_antag_datum(/datum/antagonist/ninja)
+	ninja_datum.change_species(ninja)
 	ninja_datum.equip_ninja()
 	ninja.forceMove(src)
 	ninja.Sleeping(15 SECONDS)
