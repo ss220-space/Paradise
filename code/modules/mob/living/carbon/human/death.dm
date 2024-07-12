@@ -46,9 +46,6 @@
 	QDEL_IN(src, 0)
 	return TRUE
 
-/mob/living/carbon/human/dust()
-	return ..()
-
 
 /mob/living/carbon/human/dust_animation()
 	var/atom/movable/overlay/animation = null

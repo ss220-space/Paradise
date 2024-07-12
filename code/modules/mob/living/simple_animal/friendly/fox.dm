@@ -33,6 +33,12 @@
 	melee_damage_lower = 6
 	melee_damage_upper = 12
 
+
+/mob/living/simple_animal/pet/dog/fox/forest/winter
+	minbodytemp = 0
+	weather_immunities = list(TRAIT_SNOWSTORM_IMMUNE)
+
+
 //Captain fox
 /mob/living/simple_animal/pet/dog/fox/Renault
 	name = "Renault"
