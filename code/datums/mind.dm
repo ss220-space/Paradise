@@ -2500,7 +2500,7 @@
 				var/burst_time = input(usr, "Введите время до вылупления","Time:", TIME_TO_BURST_ADDED_HIGHT) as num|null
 				var/need_new_blob = alert(usr,"Нужно ли выбирать блоба из экипажа в случае попытки вылупления за пределами станции?", "", "Да", "Нет") == "Нет"
 				var/start_process = alert(usr,"Начинать отсчет до момента вылупления?", "", "Да", "Нет") == "Да"
-				if(isnull(burst_time) || current.stat == DEAD || !current)
+				if(isnull(burst_time) || QDELETED(current) || current.stat == DEAD)
 					return
 				var/datum/antagonist/blob_infected/blob_datum = new
 				blob_datum.need_new_blob = need_new_blob
