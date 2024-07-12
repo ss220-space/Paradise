@@ -83,7 +83,7 @@
 
 /obj/item/projectile/beam/pulse/on_hit(atom/target)
 	. = ..()
-	if(isliving(target) && gib_allowed == TRUE)
+	if(gib_allowed && isliving(target))
 		var/mob/living/L = target
 		if(L.health <= -200)
 			L.visible_message("<span class='danger'>[L] has been terminated!</span>")
