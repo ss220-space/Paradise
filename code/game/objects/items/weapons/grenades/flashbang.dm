@@ -44,13 +44,13 @@
 	for(var/mob/living/M in hearers(range, T))
 		if(M.stat == DEAD)
 			continue
-		M.show_message("<span class='warning'>BANG</span>", 2)
+		M.show_message(span_warning("BANG"), 2)
 		var/mobturf = get_turf(M)
 		// Flash
 		if(flash)
 			if(M.weakeyes)
-				M.visible_message("<span class='disarm'><b>[M]</b> screams and collapses!</span>")
-				to_chat(M, "<span class='userdanger'><font size=3>AAAAGH!</font></span>")
+				M.visible_message(span_disarm("<b>[M]</b> screams and collapses!"))
+				to_chat(M, span_userdanger("<font size=3>AAAAGH!</font>"))
 				M.Weaken(10 SECONDS) //hella stunned
 				if(ishuman(M))
 					M.emote("scream")

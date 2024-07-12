@@ -116,9 +116,9 @@
 /obj/machinery/ninja_clonepod/proc/force_ninja_out()
 	icon_state = initial(icon_state)
 	ninja.forceMove(get_turf(src))
-	ninja.flash_eyes(visual = 1)
+	ninja.flash_eyes(visual = TRUE)
 	add_game_logs("Ninja-cloned at [COORD(src)]", ninja)
-	to_chat(ninja, "[span_notice("Вы чувствуете себя как совершенно новое существо... Так вот какого быть клоном... Но все эти мысли не имеют значения. Миссия и клан... Гораздо важнее!")]")
+	to_chat(ninja, span_notice("Вы чувствуете себя как совершенно новое существо... Так вот какого быть клоном... Но все эти мысли не имеют значения. Миссия и клан... Гораздо важнее!"))
 	attempting = FALSE
 	ninja = null
 

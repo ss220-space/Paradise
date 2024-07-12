@@ -110,7 +110,7 @@
   * * user - The attacking user
   */
 /obj/item/melee/classic_baton/proc/on_silicon_stun(mob/living/silicon/target, mob/living/user)
-	target.flash_eyes(affect_silicon = TRUE)
+	target.flash_eyes(3, affect_silicon = TRUE)	// Yeah, it's just a "bash".
 	target.Weaken(stun_time_silicon)
 
 /**
