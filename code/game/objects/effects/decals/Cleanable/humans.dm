@@ -216,6 +216,23 @@
 	var/fleshcolor = "#FFFFFF"
 
 
+/obj/effect/decal/cleanable/blood/gibs/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_MOVABLE_PIPE_EJECTING, PROC_REF(on_pipe_eject))
+
+
+/obj/effect/decal/cleanable/blood/gibs/proc/on_pipe_eject(datum/source, direction)
+	SIGNAL_HANDLER
+
+	var/list/dirs
+	if(direction)
+		dirs = list(direction, turn(direction, -45), turn(direction, 45))
+	else
+		dirs = GLOB.alldirs.Copy()
+
+	INVOKE_ASYNC(src, PROC_REF(streak), dirs)
+
+
 /obj/effect/decal/cleanable/blood/gibs/update_icon(updates = ALL)
 	if(!updates)
 		return
@@ -256,7 +273,7 @@
 /obj/effect/decal/cleanable/blood/gibs/cleangibs //most ironic name ever...
 	scoop_reagents = null
 
-/obj/effect/decal/cleanable/blood/gibs/proc/streak(var/list/directions)
+/obj/effect/decal/cleanable/blood/gibs/proc/streak(list/directions)
 	set waitfor = 0
 	var/direction = pick(directions)
 	for(var/i = 0, i < pick(1, 200; 2, 150; 3, 50; 4), i++)

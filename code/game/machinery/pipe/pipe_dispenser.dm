@@ -170,17 +170,20 @@
 <A href='?src=[UID()];dmake=106'>Bin</A><BR>
 <A href='?src=[UID()];dmake=107'>Outlet</A><BR>
 <A href='?src=[UID()];dmake=108'>Chute</A><BR>
+<A href='?src=[UID()];dmake=113'>Rotator</A><BR>
+<A href='?src=[UID()];dmake=111'>Multi-Z Up</A><BR>
+<A href='?src=[UID()];dmake=112'>Multi-Z Down</A><BR>
 "}
 
 	var/datum/browser/popup = new(user, "pipedispenser", name, 400, 400)
 	popup.set_content(dat)
 	popup.open()
 
+
 /obj/machinery/pipedispenser/disposal/Topic(href, href_list)
 	if(!..())
 		return
 	if(href_list["dmake"])
-		var/p_type = text2num(href_list["dmake"])
-		var/obj/structure/disposalconstruct/C = new(loc, p_type)
-		if(p_type in list(PIPE_DISPOSALS_BIN, PIPE_DISPOSALS_OUTLET, PIPE_DISPOSALS_CHUTE))
-			C.set_density(TRUE)
+		var/obj/structure/disposalconstruct/construct = new(loc, text2num(href_list["dmake"]))
+		to_chat(usr, span_notice("[src] dispenses the [construct.pipename]!"))
+
