@@ -64,7 +64,7 @@
 		effect_a.add_overlay(swap_b.photograph())
 		effect_b.linked_dist = effect_a
 		effect_b.add_overlay(swap_a.photograph())
-		effect_b.set_light(4, 30, "#c9fff5")
+		effect_b.set_light_range_power_color(4, 30, "#c9fff5")
 		effects += effect_a
 		effects += effect_b
 
@@ -97,6 +97,14 @@
 	var/walks_left = 50 //prevents the game from hanging in extreme cases
 
 
+/obj/effect/cross_action/spacetime_dist/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
 /obj/effect/cross_action/singularity_act()
 	return
 
@@ -119,9 +127,11 @@
 	cant_teleport = FALSE
 
 
-/obj/effect/cross_action/spacetime_dist/Crossed(atom/movable/AM, oldloc)
+/obj/effect/cross_action/spacetime_dist/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
 	if(!cant_teleport)
-		walk_link(AM)
+		walk_link(arrived)
 
 
 /obj/effect/cross_action/spacetime_dist/attackby(obj/item/W, mob/user, params)

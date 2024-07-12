@@ -1,9 +1,12 @@
 GLOBAL_LIST_INIT(department_radio_keys, list(
 /*
-	Busy letters by languages:
-	un ta vu sk vo di tr ki sl gr dr ni
-	xm db wr xh ts ch hs sh ab gl bo bi dt
-	sw gc sc tb gt cl nr mo ne st fa wo
+	Busy letters for language:
+	a b d f g j k o q v x y
+	aa as bo db fa fm fn fs vu
+
+	Busy symbols for language:
+	0 1 2 3 4 5 6 7 8 9
+	% ? ^
 
 
 	Busy letters by radio(eng):
@@ -15,7 +18,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 
 	Busy symbols by radio:
-	~ , $ _ - + * 1 2 3
+	~ , $ _ - + *
 
 	CAUTION!	The key must not repeat the key of the languages (language.dm)
 				and must not contain prohibited characters!
@@ -244,6 +247,10 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		else
 			first_piece.message = copytext_char(first_piece.message, 3)
 
+	//And only after everything is done, we hissin'
+	for(var/datum/multilingual_say_piece/piece as anything in message_pieces)
+		piece.message = handle_autohiss(piece.message, piece.speaking)
+
 	first_piece.message = trim_left(first_piece.message)
 	verb = say_quote(message, first_piece.speaking)
 
@@ -251,10 +258,16 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		if(iscarbon(src))
 			var/mob/living/carbon/C = src
 			var/obj/item/organ/internal/vocal_cords/V = C.get_int_organ(/obj/item/organ/internal/vocal_cords)
-			if(V && V.can_speak_with())
-				C.say(V.handle_speech(message), sanitize = FALSE, ignore_speech_problems = TRUE, ignore_atmospherics = TRUE)
-				V.speak_with(message) //words come before actions
-		return TRUE
+			if(!V || !V.can_speak_with())
+				return TRUE
+
+			V.speak_with(message)
+			message_pieces = V.handle_speech(message_pieces)
+			if(!LAZYLEN(message_pieces))
+				return TRUE
+
+			ignore_speech_problems = TRUE
+			ignore_atmospherics = TRUE
 
 	if(is_muzzled())
 		var/obj/item/clothing/mask/muzzle/G = wear_mask
@@ -269,12 +282,9 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		muffledspeech_all(message_pieces)
 		verb = "gurgles"
 
-	if(!wear_mask)
-		for(var/obj/item/grab/grab in grabbed_by)
-			if(grab.assailant.zone_selected == BODY_ZONE_PRECISE_MOUTH && grab.state == GRAB_AGGRESSIVE)
-				muffledspeech_all(message_pieces)
-				verb = "mumbles"
-				break
+	if(!wear_mask && pulledby && pulledby.grab_state > GRAB_PASSIVE && pulledby.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+		muffledspeech_all(message_pieces)
+		verb = "mumbles"
 
 	if(!ignore_speech_problems)
 		var/list/hsp = handle_speech_problems(message_pieces, verb)
@@ -402,18 +412,6 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 					O.hear_talk(M, message_pieces, verbage)
 
 
-/obj/effect/speech_bubble
-	var/mob/parent
-
-
-/mob/living/proc/GetVoice()
-	return name
-
-
-/mob/living/proc/GetTTSVoice()
-	return tts_seed
-
-
 /mob/living/whisper(message as text)
 	message = trim_strip_html_properly(message, 512)
 
@@ -461,7 +459,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	var/message = multilingual_to_message(message_pieces)
 
-	say_log += "whisper: [message]"
+	LAZYADD(say_log, "whisper: [message]")
 	log_whisper(message, src)
 	var/message_range = 1
 	var/eavesdropping_range = 2
@@ -568,6 +566,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 /mob/living/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
 	var/image/I = image('icons/mob/talk.dmi', bubble_loc, bubble_state, FLY_LAYER)
+	SET_PLANE_EXPLICIT(I, ABOVE_GAME_PLANE, src)
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 	INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, I, bubble_recipients, 30)
 

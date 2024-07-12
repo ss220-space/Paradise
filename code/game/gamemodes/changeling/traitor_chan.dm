@@ -2,11 +2,11 @@
 	name = "traitor+changeling"
 	config_tag = "traitorchan"
 	traitors_possible = 3 //hard limit on traitors if scaling is turned off
-	restricted_jobs = list("AI", "Cyborg")
+	restricted_jobs = list(JOB_TITLE_AI, JOB_TITLE_CYBORG)
 	required_players = 10
 	required_enemies = 1	// how many of each type are required
 	recommended_enemies = 3
-	var/protected_species_changeling = list("Machine")
+	var/protected_species_changeling = list(SPECIES_MACNINEPERSON)
 	var/list/datum/mind/pre_changelings = list()
 
 /datum/game_mode/traitor/changeling/announce()

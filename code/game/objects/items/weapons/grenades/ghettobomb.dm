@@ -10,7 +10,7 @@
 	throw_speed = 3
 	throw_range = 7
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	active = 0
 	det_time = 5 SECONDS
 	display_timer = 0
@@ -18,8 +18,8 @@
 
 /obj/item/grenade/iedcasing/New()
 	..()
-	overlays += "improvised_grenade_filled"
-	overlays += "improvised_grenade_wired"
+	add_overlay("improvised_grenade_filled")
+	add_overlay("improvised_grenade_wired")
 	times = list("5" = 1 SECONDS, "-1" = 2 SECONDS, "[rand(3 SECONDS, 8 SECONDS)]" = 5 SECONDS, "[rand(6.5 SECONDS, 18 SECONDS)]" = 2 SECONDS)// "Premature, Dud, Short Fuse, Long Fuse"=[weighting value]
 	det_time = text2num(pickweight(times))
 	if(det_time < 0) //checking for 'duds'
@@ -47,7 +47,7 @@
 		if(clown_check(user))
 			to_chat(user, span_warning("You light the [name]!"))
 			active = TRUE
-			overlays -= "improvised_grenade_filled"
+			cut_overlay("improvised_grenade_filled")
 			icon_state = initial(icon_state) + "_active"
 			update_icon()
 			add_fingerprint(user)
@@ -100,14 +100,14 @@
 /obj/item/grenade/iedsatchel/afterattack(atom/T, mob/user, proximity)
 	if(!proximity)
 		return
-	if(!istype(T, /turf/simulated/wall) && !istype(T, /obj/machinery/door/airlock))
+	if(!iswallturf(T) && !istype(T, /obj/machinery/door/airlock))
 		return
 	to_chat(user, span_notice("You start planting the [src]."))
 
-	if(do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = T))
+	if(do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), T))
 		if(!user.drop_transfer_item_to_loc(src, user.loc))
 			return
-		anchored = TRUE
+		set_anchored(TRUE)
 		target = T
 
 		pixel_w = (T.x - x)*32
@@ -169,7 +169,7 @@
 		pixel_z = 0
 		to_chat(user, span_notice("You unattached [src]."))
 		layer = TURF_LAYER
-		anchored = FALSE
+		set_anchored(FALSE)
 		update_icon(UPDATE_ICON_STATE)
 		target = null
 
@@ -208,7 +208,7 @@
 				qdel(T)
 			else
 				T.take_damage(300)
-		if(istype(target, /turf/simulated/wall))
+		if(iswallturf(target))
 			var/turf/simulated/wall/T = target
 			if((T.damage + 300) >= T.damage_cap)
 				T.dismantle_wall(1, 1)

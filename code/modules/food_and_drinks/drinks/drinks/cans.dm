@@ -49,10 +49,10 @@
 	return crushed_can
 
 /obj/item/reagent_containers/food/drinks/cans/CtrlClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
 	if(!can_shake || !ishuman(user))
+		return ..()
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return ..()
 	var/mob/living/carbon/human/H = user
 	if(canopened)
@@ -62,7 +62,7 @@
 		can_shake = FALSE
 		addtimer(CALLBACK(src, PROC_REF(reset_shakable)), 1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 		to_chat(H, "<span class='notice'>You start shaking up [src].</span>")
-		if(do_after(H, 1 SECONDS, target = H))
+		if(do_after(H, 1 SECONDS, H))
 			visible_message("<span class='warning'>[user] shakes up the [name]!</span>")
 			if(times_shaken == 0)
 				times_shaken++
@@ -174,6 +174,34 @@
 	icon_state = "cola"
 	list_reagents = list("cola" = 30)
 
+/obj/item/reagent_containers/food/drinks/cans/energy
+	name = "heart attack"
+	desc = "The heart will say: - My stop."
+	icon_state = "heart_attack"
+	item_state = "heart_attack"
+	list_reagents = list("energetik" = 30)
+
+/obj/item/reagent_containers/food/drinks/cans/energy/trop
+	name = "tropical spasm"
+	desc = "Get a taste of hunting down USSP soldiers."
+	icon_state = "tropical_spasm"
+	item_state = "tropical_spasm"
+	list_reagents = list("trop_eng" = 30)
+
+/obj/item/reagent_containers/food/drinks/cans/energy/milk
+	name = "milk flow"
+	desc = "For pro gamers."
+	icon_state = "milk_flow"
+	item_state = "milk_flow"
+	list_reagents = list("milk_eng" = 30)
+
+/obj/item/reagent_containers/food/drinks/cans/energy/grey
+	name = "GreyPower"
+	desc = "Your hands will burn from GreyPower."
+	icon_state = "GreyPower"
+	item_state = "GreyPower"
+	list_reagents = list("grey_eng" = 30)
+
 /obj/item/reagent_containers/food/drinks/cans/beer
 	name = "space beer"
 	desc = "Contains only water, malt and hops."
@@ -210,8 +238,8 @@
 	list_reagents = list("mutagen" = 25, "charcoal" = 10, "thirteenloko" = 15)
 
 /obj/item/reagent_containers/food/drinks/cans/ale
-	name = "Magm-Ale"
-	desc = "A true dorf's drink of choice."
+	name = "Tail Tells Tales Ale"
+	desc = "The label has a tail drawn on it that extends the entire length of the bottle. If you rip it off, you can read some short tale or legend on the back of the label."
 	icon_state = "alebottle"
 	item_state = "beer"
 	is_glass = 1

@@ -7,7 +7,6 @@
 	icon = 'icons/obj/module.dmi'
 	icon_state = "cyborg_upgrade"
 	origin_tech = "programming=2"
-	var/locked = FALSE
 	var/installed = FALSE
 	var/require_module = FALSE
 	var/module_type = null
@@ -17,14 +16,17 @@
 
 /obj/item/borg/upgrade/proc/action(mob/living/silicon/robot/robot, mob/user)
 	if(robot.stat == DEAD)
-		to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("[src] will not function on a deceased cyborg!")]")
+		if(user)
+			to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("[src] will not function on a deceased cyborg!")]")
 		return FALSE
 	if((locate(src) in robot.upgrades) && !multiple_use)
-		to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("there is already [src] inside!")]")
+		if(user)
+			to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("there is already [src] inside!")]")
 		return FALSE
 	if(module_type && !istype(robot.module, module_type))
 		to_chat(robot, span_warning("Upgrade mounting error! No suitable hardpoint detected!"))
-		to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("there's no mounting point for the module!")]")
+		if(user)
+			to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("there's no mounting point for the module!")]")
 		return FALSE
 	return TRUE
 
@@ -48,7 +50,8 @@
 		return FALSE
 
 	if(isclocker(robot))
-		to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("this unit somehow refuses to reset!")]")
+		if(user)
+			to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("this unit somehow refuses to reset!")]")
 		return FALSE
 
 	robot.reset_module()
@@ -79,7 +82,8 @@
 
 	if(!robot.allow_rename)
 		to_chat(robot, span_warning("Internal diagnostic error: incompatible upgrade module detected."))
-		to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("incompatible upgrade module detected!")]")
+		if(user)
+			to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("incompatible upgrade module detected!")]")
 		return FALSE
 
 	if(!robot.shouldRename(heldname))
@@ -114,7 +118,8 @@
 
 /obj/item/borg/upgrade/restart/action(mob/living/silicon/robot/robot, mob/user)
 	if(robot.health < 0)
-		to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("you have to repair the cyborg before using this module!")]")
+		if(user)
+			to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("you have to repair the cyborg before using this module!")]")
 		return FALSE
 
 	if(!robot.key)
@@ -122,7 +127,7 @@
 			if(ghost.mind && ghost.mind.current == robot)
 				robot.key = ghost.key
 
-	robot.stat = CONSCIOUS
+	robot.set_stat(CONSCIOUS)
 	GLOB.dead_mob_list -= robot //please never forget this ever kthx
 	GLOB.alive_mob_list += robot
 	robot.notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
@@ -141,7 +146,7 @@
 	if(!..())
 		return FALSE
 
-	robot.speed -= 1 // Gotta go fast.
+	robot.add_movespeed_modifier(/datum/movespeed_modifier/robot_vtec_upgrade)	// Gotta go fast.
 	return TRUE
 
 
@@ -149,7 +154,7 @@
 	if(!..())
 		return FALSE
 
-	robot.speed += 1
+	robot.remove_movespeed_modifier(/datum/movespeed_modifier/robot_vtec_upgrade)
 	return TRUE
 
 
@@ -163,17 +168,17 @@
 	if(!..())
 		return FALSE
 
-	if(robot.magpulse)
+	if(HAS_TRAIT_FROM(robot, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT))
 		return FALSE
 
-	robot.magpulse = TRUE
+	ADD_TRAIT(robot, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
 	return TRUE
 
 /obj/item/borg/upgrade/magboots/deactivate(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
 		return FALSE
 
-	robot.magpulse = initial(robot.magpulse)
+	REMOVE_TRAIT(robot, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
 	return TRUE
 
 /obj/item/borg/upgrade/disablercooler
@@ -191,7 +196,8 @@
 
 	var/obj/item/gun/energy/disabler/cyborg/disabler = locate() in robot.module.modules
 	if(!disabler)
-		to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("there's no disabler in this unit!")]")
+		if(user)
+			to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("there's no disabler in this unit!")]")
 		return FALSE
 
 	disabler.charge_delay = max(2 , disabler.charge_delay - 4)
@@ -228,6 +234,9 @@
 /obj/item/borg/upgrade/thrusters/deactivate(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
 		return FALSE
+
+	if(robot.ionpulse_on)
+		robot.toggle_ionpulse(silent = TRUE)
 
 	robot.ionpulse = FALSE
 	return TRUE
@@ -509,7 +518,7 @@
 	if(!..())
 		return FALSE
 
-	robot.weather_immunities |= "lava"
+	robot.weather_immunities += "lava"	// not |= in case we have other sources
 	return TRUE
 
 
@@ -777,7 +786,8 @@
 
 	var/obj/item/rcd/borg/borg_rcd = locate() in robot.module.modules
 	if(!borg_rcd)
-		to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("there's no RCD in this unit!")]")
+		if(user)
+			to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("there's no RCD in this unit!")]")
 		return FALSE
 
 	for(borg_rcd in robot.module.modules)
@@ -786,7 +796,6 @@
 	robot.module.modules += new /obj/item/rcd/syndicate/borg(robot.module)
 	robot.module.rebuild()
 	return TRUE
-
 
 /obj/item/borg/upgrade/syndie_rcd/deactivate(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
@@ -800,5 +809,35 @@
 		qdel(borg_rcd)
 
 	robot.module.modules += new /obj/item/rcd/borg(robot.module)
+	robot.module.rebuild()
+	return TRUE
+
+/obj/item/borg/upgrade/bs_beaker
+	name = "blue space beaker"
+	desc = "A blue space beaker for butler unit"
+	icon_state = "cyborg_upgrade3"
+	origin_tech = "bluespace=4;materials=5"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/butler
+
+/obj/item/borg/upgrade/bs_beaker/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	for(var/obj/item/reagent_containers/glass/bucket/container in robot.module.modules)
+		qdel(container)
+
+	robot.module.modules += new /obj/item/reagent_containers/glass/beaker/bluespace(robot.module)
+	robot.module.rebuild()
+	return TRUE
+
+/obj/item/borg/upgrade/bs_beaker/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	for(var/obj/item/reagent_containers/glass/beaker/bluespace/container2 in robot.module)
+		qdel(container2)
+
+	robot.module.modules += new /obj/item/reagent_containers/glass/bucket(robot.module)
 	robot.module.rebuild()
 	return TRUE

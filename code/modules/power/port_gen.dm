@@ -6,7 +6,7 @@
 	desc = "A portable generator for emergency backup power"
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "portgen0_0"
-	density = 1
+	density = TRUE
 	anchored = FALSE
 	use_power = NO_POWER_USE
 
@@ -297,7 +297,7 @@
 				to_chat(user, "<span class='notice'>You unsecure the generator from the floor.</span>")
 
 			playsound(src.loc, O.usesound, 50, 1)
-			anchored = !anchored
+			set_anchored(!anchored)
 
 		else if(O.tool_behaviour == TOOL_SCREWDRIVER)
 			panel_open = !panel_open
@@ -326,10 +326,10 @@
 /obj/machinery/power/port_gen/pacman/attack_ghost(var/mob/user)
 	return attack_hand(user)
 
-/obj/machinery/power/port_gen/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/power/port_gen/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Pacman", name, 500, 260)
+		ui = new(user, src, "Pacman", name)
 		ui.open()
 
 /obj/machinery/power/port_gen/pacman/ui_data(mob/user)

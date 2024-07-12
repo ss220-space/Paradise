@@ -39,13 +39,9 @@
 
 
 /obj/machinery/flasher/power_change(forced = FALSE)
-	if(!..())
-		return
-	if(stat & NOPOWER)
-		set_light(0)
-	else
-		set_light(1, LIGHTING_MINIMUM_POWER)
-	update_icon()
+	. = ..()
+	if(.)
+		update_icon()
 
 
 /obj/machinery/flasher/update_icon_state()
@@ -64,7 +60,7 @@
 
 	if(anchored)
 		. += "[base_icon_state]-s"
-		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask")
+		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
 
 
 //Let the AI trigger them directly.
@@ -85,8 +81,8 @@
 
 	playsound(loc, 'sound/weapons/flash.ogg', 100, 1)
 	flick("[base_icon_state]_flash", src)
-	set_light(2, 1, COLOR_WHITE)
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 2)
+	set_light(2, 1, COLOR_WHITE, TRUE)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light_on), FALSE), 2)
 	last_flash = world.time
 	use_power(1000)
 
@@ -112,7 +108,7 @@
 	if((disable) || (last_flash && world.time < last_flash + 150))
 		return
 
-	if(istype(AM, /mob/living/carbon))
+	if(iscarbon(AM))
 		var/mob/living/carbon/M = AM
 		if((M.m_intent != MOVE_INTENT_WALK) && (anchored))
 			flash()
@@ -132,7 +128,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	anchored = !anchored
+	set_anchored(!anchored)
 	if(anchored)
 		WRENCH_ANCHOR_MESSAGE
 	else

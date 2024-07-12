@@ -73,6 +73,45 @@
 	return
 
 /*
+ * Glowsticks Box
+ */
+
+/obj/item/storage/fancy/glowsticks_box
+	name = "glowstick box"
+	icon = 'icons/obj/chemglow_box.dmi'
+	icon_type = "glowstick"
+	icon_state = "chemglow_box_opened"
+	item_state = "glowstick_box"
+	storage_slots = 6
+	can_hold = list(/obj/item/flashlight/flare/glowstick)
+	icon_type = "chemglow"
+	foldable = /obj/item/stack/sheet/cardboard
+	foldable_amt = 2
+
+/obj/item/storage/fancy/glowsticks_box/update_icon_state()
+	if(length(contents) == 6)
+		icon_state = "chemglow_box_closed"
+	else
+		icon_state = "chemglow_box_opened"
+
+/obj/item/storage/fancy/glowsticks_box/update_overlays()
+	. = ..()
+	for(var/I = 1 to length(contents))
+		var/obj/item/flashlight/flare/glowstick/chemglow = contents[I]
+		var/icon/new_chemglow_icon = icon(icon, "chemglow_[chemglow.chemglow_sprite_type]")
+		new_chemglow_icon.Shift(EAST, 2 * (I - 1))
+		. += new_chemglow_icon
+
+/obj/item/storage/fancy/glowsticks_box/populate_contents()
+	for(var/i = 1 to storage_slots)
+		new /obj/item/flashlight/flare/glowstick/random(src)
+	update_icon(UPDATE_OVERLAYS)
+
+
+/obj/item/storage/fancy/glowsticks_box/empty/populate_contents()
+	update_icon(UPDATE_OVERLAYS)
+	return
+/*
  * Egg Box
  */
 
@@ -101,7 +140,7 @@
 	item_state = "candlebox5"
 	storage_slots = 5
 	throwforce = 2
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 
 
 /obj/item/storage/fancy/candle_box/full/populate_contents()
@@ -177,7 +216,7 @@
 	item_state = "cigpacket"
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 2
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	storage_slots = 20
 	max_combined_w_class = 20
 	display_contents_with_number = 1
@@ -222,7 +261,7 @@
 		to_chat(user, span_warning("There are no smokables in the pack!"))
 		return TRUE
 
-	if(target.equip_to_slot_if_possible(cigar, slot_wear_mask, disable_warning = TRUE))
+	if(target.equip_to_slot_if_possible(cigar, ITEM_SLOT_MASK, disable_warning = TRUE))
 		to_chat(user, span_notice("You took \a [cigar.name] out of the pack[target != user ? " and deftly place it in [target] mouth" : ""]."))
 	else
 		to_chat(user, span_warning("Something is blocking [target] mouth!"))
@@ -343,16 +382,17 @@
 	icon_type = "rolling paper"
 	can_hold = list(/obj/item/rollingpaper)
 
+
 /obj/item/storage/fancy/rollingpapers/populate_contents()
 	for(var/i in 1 to storage_slots)
 		new /obj/item/rollingpaper(src)
 
 
-/obj/item/storage/fancy/crayons/update_icon_state()
+/obj/item/storage/fancy/rollingpapers/update_icon_state()
 	return
 
 
-/obj/item/storage/fancy/rollingpapers/update_icon_state()
+/obj/item/storage/fancy/rollingpapers/update_overlays()
 	. = ..()
 	if(!length(contents))
 		. += "[icon_state]_empty"

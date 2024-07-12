@@ -355,7 +355,7 @@
 /datum/reagent/cryostylane/on_mob_life(mob/living/M) //TODO: code freezing into an ice cube
 	if(M.reagents.has_reagent("oxygen"))
 		M.reagents.remove_reagent("oxygen", 1)
-		M.bodytemperature -= 30
+		M.adjust_bodytemperature(-30)
 	return ..()
 
 /datum/reagent/cryostylane/process()
@@ -373,7 +373,7 @@
 	if(!istype(T))
 		return
 	if(volume >= 3)
-		T.MakeSlippery(TURF_WET_ICE)
+		T.MakeSlippery(TURF_WET_ICE, 120 SECONDS)
 	if(volume >= 5)
 		for(var/mob/living/simple_animal/slime/M in T)
 			M.adjustToxLoss(rand(15,30))
@@ -397,7 +397,7 @@
 /datum/reagent/pyrosium/on_mob_life(mob/living/M)
 	if(M.reagents.has_reagent("oxygen"))
 		M.reagents.remove_reagent("oxygen", 1)
-		M.bodytemperature += 30
+		M.adjust_bodytemperature(30)
 	return ..()
 
 /datum/reagent/pyrosium/process()

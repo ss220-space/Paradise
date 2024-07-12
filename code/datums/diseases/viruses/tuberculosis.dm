@@ -55,5 +55,5 @@
 				H.adjust_nutrition(-100)
 			if(prob(15))
 				to_chat(H, span_danger("[pick("You feel uncomfortably hot...", "You feel like unzipping your jumpsuit", "You feel like taking off some clothes...")]"))
-				H.bodytemperature += 40
+				H.adjust_bodytemperature(40)
 	return

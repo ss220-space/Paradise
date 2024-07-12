@@ -27,7 +27,7 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 		bold_jobs = list()
 		bold_jobs += GLOB.command_positions
 		bold_jobs += get_all_centcom_jobs()
-		bold_jobs += list("Nanotrasen Representative", "Blueshield", "Magistrate")
+		bold_jobs += list(JOB_TITLE_REPRESENTATIVE, JOB_TITLE_BLUESHIELD, JOB_TITLE_JUDGE)
 
 	// It's needed for correct finding security crew in CrewMonitor.js
 	if(!security_jobs_list)
@@ -40,7 +40,9 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 		if(!C || C.sensor_mode == SUIT_SENSOR_OFF || !C.has_sensor)
 			continue
 		var/turf/pos = get_turf(C)
-		if(!istype(pos) || !T || pos.z != T.z)
+		if(!istype(pos) || !T)
+			continue
+		if((pos.z != T.z) && !(check_level_trait(pos.z, STATION_LEVEL) && check_level_trait(T.z, STATION_LEVEL))) // same z_level or both on STATION_LEVEL
 			continue
 		var/list/crewmemberData = list("dead"=0, "oxy"=-1, "tox"=-1, "fire"=-1, "brute"=-1, "area"="", "x"=-1, "y"=-1, "ref" = "\ref[H]")
 
@@ -67,6 +69,7 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 			crewmemberData["area"] = A.name
 			crewmemberData["x"] = pos.x
 			crewmemberData["y"] = pos.y
+			crewmemberData["z"] = pos.z
 
 		crewmembers[++crewmembers.len] = crewmemberData
 

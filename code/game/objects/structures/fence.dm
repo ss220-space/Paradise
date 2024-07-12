@@ -16,6 +16,7 @@
 	desc = "A chain link fence. Not as effective as a wall, but generally it keeps people out."
 	density = TRUE
 	anchored = TRUE
+	pass_flags_self = PASSFENCE|LETPASSTHROW
 
 	icon = 'icons/obj/fence.dmi'
 	icon_state = "straight"
@@ -23,7 +24,7 @@
 	var/cuttable = TRUE
 	var/hole_size = NO_HOLE
 	var/invulnerable = FALSE
-	var/shock_cooldown = FALSE
+	COOLDOWN_DECLARE(shock_cooldown)
 
 /obj/structure/fence/Initialize()
 	. = ..()
@@ -58,14 +59,12 @@
 	icon_state = "straight_cut3"
 	hole_size = LARGE_HOLE
 
-/obj/structure/fence/CanPass(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASSFENCE))
+
+/obj/structure/fence/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(isprojectile(mover))
 		return TRUE
-	if(istype(mover, /obj/item/projectile))
-		return TRUE
-	if(!density)
-		return TRUE
-	return FALSE
+
 
 /*
 	Shock user with probability prb (if all connections & power are working)
@@ -133,7 +132,7 @@
 			to_chat(user, "<span class='warning'>You need [HOLE_REPAIR] rods to fix this fence!</span>")
 			return
 		to_chat(user, "<span class='notice'>You begin repairing the fence...</span>")
-		if(do_after(user, 3 SECONDS * C.toolspeed * gettoolspeedmod(user), target = src) && hole_size != NO_HOLE && R.use(HOLE_REPAIR))
+		if(do_after(user, 3 SECONDS * C.toolspeed * gettoolspeedmod(user), src) && hole_size != NO_HOLE && R.use(HOLE_REPAIR))
 			add_fingerprint(user)
 			playsound(src, C.usesound, 80, 1)
 			hole_size = NO_HOLE
@@ -143,19 +142,14 @@
 		return
 	. = ..()
 
+
 /obj/structure/fence/Bumped(atom/movable/moving_atom)
-	..()
-
-	if(!ismob(moving_atom))
-		return
-	if(shock_cooldown)
-		return
+	. = ..()
+	if(!COOLDOWN_FINISHED(src, shock_cooldown) || !ismob(moving_atom))
+		return .
 	shock(moving_atom, 70)
-	shock_cooldown = TRUE // We do not want bump shock spam!
-	addtimer(CALLBACK(src, PROC_REF(shock_cooldown)), 1 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+	COOLDOWN_START(src, shock_cooldown, 1 SECONDS) // We do not want bump shock spam!
 
-/obj/structure/fence/proc/shock_cooldown()
-	shock_cooldown = FALSE
 
 /obj/structure/fence/attack_animal(mob/user)
 	. = ..()

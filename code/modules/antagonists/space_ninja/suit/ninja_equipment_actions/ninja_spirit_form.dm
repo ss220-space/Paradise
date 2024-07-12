@@ -4,7 +4,7 @@
 	Which allows passing almost through anything, at the cost of a big passive increase to energy consumption. \
 	Also all restraining effects like handcuffs will drop off from you! \
 	Remember that this module is still a prototipe and won't make you invincible! Passively encrease suit energy consumption."
-	check_flags = AB_CHECK_LYING | AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_LYING|AB_CHECK_CONSCIOUS
 	charge_type = ADV_ACTION_TYPE_TOGGLE_RECHARGE
 	charge_max = 25 SECONDS
 	use_itemicon = FALSE
@@ -33,10 +33,8 @@
 		if(cell.charge <= 0)
 			to_chat(ninja, span_warning("You don't have enough power to enable spirit form!"))
 			return
-		if(istype(ninja.r_hand, /obj/item/grab))
-			ninja.drop_item_ground(ninja.r_hand, force = TRUE)
-		if(istype(ninja.l_hand, /obj/item/grab))
-			ninja.drop_item_ground(ninja.l_hand, force = TRUE)
+		if(ninja.pulling && ninja.grab_state > GRAB_PASSIVE)
+			ninja.stop_pulling()
 		spirited = !spirited
 		animate(ninja, color ="#00ff00", time = 6)
 		if(!stealth)
@@ -44,7 +42,7 @@
 			ninja.visible_message(span_warning("[ninja.name] looks very unstable and strange!"), span_notice("You now can pass almost through everything.")) //Если мы не в стелсе, пишем текст того, что видят другие
 		else
 			to_chat(ninja, span_notice("You now can pass almost through everything."))	// Если же невидимы - пишем только себе
-		ninja.pass_flags |= PASS_EVERYTHING
+		ninja.pass_flags |= PASSEVERYTHING
 		drop_restraints()
 		for(var/datum/action/item_action/advanced/ninja/ninja_spirit_form/ninja_action in actions)
 			ninja_action.use_action()
@@ -84,13 +82,12 @@
 	var/mob/living/carbon/human/ninja = affecting
 	var/obj/restraint
 	if(ninja.handcuffed)
-		restraint = ninja.get_item_by_slot(slot_handcuffed)
+		restraint = ninja.get_item_by_slot(ITEM_SLOT_HANDCUFFED)
 		restraint.visible_message("<span class='warning'>[restraint] falls from the [ninja] when he becomes unstable!</span>")
-		ninja.uncuff()
 	if(ninja.legcuffed)
-		restraint = ninja.get_item_by_slot(slot_legcuffed)
+		restraint = ninja.get_item_by_slot(ITEM_SLOT_LEGCUFFED)
 		restraint.visible_message("<span class='warning'>[restraint] falls from the [ninja] when he becomes unstable!</span>")
-		ninja.uncuff()
+	ninja.uncuff()
 	if(istype(ninja.loc, /obj/structure/closet))
 		var/obj/structure/closet/restraint_closet = ninja.loc
 		if(!istype(restraint_closet))

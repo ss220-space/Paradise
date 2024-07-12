@@ -3,11 +3,11 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 /obj/item/organ/external/proc/compile_icon()
 	// I do this so the head's overlays don't get obliterated
 	for(var/child_i in child_icons)
-		overlays -= child_i
+		cut_overlay(child_i)
 	LAZYREINITLIST(child_icons)
 	 // This is a kludge, only one icon has more than one generation of children though.
 	for(var/obj/item/organ/external/childpart as anything in children)
-		overlays += childpart.mob_icon
+		add_overlay(childpart.mob_icon)
 		child_icons += childpart.mob_icon
 
 
@@ -55,11 +55,6 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 	..()
 	var/obj/item/organ/internal/eyes/eyes = owner.get_int_organ(/obj/item/organ/internal/eyes)
 	if(eyes) eyes.update_colour()
-
-
-/obj/item/organ/external/head/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
-	get_icon()
-	. = ..()
 
 
 /obj/item/organ/external/proc/get_icon(skeletal)
@@ -121,7 +116,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 				h_marking_s.Blend(owner.m_colours["head"], ICON_ADD)
 			add_overlay(h_marking_s)
 
-	if(!((owner.head && (owner.head.flags & BLOCKHAIR)) || (owner.wear_mask && (owner.wear_mask.flags & BLOCKHAIR)))) //Common restriction for all the below features.
+	if(!((owner.head && (owner.head.flags_inv & HIDEHAIR)) || (owner.wear_mask && (owner.wear_mask.flags_inv & HIDEHAIR)))) //Common restriction for all the below features.
 		if(ha_style)
 			var/datum/sprite_accessory/head_accessory_style = GLOB.head_accessory_styles_list[ha_style]
 			if(head_accessory_style && head_accessory_style.species_allowed && (dna.species.name in head_accessory_style.species_allowed))
@@ -131,7 +126,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 				add_overlay(head_accessory_s)
 
 		if(f_style)
-			if(!ismachineperson(owner) || (ismachineperson(owner) && ((owner.head && (owner.head.flags & BLOCKFACIALHAIR)) || (owner.wear_mask && (owner.wear_mask.flags & BLOCKFACIALHAIR)))))
+			if(!ismachineperson(owner) || (ismachineperson(owner) && ((owner.head && (owner.head.flags_inv & HIDEFACIALHAIR)) || (owner.wear_mask && (owner.wear_mask.flags_inv & HIDEFACIALHAIR)))))
 				var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[f_style]
 				if(facial_hair_style && ((facial_hair_style.species_allowed && (dna.species.name in facial_hair_style.species_allowed)) || (dna.species.bodyflags & ALL_RPARTS)))
 					var/icon/facial_s = new /icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
@@ -142,7 +137,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 					add_overlay(facial_s)
 
 		if(h_style)
-			if(!ismachineperson(owner) || (ismachineperson(owner) && ((owner.head && (owner.head.flags & BLOCKHEADHAIR)) || (owner.wear_mask && (owner.wear_mask.flags & BLOCKHEADHAIR)))))
+			if(!ismachineperson(owner) || (ismachineperson(owner) && ((owner.head && (owner.head.flags_inv & HIDEHEADHAIR)) || (owner.wear_mask && (owner.wear_mask.flags_inv & HIDEHEADHAIR)))))
 				var/datum/sprite_accessory/hair_style = GLOB.hair_styles_full_list[h_style]
 				if(hair_style && ((dna.species.name in hair_style.species_allowed) || (dna.species.bodyflags & ALL_RPARTS)))
 					var/icon/hair_s = new /icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")

@@ -29,7 +29,6 @@ Difficulty: Medium
 	icon_living = "miner"
 	icon = 'icons/mob/lavaland/blood_drunk.dmi'
 	light_color = "#E4C7C5"
-	flying = FALSE
 	speak_emote = list("roars")
 	tts_seed = "Chen"
 	speed = 3
@@ -39,6 +38,7 @@ Difficulty: Medium
 	ranged = TRUE
 	ranged_cooldown_time = 16
 	pixel_x = -7
+	base_pixel_x = -7
 	crusher_loot = list(/obj/item/melee/energy/cleaving_saw, /obj/item/gun/energy/kinetic_accelerator, /obj/item/crusher_trophy/miner_eye, /obj/item/gem/phoron)
 	loot = list(/obj/item/melee/energy/cleaving_saw, /obj/item/gun/energy/kinetic_accelerator, /obj/item/gem/phoron)
 	wander = FALSE
@@ -108,7 +108,7 @@ Difficulty: Medium
 
 /obj/effect/proc_holder/spell/blood_suit/cast(list/targets, mob/living/user = usr)
 	if(is_mining_level(user.z) || istype(get_area(user), /area/ruin/space/bubblegum_arena))
-		if(user.lying)
+		if(user.body_position == LYING_DOWN)
 			to_chat(user, span_colossus("Fight right now my bloody warrior!"))
 		else
 			to_chat(user, span_colossus("The blood sings to me. How pretty!"))
@@ -119,10 +119,10 @@ Difficulty: Medium
 		user.SetSleeping(0)
 		user.SetConfused(0)
 		user.SetImmobilized(0)
+		user.SetKnockdown(0)
 		user.adjustStaminaLoss(-100)
-		user.lying = FALSE
-		user.resting = FALSE
-		user.update_canmove()
+		user.set_resting(FALSE, instant = TRUE)
+		user.get_up(instant = TRUE)
 	else
 		to_chat(user, span_colossus("COME BACK TO ME, BLOODY WARRIOR."))
 		user.say("I don't hear a blood's sing!")
@@ -131,22 +131,22 @@ Difficulty: Medium
 		user.Slowed(20 SECONDS)
 		user.Dizzy(20 SECONDS)
 
-/obj/item/clothing/suit/hooded/explorer/blood/equipped(mob/living/carbon/human/user, slot, initial)
-	. = ..()
-	if(!ishuman(user))
-		return
-	if(slot == slot_wear_suit)
-		user.mob_spell_list += blood_spell
-		blood_spell.action.Grant(user)
 
-/obj/item/clothing/suit/hooded/explorer/blood/dropped(mob/living/carbon/human/user)
+/obj/item/clothing/suit/hooded/explorer/blood/equipped(mob/living/carbon/human/user, slot, initial = FALSE)
 	. = ..()
+	if(!ishuman(user) || slot != ITEM_SLOT_CLOTH_OUTER)
+		return .
+	LAZYADD(user.mob_spell_list, blood_spell)
+	blood_spell.action.Grant(user)
 
-	if(!ishuman(user))
-		return
-	if(user.get_item_by_slot(slot_wear_suit) == src)
-		user.mob_spell_list -= blood_spell
-		blood_spell.action.Remove(user)
+
+/obj/item/clothing/suit/hooded/explorer/blood/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
+	. = ..()
+	if(!ishuman(user) || slot != ITEM_SLOT_CLOTH_OUTER)
+		return .
+	LAZYREMOVE(user.mob_spell_list, blood_spell)
+	blood_spell.action.Remove(user)
+
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Initialize(mapload)
 	. = ..()
@@ -195,12 +195,16 @@ Difficulty: Medium
 	force = 6
 	force_on = 10
 
+
 /obj/item/melee/energy/cleaving_saw/miner/attack(mob/living/target, mob/living/carbon/human/user)
-	target.add_status_effect_absorption("miner_weaken", 10, INFINITY, status_effect = WEAKEN)
-	target.add_status_effect_absorption("miner_stun", 10, INFINITY, status_effect = STUN)
-	..()
-	target.status_effect_absorption -= "miner_weaken"
-	target.status_effect_absorption -= "miner_stun"
+	target.add_status_effect_absorption(
+		source = "miner",
+		effect_type = list(WEAKEN, STUN, KNOCKDOWN),
+		duration = 1 SECONDS,
+		priority = INFINITY,
+	)
+	return ..()
+
 
 /obj/item/projectile/kinetic/miner
 	damage = 20
@@ -224,7 +228,7 @@ Difficulty: Medium
 	new /obj/effect/temp_visual/dir_setting/miner_death(loc, dir)
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Move(atom/newloc)
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(dashing || (newloc && newloc.z == z && (islava(newloc) || ischasm(newloc)))) //we're not stupid!
 		return FALSE
 	. = ..()
@@ -322,8 +326,8 @@ Difficulty: Medium
 			turf_dist_to_target += get_dist(dash_target, O)
 		if(get_dist(src, O) >= MINER_DASH_RANGE && turf_dist_to_target <= self_dist_to_target && !islava(O) && !ischasm(O))
 			var/valid = TRUE
-			for(var/turf/T in getline(own_turf, O))
-				if(is_blocked_turf(T, TRUE))
+			for(var/turf/T as anything in get_line(own_turf, O))
+				if(T.is_blocked_turf(exclude_mobs = TRUE))
 					valid = FALSE
 					continue
 			if(valid)
@@ -351,11 +355,11 @@ Difficulty: Medium
 	dashing = TRUE
 	alpha = 0
 	animate(src, alpha = 255, time = 5)
-	SLEEP_CHECK_DEATH(2)
+	SLEEP_CHECK_DEATH(src, 2)
 	D.forceMove(step_forward_turf)
 	forceMove(target_turf)
 	playsound(target_turf, 'sound/weapons/punchmiss.ogg', 40, 1, -1)
-	SLEEP_CHECK_DEATH(1)
+	SLEEP_CHECK_DEATH(src, 1)
 	dashing = FALSE
 	return TRUE
 

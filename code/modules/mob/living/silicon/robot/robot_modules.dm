@@ -50,10 +50,10 @@
 
 /obj/item/robot_module/proc/fix_modules()
 	for(var/obj/item/I in modules)
-		I.flags |= NODROP
+		ADD_TRAIT(I, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
 		I.mouse_opacity = MOUSE_OPACITY_OPAQUE
 	if(emag)
-		emag.flags |= NODROP
+		ADD_TRAIT(emag, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
 		emag.mouse_opacity = MOUSE_OPACITY_OPAQUE
 
 /obj/item/robot_module/proc/handle_storages()
@@ -440,6 +440,17 @@
 
 	modules += new /obj/item/handheld_chem_dispenser/booze(src)
 	modules += new /obj/item/handheld_chem_dispenser/soda(src)
+	modules += new /obj/item/handheld_chem_dispenser/botanical(src)
+	modules += new /obj/item/handheld_chem_dispenser/cooking(src)
+	modules += new /obj/item/kitchen/knife(src)
+	modules += new /obj/item/reagent_containers/glass/bucket(src)
+	modules += new /obj/item/cultivator(src)
+	modules += new /obj/item/shovel/spade(src)
+	modules += new /obj/item/storage/bag/plants/portaseeder(src)
+	modules += new /obj/item/plant_analyzer(src)
+	modules += new /obj/item/kitchen/rollingpin(src)
+	modules += new /obj/item/bikehorn(src)
+	modules += new /obj/item/reagent_containers/spray/pestspray(src)
 	modules += new /obj/item/pen(src)
 	modules += new /obj/item/razor(src)
 	modules += new /obj/item/instrument/piano_synth(src)
@@ -473,6 +484,8 @@
 	if(emag)
 		var/obj/item/reagent_containers/food/drinks/cans/beer/B = emag
 		B.reagents.add_reagent("beer2", 2)
+	var/obj/item/reagent_containers/spray/pestspray/spray = locate() in modules
+	spray?.reagents.add_reagent("pestkiller", 3)
 	..()
 
 /obj/item/robot_module/butler/add_languages(var/mob/living/silicon/robot/R)
@@ -554,7 +567,7 @@
 
 // Readd the normal drill
 /obj/item/robot_module/miner/unemag()
-	for(var/obj/item/pickaxe/drill/cyborg/diamond/drill in modules) 
+	for(var/obj/item/pickaxe/drill/cyborg/diamond/drill in modules)
 		qdel(drill)
 		modules -= drill
 	modules += new /obj/item/pickaxe/drill/cyborg(src)
@@ -562,11 +575,11 @@
 	return ..()
 
 /obj/item/robot_module/miner/handle_custom_removal(component_id, mob/living/user, obj/item/W)
-    if(component_id == "KA modkits")
-        for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/D in src)
-            D.attackby(W, user)
-        return TRUE
-    return ..()
+	if(component_id == "KA modkits")
+		for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/D in src)
+			W.melee_attack_chain(user, D)
+		return TRUE
+	return ..()
 
 /obj/item/robot_module/deathsquad
 	name = "Deathsquad"

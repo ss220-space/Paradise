@@ -12,7 +12,7 @@
 	tts_seed = "Muradin"
 	speak_chance = 1
 	turns_per_move = 5
-	see_in_dark = 6
+	nightvision = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 4)
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
@@ -57,7 +57,8 @@
 			var/step = get_step(src, direction)
 			if(step)
 				if(locate(/obj/structure/spacevine) in step || locate(/obj/structure/glowshroom) in step)
-					Move(step, get_dir(src, step))
+					step_with_glide(step)
+
 
 /mob/living/simple_animal/hostile/retaliate/goat/Life(seconds, times_fired)
 	. = ..()
@@ -68,7 +69,7 @@
 	..()
 	visible_message("<span class='danger'>[src] gets an evil-looking gleam in their eye.</span>")
 
-/mob/living/simple_animal/hostile/retaliate/goat/Move()
+/mob/living/simple_animal/hostile/retaliate/goat/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(!stat)
 		eat_plants()
@@ -117,7 +118,7 @@
 	tts_seed = "Cairne"
 	speak_chance = 1
 	turns_per_move = 5
-	see_in_dark = 6
+	nightvision = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 6)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
@@ -186,7 +187,7 @@
 	emote_hear = list("cheeps")
 	emote_see = list("pecks at the ground","flaps its tiny wings")
 	tts_seed = "Meepo"
-	density = 0
+	density = FALSE
 	speak_chance = 2
 	turns_per_move = 2
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/bird = 1)
@@ -197,7 +198,7 @@
 	death_sound = 'sound/creatures/mouse_squeak.ogg'
 	health = 3
 	maxHealth = 3
-	ventcrawler = 2
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	var/amount_grown = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
@@ -241,7 +242,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	emote_hear = list("clucks")
 	emote_see = list("pecks at the ground","flaps its wings viciously")
 	tts_seed = "Windranger"
-	density = 0
+	density = FALSE
 	speak_chance = 2
 	turns_per_move = 3
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/bird = 2)
@@ -256,7 +257,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	talk_sound = list('sound/creatures/chicken_talk.ogg')
 	health = 15
 	maxHealth = 15
-	ventcrawler = 2
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	var/eggsleft = 0
 	var/eggsFertile = TRUE
 	var/body_color
@@ -340,7 +341,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	emote_hear = list("clucks")
 	emote_see = list("pecks at the ground","flaps its wings viciously")
 	tts_seed = "pantheon"
-	density = 0
+	density = FALSE
 	speak_chance = 2
 	turns_per_move = 3
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/bird = 4)
@@ -356,7 +357,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	talk_sound = list('sound/creatures/chicken_talk.ogg')
 	health = 30
 	maxHealth = 30
-	ventcrawler = 2
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
 	can_hide = 1
@@ -378,7 +379,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	emote_see = list("rolls around")
 	speak_chance = 1
 	turns_per_move = 5
-	see_in_dark = 6
+	nightvision = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/ham = 6)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
@@ -405,7 +406,8 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	emote_see = list("struts around")
 	speak_chance = 1
 	turns_per_move = 5
-	see_in_dark = 6
+	nightvision = 6
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/bird = 4)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
@@ -432,7 +434,8 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	emote_see = list("flaps it's wings")
 	speak_chance = 1
 	turns_per_move = 5
-	see_in_dark = 6
+	nightvision = 6
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/bird = 6)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
@@ -477,7 +480,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	emote_see = list("flops around")
 	speak_chance = 1
 	turns_per_move = 5
-	see_in_dark = 6
+	nightvision = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 6)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
@@ -504,7 +507,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	emote_see = list("flops around")
 	speak_chance = 1
 	turns_per_move = 5
-	see_in_dark = 6
+	nightvision = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 6)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"

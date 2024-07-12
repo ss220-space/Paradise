@@ -253,7 +253,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
  */
 /datum/antagonist/changeling/proc/try_respec()
 	var/mob/living/carbon/human/user = owner.current
-	if(!istype(user) || issmall(user))
+	if(!istype(user) || is_monkeybasic(user))
 		to_chat(user, span_danger("We can't readapt our evolutions in this form!"))
 		return FALSE
 	if(can_respec)
@@ -490,7 +490,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		return FALSE
 
 	var/mob/living/carbon/human/human_target = target
-	if(!istype(human_target) || issmall(human_target))
+	if(!istype(human_target) || is_monkeybasic(human_target))
 		to_chat(user, span_warning("[human_target] is not compatible with our biology."))
 		return FALSE
 
@@ -600,12 +600,9 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	if(!source)
 		return FALSE
 
-	if(!has_variable(source, "mind"))
-		if(has_variable(source, "antag_datums"))
-			var/datum/mind/our_mind = source
-			return our_mind.has_antag_datum(/datum/antagonist/changeling)
-
-		return FALSE
+	if(istype(source, /datum/mind))
+		var/datum/mind/our_mind = source
+		return our_mind.has_antag_datum(/datum/antagonist/changeling)
 
 	if(!ismob(source))
 		return FALSE

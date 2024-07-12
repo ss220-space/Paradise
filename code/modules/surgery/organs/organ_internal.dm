@@ -8,6 +8,8 @@
 	/// Whether it shows up as an option to remove during surgery.
 	var/unremovable = FALSE
 	var/can_see_food = FALSE
+	light_system = MOVABLE_LIGHT
+	light_on = FALSE
 
 
 /obj/item/organ/internal/New(mob/living/carbon/holder)
@@ -21,7 +23,9 @@
 
 /obj/item/organ/internal/proc/insert(mob/living/carbon/target, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!iscarbon(target) || owner == target)
-		return
+		return FALSE
+
+	. = TRUE
 
 	do_pickup_animation(src, target)
 
@@ -39,7 +43,7 @@
 		if(!istype(parent))
 			stack_trace("[src] attempted to insert into a [parent_organ_zone], but [parent_organ_zone] wasn't an organ! [atom_loc_line(h_target)]")
 		else
-			LAZYADDOR(parent.internal_organs, src)
+			LAZYOR(parent.internal_organs, src)
 		h_target.update_int_organs()
 
 	loc = null
@@ -91,7 +95,7 @@
 		action.Remove(organ_owner)
 
 	if(send_signal)
-		SEND_SIGNAL(src, COMSIG_CARBON_LOSE_ORGAN)
+		SEND_SIGNAL(target, COMSIG_CARBON_LOSE_ORGAN, src)
 
 	owner = null
 	START_PROCESSING(SSobj, src)
@@ -108,7 +112,7 @@
 			receive_damage(7, 1)
 
 
-/obj/item/organ/internal/replaced(mob/living/carbon/human/target)
+/obj/item/organ/internal/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
     insert(target)
 
 
@@ -142,10 +146,10 @@
 	return S
 
 
-/obj/item/organ/internal/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target)
+/obj/item/organ/internal/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	if(parent_organ_zone != parent.limb_zone)
 		return FALSE
-	insert(target)
+	insert(target, special)
 	return TRUE
 
 
@@ -258,7 +262,7 @@
 		else if(light_count < 2 && obj_integrity < max_integrity) //Heal in the dark
 			obj_integrity++
 		if(obj_integrity <= 0)
-			visible_message("<span class='warning'>[src] collapses in on itself!</span>")
+			visible_message(span_warning("[src] collapses in on itself!"))
 			qdel(src)
 
 
@@ -279,24 +283,16 @@
 
 /obj/item/organ/internal/honktumor/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
-	M.mutations.Add(CLUMSY)
-	M.mutations.Add(GLOB.comicblock)
-	M.dna.SetSEState(GLOB.clumsyblock,1,1)
-	M.dna.SetSEState(GLOB.comicblock,1,1)
-	genemutcheck(M,GLOB.clumsyblock,null,MUTCHK_FORCED)
-	genemutcheck(M,GLOB.comicblock,null,MUTCHK_FORCED)
+	M.force_gene_block(GLOB.clumsyblock, TRUE)
+	M.force_gene_block(GLOB.comicblock, TRUE)
 	organhonked = world.time
 	M.AddElement(/datum/element/waddling)
-	squeak = M.AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg' = 1), 50, falloff_exponent = 20)
+	squeak = M.AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg'), 50, falloff_exponent = 20)
 
 
 /obj/item/organ/internal/honktumor/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
-	M.mutations.Remove(CLUMSY)
-	M.mutations.Remove(GLOB.comicblock)
-	M.dna.SetSEState(GLOB.clumsyblock,0)
-	M.dna.SetSEState(GLOB.comicblock,0)
-	genemutcheck(M,GLOB.clumsyblock,null,MUTCHK_FORCED)
-	genemutcheck(M,GLOB.comicblock,null,MUTCHK_FORCED)
+	M.force_gene_block(GLOB.clumsyblock, FALSE)
+	M.force_gene_block(GLOB.comicblock, FALSE)
 	M.RemoveElement(/datum/element/waddling)
 	QDEL_NULL(squeak)
 	. = ..()
@@ -322,10 +318,10 @@
 			if(isobj(H.shoes))
 				var/thingy = H.shoes
 				if(H.drop_item_ground(H.shoes))
-					walk_away(thingy,H,15,2)
+					SSmove_manager.move_away(thingy, H, 15, 2)
 					spawn(20)
 						if(thingy)
-							walk(thingy,0)
+							SSmove_manager.stop_looping(thingy)
 
 
 /obj/item/organ/internal/honktumor/cursed
@@ -351,7 +347,7 @@
 
 
 /obj/item/organ/internal/honkbladder/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
-	squeak = M.AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg'=1,'sound/effects/clownstep2.ogg'=1), 50, falloff_exponent = 20)
+	squeak = M.AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg','sound/effects/clownstep2.ogg'), 50, falloff_exponent = 20)
 
 
 /obj/item/organ/internal/honkbladder/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
@@ -376,7 +372,7 @@
 	if(!owner)
 		return
 
-	if(istype(owner, /mob/living/carbon/human))
+	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 		if(!(head_organ.h_style == "Very Long Hair" || head_organ.h_style == "Mohawk"))

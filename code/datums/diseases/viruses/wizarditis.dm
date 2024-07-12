@@ -59,21 +59,21 @@ STI KALY - blind
 			if(!istype(H.head, /obj/item/clothing/head/wizard))
 				if(!H.drop_item_ground(H.head))
 					qdel(H.head)
-				H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(H), slot_head)
+				H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(H), ITEM_SLOT_HEAD)
 				return
 
 		if("robe")
 			if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe))
 				if(!H.drop_item_ground(H.wear_suit))
 					qdel(H.wear_suit)
-				H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(H), slot_wear_suit)
+				H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(H), ITEM_SLOT_CLOTH_OUTER)
 				return
 
 		if("sandal")
 			if(!istype(H.shoes, /obj/item/clothing/shoes/sandal))
 				if(!H.drop_item_ground(H.shoes))
 					qdel(H.shoes)
-				H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
+				H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), ITEM_SLOT_FEET)
 				return
 
 		if("staff")
@@ -118,6 +118,6 @@ STI KALY - blind
 
 	if(is_teleport_allowed(target_turf.z))
 		affected_mob.say("SCYAR NILA [uppertext(thearea.name)]!")
-		affected_mob.loc = target_turf
+		affected_mob.forceMove(target_turf)
 
 	return

@@ -24,8 +24,9 @@
 /turf/simulated/floor/plating/lava/airless
 	temperature = TCMB
 
-/turf/simulated/floor/plating/lava/Entered(atom/movable/AM)
-	if(burn_stuff(AM))
+/turf/simulated/floor/plating/lava/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	if(burn_stuff(arrived))
 		START_PROCESSING(SSprocessing, src)
 
 /turf/simulated/floor/plating/lava/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
@@ -54,7 +55,7 @@
 	return TRUE
 
 /turf/simulated/floor/plating/lava/is_safe()
-	if(find_safeties() && ..())
+	if(HAS_TRAIT(src, TRAIT_LAVA_STOPPED) && ..())
 		return TRUE
 	return FALSE
 
@@ -62,10 +63,10 @@
 	. = FALSE
 
 	if(locate(/obj/vehicle/lavaboat) in src.contents)
-		return FALSE
+		return .
 
-	if(find_safeties())
-		return FALSE
+	if(HAS_TRAIT(src, TRAIT_LAVA_STOPPED))
+		return .
 
 	var/thing_to_check = src
 	if(AM)
@@ -91,7 +92,7 @@
 		else if(isliving(thing))
 			. = TRUE
 			var/mob/living/L = thing
-			if(L.flying || L.incorporeal_move)
+			if(L.incorporeal_move || (L.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
 				continue	//YOU'RE FLYING OVER IT
 			var/buckle_check = L.buckling
 			if(!buckle_check)
@@ -163,8 +164,10 @@
 	baseturf = /turf/simulated/floor/plating/lava/smooth
 	icon = 'icons/turf/floors/lava.dmi'
 	icon_state = "unsmooth"
-	smooth = SMOOTH_MORE | SMOOTH_BORDER
-	canSmoothWith = list(/turf/simulated/floor/plating/lava/smooth)
+	base_icon_state = "lava"
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_FLOOR_LAVA
+	smoothing_groups = SMOOTH_GROUP_FLOOR_LAVA
 
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface
 	temperature = 300
@@ -181,8 +184,9 @@
 	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma
 	desc = "A flowing stream of chilled liquid plasma. You probably shouldn't get in."
 	icon = 'icons/turf/floors/liquidplasma.dmi'
+	base_icon_state = "liquidplasma"
 	icon_state = "unsmooth"
-	smooth = SMOOTH_MORE | SMOOTH_BORDER
+	smooth = SMOOTH_BITMASK
 
 	light_range = 3
 	light_power = 0.75
@@ -202,8 +206,9 @@
 
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma/burn_stuff(AM)
 	. = FALSE
-	if(find_safeties())
-		return FALSE
+
+	if(HAS_TRAIT(src, TRAIT_LAVA_STOPPED))
+		return .
 
 	var/thing_to_check = src
 	if(AM)
@@ -230,7 +235,7 @@
 			continue
 		. = TRUE
 		var/mob/living/burn_living = thing
-		if(burn_living.flying)
+		if(burn_living.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 			continue	//YOU'RE FLYING OVER IT
 		var/buckle_check = burn_living.buckling
 		if(!buckle_check)
@@ -260,6 +265,12 @@
 
 		burn_human.adjustToxLoss(15) //Cold mutagen is bad for you, more at 11.
 		burn_human.adjustFireLoss(15)
+
+// It's not the liquid itself. It's the atmos over it. Don't wanna spend resources on simulating over snow and lava.
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma/cold
+	oxygen = 22
+	nitrogen = 82
+	temperature = 180
 
 /turf/simulated/floor/plating/lava/smooth/mapping_lava
 	name = "Adaptive lava / chasm / plasma"

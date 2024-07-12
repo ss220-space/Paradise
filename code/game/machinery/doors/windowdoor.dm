@@ -8,12 +8,15 @@
 	resistance_flags = ACID_PROOF
 	visible = 0
 	flags = ON_BORDER
-	opacity = 0
+	obj_flags = BLOCKS_CONSTRUCTION_DIR
+	pass_flags_self = PASSGLASS
+	opacity = FALSE
 	dir = EAST
+	set_dir_on_move = FALSE
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	integrity_failure = 0
 	armor = list("melee" = 20, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 100)
-	var/obj/item/airlock_electronics/electronics
+	var/obj/item/access_control/electronics
 	var/base_state = "left"
 	var/reinf = 0
 	var/cancolor = TRUE
@@ -22,11 +25,12 @@
 	var/cable = 1
 	var/list/debris = list()
 
-/obj/machinery/door/window/New(loc, set_dir)
-	..()
+
+/obj/machinery/door/window/Initialize(mapload, set_dir)
+	. = ..()
 	if(set_dir)
 		setDir(set_dir)
-	if(req_access && req_access.len)
+	if(length(req_access))
 		icon_state = "[icon_state]"
 		base_state = icon_state
 	if(!color && cancolor)
@@ -38,8 +42,14 @@
 	if(cable)
 		debris += new /obj/item/stack/cable_coil(src, cable)
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
 /obj/machinery/door/window/Destroy()
-	density = FALSE
+	set_density(FALSE)
 	QDEL_LIST(debris)
 	if(obj_integrity == 0)
 		playsound(src, "shatter", 70, 1)
@@ -57,9 +67,10 @@
 /obj/machinery/door/window/emp_act(severity)
 	. = ..()
 	if(prob(20 / severity))
-		open()
+		INVOKE_ASYNC(src, PROC_REF(open))
 
 /obj/machinery/door/window/proc/open_and_close()
+	set waitfor = FALSE
 	open()
 	if(check_access(null))
 		sleep(50)
@@ -67,10 +78,10 @@
 		sleep(20)
 	close()
 
-/obj/machinery/door/window/Bumped(atom/movable/moving_atom)
-	SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, moving_atom)
+/obj/machinery/door/window/Bumped(atom/movable/moving_atom, skip_effects = TRUE)
+	. = ..()
 	if(operating || !density)
-		return
+		return .
 	if(!ismob(moving_atom))
 		if(ismecha(moving_atom))
 			var/obj/mecha/mecha = moving_atom
@@ -83,13 +94,14 @@
 				if(HAS_TRAIT(src, TRAIT_CMAGGED))
 					cmag_switch(TRUE)
 					return
-				do_animate("deny")
+				INVOKE_ASYNC(src, PROC_REF(do_animate), "deny")
 		return
 	if(!SSticker)
 		return
 	var/mob/living/M = moving_atom
-	if(!M.restrained() && M.mob_size > MOB_SIZE_TINY && (!(isrobot(M) && M.stat)))
+	if(!HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && M.mob_size > MOB_SIZE_TINY && (!(isrobot(M) && M.stat)))
 		bumpopen(M)
+
 
 /obj/machinery/door/window/bumpopen(mob/user)
 	if(operating || !density)
@@ -104,27 +116,29 @@
 		if(HAS_TRAIT(src, TRAIT_CMAGGED))
 			cmag_switch(TRUE, user)
 			return
-		do_animate("deny")
+		INVOKE_ASYNC(src, PROC_REF(do_animate), "deny")
 
-/obj/machinery/door/window/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
-	if(get_dir(loc, target) == dir) //Make sure looking at appropriate border
-		return !density
-	if(istype(mover, /obj/structure/window))
-		var/obj/structure/window/W = mover
-		if(!valid_window_location(loc, W.ini_dir))
-			return FALSE
-	else if(istype(mover, /obj/structure/windoor_assembly))
-		var/obj/structure/windoor_assembly/W = mover
-		if(!valid_window_location(loc, W.ini_dir))
-			return FALSE
-	else if(istype(mover, /obj/machinery/door/window) && !valid_window_location(loc, mover.dir))
+
+/obj/machinery/door/window/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(.)
+		return TRUE
+
+	if(border_dir == dir)
 		return FALSE
-	else
-		return 1
 
-/obj/machinery/door/window/CanAtmosPass(turf/T)
+	if(isobj(mover))
+		var/obj/object = mover
+		if(object.obj_flags & BLOCKS_CONSTRUCTION_DIR)
+			var/obj/structure/window/window = object
+			var/fulltile = istype(window) ? window.fulltile : FALSE
+			if(!valid_build_direction(loc, object.dir, is_fulltile = fulltile))
+				return FALSE
+
+	return TRUE
+
+
+/obj/machinery/door/window/CanAtmosPass(turf/T, vertical)
 	if(get_dir(loc, T) == dir)
 		return !density
 	else
@@ -135,13 +149,21 @@
 	return !density || (dir != to_dir) || (check_access(ID) && hasPower())
 
 
-/obj/machinery/door/window/CheckExit(atom/movable/mover, turf/target)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
-	if(get_dir(loc, target) == dir)
-		return !density
-	else
-		return 1
+/obj/machinery/door/window/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
+	SIGNAL_HANDLER
+
+	if(leaving.movement_type & PHASING)
+		return
+
+	if(leaving == src)
+		return // Let's not block ourselves.
+
+	if(leaving.pass_flags == PASSEVERYTHING || (pass_flags_self & leaving.pass_flags) || ((pass_flags_self & LETPASSTHROW) && leaving.throwing))
+		return
+
+	if(density && dir == get_dir(leaving, newLoc))
+		leaving.Bump(src)
+		return COMPONENT_ATOM_BLOCK_EXIT
 
 
 /obj/machinery/door/window/update_icon_state()
@@ -155,6 +177,7 @@
 
 
 /obj/machinery/door/window/open(forced=0)
+
 	if(operating) //doors can still open when emag-disabled
 		return FALSE
 	if(!forced && !hasPower())
@@ -163,13 +186,13 @@
 		return FALSE
 	if(!operating) //in case of emag
 		operating = DOOR_OPENING
-	do_animate("opening")
+	INVOKE_ASYNC(src, PROC_REF(do_animate), "opening")
 	set_opacity(FALSE)
 	playsound(loc, 'sound/machines/windowdoor.ogg', 100, 1)
 	update_icon()
 	sleep(1 SECONDS)
 
-	density = FALSE
+	set_density(FALSE)
 
 	air_update_turf(TRUE)
 	update_freelook_sight()
@@ -187,10 +210,10 @@
 	if(forced < 2 && emagged)
 		return FALSE
 	operating = DOOR_CLOSING
-	do_animate("closing")
+	INVOKE_ASYNC(src, PROC_REF(do_animate), "closing")
 	playsound(loc, 'sound/machines/windowdoor.ogg', 100, TRUE)
 
-	density = TRUE
+	set_density(TRUE)
 	update_icon()
 	air_update_turf(TRUE)
 	update_freelook_sight()
@@ -208,22 +231,21 @@
 			playsound(src, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/machinery/door/window/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT) && !disassembled)
-		var/obj/item/airlock_electronics/ae
+	if(!(obj_flags & NODECONSTRUCT) && !disassembled)
 		for(var/obj/fragment in debris)
 			fragment.forceMove(get_turf(src))
 			transfer_fingerprints_to(fragment)
 			debris -= fragment
+
 		if(!electronics)
-			ae = new/obj/item/airlock_electronics(loc)
-			if(!req_access)
-				check_access()
-			ae.selected_accesses = req_access
-			ae.one_access = check_one_access
+			electronics = new(loc)
+			electronics.selected_accesses = length(req_access) ? req_access : list()
+			electronics.one_access = check_one_access
 		else
-			ae = electronics
-			electronics = null
-			ae.forceMove(loc)
+			electronics.forceMove(loc)
+		if(emagged)
+			electronics.emag_act()
+		electronics = null
 
 	qdel(src)
 
@@ -287,7 +309,7 @@
 	return ..()
 
 /obj/machinery/door/window/screwdriver_act(mob/user, obj/item/I)
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		return
 	. = TRUE
 	if(density || operating)
@@ -302,7 +324,7 @@
 /obj/machinery/door/window/crowbar_act(mob/user, obj/item/I)
 	if(operating)
 		return
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -324,31 +346,24 @@
 					if("rightsecure")
 						WA.facing = "r"
 						WA.secure = TRUE
-				WA.anchored = TRUE
+				WA.set_anchored(TRUE)
 				WA.state= "02"
 				WA.setDir(dir)
 				WA.ini_dir = dir
 				WA.update_icon()
 				WA.created_name = name
 
-				if(emagged)
-					to_chat(user, span_warning("You discard the damaged electronics."))
-					qdel(src)
-					return
-
 				to_chat(user, span_notice("You remove the airlock electronics."))
 
-				var/obj/item/airlock_electronics/ae
 				if(!electronics)
-					ae = new/obj/item/airlock_electronics(loc)
-					if(!req_access)
-						check_access()
-					ae.selected_accesses = req_access
-					ae.one_access = check_one_access
+					electronics = new(loc)
+					electronics.selected_accesses = length(req_access) ? req_access : list()
+					electronics.one_access = check_one_access
 				else
-					ae = electronics
-					electronics = null
-					ae.forceMove(loc)
+					electronics.forceMove(loc)
+				if(emagged)
+					electronics.emag_act()
+				electronics = null
 
 				qdel(src)
 	else
@@ -397,6 +412,7 @@
 	cancolor = FALSE
 	var/made_glow = FALSE
 
+
 /obj/machinery/door/window/clockwork_fake
 	name = "brass windoor"
 	desc = "A completely not magical thin door with translucent brass paneling."
@@ -407,20 +423,24 @@
 	resistance_flags = ACID_PROOF | FIRE_PROOF
 	cancolor = FALSE
 
-/obj/machinery/door/window/clockwork/New(loc, set_dir)
-	..()
+
+/obj/machinery/door/window/clockwork/Initialize(mapload, set_dir)
+	. = ..()
 	debris += new/obj/item/stack/sheet/brass(src, 2)
 
-/obj/machinery/door/window/clockwork_fake/New(loc, set_dir)
+
+/obj/machinery/door/window/clockwork_fake/Initialize(mapload, set_dir)
 	. = ..()
 	debris += new/obj/item/stack/sheet/brass_fake(src, 2)
 
-/obj/machinery/door/window/clockwork/setDir(direct)
+
+/obj/machinery/door/window/clockwork/setDir(newdir)
 	if(!made_glow)
 		var/obj/effect/E = new /obj/effect/temp_visual/ratvar/door/window(get_turf(src))
-		E.setDir(direct)
+		E.setDir(newdir)
 		made_glow = TRUE
-	..()
+	return ..()
+
 
 /obj/machinery/door/window/clockwork/emp_act(severity)
 	if(prob(80/severity))

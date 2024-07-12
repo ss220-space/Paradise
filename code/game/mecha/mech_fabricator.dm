@@ -214,7 +214,7 @@
 /obj/machinery/mecha_part_fabricator/proc/build_design_timer_finish(datum/design/D, list/final_cost)
 	// Spawn the item (in a lockbox if restricted) OR mob (e.g. IRC body)
 	var/atom/A = new D.build_path(get_step(src, dir))
-	if(istype(A, /obj/item))
+	if(isitem(A))
 		var/obj/item/I = A
 		I.materials = final_cost
 		if(D.locked)
@@ -317,18 +317,20 @@
 		return
 	ui_interact(user)
 
-/obj/machinery/mecha_part_fabricator/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/mecha_part_fabricator/ui_interact(mob/user, datum/tgui/ui = null)
 	if(!selected_category)
 		selected_category = categories[1]
 
-	var/datum/asset/materials_assets = get_asset_datum(/datum/asset/simple/materials)
-	materials_assets.send(user)
-
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ExosuitFabricator", name, 800, 600)
+		ui = new(user, src, "ExosuitFabricator", name)
 		ui.open()
 		ui.set_autoupdate(FALSE)
+
+/obj/machinery/mecha_part_fabricator/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/materials)
+	)
 
 /obj/machinery/mecha_part_fabricator/ui_data(mob/user)
 	var/list/data = list()

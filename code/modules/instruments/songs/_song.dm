@@ -351,7 +351,7 @@
 	// We don't want to send the whole payload (song included) just for volume
 	var/datum/tgui/ui = SStgui.get_open_ui(usr, parent, "main")
 	if(ui)
-		ui.push_data(list("volume" = volume), force = TRUE)
+		ui.send_update(list("volume" = volume), force = TRUE)
 
 /**
   * Setter for setting how low the volume has to get before a note is considered "dead" and dropped
@@ -413,3 +413,13 @@
 	var/obj/structure/musician/M = parent
 	return M.should_stop_playing(user)
 
+
+// Subtype for thermal drills.
+/datum/song/thermal_drill
+
+/datum/song/thermal_drill/should_stop_playing(mob/user)
+	. = ..()
+	if(.)
+		return TRUE
+	var/obj/item/thermal_drill/D = parent
+	return D.should_stop_playing(user)

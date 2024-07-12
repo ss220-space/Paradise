@@ -99,7 +99,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	vox.age = rand(12,20)
 	vox.set_species(/datum/species/vox)
 	vox.s_tone = rand(1, 6)
-	vox.languages = list() // Removing language from chargen.
+	LAZYREINITLIST(vox.languages)	// Removing language from chargen.
 	vox.flavor_text = ""
 	vox.add_language(LANGUAGE_VOX)
 	vox.add_language(LANGUAGE_GALACTIC_COMMON)
@@ -140,7 +140,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 /datum/game_mode/proc/is_raider_crew_alive()
 	for(var/datum/mind/raider in raiders)
 		if(raider.current)
-			if(istype(raider.current,/mob/living/carbon/human) && raider.current.stat != DEAD)
+			if(ishuman(raider.current) && raider.current.stat != DEAD)
 				return 1
 	return 0
 
@@ -168,11 +168,11 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	return objs
 
 /datum/game_mode/proc/greet_vox(var/datum/mind/raider)
-	to_chat(raider.current, "<span class='boldnotice'>You are a Vox Raider, fresh from the Shoal!</span>")
-	to_chat(raider.current, "<span class='notice'>The Vox are a race of cunning, sharp-eyed nomadic raiders and traders endemic to the frontier and much of the unexplored galaxy. You and the crew have come to the [station_name()] for plunder, trade or both.</span>")
-	to_chat(raider.current, "<span class='notice'>Vox are cowardly and will flee from larger groups, but corner one or find them en masse and they are vicious.</span>")
-	to_chat(raider.current, "<span class='notice'>Use :V to voxtalk, :H to talk on your encrypted channel, and don't forget to turn on your nitrogen internals!</span>")
-	to_chat(raider.current, "<span class='notice'>Choose to accomplish your objectives by either raiding the crew and taking what you need, or by attempting to trade with them.</span>")
+	to_chat(raider.current, span_boldnotice("You are a Vox Raider, fresh from the Shoal!"))
+	to_chat(raider.current, span_notice("The Vox are a race of cunning, sharp-eyed nomadic raiders and traders endemic to the frontier and much of the unexplored galaxy. You and the crew have come to the [station_name()] for plunder, trade or both."))
+	to_chat(raider.current, span_notice("Vox are cowardly and will flee from larger groups, but corner one or find them en masse and they are vicious."))
+	to_chat(raider.current, span_notice("Use '[get_language_prefix(LANGUAGE_VOX)]' to voxtalk, :H to talk on your encrypted channel, and don't forget to turn on your nitrogen internals!"))
+	to_chat(raider.current, span_notice("Choose to accomplish your objectives by either raiding the crew and taking what you need, or by attempting to trade with them."))
 	spawn(25)
 		show_objectives(raider)
 
@@ -288,7 +288,8 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 
 /obj/machinery/vox_win_button/New()
 	. = ..()
-	overlays += icon('icons/obj/machines/computer.dmi', "syndie")
+	add_overlay(icon('icons/obj/machines/computer.dmi', "syndie"))
+
 
 /obj/machinery/vox_win_button/attack_hand(mob/user)
 	if(!GAMEMODE_IS_HEIST || (world.time < 10 MINUTES)) //has to be heist, and at least ten minutes into the round

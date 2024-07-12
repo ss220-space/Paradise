@@ -1,23 +1,31 @@
 import { createSearch, decodeHtmlEntities } from 'common/string';
-import { Fragment } from 'inferno';
-import { useBackend, useLocalState } from "../backend";
-import { Box, Button, Flex, Icon, Input, LabeledList, Section, Table, Tabs } from '../components';
-import { FlexItem } from '../components/Flex';
-import { Window } from "../layouts";
+import { useBackend, useLocalState } from '../backend';
+import {
+  Box,
+  Button,
+  Icon,
+  Input,
+  LabeledList,
+  Section,
+  Stack,
+  Tabs,
+  Table,
+} from '../components';
+import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
 import { TemporaryNotice } from './common/TemporaryNotice';
 
 const statusStyles = {
-  "*Execute*": "execute",
-  "*Arrest*": "arrest",
-  "Incarcerated": "incarcerated",
-  "Parolled": "parolled",
-  "Released": "released",
-  "Demote": "demote",
-  "Search": "search",
-  "Monitor": "monitor",
+  '*Execute*': 'execute',
+  '*Arrest*': 'arrest',
+  'Incarcerated': 'incarcerated',
+  'Parolled': 'parolled',
+  'Released': 'released',
+  'Demote': 'demote',
+  'Search': 'search',
+  'Monitor': 'monitor',
 };
 
 const doEdit = (context, field) => {
@@ -29,15 +37,12 @@ const doEdit = (context, field) => {
 
 export const SecurityRecords = (properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    loginState,
-    currentPage,
-  } = data;
+  const { loginState, currentPage } = data;
 
   let body;
   if (!loginState.logged_in) {
     return (
-      <Window theme="security" resizable>
+      <Window width={800} height={900} theme="security">
         <Window.Content>
           <LoginScreen />
         </Window.Content>
@@ -54,15 +59,15 @@ export const SecurityRecords = (properties, context) => {
   }
 
   return (
-    <Window theme="security" resizable>
+    <Window theme="security" width={800} height={900}>
       <ComplexModal />
-      <Window.Content scrollable className="Layout__content--flexColumn">
-        <LoginInfo />
-        <TemporaryNotice />
-        <SecurityRecordsNavigation />
-        <Section height="100%" flexGrow="1">
+      <Window.Content>
+        <Stack fill vertical>
+          <LoginInfo />
+          <TemporaryNotice />
+          <SecurityRecordsNavigation />
           {body}
-        </Section>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -70,27 +75,25 @@ export const SecurityRecords = (properties, context) => {
 
 const SecurityRecordsNavigation = (properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    currentPage,
-    general,
-  } = data;
+  const { currentPage, general } = data;
   return (
     <Tabs>
       <Tabs.Tab
         selected={currentPage === 1}
-        onClick={() => act('page', { page: 1 })}>
+        onClick={() => act('page', { page: 1 })}
+      >
         <Icon name="list" />
         List Records
       </Tabs.Tab>
       <Tabs.Tab
         selected={currentPage === 2}
-        onClick={() => act('page', { page: 2 })}>
+        onClick={() => act('page', { page: 2 })}
+      >
         <Icon name="wrench" />
         Record Maintenance
       </Tabs.Tab>
-      {(currentPage === 3 && general && !general.empty) && (
-        <Tabs.Tab
-          selected={currentPage === 3}>
+      {currentPage === 3 && general && !general.empty && (
+        <Tabs.Tab selected={currentPage === 3}>
           <Icon name="file" />
           Record: {general.fields[0].value}
         </Tabs.Tab>
@@ -101,121 +104,134 @@ const SecurityRecordsNavigation = (properties, context) => {
 
 const SecurityRecordsPageList = (properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    records,
-  } = data;
-  const [searchText, setSearchText] = useLocalState(context, "searchText", "");
-  const [sortId, _setSortId] = useLocalState(context, "sortId", "name");
-  const [sortOrder, _setSortOrder] = useLocalState(context, "sortOrder", true);
+  const { records } = data;
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [sortId, _setSortId] = useLocalState(context, 'sortId', 'name');
+  const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', true);
   return (
-    <Flex direction="column" height="100%">
-      <SecurityRecordsActions />
-      <Section flexGrow="1" mt="0.5rem">
-        <Table className="SecurityRecords__list">
-          <Table.Row bold>
-            <SortButton id="name">Name</SortButton>
-            <SortButton id="id">ID</SortButton>
-            <SortButton id="rank">Assignment</SortButton>
-            <SortButton id="fingerprint">Fingerprint</SortButton>
-            <SortButton id="status">Criminal Status</SortButton>
-          </Table.Row>
-          {records
-            .filter(createSearch(searchText, record => {
-              return record.name + "|"
-                      + record.id + "|"
-                      + record.rank + "|"
-                      + record.fingerprint + "|"
-                      + record.status;
-            }))
-            .sort((a, b) => {
-              const i = sortOrder ? 1 : -1;
-              return a[sortId].localeCompare(b[sortId]) * i;
-            })
-            .map(record => (
-              <Table.Row
-                key={record.id}
-                className={"SecurityRecords__listRow--"
-                            + statusStyles[record.status]}
-                onClick={() => act('view', {
-                  uid_gen: record.uid_gen,
-                  uid_sec: record.uid_sec,
-                })}>
-                <Table.Cell><Icon name="user" /> {record.name}</Table.Cell>
-                <Table.Cell>{record.id}</Table.Cell>
-                <Table.Cell>{record.rank}</Table.Cell>
-                <Table.Cell>{record.fingerprint}</Table.Cell>
-                <Table.Cell>{record.status}</Table.Cell>
-              </Table.Row>
-            ))}
-        </Table>
-      </Section>
-    </Flex>
+    <>
+      <Stack.Item>
+        <SecurityRecordsActions />
+      </Stack.Item>
+      <Stack.Item grow mt={0.5}>
+        <Section fill scrollable>
+          <Table className="SecurityRecords__list">
+            <Table.Row bold>
+              <SortButton id="name">Name</SortButton>
+              <SortButton id="id">ID</SortButton>
+              <SortButton id="rank">Assignment</SortButton>
+              <SortButton id="fingerprint">Fingerprint</SortButton>
+              <SortButton id="status">Criminal Status</SortButton>
+            </Table.Row>
+            {records
+              .filter(
+                createSearch(searchText, (record) => {
+                  return (
+                    record.name +
+                    '|' +
+                    record.id +
+                    '|' +
+                    record.rank +
+                    '|' +
+                    record.fingerprint +
+                    '|' +
+                    record.status
+                  );
+                })
+              )
+              .sort((a, b) => {
+                const i = sortOrder ? 1 : -1;
+                return a[sortId].localeCompare(b[sortId]) * i;
+              })
+              .map((record) => (
+                <Table.Row
+                  key={record.id}
+                  className={
+                    'SecurityRecords__listRow--' + statusStyles[record.status]
+                  }
+                  onClick={() =>
+                    act('view', {
+                      uid_gen: record.uid_gen,
+                      uid_sec: record.uid_sec,
+                    })
+                  }
+                >
+                  <Table.Cell>
+                    <Icon name="user" /> {record.name}
+                  </Table.Cell>
+                  <Table.Cell>{record.id}</Table.Cell>
+                  <Table.Cell>{record.rank}</Table.Cell>
+                  <Table.Cell>{record.fingerprint}</Table.Cell>
+                  <Table.Cell>{record.status}</Table.Cell>
+                </Table.Row>
+              ))}
+          </Table>
+        </Section>
+      </Stack.Item>
+    </>
   );
 };
 
 const SortButton = (properties, context) => {
-  const [sortId, setSortId] = useLocalState(context, "sortId", "name");
-  const [sortOrder, setSortOrder] = useLocalState(context, "sortOrder", true);
-  const {
-    id,
-    children,
-  } = properties;
+  const [sortId, setSortId] = useLocalState(context, 'sortId', 'name');
+  const [sortOrder, setSortOrder] = useLocalState(context, 'sortOrder', true);
+  const { id, children } = properties;
   return (
-    <Table.Cell>
-      <Button
-        color={sortId !== id && "transparent"}
-        width="100%"
-        onClick={() => {
-          if (sortId === id) {
-            setSortOrder(!sortOrder);
-          } else {
-            setSortId(id);
-            setSortOrder(true);
-          }
-        }}>
-        {children}
-        {sortId === id && (
-          <Icon
-            name={sortOrder ? "sort-up" : "sort-down"}
-            ml="0.25rem;"
-          />
-        )}
-      </Button>
-    </Table.Cell>
+    <Stack.Item grow>
+      <Table.Cell>
+        <Button
+          color={sortId !== id && 'transparent'}
+          fluid
+          onClick={() => {
+            if (sortId === id) {
+              setSortOrder(!sortOrder);
+            } else {
+              setSortId(id);
+              setSortOrder(true);
+            }
+          }}
+        >
+          {children}
+          {sortId === id && (
+            <Icon name={sortOrder ? 'sort-up' : 'sort-down'} ml="0.25rem;" />
+          )}
+        </Button>
+      </Table.Cell>
+    </Stack.Item>
   );
 };
 
 const SecurityRecordsActions = (properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    isPrinting,
-  } = data;
-  const [searchText, setSearchText] = useLocalState(context, "searchText", "");
+  const { isPrinting } = data;
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
   return (
-    <Flex>
-      <FlexItem>
+    <Stack fill>
+      <Stack.Item>
         <Button
+          ml="0.25rem"
           content="New Record"
           icon="plus"
           onClick={() => act('new_general')}
         />
+      </Stack.Item>
+      <Stack.Item>
         <Button
           disabled={isPrinting}
           icon={isPrinting ? 'spinner' : 'print'}
           iconSpin={!!isPrinting}
           content="Print Cell Log"
-          ml="0.25rem"
-          onClick={() => modalOpen(context, "print_cell_log")}
+          onClick={() => modalOpen(context, 'print_cell_log')}
         />
-      </FlexItem>
-      <FlexItem grow="1" ml="0.5rem">
+      </Stack.Item>
+      <Stack.Item grow>
         <Input
           placeholder="Search by Name, ID, Assignment, Fingerprint, Status"
-          width="100%"
+          fluid
           onInput={(e, value) => setSearchText(value)}
         />
-      </FlexItem>
-    </Flex>
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -229,7 +245,8 @@ const SecurityRecordsPageMaintenance = (properties, context) => {
         content="Backup to Disk"
         tooltip="This feature is not available."
         tooltipPosition="right"
-      /><br />
+      />
+      <br />
       <Button
         disabled
         icon="upload"
@@ -237,13 +254,15 @@ const SecurityRecordsPageMaintenance = (properties, context) => {
         tooltip="This feature is not available."
         tooltipPosition="right"
         my="0.5rem"
-      /><br />
+      />
+      <br />
       <Button.Confirm
         icon="trash"
         content="Delete All Security Records"
         onClick={() => act('delete_security_all')}
         mb="0.5rem"
-      /><br />
+      />
+      <br />
       <Button.Confirm
         icon="trash"
         content="Delete All Cell Logs"
@@ -255,84 +274,140 @@ const SecurityRecordsPageMaintenance = (properties, context) => {
 
 const SecurityRecordsPageView = (properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    isPrinting,
-    general,
-    security,
-  } = data;
+  const { isPrinting, general, security } = data;
   if (!general || !general.fields) {
-    return (
-      <Box color="bad">
-        General records lost!
-      </Box>
-    );
+    return <Box color="bad">General records lost!</Box>;
   }
   return (
-    <Fragment>
-      <Section
-        title="General Data"
-        level={2}
-        mt="-6px"
-        buttons={
-          <Fragment>
-            <Button
-              disabled={isPrinting}
-              icon={isPrinting ? 'spinner' : 'print'}
-              iconSpin={!!isPrinting}
-              content="Print Record"
-              onClick={() => act('print_record')}
-            />
-            <Button.Confirm
-              icon="trash"
-              tooltip={"WARNING: This will also delete the Security "
-              + "and Medical records associated to this crew member!"}
-              tooltipPosition="bottom-left"
-              content="Delete Record"
-              onClick={() => act('delete_general')}
-            />
-          </Fragment>
-        }>
-        <SecurityRecordsViewGeneral />
-      </Section>
-      <Section
-        title="Security Data"
-        level={2}
-        mt="-12px"
-        buttons={
-          <Button.Confirm
-            icon="trash"
-            disabled={security.empty}
-            content="Delete Record"
-            onClick={() => act('delete_security')}
-          />
-        }>
-        <SecurityRecordsViewSecurity />
-      </Section>
-    </Fragment>
+    <>
+      <Stack.Item grow>
+        <Section
+          fill
+          scrollable
+          level={2}
+          mt="-6px"
+          title="General Data"
+          buttons={
+            <>
+              <Button
+                disabled={isPrinting}
+                icon={isPrinting ? 'spinner' : 'print'}
+                iconSpin={!!isPrinting}
+                content="Print Record"
+                onClick={() => act('print_record')}
+              />
+              <Button.Confirm
+                icon="trash"
+                tooltip={
+                  'WARNING: This will also delete the Security ' +
+                  'and Medical records associated with this crew member!'
+                }
+                tooltipPosition="bottom-start"
+                content="Delete Record"
+                onClick={() => act('delete_general')}
+              />
+            </>
+          }
+        >
+          <SecurityRecordsViewGeneral />
+        </Section>
+      </Stack.Item>
+      {!security || !security.fields ? (
+        <Stack.Item grow color="bad">
+          <Section
+            fill
+            title="Security Data"
+            buttons={
+              <Button
+                icon="pen"
+                content="Create New Record"
+                onClick={() => act('new_security')}
+              />
+            }
+          >
+            <Stack fill>
+              <Stack.Item
+                bold
+                grow
+                textAlign="center"
+                fontSize={1.75}
+                align="center"
+                color="label"
+              >
+                <Icon.Stack>
+                  <Icon name="scroll" size={5} color="gray" />
+                  <Icon name="slash" size={5} color="red" />
+                </Icon.Stack>
+                <br />
+                Security records lost!
+              </Stack.Item>
+            </Stack>
+          </Section>
+        </Stack.Item>
+      ) : (
+        <>
+          <Stack.Item grow>
+            <Section
+              fill
+              scrollable
+              title="Security Data"
+              buttons={
+                <Button.Confirm
+                  icon="trash"
+                  disabled={security.empty}
+                  content="Delete Record"
+                  onClick={() => act('delete_security')}
+                />
+              }
+            >
+              <Stack.Item>
+                <LabeledList>
+                  {security.fields.map((field, i) => (
+                    <LabeledList.Item
+                      key={i}
+                      label={field.field}
+                      preserveWhitespace
+                    >
+                      {decodeHtmlEntities(field.value)}
+                      {!!field.edit && (
+                        <Button
+                          icon="pen"
+                          ml="0.5rem"
+                          mb={field.line_break ? '1rem' : 'initial'}
+                          onClick={() => doEdit(context, field)}
+                        />
+                      )}
+                    </LabeledList.Item>
+                  ))}
+                </LabeledList>
+              </Stack.Item>
+            </Section>
+          </Stack.Item>
+          <SecurityRecordsViewSecurity />
+        </>
+      )}
+    </>
   );
 };
 
 const SecurityRecordsViewGeneral = (_properties, context) => {
   const { data } = useBackend(context);
-  const {
-    general,
-  } = data;
+  const { general } = data;
   if (!general || !general.fields) {
     return (
-      <Box color="bad">
-        General records lost!
-      </Box>
+      <Stack fill vertical>
+        <Stack.Item grow color="bad">
+          <Section fill>General records lost!</Section>
+        </Stack.Item>
+      </Stack>
     );
   }
   return (
-    <Fragment>
-      <Box float="left">
+    <Stack>
+      <Stack.Item grow>
         <LabeledList>
           {general.fields.map((field, i) => (
-            <LabeledList.Item
-              key={i}
-              label={field.field}
-              prewrap>
+            <LabeledList.Item key={i} label={field.field} preserveWhitespace>
               {decodeHtmlEntities('' + field.value)}
               {!!field.edit && (
                 <Button
@@ -345,99 +420,65 @@ const SecurityRecordsViewGeneral = (_properties, context) => {
             </LabeledList.Item>
           ))}
         </LabeledList>
-      </Box>
-      <Box position="absolute" right="0" textAlign="right">
-        {!!general.has_photos && (
-          general.photos.map((p, i) => (
-            <Box
-              key={i}
-              display="inline-block"
-              textAlign="center"
-              color="label">
-              <img
-                src={p}
-                style={{
-                  width: '96px',
-                  'margin-bottom': '0.5rem',
-                  '-ms-interpolation-mode': 'nearest-neighbor',
-                }}
-              /><br />
-              Photo #{i + 1}
-            </Box>
-          ))
-        )}
-      </Box>
-    </Fragment>
+      </Stack.Item>
+      {!!general.has_photos &&
+        general.photos.map((p, i) => (
+          <Stack.Item key={i} inline textAlign="center" color="label" ml={0}>
+            <img
+              src={p}
+              style={{
+                width: '96px',
+                'margin-top': '5rem',
+                'margin-bottom': '0.5rem',
+                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                'image-rendering': 'pixelated',
+              }}
+            />
+            <br />
+            Photo #{i + 1}
+          </Stack.Item>
+        ))}
+    </Stack>
   );
 };
 
 const SecurityRecordsViewSecurity = (_properties, context) => {
   const { act, data } = useBackend(context);
-  const {
-    security,
-  } = data;
-  if (!security || !security.fields) {
-    return (
-      <Box color="bad">
-        Security records lost!<br />
-        <Button
-          icon="pen"
-          content="Create New Record"
-          mt="0.5rem"
-          onClick={() => act('new_security')}
-        />
-      </Box>
-    );
-  }
+  const { security } = data;
   return (
-    <Fragment>
-      <LabeledList>
-        {security.fields.map((field, i) => (
-          <LabeledList.Item
-            key={i}
-            label={field.field}
-            prewrap>
-            {decodeHtmlEntities(field.value)}
-            {!!field.edit && (
-              <Button
-                icon="pen"
-                ml="0.5rem"
-                mb={field.line_break ? '1rem' : 'initial'}
-                onClick={() => doEdit(context, field)}
-              />
-            )}
-          </LabeledList.Item>
-        ))}
-      </LabeledList>
+    <Stack.Item height="150px">
       <Section
+        fill
+        scrollable
         title="Comments/Log"
-        level={2}
         buttons={
           <Button
             icon="comment"
             content="Add Entry"
             onClick={() => modalOpen(context, 'comment_add')}
           />
-        }>
+        }
+      >
         {security.comments.length === 0 ? (
-          <Box color="label">
-            No comments found.
-          </Box>
-        ) : security.comments.map((comment, i) => (
-          <Box key={i} prewrap>
-            <Box color="label" display="inline">
-              {comment.header || "Auto-generated"}
-            </Box><br />
-            {comment.text || comment}
-            <Button
-              icon="comment-slash"
-              color="bad"
-              ml="0.5rem"
-              onClick={() => act('comment_delete', { id: i + 1 })}
-            />
-          </Box>
-        ))}
+          <Box color="label">No comments found.</Box>
+        ) : (
+          security.comments.map((comment, i) => (
+            <Box key={i} preserveWhitespace>
+              <Box color="label" inline>
+                {comment.header || 'Auto-generated'}
+              </Box>
+              <br />
+              {comment.text || comment}
+              <Button
+                icon="comment-slash"
+                color="bad"
+                ml="0.5rem"
+                onClick={() => act('comment_delete', { id: i + 1 })}
+              />
+            </Box>
+          ))
+        )}
       </Section>
-    </Fragment>
+    </Stack.Item>
   );
 };

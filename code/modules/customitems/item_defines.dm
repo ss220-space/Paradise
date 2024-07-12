@@ -42,7 +42,7 @@
 		to_chat(user, "<span class= 'notice'>The [src] is out of ink.</span>")
 		return
 
-	if(!istype(M, /mob/living/carbon/human))
+	if(!ishuman(M))
 		to_chat(user, "<span class= 'notice'>You don't think tattooing [M] is the best idea.</span>")
 		return
 
@@ -66,7 +66,7 @@
 
 	else
 		user.visible_message("<span class='notice'>[user] begins to apply a [tattoo_name] [target] with the [src].</span>", "<span class='notice'>You begin to tattoo [target] with the [src]!</span>")
-		if(!do_after(user, 30 * toolspeed * gettoolspeedmod(user), target = M))
+		if(!do_after(user, 3 SECONDS * toolspeed * gettoolspeedmod(user), M))
 			return
 		user.visible_message("<span class='notice'>[user] finishes the [tattoo_name] on [target].</span>", "<span class='notice'>You finish the [tattoo_name].</span>")
 
@@ -148,7 +148,7 @@
 	force = 5
 	sharp = 0
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
@@ -182,27 +182,27 @@
 	desc = "A weathered Vox thermonocle, doesn't seem to work anymore."
 	icon_state = "thermoncle"
 
+
 /obj/item/fluff/rapid_wheelchair_kit //Rapidvalj: Hakikarahiti
 	name = "wheelchair conversion kit"
 	desc = "An assorted set of exchangable parts for a wheelchair."
 	icon_state = "modkit"
+	var/new_icon_state = "vox_wheelchair"
+	var/new_overlay = "vox_wheelchair_overlay"
+	var/new_name = "vox wheelchair"
+	var/new_desc = "A luxurious Vox Wheelchair, weathered from use."
 
-/obj/item/fluff/rapid_wheelchair_kit/afterattack(atom/target, mob/user, proximity)
+
+/obj/item/fluff/rapid_wheelchair_kit/afterattack(obj/structure/chair/wheelchair/target, mob/user, proximity)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
-	if(istype(target, /obj/structure/chair/wheelchair) && !istype(target, /obj/structure/chair/wheelchair/bike))
-		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
-		var/obj/structure/chair/wheelchair/chair = target
-		chair.icon = 'icons/obj/custom_items.dmi'
-		chair.icon_state = "vox_wheelchair"
-		chair.name = "vox wheelchair"
-		chair.desc = "A luxurious Vox Wheelchair, weathered from use."
-		chair.handle_rotation()
-		qdel(src)
+	if(istype(target))
+		target.on_skin_apply(src, user)
 		return
 
-	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
+	to_chat(user, span_warning("You cannot modify [target]!"))
+
 
 /obj/item/lighter/zippo/fluff/purple // GodOfOreos: Jason Conrad
 	name = "purple engraved zippo"
@@ -247,7 +247,7 @@
 	C.name = "Sax"
 	C.real_name = "Sax"
 	var/obj/item/clothing/head/det_hat/D = new
-	D.flags |= NODROP
+	ADD_TRAIT(D, TRAIT_NODROP, CURSED_ITEM_TRAIT(D.type))
 	C.place_on_head(D)
 	C.visible_message("<span class='notice'>[C] suddenly winks into existence at [user]'s feet!</span>")
 	to_chat(user, "<span class='danger'>[src] crumbles to dust in your hands!</span>")
@@ -345,12 +345,12 @@
 		M.icon = 'icons/obj/custom_items.dmi'
 		M.icon_state = "gas_tariq"
 		M.sprite_sheets = list(
-			"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
-			"Monkey" = 'icons/mob/clothing/species/monkey/mask.dmi',
-			"Farwa" = 'icons/mob/clothing/species/monkey/mask.dmi',
-			"Wolpin" = 'icons/mob/clothing/species/monkey/mask.dmi',
-			"Neara" = 'icons/mob/clothing/species/monkey/mask.dmi',
-			"Stok" = 'icons/mob/clothing/species/monkey/mask.dmi'
+			SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+			SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/mask.dmi',
+			SPECIES_FARWA = 'icons/mob/clothing/species/monkey/mask.dmi',
+			SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
+			SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
+			SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi'
 			)
 		user.update_icons()
 		qdel(src)
@@ -434,10 +434,10 @@
 		sallet.put_on_delay = helm.put_on_delay
 		sallet.resistance_flags = helm.resistance_flags
 		sallet.flags_cover = helm.flags_cover
-		sallet.visor_flags = helm.visor_flags
+		sallet.visor_clothing_flags = helm.visor_clothing_flags
 		sallet.visor_flags_inv = helm.visor_flags_inv
-		if(!(BLOCKHAIR in sallet.flags))
-			sallet.flags |= BLOCKHAIR
+		sallet.visor_flags_inv_transparent = helm.visor_flags_inv_transparent
+		sallet.flags_inv |= HIDEHAIR
 
 		sallet.add_fingerprint(H)
 		target.transfer_fingerprints_to(sallet)
@@ -623,7 +623,7 @@
 	desc = "A visor of alien origin, charred by fire and completely non-functioning. It's been impeccably polished, shiny!"
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "charred_visor"
-	species_restricted = list("Vox")
+	species_restricted = list(SPECIES_VOX)
 
 /obj/item/clothing/head/bearpelt/fluff/polar //Gibson1027: Sploosh
 	name = "polar bear pelt hat"
@@ -684,8 +684,7 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet_mode)
 	toggle_cooldown = 20
 	toggle_sound = 'sound/items/change_jaws.ogg'
-	flags = BLOCKHAIR
-	flags_inv = HIDEGLASSES|HIDEMASK|HIDENAME|HIDEHEADSETS
+	flags_inv = HIDEGLASSES|HIDEMASK|HIDENAME|HIDEHEADSETS|HIDEHAIR
 	var/state = "Soldier Up"
 
 /obj/item/clothing/head/helmet/fluff/merchant_sallet/attack_self(mob/user)
@@ -733,7 +732,6 @@
 /obj/item/clothing/suit/fluff
 	icon = 'icons/obj/custom_items.dmi'
 	actions_types = null
-	ignore_suitadjust = 1
 	adjust_flavour = null
 	sprite_sheets = null
 
@@ -743,7 +741,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "pulsecoat"
 	item_state = "pulsecoat"
-	ignore_suitadjust = 1
+	ignore_suitadjust = TRUE
 	actions_types = null
 
 /obj/item/clothing/suit/jacket/miljacket/patch // sniper_fairy : P.A.T.C.H.
@@ -751,8 +749,7 @@
 	desc = "A canvas jacket styled after classical American military garb. Feels sturdy, yet comfortable. This one has a medical patch on it."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "shazjacket_purple_open"
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	ignore_suitadjust = FALSE
 	actions_types = list(/datum/action/item_action/openclose)
 	adjust_flavour = "unbutton"
 
@@ -811,8 +808,7 @@
 	desc = "A faded leather overcoat bearing a worn out badge from the NAS Crescent on the shoulder, and a designation tag of Supply Master on the front.  A tarnished gold nameplate says H.Gadow on it."
 	icon_state = "supplymaster_jacket_open"
 	item_state = "supplymaster_jacket_open"
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	ignore_suitadjust = FALSE
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
@@ -832,7 +828,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "kidosvest"
 	item_state = "kidosvest"
-	ignore_suitadjust = 1
+	ignore_suitadjust = TRUE
 	actions_types = null
 	adjust_flavour = null
 	sprite_sheets = null
@@ -861,8 +857,8 @@
 	set category = "Object"
 	set src in usr
 
-	if(usr.stat || usr.restrained())
-		return 0
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return FALSE
 
 	switch(icon_state)
 		if("Kluysfluff1")
@@ -944,35 +940,35 @@
 	desc = "A somewhat worn but well kept set of vox tactical webbing. It has a couple of pouches attached."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "k3_webbing"
-
+	ignore_suitadjust = FALSE
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 	actions_types = list(/datum/action/item_action/toggle)
-	suit_adjusted = FALSE
 
 
 /obj/item/clothing/suit/storage/fluff/k3_webbing/update_icon_state()
-	var/base_icon_state = copytext(icon_state, 1, findtext(icon_state, "_on"))
-	var/base_item_state = copytext(item_state, 1, findtext(item_state, "_on"))
+	var/base_icon_state = replacetext("[icon_state]", "_on", "")
+	var/base_item_state = replacetext("[item_state]", "_on", "")
 
-	icon_state = suit_adjusted ? base_icon_state : "[base_icon_state]_on"
-	item_state = suit_adjusted ? base_item_state : "[base_item_state]_on"
+	icon_state = suit_adjusted ? "[base_icon_state]_on" : base_icon_state
+	item_state = suit_adjusted ? "[base_item_state]_on" : base_item_state
 
 
 /obj/item/clothing/suit/storage/fluff/k3_webbing/adjustsuit(mob/user)
 	if(user.incapacitated())
 		return
 
-	update_icon(UPDATE_ICON_STATE)
-	update_equipped_item()
-	to_chat(user, "You turn the [src]'s lighting system [suit_adjusted ? "off" : "on"].")
 	suit_adjusted = !suit_adjusted
+	update_icon(UPDATE_ICON_STATE)
+	update_equipped_item(update_speedmods = FALSE)
+	to_chat(user, "You turn the [src]'s lighting system [suit_adjusted ? "on" : "off"].")
+
 
 
 /obj/item/clothing/suit/hooded/hoodie/fluff/xantholne // Xantholne: Meex Zwichsnicrur
@@ -991,15 +987,12 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "xantholne_winterhood"
 	body_parts_covered = HEAD
-	flags = BLOCKHAIR
-	flags_inv = HIDEHEADSETS
 
 /obj/item/clothing/suit/hooded/hoodie/fluff/xydonus //Xydonus: Rsik Ugsharki Atan | Based off of the bomber jacket, but with a hood slapped on (for allowed suit storage)
 	name = "custom fit bomber jacket"
 	desc = "Made for Unathi who likes to show off their big horns."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "xydonus_jacket"
-	ignore_suitadjust = 0
 	hoodtype = /obj/item/clothing/head/hooded/hood/fluff/xydonus
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
@@ -1011,8 +1004,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "xydonus_bomberhood"
 	body_parts_covered = HEAD
-	flags = BLOCKHAIR
-	flags_inv = HIDEHEADSETS
 
 /obj/item/clothing/suit/fluff/pineapple //Pineapple Salad: Dan Jello
 	name = "red trench coat"
@@ -1056,8 +1047,6 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "shesicoat_hood2"
 	body_parts_covered = HEAD
-	flags = BLOCKHAIR
-	flags_inv = HIDEHEADSETS
 
 /obj/item/clothing/suit/jacket/dtx //AffectedArc07: DTX
 	name = "telecommunications bomber jacket"
@@ -1065,7 +1054,8 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "dtxbomber"
 	item_state = "dtxbomber"
-	ignore_suitadjust = 0
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
@@ -1147,27 +1137,35 @@
 	icon_state = "jane_sid_suit"
 	item_state = "jane_sid_suit"
 	item_color = "jane_sid_suit"
-	has_sensor = 2
+	has_sensor = SENSOR_VITALS
 	sensor_mode = 3
+	up = TRUE
+
+
+/obj/item/clothing/under/fluff/jane_sidsuit/Initialize(mapload)
+	. = ..()
+	verbs -= /obj/item/clothing/under/verb/rollsuit
+
 
 /obj/item/clothing/under/fluff/jane_sidsuit/verb/toggle_zipper()
 	set name = "Toggle Jumpsuit Zipper"
 	set category = "Object"
 	set src in usr
 
-	if(usr.stat || usr.restrained())
-		return 0
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return FALSE
 
-	if(src.icon_state == "jane_sid_suit_down")
-		src.item_color = "jane_sid_suit"
-		to_chat(usr, "You zip up \the [src].")
-	else
-		src.item_color = "jane_sid_suit_down"
-		to_chat(usr, "You unzip and roll down \the [src].")
+	up = !up
+	to_chat(usr, "You [up ? "zip up" : "unzip and roll down"] [src].")
+	update_icon(UPDATE_ICON_STATE)
+	update_equipped_item(update_speedmods = FALSE)
 
-	src.icon_state = "[item_color]"
-	src.item_state = "[item_color]"
-	usr.update_inv_w_uniform()
+
+/obj/item/clothing/under/fluff/jane_sidsuit/update_icon_state()
+	var/new_state = "[replacetext("[item_color]", "_d", "")][up ? "" : "_d"]"
+	icon_state = new_state
+	item_state = new_state
+
 
 /obj/item/clothing/under/fluff/honourable // MrBarrelrolll: Maximus Greenwood
 	name = "Viridi Protegat"
@@ -1194,7 +1192,9 @@
 	name = "E.L.O's Turtleneck"
 	desc = "This TurtleNeck belongs to the IPC E.L.O. And has her name sown into the upper left breast, a very wooly jumper."
 	icon = 'icons/obj/custom_items.dmi' // for the floor sprite
-	icon_override = 'icons/obj/custom_items.dmi' // for the mob sprite
+	onmob_sheets = list(
+		ITEM_SLOT_CLOTH_INNER_STRING = 'icons/obj/custom_items.dmi' // for the mob sprite
+	)
 	icon_state = "eloturtleneckfloor"
 	item_color = "eloturtleneck"
 	displays_id = FALSE
@@ -1213,7 +1213,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "spartan_mask"
 	item_state = "spartan_mask"
-	species_restricted = list("Vox")
+	species_restricted = list(SPECIES_VOX)
 
 //////////// Shoes ////////////
 
@@ -1293,8 +1293,7 @@
 	icon_state = "superior_mask"
 	item_state = "superior_mask"
 	body_parts_covered = HEAD
-	flags = BLOCKHAIR
-	flags_inv = HIDENAME
+	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 
 /obj/item/clothing/shoes/fluff/arachno_boots
@@ -1321,7 +1320,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "chronx_hood"
 	item_state = "chronx_hood"
-	flags = BLOCKHAIR
+	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 	actions_types = list(/datum/action/item_action/toggle)
 	var/adjusted = FALSE
@@ -1338,7 +1337,7 @@
 
 /obj/item/clothing/head/fluff/chronx/proc/adjust()
 	update_icon(UPDATE_ICON_STATE)
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 	to_chat(usr, "You untransform [src].")
 	adjusted = !adjusted
 
@@ -1351,7 +1350,8 @@
 	item_state = "chronx_robe"
 	actions_types = list(/datum/action/item_action/toggle)
 	adjust_flavour = "untransform"
-	ignore_suitadjust = 0
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
 
 /obj/item/clothing/shoes/black/fluff/chronx //chronx100: Hughe O'Splash
 	name = "Cthulhu's Boots"
@@ -1381,7 +1381,6 @@
 	icon_state = "elliot_windbreaker_open"
 	item_state = "elliot_windbreaker_open"
 	adjust_flavour = "unzip"
-	suit_adjusted = 1
 	sprite_sheets = null
 
 /obj/item/storage/backpack/fluff/syndiesatchel //SkeletalElite: Rawkkihiki
@@ -1390,18 +1389,21 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "rawk_satchel"
 	sprite_sheets = null
+	item_state = "rawk_satchel"
 
 /obj/item/storage/backpack/fluff/krich_back //lizardzsi: Krichahka
 	name = "Voxcaster"
 	desc = "Battered, Sol-made military radio backpack that had its speakers fried from playing Vox opera. The words 'Swift-Talon' are crudely scratched onto its side."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "voxcaster_fluff"
+	item_state = "voxcaster_fluff"
 
 /obj/item/storage/backpack/fluff/ssscratches_back //Ssscratches: Lasshy-Bot
 	name = "CatPack"
 	desc = "It's a backpack, but it's also a cat."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "ssscratches_backpack"
+	item_state = "ssscratches_backpack"
 
 /obj/item/storage/backpack/fluff/thebrew //Greey: Korala Ice
 	name = "The Brew"
@@ -1475,8 +1477,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "fethasnecklace"
 	item_state = "fethasnecklace"
-	item_color = "fethasnecklace"
-	slot_flags = SLOT_MASK | SLOT_TIE
+	slot_flags = ITEM_SLOT_MASK|ITEM_SLOT_ACCESSORY
 
 /obj/item/bedsheet/fluff/hugosheet //HugoLuman: Dan Martinez
 	name = "Cosmic space blankie"
@@ -1516,7 +1517,7 @@
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
-	if(!istype(target, /obj/spacepod))
+	if(!isspacepod(target))
 		to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
 		return
 
@@ -1575,7 +1576,6 @@
 	icon_state = "panzermedal"
 	item_state = "panzermedal"
 	item_color = "panzermedal"
-	slot_flags = SLOT_TIE
 
 /obj/item/clothing/accessory/medal/fluff/XannZxiax //Sagrotter: Xann Zxiax
 	name = "Zxiax Garnet"
@@ -1584,7 +1584,6 @@
 	icon_state = "Xann_necklace"
 	item_state = "Xann_necklace"
 	item_color = "Xann_necklace"
-	slot_flags = SLOT_TIE
 
 /obj/item/clothing/accessory/rbscarf //Rb303: Isthel Eisenwald
     name = "Old purple scarf"
@@ -1613,6 +1612,7 @@
 	desc = "A black and red hiking pack with some nice little accessories."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "danpack"
+	item_state = "danpack"
 
 /obj/item/clothing/under/fluff/kiaoutfit //FullOfSkittles: Kiachi
 	name = "Suspicious Outfit"
@@ -1620,12 +1620,12 @@
 	icon = 'icons/obj/custom_items.dmi'
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/uniform.dmi')
+	sprite_sheets = list(SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi')
 	icon_state = "kiaoutfit"
 	item_state = "kiaoutfit"
 	item_color = "kiaoutfit"
 	displays_id = FALSE
-	species_restricted = list("Vox")
+	species_restricted = list(SPECIES_VOX)
 
 /obj/item/clothing/head/fluff/kiahat //FullOfSkittles: Kiachi
 	name = "Suspicious Witch Hat"
@@ -1643,11 +1643,11 @@
 	icon = 'icons/obj/custom_items.dmi'
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/mask.dmi')
+	sprite_sheets = list(SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi')
 	icon_state = "kiamask"
 	item_state = "kiamask"
 	item_color = "kiamask"
-	species_restricted = list("Vox")
+	species_restricted = list(SPECIES_VOX)
 
 
 /obj/item/clothing/gloves/ring/fluff
@@ -1674,10 +1674,10 @@
 	desc = "A simple black dress with a white undercoat, tied with a blue ribbon."
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	sprite_sheets = list("Vox" = 'icons/mob/clothing/species/vox/uniform.dmi')
+	sprite_sheets = list(SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi')
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "kikeridress"
 	item_state = "kikeridress"
 	item_color = "kikeridress"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-	species_restricted = list("Vox")
+	species_restricted = list(SPECIES_VOX)

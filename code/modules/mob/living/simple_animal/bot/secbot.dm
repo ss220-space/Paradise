@@ -1,4 +1,5 @@
 #define BATON_COOLDOWN 3.5 SECONDS
+#define SPEAK_COOLDOWN 10 SECONDS
 
 /mob/living/simple_animal/bot/secbot
 	name = "\improper Securitron"
@@ -10,7 +11,7 @@
 	health = 25
 	maxHealth = 25
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
-	pass_flags = PASSMOB
+	pass_flags = PASSMOB|PASSFLAPS
 
 	allow_pai = FALSE
 
@@ -49,6 +50,7 @@
 	var/flashing_lights = FALSE
 	var/baton_delayed = FALSE
 	var/prev_flashing_lights = FALSE
+	var/speak_cooldown = FALSE
 
 
 /mob/living/simple_animal/bot/secbot/beepsky
@@ -99,6 +101,7 @@
 	idcheck = TRUE
 	arrest_type = TRUE
 	weaponscheck = TRUE
+	auto_patrol = TRUE
 
 
 /mob/living/simple_animal/bot/secbot/podsky
@@ -109,8 +112,8 @@
 	weaponscheck = TRUE
 
 
-/mob/living/simple_animal/bot/secbot/New()
-	..()
+/mob/living/simple_animal/bot/secbot/Initialize(mapload)
+	. = ..()
 	icon_state = "[base_icon][on]"
 	var/datum/job/detective/J = new/datum/job/detective
 	access_card.access += J.get_access()
@@ -121,6 +124,11 @@
 	//SECHUD
 	var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
 	secsensor.add_hud_to(src)
+
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 
 /mob/living/simple_animal/bot/secbot/turn_on()
@@ -137,8 +145,8 @@
 	..()
 	target = null
 	oldtarget_name = null
-	anchored = FALSE
-	walk_to(src,0)
+	set_anchored(FALSE)
+	SSmove_manager.stop_looping(src)
 	set_path(null)
 	last_found = world.time
 
@@ -153,10 +161,10 @@
 	ui_interact(M)
 
 
-/mob/living/simple_animal/bot/secbot/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/mob/living/simple_animal/bot/secbot/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BotSecurity", name, 500, 500)
+		ui = new(user, src, "BotSecurity", name)
 		ui.open()
 
 
@@ -257,13 +265,13 @@
 
 
 /mob/living/simple_animal/bot/secbot/UnarmedAttack(atom/A)
-	if(!on)
+	if(!on || !can_unarmed_attack())
 		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if((C.staminaloss < 110 || arrest_type) && !baton_delayed)
 			stun_attack(A)
-		else if(C.canBeHandcuffed() && !C.handcuffed)
+		else if(C.has_organ_for_slot(ITEM_SLOT_HANDCUFFED) && !C.handcuffed)
 			cuff(A)
 	else
 		..()
@@ -293,14 +301,14 @@
 	if(!Adjacent(C) || !isturf(C.loc) || C.handcuffed)
 		return
 
-	C.set_handcuffed(new /obj/item/restraints/handcuffs/cable/zipties/used(C))
+	C.apply_restraints(new /obj/item/restraints/handcuffs/cable/zipties/used(null), ITEM_SLOT_HANDCUFFED, TRUE)
 
 	playsound(loc, pick('sound/voice/bgod.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bsecureday.ogg', 'sound/voice/bradio.ogg', 'sound/voice/binsult.ogg', 'sound/voice/bcreep.ogg'), 50, 0)
 	back_to_idle()
 
 
 /mob/living/simple_animal/bot/secbot/proc/stun_attack(mob/living/carbon/C)
-	playsound(loc, 'sound/weapons/Egloves.ogg', 50, TRUE, -1)
+	playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	if(harmbaton)
 		playsound(loc, 'sound/weapons/genhit1.ogg', 50, 1, -1)
 	do_attack_animation(C)
@@ -317,7 +325,10 @@
 	add_attack_logs(src, C, "stunned")
 	if(declare_arrests)
 		var/area/location = get_area(src)
-		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
+		if(!speak_cooldown)
+			speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
+			speak_cooldown = TRUE
+			addtimer(VARSET_CALLBACK(src, speak_cooldown, FALSE), SPEAK_COOLDOWN)
 	C.visible_message(span_danger("[src] has [harmbaton ? "beaten" : "stunned"] [C]!"),
 					span_userdanger("[src] has [harmbaton ? "beaten" : "stunned"] you!"))
 
@@ -332,10 +343,10 @@
 				light_color = LIGHT_COLOR_PURE_RED
 			else
 				light_color = LIGHT_COLOR_PURE_RED
-		update_light()
+		set_light_color(light_color)
 	else if(prev_flashing_lights)
 		light_color = LIGHT_COLOR_WHITE
-		update_light()
+		set_light_color(light_color)
 
 	prev_flashing_lights = flashing_lights
 
@@ -356,7 +367,7 @@
 
 	switch(mode)
 		if(BOT_IDLE)		// idle
-			walk_to(src,0)
+			SSmove_manager.stop_looping(src)
 			set_path(null)
 			look_for_perp()	// see if any criminals are in range
 			if(!mode && auto_patrol)	// still idle, and set to patrol
@@ -365,7 +376,7 @@
 		if(BOT_HUNT)		// hunting for perp
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 8)
-				walk_to(src,0)
+				SSmove_manager.stop_looping(src)
 				set_path(null)
 				back_to_idle()
 				return
@@ -375,14 +386,13 @@
 					stun_attack(target)
 
 					mode = BOT_PREP_ARREST
-					anchored = TRUE
+					set_anchored(TRUE)
 					target_lastloc = target.loc
 					return
 
 				else								// not next to perp
 					var/turf/olddist = get_dist(src, target)
-					glide_for(BOT_STEP_DELAY)
-					walk_to(src, target,1,4)
+					SSmove_manager.move_to(src, target, 1, BOT_STEP_DELAY)
 					if((get_dist(src, target)) >= (olddist))
 						frustration++
 					else
@@ -396,7 +406,7 @@
 				back_to_hunt()
 				return
 
-			if(iscarbon(target) && target.canBeHandcuffed())
+			if(iscarbon(target) && target.has_organ_for_slot(ITEM_SLOT_HANDCUFFED))
 				if(!arrest_type)
 					if(!target.handcuffed)  //he's not cuffed? Try to cuff him!
 						cuff(target)
@@ -409,7 +419,7 @@
 
 		if(BOT_ARREST)
 			if(!target)
-				anchored = FALSE
+				set_anchored(FALSE)
 				mode = BOT_IDLE
 				last_found = world.time
 				frustration = 0
@@ -424,7 +434,7 @@
 				return
 			else //Try arresting again if the target escapes.
 				mode = BOT_PREP_ARREST
-				anchored = FALSE
+				set_anchored(FALSE)
 
 		if(BOT_START_PATROL)
 			look_for_perp()
@@ -436,7 +446,7 @@
 
 
 /mob/living/simple_animal/bot/secbot/proc/back_to_idle()
-	anchored = FALSE
+	set_anchored(FALSE)
 	mode = BOT_IDLE
 	target = null
 	last_found = world.time
@@ -445,7 +455,7 @@
 
 
 /mob/living/simple_animal/bot/secbot/proc/back_to_hunt()
-	anchored = FALSE
+	set_anchored(FALSE)
 	frustration = 0
 	mode = BOT_HUNT
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
@@ -455,7 +465,7 @@
  * Look for a criminal in view of the bot.
  */
 /mob/living/simple_animal/bot/secbot/proc/look_for_perp()
-	anchored = FALSE
+	set_anchored(FALSE)
 	for(var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
 		if((C.stat) || (C.handcuffed))
 			continue
@@ -488,12 +498,12 @@
 
 
 /mob/living/simple_animal/bot/secbot/explode()
-	walk_to(src,0)
+	SSmove_manager.stop_looping(src)
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
 	Sa.build_step = 1
-	Sa.overlays += "hs_hole"
+	Sa.add_overlay("hs_hole")
 	Sa.created_name = name
 	new /obj/item/assembly/prox_sensor(Tsec)
 	new /obj/item/melee/baton(Tsec)
@@ -511,25 +521,30 @@
 		mode = BOT_HUNT
 
 
-/mob/living/simple_animal/bot/secbot/Crossed(atom/movable/AM, oldloc)
-	if(ismob(AM) && target)
-		var/mob/living/carbon/C = AM
-		if(!istype(C) || !C || in_range(src, target))
-			return
-		C.visible_message("<span class='warning'>[pick( \
-						  "[C] dives out of [src]'s way!", \
-						  "[C] stumbles over [src]!", \
-						  "[C] jumps out of [src]'s path!", \
-						  "[C] trips over [src] and falls!", \
-						  "[C] topples over [src]!", \
-						  "[C] leaps out of [src]'s way!")]</span>")
-		C.Weaken(4 SECONDS)
+/mob/living/simple_animal/bot/secbot/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	secbot_crossed(arrived)
+
+
+/mob/living/simple_animal/bot/secbot/proc/secbot_crossed(mob/living/carbon/arrived)
+	if(!iscarbon(arrived) || arrived != target || in_range(src, arrived))
 		return
-	..()
+
+	arrived.visible_message(span_warning("[pick( \
+						  "[arrived] dives out of [src]'s way!", \
+						  "[arrived] stumbles over [src]!", \
+						  "[arrived] jumps out of [src]'s path!", \
+						  "[arrived] trips over [src] and falls!", \
+						  "[arrived] topples over [src]!", \
+						  "[arrived] leaps out of [src]'s way!")]"))
+	arrived.Weaken(4 SECONDS)
+
 
 /obj/machinery/bot_core/secbot
 	req_access = list(ACCESS_SECURITY)
 
 
-#undef BATON_COOLDOWN
 
+#undef SPEAK_COOLDOWN
+#undef BATON_COOLDOWN

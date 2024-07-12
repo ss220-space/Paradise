@@ -30,6 +30,8 @@
 	var/list/protected_jobs = list()
 	/// Species that can't be antags.
 	var/list/protected_species = list()
+	/// Specified associative list of "antag - job" restrictions
+	var/list/forbidden_antag_jobs = list()
 	/// How many players should press ready for mode to activate.
 	var/required_players = 0
 	/// How many antagonists are required for mode start.
@@ -264,7 +266,7 @@
 	if(escaped_on_pod_5)
 		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_5, list("escapees", "on_pod_5"))
 
-	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "A round of [name] has ended - [surviving_total] survivors, [ghosts] ghosts.")
+	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "A round of [name] has ended - [surviving_total] survivors, [ghosts] ghosts. Round ID - [GLOB.round_id]. Duration - [ROUND_TIME_TEXT()]")
 	return FALSE
 
 
@@ -279,7 +281,7 @@
  * Returns a list of player minds who had the antagonist role set to yes, regardless of recomended_enemies.
  * Jobbans and restricted jobs are checked. Species lock and prefered species are checked. List is already shuffled.
  */
-/datum/game_mode/proc/get_players_for_role(role, list/prefered_species)
+/datum/game_mode/proc/get_players_for_role(role, list/prefered_species, req_job_rank)
 	var/list/players = list()
 	var/list/candidates = list()
 
@@ -287,7 +289,7 @@
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(!player.client || !player.ready || !player.has_valid_preferences() \
 			|| jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, role) \
-			|| !player_old_enough_antag(player.client, role) || player.client.skip_antag \
+			|| !player_old_enough_antag(player.client, role, req_job_rank) || player.client.prefs?.skip_antag \
 			|| !(role in player.client.prefs.be_special))
 			continue
 
@@ -315,19 +317,16 @@
 /**
  * Works like get_players_for_role, but for alive mobs.
  */
-/datum/game_mode/proc/get_alive_players_for_role(role, list/preferred_species)
+/datum/game_mode/proc/get_alive_players_for_role(role, list/preferred_species, req_job_rank)
 	var/list/players = list()
 	var/list/candidates = list()
 
 	// Assemble a list of active players without jobbans and role enabled
-	for(var/mob/living/player in GLOB.alive_mob_list)
+	for(var/mob/living/carbon/human/player in GLOB.alive_mob_list)
 		if(!player.client \
 			|| jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, role) \
-			|| !player_old_enough_antag(player.client, role) || player.client.skip_antag \
-			|| !(role in player.client.prefs.be_special))
-			continue
-
-		if(player.mind.has_antag_datum(/datum/antagonist) || player.mind.offstation_role || player.mind.special_role)
+			|| !player_old_enough_antag(player.client, role, req_job_rank) || player.client.prefs?.skip_antag \
+			|| !(role in player.client.prefs.be_special) || !is_player_station_relevant(player))
 			continue
 
 		players += player
@@ -336,10 +335,12 @@
 	players = shuffle(players)
 
 	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
-	for(var/mob/living/player in players)
+	for(var/mob/living/carbon/human/player in players)
 		if(length(protected_species) && (player.client.prefs.species in protected_species))
 			continue
 		if(length(restricted_jobs) && (player.mind.assigned_role in restricted_jobs))
+			continue
+		if(length(forbidden_antag_jobs) && (player.mind.assigned_role in forbidden_antag_jobs[role]))
 			continue
 
 		player_draft_log += "[player.key] had [role] enabled, so we are drafting them."
@@ -352,34 +353,67 @@
 
 	return candidates
 
+
+/datum/game_mode/proc/get_alive_AIs_for_role(role)
+	. = list()
+	for(var/mob/living/silicon/ai/AI in GLOB.alive_mob_list)
+		if(!AI.client || !AI.mind \
+			|| jobban_isbanned(AI, "Syndicate") || jobban_isbanned(AI, role) \
+			|| !player_old_enough_antag(AI.client, role, JOB_TITLE_AI) || AI.client.prefs?.skip_antag \
+			|| !(role in AI.client.prefs.be_special) || AI.stat == DEAD || AI.control_disabled \
+			|| AI.mind.offstation_role || AI.mind.special_role)
+			continue
+		. += AI.mind
+
+
+/// All the checks required to find baseline human being
+/proc/is_player_station_relevant(mob/living/carbon/human/player)
+	if(QDELING(player))
+		return FALSE
+	if(!player.client)
+		return FALSE
+	if(!player.mind)
+		return FALSE
+	if(player.mind.special_role)	// already "special"
+		return FALSE
+	if(player.mind.offstation_role)	// spawned mobs
+		return FALSE
+	if(player.stat == DEAD)	// no zombies
+		return FALSE
+	var/turf/player_turf = get_turf(player)
+	if(!player_turf)	// nullspace, eh?
+		return FALSE
+	if(!is_level_reachable(player_turf.z) && !is_away_level(player_turf.z))	// taipan is not available, mkay?
+		return FALSE
+	if(is_monkeybasic(player))	// no monkas
+		return FALSE
+	if(isgolem(player))	// get out of here
+		return FALSE
+	if(is_evolvedslime(player))	// no evolved slimes please
+		return FALSE
+	return TRUE	// congratulations, you are normal!
+
+
 /datum/game_mode/proc/latespawn(mob/player)
 
 
 /datum/game_mode/proc/num_players()
 	. = 0
-
 	for(var/mob/new_player/player in GLOB.player_list)
-
 		if(player.client && player.ready)
 			.++
 
-/datum/game_mode/proc/num_station_players()
+
+/proc/num_station_players()
 	. = 0
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
-		if(!player)
-			continue
-
-		if(player.client && player.mind && !player.mind.offstation_role && !player.mind.special_role)
+		if(is_player_station_relevant(player))
 			.++
 
 
 /datum/game_mode/proc/num_players_started()
 	. = 0
-
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
-		if(!player)
-			continue
-
 		if(player.client)
 			.++
 
@@ -392,7 +426,7 @@
 
 	for(var/mob/living/carbon/human/player in GLOB.human_list)
 
-		var/list/real_command_positions = GLOB.command_positions.Copy() - "Nanotrasen Representative"
+		var/list/real_command_positions = GLOB.command_positions.Copy() - JOB_TITLE_REPRESENTATIVE
 		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind
 
@@ -407,7 +441,7 @@
 		if(!player)
 			continue
 
-		var/list/real_command_positions = GLOB.command_positions.Copy() - "Nanotrasen Representative"
+		var/list/real_command_positions = GLOB.command_positions.Copy() - JOB_TITLE_REPRESENTATIVE
 		if(player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind
 
@@ -633,8 +667,8 @@
 	var/list/possible = list()
 
 	for(var/T in subtypesof(/datum/station_goal))
-		var/datum/station_goal/goal = T
-		if(config_tag in initial(goal.gamemode_blacklist))
+		var/datum/station_goal/goal = new T
+		if(config_tag in goal.gamemode_blacklist)
 			continue
 
 		possible += goal
@@ -642,8 +676,8 @@
 	var/goal_weights = 0
 	while(length(possible) && goal_weights < STATION_GOAL_BUDGET)
 		var/datum/station_goal/picked_goal = pick_n_take(possible)
-		goal_weights += initial(picked_goal.weight)
-		station_goals += new picked_goal
+		goal_weights += picked_goal.weight
+		station_goals += picked_goal
 
 	if(length(station_goals))
 		send_station_goals_message()
@@ -683,6 +717,31 @@
 	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]
 	antaghud.leave_hud(mob_mind.current)
 	set_antag_hud(mob_mind.current, null)
+
+/datum/game_mode/proc/apocalypse()
+	set_security_level(SEC_LEVEL_DELTA)
+	GLOB.priority_announcement.Announce("Обнаружена угроза класса 'Разрушитель миров'. Самостоятельное решение задачи маловероятно. Моделирование пути решения начато, ожидайте.", "Отдел Центрального Командования по делам высших измерений", 'sound/AI/commandreport.ogg')
+	sleep(50 SECONDS)
+	GLOB.priority_announcement.Announce("Моделирование завершено. Меры будут приняты в ближайшем времени. Всему живому персоналу: не допустите усиления угрозы любой ценой.", "Отдел Центрального Командования по делам высших измерений", 'sound/AI/commandreport.ogg')
+	sleep(30 SECONDS)
+	var/obj/singularity/narsie/N = locate(/obj/singularity/narsie) in GLOB.poi_list
+	var/obj/singularity/ratvar/R = locate(/obj/singularity/ratvar) in GLOB.poi_list
+	if(!N && !R)
+		GLOB.priority_announcement.Announce("Угроза пропала с наших сенсоров. Нам требуется срочный отчет о вашей ситуации. Но, мгм, пока что мы санкционировали вам экстренную эвакуацию.", 'sound/AI/commandreport.ogg')
+		SSshuttle.emergency.request(null, 0.3)
+		SSshuttle.emergency.canRecall = FALSE
+		return
+	if(SSticker.cultdat.name == "Cult of Nar'Sie")
+		if(N.soul_devoured > 20)
+			play_cinematic(/datum/cinematic/cult_arm, world)
+			sleep(15 SECONDS)
+			SSticker.force_ending = TRUE
+			return
+	play_cinematic(/datum/cinematic/nuke/self_destruct, world)
+	sleep(8 SECONDS)
+	SSticker.force_ending = TRUE
+	qdel(R)
+	qdel(N)
 
 
 #undef NUKE_INTACT

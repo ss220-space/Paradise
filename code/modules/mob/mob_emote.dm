@@ -5,9 +5,9 @@
  * Send an emote.
  *
  * * emote_key - Key of the emote being triggered
- * * m_type - Type of the emote, like EMOTE_AUDIBLE. If this is not null, the default type of the emote will be overridden.
+ * * type_override - Type of the emote, like EMOTE_AUDIBLE. If this is not null, the default type of the emote will be overridden.
  * * message - Custom parameter for the emote. This should be used if you want to pass something like a target programmatically.
- * * intentional - Whether or not the emote was deliberately triggered by the mob. If `TRUE`, it's forced, which skips some checks when calling the emote.
+ * * intentional - Whether or not the emote was deliberately triggered by the mob. If `FALSE`, it's forced, which skips some checks when calling the emote.
  * * force_silence - If `TRUE`, unusable/nonexistent emotes will not notify the user.
  * * ignore_cooldowns - If `TRUE` all cooldowns will be skipped.
  */
@@ -29,15 +29,15 @@
 		return FALSE
 
 	var/silenced = FALSE
-	for(var/datum/emote/P in key_emotes)
+	for(var/datum/emote/emote as anything in key_emotes)
 		// can this mob run the emote at all?
-		if(!P.can_run_emote(src, intentional = intentional))
+		if(!emote.can_run_emote(src, intentional = intentional))
 			continue
-		if(!P.check_cooldown(src, intentional, ignore_cooldowns))
+		if(!emote.check_cooldown(src, intentional, ignore_cooldowns))
 			// if an emote's on cooldown, don't spam them with messages of not being able to use it
 			silenced = TRUE
 			continue
-		if(P.try_run_emote(src, param, type_override, intentional))
+		if(emote.try_run_emote(src, param, type_override, intentional))
 			return TRUE
 	if(intentional && !silenced && !force_silence)
 		to_chat(src, span_notice("Unusable emote '[emote_key]'. Say *help for a list."))
@@ -51,7 +51,7 @@
  * * message: Content of the message. If none is provided, the user will be prompted to choose the input.
  * * intentional: Whether or not the user intendeded to perform the emote.
  */
-/mob/proc/custom_emote(m_type = EMOTE_VISIBLE, message = null, intentional = FALSE)
+/mob/proc/custom_emote(m_type = EMOTE_VISIBLE, message = null, intentional = FALSE, ignore_cooldowns = FALSE)
 	var/input = ""
 	if(!message && !client)
 		CRASH("An empty custom emote was called from a client-less mob.")
@@ -60,7 +60,7 @@
 	else
 		input = message
 
-	emote("me", m_type, input, intentional)
+	emote("me", m_type, input, intentional, ignore_cooldowns = ignore_cooldowns)
 
 
 /**
@@ -140,33 +140,28 @@
 		user.SpinAnimation(5, 1)
 		return TRUE
 
-	if(isliving(user) && (user.lying || user.resting))
+	if(isliving(user) && user.body_position == LYING_DOWN)
 		message = "круж%(ит,ат)%ся на полу."
 		return ..()
 
 	else if(params)
 		message_param = "дела%(ет,ют)% кувырок в сторону %t."
-	else if(ishuman(user))
-		var/obj/item/grab/grab = user.get_active_hand()
-		if(istype(grab) && grab.affecting)
-			var/mob/living/target = grab.affecting
+	else if(ishuman(user) && isliving(user.pulling) && user.grab_state > GRAB_PASSIVE)
+		var/mob/living/target = user.pulling
+		if(user.buckled || target.buckled)
+			to_chat(user, span_warning("[target] is buckled, you can't flip around [target.p_them()]!"))
+			return TRUE
 
-			if(user.buckled || target.buckled)
-				to_chat(user, span_warning("[target] is buckled, you can't flip around [target.p_them()]!"))
-				return TRUE
-
-			var/turf/oldloc = user.loc
-			var/turf/newloc = target.loc
-			if(isturf(oldloc) && isturf(newloc))
-				user.SpinAnimation(5, 1)
-				user.glide_for(0.6 SECONDS) // This and the glide_for below are purely arbitrary. Pick something that looks aesthetically pleasing.
-				var/old_pass = user.pass_flags
-				user.pass_flags |= (PASSMOB|PASSTABLE)
-				step(user, get_dir(oldloc, newloc))
-				user.pass_flags = old_pass
-				target.glide_for(0.6 SECONDS)
-				message = "дела%(ет,ют)% кувырок через [target.name]!"
-				return ..()
+		var/turf/oldloc = user.loc
+		var/turf/newloc = target.loc
+		if(isturf(oldloc) && isturf(newloc))
+			user.SpinAnimation(5, 1)
+			var/old_pass = user.pass_flags
+			user.pass_flags |= (PASSTABLE)
+			step(user, get_dir(oldloc, newloc))
+			user.pass_flags = old_pass
+			message = "дела%(ет,ют)% кувырок через [target.name]!"
+			return ..()
 
 	user.SpinAnimation(5, 1)
 

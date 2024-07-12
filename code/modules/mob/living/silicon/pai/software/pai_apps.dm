@@ -357,7 +357,7 @@
 		last_message_time = world.time
 
 	to_chat(pai_holder, span_warning("Начался взлом объекта. Необходимо избегать любого передвижения для сохранения сигнала. Время ожидания: [hack_time/10] секунд."))
-	if(!do_after_once(pai_holder, hack_time, target = machinery))
+	if(!do_after(pai_holder, hack_time, machinery, max_interact_count = 1))
 		to_chat(pai_holder, span_notice("Ошибка. Взлом объекта завершён."))
 		cleanup_hack()
 		return
@@ -365,7 +365,7 @@
 		if(istype(machinery, /obj/machinery/door))
 			var/obj/machinery/door/D = machinery
 			D.open()
-		else if(istype(machinery, /obj/machinery/power/apc))
+		else if(isapc(machinery))
 			var/obj/machinery/power/apc/apc = machinery
 			apc.locked = FALSE
 			apc.update_icon()
@@ -394,6 +394,29 @@
 	cable.machine = null
 	QDEL_NULL(cable)
 	hacking = FALSE
+
+// pAI GPS module //
+/datum/pai_software/gps
+	name = "GPS"
+	ram_cost = 10
+	id = "pai_gps"
+	template_file = "pai_gps_module"
+	ui_icon = "location-arrow"
+
+/obj/item/gps/internal/pai_gps
+	icon_state = null
+	upgraded = TRUE
+	gpstag = "pAI0"
+	invisibility = INVISIBILITY_ABSTRACT
+	tracking = FALSE
+
+/datum/pai_software/gps/ui_act(action, list/params)
+	if(..())
+		return
+
+	switch(action)
+		if("ui_interact")
+			pai_holder.pai_internal_gps.ui_interact(pai_holder)
 
 // Host Bioscan //
 /datum/pai_software/host_scan

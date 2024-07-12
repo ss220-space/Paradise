@@ -27,6 +27,12 @@
 	circuit = /obj/item/circuitboard/powermonitor/secret
 	is_secret_monitor = TRUE
 
+/obj/machinery/computer/monitor/secret/old_frame
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_screen = "power_oldframe"
+	icon_state = "frame-eng"
+	icon_keyboard = "kb11"
+
 /obj/machinery/computer/monitor/New()
 	..()
 	GLOB.power_monitors += src
@@ -79,8 +85,8 @@
 	powernet = find_powernet()
 	ui_interact(user)
 
-/obj/machinery/computer/monitor/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	power_monitor.ui_interact(user, ui_key, ui, force_open)
+/obj/machinery/computer/monitor/ui_interact(mob/user, datum/tgui/ui = null)
+	power_monitor.ui_interact(user, ui)
 
 /obj/machinery/computer/monitor/interact(mob/user)
 	power_monitor.ui_interact(user)

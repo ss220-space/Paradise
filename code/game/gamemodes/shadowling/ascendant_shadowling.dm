@@ -7,12 +7,12 @@
 	speak = list("Azima'dox", "Mahz'kavek", "N'ildzak", "Kaz'vadosh")
 	speak_emote = list("telepathically thunders", "telepathically booms")
 	force_threshold = INFINITY //Can't die by normal means
+	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
 	health = 100000
 	maxHealth = 100000
 	speed = 0
 	var/phasing = 0
-	flying = TRUE
-	see_in_dark = 8
+	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 	universal_speak = 1
@@ -33,15 +33,18 @@
 
 	faction = list("faithless")
 
+
 /mob/living/simple_animal/ascendant_shadowling/Initialize(mapload)
 	. = ..()
+
+	AddElement(/datum/element/simple_flying)
 	if(prob(35))
 		icon_state = "NurnKal"
 		icon_living = "NurnKal"
 	update_icon(UPDATE_OVERLAYS)
 
-/mob/living/simple_animal/ascendant_shadowling/Process_Spacemove(movement_dir = 0)
-	return 1 //copypasta from carp code
+/mob/living/simple_animal/ascendant_shadowling/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
+	return TRUE //copypasta from carp code
 
 /mob/living/simple_animal/ascendant_shadowling/ex_act(severity)
 	return //You think an ascendant can be hurt by bombs? HA

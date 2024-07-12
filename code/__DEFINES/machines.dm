@@ -3,9 +3,9 @@
 #define LIGHT           2
 #define ENVIRON         3
 #define TOTAL           4	//for total power used only
-#define STATIC_EQUIP    5
-#define STATIC_LIGHT    6
-#define STATIC_ENVIRON  7
+#define CHANNEL_STATIC_EQUIP    5
+#define CHANNEL_STATIC_LIGHT    6
+#define CHANNEL_STATIC_ENVIRON  7
 
 //Power use
 #define NO_POWER_USE 0
@@ -47,6 +47,7 @@
 #define TARGET_DEPT_MED 3
 #define TARGET_DEPT_SCI 4
 #define TARGET_DEPT_ENG 5
+#define TARGET_DEPT_SUP 6
 
 // These are used by supermatter and supermatter monitor program, mostly for UI updating purposes. Higher should always be worse!
 // These are warning defines, they should trigger before the state, not after.

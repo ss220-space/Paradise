@@ -318,10 +318,10 @@
 
 	ui_interact(user)
 
-/obj/machinery/computer/communications/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/communications/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "CommunicationsComputer",  name, 500, 600, master_ui, state)
+		ui = new(user, src, "CommunicationsComputer", name)
 		ui.open()
 
 /obj/machinery/computer/communications/ui_data(mob/user)
@@ -469,7 +469,7 @@
 	return
 
 
-/proc/cancel_call_proc(var/mob/user)
+/proc/cancel_call_proc(mob/user)
 	if(SSticker.mode.name == "meteor")
 		return
 

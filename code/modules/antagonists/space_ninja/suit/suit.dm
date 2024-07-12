@@ -23,6 +23,7 @@
 	strip_delay = 12
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	flags_inv = HIDEGLOVES|HIDEJUMPSUIT|HIDETAIL
+	flags_inv_transparent = HIDEGLOVES|HIDEJUMPSUIT
 	actions = list()
 	action_icon = list()
 	action_icon_state = list()
@@ -99,6 +100,7 @@
 	var/ninja_martial = FALSE
 	/// Встроенный в костюм джетпак
 	jetpack = /obj/item/tank/jetpack/suit/ninja
+	jetpack_upgradable = TRUE
 
 	/// UI stuff ///
 	/// Флаги отвечающие за то - показываем мы или нет интерфейс заряда и концентрации ниндзя
@@ -381,12 +383,9 @@
 			if(disguise_active) // If chameleon is active.
 				used_power += s_acost
 			if(spirited) // If spirit form is active.
-				if(istype(ninja.r_hand, /obj/item/grab))
-					ninja.drop_item_ground(ninja.r_hand, force = TRUE)
+				if(ninja.pulling && ninja.grab_state > GRAB_PASSIVE)
 					to_chat(ninja, span_warning("You can't hold anyone that tight, when \"Spirit Form\" is active!"))
-				if(istype(ninja.l_hand, /obj/item/grab))
-					ninja.drop_item_ground(ninja.l_hand, force = TRUE)
-					to_chat(ninja, span_warning("You can't hold anyone that tight, when \"Spirit Form\" is active!"))
+					ninja.stop_pulling()
 				used_power += cell.maxcharge * s_spirit_form__percent_cost //that shit is NOT cheap
 			if(cell.charge < used_power) // Проверка на случай когда он не может отнять энергию до нуля и в итоге вечно торчит в инвизе/форме духа/хамелионе
 				cell.charge = 0
@@ -402,18 +401,18 @@
 
 	ninja.adjust_bodytemperature(BODYTEMP_NORMAL - ninja.bodytemperature)
 
-/obj/item/clothing/suit/space/space_ninja/ui_action_click(mob/ninja, action)
+/obj/item/clothing/suit/space/space_ninja/ui_action_click(mob/ninja, datum/action/action)
 	if(!isninja(ninja) && !anyone)
 		to_chat(ninja, span_danger("<B>fÄTaL ÈÈRRoR</B>: 382200-*#00CÖDE <B>RED</B>\nUNAUHORIZED USÈ DETÈCeD\nCoMMÈNCING SUB-R0UIN3 13...\nTÈRMInATING U-U-USÈR..."))
 		ninja.dust()
 		return FALSE
-	if(action == /datum/action/item_action/advanced/ninja/SpiderOS)
+	if(istype(action, /datum/action/item_action/advanced/ninja/SpiderOS))
 		ui_interact(ninja)
 		return TRUE
 	if(!s_initialized)
 		to_chat(ninja, span_warning("<b>ERROR</b>: suit offline. Please activate suit."))
 		return FALSE
-	switch(action)
+	switch(action.type)
 		if(/datum/action/item_action/advanced/ninja/ninja_autodust)
 			ninja_toggle_autodust()
 			return TRUE
@@ -629,27 +628,31 @@
 	var/mob/living/carbon/human/ninja = affecting
 	if(!n_scarf)
 		var/obj/item/clothing/neck/ninjascarf/new_scarf = new
-		if(!ninja.equip_to_slot_if_possible(new_scarf, slot_neck, qdel_on_fail = TRUE))		//Уже что то надето в слоте шеи? Алярма, снимите помеху прежде чем продолжить.
+		if(!ninja.equip_to_slot_if_possible(new_scarf, ITEM_SLOT_NECK, qdel_on_fail = TRUE))		//Уже что то надето в слоте шеи? Алярма, снимите помеху прежде чем продолжить.
 			to_chat(ninja, "[span_userdanger("ERROR")]: 100220 UNABLE TO TRANSFORM HEAD GEAR\nABORTING...")
 			return FALSE
 		n_scarf = new_scarf
 		n_scarf.icon_state="ninja_scarf_[scarf_design_choice]"
 		n_scarf.item_state="ninja_scarf_[scarf_design_choice]"
 		n_hood.icon_state = "ninja_hood_blocked_[scarf_design_choice]"
-		n_hood.flags &= ~BLOCKHAIR
+		n_hood.flags_inv &= ~HIDEHAIR
 		n_hood.desc = "Even thou your hood now looks like a scarf, it still offers a smart and adaptive protection from damage to your head. And from the other headwear as well..."
 		return TRUE
 	else
 		qdel(n_scarf)
 		n_scarf = null
-		n_hood.flags |= BLOCKHAIR
+		n_hood.flags_inv |= HIDEHAIR
 		n_hood.desc = initial(n_hood.desc)
 		return TRUE
 
 //Блочит определённую часть костюма, чтобы ниндзя не мог её снять
-/obj/item/clothing/suit/space/space_ninja/proc/toggle_ninja_nodrop(var/obj/item/ninja_clothing)
-	ninja_clothing.flags ^= NODROP
-	current_initialisation_text = "[ninja_clothing.flags & NODROP ? "Блокировка" : "Разблокировка"]: [ninja_clothing.name]... Успех"
+/obj/item/clothing/suit/space/space_ninja/proc/toggle_ninja_nodrop(obj/item/ninja_clothing)
+	var/prev_has = HAS_TRAIT_FROM(ninja_clothing, TRAIT_NODROP, NINJA_TRAIT)
+	if(prev_has)
+		REMOVE_TRAIT(ninja_clothing, TRAIT_NODROP, NINJA_TRAIT)
+	else
+		ADD_TRAIT(ninja_clothing, TRAIT_NODROP, NINJA_TRAIT)
+	current_initialisation_text = "[prev_has ? "Разблокировка" : "Блокировка"]: [ninja_clothing.name]... Успех"
 	playsound(ninja_clothing.loc, 'sound/items/piston.ogg', 10, TRUE)
 	sleep(10)
 //	to_chat(ninja_clothing.loc, "<span class='notice'>Your [ninja_clothing.name] is now [ninja_clothing.flags & NODROP ? "locked" : "unlocked"].</span>")

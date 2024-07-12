@@ -170,15 +170,15 @@
 
 /obj/machinery/brs_server/proc/create_light()
 	if(stat & (BROKEN))
-		set_light(0)
+		set_light_on(FALSE)
 		return
 	if(stat & (NOPOWER))
-		set_light(0)
+		set_light_on(FALSE)
 		return
 	if(emagged)
-		set_light(l_range = 1, l_power = 1, l_color = COLOR_RED_LIGHT)
+		set_light(l_range = 1, l_power = 1, l_color = COLOR_RED_LIGHT, l_on = TRUE)
 		return
-	set_light(l_range = 1, l_power = 1, l_color = COLOR_BLUE_LIGHT)
+	set_light(l_range = 1, l_power = 1, l_color = COLOR_BLUE_LIGHT, l_on = TRUE)
 
 
 /obj/machinery/brs_server/power_change(forced = FALSE)
@@ -198,7 +198,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/brs_server/crowbar_act(mob/living/user, obj/item/I)
-	if((!panel_open) || (flags & NODECONSTRUCT))
+	if((!panel_open) || (obj_flags & NODECONSTRUCT))
 		return FALSE
 	. = TRUE
 
@@ -273,10 +273,10 @@
 
 	ui_interact(user)
 
-/obj/machinery/brs_server/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/brs_server/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BluespaceRiftServer", name, 570, 400)
+		ui = new(user, src, "BluespaceRiftServer", name)
 		ui.open()
 
 /obj/machinery/brs_server/ui_data(mob/user)

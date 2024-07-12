@@ -7,12 +7,12 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "signmaker_clown_off"
 	item_state = "signmaker_clown"
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 0
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 7
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_SMALL
 
 	var/pointer_busy = FALSE
@@ -44,9 +44,9 @@
 
 /obj/item/signmaker/update_icon_state()
 	if(pointer_busy)
-		icon_state = "signmaker_clown_off"
+		icon_state = "signmaker_clown_on"
 		return
-	icon_state = "signmaker_clown_[sign ? "on" : "off"]]"
+	icon_state = "signmaker_clown_[sign ? "on" : "off"]"
 
 
 /obj/item/signmaker/emag_act(mob/user)
@@ -159,7 +159,7 @@
 			to_chat(user, "<span class='notice'>You use [src] to deactivate [sign].</span>")
 			clear_holosign()
 		return
-	if(is_blocked_turf(T, TRUE)) //can't put holograms on a tile that has dense stuff
+	if(T.is_blocked_turf(exclude_mobs = TRUE)) //can't put holograms on a tile that has dense stuff
 		return
 	clear_holosign()
 	playsound(src, 'sound/machines/click.ogg', 20, 1)
@@ -180,16 +180,24 @@
 
 	var/obj/item/signmaker/projector = null
 
+
 /obj/structure/holosoap/Initialize(mapload, new_projector)
 	. = ..()
 	projector = new_projector
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /obj/structure/holosoap/Destroy()
-	projector.sign = null
+	projector?.sign = null
+	projector?.update_icon(UPDATE_ICON_STATE)
 	return ..()
 
 /obj/structure/holosoap/has_prints()
 	return FALSE
+
 
 /obj/structure/holosoap/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -198,9 +206,12 @@
 		if(BURN)
 			playsound(loc, 'sound/items/squeaktoy.ogg', 80, TRUE)
 
-/obj/structure/holosoap/Crossed(atom/movable/AM, oldloc)
+
+/obj/structure/holosoap/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
 	playsound(loc, 'sound/misc/slip.ogg', 80, TRUE)
-	. = ..()
+
 
 /obj/structure/holosoap/attack_hand(mob/living/user)
 	. = ..()

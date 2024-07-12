@@ -136,7 +136,7 @@
 	taste_description = "pure resignation"
 
 /datum/reagent/consumable/ethanol/hooch/on_mob_life(mob/living/carbon/M)
-	if(M.mind && M.mind.assigned_role == "Civilian")
+	if(M.mind && M.mind.assigned_role == JOB_TITLE_CIVILIAN)
 		var/update_flags = STATUS_UPDATE_NONE
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
@@ -284,8 +284,8 @@
 /datum/reagent/consumable/ethanol/thirteenloko/on_mob_life(mob/living/M)
 	M.AdjustDrowsy(-14 SECONDS)
 	M.AdjustSleeping(-4 SECONDS)
-	if(M.bodytemperature > 310)
-		M.bodytemperature = max(310, M.bodytemperature - (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
+	if(M.bodytemperature > BODYTEMP_NORMAL)
+		M.adjust_bodytemperature(-(5 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	M.Jitter(10 SECONDS)
 	return ..()
 
@@ -528,8 +528,8 @@
 	taste_description = "FIRE"
 
 /datum/reagent/consumable/ethanol/toxins_special/on_mob_life(mob/living/M)
-	if(M.bodytemperature < 330)
-		M.bodytemperature = min(330, M.bodytemperature + (15 * TEMPERATURE_DAMAGE_COEFFICIENT)) //310 is the normal bodytemp. 310.055
+	if(M.bodytemperature < (BODYTEMP_NORMAL + 20))
+		M.adjust_bodytemperature(15 * TEMPERATURE_DAMAGE_COEFFICIENT)
 	return ..()
 
 /datum/reagent/consumable/ethanol/beepsky_smash
@@ -546,9 +546,8 @@
 	taste_description = "THE LAW"
 
 /datum/reagent/consumable/ethanol/beepsky_smash/on_mob_life(mob/living/M)
-	var/update_flag = STATUS_UPDATE_NONE
-	M.Stun(2 SECONDS)
-	return ..() | update_flag
+	M.drop_from_hands()
+	return ..()
 
 /datum/reagent/consumable/ethanol/irish_cream
 	name = "Irish Cream"
@@ -694,8 +693,8 @@
 	taste_description = "poor life choices"
 
 /datum/reagent/consumable/ethanol/antifreeze/on_mob_life(mob/living/M)
-	if(M.bodytemperature < 330)
-		M.bodytemperature = min(330, M.bodytemperature + (20 * TEMPERATURE_DAMAGE_COEFFICIENT)) //310 is the normal bodytemp. 310.055
+	if(M.bodytemperature < (BODYTEMP_NORMAL + 20))
+		M.adjust_bodytemperature(20 * TEMPERATURE_DAMAGE_COEFFICIENT)
 	return ..()
 
 /datum/reagent/consumable/ethanol/barefoot
@@ -799,8 +798,8 @@
 	taste_description = "comforting warmth"
 
 /datum/reagent/consumable/ethanol/sbiten/on_mob_life(mob/living/M)
-	if(M.bodytemperature < 360)
-		M.bodytemperature = min(360, M.bodytemperature + (50 * TEMPERATURE_DAMAGE_COEFFICIENT)) //310 is the normal bodytemp. 310.055
+	if(M.bodytemperature < (BODYTEMP_NORMAL + 50))
+		M.adjust_bodytemperature(50 * TEMPERATURE_DAMAGE_COEFFICIENT)
 	return ..()
 
 /datum/reagent/consumable/ethanol/devilskiss
@@ -853,8 +852,8 @@
 	taste_description = "cold beer"
 
 /datum/reagent/consumable/ethanol/iced_beer/on_mob_life(mob/living/M)
-	if(M.bodytemperature > 270)
-		M.bodytemperature = max(270, M.bodytemperature - (20 * TEMPERATURE_DAMAGE_COEFFICIENT)) //310 is the normal bodytemp. 310.055
+	if(M.bodytemperature > (BODYTEMP_NORMAL - 40))
+		M.adjust_bodytemperature(-(20 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	return ..()
 
 /datum/reagent/consumable/ethanol/grog
@@ -2123,7 +2122,7 @@
 /datum/reagent/consumable/ethanol/codelibre/on_mob_life(mob/living/M)
 	. = ..()
 	if(prob(10))
-		M.say(":5 [pick("Viva la Synthetica!")]")
+		M.say("[get_language_prefix(LANGUAGE_TRINARY)] Viva la Synthetica!")
 
 /datum/reagent/consumable/ethanol/blackicp
 	name = "Black ICP"
@@ -2231,20 +2230,20 @@
 /datum/reagent/consumable/ethanol/trans_siberian_express/on_mob_life(mob/living/M)
 	. = ..()
 	var/datum/language/rus_lang = GLOB.all_languages[LANGUAGE_NEO_RUSSIAN]
-	if((rus_lang in M.languages) && !(rus_lang in M.temporary_languages))
+	if(LAZYIN(M.languages, rus_lang) && !LAZYIN(M.temporary_languages, rus_lang))
 		if(M.default_language != rus_lang)
 			M.default_language = rus_lang
 		if(volume < 0.4)
 			M.default_language = null //reset language we were speaking
 		return
 	else
-		if(!(rus_lang in M.languages))
-			M.temporary_languages += rus_lang
-			M.languages += rus_lang
+		if(!LAZYIN(M.languages, rus_lang))
+			LAZYADD(M.temporary_languages, rus_lang)
+			LAZYADD(M.languages, rus_lang)
 			M.default_language = rus_lang
 		if(volume < 0.4)
 			M.languages ^= M.temporary_languages
-			M.temporary_languages -= rus_lang
+			LAZYREMOVE(M.temporary_languages, rus_lang)
 			M.default_language = null
 
 /datum/reagent/consumable/ethanol/sun
@@ -2438,6 +2437,7 @@
 		if(25)
 			M.SetStunned(0)
 			M.SetWeakened(0)
+			M.SetKnockdown(0)
 			M.SetParalysis(0)
 			M.SetSleeping(0)
 			M.SetDrowsy(0)
@@ -2446,8 +2446,8 @@
 			M.SetJitter(0)
 			M.SetDizzy(0)
 			M.SetDruggy(0)
-			M.lying = 0
-			M.update_canmove() // wakey wakey
+			M.set_resting(FALSE, instant = TRUE)
+			M.get_up(instant = TRUE)
 			var/restart_amount = clamp(M.reagents.get_reagent_amount("restart")-0.4, 0, 330)
 			M.reagents.remove_reagent("restart",restart_amount)
 	return ..() | update_flags

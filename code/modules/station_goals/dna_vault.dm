@@ -13,6 +13,7 @@
 
 /datum/station_goal/dna_vault
 	name = "DNA Vault"
+	gamemode_blacklist = list("extended")
 	var/animal_count
 	var/human_count
 	var/plant_count
@@ -66,7 +67,7 @@
 	icon = 'icons/obj/hypo.dmi'
 	item_state = "sampler_hypo"
 	icon_state = "sampler_hypo"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	var/list/animals = list()
 	var/list/plants = list()
 	var/list/dna = list()
@@ -133,9 +134,10 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 
 /obj/structure/filler
 	name = "big machinery part"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	invisibility = INVISIBILITY_ABSTRACT
+	smoothing_groups = SMOOTH_GROUP_FILLER
 	var/obj/machinery/parent
 
 /obj/structure/filler/Destroy()
@@ -150,7 +152,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	desc = "Break glass in case of apocalypse."
 	icon = 'icons/obj/machines/dna_vault.dmi'
 	icon_state = "vault"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	idle_power_usage = 5000
 	pixel_x = -32
@@ -218,11 +220,11 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 		return TRUE
 	ui_interact(user)
 
-/obj/machinery/dna_vault/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/dna_vault/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		roll_powers(user)
-		ui = new(user, src, ui_key, "DnaVault", name, 350, 400, master_ui, state)
+		ui = new(user, src, "DnaVault", name)
 		ui.open()
 
 /obj/machinery/dna_vault/proc/roll_powers(mob/user)
@@ -333,7 +335,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 			S.species_traits |= PIERCEIMMUNE
 		if(VAULT_SPEED)
 			to_chat(H, "<span class='notice'>You feel very fast and agile.</span>")
-			S.speed_mod = -1
+			H.add_movespeed_modifier(/datum/movespeed_modifier/dna_vault_speedup)
 		if(VAULT_QUICK)
 			to_chat(H, "<span class='notice'>Your arms move as fast as lightning.</span>")
 			H.next_move_modifier = 0.5

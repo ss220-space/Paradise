@@ -7,7 +7,7 @@
 	icon_state = "chronobackpack"
 	item_state = "backpack"
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	slowdown = 1
 	actions_types = list(/datum/action/item_action/equip_unequip_TED_Gun)
 	var/obj/item/gun/energy/chrono_gun/PA = null
@@ -16,28 +16,25 @@
 /obj/item/chrono_eraser/proc/pass_mind(var/datum/mind/M)
 	erased_minds += M
 
-/obj/item/chrono_eraser/dropped(mob/user, silent = FALSE)
-	..()
-	if(PA)
-		qdel(PA)
+/obj/item/chrono_eraser/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	QDEL_NULL(PA)
 
 /obj/item/chrono_eraser/Destroy()
-	dropped()
+	QDEL_NULL(PA)
 	return ..()
 
 /obj/item/chrono_eraser/ui_action_click(mob/user)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		if(C.back == src)
-			if(PA)
-				qdel(PA)
-			else
-				PA = new(user, src)
-				user.put_in_hands(PA)
+			QDEL_NULL(PA)
+			PA = new(user, src)
+			user.put_in_hands(PA)
 
 /obj/item/chrono_eraser/item_action_slot_check(slot, mob/user)
-	if(slot == slot_back)
-		return 1
+	if(slot == ITEM_SLOT_BACK)
+		return TRUE
 
 
 /obj/item/gun/energy/chrono_gun
@@ -47,7 +44,7 @@
 	icon_state = "chronogun"
 	item_state = "chronogun"
 	w_class = WEIGHT_CLASS_NORMAL
-	flags = NODROP | DROPDEL
+	item_flags = DROPDEL
 	ammo_type = list(/obj/item/ammo_casing/energy/chrono_beam)
 	can_charge = FALSE
 	fire_delay = 50
@@ -59,6 +56,7 @@
 	. = ..()
 	if(istype(T))
 		TED = T
+		ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 	else //admin must have spawned it
 		TED = new(src.loc)
 		qdel(src)
@@ -108,7 +106,7 @@
 		if(field == F)
 			var/turf/currentpos = get_turf(src)
 			var/mob/living/user = src.loc
-			if((currentpos == startpos) && (field in view(CHRONO_BEAM_RANGE, currentpos)) && !user.lying && (user.stat == CONSCIOUS))
+			if((currentpos == startpos) && (field in view(CHRONO_BEAM_RANGE, currentpos)) && !user.incapacitated())
 				return 1
 		field_disconnect(F)
 		return 0
@@ -252,8 +250,8 @@
 	GM.temperature = T20C
 	return GM
 
-/obj/structure/chrono_field/Move()
-	return
+/obj/structure/chrono_field/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
+	return FALSE
 
 /obj/structure/chrono_field/singularity_act()
 	return

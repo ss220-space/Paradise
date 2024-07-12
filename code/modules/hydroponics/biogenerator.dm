@@ -165,7 +165,7 @@
 		SStgui.update_uis(src)
 
 		var/obj/item/disk/design_disk/D = O
-		if(do_after(user, 1 SECONDS, target = src))
+		if(do_after(user, 1 SECONDS, src))
 			files.AddDesign2Known(D.blueprint)
 
 		add_fingerprint(user)
@@ -196,7 +196,7 @@
 				"needs_container" = length(D.make_reagents)
 			)
 
-	SStgui.update_uis(src, update_static_data = TRUE)
+	SStgui.update_uis(src)
 
 /obj/machinery/biogenerator/attack_hand(mob/user)
 	if(..())
@@ -206,10 +206,10 @@
 /obj/machinery/biogenerator/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/biogenerator/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/biogenerator/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Biogenerator", "Biogenerator", 390, 600, master_ui, state)
+		ui = new(user, src, "Biogenerator", "Biogenerator")
 		ui.set_autoupdate(FALSE)
 		ui.open()
 

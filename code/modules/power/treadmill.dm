@@ -17,30 +17,44 @@
 	var/list/mobs_running[0]
 	var/id = null			// for linking to monitor
 
+
 /obj/machinery/power/treadmill/Initialize(mapload)
 	. = ..()
 	if(anchored)
 		connect_to_network()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXITED = PROC_REF(on_exited),
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
+/obj/machinery/power/treadmill/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(!anchored || arrived.anchored)
+		return
+
+	if(!isliving(arrived) || arrived.dir != dir)
+		throw_off(arrived)
+	else
+		mobs_running[arrived] = arrived.last_movement
+
+
+/obj/machinery/power/treadmill/proc/on_exited(datum/source, mob/living/departed, atom/newLoc)
+	SIGNAL_HANDLER
+
+	if(anchored && isliving(departed))
+		mobs_running -= departed
+
 
 /obj/machinery/power/treadmill/update_icon_state()
 	icon_state = speed ? "conveyor-1" : "conveyor0"
 
-/obj/machinery/power/treadmill/Crossed(mob/living/M, oldloc)
-	if(anchored && !M.anchored)
-		if(!istype(M) || M.dir != dir)
-			throw_off(M)
-		else
-			mobs_running[M] = M.last_movement
-	. = ..()
-
-/obj/machinery/power/treadmill/Uncrossed(mob/living/M)
-	if(anchored && istype(M))
-		mobs_running -= M
-	. = ..()
 
 /obj/machinery/power/treadmill/proc/throw_off(atom/movable/A)
 	// if 2fast, throw the person, otherwise they just slide off, if there's reasonable speed at all
-	if(speed)
+	if(speed && !isobserver(A))
 		var/dist = max(throw_dist * speed / MAX_SPEED, 1)
 		A.throw_at(get_distant_turf(get_turf(src), reverse_direction(dir), dist), A.throw_range, A.throw_speed, src, 1)
 
@@ -55,7 +69,7 @@
 		var/atom/movable/AM = A
 		if(AM.anchored)
 			continue
-		if(istype(A, /mob/living))
+		if(isliving(A))
 			var/mob/living/M = A
 			var/last_move
 			// get/update old step count
@@ -67,14 +81,14 @@
 			// if we "stepped" in right direction, add to speed, else throw the person off like a common obj
 			if(last_move != M.last_movement && dir == M.dir)
 				// a reasonable approximation of movement speed
-				var/mob_speed = M.movement_delay()
+				var/mob_speed = M.cached_multiplicative_slowdown
 				switch(M.m_intent)
 					if(MOVE_INTENT_RUN)
 						if(M.get_drowsiness() > 0)
 							mob_speed += 6
-						mob_speed += CONFIG_GET(number/run_speed) - 1
+						mob_speed += CONFIG_GET(number/movedelay/run_delay) - 1
 					if(MOVE_INTENT_WALK)
-						mob_speed += CONFIG_GET(number/walk_speed) - 1
+						mob_speed += CONFIG_GET(number/movedelay/walk_delay) - 1
 				mob_speed = BASE_MOVE_DELAY / max(1, BASE_MOVE_DELAY + mob_speed)
 				speed = min(speed + inertia * mob_speed, mob_speed)
 				continue
@@ -88,7 +102,7 @@
 /obj/machinery/power/treadmill/proc/get_power_output()
 	if(speed && !stat && anchored && powernet)
 		return power_gen * speed / MAX_SPEED
-	return 0
+	return FALSE
 
 /obj/machinery/power/treadmill/emp_act(severity)
 	..()
@@ -97,17 +111,21 @@
 		spawn(100)
 			stat &= ~BROKEN
 
-/obj/machinery/power/treadmill/attackby(obj/item/W, mob/user)
-	if(default_unfasten_wrench(user, W, time = 60))
-		add_fingerprint(user)
-		if(anchored)
-			connect_to_network()
-		else
-			disconnect_from_network()
-		speed = 0
-		update_icon(UPDATE_ICON_STATE)
-		return
-	return ..()
+
+/obj/machinery/power/treadmill/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+
+	if(!default_unfasten_wrench(user, I, 6 SECONDS))
+		return .
+
+	if(anchored)
+		connect_to_network()
+	else
+		disconnect_from_network()
+
+	speed = 0
+	update_icon(UPDATE_ICON_STATE)
+
 
 #undef BASE_MOVE_DELAY
 #undef MAX_SPEED
@@ -118,7 +136,7 @@
 	icon_state = "frame"
 	desc = "Monitors treadmill use."
 	anchored = TRUE
-	density = 0
+	density = FALSE
 	maptext_height = 26
 	maptext_width = 32
 	maptext_y = -1
@@ -199,7 +217,7 @@
 /obj/machinery/treadmill_monitor/proc/update_display(var/line1, var/line2)
 	line1 = uppertext(line1)
 	line2 = uppertext(line2)
-	var/new_text = {"<div style="font-size:[DISPLAY_FONT_SIZE];color:[DISPLAY_FONT_COLOR];font:'[DISPLAY_FONT_SIZE]';text-align:center;" valign="top">[line1]<br>[line2]</div>"}
+	var/new_text = {"<div style="font-size:[DISPLAY_FONT_SIZE];color:[DISPLAY_FONT_COLOR];font:'[DISPLAY_FONT_STYLE]';text-align:center;" valign="top">[line1]<br>[line2]</div>"}
 	if(maptext != new_text)
 		maptext = new_text
 

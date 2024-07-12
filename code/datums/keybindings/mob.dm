@@ -4,7 +4,7 @@
 // Hands
 /datum/keybinding/mob/use_held_object
 	name = "Использовать вещь в руке"
-	keys = list("Y", "Z", "Southeast")
+	keys = list("Y", "Z")
 
 /datum/keybinding/mob/use_held_object/down(client/C)
 	. = ..()
@@ -20,7 +20,7 @@
 
 /datum/keybinding/mob/drop_held_object
 	name = "Выложить вещь в руке"
-	keys = list("Q", "Northwest")
+	keys = list("Q")
 
 /datum/keybinding/mob/drop_held_object/can_use(client/C, mob/M)
 	return !isrobot(M) && ..()   //robots on 'q' have their own proc for drop, in keybindinds/robot.dm
@@ -37,11 +37,17 @@
 			return
 		I.run_drop_held_item(C.mob)
 	else
+		if(C.mob.pulling && isliving(C.mob))
+			var/mob/living/grabber = C.mob
+			if(!isnull(grabber.pull_hand) && grabber.pull_hand != PULL_WITHOUT_HANDS)
+				if(C.mob.next_move <= world.time && grabber.hand == grabber.pull_hand)
+					grabber.stop_pulling()
+				return
 		to_chat(C, span_warning("Вы ничего не держите в руке!"))
 
 /datum/keybinding/mob/swap_hands
 	name = "Поменять руки"
-	keys = list("X", "Northeast")
+	keys = list("X")
 
 /datum/keybinding/mob/swap_hands/down(client/C)
 	. = ..()
@@ -189,7 +195,7 @@
 	if(!C.check_has_body_select())
 		return
 
-	var/obj/screen/zone_sel/selector = C.mob.hud_used.zone_select
+	var/atom/movable/screen/zone_sel/selector = C.mob.hud_used.zone_select
 	selector.set_selected_zone(body_part)
 
 /datum/keybinding/mob/target/head
@@ -262,3 +268,19 @@
 		return
 	linked_action.Trigger()
 	linked_action.UpdateButtonIcon()
+
+/datum/keybinding/mob/move_up
+	name = "Подняться"
+	keys = list("Northeast") // Page Up
+
+/datum/keybinding/mob/move_down
+	name = "Спуститься"
+	keys = list("Southeast") // Page Down
+
+/datum/keybinding/mob/move_up/down(client/C)
+	. = ..()
+	C.mob.move_up()
+
+/datum/keybinding/mob/move_down/down(client/C)
+	. = ..()
+	C.mob.move_down()

@@ -139,7 +139,7 @@
 
 
 /obj/machinery/light_construct/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc, sheets_refunded)
 	qdel(src)
 
@@ -301,7 +301,7 @@
 			if(emergency_mode || fire_mode)
 				icon_state = "[base_icon_state]_emergency"
 			else
-				icon_state = "[base_icon_state][on]"
+				icon_state = "[base_icon_state][light_range == 0 ? FALSE : on]"
 		if(LIGHT_EMPTY)
 			icon_state = "[base_icon_state]-empty"
 			on = FALSE
@@ -320,9 +320,9 @@
 	if(status != LIGHT_OK || !on)
 		return
 	if(nightshift_enabled || emergency_mode || fire_mode)
-		underlays += emissive_appearance(icon, "[base_icon_state]_emergency_lightmask")
+		underlays += emissive_appearance(icon, "[base_icon_state]_emergency_lightmask", src)
 	else
-		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask")
+		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
 
 
 /**
@@ -375,7 +375,7 @@
 
 			else
 				use_power = ACTIVE_POWER_USE
-				set_light(BR, PO, CO)
+				set_light(BR, PO, CO, l_on = on)
 
 	else if(!turned_off())
 		set_emergency_lights()
@@ -390,14 +390,14 @@
 		light_state = on
 		if(on)
 			static_power_used = active_power_usage * 2 //20W per unit luminosity
-			addStaticPower(static_power_used, STATIC_LIGHT)
+			addStaticPower(static_power_used, CHANNEL_STATIC_LIGHT)
 		else
-			removeStaticPower(static_power_used, STATIC_LIGHT)
+			removeStaticPower(static_power_used, CHANNEL_STATIC_LIGHT)
 	else
 		if(on && (static_power_used != active_power_usage * 2))
-			removeStaticPower(static_power_used, STATIC_LIGHT)
+			removeStaticPower(static_power_used, CHANNEL_STATIC_LIGHT)
 			static_power_used = active_power_usage * 2
-			addStaticPower(static_power_used, STATIC_LIGHT)
+			addStaticPower(static_power_used, CHANNEL_STATIC_LIGHT)
 
 	if(play_sound)
 		playsound(src, 'sound/machines/light_on.ogg', 60, TRUE)
@@ -527,7 +527,7 @@
 
 
 /obj/machinery/light/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		var/obj/machinery/light_construct/newlight = null
 		var/cur_stage = 2
 		if(!disassembled)
@@ -601,11 +601,11 @@
 		emergency_lights_off(current_area, current_apc)
 		return
 	if(fire_mode)
-		set_light(nightshift_light_range, nightshift_light_power, bulb_emergency_colour)
+		set_light(nightshift_light_range, nightshift_light_power, bulb_emergency_colour, l_on = TRUE)
 		update_icon()
 		return
 	emergency_mode = TRUE
-	set_light(3, 1.7, bulb_emergency_colour)
+	set_light(3, 1.7, bulb_emergency_colour, l_on = TRUE)
 	update_icon()
 	RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, PROC_REF(update), override = TRUE)
 
@@ -818,18 +818,26 @@
 	/// Light colour
 	var/brightness_color = null
 
-/obj/item/light/ComponentInitialize()
+
+/obj/item/light/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/caltrop, force)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/item/light/Crossed(mob/living/L)
-	if(istype(L) && has_gravity(loc))
-		if(L.incorporeal_move || L.flying || L.floating)
-			return
-		playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
-		if(status == LIGHT_BURNED || status == LIGHT_OK)
-			shatter()
-	return ..()
+
+/obj/item/light/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(!isliving(arrived) || arrived.incorporeal_move || (arrived.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
+		return
+
+	playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
+	if(status == LIGHT_BURNED || status == LIGHT_OK)
+		shatter()
+
 
 /obj/item/light/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	C.stored_comms["glass"] += 1

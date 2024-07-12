@@ -33,16 +33,8 @@
 	. = ..()
 	T.air_update_turf(TRUE)
 
-/obj/structure/inflatable/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
-		return TRUE
-	else
-		return FALSE
-
-
-/obj/structure/inflatable/CanAtmosPass(turf/T)
+/obj/structure/inflatable/CanAtmosPass(turf/T, vertical)
 	return !density
-
 
 /obj/structure/inflatable/attackby(obj/item/I, mob/living/user, params)
 	if(I.sharp || is_type_in_typecache(I, GLOB.pointed_types))
@@ -55,10 +47,10 @@
 	add_fingerprint(user)
 
 /obj/structure/inflatable/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+	if(!istype(user) || !Adjacent(user))
 		return
-	if(!Adjacent(user))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	deconstruct(TRUE)
 
@@ -85,7 +77,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	deconstruct(TRUE)
@@ -125,14 +117,16 @@
 /obj/structure/inflatable/door/attack_hand(mob/user)
 	return try_to_operate(user)
 
-/obj/structure/inflatable/door/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
+
+/obj/structure/inflatable/door/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(checkpass(mover))
 		return TRUE
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
-	return !density
 
-/obj/structure/inflatable/door/CanAtmosPass(turf/T)
+
+/obj/structure/inflatable/door/CanAtmosPass(turf/T, vertical)
 	return !density
 
 
@@ -164,7 +158,7 @@
 		return
 
 	state_closed = !state_closed
-	density = state_closed
+	set_density(state_closed)
 	set_opacity(state_closed)
 	update_icon(UPDATE_ICON_STATE)
 	air_update_turf(TRUE)

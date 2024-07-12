@@ -6,9 +6,10 @@
 /obj/item/decorations/sticky_decorations
 	w_class = WEIGHT_CLASS_TINY
 
+
 /obj/item/decorations/sticky_decorations/New()
 	. = ..()
-	AddComponent(/datum/component/ducttape, src, null, 0, 0, TRUE)//add this to something to make it sticky but without the tape overlay
+	AddComponent(/datum/component/ducttape, 0, 0, TRUE)//add this to something to make it sticky but without the tape overlay
 
 
 
@@ -225,7 +226,7 @@
 /obj/structure/decorative_structures
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = ""
-	density = 1
+	density = TRUE
 	anchored = FALSE
 	max_integrity = 100
 
@@ -235,17 +236,17 @@
 	icon = 'icons/obj/fireplace.dmi'
 	icon_state = "fireplace"
 	anchored = TRUE
-	density = 0
+	density = FALSE
 	pixel_x = -16
 
 /obj/structure/decorative_structures/fireplace/Initialize(mapload)
 	. = ..()
-	overlays += icon('icons/obj/fireplace.dmi', "fireplace_fire3")
-	overlays += icon('icons/obj/fireplace.dmi', "fireplace_glow")
+	add_overlay(icon('icons/obj/fireplace.dmi', "fireplace_fire3"))
+	add_overlay(icon('icons/obj/fireplace.dmi', "fireplace_glow"))
 	set_light(6, ,"#ffb366")
 
 /obj/structure/decorative_structures/garland
-	density = 0
+	density = FALSE
 	anchored = TRUE
 	max_integrity = 100
 	icon_state = "xmaslights"
@@ -313,7 +314,7 @@
 /obj/structure/decorative_structures/corpse
 	name = "Bloody body"
 	icon_state = "deadbody2"
-	density = 0
+	density = FALSE
 	max_integrity = 5
 	var/bloodtiles = 8  // number of tiles with blood while pulling
 
@@ -344,7 +345,7 @@
 /obj/structure/decorative_structures/corpse/climb_on()
 	return
 
-/obj/structure/decorative_structures/corpse/Move()
+/obj/structure/decorative_structures/corpse/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	bloodtiles -= 1
 	if(bloodtiles >= 0 && prob(40))
@@ -378,12 +379,16 @@
 		for(var/mob/living/carbon/M in range(2,src))
 			smoke_mob(M)
 
-/obj/effect/particle_effect/smoke/vomiting/smoke_mob(mob/living/carbon/M)
-	if(..())
-		M.drop_from_active_hand()
-		M.vomit()
-		M.emote("cough")
-		return 1
+
+/obj/effect/particle_effect/smoke/vomiting/smoke_mob(mob/living/carbon/victim)
+	. = ..()
+	if(!.)
+		return .
+	victim.drop_from_active_hand()
+	victim.vomit()
+	INVOKE_ASYNC(victim, TYPE_PROC_REF(/mob, emote), "cough")
+
+
 /datum/effect_system/smoke_spread/vomiting
 	effect_type = /obj/effect/particle_effect/smoke/vomiting
 
@@ -461,4 +466,4 @@
 	layer = FLY_LAYER
 	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	density = 0
+	density = FALSE

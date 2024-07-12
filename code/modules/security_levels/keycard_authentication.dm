@@ -67,7 +67,7 @@
 	underlays.Cut()
 
 	if(event_triggered_by || event_source)
-		underlays += emissive_appearance(icon, "auth_lightmask")
+		underlays += emissive_appearance(icon, "auth_lightmask", src)
 
 
 /obj/machinery/keycard_auth/power_change(forced = FALSE)
@@ -83,10 +83,10 @@
 		return TRUE
 	ui_interact(user)
 
-/obj/machinery/keycard_auth/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/keycard_auth/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "KeycardAuth", name, 540, 300, master_ui, state)
+		ui = new(user, src, "KeycardAuth", name)
 		ui.open()
 
 
@@ -134,34 +134,33 @@
 	event_source = null
 	event_triggered_by = null
 	event_confirmed_by = null
-	set_light(0)
+	busy = FALSE
 	update_icon()
 
 
 /obj/machinery/keycard_auth/proc/broadcast_request()
 	update_icon()
-	set_light(1, LIGHTING_MINIMUM_POWER)
 	for(var/obj/machinery/keycard_auth/KA in GLOB.machines)
 		if(KA == src)
 			continue
 		KA.receive_request(src)
 
-	addtimer(CALLBACK(src, PROC_REF(reset)), confirm_delay)
+	addtimer(CALLBACK(src, PROC_REF(confirm_and_trigger)), confirm_delay)
 
 
 /obj/machinery/keycard_auth/proc/confirm_and_trigger()
-	trigger_event(event)
-	add_game_logs("[key_name_log(event_triggered_by)] triggered and [key_name_log(event_confirmed_by)] confirmed event [event]", event_triggered_by)
-	message_admins("[key_name_admin(event_triggered_by)] triggered and [key_name_admin(event_confirmed_by)] confirmed event [event]", 1)
+	if(event_confirmed_by)
+		trigger_event(event)
+		add_game_logs("triggered and [key_name_log(event_confirmed_by)] confirmed event [event]", event_triggered_by)
+		message_admins("[key_name_admin(event_triggered_by)] triggered and [key_name_admin(event_confirmed_by)] confirmed event [event]", 1)
 	reset()
 
 
-/obj/machinery/keycard_auth/proc/receive_request(var/obj/machinery/keycard_auth/source)
+/obj/machinery/keycard_auth/proc/receive_request(obj/machinery/keycard_auth/source)
 	if(stat & (BROKEN|NOPOWER))
 		return
 	reset()
 
-	set_light(1, LIGHTING_MINIMUM_POWER)
 	event_source = source
 	busy = TRUE
 	active = TRUE

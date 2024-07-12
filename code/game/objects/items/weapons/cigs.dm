@@ -3,6 +3,7 @@ CONTAINS:
 CIGARETTES
 CIGARS
 SMOKING PIPES
+HOLO-CIGAR
 
 CIGARETTE PACKETS ARE IN FANCY.DM
 LIGHTERS ARE IN LIGHTERS.DM
@@ -18,11 +19,12 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "cigoff"
 	throw_speed = 0.5
 	item_state = "cigoff"
-	slot_flags = SLOT_EARS|SLOT_MASK
+	slot_flags = ITEM_SLOT_MASK|ITEM_SLOT_EARS
 	w_class = WEIGHT_CLASS_TINY
 	body_parts_covered = null
 	attack_verb = null
 	container_type = INJECTABLE
+	undyeable = TRUE
 	var/lit = FALSE
 	var/icon_on = "cigon"  //Note - these are in masks.dmi not in cigarette.dmi
 	var/icon_off = "cigoff"
@@ -32,23 +34,24 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/chem_volume = 60
 	var/list/list_reagents = list("nicotine" = 40)
 	var/first_puff = TRUE // the first puff is a bit more reagents ingested
+
 	pickup_sound = 'sound/items/handling/generic_small_pickup.ogg'
 	drop_sound = 'sound/items/handling/generic_small_drop.ogg'
 	equip_sound = 'sound/items/handling/generic_equip5.ogg'
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
-		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
-		"Ash Walker" = 'icons/mob/clothing/species/unathi/mask.dmi',
-		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/mask.dmi',
-		"Draconid" =  'icons/mob/clothing/species/unathi/mask.dmi',
-		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/mask.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/mask.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/mask.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/mask.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/mask.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/mask.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/mask.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/mask.dmi',
+		SPECIES_DRACONOID =  'icons/mob/clothing/species/unathi/mask.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/mask.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/mask.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/mask.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi'
 	)
 
 
@@ -122,7 +125,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(S.active)
 			light("<span class='warning'>[user] makes a violent slashing motion, barely missing [user.p_their()] nose as light flashes. [user.p_they(TRUE)] light[user.p_s()] [user.p_their()] [name] with [S] in the process.</span>")
 
-	else if(istype(I, /obj/item/assembly/igniter))
+	else if(isigniter(I))
 		light("<span class='notice'>[user] fiddles with [I], and manages to light [user.p_their()] [name].</span>")
 
 	else if(istype(I, /obj/item/gun/magic/wand/fireball))
@@ -169,7 +172,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/update_icon_state()
 	icon_state = lit ? icon_on : icon_off
 	item_state = lit ? icon_on : initial(item_state)
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/clothing/mask/cigarette/update_name(updates = ALL)
@@ -196,7 +199,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(flavor_text)
 		var/turf/T = get_turf(src)
 		T.visible_message(flavor_text)
-	set_light(2, 0.25, "#E38F46")
 	START_PROCESSING(SSobj, src)
 	playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 
@@ -266,7 +268,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/proc/die()
 	var/turf/T = get_turf(src)
-	set_light(0)
 	var/obj/item/butt = new type_butt(T)
 	transfer_fingerprints_to(butt)
 	if(ismob(loc))
@@ -287,7 +288,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	..()
 
 /obj/item/clothing/mask/cigarette/syndicate
-	list_reagents = list("nicotine" = 40, "omnizine" = 20)
+	list_reagents = list("nicotine" = 40, "syndiezine" = 20)
 
 /obj/item/clothing/mask/cigarette/medical_marijuana
 	list_reagents = list("thc" = 40, "cbd" = 20)
@@ -501,3 +502,70 @@ LIGHTERS ARE IN LIGHTERS.DM
 			to_chat(user, "<span class='warning'>You need to dry this first!</span>")
 	else
 		..()
+
+//////////////
+//HOLO CIGAR//
+//////////////
+
+/obj/item/clothing/mask/holo_cigar
+	name = "Holo-Cigar"
+	desc = "A sleek electronic cigar imported straight from Sol. You feel badass merely glimpsing it..."
+	icon_state = "holocigaroff"
+	var/enabled = FALSE
+	/// Tracks if this is the first cycle smoking the cigar.
+	var/has_smoked = FALSE
+
+/obj/item/clothing/mask/holo_cigar/Destroy()
+	. = ..()
+	STOP_PROCESSING(SSobj, src)
+
+/obj/item/clothing/mask/holo_cigar/update_icon_state()
+	icon_state = "holocigar[enabled ? "on" : "off"]"
+
+/obj/item/clothing/mask/holo_cigar/examine(mob/user)
+	. = ..()
+	if(enabled)
+		. += "[src] hums softly as it synthesizes nicotine."
+	else
+		. += "[src] seems to be inactive."
+
+/obj/item/clothing/mask/holo_cigar/process()
+	if(!iscarbon(loc))
+		return
+
+	var/mob/living/carbon/C = loc
+	if(C.wear_mask != src)
+		return
+
+	if(!has_smoked)
+		C.reagents.add_reagent("nicotine", 2)
+		has_smoked = TRUE
+	else
+		C.reagents.add_reagent("nicotine", REAGENTS_METABOLISM)
+
+/obj/item/clothing/mask/holo_cigar/equipped(mob/user, slot, initial)
+	. = ..()
+	if(enabled && slot == ITEM_SLOT_MASK)
+		if(!HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR_TRAIT))
+			ADD_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR_TRAIT)
+			to_chat(user, span_notice("You feel more badass while smoking [src]."))
+
+/obj/item/clothing/mask/holo_cigar/dropped(mob/user, slot, silent)
+	. = ..()
+	has_smoked = FALSE
+	if(HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR_TRAIT))
+		REMOVE_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR_TRAIT)
+		to_chat(user, span_notice("You feel less badass."))
+
+/obj/item/clothing/mask/holo_cigar/attack_self(mob/user)
+	. = ..()
+	if(enabled)
+		enabled = FALSE
+		to_chat(user, span_notice("You disable the holo-cigar."))
+		STOP_PROCESSING(SSobj, src)
+	else
+		enabled = TRUE
+		to_chat(user, span_notice("You enable the holo-cigar."))
+		START_PROCESSING(SSobj, src)
+
+	update_appearance(UPDATE_ICON_STATE)

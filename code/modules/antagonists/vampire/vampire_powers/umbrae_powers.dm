@@ -68,7 +68,7 @@
 	armed = TRUE
 	anchored = TRUE
 	breakouttime = 5 SECONDS
-	flags = DROPDEL
+	item_flags = DROPDEL
 
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/Initialize(mapload)
@@ -92,25 +92,28 @@
 		qdel(src)
 
 
-/obj/item/restraints/legcuffs/beartrap/shadow_snare/Crossed(AM, oldloc)
-	if(!iscarbon(AM) || !armed)
+/obj/item/restraints/legcuffs/beartrap/shadow_snare/triggered(mob/living/carbon/victim)
+	if(!armed || !iscarbon(victim))
 		return
 
-	var/mob/living/carbon/C = AM
-	if(!C.affects_vampire()) // no parameter here so holy always protects
+	if(!victim.affects_vampire()) // no parameter here so holy always protects
 		return
 
-	C.extinguish_light()
-	C.EyeBlind(20 SECONDS)
+	if(victim.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
+		return
+
+	victim.extinguish_light()
+	victim.EyeBlind(20 SECONDS)
 	STOP_PROCESSING(SSobj, src) // won't wither away once you are trapped
-	..()
 
-	if(!iscarbon(loc)) // if it fails to latch onto someone for whatever reason, delete itself, we don't want unarmed ones lying around.
+	. = ..()
+
+	if(loc != victim && !QDELETED(src)) // if it fails to latch onto someone for whatever reason, delete itself, we don't want unarmed ones lying around.
 		qdel(src)
 
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/attack_hand(mob/user)
-	Crossed(user)
+	triggered(user)
 
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/attack_tk(mob/user)
@@ -159,7 +162,7 @@
 	if(!making_anchor && !anchor) // first cast, setup the anchor
 		var/turf/anchor_turf = get_turf(user)
 		making_anchor = TRUE
-		if(do_mob(user, user, 5 SECONDS, only_use_extra_checks = TRUE)) // no checks, cant fail
+		if(do_after(user, 5 SECONDS, user, ALL)) // no checks, cant fail
 			make_anchor(user, anchor_turf)
 			making_anchor = FALSE
 			return
@@ -341,7 +344,7 @@
 	START_PROCESSING(SSobj, src)
 
 
-/datum/vampire_passive/eternal_darkness/Destroy(force, ...)
+/datum/vampire_passive/eternal_darkness/Destroy(force)
 	owner.remove_light()
 	STOP_PROCESSING(SSobj, src)
 	return ..()

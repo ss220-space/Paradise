@@ -231,11 +231,42 @@
 /obj/effect/landmark/awaymissions/spacebattle/mine_spawner
 	icon = 'icons/obj/spacebattle.dmi'
 	icon_state = "spawner_mine"
-	canmove = FALSE
 	var/id = null
 	var/triggered = FALSE
 	var/faction = null
 	var/safety_z_check = TRUE
+
+
+/obj/effect/landmark/awaymissions/spacebattle/mine_spawner/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
+/obj/effect/landmark/awaymissions/spacebattle/mine_spawner/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(triggered)
+		return
+
+	if(!isliving(arrived))
+		return
+
+	if(faction && (faction in arrived.faction))
+		return
+
+	arrived.spawn_alert(arrived)
+
+	for(var/obj/effect/landmark/awaymissions/spacebattle/mob_spawn/landmark in GLOB.landmarks_list)
+		if(safety_z_check && landmark.z != z)
+			continue
+		if(landmark.id == id)
+			new landmark.syndi_mob(get_turf(landmark))
+			triggered = TRUE
+	qdel(src)
+
 
 /obj/effect/landmark/awaymissions/spacebattle/mob_spawn
 	name = "spawner"
@@ -243,25 +274,6 @@
 	var/id = null
 	var/syndi_mob = null
 
-/obj/effect/landmark/awaymissions/spacebattle/mine_spawner/Crossed(AM as mob|obj, oldloc)
-	if(!isliving(AM))
-		return
-	var/mob/living/M = AM
-	if(faction && (faction in M.faction))
-		return
-	triggerlandmark(M)
-
-/obj/effect/landmark/awaymissions/spacebattle/mine_spawner/proc/triggerlandmark(mob/living/victim)
-	if(triggered)
-		return
-	victim.spawn_alert(victim)
-	for(var/obj/effect/landmark/awaymissions/spacebattle/mob_spawn/S in GLOB.landmarks_list)
-		if(safety_z_check && S.z != z)
-			continue
-		if(S.id == id)
-			new S.syndi_mob(get_turf(S))
-			triggered = TRUE
-	qdel(src)
 
 /mob/living/proc/spawn_alert(atom/A) // Вызывает появление восклицательного знака над головой при наступании на маркер
 	var/image/I
@@ -273,6 +285,7 @@
 	flick_overlay(I,viewing,8)
 	I.alpha = 0
 	animate(I, pixel_z = 32, alpha = 255, time = 5, easing = ELASTIC_EASING)
+
 
 /obj/effect/landmark/awaymissions/spacebattle/mob_spawn/melee
 	name = "melee"
@@ -597,6 +610,9 @@
 /obj/effect/mob_spawn/human/corpse/spacebattle/engineer
 	name = "Dead Engineer"
 	mob_name = "Engineer"
+	outfit = /datum/outfit/ancient_eng
+
+/datum/outfit/ancient_eng
 	id = /obj/item/card/id/away/old/eng
 	uniform = /obj/item/clothing/under/retro/engineering
 	belt = /obj/item/storage/belt/utility/full
@@ -608,9 +624,9 @@
 	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
 	gloves = /obj/item/clothing/gloves/color/fyellow/old
 	back = /obj/item/storage/backpack/duffel/engineering
-	backpack_contents = /obj/item/storage/box/engineer
 
-/obj/effect/mob_spawn/human/corpse/spacebattle/engineer/Initialize()
+/datum/outfit/ancient_eng/pre_equip()
+	. = ..()
 	var/engstaff = rand(1,3)
 	switch(engstaff)
 		if(1)
@@ -634,11 +650,13 @@
 			/obj/item/grenade/gas/oxygen = 1,
 			/obj/item/analyzer = 1
 			)
-	return ..()
 
 /obj/effect/mob_spawn/human/corpse/spacebattle/engineer/space
+	outfit = /datum/outfit/ancient_eng/suit
+
+/datum/outfit/ancient_eng/suit
 	suit = /obj/item/clothing/suit/space/hardsuit/ancient
-	head = /obj/item/clothing/head/helmet/space/hardsuit/ancient
+	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots
 
 /obj/effect/mob_spawn/human/corpse/spacebattle/medic

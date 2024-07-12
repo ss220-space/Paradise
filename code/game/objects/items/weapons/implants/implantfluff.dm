@@ -25,6 +25,13 @@
 	function = "Subjects injected with this bio-chip can activate an injection of medical cocktails that removes stuns, increases speed, and has mild healing effects."
 
 
+/datum/implant_fluff/protoadrenaline
+	name = "Cybersun Industries X-2 Adrenaline Bio-chip"
+	life = "One day."
+	notes = "One of Cybersun Industries oldest and simplest implants. This is the early prototype version of the RX-2. It's significantly cheaper than it's newer version."
+	function = "Subjects injected with this bio-chip can activate an injection of cheap medical cocktails that removes stuns, increases speed, and has mild healing effects."
+
+
 /datum/implant_fluff/supercharge
 	name = "Cybersun Industries RX-4 Synthetic Supercharge Bio-chip"
 	life = "Known to last for up to a year."
@@ -149,6 +156,13 @@
 /datum/implant_fluff/sad_trombone
 	name = "BioTech Solutions Comedy Bio-chip"
 	function = "Plays a sad trombone noise upon death of the implantee, allows clowns to entertain the crew even post-mortem."
+
+
+/datum/implant_fluff/gorilla_rampage
+	name = "Magillitis Serum Bio-chip"
+	life = "Unknown, no collected sample has been active long enough to determine lifespan."
+	notes = "An experimental serum which causes rapid muscular growth in Hominidae. Side-affects may include hypertrichosis, violent outbursts, and an unending affinity for bananas."
+	function = "Allows the user to transform into an angry fast and robust gorilla. Very deadly in close quarters."
 
 
 /datum/implant_fluff/stealth

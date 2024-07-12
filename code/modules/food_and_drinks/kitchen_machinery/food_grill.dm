@@ -15,15 +15,15 @@
 	..()
 	var/image/img = new(In.icon, In.icon_state)
 	img.pixel_y = 5
-	overlays += img
+	add_overlay(img)
 	sleep(50)
-	overlays = 0
+	cut_overlay(img)
 	img.color = "#C28566"
-	overlays += img
+	add_overlay(img)
 	sleep(50)
-	overlays = 0
+	cut_overlay(img)
 	img.color = "#A34719"
-	overlays += img
+	add_overlay(img)
 	sleep(50)
-	overlays = 0
+	cut_overlay(img)
 

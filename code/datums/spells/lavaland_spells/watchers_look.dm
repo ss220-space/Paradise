@@ -3,7 +3,8 @@
 	desc = "Shoot one of the watcher's beams. To change the mode, use alt-click on the icon."
 	invocation = "ONI DRAKT'CEHOR!"
 	invocation_type = "shout"
-	base_cooldown = 8 SECONDS
+	base_cooldown = 3 SECONDS
+	clothes_req = FALSE
 	action_icon_state = "watcher_normal"
 	action_background_icon_state = ""
 	need_active_overlay = TRUE
@@ -29,9 +30,10 @@
 	proj.current = get_turf(user)
 	proj.original = target
 	proj.firer = user
-	proj.preparePixelProjectile(target, get_turf(target), user, targeting.click_params)
+	var/turf/target_turf = get_turf(target)
+	proj.preparePixelProjectile(target, target_turf, user, targeting.click_params)
 	proj.fire()
-	user.newtonian_move(get_dir(U, T))
+	user.newtonian_move(get_dir(target_turf, T))
 	return TRUE
 
 

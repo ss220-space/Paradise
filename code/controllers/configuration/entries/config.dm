@@ -90,6 +90,9 @@
 /// logs all timers in buckets on automatic bucket reset (Useful for timer debugging)
 /datum/config_entry/flag/log_timers_on_bucket_reset
 
+/// Reports roundstart active turfs. Super needful and useful for mappers for optimization sanity.
+/datum/config_entry/flag/report_active_turfs
+
 /// allows admins with relevant permissions to have their own ooc colour
 /datum/config_entry/flag/allow_admin_ooccolor
 
@@ -185,7 +188,7 @@
 
 /// Default fps for clients with "0" in prefs. -1 for synced with server.
 /datum/config_entry/number/clientfps
-	default = 65
+	default = 40
 
 /// use socket_talk to communicate with other processes
 /datum/config_entry/number/socket_talk
@@ -205,8 +208,6 @@
 
 /// above this player count threshold, never-before-seen players are blocked from connecting
 /datum/config_entry/number/panic_bunker_threshold
-
-/datum/config_entry/flag/usewhitelist
 
 /datum/config_entry/flag/usewhitelist_database
 
@@ -265,7 +266,24 @@
 /datum/config_entry/number/drone_build_time //A drone will become available every X ticks since last drone spawn. Default is 2 minutes.
 	default = 1200
 
-/datum/config_entry/flag/usealienwhitelist
+/datum/config_entry/str_list/playable_species
+	default = list(
+		SPECIES_TAJARAN,
+		SPECIES_SKRELL,
+		SPECIES_UNATHI,
+		SPECIES_DIONA,
+		SPECIES_VULPKANIN,
+		SPECIES_MOTH,
+		SPECIES_DRASK,
+		SPECIES_GREY,
+		SPECIES_KIDAN,
+		SPECIES_MACNINEPERSON,
+		SPECIES_NUCLEATION,
+		SPECIES_PLASMAMAN,
+		SPECIES_SLIMEPERSON,
+		SPECIES_VOX,
+		SPECIES_WRYN,
+	)
 
 /datum/config_entry/number/alien_player_ratio
 	integer = FALSE
@@ -419,13 +437,46 @@
 	min_val = 0
 
 
-/datum/config_entry/str_list/antag_paradise_main_antags
+/datum/config_entry/str_list/antag_paradise_random_antags_whitelist
+	lowercase = TRUE
 	default = list(
 		ROLE_TRAITOR,
 		ROLE_VAMPIRE,
-		ROLE_CHANGELING,
 	)
-	lowercase = TRUE
+
+
+/datum/config_entry/keyed_list/antag_paradise_single_antags_weights
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+	default = list(
+		ROLE_TRAITOR = 60,
+		ROLE_THIEF = 0,
+		ROLE_VAMPIRE = 20,
+		ROLE_CHANGELING = 0,
+	)
+
+
+/datum/config_entry/keyed_list/antag_paradise_double_antags_weights
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+	default = list(
+		ROLE_TRAITOR = 60,
+		ROLE_THIEF = 0,
+		ROLE_VAMPIRE = 20,
+		ROLE_CHANGELING = 20,
+	)
+
+
+/datum/config_entry/keyed_list/antag_paradise_tripple_antags_weights
+	key_mode = KEY_MODE_TEXT
+	value_mode = VALUE_MODE_NUM
+	default = list(
+		ROLE_TRAITOR = 60,
+		ROLE_THIEF = 0,
+		ROLE_VAMPIRE = 20,
+		ROLE_CHANGELING = 20,
+	)
+
 
 /datum/config_entry/keyed_list/antag_paradise_special_antags_weights
 	key_mode = KEY_MODE_TEXT
@@ -632,6 +683,9 @@
 /datum/config_entry/string/map_rotate
 	default = "none"
 
+/datum/config_entry/string/map_vote_mode
+	default = "all"
+
 //Needs proper handling?
 /datum/config_entry/string/default_map
 	default = null
@@ -715,3 +769,5 @@
 	if(.)
 		GLOB.abandon_allowed = config_entry_value
 
+/datum/config_entry/number/jobs_high_pop_mode_amount
+	default = 80

@@ -103,7 +103,7 @@
 	add_attack_logs(A, D, "Melee attacked with [src]")
 	var/picked_hit_type = pick("punches", "kicks")
 	var/bonus_damage = 10
-	if(D.IsWeakened() || D.resting || D.lying)
+	if(D.body_position == LYING_DOWN)
 		bonus_damage += 5
 		picked_hit_type = "stomps on"
 
@@ -124,12 +124,12 @@
 	MARTIAL_ARTS_ACT_CHECK
 	if(prob(60))
 		if(D.hand)
-			if(istype(D.l_hand, /obj/item))
+			if(isitem(D.l_hand))
 				var/obj/item/I = D.l_hand
 				if(D.drop_from_active_hand())
 					A.put_in_hands(I, ignore_anim = FALSE)
 		else
-			if(istype(D.r_hand, /obj/item))
+			if(isitem(D.r_hand))
 				var/obj/item/I = D.r_hand
 				if(D.drop_from_active_hand())
 					A.put_in_hands(I, ignore_anim = FALSE)
@@ -152,23 +152,20 @@
 /obj/item/clothing/gloves/color/black/krav_maga/check_item_eat(mob/target, mob/user)
 	return FALSE
 
-/obj/item/clothing/gloves/color/black/krav_maga/equipped(mob/user, slot, initial)
+
+/obj/item/clothing/gloves/color/black/krav_maga/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
+	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
+		return .
+	style.teach(user, TRUE)
 
-	if(!ishuman(user))
-		return
-	if(slot == slot_gloves)
-		var/mob/living/carbon/human/H = user
-		style.teach(H,1)
 
-/obj/item/clothing/gloves/color/black/krav_maga/dropped(mob/user, silent = FALSE)
+/obj/item/clothing/gloves/color/black/krav_maga/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
+	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
+		return .
+	style.remove(user)
 
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(slot_gloves) == src)
-		style.remove(H)
 
 /obj/item/clothing/gloves/color/black/krav_maga/sec//more obviously named, given to sec
 	name = "krav maga gloves"

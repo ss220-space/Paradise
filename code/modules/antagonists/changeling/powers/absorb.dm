@@ -15,21 +15,19 @@
 		to_chat(user, span_warning("We are already absorbing!"))
 		return FALSE
 
-	var/obj/item/grab/grab = user.get_active_hand()
-	if(!istype(grab))
+	if(!user.pulling || user.pull_hand != user.hand)
 		to_chat(user, span_warning("We must be grabbing a creature in our active hand to absorb them."))
 		return FALSE
 
-	if(grab.state <= GRAB_NECK)
+	if(user.grab_state <= GRAB_NECK)
 		to_chat(user, span_warning("We must have a tighter grip to absorb this creature."))
 		return FALSE
 
-	return cling.can_absorb_dna(grab.affecting)
+	return cling.can_absorb_dna(user.pulling)
 
 
 /datum/action/changeling/absorbDNA/sting_action(mob/user)
-	var/obj/item/grab/grab = user.get_active_hand()
-	var/mob/living/carbon/human/target = grab.affecting
+	var/mob/living/carbon/human/target = user.pulling
 	cling.is_absorbing = TRUE
 
 	for(var/stage in 1 to 3)
@@ -46,7 +44,7 @@
 				target.take_overall_damage(40)
 
 		SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("Absorb DNA", "[stage]"))
-		if(!do_mob(user, target, 15 SECONDS) || !can_sting(user, TRUE))
+		if(!do_after(user, 15 SECONDS, target, NONE) || !can_sting(user, TRUE))
 			to_chat(user, span_warning("Our absorption of [target] has been interrupted!"))
 			cling.is_absorbing = FALSE
 			return FALSE
@@ -66,14 +64,15 @@
 
 		//Some of target's recent speech, so the changeling can attempt to imitate them better.
 		//Recent as opposed to all because rounds tend to have a LOT of text.
-		var/list/recent_speech = list()
+		var/list/recent_speech
 
-		if(target.say_log.len > LING_ABSORB_RECENT_SPEECH)
-			recent_speech = target.say_log.Copy(target.say_log.len - LING_ABSORB_RECENT_SPEECH + 1, 0) //0 so len-LING_ARS+1 to end of list
-		else
+		var/say_log_len = LAZYLEN(target.say_log)
+		if(say_log_len > LING_ABSORB_RECENT_SPEECH)
+			recent_speech = target.say_log.Copy(say_log_len - LING_ABSORB_RECENT_SPEECH + 1, 0) //0 so len-LING_ARS+1 to end of list
+		else if(say_log_len)
 			recent_speech = target.say_log.Copy()
 
-		if(length(recent_speech))
+		if(recent_speech)
 			user.mind.store_memory("<B>Some of [target]'s speech patterns. We should study these to better impersonate [target.p_them()]!</B>")
 			to_chat(user, span_boldnotice("Some of [target]'s speech patterns. We should study these to better impersonate [target.p_them()]!"))
 			for(var/spoken_memory in recent_speech)

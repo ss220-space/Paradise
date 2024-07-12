@@ -30,9 +30,10 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 
 	var/list/affecting = list() // the list of all items that are in the process of being moved
 
+
 // create a conveyor
-/obj/machinery/conveyor/New(loc, new_dir, new_id)
-	..(loc)
+/obj/machinery/conveyor/Initialize(mapload, new_dir, new_id)
+	. = ..()
 	GLOB.conveyor_belts += src
 	if(new_id)
 		id = new_id
@@ -42,6 +43,11 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	for(var/I in GLOB.conveyor_switches)
 		var/obj/machinery/conveyor_switch/S = I
 		S.link_conveyers(src)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /obj/machinery/conveyor/Destroy()
 	GLOB.conveyor_belts -= src
@@ -199,10 +205,13 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	else if(still_stuff_to_move && !speed_process)
 		makeSpeedProcess()
 
-/obj/machinery/conveyor/Crossed(atom/movable/AM, oldloc)
-	if(!speed_process && !AM.anchored)
+
+/obj/machinery/conveyor/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(!speed_process && !arrived.anchored)
 		makeSpeedProcess()
-	..()
+
 
 /obj/machinery/conveyor/proc/move_thing(atom/movable/AM)
 	affecting.Remove(AM)
@@ -267,8 +276,8 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	var/slow_factor = 1  // How slow the belts should go. Gets copied into connected belts slow_factor.
 
 
-/obj/machinery/conveyor_switch/New(newloc, new_id)
-	..(newloc)
+/obj/machinery/conveyor_switch/Initialize(mapload, new_id)
+	. = ..()
 	GLOB.conveyor_switches += src
 	if(!id)
 		id = new_id
@@ -281,7 +290,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	if(C.id != id)
 		return
 	conveyors += C
-	RegisterSignal(C, COMSIG_PARENT_QDELETING, PROC_REF(unlink_conveyer)) // so it GCs properly
+	RegisterSignal(C, COMSIG_QDELETING, PROC_REF(unlink_conveyer)) // so it GCs properly
 
 
 /obj/machinery/conveyor_switch/proc/unlink_conveyer(obj/machinery/conveyor/C)
@@ -378,11 +387,11 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		return
 	ui_interact(user)
 
-/obj/machinery/conveyor_switch/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/conveyor_switch/ui_interact(mob/user, datum/tgui/ui = null)
 	user.set_machine(src)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ConveyorSwitch", name, 350, 150, master_ui, state)
+		ui = new(user, src, "ConveyorSwitch", name)
 		ui.open()
 
 /obj/machinery/conveyor_switch/ui_data(mob/user)
@@ -441,7 +450,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		return
 	if(user.incapacitated())
 		return
-	if(!istype(T, /turf/simulated/floor))
+	if(!isfloorturf(T))
 		return
 	if(T == get_turf(user))
 		to_chat(user, "<span class='notice'>You cannot place [src] under yourself.</span>")
@@ -463,8 +472,8 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	w_class = WEIGHT_CLASS_BULKY
 	var/id
 
-/obj/item/conveyor_switch_construct/New(loc, new_id)
-	..(loc)
+/obj/item/conveyor_switch_construct/Initialize(mapload, new_id)
+	. = ..()
 	if(new_id)
 		id = new_id
 	else
@@ -476,7 +485,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		return
 	if(user.incapacitated())
 		return
-	if(!istype(T, /turf/simulated/floor))
+	if(!isfloorturf(T))
 		return
 	var/found = FALSE
 	for(var/obj/machinery/conveyor/C in view())
@@ -511,8 +520,8 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	clockwise = FALSE
 	icon_state = "conveyor_stopped_ccw"
 
-/obj/machinery/conveyor/auto/New(loc, newdir)
-	..(loc, newdir)
+/obj/machinery/conveyor/auto/Initialize(mapload, newdir)
+	. = ..()
 	operating = TRUE
 	update_icon()
 

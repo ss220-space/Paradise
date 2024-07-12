@@ -51,7 +51,7 @@
 
 /obj/item/clothing/accessory/holobadge
 	material_type = MATERIAL_CLASS_NONE
-/obj/item/clothing/accessory/lawyers_badge
+/obj/item/clothing/accessory/head_strip/lawyers_badge
 	material_type = MATERIAL_CLASS_NONE
 /obj/item/clothing/accessory/necklace
 	material_type = MATERIAL_CLASS_NONE
@@ -148,6 +148,17 @@
 /obj/item/clothing/suit/apron
 	material_type = MATERIAL_CLASS_CLOTH
 	max_bites = 8
+
+/obj/item/clothing/suit/towel
+	material_type = MATERIAL_CLASS_CLOTH
+	max_bites = 12
+	is_only_grab_intent = TRUE
+
+/obj/item/clothing/suit/towel/short
+	material_type = MATERIAL_CLASS_CLOTH
+	max_bites = 8
+	is_only_grab_intent = TRUE
+
 
 /obj/item/clothing/suit/chameleon
 	material_type = MATERIAL_CLASS_NONE

@@ -53,4 +53,5 @@
 	playstyle_string = "URK URK!"
 	environment_smash = 2
 	battlecry = "URK"
-	admin_spawned = TRUE
+	flags = ADMIN_SPAWNED
+

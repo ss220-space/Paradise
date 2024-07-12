@@ -16,7 +16,7 @@
 	bot_core_type = /obj/machinery/bot_core/cleanbot
 	window_id = "autoclean"
 	window_name = "Automatic Station Cleaner v1.1"
-	pass_flags = PASSMOB
+	pass_flags = PASSMOB|PASSFLAPS
 	path_image_color = "#993299"
 
 	///Mask color defines what color cleanbot's chassis will be. Format: "#RRGGBB"
@@ -34,8 +34,9 @@
 
 
 
-/mob/living/simple_animal/bot/cleanbot/New()
-	..()
+/mob/living/simple_animal/bot/cleanbot/Initialize(mapload)
+	. = ..()
+
 	get_targets()
 
 	var/datum/job/janitor/J = new/datum/job/janitor
@@ -112,7 +113,7 @@
 		if(issimulatedturf(loc))
 			if(prob(10)) //Wets floors randomly
 				var/turf/simulated/T = loc
-				T.MakeSlippery()
+				T.MakeSlippery(TURF_WET_WATER, 80 SECONDS)
 
 			if(prob(5)) //Spawns foam!
 				visible_message(span_danger("[src] whirs and bubbles violently, before releasing a plume of froth!"))
@@ -191,7 +192,7 @@
 
 
 /mob/living/simple_animal/bot/cleanbot/proc/start_clean(obj/effect/decal/cleanable/target)
-	anchored = TRUE
+	set_anchored(TRUE)
 	visible_message(span_notice("[src] begins to clean up [target]"))
 	mode = BOT_CLEANING
 	update_icon()
@@ -203,7 +204,7 @@
 		return
 	if(mode == BOT_CLEANING)
 		QDEL_NULL(target)
-		anchored = FALSE
+		set_anchored(FALSE)
 	mode = BOT_IDLE
 	update_icon()
 
@@ -224,10 +225,10 @@
 	ui_interact(M)
 
 
-/mob/living/simple_animal/bot/cleanbot/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/mob/living/simple_animal/bot/cleanbot/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BotClean", name, 500, 500)
+		ui = new(user, src, "BotClean", name)
 		ui.open()
 
 
@@ -276,6 +277,8 @@
 
 
 /mob/living/simple_animal/bot/cleanbot/UnarmedAttack(atom/A)
+	if(!can_unarmed_attack())
+		return
 	if(istype(A,/obj/effect/decal/cleanable))
 		start_clean(A)
 	else

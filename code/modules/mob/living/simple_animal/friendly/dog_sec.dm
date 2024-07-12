@@ -6,6 +6,7 @@
 	icon_living = "german_shep"
 	icon_resting = "german_shep_rest"
 	icon_dead = "german_shep_dead"
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	health = 35
 	maxHealth = 35
 	melee_damage_type = STAMINA
@@ -67,24 +68,6 @@
 	popup.set_content(dat)
 	popup.open()
 
-/mob/living/simple_animal/pet/dog/security/StartResting(updating = 1)
-	..()
-	if(icon_resting && stat != DEAD)
-		icon_state = icon_resting
-		regenerate_icons()
-		if(collar_type)
-			collar_type = "[initial(collar_type)]_rest"
-			regenerate_icons()
-
-/mob/living/simple_animal/pet/dog/security/StopResting(updating = 1)
-	..()
-	if(icon_resting && stat != DEAD)
-		icon_state = icon_living
-		regenerate_icons()
-		if(collar_type)
-			collar_type = "[initial(collar_type)]"
-			regenerate_icons()
-
 
 /mob/living/simple_animal/pet/dog/security/Initialize(mapload)
 	. = ..()
@@ -124,7 +107,7 @@
 		switch(remove_from)
 			if("head")
 				if(inventory_head)
-					if(inventory_head.flags & NODROP)
+					if(HAS_TRAIT(inventory_head, TRAIT_NODROP))
 						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
 						return
 					drop_item_ground(inventory_head)
@@ -137,7 +120,7 @@
 					return
 			if("mask")
 				if(inventory_mask)
-					if(inventory_mask.flags & NODROP)
+					if(HAS_TRAIT(inventory_mask, TRAIT_NODROP))
 						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
 						return
 					drop_item_ground(inventory_mask)
@@ -226,7 +209,7 @@
 		return
 	if(!item_to_add)
 		user.visible_message("<span class='notice'>[user] pets [src].</span>", "<span class='notice'>You rest your hand on [src]'s head for a moment.</span>")
-		if(flags_2 & HOLOGRAM_2)
+		if(flags & HOLOGRAM)
 			return
 		return
 

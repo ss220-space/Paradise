@@ -5,7 +5,7 @@
 	icon_state = "mob_battle_empty"
 	icon_screen = null
 	icon_keyboard = null
-	density = 0
+	density = FALSE
 	anchored = TRUE
 	var/obj/item/nanomob_card/card
 	var/datum/mob_hunt/mob_info
@@ -121,6 +121,9 @@
 
 /obj/machinery/computer/mob_battle_terminal/interact(mob/user)
 	check_connection()
+	var/datum/asset/mob_hunt_asset = get_asset_datum(/datum/asset/simple/mob_hunt)
+	mob_hunt_asset.send(user)
+
 	var/dat = {"<meta charset="UTF-8">"}
 	dat += "<table border='1' style='width:75%'>"
 	dat += "<tr>"
@@ -287,7 +290,7 @@
 	icon_state = "mob_battle_loaded"
 	icon_screen = null
 	icon_keyboard = null
-	density = 0
+	density = FALSE
 	anchored = TRUE
 	dir = EAST
 

@@ -62,7 +62,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	var/disable_timer = 0
 
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throw_speed = 2
 	throw_range = 9
 	w_class = WEIGHT_CLASS_SMALL
@@ -129,13 +129,10 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		wires.Interact(user)
 	ui_interact(user)
 
-/obj/item/radio/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/radio/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		var/list/schannels = list_secure_channels(user)
-		var/list/ichannels = list_internal_channels(user)
-		var/calc_height = 150 + (schannels.len * 20) + (ichannels.len * 10)
-		ui = new(user, src, ui_key, "Radio", name, 400, calc_height, master_ui, state)
+		ui = new(user, src, "Radio", name)
 		ui.open()
 
 /obj/item/radio/ui_data(mob/user)
@@ -182,8 +179,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 			if(freqlock)
 				return
 			var/freq = params["ichannel"]
-			if(has_channel_access(usr, freq))
-				set_frequency(text2num(freq))
+			if(has_channel_access(usr, num2text(freq)))
+				set_frequency(freq)
 		if("listen")
 			listening = !listening
 		if("broadcast")
@@ -298,7 +295,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	if(loc && loc.z)
 		tcm.source_level = loc.z // For anyone that reads this: This used to pull from a LIST from the CONFIG DATUM. WHYYYYYYYYY!!!!!!!! -aa
 	else
-		tcm.source_level = level_name_to_num(MAIN_STATION) // Assume station level if we dont have an actual Z level available to us.
+		tcm.source_level = levels_by_trait(MAIN_STATION)[1] // Assume main station level if we dont have an actual Z level available to us.
 	tcm.freq = connection.frequency
 	tcm.follow_target = follow_target
 
@@ -418,13 +415,13 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	// --- AI ---
 	else if(isAI(M))
-		jobname = "AI"
-		rank = "AI"
+		jobname = JOB_TITLE_AI
+		rank = JOB_TITLE_AI
 
 	// --- Cyborg ---
 	else if(isrobot(M))
-		jobname = "Cyborg"
-		rank = "Cyborg"
+		jobname = JOB_TITLE_CYBORG
+		rank = JOB_TITLE_CYBORG
 
 	// --- Personal AI (pAI) ---
 	else if(ispAI(M))
@@ -596,11 +593,11 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		. += "<span class='info'>Ctrl-Shift-click on the [name] to toggle speaker.<br/>Alt-click on the [name] to toggle broadcasting.</span>"
 
 /obj/item/radio/AltClick(mob/user)
+	if(!iscarbon(user) && !isrobot(user))
+		return
 	if(!Adjacent(user))
 		return
-	if(!iscarbon(usr) && !isrobot(usr))
-		return
-	if(!istype(user) || user.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	broadcasting = !broadcasting
@@ -611,7 +608,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		return
 	if(!iscarbon(usr) && !isrobot(usr))
 		return
-	if(!istype(user) || user.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	listening = !listening
@@ -691,8 +688,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 /obj/item/radio/borg/syndicate/ui_status(mob/user, datum/ui_state/state)
 	. = ..()
-	if(. == STATUS_UPDATE && istype(user, /mob/living/silicon/robot/syndicate))
-		. = STATUS_INTERACTIVE
+	if(. == UI_UPDATE && istype(user, /mob/living/silicon/robot/syndicate))
+		. = UI_INTERACTIVE
 
 /obj/item/radio/borg/Destroy()
 	myborg = null

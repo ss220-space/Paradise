@@ -26,7 +26,7 @@
 		gain_desc = "You can now use [src]."
 
 
-/datum/vampire_passive/Destroy(force, ...)
+/datum/vampire_passive/Destroy(force)
 	owner = null
 	return ..()
 
@@ -95,23 +95,21 @@
 	stat_allowed = UNCONSCIOUS
 
 
-/obj/effect/proc_holder/spell/vampire/self/rejuvenate/cast(list/targets, mob/user = usr)
-	var/mob/living/U = user
-
-	U.SetWeakened(0)
-	U.SetStunned(0)
-	U.SetParalysis(0)
-	U.SetSleeping(0)
-	U.SetConfused(0)
-	U.adjustStaminaLoss(-100)
-	U.lying = FALSE
-	U.resting = FALSE
-	U.update_canmove()
+/obj/effect/proc_holder/spell/vampire/self/rejuvenate/cast(list/targets, mob/living/user = usr)
+	user.SetWeakened(0)
+	user.SetStunned(0)
+	user.SetKnockdown(0)
+	user.SetParalysis(0)
+	user.SetSleeping(0)
+	user.SetConfused(0)
+	user.adjustStaminaLoss(-100)
+	user.set_resting(FALSE, instant = TRUE)
+	user.get_up(instant = TRUE)
 	to_chat(user, span_notice("You instill your body with clean blood and remove any incapacitating effects."))
-	var/datum/antagonist/vampire/V = U.mind.has_antag_datum(/datum/antagonist/vampire)
+	var/datum/antagonist/vampire/V = user.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/rejuv_bonus = V.get_rejuv_bonus()
 	if(rejuv_bonus)
-		INVOKE_ASYNC(src, PROC_REF(heal), U, rejuv_bonus)
+		INVOKE_ASYNC(src, PROC_REF(heal), user, rejuv_bonus)
 
 
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate/proc/heal(mob/living/user, rejuv_bonus)
@@ -149,11 +147,13 @@
 /obj/effect/proc_holder/spell/vampire/self/specialize/cast(mob/user)
 	ui_interact(user)
 
+/obj/effect/proc_holder/spell/vampire/self/specialize/ui_state(mob/user)
+	return GLOB.always_state
 
-/obj/effect/proc_holder/spell/vampire/self/specialize/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/effect/proc_holder/spell/vampire/self/specialize/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "VampireSpecMenu", "Specialisation Menu", 1500, 820, master_ui, state)
+		ui = new(user, src, "VampireSpecMenu", "Specialisation Menu")
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -253,7 +253,7 @@
 
 	for(var/mob/living/target as anything in targets)
 		var/deviation
-		if(user.lying || user.resting)
+		if(user.body_position == LYING_DOWN)
 			deviation = DEVIATION_PARTIAL
 		else
 			deviation = calculate_deviation(target, user)

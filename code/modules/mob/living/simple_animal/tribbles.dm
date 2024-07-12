@@ -96,13 +96,13 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	item_state = "tribble1"
 	w_class = 1
 	var/gestation = 0
-	flags = DROPDEL
+	item_flags = DROPDEL
 
 /obj/item/toy/tribble/attack_self(mob/user) //hug that tribble (and play a sound if we add one)
 	..()
 	to_chat(user, "<span class='notice'>You nuzzle the tribble and it trills softly.</span>")
 
-/obj/item/toy/tribble/dropped(mob/user, silent = FALSE) //now you can't item form them to get rid of them all so easily
+/obj/item/toy/tribble/dropped(mob/user, slot, silent = FALSE) //now you can't item form them to get rid of them all so easily
 	new /mob/living/simple_animal/tribble(user.loc)
 	for(var/mob/living/simple_animal/tribble/T in user.loc)
 		T.icon_state = src.icon_state
@@ -153,6 +153,7 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	item_state = "furgloves"
 	transfer_prints = TRUE
 	transfer_blood = TRUE
+	undyeable = TRUE
 
 // Equivalent to a winter coat's hood
 /obj/item/clothing/head/furcap

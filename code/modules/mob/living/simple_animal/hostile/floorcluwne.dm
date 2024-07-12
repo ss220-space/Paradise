@@ -43,12 +43,12 @@
 	var/admincluwne = FALSE
 
 
-/mob/living/simple_animal/hostile/floor_cluwne/New()
+/mob/living/simple_animal/hostile/floor_cluwne/Initialize(mapload)
 	. = ..()
 	remove_from_all_data_huds()
 	var/obj/item/card/id/access_card = new (src)
 	access_card.access = get_all_accesses()//THERE IS NO ESCAPE
-	access_card.flags |= NODROP
+	ADD_TRAIT(access_card, TRAIT_NODROP, CURSED_ITEM_TRAIT(access_card.type))
 	invalid_area_typecache = typecacheof(invalid_area_typecache)
 	Manifest()
 	if(!current_victim)
@@ -68,7 +68,8 @@
 	playsound(src.loc, 'sound/items/bikehorn.ogg', 50, 1)
 
 
-/mob/living/simple_animal/hostile/floor_cluwne/CanPass(atom/A, turf/target)
+/mob/living/simple_animal/hostile/floor_cluwne/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
 	return TRUE
 
 
@@ -123,10 +124,9 @@
 
 /mob/living/simple_animal/hostile/floor_cluwne/Goto(target, delay, minimum_distance)
 	if(!manifested && !is_type_in_typecache(get_area(current_victim.loc), invalid_area_typecache))
-		glide_for(delay)
-		walk_to(src, target, minimum_distance, delay)
+		SSmove_manager.move_to(src, target, minimum_distance, delay)
 	else
-		walk_to(src,0)
+		SSmove_manager.stop_looping(src)
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/FindTarget()
@@ -182,14 +182,14 @@
 	else
 		layer = GAME_PLANE
 		invisibility = INVISIBILITY_MAXIMUM
-		mouse_opacity = 0
-		density = FALSE
+		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+		ADD_TRAIT(src, TRAIT_UNDENSE, FLOOR_CLUWNE_TRAIT)
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Appear()//handled in a seperate proc so floor cluwne doesn't appear before the animation finishes
 	layer = MOB_LAYER
 	invisibility = FALSE
-	mouse_opacity = 1
-	density = TRUE
+	mouse_opacity = MOUSE_OPACITY_ICON
+	REMOVE_TRAIT(src, TRAIT_UNDENSE, FLOOR_CLUWNE_TRAIT)
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/proc/Reset_View(screens, color, mob/living/carbon/human/H)
@@ -226,7 +226,7 @@
 		if(STAGE_SPOOK)
 
 			if(prob(4))
-				H.slip("???", 10 SECONDS)
+				H.slip(10 SECONDS)
 				to_chat(H, "<span class='warning'>The floor shifts underneath you!</span>")
 
 			if(prob(3))
@@ -254,7 +254,7 @@
 		if(STAGE_TORMENT)
 
 			if(prob(5))
-				H.slip("???", 10 SECONDS)
+				H.slip(10 SECONDS)
 				to_chat(H, "<span class='warning'>The floor shifts underneath you!</span>")
 
 			if(prob(5))
@@ -305,8 +305,7 @@
 		if(STAGE_ATTACK)
 
 			if(!eating)
-				for(var/I in getline(src, get_turf(H)))
-					var/turf/T = I
+				for(var/turf/T as anything in get_line(src, get_turf(H)))
 					for(var/obj/structure/O in T)
 						if(istype(O, /obj/structure/closet))
 							var/obj/structure/closet/locker = O
@@ -336,7 +335,7 @@
 	to_chat(H, "<span class='userdanger'>You feel a cold, gloved hand clamp down on your ankle!</span>")
 	for(var/I in 1 to get_dist(src, H))
 
-		if(do_after(src, 10, target = H))
+		if(do_after(src, 1 SECONDS, H))
 			step_towards(H, src)
 			playsound(H, pick('sound/effects/bodyscrape-01.ogg', 'sound/effects/bodyscrape-02.ogg'), 20, 1, -4)
 			H.emote("scream")
@@ -346,13 +345,13 @@
 	if(get_dist(src,H) <= 1)
 		visible_message("<span class='danger'>[src] begins dragging [H] under the floor!</span>")
 
-		if(do_after(src, 50, target = H) && eating)
+		if(do_after(src, 5 SECONDS, H) && eating)
 			H.BecomeBlind()
 			H.layer = GAME_PLANE
 			H.invisibility = INVISIBILITY_MAXIMUM
-			H.mouse_opacity = 0
-			H.density = FALSE
-			H.anchored = TRUE
+			H.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+			ADD_TRAIT(H, TRAIT_UNDENSE, FLOOR_CLUWNE_TRAIT)
+			H.set_anchored(TRUE)
 			addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/floor_cluwne, Kill), H), 100)
 			H.visible_message("<span class='userdanger'>[src] pulls [H] under the floor!</span>")
 		else//some fuck pulled away our food
@@ -374,7 +373,7 @@
 
 	for(var/turf/T in orange(H, 4))
 		H.add_splatter_floor(T)
-	if(do_after(src, 50, target = H))
+	if(do_after(src, 5 SECONDS, H))
 		if(prob(50) || smiting)
 			H.makeCluwne()
 
@@ -388,8 +387,8 @@
 	H.layer = initial(H.layer)
 	H.invisibility = initial(H.invisibility)
 	H.mouse_opacity = initial(H.mouse_opacity)
-	H.density = initial(H.density)
-	H.anchored = initial(H.anchored)
+	REMOVE_TRAIT(H, TRAIT_UNDENSE, FLOOR_CLUWNE_TRAIT)
+	H.set_anchored(initial(H.anchored))
 
 	eating = FALSE
 	if(prob(2))

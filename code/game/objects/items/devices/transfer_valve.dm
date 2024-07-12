@@ -57,7 +57,7 @@
 		to_chat(user, "<span class='notice'>You attach the [A] to the valve controls and secure it.</span>")
 		A.holder = src
 		A.toggle_secure()	//this calls update_icon(), which calls update_icon() on the holder (i.e. the bomb).
-		if(istype(attached_device, /obj/item/assembly/prox_sensor))
+		if(isprox(attached_device))
 			AddComponent(/datum/component/proximity_monitor)
 
 		investigate_log("[key_name_log(user)] attached a [A] to a transfer valve.", INVESTIGATE_BOMB)
@@ -85,10 +85,13 @@
 /obj/item/transfer_valve/attack_self(mob/user)
 	ui_interact(user)
 
-/obj/item/transfer_valve/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/transfer_valve/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/transfer_valve/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "TransferValve",  name, 460, 320, master_ui, state)
+		ui = new(user, src, "TransferValve", name)
 		ui.open()
 
 /obj/item/transfer_valve/ui_data(mob/user)

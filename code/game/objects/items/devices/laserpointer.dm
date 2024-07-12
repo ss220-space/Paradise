@@ -6,7 +6,7 @@
 	item_state = "pen"
 	var/pointer_icon_state
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=500, MAT_GLASS=500)
 	w_class = WEIGHT_CLASS_SMALL //Increased to 2, because diodes are w_class 2. Conservation of matter.
 	origin_tech = "combat=1;magnets=2"
@@ -55,18 +55,19 @@
 		if(!diode)
 			user.drop_transfer_item_to_loc(W, src)
 			diode = W
-			to_chat(user, "<span class='notice'>You install a [diode.name] in [src].</span>")
+			user.balloon_alert(user, "установлено")
 		else
-			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
+			user.balloon_alert(user, "уже установлено!")
+		return
 
-	else if(W.tool_behaviour == TOOL_SCREWDRIVER)
-		if(diode)
-			to_chat(user, "<span class='notice'>You remove the [diode.name] from the [src].</span>")
-			diode.loc = get_turf(src.loc)
-			diode = null
-			return
-		..()
-	return
+	return ..()
+
+/obj/item/laser_pointer/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(diode)
+		user.balloon_alert(user, "микролазер извлечён")
+		diode.forceMove(get_turf(loc))
+		diode = null
 
 /obj/item/laser_pointer/afterattack(atom/target, mob/living/user, flag, params)
 	if(flag)	//we're placing the object on a table or in backpack
@@ -77,16 +78,16 @@
 	if( !(user in (viewers(7,target))) )
 		return
 	if(!diode)
-		to_chat(user, "<span class='notice'>You point [src] at [target], but nothing happens!</span>")
+		user.balloon_alert(user, "не функционирует!")
 		return
 	if(!user.IsAdvancedToolUser())
-		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		user.balloon_alert(user, "вы недостаточно ловки!")
 		return
 	add_fingerprint(user)
 
 	//nothing happens if the battery is drained
 	if(recharge_locked)
-		to_chat(user, "<span class='notice'>You point [src] at [target], but it's still charging.</span>")
+		user.balloon_alert(user, "идёт перезарядка")
 		return
 
 	var/outmsg

@@ -12,7 +12,7 @@
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 7
@@ -40,10 +40,10 @@
 	return BRUTELOSS
 
 /obj/item/analyzer/AltClick(mob/living/user) //Barometer output for measuring when the next storm happens
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+	if(!istype(user) || !Adjacent(user))
 		return
-	if(!Adjacent(user))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	if(cooldown)
 		to_chat(user, "<span class='warning'>[src]'s barometer function is prepraring itself.</span>")
@@ -98,10 +98,10 @@
 			amount += inaccurate
 	return DisplayTimeText(max(1, amount))
 
-/obj/item/analyzer/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/ui_state/state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/analyzer/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "GasAnalyzer",  name, 500, 500, master_ui, state)
+		ui = new(user, src, "GasAnalyzer", name)
 		ui.open()
 
 /obj/item/analyzer/ui_data(mob/user)

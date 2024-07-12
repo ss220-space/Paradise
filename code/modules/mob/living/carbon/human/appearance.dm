@@ -318,7 +318,6 @@
 	skin_colour = colour
 
 	force_update_limbs()
-	update_body()
 	return 1
 
 /mob/living/carbon/human/proc/change_skin_tone(var/tone)
@@ -328,7 +327,6 @@
 	s_tone = tone
 
 	force_update_limbs()
-	update_body()
 	return 1
 
 /mob/living/carbon/human/proc/change_hair_gradient(style, offset_raw, color, alpha)
@@ -355,17 +353,13 @@
 	dna.ready_dna(src)
 	SEND_SIGNAL(src, COMSIG_HUMAN_UPDATE_DNA)
 
-/mob/living/carbon/human/proc/generate_valid_species(var/check_whitelist = 1, var/list/whitelist = list(), var/list/blacklist = list())
+/mob/living/carbon/human/proc/generate_valid_species(check_whitelist = TRUE, list/whitelist = list(), list/blacklist = list())
 	var/list/valid_species = new()
 	for(var/current_species_name in GLOB.all_species)
-		var/datum/species/current_species = GLOB.all_species[current_species_name]
-
 		if(check_whitelist && !check_rights(R_ADMIN, 0, src)) //If we're using the whitelist, make sure to check it!
 			if(whitelist.len && !(current_species_name in whitelist))
 				continue
 			if(blacklist.len && (current_species_name in blacklist))
-				continue
-			if((IS_WHITELISTED in current_species.species_traits) && !is_alien_whitelisted(src, current_species_name))
 				continue
 
 		valid_species += current_species_name
@@ -391,7 +385,7 @@
 			if((H.dna.species.name in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
 				valid_hairstyles += hairstyle //Give them their hairstyles if they do.
 			else
-				if(!robohead.is_monitor && ("Human" in S.species_allowed)) /*If the hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
+				if(!robohead.is_monitor && (SPECIES_HUMAN in S.species_allowed)) /*If the hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
 																			But if the user has a robotic humanoid head and the hairstyle can fit humans, let them use it as a wig. */
 					valid_hairstyles += hairstyle
 		else //If the user is not a species who can have robotic heads, use the default handling.
@@ -420,7 +414,7 @@
 				if((H.dna.species.name in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a facial hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
 					valid_facial_hairstyles += facialhairstyle //Give them their facial hairstyles if they do.
 			else
-				if(!robohead.is_monitor && ("Human" in S.species_allowed)) /*If the facial hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
+				if(!robohead.is_monitor && (SPECIES_HUMAN in S.species_allowed)) /*If the facial hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
 																			But if the user has a robotic humanoid head and the facial hairstyle can fit humans, let them use it as a wig. */
 					valid_facial_hairstyles += facialhairstyle
 		else //If the user is not a species who can have robotic heads, use the default handling.

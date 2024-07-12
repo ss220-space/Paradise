@@ -42,9 +42,11 @@
 /obj/item/paper/check/update_icon_state()
 	return
 
-/obj/item/paper/check/AltClick(mob/user, obj/item/I)
-	to_chat(user, "<span class='warning'>Paper is too small! You fail to fold [src] into the shape of a plane!</span>")
-	return
+
+/obj/item/paper/check/AltClick(mob/living/carbon/human/user)
+	if(ishuman(user) && user.is_in_hands(src))
+		to_chat(user, span_warning("Paper is too small! You fail to fold [src] into the shape of a plane!"))
+
 
 /obj/item/eftpos/Initialize(mapload)
 	machine_name = "[station_name()]"
@@ -135,10 +137,13 @@
 			"Taargüs Taargüs","n4n07r453n 7074lly 5ux","Maya Normousbutt","Al Coholic","Stu Piddiddiot",
 			"Yuri Nator","HAI GUYZ! LEARN HA TO CHANGE SECURITY SETTINGS! LOL!!"))
 
-/obj/item/eftpos/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/eftpos/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/eftpos/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "EFTPOS", name, 800, 300, master_ui, state)
+		ui = new(user, src, "EFTPOS", name)
 		ui.open()
 
 /obj/item/eftpos/ui_data(mob/user)

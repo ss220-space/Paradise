@@ -81,8 +81,6 @@
 	/// Whether this bodypart can be used for grasping
 	var/can_grasp = FALSE
 
-	/// If `TRUE` you cannot be identified by examine (used for head bodypart only)
-	var/disfigured = FALSE
 	/// Whether prosthetic bodypart is emagged, it will detonate when it fails
 	var/sabotaged = FALSE
 	/// Time when this organ was last splinted
@@ -91,7 +89,7 @@
 	var/list/embedded_objects
 
 	/// Whether bodypart has an open incision from surgery
-	var/open = 0
+	var/open = ORGAN_CLOSED
 	/// Whether bodypart needs to be opened with a saw to access the internal organs. Can be a string with encasing description
 	var/encased = FALSE
 	/// Reference to item hidden in this bodypart after cavity surgery
@@ -100,18 +98,38 @@
 	var/broken_description
 	/// Descriptive string used in amputation
 	var/amputation_point
+	/// If the organ has been properly attached or not. Limbs on mobs and robotic ones
+	var/properly_attached = FALSE
+
+	light_system = MOVABLE_LIGHT
+	light_on = FALSE
 
 
-/obj/item/organ/external/New(mob/living/carbon/holder)
+/obj/item/organ/external/New(mob/living/carbon/holder, special = ORGAN_MANIPULATION_NOEFFECT)
 	..()
 
 	if(dna?.species)
 		icobase = dna.species.icobase
 		deform = dna.species.deform
 	if(ishuman(holder))
-		replaced(holder)
+		replaced(holder, special)
 		sync_colour_to_human(holder)
+		properly_attached = TRUE
+
+	if(is_robotic())
+		// These can just be slapped on.
+		properly_attached = TRUE
+
 	get_icon()
+
+	// so you can just smack the limb onto a guy to start the "surgery"
+	var/application_surgery
+	if(!is_robotic())
+		application_surgery = /datum/surgery/reattach
+	else
+		application_surgery = /datum/surgery/reattach_synth
+
+	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = application_surgery)
 
 
 /obj/item/organ/external/Destroy()
@@ -144,18 +162,20 @@
 	QDEL_NULL(hidden)
 
 	if(owner && !owner.has_embedded_objects())
-		owner.clear_alert("embeddedobject")
+		owner.clear_alert(ALERT_EMBEDDED)
 
 	return ..()
 
 
-/obj/item/organ/external/replaced(mob/living/carbon/human/target)
+/obj/item/organ/external/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	owner = target
 
 	forceMove(owner)
+	if(iscarbon(owner))
+		SEND_SIGNAL(owner, COMSIG_CARBON_GAIN_ORGAN, src)
 
 	if(LAZYLEN(embedded_objects))
-		owner.throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
+		owner.throw_alert(ALERT_EMBEDDED, /atom/movable/screen/alert/embeddedobject)
 
 	if(!ishuman(owner))
 		return
@@ -167,12 +187,12 @@
 	owner.bodyparts |= src
 
 	for(var/atom/movable/thing in src)
-		thing.attempt_become_organ(src, owner)
+		thing.attempt_become_organ(src, owner, special)
 
 	if(parent_organ_zone)
 		parent = owner.bodyparts_by_name[parent_organ_zone]
 		if(parent)
-			LAZYADDOR(parent.children, src)
+			LAZYOR(parent.children, src)
 
 
 /obj/item/organ/external/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
@@ -216,10 +236,10 @@
 		qdel(src)
 
 
-/obj/item/organ/external/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target)
+/obj/item/organ/external/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	if(parent_organ_zone != parent.limb_zone)
 		return FALSE
-	replaced(target)
+	replaced(target, special)
 	return TRUE
 
 
@@ -256,7 +276,7 @@
 			brute -= internal_damage
 
 	if(!silent && brute && has_fracture() && owner?.has_pain() && prob(40))
-		owner.emote("scream")	// Getting hit on broken hand hurts
+		INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")	// Getting hit on broken hand hurts
 	else if(brute && prob((brute + burn) * 4))
 		remove_splint(splint_break = TRUE, silent = silent)	// Taking damage to splinted limbs removes the splints
 
@@ -400,16 +420,12 @@ This function completely restores a damaged organ to perfect condition.
 /obj/item/organ/external/rejuvenate()
 	damage_state = "00"
 	surgeryize()
-	if(is_robotic())	//Robotic organs stay robotic.
-		status = ORGAN_ROBOT
-	else
-		status = NONE
+	heal_status_wounds(ALL)
 	germ_level = 0
 	perma_injury = 0
 	brute_dam = 0
 	burn_dam = 0
-	open = 0 //Closing all wounds.
-	disfigured = FALSE
+	open = ORGAN_CLOSED //Closing all wounds.
 
 	// handle internal organs
 	for(var/obj/item/organ/internal/organ as anything in internal_organs)
@@ -423,6 +439,21 @@ This function completely restores a damaged organ to perfect condition.
 	update_state()
 	if(!owner)
 		START_PROCESSING(SSobj, src)
+
+/obj/item/organ/external/proc/heal_status_wounds(flags_to_heal = ALL)
+	if(is_robotic())
+		status = ORGAN_ROBOT
+		return
+	if(flags_to_heal & ORGAN_MUTATED)
+		unmutate()
+	if(flags_to_heal & ORGAN_DEAD)
+		unnecrotize()
+	if(flags_to_heal & ORGAN_BROKEN)
+		mend_fracture()
+	if(flags_to_heal & ORGAN_INT_BLEED)
+		stop_internal_bleeding()
+	if(flags_to_heal & ORGAN_DISFIGURED)
+		undisfigure()
 
 
 /****************************************************
@@ -596,7 +627,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	var/mob/living/carbon/human/victim = owner //Keep a reference for post-removed().
 	// Let people make limbs become fun things when removed
-	var/atom/movable/dropped_part = remove(ignore_children = ignore_children)
+	var/atom/movable/dropped_part = remove(victim, ignore_children = ignore_children)
 
 	if(!QDELETED(src) && parent)
 		LAZYREMOVE(parent.children, src)
@@ -667,6 +698,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(organ_spilled && !silent)
 		organ_owner.visible_message(span_danger("[organ_owner]'s internal organs spill out onto the floor!"))
 
+	open = ORGAN_ORGANIC_OPEN
 	return TRUE
 
 
@@ -682,7 +714,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(I.sharp)
 		add_fingerprint(user)
 		if(!length(contents))
-			to_chat(user, span_warning("There is nothing left inside [src]!"))
+			user.balloon_alert(user, "внутри ничего нет!")
 			return
 
 		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
@@ -690,7 +722,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			span_warning("[user] begins to cut open [src]."),
 			span_notice("You begin to cut open [src]..."),
 		)
-		if(do_after(user, 5 SECONDS, target = src) && length(contents) && !QDELETED(src) && !QDELETED(user))
+		if(do_after(user, 5 SECONDS, src) && length(contents) && !QDELETED(src) && !QDELETED(user))
 			drop_organs()
 	else
 		return ..()
@@ -838,7 +870,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		playsound(owner, "bonebreak", 150, TRUE)
 
 		if(owner.has_pain())
-			owner.emote("scream")
+			INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 
 	status |= ORGAN_BROKEN
 	broken_description = pick("broken", "fracture", "hairline fracture")
@@ -876,7 +908,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	status |= ORGAN_SPLINTED
 	if(owner)
-		LAZYADDOR(owner.splinted_limbs, src)
+		LAZYOR(owner.splinted_limbs, src)
 		splinted_count = owner.step_count
 
 	return TRUE
@@ -897,7 +929,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if(splint_break)
 			owner.Stun(4 SECONDS)
 			if(owner.has_pain() && !silent)
-				owner.emote("scream")
+				INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 				owner.visible_message(
 					span_danger("[owner] screams in pain as [owner.p_their()] splint pops off their [name]!"),
 					span_userdanger("You scream in pain as your splint pops off your [name]!"),
@@ -917,8 +949,14 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 /obj/item/organ/external/robotize(make_tough = FALSE, company, convert_all = TRUE)
-	..()
-	remove_splint()
+	. = ..()
+
+	status &= ~ORGAN_INT_BLEED
+	status &= ~ORGAN_SPLINTED
+	status &= ~ORGAN_DEAD
+	status &= ~ORGAN_MUTATED
+	perma_injury = 0
+	splinted_count = 0
 
 	//robot limbs take reduced damage
 	if(make_tough)
@@ -931,6 +969,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 	// Robot parts also lack bones
 	// This is so surgery isn't kaput, let's see how this does
 	encased = null
+
+	// override the existing initiator
+	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = /datum/surgery/reattach_synth)
 
 	if(istext(company))
 		set_company(company)
@@ -945,55 +986,54 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 /obj/item/organ/external/necrotize(silent = FALSE)
 	if(status & (ORGAN_ROBOT|ORGAN_DEAD))
-		return FALSE
+		return
+	. = is_usable()
 	status |= ORGAN_DEAD
 	if(dead_icon)
 		icon_state = dead_icon
 	if(owner)
+		owner.update_body()
 		if(!silent)
 			to_chat(owner, span_notice("You can't feel your [name] anymore..."))
-		owner.update_body()
 		if(vital)
 			owner.death()
-	return TRUE
 
 
 /obj/item/organ/external/unnecrotize()
 	if(!is_dead())
-		return FALSE
+		return
+	. = is_usable()
 	status &= ~ORGAN_DEAD
-	owner?.update_body()
-	return TRUE
+	if(owner)
+		owner.update_body()
 
 
-/obj/item/organ/external/proc/mutate(silent = FALSE, update_body = TRUE)
+/obj/item/organ/external/proc/mutate(silent = FALSE)
 	if(owner?.status_flags & GODMODE)
-		return FALSE
+		return
 	if(is_robotic())
-		return FALSE
+		return
 	if(is_mutated())
-		return FALSE
+		return
+	. = is_usable()
 	status |= ORGAN_MUTATED
 	if(owner)
-		if(update_body)
-			owner.update_body(TRUE) //Forces all bodyparts to update in order to correctly render the deformed sprite.
+		owner.update_body(rebuild_base = TRUE) //Forces all bodyparts to update in order to correctly render the deformed sprite.
 		if(!silent)
 			to_chat(owner, span_warning("Something is not right with your [name]..."))
-	return TRUE
 
 
-/obj/item/organ/external/proc/unmutate(silent = FALSE, update_body = TRUE)
+/obj/item/organ/external/proc/unmutate(silent = FALSE)
 	if(!is_mutated())
-		return FALSE
+		return
 	if(is_robotic())
-		return FALSE
+		return
+	. = is_usable()
 	status &= ~ORGAN_MUTATED
 	if(owner)
-		if(update_body)
-			owner.update_body(rebuild_base = TRUE) //Forces all bodyparts to update in order to correctly return them to normal.
+		owner.update_body(rebuild_base = TRUE) //Forces all bodyparts to update in order to correctly return them to normal.
 		if(!silent)
 			to_chat(owner, span_warning("Your [name] is shaped normally again."))
-	return TRUE
 
 
 /obj/item/organ/external/proc/is_mutated()
@@ -1012,7 +1052,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 /obj/item/organ/external/proc/is_usable()
 	if((is_robotic() && get_damage() >= max_damage) && !tough) //robot limbs just become inoperable at max damage
-		return
+		return FALSE
 	return !(status & (ORGAN_MUTATED|ORGAN_DEAD))
 
 
@@ -1021,7 +1061,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 /obj/item/organ/external/proc/disfigure(silent = FALSE)
-	if(is_disfigured())
+	if(is_disfigured() || is_robotic())
 		return FALSE
 
 	if(owner)
@@ -1035,19 +1075,22 @@ Note that amputating the affected organ does in fact remove the infection from t
 				span_italics("You hear a sickening sound.")
 			)
 
-	disfigured = TRUE
+	status |= ORGAN_DISFIGURED
 	return TRUE
 
 
 /obj/item/organ/external/proc/is_disfigured()
-	return disfigured
+	return (status & ORGAN_DISFIGURED)
 
 
 /obj/item/organ/external/proc/undisfigure()
+	if(is_robotic())
+		return FALSE
+
 	if(!is_disfigured())
 		return FALSE
 
-	disfigured = FALSE
+	status &= ~ORGAN_DISFIGURED
 
 	return TRUE
 
@@ -1104,7 +1147,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		thing.forceMove(drop_loc)
 		.++
 	if(clear_alert && owner && !owner.has_embedded_objects())
-		owner.clear_alert("embeddedobject")
+		owner.clear_alert(ALERT_EMBEDDED)
 	return .
 
 
@@ -1114,15 +1157,15 @@ Note that amputating the affected organ does in fact remove the infection from t
 	LAZYREMOVE(embedded_objects, thing)
 	thing.forceMove(drop_loc ? drop_loc : drop_location())
 	if(clear_alert && owner && !owner.has_embedded_objects())
-		owner.clear_alert("embeddedobject")
+		owner.clear_alert(ALERT_EMBEDDED)
 	return TRUE
 
 
 /obj/item/organ/external/proc/add_embedded_object(obj/item/thing, throw_alert = TRUE)
-	LAZYADDOR(embedded_objects, thing)
+	LAZYOR(embedded_objects, thing)
 	thing.forceMove(src)
 	if(throw_alert)
-		owner?.throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
+		owner?.throw_alert(ALERT_EMBEDDED, /atom/movable/screen/alert/embeddedobject)
 
 
 #undef LIMB_SHARP_THRESH_INT_DMG

@@ -19,6 +19,12 @@ SUBSYSTEM_DEF(idlenpcpool)
 /datum/controller/subsystem/idlenpcpool/Initialize()
 	idle_mobs_by_zlevel = new /list(world.maxz, 0)
 
+/datum/controller/subsystem/idlenpcpool/proc/MaxZChanged()
+	if (!islist(idle_mobs_by_zlevel))
+		idle_mobs_by_zlevel = new /list(world.maxz,0)
+	while (SSidlenpcpool.idle_mobs_by_zlevel.len < world.maxz)
+		SSidlenpcpool.idle_mobs_by_zlevel.len++
+		SSidlenpcpool.idle_mobs_by_zlevel[idle_mobs_by_zlevel.len] = list()
 
 /datum/controller/subsystem/idlenpcpool/fire(resumed = FALSE)
 	if(!resumed)

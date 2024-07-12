@@ -151,6 +151,11 @@
 	build_path = /obj/machinery/computer/card/minor/cmo
 	target_dept = TARGET_DEPT_MED
 
+/obj/item/circuitboard/card/minor/qm
+	board_name = "Supply ID Computer"
+	build_path = /obj/machinery/computer/card/minor/qm
+	target_dept = TARGET_DEPT_SUP
+
 /obj/item/circuitboard/card/minor/rd
 	board_name = "Science ID Computer"
 	build_path = /obj/machinery/computer/card/minor/rd
@@ -169,6 +174,11 @@
 	board_name = "Teleporter Console"
 	build_path = /obj/machinery/computer/teleporter
 	origin_tech = "programming=3;bluespace=3;plasmatech=3"
+
+/obj/item/circuitboard/teleporter/robotics
+	board_name = "Robotics Teleporter Console"
+	build_path = /obj/machinery/computer/teleporter/robotics
+	origin_tech = "programming=2;bluespace=3;plasmatech=2"
 
 /obj/item/circuitboard/secure_data
 	board_name = "Security Records"
@@ -479,7 +489,7 @@
 	playsound(src, 'sound/effects/pop.ogg', 50)
 
 /obj/item/circuitboard/rdconsole/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
+	if(istype(I, /obj/item/card/id) || is_pda(I))
 		if(allowed(user))
 			user.visible_message(span_notice("\the [user] waves [user.p_their()] ID past the [src]'s access protocol scanner."), span_notice("You swipe your ID past the [src]'s access protocol scanner."))
 			var/console_choice = tgui_input_list(user, "What do you want to configure the access to?", "Access Modification", access_types)
@@ -546,16 +556,16 @@
 
 
 /obj/structure/computerframe/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		drop_computer_parts()
 	return ..() // will qdel the frame
 
 
 /obj/structure/computerframe/AltClick(mob/user)
-	if(user.incapacitated())
-		to_chat(user, span_warning("You can't do that right now!"))
-		return
 	if(!Adjacent(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
 	if(anchored)
 		to_chat(user, span_warning("The frame is anchored to the floor!"))
@@ -599,10 +609,10 @@
 
 	if(anchored)
 		to_chat(user, span_notice("You unfasten the frame."))
-		anchored = FALSE
+		set_anchored(FALSE)
 	else
 		to_chat(user, span_notice("You wrench the frame into place."))
-		anchored = TRUE
+		set_anchored(TRUE)
 
 /obj/structure/computerframe/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -699,7 +709,7 @@
 
 			C.play_tool_sound(src)
 			to_chat(user, span_notice("You start to add cables to the frame."))
-			if(!do_after(user, 2 SECONDS * C.toolspeed * gettoolspeedmod(user), target = src))
+			if(!do_after(user, 2 SECONDS * C.toolspeed * gettoolspeedmod(user), src))
 				return
 			if(C.get_amount() < 5 || !C.use(5))
 				to_chat(user, span_warning("At some point during construction you lost some cable. Make sure you have five lengths before trying again."))
@@ -721,7 +731,7 @@
 
 			G.play_tool_sound(src)
 			to_chat(user, span_notice("You start to add the glass panel to the frame."))
-			if(!do_after(user, 2 SECONDS * G.toolspeed * gettoolspeedmod(user), target = src))
+			if(!do_after(user, 2 SECONDS * G.toolspeed * gettoolspeedmod(user), src))
 				return
 			if(G.get_amount() < 2 || !G.use(2))
 				to_chat(user, span_warning("At some point during construction you lost some glass. Make sure you have two sheets before trying again."))

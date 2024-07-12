@@ -49,7 +49,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	assigned_targets = list()
 
 
-/datum/antagonist/Destroy(force, ...)
+/datum/antagonist/Destroy(force)
 	for(var/datum/objective/objective as anything in objectives)
 		objectives -= objective
 		if(!objective.team)
@@ -278,7 +278,7 @@ GLOBAL_LIST_EMPTY(antagonists)
  * * granting_datum - TRUE if the datum is being applied to the clown mob.
  */
 /datum/antagonist/proc/handle_clown_mutation(mob/living/carbon/human/clown, message, granting_datum = FALSE)
-	if(!istype(clown) || owner.assigned_role != "Clown")
+	if(!istype(clown) || owner.assigned_role != JOB_TITLE_CLOWN)
 		return FALSE
 
 	// Remove clumsy and give them an action to toggle it on and off.

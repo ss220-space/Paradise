@@ -59,15 +59,11 @@
 			stack_trace("One of the smoothing corners is bust")
 	catch(var/exception/e)
 		GLOB.space_manager.remove_dirt(placement.z)
-		late_setup_level(block(bot_left, top_right), block(ST_bot_left, ST_top_right))
 		message_admins("Map template [name] threw an error while loading. Safe exit attempted, but check for errors at [ADMIN_COORDJMP(placement)].")
 		log_admin("Map template [name] threw an error while loading. Safe exit attempted.")
 		throw e
 
 	GLOB.space_manager.remove_dirt(placement.z)
-	late_setup_level(
-		block(bot_left, top_right),
-		block(ST_bot_left, ST_top_right))
 
 	add_game_logs("[name] loaded at [min_x],[min_y],[placement.z]")
 	return 1
@@ -91,8 +87,7 @@
 
 	var/max_x = min_x + width-1
 	var/max_y = min_y + height-1
-	placement = locate(max(min_x,1), max(min_y,1), placement.z)
-	return block(placement, locate(min(max_x, world.maxx), min(max_y, world.maxy), placement.z))
+	return block(max(min_x,1), max(min_y,1), placement.z, min(max_x, world.maxx), min(max_y, world.maxy), placement.z)
 
 /datum/map_template/proc/fits_in_map_bounds(turf/T, centered = 0)
 	var/turf/placement = T

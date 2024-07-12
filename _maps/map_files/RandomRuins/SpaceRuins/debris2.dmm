@@ -1,7 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"a" = (
-/turf/template_noop,
-/area/template_noop)
 "b" = (
 /turf/simulated/floor/plating/airless,
 /area/space)
@@ -15,6 +12,10 @@
 /obj/item/stack/cable_coil/cut,
 /turf/space,
 /area/template_noop)
+"g" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/space)
 "h" = (
 /obj/structure/girder,
 /turf/space,
@@ -25,11 +26,7 @@
 /area/space)
 "l" = (
 /obj/structure/girder,
-/turf/simulated/floor/plating,
-/area/space)
-"m" = (
-/obj/structure/grille/broken,
-/turf/template_noop,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "n" = (
 /obj/item/stack/cable_coil/cut,
@@ -39,7 +36,7 @@
 /obj/machinery/door/airlock/command{
 	max_integrity = 40
 	},
-/turf/simulated/floor/plating/burnt,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "p" = (
 /mob/living/simple_animal/hostile/carp,
@@ -61,11 +58,11 @@
 /obj/item/clothing/head/bio_hood/virology,
 /turf/space,
 /area/space)
-"w" = (
-/obj/structure/lattice,
+"v" = (
 /turf/template_noop,
 /area/space)
 "x" = (
+/obj/structure/grille/broken,
 /turf/template_noop,
 /area/space)
 "y" = (
@@ -102,10 +99,6 @@
 /obj/item/reagent_containers/glass/beaker/large,
 /turf/space,
 /area/template_noop)
-"F" = (
-/obj/effect/landmark/tiles/burnturf,
-/turf/simulated/floor,
-/area/space)
 "G" = (
 /obj/structure/safe,
 /obj/item/stack/sheet/mineral/bananium{
@@ -136,8 +129,8 @@
 /turf/space,
 /area/space)
 "M" = (
-/turf/simulated/floor,
-/area/space)
+/turf/template_noop,
+/area/template_noop)
 "N" = (
 /obj/item/clothing/suit/bio_suit/virology,
 /turf/space,
@@ -180,46 +173,44 @@
 /area/space)
 "Y" = (
 /obj/structure/girder/reinforced,
-/turf/simulated/floor/plating/damaged,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "Z" = (
-/obj/machinery/computer/pandemic{
-	circuit = /obj/effect/decal/cleanable/shreds
-	},
+/obj/machinery/computer/pandemic,
 /turf/simulated/floor/plasteel/airless,
 /area/space)
 
 (1,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+M
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
+I
 "}
 (2,1,1) = {"
-a
+M
 d
 d
 d
 d
 d
 Y
-x
+v
 S
 I
 I
@@ -231,15 +222,15 @@ C
 I
 I
 I
-a
+I
 "}
 (3,1,1) = {"
-a
+M
 d
 G
 A
 U
-F
+D
 d
 z
 T
@@ -253,10 +244,10 @@ p
 O
 I
 I
-a
+I
 "}
 (4,1,1) = {"
-a
+M
 Y
 c
 U
@@ -264,43 +255,43 @@ c
 U
 d
 X
-w
-M
+g
+b
 c
 U
-M
+b
 T
 V
 I
 I
 I
 I
-a
+I
 "}
 (5,1,1) = {"
-a
-Y
 M
-F
-F
+Y
+b
+D
+D
 q
 d
 z
-m
-F
-M
-F
-M
+x
+D
+b
+D
+b
 T
 I
 I
 I
 I
 I
-a
+I
 "}
 (6,1,1) = {"
-a
+M
 d
 d
 y
@@ -308,21 +299,21 @@ d
 d
 Y
 X
-w
+g
 X
 n
 X
-w
+g
 T
 I
 I
 I
 C
 I
-a
+I
 "}
 (7,1,1) = {"
-a
+M
 X
 X
 X
@@ -334,17 +325,17 @@ X
 T
 T
 T
-x
+v
 T
 I
 I
 V
 I
 I
-a
+I
 "}
 (8,1,1) = {"
-a
+M
 X
 X
 X
@@ -354,46 +345,46 @@ X
 X
 R
 X
-w
+g
 X
 b
-x
-x
+v
+v
 I
 I
 I
 I
-a
+I
 "}
 (9,1,1) = {"
-a
+M
 p
 s
 T
-m
-w
+x
+g
 T
 R
 X
 B
 X
-w
+g
 X
-x
+v
 z
 I
 s
 I
 I
-a
+I
 "}
 (10,1,1) = {"
-a
+M
 s
 I
 T
-M
-F
+b
+D
 T
 X
 X
@@ -401,26 +392,26 @@ X
 X
 X
 X
-x
-x
+v
+v
 I
 I
 I
 I
-a
+I
 "}
 (11,1,1) = {"
-a
+M
 I
 I
 T
 c
-F
+D
 T
 X
 X
 c
-F
+D
 b
 j
 D
@@ -429,15 +420,15 @@ I
 I
 I
 t
-a
+I
 "}
 (12,1,1) = {"
-a
+M
 C
 I
 T
 X
-M
+b
 N
 s
 I
@@ -451,10 +442,10 @@ I
 s
 I
 I
-a
+I
 "}
 (13,1,1) = {"
-a
+M
 I
 I
 l
@@ -473,10 +464,10 @@ I
 I
 I
 I
-a
+I
 "}
 (14,1,1) = {"
-a
+M
 I
 s
 p
@@ -495,10 +486,10 @@ I
 I
 I
 I
-a
+I
 "}
 (15,1,1) = {"
-a
+M
 V
 I
 I
@@ -517,10 +508,10 @@ I
 I
 I
 I
-a
+I
 "}
 (16,1,1) = {"
-a
+M
 I
 I
 E
@@ -539,10 +530,10 @@ I
 C
 I
 I
-a
+I
 "}
 (17,1,1) = {"
-a
+M
 I
 I
 C
@@ -561,10 +552,10 @@ I
 I
 I
 I
-a
+I
 "}
 (18,1,1) = {"
-a
+M
 I
 I
 I
@@ -583,10 +574,10 @@ I
 I
 I
 I
-a
+I
 "}
 (19,1,1) = {"
-a
+M
 I
 I
 I
@@ -605,27 +596,27 @@ I
 I
 I
 I
-a
+I
 "}
 (20,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
 "}

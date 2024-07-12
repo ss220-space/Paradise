@@ -1,7 +1,5 @@
 /// The darkness threshold for space dragon when choosing a color
 #define DARKNESS_THRESHOLD 50
-#define DRAGON_DEPRESSION_MODIFIER 5
-#define DRAGON_RAGE_MODIFIER -0.5
 
 /**
  * # Space Dragon
@@ -31,7 +29,6 @@
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 1, CLONE = 1, STAMINA = 1, OXY = 0)
 	a_intent = INTENT_HARM
 	speed = -0.2
-	flying = TRUE
 	attacktext = "кусает"
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	death_sound = 'sound/creatures/space_dragon_roar.ogg'
@@ -85,9 +82,6 @@
 	var/devastation_damage_min_percentage = 10
 	/// Maximum devastation damage dealt coefficient based on max health
 	var/devastation_damage_max_percentage = 25
-	/// Movement speed changes
-	var/dragon_depression = FALSE
-	var/dragon_rage = FALSE
 
 
 /mob/living/simple_animal/hostile/space_dragon/Initialize(mapload)
@@ -97,19 +91,12 @@
 	space_dragon_gust = new
 	space_dragon_gust.Grant(src)
 	ADD_TRAIT(src, TRAIT_HEALS_FROM_CARP_RIFTS, INNATE_TRAIT)
+	AddElement(/datum/element/simple_flying)
 	RegisterSignal(small_sprite, COMSIG_ACTION_TRIGGER, PROC_REF(add_dragon_overlay))
 
 
-/mob/living/simple_animal/hostile/space_dragon/Process_Spacemove(movement_dir)
+/mob/living/simple_animal/hostile/space_dragon/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
-
-
-/mob/living/simple_animal/hostile/space_dragon/movement_delay()
-	. = ..()
-	if(dragon_depression)
-		. += DRAGON_DEPRESSION_MODIFIER
-	if(dragon_rage)
-		. += DRAGON_RAGE_MODIFIER
 
 
 /mob/living/simple_animal/hostile/space_dragon/Login()
@@ -163,9 +150,9 @@
 		to_chat(src, span_warning("Вы начинаете рвать стену на части..."))
 		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
 		var/timetotear = 2 SECONDS
-		if(istype(target, /turf/simulated/wall/r_wall))
+		if(isreinforcedwallturf(target))
 			timetotear = 4 SECONDS
-		if(do_after(src, timetotear, target = thewall))
+		if(do_after(src, timetotear, thewall))
 			if(!iswallturf(thewall))
 				return
 			thewall.dismantle_wall(TRUE)
@@ -176,7 +163,7 @@
 		var/mob/living/L = target
 		if(L.stat == DEAD)
 			to_chat(src, span_warning("Вы начинаете глотать [L] целиком..."))
-			if(!do_after(src, 3 SECONDS, target = L))
+			if(!do_after(src, 3 SECONDS, L))
 				return
 			if(eat(L))
 				adjustHealth(-L.maxHealth * 0.5)
@@ -204,7 +191,7 @@
 	useGust(0)
 
 
-/mob/living/simple_animal/hostile/space_dragon/Move()
+/mob/living/simple_animal/hostile/space_dragon/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(!using_special)
 		. = ..()
 
@@ -437,7 +424,5 @@
 	tiredness = tiredness + (gust_tiredness * tiredness_mult)
 
 
-#undef DRAGON_DEPRESSION_MODIFIER
-#undef DRAGON_RAGE_MODIFIER
 #undef DARKNESS_THRESHOLD
 

@@ -165,7 +165,7 @@
 	process_mutation(holder)
 
 /datum/spacevine_mutation/space_covering/on_spread(obj/structure/spacevine/holder, turf/target)
-	if(target.type == /turf/space && !locate(/obj/structure/spacevine) in target)
+	if(isspaceturf(target) && !(locate(/obj/structure/spacevine) in target) && !is_location_within_transition_boundaries(target))
 		holder.master.spawn_spacevine_piece(target, holder)
 		. = TRUE
 
@@ -187,7 +187,7 @@
 	quality = MINOR_NEGATIVE
 
 /datum/spacevine_mutation/bluespace/on_spread(obj/structure/spacevine/holder, turf/target)
-	if(holder.energy > 1 && !locate(/obj/structure/spacevine) in target)
+	if(holder.energy > 1 && !(locate(/obj/structure/spacevine) in target) && !is_location_within_transition_boundaries(target))
 		// Lose bluespace upon piercing a single tile, and drop it from our own mutations too
 		// Representing a loss in "high potential"
 		// also conveniently prevents this from spreading too crazily
@@ -274,7 +274,7 @@
 	quality = NEGATIVE
 
 /datum/spacevine_mutation/aggressive_spread/on_spread(obj/structure/spacevine/holder, turf/target)
-	if(istype(target, /turf/simulated/wall/r_wall))
+	if(isreinforcedwallturf(target))
 		// Too tough to pierce - should lead to interesting spread patterns
 		return
 	// Bust through windows or other stuff blocking the way
@@ -324,7 +324,7 @@
 
 /datum/spacevine_mutation/woodening/on_grow(obj/structure/spacevine/holder)
 	if(holder.energy)
-		holder.density = TRUE
+		holder.set_density(TRUE)
 	holder.max_integrity = 100
 	holder.obj_integrity = holder.max_integrity
 
@@ -423,26 +423,14 @@
 	var/obj/structure/spacevine_controller/master = null
 	var/list/mutations = list()
 
+
 /obj/structure/spacevine/Initialize(mapload)
 	. = ..()
 	color = "#ffffff"
-
-/obj/structure/spacevine/examine(mob/user)
-	. = ..()
-	var/text = "This one is a"
-	if(mutations.len)
-		for(var/A in mutations)
-			var/datum/spacevine_mutation/SM = A
-			text += " [SM.name]"
-	else
-		text += " normal"
-	text += " vine."
-	. += "<span class='notice'>[text]</span>"
-
-/obj/structure/spacevine/proc/wither()
-	for(var/datum/spacevine_mutation/SM in mutations)
-		SM.on_death(src)
-	qdel(src)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 
 /obj/structure/spacevine/Destroy()
@@ -459,10 +447,30 @@
 			qdel(master)
 	master = null
 	mutations.Cut()
-	set_opacity(0)
+	set_opacity(FALSE)
 	if(has_buckled_mobs())
 		unbuckle_all_mobs(force = TRUE)
 	return ..()
+
+
+/obj/structure/spacevine/examine(mob/user)
+	. = ..()
+	var/text = "This one is a"
+	if(mutations.len)
+		for(var/A in mutations)
+			var/datum/spacevine_mutation/SM = A
+			text += " [SM.name]"
+	else
+		text += " normal"
+	text += " vine."
+	. += "<span class='notice'>[text]</span>"
+
+
+/obj/structure/spacevine/proc/wither()
+	for(var/datum/spacevine_mutation/SM in mutations)
+		SM.on_death(src)
+	qdel(src)
+
 
 /obj/structure/spacevine/has_prints()
 	return FALSE
@@ -522,10 +530,14 @@
 /obj/structure/spacevine/obj_destruction()
 	wither()
 
-/obj/structure/spacevine/Crossed(mob/crosser, oldloc)
-	if(isliving(crosser))
-		for(var/datum/spacevine_mutation/SM in mutations)
-			SM.on_cross(src, crosser)
+
+/obj/structure/spacevine/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(isliving(arrived))
+		for(var/datum/spacevine_mutation/mutation in mutations)
+			mutation.on_cross(src, arrived)
+
 
 /obj/structure/spacevine/attack_hand(mob/user)
 	for(var/datum/spacevine_mutation/SM in mutations)
@@ -546,7 +558,7 @@
 
 /obj/structure/spacevine_controller/New(loc, list/muts, potency, production)
 	color = "#ffffff"
-	spawn_spacevine_piece(loc, , muts)
+	spawn_spacevine_piece(loc, null, muts)
 	START_PROCESSING(SSobj, src)
 	init_subtypes(/datum/spacevine_mutation/, mutations_list)
 	if(potency != null && potency > 0)
@@ -641,7 +653,7 @@
 	if(!energy)
 		icon_state = pick("Med1", "Med2", "Med3")
 		energy = 1
-		set_opacity(1)
+		set_opacity(TRUE)
 	else
 		icon_state = pick("Hvy1", "Hvy2", "Hvy3")
 		energy = 2
@@ -672,17 +684,17 @@
 	for(var/datum/spacevine_mutation/SM in mutations)
 		spread_search |= SM.on_search(src)
 	while(dir_list.len)
-		var/direction = pick(dir_list)
-		dir_list -= direction
-		var/turf/stepturf = get_step(src,direction)
+		var/direction = pick_n_take(dir_list)
+		var/turf/stepturf = get_step(src, direction)
+		if(!stepturf)
+			continue
 		var/spread_success = FALSE
 		for(var/datum/spacevine_mutation/SM in mutations)
 			spread_success |= SM.on_spread(src, stepturf) // If this returns 1, spreading succeeded
 		if(!locate(/obj/structure/spacevine, stepturf))
 			// snowflake for space turf, but space turf is super common and a big deal
-			if(!istype(stepturf, /turf/space) && stepturf.Enter(src))
-				if(master)
-					master.spawn_spacevine_piece(stepturf, src)
+			if(!isspaceturf(stepturf) && stepturf.Enter(src) && is_location_within_transition_boundaries(stepturf))
+				master?.spawn_spacevine_piece(stepturf, src)
 				spread_success = TRUE
 		if(spread_success || !spread_search)
 			break
@@ -702,11 +714,12 @@
 	if(!override)
 		wither()
 
-/obj/structure/spacevine/CanPass(atom/movable/mover, turf/target, height=0)
+
+/obj/structure/spacevine/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
 	if(isvineimmune(mover))
-		. = TRUE
-	else
-		. = ..()
+		return TRUE
+
 
 /proc/isvineimmune(atom/A)
 	. = FALSE

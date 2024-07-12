@@ -28,10 +28,11 @@
 	obj_damage = 50
 	melee_damage_lower = 30
 	melee_damage_upper = 30
-	see_in_dark = 8
+	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	del_on_death = TRUE
 	dirslash_enabled = TRUE
+	slowed_by_pull_and_push = FALSE
 	var/vialspawned = FALSE
 	var/playstyle_string
 	var/datum/action/innate/demon/whisper/whisper_action

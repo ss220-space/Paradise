@@ -18,7 +18,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	light_color = LIGHT_COLOR_LIGHTBLUE
 	var/obj/item/card/id/scan = null
 	var/obj/item/card/id/modify = null
-	var/mode = 0
+	var/mode = IDCOMPUTER_SCREEN_TRANSFER
 	var/target_dept = 0 //Which department this computer has access to. 0=all departments
 	var/obj/item/radio/Radio
 
@@ -43,6 +43,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		/datum/job/cyborg,
 		/datum/job/captain,
 		/datum/job/hop,
+		/datum/job/qm,
 		/datum/job/hos,
 		/datum/job/chief_engineer,
 		/datum/job/rd,
@@ -53,8 +54,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		/datum/job/pilot,
 		/datum/job/brigdoc,
 		/datum/job/mechanic,
-		/datum/job/barber,
-		/datum/job/chaplain
+		/datum/job/chaplain,
+		/datum/job/officer,
+		/datum/job/barber
 	)
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
 	var/max_relative_positions = 30 //30%: Seems reasonable, limit of 6 @ 20 players
@@ -85,9 +87,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		return check_access(scan)
 	return FALSE
 
-/obj/machinery/computer/card/proc/get_target_rank()
-	return modify && modify.assignment ? modify.assignment : "Unassigned"
-
 /obj/machinery/computer/card/proc/format_jobs(list/jobs, targetrank, list/jobformats)
 	var/list/formatted = list()
 	for(var/job in jobs)
@@ -100,12 +99,12 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 	return formatted
 
-/obj/machinery/computer/card/proc/format_job_slots()
+/obj/machinery/computer/card/proc/format_job_slots(check_department, is_admin)
 	var/list/formatted = list()
 	for(var/datum/job/job in SSjobs.occupations)
 		if(job_blacklisted_full(job))
 			continue
-		if(!job_in_department(job))
+		if(check_department && !job_in_department(job))
 			continue
 		formatted.Add(list(list(
 			"title" = job.title,
@@ -113,7 +112,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			"total_positions" = job.total_positions,
 			"can_open" = can_open_job(job),
 			"can_close" = can_close_job(job),
-			"can_prioritize" = can_prioritize_job(job)
+			"can_prioritize" = can_prioritize_job(job, is_admin),
+			"is_priority" = (job in SSjobs.prioritized_jobs)
 			)))
 
 	return formatted
@@ -131,23 +131,23 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	set name = "Eject ID Card"
 	set src in oview(1)
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(scan)
 		to_chat(usr, "You remove \the [scan] from \the [src].")
 		scan.forceMove(get_turf(src))
-		if(!usr.get_active_hand() && Adjacent(usr))
+		if(Adjacent(usr))
 			usr.put_in_hands(scan, ignore_anim = FALSE)
 		scan = null
-		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 	else if(modify)
 		to_chat(usr, "You remove \the [modify] from \the [src].")
 		modify.forceMove(get_turf(src))
-		if(!usr.get_active_hand() && Adjacent(usr))
+		if(Adjacent(usr))
 			usr.put_in_hands(modify, ignore_anim = FALSE)
 		modify = null
-		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 	else
 		to_chat(usr, "There is nothing to remove from the console.")
 
@@ -158,11 +158,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	if(!scan && check_access(id_card))
 		user.drop_transfer_item_to_loc(id_card, src)
 		scan = id_card
-		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 	else if(!modify)
 		user.drop_transfer_item_to_loc(id_card, src)
 		modify = id_card
-		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 
 	SStgui.update_uis(src)
 	attack_hand(user)
@@ -213,11 +213,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			return TRUE
 	return FALSE
 
-/obj/machinery/computer/card/proc/can_prioritize_job(datum/job/job)
+/obj/machinery/computer/card/proc/can_prioritize_job(datum/job/job, is_admin)
 	if(job)
 		if(job_blacklisted_full(job))
 			return FALSE
-		if(!job_in_department(job, FALSE))
+		if(!is_admin && !job_in_department(job, FALSE))
 			return FALSE
 		if(job in SSjobs.prioritized_jobs)
 			return TRUE // because this also lets us un-prioritize the job
@@ -254,7 +254,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if(rank in thisjob.department_head)
 			jobs_returned += thisjob.title
 	if(addcivs)
-		jobs_returned += "Civilian"
+		jobs_returned += JOB_TITLE_CIVILIAN
 	return jobs_returned
 
 /obj/machinery/computer/card/proc/get_employees(list/selectedranks)
@@ -303,10 +303,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 	ui_interact(user)
 
-/obj/machinery/computer/card/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/card/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "CardComputer",  name, 800, 800, master_ui, state)
+		ui = new(user, src, "CardComputer", name)
 		ui.open()
 
 /obj/machinery/computer/card/ui_data(mob/user)
@@ -314,42 +314,46 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	data["mode"] = mode
 	data["modify_name"] = modify ? modify.name : FALSE
 	data["modify_owner"] = modify && modify.registered_name ? modify.registered_name : "-----"
-	data["modify_rank"] = get_target_rank()
+	data["modify_rank"] = modify?.rank ? modify.rank : FALSE
+	data["modify_assignment"] = modify?.assignment ? modify.assignment : "Unassigned"
 	data["modify_lastlog"] = modify && modify.lastlog ? modify.lastlog : FALSE
 	data["scan_name"] = scan ? scan.name : FALSE
 	data["scan_rank"] = scan ? scan.rank : FALSE
 
 	data["authenticated"] = is_authenticated(user) ? TRUE : FALSE
+	data["auth_or_ghost"] = data["authenticated"] || isobserver(user)
 	data["target_dept"] = target_dept
-	data["iscentcom"] = is_centcom() ? TRUE : FALSE
+	data["iscentcom"] = is_centcom()
+	data["isadmin"] = user.can_admin_interact()
 
 	switch(mode)
 		if(IDCOMPUTER_SCREEN_TRANSFER) // JOB TRANSFER
 			if(modify)
 				if(!scan)
 					return data
-				else if(target_dept)
+				data["jobFormats"] = SSjobs.format_jobs_for_id_computer(modify)
+				data["jobs_civilian"] = GLOB.civilian_positions
+				data["canterminate"] = has_idchange_access()
+
+				if(target_dept)
 					data["jobs_dept"] = get_subordinates(scan.rank, FALSE)
-					data["canterminate"] = has_idchange_access()
 				else
 					data["account_number"] = modify ? modify.associated_account_number : null
-					data["jobs_top"] = list("Captain", "Custom")
+					data["jobs_top"] = list(JOB_TITLE_CAPTAIN, "Custom")
 					data["jobs_engineering"] = GLOB.engineering_positions
 					data["jobs_medical"] = GLOB.medical_positions
 					data["jobs_science"] = GLOB.science_positions
 					data["jobs_security"] = GLOB.security_positions
 					data["jobs_service"] = GLOB.service_positions
-					data["jobs_supply"] = GLOB.supply_positions - "Head of Personnel"
-					data["jobs_civilian"] = GLOB.civilian_positions
+					data["jobs_supply"] = GLOB.supply_positions - JOB_TITLE_HOP
 					data["jobs_karma"] = GLOB.whitelisted_positions
 					data["jobs_centcom"] = get_all_centcom_jobs()
-					data["jobFormats"] = SSjobs.format_jobs_for_id_computer(modify)
 					data["current_skin"] = modify.icon_state
 					data["card_skins"] = format_card_skins(get_station_card_skins())
 					data["all_centcom_skins"] = is_centcom() ? format_card_skins(get_centcom_card_skins()) : FALSE
 
 		if(IDCOMPUTER_SCREEN_SLOTS) // JOB SLOTS
-			data["job_slots"] = format_job_slots()
+			data["job_slots"] = format_job_slots(!isobserver(user), data["isadmin"])
 			data["priority_jobs"] = list()
 			for(var/datum/job/a in SSjobs.prioritized_jobs)
 				data["priority_jobs"] += a.title
@@ -376,7 +380,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 /obj/machinery/computer/card/proc/regenerate_id_name()
 	if(modify)
-		modify.name = text("[modify.registered_name]'s ID Card ([modify.assignment])")
+		modify.name = "[modify.registered_name]'s ID Card ([modify.assignment])"
 
 /obj/machinery/computer/card/ui_act(action, params)
 	if(..())
@@ -390,24 +394,24 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(scan)
 				if(ishuman(usr))
 					scan.forceMove(get_turf(src))
-					if(!usr.get_active_hand() && Adjacent(usr))
+					if(Adjacent(usr))
 						usr.put_in_hands(scan, ignore_anim = FALSE)
 					scan = null
-					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 				else
 					scan.forceMove(get_turf(src))
 					scan = null
-					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 			else if(Adjacent(usr))
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/card/id))
 					if(!check_access(I))
-						playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
+						playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 						to_chat(usr, span_warning("This card does not have access."))
 						return FALSE
 					usr.drop_transfer_item_to_loc(I, src)
 					scan = I
-					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 			return
 		if("modify") // inserting or removing the ID you plan to modify
 			if(modify)
@@ -415,20 +419,20 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				regenerate_id_name()
 				if(ishuman(usr))
 					modify.forceMove(get_turf(src))
-					if(!usr.get_active_hand() && Adjacent(usr))
+					if(Adjacent(usr))
 						usr.put_in_hands(modify, ignore_anim = FALSE)
 					modify = null
-					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 				else
 					modify.forceMove(get_turf(src))
 					modify = null
-					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 			else if(Adjacent(usr))
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/card/id))
 					usr.drop_transfer_item_to_loc(I, src)
 					modify = I
-					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+					playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 			return
 		if("mode") // changing mode in the menu
 			mode = text2num(params["mode"])
@@ -436,7 +440,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 	// Everything below HERE requires auth
 	if(!is_authenticated(usr))
-		playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
+		playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 		to_chat(usr, span_warning("This function is not available unless you are logged in."))
 		return FALSE
 
@@ -448,12 +452,12 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			var/t1 = params["assign_target"]
 			var/assignment = t1 // для имени профессии
 			if(target_dept)
-				if(modify.assignment == "Demoted")
-					playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
-					visible_message(span_warning("[src]: Reassigning a demoted individual requires a full ID computer."))
+				if(modify.assignment == "Demoted" || modify.assignment == "Terminated")
+					playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
+					visible_message(span_warning("[src]: Reassigning a demoted or terminated individual requires a full ID computer."))
 					return FALSE
 				if(!job_in_department(SSjobs.GetJob(modify.rank), CONFIG_GET(flag/allow_head_of_departaments_assign_civilian)))
-					playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
+					playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 					visible_message(span_warning("[src]: Reassigning someone outside your department requires a full ID computer."))
 					return FALSE
 				if(!job_in_department(SSjobs.GetJob(t1)))
@@ -490,13 +494,15 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						assignment = input("Select a title", "Job title selection") as null|anything in AT
 						if(!assignment)
 							assignment = standart_Assignment
+						if(!modify)
+							return
 
 					access = jobdatum.get_access()
 
 				var/jobnamedata = modify.getRankAndAssignment()
 				add_game_logs("([scan.assignment]) has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[assignment]\".", usr)
 				investigate_log("[key_name_log(usr)] ([scan.assignment]) has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[assignment]\".", INVESTIGATE_ACCESSCHANGES)
-				if(t1 == "Civilian")
+				if(t1 == JOB_TITLE_CIVILIAN)
 					message_admins("[key_name_admin(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[assignment]\".")
 
 				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, t1, scan.registered_name, null)
@@ -521,12 +527,12 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			return
 		if("demote")
 			if(modify.assignment == "Demoted")
-				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
-				visible_message(span_notice("[src]: Demoted crew cannot be demoted any further. If further action is warranted, ask the Captain about Termination."))
+				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
+				visible_message(span_warning("[src]: Demoted crew cannot be demoted any further. If further action is warranted, ask the Captain about Termination."))
 				return FALSE
 			if(!job_in_department(SSjobs.GetJob(modify.rank), FALSE))
-				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
-				visible_message(span_notice("[src]: Heads may only demote members of their own department."))
+				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
+				visible_message(span_warning("[src]: Heads may only demote members of their own department."))
 				return FALSE
 			var/reason = sanitize(copytext(input("Enter legal reason for demotion. Enter nothing to cancel.","Legal Demotion"), 1, MAX_MESSAGE_LEN))
 			if(!reason || !is_authenticated(usr) || !modify)
@@ -543,16 +549,16 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Demoted", scan.registered_name, reason)
 			modify.lastlog = "[station_time_timestamp()]: DEMOTED by \"[scan.registered_name]\" ([scan.assignment]) from \"[jobnamedata]\" for: \"[reason]\"."
 			SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] ([scan.assignment]) has demoted \"[modify.registered_name]\" ([jobnamedata]) for \"[reason]\".")
+			SSjobs.slot_job_transfer(modify.rank, JOB_TITLE_CIVILIAN)
 			modify.access = access
-			modify.rank = "Civilian"
 			modify.assignment = "Demoted"
 			modify.icon_state = "id"
 			regenerate_id_name()
 			return
 		if("terminate")
 			if(!has_idchange_access()) // because captain/HOP can use this even on dept consoles
-				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
-				visible_message(span_notice("[src]: Only the Captain or HOP may completely terminate the employment of a crew member."))
+				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
+				visible_message(span_warning("[src]: Only the Captain or HOP may completely terminate the employment of a crew member."))
 				return FALSE
 			var/jobnamedata = modify.getRankAndAssignment()
 			var/reason = sanitize(copytext(input("Enter legal reason for termination. Enter nothing to cancel.", "Employment Termination"), 1, MAX_MESSAGE_LEN))
@@ -566,6 +572,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			SSjobs.log_job_transfer(modify.registered_name, jobnamedata, "Terminated", scan.registered_name, reason)
 			modify.lastlog = "[station_time_timestamp()]: TERMINATED by \"[scan.registered_name]\" ([scan.assignment]) from \"[jobnamedata]\" for: \"[reason]\"."
 			SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] ([scan.assignment]) has terminated the employment of \"[modify.registered_name]\" the \"[jobnamedata]\" for \"[reason]\".")
+			var/datum/job/job = SSjobs.GetJob(modify.rank)
+			if(modify.assignment != "Demoted" && !(job.title in GLOB.command_positions))
+				job.current_positions--
 			modify.assignment = "Terminated"
 			modify.access = list()
 			regenerate_id_name()
@@ -630,7 +639,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 								investigate_log("[key_name_log(usr)] ([scan.assignment]) has set \"[tempname]\" ([temprank]) to demote for: \"[reason]\".", INVESTIGATE_RECORDS)
 								SSjobs.notify_by_name(tempname, "[scan.registered_name] ([scan.assignment]) has ordered your demotion. Report to their office, or the HOP. Reason given: \"[reason]\"")
 							else
-								playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
+								playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 								to_chat(usr, span_warning("[src]: Cannot demote, due to their current security status."))
 								return FALSE
 							return
@@ -638,7 +647,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 	// Everything below here requires a full ID computer (dept consoles do not qualify)
 	if(target_dept)
-		playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
+		playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 		to_chat(usr, span_warning("This function is not available on department-level consoles."))
 		return
 
@@ -648,8 +657,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if("reg") // registered name on card
 			var/temp_name = reject_bad_name(input(usr, "Who is this ID for?", "ID Card Renaming", modify.registered_name), TRUE)
 			if(!modify || !temp_name)
-				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, 0)
-				visible_message(span_notice("[src] buzzes rudely."))
+				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
+				visible_message(span_warning("[src] buzzes rudely."))
 				return FALSE
 			modify.registered_name = temp_name
 			regenerate_id_name()
@@ -704,19 +713,17 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			var/datum/job/j = SSjobs.GetJob(priority_target)
 			if(!j)
 				return FALSE
-			if(!job_in_department(j))
+			if(!can_prioritize_job(j, usr.can_admin_interact()))
 				return FALSE
 			var/priority = TRUE
 			if(j in SSjobs.prioritized_jobs)
 				SSjobs.prioritized_jobs -= j
 				priority = FALSE
-			else if(SSjobs.prioritized_jobs.len < 3)
-				SSjobs.prioritized_jobs += j
 			else
-				return FALSE
-			add_game_logs("([scan.assignment]) [priority ?  "prioritized" : "unprioritized"] the job \"[j.title]\".", usr)
-			investigate_log("[key_name_log(usr)] ([scan.assignment]) [priority ?  "prioritized" : "unprioritized"] the job \"[j.title]\".", INVESTIGATE_ACCESSCHANGES)
-			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
+				SSjobs.prioritized_jobs += j
+			add_game_logs("([scan ? scan.assignment : "ADMIN"]) [priority ?  "prioritized" : "unprioritized"] the job \"[j.title]\".", usr)
+			investigate_log("[key_name_log(usr)] ([scan ? scan.assignment : "ADMIN"]) [priority ?  "prioritized" : "unprioritized"] the job \"[j.title]\".", INVESTIGATE_ACCESSCHANGES)
+			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return
 
 		if("wipe_all_logs") // Delete all records from 'records' section
@@ -725,7 +732,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if(delcount)
 					message_admins("[key_name_admin(usr)] has wiped all ID computer logs.")
 					add_misc_logs(usr, "wiped all ID computer logs.")
-					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
+					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return
 
 	// Everything below here is exclusive to the CC card computer.
@@ -736,7 +743,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if("wipe_my_logs")
 			var/delcount = SSjobs.delete_log_records(scan.registered_name, FALSE)
 			if(delcount)
-				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
+				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 
 
 /obj/machinery/computer/card/centcom
@@ -765,6 +772,14 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	req_access = list(ACCESS_HOS)
 	circuit = /obj/item/circuitboard/card/minor/hos
 
+/obj/machinery/computer/card/minor/qm
+	name = "supply management console"
+	target_dept = TARGET_DEPT_SUP
+	icon_screen = "idqm"
+	light_color = COLOR_BROWN_ORANGE
+	req_access = list(ACCESS_QM)
+	circuit = /obj/item/circuitboard/card/minor/qm
+
 /obj/machinery/computer/card/minor/cmo
 	name = "medical management console"
 	target_dept = TARGET_DEPT_MED
@@ -787,3 +802,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	light_color = COLOR_YELLOW
 	req_access = list(ACCESS_CE)
 	circuit = /obj/item/circuitboard/card/minor/ce
+
+#undef IDCOMPUTER_SCREEN_TRANSFER
+#undef IDCOMPUTER_SCREEN_SLOTS
+#undef IDCOMPUTER_SCREEN_ACCESS
+#undef IDCOMPUTER_SCREEN_RECORDS
+#undef IDCOMPUTER_SCREEN_DEPT

@@ -28,7 +28,7 @@
 		user.temporarily_remove_item_from_inventory(src, force = TRUE)
 		qdel(src)
 
-	else if(istype(W, /obj/item/pen))
+	else if(is_pen(W))
 		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
 		if(!isnull(t))
 			created_name = t
@@ -95,7 +95,7 @@
 /obj/item/ed209_assembly/attackby(obj/item/W, mob/user, params)
 	..()
 
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
 		if(!isnull(t))
 			created_name = t
@@ -169,7 +169,7 @@
 					to_chat(user, "<span class='warning'>You need one length of cable to wire the ED-209!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start to wire [src]...</span>")
-				if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
+				if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 					if(coil.get_amount() >= 1 && build_step == 6)
 						coil.use(1)
 						build_step = 7
@@ -219,7 +219,7 @@
 		return
 	I.play_tool_sound(src)
 	to_chat(user, "<span class='notice'>You start attaching the gun to the frame...</span>")
-	if(do_after(user, 4 SECONDS * I.toolspeed, target = src))
+	if(do_after(user, 4 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
 		build_step++
 		update_appearance(UPDATE_NAME)
 		to_chat(user, "<span class='notice'>You attach the gun to the frame.</span>")
@@ -307,7 +307,7 @@
 		user.temporarily_remove_item_from_inventory(src, force = TRUE)
 		qdel(src)
 
-	else if(istype(W, /obj/item/pen))
+	else if(is_pen(W))
 		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
 		if(!isnull(t))
 			created_name = t
@@ -330,7 +330,7 @@
 		to_chat(user, "<span class='notice'>You add the robot arm to the odd looking toolbox assembly. Boop beep!</span>")
 		user.temporarily_remove_item_from_inventory(src, force = TRUE)
 		qdel(src)
-	else if(istype(W, /obj/item/pen))
+	else if(is_pen(W))
 		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
 		if(!isnull(t))
 			created_name = t
@@ -382,8 +382,9 @@
 	var/treatment_virus = "spaceacillin"
 	var/robot_arm = /obj/item/robot_parts/l_arm
 
-/obj/item/firstaid_arm_assembly/New(loc, new_skin)
-	..()
+
+/obj/item/firstaid_arm_assembly/Initialize(mapload, new_skin)
+	. = ..()
 	if(new_skin)
 		skin = new_skin
 	update_icon(UPDATE_OVERLAYS)
@@ -405,7 +406,7 @@
 
 /obj/item/firstaid_arm_assembly/attackby(obj/item/I, mob/user, params)
 	..()
-	if(istype(I, /obj/item/pen))
+	if(is_pen(I))
 		var/t = rename_interactive(user, I, prompt = "Enter new robot name")
 		if(!isnull(t))
 			created_name = t
@@ -554,7 +555,7 @@
 		qdel(I)
 		qdel(src)
 
-	else if(istype(I, /obj/item/pen))
+	else if(is_pen(I))
 		var/t = rename_interactive(user, I, prompt = "Enter new robot name")
 		if(!isnull(t))
 			created_name = t
@@ -568,13 +569,11 @@
 			qdel(src)
 
 		else if(build_step == 2)
-			overlays -= "hs_eye"
 			new /obj/item/assembly/prox_sensor(get_turf(src))
 			to_chat(user, "<span class='notice'>You detach the proximity sensor from [src].</span>")
 			build_step--
 
 		else if(build_step == 3)
-			overlays -= "hs_arm"
 			new /obj/item/robot_parts/l_arm(get_turf(src))
 			to_chat(user, "<span class='notice'>You remove the robot arm from [src].</span>")
 			build_step--
@@ -697,7 +696,7 @@
 /obj/item/honkbot_arm_assembly/attackby(obj/item/W, mob/user, params)
 	..()
 	if(build_step == 0)
-		if(istype(W, /obj/item/assembly/prox_sensor))
+		if(isprox(W))
 			if(!user.drop_transfer_item_to_loc(W, src))
 				return
 			build_step++

@@ -62,7 +62,7 @@
 	name = "hastur's hood"
 	desc = "It's unspeakably stylish"
 	icon_state = "hasturhood"
-	flags = BLOCKHAIR
+	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/head/nursehat
@@ -76,16 +76,15 @@
 	icon_state = "syndicate-helm-black-red"
 	item_state = "syndicate-helm-black-red"
 	desc = "A plastic replica of a syndicate agent's space helmet, you'll look just like a real murderous syndicate agent in this! This is a toy, it is not made for use in space!"
-	flags = BLOCKHAIR
-	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
-
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME|HIDEHAIR
+	undyeable = TRUE
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
 
@@ -94,17 +93,16 @@
 	desc = "A large, featureless white orb meant to be worn on your head. How do you even see out of this thing?"
 	icon_state = "cueball"
 	item_state = "cueball"
-	flags = BLOCKHAIR
-	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/head/snowman
@@ -112,18 +110,17 @@
 	desc = "A ball of white styrofoam. So festive."
 	icon_state = "snowman_h"
 	item_state = "snowman_h"
-	flags = BLOCKHAIR
-	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME|HIDEHAIR
+	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/head/that
@@ -131,7 +128,6 @@
 	desc = "It's an amish looking armored top hat."
 	icon_state = "tophat"
 	item_state = "that"
-	flags_inv = 0
 
 
 /obj/item/clothing/head/greenbandana
@@ -139,15 +135,15 @@
 	desc = "It's a green bandana with some fine nanotech lining."
 	icon_state = "greenbandana"
 	item_state = "greenbandana"
-	flags_inv = 0
+
 
 /obj/item/clothing/head/justice
 	name = "justice hat"
 	desc = "Fight for what's righteous!"
 	icon_state = "justicered"
 	item_state = "justicered"
-	flags = BLOCKHAIR
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	flags_inv = HIDEHAIR
+	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 
 /obj/item/clothing/head/justice/blue
 	icon_state = "justiceblue"
@@ -257,12 +253,11 @@
 	tip_fedora(user)
 
 /obj/item/clothing/head/fedora/item_action_slot_check(slot)
-	if(slot == slot_head)
-		return 1
+	if(slot == ITEM_SLOT_HEAD)
+		return TRUE
 
 /obj/item/clothing/head/fedora/proc/tip_fedora(mob/user)
-	user.visible_message("[user] tips [user.p_their()] fedora.", "You tip your fedora")
-
+	user.custom_emote(EMOTE_VISIBLE, "приподнима[pluralize_ru(user.gender,"ет","ют")] федору.")
 
 /obj/item/clothing/head/fez
 	name = "fez"
@@ -277,24 +272,24 @@
 	desc = "Eeeee~heheheheheheh!"
 	icon_state = "witch"
 	item_state = "witch"
-	flags = BLOCKHAIR
+	flags_inv = HIDEHAIR
 
 /obj/item/clothing/head/chicken
 	name = "chicken suit head"
 	desc = "Bkaw!"
 	icon_state = "chickenhead"
 	item_state = "chickensuit"
-	flags = BLOCKHAIR
+	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/head/corgi
@@ -302,13 +297,18 @@
 	desc = "Woof!"
 	icon_state = "corgihead"
 	item_state = "chickensuit"
-	flags = BLOCKHAIR
+	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 
 /obj/item/clothing/head/corgi/super_hero
 	name = "super-hero corgi suit head"
 	desc = "Woof! This one seems to pulse with a strange power"
-	flags = BLOCKHAIR | NODROP
+
+
+/obj/item/clothing/head/corgi/super_hero/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/head/corgi/super_hero/en
 	name = "E-N suit head"
@@ -319,22 +319,21 @@
 	desc = "Fuzzy."
 	icon_state = "bearpelt"
 	item_state = "bearpelt"
-	flags = BLOCKHAIR
+	flags_inv = HIDEHAIR
 
 /obj/item/clothing/head/corgipelt
 	name = "corgi pelt hat"
 	desc = "What have i done."
 	icon_state = "corgipelt"
 	item_state = "corgipelt"
-	flags = BLOCKHAIR
+	flags_inv = HIDEHAIR
 
 /obj/item/clothing/head/xenos
 	name = "xenos helmet"
 	icon_state = "xenos"
 	item_state = "xenos_helm"
 	desc = "A helmet made out of chitinous alien hide."
-	flags = BLOCKHAIR
-	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 
 /obj/item/clothing/head/fedora
@@ -343,12 +342,12 @@
 	icon_state = "fedora"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/head/fedora/whitefedora
@@ -356,12 +355,12 @@
 	icon_state = "wfedora"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/head/fedora/brownfedora
@@ -369,12 +368,12 @@
 	icon_state = "bfedora"
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/head/stalhelm
@@ -382,23 +381,21 @@
 	desc = "The typical clown soldier's helmet."
 	icon_state = "stalhelm"
 	item_state = "stalhelm"
-	flags = BLOCKHAIR
-	flags_inv = HIDEHEADSETS
+	flags_inv = HIDEHEADSETS|HIDEHAIR
 
 /obj/item/clothing/head/panzer
 	name = "Clown HONKMech Cap"
 	desc = "The softcap worn by HONK Mech pilots."
 	icon_state = "panzercap"
 	item_state = "panzercap"
-	flags = BLOCKHAIR
+	flags_inv = HIDEHAIR
 
 /obj/item/clothing/head/naziofficer
 	name = "Clown Officer Cap"
 	desc = "The peaked clown officer's cap, disturbingly similar to the warden's."
 	icon_state = "officercap"
 	item_state = "officercap"
-	flags = BLOCKHAIR
-	flags_inv = HIDEHEADSETS
+	flags_inv = HIDEHEADSETS|HIDEHAIR
 
 /obj/item/clothing/head/beret/centcom/officer
 	name = "officers beret"
@@ -450,8 +447,13 @@
 	icon_state = "shamebrero"
 	item_state = "shamebrero"
 	desc = "Once it's on, it never comes off."
-	flags = NODROP
 	dog_fashion = null
+
+
+/obj/item/clothing/head/sombrero/shamebrero/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/head/cone
 	desc = "This cone is trying to warn you of something!"
@@ -479,12 +481,12 @@
 	icon_state = "rocksohat"
 	item_state = "rocksohat"
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
-		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
-		"Wryn" = 'icons/mob/clothing/species/wryn/head.dmi'
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
+		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/head.dmi',
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/head.dmi'
 	)
 
 /obj/item/clothing/head/rice_hat
@@ -497,18 +499,17 @@
 	desc = "Why not 'eagle head'? Who knows."
 	icon_state = "griffinhat"
 	item_state = "griffinhat"
-	flags = BLOCKHAIR
-	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
+	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 	actions_types = list(/datum/action/item_action/caw)
 
@@ -538,34 +539,31 @@
 	name = "paper sack hat"
 	desc = "A paper sack with crude holes cut out for eyes. Useful for hiding one's identity or ugliness."
 	icon_state = "papersack"
-	flags = BLOCKHAIR
-	flags_inv = HIDENAME|HIDEHEADSETS
+	flags_inv = HIDENAME|HIDEHEADSETS|HIDEHAIR
 
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/head/papersack/smiley
 	name = "paper sack hat"
 	desc = "A paper sack with crude holes cut out for eyes and a sketchy smile drawn on the front. Not creepy at all."
 	icon_state = "papersack_smile"
-	flags = BLOCKHAIR
-	flags_inv = HIDENAME|HIDEHEADSETS
 
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
-		"Monkey" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 	)
 
 /obj/item/clothing/head/crown
@@ -596,7 +594,7 @@
 	name = "shaman skull"
 	desc = "The skull of a long dead animal bolted to the front of a repurposed pan."
 	icon_state = "shamskull"
-	species_restricted = list("Unathi", "Ash Walker", "Ash Walker Shaman", "Draconid")
+	species_restricted = list(SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID)
 
 /obj/item/clothing/head/mr_chang_band
 	name = "Tight headband"
@@ -611,3 +609,58 @@
 	w_class = WEIGHT_CLASS_TINY
 	icon_state = "commandos_band"
 	item_state = "commandos_band"
+
+/obj/item/clothing/head/flower_crown
+	name = "flower crown"
+	desc = "A colorful flower crown made out of lilies, sunflowers and poppies."
+	icon_state = "flower_crown"
+	item_state = "flower_crown"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi'
+		)
+
+/obj/item/clothing/head/sunflower_crown
+	name = "sunflower crown"
+	desc = "A bright flower crown made out sunflowers that is sure to brighten up anyone's day!"
+	icon_state = "sunflower_crown"
+	item_state = "sunflower_crown"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi'
+		)
+
+/obj/item/clothing/head/poppy_crown
+	name = "poppy crown"
+	desc = "A flower crown made out of a string of bright red poppies."
+	icon_state = "poppy_crown"
+	item_state = "poppy_crown"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi'
+		)
+
+/obj/item/clothing/head/lily_crown
+	name = "lily crown"
+	desc = "A leafy flower crown with a cluster of large white lilies at the front."
+	icon_state = "lily_crown"
+	item_state = "lily_crown"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi'
+		)
+
+/obj/item/clothing/head/geranium_crown
+	name = "geranium crown"
+	desc = "A flower crown made out of an array of rich purple geraniums."
+	icon_state = "geranium_crown"
+	item_state = "geranium_crown"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi'
+		)

@@ -59,7 +59,7 @@
 	visible_message("<span class='notice'>The [name] burns out!</span>")
 
 
-/obj/item/memorizer/proc/flash_recharge(var/mob/user)
+/obj/item/memorizer/proc/flash_recharge(mob/user)
 	if(prob(times_used * 2))	//if you use it 5 times in a minute it has a 10% chance to break!
 		burn_out()
 		return FALSE
@@ -71,7 +71,7 @@
 	times_used = max(0, times_used) //sanity
 
 
-/obj/item/memorizer/proc/try_use_flash(mob/user = null)
+/obj/item/memorizer/proc/try_use_flash(mob/user)
 	flash_recharge(user)
 
 	if(broken)
@@ -79,8 +79,8 @@
 
 	playsound(loc, use_sound, 100, 1)
 	flick("[initial(icon_state)]2", src)
-	set_light(2, 1, COLOR_WHITE)
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 2)
+	set_light(2, 1, COLOR_WHITE, l_on = TRUE)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light_on), FALSE), 2)
 	times_used++
 
 	if(user && !clown_check(user))
@@ -136,14 +136,14 @@
 	if(!try_use_flash(user))
 		return FALSE
 	user.visible_message("<span class='disarm'>[user]'s [src.name] emits a blinding light!</span>", "<span class='danger'>Your [src.name] emits a blinding light!</span>")
-	for(var/mob/living/carbon/fucking_target in oviewers(3, null))
+	for(var/mob/living/carbon/fucking_target in oviewers(3, get_turf(src)))
 		memorize_carbon(fucking_target, user, 3, FALSE)
 
 
 /obj/item/memorizer/emp_act(severity)
 	if(!try_use_flash())
 		return FALSE
-	for(var/mob/living/carbon/fucking_target in viewers(3, null))
+	for(var/mob/living/carbon/fucking_target in viewers(3, get_turf(src)))
 		memorize_carbon(fucking_target, null, 10, TRUE)
 	burn_out()
 
@@ -175,8 +175,8 @@
 					custom_objective.owner = fucking_target.mind
 					fucking_target.mind.objectives += custom_objective
 					fucking_target.mind.lost_memory = TRUE
-					var/list/messages = list(fucking_target.mind.prepare_announce_objectives())
-					to_chat(fucking_target, chat_box_red(chat_box_red(messages.Join("<br>"))))
+					var/list/messages = fucking_target.mind.prepare_announce_objectives()
+					to_chat(fucking_target, chat_box_red(messages.Join("<br>")))
 				last_used = world.time
 				if(fucking_target.weakeyes)
 					fucking_target.Stun(4 SECONDS)

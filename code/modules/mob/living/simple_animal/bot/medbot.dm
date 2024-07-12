@@ -8,7 +8,7 @@
 	anchored = FALSE
 	health = 20
 	maxHealth = 20
-	pass_flags = PASSMOB
+	pass_flags = PASSMOB|PASSFLAPS
 
 	radio_channel = "Medical"
 
@@ -105,8 +105,8 @@
 	radio_config = list("Common" = 1, "Medical" = 1, "Syndicate" = 1)
 
 
-/mob/living/simple_animal/bot/medbot/syndicate/New()
-	..()
+/mob/living/simple_animal/bot/medbot/syndicate/Initialize(mapload, new_skin)
+	. = ..()
 	Radio.syndiekey = new /obj/item/encryptionkey/syndicate
 
 
@@ -135,7 +135,7 @@
 		. += "medskin_[skin]"
 
 
-/mob/living/simple_animal/bot/medbot/New(loc, new_skin)
+/mob/living/simple_animal/bot/medbot/Initialize(mapload, new_skin)
 	..()
 	var/datum/job/doctor/J = new /datum/job/doctor
 	access_card.access += J.get_access()
@@ -459,6 +459,8 @@
 
 
 /mob/living/simple_animal/bot/medbot/UnarmedAttack(atom/A)
+	if(!can_unarmed_attack())
+		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		patient = C

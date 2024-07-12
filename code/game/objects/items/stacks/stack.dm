@@ -59,6 +59,11 @@
 	update_weight()
 	update_icon()
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /obj/item/stack/Destroy()
 	if(usr && usr.machine == src)
@@ -158,7 +163,7 @@
 				to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.title]!</span>")
 			return FALSE
 
-		if(R.window_checks && !valid_window_location(usr.loc, usr.dir))
+		if(R.check_direction && !valid_build_direction(usr.loc, usr.dir, is_fulltile = R.is_fulltile))
 			to_chat(usr, "<span class='warning'>The [R.title] won't fit here!</span>")
 			return FALSE
 
@@ -210,7 +215,7 @@
 				return FALSE
 		if(R.time)
 			to_chat(usr, "<span class='notice'>Building [R.title] ...</span>")
-			if(!do_after(usr, R.time, target = usr))
+			if(!do_after(usr, R.time, usr))
 				return FALSE
 
 		if(R.cult_structure && locate(/obj/structure/cult) in get_turf(src)) //Check again after do_after to prevent queuing construction exploit.
@@ -238,12 +243,12 @@
 			src = null //dont kill proc after qdel()
 			usr.temporarily_remove_item_from_inventory(oldsrc, force = TRUE)
 			qdel(oldsrc)
-			if(istype(O, /obj/item))
+			if(isitem(O))
 				usr.put_in_hands(O)
 
 		O.add_fingerprint(usr)
 		//BubbleWrap - so newly formed boxes are empty
-		if(istype(O, /obj/item/storage))
+		if(isstorage(O))
 			for(var/obj/item/I in O)
 				qdel(I)
 		//BubbleWrap END
@@ -270,12 +275,6 @@
 		. += span_notice("<b>Alt-click</b> with an empty hand to take a custom amount.")
 
 
-/obj/item/stack/Crossed(obj/item/crossing, oldloc)
-	if(can_merge(crossing, inhand = FALSE))
-		merge(crossing)
-	. = ..()
-
-
 /obj/item/stack/hitby(atom/movable/hitting, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(can_merge(hitting, inhand = TRUE))
 		merge(hitting)
@@ -291,21 +290,17 @@
 
 
 /obj/item/stack/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
+	if(!ishuman(user) || amount < 1 || !Adjacent(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("You can't do that right now!</span>"))
-		return
-	if(!in_range(src, user))
-		return
-	if(!ishuman(user))
-		return
-	if(amount < 1)
 		return
 	//get amount from user
 	var/max = get_amount()
 	var/stackmaterial = round(input(user, "How many sheets do you wish to take out of this stack? (Maximum: [max])") as null|num)
 	if(stackmaterial == null || stackmaterial <= 0 || stackmaterial > get_amount())
 		return
-	if(!Adjacent(user, 1))
+	if(amount < 1 || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	split_stack(user, stackmaterial)
 	do_pickup_animation(user)
@@ -355,6 +350,22 @@
 	fingerprints		= from.fingerprints
 	fingerprintshidden	= from.fingerprintshidden
 	fingerprintslast	= from.fingerprintslast
+
+
+/// Signal handler for connect_loc element. Called when a movable enters the turf we're currently occupying. Merges if possible.
+/obj/item/stack/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	// Edge case. This signal will also be sent when src has entered the turf. Don't want to merge with ourselves.
+	if(arrived == src)
+		return
+
+	on_movable_entered_occupied_turf(arrived)
+
+
+/obj/item/stack/proc/on_movable_entered_occupied_turf(atom/movable/arrived)
+	if(can_merge(arrived, inhand = FALSE))
+		INVOKE_ASYNC(src, PROC_REF(merge), arrived)
 
 
 /**
@@ -478,7 +489,7 @@
 		return FALSE
 	if(check.throwing)	// no merging for items in middle air
 		return FALSE
-	if(istype(loc, /obj/machinery)) // no merging items in machines that aren't both in componentparts
+	if(ismachinery(loc)) // no merging items in machines that aren't both in componentparts
 		var/obj/machinery/machine = loc
 		if(!(src in machine.component_parts) || !(check in machine.component_parts))
 			return FALSE

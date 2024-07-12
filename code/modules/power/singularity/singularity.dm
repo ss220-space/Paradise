@@ -4,10 +4,10 @@
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "singularity_s1"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	layer = MASSIVE_OBJ_LAYER
 	light_range = 6
-	appearance_flags = 0
+	appearance_flags = LONG_GLIDE
 	var/current_size = 1
 	var/allowed_size = 1
 	var/contained = 1 //Are we going to move around?
@@ -24,16 +24,20 @@
 	var/target = null //its target. moves towards the target if it has one
 	var/last_failed_movement = 0//Will not move in the same dir if it couldnt before, will help with the getting stuck on fields thing
 	var/last_warning
-	var/consumedSupermatter = 0 //If the singularity has eaten a supermatter shard and can go to stage six
+	var/consumedSupermatter = FALSE //If the singularity has eaten a supermatter shard and can go to stage six
+	var/warps_projectiles = TRUE
 	allow_spin = 0
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
-/obj/singularity/New(loc, var/starting_energy = 50, var/temp = 0)
+/obj/singularity/Initialize(mapload, starting_energy = 50)
+	. = ..()
 	//CARN: admin-alert for chuckle-fuckery.
 	admin_investigate_setup()
 
-	src.energy = starting_energy
-	..()
+	energy = starting_energy
+	if(warps_projectiles)
+		AddComponent(/datum/component/proximity_monitor/singulo, _radius = 10)
+
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 	GLOB.singularities += src
@@ -49,7 +53,7 @@
 	target = null
 	return ..()
 
-/obj/singularity/Move(atom/newloc, direct)
+/obj/singularity/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(current_size >= STAGE_FIVE || check_turfs_in(direct))
 		last_failed_movement = 0//Reset this because we moved
 		return ..()
@@ -72,8 +76,8 @@
 	consume(user)
 	return 1
 
-/obj/singularity/Process_Spacemove() //The singularity stops drifting for no man!
-	return 0
+/obj/singularity/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE) //The singularity stops drifting for no man!
+	return FALSE
 
 /obj/singularity/blob_act(obj/structure/blob/B)
 	return
@@ -99,14 +103,17 @@
 	return 0 //Will there be an impact? Who knows.  Will we see it? No.
 
 
-/obj/singularity/Bump(atom/A)
-	consume(A)
-	return
+/obj/singularity/Bump(atom/bumped_atom, effect_applied = FALSE)
+	. = ..()
+	if(. || effect_applied)
+		return .
+	consume(bumped_atom)
 
 
-/obj/singularity/Bumped(atom/movable/moving_atom)
-	consume(moving_atom)
-	return
+/obj/singularity/Bumped(atom/movable/moving_atom, effect_applied = FALSE)
+	. = ..()
+	if(!effect_applied)
+		consume(moving_atom)
 
 
 /obj/singularity/process()
@@ -436,7 +443,7 @@
 
 /obj/singularity/proc/mezzer()
 	for(var/mob/living/carbon/M in oviewers(8, src))
-		if(istype(M, /mob/living/carbon/brain)) //Ignore brains
+		if(isbrain(M)) //Ignore brains
 			continue
 		if(!M.stat) // We can't stare on the lord if we are not so alive.
 			continue
@@ -465,3 +472,49 @@
 	explosion(src.loc,(dist),(dist*2),(dist*4), cause = "Another singularity")
 	qdel(src)
 	return(gain)
+
+/datum/component/proximity_monitor/singulo
+	field_checker_type = /obj/effect/abstract/proximity_checker/singulo
+
+/datum/component/proximity_monitor/singulo/create_single_prox_checker(turf/T, checker_type)
+	. = ..()
+	var/obj/effect/abstract/proximity_checker/singulo/S = .
+	S.calibrate()
+
+/datum/component/proximity_monitor/singulo/recenter_prox_checkers()
+	. = ..()
+	for(var/obj/effect/abstract/proximity_checker/singulo/S as anything in proximity_checkers)
+		S.calibrate()
+
+/obj/effect/abstract/proximity_checker/singulo
+	var/angle_to_singulo
+	var/distance_to_singulo
+
+/obj/effect/abstract/proximity_checker/singulo/proc/calibrate()
+	angle_to_singulo = ATAN2(monitor.hasprox_receiver.y - y, monitor.hasprox_receiver.x - x)
+	distance_to_singulo = get_dist(monitor.hasprox_receiver, src)
+
+
+/obj/effect/abstract/proximity_checker/singulo/proximity_check(obj/item/projectile/projectile)
+	. = ..()
+	if(!isprojectile(projectile))
+		return .
+	var/distance = distance_to_singulo
+	var/projectile_angle = projectile.Angle
+	var/angle_to_projectile = angle_to_singulo
+	if(angle_to_projectile == 180)
+		angle_to_projectile = -180
+	angle_to_projectile -= projectile_angle
+	if(angle_to_projectile > 180)
+		angle_to_projectile -= 360
+	else if(angle_to_projectile < -180)
+		angle_to_projectile += 360
+
+	if(distance == 0)
+		qdel(projectile)
+		return .
+
+	projectile_angle += angle_to_projectile / (distance ** 2)
+	projectile.damage += 10 / distance
+	projectile.set_angle(projectile_angle)
+

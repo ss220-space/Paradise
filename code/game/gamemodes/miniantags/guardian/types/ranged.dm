@@ -16,7 +16,7 @@
 	ranged = 1
 	range = 13
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	see_in_dark = 8
+	nightvision = 8
 	playstyle_string = "Будучи <b>Стрелком</b>, вы не обладаете сопротивлением урону, но способны распылять осколки кристалла с невероятно высокой скоростью. Вы также можете расставлять наблюдательные силки, чтобы следить за передвижением противника. Наконец, вы можете перейти в режим разведчика, в котором вы не можете атаковать, но можете двигаться без ограничений. Следите за энергией для стрельбы и старайтесь не стрелять в хозяина!"
 	magic_fluff_string = "...и вытаскиваете Дозорного, инопланетного мастера дальнего боя."
 	tech_fluff_string = "Последовательность загрузки завершена. Активированы модули дальнего боя. Рой голопаразитов запущен."
@@ -100,10 +100,9 @@
 	set desc = "Установите невидимую ловушку, которая оповестит вас, когда по ней пройдут живые существа. Максимум 5"
 	if(snares.len <6)
 		var/turf/snare_loc = get_turf(loc)
-		var/obj/item/effect/snare/S = new /obj/item/effect/snare(snare_loc)
-		S.spawner = src
-		S.name = "[get_area(snare_loc)] trap ([rand(1, 1000)])"
-		snares |= S
+		var/obj/item/effect/snare/snare = new(snare_loc, src)
+		snare.name = "[get_area(snare_loc)] trap ([rand(1, 1000)])"
+		snares |= snare
 		to_chat(src, "<span class='danger'>Ловушка слежения установлена!</span>")
 	else
 		to_chat(src, "<span class='danger'>У вас установлено слишком много ловушек. Сначала удалите некоторые.</span>")
@@ -118,24 +117,40 @@
 		qdel(picked_snare)
 		to_chat(src, "<span class='danger'>Ловушка убрана.</span>")
 
+
 /obj/item/effect/snare
 	name = "snare"
 	desc = "You shouldn't be seeing this!"
-	var/mob/living/spawner
 	invisibility = 1
+	var/mob/living/simple_animal/hostile/guardian/guardian
+
+
+/obj/item/effect/snare/Initialize(mapload, mob/living/simple_animal/hostile/guardian/guardian)
+	. = ..()
+	src.guardian = guardian
+	if(guardian)
+		var/static/list/loc_connections = list(
+			COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+		)
+		AddElement(/datum/element/connect_loc, loc_connections)
+
+
+/obj/item/effect/snare/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(!isliving(arrived))
+		return
+
+	var/area/snare_area = get_area(loc)
+	to_chat(guardian, span_danger("[arrived.name] пересек Вашу ловушку в [snare_area.name]."))
+	if(guardian.summoner)
+		to_chat(guardian.summoner, span_danger("[arrived.name] пересек Вашу ловушку в [snare_area.name]."))
+
 
 /obj/effect/snare/singularity_act()
 	return
 
+
 /obj/effect/snare/singularity_pull()
 	return
 
-/obj/item/effect/snare/Crossed(AM as mob|obj, oldloc)
-	if(isliving(AM))
-		var/turf/snare_loc = get_turf(loc)
-		if(spawner)
-			to_chat(spawner, "<span class='danger'>[AM] пересек вашу ловушку в [get_area(snare_loc)].</span>")
-			if(istype(spawner, /mob/living/simple_animal/hostile/guardian))
-				var/mob/living/simple_animal/hostile/guardian/G = spawner
-				if(G.summoner)
-					to_chat(G.summoner, "<span class='danger'>[AM] пересек вашу ловушку в [get_area(snare_loc)].</span>")

@@ -178,7 +178,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "goliath_hide"
 	singular_name = "hide plate"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
 	var/static/list/goliath_platable_armor_typecache = typecacheof(list(
@@ -240,7 +240,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "armour_plate"
 	singular_name = "armour plate"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
 
@@ -267,7 +267,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "dragon_hide"
 	singular_name = "drake plate"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
 
@@ -276,7 +276,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 /obj/item/stack/sheet/animalhide/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(W.sharp)
 		user.visible_message("[user] starts cutting hair off \the [src].", "<span class='notice'>You start cutting the hair off \the [src]...</span>", "<span class='italics'>You hear the sound of a knife rubbing against flesh.</span>")
-		if(do_after(user, 50 * W.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 5 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
 			to_chat(user, "<span class='notice'>You cut the hair from this [src.singular_name].</span>")
 			//Try locating an exisitng stack on the tile and add to there if possible
 			for(var/obj/item/stack/sheet/hairlesshide/HS in usr.loc)

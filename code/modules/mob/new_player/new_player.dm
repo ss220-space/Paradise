@@ -7,9 +7,9 @@
 
 	invisibility = INVISIBILITY_ABSTRACT
 
-	density = 0
-	stat = 2
-	canmove = FALSE
+	density = FALSE
+	stat = DEAD
+
 
 /mob/new_player/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
@@ -46,20 +46,27 @@
 	var/real_name = client.prefs.real_name
 	if(client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
 		real_name = "Random Character Slot"
-	var/output = {"<meta charset="UTF-8"><center><p><a href='byond://?src=[UID()];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"}
+
+	var/list/output = list({"<meta charset="UTF-8"><center>"})
+
+	if(!client.prefs.discord_id || (client.prefs.discord_id && length(client.prefs.discord_id) == 32))
+		output += "<p><a href='byond://?src=[UID()];connect_discord=1'>Привязка Discord</A></p>"
+
+	output += "<p><a href='byond://?src=[UID()];show_preferences=1'>Setup Character</A><br /><i>[real_name]</i></p>"
 
 	if(!SSticker || SSticker.current_state <= GAME_STATE_PREGAME)
-		if(!ready)	output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
-		else	output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'>Cancel</A>)</p>"
+		if(!ready)
+			output += "<p><a href='byond://?src=[UID()];ready=1'>Declare Ready</A></p>"
+		else
+			output += "<p><b>You are ready</b> (<a href='byond://?src=[UID()];ready=2'>Cancel</A>)</p>"
 	else
 		output += "<p><a href='byond://?src=[UID()];manifest=1'>View the Crew Manifest</A></p>"
 		output += "<p><a href='byond://?src=[UID()];late_join=1'>Join Game!</A></p>"
 
 	var/list/antags = client.prefs.be_special
-	if(antags && antags.len)
-		if(!client.skip_antag) output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidacy</A>"
-		else	output += "<p><a href='byond://?src=[UID()];skip_antag=2'>Global Antag Candidacy</A>"
-		output += "<br /><small>You are <b><font color=[client.skip_antag ? "#dd311b" : "#63eb6a"]>[client.skip_antag ? "ineligible" : "eligible"]</font></b> for all antag roles.</small></p>"
+	if(length(antags))
+		output += "<p><a href='byond://?src=[UID()];skip_antag=1'>Global Antag Candidacy</A>"
+		output += "<br /><small>You are <b><font color=[client.prefs?.skip_antag ? "#dd311b" : "#63eb6a"]>[client.prefs?.skip_antag ? "ineligible" : "eligible"]</font></b> for all antag roles.</small></p>"
 
 	if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
 		output += "<p>Observe (Please wait...)</p>"
@@ -73,7 +80,7 @@
 
 	var/datum/browser/popup = new(src, "playersetup", "<div align='center'>New Player Options</div>", 240, 330)
 	popup.set_window_options("can_close=0")
-	popup.set_content(output)
+	popup.set_content(output.Join(""))
 	popup.open(0)
 	return
 
@@ -171,7 +178,7 @@
 		new_player_panel_proc()
 
 	if(href_list["skip_antag"])
-		client.skip_antag = !client.skip_antag
+		client.prefs?.skip_antag = !client.prefs?.skip_antag
 		new_player_panel_proc()
 
 	if(href_list["refresh"])
@@ -246,10 +253,6 @@
 		if(!is_used_species_available(client.prefs.species))
 			to_chat(usr, "<span class='warning'>Выбранная раса персонажа недоступна для игры в данный момент! Выберите другого персонажа.</span>")
 			return
-		if(client.prefs.species in GLOB.whitelisted_species)
-			if(!is_alien_whitelisted(src, client.prefs.species) && CONFIG_GET(flag/usealienwhitelist))
-				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
-				return FALSE
 		if(CONFIG_GET(flag/tts_enabled))
 			if(!client.prefs.tts_seed)
 				to_chat(usr, "<span class='danger'>Вам необходимо настроить голос персонажа! Не забудьте сохранить настройки.</span>")
@@ -266,6 +269,9 @@
 	if(href_list["manifest"])
 		ViewManifest()
 
+	if(href_list["connect_discord"])
+		client?.link_discord_account()
+
 	if(href_list["SelectedJob"])
 
 		if(!GLOB.enter_allowed)
@@ -278,11 +284,6 @@
 		if(!is_used_species_available(client.prefs.species))
 			to_chat(usr, "<span class='warning'>Выбранная раса персонажа недоступна для игры в данный момент! Выберите другого персонажа.</span>")
 			return
-
-		if(client.prefs.species in GLOB.whitelisted_species)
-			if(!is_alien_whitelisted(src, client.prefs.species) && CONFIG_GET(flag/usealienwhitelist))
-				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
-				return FALSE
 
 		//Prevents people rejoining as same character.
 		if(!is_admin(usr)) //Админам можно всё
@@ -306,7 +307,6 @@
 	if(!job)	return 0
 	if(!job.is_position_available()) return 0
 	if(jobban_isbanned(src,rank))	return 0
-	if(!is_job_whitelisted(src, rank))	 return 0
 	if(!job.player_old_enough(client))	return 0
 	if(job.admin_only && !(check_rights(R_ADMIN, 0))) return 0
 	if(job.available_in_playtime(client))
@@ -315,11 +315,11 @@
 		return 0
 
 	if(CONFIG_GET(flag/assistant_limit))
-		if(job.title == "Civilian")
+		if(job.title == JOB_TITLE_CIVILIAN)
 			var/count = 0
-			var/datum/job/officer = SSjobs.GetJob("Security Officer")
-			var/datum/job/warden = SSjobs.GetJob("Warden")
-			var/datum/job/hos = SSjobs.GetJob("Head of Security")
+			var/datum/job/officer = SSjobs.GetJob(JOB_TITLE_OFFICER)
+			var/datum/job/warden = SSjobs.GetJob(JOB_TITLE_WARDEN)
+			var/datum/job/hos = SSjobs.GetJob(JOB_TITLE_HOS)
 			count += (officer.current_positions + warden.current_positions + hos.current_positions)
 			if(job.current_positions > (CONFIG_GET(number/assistant_ratio) * count))
 				if(count >= 5) // if theres more than 5 security on the station just let assistants join regardless, they should be able to handle the tide
@@ -335,8 +335,10 @@
 		return 0
 
 /mob/new_player/proc/is_used_species_available(species)
-	var/list/available_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian")
-	available_species += GLOB.whitelisted_species
+	if(has_admin_rights())
+		return TRUE
+	var/list/available_species = list(SPECIES_HUMAN)
+	available_species += CONFIG_GET(str_list/playable_species)
 	if(species in available_species)
 		return TRUE
 	else
@@ -404,7 +406,7 @@
 	character = SSjobs.AssignRank(character, rank, 1)					//equips the human
 
 	// AIs don't need a spawnpoint, they must spawn at an empty core
-	if(character.mind.assigned_role == "AI")
+	if(character.mind.assigned_role == JOB_TITLE_AI)
 		var/mob/living/silicon/ai/ai_character = character.AIize() // AIize the character, but don't move them yet
 
 		// IsJobAvailable for AI checks that there is an empty core available in this list
@@ -454,7 +456,7 @@
 
 	SSticker.mode.latespawn(character)
 
-	if(character.mind.assigned_role == "Cyborg")
+	if(character.mind.assigned_role == JOB_TITLE_CYBORG)
 		AnnounceCyborg(character, rank, join_message)
 	else
 		SSticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
@@ -482,13 +484,13 @@
 		if(ailist.len)
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
-				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
+				if((character.mind.assigned_role != JOB_TITLE_CYBORG) && (character.mind.assigned_role != character.mind.special_role))
 					var/arrivalmessage = create_announce_message(character, rank, join_message, announcer.arrivalmsg)
 					announcer.say(";[arrivalmessage]")
 
 		else
 			if(character.mind)
-				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
+				if((character.mind.assigned_role != JOB_TITLE_CYBORG) && (character.mind.assigned_role != character.mind.special_role))
 					var/arrivalmessage = create_announce_message(character, rank, join_message, GLOB.global_announcer_base_text)
 					GLOB.global_announcer.autosay(arrivalmessage, "Arrivals Announcement Computer")
 
@@ -580,7 +582,7 @@
 				if(job.title in categorizedJobs[jobcat]["titles"])
 					categorized = 1
 					if(jobcat == "Command") // Put captain at top of command jobs
-						if(job.title == "Captain")
+						if(job.title == JOB_TITLE_CAPTAIN)
 							jobs.Insert(1, job)
 						else
 							jobs += job
@@ -642,12 +644,12 @@
 
 	if(mind)
 		mind.active = 0					//we wish to transfer the key manually
-		if(mind.assigned_role == "Clown")				//give them a clownname if they are a clown
+		if(mind.assigned_role == JOB_TITLE_CLOWN)				//give them a clownname if they are a clown
 			new_character.real_name = pick(GLOB.clown_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
-			new_character.rename_self("clown")
-		else if(mind.assigned_role == "Mime")
+			new_character.rename_self(JOB_TITLE_CLOWN)
+		else if(mind.assigned_role == JOB_TITLE_MIME)
 			new_character.real_name = pick(GLOB.mime_names)
-			new_character.rename_self("mime")
+			new_character.rename_self(JOB_TITLE_MIME)
 		mind.set_original_mob(new_character)
 		mind.transfer_to(new_character)					//won't transfer key since the mind is not active
 		GLOB.human_names_list += new_character.real_name
@@ -662,10 +664,10 @@
 	var/datum/species/chosen_species
 	if(client.prefs.species)
 		chosen_species = GLOB.all_species[client.prefs.species]
-	if(!(chosen_species && (is_species_whitelisted(chosen_species) || has_admin_rights())))
+	if(!chosen_species)
 		// Have to recheck admin due to no usr at roundstart. Latejoins are fine though.
 		log_runtime(EXCEPTION("[src] had species [client.prefs.species], though they weren't supposed to. Setting to Human."), src)
-		client.prefs.species = "Human"
+		client.prefs.species = SPECIES_HUMAN
 
 	var/datum/language/chosen_language
 	if(client.prefs.language)
@@ -675,10 +677,11 @@
 		client.prefs.language = LANGUAGE_NONE
 
 /mob/new_player/proc/ViewManifest()
-	GLOB.generic_crew_manifest.ui_interact(usr, state = GLOB.always_state)
+	GLOB.generic_crew_manifest.ui_interact(usr)
 
-/mob/new_player/Move()
-	return 0
+
+/mob/new_player/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
+	return FALSE
 
 
 /mob/new_player/proc/close_spawn_windows()
@@ -692,10 +695,6 @@
 /mob/new_player/proc/has_admin_rights()
 	return check_rights(R_ADMIN, 0, src)
 
-/mob/new_player/proc/is_species_whitelisted(datum/species/S)
-	if(!S) return 1
-	return is_alien_whitelisted(src, S.name) || !CONFIG_GET(flag/usealienwhitelist) || !(IS_WHITELISTED in S.species_traits)
-
 /mob/new_player/get_gender()
 	if(!client || !client.prefs) ..()
 	return client.prefs.gender
@@ -706,3 +705,7 @@
 // No hearing announcements
 /mob/new_player/can_hear()
 	return FALSE
+
+/mob/new_player/mob_negates_gravity()
+	return TRUE //no need to calculate if they have gravity.
+

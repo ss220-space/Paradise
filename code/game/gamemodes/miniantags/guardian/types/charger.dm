@@ -11,13 +11,13 @@
 	tech_fluff_string = "Последовательность загрузки завершена. Скоростные модули загружены. Рой голопаразитов запущен."
 	bio_fluff_string = "Ваш рой скарабеев заканчивает мутировать и оживает, готовый нанести урон."
 	var/charging = 0
-	var/obj/screen/alert/chargealert
+	var/atom/movable/screen/alert/chargealert
 
 /mob/living/simple_animal/hostile/guardian/charger/Life()
 	. = ..()
 	if(ranged_cooldown <= world.time)
 		if(!chargealert)
-			chargealert = throw_alert("charge", /obj/screen/alert/cancharge)
+			chargealert = throw_alert("charge", /atom/movable/screen/alert/cancharge)
 	else
 		clear_alert("charge")
 		chargealert = null
@@ -42,7 +42,7 @@
 /mob/living/simple_animal/hostile/guardian/charger/proc/charging_end()
 	charging = 0
 
-/mob/living/simple_animal/hostile/guardian/charger/Move()
+/mob/living/simple_animal/hostile/guardian/charger/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(charging)
 		new /obj/effect/temp_visual/decoy/fading(loc,src)
 	. = ..()

@@ -2,7 +2,8 @@
 	icon = 'icons/obj/structures.dmi'
 	pressure_resistance = 8
 	max_integrity = 300
-	pull_push_speed_modifier = 1.2
+	pass_flags_self = PASSSTRUCTURE
+	pull_push_slowdown = 1.3
 	var/climbable
 	/// Determines if a structure adds the TRAIT_TURF_COVERED to its turf.
 	var/creates_cover = FALSE
@@ -44,17 +45,18 @@
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/structure/Move()
-	var/atom/old = loc
-	if(!..())
-		return FALSE
+
+/obj/structure/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
+	var/atom/old_loc = loc
+	. = ..()
+	if(!.)
+		return .
 
 	if(creates_cover)
-		if(isturf(old))
-			REMOVE_TRAIT(old, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
+		if(isturf(old_loc))
+			REMOVE_TRAIT(old_loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 		if(isturf(loc))
 			ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
-	return TRUE
 
 
 /obj/structure/has_prints()
@@ -85,29 +87,34 @@
 		do_climb(user)
 		return TRUE
 
-/obj/structure/proc/density_check()
-	for(var/obj/O in orange(0, src))
-		if(O.density && !istype(O, /obj/machinery/door/window)) //Ignores windoors, as those already block climbing, otherwise a windoor on the opposite side of a table would prevent climbing.
-			return O
-	var/turf/T = get_turf(src)
-	if(T.density)
-		return T
+
+/obj/structure/proc/density_check(mob/living/user)
+	var/turf/source_turf = get_turf(src)
+	if(source_turf.density)
+		return source_turf
+	var/border_dir = get_dir(src, user)
+	for(var/obj/check in (source_turf.contents - src))
+		if(check.density)
+			if((check.flags & ON_BORDER) && user.loc != loc && border_dir != check.dir)
+				continue
+			return check
 	return null
 
-/obj/structure/proc/do_climb(var/mob/living/user)
+/obj/structure/proc/do_climb(mob/living/user)
 	if(!can_touch(user) || !climbable)
 		return FALSE
-	var/blocking_object = density_check()
+	var/blocking_object = density_check(user)
 	if(blocking_object)
 		to_chat(user, "<span class='warning'>You cannot climb [src], as it is blocked by \a [blocking_object]!</span>")
 		return FALSE
 
 	var/turf/T = src.loc
-	if(!T || !istype(T)) return FALSE
+	if(!T || !istype(T))
+		return FALSE
 
-	usr.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
+	user.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
 	climber = user
-	if(!do_after(user, 50, target = src))
+	if(!do_after(user, 5 SECONDS, src))
 		climber = null
 		return FALSE
 
@@ -115,9 +122,9 @@
 		climber = null
 		return FALSE
 
-	usr.loc = get_turf(src)
+	user.forceMove(get_turf(src))
 	if(get_turf(user) == get_turf(src))
-		usr.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
+		user.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
 
 	clumse_stuff(climber)
 
@@ -137,7 +144,7 @@
 		if(MOB_SIZE_SMALL) slopchance = 20
 		if(MOB_SIZE_TINY) slopchance = 10
 
-	if(/datum/dna/gene/disability/clumsy in user.active_genes)
+	if(LAZYIN(user.active_genes, /datum/dna/gene/disability/clumsy))
 		slopchance += 20
 	if(user.mind?.miming)
 		slopchance -= 30
@@ -170,7 +177,8 @@
 
 	for(var/mob/living/M in get_turf(src))
 
-		if(M.lying) return //No spamming this on people.
+		if(M.body_position == LYING_DOWN)
+			return //No spamming this on people.
 
 		M.Weaken(10 SECONDS)
 		to_chat(M, "<span class='warning'>You topple as \the [src] moves under you!</span>")
@@ -215,7 +223,7 @@
 		return FALSE
 	if(!Adjacent(user))
 		return FALSE
-	if(user.restrained() || user.buckled)
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.buckled)
 		to_chat(user, span_notice("You need your hands and legs free for this."))
 		return FALSE
 	if(user.incapacitated())
@@ -254,10 +262,8 @@
 
 
 /obj/structure/extinguish_light(force = FALSE)
-	if(light_range)
-		light_power = 0
-		light_range = 0
-		update_light()
+	if(light_on)
+		set_light_on(FALSE)
 		name = "dimmed [name]"
 		desc = "Something shadowy moves to cover the object. Perhaps shining a light will force it to clear?"
 		extinguish_timer_id = addtimer(CALLBACK(src, PROC_REF(extinguish_light_check)), 2 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_LOOP|TIMER_DELETE_ME|TIMER_STOPPABLE)
@@ -277,9 +283,7 @@
 
 /obj/structure/proc/reset_light()
 	light_process = 0
-	light_power = initial(light_power)
-	light_range = initial(light_range)
-	update_light()
+	set_light_on(TRUE)
 	name = initial(name)
 	desc = initial(desc)
 	deltimer(extinguish_timer_id)

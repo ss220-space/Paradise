@@ -18,25 +18,21 @@
 	..()
 
 /obj/machinery/shield/Destroy()
-	opacity = FALSE
-	density = 0
+	set_opacity(FALSE)
+	set_density(FALSE)
 	air_update_turf(1)
 	return ..()
 
 /obj/machinery/shield/has_prints()
 	return FALSE
 
-/obj/machinery/shield/Move()
+/obj/machinery/shield/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
 	. = ..()
 	move_update_air(T)
 
-/obj/machinery/shield/CanPass(atom/movable/mover, turf/target, height)
-	if(!height)
-		return FALSE
-	return ..()
 
-/obj/machinery/shield/CanAtmosPass(turf/T)
+/obj/machinery/shield/CanAtmosPass(turf/T, vertical)
 	return !density
 
 /obj/machinery/shield/ex_act(severity)
@@ -116,11 +112,11 @@
 /obj/machinery/shield/cult/barrier/proc/Toggle()
 	var/visible
 	if(!density) // Currently invisible
-		density = TRUE // Turn visible
+		set_density(TRUE) // Turn visible
 		invisibility = initial(invisibility)
 		visible = TRUE
 	else // Currently visible
-		density = FALSE // Turn invisible
+		set_density(FALSE) // Turn invisible
 		invisibility = INVISIBILITY_ABSTRACT
 		visible = FALSE
 
@@ -132,7 +128,7 @@
 	desc = "Used to seal minor hull breaches."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "shieldoff"
-	density = 1
+	density = TRUE
 	opacity = FALSE
 	anchored = FALSE
 	pressure_resistance = 2*ONE_ATMOSPHERE
@@ -156,11 +152,11 @@
 		return //If it's already turned on, how did this get called?
 
 	active = 1
-	anchored = TRUE
+	set_anchored(TRUE)
 	update_icon(UPDATE_ICON_STATE)
 
 	for(var/turf/target_tile in range(2, src))
-		if(istype(target_tile,/turf/space) && !(locate(/obj/machinery/shield) in target_tile))
+		if(isspaceturf(target_tile) && !(locate(/obj/machinery/shield) in target_tile))
 			if(malfunction && prob(33) || !malfunction)
 				deployed_shields += new /obj/machinery/shield(target_tile)
 
@@ -249,7 +245,7 @@
 	else if(istype(I, /obj/item/stack/cable_coil) && malfunction && is_open)
 		var/obj/item/stack/cable_coil/coil = I
 		to_chat(user, span_notice("You begin to replace the wires."))
-		if(do_after(user, 30 * coil.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 3 SECONDS * coil.toolspeed * gettoolspeedmod(user), src))
 			if(!src || !coil)
 				return
 			add_fingerprint(user)
@@ -293,12 +289,12 @@
 		if(active)
 			visible_message(span_warning("[src] shuts off!"))
 			shields_down()
-		anchored = FALSE
+		set_anchored(FALSE)
 	else
 		if(istype(get_turf(src), /turf/space))
 			return //No wrenching these in space!
 		WRENCH_ANCHOR_MESSAGE
-		anchored = TRUE
+		set_anchored(TRUE)
 
 
 /obj/machinery/shieldgen/update_icon_state()
@@ -479,7 +475,7 @@
 			state = 1
 			playsound(loc, I.usesound, 75, 1)
 			to_chat(user, "You secure the external reinforcing bolts to the floor.")
-			anchored = TRUE
+			set_anchored(TRUE)
 			return
 
 		else if(state == 1)
@@ -487,10 +483,10 @@
 			state = 0
 			playsound(loc, I.usesound, 75, 1)
 			to_chat(user, "You undo the external reinforcing bolts.")
-			anchored = FALSE
+			set_anchored(FALSE)
 			return
 
-	if(I.GetID() || ispda(I))
+	if(I.GetID() || is_pda(I))
 		if(allowed(user))
 			add_fingerprint(user)
 			locked = !locked
@@ -540,7 +536,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "shieldwall"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	light_range = 3
 	var/needs_power = 0
@@ -619,17 +615,14 @@
 	return
 
 
-/obj/machinery/shieldwall/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height == 0)
+/obj/machinery/shieldwall/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(checkpass(mover))
 		return TRUE
-
-	if(istype(mover) && mover.checkpass(PASSGLASS))
+	if(checkpass(mover, PASSGLASS))
 		return prob(20)
-	else
-		if(istype(mover, /obj/item/projectile))
-			return prob(10)
-		else
-			return !density
+	if(isprojectile(mover))
+		return prob(10)
 
 
 /obj/machinery/shieldwall/syndicate
@@ -637,14 +630,17 @@
 	desc = "A strange energy shield."
 	icon_state = "shield-red"
 
-/obj/machinery/shieldwall/syndicate/CanPass(atom/movable/mover, turf/target, height=0)
+
+/obj/machinery/shieldwall/syndicate/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(checkpass(mover))
+		return TRUE
 	if(isliving(mover))
-		var/mob/living/M = mover
-		if("syndicate" in M.faction)
-			return 1
-	if(istype(mover, /obj/item/projectile))
-		return 0
-	return ..(mover, target, height)
+		var/mob/living/living_mover = mover
+		if("syndicate" in living_mover.faction)
+			return TRUE
+	else if(isprojectile(mover))
+		return FALSE
 
 
 /obj/machinery/shieldwall/syndicate/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)

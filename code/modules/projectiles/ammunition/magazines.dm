@@ -485,6 +485,17 @@
 	max_ammo = 12
 	multiple_sprites = 2
 
+/obj/item/ammo_box/magazine/cheap_m12g
+	name = "shotgun magazine (12g buckshot slugs)"
+	desc = "A cheaply-made drum magazine."
+	icon_state = "m12gbc"
+	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
+	origin_tech = "combat=2"
+	caliber = ".12"
+	max_ammo = 12
+	multiple_sprites = 2
+	color = COLOR_ASSEMBLY_BROWN
+
 /obj/item/ammo_box/magazine/m12g/slug
 	name = "shotgun magazine (12g slugs)"
 	icon_state = "m12gb"
@@ -571,6 +582,9 @@
 	icon_state = "enforcer"
 	max_ammo = 8
 	multiple_sprites = 1
+
+
+/obj/item/ammo_box/magazine/toy/enforcer/riot
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 
 
@@ -578,9 +592,9 @@
 	. = ..()
 	var/ammo = ammo_count()
 	if(ammo && is_riot())
-		overlays += image('icons/obj/weapons/ammo.dmi', icon_state = "enforcer-rd")
+		. += image('icons/obj/weapons/ammo.dmi', icon_state = "enforcer-rd")
 	else if(ammo)
-		overlays += image('icons/obj/weapons/ammo.dmi', icon_state = "enforcer-bd")
+		. += image('icons/obj/weapons/ammo.dmi', icon_state = "enforcer-bd")
 
 
 /obj/item/ammo_box/magazine/toy/enforcer/proc/is_riot()//if the topmost bullet is a riot dart
@@ -602,10 +616,10 @@
 /obj/item/ammo_box/magazine/toy/m762
 	name = "donksoft box magazine"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
-	max_ammo = 50
+	max_ammo = 100
 
 /obj/item/ammo_box/magazine/toy/m762/update_icon_state()
-	icon_state = "a762-[round(ammo_count(),10)]"
+	icon_state = "a762-[round(ammo_count(), 20)]"
 
 /obj/item/ammo_box/magazine/toy/m762/riot
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot

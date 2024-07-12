@@ -7,7 +7,7 @@
 		return
 
 	if(SSjobs && SSticker)
-		var/datum/job/job = SSjobs.GetJob("AI")
+		var/datum/job/job = SSjobs.GetJob(JOB_TITLE_AI)
 		if(!job)
 			to_chat(usr, "Unable to locate the AI job")
 			return

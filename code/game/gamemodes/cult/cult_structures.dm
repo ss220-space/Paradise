@@ -76,7 +76,7 @@
 /obj/structure/cult/functional/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
 		add_fingerprint(user)
-		anchored = !anchored
+		set_anchored(!anchored)
 		update_icon(UPDATE_ICON_STATE)
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
 		return
@@ -105,7 +105,7 @@
 		add_fingerprint(user)
 		cooldowntime = world.time + creation_delay
 		var/obj/O = new picked_type(drop_location())
-		if(!istype(O, /obj/structure))
+		if(!isstructure(O))
 			user.put_in_hands(O, ignore_anim = FALSE)
 		to_chat(user, replacetext("[creation_message]", "%ITEM%", "[O.name]"))
 
@@ -125,7 +125,7 @@
 	return message
 
 /obj/structure/cult/functional/cult_conceal()
-	density = FALSE
+	set_density(FALSE)
 	visible_message("<span class='danger'>[src] fades away.</span>")
 	invisibility = INVISIBILITY_HIDDEN_RUNES
 	alpha = 100 //To help ghosts distinguish hidden objs
@@ -134,7 +134,7 @@
 	update_light()
 
 /obj/structure/cult/functional/cult_reveal()
-	density = initial(density)
+	set_density(initial(density))
 	invisibility = 0
 	visible_message("<span class='danger'>[src] suddenly appears!</span>")
 	alpha = initial(alpha)
@@ -174,34 +174,32 @@
 							"Mirror Shield" = /obj/item/shield/mirror)
 
 
-/obj/structure/cult/functional/forge/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/grab))
-		var/obj/item/grab/G = I
-		if(!iscarbon(G.affecting))
-			return FALSE
-		if(G.affecting == LAVA_PROOF)
-			to_chat(user, "<span class='warning'>[G.affecting] is immune to lava!</span>")
-			return FALSE
-		if(G.affecting.stat == DEAD)
-			to_chat(user, "<span class='warning'>[G.affecting] is dead!</span>")
-			return FALSE
-		var/mob/living/carbon/human/C = G.affecting
-		var/obj/item/organ/external/head/head = C.get_organ(BODY_ZONE_HEAD)
-		if(!head)
-			to_chat(user, "<span class='warning'>[C] has no head!</span>")
-			return FALSE
+/obj/structure/cult/functional/forge/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !ishuman(grabbed_thing))
+		return .
+	var/mob/living/carbon/human/victim = grabbed_thing
+	if(victim.stat == DEAD)
+		to_chat(grabber, span_warning("[victim] is dead!"))
+		return .
+	var/obj/item/organ/external/head/head = victim.get_organ(BODY_ZONE_HEAD)
+	if(!head)
+		to_chat(grabber, span_warning("[victim] has no head!"))
+		return .
 
-		add_fingerprint(user)
-		C.visible_message("<span class='danger'>[user] dunks [C]'s face into [src]'s lava!</span>",
-						"<span class='userdanger'>[user] dunks your face into [src]'s lava!</span>")
-		C.emote("scream")
-		C.apply_damage(30, BURN, BODY_ZONE_HEAD) // 30 fire damage because it's FUCKING LAVA
-		head.disfigure() // Your face is unrecognizable because it's FUCKING LAVA
-		C.UpdateDamageIcon()
-		add_attack_logs(user, C, "Lava-dunked into [src]")
-		user.changeNext_move(CLICK_CD_MELEE)
-		return TRUE
-	return ..()
+	add_fingerprint(grabber)
+	victim.visible_message(
+		span_danger("[grabber] dunks [victim]'s face into [src]'s lava!"),
+		span_userdanger("[grabber] dunks your face into [src]'s lava!"),
+	)
+	if(victim.has_pain())
+		victim.emote("scream")
+
+	victim.apply_damage(30, BURN, BODY_ZONE_HEAD) // 30 fire damage because it's FUCKING LAVA
+	head.disfigure() // Your face is unrecognizable because it's FUCKING LAVA
+	victim.UpdateDamageIcon()
+	add_attack_logs(grabber, victim, "Lava-dunked into [src]")
+
 
 GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	/turf/simulated/floor/engine/cult,
@@ -296,9 +294,9 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 
 	var/turf/T = safepick(validturfs)
 	if(T)
-		if(istype(T, /turf/simulated/floor))
+		if(isfloorturf(T))
 			T.ChangeTurf(/turf/simulated/floor/engine/cult)
-		if(istype(T, /turf/simulated/wall))
+		if(iswallturf(T))
 			T.ChangeTurf(/turf/simulated/wall/cult/artificer)
 	else
 		var/turf/simulated/floor/engine/cult/F = safepick(cultturfs)
@@ -349,9 +347,6 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 	return
 
 /obj/effect/gateway/Bumped(atom/movable/moving_atom)
-	return
-
-/obj/effect/gateway/Crossed(atom/movable/AM, oldloc)
 	return
 
 /obj/effect/clockwork/overlay/floor/bloodcult

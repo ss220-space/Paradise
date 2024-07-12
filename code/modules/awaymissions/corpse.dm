@@ -171,8 +171,10 @@
 		var/datum/disease/D = new disease
 		D.Contract(M)
 	M.adjustOxyLoss(oxy_damage)
-	M.adjustBruteLoss(brute_damage)
-	M.adjustFireLoss(burn_damage)
+	if(brute_damage)
+		M.apply_damage(brute_damage, BRUTE)
+	if(burn_damage)
+		M.apply_damage(burn_damage, BURN)
 	if(death)
 		M.death() //Kills the new mob
 	M.color = mob_color
@@ -213,7 +215,7 @@
 	allow_gender_pick = FALSE
 	allow_name_pick = FALSE
 	allow_tts_pick = TRUE
-	var/list/pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona")
+	var/list/pickable_species = list(SPECIES_HUMAN, SPECIES_VULPKANIN, SPECIES_TAJARAN, SPECIES_UNATHI, SPECIES_SKRELL, SPECIES_DIONA)
 	var/datum/outfit/outfit = /datum/outfit	//If this is a path, it will be instanced in Initialize()
 	var/disable_pda = TRUE
 	var/disable_sensors = TRUE
@@ -399,7 +401,7 @@
 	if(!(NO_DNA in H.dna.species.species_traits))
 		H.dna.blood_type = pick("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-") //Чтобы им всем подряд не требовалась кровь одного типа
 		var/datum/dna/D = H.dna
-		if(!D.species.is_small)
+		if(!D.species.is_monkeybasic)
 			H.change_dna(D, TRUE, TRUE)
 
 //Instant version - use when spawning corpses during runtime

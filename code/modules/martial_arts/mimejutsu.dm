@@ -3,14 +3,21 @@
 	weight = 6
 	block_chance = 50
 	has_explaination_verb = TRUE
+	grab_speed = 2 SECONDS
+	grab_resist_chances = list(
+		MARTIAL_GRAB_AGGRESSIVE = 40,
+		MARTIAL_GRAB_NECK = 10,
+		MARTIAL_GRAB_KILL = 5,
+	)
 	combos = list(/datum/martial_combo/mimejutsu/mimechucks, /datum/martial_combo/mimejutsu/silent_palm, /datum/martial_combo/mimejutsu/silencer, /datum/martial_combo/mimejutsu/execution)
 
-/datum/martial_art/mimejutsu/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/mimejutsu/grab_act(mob/living/carbon/human/attacker, mob/living/carbon/human/defender)
 	MARTIAL_ARTS_ACT_CHECK
-	var/obj/item/grab/G = D.grabbedby(A, 1)
-	if(G)
-		G.state = GRAB_AGGRESSIVE //Instant aggressive grab
-		add_attack_logs(A, D, "Melee attacked with martial-art [src] : aggressively grabbed", ATKLOG_ALL)
+	var/old_grab_state = attacker.grab_state
+	var/grab_success = defender.grabbedby(attacker, supress_message = TRUE)
+	if(grab_success && old_grab_state == GRAB_PASSIVE)
+		defender.grippedby(attacker) //Instant aggressive grab
+		add_attack_logs(attacker, defender, "Melee attacked with martial-art [src] : aggressively grabbed", ATKLOG_ALL)
 	return TRUE
 
 /datum/martial_art/mimejutsu/harm_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
@@ -30,7 +37,7 @@
 	A.do_attack_animation(D, ATTACK_EFFECT_DISARM)
 	var/obj/item/I = null
 	if(prob(50))
-		if(!D.stat || !D.IsWeakened())
+		if(!D.stat || D.body_position != LYING_DOWN)
 			I = D.get_active_hand()
 			if(I && D.drop_from_active_hand())
 				A.put_in_hands(I, ignore_anim = FALSE)

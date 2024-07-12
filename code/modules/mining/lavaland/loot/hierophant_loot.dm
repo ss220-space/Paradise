@@ -10,7 +10,7 @@
 	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	force = 15
 	attack_verb = list("clubbed", "beat", "pummeled")
@@ -113,7 +113,7 @@
 /obj/item/hierophant_club/update_icon_state()
 	icon_state = "hierophant_club[timer <= world.time ? "_ready":""][(beacon && !QDELETED(beacon)) ? "":"_beacon"]"
 	item_state = icon_state
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/hierophant_club/proc/prepare_icon_update()
@@ -122,8 +122,8 @@
 	update_icon(UPDATE_ICON_STATE)
 
 
-/obj/item/hierophant_club/ui_action_click(mob/user, actiontype)
-	if(actiontype == /datum/action/item_action/toggle_unfriendly_fire) //toggle friendly fire...
+/obj/item/hierophant_club/ui_action_click(mob/user, action)
+	if(istype(action, /datum/action/item_action/toggle_unfriendly_fire)) //toggle friendly fire...
 		friendly_fire_check = !friendly_fire_check
 		to_chat(user, "<span class='warning'>You toggle friendly fire [friendly_fire_check ? "off":"on"]!</span>")
 		return
@@ -141,7 +141,7 @@
 			"<span class='notice'>You start detaching the hierophant beacon...</span>")
 			timer = world.time + 51
 			INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
-			if(do_after(user, 50, target = user) && !beacon)
+			if(do_after(user, 5 SECONDS, user) && !beacon)
 				var/turf/T = get_turf(user)
 				playsound(T,'sound/magic/blind.ogg', 200, TRUE, -4)
 				new /obj/effect/temp_visual/hierophant/telegraph/teleport(T, user)
@@ -162,7 +162,8 @@
 	if(is_in_teleport_proof_area(beacon) && !tele_proof_bypass)
 		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
 		return
-	if(is_blocked_turf(get_turf(beacon), TRUE))
+	var/turf/beacon_turf = get_turf(beacon)
+	if(beacon_turf.is_blocked_turf(exclude_mobs = TRUE))
 		to_chat(user, "<span class='warning'>The beacon is blocked by something, preventing teleportation!</span>")
 		return
 	if(!isturf(user.loc))
@@ -177,10 +178,9 @@
 	beacon.update_icon(UPDATE_ICON_STATE)
 	var/obj/effect/temp_visual/hierophant/telegraph/edge/TE1 = new /obj/effect/temp_visual/hierophant/telegraph/edge(user.loc)
 	var/obj/effect/temp_visual/hierophant/telegraph/edge/TE2 = new /obj/effect/temp_visual/hierophant/telegraph/edge(beacon.loc)
-	if(do_after(user, 40, target = user) && user && beacon)
-		var/turf/T = get_turf(beacon)
+	if(do_after(user, 4 SECONDS, user) && user && beacon)
 		var/turf/source = get_turf(user)
-		if(is_blocked_turf(T, TRUE))
+		if(beacon_turf.is_blocked_turf(exclude_mobs = TRUE))
 			teleporting = FALSE
 			to_chat(user, "<span class='warning'>The beacon is blocked by something, preventing teleportation!</span>")
 			user.update_action_buttons_icon()
@@ -189,11 +189,11 @@
 			beacon.teleporting = FALSE
 			beacon.update_icon(UPDATE_ICON_STATE)
 			return
-		new /obj/effect/temp_visual/hierophant/telegraph(T, user)
+		new /obj/effect/temp_visual/hierophant/telegraph(beacon_turf, user)
 		new /obj/effect/temp_visual/hierophant/telegraph(source, user)
-		playsound(T,'sound/magic/wand_teleport.ogg', 200, TRUE)
+		playsound(beacon_turf,'sound/magic/wand_teleport.ogg', 200, TRUE)
 		playsound(source,'sound/machines/airlock_open.ogg', 200, TRUE)
-		if(!do_after(user, 3, target = user) || !user || !beacon || QDELETED(beacon)) //no walking away shitlord
+		if(!do_after(user, 0.3 SECONDS, user) || !user || !beacon || QDELETED(beacon)) //no walking away shitlord
 			teleporting = FALSE
 			if(user)
 				user.update_action_buttons_icon()
@@ -203,7 +203,7 @@
 				beacon.teleporting = FALSE
 				beacon.update_icon(UPDATE_ICON_STATE)
 			return
-		if(is_blocked_turf(T, TRUE))
+		if(beacon_turf.is_blocked_turf(exclude_mobs = TRUE))
 			teleporting = FALSE
 			to_chat(user, "<span class='warning'>The beacon is blocked by something, preventing teleportation!</span>")
 			user.update_action_buttons_icon()
@@ -213,16 +213,16 @@
 			beacon.update_icon(UPDATE_ICON_STATE)
 			return
 		add_attack_logs(user, beacon, "Teleported self from ([AREACOORD(source)]) to ([AREACOORD(beacon)])")
-		new /obj/effect/temp_visual/hierophant/telegraph/teleport(T, user)
+		new /obj/effect/temp_visual/hierophant/telegraph/teleport(beacon_turf, user)
 		new /obj/effect/temp_visual/hierophant/telegraph/teleport(source, user)
-		for(var/t in RANGE_TURFS(1, T))
+		for(var/t in RANGE_TURFS(1, beacon_turf))
 			var/obj/effect/temp_visual/hierophant/blast/B = new /obj/effect/temp_visual/hierophant/blast(t, user, TRUE) //blasts produced will not hurt allies
 			B.damage = 30
 		for(var/t in RANGE_TURFS(1, source))
 			var/obj/effect/temp_visual/hierophant/blast/B = new /obj/effect/temp_visual/hierophant/blast(t, user, TRUE) //but absolutely will hurt enemies
 			B.damage = 30
 		for(var/mob/living/L in range(1, source))
-			INVOKE_ASYNC(src, PROC_REF(teleport_mob), source, L, T, user) //regardless, take all mobs near us along
+			INVOKE_ASYNC(src, PROC_REF(teleport_mob), source, L, beacon_turf, user) //regardless, take all mobs near us along
 		sleep(6) //at this point the blasts detonate
 		if(beacon)
 			beacon.teleporting = FALSE
@@ -241,7 +241,7 @@
 
 /obj/item/hierophant_club/proc/teleport_mob(turf/source, mob/M, turf/target, mob/user)
 	var/turf/turf_to_teleport_to = get_step(target, get_dir(source, M)) //get position relative to caster
-	if(!turf_to_teleport_to || is_blocked_turf(turf_to_teleport_to, TRUE))
+	if(!turf_to_teleport_to || turf_to_teleport_to.is_blocked_turf(exclude_mobs = TRUE))
 		return
 	animate(M, alpha = 0, time = 2, easing = EASE_OUT) //fade out
 	sleep(1)
@@ -306,9 +306,7 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "hierophant_talisman_nonactive"
 	item_state = "hierophant_talisman_nonactive"
-	item_color = "hierophant_talisman_nonactive"
 	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5, "fire" = 100, "acid" = 100)
-	slot_flags = SLOT_TIE
 	allow_duplicates = FALSE
 	var/possessed = FALSE
 	var/mob/living/simple_animal/shade/talisman/slave // Talisman
@@ -361,10 +359,11 @@
 		to_chat(user, span_hierophant("This talisman is dormnant... Try again or later..."))
 		possessed = FALSE
 
+
 /obj/item/clothing/accessory/necklace/hierophant_talisman/update_icon_state()
-		icon_state = "hierpohant_talisman_active"
-		item_state = "hierpohant_talisman_active"
-		item_color = "hierophant_talisman_active"
+	icon_state = "hierpohant_talisman_[slave ? "active" : "nonactive"]"
+	item_state = "hierpohant_talisman_[slave ? "active" : "nonactive"]"
+
 
 /obj/item/clothing/accessory/necklace/hierophant_talisman/Initialize(mapload)
 	.=..()
@@ -506,54 +505,48 @@
 	for(var/mob/dead/observer/G in GLOB.player_list)
 		G.show_message(span_hierophant("Hierophant's message from <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) to <b>[choice]</b> ([ghost_follow_link(choice, ghost=G)]): [msg]</i>"))
 
-/obj/item/clothing/accessory/necklace/hierophant_talisman/on_attached(obj/item/clothing/under/S, mob/user)
+
+/obj/item/clothing/accessory/necklace/hierophant_talisman/on_attached(obj/item/clothing/under/new_suit, mob/attacher)
 	. = ..()
-	if(!ishuman(user) || !slave)
+	if(!. || !ishuman(attacher) || !slave || slave.master != attacher.ckey)
+		return .
+	toggle_spell_actions(TRUE)
+
+
+/obj/item/clothing/accessory/necklace/hierophant_talisman/on_removed(mob/detacher)
+	. = ..()
+	if(!slave)
+		return .
+	toggle_spell_actions(FALSE)
+
+
+/obj/item/clothing/accessory/necklace/hierophant_talisman/attached_equip(mob/user)
+	if(!ishuman(user) || !slave || slave.master != user.ckey)
 		return
-	if(slave.master == user.ckey)
-		slave.mob_spell_list += spell_heal
-		slave.mob_spell_list += spell_teleport
-		slave.mob_spell_list += spell_message
+	toggle_spell_actions(TRUE)
+
+
+/obj/item/clothing/accessory/necklace/hierophant_talisman/attached_unequip(mob/user)
+	if(!slave)
+		return
+	toggle_spell_actions(FALSE)
+
+
+/obj/item/clothing/accessory/necklace/hierophant_talisman/proc/toggle_spell_actions(add_actions)
+	if(add_actions)
+		LAZYADD(slave.mob_spell_list, spell_heal)
+		LAZYADD(slave.mob_spell_list, spell_teleport)
+		LAZYADD(slave.mob_spell_list, spell_message)
 		spell_heal.action.Grant(slave)
 		spell_teleport.action.Grant(slave)
 		spell_message.action.Grant(slave)
+	else
+		LAZYREMOVE(slave.mob_spell_list, spell_heal)
+		LAZYREMOVE(slave.mob_spell_list, spell_teleport)
+		LAZYREMOVE(slave.mob_spell_list, spell_message)
+		spell_heal.action.Remove(slave)
+		spell_teleport.action.Remove(slave)
+		spell_message.action.Remove(slave)
 
-/obj/item/clothing/accessory/necklace/hierophant_talisman/on_removed(mob/user)
-	. = ..()
-	if(!ishuman(user) || !slave)
-		return
-	slave.mob_spell_list -= spell_heal
-	slave.mob_spell_list -= spell_teleport
-	slave.mob_spell_list -= spell_message
-	spell_heal.action.Remove(slave)
-	spell_teleport.action.Remove(slave)
-	spell_message.action.Remove(slave)
-
-/obj/item/clothing/accessory/necklace/hierophant_talisman/attached_unequip()
-	if(!ishuman(usr))
-		return
-	if(!slave)
-		return ..()
-	slave.mob_spell_list -= spell_heal
-	slave.mob_spell_list -= spell_teleport
-	slave.mob_spell_list -= spell_message
-	spell_heal.action.Remove(slave)
-	spell_teleport.action.Remove(slave)
-	spell_message.action.Remove(slave)
-	return ..()
-
-/obj/item/clothing/accessory/necklace/hierophant_talisman/attached_equip()
-	if(!ishuman(usr))
-		return
-	if(!slave)
-		return ..()
-	if(slave.master == usr.ckey)
-		slave.mob_spell_list += spell_heal
-		slave.mob_spell_list += spell_teleport
-		slave.mob_spell_list += spell_message
-		spell_heal.action.Grant(slave)
-		spell_teleport.action.Grant(slave)
-		spell_message.action.Grant(slave)
-	return ..()
 
 #undef HIEROPHANT_CLUB_CARDINAL_DAMAGE

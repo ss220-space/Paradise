@@ -160,12 +160,12 @@
 
 /obj/machinery/brs_portable_scanner/proc/brs_light_update()
 	if(scanning_status == SCAN_NORMAL)
-		set_light(l_range = 1, l_power = 1, l_color = COLOR_BLUE_LIGHT)
+		set_light(l_range = 1, l_power = 1, l_color = COLOR_BLUE_LIGHT, l_on = TRUE)
 		return
 	if(scanning_status == SCAN_CRITICAL)
-		set_light(l_range = 1, l_power = 1, l_color = COLOR_RED_LIGHT)
+		set_light(l_range = 1, l_power = 1, l_color = COLOR_RED_LIGHT, l_on = TRUE)
 		return
-	set_light(0)
+	set_light_on(FALSE)
 
 
 /obj/machinery/brs_portable_scanner/power_change(forced = FALSE)
@@ -239,15 +239,13 @@
 			if(scanner == src)
 				continue
 			if(scanner.anchored)
-				anchored = FALSE
+				set_anchored(FALSE)
 				update_icon(UPDATE_ICON_STATE)
 				return
 
 	// Update density
-	if(anchored)
-		density = TRUE
-	else
-		density = FALSE
+	set_density(anchored)
+
 
 /obj/machinery/brs_portable_scanner/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -310,10 +308,10 @@
 
 	RefreshParts()
 
-/obj/machinery/brs_portable_scanner/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/brs_portable_scanner/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BluespaceRiftScanner", name, 475, 400)
+		ui = new(user, src, "BluespaceRiftScanner", name)
 		ui.open()
 
 /obj/machinery/brs_portable_scanner/ui_data(mob/user)

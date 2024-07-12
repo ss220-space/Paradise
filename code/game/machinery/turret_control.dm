@@ -117,7 +117,7 @@
 		add_fingerprint(user)
 		return
 
-	if(I.GetID() || ispda(I))
+	if(I.GetID() || is_pda(I))
 		if(src.allowed(usr))
 			add_fingerprint(user)
 			if(emagged)
@@ -147,10 +147,10 @@
 		return TRUE
 	ui_interact(user)
 
-/obj/machinery/turretid/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/turretid/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "PortableTurret", name, 500, 400)
+		ui = new(user, src, "PortableTurret", name)
 		ui.open()
 
 /obj/machinery/turretid/ui_data(mob/user)
@@ -235,17 +235,17 @@
 
 /obj/machinery/turretid/proc/update_turret_light()
 	if(stat & NOPOWER)
-		set_light(0)
+		set_light_on(FALSE)
 		return
 
 	if(enabled)
 		if(lethal)
-			set_light(1.5, 1,"#990000")
+			set_light(1.5, 1,"#990000", l_on = TRUE)
 		else
-			set_light(1.5, 1,"#FF9900")
+			set_light(1.5, 1,"#FF9900", l_on = TRUE)
 		return
 
-	set_light(1.5, 1,"#003300")
+	set_light(1.5, 1,"#003300", l_on = TRUE)
 
 
 /obj/machinery/turretid/update_icon_state()

@@ -3,8 +3,7 @@
 	real_name = "Blob Overmind"
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "marker"
-
-	see_in_dark = 8
+	nightvision = 8
 	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	invisibility = INVISIBILITY_OBSERVER
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
@@ -52,6 +51,7 @@
 	sync_mind()
 	blob_help()
 	update_health_hud()
+	sync_lighting_plane_alpha()
 
 /mob/camera/blob/update_health_hud()
 	if(blob_core && hud_used)
@@ -106,14 +106,14 @@
 			stat(null, "Core Health: [blob_core.obj_integrity]")
 		stat(null, "Power Stored: [blob_points]/[max_blob_points]")
 
-/mob/camera/blob/Move(var/NewLoc, var/Dir = 0)
+/mob/camera/blob/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(world.time < last_movement)
 		return
 	last_movement = world.time + 0.5 // cap to 20fps
 
-	var/obj/structure/blob/B = locate() in range("3x3", NewLoc)
+	var/obj/structure/blob/B = locate() in range("3x3", newloc)
 	if(B)
-		loc = NewLoc
+		loc = newloc
 	else
 		return 0
 

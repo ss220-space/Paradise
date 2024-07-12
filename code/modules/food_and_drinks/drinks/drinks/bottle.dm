@@ -206,7 +206,7 @@
 
 /obj/item/reagent_containers/food/drinks/bottle/rum
 	name = "Captain Pete's Cuban Spiced Rum"
-	desc = "This isn't just rum, oh no. It's practically GRIFF in a bottle."
+	desc = "As once skipper said, 'Should pale death with treble dread make the space frontier our bed, God who hears the darkness roll, deign to save our suppliant soul'."
 	icon_state = "rumbottle"
 	list_reagents = list("rum" = 100)
 
@@ -322,6 +322,12 @@
 	icon_state = "sambukabottle"
 	list_reagents = list("sambuka" = 100)
 
+/obj/item/reagent_containers/food/drinks/bottle/arrogant_green_rat
+	name = "Arrogant Green Rat"
+	desc = "Finest wine from the Paradise City, where the grass is green and the girls are pretty."
+	icon_state = "arrogant_green_rat"
+	list_reagents = list("wine" = 100)
+
 //////////////////////////JUICES AND STUFF ///////////////////////
 
 /obj/item/reagent_containers/food/drinks/bottle/orangejuice
@@ -431,14 +437,14 @@
 		add_game_logs("has primed a [name] for detonation at [AREACOORD(bombturf)].", user)
 
 		to_chat(user, "<span class='info'>You light [src] on fire.</span>")
-		overlays += GLOB.fire_overlay
+		add_overlay(GLOB.fire_overlay)
 		if(!isGlass)
 			spawn(50)
 				if(active)
 					var/counter
 					var/target = loc
 					for(counter = 0, counter < 2, counter++)
-						if(istype(target, /obj/item/storage))
+						if(isstorage(target))
 							var/obj/item/storage/S = target
 							target = S.loc
 					if(istype(target, /atom))

@@ -34,7 +34,7 @@
 	if(istype(A, /obj/item/ammo_box/speedloader) || istype(A, /obj/item/ammo_casing))
 		var/num_loaded = magazine.attackby(A, user, params, TRUE)
 		if(num_loaded)
-			to_chat(user, span_notice("You load [num_loaded] shell\s into \the [src]."))
+			balloon_alert(user, "[declension_ru(num_loaded, "заряжен [num_loaded] патрон",  "заряжено [num_loaded] патрона",  "заряжено [num_loaded] патронов")]")
 			A.update_icon()
 			update_icon()
 			chamber_round(FALSE)
@@ -52,18 +52,17 @@
 			playsound(get_turf(CB), "casingdrop", 60, 1)
 			num_unloaded++
 	if(num_unloaded)
-		to_chat(user, span_notice("You unload [num_unloaded] shell\s from [src]."))
+		balloon_alert(user, "[declension_ru(num_unloaded, "разряжен [num_unloaded] патрон",  "разряжено [num_unloaded] патрона",  "разряжено [num_unloaded] патронов")]")
 	else
-		to_chat(user, span_notice("[src] is empty!"))
+		balloon_alert(user, "уже разряжено!")
 
 /obj/item/gun/projectile/revolver/verb/spin()
 	set name = "Spin Chamber"
 	set category = "Object"
 	set desc = "Click to spin your revolver's chamber."
+	set src in usr
 
-	var/mob/M = usr
-
-	if(M.stat || !in_range(M, src))
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
@@ -76,8 +75,12 @@
 		verbs -= /obj/item/gun/projectile/revolver/verb/spin
 
 
-/obj/item/gun/projectile/revolver/can_shoot()
+/obj/item/gun/projectile/revolver/can_shoot(mob/user)
 	return get_ammo(FALSE, FALSE)
+
+
+/obj/item/gun/projectile/revolver/get_ammo(countchambered = FALSE, countempties = TRUE)
+	. = ..()
 
 
 /obj/item/gun/projectile/revolver/examine(mob/user)
@@ -110,8 +113,8 @@
 	icon_state = "fingergun"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible
 	origin_tech = ""
-	flags = ABSTRACT | NODROP | DROPDEL
-	slot_flags = null
+	item_flags = ABSTRACT|DROPDEL
+	slot_flags = NONE
 	fire_sound = null
 	fire_sound_text = null
 	lefthand_file = null
@@ -120,6 +123,11 @@
 	clumsy_check = FALSE //Stole your uplink! Honk!
 	needs_permit = FALSE //go away beepsky
 	var/obj/effect/proc_holder/spell/mime/fingergun/parent_spell
+
+
+/obj/item/gun/projectile/revolver/fingergun/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 
 /obj/item/gun/projectile/revolver/fingergun/fake
@@ -234,7 +242,7 @@
 	return
 
 /obj/item/gun/projectile/revolver/russian/attack_self(mob/user)
-	if(!spun && can_shoot())
+	if(!spun && can_shoot(user))
 		user.visible_message("[user] spins the chamber of the revolver.", span_notice("You spin the revolver's chamber."))
 		Spin()
 	else
@@ -248,9 +256,9 @@
 			playsound(get_turf(CB), "casingdrop", 60, 1)
 			num_unloaded++
 		if(num_unloaded)
-			to_chat(user, span_notice("You unload [num_unloaded] shell\s from [src]."))
+			balloon_alert(user, "[declension_ru(num_unloaded, "разряжен [num_unloaded] патрон",  "разряжено [num_unloaded] патрона",  "разряжено [num_unloaded] патронов")]")
 		else
-			to_chat(user, span_notice("[src] is empty."))
+			balloon_alert(user, "уже разряжено!")
 
 /obj/item/gun/projectile/revolver/russian/afterattack(atom/target, mob/living/user, flag, params)
 	if(flag)
@@ -263,12 +271,12 @@
 			return
 	if(target != user)
 		if(ismob(target))
-			to_chat(user, span_notice("A mechanism prevents you from shooting anyone but yourself!"))
+			balloon_alert(user, "не подходящая цель!")
 		return
 
 	if(ishuman(user))
 		if(!spun)
-			to_chat(user, span_notice("You need to spin the revolver's chamber first!"))
+			balloon_alert(user, "прокрутите барабан!")
 			return
 
 		spun = FALSE
@@ -327,23 +335,23 @@
 /obj/item/gun/projectile/revolver/improvised/update_overlays()
 	. = ..()
 	if(magazine)
-		. +=  icon('icons/obj/weapons/projectile.dmi', magazine.icon_state)
+		. += icon('icons/obj/weapons/projectile.dmi', magazine.icon_state)
 	if(barrel)
 		var/icon/barrel_icon = icon('icons/obj/weapons/projectile.dmi', barrel.icon_state)
 		if(unscrewed)
 			barrel_icon.Turn(-90)
 			barrel_icon.Shift(WEST, 5)
-		. +=  barrel_icon
+		. += barrel_icon
 
 /obj/item/gun/projectile/revolver/improvised/afterattack(atom/target, mob/living/user, flag, params)
 	if(unscrewed)
-		shoot_with_empty_chamber()
-	else if(istype(barrel, /obj/item/weaponcrafting/revolverbarrel/steel) || prob(80))
-		..()
-	else
-		chamber_round(TRUE)
-		user.visible_message(span_dangerbigger("*CRACK*"))
-		playsound(user, 'sound/weapons/jammed.ogg', 140, TRUE)
+		shoot_with_empty_chamber(user)
+		return
+	if(istype(barrel, /obj/item/weaponcrafting/revolverbarrel/steel) || prob(80))
+		return ..()
+	chamber_round(TRUE)
+	user.visible_message(span_dangerbigger("*CRACK*"))
+	playsound(user, 'sound/weapons/jammed.ogg', 140, TRUE)
 
 /obj/item/gun/projectile/revolver/improvised/proc/radial_menu(mob/user)
 	var/list/choices = list()
@@ -359,7 +367,7 @@
 
 	switch(choice)
 		if("Barrel")
-			if(!do_mob(user, src, 8 SECONDS))
+			if(!do_after(user, 8 SECONDS, src, NONE))
 				return
 			to_chat(user, span_notice("You unscrew [barrel] from [src]."))
 			user.put_in_hands(barrel)
@@ -401,7 +409,8 @@
 		else if(istype(A, /obj/item/weaponcrafting/revolverbarrel))
 			if(barrel)
 				to_chat(user, span_notice("[src] already have [barrel]."))
-			else if(do_mob(user, src, 8 SECONDS))
+			else if(do_after(user, 8 SECONDS, src, NONE))
+
 				if(user.drop_transfer_item_to_loc(A, src))
 					var/obj/item/weaponcrafting/revolverbarrel/new_barrel = A
 					barrel = A
@@ -424,7 +433,7 @@
 	weapon_weight = WEAPON_HEAVY
 	force = 10
 	flags = CONDUCT
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/dual
 	fire_sound = 'sound/weapons/gunshots/1shotgun_old.ogg'
 	sawn_desc = "Omar's coming!"
@@ -455,8 +464,9 @@
 		return ..()
 
 /obj/item/gun/projectile/revolver/doublebarrel/sawoff(mob/user)
-    . = ..()
-    weapon_weight = WEAPON_MEDIUM
+	. = ..()
+	weapon_weight = WEAPON_MEDIUM
+	can_holster = TRUE
 
 /obj/item/gun/projectile/revolver/doublebarrel/attack_self(mob/living/user)
 	var/num_unloaded = 0
@@ -470,9 +480,9 @@
 		playsound(get_turf(CB), 'sound/weapons/gun_interactions/shotgun_fall.ogg', 70, 1)
 		num_unloaded++
 	if(num_unloaded)
-		to_chat(user, span_notice("You break open \the [src] and unload [num_unloaded] shell\s."))
+		balloon_alert(user, "[declension_ru(num_unloaded, "разряжен [num_unloaded] патрон",  "разряжено [num_unloaded] патрона",  "разряжено [num_unloaded] патронов")]")
 	else
-		to_chat(user, span_notice("[src] is empty."))
+		balloon_alert(user, "уже разряжено!")
 
 // IMPROVISED SHOTGUN //
 
@@ -495,12 +505,12 @@
 	if(istype(A, /obj/item/stack/cable_coil) && !sawn_state)
 		var/obj/item/stack/cable_coil/C = A
 		if(C.use(10))
-			slot_flags = SLOT_BACK
-			to_chat(user, span_notice("You tie the lengths of cable to the shotgun, making a sling."))
+			slot_flags = ITEM_SLOT_BACK
+			balloon_alert(user, "присоединён самодельный ремень!")
 			slung = TRUE
 			update_icon()
 		else
-			to_chat(user, span_warning("You need at least ten lengths of cable if you want to make a sling."))
+			balloon_alert(user, "нужно больше кабеля!")
 			return
 	else
 		return ..()
@@ -541,7 +551,7 @@
 	needs_permit = FALSE //its just a cane beepsky.....
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/is_crutch()
-	return TRUE
+	return 2
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/update_icon_state()
 	return

@@ -19,6 +19,7 @@
 // Core plant genes store 5 main variables: lifespan, endurance, production, yield, potency
 /datum/plant_gene/core
 	var/value
+	var/use_max = FALSE
 
 /datum/plant_gene/core/get_name()
 	return "[name] [value]"
@@ -26,7 +27,7 @@
 /datum/plant_gene/core/proc/apply_stat(obj/item/seeds/S)
 	return
 
-/datum/plant_gene/core/New(var/i = null)
+/datum/plant_gene/core/New(i = null)
 	..()
 	if(!isnull(i))
 		value = i
@@ -41,12 +42,23 @@
 		return FALSE
 	return S.get_gene(type)
 
+/datum/plant_gene/core/proc/get_genemod_variable(obj/machinery/plantgenes/modder)
+	if(!modder)
+		stack_trace("A plant gene ([get_name()]) tried to get a genemod variable without being in a genemodder.")
+		return
+	stack_trace("A plant gene ([get_name()]) tried to get a genemod variable, but had no override.")
+
 /datum/plant_gene/core/lifespan
 	name = "Lifespan"
 	value = 25
 
 /datum/plant_gene/core/lifespan/apply_stat(obj/item/seeds/S)
 	S.lifespan = value
+
+/datum/plant_gene/core/lifespan/get_genemod_variable(obj/machinery/plantgenes/modder)
+	if(!modder) // Let the parent handle it
+		return ..()
+	return modder.max_endurance // Yes, this is intended. It is used for both lifespan and endurance
 
 
 /datum/plant_gene/core/endurance
@@ -56,14 +68,24 @@
 /datum/plant_gene/core/endurance/apply_stat(obj/item/seeds/S)
 	S.endurance = value
 
+/datum/plant_gene/core/endurance/get_genemod_variable(obj/machinery/plantgenes/modder)
+	if(!modder) // Let the parent handle it
+		return ..()
+	return modder.max_endurance
+
 
 /datum/plant_gene/core/production
 	name = "Production Speed"
 	value = 6
+	use_max = TRUE
 
 /datum/plant_gene/core/production/apply_stat(obj/item/seeds/S)
 	S.production = value
 
+/datum/plant_gene/core/production/get_genemod_variable(obj/machinery/plantgenes/modder)
+	if(!modder) // Let the parent handle it
+		return ..()
+	return modder.min_production
 
 /datum/plant_gene/core/yield
 	name = "Yield"
@@ -71,6 +93,11 @@
 
 /datum/plant_gene/core/yield/apply_stat(obj/item/seeds/S)
 	S.yield = value
+
+/datum/plant_gene/core/yield/get_genemod_variable(obj/machinery/plantgenes/modder)
+	if(!modder) // Let the parent handle it
+		return ..()
+	return modder.max_yield
 
 
 /datum/plant_gene/core/potency
@@ -80,21 +107,38 @@
 /datum/plant_gene/core/potency/apply_stat(obj/item/seeds/S)
 	S.potency = value
 
+/datum/plant_gene/core/potency/get_genemod_variable(obj/machinery/plantgenes/modder)
+	if(!modder) // Let the parent handle it
+		return ..()
+	return modder.max_potency
+
 
 /datum/plant_gene/core/weed_rate
 	name = "Weed Growth Rate"
 	value = 1
+	use_max = TRUE
 
 /datum/plant_gene/core/weed_rate/apply_stat(obj/item/seeds/S)
 	S.weed_rate = value
+
+/datum/plant_gene/core/weed_rate/get_genemod_variable(obj/machinery/plantgenes/modder)
+	if(!modder) // Let the parent handle it
+		return ..()
+	return modder.min_weed_rate
 
 
 /datum/plant_gene/core/weed_chance
 	name = "Weed Vulnerability"
 	value = 5
+	use_max = TRUE
 
 /datum/plant_gene/core/weed_chance/apply_stat(obj/item/seeds/S)
 	S.weed_chance = value
+
+/datum/plant_gene/core/weed_chance/get_genemod_variable(obj/machinery/plantgenes/modder)
+	if(!modder) // Let the parent handle it
+		return ..()
+	return modder.min_weed_chance
 
 
 // Reagent genes store reagent ID and reagent ratio. Amount of reagent in the plant = 1 + (potency * rate)
@@ -177,9 +221,6 @@
 /datum/plant_gene/trait/proc/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
 	return
 
-/datum/plant_gene/trait/proc/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
-	return
-
 /datum/plant_gene/trait/proc/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	return
 
@@ -206,19 +247,23 @@
 	examine_line = "<span class='info'>It has a very slippery skin.</span>"
 	dangerous = TRUE
 
-/datum/plant_gene/trait/slip/on_new(obj/item/reagent_containers/food/snacks/grown/G)
+/datum/plant_gene/trait/slip/on_new(obj/item/reagent_containers/food/snacks/grown/our_plant)
 	. = ..()
-	if(istype(G) && ispath(G.trash, /obj/item/grown))
+	if(istype(our_plant) && ispath(our_plant.trash, /obj/item/grown))
 		return
 
-	var/stun_len = G.seed.potency * rate * 0.8 SECONDS
+	var/stun_len = our_plant.seed.potency * rate * 0.8 SECONDS
 
-	if(!istype(G, /obj/item/grown/bananapeel) && (!G.reagents || !G.reagents.has_reagent("lube")))
+	if(!istype(our_plant, /obj/item/grown/bananapeel) && (!our_plant.reagents || !our_plant.reagents.has_reagent("lube")))
 		stun_len /= 3
 
 	stun_len = min(stun_len, 14 SECONDS)// No fun allowed
 
-	G.AddComponent(/datum/component/slippery, G, stun_len, 100, 0, FALSE)
+	our_plant.AddComponent(/datum/component/slippery, stun_len, 0, NONE, CALLBACK(src, PROC_REF(handle_slip), our_plant))
+
+/// On slip, sends a signal that our plant was slipped on out.
+/datum/plant_gene/trait/slip/proc/handle_slip(obj/item/reagent_containers/food/snacks/grown/our_plant, mob/slipped_target)
+	SEND_SIGNAL(our_plant, COMSIG_PLANT_ON_SLIP, slipped_target)
 
 /datum/plant_gene/trait/cell_charge
 	// Cell recharging trait. Charges all mob's power cells to (potency*rate)% mark when eaten.
@@ -230,12 +275,24 @@
 	origin_tech = list("powerstorage" = 5)
 	dangerous = TRUE
 
-/datum/plant_gene/trait/cell_charge/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
+/datum/plant_gene/trait/cell_charge/on_new(obj/item/reagent_containers/food/snacks/grown/our_plant)
+	. = ..()
+
+	if(istype(our_plant) && ispath(our_plant.trash, /obj/item/grown))
+		return
+
+	RegisterSignal(our_plant, COMSIG_PLANT_ON_SLIP, PROC_REF(on_sliped_carbon))
+
+/datum/plant_gene/trait/cell_charge/proc/on_sliped_carbon(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+	SIGNAL_HANDLER
+	if(!iscarbon(target))
+		return
+	var/mob/living/carbon/carbon_target = target
 	var/power = G.seed.potency*rate
 	if(prob(power))
-		add_attack_logs(G, C, "shocked for [round(power)] for slipping on")
-		C.investigate_log("got shocked for [round(power)] while slipped on [G](last touched: [G.fingerprintslast])", INVESTIGATE_BOTANY)
-		C.electrocute_act(round(power), G, 1, TRUE)
+		add_attack_logs(G, carbon_target, "shocked for [round(power)] for slipping on")
+		carbon_target.investigate_log("got shocked for [round(power)] while slipped on [carbon_target](last touched: [carbon_target.fingerprintslast])", INVESTIGATE_BOTANY)
+		carbon_target.electrocute_act(round(power), carbon_target, 1, TRUE)
 
 /datum/plant_gene/trait/cell_charge/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	if(isliving(target))
@@ -280,7 +337,8 @@
 
 /datum/plant_gene/trait/glow/on_new(obj/item/reagent_containers/food/snacks/grown/G)
 	..()
-	G.set_light(glow_range(G.seed), glow_power(G.seed), glow_color)
+	G.set_light_range_power_color(glow_range(G.seed), glow_power(G.seed), glow_color)
+	G.set_light_on(TRUE)
 
 /datum/plant_gene/trait/glow/blue
 	name = "Blue Bioluminescence"
@@ -333,7 +391,17 @@
 			living_target.adjustStaminaLoss(33)
 		living_target.investigate_log("teleported from [COORD(T)] to [COORD(living_target)], squashing [G](max radius: [teleport_radius])", INVESTIGATE_BOTANY)
 
-/datum/plant_gene/trait/teleport/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
+/datum/plant_gene/trait/teleport/on_new(obj/item/reagent_containers/food/snacks/grown/grown_plant)
+	. = ..()
+
+	if(istype(grown_plant) && ispath(grown_plant.trash, /obj/item/grown))
+		return
+
+	RegisterSignal(grown_plant, COMSIG_PLANT_ON_SLIP, PROC_REF(on_sliped_carbon))
+
+
+/datum/plant_gene/trait/teleport/proc/on_sliped_carbon(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
+	SIGNAL_HANDLER
 	var/teleport_radius = max(round(G.seed.potency / 10), 1)
 	var/turf/T = get_turf(C)
 	if(do_teleport(C, T, teleport_radius))
@@ -492,8 +560,22 @@
 	/// Sounds that play when this trait triggers
 	var/list/sounds = list('sound/items/SitcomLaugh1.ogg', 'sound/items/SitcomLaugh2.ogg', 'sound/items/SitcomLaugh3.ogg')
 
-/datum/plant_gene/trait/plant_laughter/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
+/datum/plant_gene/trait/plant_laughter/on_new(obj/item/reagent_containers/food/snacks/grown/grown_plant)
+	. = ..()
 
-	if(C.IsWeakened())
-		playsound(C, pick(sounds), 100, 1)
-		C.visible_message("<span class='notice'>[G] lets out burst of laughter.</span>")
+	if(istype(grown_plant) && ispath(grown_plant.trash, /obj/item/grown))
+		return
+
+	RegisterSignal(grown_plant, COMSIG_PLANT_ON_SLIP, PROC_REF(laughter))
+
+/*
+ * Play a sound effect from our plant.
+ *
+ * our_plant - the source plant that was slipped on
+ * target - the atom that slipped on the plant
+ */
+/datum/plant_gene/trait/plant_laughter/proc/laughter(obj/item/our_plant, atom/target)
+	SIGNAL_HANDLER
+
+	target.audible_message(span_notice("[our_plant] lets out burst of laughter."))
+	playsound(our_plant, pick(sounds), 100, FALSE, SHORT_RANGE_SOUND_EXTRARANGE)

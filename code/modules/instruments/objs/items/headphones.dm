@@ -3,6 +3,7 @@
 	desc = "Unce unce unce unce."
 	icon_state = "headphones0"
 	item_state = "headphones0"
+	slot_flags_2 = ITEM_FLAG_TWOEARS
 	actions_types = list(/datum/action/item_action/change_headphones_song)
 	var/datum/song/headphones/song
 	var/on = FALSE
@@ -31,10 +32,10 @@
 	return song.ui_data(user)
 
 
-/obj/item/clothing/ears/headphones/ui_interact(mob/user)
+/obj/item/clothing/ears/headphones/ui_interact(mob/user, datum/tgui/ui = null)
 	if(should_stop_playing(user) || user.incapacitated())
 		return
-	song.ui_interact(user)
+	song.ui_interact(user, ui)
 
 
 /obj/item/clothing/ears/headphones/ui_act(action, params)
@@ -46,11 +47,11 @@
 /obj/item/clothing/ears/headphones/update_icon_state()
 	icon_state = "headphones[on]"
 	item_state = "headphones[on]"
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/clothing/ears/headphones/item_action_slot_check(slot)
-	if(slot == slot_l_ear || slot == slot_r_ear)
+	if(slot & ITEM_SLOT_EARS)
 		return TRUE
 
 

@@ -833,3 +833,23 @@
 	tastes = list("banana" = 1, "cherry" = 1, "cream" = 1)
 	bitesize = 5
 	foodtype = GRAIN | FRUIT
+
+/obj/item/reagent_containers/food/snacks/croissant
+	name = "croissant"
+	desc = "Once a pastry reserved for the bourgeois, this flaky goodness is now on your table."
+	icon_state = "croissant"
+	bitesize = 4
+	filling_color = "#ecb54f"
+	list_reagents = list("nutriment" = 4, "sugar" = 2)
+	tastes = list("croissant" = 1)
+	foodtype = GRAIN
+
+/obj/item/reagent_containers/food/snacks/croissant/throwing
+	throwforce = 20
+	throw_range = 9 //now with extra throwing action
+	tastes = list("croissant" = 2, "butter" = 1, "metal" = 1)
+	list_reagents = list("nutriment" = 4, "sugar" = 2, "iron" = 1)
+
+/obj/item/reagent_containers/food/snacks/croissant/throwing/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/boomerang, throw_range, TRUE)

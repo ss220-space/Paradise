@@ -7,14 +7,14 @@
 	item_color = "ert_commander"
 	armor = list(melee = 45, bullet = 40, laser = 40, energy = 40, bomb = 25, bio = 100, rad = 100, fire = 100, acid = 80)
 	resistance_flags = FIRE_PROOF
-	var/obj/machinery/camera/camera
+	var/obj/machinery/camera/portable/camera
 	var/has_camera = TRUE
 	strip_delay = 130
 
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/Initialize()
@@ -33,10 +33,8 @@
 /obj/item/clothing/head/helmet/space/hardsuit/ert/proc/register_camera(mob/wearer)
 	if(camera || !has_camera)
 		return
-	camera = new /obj/machinery/camera(src)
-	camera.network = list("ERT")
+	camera = new(src, list("ERT"), wearer.name)
 	GLOB.cameranet.removeCamera(camera)
-	camera.c_tag = wearer.name
 	to_chat(wearer, "<span class='notice'>User scanned as [camera.c_tag]. Camera activated.</span>")
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/examine(mob/user)
@@ -66,9 +64,9 @@
 	slowdown = 0
 	resistance_flags = FIRE_PROOF
 	sprite_sheets = list(
-		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
 
 /obj/item/clothing/suit/space/hardsuit/ert/gamma
@@ -83,7 +81,7 @@
 	item_state = "helm-command"
 	item_color = "ert_commander"
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/gamma/commander
@@ -211,14 +209,14 @@
 	resistance_flags = FIRE_PROOF
 	has_camera = FALSE
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/clothing/species/grey/helmet.dmi',
-		"Tajaran" = 'icons/mob/clothing/species/tajaran/helmet.dmi',
-		"Unathi" = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		"Ash Walker" = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		"Draconid" = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/helmet.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/helmet.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
 
 /obj/item/clothing/suit/space/hardsuit/ert/paranormal
@@ -230,16 +228,16 @@
 	jetpack = null
 	resistance_flags = FIRE_PROOF
 	sprite_sheets = list(
-		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
-		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/suit.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
 	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore, /obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/melee/classic_baton/telescopic,/obj/item/kitchen/knife/combat)
-	hide_tail_by_species = list("Unathi, Ash Walker, Ash Walker Shaman, Draconid, Tajaran, Vox, Vulpkanin")
+	hide_tail_by_species = list(SPECIES_TAJARAN, SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID, SPECIES_VOX, SPECIES_VULPKANIN)
 
 /obj/item/clothing/suit/space/hardsuit/ert/paranormal/Initialize(mapload)
 	. = ..()
@@ -277,7 +275,7 @@
 	item_state = "ert_solgov_marine"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/solgov
 	slowdown = 0
-	species_restricted = list("Human", "Slime People", "Skeleton", "Nucleation", "Machine")
+	species_restricted = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_NUCLEATION, SPECIES_MACNINEPERSON)
 	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 100, acid = 50)
 	resistance_flags = FIRE_PROOF
 
@@ -311,7 +309,7 @@
 	HUDType = MEDHUD
 	strip_delay = 130
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 	)
 
 
@@ -336,12 +334,12 @@
 	dog_fashion = /datum/dog_fashion/back/deathsquad
 
 	sprite_sheets = list(
-		"Monkey" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Farwa" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Wolpin" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Neara" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Stok" = 'icons/mob/clothing/species/monkey/suit.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 	)
 
 
@@ -361,7 +359,7 @@
 	/obj/item/radio, /obj/item/analyzer, /obj/item/gun, /obj/item/melee/baton, /obj/item/reagent_containers/spray/pepper, \
 	/obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/restraints/handcuffs)
 	strip_delay = 130
-	species_restricted = list("exclude", "Wryn", "lesser form", "Vox")
+	species_restricted = list("exclude", SPECIES_WRYN, "lesser form", SPECIES_VOX)
 
 /obj/item/clothing/head/helmet/space/ert_eva_amber
 	name = "ERT Amber Space helmet"
@@ -372,9 +370,9 @@
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES
 	armor = list(melee = 20, bullet = 20, laser = 20, energy = 15, bomb = 10, bio = 100, rad = 20, fire = 50, acid = 65)
 	flash_protect = 0
-	var/obj/machinery/camera/camera
+	var/obj/machinery/camera/portable/camera
 	var/has_camera = TRUE
-	species_restricted = list("exclude", "Wryn", "lesser form", "Vox")
+	species_restricted = list("exclude", SPECIES_WRYN, "lesser form", SPECIES_VOX)
 
 /obj/item/clothing/head/helmet/space/ert_eva_amber/Initialize()
 	if(loc)
@@ -392,10 +390,8 @@
 /obj/item/clothing/head/helmet/space/ert_eva_amber/proc/register_camera(mob/wearer)
 	if(camera || !has_camera)
 		return
-	camera = new /obj/machinery/camera(src)
-	camera.network = list("ERT")
+	camera = new(src, list("ERT"), wearer.name)
 	GLOB.cameranet.removeCamera(camera)
-	camera.c_tag = wearer.name
 	to_chat(wearer, "<span class='notice'>User scanned as [camera.c_tag]. Camera activated.</span>")
 
 /obj/item/clothing/head/helmet/space/ert_eva_amber/examine(mob/user)

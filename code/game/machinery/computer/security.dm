@@ -78,10 +78,10 @@
 /obj/machinery/computer/secure_data/ui_host()
 	return parent ? parent : src
 
-/obj/machinery/computer/secure_data/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/secure_data/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "SecurityRecords", name, 800, 800)
+		ui = new(user, src, "SecurityRecords", name)
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
@@ -196,7 +196,7 @@
 				return
 			var/datum/data/record/G = new /datum/data/record()
 			G.fields["name"] = "New Record"
-			G.fields["id"] = "[add_zero(num2hex(rand(1, 1.6777215E7)), 6)]"
+			G.fields["id"] = "[add_zero(num2hex(rand(1, 1.6777215E7), 2), 6)]"
 			G.fields["rank"] = "Unassigned"
 			G.fields["real_rank"] = "Unassigned"
 			G.fields["sex"] = "Male"
@@ -204,7 +204,7 @@
 			G.fields["fingerprint"] = "Unknown"
 			G.fields["p_stat"] = "Active"
 			G.fields["m_stat"] = "Stable"
-			G.fields["species"] = "Human"
+			G.fields["species"] = SPECIES_HUMAN
 			G.fields["notes"] = "No notes."
 			GLOB.data_core.general += G
 			record_general = G

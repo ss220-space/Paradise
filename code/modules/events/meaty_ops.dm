@@ -8,7 +8,7 @@
 
 /datum/event/meteor_wave/goreop/tick()
 	if(waves && activeFor >= next_meteor)
-		spawn() spawn_meteors(5, GLOB.meteors_ops)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/spawn_meteors, 5, GLOB.meteors_ops)
 		next_meteor += rand(15, 30)
 		waves--
 		endWhen = (waves ? next_meteor + 1 : activeFor + 15)
@@ -16,4 +16,4 @@
 
 
 /datum/event/meteor_wave/goreop/end()
-	GLOB.event_announcement.Announce("Все метеориты мертвы. Майор Станция одержал победу.", "МЕТЕОРИТЫ.")
+	GLOB.event_announcement.Announce("Все метеориты мертвы. Безоговорочная победа станции.", "МЕТЕОРИТЫ.")

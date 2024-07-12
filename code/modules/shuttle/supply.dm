@@ -399,10 +399,10 @@
 		hacked = TRUE
 		return
 
-/obj/machinery/computer/supplycomp/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/supplycomp/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "CargoConsole", name, 900, 800, master_ui, state)
+		ui = new(user, src, "CargoConsole", name)
 		ui.open()
 
 /obj/machinery/computer/supplycomp/ui_data(mob/user)
@@ -499,7 +499,7 @@
 					var/datum/supply_order/O = new /datum/supply_order()
 					O.ordernum = SSshuttle.ordernum
 					O.object = SSshuttle.supply_packs[pick(SSshuttle.supply_packs)]
-					O.orderedby = random_name(pick(MALE,FEMALE), species = "Human")
+					O.orderedby = random_name(pick(MALE,FEMALE), species = SPECIES_HUMAN)
 					SSshuttle.shoppinglist += O
 					investigate_log("Random [O.object] crate added to supply shuttle", INVESTIGATE_CARGO)
 
@@ -508,13 +508,15 @@
 			var/datum/supply_packs/P = locateUID(params["crate"])
 			if(!istype(P))
 				return
+/*
 
 			if(P.times_ordered >= P.order_limit && P.order_limit != -1) //If the crate has reached the limit, do not allow it to be ordered.
-				to_chat(usr, "<span class='warning'>[P.name] is out of stock, and can no longer be ordered.</span>")
-				return
+				to_chat(usr, "<span class='warning'>[P.name] is out of stock, and can no longer be ordered.</span>")	// Unused for now (Crate limit #3056).
+				return	*/
+
 
 			var/amount = 1
-			if(params["multiple"] == "1") // 1 is a string here. DO NOT MAKE THIS A BOOLEAN YOU DORK
+			if(params["multiple"])
 				var/num_input = input(usr, "Amount", "How many crates? (20 Max)") as null|num
 				if(!num_input || (!is_public && !is_authorized(usr)) || ..()) // Make sure they dont walk away
 					return
@@ -562,9 +564,9 @@
 				if(SO.ordernum == ordernum)
 					O = SO
 					P = O.object
-					if(P.times_ordered >= P.order_limit && P.order_limit != -1) //If this order would put it over the limit, deny it
-						to_chat(usr, "<span class='warning'>[P.name] is out of stock, and can no longer be ordered.</span>")
-					else if(P.can_approve(usr))
+/*					if(P.times_ordered >= P.order_limit && P.order_limit != -1) //If this order would put it over the limit, deny it. Unused for now (Crate limit #3056).
+						to_chat(usr, "<span class='warning'>[P.name] is out of stock, and can no longer be ordered.</span>")	*/
+					if(P.can_approve(usr))
 						SSshuttle.requestlist.Cut(i,i+1)
 						SSshuttle.points -= P.cost
 						if(P.credits_cost)

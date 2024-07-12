@@ -50,7 +50,7 @@
 /obj/item/assembly/prox_sensor/HasProximity(atom/movable/AM)
 	if(!isobj(AM) && !isliving(AM))
 		return
-	if(istype(AM, /obj/effect))
+	if(iseffect(AM))
 		return
 	if(AM.move_speed < 12)
 		sense(AM)
@@ -77,7 +77,7 @@
 		time = 10
 
 
-/obj/item/assembly/prox_sensor/dropped(mob/user, silent = FALSE)
+/obj/item/assembly/prox_sensor/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	INVOKE_ASYNC(src, PROC_REF(sense), user)
 
@@ -101,7 +101,7 @@
 	holder?.update_icon()
 
 
-/obj/item/assembly/prox_sensor/Move(atom/newloc, direct = NONE, movetime)
+/obj/item/assembly/prox_sensor/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	sense()
 
@@ -127,7 +127,7 @@
 
 /obj/item/assembly/prox_sensor/Topic(href, href_list)
 	..()
-	if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !in_range(loc, usr))
 		usr << browse(null, "window=prox")
 		onclose(usr, "prox")
 		return

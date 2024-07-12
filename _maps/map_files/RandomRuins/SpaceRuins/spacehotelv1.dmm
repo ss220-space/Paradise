@@ -911,7 +911,9 @@
 /area/ruin/space/spacehotelv1/cargostorage)
 "gM" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/marker_beacon,
+/obj/structure/marker_beacon{
+	icon_state = "markerrandom"
+	},
 /turf/template_noop,
 /area/template_noop)
 "gN" = (
@@ -2040,7 +2042,7 @@
 "pf" = (
 /obj/item/clothing/head/kitty,
 /obj/item/clothing/under/maid,
-/obj/item/clothing/suit/browntrenchcoat,
+/obj/item/clothing/suit/storage/browntrenchcoat,
 /obj/structure/closet/cabinet,
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/space/spacehotelv1/guestroom3)

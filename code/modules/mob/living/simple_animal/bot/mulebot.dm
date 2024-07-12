@@ -12,13 +12,15 @@
 	icon_state = "mulebot0"
 	density = TRUE
 	move_resist = MOVE_FORCE_STRONG
-	animate_movement = 1
+	animate_movement = FORWARD_STEPS
 	health = 50
 	maxHealth = 50
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	a_intent = INTENT_HARM //No swapping
-	buckle_lying = FALSE
+	buckle_lying = 0
+	can_buckle_to = FALSE
 	mob_size = MOB_SIZE_LARGE
+	buckle_prevents_pull = TRUE // No pulling loaded shit
 	radio_channel = "Supply"
 
 	bot_type = MULE_BOT
@@ -62,8 +64,8 @@
 	var/currentDNA = null
 
 
-/mob/living/simple_animal/bot/mulebot/New()
-	..()
+/mob/living/simple_animal/bot/mulebot/Initialize(mapload)
+	. = ..()
 	wires = new /datum/wires/mulebot(src)
 	var/datum/job/cargo_tech/J = new/datum/job/cargo_tech
 	access_card.access = J.get_access()
@@ -72,7 +74,7 @@
 
 	mulebot_count++
 	set_suffix(suffix ? suffix : "#[mulebot_count]")
-	RegisterSignal(src, COMSIG_CROSSED_MOVABLE, PROC_REF(human_squish_check))
+	RegisterSignal(src, COMSIG_ATOM_ENTERING, PROC_REF(on_entering))
 
 
 /mob/living/simple_animal/bot/mulebot/Destroy()
@@ -89,10 +91,6 @@
 
 /mob/living/simple_animal/bot/mulebot/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id)
 	return FALSE
-
-
-/mob/living/simple_animal/bot/mulebot/can_buckle()
-	return FALSE //no ma'am, you cannot buckle mulebots to chairs
 
 
 /mob/living/simple_animal/bot/mulebot/proc/set_suffix(_suffix)
@@ -210,6 +208,9 @@
 /mob/living/simple_animal/bot/mulebot/Topic(href, list/href_list)
 	if(..())
 		return TRUE
+
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
 
 	switch(href_list["op"])
 		if("lock")
@@ -378,7 +379,7 @@
 // can load anything if hacked
 /mob/living/simple_animal/bot/mulebot/MouseDrop_T(atom/movable/AM, mob/user, params)
 
-	if(!istype(AM) || user.incapacitated() || user.lying || !in_range(user, src))
+	if(!istype(AM) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !in_range(user, src))
 		return FALSE
 
 	load(AM)
@@ -435,16 +436,16 @@
 	return FALSE
 
 
-/mob/living/simple_animal/bot/mulebot/post_buckle_mob(mob/living/M)
-	M.pixel_y = initial(M.pixel_y) + 9
-	if(M.layer < layer)
-		M.layer = layer + 0.01
+/mob/living/simple_animal/bot/mulebot/post_buckle_mob(mob/living/target)
+	target.pixel_y = target.base_pixel_y + 9
+	if(target.layer < layer)
+		target.layer = layer + 0.01
 
 
-/mob/living/simple_animal/bot/mulebot/post_unbuckle_mob(mob/living/M)
+/mob/living/simple_animal/bot/mulebot/post_unbuckle_mob(mob/living/target)
 	load = null
-	M.layer = initial(M.layer)
-	M.pixel_y = initial(M.pixel_y)
+	target.layer = initial(target.layer)
+	target.pixel_y = target.base_pixel_y + target.body_position_pixel_y_offset
 
 
 // called to unload the bot
@@ -462,11 +463,11 @@
 		load.forceMove(loc)
 		load.pixel_y = initial(load.pixel_y)
 		load.layer = initial(load.layer)
-		load.plane = initial(load.plane)
+		SET_PLANE_EXPLICIT(load, initial(load.plane), src)
 		if(dirn)
 			var/turf/T = loc
 			var/turf/newT = get_step(T,dirn)
-			if(load.CanPass(load,newT)) //Can't get off onto anything that wouldn't let you pass normally
+			if(load.CanPass(load, get_dir(newT, src))) //Can't get off onto anything that wouldn't let you pass normally
 				step(load, dirn)
 		load = null
 
@@ -692,7 +693,7 @@
 			bot_reset()	// otherwise go idle
 
 
-/mob/living/simple_animal/bot/mulebot/Move(turf/simulated/next)
+/mob/living/simple_animal/bot/mulebot/Move(turf/simulated/next, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 
 	if(. && istype(next))
@@ -720,19 +721,22 @@
 /**
  * Called when bot bumps into anything.
  */
-/mob/living/simple_animal/bot/mulebot/Bump(atom/obs)
-	if(wires.is_cut(WIRE_MOB_AVOIDANCE))	// usually just bumps, but if avoidance disabled knock over mobs
-		var/mob/living/L = obs
-		if(ismob(L))
-			if(isrobot(L))
-				visible_message(span_danger("[src] bumps into [L]!"))
-			else
-				if(!paicard)
-					add_attack_logs(src, L, "Knocked down")
-					visible_message(span_danger("[src] knocks over [L]!"))
-					L.stop_pulling()
-					L.Weaken(16 SECONDS)
-	return ..()
+/mob/living/simple_animal/bot/mulebot/Bump(mob/living/bumped_living)
+	. = ..()
+	if(!wires.is_cut(WIRE_MOB_AVOIDANCE) || !isliving(bumped_living))
+		return .
+
+	// usually just bumps, but if avoidance disabled knock over mobs
+	if(isrobot(bumped_living))
+		visible_message(span_danger("[src] bumps into [bumped_living]!"))
+		return .
+
+	if(paicard)
+		return .
+
+	add_attack_logs(src, bumped_living, "Knocked down")
+	visible_message(span_danger("[src] knocks over [bumped_living]!"))
+	bumped_living.Weaken(16 SECONDS)
 
 
 /mob/living/simple_animal/bot/mulebot/proc/RunOver(mob/living/carbon/human/H)
@@ -917,16 +921,22 @@
 
 
 /mob/living/simple_animal/bot/mulebot/UnarmedAttack(atom/A)
+	if(!can_unarmed_attack())
+		return
 	if(isturf(A) && isturf(loc) && loc.Adjacent(A) && load)
 		unload(get_dir(loc, A))
 	else
 		..()
 
 
-/mob/living/simple_animal/bot/mulebot/proc/human_squish_check(src, atom/movable/AM)
-	if(!ishuman(AM))
+/mob/living/simple_animal/bot/mulebot/proc/on_entering(datum/source, atom/destination, atom/oldloc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(!isturf(destination))
 		return
-	RunOver(AM)
+
+	for(var/mob/living/carbon/human/mob in destination.contents)
+		RunOver(mob)
 
 
 #undef SIGH

@@ -106,7 +106,7 @@
 		var/turf/destination = possible_altars[selected_altar]
 		to_chat(user, "<span class='notice'> You start invoking teleportation...</span>")
 		animate(user, color = COLOR_PURPLE, time = 1.5 SECONDS)
-		if(do_after(user, 1.5 SECONDS, target = user) && destination)
+		if(do_after(user, 1.5 SECONDS, user) && destination)
 			do_sparks(4, 0, user)
 			user.forceMove(get_turf(destination))
 			playsound(user, 'sound/effects/phasein.ogg', 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -187,7 +187,7 @@
 				return
 			to_chat(user, "<span class='notice'> You start invoking teleportation...</span>")
 			animate(user, color = COLOR_PURPLE, time = 1.5 SECONDS)
-			if(do_after(user, 1.5 SECONDS, target = user))
+			if(do_after(user, 1.5 SECONDS, user))
 				do_sparks(4, 0, user)
 				user.forceMove(get_turf(target))
 				playsound(user, 'sound/effects/phasein.ogg', 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -218,7 +218,7 @@
 	desc = "A razor-sharp spear made of brass. It thrums with barely-contained energy."
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "ratvarian_spear0"
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	force = 10
 	force_unwielded = 10
 	force_wielded = 20
@@ -249,7 +249,7 @@
 		return ..()
 	var/mob/living/living = hit_atom
 	if(isclocker(living))
-		if(ishuman(living) && !living.restrained() && living.put_in_active_hand(src))
+		if(ishuman(living) && living.put_in_active_hand(src))
 			playsound(src, 'sound/weapons/throwtap.ogg', 50)
 			living.visible_message("<span class='warning'>[living] catches [src] out of the air!</span>")
 		else
@@ -365,7 +365,7 @@
 	desc = "A heavy hammer of an elder god. Used to shine like in past times."
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clock_hammer0"
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	force = 5
 	force_unwielded = 5
 	force_wielded = 20
@@ -392,7 +392,7 @@
 		return ..()
 	var/mob/living/living = hit_atom
 	if(isclocker(living))
-		if(ishuman(living) && !living.restrained() && living.put_in_active_hand(src))
+		if(ishuman(living) && living.put_in_active_hand(src))
 			playsound(src, 'sound/weapons/throwtap.ogg', 50)
 			living.visible_message("<span class='warning'>[living] catches [src] out of the air!</span>")
 		else
@@ -492,7 +492,7 @@
 		return ..()
 	var/mob/living/living = hit_atom
 	if(isclocker(living))
-		if(ishuman(living) && !living.restrained() && living.put_in_active_hand(src))
+		if(ishuman(living) && living.put_in_active_hand(src))
 			playsound(src, 'sound/weapons/throwtap.ogg', 50)
 			living.visible_message("<span class='warning'>[living] catches [src] out of the air!</span>")
 		else
@@ -509,7 +509,7 @@
 		to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
 		return
 	if(enchant_type == FASTSWORD_SPELL && src == user.get_active_hand())
-		flags |= NODROP
+		ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(FASTSWORD_SPELL))
 		enchant_type = CASTING_SPELL
 		force = 7
 		swordsman = TRUE
@@ -519,7 +519,7 @@
 
 /obj/item/melee/clock_sword/proc/reset_swordsman(mob/user)
 	to_chat(user, "<span class='notice'>The grip on [src] looses...</span>")
-	flags &= ~NODROP
+	REMOVE_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(FASTSWORD_SPELL))
 	force = initial(force)
 	swordsman = FALSE
 	deplete_spell()
@@ -597,7 +597,7 @@
 			to_chat(user, "<span class='notice'>You should wear [src]!</span>")
 			return
 		playsound(loc, 'sound/effects/phasein.ogg', 100, 1)
-		set_light(2, 1, COLOR_WHITE)
+		set_light_range_power_color(2, 1, COLOR_WHITE)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 0.2 SECONDS)
 		user.visible_message("<span class='disarm'>[user]'s [src.name] emits a blinding light!</span>", "<span class='danger'>Your [src.name] emits a blinding light!</span>")
 		for(var/mob/living/carbon/M in oviewers(3, user))
@@ -655,12 +655,13 @@
 	allowed = list(/obj/item/clockwork, /obj/item/twohanded/ratvarian_spear, /obj/item/twohanded/clock_hammer, /obj/item/melee/clock_sword)
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 40, "energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 	flags_inv = HIDEJUMPSUIT
+	flags_inv_transparent = HIDEJUMPSUIT
 	magical = TRUE
 	sprite_sheets = list(
-		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi'
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
 
 /obj/item/clothing/suit/hooded/clockrobe_fake
@@ -674,9 +675,10 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe) // some miners stuff
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 40, "energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 	flags_inv = HIDEJUMPSUIT
+	flags_inv_transparent = HIDEJUMPSUIT
 	magical = TRUE
 	sprite_sheets = list(
-		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi'
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
 
 /obj/item/clothing/suit/hooded/clockrobe/can_store_weighted()
@@ -691,8 +693,8 @@
 	if(enchant_type)
 		. += "clockwork_robe_overlay_[enchant_type]"
 
-/obj/item/clothing/suit/hooded/clockrobe/ui_action_click(mob/user, actiontype)
-	if(actiontype == /datum/action/item_action/activate/enchant)
+/obj/item/clothing/suit/hooded/clockrobe/ui_action_click(mob/user, action)
+	if(istype(action, /datum/action/item_action/activate/enchant))
 		if(!iscarbon(user))
 			return
 		var/mob/living/carbon/carbon = user
@@ -704,31 +706,31 @@
 			playsound(get_turf(carbon), 'sound/magic/smoke.ogg', 30, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			enchant_type = CASTING_SPELL
 			animate(carbon, alpha = 20, time = 1 SECONDS)
-			flags |= NODROP
+			ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(INVIS_SPELL))
 			sleep(10)
 			carbon.alpha = 20
 			add_attack_logs(user, user, "cloaked [src]", ATKLOG_ALL)
 			addtimer(CALLBACK(src, PROC_REF(uncloak), carbon), 10 SECONDS)
 		if(enchant_type == SPEED_SPELL)
 			enchant_type = CASTING_SPELL
-			flags |= NODROP
-			ADD_TRAIT(carbon, TRAIT_GOTTAGOFAST, "clockrobes[UID()]")
+			ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(SPEED_SPELL))
+			carbon.add_movespeed_modifier(/datum/movespeed_modifier/clock_robe)
 			addtimer(CALLBACK(src, PROC_REF(unspeed), carbon), 8 SECONDS)
 			to_chat(carbon, "<span class='danger'>Robe tightens, as it frees you to be flexible around!</span>")
 			add_attack_logs(user, user, "speed boosted with [src]", ATKLOG_ALL)
 	else
-		ToggleHood()
+		ToggleHood(user)
 
 /obj/item/clothing/suit/hooded/clockrobe/proc/uncloak(mob/user)
 	animate(user, alpha = 255, time = 1 SECONDS)
-	flags &= ~NODROP
+	REMOVE_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(INVIS_SPELL))
 	sleep(10)
 	user.alpha = 255
 	deplete_spell()
 
 /obj/item/clothing/suit/hooded/clockrobe/proc/unspeed(mob/living/carbon/carbon)
-	REMOVE_TRAIT(carbon, TRAIT_GOTTAGOFAST, "clockrobes[UID()]")
-	flags &= ~NODROP
+	carbon?.remove_movespeed_modifier(/datum/movespeed_modifier/clock_robe)
+	REMOVE_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(SPEED_SPELL))
 	deplete_spell()
 
 /obj/item/clothing/head/hooded/clockhood
@@ -737,8 +739,7 @@
 	icon_state = "clockhood"
 	item_state = "clockhood"
 	desc = "A hood worn by the followers of ratvar."
-	flags = BLOCKHAIR
-	flags_inv = HIDENAME
+	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 	magical = TRUE
@@ -749,8 +750,7 @@
 	icon_state = "clockhood"
 	item_state = "clockhood"
 	desc = "A hood worn by the followers of ratvar. but now its just a simple hood."
-	flags = BLOCKHAIR
-	flags_inv = HIDENAME
+	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 	magical = TRUE
@@ -784,15 +784,16 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	armor = list("melee" = 50, "bullet" = 40, "laser" = 50, "energy" = 30, "bomb" = 50, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100)
 	flags_inv = HIDEJUMPSUIT
+	flags_inv_transparent = HIDEGLOVES|HIDESHOES
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/clockwork, /obj/item/twohanded/ratvarian_spear, /obj/item/twohanded/clock_hammer, /obj/item/melee/clock_sword)
-	hide_tail_by_species = list("Vulpkanin")
+	hide_tail_by_species = list(SPECIES_VULPKANIN)
 	sprite_sheets = list(
-		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
-		"Ash Walker" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Ash Walker Shaman" = 'icons/mob/clothing/species/unathi/suit.dmi',
-		"Draconid" = 'icons/mob/clothing/species/unathi/suit.dmi'
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
 	var/reflect_uses = 4
 	var/normal_armor
@@ -808,10 +809,11 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe) // some miners stuff
 	flags_inv = HIDEJUMPSUIT
+	flags_inv_transparent = HIDEGLOVES|HIDESHOES
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/clockwork, /obj/item/twohanded/ratvarian_spear, /obj/item/twohanded/clock_hammer, /obj/item/melee/clock_sword)
 	sprite_sheets = list(
-		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi'
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi'
 		)
 
 /obj/item/clothing/suit/armor/clockwork/can_store_weighted()
@@ -867,17 +869,17 @@
 		"<span class='notice'>The [src.name] becomes more hardened as the plates becomes to shift for any attack!</span>")
 		//armor = list("melee" = 80, "bullet" = 60, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 		armor = harden_armor
-		flags |= NODROP
+		ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(ARMOR_SPELL))
 		enchant_type = CASTING_SPELL
 		add_attack_logs(carbon, carbon, "Hardened [src]", ATKLOG_ALL)
-		set_light(1.5, 0.8, COLOR_RED)
+		set_light_range_power_color(1.5, 0.8, COLOR_RED)
 		addtimer(CALLBACK(src, PROC_REF(reset_armor), carbon), 12 SECONDS)
 
 /obj/item/clothing/suit/armor/clockwork/proc/reset_armor(mob/user)
 	to_chat(user, "<span class='notice'>The [src] stops shifting...</span>")
-	set_light(0)
+	set_light_on(FALSE)
 	armor = normal_armor
-	flags &= ~NODROP
+	REMOVE_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(ARMOR_SPELL))
 	deplete_spell()
 
 /obj/item/clothing/suit/armor/clockwork/equipped(mob/living/user, slot, initial)
@@ -898,6 +900,9 @@
 			user.adjust_fire_stacks(2)
 			user.IgniteMob()
 		user.drop_item_ground(src)
+
+/obj/item/clothing/suit/armor/clockwork/update_icon_state()
+	return
 
 // Gloves
 /obj/item/clothing/gloves/clockwork
@@ -939,22 +944,22 @@
 			if(human.mind.martial_art)
 				to_chat(human, "<span class='warning'>You're too powerful to use it!</span>")
 				return
-			flags |= NODROP
+			ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(FASTPUNCH_SPELL))
 			to_chat(human, "<span class='notice'>You fastening gloves making your moves agile!</span>")
 			enchant_type = CASTING_SPELL
 			north_star = TRUE
 			add_attack_logs(human, human, "North-starred [src]", ATKLOG_ALL)
-			addtimer(CALLBACK(src, PROC_REF(reset)), 6 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(reset_punch)), 6 SECONDS)
 		if(FIRE_SPELL)
 			if(human.gloves != src)
 				to_chat(human, "<span class='notice'>You should wear [src]!</span>")
 				return
-			flags |= NODROP
+			ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(FIRE_SPELL))
 			to_chat(human, "<span class='notice'>Your gloves becomes in red flames ready to burn any enemy in sight!</span>")
 			enchant_type = CASTING_SPELL
 			fire_casting = TRUE
 			add_attack_logs(human, human, "Fire-casted [src]", ATKLOG_ALL)
-			addtimer(CALLBACK(src, PROC_REF(reset)), 5 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(reset_fire)), 5 SECONDS)
 
 /obj/item/clothing/gloves/clockwork/Touch(atom/A, proximity)
 	var/mob/living/user = loc
@@ -978,7 +983,7 @@
 			var/mob/living/silicon/robot/robot = living
 			robot.Weaken(1 SECONDS)
 		do_sparks(5, 0, loc)
-		playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
+		playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
 		add_attack_logs(user, living, "Stunned with [src]")
 		deplete_spell()
 	if(north_star && !user.mind.martial_art)
@@ -990,12 +995,19 @@
 		C.adjust_fire_stacks(0.5)
 		C.IgniteMob()
 
-/obj/item/clothing/gloves/clockwork/proc/reset()
+/obj/item/clothing/gloves/clockwork/proc/reset_punch()
 	north_star = FALSE
-	fire_casting = FALSE
-	flags &= ~NODROP
+	REMOVE_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(FASTPUNCH_SPELL))
 	to_chat(usr, "<span class='notice'> [src] depletes last magic they had.</span>")
 	deplete_spell()
+
+
+/obj/item/clothing/gloves/clockwork/proc/reset_fire()
+	fire_casting = FALSE
+	REMOVE_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(FIRE_SPELL))
+	to_chat(usr, "<span class='notice'> [src] depletes last magic they had.</span>")
+	deplete_spell()
+
 
 /obj/item/clothing/gloves/clockwork/equipped(mob/living/user, slot, initial)
 	. = ..()
@@ -1069,7 +1081,7 @@
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 	armor = list(melee = 45, bullet = 65, laser = 10, energy = 0, bomb = 60, bio = 0, rad = 0, fire = 100, acid = 100)
 	sprite_sheets = list(
-		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi'
 		)
 
 /obj/item/clothing/head/helmet/clockwork_fake
@@ -1179,7 +1191,7 @@
 
 /obj/machinery/integration_cog/Initialize(mapload)
 	. = ..()
-	if(istype(loc, /obj/machinery/power/apc))
+	if(isapc(loc))
 		apc = loc
 	else
 		log_runtime(EXCEPTION("Invalid location for Integration cog"))
@@ -1215,16 +1227,29 @@
 	desc = "An unique brass board, used by cyborg warriors."
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clock_mod"
+	var/free_VTEC = FALSE
 
-/obj/item/borg/upgrade/clockwork/action(mob/living/silicon/robot/R)
-	if(..())
-		if(R.module?.type == /obj/item/robot_module/clockwork)
-			R.pdahide = TRUE
+
+/obj/item/borg/upgrade/clockwork/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+	. = TRUE
+	if(robot.module?.type == /obj/item/robot_module/clockwork)
+		robot.pdahide = TRUE
+	else
+		robot.ratvar_act()
+		robot.opened = FALSE
+		robot.locked = TRUE
+	if(!free_VTEC)
+		return .
+	var/obj/item/borg/upgrade/vtec/vtec_upgrade = locate() in robot.upgrades
+	if(!vtec_upgrade)
+		vtec_upgrade = new
+		if(vtec_upgrade.action(robot))
+			robot.install_upgrade(vtec_upgrade)
 		else
-			R.ratvar_act()
-		R.opened = FALSE
-		R.locked = TRUE
-		return TRUE
+			qdel(vtec_upgrade)
+
 
 // A drone shell. Just click on it and it will boot up itself!
 /obj/item/clockwork/cogscarab

@@ -278,16 +278,21 @@
 	required_container = /obj/item/slime_extract/darkblue
 	required_other = 1
 
+
 /datum/chemical_reaction/slimefreeze/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='danger'>The slime extract begins to vibrate adorably !</span>")
-	spawn(50)
-		if(holder && holder.my_atom)
-			playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
-			for(var/mob/living/M in range (get_turf(holder.my_atom), 7))
-				M.bodytemperature -= 240
-				to_chat(M, "<span class='notice'>You feel a chill!</span>")
+	T.visible_message(span_danger("The slime extract begins to vibrate adorably!"))
+	addtimer(CALLBACK(src, PROC_REF(delayed_freeze), holder), 5 SECONDS)
+
+
+/datum/chemical_reaction/slimefreeze/proc/delayed_freeze(datum/reagents/holder)
+	if(holder?.my_atom)
+		var/turf/holder_turf = get_turf(holder.my_atom)
+		playsound(holder_turf, 'sound/effects/phasein.ogg', 100, TRUE)
+		for(var/mob/living/victim in range(holder_turf, 7))
+			victim.adjust_bodytemperature(-240)
+			to_chat(victim, span_notice("You feel a chill!"))
 
 
 /datum/chemical_reaction/slimefireproof

@@ -6,7 +6,7 @@
 	icon_state = "waterbackpack"
 	item_state = "waterbackpack"
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	slowdown = 1
 	actions_types = list(/datum/action/item_action/toggle_mister)
 	max_integrity = 200
@@ -26,17 +26,20 @@
 	toggle_mister()
 
 /obj/item/watertank/item_action_slot_check(slot, mob/user)
-	if(slot == slot_back)
-		return 1
+	if(slot == ITEM_SLOT_BACK)
+		return TRUE
 
 /obj/item/watertank/verb/toggle_mister()
 	set name = "Toggle Mister"
 	set category = "Object"
-	if(usr.get_item_by_slot(slot_back) != src)
+
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
+
+	if(usr.get_item_by_slot(ITEM_SLOT_BACK) != src)
 		to_chat(usr, "<span class='notice'>The watertank needs to be on your back to use.</span>")
 		return
-	if(usr.incapacitated())
-		return
+
 	on = !on
 
 	var/mob/living/carbon/human/user = usr
@@ -61,7 +64,7 @@
 /obj/item/watertank/equipped(mob/user, slot, initial)
 	. = ..()
 
-	if(slot != slot_back)
+	if(slot != ITEM_SLOT_BACK)
 		remove_noz()
 
 /obj/item/watertank/proc/remove_noz()
@@ -103,7 +106,6 @@
 	amount_per_transfer_from_this = 50
 	possible_transfer_amounts = list(25,50,100)
 	volume = 500
-	flags = NOBLUDGEON
 	container_type = OPENCONTAINER
 
 	var/obj/item/watertank/tank
@@ -116,8 +118,8 @@
 		loc = tank
 	return
 
-/obj/item/reagent_containers/spray/mister/dropped(mob/user, silent = FALSE)
-	..()
+/obj/item/reagent_containers/spray/mister/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
 	to_chat(user, "<span class='notice'>The mister snaps back onto the watertank.</span>")
 	tank.on = 0
 	loc = tank
@@ -133,10 +135,12 @@
 	else
 		return 1
 
-/obj/item/reagent_containers/spray/mister/Move()
+
+/obj/item/reagent_containers/spray/mister/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(loc != tank.loc)
-		loc = tank.loc
+		forceMove(tank.loc)
+
 
 /obj/item/reagent_containers/spray/mister/afterattack(obj/target, mob/user, proximity)
 	if(target.loc == loc || target == tank) //Safety check so you don't fill your mister with mutagen or something and then blast yourself in the face with it putting it away
@@ -204,7 +208,7 @@
 			icon_state = "waterbackpackatmos"
 
 
-/obj/item/watertank/atmos/dropped(mob/user, silent = FALSE)
+/obj/item/watertank/atmos/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	if(!noz)
 		return
@@ -225,7 +229,6 @@
 	precision = 1
 	cooling_power = 5
 	w_class = WEIGHT_CLASS_HUGE
-	flags = NODROP //Necessary to ensure that the nozzle and tank never seperate
 	var/obj/item/watertank/atmos/tank
 	var/nozzle_mode = NONE
 	var/metal_synthesis_cooldown = 0
@@ -241,10 +244,15 @@
 		loc = tank
 
 
-/obj/item/extinguisher/mini/nozzle/Move()
+/obj/item/extinguisher/mini/nozzle/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
+
+/obj/item/extinguisher/mini/nozzle/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(tank && loc != tank.loc)
-		loc = tank
+		forceMove(tank)
 
 
 /obj/item/extinguisher/mini/nozzle/attack_self(mob/user)
@@ -264,8 +272,8 @@
 	tank.update_icon(UPDATE_ICON_STATE)
 
 
-/obj/item/extinguisher/mini/nozzle/dropped(mob/user, silent = FALSE)
-	..()
+/obj/item/extinguisher/mini/nozzle/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
 	to_chat(user, "<span class='notice'>The nozzle snaps back onto the tank!</span>")
 	tank.on = 0
 	loc = tank

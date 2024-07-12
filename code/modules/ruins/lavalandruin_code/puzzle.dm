@@ -203,8 +203,8 @@
 	var/obj/effect/sliding_puzzle/source
 	var/icon/puzzle_icon
 
-/obj/structure/puzzle_element/Move(nloc, dir)
-	if(!isturf(nloc) ||  moving_diagonally || get_dist(get_step(src,dir),get_turf(source)) > 1)
+/obj/structure/puzzle_element/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
+	if(!isturf(newloc) ||  moving_diagonally || get_dist(get_step(src,dir),get_turf(source)) > 1)
 		return 0
 
 	. = ..()
@@ -238,7 +238,7 @@
 		animate(src, pixel_x=rand(-5,5), pixel_y=rand(-2,2), time=1)
 	QDEL_IN(src,COLLAPSE_DURATION)
 
-/obj/structure/puzzle_element/Moved()
+/obj/structure/puzzle_element/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	source.validate()
 
@@ -287,7 +287,7 @@
 
 /obj/effect/sliding_puzzle/prison/dispense_reward()
 	prisoner.forceMove(get_turf(src))
-	prisoner.notransform = FALSE
+	REMOVE_TRAIT(prisoner, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	prisoner = null
 
 //Some armor so it's harder to kill someone by mistake.
@@ -327,7 +327,7 @@
 		return FALSE
 
 	//First grab the prisoner and move them temporarily into the generator so they won't get thrown around.
-	prisoner.notransform = TRUE
+	ADD_TRAIT(prisoner, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(cube))
 	prisoner.forceMove(cube)
 	to_chat(prisoner,"<span class='userdanger'>You're trapped by the prison cube! You will remain trapped until someone solves it.</span>")
 

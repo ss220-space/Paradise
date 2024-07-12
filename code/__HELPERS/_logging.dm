@@ -43,7 +43,7 @@ GLOBAL_PROTECT(log_end)
 		WRITE_LOG(GLOB.world_game_log, "DEBUG: [text][GLOB.log_end]")
 
 	for(var/client/C in GLOB.admins)
-		if(check_rights(R_DEBUG, 0, C.mob) && (C.prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS))
+		if(check_rights(R_DEBUG|R_VIEWRUNTIMES, 0, C.mob) && (C.prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS))
 			to_chat(C, "DEBUG: [text]")
 
 /proc/log_game(text)
@@ -171,8 +171,19 @@ GLOBAL_PROTECT(log_end)
 /proc/log_runtime_summary(text)
 	WRITE_LOG(GLOB.runtime_summary_log, "[text][GLOB.log_end]")
 
-/proc/log_tgui(text)
-	WRITE_LOG(GLOB.tgui_log, "[text][GLOB.log_end]")
+/proc/log_tgui(user_or_client, text)
+	var/list/messages = list()
+	if(!user_or_client)
+		messages.Add("no user")
+	else if(ismob(user_or_client))
+		var/mob/user = user_or_client
+		messages.Add("[user.ckey] (as [user])")
+	else if(isclient(user_or_client))
+		var/client/client = user_or_client
+		messages.Add("[client.ckey]")
+	messages.Add(": [text]")
+	messages.Add("[GLOB.log_end]")
+	WRITE_LOG(GLOB.tgui_log, messages.Join())
 
 /proc/log_sql(text)
 	WRITE_LOG(GLOB.sql_log, "[text][GLOB.log_end]")

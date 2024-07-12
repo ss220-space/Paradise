@@ -1,5 +1,8 @@
+#define DRASK_COOLINGSTARTTEMP 280
+#define ENVIRONMENT_COOLINGSTOPTEMP 400
+
 /datum/species/drask
-	name = "Drask"
+	name = SPECIES_DRASK
 	name_plural = "Drask"
 	icobase = 'icons/mob/human_races/r_drask.dmi'
 	deform = 'icons/mob/human_races/r_drask.dmi'
@@ -20,6 +23,7 @@
 	exotic_blood = "cryoxadone"
 	body_temperature = 273
 	toolspeedmod = 1.2 //20% slower
+	bonefragility = 0.8
 	punchdamagelow = 5
 	punchdamagehigh = 12
 	punchstunthreshold = 12
@@ -38,7 +42,7 @@
 		"втягивает теплый воздух!",
 		"задерживает дыхание!")
 
-	species_traits = list(LIPS, IS_WHITELISTED, EXOTIC_COLOR)
+	species_traits = list(LIPS, EXOTIC_COLOR)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
 	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS
 	has_gender = FALSE
@@ -90,19 +94,30 @@
 	..()
 	if(H.stat == DEAD)
 		return
+	var/datum/gas_mixture/environment = H.return_air()
+	if(environment && H.bodytemperature > DRASK_COOLINGSTARTTEMP && environment.temperature <= ENVIRONMENT_COOLINGSTOPTEMP)
+		H.adjust_bodytemperature(-5)
 	if(H.bodytemperature < TCRYO)
-		H.adjustCloneLoss(-1)
-		H.adjustOxyLoss(-2)
-		H.adjustToxLoss(-0.5)
-		H.adjustBruteLoss(-2)
+		H.adjustCloneLoss(-1, FALSE)
+		H.adjustOxyLoss(-2, FALSE)
+		H.adjustToxLoss(-0.5, FALSE)
+		H.adjustBruteLoss(-2, FALSE)
 		H.adjustFireLoss(-4)
 		var/obj/item/organ/external/head/head = H.get_organ(BODY_ZONE_HEAD)
 		head?.undisfigure()
 
-
 /datum/species/drask/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == "iron")
-		return TRUE
-	if(R.id == "salglu_solution")
-		return TRUE
+	switch(R.id)
+		if("iron")
+			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM * H.metabolism_efficiency * H.digestion_ratio)
+			return FALSE
+		if("salglu_solution")
+			if(prob(33))
+				H.adjustBruteLoss(-1)
+				H.adjustFireLoss(-1)
+			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM * H.metabolism_efficiency * H.digestion_ratio)
+			return FALSE
 	return ..()
+
+#undef DRASK_COOLINGSTARTTEMP
+#undef ENVIRONMENT_COOLINGSTOPTEMP

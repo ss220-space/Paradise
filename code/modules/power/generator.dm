@@ -3,7 +3,7 @@
 	desc = "It's a high efficiency thermoelectric generator."
 	icon_state = "teg"
 	anchored = FALSE
-	density = 1
+	density = TRUE
 	use_power = NO_POWER_USE
 
 	var/obj/machinery/atmospherics/binary/circulator/cold_circ
@@ -67,6 +67,7 @@
 /obj/machinery/power/generator/power_change(forced = FALSE)
 	if(!anchored)
 		stat |= NOPOWER
+		update_icon(UPDATE_OVERLAYS)
 		return
 	if(!..())
 		return
@@ -185,7 +186,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	anchored = !anchored
+	set_anchored(!anchored)
 	if(!anchored)
 		disconnect()
 		power_change()
@@ -232,7 +233,6 @@
 
 	var/datum/browser/popup = new(user, "teg", "Thermo-Electric Generator", 460, 300, src)
 	popup.set_content(get_menu())
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
 	return 1
 

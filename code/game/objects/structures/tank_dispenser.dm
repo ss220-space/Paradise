@@ -5,8 +5,9 @@
 	desc = "A simple yet bulky storage device for gas tanks. Has room for up to ten oxygen tanks, and ten plasma tanks."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "dispenser"
-	density = 1
+	density = TRUE
 	anchored = TRUE
+	pass_flags_self = LETPASSTHROW
 	var/starting_oxygen_tanks = MAX_TANK_STORAGE // The starting amount of oxygen tanks the dispenser gets when it's spawned
 	var/starting_plasma_tanks = MAX_TANK_STORAGE // Starting amount of plasma tanks
 	var/list/stored_oxygen_tanks = list() // List of currently stored oxygen tanks
@@ -67,10 +68,10 @@
 	if(Adjacent(user))
 		ui_interact(user)
 
-/obj/structure/dispenser/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/structure/dispenser/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "TankDispenser", name, 275, 100, master_ui, state)
+		ui = new(user, src, "TankDispenser", name)
 		ui.open()
 
 /obj/structure/dispenser/ui_data(user)
@@ -106,10 +107,10 @@
 		add_fingerprint(user)
 		if(anchored)
 			to_chat(user, "<span class='notice'>You lean down and unwrench [src].</span>")
-			anchored = FALSE
+			set_anchored(FALSE)
 		else
 			to_chat(user, "<span class='notice'>You wrench [src] into place.</span>")
-			anchored = TRUE
+			set_anchored(TRUE)
 		return
 	return ..()
 
@@ -144,7 +145,7 @@
 	SStgui.update_uis(src)
 
 /obj/structure/tank_dispenser/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		for(var/X in src)
 			var/obj/item/I = X
 			I.forceMove(loc)

@@ -1,12 +1,12 @@
 /turf/simulated/floor/vault
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "rockvault"
-	smooth = SMOOTH_FALSE
+	smooth = NONE
 
 /turf/simulated/wall/vault
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "rockvault"
-	smooth = SMOOTH_FALSE
+	smooth = NONE
 
 /turf/simulated/floor/bluegrid
 	icon = 'icons/turf/floors.dmi'
@@ -78,7 +78,7 @@
 		to_chat(user, span_notice("You start digging..."))
 
 		playsound(src, I.usesound, 50, TRUE)
-		if(do_after(user, 40 * I.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 4 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
 			if(!can_dig(user))
 				return TRUE
 			to_chat(user, span_notice("You dig a hole."))
@@ -130,24 +130,23 @@
 	. = ..()
 	var/image/overlay_image = image('icons/misc/beach.dmi', icon_state = "water5", layer = ABOVE_MOB_LAYER)
 	overlay_image.plane = GAME_PLANE
-	overlays += overlay_image
+	add_overlay(overlay_image)
 
-/turf/simulated/floor/beach/water/Entered(atom/movable/AM, atom/OldLoc)
-	. = ..()
-	if(!linkedcontroller)
-		return
-	if(ismob(AM))
-		if(isliving(AM))
-			var/mob/living/creature = AM
-			creature.ExtinguishMob()
-		linkedcontroller.mobinpool += AM
 
-/turf/simulated/floor/beach/water/Exited(atom/movable/AM, atom/newloc)
+/turf/simulated/floor/beach/water/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
-	if(!linkedcontroller)
-		return
-	if(ismob(AM))
-		linkedcontroller.mobinpool -= AM
+	if(!linkedcontroller || !ismob(arrived))
+		return .
+	if(isliving(arrived))
+		var/mob/living/creature = arrived
+		creature.ExtinguishMob()
+	linkedcontroller.mobinpool += arrived
+
+/turf/simulated/floor/beach/water/Exited(atom/movable/departed, atom/newLoc)
+	. = ..()
+	if(!linkedcontroller || !ismob(departed))
+		return .
+	linkedcontroller.mobinpool -= departed
 
 /turf/simulated/floor/beach/water/InitializedOn(atom/A)
 	if(!linkedcontroller)
@@ -167,7 +166,7 @@
 /turf/simulated/floor/noslip/burnt_states()
 	return list("noslip-scorched1","noslip-scorched2")
 
-/turf/simulated/floor/noslip/MakeSlippery()
+/turf/simulated/floor/noslip/MakeSlippery(wet_setting = TURF_WET_WATER, min_wet_time = 0, wet_time_to_add = 0, max_wet_time = MAXIMUM_WET_TIME, permanent = FALSE, should_display_overlay = TRUE)
 	return
 
 /turf/simulated/floor/noslip/lavaland
@@ -182,13 +181,13 @@
 
 /turf/simulated/floor/lubed/Initialize(mapload)
 	. = ..()
-	MakeSlippery(TURF_WET_LUBE, INFINITY)
+	MakeSlippery(TURF_WET_LUBE, INFINITY, 0, INFINITY, TRUE)
 
 /turf/simulated/floor/lubed/pry_tile(obj/item/C, mob/user, silent = FALSE) //I want to get off Mr Honk's Wild Ride
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		to_chat(H, span_warning("You lose your footing trying to pry off the tile!"))
-		H.slip("the floor", 10 SECONDS, tilesSlipped = 4, walkSafely = 0, slipAny = 1)
+		H.slip(10 SECONDS, src, TURF_WET_LUBE)
 	return
 
 //Clockwork floor: Slowly heals toxin damage on nearby servants.

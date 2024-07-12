@@ -13,7 +13,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "gps-c"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "materials=2;magnets=1;bluespace=2"
 	/// Whether the GPS is on.
 	var/tracking = TRUE
@@ -28,6 +28,8 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	/// Turf reference. If set, it will appear in the UI. Used by [/obj/machinery/computer/telescience].
 	var/turf/locked_location
 	var/upgraded = 0
+	/// For GPS in pAI
+	var/atom/movable/parent
 
 /obj/item/gps/Initialize(mapload)
 	. = ..()
@@ -59,9 +61,12 @@ GLOBAL_LIST_EMPTY(GPS_list)
 		return
 	if(!iscarbon(usr) && !isrobot(usr))
 		return
-	if(!istype(user) || user.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
+	toggle_gps(user)
+
+/obj/item/gps/proc/toggle_gps(mob/living/user)
 	if(emped)
 		to_chat(user, "<span class='warning'>It's busted!</span>")
 		return
@@ -124,17 +129,22 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	. = ..()
 
 	var/mob/user = usr
-	if(!ishuman(user) || !Adjacent(user) || user.incapacitated())
+	if(!ishuman(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
 	attack_self(user)
 	return TRUE
 
+/obj/item/gps/ui_host()
+	return parent ? parent : src
 
-/obj/item/gps/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/gps/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/gps/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "GPS", "GPS", 450, 700)
+		ui = new(user, src, "GPS", "GPS")
 		ui.open()
 
 /obj/item/gps/ui_act(action, list/params)
@@ -151,7 +161,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 			gpstag = newtag
 			name = "global positioning system ([gpstag])"
 		if("toggle")
-			AltClick(usr)
+			toggle_gps(usr)
 			return FALSE
 		if("same_z")
 			same_z = !same_z
@@ -189,7 +199,12 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	icon_state = "gps-b"
 	gpstag = "BORG0"
 	desc = "A mining cyborg internal positioning system. Used as a recovery beacon for damaged cyborg assets, or a collaboration tool for mining teams."
-	flags = NODROP
+
+
+/obj/item/gps/cyborg/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
+
 
 /obj/item/gps/cyborg/upgraded
 	upgraded = 1
@@ -199,11 +214,16 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	local = TRUE
 	gpstag = "SBORG0"
 	desc = "A syndicate version of cyborg GPS that only shows it's location on current Z-level"
-	flags = NODROP
+
+
+/obj/item/gps/syndiecyborg/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
+
 
 /obj/item/gps/internal
 	icon_state = null
-	flags = ABSTRACT
+	item_flags = ABSTRACT
 	local = TRUE
 	gpstag = "Eerie Signal"
 	desc = "Report to a coder immediately."

@@ -93,13 +93,13 @@
 			H.adjustOxyLoss(5)
 
 		if(safe_oxygen_min)
-			H.throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
+			H.throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 		else if(safe_toxins_min)
-			H.throw_alert("not_enough_tox", /obj/screen/alert/not_enough_tox)
+			H.throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_tox)
 		else if(safe_co2_min)
-			H.throw_alert("not_enough_co2", /obj/screen/alert/not_enough_co2)
+			H.throw_alert("not_enough_co2", /atom/movable/screen/alert/not_enough_co2)
 		else if(safe_nitro_min)
-			H.throw_alert("not_enough_nitro", /obj/screen/alert/not_enough_nitro)
+			H.throw_alert("not_enough_nitro", /atom/movable/screen/alert/not_enough_nitro)
 		return FALSE
 
 
@@ -123,7 +123,7 @@
 		if(O2_pp > safe_oxygen_max)
 			var/ratio = (breath.oxygen / safe_oxygen_max / safe_oxygen_max) * 10
 			H.apply_damage_type(clamp(ratio, oxy_breath_dam_min, oxy_breath_dam_max), oxy_damage_type)
-			H.throw_alert("too_much_oxy", /obj/screen/alert/too_much_oxy)
+			H.throw_alert("too_much_oxy", /atom/movable/screen/alert/too_much_oxy)
 		else
 			H.clear_alert("too_much_oxy")
 
@@ -131,7 +131,7 @@
 	if(safe_oxygen_min)
 		if(O2_pp < safe_oxygen_min)
 			gas_breathed = handle_too_little_breath(H, O2_pp, safe_oxygen_min, breath.oxygen)
-			H.throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
+			H.throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 		else
 			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
 			gas_breathed = breath.oxygen
@@ -149,7 +149,7 @@
 		if(N2_pp > safe_nitro_max)
 			var/ratio = (breath.nitrogen / safe_nitro_max) * 10
 			H.apply_damage_type(clamp(ratio, nitro_breath_dam_min, nitro_breath_dam_max), nitro_damage_type)
-			H.throw_alert("too_much_nitro", /obj/screen/alert/too_much_nitro)
+			H.throw_alert("too_much_nitro", /atom/movable/screen/alert/too_much_nitro)
 		else
 			H.clear_alert("too_much_nitro")
 
@@ -157,7 +157,7 @@
 	if(safe_nitro_min)
 		if(N2_pp < safe_nitro_min)
 			gas_breathed = handle_too_little_breath(H, N2_pp, safe_nitro_min, breath.nitrogen)
-			H.throw_alert("not_enough_nitro", /obj/screen/alert/not_enough_nitro)
+			H.throw_alert("not_enough_nitro", /atom/movable/screen/alert/not_enough_nitro)
 		else
 			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
 			gas_breathed = breath.nitrogen
@@ -180,7 +180,7 @@
 				H.apply_damage_type(HUMAN_MAX_OXYLOSS, co2_damage_type) // Lets hurt em a little, let them know we mean business
 				if(world.time - H.co2overloadtime > 300) // They've been in here 30s now, lets start to kill them for their own good!
 					H.apply_damage_type(15, co2_damage_type)
-				H.throw_alert("too_much_co2", /obj/screen/alert/too_much_co2)
+				H.throw_alert("too_much_co2", /atom/movable/screen/alert/too_much_co2)
 			if(prob(20)) // Lets give them some chance to know somethings not right though I guess.
 				H.emote("cough")
 
@@ -192,7 +192,7 @@
 	if(safe_co2_min)
 		if(CO2_pp < safe_co2_min)
 			gas_breathed = handle_too_little_breath(H, CO2_pp, safe_co2_min, breath.carbon_dioxide)
-			H.throw_alert("not_enough_co2", /obj/screen/alert/not_enough_co2)
+			H.throw_alert("not_enough_co2", /atom/movable/screen/alert/not_enough_co2)
 		else
 			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
 			gas_breathed = breath.carbon_dioxide
@@ -211,7 +211,7 @@
 		if(Toxins_pp > safe_toxins_max)
 			var/ratio = (breath.toxins / safe_toxins_max) * 10
 			H.apply_damage_type(clamp(ratio, tox_breath_dam_min, tox_breath_dam_max), tox_damage_type)
-			H.throw_alert("too_much_tox", /obj/screen/alert/too_much_tox)
+			H.throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_tox)
 		else
 			H.clear_alert("too_much_tox")
 
@@ -220,7 +220,7 @@
 	if(safe_toxins_min)
 		if(Toxins_pp < safe_toxins_min)
 			gas_breathed = handle_too_little_breath(H, Toxins_pp, safe_toxins_min, breath.toxins)
-			H.throw_alert("not_enough_tox", /obj/screen/alert/not_enough_tox)
+			H.throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_tox)
 		else
 			H.adjustOxyLoss(-HUMAN_MAX_OXYLOSS)
 			gas_breathed = breath.toxins
@@ -284,7 +284,7 @@
 				H.apply_damage_type(TC * CM * cold_damage_types[D], D)
 		if(breath_temperature < cold_level_1_threshold)
 			if(prob(20))
-				to_chat(H, "<span class='warning'>You feel [cold_message] in your [name]!</span>")
+				to_chat(H, span_warning("You feel [cold_message] in your [name]!"))
 
 	if(!(HEATRES in H.mutations) && !(RESISTHOT in species_traits)) // HEAT DAMAGE
 		var/HM = abs(H.dna.species.heatmod)
@@ -300,7 +300,7 @@
 				H.apply_damage_type(TH * HM * heat_damage_types[D], D)
 		if(breath_temperature > heat_level_1_threshold)
 			if(prob(20))
-				to_chat(H, "<span class='warning'>You feel [hot_message] in your [name]!</span>")
+				to_chat(H, span_warning("You feel [hot_message] in your [name]!"))
 
 /obj/item/organ/internal/lungs/prepare_eat()
 	var/obj/S = ..()
@@ -349,7 +349,7 @@
 
 /obj/item/organ/internal/lungs/cybernetic/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>[src] is configured for [species_state] standards of atmosphere.</span>"
+	. += span_notice("[src] is configured for [species_state] standards of atmosphere.")
 
 /obj/item/organ/internal/lungs/cybernetic/multitool_act(mob/user, obj/item/I)
 	. = TRUE
@@ -361,7 +361,7 @@
 			safe_oxygen_max = safe_toxins_max
 			safe_nitro_min = 16
 			oxy_damage_type = TOX
-			to_chat(user, "<span class='notice'>You configure [src] to replace vox lungs.</span>")
+			to_chat(user, span_notice("You configure [src] to replace vox lungs."))
 			species_state = "vox"
 		if("vox") // from vox to plasmamen
 			safe_oxygen_max = initial(safe_oxygen_max)
@@ -369,13 +369,13 @@
 			safe_toxins_max = 0
 			safe_nitro_min = initial(safe_nitro_min)
 			oxy_damage_type = OXY
-			to_chat(user, "<span class='notice'>You configure [src] to replace plasmamen lungs.</span>")
+			to_chat(user, span_notice("You configure [src] to replace plasmamen lungs."))
 			species_state = "plasmamen"
 		if("plasmamen") // from plasmamen to human
 			safe_oxygen_min = initial(safe_oxygen_min)
 			safe_toxins_min = initial(safe_toxins_min)
 			safe_toxins_max = initial(safe_toxins_max)
-			to_chat(user, "<span class='notice'>You configure [src] back to default settings.</span>")
+			to_chat(user, span_notice("You configure [src] back to default settings."))
 			species_state = "human"
 
 /obj/item/organ/internal/lungs/cybernetic/upgraded

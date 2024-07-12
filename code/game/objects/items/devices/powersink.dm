@@ -11,7 +11,8 @@
 	icon_state = "powersink0"
 	item_state = "electronic"
 	w_class = WEIGHT_CLASS_BULKY
-	flags = CONDUCT | NO_PIXEL_RANDOM_DROP
+	flags = CONDUCT
+	item_flags = NO_PIXEL_RANDOM_DROP
 	throwforce = 5
 	throw_speed = 1
 	throw_range = 2
@@ -41,27 +42,27 @@
 			attached = null
 			if(mode == OPERATING)
 				STOP_PROCESSING(SSobj, src)
-			anchored = FALSE
-			density = FALSE
+			set_anchored(FALSE)
+			set_density(FALSE)
 
 		if(CLAMPED_OFF)
 			if(!attached)
 				return
 			if(mode == OPERATING)
 				STOP_PROCESSING(SSobj, src)
-			anchored = TRUE
-			density = TRUE
+			set_anchored(TRUE)
+			set_density(TRUE)
 
 		if(OPERATING)
 			if(!attached)
 				return
 			START_PROCESSING(SSobj, src)
-			anchored = TRUE
-			density = TRUE
+			set_anchored(TRUE)
+			set_density(TRUE)
 
 	mode = value
 	update_icon(UPDATE_ICON_STATE)
-	set_light(0)
+	set_light_on(FALSE)
 
 /obj/item/powersink/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -118,7 +119,7 @@
 
 	var/datum/powernet/PN = attached.powernet
 	if(PN)
-		set_light(5)
+		set_light(5, l_on = TRUE)
 
 		// found a powernet, so drain up to max power from it
 
@@ -130,7 +131,7 @@
 		// now look for APCs and drain their cells
 		if(drained < drain_rate)
 			for(var/obj/machinery/power/terminal/T in PN.nodes)
-				if(istype(T.master, /obj/machinery/power/apc))
+				if(isapc(T.master))
 					var/obj/machinery/power/apc/A = T.master
 					if(A.operating && A.cell)
 						A.cell.charge = max(0, A.cell.charge - 50)

@@ -266,8 +266,8 @@
 	// again, /tg/ has some flavor when pointing (like if you only have one leg) that applies debuffs
 	// but it's so common that seems unnecessary here
 	message_param = initial(message_param) // reset
-	if(ishuman(user) && (!user.has_left_hand() && !user.has_right_hand()))
-		if(user.get_num_legs())	// MY LEEEG!
+	if(ishuman(user) && user.usable_hands == 0)
+		if(user.usable_legs != 0)	// MY LEEEG!
 			message_param = "пыта%(ет,ют)%ся указать ногой на %t."
 		else
 			// nugget
@@ -408,11 +408,6 @@
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 	volume = 70
 	age_based = TRUE
-	// lock it so these emotes can only be used while unconscious
-	stat_allowed = UNCONSCIOUS
-	max_stat_allowed = UNCONSCIOUS
-	unintentional_stat_allowed = UNCONSCIOUS
-	max_unintentional_stat_allowed = UNCONSCIOUS
 
 
 /datum/emote/living/snore/get_sound(mob/living/carbon/human/user)

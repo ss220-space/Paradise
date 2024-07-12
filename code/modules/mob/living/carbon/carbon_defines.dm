@@ -1,6 +1,10 @@
 /mob/living/carbon
 	gender = MALE
 	pressure_resistance = 15
+	mobility_flags = MOBILITY_FLAGS_CARBON_DEFAULT
+	blood_volume = BLOOD_VOLUME_NORMAL
+	rotate_on_lying = TRUE
+	pull_hand = null
 	var/list/stomach_contents
 	var/list/processing_patches
 	var/list/internal_organs	= list()
@@ -26,5 +30,11 @@
 	var/co2overloadtime = null
 	var/dreaming = 0 //How many dream images we have left to send
 	var/nightmare = 0
+	///Made to slide properly. When we are done with the movement, we should remove it.
+	var/slide_distance = 0
 
-	blood_volume = BLOOD_VOLUME_NORMAL
+	/// Used for wishgranter see wildwest.dm
+	var/revival_in_progress = FALSE
+	/// Just a timer stamp for [/mob/living/carbon/relaymove]
+	var/last_stomach_attack
+

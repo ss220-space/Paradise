@@ -15,22 +15,20 @@
 
 /mob/living/carbon/human/has_organ_for_slot(slot)
 	switch(slot)
-		if(slot_in_backpack, slot_wear_pda, slot_wear_id, slot_tie)
+		if(ITEM_SLOT_BACKPACK, ITEM_SLOT_PDA, ITEM_SLOT_ID, ITEM_SLOT_ACCESSORY)
 			return TRUE
-		if(slot_back, slot_belt, slot_wear_suit, slot_w_uniform, slot_l_store, slot_r_store, slot_s_store, slot_neck)
+		if(ITEM_SLOT_BACK, ITEM_SLOT_BELT, ITEM_SLOT_CLOTH_OUTER, ITEM_SLOT_CLOTH_INNER, ITEM_SLOT_POCKET_LEFT, ITEM_SLOT_POCKET_RIGHT, ITEM_SLOT_POCKETS, ITEM_SLOT_SUITSTORE, ITEM_SLOT_NECK)
 			return get_organ(BODY_ZONE_CHEST)
-		if(slot_head, slot_wear_mask, slot_l_ear, slot_r_ear, slot_glasses)
+		if(ITEM_SLOT_HEAD, ITEM_SLOT_MASK, ITEM_SLOT_EAR_LEFT, ITEM_SLOT_EAR_RIGHT, ITEM_SLOT_EARS, ITEM_SLOT_EYES)
 			return get_organ(BODY_ZONE_HEAD)
-		if(slot_handcuffed, slot_gloves)
-			return get_organ(BODY_ZONE_PRECISE_L_HAND) && get_organ(BODY_ZONE_PRECISE_R_HAND)
-		if(slot_legcuffed)
-			return get_organ(BODY_ZONE_L_LEG) && get_organ(BODY_ZONE_R_LEG)
-		if(slot_l_hand)
+		if(ITEM_SLOT_HANDS, ITEM_SLOT_GLOVES, ITEM_SLOT_HANDCUFFED)
+			return num_hands >= 2
+		if(ITEM_SLOT_FEET, ITEM_SLOT_LEGCUFFED)
+			return num_legs >= 2
+		if(ITEM_SLOT_HAND_LEFT)
 			return get_organ(BODY_ZONE_PRECISE_L_HAND)
-		if(slot_r_hand)
+		if(ITEM_SLOT_HAND_RIGHT)
 			return get_organ(BODY_ZONE_PRECISE_R_HAND)
-		if(slot_shoes)
-			return get_organ(BODY_ZONE_PRECISE_L_FOOT) && get_organ(BODY_ZONE_PRECISE_R_FOOT)
 
 
 /**
@@ -52,22 +50,30 @@
 /**
  * Handle stuff to update when a mob equips/unequips a mask.
  */
-/mob/living/carbon/human/wear_mask_update(obj/item/clothing/mask, toggle_off = TRUE)
+/mob/living/carbon/human/wear_mask_update(obj/item/clothing/mask, toggle_off = FALSE)
 	if(istype(mask) && mask.tint || initial(mask.tint))
 		update_tint()
 
-	if((mask.flags & (BLOCKHAIR|BLOCKHEADHAIR|BLOCKFACIALHAIR)) || (initial(mask.flags) & (BLOCKHAIR|BLOCKHEADHAIR|BLOCKFACIALHAIR)))
+	if((mask.flags_inv & (HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR)) || \
+		(initial(mask.flags_inv) & (HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR)))
 		update_hair()	//rebuild hair
 		update_fhair()
 		update_head_accessory()
 
-	if(toggle_off && internal && !get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
+	if(toggle_off && internal && !has_airtight_items())
 		internal = null
 		update_action_buttons_icon()
 
-	if((mask.flags_inv & HIDEGLASSES) || (initial(mask.flags_inv) & HIDEGLASSES))
+	if((mask.flags_inv & HIDEGLASSES) || \
+		(mask.flags_inv_transparent & HIDEGLASSES) || \
+		(initial(mask.flags_inv) & HIDEGLASSES) || \
+		(initial(mask.flags_inv_transparent) & HIDEGLASSES))
 		update_inv_glasses()
-	if((mask.flags_inv & HIDEHEADSETS) || (initial(mask.flags_inv) & HIDEHEADSETS))
+
+	if((mask.flags_inv & HIDEHEADSETS) || \
+		(mask.flags_inv_transparent & HIDEHEADSETS) || \
+		(initial(mask.flags_inv) & HIDEHEADSETS) || \
+		(initial(mask.flags_inv_transparent) & HIDEHEADSETS))
 		update_inv_ears()
 
 	sec_hud_set_ID()
@@ -77,12 +83,18 @@
 /**
  * Handles stuff to update when a mob equips/unequips a headgear.
  */
-/mob/living/carbon/human/update_head(obj/item/clothing/head/check_item, forced = FALSE)
+/mob/living/carbon/human/update_head(obj/item/clothing/head/check_item, forced = FALSE, toggle_off = FALSE)
 	check_item = check_item || head
 	if(!check_item)
 		return
 
-	if(forced || (check_item.flags & (BLOCKHAIR|BLOCKHEADHAIR|BLOCKFACIALHAIR)) || (initial(check_item.flags) & (BLOCKHAIR|BLOCKHEADHAIR|BLOCKFACIALHAIR)))
+	if(toggle_off && internal && !has_airtight_items())
+		internal = null
+		update_action_buttons_icon()
+
+	if(forced || \
+		(check_item.flags_inv & (HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR)) || \
+		(initial(check_item.flags_inv) & (HIDEHAIR|HIDEHEADHAIR|HIDEFACIALHAIR)))
 		update_hair()	//rebuild hair
 		update_fhair()
 		update_head_accessory()
@@ -96,11 +108,23 @@
 		if(forced || hat.vision_flags || hat.see_in_dark || !isnull(hat.lighting_alpha))
 			update_sight()
 
-	if(forced || (check_item.flags_inv & HIDEHEADSETS) || (initial(check_item.flags_inv) & HIDEHEADSETS))
+	if(forced || \
+		(check_item.flags_inv & HIDEHEADSETS) || \
+		(check_item.flags_inv_transparent & HIDEHEADSETS) || \
+		(initial(check_item.flags_inv) & HIDEHEADSETS) || \
+		(initial(check_item.flags_inv_transparent) & HIDEHEADSETS))
 		update_inv_ears()
-	if(forced || (check_item.flags_inv & HIDEMASK) || (initial(check_item.flags_inv) & HIDEMASK))
+	if(forced || \
+		(check_item.flags_inv & HIDEMASK) || \
+		(check_item.flags_inv_transparent & HIDEMASK) || \
+		(initial(check_item.flags_inv) & HIDEMASK) || \
+		(initial(check_item.flags_inv_transparent) & HIDEMASK))
 		update_inv_wear_mask()
-	if(forced || (check_item.flags_inv & HIDEGLASSES) || (initial(check_item.flags_inv) & HIDEGLASSES))
+	if(forced || \
+		(check_item.flags_inv & HIDEGLASSES) || \
+		(check_item.flags_inv_transparent & HIDEGLASSES) || \
+		(initial(check_item.flags_inv) & HIDEGLASSES) || \
+		(initial(check_item.flags_inv_transparent) & HIDEGLASSES))
 		update_inv_glasses()
 
 	sec_hud_set_ID()
@@ -111,11 +135,22 @@
  * Handles stuff to update when a mob equips/unequips a suit.
  */
 /mob/living/carbon/human/wear_suit_update(obj/item/clothing/suit)
-	if((suit.flags_inv & HIDEJUMPSUIT) || (initial(suit.flags_inv) & HIDEJUMPSUIT))
+	if((suit.flags_inv & HIDEJUMPSUIT) || \
+		(suit.flags_inv_transparent & HIDEJUMPSUIT) || \
+		(initial(suit.flags_inv) & HIDEJUMPSUIT) || \
+		(initial(suit.flags_inv_transparent) & HIDEJUMPSUIT))
 		update_inv_w_uniform()
-	if((suit.flags_inv & HIDESHOES) || (initial(suit.flags_inv) & HIDESHOES))
+
+	if((suit.flags_inv & HIDESHOES) || \
+		(suit.flags_inv_transparent & HIDESHOES) || \
+		(initial(suit.flags_inv) & HIDESHOES) || \
+		(initial(suit.flags_inv_transparent) & HIDESHOES))
 		update_inv_shoes()
-	if((suit.flags_inv & HIDEGLOVES) || (initial(suit.flags_inv) & HIDEGLOVES))
+
+	if((suit.flags_inv & HIDEGLOVES) || \
+		(suit.flags_inv_transparent & HIDEGLOVES) || \
+		(initial(suit.flags_inv) & HIDEGLOVES) || \
+		(initial(suit.flags_inv_transparent) & HIDEGLOVES))
 		update_inv_gloves()
 
 	update_inv_wear_suit()
@@ -140,6 +175,8 @@
 		wear_suit = null
 		if(!QDELETED(src))
 			wear_suit_update(I)
+			if(I.breakouttime) //when unequipping a straightjacket
+				REMOVE_TRAIT(src, TRAIT_RESTRAINED, SUIT_TRAIT)
 
 	else if(I == w_uniform)
 		if(invdrop && !dna.species.nojumpsuit)
@@ -175,22 +212,20 @@
 	else if(I == head)
 		head = null
 		if(!QDELETED(src))
-			update_head(I)
+			update_head(I, toggle_off = TRUE)
 
 	else if(I == r_ear)
 		r_ear = null
+		if(I.slot_flags_2 & ITEM_FLAG_TWOEARS)
+			drop_item_ground(l_ear, silent = TRUE)
 		if(!QDELETED(src))
-			if(I.slot_flags & SLOT_TWOEARS)
-				qdel(l_ear)
-				l_ear = null
 			update_inv_ears()
 
 	else if(I == l_ear)
 		l_ear = null
+		if(I.slot_flags_2 & ITEM_FLAG_TWOEARS)
+			drop_item_ground(r_ear, silent = TRUE)
 		if(!QDELETED(src))
-			if(I.slot_flags & SLOT_TWOEARS)
-				qdel(r_ear)
-				r_ear = null
 			update_inv_ears()
 
 	else if(I == shoes)
@@ -249,9 +284,11 @@
 		if(!QDELETED(src))
 			update_inv_l_hand()
 
+	update_equipment_speed_mods()
 
-/mob/living/carbon/human/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE)
-	return dna.species.can_equip(I, slot, disable_warning, src, disable_warning, bypass_equip_delay_self, bypass_obscured)
+
+/mob/living/carbon/human/can_equip(obj/item/I, slot, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
+	return dna.species.can_equip(I, slot, src, disable_warning, bypass_equip_delay_self, bypass_obscured, bypass_incapacitated)
 
 
 /**
@@ -281,114 +318,109 @@
 	I.screen_loc = null
 	I.forceMove(src)
 	I.layer = ABOVE_HUD_LAYER
-	I.plane = ABOVE_HUD_PLANE
+	SET_PLANE_EXPLICIT(I, ABOVE_HUD_PLANE, src)
 
 	switch(slot)
-		if(slot_back)
+		if(ITEM_SLOT_BACK)
 			back = I
 			update_inv_back()
 
-		if(slot_wear_mask)
+		if(ITEM_SLOT_MASK)
 			wear_mask = I
 			wear_mask_update(I, toggle_off = FALSE)
 
-		if(slot_neck)
+		if(ITEM_SLOT_NECK)
 			neck = I
 			update_inv_neck()
 
-		if(slot_handcuffed)
-			handcuffed = I
-			update_handcuffed_status()
+		if(ITEM_SLOT_HANDCUFFED)
+			set_handcuffed(I)
 
-		if(slot_legcuffed)
-			legcuffed = I
+		if(ITEM_SLOT_LEGCUFFED)
+			set_legcuffed(I)
 			update_legcuffed_status()
 
-		if(slot_l_hand)
+		if(ITEM_SLOT_HAND_LEFT)
 			l_hand = I
 			update_inv_l_hand()
 
-		if(slot_r_hand)
+		if(ITEM_SLOT_HAND_RIGHT)
 			r_hand = I
 			update_inv_r_hand()
 
-		if(slot_belt)
+		if(ITEM_SLOT_BELT)
 			belt = I
 			update_inv_belt()
 
-		if(slot_wear_id)
+		if(ITEM_SLOT_ID)
 			wear_id = I
 			if(hud_list.len)
 				sec_hud_set_ID()
 			update_inv_wear_id()
 
-		if(slot_wear_pda)
+		if(ITEM_SLOT_PDA)
 			wear_pda = I
 			update_inv_wear_pda()
 
-		if(slot_l_ear)
+		if(ITEM_SLOT_EAR_LEFT)
 			l_ear = I
-			if(l_ear.slot_flags & SLOT_TWOEARS)
-				var/obj/item/offear = new I.type(src)
-				r_ear = offear
-				offear.layer = ABOVE_HUD_LAYER
-				offear.plane = ABOVE_HUD_PLANE
+			if(l_ear.slot_flags_2 & ITEM_FLAG_TWOEARS)
+				I.make_offear(ITEM_SLOT_EAR_RIGHT, src)
 			update_inv_ears()
 
-		if(slot_r_ear)
+		if(ITEM_SLOT_EAR_RIGHT)
 			r_ear = I
-			if(r_ear.slot_flags & SLOT_TWOEARS)
-				var/obj/item/offear = new I.type(src)
-				l_ear = offear
-				offear.layer = ABOVE_HUD_LAYER
-				offear.plane = ABOVE_HUD_PLANE
+			if(r_ear.slot_flags_2 & ITEM_FLAG_TWOEARS)
+				I.make_offear(ITEM_SLOT_EAR_LEFT, src)
 			update_inv_ears()
 
-		if(slot_glasses)
+		if(ITEM_SLOT_EYES)
 			glasses = I
 			wear_glasses_update(I)
 
-		if(slot_gloves)
+		if(ITEM_SLOT_GLOVES)
 			gloves = I
 			update_inv_gloves()
 
-		if(slot_head)
+		if(ITEM_SLOT_HEAD)
 			head = I
 			update_head(I)
 
-		if(slot_shoes)
+		if(ITEM_SLOT_FEET)
 			shoes = I
 			update_inv_shoes()
 
-		if(slot_wear_suit)
+		if(ITEM_SLOT_CLOTH_OUTER)
 			wear_suit = I
 			wear_suit_update(I)
+			if(I.breakouttime) //when equipping a straightjacket
+				ADD_TRAIT(src, TRAIT_RESTRAINED, SUIT_TRAIT)
 
-		if(slot_w_uniform)
+		if(ITEM_SLOT_CLOTH_INNER)
 			w_uniform = I
 			update_inv_w_uniform()
 
-		if(slot_l_store)
+		if(ITEM_SLOT_POCKET_LEFT)
 			l_store = I
 			update_inv_pockets()
 
-		if(slot_r_store)
+		if(ITEM_SLOT_POCKET_RIGHT)
 			r_store = I
 			update_inv_pockets()
 
-		if(slot_s_store)
+		if(ITEM_SLOT_SUITSTORE)
 			s_store = I
 			update_inv_s_store()
 
-		if(slot_in_backpack)
-			if(istype(back, /obj/item/storage))
+		if(ITEM_SLOT_BACKPACK)
+			if(isstorage(back))
 				if(get_active_hand() == I)
 					temporarily_remove_item_from_inventory(I)
 				I.forceMove(back)
 			else
 				I.forceMove(drop_location())
 
-		if(slot_tie)
+		if(ITEM_SLOT_ACCESSORY)
 			var/obj/item/clothing/under/uniform = w_uniform
 			uniform.attackby(I, src)
 
@@ -399,71 +431,51 @@
 
 
 /**
- * Check for slot obscuration by suit or headgear
- */
-/mob/living/carbon/human/proc/has_obscured_slot(slot)
-	switch(slot)
-		if(slot_w_uniform)
-			return wear_suit && (wear_suit.flags_inv & HIDEJUMPSUIT)
-		if(slot_gloves)
-			return wear_suit && (wear_suit.flags_inv & HIDEGLOVES)
-		if(slot_shoes)
-			return wear_suit && (wear_suit.flags_inv & HIDESHOES)
-		if(slot_wear_mask)
-			return head && (head.flags_inv & HIDEMASK)
-		if(slot_glasses)
-			return head && (head.flags_inv & HIDEGLASSES) || wear_mask && (wear_mask.flags_inv & HIDEGLASSES)
-		if(slot_l_ear, slot_r_ear)
-			return head && (head.flags_inv & HIDEHEADSETS)
-		else
-			return FALSE
-
-/**
  * Returns the item currently in the slot
  */
-/mob/living/carbon/human/get_item_by_slot(slot_id)
-	switch(slot_id)
-		if(slot_back)
+/mob/living/carbon/human/get_item_by_slot(slot_flag)
+	switch(slot_flag)
+		if(ITEM_SLOT_BACK)
 			return back
-		if(slot_wear_mask)
+		if(ITEM_SLOT_MASK)
 			return wear_mask
-		if(slot_neck)
+		if(ITEM_SLOT_NECK)
 			return neck
-		if(slot_handcuffed)
+		if(ITEM_SLOT_HANDCUFFED)
 			return handcuffed
-		if(slot_legcuffed)
+		if(ITEM_SLOT_LEGCUFFED)
 			return legcuffed
-		if(slot_l_hand)
+		if(ITEM_SLOT_HAND_LEFT)
 			return l_hand
-		if(slot_r_hand)
+		if(ITEM_SLOT_HAND_RIGHT)
 			return r_hand
-		if(slot_belt)
+		if(ITEM_SLOT_BELT)
 			return belt
-		if(slot_wear_id)
+		if(ITEM_SLOT_ID)
 			return wear_id
-		if(slot_wear_pda)
+		if(ITEM_SLOT_PDA)
 			return wear_pda
-		if(slot_l_ear)
+		if(ITEM_SLOT_EAR_LEFT)
 			return l_ear
-		if(slot_r_ear)
+		if(ITEM_SLOT_EAR_RIGHT)
 			return r_ear
-		if(slot_glasses)
+		if(ITEM_SLOT_EYES)
 			return glasses
-		if(slot_gloves)
+		if(ITEM_SLOT_GLOVES)
 			return gloves
-		if(slot_head)
+		if(ITEM_SLOT_HEAD)
 			return head
-		if(slot_shoes)
+		if(ITEM_SLOT_FEET)
 			return shoes
-		if(slot_wear_suit)
+		if(ITEM_SLOT_CLOTH_OUTER)
 			return wear_suit
-		if(slot_w_uniform)
+		if(ITEM_SLOT_CLOTH_INNER)
 			return w_uniform
-		if(slot_l_store)
+		if(ITEM_SLOT_POCKET_LEFT)
 			return l_store
-		if(slot_r_store)
+		if(ITEM_SLOT_POCKET_RIGHT)
 			return r_store
-		if(slot_s_store)
+		if(ITEM_SLOT_SUITSTORE)
 			return s_store
 	return null
 
@@ -474,48 +486,48 @@
  */
 /mob/living/carbon/human/get_slot_by_item(item)
 	if(item == back)
-		return slot_back
+		return ITEM_SLOT_BACK
 	if(item == wear_mask)
-		return slot_wear_mask
+		return ITEM_SLOT_MASK
 	if(item == neck)
-		return slot_neck
+		return ITEM_SLOT_NECK
 	if(item == handcuffed)
-		return slot_handcuffed
+		return ITEM_SLOT_HANDCUFFED
 	if(item == legcuffed)
-		return slot_legcuffed
+		return ITEM_SLOT_LEGCUFFED
 	if(item == l_hand)
-		return slot_l_hand
+		return ITEM_SLOT_HAND_LEFT
 	if(item == r_hand)
-		return slot_r_hand
+		return ITEM_SLOT_HAND_RIGHT
 	if(item == belt)
-		return slot_belt
+		return ITEM_SLOT_BELT
 	if(item == wear_id)
-		return slot_wear_id
+		return ITEM_SLOT_ID
 	if(item == wear_pda)
-		return slot_wear_pda
+		return ITEM_SLOT_PDA
 	if(item == l_ear)
-		return slot_l_ear
+		return ITEM_SLOT_EAR_LEFT
 	if(item == r_ear)
-		return slot_r_ear
+		return ITEM_SLOT_EAR_RIGHT
 	if(item == glasses)
-		return slot_glasses
+		return ITEM_SLOT_EYES
 	if(item == gloves)
-		return slot_gloves
+		return ITEM_SLOT_GLOVES
 	if(item == head)
-		return slot_head
+		return ITEM_SLOT_HEAD
 	if(item == shoes)
-		return slot_shoes
+		return ITEM_SLOT_FEET
 	if(item == wear_suit)
-		return slot_wear_suit
+		return ITEM_SLOT_CLOTH_OUTER
 	if(item == w_uniform)
-		return slot_w_uniform
+		return ITEM_SLOT_CLOTH_INNER
 	if(item == l_store)
-		return slot_l_store
+		return ITEM_SLOT_POCKET_LEFT
 	if(item == r_store)
-		return slot_r_store
+		return ITEM_SLOT_POCKET_RIGHT
 	if(item == s_store)
-		return slot_s_store
-	return null
+		return ITEM_SLOT_SUITSTORE
+	return NONE
 
 
 /mob/living/carbon/human/get_all_slots()
@@ -627,3 +639,42 @@
 		if(s_store)
 			items += s_store
 	return items
+
+
+/mob/living/carbon/human/get_equipped_slots(include_pockets = FALSE, include_hands = FALSE)
+	. = ..()
+	if(belt)
+		. |= ITEM_SLOT_BELT
+	if(l_ear)
+		. |= ITEM_SLOT_EAR_LEFT
+	if(r_ear)
+		. |= ITEM_SLOT_EAR_RIGHT
+	if(glasses)
+		. |= ITEM_SLOT_EYES
+	if(gloves)
+		. |= ITEM_SLOT_GLOVES
+	if(neck)
+		. |= ITEM_SLOT_NECK
+	if(shoes)
+		. |= ITEM_SLOT_FEET
+	if(wear_id)
+		. |= ITEM_SLOT_ID
+	if(wear_pda)
+		. |= ITEM_SLOT_PDA
+	if(w_uniform)
+		. |= ITEM_SLOT_CLOTH_INNER
+	if(include_pockets)
+		if(r_store)
+			. |= ITEM_SLOT_POCKET_RIGHT
+		if(l_store)
+			. |= ITEM_SLOT_POCKET_LEFT
+		if(s_store)
+			. |= ITEM_SLOT_SUITSTORE
+
+
+/mob/living/carbon/human/equipped_speed_mods()
+	. = ..()
+	for(var/obj/item/thing as anything in get_equipped_items())
+		if(!(thing.item_flags & IGNORE_SLOWDOWN))
+			. += thing.slowdown
+

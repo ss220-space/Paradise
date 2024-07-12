@@ -6,7 +6,8 @@
 	icon = 'icons/obj/mecha/mecha.dmi'
 	density = TRUE //Dense. To raise the heat.
 	opacity = TRUE ///opaque. Menacing.
-	anchored = TRUE //no pulling around.
+	move_resist = MOVE_FORCE_EXTREMELY_STRONG
+	move_force = MOVE_FORCE_VERY_STRONG
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	layer = MOB_LAYER //icon draw layer
 	infra_luminosity = 15 //byond implementation is bugged.
@@ -148,6 +149,8 @@
 	var/obj/item/mecha_modkit/voice/V = new starting_voice(src)
 	V.install(src)
 	qdel(V)
+
+	AddElement(/datum/element/falling_hazard, damage = 100, hardhat_safety = FALSE, crushes = TRUE)
 
 ////////////////////////
 ////// Helpers /////////
@@ -331,23 +334,31 @@
 //////////////////////////////////
 ////////  Movement procs  ////////
 //////////////////////////////////
-/obj/mecha/Process_Spacemove(movement_dir = 0)
+/obj/mecha/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	. = ..()
 	if(.)
 		return TRUE
-	if(thrusters_active && movement_dir && use_power(step_energy_drain))
-		return TRUE
+
 	//Turns strafe OFF if not enough energy to step (with actuator module only)
 	if(strafe && actuator && !has_charge(actuator.energy_per_step))
 		toggle_strafe(silent = TRUE)
 
-	var/atom/movable/backup = get_spacemove_backup()
+	var/atom/movable/backup = get_spacemove_backup(movement_dir, continuous_move)
 	if(backup)
-		if(istype(backup) && movement_dir && !backup.anchored)
-			if(backup.newtonian_move(turn(movement_dir, 180)))
-				if(occupant)
-					to_chat(occupant, span_info("You push off of [backup] to propel yourself."))
+		if(!istype(backup) || !movement_dir || backup.anchored || continuous_move)
+			return TRUE	//get_spacemove_backup() already checks if a returned turf is solid, so we can just go
+		last_pushoff = world.time
+		if(backup.newtonian_move(REVERSE_DIR(movement_dir), instant = TRUE))
+			backup.last_pushoff = world.time
+			if(occupant)
+				to_chat(occupant, span_info("You push off of [backup] to propel yourself."))
 		return TRUE
+
+	if(thrusters_active && movement_dir && use_power(step_energy_drain))
+		return TRUE
+
+	return FALSE
+
 
 /obj/mecha/relaymove(mob/user, direction)
 	if(!direction || frozen)
@@ -406,12 +417,15 @@
 	if(internal_damage & MECHA_INT_CONTROL_LOST)
 		if(strafe) //No strafe while controls are malfunctioning
 			toggle_strafe(silent = TRUE)
-		if(direction & (direction - 1))	//Trick to check for diagonal direction
-			glide_for(step_in * 1.41)
-		else
-			glide_for(step_in)
 		move_result = mechsteprand()
 		move_type = MECHAMOVE_RAND
+	else if(direction & (UP|DOWN))
+		var/turf/above = GET_TURF_ABOVE(loc)
+		if(!(direction & UP) || !can_z_move(DOWN, above, null, ZMOVE_FALL_FLAGS|ZMOVE_CAN_FLY_CHECKS|ZMOVE_FEEDBACK, occupant))
+			if(zMove(direction, z_move_flags = ZMOVE_FLIGHT_FLAGS))
+				playsound(src, stepsound, 40, 1)
+				move_result = TRUE
+				move_type = MECHAMOVE_STEP
 	else if(dir != direction && !strafe || keyheld) //Player can use ALT button while strafe is active to change direction on fly
 		if(strafe)
 			step_in_final *= STRAFE_TURN_FACTOR
@@ -421,28 +435,25 @@
 		if(direction & (direction - 1))	//Trick to check for diagonal direction
 			if(strafe)
 				if(strafe_diagonal) //Diagonal strafe is overpowered, disabled by default on all mechas
-					glide_for(step_in * 1.41)
 					step_in_final *= STRAFE_DIAGONAL_FACTOR //Applies speed multiplier if mecha moved diagonally
 					move_result = mechstep(direction, old_direction, step_in_final)
 					move_type = MECHAMOVE_STEP
 				else
-					glide_for(step_in)
 					strafed_backwards = is_opposite_dir(convert_diagonal_dir(direction))
 					step_in_final *= strafed_backwards ? STRAFE_BACKWARDS_FACTOR : 1 //Applies speed multiplier if mecha moved backwards
 					move_result = mechstep(convert_diagonal_dir(direction), old_direction, step_in_final) //Any diagonal movement will be converted to cardinal via "convert_diagonal_dir" proc
 					move_type = MECHAMOVE_STEP
 			else
-				glide_for(step_in * 1.41)
 				move_result = mechstep(direction)
 				move_type = MECHAMOVE_STEP
 		else
-			glide_for(step_in)
 			strafed_backwards = is_opposite_dir(direction)
 			step_in_final *= strafed_backwards ? STRAFE_BACKWARDS_FACTOR : 1 //Applies speed multiplier if mecha moved backwards
 			move_result = mechstep(direction, old_direction, step_in_final)
 			move_type = MECHAMOVE_STEP
 
 	if(move_result && move_type)
+		set_glide_size(DELAY_TO_GLIDE_SIZE(step_in_final))
 		if(strafe && actuator) //Energy drain mechanics for actuator module
 			use_power(strafed_backwards ? (actuator.energy_per_step * STRAFE_BACKWARDS_FACTOR) : actuator.energy_per_step)
 		aftermove(move_type)
@@ -459,7 +470,7 @@
 	if(move_type & (MECHAMOVE_RAND | MECHAMOVE_STEP) && occupant)
 		var/obj/machinery/atmospherics/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/unary/portables_connector) in loc
 		if(possible_port)
-			var/obj/screen/alert/mech_port_available/A = occupant.throw_alert("mechaport", /obj/screen/alert/mech_port_available, override = TRUE)
+			var/atom/movable/screen/alert/mech_port_available/A = occupant.throw_alert("mechaport", /atom/movable/screen/alert/mech_port_available, override = TRUE)
 			if(A)
 				A.target = possible_port
 		else
@@ -496,10 +507,6 @@
 			if(can_move < world.time)
 				. = FALSE // We lie to mech code and say we didn't get to move, because we want to handle power usage + cooldown ourself
 				flick("[initial_icon]-phase", src)
-				if(direction & (direction - 1))	//moved diagonally
-					glide_for(step_in * 4.23)
-				else
-					glide_for(step_in * 3)
 				forceMove(get_step(src, direction))
 				use_power(phasing_energy_drain)
 				playsound(src, stepsound, 40, 1)
@@ -512,70 +519,69 @@
 	if(. && stepsound)
 		playsound(src, stepsound, 40, 1)
 
-/obj/mecha/Bump(var/atom/obstacle, bump_allowed)
-	if(throwing) //high velocity mechas in your face!
-		var/breakthrough = 0
-		if(istype(obstacle, /obj/structure/window))
-			qdel(obstacle)
-			breakthrough = 1
 
-		else if(istype(obstacle, /obj/structure/grille/))
-			var/obj/structure/grille/G = obstacle
-			G.obj_break()
-			breakthrough = 1
+/obj/mecha/Bump(atom/bumped_atom)
+	if(!throwing)
+		. = ..()
+		if(.)
+			return .
+		if(isobj(bumped_atom))
+			var/obj/bumped_object = bumped_atom
+			if(!bumped_object.anchored)
+				step(bumped_atom, dir)
+		else if(ismob(bumped_atom))
+			step(bumped_atom, dir)
+		return .
 
-		else if(istype(obstacle, /obj/structure/table))
-			var/obj/structure/table/T = obstacle
-			qdel(T)
-			breakthrough = 1
+	//high velocity mechas in your face!
+	var/breakthrough = FALSE
+	if(istype(bumped_atom, /obj/structure/window))
+		qdel(bumped_atom)
+		breakthrough = TRUE
 
-		else if(istype(obstacle, /obj/structure/rack))
-			new /obj/item/rack_parts(obstacle.loc)
-			qdel(obstacle)
-			breakthrough = 1
+	else if(istype(bumped_atom, /obj/structure/grille))
+		var/obj/structure/grille/grille = bumped_atom
+		grille.obj_break()
+		breakthrough = TRUE
 
-		else if(istype(obstacle, /obj/structure/reagent_dispensers/fueltank))
-			obstacle.ex_act(1)
+	else if(istype(bumped_atom, /obj/structure/table))
+		qdel(bumped_atom)
+		breakthrough = TRUE
 
-		else if(isliving(obstacle))
-			var/mob/living/L = obstacle
-			var/hit_sound = list('sound/weapons/genhit1.ogg','sound/weapons/genhit2.ogg','sound/weapons/genhit3.ogg')
-			if(L.flags & GODMODE)
-				return
-			L.take_overall_damage(5,0)
-			if(L.buckled)
-				L.buckled = 0
-			L.Weaken(10 SECONDS)
-			L.apply_effect(STUTTER, 10 SECONDS)
-			playsound(src, pick(hit_sound), 50, 0, 0)
-			breakthrough = 1
+	else if(istype(bumped_atom, /obj/structure/rack))
+		new /obj/item/rack_parts(bumped_atom.loc)
+		qdel(bumped_atom)
+		breakthrough = TRUE
 
-		else
-			if(throwing)
-				throwing.finalize()
-			crashing = null
+	else if(istype(bumped_atom, /obj/structure/reagent_dispensers/fueltank))
+		bumped_atom.ex_act(EXPLODE_DEVASTATE)
 
-		..()
-
-		if(breakthrough)
-			if(crashing)
-				spawn(1)
-					throw_at(crashing, 50, throw_speed)
-			else
-				spawn(1)
-					crashing = get_distant_turf(get_turf(src), dir, 3)//don't use get_dir(src, obstacle) or the mech will stop if he bumps into a one-direction window on his tile.
-					throw_at(crashing, 50, throw_speed)
-
+	else if(isliving(bumped_atom))
+		var/mob/living/bumped_living = bumped_atom
+		if(bumped_living.flags & GODMODE)
+			return
+		var/static/list/mecha_hit_sound = list('sound/weapons/genhit1.ogg','sound/weapons/genhit2.ogg','sound/weapons/genhit3.ogg')
+		bumped_living.take_overall_damage(5)
+		bumped_living.unbuckle_mob(force = TRUE)
+		bumped_living.Weaken(10 SECONDS)
+		bumped_living.apply_effect(STUTTER, 10 SECONDS)
+		playsound(src, pick(mecha_hit_sound), 50, FALSE)
+		breakthrough = TRUE
 	else
-		if(bump_allowed)
-			if(..())
-				return
-			if(isobj(obstacle))
-				var/obj/O = obstacle
-				if(!O.anchored)
-					step(obstacle, dir)
-			else if(ismob(obstacle))
-				step(obstacle, dir)
+		throwing.finalize()
+		crashing = null
+
+	. = ..()
+
+	if(breakthrough)
+		if(crashing)
+			spawn(1)
+				throw_at(crashing, 50, throw_speed)
+		else
+			spawn(1)
+				crashing = get_distant_turf(get_turf(src), dir, 3)//don't use get_dir(src, obstacle) or the mech will stop if he bumps into a one-direction window on his tile.
+				throw_at(crashing, 50, throw_speed)
+
 
 
 ///////////////////////////////////
@@ -913,7 +919,7 @@
 			to_chat(user, span_notice("You can't access the mech's modification port while it is occupied."))
 			return
 		var/obj/item/mecha_modkit/M = W
-		if(do_after_once(user, M.install_time, target = src))
+		if(do_after(user, M.install_time, src, max_interact_count = 1))
 			M.install(src, user)
 		else
 			to_chat(user, span_notice("You stop installing [M]."))
@@ -1122,10 +1128,10 @@
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 	if(!hasInternalDamage())
 		occupant << sound(nominalsound, volume = 50)
-	AI.cancel_camera()
+	AI.eyeobj?.forceMove(src)
+	AI.eyeobj?.RegisterSignal(src, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/camera/aiEye, update_visibility))
 	AI.controlled_mech = src
 	AI.remote_control = src
-	AI.canmove = TRUE //Much easier than adding AI checks! Be sure to set this back to FALSE if you decide to allow an AI to leave a mech somehow.
 	AI.can_shunt = FALSE //ONE AI ENTERS. NO AI LEAVES.
 	to_chat(AI, "[AI.can_dominate_mechs ? span_announce("Takeover of [name] complete! You are now permanently loaded onto the onboard computer. Do not attempt to leave the station sector!") \
 	: span_notice("You have been uploaded to a mech's onboard computer.")]")
@@ -1189,7 +1195,7 @@
 
 	if(occupant)
 		occupant.clear_alert("mechaport")
-		occupant.throw_alert("mechaport_d", /obj/screen/alert/mech_port_disconnect)
+		occupant.throw_alert("mechaport_d", /atom/movable/screen/alert/mech_port_disconnect)
 
 	log_message("Connected to gas port.")
 	return TRUE
@@ -1223,7 +1229,7 @@
 	if(frozen)
 		to_chat(user, span_warning("Do not enter Admin-Frozen mechs."))
 		return TRUE
-	if(user.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(user != M)
 		return
@@ -1257,7 +1263,7 @@
 
 
 /obj/mecha/proc/put_in(mob/user)
-	if(do_after(user, mech_enter_time * gettoolspeedmod(user), target = src))
+	if(do_after(user, mech_enter_time * gettoolspeedmod(user), src))
 		if(obj_integrity <= 0)
 			to_chat(user, span_warning("You cannot get in the [name], it has been destroyed!"))
 		else if(occupant)
@@ -1275,7 +1281,6 @@
 /obj/mecha/proc/moved_inside(mob/living/carbon/human/H)
 	if(H && H.client && (H in range(1)))
 		occupant = H
-		H.stop_pulling()
 		H.forceMove(src)
 		add_fingerprint(H)
 		GrantActions(H, human_occupant = 1)
@@ -1290,7 +1295,7 @@
 		else if(!hasInternalDamage())
 			occupant << sound(nominalsound, volume = 50)
 		if(state)
-			H.throw_alert("locked", /obj/screen/alert/mech_maintenance)
+			H.throw_alert("locked", /atom/movable/screen/alert/mech_maintenance)
 		return TRUE
 	else
 		return FALSE
@@ -1312,7 +1317,7 @@
 		to_chat(user, span_warning("Access denied. [name] is secured with an ID lock."))
 		return FALSE
 
-	if(do_after(user, 40, target = src))
+	if(do_after(user, 4 SECONDS, src))
 		if(!occupant)
 			return mmi_moved_inside(mmi_as_oc,user)
 		else
@@ -1336,7 +1341,6 @@
 		brainmob.reset_perspective(src)
 		occupant = brainmob
 		brainmob.forceMove(src) //should allow relaymove
-		brainmob.canmove = TRUE
 		if(istype(mmi_as_oc, /obj/item/mmi/robotic_brain))
 			var/obj/item/mmi/robotic_brain/R = mmi_as_oc
 			if(R.imprinted_master)
@@ -1349,7 +1353,7 @@
 		dir = dir_in
 		log_message("[mmi_as_oc] moved in as pilot.")
 		if(!hasInternalDamage())
-			to_chat(occupant, sound(nominalsound, volume=50))
+			SEND_SOUND(occupant, sound(nominalsound, volume=50))
 		GrantActions(brainmob)
 		return TRUE
 	else
@@ -1357,20 +1361,20 @@
 
 /obj/mecha/proc/pilot_is_mmi()
 	var/atom/movable/mob_container
-	if(istype(occupant, /mob/living/carbon/brain))
+	if(isbrain(occupant))
 		var/mob/living/carbon/brain/brain = occupant
 		mob_container = brain.container
 	if(istype(mob_container, /obj/item/mmi))
 		return TRUE
 	return FALSE
 
-/obj/mecha/Exited(atom/movable/M, atom/newloc)
-	..()
-	if(occupant && occupant == M) // The occupant exited the mech without calling go_out()
-		go_out(1, newloc)
+/obj/mecha/Exited(atom/movable/departed, atom/newLoc)
+	. = ..()
+	if(occupant && occupant == departed) // The occupant exited the mech without calling go_out()
+		go_out(TRUE, newLoc)
 
-/obj/mecha/Exit(atom/movable/O)
-	if(O in cargo)
+/obj/mecha/Exit(atom/movable/leaving, atom/newLoc)
+	if(leaving in cargo)
 		return FALSE
 	return ..()
 
@@ -1394,6 +1398,9 @@
 		mob_container = brain.container
 	else if(isAI(occupant))
 		var/mob/living/silicon/ai/AI = occupant
+		//stop listening to this signal, as the static update is now handled by the eyeobj's setLoc
+		AI.eyeobj?.UnregisterSignal(src, COMSIG_MOVABLE_MOVED)
+		AI.eyeobj?.forceMove(newloc) //kick the eye out as well
 		if(forced)//This should only happen if there are multiple AIs in a round, and at least one is Malf.
 			RemoveActions(occupant)
 			if(!istype(newloc, /obj/item/aicard))
@@ -1427,7 +1434,6 @@
 				L.reset_perspective()
 			mmi.mecha = null
 			mmi.update_icon()
-			L.canmove = FALSE
 			if(istype(mmi, /obj/item/mmi/robotic_brain))
 				var/obj/item/mmi/robotic_brain/R = mmi
 				if(R.imprinted_master)
@@ -1521,20 +1527,20 @@
 			if(0.75 to INFINITY)
 				occupant.clear_alert("charge")
 			if(0.5 to 0.75)
-				occupant.throw_alert("charge", /obj/screen/alert/mech_lowcell, 1)
+				occupant.throw_alert("charge", /atom/movable/screen/alert/mech_lowcell, 1)
 			if(0.25 to 0.5)
-				occupant.throw_alert("charge", /obj/screen/alert/mech_lowcell, 2)
+				occupant.throw_alert("charge", /atom/movable/screen/alert/mech_lowcell, 2)
 				if(power_warned)
 					power_warned = FALSE
 			if(0.01 to 0.25)
-				occupant.throw_alert("charge", /obj/screen/alert/mech_lowcell, 3)
+				occupant.throw_alert("charge", /atom/movable/screen/alert/mech_lowcell, 3)
 				if(!power_warned)
 					occupant << sound(lowpowersound, volume = 50)
 					power_warned = TRUE
 			else
-				occupant.throw_alert("charge", /obj/screen/alert/mech_emptycell)
+				occupant.throw_alert("charge", /atom/movable/screen/alert/mech_emptycell)
 	else
-		occupant.throw_alert("charge", /obj/screen/alert/mech_nocell)
+		occupant.throw_alert("charge", /atom/movable/screen/alert/mech_nocell)
 
 
 //////////////////////////////////////////
@@ -1628,13 +1634,14 @@
 
 /obj/mecha/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
 	var/image/I = image('icons/mob/talk.dmi', bubble_loc, bubble_state, FLY_LAYER)
+	SET_PLANE_EXPLICIT(I, ABOVE_GAME_PLANE, src)
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 	INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, I, bubble_recipients, 30)
 
 /obj/mecha/update_remote_sight(mob/living/user)
 	if(occupant_sight_flags)
 		if(user == occupant)
-			user.sight |= occupant_sight_flags
+			user.add_sight(occupant_sight_flags)
 
 	..()
 

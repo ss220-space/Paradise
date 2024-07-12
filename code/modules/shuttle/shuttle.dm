@@ -35,6 +35,9 @@
 
 		return QDEL_HINT_LETMELIVE
 
+/obj/docking_port/has_gravity(turf/T)
+	return FALSE
+
 /obj/docking_port/take_damage()
 	return
 
@@ -42,7 +45,7 @@
 	return
 
 /obj/docking_port/singularity_act()
-	return 0
+	return FALSE
 
 /obj/docking_port/shuttleRotate()
 	return //we don't rotate with shuttles via this code.
@@ -80,9 +83,7 @@
 //returns turfs within our projected rectangle in no particular order
 /obj/docking_port/proc/return_turfs()
 	var/list/L = return_coords()
-	var/turf/T0 = locate(L[1], L[2], z)
-	var/turf/T1 = locate(L[3], L[4], z)
-	return block(T0, T1)
+	return block(L[1], L[2], z, L[3], L[4], z)
 
 //returns turfs within our projected rectangle in a specific order.
 //this ensures that turfs are copied over in the same order, regardless of any rotation
@@ -128,10 +129,9 @@
 #ifdef DOCKING_PORT_HIGHLIGHT
 //Debug proc used to highlight bounding area
 /obj/docking_port/proc/highlight(_color)
+	SET_PLANE_IMPLICIT(src, GHOST_PLANE)
 	var/list/L = return_coords()
-	var/turf/T0 = locate(L[1],L[2],z)
-	var/turf/T1 = locate(L[3],L[4],z)
-	for(var/turf/T in block(T0,T1))
+	for(var/turf/T in block(L[1], L[2], z, L[3], L[4], z))
 		T.color = _color
 		T.maptext = null
 	if(_color)
@@ -155,7 +155,7 @@
 /obj/docking_port/stationary
 	name = "dock"
 
-	var/turf_type = /turf/space
+	var/turf_type = /turf/baseturf_bottom
 	var/area_type = /area/space
 
 	var/lock_shuttle_doors = 0
@@ -486,7 +486,7 @@
 	remove_ripples()
 
 	//move or squish anything in the way ship at destination
-	roadkill(L0, L1, S1.dir)
+	shuttle_smash(L0, L1, S1.dir)
 
 	for(var/i in 1 to L0.len)
 		var/turf/T0 = L0[i]
@@ -514,6 +514,11 @@
 			if(rotation)
 				T1.shuttleRotate(rotation)
 
+		var/turf/new_ceiling = GET_TURF_ABOVE(T1) // Do it before atmos readjust.
+		if(new_ceiling && (isspaceturf(new_ceiling) || isopenspaceturf(new_ceiling))) //Check for open one, not wall
+			// generate ceiling
+			new_ceiling.ChangeTurf(/turf/simulated/floor/engine/hull/ceiling)
+
 		// Always do this stuff as it ensures that the destination turfs still behave properly with the rest of the shuttle transit
 		//atmos and lighting stuff
 		SSair.remove_from_active(T1)
@@ -524,6 +529,14 @@
 
 		if(!should_transit)
 			continue // Don't want to actually change the skipped turf
+
+		// We make roof here, before the turf change and atmos change. or the atmos will BREAK
+		var/turf/old_ceiling = GET_TURF_ABOVE(T0)
+		if(old_ceiling && istype(old_ceiling, /turf/simulated/floor/engine/hull/ceiling)) // check if a ceiling was generated previously
+			// remove old ceiling
+			var/turf/simulated/floor/engine/hull/ceiling/old_shuttle_ceiling = old_ceiling
+			old_shuttle_ceiling.ChangeTurf(old_shuttle_ceiling.old_turf_type)
+
 		T0.ChangeTurf(turf_type, keep_icon = FALSE)
 
 		SSair.remove_from_active(T0)
@@ -551,7 +564,7 @@
 	unlockPortDoors(S1)
 
 /obj/docking_port/mobile/proc/is_turf_blacklisted_for_transit(turf/T)
-	var/static/list/blacklisted_turf_types = typecacheof(list(/turf/space, /turf/simulated/floor/chasm, /turf/simulated/floor/plating/lava, /turf/simulated/floor/plating/asteroid))
+	var/static/list/blacklisted_turf_types = typecacheof(GLOB.blacklisted_turf_types_for_transit)
 	return is_type_in_typecache(T, blacklisted_turf_types)
 
 /obj/docking_port/mobile/proc/findTransitDock()
@@ -607,42 +620,6 @@
 				if(A.locked)
 					A.unlock()
 
-/obj/docking_port/mobile/proc/roadkill(list/L0, list/L1, dir)
-	var/list/hurt_mobs = list()
-	for(var/i in 1 to L0.len)
-		var/turf/T0 = L0[i]
-		var/turf/T1 = L1[i]
-		if(!T0 || !T1)
-			continue
-
-		for(var/atom/movable/AM in T1)
-			if(AM.pulledby)
-				AM.pulledby.stop_pulling()
-			if(ismob(AM))
-				var/mob/mobile_docking_port = AM
-				if(mobile_docking_port.buckled)
-					mobile_docking_port.buckled.unbuckle_mob(mobile_docking_port, force = TRUE)
-				if(isliving(AM))
-					var/mob/living/L = AM
-					L.stop_pulling()
-					if(L.anchored)
-						L.gib()
-					else
-						if(!(L in hurt_mobs))
-							hurt_mobs |= L
-							L.visible_message("<span class='warning'>[L] is hit by \
-									a hyperspace ripple[L.anchored ? "":" and is thrown clear"]!</span>",
-									"<span class='userdanger'>You feel an immense \
-									crushing pressure as the space around you ripples.</span>")
-							L.Paralyse(20 SECONDS)
-							L.ex_act(2)
-
-			// Move unanchored atoms
-			if(!AM.anchored)
-				step(AM, dir)
-			else
-				if(AM.simulated) // Don't qdel lighting overlays, they are static
-					qdel(AM)
 
 //used by shuttle subsystem to check timers
 /obj/docking_port/mobile/proc/check()
@@ -801,10 +778,10 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/computer/shuttle/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/shuttle/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ShuttleConsole", name, 350, 240, master_ui, state)
+		ui = new(user, src, "ShuttleConsole", name)
 		ui.open()
 
 /obj/machinery/computer/shuttle/ui_data(mob/user)
@@ -935,6 +912,10 @@
 	shuttleId = "ruins_transport_shuttle"
 	possible_destinations = "ussp_dock;dj_post;sindiecake_dock;ussp_gorky17"
 
+/obj/machinery/computer/shuttle/ruins_transport_shuttle/old_frame
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_state = "frame"
+	icon_keyboard = "kb6"
 
 /obj/machinery/computer/shuttle/ruins_civil_shuttle // made another shuttle, this one will fly between spacebar and twin nexus hotel. just another way to get to it.
 	name = "Regular Civilian Shuttle Console"
@@ -1033,10 +1014,11 @@
 		var/obj/O
 		if(underlays.len)	//we have underlays, which implies some sort of transparency, so we want to a snapshot of the previous turf as an underlay
 			O = new()
-			O.underlays.Add(T)
+			O.underlays += T
 		T.ChangeTurf(type, keep_icon = FALSE)
 		if(underlays.len)
-			T.underlays = O.underlays
+			T.underlays.Cut()
+			T.underlays += O.underlays
 	if(T.icon_state != icon_state)
 		T.icon_state = icon_state
 	if(T.icon != icon)

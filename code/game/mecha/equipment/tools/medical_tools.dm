@@ -55,7 +55,7 @@
 		AM.forceMove(get_turf(src))
 	return ..()
 
-/obj/item/mecha_parts/mecha_equipment/medical/sleeper/Exit(atom/movable/O)
+/obj/item/mecha_parts/mecha_equipment/medical/sleeper/Exit(atom/movable/leaving, atom/newLoc)
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/action(mob/living/carbon/target)
@@ -309,14 +309,14 @@
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/action(atom/movable/target)
 	if(!action_checks(target))
 		return FALSE
-	if(istype(target, /obj/item/reagent_containers/syringe) || istype(target, /obj/item/storage))
+	if(istype(target, /obj/item/reagent_containers/syringe) || isstorage(target))
 		if(get_dist(src, target) < 2)
 			for(var/obj/structure/D in target.loc)//Basic level check for structures in the way (Like grilles and windows)
-				if(!(D.CanPass(target, loc)))
+				if(!(D.CanPass(target, get_dir(D, loc))))
 					occupant_message("Unable to load syringe.")
 					return FALSE
 			for(var/obj/machinery/door/D in target.loc)//Checks for doors
-				if(!(D.CanPass(target, loc)))
+				if(!(D.CanPass(target, get_dir(D, loc))))
 					occupant_message("Unable to load syringe.")
 					return FALSE
 			return start_syringe_loading(target)
@@ -603,7 +603,7 @@
 /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw/action(atom/target)
 	if(!action_checks(target))
 		return FALSE
-	if(istype(target, /obj))
+	if(isobj(target))
 		if(!istype(target, /obj/machinery/door))//early return if we're not trying to open a door
 			return FALSE
 		set_ready_state(FALSE)

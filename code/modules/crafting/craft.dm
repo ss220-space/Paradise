@@ -74,10 +74,10 @@
 		if(T.Adjacent(user))
 			for(var/B in T)
 				var/atom/movable/AM = B
-				if(AM.flags_2 & HOLOGRAM_2)
+				if(AM.flags & HOLOGRAM)
 					continue
 				. += AM
-	for(var/slot in list(slot_r_store, slot_l_store))
+	for(var/slot in list(ITEM_SLOT_POCKET_RIGHT, ITEM_SLOT_POCKET_LEFT))
 		. += user.get_item_by_slot(slot)
 
 
@@ -86,9 +86,9 @@
 	.["other"] = list() //paths go in here
 	.["toolsother"] = list() // items go in here
 	for(var/obj/item/I in get_environment(user))
-		if(I.flags_2 & HOLOGRAM_2)
+		if(I.flags & HOLOGRAM)
 			continue
-		if(istype(I, /obj/item/stack))
+		if(isstack(I))
 			var/obj/item/stack/S = I
 			.["other"][I.type] += S.amount
 		else
@@ -106,7 +106,7 @@
 	var/list/possible_tools = list()
 	var/list/tools_used = list()
 	for(var/obj/item/I in user.contents) //searchs the inventory of the mob
-		if(istype(I, /obj/item/storage))
+		if(isstorage(I))
 			for(var/obj/item/SI in I.contents)
 				if(SI.tool_behaviour) //filters for tool behaviours
 					possible_tools += SI
@@ -131,7 +131,7 @@
 		return TRUE
 	var/list/other_possible_tools = list()
 	for(var/obj/item/I in user.contents) // searchs the inventory of the mob
-		if(istype(I, /obj/item/storage))
+		if(isstorage(I))
 			for(var/obj/item/SI in I.contents)
 				other_possible_tools += SI.type	// filters type paths
 		other_possible_tools += I.type
@@ -155,7 +155,7 @@
 	if(!check_pathtools(user, R, contents))
 		return ", missing tool."
 
-	if(!do_after(user, R.time, target = user))
+	if(!do_after(user, R.time, user))
 		return "."
 	contents = get_surroundings(user)
 
@@ -202,13 +202,17 @@
 				part_reagent = new thing()
 				parts_used += part_reagent
 
-			for(var/obj/item/reagent_containers/container in (surroundings - reagent_containers_for_deletion))
+			for(var/obj/item/reagent_containers/container in surroundings)
 				var/datum/reagent/contained_reagent = container.reagents.get_reagent(thing)
 				if(!contained_reagent)
 					continue
 
 				var/extracted_amount = min(contained_reagent.volume, needed_amount)
-				reagent_containers_for_deletion[container] = list(contained_reagent, extracted_amount)
+				if(reagent_containers_for_deletion[container] == null)
+					reagent_containers_for_deletion[container] = list()
+
+				reagent_containers_for_deletion[container][contained_reagent] = extracted_amount
+
 				part_reagent.volume += extracted_amount
 				part_reagent.data += contained_reagent.data
 				needed_amount -= extracted_amount
@@ -250,15 +254,15 @@
 				parts_used += part_atom
 
 	for(var/obj/item/reagent_containers/container_to_clear as anything in reagent_containers_for_deletion)
-		var/datum/reagent/reagent_to_delete = reagent_containers_for_deletion[container_to_clear][1]
-		var/amount_to_delete = reagent_containers_for_deletion[container_to_clear][2]
+		for(var/datum/reagent/reagent_to_delete as anything in reagent_containers_for_deletion[container_to_clear])
+			var/amount_to_delete = reagent_containers_for_deletion[container_to_clear][reagent_to_delete]
 
-		if(amount_to_delete < reagent_to_delete.volume)
-			reagent_to_delete.volume -= amount_to_delete
-		else
-			container_to_clear.reagents.reagent_list -= reagent_to_delete
-		container_to_clear.reagents.conditional_update(container_to_clear)
-		container_to_clear.update_icon()
+			if(amount_to_delete < reagent_to_delete.volume)
+				reagent_to_delete.volume -= amount_to_delete
+			else
+				container_to_clear.reagents.reagent_list -= reagent_to_delete
+			container_to_clear.reagents.conditional_update(container_to_clear)
+			container_to_clear.update_icon()
 
 	for(var/obj/item/stack/stack_to_delete as anything in item_stacks_for_deletion)
 		var/amount_to_delete = item_stacks_for_deletion[stack_to_delete]
@@ -278,11 +282,13 @@
 
 	return parts_returned
 
+/datum/personal_crafting/ui_state(mob/user)
+	return GLOB.not_incapacitated_state
 
-/datum/personal_crafting/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.not_incapacitated_turf_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/personal_crafting/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "PersonalCrafting", "Crafting Menu", 700, 800, master_ui, state)
+		ui = new(user, src, "PersonalCrafting", "Crafting Menu")
 		ui.open()
 
 /datum/personal_crafting/proc/close(mob/user)

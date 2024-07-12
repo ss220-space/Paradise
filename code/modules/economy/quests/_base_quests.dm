@@ -63,7 +63,7 @@
 
 	if(!quest_type)
 		var/list/possible_types = list()
-		if((length(GLOB.clients) < MIN_PLAYERS_FOR_MIX) && (length(current_quests) == 2))
+		if((num_station_players() < MIN_PLAYERS_FOR_MIX) && (length(current_quests) == 2))
 			for(var/datum/cargo_quest/quest as anything in current_quests)
 				possible_types += quest.type
 		else
@@ -120,11 +120,15 @@
 	if(!failed_quest_length && !fast_failed)
 		new_reward += reward * 0.4
 		modificators["quick_shipment"] = TRUE
-		if(closet.cc_tag == customer.departament_name)
-			customer.set_sale()
 
 	if(time_add_count)
 		new_reward -= time_add_count * reward * 0.1
+
+	if(!modificators["departure_mismatch"] && !failed_quest_length && !mismatch_content)
+		if(fast_failed)
+			customer.set_sale(modificator = 1)
+		else
+			customer.set_sale(modificator = 2)
 
 	if(new_reward <= 0)
 		new_reward = 1
@@ -140,10 +144,8 @@
 	var/datum/cargo_quests_storage/q_storage
 	/// Quest desc, using in interface.
 	var/list/desc = list()
-	/// Quest base icon, using in interface.
-	var/interface_icon
-	/// Quest base icon state, using in interface.
-	var/interface_icon_state
+	/// Item, which icon, used for category in interface.
+	var/item_for_show
 	/// Quest interface images, using in interface.
 	var/list/interface_images = list()
 	/// Requested order's item types, unless otherwise specified.
@@ -152,10 +154,11 @@
 	var/difficultly_flags
 
 
-/datum/cargo_quest/New(storage)
-	q_storage = storage
-	add_goal(difficultly = q_storage.quest_difficulty.diff_flag)
-	update_interface_icon()
+/datum/cargo_quest/New(storage, read_datum = FALSE)
+	if(!read_datum)
+		q_storage = storage
+		add_goal(difficultly = q_storage.quest_difficulty.diff_flag)
+		update_interface_icon()
 
 /datum/cargo_quest/proc/generate_goal_list(difficultly)
 	return
@@ -167,8 +170,7 @@
 	return
 
 /datum/cargo_quest/proc/update_interface_icon()
-	if(interface_icon && interface_icon_state)
-		interface_images += icon2base64(icon(interface_icon, interface_icon_state, SOUTH, 1))
+	return
 
 /datum/cargo_quest/proc/check_required_item(atom/movable/check_item)
 	return

@@ -296,7 +296,7 @@
 /*
 	for(var/obj/machinery/door/poddoor/shuttledock/D in airlocks)
 		var/turf/T = get_step(D, D.checkdir)
-		if(!istype(T,/turf/space))
+		if(!isspaceturf(T))
 			spawn(0)
 				D.open()
 */ //Leaving this here incase someone decides to port -tg-'s escape shuttle stuff:
@@ -332,7 +332,7 @@
 	possible_destinations = "pod_asteroid"
 	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "dorm_available"
-	density = 0
+	density = FALSE
 
 
 /obj/machinery/computer/shuttle/pod/update_icon_state()

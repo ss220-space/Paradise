@@ -6,16 +6,27 @@
 	item_state = "flashlight"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
 	actions_types = list(/datum/action/item_action/toggle_light)
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_range = 4
+	light_power = 1
+	light_on = FALSE
 	var/on = FALSE
-	var/brightness_on = 4 //luminosity when on
 	var/togglesound = 'sound/weapons/empty.ogg'
 
+/obj/item/flashlight/dummy
+	name = "Testing flashlight"
+	light_system = MOVABLE_LIGHT
+	light_range = 4
+	light_power = 1
+	light_on = FALSE
 
 /obj/item/flashlight/Initialize()
 	. = ..()
+	if(icon_state == "[initial(icon_state)]-on")
+		on = TRUE
 	update_brightness()
 
 
@@ -27,10 +38,9 @@
 
 
 /obj/item/flashlight/proc/update_brightness()
-	if(on)
-		set_light(brightness_on)
-	else
-		set_light(0)
+	if(light_system == STATIC_LIGHT)
+		update_light()
+	set_light_on(on)
 	update_icon()
 
 
@@ -41,7 +51,7 @@
 	on = !on
 	playsound(user, togglesound, 100, 1)
 	update_brightness()
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 	return TRUE
 
 
@@ -52,7 +62,7 @@
 		if(((CLUMSY in user.mutations) || user.getBrainLoss() >= 60) && prob(50))	//too dumb to use flashlight properly
 			return ..()	//just hit them in the head
 
-		if(!(istype(user, /mob/living/carbon/human) || SSticker) && SSticker.mode.name != "monkey")	//don't have dexterity
+		if(!(ishuman(user) || SSticker) && SSticker.mode.name != "monkey")	//don't have dexterity
 			to_chat(user, "<span class='notice'>You don't have the dexterity to do this!</span>")
 			return
 
@@ -77,7 +87,7 @@
 				var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
 				if(M.stat == DEAD || !eyes || (BLINDNESS in M.mutations))	//mob is dead or fully blind
 					to_chat(user, "<span class='notice'>[M]'s pupils are unresponsive to the light!</span>")
-				else if((XRAY in M.mutations) || eyes.see_in_dark >= 8) //The mob's either got the X-RAY vision or has a tapetum lucidum (extreme nightvision, i.e. Vulp/Tajara with COLOURBLIND & their monkey forms).
+				else if((XRAY in M.mutations) || H.nightvision >= 8) //The mob's either got the X-RAY vision or has a tapetum lucidum (extreme nightvision, i.e. Vulp/Tajara with COLOURBLIND & their monkey forms).
 					to_chat(user, "<span class='notice'>[M]'s pupils glow eerily!</span>")
 				else //they're okay!
 					if(M.flash_eyes(visual = 1))
@@ -98,9 +108,10 @@
 	item_state = ""
 	belt_icon = "penlight"
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_BELT | SLOT_EARS
+	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_EARS
 	flags = CONDUCT
-	brightness_on = 2
+	light_system = MOVABLE_LIGHT
+	light_range = 2
 
 /obj/item/flashlight/seclite
 	name = "seclite"
@@ -109,7 +120,7 @@
 	item_state = "seclite"
 	belt_icon = "seclite"
 	force = 9 // Not as good as a stun baton.
-	brightness_on = 5 // A little better than the standard flashlight.
+	light_range = 5 // A little better than the standard flashlight.
 	hitsound = 'sound/weapons/genhit1.ogg'
 
 /obj/item/flashlight/drone
@@ -118,7 +129,7 @@
 	icon_state = "penlight"
 	item_state = ""
 	flags = CONDUCT
-	brightness_on = 2
+	light_range = 2
 	w_class = WEIGHT_CLASS_TINY
 
 // the desk lamps are a bit special
@@ -127,7 +138,7 @@
 	desc = "A desk lamp with an adjustable mount."
 	icon_state = "lamp"
 	item_state = "lamp"
-	brightness_on = 5
+	light_range = 5
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
 	materials = list()
@@ -140,15 +151,6 @@
 	icon_state = "lampgreen"
 	item_state = "lampgreen"
 
-
-
-/obj/item/flashlight/lamp/verb/toggle_light()
-	set name = "Toggle light"
-	set category = "Object"
-	set src in oview(1)
-
-	if(!usr.stat)
-		attack_self(usr)
 
 //Bananalamp
 /obj/item/flashlight/lamp/bananalamp
@@ -163,7 +165,8 @@
 /obj/item/flashlight/flare
 	name = "flare"
 	desc = "A red Nanotrasen issued flare. There are instructions on the side, it reads 'pull cord, make light'."
-	brightness_on = 8
+	light_range = 8
+	light_system = MOVABLE_LIGHT
 	light_color = "#ff0000"
 	icon_state = "flare"
 	item_state = "flare"
@@ -239,7 +242,7 @@
 /obj/item/flashlight/flare/glowstick
 	name = "green glowstick"
 	desc = "A military-grade glowstick."
-	brightness_on = 4
+	light_range = 4
 	color = LIGHT_COLOR_GREEN
 	icon_state = "glowstick"
 	item_state = "glowstick"
@@ -249,6 +252,7 @@
 	fuel_lower = 1600
 	fuel_upp = 2000
 	blocks_emissive = FALSE
+	var/chemglow_sprite_type = "green"
 
 
 /obj/item/flashlight/flare/glowstick/Initialize()
@@ -272,22 +276,30 @@
 /obj/item/flashlight/flare/glowstick/red
 	name = "red glowstick"
 	color = LIGHT_COLOR_RED
+	chemglow_sprite_type = "red"
+
+/obj/item/flashlight/flare/glowstick/green
+	name = "green glowstick"
 
 /obj/item/flashlight/flare/glowstick/blue
 	name = "blue glowstick"
 	color = LIGHT_COLOR_BLUE
+	chemglow_sprite_type = "blue"
 
 /obj/item/flashlight/flare/glowstick/orange
 	name = "orange glowstick"
 	color = LIGHT_COLOR_ORANGE
+	chemglow_sprite_type = "orange"
 
 /obj/item/flashlight/flare/glowstick/yellow
 	name = "yellow glowstick"
 	color = LIGHT_COLOR_YELLOW
+	chemglow_sprite_type = "yellow"
 
 /obj/item/flashlight/flare/glowstick/pink
 	name = "pink glowstick"
 	color = LIGHT_COLOR_PINK
+	chemglow_sprite_type = "pink"
 
 /obj/item/flashlight/flare/glowstick/emergency
 	name = "emergency glowstick"
@@ -295,6 +307,7 @@
 	color = LIGHT_COLOR_BLUE
 	fuel_lower = 30
 	fuel_upp = 90
+	chemglow_sprite_type = "blue"
 
 /obj/item/flashlight/flare/glowstick/random
 	name = "random colored glowstick"
@@ -319,7 +332,7 @@
 	name = "torch"
 	desc = "A torch fashioned from some leaves and a log."
 	w_class = WEIGHT_CLASS_BULKY
-	brightness_on = 7
+	light_range = 7
 	icon_state = "torch"
 	item_state = "torch"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
@@ -335,7 +348,8 @@
 	icon_state = "floor1" //not a slime extract sprite but... something close enough!
 	item_state = "slime"
 	w_class = WEIGHT_CLASS_TINY
-	brightness_on = 6
+	light_range = 6
+	light_system = MOVABLE_LIGHT
 	light_color = "#FFBF00"
 	materials = list()
 	on = TRUE //Bio-luminesence has one setting, on.
@@ -404,8 +418,8 @@
 	name = "disco light"
 	desc = "Groovy..."
 	icon_state = null
+	light_system = STATIC_LIGHT
 	light_color = null
-	brightness_on = 0
 	light_range = 0
 	light_power = 10
 	alpha = 0

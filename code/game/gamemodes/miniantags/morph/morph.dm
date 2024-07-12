@@ -18,7 +18,7 @@
 	status_flags = CANPUSH
 	pass_flags = PASSTABLE
 	move_resist = MOVE_FORCE_STRONG // Fat being
-	ventcrawler = 2
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	tts_seed = "Treant"
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -30,7 +30,7 @@
 	obj_damage = 50
 	melee_damage_lower = 15
 	melee_damage_upper = 15
-	see_in_dark = 8
+	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	vision_range = 1 // Only attack when target is close
 	wander = 0
@@ -70,9 +70,8 @@
 	if((length(GLOB.morphs_alive_list) >= MORPHS_ANNOUNCE_THRESHOLD) && (!GLOB.morphs_announced))
 		GLOB.command_announcement.Announce("Внимание! Зафиксированы множественные биоугрозы 6 уровня на [station_name()]. Необходима ликвидация угрозы для продолжения безопасной работы.", "Отдел Центрального Командования по биологическим угрозам.", 'sound/AI/commandreport.ogg')
 		GLOB.morphs_announced = TRUE
-		cancel_call_proc(usr)
-	else
-		return
+		SSshuttle.emergency.cancel()
+
 
 /mob/living/simple_animal/hostile/morph/Initialize(mapload)
 	. = ..()
@@ -85,6 +84,7 @@
 	AddSpell(pass_airlock_spell)
 	GLOB.morphs_alive_list += src
 	check_morphs()
+
 
 /**
  * This proc enables or disables morph reproducing ability
@@ -132,7 +132,7 @@
 	else
 		eat_self_message = "<span class='notice'>You start eating [item].</span>"
 	visible_message("<span class='warning'>[src] starts eating [target]!</span>", eat_self_message, "You hear loud crunching!")
-	if(do_after(src, 3 SECONDS, target = item))
+	if(do_after(src, 3 SECONDS, item))
 		if(food_value + gathered_food < 0)
 			to_chat(src, "<span class='warning'>You can't force yourself to eat more disgusting items. Eat some living things first.</span>")
 			return
@@ -156,7 +156,7 @@
 	if(!istype(living))
 		return -ITEM_EAT_COST // Anything other than a tasty mob will make me sad ;(
 	var/gained_food = max(5, 10 * living.mob_size) // Tiny things are worth less
-	if(ishuman(living) && !ismonkeybasic(living))
+	if(ishuman(living) && !is_monkeybasic(living))
 		gained_food += 10 // Humans are extra tasty
 
 	return gained_food
@@ -181,7 +181,7 @@
 	//Morph is weaker initially when disguised
 	melee_damage_lower = 5
 	melee_damage_upper = 5
-	speed = MORPHED_SPEED
+	set_varspeed(MORPHED_SPEED)
 	ambush_spell.updateButtonIcon()
 	pass_airlock_spell.updateButtonIcon()
 	move_resist = MOVE_FORCE_DEFAULT // They become more fragile and easier to move
@@ -194,7 +194,7 @@
 	//Baseline stats
 	melee_damage_lower = initial(melee_damage_lower)
 	melee_damage_upper = initial(melee_damage_upper)
-	speed = initial(speed)
+	set_varspeed(initial(speed))
 	if(ambush_prepared)
 		to_chat(src, "<span class='warning'>The ambush potential has faded as you take your true form.</span>")
 	failed_ambush()
@@ -325,7 +325,7 @@
 	vision_range = initial(vision_range)
 
 /mob/living/simple_animal/hostile/morph/proc/allowed(atom/movable/item)
-	var/list/not_allowed = list(/obj/screen, /obj/singularity, /mob/living/simple_animal/hostile/morph)
+	var/list/not_allowed = list(/atom/movable/screen, /obj/singularity, /mob/living/simple_animal/hostile/morph)
 	return !is_type_in_list(item, not_allowed)
 
 /mob/living/simple_animal/hostile/morph/AIShouldSleep(list/possible_targets)
@@ -333,7 +333,7 @@
 	if(. && !morphed)
 		var/list/things = list()
 		for(var/atom/movable/item_in_view in view(src))
-			if(istype(item_in_view, /obj) && allowed(item_in_view))
+			if(isobj(item_in_view) && allowed(item_in_view))
 				things += item_in_view
 		var/atom/movable/picked_thing = pick(things)
 		if (picked_thing)
@@ -349,7 +349,7 @@
 		if(ambush_prepared)
 			ambush_attack(living)
 			return TRUE // No double attack
-	else if(istype(target,/obj/item)) // Eat items just to be annoying
+	else if(isitem(target)) // Eat items just to be annoying
 		var/obj/item/item = target
 		if(!item.anchored)
 			try_eat(item)
