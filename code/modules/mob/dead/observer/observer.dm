@@ -408,29 +408,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 	forceMove(pick(turfs))
 	update_parallax_contents()
-/*
-   __________________________
-  /\                         \
- /  \            ____         \
-/ \/ \          /\   \         \
-\ /\  \         \ \   \         \
- \  \  \     ____\_\   \______   \
-  \   /\\   /\                \   \
-   \ /\/ \  \ \_______    _____\   \
-    \\/ / \  \/______/\   \____/    \
-     \ / /\\         \ \   \         \
-      \ /\/ \         \ \   \         \
-       \\/ / \         \ \   \         \
-  Maybe \ /   \         \ \   \         \
-         \\  /\\         \ \   \         \
-God Bless \ /\  \         \ \___\         \
-           \\    \         \/___/          \
-   this     \  \/ \                         \
-             \ /\  \_________________________\
- shitcode     \  \ / ______________________  /
-               \  / ______________________  /
-		        \/_________________________/
-*/
 
 /// Показывает инвентарь моба, на которого призрак прожал "Orbit".
 /mob/dead/observer/proc/show_orbting_inventory()
