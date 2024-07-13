@@ -42,11 +42,11 @@
 		var/obj/item/organ/internal/headpocket/pocket = H.get_int_organ(/obj/item/organ/internal/headpocket)
 		if(!pocket.pocket.master_item)
 			return
-		user.visible_message("<span class='danger'>[user] is trying to remove something from [source]'s head!</span>",
-							"<span class='danger'>You start to dislodge whatever's inside [source]'s headpocket!</span>")
+		user.visible_message(span_danger("[user] is trying to remove something from [source]'s head!"),
+							span_danger("You start to dislodge whatever's inside [source]'s headpocket!"))
 		if(do_after(user, POCKET_STRIP_DELAY, source))
-			user.visible_message("<span class='danger'>[user] has dislodged something from [source]'s head!</span>",
-								"<span class='danger'>You have dislodged everything from [source]'s headpocket!</span>")
+			user.visible_message(span_danger("[user] has dislodged something from [source]'s head!"),
+								span_danger("You have dislodged everything from [source]'s headpocket!"))
 			pocket.empty_contents()
 			add_attack_logs(user, source, "Stripped of headpocket items", isLivingSSD(source) ? null : ATKLOG_ALL)
 		return
@@ -61,8 +61,8 @@
 		to_chat(user, "You lack the ability to manipulate the lock.")
 		return
 
-	muzzle.visible_message("<span class='danger'>[user] tries to [muzzle.locked ? "unlock" : "lock"] [source]'s [muzzle.name].</span>", \
-					"<span class='userdanger'>[user] tries to [muzzle.locked ? "unlock" : "lock"] [source]'s [muzzle.name].</span>")
+	muzzle.visible_message(span_danger("[user] tries to [muzzle.locked ? "unlock" : "lock"] [source]'s [muzzle.name]."), \
+					span_userdanger("[user] tries to [muzzle.locked ? "unlock" : "lock"] [source]'s [muzzle.name]."))
 	if(!do_after(user, POCKET_STRIP_DELAY, source))
 		return
 
@@ -74,8 +74,8 @@
 
 	if(!success)
 		return
-	muzzle.visible_message("<span class='danger'>[user] [muzzle.locked ? "locks" : "unlocks"] [source]'s [muzzle.name].</span>", \
-					"<span class='userdanger'>[user] [muzzle.locked ? "locks" : "unlocks"] [source]'s [muzzle.name].</span>")
+	muzzle.visible_message(span_danger("[user] [muzzle.locked ? "locks" : "unlocks"] [source]'s [muzzle.name]."), \
+					span_userdanger("[user] [muzzle.locked ? "locks" : "unlocks"] [source]'s [muzzle.name]."))
 
 
 /datum/strippable_item/mob_item_slot/handcuffs
@@ -114,6 +114,9 @@
 	/// Which hand?
 	var/which_hand
 
+/datum/strippable_item/hand/belt/get_alternate_actions(atom/source, mob/user)
+	return get_strippable_alternate_action_internals(get_item(source), source)
+
 /datum/strippable_item/hand/get_item(atom/source)
 	if(!ismob(source))
 		return null
@@ -131,7 +134,7 @@
 
 	var/mob/mob_source = source
 	if(!mob_source.put_in_hand_check(equipping, which_hand))
-		to_chat(user, "<span class='warning'>\The [equipping] doesn't fit in that place!</span>")
+		to_chat(user, span_warning("\The [equipping] doesn't fit in that place!"))
 		return FALSE
 
 	return TRUE
@@ -146,7 +149,7 @@
 
 	var/mob/mob_source = source
 
-	if(mob_source.get_item_by_slot(which_hand))
+	if(!mob_source.put_in_hand_check(equipping, which_hand))
 		return FALSE
 
 	return TRUE
@@ -155,7 +158,7 @@
 	if(!iscarbon(source))
 		return FALSE
 
-	INVOKE_ASYNC(source, TYPE_PROC_REF(/mob, put_in_hand), equipping, which_hand)
+	source.put_in_hand(equipping, which_hand)
 
 /datum/strippable_item/hand/finish_unequip(atom/source, mob/user)
 	var/obj/item/item = get_item(source)
@@ -165,7 +168,7 @@
 	if(!ismob(source))
 		return FALSE
 
-	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(finish_unequip_mob), item, source, user)
+	finish_unequip_mob(item, source, user)
 
 /datum/strippable_item/hand/left
 	key = STRIPPABLE_ITEM_LHAND
