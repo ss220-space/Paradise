@@ -82,7 +82,7 @@
 #define JOB_TITLE_CHEMIST "Химик"
 #define JOB_TITLE_GENETICIST "Генетик"
 #define JOB_TITLE_VIROLOGIST "Вирусолог"
-#define JOB_TITLE_PSYCHIATRIST "Психолог"
+#define JOB_TITLE_PSYCHIATRIST "Психиатр"
 #define JOB_TITLE_PARAMEDIC "Парамедик"
 
 #define JOB_TITLE_RD "Директор Исследований"
