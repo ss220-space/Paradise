@@ -45,7 +45,7 @@
 		strip_menu = new(source, src)
 		LAZYSET(strip_menus, source, strip_menu)
 
-	INVOKE_ASYNC(strip_menu, TYPE_PROC_REF(/datum, ui_interact), user)
+	strip_menu.ui_interact(user)
 
 /// A representation of an item that can be stripped down
 /datum/strippable_item
@@ -247,10 +247,10 @@
 
 	var/thief = in_thief_mode(user)
 
-	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(finish_unequip_mob), item, source, user, thief)
+	finish_unequip_mob(item, source, user, thief)
 
 	if(thief)
-		INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, put_in_hands), item, FALSE, FALSE, TRUE, TRUE, TRUE)
+		user.put_in_hands(item, FALSE, FALSE, TRUE, TRUE, TRUE)
 
 /// Returns the delay of equipping this item to a mob
 /datum/strippable_item/mob_item_slot/proc/get_equip_delay(obj/item/equipping)
