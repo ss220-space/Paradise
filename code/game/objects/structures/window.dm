@@ -765,7 +765,8 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	name = "tinted window"
 	desc = "It looks rather strong and opaque. Might take a few good hits to shatter it."
 	icon = 'icons/obj/smooth_structures/tinted_window.dmi'
-	base_icon_state = "tinted_window"
+	icon_state =
+	base_icon_state = "tinted_window-0"
 	opacity = TRUE
 
 /obj/structure/window/full/reinforced/polarized
