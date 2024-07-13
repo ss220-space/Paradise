@@ -130,11 +130,8 @@
 	var/mob/living/carbon/human/H = src
 	if(H.stat == DEAD)
 		..()
-	var/turf/T = get_turf(H)
-	if(T)
-		var/light_amount = T.get_lumcount() * 10
-		if(light_amount < LIGHT_AMOUNT_HEAL && empowered && prob(50))
-			return
+	if(light_check(H) && empowered && prob(50))
+		return
 	..()
 
 
@@ -142,3 +139,5 @@
 #undef LIGHT_AMOUNT_DAMAGE
 #undef TIME_TO_EMPOWER
 #undef TIME_TO_EXHAUST
+
+
