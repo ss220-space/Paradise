@@ -3687,8 +3687,7 @@
 /area/mine/living_quarters)
 "qF" = (
 /obj/structure/disposalpipe/junction{
-	dir = 4;
-	tag = "icon-pipe-j1 (EAST)"
+	dir = 4
 	},
 /obj/structure/cable{
 	icon_state = "2-4"

@@ -3502,8 +3502,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
 	name = "Waste Disposals Junction";
-	sortType = 1;
-	tag = "icon-pipe-j1s (EAST)"
+	sortType = 1
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -40378,6 +40377,7 @@
 	dir = 8
 	},
 /obj/structure/disposalpipe/sortjunction{
+	dir = 2;
 	name = "Chapel Junction";
 	sortType = 17
 	},
@@ -57118,8 +57118,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
 	name = "Morgue";
-	sortType = 25;
-	tag = "icon-pipe-j1s (EAST)"
+	sortType = 25
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -57382,8 +57381,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
 	name = "Research Junction";
-	sortType = 12;
-	tag = "icon-pipe-j1s (EAST)"
+	sortType = 12
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
@@ -63070,6 +63068,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/sortjunction{
+	dir = 2;
 	name = "Atmospherics Junction";
 	sortType = 6
 	},
@@ -91759,8 +91758,7 @@
 "pHb" = (
 /obj/structure/disposalpipe/sortjunction{
 	dir = 8;
-	name = "Disposals Junction";
-	tag = "icon-pipe-j1s (EAST)"
+	name = "Disposals Junction"
 	},
 /obj/machinery/door_control{
 	id = "CargoBay Shutters North";
@@ -104513,8 +104511,7 @@
 /obj/structure/disposalpipe/sortjunction{
 	dir = 1;
 	name = "Genetics";
-	sortType = 23;
-	tag = "icon-pipe-j1s (EAST)"
+	sortType = 23
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner"
@@ -114496,6 +114493,7 @@
 /area/crew_quarters/theatre)
 "uQb" = (
 /obj/structure/disposalpipe/sortjunction{
+	dir = 2;
 	name = "CE's Junction";
 	sortType = 5
 	},
@@ -127553,6 +127551,7 @@
 	icon_state = "1-4"
 	},
 /obj/structure/disposalpipe/sortjunction{
+	dir = 2;
 	name = "Engineering Junction";
 	sortType = 4
 	},

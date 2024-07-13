@@ -8861,6 +8861,7 @@
 	dir = 8
 	},
 /obj/structure/disposalpipe/sortjunction{
+	dir = 2;
 	name = "Detective";
 	sortType = 27
 	},
@@ -61981,6 +61982,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/sortjunction{
+	dir = 2;
 	name = "Morgue";
 	sortType = 25
 	},
