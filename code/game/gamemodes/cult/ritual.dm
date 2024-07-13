@@ -102,6 +102,9 @@
 	if((locate(/obj/effect/rune) in T) || (locate(/obj/effect/rune/narsie) in range(1, T)))
 		to_chat(user, "<span class='warning'>There's already a rune here!</span>")
 		return FALSE
+	if(drawing_rune)
+		to_chat(user, "<span class='warning'>You can't draw multiple runes at the same time!</span>")
+		return FALSE
 	return TRUE
 
 
@@ -166,6 +169,7 @@
 
 	// Draw the rune
 	var/mob/living/carbon/human/H = user
+	drawing_rune = TRUE
 	H.cult_self_harm(initial(rune.scribe_damage))
 	var/others_message
 	if(!narsie_rune)
@@ -182,12 +186,14 @@
 			qdel(S)
 	user.color = old_color
 	if(!scribe_successful)
+		drawing_rune = FALSE
 		return
 
 	user.visible_message("<span class='warning'>[user] creates a strange circle in [user.p_their()] own blood.</span>",
 						 "<span class='cultitalic'>You finish drawing the arcane markings of [SSticker.cultdat.entity_title3].</span>")
 
 	var/obj/effect/rune/R = new rune(runeturf, keyword)
+	drawing_rune = FALSE
 	if(narsie_rune)
 		for(var/obj/effect/rune/I in orange(1, R))
 			qdel(I)

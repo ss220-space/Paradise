@@ -276,6 +276,7 @@
 				R.overdose_start(M)
 			if(R.volume < R.overdose_threshold && R.overdosed)
 				R.overdosed = FALSE
+				R.overdose_end(M)
 			if(R.overdosed)
 				var/list/overdose_results = R.overdose_process(M, R.volume >= R.overdose_threshold * 2 ? 2 : 1)
 				if(overdose_results) // to protect against poorly-coded overdose procs

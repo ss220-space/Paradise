@@ -1194,6 +1194,9 @@
 			M.AdjustEyeBlurry(20 SECONDS)
 	return ..() | update_flags
 
+/datum/reagent/capulettium/on_mob_delete(mob/living/M)
+	fakerevive(M)
+	..()
 
 /datum/reagent/capulettium_plus
 	name = "Capulettium Plus"
@@ -1214,8 +1217,7 @@
 	return ..()
 
 /datum/reagent/capulettium_plus/on_mob_delete(mob/living/M)
-	if(HAS_TRAIT(M, TRAIT_FAKEDEATH))
-		fakerevive(M)
+	fakerevive(M)
 	..()
 
 /datum/reagent/toxic_slurry

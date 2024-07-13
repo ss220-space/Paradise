@@ -28050,10 +28050,11 @@
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
-/obj/machinery/conveyor/east{
-	id = "packageExternal"
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/conveyor{
+	id = "packageExternal";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bLc" = (
@@ -51799,10 +51800,11 @@
 	},
 /area/hallway/secondary/entry)
 "dcY" = (
-/obj/machinery/conveyor/east{
-	id = "QMLoad2"
-	},
 /obj/effect/decal/warning_stripes/north,
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "garbage"
+	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
 "dda" = (
@@ -56881,10 +56883,11 @@
 	},
 /area/medical/research)
 "dxS" = (
-/obj/machinery/conveyor/southwest{
-	id = "garbage"
-	},
 /obj/effect/decal/warning_stripes/east,
+/obj/machinery/conveyor{
+	id = "garbage";
+	dir = 10
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "dyj" = (
@@ -58688,12 +58691,13 @@
 	},
 /area/crew_quarters/kitchen)
 "eJE" = (
-/obj/machinery/conveyor/west{
-	id = "garbage"
-	},
 /obj/machinery/camera{
 	c_tag = "Disposals";
 	dir = 1
+	},
+/obj/machinery/conveyor{
+	id = "garbage";
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -60927,10 +60931,11 @@
 /area/hallway/primary/starboard/east)
 "gkt" = (
 /obj/machinery/recycler,
-/obj/machinery/conveyor/east{
-	id = "garbage"
-	},
 /obj/effect/decal/warning_stripes/north,
+/obj/machinery/conveyor{
+	id = "garbage";
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "gkC" = (
@@ -63445,10 +63450,11 @@
 /area/hallway/primary/central/sw)
 "hVv" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/conveyor/east{
-	id = "packageExternal"
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/conveyor{
+	id = "packageExternal";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "hVA" = (
@@ -64189,10 +64195,11 @@
 /turf/space,
 /area/turret_protected/ai)
 "ixb" = (
-/obj/machinery/conveyor/southeast{
-	id = "garbage"
-	},
 /obj/effect/decal/warning_stripes/northeast,
+/obj/machinery/conveyor{
+	id = "garbage";
+	dir = 6
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "ixv" = (
@@ -68152,10 +68159,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "lps" = (
-/obj/machinery/conveyor/west{
-	id = "garbage"
-	},
 /obj/structure/plasticflaps,
+/obj/machinery/conveyor{
+	id = "garbage";
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "lpu" = (
@@ -68442,8 +68450,9 @@
 	},
 /area/medical/reception)
 "lyq" = (
-/obj/machinery/conveyor/west{
-	id = "garbage"
+/obj/machinery/conveyor{
+	id = "garbage";
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -70419,12 +70428,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "mGV" = (
-/obj/machinery/conveyor/west{
-	id = "garbage"
-	},
 /obj/structure/sign/deathsposal{
 	pixel_x = -32;
 	pixel_y = 32
+	},
+/obj/machinery/conveyor{
+	id = "garbage";
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -71981,11 +71991,12 @@
 	},
 /area/medical/research/restroom)
 "nMQ" = (
-/obj/machinery/conveyor/west{
-	id = "QMLoad"
-	},
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/decal/warning_stripes/south,
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "QMLoad"
+	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
 "nND" = (
@@ -72141,15 +72152,16 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "nRW" = (
-/obj/machinery/conveyor/west{
-	id = "garbage"
-	},
 /obj/machinery/door/poddoor{
 	density = 0;
 	icon_state = "open";
 	id_tag = "Disposal Exit";
 	name = "Disposal Exit Vent";
 	opacity = 0
+	},
+/obj/machinery/conveyor{
+	id = "garbage";
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -75709,14 +75721,15 @@
 /turf/simulated/floor/wood,
 /area/security/permabrig)
 "qmV" = (
-/obj/machinery/conveyor/west{
-	id = "garbage"
-	},
 /obj/structure/sign/securearea{
 	name = "\improper STAY CLEAR HEAVY MACHINERY";
 	pixel_y = -32
 	},
 /obj/machinery/light/small,
+/obj/machinery/conveyor{
+	id = "garbage";
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "qnq" = (
@@ -78615,6 +78628,14 @@
 	icon_state = "whitegreen"
 	},
 /area/toxins/xenobiology)
+"sfT" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/conveyor{
+	id = "QMLoad2";
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/storage)
 "sfW" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -79151,7 +79172,8 @@
 /area/quartermaster/storage)
 "syQ" = (
 /obj/machinery/conveyor_switch/oneway{
-	id = "QMLoad"
+	id = "QMLoad";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -80550,7 +80572,8 @@
 /area/maintenance/turbine)
 "tst" = (
 /obj/structure/plasticflaps/mining,
-/obj/machinery/conveyor/west{
+/obj/machinery/conveyor{
+	dir = 8;
 	id = "QMLoad"
 	},
 /turf/simulated/floor/plating,
@@ -80568,12 +80591,13 @@
 /turf/simulated/floor/plating,
 /area/engine/engineering)
 "tsS" = (
-/obj/machinery/conveyor/west{
-	id = "QMLoad"
-	},
 /obj/machinery/door/poddoor{
 	id_tag = "QMLoaddoor2";
 	name = "supply dock loading door"
+	},
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
@@ -80884,10 +80908,11 @@
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
 "tFt" = (
-/obj/machinery/conveyor/east{
-	id = "garbage"
-	},
 /obj/effect/decal/warning_stripes/north,
+/obj/machinery/conveyor{
+	id = "garbage";
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "tGd" = (
@@ -87712,8 +87737,9 @@
 /area/maintenance/fsmaint2)
 "xTp" = (
 /obj/structure/plasticflaps/mining,
-/obj/machinery/conveyor/east{
-	id = "QMLoad2"
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "garbage"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
@@ -87724,12 +87750,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "xTK" = (
-/obj/machinery/conveyor/east{
-	id = "QMLoad2"
-	},
 /obj/machinery/door/poddoor{
 	id_tag = "QMLoaddoor";
 	name = "supply dock loading door"
+	},
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "garbage"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
@@ -87746,11 +87773,12 @@
 /area/engine/controlroom)
 "xTY" = (
 /obj/effect/decal/warning_stripes/north,
-/obj/machinery/conveyor/east{
-	id = "QMLoad2"
-	},
 /obj/machinery/status_display/supply_display{
 	pixel_y = -32
+	},
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "garbage"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
@@ -87876,11 +87904,12 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "xYm" = (
-/obj/machinery/conveyor/east{
-	id = "QMLoad2"
-	},
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/light,
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "garbage"
+	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
 "xZm" = (
@@ -107135,7 +107164,7 @@ nMQ
 bKz
 bYy
 bWL
-dcY
+sfT
 rmn
 uTI
 ylx

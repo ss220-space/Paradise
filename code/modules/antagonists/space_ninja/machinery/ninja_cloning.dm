@@ -66,8 +66,11 @@
 	attempting = TRUE //One at a time!!
 	icon_state = "ninja_cloning_on"
 	ninja_ghost.forceMove(src.loc)
-	ninja = ninja_ghost.incarnate_ghost()
+	ninja = ninja_ghost.incarnate_ghost(TRUE)
+	ninja.real_name = ninja.mind.name
+	ninja.name = ninja.mind.name
 	var/datum/antagonist/ninja/ninja_datum = ninja.mind.has_antag_datum(/datum/antagonist/ninja)
+	ninja_datum.change_species(ninja)
 	ninja_datum.equip_ninja()
 	ninja.forceMove(src)
 	ninja.Sleeping(15 SECONDS)
@@ -114,9 +117,9 @@
 /obj/machinery/ninja_clonepod/proc/force_ninja_out()
 	icon_state = initial(icon_state)
 	ninja.forceMove(get_turf(src))
-	ninja.flash_eyes(visual = 1)
+	ninja.flash_eyes(visual = TRUE)
 	add_game_logs("Ninja-cloned at [COORD(src)]", ninja)
-	to_chat(ninja, "[span_notice("Вы чувствуете себя как совершенно новое существо... Так вот какого быть клоном... Но все эти мысли не имеют значения. Миссия и клан... Гораздо важнее!")]")
+	to_chat(ninja, span_notice("Вы чувствуете себя как совершенно новое существо... Так вот какого быть клоном... Но все эти мысли не имеют значения. Миссия и клан... Гораздо важнее!"))
 	attempting = FALSE
 	ninja = null
 

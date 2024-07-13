@@ -916,8 +916,9 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "azA" = (
-/obj/machinery/conveyor/east{
-	id = "cargodisposals"
+/obj/machinery/conveyor{
+	id = "cargodisposals";
+	dir = 4
 	},
 /obj/structure/sign/deathsposal{
 	pixel_y = -32
@@ -9638,8 +9639,9 @@
 /area/assembly/robotics)
 "gpQ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/conveyor/east{
-	id = "cargodisposals"
+/obj/machinery/conveyor{
+	id = "cargodisposals";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -10942,8 +10944,9 @@
 	dir = 1
 	},
 /obj/structure/plasticflaps,
-/obj/machinery/conveyor/east{
-	id = "cargodisposals"
+/obj/machinery/conveyor{
+	id = "cargodisposals";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -12688,8 +12691,9 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
-/obj/machinery/conveyor/east{
-	id = "cargodisposals"
+/obj/machinery/conveyor{
+	id = "cargodisposals";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -23515,8 +23519,9 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},
-/obj/machinery/conveyor/east{
-	id = "cargodisposals"
+/obj/machinery/conveyor{
+	id = "cargodisposals";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -25011,8 +25016,9 @@
 	},
 /area/security/permabrig)
 "qcu" = (
-/obj/machinery/conveyor/east{
-	id = "cargodisposals"
+/obj/machinery/conveyor{
+	id = "cargodisposals";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -37245,8 +37251,9 @@
 /obj/structure/disposaloutlet{
 	dir = 4
 	},
-/obj/machinery/conveyor/east{
-	id = "cargodisposals"
+/obj/machinery/conveyor{
+	id = "cargodisposals";
+	dir = 4
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 1

@@ -369,7 +369,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES
 	armor = list(melee = 20, bullet = 20, laser = 20, energy = 15, bomb = 10, bio = 100, rad = 20, fire = 50, acid = 65)
-	flash_protect = 0
+	flash_protect = FLASH_PROTECTION_NONE
 	var/obj/machinery/camera/portable/camera
 	var/has_camera = TRUE
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form", SPECIES_VOX)

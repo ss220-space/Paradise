@@ -107,7 +107,7 @@ do { \
 	origin_tech = "magnets=3;syndicate=2"
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	flash_protect = -1
+	flash_protect = FLASH_PROTECTION_SENSITIVE
 	prescription_upgradable = TRUE
 
 
@@ -117,7 +117,7 @@ do { \
 
 
 /obj/item/clothing/glasses/hud/security/chameleon
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	actions_types = list(/datum/action/item_action/chameleon/change/glasses)
 
 

@@ -1284,10 +1284,11 @@
 	},
 /area/ruin/unpowered)
 "KH" = (
-/obj/machinery/conveyor/west{
+/obj/structure/plasticflaps,
+/obj/machinery/conveyor/inverted{
+	id = "mining_internal";
 	dir = 5
 	},
-/obj/structure/plasticflaps,
 /turf/simulated/floor{
 	nitrogen = 23;
 	oxygen = 14;

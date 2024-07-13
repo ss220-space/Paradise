@@ -210,10 +210,11 @@
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "bX" = (
-/obj/machinery/conveyor/north{
-	id = "QMLoad"
-	},
 /obj/item/twohanded/dualsaber/toy,
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "bY" = (
@@ -1441,10 +1442,11 @@
 /turf/simulated/floor/wood/fancy,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "lw" = (
-/obj/machinery/conveyor/north{
-	id = "QMLoad"
-	},
 /obj/machinery/mineral/ore_redemption/labor,
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "ly" = (
@@ -1797,10 +1799,11 @@
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
 "ol" = (
-/obj/machinery/conveyor/north{
-	id = "QMLoad"
-	},
 /obj/item/gun/projectile/automatic/toy,
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "om" = (
@@ -2772,7 +2775,9 @@
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "wC" = (
 /obj/machinery/mineral/processing_unit,
-/obj/machinery/conveyor/south,
+/obj/machinery/conveyor{
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "wE" = (
@@ -2993,10 +2998,11 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "ys" = (
-/obj/machinery/conveyor/north{
-	id = "QMLoad"
-	},
 /obj/item/stack/sheet/animalhide/monkey,
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "yu" = (
@@ -3006,10 +3012,11 @@
 	},
 /area/vision_change_area/awaymission/evil_santa_storm)
 "yC" = (
-/obj/machinery/conveyor/north{
-	id = "QMLoad"
-	},
 /obj/effect/mob_spawn/human/corpse/monkey_shaftminer,
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "yD" = (
@@ -3081,10 +3088,11 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/spawn_s)
 "zq" = (
-/obj/machinery/conveyor/north{
-	id = "QMLoad"
-	},
 /obj/effect/spawner/lootdrop/officetoys,
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "zs" = (
@@ -3099,8 +3107,9 @@
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "zA" = (
-/obj/machinery/conveyor/northeast{
-	id = "QMLoad"
+/obj/machinery/conveyor{
+	dir = 5;
+	id = "santa"
 	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
@@ -3227,7 +3236,10 @@
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_r)
 "AS" = (
 /obj/machinery/recycler/deathtrap,
-/obj/machinery/conveyor/east/ccw,
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "AT" = (
@@ -3251,8 +3263,10 @@
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "AY" = (
-/obj/machinery/conveyor/south,
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer/riot,
+/obj/machinery/conveyor{
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "Ba" = (
@@ -3494,8 +3508,10 @@
 	},
 /area/vision_change_area/awaymission/evil_santa_storm)
 "Dt" = (
-/obj/machinery/conveyor/south,
 /obj/item/twohanded/toy/chainsaw,
+/obj/machinery/conveyor{
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "Du" = (
@@ -3773,11 +3789,12 @@
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_l)
 "Gc" = (
-/obj/machinery/conveyor/north{
-	id = "QMLoad"
-	},
 /obj/effect/decal/cleanable/blood/gibs{
 	layer = 2.5
+	},
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "santa"
 	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
@@ -4061,10 +4078,11 @@
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "Io" = (
-/obj/machinery/conveyor/north{
-	id = "QMLoad"
-	},
 /obj/item/a_gift,
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "Ir" = (
@@ -4525,17 +4543,19 @@
 /turf/simulated/floor/wood/fancy,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "MA" = (
-/obj/machinery/conveyor/north{
-	id = "QMLoad"
-	},
 /obj/item/clothing/mask/gas/monkeymask,
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "MC" = (
-/obj/machinery/conveyor/north{
-	id = "QMLoad"
-	},
 /obj/item/clothing/suit/monkeysuit,
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "MD" = (
@@ -4592,8 +4612,10 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
 "MT" = (
-/obj/machinery/conveyor/south,
 /obj/item/a_gift,
+/obj/machinery/conveyor{
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "MZ" = (
@@ -4640,8 +4662,10 @@
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "Nu" = (
-/obj/machinery/conveyor/south,
 /obj/item/toy/xmas_cracker,
+/obj/machinery/conveyor{
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "Nw" = (
@@ -5460,10 +5484,11 @@
 /turf/simulated/wall/mineral/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
 "TS" = (
-/obj/machinery/conveyor/north{
-	id = "QMLoad"
-	},
 /obj/item/toy/xmas_cracker,
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "TV" = (
@@ -5881,9 +5906,11 @@
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "XB" = (
-/obj/machinery/conveyor/south,
 /obj/effect/spawner/lootdrop/officetoys,
 /obj/item/shield/riot/templar,
+/obj/machinery/conveyor{
+	id = "santa"
+	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "XD" = (
@@ -6123,8 +6150,9 @@
 /turf/simulated/floor/carpet,
 /area/vision_change_area/awaymission/evil_santa/hut_e)
 "ZP" = (
-/obj/machinery/conveyor/north{
-	id = "QMLoad"
+/obj/machinery/conveyor{
+	dir = 1;
+	id = "santa"
 	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)

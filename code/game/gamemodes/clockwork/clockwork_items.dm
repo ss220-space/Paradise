@@ -121,7 +121,7 @@
 			return
 		user.drop_item_ground(src, force = TRUE)
 		user.emote("scream")
-		to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
+		to_chat(user, span_clocklarge("\"Now now, this is for my servants, not you.\""))
 		if(iscarbon(user))
 			var/mob/living/carbon/carbon = user
 			carbon.Weaken(10 SECONDS)
@@ -132,10 +132,10 @@
 			if(!isliving(target) || isclocker(target) || !proximity)
 				return
 			var/mob/living/living = target
-			src.visible_message("<span class='warning'>[user]'s [src] sparks for a moment with bright light!</span>")
+			visible_message(span_warning("[user]'s [src] sparks for a moment with bright light!"))
 			user.mob_light(LIGHT_COLOR_HOLY_MAGIC, 3, _duration = 2) //No questions
 			if(living.null_rod_check())
-				src.visible_message("<span class='warning'>[target]'s holy weapon absorbs the light!</span>")
+				visible_message(span_warning("[target]'s holy weapon absorbs the light!"))
 				deplete_spell()
 				return
 			living.Weaken(4 SECONDS)
@@ -175,20 +175,20 @@
 				closet.open()
 				deplete_spell()
 			else
-				to_chat(user, "<span class='warning'>You can use only on doors and closets!</span>")
+				to_chat(user, span_warning("You can use only on doors and closets!"))
 		if(TELEPORT_SPELL)
 			if(target.density && !proximity)
-				to_chat(user, "<span class='warning'>The path is blocked!</span>")
+				to_chat(user, span_warning(">The path is blocked!"))
 				return
 			if(proximity)
-				to_chat(user, "<span class='warning'>You too close to the path point!</span>")
+				to_chat(user, span_warning("You too close to the path point!"))
 				return
 			if(!(target in view(user)))
 				return
-			to_chat(user, "<span class='notice'> You start invoking teleportation...</span>")
+			to_chat(user, span_notice("You start invoking teleportation..."))
 			animate(user, color = COLOR_PURPLE, time = 1.5 SECONDS)
 			if(do_after(user, 1.5 SECONDS, user))
-				do_sparks(4, 0, user)
+				do_sparks(4, FALSE, user)
 				user.forceMove(get_turf(target))
 				playsound(user, 'sound/effects/phasein.ogg', 20, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 				add_attack_logs(user, target, "Teleported to by [src]", ATKLOG_ALL)
@@ -594,16 +594,16 @@
 	. = ..()
 	if(enchant_type == FLASH_SPELL)
 		if(!user.is_in_hands(src))
-			to_chat(user, "<span class='notice'>You should wear [src]!</span>")
+			to_chat(user, span_notice("You should wear [src]!"))
 			return
-		playsound(loc, 'sound/effects/phasein.ogg', 100, 1)
+		playsound(loc, 'sound/effects/phasein.ogg', 100, TRUE)
 		set_light_range_power_color(2, 1, COLOR_WHITE)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 0.2 SECONDS)
-		user.visible_message("<span class='disarm'>[user]'s [src.name] emits a blinding light!</span>", "<span class='danger'>Your [src.name] emits a blinding light!</span>")
+		user.visible_message(span_disarm("[user]'s [name] emits a blinding light!"), span_danger("Your [name] emits a blinding light!"))
 		for(var/mob/living/carbon/M in oviewers(3, user))
 			if(isclocker(M))
 				return
-			if(M.flash_eyes(2, 1))
+			if(M.flash_eyes(2, TRUE))
 				M.AdjustConfused(10 SECONDS)
 				add_attack_logs(user, M, "Flashed with [src]")
 		deplete_spell()
@@ -1125,7 +1125,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/active = FALSE //If the visor is online
 	actions_types = list(/datum/action/item_action/toggle)
-	flash_protect = TRUE
+	flash_protect = FLASH_PROTECTION_FLASH
 	see_in_dark = 0
 	lighting_alpha = null
 
@@ -1134,13 +1134,13 @@
 
 	if(!isclocker(user))
 		if(!iscultist(user))
-			to_chat(user, "<span class='clocklarge'>\"I think you need some different glasses. This too bright for you.\"</span>")
+			to_chat(user, span_clocklarge("\"I think you need some different glasses. This too bright for you.\""))
 			user.flash_eyes()
 			user.Weaken(2 SECONDS)
 			playsound(loc, 'sound/weapons/flash.ogg', 50, TRUE)
 		else
-			to_chat(user, "<span class='clocklarge'>\"Consider yourself judged, whelp.\"</span>")
-			to_chat(user, "<span class='userdanger'>You suddenly catch fire!</span>")
+			to_chat(user, span_clocklarge("\"Consider yourself judged, whelp.\""))
+			to_chat(user, span_userdanger("You suddenly catch fire!"))
 			user.adjust_fire_stacks(5)
 			user.IgniteMob()
 		user.drop_item_ground(src)

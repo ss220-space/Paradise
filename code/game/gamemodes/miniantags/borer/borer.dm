@@ -147,6 +147,10 @@
 		return
 	transfer_personality(user.client)
 
+/mob/living/simple_animal/borer/sentience_act()
+	GrantBorerSpells()
+	hide_borer()
+
 /mob/living/simple_animal/borer/Stat()
 	..()
 	statpanel("Status")
