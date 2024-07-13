@@ -56,7 +56,7 @@
 	selection_color = "#d1eeff"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY)
-	alt_titles = list("Surgeon","Nurse")
+	alt_titles = list("Хирург","Медсестра")
 	minimal_player_age = 3
 	exp_requirements = 600
 	exp_type = EXP_TYPE_MEDICAL
@@ -88,7 +88,7 @@
 	spawn_positions = 3
 	department_head = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR)
 	selection_color = "#d1eeff"
-	alt_titles = list("Student Medical Doctor", "Medical Assistant")
+	alt_titles = list("Студент-врач", "Медицинский Ассистент")
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
 	exp_max	= 600
@@ -200,7 +200,7 @@
 	selection_color = "#d1eeff"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_CHEMISTRY, ACCESS_MINERAL_STOREROOM)
-	alt_titles = list("Pharmacist","Pharmacologist")
+	alt_titles = list("Фармацевт","Фармаколог")
 	minimal_player_age = 7
 	exp_requirements = 600
 	exp_type = EXP_TYPE_MEDICAL
@@ -271,7 +271,7 @@
 	selection_color = "#d1eeff"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_VIROLOGY, ACCESS_MINERAL_STOREROOM)
-	alt_titles = list("Pathologist","Microbiologist")
+	alt_titles = list("Патолог","Микробиолог")
 	minimal_player_age = 7
 	exp_requirements = 900
 	exp_type = EXP_TYPE_MEDICAL
@@ -308,7 +308,7 @@
 	selection_color = "#d1eeff"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_PSYCHIATRIST)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_PSYCHIATRIST)
-	alt_titles = list("Psychologist","Therapist")
+	alt_titles = list("Психолог","Терапевт")
 	money_factor = 3
 	outfit = /datum/outfit/job/psychiatrist
 
