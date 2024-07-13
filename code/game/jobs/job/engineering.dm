@@ -60,7 +60,7 @@
 	selection_color = "#ffeaca"
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM)
-	alt_titles = list("Maintenance Technician","Engine Technician","Electrician")
+	alt_titles = list("Техник по Обслуживанию","Техник по двигателям","Электрик")
 	minimal_player_age = 7
 	exp_requirements = 600
 	exp_type = EXP_TYPE_ENGINEERING
@@ -94,7 +94,7 @@
 	spawn_positions = 3
 	department_head = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER)
 	selection_color = "#ffeaca"
-	alt_titles = list("Engineer Assistant", "Technical Assistant", "Engineer Student", "Technical Student", "Technical Trainee")
+	alt_titles = list("Ассистент Инженера", "Технический Ассистент", "Студент-инженер", "Технический Студент", "Технический Стажер")
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
 	exp_max	= 600
@@ -145,7 +145,7 @@
 	selection_color = "#ffeaca"
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM, ACCESS_EMERGENCY_STORAGE)
 	minimal_access = list(ACCESS_EVA, ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EMERGENCY_STORAGE, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM, ACCESS_TECH_STORAGE)
-	alt_titles = list("Atmospheric Technician")
+	alt_titles = list("Атмосферный Техник")
 	minimal_player_age = 7
 	exp_requirements = 900
 	exp_type = EXP_TYPE_ENGINEERING
