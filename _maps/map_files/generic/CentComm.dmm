@@ -998,51 +998,6 @@
 	icon_state = "darkgreynavyblue"
 	},
 /area/centcom/specops)
-"asK" = (
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/canister/toxins{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/toxins{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/toxins{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/toxins{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/toxins{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/toxins{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/toxins{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/toxins{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/toxins{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/toxins{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/toxins{
-	maximum_pressure = 50000
-	},
-/obj/machinery/conveyor/north{
-	id = "Toxin"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/supply)
 "asM" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/wood,
@@ -1885,8 +1840,9 @@
 /area/vox_station)
 "aLo" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/conveyor/north{
-	id = "CO2"
+/obj/machinery/conveyor{
+	id = "CO2";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -9048,7 +9004,7 @@
 /obj/machinery/vending/ntcrates{
 	req_access = list(114)
 	},
-/obj/machinery/conveyor/south{
+/obj/machinery/conveyor{
 	id = "CC_crate"
 	},
 /turf/simulated/floor/plasteel{
@@ -9987,8 +9943,9 @@
 	locked = 2;
 	name = "Supply Blastdoor"
 	},
-/obj/machinery/conveyor/north{
-	id = "CC_crate"
+/obj/machinery/conveyor{
+	id = "CC_crate";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -15389,57 +15346,6 @@
 	icon_state = "sepia"
 	},
 /area/ninja/outpost)
-"hEq" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent{
-	maximum_pressure = 50000
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/portable_atmospherics/canister/sleeping_agent{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/sleeping_agent{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/sleeping_agent{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/sleeping_agent{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/sleeping_agent{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/sleeping_agent{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/sleeping_agent{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/sleeping_agent{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/sleeping_agent{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/sleeping_agent{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/sleeping_agent{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/sleeping_agent{
-	maximum_pressure = 50000
-	},
-/obj/machinery/conveyor/north{
-	id = "N2O"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/supply)
 "hEu" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -16292,9 +16198,9 @@
 	},
 /area/ninja/outpost)
 "idQ" = (
-/obj/machinery/conveyor/north/ccw{
-	dir = 5;
-	id = "CC_crate"
+/obj/machinery/conveyor/inverted{
+	id = "CC_crate";
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -18009,58 +17915,6 @@
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/funeral)
-"iUO" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/canister/nitrogen{
-	maximum_pressure = 50000
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/light,
-/obj/machinery/portable_atmospherics/canister/nitrogen{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/nitrogen{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/nitrogen{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/nitrogen{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/nitrogen{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/nitrogen{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/nitrogen{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/nitrogen{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/nitrogen{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/nitrogen{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/nitrogen{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/nitrogen{
-	maximum_pressure = 50000
-	},
-/obj/machinery/conveyor/north{
-	id = "N2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/supply)
 "iVo" = (
 /turf/simulated/wall/indestructible/abductor{
 	icon_state = "alien15"
@@ -19746,8 +19600,9 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/conveyor/north{
-	id = "N2"
+/obj/machinery/conveyor{
+	id = "N2";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -24116,21 +23971,6 @@
 /obj/item/reagent_containers/food/drinks/cans/beer,
 /turf/simulated/floor/carpet/red,
 /area/centcom/zone1)
-"lHZ" = (
-/obj/machinery/portable_atmospherics/canister/air{
-	maximum_pressure = 50000
-	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/conveyor/north{
-	id = "Air"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/supply)
 "lIb" = (
 /obj/structure/flora/tree/jungle/small,
 /obj/effect/mapping_helpers/light,
@@ -25900,21 +25740,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
-"mwS" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent{
-	maximum_pressure = 50000
-	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/conveyor/north{
-	id = "N2O"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/supply)
 "mxj" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -31247,51 +31072,6 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership/elite_squad)
-"oxQ" = (
-/obj/machinery/portable_atmospherics/canister/air{
-	maximum_pressure = 50000
-	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/portable_atmospherics/canister/air{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/air{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/air{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/air{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/air{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/air{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/air{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/air{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/air{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/air{
-	maximum_pressure = 50000
-	},
-/obj/machinery/conveyor/north{
-	id = "Air"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/supply)
 "oyc" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -31455,9 +31235,9 @@
 	},
 /area/syndicate_mothership/jail)
 "oDS" = (
-/obj/machinery/conveyor/east/ccw{
-	dir = 6;
-	id = "CC_crate"
+/obj/machinery/conveyor/inverted{
+	id = "CC_crate";
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -32784,73 +32564,10 @@
 	icon_state = "navyblue"
 	},
 /area/centcom/specops)
-"pgN" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/canister/oxygen{
-	maximum_pressure = 50000
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/portable_atmospherics/canister/oxygen{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/oxygen{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/oxygen{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/oxygen{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/oxygen{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/oxygen{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/oxygen{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/oxygen{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/oxygen{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/oxygen{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/oxygen{
-	maximum_pressure = 50000
-	},
-/obj/machinery/conveyor/north{
-	id = "O2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/supply)
 "phc" = (
 /obj/structure/lattice,
 /turf/space,
 /area/centcom/specops)
-"phe" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/canister/nitrogen{
-	maximum_pressure = 50000
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/conveyor/north{
-	id = "N2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/supply)
 "phK" = (
 /obj/effect/decal/syndie_logo,
 /obj/effect/turf_decal/stripes/black{
@@ -33223,8 +32940,9 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/conveyor/north{
-	id = "O2"
+/obj/machinery/conveyor{
+	id = "O2";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -33250,8 +32968,9 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/conveyor/north{
-	id = "O2"
+/obj/machinery/conveyor{
+	id = "O2";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -35071,8 +34790,9 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/conveyor/north{
-	id = "N2O"
+/obj/machinery/conveyor{
+	id = "N2O";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -35621,11 +35341,12 @@
 /area/centcom/jail)
 "quA" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/conveyor{
+	id = "CO2";
+	dir = 1
+	},
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide{
 	maximum_pressure = 50000
-	},
-/obj/machinery/conveyor/north{
-	id = "CO2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -37963,21 +37684,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
-"rvJ" = (
-/obj/machinery/portable_atmospherics/canister/oxygen{
-	maximum_pressure = 50000
-	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/conveyor/north{
-	id = "O2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/supply)
 "rvV" = (
 /obj/machinery/vending/mech/ntc/weapon{
 	req_access = list(114)
@@ -38116,7 +37822,7 @@
 	},
 /area/shuttle/specops)
 "rzx" = (
-/obj/machinery/conveyor/east{
+/obj/machinery/conveyor{
 	id = "CC_crate"
 	},
 /turf/simulated/floor/plasteel{
@@ -38687,15 +38393,16 @@
 	},
 /area/centcom/specops)
 "rNf" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen{
-	maximum_pressure = 50000
-	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/conveyor/north{
-	id = "N2"
+/obj/machinery/conveyor{
+	id = "N2";
+	dir = 1
+	},
+/obj/machinery/portable_atmospherics/canister/nitrogen{
+	maximum_pressure = 50000
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -39485,8 +39192,9 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/conveyor/north{
-	id = "Toxin"
+/obj/machinery/conveyor{
+	id = "Toxin";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -41837,11 +41545,10 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/conveyor/north{
-	id = "N2O"
+/obj/machinery/conveyor{
+	id = "N2O";
+	dir = 1
 	},
-/obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -42577,14 +42284,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
-"tBb" = (
-/obj/machinery/conveyor/south{
-	id = "CC_crate"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/supply)
 "tBf" = (
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak-broken3"
@@ -42613,12 +42312,9 @@
 /turf/simulated/floor/shuttle,
 /area/shuttle/pod_3)
 "tBG" = (
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide{
-	maximum_pressure = 50000
-	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/conveyor/north{
-	id = "CO2"
+/obj/machinery/conveyor{
+	id = "CC_crate";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -48390,51 +48086,6 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
-"vZg" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide{
-	maximum_pressure = 50000
-	},
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide{
-	maximum_pressure = 50000
-	},
-/obj/machinery/conveyor/north{
-	id = "CO2"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/supply)
 "vZr" = (
 /obj/machinery/light,
 /obj/structure/chair/comfy/shuttle{
@@ -51065,8 +50716,9 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/conveyor/north{
-	id = "Air"
+/obj/machinery/conveyor{
+	id = "Air";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -106383,7 +106035,7 @@ kCf
 afP
 afP
 esb
-tBb
+rzx
 oDS
 pzN
 kRE
@@ -106641,7 +106293,7 @@ afP
 afP
 afP
 afP
-rzx
+tBG
 gbo
 xhN
 afP
@@ -106898,7 +106550,7 @@ fID
 fID
 fID
 afP
-rzx
+tBG
 pzN
 kRE
 ecV
@@ -107155,7 +106807,7 @@ fID
 fID
 fID
 ecV
-rzx
+tBG
 gbo
 xhN
 ecV
@@ -107412,7 +107064,7 @@ fID
 fID
 fID
 ecV
-rzx
+tBG
 pzN
 kRE
 ecV
@@ -107669,7 +107321,7 @@ fID
 fID
 fID
 afP
-rzx
+tBG
 gbo
 xhN
 ecV
@@ -108447,10 +108099,10 @@ jVq
 gFx
 xjM
 xjM
-lHZ
-lHZ
-lHZ
-oxQ
+xjM
+xjM
+xjM
+xjM
 nAN
 mZo
 mZo
@@ -108704,10 +108356,10 @@ xOy
 gFx
 psK
 psn
-rvJ
-rvJ
-rvJ
-pgN
+psn
+psn
+psn
+psn
 nAN
 mZo
 mZo
@@ -108961,10 +108613,10 @@ oUw
 gFx
 jHF
 jHF
-phe
 rNf
-phe
-iUO
+rNf
+rNf
+rNf
 nAN
 mXf
 mZo
@@ -109221,7 +108873,7 @@ sgW
 sgW
 sgW
 sgW
-asK
+sgW
 nAN
 mZo
 mZo
@@ -109476,9 +109128,9 @@ gFx
 qjA
 qjA
 tlp
-mwS
-mwS
-hEq
+tlp
+tlp
+tlp
 nAN
 mZo
 mZo
@@ -109733,9 +109385,9 @@ gFx
 aLo
 quA
 quA
-tBG
 quA
-vZg
+quA
+quA
 nAN
 mZo
 mZo
