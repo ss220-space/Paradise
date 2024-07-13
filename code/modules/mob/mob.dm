@@ -33,7 +33,8 @@
 	. = ..()
 	update_config_movespeed()
 	update_movespeed()
-	ADD_TRAIT(src, TRAIT_CAN_STRIP, GENERIC_TRAIT)
+	if(can_strip())
+		ADD_TRAIT(src, TRAIT_CAN_STRIP, GENERIC_TRAIT)
 
 /mob/vv_edit_var(var_name, var_value)
 	switch(var_name)
@@ -1119,6 +1120,9 @@
 /mob/proc/can_resist()
 	return FALSE		//overridden in living.dm
 
+///Can this mob use strip menu (defaut TRUE)
+/mob/proc/can_strip()
+	return TRUE
 
 ///Spin this mob around it's central axis
 /mob/proc/spin(spintime, speed)

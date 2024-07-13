@@ -112,13 +112,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	var/list/all_eyes = list()
 
-/mob/living/silicon/ai/Initialize(mapload)
-	. = ..()
-	REMOVE_TRAIT(src, TRAIT_CAN_STRIP, GENERIC_TRAIT)
-
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	verbs |= GLOB.ai_verbs_default
 	verbs |= silicon_subsystems
+
+/mob/living/silicon/ai/can_strip()
+	return FALSE
 
 /mob/living/silicon/ai/proc/remove_ai_verbs()
 	verbs -= GLOB.ai_verbs_default

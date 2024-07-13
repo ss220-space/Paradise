@@ -35,7 +35,7 @@ GLOBAL_LIST_INIT(strippable_muhtar_items, create_strippable_list(list(
 	if(!istype(dog_source))
 		return
 
-	INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, put_in_hands), dog_source.inventory_head)
+	user.put_in_hands(dog_source.inventory_head)
 	dog_source.inventory_head = null
 	dog_source.update_dog_fluff()
 	dog_source.update_appearance(UPDATE_OVERLAYS)
@@ -56,7 +56,7 @@ GLOBAL_LIST_INIT(strippable_muhtar_items, create_strippable_list(list(
 		return FALSE
 
 	if(!istype(equipping, /obj/item/clothing/accessory/petcollar))
-		to_chat(user, "<span class='warning'>That's not a collar.</span>")
+		to_chat(user, span_warning("That's not a collar."))
 		return FALSE
 
 	return TRUE
@@ -66,14 +66,14 @@ GLOBAL_LIST_INIT(strippable_muhtar_items, create_strippable_list(list(
 	if(!istype(pet_source))
 		return
 
-	INVOKE_ASYNC(source, TYPE_PROC_REF(/mob/living/simple_animal, add_collar), equipping, user)
+	pet_source.add_collar(equipping, user)
 
 /datum/strippable_item/pet_collar/finish_unequip(atom/source, mob/user)
 	var/mob/living/simple_animal/pet_source = source
 	if(!istype(pet_source))
 		return
 
-	INVOKE_ASYNC(pet_source, TYPE_PROC_REF(/mob/living/simple_animal, remove_collar), user.drop_location(), user)
+	pet_source.remove_collar(user.drop_location(), user)
 
 
 /datum/strippable_item/dog_back
@@ -92,12 +92,12 @@ GLOBAL_LIST_INIT(strippable_muhtar_items, create_strippable_list(list(
 		return
 	if(!ispath(equipping.dog_fashion, /datum/dog_fashion/back))
 		var/mob/living/simple_animal/pet/dog/dog = source
-		to_chat(user, "<span class='warning'>You set [equipping] on [source]'s back, but it falls off!</span>")
-		INVOKE_ASYNC(equipping, TYPE_PROC_REF(/atom/movable, forceMove), source.drop_location())
+		to_chat(user, span_warning("You set [equipping] on [source]'s back, but it falls off!"))
+		equipping.forceMove(source.drop_location())
 		if(prob(25))
 			step_rand(equipping)
 		var/old_dir = dog.dir
-		dog.spin(7, 1)
+		INVOKE_ASYNC(dog, TYPE_PROC_REF(/mob/, spin), 7, 1)
 		dog.setDir(old_dir)
 		return
 
@@ -138,10 +138,10 @@ GLOBAL_LIST_INIT(strippable_muhtar_items, create_strippable_list(list(
 		if(prob(25))
 			step_rand(equipping)
 		var/old_dir = dog_source.dir
-		dog_source.spin(7, 1)
+		INVOKE_ASYNC(dog_source, TYPE_PROC_REF(/mob/, spin), 7, 1)
 		dog_source.setDir(old_dir)
 
-	INVOKE_ASYNC(equipping, TYPE_PROC_REF(/atom/movable, forceMove), dog_source)
+	equipping.forceMove(dog_source)
 	dog_source.inventory_mask = equipping
 	dog_source.update_dog_fluff()
 	dog_source.regenerate_icons()
@@ -151,7 +151,7 @@ GLOBAL_LIST_INIT(strippable_muhtar_items, create_strippable_list(list(
 	if(!istype(dog_source))
 		return
 
-	INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, put_in_hands), dog_source.inventory_mask)
+	user.put_in_hands(dog_source.inventory_mask)
 	dog_source.inventory_mask = null
 	dog_source.update_dog_fluff()
 	dog_source.regenerate_icons()

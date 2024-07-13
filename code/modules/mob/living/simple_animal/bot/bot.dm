@@ -223,7 +223,6 @@
 		path_hud.add_to_hud(src)
 		path_hud.add_hud_to(src)
 
-	REMOVE_TRAIT(src, TRAIT_CAN_STRIP, GENERIC_TRAIT)
 
 
 /mob/living/simple_animal/bot/proc/add_bot_filter()
@@ -231,6 +230,8 @@
 		return
 	SSradio.add_object(bot_core, control_freq, bot_filter)
 
+/mob/living/simple_animal/bot/can_strip()
+	return FALSE
 
 /mob/living/simple_animal/bot/med_hud_set_health()
 	return diag_hud_set_bothealth() //we use a different hud

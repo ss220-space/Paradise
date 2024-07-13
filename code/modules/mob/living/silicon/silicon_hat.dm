@@ -13,14 +13,14 @@
 	if(!istype(borg_source))
 		return
 
-	INVOKE_ASYNC(source, TYPE_PROC_REF(/mob/living/silicon, place_on_head), equipping, user)
+	borg_source.place_on_head(equipping, user)
 
 /datum/strippable_item/borg_head/finish_unequip(atom/source, mob/user)
 	var/mob/living/silicon/borg_source = source
 	if(!istype(borg_source))
 		return
 
-	INVOKE_ASYNC(source, TYPE_PROC_REF(/mob/living/silicon, remove_from_head), user)
+	borg_source.remove_from_head(user)
 
 /mob/living/silicon
 	var/obj/item/inventory_head
