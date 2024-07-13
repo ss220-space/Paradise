@@ -158,7 +158,8 @@
 	if(!iscarbon(source))
 		return FALSE
 
-	source.put_in_hand(equipping, which_hand)
+	var/mob/mob_source = source
+	mob_source.put_in_hand(equipping, which_hand)
 
 /datum/strippable_item/hand/finish_unequip(atom/source, mob/user)
 	var/obj/item/item = get_item(source)
