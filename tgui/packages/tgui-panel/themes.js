@@ -10,26 +10,51 @@ const COLOR_DARK_BG = '#212020';
 const COLOR_DARK_BG_DARKER = '#131313';
 const COLOR_DARK_BG_BUTTON = '#4C4C4D';
 const COLOR_DARK_TEXT = '#A4BAD6';
+const COLOR_DARK_HIGHLIGHT = '#009900';
+const COLOR_DARK_INFO_BG = '#202020';
+const COLOR_DARK_INFO_TEXT = '#a4bad6';
+const COLOR_DARK_INFO_TAB_TEXT = '#a4bad6';
+const COLOR_DARK_INFO_TAB_BG_COLOR = '#202020';
 
 const COLOR_LIGHT_BG = '#EFEEEE';
 const COLOR_LIGHT_BG_LIGHTER = '#FFFFFF';
 const COLOR_LIGHT_BUTTON = '#EEEEEE';
 const COLOR_LIGHT_TEXT = '#000000';
+const COLOR_LIGHT_HIGHLIGHT = '#009900';
+const COLOR_LIGHT_INFO_BG = '#EFEEEE';
+const COLOR_LIGHT_INFO_TEXT = '#000000';
+const COLOR_LIGHT_INFO_TAB_TEXT = '#000000';
+const COLOR_LIGHT_INFO_TAB_BG_COLOR = 'none';
 
 const COLOR_NTOS_BG = '#1b2633';
 const COLOR_NTOS_BG_DARKER = '#121922';
 const COLOR_NTOS_BUTTON = '#384e68';
 const COLOR_NTOS_TEXT = '#b8cbe6';
+const COLOR_NTOS_HIGHLIGHT = '#009900';
+const COLOR_NTOS_INFO_BG = '#1b2633';
+const COLOR_NTOS_INFO_TEXT = '#a4bad6';
+const COLOR_NTOS_INFO_TAB_TEXT = '#a4bad6';
+const COLOR_NTOS_INFO_TAB_BG_COLOR = '#202020';
 
 const COLOR_SYNDICATE_BG = '#4d0202';
 const COLOR_SYNDICATE_BG_DARKER = '#2b0101';
 const COLOR_SYNDICATE_BUTTON = '#397439';
 const COLOR_SYNDICATE_TEXT = '#ffffff';
+const COLOR_SYNDICATE_HIGHLIGHT = '#009900';
+const COLOR_SYNDICATE_INFO_BG = '#2b0101';
+const COLOR_SYNDICATE_INFO_TEXT = '#9fc6ec';
+const COLOR_SYNDICATE_INFO_TAB_TEXT = '#9fc6ec';
+const COLOR_SYNDICATE_INFO_TAB_BG_COLOR = '#202020';
 
 const COLOR_PARADISE_BG = '#800448';
 const COLOR_PARADISE_BG_DARKER = '#400125';
 const COLOR_PARADISE_BUTTON = '#208080';
 const COLOR_PARADISE_TEXT = '#ffffff';
+const COLOR_PARADISE_HIGHLIGHT = '#009900';
+const COLOR_PARADISE_INFO_BG = '#400224';
+const COLOR_PARADISE_INFO_TEXT = '#abc6ec';
+const COLOR_PARADISE_INFO_TAB_TEXT = '#abc6ec';
+const COLOR_PARADISE_INFO_TAB_BG_COLOR = '#202020';
 
 let setClientThemeTimer = null;
 
@@ -80,6 +105,11 @@ export const setClientTheme = (name) => {
       /* Infowindow */
       'infowindow.background-color': COLOR_LIGHT_BG,
       'infowindow.text-color': COLOR_LIGHT_TEXT,
+      'infowindow.info.background-color': COLOR_LIGHT_INFO_BG,
+      'infowindow.info.text-color': COLOR_LIGHT_TEXT,
+      'infowindow.info.highlight-color': COLOR_LIGHT_HIGHLIGHT,
+      'infowindow.info.tab-background-color': COLOR_LIGHT_INFO_TAB_BG_COLOR,
+      'infowindow.info.tab-text-color': COLOR_LIGHT_INFO_TAB_TEXT,
       // Say, OOC, me Buttons etc.
       'saybutton.background-color': COLOR_LIGHT_BG,
       'saybutton.text-color': COLOR_LIGHT_TEXT,
@@ -125,6 +155,12 @@ export const setClientTheme = (name) => {
       /* Infowindow */
       'infowindow.background-color': COLOR_DARK_BG,
       'infowindow.text-color': COLOR_DARK_TEXT,
+      'infowindow.info.background-color': COLOR_DARK_INFO_BG,
+      'infowindow.info.text-color': COLOR_DARK_INFO_TEXT,
+      'infowindow.info.highlight-color': COLOR_DARK_HIGHLIGHT,
+      'infowindow.info.tab-background-color': COLOR_DARK_INFO_TAB_BG_COLOR,
+      'infowindow.info.tab-text-color': COLOR_DARK_INFO_TAB_TEXT,
+
       // Say, OOC, me Buttons etc.
       'saybutton.background-color': COLOR_DARK_BG_DARKER,
       'saybutton.text-color': COLOR_DARK_TEXT,
@@ -170,6 +206,11 @@ export const setClientTheme = (name) => {
       /* Infowindow */
       'infowindow.background-color': COLOR_NTOS_BG,
       'infowindow.text-color': COLOR_NTOS_TEXT,
+      'infowindow.info.background-color': COLOR_NTOS_INFO_BG,
+      'infowindow.info.text-color': COLOR_NTOS_INFO_TEXT,
+      'infowindow.info.highlight-color': COLOR_NTOS_HIGHLIGHT,
+      'infowindow.info.tab-background-color': COLOR_NTOS_INFO_TAB_BG_COLOR,
+      'infowindow.info.tab-text-color': COLOR_NTOS_INFO_TAB_TEXT,
       // Say, OOC, me Buttons etc.
       'saybutton.background-color': COLOR_NTOS_BG,
       'saybutton.text-color': COLOR_NTOS_TEXT,
@@ -215,6 +256,11 @@ export const setClientTheme = (name) => {
       /* Infowindow */
       'infowindow.background-color': COLOR_SYNDICATE_BG,
       'infowindow.text-color': COLOR_SYNDICATE_TEXT,
+      'infowindow.info.background-color': COLOR_SYNDICATE_INFO_BG,
+      'infowindow.info.text-color': COLOR_SYNDICATE_INFO_TEXT,
+      'infowindow.info.highlight-color': COLOR_SYNDICATE_HIGHLIGHT,
+      'infowindow.info.tab-background-color': COLOR_SYNDICATE_INFO_TAB_BG_COLOR,
+      'infowindow.info.tab-text-color': COLOR_SYNDICATE_INFO_TAB_TEXT,
       // Say, OOC, me Buttons etc.
       'saybutton.background-color': COLOR_SYNDICATE_BG,
       'saybutton.text-color': COLOR_SYNDICATE_TEXT,
@@ -260,6 +306,11 @@ export const setClientTheme = (name) => {
       /* Infowindow */
       'infowindow.background-color': COLOR_PARADISE_BG,
       'infowindow.text-color': COLOR_PARADISE_TEXT,
+      'infowindow.info.background-color': COLOR_PARADISE_INFO_BG,
+      'infowindow.info.text-color': COLOR_PARADISE_INFO_TEXT,
+      'infowindow.info.highlight-color': COLOR_PARADISE_HIGHLIGHT,
+      'infowindow.info.tab-background-color': COLOR_PARADISE_INFO_TAB_BG_COLOR,
+      'infowindow.info.tab-text-color': COLOR_PARADISE_INFO_TAB_TEXT,
       // Say, OOC, me Buttons etc.
       'saybutton.background-color': COLOR_PARADISE_BG,
       'saybutton.text-color': COLOR_PARADISE_TEXT,
