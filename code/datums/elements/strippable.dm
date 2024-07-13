@@ -1,3 +1,6 @@
+#define SHOW_MINIATURE_MENU 0
+#define SHOW_FULLSIZE_MENU 1
+
 /// An element for atoms that, when dragged and dropped onto a mob, opens a strip panel.
 /datum/element/strippable
 	element_flags = ELEMENT_BESPOKE | ELEMENT_DETACH_ON_HOST_DESTROY
@@ -60,7 +63,7 @@
 /// It should not perform the equipping itself.
 /datum/strippable_item/proc/try_equip(atom/source, obj/item/equipping, mob/user)
 	if(HAS_TRAIT(equipping, TRAIT_NODROP) )
-		to_chat(user, "<span class='warning'>You can't put [equipping] on [source], it's stuck to your hand!")
+		to_chat(user, span_warning("You can't put [equipping] on [source], it's stuck to your hand!"))
 		return FALSE
 
 	if(equipping.item_flags & ABSTRACT)
@@ -72,13 +75,13 @@
 /// Returns TRUE/FALSE depending on if it is allowed.
 /datum/strippable_item/proc/start_equip(atom/source, obj/item/equipping, mob/user)
 	source.visible_message(
-		"<span class='notice'>[user] tries to put [equipping] on [source].",
-		"<span class='notice'>[user] tries to put [equipping] on you.",
+		span_notice("[user] tries to put [equipping] on [source]."),
+		span_notice("[user] tries to put [equipping] on you."),
 	)
 	if(ishuman(source))
 		var/mob/living/carbon/human/victim_human = source
 		if(!victim_human.has_vision())
-			to_chat(victim_human, "<span class='userdanger'>You feel someone trying to put something on you.")
+			to_chat(victim_human, span_userdanger("You feel someone trying to put something on you."))
 
 	if(!do_after(user, equipping.put_on_delay, source))
 		return FALSE
@@ -118,11 +121,12 @@
 	if(isnull(item))
 		return FALSE
 
-	source.visible_message(
-		span_warning("[user] tries to remove [source]'s [item.name]."),
-		span_userdanger("[user] tries to remove your [item.name]."),
-		"You hear rustling."
-	)
+	if(!in_thief_mode(user))
+		source.visible_message(
+			span_warning("[user] tries to remove [source]'s [item.name]."),
+			span_userdanger("[user] tries to remove your [item.name]."),
+			"You hear rustling."
+		)
 
 	to_chat(user, span_danger("You try to remove [source]'s [item.name]..."))
 	add_attack_logs(user, source, "Attempting stripping of [item]")
@@ -241,7 +245,12 @@
 	if(!ismob(source))
 		return FALSE
 
-	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(finish_unequip_mob), item, source, user)
+	var/thief = in_thief_mode(user)
+
+	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(finish_unequip_mob), item, source, user, thief)
+
+	if(thief)
+		INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, put_in_hands), item, FALSE, FALSE, TRUE, TRUE, TRUE)
 
 /// Returns the delay of equipping this item to a mob
 /datum/strippable_item/mob_item_slot/proc/get_equip_delay(obj/item/equipping)
@@ -257,8 +266,8 @@
 	return TRUE
 
 /// A utility function for `/datum/strippable_item`s to finish unequipping an item from a mob.
-/proc/finish_unequip_mob(obj/item/item, mob/source, mob/user)
-	if(!source.drop_item_ground(item))
+/proc/finish_unequip_mob(obj/item/item, mob/source, mob/user, silent)
+	if(!source.drop_item_ground(item, silent = silent))
 		return
 
 	add_attack_logs(user, source, "Stripping of [item]")
@@ -273,6 +282,9 @@
 
 	/// A lazy list of user mobs to a list of strip menu keys that they're interacting with
 	var/list/interactions
+
+	/// Associated list of "[icon][icon_state]" = base64 representation of icon. Used for PERFORMANCE.
+	var/static/list/base64_cache = list()
 
 /datum/strip_menu/New(atom/movable/owner, datum/element/strippable/strippable)
 	. = ..()
@@ -338,7 +350,10 @@
 
 		LAZYINITLIST(result)
 
-		result["icon"] = icon2base64(icon(item.icon, item.icon_state, dir = SOUTH, frame = 1, moving = FALSE))
+		var/key = "[item.icon],[item.icon_state]"
+		if(!(key in base64_cache))
+			base64_cache[key] = icon2base64(icon(item.icon, item.icon_state, dir = SOUTH, frame = 1, moving = FALSE))
+		result["icon"] = base64_cache[key]
 		result["name"] = item.name
 
 		var/real_alts = item_data.get_alternate_actions(owner, user)
@@ -361,6 +376,7 @@
 	// as opposed to "Stripping The alien drone".
 	// Human names will still show without "the", as they are proper nouns.
 	data["name"] = "\the [owner]"
+	data["show_mode"] = user.client.prefs.toggles2 & PREFTOGGLE_2_BIG_STRIP_MENU ? SHOW_FULLSIZE_MENU : SHOW_MINIATURE_MENU
 
 	return data
 
@@ -486,3 +502,6 @@
 		strippable_items[strippable_item.key] = strippable_item
 
 	return strippable_items
+
+#undef SHOW_MINIATURE_MENU
+#undef SHOW_FULLSIZE_MENU

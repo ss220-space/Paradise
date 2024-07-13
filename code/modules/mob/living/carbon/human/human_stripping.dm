@@ -177,12 +177,6 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 /datum/strippable_item/mob_item_slot/pocket/proc/warn_owner(atom/owner)
 	to_chat(owner, span_warning("You feel your [pocket_side] pocket being fumbled with!"))
 
-/datum/strippable_item/mob_item_slot/pocket/finish_unequip(atom/source, mob/user)
-	var/obj/item/item = get_item(source)
-	. = ..()
-	if(in_thief_mode(user))
-		INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, put_in_hands), item, FALSE, FALSE, TRUE, TRUE)
-
 /datum/strippable_item/mob_item_slot/pocket/left
 	key = STRIPPABLE_ITEM_LPOCKET
 	item_slot = ITEM_SLOT_POCKET_LEFT

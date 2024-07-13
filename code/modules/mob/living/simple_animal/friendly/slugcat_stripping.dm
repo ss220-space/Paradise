@@ -39,7 +39,7 @@ GLOBAL_LIST_INIT(strippable_slugcat_items, create_strippable_list(list(
 
 	return slugcat_source.inventory_hand
 
-/datum/strippable_item/slugcat_head/finish_equip(atom/source, obj/item/equipping, mob/user)
+/datum/strippable_item/slugcat_hand/finish_equip(atom/source, obj/item/equipping, mob/user)
 	var/mob/living/simple_animal/pet/slugcat/slugcat_source = source
 	if(!istype(slugcat_source))
 		return
