@@ -101,20 +101,24 @@
 
 /datum/species/shadow/proc/timer(mob/living/carbon/human/H, empowering = FALSE)
 	if(processing_state)
-		return FALSE
+		return 
 	processing_state = TRUE
 	if(empowering && do_after(H, TIME_TO_EMPOWER, H, ALL, progress = FALSE))
+		if(!light_check(H))
+			return
 		to_chat(H, span_revenbignotice("You feel empowered with darkness!"))
 		empowered = TRUE
 		processing_state = FALSE
-		return TRUE
+		return 
 	else if(do_after(H, TIME_TO_EXHAUST, H, ALL, progress = FALSE))
+		if(light_check(H))
+			return
 		to_chat(H, span_revenbignotice("You feel exhausted! Darkness no longer supports you!"))
 		empowered = FALSE
 		processing_state = FALSE
-		return TRUE
+		return 
 	processing_state = FALSE
-	return FALSE
+	return 
 
 /datum/species/shadow/proc/light_check(mob/living/carbon/human/H)
 	var/turf/T = get_turf(H)
@@ -130,7 +134,7 @@
 	var/mob/living/carbon/human/H = src
 	if(H.stat == DEAD)
 		..()
-	if(light_check(H) && empowered && prob(50))
+	if(empowered && prob(50))
 		return
 	..()
 
