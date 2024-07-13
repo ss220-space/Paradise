@@ -60,8 +60,10 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 		return
 	var/obj/item/clothing/accessory/A = jumpsuit.accessories[1]
 	if(!in_thief_mode(user))
-		user.visible_message("<span class='danger'>[user] starts to take off [A] from [source]'s [jumpsuit]!</span>", \
-							"<span class='danger'>You start to take off [A] from [source]'s [jumpsuit]!</span>")
+		user.visible_message(
+			span_danger("[user] starts to take off [A] from [source]'s [jumpsuit]!"), \
+			span_danger("You start to take off [A] from [source]'s [jumpsuit]!")
+			)
 
 	if(!do_after(user, POCKET_STRIP_DELAY, source))
 		return
@@ -69,8 +71,10 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 		return
 
 	if(!in_thief_mode(user))
-		user.visible_message("<span class='danger'>[user] takes [A] off of [source]'s [jumpsuit]!</span>", \
-							"<span class='danger'>You take [A] off of [source]'s [jumpsuit]!</span>")
+		user.visible_message(
+			span_danger("[user] takes [A] off of [source]'s [jumpsuit]!"), \
+			span_danger("You take [A] off of [source]'s [jumpsuit]!")
+			)
 	A.on_removed(user)
 	if(!user.put_in_hands(A, ignore_anim = FALSE))
 		A.forceMove_turf()
@@ -158,7 +162,7 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	if(isnull(item))
 		return FALSE
 
-	to_chat(user, "<span class='notice'>You try to empty [source]'s [pocket_side] pocket.</span>")
+	to_chat(user, span_notice("You try to empty [source]'s [pocket_side] pocket."))
 
 	add_attack_logs(user, source, "Attempting pickpocketing of [item]")
 	item.add_fingerprint(user)
@@ -171,13 +175,13 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	return result
 
 /datum/strippable_item/mob_item_slot/pocket/proc/warn_owner(atom/owner)
-	to_chat(owner, "<span class='warning'>You feel your [pocket_side] pocket being fumbled with!</span>")
+	to_chat(owner, span_warning("You feel your [pocket_side] pocket being fumbled with!"))
 
 /datum/strippable_item/mob_item_slot/pocket/finish_unequip(atom/source, mob/user)
 	var/obj/item/item = get_item(source)
 	. = ..()
 	if(in_thief_mode(user))
-		INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, put_in_hands), item)
+		INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, put_in_hands), item, FALSE, FALSE, TRUE, TRUE)
 
 /datum/strippable_item/mob_item_slot/pocket/left
 	key = STRIPPABLE_ITEM_LPOCKET
@@ -194,7 +198,7 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 		return
 
 	var/mob/living/carbon/carbon_source = source
-	if(carbon_source.can_breathe_internals() && istype(item, /obj/item/tank))
+	if(carbon_source.has_airtight_items() && istype(item, /obj/item/tank))
 		if(carbon_source.internal != item)
 			return "enable_internals"
 		else
@@ -209,12 +213,12 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	if(!istype(carbon_source))
 		return
 
-	if(!carbon_source.can_breathe_internals())
+	if(!carbon_source.has_airtight_items())
 		return
 
 	carbon_source.visible_message(
-		"<span class='danger'>[user] tries to [(carbon_source.internal != item) ? "open" : "close"] the valve on [source]'s [item.name].</span>",
-		"<span class='userdanger'>[user] tries to [(carbon_source.internal != item) ? "open" : "close"] the valve on your [item.name].</span>",
+		span_danger("[user] tries to [(carbon_source.internal != item) ? "open" : "close"] the valve on [source]'s [item.name]."),
+		span_userdanger("[user] tries to [(carbon_source.internal != item) ? "open" : "close"] the valve on your [item.name]."),
 	)
 
 	if(!do_after(user, INTERNALS_TOGGLE_DELAY, carbon_source))
@@ -228,8 +232,8 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	carbon_source.update_action_buttons_icon()
 
 	carbon_source.visible_message(
-		"<span class='danger'>[user] [isnull(carbon_source.internal) ? "closes": "opens"] the valve on [source]'s [item.name].</span>",
-		"<span class='userdanger'>[user] [isnull(carbon_source.internal) ? "closes": "opens"] the valve on your [item.name].</span>",
+		span_danger("[user] [isnull(carbon_source.internal) ? "closes": "opens"] the valve on [source]'s [item.name]."),
+		span_userdanger("[user] [isnull(carbon_source.internal) ? "closes": "opens"] the valve on your [item.name]."),
 	)
 
 
