@@ -333,6 +333,13 @@
 	check_ip_intel()
 	send_resources()
 
+	//PRE-TGUI STATPANEL EDIT START
+
+	if(prefs.toggles & PREFTOGGLE_UI_DARKMODE)
+		activate_darkmode()
+
+	//PRE-TGUI STATPANEL EDIT END
+
 	if(GLOB.changelog_hash && prefs.lastchangelog != GLOB.changelog_hash) //bolds the changelog button on the interface so we know there are updates.
 		to_chat(src, span_info("You have unread updates in the changelog."))
 		winset(src, "rpane.changelog", "font-style=bold")
@@ -839,6 +846,44 @@
 				message_admins("<span class='adminnotice'>[ADMIN_LOOKUP(src)] has been allowed to connect after appearing to have attempted to spoof a cid randomizer check because it <i>appears</i> they aren't spoofing one this time</span>")
 				cidcheck_spoofckeys -= ckey
 			cidcheck -= ckey
+
+//PRE-TGUI STATPANEL EDIT START
+
+/client/verb/toggle_darkmode()
+	set name = "Toggle Darkmode"
+	set category = "Preferences"
+	set desc = "Toggles UI style between dark and light"
+	prefs.toggles ^= PREFTOGGLE_UI_DARKMODE
+	prefs.save_preferences(src)
+	if(prefs.toggles & PREFTOGGLE_UI_DARKMODE)
+		activate_darkmode()
+	else
+		deactivate_darkmode()
+	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Darkmode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+
+/////////////////
+// DARKMODE UI //
+/////////////////
+/client/proc/activate_darkmode()
+	/* Infowindow */
+	winset(src, "infowindow", "background-color=#202020;text-color=#a4bad6")
+	winset(src, "infowindow.info", "background-color=#171717;text-color=#a4bad6;highlight-color=#009900;tab-text-color=#a4bad6;tab-background-color=#202020")
+
+
+	// NOTIFY USER
+	to_chat(src, "<span class='notice'>Darkmode Enabled</span>")
+
+/client/proc/deactivate_darkmode()
+	/* Infowindow */
+	winset(src, "infowindow", "background-color=none;text-color=#000000")
+	winset(src, "infowindow.info", "background-color=none;text-color=#000000;highlight-color=#007700;tab-text-color=#000000;tab-background-color=none")
+
+
+	///// NOTIFY USER /////
+	to_chat(src, "<span class='notice'>Darkmode Disabled</span>")
+
+//PRE-TGUI STATPANEL EDIT END
 
 /client/proc/note_randomizer_user()
 	var/const/adminckey = "CID-Error"
