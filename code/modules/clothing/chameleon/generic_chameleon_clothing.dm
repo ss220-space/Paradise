@@ -120,6 +120,9 @@ do { \
 	flash_protect = FLASH_PROTECTION_FLASH
 	actions_types = list(/datum/action/item_action/chameleon/change/glasses)
 
+/obj/item/clothing/glasses/chameleon/thermal/sunglasses
+	flash_protect = 1
+	tint = 1
 
 /obj/item/clothing/glasses/hud/security/chameleon/broken
 

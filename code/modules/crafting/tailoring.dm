@@ -258,6 +258,24 @@
 	reqs = list(/obj/item/clothing/glasses/thermal/sunglasses = 1)
 	category = CAT_CLOTHING
 
+/datum/crafting_recipe/hudsunchameleonthermal
+	name = "Сhameleon Thermal HUDsunglasses"
+	result = /obj/item/clothing/glasses/chameleon/thermal/sunglasses
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/chameleon/thermal = 1,
+				  /obj/item/clothing/glasses/sunglasses = 1,
+				  /obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/hudsunchameleonthermalremoval
+	name = "Сhameleon Thermal HUD removal"
+	result = /obj/item/clothing/glasses/sunglasses
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/chameleon/thermal/sunglasses = 1)
+	category = CAT_CLOTHING
+
 /datum/crafting_recipe/beergoggles
 	name = "Beer Goggles"
 	result = /obj/item/clothing/glasses/sunglasses/reagent
