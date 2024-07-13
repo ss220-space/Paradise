@@ -141,6 +141,8 @@
 /obj/structure/lattice/catwalk/clockwork
 	name = "clockwork catwalk"
 	icon = 'icons/obj/smooth_structures/catwalk_clockwork.dmi'
+	base_icon_state = "catwalk_clockwork"
+	icon_state = "catwalk_clockwork-0"
 	smooth = SMOOTH_BITMASK
 
 /obj/structure/lattice/catwalk/clockwork/Initialize(mapload)
@@ -182,11 +184,10 @@
 /obj/structure/lattice/catwalk/fireproof
 	name = "strong catwalk"
 	desc = "Усиленный мостик, способный выдерживать высокие температуры и сильные нагрузки."
-	icon_state = "catwalk"
 	armor = list("melee" = 70, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 80)
 	max_integrity = 150
 	icon = 'icons/obj/smooth_structures/strong_catwalk.dmi'
-	icon_state = "catwalk"
+	icon_state = "catwalk-0"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	number_of_rods = 3
 	give_turf_traits = list(TRAIT_LAVA_STOPPED, TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN)

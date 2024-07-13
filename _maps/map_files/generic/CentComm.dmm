@@ -1286,10 +1286,11 @@
 	},
 /area/centcom/jail)
 "ayt" = (
-/obj/machinery/conveyor/west{
-	id = "SFBQMLoad"
-	},
 /obj/machinery/syndiepad/receivepad,
+/obj/machinery/conveyor{
+	id = "SFBQMLoad";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -5818,7 +5819,8 @@
 /area/centcom/zone2)
 "cKU" = (
 /obj/machinery/conveyor_switch/oneway{
-	id = "SFBQMLoad2"
+	id = "SFBQMLoad2";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -13125,14 +13127,18 @@
 	},
 /area/centcom/zone2)
 "goa" = (
-/obj/machinery/conveyor/west{
+/obj/machinery/conveyor{
 	id = "SFBQMLoad"
 	},
-/obj/machinery/conveyor/east{
-	id = "SFBQMLoad"
+/obj/machinery/conveyor{
+	id = "SFBQMLoad";
+	dir = 8;
+	layer = 2.494
 	},
-/obj/machinery/conveyor/south{
-	id = "SFBQMLoad"
+/obj/machinery/conveyor{
+	id = "SFBQMLoad";
+	dir = 4;
+	layer = 2.494
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -16040,8 +16046,9 @@
 	},
 /area/centcom/specops)
 "hTK" = (
-/obj/machinery/conveyor/east{
-	id = "SFBQMLoad2"
+/obj/machinery/conveyor{
+	id = "SFBQMLoad2";
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -19030,8 +19037,9 @@
 	},
 /area/syndicate_mothership/outside)
 "jsa" = (
-/obj/machinery/conveyor/west{
-	id = "SFBQMLoad2"
+/obj/machinery/conveyor/inverted{
+	id = "SFBQMLoad2";
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -23217,10 +23225,11 @@
 	},
 /area/centcom/evac)
 "lmr" = (
-/obj/machinery/conveyor/south{
-	id = "SFBQMLoad"
-	},
 /obj/machinery/syndiepad/receivepad,
+/obj/machinery/conveyor/inverted{
+	id = "SFBQMLoad";
+	dir = 5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -26030,6 +26039,14 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"mzr" = (
+/obj/machinery/conveyor{
+	id = "SFBQMLoad"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
+/area/syndicate_mothership/cargo)
 "mzs" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -28413,8 +28430,9 @@
 /area/syndicate_mothership)
 "nre" = (
 /obj/structure/plasticflaps/mining,
-/obj/machinery/conveyor/west{
-	id = "QMLoad2"
+/obj/machinery/conveyor{
+	id = "QMLoad2";
+	dir = 8
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/supply)
@@ -28527,7 +28545,8 @@
 /area/centcom/specops)
 "nsV" = (
 /obj/machinery/conveyor_switch/oneway{
-	id = "SFBQMLoad2"
+	id = "SFBQMLoad2";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowcornersalt"
@@ -29757,11 +29776,11 @@
 	},
 /area/centcom/jail)
 "nSo" = (
-/obj/machinery/conveyor/south{
-	id = "SFBQMLoad"
-	},
 /obj/structure/plasticflaps/mining{
 	color = "red"
+	},
+/obj/machinery/conveyor{
+	id = "SFBQMLoad"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -29809,8 +29828,9 @@
 /area/centcom/evac)
 "nUe" = (
 /obj/structure/plasticflaps/mining,
-/obj/machinery/conveyor/east{
-	id = "QMLoad"
+/obj/machinery/conveyor{
+	id = "QMLoad";
+	dir = 4
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/supply)
@@ -30530,11 +30550,12 @@
 	},
 /area/ninja/outpost)
 "oiH" = (
-/obj/machinery/conveyor/north{
-	id = "SFBQMLoad2"
-	},
 /obj/structure/plasticflaps/mining{
 	color = "red"
+	},
+/obj/machinery/conveyor{
+	id = "SFBQMLoad2";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -30610,6 +30631,17 @@
 	name = "floor"
 	},
 /area/syndicate_mothership/elite_squad)
+"olk" = (
+/obj/machinery/syndiepad/loadpad,
+/obj/machinery/conveyor/inverted{
+	id = "SFBQMLoad2";
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/cargo)
 "olG" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
@@ -34314,10 +34346,11 @@
 	},
 /area/shuttle/escape)
 "pST" = (
-/obj/machinery/conveyor/west{
-	id = "SFBQMLoad2"
-	},
 /obj/machinery/syndiepad/loadpad,
+/obj/machinery/conveyor{
+	id = "SFBQMLoad2";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -41721,8 +41754,9 @@
 	},
 /area/shuttle/syndicate_sit)
 "tjx" = (
-/obj/machinery/conveyor/south{
-	id = "SFBQMLoad"
+/obj/machinery/conveyor/inverted{
+	id = "SFBQMLoad";
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -45459,6 +45493,15 @@
 /obj/structure/bookcase/random,
 /turf/simulated/floor/carpet,
 /area/centcom/zone1)
+"uMD" = (
+/obj/machinery/conveyor{
+	id = "SFBQMLoad";
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
+/area/syndicate_mothership/cargo)
 "uMQ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -45548,8 +45591,9 @@
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
 "uNG" = (
-/obj/machinery/conveyor/north{
-	id = "SFBQMLoad2"
+/obj/machinery/conveyor{
+	id = "SFBQMLoad2";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -54951,7 +54995,7 @@ ciV
 ciV
 ciV
 tjx
-tjx
+mzr
 vWC
 sAE
 ciV
@@ -55464,8 +55508,8 @@ wyh
 bOk
 ayt
 ciV
-tjx
-tjx
+uMD
+mzr
 vWC
 dYO
 vVk
@@ -58803,7 +58847,7 @@ uSq
 uSq
 ciV
 tEB
-pST
+olk
 oiH
 uNG
 uNG
