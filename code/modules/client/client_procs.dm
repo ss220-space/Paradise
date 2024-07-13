@@ -411,16 +411,20 @@
 	if(holder)
 		holder.owner = null
 		GLOB.admins -= src
+
 	GLOB.directory -= ckey
 	GLOB.clients -= src
 	if(movingmob)
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
-	SSambience.ambience_listening_clients -= src
+	SSambience.remove_ambience_client(src)
 	SSinput.processing -= src
 	SSping.currentrun -= src
-	Master.UpdateTickRate()
+	QDEL_LIST(parallax_layers_cached)
+	QDEL_NULL(void)
+	parallax_layers = null
 	seen_messages = null
+	Master.UpdateTickRate()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
 

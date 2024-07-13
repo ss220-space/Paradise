@@ -6167,9 +6167,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/brown,
-/obj/machinery/conveyor/east{
-	id = "bruh"
-	},
 /obj/structure/window/reinforced{
 	color = "red";
 	dir = 1;
@@ -6181,6 +6178,10 @@
 	icon_state = "left";
 	name = "Danger: Conveyor Access";
 	req_access = list(150)
+	},
+/obj/machinery/conveyor{
+	id = "bruh";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -10969,8 +10970,9 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "jZL" = (
 /obj/structure/closet/crate,
-/obj/machinery/conveyor/east{
-	id = "SQMLoad"
+/obj/machinery/conveyor{
+	id = "SQMLoad";
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo)
@@ -14319,10 +14321,11 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "mSw" = (
-/obj/machinery/conveyor/north{
-	id = "SQMLoad"
-	},
 /obj/machinery/syndiepad/loadpad,
+/obj/machinery/conveyor{
+	id = "SQMLoad";
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "mTg" = (
@@ -18677,8 +18680,9 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/central)
 "qeh" = (
-/obj/machinery/conveyor/east{
-	id = "SQMLoad"
+/obj/machinery/conveyor{
+	id = "SQMLoad";
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo)
@@ -26364,10 +26368,6 @@
 /area/syndicate/unpowered/syndicate_space_base/cargo/storage)
 "vHK" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/conveyor/west{
-	id = "SQMLoad2";
-	level = 1
-	},
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
@@ -26384,12 +26384,14 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo/storage)
 "vIh" = (
-/obj/machinery/conveyor/north{
-	id = "SQMLoad2"
-	},
-/obj/machinery/conveyor/west{
+/obj/machinery/conveyor{
 	id = "SQMLoad2";
-	level = 1
+	dir = 1
+	},
+/obj/machinery/conveyor{
+	id = "SQMLoad2";
+	dir = 8;
+	layer = 2.494
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo/storage)
@@ -26875,10 +26877,6 @@
 /area/syndicate/unpowered/syndicate_space_base/cargo/storage)
 "wgk" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/conveyor/west{
-	id = "SQMLoad2";
-	level = 1
-	},
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
@@ -27410,16 +27408,13 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/rnd/genetics)
 "wwr" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/conveyor/west{
-	id = "SQMLoad2";
-	level = 1
+/obj/machinery/syndiepad/loadpad,
+/obj/machinery/conveyor/inverted{
+	id = "SQMLoad";
+	dir = 10
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate/unpowered/syndicate_space_base/cargo/storage)
+/turf/simulated/floor/plating,
+/area/syndicate/unpowered/syndicate_space_base/cargo)
 "wwu" = (
 /obj/structure/cable,
 /obj/structure/grille,
@@ -28548,10 +28543,6 @@
 /area/ruin/unpowered)
 "xds" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/conveyor/west{
-	id = "SQMLoad2";
-	level = 1
-	},
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
@@ -28834,10 +28825,11 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo/storage)
 "xpu" = (
-/obj/machinery/conveyor/north{
-	id = "SQMLoad2"
-	},
 /obj/structure/plasticflaps/mining,
+/obj/machinery/conveyor{
+	id = "SQMLoad2";
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo/storage)
 "xpH" = (
@@ -29116,27 +29108,30 @@
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "xyq" = (
 /obj/machinery/conveyor{
-	dir = 5;
-	id = "SQMLoad2"
+	id = "SQMLoad2";
+	dir = 5
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "xyw" = (
-/obj/machinery/conveyor/east{
-	id = "SQMLoad2"
+/obj/machinery/conveyor{
+	id = "SQMLoad2";
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "xyz" = (
-/obj/machinery/conveyor/east{
-	id = "SQMLoad2"
-	},
 /obj/machinery/light/small,
+/obj/machinery/conveyor{
+	id = "SQMLoad2";
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "xyZ" = (
-/obj/machinery/conveyor/northeast/ccw{
-	id = "SQMLoad2"
+/obj/machinery/conveyor/inverted{
+	id = "SQMLoad2";
+	dir = 10
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo)
@@ -29440,10 +29435,11 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "xHf" = (
-/obj/machinery/conveyor/north{
-	id = "SQMLoad2"
-	},
 /obj/structure/plasticflaps/mining,
+/obj/machinery/conveyor{
+	id = "SQMLoad2";
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "xHx" = (
@@ -29534,11 +29530,12 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/armory/hall_middle)
 "xLQ" = (
-/obj/machinery/conveyor/east{
-	id = "SQMLoad"
-	},
 /obj/item/radio/intercom/syndicate{
 	pixel_y = -25
+	},
+/obj/machinery/conveyor{
+	id = "SQMLoad";
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo)
@@ -29808,10 +29805,11 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "xUq" = (
-/obj/machinery/conveyor/north{
-	id = "SQMLoad2"
-	},
 /obj/machinery/syndiepad/receivepad,
+/obj/machinery/conveyor{
+	id = "SQMLoad2";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -30205,10 +30203,11 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "yhV" = (
-/obj/machinery/conveyor/north{
-	id = "SQMLoad2"
-	},
 /obj/machinery/syndiepad/receivepad,
+/obj/machinery/conveyor{
+	id = "SQMLoad2";
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "yhY" = (
@@ -69774,7 +69773,7 @@ xkS
 mSw
 mSw
 mSw
-mSw
+wwr
 rXX
 xKQ
 daa
@@ -70531,8 +70530,8 @@ uEO
 phR
 vHK
 wgk
-wwr
-wwr
+wHY
+wHY
 xds
 vEL
 xyw
