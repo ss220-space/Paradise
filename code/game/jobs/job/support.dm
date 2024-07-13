@@ -14,7 +14,7 @@
 	min_age_allowed = 30
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_CREW
-	alt_titles = list("Chief Supply Manager")
+	alt_titles = list("Главный Менеджер по Снабжению")
 	money_factor = 6
 	outfit = /datum/outfit/job/qm
 
@@ -49,7 +49,7 @@
 	selection_color = "#e2dbc8"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
-	alt_titles = list("Supply Manager","Loader")
+	alt_titles = list("Менеджер по Снабжению","Перегрузчик")
 	money_factor = 2
 	outfit = /datum/outfit/job/cargo_tech
 
@@ -77,7 +77,7 @@
 	selection_color = "#e2dbc8"
 	access = list(ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MINING, ACCESS_MINT, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
-	alt_titles = list("Spelunker")
+	alt_titles = list("Спелеолог")
 	money_factor = 3
 	outfit = /datum/outfit/job/mining
 
@@ -141,7 +141,7 @@
 	selection_color = "#d1e8d3"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_BAR, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
-	alt_titles = list("Barman","Barkeeper","Drink Artist")
+	alt_titles = list("Трактирщик","Бариста","Мастер Коктейлей")
 	money_factor = 2
 	outfit = /datum/outfit/job/bartender
 
@@ -180,7 +180,7 @@
 	selection_color = "#d1e8d3"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
 	minimal_access = list(ACCESS_KITCHEN)
-	alt_titles = list("Cook","Culinary Artist","Butcher")
+	alt_titles = list("Шеф-повар","Кулинар","Мясник")
 	money_factor = 2
 	outfit = /datum/outfit/job/chef
 
@@ -229,7 +229,7 @@
 	selection_color = "#d1e8d3"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
 	minimal_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE)
-	alt_titles = list("Hydroponicist", "Botanical Researcher")
+	alt_titles = list("Гидропоник", "Ботанический Исследователь")
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
 	money_factor = 2
@@ -265,7 +265,7 @@
 	selection_color = "#d1e8d3"
 	access = list(ACCESS_CLOWN, ACCESS_THEATRE)
 	minimal_access = list(ACCESS_CLOWN, ACCESS_THEATRE)
-	alt_titles = list("Performance Artist","Comedian","Jester")
+	alt_titles = list("Художник-перформер","Комик","Шут")
 	money_factor = 2
 	outfit = /datum/outfit/job/clown
 
@@ -350,7 +350,7 @@
 	selection_color = "#d1e8d3"
 	access = list(ACCESS_MIME, ACCESS_THEATRE)
 	minimal_access = list(ACCESS_MIME, ACCESS_THEATRE)
-	alt_titles = list("Panthomimist")
+	alt_titles = list("Пантомимист")
 	money_factor = 2
 	outfit = /datum/outfit/job/mime
 
@@ -405,7 +405,7 @@
 	selection_color = "#d1e8d3"
 	access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Custodial Technician","Sanitation Technician")
+	alt_titles = list("Техник по Уборке","Санитарный Техник")
 	money_factor = 2
 	outfit = /datum/outfit/job/janitor
 
@@ -432,7 +432,7 @@
 	selection_color = "#d1e8d3"
 	access = list(ACCESS_LIBRARY)
 	minimal_access = list(ACCESS_LIBRARY)
-	alt_titles = list("Journalist")
+	alt_titles = list("Журналист")
 	money_factor = 2
 	outfit = /datum/outfit/job/librarian
 
@@ -460,7 +460,7 @@
 	supervisors = "the head of personnel"
 	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#d1e8d3"
-	alt_titles = list("Hair Stylist","Beautician")
+	alt_titles = list("Стилист по Волосам","Косметолог")
 	access = list()
 	minimal_access = list()
 	money_factor = 2
