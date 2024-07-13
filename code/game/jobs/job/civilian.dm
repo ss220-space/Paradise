@@ -9,7 +9,7 @@
 	selection_color = "#e6e6e6"
 	access = list()			//See /datum/job/assistant/get_access()
 	minimal_access = list()	//See /datum/job/assistant/get_access()
-	alt_titles = list("Tourist","Businessman","Trader","Assistant")
+	alt_titles = list("Tурист","Бизнесмен","Торговец","Ассистент")
 	random_money_factor = TRUE
 	outfit = /datum/outfit/job/assistant
 
