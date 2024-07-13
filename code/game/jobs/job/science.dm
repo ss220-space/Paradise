@@ -62,7 +62,7 @@
 	selection_color = "#e6d1f0"
 	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_XENOARCH, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_XENOARCH, ACCESS_MINERAL_STOREROOM)
-	alt_titles = list("Anomalist", "Plasma Researcher", "Xenobiologist", "Chemical Researcher")
+	alt_titles = list("Аномалист", "Исследователь Плазмы", "Ксенобиолог", "Химический Исследователь")
 	minimal_player_age = 3
 	exp_requirements = 600
 	exp_type = EXP_TYPE_SCIENCE
@@ -97,7 +97,7 @@
 	spawn_positions = 3
 	department_head = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST)
 	selection_color = "#e6d1f0"
-	alt_titles = list("Scientist Assistant", "Scientist Pregraduate", "Scientist Graduate", "Scientist Postgraduate", "Student Robotist")
+	alt_titles = list("Ассистент Ученого", "Ученый Предвыпускник", "Ученый Выпускник", "Ученый Аспирант", "Студент-робототехник")
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
 	exp_max	= 600
@@ -142,7 +142,7 @@
 	selection_color = "#e6d1f0"
 	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_TECH_STORAGE, ACCESS_MORGUE, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM) //As a job that handles so many corpses, it makes sense for them to have morgue access.
 	minimal_access = list(ACCESS_ROBOTICS, ACCESS_TECH_STORAGE, ACCESS_MORGUE, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM) //As a job that handles so many corpses, it makes sense for them to have morgue access.
-	alt_titles = list("Biomechanical Engineer","Mechatronic Engineer")
+	alt_titles = list("Инженер-биомеханик","Инженер-мехатроник")
 	minimal_player_age = 3
 	exp_requirements = 900
 	exp_type = EXP_TYPE_SCIENCE
