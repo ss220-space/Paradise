@@ -105,5 +105,68 @@
   - refactor: Washing Machine Rework (#5068)
   - refactor: Dominator Icon Updates Rework (#5075)
 '2024-07-10':
+  FanTik-Ratge:
+  - imageadd: grey clothes (#5305)
+  NuSanya:
+  - del: delete spai at syndicate base (#5307)
   Zwei:
   - bugfix: Fakedeath Removes Sleeping Overlay (#5403)
+  - bugfix: Correct Boolean Value (#5406)
+'2024-07-12':
+  Antoonij:
+  - add: loadout dyeable skirt (#5405)
+  - bugfix: Nettle now stings people without fingers being covered (#5386)
+  - bugfix: Fixed mind transfer potion on cortial borer (#5372)
+  - bugfix: Borg jobs are now showing correctly in announcements (#5328)
+  - add: Plasmaman now receive 15 units of plasma dust on bone fracture, plasma dust
+      now heals fractures with 1% chance (#5319)
+  - bugfix: bloodcult runes fix (#5335)
+  - bugfix: capulettium fakedeath (#5424)
+  Daeberdir:
+  - bugfix: Fixed conditions for flashing eyes, phosphorus ammo, flash stuns, fisual
+      flashes (#5308)
+  Den109G:
+  - bugfix: Change ninjas species separatly from applying antag datum (#5190)
+  NightDawnFox:
+  - bugfix: no more bursts in l6_saw (#5419)
+  PlayerUnknown14:
+  - balance: Lowered sugar overdose threshhold to 30 units, added new effects of overdosing
+      (#5348)
+  Renascitur:
+  - tweak: ERT implants for Centcom reps (#5425)
+  Rerik007:
+  - bugfix: You can now extract borers from head (#5273)
+  Vladisvell:
+  - refactor: Cleaned up smoothing icon states (#5420)
+  - bugfix: Plasma Reinforced windows no longer conduct heat (#5414)
+  Zwei:
+  - bugfix: BFL Chasm Interaction Fix (#5417)
+  dageavtobusnick:
+  - bugfix: fix incorrect shadowlings announcement threshold (#5355)
+  - bugfix: fix Re-incarnate and ninja name after cloning (#5354)
+  endipe:
+  - tweak: the cardboard/agent is now visible using sec t-ray (#5352)
+  - bugfix: Chemical reactions now generate real, visible vapor and smoke (#5223)
+'2024-07-13':
+  Vladisvell:
+  - bugfix: Returned decon sprites of reinforced wall (#5427)
+  - bugfix: Fixed emo textures for mappers (#5438)
+  - tweak: Improves SSevents and SSshuttles subsystems for lag prevention (#5437)
+  - tweak: /client/Destroy() tweaks, improved SSambience (#5436)
+  Zwei:
+  - unknown: Conveyors Rework (#5395)
+'2024-07-14':
+  Den109G:
+  - bugfix: BlueShield's gun now stores in cryo (#5333)
+  Rafnik02:
+  - add: His Grace now opens his mouth when he is hungry. (#5331)
+  Vladisvell:
+  - tweak: Disable disabling of hardware acceleration in sake of enabling hardware
+      acceleration (#5446)
+  - tweak: Global variables now always display lists in contracted state (#5439)
+  - bugfix: fixes table smoothing after unflipping (#5445)
+  dageavtobusnick:
+  - refactor: Blob gamemode+event fix and rework (#5312)
+  kukur:
+  - bugfix: AI PDA Messages Fix (#5431)
+  - unknown: robotic organ removal (#5430)
