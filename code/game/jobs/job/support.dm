@@ -6,7 +6,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_supply = 1
-	supervisors = "the captain"
+	supervisors = "капитаном"
 	department_head = list(JOB_TITLE_CAPTAIN)
 	selection_color = "#9f8545"
 	access = list(ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_HEADS_VAULT, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_HEADS, ACCESS_SEC_DOORS, ACCESS_EVA, ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
@@ -44,7 +44,7 @@
 	total_positions = 2
 	spawn_positions = 2
 	is_supply = 1
-	supervisors = "the quartermaster"
+	supervisors = "квартирмейстером"
 	department_head = list(JOB_TITLE_QUARTERMASTER)
 	selection_color = "#e2dbc8"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
@@ -72,7 +72,7 @@
 	total_positions = 6
 	spawn_positions = 8
 	is_supply = 1
-	supervisors = "the quartermaster"
+	supervisors = "квартирмейстером"
 	department_head = list(JOB_TITLE_QUARTERMASTER)
 	selection_color = "#e2dbc8"
 	access = list(ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
@@ -136,7 +136,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
-	supervisors = "the head of personnel"
+	supervisors = "главой персонала"
 	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#d1e8d3"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
@@ -175,7 +175,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
-	supervisors = "the head of personnel"
+	supervisors = "главой персонала"
 	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#d1e8d3"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
@@ -224,7 +224,7 @@
 	total_positions = 2
 	spawn_positions = 2
 	is_service = 1
-	supervisors = "the head of personnel"
+	supervisors = "главой персонала"
 	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#d1e8d3"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE)
@@ -260,7 +260,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
-	supervisors = "the head of personnel"
+	supervisors = "главой персонала"
 	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#d1e8d3"
 	access = list(ACCESS_CLOWN, ACCESS_THEATRE)
@@ -345,7 +345,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
-	supervisors = "the head of personnel"
+	supervisors = "главой персонала"
 	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#d1e8d3"
 	access = list(ACCESS_MIME, ACCESS_THEATRE)
@@ -400,7 +400,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
-	supervisors = "the head of personnel"
+	supervisors = "главой персонала"
 	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#d1e8d3"
 	access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS)
@@ -427,7 +427,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
-	supervisors = "the head of personnel"
+	supervisors = "главой персонала"
 	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#d1e8d3"
 	access = list(ACCESS_LIBRARY)
@@ -457,7 +457,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_service = 1
-	supervisors = "the head of personnel"
+	supervisors = "главой персонала"
 	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#d1e8d3"
 	alt_titles = list("Стилист по Волосам","Косметолог")
@@ -484,7 +484,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 0
 	spawn_positions = 0
-	supervisors = "the head of personnel"
+	supervisors = "главой персонала"
 	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#d1e8d3"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
