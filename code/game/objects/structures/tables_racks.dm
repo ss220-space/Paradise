@@ -452,6 +452,8 @@
 			other_table.unflip()
 	dir = initial(dir)
 	update_icon(UPDATE_ICON_STATE)
+	queue_smooth(src)
+	queue_smooth_neighbors(src)
 
 	creates_cover = TRUE
 	if(isturf(loc))
