@@ -737,11 +737,10 @@
 	/// Current multiplicative slowdown
 	var/slowdown_value
 
-
-/datum/status_effect/incapacitating/slowed/on_apply()
-	. = ..()
-	set_slowdown_value(DEFAULT_SLOWED_DELAY)
-
+/datum/status_effect/incapacitating/slowed/on_creation(mob/living/new_owner, set_duration, new_slowdown_value)
+	if(set_durationis && num(set_duration))
+		set_slowdown_value(new_slowdown_value)
+	return ..()
 
 /datum/status_effect/incapacitating/slowed/on_remove()
 	. = ..()
