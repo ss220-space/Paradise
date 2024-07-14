@@ -60,7 +60,7 @@
 	selection_color = "#ffeaca"
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM)
-	alt_titles = list("Техник по Обслуживанию","Техник по двигателям","Электрик")
+	alt_titles = list("Техник по Обслуживанию","Техник по Двигателям","Электрик")
 	minimal_player_age = 7
 	exp_requirements = 600
 	exp_type = EXP_TYPE_ENGINEERING
