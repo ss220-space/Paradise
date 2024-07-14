@@ -387,12 +387,6 @@
 	return FALSE
 
 
-/mob/living/carbon/proc/find_air_tanks()
-	. = list()
-	for(var/obj/item/tank/tank in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
-		. += tank
-
-
 /mob/living/carbon/covered_with_thick_material(check_zone, full_body_check = FALSE)
 	if(full_body_check)
 		if(!isclothing(head))
