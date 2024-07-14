@@ -31,6 +31,13 @@
 	if(CONFIG_GET(string/map_vote_mode) == "nodoubles")
 		map_pool -= SSmapping.map_datum.type
 
+	if(CONFIG_GET(string/map_vote_mode) == "notriples")
+		if(SSmapping.played_map)
+			var/current_map = SSmapping.map_datum.type
+			var/previous_map = SSmapping.played_map
+			if(current_map == previous_map)
+				map_pool -= previous_map
+
 	for(var/datum/map/possible_map as anything in map_pool)
 		if(initial(possible_map.admin_only))
 			continue

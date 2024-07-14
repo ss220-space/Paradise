@@ -41,6 +41,8 @@ SUBSYSTEM_DEF(mapping)
 	var/list/critical_planes
 	/// The largest plane offset we've generated so far
 	var/max_plane_offset = 0
+	/// Map played in previous round, stores typepath
+	var/played_map
 
 
 // This has to be here because world/New() uses [station_name()], which looks this datum up
@@ -57,13 +59,25 @@ SUBSYSTEM_DEF(mapping)
 		catch
 			map_datum = fallback_map // Assume delta if non-existent
 		fdel("data/next_map.txt") // Remove to avoid the same map existing forever
+
+		if(fexists("data/played_map.txt"))
+			var/list/lines_played = file2list("data/played_map.txt")
+			var/path = text2path(lines_played[1])
+			if(path)
+				played_map = path
+
+			fdel("data/played_map.txt")
 		return
+
 	map_datum = fallback_map // Assume delta if non-existent
 
 /datum/controller/subsystem/mapping/Shutdown()
 	if(next_map) // Save map for next round
 		var/F = file("data/next_map.txt")
 		F << next_map.type
+
+	var/played_map = file("data/played_map.txt")
+	played_map << map_datum.type
 
 /datum/controller/subsystem/mapping/Initialize()
 	setupPlanes()
