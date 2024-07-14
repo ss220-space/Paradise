@@ -28,12 +28,12 @@
 	id = "shadow_empower"
 	duration = -1
 	tick_interval = 1 SECONDS 
-	alert_type = /atom/movable/screen/alert/status_effect/shadow_mend
+	alert_type = /atom/movable/screen/alert/status_effect/shadow_empower
 
 /atom/movable/screen/alert/status_effect/shadow_empower
 	name = "Darkness empower"
 	desc = "Your body is enhanced with darkness and heals much stronger."
-	icon_state = "shadow_mend"
+	icon_state = "glare"
 
 /datum/status_effect/shadow_empower/on_apply()
 	to_chat(owner, span_revenbignotice("You feel empowered with darkness!"))
