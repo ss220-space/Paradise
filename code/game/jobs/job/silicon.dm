@@ -5,7 +5,7 @@
 	total_positions = -1 // Not used for AI, see is_position_available below and modules/mob/living/silicon/ai/latejoin.dm
 	spawn_positions = 1
 	selection_color = "#4c82bf"
-	supervisors = "your laws"
+	supervisors = "вашим законам"
 	department_head = list(JOB_TITLE_CAPTAIN)
 	req_admin_notify = 1
 	minimal_player_age = 30
@@ -26,7 +26,7 @@
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 2
 	spawn_positions = 2
-	supervisors = "your laws and the AI"	//Nodrak
+	supervisors = "вашим законам и ИИ"	//Nodrak
 	department_head = list(JOB_TITLE_AI)
 	selection_color = "#cadaec"
 	minimal_player_age = 21
