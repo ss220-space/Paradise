@@ -35,7 +35,7 @@
 		revert_cast(user)
 		return
 	user.visible_message("<span class='warning'>[user] starts pushing itself against [airlock]!</span>", "<span class='sinister'>You try to pry [airlock] open enough to get through.</span>")
-	if(!do_after(user, 6 SECONDS, user, ALL, extra_checks = CALLBACK(src, PROC_REF(pass_check), user, airlock)))
+	if(!do_after(user, 6 SECONDS, user, timed_action_flags = DEFAULT_DOAFTER_IGNORE|DA_IGNORE_INCAPACITATED|DA_IGNORE_HELD_ITEM|DA_IGNORE_EMPTY_GRIPPER, extra_checks = CALLBACK(src, PROC_REF(pass_check), user, airlock)))
 		if(user.morphed)
 			to_chat(user, "<span class='warning'>You need to stay in your true form to pass through [airlock]!</span>")
 		else if(airlock.locked)
