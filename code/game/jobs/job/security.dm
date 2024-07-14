@@ -5,7 +5,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_security = 1
-	supervisors = "the captain"
+	supervisors = "капитаном"
 	department_head = list(JOB_TITLE_CAPTAIN)
 	selection_color = "#c25656"
 	req_admin_notify = 1
@@ -63,7 +63,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_security = 1
-	supervisors = "the head of security"
+	supervisors = "главой службы безопасности"
 	department_head = list(JOB_TITLE_HOS)
 	selection_color = "#edcdcd"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
@@ -113,7 +113,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_security = 1
-	supervisors = "the head of security"
+	supervisors = "главой службы безопасности"
 	department_head = list(JOB_TITLE_HOS)
 	selection_color = "#edcdcd"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS)
@@ -173,7 +173,7 @@
 	total_positions = 7
 	spawn_positions = 7
 	is_security = 1
-	supervisors = "the head of security"
+	supervisors = "главой службы безопасности"
 	department_head = list(JOB_TITLE_HOS)
 	selection_color = "#edcdcd"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
@@ -238,7 +238,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_security = 1
-	supervisors = "the head of security"
+	supervisors = "главой службы безопасности"
 	department_head = list(JOB_TITLE_HOS)
 	selection_color = "#edcdcd"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS)
@@ -275,7 +275,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_security = 1
-	supervisors = "the head of security"
+	supervisors = "главой службы безопасности"
 	department_head = list(JOB_TITLE_HOS)
 	selection_color = "#edcdcd"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_PILOT, ACCESS_EXTERNAL_AIRLOCKS)
