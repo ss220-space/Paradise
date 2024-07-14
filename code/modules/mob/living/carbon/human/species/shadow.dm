@@ -70,14 +70,10 @@
 
 /datum/species/shadow/handle_life(mob/living/carbon/human/H)
 	if(!light_check(H)) //if there's enough light, start dying
-		if(empowered)
-			timer(H)
 		H.take_overall_damage(1,1)
 		H.throw_alert("lightexposure", /atom/movable/screen/alert/lightexposure)
 	else if(light_check(H)) //heal in the dark
-		if(!empowered)
-			timer(H, empowering = TRUE)
-		else
+		if(empowered)
 			shadowmend(H)
 		H.heal_overall_damage(1,1)
 		H.clear_alert("lightexposure")
@@ -114,8 +110,12 @@
 	if(T)
 		var/light_amount = T.get_lumcount() * 10
 		if(light_amount > LIGHT_AMOUNT_DAMAGE)
+			if(empowered)
+				timer(H)
 			return FALSE
 		else if(light_amount < LIGHT_AMOUNT_HEAL)
+			if(!empowered)
+				timer(H, empowering = TRUE)
 			return TRUE
 	return TRUE // yes, we will heal in nullspace..
 
