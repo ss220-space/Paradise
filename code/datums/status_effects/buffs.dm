@@ -38,7 +38,7 @@
 /datum/status_effect/shadow_empower/on_apply()
 	to_chat(owner, span_revenbignotice("You feel empowered with darkness!"))
 	playsound(owner, 'sound/magic/teleport_app.ogg', 50, 1)
-	return ..()
+	return TRUE
 
 /datum/status_effect/shadow_empower/tick(seconds_between_ticks)
 	if(ishuman(owner))
