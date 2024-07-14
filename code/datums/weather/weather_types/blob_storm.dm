@@ -22,7 +22,8 @@
 	protected_areas = list(/area/space, /area/crew_quarters/sleep)
 	target_trait = STATION_LEVEL
 
-	immunity_type = "bio"
+	immunity_type = TRAIT_BLOBSTORM_IMMUNE
+
 
 /datum/weather/blob_storm/telegraph()
 	..()
@@ -31,20 +32,25 @@
 									"ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/AI/outbreak5.ogg')
 
 
-/datum/weather/blob_storm/weather_act(mob/living/L)
-	var/resist = L.getarmor(null, immunity_type)
-	if(L.mind && L.mind.special_role != SPECIAL_ROLE_BLOB)
-		if(prob(50))
-			return
-		if(!prob(max(0, min(100, 110 - resist))))
-			return
-		if(!SSticker || !SSticker.mode)
-			return
-		var/datum/antagonist/blob_infected/blob_datum = new
-		blob_datum.add_to_mode = FALSE
-		blob_datum.time_to_burst_hight = TIME_TO_BURST_MOUSE_HIGHT
-		blob_datum.time_to_burst_low = TIME_TO_BURST_MOUSE_LOW
-		L.mind.add_antag_datum(blob_datum)
+/datum/weather/blob_storm/can_weather_act(mob/living/mob_to_check)
+	if(prob(50))
+		return FALSE
+	if(!mob_to_check.mind || mob_to_check.mind.special_role == SPECIAL_ROLE_BLOB)
+		return FALSE
+	if(!mob_to_check.can_be_blob())
+		return FALSE
+	var/resist = mob_to_check.getarmor(null, BIO)
+	if(!prob(max(0, min(100, 110 - resist))))
+		return FALSE
+	return ..()
+
+
+/datum/weather/blob_storm/weather_act(mob/living/target)
+	var/datum/antagonist/blob_infected/blob_datum = new
+	blob_datum.add_to_mode = FALSE
+	blob_datum.time_to_burst_hight = TIME_TO_BURST_MOUSE_HIGHT
+	blob_datum.time_to_burst_low = TIME_TO_BURST_MOUSE_LOW
+	target.mind.add_antag_datum(blob_datum)
 
 
 /datum/weather/blob_storm/end()
@@ -80,7 +86,3 @@
 				SEND_SOUND(M, sound(weather_sound))
 	addtimer(CALLBACK(src, PROC_REF(wind_down)), weather_duration)
 
-/datum/weather/blob_storm/can_weather_act(mob/living/L)
-	if(istype(L) && !L.weather_immunities)
-		return FALSE
-	return ..() && L.can_be_blob()
