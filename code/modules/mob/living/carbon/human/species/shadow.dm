@@ -34,7 +34,6 @@
 		"пялится на ближайший источник света!")
 
 	var/grant_vision_toggle = TRUE
-	var/empowered = FALSE
 	disliked_food = NONE
 
 /datum/action/innate/shadow/darkvision //Darkvision toggle so shadowpeople can actually see where darkness is
@@ -73,35 +72,16 @@
 		H.take_overall_damage(1,1)
 		H.throw_alert("lightexposure", /atom/movable/screen/alert/lightexposure)
 	else if(light_check(H)) //heal in the dark
-		if(empowered)
-			shadowmend(H)
 		H.heal_overall_damage(1,1)
 		H.clear_alert("lightexposure")
 	..()
 
-/datum/species/shadow/proc/shadowmend(mob/living/carbon/human/H)
-	H.heal_overall_damage(1,1)
-	H.adjustToxLoss(-0.5)
-	H.adjustBrainLoss(-1)
-	H.adjustCloneLoss(-0.5)
-	H.SetWeakened(0)
-	if(prob(15))
-		var/list/fractured_organs = H.check_fractures()
-		shuffle(fractured_organs)
-		for(var/obj/item/organ/external/bodypart as anything in fractured_organs)
-			if(bodypart.mend_fracture())
-				break
-	if(prob(1))
-		H.check_and_regenerate_organs()
-
 /datum/species/shadow/proc/timer(mob/living/carbon/human/H, empowering = FALSE)
 	if(empowering && do_after(H, TIME_TO_EMPOWER, H, ALL, progress = FALSE, max_interact_count = 1, extra_checks = CALLBACK(src, PROC_REF(light_check), H)))
-		to_chat(H, span_revenbignotice("You feel empowered with darkness!"))
-		empowered = TRUE
+		H.apply_status_effect(STATUS_EFFECT_SHADOW_EMPOWER)
 		return 
-	else if(empowered && do_after(H, TIME_TO_EXHAUST, H, ALL, progress = FALSE, max_interact_count = 1)) // NO extra_checks. Out in the light? Lose empower.
-		to_chat(H, span_revenbignotice("You feel exhausted! Darkness no longer supports you!"))
-		empowered = FALSE
+	else if(H.has_status_effect(STATUS_EFFECT_SHADOW_EMPOWER) && do_after(H, TIME_TO_EXHAUST, H, ALL, progress = FALSE, max_interact_count = 1)) // NO extra_checks. Out in the light? Lose empower.
+		H.remove_status_effect(STATUS_EFFECT_SHADOW_EMPOWER)
 		return 
 	return 
 
@@ -123,7 +103,7 @@
 	var/mob/living/carbon/human/H = src
 	if(H.stat == DEAD)
 		..()
-	if(empowered && prob(50))
+	if(H.has_status_effect(STATUS_EFFECT_SHADOW_EMPOWER) && prob(50))
 		return
 	..()
 
