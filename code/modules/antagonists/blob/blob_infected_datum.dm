@@ -208,6 +208,7 @@
 		log_admin("[key_name(C)] was in space when attempting to burst as a blob.")
 		message_admins("[key_name_admin(C)] was in space when attempting to burst as a blob.")
 		C.was_bursted = TRUE
+		kill_borer_inside()
 		C.gib()
 		if(need_new_blob)
 			SSticker?.mode?.make_blobs(1, TRUE)
@@ -226,6 +227,7 @@
 	if (ismob(C.loc))
 		var/mob/M = C.loc
 		M.gib()
+	var/mob/living/simple_animal/borer/borer = has_brain_worms()
 	if(!is_station_level(location.z) || isspaceturf(location))
 		burst_blob_in_space(!warn_blob)
 		return
@@ -235,6 +237,7 @@
 
 		var/datum/antagonist/blob_overmind/overmind = transform_to_overmind()
 		owner.remove_antag_datum(/datum/antagonist/blob_infected)
+		kill_borer_inside()
 		C.gib()
 		var/obj/structure/blob/core/core = new(location, 200, blob_client, SSticker.mode.blob_point_rate)
 		if(!(core.overmind && core.overmind.mind))
@@ -251,6 +254,11 @@
 	is_tranformed = TRUE
 	overmind.is_tranformed = TRUE
 	return overmind
+
+/datum/antagonist/blob_infected/proc/kill_borer_inside()
+	if(borer)
+		borer.leave_host()
+		borer.death()
 
 
 /**

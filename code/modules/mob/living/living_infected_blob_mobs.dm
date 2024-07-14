@@ -16,10 +16,6 @@
 		return
 	if(mind.special_role == SPECIAL_ROLE_BLOB && !was_bursted)
 		var/datum/antagonist/blob_infected/blob = mind.has_antag_datum(/datum/antagonist/blob_infected)
-		var/mob/living/simple_animal/borer/borer = has_brain_worms()
-		if(borer)
-			borer.leave_host()
-			borer.death()
 		blob?.burst_blob(TRUE)
 
 /mob/living/simple_animal/can_be_blob()
