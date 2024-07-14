@@ -218,17 +218,20 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	if(!istype(carbon_source))
 		return
 
-	if(!carbon_source.has_airtight_items())
-		return
-
 	var/enabling = carbon_source.internal != item
+
+	if((enabling && !carbon_source.has_airtight_items()))
+		return
 
 	carbon_source.visible_message(
 		span_danger("[user] tries to [(enabling) ? "open" : "close"] the valve on [source]'s [item.name]."),
 		span_userdanger("[user] tries to [(enabling) ? "open" : "close"] the valve on your [item.name]."),
 	)
 
-	if(!do_after(user, INTERNALS_TOGGLE_DELAY, carbon_source) && (!enabling || carbon_source.has_airtight_items()))
+	if(!do_after(user, INTERNALS_TOGGLE_DELAY, carbon_source, max_interact_count = 1))
+		return
+
+	if((enabling && !carbon_source.has_airtight_items()))
 		return
 
 	if(carbon_source.internal == item)
