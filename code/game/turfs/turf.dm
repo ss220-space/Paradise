@@ -370,6 +370,9 @@
 		if(our_area.lighting_effects)
 			W.add_overlay(our_area.lighting_effects[SSmapping.z_level_to_plane_offset[z] + 1])
 
+	for(var/atom/for_send in contents) //We are doing this so that /datum/element/connect_loc/proc/on_moved updates the comp_lookup of the new turf
+		SEND_SIGNAL(for_send, COMSIG_MOVABLE_MOVED)
+
 	return W
 
 /turf/proc/BeforeChange()
