@@ -34,6 +34,7 @@
 		"пялится на ближайший источник света!")
 
 	var/grant_vision_toggle = TRUE
+
 	disliked_food = NONE
 
 /datum/action/innate/shadow/darkvision //Darkvision toggle so shadowpeople can actually see where darkness is
@@ -107,10 +108,7 @@
 		return
 	..()
 
-
 #undef LIGHT_AMOUNT_HEAL
 #undef LIGHT_AMOUNT_DAMAGE
 #undef TIME_TO_EMPOWER
 #undef TIME_TO_EXHAUST
-
-
