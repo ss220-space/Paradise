@@ -129,3 +129,7 @@
 	/// Hand currently used for pulling/grabing
 	var/pull_hand = PULL_WITHOUT_HANDS
 
+	//Did the blob infected mob burst.
+	var/was_bursted = FALSE
+	//Was death by turning to dust.
+	var/dusted = FALSE
