@@ -30,7 +30,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	if(!istype(parrot_source))
 		return
 
-	INVOKE_ASYNC(equipping, TYPE_PROC_REF(/atom/movable, forceMove), parrot_source)
+	equipping.forceMove(parrot_source)
 	parrot_source.ears = radio
 	parrot_source.update_available_channels()
 	parrot_source.update_speak()
@@ -56,7 +56,7 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 	if(!istype(parrot_source))
 		return
 
-	INVOKE_ASYNC(parrot_source.ears, TYPE_PROC_REF(/atom/movable, forceMove), parrot_source.drop_location())
+	parrot_source.ears.forceMove(parrot_source.drop_location())
 	parrot_source.ears = null
 	parrot_source.update_available_channels()
 	parrot_source.update_speak()

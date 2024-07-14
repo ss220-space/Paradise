@@ -40,7 +40,7 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 		return null
 	if(jumpsuit.has_sensor)
 		multiple_options |= "suit_sensors"
-	if(length(jumpsuit.accessories))
+	if(LAZYLEN(jumpsuit.accessories))
 		multiple_options |= "remove_accessory"
 	return multiple_options
 
@@ -186,7 +186,7 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	return result
 
 /datum/strippable_item/mob_item_slot/pocket/proc/warn_owner(atom/owner)
-	to_chat(owner, span_warning("You feel your [pocket_side] pocket being fumbled with!"))
+	owner.balloon_alert(owner, "You feel your [pocket_side] pocket being fumbled with!")
 
 /datum/strippable_item/mob_item_slot/pocket/left
 	key = STRIPPABLE_ITEM_LPOCKET
@@ -221,12 +221,14 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 	if(!carbon_source.has_airtight_items())
 		return
 
+	var/enabling = carbon_source.internal != item
+
 	carbon_source.visible_message(
-		span_danger("[user] tries to [(carbon_source.internal != item) ? "open" : "close"] the valve on [source]'s [item.name]."),
-		span_userdanger("[user] tries to [(carbon_source.internal != item) ? "open" : "close"] the valve on your [item.name]."),
+		span_danger("[user] tries to [(enabling) ? "open" : "close"] the valve on [source]'s [item.name]."),
+		span_userdanger("[user] tries to [(enabling) ? "open" : "close"] the valve on your [item.name]."),
 	)
 
-	if(!do_after(user, INTERNALS_TOGGLE_DELAY, carbon_source))
+	if(!do_after(user, INTERNALS_TOGGLE_DELAY, carbon_source) && (!enabling || carbon_source.has_airtight_items()))
 		return
 
 	if(carbon_source.internal == item)

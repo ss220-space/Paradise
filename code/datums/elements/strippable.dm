@@ -233,9 +233,7 @@
 		var/mob/living/carbon/human/human_source = source
 		if(item_slot & human_source.check_obscured_slots())
 			return STRIPPABLE_OBSCURING_COMPLETELY
-		return STRIPPABLE_OBSCURING_NONE
-
-	return FALSE
+	return STRIPPABLE_OBSCURING_NONE
 
 /datum/strippable_item/mob_item_slot/finish_unequip(atom/source, mob/user)
 	var/obj/item/item = get_item(source)
@@ -431,7 +429,7 @@
 						return
 
 					// make sure to drop the item
-					if(!user.drop_item_ground(held_item))
+					if(!user.drop_item_ground(held_item, silent = strippable_item.in_thief_mode(user)))
 						return
 
 					strippable_item.finish_equip(owner, held_item, user)

@@ -77,7 +77,8 @@
 	var/obj/item/clothing/accessory/petcollar/pcollar = null
 	var/collar_type //if the mob has collar sprites, define them.
 	var/unique_pet = FALSE // if the mob can be renamed
-	var/can_collar = FALSE //// Can add collar to mob or not, use the set_can_collar if you want to change this on runtime
+	/// Can add collar to mob or not, use the set_can_collar if you want to change this on runtime
+	var/can_collar = FALSE
 
 	//Hot simple_animal baby making vars
 	var/list/childtype = null
@@ -670,7 +671,8 @@
 
 	var/obj/old_collar = pcollar
 
-	drop_item_ground(pcollar)
+	if(!drop_item_ground(pcollar))
+		return
 
 	if(user)
 		user.put_in_hands(old_collar)
