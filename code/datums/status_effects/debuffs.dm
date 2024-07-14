@@ -738,7 +738,7 @@
 	var/slowdown_value
 
 /datum/status_effect/incapacitating/slowed/on_creation(mob/living/new_owner, set_duration, new_slowdown_value)
-	if(set_duration && num(set_duration))
+	if(set_duration && isnum(set_duration))
 		set_slowdown_value(new_slowdown_value)
 	return ..()
 
