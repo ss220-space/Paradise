@@ -90,11 +90,11 @@
 	if(T)
 		var/light_amount = T.get_lumcount() * 10
 		if(light_amount > LIGHT_AMOUNT_DAMAGE)
-			if(empowered)
+			if(H.has_status_effect(STATUS_EFFECT_SHADOW_EMPOWER))
 				timer(H)
 			return FALSE
 		else if(light_amount < LIGHT_AMOUNT_HEAL)
-			if(!empowered)
+			if(!H.has_status_effect(STATUS_EFFECT_SHADOW_EMPOWER))
 				timer(H, empowering = TRUE)
 			return TRUE
 	return TRUE // yes, we will heal in nullspace..
