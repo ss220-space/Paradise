@@ -160,6 +160,8 @@
 	if(opacity)
 		RemoveElement(/datum/element/light_blocking)
 
+	invisibility = INVISIBILITY_ABSTRACT
+
 	if(pulledby)
 		pulledby.stop_pulling()
 	if(pulling)
