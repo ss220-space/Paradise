@@ -15,6 +15,25 @@
 	blob_talk(usr, input)
 	return
 
+/datum/action/innate/blob/self_burst
+	icon_icon = 'icons/mob/blob.dmi'
+	button_icon = 'icons/mob/blob.dmi'
+	background_icon_state = "block"
+	button_icon_state = "ui_tocore"
+	name = "Self burst"
+	desc = "Позволяет лопнуть носителя и превратиться в блоба досрочно."
+	check_flags = AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
+
+/datum/action/innate/blob/self_burst/Activate()
+	var/input = alert(usr,"Вы действительно хотите лопнуть себя и превратиться в блоба досрочно? Это действие необратимо.", "", "Да", "Нет") == "Да"
+	if(!input || !IsAvailable())
+		return
+	var/datum/antagonist/blob_infected/blob = usr?.mind?.has_antag_datum(/datum/antagonist/blob_infected)
+	if(!blob)
+		return
+	blob.burst_blob()
+	return
+
 /proc/blob_talk(mob/living/user, message)
 	add_say_logs(user, message, language = "BLOB")
 

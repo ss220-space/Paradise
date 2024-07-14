@@ -39,6 +39,8 @@
 	var/atom/movable/screen/time_to_burst_display
 	//Blob talk ability
 	var/datum/action/innate/blob/comm/blob_talk_action
+	//Blob burst ability
+	var/datum/action/innate/blob/self_burst/blob_burst_action
 	//Final time to burst.
 	var/burst_wait_time
 	//Total burst warning text
@@ -85,7 +87,7 @@
 
 /datum/antagonist/blob_infected/apply_innate_effects(mob/living/mob_override)
 	var/user = ..(mob_override)
-	add_blob_talk(user)
+	add_blob_actions(user)
 	add_burst_display(user)
 	is_processing = TRUE
 	return user
@@ -93,7 +95,7 @@
 
 /datum/antagonist/blob_infected/remove_innate_effects(mob/living/mob_override)
 	var/user = ..(mob_override)
-	remove_blob_talk(user)
+	remove_blob_actions(user)
 	remove_burst_display(user)
 	is_processing = FALSE
 	return user
@@ -144,21 +146,27 @@
 		return
 
 
-/datum/antagonist/blob_infected/proc/add_blob_talk(mob/living/antag_mob)
+/datum/antagonist/blob_infected/proc/add_blob_actions(mob/living/antag_mob)
 	if(!antag_mob)
 		return
 	if(!blob_talk_action)
 		blob_talk_action = new
 	blob_talk_action.Grant(antag_mob)
+	if(!blob_burst_action)
+		blob_burst_action = new
+	blob_burst_action.Grant(antag_mob)
 	antag_mob.update_action_buttons(TRUE)
 
 
-/datum/antagonist/blob_infected/proc/remove_blob_talk(mob/living/antag_mob)
+/datum/antagonist/blob_infected/proc/remove_blob_actions(mob/living/antag_mob)
 	if(!antag_mob)
 		return
 	if(!blob_talk_action)
 		return
 	blob_talk_action.Remove(antag_mob)
+	if(!blob_burst_action)
+		return
+	blob_burst_action.Remove(antag_mob)
 	antag_mob.update_action_buttons(TRUE)
 
 /datum/antagonist/blob_infected/proc/add_burst_display(mob/living/antag_mob)
@@ -219,7 +227,7 @@
 		var/mob/M = C.loc
 		M.gib()
 	if(!is_station_level(location.z) || isspaceturf(location))
-		burst_blob_in_space(FALSE)
+		burst_blob_in_space(!warn_blob)
 		return
 	if(blob_client && location)
 		mode.bursted_blobs_count++
@@ -246,7 +254,7 @@
 
 
 /**
- * Takes any datum `source` and checks it for traitor datum.
+ * Takes any datum `source` and checks it for blob_infected datum.
  */
 /proc/isblobinfected(datum/source)
 	if(!source)

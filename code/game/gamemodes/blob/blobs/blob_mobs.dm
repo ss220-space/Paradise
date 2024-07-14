@@ -205,6 +205,11 @@
 	if(!HAS_TRAIT(src, TRAIT_NEGATES_GRAVITY))
 		return ..()
 
+/mob/living/simple_animal/hostile/blob/blobbernaut/proc/add_to_gamemode()
+	var/list/blobernauts = SSticker?.mode?.blobs["blobernauts"]
+	if(blobernauts && (mind in blobernauts))
+		blobernauts -= mind
+	blobernauts += mind
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/Life(seconds, times_fired)
 	if(stat != DEAD && (getBruteLoss() || getFireLoss())) // Heal on blob structures
@@ -224,6 +229,7 @@
 		name = text("blobbernaut ([rand(1, 1000)])")
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/death(gibbed)
+	mind.name = name
 	// Only execute the below if we successfully died
 	. = ..()
 	if(!.)
