@@ -227,7 +227,6 @@
 	if (ismob(C.loc))
 		var/mob/M = C.loc
 		M.gib()
-	var/mob/living/simple_animal/borer/borer = has_brain_worms()
 	if(!is_station_level(location.z) || isspaceturf(location))
 		burst_blob_in_space(!warn_blob)
 		return
@@ -256,6 +255,7 @@
 	return overmind
 
 /datum/antagonist/blob_infected/proc/kill_borer_inside()
+	var/mob/living/simple_animal/borer/borer = owner?.current?.has_brain_worms()
 	if(borer)
 		borer.leave_host()
 		borer.death()
