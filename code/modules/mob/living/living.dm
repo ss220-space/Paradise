@@ -131,11 +131,12 @@
 	var/cat = iscat(src)
 	var/functional_legs = TRUE
 	var/skip_weaken = FALSE
-	for(var/zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
-		var/obj/item/organ/external/leg = get_organ(zone)
-		if(leg.has_fracture())
-			functional_legs = FALSE
-			break
+	if(ishuman(src))
+		for(var/zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
+			var/obj/item/organ/external/leg = get_organ(zone)
+			if(leg.has_fracture())
+				functional_legs = FALSE
+				break
 	if(((istajaran(src) && functional_legs) || cat) && body_position != LYING_DOWN && can_help_themselves)
 		. |= ZIMPACT_NO_MESSAGE|ZIMPACT_NO_SPIN
 		skip_weaken = TRUE
