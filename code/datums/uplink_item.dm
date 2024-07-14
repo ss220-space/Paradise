@@ -1,3 +1,5 @@
+#define UPLINK_DISCOUNTS 4
+
 /**
  * Proc that generates a list of items, available for certain uplink.
  *
@@ -24,15 +26,13 @@
 			sales_items += uplink_item
 
 	if(generate_discounts)
-		for(var/i in 1 to 3)
+		for(var/i in 1 to UPLINK_DISCOUNTS)
 			var/datum/uplink_item/discount_origin = pick_n_take(sales_items)
-			discount_origin.refundable = FALSE
 
 			var/datum/uplink_item/discount_item = new discount_origin.type
 			var/discount = 0.5
 			var/init_cost = initial(discount_item.cost)
 			discount_item.limited_stock = 1
-			discount_item.refundable = FALSE
 			if(discount_item.cost >= 100)
 				discount *= 0.5 // If the item costs 100TC or more, it's only 25% off.
 			discount_item.cost = max(round(discount_item.cost * (1 - discount)), 1)
@@ -157,6 +157,16 @@
 
 	if(!spawned)
 		return .
+
+	if(category == "Discounted Gear" && refundable)
+		var/obj/item/refund_item
+		if(istype(spawned, refund_path))
+			refund_item = spawned
+		else
+			refund_item = locate(refund_path) in spawned
+
+		if(refund_item)
+			refund_item.discount_refaund_cost = refund_amount ? (refund_amount * 0.5) : cost
 
 	if(limited_stock > 0)
 		add_game_logs("purchased [name]. [name] was discounted to [cost].", buyer)
@@ -865,7 +875,7 @@
 	cost = 69
 	refund_path = /obj/item/guardiancreator/tech/choose
 	refundable = TRUE
-	can_discount = FALSE
+	can_discount = TRUE
 
 // Ammunition
 
@@ -2182,3 +2192,5 @@
 	item = /obj/item/stack/telecrystal/twohundred_fifty
 	cost = 250
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+#undef UPLINK_DISCOUNTS

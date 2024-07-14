@@ -102,6 +102,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/list/allowed = null //suit storage stuff.
 	var/obj/item/uplink/hidden/hidden_uplink = null // All items can have an uplink hidden inside, just remember to add the triggers.
 
+	/// If this item is refaundable and bought with discount, it has special price
+	var/discount_refaund_cost = 0
+
 	var/needs_permit = 0			//Used by security bots to determine if this item is safe for public use.
 
 	var/strip_delay = DEFAULT_ITEM_STRIP_DELAY

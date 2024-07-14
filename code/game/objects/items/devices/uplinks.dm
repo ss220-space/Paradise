@@ -147,7 +147,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 	for(var/datum/uplink_item/uplink_item as anything in uplink_items)
 		var/path = uplink_item.refund_path || uplink_item.item
-		var/cost = uplink_item.refund_amount || uplink_item.cost
+		var/cost = hold_item.discount_refaund_cost || uplink_item.refund_amount || uplink_item.cost
 		if(hold_item.type == path && uplink_item.refundable && hold_item.check_uplink_validity())
 			uses += cost
 			used_TC -= cost
