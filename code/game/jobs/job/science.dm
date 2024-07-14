@@ -5,7 +5,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_science = 1
-	supervisors = "the captain"
+	supervisors = "капитаном"
 	department_head = list(JOB_TITLE_CAPTAIN)
 	selection_color = "#aa66cc"
 	req_admin_notify = 1
@@ -57,7 +57,7 @@
 	total_positions = 6
 	spawn_positions = 6
 	is_science = 1
-	supervisors = "the research director"
+	supervisors = "директором исследований"
 	department_head = list(JOB_TITLE_RD)
 	selection_color = "#e6d1f0"
 	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_XENOARCH, ACCESS_MINERAL_STOREROOM)
@@ -137,7 +137,7 @@
 	total_positions = 2
 	spawn_positions = 2
 	is_science = 1
-	supervisors = "the research director"
+	supervisors = "директором исследований"
 	department_head = list(JOB_TITLE_RD)
 	selection_color = "#e6d1f0"
 	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_TECH_STORAGE, ACCESS_MORGUE, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM) //As a job that handles so many corpses, it makes sense for them to have morgue access.
