@@ -125,6 +125,7 @@
 
 /obj/mecha/Initialize()
 	. = ..()
+	ADD_TRAIT(src, TRAIT_WEATHER_IMMUNE, INNATE_TRAIT)
 	icon_state += "-open"
 	add_radio()
 	add_cabin()

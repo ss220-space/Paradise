@@ -1,10 +1,3 @@
-/mob/living
-	/// True devil variables
-	var/list/ownedSoullinks //soullinks we are the owner of
-	var/list/sharedSoullinks //soullinks we are a/the sharer of
-	var/canEnterVentWith = "/obj/item/implant=0&/obj/item/clothing/mask/facehugger=0&/obj/item/radio/borg=0&/obj/machinery/camera=0"
-	var/datum/middleClickOverride/middleClickOverride = null
-
 /mob/living/Initialize()
 	. = ..()
 	AddElement(/datum/element/movetype_handler)
@@ -29,6 +22,9 @@
 		verbs += /mob/living/proc/toggle_resting
 		if(!density)	// we want undense mobs to stay undense when they stop resting
 			ADD_TRAIT(src, TRAIT_UNDENSE, INNATE_TRAIT)
+
+	if(length(weather_immunities))
+		add_traits(weather_immunities, INNATE_TRAIT)
 
 	GLOB.mob_living_list += src
 

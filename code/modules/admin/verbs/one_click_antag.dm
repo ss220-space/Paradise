@@ -24,6 +24,7 @@
 		<a href='?src=[UID()];makeAntag=9'>Make Abductor Team (Requires Ghosts)</a><br>
 		<a href='?src=[UID()];makeAntag=10'>Make Space Ninja (Requires Ghosts)</a><br>
 		<a href='?src=[UID()];makeAntag=11'>Make Thieves</a><br>
+		<a href='?src=[UID()];makeAntag=12'>Make Blobs</a><br>
 		"}
 	usr << browse(dat, "window=oneclickantag;size=400x400")
 	return
@@ -104,6 +105,18 @@
 			H.mind.add_antag_datum(/datum/antagonist/changeling)
 			candidates.Remove(H)
 
+		return TRUE
+	return FALSE
+
+/datum/admins/proc/makeBlobs()
+
+	var/antnum = input(owner, "Сколько вы хотите создать? Введите 0 для отмены.","Кол-во:", 0) as num
+	if(!antnum || antnum <= 0)
+		return
+	log_admin("[key_name(owner)] tried making [antnum] blobs with One-Click-Antag")
+	message_admins("[key_name_admin(owner)] tried making [antnum] blobs with One-Click-Antag")
+
+	if(SSticker && SSticker.mode && SSticker.mode.make_blobs(antnum))
 		return TRUE
 	return FALSE
 

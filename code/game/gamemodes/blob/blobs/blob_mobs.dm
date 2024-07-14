@@ -243,5 +243,5 @@
 	var/rendered = "<i><span class='blob'>Blob Telepathy,</span> <span class='name'>[name]([overmind])</span> states, <span class='blob'>\"[message]\"</span></i>"
 	if(message)
 		for(var/mob/M in GLOB.mob_list)
-			if(isovermind(M) || isobserver(M) || istype((M), /mob/living/simple_animal/hostile/blob/blobbernaut))
+			if(isovermind(M) || isobserver(M) || isblobbernaut(M) || isblobinfected(M.mind))
 				M.show_message(rendered, 2)
