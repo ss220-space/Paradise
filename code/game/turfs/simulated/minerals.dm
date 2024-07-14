@@ -87,21 +87,18 @@
 
 
 /turf/simulated/mineral/proc/gets_drilled(mob/user, triggered_by_explosion = FALSE, override_bonus = FALSE)
-	var/cached_mineralType = mineralType
-	var/cached_mineralAmt = mineralAmt
+	if(mineralType && (mineralAmt > 0))
+		if(triggered_by_explosion && !override_bonus)
+			mineralAmt += 2 //bonus if it was exploded, USE EXPLOSIVES WOOO
+		new mineralType(src, mineralAmt)
+		if(is_mining_level(z))
+			SSticker?.score?.score_ore_mined++ // Only include ore spawned on mining level
+		SSblackbox.record_feedback("tally", "ore_mined", mineralAmt, mineralType)
 	for(var/obj/effect/temp_visual/mining_overlay/M in src)
 		qdel(M)
 	ChangeTurf(turf_type, defer_change)
 	addtimer(CALLBACK(src, PROC_REF(AfterChange)), 1, TIMER_UNIQUE)
 	playsound(src, 'sound/effects/break_stone.ogg', 50, TRUE) //beautiful destruction
-	if(cached_mineralType && cached_mineralAmt > 0)
-		if(triggered_by_explosion && !override_bonus)
-			cached_mineralAmt += 2	//bonus if it was exploded, USE EXPLOSIVES WOOO
-		new cached_mineralType(src, cached_mineralAmt)
-		if(is_mining_level(z))
-			SSticker?.score?.score_ore_mined++ // Only include ore spawned on mining level
-		SSblackbox.record_feedback("tally", "ore_mined", cached_mineralAmt, cached_mineralType)
-
 
 /turf/simulated/mineral/proc/attempt_drill(mob/user,triggered_by_explosion = FALSE, power = 1)
 	hardness -= power
