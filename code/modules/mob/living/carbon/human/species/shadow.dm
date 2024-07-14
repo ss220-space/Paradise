@@ -35,7 +35,6 @@
 
 	var/grant_vision_toggle = TRUE
 	var/empowered = FALSE
-	var/processing_state = FALSE // to avoid multiple do_after
 	disliked_food = NONE
 
 /datum/action/innate/shadow/darkvision //Darkvision toggle so shadowpeople can actually see where darkness is
@@ -100,24 +99,14 @@
 		H.check_and_regenerate_organs()
 
 /datum/species/shadow/proc/timer(mob/living/carbon/human/H, empowering = FALSE)
-	if(processing_state)
-		return 
-	processing_state = TRUE
-	if(empowering && do_after(H, TIME_TO_EMPOWER, H, ALL, progress = FALSE))
-		if(!light_check(H))
-			return
+	if(empowering && do_after(H, TIME_TO_EMPOWER, H, ALL, progress = FALSE, max_interact_count = 1, extra_checks = CALLBACK(src, PROC_REF(light_check), H)))
 		to_chat(H, span_revenbignotice("You feel empowered with darkness!"))
 		empowered = TRUE
-		processing_state = FALSE
 		return 
-	else if(do_after(H, TIME_TO_EXHAUST, H, ALL, progress = FALSE))
-		if(light_check(H))
-			return
+	else if(empowered && do_after(H, TIME_TO_EXHAUST, H, ALL, progress = FALSE, max_interact_count = 1)) // NO extra_checks. Out in the light? Lose empower.
 		to_chat(H, span_revenbignotice("You feel exhausted! Darkness no longer supports you!"))
 		empowered = FALSE
-		processing_state = FALSE
 		return 
-	processing_state = FALSE
 	return 
 
 /datum/species/shadow/proc/light_check(mob/living/carbon/human/H)
