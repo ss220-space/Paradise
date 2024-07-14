@@ -93,7 +93,7 @@
 	static_inventory += using
 
 	inv_box = new /atom/movable/screen/inventory(null, src)
-	inv_box.name = "left_pocket"
+	inv_box.name = "storage1"
 	inv_box.icon = 'icons/mob/screen_alien.dmi'
 	inv_box.icon_state = "pocket"
 	inv_box.screen_loc = ui_alien_storage_l
@@ -101,7 +101,7 @@
 	static_inventory += inv_box
 
 	inv_box = new /atom/movable/screen/inventory(null, src)
-	inv_box.name = "right_pocket"
+	inv_box.name = "storage2"
 	inv_box.icon = 'icons/mob/screen_alien.dmi'
 	inv_box.icon_state = "pocket"
 	inv_box.screen_loc = ui_alien_storage_r
