@@ -687,11 +687,11 @@
 		else if(!user.IsStunned())
 			target.Stun(0.5 SECONDS)
 	else
-		var/obj/item/I = target.get_active_hand()
-		if(I && prob(60))
+		if(target.IsSlowed() && target.get_active_hand())
 			target.drop_from_active_hand()
 			add_attack_logs(user, target, "Disarmed object out of hand", ATKLOG_ALL)
 		else
+			var/obj/item/I = target.get_active_hand()
 			if(I)
 				to_chat(target, span_warning("Your grip on [I] loosens!"))
 			add_attack_logs(user, target, "Disarmed, shoved back", ATKLOG_ALL)
