@@ -66,7 +66,7 @@
 #define JOB_FLAG_JUDGE				(1<<6)
 #define JOB_FLAG_PILOT				(1<<7)
 
-///Определения ниже используются в качестве названий должностей
+///Defines below used as jobs' titles (from /tg/), credit to JohnFulpWillard
 #define JOB_TITLE_CIVILIAN "Гражданский"
 
 #define JOB_TITLE_CHIEF "Главный Инженер"
@@ -130,7 +130,7 @@
 #define JOB_TITLE_CCSUPREME "Верховный Главнокомандующий"
 #define JOB_TITLE_CCSOLGOV "Генерал Солнечной Федерации"
 
-///Всё, что связано с гост-ролями Taipan.
+///Taipan (ghost role) related stuff
 
 #define TAIPAN_SCIENTIST	"Учёный Космической Базы Синдиката"
 #define TAIPAN_MEDIC 		"Медик Космической Базы Синдиката"
