@@ -5,7 +5,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_engineering = 1
-	supervisors = "the captain"
+	supervisors = "капитаном"
 	department_head = list(JOB_TITLE_CAPTAIN)
 	selection_color = "#ffba4c"
 	req_admin_notify = 1
@@ -55,7 +55,7 @@
 	total_positions = 5
 	spawn_positions = 5
 	is_engineering = 1
-	supervisors = "the chief engineer"
+	supervisors = "главным инженером"
 	department_head = list(JOB_TITLE_CHIEF)
 	selection_color = "#ffeaca"
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM)
@@ -140,7 +140,7 @@
 	total_positions = 3
 	spawn_positions = 2
 	is_engineering = 1
-	supervisors = "the chief engineer"
+	supervisors = "главным инженером"
 	department_head = list(JOB_TITLE_CHIEF)
 	selection_color = "#ffeaca"
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM, ACCESS_EMERGENCY_STORAGE)
@@ -176,7 +176,7 @@
 	total_positions = 1
 	spawn_positions = 1
 	is_engineering = 1
-	supervisors = "the chief engineer"
+	supervisors = "главным инженером"
 	department_head = list(JOB_TITLE_CHIEF)
 	selection_color = "#ffeaca"
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_MECHANIC, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MINERAL_STOREROOM, ACCESS_EMERGENCY_STORAGE)
