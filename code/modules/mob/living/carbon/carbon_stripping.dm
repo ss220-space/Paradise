@@ -44,7 +44,7 @@
 			return
 		user.visible_message(span_danger("[user] is trying to remove something from [source]'s head!"),
 							span_danger("You start to dislodge whatever's inside [source]'s headpocket!"))
-		if(do_after(user, POCKET_STRIP_DELAY, source))
+		if(do_after(user, POCKET_STRIP_DELAY, source, max_interact_count = 1))
 			user.visible_message(span_danger("[user] has dislodged something from [source]'s head!"),
 								span_danger("You have dislodged everything from [source]'s headpocket!"))
 			pocket.empty_contents()
@@ -63,7 +63,7 @@
 
 	muzzle.visible_message(span_danger("[user] tries to [muzzle.locked ? "unlock" : "lock"] [source]'s [muzzle.name]."), \
 					span_userdanger("[user] tries to [muzzle.locked ? "unlock" : "lock"] [source]'s [muzzle.name]."))
-	if(!do_after(user, POCKET_STRIP_DELAY, source))
+	if(!do_after(user, POCKET_STRIP_DELAY, source, max_interact_count = 1))
 		return
 
 	var/success = FALSE

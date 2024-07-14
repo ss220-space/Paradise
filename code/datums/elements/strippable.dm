@@ -83,7 +83,7 @@
 		if(!victim_human.has_vision())
 			to_chat(victim_human, span_userdanger("You feel someone trying to put something on you."))
 
-	if(!do_after(user, equipping.put_on_delay, source))
+	if(!do_after(user, equipping.put_on_delay, source, max_interact_count = 1))
 		return FALSE
 
 	if(QDELETED(equipping) || !user.Adjacent(source) || HAS_TRAIT(equipping, TRAIT_NODROP) )
@@ -258,7 +258,7 @@
 /proc/start_unequip_mob(obj/item/item, mob/source, mob/user, strip_delay)
 	if(!strip_delay)
 		strip_delay = item.strip_delay
-	if(!do_after(user, strip_delay, source))
+	if(!do_after(user, strip_delay, source, max_interact_count = 1))
 		return FALSE
 
 	return TRUE
