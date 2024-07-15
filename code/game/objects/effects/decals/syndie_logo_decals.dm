@@ -28,7 +28,7 @@
 
 /obj/effect/decal/novastation
 	name = "NavaStaion Logo"
-	icon = 'icons/obj/NovaStation.dmi'
+	icon = 'icons/obj/NovaStationLogo.dmi'
 	icon_state = "NStation1"
 	layer = TURF_LAYER
 	desc = "Glory to Nanotrasen!"
