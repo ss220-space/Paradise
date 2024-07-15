@@ -41,7 +41,7 @@
 	return TRUE
 
 /datum/status_effect/shadow_empower/tick(seconds_between_ticks)
-	if(ishuman(owner))
+	if(ishuman(owner) && owner.stat != DEAD)
 		var/mob/living/carbon/human/human = owner
 		human.heal_overall_damage(1,1)
 		human.adjustToxLoss(-0.5)

@@ -77,7 +77,7 @@
 		H.clear_alert("lightexposure")
 	..()
 
-/datum/species/shadow/proc/timer(mob/living/carbon/human/H, empowering = FALSE)
+/datum/species/shadow/proc/empower_handler(mob/living/carbon/human/H, empowering = FALSE)
 	if(empowering && do_after(H, TIME_TO_EMPOWER, H, ALL, progress = FALSE, max_interact_count = 1, extra_checks = CALLBACK(src, PROC_REF(light_check), H)))
 		H.apply_status_effect(STATUS_EFFECT_SHADOW_EMPOWER)
 		return 
@@ -92,11 +92,11 @@
 		var/light_amount = T.get_lumcount() * 10
 		if(light_amount > LIGHT_AMOUNT_DAMAGE)
 			if(H.has_status_effect(STATUS_EFFECT_SHADOW_EMPOWER))
-				timer(H)
+				empower_handler(H)
 			return FALSE
 		else if(light_amount < LIGHT_AMOUNT_HEAL)
 			if(!H.has_status_effect(STATUS_EFFECT_SHADOW_EMPOWER))
-				timer(H, empowering = TRUE)
+				empower_handler(H, empowering = TRUE)
 			return TRUE
 	return TRUE // yes, we will heal in nullspace..
 
