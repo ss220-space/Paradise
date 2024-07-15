@@ -702,4 +702,24 @@
 	desc = "A gorgeous looking lady wearing a labcoat. Whoah, hot!"
 	icon_state = "poster1_secret"
 
+/obj/structure/sign/poster/secret/Viper
+	name = "Wanted Syndicate Officer"
+	desc = "On the poster you can see: A red-haired man in aviator glasses, slightly over 30, with a cigar in his mouth, dressed in a fur coat over a tactical turtleneck."
+	icon_state = "Viper"
+
+/obj/structure/sign/poster/contraband/Lizard
+	name = "Lewd Lizard"
+	desc = "This lewd poster depicts a lizard preparing to mate."
+	icon_state = "Lizard"
+
+/obj/structure/sign/poster/contraband/Enlist_Gorlex
+	name = "Enlist"
+	desc = "Enlist with the Gorlex Marauders today! See the galaxy, kill corpos, get paid!"
+	icon_state = "gorlex_recruitment"
+
+/obj/structure/sign/poster/contraband/Enlist_Syndicate
+	name = "Enlist Syndicate"
+	desc = "See the galaxy! Shatter corrupt megacorporations! Get paid! Join today!"
+	icon_state = "Syndicate"
+
 #undef PLACE_SPEED
