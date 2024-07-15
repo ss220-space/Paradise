@@ -851,8 +851,6 @@
 				if(destarea && old_area != destarea)
 					destarea.Entered(src, old_area)
 
-			if(oldloc.z != destination.z)
-				on_changed_z_level(get_turf(oldloc), get_turf(destination), FALSE)
 
 		. = TRUE
 
