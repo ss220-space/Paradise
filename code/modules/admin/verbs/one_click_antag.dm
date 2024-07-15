@@ -116,7 +116,7 @@
 	log_admin("[key_name(owner)] tried making [antnum] blobs with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making [antnum] blobs with One-Click-Antag")
 	var/result = FALSE
-	switch(alert(usr,"Вы хотите создать блобов из членов экипажа или же с помошью инфецированных мышек?", "", "Из экипажа", "С помошью мышек"))
+	switch(alert(usr, "Вы хотите создать блобов из членов экипажа или же с помощью инфицированных мышек?", "", "Из экипажа", "С помощью мышек"))
 		if("Из экипажа")
 			result = SSticker?.mode?.make_blobs(antnum)
 		if("С помощью мышек")
