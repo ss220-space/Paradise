@@ -3,6 +3,11 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 2
 	},
+/obj/machinery/camera{
+	c_tag = "Mining Post South-East Hallway";
+	dir = 2;
+	network = list("Mining Outpost")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -93,6 +98,7 @@
 /area/lavaland/surface/outdoors/necropolis)
 "aE" = (
 /obj/structure/closet/secure_closet/security,
+/obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
@@ -1143,6 +1149,7 @@
 /obj/structure/sign/xeno_warning_mining{
 	pixel_x = 32
 	},
+/obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -1638,6 +1645,7 @@
 "mc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/vending/cola/free,
+/obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -2373,6 +2381,7 @@
 "rr" = (
 /obj/structure/table,
 /obj/structure/bedsheetbin,
+/obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "rv" = (
@@ -2941,6 +2950,9 @@
 /obj/item/radio/intercom/locked/prison{
 	pixel_y = 24
 	},
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -3148,6 +3160,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkredcorners"
@@ -4385,6 +4398,17 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
+"Er" = (
+/obj/machinery/camera{
+	c_tag = "Mining Post Second Storage";
+	dir = 8;
+	network = list("Mining Outpost")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "brown"
+	},
+/area/mine/living_quarters)
 "Es" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -4840,6 +4864,7 @@
 /obj/structure/sign/poster/official/twelve_gauge{
 	pixel_y = -32
 	},
+/obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -4878,6 +4903,11 @@
 "Il" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "Mining Post East Hallway";
+	dir = 9;
+	network = list("Mining Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -5498,6 +5528,11 @@
 	icon_state = "clockwork_floor"
 	},
 /area/mine/necropolis)
+"MH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
 "MI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -6458,6 +6493,11 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 2
 	},
+/obj/machinery/camera{
+	c_tag = "Mining Post South-West Hallway";
+	dir = 2;
+	network = list("Mining Outpost")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -6941,10 +6981,16 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "WX" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "darkredfull"
+/obj/machinery/camera{
+	c_tag = "Mining Post South Hallway";
+	dir = 4;
+	network = list("Mining Outpost")
 	},
-/area/mine/laborcamp/security)
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "brown"
+	},
+/area/mine/living_quarters)
 "WY" = (
 /obj/structure/chair/stool/bar,
 /obj/effect/turf_decal/tile/neutral{
@@ -7082,10 +7128,10 @@
 "Yr" = (
 /obj/structure/table,
 /obj/item/storage/fancy/donut_box,
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/alarm{
+	pixel_y = 22
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -7200,18 +7246,13 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "Zf" = (
-/obj/machinery/alarm{
-	dir = 4;
-	pixel_x = -24
-	},
-/obj/effect/decal/cleanable/cobweb,
 /obj/machinery/computer/prisoner{
 	dir = 4
 	},
-/obj/machinery/light/small{
-	dir = 8
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
@@ -7367,6 +7408,7 @@
 /obj/item/clothing/gloves/fingerless,
 /obj/item/clothing/shoes/workboots,
 /obj/item/clothing/suit/storage/hazardvest,
+/obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -12261,7 +12303,7 @@ XT
 Kg
 iu
 dI
-dI
+OZ
 mP
 OZ
 dI
@@ -12521,7 +12563,7 @@ dI
 Zf
 zo
 wC
-OZ
+dI
 Ne
 tG
 tG
@@ -13806,7 +13848,7 @@ aE
 lh
 fF
 Gq
-dI
+OZ
 Ne
 Cg
 Cg
@@ -14060,7 +14102,7 @@ oS
 kd
 dI
 vf
-WX
+Es
 Es
 HV
 dI
@@ -14565,7 +14607,7 @@ Ab
 tv
 GJ
 iu
-yS
+MH
 Ql
 VH
 zY
@@ -22543,7 +22585,7 @@ Ha
 Ha
 Oq
 Em
-Ha
+WX
 Ha
 qv
 Hs
@@ -24595,7 +24637,7 @@ VC
 uL
 OF
 dh
-vq
+Er
 Fq
 uL
 jE
