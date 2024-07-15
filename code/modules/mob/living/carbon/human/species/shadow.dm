@@ -102,10 +102,10 @@
 
 /datum/species/shadow/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
 	if(H.stat == DEAD)
-		..()
+		return TRUE
 	if(H.has_status_effect(STATUS_EFFECT_SHADOW_EMPOWER) && prob(50))
-		return
-	..()
+		return FALSE
+	return TRUE
 
 #undef LIGHT_AMOUNT_HEAL
 #undef LIGHT_AMOUNT_DAMAGE
