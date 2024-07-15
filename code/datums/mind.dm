@@ -2534,7 +2534,7 @@
 				if(!isblobovermind(src))
 					return
 				var/mob/camera/blob/blob_overmind = current
-				var/blob_points = input(usr, "Введите новое число очков в диапазоне от о до [blob_overmind.max_blob_points]","Time:", blob_overmind.blob_points) as num|null
+				var/blob_points = input(usr, "Введите новое число очков в диапазоне от 0 до [blob_overmind.max_blob_points]","Time:", blob_overmind.blob_points) as num|null
 				if(isnull(blob_points) || QDELETED(current) || current.stat == DEAD)
 					return
 				blob_overmind.blob_points = clamp(blob_points, 0, blob_overmind.max_blob_points)
