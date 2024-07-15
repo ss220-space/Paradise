@@ -43,7 +43,11 @@
 		return
 
 	var/rendered = "<i><span class='blob'>Blob Telepathy,</span> <span class='name'>[user.name]</span> states, <span class='blob'>\"[message]\"</span></i>"
-
 	for(var/mob/M in GLOB.mob_list)
-		if(isovermind(M) || isobserver(M) || isblobbernaut(M) || isblobinfected(M.mind))
+		if(isovermind(M) || isblobbernaut(M) || isblobinfected(M.mind))
 			M.show_message(rendered, 2)
+		else if(isobserver(M) && !isnewplayer(M))
+			var/rendered_ghost = "<i><span class='blob'>Blob Telepathy,</span> <span class='name'>[user.name]</span> \
+			<a href='?src=[M.UID()];follow=[user.UID()]'>(F)</a> states, <span class='blob'>\"[message]\"</span></i>"
+			M.show_message(rendered_ghost, 2)
+

@@ -167,7 +167,7 @@
 	if(!blob_burst_action)
 		return
 	blob_burst_action.Remove(antag_mob)
-	antag_mob.update_action_buttons(TRUE)
+
 
 /datum/antagonist/blob_infected/proc/add_burst_display(mob/living/antag_mob)
 	if(!antag_mob)

@@ -71,7 +71,7 @@
 	obj_integrity = min(max_integrity, obj_integrity + 1)
 	if(overmind)
 		overmind.update_health_hud()
-	if(overmind.blob_reagent_datum.color)
+	if(overmind?.blob_reagent_datum?.color)
 		for(var/i = 1; i < 8; i += i)
 			Pulse(0, i, overmind.blob_reagent_datum.color)
 	else
@@ -83,7 +83,7 @@
 		var/obj/structure/blob/normal/B = locate() in get_step(src, b_dir)
 		if(B)
 			B.change_to(/obj/structure/blob/shield/core)
-			if(B && overmind.blob_reagent_datum.color)
+			if(B && overmind?.blob_reagent_datum?.color)
 				B.color = overmind.blob_reagent_datum.color
 			else
 				B.color = color

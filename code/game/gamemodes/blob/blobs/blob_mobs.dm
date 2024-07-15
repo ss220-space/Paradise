@@ -207,8 +207,6 @@
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/proc/add_to_gamemode()
 	var/list/blobernauts = SSticker?.mode?.blobs["blobernauts"]
-	if(blobernauts && (mind in blobernauts))
-		blobernauts -= mind
 	blobernauts += mind
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/Life(seconds, times_fired)
@@ -246,8 +244,12 @@
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/proc/blob_talk()
 	var/message = input(src, "Announce to the overmind", "Blob Telepathy")
-	var/rendered = "<i><span class='blob'>Blob Telepathy,</span> <span class='name'>[name]([overmind])</span> states, <span class='blob'>\"[message]\"</span></i>"
+	var/rendered = "<i><span class='blob'>Blob Telepathy,</span> <span class='name'>[name]([overmind]) states, <span class='blob'>\"[message]\"</span></i>"
 	if(message)
 		for(var/mob/M in GLOB.mob_list)
-			if(isovermind(M) || isobserver(M) || isblobbernaut(M) || isblobinfected(M.mind))
+			if(isovermind(M) || isblobbernaut(M) || isblobinfected(M.mind))
 				M.show_message(rendered, 2)
+			else if(isobserver(M) && !isnewplayer(M))
+				var/rendered_ghost = "<i><span class='blob'>Blob Telepathy,</span> <span class='name'>[name]([overmind]) </span> \
+				<a href='?src=[M.UID()];follow=[UID()]'>(F)</a> states, <span class='blob'>\"[message]\"</span></i>"
+				M.show_message(rendered_ghost, 2)
