@@ -1057,6 +1057,7 @@
 
 /obj/item/clothing/under/colour/skirt/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
 	add_atom_colour(colour, FIXED_COLOUR_PRIORITY)
 	update_icon()
 
@@ -1074,7 +1075,6 @@
 
 /obj/item/clothing/under/colour/skirt/New()
 	..()
-	AddComponent(/datum/component/spraycan_paintable)
 	START_PROCESSING(SSobj, src)
 	update_icon()
 
