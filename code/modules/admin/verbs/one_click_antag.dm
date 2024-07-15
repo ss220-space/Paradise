@@ -119,7 +119,7 @@
 	switch(alert(usr,"Вы хотите создать блобов из членов экипажа или же с помошью инфецированных мышек?", "", "Из экипажа", "С помошью мышек"))
 		if("Из экипажа")
 			result = SSticker?.mode?.make_blobs(antnum)
-		if("С помошью мышек")
+		if("С помощью мышек")
 			result = SSticker?.mode?.make_blobized_mouses(antnum)
 	return result
 
