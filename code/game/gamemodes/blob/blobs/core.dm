@@ -16,13 +16,11 @@
 	GLOB.blob_cores += src
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
+	adjustcolors(color) //so it atleast appears
 	if(!overmind)
 		create_overmind(new_overmind)
-	adjustcolors(color) //so it atleast appears
 	if(offspring)
 		is_offspring = TRUE
-	if(overmind)
-		adjustcolors(overmind.blob_reagent_datum.color)
 	point_rate = new_rate
 	..(loc, h)
 
@@ -73,7 +71,7 @@
 	obj_integrity = min(max_integrity, obj_integrity + 1)
 	if(overmind)
 		overmind.update_health_hud()
-	if(overmind)
+	if(overmind?.blob_reagent_datum?.color)
 		for(var/i = 1; i < 8; i += i)
 			Pulse(0, i, overmind.blob_reagent_datum.color)
 	else
@@ -85,7 +83,7 @@
 		var/obj/structure/blob/normal/B = locate() in get_step(src, b_dir)
 		if(B)
 			B.change_to(/obj/structure/blob/shield/core)
-			if(B && overmind)
+			if(B && overmind?.blob_reagent_datum?.color)
 				B.color = overmind.blob_reagent_datum.color
 			else
 				B.color = color
@@ -124,8 +122,6 @@
 		B.key = C.key
 		B.blob_core = src
 		overmind = B
-		B.select_reagent()
-		color = overmind.blob_reagent_datum.color
 		B.is_offspring = is_offspring
 		addtimer(CALLBACK(src, PROC_REF(add_datum_if_not_exist)), TIME_TO_ADD_OM_DATUM)
 		log_game("[B.key] has become Blob [is_offspring ? "offspring" : ""]")
@@ -146,11 +142,13 @@
 	return ..()
 
 /obj/structure/blob/core/proc/add_datum_if_not_exist()
+	overmind.select_reagent()
 	if(!overmind.mind.has_antag_datum(/datum/antagonist/blob_overmind))
 		var/datum/antagonist/blob_overmind/overmind_datum = new
 		overmind_datum.add_to_mode = TRUE
 		overmind_datum.is_offspring = is_offspring
 		if(overmind.blob_reagent_datum)
-			overmind_datum = overmind.blob_reagent_datum
+			overmind_datum.reagent = overmind.blob_reagent_datum
 		overmind.mind.add_antag_datum(overmind_datum)
+	color = overmind.blob_reagent_datum.color
 

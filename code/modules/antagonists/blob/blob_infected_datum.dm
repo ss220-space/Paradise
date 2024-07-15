@@ -39,6 +39,8 @@
 	var/atom/movable/screen/time_to_burst_display
 	//Blob talk ability
 	var/datum/action/innate/blob/comm/blob_talk_action
+	//Blob burst ability
+	var/datum/action/innate/blob/self_burst/blob_burst_action
 	//Final time to burst.
 	var/burst_wait_time
 	//Total burst warning text
@@ -64,7 +66,7 @@
 	var/datum/game_mode/mode = SSticker.mode
 	if(add_to_mode && mode && !(owner in mode.blobs["infected"]))
 		mode.blob_win_count += BLOB_TARGET_POINT_PER_CORE
-		mode.blobs["infected"] += owner
+		mode.blobs["infected"] |= owner
 		mode.update_blob_objective()
 
 
@@ -85,7 +87,7 @@
 
 /datum/antagonist/blob_infected/apply_innate_effects(mob/living/mob_override)
 	var/user = ..(mob_override)
-	add_blob_talk(user)
+	add_blob_actions(user)
 	add_burst_display(user)
 	is_processing = TRUE
 	return user
@@ -93,7 +95,7 @@
 
 /datum/antagonist/blob_infected/remove_innate_effects(mob/living/mob_override)
 	var/user = ..(mob_override)
-	remove_blob_talk(user)
+	remove_blob_actions(user)
 	remove_burst_display(user)
 	is_processing = FALSE
 	return user
@@ -144,22 +146,27 @@
 		return
 
 
-/datum/antagonist/blob_infected/proc/add_blob_talk(mob/living/antag_mob)
+/datum/antagonist/blob_infected/proc/add_blob_actions(mob/living/antag_mob)
 	if(!antag_mob)
 		return
 	if(!blob_talk_action)
 		blob_talk_action = new
 	blob_talk_action.Grant(antag_mob)
-	antag_mob.update_action_buttons(TRUE)
+	if(!blob_burst_action)
+		blob_burst_action = new
+	blob_burst_action.Grant(antag_mob)
 
 
-/datum/antagonist/blob_infected/proc/remove_blob_talk(mob/living/antag_mob)
+/datum/antagonist/blob_infected/proc/remove_blob_actions(mob/living/antag_mob)
 	if(!antag_mob)
 		return
 	if(!blob_talk_action)
 		return
 	blob_talk_action.Remove(antag_mob)
-	antag_mob.update_action_buttons(TRUE)
+	if(!blob_burst_action)
+		return
+	blob_burst_action.Remove(antag_mob)
+
 
 /datum/antagonist/blob_infected/proc/add_burst_display(mob/living/antag_mob)
 	if(!antag_mob)
@@ -200,6 +207,7 @@
 		log_admin("[key_name(C)] was in space when attempting to burst as a blob.")
 		message_admins("[key_name_admin(C)] was in space when attempting to burst as a blob.")
 		C.was_bursted = TRUE
+		kill_borer_inside()
 		C.gib()
 		if(need_new_blob)
 			SSticker?.mode?.make_blobs(1, TRUE)
@@ -219,7 +227,7 @@
 		var/mob/M = C.loc
 		M.gib()
 	if(!is_station_level(location.z) || isspaceturf(location))
-		burst_blob_in_space(FALSE)
+		burst_blob_in_space(!warn_blob)
 		return
 	if(blob_client && location)
 		mode.bursted_blobs_count++
@@ -227,6 +235,7 @@
 
 		var/datum/antagonist/blob_overmind/overmind = transform_to_overmind()
 		owner.remove_antag_datum(/datum/antagonist/blob_infected)
+		kill_borer_inside()
 		C.gib()
 		var/obj/structure/blob/core/core = new(location, 200, blob_client, SSticker.mode.blob_point_rate)
 		if(!(core.overmind && core.overmind.mind))
@@ -244,9 +253,15 @@
 	overmind.is_tranformed = TRUE
 	return overmind
 
+/datum/antagonist/blob_infected/proc/kill_borer_inside()
+	var/mob/living/simple_animal/borer/borer = owner?.current?.has_brain_worms()
+	if(borer)
+		borer.leave_host()
+		borer.death()
+
 
 /**
- * Takes any datum `source` and checks it for traitor datum.
+ * Takes any datum `source` and checks it for blob_infected datum.
  */
 /proc/isblobinfected(datum/source)
 	if(!source)
