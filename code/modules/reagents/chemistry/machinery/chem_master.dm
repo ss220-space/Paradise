@@ -637,7 +637,8 @@
 			return FALSE
 	return TRUE
 
-/datum/chemical_production_mode/patches/configure_item(data, datum/reagents/R, obj/item/reagent_containers/patch/P)
+/datum/chemical_production_mode/patches/configure_item(data, datum/reagents/R, obj/item/reagent_containers/food/pill/patch/P)
+	..()
 	var/chemicals_is_safe = data["chemicals_is_safe"]
 
 	if(isnull(chemicals_is_safe))
