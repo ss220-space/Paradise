@@ -27,8 +27,8 @@
 		if(!is_tranformed)
 			mode.blob_win_count += BLOB_TARGET_POINT_PER_CORE
 		if(is_offspring)
-			mode.blobs["offsprings"] += owner
-		else mode.blobs["infected"] += owner
+			mode.blobs["offsprings"] |= owner
+		else mode.blobs["infected"] |= owner
 		mode.update_blob_objective()
 
 

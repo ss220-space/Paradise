@@ -207,7 +207,7 @@
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/proc/add_to_gamemode()
 	var/list/blobernauts = SSticker?.mode?.blobs["blobernauts"]
-	blobernauts += mind
+	blobernauts |= mind
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/Life(seconds, times_fired)
 	if(stat != DEAD && (getBruteLoss() || getFireLoss())) // Heal on blob structures

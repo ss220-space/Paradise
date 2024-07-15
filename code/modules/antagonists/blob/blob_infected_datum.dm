@@ -66,7 +66,7 @@
 	var/datum/game_mode/mode = SSticker.mode
 	if(add_to_mode && mode && !(owner in mode.blobs["infected"]))
 		mode.blob_win_count += BLOB_TARGET_POINT_PER_CORE
-		mode.blobs["infected"] += owner
+		mode.blobs["infected"] |= owner
 		mode.update_blob_objective()
 
 
@@ -155,7 +155,6 @@
 	if(!blob_burst_action)
 		blob_burst_action = new
 	blob_burst_action.Grant(antag_mob)
-	antag_mob.update_action_buttons(TRUE)
 
 
 /datum/antagonist/blob_infected/proc/remove_blob_actions(mob/living/antag_mob)
