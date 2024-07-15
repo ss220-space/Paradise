@@ -27582,6 +27582,17 @@
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/medical/psych)
+"dQZ" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 4
+	},
+/obj/structure/sign/double/no_idiots/right{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engine/engineering)
 "dRc" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
@@ -33675,6 +33686,17 @@
 	icon_state = "caution"
 	},
 /area/atmos/control)
+"fgx" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow{
+	dir = 4
+	},
+/obj/structure/sign/double/no_idiots/left{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engine/engineering)
 "fgB" = (
 /obj/machinery/turretid/stun{
 	control_area = "AI Satellite Antechamber";
@@ -230951,7 +230973,7 @@ ePA
 apP
 ddw
 pXa
-dbS
+fgx
 drC
 ekR
 qnz
@@ -231208,7 +231230,7 @@ ntG
 meC
 gkw
 pXa
-dbS
+dQZ
 nJL
 qXY
 qnz

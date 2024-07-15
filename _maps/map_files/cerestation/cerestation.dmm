@@ -28041,6 +28041,14 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
+"dTs" = (
+/obj/structure/sign/double/no_idiots/right{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engine/engineering)
 "dTB" = (
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
@@ -76673,6 +76681,12 @@
 	icon_state = "purplecorner"
 	},
 /area/hallway/primary/aft/west)
+"rVa" = (
+/obj/structure/sign/double/no_idiots/left{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plating,
+/area/engine/engineering)
 "rVu" = (
 /obj/structure/cable/orange{
 	icon_state = "1-2"
@@ -132450,7 +132464,7 @@ biL
 bhQ
 dcG
 bhd
-cKs
+rVa
 cJC
 qMy
 qMy
@@ -132707,7 +132721,7 @@ biL
 bhQ
 dcG
 bhd
-nOF
+dTs
 cJE
 cKs
 cWO
