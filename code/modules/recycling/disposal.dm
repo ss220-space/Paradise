@@ -26,16 +26,24 @@
 	resistance_flags = FIRE_PROOF
 	active_power_usage = 600
 	idle_power_usage = 100
-	var/datum/gas_mixture/air_contents	// internal reservoir
-	var/mode = CHARGING	// item mode 0=off 1=charging 2=charged
-	var/flush = FALSE	// true if flush handle is pulled
-	var/obj/structure/disposalpipe/trunk/trunk = null // the attached pipe trunk
-	var/flushing = FALSE	// true if flushing in progress
-	var/flush_every_ticks = 30 //Every 30 ticks it will look whether it is ready to flush
-	var/flush_count = 0 //this var adds 1 once per tick. When it reaches flush_every_ticks it resets and tries to flush.
-	var/deconstructs_to = PIPE_DISPOSALS_BIN
-	var/storage_slots = 50 //The number of storage slots in this container.
-	var/max_combined_w_class = 50 //The sum of the w_classes of all the items in this storage item.
+	/// Internal air reservoir
+	var/datum/gas_mixture/air_contents
+	/// Disposal pipe trunk, we are attached to
+	var/obj/structure/disposalpipe/trunk/trunk
+	/// Current machine status
+	var/mode = CHARGING
+	/// Whether flush handle is pulled
+	var/flush = FALSE
+	/// Whether flushing is currently in progress
+	var/flushing = FALSE
+	/// Process cycles before it look whether it is ready to flush
+	var/flush_every_ticks = 30
+	/// This var adds 1 every process cycle. When it reaches flush_every_ticks it resets and tries to flush
+	var/flush_count = 0
+	/// Maximum amount of contents length we can have, before we stop inserting new objects
+	var/storage_slots = 50
+	/// Maximum value of the w_classes of all the items in contents, before we stop inserting new objects
+	var/max_combined_w_class = 50
 	COOLDOWN_DECLARE(eject_effects_cd)
 
 
@@ -566,7 +574,7 @@
 	density = TRUE
 	icon_state = "intake"
 	base_icon_state = "intake"
-	deconstructs_to = PIPE_DISPOSALS_CHUTE
+	/// Whether this chute directs all items into the cargo waste sorting area
 	var/to_waste = TRUE
 
 
