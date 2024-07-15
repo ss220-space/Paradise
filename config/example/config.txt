@@ -686,3 +686,14 @@ DEFAULT_MAP /datum/map/cyberiad
 
 ## If the number of players is more or same than this, then we apply the highpop jobs config.
 JOBS_HIGH_POP_MODE_AMOUNT 80
+
+##Error handling related options
+## The "cooldown" time for each occurence of a unique error
+#ERROR_COOLDOWN 600
+## How many occurences before the next will silence them
+#ERROR_LIMIT 90
+## How long a unique error will be silenced for
+#ERROR_SILENCE_TIME 6000
+##How long to wait between messaging admins about occurences of a unique error
+#ERROR_MSG_DELAY 50
+
