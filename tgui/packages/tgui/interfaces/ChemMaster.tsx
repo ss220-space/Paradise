@@ -430,7 +430,7 @@ const ChemMasterProductionCommon = (
 ) => {
   const { act, data } = useBackend<ChemMasterData>(context);
   const { children, productionData } = props;
-  const { pillsprite, buffer_reagents = [] } = data;
+  const { buffer_reagents = [] } = data;
   const { id, max_items_amount, set_name, set_items_amount, placeholder_name } =
     productionData;
   return (
