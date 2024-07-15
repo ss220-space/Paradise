@@ -67,6 +67,7 @@
 		H.vision_type = null
 		vision_toggle.Remove(H)
 	H.clear_alert("lightexposure")
+	H.remove_status_effect(STATUS_EFFECT_SHADOW_EMPOWER)
 
 /datum/species/shadow/handle_life(mob/living/carbon/human/H)
 	if(!light_check(H)) //if there's enough light, start dying
