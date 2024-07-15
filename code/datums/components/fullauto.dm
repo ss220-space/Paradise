@@ -307,8 +307,7 @@
 		shoot_with_empty_chamber(shooter)
 		return FALSE
 
-	var/other_hand = shooter.get_organ(shooter.hand ? BODY_ZONE_PRECISE_R_HAND : BODY_ZONE_PRECISE_L_HAND)
-	if(weapon_weight == WEAPON_HEAVY && (shooter.get_inactive_hand() || !other_hand))
+	if(weapon_weight == WEAPON_HEAVY && (shooter.get_inactive_hand() || !shooter.has_inactive_hand() || (shooter.pulling && shooter.pull_hand != PULL_WITHOUT_HANDS)))
 		balloon_alert(shooter, "нужны обе руки!")
 		return FALSE
 
