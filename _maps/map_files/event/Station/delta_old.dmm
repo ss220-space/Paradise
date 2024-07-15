@@ -240,7 +240,6 @@
 	pixel_x = -28
 	},
 /obj/effect/decal/warning_stripes/northwest,
-/turf/space,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/additional)
 "afE" = (
@@ -267,7 +266,6 @@
 /area/engine/mechanic_workshop/hangar)
 "agi" = (
 /obj/effect/spawner/window/reinforced,
-/turf/space,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/entry/eastarrival)
 "agp" = (
@@ -353,7 +351,6 @@
 	pixel_x = 25
 	},
 /obj/effect/decal/warning_stripes/northeast,
-/turf/space,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/westarrival)
 "ahs" = (
@@ -592,7 +589,6 @@
 /obj/structure/sign/poster/official/work_for_a_future{
 	pixel_x = 32
 	},
-/turf/space,
 /turf/simulated/floor/plasteel,
 /area/engine/mechanic_workshop/expedition)
 "aky" = (
@@ -1575,7 +1571,6 @@
 /turf/simulated/floor/plasteel,
 /area/engine/mechanic_workshop/expedition)
 "asT" = (
-/turf/space,
 /turf/simulated/wall,
 /area/hallway/secondary/entry/additional)
 "asU" = (
@@ -3305,7 +3300,6 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/westarrival)
 "aFF" = (
-/turf/space,
 /turf/simulated/wall,
 /area/hallway/secondary/entry/westarrival)
 "aFT" = (
@@ -4692,7 +4686,6 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/warning_stripes/east,
-/turf/space,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/westarrival)
 "aNT" = (
@@ -5156,7 +5149,6 @@
 /area/solar/auxport)
 "aQJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/space,
 /turf/simulated/floor/greengrid,
 /area/engine/controlroom)
 "aQK" = (
@@ -7205,7 +7197,6 @@
 	id_tag = "specops_home"
 	},
 /obj/effect/decal/warning_stripes/north,
-/turf/space,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/additional)
 "bfL" = (
@@ -15614,7 +15605,6 @@
 	name = "\improper AI Satellite Hallway"
 	})
 "bVk" = (
-/turf/space,
 /turf/simulated/wall/r_wall,
 /area/engine/controlroom)
 "bVn" = (
@@ -71976,7 +71966,6 @@
 	},
 /area/engine/break_room)
 "mpI" = (
-/turf/space,
 /turf/simulated/wall/r_wall,
 /area/security/medbay)
 "mpW" = (
@@ -77643,7 +77632,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "nNu" = (
-/turf/space,
 /turf/simulated/wall/r_wall,
 /area/security/processing)
 "nNy" = (
@@ -94786,7 +94774,6 @@
 	},
 /area/bridge)
 "snF" = (
-/turf/space,
 /turf/simulated/wall/r_wall,
 /area/medical/virology)
 "snP" = (
