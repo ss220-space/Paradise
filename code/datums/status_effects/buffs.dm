@@ -26,8 +26,6 @@
 
 /datum/status_effect/shadow_empower
 	id = "shadow_empower"
-	duration = -1
-	tick_interval = 1 SECONDS 
 	alert_type = /atom/movable/screen/alert/status_effect/shadow_empower
 
 /atom/movable/screen/alert/status_effect/shadow_empower
