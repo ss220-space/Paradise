@@ -426,7 +426,7 @@
 	usr << browse(html, "window=variables[refid];size=475x650")
 
 #define VV_HTML_ENCODE(thing) ( sanitize ? html_encode(thing) : thing )
-/proc/debug_variable(name, value, level, var/datum/DA = null, sanitize = TRUE)
+/proc/debug_variable(name, value, level, var/datum/DA = null, sanitize = TRUE, display_flags)
 	var/header
 	if(DA)
 		if(islist(DA))
@@ -478,7 +478,7 @@
 		var/list/L = value
 		var/list/items = list()
 
-		if(L.len && !(name == "underlays" || name == "overlays" || name == "vars" || L.len > (IS_NORMAL_LIST(L) ? 250 : 300)))
+		if(!(display_flags & VV_ALWAYS_CONTRACT_LIST) && L.len && !(name == "underlays" || name == "overlays" || name == "vars" || L.len > (IS_NORMAL_LIST(L) ? 250 : 300)))
 			for(var/i in 1 to L.len)
 				var/key = L[i]
 				var/val

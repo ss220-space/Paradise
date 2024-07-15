@@ -351,6 +351,13 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	pipe_icon = "pipe-j1s"
 	rpd_dispensable = TRUE
 
+/datum/pipes/disposal/rotator
+	pipe_name = "disposals rotator"
+	pipe_id = PIPE_DISPOSALS_ROTATOR
+	orientations = 1
+	pipe_icon = "pipe-r1"
+	rpd_dispensable = TRUE
+
 /datum/pipes/disposal/multiz_up
 	pipe_name = "disposals trunk up"
 	pipe_id = PIPE_DISPOSALS_MULTIZ_UP

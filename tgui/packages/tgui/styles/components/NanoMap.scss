@@ -1,4 +1,4 @@
-$color-background: rgba(0, 0, 0, 0.33) !default;
+$background-color: rgba(0, 0, 0, 0.33) !default;
 
 .NanoMap__container {
   overflow: hidden;
@@ -12,26 +12,9 @@ $color-background: rgba(0, 0, 0, 0.33) !default;
   margin: 0px;
 }
 
-/*.NanoMap__button {
-  background: blue;
-  padding: 3px 3px;
-  font-size: 12px;
-  border: 2px solid black;
-  color: #fff;
-}*/
-.NanoMap__button{
-  padding: 3px 3px;
-  font-size: 12px;
-  border: 2px solid black;
-}
-
-.NanoMap__button:hover {
-  background-color: greenyellow;
-}
-
 .NanoMap__zoomer {
   z-index: 20;
-  background-color: $color-background;
+  background-color: $background-color;
   position: absolute;
   top: 30px;
   left: 0;
@@ -41,7 +24,7 @@ $color-background: rgba(0, 0, 0, 0.33) !default;
 
 .NanoMap__zlevel {
   z-index: 20;
-  background-color: $color-background;
+  background-color: $background-color;
   position: absolute;
   top: 30px;
   left: 20.5rem;

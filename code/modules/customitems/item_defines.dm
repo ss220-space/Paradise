@@ -732,7 +732,6 @@
 /obj/item/clothing/suit/fluff
 	icon = 'icons/obj/custom_items.dmi'
 	actions_types = null
-	ignore_suitadjust = 1
 	adjust_flavour = null
 	sprite_sheets = null
 
@@ -742,7 +741,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "pulsecoat"
 	item_state = "pulsecoat"
-	ignore_suitadjust = 1
+	ignore_suitadjust = TRUE
 	actions_types = null
 
 /obj/item/clothing/suit/jacket/miljacket/patch // sniper_fairy : P.A.T.C.H.
@@ -750,8 +749,7 @@
 	desc = "A canvas jacket styled after classical American military garb. Feels sturdy, yet comfortable. This one has a medical patch on it."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "shazjacket_purple_open"
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	ignore_suitadjust = FALSE
 	actions_types = list(/datum/action/item_action/openclose)
 	adjust_flavour = "unbutton"
 
@@ -810,8 +808,7 @@
 	desc = "A faded leather overcoat bearing a worn out badge from the NAS Crescent on the shoulder, and a designation tag of Supply Master on the front.  A tarnished gold nameplate says H.Gadow on it."
 	icon_state = "supplymaster_jacket_open"
 	item_state = "supplymaster_jacket_open"
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	ignore_suitadjust = FALSE
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
@@ -831,7 +828,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "kidosvest"
 	item_state = "kidosvest"
-	ignore_suitadjust = 1
+	ignore_suitadjust = TRUE
 	actions_types = null
 	adjust_flavour = null
 	sprite_sheets = null
@@ -943,7 +940,7 @@
 	desc = "A somewhat worn but well kept set of vox tactical webbing. It has a couple of pouches attached."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "k3_webbing"
-
+	ignore_suitadjust = FALSE
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
@@ -953,25 +950,25 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 	actions_types = list(/datum/action/item_action/toggle)
-	suit_adjusted = FALSE
 
 
 /obj/item/clothing/suit/storage/fluff/k3_webbing/update_icon_state()
-	var/base_icon_state = copytext(icon_state, 1, findtext(icon_state, "_on"))
-	var/base_item_state = copytext(item_state, 1, findtext(item_state, "_on"))
+	var/base_icon_state = replacetext("[icon_state]", "_on", "")
+	var/base_item_state = replacetext("[item_state]", "_on", "")
 
-	icon_state = suit_adjusted ? base_icon_state : "[base_icon_state]_on"
-	item_state = suit_adjusted ? base_item_state : "[base_item_state]_on"
+	icon_state = suit_adjusted ? "[base_icon_state]_on" : base_icon_state
+	item_state = suit_adjusted ? "[base_item_state]_on" : base_item_state
 
 
 /obj/item/clothing/suit/storage/fluff/k3_webbing/adjustsuit(mob/user)
 	if(user.incapacitated())
 		return
 
+	suit_adjusted = !suit_adjusted
 	update_icon(UPDATE_ICON_STATE)
 	update_equipped_item(update_speedmods = FALSE)
-	to_chat(user, "You turn the [src]'s lighting system [suit_adjusted ? "off" : "on"].")
-	suit_adjusted = !suit_adjusted
+	to_chat(user, "You turn the [src]'s lighting system [suit_adjusted ? "on" : "off"].")
+
 
 
 /obj/item/clothing/suit/hooded/hoodie/fluff/xantholne // Xantholne: Meex Zwichsnicrur
@@ -996,7 +993,6 @@
 	desc = "Made for Unathi who likes to show off their big horns."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "xydonus_jacket"
-	ignore_suitadjust = 0
 	hoodtype = /obj/item/clothing/head/hooded/hood/fluff/xydonus
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
@@ -1058,7 +1054,8 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "dtxbomber"
 	item_state = "dtxbomber"
-	ignore_suitadjust = 0
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
 	allowed = list(/obj/item/flashlight,/obj/item/tank/internals/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
@@ -1353,7 +1350,8 @@
 	item_state = "chronx_robe"
 	actions_types = list(/datum/action/item_action/toggle)
 	adjust_flavour = "untransform"
-	ignore_suitadjust = 0
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
 
 /obj/item/clothing/shoes/black/fluff/chronx //chronx100: Hughe O'Splash
 	name = "Cthulhu's Boots"
@@ -1383,7 +1381,6 @@
 	icon_state = "elliot_windbreaker_open"
 	item_state = "elliot_windbreaker_open"
 	adjust_flavour = "unzip"
-	suit_adjusted = 1
 	sprite_sheets = null
 
 /obj/item/storage/backpack/fluff/syndiesatchel //SkeletalElite: Rawkkihiki

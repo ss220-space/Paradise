@@ -407,7 +407,7 @@
 /area/shuttle/pirate_corvette)
 "bi" = (
 /obj/structure/disposalpipe/segment,
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal{
+/turf/simulated/wall/shuttle/onlyselfsmooth{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/shuttle/pirate_corvette)
@@ -871,8 +871,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -900,8 +899,7 @@
 /area/ruin/space/pirate_base/laboratory)
 "cy" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/structure/rack,
 /obj/item/clothing/gloves/color/fyellow/old,
@@ -1295,9 +1293,8 @@
 /obj/effect/turf_decal/siding/blue{
 	dir = 1
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 8;
-	icon_state = "pipe-j2"
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 8
 	},
 /obj/structure/sign/custodian{
 	pixel_y = 32
@@ -1881,8 +1878,7 @@
 	do_not_delete_me = 1
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2667,8 +2663,7 @@
 /area/ruin/space/pirate_base/virus_lab)
 "ho" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -2680,8 +2675,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
@@ -2899,8 +2893,7 @@
 	},
 /obj/effect/turf_decal/caution,
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -3415,8 +3408,7 @@
 /area/ruin/space/pirate_base/lab_hall)
 "jw" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -5409,8 +5401,7 @@
 /area/ruin/space/pirate_base/lab_hall)
 "ph" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -6677,9 +6668,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 8;
-	icon_state = "pipe-y"
+/obj/structure/disposalpipe/junction/yjunction{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6854,8 +6844,7 @@
 /area/ruin/space/pirate_base/observ)
 "tA" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/structure/barricade/wooden,
 /obj/effect/decal/cleanable/dirt,
@@ -6876,8 +6865,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/effect/decal/cleanable/blood/xeno,
 /obj/effect/decal/cleanable/dirt,
@@ -7552,8 +7540,7 @@
 	icon_state = "1-4"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -7943,8 +7930,7 @@
 /area/ruin/space/pirate_base/security_atrium)
 "wC" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
@@ -8157,8 +8143,7 @@
 	icon_state = "1-4"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -9117,8 +9102,7 @@
 /area/ruin/space/pirate_base/laboratory)
 "Aw" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/machinery/power/apc/noalarm{
 	req_access = list(160);
@@ -9371,8 +9355,7 @@
 	dir = 9
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -10255,8 +10238,7 @@
 /area/ruin/space/pirate_base/security_maint)
 "Eb" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -11228,8 +11210,7 @@
 	},
 /obj/effect/turf_decal/siding/wood/corner,
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /turf/simulated/floor/carpet/red,
 /area/ruin/space/pirate_base/security_atrium)
@@ -11319,8 +11300,7 @@
 	},
 /obj/effect/turf_decal/stripes/corner,
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -11502,8 +11482,7 @@
 /area/ruin/space/pirate_base/security_maint)
 "HF" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -12175,8 +12154,7 @@
 /area/ruin/space/pirate_base/laboratory)
 "JA" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -12640,8 +12618,7 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -12659,8 +12636,7 @@
 /area/ruin/space/pirate_base/observ)
 "KS" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -12861,8 +12837,7 @@
 /area/ruin/space/pirate_base/virus_lab)
 "Lz" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /turf/simulated/floor/engine,
 /area/ruin/space/pirate_base/virus_lab)
@@ -13825,8 +13800,7 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
@@ -15172,8 +15146,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
@@ -16027,8 +16000,7 @@
 /area/ruin/space/pirate_base/arrivals)
 "Vo" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -16340,8 +16312,7 @@
 	icon_state = "1-8"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -16790,7 +16761,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/pirate_base/atrium)
 "XR" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal{
+/turf/simulated/wall/shuttle/onlyselfsmooth{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/shuttle/pirate_corvette)
@@ -17380,8 +17351,7 @@
 	icon_state = "1-8"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/structure/grille,
 /turf/simulated/floor/plating,
@@ -17428,10 +17398,9 @@
 /area/ruin/space/pirate_base/lab_maint)
 "ZE" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal{
+/turf/simulated/wall/shuttle/onlyselfsmooth{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/shuttle/pirate_corvette)

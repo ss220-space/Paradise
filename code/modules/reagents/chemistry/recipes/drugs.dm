@@ -40,15 +40,8 @@
 	result_amount = 4
 	min_temp = T0C + 100
 
-/datum/chemical_reaction/methamphetamine/on_reaction(datum/reagents/holder)
-	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
-	for(var/mob/living/carbon/C in range(T, 1))
-		if(C.can_breathe_gas())
-			C.emote("gasp")
-			C.AdjustLoseBreath(2 SECONDS)
-			C.reagents.add_reagent("toxin", 10)
-			C.reagents.add_reagent("neurotoxin2", 20)
+/datum/chemical_reaction/methamphetamine/on_reaction(datum/reagents/holder, created_volume)
+	make_vaporation(list("toxin","neurotoxin2"), holder, created_volume, 1)
 
 /datum/chemical_reaction/bath_salts
 	name = "bath_salts"
@@ -69,12 +62,8 @@
 	mix_message = "The mixture ferments into a filthy morass."
 	mix_sound = 'sound/effects/blobattack.ogg'
 
-/datum/chemical_reaction/jenkem/on_reaction(datum/reagents/holder)
-	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
-	for(var/mob/living/carbon/C in range(T, 1))
-		if(C.can_breathe_gas())
-			C.reagents.add_reagent("jenkem", 25)
+/datum/chemical_reaction/jenkem/on_reaction(datum/reagents/holder, created_volume)
+	make_vaporation(list("jenkem"), holder, created_volume, 1)
 
 /datum/chemical_reaction/aranesp
 	name = "Aranesp"

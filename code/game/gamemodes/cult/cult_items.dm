@@ -303,7 +303,7 @@
 	item_state = "blindfold"
 	see_in_dark = 8
 	invis_override = SEE_INVISIBLE_HIDDEN_RUNES
-	flash_protect = TRUE
+	flash_protect = FLASH_PROTECTION_FLASH
 	prescription = TRUE
 	origin_tech = null
 
@@ -416,7 +416,11 @@
 		var/atom/movable/pulled = handle_teleport_grab(destination, C)
 		C.forceMove(destination)
 		if(pulled)
-			C.start_pulling(pulled) //forcemove resets pulls, so we need to re-pull
+			if(C.pull_hand == PULL_WITHOUT_HANDS)
+				C.start_pulling(pulled) //forcemove resets pulls, so we need to re-pull
+			else if(!C.get_inactive_hand() && C.swap_hand())
+				C.start_pulling(pulled)
+				C.swap_hand()
 
 		new /obj/effect/temp_visual/dir_setting/cult/phase(destination, C.dir)
 		playsound(destination, 'sound/effects/phasein.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)

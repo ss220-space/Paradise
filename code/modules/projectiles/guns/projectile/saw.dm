@@ -14,6 +14,8 @@
 	var/cover_open = 0
 	can_suppress = 0
 	fire_delay = 1
+	burst_size = 1
+	actions_types = null
 
 /obj/item/gun/projectile/automatic/l6_saw/Initialize(mapload)
 	. = ..()
@@ -95,7 +97,7 @@
 	damage = 7
 	armour_penetration = 0
 
-/obj/item/projectile/bullet/saw/incen/Move()
+/obj/item/projectile/bullet/saw/incen/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	var/turf/location = get_turf(src)
 	if(location)

@@ -1,4 +1,4 @@
-#define MAPTICK_MC_MIN_RESERVE 60
+#define MAPTICK_MC_MIN_RESERVE 70
 #define MAPTICK_LAST_INTERNAL_TICK_USAGE (world.map_cpu)
 
 

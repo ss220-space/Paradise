@@ -4,9 +4,8 @@
 	icon_state = "infrared"
 	materials = list(MAT_METAL=1000, MAT_GLASS=500)
 	origin_tech = "magnets=2;materials=2"
-
 	bomb_name = "tripwire mine"
-
+	set_dir_on_move = FALSE
 	secured = FALSE // toggle_secure()'ed in Initialize() for correct adding to processing_objects, won't work otherwise
 	dir = EAST
 	var/on = FALSE
@@ -111,10 +110,8 @@
 	..()
 
 
-/obj/item/assembly/infra/Move(atom/newloc, direct = NONE, glide_size_override = 0)
-	var/prev_dir = dir
+/obj/item/assembly/infra/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
-	dir = prev_dir
 	qdel(first)
 
 
@@ -250,6 +247,14 @@
 	pass_flags = PASSTABLE|PASSGLASS|PASSGRILLE|PASSFENCE
 
 
+/obj/effect/beam/i_beam/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
 /obj/effect/beam/i_beam/Destroy()
 	if(master && master.first == src)
 		master.first = null
@@ -304,9 +309,7 @@
 			I.process()
 
 
-/obj/effect/beam/i_beam/Bump(atom/bumped_atom, custom_bump)
-	if(!custom_bump)
-		return null
+/obj/effect/beam/i_beam/Bump(atom/bumped_atom)
 	qdel(src)
 
 
@@ -315,10 +318,14 @@
 	hit(moving_atom)
 
 
-/obj/effect/beam/i_beam/Crossed(atom/movable/AM, oldloc)
-	if(!isobj(AM) && !isliving(AM))
+/obj/effect/beam/i_beam/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(!isobj(arrived) && !isliving(arrived))
 		return
-	if(iseffect(AM))
+
+	if(iseffect(arrived))
 		return
-	hit(AM)
+
+	INVOKE_ASYNC(src, PROC_REF(hit), arrived)
 

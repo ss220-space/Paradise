@@ -44,19 +44,20 @@
 		E += M.rating
 	efficiency = round((E/2), 1) // There's 2 lasers, so halve the effect on the efficiency to keep it balanced
 
-/obj/machinery/kitchen_machine/grill/special_attack(obj/item/grab/G, mob/user)
-	if(ishuman(G.affecting))
-		if(G.state < GRAB_AGGRESSIVE)
-			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
-			return 0
-		add_fingerprint(user)
-		var/mob/living/carbon/human/C = G.affecting
-		C.visible_message("<span class='danger'>[user] forces [C] onto [src], searing [C]'s body!</span>", \
-						"<span class='userdanger'>[user] forces you onto [src]! It burns!</span>")
-		C.emote("scream")
-		user.changeNext_move(CLICK_CD_MELEE)
-		C.adjustFireLoss(30)
-		add_attack_logs(user, G.affecting, "Burned with [src]")
-		qdel(G) //Removes the grip to prevent rapid sears and give you a chance to run
-		return 0
-	return 0
+
+/obj/machinery/kitchen_machine/grill/special_grab_attack(atom/movable/grabbed_thing, mob/living/grabber)
+	if(!ishuman(grabbed_thing) || !Adjacent(grabbed_thing))
+		return
+	var/mob/living/carbon/human/victim = grabbed_thing
+	add_fingerprint(grabber)
+	victim.visible_message(
+		span_danger("[grabber] forces [victim] onto [src], searing [victim]'s body!"),
+		span_userdanger("[grabber] forces you onto [src]! It burns!"),
+	)
+	if(victim.has_pain())
+		victim.emote("scream")
+	victim.adjustFireLoss(30)
+	add_attack_logs(grabber, victim, "Burned with [src]")
+	//Removes the grip to prevent rapid sears and give you a chance to run
+	grabber.stop_pulling()
+

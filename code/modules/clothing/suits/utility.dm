@@ -130,6 +130,7 @@
 	strip_delay = 70
 	put_on_delay = 70
 	resistance_flags = NONE
+	undyeable = TRUE
 
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',

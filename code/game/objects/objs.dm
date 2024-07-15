@@ -1,5 +1,4 @@
 /obj
-	//var/datum/module/mod		//not used
 	var/obj_flags = NONE
 	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
 	var/crit_fail = FALSE
@@ -32,6 +31,10 @@
 	var/multitool_menu_type = null // Typepath of a datum/multitool_menu subtype or null.
 	var/datum/multitool_menu/multitool_menu
 
+	/// Amount of multiplicative slowdown applied if pulled/pushed. >1 makes you slower, <1 makes you faster.
+	var/pull_push_slowdown = 0
+
+
 /obj/New()
 	..()
 	if(obj_integrity == null)
@@ -58,7 +61,7 @@
 
 	// In the far future no checks are made in an overriding Topic() beyond if(..()) return
 	// Instead any such checks are made in CanUseTopic()
-	if(ui_status(usr, state, href_list) == STATUS_INTERACTIVE)
+	if(ui_status(usr, state, href_list) == UI_INTERACTIVE)
 		CouldUseTopic(usr)
 		return FALSE
 
@@ -247,7 +250,7 @@
 /obj/proc/container_resist(mob/living)
 	return
 
-/obj/proc/on_mob_move(dir, mob/user)
+/obj/proc/on_mob_move(mob/user, dir)
 	return
 
 /obj/proc/makeSpeedProcess()

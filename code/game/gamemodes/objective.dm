@@ -1734,3 +1734,24 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	Подойдёт только консоль в этой зоне из-за уязвимости оставленной заранее для вируса. \
 	Учтите, что установка займёт время и ИИ скорее всего будет уведомлён о вашей попытке взлома!"
 
+
+/datum/objective/blob_critical_mass
+	needs_target = FALSE
+	//Total blob tiles count
+	var/critical_mass = -2
+	//Needed blob tiles count
+	var/needed_critical_mass = -1
+
+
+/datum/objective/blob_critical_mass/check_completion()
+	if(!completed)
+		completed = needed_critical_mass <= critical_mass && GLOB.security_level < SEC_LEVEL_DELTA
+	return ..()
+
+
+/datum/objective/blob_critical_mass/proc/set_target()
+	explanation_text = "Наберите критическую массу, распостраняясь по станции. Текущаяя масса [critical_mass]. Необходимо набрать [needed_critical_mass]. Масса может изменяться в зависимости от количества блобов."
+
+/datum/objective/blob_find_place_to_burst
+	needs_target = FALSE
+	explanation_text = "Найдите укромное место на станции, в котором вас не смогут найти после вылупления до тех пор, пока вы не наберетесь сил."

@@ -41,8 +41,8 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 	icon = 'icons/turf/areas.dmi'
 	icon_state = "yellow"
 
-/obj/effect/debugging/marker/Move()
-	return 0
+/obj/effect/debugging/marker/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
+	return FALSE
 
 /client/proc/camera_view()
 	set category = "Mapping"

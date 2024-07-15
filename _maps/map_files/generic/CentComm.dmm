@@ -1130,10 +1130,11 @@
 	},
 /area/centcom/jail)
 "ayt" = (
-/obj/machinery/conveyor/west{
-	id = "SFBQMLoad"
-	},
 /obj/machinery/syndiepad/receivepad,
+/obj/machinery/conveyor{
+	id = "SFBQMLoad";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -1163,6 +1164,7 @@
 /area/shuttle/escape)
 "azv" = (
 /turf/simulated/wall/indestructible/fakeglass{
+	base_icon_state = "fake_plastitanium_glass";
 	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
 	},
 /area/syndicate_mothership/jail)
@@ -1816,13 +1818,6 @@
 /obj/item/reagent_containers/glass/beaker/bluespace,
 /turf/simulated/floor/wood,
 /area/centcom/evac)
-"aRf" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 10;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/funeral)
 "aRW" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2040,12 +2035,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/control)
-"aXz" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/spacebar)
 "aXD" = (
 /obj/item/pizzabox{
 	icon_state = "pizzabox_open"
@@ -3926,11 +3915,10 @@
 	},
 /area/syndicate_mothership)
 "bXg" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/spacebar)
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/wall/shuttle,
+/area/shuttle/siberia)
 "bXp" = (
 /obj/effect/turf_decal/delivery/white,
 /obj/machinery/door/airlock/wood/glass{
@@ -4293,7 +4281,7 @@
 	},
 /area/centcom/specops)
 "ciV" = (
-/turf/simulated/wall/shuttle/nodiagonal{
+/turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/syndicate_mothership/cargo)
@@ -5535,7 +5523,8 @@
 /area/centcom/court)
 "cKU" = (
 /obj/machinery/conveyor_switch/oneway{
-	id = "SFBQMLoad2"
+	id = "SFBQMLoad2";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -5975,12 +5964,6 @@
 /obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
-"cXg" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/spacebar)
 "cYf" = (
 /obj/structure/closet/crate/freezer{
 	desc = "A crate.";
@@ -7404,16 +7387,6 @@
 	},
 /turf/simulated/floor/shuttle/transparent_floor,
 /area/shuttle/syndicate)
-"dMz" = (
-/obj/machinery/porta_turret/syndicate{
-	pixel_y = 2
-	},
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners_smoothed"
-	},
-/area/shuttle/syndicate)
 "dMC" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
@@ -7474,12 +7447,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/supply)
-"dOM" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/mining)
 "dOP" = (
 /obj/machinery/vending/cigarette/free,
 /obj/effect/turf_decal/tile/neutral{
@@ -7774,12 +7741,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/jail)
-"dXx" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 10;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/pod_2)
 "dXA" = (
 /obj/structure/chair/comfy/red{
 	color = "#FFFFFF";
@@ -10790,12 +10751,6 @@
 	icon_state = "darkredalt"
 	},
 /area/centcom/zone3)
-"fyJ" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/pod_3)
 "fyV" = (
 /obj/structure/table/wood/fancy/black,
 /obj/machinery/light,
@@ -11352,13 +11307,6 @@
 	icon_state = "sepia"
 	},
 /area/ninja/outpost)
-"fLf" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 10;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners_smoothed"
-	},
-/area/shuttle/vox)
 "fLn" = (
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp/green,
@@ -11829,16 +11777,6 @@
 /obj/structure/flora/ausbushes/reedbush,
 /turf/simulated/floor/indestructible/grass,
 /area/ninja/outside)
-"fZa" = (
-/obj/machinery/porta_turret/syndicate{
-	pixel_y = 2
-	},
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners_smoothed"
-	},
-/area/shuttle/syndicate)
 "fZg" = (
 /obj/structure/spider/terrorweb/gray,
 /turf/simulated/floor/plating,
@@ -12422,14 +12360,18 @@
 /turf/simulated/floor/grass,
 /area/centcom/evac)
 "goa" = (
-/obj/machinery/conveyor/west{
+/obj/machinery/conveyor{
 	id = "SFBQMLoad"
 	},
-/obj/machinery/conveyor/east{
-	id = "SFBQMLoad"
+/obj/machinery/conveyor{
+	id = "SFBQMLoad";
+	dir = 8;
+	layer = 2.494
 	},
-/obj/machinery/conveyor/south{
-	id = "SFBQMLoad"
+/obj/machinery/conveyor{
+	id = "SFBQMLoad";
+	dir = 4;
+	layer = 2.494
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -12677,12 +12619,6 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/ninja/outpost)
-"gxq" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/pod_3)
 "gxr" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
@@ -13196,11 +13132,6 @@
 	icon_state = "fancy-wood-oak"
 	},
 /area/syndicate_mothership)
-"gNw" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
-/area/syndicate_mothership/cargo)
 "gNB" = (
 /obj/effect/mapping_helpers/light{
 	light_power = 3
@@ -13357,6 +13288,7 @@
 	opacity = 0
 	},
 /turf/simulated/wall/indestructible/fakeglass{
+	base_icon_state = "fake_plastitanium_glass";
 	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
 	},
 /area/syndicate_mothership/control)
@@ -13524,13 +13456,6 @@
 	icon_state = "asteroid"
 	},
 /area/centcom/evac)
-"gYB" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 10;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners_smoothed"
-	},
-/area/shuttle/syndicate)
 "gYQ" = (
 /obj/structure/chair/sofa/right{
 	dir = 8
@@ -14402,13 +14327,6 @@
 	icon_state = "grimy"
 	},
 /area/centcom/jail)
-"hzf" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/vox)
 "hzh" = (
 /obj/effect/decal/cleanable/confetti,
 /obj/effect/decal/cleanable/dirt,
@@ -14903,12 +14821,6 @@
 	icon_state = "asteroid"
 	},
 /area/centcom/evac)
-"hOw" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/mining)
 "hOM" = (
 /turf/simulated/wall/indestructible/abductor{
 	icon_state = "alien23"
@@ -14947,12 +14859,6 @@
 /obj/structure/curtain/open/shower/security,
 /turf/simulated/wall/indestructible/fakeglass,
 /area/centcom/zone1)
-"hRv" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/pod_2)
 "hRw" = (
 /obj/machinery/chem_dispenser/upgraded,
 /obj/structure/sign/nosmoking_2{
@@ -15064,8 +14970,9 @@
 	},
 /area/centcom/specops)
 "hTK" = (
-/obj/machinery/conveyor/east{
-	id = "SFBQMLoad2"
+/obj/machinery/conveyor{
+	id = "SFBQMLoad2";
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -15195,12 +15102,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/gamma)
-"ibe" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 10;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/spacebar)
 "ibG" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -15668,13 +15569,6 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/indestructible/grass,
 /area/ninja/outside)
-"ipY" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners_smoothed"
-	},
-/area/shuttle/funeral)
 "iqh" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line{
@@ -17785,8 +17679,9 @@
 	},
 /area/syndicate_mothership/outside)
 "jsa" = (
-/obj/machinery/conveyor/west{
-	id = "SFBQMLoad2"
+/obj/machinery/conveyor/inverted{
+	id = "SFBQMLoad2";
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -18004,16 +17899,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone1)
-"jyx" = (
-/obj/machinery/porta_turret/syndicate{
-	pixel_y = 2
-	},
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/syndicate)
 "jyy" = (
 /obj/structure/table/reinforced{
 	color = "#444444"
@@ -18236,6 +18121,7 @@
 /area/syndicate_mothership)
 "jET" = (
 /turf/simulated/wall/indestructible/fakeglass{
+	base_icon_state = "fake_plastitanium_glass";
 	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
 	},
 /area/syndicate_mothership/infteam)
@@ -18749,6 +18635,7 @@
 "jWb" = (
 /obj/structure/curtain/black,
 /turf/simulated/wall/indestructible/fakeglass{
+	base_icon_state = "fake_plastitanium_glass";
 	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
@@ -19602,13 +19489,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/ninja/outpost)
-"ksG" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners_smoothed"
-	},
-/area/shuttle/vox)
 "ksN" = (
 /obj/effect/decal/nanotrasen_logo{
 	icon_state = "logo2"
@@ -21500,10 +21380,11 @@
 	},
 /area/centcom/evac)
 "lmr" = (
-/obj/machinery/conveyor/south{
-	id = "SFBQMLoad"
-	},
 /obj/machinery/syndiepad/receivepad,
+/obj/machinery/conveyor/inverted{
+	id = "SFBQMLoad";
+	dir = 5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -21714,13 +21595,6 @@
 /obj/structure/sign/poster/contraband/clown,
 /turf/simulated/wall/indestructible/reinforced,
 /area/centcom/specops)
-"ltH" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 10;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/vox)
 "ltP" = (
 /obj/structure/window/reinforced{
 	layer = 2.9
@@ -24241,6 +24115,14 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"mzr" = (
+/obj/machinery/conveyor{
+	id = "SFBQMLoad"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
+/area/syndicate_mothership/cargo)
 "mzs" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -24855,12 +24737,6 @@
 	tag = "icon-redfull (NORTHWEST)"
 	},
 /area/centcom/zone1)
-"mLy" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/supply)
 "mLJ" = (
 /obj/effect/turf_decal/stripes/line{
 	icon = 'icons/turf/floors.dmi';
@@ -24917,12 +24793,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/cargo)
-"mMx" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/supply)
 "mNh" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/latex/nitrile,
@@ -26572,8 +26442,9 @@
 /area/syndicate_mothership)
 "nre" = (
 /obj/structure/plasticflaps/mining,
-/obj/machinery/conveyor/west{
-	id = "QMLoad2"
+/obj/machinery/conveyor{
+	id = "QMLoad2";
+	dir = 8
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/supply)
@@ -26673,7 +26544,8 @@
 /area/centcom/specops)
 "nsV" = (
 /obj/machinery/conveyor_switch/oneway{
-	id = "SFBQMLoad2"
+	id = "SFBQMLoad2";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowcornersalt"
@@ -27325,12 +27197,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/infteam)
-"nFM" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/pod_4)
 "nGh" = (
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 8
@@ -27746,13 +27612,6 @@
 	tag = "icon-stage_stairs"
 	},
 /area/centcom/court)
-"nQN" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners_smoothed"
-	},
-/area/shuttle/syndicate)
 "nQT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
@@ -27780,12 +27639,6 @@
 	icon_state = "white"
 	},
 /area/centcom/zone3)
-"nRt" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/siberia)
 "nRz" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredaltstrip"
@@ -27814,11 +27667,11 @@
 	},
 /area/centcom/jail)
 "nSo" = (
-/obj/machinery/conveyor/south{
-	id = "SFBQMLoad"
-	},
 /obj/structure/plasticflaps/mining{
 	color = "red"
+	},
+/obj/machinery/conveyor{
+	id = "SFBQMLoad"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -27835,11 +27688,8 @@
 	},
 /area/centcom/zone1)
 "nSu" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/siberia)
+/turf/simulated/wall/shuttle,
+/area/space)
 "nSG" = (
 /obj/structure/fence/post{
 	invulnerable = 1
@@ -27868,8 +27718,9 @@
 /area/centcom/evac)
 "nUe" = (
 /obj/structure/plasticflaps/mining,
-/obj/machinery/conveyor/east{
-	id = "QMLoad"
+/obj/machinery/conveyor{
+	id = "QMLoad";
+	dir = 4
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/supply)
@@ -28137,6 +27988,7 @@
 /area/syndicate_mothership/control)
 "obJ" = (
 /turf/simulated/wall/indestructible/fakeglass{
+	base_icon_state = "fake_plastitanium_glass";
 	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
 	},
 /area/syndicate_mothership/outside)
@@ -28418,12 +28270,6 @@
 	},
 /turf/simulated/floor/grass,
 /area/centcom/evac)
-"oik" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/transport)
 "oiv" = (
 /obj/machinery/mineral/labor_claim_console{
 	pixel_x = 30;
@@ -28479,11 +28325,12 @@
 	},
 /area/ninja/outpost)
 "oiH" = (
-/obj/machinery/conveyor/north{
-	id = "SFBQMLoad2"
-	},
 /obj/structure/plasticflaps/mining{
 	color = "red"
+	},
+/obj/machinery/conveyor{
+	id = "SFBQMLoad2";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -28517,13 +28364,6 @@
 	icon_state = "navybluealtstrip"
 	},
 /area/centcom/specops)
-"okv" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners_smoothed"
-	},
-/area/shuttle/syndicate)
 "okx" = (
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock";
@@ -28572,6 +28412,17 @@
 	name = "floor"
 	},
 /area/syndicate_mothership/elite_squad)
+"olk" = (
+/obj/machinery/syndiepad/loadpad,
+/obj/machinery/conveyor/inverted{
+	id = "SFBQMLoad2";
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/syndicate_mothership/cargo)
 "olG" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 4;
@@ -29070,12 +28921,6 @@
 	icon_state = "warndarkgreyred"
 	},
 /area/syndicate_mothership)
-"owV" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 10;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/supply)
 "owX" = (
 /obj/effect/turf_decal{
 	dir = 4;
@@ -29083,12 +28928,6 @@
 	},
 /turf/simulated/floor/indestructible/beach/sand,
 /area/syndicate_mothership/outside)
-"oxk" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/supply)
 "oxo" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -29279,6 +29118,7 @@
 /area/centcom/bridge)
 "oDx" = (
 /turf/simulated/wall/indestructible/fakeglass{
+	base_icon_state = "fake_plastitanium_glass";
 	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
 	},
 /area/syndicate_mothership/control)
@@ -29623,12 +29463,6 @@
 /obj/structure/window/full/shuttle,
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/pod_4)
-"oMi" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/pod_4)
 "oMz" = (
 /obj/machinery/airlock_sensor{
 	frequency = 1331;
@@ -29869,14 +29703,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/centcom/specops)
-"oPY" = (
-/turf/simulated/wall/shuttle/nosmooth/interior{
-	dir = 5;
-	icon_state = "white_walls_corners";
-	underlay_floor_icon = 'icons/turf/shuttle/floors.dmi';
-	underlay_floor_icon_state = "floor3"
-	},
-/area/shuttle/administration)
 "oQl" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -30513,18 +30339,6 @@
 	icon_state = "darkyellow"
 	},
 /area/centcom/specops)
-"pgY" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/pod_4)
-"pgZ" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/escape)
 "phc" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -30548,12 +30362,6 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/grass,
 /area/centcom/evac)
-"phZ" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/escape)
 "pir" = (
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel{
@@ -30647,12 +30455,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
-"pml" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 10;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/transport)
 "pmF" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo3"
@@ -30671,13 +30473,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/infteam)
-"pmV" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/vox)
 "pmZ" = (
 /obj/machinery/vending/cola/free,
 /obj/effect/turf_decal/stripes/gold{
@@ -30812,12 +30607,6 @@
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/ninja/outside)
-"pqM" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/transport)
 "pqR" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo6"
@@ -30898,12 +30687,6 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/centcom/zone1)
-"ptt" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 10;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/pod_1)
 "ptI" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 1
@@ -31630,12 +31413,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/court)
-"pLc" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 10;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/pod_3)
 "pLm" = (
 /obj/machinery/light{
 	dir = 4
@@ -31942,10 +31719,11 @@
 	},
 /area/shuttle/escape)
 "pST" = (
-/obj/machinery/conveyor/west{
-	id = "SFBQMLoad2"
-	},
 /obj/machinery/syndiepad/loadpad,
+/obj/machinery/conveyor{
+	id = "SFBQMLoad2";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -32357,13 +32135,6 @@
 	icon_state = "navybluealt"
 	},
 /area/centcom/specops)
-"qbW" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners_smoothed"
-	},
-/area/shuttle/funeral)
 "qck" = (
 /obj/effect/baseturf_helper{
 	baseturf = /turf/simulated/floor/indestructible/asteroid;
@@ -32796,12 +32567,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/control)
-"qmP" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 10;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/siberia)
 "qnc" = (
 /obj/structure/shuttle/engine/huge,
 /turf/simulated/floor/indestructible/grass,
@@ -32998,12 +32763,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
-"qsm" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/siberia)
 "qso" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/mineral/plastitanium,
@@ -33116,9 +32875,6 @@
 	icon_state = "navybluealtstrip"
 	},
 /area/centcom/specops)
-"qtQ" = (
-/turf/simulated/wall/shuttle/overspace,
-/area/shuttle/gamma)
 "qtS" = (
 /obj/structure/railing{
 	dir = 8
@@ -33604,12 +33360,6 @@
 	icon_state = "dark"
 	},
 /area/shuttle/syndicate)
-"qFC" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 10;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/mining)
 "qFF" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/chair/stool/bar{
@@ -33752,12 +33502,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/centcom/court)
-"qKq" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon_state = "white_walls_corners_smoothed"
-	},
-/area/shuttle/escape)
 "qKF" = (
 /obj/effect/turf_decal/stripes/line{
 	color = "darkgray";
@@ -33778,13 +33522,6 @@
 	tag = "icon-stage_stairs"
 	},
 /area/syndicate_mothership)
-"qKH" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/specops)
 "qKL" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -33835,12 +33572,6 @@
 /obj/item/book/manual/sop_service,
 /turf/simulated/floor/wood,
 /area/centcom/specops)
-"qMh" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/pod_1)
 "qMv" = (
 /obj/structure/statue/sandstone/assistant{
 	anchored = 1;
@@ -34029,6 +33760,7 @@
 /area/centcom/evac)
 "qQE" = (
 /turf/simulated/wall/indestructible/fakeglass{
+	base_icon_state = "fake_plastitanium_glass";
 	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
 	},
 /area/syndicate_mothership/elite_squad)
@@ -34129,9 +33861,6 @@
 	icon_state = "floor3"
 	},
 /area/shuttle/syndicate)
-"qTA" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
-/area/shuttle/escape)
 "qTB" = (
 /obj/machinery/cryopod{
 	dir = 4
@@ -34202,12 +33931,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/bridge)
-"qUw" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon_state = "white_walls_corners_smoothed"
-	},
-/area/shuttle/escape)
 "qVd" = (
 /obj/structure/table/reinforced,
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay,
@@ -35304,12 +35027,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/control)
-"ruQ" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 10;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/pod_4)
 "rvc" = (
 /obj/machinery/door/airlock/public/glass,
 /obj/effect/decal/warning_stripes/yellow,
@@ -35335,13 +35052,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
-"rvE" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners_smoothed"
-	},
-/area/shuttle/syndicate_sit)
 "rvJ" = (
 /obj/machinery/portable_atmospherics/canister/sleeping_agent{
 	maximum_pressure = 50000
@@ -35375,6 +35085,7 @@
 /area/shuttle/syndicate_elite)
 "rwv" = (
 /turf/simulated/wall/indestructible/fakeglass{
+	base_icon_state = "fake_plastitanium_glass";
 	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
 	},
 /area/centcom/specops)
@@ -35411,13 +35122,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/cargo)
-"rxo" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners_smoothed"
-	},
-/area/shuttle/syndicate_elite)
 "rxy" = (
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "SST_armory_mech_maintenance";
@@ -35794,12 +35498,6 @@
 /obj/structure/closet/secure_closet/syndicate_officer,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/control)
-"rGL" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/pod_1)
 "rGT" = (
 /obj/structure/shuttle/engine/heater{
 	icon_state = "heater3x3_side_inv";
@@ -36325,10 +36023,8 @@
 /obj/machinery/porta_turret/syndicate{
 	pixel_y = 2
 	},
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
+/turf/simulated/wall/shuttle{
+	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/shuttle/syndicate)
 "rRS" = (
@@ -36711,13 +36407,6 @@
 "sbw" = (
 /turf/simulated/wall/shuttle,
 /area/shuttle/supply)
-"scf" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/specops)
 "scm" = (
 /obj/machinery/photocopier/faxmachine/longrange/syndie{
 	name = "Фокс машина"
@@ -37089,12 +36778,6 @@
 	icon_state = "warnwhite"
 	},
 /area/centcom/zone1)
-"sne" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/pod_3)
 "snn" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo8"
@@ -39088,8 +38771,9 @@
 	},
 /area/shuttle/syndicate_sit)
 "tjx" = (
-/obj/machinery/conveyor/south{
-	id = "SFBQMLoad"
+/obj/machinery/conveyor/inverted{
+	id = "SFBQMLoad";
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -39154,13 +38838,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone2)
-"tkT" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners_smoothed"
-	},
-/area/shuttle/syndicate_sit)
 "tle" = (
 /obj/structure/chair/sofa/corp/right{
 	dir = 8
@@ -40045,13 +39722,6 @@
 "tEQ" = (
 /turf/simulated/wall/shuttle/overspace,
 /area/shuttle/escape)
-"tET" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners_smoothed"
-	},
-/area/shuttle/syndicate_elite)
 "tFk" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light/spot{
@@ -40188,13 +39858,6 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/centcom/zone1)
-"tIG" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/funeral)
 "tIM" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -40265,6 +39928,7 @@
 	id_tag = "syndFB_teleport"
 	},
 /turf/simulated/wall/indestructible/fakeglass{
+	base_icon_state = "fake_plastitanium_glass";
 	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
 	},
 /area/syndicate_mothership/control)
@@ -42072,13 +41736,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/syndicate_sit)
-"uzo" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/syndicate_elite)
 "uzs" = (
 /obj/structure/rack,
 /obj/item/grenade/empgrenade{
@@ -42305,19 +41962,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
-"uEl" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/syndicate_sit)
-"uEp" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/pod_1)
 "uEG" = (
 /obj/structure/chair/office/dark{
 	dir = 8
@@ -42692,6 +42336,15 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/carpet,
 /area/centcom/zone1)
+"uMD" = (
+/obj/machinery/conveyor{
+	id = "SFBQMLoad";
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkfull"
+	},
+/area/syndicate_mothership/cargo)
 "uMQ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -42776,8 +42429,9 @@
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
 "uNG" = (
-/obj/machinery/conveyor/north{
-	id = "SFBQMLoad2"
+/obj/machinery/conveyor{
+	id = "SFBQMLoad2";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
@@ -43778,13 +43432,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/zone1)
-"voo" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/syndicate)
 "vow" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
@@ -44170,13 +43817,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
-"vxG" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 10;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/syndicate_elite)
 "vxN" = (
 /obj/item/clothing/head/bearpelt,
 /obj/item/xenos_claw,
@@ -44404,13 +44044,6 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
-"vEb" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 10;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/syndicate_sit)
 "vEt" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -45155,11 +44788,6 @@
 	icon_state = "asteroid"
 	},
 /area/centcom/evac)
-"vVA" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
-/area/shuttle/syndicate)
 "vVB" = (
 /obj/machinery/door_control/secure{
 	id = "CC_Armory_LWAP";
@@ -45722,12 +45350,14 @@
 	},
 /area/syndicate_mothership/outside)
 "wkE" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners_smoothed"
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "trader_privacy";
+	name = "Privacy Shutters"
 	},
-/area/shuttle/vox)
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/wall/shuttle,
+/area/shuttle/trade/sol)
 "wkN" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/shuttle/escape)
@@ -45802,13 +45432,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/outside)
-"wnr" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/vox)
 "wnA" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	closingLayer = 5;
@@ -45932,12 +45555,6 @@
 /obj/structure/flora/junglebush/c,
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
-"wqZ" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/pod_2)
 "wre" = (
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 4
@@ -45966,12 +45583,6 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
-"wrk" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 10;
-	icon_state = "white_walls_corners_smoothed"
-	},
-/area/shuttle/escape)
 "wrs" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -46028,12 +45639,6 @@
 "wso" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/shuttle/pod_1)
-"wsC" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon_state = "white_walls_corners_smoothed"
-	},
-/area/shuttle/escape)
 "wsI" = (
 /obj/structure/curtain/black{
 	pixel_y = -32
@@ -46160,13 +45765,6 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
-"wvV" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners_smoothed"
-	},
-/area/shuttle/syndicate)
 "wvW" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 8;
@@ -46618,6 +46216,7 @@
 /area/syndicate_mothership)
 "wGu" = (
 /turf/simulated/wall/indestructible/fakeglass{
+	base_icon_state = "fake_plastitanium_glass";
 	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
 	},
 /area/syndicate_mothership)
@@ -46649,12 +46248,6 @@
 /obj/structure/lattice,
 /turf/simulated/floor/shuttle/transparent_floor,
 /area/shuttle/syndicate)
-"wIS" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/mining)
 "wJl" = (
 /turf/simulated/floor/shuttle/objective_check{
 	icon = 'icons/turf/floors.dmi';
@@ -47014,12 +46607,6 @@
 	icon_state = "rampbottom"
 	},
 /area/syndicate_mothership)
-"wVY" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/pod_2)
 "wWa" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
@@ -47084,13 +46671,6 @@
 /obj/structure/shuttle/engine/heater,
 /turf/simulated/floor/plating,
 /area/shuttle/pod_4)
-"wWR" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/syndicate)
 "wWV" = (
 /obj/item/toy/nuke,
 /obj/structure/table/wood/poker,
@@ -47433,9 +47013,6 @@
 	info = "Пришлось срочно вылететь на задание. Печенье доделаете сами. - Джордж";
 	name = "Записка'";
 	pixel_x = 3
-	},
-/obj/item/paicard/syndicate{
-	pixel_x = -4
 	},
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
@@ -49293,13 +48870,6 @@
 	icon_state = "navybluealt"
 	},
 /area/syndicate_mothership/control)
-"xRj" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners_smoothed"
-	},
-/area/shuttle/vox)
 "xRz" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/reagent_containers/food/drinks/cans/beer,
@@ -49373,12 +48943,6 @@
 /obj/structure/flora/grass/jungle,
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
-"xUP" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon_state = "white_walls_corners"
-	},
-/area/shuttle/transport)
 "xUV" = (
 /obj/effect/turf_decal/number/number_9{
 	dir = 4
@@ -49650,11 +49214,6 @@
 /obj/structure/dresser,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone1)
-"ycg" = (
-/turf/simulated/wall/shuttle{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
-/area/syndicate_mothership/cargo)
 "ycD" = (
 /obj/structure/reagent_dispensers/spacecleanertank{
 	pixel_y = 30
@@ -49922,11 +49481,6 @@
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/shuttle/syndicate)
-"yiY" = (
-/turf/simulated/wall/shuttle/nodiagonal{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
-/area/shuttle/syndicate)
 "yjh" = (
 /obj/effect/baseturf_helper{
 	baseturf = /turf/simulated/floor/indestructible/asteroid;
@@ -50009,6 +49563,7 @@
 "ykF" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall/indestructible/fakeglass{
+	base_icon_state = "fake_plastitanium_glass";
 	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
 	},
 /area/syndicate_mothership)
@@ -50088,9 +49643,6 @@
 	water_overlay_icon_state = null
 	},
 /area/syndicate_mothership/outside)
-"ylY" = (
-/turf/simulated/wall/shuttle/overspace,
-/area/shuttle/trade/sol)
 "ymc" = (
 /turf/space/transit/south,
 /area/space)
@@ -50406,13 +49958,13 @@ ubE
 ubE
 ubE
 ymc
-qtQ
+jcL
 jcL
 jcL
 mqN
 hLJ
 mqN
-qtQ
+jcL
 ymc
 mVX
 ymc
@@ -50696,7 +50248,7 @@ ubE
 ymc
 pNM
 pwa
-mLy
+sbw
 sbw
 nnz
 nre
@@ -50706,7 +50258,7 @@ nBC
 nUe
 nnz
 sbw
-owV
+sbw
 pwa
 pwa
 pNM
@@ -51320,23 +50872,23 @@ vPe
 vPe
 ivl
 vPe
-ycg
-ycg
-ycg
+ciV
+ciV
+ciV
 wyh
 tbn
 wyh
-ycg
-ycg
-ycg
-ycg
+ciV
+ciV
+ciV
+ciV
 wyh
 hgS
 jAC
 wyh
-ycg
-ycg
-ycg
+ciV
+ciV
+ciV
 vPe
 vPe
 vPe
@@ -51388,10 +50940,10 @@ pwa
 pwa
 pwa
 pwa
-uEp
+vMQ
 vMQ
 wso
-ptt
+vMQ
 pwa
 pwa
 pwa
@@ -51401,13 +50953,13 @@ pNM
 pwa
 pwa
 pwa
-wIS
+piE
 oQV
 dDb
 ftK
 dDb
 oQV
-qFC
+piE
 pwa
 pwa
 pwa
@@ -51419,7 +50971,7 @@ ymc
 ubE
 ubE
 ubE
-tkT
+vLL
 vLL
 vLL
 vLL
@@ -51429,7 +50981,7 @@ tjm
 oRw
 tjm
 vLL
-vEb
+vLL
 ubE
 ubE
 ubE
@@ -51499,13 +51051,13 @@ pwa
 pwa
 pwa
 pwa
-nQN
+yiJ
 qYO
 wIQ
 rTA
 wIQ
 qYO
-gYB
+yiJ
 pwa
 pwa
 pwa
@@ -51574,27 +51126,27 @@ vPe
 vPe
 vPe
 vPe
-ycg
-ycg
-ycg
+ciV
+ciV
+ciV
 ciV
 wfY
-ycg
+ciV
 pSK
 nak
 qkp
 ktr
 gtw
-ycg
+ciV
 eIq
 eer
 tIM
 tIM
 pUs
 pCg
-ycg
-ycg
-ycg
+ciV
+ciV
+ciV
 vPe
 vPe
 vPe
@@ -51644,7 +51196,7 @@ pwa
 pwa
 pwa
 pwa
-uEp
+vMQ
 wso
 fcM
 oLJ
@@ -51691,13 +51243,13 @@ ubE
 ubE
 ubE
 ymc
-qtQ
+jcL
 jcL
 mqN
 dSj
 mqN
 jcL
-qtQ
+jcL
 ymc
 mVX
 ymc
@@ -51752,18 +51304,18 @@ pwa
 pwa
 pwa
 pwa
-nQN
+yiJ
 wIQ
 rTA
 wIQ
-yiJ
+xqR
+xqR
+xqR
+xqR
+xqR
 xqR
 yiJ
-xqR
 yiJ
-xqR
-yiJ
-gYB
 pwa
 pwa
 pwa
@@ -51824,32 +51376,32 @@ akg
 vPe
 vPe
 vPe
-ycg
+ciV
 shZ
 shZ
 shZ
-gNw
-ycg
-ycg
+ciV
+ciV
+ciV
 ciV
 tjx
-tjx
+mzr
 vWC
 sAE
-ycg
+ciV
 oID
 mMl
 qkp
 ktr
 vHT
-ycg
+ciV
 cGz
 bif
 vHT
 auc
 vPT
 axR
-ycg
+ciV
 rGT
 xqw
 waT
@@ -52006,13 +51558,13 @@ pwa
 pwa
 pwa
 pwa
-dMz
+rRI
 rZw
 rZw
-vVA
 yiJ
 xqR
-yiJ
+xqR
+xqR
 yiJ
 xqR
 vDz
@@ -52085,7 +51637,7 @@ wZQ
 uSq
 uSq
 uSq
-ycg
+ciV
 tEB
 lmr
 nSo
@@ -52099,14 +51651,14 @@ rSc
 wyh
 xhG
 bBD
-ycg
+ciV
 jVI
 bif
 vHT
 vHT
 vPT
 vWY
-ycg
+ciV
 vMq
 xqw
 qnc
@@ -52158,7 +51710,7 @@ pwa
 pwa
 pwa
 pwa
-qMh
+vMQ
 wso
 eDH
 vXd
@@ -52238,7 +51790,7 @@ ubE
 ymc
 pNM
 pwa
-mMx
+sbw
 sbw
 sbw
 sbw
@@ -52248,7 +51800,7 @@ tEr
 sbw
 sbw
 sbw
-oxk
+sbw
 pwa
 pwa
 pNM
@@ -52263,7 +51815,7 @@ pwa
 pwa
 xqM
 xBA
-yiJ
+xqR
 bUu
 aJb
 xmH
@@ -52338,32 +51890,32 @@ vPe
 vPe
 vPe
 vPe
-ycg
+ciV
 spi
 spi
 spi
 wyh
 bOk
 ayt
-ycg
-tjx
-tjx
+ciV
+uMD
+mzr
 vWC
 dYO
 vVk
 vVk
 aAn
-ycg
+ciV
 gtw
 xhG
-ycg
+ciV
 wlr
 tye
 lKW
 lKW
 mGd
 etK
-ycg
+ciV
 dzY
 xqw
 waT
@@ -52416,10 +51968,10 @@ pwa
 pwa
 pwa
 pwa
-qMh
+vMQ
 vMQ
 wso
-rGL
+vMQ
 pwa
 pwa
 pwa
@@ -52429,13 +51981,13 @@ pNM
 pwa
 pwa
 pwa
-dOM
+piE
 oQV
 dDb
 pWF
 dDb
 oQV
-hOw
+piE
 pwa
 pwa
 pwa
@@ -52447,7 +51999,6 @@ ymc
 ubE
 ubE
 ubE
-rvE
 vLL
 vLL
 vLL
@@ -52457,7 +52008,8 @@ vLL
 vLL
 vLL
 vLL
-uEl
+vLL
+vLL
 ubE
 ubE
 ubE
@@ -52516,10 +52068,10 @@ pwa
 pwa
 pwa
 pwa
-wWR
+yiJ
 yiJ
 xqR
-yiJ
+xqR
 yiJ
 bUu
 aTJ
@@ -52599,30 +52151,30 @@ vPe
 vPe
 vPe
 vPe
-ycg
+ciV
 tEB
 ayt
-ycg
-ycg
-ycg
+ciV
+ciV
+ciV
 ciV
 xxy
 gLq
 gLq
 wWz
 ciV
-ycg
-ycg
-ycg
-ycg
+ciV
+ciV
+ciV
+ciV
 wyh
 vrt
 vrt
 wyh
-ycg
-ycg
-ycg
-ycg
+ciV
+ciV
+ciV
+ciV
 vPe
 vPe
 vPe
@@ -52772,7 +52324,7 @@ pwa
 pwa
 pwa
 pwa
-jyx
+rRI
 yiJ
 xil
 xrD
@@ -52853,16 +52405,16 @@ vPe
 vPe
 vPe
 vPe
-ycg
+ciV
 shZ
 shZ
 wyh
 tEB
 ayt
-ycg
+ciV
 dkg
 pzQ
-ycg
+ciV
 lke
 tpx
 gLq
@@ -53034,23 +52586,23 @@ xaF
 xir
 xun
 xEX
-yiY
-yiY
+yiJ
+yiJ
 vOQ
 vOQ
-yiY
+yiJ
 yiJ
 xKT
 xKT
 kAK
 dik
 nYg
-yiY
 yiJ
 yiJ
 yiJ
 yiJ
-gYB
+yiJ
+yiJ
 pwa
 pwa
 pwa
@@ -53109,16 +52661,16 @@ vPe
 vPe
 vPe
 vPe
-ycg
+ciV
 ciV
 jRv
 jRv
 wyh
 hhY
 wyh
-ycg
-ycg
-ycg
+ciV
+ciV
+ciV
 ciV
 xxy
 gLq
@@ -53302,7 +52854,7 @@ xKT
 xYT
 xqR
 yiJ
-yiY
+yiJ
 dXR
 bBg
 qFu
@@ -53365,8 +52917,8 @@ vPe
 vPe
 vPe
 vPe
-ycg
-ycg
+ciV
+ciV
 tPy
 gbA
 gbA
@@ -53375,7 +52927,7 @@ gLq
 wbw
 lKW
 fPv
-ycg
+ciV
 oor
 wyW
 gLq
@@ -53393,7 +52945,7 @@ nzX
 qEc
 ggh
 ciV
-ycg
+ciV
 vPe
 vPe
 vPe
@@ -53884,7 +53436,7 @@ aaP
 vXD
 gbA
 sST
-ycg
+ciV
 sXC
 gLq
 gLq
@@ -53895,8 +53447,8 @@ uwF
 aDX
 tEB
 oaS
-ycg
-ycg
+ciV
+ciV
 sAh
 jvC
 nov
@@ -54038,7 +53590,7 @@ ymc
 ymc
 ubE
 ubE
-ipY
+bRt
 bRt
 bRt
 vQc
@@ -54047,7 +53599,7 @@ vQc
 eIX
 iUN
 bRt
-aRf
+bRt
 ubE
 ubE
 ymc
@@ -54073,7 +53625,7 @@ xKT
 azC
 xqR
 nGh
-yiY
+yiJ
 qRJ
 sik
 rCi
@@ -54319,23 +53871,23 @@ mjd
 vLM
 xcS
 whO
-yiY
-yiY
+yiJ
+yiJ
 vOQ
 vOQ
-yiY
+yiJ
 yiJ
 xKT
 xKT
 aTJ
 vhq
 ncQ
-yiY
 yiJ
 yiJ
 yiJ
 yiJ
-okv
+yiJ
+yiJ
 pwa
 pwa
 pwa
@@ -54393,8 +53945,8 @@ vPe
 vPe
 vPe
 vPe
-ycg
-ycg
+ciV
+ciV
 tPy
 gbA
 gbA
@@ -54403,7 +53955,7 @@ gLq
 nsV
 tIM
 nzX
-ycg
+ciV
 nbu
 ebH
 gLq
@@ -54421,7 +53973,7 @@ fPv
 qEc
 bUd
 ciV
-ycg
+ciV
 vPe
 vPe
 vPe
@@ -54651,16 +54203,16 @@ vPe
 vPe
 vPe
 vPe
-ycg
+ciV
 ciV
 wAc
 wAc
 wyh
 tGm
 wyh
-ycg
-ycg
-ycg
+ciV
+ciV
+ciV
 ciV
 xxy
 gLq
@@ -54829,10 +54381,10 @@ pwa
 pwa
 pwa
 pwa
-voo
+yiJ
 yiJ
 xqR
-yiJ
+xqR
 yiJ
 bUu
 kAK
@@ -54909,16 +54461,16 @@ vPe
 vPe
 vPe
 vPe
-ycg
+ciV
 spi
 spi
 wyh
 tEB
 pST
-ycg
+ciV
 scm
 xis
-ycg
+ciV
 lke
 cKU
 gLq
@@ -54986,10 +54538,10 @@ pwa
 pwa
 pwa
 pwa
-wVY
+iRb
 iRb
 rof
-dXx
+iRb
 pwa
 pwa
 pwa
@@ -55169,30 +54721,30 @@ vPe
 vPe
 vPe
 vPe
-ycg
+ciV
 tEB
 pST
-ycg
-ycg
-ycg
+ciV
+ciV
+ciV
 ciV
 xxy
 gLq
 gLq
 dbs
 ciV
-ycg
-ycg
-ycg
-ycg
+ciV
+ciV
+ciV
+ciV
 wyh
 vrt
 vrt
 wyh
-ycg
-ycg
-ycg
-ycg
+ciV
+ciV
+ciV
+ciV
 vPe
 vPe
 vPe
@@ -55242,7 +54794,7 @@ pwa
 pwa
 pwa
 pwa
-wVY
+iRb
 rof
 xrP
 bra
@@ -55274,7 +54826,6 @@ ymc
 ubE
 ubE
 ubE
-tET
 vzm
 vzm
 vzm
@@ -55283,7 +54834,8 @@ vzm
 vzm
 vzm
 vzm
-vxG
+vzm
+vzm
 ubE
 ubE
 ubE
@@ -55347,13 +54899,13 @@ pwa
 pwa
 pwa
 pwa
-fZa
+rRI
 wEF
 wEF
-vVA
 yiJ
 xqR
-yiJ
+xqR
+xqR
 yiJ
 xqR
 bgz
@@ -55422,14 +54974,14 @@ vPe
 vPe
 vPe
 vPe
-ycg
+ciV
 shZ
 shZ
 shZ
 wyh
 bOk
 pST
-ycg
+ciV
 hTK
 uNG
 jkX
@@ -55437,17 +54989,17 @@ vow
 vVk
 vVk
 rxl
-ycg
+ciV
 xhG
 xhG
-ycg
+ciV
 wlr
 eer
 tIM
 tIM
 rdZ
 etK
-ycg
+ciV
 rGT
 xqw
 waT
@@ -55541,7 +55093,7 @@ tlK
 ugF
 vnF
 vzm
-vxG
+vzm
 ubE
 ubE
 ubE
@@ -55580,7 +55132,7 @@ ymc
 ymc
 ubE
 ubE
-qbW
+bRt
 bRt
 bRt
 vQc
@@ -55589,7 +55141,7 @@ vQc
 eIX
 xYk
 bRt
-tIG
+bRt
 ubE
 ubE
 ymc
@@ -55607,18 +55159,18 @@ pwa
 pwa
 pwa
 pwa
-wvV
+yiJ
 wIQ
 xCi
 wIQ
-yiJ
+xqR
+xqR
+xqR
+xqR
+xqR
 xqR
 yiJ
-xqR
 yiJ
-xqR
-yiJ
-okv
 pwa
 pwa
 pwa
@@ -55683,9 +55235,9 @@ wZQ
 uSq
 uSq
 uSq
-ycg
+ciV
 tEB
-pST
+olk
 oiH
 uNG
 uNG
@@ -55697,14 +55249,14 @@ dIi
 wyh
 xhG
 bBD
-ycg
+ciV
 jVI
 bif
 vHT
 auc
 vPT
 vWY
-ycg
+ciV
 nBh
 xqw
 qnc
@@ -55756,7 +55308,7 @@ pwa
 pwa
 pwa
 pwa
-wqZ
+iRb
 rof
 uak
 khV
@@ -55868,13 +55420,13 @@ pwa
 pwa
 pwa
 pwa
-wvV
+yiJ
 xsR
 wIQ
 xCi
 wIQ
 xsR
-okv
+yiJ
 pwa
 pwa
 pwa
@@ -55936,32 +55488,32 @@ izZ
 vPe
 vPe
 vPe
-ycg
+ciV
 spi
 spi
 spi
-gNw
-ycg
-ycg
+ciV
+ciV
+ciV
 ciV
 jsa
 uNG
 jkX
 sAE
-ycg
+ciV
 wiF
 mMl
 sQh
 hzK
 xhG
-ycg
+ciV
 cGz
 bif
 vHT
 vHT
 vPT
 axR
-ycg
+ciV
 mbk
 xqw
 waT
@@ -56014,10 +55566,10 @@ pwa
 pwa
 pwa
 pwa
-wqZ
 iRb
-rof
-hRv
+iRb
+iRb
+iRb
 pwa
 pwa
 pwa
@@ -56055,7 +55607,7 @@ syj
 vpg
 uuY
 vzm
-uzo
+vzm
 ubE
 ubE
 ubE
@@ -56200,27 +55752,27 @@ vPe
 vPe
 vPe
 vPe
-ycg
-ycg
-ycg
+ciV
+ciV
+ciV
 ciV
 vlN
-ycg
+ciV
 lng
 axB
 sQh
 seD
 xhG
-ycg
+ciV
 eIq
 tye
 lKW
 lKW
 cmw
 pCg
-ycg
-ycg
-ycg
+ciV
+ciV
+ciV
 vPe
 vPe
 vPe
@@ -56302,7 +55854,7 @@ ymc
 ubE
 ubE
 ubE
-rxo
+vzm
 vzm
 vzm
 vzm
@@ -56311,7 +55863,7 @@ vzm
 trC
 vrM
 trC
-uzo
+vzm
 ubE
 ubE
 ubE
@@ -56460,23 +56012,23 @@ vPe
 vPe
 wpJ
 vPe
-ycg
-ycg
-ycg
+ciV
+ciV
+ciV
 wyh
 hjQ
 wyh
-ycg
-ycg
-ycg
-ycg
+ciV
+ciV
+ciV
+ciV
 wyh
 hgS
 oky
 wyh
-ycg
-ycg
-ycg
+ciV
+ciV
+ciV
 vPe
 vPe
 vPe
@@ -58175,7 +57727,7 @@ pwa
 pwa
 pwa
 pwa
-xRj
+xXv
 viX
 xXv
 xXv
@@ -58188,7 +57740,7 @@ ouJ
 xXv
 xXv
 xXv
-fLf
+xXv
 pwa
 pwa
 pwa
@@ -58584,10 +58136,10 @@ pwa
 pwa
 pwa
 pwa
-sne
+wtY
 wtY
 iYY
-pLc
+wtY
 pwa
 pwa
 pwa
@@ -58625,14 +58177,14 @@ oFJ
 oFJ
 oFJ
 oFJ
-ylY
+wmt
 wmt
 uyn
 uyn
 uyn
 uyn
 wmt
-ylY
+wmt
 oFJ
 oFJ
 oFJ
@@ -58840,7 +58392,7 @@ pwa
 pwa
 pwa
 pwa
-sne
+wtY
 iYY
 alO
 tBr
@@ -58854,12 +58406,12 @@ pNM
 pwa
 pwa
 pwa
-bXg
+hoJ
 gRr
 fWE
 gRr
 hoJ
-ibe
+hoJ
 pwa
 pwa
 pwa
@@ -58880,78 +58432,78 @@ kXq
 oFJ
 oFJ
 oFJ
-ylY
+wmt
 uyn
 wmt
-vvs
+wmt
 lgc
 otE
 rft
 gJj
-vvs
 wmt
-uyn
-ylY
-oFJ
-oFJ
-oFJ
-kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-kXq
-oFJ
-oFJ
-nbA
-nbA
-nbA
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-oFJ
-nbA
-nbA
-nbA
-oFJ
-oFJ
-kXq
-pNM
-pwa
-vAA
-uoq
-uoq
-uoq
-uoq
-uoq
-uoq
-uoq
-vAA
-pwa
-pNM
-pNM
-pwa
-pwa
-pwa
-pwa
+wmt
 wkE
+wmt
+oFJ
+oFJ
+oFJ
+kXq
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+mVX
+kXq
+oFJ
+oFJ
+nbA
+nbA
+nbA
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+oFJ
+nbA
+nbA
+nbA
+oFJ
+oFJ
+kXq
+pNM
+pwa
+vAA
+uoq
+uoq
+uoq
+uoq
+uoq
+uoq
+uoq
+vAA
+pwa
+pNM
+pNM
+pwa
+pwa
+pwa
+pwa
 xXv
 xXv
 xXv
 xXv
-kbL
+xXv
+xXv
 xVm
 lPB
 xVm
@@ -58959,7 +58511,7 @@ xVm
 tzz
 xXv
 xXv
-ksG
+xXv
 pwa
 pwa
 pwa
@@ -59354,7 +58906,7 @@ pwa
 pwa
 pwa
 pwa
-gxq
+wtY
 iYY
 sAA
 aCb
@@ -59402,11 +58954,11 @@ iSZ
 mtw
 kVb
 lzD
-vvs
+wmt
 kUi
 adM
 tTX
-oFJ
+nSu
 oFJ
 oFJ
 kXq
@@ -59462,7 +59014,7 @@ pwa
 pwa
 pwa
 pwa
-pmV
+xXv
 mEm
 mEm
 ouJ
@@ -59612,10 +59164,10 @@ pwa
 pwa
 pwa
 pwa
-gxq
+wtY
 wtY
 iYY
-fyJ
+wtY
 pwa
 pwa
 pwa
@@ -59625,12 +59177,12 @@ pNM
 pwa
 pwa
 pwa
-aXz
+hoJ
 gRr
 mzT
 gRr
 hoJ
-cXg
+hoJ
 pwa
 pwa
 pwa
@@ -59650,20 +59202,20 @@ mVX
 kXq
 oFJ
 oFJ
-ylY
+wmt
 wJV
 wmt
 wJV
-vvs
+wmt
 jqj
 wJV
 wJV
 jqj
-vvs
+wmt
 wJV
 wmt
 wJV
-ylY
+wmt
 oFJ
 oFJ
 kXq
@@ -59718,7 +59270,7 @@ pwa
 pwa
 pwa
 pwa
-pmV
+xXv
 xXv
 ugs
 ugs
@@ -59733,7 +59285,7 @@ xXv
 ouJ
 xXv
 xXv
-ltH
+xXv
 pwa
 pwa
 pwa
@@ -59974,7 +59526,7 @@ pwa
 pwa
 pwa
 pwa
-pmV
+xXv
 xXv
 ugs
 xVm
@@ -59991,7 +59543,7 @@ uQU
 arg
 uqH
 xXv
-ltH
+xXv
 pwa
 pwa
 pwa
@@ -61002,7 +60554,7 @@ pwa
 pwa
 pwa
 pwa
-wnr
+xXv
 xXv
 wNi
 xVm
@@ -61019,7 +60571,7 @@ uQU
 vxN
 kbb
 xXv
-hzf
+xXv
 pwa
 pwa
 pwa
@@ -61260,7 +60812,7 @@ pwa
 pwa
 pwa
 pwa
-wnr
+xXv
 xXv
 wNi
 wNi
@@ -61275,7 +60827,7 @@ xXv
 ouJ
 xXv
 xXv
-hzf
+xXv
 pwa
 pwa
 pwa
@@ -61518,7 +61070,7 @@ pwa
 pwa
 pwa
 pwa
-wnr
+xXv
 xhz
 xhz
 ouJ
@@ -62030,12 +61582,12 @@ pwa
 pwa
 pwa
 pwa
-xRj
 xXv
 xXv
 xXv
 xXv
-kbL
+xXv
+xXv
 xVm
 mET
 dGr
@@ -62043,7 +61595,7 @@ xVm
 wod
 xXv
 xXv
-fLf
+xXv
 pwa
 pwa
 pwa
@@ -62182,10 +61734,10 @@ pwa
 pwa
 pwa
 pwa
-nFM
+nTJ
 nTJ
 peS
-ruQ
+nTJ
 pwa
 pwa
 pwa
@@ -62195,15 +61747,15 @@ pNM
 pwa
 pwa
 pwa
-nRt
+oJI
 sKg
 lDH
 sKg
 sKg
 sXM
 prf
-sKg
-qmP
+oJI
+oJI
 pwa
 pwa
 pwa
@@ -62220,7 +61772,7 @@ mVX
 kXq
 oFJ
 oFJ
-ylY
+wmt
 ghb
 hfa
 wmt
@@ -62233,7 +61785,7 @@ mto
 wmt
 ghb
 hfa
-ylY
+wmt
 oFJ
 oFJ
 kXq
@@ -62438,7 +61990,7 @@ pwa
 pwa
 pwa
 pwa
-nFM
+nTJ
 peS
 oET
 alp
@@ -62801,7 +62353,7 @@ pwa
 pwa
 pwa
 pwa
-wkE
+xXv
 wBy
 xXv
 xXv
@@ -62814,7 +62366,7 @@ ouJ
 xXv
 xXv
 xXv
-ksG
+xXv
 pwa
 pwa
 pwa
@@ -62952,7 +62504,7 @@ pwa
 pwa
 pwa
 pwa
-oMi
+nTJ
 peS
 gWl
 eag
@@ -62966,7 +62518,7 @@ pNM
 pwa
 pwa
 pwa
-sXM
+bXg
 ogO
 oiv
 ovE
@@ -63210,10 +62762,10 @@ pwa
 pwa
 pwa
 pwa
-oMi
+nTJ
 nTJ
 peS
-pgY
+nTJ
 pwa
 pwa
 pwa
@@ -63223,15 +62775,15 @@ pNM
 pwa
 pwa
 pwa
-nSu
+oJI
 sKg
 okx
 sKg
 oJI
 sKg
 qTI
-sKg
-qsm
+oJI
+oJI
 pwa
 pwa
 pwa
@@ -65358,11 +64910,11 @@ psf
 psf
 psf
 psf
-xUP
+vvx
 omP
 sEW
 sWH
-pml
+vvx
 psf
 psf
 psf
@@ -65784,29 +65336,29 @@ pwa
 pwa
 pwa
 pwa
-pgZ
 vAA
 vAA
-wkN
+vAA
+vAA
 yjN
-wkN
+vAA
 sJJ
-wkN
+vAA
 bud
 bud
 bud
 wkN
 uEW
-wkN
+vAA
 uEW
-wkN
+vAA
 vAA
 wkN
 bud
 bud
 wkN
 vAA
-wrk
+vAA
 pwa
 pwa
 pwa
@@ -65836,7 +65388,7 @@ liC
 lKX
 mve
 mNH
-oPY
+sKm
 sKm
 oFJ
 oFJ
@@ -66554,8 +66106,8 @@ pwa
 pwa
 pwa
 pwa
-qUw
-qTA
+vAA
+vAA
 esN
 qGu
 sfc
@@ -66807,7 +66359,7 @@ pwa
 pwa
 pwa
 pwa
-pgZ
+vAA
 wkN
 bud
 wkN
@@ -67588,7 +67140,7 @@ wkN
 rRm
 rRm
 wkN
-qTA
+vAA
 sOe
 sWw
 tsj
@@ -68185,11 +67737,11 @@ psf
 psf
 psf
 psf
-oik
+vvx
 ohw
 urM
 ohw
-pqM
+vvx
 psf
 psf
 psf
@@ -68359,7 +67911,7 @@ wkN
 kph
 kph
 wkN
-qTA
+vAA
 sOe
 hsz
 tzJ
@@ -69120,7 +68672,7 @@ pwa
 pwa
 pwa
 pwa
-phZ
+vAA
 wkN
 bud
 wkN
@@ -69381,8 +68933,8 @@ pwa
 pwa
 pwa
 pwa
-qKq
-qTA
+vAA
+vAA
 oDr
 til
 wrD
@@ -70153,29 +69705,29 @@ pwa
 pwa
 pwa
 pwa
-phZ
-wkN
-bud
-bud
-wkN
-vAA
 vAA
 wkN
-bud
 bud
 bud
 wkN
 vAA
 vAA
+wkN
+bud
+bud
+bud
+wkN
 vAA
 vAA
-qTA
+vAA
+vAA
+vAA
 bud
 vtX
 vKS
 bud
 vAA
-wsC
+vAA
 pwa
 pwa
 pwa
@@ -73325,11 +72877,11 @@ psf
 psf
 psf
 psf
-qKH
+usR
 usR
 woV
 usR
-scf
+usR
 psf
 psf
 psf
@@ -73583,9 +73135,9 @@ psf
 psf
 psf
 psf
-qKH
+usR
 jmf
-scf
+usR
 psf
 psf
 psf

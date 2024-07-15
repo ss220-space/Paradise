@@ -465,8 +465,6 @@
 /area/ruin/onehalf/hallway)
 "bg" = (
 /obj/structure/disposalpipe/junction{
-	tag = "icon-pipe-j1 (EAST)";
-	icon_state = "pipe-j1";
 	dir = 4
 	},
 /obj/structure/cable{
@@ -513,7 +511,6 @@
 /area/ruin/onehalf/hallway)
 "bk" = (
 /obj/structure/disposalpipe/junction{
-	icon_state = "pipe-j1";
 	dir = 4
 	},
 /obj/structure/cable{
@@ -577,8 +574,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/onehalf/drone_bay)
 "br" = (
-/obj/structure/disposalpipe/junction{
-	icon_state = "pipe-y";
+/obj/structure/disposalpipe/junction/yjunction{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -663,8 +659,7 @@
 /area/ruin/onehalf/drone_bay)
 "bD" = (
 /obj/structure/disposalpipe/junction{
-	dir = 8;
-	icon_state = "pipe-j1"
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/onehalf/drone_bay)
@@ -677,8 +672,7 @@
 /area/ruin/onehalf/drone_bay)
 "bF" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/onehalf/drone_bay)
@@ -776,8 +770,6 @@
 /area/ruin/onehalf/hallway)
 "bZ" = (
 /obj/structure/disposalpipe/junction{
-	tag = "icon-pipe-j1 (NORTH)";
-	icon_state = "pipe-j1";
 	dir = 1
 	},
 /obj/item/shard,
@@ -888,8 +880,7 @@
 /area/ruin/onehalf/bridge)
 "cp" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/structure/table,
 /obj/item/paper_bin,

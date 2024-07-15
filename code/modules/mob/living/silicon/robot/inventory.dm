@@ -11,6 +11,17 @@
 /mob/living/silicon/robot/get_all_slots()
 	return list(module_state_1, module_state_2, module_state_3)
 
+
+/mob/living/silicon/robot/get_equipped_items(include_pockets = FALSE, include_hands = FALSE)
+	. = list()
+	if(module_state_1)
+		. += module_state_1
+	if(module_state_2)
+		. += module_state_2
+	if(module_state_3)
+		. += module_state_3
+
+
 /*-------TODOOOOOOOOOO--------*/
 /mob/living/silicon/robot/proc/uneq_module(obj/item/O)
 	if(!O)
