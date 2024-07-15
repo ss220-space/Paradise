@@ -100,8 +100,7 @@
 			return TRUE
 	return TRUE // yes, we will heal in nullspace..
 
-/datum/species/shadow/bullet_act(obj/item/projectile/P)
-	var/mob/living/carbon/human/H = src
+/datum/species/shadow/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
 	if(H.stat == DEAD)
 		..()
 	if(H.has_status_effect(STATUS_EFFECT_SHADOW_EMPOWER) && prob(50))
