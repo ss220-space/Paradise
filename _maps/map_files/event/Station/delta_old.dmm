@@ -8,7 +8,6 @@
 /area/space)
 "aah" = (
 /obj/effect/decal/warning_stripes/east,
-/turf/space,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/westarrival)
 "aam" = (
