@@ -144,6 +144,8 @@
 	icon = 'icons/obj/abductor.dmi'
 
 /obj/item/abductor/proc/AbductorCheck(user)
+	if(isgrey(user))
+		return TRUE
 	if(isabductor(user))
 		return TRUE
 	to_chat(user, "<span class='warning'>You can't figure how this works!</span>")
