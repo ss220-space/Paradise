@@ -27,8 +27,8 @@
 		if(!is_tranformed)
 			mode.blob_win_count += BLOB_TARGET_POINT_PER_CORE
 		if(is_offspring)
-			mode.blobs["offsprings"] += owner
-		else mode.blobs["infected"] += owner
+			mode.blobs["offsprings"] |= owner
+		else mode.blobs["infected"] |= owner
 		mode.update_blob_objective()
 
 
@@ -75,3 +75,23 @@
 	messages += "<b>Сочетания клавиш:</b> ЛКМ = установить простую плитку <b>|</b> CTRL + ЛКМ = Улучшить плитку <b>|</b> СКМ = Указать цель спорам <b>|</b> Alt + ЛКМ = Удалить плитку"
 	messages += "Попытайтесь отправить телепатическое сообщение всем остальным <b>надразумами</b>, что позволит вам координировать свои действия с ними."
 	return messages
+
+/**
+ * Takes any datum `source` and checks it for blob_overmind datum.
+ */
+/proc/isblobovermind(datum/source)
+	if(!source)
+		return FALSE
+
+	if(istype(source, /datum/mind))
+		var/datum/mind/our_mind = source
+		return our_mind.has_antag_datum(/datum/antagonist/blob_overmind) && isovermind(our_mind.current)
+
+	if(!ismob(source))
+		return FALSE
+
+	var/mob/mind_holder = source
+	if(!mind_holder.mind)
+		return FALSE
+
+	return mind_holder.mind.has_antag_datum(/datum/antagonist/blob_overmind) && isovermind(mind_holder)

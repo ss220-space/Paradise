@@ -115,10 +115,13 @@
 		return
 	log_admin("[key_name(owner)] tried making [antnum] blobs with One-Click-Antag")
 	message_admins("[key_name_admin(owner)] tried making [antnum] blobs with One-Click-Antag")
-
-	if(SSticker && SSticker.mode && SSticker.mode.make_blobs(antnum))
-		return TRUE
-	return FALSE
+	var/result = FALSE
+	switch(alert(usr, "Вы хотите создать блобов из членов экипажа или же с помощью инфицированных мышек?", "", "Из экипажа", "С помощью мышек"))
+		if("Из экипажа")
+			result = SSticker?.mode?.make_blobs(antnum)
+		if("С помощью мышек")
+			result = SSticker?.mode?.make_blobized_mouses(antnum)
+	return result
 
 /datum/admins/proc/makeRevs()
 

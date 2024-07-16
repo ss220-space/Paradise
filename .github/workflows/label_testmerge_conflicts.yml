@@ -1,9 +1,9 @@
-name: 'Merge Conflict Detection'
+name: 'Testmerge Conflict Detection'
 
 on:
   push:
     branches:
-      - master220
+      - testmerge
   pull_request_target:
     types: [ready_for_review, opened, synchronize, reopened]
 
@@ -13,5 +13,5 @@ jobs:
     steps:
       - uses: eps1lon/actions-label-merge-conflict@v3.0.2
         with:
-          dirtyLabel: 'Merge Conflict'
+          dirtyLabel: 'Testmerge Conflict'
           repoToken: ${{ secrets.GITHUB_TOKEN }}

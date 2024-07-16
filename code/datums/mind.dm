@@ -553,9 +553,13 @@
 /datum/mind/proc/memory_edit_blob()
 	. = _memory_edit_header("blob")
 	if(isblobinfected(src))
-		. += "|<b><font color='red'>BLOB</font></b>|<a href='?src=[UID()];blob=clear'>no</a>"
+		. += "|<b><font color='red'>BLOB</font></b>|<a href='?src=[UID()];blob=clear'>deblobize</a>"
 		. += "|<a href='?src=[UID()];blob=burst'>burst blob</a>"
-	else
+	else if(isblobovermind(src))
+		var/mob/camera/blob/blob_overmind = current
+		. += "|<b><font color='red'>BLOB Overmind</font></b>|"
+		. += "<br/><b>Total points: <a href='?src=[UID()];blob=set_points'>[blob_overmind.blob_points]</a>/[blob_overmind.max_blob_points]</b>"
+	else if(current.can_be_blob())
 		. += "<a href='?src=[UID()];blob=blob'>blobize</a>|<b>NO</b>"
 	. += _memory_edit_role_enabled(ROLE_BLOB)
 
@@ -765,7 +769,7 @@
 
 	sections["eventmisc"] = memory_edit_eventmisc(H)
 
-	if(isliving(current) && current.can_be_blob())
+	if((isliving(current) && current.can_be_blob()) || isblobovermind(src))
 		sections["blob"] = memory_edit_blob(current)
 
 	if(!issilicon(current))
@@ -2525,6 +2529,17 @@
 					blob.burst_blob()
 					log_admin("[key_name(usr)] has bursted [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has bursted [key_name_admin(current)]")
+
+			if("set_points")
+				if(!isblobovermind(src))
+					return
+				var/mob/camera/blob/blob_overmind = current
+				var/blob_points = input(usr, "Введите новое число очков в диапазоне от 0 до [blob_overmind.max_blob_points]","Count:", blob_overmind.blob_points) as num|null
+				if(isnull(blob_points) || QDELETED(current) || current.stat == DEAD)
+					return
+				blob_overmind.blob_points = clamp(blob_points, 0, blob_overmind.max_blob_points)
+				log_admin("[key_name(usr)] set blob points to [key_name(current)] as [blob_overmind.blob_points]")
+				message_admins("[key_name_admin(usr)] set blob points to [key_name_admin(current)] as [blob_overmind.blob_points]")
 
 
 	else if(href_list["common"])
