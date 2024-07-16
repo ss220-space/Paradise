@@ -27,6 +27,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	var/datum/antagonist/contractor/contractor
 	/// Whether the uplink is jammed and cannot be used to order items.
 	var/is_jammed = FALSE
+	/// Associative list UID - refund cost
+	var/static/list/item_to_refund_cost
 
 
 /obj/item/uplink/Initialize(mapload, uplink_type, uses)
@@ -147,8 +149,14 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 	for(var/datum/uplink_item/uplink_item as anything in uplink_items)
 		var/path = uplink_item.refund_path || uplink_item.item
-		var/cost = hold_item.discount_refaund_cost || uplink_item.refund_amount || uplink_item.cost
-		if(hold_item.type == path && uplink_item.refundable && hold_item.check_uplink_validity())
+		var/special_refund_cost = 0
+
+		if(item_to_refund_cost && item_to_refund_cost[hold_item.UID()])
+			special_refund_cost = item_to_refund_cost[hold_item.UID()]
+			item_to_refund_cost -= hold_item.UID()
+
+		var/cost = special_refund_cost || uplink_item.refund_amount || uplink_item.cost
+		if((hold_item.type == path && uplink_item.refundable || special_refund_cost) && hold_item.check_uplink_validity())
 			uses += cost
 			used_TC -= cost
 			to_chat(user, span_notice("[hold_item] refunded."))

@@ -165,8 +165,11 @@
 		else
 			refund_item = locate(refund_path) in spawned
 
+		if(!target_uplink.item_to_refund_cost)
+			target_uplink.item_to_refund_cost = list()
+
 		if(refund_item)
-			refund_item.discount_refaund_cost = refund_amount ? (refund_amount * 0.5) : cost
+			target_uplink.item_to_refund_cost[refund_item.UID()] = refund_amount ? (refund_amount * 0.5) : cost
 
 	if(limited_stock > 0)
 		add_game_logs("purchased [name]. [name] was discounted to [cost].", buyer)
