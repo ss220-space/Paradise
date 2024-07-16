@@ -34,6 +34,7 @@
 	var/self_sufficiency_req = 20 //Required total dose to make a self-sufficient hydro tray. 1:1 with earthsblood.
 	var/self_sufficiency_progress = 0
 	var/self_sustaining = FALSE //If the tray generates nutrients and water on its own
+	var/weed_pulling = FALSE
 	hud_possible = list (PLANT_NUTRIENT_HUD, PLANT_WATER_HUD, PLANT_STATUS_HUD, PLANT_HEALTH_HUD, PLANT_TOXIN_HUD, PLANT_PEST_HUD, PLANT_WEED_HUD)
 
 /obj/machinery/hydroponics/New()
@@ -864,13 +865,27 @@
 		to_chat(user, "")
 
 	else if(istype(O, /obj/item/cultivator))
+		if(weed_pulling)
+			to_chat(user, span_warning("[src] is busy"))
+			return TRUE
 		if(weedlevel > 0)
 			add_fingerprint(user)
-			user.visible_message("[user] uproots the weeds.", "<span class='notice'>You remove the weeds from [src].</span>")
-			adjustWeeds(-10)
+			weed_pulling = TRUE
+			to_chat(user, span_notice("[user] uproots the weeds from [src]."))
+			while(weedlevel > 0)
+				if(do_after(user, 2 SECONDS * O.toolspeed * gettoolspeedmod(user), src))
+					if(!istype(src, /obj/machinery/hydroponics))
+						return TRUE
+					adjustWeeds(-2)
+				else break
+			if(weedlevel > 0)
+				to_chat(user, span_warning("You have stopped pulling weeds."))
+			else
+				to_chat(user, span_notice("You have finished pulling weeds."))
+			weed_pulling = FALSE
 			update_state()
 		else
-			to_chat(user, "<span class='warning'>This plot is completely devoid of weeds! It doesn't need uprooting.</span>")
+			to_chat(user, span_warning("This plot is completely devoid of weeds! It doesn't need uprooting."))
 
 	else if(istype(O, /obj/item/storage/bag/plants))
 		attempt_harvest(user)
