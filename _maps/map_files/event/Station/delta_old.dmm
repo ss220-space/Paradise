@@ -7,9 +7,13 @@
 /turf/space,
 /area/space)
 "aah" = (
-/obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel,
-/area/hallway/secondary/entry/westarrival)
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/item/balltoy,
+/turf/simulated/floor/plating,
+/area/security/customs)
 "aam" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -56430,19 +56434,6 @@
 	name = "Rubber Bullets";
 	req_access = list(1)
 	},
-/obj/item/ammo_box/magazine/enforcer{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/ammo_box/magazine/enforcer,
-/obj/item/ammo_box/magazine/enforcer{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/ammo_box/magazine/enforcer{
-	pixel_x = -6;
-	pixel_y = 6
-	},
 /obj/machinery/newscaster/security_unit{
 	pixel_y = -30
 	},
@@ -83034,19 +83025,6 @@
 	anchored = 1;
 	name = "Lethal Bullets"
 	},
-/obj/item/ammo_box/magazine/enforcer/lethal{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/ammo_box/magazine/enforcer/lethal,
-/obj/item/ammo_box/magazine/enforcer/lethal{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/ammo_box/magazine/enforcer/lethal{
-	pixel_x = -6;
-	pixel_y = 6
-	},
 /obj/machinery/camera{
 	c_tag = "Brig Local Armory";
 	dir = 1;
@@ -83966,12 +83944,6 @@
 	name = "Dominator's";
 	req_access = list(1)
 	},
-/obj/item/gun/energy/dominator,
-/obj/item/gun/energy/dominator,
-/obj/item/gun/energy/dominator,
-/obj/item/gun/energy/dominator,
-/obj/item/gun/energy/dominator,
-/obj/item/gun/energy/dominator,
 /obj/machinery/light,
 /obj/machinery/firealarm{
 	pixel_y = -26
@@ -102900,19 +102872,6 @@
 	name = "Security Ballistic Weapons";
 	req_access = list(1)
 	},
-/obj/item/gun/projectile/automatic/pistol/enforcer/security{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer/security,
-/obj/item/gun/projectile/automatic/pistol/enforcer/security{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/gun/projectile/automatic/pistol/enforcer/security{
-	pixel_x = 6;
-	pixel_y = -6
-	},
 /obj/machinery/light,
 /obj/machinery/alarm{
 	dir = 1;
@@ -102922,6 +102881,7 @@
 	pixel_x = -28;
 	pixel_y = -30
 	},
+/obj/item/toy/russian_revolver,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -152559,7 +152519,7 @@ aud
 aud
 aud
 aud
-aah
+aud
 aNS
 aXL
 aud
@@ -168314,7 +168274,7 @@ tzh
 pYG
 vQG
 tMU
-jTh
+aah
 dle
 ttw
 pcp
