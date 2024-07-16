@@ -866,7 +866,7 @@
 
 	else if(istype(O, /obj/item/cultivator))
 		if(weed_pulling)
-			to_chat(user, span_warning("[src] is busy"))
+			to_chat(user, span_warning("[src] is busy."))
 			return TRUE
 		if(weedlevel > 0)
 			add_fingerprint(user)
