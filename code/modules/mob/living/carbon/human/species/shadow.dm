@@ -82,9 +82,10 @@
 	if(empowering && do_after(H, TIME_TO_EMPOWER, H, ALL, progress = FALSE, max_interact_count = 1, extra_checks = CALLBACK(src, PROC_REF(light_check), H)))
 		H.apply_status_effect(STATUS_EFFECT_SHADOW_EMPOWER)
 		return 
-	else if(H.has_status_effect(STATUS_EFFECT_SHADOW_EMPOWER) && do_after(H, TIME_TO_EXHAUST, H, ALL, progress = FALSE, max_interact_count = 1)) // NO extra_checks. Out in the light? Lose empower.
-		H.remove_status_effect(STATUS_EFFECT_SHADOW_EMPOWER)
-		return 
+	else 
+		if(do_after(H, TIME_TO_EXHAUST, H, ALL, progress = FALSE, max_interact_count = 1)) // NO extra_checks. Out in the light? Lose empower.
+			H.remove_status_effect(STATUS_EFFECT_SHADOW_EMPOWER)
+			return 
 	return 
 
 /datum/species/shadow/proc/light_check(mob/living/carbon/human/H)
