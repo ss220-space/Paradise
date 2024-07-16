@@ -1132,10 +1132,10 @@
 /datum/uplink_item/stealthy_weapons/martialarts
 	name = "Martial Arts Scroll"
 	desc = "This scroll contains the secrets of an ancient martial arts technique. You will master unarmed combat, \
-			deflecting ranged weapon fire when you are in a defensive stance (throw mode). Learning this art means you will also refuse to use dishonorable ranged weaponry.\
+			deflecting all ranged weapon fire, but you also refuse to use dishonorable ranged weaponry. Learning this art means you will also refuse to use dishonorable ranged weaponry. \
 			Unable to be understood by vampire and changeling agents."
 	item = /obj/item/sleeping_carp_scroll
-	cost = 65
+	cost = 80
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 	refundable = TRUE

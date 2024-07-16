@@ -12,8 +12,6 @@
 	/// Chance to deflect projectiles while on throw mode.
 	var/deflection_chance = 0
 	/// Can it reflect projectiles in a random direction?
-	var/reroute_deflection = FALSE
-	///Chance to block melee attacks using items while on throw mode.
 	var/block_chance = 0
 	//Chance to reflect projectiles but NINJA!
 	var/reflection_chance = 0
@@ -267,9 +265,6 @@
 /datum/martial_art/proc/explaination_notice(user)
 	return to_chat(user, "<b><i>Combo steps can be provided only with empty hand!</b></i>")
 
-/datum/martial_art/proc/try_deflect(mob/user)
-	return prob(deflection_chance)
-
 /datum/martial_art/proc/intent_to_streak(intent)
 	switch(intent)
 		if(MARTIAL_COMBO_STEP_HARM)
@@ -401,6 +396,12 @@
 	if(istype(user.mind.martial_art, /datum/martial_art/the_sleeping_carp))
 		to_chat(user, span_warning("You realise, that you have learned everything from Carp Teachings and decided to not read the scroll."))
 		return
+
+	to_chat(user, "<span class='sciradio'>You have learned the ancient martial art of the Sleeping Carp! \
+					Your hand-to-hand combat has become much more effective, and you are now able to deflect any projectiles directed toward you. \
+					However, you are also unable to use any ranged weaponry. \
+					You can learn more about your newfound art by using the Recall Teachings verb in the Sleeping Carp tab.</span>")
+
 
 	var/datum/martial_art/the_sleeping_carp/theSleepingCarp = new(null)
 	theSleepingCarp.teach(user)
