@@ -871,7 +871,7 @@
 		if(weedlevel > 0)
 			add_fingerprint(user)
 			weed_pulling = TRUE
-			to_chat(user, span_notice("[user] uproots the weeds from [src]."))
+			user.visible_message(span_notice("[user] uproots the weeds from [src]."), span_notice("You remove the weeds from [src]."))
 			while(weedlevel > 0)
 				if(do_after(user, 2 SECONDS * O.toolspeed * gettoolspeedmod(user), src))
 					if(!istype(src, /obj/machinery/hydroponics))
