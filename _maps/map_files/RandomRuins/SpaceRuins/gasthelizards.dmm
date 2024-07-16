@@ -904,8 +904,7 @@
 /area/ruin/space/gasthelizards/jail)
 "Eh" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -1314,8 +1313,7 @@
 /area/ruin/space/gasthelizards/engineering)
 "Vr" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/structure/cable{
 	icon_state = "4-8"

@@ -48,6 +48,8 @@
 #define NO_MAT_REDEMPTION (1<<13)
 /// An item worn in the ear slots will heal your ears each Life() tick, even if normally your ears would be too damaged to heal.
 #define HEALS_EARS (1<<14)
+/// An item will allow its usage even when UI is blocked but user is conscious, not incapacitated and has no hands blocked trait.
+#define DENY_UI_BLOCKED (1<<15)
 
 
 // Flags for the clothing_flags var on /obj/item/clothing
@@ -64,4 +66,6 @@
 #define BLOCK_CAPSAICIN (1<<4)
 /// Whether this item ignores any manipulations with slowdown variable, like slime speed potions
 #define FIXED_SLOWDOWN (1<<5)
+/// Checks for finger coverage, prevents damage from nettles
+#define FINGERS_COVERED (1<<6)
 

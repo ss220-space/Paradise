@@ -89,7 +89,7 @@ MEDICAL
 	desc = "Sunglasses with a medical HUD."
 	icon_state = "sunhudmed"
 	see_in_dark = 1
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
 
 /obj/item/clothing/glasses/hud/health/tajblind
@@ -114,7 +114,7 @@ MEDICAL
 
 /obj/item/clothing/glasses/hud/health/tajblind/sunglasses
 	see_in_dark = 1
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint_up = 1
 
 /obj/item/clothing/glasses/hud/health/tajblind/attack_self(mob/user)
@@ -164,7 +164,7 @@ DIAGNOSTIC
 	desc = "Sunglasses with a diagnostic HUD."
 	icon_state = "sunhuddiag"
 	item_state = "glasses"
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
 
 /obj/item/clothing/glasses/hud/diagnostic/tajblind
@@ -178,7 +178,7 @@ DIAGNOSTIC
 
 /obj/item/clothing/glasses/hud/diagnostic/tajblind/sunglasses
 	see_in_dark = 1
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint_up = 1
 
 /obj/item/clothing/glasses/hud/diagnostic/tajblind/attack_self(mob/user)
@@ -226,7 +226,7 @@ SECURITY
 	icon_state = "sunhud"
 	origin_tech = "magnets=3;combat=3;engineering=3"
 	see_in_dark = 1
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
 
 	sprite_sheets = list(
@@ -245,7 +245,6 @@ SECURITY
 	desc = "Ballistic glasses with a security HUD. Gives you tacticool protection and selfish increase. The elastic band allows it to be worn over a helmet."
 	icon_state = "secgoggles-g"
 	item_state = "secgoggles-g"
-	over_mask = TRUE
 	over_hat = TRUE
 	can_toggle = TRUE
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT | VISOR_DARKNESSVIEW | VISOR_FULL_HUD
@@ -345,7 +344,7 @@ HYDROPONIC
 	icon_state = "sunhudhydro"
 	item_state = "sunhudhydro"
 	see_in_dark = 1
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
 
 /obj/item/clothing/glasses/hud/hydroponic/tajblind
@@ -358,7 +357,7 @@ HYDROPONIC
 
 /obj/item/clothing/glasses/hud/hydroponic/tajblind/sunglasses
 	see_in_dark = 1
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint_up = 1
 
 /obj/item/clothing/glasses/hud/hydroponic/tajblind/attack_self(mob/user)
@@ -391,7 +390,7 @@ SKILLS
 	desc = "Sunglasses with a build-in skills HUD, showing the employment history of nearby NT crew members."
 	icon_state = "sunhudskill"
 	see_in_dark = 1 // None of these three can be converted to booleans. Do not try it.
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
 	prescription_upgradable = TRUE
 	sprite_sheets = list(
@@ -416,7 +415,7 @@ SKILLS
 
 /obj/item/clothing/glasses/hud/skills/tajblind/sunglasses
 	see_in_dark = 1
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint_up = 1
 
 /obj/item/clothing/glasses/hud/skills/tajblind/attack_self(mob/user)

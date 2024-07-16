@@ -205,6 +205,9 @@
 	if(!HAS_TRAIT(src, TRAIT_NEGATES_GRAVITY))
 		return ..()
 
+/mob/living/simple_animal/hostile/blob/blobbernaut/proc/add_to_gamemode()
+	var/list/blobernauts = SSticker?.mode?.blobs["blobernauts"]
+	blobernauts |= mind
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/Life(seconds, times_fired)
 	if(stat != DEAD && (getBruteLoss() || getFireLoss())) // Heal on blob structures
@@ -224,6 +227,7 @@
 		name = text("blobbernaut ([rand(1, 1000)])")
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/death(gibbed)
+	mind.name = name
 	// Only execute the below if we successfully died
 	. = ..()
 	if(!.)
@@ -240,8 +244,12 @@
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/proc/blob_talk()
 	var/message = input(src, "Announce to the overmind", "Blob Telepathy")
-	var/rendered = "<i><span class='blob'>Blob Telepathy,</span> <span class='name'>[name]([overmind])</span> states, <span class='blob'>\"[message]\"</span></i>"
+	var/rendered = "<i><span class='blob'>Blob Telepathy,</span> <span class='name'>[name]([overmind]) states, <span class='blob'>\"[message]\"</span></i>"
 	if(message)
 		for(var/mob/M in GLOB.mob_list)
-			if(isovermind(M) || isobserver(M) || istype((M), /mob/living/simple_animal/hostile/blob/blobbernaut))
+			if(isovermind(M) || isblobbernaut(M) || isblobinfected(M.mind))
 				M.show_message(rendered, 2)
+			else if(isobserver(M) && !isnewplayer(M))
+				var/rendered_ghost = "<i><span class='blob'>Blob Telepathy,</span> <span class='name'>[name]([overmind]) </span> \
+				<a href='?src=[M.UID()];follow=[UID()]'>(F)</a> states, <span class='blob'>\"[message]\"</span></i>"
+				M.show_message(rendered_ghost, 2)

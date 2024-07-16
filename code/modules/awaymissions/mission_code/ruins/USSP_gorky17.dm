@@ -225,9 +225,9 @@
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_SPACE
 	has_gravity = FALSE
-	use_starlight = TRUE
-
-
+	static_lighting = FALSE
+	base_lighting_color = COLOR_WHITE
+	base_lighting_alpha = 255
 
 /////////////// Safe with secret documets
 /obj/effect/spawner/lootdrop/randomsafe
@@ -590,7 +590,7 @@
 	playsound(src, 'sound/effects/empulse.ogg', 80)
 	qdel(C)
 
-/area/ruin/space/USSP_gorky17/collapsed/vault/Entered(mob/living/bourgeois)
+/area/ruin/space/USSP_gorky17/collapsed/vault/Entered(mob/living/bourgeois, area/old_area)
 	. = ..()
 	if(!communism_has_fallen && istype(bourgeois) && !faction_check(bourgeois.faction, safe_faction))
 		var/obj/machinery/syndicatebomb/gorky17/bomb = locate(/obj/machinery/syndicatebomb/gorky17) in src

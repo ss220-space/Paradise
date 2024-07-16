@@ -15,7 +15,7 @@
 	greater_form = /datum/species/human
 	no_equip = list(ITEM_SLOT_BELT, ITEM_SLOT_GLOVES)	//Риги и ЕВА тоже нельзя носить, но это размечено отдельно в одежде
 	can_craft = FALSE
-	is_small = 1
+	is_monkeybasic = TRUE
 	has_fine_manipulation = 0
 	ventcrawler_trait = TRAIT_VENTCRAWLER_NUDE
 	show_ssd = 0
@@ -79,6 +79,11 @@
 /datum/species/monkey/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
 	H.meatleft = initial(H.meatleft)
+
+
+/datum/species/monkey/handle_dna(mob/living/carbon/human/H, remove)
+	. = ..()
+	H.force_gene_block(GLOB.monkeyblock, !remove)
 
 
 /datum/species/monkey/can_understand(mob/other)

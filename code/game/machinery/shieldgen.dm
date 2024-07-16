@@ -18,7 +18,7 @@
 	..()
 
 /obj/machinery/shield/Destroy()
-	opacity = FALSE
+	set_opacity(FALSE)
 	set_density(FALSE)
 	air_update_turf(1)
 	return ..()
@@ -26,7 +26,7 @@
 /obj/machinery/shield/has_prints()
 	return FALSE
 
-/obj/machinery/shield/Move()
+/obj/machinery/shield/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
 	. = ..()
 	move_update_air(T)
@@ -56,7 +56,8 @@
 				qdel(src)
 
 /obj/machinery/shield/blob_act()
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)
 
 /obj/machinery/shield/cult
 	name = "cult barrier"

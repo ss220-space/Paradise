@@ -84,7 +84,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	py = new_py
 	Show()
 
-/obj/effect/hallucination/simple/Move()
+/obj/effect/hallucination/simple/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	Show()
 
@@ -235,8 +235,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	if(pump)
 		borer = new(pump.loc,target)
 		for(var/i in 0 to 10)
-			borer.glide_for(3)
-			walk_to(borer, get_step(borer, get_cardinal_dir(borer, T)))
+			SSmove_manager.move_to(borer, T, 1, rand(2, 4))
 			if(borer.Adjacent(T))
 				to_chat(T, "<span class='userdanger'>You feel a creeping, horrible sense of dread come over you, freezing your limbs and setting your heart racing.</span>")
 				T.Stun(8 SECONDS)
@@ -598,7 +597,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	desc = ""
 	density = FALSE
 	anchored = TRUE
-	opacity = 0
+	opacity = FALSE
 	var/mob/living/carbon/human/my_target = null
 	var/weapon_name = null
 	var/obj/item/weap = null
@@ -615,8 +614,21 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 
 	var/health = 100
 
+
+/obj/effect/fake_attacker/Initialize(mapload, mob/living/carbon/my_target)
+	. = ..()
+	src.my_target = my_target
+	QDEL_IN(src, 30 SECONDS)
+	step_away(src, my_target, 2)
+	INVOKE_ASYNC(src, PROC_REF(attack_loop))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
 /obj/effect/fake_attacker/attackby(obj/item/P, mob/living/user, params)
-	step_away(src,my_target,2)
+	step_away(src, my_target, 2)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 	my_target.playsound_local(src, P.hitsound, 1)
@@ -624,21 +636,18 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 							"<span class='danger'>[my_target] has attacked [src]!</span>")
 
 	health -= P.force
-	return
 
-/obj/effect/fake_attacker/Crossed(mob/M, oldloc)
-	if(M == my_target)
-		step_away(src,my_target,2)
-		if(prob(30))
-			for(var/mob/O in oviewers(world.view , my_target))
-				to_chat(O, "<span class='danger'>[my_target] stumbles around.</span>")
 
-/obj/effect/fake_attacker/New(loc, mob/living/carbon/T)
-	..()
-	my_target = T
-	addtimer(CALLBACK(GLOBAL_PROC, /proc/qdel, src), 300)
-	step_away(src,my_target,2)
-	INVOKE_ASYNC(src, PROC_REF(attack_loop))
+/obj/effect/fake_attacker/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(!my_target || arrived != my_target)
+		return
+
+	step_away(src, my_target, 2)
+	if(prob(30))
+		my_target.visible_message(span_danger("[my_target] stumbles around."))
+
 
 /obj/effect/fake_attacker/proc/updateimage()
 //	qdel(src.currentimage)
@@ -947,9 +956,9 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 					throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_tox, override = TRUE)
 				if("nutrition")
 					if(prob(50))
-						throw_alert("nutrition", /atom/movable/screen/alert/hunger/fat, override = TRUE, icon_override = dna.species.hunger_icon)
+						throw_alert(ALERT_NUTRITION, /atom/movable/screen/alert/hunger/fat, override = TRUE, icon_override = dna.species.hunger_icon)
 					else
-						throw_alert("nutrition", /atom/movable/screen/alert/hunger/starving, override = TRUE, icon_override = dna.species.hunger_icon)
+						throw_alert(ALERT_NUTRITION, /atom/movable/screen/alert/hunger/starving, override = TRUE, icon_override = dna.species.hunger_icon)
 				if("weightless")
 					throw_alert("weightless", /atom/movable/screen/alert/weightless, override = TRUE)
 				if("fire")

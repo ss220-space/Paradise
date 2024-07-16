@@ -124,6 +124,7 @@
 		M.SetParalysis(0)
 		M.SetStunned(0)
 		M.SetWeakened(0)
+		M.SetKnockdown(0)
 		combat_cooldown = 0
 		START_PROCESSING(SSobj, src)
 
@@ -755,7 +756,9 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	framestack = /obj/item/stack/sheet/mineral/abductor
 	buildstackamount = 1
 	framestackamount = 1
-	canSmoothWith = null
+	base_icon_state = "alien_table"
+	smoothing_groups = SMOOTH_GROUP_ABDUCTOR_TABLES
+	canSmoothWith = SMOOTH_GROUP_ABDUCTOR_TABLES
 	can_be_flipped = FALSE
 	frame = /obj/structure/table_frame/abductor
 

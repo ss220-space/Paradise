@@ -55,7 +55,7 @@
  * * parent - bodypart in which our src object is placed.
  * * target - future owner of the limb.
  */
-/atom/movable/proc/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target)
+/atom/movable/proc/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	return FALSE
 
 /// Check to see if a surgical operation proposed on ourselves is valid or not. We are the target of the surgery

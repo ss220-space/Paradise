@@ -12,7 +12,7 @@
 	brute_mod = 0.8
 	tox_mod = 1.7
 
-	species_traits = list(IS_WHITELISTED, HAVE_REGENERATION)
+	species_traits = list(HAVE_REGENERATION)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS
 	fingers_count = 6
@@ -268,7 +268,7 @@
 				LAZYADD(active_pheromones_current, pheromones_to_create)
 
 				// Add a signal to the new pheromones so it clears its own references when it gets destroyed
-				RegisterSignal(pheromones_to_create, COMSIG_PARENT_QDELETING, PROC_REF(remove_pheromones_from_list))
+				RegisterSignal(pheromones_to_create, COMSIG_QDELETING, PROC_REF(remove_pheromones_from_list))
 
 				// Log the action
 				H.create_log(MISC_LOG, "produced pheromones with the message of \"[message_to_encode]\"")
@@ -279,7 +279,7 @@
 /datum/action/innate/produce_pheromones/proc/remove_pheromones_from_list(obj/effect/kidan_pheromones/pheromones)
 	SIGNAL_HANDLER
 
-	UnregisterSignal(pheromones, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(pheromones, COMSIG_QDELETING)
 	LAZYREMOVE(active_pheromones_current, pheromones)
 
 // Clear references if the holder gets destroyed

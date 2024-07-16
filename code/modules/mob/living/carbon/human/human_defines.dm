@@ -4,15 +4,17 @@
 	voice_name = "unknown"
 	icon = 'icons/mob/human.dmi'
 	icon_state = "body_m_s"
-	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE
+	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
 	deathgasp_on_death = TRUE
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPMINDSHIELD_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,GLAND_HUD,THOUGHT_HUD,DIAG_STAT_HUD,DIAG_HUD)
 	pressure_resistance = 25
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
+	max_grab = GRAB_KILL
 	num_legs = 0 //Populated on init through list/bodyparts
 	usable_legs = 0 //Populated on init through list/bodyparts
 	num_hands = 0 //Populated on init through list/bodyparts
 	usable_hands = 0 //Populated on init through list/bodyparts
+	status_flags = parent_type::status_flags|CANSTAMCRIT
 	//Marking colour and style
 	var/list/m_colours = DEFAULT_MARKING_COLOURS //All colours set to #000000.
 	var/list/m_styles = DEFAULT_MARKING_STYLES //All markings set to None.

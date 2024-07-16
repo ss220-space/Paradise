@@ -124,7 +124,7 @@
 		var/mob/living/simple_animal/demon/pulse_demon/demon = user
 		if(demon.bot_movedelay <= world.time && dir)
 			Move(get_step(get_turf(src), dir))
-			demon.bot_movedelay = world.time + (BOT_STEP_DELAY * (base_speed - 1)) * ((dir in GLOB.diagonals) ? SQRT_2 : 1)
+			demon.bot_movedelay = world.time + (BOT_STEP_DELAY * (base_speed - 1)) * ((dir in GLOB.diagonals) ? sqrt(2) : 1)
 
 /obj/machinery/recharger/attack_pulsedemon(mob/living/simple_animal/demon/pulse_demon/user)
 	user.forceMove(src)

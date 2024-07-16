@@ -451,9 +451,12 @@
 		user.apply_effect(150, IRRADIATE)
 
 /obj/machinery/power/supermatter_shard/Bumped(atom/movable/moving_atom)
+	. = ..()
+	if(isprojectile(moving_atom))	// we update this in bullet_act()
+		return .
 	if(isnucleation(moving_atom))
 		nuclear_touch(moving_atom)
-		return
+		return .
 	if(isliving(moving_atom))
 		moving_atom.visible_message("<span class='danger'>\The [moving_atom] slams into \the [src] inducing a resonance... [moving_atom.p_their(TRUE)] body starts to glow and catch flame before flashing into ash.</span>",\
 		"<span class='userdanger'>You slam into \the [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\"</span>",\

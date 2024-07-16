@@ -70,6 +70,7 @@
 	name = "pulse"
 	icon_state = "u_laser"
 	damage = 50
+	var/gib_allowed = TRUE
 	hitsound = 'sound/weapons/resonator_blast.ogg'
 	hitsound_wall = 'sound/weapons/resonator_blast.ogg'
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
@@ -80,7 +81,16 @@
 		target.ex_act(2)
 	..()
 
+/obj/item/projectile/beam/pulse/on_hit(atom/target)
+	. = ..()
+	if(gib_allowed && isliving(target))
+		var/mob/living/L = target
+		if(L.health <= -200)
+			L.visible_message(span_danger("[L] has been terminated!"))
+			L.dust()
+
 /obj/item/projectile/beam/pulse/shot
+	gib_allowed = FALSE
 	damage = 40
 
 /obj/item/projectile/beam/emitter

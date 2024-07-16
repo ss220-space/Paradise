@@ -205,6 +205,18 @@
 	item_color = "darktemplar-chaplain0"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/champion/templar/premium
 
+/obj/item/clothing/head/helmet/space/hardsuit/champion/inquisitor
+	name = "inquisitor's helmet"
+	desc = "A helmet worn by those who deal with paranormal threats for a living."
+	icon_state = "hardsuit0-inquisitor"
+	item_color = "inquisitor"
+
+/obj/item/clothing/suit/space/hardsuit/champion/inquisitor
+	name = "inquisitor's hardsuit"
+	desc = "Powerful wards are built into this hardsuit, protecting the user from all manner of paranormal threats."
+	icon_state = "hardsuit-inquisitor"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/champion/inquisitor
+
 /obj/item/clothing/suit/hooded/pathfinder
 	name = "pathfinder cloak"
 	desc = "A thick cloak woven from sinew and hides, designed to protect its wearer from hazardous weather."

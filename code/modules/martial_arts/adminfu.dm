@@ -1,6 +1,12 @@
 /datum/martial_art/adminfu
 	name = "Way of the Dancing Admin"
 	has_explaination_verb = TRUE
+	grab_speed = 0.5 SECONDS
+	grab_resist_chances = list(
+		MARTIAL_GRAB_AGGRESSIVE = 20,
+		MARTIAL_GRAB_NECK = 5,
+		MARTIAL_GRAB_KILL = 0,
+	)
 	combos = list(/datum/martial_combo/adminfu/healing_palm)
 	weight = 99999999
 
@@ -21,11 +27,12 @@
 	D.Weaken(50 SECONDS)
 	return TRUE
 
-/datum/martial_art/adminfu/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
+/datum/martial_art/adminfu/grab_act(mob/living/carbon/human/attacker, mob/living/carbon/human/defender)
 	MARTIAL_ARTS_ACT_CHECK
-	var/obj/item/grab/G = D.grabbedby(A,1)
-	if(G)
-		G.state = GRAB_NECK
+	var/old_grab_state = attacker.grab_state
+	var/grab_success = defender.grabbedby(attacker, supress_message = TRUE)
+	if(grab_success && old_grab_state == GRAB_PASSIVE)
+		defender.grippedby(attacker, grab_state_override = GRAB_NECK)
 	return TRUE
 
 /datum/martial_art/adminfu/explaination_header(user)

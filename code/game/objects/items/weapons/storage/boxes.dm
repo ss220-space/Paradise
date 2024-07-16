@@ -68,6 +68,13 @@
 	new /obj/item/stack/cable_coil/random(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
+/obj/item/storage/box/survival_nucleation
+	icon_state = "box_nucleation"
+
+/obj/item/storage/box/survival_nucleation/populate_contents()
+	new /obj/item/storage/firstaid/crew/nucleation(src)
+	new /obj/item/flashlight/flare/glowstick/blue(src)
+
 /obj/item/storage/box/survival_plasmaman
 	icon_state = "box_plasma"
 
@@ -91,7 +98,7 @@
 	icon_state = "box_min"
 
 /obj/item/storage/box/survival_mining/populate_contents()
-	new /obj/item/clothing/mask/gas/explorer(src)
+	new /obj/item/clothing/mask/gas/explorer/folded(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/crowbar/red(src)
 	new /obj/item/storage/firstaid/crew(src)
@@ -105,7 +112,7 @@
 	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
 	new /obj/item/crowbar/red/sec(src)
-	new /obj/item/clothing/mask/gas/sechailer(src)
+	new /obj/item/clothing/mask/gas/sechailer/folded(src)
 	new /obj/item/radio/sec(src)
 
 /obj/item/storage/box/survival_security/hos
@@ -847,7 +854,7 @@
 	max_combined_w_class = 20
 
 /obj/item/storage/box/centcomofficer/populate_contents()
-	new /obj/item/clothing/mask/gas/sechailer(src)
+	new /obj/item/clothing/mask/gas/sechailer/folded(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/kitchen/knife/combat(src)
@@ -865,7 +872,7 @@
 	icon_state = "box_ert"
 
 /obj/item/storage/box/responseteam/populate_contents()
-	new /obj/item/clothing/mask/gas/sechailer(src)
+	new /obj/item/clothing/mask/gas/sechailer/folded(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/crowbar/red(src)
@@ -989,6 +996,15 @@
 /obj/item/storage/box/wizard/recharge/populate_contents()
 	for(var/I in 1 to 3)
 		new /obj/item/wizard_armour_charge(src)
+
+/obj/item/storage/box/wizard/kit_spell_book
+	name = "набор волшебных книг"
+	desc = "Набор волшебных книг, купленных в волшебной книге, для волшебников, чтобы делать волшебство! ЗВУЧИТ ПРОСТО ВОЛШЕБНО!"
+	icon_state = "box_wizard"
+
+/obj/item/storage/box/wizard/kit_spell_book/populate_contents()
+		for(var/i = 1 to 4)
+				new /obj/item/spellbook/oneuse/random(src)
 
 /obj/item/storage/box/candythief
 	name = "набор радужных конфет"
@@ -1141,6 +1157,19 @@
 	new /obj/item/clothing/suit/mr_chang_coat(src)
 	new /obj/item/clothing/shoes/mr_chang_sandals(src)
 	new /obj/item/clothing/head/mr_chang_band(src)
+
+
+/*
+ *  Plant DNA Disks Box
+ */
+/obj/item/storage/box/disks_plantgene
+	name = "plant data disks box"
+	icon_state = "disk_kit"
+
+/obj/item/storage/box/disks_plantgene/New()
+	..()
+	for(var/i in 1 to 7)
+		new /obj/item/disk/plantgene(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

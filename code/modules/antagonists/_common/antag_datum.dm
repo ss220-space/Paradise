@@ -41,7 +41,8 @@ GLOBAL_LIST_EMPTY(antagonists)
 	var/wiki_page_name
 	/// Russian name of wiki page
 	var/russian_wiki_name
-
+	/// Show antag in ghost orbit
+	var/show_in_orbit = TRUE
 
 /datum/antagonist/New()
 	GLOB.antagonists += src
@@ -49,7 +50,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	assigned_targets = list()
 
 
-/datum/antagonist/Destroy(force, ...)
+/datum/antagonist/Destroy(force)
 	for(var/datum/objective/objective as anything in objectives)
 		objectives -= objective
 		if(!objective.team)

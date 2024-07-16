@@ -53,8 +53,6 @@
 
 	if(player_ghosted > 0 && stat == CONSCIOUS && job && !HAS_TRAIT(src, TRAIT_RESTRAINED))
 		handle_ghosted()
-	if(player_logged > 0 && stat != DEAD && job)
-		handle_ssd()
 
 	if(stat != DEAD)
 		return TRUE
@@ -67,18 +65,24 @@
 		if(player_ghosted % 150 == 0)
 			force_cryo_human(src)
 
-/mob/living/carbon/human/proc/handle_ssd()
-	player_logged++
-	if(istype(loc, /obj/machinery/cryopod))
-		return
-	if(CONFIG_GET(number/auto_cryo_ssd_mins) && (player_logged >= (CONFIG_GET(number/auto_cryo_ssd_mins) * 30)) && player_logged % 30 == 0)
-		var/turf/T = get_turf(src)
-		if(!is_station_level(T.z))
-			return
-		var/area/A = get_area(src)
-		cryo_ssd(src)
-		if(A.fast_despawn)
-			force_cryo_human(src)
+
+/mob/living/carbon/human/handle_SSD(seconds_per_tick)
+	. = ..()
+	if(!. || !job || istype(loc, /obj/machinery/cryopod) || !CONFIG_GET(number/auto_cryo_ssd_mins))
+		return .
+
+	if(player_logged < (CONFIG_GET(number/auto_cryo_ssd_mins) MINUTES))
+		return .
+
+	var/turf/our_turf = get_turf(src)
+	if(!our_turf || !is_station_level(our_turf.z))
+		return .
+
+	cryo_ssd(src)
+	var/area/our_area = get_area(src)
+	if(our_area.fast_despawn)
+		force_cryo_human(src)
+
 
 /mob/living/carbon/human/calculate_affecting_pressure(pressure)
 	var/pressure_difference = abs( pressure - ONE_ATMOSPHERE )
@@ -163,9 +167,7 @@
 					emote("drool")
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
-	for(var/datum/dna/gene/gene in GLOB.dna_genes)
-		if(!gene.block)
-			continue
+	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
 		if(gene.is_active(src))
 			gene.OnMobLife(src)
 	if(!ignore_gene_stability && gene_stability < GENETIC_DAMAGE_STAGE_1)
@@ -828,7 +830,7 @@
 
 
 /mob/living/carbon/human/proc/handle_nutrition_alerts() //This is a terrible abuse of the alert system; something like this should be a HUD element
-	if(NO_HUNGER in dna.species.species_traits)
+	if((NO_HUNGER in dna.species.species_traits) && !isvampire(src))
 		return
 
 	var/new_hunger
@@ -851,7 +853,7 @@
 
 	if(dna.species.hunger_level != new_hunger)
 		dna.species.hunger_level = new_hunger
-		throw_alert("nutrition", "/atom/movable/screen/alert/hunger/[new_hunger]", icon_override = dna.species.hunger_icon)
+		throw_alert(ALERT_NUTRITION, text2path("/atom/movable/screen/alert/hunger/[new_hunger]"), icon_override = dna.species.hunger_icon)
 		med_hud_set_status()
 
 

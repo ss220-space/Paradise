@@ -142,11 +142,8 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 
 //okay, here's the good teleporting stuff
 /obj/machinery/gateway/centerstation/Bumped(atom/movable/moving_atom)
-	if(!ready)
-		return
-	if(!active)
-		return
-	if(!awaygate)
+	. = ..()
+	if(!ready || !active || !awaygate)
 		return
 	if(awaygate.calibrated)
 		moving_atom.forceMove(get_step(awaygate.loc, SOUTH))
@@ -254,11 +251,8 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 
 
 /obj/machinery/gateway/centeraway/Bumped(atom/movable/moving_atom)
-	if(!ready)
-		return
-	if(!active)
-		return
-	if(!stationgate || QDELETED(stationgate))
+	. = ..()
+	if(!ready || !active || QDELETED(stationgate))
 		return
 	if(isliving(moving_atom))
 		if(exilecheck(moving_atom))

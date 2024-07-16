@@ -140,7 +140,8 @@
 		pcollar = new(src)
 		regenerate_icons()
 	if(footstep_type)
-		AddComponent(/datum/component/footstep, footstep_type)
+		AddElement(/datum/element/footstep, footstep_type)
+
 
 /mob/living/simple_animal/Destroy()
 	QDEL_NULL(pcollar)
@@ -197,28 +198,32 @@
 	med_hud_set_health()
 
 
-/mob/living/simple_animal/post_lying_on_rest()
-	if(stat == DEAD)
-		return
+/mob/living/simple_animal/on_lying_down(new_lying_angle)
+	. = ..()
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
-	if(!icon_resting)
-		return
-	icon_state = icon_resting
-	if(collar_type)
-		collar_type = "[initial(collar_type)]_rest"
-		regenerate_icons()
+	update_icons()
 
 
-/mob/living/simple_animal/post_get_up()
-	if(stat == DEAD)
-		return
+/mob/living/simple_animal/on_standing_up()
+	. = ..()
 	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
-	if(!icon_resting)
-		return
-	icon_state = icon_living
-	if(collar_type)
-		collar_type = initial(collar_type)
+	update_icons()
+
+
+/mob/living/simple_animal/update_icons()
+	if(stat == DEAD)
+		icon_state = icon_dead || initial(icon_state)
 		regenerate_icons()
+		return
+	if(resting || body_position == LYING_DOWN)
+		icon_state = icon_resting || initial(icon_state)
+		if(collar_type)
+			collar_type = "[initial(collar_type)]_rest"
+	else
+		icon_state = icon_living || initial(icon_state)
+		if(collar_type)
+			collar_type = initial(collar_type)
+	regenerate_icons()
 
 
 /mob/living/simple_animal/update_stat(reason = "none given", should_log = FALSE)
@@ -231,22 +236,32 @@
 			set_stat(CONSCIOUS)
 	..()
 
+
 /mob/living/simple_animal/proc/handle_automated_action()
 	set waitfor = FALSE
 	return
 
+
 /mob/living/simple_animal/proc/handle_automated_movement()
 	set waitfor = FALSE
-	if(!stop_automated_movement && wander)
-		if((isturf(loc) || allow_movement_on_non_turfs) && !resting && !buckled && (mobility_flags & MOBILITY_MOVE))		//This is so it only moves if it's not inside a closet, gentics machine, etc.
-			turns_since_move++
-			if(turns_since_move >= turns_per_move)
-				if(!(stop_automated_movement_when_pulled && pulledby)) //Soma animals don't move when pulled
-					var/anydir = pick(GLOB.cardinal)
-					if(Process_Spacemove(anydir))
-						Move(get_step(src,anydir), anydir, cached_multiplicative_slowdown)
-						turns_since_move = 0
-			return 1
+	if(stop_automated_movement || !wander)
+		return
+	if(!isturf(loc) && !allow_movement_on_non_turfs)
+		return
+	if(!(mobility_flags & MOBILITY_MOVE))
+		return TRUE
+
+	turns_since_move++
+	if(turns_since_move < turns_per_move)
+		return TRUE
+	if(stop_automated_movement_when_pulled && pulledby) //Some animals don't move when pulled
+		return TRUE
+	var/anydir = pick(GLOB.cardinal)
+	if(Process_Spacemove(anydir))
+		step_with_glide(direction = anydir)
+		turns_since_move = 0
+	return TRUE
+
 
 /mob/living/simple_animal/proc/handle_automated_speech(override)
 	set waitfor = FALSE
@@ -415,13 +430,11 @@
 		qdel(src)
 	else
 		health = 0
-		icon_state = icon_dead
+		update_icons()
 		if(flip_on_death)
 			transform = transform.Turn(180)
 		ADD_TRAIT(src, TRAIT_UNDENSE, SIMPLE_MOB_DEATH_TRAIT)
-		if(collar_type)
-			collar_type = "[initial(collar_type)]_dead"
-		regenerate_icons()
+
 
 /mob/living/simple_animal/proc/CanAttack(atom/the_target)
 	if(see_invisible < the_target.invisibility)
@@ -478,11 +491,9 @@
 	..()
 	health = maxHealth
 	icon = initial(icon)
-	icon_state = icon_living
+	update_icons()
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, SIMPLE_MOB_DEATH_TRAIT)
-	if(collar_type)
-		collar_type = "[initial(collar_type)]"
-		regenerate_icons()
+
 
 /mob/living/simple_animal/proc/check_if_child(mob/possible_child)
 	for(var/childpath in childtype)
@@ -672,12 +683,14 @@
 		add_overlay("[collar_type]collar")
 		add_overlay("[collar_type]tag")
 
+	update_fire()
+
 	if(blocks_emissive)
 		add_overlay(get_emissive_block())
 
 /mob/living/simple_animal/Login()
 	..()
-	walk(src, 0) // if mob is moving under ai control, then stop AI movement
+	SSmove_manager.stop_looping(src) // if mob is moving under ai control, then stop AI movement
 
 
 /mob/living/simple_animal/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
@@ -721,9 +734,40 @@
 	if(. && length(src.damaged_sound))
 		playsound(src, pick(src.damaged_sound), 40, 1)
 
-/mob/living/simple_animal/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
-	if(pull_constraint(AM, show_message))
+/mob/living/simple_animal/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
+	if(pull_constraint(pulled_atom, state, supress_message))
 		return ..()
+	return FALSE
 
-/mob/living/simple_animal/proc/pull_constraint(atom/movable/AM, show_message = FALSE)
+/mob/living/simple_animal/proc/pull_constraint(atom/movable/pulled_atom, state, supress_message = FALSE)
 	return TRUE
+
+
+/mob/living/simple_animal/update_movespeed()
+	. = ..()
+	if(cached_multiplicative_slowdown > END_GLIDE_SPEED)
+		ADD_TRAIT(src, TRAIT_NO_GLIDE, SPEED_TRAIT)
+	else
+		REMOVE_TRAIT(src, TRAIT_NO_GLIDE, SPEED_TRAIT)
+
+
+/mob/living/simple_animal/proc/step_with_glide(atom/newloc, direction, speed_override)
+	if(client)
+		return FALSE
+	if(!direction && !newloc)
+		return FALSE
+	if(!direction)
+		direction = get_dir(src, newloc)
+	else if(!newloc)
+		newloc = get_step(src, direction)
+		if(!newloc)
+			return FALSE
+	var/adjusted_delay = isnull(speed_override) ? cached_multiplicative_slowdown : speed_override
+	if(ISDIAGONALDIR(direction))
+		adjusted_delay *= sqrt(2)
+	. = Move(newloc, direction)
+	if(adjusted_delay <= END_GLIDE_SPEED)
+		set_glide_size(DELAY_TO_GLIDE_SIZE(adjusted_delay))
+	else if(glide_size != DEFAULT_GLIDE_SIZE)
+		set_glide_size(DEFAULT_GLIDE_SIZE)
+

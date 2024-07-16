@@ -86,6 +86,10 @@
 				log_admin("[key_name(usr)] has spawned a thief.")
 				if(!makeThieves())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
+			if("12")
+				log_admin("[key_name(usr)] has spawned a blob.")
+				if(!makeBlobs())
+					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
 
 	else if(href_list["dbsearchckey"] || href_list["dbsearchadmin"] || href_list["dbsearchip"] || href_list["dbsearchcid"] || href_list["dbsearchbantype"])
 		var/adminckey = href_list["dbsearchadmin"]
@@ -1248,10 +1252,8 @@
 		if(GLOB.antag_paradise_weights)
 			antags_list = GLOB.antag_paradise_weights
 		else
-			antags_list = CONFIG_GET(keyed_list/antag_paradise_main_antags)
+			antags_list = CONFIG_GET(keyed_list/antag_paradise_single_antags_weights)
 			antags_list = antags_list.Copy()
-			for(var/key in list(ROLE_TRAITOR, ROLE_VAMPIRE, ROLE_CHANGELING, ROLE_THIEF))
-				antags_list[key] = !!(key in antags_list)
 
 		for(var/antag in antags_list)
 			dat += {"<tr><td>[capitalize(antag)]</td><td><A href='?src=[UID()];change_weights2=weights_normal_[antag]'>\[[antags_list[antag]]\]</A></td></tr>"}
@@ -1294,7 +1296,7 @@
 
 		else if(findtext(command, "weights_normal_"))
 			if(!GLOB.antag_paradise_weights)
-				var/list/antags_list = CONFIG_GET(keyed_list/antag_paradise_main_antags)
+				var/list/antags_list = CONFIG_GET(keyed_list/antag_paradise_single_antags_weights)
 				antags_list = antags_list.Copy()
 				for(var/key in list(ROLE_TRAITOR, ROLE_VAMPIRE, ROLE_CHANGELING, ROLE_THIEF))
 					antags_list[key] = !!(key in antags_list)
@@ -1933,6 +1935,61 @@
 		if(!check_rights(R_ADMIN))
 			return
 		check_teams()
+
+	else if(href_list["edit_blob_win_count"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/blob_win_count = input(usr, "Ввидите новое число критической массы","Критическая масса:", SSticker.mode.blob_win_count) as num
+		if(!blob_win_count)
+			return
+
+		if(!SSticker || !SSticker.mode)
+			return
+
+		SSticker.mode.blob_win_count = blob_win_count
+		SSticker.mode.update_blob_objective()
+		log_admin("[key_name(usr)] has enter new blob win count: [blob_win_count]")
+		message_admins("[key_name_admin(usr)] enter new blob win count: [blob_win_count]")
+
+	else if(href_list["send_warning"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/message = stripped_input(usr, "Введите предупреждение", "Предупреждение")
+		if(alert(usr,"Вы действительно хотите отправить предупреждение всем блобам?", "", "Да", "Нет") == "Нет")
+			return
+
+		if(!SSticker || !SSticker.mode)
+			return
+
+		SSticker.mode.show_warning(message)
+		log_admin("[key_name(usr)] has send warning to all blobs: [message]")
+		message_admins("[key_name_admin(usr)] has send warning to all blobs: [message]")
+
+	else if(href_list["burst_all_blobs"])
+		if(!check_rights(R_ADMIN))
+			return
+		if(alert(usr,"Вы действительно хотите лопнуть всех блобов?", "", "Да", "Нет") == "Нет")
+			return
+
+		if(!SSticker || !SSticker.mode)
+			return
+
+		SSticker.mode.burst_blobs()
+		log_admin("[key_name(usr)] has burst all blobs")
+		message_admins("[key_name_admin(usr)] has burst all blobs")
+
+	else if(href_list["delay_blob_end"])
+		if(!check_rights(R_ADMIN) || !check_rights(R_EVENT))
+			return
+		if(alert(usr,"Вы действительно хотите преостановить конец раунда в случае победы блоба?", "", "Да", "Нет") == "Нет")
+			return
+
+		if(!SSticker || !SSticker.mode)
+			return
+
+		SSticker.mode.delay_blob_win()
+		log_admin("[key_name(usr)] has stopped delayed blob win")
+		message_admins("[key_name_admin(usr)] has stopped delayed blob win")
 
 	else if(href_list["team_command"])
 		if(!check_rights(R_ADMIN))

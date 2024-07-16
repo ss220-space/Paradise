@@ -8,11 +8,16 @@
 	var/rapid = 0 //How many shots per volley.
 	var/rapid_fire_delay = 2 //Time between rapid fire shots
 
+	///Are we dodging?
 	var/dodging = TRUE
-	var/approaching_target = FALSE //We should dodge now
-	var/in_melee = FALSE	//We should sidestep now
+	///We should dodge now
+	var/approaching_target = FALSE
+	///We should sidestep now
+	var/in_melee = FALSE
+	///Probability that we dodge
 	var/dodge_prob = 30
-	var/sidestep_per_cycle = 1 //How many sidesteps per npcpool cycle when in melee
+	///How many sidesteps per npcpool cycle when in melee
+	var/sidestep_per_cycle = 1
 
 	var/projectiletype	//set ONLY it and NULLIFY casingtype var, if we have ONLY projectile
 	var/projectilesound
@@ -56,9 +61,6 @@
 
 	var/mob_attack_logs = list() //for hostiles and megafauna
 
-	/// Used to disable gliding if mob is too slow, like goliath
-	var/needs_gliding = TRUE
-
 	tts_seed = "Vort_e2"
 
 	dirslash_enabled = TRUE
@@ -87,9 +89,8 @@
 
 /mob/living/simple_animal/hostile/Life(seconds, times_fired)
 	. = ..()
-	if(!.)
-		walk(src, 0)
-		return FALSE
+	if(!.)	// dead
+		SSmove_manager.stop_looping(src)
 
 /mob/living/simple_animal/hostile/handle_automated_action()
 	if(AIStatus == AI_OFF)
@@ -107,6 +108,7 @@
 				toggle_ai(AI_IDLE)				// otherwise we go idle
 	return 1
 
+
 /mob/living/simple_animal/hostile/handle_automated_movement()
 	. = ..()
 	if(dodging && target && in_melee && isturf(loc) && isturf(target.loc))
@@ -116,7 +118,8 @@
 			for(var/i in 1 to sidestep_per_cycle)
 				addtimer(cb, (i - 1) * sidestep_delay)
 		else //Otherwise randomize it to make the players guessing.
-			addtimer(cb,rand(1, SSnpcpool.wait))
+			addtimer(cb, rand(1, SSnpcpool.wait))
+
 
 /mob/living/simple_animal/hostile/proc/sidestep()
 	if(!target || !isturf(target.loc) || !isturf(loc) || stat == DEAD)
@@ -125,16 +128,20 @@
 
 	var/static/list/cardinal_sidestep_directions = list(-90, -45, 0, 45, 90)
 	var/static/list/diagonal_sidestep_directions = list(-45, 0, 45)
-	var/chosen_dir = 0
-	if(target_dir & (target_dir - 1))
+	var/chosen_dir = NONE
+	if(ISDIAGONALDIR(target_dir))
 		chosen_dir = pick(diagonal_sidestep_directions)
 	else
 		chosen_dir = pick(cardinal_sidestep_directions)
 	if(chosen_dir)
-		chosen_dir = turn(target_dir, chosen_dir)
-		var/step_loc = get_step(src, chosen_dir)
-		Move(step_loc, chosen_dir, 3)
+		chosen_dir = turn(target_dir,chosen_dir)
+		Move(get_step(src, chosen_dir))
 		face_atom(target) //Looks better if they keep looking at you when dodging
+
+
+/mob/living/simple_animal/hostile/step_with_glide(atom/newloc, direction, speed_override)
+	return ..(newloc, direction, move_to_delay)
+
 
 /mob/living/simple_animal/hostile/attacked_by(obj/item/I, mob/living/user)
 	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client && user)
@@ -348,13 +355,12 @@
 			if(!target.Adjacent(targets_from) && ranged_cooldown <= world.time) //But make sure they're not in range for a melee attack and our range attack is off cooldown
 				OpenFire(target)
 		if(!Process_Spacemove(NONE)) //Drifting
-			walk(src,0)
-			return 1
-		if(retreat_distance != null) //If we have a retreat distance, check if we need to run from our target
+			SSmove_manager.stop_looping(src)
+			return TRUE
+		if(!isnull(retreat_distance)) //If we have a retreat distance, check if we need to run from our target
 			if(target_distance <= retreat_distance) //If target's closer than our retreat distance, run
-				if(needs_gliding)
-					glide_for(move_to_delay)
-				walk_away(src,target,retreat_distance,move_to_delay)
+				var/glide_flag = move_to_delay > END_GLIDE_SPEED ? MOVEMENT_LOOP_IGNORE_GLIDE : NONE
+				SSmove_manager.move_away(src, target, retreat_distance, move_to_delay, flags = glide_flag)
 			else
 				Goto(target,move_to_delay,minimum_distance) //Otherwise, get to our minimum distance so we chase them
 		else
@@ -382,14 +388,15 @@
 	LoseTarget()
 	return 0
 
+
 /mob/living/simple_animal/hostile/proc/Goto(target, delay, minimum_distance)
 	if(target == src.target)
 		approaching_target = TRUE
 	else
 		approaching_target = FALSE
-	if(needs_gliding)
-		glide_for(delay)
-	walk_to(src, target, minimum_distance, delay)
+	var/glide_flag = delay > END_GLIDE_SPEED ? MOVEMENT_LOOP_IGNORE_GLIDE : NONE
+	SSmove_manager.move_to(src, target, minimum_distance, delay, flags = glide_flag)
+
 
 /mob/living/simple_animal/hostile/adjustHealth(damage, updating_health = TRUE)
 	. = ..()
@@ -428,7 +435,7 @@
 	target = null
 	approaching_target = FALSE
 	in_melee = FALSE
-	walk(src, 0)
+	SSmove_manager.stop_looping(src)
 	LoseAggro()
 
 //////////////END HOSTILE MOB TARGETTING AND AGGRESSION////////////
@@ -504,27 +511,22 @@
 	return iswallturf(T) || (ismineralturf(T) && !istype(T, /turf/simulated/mineral/ancient/outer))
 
 
-/mob/living/simple_animal/hostile/Move(atom/newloc, direct, movetime)
-	. = dodge(direct, movetime)
-	if(!.)
-		. = ..()
+/mob/living/simple_animal/hostile/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
+	if(dodging && approaching_target && prob(dodge_prob) && !moving_diagonally && isturf(loc) && isturf(newloc))
+		return dodge(newloc, dir)
+	else
+		return ..()
 
 
-/mob/living/simple_animal/hostile/proc/dodge(direct, movetime)
-	. = FALSE
-	if(client)
-		return .
-	if(!dodging || !approaching_target || moving_diagonally)
-		return .
-	if(!isturf(loc))
-		return .
-	if(!prob(dodge_prob))
-		return .
-	var/turf/dodge_loc = get_step(loc, pick(turn(direct, 45), turn(direct, -45)))
-	if(!length(get_path_to(src, dodge_loc, max_distance = 1, simulated_only = FALSE, skip_first = FALSE)))
-		return .
+/mob/living/simple_animal/hostile/proc/dodge(moving_to, move_direction)
+	//Assuming we move towards the target we want to swerve toward them to get closer
+	var/cdir = turn(move_direction, 45)
+	var/ccdir = turn(move_direction, -45)
 	dodging = FALSE
-	. = Move(dodge_loc, direct, movetime)
+	. = Move(get_step(loc, pick(cdir, ccdir)))
+	if(!.)//Can't dodge there so we just carry on
+		. = Move(moving_to, move_direction)
+	face_atom(target)
 	dodging = TRUE
 
 
@@ -571,7 +573,7 @@
 		A.attack_animal(src)//Bang on it till we get out
 
 /mob/living/simple_animal/hostile/proc/FindHidden()
-	if(istype(target.loc, /obj/structure/closet) || istype(target.loc, /obj/machinery/disposal) || istype(target.loc, /obj/machinery/sleeper) || istype(target.loc, /obj/machinery/bodyscanner) || istype(target.loc, /obj/machinery/recharge_station))
+	if(target && (istype(target.loc, /obj/structure/closet) || istype(target.loc, /obj/machinery/disposal) || istype(target.loc, /obj/machinery/sleeper) || istype(target.loc, /obj/machinery/bodyscanner) || istype(target.loc, /obj/machinery/recharge_station)))
 		var/atom/A = target.loc
 		Goto(A,move_to_delay,minimum_distance)
 		if(A.Adjacent(targets_from))
@@ -664,3 +666,23 @@
 				. += M
 			else if(M.loc.type in hostile_machines)
 				. += M.loc
+
+
+/mob/living/simple_animal/hostile/step_with_glide(atom/newloc, direction)
+	if(client)
+		return FALSE
+	if(!direction && !newloc)
+		return FALSE
+	if(!direction)
+		direction = get_dir(src, newloc)
+	else if(!newloc)
+		newloc = get_step(src, direction)
+		if(!newloc)
+			return FALSE
+	var/adjusted_delay = move_to_delay
+	if(ISDIAGONALDIR(direction))
+		adjusted_delay *= sqrt(2)
+	. = Move(newloc, direction)
+	if(adjusted_delay <= END_GLIDE_SPEED)
+		set_glide_size(DELAY_TO_GLIDE_SIZE(adjusted_delay))
+

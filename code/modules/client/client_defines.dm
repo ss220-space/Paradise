@@ -17,9 +17,12 @@
 		//OTHER//
 		/////////
 	var/datum/preferences/prefs = null
+
 	///Move delay of controlled mob, any keypresses inside this period will persist until the next proper move
 	var/move_delay = 0
-	var/current_move_delay = 0
+	///The visual delay to use for the current client.Move(), mostly used for making a client based move look like it came from some other slower source
+	var/visual_delay = 0
+
 	var/area			= null
 	var/time_joined_as_mouse = null //when the client last spawned as a mouse
 
@@ -164,6 +167,18 @@
 	//The params we were passed at the start of the drag, in list form
 	var/list/drag_details
 
+	/// List of all asset filenames sent to this client by the asset cache, along with their assoicated md5s
+	var/list/sent_assets = list()
+	/// List of all completed blocking send jobs awaiting acknowledgement by send_asset
+	var/list/completed_asset_jobs = list()
+
+	/*
+	ASSET SENDING
+	*/
+	/// The ID of the last asset job
+	var/last_asset_job = 0
+	/// The ID of the last asset job that was properly finished
+	var/last_completed_asset_job = 0
 
 /client/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, tos_consent))

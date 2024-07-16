@@ -30,3 +30,8 @@
 /datum/sprite_accessory/hair/nucleation/nuc_neutron
 	name = "Nucleation Neutron Bomb"
 	icon_state = "neutron"
+
+//Sprites by vadim722
+/datum/sprite_accessory/hair/nucleation/nuc_crown
+	name = "Nucleation Crown"
+	icon_state = "crown"

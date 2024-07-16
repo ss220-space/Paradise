@@ -128,14 +128,14 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		new /obj/item/stack/sheet/metal (loc, 5)
 	qdel(src)
 
-/obj/structure/particle_accelerator/Move()
+/obj/structure/particle_accelerator/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(master && master.active)
 		master.toggle_power()
 		investigate_log("was moved whilst active; it <font color='red'>powered down</font>.", INVESTIGATE_ENGINE)
 
 /obj/machinery/particle_accelerator/control_box/blob_act(obj/structure/blob/B)
-	if(prob(50))
+	if(prob(50) && !QDELETED(src))
 		qdel(src)
 
 /obj/structure/particle_accelerator/update_icon_state()

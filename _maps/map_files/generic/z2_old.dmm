@@ -5607,6 +5607,7 @@
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal,
 /obj/item/gun/projectile/automatic/pistol/enforcer/security,
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer,
+/obj/item/gun/projectile/automatic/toy/pistol/enforcer/riot,
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
@@ -6601,7 +6602,7 @@
 /mob/living/simple_animal/pet/dog/fox/alisa,
 /obj/machinery/turretid/lethal{
 	ailock = 1;
-	control_area = "\improper Centcom Emergency Shuttle";
+	control_area = "Centcom Emergency Shuttle";
 	name = "ERT Turret Control";
 	pixel_y = 25;
 	req_access = list(109)
@@ -11661,7 +11662,7 @@
 /area/centcom/zone2)
 "iJd" = (
 /obj/structure/table/wood,
-/obj/item/clothing/suit/browntrenchcoat,
+/obj/item/clothing/suit/storage/browntrenchcoat,
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
@@ -13962,7 +13963,7 @@
 	icon_state = "nazi";
 	name = "Officer's Uniform"
 	},
-/obj/item/clothing/suit/blacktrenchcoat{
+/obj/item/clothing/suit/storage/blacktrenchcoat{
 	icon_state = "nazi"
 	},
 /obj/item/clothing/shoes/black,
@@ -16428,7 +16429,7 @@
 "mcd" = (
 /obj/machinery/turretid/lethal{
 	ailock = 1;
-	control_area = "\improper Centcom Emergency Shuttle";
+	control_area = "Centcom Emergency Shuttle";
 	name = "Emergency Shuttle Turret Control Panel";
 	pixel_x = -30;
 	req_access = list(110)
@@ -30841,7 +30842,7 @@
 /area/centcom/supply)
 "wiz" = (
 /obj/structure/table/wood,
-/obj/item/clothing/suit/blacktrenchcoat,
+/obj/item/clothing/suit/storage/blacktrenchcoat,
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},

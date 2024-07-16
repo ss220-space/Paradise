@@ -44,6 +44,7 @@
 	.["Modify Traits"] = "?_src_=vars;traitmod=[UID()]"
 	.["Add Component/Element"] = "?_src_=vars;addcomponent=[UID()]"
 	.["Remove Component/Element"] = "?_src_=vars;removecomponent=[UID()]"
+	.["Mass Remove Component/Element"] = "?_src_=vars;removecomponent_mass=[UID()]"
 	. += "---"
 
 /client/vv_get_dropdown()
@@ -425,7 +426,7 @@
 	usr << browse(html, "window=variables[refid];size=475x650")
 
 #define VV_HTML_ENCODE(thing) ( sanitize ? html_encode(thing) : thing )
-/proc/debug_variable(name, value, level, var/datum/DA = null, sanitize = TRUE)
+/proc/debug_variable(name, value, level, var/datum/DA = null, sanitize = TRUE, display_flags)
 	var/header
 	if(DA)
 		if(islist(DA))
@@ -477,7 +478,7 @@
 		var/list/L = value
 		var/list/items = list()
 
-		if(L.len && !(name == "underlays" || name == "overlays" || name == "vars" || L.len > (IS_NORMAL_LIST(L) ? 250 : 300)))
+		if(!(display_flags & VV_ALWAYS_CONTRACT_LIST) && L.len && !(name == "underlays" || name == "overlays" || name == "vars" || L.len > (IS_NORMAL_LIST(L) ? 250 : 300)))
 			for(var/i in 1 to L.len)
 				var/key = L[i]
 				var/val
@@ -955,7 +956,7 @@
 		names += componentsubtypes
 		names += "---Elements---"
 		names += sort_list(subtypesof(/datum/element), GLOBAL_PROC_REF(cmp_typepaths_asc))
-		var/atom/target = locateUID(href_list["addcomponent"])
+		var/datum/target = locateUID(href_list["addcomponent"])
 		var/result = tgui_input_list(usr, "Choose a component/element to add", "Add Component", names)
 		if(isnull(result))
 			return
@@ -981,18 +982,12 @@
 		log_admin("[key_name(usr)] has added [result] [datumname] to [key_name(target)].")
 		message_admins("[key_name_admin(usr)] has added [result] [datumname] to [key_name_admin(target)].")
 
-	if(href_list["removecomponent"])
+	if(href_list["removecomponent"] || href_list["removecomponent_mass"])
 		if(!check_rights(R_DEBUG|R_EVENT))
 			return
-		var/list/components = list()
-		var/atom/target = locateUID(href_list["removecomponent"])
-		var/all_components_on_target = LAZYACCESS(target.datum_components, /datum/component)
-		if(islist(all_components_on_target))
-			for(var/datum/component/component in LAZYACCESS(target.datum_components, /datum/component))
-				components += component.type
-		else if(all_components_on_target)
-			var/datum/component/component = all_components_on_target
-			components += component.type
+		var/mass_remove = href_list["removecomponent_mass"]
+		var/datum/target = locateUID(href_list["removecomponent"]) || locateUID(mass_remove)
+		var/list/components = target.datum_components?.Copy()
 		var/list/names = list()
 		names += "---Components---"
 		if(length(components))
@@ -1008,13 +1003,19 @@
 		if(QDELETED(target))
 			to_chat(usr, "That thing doesn't exist anymore!")
 			return
+
 		var/list/targets_to_remove_from = list(target)
+		if(mass_remove)
+			var/method = vv_subtype_prompt(target.type)
+			targets_to_remove_from = get_all_of_type(target.type, method)
+
+			if(alert(usr, "Are you sure you want to mass-delete [path] on [target.type]?", "Mass Remove Confirmation", "Yes", "No") == "No")
+				return
 
 		for(var/datum/target_to_remove_from as anything in targets_to_remove_from)
 			if(ispath(path, /datum/element))
 				var/list/lst = get_callproc_args()
 				if(QDELETED(target_to_remove_from))
-					to_chat(usr, "That thing doesn't exist anymore!")
 					continue
 				if(!lst)
 					lst = list()
