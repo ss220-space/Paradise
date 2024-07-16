@@ -124,11 +124,11 @@
 	var/transfer_moles1 = 0
 	var/transfer_moles2 = 0
 
-	if((air1.temperature > 0) && ((pump == 0) || (pump == 1)))
-		transfer_moles1 = (node1_concentration*pressure_delta)*air3.volume/(air1.temperature * R_IDEAL_GAS_EQUATION)
+	if(air1.temperature() > 0)
+		transfer_moles1 = (node1_concentration*pressure_delta)*air3.volume/(air1.temperature() * R_IDEAL_GAS_EQUATION)
 
-	if((air2.temperature > 0) && ((pump == 0) || (pump == 2)))
-		transfer_moles2 = (node2_concentration*pressure_delta)*air3.volume/(air2.temperature * R_IDEAL_GAS_EQUATION)
+	if(air2.temperature() > 0)
+		transfer_moles2 = (node2_concentration*pressure_delta)*air3.volume/(air2.temperature() * R_IDEAL_GAS_EQUATION)
 
 	if(pump == 0)
 		var/air1_moles = air1.total_moles()

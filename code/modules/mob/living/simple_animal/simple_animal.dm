@@ -299,20 +299,22 @@
 						custom_emote(EMOTE_AUDIBLE, pick(emote_hear))
 
 
-/mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
-	var/atmos_suitable = TRUE
+/mob/living/simple_animal/handle_environment(datum/gas_mixture/readonly_environment)
+	if(!readonly_environment)
+		return
+	var/atmos_suitable = 1
 
-	var/areatemp = get_temperature(environment)
+	var/areatemp = get_temperature(readonly_environment)
 
 	if(abs(areatemp - bodytemperature) > 5 && !(BREATHLESS in mutations))
 		var/diff = areatemp - bodytemperature
 		diff = diff / 5
 		adjust_bodytemperature(diff)
 
-	var/tox = environment.toxins
-	var/oxy = environment.oxygen
-	var/n2 = environment.nitrogen
-	var/co2 = environment.carbon_dioxide
+	var/tox = readonly_environment.toxins()
+	var/oxy = readonly_environment.oxygen()
+	var/n2 = readonly_environment.nitrogen()
+	var/co2 = readonly_environment.carbon_dioxide()
 
 	if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
 		atmos_suitable = FALSE

@@ -59,22 +59,23 @@
 	smooth = SMOOTH_BITMASK
 	var/resintype = null
 
-/obj/structure/alien/resin/Initialize()
-	air_update_turf(1)
-	..()
+/obj/structure/alien/resin/Initialize(mapload)
+	recalculate_atmos_connectivity()
+	return ..()
 
 /obj/structure/alien/resin/Destroy()
 	var/turf/T = get_turf(src)
 	playsound(T, 'sound/creatures/alien/xeno_resin_break.ogg', 80, TRUE)
 	. = ..()
-	T.air_update_turf(TRUE)
+	T.recalculate_atmos_connectivity()
 
 /obj/structure/alien/resin/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
 	. = ..()
 	move_update_air(T)
 
-/obj/structure/alien/resin/CanAtmosPass(turf/T, vertical)
+
+/obj/structure/alien/resin/CanAtmosPass(direction)
 	return !density
 
 /obj/structure/alien/resin/wall
@@ -84,9 +85,6 @@
 	icon_state = "resin"
 	resintype = "wall"
 	canSmoothWith = SMOOTH_GROUP_ALIEN_WALLS
-
-/obj/structure/alien/resin/wall/BlockSuperconductivity()
-	return 1
 
 /obj/structure/alien/resin/wall/shadowling //For chrysalis
 	name = "chrysalis wall"
@@ -104,6 +102,8 @@
 	pass_flags_self = PASSGLASS
 	canSmoothWith = SMOOTH_GROUP_ALIEN_WALLS
 
+/obj/structure/alien/resin/wall/get_superconductivity(direction)
+	return FALSE
 
 /obj/structure/alien/resin/attack_alien(mob/living/carbon/alien/humanoid/A)
 	if(A.a_intent == INTENT_HARM)
@@ -145,8 +145,9 @@
 
 
 /obj/structure/alien/resin/door/Destroy()
-	set_density(FALSE)
 	update_freelook_sight()
+	set_density(FALSE)
+	recalculate_atmos_connectivity()
 	return ..()
 
 
@@ -177,6 +178,8 @@
 	if(user.can_advanced_admin_interact())
 		switch_state()
 
+/obj/structure/alien/resin/door/CanAtmosPass(direction)
+	return !density
 
 /obj/structure/alien/resin/door/attack_tk(mob/user)
 	return
@@ -195,6 +198,11 @@
 		living.last_bumped = world.time
 
 	try_switch_state(moving_atom)
+
+/obj/structure/alien/resin/door/proc/operate_update(bumped_open)
+	recalculate_atmos_connectivity()
+	update_icon(UPDATE_ICON_STATE)
+	is_operating = FALSE
 
 
 /obj/structure/alien/resin/door/proc/try_switch_state(atom/movable/user)

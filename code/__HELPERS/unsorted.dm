@@ -652,8 +652,8 @@ Returns 1 if the chain up to the area contains the given typepath
 
 					// Give the new turf our air, if simulated
 					if(issimulatedturf(X) && issimulatedturf(T))
-						var/turf/simulated/sim = X
-						sim.copy_air_with_tile(T)
+						var/datum/milla_safe/area_move_transrer_gas/milla = new()
+						milla.invoke_async(T, X)
 
 
 					/* Quick visual fix for some weird shuttle corner artefacts when on transit space tiles */
@@ -715,18 +715,22 @@ Returns 1 if the chain up to the area contains the given typepath
 					refined_trg -= B
 					continue moving
 
-	if(toupdate.len)
-		for(var/turf/simulated/T1 in toupdate)
-			SSair.remove_from_active(T1)
-			T1.CalculateAdjacentTurfs()
-			SSair.add_to_active(T1,1)
+	// if(toupdate.len) // RODENFL TO DO CHECK THIS SHIT
+	// 	for(var/turf/simulated/T1 in toupdate)
+	// 		SSair.remove_from_active(T1)
+	// 		T1.CalculateAdjacentTurfs()
+	// 		SSair.add_to_active(T1,1)
 
-	if(fromupdate.len)
-		for(var/turf/simulated/T2 in fromupdate)
-			SSair.remove_from_active(T2)
-			T2.CalculateAdjacentTurfs()
-			SSair.add_to_active(T2,1)
+	// if(fromupdate.len)
+	// 	for(var/turf/simulated/T2 in fromupdate)
+	// 		SSair.remove_from_active(T2)
+	// 		T2.CalculateAdjacentTurfs()
+	// 		SSair.add_to_active(T2,1)
 
+/datum/milla_safe/area_move_transrer_gas
+
+/datum/milla_safe/area_move_transrer_gas/on_run(turf/source, turf/target)
+	get_turf_air(target).copy_from(get_turf_air(source))
 
 
 
@@ -844,15 +848,15 @@ Returns 1 if the chain up to the area contains the given typepath
 					continue moving
 
 
+	// if(toupdate.len) RODENFL TO DO AND THAT SHIT
+	// 	for(var/turf/simulated/T1 in toupdate)
+	// 		T1.CalculateAdjacentTurfs()
+	// 		SSair.add_to_active(T1,1)
 
-	if(toupdate.len)
-		for(var/turf/simulated/T1 in toupdate)
-			T1.CalculateAdjacentTurfs()
-			SSair.add_to_active(T1,1)
 
+	// return copiedobjs
 
-	return copiedobjs
-
+	return copied_objects
 
 
 /proc/get_cardinal_dir(atom/A, atom/B)

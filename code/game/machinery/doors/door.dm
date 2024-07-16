@@ -43,8 +43,11 @@
 	//Emag vulnerability.
 	var/hackable = TRUE
 
-/obj/machinery/door/New()
-	..()
+	/// How much this door reduces superconductivity to when closed.
+	var/superconductivity = DOOR_HEAT_TRANSFER_COEFFICIENT
+
+/obj/machinery/door/Initialize(mapload)
+	. = ..()
 	set_init_door_layer()
 	update_dir()
 	update_freelook_sight()
@@ -55,6 +58,9 @@
 	//doors only block while dense though so we have to use the proc
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
+
+	update_icon()
+	recalculate_atmos_connectivity()
 
 /obj/machinery/door/proc/set_init_door_layer()
 	if(density)
@@ -88,7 +94,7 @@
 
 /obj/machinery/door/Destroy()
 	set_density(FALSE)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	update_freelook_sight()
 	GLOB.airlocks -= src
 	QDEL_NULL(spark_system)
@@ -155,9 +161,13 @@
 		return !opacity
 
 
-/obj/machinery/door/CanAtmosPass(turf/T, vertical)
+/obj/machinery/door/CanAtmosPass(direction)
 	return !density
 
+/obj/machinery/door/get_superconductivity(direction)
+	if(density)
+		return superconductivity
+	return ..()
 
 /obj/machinery/door/proc/bumpopen(mob/user)
 	if(operating)
@@ -413,7 +423,7 @@
 	layer = initial(layer)
 	update_icon()
 	operating = NONE
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 	update_freelook_sight()
 	if(autoclose)
 		autoclose_in(normalspeed ? auto_close_time : auto_close_time_dangerous)
@@ -444,7 +454,7 @@
 	if(visible && !glass)
 		set_opacity(TRUE)
 	operating = NONE
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 	update_freelook_sight()
 	if(safe)
 		CheckForMobs()
@@ -493,10 +503,32 @@
 	if(!glass && GLOB.cameranet)
 		GLOB.cameranet.updateVisibility(src, opacity_check = FALSE)
 
-/obj/machinery/door/BlockSuperconductivity() // All non-glass airlocks block heat, this is intended.
-	if(opacity || heat_proof)
-		return TRUE
-	return FALSE
+/obj/machinery/door/get_superconductivity(direction)
+	// Only heatproof airlocks block heat, currently only varedited doors have this
+	if(heat_proof && density)
+		return FALSE
+	return ..()
+
+/obj/machinery/door/proc/check_unres() //unrestricted sides. This overlay indicates which directions the player can access even without an ID
+	if(hasPower() && unres_sides)
+		. = list()
+		set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
+		if(unres_sides & NORTH)
+			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_n") //layer=src.layer+1
+			I.pixel_y = 32
+			. += I
+		if(unres_sides & SOUTH)
+			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_s") //layer=src.layer+1
+			I.pixel_y = -32
+			. += I
+		if(unres_sides & EAST)
+			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_e") //layer=src.layer+1
+			I.pixel_x = 32
+			. += I
+		if(unres_sides & WEST)
+			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_w") //layer=src.layer+1
+			I.pixel_x = -32
+			. += I
 
 /obj/machinery/door/morgue
 	icon = 'icons/obj/doors/doormorgue.dmi'

@@ -45,7 +45,7 @@
 			active = null
 			refresh()
 			return
-		var/datum/gas_mixture/air = T.return_air()
+		var/datum/gas_mixture/air = T.get_readonly_air()
 		if(!air)
 			active = null
 			return
@@ -53,26 +53,25 @@
 		data["active"] = TRUE
 		data["SM_integrity"] = active.get_integrity()
 		data["SM_power"] = active.power
-		data["SM_ambienttemp"] = air.temperature
+		data["SM_ambienttemp"] = air.temperature()
 		data["SM_ambientpressure"] = air.return_pressure()
 		//data["SM_EPR"] = round((air.total_moles / air.group_multiplier) / 23.1, 0.01)
-		var/other_moles = air.total_trace_moles()
+		var/list/gasdata = list()
 		var/TM = air.total_moles()
 		if(TM)
-			data["SM_gas_O2"] = round(100*air.oxygen/TM, 0.01)
-			data["SM_gas_CO2"] = round(100*air.carbon_dioxide/TM, 0.01)
-			data["SM_gas_N2"] = round(100*air.nitrogen/TM, 0.01)
-			data["SM_gas_PL"] = round(100*air.toxins/TM, 0.01)
-			if(other_moles)
-				data["SM_gas_OTHER"] = round(100 * other_moles / TM, 0.01)
-			else
-				data["SM_gas_OTHER"] = 0
+			gasdata.Add(list(list("name"= "Oxygen", "amount" = round(100 * air.oxygen() / TM, 0.01))))
+			gasdata.Add(list(list("name"= "Carbon Dioxide", "amount" = round(100 * air.carbon_dioxide() / TM, 0.01))))
+			gasdata.Add(list(list("name"= "Nitrogen", "amount" = round(100 * air.nitrogen() / TM, 0.01))))
+			gasdata.Add(list(list("name"= "Plasma", "amount" = round(100 * air.toxins() / TM, 0.01))))
+			gasdata.Add(list(list("name"= "Nitrous Oxide", "amount" = round(100 * air.sleeping_agent() / TM, 0.01))))
+			gasdata.Add(list(list("name"= "Agent B", "amount" = round(100 * air.agent_b() / TM, 0.01))))
 		else
-			data["SM_gas_O2"] = 0
-			data["SM_gas_CO2"] = 0
-			data["SM_gas_N2"] = 0
-			data["SM_gas_PH"] = 0
-			data["SM_gas_OTHER"] = 0
+			gasdata.Add(list(list("name"= "Oxygen", "amount" = 0)))
+			gasdata.Add(list(list("name"= "Carbon Dioxide", "amount" = 0)))
+			gasdata.Add(list(list("name"= "Nitrogen", "amount" = 0)))
+			gasdata.Add(list(list("name"= "Plasma", "amount" = 0)))
+			gasdata.Add(list(list("name"= "Nitrous Oxide", "amount" = 0)))
+			gasdata.Add(list(list("name"= "Agent B", "amount" = 0)))
 	else
 		var/list/SMS = list()
 		for(var/I in supermatters)

@@ -196,13 +196,13 @@
 	obj_flags = BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 
 /obj/structure/foamedmetal/Initialize()
-	..()
-	air_update_turf(1)
+	. = ..()
+	recalculate_atmos_connectivity()
 
 /obj/structure/foamedmetal/Destroy()
 	var/turf/T = get_turf(src)
 	. = ..()
-	T.air_update_turf(TRUE)
+	T.recalculate_atmos_connectivity()
 
 /obj/structure/foamedmetal/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
@@ -239,5 +239,5 @@
 		playsound(loc, 'sound/weapons/tap.ogg', 100, 1)
 
 
-/obj/structure/foamedmetal/CanAtmosPass(turf/T, vertical)
+/obj/structure/foamedmetal/CanAtmosPass(direction)
 	return !density

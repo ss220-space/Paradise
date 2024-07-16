@@ -289,7 +289,9 @@ Difficulty: Medium
 	for(var/turf/T in turfs)
 		if(T.density)
 			break
-		new /obj/effect/hotspot(T)
+		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T)
+		hotspot.temperature = 1000
+		hotspot.recolor()
 		T.hotspot_expose(700,50,1)
 		for(var/mob/living/L in T.contents)
 			if(L in hit_list || L == source)
@@ -483,7 +485,7 @@ Difficulty: Medium
 	duration = 82
 	color = COLOR_DARK_ORANGE
 
-/obj/effect/temp_visual/drakewall/CanAtmosPass(turf/T, vertical)
+/obj/effect/temp_visual/drakewall/CanAtmosPass(direction)
 	return !density
 
 /obj/effect/temp_visual/lava_safe
@@ -577,7 +579,9 @@ Difficulty: Medium
 		var/turf/simulated/mineral/M = T
 		M.attempt_drill()
 	playsound(T, "explosion", 80, TRUE)
-	new /obj/effect/hotspot(T)
+	var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T)
+	hotspot.temperature = 1000
+	hotspot.recolor()
 	T.hotspot_expose(700, 50, 1)
 	for(var/mob/living/L in T.contents)
 		if(istype(L, /mob/living/simple_animal/hostile/megafauna/dragon))

@@ -147,6 +147,44 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	if(. <= 0 || (needs_all_cures && . < cures.len))
 		return 0
 
+	if(needs_all_cures && cures_found < length(cures))
+		return FALSE
+
+	return cures_found
+
+/datum/disease/proc/spread(force_spread = 0)
+	if(!affected_mob)
+		return
+
+	if((spread_flags & SPECIAL || spread_flags & NON_CONTAGIOUS || spread_flags & BLOOD) && !force_spread)
+		return
+
+	if(affected_mob.reagents.has_reagent("spaceacillin") || (affected_mob.satiety > 0 && prob(affected_mob.satiety/10)))
+		return
+
+	var/spread_range = 1
+
+	if(force_spread)
+		spread_range = force_spread
+
+	if(spread_flags & AIRBORNE)
+		spread_range++
+
+	var/turf/target = affected_mob.loc
+	if(istype(target))
+		for(var/mob/living/carbon/C in oview(spread_range, affected_mob))
+			var/turf/current = get_turf(C)
+			if(current)
+				while(TRUE)
+					if(current == target)
+						C.ContractDisease(src)
+						break
+					var/direction = get_dir(current, target)
+					var/turf/next = get_step(current, direction)
+					if(!current.CanAtmosPass(direction) || !next.CanAtmosPass(turn(direction, 180)))
+						break
+					current = next
+
 
 /datum/disease/proc/cure(id = type, need_immunity = TRUE)
 	if(affected_mob)

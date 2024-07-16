@@ -673,6 +673,9 @@ REAGENT SCANNER
 	origin_tech = "magnets=2;biotech=2"
 	usesound = 'sound/items/deconstruct.ogg'
 
+/******************************/
+/***	REAGENT SCANNERS	***/
+/******************************/
 /obj/item/reagent_scanner
 	name = "reagent scanner"
 	desc = "A hand-held reagent scanner which identifies chemical agents and blood types."

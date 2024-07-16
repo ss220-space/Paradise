@@ -25,11 +25,11 @@
 /obj/structure/mineral_door/Initialize()
 	. = ..()
 	initial_state = icon_state
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 
 /obj/structure/mineral_door/Destroy()
 	set_density(FALSE)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	return ..()
 
 /obj/structure/mineral_door/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
@@ -63,8 +63,7 @@
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
 
-
-/obj/structure/mineral_door/CanAtmosPass(turf/T, vertical)
+/obj/structure/mineral_door/CanAtmosPass(direction)
 	return !density
 
 /obj/structure/mineral_door/proc/TryToSwitchState(atom/user)
@@ -101,7 +100,7 @@
 	if(is_opaque)
 		set_opacity(FALSE)
 	state = 1
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	update_icon(UPDATE_ICON_STATE)
 	isSwitchingStates = 0
 
@@ -187,6 +186,7 @@
 /obj/structure/mineral_door/transparent
 	opacity = FALSE
 	is_opaque = FALSE
+	rad_insulation = RAD_VERY_LIGHT_INSULATION
 
 /obj/structure/mineral_door/transparent/plasma
 	name = "plasma door"

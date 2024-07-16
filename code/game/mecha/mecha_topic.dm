@@ -64,7 +64,7 @@
 		if(hasInternalDamage(intdamflag))
 			output += dam_reports[tflag]
 			output += "<br />"
-	if(return_pressure() > WARNING_HIGH_PRESSURE)
+	if(cabin_air.return_pressure() > WARNING_HIGH_PRESSURE)
 		output += "<font color='red'><b>DANGEROUSLY HIGH CABIN PRESSURE</b></font><br />"
 	return output
 
@@ -75,35 +75,24 @@
 	var/tank_pressure = internal_tank ? round(internal_tank.return_pressure(),0.01) : "None"
 	var/tank_temperature = internal_tank ? internal_tank.return_temperature() : "Unknown"
 	var/tank_temperature_c = internal_tank ? internal_tank.return_temperature() - T0C : "Unknown"
-	var/cabin_pressure = round(return_pressure(),0.01)
-	var/list/stats_part_list = list()
-	stats_part_list += "[report_internal_damage()]"
-	stats_part_list += "[integrity<30?"<font color='red'><b>DAMAGE LEVEL CRITICAL</b></font><br>":null]"
-	stats_part_list += "<b>Integrity: </b> [integrity]%<br>"
-	stats_part_list += "<b>Powercell charge: </b>[isnull(cell_charge)?"No powercell installed":"[cell.percent()]%"]<br>"
-	stats_part_list += "<b>Air source: </b>[use_internal_tank?"Internal Airtank":"Environment"]<br>"
-	stats_part_list += "<b>Airtank pressure: </b>[tank_pressure]kPa<br>"
-	stats_part_list += "<b>Airtank temperature: </b>[tank_temperature]&deg;K|[tank_temperature_c]&deg;C<br>"
-	stats_part_list += "<b>Cabin pressure: </b>[cabin_pressure>WARNING_HIGH_PRESSURE ? "<font color='red'>[cabin_pressure]</font>": cabin_pressure]kPa<br>"
-	stats_part_list += "<b>Cabin temperature: </b> [return_temperature()]&deg;K|[return_temperature() - T0C]&deg;C<br>"
-	stats_part_list += "<b>Lights: </b>[lights?"on":"off"]<br>"
-	stats_part_list += "[dna ? "<b>DNA-locked:</b><br> <span style='font-size:10px;letter-spacing:-1px;'>[dna]</span> \[<a href='?src=[UID()];reset_dna=1'>Reset</a>\]<br>" : ""]"
-	stats_part_list += "[defense_action.owner ? "<b>Defence Mode: </b> [defence_mode ? "Enabled" : "Disabled"]<br>" : ""]"
-	stats_part_list += "[overload_action.owner ? "<b>Leg Actuators Overload: </b> [leg_overload_mode ? "Enabled" : "Disabled"]<br>" : ""]"
-	stats_part_list += "[thrusters_action.owner ? "<b>Thrusters: </b> [thrusters_active ? "Enabled" : "Disabled"]<br>" : ""]"
-	stats_part_list += "[smoke_action.owner ? "<b>Smoke: </b> [smoke]<br>" : ""]"
-	stats_part_list += "[zoom_action.owner ? "<b>Zoom: </b> [zoom_mode ? "Enabled" : "Disabled"]<br>" : ""]"
-	stats_part_list += "[phasing_action.owner ? "<b>Phase Modulator: </b> [phasing ? "Enabled" : "Disabled"]<br>" : ""]"
-	stats_part_list += "<b>Cargo Compartment Contents:</b><div style=\"margin-left: 15px;\">"
-	if(length(cargo))
-		for(var/obj/O in cargo)
-			stats_part_list += "<a href='?src=[UID()];drop_from_cargo=[O.UID()]'>Unload</a> : [O]<br>"
-		for(var/mob/living/L in cargo)
-			stats_part_list += "<a href='?src=[UID()];drop_from_cargo=[L.UID()]'>Unload</a> : [L]<br>"
-	else
-		stats_part_list += "Nothing"
-	stats_part_list += "</div>"
-	return stats_part_list.Join("")
+	var/cabin_pressure = round(cabin_air.return_pressure(), 0.01)
+	. = "[report_internal_damage()]"
+	. += "[integrity<30?"<font color='red'><b>DAMAGE LEVEL CRITICAL</b></font><br>":null]"
+	. += "<b>Integrity: </b> [integrity]%<br>"
+	. += "<b>Powercell charge: </b>[isnull(cell_charge)?"No powercell installed":"[cell.percent()]%"]<br>"
+	. += "<b>Air source: </b>[use_internal_tank?"Internal Airtank":"Environment"]<br>"
+	. += "<b>Airtank pressure: </b>[tank_pressure]kPa<br>"
+	. += "<b>Airtank temperature: </b>[tank_temperature]&deg;K|[tank_temperature_c]&deg;C<br>"
+	. += "<b>Cabin pressure: </b>[cabin_pressure>WARNING_HIGH_PRESSURE ? "<font color='red'>[cabin_pressure]</font>": cabin_pressure]kPa<br>"
+	. += "<b>Cabin temperature: </b> [cabin_air.temperature()]&deg;K|[cabin_air.temperature() - T0C]&deg;C<br>"
+	. += "<b>Lights: </b>[lights?"on":"off"]<br>"
+	. += "[dna ? "<b>DNA-locked:</b><br> <span style='font-size:10px;letter-spacing:-1px;'>[dna]</span> \[<a href='byond://?src=[UID()];reset_dna=1'>Reset</a>\]<br>" : ""]"
+	. += "[defense_action.owner ? "<b>Defence Mode: </b> [defence_mode ? "Enabled" : "Disabled"]<br>" : ""]"
+	. += "[overload_action.owner ? "<b>Leg Actuators Overload: </b> [leg_overload_mode ? "Enabled" : "Disabled"]<br>" : ""]"
+	. += "[thrusters_action.owner ? "<b>Thrusters: </b> [thrusters_active ? "Enabled" : "Disabled"]<br>" : ""]"
+	. += "[smoke_action.owner ? "<b>Smoke: </b> [smoke]<br>" : ""]"
+	. += "[zoom_action.owner ? "<b>Zoom: </b> [zoom_mode ? "Enabled" : "Disabled"]<br>" : ""]"
+	. += "[phasing_action.owner ? "<b>Phase Modulator: </b> [phasing ? "Enabled" : "Disabled"]<br>" : ""]"
 
 /obj/mecha/proc/get_commands()
 	. = "<div class='wr'>"

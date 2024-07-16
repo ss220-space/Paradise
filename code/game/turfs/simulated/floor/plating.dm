@@ -154,6 +154,13 @@
 	. = ..()
 	name = "plating"
 
+/turf/simulated/floor/plating/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 /turf/simulated/floor/engine
 	name = "reinforced floor"
 	icon_state = "engine"
@@ -253,6 +260,13 @@
 /turf/simulated/floor/engine/cult/holy
 	icon_state = "holy"
 	holy = TRUE
+
+/turf/simulated/floor/engine/cult/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 //air filled floors; used in atmos pressure chambers
 

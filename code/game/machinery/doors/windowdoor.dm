@@ -17,6 +17,7 @@
 	integrity_failure = 0
 	armor = list("melee" = 20, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 100)
 	var/obj/item/access_control/electronics
+	superconductivity = WINDOW_HEAT_TRANSFER_COEFFICIENT
 	var/base_state = "left"
 	var/reinf = 0
 	var/cancolor = TRUE
@@ -138,12 +139,11 @@
 	return TRUE
 
 
-/obj/machinery/door/window/CanAtmosPass(turf/T, vertical)
-	if(get_dir(loc, T) == dir)
+/obj/machinery/door/window/CanAtmosPass(direction)
+	if(direction == dir)
 		return !density
 	else
-		return 1
-
+		return TRUE
 
 /obj/machinery/door/window/CanPathfindPass(obj/item/card/id/ID, to_dir, no_id = FALSE)
 	return !density || (dir != to_dir) || (check_access(ID) && hasPower())
@@ -193,8 +193,8 @@
 	sleep(1 SECONDS)
 
 	set_density(FALSE)
-
-	air_update_turf(TRUE)
+//	sd_set_opacity(0)	//TODO: why is this here? Opaque windoors? ~Carn
+	recalculate_atmos_connectivity()
 	update_freelook_sight()
 
 	if(operating) //emag again
@@ -215,7 +215,7 @@
 
 	set_density(TRUE)
 	update_icon()
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 	update_freelook_sight()
 	sleep(1 SECONDS)
 

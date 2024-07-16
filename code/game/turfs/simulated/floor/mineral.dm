@@ -79,6 +79,13 @@
 	floor_tile = /obj/item/stack/tile/mineral/silver
 	icons = list("silver","silver_dam")
 
+/turf/simulated/floor/mineral/silver/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 /turf/simulated/floor/mineral/silver/fancy
 	icon_state = "silverfancy"
 	floor_tile = /obj/item/stack/tile/mineral/silver/fancy
@@ -194,6 +201,13 @@
 		H.slip(10 SECONDS, src, TURF_WET_LUBE)
 	return
 
+/turf/simulated/floor/mineral/bananium/lubed/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 //TRANQUILLITE
 /turf/simulated/floor/mineral/tranquillite
 	name = "silent floor"
@@ -263,3 +277,10 @@
 
 /turf/simulated/floor/plating/abductor2/burn_tile()
 	return //unburnable
+
+/turf/simulated/floor/plating/abductor2/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND

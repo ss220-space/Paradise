@@ -29,7 +29,7 @@
 	setDir(pick(GLOB.cardinal))
 	check_integrity()
 	if(atmosblock)
-		air_update_turf(1)
+		recalculate_atmos_connectivity()
 	ConsumeTile()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
@@ -40,7 +40,7 @@
 /obj/structure/blob/Destroy()
 	if(atmosblock)
 		atmosblock = FALSE
-		air_update_turf(1)
+		recalculate_atmos_connectivity()
 	GLOB.blobs -= src
 	SSticker.mode.update_blob_objective()
 	if(isturf(loc)) //Necessary because Expand() is screwed up and spawns a blob and then deletes it
@@ -50,8 +50,10 @@
 /obj/structure/blob/has_prints()
 	return FALSE
 
-/obj/structure/blob/BlockSuperconductivity()
-	return atmosblock
+/obj/structure/blob/get_superconductivity(direction)
+	if(atmosblock)
+		return FALSE
+	return ..()
 
 /obj/structure/blob/proc/check_integrity()
 	return
@@ -63,7 +65,7 @@
 	. = ..()
 	return checkpass(mover, PASSBLOB)
 
-/obj/structure/blob/CanAtmosPass(turf/T, vertical)
+/obj/structure/blob/CanAtmosPass(direction)
 	return !atmosblock
 
 

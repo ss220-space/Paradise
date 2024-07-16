@@ -41,7 +41,7 @@
 		icon_state = "meter0"
 		return
 
-	var/datum/gas_mixture/environment = target.return_air()
+	var/datum/gas_mixture/environment = target.return_obj_air()
 	if(!environment)
 		icon_state = "meterX"
 		return
@@ -114,9 +114,9 @@
 		. += span_danger("The display is off.")
 
 	else if(target)
-		var/datum/gas_mixture/environment = target.return_air()
+		var/datum/gas_mixture/environment = target.return_obj_air()
 		if(environment)
-			. += span_notice("The pressure gauge reads [round(environment.return_pressure(), 0.01)] kPa; [round(environment.temperature,0.01)]K ([round(environment.temperature-T0C,0.01)]&deg;C).")
+			. += span_notice("The pressure gauge reads [round(environment.return_pressure(), 0.01)] kPa; [round(environment.temperature(), 0.01)]K ([round(environment.temperature() - T0C, 0.01)]&deg;C).")
 		else
 			. += span_warning("The sensor error light is blinking.")
 	else

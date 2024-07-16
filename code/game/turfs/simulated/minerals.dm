@@ -271,6 +271,19 @@
 /turf/simulated/mineral/ancient/outer/ex_act(severity)
 	return
 
+/turf/simulated/mineral/ancient/lava_land_surface_hard
+	name = "hardened volcanic rock"
+	desc = "A dense volcanic rock that appears to be resistant to everything except diamond and sonic tools!"
+	mine_time = 15 SECONDS
+	color = COLOR_HARD_ROCK
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface_hard
+	var/static/list/allowed_picks_typecache
+
 /turf/simulated/mineral/random
 	var/mineralSpawnChanceList = list(/turf/simulated/mineral/uranium = 5, /turf/simulated/mineral/diamond = 1, /turf/simulated/mineral/gold = 10,
 		/turf/simulated/mineral/silver = 12, /turf/simulated/mineral/plasma = 20, /turf/simulated/mineral/iron = 40, /turf/simulated/mineral/titanium = 11,
@@ -315,10 +328,12 @@
 /turf/simulated/mineral/random/high_chance/volcanic
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
+	baseturf = /turf/simulated/floor/lava/mapping_lava
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
 	mineralSpawnChanceList = list(
 		/turf/simulated/mineral/uranium/volcanic = 35, /turf/simulated/mineral/diamond/volcanic = 30, /turf/simulated/mineral/gold/volcanic = 45, /turf/simulated/mineral/titanium/volcanic = 45,
@@ -336,9 +351,12 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
+	// baseturf = /turf/simulated/floor/lava/mapping_lava
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
 
 	mineralChance = 14
@@ -358,9 +376,12 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
+	// baseturf = /turf/simulated/floor/lava/mapping_lava
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
 	mineralSpawnChanceList = list(
 		/turf/simulated/mineral/uranium/volcanic = 3, /turf/simulated/mineral/diamond/volcanic = 1, /turf/simulated/mineral/gold/volcanic = 8, /turf/simulated/mineral/titanium/volcanic = 8,
@@ -414,9 +435,11 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
 
 /turf/simulated/mineral/iron/volcanic/hard
@@ -441,9 +464,11 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
 
 /turf/simulated/mineral/uranium/volcanic/hard
@@ -468,9 +493,11 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
 
 /turf/simulated/mineral/diamond/volcanic/hard
@@ -495,9 +522,11 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
 
 /turf/simulated/mineral/gold/volcanic/hard
@@ -522,9 +551,11 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
 
 /turf/simulated/mineral/silver/volcanic/hard
@@ -549,9 +580,11 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
 
 /turf/simulated/mineral/titanium/volcanic/hard
@@ -576,9 +609,11 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
 
 /turf/simulated/mineral/plasma/volcanic/hard
@@ -604,9 +639,11 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
 
 /turf/simulated/mineral/clown/volcanic/hard
@@ -632,9 +669,11 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
 
 /turf/simulated/mineral/mime/volcanic/hard
@@ -660,9 +699,11 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
 
 /turf/simulated/mineral/bscrystal/volcanic/hard
@@ -708,9 +749,11 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 /turf/simulated/mineral/volcanic/lava_land_surface
 	environment_type = "basalt"
@@ -833,9 +876,11 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	defer_change = 1
 
 /turf/simulated/mineral/gibtonite/volcanic/hard

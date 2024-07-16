@@ -13,7 +13,7 @@
 	if(lifetime)
 		QDEL_IN(src, lifetime)
 
-/obj/effect/forcefield/CanAtmosPass(turf/T, vertical)
+/obj/effect/forcefield/CanAtmosPass(direction)
 	return !density
 
 /obj/effect/forcefield/wizard
@@ -30,11 +30,32 @@
 		return TRUE
 
 
+/obj/structure/forcefield
+	name = "ain't supposed to see this"
+	desc = "file a github report if you do!"
+	icon = 'icons/effects/effects.dmi'
+	density = TRUE
+	anchored = TRUE
+	var/blocks_atmos = TRUE
+
+/obj/structure/forcefield/Initialize(mapload)
+	. = ..()
+	if(blocks_atmos)
+		recalculate_atmos_connectivity()
+
+/obj/structure/forcefield/Destroy()
+	if(blocks_atmos)
+		blocks_atmos = FALSE
+		recalculate_atmos_connectivity()
+	return ..()
+
+/obj/structure/forcefield/CanAtmosPass(direction)
+	return !blocks_atmos
 
 ///////////Mimewalls///////////
-
-/obj/effect/forcefield/mime
-	icon_state = "empty"
+/obj/structure/forcefield/mime
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "5"
 	name = "invisible wall"
 	desc = "You have a bad feeling about this."
 

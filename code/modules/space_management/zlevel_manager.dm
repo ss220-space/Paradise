@@ -38,6 +38,7 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 	// Then, we take care of unmanaged z levels
 	// They get the default linkage of SELFLOOPING
 	for(var/i = k, i <= world.maxz, i++)
+		milla_init_z(k)
 		z_list["[i]"] = new /datum/space_level(i)
 	initialized = 1
 
@@ -118,6 +119,7 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 		throw EXCEPTION("Name already in use: [name]")
 	world.incrementMaxZ()
 	var/our_z = world.maxz
+	milla_init_z(our_z)
 	var/datum/space_level/S = new /datum/space_level(our_z, name, transition_type = linkage, traits = traits)
 	levels_by_name[name] = S
 	z_list["[our_z]"] = S

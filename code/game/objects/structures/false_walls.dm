@@ -31,7 +31,7 @@
 
 /obj/structure/falsewall/Initialize(mapload)
 	. = ..()
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 
 /obj/structure/falsewall/examine_status(mob/user)
 	var/healthpercent = (obj_integrity/max_integrity) * 100
@@ -52,10 +52,10 @@
 
 /obj/structure/falsewall/Destroy()
 	set_density(FALSE)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	return ..()
 
-/obj/structure/falsewall/CanAtmosPass(turf/T, vertical)
+/obj/structure/falsewall/CanAtmosPass(direction)
 	return !density
 
 /obj/structure/falsewall/attack_ghost(mob/user)
@@ -89,7 +89,7 @@
 		obj_flags |= BLOCK_Z_IN_DOWN
 		sleep(0.4 SECONDS)
 		set_opacity(TRUE)
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 	opening = FALSE
 	update_icon(UPDATE_ICON_STATE)
 

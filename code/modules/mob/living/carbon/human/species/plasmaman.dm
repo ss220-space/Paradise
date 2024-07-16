@@ -191,26 +191,27 @@
 	return FALSE
 
 /datum/species/plasmaman/handle_life(mob/living/carbon/human/H)
-	var/datum/gas_mixture/environment = H.loc.return_air()
-	var/atmos_sealed = FALSE
-	if(isclothing(H.wear_suit) && isclothing(H.head))
-		var/obj/item/clothing/suit = H.wear_suit
-		var/obj/item/clothing/helmet = H.head
-		if(suit.clothing_flags & helmet.clothing_flags & STOPSPRESSUREDMAGE)
-			atmos_sealed = TRUE
-	if(!atmos_sealed && (!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman)))
+	var/atmos_sealed = !HAS_TRAIT(H, TRAIT_NOFIRE) && (isclothing(H.wear_suit) && H.wear_suit.flags & STOPSPRESSUREDMAGE) && (isclothing(H.head) && H.head.flags & STOPSPRESSUREDMAGE)
+	if(!atmos_sealed && (!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman) && !HAS_TRAIT(H, TRAIT_NOSELFIGNITION_HEAD_ONLY)))
+		var/datum/gas_mixture/environment = null
+		if(isobj(H.loc))
+			var/obj/O = H.loc
+			environment = O.return_obj_air()
+		if(isnull(environment))
+			var/turf/T = get_turf(H)
+			environment = T.get_readonly_air()
 		if(environment)
 			if(environment.total_moles())
-				if(environment.oxygen && environment.oxygen >= OXYCONCEN_PLASMEN_IGNITION) //Same threshhold that extinguishes fire
-					H.adjust_fire_stacks(0.5)
-					if(!H.on_fire && H.fire_stacks > 0)
-						H.visible_message("<span class='danger'>Тело [H] вступает в реакцию с атмосферой и загорается!</span>","<span class='userdanger'>Ваше тело вступает в реакцию с атмосферой и загорается!</span>")
-					H.IgniteMob()
-	else
-		if(H.fire_stacks)
-			var/obj/item/clothing/under/plasmaman/P = H.w_uniform
-			if(istype(P))
-				P.Extinguish(H)
+				if(!HAS_TRAIT(H, TRAIT_NOFIRE))
+					if(environment.oxygen() && environment.oxygen() >= OXYCONCEN_PLASMEN_IGNITION) //Same threshhold that extinguishes fire
+						H.adjust_fire_stacks(0.5)
+						if(!H.on_fire && H.fire_stacks > 0)
+							H.visible_message("<span class='danger'>[H]'s body reacts with the atmosphere and bursts into flames!</span>","<span class='userdanger'>Your body reacts with the atmosphere and bursts into flame!</span>")
+						H.IgniteMob()
+	else if(H.fire_stacks)
+		var/obj/item/clothing/under/plasmaman/P = H.w_uniform
+		if(istype(P))
+			P.Extinguish(H)
 	H.update_fire()
 	..()
 	if(H.stat == DEAD)

@@ -26,14 +26,14 @@
 
 /obj/structure/inflatable/Initialize(location)
 	..()
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 
 /obj/structure/inflatable/Destroy()
 	var/turf/T = get_turf(src)
 	. = ..()
-	T.air_update_turf(TRUE)
+	T.recalculate_atmos_connectivity()
 
-/obj/structure/inflatable/CanAtmosPass(turf/T, vertical)
+/obj/structure/inflatable/CanAtmosPass(direction)
 	return !density
 
 /obj/structure/inflatable/attackby(obj/item/I, mob/living/user, params)
@@ -125,10 +125,8 @@
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
 
-
-/obj/structure/inflatable/door/CanAtmosPass(turf/T, vertical)
+/obj/structure/inflatable/door/CanAtmosPass(direction)
 	return !density
-
 
 /obj/structure/inflatable/door/proc/try_to_operate(atom/user)
 	if(is_operating)
@@ -161,9 +159,8 @@
 	set_density(state_closed)
 	set_opacity(state_closed)
 	update_icon(UPDATE_ICON_STATE)
-	air_update_turf(TRUE)
 	is_operating = FALSE
-
+	recalculate_atmos_connectivity()
 
 /obj/structure/inflatable/door/update_icon_state()
 	icon_state = "door_[state_closed ? "closed" : "open"]"

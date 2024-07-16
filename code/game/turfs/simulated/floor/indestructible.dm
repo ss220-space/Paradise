@@ -61,10 +61,11 @@
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "necro1"
 	baseturf = /turf/simulated/floor/indestructible/necropolis
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
-	planetary_atmos = TRUE
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	footstep = FOOTSTEP_LAVA
 	barefootstep = FOOTSTEP_LAVA
 	clawfootstep = FOOTSTEP_LAVA
@@ -86,10 +87,11 @@
 	icon_state = "boss"
 	smooth = SMOOTH_FALSE
 	baseturf = /turf/simulated/floor/indestructible/boss
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
-	planetary_atmos = TRUE
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 /turf/simulated/floor/indestructible/boss/indoors //used for ashwalkers village
 	oxygen = /turf/simulated/floor/plating/lava/smooth::oxygen //lava near tendril
@@ -106,13 +108,14 @@
 	icon = 'icons/turf/floors/hierophant_floor.dmi'
 	icon_state = "floor"
 	base_icon_state = "hierophant_floor"
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
-	planetary_atmos = TRUE
 	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_HIERO_FLOOR
 	smoothing_groups = SMOOTH_GROUP_HIERO_FLOOR
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 /turf/simulated/floor/indestructible/hierophant/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	return FALSE

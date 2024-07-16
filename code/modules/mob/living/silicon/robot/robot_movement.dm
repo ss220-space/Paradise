@@ -7,7 +7,7 @@
 	return FALSE
 
 
-/mob/living/silicon/robot/experience_pressure_difference(pressure_difference, direction)
+/mob/living/silicon/robot/experience_pressure_difference(flow_x, flow_y)
 	if(!HAS_TRAIT(src, TRAIT_NEGATES_GRAVITY))
 		return ..()
 

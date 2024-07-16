@@ -39,7 +39,7 @@
 	if(set_dir)
 		dir = set_dir
 	ini_dir = dir
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
@@ -50,7 +50,7 @@
 /obj/structure/windoor_assembly/Destroy()
 	set_density(FALSE)
 	QDEL_NULL(electronics)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	return ..()
 
 /obj/structure/windoor_assembly/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
@@ -63,7 +63,6 @@
 	if(temp_state == "03")
 		temp_state = "02"
 	icon_state = "[facing]_[secure ? "secure_" : ""]windoor_assembly[temp_state]"
-
 
 /obj/structure/windoor_assembly/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
@@ -78,12 +77,11 @@
 			if(!valid_build_direction(loc, object.dir, is_fulltile = fulltile))
 				return FALSE
 
-
-/obj/structure/windoor_assembly/CanAtmosPass(turf/T, vertical)
-	if(get_dir(loc, T) == dir)
+/obj/structure/windoor_assembly/CanAtmosPass(direction)
+	if(direction == dir)
 		return !density
-	return TRUE
-
+	else
+		return TRUE
 
 /obj/structure/windoor_assembly/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
 	SIGNAL_HANDLER

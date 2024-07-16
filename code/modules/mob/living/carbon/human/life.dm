@@ -297,12 +297,33 @@
 	return health <= HEALTH_THRESHOLD_CRIT && stat != DEAD
 
 
-/mob/living/carbon/human/handle_environment(datum/gas_mixture/environment)
-	if(!environment)
+/mob/living/carbon/human/get_breath_from_internal(volume_needed) //making this call the parent would be far too complicated
+	if(internal)
+		var/null_internals = 0      //internals are invalid, therefore turn them off
+		var/skip_contents_check = 0 //rigsuit snowflake, oxygen tanks aren't stored inside the mob, so the 'contents.Find' check has to be skipped.
+
+		if(!get_organ_slot("breathing_tube"))
+			if(!(wear_mask && wear_mask.flags & AIRTIGHT)) //if NOT (wear_mask AND wear_mask.flags CONTAIN AIRTIGHT)
+				if(!(head && head.flags & AIRTIGHT)) //if NOT (head AND head.flags CONTAIN AIRTIGHT)
+					null_internals = 1 //not wearing a mask or suitable helmet
+
+		if(!contents.Find(internal) && (!skip_contents_check)) //if internal NOT IN contents AND skip_contents_check IS false
+			null_internals = 1 //not a rigsuit and your oxygen is gone
+
+		if(null_internals) //something wants internals gone
+			internal = null //so do it
+			update_action_buttons_icon()
+
+	if(internal) //check for hud updates every time this is called
+		return internal.remove_air_volume(volume_needed) //returns the valid air
+
+	return null
+
+/mob/living/carbon/human/handle_environment(datum/gas_mixture/readonly_environment)
+	if(!readonly_environment)
 		return
 
-	var/loc_temp = get_temperature(environment)
-//	to_chat(world, "Loc temp: [loc_temp] - Body temp: [bodytemperature] - Fireloss: [getFireLoss()] - Thermal protection: [get_thermal_protection()] - Fire protection: [thermal_protection + add_fire_protection(loc_temp)] - Heat capacity: [environment_heat_capacity] - Location: [loc] - src: [src]")
+	var/loc_temp = get_temperature(readonly_environment)
 
 	//Body temperature is adjusted in two steps. Firstly your body tries to stabilize itself a bit.
 	if(stat != DEAD)
@@ -391,7 +412,7 @@
 	// Account for massive pressure differences.  Done by Polymorph
 	// Made it possible to actually have something that can protect against high pressure... Done by Errorage. Polymorph now has an axe sticking from his head for his previous hardcoded nonsense!
 
-	var/pressure = environment.return_pressure()
+	var/pressure = readonly_environment.return_pressure()
 	var/adjusted_pressure = calculate_affecting_pressure(pressure) //Returns how much pressure actually affects the mob.
 	if(status_flags & GODMODE)	return 1	//godmode
 

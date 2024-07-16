@@ -58,7 +58,7 @@
 			outside_areas |= place
 		else
 			inside_areas |= place
-		CHECK_TICK
+
 
 /datum/weather/ash_storm/proc/update_audio()
 	switch(stage)

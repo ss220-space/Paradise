@@ -52,6 +52,8 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/breaksound = "shatter"
 	var/hitsound = 'sound/effects/glasshit.ogg'
+	/// How well this window resists superconductivity.
+	var/superconductivity = WINDOW_HEAT_TRANSFER_COEFFICIENT
 
 
 /obj/structure/window/Initialize(mapload, direct)
@@ -93,7 +95,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
 
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
@@ -106,7 +108,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	air_update_turf(1)
 	update_nearby_icons()
 	return ..()
-
 
 /obj/structure/window/examine(mob/user)
 	. = ..()
@@ -126,7 +127,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 			. += "<span class='notice'>The window is <i>unscrewed</i> from the floor, and could be deconstructed by <b>wrenching</b>.</span>"
 	if(!anchored && !fulltile)
 		. += "<span class='notice'>Alt-click to rotate it.</span>"
-
 
 /obj/structure/window/narsie_act()
 	color = NARSIE_WINDOW_COLOUR
@@ -312,7 +312,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 			if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 				return
 			set_anchored(!anchored)
-			air_update_turf(TRUE)
+			recalculate_atmos_connectivity()
 			update_nearby_icons()
 			to_chat(user, "<span class='notice'>You [anchored ? "fasten the frame to":"unfasten the frame from"] the floor.</span>")
 
@@ -322,7 +322,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
 			return
 		set_anchored(!anchored)
-		air_update_turf(TRUE)
+		recalculate_atmos_connectivity()
 		update_nearby_icons()
 		to_chat(user, "<span class='notice'>You [anchored ? "fasten the window to":"unfasten the window from"] the floor.</span>")
 
@@ -451,16 +451,31 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	add_fingerprint(user)
 	return TRUE
 
+/obj/structure/window/Destroy()
+	density = FALSE
+	recalculate_atmos_connectivity()
+	update_nearby_icons()
+	return ..()
 
 /obj/structure/window/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
 	. = ..()
 	move_update_air(T)
 
-/obj/structure/window/CanAtmosPass(turf/T, vertical)
+/obj/structure/window/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
+	. = ..()
+	anchored = FALSE
+	QUEUE_SMOOTH_NEIGHBORS(src)
+
+/obj/structure/window/CanAtmosPass(direction)
 	if(!anchored || !density)
 		return TRUE
-	return !(FULLTILE_WINDOW_DIR == dir || dir == get_dir(loc, T))
+	return !(FULLTILE_WINDOW_DIR == dir || (dir & direction))
+
+/obj/structure/window/get_superconductivity(direction)
+	if(dir == FULLTILE_WINDOW_DIR || dir & direction)
+		return superconductivity
+	return ..()
 
 //This proc is used to update the icons of nearby windows.
 /obj/structure/window/proc/update_nearby_icons()
@@ -633,8 +648,8 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	explosion_block = 1
 	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
 
-/obj/structure/window/plasmabasic/BlockSuperconductivity()
-	return 1
+	rad_insulation = RAD_NO_INSULATION
+	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/plasmareinforced
 	name = "reinforced plasma window"
@@ -648,12 +663,11 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	explosion_block = 2
 	armor = list("melee" = 85, "bullet" = 20, "laser" = 0, "energy" = 0, "bomb" = 60, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
 	damage_deflection = 21
+	env_smash_level = ENVIRONMENT_SMASH_WALLS  // these windows are a fair bit tougher
+	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
-
-/obj/structure/window/plasmareinforced/BlockSuperconductivity()
-	return 1 //okay this SHOULD MAKE THE TOXINS CHAMBER WORK
 
 /obj/structure/window/abductor
 	name = "alien window"
@@ -709,6 +723,9 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
 	explosion_block = 1
 	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
+	rad_insulation = RAD_NO_INSULATION
+	env_smash_level = ENVIRONMENT_SMASH_WALLS  // these windows are a fair bit tougher
+	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/full/paperframe
 	name = "Paperframe Window"
@@ -721,6 +738,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	smoothing_groups = SMOOTH_GROUP_PAPERFRAME
 	canSmoothWith = SMOOTH_GROUP_PAPERFRAME
 	cancolor = FALSE
+
 
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
@@ -737,12 +755,12 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	max_integrity = 1000
 	explosion_block = 2
 	armor = list("melee" = 85, "bullet" = 20, "laser" = 0, "energy" = 0, "bomb" = 60, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
+	rad_insulation = RAD_NO_INSULATION
+	env_smash_level = ENVIRONMENT_SMASH_RWALLS  // these ones are insanely tough
+	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/full/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
-
-/obj/structure/window/full/plasmareinforced/BlockSuperconductivity()
-	return TRUE
 
 /obj/structure/window/full/reinforced
 	name = "reinforced window"
@@ -829,6 +847,9 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE //+ SMOOTH_GROUP_SHUTTLE_PARTS
 	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE
 	glass_type = /obj/item/stack/sheet/titaniumglass
+	env_smash_level = ENVIRONMENT_SMASH_RWALLS  // shuttle windows should probably be a bit stronger, too
+	// Mostly for the mining shuttle.
+	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/full/shuttle/narsie_act()
 	color = "#3C3434"
@@ -877,6 +898,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	level = 3
 	glass_type = /obj/item/stack/sheet/plastitaniumglass
 	glass_amount = 2
+	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/reinforced/clockwork
 	name = "brass window"

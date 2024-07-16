@@ -224,6 +224,14 @@
 	oxygen = 14
 	nitrogen = 23
 	planetary_atmos = TRUE
+
+// RODENFL TO DO WHAT THE FUCK NON PLANTING LAVA
+/turf/simulated/floor/lava/lava_land_surface
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
 
 /turf/simulated/floor/plating/lava/smooth/airless
@@ -304,13 +312,25 @@
 /turf/simulated/floor/plating/lava/smooth/mapping_lava
 	name = "Adaptive lava / chasm / plasma"
 	icon_state = "mappinglava"
+
 	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
 	temperature = 300
 	oxygen = 14
 	nitrogen = 23
 	planetary_atmos = TRUE
 
+
+// RODENFL TO DO SAME SHIT
 /turf/simulated/floor/plating/lava/smooth/mapping_lava/Initialize(mapload)
+	base_icon_state = "mappinglava"
+	baseturf = /turf/simulated/floor/lava/mapping_lava
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
+/turf/simulated/floor/lava/mapping_lava/Initialize(mapload)
 	. = ..()
 	return INITIALIZE_HINT_LATELOAD //Lateload is needed, otherwise atmos does not setup right on the turf roundstart, leading it to be vacume. This is bad.
 

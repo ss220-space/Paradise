@@ -193,10 +193,10 @@
 		return
 
 	if(air_contents)
-		temperature_archived = air_contents.temperature
+		temperature_archived = air_contents.temperature()
 		heat_gas_contents()
 
-	if(abs(temperature_archived-air_contents.temperature) > 1)
+	if(abs(temperature_archived-air_contents.temperature()) > 1)
 		parent.update = 1
 
 
@@ -252,11 +252,11 @@
 		occupantData["bodyTemperature"] = occupant.bodytemperature
 	data["occupant"] = occupantData
 
-	data["cellTemperature"] = round(air_contents.temperature)
+	data["cellTemperature"] = round(air_contents.temperature())
 	data["cellTemperatureStatus"] = "good"
-	if(air_contents.temperature > T0C) // if greater than 273.15 kelvin (0 celcius)
+	if(air_contents.temperature() > T0C) // if greater than 273.15 kelvin (0 celcius)
 		data["cellTemperatureStatus"] = "bad"
-	else if(air_contents.temperature > TCRYO)
+	else if(air_contents.temperature() > TCRYO)
 		data["cellTemperatureStatus"] = "average"
 
 	data["isBeakerLoaded"] = beaker ? TRUE : FALSE
@@ -418,25 +418,32 @@
 	if(next_trans == 17)
 		next_trans = 0
 
+	occupant.bodytemperature += 2 * (air_contents.temperature() - occupant.bodytemperature) * current_heat_capacity / (current_heat_capacity + air_contents.heat_capacity())
+	occupant.bodytemperature = max(occupant.bodytemperature, air_contents.temperature()) // this is so ugly i'm sorry for doing it i'll fix it later i promise
+
+	if(occupant.bodytemperature < T0C)
+		var/stun_time = (max(5 / efficiency, (1 / occupant.bodytemperature) * 2000 / efficiency)) STATUS_EFFECT_CONSTANT
+		occupant.Sleeping(stun_time)
+
+		var/heal_mod = air_contents.oxygen() < 2 ? 0.2 : 1
+		occupant.adjustOxyLoss(-6 * heal_mod)
+
+	if(beaker && world.time >= last_injection + injection_cooldown)
+		// Take 1u from the beaker mix, react and inject 10x the amount
+		var/proportion = 10 * min(1 / beaker.volume, 1)
+		beaker.reagents.reaction(occupant, REAGENT_TOUCH, proportion)
+		beaker.reagents.trans_to(occupant, 1, 10)
+
+		last_injection = world.time
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/heat_gas_contents()
 	if(!occupant)
 		return
-	var/cold_protection = 0
-	var/temperature_delta = air_contents.temperature - occupant.bodytemperature // The only semi-realistic thing here: share temperature between the cell and the occupant.
-
-	if(ishuman(occupant))
-		var/mob/living/carbon/human/H = occupant
-		cold_protection = H.get_cold_protection(air_contents.temperature)
-
-	if(abs(temperature_delta) > 1)
-		var/air_heat_capacity = air_contents.heat_capacity()
-
-		var/heat = (1 - cold_protection) * conduction_coefficient * temperature_delta * \
-			(air_heat_capacity * current_heat_capacity / (air_heat_capacity + current_heat_capacity))
-
-		air_contents.temperature = clamp(air_contents.temperature - heat / air_heat_capacity, TCMB, INFINITY)
-		occupant.adjust_bodytemperature(heat / current_heat_capacity, TCMB)
+	var/air_heat_capacity = air_contents.heat_capacity()
+	var/combined_heat_capacity = current_heat_capacity + air_heat_capacity
+	if(combined_heat_capacity > 0)
+		var/combined_energy = T20C * current_heat_capacity + air_heat_capacity * air_contents.temperature()
+		air_contents.set_temperature(combined_energy / combined_heat_capacity)
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/go_out()
 	if(!occupant)

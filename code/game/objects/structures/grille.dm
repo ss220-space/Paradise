@@ -239,6 +239,7 @@
 		W.setDir(dir_to_set)
 		W.ini_dir = dir_to_set
 		W.set_anchored(FALSE)
+		recalculate_atmos_connectivity()
 		W.state = WINDOW_OUT_OF_FRAME
 		to_chat(user, "<span class='notice'>You place the [W] on [src].</span>")
 		W.update_nearby_icons()

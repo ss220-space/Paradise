@@ -30,9 +30,9 @@
 	..()
 	icon_state = "air"
 	air_contents.volume = volume
-	air_contents.temperature = T20C
-	air_contents.oxygen = (25*ONE_ATMOSPHERE*O2STANDARD)*(air_contents.volume)/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
-	air_contents.nitrogen = (25*ONE_ATMOSPHERE*N2STANDARD)*(air_contents.volume)/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
+	air_contents.set_temperature(T20C)
+	air_contents.set_oxygen((25 * ONE_ATMOSPHERE * O2STANDARD) * (air_contents.volume) / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
+	air_contents.set_nitrogen((25 * ONE_ATMOSPHERE * N2STANDARD) * (air_contents.volume) / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
 /obj/machinery/atmospherics/unary/tank/oxygen
 	name = "Pressure Tank (Oxygen)"
@@ -42,8 +42,8 @@
 	..()
 	icon_state = "o2"
 	air_contents.volume = volume
-	air_contents.temperature = T20C
-	air_contents.oxygen = (25*ONE_ATMOSPHERE)*(air_contents.volume)/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
+	air_contents.set_temperature(T20C)
+	air_contents.set_oxygen((25 * ONE_ATMOSPHERE) * (air_contents.volume) / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
 /obj/machinery/atmospherics/unary/tank/nitrogen
 	name = "Pressure Tank (Nitrogen)"
@@ -53,8 +53,8 @@
 	..()
 	icon_state = "n2"
 	air_contents.volume = volume
-	air_contents.temperature = T20C
-	air_contents.nitrogen = (25*ONE_ATMOSPHERE)*(air_contents.volume)/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
+	air_contents.set_temperature(T20C)
+	air_contents.set_nitrogen((25 * ONE_ATMOSPHERE) * (air_contents.volume) / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
 /obj/machinery/atmospherics/unary/tank/carbon_dioxide
 	name = "Pressure Tank (Carbon Dioxide)"
@@ -64,8 +64,8 @@
 	..()
 	icon_state = "co2"
 	air_contents.volume = volume
-	air_contents.temperature = T20C
-	air_contents.carbon_dioxide = (25*ONE_ATMOSPHERE)*(air_contents.volume)/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
+	air_contents.set_temperature(T20C)
+	air_contents.set_carbon_dioxide((25 * ONE_ATMOSPHERE) * (air_contents.volume) / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
 /obj/machinery/atmospherics/unary/tank/toxins
 	name = "Pressure Tank (Toxins)"
@@ -75,8 +75,8 @@
 	..()
 	icon_state = "toxins"
 	air_contents.volume = volume
-	air_contents.temperature = T20C
-	air_contents.toxins = (25*ONE_ATMOSPHERE)*(air_contents.volume)/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
+	air_contents.set_temperature(T20C)
+	air_contents.set_toxins((25 * ONE_ATMOSPHERE) * (air_contents.volume) / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
 /obj/machinery/atmospherics/unary/tank/nitrous_oxide
 	name = "Pressure Tank (Nitrous Oxide)"
@@ -86,9 +86,9 @@
 	..()
 	icon_state = "n2o"
 	air_contents.volume = volume
-	air_contents.temperature = T20C
+	air_contents.set_temperature(T20C)
 
-	air_contents.sleeping_agent = (25 * ONE_ATMOSPHERE) * (air_contents.volume) / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	air_contents.set_sleeping_agent((25 * ONE_ATMOSPHERE) * (air_contents.volume) / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
 /obj/machinery/atmospherics/unary/tank/oxygen_agent_b
 	name = "Unidentified Gas Tank"
@@ -99,9 +99,8 @@
 	..()
 	icon_state = "agent_b"
 	air_contents.volume = volume
-	air_contents.temperature = T20C
-
-	air_contents.agent_b = (50 * ONE_ATMOSPHERE) * (air_contents.volume) / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	air_contents.set_temperature(T20C)
+	air_contents.set_agent_b((50 * ONE_ATMOSPHERE) * (air_contents.volume) / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
 /obj/machinery/atmospherics/unary/tank/air/ninja
 	name = "Pressure Tank (Air)"
@@ -111,3 +110,4 @@
 /obj/machinery/atmospherics/unary/tank/air/ninja/New()
 	..()
 	icon_state = "co2"
+

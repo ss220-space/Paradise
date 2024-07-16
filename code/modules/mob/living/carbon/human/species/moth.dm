@@ -125,19 +125,20 @@
 	if(istype(I, /obj/item/melee/flyswatter) && I.force)
 		apply_damage(I.force * FLYSWATTER_DAMAGE_MULTIPLIER, I.damtype, affecting, FALSE, H) //making flyswatters do 10x damage to moff
 
+// RODENFL TO DO FUCKING MOLES
 
-/datum/species/moth/spec_Process_Spacemove(mob/living/carbon/human/user, movement_dir, continuous_move = FALSE)
-	. = FALSE
-	var/turf/user_turf = get_turf(user)
-	if(!user_turf)
-		return .
-	if(isspaceturf(user_turf))
-		return .
-	if(user.has_status_effect(STATUS_EFFECT_BURNT_WINGS) || !user.get_organ(BODY_ZONE_WING))
-		return .
-	//as long as there's reasonable pressure and no gravity, flight is possible
-	var/datum/gas_mixture/current = user_turf.return_air()
-	if(current && (current.return_pressure() >= ONE_ATMOSPHERE * 0.85))
+/datum/species/moth/spec_Process_Spacemove(mob/living/carbon/human/H)
+	var/turf/A = get_turf(H)
+	if(isspaceturf(A))
+		return FALSE
+	if(H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
+		return FALSE
+	if(isobj(H.loc))
+		// Can't fly if you're in a box/mech/whatever.
+		return FALSE
+	var/turf/T = get_turf(H)
+	var/datum/gas_mixture/current = T.get_readonly_air()
+	if(current && (current.return_pressure() >= ONE_ATMOSPHERE * 0.85)) //as long as there's reasonable pressure and no gravity, flight is possible
 		return TRUE
 
 

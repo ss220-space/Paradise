@@ -113,6 +113,8 @@
 		else if(!iconrotation) //If user selected a rotation
 			P.dir = user.dir
 	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
+	if(istype(user.get_inactive_hand(), /obj/item/wrench) && (user.can_reach(P, user.get_inactive_hand())))
+		P.wrench_act(user, user.get_inactive_hand())
 	activate_rpd(TRUE)
 	if(auto_wrench)
 		P.wrench_act(user, integrated_wrench)
@@ -121,12 +123,32 @@
 	if(!can_dispense_pipe(whatdpipe, RPD_DISPOSALS_MODE))
 		log_runtime(EXCEPTION("Failed to spawn [get_pipe_name(whatdpipe, PIPETYPE_DISPOSAL)] - possible tampering detected"))
 		return
-	var/rotate_dir = iconrotation ? iconrotation : user.dir
-	var/obj/structure/disposalconstruct/construct = new(T, whatdpipe, rotate_dir)
-	to_chat(user, span_notice("[src] rapidly dispenses the [construct.pipename]!"))
+	var/obj/structure/disposalconstruct/P = new(T, whatdpipe, iconrotation)
+	if(!iconrotation) //Automatic rotation
+		P.dir = user.dir
+	if(!iconrotation && whatdpipe != PIPE_DISPOSALS_JUNCTION_RIGHT) //Disposals pipes are in the opposite direction to atmos pipes, so we need to flip them. Junctions don't have this quirk though
+		P.flip()
+	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
+	if(istype(user.get_inactive_hand(), /obj/item/wrench) && (user.can_reach(P, user.get_inactive_hand())))
+		P.attackby(user.get_inactive_hand(), user)
 	activate_rpd(TRUE)
-	if(auto_wrench)
-		construct.wrench_act(user, integrated_wrench)
+
+/obj/item/rpd/proc/create_transit_tube(mob/user, turf/dest)
+	if(!can_dispense_pipe(whatttube, PIPETYPE_TRANSIT))
+		CRASH("Failed to spawn [get_pipe_name(whatttube, PIPETYPE_TRANSIT)] - possible tampering detected")
+
+	for(var/datum/pipes/transit/T in GLOB.construction_pipe_list)
+		if(T.pipe_id == whatttube)
+			var/obj/structure/transit_tube_construction/S = new T.construction_type(dest)
+			if(!istype(S))
+				CRASH("found [S] when constructing transit tube but expected /obj/structure/transit_tube_construction")
+
+			S.dir = iconrotation ? iconrotation : user.dir
+
+			to_chat(user, "<span class='notice'>[src] rapidly dispenses [S]!</span>")
+			if(istype(user.get_inactive_hand(), /obj/item/wrench) && (user.can_reach(S, user.get_inactive_hand())))
+				S.wrench_act(user, user.get_inactive_hand())
+			activate_rpd(TRUE)
 
 /obj/item/rpd/proc/rotate_all_pipes(mob/user, turf/T) //Rotate all pipes on a turf
 	for(var/obj/item/pipe/P in T)

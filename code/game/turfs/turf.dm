@@ -74,7 +74,23 @@
 
 	///whether or not this turf forces movables on it to have no gravity (unless they themselves have forced gravity)
 	var/force_no_gravity = FALSE
+	/*
+	Atmos Vars
+	*/
+	/// The pressure difference between the turf and it's neighbors. Affects movables by pulling them in the path of least resistance
+	var/pressure_difference = 0
+	/// The direction movables should travel when affected by pressure. Set to the biggest difference in atmos by turf neighbors
+	var/pressure_direction = 0
+	/// makes turfs less picky about where they transfer gas. Largely just used in the SM
+	var/atmos_superconductivity = 0
 
+
+	/// The general behavior of atmos on this tile.
+	var/atmos_mode = ATMOS_MODE_SEALED
+	/// The external environment that this tile is exposed to for ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	var/atmos_environment
+
+	var/datum/gas_mixture/bound_to_turf/bound_air
 
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
@@ -123,6 +139,8 @@
 	if(istype(loc, /area/space))
 		force_no_gravity = TRUE
 
+	initialize_milla()
+
 	return INITIALIZE_HINT_NORMAL
 
 /turf/Destroy(force)
@@ -143,12 +161,10 @@
 		for(var/A in B.contents)
 			qdel(A)
 		return
-	// Adds the adjacent turfs to the current atmos processing
-	for(var/turf/simulated/T in atmos_adjacent_turfs)
-		SSair.add_to_active(T)
-	SSair.remove_from_active(src)
 	QDEL_LIST(blueprint_data)
+	visibilityChanged()
 	initialized = FALSE
+	bound_air = null
 	..()
 
 /turf/attack_hand(mob/user)
@@ -381,11 +397,8 @@
 // I'm including `ignore_air` because BYOND lacks positional-only arguments
 /turf/proc/AfterChange(ignore_air = FALSE, keep_cabling = FALSE, oldType = null) //called after a turf has been replaced in ChangeTurf()
 	levelupdate()
-	CalculateAdjacentTurfs()
-
-	if(SSair && !ignore_air)
-		SSair.add_to_active(src)
-
+	initialize_milla()
+	recalculate_atmos_connectivity()
 	//update firedoor adjacency
 	var/list/turfs_to_check = get_adjacent_open_turfs(src) | src
 	for(var/I in turfs_to_check)
@@ -396,6 +409,39 @@
 	if(!keep_cabling && !can_have_cabling())
 		for(var/obj/structure/cable/C in contents)
 			qdel(C)
+
+/turf/simulated/AfterChange(ignore_air = FALSE, keep_cabling = FALSE)
+	..()
+	RemoveLattice()
+	if(!ignore_air)
+		var/datum/milla_safe/turf_assimilate_air/milla = new()
+		milla.invoke_async(src)
+
+/datum/milla_safe/turf_assimilate_air
+
+/datum/milla_safe/turf_assimilate_air/on_run(turf/self)
+	if(isnull(self))
+		return
+
+	var/datum/gas_mixture/merged = new()
+	var/turf_count = 0
+	for(var/turf/T in self.GetAtmosAdjacentTurfs())
+		if(isspaceturf(T))
+			turf_count += 1
+			continue
+		if(T.blocks_air)
+			continue
+		merged.merge(get_turf_air(T))
+		turf_count += 1
+	if(turf_count > 0)
+		// Average the contents of the turfs.
+		merged.set_oxygen(merged.oxygen() / turf_count)
+		merged.set_nitrogen(merged.nitrogen() / turf_count)
+		merged.set_carbon_dioxide(merged.carbon_dioxide() / turf_count)
+		merged.set_toxins(merged.toxins() / turf_count)
+		merged.set_sleeping_agent(merged.sleeping_agent() / turf_count)
+		merged.set_agent_b(merged.agent_b() / turf_count)
+	get_turf_air(self).copy_from(merged)
 
 /turf/proc/ReplaceWithLattice()
 	ChangeTurf(baseturf)
@@ -631,10 +677,6 @@
 
 	T0.ChangeTurf(turf_type)
 
-	SSair.remove_from_active(T0)
-	T0.CalculateAdjacentTurfs()
-	SSair.add_to_active(T0, TRUE)
-
 /turf/AllowDrop()
 	return TRUE
 
@@ -764,8 +806,12 @@
 	playsound(src, 'sound/weapons/punch1.ogg', 35, TRUE)
 	C.visible_message(span_danger("[C] slams into [src]!"),
 					span_userdanger("You slam into [src]!"))
-	C.take_organ_damage(damage)
-	C.Weaken(3 SECONDS)
+	if(issilicon(C))
+		C.adjustBruteLoss(damage)
+		C.Weaken(3 SECONDS)
+	else
+		C.take_organ_damage(damage)
+		C.KnockDown(3 SECONDS)
 
 
 /**
@@ -864,3 +910,58 @@
 	/// Ought to work
 	turf_mask.color = list(255,255,255,0, 255,255,255,0, 255,255,255,0, 0,0,0,0, 0,0,0,255)
 	underlay_appearance.overlays += turf_mask
+
+/turf/proc/initialize_milla()
+	var/datum/milla_safe/initialize_turf/milla = new()
+	milla.invoke_async(src)
+
+/datum/milla_safe/initialize_turf
+
+/datum/milla_safe/initialize_turf/on_run(turf/T)
+	if(!isnull(T))
+		set_tile_atmos(T, atmos_mode = T.atmos_mode, environment_id = SSmapping.environments[T.atmos_environment], innate_heat_capacity = T.heat_capacity, temperature = T.temperature)
+
+/// Do not call this directly. Use get_readonly_air or implement /datum/milla_safe.
+/turf/proc/private_unsafe_get_air()
+	RETURN_TYPE(/datum/gas_mixture)
+	if(isnull(bound_air))
+		SSair.bind_turf(src)
+	return bound_air
+
+/// Gets a read-only version of this tile's air. Do not use if you intend to modify the air later, implement /datum/milla_safe instead.
+/turf/proc/get_readonly_air()
+	RETURN_TYPE(/datum/gas_mixture)
+	// This is one of two intended places to call this otherwise-unsafe proc.
+	var/datum/gas_mixture/bound_to_turf/air = private_unsafe_get_air()
+	if(air.lastread < SSair.times_fired)
+		var/list/milla_tile = new/list(MILLA_TILE_SIZE)
+		get_tile_atmos(src, milla_tile)
+		air.copy_from_milla(milla_tile)
+		air.lastread = SSair.times_fired
+		air.readonly = null
+		air.dirty = FALSE
+		air.synchronized = FALSE
+	return air.get_readonly()
+
+/// Blindly releases air to this tile. Do not use if you care what the tile previously held, implement /datum/milla_safe instead.
+/turf/proc/blind_release_air(datum/gas_mixture/air)
+	var/datum/milla_safe/turf_blind_release/milla = new()
+	milla.invoke_async(src, air)
+
+/datum/milla_safe/turf_blind_release
+
+/datum/milla_safe/turf_blind_release/on_run(turf/T, datum/gas_mixture/air)
+	get_turf_air(T).merge(air)
+
+// Blindly sets the air in this tile. Do not use if you care what the tile previously held, implement /datum/milla_safe instead.
+/turf/proc/blind_set_air(datum/gas_mixture/air)
+	var/datum/milla_safe/turf_blind_set/milla = new()
+	milla.invoke_async(src, air)
+
+/datum/milla_safe/turf_blind_set
+
+/datum/milla_safe/turf_blind_set/on_run(turf/T, datum/gas_mixture/air)
+	get_turf_air(T).copy_from(air)
+
+/turf/return_analyzable_air()
+	return get_readonly_air()

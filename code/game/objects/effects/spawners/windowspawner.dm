@@ -32,7 +32,7 @@
 	if(useGrille)
 		new /obj/structure/grille(get_turf(src))
 
-	air_update_turf(1) //atmos can pass otherwise
+	recalculate_atmos_connectivity() //atmos can pass otherwise
 	// Give some time for nearby window spawners to initialize
 	spawn(10)
 		qdel(src)

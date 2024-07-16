@@ -317,7 +317,11 @@
 		ticks = 0
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
-		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 5)
+		var/datum/gas_mixture/air = new()
+		air.set_temperature(1000)
+		air.set_toxins(20)
+		air.set_oxygen(20)
+		T.blind_release_air(air)
 
 /obj/effect/anomaly/pyro/detonate()
 	if(produces_slime)
@@ -326,7 +330,12 @@
 /obj/effect/anomaly/pyro/proc/makepyroslime()
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
-		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS | LINDA_SPAWN_OXYGEN, 500) //Make it hot and burny for the new slime
+		//Make it hot and burny for the new slime
+		var/datum/gas_mixture/air = new()
+		air.set_temperature(1000)
+		air.set_toxins(500)
+		air.set_oxygen(500)
+		T.blind_release_air(air)
 	var/new_colour = pick("red", "orange")
 	var/mob/living/simple_animal/slime/random/S = new(T, new_colour)
 	S.rabid = TRUE
@@ -338,6 +347,69 @@
 		S.key = chosen.key
 		S.mind.special_role = SPECIAL_ROLE_PYROCLASTIC_SLIME
 		add_game_logs("was made into a slime by pyroclastic anomaly at [AREACOORD(T)].", S)
+
+/obj/effect/anomaly/cryo
+	name = "cryogenic anomaly"
+	desc = "Hope you brought a jacket!"
+	icon_state = "cryoanomaly"
+	aSignal = /obj/item/assembly/signaler/anomaly/cryo
+
+/obj/effect/anomaly/cryo/anomalyEffect()
+	..()
+
+	var/list/turf_targets = list()
+	for(var/turf/T in oview(get_turf(src), 7))
+		turf_targets += T
+
+	for(var/mob/living/carbon/human/H in view(get_turf(src), 3))
+		shootAt(H)
+
+	for(var/I in 1 to rand(1, 3))
+		var/turf/target = pick(turf_targets)
+		shootAt(target)
+
+	if(prob(50))
+		for(var/turf/simulated/floor/nearby_floor in oview(get_turf(src), (drops_core ? 2 : 1)))
+			nearby_floor.MakeSlippery((drops_core? TURF_WET_PERMAFROST : TURF_WET_ICE), (drops_core? null : rand(10, 20 SECONDS)))
+
+		var/turf/simulated/T = get_turf(src)
+		if(istype(T))
+			var/datum/gas_mixture/air = new()
+			air.set_temperature(TCMB)
+			air.set_sleeping_agent(20)
+			air.set_carbon_dioxide(20)
+			T.blind_release_air(air)
+
+	if(prob(10))
+		var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container(get_turf(src))
+		for(var/i in 1 to 5)
+			step_towards(A, pick(turf_targets))
+			sleep(2)
+		A.Smoke()
+
+/obj/effect/anomaly/cryo/proc/shootAt(atom/movable/target)
+	var/turf/T = get_turf(src)
+	var/turf/U = get_turf(target)
+	if(!T || !U)
+		return
+	var/obj/item/projectile/temp/basilisk/O = new /obj/item/projectile/temp/basilisk(T)
+	playsound(get_turf(src), 'sound/weapons/taser2.ogg', 75, TRUE)
+	if(drops_core)
+		O.stun = 0.5 SECONDS
+	O.original = target
+	O.current = T
+	O.yo = U.y - T.y
+	O.xo = U.x - T.x
+	O.fire()
+
+/obj/effect/anomaly/cryo/detonate()
+	var/turf/simulated/T = get_turf(src)
+	if(istype(T) && drops_core)
+		var/datum/gas_mixture/air = new()
+		air.set_temperature(TCMB)
+		air.set_sleeping_agent(1000)
+		air.set_carbon_dioxide(1000)
+		T.blind_release_air(air)
 
 /////////////////////
 

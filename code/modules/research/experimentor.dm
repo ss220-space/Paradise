@@ -400,17 +400,9 @@
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
 			visible_message("<span class='warning'>[src] malfunctions, melting [exp_on] and leaking hot air!</span>")
-			var/datum/gas_mixture/env = src.loc.return_air()
-			var/transfer_moles = 0.25 * env.total_moles()
-			var/datum/gas_mixture/removed = env.remove(transfer_moles)
-			if(removed)
-				var/heat_capacity = removed.heat_capacity()
-				if(heat_capacity == 0 || heat_capacity == null)
-					heat_capacity = 1
-				removed.temperature = min((removed.temperature*heat_capacity + 100000)/heat_capacity, 1000)
-			env.merge(removed)
-			air_update_turf()
-			investigate_log("Experimentor has released hot air.", INVESTIGATE_EXPERIMENTOR)
+			var/datum/milla_safe/experimentor_temperature/milla = new()
+			milla.invoke_async(src, 100000, 1000)
+			investigate_log("Experimentor has released hot air.", "experimentor")
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
 			visible_message("<span class='warning'>[src] malfunctions, activating its emergency coolant systems!</span>")
@@ -446,17 +438,9 @@
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_LOW-badThingCoeff))
 			visible_message("<span class='warning'>[src] malfunctions, shattering [exp_on] and leaking cold air!</span>")
-			var/datum/gas_mixture/env = src.loc.return_air()
-			var/transfer_moles = 0.25 * env.total_moles()
-			var/datum/gas_mixture/removed = env.remove(transfer_moles)
-			if(removed)
-				var/heat_capacity = removed.heat_capacity()
-				if(heat_capacity == 0 || heat_capacity == null)
-					heat_capacity = 1
-				removed.temperature = (removed.temperature*heat_capacity - 75000)/heat_capacity
-			env.merge(removed)
-			air_update_turf()
-			investigate_log("Experimentor has released cold air.", INVESTIGATE_EXPERIMENTOR)
+			var/datum/milla_safe/experimentor_temperature/milla = new()
+			milla.invoke_async(src, -75000, 1000, TCMB)
+			investigate_log("Experimentor has released cold air.", "experimentor")
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
 			visible_message("<span class='warning'>[src] malfunctions, releasing a flurry of chilly air as [exp_on] pops out!</span>")
@@ -565,6 +549,21 @@
 	if(D)
 		linked_console = D
 
+
+/datum/milla_safe/experimentor_temperature
+
+/datum/milla_safe/experimentor_temperature/on_run(obj/machinery/r_n_d/experimentor/experimentor, delta, min_new_temp)
+	var/turf/T = get_turf(experimentor)
+	var/datum/gas_mixture/env = get_turf_air(T)
+
+	var/transfer_moles = 0.25 * env.total_moles()
+	var/datum/gas_mixture/removed = env.remove(transfer_moles)
+	if(removed)
+		var/heat_capacity = removed.heat_capacity()
+		if(heat_capacity == 0 || heat_capacity == null)
+			heat_capacity = 1
+		removed.set_temperature(max(min_new_temp, (removed.temperature() * heat_capacity + delta) / heat_capacity))
+	env.merge(removed)
 
 /obj/machinery/r_n_d/experimentor/Topic(href, href_list)
 	if(..())
