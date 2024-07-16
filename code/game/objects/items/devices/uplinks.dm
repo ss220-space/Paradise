@@ -147,14 +147,14 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 	for(var/datum/uplink_item/uplink_item as anything in uplink_items)
 		var/path = uplink_item.refund_path || uplink_item.item
-		var/special_refund_cost = 0
+		var/cost = 0
 
 		if(uplink_item.item_to_refund_cost?[hold_item.UID()])
-			special_refund_cost = uplink_item.item_to_refund_cost[hold_item.UID()]
-			uplink_item.item_to_refund_cost -= hold_item.UID()
+			cost = uplink_item.item_to_refund_cost[hold_item.UID()]
 
-		if((hold_item.type == path && uplink_item.refundable || special_refund_cost) && hold_item.check_uplink_validity())
-			var/cost = special_refund_cost || uplink_item.cost
+		if((hold_item.type == path && uplink_item.refundable || cost) && hold_item.check_uplink_validity())
+			if(!cost)
+				cost = uplink_item.cost
 			uses += cost
 			used_TC -= cost
 			to_chat(user, span_notice("[hold_item] refunded."))
