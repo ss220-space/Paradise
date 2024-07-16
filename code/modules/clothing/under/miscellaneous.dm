@@ -1161,7 +1161,6 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
 		)
 
-
 /obj/item/clothing/under/dress50s
 	name = "old Soviet dress"
 	desc = "Платье в горошек на манер старой моды. Кажется, такое носят женщины из СССП."
@@ -1180,3 +1179,22 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
 		)
+
+/obj/item/clothing/under/maid_s
+	name = "short maid costume"
+	desc = "Костюм для косплея горничной."
+	over_shoes = TRUE
+	icon_state = "maid_s"
+	item_state = "maid_s"
+	item_color = "maid_s"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		)
+

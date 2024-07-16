@@ -347,3 +347,9 @@
 	donator_tier = 1
 	cost = 1
 
+/datum/gear/donor/maid_s
+	donator_tier = 2
+	cost = 1
+	display_name = "Short maid costume"
+	path = /obj/item/clothing/under/maid_s
+
