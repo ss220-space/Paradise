@@ -142,24 +142,24 @@ GLOBAL_LIST_EMPTY(world_uplinks)
  */
 /obj/item/uplink/proc/refund(mob/user)
 	var/obj/item/hold_item = user.get_active_hand()
-	if(!hold_item) // Make sure there's actually something in the hand before even bothering to check
+	if(!hold_item || !hold_item.check_uplink_validity()) // Make sure there's actually something in the hand before even bothering to check
 		return FALSE
 
 	for(var/datum/uplink_item/uplink_item as anything in uplink_items)
 		var/path = uplink_item.refund_path || uplink_item.item
-		var/cost = 0
+		if(hold_item.type != path || !uplink_item.refundable)
+			continue
+
+		var/cost =  uplink_item.cost
 
 		if(uplink_item.item_to_refund_cost?[hold_item.UID()])
 			cost = uplink_item.item_to_refund_cost[hold_item.UID()]
 
-		if((hold_item.type == path && uplink_item.refundable || cost) && hold_item.check_uplink_validity())
-			if(!cost)
-				cost = uplink_item.cost
-			uses += cost
-			used_TC -= cost
-			to_chat(user, span_notice("[hold_item] refunded."))
-			qdel(hold_item)
-			return
+		uses += cost
+		used_TC -= cost
+		to_chat(user, span_notice("[hold_item] refunded."))
+		qdel(hold_item)
+		return
 
 	// If we are here, we didnt refund
 	to_chat(user, span_warning("[hold_item] is not refundable."))
