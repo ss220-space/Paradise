@@ -78,8 +78,8 @@
 	var/refundable = FALSE
 	/// Alternative path for refunds, in case the item purchased isn't what is actually refunded (ie: holoparasites).
 	var/refund_path
-	/// Specified refund amount in case there needs to be a TC penalty for refunds.
-	var/refund_amount
+	/// Associative list UID - refund cost
+	var/static/list/item_to_refund_cost
 
 
 /datum/uplink_item/Destroy(force)
@@ -165,11 +165,13 @@
 		else
 			refund_item = locate(refund_path) in spawned
 
-		if(!target_uplink.item_to_refund_cost)
-			target_uplink.item_to_refund_cost = list()
+		if(!item_to_refund_cost)
+			item_to_refund_cost = list()
 
 		if(refund_item)
-			target_uplink.item_to_refund_cost[refund_item.UID()] = refund_amount ? (refund_amount * 0.5) : cost
+			item_to_refund_cost[refund_item.UID()] = cost
+		else
+			stack_trace("Can not find [refund_path] in [src]")
 
 	if(limited_stock > 0)
 		add_game_logs("purchased [name]. [name] was discounted to [cost].", buyer)
