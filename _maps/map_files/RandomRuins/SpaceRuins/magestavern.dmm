@@ -112,6 +112,13 @@
 	icon_state = "cafeteria"
 	},
 /area/ruin/unpowered)
+"ek" = (
+/obj/structure/closet/cabinet,
+/obj/item/clothing/head/wizard,
+/obj/item/clothing/suit/wizrobe,
+/obj/item/clothing/shoes/sandal/magic,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered)
 "ez" = (
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/unpowered)
@@ -538,10 +545,6 @@
 	icon_state = "escape"
 	},
 /area/ruin/unpowered)
-"zv" = (
-/obj/item/chair/wood,
-/turf/simulated/floor/carpet,
-/area/ruin/unpowered)
 "zy" = (
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken"
@@ -653,13 +656,6 @@
 	dir = 8;
 	icon_state = "barber"
 	},
-/area/ruin/unpowered)
-"Dx" = (
-/obj/structure/closet/cabinet,
-/obj/item/clothing/head/wizard,
-/obj/item/clothing/suit/wizrobe,
-/obj/item/clothing/shoes/sandal/magic,
-/turf/simulated/floor/wood,
 /area/ruin/unpowered)
 "DE" = (
 /obj/structure/table/wood/fancy/purple,
@@ -1968,7 +1964,7 @@ dY
 dY
 dY
 jR
-Dx
+ek
 gJ
 Al
 ZN
@@ -2419,7 +2415,7 @@ tw
 gJ
 GM
 gJ
-zv
+tJ
 ez
 qc
 ZN
