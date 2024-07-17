@@ -203,11 +203,13 @@
 	if(damage_flag)
 		armor_protection = armor.getRating(damage_flag)
 	damage_amount = round(damage_amount * (100 - armor_protection)*0.01, 0.1)
-	if(overmind && damage_flag)
+	if(overmind?.blob_reagent_datum && damage_flag)
 		damage_amount = overmind.blob_reagent_datum.damage_reaction(src, damage_amount, damage_type, damage_flag)
 	return damage_amount
 
 /obj/structure/blob/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+	if(QDELETED(src))
+		return
 	. = ..()
 	if(. && obj_integrity > 0)
 		check_integrity()
@@ -234,13 +236,13 @@
 
 /obj/structure/blob/proc/get_chem_name()
 	for(var/mob/camera/blob/B in GLOB.mob_list)
-		if(lowertext(B.blob_reagent_datum.color) == lowertext(src.color)) // Goddamit why we use strings for these
+		if(!QDELETED(B) && lowertext(B.blob_reagent_datum.color) == lowertext(src.color)) // Goddamit why we use strings for these
 			return B.blob_reagent_datum.name
 	return "unknown"
 
 /obj/structure/blob/proc/get_chem_desc()
 	for(var/mob/camera/blob/B in GLOB.mob_list)
-		if(lowertext(B.blob_reagent_datum.color) == lowertext(src.color)) // Goddamit why we use strings for these
+		if(!QDELETED(B) && lowertext(B.blob_reagent_datum.color) == lowertext(src.color)) // Goddamit why we use strings for these
 			return B.blob_reagent_datum.description
 	return "something unknown"
 

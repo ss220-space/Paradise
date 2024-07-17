@@ -43,7 +43,7 @@
 	if(overmind)
 		overmind.blob_core = null
 	overmind = null
-	SSticker.mode.blob_died()
+	SSticker?.mode?.blob_died()
 	STOP_PROCESSING(SSobj, src)
 	GLOB.poi_list.Remove(src)
 	return ..()
@@ -150,5 +150,5 @@
 		if(overmind.blob_reagent_datum)
 			overmind_datum.reagent = overmind.blob_reagent_datum
 		overmind.mind.add_antag_datum(overmind_datum)
-	color = overmind.blob_reagent_datum.color
+	color = overmind.blob_reagent_datum?.color
 
