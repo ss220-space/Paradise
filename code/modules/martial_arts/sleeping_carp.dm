@@ -43,7 +43,7 @@
 	playsound(get_turf(D), 'sound/weapons/punch1.ogg', 25, 1, -1)
 	if(prob(50))
 		A.say(pick("HUAH!", "HYA!", "CHOO!", "WUO!", "KYA!", "HUH!", "HIYOH!", "CARP STRIKE!", "CARP BITE!"))
-	if(prob(D.getBruteLoss()) && !D.body_position == LYING_DOWN)
+	if(prob(D.getBruteLoss()) && D.body_position != LYING_DOWN)
 		D.visible_message("<span class='warning'>[D] stumbles and falls!</span>", "<span class='userdanger'>The blow sends you to the ground!</span>")
 		D.Weaken(6 SECONDS)
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Punched", ATKLOG_ALL)
