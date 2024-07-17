@@ -6,14 +6,14 @@
 		return
 	world.log << CALL_EXT(DMJIT_LIB, "auxtools_init")()
 	world.log << dmjit_hook_log_init()
-	dmjit_compile_proc("/datum/gas_mixture/temperature_share")
-	dmjit_compile_proc("/datum/gas_mixture/heat_capacity")
-	dmjit_compile_proc("/datum/gas_mixture/total_moles")
-	dmjit_compile_proc("/datum/gas_mixture/share")
-	dmjit_compile_proc("/datum/gas_mixture/archive")
-	dmjit_compile_proc("/datum/gas_mixture/compare")
-	dmjit_compile_proc("/datum/gas_mixture/heat_capacity_archived")
-	dmjit_compile_proc("/turf/simulated/share_air")
+	dmjit_compile_proc("/datum/gas_mixture/proc/temperature_share")
+	dmjit_compile_proc("/datum/gas_mixture/proc/heat_capacity")
+	dmjit_compile_proc("/datum/gas_mixture/proc/total_moles")
+	dmjit_compile_proc("/datum/gas_mixture/proc/share")
+	dmjit_compile_proc("/datum/gas_mixture/proc/archive")
+	dmjit_compile_proc("/datum/gas_mixture/proc/compare")
+	dmjit_compile_proc("/datum/gas_mixture/proc/heat_capacity_archived")
+	dmjit_compile_proc("/turf/simulated/proc/share_air")
 	//dmjit_compile_proc("/turf/simulated/archive") uses global
 	world.log << dmjit_install_compiled()
 
