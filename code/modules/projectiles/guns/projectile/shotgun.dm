@@ -13,6 +13,7 @@
 	fire_sound = 'sound/weapons/gunshots/1shotgun_old.ogg'
 	var/recentpump = 0 // to prevent spammage
 	weapon_weight = WEAPON_HEAVY
+	pb_knockback = 2
 
 /obj/item/gun/projectile/shotgun/attackby(obj/item/A, mob/user, params)
 	. = ..()
@@ -216,6 +217,7 @@
 	can_bayonet = TRUE
 	bayonet_x_offset = 27
 	bayonet_y_offset = 13
+	pb_knockback = 0
 
 /obj/item/gun/projectile/shotgun/boltaction/pump(mob/M)
 	playsound(M, 'sound/weapons/gun_interactions/rifle_load.ogg', 60, 1)
