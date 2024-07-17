@@ -147,8 +147,8 @@
 		var/datum/antagonist/blob_overmind/overmind_datum = new
 		overmind_datum.add_to_mode = TRUE
 		overmind_datum.is_offspring = is_offspring
-		if(overmind?.blob_reagent_datum)
-			overmind_datum.reagent = overmind?.blob_reagent_datum
+		if(overmind.blob_reagent_datum)
+			overmind_datum.reagent = overmind.blob_reagent_datum
 		overmind.mind.add_antag_datum(overmind_datum)
-	color = overmind?.blob_reagent_datum?.color
+	color = overmind.blob_reagent_datum?.color
 
