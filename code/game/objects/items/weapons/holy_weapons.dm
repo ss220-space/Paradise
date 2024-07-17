@@ -125,8 +125,10 @@
 
 /obj/item/nullrod/afterattack(atom/movable/AM, mob/user, proximity)
 	. = ..()
-	if(!sanctify_force)
+
+	if(!proximity || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !sanctify_force)
 		return
+
 	if(isliving(AM))
 		var/mob/living/L = AM
 		L.adjustFireLoss(sanctify_force) // Bonus fire damage for sanctified (ERT) versions of nullrod
