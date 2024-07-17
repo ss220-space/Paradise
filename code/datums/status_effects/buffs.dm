@@ -45,7 +45,7 @@
 		human.adjustToxLoss(-0.5)
 		human.adjustBrainLoss(-1)
 		human.adjustCloneLoss(-0.5)
-		human.SetWeakened(0)
+		human.SetKnockdown(0)
 		if(prob(15))
 			var/list/fractured_organs = human.check_fractures()
 			shuffle(fractured_organs)
