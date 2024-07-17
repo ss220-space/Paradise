@@ -14,6 +14,7 @@
 	job_rank = ROLE_TRAITOR
 	special_role = SPECIAL_ROLE_TRAITOR
 	antag_hud_type = ANTAG_HUD_TRAITOR
+	show_in_orbit = FALSE
 	/// How many telecrystals a traitor must forfeit to become a contractor.
 	var/tc_cost = 100
 	/// How long a traitor's chance to become a contractor lasts before going away. In deciseconds.
@@ -121,6 +122,8 @@
 
 	// Remove the TC
 	uplink.uses -= tc_cost
+
+	show_in_orbit = TRUE
 
 	if(!is_admin_forced)
 		SSticker?.mode?.contractor_accepted++
