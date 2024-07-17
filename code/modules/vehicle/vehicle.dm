@@ -241,16 +241,9 @@
 
 
 /obj/vehicle/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
-	if(has_gravity())
-		return TRUE
-
-	if(pulledby && (pulledby.loc != loc))
-		return TRUE
-
 	if(needs_gravity)
 		return TRUE
-
-	return FALSE
+	return ..()
 
 
 /obj/vehicle/space
