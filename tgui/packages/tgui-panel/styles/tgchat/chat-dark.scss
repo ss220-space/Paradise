@@ -264,10 +264,12 @@ em {
   font-weight: bold;
 }
 
+/* Official Paradise
 .adminooc {
   color: #b82e00;
   font-weight: bold;
 }
+*/
 
 .adminobserver {
   color: #996600;
@@ -319,9 +321,11 @@ em {
   font-family: 'Courier New', Courier, monospace;
 }
 
+/* Official Paradise
 .deadsay {
   color: #e2c1ff;
 }
+*/
 
 .radio {
   color: #20b142;
@@ -383,10 +387,11 @@ em {
   color: #b84f92;
 }
 
+/* Official Paradise
 .admin_channel {
   color: #03fc9d;
   font-weight: bold;
-}
+} */
 
 .all_admin_ping {
   color: #12a5f4;
@@ -528,6 +533,7 @@ h2.alert {
   font-weight: bold;
 }
 
+/* Paradise Official
 .alien {
   color: #c433c4;
 }
@@ -541,12 +547,12 @@ h2.alert {
   font-weight: bold;
 }
 
-.terrorspider {
-  color: #cf52fa;
-}
-
 .dantalion {
   color: #8b2c5e;
+} */
+
+.terrorspider {
+  color: #cf52fa;
 }
 
 .chaosverygood {
@@ -1087,4 +1093,187 @@ span.body .coderesponses {
 
 .agent_b {
   color: teal;
+}
+
+/* SS1984 UNIC */
+
+.sovradio {
+  color: #f7941d;
+}
+
+.taipan {
+  color: #ffec8b;
+}
+
+.spider_clan {
+  color: #3cfd1e;
+}
+
+.event_alpha {
+  color: #88910f;
+}
+
+.event_beta {
+  color: #1d83f7;
+}
+
+.event_gamma {
+  color: #d46549;
+}
+
+.blob {
+  color: #006221;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.blobteslium_paste {
+  color: #512e89;
+  font-weight: bold;
+  font-style: italic;
+}
+.blobradioactive_gel {
+  color: #2476f0;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.blobb_sorium {
+  color: #808000;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.blobcryogenic_liquid {
+  color: #8ba6e9;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.blobkinetic {
+  color: #ffa500;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.bloblexorin_jelly {
+  color: #00ffc5;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.blobenvenomed_filaments {
+  color: #9acd32;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.blobboiling_oil {
+  color: #b68d00;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.blobripping_tendrils {
+  color: #7f0000;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.shadowling {
+  color: #a37bb5;
+}
+
+.clock {
+  color: #bd8700;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.clockspeech {
+  color: #996e00;
+  font-style: italic;
+}
+
+.clockitalic {
+  color: #bd8700;
+  font-style: italic;
+}
+
+.clocklarge {
+  color: #bd8700;
+  font-weight: bold;
+  font-size: 120%;
+}
+
+.ratvar {
+  color: #bd8700;
+  font-weight: bold;
+  font-size: 300%;
+}
+
+/* Examine styles */
+.examine {
+  border: 1px solid #1c1c1c;
+  padding: 10px;
+  margin: 2px 10px;
+  background: #252525;
+  color: #ffffff;
+}
+.examine a {
+  color: #ffffff;
+}
+
+.examine .info {
+  color: #4450ff;
+} /* No idea why to keep these, but oh well */
+
+.examine .notice {
+  color: #6685f5;
+}
+
+.examine .boldnotice {
+  color: #6685f5;
+}
+
+.examine .deptradio {
+  color: #ad43ab;
+}
+
+.adminooc {
+  color: #a0320e;
+  font-weight: bold;
+}
+
+.deadsay {
+  color: #b800b1;
+}
+
+.admin_channel {
+  color: #fcba03;
+}
+
+.alien {
+  color: #923492;
+}
+
+.noticealien {
+  color: #00a000;
+}
+
+.alertalien {
+  color: #00a000;
+  font-weight: bold;
+}
+
+.dantalion {
+  color: #1a7d5b;
+}
+
+.engradio {
+  color: #a66300;
+}
+
+.proradio {
+  color: #e3027a;
 }
