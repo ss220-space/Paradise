@@ -222,6 +222,8 @@
 		if("ejectpai")
 			ejectpai()
 
+/mob/living/simple_animal/bot/secbot/update_icon_state()
+	icon_state = "[base_icon][on]"
 
 /mob/living/simple_animal/bot/secbot/proc/retaliate(mob/living/carbon/human/H)
 	threatlevel = H.assess_threat(src)

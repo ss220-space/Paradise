@@ -851,6 +851,7 @@
 				if(destarea && old_area != destarea)
 					destarea.Entered(src, old_area)
 
+
 		. = TRUE
 
 	//If no destination, move the atom into nullspace (don't do this unless you know what you're doing)
