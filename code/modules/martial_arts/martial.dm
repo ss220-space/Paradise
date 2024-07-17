@@ -12,6 +12,8 @@
 	/// Chance to deflect projectiles while on throw mode.
 	var/deflection_chance = 0
 	/// Can it reflect projectiles in a random direction?
+	var/reroute_deflection = FALSE
+	///Chance to block melee attacks using items
 	var/block_chance = 0
 	//Chance to reflect projectiles but NINJA!
 	var/reflection_chance = 0
@@ -261,6 +263,9 @@
 // Put below the combos in the explaination text
 /datum/martial_art/proc/explaination_footer(user)
 	return
+
+/datum/martial_art/proc/try_deflect(mob/user)
+	return prob(deflection_chance)
 
 /datum/martial_art/proc/explaination_notice(user)
 	return to_chat(user, "<b><i>Combo steps can be provided only with empty hand!</b></i>")

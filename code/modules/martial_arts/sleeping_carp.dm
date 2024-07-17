@@ -5,6 +5,7 @@
 	deflection_chance = 100
 	no_guns = TRUE
 	no_guns_message = "Use of ranged weaponry would bring dishonor to the clan."
+	reroute_deflection = FALSE
 	has_explaination_verb = TRUE
 	grab_speed = 2 SECONDS
 	grab_resist_chances = list(

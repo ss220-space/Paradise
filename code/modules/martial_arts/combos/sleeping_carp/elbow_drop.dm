@@ -4,7 +4,7 @@
 	explaination_text = "Opponent must be on the ground. Deals huge damage, instantly kills anyone in critical condition."
 
 /datum/martial_combo/sleeping_carp/elbow_drop/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	if(target.IsWeakened() || target.resting || target.stat)
+	if(target.body_position == LYING_DOWN)
 		user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 		target.visible_message("<span class='warning'>[user] elbow drops [target]!</span>", \
 						  "<span class='userdanger'>[user] piledrives you with [user.p_their()] elbow!</span>")
