@@ -44,6 +44,14 @@
 	return istype(A, /obj/item/organ/internal)
 
 
+/mob/proc/has_active_hand()
+	return hand ? has_left_hand() : has_right_hand()
+
+
+/mob/proc/has_inactive_hand()
+	return hand ? has_right_hand() : has_left_hand()
+
+
 /mob/proc/has_left_hand()
 	return TRUE
 
