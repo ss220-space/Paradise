@@ -47,6 +47,7 @@
 		return
 	if(arrived.set_currently_z_moving(CURRENTLY_Z_FALLING))
 		zFall(arrived, falling_from_move = TRUE)
+
 /**
  * Drops movables spawned on this turf only after they are successfully initialized.
  * so flying mobs, qdeleted movables and things that were moved somewhere else during

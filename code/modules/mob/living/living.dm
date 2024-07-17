@@ -476,10 +476,6 @@
 		return prob(50) ? pulledby : src
 
 
-/mob/living/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
-	return TRUE // Unless you're a mule, something's trying to run you over.
-
-
 //for more info on why this is not atom/pull, see examinate() in mob.dm
 /mob/living/proc/pulled(atom/movable/to_pull)
 	if(istype(to_pull) && Adjacent(to_pull))
