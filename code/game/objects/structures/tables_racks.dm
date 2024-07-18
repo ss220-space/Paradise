@@ -38,6 +38,7 @@
 	var/deconstruction_ready = TRUE
 	var/flip_sound = 'sound/machines/wooden_closet_close.ogg'
 	var/flipped = FALSE
+	/// Can this table be flipped?
 	var/can_be_flipped = TRUE
 
 
