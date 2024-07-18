@@ -626,9 +626,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/equipped(mob/user, slot, initial = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
 
+	// Give out actions our item has to people who equip it.
 	for(var/datum/action/action_item_has as anything in actions)
-		if(item_action_slot_check(slot, user))
-			action_item_has.Grant(user)
+		give_item_action(slot, user, action_item_has)
 
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	item_flags |= IN_INVENTORY
@@ -652,10 +652,25 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	return TRUE
 
 
+/// Gives one of our item actions to a mob, when equipped to a certain slot
+/obj/item/proc/give_item_action(slot, mob/user, datum/action/action)
+	// Some items only give their actions buttons when in a specific slot.
+	if(!item_action_slot_check(slot, user, action) || SEND_SIGNAL(src, COMSIG_ITEM_UI_ACTION_SLOT_CHECKED, slot, user, action) & COMPONENT_ITEM_ACTION_SLOT_INVALID)
+		// There is a chance we still have our item action currently,
+		// and are moving it from a "valid slot" to an "invalid slot".
+		// So call Remove() here regardless, even if excessive.
+		action.Remove(user)
+		return
+	action.Grant(user)
+
+
 /**
  * Some items only give their actions buttons when in a specific slot.
  */
-/obj/item/proc/item_action_slot_check(slot, mob/user)
+/obj/item/proc/item_action_slot_check(slot, mob/user, datum/action/action)
+	//these aren't true slots, so avoid granting actions there
+	if(slot & (ITEM_SLOT_BACKPACK|ITEM_SLOT_LEGCUFFED|ITEM_SLOT_HANDCUFFED|ITEM_SLOT_ACCESSORY))
+		return FALSE
 	return TRUE
 
 
@@ -787,7 +802,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
  * The default action is attack_self().
  * Checks before we get to here are: mob is alive, mob is not restrained, paralyzed, asleep, resting, laying, item is on the mob.
  */
-/obj/item/proc/ui_action_click(mob/user, action, leftclick)
+/obj/item/proc/ui_action_click(mob/user, datum/action/action, leftclick)
+	if(SEND_SIGNAL(src, COMSIG_ITEM_UI_ACTION_CLICK, user, action, leftclick) & COMPONENT_ACTION_HANDLED)
+		return
 	attack_self(user)
 
 

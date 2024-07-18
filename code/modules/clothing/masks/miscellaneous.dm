@@ -302,7 +302,7 @@
 /obj/item/clothing/mask/fakemoustache/attack_self(mob/user)
 	pontificate(user)
 
-/obj/item/clothing/mask/fakemoustache/item_action_slot_check(slot)
+/obj/item/clothing/mask/fakemoustache/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_MASK)
 		return TRUE
 

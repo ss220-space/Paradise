@@ -46,7 +46,7 @@
 													span_notice("Something falls from your head!"))
 		empty_contents()
 
-/obj/item/organ/internal/headpocket/ui_action_click()
+/obj/item/organ/internal/headpocket/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(!loc)
 		loc = owner
 	pocket.MouseDrop(owner)

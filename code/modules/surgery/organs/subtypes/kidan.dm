@@ -23,7 +23,7 @@
 	var/colour
 	var/glowing = 0
 
-/obj/item/organ/internal/lantern/ui_action_click()
+/obj/item/organ/internal/lantern/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(toggle_biolum())
 		if(glowing)
 			owner.visible_message(span_notice("[owner] starts to glow!"), span_notice("You enable your bioluminescence."))

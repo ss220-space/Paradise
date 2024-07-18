@@ -755,7 +755,7 @@ REAGENT SCANNER
 	else
 		to_chat(usr, "<span class='notice'>[src]  has no logs or is already in use.</span>")
 
-/obj/item/reagent_scanner/ui_action_click()
+/obj/item/reagent_scanner/ui_action_click(mob/user, datum/action/action, leftclick)
 	print_report()
 
 /obj/item/slime_scanner

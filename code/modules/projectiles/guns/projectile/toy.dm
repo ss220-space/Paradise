@@ -61,7 +61,7 @@
 	mag_type = /obj/item/ammo_box/magazine/toy/enforcer/riot
 
 
-/obj/item/gun/projectile/automatic/toy/pistol/enforcer/ui_action_click()
+/obj/item/gun/projectile/automatic/toy/pistol/enforcer/ui_action_click(mob/user, datum/action/action, leftclick)
 	toggle_gunlight()
 
 /obj/item/gun/projectile/shotgun/toy

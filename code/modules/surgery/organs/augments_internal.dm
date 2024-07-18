@@ -49,7 +49,7 @@
 	origin_tech = "materials=4;programming=5;biotech=4"
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 
-/obj/item/organ/internal/cyberimp/brain/anti_drop/ui_action_click()
+/obj/item/organ/internal/cyberimp/brain/anti_drop/ui_action_click(mob/user, datum/action/action, leftclick)
 	active = !active
 	if(active)
 		l_hand_obj = owner.l_hand
@@ -261,7 +261,7 @@
 		to_chat(owner, span_notice("Your translator's safeties trigger, it is now turned off."))
 		active = FALSE
 
-/obj/item/organ/internal/cyberimp/brain/speech_translator/ui_action_click()
+/obj/item/organ/internal/cyberimp/brain/speech_translator/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(owner && !active)
 		to_chat(owner, span_notice("You turn on your translator implant."))
 		active = TRUE

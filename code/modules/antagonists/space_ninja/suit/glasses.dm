@@ -26,7 +26,7 @@
 	n_mask = null
 	return ..()
 
-/obj/item/clothing/glasses/ninja/ui_action_click(mob/user, action)
+/obj/item/clothing/glasses/ninja/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/ninja_glasses_toggle))
 		toggle_modes(user)
 		return TRUE

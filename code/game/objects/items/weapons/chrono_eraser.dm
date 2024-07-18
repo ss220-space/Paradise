@@ -24,7 +24,7 @@
 	QDEL_NULL(PA)
 	return ..()
 
-/obj/item/chrono_eraser/ui_action_click(mob/user)
+/obj/item/chrono_eraser/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		if(C.back == src)
@@ -32,7 +32,7 @@
 			PA = new(user, src)
 			user.put_in_hands(PA)
 
-/obj/item/chrono_eraser/item_action_slot_check(slot, mob/user)
+/obj/item/chrono_eraser/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_BACK)
 		return TRUE
 

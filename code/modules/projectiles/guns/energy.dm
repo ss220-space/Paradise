@@ -334,7 +334,7 @@
 		. += bayonet_overlay
 
 
-/obj/item/gun/energy/ui_action_click()
+/obj/item/gun/energy/ui_action_click(mob/user, datum/action/action, leftclick)
 	toggle_gunlight()
 
 

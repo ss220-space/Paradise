@@ -55,7 +55,7 @@
 	SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "inert"))
 	update_icon()
 
-/obj/item/organ/internal/regenerative_core/ui_action_click()
+/obj/item/organ/internal/regenerative_core/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(inert)
 		to_chat(owner, "<span class='notice'>[src] breaks down as it tries to activate.</span>")
 	else

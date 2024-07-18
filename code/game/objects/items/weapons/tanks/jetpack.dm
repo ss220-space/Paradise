@@ -58,7 +58,7 @@
 			air_contents.carbon_dioxide = ((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
 
-/obj/item/tank/jetpack/item_action_slot_check(slot, mob/user)
+/obj/item/tank/jetpack/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot & ITEM_SLOT_BACK)
 		return TRUE
 
@@ -75,7 +75,7 @@
 		turn_off(user)
 
 
-/obj/item/tank/jetpack/ui_action_click(mob/user, action, leftclick)
+/obj/item/tank/jetpack/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_jetpack))
 		cycle(user)
 	else if(istype(action, /datum/action/item_action/jetpack_stabilization))
@@ -258,7 +258,7 @@
 	return ..()
 
 
-/obj/item/tank/jetpack/suit/item_action_slot_check(slot, mob/user)
+/obj/item/tank/jetpack/suit/item_action_slot_check(slot, mob/user, datum/action/action)
 	return TRUE
 
 

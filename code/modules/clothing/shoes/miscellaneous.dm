@@ -464,12 +464,12 @@
 	var/datum/callback/last_jump = null
 
 
-/obj/item/clothing/shoes/bhop/item_action_slot_check(slot)
+/obj/item/clothing/shoes/bhop/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_FEET)
 		return TRUE
 
 
-/obj/item/clothing/shoes/bhop/ui_action_click(mob/user, action)
+/obj/item/clothing/shoes/bhop/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/jumper = user
@@ -519,7 +519,7 @@
 	var/enabled_waddle = TRUE
 	jumpdistance = 7//-1 from to see the actual distance, e.g 7 goes over 6 tiles
 
-/obj/item/clothing/shoes/bhop/clown/ui_action_click(mob/user, action)
+/obj/item/clothing/shoes/bhop/clown/ui_action_click(mob/user, datum/action/action, leftclick)
 	user.emote("flip")
 	. = ..()
 

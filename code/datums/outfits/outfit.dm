@@ -140,10 +140,10 @@
 	if(!H.head && toggle_helmet)
 		if(istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit))
 			var/obj/item/clothing/suit/space/hardsuit/hardsuit = H.wear_suit
-			hardsuit.ToggleHelmet(H)
+			hardsuit.ToggleHelmet()
 		else if(istype(H.wear_suit, /obj/item/clothing/suit/hooded))
 			var/obj/item/clothing/suit/hooded/S = H.wear_suit
-			S.ToggleHood(H)
+			S.ToggleHood()
 
 	H.regenerate_icons()
 	return TRUE

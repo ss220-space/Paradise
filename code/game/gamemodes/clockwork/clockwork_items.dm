@@ -693,7 +693,7 @@
 	if(enchant_type)
 		. += "clockwork_robe_overlay_[enchant_type]"
 
-/obj/item/clothing/suit/hooded/clockrobe/ui_action_click(mob/user, action)
+/obj/item/clothing/suit/hooded/clockrobe/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/activate/enchant))
 		if(!iscarbon(user))
 			return
@@ -719,7 +719,7 @@
 			to_chat(carbon, "<span class='danger'>Robe tightens, as it frees you to be flexible around!</span>")
 			add_attack_logs(user, user, "speed boosted with [src]", ATKLOG_ALL)
 	else
-		ToggleHood(user)
+		ToggleHood()
 
 /obj/item/clothing/suit/hooded/clockrobe/proc/uncloak(mob/user)
 	animate(user, alpha = 255, time = 1 SECONDS)

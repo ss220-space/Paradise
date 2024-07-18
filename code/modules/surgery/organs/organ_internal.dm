@@ -116,8 +116,8 @@
     insert(target)
 
 
-/obj/item/organ/internal/item_action_slot_check(slot, mob/user)
-	return
+/obj/item/organ/internal/item_action_slot_check(slot, mob/user, datum/action/action)
+	return FALSE
 
 
 /obj/item/organ/internal/proc/on_find(mob/living/finder)

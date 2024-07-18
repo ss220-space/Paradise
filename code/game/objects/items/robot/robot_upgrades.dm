@@ -573,7 +573,7 @@
 	return ..()
 
 
-/obj/item/borg/upgrade/selfrepair/ui_action_click()
+/obj/item/borg/upgrade/selfrepair/ui_action_click(mob/user, datum/action/action, leftclick)
 	on = !on
 	if(on)
 		to_chat(cyborg, span_notice("You activate the self-repair module."))

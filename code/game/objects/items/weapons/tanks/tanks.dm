@@ -41,7 +41,7 @@
 /obj/item/tank/proc/populate_gas()
 	return
 
-/obj/item/tank/ui_action_click(mob/user)
+/obj/item/tank/ui_action_click(mob/user, datum/action/action, leftclick)
 	toggle_internals(user)
 
 

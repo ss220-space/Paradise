@@ -422,7 +422,7 @@
 	can_toggle = FALSE
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
-/obj/item/clothing/mask/gas/sechailer/ui_action_click(mob/user, action)
+/obj/item/clothing/mask/gas/sechailer/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/halt))
 		halt()
 	else if(istype(action, /datum/action/item_action/adjust))

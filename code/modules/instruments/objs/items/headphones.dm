@@ -50,7 +50,7 @@
 	update_equipped_item(update_speedmods = FALSE)
 
 
-/obj/item/clothing/ears/headphones/item_action_slot_check(slot)
+/obj/item/clothing/ears/headphones/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot & ITEM_SLOT_EARS)
 		return TRUE
 

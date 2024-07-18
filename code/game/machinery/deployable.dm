@@ -207,7 +207,7 @@
 				new /obj/structure/barricade/security(target_turf2)
 	qdel(src)
 
-/obj/item/grenade/barrier/ui_action_click(mob/user)
+/obj/item/grenade/barrier/ui_action_click(mob/user, datum/action/action, leftclick)
 	toggle_mode(user)
 
 

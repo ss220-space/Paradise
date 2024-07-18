@@ -252,7 +252,7 @@
 /obj/item/clothing/head/fedora/attack_self(mob/user)
 	tip_fedora(user)
 
-/obj/item/clothing/head/fedora/item_action_slot_check(slot)
+/obj/item/clothing/head/fedora/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_HEAD)
 		return TRUE
 

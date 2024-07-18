@@ -172,7 +172,7 @@
 		)
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 
-/obj/item/clothing/glasses/science/item_action_slot_check(slot)
+/obj/item/clothing/glasses/science/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_EYES)
 		return TRUE
 
@@ -413,7 +413,7 @@
 /obj/item/clothing/glasses/sunglasses/noir/attack_self(mob/user)
 	toggle_noir(user)
 
-/obj/item/clothing/glasses/sunglasses/noir/item_action_slot_check(slot)
+/obj/item/clothing/glasses/sunglasses/noir/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_EYES)
 		return TRUE
 

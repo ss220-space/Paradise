@@ -219,7 +219,7 @@
 	return
 
 
-/obj/item/clothing/shoes/magboots/vox/item_action_slot_check(slot)
+/obj/item/clothing/shoes/magboots/vox/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_FEET)
 		return TRUE
 

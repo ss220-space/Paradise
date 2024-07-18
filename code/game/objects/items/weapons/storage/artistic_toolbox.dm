@@ -21,7 +21,7 @@
 	var/mob/living/carbon/human/original_owner = null
 	var/activated = FALSE
 
-/obj/item/storage/toolbox/green/memetic/ui_action_click(mob/user)
+/obj/item/storage/toolbox/green/memetic/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(user.HasDisease(/datum/disease/memetic_madness))
 		var/obj/item/storage/toolbox/green/memetic/M = user.get_active_hand()
 		if(istype(M))
