@@ -44,6 +44,8 @@
 	var/emagged = 0
 	/// The ID card that the bot "holds".
 	var/obj/item/card/id/access_card
+	/// All access ID holder
+	var/static/obj/item/card/id/all_access
 	var/list/prev_access = list()
 	var/on = TRUE
 	/// Maint panel
@@ -655,7 +657,10 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 	//For giving the bot temporary all-access. This method is bad and makes me feel bad. Refactoring access to a component is for another PR.
 	//Easier then building the list ourselves. I'm sorry.
-	var/static/obj/item/card/id/captains_spare/all_access = new
+	if(!all_access)
+		all_access = new /obj/item/card/id
+		all_access.access = get_all_accesses()
+
 	set_path(get_path_to(src, waypoint, max_distance = 200, access = all_access.GetAccess()))
 	calling_ai = caller //Link the AI to the bot!
 	ai_waypoint = waypoint
@@ -664,7 +669,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		var/area/end_area = get_area(waypoint)
 		if(!on)
 			turn_on() //Saves the AI the hassle of having to activate a bot manually.
-		access_card = all_access //Give the bot all-access while under the AI's command.
+		access_card.access = all_access.GetAccess() //Give the bot all-access while under the AI's command.
 		if(client)
 			reset_access_timer_id = addtimer(CALLBACK(src, PROC_REF(bot_reset)), 60 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE) //if the bot is player controlled, they get the extra access for a limited time
 			to_chat(src, span_notice("[span_big("Priority waypoint set by [calling_ai] <b>[caller]</b>. Proceed to <b>[end_area.name]</b>.")]<br>[path.len-1] meters to destination. You have been granted additional door access for 60 seconds."))

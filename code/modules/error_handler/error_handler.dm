@@ -25,7 +25,7 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 	var/static/list/error_cooldown = list() /* Error_cooldown items will either be positive(cooldown time) or negative(silenced error)
 												If negative, starts at -1, and goes down by 1 each time that error gets skipped*/
 
-	if(!error_last_seen) // A runtime is occurring too early in start-up initialization
+	if(!stack_workaround) // A runtime is occurring too early in start-up initialization
 		return ..()
 
 	if(stack_workaround.Find(E.name))
@@ -80,7 +80,7 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 			error_cooldown[erroruid] = 0
 			if(skipcount > 0)
 				log_world("\[[time_stamp()]] Skipped [skipcount] runtimes in [E.file],[E.line].")
-				GLOB.error_cache.logError(E, skipCount = skipcount)
+				GLOB.error_cache.log_error(E, skip_count = skipcount)
 
 	error_last_seen[erroruid] = world.time
 	error_cooldown[erroruid] = cooldown
@@ -138,7 +138,7 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 		log_world(line)
 		log_runtime_txt(line)
 	if(GLOB.error_cache)
-		GLOB.error_cache.logError(E, desclines, e_src = e_src)
+		GLOB.error_cache.log_error(E, desclines, e_src = e_src)
 
 #undef ERROR_USEFUL_LEN
 #endif
