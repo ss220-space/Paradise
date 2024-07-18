@@ -28,7 +28,7 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 	if(!error_last_seen) // A runtime is occurring too early in start-up initialization
 		return ..()
 
-	if(stack_workaround.Find(E.name))
+	if(stack_workaround?.Find(E.name))
 		var/list/data = json_decode(stack_workaround.group[1])
 		E.file = data[1]
 		E.line = data[2]
