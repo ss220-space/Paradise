@@ -805,7 +805,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 
 /datum/theft_objective/collect/number/baton
 	id = "collect_num_baton"
-	typepath = /obj/item/melee/baton
+	typepath = /obj/item/melee/baton/security
 	name = "оглушающие дубинки"
 	min=4
 	max=8
@@ -854,7 +854,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 
 /datum/theft_objective/collect/number/telescopic
 	id = "collect_num_telescopic"
-	typepath = /obj/item/melee/classic_baton/telescopic
+	typepath = /obj/item/melee/baton/telescopic
 	name = "телескопические дубинки"
 	min=3
 	max=6

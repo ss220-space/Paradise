@@ -508,7 +508,7 @@
 	Sa.add_overlay("hs_hole")
 	Sa.created_name = name
 	new /obj/item/assembly/prox_sensor(Tsec)
-	new /obj/item/melee/baton(Tsec)
+	new /obj/item/melee/baton/security(Tsec)
 	if(prob(50))
 		drop_part(robot_arm, Tsec)
 	do_sparks(3, TRUE, src)

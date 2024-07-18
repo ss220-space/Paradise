@@ -516,6 +516,8 @@
 
 
 /mob/living/simple_animal/bot/proc/disable(time)
+	if(!time)
+		return
 	if(disabling_timer_id)
 		deltimer(disabling_timer_id) // if we already have disabling timer, lets replace it with new one
 	if(on)

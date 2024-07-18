@@ -2929,7 +2929,7 @@
 "kO" = (
 /obj/item/clothing/head/helmet,
 /obj/item/clothing/suit/armor/vest,
-/obj/item/melee/classic_baton,
+/obj/item/melee/baton,
 /obj/item/clothing/gloves/combat,
 /obj/machinery/camera/autoname{
 	dir = 1;
@@ -5107,7 +5107,7 @@
 "st" = (
 /obj/item/clothing/head/helmet,
 /obj/item/clothing/suit/armor/vest,
-/obj/item/melee/classic_baton,
+/obj/item/melee/baton,
 /obj/item/clothing/gloves/combat,
 /obj/structure/closet/secure_closet{
 	color = "#ff9999";
@@ -9668,7 +9668,7 @@
 "HT" = (
 /obj/item/clothing/head/helmet,
 /obj/item/clothing/suit/armor/vest,
-/obj/item/melee/classic_baton,
+/obj/item/melee/baton,
 /obj/item/clothing/gloves/combat,
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -12686,7 +12686,7 @@
 "Sp" = (
 /obj/item/clothing/head/helmet,
 /obj/item/clothing/suit/armor/vest,
-/obj/item/melee/classic_baton,
+/obj/item/melee/baton,
 /obj/item/clothing/gloves/combat,
 /obj/machinery/camera/autoname{
 	dir = 1;
@@ -13893,7 +13893,7 @@
 "WM" = (
 /obj/item/clothing/head/helmet,
 /obj/item/clothing/suit/armor/vest,
-/obj/item/melee/classic_baton,
+/obj/item/melee/baton,
 /obj/item/clothing/gloves/combat,
 /obj/item/gun/projectile/automatic/rusted/ppsh,
 /obj/structure/closet/secure_closet{
