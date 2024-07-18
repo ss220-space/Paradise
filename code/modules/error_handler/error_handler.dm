@@ -6,6 +6,8 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 #define ERROR_USEFUL_LEN 2
 
 /world/Error(exception/E, datum/e_src)
+	GLOB.total_runtimes++
+
 	if(!istype(E)) // Something threw an unusual exception
 		log_world("\[[time_stamp()]] Uncaught exception: [E]")
 		return ..()
@@ -23,10 +25,8 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 	var/static/list/error_cooldown = list() /* Error_cooldown items will either be positive(cooldown time) or negative(silenced error)
 												If negative, starts at -1, and goes down by 1 each time that error gets skipped*/
 
-	if(!error_last_seen) // A runtime is occurring too early in start-up initialization
+	if(!stack_workaround) // A runtime is occurring too early in start-up initialization
 		return ..()
-
-	GLOB.total_runtimes++
 
 	if(stack_workaround.Find(E.name))
 		var/list/data = json_decode(stack_workaround.group[1])
