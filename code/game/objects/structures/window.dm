@@ -192,10 +192,10 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return COMPONENT_ATOM_BLOCK_EXIT
 
 
-/obj/structure/window/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+/obj/structure/window/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	if(!density)
 		return TRUE
-	if((dir == FULLTILE_WINDOW_DIR) || (dir == to_dir) || fulltile)
+	if(fulltile || (dir == FULLTILE_WINDOW_DIR) || (dir == to_dir))
 		return FALSE
 	return TRUE
 

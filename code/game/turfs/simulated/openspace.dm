@@ -223,7 +223,9 @@
 
 // Every new proc that should be edited or added here. Also needs to be copied into /turf/space/openspace. I'm not sorry.
 
-/turf/simulated/openspace/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
-	if(caller && !caller.can_z_move(DOWN, get_turf(src), null, ZMOVE_FALL_FLAGS)) //If we can't fall (flying/lattice), it's fine to path through
+/turf/simulated/openspace/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	var/atom/movable/our_movable = pass_info.caller_ref.resolve()
+	if(our_movable && !our_movable.can_z_move(DOWN, src, null, ZMOVE_FALL_FLAGS)) //If we can't fall here (flying/lattice), it's fine to path through
 		return TRUE
 	return FALSE
+

@@ -13,6 +13,7 @@
 	idle_power_usage = 50		//when inactive, this turret takes up constant 50 Equipment power
 	active_power_usage = 300	//when active, this turret takes up constant 300 Equipment power
 	power_channel = EQUIP	//drains power from the EQUIPMENT channel
+	can_astar_pass = CANASTARPASS_ALWAYS_PROC
 	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 0, rad = 0, fire = 90, acid = 90)
 
 	req_access = list(ACCESS_SECURITY, ACCESS_HEADS)
@@ -152,6 +153,10 @@
 		if(/obj/item/gun/energy/pulse/turret)
 			eprojectile = /obj/item/projectile/beam/pulse
 			eshot_sound = 'sound/weapons/pulse.ogg'
+
+
+/obj/machinery/porta_turret/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	return (stat & BROKEN) || !pass_info.is_living
 
 
 GLOBAL_LIST_EMPTY(turret_icons)
@@ -1038,9 +1043,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	. = ..()
 	if(istype(depotarea))
 		depotarea.turret_died()
-
-/obj/machinery/porta_turret/syndicate/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
-	return ((stat & BROKEN) || !isliving(caller))
 
 /obj/machinery/porta_turret/syndicate/shootAt(mob/living/target)
 	if(istype(depotarea))
