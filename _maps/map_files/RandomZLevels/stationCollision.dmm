@@ -2652,7 +2652,7 @@
 /area/awaymission/arrivalblock)
 "gX" = (
 /obj/structure/table,
-/obj/item/melee/baton,
+/obj/item/melee/baton/security,
 /obj/item/clothing/head/warden,
 /turf/simulated/floor/plasteel{
 	icon_state = "red";

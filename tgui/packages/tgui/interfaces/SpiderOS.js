@@ -65,7 +65,7 @@ export const SpiderOS = (properties, context) => {
     );
   }
   return (
-    <Window width={700} height={700} theme="spider_clan">
+    <Window width={800} height={630} theme="spider_clan">
       <Window.Content>
         <Flex direction="row" spacing={1}>
           {body}
@@ -234,7 +234,7 @@ const SuitTuning = (properties, context) => {
             <LabeledList.Item label="Шарф/Капюшон">
               <Button
                 className={suit_state === 0 ? '' : 'Button_disabled'}
-                width="78px"
+                width="90px"
                 selected={preferred_scarf_over_hood}
                 disabled={suit_state}
                 textAlign="left"
@@ -258,7 +258,7 @@ const SuitTuning = (properties, context) => {
             <LabeledList.Item label="Заряд костюма">
               <Button
                 selected={show_charge_UI}
-                width="78px"
+                width="90px"
                 textAlign="left"
                 content={show_charge_UI ? 'Показать' : 'Скрыть'}
                 onClick={() => act('toggle_ui_charge')}

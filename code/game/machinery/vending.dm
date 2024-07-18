@@ -3071,7 +3071,7 @@
 		/obj/item/gun/projectile/automatic/wt550 = 3,
 		/obj/item/ammo_box/magazine/wt550m9 = 6,
 		/obj/item/gun/energy/dominator/sibyl = 2,
-		/obj/item/melee/classic_baton/telescopic = 4
+		/obj/item/melee/baton/telescopic = 4
 	)
 	contraband = list(/obj/item/storage/fancy/donut_box = 2)
 	refill_canister = /obj/item/vending_refill/nta

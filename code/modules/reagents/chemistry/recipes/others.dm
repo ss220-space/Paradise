@@ -102,7 +102,7 @@
 	result_amount = 1
 
 /datum/chemical_reaction/plastic_polymers/on_reaction(datum/reagents/holder, created_volume)
-	new /obj/item/stack/sheet/plastic(get_turf(holder.my_atom), 10)
+	new /obj/item/stack/sheet/plastic(get_turf(holder.my_atom), created_volume * 10)
 
 /datum/chemical_reaction/lube
 	name = "Space Lube"

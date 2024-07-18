@@ -212,11 +212,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		else
 			new path(src)
 
-	if(!hitsound)
-		if(damtype == "fire")
-			hitsound = 'sound/items/welder.ogg'
-		if(damtype == "brute")
-			hitsound = "swing_hit"
 	if(!move_resist)
 		determine_move_resist()
 
@@ -225,6 +220,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	. = ..()
 	if(isstorage(loc)) //marks all items in storage as being such
 		item_flags |= IN_STORAGE
+	if(!hitsound)
+		if(damtype == "fire")
+			hitsound = 'sound/items/welder.ogg'
+		if(damtype == "brute")
+			hitsound = "swing_hit"
 
 
 /obj/item/proc/determine_move_resist()
@@ -269,7 +269,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return TRUE
 
 /obj/item/blob_act(obj/structure/blob/B)
-	if(B && B.loc == loc)
+	if(B && B.loc == loc && !QDELETED(src))
 		qdel(src)
 
 

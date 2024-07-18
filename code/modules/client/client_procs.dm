@@ -304,11 +304,7 @@
 		INVOKE_ASYNC(src, PROC_REF(admin_memo_output), "Show", FALSE, TRUE)
 
 	// Forcibly enable hardware-accelerated graphics, as we need them for the lighting overlays.
-	// (but turn them off first, since sometimes BYOND doesn't turn them on properly otherwise)
-	spawn(5) // And wait a half-second, since it sounds like you can do this too fast.
-		if(src)
-			winset(src, null, "command=\".configure graphics-hwmode off\"")
-			winset(src, null, "command=\".configure graphics-hwmode on\"")
+	winset(src, null, "command=\".configure graphics-hwmode on\"")
 
 	// Try doing this before mob login
 	generate_clickcatcher()
@@ -411,16 +407,20 @@
 	if(holder)
 		holder.owner = null
 		GLOB.admins -= src
+
 	GLOB.directory -= ckey
 	GLOB.clients -= src
 	if(movingmob)
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
-	SSambience.ambience_listening_clients -= src
+	SSambience.remove_ambience_client(src)
 	SSinput.processing -= src
 	SSping.currentrun -= src
-	Master.UpdateTickRate()
+	QDEL_LIST(parallax_layers_cached)
+	QDEL_NULL(void)
+	parallax_layers = null
 	seen_messages = null
+	Master.UpdateTickRate()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
 

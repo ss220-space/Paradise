@@ -389,13 +389,13 @@
 	return 0
 
 
-/mob/living/simple_animal/hostile/proc/Goto(target, delay, minimum_distance)
+/mob/living/simple_animal/hostile/proc/Goto(target, delay, minimum_distance, timeout)
 	if(target == src.target)
 		approaching_target = TRUE
 	else
 		approaching_target = FALSE
 	var/glide_flag = delay > END_GLIDE_SPEED ? MOVEMENT_LOOP_IGNORE_GLIDE : NONE
-	SSmove_manager.move_to(src, target, minimum_distance, delay, flags = glide_flag)
+	return SSmove_manager.move_to(src, target, minimum_distance, delay, timeout, flags = glide_flag)
 
 
 /mob/living/simple_animal/hostile/adjustHealth(damage, updating_health = TRUE)

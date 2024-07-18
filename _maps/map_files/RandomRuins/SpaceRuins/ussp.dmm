@@ -655,7 +655,7 @@
 /area/derelict/security)
 "bG" = (
 /obj/structure/rack,
-/obj/item/melee/classic_baton{
+/obj/item/melee/baton{
 	desc = "A wooden truncheon for beating capitalist scum."
 	},
 /obj/effect/decal/cleanable/dirt,

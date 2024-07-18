@@ -340,7 +340,8 @@
 ///called when the movable is added to a disposal holder object for disposal movement: (obj/structure/disposalholder/holder, obj/machinery/disposal/source)
 #define COMSIG_MOVABLE_DISPOSING "movable_disposing"
 ///called when the movable is removed from a disposal holder object: /obj/structure/disposalpipe/proc/expel(): (obj/structure/disposalholder/H, turf/T, direction)
-#define COMSIG_MOVABLE_EXIT_DISPOSALS "movable_exit_disposals"
+// called when movable is expelled from a disposal pipe, bin or outlet on obj/pipe_eject: (direction)
+#define COMSIG_MOVABLE_PIPE_EJECTING "movable_pipe_ejecting"
 ///From base of /datum/move_loop/process() after attempting to move a movable: (datum/move_loop/loop, old_dir)
 #define COMSIG_MOVABLE_MOVED_FROM_LOOP "movable_moved_from_loop"
 ///called when the movable's glide size is updated: (new_glide_size)
@@ -628,6 +629,8 @@
 #define COMSIG_CARBON_EMBED_RIP "item_embed_start_rip"
 ///called when removing a given item from a mob, from mob/living/carbon/remove_embedded_object(mob/living/carbon/target, /obj/item)
 #define COMSIG_CARBON_EMBED_REMOVAL "item_embed_remove_safe"
+// called when carbon receiving a /obj/item/organ/external/proc/fracture
+#define COMSIG_CARBON_RECEIVE_FRACTURE "carbon_receive_fracture"
 ///called when something thrown hits a mob, from /mob/living/carbon/human/hitby(mob/living/carbon/target, /obj/item)
 #define COMSIG_CARBON_HITBY "carbon_hitby"
 /// From /mob/living/carbon/human/hitby()
@@ -1132,4 +1135,15 @@
 #define COMSIG_MOVELOOP_POSTPROCESS "moveloop_postprocess"
 //from [/datum/move_loop/has_target/jps/recalculate_path] ():
 #define COMSIG_MOVELOOP_JPS_REPATH "moveloop_jps_repath"
+
+
+// /datum/component/transforming signals
+/// From /datum/component/transforming/proc/on_attack_self(obj/item/source, mob/user): (obj/item/source, mob/user, active)
+#define COMSIG_TRANSFORMING_PRE_TRANSFORM "transforming_pre_transform"
+	/// Return COMPONENT_BLOCK_TRANSFORM to prevent the item from transforming.
+	#define COMPONENT_BLOCK_TRANSFORM (1<<0)
+/// From /datum/component/transforming/proc/do_transform(obj/item/source, mob/user): (obj/item/source, mob/user, active)
+#define COMSIG_TRANSFORMING_ON_TRANSFORM "transforming_on_transform"
+	/// Return COMPONENT_NO_DEFAULT_MESSAGE to prevent the transforming component from displaying the default transform message / sound.
+	#define COMPONENT_NO_DEFAULT_MESSAGE (1<<0)
 

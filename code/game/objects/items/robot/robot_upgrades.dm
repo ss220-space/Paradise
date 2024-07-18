@@ -518,7 +518,7 @@
 	if(!..())
 		return FALSE
 
-	robot.weather_immunities += "lava"	// not |= in case we have other sources
+	ADD_TRAIT(robot, TRAIT_LAVA_IMMUNE, ROBOT_TRAIT)
 	return TRUE
 
 
@@ -526,7 +526,7 @@
 	if(!..())
 		return FALSE
 
-	robot.weather_immunities -= "lava"
+	REMOVE_TRAIT(robot, TRAIT_LAVA_IMMUNE, ROBOT_TRAIT)
 	return TRUE
 
 

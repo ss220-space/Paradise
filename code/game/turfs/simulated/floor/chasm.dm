@@ -44,10 +44,6 @@
 	chasm_component.drop(AM)
 
 
-/turf/simulated/floor/chasm/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
-	return ((caller.movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || ismegafauna(caller))
-
-
 /turf/simulated/floor/chasm/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/floors.dmi'
 	underlay_appearance.icon_state = "basalt"

@@ -17,7 +17,7 @@
 	area_type = /area/space // read generate_area_list() as well below
 	protected_areas = list()
 	target_trait = STATION_LEVEL
-	immunity_type = "burn"
+	immunity_type = TRAIT_SOLARFLARE_IMMUNE
 
 /datum/weather/solar_flare/generate_area_list()
 	..()
@@ -35,10 +35,10 @@
 	// Solars produce 40x as much power. 240KW becomes 9.6MW. Enough to cause APCs to arc all over the station if >=2 solars are hotwired.
 	SSsun.solar_gen_rate = initial(SSsun.solar_gen_rate) * 40
 
-/datum/weather/solar_flare/weather_act(mob/living/L)
-	L.adjustFireLoss(1)
+/datum/weather/solar_flare/weather_act(mob/living/target)
+	target.adjustFireLoss(1)
 	if(prob(10))
-		to_chat(L, "<span class='warning'Солнечная вспышка сжигает вас! Ищите укрытие!</span>")
+		to_chat(target, span_warning("Солнечная вспышка сжигает вас! Ищите укрытие!"))
 
 /datum/weather/solar_flare/end()
 	if(..())

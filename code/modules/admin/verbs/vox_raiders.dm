@@ -12,7 +12,7 @@ GLOBAL_VAR_INIT(vox_raiders_radio_freq, PUBLIC_LOW_FREQ + rand(0, 8) * 2) //Rand
 	equip_to_slot_or_del(new /obj/item/storage/belt/utility/full(src), ITEM_SLOT_BELT)
 	equip_to_slot_or_del(new /obj/item/storage/backpack/alien/satchel(src), ITEM_SLOT_BACK)
 	equip_to_slot_or_del(new /obj/item/flashlight(src), ITEM_SLOT_POCKET_RIGHT)
-	equip_to_slot_or_del(new /obj/item/melee/classic_baton/telescopic(src), ITEM_SLOT_POCKET_LEFT)
+	equip_to_slot_or_del(new /obj/item/melee/baton/telescopic(src), ITEM_SLOT_POCKET_LEFT)
 	equip_to_slot_or_del(new /obj/item/tank/internals/nitrogen(src), ITEM_SLOT_BACKPACK)
 	equip_to_slot_or_del(new /obj/item/clothing/mask/breath/vox(src), ITEM_SLOT_BACKPACK)
 	equip_to_slot_or_del(new /obj/item/restraints/handcuffs/cable/zipties(src), ITEM_SLOT_BACKPACK)

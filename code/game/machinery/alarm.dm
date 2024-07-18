@@ -842,7 +842,7 @@
 
 	switch(action)
 		if("set_rcon")
-			var/attempted_rcon_setting = text2num(params["rcon"])
+			var/attempted_rcon_setting = params["rcon"]
 			switch(attempted_rcon_setting)
 				if(RCON_NO)
 					rcon_setting = RCON_NO
@@ -871,8 +871,8 @@
 					"scrubbing",
 					"direction")
 					var/val
-					if(params["val"])
-						val=text2num(params["val"])
+					if(!isnull(params["val"]))
+						val=params["val"]
 					else
 						var/newval = input("Enter new value") as num|null
 						if(isnull(newval))
@@ -924,7 +924,7 @@
 			if(!is_authenticated(usr, active_ui))
 				return
 
-			mode = text2num(params["mode"])
+			mode = params["mode"]
 			apply_mode()
 
 
@@ -932,7 +932,7 @@
 			if(!is_authenticated(usr, active_ui))
 				return
 
-			preset = text2num(params["preset"])
+			preset = params["preset"]
 			apply_preset()
 
 
