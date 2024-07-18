@@ -222,7 +222,7 @@
 	materials = list(MAT_METAL = 4000)
 	casing_drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
 	caliber = ".12"
-	projectile_type = /obj/item/projectile/bullet
+	projectile_type = /obj/item/projectile/bullet/slug
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
