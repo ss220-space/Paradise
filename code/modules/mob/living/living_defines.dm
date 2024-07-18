@@ -11,6 +11,7 @@
 	var/maxHealth = 100 //Maximum health that should be possible.
 	var/health = 100 	//A mob's health
 
+	var/datum/middleClickOverride/middleClickOverride
 
 	//Damage related vars, NOTE: THESE SHOULD ONLY BE MODIFIED BY PROCS
 	var/bruteloss = 0	//Brutal damage caused by brute force (punching, being clubbed by a toolbox ect... this also accounts for pressure damage)
@@ -57,7 +58,8 @@
 
 	var/list/butcher_results = null
 
-	var/list/weather_immunities = list()
+	/// List of weather immunity traits that are then added on Initialize(), see traits.dm.
+	var/list/weather_immunities
 
 	var/list/surgeries = list()	//a list of surgery datums. generally empty, they're added when the player wants them.
 
@@ -128,4 +130,15 @@
 
 	/// Hand currently used for pulling/grabing
 	var/pull_hand = PULL_WITHOUT_HANDS
+
+	//Did the blob infected mob burst.
+	var/was_bursted = FALSE
+	//Was death by turning to dust.
+	var/dusted = FALSE
+
+	// True devil variables
+	/// Soullinks we are the owner of
+	var/list/ownedSoullinks
+	/// Soullinks we are a/the sharer of
+	var/list/sharedSoullinks
 

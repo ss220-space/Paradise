@@ -134,3 +134,6 @@
 #define SPELL_LEAP_TRAIT "spell_leap_trait"
 #define SPELL_LUNGE_TRAIT "spell_lunge_trait"
 
+// item trait sources
+#define BROODMOTHER_TONGUE_TRAIT "broodmother_tongue"
+

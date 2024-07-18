@@ -263,9 +263,7 @@
 /turf/simulated/floor/carpet,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "cD" = (
-/mob/living/simple_animal/hostile/winter/snowman{
-	weather_immunities = list("snow")
-	},
+/mob/living/simple_animal/hostile/winter/snowman,
 /obj/structure/decorative_structures/garland{
 	dir = 8
 	},
@@ -282,9 +280,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "cF" = (
-/mob/living/simple_animal/hostile/winter/snowman{
-	weather_immunities = list("snow")
-	},
+/mob/living/simple_animal/hostile/winter/snowman,
 /obj/effect/decal/snow/clean/edge{
 	dir = 1;
 	tag = "icon-snow_corner (NORTH)"
@@ -531,8 +527,7 @@
 /mob/living/simple_animal/pet/penguin/emperor{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
 	faction = list("hostile","syndicate","winter");
-	minbodytemp = 0;
-	weather_immunities = list("snow")
+	minbodytemp = 0
 	},
 /turf/simulated/floor/plating/ice/smooth,
 /area/vision_change_area/awaymission/evil_santa_storm)
@@ -808,11 +803,9 @@
 /area/vision_change_area/awaymission/evil_santa/hut_e)
 "gE" = (
 /obj/structure/flora/grass/brown,
-/mob/living/simple_animal/pet/dog/fox/forest{
+/mob/living/simple_animal/pet/dog/fox/forest/winter{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	faction = list("hostile","syndicate","winter");
-	minbodytemp = 0;
-	weather_immunities = list("snow")
+	faction = list("hostile","syndicate","winter")
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
@@ -1241,9 +1234,7 @@
 /turf/simulated/floor/wood/fancy,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "jD" = (
-/mob/living/simple_animal/hostile/winter/reindeer{
-	weather_immunities = list("snow")
-	},
+/mob/living/simple_animal/hostile/winter/reindeer,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
 	},
@@ -1897,9 +1888,7 @@
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "oW" = (
-/mob/living/simple_animal/hostile/winter/snowman{
-	weather_immunities = list("snow")
-	},
+/mob/living/simple_animal/hostile/winter/snowman,
 /obj/structure/decorative_structures/garland{
 	dir = 8
 	},
@@ -2117,9 +2106,7 @@
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_w)
 "qV" = (
-/mob/living/simple_animal/hostile/winter/snowman{
-	weather_immunities = list("snow")
-	},
+/mob/living/simple_animal/hostile/winter/snowman,
 /obj/structure/decorative_structures/garland{
 	dir = 4
 	},
@@ -2470,9 +2457,7 @@
 /turf/simulated/floor/plating/ice,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "tP" = (
-/mob/living/simple_animal/hostile/winter/snowman{
-	weather_immunities = list("snow")
-	},
+/mob/living/simple_animal/hostile/winter/snowman,
 /obj/structure/decorative_structures/garland{
 	dir = 8
 	},
@@ -2504,8 +2489,7 @@
 /area/vision_change_area/awaymission/evil_santa/hut_e)
 "uo" = (
 /mob/living/simple_animal/hostile/bear/brown{
-	faction = list("hostile","syndicate","winter");
-	weather_immunities = list("snow")
+	faction = list("hostile","syndicate","winter")
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
@@ -2713,8 +2697,7 @@
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
 "wc" = (
 /mob/living/simple_animal/hostile/bear/polar{
-	faction = list("hostile","syndicate","winter");
-	weather_immunities = list("snow")
+	faction = list("hostile","syndicate","winter")
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
@@ -3292,9 +3275,7 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/mine)
 "Bk" = (
-/mob/living/simple_animal/hostile/winter/snowman{
-	weather_immunities = list("snow")
-	},
+/mob/living/simple_animal/hostile/winter/snowman,
 /obj/structure/decorative_structures/garland{
 	dir = 1
 	},
@@ -3307,9 +3288,7 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
 "Bl" = (
-/mob/living/simple_animal/hostile/winter/snowman{
-	weather_immunities = list("snow")
-	},
+/mob/living/simple_animal/hostile/winter/snowman,
 /obj/effect/decal/snow/clean/edge{
 	dir = 8
 	},
@@ -3449,11 +3428,9 @@
 /turf/simulated/floor/wood/fancy,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "CH" = (
-/mob/living/simple_animal/pet/dog/fox/forest{
+/mob/living/simple_animal/pet/dog/fox/forest/winter{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	faction = list("hostile","syndicate","winter");
-	minbodytemp = 0;
-	weather_immunities = list("snow")
+	faction = list("hostile","syndicate","winter")
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
@@ -4245,9 +4222,7 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
 "JY" = (
-/mob/living/simple_animal/hostile/winter/snowman{
-	weather_immunities = list("snow")
-	},
+/mob/living/simple_animal/hostile/winter/snowman,
 /obj/structure/decorative_structures/garland{
 	dir = 1
 	},
@@ -4294,8 +4269,7 @@
 "Kq" = (
 /mob/living/simple_animal/hostile/bear/brown{
 	faction = list("hostile","syndicate","winter");
-	name = "space daebear";
-	weather_immunities = list("snow")
+	name = "space daebear"
 	},
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
@@ -4516,9 +4490,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "Mp" = (
-/mob/living/simple_animal/hostile/winter/snowman{
-	weather_immunities = list("snow")
-	},
+/mob/living/simple_animal/hostile/winter/snowman,
 /obj/structure/decorative_structures/garland{
 	dir = 8
 	},
@@ -4561,8 +4533,7 @@
 "MD" = (
 /mob/living/simple_animal/pet/penguin/baby{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	minbodytemp = 0;
-	weather_immunities = list("snow")
+	minbodytemp = 0
 	},
 /turf/simulated/floor/plating/ice/smooth,
 /area/vision_change_area/awaymission/evil_santa_storm)
@@ -4902,9 +4873,7 @@
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
 "Pn" = (
-/mob/living/simple_animal/hostile/winter/snowman{
-	weather_immunities = list("snow")
-	},
+/mob/living/simple_animal/hostile/winter/snowman,
 /obj/structure/decorative_structures/garland{
 	dir = 1
 	},
@@ -5294,8 +5263,7 @@
 "Sx" = (
 /mob/living/simple_animal/pet/penguin/eldrich{
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0);
-	minbodytemp = 0;
-	weather_immunities = list("snow")
+	minbodytemp = 0
 	},
 /turf/simulated/floor/plating/ice/smooth,
 /area/vision_change_area/awaymission/evil_santa_storm)
@@ -5323,9 +5291,7 @@
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_r)
 "SM" = (
-/mob/living/simple_animal/hostile/winter/snowman{
-	weather_immunities = list("snow")
-	},
+/mob/living/simple_animal/hostile/winter/snowman,
 /turf/simulated/floor/plating/ice,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "SQ" = (

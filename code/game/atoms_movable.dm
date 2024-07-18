@@ -160,6 +160,8 @@
 	if(opacity)
 		RemoveElement(/datum/element/light_blocking)
 
+	invisibility = INVISIBILITY_ABSTRACT
+
 	if(pulledby)
 		pulledby.stop_pulling()
 	if(pulling)
@@ -850,6 +852,7 @@
 				destination.Entered(src, oldloc)
 				if(destarea && old_area != destarea)
 					destarea.Entered(src, old_area)
+
 
 		. = TRUE
 

@@ -550,6 +550,20 @@
 		. += "<a href='?src=[UID()];eventmisc=eventmisc'>Event Role</a>|<b>NO</b>"
 
 
+/datum/mind/proc/memory_edit_blob()
+	. = _memory_edit_header("blob")
+	if(isblobinfected(src))
+		. += "|<b><font color='red'>BLOB</font></b>|<a href='?src=[UID()];blob=clear'>deblobize</a>"
+		. += "|<a href='?src=[UID()];blob=burst'>burst blob</a>"
+	else if(isblobovermind(src))
+		var/mob/camera/blob/blob_overmind = current
+		. += "|<b><font color='red'>BLOB Overmind</font></b>|"
+		. += "<br/><b>Total points: <a href='?src=[UID()];blob=set_points'>[blob_overmind.blob_points]</a>/[blob_overmind.max_blob_points]</b>"
+	else if(current.can_be_blob())
+		. += "<a href='?src=[UID()];blob=blob'>blobize</a>|<b>NO</b>"
+	. += _memory_edit_role_enabled(ROLE_BLOB)
+
+
 /datum/mind/proc/memory_edit_traitor()
 	. = _memory_edit_header("traitor", list("traitorchan", "traitorvamp", "traitorthief"))
 	var/datum/antagonist/traitor/traitor_datum = has_antag_datum(/datum/antagonist/traitor)
@@ -713,6 +727,7 @@
 		"ninja",
 		"thief",		//	"traitorthief", "traitorthiefvamp", "traitorthiefchan",
 		"malf_ai",
+		"blob"
 	)
 	var/mob/living/carbon/human/H = current
 	if(ishuman(current))
@@ -753,6 +768,9 @@
 		sections["space_dragon"] = memory_edit_space_dragon()
 
 	sections["eventmisc"] = memory_edit_eventmisc(H)
+
+	if((isliving(current) && current.can_be_blob()) || isblobovermind(src))
+		sections["blob"] = memory_edit_blob(current)
 
 	if(!issilicon(current))
 		/** CULT ***/
@@ -2477,6 +2495,53 @@
 				log_admin("[key_name(usr)] has unemagged [key_name(ai)]'s cyborgs")
 				message_admins("[key_name_admin(usr)] has unemagged [key_name_admin(ai)]'s cyborgs")
 
+	else if(href_list["blob"])
+		switch(href_list["blob"])
+			if("clear")
+				remove_antag_datum(/datum/antagonist/blob_infected)
+				log_and_message_admins("has removed special role \"Blob\" from [key_name_admin(current)]")
+				add_conversion_logs(current, "De-blobed")
+
+			if("blob")
+				var/burst_time = input(usr, "Введите время до вылупления","Time:", TIME_TO_BURST_ADDED_HIGHT) as num|null
+				var/need_new_blob = alert(usr,"Нужно ли выбирать блоба из экипажа в случае попытки вылупления за пределами станции?", "", "Да", "Нет") == "Нет"
+				var/start_process = alert(usr,"Начинать отсчет до момента вылупления?", "", "Да", "Нет") == "Да"
+				if(isnull(burst_time) || QDELETED(current) || current.stat == DEAD)
+					return
+				var/datum/antagonist/blob_infected/blob_datum = new
+				blob_datum.need_new_blob = need_new_blob
+				blob_datum.start_process = start_process
+				blob_datum.time_to_burst_hight = burst_time
+				blob_datum.time_to_burst_low = burst_time
+				src.add_antag_datum(blob_datum)
+				log_admin("[key_name(usr)] has made [key_name(current)] into a \"Blob\"")
+				message_admins("[key_name_admin(usr)] has made [key_name_admin(current)] into a \"Blob\"")
+
+			if("burst")
+				var/warn_blob = alert(usr,"Предупреждать блоба при попытке вылупления за пределами станции?", "", "Да", "Нет") != "Да"
+				var/need_new_blob = alert(usr,"Нужно ли выбирать блоба из экипажа в случае попытки вылупления за пределами станции?", "", "Да", "Нет") == "Да"
+				if(alert(usr,"Вы действительно хотите лопнуть блоба? Это уничтожит персонажа игрока и превратит его в блоба.", "", "Да", "Нет") == "Да")
+					var/datum/antagonist/blob_infected/blob = has_antag_datum(/datum/antagonist/blob_infected)
+					if(!blob)
+						return
+					blob.warn_blob = warn_blob
+					blob.need_new_blob = need_new_blob
+					blob.burst_blob()
+					log_admin("[key_name(usr)] has bursted [key_name(current)]")
+					message_admins("[key_name_admin(usr)] has bursted [key_name_admin(current)]")
+
+			if("set_points")
+				if(!isblobovermind(src))
+					return
+				var/mob/camera/blob/blob_overmind = current
+				var/blob_points = input(usr, "Введите новое число очков в диапазоне от 0 до [blob_overmind.max_blob_points]","Count:", blob_overmind.blob_points) as num|null
+				if(isnull(blob_points) || QDELETED(current) || current.stat == DEAD)
+					return
+				blob_overmind.blob_points = clamp(blob_points, 0, blob_overmind.max_blob_points)
+				log_admin("[key_name(usr)] set blob points to [key_name(current)] as [blob_overmind.blob_points]")
+				message_admins("[key_name_admin(usr)] set blob points to [key_name_admin(current)] as [blob_overmind.blob_points]")
+
+
 	else if(href_list["common"])
 		switch(href_list["common"])
 			if("undress")
@@ -2869,11 +2934,6 @@
 
 		SSticker.mode.equip_syndicate(current)
 
-
-/datum/mind/proc/make_Overmind()
-	if(!(src in SSticker.mode.blob_overminds))
-		SSticker.mode.blob_overminds += src
-		special_role = SPECIAL_ROLE_BLOB_OVERMIND
 
 /datum/mind/proc/make_Wizard()
 	if(!(src in SSticker.mode.wizards))

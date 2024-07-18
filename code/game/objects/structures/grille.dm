@@ -145,10 +145,12 @@
 		return prob(30)
 
 
-/obj/structure/grille/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
-	. = !density
-	if(checkpass(caller, PASSGRILLE))
-		. = TRUE
+/obj/structure/grille/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(!density)
+		return TRUE
+	if(pass_info.pass_flags == PASSEVERYTHING || (pass_info.pass_flags & PASSGRILLE))
+		return TRUE
+	return FALSE
 
 
 /obj/structure/grille/attackby(obj/item/W, mob/user, params)

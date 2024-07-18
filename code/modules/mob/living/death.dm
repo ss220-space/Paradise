@@ -17,13 +17,15 @@
 //Originally created for wizard disintegrate. I've removed the virus code since it's irrelevant here.
 //Dusting robots does not eject the MMI, so it's a bit more powerful than gib() /N
 /mob/living/dust()
+	dusted = TRUE
 	if(!death(TRUE) && stat != DEAD)
+		dusted = FALSE
 		return FALSE
-	new /obj/effect/decal/cleanable/ash(loc)
 	// hide and freeze them while they get GC'd
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
+	dust_animation()
 	QDEL_IN(src, 0)
 	return TRUE
 
@@ -50,7 +52,7 @@
 
 	set_stat(DEAD)
 	..()
-
+	INVOKE_ASYNC(src, PROC_REF(burst_blob_on_die))
 	timeofdeath = world.time
 	add_attack_logs(src, src, "died[gibbed ? " (Gibbed)": ""]")
 
@@ -85,7 +87,6 @@
 	if(mind)
 		mind.store_memory("Time of death: [station_time_timestamp("hh:mm:ss", timeofdeath)]", 0)
 		GLOB.respawnable_list += src
-
 		if(mind.name && !isbrain(src)) // !isbrain() is to stop it from being called twice
 			var/turf/T = get_turf(src)
 			var/area_name = get_area_name(T)
