@@ -15,6 +15,9 @@
 	var/icon_gib = null	//We only try to show a gibbing animation if this exists.
 	var/flip_on_death = FALSE //Flip the sprite upside down on death. Mostly here for things lacking custom dead sprites.
 
+	/// Whether we can apply unconscious effects on this mob (Sleeping, Paralyse etc.)
+	var/allows_unconscious = FALSE
+
 	var/list/speak = list()
 	var/speak_chance = 0
 	var/list/emote_hear = list()	//Hearable emotes
@@ -121,6 +124,13 @@
 	var/my_z // I don't want to confuse this with client registered_z
 	///What kind of footstep this mob should have. Null if it shouldn't have any.
 	var/footstep_type
+
+	var/AIproc = 0 // determines if the AI loop is activated
+	var/Atkcool = 0 // attack cooldown
+	var/Tempstun = 0 // temporary temperature stuns
+	var/Discipline = 0 // if a slime has been hit with a freeze gun, or wrestled/attacked off a human, they become disciplined and don't attack anymore for a while
+	var/SStun = 0 // stun variable
+
 
 /mob/living/simple_animal/Initialize(mapload)
 	. = ..()
@@ -232,9 +242,11 @@
 	if(stat != DEAD)
 		if(health <= 0)
 			death()
+		else if(allows_unconscious && HAS_TRAIT(src, TRAIT_KNOCKEDOUT))
+			set_stat(UNCONSCIOUS)
 		else
 			set_stat(CONSCIOUS)
-	..()
+	return ..()
 
 
 /mob/living/simple_animal/proc/handle_automated_action()
