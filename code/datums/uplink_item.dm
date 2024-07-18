@@ -651,7 +651,7 @@
 
 /datum/uplink_item/racial/agent_belt
 	name = "Agent Belt"
-	desc = "A military full toolbelt used by abductor agents."
+	desc = "A military toolbelt used by abductor agents. Contains a full set of alien tools."
 	item = /obj/item/storage/belt/military/abductor/full
 	cost = 16
 	race = list(SPECIES_GREY)
