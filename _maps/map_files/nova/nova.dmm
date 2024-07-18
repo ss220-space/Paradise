@@ -17881,18 +17881,12 @@
 	},
 /area/hallway/primary/command)
 "cFL" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+/obj/structure/disposalpipe/trunk/multiz{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/apmaint)
+/area/maintenance/disposal)
 "cFP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -29544,6 +29538,14 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/miningstorage)
+"etR" = (
+/obj/effect/landmark/tiles/damageturf,
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "euh" = (
 /obj/structure/table/wood/fancy/royalblack,
 /obj/item/clothing/under/syndicate/tacticool,
@@ -57853,12 +57855,18 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/maintenance/banya)
 "iKz" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/disposalpipe/trunk/multiz{
-	dir = 1
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/disposal)
+/area/maintenance/apmaint)
 "iKF" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/power/apc{
@@ -63074,7 +63082,6 @@
 /area/space)
 "jBZ" = (
 /obj/structure/statue/dude{
-	desc = s;
 	name = "Crate"
 	},
 /turf/simulated/floor/grass,
@@ -97083,11 +97090,9 @@
 	},
 /area/medical/virology/lab)
 "oSw" = (
-/obj/effect/landmark/tiles/damageturf,
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/trunk/multiz/down,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "oSy" = (
@@ -113469,7 +113474,6 @@
 /area/bridge)
 "rqQ" = (
 /obj/structure/statue/dude{
-	desc = s;
 	name = "Hippo"
 	},
 /turf/simulated/floor/grass,
@@ -155264,11 +155268,11 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/theatre)
 "xJT" = (
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/disposalpipe/trunk/multiz/down,
-/turf/simulated/floor/plating,
-/area/maintenance/apmaint)
+/obj/structure/statue/dude{
+	name = "Crate"
+	},
+/turf/simulated/wall/r_wall,
+/area/medical/cmostore)
 "xJZ" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/cable{
@@ -184369,7 +184373,7 @@ gVQ
 azt
 lOq
 lVr
-wxW
+xJT
 wxW
 nmW
 brQ
@@ -198589,7 +198593,7 @@ ccx
 xbu
 nVC
 iWC
-iKz
+cFL
 xNV
 vky
 cUA
@@ -264125,8 +264129,8 @@ mze
 mze
 fkB
 sBh
-xJT
 oSw
+etR
 mze
 vPK
 mze
@@ -264383,7 +264387,7 @@ gjb
 gjb
 fuS
 gjb
-cFL
+iKz
 jfV
 jkl
 jfV
