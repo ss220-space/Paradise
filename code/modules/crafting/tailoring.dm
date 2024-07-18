@@ -438,3 +438,12 @@
 	reqs = list(/obj/item/reagent_containers/food/snacks/grown/geranium = 5)
 	time = 2 SECONDS
 	category = CAT_CLOTHING
+
+/datum/crafting_recipe/loud_jackboots
+	name = "Jackboots with metal lining"
+	result = list(/obj/item/clothing/shoes/jackboots/loud)
+	reqs = list(/obj/item/clothing/shoes/jackboots = 1,
+				/obj/item/stack/tape_roll = 5,
+				/obj/item/stack/sheet/metal = 1)
+	time = 2 SECONDS
+	category = CAT_CLOTHING

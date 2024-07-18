@@ -113,6 +113,7 @@
 /datum/antagonist/ninja/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/user = ..()
 	user.faction = list(ROLE_NINJA)
+	ADD_TRAIT(user, SILENT_FOOTSTEPS, INNATE_TRAIT)
 
 
 /datum/antagonist/ninja/proc/change_species(mob/living/mob_to_change = null) // This should be used to fully to remove robo-limbs & change species for lack of sprites

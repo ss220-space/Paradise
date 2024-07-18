@@ -18,7 +18,7 @@
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	)
 
-	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, VIRUSIMMUNE)
+	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, VIRUSIMMUNE, SILENT_FOOTSTEPS)
 	dies_at_threshold = TRUE
 
 	reagent_tag = PROCESS_ORG

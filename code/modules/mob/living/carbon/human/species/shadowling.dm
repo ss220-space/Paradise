@@ -9,11 +9,10 @@
 	blood_color = "#555555"
 	flesh_color = "#222222"
 
-	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE, NOGUNS, NO_HUNGER, NO_EXAMINE, VIRUSIMMUNE) //Can't use guns due to muzzle flash
+	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE, NOGUNS, NO_HUNGER, NO_EXAMINE, VIRUSIMMUNE, SILENT_FOOTSTEPS) //Can't use guns due to muzzle flash
 	burn_mod = 1.25
 	heatmod = 1.5
 
-	silent_steps = 1
 	grant_vision_toggle = 0
 
 	has_organ = list(
@@ -74,7 +73,7 @@
 	blood_color = "#CCCCCC"
 	flesh_color = "#AAAAAA"
 
-	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE, NO_HUNGER, NO_EXAMINE)
+	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE, NO_HUNGER, NO_EXAMINE, SILENT_FOOTSTEPS)
 	burn_mod = 1.1
 	heatmod = 1.1
 

@@ -4,9 +4,6 @@
 	// This is so shoes don't squeak every step
 	var/steps = 0
 	var/step_delay = 1
-	// This is to stop squeak spam from inhand usage
-	var/last_use = 0
-	var/use_delay = 20
 	///when sounds start falling off for the squeak
 	var/sound_falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE
 	///sound exponent for squeak. Defaults to 10 as squeaking is loud and annoying enough.
