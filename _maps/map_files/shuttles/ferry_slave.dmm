@@ -23,7 +23,7 @@
 /area/shuttle/transport)
 "g" = (
 /obj/structure/table/reinforced,
-/obj/item/melee/classic_baton/telescopic,
+/obj/item/melee/baton/telescopic,
 /obj/machinery/door/window/brigdoor{
 	color = "#FF0000";
 	req_access = list(104,106,63,19)

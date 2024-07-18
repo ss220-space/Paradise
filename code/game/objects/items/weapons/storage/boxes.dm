@@ -889,7 +889,7 @@
 	new /obj/item/radio/headset/ert/alt/commander (src)
 	new /obj/item/card/id/ert/registration/commander (src)
 	new /obj/item/pinpointer (src)
-	new /obj/item/melee/classic_baton/telescopic (src)
+	new /obj/item/melee/baton/telescopic (src)
 	new /obj/item/clothing/shoes/combat (src)
 	new /obj/item/clothing/gloves/combat (src)
 	new /obj/item/clothing/suit/armor/vest/ert/command (src)
@@ -946,7 +946,7 @@
 	new /obj/item/clothing/mask/surgical (src)
 	new /obj/item/storage/belt/medical/surgery/loaded (src)
 	new /obj/item/reagent_containers/hypospray/safety/ert (src)
-	new /obj/item/melee/classic_baton/telescopic (src)
+	new /obj/item/melee/baton/telescopic (src)
 	new /obj/item/defibrillator/loaded (src)
 	new /obj/item/storage/backpack/ert/medical/trialmoment/prespawn (src)
 	new /obj/item/storage/firstaid/adv (src)
@@ -978,7 +978,7 @@
 	new /obj/item/tank/internals/emergency_oxygen/engi (src)
 	new /obj/item/clothing/glasses/meson/night (src)
 	new /obj/item/clothing/mask/gas (src)
-	new /obj/item/melee/classic_baton/telescopic (src)
+	new /obj/item/melee/baton/telescopic (src)
 	new /obj/item/storage/backpack/ert/engineer/trialmoment/prespawn (src)
 
 /obj/item/storage/backpack/ert/engineer/prespawn/trialmoment/populate_contents()
@@ -1001,7 +1001,7 @@
 	new /obj/item/radio/headset/ert/alt (src)
 	new /obj/item/card/id/ert/registration/janitor (src)
 	new /obj/item/pda/centcom (src)
-	new /obj/item/melee/classic_baton/telescopic (src)
+	new /obj/item/melee/baton/telescopic (src)
 	new /obj/item/clothing/suit/armor/vest/ert/janitor (src)
 	new /obj/item/clothing/head/helmet/ert/janitor (src)
 	new /obj/item/clothing/glasses/sunglasses (src)
@@ -1027,7 +1027,7 @@
 	new /obj/item/radio/headset/ert/alt/commander (src)
 	new /obj/item/card/id/ert/registration/commander (src)
 	new /obj/item/pinpointer (src)
-	new /obj/item/melee/classic_baton/telescopic (src)
+	new /obj/item/melee/baton/telescopic (src)
 	new /obj/item/clothing/shoes/combat (src)
 	new /obj/item/clothing/gloves/combat (src)
 	new /obj/item/clothing/suit/space/hardsuit/ert/commander (src)
@@ -1096,7 +1096,7 @@
 	new /obj/item/clothing/glasses/meson/night (src)
 	new /obj/item/clothing/mask/gas (src)
 	new /obj/item/t_scanner/extended_range (src)
-	new /obj/item/melee/classic_baton/telescopic (src)
+	new /obj/item/melee/baton/telescopic (src)
 	new /obj/item/storage/backpack/ert/engineer/trialmoment/prespawn (src)
 
 /obj/item/storage/backpack/ert/engineer/trialmoment/prespawn/populate_contents()
@@ -1127,7 +1127,7 @@
 	new /obj/item/gun/energy/gun/sibyl (src)
 	new /obj/item/defibrillator/compact/loaded (src)
 	new /obj/item/reagent_containers/hypospray/safety/ert (src)
-	new /obj/item/melee/classic_baton/telescopic (src)
+	new /obj/item/melee/baton/telescopic (src)
 	new /obj/item/storage/backpack/ert/medical/trialmoment/prespawn (src)
 
 /obj/item/storage/backpack/ert/medical/trialmoment/prespawn/populate_contents()
@@ -1160,7 +1160,7 @@
 	new /obj/item/radio/headset/ert/alt (src)
 	new /obj/item/card/id/ert/registration/janitor (src)
 	new /obj/item/pda/centcom (src)
-	new /obj/item/melee/classic_baton/telescopic (src)
+	new /obj/item/melee/baton/telescopic (src)
 	new /obj/item/clothing/suit/space/hardsuit/ert/janitor
 	new /obj/item/clothing/glasses/hud/security/sunglasses
 	new /obj/item/scythe/tele

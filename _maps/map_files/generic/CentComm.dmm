@@ -509,8 +509,7 @@
 /area/shuttle/ussp)
 "aiz" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /turf/simulated/wall/indestructible/reinforced,
 /area/centcom/zone3)
@@ -3647,14 +3646,14 @@
 /area/centcom/specops)
 "bKX" = (
 /obj/structure/rack,
-/obj/item/melee/classic_baton/telescopic{
+/obj/item/melee/baton/telescopic{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/melee/classic_baton/telescopic{
+/obj/item/melee/baton/telescopic{
 	pixel_y = 1
 	},
-/obj/item/melee/classic_baton/telescopic{
+/obj/item/melee/baton/telescopic{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -8471,8 +8470,7 @@
 	},
 /obj/structure/table/wood,
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
@@ -15891,7 +15889,7 @@
 /obj/item/storage/box/ids{
 	pixel_y = 10
 	},
-/obj/item/melee/classic_baton/ntcane,
+/obj/item/melee/baton/ntcane,
 /obj/item/storage/briefcase,
 /obj/item/lighter/zippo/blue,
 /turf/simulated/floor/wood/fancy/light,
@@ -17704,8 +17702,7 @@
 /area/centcom/zone1)
 "iPn" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /turf/simulated/wall/indestructible/reinforced,
 /area/centcom/specops)
@@ -20166,7 +20163,7 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "jWu" = (
-/obj/item/melee/classic_baton{
+/obj/item/melee/baton{
 	color = "#b30086"
 	},
 /turf/simulated/floor/plating,
@@ -38421,10 +38418,10 @@
 /obj/item/nullrod,
 /obj/item/nullrod,
 /obj/item/nullrod,
-/obj/item/melee/classic_baton/telescopic,
-/obj/item/melee/classic_baton/telescopic,
-/obj/item/melee/classic_baton/telescopic,
-/obj/item/melee/classic_baton/telescopic,
+/obj/item/melee/baton/telescopic,
+/obj/item/melee/baton/telescopic,
+/obj/item/melee/baton/telescopic,
+/obj/item/melee/baton/telescopic,
 /obj/structure/window/reinforced{
 	dir = 4;
 	layer = 2.9
@@ -42990,8 +42987,7 @@
 /area/shuttle/syndicate_elite)
 "tPx" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /turf/simulated/wall/indestructible/reinforced,
 /area/centcom/zone3)
