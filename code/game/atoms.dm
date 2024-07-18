@@ -200,7 +200,7 @@
 	if(istype(T.loc, /area/shuttle/syndicate_elite) || istype(T.loc, /area/syndicate_mothership))
 		return TRUE
 
-/atom/Destroy()
+/atom/Destroy(force)
 	if(alternate_appearances)
 		for(var/aakey in alternate_appearances)
 			var/datum/alternate_appearance/AA = alternate_appearances[aakey]
@@ -208,10 +208,16 @@
 		alternate_appearances = null
 
 	QDEL_NULL(reagents)
-	invisibility = INVISIBILITY_ABSTRACT
-	LAZYCLEARLIST(overlays)
+
+	// Checking length(overlays) before cutting has significant speed benefits
+	if(length(overlays))
+		overlays.Cut()
+
+	LAZYNULL(managed_overlays)
 
 	QDEL_NULL(light)
+	if(length(light_sources))
+		light_sources.Cut()
 
 	return ..()
 
