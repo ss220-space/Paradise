@@ -70,7 +70,7 @@
 	if(user && !can_use(user))
 		return FALSE
 
-	if(visor_toggling())
+	if(visor_toggling(user))
 		update_equipped_item(update_speedmods = FALSE)
 		if(user)
 			to_chat(user, span_notice("You adjust [src] [up ? "up" : "down"]."))
@@ -79,7 +79,7 @@
 	return FALSE
 
 
-/obj/item/clothing/proc/visor_toggling() //handles all the actual toggling of flags
+/obj/item/clothing/proc/visor_toggling(mob/user) //handles all the actual toggling of flags
 	if(!can_toggle)
 		return FALSE
 
