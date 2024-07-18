@@ -6,8 +6,6 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 #define ERROR_USEFUL_LEN 2
 
 /world/Error(exception/E, datum/e_src)
-	GLOB.total_runtimes++
-
 	if(!istype(E)) // Something threw an unusual exception
 		log_world("\[[time_stamp()]] Uncaught exception: [E]")
 		return ..()
@@ -28,7 +26,9 @@ GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 	if(!error_last_seen) // A runtime is occurring too early in start-up initialization
 		return ..()
 
-	if(stack_workaround?.Find(E.name))
+	GLOB.total_runtimes++
+
+	if(stack_workaround.Find(E.name))
 		var/list/data = json_decode(stack_workaround.group[1])
 		E.file = data[1]
 		E.line = data[2]
