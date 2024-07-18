@@ -775,6 +775,7 @@
 	canSmoothWith = null
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "tray"
+	can_be_flipped = FALSE
 	buildstack = /obj/item/stack/sheet/mineral/titanium
 	buildstackamount = 2
 	var/list/typecache_can_hold = list(/mob, /obj/item)
