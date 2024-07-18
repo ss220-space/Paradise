@@ -3552,7 +3552,7 @@
 	name = "Altyn"
 	},
 /obj/item/clothing/suit/armor/vest/combat,
-/obj/item/melee/classic_baton,
+/obj/item/melee/baton,
 /obj/machinery/camera/autoname{
 	dir = 1;
 	name = "Gorky17 security camera";
@@ -6076,7 +6076,7 @@
 	name = "Altyn"
 	},
 /obj/item/clothing/suit/armor/vest/combat,
-/obj/item/melee/classic_baton,
+/obj/item/melee/baton,
 /obj/structure/closet/secure_closet{
 	color = "#ff9999";
 	name = "Gorky17 ammunition locker";
@@ -11515,7 +11515,7 @@
 	name = "Altyn"
 	},
 /obj/item/clothing/suit/armor/vest/combat,
-/obj/item/melee/classic_baton,
+/obj/item/melee/baton,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -15050,7 +15050,7 @@
 	name = "Altyn"
 	},
 /obj/item/clothing/suit/armor/vest/combat,
-/obj/item/melee/classic_baton,
+/obj/item/melee/baton,
 /obj/machinery/camera/autoname{
 	dir = 1;
 	name = "Gorky17 security camera";
@@ -16509,7 +16509,7 @@
 	name = "Altyn"
 	},
 /obj/item/clothing/suit/armor/vest/combat,
-/obj/item/melee/classic_baton,
+/obj/item/melee/baton,
 /obj/structure/closet/secure_closet{
 	color = "#ff9999";
 	name = "Gorky17 ammunition locker";

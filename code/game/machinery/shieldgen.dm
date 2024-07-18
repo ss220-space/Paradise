@@ -644,12 +644,10 @@
 		return FALSE
 
 
-/obj/machinery/shieldwall/syndicate/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
-	if(isliving(caller))
-		var/mob/living/M = caller
-		if("syndicate" in M.faction)
-			return TRUE
-	return ..(ID, to_dir, caller)
+/obj/machinery/shieldwall/syndicate/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(pass_info.faction && ("syndicate" in pass_info.faction))
+		return TRUE
+	return ..()
 
 
 /obj/machinery/shieldwall/syndicate/proc/phaseout()

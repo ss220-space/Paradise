@@ -131,11 +131,12 @@
 	var/cat = iscat(src)
 	var/functional_legs = TRUE
 	var/skip_weaken = FALSE
-	for(var/zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
-		var/obj/item/organ/external/leg = get_organ(zone)
-		if(leg.has_fracture())
-			functional_legs = FALSE
-			break
+	if(ishuman(src))
+		for(var/zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
+			var/obj/item/organ/external/leg = get_organ(zone)
+			if(leg.has_fracture())
+				functional_legs = FALSE
+				break
 	if(((istajaran(src) && functional_legs) || cat) && body_position != LYING_DOWN && can_help_themselves)
 		. |= ZIMPACT_NO_MESSAGE|ZIMPACT_NO_SPIN
 		skip_weaken = TRUE
@@ -473,10 +474,6 @@
 		if(REVERSE_DIR(check_dir) & border_dir)
 			return pulledby
 		return prob(50) ? pulledby : src
-
-
-/mob/living/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
-	return TRUE // Unless you're a mule, something's trying to run you over.
 
 
 //for more info on why this is not atom/pull, see examinate() in mob.dm

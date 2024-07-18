@@ -329,6 +329,10 @@
 		return TRUE
 
 
+/obj/machinery/door/firedoor/border_only/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	return !density || (dir != to_dir)
+
+
 /obj/machinery/door/firedoor/border_only/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
 	SIGNAL_HANDLER
 
