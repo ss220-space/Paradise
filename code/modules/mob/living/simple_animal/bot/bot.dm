@@ -655,7 +655,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 	//For giving the bot temporary all-access. This method is bad and makes me feel bad. Refactoring access to a component is for another PR.
 	//Easier then building the list ourselves. I'm sorry.
-	var/static/obj/item/card/id/captains_spare/all_access = new
+	var/static/obj/item/card/id/all_access = new /obj/item/card/id/captains_spare()
 	set_path(get_path_to(src, waypoint, max_distance = 200, access = all_access.GetAccess()))
 	calling_ai = caller //Link the AI to the bot!
 	ai_waypoint = waypoint
