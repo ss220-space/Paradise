@@ -8,7 +8,7 @@
 
 	var/datum/mind/exchange_red
 	var/datum/mind/exchange_blue
-
+	/// The number of contractors who accepted the offer.
 	var/contractor_accepted = 0
 
 

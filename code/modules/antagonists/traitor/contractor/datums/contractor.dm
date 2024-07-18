@@ -21,7 +21,7 @@
 	var/offer_duration = 10 MINUTES
 	/// world.time at which the offer will expire.
 	var/offer_deadline = -1
-
+	/// indicates whether the offer to become a contractor was given to the player by the admin
 	var/is_admin_forced = FALSE
 	/// The associated contractor uplink. Only present if the offer was accepted.
 	var/obj/item/contractor_uplink/contractor_uplink = null
