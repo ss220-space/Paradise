@@ -617,6 +617,7 @@
 
 
 /obj/machinery/light/flicker(amount = rand(20, 30))
+	set waitfor = FALSE
 	if(flickering)
 		return FALSE
 

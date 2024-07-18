@@ -1,4 +1,5 @@
 SUBSYSTEM_DEF(http)
+
 	name = "HTTP"
 	flags = SS_TICKER | SS_BACKGROUND | SS_NO_INIT // Measure in ticks, but also only run if we have the spare CPU. We also dont init.
 	wait = 1
@@ -26,6 +27,7 @@ SUBSYSTEM_DEF(http)
 
 
 /datum/controller/subsystem/http/fire(resumed)
+	set waitfor = 0
 	for(var/r in active_async_requests)
 		var/datum/http_request/req = r
 		// Check if we are complete
