@@ -6975,7 +6975,6 @@
 /turf/simulated/floor/plasteel,
 /area/mine/lobby)
 "WR" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
