@@ -79,7 +79,7 @@
 	. = ..()
 	var/mob/living/simple_animal/hostile/carp/carp = target
 	if(istype(carp))
-		gib(carp)
+		carp.gib()
 
 /obj/item/projectile/energy/bolt/large
 	damage = 20
