@@ -16,8 +16,8 @@
 	name = "table"
 	desc = "A square piece of metal standing on four metal legs. It can not move."
 	icon = 'icons/obj/smooth_structures/table.dmi'
-	icon_state = "metal_table"
-	base_icon_state = "metal_table"
+	icon_state = "table"
+	base_icon_state = "table"
 	density = TRUE
 	anchored = TRUE
 	layer = TABLE_LAYER
