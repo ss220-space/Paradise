@@ -959,7 +959,7 @@
 	if(issilicon(user))
 		if(isAI(user))
 			var/mob/living/silicon/ai/AI = user
-			if(!AI.lacks_power() || AI.apc_xoverride)
+			if(!AI.lacks_power() || AI.apc_override)
 				return GLOB.always_state
 		if(isrobot(user))
 			return GLOB.always_state
