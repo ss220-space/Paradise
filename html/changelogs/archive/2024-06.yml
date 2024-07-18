@@ -293,3 +293,4 @@
   - bugfix: Celestation patch (#5310)
   Zwei:
   - unknown: Grab And Pull Rework (#5245)
+  - bugfix: Multitile Objects Move Fix (#5314)

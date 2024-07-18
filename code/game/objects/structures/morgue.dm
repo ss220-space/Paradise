@@ -312,7 +312,7 @@
 	return TRUE
 
 
-/obj/structure/tray/m_tray/CanAllowThrough(atom/movable/mover, border_dir)
+/obj/structure/m_tray/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(.)
 		return TRUE
@@ -320,10 +320,12 @@
 		return TRUE
 
 
-/obj/structure/m_tray/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
-	. = !density
-	if(checkpass(caller, PASSTABLE))
-		. = TRUE
+/obj/structure/m_tray/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(!density)
+		return TRUE
+	if(pass_info.pass_flags == PASSEVERYTHING || (pass_info.pass_flags & PASSTABLE))
+		return TRUE
+	return FALSE
 
 
 /mob/proc/update_morgue()
@@ -689,6 +691,14 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		crematorium.connected = null
 	crematorium = null
 	return ..()
+
+
+/obj/structure/c_tray/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(!density)
+		return TRUE
+	if(pass_info.pass_flags == PASSEVERYTHING || (pass_info.pass_flags & PASSTABLE))
+		return TRUE
+	return FALSE
 
 
 /obj/structure/c_tray/attack_hand(mob/user)

@@ -7,12 +7,13 @@
 	max_integrity = 100
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	var/does_emissive = FALSE
+	var/random_number = FALSE
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 
 
 /obj/structure/sign/Initialize(mapload)
 	. = ..()
-	if(does_emissive)
+	if(does_emissive || random_number)
 		update_icon(UPDATE_OVERLAYS)
 
 
@@ -20,11 +21,10 @@
 	. = ..()
 
 	underlays.Cut()
-	if(!does_emissive)
-		return
-
-	underlays += emissive_appearance(icon,"[icon_state]_lightmask", src)
-
+	if(does_emissive)
+		underlays += emissive_appearance(icon, "[icon_state]_lightmask", src)
+	if(random_number)
+		add_overlay(mutable_appearance(icon, "_num[pick("0","1","2","3","4","5","6","7","8","9","10","inf")]"))
 
 /obj/structure/sign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -103,6 +103,17 @@
 
 /obj/structure/sign/double/map/right
 	icon_state = "map-right"
+
+/obj/structure/sign/double/no_idiots
+	name = "Counting sign"
+	desc = "Indicates how many days the station operates without idiots at the SuperMatter crystal control panel"
+
+/obj/structure/sign/double/no_idiots/left
+	icon_state = "no_idiots_left"
+	random_number = TRUE
+
+/obj/structure/sign/double/no_idiots/right
+	icon_state = "no_idiots_right"
 
 /obj/structure/sign/securearea
 	name = "\improper SECURE AREA"
@@ -327,6 +338,9 @@
 	name = "\improper Floor"
 	desc = "A direction sign, pointing out which floor you are."
 	icon_state = "level"
+
+/obj/structure/sign/directions/floor/alt
+	icon_state = "level_alt"
 
 /obj/structure/sign/directions/science
 	name = "\improper Research Division"

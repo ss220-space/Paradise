@@ -17,6 +17,7 @@
 	desc = "A square piece of metal standing on four metal legs. It can not move."
 	icon = 'icons/obj/smooth_structures/table.dmi'
 	icon_state = "metal_table"
+	base_icon_state = "metal_table"
 	density = TRUE
 	anchored = TRUE
 	layer = TABLE_LAYER
@@ -24,8 +25,9 @@
 	climbable = TRUE
 	max_integrity = 100
 	integrity_failure = 30
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/table, /obj/structure/table/reinforced)
+	smooth = SMOOTH_BITMASK
+	smoothing_groups = SMOOTH_GROUP_TABLES
+	canSmoothWith = SMOOTH_GROUP_TABLES
 	creates_cover = TRUE
 	var/frame = /obj/structure/table_frame
 	var/framestack = /obj/item/stack/rods
@@ -43,6 +45,12 @@
 	. = ..()
 	if(flipped)
 		update_icon(UPDATE_ICON_STATE)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+	update_flipped_turf()
 
 
 /obj/structure/table/examine(mob/user)
@@ -123,11 +131,16 @@
 /obj/structure/table/proc/item_placed(item)
 	return
 
-/obj/structure/table/Crossed(atom/movable/AM, oldloc)
-	. = ..()
-	if(AM.throwing && isliving(AM))
-		var/mob/living/user = AM
-		clumse_stuff(user)
+
+/obj/structure/table/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	INVOKE_ASYNC(src, PROC_REF(table_crossed), arrived, old_loc)
+
+
+/obj/structure/table/proc/table_crossed(atom/movable/arrived, atom/old_loc)
+	if(arrived.throwing && isliving(arrived))
+		clumse_stuff(arrived)
 
 
 /obj/structure/table/CanAllowThrough(atom/movable/mover, border_dir)
@@ -148,10 +161,32 @@
 		return dir != border_dir
 
 
-/obj/structure/table/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
-	. = !density
-	if(checkpass(caller, PASSTABLE))
-		. = TRUE
+/obj/structure/table/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(!density)
+		return TRUE
+	if(pass_info.pass_flags == PASSEVERYTHING || (pass_info.pass_flags & PASSTABLE))
+		return TRUE
+	return FALSE
+
+
+/obj/structure/table/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
+	SIGNAL_HANDLER
+
+	if(leaving.movement_type & PHASING)
+		return
+
+	if(leaving == src)
+		return // Let's not block ourselves.
+
+	if(!flipped)
+		return
+
+	if(checkpass(leaving, PASSTABLE) || ((pass_flags_self & LETPASSTHROW) && leaving.throwing))
+		return
+
+	if(density && dir == get_dir(leaving, newLoc))
+		leaving.Bump(src)
+		return COMPONENT_ATOM_BLOCK_EXIT
 
 
 /**
@@ -182,12 +217,11 @@
 		return FALSE // Blocked
 
 
-/obj/structure/table/CanExit(atom/movable/mover, moving_direction)
+/obj/structure/table/can_touch(mob/living/user, flip = FALSE)
 	. = ..()
-	if(checkpass(mover, PASSTABLE))
-		return TRUE
-	if(flipped)
-		return dir != moving_direction
+	if(. && !flip && flipped)
+		to_chat(user, span_notice("You cannot climb on the flipped table."))
+		return FALSE
 
 
 /obj/structure/table/MouseDrop_T(obj/dropping, mob/user, params)
@@ -256,6 +290,20 @@
 			return
 		return ..()
 
+/obj/structure/table/shove_impact(mob/living/target, mob/living/attacker)
+	if(locate(/obj/structure/table) in get_turf(target))
+		return FALSE
+	if(flipped)
+		return FALSE
+	var/pass_flags_cache = target.pass_flags
+	target.pass_flags |= PASSTABLE
+	if(target.Move(loc))
+		. = TRUE
+		target.Knockdown(4 SECONDS)
+		add_attack_logs(attacker, target, "pushed onto [src]", ATKLOG_ALL)
+	else
+		. = FALSE
+	target.pass_flags = pass_flags_cache
 
 /obj/structure/table/screwdriver_act(mob/user, obj/item/I)
 	if(obj_flags & NODECONSTRUCT)
@@ -325,7 +373,7 @@
 
 /// Used for determine the proc of subsequent flipping/unflipping.
 /obj/structure/table/proc/actual_flip(mob/living/user)
-	if(!flip_check() || !can_touch(user))
+	if(!flip_check() || !can_touch(user, flip = TRUE))
 		return
 
 	if(!flipped)
@@ -359,9 +407,10 @@
 	if(dir != NORTH)
 		layer = 5
 	flipped = TRUE
-	smooth = SMOOTH_FALSE
+	smooth = NONE
 	flags |= ON_BORDER
 	playsound(loc, flip_sound, 100, TRUE)
+	update_flipped_turf()
 
 	for(var/check_dir in list(turn(direction, 90), turn(direction, -90)))
 		var/obj/structure/table/other_table = locate(/obj/structure/table, get_step(src, check_dir))
@@ -392,6 +441,7 @@
 	smooth = initial(smooth)
 	flags &= ~ON_BORDER
 	playsound(loc, flip_sound, 100, TRUE)
+	update_flipped_turf()
 
 	for(var/check_dir in list(turn(dir, 90), turn(dir, -90)))
 		var/obj/structure/table/other_table = locate(/obj/structure/table, get_step(src, check_dir))
@@ -399,12 +449,24 @@
 			other_table.unflip()
 	dir = initial(dir)
 	update_icon(UPDATE_ICON_STATE)
+	queue_smooth(src)
+	queue_smooth_neighbors(src)
 
 	creates_cover = TRUE
 	if(isturf(loc))
 		ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 
 	return TRUE
+
+
+/obj/structure/table/proc/update_flipped_turf()
+	var/static/list/give_turf_traits
+	if(!give_turf_traits)
+		give_turf_traits = string_list(list(TRAIT_TURF_IGNORE_SLOWDOWN, TRAIT_TURF_IGNORE_SLIPPERY))
+	if(flipped)
+		RemoveElement(/datum/element/give_turf_traits, give_turf_traits)
+	else
+		AddElement(/datum/element/give_turf_traits, give_turf_traits)
 
 
 /*
@@ -415,13 +477,17 @@
 	name = "glass table"
 	desc = "Looks fragile. You should totally flip it. It is begging for it."
 	icon = 'icons/obj/smooth_structures/glass_table.dmi'
-	icon_state = "glass_table"
+	icon_state = "glass_table-0"
 	buildstack = /obj/item/stack/sheet/glass
 	canSmoothWith = null
 	max_integrity = 70
 	resistance_flags = ACID_PROOF
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
 	var/list/debris = list()
+	smooth = SMOOTH_BITMASK
+	smoothing_groups = SMOOTH_GROUP_GLASS_TABLES
+	canSmoothWith = SMOOTH_GROUP_GLASS_TABLES
+	base_icon_state = "glass_table"
 
 /obj/structure/table/glass/Initialize(mapload)
 	. = ..()
@@ -434,18 +500,20 @@
 	. = ..()
 
 
-/obj/structure/table/glass/Crossed(atom/movable/AM, oldloc)
+/obj/structure/table/glass/table_crossed(atom/movable/arrived, atom/old_loc)
 	. = ..()
+
 	if(obj_flags & NODECONSTRUCT)
 		return
-	if(!isliving(AM))
+
+	if(!isliving(arrived))
 		return
 
 	// Don't break if they're just flying past
-	if(AM.throwing)
-		addtimer(CALLBACK(src, PROC_REF(throw_check), AM), 0.5 SECONDS)
+	if(arrived.throwing)
+		addtimer(CALLBACK(src, PROC_REF(throw_check), arrived), 0.5 SECONDS)
 	else
-		check_break(AM)
+		check_break(arrived)
 
 
 /obj/structure/table/glass/proc/throw_check(mob/living/M)
@@ -475,8 +543,18 @@
 		debris -= AM
 		if(istype(AM, /obj/item/shard))
 			AM.throw_impact(L)
-	L.Weaken(10 SECONDS)
+	L.Knockdown(4 SECONDS)
 	qdel(src)
+
+/obj/structure/table/glass/shove_impact(mob/living/target, mob/living/attacker)
+	var/pass_flags_cache = target.pass_flags
+	target.pass_flags |= PASSTABLE
+	if(target.Move(loc)) // moving onto a table smashes it, stunning them
+		. = TRUE
+		add_attack_logs(attacker, target, "pushed onto [src]", ATKLOG_ALL)
+	else
+		. = FALSE
+	target.pass_flags = pass_flags_cache
 
 /obj/structure/table/glass/deconstruct(disassembled = TRUE, wrench_disassembly = FALSE)
 	if(!(obj_flags & NODECONSTRUCT))
@@ -505,12 +583,14 @@
 	name = "wooden table"
 	desc = "Do not apply fire to this. Rumour says it burns easily."
 	icon = 'icons/obj/smooth_structures/wood_table.dmi'
+	base_icon_state = "wooden_table"
 	icon_state = "wooden_table"
 	frame = /obj/structure/table_frame/wood
 	framestack = /obj/item/stack/sheet/wood
 	buildstack = /obj/item/stack/sheet/wood
 	max_integrity = 70
-	canSmoothWith = list(/obj/structure/table/wood, /obj/structure/table/wood/poker)
+	canSmoothWith = SMOOTH_GROUP_WOOD_TABLES
+	smoothing_groups = SMOOTH_GROUP_WOOD_TABLES
 	resistance_flags = FLAMMABLE
 
 /obj/structure/table/wood/narsie_act(total_override = TRUE)
@@ -522,6 +602,7 @@
 	desc = "A seedy table for seedy dealings in seedy places."
 	icon = 'icons/obj/smooth_structures/poker_table.dmi'
 	icon_state = "poker_table"
+	base_icon_state = "poker_table"
 	buildstack = /obj/item/stack/tile/carpet
 
 /obj/structure/table/wood/poker/narsie_act()
@@ -540,68 +621,70 @@
 	frame = /obj/structure/table_frame
 	framestack = /obj/item/stack/rods
 	buildstack = /obj/item/stack/tile/carpet
-	canSmoothWith = list(/obj/structure/table/wood/fancy,
-						/obj/structure/table/wood/fancy/black,
-						/obj/structure/table/wood/fancy/blue,
-						/obj/structure/table/wood/fancy/cyan,
-						/obj/structure/table/wood/fancy/green,
-						/obj/structure/table/wood/fancy/orange,
-						/obj/structure/table/wood/fancy/purple,
-						/obj/structure/table/wood/fancy/red,
-						/obj/structure/table/wood/fancy/royalblack,
-						/obj/structure/table/wood/fancy/royalblue)
-
+	base_icon_state = "fancy_table"
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_FANCY_WOOD_TABLES
+	smoothing_groups = SMOOTH_GROUP_FANCY_WOOD_TABLES
 
 /obj/structure/table/wood/fancy/black
 	icon_state = "fancy_table_black"
+	base_icon_state = "fancy_table_black"
 	buildstack = /obj/item/stack/tile/carpet/black
 	icon = 'icons/obj/smooth_structures/fancy_table_black.dmi'
 
 
 /obj/structure/table/wood/fancy/blue
 	icon_state = "fancy_table_blue"
+	base_icon_state = "fancy_table_blue"
 	buildstack = /obj/item/stack/tile/carpet/blue
 	icon = 'icons/obj/smooth_structures/fancy_table_blue.dmi'
 
 
 /obj/structure/table/wood/fancy/cyan
 	icon_state = "fancy_table_cyan"
+	base_icon_state = "fancy_table_cyan"
 	buildstack = /obj/item/stack/tile/carpet/cyan
 	icon = 'icons/obj/smooth_structures/fancy_table_cyan.dmi'
 
 
 /obj/structure/table/wood/fancy/green
 	icon_state = "fancy_table_green"
+	base_icon_state = "fancy_table_green"
 	buildstack = /obj/item/stack/tile/carpet/green
 	icon = 'icons/obj/smooth_structures/fancy_table_green.dmi'
 
 
 /obj/structure/table/wood/fancy/orange
 	icon_state = "fancy_table_orange"
+	base_icon_state = "fancy_table_orange"
 	buildstack = /obj/item/stack/tile/carpet/orange
 	icon = 'icons/obj/smooth_structures/fancy_table_orange.dmi'
 
 
 /obj/structure/table/wood/fancy/purple
 	icon_state = "fancy_table_purple"
+	base_icon_state = "fancy_table_purple"
 	buildstack = /obj/item/stack/tile/carpet/purple
 	icon = 'icons/obj/smooth_structures/fancy_table_purple.dmi'
 
 
 /obj/structure/table/wood/fancy/red
 	icon_state = "fancy_table_red"
+	base_icon_state = "fancy_table_red"
 	buildstack = /obj/item/stack/tile/carpet/red
 	icon = 'icons/obj/smooth_structures/fancy_table_red.dmi'
 
 
 /obj/structure/table/wood/fancy/royalblack
 	icon_state = "fancy_table_royalblack"
+	base_icon_state = "fancy_table_royalblack"
 	buildstack = /obj/item/stack/tile/carpet/royalblack
 	icon = 'icons/obj/smooth_structures/fancy_table_royalblack.dmi'
 
 
 /obj/structure/table/wood/fancy/royalblue
 	icon_state = "fancy_table_royalblue"
+	base_icon_state = "fancy_table_royalblue"
 	buildstack = /obj/item/stack/tile/carpet/royalblue
 	icon = 'icons/obj/smooth_structures/fancy_table_royalblue.dmi'
 
@@ -615,9 +698,10 @@
 	desc = "A reinforced version of the four legged table."
 	icon = 'icons/obj/smooth_structures/reinforced_table.dmi'
 	icon_state = "reinforced_table"
+	base_icon_state = "reinforced_table"
 	deconstruction_ready = FALSE
 	buildstack = /obj/item/stack/sheet/plasteel
-	canSmoothWith = list(/obj/structure/table/reinforced, /obj/structure/table)
+	canSmoothWith = SMOOTH_GROUP_TABLES
 	max_integrity = 200
 	integrity_failure = 50
 	armor = list("melee" = 10, "bullet" = 30, "laser" = 30, "energy" = 100, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
@@ -647,7 +731,8 @@
 	name = "brass table"
 	desc = "A solid, slightly beveled brass table."
 	icon = 'icons/obj/smooth_structures/brass_table.dmi'
-	icon_state = "brass_table"
+	icon_state = "brass_table-0"
+	base_icon_state = "brass_table"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	can_be_flipped = FALSE
 	frame = /obj/structure/table_frame/brass
@@ -655,14 +740,14 @@
 	buildstack = /obj/item/stack/sheet/brass
 	framestackamount = 1
 	buildstackamount = 1
-	canSmoothWith = list(/obj/structure/table/reinforced/brass)
+	canSmoothWith = SMOOTH_GROUP_BRONZE_TABLES
+	smoothing_groups = SMOOTH_GROUP_BRONZE_TABLES
 
 /obj/structure/table/reinforced/brass/fake
 	desc = "A solid, slightly beveled and totally not magic brass table."
 	frame = /obj/structure/table_frame/brass/fake
 	framestack = /obj/item/stack/sheet/brass_fake
 	buildstack = /obj/item/stack/sheet/brass_fake
-	canSmoothWith = list(/obj/structure/table/reinforced/brass/fake)
 
 /obj/structure/table/reinforced/brass/narsie_act()
 	take_damage(rand(15, 45), BRUTE)
@@ -683,6 +768,10 @@
 /obj/structure/table/tray
 	name = "surgical tray"
 	desc = "A small metal tray with wheels."
+	anchored = FALSE
+	smooth = NONE
+	smoothing_groups = null
+	canSmoothWith = null
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "tray"
 	anchored = FALSE
@@ -781,10 +870,12 @@
 		return TRUE
 
 
-/obj/structure/rack/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
-	. = !density
-	if(checkpass(caller, PASSTABLE))
-		. = TRUE
+/obj/structure/rack/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(!density)
+		return TRUE
+	if(pass_info.pass_flags == PASSEVERYTHING || (pass_info.pass_flags & PASSTABLE))
+		return TRUE
+	return FALSE
 
 
 /obj/structure/rack/MouseDrop_T(obj/item/dropping, mob/user, params)

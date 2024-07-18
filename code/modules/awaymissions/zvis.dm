@@ -47,23 +47,37 @@
 	var/list/params[0]		// what to send to the main object to indicate which sensor
 	var/trigger_limit = 5	// number of time we're allowed to trigger per ptick
 
-/obj/effect/portal_sensor/New(loc, o, ...)
-	..()
-	owner = o
+
+/obj/effect/portal_sensor/Initialize(mapload, owner, ...)
+	. = ..()
+	src.owner = owner
 	if(args.len >= 3)
 		params = args.Copy(3)
 	START_PROCESSING(SSobj, src)
 	trigger()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXITED = PROC_REF(on_exited),
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /obj/effect/portal_sensor/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/effect/portal_sensor/Crossed(A, oldloc)
-	trigger()
 
-/obj/effect/portal_sensor/Uncrossed(A)
-	trigger()
+/obj/effect/portal_sensor/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	INVOKE_ASYNC(src, PROC_REF(trigger))
+
+
+/obj/effect/portal_sensor/proc/on_exited(datum/source, atom/movable/departed, atom/newLoc)
+	SIGNAL_HANDLER
+
+	INVOKE_ASYNC(src, PROC_REF(trigger))
+
 
 /obj/effect/portal_sensor/process()
 	// check_light()
@@ -145,229 +159,113 @@
 			I.pixel_y = A.pixel_y
 			underlays += I
 
-// remote end of narnia portal
-/obj/effect/view_portal
-	name = "portal target"
-	icon = 'icons/mob/screen_gen.dmi'
-	icon_state = "x2"
-	invisibility = INVISIBILITY_ABSTRACT
-	anchored = TRUE
-
-	var/id = null				// id of other portal turf we connect to
-
-	var/obj/effect/view_portal/other = null
-	var/global/list/portals[0]
-
-/obj/effect/view_portal/New()
-	..()
-	GLOB.portals += src
-
-/obj/effect/view_portal/Initialize()
-	..()
-	if(id)
-		for(var/obj/effect/view_portal/O in GLOB.portals)
-			if(id == O.id && O != src && can_link(O))
-				other = O
-				O.other = src
-				linkup()
-				O.linkup()
-				if(other)
-					return
-
-/obj/effect/view_portal/Destroy()
-	GLOB.portals -= src
-	return ..()
-
-/obj/effect/view_portal/proc/can_link(obj/effect/view_portal/P)
-	return P.type == /obj/effect/view_portal/visual && !P.other
-
-/obj/effect/view_portal/proc/linkup()
-	// allow it to link to multiple visual nodes
-	other = null
-
-// near end of nania portal
-/obj/effect/view_portal/visual
+/obj/effect/visual_portal
 	name = "???"
 	desc = "You'll have to get closer to clearly see what this is."
-
-	icon = 'icons/turf/floors.dmi'
-	icon_state = "loadingarea"
+	icon = 'icons/misc/view_portal.dmi'
+	icon_state = "arrow"
 	opacity = TRUE
 	density = TRUE
-	invisibility = 0
+	anchored = TRUE
 	appearance_flags = TILE_BOUND|KEEP_TOGETHER|LONG_GLIDE
-	var/dist = 6				// dist that we render out
-	var/radius = 3				// dist we render on other axis, in each direction
-	var/frustrum = 0			// if 1, get wider and wider at each step outward
-	var/teleport = 1			// should teleport?
+	plane = ABOVE_GAME_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-	var/list/render_block
-	var/list/sensors[0]
-	var/list/tiles[0]
+	var/id = null // used to connect to "other" visual portal
 
-	var/list/near_render_block
-	var/turf/near_viewpoint
+	var/obj/effect/visual_portal/other // the other visual portal we will link to
+	var/distance = 6 // dist that we render out
+	var/radius = 3 // dist we render on other axis, in each direction
+	var/frustrum = FALSE // if TRUE, get wider and wider at each step outward. Like trapezium!
+	var/stepout = TRUE // if TRUE, it'll make step forward dir for view.
+	var/teleport = TRUE // determines if bumping of ghost-clicking should teleport into "other" portal loc
 
-/obj/effect/view_portal/visual/Destroy()
-	for(var/T in sensors)
-		qdel(sensors[T])
-	sensors.Cut()
-	sensors = null
-	for(var/T in tiles)
-		qdel(tiles[T])
-	tiles.Cut()
-	tiles = null
-	render_block = null
-	near_render_block = null
-	near_viewpoint = null
-	return ..()
+	var/list/viewing_turfs = list()
 
-/obj/effect/view_portal/visual/can_link(obj/effect/view_portal/P)
-	return P.type == /obj/effect/view_portal
-
-/obj/effect/view_portal/visual/linkup()
-	icon = null
+/obj/effect/visual_portal/Initialize(mapload)
+	. = ..()
+	GLOB.visual_portals += src
+	if(!id)
+		qdel(src)
+		return
 	icon_state = null
-	var/turf/Tloc = get_turf(loc)
-	if(Tloc)
-		Tloc.icon = null
-		Tloc.icon_state = null
-		Tloc.always_lit = TRUE
-		layer = AREA_LAYER + 0.5
+	for(var/obj/effect/visual_portal/other_portal as anything in GLOB.visual_portals)
+		if(other_portal == src || other_portal.other || other_portal.z != z)
+			continue // z comparsion needed so no parallax will "effect" our visual
+		if(id == other_portal.id)
+			other = other_portal
+			other_portal.other = src
+			create_view()
+			other_portal.create_view()
+			return
 
+/obj/effect/visual_portal/Destroy()
+	. = ..()
+	GLOB.visual_portals -= src
+
+// Creates view and adds it to his own vis_content
+/obj/effect/visual_portal/proc/create_view(reset_view = FALSE)
+	if(!distance || !radius)
+		return
 	// setup references
 	var/crossdir = angle2dir((dir2angle(dir) + 90) % 360)
-	near_viewpoint = get_step(get_turf(src), GetOppositeDir(dir))
 
 	// setup far turfs
 	var/turf/T1 = get_turf(other)
+	if(stepout) // step forward
+		T1 = get_step(T1, dir)
 	var/turf/T2 = T1
 
 	for(var/i in 1 to radius)
 		T1 = get_step(T1, crossdir)
 		T2 = get_step(T2, GetOppositeDir(crossdir))
 	if(frustrum)
-		// make a trapazoid, with length dist, short end radius*2 long,
+		// make a trapezium, with length dist, short end radius*2 long,
 		// and 45 degree angles
-		render_block = block(T1, T2)
-		for(var/i in 1 to dist)
+		viewing_turfs = block(T1, T2)
+		for(var/i in 1 to distance)
 			T1 = get_step(get_step(T1, dir), crossdir)
 			T2 = get_step(get_step(T2, dir), GetOppositeDir(crossdir))
-			render_block += block(T1, T2)
+			viewing_turfs += block(T1, T2)
 	else
 		// else make a box dist x radius*2
-		for(var/i in 1 to dist)
+		for(var/i in 1 to distance)
 			T2 = get_step(T2, dir)
-		render_block = block(T1, T2)
-	for(var/turf/T in render_block)
-		sensors[T] = new /obj/effect/portal_sensor(T, src, 0, T)
+		viewing_turfs = block(T1, T2)
 
-// setup turfs on this side of the portal to cover the map streaming
-// has to be done later for view() to be correct (so it happens when the walls exist)
-/obj/effect/view_portal/visual/proc/setup_near()
-	var/nvs = dir & (EAST|WEST) ? near_viewpoint.x - x : near_viewpoint.y - y
-	if(nvs)
-		nvs = SIGN(nvs)
-	// need a mob for view() to work correctly
-	var/mob/M = new(near_viewpoint)
-	M.set_invis_see(SEE_INVISIBLE_LIVING)
-	near_render_block = view(M, world.view)
-	qdel(M)
-	for(var/A in near_render_block)
-		var/turf/T = A
-		if(istype(T))
-			var/ts = dir & (EAST|WEST) ? T.x - x : T.y - y
-			if(ts)
-				ts = SIGN(ts)
-			if(nvs == ts)
-				sensors[T] = new /obj/effect/portal_sensor(T, src, 1, T)
-			else
-				near_render_block -= T
-		else
-			near_render_block -= T
 
-/obj/effect/view_portal/visual/Bumped(atom/movable/thing)
+	if(reset_view)
+		vis_contents.Cut()
+	vis_contents += viewing_turfs
+
+	// Now we need to "center" it
+	var/width = radius + (distance * frustrum)
+	switch(dir)
+		if(NORTH)
+			pixel_x = -width * world.icon_size
+			pixel_y = world.icon_size
+		if(SOUTH)
+			pixel_x = -width * world.icon_size
+			pixel_y = -distance * world.icon_size - world.icon_size
+		if(WEST)
+			pixel_x = -distance * world.icon_size - world.icon_size
+			pixel_y = -width * world.icon_size
+		if(EAST)
+			pixel_x = world.icon_size
+			pixel_y = -width * world.icon_size
+
+/obj/effect/visual_portal/Bumped(atom/movable/moving_atom)
 	. = ..()
-	if(!ismovable(thing) || !other || !teleport)
-		return .
-
-	if(!near_render_block)
-		setup_near()
-
-	var/mob/living/M = thing
+	if(!teleport)
+		return
 	// make the person glide onto the dest, giving a smooth transition
-	var/ox = thing.x - x
-	var/oy = thing.y - y
-	if(istype(M) && M.client)
-		ADD_TRAIT(M, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-		// cover up client-side map loading
-		M.screen_loc = "CENTER"
-		M.client.screen += M
-		for(var/T in tiles)
-			M.client.screen += tiles[T]
+	var/ox = moving_atom.x - x
+	var/oy = moving_atom.y - y
+	moving_atom.forceMove(locate(other.x + ox, other.y + oy, other.z))
+	sleep(1)
+	moving_atom.forceMove(get_turf(other.loc))
 
-	// wait a tick for the screen to replicate across network
-	// or this whole exercise of covering the transition is pointless
-	spawn(1)
-		thing.forceMove(locate(other.x + ox, other.y + oy, other.z))
-		sleep(1)
-		if(istype(M) && M.client)
-			for(var/T in tiles)
-				M.client.screen -= tiles[T]
-			M.client.screen -= M
-			M.screen_loc = initial(M.screen_loc)
-		thing.forceMove(get_turf(other.loc))
-		if(istype(M) && M.client)
-			REMOVE_TRAIT(M, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-
-
-/obj/effect/view_portal/visual/attack_ghost(mob/user)
+/obj/effect/visual_portal/attack_ghost(mob/user)
+	if(!teleport)
+		return
 	user.forceMove(get_turf(other.loc))
-
-/obj/effect/view_portal/visual/proc/trigger(near, turf/T)
-	var/obj/effect/view_portal_dummy/D = tiles[T]
-	if(D)
-		D.cut_overlays()
-	else
-		D = new(src, near, T)
-		tiles[T] = D
-
-	// render atoms to overlays of a dummy object
-	if(D.name != T.name)
-		D.name = T.name
-		D.desc = T.desc
-	for(var/AX in list(T) + T.contents)
-		var/atom/A = AX
-		if(A && A.invisibility <= SEE_INVISIBLE_LIVING)
-			var/image/I = image(A, layer = D.layer + A.layer * 0.01, dir = A.dir)
-			I.pixel_x = A.pixel_x
-			I.pixel_y = A.pixel_y
-			D.add_overlay(I)
-
-// tile of rendered other side for narnia portal
-/obj/effect/view_portal_dummy
-	var/obj/effect/view_portal/visual/owner
-
-/obj/effect/view_portal_dummy/New(obj/effect/view_portal/visual/V, near, turf/T)
-	..()
-	if(!near)
-		loc = V.loc
-	owner = V
-
-	var/ox
-	var/oy
-	if(near)
-		ox = (T.x - V.near_viewpoint.x)
-		oy = (T.y - V.near_viewpoint.y)
-		layer = AREA_LAYER + 0.4
-	else
-		ox = T.x - V.other.x + V.x - V.near_viewpoint.x
-		oy = T.y - V.other.y + V.y - V.near_viewpoint.y
-		pixel_x = 32 * (T.x - V.other.x)
-		pixel_y = 32 * (T.y - V.other.y)
-		layer = AREA_LAYER + 0.5
-	if(abs(ox) <= world.view && abs(oy) <= world.view)
-		screen_loc = "CENTER[ox >= 0 ? "+" : ""][ox],CENTER[oy >= 0 ? "+" : ""][oy]"
-
-/obj/effect/view_portal_dummy/attack_ghost(mob/user)
-	owner.attack_ghost(user)

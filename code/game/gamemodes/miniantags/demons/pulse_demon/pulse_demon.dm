@@ -134,8 +134,11 @@
 	// flags_2 |= RAD_NO_CONTAMINATE_2
 
 	// don't step on me
-	RegisterSignal(src, COMSIG_CROSSED_MOVABLE, PROC_REF(try_cross_shock))
-	RegisterSignal(src, COMSIG_MOVABLE_CROSSED, PROC_REF(try_cross_shock))
+	RegisterSignal(src, COMSIG_ATOM_ENTERING, PROC_REF(on_entering))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 	// drop demon onto ground if its loc is a non-turf and gets deleted
 	RegisterSignal(src, COMSIG_PREQDELETED, PROC_REF(deleted_handler))
@@ -675,12 +678,25 @@
 	maxcharge = calc_maxcharge(length(hijacked_apcs)) + (maxcharge - calc_maxcharge(length(hijacked_apcs) - 1))
 	to_chat(src, span_notice("Hijacking complete! You now control [length(hijacked_apcs)] APCs."))
 
-/mob/living/simple_animal/demon/pulse_demon/proc/try_cross_shock(src, atom/A)
+
+/mob/living/simple_animal/demon/pulse_demon/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
-	if(!isliving(A) || is_under_tile())
+
+	if(!isliving(arrived) || is_under_tile())
 		return
-	var/mob/living/L = A
-	try_shock_mob(L)
+
+	try_shock_mob(arrived)
+
+
+/mob/living/simple_animal/demon/pulse_demon/proc/on_entering(datum/source, atom/destination, atom/oldloc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(!isturf(destination) || is_under_tile())
+		return
+
+	for(var/mob/living/mob in (destination.contents - src))
+		try_shock_mob(mob)
+
 
 /mob/living/simple_animal/demon/pulse_demon/proc/try_shock_mob(mob/living/L, siemens_coeff = 1)
 	var/dealt = 0
@@ -853,8 +869,8 @@
 
 /obj/item/organ/internal/heart/demon/pulse/attack_self(mob/living/user)
 	. = ..()
-	user.drop_from_active_hand()
-	insert(user)
+	if(user.temporarily_remove_item_from_inventory(src))
+		insert(user)
 
 /obj/item/organ/internal/heart/demon/pulse/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()

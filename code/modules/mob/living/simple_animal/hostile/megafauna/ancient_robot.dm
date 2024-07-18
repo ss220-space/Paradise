@@ -597,7 +597,7 @@ Difficulty: Very Hard
 	maxHealth = INFINITY //it's fine trust me
 	health = INFINITY
 	faction = list("mining", "boss") // No attacking your leg
-	weather_immunities = list("lava","ash")
+	weather_immunities = list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE)
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	check_friendly_fire = 1

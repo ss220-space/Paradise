@@ -19,6 +19,7 @@
 
 	if(!loc)
 		return FALSE
+	INVOKE_ASYNC(src, PROC_REF(burst_blob_in_mob))
 
 	if(stat != DEAD)
 		//Chemicals in the body
@@ -92,6 +93,8 @@
 		machine.check_eye(src)
 
 	handle_gravity(seconds, times_fired)
+
+	handle_SSD(seconds)
 
 	if(stat != DEAD)
 		return TRUE
@@ -281,4 +284,15 @@
 		AdjustStuttering(5 SECONDS, bound_upper = 10 SECONDS)	//It will hamper your voice, being choked and all.
 		if(!breathing_tube)
 			AdjustLoseBreath(3 SECONDS, bound_upper = 6 SECONDS)
+
+
+/// Handles mob SSD status.
+/mob/living/proc/handle_SSD(seconds_per_tick)
+	if(isnull(player_logged))
+		return FALSE
+	if(stat == DEAD)
+		set_SSD(FALSE)
+		return FALSE
+	player_logged += seconds_per_tick SECONDS	// called every 2s. on life
+	return TRUE
 

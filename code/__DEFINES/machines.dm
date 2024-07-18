@@ -95,3 +95,11 @@
 #define LOGIN_TYPE_AI 2
 #define LOGIN_TYPE_ROBOT 3
 #define LOGIN_TYPE_ADMIN 4
+
+
+// Bitflags for a machine's preferences on when it should start processing. For use with machinery's `processing_flags` var.
+/// Indicates the machine will automatically start processing right after it's `Initialize()` is ran.
+#define START_PROCESSING_ON_INIT (1<<0)
+/// Machines with this flag will not start processing when it's spawned. Use this if you want to manually control when a machine starts processing.
+#define START_PROCESSING_MANUALLY (1<<1)
+

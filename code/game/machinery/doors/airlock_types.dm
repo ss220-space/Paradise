@@ -485,6 +485,7 @@
 	overlays_file = 'icons/obj/doors/airlocks/shuttle/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_shuttle
 	paintable = FALSE
+	smoothing_groups = SMOOTH_GROUP_AIRLOCK
 
 /obj/machinery/door/airlock/shuttle/glass
 	opacity = FALSE

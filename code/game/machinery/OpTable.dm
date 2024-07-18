@@ -61,11 +61,6 @@
 	icon_state = "table2-[(patient && patient.pulse) ? "active" : "idle"]"
 
 
-/obj/machinery/optable/Crossed(atom/movable/AM, oldloc)
-	. = ..()
-	if(iscarbon(AM) && LAZYLEN(injected_reagents))
-		to_chat(AM, span_danger("You feel a series of tiny pricks!"))
-
 /obj/machinery/optable/process()
 	update_patient()
 	if(LAZYLEN(injected_reagents))
@@ -91,15 +86,6 @@
 		new_patient.s_active.close(new_patient)
 	add_fingerprint(user)
 	update_patient()
-
-/obj/machinery/optable/verb/climb_on()
-	set name = "Climb On Table"
-	set category = "Object"
-	set src in oview(1)
-	if(!iscarbon(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !check_table())
-		return
-	take_patient(usr, usr)
-
 
 /obj/machinery/optable/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE

@@ -126,11 +126,27 @@
 	(CENTER.x - RADIUS > 1 ? block(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z, max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS + 1, 1), CENTER.z) : list()) +\
 	(CENTER.x + RADIUS < world.maxx ? block(min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z, min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS + 1, 1), CENTER.z) : list())
 
+/// Returns a list of turfs in the rectangle specified by BOTTOM LEFT corner and height/width, checks for being outside the world border for you
+#define CORNER_BLOCK(corner, width, height) CORNER_BLOCK_OFFSET(corner, width, height, 0, 0)
+
+/// Returns a list of turfs similar to CORNER_BLOCK but with offsets
+#define CORNER_BLOCK_OFFSET(corner, width, height, offset_x, offset_y) ((block(locate(corner.x + offset_x, corner.y + offset_y, corner.z), locate(min(corner.x + (width - 1) + offset_x, world.maxx), min(corner.y + (height - 1) + offset_y, world.maxy), corner.z))))
+
+/// Returns an outline (neighboring turfs) of the given block
+#define CORNER_OUTLINE(corner, width, height) ( \
+	CORNER_BLOCK_OFFSET(corner, width + 2, 1, -1, -1) + \
+	CORNER_BLOCK_OFFSET(corner, width + 2, 1, -1, height) + \
+	CORNER_BLOCK_OFFSET(corner, 1, height, -1, 0) + \
+	CORNER_BLOCK_OFFSET(corner, 1, height, width, 0))
+
+/// Returns a list of around us
+#define TURF_NEIGHBORS(turf) (CORNER_BLOCK_OFFSET(turf, 3, 3, -1, -1) - turf)
 
 #define FOR_DVIEW(type, range, center, invis_flags) \
 	GLOB.dview_mob.loc = center; \
 	GLOB.dview_mob.set_invis_see(invis_flags); \
 	for(type in view(range, GLOB.dview_mob))
+
 #define END_FOR_DVIEW GLOB.dview_mob.loc = null
 
 //Turf locational stuff
@@ -164,50 +180,52 @@
 #define MFOAM_IRON 		2
 
 //Carbon Overlays Indexes/////////
-#define MUTANTRACE_LAYER		43
-#define WING_UNDERLIMBS_LAYER	42
-#define TAIL_UNDERLIMBS_LAYER	41	//Tail split-rendering.
-#define LIMBS_LAYER				40
-#define INTORGAN_LAYER			39
-#define MARKINGS_LAYER			38
-#define UNDERWEAR_LAYER			37
-#define MUTATIONS_LAYER			36
-#define H_DAMAGE_LAYER			35
-#define UNIFORM_LAYER			34
-#define SHOES_LAYER				33
-#define OVER_SHOES_LAYER		32
-#define ID_LAYER				31
-#define GLOVES_LAYER			30
-#define EARS_LAYER				29
-#define SUIT_LAYER				28
-#define BELT_LAYER				27	//Possible make this an overlay of somethign required to wear a belt?
-#define NECK_LAYER				26
-#define SUIT_STORE_LAYER		25
-#define BACK_LAYER				24
-#define HEAD_ACCESSORY_LAYER	23
-#define FHAIR_LAYER				22
-#define GLASSES_LAYER			21
-#define HAIR_LAYER				20	//TODO: make part of head layer?
-#define HEAD_ACC_OVER_LAYER		19	//Select-layer rendering.
-#define FHAIR_OVER_LAYER		18	//Select-layer rendering.
-#define GLASSES_OVER_LAYER		17	//Select-layer rendering.
-#define WING_LAYER				16
-#define TAIL_LAYER				15	//bs12 specific. this hack is probably gonna come back to haunt me
-#define FACEMASK_LAYER			14
-#define OVER_MASK_LAYER			13	//Select-layer rendering.
-#define HEAD_LAYER				12
-#define OVER_HEAD_LAYER			11
-#define COLLAR_LAYER			10
-#define HANDCUFF_LAYER			9
-#define LEGCUFF_LAYER			8
-#define L_HAND_LAYER			7
-#define R_HAND_LAYER			6
-#define TARGETED_LAYER			5	//BS12: Layer for the target overlay from weapon targeting system
-#define HALO_LAYER				4	//blood cult ascended halo, because there's currently no better solution for adding/removing
-#define FIRE_LAYER				3	//If you're on fire
-#define MISC_LAYER				2
-#define FROZEN_LAYER			1
-#define TOTAL_LAYERS 			44
+#define MUTANTRACE_LAYER		45
+#define WING_UNDERLIMBS_LAYER	44
+#define TAIL_UNDERLIMBS_LAYER	43	//Tail split-rendering.
+#define LIMBS_LAYER				42
+#define INTORGAN_LAYER			41
+#define MARKINGS_LAYER			40
+#define UNDERWEAR_LAYER			39
+#define MUTATIONS_LAYER			38
+#define H_DAMAGE_LAYER			37
+#define UNIFORM_LAYER			36
+#define SHOES_LAYER				35
+#define OVER_SHOES_LAYER		34
+#define ID_LAYER				33
+#define GLOVES_LAYER			32
+#define EARS_LAYER				31
+#define SUIT_LAYER				30
+#define BELT_LAYER				29	//Possible make this an overlay of somethign required to wear a belt?
+#define NECK_LAYER				28
+#define SUIT_STORE_LAYER		27
+#define BACK_LAYER				26
+#define HEAD_ACCESSORY_LAYER	25
+#define FHAIR_LAYER				24
+#define GLASSES_LAYER			23
+#define HAIR_LAYER				22	//TODO: make part of head layer?
+#define HEAD_ACC_OVER_LAYER		21	//Select-layer rendering.
+#define FHAIR_OVER_LAYER		20	//Select-layer rendering.
+#define GLASSES_OVER_LAYER		19	//Select-layer rendering.
+#define WING_LAYER				18
+#define TAIL_LAYER				17	//bs12 specific. this hack is probably gonna come back to haunt me
+#define FACEMASK_LAYER			16
+#define OVER_MASK_LAYER			15	//Select-layer rendering.
+#define HEAD_LAYER				14
+#define OVER_HEAD_LAYER			13
+#define COLLAR_LAYER			12
+#define HANDCUFF_LAYER			11
+#define LEGCUFF_LAYER			10
+#define L_HAND_LAYER			9
+#define R_HAND_LAYER			8
+#define TARGETED_LAYER			7	//BS12: Layer for the target overlay from weapon targeting system
+#define HALO_LAYER				6	//blood cult ascended halo, because there's currently no better solution for adding/removing
+#define FIRE_LAYER				5	//If you're on fire
+#define MISC_LAYER				4
+#define SLEEP_LAYER				3
+#define FROZEN_LAYER			2
+#define SSD_LAYER				1
+#define TOTAL_LAYERS 			46
 
 ///Access Region Codes///
 #define REGION_ALL			0

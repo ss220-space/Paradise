@@ -460,7 +460,7 @@
 
 /mob/living/carbon/get_access_locations()
 	. = ..()
-	. |= list(get_active_hand(), get_inactive_hand())
+	. |= list(l_hand, r_hand)
 
 
 /mob/living/carbon/get_equipped_items(include_pockets = FALSE, include_hands = FALSE)

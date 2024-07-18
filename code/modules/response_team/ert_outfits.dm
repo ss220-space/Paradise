@@ -21,7 +21,8 @@
 		PDA.owner = H.real_name
 		PDA.ownjob = rt_assignment
 		PDA.ownrank = rt_assignment
-		PDA.name = "PDA-[H.real_name] ([PDA.ownjob])"
+		PDA.update_appearance(UPDATE_NAME)
+
 
 /datum/outfit/job/centcom/response_team/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -43,7 +44,7 @@
 	l_ear = /obj/item/radio/headset/ert/alt/commander
 	id = /obj/item/card/id/ert/commander
 	l_pocket = /obj/item/pinpointer
-	r_pocket = /obj/item/melee/classic_baton/telescopic
+	r_pocket = /obj/item/melee/baton/telescopic
 
 /datum/outfit/job/centcom/response_team/commander/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -268,7 +269,7 @@
 	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
 	glasses = /obj/item/clothing/glasses/meson/night
 	mask = /obj/item/clothing/mask/gas
-	r_pocket = /obj/item/melee/classic_baton/telescopic
+	r_pocket = /obj/item/melee/baton/telescopic
 
 	hours_dif = 100
 	ranks = list("Min" = "Младший капрал",
@@ -294,7 +295,7 @@
 	glasses = /obj/item/clothing/glasses/meson/night
 	mask = /obj/item/clothing/mask/gas
 	l_pocket = /obj/item/t_scanner/extended_range
-	r_pocket = /obj/item/melee/classic_baton/telescopic
+	r_pocket = /obj/item/melee/baton/telescopic
 
 	hours_dif = 200
 	ranks = list("Min" = "Старший капрал",
@@ -330,7 +331,7 @@
 	glasses = /obj/item/clothing/glasses/meson/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	l_pocket = /obj/item/t_scanner/extended_range
-	r_pocket = /obj/item/melee/classic_baton/telescopic
+	r_pocket = /obj/item/melee/baton/telescopic
 
 	hours_dif = 250
 	ranks = list("Min" = "Младший специалист",
@@ -381,7 +382,7 @@
 	mask = /obj/item/clothing/mask/gas/sechailer
 	belt = /obj/item/storage/belt/medical/surgery/loaded
 	l_pocket = /obj/item/reagent_containers/hypospray/safety/ert
-	r_pocket = /obj/item/melee/classic_baton/telescopic
+	r_pocket = /obj/item/melee/baton/telescopic
 	r_hand = /obj/item/defibrillator/loaded
 
 	hours_dif = 100
@@ -412,7 +413,7 @@
 	suit_store = /obj/item/gun/energy/gun/sibyl
 	belt = /obj/item/defibrillator/compact/loaded
 	l_pocket = /obj/item/reagent_containers/hypospray/safety/ert
-	r_pocket = /obj/item/melee/classic_baton/telescopic
+	r_pocket = /obj/item/melee/baton/telescopic
 
 	hours_dif = 200
 	ranks = list("Min" = "Старший капрал",
@@ -602,7 +603,7 @@
 	l_ear = /obj/item/radio/headset/ert/alt
 	id = /obj/item/card/id/centcom
 	pda = /obj/item/pda/centcom
-	r_pocket = /obj/item/melee/classic_baton/telescopic
+	r_pocket = /obj/item/melee/baton/telescopic
 	backpack_contents = list(
 		/obj/item/gun/energy/gun/pdw9/ert = 1,
 		/obj/item/grenade/chem_grenade/antiweed = 2,

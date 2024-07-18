@@ -426,17 +426,17 @@
 	var/mob/living/L = target
 	if(iscultist(target))
 		return
-	user.visible_message("<span class='warning'>[user] holds up [user.p_their()] hand, which explodes in a flash of red light!</span>", \
-							"<span class='cultitalic'>You attempt to stun [L] with the spell!</span>")
+	user.visible_message(	span_warning("[user] holds up [user.p_their()] hand, which explodes in a flash of red light!"), \
+							span_cultitalic("You attempt to stun [L] with the spell!"))
 
 	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, 3, _duration = 2)
 
 	var/obj/item/nullrod/N = locate() in target
 	if(N)
-		target.visible_message("<span class='warning'>[target]'s holy weapon absorbs the red light!</span>", \
-							   "<span class='userdanger'>Your holy weapon absorbs the blinding light!</span>")
+		target.visible_message(	span_warning("[target]'s holy weapon absorbs the red light!"), \
+								span_userdanger("Your holy weapon absorbs the blinding light!"))
 	else
-		to_chat(user, "<span class='cultitalic'>In a brilliant flash of red, [L] falls to the ground!</span>")
+		to_chat(user, span_cultitalic("In a brilliant flash of red, [L] falls to the ground!"))
 		// These are in life cycles, so double the time that's stated.
 		L.Weaken(4 SECONDS)
 		L.adjustStaminaLoss(30)

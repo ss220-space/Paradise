@@ -170,7 +170,7 @@
 	climbable = FALSE
 	max_integrity = 100
 	integrity_failure = 30
-	smooth = SMOOTH_FALSE
+	smooth = NONE
 
 
 /obj/effect/spawner/graveyard_statues

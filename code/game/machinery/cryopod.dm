@@ -61,10 +61,10 @@
 	user.set_machine(src)
 	add_fingerprint(usr)
 
-/obj/machinery/computer/cryopod/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/cryopod/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "CryopodConsole", name, 450, 530)
+		ui = new(user, src, "CryopodConsole", name)
 		ui.open()
 
 /obj/machinery/computer/cryopod/ui_data(mob/user)
@@ -765,7 +765,7 @@
 			target_cryopod = safepick(free_cryopods)
 		if(target_cryopod.check_occupant_allowed(person_to_cryo))
 			var/turf/T = get_turf(person_to_cryo)
-			var/obj/effect/portal/SP = new /obj/effect/portal(T, null, null, 4 SECONDS, create_sparks = FALSE)
+			var/obj/effect/portal/SP = new /obj/effect/portal(T, null, null, 4 SECONDS, null, FALSE)
 			SP.name = "NT SSD Teleportation Portal"
 			target_cryopod.take_occupant(person_to_cryo, 1)
 			return 1

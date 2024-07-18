@@ -265,6 +265,7 @@
 	icon_state = "rainbow"
 	item_state = "rainbow"
 	item_color = "rainbow"
+	dying_key = DYE_REGISTRY_UNDER
 
 /obj/item/clothing/under/cloud
 	name = "cloud"
@@ -425,6 +426,7 @@
 	icon_state = "redcoat"
 	item_state = "redcoat"
 	item_color = "redcoat"
+	dying_key = DYE_REGISTRY_UNDER
 
 /obj/item/clothing/under/kilt
 	name = "kilt"

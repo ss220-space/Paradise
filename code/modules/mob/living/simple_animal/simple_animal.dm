@@ -140,7 +140,8 @@
 		pcollar = new(src)
 		regenerate_icons()
 	if(footstep_type)
-		AddComponent(/datum/component/footstep, footstep_type)
+		AddElement(/datum/element/footstep, footstep_type)
+
 
 /mob/living/simple_animal/Destroy()
 	QDEL_NULL(pcollar)
@@ -197,28 +198,32 @@
 	med_hud_set_health()
 
 
-/mob/living/simple_animal/post_lying_on_rest()
-	if(stat == DEAD)
-		return
+/mob/living/simple_animal/on_lying_down(new_lying_angle)
+	. = ..()
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
-	if(!icon_resting)
-		return
-	icon_state = icon_resting
-	if(collar_type)
-		collar_type = "[initial(collar_type)]_rest"
-		regenerate_icons()
+	update_icons()
 
 
-/mob/living/simple_animal/post_get_up()
-	if(stat == DEAD)
-		return
+/mob/living/simple_animal/on_standing_up()
+	. = ..()
 	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
-	if(!icon_resting)
-		return
-	icon_state = icon_living
-	if(collar_type)
-		collar_type = initial(collar_type)
+	update_icons()
+
+
+/mob/living/simple_animal/update_icons()
+	if(stat == DEAD)
+		icon_state = icon_dead || initial(icon_state)
 		regenerate_icons()
+		return
+	if(resting || body_position == LYING_DOWN)
+		icon_state = icon_resting || initial(icon_state)
+		if(collar_type)
+			collar_type = "[initial(collar_type)]_rest"
+	else
+		icon_state = icon_living || initial(icon_state)
+		if(collar_type)
+			collar_type = initial(collar_type)
+	regenerate_icons()
 
 
 /mob/living/simple_animal/update_stat(reason = "none given", should_log = FALSE)
@@ -425,13 +430,11 @@
 		qdel(src)
 	else
 		health = 0
-		icon_state = icon_dead
+		update_icons()
 		if(flip_on_death)
 			transform = transform.Turn(180)
 		ADD_TRAIT(src, TRAIT_UNDENSE, SIMPLE_MOB_DEATH_TRAIT)
-		if(collar_type)
-			collar_type = "[initial(collar_type)]_dead"
-		regenerate_icons()
+
 
 /mob/living/simple_animal/proc/CanAttack(atom/the_target)
 	if(see_invisible < the_target.invisibility)
@@ -488,11 +491,9 @@
 	..()
 	health = maxHealth
 	icon = initial(icon)
-	icon_state = icon_living
+	update_icons()
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, SIMPLE_MOB_DEATH_TRAIT)
-	if(collar_type)
-		collar_type = "[initial(collar_type)]"
-		regenerate_icons()
+
 
 /mob/living/simple_animal/proc/check_if_child(mob/possible_child)
 	for(var/childpath in childtype)
@@ -681,6 +682,8 @@
 	if(pcollar && collar_type)
 		add_overlay("[collar_type]collar")
 		add_overlay("[collar_type]tag")
+
+	update_fire()
 
 	if(blocks_emissive)
 		add_overlay(get_emissive_block())

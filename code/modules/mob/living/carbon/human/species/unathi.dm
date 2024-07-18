@@ -265,29 +265,29 @@ They're basically just lizards with all-around marginally better stats and fire 
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	) //no need to b-r-e-a-t-h
 
-/datum/species/unathi/draconid/on_species_gain(mob/living/carbon/human/C, datum/species/old_species)
+/datum/species/unathi/draconid/on_species_gain(mob/living/carbon/human/owner)
 	. = ..()
-	var/obj/item/organ/external/head/head_organ = C.get_organ(BODY_ZONE_HEAD)
+	var/obj/item/organ/external/head/head_organ = owner.get_organ(BODY_ZONE_HEAD)
 	head_organ?.ha_style = "Drake"
-	C.change_eye_color("#A02720")
-	C.update_dna()
-	C.update_inv_head()
-	C.update_inv_wear_suit() //update sprites for digi legs
-	C.weather_immunities += "ash"	// += since we can get this from other sources
-	var/datum/action/innate/ignite_unathi/fire = locate() in C.actions
+	owner.change_eye_color("#A02720")
+	owner.update_dna()
+	owner.update_inv_head()
+	owner.update_inv_wear_suit() //update sprites for digi legs
+	ADD_TRAIT(owner, TRAIT_ASHSTORM_IMMUNE, name)
+	var/datum/action/innate/ignite_unathi/fire = locate() in owner.actions
 	if(!fire)
 		fire = new
-		fire.Remove(C)
+		fire.Grant(owner)
 
 
-/datum/species/unathi/draconid/on_species_loss(mob/living/carbon/C)
+/datum/species/unathi/draconid/on_species_loss(mob/living/carbon/owner)
 	. = ..()
-	C.update_inv_head()
-	C.update_inv_wear_suit()
-	C.weather_immunities -= "ash"
-	var/datum/action/innate/ignite_unathi/fire = locate() in C.actions
-	if(fire)
-		fire.Grant(C)
+	owner.update_inv_head()
+	owner.update_inv_wear_suit()
+	REMOVE_TRAIT(owner, TRAIT_ASHSTORM_IMMUNE, name)
+	var/datum/action/innate/ignite_unathi/fire = locate() in owner.actions
+	fire?.Remove(owner)
+
 
 //igniter. only for ashwalkers and drakonids because of """lore"""
 /datum/action/innate/ignite_unathi

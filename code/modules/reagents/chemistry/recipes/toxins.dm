@@ -27,12 +27,8 @@
 	mix_message = "The mixture gives off a faint scent of almonds."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/chemical_reaction/cyanide/on_reaction(datum/reagents/holder)
-	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
-	for(var/mob/living/carbon/C in range(T, 1))
-		if(C.can_breathe_gas())
-			C.reagents.add_reagent("cyanide", 7)
+/datum/chemical_reaction/cyanide/on_reaction(datum/reagents/holder, created_volume)
+	make_vaporation(list("cyanide"), holder, created_volume, 1)
 
 /datum/chemical_reaction/itching_powder
 	name = "Itching Powder"
@@ -86,12 +82,8 @@
 	min_temp = T0C + 100
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/chemical_reaction/sarin/on_reaction(datum/reagents/holder)
-	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
-	for(var/mob/living/carbon/C in range(T, 2))
-		if(C.can_breathe_gas())
-			C.reagents.add_reagent("sarin", 4)
+/datum/chemical_reaction/sarin/on_reaction(datum/reagents/holder, created_volume)
+	make_vaporation(list("sarin"), holder, created_volume, 2)
 
 /datum/chemical_reaction/glyphosate
 	name = "glyphosate"

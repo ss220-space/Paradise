@@ -1919,13 +1919,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			continue
 		. += A
 
-//gives us the stack trace from CRASH() without ending the current proc.
-/proc/stack_trace(msg)
-	CRASH(msg)
-
-/datum/proc/stack_trace(msg)
-	CRASH(msg)
-
 /proc/pass()
 	return
 
@@ -2005,14 +1998,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	)
 	return _list
 
-// Check if the source atom contains another atom
-/atom/proc/contains(atom/location)
-	if(!location)
-		return FALSE
-	if(location == src)
-		return TRUE
-
-	return contains(location.loc)
 
 /**
   * Returns the clean name of an audio channel.

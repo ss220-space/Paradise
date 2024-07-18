@@ -168,7 +168,7 @@
 		qdel(src)
 
 	else if(isigniter(I) && !HAS_TRAIT(I, TRAIT_NODROP))
-		var/obj/item/melee/baton/cattleprod/P = new /obj/item/melee/baton/cattleprod(drop_location())
+		var/obj/item/melee/baton/security/cattleprod/P = new(drop_location())
 
 		if(!remove_item_from_storage(user))
 			user.temporarily_remove_item_from_inventory(src)
