@@ -35,6 +35,8 @@
 /datum/weather/blob_storm/can_weather_act(mob/living/mob_to_check)
 	if(prob(50))
 		return FALSE
+	if(QDELETED(mob_to_check) || mob_to_check.stat == DEAD)
+		return FALSE
 	if(!mob_to_check.mind || mob_to_check.mind.special_role == SPECIAL_ROLE_BLOB)
 		return FALSE
 	if(!mob_to_check.can_be_blob())

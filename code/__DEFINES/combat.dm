@@ -153,6 +153,14 @@
 #define EMP_HEAVY 1
 #define EMP_LIGHT 2
 
+// Return values used in item/melee/baton/baton_attack.
+/// Does a normal item attack.
+#define BATON_DO_NORMAL_ATTACK 1
+/// The attack has been stopped. Either because the user was clumsy or the attack was blocked.
+#define BATON_ATTACK_DONE 2
+/// The baton attack is still going. baton_effect() is called.
+#define BATON_ATTACKING 3
+
 /*
 * converts life cycle values into deciseconds. try and avoid usage of this.
 * this is needed as many functions for stun durations used to output cycles as values, but we now track stun times in deciseconds.

@@ -170,7 +170,7 @@
 
 /datum/reagent/blob/teslium_paste
 	name = "Теслиевая паста"
-	description = "Наносит средний урон <span style='color:#B68D00'>ожогами<span> и вызывает <span style='color:#FFFFE0'>удары током</span> у тех, кого задевает, со временем."
+	description = "Наносит средний урон <span style='color:#B68D00'>ожогами</span> и вызывает <span style='color:#FFFFE0'>удары током</span> у тех, кого задевает, со временем."
 	id = "teslium_paste"
 	color = "#20324D"
 	complementary_color = "#412968"

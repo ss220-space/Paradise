@@ -91,7 +91,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	updateallghostimages()
 	if(!T)
 		T = pick(GLOB.latejoin)			//Safety in case we cannot find the body's position
-	forceMove(T)
 
 	if(!name)							//To prevent nameless ghosts
 		name = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
@@ -102,6 +101,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	toggle_all_huds_on(body)
 	RegisterSignal(src, COMSIG_MOB_HUD_CREATED, PROC_REF(set_ghost_darkness_level)) //something something don't call this until we have a HUD
 	..()
+	abstract_move(T) //let ghost initialize properly, then off to spawn point
 
 
 /mob/dead/observer/Destroy()

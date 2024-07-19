@@ -832,7 +832,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_DEBUG|R_VIEWRUNTIMES))
 		return
 
-	GLOB.error_cache.showTo(usr)
+	GLOB.error_cache.show_to(usr)
 
 /client/proc/jump_to_ruin()
 	set category = "Debug"

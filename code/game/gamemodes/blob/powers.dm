@@ -247,9 +247,6 @@
 			var/mob/living/simple_animal/hostile/blob/blobbernaut/blobber = new (get_turf(b_fac))
 			qdel(b_fac)
 			blobber.key = C.key
-			if(blobber.mind in SSticker?.mode?.blobs["blobernauts"])
-				SSticker?.mode?.blobs["blobernauts"] -= blobber.mind
-			SSticker?.mode?.blobs["blobernauts"] += blobber.mind
 			log_game("[blobber.key] has spawned as Blobbernaut")
 			to_chat(blobber, "<span class='biggerdanger'>Вы блобернаут! Вы должны помочь всем формам блоба в их миссии по уничтожению всего!</span>")
 			to_chat(blobber, "<span class='danger'>Вы исцеляетесь, стоя на плитках блоба, однако вы будете медленно разлагаться, если получите урон за пределами блоба.</span>")
@@ -259,6 +256,7 @@
 			blob_mobs.Add(blobber)
 			blobber.AIStatus = AI_OFF
 			blobber.LoseTarget()
+			addtimer(CALLBACK(blobber, TYPE_PROC_REF(/mob/living/simple_animal/hostile/blob/blobbernaut/, add_to_gamemode)), TIME_TO_ADD_OM_DATUM)
 	return TRUE
 
 

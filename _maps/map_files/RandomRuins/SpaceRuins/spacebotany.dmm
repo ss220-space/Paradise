@@ -2,8 +2,7 @@
 "aa" = (
 /obj/structure/spacevine,
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacebotany/Hydro)
@@ -41,9 +40,8 @@
 	},
 /area/ruin/space/spacebotany/Chem)
 "aJ" = (
-/obj/structure/disposalpipe/junction{
-	dir = 4;
-	icon_state = "pipe-y"
+/obj/structure/disposalpipe/junction/yjunction{
+	dir = 4
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -426,8 +424,7 @@
 /obj/structure/spacevine,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -436,8 +433,7 @@
 /area/ruin/space/spacebotany/Med)
 "fA" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -543,8 +539,7 @@
 /area/ruin/space/spacebotany/EastGarden)
 "gV" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -835,10 +830,8 @@
 	},
 /area/ruin/space/spacebotany/Dorm)
 "kc" = (
-/obj/structure/disposalpipe/junction{
-	dir = 2;
-	icon_state = "pipe-j2";
-	tag = "icon-pipe-j1 (WEST)"
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 2
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -959,8 +952,7 @@
 "lv" = (
 /obj/machinery/light,
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -1035,8 +1027,7 @@
 /area/space)
 "mU" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/machinery/slot_machine,
 /turf/simulated/floor/plating,
@@ -1135,8 +1126,7 @@
 /area/ruin/space/spacebotany/GardenMaint)
 "nQ" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/GardenMaint)
@@ -1243,8 +1233,7 @@
 /obj/effect/decal/cleanable/blood/writing,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/junction{
-	dir = 1;
-	tag = "icon-pipe-j1 (EAST)"
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/Med)
@@ -1288,8 +1277,7 @@
 /area/ruin/space/spacebotany/WestGarden)
 "po" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1608,9 +1596,8 @@
 	},
 /area/ruin/space/spacebotany/Chem)
 "ux" = (
-/obj/structure/disposalpipe/junction{
-	dir = 2;
-	icon_state = "pipe-y"
+/obj/structure/disposalpipe/junction/yjunction{
+	dir = 2
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -2073,9 +2060,8 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 1;
-	icon_state = "pipe-y"
+/obj/structure/disposalpipe/junction/yjunction{
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/GardenMaint)
@@ -2147,8 +2133,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2294,8 +2279,7 @@
 /area/ruin/space/spacebotany/Chem)
 "DB" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2346,8 +2330,7 @@
 /area/ruin/space/spacebotany/Chem)
 "DX" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner";
@@ -3116,8 +3099,7 @@
 "OJ" = (
 /obj/machinery/floodlight,
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -3259,8 +3241,7 @@
 /area/ruin/space/spacebotany/Garden)
 "Qt" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -3272,8 +3253,7 @@
 /area/ruin/space/spacebotany/Garden)
 "Qv" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -3482,8 +3462,7 @@
 /area/ruin/space/spacebotany/WestGarden)
 "SH" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3593,8 +3572,7 @@
 /area/ruin/space/spacebotany/Garden)
 "Tt" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/dark,
@@ -3631,8 +3609,7 @@
 /area/space)
 "TJ" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -3814,8 +3791,7 @@
 /area/ruin/space/spacebotany/Hydro)
 "VV" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "greencorner"
@@ -3876,8 +3852,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/GardenMaint)
@@ -3924,8 +3899,7 @@
 /area/ruin/space/spacebotany/Med)
 "XJ" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/structure/cable{
 	icon_state = "1-4"

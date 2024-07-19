@@ -36,7 +36,7 @@
 	l_hand = /obj/item/storage/firstaid/doctor
 	pda = /obj/item/pda/heads/cmo
 	backpack_contents = list(
-		/obj/item/melee/classic_baton/telescopic = 1
+		/obj/item/melee/baton/telescopic = 1
 	)
 
 	backpack = /obj/item/storage/backpack/medic

@@ -1,188 +1,181 @@
-/obj/item/melee/classic_baton/telescopic/contractor
+#define UPGRADE_MUTE 1
+#define UPGRADE_CUFFS 2
+#define UPGRADE_FOCUS 3
+#define UPGRADE_ANTIDROP 4
+
+
+/obj/item/melee/baton/telescopic/contractor
 	name = "contractor baton"
 	desc = "A compact, specialised baton issued to Syndicate contractors. Applies light electrical shocks to targets."
-	// Overrides
-	affect_silicon = TRUE
-	stun_time = 2 SECONDS
+	icon_state = "contractor_baton"
+	affect_cyborgs = TRUE
+	affect_bots = TRUE
 	cooldown = 2.5 SECONDS
-	force_off = 5
-	force_on = 20
+	clumsy_knockdown_time = 24 SECONDS
+	stamina_damage = 75
+	force = 5
+	extend_force = 20
 	block_chance = 30
-	item_state_on = "contractor_baton"
-	icon_state_off = "contractor_baton_0"
-	icon_state_on = "contractor_baton_1"
-	stun_sound = 'sound/weapons/contractorbatonhit.ogg'
+	force_say_chance = 80 //very high force say chance because it's funny
+	on_stun_sound = 'sound/weapons/contractorbatonhit.ogg'
 	extend_sound = 'sound/weapons/contractorbatonextend.ogg'
-	// Settings
-	/// Stamina damage to deal on stun.
-	var/stamina_damage = 70
-	/// Jitter to deal on stun.
-	var/jitter_amount = 5 SECONDS
-	/// Stutter to deal on stun.
-	var/stutter_amount = 10 SECONDS
-	//Upgrade stuff
-	var/list/upgrades = list()
-	var/muteupgrade = 0
-	var/silence_amount = 0
-	var/cuffupgrade = 0
-	var/cuffs = 0
-	var/focusupgrade = 0
-	var/antidropupgrade = 0
+	extend_item_state = "contractor_baton_extended"
+	/// Currently applied upgrades.
+	var/list/upgrades
+	/// Current amount of cuffs left, used with cuffs upgrade.
+	var/cuffs_amount = 0
+
+
+/obj/item/melee/baton/telescopic/contractor/examine(mob/user)
+	. = ..()
+	if(has_upgrade(UPGRADE_CUFFS))
+		. += span_info("It has <b>[cuffs_amount]</b> cabble restraints remaining.")
+	for(var/obj/item/baton_upgrade/upgrade as anything in upgrades)
+		. += span_notice("It has <b>[upgrade.name]</b> installed, which [upgrade.upgrade_examine].")
+
+
+/obj/item/melee/baton/telescopic/contractor/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/baton_upgrade))
+		add_upgrade(I, user)
+	else if(istype(I, /obj/item/restraints/handcuffs))
+		if(!has_upgrade(UPGRADE_CUFFS))
+			balloon_alert(user, "модуль стяжек не установлен!")
+			return
+		if(!istype(I, /obj/item/restraints/handcuffs/cable))
+			balloon_alert(user, "подойдут только стяжки!")
+			return
+		if(cuffs_amount >= 3)
+			balloon_alert(user, "больше не поместится!")
+			return
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return
+		cuffs_amount++
+		balloon_alert(user, "хранилище стяжек пополнено")
+		qdel(I)
+	else
+		return ..()
+
+
+/obj/item/melee/baton/telescopic/contractor/get_wait_description()
+	return span_danger("The baton is still charging!")
+
+
+/obj/item/melee/baton/telescopic/contractor/additional_effects_non_cyborg(mob/living/carbon/human/target, mob/living/user)
+	target.AdjustJitter(5 SECONDS, bound_upper = 40 SECONDS)
+	target.AdjustStuttering(10 SECONDS, bound_upper = 40 SECONDS)
+	if(has_upgrade(UPGRADE_MUTE))
+		target.AdjustSilence(10 SECONDS, bound_upper = 10 SECONDS)
+	if(has_upgrade(UPGRADE_CUFFS) && cuffs_amount > 0)
+		if(target.getStaminaLoss() > 90 || target.health <= HEALTH_THRESHOLD_CRIT || target.IsSleeping())
+			CuffAttack(target, user)
+	if(has_upgrade(UPGRADE_FOCUS) && ishuman(target))
+		for(var/datum/antagonist/contractor/antag_datum in user.mind.antag_datums)
+			if(target == antag_datum?.contractor_uplink?.hub?.current_contract?.contract?.target.current)
+				target.apply_damage(20, STAMINA)
+				target.AdjustJitter(20 SECONDS, bound_upper = 40 SECONDS)
+				break
+
+
+/obj/item/melee/baton/telescopic/contractor/proc/add_upgrade(obj/item/baton_upgrade/new_upgrade, mob/user)
+	if(!istype(new_upgrade))
+		return FALSE
+	if(!upgrades)
+		upgrades = list()
+	if(locate(new_upgrade.type, upgrades))
+		if(user)
+			balloon_alert(user, "уже установлено!")
+		return FALSE
+	if(user && !user.drop_transfer_item_to_loc(new_upgrade, src))
+		return FALSE
+	upgrades += new_upgrade
+	if(user)
+		balloon_alert(user, "установлено")
+	else
+		new_upgrade.forceMove(src)
+
+
+/obj/item/melee/baton/telescopic/contractor/proc/has_upgrade(upgrade_type)
+	if(!length(upgrades))
+		return FALSE
+	switch(upgrade_type)
+		if(UPGRADE_MUTE)
+			return locate(/obj/item/baton_upgrade/mute, upgrades)
+		if(UPGRADE_CUFFS)
+			return locate(/obj/item/baton_upgrade/cuff, upgrades)
+		if(UPGRADE_FOCUS)
+			return locate(/obj/item/baton_upgrade/focus, upgrades)
+		if(UPGRADE_ANTIDROP)
+			return locate(/obj/item/baton_upgrade/antidrop, upgrades)
+
+
+/obj/item/melee/baton/telescopic/contractor/proc/CuffAttack(mob/living/carbon/target, mob/living/user)
+	if(target.handcuffed)
+		to_chat(user, span_warning("[target] is already handcuffed!"))
+		return
+
+	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
+	target.visible_message(
+		span_danger("[user] begins restraining [target] with contractor baton!"),
+		span_userdanger("[user] is trying to put handcuffs on you!"),
+	)
+	if(!do_after(user, 1 SECONDS, target, NONE) || target.handcuffed || !cuffs_amount)
+		to_chat(user, span_warning("You fail to shackle [target]."))
+		return
+
+	target.apply_restraints(new /obj/item/restraints/handcuffs/cable(null), ITEM_SLOT_HANDCUFFED, TRUE)
+	to_chat(user, span_notice("You shackle [target]."))
+	add_attack_logs(user, target, "shackled")
+	cuffs_amount--
+
+
+/obj/item/melee/baton/telescopic/contractor/on_transform(obj/item/source, mob/user, active)
+	. = ..()
+	if(!has_upgrade(UPGRADE_ANTIDROP))
+		return .
+
+	if(active)
+		to_chat(user, span_notice("The baton spikes burrows into your arm, preventing accidential dropping."))
+		ADD_TRAIT(src, TRAIT_NODROP, CONTRACTOR_BATON_TRAIT)
+	else
+		to_chat(user, span_notice("The baton spikes fold back, allowing you to move your hand freely."))
+		REMOVE_TRAIT(src, TRAIT_NODROP, CONTRACTOR_BATON_TRAIT)
+
 
 //upgrades
 /obj/item/baton_upgrade
-	name = "baton upgrade"
-	desc = "makes baton better."
-	icon_state = "cuff_upgrade"
-	var/denied_type = /obj/item/baton_upgrade
+	var/upgrade_examine
 
-/obj/item/baton_upgrade/proc/effect_desc()
-	return //nice code
 
 /obj/item/baton_upgrade/cuff
-	name = "handcuff baton upgrade"
+	name = "handcuff upgrade"
 	desc = "Allows the user to apply cabble restraints to a target via baton, requires to be loaded with up to three prior."
 	icon_state = "cuff_upgrade"
-	denied_type = /obj/item/baton_upgrade/cuff
+	upgrade_examine = "allows you to cabble cuff your target if your target is exhausted. Required to be loaded first"
 
-/obj/item/baton_upgrade/cuff/effect_desc()
-	return "allows you to cabble cuff your target if your target is exhausted. Required to be loaded first"
 
 /obj/item/baton_upgrade/mute
-	name = "mute baton upgrade"
+	name = "mute upgrade"
 	desc = "Use of the baton on a target will mute them for a short period."
 	icon_state = "mute_upgrade"
-	denied_type = /obj/item/baton_upgrade/mute
+	upgrade_examine = "deprives the victim of the ability to speak for a small time"
 
-/obj/item/baton_upgrade/mute/effect_desc()
-	return "deprives the victim of the ability to speak for a small time"
 
 /obj/item/baton_upgrade/focus
-	name = "focus baton upgrade"
+	name = "focus upgrade"
 	desc = "Use of the baton on a target, should they be the subject of your contract, will be extra exhausted."
 	icon_state = "focus_upgrade"
-	denied_type = /obj/item/baton_upgrade/focus
+	upgrade_examine = "allows you to cause additional damage to the target of your current contract"
 
-/obj/item/baton_upgrade/focus/effect_desc()
-	return "allows you to cause additional damage to the target of your current contract"
 
 /obj/item/baton_upgrade/antidrop
-	name = "Antidrop baton upgrade"
+	name = "antidrop upgrade"
 	desc = "This module grips the hand, not allowing the user to drop extended baton under any circumstances."
 	icon_state = "antidrop_upgrade"
-	denied_type = /obj/item/baton_upgrade/antidrop
+	upgrade_examine = "allows you to keep your extended baton in hands no matter what happens with you"
 
-/obj/item/baton_upgrade/antidrop/effect_desc()
-	return "Allows you to keep your extended baton in hands no matter what happens with you"
 
-//upgrade attaching
-
-/obj/item/baton_upgrade/proc/add_to(obj/item/melee/classic_baton/telescopic/contractor/H, mob/living/user)
-	for(var/m in H.upgrades)
-		var/obj/item/baton_upgrade/M = m
-		if(istype(m,denied_type) || istype(src, M.denied_type))
-			to_chat(user,"<span class='warning'>You can't attach [src] to your baton.")
-			return FALSE
-	if(!user.drop_transfer_item_to_loc(src, H))
-		return
-	H.upgrades += src
-	to_chat(user, "<span class='notice'>You attach [src] to [H].</span>")
-	return TRUE
-
-/obj/item/melee/classic_baton/telescopic/contractor/attackby(obj/item/I, mob/user, params)
-	. = ..()
-	if(istype(I, /obj/item/baton_upgrade))
-		var/obj/item/baton_upgrade/M = I
-		M.add_to(src, user)
-	if(istype(I, /obj/item/restraints/handcuffs))
-		if(istype(I, /obj/item/restraints/handcuffs/cable))
-			var/obj/item/restraints/handcuffs/cable/M = I
-			if(cuffs < 3)
-				cuffs++
-				qdel(M)//I can't make it better..
-				to_chat(user, "You insert [M] in your baton.")
-			else
-				to_chat(user, "There is no room for more cabble restraints!")
-		else
-			to_chat(user, "Cuff module accepts only cable restraints.")
-
-/obj/item/melee/classic_baton/telescopic/contractor/examine(mob/user)
-	. = ..()
-	if(cuffupgrade)
-		. += "there is [cuffs] cabble restraints in baton."
-	for(var/m in upgrades)
-		var/obj/item/baton_upgrade/M = m
-		. += "<span class='notice'>It has \a [M] installed, which [M.effect_desc()].</span>"
-
-//Effects
-
-/obj/item/baton_upgrade/mute/add_to(obj/item/melee/classic_baton/telescopic/contractor/H, mob/living/user)
-	. = ..()
-	H.muteupgrade = 1
-
-/obj/item/baton_upgrade/cuff/add_to(obj/item/melee/classic_baton/telescopic/contractor/H, mob/living/user)
-	. = ..()
-	H.cuffupgrade = 1
-
-/obj/item/baton_upgrade/focus/add_to(obj/item/melee/classic_baton/telescopic/contractor/H, mob/living/user)
-	. = ..()
-	H.focusupgrade = 1
-
-/obj/item/baton_upgrade/antidrop/add_to(obj/item/melee/classic_baton/telescopic/contractor/H, mob/living/user)
-	. = ..()
-	H.antidropupgrade = 1
-
-//attack
-
-/obj/item/melee/classic_baton/telescopic/contractor/stun(mob/living/target, mob/living/user)
-	. = ..()
-	target.adjustStaminaLoss(stamina_damage)
-	target.Jitter(jitter_amount)
-	target.AdjustStuttering(stutter_amount)
-	if(muteupgrade)
-		target.Silence(10 SECONDS)
-	if(cuffupgrade)//check for cuff
-		if(cuffs > 0)
-			if(target.getStaminaLoss() > 90 || target.health <= HEALTH_THRESHOLD_CRIT || target.IsSleeping())
-				CuffAttack(target, user)
-			else
-				user.visible_message("<span class='warning'>This victim is still resisting!</span>")
-	if(focusupgrade)//check for focus
-		for(var/datum/antagonist/contractor/C in user.mind.antag_datums)
-			if(target == C?.contractor_uplink?.hub?.current_contract?.contract?.target.current)//pain
-				target.adjustStaminaLoss(30) //one punch to stun, if target. Prevents from onepunchcuff
-				target.Jitter(20 SECONDS)
-
-//cuff module
-
-/obj/item/melee/classic_baton/telescopic/contractor/proc/CuffAttack(mob/living/carbon/target, mob/living/user)
-	if(!target.handcuffed)
-		playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
-		target.visible_message("<span class='danger'>[user] begins restraining [target] with contractor baton!</span>", \
-		"<span class='userdanger'>[user] is trying to put handcuffs on you!</span>")
-		if(do_after(user, 1 SECONDS, target, NONE))
-			if(!target.handcuffed)
-				target.apply_restraints(new /obj/item/restraints/handcuffs/cable(null), ITEM_SLOT_HANDCUFFED, TRUE)
-				to_chat(user, "<span class='notice'>You shackle [target].</span>")
-				add_attack_logs(user, target, "shackled")
-				cuffs--
-			else
-				to_chat(user, "<span class='warning'>[target] is already bound.</span>")
-		else
-			to_chat(user, "<span class='warning'>You fail to shackle [target].</span>")
-	else
-		to_chat(user, "<span class='warning'>[target] is already bound.</span>")
-
-//antidrop stuff
-
-/obj/item/melee/classic_baton/telescopic/contractor/attack_self(mob/user)
-	. = ..()
-	if(antidropupgrade)
-		if(on)
-			to_chat(user, "<span class='notice'>The baton spikes burrows into your arm, preventing you to drop your baton.</span>")
-			ADD_TRAIT(src, TRAIT_NODROP, CONTRACTOR_BATON_TRAIT)
-			slot_flags = NONE //preventing putting baton to belt using hotkey
-		else
-			to_chat(user, "<span class='notice'>The baton spikes fold back, allowing you to move your hand freely.</span>")
-			REMOVE_TRAIT(src, TRAIT_NODROP, CONTRACTOR_BATON_TRAIT)
+#undef UPGRADE_MUTE
+#undef UPGRADE_CUFFS
+#undef UPGRADE_FOCUS
+#undef UPGRADE_ANTIDROP
 

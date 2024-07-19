@@ -48,10 +48,10 @@
 	to_chat(world, "<B>Целью блоба было:</B>")
 
 	if(blob_objective.check_completion())
-		to_chat(world, "<br>[blob_objective.explanation_text] <font color='green'><B>Success!</B></font>")
+		to_chat(world, "<br/>[blob_objective.explanation_text] <font color='green'><B>Success!</B></font>")
 		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[blob_objective.type]", "SUCCESS"))
 	else
-		to_chat(world, "<br>[blob_objective.explanation_text] <font color='red'>Fail.</font>")
+		to_chat(world, "<br/>[blob_objective.explanation_text] <font color='red'>Fail.</font>")
 		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[blob_objective.type]", "FAIL"))
 	return TRUE
 
@@ -62,20 +62,20 @@
 	var/list/blobernauts = blobs["blobernauts"]
 	if(blob_infected?.len)
 		declare_blob_completion()
-		var/text = "<FONT size = 2><B>Блоб[(blob_infected.len > 1 ? "ами были" : "ом был")]:</B></FONT>"
+		var/text = "<br/><FONT size = 2><B>Блоб[(blob_infected.len > 1 ? "ами были" : "ом был")]:</B></FONT>"
 
 		for(var/datum/mind/blob in blob_infected)
-			text += "<br><b>[blob.key]</b> был <b>[blob.name]</b>"
+			text += "<br/><b>[blob.key]</b> был <b>[blob.name]</b>"
 
 		if(blob_offsprings?.len)
-			text += "<br><FONT size = 2><B>Потомк[(blob_offsprings.len > 1 ? "ами блоба были" : "ом блоба был")]:</B></FONT>"
+			text += "<br/><br/><FONT size = 2><B>Потомк[(blob_offsprings.len > 1 ? "ами блоба были" : "ом блоба был")]:</B></FONT>"
 			for(var/datum/mind/blob in blob_offsprings)
-				text += "<br><b>[blob.key]</b> был <b>[blob.name]</b>"
+				text += "<br/><b>[blob.key]</b> был <b>[blob.name]</b>"
 
 		if(blobernauts?.len)
-			text += "<br><FONT size = 2><B>Блобернаут[(blobernauts.len > 1 ? "ами были" : "ом был")]:</B></FONT>"
+			text += "<br/><br/><FONT size = 2><B>Блобернаут[(blobernauts.len > 1 ? "ами были" : "ом был")]:</B></FONT>"
 			for(var/datum/mind/blob in blobernauts)
-				text += "<br><b>[blob.key]</b> был <b>[blob.name]</b>"
+				text += "<br/><b>[blob.key]</b> был <b>[blob.name]</b>"
 
 		to_chat(world, text)
 	return TRUE

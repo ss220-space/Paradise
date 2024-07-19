@@ -148,6 +148,33 @@
 	return count
 
 
+/datum/game_mode/proc/make_blobized_mouses(count)
+	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за мышь, зараженную Блобом?", ROLE_BLOB, TRUE, source = /mob/living/simple_animal/mouse/blobinfected)
+
+	if(!length(candidates))
+		return FALSE
+
+	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
+	if(!length(vents))
+		return FALSE
+
+	for(var/i in 1 to count)
+		if (length(candidates))
+			var/obj/vent = pick(vents)
+			var/mob/living/simple_animal/mouse/B = new(vent.loc)
+			var/mob/M = pick(candidates)
+			candidates.Remove(M)
+			B.key = M.key
+			var/datum/antagonist/blob_infected/blob_datum = new
+			blob_datum.time_to_burst_hight = TIME_TO_BURST_MOUSE_HIGHT
+			blob_datum.time_to_burst_low = TIME_TO_BURST_MOUSE_LOW
+			B.mind.add_antag_datum(blob_datum)
+			to_chat(B, span_userdanger("Теперь вы мышь, заражённая спорами Блоба. Найдите какое-нибудь укромное место до того, как вы взорветесь и станете Блобом! Вы можете перемещаться по вентиляции, нажав Alt+ЛКМ на вентиляционном отверстии."))
+			log_game("[B.key] has become blob infested mouse.")
+			notify_ghosts("Заражённая мышь появилась в [get_area(B)].", source = B, action = NOTIFY_FOLLOW)
+	return TRUE
+
+
 /datum/game_mode/proc/process_blob_stages()
 	if(!GLOB.blob_cores.len)
 		return
@@ -156,6 +183,7 @@
 	if(blob_stage == BLOB_STAGE_ZERO && GLOB.blobs.len >= FIRST_STAGE_COEF * blob_win_count)
 		blob_stage = BLOB_STAGE_FIRST
 		send_intercept(BLOB_FIRST_REPORT)
+		SSshuttle?.emergency?.cancel()
 		SSshuttle?.lockdown_escape()
 
 	if(blob_stage == BLOB_STAGE_FIRST && GLOB.blobs.len >= SECOND_STAGE_COEF * blob_win_count)
