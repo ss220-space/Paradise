@@ -51,7 +51,7 @@
  * trailing_newline, confidential, and handle_whitespace currently have no effect, please fix this in the future or remove the arguments to lower cache!
  */
 /proc/to_chat(target, html, type, text, avoid_highlighting, handle_whitespace = TRUE, trailing_newline = TRUE, confidential = FALSE, ticket_id = -1)
-	if(Master.current_runlevel == RUNLEVEL_INIT || !SSchat?.initialized)
+	if(isnull(Master) || !SSchat?.initialized || !MC_RUNNING(SSchat.init_stage))
 		to_chat_immediate(target, html, type, text)
 		return
 

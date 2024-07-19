@@ -1147,3 +1147,7 @@
 	/// Return COMPONENT_NO_DEFAULT_MESSAGE to prevent the transforming component from displaying the default transform message / sound.
 	#define COMPONENT_NO_DEFAULT_MESSAGE (1<<0)
 
+
+///From base of datum/controller/subsystem/Initialize
+#define COMSIG_SUBSYSTEM_POST_INITIALIZE "subsystem_post_initialize"
+

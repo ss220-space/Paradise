@@ -7,6 +7,7 @@ SUBSYSTEM_DEF(garbage)
 	flags = SS_POST_FIRE_TIMING|SS_BACKGROUND|SS_NO_INIT
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
 	init_order = INIT_ORDER_GARBAGE // Why does this have an init order if it has SS_NO_INIT?
+	init_stage = INITSTAGE_EARLY
 	offline_implications = "Garbage statistics collection is no longer functional, not a big deal actually. No futher actions required."
 	cpu_display = SS_CPUDISPLAY_HIGH
 	ss_id = "garbage_collector"

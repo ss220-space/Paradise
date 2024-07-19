@@ -169,6 +169,9 @@ SUBSYSTEM_DEF(mapping)
 	else
 		world.name = station_name()
 
+	return SS_INIT_SUCCESS
+
+
 /datum/controller/subsystem/mapping/proc/setupPlanes()
 	plane_offset_to_true = list()
 	true_to_offset_planes = list()
