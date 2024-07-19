@@ -83,8 +83,11 @@
 
 /datum/gear/uniform/skirt/dyeable/New()
 	..()
-	AddComponent(/datum/component/spraycan_paintable)
 	gear_tweaks += new /datum/gear_tweak/color(parent = src)
+
+/datum/gear/uniform/skirt/dyeable/spawn_item(location, metadata)
+	..()
+	AddComponent(/datum/component/spraycan_paintable)
 
 /datum/gear/uniform/skirt/plaid
 	display_name = "plaid skirt, select"
