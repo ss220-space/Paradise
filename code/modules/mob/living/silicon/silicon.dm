@@ -3,7 +3,7 @@
 	voice_name = "synthesized voice"
 	bubble_icon = "machine"
 	has_unlimited_silicon_privilege = 1
-	weather_immunities = list("ash")
+	weather_immunities = list(TRAIT_WEATHER_IMMUNE)
 	var/syndicate = 0
 	var/const/MAIN_CHANNEL = "Main Frequency"
 	var/lawchannel = MAIN_CHANNEL // Default channel on which to state laws
@@ -176,9 +176,9 @@
 		if(EMP_LIGHT)
 			take_organ_damage(10)
 			Stun(6 SECONDS)
-	flash_eyes(affect_silicon = 1)
-	to_chat(src, "<span class='danger'>*BZZZT*</span>")
-	to_chat(src, "<span class='warning'>Warning: Electromagnetic pulse detected.</span>")
+	flash_eyes(3, affect_silicon = TRUE)
+	to_chat(src, span_danger("*BZZZT*"))
+	to_chat(src, span_warning("Warning: Electromagnetic pulse detected."))
 
 
 /mob/living/silicon/proc/damage_mob(var/brute = 0, var/fire = 0, var/tox = 0)
@@ -193,12 +193,12 @@
 	return TRUE
 
 
-/mob/living/silicon/handle_ventcrawl(atom/clicked_on)
+/mob/living/silicon/move_into_vent(obj/machinery/atmospherics/ventcrawl_target, message = TRUE)
 	. = ..()
-
 	if(. && inventory_head)
-		drop_hat()
-		visible_message("<b>[name] опрокинул шляпу при залезании в вентиляцию!</b>", "Помеха корпуса была утеряна.")
+		drop_hat(drop_on_turf = TRUE)
+		if(message)
+			ventcrawl_target.visible_message("<b>[name] опрокинул шляпу при залезании в вентиляцию!</b>")
 
 
 /mob/living/silicon/robot/welder_act(mob/user, obj/item/I)
@@ -316,7 +316,7 @@
 
 // this function displays the stations manifest in a separate window
 /mob/living/silicon/proc/show_station_manifest()
-	GLOB.generic_crew_manifest.ui_interact(usr, state = GLOB.not_incapacitated_state)
+	GLOB.generic_crew_manifest.ui_interact(usr)
 
 /mob/living/silicon/assess_threat() //Secbots won't hunt silicon units
 	return -10
@@ -388,7 +388,7 @@
 /mob/living/silicon/get_access()
 	return IGNORE_ACCESS //silicons always have access
 
-/mob/living/silicon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash/noise)
+/mob/living/silicon/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash/noise)
 	if(affect_silicon)
 		return ..()
 
@@ -401,3 +401,32 @@
 /////////////////////////////////// EAR DAMAGE ////////////////////////////////////
 /mob/living/silicon/can_hear()
 	return TRUE
+
+
+/mob/living/silicon/put_in_hand_check() // This check is for borgs being able to receive items, not put them in others' hands.
+	return FALSE
+
+
+/mob/living/silicon/on_handsblocked_start()
+	return // AIs and borgs have no hands
+
+
+/mob/living/silicon/on_handsblocked_end()
+	return // AIs and borgs have no hands
+
+
+/mob/living/silicon/on_floored_start()
+	return // Silicons are always standing by default.
+
+
+/mob/living/silicon/on_floored_end()
+	return // Silicons are always standing by default.
+
+
+/mob/living/silicon/on_lying_down()
+	return // Silicons are always standing by default.
+
+
+/mob/living/silicon/on_standing_up()
+	return // Silicons are always standing by default.
+

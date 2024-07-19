@@ -144,10 +144,8 @@
 	var/datum/cargo_quests_storage/q_storage
 	/// Quest desc, using in interface.
 	var/list/desc = list()
-	/// Quest base icon, using in interface.
-	var/interface_icon
-	/// Quest base icon state, using in interface.
-	var/interface_icon_state
+	/// Item, which icon, used for category in interface.
+	var/item_for_show
 	/// Quest interface images, using in interface.
 	var/list/interface_images = list()
 	/// Requested order's item types, unless otherwise specified.
@@ -156,10 +154,11 @@
 	var/difficultly_flags
 
 
-/datum/cargo_quest/New(storage)
-	q_storage = storage
-	add_goal(difficultly = q_storage.quest_difficulty.diff_flag)
-	update_interface_icon()
+/datum/cargo_quest/New(storage, read_datum = FALSE)
+	if(!read_datum)
+		q_storage = storage
+		add_goal(difficultly = q_storage.quest_difficulty.diff_flag)
+		update_interface_icon()
 
 /datum/cargo_quest/proc/generate_goal_list(difficultly)
 	return
@@ -171,8 +170,7 @@
 	return
 
 /datum/cargo_quest/proc/update_interface_icon()
-	if(interface_icon && interface_icon_state)
-		interface_images += icon2base64(icon(interface_icon, interface_icon_state, SOUTH, 1))
+	return
 
 /datum/cargo_quest/proc/check_required_item(atom/movable/check_item)
 	return

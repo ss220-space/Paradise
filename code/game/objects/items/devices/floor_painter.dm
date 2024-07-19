@@ -13,7 +13,7 @@
 
 	w_class = WEIGHT_CLASS_TINY
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 
 	var/static/list/allowed_states = list("arrival", "arrivalcorner", "bar", "barber", "bcircuit", "black", "blackcorner", "blue", "bluecorner",
 		"bluefull", "bluered", "blueyellow", "blueyellowfull", "bot", "brown", "browncorner", "brownfull", "browncornerold", "brownold",
@@ -61,10 +61,13 @@
 	ui_interact(user)
 	return 1
 
-/obj/item/floor_painter/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/floor_painter/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/floor_painter/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "FloorPainter", name, 405, 470, master_ui, state)
+		ui = new(user, src, "FloorPainter", name)
 		// Disable automatic updates, because:
 		// 1) we are the only user of the item, and don't expect to observe external changes
 		// 2) generating and sending the icon each tick is a bit expensive, and creates small but noticeable lag

@@ -186,3 +186,4 @@
 
 /obj/item/vending_refill/pai
 	machine_name = "RoboFriends"
+	icon_state = "restock_pai"

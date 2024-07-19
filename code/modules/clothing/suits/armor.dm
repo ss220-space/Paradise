@@ -1,5 +1,5 @@
 /obj/item/clothing/suit/armor
-	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/melee/classic_baton/telescopic,/obj/item/kitchen/knife/combat)
+	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/kitchen/knife/combat)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	cold_protection = UPPER_TORSO|LOWER_TORSO
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
@@ -20,6 +20,7 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 	w_class = WEIGHT_CLASS_NORMAL
+	undyeable = TRUE
 
 /obj/item/clothing/suit/armor/vest
 	name = "armor"
@@ -122,8 +123,7 @@
 	armor = list(melee = 25, bullet = 15, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0, fire = 50, acid = 50)
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|ARMS
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	ignore_suitadjust = FALSE
 	actions_types = list(/datum/action/item_action/openclose)
 	adjust_flavour = "unzip"
 
@@ -144,9 +144,8 @@
 	desc = "A trenchcoat enhanced with a special lightweight kevlar. The epitome of tactical plainclothes."
 	icon_state = "hostrench_open"
 	item_state = "hostrench_open"
-	flags_inv = 0
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	flags_inv_transparent = HIDEJUMPSUIT
+	ignore_suitadjust = FALSE
 	actions_types = list(/datum/action/item_action/openclose)
 	adjust_flavour = "unbutton"
 
@@ -155,7 +154,7 @@
 	desc = "A trenchcoat augmented with a special alloy for some protection and style."
 	icon_state = "jensencoat"
 	item_state = "jensencoat"
-	flags_inv = 0
+	flags_inv_transparent = HIDEJUMPSUIT
 	sprite_sheets = null
 
 /obj/item/clothing/suit/armor/vest/warden
@@ -207,6 +206,7 @@
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	armor = list("melee" = 50, "bullet" = 10, "laser" = 10, "energy" = 20, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
 	flags_inv = HIDEJUMPSUIT
+	flags_inv_transparent = HIDEJUMPSUIT
 	strip_delay = 80
 	put_on_delay = 60
 	hide_tail_by_species = list(SPECIES_VOX)
@@ -398,7 +398,7 @@
 		owner.visible_message("<span class='danger'>The reactive teleport system flings [H] clear of [attack_text]!</span>")
 		var/list/turfs = new/list()
 		for(var/turf/T in orange(tele_range, H))
-			if(istype(T, /turf/space))
+			if(isspaceturf(T))
 				continue
 			if(T.density)
 				continue
@@ -476,7 +476,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	allowed = list(/obj/item/gun/energy,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank/internals/emergency_oxygen)
-	flags = THICKMATERIAL
+	clothing_flags = THICKMATERIAL
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
@@ -491,7 +491,7 @@
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 90)
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.90
-	flags = THICKMATERIAL
+	clothing_flags = THICKMATERIAL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	slowdown = 3
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
@@ -505,7 +505,7 @@
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 90)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	flags = THICKMATERIAL
+	clothing_flags = THICKMATERIAL
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	hide_tail_by_species = list(SPECIES_VOX, SPECIES_VULPKANIN)
@@ -556,7 +556,7 @@
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
 	hide_tail_by_species = list(SPECIES_VOX, SPECIES_VULPKANIN)
-	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore, /obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/melee/classic_baton/telescopic,/obj/item/kitchen/knife/combat)
+	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore, /obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/kitchen/knife/combat)
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
@@ -623,8 +623,8 @@
 	armor = list("melee" = 70, "bullet" = 30, "laser" = 50, "energy" = 40, "bomb" = 70, "bio" = 60, "rad" = 50, "fire" = 100, "acid" = 100)
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-	flags = BLOCKHAIR
+	resistance_flags = FIRE_PROOF|ACID_PROOF
+	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/suit/hooded/goliath
@@ -643,7 +643,7 @@
 	item_state = "golhood"
 	desc = "A protective & concealing hood."
 	armor = list("melee" = 35, "bullet" = 10, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 60)
-	flags = BLOCKHAIR
+	flags_inv = HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/suit/hooded/goliath/wizard
@@ -662,12 +662,12 @@
 //mob_size using for crusher mark
 /obj/item/clothing/suit/hooded/goliath/wizard/equipped(mob/living/user, slot, initial = FALSE)
 	. = ..()
-	if(istype(user) && slot == SLOT_HUD_HEAD)
+	if(istype(user) && slot == ITEM_SLOT_HEAD)
 		user.mob_size = MOB_SIZE_LARGE
 
 /obj/item/clothing/suit/hooded/goliath/wizard/dropped(mob/living/user, slot, silent = FALSE)
 	. = ..()
-	if(istype(user)&& slot == SLOT_HUD_HEAD)
+	if(istype(user)&& slot == ITEM_SLOT_HEAD)
 		user.mob_size = MOB_SIZE_HUMAN
 
 /obj/item/clothing/suit/armor/bone
@@ -695,7 +695,7 @@
 	icon_state = "makeshift_armor"
 	item_state = "makeshift_armor"
 	resistance_flags = FIRE_PROOF
-	armor = list("melee" = 8, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list("melee" = 8, "bullet" = 5, "laser" = 5, "energy" = 30, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 
 //Dredd
 

@@ -37,8 +37,8 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 			user.visible_message("<span class='warning'>[user]'s things suddenly slip off. They hunch over and vomit up a copious amount of purple goo which begins to shape around them!</span>", \
 								"<span class='shadowling'>You remove any equipment which would hinder your hatching and begin regurgitating the resin which will protect you.</span>")
 
-			for(var/obj/item/item in user.get_equipped_items(include_pockets = TRUE))
-				user.drop_item_ground(item)
+			for(var/obj/item/item as anything in user.get_equipped_items(include_pockets = TRUE))
+				user.drop_item_ground(item, force = TRUE)
 
 
 			sleep(5 SECONDS)
@@ -126,13 +126,13 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 			user.faction |= "faithless"
 
 			user.set_species(/datum/species/shadow/ling)	//can't be a shadowling without being a shadowling
-			user.equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(user), SLOT_HUD_JUMPSUIT)
-			user.equip_to_slot_or_del(new /obj/item/clothing/shoes/shadowling(user), SLOT_HUD_SHOES)
-			user.equip_to_slot_or_del(new /obj/item/clothing/suit/space/shadowling(user), SLOT_HUD_OUTER_SUIT)
-			user.equip_to_slot_or_del(new /obj/item/clothing/head/shadowling(user), SLOT_HUD_HEAD)
-			user.equip_to_slot_or_del(new /obj/item/clothing/gloves/shadowling(user), SLOT_HUD_GLOVES)
-			user.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/shadowling(user), SLOT_HUD_WEAR_MASK)
-			user.equip_to_slot_or_del(new /obj/item/clothing/glasses/shadowling(user), SLOT_HUD_GLASSES)
+			user.equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(user), ITEM_SLOT_CLOTH_INNER)
+			user.equip_to_slot_or_del(new /obj/item/clothing/shoes/shadowling(user), ITEM_SLOT_FEET)
+			user.equip_to_slot_or_del(new /obj/item/clothing/suit/space/shadowling(user), ITEM_SLOT_CLOTH_OUTER)
+			user.equip_to_slot_or_del(new /obj/item/clothing/head/shadowling(user), ITEM_SLOT_HEAD)
+			user.equip_to_slot_or_del(new /obj/item/clothing/gloves/shadowling(user), ITEM_SLOT_GLOVES)
+			user.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/shadowling(user), ITEM_SLOT_MASK)
+			user.equip_to_slot_or_del(new /obj/item/clothing/glasses/shadowling(user), ITEM_SLOT_EYES)
 
 			user.mind.RemoveSpell(src)
 
@@ -183,7 +183,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 			return
 
 		if("Yes")
-			user.notransform = TRUE
+			ADD_TRAIT(user, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 			user.visible_message("<span class='warning'>[user] gently rises into the air, red light glowing in its eyes.</span>", \
 								"<span class='shadowling'>You rise into the air and get ready for your transformation.</span>")
 
@@ -271,8 +271,8 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
  * Testing purpose.
  */
 /mob/living/carbon/human/proc/make_unhatched_shadowling()
-	for(var/obj/item/item in get_equipped_items(include_pockets = TRUE))
-		drop_item_ground(item)
+	for(var/obj/item/item as anything in get_equipped_items(include_pockets = TRUE))
+		drop_item_ground(item, force = TRUE)
 
 	var/newNameId = pick(GLOB.possibleShadowlingNames)
 	GLOB.possibleShadowlingNames.Remove(newNameId)
@@ -286,13 +286,13 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	add_language(LANGUAGE_HIVE_SHADOWLING)
 
 	set_species(/datum/species/shadow/ling)
-	equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(src), SLOT_HUD_JUMPSUIT)
-	equip_to_slot_or_del(new /obj/item/clothing/shoes/shadowling(src), SLOT_HUD_SHOES)
-	equip_to_slot_or_del(new /obj/item/clothing/suit/space/shadowling(src), SLOT_HUD_OUTER_SUIT)
-	equip_to_slot_or_del(new /obj/item/clothing/head/shadowling(src), SLOT_HUD_HEAD)
-	equip_to_slot_or_del(new /obj/item/clothing/gloves/shadowling(src), SLOT_HUD_GLOVES)
-	equip_to_slot_or_del(new /obj/item/clothing/mask/gas/shadowling(src), SLOT_HUD_WEAR_MASK)
-	equip_to_slot_or_del(new /obj/item/clothing/glasses/shadowling(src), SLOT_HUD_GLASSES)
+	equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(src), ITEM_SLOT_CLOTH_INNER)
+	equip_to_slot_or_del(new /obj/item/clothing/shoes/shadowling(src), ITEM_SLOT_FEET)
+	equip_to_slot_or_del(new /obj/item/clothing/suit/space/shadowling(src), ITEM_SLOT_CLOTH_OUTER)
+	equip_to_slot_or_del(new /obj/item/clothing/head/shadowling(src), ITEM_SLOT_HEAD)
+	equip_to_slot_or_del(new /obj/item/clothing/gloves/shadowling(src), ITEM_SLOT_GLOVES)
+	equip_to_slot_or_del(new /obj/item/clothing/mask/gas/shadowling(src), ITEM_SLOT_MASK)
+	equip_to_slot_or_del(new /obj/item/clothing/glasses/shadowling(src), ITEM_SLOT_EYES)
 
 	to_chat(src, "<span class='shadowling'><b><i>Your powers are awoken. You may now live to your fullest extent. Remember your goal. Cooperate with your thralls and allies.</b></i></span>")
 

@@ -6,8 +6,8 @@
 	item_state = "utility"
 	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
-	slot_flags = SLOT_FLAG_BELT
-	flags_2 = BLOCKS_LIGHT_2
+	slot_flags = ITEM_SLOT_BELT
+	flags = BLOCKS_LIGHT
 	attack_verb = list("whipped", "lashed", "disciplined")
 	max_integrity = 300
 	pickup_sound = 'sound/items/handling/backpack_pickup.ogg'
@@ -217,11 +217,11 @@
 		/obj/item/reagent_containers/food/snacks/donut,
 		/obj/item/reagent_containers/food/snacks/candy/confectionery/toffee,
 		/obj/item/kitchen/knife/combat,
+		/obj/item/melee/baton/security,
 		/obj/item/melee/baton,
-		/obj/item/melee/classic_baton,
 		/obj/item/flashlight/seclite,
 		/obj/item/holosign_creator/security,
-		/obj/item/melee/classic_baton/telescopic,
+		/obj/item/melee/baton/telescopic,
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/forensics/sample_kit/powder,
 		/obj/item/forensics/sample_kit,
@@ -233,7 +233,7 @@
 	new /obj/item/restraints/handcuffs(src)
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/flash(src)
-	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/melee/baton/security/loaded(src)
 	update_icon()
 
 /obj/item/storage/belt/security/detective
@@ -242,16 +242,23 @@
 	icon_state = "detective_belt"
 	item_state = "detective_belt"
 
+/obj/item/storage/belt/security/detective/populate_contents()
+	new /obj/item/flash(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/holosign_creator/security(src)
+	new /obj/item/flashlight/seclite(src)
+	update_icon()
+
 /obj/item/storage/belt/security/response_team/populate_contents()
 	new /obj/item/reagent_containers/spray/pepper(src)
-	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/melee/baton/security/loaded(src)
 	new /obj/item/flash(src)
-	new /obj/item/melee/classic_baton/telescopic(src)
+	new /obj/item/melee/baton/telescopic(src)
 	new /obj/item/grenade/flashbang(src)
 	update_icon()
 
 /obj/item/storage/belt/security/response_team_gamma/populate_contents()
-	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/melee/baton/security/loaded(src)
 	new /obj/item/reagent_containers/spray/pepper(src)
 	new /obj/item/flash(src)
 	new /obj/item/grenade/flashbang(src)
@@ -468,7 +475,7 @@
 	new /obj/item/storage/pouch/fast(src)
 	new /obj/item/storage/pouch/fast(src)
 	new /obj/item/storage/pouch/fast(src)
-	new /obj/item/melee/classic_baton/telescopic(src)
+	new /obj/item/melee/baton/telescopic(src)
 
 /obj/item/storage/belt/janitor
 	name = "janibelt"
@@ -711,7 +718,7 @@
 	if(length(contents))
 		icon_state = "[icon_state]-rapier"
 		item_state = "[item_state]-rapier"
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 // -------------------------------------
@@ -745,13 +752,13 @@
 		/obj/item/restraints/legcuffs/bola
 		)
 
-	flags = NODROP
 	var/smokecount = 0
 	var/bolacount = 0
 	var/cooldown = 0
 
 /obj/item/storage/belt/bluespace/owlman/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 	START_PROCESSING(SSobj, src)
 	cooldown = world.time
 
@@ -993,7 +1000,7 @@
 	else
 		icon_state = initial(icon_state)
 		item_state = initial(item_state)
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/storage/belt/claymore/populate_contents()

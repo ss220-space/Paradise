@@ -56,37 +56,25 @@
 	},
 /area/template_noop)
 "j" = (
-/turf/simulated/wall/indestructible{
-	icon_state = "sandstone8"
-	},
-/area/template_noop)
-"l" = (
-/turf/simulated/wall/indestructible{
-	icon_state = "sandstone4"
-	},
+/turf/simulated/floor/indestructible/view_portal/dense,
 /area/template_noop)
 "o" = (
 /turf/simulated/wall/indestructible/invisible/view_portal,
 /area/template_noop)
 "H" = (
-/obj/effect/view_portal/visual{
-	frustrum = 1;
-	id = "beach";
+/obj/effect/visual_portal{
+	id = "beach_room";
 	radius = 1;
-	opacity = 0
-	},
-/turf/simulated/floor/indestructible/view_portal,
-/area/template_noop)
-"O" = (
-/turf/simulated/wall/indestructible/sandstone,
-/area/template_noop)
-"R" = (
-/obj/effect/view_portal{
-	id = "beach_room"
+	frustrum = 1;
+	opacity = 0;
+	distance = 2
 	},
 /turf/simulated/floor/indestructible{
 	icon_state = "wood"
 	},
+/area/template_noop)
+"O" = (
+/turf/simulated/wall/indestructible/sandstone,
 /area/template_noop)
 
 (1,1,1) = {"
@@ -103,16 +91,16 @@ a
 O
 O
 O
-O
+o
 o
 a
 "}
 (3,1,1) = {"
 a
-j
 c
 g
 O
+j
 o
 a
 "}
@@ -120,17 +108,17 @@ a
 a
 d
 d
-R
 H
+j
 o
 a
 "}
 (5,1,1) = {"
 a
-l
 e
 h
 O
+j
 o
 a
 "}
@@ -139,7 +127,7 @@ a
 O
 O
 O
-O
+o
 o
 a
 "}

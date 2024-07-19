@@ -9,7 +9,7 @@
 /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
-	appearance_flags = TILE_BOUND
+	appearance_flags = TILE_BOUND|LONG_GLIDE
 	var/level = 2
 	var/flags = NONE
 	var/flags_2 = NONE
@@ -31,6 +31,9 @@
 	var/pass_flags_self = NONE
 	/// Things we can pass through while moving. If any of this matches the thing we're trying to pass's [pass_flags_self], then we can pass through.
 	var/pass_flags = NONE
+
+	/// How this atom should react to having its astar blocking checked
+	var/can_astar_pass = CANASTARPASS_DENSITY
 
 	///Chemistry.
 	var/container_type = NONE
@@ -54,12 +57,19 @@
 
 	var/allow_spin = TRUE //Set this to 1 for a _target_ that is being thrown at; if an atom has this set to 1 then atoms thrown AT it will not spin; currently used for the singularity. -Fox
 
-	var/admin_spawned = FALSE	//was this spawned by an admin? used for stat tracking stuff.
-
 	var/initialized = FALSE
 
 	///overlays managed by [update_overlays][/atom/proc/update_overlays] to prevent removing overlays that weren't added by the same proc. Single items are stored on their own, not in a list.
 	var/list/managed_overlays
+
+	/// Lazylist of all images (hopefully attached to us) to update when we change z levels
+	/// You will need to manage adding/removing from this yourself, but I'll do the updating for you
+	var/list/image/update_on_z
+
+	/// Lazylist of all overlays attached to us to update when we change z levels
+	/// You will need to manage adding/removing from this yourself, but I'll do the updating for you
+	/// Oh and note, if order of addition is important this WILL break that. so mind yourself
+	var/list/image/update_overlays_on_z
 
 	var/list/atom_colours	 //used to store the different colors on an atom
 						//its inherent color, the colored paint applied on it, special color effect etc...
@@ -141,12 +151,12 @@
 	if(light_system == STATIC_LIGHT && light_power && light_range)
 		update_light()
 
-	if(opacity && isturf(loc))
-		var/turf/T = loc
-		T.has_opaque_atom = TRUE // No need to recalculate it in this case, it's guranteed to be on afterwards anyways.
-
 	if(loc)
 		loc.InitializedOn(src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
+
+	SETUP_SMOOTHING()
+
+	SET_PLANE_IMPLICIT(src, plane)
 
 	ComponentInitialize()
 
@@ -193,7 +203,7 @@
 	if(istype(T.loc, /area/shuttle/syndicate_elite) || istype(T.loc, /area/syndicate_mothership))
 		return TRUE
 
-/atom/Destroy()
+/atom/Destroy(force)
 	if(alternate_appearances)
 		for(var/aakey in alternate_appearances)
 			var/datum/alternate_appearance/AA = alternate_appearances[aakey]
@@ -201,17 +211,33 @@
 		alternate_appearances = null
 
 	QDEL_NULL(reagents)
-	invisibility = INVISIBILITY_ABSTRACT
-	LAZYCLEARLIST(overlays)
+
+	// Checking length(overlays) before cutting has significant speed benefits
+	if(length(overlays))
+		overlays.Cut()
+
+	LAZYNULL(managed_overlays)
 
 	QDEL_NULL(light)
+	if(length(light_sources))
+		light_sources.Cut()
 
 	return ..()
 
-//Hook for running code when a dir change occurs
+
+/**
+ * Hook for running code when a dir change occurs
+ *
+ * Not recommended to use, listen for the [COMSIG_ATOM_DIR_CHANGE] signal instead (sent by this proc)
+ */
 /atom/proc/setDir(newdir)
+	SHOULD_CALL_PARENT(TRUE)
+	if(SEND_SIGNAL(src, COMSIG_ATOM_PRE_DIR_CHANGE, dir, newdir) & COMPONENT_ATOM_BLOCK_DIR_CHANGE)
+		newdir = dir
+		return
 	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, newdir)
 	dir = newdir
+	SEND_SIGNAL(src, COMSIG_ATOM_POST_DIR_CHANGE, dir, newdir)
 
 
 /atom/proc/set_angle(degrees)
@@ -264,7 +290,7 @@
 			reagents.conditional_update()
 		else if(istype(A, /atom/movable))
 			var/atom/movable/M = A
-			if(istype(M.loc, /mob/living))
+			if(isliving(M.loc))
 				var/mob/living/L = M.loc
 				L.drop_item_ground(M)
 			M.forceMove(src)
@@ -296,9 +322,10 @@
 /atom/proc/on_reagent_change()
 	return
 
+
 /atom/proc/Bumped(atom/movable/moving_atom)
 	SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, moving_atom)
-	return
+
 
 /// Convenience proc to see if a container is open for chemistry handling
 /atom/proc/is_open_container()
@@ -547,6 +574,40 @@
 	return
 
 
+/**
+ * Adds a special overlay to any atom.
+ * This overlay will always persist even when an atom is updating its overlays.
+ *
+ * Arguments:
+ * * overlay_to_add - should be an image, mutable_appearance or icon
+ * * id - string ID of our overlay, should be unique, otherwise it will remove all overlays with the same ID
+ * * timer (optional) - if set overlay will be removed after passed time
+ */
+/atom/proc/add_persistent_overlay(overlay_to_add, id, timer)
+	if(!istext(id))
+		CRASH("Non-text argument passed as an ID.")
+	AddComponent(/datum/component/persistent_overlay, overlay_to_add, id, timer)
+
+
+/**
+ * Removes a persistent overlay from an atom if it exists.
+ *
+ * Arguments:
+ * * id - string ID of the overlay we should remove
+ */
+/atom/proc/remove_persistent_overlay(id)
+	if(!istext(id))
+		CRASH("Non-text argument passed as an ID.")
+	var/all_persistent = datum_components?[/datum/component/persistent_overlay]
+	if(!all_persistent)
+		return
+	if(!islist(all_persistent))
+		all_persistent = list(all_persistent)
+	for(var/datum/component/persistent_overlay/existing as anything in all_persistent)
+		if(existing.dupe_id == id)
+			qdel(existing)
+
+
 /atom/Topic(href, href_list)
 	. = ..()
 	if(.)
@@ -662,6 +723,20 @@
 		addtimer(CALLBACK(src, PROC_REF(hitby_react), AM), 2)
 
 
+/**
+ * Called when living mob clicks on this atom with pulled movable.
+ * Adjacency and correct pull hand is already checked.
+ *
+ * Arguments:
+ * * grabber - Mob performing grab attack.
+ * * grabbed_thing - Movable pulled by grabber, equals to grabber.pulling.
+ *
+ * Return `TRUE` to skip further actions in unarmed attack chain.
+ */
+/atom/proc/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	return TRUE
+
+
 /// This proc applies special effects of a carbon mob hitting something, be it a wall, structure, or window. You can set mob_hurt to false to avoid double dipping through subtypes if returning ..()
 /atom/proc/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt = FALSE, self_hurt = FALSE)
 	return
@@ -682,15 +757,8 @@
 /atom/proc/get_spooked()
 	return FALSE
 
-/**
-	Base proc, intended to be overriden.
-
-	This should only be called from one place: inside the slippery component.
-	Called after a human mob slips on this atom.
-
-	If you want the person who slipped to have something special done to them, put it here.
-*/
-/atom/proc/after_slip(mob/living/carbon/human/H)
+///Handle the atom being slipped over
+/atom/proc/handle_slip(mob/living/carbon/slipper, weaken_amount, obj/slippable, lube, tilesSlipped)
 	return
 
 /atom/proc/add_hiddenprint(mob/living/M)
@@ -1086,8 +1154,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	else
 		return FALSE
 
-/atom/proc/handle_fall()
+
+///Used for making a sound when a mob involuntarily falls into the ground.
+/atom/proc/handle_fall(mob/living/carbon/faller)
 	return
+
 
 /atom/proc/singularity_act()
 	return
@@ -1132,7 +1203,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 				continue
 
 			if(M.client.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-				M.create_chat_message(src, message, FALSE, TRUE)
+				M.create_chat_message(src, message, list("italics"))
 
 			var/effect = SOUND_EFFECT_RADIO
 			var/traits = TTS_TRAIT_RATE_MEDIUM
@@ -1140,6 +1211,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	if(length(speech_bubble_hearers))
 		var/image/I = image('icons/mob/talk.dmi', src, "[bubble_icon][say_test(message)]", FLY_LAYER)
+		SET_PLANE_EXPLICIT(I, ABOVE_GAME_PLANE, src)
 		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, I, speech_bubble_hearers, 30)
 
@@ -1178,12 +1250,72 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return
 
 /atom/vv_edit_var(var_name, var_value)
-	if(!GLOB.debug2)
-		admin_spawned = TRUE
-	. = ..()
+	var/old_light_flags = light_flags
 	switch(var_name)
-		if("color")
+		if(NAMEOF(src, light_range))
+			if(light_system == STATIC_LIGHT)
+				set_light(l_range = var_value)
+			else
+				set_light_range(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, light_power))
+			if(light_system == STATIC_LIGHT)
+				set_light(l_power = var_value)
+			else
+				set_light_power(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, light_color))
+			if(light_system == STATIC_LIGHT)
+				set_light(l_color = var_value)
+			else
+				set_light_color(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, light_on))
+			if(light_system == STATIC_LIGHT)
+				set_light(l_on = var_value)
+			else
+				set_light_on(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, light_flags))
+			set_light_flags(var_value)
+			// I'm sorry
+			old_light_flags = var_value
+			. = TRUE
+
+		if(NAMEOF(src, opacity))
+			set_opacity(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, density))
+			set_density(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, base_pixel_x))
+			set_base_pixel_x(var_value)
+			. = TRUE
+
+		if(NAMEOF(src, base_pixel_y))
+			set_base_pixel_y(var_value)
+			. = TRUE
+
+	light_flags = old_light_flags
+	if(!isnull(.))
+		datum_flags |= DF_VAR_EDITED
+		return .
+
+	if(!GLOB.debug2)
+		flags |= ADMIN_SPAWNED
+
+	. = ..()
+
+	switch(var_name)
+		if(NAMEOF(src, color))
 			add_atom_colour(color, ADMIN_COLOUR_PRIORITY)
+			update_appearance()
 
 
 /atom/vv_get_dropdown()
@@ -1204,16 +1336,40 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return null
 	return L.AllowDrop() ? L : get_turf(L)
 
-/atom/Entered(atom/movable/AM, atom/oldLoc)
-	SEND_SIGNAL(src, COMSIG_ATOM_ENTERED, AM, oldLoc)
 
-/atom/Exit(atom/movable/AM, atom/newLoc)
-	. = ..()
-	if(SEND_SIGNAL(src, COMSIG_ATOM_EXIT, AM, newLoc) & COMPONENT_ATOM_BLOCK_EXIT)
+/**
+ * An atom has entered this atom's contents
+ *
+ * Default behaviour is to send the [COMSIG_ATOM_ENTERED]
+ */
+/atom/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SEND_SIGNAL(src, COMSIG_ATOM_ENTERED, arrived, old_loc, old_locs)
+	SEND_SIGNAL(arrived, COMSIG_ATOM_ENTERING, src, old_loc, old_locs)
+
+
+/**
+ * An atom is attempting to exit this atom's contents
+ *
+ * Default behaviour is to send the [COMSIG_ATOM_EXIT]
+ */
+/atom/Exit(atom/movable/leaving, atom/newLoc)
+	// Don't call `..()` here, otherwise `Uncross()` gets called.
+	// See the doc comment on `Uncross()` to learn why this is bad.
+
+	if(SEND_SIGNAL(src, COMSIG_ATOM_EXIT, leaving, newLoc) & COMPONENT_ATOM_BLOCK_EXIT)
 		return FALSE
 
-/atom/Exited(atom/movable/AM, atom/newLoc)
-	SEND_SIGNAL(src, COMSIG_ATOM_EXITED, AM, newLoc)
+	return TRUE
+
+
+/**
+ * An atom has exited this atom's contents
+ *
+ * Default behaviour is to send the [COMSIG_ATOM_EXITED]
+ */
+/atom/Exited(atom/movable/departed, atom/newLoc)
+	SEND_SIGNAL(src, COMSIG_ATOM_EXITED, departed, newLoc)
+
 
 /*
 	Adds an instance of colour_type to the atom's atom_colours list
@@ -1283,7 +1439,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	// Sanity check that the user can, indeed, rename the thing.
 	// This, sadly, means you can't rename things with a telekinetic pen, but that's
 	// too much of a hassle to make work nicely.
-	if((implement && implement.loc != user) || !in_range(src, user) || user.incapacitated(ignore_lying = TRUE))
+	if((implement && implement.loc != user) || !in_range(src, user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return null
 
 	var/prefix = ""
@@ -1316,7 +1472,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	else if(!in_range(src, user))
 		to_chat(user, "<span class='warning'>You cannot rename [src] from here.</span>")
 		return null
-	else if (user.incapacitated(ignore_lying = TRUE))
+	else if (user.incapacitated())
 		to_chat(user, "<span class='warning'>You cannot rename [src] in your current state.</span>")
 		return null
 
@@ -1337,18 +1493,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	return t
 
 
-/*
-	Setter for the `density` variable.
-	Arguments:
-	* new_value - the new density you would want it to set.
-	Returns: Either null if identical to existing density, or the new density if different.
-*/
-/atom/proc/set_density(new_value)
-	if(density == new_value)
-		return
-	. = density
-	density = new_value
-
 // Процедура выбора правильного падежа для любого предмета,если у него указан словарь «ru_names», примерно такой:
 // ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
 /atom/proc/declent_ru(case_id, list/ru_names_override)
@@ -1356,11 +1500,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(length(list_to_use))
 		return list_to_use[case_id] || name
 	return name
-
-
-//OOP
-/atom/proc/update_pipe_vision()
-	return
 
 
 /**
@@ -1372,13 +1511,14 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  * For turfs this will only be used if pathing_pass_method is TURF_PATHING_PASS_PROC
  *
  * Arguments:
- * * ID- An ID card representing what access we have (and thus if we can open things like airlocks or windows to pass through them). The ID card's physical location does not matter, just the reference
- * * to_dir- What direction we're trying to move in, relevant for things like directional windows that only block movement in certain directions
- * * caller- The movable we're checking pass flags for, if we're making any such checks
- * * no_id: When true, doors with public access will count as impassible
+ * * to_dir - What direction we're trying to move in, relevant for things like directional windows that only block movement in certain directions
+ * * pass_info - Datum that stores info about the thing that's trying to pass us
+ *
+ * IMPORTANT NOTE: /turf/proc/LinkBlockedWithAccess assumes that overrides of CanAStarPass will always return true if density is FALSE
+ * If this is NOT you, ensure you edit your can_astar_pass variable. Check __DEFINES/path.dm
  **/
-/atom/proc/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
-	if(caller && (caller.pass_flags & pass_flags_self))
+/atom/proc/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(pass_info.pass_flags & pass_flags_self)
 		return TRUE
 	. = !density
 
@@ -1397,8 +1537,8 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	SHOULD_BE_PURE(TRUE)
 	if(SEND_SIGNAL(src, COMSIG_ATOM_TRIED_PASS, mover, border_dir) & COMSIG_COMPONENT_PERMIT_PASSAGE)
 		return TRUE
-	//if(mover.movement_type & PHASING)
-	//	return TRUE
+	if(mover.movement_type & PHASING)
+		return TRUE
 	. = CanAllowThrough(mover, border_dir)
 	// This is cheaper than calling the proc every time since most things dont override CanPassThrough
 	if(!mover.generic_canpass)
@@ -1415,13 +1555,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(mover.throwing && (pass_flags_self & LETPASSTHROW))
 		return TRUE
 	return !density
-
-
-/// Returns true or false to allow the mover to exit turf with src
-/atom/proc/CanExit(atom/movable/mover, moving_direction)
-	SHOULD_CALL_PARENT(TRUE)
-	SHOULD_BE_PURE(TRUE)
-	return TRUE
 
 
 /**
@@ -1474,5 +1607,61 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	var/area/turf_area = gravity_turf.loc
 
-	return !gravity_turf.force_no_gravity && (turf_area.has_gravity || length(GLOB.gravity_generators["[gravity_turf.z]"]))
+	return !gravity_turf.force_no_gravity && (turf_area.has_gravity || (!turf_area.ignore_gravgen && length(GLOB.gravity_generators["[gravity_turf.z]"])))
+
+
+///Setter for the `density` variable to append behavior related to its changing.
+/atom/proc/set_density(new_density)
+	SHOULD_CALL_PARENT(TRUE)
+	if(density == new_density)
+		return
+	SEND_SIGNAL(src, COMSIG_ATOM_SET_DENSITY, new_density)
+	. = density
+	density = new_density
+
+
+/**
+ * Updates the atom's opacity value.
+ *
+ * This exists to act as a hook for associated behavior.
+ * It notifies (potentially) affected light sources so they can update (if needed).
+ */
+/atom/proc/set_opacity(new_opacity)
+	if(new_opacity == opacity)
+		return
+	SEND_SIGNAL(src, COMSIG_ATOM_SET_OPACITY, new_opacity)
+	. = opacity
+	opacity = new_opacity
+
+
+///Setter for the `base_pixel_x` variable to append behavior related to its changing.
+/atom/proc/set_base_pixel_x(new_value)
+	if(base_pixel_x == new_value)
+		return
+	. = base_pixel_x
+	base_pixel_x = new_value
+
+	pixel_x = pixel_x + base_pixel_x - .
+
+
+///Setter for the `base_pixel_y` variable to append behavior related to its changing.
+/atom/proc/set_base_pixel_y(new_value)
+	if(base_pixel_y == new_value)
+		return
+	. = base_pixel_y
+	base_pixel_y = new_value
+
+	pixel_y = pixel_y + base_pixel_y - .
+
+
+/atom/proc/get_visible_name(add_id_name = TRUE)
+	return name
+
+
+/atom/proc/GetVoice()
+	return name
+
+
+/atom/proc/GetTTSVoice()
+	return tts_seed
 

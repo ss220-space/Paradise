@@ -18,19 +18,15 @@
 	var/slowdown_passive = SHOES_SLOWDOWN
 	/// Slowdown applied when magpulse is active. This is added onto slowdown_passive
 	var/slowdown_active = 2
-	/// This is for unsafe_unwrenching protection
-	var/gustprotection = FALSE
-	/// This is for lube protection when magpulse
-	var/lubeprotection = FALSE
 	/// A list of traits we apply when we get activated
-	var/list/active_traits = list(TRAIT_NEGATES_GRAVITY)
+	var/list/active_traits = list(TRAIT_NEGATES_GRAVITY, TRAIT_NO_SLIP_WATER, TRAIT_NO_SLIP_SLIDE)
 
 /obj/item/clothing/shoes/magboots/atmos
 	desc = "Magnetic boots, made to withstand gusts of space wind over 500kmph."
 	name = "atmospheric magboots"
 	icon_state = "atmosmagboots0"
 	base_icon_state = "atmosmagboots"
-	gustprotection = TRUE
+	active_traits = list(TRAIT_NEGATES_GRAVITY, TRAIT_NO_SLIP_WATER, TRAIT_NO_SLIP_SLIDE, TRAIT_GUSTPROTECTION)
 
 /obj/item/clothing/shoes/magboots/security
 	name = "combat magboots"
@@ -62,12 +58,10 @@
 	if(magpulse)
 		START_PROCESSING(SSobj, src) //Gravboots
 		attach_clothing_traits(active_traits)
-		flags |= NOSLIP
 		slowdown = slowdown_active
 	else
 		STOP_PROCESSING(SSobj, src)
 		detach_clothing_traits(active_traits)
-		flags &= ~NOSLIP
 		slowdown = slowdown_passive
 	update_icon(UPDATE_ICON_STATE)
 	if(!silent)
@@ -84,7 +78,7 @@
 	name = "advanced magboots"
 	icon_state = "advmag0"
 	base_icon_state = "advmag"
-	gustprotection = TRUE
+	active_traits = list(TRAIT_NEGATES_GRAVITY, TRAIT_NO_SLIP_WATER, TRAIT_NO_SLIP_SLIDE, TRAIT_GUSTPROTECTION)
 	slowdown_active = SHOES_SLOWDOWN
 	origin_tech = null
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
@@ -103,7 +97,7 @@
 	icon_state = "advsyndiemag0"
 	base_icon_state = "advsyndiemag"
 	slowdown_active = SHOES_SLOWDOWN
-	lubeprotection = TRUE
+	active_traits = list(TRAIT_NEGATES_GRAVITY, TRAIT_NO_SLIP_ICE, TRAIT_NO_SLIP_WATER, TRAIT_NO_SLIP_SLIDE, TRAIT_GUSTPROTECTION)
 
 /obj/item/clothing/shoes/magboots/clown
 	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! There's a red light on the side."
@@ -123,20 +117,20 @@
 
 /obj/item/clothing/shoes/magboots/clown/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg' = 1, 'sound/effects/clownstep2.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
+	AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg', 'sound/effects/clownstep2.ogg'), 50, falloff_exponent = 20) //die off quick please
 
 /obj/item/clothing/shoes/magboots/clown/equipped(mob/user, slot, initial)
 	. = ..()
-	if(slot == SLOT_HUD_SHOES && enabled_waddle)
+	if(slot == ITEM_SLOT_FEET && enabled_waddle)
 		user.AddElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/magboots/clown/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	if(slot == SLOT_HUD_SHOES && enabled_waddle)
+	if(slot == ITEM_SLOT_FEET && enabled_waddle)
 		user.RemoveElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/magboots/clown/CtrlClick(mob/living/user)
-	if(!isliving(user))
+	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(user.get_active_hand() != src)
 		to_chat(user, "You must hold [src] in your hand to do this.")
@@ -297,13 +291,13 @@
 
 	if(!ishuman(user))
 		return
-	if(slot == SLOT_HUD_SHOES && cell && core)
+	if(slot == ITEM_SLOT_FEET && cell && core)
 		style.teach(user, TRUE)
 
 
 /obj/item/clothing/shoes/magboots/gravity/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
-	if(!ishuman(user) || slot != SLOT_HUD_SHOES)
+	if(!ishuman(user) || slot != ITEM_SLOT_FEET)
 		return .
 
 	style.remove(user)
@@ -314,7 +308,7 @@
 
 
 /obj/item/clothing/shoes/magboots/gravity/item_action_slot_check(slot)
-	if(slot == SLOT_HUD_SHOES)
+	if(slot == ITEM_SLOT_FEET)
 		return TRUE
 
 /obj/item/clothing/shoes/magboots/gravity/proc/dash(mob/user, action)
@@ -323,18 +317,22 @@
 
 	if(cell)
 		if(cell.charge <= dash_cost)
-			to_chat(user, "<span class='warning'>Your boots do not have enough charge to dash!</span>")
+			to_chat(user, span_warning("Your boots do not have enough charge to dash!"))
 			return
 	else
-		to_chat(user, "<span class='warning'>Your boots do not have a power cell!</span>")
+		to_chat(user, span_warning("Your boots do not have a power cell!"))
 		return
 
 	if(!core)
-		to_chat(user, "<span class='warning'>There's no core installed!</span>")
+		to_chat(user, span_warning("There's no core installed!"))
 		return
 
 	if(recharging_time > world.time)
-		to_chat(user, "<span class='warning'>The boot's gravitational pulse needs to recharge still!</span>")
+		to_chat(user, span_warning("The boot's gravitational pulse needs to recharge still!"))
+		return
+
+	if(user.throwing)
+		to_chat(user, span_warning("You can't jump in the middle of another jump!"))
 		return
 
 	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
@@ -342,12 +340,12 @@
 	var/after_jump_callback = CALLBACK(src, PROC_REF(after_jump), user)
 	if(user.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = after_jump_callback))
 		playsound(src, 'sound/effects/stealthoff.ogg', 50, 1, 1)
-		user.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
+		user.visible_message(span_warning("[user] dashes forward into the air!"))
 		recharging_time = world.time + recharging_rate
 		cell.use(dash_cost)
 	else
 		after_jump(user)
-		to_chat(user, "<span class='warning'>Something prevents you from dashing forward!</span>")
+		to_chat(user, span_warning("Something prevents you from dashing forward!"))
 
 
 /obj/item/clothing/shoes/magboots/gravity/proc/after_jump(mob/user)

@@ -1,3 +1,8 @@
+#define SNIFF 1
+#define SHAKE 2
+#define SCRATCH 3
+#define WASHUP 4
+
 /mob/living/simple_animal/mouse
 	name = "mouse"
 	real_name = "mouse"
@@ -25,9 +30,10 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "stamps on"
-	density = 0
-	ventcrawler = 2
+	density = FALSE
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	mob_size = MOB_SIZE_TINY
 	var/mouse_color //brown, gray and white, leave blank for random
 	var/non_standard = FALSE //for no "mouse_" with mouse_color
@@ -42,10 +48,20 @@
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
 	var/chew_probability = 1
+	var/static/list/animated_mouses = list(
+			/mob/living/simple_animal/mouse,
+			/mob/living/simple_animal/mouse/brown,
+			/mob/living/simple_animal/mouse/gray,
+			/mob/living/simple_animal/mouse/white,
+			/mob/living/simple_animal/mouse/blobinfected)
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/squeak, list("[squeak_sound]" = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
+	AddComponent(/datum/component/squeak, list(squeak_sound), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE, dead_check = TRUE) //as quiet as a mouse or whatever
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability) && isturf(loc))
@@ -71,11 +87,26 @@
 	. = ..()
 	if(resting)
 		if(prob(1))
-			StopResting()
+			set_resting(FALSE, instant = TRUE)
+			if(is_available_for_anim())
+				do_idle_animation(pick(SNIFF, SCRATCH, SHAKE, WASHUP))
 		else if(prob(5))
 			custom_emote(EMOTE_AUDIBLE, "соп%(ит,ят)%.")
 	else if(prob(0.5))
-		StartResting()
+		set_resting(TRUE, instant = TRUE)
+
+/mob/living/simple_animal/mouse/proc/do_idle_animation(anim)
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, "mouse_animation_trait_[anim]")
+	flick("mouse_[mouse_color]_idle[anim]",src)
+	addtimer(CALLBACK(src, PROC_REF(animation_end), anim), 2 SECONDS)
+
+/mob/living/simple_animal/mouse/proc/animation_end(anim)
+	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "mouse_animation_trait_[anim]")
+
+/mob/living/simple_animal/mouse/proc/is_available_for_anim()
+	. = FALSE
+	if(is_type_in_list(src, animated_mouses, FALSE))
+		return TRUE
 
 /mob/living/simple_animal/mouse/New()
 	..()
@@ -83,6 +114,12 @@
 	pixel_y = rand(0, 10)
 
 	color_pick()
+
+	if(is_available_for_anim())
+		verbs += /mob/living/simple_animal/mouse/proc/sniff
+		verbs += /mob/living/simple_animal/mouse/proc/shake
+		verbs += /mob/living/simple_animal/mouse/proc/scratch
+		verbs += /mob/living/simple_animal/mouse/proc/washup
 
 /mob/living/simple_animal/mouse/proc/color_pick()
 	if(!mouse_color)
@@ -108,19 +145,24 @@
 			return
 	. = ..()
 
-/mob/living/simple_animal/mouse/pull_constraint(atom/movable/AM, show_message = FALSE) //Prevents mouse from pulling things
-	if(istype(AM, /obj/item/reagent_containers/food/snacks/cheesewedge))
+/mob/living/simple_animal/mouse/pull_constraint(atom/movable/pulled_atom, state, supress_message = FALSE) //Prevents mouse from pulling things
+	if(istype(pulled_atom, /obj/item/reagent_containers/food/snacks/cheesewedge))
 		return TRUE // Get dem
-	if(show_message)
-		to_chat(src, "<span class='warning'>You are too small to pull anything except cheese.</span>")
+	if(!supress_message)
+		to_chat(src, span_warning("You are too small to pull anything except cheese."))
 	return FALSE
 
-/mob/living/simple_animal/mouse/Crossed(AM as mob|obj, oldloc)
-	if(ishuman(AM))
-		if(!stat)
-			var/mob/M = AM
-			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
-	..()
+
+/mob/living/simple_animal/mouse/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	mouse_crossed(arrived)
+
+
+/mob/living/simple_animal/mouse/proc/mouse_crossed(atom/movable/arrived)
+	if(!stat && ishuman(arrived))
+		to_chat(arrived, span_notice("[bicon(src)] Squeek!"))
+
 
 /mob/living/simple_animal/mouse/ratvar_act()
 	new/mob/living/simple_animal/mouse/clockwork(loc)
@@ -163,6 +205,74 @@
 	remains.pixel_x = pixel_x
 	remains.pixel_y = pixel_y
 
+/*
+ * Mouse animation emotes
+ */
+
+/mob/living/simple_animal/mouse/proc/sniff()
+	set name = "Понюхать"
+	set desc = "Пытаешься что-то почуять"
+	set category = "Мышь"
+
+	emote("msniff", intentional = TRUE)
+
+/mob/living/simple_animal/mouse/proc/shake()
+	set name = "Дрожать"
+	set desc = "Дрожит или дрыгается"
+	set category = "Мышь"
+
+	emote("mshake", intentional = TRUE)
+
+/mob/living/simple_animal/mouse/proc/scratch()
+	set name = "Почесаться"
+	set desc = "Чешется"
+	set category = "Мышь"
+
+	emote("mscratch", intentional = TRUE)
+
+/mob/living/simple_animal/mouse/proc/washup()
+	set name = "Умыться"
+	set desc = "Умывается"
+	set category = "Мышь"
+
+	emote("mwashup", intentional = TRUE)
+
+/datum/emote/living/simple_animal/mouse/idle
+	key = "msniff"
+	key_third_person = "msniffs"
+	message = "нюха%(ет,ют)%!"
+	emote_type = EMOTE_AUDIBLE
+	muzzled_noises = list("гортанные", "громкие")
+	cooldown = 1 MINUTES
+	audio_cooldown = 1 MINUTES
+	var/anim_type = SNIFF
+	volume = 1
+	emote_type = EMOTE_VISIBLE|EMOTE_FORCE_NO_RUNECHAT
+
+/datum/emote/living/simple_animal/mouse/idle/run_emote(mob/living/simple_animal/mouse/user, params, type_override, intentional)
+	INVOKE_ASYNC(user, TYPE_PROC_REF(/mob/living/simple_animal/mouse, do_idle_animation), anim_type)
+	return ..()
+
+/datum/emote/living/simple_animal/mouse/idle/get_sound(mob/living/simple_animal/mouse/user)
+	return user.squeak_sound
+
+/datum/emote/living/simple_animal/mouse/idle/shake
+	key = "mshake"
+	key_third_person = "mshakes"
+	message = "дрож%(ит,ат)%!"
+	anim_type = SHAKE
+
+/datum/emote/living/simple_animal/mouse/idle/scratch
+	key = "mscratch"
+	key_third_person = "mscratches"
+	message = "чеш%(ет,ут)%ся!"
+	anim_type = SCRATCH
+
+/datum/emote/living/simple_animal/mouse/idle/washup
+	key = "mwashup"
+	key_third_person = "mwashesup"
+	message = "умыва%(ет,ют)%ся!"
+	anim_type = WASHUP
 
 /*
  * Mouse types
@@ -206,46 +316,31 @@
 	var/cycles_limit = 60
 	var/has_burst = FALSE
 
-/mob/living/simple_animal/mouse/blobinfected/Life()
-	cycles_alive++
-	var/timeleft = (cycles_limit - cycles_alive) * 2
-	if(ismob(loc)) // if someone ate it, burst immediately
-		burst(FALSE)
-	else if(timeleft < 1) // if timer expired, burst.
-		burst(FALSE)
-	else if(cycles_alive % 2 == 0) // give the mouse/player a countdown reminder every 2 cycles
-		to_chat(src, "<span class='warning'>[timeleft] seconds until you burst, and become a blob...</span>")
-	return ..()
+/mob/living/simple_animal/mouse/blobinfected/Initialize(mapload)
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(get_mind)), MOUSE_REVOTE_TIME)
 
-/mob/living/simple_animal/mouse/blobinfected/death(gibbed)
-	burst(gibbed)
-	return ..(gibbed)
-
-/mob/living/simple_animal/mouse/blobinfected/proc/burst(gibbed)
-	if(has_burst)
-		return FALSE
-	var/turf/T = get_turf(src)
-	if(!is_station_level(T.z) || isspaceturf(T))
-		to_chat(src, "<span class='userdanger'>You feel ready to burst, but this isn't an appropriate place!  You must return to the station!</span>")
-		return FALSE
-	has_burst = TRUE
-	var/datum/mind/blobmind = mind
-	var/client/C = client
-	if(istype(blobmind) && istype(C))
-		blobmind.special_role = SPECIAL_ROLE_BLOB
-		var/obj/structure/blob/core/core = new(T, 200, C, 3)
-		core.lateblobtimer()
-	else
-		new /obj/structure/blob/core(T) // Ghosts will be prompted to control it.
-	if(ismob(loc)) // in case some taj/etc ate the mouse.
-		var/mob/M = loc
-		M.gib()
-	if(!gibbed)
-		gib()
 
 /mob/living/simple_animal/mouse/blobinfected/get_scooped(mob/living/carbon/grabber)
 	to_chat(grabber, "<span class='warning'>You try to pick up [src], but they slip out of your grasp!</span>")
 	to_chat(src, "<span class='warning'>[src] tries to pick you up, but you wriggle free of their grasp!</span>")
+
+/mob/living/simple_animal/mouse/blobinfected/proc/get_mind()
+	if(mind || !SSticker || !SSticker.mode)
+		return
+	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за мышь, зараженную Блобом?", ROLE_BLOB, TRUE, source = /mob/living/simple_animal/mouse/blobinfected)
+	if(!length(candidates))
+		log_and_message_admins("There were no players willing to play as a mouse infected with a blob.")
+		return
+	var/mob/M = pick(candidates)
+	key = M.key
+	var/datum/antagonist/blob_infected/blob_datum = new
+	blob_datum.time_to_burst_hight = TIME_TO_BURST_MOUSE_HIGHT
+	blob_datum.time_to_burst_low = TIME_TO_BURST_MOUSE_LOW
+	mind.add_antag_datum(blob_datum)
+	to_chat(src, span_userdanger("Теперь вы мышь, заражённая спорами Блоба. Найдите какое-нибудь укромное место до того, как вы взорветесь и станете Блобом! Вы можете перемещаться по вентиляции, нажав Alt+ЛКМ на вентиляционном отверстии."))
+	log_game("[key] has become blob infested mouse.")
+	notify_ghosts("Заражённая мышь появилась в [get_area(src)].", source = src, action = NOTIFY_FOLLOW)
 
 /mob/living/simple_animal/mouse/fluff/clockwork
 	name = "Chip"
@@ -336,6 +431,7 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 	icon_resting = "hamster_rest"
 	gender = MALE
 	non_standard = TRUE
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	speak_chance = 0
 	childtype = list(/mob/living/simple_animal/mouse/hamster/baby)
 	animal_species = /mob/living/simple_animal/mouse/hamster
@@ -363,7 +459,7 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 		GLOB.hamster_count--
 	. = ..()
 
-/mob/living/simple_animal/mouse/hamster/pull_constraint(atom/movable/AM, show_message = FALSE)
+/mob/living/simple_animal/mouse/hamster/pull_constraint(atom/movable/pulled_atom, state, supress_message = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/mouse/hamster/Life(seconds, times_fired)
@@ -390,9 +486,10 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 	holder_type = /obj/item/holder/hamster
 
 
-/mob/living/simple_animal/mouse/hamster/baby/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
-	if(show_message)
+/mob/living/simple_animal/mouse/hamster/baby/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
+	if(!supress_message)
 		to_chat(src, span_warning("Вы слишком малы чтобы что-то тащить."))
+	return FALSE
 
 
 /mob/living/simple_animal/mouse/hamster/baby/Life(seconds, times_fired)
@@ -405,11 +502,15 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 				mind.transfer_to(A)
 			qdel(src)
 
-/mob/living/simple_animal/mouse/hamster/baby/Crossed(AM as mob|obj, oldloc)
-	if(ishuman(AM))
-		if(!stat)
-			var/mob/M = AM
-			to_chat(M, "<span class='notice'>[bicon(src)] раздавлен!</span>")
-			death()
-			splat(user = AM)
-	..()
+
+/mob/living/simple_animal/mouse/hamster/baby/mouse_crossed(atom/movable/arrived)
+	if(!stat && ishuman(arrived))
+		to_chat(arrived, span_notice("[bicon(src)] раздавл[genderize_ru(gender, "ен", "на", "но")]!"))
+		death()
+		splat(user = arrived)
+
+
+#undef SNIFF
+#undef SHAKE
+#undef SCRATCH
+#undef WASHUP

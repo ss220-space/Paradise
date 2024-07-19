@@ -865,7 +865,7 @@
 	icon_state = "combedbob"
 
 /datum/sprite_accessory/hair/slightlymessy
-	name = "Slightlymessy"
+	name = "Slightly messy"
 	icon_state = "slightlymessy"
 
 /datum/sprite_accessory/hair/geisha
@@ -915,3 +915,51 @@
 /datum/sprite_accessory/hair/secretary_cut
 	name = "Secretary Cut"
 	icon_state = "secretary_cut"
+
+/datum/sprite_accessory/hair/akari
+	name = "Akari"
+	icon_state = "akari"
+
+/datum/sprite_accessory/hair/aradia
+	name = "Aradia"
+	icon_state = "aradia"
+
+/datum/sprite_accessory/hair/fastline
+	name = "Fastline"
+	icon_state = "fastline"
+
+/datum/sprite_accessory/hair/blackswordsman
+	name = "Swordsman"
+	icon_state = "blackswordsman"
+
+/datum/sprite_accessory/hair/dirk
+	name = "Dirk"
+	icon_state = "dirk"
+
+/datum/sprite_accessory/hair/mentalist
+	name = "Mentalist"
+	icon_state = "mentalist"
+
+/datum/sprite_accessory/hair/ramona
+	name = "Ramona"
+	icon_state = "ramona"
+
+/datum/sprite_accessory/hair/cotton
+	name = "Cotton hair"
+	icon_state = "cotton_hair"
+
+/datum/sprite_accessory/hair/pigtailsalt
+	name = "African Pigtails"
+	icon_state = "african_pigtails"
+
+/datum/sprite_accessory/hair/slightlymessyalt
+	name = "Slightly Messy alt"
+	icon_state = "slightmessy_2"
+
+/datum/sprite_accessory/hair/wild
+	name = "Wild"
+	icon_state = "wild"
+
+/datum/sprite_accessory/hair/undercutfem
+	name = "Female undercut"
+	icon_state = "undercut_fem"

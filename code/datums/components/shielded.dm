@@ -58,7 +58,7 @@
 	if(recharge_start_delay)
 		START_PROCESSING(SSdcs, src)
 
-/datum/component/shielded/Destroy(force, silent)
+/datum/component/shielded/Destroy(force)
 	if(wearer)
 		shield_icon = "broken"
 		UnregisterSignal(wearer, COMSIG_ATOM_UPDATE_OVERLAYS)
@@ -111,7 +111,7 @@
 /datum/component/shielded/proc/on_equipped(datum/source, mob/user, slot)
 	SIGNAL_HANDLER
 
-	if((slot == SLOT_HUD_LEFT_HAND || slot == SLOT_HUD_RIGHT_HAND) && !shield_inhand)
+	if((slot & ITEM_SLOT_HANDS) && !shield_inhand)
 		lost_wearer(source, user)
 		return
 	set_wearer(user)
@@ -121,7 +121,7 @@
 	SIGNAL_HANDLER
 
 	if(wearer)
-		UnregisterSignal(wearer, list(COMSIG_HUMAN_REGENERATE_ICONS, COMSIG_PARENT_QDELETING))
+		UnregisterSignal(wearer, list(COMSIG_HUMAN_REGENERATE_ICONS, COMSIG_QDELETING))
 		wearer.cut_overlay(shield)
 		wearer.regenerate_icons()
 		wearer = null
@@ -131,7 +131,7 @@
 		return
 	wearer = user
 	RegisterSignal(wearer, COMSIG_HUMAN_REGENERATE_ICONS, PROC_REF(apply_shield_overlay))
-	RegisterSignal(wearer, COMSIG_PARENT_QDELETING, PROC_REF(lost_wearer))
+	RegisterSignal(wearer, COMSIG_QDELETING, PROC_REF(lost_wearer))
 	if(current_charges)
 		apply_shield_overlay()
 
@@ -160,7 +160,7 @@
 
 	var/charge_loss = 1 // how many charges do we lose
 
-	if(istype(hitby, /obj/item/projectile))
+	if(isprojectile(hitby))
 		var/obj/item/projectile/P = hitby
 		if(P.shield_buster)
 			charge_loss = 3

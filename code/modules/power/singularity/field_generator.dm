@@ -25,7 +25,7 @@ field_generator power level display
 	icon = 'icons/obj/machines/field_generator.dmi'
 	icon_state = "Field_Gen"
 	anchored = FALSE
-	density = 1
+	density = TRUE
 	use_power = NO_POWER_USE
 	max_integrity = 500
 	//100% immune to lasers and energy projectiles since it absorbs their energy.
@@ -291,7 +291,7 @@ field_generator power level display
 			fields += CF
 			G.fields += CF
 			for(var/mob/living/L in T)
-				CF.Crossed(L, null)
+				CF.shock_field(L)
 
 	connected_gens |= G
 	G.connected_gens |= src

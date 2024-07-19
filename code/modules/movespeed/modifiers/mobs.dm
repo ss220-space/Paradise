@@ -109,7 +109,12 @@
 /datum/movespeed_modifier/robot_vtec_upgrade
 	multiplicative_slowdown = -1
 	movetypes = GROUND
-	blacklisted_movetypes = (FLOATING|FLYING)
+	blacklisted_movetypes = (FLYING|FLOATING)
+
+
+/datum/movespeed_modifier/robot_jetpack_upgrade
+	multiplicative_slowdown = -1
+	movetypes = (FLYING|FLOATING)
 
 
 /datum/movespeed_modifier/slime_health_mod
@@ -169,7 +174,11 @@
 	flags = IGNORE_NOSLOW
 
 
-/*
+/datum/movespeed_modifier/carbon_crawling
+	multiplicative_slowdown = 5
+	flags = IGNORE_NOSLOW
+
+
 /datum/movespeed_modifier/grab_slowdown
 	id = MOVESPEED_ID_MOB_GRAB_STATE
 	blacklisted_movetypes = FLOATING
@@ -192,13 +201,15 @@
 	blacklisted_movetypes = FLOATING
 
 
+/datum/movespeed_modifier/bulky_push
+	variable = TRUE
+	blacklisted_movetypes = FLOATING
+
+
+/*
 /datum/movespeed_modifier/carbon_softcrit
 	multiplicative_slowdown = SOFTCRIT_ADD_SLOWDOWN
 	flags = IGNORE_NOSLOW
 
-
-/datum/movespeed_modifier/carbon_crawling
-	multiplicative_slowdown = CRAWLING_ADD_SLOWDOWN
-	flags = IGNORE_NOSLOW
 */
 

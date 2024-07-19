@@ -194,7 +194,7 @@
 	/// Do we require any of the needed chems, or all of them?
 	var/require_all_chems = TRUE
 	/// Whether silicons ignore any probabilities (and are therefore "perfect" surgeons)
-	var/silicons_ignore_prob = FALSE
+	var/silicons_ignore_prob = TRUE
 	/// How many times this step has been automatically repeated.
 	var/times_repeated = 0
 
@@ -354,7 +354,7 @@
 		prob_success = allowed_tools[implement_type]
 	prob_success *= get_location_modifier(target)
 
-	if(!do_after(user, modded_time, target = target))
+	if(!do_after(user, modded_time, target))
 		surgery.step_in_progress = FALSE
 		return SURGERY_INITIATE_INTERRUPTED
 
@@ -409,6 +409,7 @@
 	var/mob/living/carbon/human/H = target
 	var/pain_mod = get_pain_modifier(H)
 
+/* this is broken, uncomment after separation IC-SLEEP from other method's sleep (like ether)
 	// don't let people sit on the optable and sleep verb
 	var/datum/status_effect/incapacitating/sleeping/S = H.IsSleeping()
 	if(S)
@@ -418,6 +419,7 @@
 		else
 			// Still wake people up, but they shouldn't be as alarmed.
 			to_chat(H, span_warning("The surgery being performed on your [parse_zone(target_zone)] wakes you up."))
+*/
 	return pain_mod //operating on conscious people is hard.
 
 /**
@@ -446,7 +448,7 @@
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		if(can_infect && affected)
 			spread_germs_to_organ(affected, user, tool)
-	if(ishuman(user) && !istype(target, /mob/living/carbon/alien) && prob(60))
+	if(ishuman(user) && !isalien(target) && prob(60))
 		var/mob/living/carbon/human/H = user
 		switch(blood_level)
 			if(SURGERY_BLOODSPREAD_HANDS)
@@ -518,7 +520,7 @@
 				germs += H.germ_level * 0.25
 
 	for(var/obj/effect/decal/cleanable/M in view(2, E.loc))//germs from messes
-		if(length(get_path_to(E.loc, M.loc, 2, simulated_only = FALSE)))
+		if(length(get_path_to(E.loc, M.loc, max_distance = 2, simulated_only = FALSE)))
 			germs++
 
 	if(tool && tool.blood_DNA && length(tool.blood_DNA)) //germs from blood-stained tools

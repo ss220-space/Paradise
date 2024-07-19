@@ -9,9 +9,6 @@ RSF
 	desc = "A device used to rapidly deploy service items."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rsf"
-	opacity = 0
-	density = 0
-	anchored = FALSE
 	var/matter = 0
 	var/mode = 1
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
@@ -80,7 +77,7 @@ RSF
 
 /obj/item/rsf/afterattack(atom/A, mob/user as mob, proximity)
 	if(!proximity) return
-	if(!(istype(A, /obj/structure/table) || istype(A, /turf/simulated/floor)))
+	if(!(istype(A, /obj/structure/table) || isfloorturf(A)))
 		return
 	var/spawn_location
 	var/turf/T = get_turf(A)

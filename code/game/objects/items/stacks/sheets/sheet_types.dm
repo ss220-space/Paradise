@@ -289,6 +289,12 @@ GLOBAL_LIST_INIT(cloth_recipes, list(
 	new /datum/stack_recipe("Empty sandbag", /obj/item/emptysandbag, 4),
 	new /datum/stack_recipe("Improvised gauze", /obj/item/stack/medical/bruise_pack/improvised, res_amount = 2, max_res_amount = 6),
 	new /datum/stack_recipe("Rag", /obj/item/reagent_containers/glass/rag),
+	new /datum/stack_recipe_list("Towels", list(
+		new /datum/stack_recipe("Short towel", /obj/item/clothing/suit/towel/short, 2),
+		new /datum/stack_recipe("Short towel alt", /obj/item/clothing/suit/towel/short/alt, 2),
+		new /datum/stack_recipe("Long towel", /obj/item/clothing/suit/towel, 3),
+		new /datum/stack_recipe("Long towel alt", /obj/item/clothing/suit/towel/alt, 3),
+	)),
 ))
 /obj/item/stack/sheet/cloth
 	name = "cloth"
@@ -389,7 +395,7 @@ GLOBAL_LIST_INIT(cardboard_recipes, list(
 ))
 
 /obj/item/stack/sheet/cardboard/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stamp/clown) && !istype(loc, /obj/item/storage))
+	if(istype(I, /obj/item/stamp/clown) && !isstorage(loc))
 		var/atom/droploc = drop_location()
 		if(use(1))
 			playsound(I, 'sound/items/bikehorn.ogg', 50, 1, -1)

@@ -6,7 +6,7 @@
 	item_state = "flashlight"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
 	actions_types = list(/datum/action/item_action/toggle_light)
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
@@ -51,7 +51,7 @@
 	on = !on
 	playsound(user, togglesound, 100, 1)
 	update_brightness()
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 	return TRUE
 
 
@@ -62,36 +62,36 @@
 		if(((CLUMSY in user.mutations) || user.getBrainLoss() >= 60) && prob(50))	//too dumb to use flashlight properly
 			return ..()	//just hit them in the head
 
-		if(!(istype(user, /mob/living/carbon/human) || SSticker) && SSticker.mode.name != "monkey")	//don't have dexterity
-			to_chat(user, "<span class='notice'>You don't have the dexterity to do this!</span>")
+		if(!(ishuman(user) || SSticker) && SSticker.mode.name != "monkey")	//don't have dexterity
+			to_chat(user, span_notice("You don't have the dexterity to do this!"))
 			return
 
 		var/mob/living/carbon/human/H = M	//mob has protective eyewear
 		if(istype(H) && ((H.head && H.head.flags_cover & HEADCOVERSEYES) || (H.wear_mask && H.wear_mask.flags_cover & MASKCOVERSEYES) || (H.glasses && H.glasses.flags_cover & GLASSESCOVERSEYES)))
-			to_chat(user, "<span class='notice'>You're going to need to remove that [(H.head && H.head.flags_cover & HEADCOVERSEYES) ? "helmet" : (H.wear_mask && H.wear_mask.flags_cover & MASKCOVERSEYES) ? "mask" : "glasses"] first.</span>")
+			to_chat(user, span_notice("You're going to need to remove that [(H.head && H.head.flags_cover & HEADCOVERSEYES) ? "helmet" : (H.wear_mask && H.wear_mask.flags_cover & MASKCOVERSEYES) ? "mask" : "glasses"] first."))
 			return
 
 		if(M == user)	//they're using it on themselves
-			if(M.flash_eyes(visual = 1))
-				M.visible_message("<span class='notice'>[M] directs [src] to [M.p_their()] eyes.</span>", \
-									 "<span class='notice'>You wave the light in front of your eyes! Trippy!</span>")
+			if(M.flash_eyes(visual = TRUE))
+				M.visible_message(	span_notice("[M] directs [src] to [M.p_their()] eyes."), \
+									span_notice("You wave the light in front of your eyes! Trippy!"))
 			else
-				M.visible_message("<span class='notice'>[M] directs [src] to [M.p_their()] eyes.</span>", \
-									 "<span class='notice'>You wave the light in front of your eyes.</span>")
+				M.visible_message(	span_notice("[M] directs [src] to [M.p_their()] eyes."), \
+									span_notice("You wave the light in front of your eyes."))
 		else
 
-			user.visible_message("<span class='notice'>[user] directs [src] to [M]'s eyes.</span>", \
-								 "<span class='notice'>You direct [src] to [M]'s eyes.</span>")
+			user.visible_message(	span_notice("[user] directs [src] to [M]'s eyes."), \
+									span_notice("You direct [src] to [M]'s eyes."))
 
 			if(istype(H)) //robots and aliens are unaffected
 				var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
 				if(M.stat == DEAD || !eyes || (BLINDNESS in M.mutations))	//mob is dead or fully blind
-					to_chat(user, "<span class='notice'>[M]'s pupils are unresponsive to the light!</span>")
+					to_chat(user, span_notice("[M]'s pupils are unresponsive to the light!"))
 				else if((XRAY in M.mutations) || H.nightvision >= 8) //The mob's either got the X-RAY vision or has a tapetum lucidum (extreme nightvision, i.e. Vulp/Tajara with COLOURBLIND & their monkey forms).
-					to_chat(user, "<span class='notice'>[M]'s pupils glow eerily!</span>")
+					to_chat(user, span_notice("[M]'s pupils glow eerily!"))
 				else //they're okay!
-					if(M.flash_eyes(visual = 1))
-						to_chat(user, "<span class='notice'>[M]'s pupils narrow.</span>")
+					if(M.flash_eyes(visual = TRUE))
+						to_chat(user, span_notice("[M]'s pupils narrow."))
 	else
 		return ..()
 
@@ -108,7 +108,7 @@
 	item_state = ""
 	belt_icon = "penlight"
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_EARS
+	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_EARS
 	flags = CONDUCT
 	light_system = MOVABLE_LIGHT
 	light_range = 2
@@ -151,15 +151,6 @@
 	icon_state = "lampgreen"
 	item_state = "lampgreen"
 
-
-
-/obj/item/flashlight/lamp/verb/toggle_light()
-	set name = "Toggle light"
-	set category = "Object"
-	set src in oview(1)
-
-	if(!usr.stat)
-		attack_self(usr)
 
 //Bananalamp
 /obj/item/flashlight/lamp/bananalamp

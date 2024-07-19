@@ -8,7 +8,7 @@
 	icon = 'icons/obj/crayons.dmi'
 	icon_state = "crayonred"
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_EARS
+	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_EARS
 	attack_verb = list("attacked", "coloured")
 	toolspeed = 1
 	var/colour = COLOR_RED
@@ -26,8 +26,8 @@
 	user.visible_message("<span class='suicide'>[user] is jamming the [name] up [user.p_their()] nose and into [user.p_their()] brain. It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return BRUTELOSS|OXYLOSS
 
-/obj/item/toy/crayon/New()
-	..()
+/obj/item/toy/crayon/Initialize(mapload)
+	. = ..()
 	drawtype = pick(pick(graffiti), pick(letters), "rune[rand(1, 8)]")
 
 /obj/item/toy/crayon/attack_self(mob/living/user as mob)
@@ -56,7 +56,6 @@
 	dat += "<hr>"
 	var/datum/browser/popup = new(user, "crayon", name, 300, 500)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
 	dat = {"<meta charset="UTF-8">"}
 
@@ -73,7 +72,7 @@
 			temp = pick(graffiti)
 		else
 			temp = href_list["type"]
-	if((usr.restrained() || usr.stat || !usr.is_in_active_hand(src)))
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !usr.is_in_active_hand(src))
 		return
 	drawtype = temp
 	update_window(usr)
@@ -89,7 +88,7 @@
 			temp = "graffiti"
 		to_chat(user, "<span class='info'>You start drawing a [temp] on the [target.name].</span>")
 		busy = TRUE
-		if(instant || do_after(user, 50 * toolspeed * gettoolspeedmod(user), target = target))
+		if(instant || do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), target))
 			var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target,colour,drawtype,temp)
 			C.add_hiddenprint(user)
 			to_chat(user, "<span class='info'>You finish drawing [temp].</span>")
@@ -127,36 +126,42 @@
 	icon_state = "crayonred"
 	colour = COLOR_RED
 	colourName = "red"
+	dye_color = DYE_RED
 
 /obj/item/toy/crayon/orange
 	name = "orange crayon"
 	icon_state = "crayonorange"
 	colour = COLOR_ORANGE
 	colourName = "orange"
+	dye_color = DYE_ORANGE
 
 /obj/item/toy/crayon/yellow
 	name = "yellow crayon"
 	icon_state = "crayonyellow"
 	colour = COLOR_YELLOW
 	colourName = "yellow"
+	dye_color = DYE_YELLOW
 
 /obj/item/toy/crayon/green
 	name = "green crayon"
 	icon_state = "crayongreen"
 	colour = COLOR_GREEN
 	colourName = "green"
+	dye_color = DYE_GREEN
 
 /obj/item/toy/crayon/blue
 	name = "blue crayon"
 	icon_state = "crayonblue"
 	colour = COLOR_BLUE
 	colourName = "blue"
+	dye_color = DYE_BLUE
 
 /obj/item/toy/crayon/purple
 	name = "purple crayon"
 	icon_state = "crayonpurple"
 	colour = COLOR_PURPLE
 	colourName = "purple"
+	dye_color = DYE_PURPLE
 
 /obj/item/toy/crayon/random/New()
 	icon_state = pick(list("crayonred", "crayonorange", "crayonyellow", "crayongreen", "crayonblue", "crayonpurple"))
@@ -165,26 +170,32 @@
 			name = "red crayon"
 			colour = COLOR_RED
 			colourName = "red"
+			dye_color = DYE_RED
 		if("crayonorange")
 			name = "orange crayon"
 			colour = COLOR_ORANGE
 			colourName = "orange"
+			dye_color = DYE_ORANGE
 		if("crayonyellow")
 			name = "yellow crayon"
 			colour = COLOR_YELLOW
 			colourName = "yellow"
+			dye_color = DYE_YELLOW
 		if("crayongreen")
 			name = "green crayon"
 			colour =COLOR_GREEN
 			colourName = "green"
+			dye_color = DYE_GREEN
 		if("crayonblue")
 			name = "blue crayon"
 			colour = COLOR_BLUE
 			colourName = "blue"
+			dye_color = DYE_BLUE
 		if("crayonpurple")
 			name = "purple crayon"
 			colour = COLOR_PURPLE
 			colourName = "purple"
+			dye_color = DYE_PURPLE
 	..()
 
 /obj/item/toy/crayon/black
@@ -192,12 +203,14 @@
 	icon_state = "crayonblack"
 	colour = "#000000"
 	colourName = "black"
+	dye_color = DYE_BLACK
 
 /obj/item/toy/crayon/white
 	name = "white crayon"
 	icon_state = "crayonwhite"
 	colour = "#FFFFFF"
 	colourName = "white"
+	dye_color = DYE_WHITE
 
 /obj/item/toy/crayon/mime
 	name = "mime crayon"
@@ -206,6 +219,7 @@
 	colour = "#FFFFFF"
 	colourName = "mime"
 	uses = 0
+	dye_color = DYE_MIME
 
 /obj/item/toy/crayon/mime/attack_self(mob/living/user as mob)
 	update_window(user)
@@ -232,6 +246,7 @@
 	colour = "#FFF000"
 	colourName = "rainbow"
 	uses = 0
+	dye_color = DYE_RAINBOW
 
 /obj/item/toy/crayon/rainbow/attack_self(mob/living/user as mob)
 	update_window(user)
@@ -293,7 +308,7 @@
 				if(C.client)
 					C.EyeBlurry(6 SECONDS)
 					C.EyeBlind(2 SECONDS)
-					if(C.check_eye_prot() <= 0) // no eye protection? ARGH IT BURNS.
+					if(C.check_eye_prot() <= FLASH_PROTECTION_NONE) // no eye protection? ARGH IT BURNS.
 						C.Confused(6 SECONDS)
 						C.Weaken(6 SECONDS)
 				C.lip_style = "spray_face"

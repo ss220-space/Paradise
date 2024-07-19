@@ -64,7 +64,7 @@ GLOBAL_LIST_INIT(changeling_mutations, list(
 	..()
 
 
-/datum/action/changeling/Destroy(force, ...)
+/datum/action/changeling/Destroy(force)
 	owner?.update_action_buttons(TRUE)
 	cling.acquired_powers -= src
 	cling = null
@@ -104,7 +104,7 @@ GLOBAL_LIST_INIT(changeling_mutations, list(
 /datum/action/changeling/proc/can_sting(mob/user, mob/target)
 	SHOULD_CALL_PARENT(TRUE)
 
-	if(req_human && (!ishuman(user) || issmall(user)))
+	if(req_human && (!ishuman(user) || is_monkeybasic(user)))
 		to_chat(user, span_warning("We cannot do that in this form!"))
 		return FALSE
 

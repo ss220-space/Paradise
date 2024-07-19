@@ -37,7 +37,7 @@
 	listeningTo = null
 	return ..()
 
-/obj/structure/stairs/Move() //Look this should never happen but...
+/obj/structure/stairs/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE) //Look this should never happen but...
 	. = ..()
 	if(force_open_above)
 		build_signal_listener()
@@ -55,8 +55,8 @@
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
 
-/obj/structure/stairs/Cross(atom/movable/AM)
-	if(isTerminator() && (get_dir(src, AM) == dir))
+/obj/structure/stairs/Cross(atom/movable/crossed_atom, border_dir)
+	if(isTerminator() && (border_dir == dir))
 		return FALSE
 	return ..()
 
@@ -70,6 +70,10 @@
 	var/turf/target = get_step_multiz(get_turf(src), (dir|UP))
 	if(istype(target) && !climber.can_z_move(DOWN, target, z_move_flags = ZMOVE_FALL_FLAGS)) //Don't throw them into a tile that will just dump them back down.
 		climber.zMove(target = target, z_move_flags = ZMOVE_STAIRS_FLAGS)
+		/// Moves anything that's being dragged by src or anything buckled to it to the stairs turf.
+		climber.pulling?.move_from_pull(climber, loc, climber.glide_size)
+		for(var/mob/living/buckled as anything in climber.buckled_mobs)
+			buckled.pulling?.move_from_pull(buckled, loc, buckled.glide_size)
 
 
 /obj/structure/stairs/vv_edit_var(var_name, var_value)
@@ -145,12 +149,15 @@
 /obj/structure/stairs_frame/AltClick(mob/user)
 	if(!Adjacent(user))
 		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
 	if(anchored)
 		to_chat(user, "It is fastened to the floor!")
 		return
 	add_fingerprint(usr)
 	setDir(turn(dir, 90))
-	return
+
 
 /obj/structure/stairs_frame/examine(mob/living/carbon/human/user)
 	. = ..()
@@ -201,7 +208,7 @@
 	if(istype(stack, /obj/item/stack/sheet/metal))
 		to_chat(user, span_notice("You start adding [stack] to [src]..."))
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
-		if(do_after(user, 10 SECONDS, target = src) || !stack.use(10) || (locate(/obj/structure/table) in loc))
+		if(do_after(user, 10 SECONDS, src) || !stack.use(10) || (locate(/obj/structure/table) in loc))
 			var/obj/structure/stairs/new_stairs = new /obj/structure/stairs(loc)
 			new_stairs.setDir(dir)
 			qdel(src)
@@ -209,7 +216,7 @@
 	if(istype(stack, /obj/item/stack/sheet/wood))
 		to_chat(user, span_notice("You start adding [stack] to [src]..."))
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
-		if(do_after(user, 10 SECONDS, target = src) || !stack.use(10) || (locate(/obj/structure/table) in loc))
+		if(do_after(user, 10 SECONDS, src) || !stack.use(10) || (locate(/obj/structure/table) in loc))
 			var/obj/structure/stairs/new_stairs = new /obj/structure/stairs/wood(loc)
 			new_stairs.setDir(dir)
 			qdel(src)

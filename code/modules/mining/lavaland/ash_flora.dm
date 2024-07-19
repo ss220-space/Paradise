@@ -62,7 +62,7 @@
 /obj/structure/flora/ash/attackby(obj/item/W, mob/user, params)
 	if(!harvested && needs_sharp_harvest && W.sharp)
 		user.visible_message("<span class='notice'>[user] starts to harvest from [src] with [W].</span>","<span class='notice'>You begin to harvest from [src] with [W].</span>")
-		if(do_after(user, harvest_time, target = src))
+		if(do_after(user, harvest_time, src))
 			add_fingerprint(user)
 			harvest(user)
 	else
@@ -71,7 +71,7 @@
 /obj/structure/flora/ash/attack_hand(mob/user)
 	if(!harvested && !needs_sharp_harvest)
 		user.visible_message("<span class='notice'>[user] starts to harvest from [src].</span>","<span class='notice'>You begin to harvest from [src].</span>")
-		if(do_after(user, harvest_time, target = src))
+		if(do_after(user, harvest_time, src))
 			add_fingerprint(user)
 			harvest(user)
 	else
@@ -218,7 +218,7 @@
 	name = "fire blossom"
 	desc = "A flower from a fire blossom."
 	icon_state = "fireblossom"
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	seed = /obj/item/seeds/lavaland/fireblossom
 	wine_power = 0.4
 

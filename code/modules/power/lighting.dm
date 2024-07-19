@@ -134,12 +134,12 @@
 
 
 /obj/machinery/light_construct/blob_act(obj/structure/blob/B)
-	if(B && B.loc == loc)
+	if(B && B.loc == loc && !QDELETED(src))
 		qdel(src)
 
 
 /obj/machinery/light_construct/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc, sheets_refunded)
 	qdel(src)
 
@@ -320,9 +320,9 @@
 	if(status != LIGHT_OK || !on)
 		return
 	if(nightshift_enabled || emergency_mode || fire_mode)
-		underlays += emissive_appearance(icon, "[base_icon_state]_emergency_lightmask")
+		underlays += emissive_appearance(icon, "[base_icon_state]_emergency_lightmask", src)
 	else
-		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask")
+		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
 
 
 /**
@@ -527,7 +527,7 @@
 
 
 /obj/machinery/light/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		var/obj/machinery/light_construct/newlight = null
 		var/cur_stage = 2
 		if(!disassembled)
@@ -818,18 +818,26 @@
 	/// Light colour
 	var/brightness_color = null
 
-/obj/item/light/ComponentInitialize()
+
+/obj/item/light/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/caltrop, force)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/item/light/Crossed(mob/living/L, oldloc)
-	if(istype(L) && L.has_gravity())
-		if(L.incorporeal_move || (L.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
-			return
-		playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
-		if(status == LIGHT_BURNED || status == LIGHT_OK)
-			shatter()
-	return ..()
+
+/obj/item/light/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(!isliving(arrived) || arrived.incorporeal_move || (arrived.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
+		return
+
+	playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
+	if(status == LIGHT_BURNED || status == LIGHT_OK)
+		shatter()
+
 
 /obj/item/light/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	C.stored_comms["glass"] += 1

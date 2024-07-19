@@ -169,20 +169,6 @@
 /obj/item/projectile/beam/pulse/heavy
 	name = "heavy pulse laser"
 	icon_state = "pulse1_bl"
-	var/life = 20
-
-/obj/item/projectile/beam/pulse/heavy/Bump(atom/A)
-	A.bullet_act(src, def_zone)
-	life -= 10
-	if(ismob(A))
-		var/mob/M = A
-		if(istype(firer, /mob))
-			add_attack_logs(firer, M, "Mecha-shot with <b>[src]</b>")
-		else
-			add_attack_logs(null, M, "Mecha-shot with <b>[src]</b>")
-	if(life <= 0)
-		qdel(src)
-	return
 
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
@@ -219,7 +205,7 @@
 	playsound(chassis, 'sound/items/airhorn.ogg', 100, 1)
 	chassis.occupant_message("<font color='red' size='5'>HONK</font>")
 	for(var/mob/living/carbon/M in ohearers(6, chassis))
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(H.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
 				continue
@@ -234,15 +220,15 @@
 		else
 			M.Jitter(1000 SECONDS)
 		///else the mousetraps are useless
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(isobj(H.shoes) && !(H.shoes.flags & NODROP))
+			if(isobj(H.shoes) && !HAS_TRAIT(H.shoes, TRAIT_NODROP))
 				var/thingy = H.shoes
 				H.drop_item_ground(H.shoes)
-				walk_away(thingy,chassis,15,2)
+				SSmove_manager.move_away(thingy, chassis, 15, 2)
 				spawn(20)
 					if(thingy)
-						walk(thingy,0)
+						SSmove_manager.stop_looping(thingy)
 	for(var/obj/mecha/combat/reticence/R in oview(6, chassis))
 		R.occupant_message("\The [R] has protected you from [chassis]'s HONK at the cost of some power.")
 		R.use_power(R.get_charge() / 4)

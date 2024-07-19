@@ -8,7 +8,7 @@
 	While it is an effective mining tool, it did little to aid any but the most skilled and/or suicidal miners against local fauna."
 	force = 0 //You can't hit stuff unless wielded
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	force_unwielded = 0
 	force_wielded = 20
 	throwforce = 5
@@ -153,7 +153,7 @@
 		update_icon()
 		playsound(src.loc, 'sound/weapons/crusher_reload.ogg', 135)
 
-/obj/item/twohanded/kinetic_crusher/ui_action_click(mob/user, actiontype)
+/obj/item/twohanded/kinetic_crusher/ui_action_click(mob/user, action)
 	set_light_on(!light_on)
 	playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
 	update_icon()

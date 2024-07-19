@@ -14,7 +14,7 @@
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = FALSE
 	can_bayonet = FALSE
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	burst_size = 3
 	fire_delay = 1
 	recoil = 1

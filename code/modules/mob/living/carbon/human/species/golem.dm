@@ -18,7 +18,7 @@
 	punchdamagelow = 5
 	punchdamagehigh = 14
 	punchstunthreshold = 11 //about 40% chance to stun
-	no_equip = list(SLOT_HUD_WEAR_MASK, SLOT_HUD_OUTER_SUIT, SLOT_HUD_GLOVES, SLOT_HUD_SHOES, SLOT_HUD_JUMPSUIT, SLOT_HUD_SUIT_STORE)
+	no_equip = list(ITEM_SLOT_MASK, ITEM_SLOT_CLOTH_OUTER, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_CLOTH_INNER, ITEM_SLOT_SUITSTORE)
 	nojumpsuit = TRUE
 
 	reagent_tag = PROCESS_ORG
@@ -262,7 +262,7 @@
 /datum/action/innate/ignite
 	name = "Ignite"
 	desc = "Подожгите себя и достигните взрыва!"
-	check_flags = AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	button_icon_state = "sacredflame"
 
 /datum/action/innate/ignite/Activate()
@@ -375,13 +375,16 @@
 		NEUTER = null
 		)
 
-/datum/species/golem/titanium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
-	. = ..()
-	C.weather_immunities |= "ash"
 
-/datum/species/golem/titanium/on_species_loss(mob/living/carbon/C)
+/datum/species/golem/titanium/on_species_gain(mob/living/carbon/owner)
 	. = ..()
-	C.weather_immunities -= "ash"
+	ADD_TRAIT(owner, TRAIT_ASHSTORM_IMMUNE, name)
+
+
+/datum/species/golem/titanium/on_species_loss(mob/living/carbon/owner)
+	. = ..()
+	REMOVE_TRAIT(owner, TRAIT_ASHSTORM_IMMUNE, name)
+
 
 //Even more resistant to burn damage and immune to ashstorms and lava
 /datum/species/golem/plastitanium
@@ -397,15 +400,16 @@
 		NEUTER = null
 		)
 
-/datum/species/golem/plastitanium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
-	. = ..()
-	C.weather_immunities |= "lava"
-	C.weather_immunities |= "ash"
 
-/datum/species/golem/plastitanium/on_species_loss(mob/living/carbon/C)
+/datum/species/golem/plastitanium/on_species_gain(mob/living/carbon/owner)
 	. = ..()
-	C.weather_immunities -= "ash"
-	C.weather_immunities -= "lava"
+	owner.add_traits(list(TRAIT_ASHSTORM_IMMUNE, TRAIT_LAVA_IMMUNE), name)
+
+
+/datum/species/golem/plastitanium/on_species_loss(mob/living/carbon/owner)
+	. = ..()
+	owner.remove_traits(list(TRAIT_ASHSTORM_IMMUNE, TRAIT_LAVA_IMMUNE), name)
+
 
 //Fast and regenerates... but can only speak like an abductor
 /datum/species/golem/alloy
@@ -486,7 +490,7 @@
 		if(light_amount > 0)
 			H.clear_alert("nolight")
 		else
-			H.throw_alert("nolight", /obj/screen/alert/nolight)
+			H.throw_alert("nolight", /atom/movable/screen/alert/nolight)
 		if(!is_vamp)
 			H.adjust_nutrition(light_amount * 10)
 			if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
@@ -543,7 +547,7 @@
 		FEMALE = list("Тарелка", "Посуда", "Утварь"),
 		NEUTER = null
 		)
-	ventcrawler = VENTCRAWLER_NUDE
+	ventcrawler_trait = TRAIT_VENTCRAWLER_NUDE
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/sheet/plastic
 	info_text = "Будучи <span class='danger'>пластиковым големом</span>, вы способны ползать по вентиляции, если вы раздеты."
@@ -683,7 +687,7 @@
 /datum/species/golem/bluespace/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
 	..()
 	var/obj/item/I
-	if(istype(AM, /obj/item))
+	if(isitem(AM))
 		I = AM
 		if(locateUID(I.thrownby) == H) //No throwing stuff at yourself to trigger the teleport
 			return FALSE
@@ -719,7 +723,7 @@
 
 /datum/action/innate/unstable_teleport
 	name = "Unstable Teleport"
-	check_flags = AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	button_icon_state = "blink"
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	var/activated = FALSE // To prevent spamming
@@ -745,7 +749,7 @@
 	H.visible_message("<span class='warning'>[H] телепортировал[genderize_ru(H.gender,"ся","ась","ось","ись")]!</span>", "<span class='danger'>Вы телепортировались!</span>")
 	var/list/turfs = new/list()
 	for(var/turf/T in orange(tele_range, H))
-		if(istype(T, /turf/space))
+		if(isspaceturf(T))
 			continue
 		if(T.density)
 			continue
@@ -799,8 +803,8 @@
 	last_banana = world.time
 	last_honk = world.time
 	H.mutations.Add(COMIC)
-	H.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(H), SLOT_HUD_RIGHT_STORE)
-	H.equip_to_slot_or_del(new /obj/item/bikehorn(H), SLOT_HUD_LEFT_STORE)
+	H.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(H), ITEM_SLOT_POCKET_RIGHT)
+	H.equip_to_slot_or_del(new /obj/item/bikehorn(H), ITEM_SLOT_POCKET_LEFT)
 	H.AddElement(/datum/element/waddling)
 
 /datum/species/golem/bananium/on_species_loss(mob/living/carbon/C)
@@ -833,7 +837,7 @@
 /datum/species/golem/bananium/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
 	..()
 	var/obj/item/I
-	if(istype(AM, /obj/item))
+	if(isitem(AM))
 		I = AM
 		if(locateUID(I.thrownby) == H) //No throwing stuff at yourself to make bananas
 			return FALSE
@@ -881,9 +885,9 @@
 
 /datum/species/golem/tranquillite/on_species_gain(mob/living/carbon/human/H)
 	..()
-	H.equip_to_slot_or_del(new 	/obj/item/clothing/head/beret(H), SLOT_HUD_HEAD)
-	H.equip_to_slot_or_del(new 	/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing(H), SLOT_HUD_RIGHT_STORE)
-	H.equip_to_slot_or_del(new 	/obj/item/cane(H), SLOT_HUD_LEFT_HAND)
+	H.equip_to_slot_or_del(new 	/obj/item/clothing/head/beret(H), ITEM_SLOT_HEAD)
+	H.equip_to_slot_or_del(new 	/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing(H), ITEM_SLOT_POCKET_RIGHT)
+	H.equip_to_slot_or_del(new 	/obj/item/cane(H), ITEM_SLOT_HAND_LEFT)
 	if(H.mind)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))

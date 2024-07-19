@@ -19,7 +19,7 @@
 					visible_message("<span class='danger'>[M] попытал[genderize_ru(M.gender,"ся","ась","ось","ись")] ударить [src.name]!</span>")
 
 			if(INTENT_DISARM)
-				if(!lying_angle)
+				if(body_position != LYING_DOWN)
 					if(prob(5))//Very small chance to push an alien down.
 						Paralyse(4 SECONDS)
 						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
@@ -40,3 +40,16 @@
 	if(!no_effect && !visual_effect_icon)
 		visual_effect_icon = ATTACK_EFFECT_CLAW
 	..()
+
+
+/mob/living/carbon/alien/humanoid/resist_grab(moving_resist = FALSE)
+	if(pulledby.grab_state)
+		visible_message(
+			span_danger("[name] легко вырыва[pluralize_ru(gender,"ется","ются")] из захвата [pulledby.name]!"),
+			span_danger("Вы легко вырываетесь из захвата [pulledby.name]!"),
+			ignored_mobs = pulledby,
+		)
+		to_chat(pulledby, span_danger("[name] вырвал[genderize_ru(gender, "ся", "ась", "ось", "ись")] из Вашего захвата!"))
+	pulledby.stop_pulling()
+	return FALSE
+

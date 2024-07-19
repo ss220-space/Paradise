@@ -49,12 +49,14 @@
 	desc = "Looks like some kind of thick resin."
 	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi'
 	icon_state = "resin"
+	base_icon_state = "resin_wall"
 	density = TRUE
 	opacity = TRUE
 	anchored = TRUE
-	canSmoothWith = list(/obj/structure/alien/resin)
+	canSmoothWith = SMOOTH_GROUP_ALIEN_RESIN
+	smoothing_groups = SMOOTH_GROUP_ALIEN_RESIN
 	max_integrity = 200
-	smooth = SMOOTH_TRUE
+	smooth = SMOOTH_BITMASK
 	var/resintype = null
 
 /obj/structure/alien/resin/Initialize()
@@ -67,7 +69,7 @@
 	. = ..()
 	T.air_update_turf(TRUE)
 
-/obj/structure/alien/resin/Move()
+/obj/structure/alien/resin/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
 	. = ..()
 	move_update_air(T)
@@ -81,7 +83,7 @@
 	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi'
 	icon_state = "resin"
 	resintype = "wall"
-	canSmoothWith = list(/obj/structure/alien/resin/wall, /obj/structure/alien/resin/membrane)
+	canSmoothWith = SMOOTH_GROUP_ALIEN_WALLS
 
 /obj/structure/alien/resin/wall/BlockSuperconductivity()
 	return 1
@@ -96,11 +98,11 @@
 	desc = "Resin just thin enough to let light pass through."
 	icon = 'icons/obj/smooth_structures/alien/resin_membrane.dmi'
 	icon_state = "membrane0"
-	opacity = 0
+	opacity = FALSE
 	max_integrity = 160
 	resintype = "membrane"
 	pass_flags_self = PASSGLASS
-	canSmoothWith = list(/obj/structure/alien/resin/wall, /obj/structure/alien/resin/membrane)
+	canSmoothWith = SMOOTH_GROUP_ALIEN_WALLS
 
 
 /obj/structure/alien/resin/attack_alien(mob/living/carbon/alien/humanoid/A)
@@ -129,7 +131,7 @@
 	max_integrity = 160
 	resintype = "door"
 	canSmoothWith = null
-	smooth = SMOOTH_FALSE
+	smooth = NONE
 	pass_flags_self = PASSDOOR
 	var/state = RESIN_DOOR_CLOSED
 	var/operating = FALSE
@@ -143,7 +145,7 @@
 
 
 /obj/structure/alien/resin/door/Destroy()
-	density = FALSE
+	set_density(FALSE)
 	update_freelook_sight()
 	return ..()
 
@@ -181,10 +183,10 @@
 
 
 /obj/structure/alien/resin/door/Bumped(atom/movable/moving_atom)
-	..()
+	. = ..()
 
 	if(operating)
-		return
+		return .
 
 	if(isliving(moving_atom))
 		var/mob/living/living = moving_atom
@@ -236,7 +238,7 @@
 	update_freelook_sight()
 
 	sleep(0.4 SECONDS)
-	density = FALSE
+	set_density(FALSE)
 	air_update_turf(TRUE)
 
 	sleep(0.1 SECONDS)
@@ -262,7 +264,7 @@
 	operating = TRUE
 
 	sleep(0.1 SECONDS)
-	density = TRUE
+	set_density(TRUE)
 	air_update_turf(TRUE)
 
 	sleep(0.4 SECONDS)
@@ -293,7 +295,7 @@
 
 /obj/structure/alien/resin/door/proc/update_freelook_sight()
 	if(GLOB.cameranet)
-		GLOB.cameranet.updateVisibility(src, FALSE)
+		GLOB.cameranet.updateVisibility(src, opacity_check = FALSE)
 
 
 #undef RESIN_DOOR_CLOSED
@@ -385,16 +387,16 @@
 	var/turf/E = get_step(src, EAST)
 	var/turf/W = get_step(src, WEST)
 	if(!locate(/obj/structure/alien) in N.contents)
-		if(istype(N, /turf/simulated/floor))
+		if(isfloorturf(N))
 			add_overlay(weedImageCache[WEED_SOUTH_EDGING])
 	if(!locate(/obj/structure/alien) in S.contents)
-		if(istype(S, /turf/simulated/floor))
+		if(isfloorturf(S))
 			add_overlay(weedImageCache[WEED_NORTH_EDGING])
 	if(!locate(/obj/structure/alien) in E.contents)
-		if(istype(E, /turf/simulated/floor))
+		if(isfloorturf(E))
 			add_overlay(weedImageCache[WEED_WEST_EDGING])
 	if(!locate(/obj/structure/alien) in W.contents)
-		if(istype(W, /turf/simulated/floor))
+		if(isfloorturf(W))
 			add_overlay(weedImageCache[WEED_EAST_EDGING])
 
 
@@ -540,7 +542,7 @@
 
 
 /obj/structure/alien/egg/obj_break(damage_flag)
-	if(!(flags & NODECONSTRUCT) && status != BURST)
+	if(!(obj_flags & NODECONSTRUCT) && status != BURST)
 		Burst(kill = TRUE)
 
 

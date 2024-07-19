@@ -12,7 +12,7 @@
 	move_self = 1
 	grav_pull = 0
 	contained = 0
-	density = 1
+	density = TRUE
 	energy = 0
 	dissipate = 1
 	dissipate_delay = 5
@@ -111,11 +111,17 @@
 	EB.orbit(src, orbitsize, pick(FALSE, TRUE), rand(10, 25), pick(3, 4, 5, 6, 36))
 
 
-/obj/singularity/energy_ball/Bump(atom/A)
-	dust_mobs(A)
+/obj/singularity/energy_ball/Bump(atom/bumped_atom, effect_applied = TRUE)
+	. = ..()
+	if(.)
+		return .
+	dust_mobs(bumped_atom)
 
-/obj/singularity/energy_ball/Bumped(atom/movable/moving_atom)
+
+/obj/singularity/energy_ball/Bumped(atom/movable/moving_atom, effect_applied = TRUE)
+	. = ..()
 	dust_mobs(moving_atom)
+
 
 /obj/singularity/energy_ball/attack_tk(mob/user)
 	if(iscarbon(user))
@@ -227,7 +233,7 @@
 		else if(closest_mob)
 			continue
 
-		else if(istype(A, /obj/machinery))
+		else if(ismachinery(A))
 			var/obj/machinery/M = A
 			var/dist = get_dist(source, A)
 			if(dist <= zap_range && (dist < closest_dist || !closest_machine) && !M.being_shocked)

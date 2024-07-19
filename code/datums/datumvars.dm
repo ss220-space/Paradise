@@ -12,43 +12,22 @@
 /datum/proc/can_vv_get(var_name)
 	return TRUE
 
-// /client/proc/can_vv_get(var_name)
-// 	return TRUE
 
-/datum/proc/vv_edit_var(var_name, var_value) //called whenever a var is edited
-	switch(var_name)
-		if("vars")
-			return FALSE
-		if("var_edited")
-			return FALSE
-	var_edited = TRUE
+/// Called when a var is edited with the new value to change to
+/datum/proc/vv_edit_var(var_name, var_value)
+	if(var_name == NAMEOF(src, vars))
+		return FALSE
 	vars[var_name] = var_value
+	datum_flags |= DF_VAR_EDITED
+	return TRUE
 
-	. = TRUE
-
-
-/client/vv_edit_var(var_name, var_value) //called whenever a var is edited
-	switch(var_name)
-		if("vars")
-			return FALSE
-		if("var_edited")
-			return FALSE
-	var_edited = TRUE
-	vars[var_name] = var_value
-
-	. = TRUE
 
 /datum/proc/vv_get_var(var_name)
 	switch(var_name)
-		if("vars")
+		if(NAMEOF(src, vars))
 			return debug_variable(var_name, list(), 0, src)
 	return debug_variable(var_name, vars[var_name], 0, src)
 
-/client/vv_get_var(var_name)
-	switch(var_name)
-		if("vars")
-			return debug_variable(var_name, list(), 0, src)
-	return debug_variable(var_name, vars[var_name], 0, src)
 
 /datum/proc/can_vv_delete()
 	return TRUE
@@ -65,6 +44,7 @@
 	.["Modify Traits"] = "?_src_=vars;traitmod=[UID()]"
 	.["Add Component/Element"] = "?_src_=vars;addcomponent=[UID()]"
 	.["Remove Component/Element"] = "?_src_=vars;removecomponent=[UID()]"
+	.["Mass Remove Component/Element"] = "?_src_=vars;removecomponent_mass=[UID()]"
 	. += "---"
 
 /client/vv_get_dropdown()
@@ -169,11 +149,11 @@
 	var/varedited_line = ""
 	if(isatom(D))
 		var/atom/A = D
-		if(A.admin_spawned)
+		if(A.flags & ADMIN_SPAWNED)
 			varedited_line += "<br><font size='1' color='red'><b>Admin Spawned</b></font>"
 
 
-	if(!islist && D.var_edited)
+	if(!islist && (D.datum_flags & DF_VAR_EDITED))
 		varedited_line += "<br><font size='1' color='red'><b>Var Edited</b></font>"
 
 
@@ -446,7 +426,7 @@
 	usr << browse(html, "window=variables[refid];size=475x650")
 
 #define VV_HTML_ENCODE(thing) ( sanitize ? html_encode(thing) : thing )
-/proc/debug_variable(name, value, level, var/datum/DA = null, sanitize = TRUE)
+/proc/debug_variable(name, value, level, var/datum/DA = null, sanitize = TRUE, display_flags)
 	var/header
 	if(DA)
 		if(islist(DA))
@@ -486,11 +466,11 @@
 	else if(isfile(value))
 		item = "[VV_HTML_ENCODE(name)] = <span class='value'>'[value]'</span>"
 
-	else if(istype(value, /datum))
+	else if(isdatum(value))
 		var/datum/D = value
 		item = "<a href='?_src_=vars;Vars=[D.UID()]'>[VV_HTML_ENCODE(name)] \ref[value]</a> = [D.type]"
 
-	else if(istype(value, /client))
+	else if(isclient(value))
 		var/client/C = value
 		item = "<a href='?_src_=vars;Vars=[C.UID()]'>[VV_HTML_ENCODE(name)] \ref[value]</a> = [C] [C.type]"
 //
@@ -498,7 +478,7 @@
 		var/list/L = value
 		var/list/items = list()
 
-		if(L.len && !(name == "underlays" || name == "overlays" || name == "vars" || L.len > (IS_NORMAL_LIST(L) ? 250 : 300)))
+		if(!(display_flags & VV_ALWAYS_CONTRACT_LIST) && L.len && !(name == "underlays" || name == "overlays" || name == "vars" || L.len > (IS_NORMAL_LIST(L) ? 250 : 300)))
 			for(var/i in 1 to L.len)
 				var/key = L[i]
 				var/val
@@ -569,7 +549,7 @@
 		if(!check_rights(R_VAREDIT))	return
 
 		var/D = locateUID(href_list["datumedit"])
-		if(!istype(D,/datum) && !istype(D,/client))
+		if(!isdatum(D) && !isclient(D))
 			to_chat(usr, "This can only be used on instances of types /client or /datum")
 			return
 
@@ -579,7 +559,7 @@
 		if(!check_rights(R_VAREDIT))	return
 
 		var/atom/D = locateUID(href_list["subject"])
-		if(!istype(D,/datum) && !istype(D,/client))
+		if(!isdatum(D) && !isclient(D))
 			to_chat(usr, "This can only be used on instances of types /client or /datum")
 			return
 		if(!(href_list["var"] in D.vars))
@@ -594,7 +574,7 @@
 		if(!check_rights(R_VAREDIT))	return
 
 		var/D = locateUID(href_list["datumchange"])
-		if(!istype(D,/datum) && !istype(D,/client))
+		if(!isdatum(D) && !isclient(D))
 			to_chat(usr, "This can only be used on instances of types /client or /datum")
 			return
 
@@ -824,7 +804,7 @@
 		var/obj/A = locateUID(href_list["makespeedy"])
 		if(!istype(A))
 			return
-		A.var_edited = TRUE
+		A.datum_flags |= DF_VAR_EDITED
 		A.makeSpeedProcess()
 		log_and_message_admins("has made [A] speed process")
 		return TRUE
@@ -835,7 +815,7 @@
 		var/obj/A = locateUID(href_list["makenormalspeed"])
 		if(!istype(A))
 			return
-		A.var_edited = TRUE
+		A.datum_flags |= DF_VAR_EDITED
 		A.makeNormalProcess()
 		log_and_message_admins("has made [A] process normally")
 		return TRUE
@@ -846,7 +826,7 @@
 		var/obj/A = locateUID(href_list["modifyarmor"])
 		if(!istype(A))
 			return
-		A.var_edited = TRUE
+		A.datum_flags |= DF_VAR_EDITED
 		var/list/armorlist = A.armor.getList()
 		var/list/displaylist
 
@@ -976,7 +956,7 @@
 		names += componentsubtypes
 		names += "---Elements---"
 		names += sort_list(subtypesof(/datum/element), GLOBAL_PROC_REF(cmp_typepaths_asc))
-		var/atom/target = locateUID(href_list["addcomponent"])
+		var/datum/target = locateUID(href_list["addcomponent"])
 		var/result = tgui_input_list(usr, "Choose a component/element to add", "Add Component", names)
 		if(isnull(result))
 			return
@@ -1002,18 +982,12 @@
 		log_admin("[key_name(usr)] has added [result] [datumname] to [key_name(target)].")
 		message_admins("[key_name_admin(usr)] has added [result] [datumname] to [key_name_admin(target)].")
 
-	if(href_list["removecomponent"])
+	if(href_list["removecomponent"] || href_list["removecomponent_mass"])
 		if(!check_rights(R_DEBUG|R_EVENT))
 			return
-		var/list/components = list()
-		var/atom/target = locateUID(href_list["removecomponent"])
-		var/all_components_on_target = LAZYACCESS(target.datum_components, /datum/component)
-		if(islist(all_components_on_target))
-			for(var/datum/component/component in LAZYACCESS(target.datum_components, /datum/component))
-				components += component.type
-		else if(all_components_on_target)
-			var/datum/component/component = all_components_on_target
-			components += component.type
+		var/mass_remove = href_list["removecomponent_mass"]
+		var/datum/target = locateUID(href_list["removecomponent"]) || locateUID(mass_remove)
+		var/list/components = target.datum_components?.Copy()
 		var/list/names = list()
 		names += "---Components---"
 		if(length(components))
@@ -1029,13 +1003,19 @@
 		if(QDELETED(target))
 			to_chat(usr, "That thing doesn't exist anymore!")
 			return
+
 		var/list/targets_to_remove_from = list(target)
+		if(mass_remove)
+			var/method = vv_subtype_prompt(target.type)
+			targets_to_remove_from = get_all_of_type(target.type, method)
+
+			if(alert(usr, "Are you sure you want to mass-delete [path] on [target.type]?", "Mass Remove Confirmation", "Yes", "No") == "No")
+				return
 
 		for(var/datum/target_to_remove_from as anything in targets_to_remove_from)
 			if(ispath(path, /datum/element))
 				var/list/lst = get_callproc_args()
 				if(QDELETED(target_to_remove_from))
-					to_chat(usr, "That thing doesn't exist anymore!")
 					continue
 				if(!lst)
 					lst = list()
@@ -1423,7 +1403,7 @@
 
 	if(href_list["datumrefresh"])
 		var/datum/DAT = locateUID(href_list["datumrefresh"])
-		if(!istype(DAT, /datum) && !isclient(DAT))
+		if(!isdatum(DAT) && !isclient(DAT))
 			return
 		src.debug_variables(DAT)
 

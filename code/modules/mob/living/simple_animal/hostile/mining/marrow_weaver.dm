@@ -21,7 +21,7 @@
 	stat_attack = 1
 	robust_searching = 1
 	nightvision = 7
-	ventcrawler = 2
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	pass_flags = PASSTABLE
 	attack_sound = 'sound/weapons/bite.ogg'
 	deathmessage = "rolls over, frothing at the mouth before stilling."
@@ -34,7 +34,7 @@
 	var/melee_damage_upper_angery1 = 20
 	var/anger_move_to_delay = 8
 	var/anger_speed = 4
-	needs_gliding = FALSE
+
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/adjustHealth(amount, updating_health = TRUE)
 	if(buttmad == 0)
@@ -47,7 +47,6 @@
 			set_varspeed(anger_speed)
 			poison_type = "venom"
 			poison_per_bite = 6
-			needs_gliding = TRUE
 	else if(buttmad == 1)
 		if(health > maxHealth/2)
 			buttmad = 0
@@ -57,7 +56,6 @@
 			poison_type = initial(poison_type)
 			set_varspeed(initial(speed))
 			poison_per_bite = initial(poison_per_bite)
-			needs_gliding = FALSE
 	..()
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/AttackingTarget()

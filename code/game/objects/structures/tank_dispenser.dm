@@ -68,10 +68,10 @@
 	if(Adjacent(user))
 		ui_interact(user)
 
-/obj/structure/dispenser/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/structure/dispenser/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "TankDispenser", name, 275, 100, master_ui, state)
+		ui = new(user, src, "TankDispenser", name)
 		ui.open()
 
 /obj/structure/dispenser/ui_data(user)
@@ -145,7 +145,7 @@
 	SStgui.update_uis(src)
 
 /obj/structure/tank_dispenser/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		for(var/X in src)
 			var/obj/item/I = X
 			I.forceMove(loc)

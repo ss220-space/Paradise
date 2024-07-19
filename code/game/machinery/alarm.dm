@@ -235,13 +235,15 @@
 	GLOB.air_alarm_repository.update_cache(src)
 
 /obj/machinery/alarm/Initialize()
-	..()
+	. = ..()
 	set_frequency(frequency)
 	if(is_taipan(z)) // Синдидоступ при сборке на тайпане
 		req_access = list(ACCESS_SYNDICATE)
 
 	if(!master_is_operating())
 		elect_master()
+
+	update_icon()
 
 /obj/machinery/alarm/proc/master_is_operating()
 	if(!alarm_area)
@@ -391,7 +393,7 @@
 	if(stat & NOPOWER || buildstage != AIR_ALARM_READY || wiresexposed || shorted)
 		return
 
-	underlays += emissive_appearance(icon, "alarm_lightmask")
+	underlays += emissive_appearance(icon, "alarm_lightmask", src)
 
 
 /obj/machinery/alarm/proc/register_env_machine(m_id, device_type)
@@ -796,16 +798,16 @@
 
 	return thresholds
 
-/obj/machinery/alarm/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/alarm/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AirAlarm", name, 570, 410, master_ui, state)
+		ui = new(user, src, "AirAlarm", name)
 		ui.open()
 
 /obj/machinery/alarm/proc/is_authenticated(mob/user, datum/tgui/ui=null)
 	// Return true if they are connecting with a remote console
-	// DO NOT CHANGE THIS TO USE ISTYPE, IT WILL NOT WORK
-	if(ui?.master_ui?.src_object.type == /datum/ui_module/atmos_control)
+	// lol this is a wank hack, please don't shoot me
+	for(var/obj/machinery/computer/atmoscontrol/control in orange(1, user))
 		return TRUE
 	if(user.can_admin_interact())
 		return TRUE
@@ -816,13 +818,13 @@
 
 /obj/machinery/alarm/ui_status(mob/user, datum/ui_state/state)
 	if(buildstage != AIR_ALARM_READY)
-		return STATUS_CLOSE
+		return UI_CLOSE
 
 	if(aidisabled && (isAI(user) || isrobot(user)))
 		to_chat(user, span_warning("AI control for \the [src] interface has been disabled."))
-		return STATUS_CLOSE
+		return UI_CLOSE
 
-	. = shorted ? STATUS_DISABLED : STATUS_INTERACTIVE
+	. = shorted ? UI_DISABLED : UI_INTERACTIVE
 
 	return min(..(), .)
 
@@ -840,7 +842,7 @@
 
 	switch(action)
 		if("set_rcon")
-			var/attempted_rcon_setting = text2num(params["rcon"])
+			var/attempted_rcon_setting = params["rcon"]
 			switch(attempted_rcon_setting)
 				if(RCON_NO)
 					rcon_setting = RCON_NO
@@ -869,8 +871,8 @@
 					"scrubbing",
 					"direction")
 					var/val
-					if(params["val"])
-						val=text2num(params["val"])
+					if(!isnull(params["val"]))
+						val=params["val"]
 					else
 						var/newval = input("Enter new value") as num|null
 						if(isnull(newval))
@@ -922,7 +924,7 @@
 			if(!is_authenticated(usr, active_ui))
 				return
 
-			mode = text2num(params["mode"])
+			mode = params["mode"]
 			apply_mode()
 
 
@@ -930,7 +932,7 @@
 			if(!is_authenticated(usr, active_ui))
 				return
 
-			preset = text2num(params["preset"])
+			preset = params["preset"]
 			apply_preset()
 
 
@@ -952,6 +954,21 @@
 		if("thermostat_state")
 			thermostat_state = !thermostat_state
 
+
+/obj/machinery/alarm/ui_state(mob/user)
+	if(isAI(user))
+		var/mob/living/silicon/ai/AI = user
+		if(!AI.lacks_power() || AI.apc_override)
+			return GLOB.always_state
+
+	else if(ishuman(user))
+		for(var/obj/machinery/computer/atmoscontrol/AC in range(1, user))
+			if(!AC.stat)
+				return GLOB.always_state
+
+	return GLOB.default_state
+
+
 /obj/machinery/alarm/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
@@ -960,11 +977,11 @@
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		return
 
-/obj/machinery/alarm/attackby(obj/item/I, mob/user, params)
 
+/obj/machinery/alarm/attackby(obj/item/I, mob/user, params)
 	switch(buildstage)
 		if(AIR_ALARM_READY)
-			if(I.GetID() || ispda(I)) // trying to unlock the interface
+			if(I.GetID() || is_pda(I)) // trying to unlock the interface
 				if(stat & (NOPOWER|BROKEN))
 					to_chat(user, span_warning("It does nothing!"))
 					return
@@ -1069,12 +1086,9 @@
 
 
 /obj/machinery/alarm/power_change(forced = FALSE)
-	..() //we don't check return here because we also care about the BROKEN flag
-	if(stat & NOPOWER)
-		set_light_on(FALSE)
-	else
-		set_light(1, LIGHTING_MINIMUM_POWER)
-	update_icon()
+	. = ..()
+	if(.)
+		update_icon()
 
 
 /obj/machinery/alarm/obj_break(damage_flag)
@@ -1082,7 +1096,7 @@
 	update_icon()
 
 /obj/machinery/alarm/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc, 2)
 		var/obj/item/I = new /obj/item/airalarm_electronics(loc)
 		if(!disassembled)

@@ -200,6 +200,9 @@
 /datum/reagent/proc/overdose_start(mob/living/M)
 	return
 
+/datum/reagent/proc/overdose_end(mob/living/M)
+	return
+
 /datum/reagent/proc/addiction_act_stage1(mob/living/M)
 	return STATUS_UPDATE_NONE
 
@@ -279,7 +282,7 @@
 
 
 /datum/reagent/proc/fakedeath(mob/living/M)
-	if(HAS_TRAIT(M, TRAIT_FAKEDEATH))
+	if(HAS_TRAIT_FROM(M, TRAIT_FAKEDEATH, id))
 		return
 
 	if(!(M.status_flags & CANPARALYSE))
@@ -293,9 +296,6 @@
 /datum/reagent/proc/fakerevive(mob/living/M)
 	if(!HAS_TRAIT_FROM(M, TRAIT_FAKEDEATH, id))
 		return
-
-	if(M.resting)
-		M.StopResting()
 
 	REMOVE_TRAIT(M, TRAIT_FAKEDEATH, id)
 	if(M.healthdoll)

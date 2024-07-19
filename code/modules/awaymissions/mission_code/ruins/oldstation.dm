@@ -231,7 +231,15 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ancient
 	var/footstep = 1
 
-/obj/item/clothing/suit/space/hardsuit/ancient/on_mob_move()
+/obj/item/clothing/suit/space/hardsuit/ancient/equipped(mob/user, slot, initial)
+	. = ..()
+	RegisterSignal(user, COMSIG_MOB_CLIENT_MOVED, PROC_REF(on_mob_move))
+
+/obj/item/clothing/suit/space/hardsuit/ancient/dropped(mob/user, slot, silent)
+	. = ..()
+	UnregisterSignal(user, COMSIG_MOB_CLIENT_MOVED)
+
+/obj/item/clothing/suit/space/hardsuit/ancient/on_mob_move(mob/user, dir)
 	var/mob/living/carbon/human/H = loc
 	if(!istype(H) || H.wear_suit != src)
 		return
@@ -354,7 +362,9 @@
 	name = "Powered Tile"
 	icon_state = "teleporter"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 
 /area/ruin/space/ancientstation/space
 	name = "Exposed To Space"

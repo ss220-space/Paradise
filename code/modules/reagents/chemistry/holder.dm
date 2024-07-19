@@ -99,7 +99,7 @@
 	if(total_volume <= 0)
 		return
 	var/datum/reagents/R
-	if(istype(target, /obj))
+	if(isobj(target))
 		var/obj/O = target
 		if(!O.reagents)
 			return
@@ -276,6 +276,7 @@
 				R.overdose_start(M)
 			if(R.volume < R.overdose_threshold && R.overdosed)
 				R.overdosed = FALSE
+				R.overdose_end(M)
 			if(R.overdosed)
 				var/list/overdose_results = R.overdose_process(M, R.volume >= R.overdose_threshold * 2 ? 2 : 1)
 				if(overdose_results) // to protect against poorly-coded overdose procs
@@ -315,14 +316,11 @@
 				addiction_list.Remove(R)
 				qdel(R)
 
-	if(update_flags & STATUS_UPDATE_HEALTH)
+	if(update_flags & (STATUS_UPDATE_HEALTH|STATUS_UPDATE_STAMINA))
 		M.updatehealth("reagent metabolism")
 	else if(update_flags & STATUS_UPDATE_STAT)
 		// update_stat is called in updatehealth
 		M.update_stat("reagent metabolism")
-	if(update_flags & STATUS_UPDATE_STAMINA)
-		M.update_stamina()
-		M.update_stamina_hud()
 	if(update_flags & STATUS_UPDATE_BLIND)
 		M.update_blind_effects()
 	if(update_flags & STATUS_UPDATE_NEARSIGHTED)
@@ -553,7 +551,7 @@
 		react_type = "LIVING"
 	else if(isturf(A))
 		react_type = "TURF"
-	else if(istype(A, /obj))
+	else if(isobj(A))
 		react_type = "OBJ"
 	else
 		return
@@ -569,7 +567,7 @@
 						if(mult > 0)
 							to_chat(H, "<span class='danger'>You are scalded by the hot chemicals!</span>")
 							affecting.receive_damage(0, round(log(chem_temp / 50) * 10))
-							H.emote("scream")
+							INVOKE_ASYNC(H, TYPE_PROC_REF(/mob, emote), "scream")
 						H.adjust_bodytemperature(min(max((chem_temp - T0C) - 20, 5), 500))
 				else if(chem_temp < H.dna.species.cold_level_1)
 					var/mult = H.dna.species.coldmod
@@ -577,7 +575,7 @@
 						if(mult > 0)
 							to_chat(H, "<span class='danger'>You are frostbitten by the freezing cold chemicals!</span>")
 							affecting.receive_damage(0, round(log(T0C - chem_temp / 50) * 10))
-							H.emote("scream")
+							INVOKE_ASYNC(H, TYPE_PROC_REF(/mob, emote), "scream")
 						H.adjust_bodytemperature(- min(max(T0C - chem_temp - 20, 5), 500))
 
 		if(method == REAGENT_INGEST)

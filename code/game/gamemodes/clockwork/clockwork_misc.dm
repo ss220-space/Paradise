@@ -5,7 +5,7 @@
 	icon = 'icons/obj/lavaland/dead_ratvar.dmi'
 	icon_state = "dead_ratvar"
 	flags = ON_BORDER
-	appearance_flags = 0
+	appearance_flags = LONG_GLIDE
 	layer = FLY_LAYER
 	anchored = TRUE
 	density = TRUE
@@ -46,9 +46,10 @@
 /obj/effect/clockwork/overlay/wall
 	name = "clockwork wall"
 	icon = 'icons/turf/walls/clockwork_wall.dmi'
-	icon_state = "clockwork_wall"
-	canSmoothWith = list(/obj/effect/clockwork/overlay/wall, /obj/structure/falsewall/brass)
-	smooth = SMOOTH_TRUE
+	icon_state = "clockwork_wall-0"
+	base_icon_state = "clockwork_wall"
+	canSmoothWith = SMOOTH_GROUP_WALLS
+	smooth = SMOOTH_BITMASK
 	layer = CLOSED_TURF_LAYER
 
 /obj/effect/clockwork/overlay/wall/Initialize(mapload)
@@ -201,7 +202,7 @@
 			to_chat(user, "<span class='warning'>There is already a false wall present!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start adding [W] to [src]...</span>")
-		if(do_after(user, 2 SECONDS, target = src))
+		if(do_after(user, 2 SECONDS, src))
 			var/brass_floor = FALSE
 			if(istype(T, /turf/simulated/floor/clockwork)) //if the floor is already brass, costs less to make(conservation of masssssss)
 				brass_floor = TRUE
@@ -219,7 +220,7 @@
 	return ..()
 
 /obj/structure/clockwork/wall_gear/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT) && disassembled)
+	if(!(obj_flags & NODECONSTRUCT) && disassembled)
 		new metal_type(loc, 1)
 	return ..()
 
@@ -250,7 +251,7 @@
 			to_chat(user, "<span class='warning'>There is already a false wall present!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start adding [W] to [src]...</span>")
-		if(do_after(user, 2 SECONDS, target = src))
+		if(do_after(user, 2 SECONDS, src))
 			var/brass_floor_fake = FALSE
 			if(istype(T, /turf/simulated/floor/clockwork/fake)) //if the floor is already brass, costs less to make(conservation of masssssss)
 				brass_floor_fake = TRUE

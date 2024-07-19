@@ -25,26 +25,38 @@
 	var/spawn_mob_options = list(/mob/living/simple_animal/crab)	// The nest picks one mob type of this list and spawns them
 	var/spawn_trigger_distance = 7	// The triggered nest will look this many tiles around itself to find other triggerable nests
 
+
+/obj/structure/nest/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
 /obj/structure/nest/examine(mob/user)
 	. = ..()
 	if(!spawn_is_triggered)
 		. += "<span class='warning'>You can hear a cacophony of growling snores from within.</span>"
+
 
 /obj/structure/nest/attack_animal(mob/living/simple_animal/M)
 	if(faction_check(faction, M.faction, FALSE) && !M.client)
 		return
 	..()
 
-/obj/structure/nest/Crossed(atom/movable/AM)
+
+/obj/structure/nest/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
 	if(spawn_is_triggered)
 		return
-	if(!isliving(AM))
-		return
-	var/mob/living/L = AM
-	if(!L.mind)
+
+	if(!isliving(arrived) || !arrived.mind)
 		return
 
-	try_spawn(L)
+	try_spawn(arrived)
+
 
 /obj/structure/nest/proc/try_spawn(mob/living/L)
 	var/chosen_mob = pick(spawn_mob_options)

@@ -66,7 +66,7 @@
 		to_chat(owner, "<span class='warning'>You are already invoking blood magic!</span>")
 		return
 
-	if(do_after(owner, 100 - rune * 60, target = owner))
+	if(do_after(owner, rune ? 4 SECONDS : 10 SECONDS, owner))
 		if(ishuman(owner))
 			var/mob/living/carbon/human/H = owner
 			if(H.dna && (NO_BLOOD in H.dna.species.species_traits))
@@ -353,7 +353,7 @@
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
-	flags = ABSTRACT | DROPDEL
+	item_flags = ABSTRACT|DROPDEL
 
 	w_class = WEIGHT_CLASS_HUGE
 	throwforce = 0
@@ -426,17 +426,17 @@
 	var/mob/living/L = target
 	if(iscultist(target))
 		return
-	user.visible_message("<span class='warning'>[user] holds up [user.p_their()] hand, which explodes in a flash of red light!</span>", \
-							"<span class='cultitalic'>You attempt to stun [L] with the spell!</span>")
+	user.visible_message(	span_warning("[user] holds up [user.p_their()] hand, which explodes in a flash of red light!"), \
+							span_cultitalic("You attempt to stun [L] with the spell!"))
 
 	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, 3, _duration = 2)
 
 	var/obj/item/nullrod/N = locate() in target
 	if(N)
-		target.visible_message("<span class='warning'>[target]'s holy weapon absorbs the red light!</span>", \
-							   "<span class='userdanger'>Your holy weapon absorbs the blinding light!</span>")
+		target.visible_message(	span_warning("[target]'s holy weapon absorbs the red light!"), \
+								span_userdanger("Your holy weapon absorbs the blinding light!"))
 	else
-		to_chat(user, "<span class='cultitalic'>In a brilliant flash of red, [L] falls to the ground!</span>")
+		to_chat(user, span_cultitalic("In a brilliant flash of red, [L] falls to the ground!"))
 		// These are in life cycles, so double the time that's stated.
 		L.Weaken(4 SECONDS)
 		L.adjustStaminaLoss(30)
@@ -523,7 +523,7 @@
 /obj/item/melee/blood_magic/shackles/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(iscarbon(target) && proximity)
 		var/mob/living/carbon/C = target
-		if(C.canBeHandcuffed())
+		if(C.has_organ_for_slot(ITEM_SLOT_HANDCUFFED))
 			if(C.getStaminaLoss() > 90 || C.health <= HEALTH_THRESHOLD_CRIT || C.IsSleeping())
 				CuffAttack(C, user)
 			else
@@ -538,9 +538,9 @@
 		playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
 		C.visible_message("<span class='danger'>[user] begins restraining [C] with dark magic!</span>", \
 		"<span class='userdanger'>[user] begins shaping dark magic shackles around your wrists!</span>")
-		if(do_mob(user, C, 10))
+		if(do_after(user, 1 SECONDS, C, NONE))
 			if(!C.handcuffed)
-				C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/cult/used(C))
+				C.apply_restraints(new /obj/item/restraints/handcuffs/energy/cult/used(null), ITEM_SLOT_HANDCUFFED, TRUE)
 				C.Silence(12 SECONDS)
 				to_chat(user, "<span class='notice'>You shackle [C].</span>")
 				add_attack_logs(user, C, "shackled")
@@ -557,7 +557,7 @@
 	name = "shadow shackles"
 	desc = "Shackles that bind the wrists with sinister magic."
 	trashtype = /obj/item/restraints/handcuffs/energy/used
-	flags = DROPDEL
+	item_flags = DROPDEL
 
 /obj/item/restraints/handcuffs/energy/cult/used/dropped(mob/user, slot, silent = FALSE)
 	user.visible_message("<span class='danger'>[user]'s shackles shatter in a discharge of dark magic!</span>", \
@@ -614,7 +614,7 @@
 			channeling = TRUE
 			playsound(T, 'sound/machines/airlockforced.ogg', 50, TRUE)
 			do_sparks(5, TRUE, target)
-			if(do_after(user, 50, target = target))
+			if(do_after(user, 5 SECONDS, target))
 				target.narsie_act(TRUE)
 				uses--
 				user.visible_message("<span class='warning'>Black ribbons suddenly emanate from [user]'s hand and cling to the airlock - twisting and corrupting it!</span>")
@@ -638,10 +638,10 @@
 	if(iscarbon(target) && proximity)
 		uses--
 		var/mob/living/carbon/C = target
-		var/armour = C.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), SLOT_HUD_OUTER_SUIT)
-		C.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(user), SLOT_HUD_JUMPSUIT)
-		C.equip_to_slot_or_del(new /obj/item/storage/backpack/cultpack(user), SLOT_HUD_BACK)
-		C.equip_to_slot_or_del(new /obj/item/clothing/shoes/cult(user), SLOT_HUD_SHOES)
+		var/armour = C.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), ITEM_SLOT_CLOTH_OUTER)
+		C.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(user), ITEM_SLOT_CLOTH_INNER)
+		C.equip_to_slot_or_del(new /obj/item/storage/backpack/cultpack(user), ITEM_SLOT_BACK)
+		C.equip_to_slot_or_del(new /obj/item/clothing/shoes/cult(user), ITEM_SLOT_FEET)
 
 		if(C == user)
 			qdel(src) //Clears the hands

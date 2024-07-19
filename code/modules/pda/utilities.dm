@@ -1,20 +1,16 @@
 /datum/data/pda/utility/flashlight
 	name = "Enable Flashlight"
 	icon = "lightbulb-o"
-
-	var/fon = 0 //Is the flashlight function on?
+	/// Is the flashlight function on?
+	var/fon = FALSE
 
 /datum/data/pda/utility/flashlight/start()
 	fon = !fon
 	name = fon ? "Disable Flashlight" : "Enable Flashlight"
 	pda.update_shortcuts()
-	var/static/pda_light = image('icons/obj/pda.dmi', "pda-light")
+	pda.update_icon(UPDATE_OVERLAYS)
 	pda.set_light_on(fon)
 
-	if(fon)
-		pda.add_overlay(pda_light)
-	else
-		pda.cut_overlay(pda_light)
 
 /datum/data/pda/utility/honk
 	name = "Honk Synthesizer"
@@ -55,7 +51,7 @@
 	icon = "link"
 
 /datum/data/pda/utility/scanmode/dna/scan_mob(mob/living/C as mob, mob/living/user as mob)
-	if(istype(C, /mob/living/carbon/human))
+	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		if(!istype(H.dna, /datum/dna))
 			to_chat(user, "<span class='notice'>No fingerprints found on [H]</span>")

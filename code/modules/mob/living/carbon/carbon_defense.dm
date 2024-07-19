@@ -19,17 +19,17 @@
 /obj/item/proc/carbon_skip_catch_check(mob/living/carbon/user)
 	. = TRUE
 	if(!isturf(loc))
-		return
+		return .
 	if(!user.in_throw_mode)
-		return
-	if(!user.canmove)
-		return
-	if(user.restrained())
-		return
+		return .
+	if(!(user.mobility_flags & MOBILITY_MOVE))
+		return .
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return .
 	if(user.get_active_hand())
-		return
+		return .
 	if(GetComponent(/datum/component/two_handed) && user.get_inactive_hand())
-		return
+		return .
 	. = FALSE
 
 
@@ -58,7 +58,7 @@
 		if(V.spread_flags & CONTACT)
 			V.Contract(src, act_type = CONTACT, need_protection_check = TRUE, zone = user.zone_selected)
 
-	if(lying_angle && surgeries.len)
+	if(body_position == LYING_DOWN && surgeries.len)
 		if(user.a_intent == INTENT_HELP)
 			for(var/datum/surgery/S in surgeries)
 				if(S.next_step(user, src))

@@ -99,11 +99,7 @@ Made by Xhuis
 		shadow.restricted_roles = restricted_jobs
 		shadowlings--
 
-	var/thrall_scaling = round(num_players() / 3)
-	required_thralls = clamp(thrall_scaling, 15, 25)
-	thrall_ratio = required_thralls / 15
-
-	warning_threshold = round(0.66 * required_thralls)
+	recount_required_thralls()
 
 	..()
 	return 1
@@ -227,7 +223,7 @@ Made by Xhuis
 				if(!isshadowling(H))
 					for(var/obj/effect/proc_holder/spell/shadowling_hatch/hatch_ability in shadow.spell_list)
 						hatch_ability.cycles_unused++
-						if(!H.IsStunned() && prob(20) && hatch_ability.cycles_unused > CONFIG_GET(number/shadowling_max_age))
+						if(prob(20) && hatch_ability.cycles_unused > CONFIG_GET(number/shadowling_max_age))
 							var/shadow_nag_messages = list("You can barely hold yourself in this lesser form!", "The urge to become something greater is overwhelming!", "You feel a burning passion to hatch free of this shell and assume godhood!")
 							H.take_overall_damage(0, 3)
 							to_chat(H, "<span class='userdanger'>[pick(shadow_nag_messages)]</span>")
@@ -339,3 +335,10 @@ Made by Xhuis
 	var/datum/atom_hud/antag/shadow_hud = GLOB.huds[ANTAG_HUD_SHADOW]
 	shadow_hud.leave_hud(shadow_mind.current)
 	set_antag_hud(shadow_mind.current, null)
+
+
+/datum/game_mode/proc/recount_required_thralls()
+	var/thrall_scaling = round(num_players() / 3)
+	required_thralls = clamp(thrall_scaling, 15, 25)
+	thrall_ratio = required_thralls / 15
+	warning_threshold = round(0.66 * required_thralls)

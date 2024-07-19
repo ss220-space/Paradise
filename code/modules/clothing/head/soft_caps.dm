@@ -4,6 +4,7 @@
 	icon_state = "cargosoft"
 	item_state = "helmet"
 	item_color = "cargo"
+	dying_key = DYE_REGISTRY_SOFTCAP
 	var/flipped = FALSE
 	actions_types = list(/datum/action/item_action/flip_cap)
 	dog_fashion = /datum/dog_fashion/head/cargo_tech
@@ -15,12 +16,11 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
 		)
-	dyeable = TRUE
 
 
 /obj/item/clothing/head/soft/update_icon_state()
 	icon_state = flipped ? "[item_color]soft_flipped" : "[item_color]soft"
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/clothing/head/soft/dropped(mob/user, slot, silent = FALSE)

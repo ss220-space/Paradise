@@ -183,7 +183,7 @@ GLOBAL_VAR_INIT(sc_safecode5, "[rand(0,9)]")
 		return FALSE
 	if(is_type_in_list(A, uneatable))
 		return FALSE
-	if(istype(A,/mob/living))
+	if(isliving(A))
 		var/mob/living/L = A
 		L.gib()
 	else if(istype(A,/obj/))

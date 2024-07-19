@@ -57,7 +57,12 @@
 	name = "blood crawl"
 	desc = "You are unable to hold anything while in this form."
 	icon = 'icons/effects/blood.dmi'
-	flags = NODROP|ABSTRACT
+	item_flags = ABSTRACT
+
+
+/obj/item/bloodcrawl/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 
 /obj/effect/dummy/slaughter //Can't use the wizard one, blocked by jaunt/slow
@@ -132,10 +137,9 @@
 		user.stop_pulling()
 		return
 
-	victim.forceMove(holder)
 	victim.emote("scream")
+	victim.forceMove(holder)
 	enter_point.visible_message(span_warning("<b>[user] drags [victim] into [enter_point]!</b>"))
-	user.stop_pulling()
 	to_chat(user, "<b>You begin to feast on [victim]. You can not move while you are doing this.</b>")
 	enter_point.visible_message(span_warning("<B>Loud eating sounds come from the blood...</b>"))
 	var/sound
@@ -187,7 +191,7 @@
 
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/post_phase_in(mob/living/user, obj/effect/dummy/slaughter/holder)
-	user.notransform = FALSE
+	REMOVE_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/phaseout(obj/effect/decal/cleanable/enter_point, mob/living/carbon/user)
@@ -195,7 +199,7 @@
 	if(istype(user) && !block_hands(user))
 		return FALSE
 
-	user.notransform = TRUE
+	ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	INVOKE_ASYNC(src, PROC_REF(async_phase), enter_point, user)
 	return TRUE
 
@@ -204,9 +208,10 @@
 	var/turf/mobloc = get_turf(user)
 	sink_animation(enter_point, user)
 	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(mobloc)
+	var/victim = user.pulling
 	user.forceMove(holder)
 	user.ExtinguishMob()
-	handle_consumption(user, user.pulling, enter_point, holder)
+	handle_consumption(user, victim, enter_point, holder)
 	post_phase_in(user, holder)
 
 
@@ -239,12 +244,13 @@
 
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/phasein(atom/enter_point, mob/living/user)
-
-	if(user.notransform)
+	if(HAS_TRAIT_NOT_FROM(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src)))
+		return FALSE
+	if(HAS_TRAIT_FROM(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src)))
 		to_chat(user, span_warning("Finish eating first!"))
 		return FALSE
 	rise_message(enter_point)
-	if(!do_after(user, 2 SECONDS, target = enter_point))
+	if(!do_after(user, 2 SECONDS, enter_point))
 		return FALSE
 	if(!enter_point)
 		return FALSE

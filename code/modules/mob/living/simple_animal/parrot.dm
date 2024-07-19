@@ -136,7 +136,7 @@
 		if(held_item)
 			custom_emote(EMOTE_VISIBLE, "lets go of [held_item.name]!")
 			drop_held_item()
-		walk(src, 0)
+		SSmove_manager.stop_looping(src)
 	return ..()
 
 
@@ -153,10 +153,10 @@
 
 	var/dat = {"<table>"}
 
-	dat += "<tr><td><B>Headset:</B></td><td><A href='?src=[UID()];[ears?"remove_inv":"add_inv"]=ears'>[(ears && !(ears.flags&ABSTRACT)) ? html_encode(ears) : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += "<tr><td><B>Headset:</B></td><td><A href='?src=[UID()];[ears?"remove_inv":"add_inv"]=ears'>[(ears && !(ears.item_flags&ABSTRACT)) ? html_encode(ears) : "<font color=grey>Empty</font>"]</A></td></tr>"
 	if(can_collar)
 		dat += "<tr><td>&nbsp;</td></tr>"
-		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=[UID()];[pcollar ? "remove_inv" : "add_inv"]=collar'>[(pcollar && !(pcollar.flags&ABSTRACT)) ? html_encode(pcollar) : "<font color=grey>Empty</font>"]</A></td></tr>"
+		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=[UID()];[pcollar ? "remove_inv" : "add_inv"]=collar'>[(pcollar && !(pcollar.item_flags&ABSTRACT)) ? html_encode(pcollar) : "<font color=grey>Empty</font>"]</A></td></tr>"
 
 	dat += {"</table>
 	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
@@ -170,7 +170,7 @@
 /mob/living/simple_animal/parrot/Topic(href, href_list)
 
 	//Can the usr physically do this?
-	if(!usr.canmove || usr.stat || usr.restrained() || !usr.Adjacent(src))
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !usr.Adjacent(src))
 		return
 
 	//Is the usr's mob type able to do this?
@@ -312,7 +312,7 @@
 		drop_held_item(FALSE)
 
 
-/mob/living/simple_animal/parrot/Moved(atom/OldLoc, Dir, Forced)
+/mob/living/simple_animal/parrot/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(client && (parrot_state & PARROT_PERCH))
 		parrot_state = PARROT_WANDER
@@ -359,7 +359,7 @@
 		parrot_state = PARROT_WANDER
 		return
 
-	if(!isturf(loc) || !canmove || buckled)
+	if(!isturf(loc) || !(mobility_flags & MOBILITY_MOVE) || buckled)
 		return //If it can't move, dont let it move.
 
 
@@ -409,7 +409,7 @@
 //-----WANDERING - This is basically a 'I dont know what to do yet' state
 	else if(parrot_state == PARROT_WANDER)
 		//Stop movement, we'll set it later
-		walk(src, 0)
+		SSmove_manager.stop_looping(src)
 		parrot_interest = null
 
 		//Wander around aimlessly. This will help keep the loops from searches down
@@ -449,7 +449,7 @@
 
 //-----STEALING
 	else if(parrot_state == (PARROT_SWOOP|PARROT_STEAL))
-		walk(src, 0)
+		SSmove_manager.stop_looping(src)
 
 		if(!parrot_interest || held_item || !(parrot_interest in view(src)))
 			parrot_state = PARROT_SWOOP|PARROT_RETURN
@@ -476,13 +476,12 @@
 			parrot_state = PARROT_SWOOP|PARROT_RETURN
 			return
 
-		glide_for(parrot_speed)
-		walk_to(src, path_to_take[2], 0, parrot_speed)
+		SSmove_manager.move_to(src, path_to_take[2], 0, parrot_speed)
 		return
 
 //-----RETURNING TO PERCH
 	else if(parrot_state == (PARROT_SWOOP|PARROT_RETURN))
-		walk(src, 0)
+		SSmove_manager.stop_looping(src)
 
 		if(!parrot_perch || !isturf(parrot_perch.loc)) //Make sure the perch exists and somehow isnt inside of something else.
 			parrot_perch = null
@@ -502,20 +501,19 @@
 			parrot_state = PARROT_WANDER
 			return
 
-		glide_for(parrot_speed)
-		walk_to(src, path_to_take[2], 0, parrot_speed)
+		SSmove_manager.move_to(src, path_to_take[2], 0, parrot_speed)
 		return
 
 //-----FLEEING
 	else if(parrot_state == (PARROT_SWOOP|PARROT_FLEE))
-		walk(src, 0)
+		SSmove_manager.stop_looping(src)
 
 		if(!parrot_interest || !isliving(parrot_interest) || !Adjacent(parrot_interest)) //Sanity
 			parrot_state = PARROT_WANDER
 			parrot_interest = null
 			return
 
-		walk_away(src, parrot_interest, 0, parrot_speed - parrot_been_shot)
+		SSmove_manager.move_away(src, parrot_interest, 0, parrot_speed - parrot_been_shot)
 		parrot_been_shot--
 		return
 
@@ -561,12 +559,11 @@
 		//Otherwise, fly towards the mob!
 		else
 			// No pathfinding here because the parrot is pissed and isn't thinking rationally.
-			glide_for(parrot_speed)
-			walk_to(src, parrot_interest, 1, parrot_speed)
+			SSmove_manager.move_to(src, parrot_interest, 1, parrot_speed)
 		return
 //-----STATE MISHAP
 	else //This should not happen. If it does lets reset everything and try again
-		walk(src, 0)
+		SSmove_manager.stop_looping(src)
 		parrot_interest = null
 		parrot_perch = null
 		drop_held_item()

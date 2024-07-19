@@ -84,7 +84,7 @@
 
 
 /obj/structure/chair/e_chair/proc/shock(mob/living/user)
-	if(isliving(user) && (user.incapacitated() || user.restrained()))
+	if(isliving(user) && (user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
 		return
 
 	// special power handling

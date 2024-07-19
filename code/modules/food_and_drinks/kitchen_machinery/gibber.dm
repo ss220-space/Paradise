@@ -4,7 +4,7 @@
 	desc = "The name isn't descriptive enough?"
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "grinder"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	var/operating = 0 //Is it on?
 	var/dirty = 0 // Does it need cleaning?
@@ -33,7 +33,7 @@
 /obj/machinery/gibber/Destroy()
 	if(contents.len)
 		for(var/atom/movable/A in contents)
-			A.loc = get_turf(src)
+			A.forceMove(get_turf(src))
 	if(occupant)
 		occupant = null
 	return ..()
@@ -95,17 +95,16 @@
 	add_fingerprint(user)
 	startgibbing(user)
 
-/obj/machinery/gibber/attackby(obj/item/P, mob/user, params)
-	if(istype(P, /obj/item/grab))
-		var/obj/item/grab/G = P
-		if(G.state < 2)
-			to_chat(user, "<span class='danger'>You need a better grip to do that!</span>")
-			return
-		add_fingerprint(user)
-		move_into_gibber(user,G.affecting)
-		qdel(G)
-		return
 
+/obj/machinery/gibber/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE)
+		return .
+	add_fingerprint(grabber)
+	move_into_gibber(grabber, grabbed_thing)
+
+
+/obj/machinery/gibber/attackby(obj/item/P, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", P))
 		add_fingerprint(user)
 		return
@@ -120,8 +119,9 @@
 		return
 	return ..()
 
+
 /obj/machinery/gibber/MouseDrop_T(mob/target, mob/user, params)
-	if(user.incapacitated() || !ishuman(user))
+	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(!isliving(target))
@@ -154,7 +154,7 @@
 
 	user.visible_message("<span class='danger'>[user] starts to put [victim] into the [src]!</span>")
 	add_fingerprint(user)
-	if(do_after(user, 30, target = victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant)
+	if(do_after(user, 3 SECONDS, victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant)
 		user.visible_message("<span class='danger'>[user] stuffs [victim] into the [src]!</span>")
 
 		victim.forceMove(src)
@@ -168,7 +168,7 @@
 	set name = "Empty Gibber"
 	set src in oview(1)
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	go_out()
@@ -182,7 +182,7 @@
 		return
 
 	for(var/obj/O in src)
-		O.loc = loc
+		O.forceMove(loc)
 
 	occupant.forceMove(get_turf(src))
 	occupant = null
@@ -383,7 +383,7 @@
 		return //only using H as a shortcut to typecast
 
 	for(var/obj/O in H)
-		if(istype(O,/obj/item/clothing)) //clothing gets skipped to avoid cleaning out shit
+		if(isclothing(O)) //clothing gets skipped to avoid cleaning out shit
 			continue
 		if(istype(O,/obj/item/implant))
 			var/obj/item/implant/I = O
@@ -391,18 +391,16 @@
 				continue
 		if(istype(O,/obj/item/organ))
 			continue
-		if(O.flags & NODROP || stealthmode)
+		if(HAS_TRAIT(O, TRAIT_NODROP) || stealthmode)
 			qdel(O) //they are already dead by now
-		H.drop_item_ground(O)
-		O.loc = loc
+		H.drop_transfer_item_to_loc(O, loc)
 		O.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
 		sleep(1)
 
 	for(var/obj/item/clothing/C in H)
-		if(C.flags & NODROP || stealthmode)
+		if(HAS_TRAIT(C, TRAIT_NODROP) || stealthmode)
 			qdel(C)
-		H.drop_item_ground(C)
-		C.loc = loc
+		H.drop_transfer_item_to_loc(C, loc)
 		C.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
 		sleep(1)
 
@@ -414,7 +412,7 @@
 		if(stealthmode)
 			qdel(O)
 		else if(istype(O))
-			O.loc = loc
+			O.forceMove(loc)
 			O.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
 			spats++
 			sleep(1)

@@ -20,7 +20,7 @@
 
 
 /obj/machinery/constructable_frame/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc, 5)
 		if(state >= 2)
 			new /obj/item/stack/cable_coil(loc, 5)
@@ -215,7 +215,7 @@
 
 			playsound(loc, coil.usesound, 50, TRUE)
 			to_chat(user, span_notice("You start to add cables to the frame."))
-			if(!do_after(user, 2 SECONDS * coil.toolspeed * gettoolspeedmod(user), target = src) || state != STATE_EMPTY)
+			if(!do_after(user, 2 SECONDS * coil.toolspeed * gettoolspeedmod(user), src) || state != STATE_EMPTY)
 				return
 
 			if(!coil.use(5))
@@ -279,7 +279,7 @@
 				var/success = FALSE
 				for(var/path in req_components)
 					var/is_stack = isstack(I)
-					if(istype(I, path) && (req_components[path] > 0) && (!(I.flags & NODROP) || is_stack))
+					if(istype(I, path) && (req_components[path] > 0) && (!HAS_TRAIT(I, TRAIT_NODROP) || is_stack))
 						success = TRUE
 						playsound(loc, I.usesound, 50, TRUE)
 						if(is_stack)

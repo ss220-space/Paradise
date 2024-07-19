@@ -26,6 +26,11 @@
 	var/area_bypass = FALSE
 	var/cc_beacon = FALSE
 
+/obj/machinery/computer/teleporter/robotics //to do: limit targets to station only
+	desc = "Used to control a linked teleportation Hub and Station. Only Research Director can change destination target."
+	circuit = /obj/item/circuitboard/teleporter/robotics
+	req_access = list(ACCESS_RD)
+
 /obj/machinery/computer/teleporter/Initialize()
 	. = ..()
 	link_power_station()
@@ -78,12 +83,12 @@
 	ui_interact(user)
 
 
-/obj/machinery/computer/teleporter/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/computer/teleporter/ui_interact(mob/user, datum/tgui/ui = null)
 	if(stat & (NOPOWER|BROKEN))
 		return
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Teleporter", "Teleporter Console", 380, 260)
+		ui = new(user, src, "Teleporter", "Teleporter Console")
 		ui.open()
 
 /obj/machinery/computer/teleporter/ui_data(mob/user)
@@ -322,10 +327,14 @@
 	var/accurate = FALSE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
+	light_range = 2
+	light_color = "#f1f1bd"
+	light_on = FALSE
 	active_power_usage = 2000
 	var/obj/machinery/teleport/station/power_station
 	var/calibrated //Calibration prevents mutation
 	var/admin_usage = FALSE // if 1, works on z2. If 0, doesn't. Used for admin room teleport.
+
 
 /obj/machinery/teleport/hub/New()
 	..()
@@ -347,6 +356,7 @@
 /obj/machinery/teleport/hub/Initialize()
 	..()
 	link_power_station()
+	update_icon()
 
 /obj/machinery/teleport/hub/Destroy()
 	if(power_station)
@@ -370,20 +380,20 @@
 			break
 	return power_station
 
-/obj/machinery/teleport/hub/Bumped(atom/movable/moving_atom)
-	..()
 
+/obj/machinery/teleport/hub/Bumped(atom/movable/moving_atom)
+	. = ..()
 	if(!is_teleport_allowed(z) && !admin_usage)
 		if(ismob(moving_atom))
 			to_chat(moving_atom, "You can't use this here.")
-		return
-	if(power_station && power_station.engaged && !panel_open && !blockAI(moving_atom) && !istype(moving_atom, /obj/spacepod))
+		return .
+	if(power_station && power_station.engaged && !panel_open && !blockAI(moving_atom) && !isspacepod(moving_atom))
 		if(!teleport(moving_atom) && isliving(moving_atom)) // the isliving(M) is needed to avoid triggering errors if a spark bumps the telehub
 			visible_message(span_warning("[src] emits a loud buzz, as its teleport portal flickers and fails!"))
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 			power_station.toggle() // turn off the portal.
 		use_power(5000)
-	return
+
 
 /obj/machinery/teleport/hub/attackby(obj/item/I, mob/user, params)
 	if(exchange_parts(user, I))
@@ -430,12 +440,19 @@
 	underlays.Cut()
 
 	if(power_station && power_station.engaged && !panel_open)
-		underlays += emissive_appearance(icon, "tele1_lightmask")
+		underlays += emissive_appearance(icon, "tele1_lightmask", src)
+
+
+/obj/machinery/teleport/hub/power_change(forced = FALSE)
+	. = ..()
+	if(.)
+		update_lighting()
+		update_icon(UPDATE_OVERLAYS)
 
 
 /obj/machinery/teleport/hub/proc/update_lighting()
 	if(power_station && power_station.engaged && !panel_open)
-		set_light(2, 1, "#f1f1bd", l_on = TRUE)
+		set_light_on(TRUE)
 	else
 		set_light_on(FALSE)
 
@@ -485,22 +502,21 @@
 		return TRUE
 	return FALSE
 
-/obj/machinery/teleport/perma/Bumped(atom/movable/moving_atom)
-	..()
 
-	if(stat & (BROKEN|NOPOWER))
-		return
+/obj/machinery/teleport/perma/Bumped(atom/movable/moving_atom)
+	. = ..()
+	if((stat & (BROKEN|NOPOWER)) || !target || recalibrating || panel_open || blockAI(moving_atom))
+		return .
 	if(!is_teleport_allowed(z))
 		to_chat(moving_atom, "You can't use this here.")
-		return
+		return .
+	do_teleport(moving_atom, target)
+	use_power(5000)
+	if(tele_delay)
+		recalibrating = TRUE
+		update_icon()
+		addtimer(CALLBACK(src, PROC_REF(BumpedCallback)), tele_delay)
 
-	if(target && !recalibrating && !panel_open && !blockAI(moving_atom))
-		do_teleport(moving_atom, target)
-		use_power(5000)
-		if(tele_delay)
-			recalibrating = TRUE
-			update_icon()
-			addtimer(CALLBACK(src, PROC_REF(BumpedCallback)), tele_delay)
 
 /obj/machinery/teleport/perma/proc/BumpedCallback()
 	recalibrating = FALSE
@@ -526,7 +542,7 @@
 	underlays.Cut()
 
 	if(target && !recalibrating && !(stat & (BROKEN|NOPOWER)) && !panel_open)
-		underlays += emissive_appearance(icon, "tele1_lightmask")
+		underlays += emissive_appearance(icon, "tele1_lightmask", src)
 
 
 /obj/machinery/teleport/perma/proc/update_lighting()
@@ -571,11 +587,13 @@
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
-	link_console_and_hub()
 
-/obj/machinery/teleport/station/Initialize()
-	..()
+
+/obj/machinery/teleport/station/Initialize(mapload)
+	. = ..()
 	link_console_and_hub()
+	update_icon()
+
 
 /obj/machinery/teleport/station/RefreshParts()
 	var/E
@@ -684,19 +702,9 @@
 
 
 /obj/machinery/teleport/station/power_change(forced = FALSE)
-	if(!..())
-		return
-
-	if(stat & NOPOWER)
-		set_light_on(FALSE)
-	else
-		set_light(1, LIGHTING_MINIMUM_POWER, l_on = TRUE)
-
-	update_icon()
-
-	if(teleporter_hub)
-		teleporter_hub.update_icon()
-		teleporter_hub.update_lighting()
+	. = ..()
+	if(.)
+		update_icon()
 
 
 /obj/machinery/teleport/station/update_icon_state()
@@ -713,5 +721,5 @@
 	underlays.Cut()
 
 	if(!(stat & NOPOWER) && !panel_open)
-		underlays += emissive_appearance(icon, "controller_lightmask")
+		underlays += emissive_appearance(icon, "controller_lightmask", src)
 

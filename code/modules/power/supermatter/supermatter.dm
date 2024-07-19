@@ -33,7 +33,7 @@
 	desc = "A strangely translucent and iridescent crystal that looks like it used to be part of a larger structure. <span class='danger'>You get headaches just from looking at it.</span>"
 	icon = 'icons/obj/engines_and_power/supermatter.dmi'
 	icon_state = "darkmatter_shard"
-	density = 1
+	density = TRUE
 	anchored = FALSE
 	light_range = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF | NO_MALF_EFFECT
@@ -436,7 +436,7 @@
 		return
 	if(istype(W, /obj/item/retractor/supermatter))
 		to_chat(user, "<span class='notice'>[W] bounces off [src], you need to cut a sliver off first!</span>")
-	else if(!istype(W) || (W.flags & ABSTRACT) || !istype(user))
+	else if(!istype(W) || (W.item_flags & ABSTRACT) || !istype(user))
 		return
 	else if(user.drop_item_ground(W))
 		W.do_pickup_animation(src)
@@ -451,14 +451,17 @@
 		user.apply_effect(150, IRRADIATE)
 
 /obj/machinery/power/supermatter_shard/Bumped(atom/movable/moving_atom)
+	. = ..()
+	if(isprojectile(moving_atom))	// we update this in bullet_act()
+		return .
 	if(isnucleation(moving_atom))
 		nuclear_touch(moving_atom)
-		return
+		return .
 	if(isliving(moving_atom))
 		moving_atom.visible_message("<span class='danger'>\The [moving_atom] slams into \the [src] inducing a resonance... [moving_atom.p_their(TRUE)] body starts to glow and catch flame before flashing into ash.</span>",\
 		"<span class='userdanger'>You slam into \the [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\"</span>",\
 		"<span class='italics'>You hear an unearthly noise as a wave of heat washes over you.</span>")
-	else if(isobj(moving_atom) && !istype(moving_atom, /obj/effect))
+	else if(isobj(moving_atom) && !iseffect(moving_atom))
 		moving_atom.visible_message("<span class='danger'>\The [moving_atom] smacks into \the [src] and rapidly flashes to ash.</span>",\
 		"<span class='italics'>You hear a loud crack as you are washed with a wave of heat.</span>")
 	else
@@ -498,13 +501,13 @@
 
 
 /obj/machinery/power/supermatter_shard/proc/consume(atom/movable/AM)
-	if(istype(AM, /mob/living))
+	if(isliving(AM))
 		var/mob/living/user = AM
 		user.gib()
 		power += 200
 		message_admins("[src] has consumed [key_name_admin(user)] [ADMIN_COORDJMP(src)].")
 		investigate_log("has consumed [key_name_log(user)].", INVESTIGATE_ENGINE)
-	else if(isobj(AM) && !istype(AM, /obj/effect))
+	else if(isobj(AM) && !iseffect(AM))
 		investigate_log("has consumed [AM].", INVESTIGATE_ENGINE)
 		qdel(AM)
 

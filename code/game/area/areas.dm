@@ -33,6 +33,9 @@
 
 	/// Whether this area has a gravity by default.
 	var/has_gravity = FALSE
+	/// If `TRUE` this area will skip gravity generator's effect in its Z-level.
+	var/ignore_gravgen = FALSE
+
 	var/list/apc = list()
 	var/no_air = null
 
@@ -84,6 +87,10 @@
 	///Used to decide what the maximum time between ambience is
 	var/max_ambience_cooldown = 90 SECONDS
 
+	///This datum, if set, allows terrain generation behavior to be ran on Initialize() // This is unfinished, used in Lavaland
+	var/datum/map_generator/cave_generator/map_generator
+
+	var/area_flags = 0
 
 /area/New(loc, ...)
 	if(!there_can_be_many) // Has to be done in New else the maploader will fuck up and find subtypes for the parent
@@ -98,6 +105,13 @@
 
 	map_name = name // Save the initial (the name set in the map) name of the area.
 
+	if(use_starlight && CONFIG_GET(flag/starlight))
+		// Areas lit by starlight are not supposed to be fullbright 4head
+		base_lighting_alpha = 0
+		base_lighting_color = null
+		static_lighting = TRUE
+
+
 	if(requires_power)
 		luminosity = 0
 	else
@@ -105,22 +119,17 @@
 		power_equip = TRUE
 		power_environ = TRUE
 
-		if(dynamic_lighting == DYNAMIC_LIGHTING_FORCED)
-			dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
+		if(static_lighting)
 			luminosity = 0
-		else if(dynamic_lighting != DYNAMIC_LIGHTING_IFSTARLIGHT)
-			dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-	if(dynamic_lighting == DYNAMIC_LIGHTING_IFSTARLIGHT)
-		dynamic_lighting = CONFIG_GET(flag/starlight) ? DYNAMIC_LIGHTING_ENABLED : DYNAMIC_LIGHTING_DISABLED
 
 	. = ..()
 
-	blend_mode = BLEND_MULTIPLY // Putting this in the constructor so that it stops the icons being screwed up in the map editor.
-
-	if(!IS_DYNAMIC_LIGHTING(src))
-		add_overlay(/obj/effect/fullbright)
+	if(!static_lighting)
+		blend_mode = BLEND_MULTIPLY
 
 	reg_in_areas_in_z()
+
+	update_base_lighting()
 
 	return INITIALIZE_HINT_LATELOAD
 
@@ -151,6 +160,29 @@
 		cameras += C
 	return cameras
 
+/// Generate turfs, including cool cave wall gen
+/area/proc/RunTerrainGeneration()
+	if(map_generator)
+		map_generator = new map_generator()
+		var/list/turfs = list()
+		for(var/turf/T in contents)
+			turfs += T
+		map_generator.generate_terrain(turfs, src)
+
+/// Populate the previously generated terrain with mobs and objects
+/area/proc/RunTerrainPopulation()
+	if(map_generator)
+		var/list/turfs = list()
+		for(var/turf/T in contents)
+			turfs += T
+		map_generator.populate_terrain(turfs, src)
+
+/area/proc/test_gen()
+	if(map_generator)
+		var/list/turfs = list()
+		for(var/turf/T in contents)
+			turfs += T
+		map_generator.generate_terrain(turfs, src)
 
 /area/proc/air_doors_close()
 	if(air_doors_activated)
@@ -246,7 +278,7 @@
 	if(!firedoors)
 		return
 	firedoors_last_closed_on = world.time
-	for(var/obj/machinery/door/firedoor/firedoor in firedoors)
+	for(var/obj/machinery/door/firedoor/firedoor as anything in firedoors)
 		if(!firedoor.is_operational())
 			continue
 		var/valid = TRUE
@@ -285,9 +317,6 @@
 	if(!fire)
 		set_fire_alarm_effect()
 		ModifyFiredoors(FALSE)
-		for(var/item in firealarms)
-			var/obj/machinery/firealarm/F = item
-			F.update_icon()
 
 	for(var/thing in cameras)
 		var/obj/machinery/camera/C = locateUID(thing)
@@ -310,9 +339,6 @@
 	if(fire)
 		unset_fire_alarm_effects()
 		ModifyFiredoors(TRUE)
-		for(var/item in firealarms)
-			var/obj/machinery/firealarm/F = item
-			F.update_icon()
 
 	for(var/thing in cameras)
 		var/obj/machinery/camera/C = locateUID(thing)
@@ -371,7 +397,8 @@
 	fire = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	for(var/obj/machinery/firealarm/alarm as anything in firealarms)
-		alarm.update_fire_light(fire)
+		alarm.update_fire_light()
+		alarm.update_icon()
 	if(area_emergency_mode) //Fires are not legally allowed if the power is off
 		return
 	for(var/obj/machinery/light/light as anything in lights_cache)
@@ -383,7 +410,8 @@
 	fire = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	for(var/obj/machinery/firealarm/alarm as anything in firealarms)
-		alarm.update_fire_light(fire)
+		alarm.update_fire_light()
+		alarm.update_icon()
 	if(area_emergency_mode) //The lights stay red until the crisis is resolved
 		return
 	for(var/obj/machinery/light/light as anything in lights_cache)
@@ -493,26 +521,15 @@
 			used_environ += amount
 
 
-/area/Entered(atom/movable/arrived)
+/area/Entered(atom/movable/arrived, area/old_area)
 
-	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, arrived)
-	SEND_SIGNAL(arrived, COMSIG_ATOM_ENTERED_AREA, src)
-
-	var/area/newarea
-	var/area/oldarea
+	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, arrived, old_area)
+	SEND_SIGNAL(arrived, COMSIG_ATOM_ENTERED_AREA, src, old_area)
 
 	if(ismob(arrived))
 		var/mob/arrived_mob = arrived
-
-		if(!arrived_mob.lastarea)
-			arrived_mob.lastarea = get_area(arrived_mob)
-		newarea = get_area(arrived_mob)
-		oldarea = arrived_mob.lastarea
-
-		if(newarea == oldarea)
-			return
-
-		arrived_mob.lastarea = src
+		if(!arrived_mob.lastarea || old_area != src)
+			arrived_mob.lastarea = src
 
 	if(!isliving(arrived))
 		return
@@ -532,10 +549,9 @@
 	else if(!(our_client.prefs.sound & SOUND_BUZZ))
 		our_client.ambience_playing = FALSE
 
-/area/Exited(atom/movable/departed)
-	SEND_SIGNAL(src, COMSIG_AREA_EXITED, departed)
-	SEND_SIGNAL(departed, COMSIG_ATOM_EXITED_AREA, src)
-
+/area/Exited(atom/movable/departed, area/new_area)
+	SEND_SIGNAL(src, COMSIG_AREA_EXITED, departed, new_area)
+	SEND_SIGNAL(departed, COMSIG_ATOM_EXITED_AREA, src, new_area)
 
 /area/proc/gravitychange()
 	for(var/mob/living/carbon/human/user in src)
@@ -543,7 +559,6 @@
 		user.refresh_gravity()
 		if(!prev_gravity && user.gravity_state)
 			user.thunk()
-
 
 /area/proc/prison_break()
 	for(var/obj/machinery/power/apc/temp_apc in machinery_cache)

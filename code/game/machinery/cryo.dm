@@ -8,7 +8,7 @@
 	desc = "Понижает температуру тела, позволяя применять определённые лекарства."
 	icon = 'icons/obj/machines/cryogenics.dmi'
 	icon_state = "pod0"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	layer = ABOVE_WINDOW_LAYER
 	plane = GAME_PLANE
@@ -17,15 +17,12 @@
 	max_integrity = 350
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 30, "acid" = 30)
 	on = FALSE
+	vent_movement = VENTCRAWL_CAN_SEE
 	var/temperature_archived
 	var/mob/living/carbon/occupant
 	/// A separate effect for the occupant, as you can't animate overlays reliably and constantly removing and adding overlays is spamming the subsystem.
 	var/obj/effect/occupant_overlay
 	var/obj/item/reagent_containers/glass/beaker
-	//if you don't want to dupe reagents
-	var/static/list/reagents_blacklist = list(
-		"stimulants"
-	)
 	/// Holds two bitflags, AUTO_EJECT_DEAD and AUTO_EJECT_HEALTHY. Used to determine if the cryo cell will auto-eject dead and/or completely health patients.
 	var/auto_eject_prefs = NONE
 
@@ -96,9 +93,10 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/atmos_init()
 	..()
-	if(node) return
+	if(node)
+		return
 	for(var/cdir in GLOB.cardinal)
-		node = findConnecting(cdir)
+		node = find_connecting(cdir)
 		if(node)
 			break
 
@@ -132,13 +130,13 @@
 /obj/machinery/atmospherics/unary/cryo_cell/MouseDrop_T(atom/movable/O, mob/living/user, params)
 	if(O.loc == user) //no you can't pull things out of your ass
 		return
-	if(user.incapacitated()) //are you cuffed, dying, lying, stunned or other
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
 		return
 	if(get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
 		return
 	if(!ismob(O)) //humans only
 		return
-	if(istype(O, /mob/living/simple_animal) || istype(O, /mob/living/silicon)) //animals and robutts dont fit
+	if(isanimal(O) || istype(O, /mob/living/silicon)) //animals and robutts dont fit
 		return
 	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the sleeper
 		return
@@ -229,10 +227,10 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/atmospherics/unary/cryo_cell/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/atmospherics/unary/cryo_cell/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Cryo", "Криокапсула", 520, 490)
+		ui = new(user, src, "Cryo", "Криокапсула")
 		ui.open()
 
 /obj/machinery/atmospherics/unary/cryo_cell/ui_data(mob/user)
@@ -330,22 +328,25 @@
 	if(exchange_parts(user, G))
 		return
 
-	if(istype(G, /obj/item/grab))
-		var/obj/item/grab/GG = G
-		if(panel_open)
-			to_chat(user, span_boldnotice("Сначала закройте панель техобслуживания."))
-			return
-		if(!ismob(GG.affecting))
-			return
-		if(GG.affecting.has_buckled_mobs()) //mob attached to us
-			to_chat(user, span_warning("[GG.affecting] не влеза[pluralize_ru(GG.affecting.gender,"ет","ют")] в [src] потому что к [genderize_ru(GG.affecting.gender,"его","её","его","их")] голове прилеплен слайм."))
-			return
-		var/mob/M = GG.affecting
-		if(put_mob(M))
-			add_fingerprint(user)
-			qdel(GG)
-		return
 	return ..()
+
+
+/obj/machinery/atmospherics/unary/cryo_cell/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !ismob(grabbed_thing))
+		return .
+	if(panel_open)
+		to_chat(grabber, span_warning("Сначала закройте панель техобслуживания."))
+		return .
+	if(occupant)
+		to_chat(grabber, span_warning("Криокапсула уже занята!"))
+		return .
+	if(grabbed_thing.has_buckled_mobs()) //mob attached to us
+		to_chat(grabber, span_warning("[grabbed_thing] не влеза[pluralize_ru(grabbed_thing.gender,"ет","ют")] в [src] потому что к [genderize_ru(grabbed_thing.gender,"его","её","его","их")] голове прилеплен слайм."))
+		return .
+	if(put_mob(grabbed_thing))
+		add_fingerprint(grabber)
+
 
 /obj/machinery/atmospherics/unary/cryo_cell/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -408,7 +409,7 @@
 			// Yes, this means you can get more bang for your buck with a beaker of SF vs a patch
 			// But it also means a giant beaker of SF won't heal people ridiculously fast 4 cheap
 			for(var/datum/reagent/reagent in beaker.reagents.reagent_list)
-				if(reagent.id in reagents_blacklist)
+				if(!reagent.can_synth) //prevents from dupe blacklisted reagents as for emagged odysseus
 					proportion = min(proportion, 1)
 					volume = 1
 			beaker.reagents.reaction(occupant, REAGENT_TOUCH, proportion)
@@ -476,7 +477,6 @@
 	if(!node)
 		to_chat(usr, span_warning("Криокапсула не подключена к трубам!"))
 		return
-	M.stop_pulling()
 	M.forceMove(src)
 	if(M.health > -100 && (M.health < 0 || M.IsSleeping()))
 		to_chat(M, span_boldnotice("Вас окружает холодная жидкость. Кожа начинает замерзать."))
@@ -488,7 +488,7 @@
 
 
 /obj/machinery/atmospherics/unary/cryo_cell/AltClick(mob/living/carbon/user)
-	if(user && (!iscarbon(user) || user.incapacitated() || user.restrained() || !Adjacent(user)))
+	if(!iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	go_out()
 	add_fingerprint(user)
@@ -508,14 +508,14 @@
 			return
 		go_out()//and release him from the eternal prison.
 	else
-		if(usr.default_can_use_topic(src) != STATUS_INTERACTIVE)
+		if(usr.default_can_use_topic(src) != UI_INTERACTIVE)
 			return
-		if(usr.incapacitated()) //are you cuffed, dying, lying, stunned or other
+		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
 			return
 		add_attack_logs(usr, occupant, "Ejected from cryo cell at [COORD(src)]")
 		go_out()
 	add_fingerprint(usr)
-	return
+
 
 /obj/machinery/atmospherics/unary/cryo_cell/narsie_act()
 	go_out()
@@ -540,7 +540,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.buckled) //are you cuffed, dying, lying, stunned or other
 		return
 
 	put_mob(usr)
@@ -558,13 +558,10 @@
 	return
 
 /obj/machinery/atmospherics/unary/cryo_cell/get_remote_view_fullscreens(mob/user)
-	user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 1)
+	user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
 
 /obj/machinery/atmospherics/unary/cryo_cell/update_remote_sight(mob/living/user)
 	return //we don't see the pipe network while inside cryo.
-
-/obj/machinery/atmospherics/unary/cryo_cell/can_crawl_through()
-	return // can't ventcrawl in or out of cryo.
 
 /obj/machinery/atmospherics/unary/cryo_cell/can_see_pipes()
 	return FALSE // you can't see the pipe network when inside a cryo cell.

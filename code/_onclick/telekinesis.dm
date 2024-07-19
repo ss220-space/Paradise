@@ -62,7 +62,7 @@
 	desc = "Magic"
 	icon = 'icons/obj/magic.dmi'//Needs sprites
 	icon_state = "2"
-	flags = NOBLUDGEON | ABSTRACT | DROPDEL
+	item_flags = NOBLUDGEON|ABSTRACT|DROPDEL
 	//item_state = null
 	w_class = WEIGHT_CLASS_GIGANTIC
 	layer = ABOVE_HUD_LAYER
@@ -88,10 +88,10 @@
 
 
 //stops TK grabs being equipped anywhere but into hands
-/obj/item/tk_grab/equipped(mob/user, slot)
+/obj/item/tk_grab/equipped(mob/user, slot, initial = FALSE)
 	SHOULD_CALL_PARENT(FALSE)
-	if((slot == SLOT_HUD_LEFT_HAND) || (slot== SLOT_HUD_RIGHT_HAND))
-		return
+	if(slot & ITEM_SLOT_HANDS)
+		return TRUE
 	qdel(src)
 
 
@@ -121,7 +121,7 @@
 	if(focus)
 		d = max(d,get_dist(user,focus)) // whichever is further
 	if((d > TK_MAXRANGE)||(user.z != focus.z)) // both in range and on same z-level
-		to_chat(user, "<span class='warning'>Your mind won't reach that far.</span>")
+		balloon_alert(user, "не схватить, слишком далеко!")
 		return
 
 	if(!focus)
@@ -133,7 +133,7 @@
 		return // todo: something like attack_self not laden with assumptions inherent to attack_self
 
 
-	if(istype(focus,/obj/item) && target.Adjacent(focus) && !user.in_throw_mode)
+	if(isitem(focus) && target.Adjacent(focus) && !user.in_throw_mode)
 		var/obj/item/I = focus
 		var/resolved = target.attackby(I, user, params)
 		if(!resolved && target && I)
@@ -154,7 +154,7 @@
 		return I == focus
 
 /obj/item/tk_grab/proc/focus_object(var/obj/target, var/mob/user)
-	if(!istype(target,/obj))
+	if(!isobj(target))
 		return//Cant throw non objects atm might let it do mobs later
 	if(target.anchored || !isturf(target.loc))
 		qdel(src)
@@ -163,7 +163,7 @@
 	update_icon(UPDATE_OVERLAYS)
 	apply_focus_overlay()
 	// Make it behave like other equipment
-	if(istype(target, /obj/item))
+	if(isitem(target))
 		if(target in user.tkgrabbed_objects)
 			// Release the old grab first
 			user.drop_item_ground(user.tkgrabbed_objects[target])
@@ -172,7 +172,7 @@
 /obj/item/tk_grab/proc/release_object()
 	if(!focus)
 		return
-	if(istype(focus, /obj/item))
+	if(isitem(focus))
 		// Delete the key/value pair of item to TK grab
 		host.tkgrabbed_objects -= focus
 	focus = null
@@ -191,6 +191,10 @@
 
 /obj/item/tk_grab/update_overlays()
 	. = ..()
-	if(focus && focus.icon && focus.icon_state)
-		. += icon(focus.icon, focus.icon_state)
+	if(!focus)
+		return
 
+	var/mutable_appearance/focus_overlay = new(focus)
+	focus_overlay.layer = layer + 0.01
+	SET_PLANE_EXPLICIT(focus_overlay, ABOVE_HUD_PLANE, focus)
+	. += focus_overlay

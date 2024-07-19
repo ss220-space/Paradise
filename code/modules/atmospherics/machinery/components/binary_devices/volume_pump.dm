@@ -27,12 +27,12 @@ Thus, the two variables affect pump operation are set in New():
 	var/id = null
 
 /obj/machinery/atmospherics/binary/volume_pump/CtrlClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
+	if(!ishuman(user) && !issilicon(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("You can't do that right now!"))
 		return
-	if(!in_range(src, user) && !issilicon(usr))
-		return
-	if(!ishuman(usr) && !issilicon(usr))
+	if(!in_range(src, user) && !issilicon(user))
 		return
 	toggle()
 
@@ -41,12 +41,12 @@ Thus, the two variables affect pump operation are set in New():
 	return ..()
 
 /obj/machinery/atmospherics/binary/volume_pump/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
+	if(!ishuman(user) && !issilicon(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("You can't do that right now!"))
 		return
-	if(!in_range(src, user) && !issilicon(usr))
-		return
-	if(!ishuman(usr) && !issilicon(usr))
+	if(!in_range(src, user) && !issilicon(user))
 		return
 	set_max()
 
@@ -179,10 +179,10 @@ Thus, the two variables affect pump operation are set in New():
 /obj/machinery/atmospherics/binary/volume_pump/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/atmospherics/binary/volume_pump/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/atmospherics/binary/volume_pump/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AtmosPump", name, 310, 110, master_ui, state)
+		ui = new(user, src, "AtmosPump", name)
 		ui.open()
 
 /obj/machinery/atmospherics/binary/volume_pump/ui_data(mob/user)
@@ -225,7 +225,7 @@ Thus, the two variables affect pump operation are set in New():
 	update_icon()
 
 /obj/machinery/atmospherics/binary/volume_pump/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		rename_interactive(user, W)
 		return
 	else if(W.tool_behaviour != TOOL_WRENCH)

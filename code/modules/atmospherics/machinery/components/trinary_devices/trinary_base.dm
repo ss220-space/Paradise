@@ -183,8 +183,10 @@
 	else if(A == node3)
 		return parent3
 
-/obj/machinery/atmospherics/binary/is_pipenet_split()
-	return FALSE
+
+/obj/machinery/atmospherics/trinary/return_pipenets()
+	return list(parent1, parent2, parent3)
+
 
 /obj/machinery/atmospherics/trinary/replacePipenet(datum/pipeline/Old, datum/pipeline/New)
 	if(Old == parent1)

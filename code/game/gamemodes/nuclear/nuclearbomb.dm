@@ -16,7 +16,7 @@ GLOBAL_VAR(bomb_set)
 	desc = "Uh oh. RUN!!!!"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "nuclearbomb0"
-	density = 1
+	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | NO_MALF_EFFECT
 	var/extended = FALSE
 	var/lighthack = FALSE
@@ -42,9 +42,6 @@ GLOBAL_VAR(bomb_set)
 	///How many sheets of various metals we need to fix it
 	var/sheets_to_fix = 5
 
-	light_system = MOVABLE_LIGHT
-	light_power = LIGHTING_MINIMUM_POWER
-	light_range = 1
 
 /obj/machinery/nuclearbomb/syndicate
 	is_syndicate = TRUE
@@ -120,10 +117,7 @@ GLOBAL_VAR(bomb_set)
 		. += mutable_appearance(icon, "npanel_open")
 
 	if(!lighthack)
-		set_light_on(TRUE)
-		underlays += emissive_appearance(icon, "nuclearbomb_lightmask")
-	else if(light)
-		set_light_on(FALSE)
+		underlays += emissive_appearance(icon, "nuclearbomb_lightmask", src)
 
 
 /obj/machinery/nuclearbomb/process()
@@ -150,7 +144,7 @@ GLOBAL_VAR(bomb_set)
 		if(S.get_amount() < sheets_to_fix)
 			to_chat(user, "<span class='warning'>You need at least [sheets_to_fix] sheets of titanium to repair [src]'s inner core plate!</span>")
 			return
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 2 SECONDS, src))
 			if(!loc || !S || S.get_amount() < sheets_to_fix)
 				return
 			S.use(sheets_to_fix)
@@ -166,7 +160,7 @@ GLOBAL_VAR(bomb_set)
 		if(S.get_amount() < sheets_to_fix)
 			to_chat(user, "<span class='warning'>You need at least [sheets_to_fix] sheets of metal to repair [src]'s outer core plate!</span>")
 			return
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 2 SECONDS, src))
 			if(!loc || !S || S.get_amount() < sheets_to_fix)
 				return
 			S.use(sheets_to_fix)
@@ -175,7 +169,7 @@ GLOBAL_VAR(bomb_set)
 			removal_stage = NUKE_CORE_EVERYTHING_FINE
 			return
 	if(istype(O, /obj/item/nuke_core/plutonium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 2 SECONDS, src))
 			if(!user.drop_item_ground(O))
 				to_chat(user, "<span class='notice'>The [O] is stuck to your hand!</span>")
 				return
@@ -318,10 +312,10 @@ GLOBAL_VAR(bomb_set)
 		"<span class='notice'>You cut apart the anchoring system's sealant.</span></span>")
 		removal_stage = NUKE_SEALANT_OPEN
 
-/obj/machinery/nuclearbomb/attack_ghost(mob/user as mob)
+/obj/machinery/nuclearbomb/attack_ghost(mob/user)
 	attack_hand(user)
 
-/obj/machinery/nuclearbomb/attack_hand(mob/user as mob)
+/obj/machinery/nuclearbomb/attack_hand(mob/user)
 	if(..())
 		return TRUE
 	add_fingerprint(user)
@@ -333,15 +327,18 @@ GLOBAL_VAR(bomb_set)
 		to_chat(user, "<span class='warning'>[core] won't budge, metal clamps keep it in!</span>")
 		return
 	user.visible_message("<span class='notice'>[user] starts to pull [core] out of [src]!</span>", "<span class='notice'>You start to pull [core] out of [src]!</span>")
-	if(do_after(user, 50, target = src))
+	if(do_after(user, 5 SECONDS, src))
 		user.visible_message("<span class='notice'>[user] pulls [core] out of [src]!</span>", "<span class='notice'>You pull [core] out of [src]! Might want to put it somewhere safe.</span>")
 		core.forceMove(loc)
 		core = null
 
-/obj/machinery/nuclearbomb/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/nuclearbomb/ui_state(mob/user)
+	return GLOB.physical_state
+
+/obj/machinery/nuclearbomb/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "NuclearBomb", name, 450, 300, master_ui, state)
+		ui = new(user, src, "NuclearBomb", name)
 		ui.open()
 
 /obj/machinery/nuclearbomb/ui_data(mob/user)
@@ -367,7 +364,7 @@ GLOBAL_VAR(bomb_set)
 		data["codemsg"] = "-----"
 	return data
 
-/obj/machinery/nuclearbomb/proc/is_auth(var/mob/user)
+/obj/machinery/nuclearbomb/proc/is_auth(mob/user)
 	if(auth)
 		return TRUE
 	else if(user.can_admin_interact())
@@ -380,6 +377,9 @@ GLOBAL_VAR(bomb_set)
 		return
 	. = TRUE
 	if(exploded)
+		return
+	if(SSticker?.mode?.blob_stage == BLOB_STAGE_STORM)
+		to_chat(usr, span_notice("Плотное облако спор не дает вам разглядеть кнопки на боеглоловке и что-либо с ней сделать."))
 		return
 	switch(action)
 		if("deploy")
@@ -462,6 +462,9 @@ GLOBAL_VAR(bomb_set)
 				return
 			if(!core)
 				to_chat(usr, "<span class='danger'>[src]'s screen blinks red! There is no plutonium core in [src]!</span>")
+				return
+			if(isblobinfected(usr.mind))
+				to_chat(usr, span_notice("Что-то внутри вас не дает вам это сделать."))
 				return
 			timing = !(timing)
 			update_icon()

@@ -83,9 +83,7 @@
 //returns turfs within our projected rectangle in no particular order
 /obj/docking_port/proc/return_turfs()
 	var/list/L = return_coords()
-	var/turf/T0 = locate(L[1], L[2], z)
-	var/turf/T1 = locate(L[3], L[4], z)
-	return block(T0, T1)
+	return block(L[1], L[2], z, L[3], L[4], z)
 
 //returns turfs within our projected rectangle in a specific order.
 //this ensures that turfs are copied over in the same order, regardless of any rotation
@@ -131,10 +129,9 @@
 #ifdef DOCKING_PORT_HIGHLIGHT
 //Debug proc used to highlight bounding area
 /obj/docking_port/proc/highlight(_color)
+	SET_PLANE_IMPLICIT(src, GHOST_PLANE)
 	var/list/L = return_coords()
-	var/turf/T0 = locate(L[1],L[2],z)
-	var/turf/T1 = locate(L[3],L[4],z)
-	for(var/turf/T in block(T0,T1))
+	for(var/turf/T in block(L[1], L[2], z, L[3], L[4], z))
 		T.color = _color
 		T.maptext = null
 	if(_color)
@@ -489,7 +486,7 @@
 	remove_ripples()
 
 	//move or squish anything in the way ship at destination
-	roadkill(L0, L1, S1.dir)
+	shuttle_smash(L0, L1, S1.dir)
 
 	for(var/i in 1 to L0.len)
 		var/turf/T0 = L0[i]
@@ -623,42 +620,6 @@
 				if(A.locked)
 					A.unlock()
 
-/obj/docking_port/mobile/proc/roadkill(list/L0, list/L1, dir)
-	var/list/hurt_mobs = list()
-	for(var/i in 1 to L0.len)
-		var/turf/T0 = L0[i]
-		var/turf/T1 = L1[i]
-		if(!T0 || !T1)
-			continue
-
-		for(var/atom/movable/AM in T1)
-			if(AM.pulledby)
-				AM.pulledby.stop_pulling()
-			if(ismob(AM))
-				var/mob/mobile_docking_port = AM
-				if(mobile_docking_port.buckled)
-					mobile_docking_port.buckled.unbuckle_mob(mobile_docking_port, force = TRUE)
-				if(isliving(AM))
-					var/mob/living/L = AM
-					L.stop_pulling()
-					if(L.anchored)
-						L.gib()
-					else
-						if(!(L in hurt_mobs))
-							hurt_mobs |= L
-							L.visible_message("<span class='warning'>[L] is hit by \
-									a hyperspace ripple[L.anchored ? "":" and is thrown clear"]!</span>",
-									"<span class='userdanger'>You feel an immense \
-									crushing pressure as the space around you ripples.</span>")
-							L.Paralyse(20 SECONDS)
-							L.ex_act(2)
-
-			// Move unanchored atoms
-			if(!AM.anchored)
-				step(AM, dir)
-			else
-				if(AM.simulated) // Don't qdel lighting overlays, they are static
-					qdel(AM)
 
 //used by shuttle subsystem to check timers
 /obj/docking_port/mobile/proc/check()
@@ -817,10 +778,10 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/computer/shuttle/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/shuttle/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ShuttleConsole", name, 350, 240, master_ui, state)
+		ui = new(user, src, "ShuttleConsole", name)
 		ui.open()
 
 /obj/machinery/computer/shuttle/ui_data(mob/user)

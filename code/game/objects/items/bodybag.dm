@@ -24,7 +24,9 @@
 	open_sound_volume = 15
 	close_sound_volume = 15
 	density = FALSE
-	integrity_failure = FALSE
+	integrity_failure = 50
+	pull_push_slowdown = 0
+	ignore_density_closed = TRUE
 	var/item_path = /obj/item/bodybag
 
 
@@ -44,11 +46,16 @@
 	return ..()
 
 
+/obj/structure/closet/body_bag/open()
+	. = ..()
+	if(.)
+		pull_push_slowdown = 0
+
+
 /obj/structure/closet/body_bag/close()
-	if(..())
-		density = FALSE
-		return TRUE
-	return FALSE
+	. = ..()
+	if(. && length(contents))
+		pull_push_slowdown = 1.3
 
 
 /obj/structure/closet/body_bag/update_icon_state()
@@ -62,7 +69,7 @@
 
 
 /obj/structure/closet/body_bag/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
-	if(over_object == usr && ishuman(usr) && !usr.incapacitated() && !opened && !length(contents) && usr.Adjacent(src))
+	if(over_object == usr && ishuman(usr) && !usr.incapacitated() && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && !opened && !length(contents) && usr.Adjacent(src))
 		usr.visible_message(
 			span_notice("[usr] folds up [src]."),
 			span_notice("You fold up [src]."),
@@ -73,7 +80,7 @@
 	return ..()
 
 
-/obj/structure/closet/body_bag/relaymove(mob/user as mob)
+/obj/structure/closet/body_bag/relaymove(mob/user)
 	if(user.stat)
 		return
 
@@ -81,6 +88,9 @@
 	if(loc && (isturf(loc) || istype(loc, /obj/structure/morgue) || istype(loc, /obj/machinery/crematorium)))
 		if(!open())
 			to_chat(user, "<span class='notice'>It won't budge!</span>")
+
+/obj/structure/closet/body_bag/welder_act(mob/user, obj/item/I)
+	return FALSE //Can't be weldled under any circumstances.
 
 /obj/item/bodybag/biohazard
 	name = "biohazard bodybag"

@@ -125,6 +125,8 @@
   *
   */
 /obj/machinery/tcomms/core/proc/refresh_zlevels()
+	if(QDELING(src))
+		return
 	// Refresh the list
 	reachable_zlevels = list()
 	// Add itself as a reachable Z-level
@@ -150,7 +152,7 @@
   *
   * Handles parent call of disabling the machine if it changes Z-level, but also rebuilds the list of reachable levels
   */
-/obj/machinery/tcomms/core/onTransitZ(old_z, new_z)
+/obj/machinery/tcomms/core/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = TRUE)
 	. = ..()
 	refresh_zlevels()
 
@@ -185,14 +187,14 @@
 // UI STUFF //
 //////////////
 
-/obj/machinery/tcomms/core/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/tcomms/core/ui_interact(mob/user, datum/tgui/ui = null)
 	// This needs to happen here because of how late the language datum initializes. I dont like it
 	if(length(nttc.valid_languages) == 1)
 		nttc.update_languages()
 
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "TcommsCore", name, 900, 600, master_ui, state)
+		ui = new(user, src, "TcommsCore", name)
 		ui.open()
 
 /obj/machinery/tcomms/core/ui_data(mob/user)

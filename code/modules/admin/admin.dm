@@ -201,7 +201,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			body += "<br>"
 
 			//Monkey
-			if(issmall(M))
+			if(is_monkeybasic(M))
 				body += "<B>Monkeyized</B> | "
 			else
 				body += "<A href='?_src_=holder;monkeyone=[M.UID()]'>Monkeyize</A> | "
@@ -240,19 +240,18 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			if(M.dna && iscarbon(M))
 				body += "<br><br>"
 				body += "<b>DNA Blocks:</b><br><table border='0'><tr><th>&nbsp;</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>"
-				var/bname
-				for(var/block=1;block<=DNA_SE_LENGTH;block++)
-					if(((block-1)%5)==0)
-						body += "</tr><tr><th>[block-1]</th>"
-					bname = GLOB.assigned_blocks[block]
+				for(var/block in 1 to DNA_SE_LENGTH)
+					if(!((block - 1) % 5))
+						body += "</tr><tr><th>[block - 1]</th>"
+
 					body += "<td>"
-					if(bname)
-						var/bstate=M.dna.GetSEState(block)
-						var/bcolor="[(bstate)?"#006600":"#ff0000"]"
-						body += "<A href='?_src_=holder;togmutate=[M.UID()];block=[block]' style='color:[bcolor];'>[bname]</A><sub>[block]</sub>"
+					var/gene_name = GLOB.assigned_blocks[block]
+					if(gene_name)
+						var/text_color = "[M.dna.GetSEState(block) ? "#006600" : "#ff0000"]"
+						body += "<A href='?_src_=holder;togmutate=[M.UID()];block=[block]' style='color:[text_color];'>[gene_name]</A><sub>[block]</sub>"
 					else
 						body += "[block]"
-					body+="</td>"
+					body += "</td>"
 				body += "</tr></table>"
 
 			body += {"<br><br>
@@ -424,23 +423,30 @@ GLOBAL_VAR_INIT(nologevent, 0)
 				log_and_message_admins("has initiated a server restart of type [result]")
 				world.TgsEndProcess() // Just nuke the entire process if we are royally fucked
 
+
 /datum/admins/proc/end_round()
 	set category = "Server"
 	set name = "End Round"
 	set desc = "Instantly ends the round and brings up the scoreboard, like shadowlings or wizards dying."
-	if(!check_rights(R_SERVER))
-		return
-	var/input = sanitize(copytext(input(usr, "What text should players see announcing the round end? Input nothing to cancel.", "Specify Announcement Text", "Shift Has Ended!"), 1, MAX_MESSAGE_LEN))
 
-	if(!input)
+	if(!check_rights(R_SERVER) || SSticker.force_ending)
 		return
+
+	var/response = alert(usr, "Are you sure you want to end the round?", "End Round", "Yes", "No")
+	if(response != "Yes" || SSticker.force_ending)
+		return
+
+	var/announcement = sanitize(copytext(input(usr, "What text should players see announcing the round end? You can skip this entirely.", "Specify Announcement Text", "Shift Has Ended!") as null|text, 1, MAX_MESSAGE_LEN))
 	if(SSticker.force_ending)
 		return
-	log_and_message_admins("has admin ended the round with message: '[input]'")
+
+	log_and_message_admins("has admin ended the round[announcement ? " with message: '[announcement]'" : ""]")
+	if(announcement)
+		to_chat(world, "<span class='warning'><big><b>[announcement]</b></big></span>")
 	SSticker.force_ending = TRUE
-	to_chat(world, "<span class='warning'><big><b>[input]</b></big></span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "End Round") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	SSticker.mode_result = "admin ended"
+
 
 /datum/admins/proc/announce()
 	set category = "Admin"
@@ -797,7 +803,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		T.ChangeTurf(chosen)
 	else
 		var/atom/A = new chosen(usr.loc)
-		A.admin_spawned = TRUE
+		A.flags |= ADMIN_SPAWNED
 
 	log_and_message_admins("spawned [chosen] at [COORD(usr)]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Atom") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
@@ -930,7 +936,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!frommob.ckey)
 		return 0
 
-	if(istype(tothing, /obj/item))
+	if(isitem(tothing))
 		var/mob/living/toitem = tothing
 
 		var/ask = alert("Are you sure you want to allow [frommob.name]([frommob.key]) to possess [toitem.name]?", "Place ghost in control of item?", "Yes", "No")

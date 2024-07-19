@@ -353,17 +353,13 @@
 	dna.ready_dna(src)
 	SEND_SIGNAL(src, COMSIG_HUMAN_UPDATE_DNA)
 
-/mob/living/carbon/human/proc/generate_valid_species(var/check_whitelist = 1, var/list/whitelist = list(), var/list/blacklist = list())
+/mob/living/carbon/human/proc/generate_valid_species(check_whitelist = TRUE, list/whitelist = list(), list/blacklist = list())
 	var/list/valid_species = new()
 	for(var/current_species_name in GLOB.all_species)
-		var/datum/species/current_species = GLOB.all_species[current_species_name]
-
 		if(check_whitelist && !check_rights(R_ADMIN, 0, src)) //If we're using the whitelist, make sure to check it!
 			if(whitelist.len && !(current_species_name in whitelist))
 				continue
 			if(blacklist.len && (current_species_name in blacklist))
-				continue
-			if((IS_WHITELISTED in current_species.species_traits) && !is_alien_whitelisted(src, current_species_name))
 				continue
 
 		valid_species += current_species_name

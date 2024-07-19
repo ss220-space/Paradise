@@ -117,10 +117,10 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		return TRUE
 	return FALSE
 
-/obj/machinery/photocopier/faxmachine/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/photocopier/faxmachine/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "FaxMachine",  name, 540, 300, master_ui, state)
+		ui = new(user, src, "FaxMachine", name)
 		ui.open()
 
 /obj/machinery/photocopier/faxmachine/ui_data(mob/user)
@@ -290,7 +290,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	set name = "Eject ID Card"
 	set src in oview(1)
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(scan)
@@ -337,7 +337,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	sleep(20)
 
 	if(istype(incoming, /obj/item/paper))
-		copy(incoming)
+		papercopy(incoming)
 	else if(istype(incoming, /obj/item/photo))
 		photocopy(incoming)
 	else if(istype(incoming, /obj/item/paper_bundle))

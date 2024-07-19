@@ -23,7 +23,7 @@
 
 
 /obj/item/melee/touch_attack/mime_malaise/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || user.incapacitated())
+	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/datum/effect_system/smoke_spread/s = new
@@ -41,18 +41,16 @@
 		drop_item_ground(wear_mask, force = TRUE)
 		drop_item_ground(w_uniform, force = TRUE)
 		drop_item_ground(wear_suit, force = TRUE)
-		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/mime, SLOT_HUD_WEAR_MASK)
-		equip_to_slot_or_del(new /obj/item/clothing/under/mime, SLOT_HUD_JUMPSUIT)
-		equip_to_slot_or_del(new /obj/item/clothing/suit/suspenders, SLOT_HUD_OUTER_SUIT)
+		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/mime, ITEM_SLOT_MASK)
+		equip_to_slot_or_del(new /obj/item/clothing/under/mime, ITEM_SLOT_CLOTH_INNER)
+		equip_to_slot_or_del(new /obj/item/clothing/suit/suspenders, ITEM_SLOT_CLOTH_OUTER)
 		Silence(14 SECONDS)
 	else
 		qdel(wear_mask)
 		qdel(w_uniform)
 		qdel(wear_suit)
-		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/mime/nodrop, SLOT_HUD_WEAR_MASK)
-		equip_to_slot_or_del(new /obj/item/clothing/under/mime/nodrop, SLOT_HUD_JUMPSUIT)
-		equip_to_slot_or_del(new /obj/item/clothing/suit/suspenders/nodrop, SLOT_HUD_OUTER_SUIT)
-		dna.SetSEState(GLOB.muteblock, TRUE, TRUE)
-		genemutcheck(src, GLOB.muteblock, null, MUTCHK_FORCED)
-		dna.default_blocks.Add(GLOB.muteblock)
+		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/mime/nodrop, ITEM_SLOT_MASK)
+		equip_to_slot_or_del(new /obj/item/clothing/under/mime/nodrop, ITEM_SLOT_CLOTH_INNER)
+		equip_to_slot_or_del(new /obj/item/clothing/suit/suspenders/nodrop, ITEM_SLOT_CLOTH_OUTER)
+		force_gene_block(GLOB.muteblock, TRUE, TRUE)
 

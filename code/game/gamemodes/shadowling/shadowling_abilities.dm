@@ -140,12 +140,12 @@
 	user.visible_message("<span class='warning'>[user] vanishes in a puff of black mist!</span>", "<span class='shadowling'>You enter the space between worlds as a passageway.</span>")
 	user.SetStunned(0)
 	user.SetWeakened(0)
+	user.SetKnockdown(0)
 	user.incorporeal_move = INCORPOREAL_NORMAL
 	user.alpha = 0
 	user.ExtinguishMob()
 	user.forceMove(get_turf(user)) //to properly move the mob out of a potential container
-	if(user.pulledby)
-		user.pulledby.stop_pulling()
+	user.pulledby?.stop_pulling()
 	user.stop_pulling()
 
 	sleep(4 SECONDS)
@@ -168,6 +168,12 @@
 	var/conseal_time = 4 SECONDS
 
 
+/obj/effect/proc_holder/spell/shadowling_guise/Destroy()
+	if(action?.owner)
+		reveal(action.owner)
+	return ..()
+
+
 /obj/effect/proc_holder/spell/shadowling_guise/create_new_targeting()
 	return new /datum/spell_targeting/self
 
@@ -178,14 +184,12 @@
 	addtimer(CALLBACK(src, PROC_REF(reveal), user), conseal_time)
 
 
-
 /obj/effect/proc_holder/spell/shadowling_guise/proc/reveal(mob/user)
 	if(QDELETED(user))
 		return
 
 	user.alpha = initial(user.alpha)
 	user.visible_message("<span class='warning'>[user] appears from nowhere!</span>", "<span class='shadowling'>Your shadowy guise slips away.</span>")
-
 
 
 /obj/effect/proc_holder/spell/shadowling_vision
@@ -195,6 +199,11 @@
 	base_cooldown = 0
 	clothes_req = FALSE
 	action_icon_state = "darksight"
+
+
+/obj/effect/proc_holder/spell/shadowling_vision/Destroy()
+	action?.owner?.set_vision_override(null)
+	return ..()
 
 
 /obj/effect/proc_holder/spell/shadowling_vision/create_new_targeting()
@@ -207,10 +216,10 @@
 
 	if(!user.vision_type)
 		to_chat(user, "<span class='notice'>You shift the nerves in your eyes, allowing you to see in the dark.</span>")
-		user.set_sight(/datum/vision_override/nightvision)
+		user.set_vision_override(/datum/vision_override/nightvision)
 	else
 		to_chat(user, "<span class='notice'>You return your vision to normal.</span>")
-		user.set_sight(null)
+		user.set_vision_override(null)
 
 
 /obj/effect/proc_holder/spell/shadowling_vision/thrall
@@ -322,7 +331,7 @@
 				to_chat(user, "<span class='notice'>You begin planting the tumor that will control the new thrall...</span>")
 				user.visible_message("<span class='warning'>A strange energy passes from [user]'s hands into [target]'s head!</span>")
 				to_chat(target, "<span class='boldannounce'>You feel your memories twisting, morphing. A sense of horror dominates your mind.</span>")
-		if(!do_mob(user, target, 7.7 SECONDS)) //around 23 seconds total for enthralling
+		if(!do_after(user, 7.7 SECONDS, target, NONE)) //around 23 seconds total for enthralling
 			to_chat(user, "<span class='warning'>The enthralling has been interrupted - your target's mind returns to its previous state.</span>")
 			to_chat(target, "<span class='userdanger'>You wrest yourself away from [user]'s hands and compose yourself</span>")
 			enthralling = FALSE
@@ -370,13 +379,13 @@
 					 "<span class='shadowling'>You regenerate your protective armor and cleanse your form of defects.</span>")
 	user.set_species(/datum/species/shadow/ling)
 	user.adjustCloneLoss(-(user.getCloneLoss()))
-	user.equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(user), SLOT_HUD_JUMPSUIT)
-	user.equip_to_slot_or_del(new /obj/item/clothing/shoes/shadowling(user), SLOT_HUD_SHOES)
-	user.equip_to_slot_or_del(new /obj/item/clothing/suit/space/shadowling(user), SLOT_HUD_OUTER_SUIT)
-	user.equip_to_slot_or_del(new /obj/item/clothing/head/shadowling(user), SLOT_HUD_HEAD)
-	user.equip_to_slot_or_del(new /obj/item/clothing/gloves/shadowling(user), SLOT_HUD_GLOVES)
-	user.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/shadowling(user), SLOT_HUD_WEAR_MASK)
-	user.equip_to_slot_or_del(new /obj/item/clothing/glasses/shadowling(user), SLOT_HUD_GLASSES)
+	user.equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(user), ITEM_SLOT_CLOTH_INNER)
+	user.equip_to_slot_or_del(new /obj/item/clothing/shoes/shadowling(user), ITEM_SLOT_FEET)
+	user.equip_to_slot_or_del(new /obj/item/clothing/suit/space/shadowling(user), ITEM_SLOT_CLOTH_OUTER)
+	user.equip_to_slot_or_del(new /obj/item/clothing/head/shadowling(user), ITEM_SLOT_HEAD)
+	user.equip_to_slot_or_del(new /obj/item/clothing/gloves/shadowling(user), ITEM_SLOT_GLOVES)
+	user.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/shadowling(user), ITEM_SLOT_MASK)
+	user.equip_to_slot_or_del(new /obj/item/clothing/glasses/shadowling(user), ITEM_SLOT_EYES)
 
 
 /**
@@ -419,7 +428,7 @@
 			thralls++
 			to_chat(target, "<span class='shadowling'>You feel hooks sink into your mind and pull.</span>")
 
-	if(!do_after(user, 3 SECONDS, target = user))
+	if(!do_after(user, 3 SECONDS, user))
 		to_chat(user, "<span class='warning'>Your concentration has been broken. The mental hooks you have sent out now retract into your mind.</span>")
 		return
 
@@ -627,7 +636,7 @@
 	target_apc.visible_message("<span class='warning'>The [target_apc] flickers and begins to grow dark.</span>")
 
 	to_chat(user, "<span class='shadowling'>You dim the APC's screen and carefully begin siphoning its power into the void.</span>")
-	if(!do_after(user, 20 SECONDS, target = target_apc))
+	if(!do_after(user, 20 SECONDS, target_apc))
 		//Whoops!  The APC's powers back on
 		to_chat(user, "<span class='shadowling'>Your concentration breaks and the APC suddenly repowers!</span>")
 		target_apc.operating = TRUE
@@ -700,7 +709,7 @@
 		user.visible_message("<span class='danger'>[user] places [user.p_their()] hands over [thrall]'s face, red light shining from beneath.</span>", \
 							"<span class='shadowling'>You place your hands on [thrall]'s face and begin gathering energy...</span>")
 		to_chat(thrall, "<span class='userdanger'>[user] places [user.p_their()] hands over your face. You feel energy gathering. Stand still...</span>")
-		if(!do_mob(user, thrall, 8 SECONDS))
+		if(!do_after(user, 8 SECONDS, thrall, NONE))
 			to_chat(user, "<span class='warning'>Your concentration snaps. The flow of energy ebbs.</span>")
 			revert_cast(user)
 			return
@@ -736,7 +745,7 @@
 		user.visible_message("<span class='danger'>[user] kneels over [thrall], placing [user.p_their()] hands on [thrall.p_their()] chest.</span>", \
 							"<span class='shadowling'>You crouch over the body of your thrall and begin gathering energy...</span>")
 		thrall.notify_ghost_cloning("Your masters are resuscitating you! Re-enter your corpse if you wish to be brought to life.", source = thrall)
-		if(!do_mob(user, thrall, 3 SECONDS))
+		if(!do_after(user, 3 SECONDS, thrall, NONE))
 			to_chat(user, "<span class='warning'>Your concentration snaps. The flow of energy ebbs.</span>")
 			revert_cast(user)
 			return
@@ -819,7 +828,7 @@
 						"<span class='boldannounce'>You are suddenly transported... far, far away...</span>")
 	extend_limit_pressed = TRUE
 
-	if(!do_after_once(user, 15 SECONDS, target = target))
+	if(!do_after(user, 15 SECONDS, target, max_interact_count = 1))
 		extend_limit_pressed = FALSE
 		to_chat(target, "<span class='warning'>You are snapped back to reality, your haze dissipating!</span>")
 		to_chat(user, "<span class='warning'>You have been interrupted. The draw has failed.</span>")
@@ -897,6 +906,7 @@
 	desc = "Empower your faithful thrall or revives"
 	base_cooldown = 0
 	ignore_prer = TRUE
+	human_req = FALSE
 
 /obj/effect/proc_holder/spell/ascendant_hypnosis
 	name = "Hypnosis"

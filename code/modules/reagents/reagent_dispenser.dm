@@ -3,7 +3,7 @@
 	desc = "..."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "watertank"
-	density = 1
+	density = TRUE
 	anchored = FALSE
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	container_type = DRAINABLE | AMOUNT_VISIBLE
@@ -45,7 +45,7 @@
 	qdel(src)
 
 /obj/structure/reagent_dispensers/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(!disassembled)
 			boom(FALSE, TRUE)
 	else
@@ -78,7 +78,16 @@
 	reagent_id = "fuel"
 	tank_volume = 4000
 	var/obj/item/assembly_holder/rig = null
-	var/accepts_rig = 1
+	var/accepts_rig = TRUE
+
+
+/obj/structure/reagent_dispensers/fueltank/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /obj/structure/reagent_dispensers/fueltank/Destroy()
 	QDEL_NULL(rig)
@@ -124,7 +133,7 @@
 /obj/structure/reagent_dispensers/fueltank/attack_hand()
 	if(rig)
 		usr.visible_message("<span class='notice'>[usr] begins to detach [rig] from [src].</span>", "<span class='notice'>You begin to detach [rig] from [src].</span>")
-		if(do_after(usr, 20, target = src))
+		if(do_after(usr, 2 SECONDS, src))
 			add_fingerprint(usr)
 			usr.visible_message("<span class='notice'>[usr] detaches [rig] from [src].</span>", "<span class='notice'>You detach [rig] from [src].</span>")
 			rig.forceMove(get_turf(usr))
@@ -139,12 +148,12 @@
 			to_chat(user, "<span class='warning'>There is another device in the way.</span>")
 			return ..()
 		user.visible_message("[user] begins rigging [I] to [src].", "You begin rigging [I] to [src]")
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 2 SECONDS, src))
 			add_fingerprint(user)
 			user.visible_message("<span class='notice'>[user] rigs [I] to [src].</span>", "<span class='notice'>You rig [I] to [src].</span>")
 
 			var/obj/item/assembly_holder/H = I
-			if(istype(H.a_left, /obj/item/assembly/igniter) || istype(H.a_right, /obj/item/assembly/igniter))
+			if(isigniter(H.a_left) || isigniter(H.a_right))
 				add_attack_logs(user, src, "rigged fuel tank with [I.name] for explosion", ATKLOG_FEW)
 				investigate_log("[key_name_log(user)] rigged [src.name] with [I.name] for explosion", INVESTIGATE_BOMB)
 
@@ -174,7 +183,7 @@
 		I.refill(user, src, reagents.get_reagent_amount("fuel")) //Try dump all fuel into the welder
 
 
-/obj/structure/reagent_dispensers/fueltank/Move()
+/obj/structure/reagent_dispensers/fueltank/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(rig)
 		rig.process_movement()
@@ -183,9 +192,13 @@
 	if(rig)
 		rig.HasProximity(AM)
 
-/obj/structure/reagent_dispensers/fueltank/Crossed(atom/movable/AM, oldloc)
+
+/obj/structure/reagent_dispensers/fueltank/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
 	if(rig)
-		rig.Crossed(AM, oldloc)
+		rig.assembly_crossed(arrived, old_loc)
+
 
 /obj/structure/reagent_dispensers/fueltank/hear_talk(mob/living/M, list/message_pieces)
 	if(rig)
@@ -195,10 +208,12 @@
 	if(rig)
 		rig.hear_message(M, msg)
 
-/obj/structure/reagent_dispensers/fueltank/Bump()
-	..()
-	if(rig)
-		rig.process_movement()
+
+/obj/structure/reagent_dispensers/fueltank/Bump(atom/bumped_atom)
+	. = ..()
+	if(. || !rig)
+		return .
+	rig.process_movement()
 
 
 /obj/structure/reagent_dispensers/peppertank
@@ -206,7 +221,7 @@
 	desc = "Contains condensed capsaicin for use in law \"enforcement.\""
 	icon_state = "pepper"
 	anchored = TRUE
-	density = 0
+	density = FALSE
 	reagent_id = "condensedcapsaicin"
 
 /obj/structure/reagent_dispensers/water_cooler
@@ -282,7 +297,7 @@
 	desc = "A dispenser of low-potency virus mutagenic."
 	icon_state = "virus_food"
 	anchored = TRUE
-	density = 0
+	density = FALSE
 	reagent_id = "virusfood"
 
 /obj/structure/reagent_dispensers/spacecleanertank
@@ -290,13 +305,13 @@
 	desc = "Refills space cleaner bottles."
 	icon_state = "cleaner"
 	anchored = TRUE
-	density = 0
+	density = FALSE
 	tank_volume = 5000
 	reagent_id = "cleaner"
 
 /obj/structure/reagent_dispensers/fueltank/chem
 	icon_state = "fuel_chem"
 	anchored = TRUE
-	density = 0
+	density = FALSE
 	accepts_rig = 0
 	tank_volume = 1000

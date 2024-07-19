@@ -474,7 +474,7 @@
 	donator_level = 1
 
 /datum/tts_seed/silero/pantheon
-	name = "pantheon"
+	name = "Pantheon"
 	value = "pantheon"
 	category = TTS_CATEGORY_LOL
 	gender = TTS_GENDER_MALE
@@ -4238,8 +4238,86 @@
 	gender = TTS_GENDER_MALE
 	donator_level = 1
 
+/datum/tts_seed/silero/en_Gale
+	name = "Gale"
+	value = "en_Gale"
+	category = TTS_CATEGORY_BALDURS_GATE_3
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/en_Jaheira
+	name = "Jaheira"
+	value = "en_Jaheira"
+	category = TTS_CATEGORY_BALDURS_GATE_3
+	gender = TTS_GENDER_FEMALE
+
+/datum/tts_seed/silero/en_Laezel
+	name = "Laezel"
+	value = "en_Laezel"
+	category = TTS_CATEGORY_BALDURS_GATE_3
+	gender = TTS_GENDER_FEMALE
+
+/datum/tts_seed/silero/en_Karlach
+	name = "Karlach"
+	value = "en_Karlach"
+	category = TTS_CATEGORY_BALDURS_GATE_3
+	gender = TTS_GENDER_FEMALE
+
+/datum/tts_seed/silero/en_Shadowheart
+	name = "Shadowheart"
+	value = "en_Shadowheart"
+	category = TTS_CATEGORY_BALDURS_GATE_3
+	gender = TTS_GENDER_FEMALE
+
+/datum/tts_seed/silero/en_Wyll
+	name = "Wyll"
+	value = "en_Wyll"
+	category = TTS_CATEGORY_BALDURS_GATE_3
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/en_Minthara
+	name = "Minthara"
+	value = "en_Minthara"
+	category = TTS_CATEGORY_BALDURS_GATE_3
+	gender = TTS_GENDER_FEMALE
+
+/datum/tts_seed/silero/en_Minsc
+	name = "Minsc"
+	value = "en_Minsc"
+	category = TTS_CATEGORY_BALDURS_GATE_3
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/en_Astarion
+	name = "Astarion"
+	value = "en_Astarion"
+	category = TTS_CATEGORY_BALDURS_GATE_3
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/en_Halsin
+	name = "Halsin"
+	value = "en_Halsin"
+	category = TTS_CATEGORY_BALDURS_GATE_3
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/en_Emperor
+	name = "Mind_Flayer_Emperor"
+	value = "en_Emperor"
+	category = TTS_CATEGORY_BALDURS_GATE_3
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/en_Ketheric
+	name = "Ketheric"
+	value = "en_Ketheric"
+	category = TTS_CATEGORY_BALDURS_GATE_3
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/en_Gortash
+	name = "Gortash"
+	value = "en_Gortash"
+	category = TTS_CATEGORY_BALDURS_GATE_3
+	gender = TTS_GENDER_MALE
+
 /datum/tts_seed/silero/portal_cave_johnson
-	name = "cave_johnson"
+	name = "Cave_johnson"
 	value = "portal_cave_johnson"
 	category = TTS_CATEGORY_PORTAL2
 	gender = TTS_GENDER_MALE
@@ -4769,3 +4847,283 @@
 	category = TTS_CATEGORY_SLOVO_PATSANA
 	gender = TTS_GENDER_MALE
 	donator_level = 4
+
+/datum/tts_seed/silero/hogwarts_poppy_sweeting
+	name = "Poppy_sweeting"
+	value = "hogwarts_poppy_sweeting"
+	category = TTS_CATEGORY_HOGWARTS_LEGACY
+	gender = TTS_GENDER_FEMALE
+	donator_level = 1
+
+/datum/tts_seed/silero/hogwarts_sebastian_sallow
+	name = "Sebastian_sallow"
+	value = "hogwarts_sebastian_sallow"
+	category = TTS_CATEGORY_HOGWARTS_LEGACY
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/hogwarts_player_female
+	name = "Player_female"
+	value = "hogwarts_player_female"
+	category = TTS_CATEGORY_HOGWARTS_LEGACY
+	gender = TTS_GENDER_FEMALE
+	donator_level = 1
+
+/datum/tts_seed/silero/hogwarts_goblin_generic_a
+	name = "Goblin_generic_a"
+	value = "hogwarts_goblin_generic_a"
+	category = TTS_CATEGORY_HOGWARTS_LEGACY
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/hogwarts_player_male
+	name = "Player_male"
+	value = "hogwarts_player_male"
+	category = TTS_CATEGORY_HOGWARTS_LEGACY
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/hogwarts_natsai_onai
+	name = "Natsai_onai"
+	value = "hogwarts_natsai_onai"
+	category = TTS_CATEGORY_HOGWARTS_LEGACY
+	gender = TTS_GENDER_FEMALE
+	donator_level = 1
+
+/datum/tts_seed/silero/hogwarts_eleazar_fig
+	name = "Eleazar_fig"
+	value = "hogwarts_eleazar_fig"
+	category = TTS_CATEGORY_HOGWARTS_LEGACY
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/hogwarts_aesop_sharp
+	name = "Aesop_sharp"
+	value = "hogwarts_aesop_sharp"
+	category = TTS_CATEGORY_HOGWARTS_LEGACY
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/hogwarts_ominis_gaunt
+	name = "Ominis_gaunt"
+	value = "hogwarts_ominis_gaunt"
+	category = TTS_CATEGORY_HOGWARTS_LEGACY
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/hogwarts_sophronia_franklin
+	name = "Sophronia_franklin"
+	value = "hogwarts_sophronia_franklin"
+	category = TTS_CATEGORY_HOGWARTS_LEGACY
+	gender = TTS_GENDER_FEMALE
+	donator_level = 1
+
+/datum/tts_seed/silero/hogwarts_abraham_ronen
+	name = "Abraham_ronen"
+	value = "hogwarts_abraham_ronen"
+	category = TTS_CATEGORY_HOGWARTS_LEGACY
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/hogwarts_cuthbert_binns
+	name = "Cuthbert_binns"
+	value = "hogwarts_cuthbert_binns"
+	category = TTS_CATEGORY_HOGWARTS_LEGACY
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/hogwarts_lodgok
+	name = "Lodgok"
+	value = "hogwarts_lodgok"
+	category = TTS_CATEGORY_HOGWARTS_LEGACY
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/hogwarts_matilda_weasley
+	name = "Matilda_weasley"
+	value = "hogwarts_matilda_weasley"
+	category = TTS_CATEGORY_HOGWARTS_LEGACY
+	gender = TTS_GENDER_FEMALE
+	donator_level = 1
+
+/datum/tts_seed/silero/hogwarts_mirabel_garlick
+	name = "Mirabel_garlick"
+	value = "hogwarts_mirabel_garlick"
+	category = TTS_CATEGORY_HOGWARTS_LEGACY
+	gender = TTS_GENDER_FEMALE
+	donator_level = 1
+
+/datum/tts_seed/silero/hogwarts_dinah_hecat
+	name = "Dinah_hecat"
+	value = "hogwarts_dinah_hecat"
+	category = TTS_CATEGORY_HOGWARTS_LEGACY
+	gender = TTS_GENDER_FEMALE
+	donator_level = 1
+
+/datum/tts_seed/silero/halflife_gman
+	name = "Gman_Alyx"
+	value = "halflife_gman"
+	category = TTS_CATEGORY_HALFLIFE_ALYX
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/halflife_vortigaunt
+	name = "Vortigaunt"
+	value = "halflife_vortigaunt"
+	category = TTS_CATEGORY_HALFLIFE_ALYX
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/halflife_larry
+	name = "Larry"
+	value = "halflife_larry"
+	category = TTS_CATEGORY_HALFLIFE_ALYX
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/halflife_olga
+	name = "Olga"
+	value = "halflife_olga"
+	category = TTS_CATEGORY_HALFLIFE_ALYX
+	gender = TTS_GENDER_FEMALE
+	donator_level = 1
+
+/datum/tts_seed/silero/halflife_alyx
+	name = "Alyx_Alyx"
+	value = "halflife_alyx"
+	category = TTS_CATEGORY_HALFLIFE_ALYX
+	gender = TTS_GENDER_FEMALE
+	donator_level = 1
+
+/datum/tts_seed/silero/stronghold_richard
+	name = "Richard"
+	value = "stronghold_richard"
+	category = TTS_CATEGORY_STRONGHOLD_CRUSADER
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/stronghold_sultan
+	name = "Sultan"
+	value = "stronghold_sultan"
+	category = TTS_CATEGORY_STRONGHOLD_CRUSADER
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/stronghold_emir
+	name = "Emir"
+	value = "stronghold_emir"
+	category = TTS_CATEGORY_STRONGHOLD_CRUSADER
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/stronghold_saladin
+	name = "Saladin"
+	value = "stronghold_saladin"
+	category = TTS_CATEGORY_STRONGHOLD_CRUSADER
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/stronghold_abbot
+	name = "Abbot"
+	value = "stronghold_abbot"
+	category = TTS_CATEGORY_STRONGHOLD_CRUSADER
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/stronghold_rat
+	name = "Rat"
+	value = "stronghold_rat"
+	category = TTS_CATEGORY_STRONGHOLD_CRUSADER
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/stronghold_halif
+	name = "Halif"
+	value = "stronghold_halif"
+	category = TTS_CATEGORY_STRONGHOLD_CRUSADER
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/stronghold_snake
+	name = "Snake"
+	value = "stronghold_snake"
+	category = TTS_CATEGORY_STRONGHOLD_CRUSADER
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/stronghold_friedrich
+	name = "Friedrich"
+	value = "stronghold_friedrich"
+	category = TTS_CATEGORY_STRONGHOLD_CRUSADER
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/stronghold_boar
+	name = "Boar"
+	value = "stronghold_boar"
+	category = TTS_CATEGORY_STRONGHOLD_CRUSADER
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/stalker_metro_bandit02
+	name = "Bandit02"
+	value = "stalker_metro_bandit02"
+	category = TTS_CATEGORY_METRO
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/stalker_metro_degtyarev
+	name = "Degtyarev"
+	value = "stalker_metro_degtyarev"
+	category = TTS_CATEGORY_METRO
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/stalker_metro_novice02
+	name = "Novice02"
+	value = "stalker_metro_novice02"
+	category = TTS_CATEGORY_METRO
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/stalker_metro_pavel
+	name = "Pavel"
+	value = "stalker_metro_pavel"
+	category = TTS_CATEGORY_METRO
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/stalker_metro_saharov
+	name = "Saharov"
+	value = "stalker_metro_saharov"
+	category = TTS_CATEGORY_METRO
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/stalker_metro_soldier
+	name = "Soldier_Metro"
+	value = "stalker_metro_soldier"
+	category = TTS_CATEGORY_METRO
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/stalker_metro_stalker01
+	name = "Stalker01"
+	value = "stalker_metro_stalker01"
+	category = TTS_CATEGORY_METRO
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/stalker_metro_newbie01
+	name = "Newbie01"
+	value = "stalker_metro_newbie01"
+	category = TTS_CATEGORY_METRO
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/warcraft_garrosh
+	name = "Garrosh"
+	value = "warcraft_garrosh"
+	category = TTS_CATEGORY_WARCRAFT3
+	gender = TTS_GENDER_MALE
+	donator_level = 1

@@ -41,3 +41,8 @@
 // If this is uncommented, will attempt to load and initialize prof.dll/libprof.so.
 // We do not ship byond-tracy. Build it yourself here: https://github.com/mafemergency/byond-tracy/
 // #define USE_BYOND_TRACY
+
+#ifndef PRELOAD_RSC //set to:
+#define PRELOAD_RSC 0 // 0 to allow using external resources or on-demand behaviour;
+#endif // 1 to use the default behaviour;
+	   // 2 for preloading absolutely everything;

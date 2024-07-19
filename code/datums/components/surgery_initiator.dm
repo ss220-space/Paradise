@@ -15,9 +15,9 @@
 	/// If true, can be used with a cautery in the off-hand to cancel a surgery.
 	var/can_cancel = TRUE
 
-	/// If true, can start surgery on someone while they're standing up.
+	/// If true, can start surgery anywhere.
 	/// Seeing as how we really don't support this (yet), it's much nicer to selectively enable this if we want it.
-	var/can_start_on_stander = FALSE
+	var/can_start_anywhere = FALSE
 
 	/// Bitfield for the types of surgeries that this can start.
 	/// Note that in cases where organs are missing, this will be ignored.
@@ -54,7 +54,7 @@
 	SIGNAL_HANDLER  // COMSIG_ATOM_UPDATE_SHARPNESS
 	var/obj/item/P = parent
 	if(!P.sharp)
-		RemoveComponent()
+		ClearFromParent()
 		qdel(src)
 
 /// Does the surgery initiation.
@@ -67,9 +67,7 @@
 		return
 	if(user.a_intent != INTENT_HELP)
 		return
-	if(!(L.lying_angle || L.resting || L.stat) && !can_start_on_stander)
-		return
-	if(!(L.lying_angle || L.resting || L.stat) && !on_operable_surface(L))
+	if(!can_start_anywhere && !on_operable_surface(L))
 		return
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
@@ -115,7 +113,7 @@
 	var/datum/surgery/procedure
 
 	if(!length(available_surgeries))
-		if(target.lying_angle || target.resting || target.stat)
+		if(target.body_position == LYING_DOWN)
 			to_chat(user, span_notice("There aren't any surgeries you can perform there right now."))
 		else
 			to_chat(user, span_notice("You can't perform any surgeries there while [target] is standing."))

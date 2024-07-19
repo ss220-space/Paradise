@@ -183,13 +183,14 @@
 
 
 /obj/item/gun/energy/attack_self(mob/living/user)
-	if(length(ammo_type) > 1)
+	. = ..()
+	if(!. && length(ammo_type) > 1)
 		select_fire(user)
 		update_icon()
 
 
 /obj/item/gun/energy/can_shoot(mob/living/user)
-	if(sibyl_mod && !sibyl_mod.check_auth(user))
+	if(user && sibyl_mod && !sibyl_mod.check_auth(user))
 		return FALSE
 
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
@@ -233,8 +234,50 @@
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	fire_sound = shot.fire_sound
 	fire_delay = shot.delay
-	if(!isnull(user) && shot.select_name)
-		to_chat(user, span_notice("[src] is now set to [shot.select_name]."))
+	if(!isnull(user) && (shot.select_name || shot.fluff_select_name))
+		var/static/gun_modes_ru = list( //about 2/3 of them will never be shown in game, but better save, than sorry
+			"practice" = "режим практики",
+			"kill" = "летальный режим",
+			"shuriken" = "метатель сюрикенов",
+			"energy" = "стандартный режим",
+			"anti-vehicle" = "тяжелый лазер",
+			"DESTROY" = "режим УНИЧТОЖЕНИЯ",
+			"ANNIHILATE" = "режим ИСТРЕБЛЕНИЯ",
+			"bluetag" = "синий режим",
+			"redtag" = "красный режим",
+			"precise" = "точный выстрел", //both used in multi-lens scattershot
+			"scatter" = "рассеянный выстрел",
+			"stun" = "тазер",
+			"ion" = "ионный выстрел",
+			"declone" = "деклонер",
+			"MINDFUCK" = "мозгодавка",
+			"yield" = "режим урожайности",
+			"mutation" = "режим мутации",
+			"goddamn meteor" = "стрельба чертовым метеоритом",
+			"disable" = "нейтрализатор",
+			"plasma burst" = "пучок плазмы",
+			"blue" = "синий портал",
+			"orange" = "оранжевый портал",
+			"bolt" = "дротик", //used in e-crossbows
+			"heavy bolt" = "тяжелый дротик",
+			"toxic dart" = "токсичный дротик",
+			"lightning beam" = "луч молнии",
+			"plasma dart" = "плазменный дротик",
+			"clown" = "клоунский режим",
+			"snipe" = "снайперский режим",
+			"teleport beam" = "режим телепортации",
+			"gun mimic" = "режим мимикрии",
+			"non-lethal paralyzer" = "нелетальный парализатор",
+			"lethal-eliminator" = "летальный устранитель",
+			"execution-slaughter" = "режим казни",
+			"emitter" = "режим эмиттера",
+			"spraydown" = "режим распыления",
+			"spike" = "стрельба шипами",
+			"kinetic" = "кинетический выстрел",
+			"accelerator" = "ускоренный выстрел",
+		)
+
+		balloon_alert(user, "[gun_modes_ru[shot.fluff_select_name ? shot.fluff_select_name : shot.select_name]]")
 	if(chambered)//phil235
 		if(chambered.BB)
 			qdel(chambered.BB)
@@ -245,8 +288,8 @@
 
 
 /obj/item/gun/energy/update_icon(updates = ALL)
-	..()
-	update_equipped_item()
+	. = ..()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/gun/energy/update_icon_state()
@@ -287,8 +330,8 @@
 		if(gun_light.on)
 			iconF = "[gun_light_overlay]_on"
 		. += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
-	if(bayonet && knife_overlay)
-		. += knife_overlay
+	if(bayonet && bayonet_overlay)
+		. += bayonet_overlay
 
 
 /obj/item/gun/energy/ui_action_click()
@@ -316,13 +359,13 @@
 
 
 /obj/item/gun/energy/vv_edit_var(var_name, var_value)
-	switch(var_name)
-		if("selfcharge")
-			if(var_value)
-				START_PROCESSING(SSobj, src)
-			else
-				STOP_PROCESSING(SSobj, src)
 	. = ..()
+	if(var_name == NAMEOF(src, selfcharge))
+		if(var_value)
+			START_PROCESSING(SSobj, src)
+		else
+			STOP_PROCESSING(SSobj, src)
+
 
 /obj/item/gun/energy/proc/robocharge()
 	if(cell.charge == cell.maxcharge)

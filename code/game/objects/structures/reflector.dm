@@ -4,7 +4,7 @@
 	icon_state = "box_0"
 	desc = "A frame to create a reflector.\n<span class='notice'>Use <b>5</b> sheets of <b>glass</b> to create a 1 way reflector.\nUse <b>10</b> sheets of <b>reinforced glass</b> to create a 2 way reflector.\nUse <b>1 diamond</b> to create a reflector cube.</span>"
 	anchored = FALSE
-	density = 1
+	density = TRUE
 	layer = 3
 	var/finished = 0
 
@@ -109,23 +109,20 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.incapacitated())
-		return
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		to_chat(usr, "<span class='warning'>You can't do that right now!</span>")
+		return FALSE
 	if(anchored)
 		to_chat(usr, "<span class='warning'>It is fastened to the floor!</span>")
-		return 0
+		return FALSE
 	dir = turn(dir, 270)
-	return 1
+	return TRUE
 
 
 /obj/structure/reflector/AltClick(mob/user)
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+	if(!Adjacent(user))
 		return
-	if(!in_range(src, user))
-		return
-	else
-		rotate()
+	rotate()
 
 
 //TYPES OF REFLECTORS, SINGLE, DOUBLE, BOX

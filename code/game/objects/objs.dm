@@ -1,11 +1,8 @@
 /obj
-	//var/datum/module/mod		//not used
-	var/obj_flags
-	vis_flags = VIS_INHERIT_PLANE //when this be added to vis_contents of something it inherit something.plane, important for visualisation of obj in openspace.
+	var/obj_flags = NONE
 	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
 	var/crit_fail = FALSE
-	animate_movement = 2
-	var/list/species_exception = null	// list() of species types, if a species cannot put items in a certain slot, but species type is in list, it will be able to wear that item
+	animate_movement = SLIDE_STEPS
 	var/sharp = FALSE		// whether this object cuts
 	var/in_use = FALSE // If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
 	var/damtype = "brute"
@@ -29,11 +26,14 @@
 	var/speed_process = FALSE
 
 	var/on_blueprints = FALSE //Are we visible on the station blueprints at roundstart?
-	var/force_blueprints = FALSE //forces the obj to be on the blueprints, regardless of when it was created.
 	var/suicidal_hands = FALSE // Does it requires you to hold it to commit suicide with it?
 
 	var/multitool_menu_type = null // Typepath of a datum/multitool_menu subtype or null.
 	var/datum/multitool_menu/multitool_menu
+
+	/// Amount of multiplicative slowdown applied if pulled/pushed. >1 makes you slower, <1 makes you faster.
+	var/pull_push_slowdown = 0
+
 
 /obj/New()
 	..()
@@ -41,10 +41,7 @@
 		obj_integrity = max_integrity
 	if(on_blueprints && isturf(loc))
 		var/turf/T = loc
-		if(force_blueprints)
-			T.add_blueprints(src)
-		else
-			T.add_blueprints_preround(src)
+		T.add_blueprints_preround(src)
 
 /obj/Initialize(mapload)
 	. = ..()
@@ -64,7 +61,7 @@
 
 	// In the far future no checks are made in an overriding Topic() beyond if(..()) return
 	// Instead any such checks are made in CanUseTopic()
-	if(ui_status(usr, state, href_list) == STATUS_INTERACTIVE)
+	if(ui_status(usr, state, href_list) == UI_INTERACTIVE)
 		CouldUseTopic(usr)
 		return FALSE
 
@@ -147,7 +144,7 @@
 
 		// check for TK users
 
-		if(istype(usr, /mob/living/carbon/human))
+		if(ishuman(usr))
 			if(istype(usr.l_hand, /obj/item/tk_grab) || istype(usr.r_hand, /obj/item/tk_grab/))
 				if(!(usr in nearby))
 					if(usr.client && usr.machine == src)
@@ -232,7 +229,7 @@
 		return FALSE
 	if(!I.tool_use_check(user, 0))
 		return FALSE
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name].</span>")
 		if(I.use_tool(src, user, time, volume = I.tool_volume))
 			to_chat(user, "<span class='notice'>You've [anchored ? "un" : ""]secured [name].</span>")
@@ -253,7 +250,7 @@
 /obj/proc/container_resist(mob/living)
 	return
 
-/obj/proc/on_mob_move(dir, mob/user)
+/obj/proc/on_mob_move(mob/user, dir)
 	return
 
 /obj/proc/makeSpeedProcess()
@@ -338,3 +335,15 @@
 	C.Weaken(3 SECONDS)
 
 #undef CARBON_DAMAGE_FROM_OBJECTS_MODIFIER
+
+
+/// Relay movement for when user controls object via [/proc/possess()]
+/obj/proc/possessed_relay_move(mob/user, direction)
+	var/turf/new_turf = get_step(src, direction)
+	if(!new_turf)
+		return null
+	if(density)
+		. = Move(new_turf, direction)
+	else
+		. = forceMove(new_turf)
+

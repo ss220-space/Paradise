@@ -58,9 +58,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	var/special_enabled = FALSE
 
 	/// The number of times one can order a cargo crate, before it becomes restricted. -1 for infinite
-//	var/order_limit = -1
+//	var/order_limit = -1	// Unused for now (Crate limit #3056).
 	/// Number of times a crate has been ordered in a shift
-//	var/times_ordered = 0	// Unused for now (Crate limit #3056).
+	var/times_ordered = 0
 
 	/// List of names for being done in TGUI
 	var/list/ui_manifest = list()
@@ -80,16 +80,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/proc/can_approve(mob/user)
 	if(SSshuttle.points < cost)
-		to_chat(user, span_warning("There are insufficient supply points for this request."))
+		user.balloon_alert(user, "недостаточно очков поставок!")
 		return FALSE
 	if(credits_cost && SSshuttle.cargo_money_account.money < credits_cost)
-		to_chat(user, span_warning("There are not enough money on cargo account for this request."))
+		user.balloon_alert(user, "недостаточно денег на счету!")
 		return FALSE
 	if(!length(required_tech))
 		return TRUE
 	for(var/tech_id in required_tech)
 		if(!SSshuttle.techLevels[tech_id] || required_tech[tech_id] > SSshuttle.techLevels[tech_id])
-			to_chat(user, span_warning("You have not sent the necessary technological disks to Centcomm."))
+			user.balloon_alert(user, "повысьте уровни технологий!")
 			return FALSE
 	return TRUE
 
@@ -215,7 +215,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 80
 	containertype = /obj/structure/closet/crate/secure
 	containername = "space suit crate"
-	access = ACCESS_EVA
+
 
 /datum/supply_packs/emergency/scrubbercrate
 	name = "Scrubber Crate"
@@ -304,6 +304,27 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/reagent_containers/hypospray/CMO/empty)
 	required_tech = list("materials" = 7, "biotech" = 8)
 
+/datum/supply_packs/emergency/jetpack
+	name = "Jetpack Crate"
+	contains = list(
+					/obj/item/tank/jetpack,
+					/obj/item/tank/jetpack,
+					/obj/item/tank/jetpack
+					)
+	cost = 30
+	required_tech = list("toxins" = 3)
+	containername = "Jetpack crate"
+
+/datum/supply_packs/emergency/jetpack_upgrade
+	name = "Jetpack Upgrade Crate"
+	contains = list(
+					/obj/item/tank/jetpack/suit,
+					/obj/item/tank/jetpack/suit,
+					/obj/item/tank/jetpack/suit
+					)
+	cost = 80
+	required_tech = list("toxins" = 7)
+	containername = "Jetpack upgrade crate"
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Security ////////////////////////////////////////
@@ -316,6 +337,17 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	group = SUPPLY_SECURITY
 	announce_beacons = list("Security" = list("Head of Security's Desk", "Warden", "Security"))
 
+/datum/supply_packs/security/hardsuit
+	name = "Security Hardsuit Crate"
+	contains = list(/obj/item/clothing/suit/space/hardsuit/security,
+					/obj/item/clothing/suit/space/hardsuit/security,
+					/obj/item/clothing/mask/gas/sechailer,
+					/obj/item/clothing/mask/gas/sechailer)
+	cost = 180
+	containertype = /obj/structure/closet/crate/secure/gear
+	required_tech = list("toxins" = 6, "combat" = 6)
+	containername = "Security Hardsuit Crate"
+	access = ACCESS_ARMORY
 
 /datum/supply_packs/security/supplies
 	name = "Security Supplies Crate"
@@ -358,9 +390,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/security/baton
 	name = "Stun Batons Crate"
-	contains = list(/obj/item/melee/baton/loaded,
-					/obj/item/melee/baton/loaded,
-					/obj/item/melee/baton/loaded)
+	contains = list(/obj/item/melee/baton/security/loaded,
+					/obj/item/melee/baton/security/loaded,
+					/obj/item/melee/baton/security/loaded)
 	cost = 20
 	containername = "stun baton crate"
 
@@ -405,8 +437,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/security/telescopic
 	name = "Telescopic Baton Crate"
-	contains = list(/obj/item/melee/classic_baton/telescopic,
-					/obj/item/melee/classic_baton/telescopic)
+	contains = list(/obj/item/melee/baton/telescopic,
+					/obj/item/melee/baton/telescopic)
 	cost = 20
 	containername = "telescopic baton crate"
 
@@ -770,7 +802,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 				/obj/item/clothing/mask/gas/sechailer,
 				/obj/item/clothing/glasses/hud/security/sunglasses,
 				/obj/item/clothing/head/helmet,
-				/obj/item/melee/baton/loaded,
+				/obj/item/melee/baton/security/loaded,
 				/obj/item/clothing/suit/armor/secjacket)
 	cost = 40 // Convenience has a price and this pack is genuinely loaded
 	containername = "officer starter crate"
@@ -787,6 +819,29 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	announce_beacons = list("Engineering" = list("Engineering", "Chief Engineer's Desk"))
 	containertype = /obj/structure/closet/crate/engineering
 
+/datum/supply_packs/engineering/hardsuit
+	name = "Engineering Hardsuit Crate"
+	contains = list(/obj/item/clothing/suit/space/hardsuit/engine,
+					/obj/item/clothing/suit/space/hardsuit/engine,
+					/obj/item/clothing/mask/breath,
+					/obj/item/clothing/mask/breath)
+	cost = 130
+	containertype = /obj/structure/closet/crate/engineering
+	required_tech = list("toxins" = 5, "engineering" = 4)
+	containername = "Engineering Hardsuit Crate"
+	access = ACCESS_ENGINE_EQUIP
+
+/datum/supply_packs/engineering/hardsuit/atmospherics
+	name = "Atmospherics Hardsuit Crate"
+	contains = list(/obj/item/clothing/suit/space/hardsuit/engine/atmos,
+					/obj/item/clothing/suit/space/hardsuit/engine/atmos,
+					/obj/item/clothing/mask/breath,
+					/obj/item/clothing/mask/breath)
+	cost = 130
+	containertype = /obj/structure/closet/crate/engineering
+	required_tech = list("toxins" = 6, "plasma" = 4)
+	containername = "Engineering Hardsuit Crate"
+	access = ACCESS_ATMOSPHERICS
 
 /datum/supply_packs/engineering/fueltank
 	name = "Fuel Tank Crate"
@@ -1098,9 +1153,23 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/misc/station_goal/bfl_goal
 	name = "BFL Mission goal"
-	cost = 6500
+	cost = 3000
 	contains = list(
-					/obj/structure/toilet/golden_toilet/bfl_goal
+					/obj/item/paper/researchnotes,
+					/obj/item/paper/researchnotes,
+					/obj/item/paper/researchnotes,
+					/obj/item/paper/researchnotes,
+					/obj/item/paper/researchnotes,
+					/obj/item/paper/researchnotes,
+					/obj/item/paper/researchnotes,
+					/obj/item/paper/researchnotes,
+					/obj/item/paper/researchnotes,
+					/obj/item/paper/researchnotes,
+					/obj/item/paper/researchnotes,
+					/obj/item/paper/researchnotes,
+					/obj/item/paper/researchnotes,
+					/obj/item/paper/researchnotes,
+					/obj/item/paper/researchnotes // 15 random research notes
 					)
 	containername = "Goal crate"
 
@@ -1178,6 +1247,18 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/crate/medical
 	group = SUPPLY_MEDICAL
 	announce_beacons = list("Medbay" = list("Medbay", "Chief Medical Officer's Desk"), "Security" = list("Brig Medbay"))
+
+/datum/supply_packs/medical/hardsuit
+	name = "Medical Hardsuit Crate"
+	contains = list(/obj/item/clothing/suit/space/hardsuit/medical,
+					/obj/item/clothing/suit/space/hardsuit/medical,
+					/obj/item/clothing/mask/breath,
+					/obj/item/clothing/mask/breath)
+	cost = 130
+	containertype = /obj/structure/closet/crate/secure
+	required_tech = list("toxins" = 4, "biotech" = 5)
+	containername = "Medical Hardsuit Crate"
+	access = ACCESS_MEDICAL
 
 
 /datum/supply_packs/medical/supplies
@@ -1293,12 +1374,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	required_tech = list("biotech" = 6, "combat" = 2)
 
 /datum/supply_packs/medical/cloning
-	name = "NanoTrasen Special Delivery Crate"
+	name = "NanoTrasen Experimental Cloning Machine Crate"
 	contains = list(/obj/item/circuitboard/clonepod,
 					/obj/item/circuitboard/cloning)
-	cost = 900
+	cost = 350
 	containertype = /obj/structure/closet/crate/secure
-	containername = "NanoTrasen special delivery crate"
+	containername = "NanoTrasen experimental cloning machine crate"
 	access = ACCESS_CMO
 	announce_beacons = list("Medbay" = list("Chief Medical Officer's Desk"))
 
@@ -2230,6 +2311,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/largecrate/mule
 	containername = "\improper MULEbot crate"
 
+/datum/supply_packs/misc/cargo_mon
+	name = "Order Monitors Crate"
+	contains = list(/obj/item/qm_quest_tablet/cargotech, /obj/item/qm_quest_tablet/cargotech, /obj/item/qm_quest_tablet/cargotech)
+	cost = 30
+	containername = "\improper order monitors crate"
+
 /datum/supply_packs/misc/watertank
 	name = "Water Tank Crate"
 	contains = list(/obj/structure/reagent_dispensers/watertank)
@@ -2309,6 +2396,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					)
 
 	containername = "patriotic crate"
+
+/datum/supply_packs/misc/golden_toilet
+	name = "Golden Toilet"
+	cost = 500
+	contains = list(/obj/structure/toilet/golden_toilet)
+	containername = "golden toilet"
 
 
 ///////////// Paper Work
@@ -2487,8 +2580,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/misc/mafia
 	name = "Mafia Supply Crate"
-	contains = list(/obj/item/clothing/suit/browntrenchcoat,
-					/obj/item/clothing/suit/blacktrenchcoat,
+	contains = list(/obj/item/clothing/suit/storage/browntrenchcoat,
+					/obj/item/clothing/suit/storage/blacktrenchcoat,
 					/obj/item/clothing/head/fedora/whitefedora,
 					/obj/item/clothing/head/fedora/brownfedora,
 					/obj/item/clothing/head/fedora,
@@ -2697,15 +2790,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					)
 	special = TRUE
 
-/datum/supply_packs/misc/jetpack_upgrade
-	name = "Jetpack Upgrade Crate"
-	contains = list(
-					/obj/item/tank/jetpack/suit,
-					/obj/item/tank/jetpack/suit,
-					/obj/item/tank/jetpack/suit
-					)
-	cost = 180
-	containername = "Jetpack upgrade crate"
 
 /datum/supply_packs/misc/crematorium
 	name = "Crematorium Parts"

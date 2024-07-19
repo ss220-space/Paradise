@@ -30,7 +30,11 @@
 	var/overlay_layer = AREA_LAYER //Since it's above everything else, this is the layer used by default. TURF_LAYER is below mobs and walls if you need to use that.
 	var/overlay_plane = AREA_PLANE
 	var/aesthetic = FALSE //If the weather has no purpose other than looks
-	var/immunity_type = "storm" //Used by mobs to prevent them from being affected by the weather
+	/// Used by mobs (or movables containing mobs, such as enviro bags) to prevent them from being affected by the weather.
+	var/immunity_type
+
+	/// List of all overlays to apply to our turfs
+	var/list/overlay_cache
 
 	var/stage = END_STAGE //The stage of the weather, from 1-4
 
@@ -55,6 +59,7 @@
 		var/area/A = V
 		if(A.z in impacted_z_levels)
 			impacted_areas |= A
+		CHECK_TICK
 
 /datum/weather/proc/telegraph()
 	if(stage == STARTUP_STAGE)
@@ -111,40 +116,66 @@
 	STOP_PROCESSING(SSweather, src)
 	update_areas()
 
-/datum/weather/proc/can_weather_act(mob/living/L) //Can this weather impact a mob?
-	var/turf/mob_turf = get_turf(L)
-	if(!istype(L))
+
+/// Can this weather impact a mob?
+/datum/weather/proc/can_weather_act(mob/living/mob_to_check)
+	var/turf/mob_turf = get_turf(mob_to_check)
+	if(!mob_turf)
 		return FALSE
-	if(mob_turf && !(mob_turf.z in impacted_z_levels))
+
+	if(!(mob_turf.z in impacted_z_levels))
 		return FALSE
-	if(immunity_type in L.weather_immunities)
+
+	if((immunity_type && HAS_TRAIT(mob_to_check, immunity_type)) || HAS_TRAIT(mob_to_check, TRAIT_WEATHER_IMMUNE))
 		return FALSE
-	if(!(get_area(L) in impacted_areas))
+
+	var/atom/loc_to_check = mob_to_check.loc
+	while(loc_to_check != mob_turf)
+		if((immunity_type && HAS_TRAIT(loc_to_check, immunity_type)) || HAS_TRAIT(loc_to_check, TRAIT_WEATHER_IMMUNE))
+			return FALSE
+		loc_to_check = loc_to_check.loc
+
+	if(!(get_area(mob_to_check) in impacted_areas))
 		return FALSE
+
 	return TRUE
 
-/datum/weather/proc/weather_act(mob/living/L) //What effect does this weather have on the hapless mob?
+
+/datum/weather/proc/weather_act(mob/living/target) //What effect does this weather have on the hapless mob?
 	return
 
+
 /datum/weather/proc/update_areas()
-	for(var/V in impacted_areas)
-		var/area/N = V
-		N.layer = overlay_layer
-		N.plane = overlay_plane
-		N.icon = 'icons/effects/weather_effects.dmi'
-		N.invisibility = 0
-		N.color = weather_color
-		switch(stage)
-			if(STARTUP_STAGE)
-				N.icon_state = telegraph_overlay
-			if(MAIN_STAGE)
-				N.icon_state = weather_overlay
-			if(WIND_DOWN_STAGE)
-				N.icon_state = end_overlay
-			if(END_STAGE)
-				N.color = null
-				N.icon_state = ""
-				N.icon = 'icons/turf/areas.dmi'
-				N.layer = initial(N.layer)
-				N.plane = initial(N.plane)
-				N.set_opacity(FALSE)
+	var/list/new_overlay_cache = generate_overlay_cache()
+	for(var/area/impacted as anything in impacted_areas)
+		if(length(overlay_cache))
+			impacted.overlays -= overlay_cache
+		if(length(new_overlay_cache))
+			impacted.overlays += new_overlay_cache
+
+	overlay_cache = new_overlay_cache
+
+/// Returns a list of visual offset -> overlays to use
+/datum/weather/proc/generate_overlay_cache()
+	// We're ending, so no overlays at all
+	if(stage == END_STAGE)
+		return list()
+
+	var/weather_state = ""
+	switch(stage)
+		if(STARTUP_STAGE)
+			weather_state = telegraph_overlay
+		if(MAIN_STAGE)
+			weather_state = weather_overlay
+		if(WIND_DOWN_STAGE)
+			weather_state = end_overlay
+
+	// Use all possible offsets
+	// Yes this is a bit annoying, but it's too slow to calculate and store these from turfs, and it shouldn't (I hope) look weird
+	var/list/gen_overlay_cache = list()
+	for(var/offset in 0 to SSmapping.max_plane_offset)
+		var/mutable_appearance/weather_overlay = mutable_appearance('icons/effects/weather_effects.dmi', weather_state, overlay_layer, plane = overlay_plane, offset_const = offset)
+		weather_overlay.color = weather_color
+		gen_overlay_cache += weather_overlay
+
+	return gen_overlay_cache

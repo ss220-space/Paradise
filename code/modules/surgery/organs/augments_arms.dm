@@ -116,13 +116,13 @@
 
 	active_item = augment
 
-	active_item.flags |= NODROP
-	active_item.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	active_item.slot_flags = null
+	ADD_TRAIT(active_item, TRAIT_NODROP, AUGMENT_TRAIT)
+	active_item.resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF
+	active_item.slot_flags = NONE
 	active_item.w_class = WEIGHT_CLASS_HUGE
 	active_item.materials = null
 
-	var/arm_slot = (parent_organ_zone == BODY_ZONE_R_ARM ? SLOT_HUD_RIGHT_HAND : SLOT_HUD_LEFT_HAND)
+	var/arm_slot = (parent_organ_zone == BODY_ZONE_R_ARM ? ITEM_SLOT_HAND_RIGHT : ITEM_SLOT_HAND_LEFT)
 	var/obj/item/arm_item = owner.get_item_by_slot(arm_slot)
 
 	if(arm_item)
@@ -132,7 +132,7 @@
 		else
 			to_chat(owner, span_notice("You drop [arm_item] to activate [src]!"))
 
-	if(parent_organ_zone == BODY_ZONE_R_ARM ? !owner.put_in_r_hand(active_item) : !owner.put_in_l_hand(active_item))
+	if(parent_organ_zone == BODY_ZONE_R_ARM ? !owner.put_in_r_hand(active_item, silent = TRUE) : !owner.put_in_l_hand(active_item, silent = TRUE))
 		to_chat(owner, span_warning("Your [src] fails to activate!"))
 		return
 
@@ -151,7 +151,7 @@
 		return
 
 	// You can emag the arm-mounted implant by activating it while holding emag in it's hand.
-	var/arm_slot = (parent_organ_zone == BODY_ZONE_R_ARM ? SLOT_HUD_RIGHT_HAND : SLOT_HUD_LEFT_HAND)
+	var/arm_slot = (parent_organ_zone == BODY_ZONE_R_ARM ? ITEM_SLOT_HAND_RIGHT : ITEM_SLOT_HAND_LEFT)
 	if(istype(owner.get_item_by_slot(arm_slot), /obj/item/card/emag) && emag_act(owner))
 		return
 
@@ -436,11 +436,11 @@
 	desc = "Insert into a nearby APC to draw power from it."
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "wire1"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	var/drawing_power = FALSE
 
 /obj/item/apc_powercord/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	if(!istype(target, /obj/machinery/power/apc) || !ishuman(user) || !proximity_flag)
+	if(!isapc(target) || !ishuman(user) || !proximity_flag)
 		return ..()
 	if(drawing_power)
 		to_chat(user, span_warning("You're already charging."))
@@ -466,7 +466,7 @@
 /obj/item/apc_powercord/proc/powerdraw_loop(obj/machinery/power/apc/A, mob/living/carbon/human/H)
 	H.visible_message(span_notice("[H] inserts a power connector into \the [A]."), span_notice("You begin to draw power from \the [A]."))
 	drawing_power = TRUE
-	while(do_after(H, 10, target = A))
+	while(do_after(H, 1 SECONDS, A))
 		if(loc != H)
 			to_chat(H, span_warning("You must keep your connector out while charging!"))
 			break
@@ -493,7 +493,7 @@
 	name = "telebaton implant"
 	desc = "Telescopic baton implant. Does what it says on the tin" // A better description
 
-	contents = newlist(/obj/item/melee/classic_baton)
+	contents = newlist(/obj/item/melee/baton)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/items.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "baton")
 

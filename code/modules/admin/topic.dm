@@ -86,6 +86,10 @@
 				log_admin("[key_name(usr)] has spawned a thief.")
 				if(!makeThieves())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
+			if("12")
+				log_admin("[key_name(usr)] has spawned a blob.")
+				if(!makeBlobs())
+					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
 
 	else if(href_list["dbsearchckey"] || href_list["dbsearchadmin"] || href_list["dbsearchip"] || href_list["dbsearchcid"] || href_list["dbsearchbantype"])
 		var/adminckey = href_list["dbsearchadmin"]
@@ -1248,10 +1252,8 @@
 		if(GLOB.antag_paradise_weights)
 			antags_list = GLOB.antag_paradise_weights
 		else
-			antags_list = CONFIG_GET(keyed_list/antag_paradise_main_antags)
+			antags_list = CONFIG_GET(keyed_list/antag_paradise_single_antags_weights)
 			antags_list = antags_list.Copy()
-			for(var/key in list(ROLE_TRAITOR, ROLE_VAMPIRE, ROLE_CHANGELING, ROLE_THIEF))
-				antags_list[key] = !!(key in antags_list)
 
 		for(var/antag in antags_list)
 			dat += {"<tr><td>[capitalize(antag)]</td><td><A href='?src=[UID()];change_weights2=weights_normal_[antag]'>\[[antags_list[antag]]\]</A></td></tr>"}
@@ -1294,7 +1296,7 @@
 
 		else if(findtext(command, "weights_normal_"))
 			if(!GLOB.antag_paradise_weights)
-				var/list/antags_list = CONFIG_GET(keyed_list/antag_paradise_main_antags)
+				var/list/antags_list = CONFIG_GET(keyed_list/antag_paradise_single_antags_weights)
 				antags_list = antags_list.Copy()
 				for(var/key in list(ROLE_TRAITOR, ROLE_VAMPIRE, ROLE_CHANGELING, ROLE_THIEF))
 					antags_list[key] = !!(key in antags_list)
@@ -1381,11 +1383,11 @@
 		if(!M)
 			return
 
-		M.loc = prison_cell
-		if(istype(M, /mob/living/carbon/human))
+		M.forceMove(prison_cell)
+		if(ishuman(M))
 			var/mob/living/carbon/human/prisoner = M
-			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), SLOT_HUD_JUMPSUIT)
-			prisoner.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(prisoner), SLOT_HUD_SHOES)
+			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), ITEM_SLOT_CLOTH_INNER)
+			prisoner.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(prisoner), ITEM_SLOT_FEET)
 
 		to_chat(M, "<span class='warning'>You have been sent to the prison station!</span>")
 		log_and_message_admins("<span class='notice'>sent [key_name_admin(M)] to the prison station.</span>")
@@ -1573,7 +1575,7 @@
 			var/mob/living/L = M
 			L.Paralyse(10 SECONDS)
 		sleep(5)
-		M.loc = pick(GLOB.tdome1)
+		M.forceMove(pick(GLOB.tdome1))
 		spawn(50)
 			to_chat(M, "<span class='notice'>You have been sent to the Thunderdome.</span>")
 		log_and_message_admins("has sent [key_name_admin(M)] to the thunderdome. (Team 1)")
@@ -1599,7 +1601,7 @@
 			var/mob/living/L = M
 			L.Paralyse(10 SECONDS)
 		sleep(5)
-		M.loc = pick(GLOB.tdome2)
+		M.forceMove(pick(GLOB.tdome2))
 		spawn(50)
 			to_chat(M, "<span class='notice'>You have been sent to the Thunderdome.</span>")
 		log_and_message_admins("has sent [key_name_admin(M)] to the thunderdome. (Team 2)")
@@ -1622,7 +1624,7 @@
 			var/mob/living/L = M
 			L.Paralyse(10 SECONDS)
 		sleep(5)
-		M.loc = pick(GLOB.tdomeadmin)
+		M.forceMove(pick(GLOB.tdomeadmin))
 		spawn(50)
 			to_chat(M, "<span class='notice'>You have been sent to the Thunderdome.</span>")
 		log_and_message_admins("has sent [key_name_admin(M)] to the thunderdome. (Admin.)")
@@ -1644,15 +1646,15 @@
 		for(var/obj/item/I in M)
 			M.drop_item_ground(I)
 
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/observer = M
-			observer.equip_to_slot_or_del(new /obj/item/clothing/under/suit_jacket(observer), SLOT_HUD_JUMPSUIT)
-			observer.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(observer), SLOT_HUD_SHOES)
+			observer.equip_to_slot_or_del(new /obj/item/clothing/under/suit_jacket(observer), ITEM_SLOT_CLOTH_INNER)
+			observer.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(observer), ITEM_SLOT_FEET)
 		if(isliving(M))
 			var/mob/living/L = M
 			L.Paralyse(10 SECONDS)
 		sleep(5)
-		M.loc = pick(GLOB.tdomeobserve)
+		M.forceMove(pick(GLOB.tdomeobserve))
 		spawn(50)
 			to_chat(M, "<span class='notice'>You have been sent to the Thunderdome.</span>")
 		log_and_message_admins("has sent [key_name_admin(M)] to the thunderdome. (Observer.)")
@@ -1746,7 +1748,7 @@
 			var/mob/living/L = M
 			L.Paralyse(10 SECONDS)
 		sleep(5)
-		M.loc = pick(GLOB.aroomwarp)
+		M.forceMove(pick(GLOB.aroomwarp))
 		spawn(50)
 			to_chat(M, "<span class='notice'>You have been sent to the <b>Admin Room!</b>.</span>")
 		log_and_message_admins("has sent [key_name_admin(M)] to the Admin Room")
@@ -1933,6 +1935,61 @@
 		if(!check_rights(R_ADMIN))
 			return
 		check_teams()
+
+	else if(href_list["edit_blob_win_count"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/blob_win_count = input(usr, "Ввидите новое число критической массы","Критическая масса:", SSticker.mode.blob_win_count) as num
+		if(!blob_win_count)
+			return
+
+		if(!SSticker || !SSticker.mode)
+			return
+
+		SSticker.mode.blob_win_count = blob_win_count
+		SSticker.mode.update_blob_objective()
+		log_admin("[key_name(usr)] has enter new blob win count: [blob_win_count]")
+		message_admins("[key_name_admin(usr)] enter new blob win count: [blob_win_count]")
+
+	else if(href_list["send_warning"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/message = stripped_input(usr, "Введите предупреждение", "Предупреждение")
+		if(alert(usr,"Вы действительно хотите отправить предупреждение всем блобам?", "", "Да", "Нет") == "Нет")
+			return
+
+		if(!SSticker || !SSticker.mode)
+			return
+
+		SSticker.mode.show_warning(message)
+		log_admin("[key_name(usr)] has send warning to all blobs: [message]")
+		message_admins("[key_name_admin(usr)] has send warning to all blobs: [message]")
+
+	else if(href_list["burst_all_blobs"])
+		if(!check_rights(R_ADMIN))
+			return
+		if(alert(usr,"Вы действительно хотите лопнуть всех блобов?", "", "Да", "Нет") == "Нет")
+			return
+
+		if(!SSticker || !SSticker.mode)
+			return
+
+		SSticker.mode.burst_blobs()
+		log_admin("[key_name(usr)] has burst all blobs")
+		message_admins("[key_name_admin(usr)] has burst all blobs")
+
+	else if(href_list["delay_blob_end"])
+		if(!check_rights(R_ADMIN) || !check_rights(R_EVENT))
+			return
+		if(alert(usr,"Вы действительно хотите преостановить конец раунда в случае победы блоба?", "", "Да", "Нет") == "Нет")
+			return
+
+		if(!SSticker || !SSticker.mode)
+			return
+
+		SSticker.mode.delay_blob_win()
+		log_admin("[key_name(usr)] has stopped delayed blob win")
+		message_admins("[key_name_admin(usr)] has stopped delayed blob win")
 
 	else if(href_list["team_command"])
 		if(!check_rights(R_ADMIN))
@@ -2220,9 +2277,9 @@
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 
-		H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), SLOT_HUD_LEFT_HAND )
+		H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), ITEM_SLOT_HAND_LEFT )
 		if(!(istype(H.l_hand,/obj/item/reagent_containers/food/snacks/cookie)))
-			H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), SLOT_HUD_RIGHT_HAND )
+			H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), ITEM_SLOT_HAND_RIGHT )
 			if(!(istype(H.r_hand,/obj/item/reagent_containers/food/snacks/cookie)))
 				log_admin("[key_name(H)] has their hands full, so they did not receive their cookie, spawned by [key_name(src.owner)].")
 				message_admins("[key_name_admin(H)] has [H.p_their()] hands full, so [H.p_they()] did not receive [H.p_their()] cookie, spawned by [key_name_admin(src.owner)].")
@@ -2878,14 +2935,14 @@
 					else
 						var/atom/O = new path(target)
 						if(O)
-							O.admin_spawned = TRUE
+							O.flags |= ADMIN_SPAWNED
 							O.dir = obj_dir
 							if(obj_name)
 								O.name = obj_name
 								if(istype(O,/mob))
 									var/mob/M = O
 									M.real_name = obj_name
-							if(where == "inhand" && isliving(usr) && istype(O, /obj/item))
+							if(where == "inhand" && isliving(usr) && isitem(O))
 								var/mob/living/L = usr
 								var/obj/item/I = O
 								L.put_in_hands(I)
@@ -3072,12 +3129,12 @@
 								//don't strip organs
 							H.drop_item_ground(W)
 						//teleport person to cell
-						H.loc = pick(GLOB.prisonwarp)
-						H.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(H), SLOT_HUD_JUMPSUIT)
-						H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), SLOT_HUD_SHOES)
+						H.forceMove(pick(GLOB.prisonwarp))
+						H.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(H), ITEM_SLOT_CLOTH_INNER)
+						H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), ITEM_SLOT_FEET)
 					else
 						//teleport security person
-						H.loc = pick(GLOB.prisonsecuritywarp)
+						H.forceMove(pick(GLOB.prisonsecuritywarp))
 					GLOB.prisonwarped += H
 			if("traitor_all")
 				if(!SSticker)
@@ -3197,7 +3254,7 @@
 			if("fakeguns")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Fake Guns")
 				for(var/obj/item/W in world)
-					if(istype(W, /obj/item/clothing) || istype(W, /obj/item/card/id) || istype(W, /obj/item/disk) || istype(W, /obj/item/tank))
+					if(isclothing(W) || istype(W, /obj/item/card/id) || istype(W, /obj/item/disk) || istype(W, /obj/item/tank))
 						continue
 					W.icon = 'icons/obj/weapons/projectile.dmi'
 					W.icon_state = "revolver"
@@ -3523,14 +3580,15 @@
 				return 1
 
 	else if(href_list["viewruntime"])
-		var/datum/ErrorViewer/error_viewer = locateUID(href_list["viewruntime"])
+		var/datum/error_viewer/error_viewer = locate(href_list["viewruntime"])
 		if(!istype(error_viewer))
-			to_chat(usr, "<span class='warning'>That runtime viewer no longer exists.</span>")
+			to_chat(usr, span_warning("That runtime viewer no longer exists."))
 			return
+
 		if(href_list["viewruntime_backto"])
-			error_viewer.showTo(usr, locateUID(href_list["viewruntime_backto"]), href_list["viewruntime_linear"])
+			error_viewer.show_to(usr, locateUID(href_list["viewruntime_backto"]), href_list["viewruntime_linear"])
 		else
-			error_viewer.showTo(usr, null, href_list["viewruntime_linear"])
+			error_viewer.show_to(usr, null, href_list["viewruntime_linear"])
 
 	else if(href_list["add_station_goal"])
 		if(!check_rights(R_EVENT))
@@ -3696,7 +3754,7 @@
 	hunter_mind.transfer_to(hunter_mob)
 	hunter_mob.equipOutfit(O, FALSE)
 	var/obj/item/pinpointer/advpinpointer/N = new /obj/item/pinpointer/advpinpointer(hunter_mob)
-	hunter_mob.equip_to_slot_or_del(N, SLOT_HUD_IN_BACKPACK)
+	hunter_mob.equip_to_slot_or_del(N, ITEM_SLOT_BACKPACK)
 	N.setting = 2 //SETTING_OBJECT, not defined here
 	N.pinpoint_at(H)
 	N.modelocked = TRUE

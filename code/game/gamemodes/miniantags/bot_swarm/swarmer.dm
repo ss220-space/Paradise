@@ -90,7 +90,7 @@
 	AIStatus = AI_OFF
 	pass_flags = PASSTABLE
 	mob_size = MOB_SIZE_SMALL
-	ventcrawler = VENTCRAWLER_ALWAYS
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	ranged = 1
 	projectiletype = /obj/item/projectile/beam/disabler
 	ranged_cooldown_time = 20
@@ -120,7 +120,6 @@
 /mob/living/simple_animal/hostile/swarmer/New()
 	..()
 	add_language(LANGUAGE_HIVE_SWARMER, 1)
-	verbs -= /mob/living/verb/pulled
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
 	updatename()
@@ -147,10 +146,9 @@
 		stat("Resources:",resources)
 
 
-/mob/living/simple_animal/hostile/swarmer/handle_ventcrawl(atom/clicked_on)
+/mob/living/simple_animal/hostile/swarmer/move_into_vent(obj/machinery/atmospherics/ventcrawl_target, message = TRUE)
 	. = ..()
-
-	if(. && light_range)
+	if(. && light_on)
 		ToggleLight()
 
 
@@ -515,7 +513,7 @@
 		I.pixel_x = target.pixel_x
 		I.pixel_y = target.pixel_y
 		I.pixel_z = target.pixel_z
-		if(istype(target, /obj/item/stack))
+		if(isstack(target))
 			var/obj/item/stack/S = target
 			S.use(1)
 			if(S.amount)
@@ -532,7 +530,7 @@
 	changeNext_move(CLICK_CD_MELEE)
 	target.ex_act(EXPLODE_LIGHT)
 
-/mob/living/simple_animal/hostile/swarmer/proc/DisperseTarget(var/mob/living/target)
+/mob/living/simple_animal/hostile/swarmer/proc/DisperseTarget(mob/living/target)
 	if(target == src)
 		return
 
@@ -542,7 +540,7 @@
 
 	to_chat(src, "<span class='info'>Attempting to remove this being from our presence.</span>")
 
-	if(!do_mob(src, target, 30))
+	if(!do_after(src, 3 SECONDS, target, NONE))
 		return
 
 	var/turf/simulated/floor/F
@@ -553,9 +551,9 @@
 	// If we're getting rid of a human, slap some energy cuffs on
 	// them to keep them away from us a little longer
 
-	var/mob/living/carbon/human/H = target
-	if(istype(H) && (!H.handcuffed))
-		H.set_handcuffed(new /obj/item/restraints/handcuffs/energy/used(H))
+	var/mob/living/carbon/c_target = target
+	if(istype(c_target) && !c_target.handcuffed)
+		c_target.apply_restraints(new /obj/item/restraints/handcuffs/energy/used(null), TRUE)
 
 	do_sparks(4, 0, target)
 	playsound(src,'sound/effects/sparks4.ogg', 50, TRUE)
@@ -574,7 +572,7 @@
 	D.pixel_x = target.pixel_x
 	D.pixel_y = target.pixel_y
 	D.pixel_z = target.pixel_z
-	if(do_mob(src, target, 100))
+	if(do_after(src, 10 SECONDS, target, NONE))
 		to_chat(src, "<span class='info'>Dismantling complete.</span>")
 		var/atom/Tsec = target.drop_location()
 		new /obj/item/stack/sheet/metal(Tsec, 5)
@@ -649,16 +647,27 @@
 	max_integrity = 10
 	density = FALSE
 
-/obj/structure/swarmer/trap/Crossed(atom/movable/AM, oldloc)
-	if(isliving(AM))
-		var/mob/living/L = AM
-		if(!istype(L, /mob/living/simple_animal/hostile/swarmer))
-			playsound(loc,'sound/effects/snap.ogg',50, 1, -1)
-			L.electrocute_act(0, src, 1, TRUE, TRUE)
-			if(isrobot(L) || ismachineperson(L))
-				L.Weaken(10 SECONDS)
-			qdel(src)
-	..()
+
+/obj/structure/swarmer/trap/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
+/obj/structure/swarmer/trap/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(!isliving(arrived) || isswarmer(arrived))
+		return
+
+	playsound(loc, 'sound/effects/snap.ogg', 50, TRUE, -1)
+	arrived.electrocute_act(0, src, 1, TRUE, TRUE)
+	if(isrobot(arrived) || ismachineperson(arrived))
+		arrived.Weaken(10 SECONDS)
+	qdel(src)
+
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateTrap()
 	set name = "Create trap"
@@ -680,7 +689,7 @@
 	if(resources < 5)
 		to_chat(src, "<span class='warning'>We do not have the resources for this!</span>")
 		return
-	if(do_mob(src, src, 10))
+	if(do_after(src, 1 SECONDS, src, NONE))
 		Fabricate(/obj/structure/swarmer/blockade, 5)
 
 
@@ -709,7 +718,7 @@
 	if(!isturf(loc))
 		to_chat(src, "<span class='warning'>This is not a suitable location for replicating ourselves. We need more room.</span>")
 		return
-	if(do_mob(src, src, 100))
+	if(do_after(src, 10 SECONDS, src, NONE))
 		var/createtype = SwarmerTypeToCreate()
 		if(createtype && Fabricate(createtype, 100))
 			playsound(loc,'sound/items/poster_being_created.ogg',50, TRUE, -1)
@@ -726,15 +735,15 @@
 	if(!isturf(loc))
 		return
 	to_chat(src, "<span class='info'>Attempting to repair damage to our body, stand by...</span>")
-	if(do_mob(src, src, 100))
+	if(do_after(src, 10 SECONDS, src, NONE))
 		adjustHealth(-100)
 		to_chat(src, "<span class='info'>We successfully repaired ourselves.</span>")
 
 /mob/living/simple_animal/hostile/swarmer/proc/ToggleLight()
-	if(!light_range)
-		set_light_on(TRUE)
-	else
-		set_light_on(FALSE)
+	if(!light_on && is_ventcrawling(src))
+		to_chat(src, span_warning("You cannot toggle light in vent!"))
+		return
+	set_light_on(!light_on)
 
 /mob/living/simple_animal/hostile/swarmer/proc/ContactSwarmers()
 	var/message = input(src, "Announce to other swarmers", "Swarmer contact")

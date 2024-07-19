@@ -55,7 +55,7 @@
 		return
 	..()
 
-/obj/item/projectile/magic/fireball/on_hit(var/target)
+/obj/item/projectile/magic/fireball/on_hit(atom/target, blocked = 0, hit_zone)
 	. = ..()
 	var/turf/T = get_turf(target)
 	explosion(T, exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire, cause = src)
@@ -157,9 +157,8 @@
 	wabbajack(change)
 
 /proc/wabbajack(mob/living/M)
-	if(istype(M) && M.stat != DEAD && !M.notransform)
-		M.notransform = TRUE
-		M.canmove = FALSE
+	if(istype(M) && M.stat != DEAD && !HAS_TRAIT(M, TRAIT_NO_TRANSFORM))
+		ADD_TRAIT(M, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 		M.icon = null
 		M.cut_overlays()
 		M.invisibility = INVISIBILITY_ABSTRACT
@@ -360,7 +359,7 @@
 				prisoner.forceMove(statue)
 				qdel(target)
 		else
-			if(istype(target, /obj/item/gun))
+			if(isgun(target))
 				new /mob/living/simple_animal/hostile/mimic/copy/ranged(target.loc, target, firer)
 			else
 				new /mob/living/simple_animal/hostile/mimic/copy(target.loc, target, firer)
@@ -385,29 +384,28 @@
 	name = "magical banana"
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	icon_state = "banana"
-	var/slip_stun = 10 SECONDS
-	var/slip_weaken = 10 SECONDS
 	hitsound = 'sound/items/bikehorn.ogg'
+	var/slip_disable_time = 10 SECONDS
 
 /obj/item/projectile/magic/slipping/New()
 	..()
 	SpinAnimation()
 
-/obj/item/projectile/magic/slipping/on_hit(var/atom/target, var/blocked = 0)
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		H.slip(src, slip_weaken, 0, FALSE, TRUE, TRUE) //Slips even with noslips/magboots on. NO ESCAPE!
-	else if(isrobot(target)) //You think you're safe, cyborg? FOOL!
+/obj/item/projectile/magic/slipping/on_hit(atom/target, blocked = 0)
+	if(isrobot(target)) //You think you're safe, cyborg? FOOL!
 		var/mob/living/silicon/robot/R = target
-		if(!R.incapacitated())
-			to_chat(target, "<span class='warning'>You get splatted by [src], HONKING your sensors!</span>")
-			R.Stun(slip_stun)
+		if(!R.IsStunned())
+			to_chat(target, span_warning("You get splatted by [src], HONKING your sensors!"))
+			R.Stun(slip_disable_time)
 	else if(isliving(target))
 		var/mob/living/L = target
-		if(!L.IsStunned())
-			to_chat(target, "<span class='notice'>You get splatted by [src].</span>")
-			L.Weaken(slip_weaken)
-			L.Stun(slip_stun)
+		playsound(L.loc, 'sound/misc/slip.ogg', 50, TRUE, -3)
+		L.stop_pulling()
+		// Something something don't run with scissors
+		L.moving_diagonally = NONE //If this was part of diagonal move slipping will stop it.
+		if(!L.IsWeakened())
+			to_chat(target, span_warning("You get splatted by [src]."))
+			L.Weaken(slip_disable_time)
 	. = ..()
 
 /obj/item/projectile/magic/arcane_barrage

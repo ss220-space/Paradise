@@ -19,7 +19,7 @@
 	throw_range = 5
 	materials = list(MAT_METAL=10, MAT_GLASS=5)
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	item_state = "coil"
 	attack_verb = list("whipped", "lashed", "disciplined", "flogged")
 	usesound = 'sound/items/deconstruct.ogg'
@@ -135,7 +135,7 @@
 			if(get_amount() < 10)
 				to_chat(user, span_warning("You don't have enough [src] to make cable restraints!</span>"))
 				return
-			if(do_after(user, 2 SECONDS, target = user))
+			if(do_after(user, 2 SECONDS, user))
 				if(!use(10))
 					to_chat(user, span_warning("You don't have enough [src] to make cable restraints!</span>"))
 					return
@@ -169,7 +169,7 @@
 		return FALSE
 
 	if(target == user)
-		if(!do_mob(user, target, 1 SECONDS))
+		if(!do_after(user, 1 SECONDS, target, NONE))
 			return FALSE
 
 	var/cable_used = 0

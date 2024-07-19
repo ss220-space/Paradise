@@ -5,11 +5,13 @@
 	item_state = "fingerless"
 	item_color = null	//So they don't wash.
 	transfer_prints = TRUE
+	clothing_flags = NONE
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	strip_delay = 40
 	put_on_delay = 20
 	clipped = 1
+	undyeable = TRUE
 
 /obj/item/clothing/gloves/fingerless/weaver
 	name = "weaver chitin gloves"
@@ -87,7 +89,12 @@
 	desc = "These things smell terrible, and they're all lumpy. Gross."
 	icon_state = "latex"
 	item_state = "lgloves"
-	flags = NODROP
+
+
+/obj/item/clothing/gloves/cursedclown/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/gloves/color/yellow/stun
 	name = "stun gloves"
@@ -120,7 +127,7 @@
 			var/mob/living/carbon/C = A
 			if(cell.use(stun_cost))
 				do_sparks(5, 0, loc)
-				playsound(loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
+				playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 				H.do_attack_animation(C)
 				visible_message("<span class='danger'>[C] has been touched with [src] by [H]!</span>")
 				add_attack_logs(H, C, "Touched with stun gloves")
@@ -180,7 +187,7 @@
 
 /obj/item/clothing/gloves/fingerless/rapid/equipped(mob/user, slot, initial)
 	owner = user
-	if(istype(owner) && slot == SLOT_HUD_GLOVES)
+	if(istype(owner) && slot == ITEM_SLOT_GLOVES)
 		owner.dirslash_enabled = TRUE
 		owner.verbs += /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling
 	. = ..()
@@ -233,9 +240,15 @@
 	var/razor_damage_low = 8
 	var/razor_damage_high = 9
 
-/obj/item/clothing/gloves/color/black/razorgloves/sharpen_act(increase)
-	razor_damage_low += increase
-	razor_damage_high += increase
+
+/obj/item/clothing/gloves/color/black/razorgloves/sharpen_act(obj/item/whetstone/whetstone, mob/user)
+	if(razor_damage_low > initial(razor_damage_low))
+		to_chat(user, span_warning("[src] has already been refined before. It cannot be sharpened further!"))
+		return FALSE
+	razor_damage_low = clamp(razor_damage_low + whetstone.increment, 0, whetstone.max)
+	razor_damage_high = clamp(razor_damage_high + whetstone.increment, 0, whetstone.max)
+	return TRUE
+
 
 /obj/item/clothing/gloves/color/black/razorgloves/Touch(atom/A, proximity)
 	. = FALSE
@@ -297,7 +310,6 @@
 	var/knock_damage_low = 5 // stamina damage
 	var/knock_damage_high = 10 // min and max
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 0)
-	species_exception = list(/datum/species/monkey)
 	sprite_sheets = list(
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/gloves.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/gloves.dmi')
@@ -351,3 +363,19 @@
 		user.visible_message("<span class='danger'>[user] has hit [obj] with knuckles!</span>", "<span class='danger'>You hit [obj] with knuckles!</span>")
 		obj.take_damage(knobj_damage, BRUTE, "melee", 1, get_dir(src, user))
 		return TRUE
+
+/obj/item/clothing/gloves/brown_short_gloves
+	name = "short leather gloves"
+	desc = "Короткие облегающие перчатки из кожи."
+	icon_state = "brown_short_gloves"
+	item_state = "brown_short_gloves"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/gloves.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi'
+		)

@@ -123,10 +123,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "warndark"
-	},
+/turf/simulated/floor/plating,
 /area/ruin/space/gasthelizards/jail)
 "dG" = (
 /obj/machinery/door/airlock/external/glass{
@@ -366,10 +363,7 @@
 	dir = 1
 	},
 /obj/structure/bed,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "warndark"
-	},
+/turf/simulated/floor/plating,
 /area/ruin/space/gasthelizards/jail)
 "nJ" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -440,7 +434,9 @@
 	},
 /area/ruin/space/gasthelizards/viewzone)
 "qg" = (
-/obj/structure/marker_beacon,
+/obj/structure/marker_beacon{
+	icon_state = "markerrandom"
+	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/powered)
 "qt" = (
@@ -697,10 +693,7 @@
 	range = 1
 	},
 /obj/item/clothing/under/color/orange,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "warndark"
-	},
+/turf/simulated/floor/plating,
 /area/ruin/space/gasthelizards/jail)
 "xA" = (
 /obj/effect/decal/cleanable/dirt,
@@ -739,10 +732,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "warndark"
-	},
+/turf/simulated/floor/plating,
 /area/ruin/space/gasthelizards/jail)
 "yD" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -889,7 +879,7 @@
 /area/ruin/space/gasthelizards/viewzone)
 "DB" = (
 /obj/structure/rack,
-/obj/item/melee/baton/cattleprod,
+/obj/item/melee/baton/security/cattleprod,
 /obj/item/restraints/handcuffs,
 /obj/machinery/power/apc{
 	dir = 8;
@@ -910,15 +900,11 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "warndark"
-	},
+/turf/simulated/floor/plating,
 /area/ruin/space/gasthelizards/jail)
 "Eh" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -1047,7 +1033,9 @@
 /area/ruin/space/gasthelizards/engineering)
 "Jf" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/marker_beacon,
+/obj/structure/marker_beacon{
+	icon_state = "markerrandom"
+	},
 /turf/template_noop,
 /area/template_noop)
 "Ji" = (
@@ -1325,8 +1313,7 @@
 /area/ruin/space/gasthelizards/engineering)
 "Vr" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1417,10 +1404,7 @@
 	pixel_x = 24;
 	range = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "warndark"
-	},
+/turf/simulated/floor/plating,
 /area/ruin/space/gasthelizards/jail)
 "Xr" = (
 /obj/machinery/portable_atmospherics/scrubber,
@@ -1434,10 +1418,7 @@
 /area/ruin/space/gasthelizards/engineering)
 "Xu" = (
 /obj/item/clothing/under/color/orange,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "warndark"
-	},
+/turf/simulated/floor/plating,
 /area/ruin/space/gasthelizards/jail)
 "XR" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1494,10 +1475,7 @@
 /area/ruin/space/gasthelizards/viewzone)
 "ZC" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "warndark"
-	},
+/turf/simulated/floor/plating,
 /area/ruin/space/gasthelizards/jail)
 
 (1,1,1) = {"

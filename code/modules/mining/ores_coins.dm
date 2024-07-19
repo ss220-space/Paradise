@@ -20,25 +20,31 @@
 /obj/item/stack/ore/update_overlays()
 	. = ..()
 
-	var/difference = min(ORESTACK_OVERLAYS_MAX, amount) - (LAZYLEN(stack_overlays)+1)
-	if(difference == 0)
-		. += stack_overlays
-		return
+	if(!stack_overlays)
+		stack_overlays = list()
 
-	if(difference < 0 && LAZYLEN(stack_overlays))			//amount < stack_overlays, remove excess.
-		if(LAZYLEN(stack_overlays)-difference <= 0)
-			stack_overlays = null
-		else
-			stack_overlays.len += difference
+	var/overlays_length = length(stack_overlays)
+	var/difference = min(ORESTACK_OVERLAYS_MAX, amount) - (overlays_length + 1)
 
-	else if(difference > 0)			//amount > stack_overlays, add some.
+	if(!difference)
+		if(overlays_length)
+			. += stack_overlays
+		return .
+
+	if(difference < 0)
+		var/cut_diff = overlays_length - abs(difference)
+		if(cut_diff <= 0)
+			stack_overlays.Cut()
+			return .
+		stack_overlays.Cut(cut_diff, overlays_length)
+	else
 		for(var/i in 1 to difference)
 			var/mutable_appearance/newore = mutable_appearance(icon, icon_state)
 			newore.pixel_x = rand(-8,8)
 			newore.pixel_y = rand(-8,8)
-			LAZYADD(stack_overlays, newore)
+			stack_overlays += newore
 
-	if(stack_overlays)
+	if(length(stack_overlays))
 		. += stack_overlays
 
 
@@ -59,32 +65,19 @@
 	to_chat(user, "<span class='notice'>You smelt [src] into its refined form!</span>")
 	qdel(src)
 
-/obj/item/stack/ore/Crossed(atom/movable/AM, oldloc)
-	var/obj/item/storage/bag/ore/OB
-	var/turf/simulated/floor/F = get_turf(src)
-	if(loc != F)
+
+/obj/item/stack/ore/on_movable_entered_occupied_turf(atom/movable/arrived)
+	if(!istype(loc, /turf/simulated/floor/plating/asteroid) || (!ishuman(arrived) && !isrobot(arrived)))
 		return ..()
-	if(ishuman(AM))
-		var/mob/living/carbon/human/H = AM
-		for(var/thing in H.get_body_slots())
-			if(istype(thing, /obj/item/storage/bag/ore))
-				OB = thing
-				break
-	else if(isrobot(AM))
-		var/mob/living/silicon/robot/R = AM
-		for(var/thing in R.get_all_slots())
-			if(istype(thing, /obj/item/storage/bag/ore))
-				OB = thing
-				break
-	if(OB && istype(F, /turf/simulated/floor/plating/asteroid))
-		F.attackby(OB, AM)
-		// Then, if the user is dragging an ore box, empty the satchel
-		// into the box.
-		var/mob/living/L = AM
-		if(istype(L.pulling, /obj/structure/ore_box))
-			var/obj/structure/ore_box/box = L.pulling
-			box.attackby(OB, AM)
-	return ..()
+
+	var/mob/arrived_mob = arrived
+	for(var/obj/item/storage/bag/ore/bag in arrived_mob.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		loc.attackby(bag, arrived)
+		// Then, if the user is dragging an ore box, empty the satchel into the box.
+		if(istype(arrived_mob.pulling, /obj/structure/ore_box))
+			arrived_mob.pulling.attackby(bag, arrived)
+		break
+
 
 /obj/item/stack/ore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	. = ..()
@@ -260,13 +253,13 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		QDEL_NULL(wires)
 	return ..()
 
-/obj/item/twohanded/required/gibtonite/can_be_pulled(atom/movable/user, force, show_message = FALSE)
-	if(show_message)
-		to_chat(user, span_warning("It's too heavy to be pulled!"))
+/obj/item/twohanded/required/gibtonite/can_be_pulled(atom/movable/puller, grab_state, force, supress_message)
+	if(!supress_message && ismob(puller))
+		to_chat(puller, span_warning("It's too heavy to be pulled!"))
 	return FALSE // must be carried in two hands or be picked up with ripley
 
 /obj/item/twohanded/required/gibtonite/attackby(obj/item/I, mob/user, params)
-	if(!wires && istype(I, /obj/item/assembly/igniter))
+	if(!wires && isigniter(I))
 		user.visible_message("[user] attaches [I] to [src].", "<span class='notice'>You attach [I] to [src].</span>")
 		wires = new(src)
 		attacher = key_name(user)
@@ -275,7 +268,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		return
 
 	if(wires && !primed)
-		if(I.tool_behaviour == TOOL_WIRECUTTER || I.tool_behaviour == TOOL_MULTITOOL || istype(I, /obj/item/assembly/signaler))
+		if(I.tool_behaviour == TOOL_WIRECUTTER || I.tool_behaviour == TOOL_MULTITOOL || issignaler(I))
 			wires.Interact(user)
 			return
 
@@ -513,7 +506,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		flick("coin_[cmineral]_flip", src)
 		icon_state = "coin_[cmineral]_[coinflip]"
 		playsound(user.loc, 'sound/items/coinflip.ogg', 50, 1)
-		if(do_after(user, 15, target = src))
+		if(do_after(user, 1.5 SECONDS, src))
 			user.visible_message("<span class='notice'>[user] has flipped [src]. It lands on [coinflip].</span>", \
 								 "<span class='notice'>You flip [src]. It lands on [coinflip].</span>", \
 								 "<span class='notice'>You hear the clattering of loose change.</span>")

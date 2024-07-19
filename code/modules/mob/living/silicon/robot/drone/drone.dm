@@ -14,10 +14,10 @@
 	pass_flags = PASSTABLE
 	braintype = "Robot"
 	lawupdate = 0
-	density = 0
+	density = FALSE
 	has_camera = FALSE
 	req_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
-	ventcrawler = VENTCRAWLER_ALWAYS
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	mob_size = MOB_SIZE_SMALL
 	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
 	modules_break = FALSE
@@ -245,7 +245,7 @@
 	addtimer(CALLBACK(src, PROC_REF(shut_down), TRUE), EMAG_TIMER)
 
 	emagged = 1
-	density = 1
+	set_density(TRUE)
 	pass_flags = 0
 	icon_state = "repairbot-emagged"
 	holder_type = /obj/item/holder/drone/emagged
@@ -359,29 +359,27 @@
 	to_chat(src, "<b>Make sure crew members do not notice you.</b>.")
 
 
-/mob/living/silicon/robot/drone/Bump(atom/movable/AM, yes)
-	if(is_type_in_list(AM, allowed_bumpable_objects))
+/mob/living/silicon/robot/drone/Bump(atom/bumped_atom)
+	if(is_type_in_list(bumped_atom, allowed_bumpable_objects))
 		return ..()
 
-/mob/living/silicon/robot/drone/Bumped(atom/movable/moving_atom)
-	return ..()
 
-/mob/living/silicon/robot/drone/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
+/mob/living/silicon/robot/drone/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
+	if(is_type_in_list(pulled_atom, pullable_drone_items))
+		force = INFINITY	// Drone power! Makes them able to drag pipes and such
+		return ..()
 
-	if(is_type_in_list(AM, pullable_drone_items))
-		..(AM, force = INFINITY) // Drone power! Makes them able to drag pipes and such
-
-	else if(istype(AM,/obj/item))
-		var/obj/item/O = AM
-		if(O.w_class > WEIGHT_CLASS_SMALL)
-			if(show_message)
+	if(isitem(pulled_atom))
+		var/obj/item/pulled_item = pulled_atom
+		if(pulled_item.w_class > WEIGHT_CLASS_SMALL)
+			if(!supress_message)
 				to_chat(src, span_warning("You are too small to pull that."))
-			return
-		else
-			..()
-	else
-		if(show_message)
-			to_chat(src, span_warning("You are too small to pull that."))
+			return FALSE
+		return ..()
+
+	if(!supress_message)
+		to_chat(src, span_warning("You are too small to pull that."))
+	return FALSE
 
 /mob/living/silicon/robot/drone/add_robot_verbs()
 	src.verbs |= silicon_subsystems
@@ -389,18 +387,14 @@
 /mob/living/silicon/robot/drone/remove_robot_verbs()
 	src.verbs -= silicon_subsystems
 
-/mob/living/silicon/robot/drone/update_canmove(delay_action_updates = 0)
-	. = ..()
-	density = emagged //this is reset every canmove update otherwise
-
-/mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
+/mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash/noise)
 	if(affect_silicon)
 		return ..()
 
 /mob/living/silicon/robot/drone/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!client && isdrone(user))
 		to_chat(user, "<span class='warning'>You begin decompiling the other drone.</span>")
-		if(!do_after(user, 5 SECONDS, target = loc))
+		if(!do_after(user, 5 SECONDS, loc))
 			to_chat(user, "<span class='warning'>You need to remain still while decompiling such a large object.</span>")
 			return
 		if(QDELETED(src) || QDELETED(user))

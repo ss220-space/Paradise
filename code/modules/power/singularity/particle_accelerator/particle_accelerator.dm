@@ -65,7 +65,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	icon = 'icons/obj/engines_and_power/particle_accelerator.dmi'
 	icon_state = "none"
 	anchored = FALSE
-	density = 1
+	density = TRUE
 	max_integrity = 500
 	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 80)
 	var/obj/machinery/particle_accelerator/control_box/master = null
@@ -99,7 +99,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	rotate_accelerator(user)
 
 /obj/structure/particle_accelerator/proc/rotate_accelerator(mob/user)
-	if(user.incapacitated() || user.restrained() || !Adjacent(user))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(anchored)
 		to_chat(user, "<span class='notice'>It is fastened to the floor!</span>")
@@ -124,18 +124,18 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 		. += "<span class='notice'><b>Alt-Click</b> to rotate it.</span>"
 
 /obj/structure/particle_accelerator/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal (loc, 5)
 	qdel(src)
 
-/obj/structure/particle_accelerator/Move()
+/obj/structure/particle_accelerator/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(master && master.active)
 		master.toggle_power()
 		investigate_log("was moved whilst active; it <font color='red'>powered down</font>.", INVESTIGATE_ENGINE)
 
 /obj/machinery/particle_accelerator/control_box/blob_act(obj/structure/blob/B)
-	if(prob(50))
+	if(prob(50) && !QDELETED(src))
 		qdel(src)
 
 /obj/structure/particle_accelerator/update_icon_state()
@@ -238,7 +238,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	icon = 'icons/obj/engines_and_power/particle_accelerator.dmi'
 	icon_state = "none"
 	anchored = FALSE
-	density = 1
+	density = TRUE
 	use_power = NO_POWER_USE
 	idle_power_usage = 0
 	active_power_usage = 0
@@ -267,7 +267,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 
 
 /obj/machinery/particle_accelerator/proc/rotate_accelerator(mob/user)
-	if(user.incapacitated() || user.restrained() || !Adjacent(user))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(anchored)
 		to_chat(user, "<span class='notice'>It is fastened to the floor!</span>")

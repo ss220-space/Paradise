@@ -3,6 +3,7 @@
 	desc = "Basic railing meant to protect idiots like you from falling."
 	icon = 'icons/obj/fence.dmi'
 	icon_state = "railing"
+	flags = ON_BORDER
 	density = TRUE
 	anchored = TRUE
 	pass_flags_self = LETPASSTHROW|PASSFENCE
@@ -12,6 +13,18 @@
 	var/currently_climbed = FALSE
 	var/buildstacktype = /obj/item/stack/rods
 	var/buildstackamount = 3
+
+
+/obj/structure/railing/Initialize(mapload)
+	. = ..()
+	handle_layer()
+
+	if(density) // blocks normal movement from and to the direction it's facing.
+		var/static/list/loc_connections = list(
+			COMSIG_ATOM_EXIT = PROC_REF(on_exit),
+		)
+		AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /obj/structure/railing/corner //aesthetic corner sharp edges hurt oof ouch
 	icon_state = "railing_corner"
@@ -44,14 +57,14 @@
 
 /obj/structure/railing/deconstruct()
 	// If we have materials, and don't have the NOCONSTRUCT flag
-	if(buildstacktype && (!(flags & NODECONSTRUCT)))
+	if(buildstacktype && (!(obj_flags & NODECONSTRUCT)))
 		var/obj/item/stack/rods/stack = new buildstacktype(loc, buildstackamount)
 		transfer_fingerprints_to(stack)
 	..()
 
 ///Implements behaviour that makes it possible to unanchor the railing.
 /obj/structure/railing/wrench_act(mob/living/user, obj/item/I)
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		return
 	to_chat(user, "<span class='notice'>You begin to [anchored ? "unfasten the railing from":"fasten the railing to"] the floor...</span>")
 	if(I.use_tool(src, user, volume = 75, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
@@ -71,30 +84,33 @@
 	return TRUE
 
 
-/obj/structure/railing/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
+/obj/structure/railing/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	if(!(to_dir & dir))
 		return TRUE
 	return ..()
 
 
-/obj/structure/railing/CanExit(atom/movable/mover, moving_direction)
-	. = ..()
+/obj/structure/railing/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
+	SIGNAL_HANDLER
+
 	if(!density)
-		return TRUE
-	if(checkpass(mover, PASSFENCE))
-		return TRUE
-	if(mover.throwing)
-		return TRUE
-	if(isprojectile(mover))
-		return TRUE
-	if(mover.movement_type & (PHASING|MOVETYPES_NOT_TOUCHING_GROUND))
-		return TRUE
-	if(mover.move_force >= MOVE_FORCE_EXTREMELY_STRONG)
-		return TRUE
+		return
+	if(leaving == src)
+		return // Let's not block ourselves.
+	if(leaving.throwing)
+		return
+	if(checkpass(leaving, PASSFENCE))
+		return
+	if(leaving.movement_type & (PHASING|MOVETYPES_NOT_TOUCHING_GROUND))
+		return
+	if(leaving.move_force >= MOVE_FORCE_EXTREMELY_STRONG)
+		return
 	if(currently_climbed)
-		return TRUE
-	if(dir & moving_direction)
-		return FALSE
+		return
+	if(!(get_dir(leaving, newLoc) & dir))
+		return
+	leaving.Bump(src)
+	return COMPONENT_ATOM_BLOCK_EXIT
 
 
 /obj/structure/railing/do_climb(mob/living/user)
@@ -105,7 +121,7 @@
 		if(initial_mob_loc != get_turf(src)) // If we are on the railing, we want to move in the same dir as the railing. Otherwise we get put on the railing
 			currently_climbed = FALSE
 			return
-		user.Move(get_step(user, dir), TRUE)
+		user.Move(get_step(user, dir))
 		currently_climbed = FALSE
 
 /obj/structure/railing/proc/can_be_rotated(mob/user)
@@ -120,30 +136,26 @@
 	return TRUE
 
 /obj/structure/railing/proc/check_anchored(checked_anchored)
-	if(anchored == checked_anchored)
-		return TRUE
+	return anchored == checked_anchored
 
 /obj/structure/railing/proc/after_rotation(mob/user)
 	add_fingerprint(user)
 
 /obj/structure/railing/AltClick(mob/user)
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
 	if(!Adjacent(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	if(can_be_rotated(user))
 		setDir(turn(dir, 45))
 
-/obj/structure/railing/Initialize(mapload) //Only for mappers
-	..()
-	handle_layer()
 
 /obj/structure/railing/setDir(newdir)
-	..()
+	. = ..()
 	handle_layer()
 
-/obj/structure/railing/Move(newloc, direct, movetime)
+/obj/structure/railing/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	handle_layer()
 
@@ -161,7 +173,6 @@
 	resistance_flags = FLAMMABLE
 	climbable = TRUE
 	can_be_unanchored = TRUE
-	flags = ON_BORDER
 	buildstacktype = /obj/item/stack/sheet/wood
 	buildstackamount = 5
 
@@ -176,6 +187,9 @@
 /obj/structure/railing/wooden/AltClick(mob/user)
 	if(!Adjacent(user))
 		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		return
 	if(anchored)
 		to_chat(user, "It is fastened to the floor!")
 		return
@@ -188,7 +202,7 @@
 
 /obj/structure/railing/wooden/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		to_chat(user, "<span class='warning'>Try as you might, you can't figure out how to deconstruct [src].</span>")
 		return
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))

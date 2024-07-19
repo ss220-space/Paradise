@@ -23,7 +23,7 @@
 	icon_state = "ghost2"
 	icon_living = "ghost2"
 	icon_dead = "ghost"
-	density = 0 // ghost
+	density = FALSE // ghost
 	invisibility = 60 // no seriously ghost
 	speak_chance = 0 // fyi, ghost
 
@@ -59,8 +59,8 @@
 	AddElement(/datum/element/simple_flying)
 
 
-/mob/living/simple_animal/hostile/ghost/Process_Spacemove(var/check_drift = 0)
-	return 1
+/mob/living/simple_animal/hostile/ghost/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
+	return TRUE
 
 /mob/living/simple_animal/hostile/ghost/Life(seconds, times_fired)
 	if(target)
@@ -112,7 +112,7 @@
 	icon_living = "eskimo"
 	maxHealth = 55
 	health = 55
-	weather_immunities = list("snow")
+	weather_immunities = list(TRAIT_SNOWSTORM_IMMUNE)
 	gold_core_spawnable = NO_SPAWN
 	melee_damage_lower = 17
 	melee_damage_upper = 20

@@ -16,9 +16,9 @@
 	health = 15
 	nightvision = 100
 	friendly = "nudges"
-	density = 0
+	density = FALSE
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
-	ventcrawler = 2
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	mob_size = MOB_SIZE_TINY
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat = 1)
 	gold_core_spawnable = FRIENDLY_SPAWN
@@ -54,7 +54,8 @@
 	response_disarm = "brushes aside"
 	response_harm = "squashes"
 	friendly = "nudges"
-	density = 0
+	density = FALSE
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat = 1)

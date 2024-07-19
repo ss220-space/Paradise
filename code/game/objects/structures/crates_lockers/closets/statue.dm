@@ -3,7 +3,7 @@
 	desc = "An incredibly lifelike marble carving"
 	icon = 'icons/obj/statue.dmi'
 	icon_state = "human_male"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	max_integrity = 0 //destroying the statue kills the mob within
 	no_overlays = TRUE
@@ -24,7 +24,7 @@
 		intialFire = L.getFireLoss()
 		intialBrute = L.getBruteLoss()
 		intialOxy = L.getOxyLoss()
-		if(issmall(L))
+		if(is_monkeybasic(L))
 			name = "statue of a monkey"
 			icon_state = "monkey"
 		else if(ishuman(L))

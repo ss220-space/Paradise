@@ -7,7 +7,7 @@
 	can_holster = FALSE
 	force = 10
 	flags =  CONDUCT
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/advanced, /obj/item/ammo_casing/energy/laser/pulse , /obj/item/ammo_casing/energy/laser)
 	cell_type = /obj/item/stock_parts/cell/pulse
 
@@ -24,11 +24,11 @@
 	name = "pulse carbine"
 	desc = "A compact variant of the pulse rifle with less firepower but easier storage."
 	w_class = WEIGHT_CLASS_NORMAL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	icon_state = "pulse_carbine"
 	item_state = "pulse"
 	cell_type = /obj/item/stock_parts/cell/pulse/carbine
-	can_flashlight = 1
+	can_flashlight = TRUE
 	flight_x_offset = 18
 	flight_y_offset = 12
 
@@ -36,7 +36,7 @@
 	name = "pulse pistol"
 	desc = "A pulse rifle in an easily concealed handgun package with low capacity."
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	icon_state = "pulse_pistol"
 	item_state = "gun"
 	can_holster = TRUE
@@ -50,7 +50,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse)
 
 /obj/item/gun/energy/pulse/destroyer/attack_self(mob/living/user)
-	to_chat(user, "<span class='danger'>[name] has three settings, and they are all DESTROY.</span>")
+	to_chat(user, span_danger("[name] has three settings, and they are all DESTROY."))
 
 /obj/item/gun/energy/pulse/destroyer/annihilator
 	name = "pulse ANNIHILATOR"
@@ -74,6 +74,6 @@
 	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser/pulse)
 	weapon_weight = WEAPON_MEDIUM
-	can_flashlight = 0
+	can_flashlight = FALSE
 	trigger_guard = TRIGGER_GUARD_NONE
 	ammo_x_offset = 2

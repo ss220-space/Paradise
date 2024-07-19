@@ -13,7 +13,7 @@ REAGENT SCANNER
 	icon_state = "t-ray0"
 	base_icon_state = "t-ray"
 	var/on = FALSE
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
 	materials = list(MAT_METAL=150)
@@ -125,13 +125,15 @@ REAGENT SCANNER
 			if(!(in_turf_living.alpha < 255 || in_turf_living.invisibility == INVISIBILITY_LEVEL_TWO))
 				continue
 
-		var/image/I = new(loc = get_turf(in_turf_atom))
+		var/turf/T = get_turf(in_turf_atom)
+		var/image/I = new(loc = T)
 		var/mutable_appearance/MA = new(in_turf_atom)
 		MA.alpha = isliving(in_turf_atom) ? 255 : 128
 		MA.dir = in_turf_atom.dir
 		if(MA.layer < TURF_LAYER)
 			MA.layer += TRAY_SCAN_LAYER_OFFSET
 		MA.plane = GAME_PLANE
+		SET_PLANE_EXPLICIT(MA, GAME_PLANE, T)
 		I.appearance = MA
 		t_ray_images += I
 
@@ -203,22 +205,23 @@ REAGENT SCANNER
 	if(!ismob(viewer) || !viewer.client)
 		return
 	new /obj/effect/temp_visual/scan(get_turf(src))
-
 	var/list/t_ray_images = list()
-	for(var/mob/living/in_turf_living in viewers(scan_range, get_turf(src)))
-		if(!(in_turf_living.alpha < 255 || in_turf_living.invisibility == INVISIBILITY_LEVEL_TWO))
-			continue
 
-		var/image/I = new(loc = get_turf(in_turf_living))
-		var/mutable_appearance/MA = new(in_turf_living)
+	for(var/atom/movable/invisible_object as anything in view(scan_range, get_turf(src)))
+		if(!(istype(invisible_object, /obj/structure/closet/cardboard/agent/) || isliving(invisible_object)))
+			continue
+		if(!(invisible_object.alpha < 255 || invisible_object.invisibility == INVISIBILITY_LEVEL_TWO))
+			continue
+		var/image/I = new(loc = get_turf(invisible_object))
+		var/mutable_appearance/MA = new(invisible_object)
 		MA.alpha = 255
-		MA.dir = in_turf_living.dir
+		MA.dir = invisible_object.dir
 		if(MA.layer < TURF_LAYER)
 			MA.layer += TRAY_SCAN_LAYER_OFFSET
 		MA.plane = GAME_PLANE
 		I.appearance = MA
 		t_ray_images += I
-		alert_searchers(in_turf_living)
+		alert_searchers(invisible_object)
 
 	if(length(t_ray_images))
 		flick_overlay(t_ray_images, list(viewer.client), pulse_duration)
@@ -228,7 +231,7 @@ REAGENT SCANNER
 	if(alerted && !was_alerted)
 		for(var/mob/living/alerted_mob in alerted)
 			if(!alerted_mob.stat)
-				alerted_mob.do_alert_animation(alerted_mob)
+				do_alert_animation(alerted_mob)
 				alerted_mob.playsound_local(alerted, 'sound/machines/chime.ogg', 15, 0)
 		was_alerted = TRUE
 		addtimer(CALLBACK(src, PROC_REF(end_alert_cd)), 1 MINUTES)
@@ -260,8 +263,9 @@ REAGENT SCANNER
 	item_state = "healthanalyzer"
 	belt_icon = "health_analyzer"
 	desc = "Ручной сканер тела, способный определить жизненные показатели субъекта."
-	flags = CONDUCT | NOBLUDGEON
-	slot_flags = SLOT_FLAG_BELT
+	flags = CONDUCT
+	item_flags = NOBLUDGEON
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 3
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
@@ -367,7 +371,6 @@ REAGENT SCANNER
 	var/datum/browser/popup = new(user, "scanner", scan_title, window_width, window_height)
 	popup.set_content("[get_header(user)]<hr>[scan_data]")
 	popup.open(no_focus = 1)
-	popup.resize(window_width,window_height)
 
 /obj/item/healthanalyzer/proc/get_header(mob/user)
 	return "<a href='?src=[src.UID()];user=[user.UID()];clear=1'>Очистить</a><a href='?src=[src.UID()];user=[user.UID()];mode=1'>Локализация</a>[advanced ? "<a href='?src=[src.UID()];user=[user.UID()];print=1'>Печать отчета</a>" : ""]"
@@ -403,7 +406,7 @@ REAGENT SCANNER
 		return "<span class='highlight'>[jointext(., "<br>")]</span>"
 
 	var/mob/living/carbon/human/scan_subject = null
-	if (istype(target, /mob/living/carbon/human))
+	if (ishuman(target))
 		scan_subject = target
 	else if (istype(target, /obj/structure/closet/body_bag))
 		var/obj/structure/closet/body_bag/B = target
@@ -622,6 +625,9 @@ REAGENT SCANNER
 	set name = "Вкл/Выкл локализацию"
 	set category = "Object"
 
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
+
 	mode = !mode
 	switch(mode)
 		if(1)
@@ -675,7 +681,7 @@ REAGENT SCANNER
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 5
 	throw_speed = 4
 	throw_range = 20
@@ -687,7 +693,8 @@ REAGENT SCANNER
 	actions_types = list(/datum/action/item_action/print_report)
 
 /obj/item/reagent_scanner/afterattack(obj/O, mob/user as mob)
-	try_item_eat(O, user)
+	if(try_item_eat(O, user))
+		return
 	if(user.stat)
 		return
 	if(!user.IsAdvancedToolUser())
@@ -813,7 +820,7 @@ REAGENT SCANNER
 	base_icon_state = "bodyanalyzer"
 	item_state = "healthanalyser"
 	desc = "A handheld scanner capable of deep-scanning an entire body."
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 3
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 5
@@ -912,7 +919,7 @@ REAGENT SCANNER
 	if(ishuman(M))
 		var/report = generate_printing_text(M, user)
 		user.visible_message("[user] begins scanning [M] with [src].", "You begin scanning [M].")
-		if(do_after(user, scan_time, target = M))
+		if(do_after(user, scan_time, M))
 			var/obj/item/paper/printout = new(drop_location())
 			printout.info = report
 			printout.name = "Scan report - [M.name]"

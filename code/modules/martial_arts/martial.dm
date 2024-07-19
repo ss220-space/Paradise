@@ -41,6 +41,12 @@
 	var/in_stance = FALSE
 	/// The priority of which martial art is picked from all the ones someone knows, the higher the number, the higher the priority.
 	var/weight = 0
+	/// If provided, this overrides default time (in deciseconds) required to reinforce aggressive/neck grab to the next state.
+	var/grab_speed
+	/// If provided, this list will override victim's default resist chances for any grab state.
+	/// Examples: list(MARTIAL_GRAB_AGGRESSIVE = 60, MARTIAL_GRAB_NECK = 40, MARTIAL_GRAB_KILL = 5) or list(MARTIAL_GRAB_NECK = 5)
+	var/list/grab_resist_chances
+
 
 /datum/martial_art/New()
 	. = ..()
@@ -124,7 +130,7 @@
 	var/datum/unarmed_attack/attack = A.dna.species.unarmed
 
 	var/atk_verb = "[pick(attack.attack_verb)]"
-	if(D.lying_angle)
+	if(D.body_position == LYING_DOWN)
 		atk_verb = "kick"
 
 	switch(atk_verb)
@@ -155,12 +161,12 @@
 								"<span class='userdanger'>[A] has weakened [D]!</span>")
 		D.apply_effect(4 SECONDS, WEAKEN, armor_block)
 		D.forcesay(GLOB.hit_appends)
-	else if(D.lying_angle)
+	else if(D.body_position == LYING_DOWN)
 		D.forcesay(GLOB.hit_appends)
 	return TRUE
 
 /datum/martial_art/proc/attack_reaction(mob/living/carbon/human/defender, mob/living/carbon/human/attacker, obj/item/I, visible_message, self_message)
-	if(can_use(defender) && defender.in_throw_mode && !defender.incapacitated(FALSE, TRUE))
+	if(can_use(defender) && defender.in_throw_mode && !defender.incapacitated(INC_IGNORE_GRABBED))
 		if(prob(block_chance))
 			if(visible_message || self_message)
 				defender.visible_message(visible_message, self_message)
@@ -275,6 +281,23 @@
 		if(MARTIAL_COMBO_STEP_HELP)
 			return "H"
 
+
+/// Returns martial art grab resist chance for passed grab state.
+/datum/martial_art/proc/get_resist_chance(grab_state)
+	if(!grab_resist_chances)
+		return null
+	switch(grab_state)
+		if(GRAB_AGGRESSIVE)
+			if(!isnull(grab_resist_chances[MARTIAL_GRAB_AGGRESSIVE]))	// can be 0 its a vaild number
+				return grab_resist_chances[MARTIAL_GRAB_AGGRESSIVE]
+		if(GRAB_NECK)
+			if(!isnull(grab_resist_chances[MARTIAL_GRAB_NECK]))
+				return grab_resist_chances[MARTIAL_GRAB_NECK]
+		if(GRAB_KILL)
+			if(!isnull(grab_resist_chances[MARTIAL_GRAB_KILL]))
+				return grab_resist_chances[MARTIAL_GRAB_KILL]
+
+
 //ITEMS
 
 /obj/item/clothing/gloves/boxing
@@ -283,14 +306,14 @@
 
 /obj/item/clothing/gloves/boxing/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
-	if(!ishuman(user) || slot != SLOT_HUD_GLOVES)
+	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
 		return .
 	style.teach(user, TRUE)
 
 
 /obj/item/clothing/gloves/boxing/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	if(!ishuman(user) || slot != SLOT_HUD_GLOVES)
+	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
 		return .
 	style.remove(user)
 
@@ -306,7 +329,7 @@
 
 /obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
-	if(!ishuman(user) || slot != SLOT_HUD_BELT)
+	if(!ishuman(user) || slot != ITEM_SLOT_BELT)
 		return .
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, span_warning("In spite of the grandiosity of the belt, you don't feel like getting into any fights."))
@@ -317,7 +340,7 @@
 
 /obj/item/storage/belt/champion/wrestling/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	if(!ishuman(user) || slot != SLOT_HUD_BELT)
+	if(!ishuman(user) || slot != ITEM_SLOT_BELT)
 		return .
 	style.remove(user)
 	to_chat(user, span_sciradio("You no longer have an urge to flex your muscles."))
@@ -487,7 +510,7 @@
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts. Can be wielded to both kill and incapacitate."
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	force_unwielded = 10
 	force_wielded = 24
 	throwforce = 20
@@ -560,7 +583,7 @@
 		return ..()
 	return FALSE
 
-/obj/screen/combo
+/atom/movable/screen/combo
 	icon_state = ""
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	screen_loc = ui_combo
@@ -568,18 +591,18 @@
 	var/streak
 
 
-/obj/screen/combo/proc/clear_streak()
+/atom/movable/screen/combo/proc/clear_streak()
 	cut_overlays()
 	streak = ""
 	icon_state = ""
 
 
-/obj/screen/combo/update_icon(updates, _streak)
+/atom/movable/screen/combo/update_icon(updates, _streak)
 	streak = _streak
 	return ..()
 
 
-/obj/screen/combo/update_overlays()
+/atom/movable/screen/combo/update_overlays()
 	. = list()
 	for(var/i in 1 to length(streak))
 		var/intent_text = copytext(streak, i, i + 1)
@@ -588,7 +611,7 @@
 		. += intent_icon
 
 
-/obj/screen/combo/update_icon_state()
+/atom/movable/screen/combo/update_icon_state()
 	icon_state = ""
 	if(!streak)
 		return

@@ -201,7 +201,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 		take_damage(5, BURN, 0)
 
 /obj/machinery/portable_atmospherics/canister/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(!(stat & BROKEN))
 			canister_break()
 		if(disassembled)
@@ -211,7 +211,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	qdel(src)
 
 /obj/machinery/portable_atmospherics/canister/obj_break(damage_flag)
-	if((stat & BROKEN) || (flags & NODECONSTRUCT))
+	if((stat & BROKEN) || (obj_flags & NODECONSTRUCT))
 		return
 	canister_break()
 
@@ -223,7 +223,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	air_update_turf()
 
 	stat |= BROKEN
-	density = FALSE
+	set_density(FALSE)
 	playsound(loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 	update_icon()
 
@@ -322,10 +322,13 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	add_fingerprint(user)
 	return ui_interact(user)
 
-/obj/machinery/portable_atmospherics/canister/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/portable_atmospherics/canister/ui_state(mob/user)
+	return GLOB.physical_state
+
+/obj/machinery/portable_atmospherics/canister/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Canister", name, 600, 350, master_ui, state)
+		ui = new(user, src, "Canister", name)
 		ui.open()
 
 /obj/machinery/portable_atmospherics/canister/ui_data()

@@ -16,7 +16,7 @@
 		objective_damage(user, target, 10, BRUTE)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] : Kick", ATKLOG_ALL)
 		. = MARTIAL_COMBO_DONE
-	if(target.IsWeakened() && !target.stat)
+	if(!target.stat && target.IsWeakened())
 		target.visible_message("<span class='warning'>[user] kicks [target]'s head, knocking [target.p_them()] out!</span>", \
 					  		"<span class='userdanger'>[user] kicks your head, knocking you out!</span>")
 		playsound(get_turf(user), 'sound/weapons/genhit1.ogg', 50, 1, -1)

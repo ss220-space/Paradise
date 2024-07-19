@@ -139,7 +139,7 @@
 			shoot_projectile(marker, set_angle - 15, FALSE, FALSE)
 	else
 		var/obj/item/projectile/herald/teleshot/H = new(startloc)
-		H.preparePixelProjectile(marker, marker, startloc)
+		H.preparePixelProjectile(marker, marker, src)
 		H.firer = src
 		H.damage = H.damage * dif_mult_dmg
 		if(target)
@@ -152,7 +152,7 @@
 	var/target_turf = get_turf(target)
 	var/angle_to_target = get_angle(src, target_turf)
 	say("Молись")
-	SLEEP_CHECK_DEATH(0.5 SECONDS)// no point blank instant shotgun.
+	SLEEP_CHECK_DEATH(src, 0.5 SECONDS)// no point blank instant shotgun.
 	shoot_projectile(target_turf, angle_to_target, FALSE, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(shoot_projectile), target_turf, angle_to_target, FALSE, TRUE), 0.2 SECONDS)
 	if(health < maxHealth * 0.5 && !is_mirror)
@@ -267,7 +267,6 @@
 	icon_state = "herald_cloak"
 	item_state = "herald_cloak"
 	item_color = "herald_cloak"
-	slot_flags = SLOT_FLAG_TIE
 	allow_duplicates = FALSE
 	actions_types = list(/datum/action/item_action/accessory/herald)
 
@@ -313,7 +312,7 @@
 		return
 	usr.visible_message("<span class='warning'>[usr] starts to crawl into [starting_mirror]...</span>", \
 			"<span class='notice'>You start to crawl into the [starting_mirror]...</span>")
-	if(do_after(usr, 2 SECONDS, target = usr))
+	if(do_after(usr, 2 SECONDS, usr))
 		var/turf/destination = get_turf(chosen)
 		if(QDELETED(chosen) || !usr|| usr.incapacitated() || !chosen || (get_dist(src, starting_mirror) > 1 || destination.z != usr.z))
 			return

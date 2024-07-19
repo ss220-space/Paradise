@@ -165,8 +165,7 @@
 	icon_state = "1-8"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
@@ -911,7 +910,9 @@
 /area/ruin/space/spacehotelv1/cargostorage)
 "gM" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/marker_beacon,
+/obj/structure/marker_beacon{
+	icon_state = "markerrandom"
+	},
 /turf/template_noop,
 /area/template_noop)
 "gN" = (
@@ -2040,7 +2041,7 @@
 "pf" = (
 /obj/item/clothing/head/kitty,
 /obj/item/clothing/under/maid,
-/obj/item/clothing/suit/browntrenchcoat,
+/obj/item/clothing/suit/storage/browntrenchcoat,
 /obj/structure/closet/cabinet,
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/space/spacehotelv1/guestroom3)
@@ -2248,8 +2249,7 @@
 	pixel_y = 32
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -3020,8 +3020,7 @@
 	pixel_y = -32
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
@@ -3126,8 +3125,7 @@
 /area/ruin/space/spacehotelv1/reception)
 "wl" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
@@ -6704,8 +6702,7 @@
 	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
@@ -6872,8 +6869,7 @@
 /area/ruin/space/spacehotelv1/bar)
 "Wa" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)

@@ -1,6 +1,6 @@
 /mob/living/silicon/robot/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if(M.a_intent == INTENT_DISARM)
-		if(!lying_angle)
+		if(body_position != LYING_DOWN)
 			M.do_attack_animation(src, ATTACK_EFFECT_DISARM)
 			var/obj/item/I = get_active_hand()
 			if(I)
@@ -19,7 +19,7 @@
 
 /mob/living/silicon/robot/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime shock
-		flash_eyes(affect_silicon = 1)
+		flash_eyes(3, affect_silicon = TRUE)
 		var/stunprob = M.powerlevel * 7 + 10
 		if(prob(stunprob) && M.powerlevel >= 8)
 			adjustBruteLoss(M.powerlevel * rand(6,10))

@@ -23,7 +23,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 /turf/simulated/floor
 	name = "floor"
 	icon = 'icons/turf/floors.dmi'
-	icon_state = "dont_use_this_floor"
+	icon_state = "dont_use_this_tile"
 	plane = FLOOR_PLANE
 	var/icon_regular_floor = "floor" //used to remember what icon the tile should have by default
 	var/floor_regular_dir = SOUTH  //used to remember what dir the tile should have by default
@@ -38,6 +38,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	var/floor_tile = null //tile that this floor drops
 	var/prying_tool = TOOL_CROWBAR //What tool/s can we use to pry up the tile?
 	var/keep_dir = TRUE //When false, resets dir to default on changeturf()
+	smoothing_groups = SMOOTH_GROUP_FLOOR
 
 	footstep = FOOTSTEP_FLOOR
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
@@ -109,14 +110,6 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 		return FALSE
 	return TRUE
 
-// Checks if there is foothold over the turf
-/turf/simulated/floor/proc/find_safeties()
-	var/static/list/safeties_typecache = typecacheof(list(/obj/structure/lattice/catwalk, /obj/structure/stone_tile))
-	var/list/found_safeties = typecache_filter_list(contents, safeties_typecache)
-	for(var/obj/structure/stone_tile/S in found_safeties)
-		if(S.fallen)
-			LAZYREMOVE(found_safeties, S)
-	return LAZYLEN(found_safeties)
 
 /turf/simulated/floor/blob_act(obj/structure/blob/B)
 	return
@@ -155,7 +148,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	return ChangeTurf(/turf/simulated/floor/plating)
 
 /turf/simulated/floor/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
-	if(!istype(src, /turf/simulated/floor))
+	if(!isfloorturf(src))
 		return ..() //fucking turfs switch the fucking src of the fucking running procs
 	if(!ispath(T, /turf/simulated/floor))
 		return ..()
@@ -295,7 +288,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	if(our_rcd.checkResource(5, user))
 		to_chat(user, "Deconstructing floor...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-		if(do_after(user, 50 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 5 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
 			if(!our_rcd.useResource(5, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
@@ -318,7 +311,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 			if(our_rcd.checkResource(3, user))
 				to_chat(user, "Building Wall...")
 				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-				if(do_after(user, 20 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+				if(do_after(user, 2 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
 					if(!our_rcd.useResource(3, user))
 						return RCD_ACT_FAILED
 					playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
@@ -334,7 +327,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 			if(our_rcd.checkResource(10, user))
 				to_chat(user, "Building Airlock...")
 				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-				if(do_after(user, 50 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+				if(do_after(user, 5 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
 					if(locate(/obj/machinery/door/airlock) in src.contents)
 						return RCD_NO_ACT
 					if(!our_rcd.useResource(10, user))
@@ -361,7 +354,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 				return RCD_ACT_FAILED
 			to_chat(user, "Constructing window...")
 			playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-			if(!do_after(user, 20 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+			if(!do_after(user, 2 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
 				to_chat(user, span_warning("ERROR! Construction interrupted!"))
 				return RCD_ACT_FAILED
 			if(locate(/obj/structure/grille) in src)
@@ -391,7 +384,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 			if(our_rcd.checkResource(8, user))
 				to_chat(user, "Building Firelock...")
 				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-				if(do_after(user, 50 * our_rcd.toolspeed * gettoolspeedmod(user), target = src))
+				if(do_after(user, 5 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
 					if(locate(/obj/machinery/door/firedoor) in src)
 						return RCD_NO_ACT
 					if(!our_rcd.useResource(8, user))

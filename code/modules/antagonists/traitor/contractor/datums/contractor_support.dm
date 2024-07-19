@@ -39,12 +39,12 @@
 		/obj/item/clothing/mask/chameleon = 1,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
 		/obj/item/lighter = 1,
-		/obj/item/melee/baton/cattleprod = 1,
+		/obj/item/melee/baton/security/cattleprod = 1,
 		/obj/item/stock_parts/cell/super = 1
 	)
 /datum/outfit/contractor_partner/post_equip(mob/living/carbon/human/partner, visualsOnly)
 	. = ..()
-	var/obj/item/clothing/mask/cigarette/syndicate/cig = partner.get_item_by_slot(SLOT_HUD_WEAR_MASK)
+	var/obj/item/clothing/mask/cigarette/syndicate/cig = partner.get_item_by_slot(ITEM_SLOT_MASK)
 	cig.light()
 
 	var/obj/item/card/id/I = partner.wear_id

@@ -142,6 +142,13 @@
 	cost = 1
 	allowed_roles = list(JOB_TITLE_CHIEF)
 
+/datum/gear/donor/strip/t4ce
+	display_name = "strip, Grand Chief Engineer"
+	path = /obj/item/clothing/accessory/head_strip/t4ce
+	donator_tier = 4
+	cost = 1
+	allowed_roles = list(JOB_TITLE_CHIEF)
+
 /datum/gear/donor/strip/cmo
 	display_name = "strip, Chief Medical Officer"
 	path = /obj/item/clothing/accessory/head_strip/cmo
@@ -196,7 +203,7 @@
 	path = /obj/item/clothing/glasses/heart
 	donator_tier = 3
 	cost = 1
-	slot = SLOT_HUD_GLASSES
+	slot = ITEM_SLOT_EYES
 
 /datum/gear/donor/heartglasses/New()
 	gear_tweaks += new /datum/gear_tweak/color(parent = src)
@@ -285,3 +292,58 @@
 	donator_tier = 3
 	cost = 1
 	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ATMOSTECH)
+
+/datum/gear/donor/beaver
+	display_name = "Beaver Plushie"
+	path = /obj/item/toy/plushie/beaver
+	donator_tier = 3
+	cost = 1
+
+/datum/gear/donor/hijab
+	donator_tier = 1
+	cost = 1
+	display_name = "hijab"
+	path = /obj/item/clothing/suit/hooded/hijab
+
+/datum/gear/donor/steampunkdress
+	donator_tier = 1
+	cost = 1
+	display_name = "victorian blue-white dress"
+	path = /obj/item/clothing/under/steampunkdress
+
+/datum/gear/donor/plaidhoodie_green
+	donator_tier = 1
+	cost = 1
+	display_name = "Plaid hoodie, green"
+	path = /obj/item/clothing/suit/hoodie/plaidhoodie_green
+
+/datum/gear/donor/plaidhoodie_white
+	donator_tier = 1
+	cost = 1
+	display_name = "Plaid hoodie, white"
+	path = /obj/item/clothing/suit/hoodie/plaidhoodie_white
+
+/datum/gear/donor/plaidhoodie_red
+	donator_tier = 1
+	cost = 1
+	display_name = "Plaid hoodie, red"
+	path = /obj/item/clothing/suit/hoodie/plaidhoodie_red
+
+/datum/gear/donor/plaidhoodie_yellow
+	donator_tier = 1
+	cost = 1
+	display_name = "Plaid hoodie, yellow"
+	path = /obj/item/clothing/suit/hoodie/plaidhoodie_yellow
+
+/datum/gear/donor/blackcoat
+	donator_tier = 2
+	cost = 2
+	display_name = "Black Coat"
+	path = /obj/item/clothing/suit/blackcoat
+
+/datum/gear/donor/pda_beer
+	display_name = "PDA case \"BEER\""
+	path = /obj/item/pda_case/beer
+	donator_tier = 1
+	cost = 1
+

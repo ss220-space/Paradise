@@ -18,7 +18,8 @@
 	attacktext = "бьёт"
 	mob_size = MOB_SIZE_SMALL
 	pass_flags = PASSTABLE
-	ventcrawler = VENTCRAWLER_ALWAYS
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	can_collar = TRUE
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 5)
 	response_help  = "pets"
@@ -36,7 +37,7 @@
 
 	var/hat_offset_y = -8
 	var/hat_offset_y_rest = -19
-	var/hat_icon_file = 'icons/mob/clothing/head.dmi'
+	var/hat_icon_file
 	var/hat_icon_state
 	var/hat_alpha
 	var/hat_color
@@ -82,10 +83,6 @@
 	gold_core_spawnable = NO_SPAWN
 	health = 300
 	maxHealth = 300
-
-/mob/living/simple_animal/pet/slugcat/New()
-	..()
-	regenerate_icons()
 
 
 /mob/living/simple_animal/pet/slugcat/attackby(obj/item/W, mob/user, params)
@@ -145,11 +142,12 @@
 	if(usr != src)
 		return TRUE
 
+
 /mob/living/simple_animal/pet/slugcat/regenerate_icons()
-	..()
-	if(inventory_hand)
-		if(istype(inventory_hand, /obj/item/twohanded/spear))
-			speared()
+	cut_overlays()
+	if(pcollar && collar_type)
+		add_overlay("[collar_type]collar")
+		add_overlay("[collar_type]tag")
 
 	if(inventory_head)
 		var/image/head_icon
@@ -160,32 +158,35 @@
 			hat_alpha = inventory_head.alpha
 		if(!hat_color)
 			hat_color = inventory_head.color
+		if(!hat_icon_file)
+			hat_icon_file = inventory_head.onmob_sheets[ITEM_SLOT_HEAD_STRING]
 
 		head_icon = get_hat_overlay()
 
 		add_overlay(head_icon)
 
+	update_fire()
+
 	if(blocks_emissive)
 		add_overlay(get_emissive_block())
 
-/mob/living/simple_animal/pet/slugcat/StartResting(updating = 1)
-	if(inventory_head || inventory_hand)
+
+/mob/living/simple_animal/pet/slugcat/on_lying_down(new_lying_angle)
+	if(inventory_head)
 		hat_offset_y = hat_offset_y_rest
-		drop_hand()
-		regenerate_icons()
+	drop_hand()
 	. = ..()
 
-/mob/living/simple_animal/pet/slugcat/StopResting(updating = 1)
+
+/mob/living/simple_animal/pet/slugcat/on_standing_up()
 	if(inventory_head)
 		hat_offset_y = initial(hat_offset_y)
-		regenerate_icons()
 	. = ..()
 
+
 /mob/living/simple_animal/pet/slugcat/proc/speared()
-	icon_state = "[initial(icon_state)]_spear"
-
+	icon_living = "[icon_living]_spear"
 	var/obj/item/twohanded/spear = inventory_hand
-
 	attacktext = "бьёт копьём"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	melee_damage_type = BRUTE
@@ -193,9 +194,10 @@
 	melee_damage_upper = round(spear.force_wielded / (is_reduce_damage ? 2 : 1))
 	armour_penetration = spear.armour_penetration
 	obj_damage = spear.force
+	update_icons()
 
 /mob/living/simple_animal/pet/slugcat/proc/unspeared()
-	icon_state = initial(icon_state)
+	icon_living = initial(icon_living)
 	attacktext = initial(attacktext)
 	attack_sound = initial(attack_sound)
 	melee_damage_type = initial(melee_damage_type)
@@ -203,6 +205,7 @@
 	melee_damage_upper = initial(melee_damage_upper)
 	armour_penetration = initial(armour_penetration)
 	obj_damage = initial(obj_damage)
+	update_icons()
 
 /mob/living/simple_animal/pet/slugcat/proc/get_hat_overlay()
 	if(hat_icon_file && hat_icon_state)
@@ -228,7 +231,7 @@
 
 /mob/living/simple_animal/pet/slugcat/proc/place_on_head(obj/item/item_to_add, mob/user)
 	if(!item_to_add)
-		if(flags_2 & HOLOGRAM_2) //Can't touch ephemeral dudes(
+		if(flags & HOLOGRAM) //Can't touch ephemeral dudes(
 			return FALSE
 		user.visible_message(span_notice("[user] похлопывает по голове [src.name]."), span_notice("Вы положили руку на голову [src.name]."))
 		return FALSE
@@ -256,7 +259,7 @@
 
 /mob/living/simple_animal/pet/slugcat/proc/remove_from_head(mob/user)
 	if(inventory_head)
-		if(inventory_head.flags & NODROP)
+		if(HAS_TRAIT(inventory_head, TRAIT_NODROP))
 			to_chat(user, span_warning("[inventory_head.name] застрял на голове [src.name]! Его невозможно снять!"))
 			return TRUE
 
@@ -281,13 +284,14 @@
 
 /mob/living/simple_animal/pet/slugcat/proc/null_hat()
 	inventory_head = null
+	hat_icon_file = null
 	hat_icon_state = null
 	hat_alpha = null
 	hat_color = null
 
 /mob/living/simple_animal/pet/slugcat/proc/place_to_hand(obj/item/item_to_add, mob/user)
 	if(!item_to_add)
-		if(flags_2 & HOLOGRAM_2) //Can't touch ephemeral dudes(
+		if(flags & HOLOGRAM) //Can't touch ephemeral dudes(
 			return FALSE
 		user.visible_message(span_notice("[user] пощупал лапки [src]."), span_notice("Вы пощупали лапки [src]."))
 		return FALSE
@@ -319,35 +323,35 @@
 
 	return TRUE
 
+
 /mob/living/simple_animal/pet/slugcat/proc/move_item_to_hand(obj/item/item_to_add)
 	item_to_add.forceMove(src)
 	inventory_hand = item_to_add
-	regenerate_icons()
+	speared()
+
 
 /mob/living/simple_animal/pet/slugcat/proc/remove_from_hand(mob/user)
 	if(inventory_hand)
-		if(inventory_hand.flags & NODROP)
+		if(HAS_TRAIT(inventory_hand, TRAIT_NODROP))
 			to_chat(user, span_warning("[inventory_hand.name] застрял в лапах [src]! Его невозможно отнять!"))
 			return TRUE
 
 		to_chat(user, span_warning("Вы забрали [inventory_hand.name] с лап [src]."))
 		drop_item_ground(inventory_hand)
 		user.put_in_hands(inventory_hand, ignore_anim = FALSE)
-
 		null_hand()
-
-		regenerate_icons()
 	else
 		to_chat(user, span_warning("В лапах [src] нечего отбирать!"))
 		return FALSE
 
 	return TRUE
 
+
 /mob/living/simple_animal/pet/slugcat/proc/drop_hand()
 	if(inventory_hand)
 		drop_item_ground(inventory_hand)
 		null_hand()
-		regenerate_icons()
+
 
 /mob/living/simple_animal/pet/slugcat/proc/null_hand()
 	unspeared()

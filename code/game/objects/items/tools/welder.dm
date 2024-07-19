@@ -8,7 +8,7 @@
 	item_state = "welder"
 	belt_icon = "welding_tool"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 3
 	var/force_enabled = 15
 	throwforce = 5
@@ -157,7 +157,7 @@
 	. = ..()
 	if(. && user)
 		if(progress_flash_divisor == 0)
-			user.flash_eyes(min(light_intensity, 1))
+			user.flash_eyes(min(light_intensity, TRUE))
 			progress_flash_divisor = initial(progress_flash_divisor)
 		else
 			progress_flash_divisor--

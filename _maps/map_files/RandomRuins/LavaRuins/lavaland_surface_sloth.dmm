@@ -24,7 +24,7 @@
 /turf/simulated/floor/wood/cold,
 /area/ruin/unpowered/misc_lavaruin)
 "w" = (
-/obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/effect/spawner/random_spawners/dirt_50,
 /turf/simulated/floor/wood/cold,
 /area/ruin/unpowered/misc_lavaruin)
 "z" = (
@@ -62,6 +62,10 @@
 /obj/item/flashlight/lamp,
 /obj/item/reagent_containers/food/snacks/grown/citrus/orange,
 /turf/simulated/floor/wood/cold,
+/area/ruin/unpowered/misc_lavaruin)
+"J" = (
+/obj/effect/baseturf_helper/lava_land/surface,
+/turf/simulated/floor/carpet/green,
 /area/ruin/unpowered/misc_lavaruin)
 "M" = (
 /obj/machinery/vending/cola/free,
@@ -241,7 +245,7 @@ z
 A
 g
 g
-D
+J
 A
 P
 P

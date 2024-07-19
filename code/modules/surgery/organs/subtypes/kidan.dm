@@ -35,7 +35,7 @@
 	if(glowing)//i hate this but i couldnt figure out a better way
 		if(owner.nutrition < KIDAN_LANTERN_MINHUNGER)
 			toggle_biolum(1)
-			to_chat(owner, span_warning("You're too hungry to be bioluminescent!"))
+			owner.balloon_alert(owner, "слишком голодный, чтобы светиться!")
 			return
 
 		if(owner.stat)
@@ -63,11 +63,11 @@
 
 /obj/item/organ/internal/lantern/proc/toggle_biolum(statoverride)
 	if(!statoverride && owner.incapacitated())
-		to_chat(owner, span_warning("You cannot alter your bioluminescence in your current state."))
+		owner.balloon_alert(owner, "не в текущем состоянии!")
 		return 0
 
 	if(!statoverride && owner.nutrition < KIDAN_LANTERN_MINHUNGER)
-		to_chat(owner, span_warning("You're too hungry to be bioluminescent!"))
+		owner.balloon_alert(owner, "слишком голодный, чтобы светиться!")
 		return 0
 
 	if(!colour)
@@ -163,7 +163,7 @@
 
 	. = ..()
 
-/obj/item/organ/external/head/kidan/replaced(mob/living/carbon/human/target)
+/obj/item/organ/external/head/kidan/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	if(iskidan(target))
 		target.adjustBrainLoss(30)

@@ -15,21 +15,19 @@
 		to_chat(user, span_warning("We are already absorbing!"))
 		return FALSE
 
-	var/obj/item/grab/grab = user.get_active_hand()
-	if(!istype(grab))
+	if(!user.pulling || user.pull_hand != user.hand)
 		to_chat(user, span_warning("We must be grabbing a creature in our active hand to absorb them."))
 		return FALSE
 
-	if(grab.state <= GRAB_NECK)
+	if(user.grab_state <= GRAB_NECK)
 		to_chat(user, span_warning("We must have a tighter grip to absorb this creature."))
 		return FALSE
 
-	return cling.can_absorb_dna(grab.affecting)
+	return cling.can_absorb_dna(user.pulling)
 
 
 /datum/action/changeling/absorbDNA/sting_action(mob/user)
-	var/obj/item/grab/grab = user.get_active_hand()
-	var/mob/living/carbon/human/target = grab.affecting
+	var/mob/living/carbon/human/target = user.pulling
 	cling.is_absorbing = TRUE
 
 	for(var/stage in 1 to 3)
@@ -46,7 +44,7 @@
 				target.take_overall_damage(40)
 
 		SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("Absorb DNA", "[stage]"))
-		if(!do_mob(user, target, 15 SECONDS) || !can_sting(user, TRUE))
+		if(!do_after(user, 15 SECONDS, target, NONE) || !can_sting(user, TRUE))
 			to_chat(user, span_warning("Our absorption of [target] has been interrupted!"))
 			cling.is_absorbing = FALSE
 			return FALSE

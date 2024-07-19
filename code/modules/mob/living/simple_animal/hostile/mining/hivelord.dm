@@ -32,13 +32,13 @@
 	pass_flags = PASSTABLE
 	butcher_results = list(/obj/item/organ/internal/regenerative_core = 1)
 	var/brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood
-	needs_gliding = FALSE
+
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/OpenFire(the_target)
 	if(world.time >= ranged_cooldown)
 		var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/A = new brood_type(loc)
-
-		A.admin_spawned = admin_spawned
+		if(flags & ADMIN_SPAWNED)
+			A.flags |= ADMIN_SPAWNED
 		A.GiveTarget(target)
 		A.friends = friends
 		A.faction = faction.Copy()
@@ -88,7 +88,6 @@
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
 	del_on_death = 1
-	needs_gliding = FALSE
 	var/life_time = 10 SECONDS
 
 
@@ -339,7 +338,7 @@
 	aggro_vision_range = 9
 	speed = 3
 	faction = list("mining")
-	weather_immunities = list("lava","ash")
+	weather_immunities = list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE)
 	obj_damage = 30
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	nightvision = 8
@@ -365,10 +364,8 @@
 
 /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/dwarf/equip(mob/living/carbon/human/H, use_prefs = FALSE, _mob_name = FALSE, _mob_gender = FALSE, _mob_species = FALSE)
 	. = ..()
-	H.dna.SetSEState(GLOB.smallsizeblock, 1, 1)
-	H.mutations.Add(DWARF)
-	genemutcheck(H, GLOB.smallsizeblock, null, MUTCHK_FORCED)
-	H.update_mutations()
+	H.force_gene_block(GLOB.smallsizeblock, TRUE)
+
 
 /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/Initialize(mapload)
 	var/type = pickweight(list("Miner" = 66, "Ashwalker" = 10, "Golem" = 10,"Clown" = 10, pick(list("Shadow", "YeOlde","Operative", "Cultist")) = 4))

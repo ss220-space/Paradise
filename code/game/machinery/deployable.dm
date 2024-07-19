@@ -20,7 +20,7 @@
 	var/stacktype = /obj/item/stack/sheet/metal
 
 /obj/structure/barricade/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		make_debris()
 	qdel(src)
 
@@ -93,7 +93,7 @@
 			return
 		else
 			to_chat(user, span_notice("You start adding [I] to [src]..."))
-			if(do_after(user, 50, target = src))
+			if(do_after(user, 5 SECONDS, src))
 				if(!W.use(5))
 					return
 				var/turf/T = get_turf(src)
@@ -120,13 +120,15 @@
 	desc = "Bags of sand. Self explanatory."
 	icon = 'icons/obj/smooth_structures/sandbags.dmi'
 	icon_state = "sandbags"
+	base_icon_state = "sandbags"
 	max_integrity = 280
 	proj_pass_rate = 20
 	pass_flags_self = LETPASSTHROW
 	bar_material = SAND
 	climbable = TRUE
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/barricade/sandbags, /turf/simulated/wall, /turf/simulated/wall/r_wall, /obj/structure/falsewall, /obj/structure/falsewall/reinforced, /turf/simulated/wall/rust, /turf/simulated/wall/r_wall/rust, /obj/structure/barricade/security)
+	smooth = SMOOTH_BITMASK
+	smoothing_groups = SMOOTH_GROUP_SANDBAGS
+	canSmoothWith = SMOOTH_GROUP_SECURITY_BARRICADE + SMOOTH_GROUP_SANDBAGS + SMOOTH_GROUP_WALLS
 	stacktype = null
 
 /obj/structure/barricade/security
@@ -149,7 +151,7 @@
 
 /obj/structure/barricade/security/proc/deploy()
 	icon_state = "barrier1"
-	density = TRUE
+	set_density(TRUE)
 	set_anchored(TRUE)
 	if(deploy_message)
 		visible_message(span_warning("[src] deploys!"))
@@ -169,7 +171,7 @@
 	. += span_notice("Alt-click to toggle modes.")
 
 /obj/item/grenade/barrier/AltClick(mob/living/carbon/user)
-	if(!istype(user) || !user.Adjacent(src) || user.incapacitated())
+	if(!istype(user) || !user.Adjacent(src) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	toggle_mode(user)
 

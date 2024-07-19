@@ -159,9 +159,9 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 /datum/game_mode/proc/cult_give_item(obj/item/item_path, mob/living/carbon/human/H)
 	var/list/slots = list(
-		"backpack" = SLOT_HUD_IN_BACKPACK,
-		"left pocket" = SLOT_HUD_LEFT_STORE,
-		"right pocket" = SLOT_HUD_RIGHT_STORE)
+		"backpack" = ITEM_SLOT_BACKPACK,
+		"left pocket" = ITEM_SLOT_POCKET_LEFT,
+		"right pocket" = ITEM_SLOT_POCKET_RIGHT)
 	var/T = new item_path(H)
 	var/item_name = initial(item_path.name)
 	var/where = H.equip_in_one_of_slots(T, slots, qdel_on_fail = TRUE)
@@ -238,7 +238,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			to_chat(M.current, "<span class='cultlarge'>Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!")
 			log_admin("The Blood Cult has Ascended. The blood halo started to appear.")
 			addtimer(CALLBACK(src, PROC_REF(ascend), M.current), 20 SECONDS)
-		GLOB.command_announcement.Announce("На вашей станции обнаружена внепространственная активность, связанная с культом [SSticker.cultdat ? SSticker.cultdat.entity_name : "Нар’Си"]. Данные свидетельствуют о том, что в ряды культа обращено около [ascend_percent * 100]% экипажа станции. Служба безопасности получает право свободно применять летальную силу против культистов. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны), но не должен выслеживать культистов и охотиться на них. Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/commandreport.ogg')
+		GLOB.command_announcement.Announce("На вашей станции обнаружена внепространственная активность, связанная с культом [SSticker.cultdat ? SSticker.cultdat.entity_name : "Нар’Си"]. Данные свидетельствуют о том, что в ряды культа обращено около [ascend_percent * 100]% экипажа станции. Служба безопасности получает право свободно применять летальную силу против культистов. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны). Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/commandreport.ogg')
 		log_game("Blood cult reveal. Powergame allowed.")
 
 

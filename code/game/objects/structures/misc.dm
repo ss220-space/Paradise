@@ -9,7 +9,7 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "signpost"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 
 /obj/structure/signpost/attack_hand(mob/user as mob)
 	add_fingerprint(user)
@@ -21,7 +21,7 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "signpost2"
 	anchored = TRUE
-	density = 0
+	density = FALSE
 
 /obj/structure/respawner
 	name = "\improper Long-Distance Cloning Machine"
@@ -30,6 +30,7 @@
 	icon_state = "borgcharger1(old)"
 	anchored = TRUE
 	density = TRUE
+	var/use_old_mind = FALSE
 
 /obj/structure/respawner/attack_ghost(mob/dead/observer/user)
 	var/response = alert(user, "Are you sure you want to spawn here?\n(If you do this, you won't be able to be cloned!)", "Respawn?", "Yes", "No")
@@ -37,8 +38,11 @@
 		user.forceMove(get_turf(src))
 		log_admin("[key_name_log(user)] was incarnated by a respawner machine.")
 		message_admins("[key_name_admin(user)] was incarnated by a respawner machine.")
-		var/mob/living/carbon/human/new_human = user.incarnate_ghost()
+		var/mob/living/carbon/human/new_human = user.incarnate_ghost(use_old_mind)
 		new_human.mind.offstation_role = TRUE // To prevent them being an antag objective
+
+/obj/structure/respawner/old_mind
+	use_old_mind = TRUE
 
 /obj/structure/ghost_beacon
 	name = "ethereal beacon"
@@ -46,7 +50,7 @@
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "anomaly_crystal"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	var/active = FALSE
 	var/ghost_alert_delay = 30 SECONDS
 	var/last_ghost_alert

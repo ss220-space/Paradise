@@ -141,8 +141,8 @@
 	icon_state = "mecha_rcd"
 	origin_tech = "materials=4;bluespace=3;magnets=4;powerstorage=4;engineering=4"
 	energy_drain = 500
-	range = MECHA_MELEE | MECHA_RANGED
-	flags_2 = NO_MAT_REDEMPTION_2
+	range = MECHA_MELEE|MECHA_RANGED
+	item_flags = NO_MAT_REDEMPTION
 	var/obj/item/rcd/mecha_ref/rcd_holder
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
@@ -256,7 +256,7 @@
 	if(!action_checks(target) || get_dist(chassis, target)>3)
 		return
 
-	if(istype(target, /turf/simulated/floor))
+	if(isfloorturf(target))
 		occupant_message("Building Wall...")
 		if(do_after_cooldown(target))
 			new /obj/structure/barricade/mime/mrcd(target)
@@ -457,7 +457,7 @@
 	last_piece = null
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/proc/dismantleFloor(turf/new_turf)
-	if(istype(new_turf, /turf/simulated/floor))
+	if(isfloorturf(new_turf))
 		var/turf/simulated/floor/T = new_turf
 		if(!istype(T, /turf/simulated/floor/plating))
 			T.make_plating(TRUE)
@@ -655,9 +655,9 @@
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/New()
 	..()
 	for(var/obj/item/item as anything in items_list)
-		item.flags |= NODROP
+		ADD_TRAIT(item, TRAIT_NODROP, type)
 		item.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-		item.slot_flags = null
+		item.slot_flags = NONE
 		item.w_class = WEIGHT_CLASS_HUGE
 		item.materials = null
 		item.tool_enabled = TRUE
@@ -723,7 +723,9 @@
 
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/emag_act(mob/user)
 	if(!emagged)
-		items_list.Add(new emag_item)
+		var/obj/item/emag_thing = new emag_item
+		items_list.Add(emag_thing)
+		ADD_TRAIT(emag_thing, TRAIT_NODROP, type)
 		emagged = TRUE
 		user.visible_message(span_warning("Sparks fly out of [name]"), span_notice("You short out the safeties on [name]."))
 		playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)

@@ -23,7 +23,7 @@
 	name = "regenerative core"
 	desc = "All that remains of a hivelord. It can be used to help keep your body going, but it will rapidly decay into uselessness."
 	icon_state = "roro core 2"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	slot = INTERNAL_ORGAN_HIVECORE
 	parent_organ_zone = BODY_ZONE_CHEST
 	force = 0
@@ -173,14 +173,14 @@
 
 /obj/item/organ/internal/legion_tumour/insert(mob/living/carbon/egg_owner, special)
 	. = ..()
-	ADD_TRAIT(egg_owner, TRAIT_XENO_HOST, GENERIC_TRAIT)
+	ADD_TRAIT(egg_owner, TRAIT_LEGION_TUMOUR, GENERIC_TRAIT)
 	egg_owner.med_hud_set_status()
 
 /obj/item/organ/internal/legion_tumour/remove(mob/living/carbon/egg_owner, special)
 	stage = 0
 	elapsed_time = 0
 	if(egg_owner)
-		REMOVE_TRAIT(egg_owner, TRAIT_XENO_HOST, GENERIC_TRAIT)
+		REMOVE_TRAIT(egg_owner, TRAIT_LEGION_TUMOUR, GENERIC_TRAIT)
 		egg_owner.med_hud_set_status()
 	. = ..()
 

@@ -18,7 +18,7 @@
 	hitsound = null
 	throwforce = 3
 	w_class = WEIGHT_CLASS_TINY
-	var/list/honk_sounds = list('sound/items/bikehorn.ogg' = 1)
+	var/list/honk_sounds = list('sound/items/bikehorn.ogg')
 	throw_speed = 3
 	throw_range = 15
 	attack_verb = list("HONKED")
@@ -32,7 +32,7 @@
 	desc = "Damn son, where'd you find this?"
 	icon_state = "air_horn"
 	origin_tech = "materials=4;engineering=4"
-	honk_sounds = list('sound/items/airhorn2.ogg' = 1)
+	honk_sounds = list('sound/items/airhorn2.ogg')
 
 /obj/item/bikehorn/golden
 	name = "golden bike horn"
@@ -51,7 +51,7 @@
 /obj/item/bikehorn/golden/proc/flip_mobs(mob/living/carbon/M, mob/user)
 	var/turf/T = get_turf(src)
 	for(M in ohearers(7, T))
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(!H.can_hear())
 				continue
@@ -67,7 +67,7 @@
 	icon_state = "clown_recorder"
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL = 180, MAT_GLASS = 90)
 	force = 2
 	throwforce = 0

@@ -206,7 +206,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containername = "security supply crate"
 
 /datum/syndie_supply_packs/security/stechkin
-	name = "FK-69 Pistol 'Stechkin' Crate"
+	name = "Syndicate Stechkin Pistol Crate"
 	contains = list(/obj/item/gun/projectile/automatic/pistol,
 					/obj/item/gun/projectile/automatic/pistol,
 					/obj/item/gun/projectile/automatic/pistol,
@@ -214,10 +214,10 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/suppressor,
 					/obj/item/suppressor)
 	cost = 2500
-	containername = "FK-69 Pistol 'Stechkin' crate"
+	containername = "Stechkin Pistol Crate"
 
 /datum/syndie_supply_packs/security/stechkin_ammo
-	name = "Stechkin - 10mm Magazine"
+	name = "Syndicate Stechkin - 10mm Magazine"
 	contains = list(/obj/item/ammo_box/magazine/m10mm,
 					/obj/item/ammo_box/magazine/m10mm,
 					/obj/item/ammo_box/magazine/m10mm,
@@ -228,7 +228,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containername = "Stechkin - 10mm Magazine crate"
 
 /datum/syndie_supply_packs/security/stechkin_ammo_ap
-	name = "Stechkin - 10mm Armour Piercing Magazine"
+	name = "Syndicate Stechkin - 10mm Armour Piercing Magazine"
 	contains = list(/obj/item/ammo_box/magazine/m10mm/ap,
 					/obj/item/ammo_box/magazine/m10mm/ap,
 					/obj/item/ammo_box/magazine/m10mm/ap,
@@ -239,7 +239,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containername = "Stechkin - 10mm Armour Piercing Magazine crate"
 
 /datum/syndie_supply_packs/security/stechkin_ammo_fire
-	name = "Stechkin - 10mm Incendiary Magazine"
+	name = "Syndicate Stechkin - 10mm Incendiary Magazine"
 	contains = list(/obj/item/ammo_box/magazine/m10mm/fire,
 					/obj/item/ammo_box/magazine/m10mm/fire,
 					/obj/item/ammo_box/magazine/m10mm/fire,
@@ -250,7 +250,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containername = "Stechkin - 10mm Incendiary Magazine crate"
 
 /datum/syndie_supply_packs/security/stechkin_ammo_hp
-	name = "Stechkin - 10mm Hollow Point Magazine"
+	name = "Syndicate Stechkin - 10mm Hollow Point Magazine"
 	contains = list(/obj/item/ammo_box/magazine/m10mm/hp,
 					/obj/item/ammo_box/magazine/m10mm/hp,
 					/obj/item/ammo_box/magazine/m10mm/hp,
@@ -1784,8 +1784,8 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 
 /datum/syndie_supply_packs/misc/mafia
 	name = "Mafia Supply Crate"
-	contains = list(/obj/item/clothing/suit/browntrenchcoat,
-					/obj/item/clothing/suit/blacktrenchcoat,
+	contains = list(/obj/item/clothing/suit/storage/browntrenchcoat,
+					/obj/item/clothing/suit/storage/blacktrenchcoat,
 					/obj/item/clothing/head/fedora/whitefedora,
 					/obj/item/clothing/head/fedora/brownfedora,
 					/obj/item/clothing/head/fedora,
@@ -2384,6 +2384,28 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/flash, // 0 TC
 					/obj/item/implanter/mindshield, //0 TC
 					/obj/item/clothing/suit/armor/vest/security
+					)
+	cost = 30000
+	containertype = /obj/structure/closet/crate/secure/syndicate
+	containername = "crate"
+
+/datum/syndie_supply_packs/syndicate_special/ocelot
+	name = "Syndicate 'Ocelot' Bundle"
+	contains = list(/obj/item/kitchen/knife/combat,											// 0 TK
+					/obj/item/gun/projectile/revolver,                                      // 50 TK
+					/obj/item/gun/projectile/revolver,                                      // 50 TK
+					/obj/item/ammo_box/a357,												// 0 TK
+					/obj/item/ammo_box/a357,												// 0 TK
+					/obj/item/ammo_box/speedloader/a357,                                    // 5 TK
+					/obj/item/ammo_box/speedloader/a357,                                    // 5 TK
+					/obj/item/clothing/under/syndicate/tacticool,                           // 0 TK
+					/obj/item/clothing/gloves/combat,                                       // 0 TK
+					/obj/item/clothing/shoes/combat,                                        // 0 TK
+					/obj/item/clothing/accessory/holster,                                   // 5 TK
+					/obj/item/clothing/head/beret,                                          // 0 TK
+					/obj/item/clothing/accessory/scarf/red,                                	// 0 TK
+					/obj/item/encryptionkey/syndicate,										// 0-2 TK
+					/obj/item/clothing/mask/holo_cigar,                                     // 10 TK
 					)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate

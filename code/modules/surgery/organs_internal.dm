@@ -183,8 +183,18 @@
 // Intermediate steps for branching organ manipulation.
 /datum/surgery/intermediate/manipulate
 	requires_bodypart = TRUE
-
-	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
+	possible_locs = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_HEAD,
+		BODY_ZONE_PRECISE_GROIN,
+		BODY_ZONE_PRECISE_EYES,
+		BODY_ZONE_PRECISE_MOUTH,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_TAIL,
+	)
 
 // All these surgeries are necessary for slotting into proxy steps
 
@@ -298,7 +308,7 @@
 	var/any_organs_damaged = FALSE
 
 	for(var/obj/item/organ/internal/organ as anything in get_organ_list(target_zone, target, affected))
-		if(!organ.damage)
+		if(!organ.has_damage())
 			continue
 		any_organs_damaged = TRUE
 		var/can_treat_robotic = organ.is_robotic() && istype(tool, /obj/item/stack/nanopaste)
@@ -317,6 +327,7 @@
 			to_chat(user, "[organ] can't be treated with [tool_name].")
 
 	if(!any_organs_damaged)
+		to_chat(user, "There are no damaged organs in [affected ? affected.name : parse_zone(target_zone)].")
 		return SURGERY_BEGINSTEP_SKIP
 
 	if(affected)
@@ -337,12 +348,11 @@
 		if(treated_robotic || treated_organic)
 			if(organ.is_dead())
 				continue
-			if(organ.damage)
-				user.visible_message(
-					span_notice("[user] treats damage to [target]'s [organ.name] with [tool_name]."),
-					span_notice("You treat damage to [target]'s [organ.name] with [tool_name].")
-				)
-				organ.damage = 0
+			user.visible_message(
+				span_notice("[user] treats damage to [target]'s [organ.name] with [tool_name]."),
+				span_notice("You treat damage to [target]'s [organ.name] with [tool_name].")
+			)
+			organ.damage = 0
 			organ.surgeryize()
 
 	return SURGERY_STEP_CONTINUE
@@ -388,6 +398,14 @@
 		to_chat(user, span_notice("There are no removeable organs in [target]'s [parse_zone(target_zone)]!"))
 		return SURGERY_BEGINSTEP_SKIP
 
+	var/mob/living/simple_animal/borer/B = target.has_brain_worms()
+	if(target_zone == BODY_ZONE_HEAD && B && B.host == target)
+		user.visible_message(
+			"[user] begins to extract [B] from [target]'s [parse_zone(target_zone)].",
+			span_notice("You begin to extract [B] from [target]'s [parse_zone(target_zone)]...")
+		)
+		return ..()
+
 	for(var/obj/item/organ/internal/organ as anything in organs)
 		if(organ.unremovable)
 			continue
@@ -414,14 +432,6 @@
 	return ..()
 
 /datum/surgery_step/internal/manipulate_organs/extract/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!extracting || extracting.owner != target)
-		user.visible_message(
-			span_notice("[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!"),
-			span_notice("You can't extract anything from [target]'s [parse_zone(target_zone)]!")
-		)
-		return SURGERY_STEP_CONTINUE
-
-
 	var/mob/living/simple_animal/borer/B = target.has_brain_worms()
 	if(target_zone == BODY_ZONE_HEAD && B && B.host == target)
 		user.visible_message(
@@ -430,6 +440,13 @@
 		)
 		add_attack_logs(user, target, "Surgically removed [B]. INTENT: [uppertext(user.a_intent)]")
 		B.leave_host()
+		return SURGERY_STEP_CONTINUE
+
+	if(!extracting || extracting.owner != target)
+		user.visible_message(
+			span_notice("[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!"),
+			span_notice("You can't extract anything from [target]'s [parse_zone(target_zone)]!")
+		)
 		return SURGERY_STEP_CONTINUE
 
 	user.visible_message(

@@ -26,12 +26,13 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 			CRASH("More map attributes pre-defined than existent z levels - [num_official_z_levels]")
 		var/name = features["name"]
 		var/linking = features["linkage"]
-		var/list/attributes = features["attributes"]
-		attributes = attributes.Copy() // Clone the list so it can't be changed on accident
+		var/list/traits = features["traits"]
+		traits = traits.Copy() // Clone the list so it can't be changed on accident
 
-		var/datum/space_level/S = new /datum/space_level(k, name, transition_type = linking, traits = attributes)
+		var/datum/space_level/S = new /datum/space_level(k, name, transition_type = linking, traits = traits)
 		z_list["[k]"] = S
 		levels_by_name[name] = S
+		SSmapping.manage_z_level(S)
 		k++
 
 	// Then, we take care of unmanaged z levels
@@ -43,13 +44,13 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 
 /datum/zlev_manager/proc/get_zlev(z)
 	if(!("[z]" in z_list))
-		throw EXCEPTION("Unmanaged z level: '[z]'")
+		log_runtime(EXCEPTION("Unmanaged z level: '[z]'"))
 	else
 		return z_list["[z]"]
 
 /datum/zlev_manager/proc/get_zlev_by_name(A)
 	if(!(A in levels_by_name))
-		throw EXCEPTION("Non-existent z level: '[A]'")
+		log_runtime(EXCEPTION("Non-existent z level: '[A]'"))
 	return levels_by_name[A]
 
 /*
@@ -104,8 +105,13 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 	while(world.maxz<new_maxz)
 		add_new_zlevel("Anonymous Z level [world.maxz]")
 
-// Increments the max z-level by one
-// For convenience's sake returns the z-level added
+/*
+ * * add_new_zlevel - Increments max z-level of world by one more z-level.
+ * Then applies name, linkage and traits to it.
+ * For convenience's sake returns the z-level added.
+ *
+ * This is a default way to create new z-level on your desire.
+ */
 /datum/zlev_manager/proc/add_new_zlevel(name, linkage = SELFLOOPING, traits = list(BLOCK_TELEPORT))
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NEW_Z, args)
 	if(name in levels_by_name)
@@ -115,58 +121,5 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 	var/datum/space_level/S = new /datum/space_level(our_z, name, transition_type = linkage, traits = traits)
 	levels_by_name[name] = S
 	z_list["[our_z]"] = S
+	SSmapping.manage_z_level(S)
 	return our_z
-
-/datum/zlev_manager/proc/cut_levels_downto(new_maxz)
-	if(world.maxz <= new_maxz)
-		return
-	while(world.maxz>new_maxz)
-		kill_topmost_zlevel()
-
-// Decrements the max z-level by one
-// not normally used, but hey the swapmap loader wanted it
-/datum/zlev_manager/proc/kill_topmost_zlevel()
-	var/our_z = world.maxz
-	var/datum/space_level/S = get_zlev(our_z)
-	z_list.Remove(S)
-	qdel(S)
-	world.maxz--
-
-
-// An internally-used proc used for heap-zlevel management
-/datum/zlev_manager/proc/add_new_heap()
-	world.incrementMaxZ()
-	var/our_z = world.maxz
-	var/datum/space_level/yup = new /datum/space_level/heap(our_z, traits = list(BLOCK_TELEPORT, ADMIN_LEVEL))
-	z_list["[our_z]"] = yup
-	return yup
-
-// This is what you can call to allocate a section of space
-// Later, I'll add an argument to let you define the flags on the region
-/datum/zlev_manager/proc/allocate_space(width, height)
-	if(width > world.maxx || height > world.maxy)
-		throw EXCEPTION("Too much space requested! \[[width],[height]\]")
-	if(!heaps.len)
-		heaps.len++
-		heaps[heaps.len] = add_new_heap()
-	var/datum/space_level/heap/our_heap
-	var/weve_got_vacancy = 0
-	for(our_heap in heaps)
-		weve_got_vacancy = our_heap.request(width, height)
-		if(weve_got_vacancy)
-			break // We're sticking with the present value of `our_heap` - it's got room
-		// This loop will also run out if no vacancies are found
-
-	if(!weve_got_vacancy)
-		heaps.len++
-		our_heap = add_new_heap()
-		heaps[heaps.len] = our_heap
-	return our_heap.allocate(width, height)
-
-/datum/zlev_manager/proc/free_space(datum/space_chunk/C)
-	if(!istype(C))
-		return
-	var/datum/space_level/heap/heap = z_list["[C.zpos]"]
-	if(!istype(heap))
-		throw EXCEPTION("Attempted to free chunk at invalid z-level ([C.x],[C.y],[C.zpos]) [C.width]x[C.height]")
-	heap.free(C)

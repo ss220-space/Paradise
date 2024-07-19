@@ -86,7 +86,7 @@
 	convertable_children = list(/obj/item/organ/external/foot)
 
 
-/obj/item/organ/external/leg/replaced(mob/living/carbon/human/target)
+/obj/item/organ/external/leg/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	owner.update_fractures_slowdown()
 
@@ -162,11 +162,11 @@
 	amputation_point = "left ankle"
 
 
-/obj/item/organ/external/foot/replaced(mob/living/carbon/human/target)
+/obj/item/organ/external/foot/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	owner.set_num_legs(owner.num_legs + 1)
 	if(is_usable())
-		owner.set_usable_legs(owner.usable_legs + 1)
+		owner.set_usable_legs(owner.usable_legs + 1, special)
 	owner.update_fractures_slowdown()
 
 
@@ -174,9 +174,10 @@
 	. = ..()
 	user.set_num_legs(user.num_legs - 1)
 	if(is_usable())
-		user.set_usable_legs(user.usable_legs - 1)
+		user.set_usable_legs(user.usable_legs - 1, special)
 	user.update_fractures_slowdown()
-	user.drop_item_ground(user.shoes, force = TRUE)
+	if(special == ORGAN_MANIPULATION_DEFAULT)
+		user.drop_item_ground(user.shoes, force = TRUE)
 
 
 /obj/item/organ/external/foot/fracture(silent = FALSE)
@@ -282,21 +283,21 @@
 	can_grasp = TRUE
 
 
-/obj/item/organ/external/hand/replaced(mob/living/carbon/human/target)
+/obj/item/organ/external/hand/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	owner.set_num_hands(owner.num_hands + 1)
 	if(is_usable())
-		owner.set_usable_hands(owner.usable_hands + 1)
+		owner.set_usable_hands(owner.usable_hands + 1, special, limb_zone)
 
 
 /obj/item/organ/external/hand/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
 	. = ..()
 	user.set_num_hands(user.num_hands - 1)
 	if(is_usable())
-		user.set_usable_hands(user.usable_hands - 1)
-	user.drop_item_ground(user.gloves, force = TRUE)
-	user.drop_item_ground(user.l_hand, force = TRUE)
-	user.drop_item_ground(user.r_hand, force = TRUE)
+		user.set_usable_hands(user.usable_hands - 1, special, limb_zone)
+	if(special == ORGAN_MANIPULATION_DEFAULT)
+		user.drop_item_ground(user.gloves, force = TRUE)
+		user.drop_item_ground(limb_zone == BODY_ZONE_PRECISE_L_HAND ? user.l_hand : user.r_hand, force = TRUE)
 
 
 /obj/item/organ/external/hand/necrotize(silent = FALSE)
@@ -305,7 +306,7 @@
 		return .
 
 	if(. != is_usable())
-		owner.set_usable_hands(owner.usable_hands - 1)
+		owner.set_usable_hands(owner.usable_hands - 1, hand_index = limb_zone)
 
 
 /obj/item/organ/external/hand/unnecrotize()
@@ -314,7 +315,7 @@
 		return .
 
 	if(. != is_usable())
-		owner.set_usable_hands(owner.usable_hands + 1)
+		owner.set_usable_hands(owner.usable_hands + 1, hand_index = limb_zone)
 
 
 /obj/item/organ/external/hand/mutate(silent = FALSE)
@@ -323,7 +324,7 @@
 		return .
 
 	if(. != is_usable())
-		owner.set_usable_hands(owner.usable_hands - 1)
+		owner.set_usable_hands(owner.usable_hands - 1, hand_index = limb_zone)
 
 
 /obj/item/organ/external/hand/unmutate(silent = FALSE)
@@ -332,14 +333,14 @@
 		return .
 
 	if(. != is_usable())
-		owner.set_usable_hands(owner.usable_hands + 1)
+		owner.set_usable_hands(owner.usable_hands + 1, hand_index = limb_zone)
 
 
 /obj/item/organ/external/hand/emp_act(severity)
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented arms and hands drop whatever they are holding on EMP.
 		return
-	var/hand = (limb_zone == BODY_ZONE_L_ARM) ? owner.l_hand : owner.r_hand
+	var/hand = (limb_zone == BODY_ZONE_PRECISE_L_HAND) ? owner.l_hand : owner.r_hand
 	if(hand && owner.can_unEquip(hand))
 		owner.drop_item_ground(hand)
 		to_chat(owner, span_userdanger("Ваш [name] выходит из строя, dropping what it was holding!"))
@@ -388,34 +389,32 @@
 	var/sec_facial_colour = "#000000"
 	var/f_style = "Shaved"
 
+
 /obj/item/organ/external/head/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
-	if(owner)
+	if(owner && special == ORGAN_MANIPULATION_DEFAULT)
 		if(!istype(dna))
 			dna = owner.dna.Clone()
+		get_icon()
 		name = "[dna.real_name]'s head"
-		if(owner.head)
-			owner.drop_item_ground(owner.head, force = TRUE)
-		if(owner.wear_mask)
-			owner.drop_item_ground(owner.wear_mask, force = TRUE)
-		if(owner.glasses)
-			owner.drop_item_ground(owner.glasses, force = TRUE)
-		if(owner.l_ear)
-			owner.drop_item_ground(owner.l_ear, force = TRUE)
-		if(owner.r_ear)
-			owner.drop_item_ground(owner.r_ear, force = TRUE)
+		owner.drop_item_ground(owner.head, force = TRUE)
+		owner.drop_item_ground(owner.wear_mask, force = TRUE)
+		owner.drop_item_ground(owner.glasses, force = TRUE)
+		owner.drop_item_ground(owner.l_ear, force = TRUE)
+		owner.drop_item_ground(owner.r_ear, force = TRUE)
 		owner.update_hair()
 		owner.update_fhair()
 		owner.update_head_accessory()
 		owner.update_markings()
 	. = ..()
 
-/obj/item/organ/external/head/replaced()
+
+/obj/item/organ/external/head/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	name = limb_zone
-	..()
+	. = ..()
 
 
 /obj/item/organ/external/head/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE, silent = FALSE)
-	..()
+	. = ..()
 	if(brute_dam + burn_dam > 50)
 		disfigure(silent)
 

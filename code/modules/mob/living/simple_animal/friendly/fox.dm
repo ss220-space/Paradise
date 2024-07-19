@@ -15,6 +15,7 @@
 	speak_chance = 1
 	turns_per_move = 5
 	nightvision = 6
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 3)
 	response_help = "pets"
 	response_disarm = "gently pushes aside"
@@ -31,6 +32,12 @@
 	melee_damage_type = BRUTE
 	melee_damage_lower = 6
 	melee_damage_upper = 12
+
+
+/mob/living/simple_animal/pet/dog/fox/forest/winter
+	minbodytemp = 0
+	weather_immunities = list(TRAIT_SNOWSTORM_IMMUNE)
+
 
 //Captain fox
 /mob/living/simple_animal/pet/dog/fox/Renault

@@ -43,11 +43,11 @@
 		return TRUE
 	return I.attack(src, user)
 
-/obj/item/proc/attack(mob/living/target, mob/living/user, def_zone)
+/obj/item/proc/attack(mob/living/target, mob/living/user, def_zone, add_melee_cooldown = TRUE, skip_attack_anim = FALSE)
 	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, target, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, target, user)
-	if(flags & (NOBLUDGEON))
+	if(item_flags & NOBLUDGEON)
 		return FALSE
 
 	if (check_item_eat(target, user))
@@ -68,8 +68,10 @@
 	target.lastattacker = user.real_name
 	target.lastattackerckey = user.ckey
 
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(target)
+	if(add_melee_cooldown)
+		user.changeNext_move(CLICK_CD_MELEE)
+	if(!skip_attack_anim)
+		user.do_attack_animation(target)
 	. = target.attacked_by(src, user, def_zone)
 
 	add_fingerprint(user)
@@ -79,7 +81,7 @@
 /obj/item/proc/attack_obj(obj/O, mob/living/user, params)
 	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_OBJ, O, user) & COMPONENT_NO_ATTACK_OBJ)
 		return
-	if(flags & (NOBLUDGEON))
+	if(item_flags & NOBLUDGEON)
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(O)
@@ -116,10 +118,6 @@
 	else
 		return ..()
 
-// Proximity_flag is 1 if this afterattack was called on something adjacent, in your square, or on your person.
-// Click parameters is the params string from byond Click() code, see that documentation.
-/obj/item/proc/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	return
 
 /obj/item/proc/get_clamped_volume()
 	if(w_class)

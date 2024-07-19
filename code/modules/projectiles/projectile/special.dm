@@ -133,18 +133,17 @@
 	damage_type = BRUTE
 	nodamage = TRUE
 	flag = "bullet"
+	hitsound = 'sound/effects/meteorimpact.ogg'
 
-/obj/item/projectile/meteor/Bump(atom/A, yes)
-	if(yes)
-		return
-	if(A == firer)
-		loc = A.loc
-		return
-	playsound(loc, 'sound/effects/meteorimpact.ogg', 40, 1)
-	for(var/mob/M in urange(10, src))
-		if(!M.stat)
-			shake_camera(M, 3, 1)
-	qdel(src)
+
+/obj/item/projectile/meteor/on_hit(atom/target, blocked, hit_zone)
+	. = ..()
+	if(blocked >= 100)
+		return FALSE
+	for(var/mob/mob in urange(10, src))
+		if(!mob.stat)
+			shake_camera(mob, 3, 1)
+
 
 /obj/item/projectile/energy/floramut
 	name = "alpha somatoray"
@@ -168,10 +167,9 @@
 				M.visible_message("<span class='warning'>[M] writhes in pain as [M.p_their()] vacuoles boil.</span>", "<span class='userdanger'>You writhe in pain as your vacuoles boil!</span>", "<span class='italics'>You hear the crunching of leaves.</span>")
 				if(prob(80))
 					randmutb(M)
-					domutcheck(M,null)
 				else
 					randmutg(M)
-					domutcheck(M,null)
+				M.check_genes()
 			else
 				M.adjustFireLoss(rand(5,15))
 				M.show_message("<span class='warning'>The radiation beam singes you!</span>")
@@ -217,13 +215,20 @@
 	name = "snap-pop"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "snappop"
+	nodamage = TRUE
+	damage = 0
 
-/obj/item/projectile/clown/Bump(atom/A as mob|obj|turf|area)
-	do_sparks(3, 1, src)
-	new /obj/effect/decal/cleanable/ash(loc)
-	visible_message("<span class='warning'>The [name] explodes!</span>","<span class='warning'>You hear a snap!</span>")
-	playsound(src, 'sound/effects/snap.ogg', 50, 1)
-	qdel(src)
+
+/obj/item/projectile/clown/on_hit(atom/target, blocked, hit_zone)
+	. = ..()
+	if(blocked >= 100)
+		return .
+	do_sparks(3, 1, target)
+	target.visible_message(span_warning("The [name] explodes!"))
+	playsound(target, 'sound/effects/snap.ogg', 50, TRUE)
+	if(isturf(target.loc) && !target.loc.density)
+		new /obj/effect/decal/cleanable/ash(target.loc)
+
 
 /obj/item/projectile/beam/wormhole
 	name = "bluespace beam"
@@ -343,7 +348,7 @@
 
 /obj/item/projectile/snowball/on_hit(atom/target)	//chilling
 	. = ..()
-	if(istype(target, /mob/living))
+	if(isliving(target))
 		var/mob/living/M = target
 		M.adjust_bodytemperature(-50)	//each hit will drop your body temp, so don't get surrounded!
 		M.ExtinguishMob()	//bright side, they counter being on fire!

@@ -48,14 +48,14 @@
 
 /datum/multitool_menu_host/proc/notify_if_no_access(mob/user)
 	if(!multitool.allowed(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		user.balloon_alert(user, "доступ запрещен")
 		return TRUE
 	return FALSE
 
-/datum/multitool_menu_host/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/multitool_menu_host/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Multitool", multitool.name, 510, 420, master_ui, state)
+		ui = new(user, src, "Multitool", multitool.name)
 		ui.set_autoupdate(TRUE)
 		ui.open()
 
@@ -142,7 +142,7 @@
 		return
 	holder.add_fingerprint(user)
 	if(inoperable())
-		to_chat(user, "<span class='warning'>You attach [multitool] to [holder], but nothing happens. [holder] seems to be inoperable.</span>")
+		to_chat(user,  span_warning("You attach [multitool] to [holder], but nothing happens. [holder] seems to be inoperable."))
 		return
 	src.multitool = multitool
 	src.multitool.menu.interact(user, src)
@@ -161,7 +161,7 @@
 	Used to check if we still need to apply changes (returns true if we don't), e.g. after input() call.
 	*/
 	if(!multitool)
-		to_chat(user, "<span class='warning'>You are unable to reach [holder ? holder : "the thing"].</span>")
+		to_chat(user, span_warning("You are unable to reach [holder ? holder : "the thing"]."))
 		return TRUE
 	return FALSE
 

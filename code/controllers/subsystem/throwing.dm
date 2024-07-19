@@ -100,7 +100,7 @@ SUBSYSTEM_DEF(throwing)
 /datum/thrownthing/New(thrownthing, target, init_dir, maxrange, speed, thrower, diagonals_first, force, callback, target_zone, dodgeable)
 	. = ..()
 	src.thrownthing = thrownthing
-	RegisterSignal(thrownthing, COMSIG_PARENT_QDELETING, PROC_REF(on_thrownthing_qdel))
+	RegisterSignal(thrownthing, COMSIG_QDELETING, PROC_REF(on_thrownthing_qdel))
 	src.starting_turf = get_turf(thrownthing)
 	src.target_turf = get_turf(target)
 	if(target_turf != target)
@@ -157,9 +157,6 @@ SUBSYSTEM_DEF(throwing)
 	//calculate how many tiles to move, making up for any missed ticks.
 	var/tilestomove = CEILING(min(((((world.time + world.tick_lag) - start_time + delayed_time) * speed) - (dist_travelled ? dist_travelled : -1)), speed * MAX_TICKS_TO_MAKE_UP) * (world.tick_lag * SSthrowing.wait), 1)
 	while(tilestomove-- > 0)
-		if(!AM.throwing)	// datum was nullified on finalize, our job is done
-			return
-
 		if((dist_travelled >= maxrange || AM.loc == target_turf) && AM.has_gravity(AM.loc))
 			if(!hitcheck())
 				finalize()
@@ -179,7 +176,10 @@ SUBSYSTEM_DEF(throwing)
 			finalize()
 			return
 
-		AM.Move(step, get_dir(AM, step))
+		if(!AM.Move(step, get_dir(AM, step), DELAY_TO_GLIDE_SIZE(1 / speed))) // we hit something during our move...
+			if(AM.throwing) // ...but finalize() wasn't called on Bump() because of a higher level definition that doesn't always call parent.
+				finalize()
+			return
 
 		dist_travelled++
 
@@ -218,15 +218,14 @@ SUBSYSTEM_DEF(throwing)
 	if(QDELETED(thrownthing))
 		return
 
-	if(isturf(thrownthing.loc))
-		thrownthing.newtonian_move(REVERSE_DIR(init_dir))
+	thrownthing.newtonian_move(REVERSE_DIR(init_dir))
 
 	qdel(src)
 
 
 /datum/thrownthing/proc/hitcheck()
 	for(var/atom/movable/obstacle as anything in get_turf(thrownthing))
-		if(obstacle == thrownthing || (obstacle == thrower && !ismob(thrownthing)))
+		if(obstacle == thrownthing || obstacle == thrower)
 			continue
 		if(ismob(obstacle) && (thrownthing.pass_flags & PASSMOB))
 			continue

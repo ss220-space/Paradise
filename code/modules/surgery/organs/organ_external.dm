@@ -81,8 +81,6 @@
 	/// Whether this bodypart can be used for grasping
 	var/can_grasp = FALSE
 
-	/// If `TRUE` you cannot be identified by examine (used for head bodypart only)
-	var/disfigured = FALSE
 	/// Whether prosthetic bodypart is emagged, it will detonate when it fails
 	var/sabotaged = FALSE
 	/// Time when this organ was last splinted
@@ -91,7 +89,7 @@
 	var/list/embedded_objects
 
 	/// Whether bodypart has an open incision from surgery
-	var/open = 0
+	var/open = ORGAN_CLOSED
 	/// Whether bodypart needs to be opened with a saw to access the internal organs. Can be a string with encasing description
 	var/encased = FALSE
 	/// Reference to item hidden in this bodypart after cavity surgery
@@ -107,14 +105,14 @@
 	light_on = FALSE
 
 
-/obj/item/organ/external/New(mob/living/carbon/holder)
+/obj/item/organ/external/New(mob/living/carbon/holder, special = ORGAN_MANIPULATION_NOEFFECT)
 	..()
 
 	if(dna?.species)
 		icobase = dna.species.icobase
 		deform = dna.species.deform
 	if(ishuman(holder))
-		replaced(holder)
+		replaced(holder, special)
 		sync_colour_to_human(holder)
 		properly_attached = TRUE
 
@@ -164,12 +162,12 @@
 	QDEL_NULL(hidden)
 
 	if(owner && !owner.has_embedded_objects())
-		owner.clear_alert("embeddedobject")
+		owner.clear_alert(ALERT_EMBEDDED)
 
 	return ..()
 
 
-/obj/item/organ/external/replaced(mob/living/carbon/human/target)
+/obj/item/organ/external/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	owner = target
 
 	forceMove(owner)
@@ -177,7 +175,7 @@
 		SEND_SIGNAL(owner, COMSIG_CARBON_GAIN_ORGAN, src)
 
 	if(LAZYLEN(embedded_objects))
-		owner.throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
+		owner.throw_alert(ALERT_EMBEDDED, /atom/movable/screen/alert/embeddedobject)
 
 	if(!ishuman(owner))
 		return
@@ -189,7 +187,7 @@
 	owner.bodyparts |= src
 
 	for(var/atom/movable/thing in src)
-		thing.attempt_become_organ(src, owner)
+		thing.attempt_become_organ(src, owner, special)
 
 	if(parent_organ_zone)
 		parent = owner.bodyparts_by_name[parent_organ_zone]
@@ -238,10 +236,10 @@
 		qdel(src)
 
 
-/obj/item/organ/external/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target)
+/obj/item/organ/external/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	if(parent_organ_zone != parent.limb_zone)
 		return FALSE
-	replaced(target)
+	replaced(target, special)
 	return TRUE
 
 
@@ -278,7 +276,7 @@
 			brute -= internal_damage
 
 	if(!silent && brute && has_fracture() && owner?.has_pain() && prob(40))
-		owner.emote("scream")	// Getting hit on broken hand hurts
+		INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")	// Getting hit on broken hand hurts
 	else if(brute && prob((brute + burn) * 4))
 		remove_splint(splint_break = TRUE, silent = silent)	// Taking damage to splinted limbs removes the splints
 
@@ -422,16 +420,12 @@ This function completely restores a damaged organ to perfect condition.
 /obj/item/organ/external/rejuvenate()
 	damage_state = "00"
 	surgeryize()
-	if(is_robotic())	//Robotic organs stay robotic.
-		status = ORGAN_ROBOT
-	else
-		status = NONE
+	heal_status_wounds(ALL)
 	germ_level = 0
 	perma_injury = 0
 	brute_dam = 0
 	burn_dam = 0
 	open = ORGAN_CLOSED //Closing all wounds.
-	disfigured = FALSE
 
 	// handle internal organs
 	for(var/obj/item/organ/internal/organ as anything in internal_organs)
@@ -445,6 +439,21 @@ This function completely restores a damaged organ to perfect condition.
 	update_state()
 	if(!owner)
 		START_PROCESSING(SSobj, src)
+
+/obj/item/organ/external/proc/heal_status_wounds(flags_to_heal = ALL)
+	if(is_robotic())
+		status = ORGAN_ROBOT
+		return
+	if(flags_to_heal & ORGAN_MUTATED)
+		unmutate()
+	if(flags_to_heal & ORGAN_DEAD)
+		unnecrotize()
+	if(flags_to_heal & ORGAN_BROKEN)
+		mend_fracture()
+	if(flags_to_heal & ORGAN_INT_BLEED)
+		stop_internal_bleeding()
+	if(flags_to_heal & ORGAN_DISFIGURED)
+		undisfigure()
 
 
 /****************************************************
@@ -705,7 +714,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(I.sharp)
 		add_fingerprint(user)
 		if(!length(contents))
-			to_chat(user, span_warning("There is nothing left inside [src]!"))
+			user.balloon_alert(user, "внутри ничего нет!")
 			return
 
 		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
@@ -713,7 +722,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			span_warning("[user] begins to cut open [src]."),
 			span_notice("You begin to cut open [src]..."),
 		)
-		if(do_after(user, 5 SECONDS, target = src) && length(contents) && !QDELETED(src) && !QDELETED(user))
+		if(do_after(user, 5 SECONDS, src) && length(contents) && !QDELETED(src) && !QDELETED(user))
 			drop_organs()
 	else
 		return ..()
@@ -840,7 +849,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	return TRUE
 
-
 /obj/item/organ/external/proc/fracture(silent = FALSE)
 	if(!CONFIG_GET(flag/bones_can_break))
 		return FALSE
@@ -850,7 +858,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return FALSE
 	if(has_fracture() || cannot_break)
 		return FALSE
-
+	
 	if(owner && !silent)
 		owner.visible_message(
 			span_warning("You hear a loud cracking sound coming from \the [owner]."),
@@ -861,7 +869,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		playsound(owner, "bonebreak", 150, TRUE)
 
 		if(owner.has_pain())
-			owner.emote("scream")
+			INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 
 	status |= ORGAN_BROKEN
 	broken_description = pick("broken", "fracture", "hairline fracture")
@@ -871,6 +879,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(prob(25))
 		release_restraints(silent = silent)
 
+	SEND_SIGNAL(owner, COMSIG_CARBON_RECEIVE_FRACTURE)
 	return TRUE
 
 
@@ -920,7 +929,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if(splint_break)
 			owner.Stun(4 SECONDS)
 			if(owner.has_pain() && !silent)
-				owner.emote("scream")
+				INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 				owner.visible_message(
 					span_danger("[owner] screams in pain as [owner.p_their()] splint pops off their [name]!"),
 					span_userdanger("You scream in pain as your splint pops off your [name]!"),
@@ -1052,7 +1061,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 /obj/item/organ/external/proc/disfigure(silent = FALSE)
-	if(is_disfigured())
+	if(is_disfigured() || is_robotic())
 		return FALSE
 
 	if(owner)
@@ -1066,19 +1075,22 @@ Note that amputating the affected organ does in fact remove the infection from t
 				span_italics("You hear a sickening sound.")
 			)
 
-	disfigured = TRUE
+	status |= ORGAN_DISFIGURED
 	return TRUE
 
 
 /obj/item/organ/external/proc/is_disfigured()
-	return disfigured
+	return (status & ORGAN_DISFIGURED)
 
 
 /obj/item/organ/external/proc/undisfigure()
+	if(is_robotic())
+		return FALSE
+
 	if(!is_disfigured())
 		return FALSE
 
-	disfigured = FALSE
+	status &= ~ORGAN_DISFIGURED
 
 	return TRUE
 
@@ -1135,7 +1147,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		thing.forceMove(drop_loc)
 		.++
 	if(clear_alert && owner && !owner.has_embedded_objects())
-		owner.clear_alert("embeddedobject")
+		owner.clear_alert(ALERT_EMBEDDED)
 	return .
 
 
@@ -1145,7 +1157,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	LAZYREMOVE(embedded_objects, thing)
 	thing.forceMove(drop_loc ? drop_loc : drop_location())
 	if(clear_alert && owner && !owner.has_embedded_objects())
-		owner.clear_alert("embeddedobject")
+		owner.clear_alert(ALERT_EMBEDDED)
 	return TRUE
 
 
@@ -1153,7 +1165,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	LAZYOR(embedded_objects, thing)
 	thing.forceMove(src)
 	if(throw_alert)
-		owner?.throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
+		owner?.throw_alert(ALERT_EMBEDDED, /atom/movable/screen/alert/embeddedobject)
 
 
 #undef LIMB_SHARP_THRESH_INT_DMG

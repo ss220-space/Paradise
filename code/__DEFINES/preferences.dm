@@ -57,11 +57,12 @@
 #define PREFTOGGLE_2_REVERB_DISABLE			(1<<10) // 1024
 #define PREFTOGGLE_2_MC_TABS				(1<<11) // 2048
 #define PREFTOGGLE_2_DISABLE_TGUI_LISTS		(1<<12) // 4096
-#define PREFTOGGLE_2_PARALLAX_IN_DARKNESS	(1<<13) // 8192
+#define PREFTOGGLE_2_PARALLAX_MULTIZ		(1<<13) // 8192
+#define PREFTOGGLE_2_DISABLE_VOTE_POPUPS	(1<<14)	// 16384
 
-#define TOGGLES_2_TOTAL						16383 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define TOGGLES_2_TOTAL						32767 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
-#define TOGGLES_2_DEFAULT (PREFTOGGLE_2_FANCYUI|PREFTOGGLE_2_ITEMATTACK|PREFTOGGLE_2_WINDOWFLASHING|PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_2_DEATHMESSAGE|PREFTOGGLE_2_SEE_ITEM_OUTLINES)
+#define TOGGLES_2_DEFAULT (PREFTOGGLE_2_FANCYUI|PREFTOGGLE_2_ITEMATTACK|PREFTOGGLE_2_WINDOWFLASHING|PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_2_DEATHMESSAGE|PREFTOGGLE_2_SEE_ITEM_OUTLINES|PREFTOGGLE_2_PARALLAX_MULTIZ)
 
 // Sanity checks
 #if TOGGLES_TOTAL > 16777215
@@ -108,3 +109,10 @@
 #define PARALLAX_MED			4
 #define PARALLAX_HIGH			8
 #define PARALLAX_INSANE			16
+
+// Defines for how detailed multi-z is.
+// The lower values should improve perfomance
+#define MULTIZ_DETAIL_DEFAULT -1
+#define MULTIZ_DETAIL_HIGH 2
+#define MULTIZ_DETAIL_MEDIUM 1
+#define MULTIZ_DETAIL_LOW 0

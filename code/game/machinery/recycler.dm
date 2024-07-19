@@ -7,7 +7,7 @@
 	icon_state = "grinder-o0"
 	layer = MOB_LAYER+1 // Overhead
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	damage_deflection = 15
 	var/emergency_mode = FALSE // Temporarily stops machine if it detects a mob
 	var/icon_name = "grinder-o"
@@ -88,29 +88,18 @@
 	icon_state = icon_name + "[is_powered]" + "[(blood ? "bld" : "")]" // add the blood tag at the end
 
 
-// This is purely for admin possession !FUN!.
-/obj/machinery/recycler/Bump(atom/movable/AM)
-	..()
-	if(AM)
-		Bumped(AM)
-
 /obj/machinery/recycler/Bumped(atom/movable/moving_atom)
-	..()
-
-	if(stat & (BROKEN|NOPOWER))
-		return
-	if(!anchored)
-		return
-	if(emergency_mode)
-		return
-
+	. = ..()
+	if((stat & (BROKEN|NOPOWER)) || !anchored || emergency_mode)
+		return .
 	var/move_dir = get_dir(loc, moving_atom.loc)
 	if(move_dir == eat_dir)
 		eat(moving_atom)
 
+
 /obj/machinery/recycler/proc/eat(atom/AM0, sound = 1)
 	var/list/to_eat = list(AM0)
-	if(istype(AM0, /obj/item))
+	if(isitem(AM0))
 		to_eat += AM0.GetAllContents()
 	var/items_recycled = 0
 
@@ -123,7 +112,7 @@
 				crush_living(AM)
 			else
 				emergency_stop(AM)
-		else if(istype(AM, /obj/item))
+		else if(isitem(AM))
 			recycle_item(AM)
 			items_recycled++
 		else
@@ -150,7 +139,7 @@
 	playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
 	emergency_mode = TRUE
 	update_icon(UPDATE_ICON_STATE)
-	L.loc = loc
+	L.forceMove(loc)
 	addtimer(CALLBACK(src, PROC_REF(reboot)), SAFETY_COOLDOWN)
 
 /obj/machinery/recycler/proc/reboot()
@@ -160,7 +149,7 @@
 
 /obj/machinery/recycler/proc/crush_living(mob/living/L)
 
-	L.loc = loc
+	L.forceMove(loc)
 
 	if(issilicon(L))
 		playsound(loc, 'sound/items/welder.ogg', 50, 1)
@@ -202,7 +191,7 @@
 
 	var/mob/living/user = usr
 
-	if(usr.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(anchored)
 		to_chat(usr, "[src] is fastened to the floor!")
@@ -218,7 +207,7 @@
 
 	var/mob/living/user = usr
 
-	if(usr.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(anchored)
 		to_chat(usr, "[src] is fastened to the floor!")

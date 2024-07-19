@@ -85,7 +85,7 @@ GLOBAL_LIST_INIT(tendrils, list())
 	if(GLOB.tendrils.len>1)
 		last_tendril = FALSE
 
-	if(last_tendril && !admin_spawned)
+	if(last_tendril && !(flags & ADMIN_SPAWNED))
 		if(SSmedals.hub_enabled)
 			for(var/mob/living/L in view(7,src))
 				if(L.stat || !L.client)
@@ -97,8 +97,8 @@ GLOBAL_LIST_INIT(tendrils, list())
 	return ..()
 
 /obj/effect/light_emitter/tendril
-	set_luminosity = 4
-	set_cap = 2.5
+	light_range = 4
+	light_power = 2.5
 	light_color = LIGHT_COLOR_LAVA
 
 /obj/effect/collapse

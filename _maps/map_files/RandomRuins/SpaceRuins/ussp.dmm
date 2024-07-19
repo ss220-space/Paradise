@@ -57,9 +57,6 @@
 "al" = (
 /turf/simulated/wall/mineral/titanium,
 /area/derelict/bridge)
-"am" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/bridge)
 "an" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -73,12 +70,12 @@
 /area/derelict/bridge)
 "ao" = (
 /obj/effect/landmark/tiles/damageturf,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/bridge)
 "ap" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/landmark/tiles/burnturf,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/bridge)
 "aq" = (
 /obj/effect/landmark/tiles/burnturf,
@@ -153,14 +150,14 @@
 "az" = (
 /obj/item/paper/djstation{
 	info = "<b>Август 28, 2532</b><hr><small>Наш пост прослушки передал несколько тревожных сообщений об активности ТСФ в секторе. Хотя перехваченные сообщения говорят о том, что это просто исследовательская работа, я не могу отделаться от ощущения, что эти упрямые ублюдки всё таки нас разыскали.<br><br> Капитан уверяет меня, что волноваться не о чем, но мне трудно воспринимать всерьез человека, параноидальное относящегося к двери душа с электроприводом.<br><br><i>- Офицер Связи Восток</i></small>";
+	language = "Neo-Russkiya";
 	name = "личный журнал";
 	pixel_x = 26;
-	pixel_y = 4;
-	language = "Neo-Russkiya"
+	pixel_y = 4
 	},
 /obj/machinery/computer/security/old_frame{
-	network = list("USSP");
-	name = "USSP security camera console"
+	name = "USSP security camera console";
+	network = list("USSP")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -203,7 +200,7 @@
 /area/derelict/bridge)
 "aE" = (
 /obj/structure/sign/nuke,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/bridge)
 "aF" = (
 /obj/structure/displaycase/boat{
@@ -464,11 +461,11 @@
 /area/derelict/bridge)
 "bj" = (
 /obj/item/paper/djstation{
-	info = "<br>Восток, я не слышал ни шороха от тебя уже около часа... Должно быть он слишком занят попытками найти способ связаться с командованием. Я до сих пор не уверен, что произошло, но с того момента прошло уже шесть часов.<br><br>Мои руки не перестают трястись, и даже сигареты не не в силах помочь.<br><br>Восток, если всё удастся, а я к тому моменту потеряю сознание - мои лекарства в шкафу рядом с моим столом. Пожалуйста. Я на тебя рассчитываю.";
-	name = "ветхая записка";
-	icon_state = "scrap_bloodied";
 	desc = "Записка испачкана чернильными пятнами, сильный и дрожащий почерк, нацарапанный по ней, едва различим.";
-	language = "Neo-Russkiya"
+	icon_state = "scrap_bloodied";
+	info = "<br>Восток, я не слышал ни шороха от тебя уже около часа... Должно быть он слишком занят попытками найти способ связаться с командованием. Я до сих пор не уверен, что произошло, но с того момента прошло уже шесть часов.<br><br>Мои руки не перестают трястись, и даже сигареты не не в силах помочь.<br><br>Восток, если всё удастся, а я к тому моменту потеряю сознание - мои лекарства в шкафу рядом с моим столом. Пожалуйста. Я на тебя рассчитываю.";
+	language = "Neo-Russkiya";
+	name = "ветхая записка"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -508,12 +505,6 @@
 	icon_state = "darkblue"
 	},
 /area/derelict/bridge)
-"bm" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/crew_quarters)
-"bn" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/arrival)
 "bo" = (
 /obj/effect/spawner/lootdrop/spentcasing/pistol,
 /turf/simulated/floor/plasteel,
@@ -538,8 +529,8 @@
 /obj/item/paper_bin/ussp,
 /obj/item/paper/djstation{
 	info = "Рано или поздно эта чертова дверь в душе прикончит меня. Я вижу, как Восток смотрит на меня, когда я говорю о ней, как его глаза весело ухмыляются. Вот только сегодня утром, клянусь, эта чертова штука пыталась запереть меня. Мне пришлось сломать замок, чтобы выбраться. Восток чуть не обоссался от смеха, когда я рассказал ему и показал на ту дверь.<br><br>Ну, посмотрим, долго ли он будет смеяться, когда я напишу комиссару Григору о его дерзости; единственное, что он будет после всего этого прослушивать - звуки слива бочка, надраивать который он будет последующий месяц!";
-	name = "капитанский журнал";
-	language = "Neo-Russkiya"
+	language = "Neo-Russkiya";
+	name = "капитанский журнал"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
@@ -664,7 +655,7 @@
 /area/derelict/security)
 "bG" = (
 /obj/structure/rack,
-/obj/item/melee/classic_baton{
+/obj/item/melee/baton{
 	desc = "A wooden truncheon for beating capitalist scum."
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -682,9 +673,9 @@
 	},
 /obj/item/cigbutt,
 /obj/item/decorations/flag/soviet{
-	pixel_y = 10;
+	layer = 3.1;
 	pixel_x = -5;
-	layer = 3.1
+	pixel_y = 10
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
@@ -1095,11 +1086,11 @@
 /area/derelict/crew_quarters)
 "cL" = (
 /obj/structure/sign/mech,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/security)
 "cM" = (
 /obj/structure/sign/securearea,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/security)
 "cO" = (
 /obj/structure/curtain/open/shower,
@@ -1292,7 +1283,7 @@
 /area/derelict/crew_quarters)
 "dl" = (
 /obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/crew_quarters)
 "dn" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1422,8 +1413,8 @@
 	},
 /obj/item/paper/djstation{
 	info = "<b>Рекомендация к премированию</b> Товарищ Бляцкий<br><b>Подпись Офицера:</b>  Микаил Гогочев<hr><small>Капитан,<br><br>Я осознаю странность данной просьбы, но прошу, выслушайте: товарищ Бляцки хоть и выглядит как мелкий пылесос, но он силен как стальной кулак самого комиссара Григора! Буквально на днях он выгнал из брига этого бесполезного ублюдка Тотского, вы бы видели, как этот пьяница хныкал! Прям как собака с поджатым хвостом.<br><br>В любом случае, я отвлекся! Если кто и достоин премирования, так это наш всегда стоящий на страже и любимый Бляцкий, истинный защитник СССП.<br><br> Если вы желаете, быть может, воочию увидеть его бдительность и самоотверженность, что ж! Вам нужно только прийти, чтобы осмотреть оружейную. Товарищ Бляцкий ждет вашего решения.";
-	name = "Рекомендация к премированию";
-	language = "Neo-Russkiya"
+	language = "Neo-Russkiya";
+	name = "Рекомендация к премированию"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -1534,7 +1525,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/security)
 "dQ" = (
 /obj/machinery/recharger,
@@ -1591,7 +1582,7 @@
 /area/derelict/annex)
 "dX" = (
 /obj/structure/sign/securearea,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/engineer_area)
 "dY" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1605,8 +1596,8 @@
 /obj/structure/closet/crate/can,
 /obj/item/paper/crumpled{
 	info = "<b>Я ЗНАЮ, ЭТО ТЫ УКРАЛ МОИ ЩАСЛИВЫЕ ТРУСЕЛЯ. КЛЯНУСЬ, ЕСЛИ Я УВИЖУ ХОТЬ ЕЩЕ ОДИН РАЗ ТВОЮ ТОЩУЮ КРЫСИНУЮ ШЕЮ, Я БУДУ ДУШИТЬ ЕЕ, ПОКА ТЫ НЕ ПОСИНЕЕШЬ И НЕ ПОТЕРЯЕШЬ СОЗНАНИЕ!<br><br>НИКТО! НИКТО НЕ ПРИКОСЕТСЯ К СЧАСТЛИВЫМ ТРУСАМ БОРИСА БЕЗ ПОСЛЕДСТВИЙ!</b>";
-	name = "LISTEN UP CYKA";
-	language = "Neo-Russkiya"
+	language = "Neo-Russkiya";
+	name = "LISTEN UP CYKA"
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/crew_quarters)
@@ -1647,9 +1638,6 @@
 	icon_state = "darkred"
 	},
 /area/derelict/security)
-"eg" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/annex)
 "eh" = (
 /obj/machinery/light/spot{
 	dir = 1;
@@ -1767,7 +1755,7 @@
 /area/derelict/rnd)
 "et" = (
 /obj/structure/sign/science,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/rnd)
 "eu" = (
 /obj/structure/window/reinforced{
@@ -1820,10 +1808,10 @@
 "ez" = (
 /obj/structure/noticeboard,
 /obj/item/paper/gorky17{
-	name = "Информация по настройки внутренней сети";
-	info = "<B>Введение в локальную сеть дополнительных камер</B><br><br>После монтажа камеры - используй параметр <B>USSP</B> для введения камеры в местную сеть видеонаблюдения.<br><br><B>Настройка коммуникационного реле</B><br><br>Для введения реле в общую сеть настрой передатчик на частоту <B>USSP-CORE</B>"
+	info = "<B>Введение в локальную сеть дополнительных камер</B><br><br>После монтажа камеры - используй параметр <B>USSP</B> для введения камеры в местную сеть видеонаблюдения.<br><br><B>Настройка коммуникационного реле</B><br><br>Для введения реле в общую сеть настрой передатчик на частоту <B>USSP-CORE</B>";
+	name = "Информация по настройки внутренней сети"
 	},
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/engineer_area)
 "eA" = (
 /obj/machinery/atmospherics/unary/passive_vent,
@@ -1890,7 +1878,7 @@
 "eI" = (
 /obj/structure/sign/securearea,
 /obj/effect/decal/cleanable/blood/splatter,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/security)
 "eJ" = (
 /obj/machinery/door/poddoor/impassable{
@@ -2201,10 +2189,10 @@
 "ft" = (
 /obj/structure/closet/crate/can,
 /obj/item/paper/crumpled{
-	info = "<br><small>Тотский,<br><br>Я знаю, что это ты поишь моих кошек алкоголем, мне все равно, зачем ты это делаешь, но ты мешаешь важным исследованиям! Это пятый кот, которого мне пришлось заменить в этом месяце из-за твоего тупого чувства юмора, и я буду говорить с  Бораховым, если ты не прекратишь свои выходки.<br><br>- <i>Николай Картов</i>, научный сотрудник.";
-	name = "Немедленно прекращай!";
 	desc = "Эта бумажка изрисована всевозможными грубыми рисунками, которые слишком мерзки, чтобы дать им описание.";
-	language = "Neo-Russkiya"
+	info = "<br><small>Тотский,<br><br>Я знаю, что это ты поишь моих кошек алкоголем, мне все равно, зачем ты это делаешь, но ты мешаешь важным исследованиям! Это пятый кот, которого мне пришлось заменить в этом месяце из-за твоего тупого чувства юмора, и я буду говорить с  Бораховым, если ты не прекратишь свои выходки.<br><br>- <i>Николай Картов</i>, научный сотрудник.";
+	language = "Neo-Russkiya";
+	name = "Немедленно прекращай!"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2249,9 +2237,9 @@
 /obj/structure/table/wood,
 /obj/item/trash/candle,
 /obj/item/gun/projectile/shotgun/lethal/rusted{
-	self_shot_divisor = 1;
 	malf_high_bound = 5;
-	malf_low_bound = 2
+	malf_low_bound = 2;
+	self_shot_divisor = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
@@ -2363,10 +2351,10 @@
 "fK" = (
 /obj/structure/closet/crate/can,
 /obj/item/paper/crumpled{
-	info = "<br><small>Катерина,<br><br><s>Глаза твои как бриллианты,<br>Рожденные в недрах Cygni-A.<br>Мое сердце тоскует по тебе,<br>По твоей нежной красоте<br>Бляблятьнетэтоплохо.<br><br>Твой голос отрада для ушей,<br>Ласкает меня своими нежными очертаниями.<br>Никогда раньше я не знал, он как<br>Ласкание,<br>Ласкание!<br>Ласкание ангельского голоса</s><br><br>пометка для себя: занимайся наукой, поэзия не твоя сильная сторона.</small>";
-	name = "любовная поэма";
 	desc = "Эта записка была перечеркнута столько раз, что трудно разобрать ее содержание";
-	language = "Neo-Russkiya"
+	info = "<br><small>Катерина,<br><br><s>Глаза твои как бриллианты,<br>Рожденные в недрах Cygni-A.<br>Мое сердце тоскует по тебе,<br>По твоей нежной красоте<br>Бляблятьнетэтоплохо.<br><br>Твой голос отрада для ушей,<br>Ласкает меня своими нежными очертаниями.<br>Никогда раньше я не знал, он как<br>Ласкание,<br>Ласкание!<br>Ласкание ангельского голоса</s><br><br>пометка для себя: занимайся наукой, поэзия не твоя сильная сторона.</small>";
+	language = "Neo-Russkiya";
+	name = "любовная поэма"
 	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
@@ -2376,7 +2364,7 @@
 /area/derelict/rnd)
 "fL" = (
 /obj/structure/sign/nosmoking_1,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/rnd)
 "fM" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2486,8 +2474,8 @@
 /obj/structure/table/reinforced,
 /obj/item/paper/djstation{
 	info = "Август 21 - Самый Превосходный Комиссар Григор<br>Август 22 - Никого<br>Август 23 - Никого<br>Август 24 - Никого<br>Август 25 - И зачем я его вообще веду?<br>Август 26 - Никого<br>Август 27 -";
-	name = "журнал посетителей";
-	language = "Neo-Russkiya"
+	language = "Neo-Russkiya";
+	name = "журнал посетителей"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2534,7 +2522,7 @@
 /area/derelict/rnd)
 "ge" = (
 /obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/rnd)
 "gf" = (
 /obj/structure/chair/wood{
@@ -2585,7 +2573,7 @@
 /area/derelict/security)
 "gk" = (
 /obj/structure/sign/poster/contraband/random,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/engineer_area)
 "gl" = (
 /obj/structure/chair/wood,
@@ -2681,10 +2669,6 @@
 	icon_state = "showroomfloor"
 	},
 /area/derelict/rnd)
-"gy" = (
-/obj/effect/landmark/tiles/burnturf,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/engineer_area)
 "gz" = (
 /obj/structure/computerframe{
 	desc = "This computer is a husk of what it once was. Time and decay has worn its cheap circuitry to dust.";
@@ -2759,7 +2743,7 @@
 /area/derelict/crew_quarters)
 "gJ" = (
 /obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/security)
 "gK" = (
 /obj/structure/chair{
@@ -2810,8 +2794,8 @@
 	},
 /obj/item/paper/djstation{
 	info = "Наконец-то мы сделали это, теперь Катерина больше не будет смотреть мимо меня в пользу кого другого! Эксперимент 432-A показывает невероятную скорость клеточной регенерации, и я утверждаю, что мы, наконец, преодолели великую грань между жизнью и смертью — истинное биологическое бессмертие!<br><br>Конечно, агрессивное поведение — неуместный побочный эффект, но в конце концов это всего лишь кошка. Я уверен, что нескольких кошачьих лакомств с седативными добавками будет достаточно, чтобы подготовиться к вскрытию.";
-	name = "Эксперимент 432-A";
-	language = "Neo-Russkiya"
+	language = "Neo-Russkiya";
+	name = "Эксперимент 432-A"
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/rnd)
@@ -2877,7 +2861,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/dining)
 "ha" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -2940,8 +2924,8 @@
 /obj/structure/table/reinforced,
 /obj/item/paper/djstation{
 	info = "Это уже пятый раз за месяц, когда мне приходится заменять кабель у чертовой сети блокировки шлюзов. Это плохо, конденсатор постоянно выходит из строя, а чертовым системам требуется почти неделя для прохода по всей станции и перезагрузки. А теперь еще и капитан дышит мне в спину из-за его дурацкой душевой и комиссара Григора. Микаил говорил мне, что лицо этого человека так покраснело, когда вспыхнул свет, что можно было увидеть, как он светится в темноте.<br><br>Если бы он думал это было плохо, ну, если бы я не установил блокировку в столовой, мы бы неделю сидели в темноте.<br><br>Раствэн говорит, что мы должны получить новую партию кабелей, хотя я не уверен, что у нас когда-нибудь будет достаточно припасов, чтобы это место функционировало должным образом.";
-	name = "отчет об тех. обслухивании";
-	language = "Neo-Russkiya"
+	language = "Neo-Russkiya";
+	name = "отчет об тех. обслухивании"
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -3012,7 +2996,7 @@
 	dir = 1;
 	pixel_y = 7
 	},
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/security)
 "hu" = (
 /obj/machinery/door/airlock/security/glass{
@@ -3059,7 +3043,7 @@
 /area/derelict/rnd)
 "hz" = (
 /obj/effect/landmark/tiles/damageturf,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/engineer_area)
 "hA" = (
 /obj/structure/table/reinforced,
@@ -3110,15 +3094,7 @@
 /area/derelict/church)
 "hF" = (
 /obj/structure/sign/barsign,
-/turf/simulated/wall/shuttle{
-	icon_state = "swall4"
-	},
-/area/derelict/church)
-"hG" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "swall8";
-	tag = "icon-swall12"
-	},
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/church)
 "hH" = (
 /obj/machinery/door/airlock/public/glass{
@@ -3188,9 +3164,9 @@
 	},
 /obj/machinery/power/apc/noalarm{
 	dir = 8;
-	start_charge = 0;
 	pixel_x = -32;
-	req_access = list(130)
+	req_access = list(130);
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3250,8 +3226,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/paper/djstation{
 	info = "Отец Грегор,<br><br>Вы должны меня простить, но я не могу получить ваш заказ на одну из тех 'перевертышей вуали', о которых вы просили. По правде говоря, я не представляю, что вы планировали с ней делать, но дела духовенства не мои. Однако Восток поспешил отменить ваш заказ после того, как мы потеряли последний заказ.<br><br>Ребята еще не оправились от головной боли с прошлого раза, а Хома жалуется, что он видит синие огни всякий раз, когда закрывает глаза.<br><br>Я не из тех, кто задает вопросы человеку Божию, но умоляю вас, пожалуйста, не пытайтесь больше заказывать эти артефакты. Они прокляты, и за ними, кажется, следуют всевозможные демоны.<br><br>- <small><i>Андрей Восточович</i></small>, заведующий по обеспечению";
-	name = "простите, отец";
-	language = "Neo-Russkiya"
+	language = "Neo-Russkiya";
+	name = "простите, отец"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3300,8 +3276,8 @@
 	tag = "icon-tube1 (WEST)"
 	},
 /obj/structure/closet/secure_closet{
-	req_access = list(131);
-	name = "Reagents locker"
+	name = "Reagents locker";
+	req_access = list(131)
 	},
 /obj/item/reagent_containers/glass/bottle/sugar{
 	pixel_x = -3;
@@ -3402,10 +3378,10 @@
 	req_access = list(131)
 	},
 /obj/item/paper/djstation{
-	info = "<br>Вахвахва! Нытик, ты настоящий яйцеголовый! Да насрать мне на твоих котов или на 'новуку', если ты напишешь начальству, я расскажу этой суке Катерине о том, что слютяй в неё втухался.<br><br>Кроме того, нахера ты пишешь на бумаге? Я в соседнем крыле, мудила. Я понял, что это писанина от огузка, как только увидел бумагу. Ты пишешь девчачье письмецо, как будто я твой любовник, может быть, если бы ты проводил меньше времени в углу с кошкой, ты стал бы настоящим мужиком? Хотя ты все равно выглядел бы как верблюжье дерьмо прилипшее к сапогу Тотского!";
-	name = "дорогой слюнтяй";
 	desc = "Примитивное изображение плачущего яйца, на которое наступил сапог, нацарапано на правом поле листа";
-	language = "Neo-Russkiya"
+	info = "<br>Вахвахва! Нытик, ты настоящий яйцеголовый! Да насрать мне на твоих котов или на 'новуку', если ты напишешь начальству, я расскажу этой суке Катерине о том, что слютяй в неё втухался.<br><br>Кроме того, нахера ты пишешь на бумаге? Я в соседнем крыле, мудила. Я понял, что это писанина от огузка, как только увидел бумагу. Ты пишешь девчачье письмецо, как будто я твой любовник, может быть, если бы ты проводил меньше времени в углу с кошкой, ты стал бы настоящим мужиком? Хотя ты все равно выглядел бы как верблюжье дерьмо прилипшее к сапогу Тотского!";
+	language = "Neo-Russkiya";
+	name = "дорогой слюнтяй"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -3455,7 +3431,7 @@
 /area/derelict/engineer_area)
 "il" = (
 /obj/structure/sign/poster/contraband/communist_state,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/church)
 "im" = (
 /obj/structure/cable{
@@ -3605,9 +3581,9 @@
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/power/apc/noalarm{
 	dir = 8;
-	start_charge = 0;
 	pixel_x = -32;
-	req_access = list(130)
+	req_access = list(130);
+	start_charge = 0
 	},
 /obj/structure/cable{
 	d2 = 4;
@@ -4334,9 +4310,9 @@
 /obj/structure/table/wood/fancy,
 /obj/item/paper/djstation{
 	info = "Я переживаю за Тотского. Его уже пятый раз за эту неделю отправляют в вытрезвитель, и сколько бы я ни приходил к нему, он может найти Бога только на дне стакана Тунгуски.<br><brВсе это пьянство... я ненавижу плохо думать о СССП, но, не уделять этому никакого внимания? Не уподобляемся ли мы мерзкому ТСФ? Многие даже забыли свое истинную культуру в пользу \"общегалактической\". Такая снисходительность, такое пренебрежение, это не идет на пользу нашему духу, не говоря уже о душе.";
+	language = "Neo-Russkiya";
 	layer = 2;
-	name = "исповедь";
-	language = "Neo-Russkiya"
+	name = "исповедь"
 	},
 /obj/item/storage/bible{
 	deity_name = "Communism";
@@ -4713,13 +4689,13 @@
 /area/derelict/dock)
 "lz" = (
 /obj/structure/sign/botany,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/garden)
 "lA" = (
 /obj/machinery/door/airlock/glass{
 	name = "Hydroponics";
-	welded = 1;
-	req_access = list(128,129,130,131)
+	req_access = list(128,129,130,131);
+	welded = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -4729,8 +4705,8 @@
 "lB" = (
 /obj/machinery/door/airlock/glass{
 	name = "Hydroponics";
-	welded = 1;
-	req_access = list(128,129,130,131)
+	req_access = list(128,129,130,131);
+	welded = 1
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -4767,9 +4743,9 @@
 /area/derelict/common)
 "lF" = (
 /obj/machinery/door/airlock/public/glass{
+	locked = 1;
 	name = "Mess Hall";
-	req_access = list(128,129,130,131);
-	locked = 1
+	req_access = list(128,129,130,131)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -4840,9 +4816,9 @@
 	},
 /obj/machinery/power/apc/noalarm{
 	dir = 8;
-	start_charge = 0;
 	pixel_x = -32;
-	req_access = list(130)
+	req_access = list(130);
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel/airless{
 	dir = 9;
@@ -5143,14 +5119,11 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/template_noop)
-"mG" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/med)
 "mH" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Medical Wing";
-	welded = 1;
-	req_access = list(128,129,130,131)
+	req_access = list(128,129,130,131);
+	welded = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -5168,8 +5141,8 @@
 	},
 /obj/machinery/door/airlock/medical/glass{
 	name = "Medical Wing";
-	welded = 1;
-	req_access = list(128,129,130,131)
+	req_access = list(128,129,130,131);
+	welded = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -5179,7 +5152,7 @@
 /area/derelict/med)
 "mK" = (
 /obj/structure/sign/directions/medical,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/med)
 "mL" = (
 /obj/effect/landmark/tiles/damageturf,
@@ -5567,9 +5540,6 @@
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plating/airless,
 /area/derelict/med)
-"nL" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/security)
 "nM" = (
 /obj/item/stack/tile,
 /turf/simulated/floor/plating/airless,
@@ -5791,8 +5761,8 @@
 "ot" = (
 /obj/machinery/door/airlock/glass{
 	name = "Hydroponics";
-	welded = 1;
-	req_access = list(128,129,130,131)
+	req_access = list(128,129,130,131);
+	welded = 1
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -5942,8 +5912,8 @@
 "oM" = (
 /obj/machinery/door/airlock/glass{
 	name = "Hydroponics";
-	welded = 1;
-	req_access = list(128,129,130,131)
+	req_access = list(128,129,130,131);
+	welded = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -6145,7 +6115,7 @@
 /area/derelict/dining)
 "pm" = (
 /obj/structure/sign/poster/contraband/random,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/common)
 "pn" = (
 /obj/machinery/door/airlock/hatch{
@@ -6307,7 +6277,7 @@
 /area/derelict/crew_quarters)
 "pJ" = (
 /obj/effect/landmark/tiles/damageturf,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/med)
 "pK" = (
 /obj/structure/janitorialcart,
@@ -6320,7 +6290,7 @@
 /obj/item/storage/secure/safe/ussp_blueprints{
 	pixel_x = 4
 	},
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/bridge)
 "pM" = (
 /obj/structure/spider/stickyweb,
@@ -6497,7 +6467,7 @@
 /area/derelict/med)
 "qh" = (
 /obj/structure/sign/examroom,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/med)
 "qi" = (
 /obj/machinery/computer/arcade,
@@ -6521,7 +6491,7 @@
 	icon_state = "redfull";
 	tag = "icon-redfull (NORTHWEST)"
 	},
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/arrival)
 "ql" = (
 /obj/machinery/vending/cigarette/free{
@@ -6562,7 +6532,7 @@
 /area/derelict/common)
 "qp" = (
 /obj/effect/landmark/tiles/burnturf,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/med)
 "qr" = (
 /obj/structure/cable{
@@ -6573,17 +6543,11 @@
 /area/derelict/med)
 "qs" = (
 /obj/structure/sign/nosmoking_2,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/med)
 "qt" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "red"
-	},
-/area/derelict/arrival)
-"qu" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "red"
 	},
 /area/derelict/arrival)
@@ -6610,9 +6574,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/shuttle{
+	locked = 1;
 	name = "Central Annex";
-	req_access = list(128,129,130,131);
-	locked = 1
+	req_access = list(128,129,130,131)
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/arrival)
@@ -6662,8 +6626,8 @@
 	},
 /obj/machinery/door/airlock/medical/glass{
 	name = "Medical Wing";
-	welded = 1;
-	req_access = list(128,129,130,131)
+	req_access = list(128,129,130,131);
+	welded = 1
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
@@ -6735,8 +6699,8 @@
 "qL" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Medical Wing";
-	welded = 1;
-	req_access = list(128,129,130,131)
+	req_access = list(128,129,130,131);
+	welded = 1
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
@@ -6964,11 +6928,11 @@
 /area/derelict/common)
 "rn" = (
 /obj/structure/closet/medical_wall,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/med)
 "ro" = (
 /obj/structure/sign/greencross,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/med)
 "rp" = (
 /obj/structure/table,
@@ -7321,13 +7285,12 @@
 /area/derelict/med)
 "rZ" = (
 /obj/structure/sign/vacuum,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/arrival)
 "sb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/machinery/door/airlock/external{
 	frequency = 1379;
-	icon_state = "door_locked";
 	id_tag = "rus_inner_1";
 	locked = 1;
 	name = "External Access"
@@ -7371,7 +7334,6 @@
 "sf" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1379;
-	icon_state = "door_locked";
 	id_tag = "rus_outer_1";
 	locked = 1;
 	name = "External Access"
@@ -7467,7 +7429,7 @@
 /obj/item/gps/ruin{
 	gpstag = "Russian Distress Signal"
 	},
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/arrival)
 "sK" = (
 /obj/item/stack/rods,
@@ -7617,7 +7579,7 @@
 /area/derelict/crew_quarters)
 "ui" = (
 /obj/effect/landmark/tiles/burnturf,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/bridge)
 "ul" = (
 /obj/effect/decal/cleanable/blood/gibs,
@@ -7991,8 +7953,8 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
 	pixel_y = 32;
-	start_charge = 0;
-	req_access = list(130)
+	req_access = list(130);
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
@@ -8151,9 +8113,6 @@
 /obj/item/shard,
 /turf/space,
 /area/derelict/garden)
-"AO" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/church)
 "Bb" = (
 /obj/structure/window/full/shuttle,
 /obj/structure/grille,
@@ -8387,11 +8346,11 @@
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
 	id_tag = "rus_airlock_2";
 	pixel_x = 25;
+	req_access = list(130);
 	tag_airpump = "rus_pump_2";
 	tag_chamber_sensor = "rus_sensor_2";
 	tag_exterior_door = "rus_outer_2";
-	tag_interior_door = "rus_inner_2";
-	req_access = list(130)
+	tag_interior_door = "rus_inner_2"
 	},
 /obj/machinery/airlock_sensor{
 	id_tag = "rus_sensor_2";
@@ -8419,8 +8378,8 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
 	pixel_y = 32;
-	start_charge = 0;
-	req_access = list(130)
+	req_access = list(130);
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -8514,7 +8473,7 @@
 /area/derelict/arrival)
 "Ek" = (
 /obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/common)
 "Em" = (
 /obj/item/clothing/head/soviethelmet,
@@ -8567,8 +8526,8 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
 	pixel_y = 32;
-	start_charge = 0;
-	req_access = list(130)
+	req_access = list(130);
+	start_charge = 0
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -8662,9 +8621,6 @@
 	icon_state = "dark"
 	},
 /area/derelict/security)
-"Fl" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/engineer_area)
 "Fz" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel,
@@ -8677,8 +8633,8 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
 	pixel_y = 32;
-	start_charge = 0;
-	req_access = list(130)
+	req_access = list(130);
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
@@ -8690,9 +8646,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/derelict/dock)
-"Gi" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/derelict/dock)
 "Gk" = (
 /obj/effect/decal/cleanable/dust,
@@ -8710,7 +8663,7 @@
 /area/derelict/arrival)
 "Gs" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/church)
 "Gt" = (
 /obj/effect/decal/cleanable/dirt,
@@ -8750,7 +8703,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/machinery/door/airlock/external{
 	frequency = 1379;
-	icon_state = "door_locked";
 	id_tag = "rus_inner_2";
 	locked = 1;
 	name = "External Access"
@@ -8842,12 +8794,9 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel,
 /area/derelict/engineer_area)
-"HD" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/common)
 "HF" = (
 /obj/effect/landmark/tiles/burnturf,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/garden)
 "HJ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -8905,7 +8854,6 @@
 "Io" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1379;
-	icon_state = "door_locked";
 	id_tag = "rus_outer_2";
 	locked = 1;
 	name = "External Access"
@@ -9012,8 +8960,8 @@
 /area/derelict/church)
 "Jf" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "red";
-	dir = 1
+	dir = 1;
+	icon_state = "red"
 	},
 /area/derelict/arrival)
 "Jl" = (
@@ -9032,9 +8980,9 @@
 	},
 /obj/machinery/power/apc/noalarm{
 	dir = 4;
-	start_charge = 0;
 	pixel_x = 32;
-	req_access = list(130)
+	req_access = list(130);
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
@@ -9300,8 +9248,8 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
 	pixel_y = 32;
-	start_charge = 0;
-	req_access = list(130)
+	req_access = list(130);
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -9456,9 +9404,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/dock)
-"OK" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/garden)
 "OL" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -9506,8 +9451,8 @@
 	},
 /mob/living/simple_animal/hostile/feral_cat{
 	faction = list("cat","carp");
-	name = "Experiment 432-A";
-	health = 35
+	health = 35;
+	name = "Experiment 432-A"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -9524,9 +9469,9 @@
 "Pq" = (
 /obj/structure/table/wood,
 /obj/item/decorations/flag/soviet{
-	pixel_y = 10;
+	layer = 3.1;
 	pixel_x = -5;
-	layer = 3.1
+	pixel_y = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -9810,8 +9755,8 @@
 /obj/machinery/power/apc/noalarm{
 	dir = 1;
 	pixel_y = 32;
-	start_charge = 0;
-	req_access = list(130)
+	req_access = list(130);
+	start_charge = 0
 	},
 /obj/structure/cable{
 	d2 = 8;
@@ -9862,9 +9807,6 @@
 	icon_state = "brown"
 	},
 /area/derelict/dock)
-"Tf" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/rnd)
 "Tr" = (
 /obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel/airless{
@@ -9917,9 +9859,6 @@
 	icon_state = "bar"
 	},
 /area/derelict/dining)
-"Ue" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/ruin/unpowered/no_grav)
 "Ug" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/cable{
@@ -9928,9 +9867,9 @@
 	},
 /obj/machinery/power/apc/noalarm{
 	dir = 4;
-	start_charge = 0;
 	pixel_x = 32;
-	req_access = list(130)
+	req_access = list(130);
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -9944,9 +9883,9 @@
 	},
 /obj/machinery/power/apc/noalarm{
 	dir = 8;
-	start_charge = 0;
 	pixel_x = -32;
-	req_access = list(130)
+	req_access = list(130);
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
@@ -10246,9 +10185,6 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/template_noop)
-"Yk" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/dining)
 "Yn" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "rampbottom";
@@ -10265,8 +10201,8 @@
 "Yr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/computer/security/old_frame{
-	network = list("USSP");
-	name = "USSP security camera console"
+	name = "USSP security camera console";
+	network = list("USSP")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -14816,12 +14752,12 @@ ac
 ac
 ac
 fr
-Gi
+fr
 jm
-Gi
-Gi
+fr
+fr
 lu
-Gi
+fr
 fr
 ac
 ac
@@ -14937,14 +14873,14 @@ ac
 ac
 ac
 ac
-Gi
+fr
 iS
 UI
 NJ
 kL
 Oy
 lK
-Gi
+fr
 ac
 ac
 ac
@@ -15057,17 +14993,17 @@ ac
 ac
 ac
 cq
-Gi
-Gi
-Gi
+fr
+fr
+fr
 iT
 bo
 jT
 kM
 lx
 lL
-Gi
-Gi
+fr
+fr
 tk
 ac
 ac
@@ -15175,10 +15111,10 @@ ac
 ac
 ac
 cq
-nL
+cq
 gJ
-nL
-nL
+cq
+cq
 hI
 hX
 iv
@@ -15190,10 +15126,10 @@ NI
 vU
 me
 mu
-mG
-mG
-mG
-mG
+tk
+tk
+tk
+tk
 tk
 ac
 ac
@@ -15294,9 +15230,9 @@ ac
 ac
 ac
 cq
-nL
-nL
-nL
+cq
+cq
+cq
 gj
 gK
 ha
@@ -15312,14 +15248,14 @@ lw
 vU
 mf
 mv
-mG
+tk
 mR
 ni
 nw
-mG
-mG
-mG
-mG
+tk
+tk
+tk
+tk
 ac
 sq
 ac
@@ -15415,7 +15351,7 @@ ac
 ac
 ac
 cq
-nL
+cq
 ff
 fA
 dL
@@ -15535,16 +15471,16 @@ ac
 ac
 ac
 cq
-nL
-nL
-nL
+cq
+cq
+cq
 de
 do
 do
 do
 dn
 hb
-nL
+cq
 Ta
 vU
 ix
@@ -15788,7 +15724,7 @@ do
 Ci
 gM
 hc
-nL
+cq
 hM
 ia
 iz
@@ -15898,7 +15834,7 @@ ac
 ac
 ac
 cq
-nL
+cq
 Du
 dV
 At
@@ -15910,19 +15846,19 @@ fY
 dn
 gN
 hd
-nL
-Gi
-Gi
-Gi
-Gi
+cq
+fr
+fr
+fr
+fr
 jr
 zG
 kT
 ly
-Gi
-Gi
-Gi
-mG
+fr
+fr
+fr
+tk
 mV
 nm
 mS
@@ -16018,9 +15954,9 @@ ac
 ac
 ac
 cq
-nL
-nL
-nL
+cq
+cq
+cq
 dQ
 dn
 do
@@ -16030,23 +15966,23 @@ de
 fE
 fZ
 gs
-nL
-nL
+cq
+cq
 cq
 ac
 ac
 ac
 fr
-Gi
+fr
 kb
-Gi
-Gi
+fr
+fr
 fr
 ac
 ac
 tk
-mG
-mG
+tk
+tk
 ny
 nK
 ob
@@ -16139,7 +16075,7 @@ ac
 ac
 ac
 cq
-nL
+cq
 Yr
 dA
 Mx
@@ -16147,10 +16083,10 @@ do
 Ci
 do
 eo
-nL
+cq
 fh
 fF
-nL
+cq
 OL
 cq
 ac
@@ -16260,7 +16196,7 @@ ac
 ac
 ac
 cq
-nL
+cq
 dd
 dn
 do
@@ -16269,8 +16205,8 @@ Ci
 do
 ee
 ep
-nL
-nL
+cq
+cq
 OL
 cq
 ac
@@ -16381,7 +16317,7 @@ ac
 ac
 ac
 cq
-nL
+cq
 cL
 de
 do
@@ -16391,7 +16327,7 @@ do
 do
 ef
 eq
-nL
+cq
 cq
 ac
 ac
@@ -16502,16 +16438,16 @@ ac
 ac
 ac
 cq
-nL
-nL
-nL
+cq
+cq
+cq
 df
 dp
 dB
 do
 Ci
 SE
-nL
+cq
 dF
 cq
 ac
@@ -16549,7 +16485,7 @@ mS
 oc
 oS
 qg
-mG
+tk
 tk
 ac
 ac
@@ -16623,16 +16559,16 @@ ac
 ac
 ac
 ac
-nL
+cq
 cl
 cz
-nL
+cq
 de
 dq
 dC
 dn
 dR
-nL
+cq
 dS
 ac
 ac
@@ -16745,7 +16681,7 @@ ac
 ac
 ac
 cq
-nL
+cq
 Em
 EY
 cM
@@ -16753,7 +16689,7 @@ cA
 do
 dD
 dM
-nL
+cq
 dS
 ac
 ac
@@ -16866,7 +16802,7 @@ ac
 sp
 ac
 cq
-nL
+cq
 bS
 cn
 Im
@@ -16874,7 +16810,7 @@ Fj
 cB
 dr
 dE
-nL
+cq
 dS
 ac
 ac
@@ -16891,9 +16827,9 @@ ac
 ac
 ac
 Md
-Tf
+Md
 kg
-Tf
+Md
 AE
 ac
 ac
@@ -16987,7 +16923,7 @@ mE
 ac
 jK
 jK
-nL
+cq
 bF
 bT
 tE
@@ -16995,7 +16931,7 @@ Hr
 cM
 dg
 ds
-nL
+cq
 cq
 ac
 ac
@@ -17010,15 +16946,15 @@ ac
 ac
 ac
 Md
-Tf
-Tf
-Tf
+Md
+Md
+Md
 js
 kh
 kU
-OK
-OK
-OK
+AE
+AE
+AE
 AE
 ac
 ac
@@ -17041,7 +16977,7 @@ mS
 qC
 mU
 qY
-mG
+tk
 ac
 ac
 ac
@@ -17109,12 +17045,12 @@ ag
 jK
 jK
 cq
-nL
+cq
 bG
 bU
 zw
 cC
-nL
+cq
 dh
 dt
 dF
@@ -17130,8 +17066,8 @@ ac
 ac
 ac
 Md
-Tf
-Tf
+Md
+Md
 ib
 iA
 et
@@ -17141,7 +17077,7 @@ kV
 lz
 lM
 mg
-OK
+AE
 HF
 EN
 cR
@@ -17155,7 +17091,7 @@ ac
 ac
 ac
 ag
-mG
+tk
 pT
 Jw
 vS
@@ -17230,15 +17166,15 @@ ac
 ac
 ac
 al
-am
-am
-am
-am
-am
-am
-am
-am
-am
+al
+al
+al
+al
+al
+al
+al
+al
+al
 al
 ag
 ac
@@ -17251,7 +17187,7 @@ ac
 ac
 Md
 eL
-Tf
+Md
 hw
 hN
 eP
@@ -17278,15 +17214,15 @@ aj
 ac
 ag
 tk
-mG
-mG
+tk
+tk
 qh
 qs
 qD
 qL
-mG
+tk
 ro
-mG
+tk
 tk
 ac
 ac
@@ -17356,10 +17292,10 @@ aX
 Uo
 xN
 TR
-am
+al
 cD
 cO
-am
+al
 al
 ag
 ag
@@ -17371,7 +17307,7 @@ ac
 ac
 ac
 Md
-Tf
+Md
 gO
 he
 Ng
@@ -17401,7 +17337,7 @@ ag
 ag
 ag
 aW
-bn
+aW
 qi
 MX
 ka
@@ -17409,7 +17345,7 @@ hY
 ra
 NK
 rw
-bn
+aW
 ac
 ac
 ac
@@ -17481,7 +17417,7 @@ bV
 OP
 Hk
 cP
-am
+al
 ag
 ag
 ag
@@ -17492,7 +17428,7 @@ ac
 ac
 ac
 Md
-Tf
+Md
 Pe
 gP
 te
@@ -17500,11 +17436,11 @@ ad
 eP
 ic
 iB
-Tf
+Md
 is
 te
 kY
-OK
+AE
 lP
 mj
 mz
@@ -17531,7 +17467,7 @@ iy
 rb
 qM
 zx
-bn
+aW
 aW
 ac
 ac
@@ -17600,10 +17536,10 @@ aZ
 bq
 bJ
 ba
-am
+al
 cE
 ba
-am
+al
 ac
 ac
 ac
@@ -17613,7 +17549,7 @@ ac
 ac
 ag
 Md
-Tf
+Md
 ga
 gu
 gQ
@@ -17622,11 +17558,11 @@ eP
 ad
 id
 iC
-Tf
+Md
 jw
 kk
 kZ
-OK
+AE
 lQ
 Su
 lO
@@ -17646,7 +17582,7 @@ ac
 ac
 ac
 aW
-bn
+aW
 yH
 hY
 qM
@@ -17660,7 +17596,7 @@ ac
 ac
 ac
 ac
-Ue
+sh
 QO
 QO
 QO
@@ -17723,8 +17659,8 @@ br
 bK
 ba
 pL
-am
-am
+al
+al
 al
 ac
 ac
@@ -17734,7 +17670,7 @@ ag
 ac
 ag
 Md
-Tf
+Md
 fH
 gb
 gv
@@ -17743,13 +17679,13 @@ fJ
 eP
 fK
 ie
-Tf
-Tf
-Tf
+Md
+Md
+Md
 kl
-Tf
-OK
-OK
+Md
+AE
+AE
 mk
 mA
 va
@@ -17782,11 +17718,11 @@ ac
 ac
 ac
 sh
-Ue
+sh
 LC
 LC
 Ri
-Ue
+sh
 Ri
 ti
 ag
@@ -17863,7 +17799,7 @@ fj
 fJ
 fR
 hx
-Tf
+Md
 eL
 Md
 ac
@@ -17871,7 +17807,7 @@ jy
 lT
 lb
 ac
-OK
+AE
 ml
 Ox
 Ox
@@ -17891,24 +17827,24 @@ ac
 ac
 ac
 aW
-bn
+aW
 qF
 hY
 re
 wd
 hY
 qw
-bn
+aW
 aW
 ac
 ac
 ac
-Ue
+sh
 LD
 CA
 zk
 GJ
-Ue
+sh
 si
 ac
 ag
@@ -17977,7 +17913,7 @@ ac
 ac
 ac
 Md
-Tf
+Md
 YD
 eP
 fj
@@ -18021,11 +17957,11 @@ hY
 yG
 qy
 rJ
-bn
+aW
 ac
 ac
 ac
-Ue
+sh
 Ow
 si
 lH
@@ -18082,13 +18018,13 @@ ac
 ac
 ss
 al
-am
-am
-am
+al
+al
+al
 Jd
-am
-am
-am
+al
+al
+al
 al
 ac
 ac
@@ -18098,7 +18034,7 @@ ac
 ac
 ac
 ac
-Tf
+Md
 Ep
 eP
 fj
@@ -18106,7 +18042,7 @@ fJ
 ad
 GD
 gt
-Tf
+Md
 Md
 ac
 ac
@@ -18126,7 +18062,7 @@ nN
 Su
 or
 oK
-OK
+AE
 ag
 ac
 ac
@@ -18136,7 +18072,7 @@ ac
 ac
 ac
 aW
-bn
+aW
 Yb
 rf
 hY
@@ -18147,7 +18083,7 @@ fG
 ac
 ac
 ac
-Ue
+sh
 OU
 si
 Os
@@ -18203,7 +18139,7 @@ ac
 sp
 ac
 ac
-am
+al
 at
 aI
 Zb
@@ -18220,7 +18156,7 @@ jh
 ac
 ac
 Md
-Tf
+Md
 eO
 fj
 fJ
@@ -18248,7 +18184,7 @@ Su
 mh
 tD
 oL
-OK
+AE
 AE
 ac
 ac
@@ -18269,11 +18205,11 @@ fG
 ac
 ac
 ac
-Ue
-Ue
-Ue
+sh
+sh
+sh
 BZ
-Ue
+sh
 lH
 ac
 ag
@@ -18341,7 +18277,7 @@ ac
 ac
 ac
 ac
-Tf
+Md
 er
 eP
 sm
@@ -18355,7 +18291,7 @@ ac
 ac
 ac
 dW
-eg
+dW
 xF
 dW
 ii
@@ -18371,7 +18307,7 @@ lO
 os
 mh
 oT
-OK
+AE
 ac
 ac
 ac
@@ -18391,7 +18327,7 @@ fG
 ac
 ac
 ac
-Ue
+sh
 PM
 so
 Zk
@@ -18463,21 +18399,21 @@ ac
 sp
 ac
 ac
-Tf
+Md
 es
 eP
 te
 hs
 gd
-Tf
+Md
 Md
 ac
 ac
 ag
 ac
 dW
-eg
-eg
+dW
+dW
 im
 ii
 ii
@@ -18487,13 +18423,13 @@ mX
 ac
 ac
 AE
-OK
+AE
 nO
 lN
 OR
 lN
 oU
-OK
+AE
 ac
 ac
 ac
@@ -18509,11 +18445,11 @@ hY
 hY
 th
 rN
-bn
+aW
 ac
 ac
 ac
-Ue
+sh
 HN
 TT
 GG
@@ -18576,8 +18512,8 @@ be
 bw
 aJ
 xs
-am
-am
+al
+al
 ac
 sp
 ac
@@ -18585,20 +18521,20 @@ ac
 ac
 ac
 Md
-Tf
+Md
 et
 eQ
 fl
 fL
 ge
-Tf
+Md
 ac
 ac
 ac
 ag
 dW
-eg
-eg
+dW
+dW
 iE
 ko
 ii
@@ -18609,13 +18545,13 @@ ac
 Zq
 ac
 ac
-OK
-OK
-OK
+AE
+AE
+AE
 ot
 oM
 lz
-OK
+AE
 AE
 ac
 ac
@@ -18632,9 +18568,9 @@ rq
 hY
 rO
 rZ
-bn
-bn
-bn
+aW
+aW
+aW
 AA
 QH
 so
@@ -18699,7 +18635,7 @@ bw
 aJ
 Ih
 ct
-am
+al
 Wa
 di
 du
@@ -18713,13 +18649,13 @@ eR
 fm
 fM
 gf
-Fl
+Vq
 ac
 jh
 ac
 ac
-eg
-eg
+dW
+dW
 iE
 QD
 ja
@@ -18731,27 +18667,27 @@ ac
 ac
 ac
 ac
-Yk
+Oo
 nP
 of
 ov
 of
 oV
 pe
-Yk
+Oo
 fG
 fG
 fG
 fG
 fG
 fG
-bn
+aW
 Ad
 qR
 ri
 rr
 ry
-qu
+Jf
 rP
 sb
 sc
@@ -18873,11 +18809,11 @@ GU
 rj
 rs
 rz
-qu
+Jf
 Ps
-bn
-bn
-bn
+aW
+aW
+aW
 NP
 AA
 RN
@@ -18943,7 +18879,7 @@ aJ
 Ih
 aJ
 cv
-am
+al
 Bb
 cS
 cS
@@ -18957,7 +18893,7 @@ eT
 fo
 fO
 gh
-Fl
+Vq
 ac
 ac
 Vf
@@ -18969,33 +18905,33 @@ xZ
 ja
 ld
 iE
-eg
-eg
+dW
+dW
 ac
 ac
 ac
 ac
-Yk
+Oo
 nR
 og
 ov
 of
 oX
 Fz
-Yk
+Oo
 fG
 fG
 fG
 fG
 fG
 fG
-bn
+aW
 qw
 qS
 ri
 rt
 rA
-qu
+Jf
 rR
 sb
 sd
@@ -19064,8 +19000,8 @@ bg
 aJ
 aJ
 bZ
-am
-am
+al
+al
 ac
 ac
 ac
@@ -19073,13 +19009,13 @@ ac
 ac
 ac
 Vq
-Fl
-Fl
+Vq
+Vq
 eU
 fp
-Fl
-Fl
-Fl
+Vq
+Vq
+Vq
 ac
 ac
 ac
@@ -19090,20 +19026,20 @@ ii
 iE
 kp
 JS
-eg
-eg
+dW
+dW
 dW
 ac
 ac
 ac
 ac
-Yk
-Yk
-Yk
+Oo
+Oo
+Oo
 ow
 oO
-Yk
-Yk
+Oo
+Oo
 Oo
 ac
 ac
@@ -19112,7 +19048,7 @@ ac
 ac
 ac
 aW
-bn
+aW
 ML
 gT
 Bj
@@ -19120,9 +19056,9 @@ ru
 hY
 rS
 rZ
-bn
-bn
-bn
+aW
+aW
+aW
 AA
 CA
 ag
@@ -19195,13 +19131,13 @@ ac
 ac
 ac
 ac
-Fl
+Vq
 ex
 eV
 Hl
 fP
 gi
-gy
+aa
 Vq
 ac
 sq
@@ -19211,21 +19147,21 @@ iY
 iZ
 dW
 iE
-eg
-eg
+dW
+dW
 dW
 ac
 ac
 ac
 ac
 Oo
-Yk
+Oo
 xw
 jj
 UE
 jj
 oY
-Yk
+Oo
 ac
 ac
 ac
@@ -19241,11 +19177,11 @@ hY
 hY
 rk
 rT
-bn
+aW
 ac
 ac
 ac
-Ue
+sh
 sl
 VO
 lH
@@ -19317,7 +19253,7 @@ ac
 ac
 ac
 ac
-Fl
+Vq
 ey
 eW
 IB
@@ -19331,9 +19267,9 @@ ac
 sp
 ac
 dW
-eg
+dW
 kn
-eg
+dW
 dW
 ac
 ag
@@ -19347,7 +19283,7 @@ lU
 ox
 lU
 oZ
-Yk
+Oo
 ac
 ac
 ac
@@ -19367,10 +19303,10 @@ fG
 ac
 ac
 ac
-Ue
-Ue
-Ue
-Ue
+sh
+sh
+sh
+sh
 LS
 ac
 ag
@@ -19423,7 +19359,7 @@ ac
 ac
 ac
 ac
-am
+al
 aD
 aR
 NS
@@ -19468,7 +19404,7 @@ lU
 mZ
 ox
 lS
-Yk
+Oo
 Oo
 ac
 ac
@@ -19489,7 +19425,7 @@ fG
 ac
 ac
 ac
-Ue
+sh
 sW
 Zk
 so
@@ -19546,13 +19482,13 @@ ac
 ac
 ac
 al
-am
-am
-am
+al
+al
+al
 KE
-am
-am
-am
+al
+al
+al
 al
 ac
 ac
@@ -19562,7 +19498,7 @@ ac
 ac
 ac
 ag
-Fl
+Vq
 eY
 wz
 fs
@@ -19582,7 +19518,7 @@ ac
 ac
 ac
 Oo
-Yk
+Oo
 mY
 jj
 vx
@@ -19590,7 +19526,7 @@ DX
 oh
 oy
 oP
-Yk
+Oo
 ag
 ac
 ac
@@ -19600,7 +19536,7 @@ ac
 ac
 ac
 aW
-bn
+aW
 qN
 jv
 hY
@@ -19611,7 +19547,7 @@ fG
 ac
 ac
 ac
-Ue
+sh
 xT
 QH
 lH
@@ -19675,7 +19611,7 @@ bi
 wu
 ce
 cw
-am
+al
 ac
 ac
 ac
@@ -19685,7 +19621,7 @@ ac
 ac
 ag
 Vq
-Fl
+Vq
 Sz
 VA
 CI
@@ -19729,12 +19665,12 @@ ZY
 hY
 qy
 rX
-bn
+aW
 ac
 ac
 ac
 sh
-Ue
+sh
 Km
 so
 Zk
@@ -19797,7 +19733,7 @@ bz
 bz
 bz
 cx
-am
+al
 al
 ac
 ac
@@ -19842,28 +19778,28 @@ ac
 ac
 sp
 ac
-bn
-bn
+aW
+aW
 yp
 wv
 ka
 hY
 hY
 rG
-bn
+aW
 aW
 ac
 ac
 ac
 ac
 sh
-Ue
+sh
 EW
 so
 yF
 CT
 DQ
-Ue
+sh
 sh
 ac
 ac
@@ -19920,7 +19856,7 @@ bO
 cf
 bi
 cG
-am
+al
 al
 ac
 ac
@@ -19930,7 +19866,7 @@ ag
 ag
 ag
 Vq
-Fl
+Vq
 fS
 xe
 ps
@@ -19939,13 +19875,13 @@ fk
 VU
 hP
 ij
-Fl
-Fl
-Fl
+Vq
+Vq
+Vq
 kt
-Fl
-Yk
-Yk
+Vq
+Oo
+Oo
 ww
 jj
 RR
@@ -19954,7 +19890,7 @@ no
 np
 Li
 oj
-Yk
+Oo
 Oo
 ag
 ag
@@ -19982,7 +19918,7 @@ ac
 LC
 xT
 xT
-Ue
+sh
 xT
 KZ
 LC
@@ -20035,7 +19971,7 @@ ac
 ac
 Nt
 al
-am
+al
 bj
 Pq
 bP
@@ -20053,8 +19989,8 @@ ag
 ag
 ag
 Vq
-Fl
-Fl
+Vq
+Vq
 ft
 fs
 Yv
@@ -20062,11 +19998,11 @@ hk
 HA
 VU
 zS
-Fl
+Vq
 jC
 ku
 le
-Yk
+Oo
 lR
 mo
 lU
@@ -20085,8 +20021,8 @@ ag
 ac
 ac
 ac
-bn
-bn
+aW
+aW
 qt
 yG
 wv
@@ -20104,7 +20040,7 @@ ac
 LC
 LC
 LC
-Ue
+sh
 LC
 LC
 LC
@@ -20184,11 +20120,11 @@ VA
 fk
 VA
 gA
-Fl
+Vq
 ax
 VA
 lf
-Yk
+Oo
 EM
 DX
 oh
@@ -20287,7 +20223,7 @@ ch
 bh
 cH
 cW
-am
+al
 al
 ag
 ag
@@ -20299,7 +20235,7 @@ ac
 ac
 ac
 Vq
-Fl
+Vq
 gU
 hl
 hC
@@ -20317,7 +20253,7 @@ mn
 mo
 nc
 nr
-Yk
+Oo
 Oo
 ac
 ac
@@ -20329,7 +20265,7 @@ ac
 ag
 ag
 aW
-bn
+aW
 qm
 qz
 CU
@@ -20337,7 +20273,7 @@ yw
 rl
 rv
 rD
-bn
+aW
 ac
 ac
 ac
@@ -20402,15 +20338,15 @@ ac
 ac
 ss
 aV
-bm
-bm
-bm
-bm
-bm
-bm
-bm
-bm
-bm
+aV
+aV
+aV
+aV
+aV
+aV
+aV
+aV
+aV
 aV
 ag
 ac
@@ -20423,7 +20359,7 @@ ac
 ac
 Vq
 wo
-Fl
+Vq
 hD
 hR
 VU
@@ -20450,15 +20386,15 @@ ac
 ac
 ag
 yg
-HD
-HD
-HD
-HD
+yg
+yg
+yg
+yg
 qJ
 qW
-HD
-HD
-HD
+yg
+yg
+yg
 yg
 ac
 ac
@@ -20525,11 +20461,11 @@ Ot
 ss
 ss
 aV
-bm
+aV
 bR
 ci
 cy
-bm
+aV
 cX
 dk
 dv
@@ -20546,20 +20482,20 @@ ac
 ac
 ac
 Vq
-Fl
-Fl
+Vq
+Vq
 ik
 iI
-Fl
+Vq
 jG
 kw
 li
-Yk
+Oo
 lV
 mq
-Yk
-Yk
-Yk
+Oo
+Oo
+Oo
 ac
 ac
 ac
@@ -20571,7 +20507,7 @@ ac
 sp
 ac
 ag
-HD
+yg
 pU
 qc
 qn
@@ -20579,7 +20515,7 @@ dY
 ZZ
 pw
 rm
-HD
+yg
 yg
 ac
 ac
@@ -20647,7 +20583,7 @@ ac
 ac
 ss
 ss
-bm
+aV
 bR
 cj
 Gt
@@ -20655,7 +20591,7 @@ cI
 cY
 oG
 dw
-bm
+aV
 aV
 ac
 ac
@@ -20670,15 +20606,15 @@ ac
 ac
 ac
 Vq
-Fl
-Fl
-Fl
+Vq
+Vq
+Vq
 jH
 Sf
 lj
-Yk
-Yk
-Yk
+Oo
+Oo
+Oo
 Oo
 ac
 ac
@@ -20693,7 +20629,7 @@ ac
 ac
 ac
 yg
-HD
+yg
 pV
 Sm
 pZ
@@ -20701,7 +20637,7 @@ sL
 Fd
 pw
 rm
-HD
+yg
 ac
 ac
 ac
@@ -20770,14 +20706,14 @@ ac
 ac
 ss
 aV
-bm
+aV
 Sq
 ck
-bm
+aV
 cZ
 db
 dx
-bm
+aV
 aV
 aV
 ac
@@ -20795,9 +20731,9 @@ ac
 ac
 ac
 Vq
-Fl
+Vq
 kx
-Fl
+Vq
 Oo
 ac
 ac
@@ -20822,7 +20758,7 @@ JR
 Ht
 mO
 qX
-HD
+yg
 yg
 ac
 ac
@@ -20893,9 +20829,9 @@ ac
 ss
 ss
 aV
-bm
-bm
-bm
+aV
+aV
+aV
 da
 db
 db
@@ -20943,7 +20879,7 @@ qe
 qo
 Ht
 Dk
-HD
+yg
 yg
 ac
 ac
@@ -21015,7 +20951,7 @@ ac
 ac
 ss
 ss
-bm
+aV
 aV
 cJ
 oG
@@ -21143,11 +21079,11 @@ cK
 tQ
 tZ
 Qf
-bm
+aV
 db
 dJ
 dZ
-bm
+aV
 dH
 aV
 ac
@@ -21177,8 +21113,8 @@ ac
 ac
 yg
 YH
-HD
-HD
+yg
+yg
 pu
 pD
 pN
@@ -21261,15 +21197,15 @@ ac
 ac
 ac
 aV
-bm
-bm
-bm
-bm
-bm
+aV
+aV
+aV
+aV
+aV
 tP
 db
 ea
-bm
+aV
 eB
 aV
 aV
@@ -21300,7 +21236,7 @@ yg
 yg
 pa
 pf
-HD
+yg
 pv
 pE
 pO
@@ -21384,14 +21320,14 @@ ac
 ac
 ac
 aV
-bm
+aV
 dl
 dz
 dJ
 oG
 db
 eb
-bm
+aV
 eC
 PB
 aV
@@ -21507,7 +21443,7 @@ ac
 ac
 ac
 aV
-bm
+aV
 dz
 db
 db
@@ -21518,7 +21454,7 @@ eD
 fb
 eD
 fT
-bm
+aV
 dH
 aV
 ac
@@ -21538,7 +21474,7 @@ ac
 ac
 yg
 YH
-HD
+yg
 jk
 bB
 ng
@@ -21630,35 +21566,35 @@ ac
 ac
 ac
 aV
-bm
+aV
 dK
 oG
 dJ
 ec
-bm
+aV
 eE
 fc
 fv
 fb
 gl
 gE
-bm
-bm
+aV
+aV
 aV
 ac
 ac
 ac
 SK
-AO
+SK
 kz
-AO
+SK
 SK
 ac
 ac
 ac
 yg
-HD
-HD
+yg
+yg
 nD
 ND
 ok
@@ -21666,7 +21602,7 @@ oB
 Po
 pb
 pg
-HD
+yg
 py
 sL
 DD
@@ -21756,8 +21692,8 @@ aV
 aV
 dN
 dT
-bm
-bm
+aV
+aV
 eF
 WS
 fw
@@ -21766,19 +21702,19 @@ gm
 gF
 eD
 hm
-AO
-AO
+SK
+SK
 il
-AO
-AO
+SK
+SK
 Cq
 kA
 lk
-AO
-AO
-AO
-AO
-AO
+SK
+SK
+SK
+SK
+SK
 ne
 ns
 ng
@@ -21788,10 +21724,10 @@ Ht
 Ht
 mO
 oR
-HD
+yg
 pz
 pF
-HD
+yg
 yg
 ac
 ac
@@ -21876,9 +21812,9 @@ ac
 ac
 ac
 aV
-bm
-bm
-bm
+aV
+aV
+aV
 zn
 xn
 fd
@@ -21900,7 +21836,7 @@ Cq
 lW
 mr
 mD
-AO
+SK
 nf
 nt
 ng
@@ -21910,9 +21846,9 @@ Ht
 oR
 mO
 ph
-HD
+yg
 Ek
-HD
+yg
 yg
 ac
 ac
@@ -22000,7 +21936,7 @@ ac
 ac
 ac
 aV
-bm
+aV
 em
 eH
 PB
@@ -22032,7 +21968,7 @@ ks
 ks
 jd
 pi
-HD
+yg
 yg
 ac
 ac
@@ -22123,8 +22059,8 @@ ac
 ac
 ss
 aV
-bm
-bm
+aV
+aV
 fe
 fy
 fV
@@ -22132,7 +22068,7 @@ go
 go
 gV
 hn
-hG
+SK
 JC
 hU
 Wq
@@ -22144,7 +22080,7 @@ rE
 hU
 hU
 Wq
-AO
+SK
 FA
 nu
 ng
@@ -22153,7 +22089,7 @@ Fi
 ol
 Fi
 pc
-HD
+yg
 yg
 ac
 ac
@@ -22273,7 +22209,7 @@ bB
 nX
 om
 oC
-HD
+yg
 yg
 yg
 ac
@@ -22372,11 +22308,11 @@ ss
 aV
 dH
 dH
-bm
+aV
 SJ
 Dp
 ho
-AO
+SK
 hV
 io
 iM
@@ -22388,14 +22324,14 @@ AH
 lY
 mt
 Wq
-AO
+SK
 nh
 nv
 nE
-HD
+yg
 YH
 YH
-HD
+yg
 ac
 ac
 ac
@@ -22495,10 +22431,10 @@ ss
 ss
 ss
 aV
-bm
-bm
-bm
-AO
+aV
+aV
+aV
+SK
 hW
 ip
 Uw
@@ -22510,10 +22446,10 @@ lG
 lZ
 Uw
 Je
-AO
-HD
-HD
-HD
+SK
+yg
+yg
+yg
 yg
 ac
 ac
@@ -22622,15 +22558,15 @@ ss
 ss
 SK
 JD
-AO
-AO
-AO
-AO
+SK
+SK
+SK
+SK
 kG
-AO
-AO
+SK
+SK
 Gs
-AO
+SK
 JD
 SK
 Ea
@@ -22744,7 +22680,7 @@ ac
 ss
 ss
 ac
-AO
+SK
 vR
 tO
 jL
@@ -22866,15 +22802,15 @@ Iv
 ac
 ss
 ac
-AO
+SK
 Cq
 rE
 jO
 XF
 lq
-AO
-AO
-AO
+SK
+SK
+SK
 ac
 mb
 ac
@@ -23113,9 +23049,9 @@ ac
 SK
 JD
 JD
-AO
+SK
 uZ
-AO
+SK
 JD
 JD
 SK

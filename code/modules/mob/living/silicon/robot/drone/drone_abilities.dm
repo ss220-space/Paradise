@@ -8,10 +8,12 @@
 
 	if(!tag || GLOB.TAGGERLOCATIONS[tag])
 		mail_destination = 0
+		UnregisterSignal(src, COMSIG_MOVABLE_DISPOSING)
 		return
 
 	to_chat(src, "<span class='notice'>You configure your internal beacon, tagging yourself for delivery to '[tag]'.</span>")
 	mail_destination = GLOB.TAGGERLOCATIONS.Find(tag)
+	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
 
 	//Auto flush if we use this verb inside a disposal chute.
 	var/obj/machinery/disposal/D = src.loc
@@ -19,7 +21,12 @@
 		to_chat(src, "<span class='notice'>\The [D] acknowledges your signal.</span>")
 		D.flush_count = D.flush_every_ticks
 
-	return
+
+/mob/living/silicon/robot/drone/proc/disposal_handling(disposal_source, obj/structure/disposalholder/disposal_holder, obj/machinery/disposal/disposal_machine, hasmob)
+	SIGNAL_HANDLER
+
+	if(mail_destination)
+		disposal_holder.destinationTag = mail_destination
 
 
 /mob/living/silicon/robot/drone/verb/hide()
@@ -84,10 +91,10 @@
 	if(!istype(H))
 		return
 	if(resting)
-		resting = 0
+		set_resting(FALSE, instant = TRUE)
 	if(custom_sprite)
 		H.icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
-		H.icon_override = 'icons/mob/custom_synthetic/custom_head.dmi'
+		H.onmob_sheets[ITEM_SLOT_HEAD_STRING] = 'icons/mob/custom_synthetic/custom_head.dmi'
 		H.lefthand_file = 'icons/mob/custom_synthetic/custom_lefthand.dmi'
 		H.righthand_file = 'icons/mob/custom_synthetic/custom_righthand.dmi'
 		H.item_state = "[icon_state]_hand"

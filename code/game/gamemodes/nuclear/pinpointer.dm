@@ -17,7 +17,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pinoff"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_PDA | SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_PDA|ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
 	throw_speed = 4
@@ -236,7 +236,7 @@
 
 
 /obj/item/pinpointer/advpinpointer/proc/toggle_mode(mob/user)
-	if(!iscarbon(user) || user.incapacitated())
+	if(!iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(modelocked)
@@ -317,7 +317,6 @@
 ///////////////////////
 /obj/item/pinpointer/nukeop
 	var/obj/docking_port/mobile/home = null
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_PDA
 	syndicate = TRUE
 	modes = list(MODE_DISK, MODE_NUKE)
 
@@ -513,7 +512,7 @@
 
 
 /obj/item/pinpointer/crew/proc/choose_signal(mob/living/carbon/user)
-	if(!iscarbon(user) || user.incapacitated())
+	if(!iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/list/name_counts = list()
@@ -627,7 +626,7 @@
 
 
 /obj/item/pinpointer/thief/proc/toggle_mode(mob/user)
-	if(!iscarbon(user) || user.incapacitated())
+	if(!iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	switch(alert("Выберите режим пинпоинтера.", "Выбор режима пинпоинтера", "Локация", "Сигнатура Объекта", "Цели"))

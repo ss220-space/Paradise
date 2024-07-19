@@ -13,12 +13,15 @@
 
 /obj/structure/cable/multiz/Initialize(mapload)
 	. = ..()
+	d1 = 0
+	if(mapload)
+		return
 	mergeConnectedNetworksOnTurf(get_turf(src))
 
 /obj/structure/cable/multiz/deconstruct(disassembled = TRUE)
 	if(usr)
 		investigate_log("deconstructed by [key_name_log(usr)]", INVESTIGATE_WIRES)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new/obj/item/stack/cable_coil(get_turf(src), 10, TRUE, color)
 	qdel(src)
 
@@ -55,7 +58,7 @@
 		var/datum/powernet/newPN = new()
 		newPN.add_cable(src)
 
-	//connect to cables that points to center (d1 or d2 to 0)
+	//connect to cables that points to center (d1 to 0)
 	for(var/obj/structure/cable/C in loc)
 		if(C.d1 == 0)
 			if(C.powernet == powernet)

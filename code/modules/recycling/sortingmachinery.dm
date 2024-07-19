@@ -3,7 +3,7 @@
 	desc = "A big wrapped package."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "deliverycloset"
-	density = 1
+	density = TRUE
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 	var/iconLabeled = "deliverycloset_labeled"
 	var/obj/wrapped = null
@@ -12,11 +12,25 @@
 	var/sortTag = 0
 	var/cc_tag
 
+
+/obj/structure/bigDelivery/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
+
+
 /obj/structure/bigDelivery/Destroy()
 	var/turf/T = get_turf(src)
 	for(var/atom/movable/AM in contents)
 		AM.forceMove(T)
 	return ..()
+
+
+/obj/structure/bigDelivery/proc/disposal_handling(disposal_source, obj/structure/disposalholder/disposal_holder, obj/machinery/disposal/disposal_machine, hasmob)
+	SIGNAL_HANDLER
+
+	if(!hasmob && sortTag)
+		disposal_holder.destinationTag = sortTag
+
 
 /obj/structure/bigDelivery/ex_act(severity)
 	for(var/atom/movable/AM in contents)
@@ -42,7 +56,7 @@
 	var/turf/T = get_turf(src)
 	for(var/atom/movable/AM in src)
 		AM.add_fingerprint(user)
-		AM.loc = T
+		AM.forceMove(T)
 
 	qdel(src)
 
@@ -79,7 +93,7 @@
 			qdel(sp)
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 
-	else if(istype(item, /obj/item/pen))
+	else if(is_pen(item))
 		add_fingerprint(user)
 		rename_interactive(user, item)
 
@@ -112,6 +126,19 @@
 	var/giftwrapped = 0
 	var/sortTag = 0
 
+
+/obj/item/smallDelivery/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
+
+
+/obj/item/smallDelivery/proc/disposal_handling(disposal_source, obj/structure/disposalholder/disposal_holder, obj/machinery/disposal/disposal_machine, hasmob)
+	SIGNAL_HANDLER
+
+	if(!hasmob && sortTag)
+		disposal_holder.destinationTag = sortTag
+
+
 /obj/item/smallDelivery/ex_act(severity)
 	for(var/atom/movable/AM in contents)
 		AM.ex_act()
@@ -130,7 +157,7 @@
 		if(ishuman(user))
 			user.put_in_hands(wrapped)
 		else
-			wrapped.loc = get_turf(src)
+			wrapped.forceMove(get_turf(src))
 	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
 	qdel(src)
 
@@ -160,7 +187,7 @@
 			qdel(sp)
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 
-	else if(istype(W, /obj/item/pen))
+	else if(is_pen(W))
 		add_fingerprint(user)
 		rename_interactive(user, W)
 
@@ -183,7 +210,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "deliveryPaper"
 	singular_name = "package wrapper"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	amount = 25
 	max_amount = 25
 	resistance_flags = FLAMMABLE
@@ -245,7 +272,7 @@
 			to_chat(user, span_notice("You need more paper."))
 			return
 
-		if(!do_after_once(user, 1.5 SECONDS, target = crate))
+		if(!do_after(user, 1.5 SECONDS, crate, max_interact_count = 1))
 			return
 
 		if(crate.opened || !use(3))
@@ -268,7 +295,7 @@
 			to_chat(user, span_notice("You need more paper."))
 			return
 
-		if(!do_after_once(user, 1.5 SECONDS, target = closet))
+		if(!do_after(user, 1.5 SECONDS, closet, max_interact_count = 1))
 			return
 
 		if(closet.opened || !use(3))
@@ -302,7 +329,7 @@
 	item_state = "electronic"
 	w_class = WEIGHT_CLASS_TINY
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	//The whole system for the sorttype var is determined based on the order of this list,
 	//disposals must always be 1, since anything that's untagged will automatically go to disposals, or sorttype = 1 --Superxpdude
 	var/currTag = 1
@@ -312,10 +339,10 @@
 /obj/item/destTagger/attack_self(mob/user)
 	ui_interact(user)
 
-/obj/item/destTagger/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/destTagger/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "DestinationTagger", name, 395, 350, master_ui, state)
+		ui = new(user, src, "DestinationTagger", name)
 		ui.open()
 
 /obj/item/destTagger/ui_data(mob/user)
@@ -378,9 +405,22 @@
 	var/sortTag = 0
 	var/sealed = 0
 
+
+/obj/item/shippingPackage/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
+
+
+/obj/item/shippingPackage/proc/disposal_handling(disposal_source, obj/structure/disposalholder/disposal_holder, obj/machinery/disposal/disposal_machine, hasmob)
+	SIGNAL_HANDLER
+
+	if(!hasmob && sortTag && sealed)
+		disposal_holder.destinationTag = sortTag
+
+
 /obj/item/shippingPackage/attackby(obj/item/O, mob/user, params)
 	if(sealed)
-		if(istype(O, /obj/item/pen))
+		if(is_pen(O))
 			var/str = copytext(sanitize(input(user,"Intended recipient?","Address","")),1,MAX_NAME_LEN)
 			if(!str || !length(str))
 				to_chat(user, "<span class='notice'>Invalid text.</span>")
@@ -391,7 +431,7 @@
 	if(wrapped)
 		to_chat(user, "<span class='notice'>[src] already contains \a [wrapped].</span>")
 		return
-	if(istype(O, /obj/item) && !istype(O, /obj/item/storage) && !istype(O, /obj/item/shippingPackage))
+	if(isitem(O) && !isstorage(O) && !istype(O, /obj/item/shippingPackage))
 		if(!user.can_unEquip(O))
 			to_chat(user, "<span class='warning'>[O] is stuck to your hand, you cannot put it in [src]!</span>")
 			return

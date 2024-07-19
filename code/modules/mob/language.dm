@@ -31,10 +31,12 @@
 	var/whisper_verb
 	/// CSS style to use for strings in this language.
 	var/colour = "body"
+	/// Additional spans this language adds to a runechat message (should be defined in skin.dmf -> window "mapwindow" -> elem "map").
+	var/runechat_span
 	/// Character used to speak in language eg. '"un"' for Unathi.
 	var/key = "key"
 	/// Various language flags.
-	var/flags = 0
+	var/flags = NONE
 	/// If set, non-native speakers will have trouble speaking.
 	var/native
 	/// Used when scrambling text for a non-speaker.
@@ -172,6 +174,7 @@
 	ask_verb = "hisses"
 	exclaim_verbs = list("roars")
 	colour = "soghun"
+	runechat_span = "soghun"
 	key = "o"
 	flags = RESTRICTED
 	syllables = list("za","az","ze","ez","zi","iz","zo","oz","zu","uz","zs","sz","ha","ah","he","eh","hi","ih", \
@@ -193,6 +196,7 @@
 	ask_verb = "mrowls"
 	exclaim_verbs = list("yowls")
 	colour = "tajaran"
+	runechat_span = "tajaran"
 	key = "j"
 	flags = RESTRICTED
 	syllables = list("rr","rr","tajr","kir","raj","kii","mir","kra","ahk","nal","vah","khaz","jri","ran","darr", \
@@ -233,6 +237,7 @@
 	ask_verb = "rurs"
 	exclaim_verbs = list("barks")
 	colour = "vulpkanin"
+	runechat_span = "vulpkanin"
 	key = "7"
 	flags = RESTRICTED
 	syllables = list("rur","ya","cen","rawr","bar","kuk","tek","qat","uk","wu","vuh","tah","tch","schz","auch", \
@@ -247,6 +252,7 @@
 	ask_verb = "warbles"
 	exclaim_verbs = list("warbles")
 	colour = "skrell"
+	runechat_span = "skrell"
 	key = "k"
 	flags = RESTRICTED
 	syllables = list("qr","qrr","xuq","qil","quum","xuqm","vol","xrim","zaoo","qu-uu","qix","qoo","zix","*","!")
@@ -258,6 +264,7 @@
 	ask_verb = "creels"
 	exclaim_verbs = list("loudly skrees")
 	colour = "vox"
+	runechat_span = "vox"
 	key = "v"
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("ti","ti","ti","hi","hi","ki","ki","ki","ki","ya","ta","ha","ka","ya","yi","chi","cha","kah", \
@@ -280,6 +287,7 @@
 	ask_verb = "creaks"
 	exclaim_verbs = list("rustles")
 	colour = "diona"
+	runechat_span = "diona"
 	key = "q"
 	flags = RESTRICTED
 	syllables = list("hs","zt","kr","st","sh")
@@ -296,6 +304,7 @@
 	ask_verb = "queries"
 	exclaim_verbs = list("exclaims")
 	colour = "trinary"
+	runechat_span = "trinary"
 	key = "5"
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("0+2+0+1+1","0+1+2+2+2","1+0+1+0+0","1+0+2+1+0","2+1+0+1+2","0+2+0+1+1","2+1+2+0+0","1+0+0+2","2+0+0+1","0+0+0+2","0+0+1+2","0+0+1+2","0+0+0","1+2+0","1+2+1","2+0+1","2+2+0","1+0","1+1","0")
@@ -315,6 +324,7 @@
 	ask_verb = "rubs their antennae together"
 	exclaim_verbs = list("rubs their antennae together")
 	colour = "kidan"
+	runechat_span = "kidan"
 	key = "4"
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("click","clack")
@@ -335,6 +345,7 @@
 	ask_verb = "bubbles and pops"
 	exclaim_verbs = list("bubbles and pops")
 	colour = "slime"
+	runechat_span = "slime"
 	key = "f"
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("blob","plop","pop","bop","boop")
@@ -346,6 +357,7 @@
 	ask_verb = "inquires"
 	exclaim_verbs = list("imparts")
 	colour = "abductor"
+	runechat_span = "abductor"
 	key = "^"
 	flags = RESTRICTED | HIVEMIND
 	follow = TRUE
@@ -361,7 +373,7 @@
 		if((!rhand || !rhand.is_usable()) && (!lhand || !lhand.is_usable()))
 			to_chat(speaker,"<span class='warning'>You can't communicate without the ability to use your hands!</span>")
 			return FALSE
-	if(speaker.incapacitated(ignore_lying = 1))
+	if(speaker.incapacitated())
 		to_chat(speaker,"<span class='warning'>You can't communicate while unable to move your hands to your head!</span>")
 		return FALSE
 
@@ -381,6 +393,7 @@
 	ask_verb = "hums"
 	exclaim_verbs = list("rumbles")
 	colour = "drask"
+	runechat_span = "drask"
 	key = "%"
 	flags = RESTRICTED | WHITELISTED
 	syllables = list("hoorb","vrrm","ooorm","urrrum","ooum","ee","ffm","hhh","mn","ongg")
@@ -398,6 +411,7 @@
 	ask_verb = "flaps"
 	exclaim_verbs = list("chatters")
 	colour = "moth"
+	runechat_span = "moth"
 	key = "#"
 	flags = RESTRICTED | WHITELISTED
 	join_override = "-"
@@ -431,6 +445,7 @@
 	exclaim_verbs = list("exclaims", "shouts", "yells")
 	whisper_verb = "whispers"
 	colour = "solcom"
+	runechat_span = "solcom"
 	key = "1"
 	flags = RESTRICTED
 	syllables = list("tao","shi","tzu","yi","com","be","is","i","op","vi","ed","lec","mo","cle","te","dis","e")
@@ -470,6 +485,7 @@
 	ask_verb = "honks"
 	exclaim_verbs = list("toots", "wubs", "honks")
 	colour = "clown"
+	runechat_span = "clown"
 	key = "0"
 	syllables = list ("honk","squeak","bonk","toot","narf","zub","wee","wub","norf")
 
@@ -480,6 +496,7 @@
 	whisper_verb = "mutters"
 	exclaim_verbs = list("exaggerates")
 	colour = "com_srus"
+	runechat_span = "com_srus"
 	key = "?"
 	space_chance = 65
 	english_names = TRUE

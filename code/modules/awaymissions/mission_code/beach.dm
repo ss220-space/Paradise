@@ -2,9 +2,9 @@
 	name = "waterfall effect"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "extinguish"
-	opacity = 0
+	opacity = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	density = 0
+	density = FALSE
 	anchored = TRUE
 	invisibility = INVISIBILITY_ABSTRACT
 

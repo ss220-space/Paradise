@@ -5,8 +5,8 @@
 	item_state = "bow"
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
 	mag_type = /obj/item/ammo_box/magazine/internal/bow
-	flags = HANDSLOW
-	slot_flags = SLOT_FLAG_BACK
+	item_flags = SLOWS_WHILE_IN_HAND
+	slot_flags = ITEM_SLOT_BACK
 	weapon_weight = WEAPON_HEAVY
 	trigger_guard = TRIGGER_GUARD_NONE
 	var/draw_sound = 'sound/weapons/draw_bow.ogg'
@@ -64,11 +64,11 @@
 /obj/item/gun/projectile/bow/attackby(obj/item/A, mob/user, params)
 	var/num_loaded = magazine.attackby(A, user, params, 1)
 	if(num_loaded)
-		to_chat(user, "<span class='notice'>You ready \the [A] into \the [src].</span>")
+		balloon_alert(user, "стрела помещена")
 		chamber_round()
 		update_state()
 
-/obj/item/gun/projectile/bow/can_shoot()
+/obj/item/gun/projectile/bow/can_shoot(mob/user)
 	. = ..()
 	if(!ready_to_fire)
 		return FALSE

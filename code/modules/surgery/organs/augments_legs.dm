@@ -111,7 +111,7 @@
 
 /obj/item/organ/internal/cyberimp/leg/jumpboots/RemoveEffect()
 	var/obj/item/organ/internal/cyberimp/leg/jumpboots/left = owner.get_organ_slot(INTERNAL_ORGAN_R_LEG_DEVICE)
-	if(left.implant_ability)
+	if(left?.implant_ability)
 		left.implant_ability.Remove(owner)
 		left.implant_ability = null
 
@@ -125,14 +125,23 @@
 	var/recharging_rate = 60 //default 6 seconds between each dash
 	var/recharging_time = 0 //time until next dash
 	var/datum/callback/last_jump = null
-	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED //lying jumps is real
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED|AB_CHECK_IMMOBILE //lying jumps is real
 
 
 /datum/action/bhop/Trigger(left_click = TRUE)
 	if(!IsAvailable())
 		return
+
 	if(recharging_time > world.time)
 		to_chat(owner, span_warning("The boot's internal propulsion needs to recharge still!"))
+		return
+
+	if(!owner.has_gravity())
+		to_chat(owner, span_warning("You can't jump without gravity!"))
+		return
+
+	if(owner.throwing)
+		to_chat(owner, span_warning("You can't jump in the middle of another jump!"))
 		return
 
 	var/atom/target = get_edge_target_turf(owner, owner.dir) //gets the user's direction
@@ -144,7 +153,7 @@
 	if(owner.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = after_jump_callback))
 		last_jump = after_jump_callback
 		playsound(owner.loc, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
-		owner.visible_message(span_warning("[usr] dashes forward into the air!"))
+		owner.visible_message(span_warning("[owner] dashes forward into the air!"))
 		recharging_time = world.time + recharging_rate
 	else
 		to_chat(owner, span_warning("Something prevents you from dashing forward!"))

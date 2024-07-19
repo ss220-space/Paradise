@@ -1,12 +1,13 @@
 ///////////////////ORGAN DEFINES///////////////////
 
 // Organ defines.
-#define ORGAN_BROKEN	(1<<0)
-#define ORGAN_ROBOT		(1<<1)
-#define ORGAN_SPLINTED	(1<<2)
-#define ORGAN_DEAD		(1<<3)
-#define ORGAN_MUTATED	(1<<4)
-#define ORGAN_INT_BLEED	(1<<5)
+#define ORGAN_BROKEN		(1<<0)
+#define ORGAN_ROBOT			(1<<1)
+#define ORGAN_SPLINTED		(1<<2)
+#define ORGAN_DEAD			(1<<3)
+#define ORGAN_MUTATED		(1<<4)
+#define ORGAN_INT_BLEED		(1<<5)
+#define ORGAN_DISFIGURED	(1<<6)
 
 #define PROCESS_ACCURACY 10
 
@@ -201,7 +202,6 @@
 #define isshadowlinglesser(A) (is_species(A, /datum/species/shadow/ling/lesser))
 #define isabductor(A) (is_species(A, /datum/species/abductor))
 #define isgolem(A) (is_species(A, /datum/species/golem))
-#define ismonkeybasic(A) (is_species(A, /datum/species/monkey))
 #define isfarwa(A) (is_species(A, /datum/species/monkey/tajaran))
 #define iswolpin(A) (is_species(A, /datum/species/monkey/vulpkanin))
 #define isneara(A) (is_species(A, /datum/species/monkey/skrell))
@@ -336,7 +336,24 @@
 
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
 
-#define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
+#define SLEEP_CHECK_DEATH(A, X) \
+	sleep(X); \
+	if(QDELETED(A)) return; \
+	if(ismob(A)) { \
+		var/mob/sleep_check_death_mob = A; \
+		if(sleep_check_death_mob.stat == DEAD) return; \
+	}
+
+/// Until a condition is true, sleep. If target is qdeleted or dead, return.
+#define UNTIL_DEATH_CHECK(target, expression) \
+	while(!(expression)) { \
+		stoplag(); \
+		if(QDELETED(target)) return; \
+		if(ismob(target)) { \
+			var/mob/sleep_check_death_mob = target; \
+			if(sleep_check_death_mob.stat == DEAD) return; \
+		}; \
+	};
 
 // Locations
 #define is_ventcrawling(A)  (istype(A.loc, /obj/machinery/atmospherics))
@@ -357,8 +374,10 @@
 #define MAX_EYE_BLURRY_FILTER_SIZE 5
 #define EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER 0.1
 
-#define FIRE_DMI (issmall(src) ? 'icons/mob/clothing/species/monkey/OnFire.dmi' : 'icons/mob/OnFire.dmi')
+#define FIRE_DMI(target) (is_monkeybasic(target) ? 'icons/mob/clothing/species/monkey/OnFire.dmi' : 'icons/mob/OnFire.dmi')
 
+///Define for spawning megafauna instead of a mob for cave gen
+#define SPAWN_MEGAFAUNA "bluh bluh huge boss"
 
 // Body position defines.
 /// Mob is standing up, usually associated with lying_angle value of 0.
@@ -368,4 +387,42 @@
 
 ///How much a mob's sprite should be moved when they're lying down
 #define PIXEL_Y_OFFSET_LYING -6
+
+// Slip flags, also known as lube flags
+/// The mob will not slip if they're walking intent
+#define NO_SLIP_WHEN_WALKING (1<<0)
+/// Slipping on this will send them sliding a few tiles down
+#define SLIDE (1<<1)
+/// Ice slides only go one tile and don't knock you over, they're intended to cause a "slip chain"
+/// where you slip on ice until you reach a non-slippable tile (ice puzzles)
+#define SLIDE_ICE (1<<2)
+/// [TRAIT_NO_SLIP_WATER] does not work on this slip. ONLY [TRAIT_NO_SLIP_ALL] will
+#define SLIP_IGNORE_NO_SLIP_WATER (1<<3)
+/// Slip works even if you're already on the ground
+#define SLIP_WHEN_LYING (1<<4)
+/// the mob won't slip if the turf has the TRAIT_TURF_IGNORE_SLIPPERY trait.
+#define SLIPPERY_TURF (1<<5)
+
+/// Possible value of [/atom/movable/buckle_lying]. If set to a different (positive-or-zero) value than this, the buckling thing will force a lying angle on the buckled.
+#define NO_BUCKLE_LYING -1
+
+#define GRAB_PIXEL_SHIFT_PASSIVE 6
+#define GRAB_PIXEL_SHIFT_AGGRESSIVE 12
+#define GRAB_PIXEL_SHIFT_NECK 10
+#define GRAB_PIXEL_SHIFT_KILL 16
+
+#define PULL_LYING_MOB_SLOWDOWN 1.3
+#define PUSH_STANDING_MOB_SLOWDOWN 1.3
+
+#define ACTIVE_HAND_RIGHT 0
+#define ACTIVE_HAND_LEFT 1
+
+#define PULL_WITHOUT_HANDS "pull_without_hands"
+#define PULL_HAND_RIGHT 0
+#define PULL_HAND_LEFT 1
+
+/// Times it takes for a mob to be eaten by default.
+#define DEVOUR_TIME_DEFAULT (10 SECONDS)
+/// Time it takes for a simple mob to be eaten.
+#define DEVOUR_TIME_ANIMAL (3 SECONDS)
 

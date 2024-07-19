@@ -152,7 +152,7 @@ GLOBAL_LIST_EMPTY(safes)
 	if(drill && !broken)
 		switch(alert("What would you like to do?", "Thermal Drill", "Turn [drill_timer ? "Off" : "On"]", "Remove Drill", "Cancel"))
 			if("Turn On")
-				if(do_after(user, 2 SECONDS, target = src))
+				if(do_after(user, 2 SECONDS, src))
 					drill_timer = addtimer(CALLBACK(src, PROC_REF(drill_open)), time_to_drill, TIMER_STOPPABLE)
 					drill_start_time = world.time
 					drill.soundloop.start()
@@ -160,7 +160,7 @@ GLOBAL_LIST_EMPTY(safes)
 					driller_UID = user.UID()
 					START_PROCESSING(SSobj, src)
 			if("Turn Off")
-				if(do_after(user, 10 SECONDS, target = src)) //Can't be too easy to turn off
+				if(do_after(user, 10 SECONDS, src)) //Can't be too easy to turn off
 					var/mob/living/carbon/human/driller_human = locateUID(driller_UID)
 					deltimer(drill_timer)
 					drill_timer = null
@@ -173,7 +173,7 @@ GLOBAL_LIST_EMPTY(safes)
 			if("Remove Drill")
 				if(drill_timer)
 					to_chat(user, span_warning("You cannot remove the drill while it's running!"))
-				else if(do_after(user, 2 SECONDS, target = src))
+				else if(do_after(user, 2 SECONDS, src))
 					remove_drill(user)
 			if("Cancel")
 				return
@@ -184,9 +184,9 @@ GLOBAL_LIST_EMPTY(safes)
 
 /obj/structure/safe/attackby(obj/item/item, mob/user, params)
 	if(open)
-		if(item.flags && ABSTRACT)
+		if(item.item_flags & ABSTRACT)
 			return
-		if(broken && istype(item, /obj/item/safe_internals) && do_after(user, 2 SECONDS, target = src))
+		if(broken && istype(item, /obj/item/safe_internals) && do_after(user, 2 SECONDS, src))
 			to_chat(user, span_notice("You replace the broken mechanism."))
 			qdel(item)
 			broken = FALSE
@@ -208,7 +208,7 @@ GLOBAL_LIST_EMPTY(safes)
 		else if(istype(item, /obj/item/thermal_drill))
 			if(drill)
 				to_chat(user, span_warning("There is already a drill attached!"))
-			else if(do_after(user, 2 SECONDS, target = src))
+			else if(do_after(user, 2 SECONDS, src))
 				if(!user.drop_transfer_item_to_loc(item, src))
 					to_chat(user, span_warning("[item] is stuck to your hand, you cannot put it in the safe!"))
 					return
@@ -219,15 +219,20 @@ GLOBAL_LIST_EMPTY(safes)
 			to_chat(user, span_warning("You can't put [item] into the safe while it is closed!"))
 			return
 
-/obj/structure/safe/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
-	var/datum/asset/safe_assets = get_asset_datum(/datum/asset/simple/safe)
-	safe_assets.send(user)
+/obj/structure/safe/ui_state(mob/user)
+	return GLOB.physical_state
 
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/structure/safe/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Safe", name, 600, 750)
+		ui = new(user, src, "Safe", name)
 		ui.open()
 		ui.set_autoupdate(FALSE)
+
+/obj/structure/safe/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/simple/safe)
+	)
 
 /obj/structure/safe/ui_data(mob/user)
 	var/list/data = list()
@@ -349,13 +354,13 @@ GLOBAL_LIST_EMPTY(safes)
 	drill.atom_say("Security spotted. Nanites deployed. Give them <b>hell.</b>")
 	notify_ghosts("Security assault in progress in [get_area(src)]!", enter_link = "<a href=?src=[UID()];follow=1>(Click to jump to!)</a>", source = src, action = NOTIFY_FOLLOW)
 	for(var/mob/dead/observer/O in GLOB.player_list)
-		O.overlay_fullscreen("payback", /obj/screen/fullscreen/payback, 0)
+		O.overlay_fullscreen("payback", /atom/movable/screen/fullscreen/payback, 0)
 	addtimer(CALLBACK(src, PROC_REF(ghost_payback_phase_2)), 2.7 SECONDS)
 
 /obj/structure/safe/proc/ghost_payback_phase_2()
 	for(var/mob/dead/observer/O in GLOB.player_list)
 		O.clear_fullscreen("payback")
-		O.overlay_fullscreen("payback", /obj/screen/fullscreen/payback, 1)
+		O.overlay_fullscreen("payback", /atom/movable/screen/fullscreen/payback, 1)
 	addtimer(CALLBACK(src, PROC_REF(clear_payback)), 2 MINUTES)
 
 /obj/structure/safe/proc/clear_payback()

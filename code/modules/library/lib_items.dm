@@ -16,8 +16,8 @@
 	icon = 'icons/obj/library.dmi'
 	icon_state = "book-0"
 	anchored = TRUE
-	density = 1
-	opacity = 1
+	density = TRUE
+	opacity = TRUE
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0)
@@ -63,7 +63,7 @@
 
 
 /obj/structure/bookcase/screwdriver_act(mob/user, obj/item/I)
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -214,7 +214,7 @@
 		else
 			to_chat(user, "<span class='notice'>There's already something in [title]!</span>")
 			return 1
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		if(unique)
 			to_chat(user, "These pages don't seem to take the ink well. Looks like you can't modify it.")
 			return 1

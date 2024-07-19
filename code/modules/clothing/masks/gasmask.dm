@@ -2,14 +2,15 @@
 	name = "gas mask"
 	desc = "A face-covering mask that can be connected to an air supply."
 	icon_state = "gas_alt"
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
+	clothing_flags = BLOCK_GAS_SMOKE_EFFECT|AIRTIGHT
 	flags_inv = HIDEGLASSES|HIDENAME
-	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
+	flags_cover = MASKCOVERSMOUTH|MASKCOVERSEYES
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "gas_alt"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	resistance_flags = NONE
+	undyeable = TRUE
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/mask.dmi',
@@ -36,13 +37,12 @@
 	icon_state = "weldingmask"
 	item_state = "weldingmask"
 	materials = list(MAT_METAL=4000, MAT_GLASS=2000)
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2
 	can_toggle = TRUE
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 55)
 	origin_tech = "materials=2;engineering=3"
 	actions_types = list(/datum/action/item_action/toggle)
-	flags_inv = HIDEGLASSES|HIDENAME
 	flags_cover = MASKCOVERSEYES|MASKCOVERSMOUTH
 	visor_flags_inv = HIDEGLASSES
 	resistance_flags = FIRE_PROOF
@@ -52,7 +52,7 @@
 	weldingvisortoggle(user)
 
 
-/obj/item/clothing/mask/gas/welding/adjustmask(mob/user)
+/obj/item/clothing/mask/gas/welding/adjustmask(mob/living/carbon/human/user)
 	return
 
 
@@ -87,34 +87,27 @@
 	adjustmask(user)
 
 
-/obj/item/clothing/mask/gas/explorer/adjustmask(mob/user)
+/obj/item/clothing/mask/gas/explorer/adjustmask(mob/living/carbon/human/user)
 	. = ..()
 	if(.)
 		w_class = up ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
+
+
+/obj/item/clothing/mask/gas/explorer/force_adjust_mask()
+	. = ..()
+	w_class = WEIGHT_CLASS_SMALL
 
 
 /obj/item/clothing/mask/gas/explorer/folded/Initialize(mapload)
 	. = ..()
 	force_adjust_mask()
 
-
-/obj/item/clothing/mask/gas/explorer/folded/proc/force_adjust_mask()
-	up = !up
-	update_icon(UPDATE_ICON_STATE)
-	gas_transfer_coefficient = null
-	permeability_coefficient = null
-	flags_cover &= ~MASKCOVERSMOUTH
-	flags_inv &= ~HIDENAME
-	flags &= ~AIRTIGHT
-	w_class = WEIGHT_CLASS_SMALL
-
-
 //Bane gas mask
 /obj/item/clothing/mask/banemask
 	name = "bane mask"
 	desc = "Only when the station is in flames, do you have my permission to robust."
 	icon_state = "bane_mask"
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT
+	clothing_flags = BLOCK_GAS_SMOKE_EFFECT|AIRTIGHT
 	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	w_class = WEIGHT_CLASS_NORMAL
@@ -135,11 +128,13 @@
 	name = "\improper SWAT mask"
 	desc = "A close-fitting tactical mask that can be connected to an air supply."
 	icon_state = "swat"
+	armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 15, "bomb" = 15, "bio" = 50, "rad" = 0, "fire" = 100, "acid" = 50)
 
 /obj/item/clothing/mask/gas/syndicate
 	name = "syndicate mask"
 	desc = "A close-fitting tactical mask that can be connected to an air supply."
 	icon_state = "swat"
+	armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 15, "bomb" = 15, "bio" = 50, "rad" = 0, "fire" = 100, "acid" = 50)
 	strip_delay = 60
 
 /obj/item/clothing/mask/gas/clown_hat
@@ -147,7 +142,7 @@
 	desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask. Its form can be changed by using it in your hand."
 	icon_state = "clown"
 	item_state = "clown_hat"
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
+	flags_inv = parent_type::flags_inv|HIDEHAIR
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
 	dog_fashion = /datum/dog_fashion/head/clown
@@ -200,13 +195,18 @@
 	desc = "Some pranksters are truly magical."
 	icon_state = "wizzclown"
 	item_state = "wizzclown"
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 	flags_cover = MASKCOVERSEYES
-	flags_inv = HIDEHEADSETS | HIDEGLASSES
+	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDEHAIR
 	magical = TRUE
 
+
 /obj/item/clothing/mask/gas/clown_hat/nodrop
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR | NODROP
+
+
+/obj/item/clothing/mask/gas/clown_hat/nodrop/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/mask/gas/mime
 	name = "mime mask"
@@ -220,7 +220,7 @@
 /obj/item/clothing/mask/gas/mime/equipped(mob/user, slot, initial)
 	. = ..()
 
-	if(!user?.mind || slot != SLOT_HUD_WEAR_MASK)
+	if(!user?.mind || slot != ITEM_SLOT_MASK)
 		return
 
 	var/obj/effect/proc_holder/spell/mime/speak/mask/mask_spell = null
@@ -241,7 +241,7 @@
 /obj/item/clothing/mask/gas/mime/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 
-	if(!user?.mind || slot != SLOT_HUD_WEAR_MASK)
+	if(!user?.mind || slot != ITEM_SLOT_MASK)
 		return
 
 	var/obj/effect/proc_holder/spell/mime/speak/mask/spell = locate() in user.mind.spell_list
@@ -260,11 +260,17 @@
 /obj/item/clothing/mask/gas/mime/wizard
 	name = "magical mime mask"
 	desc = "A mime mask glowing with power. Its eyes gaze deep into your soul."
-	flags_inv = HIDEHEADSETS | HIDEGLASSES
+	flags_inv = HIDEHEADSETS|HIDEGLASSES
 	magical = TRUE
 
+
 /obj/item/clothing/mask/gas/mime/nodrop
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | NODROP
+
+
+/obj/item/clothing/mask/gas/mime/nodrop/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/mask/gas/monkeymask
 	name = "monkey mask"
@@ -292,8 +298,14 @@
 	resistance_flags = FLAMMABLE
 	actions_types = list(/datum/action/item_action/hoot)
 
+
 /obj/item/clothing/mask/gas/owl_mask/super_hero
-	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | NODROP
+
+
+/obj/item/clothing/mask/gas/owl_mask/super_hero/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/mask/gas/owl_mask/attack_self()
 	hoot()
@@ -312,6 +324,7 @@
 	desc = "A standard issue Security gas mask with integrated 'Compli-o-nator 3000' device, plays over a dozen pre-recorded compliance phrases designed to get scumbags to stand still whilst you taze them. Do not tamper with the device."
 	icon_state = "sechailer"
 	item_state = "sechailer"
+	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 	flags_inv = HIDENAME
 	flags_cover = MASKCOVERSMOUTH
 	clothing_traits = list(TRAIT_SECDEATH)
@@ -343,10 +356,27 @@
 								)
 
 
+/obj/item/clothing/mask/gas/sechailer/adjustmask(user)
+	. = ..()
+	if(.)
+		w_class = up ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
+
+
+/obj/item/clothing/mask/gas/sechailer/force_adjust_mask()
+	. = ..()
+	w_class = WEIGHT_CLASS_SMALL
+
+
+/obj/item/clothing/mask/gas/sechailer/folded/Initialize(mapload)
+	. = ..()
+	force_adjust_mask()
+
+
 /obj/item/clothing/mask/gas/sechailer/hos
 	name = "\improper HOS SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a tan stripe."
 	icon_state = "hosmask"
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 10, "bomb" = 10, "bio" = 50, "rad" = 0, "fire" = 100, "acid" = 50)
 	aggressiveness = 3
 	phrase = 12
 	can_toggle = FALSE
@@ -356,6 +386,7 @@
 	name = "\improper Warden SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000. It has a blue stripe."
 	icon_state = "wardenmask"
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 10, "bomb" = 10, "bio" = 50, "rad" = 0, "fire" = 100, "acid" = 50)
 	aggressiveness = 3
 	phrase = 12
 	can_toggle = FALSE
@@ -366,6 +397,7 @@
 	name = "\improper SWAT mask"
 	desc = "A close-fitting tactical mask with an especially aggressive Compli-o-nator 3000."
 	icon_state = "officermask"
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 10, "bomb" = 10, "bio" = 50, "rad" = 0, "fire" = 100, "acid" = 50)
 	aggressiveness = 3
 	phrase = 12
 	can_toggle = FALSE
@@ -376,6 +408,7 @@
 	desc = "A neon blue swat mask, used for demoralizing Greytide in the wild."
 	icon_state = "blue_sechailer"
 	item_state = "blue_sechailer"
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 10, "bomb" = 10, "bio" = 50, "rad" = 0, "fire" = 100, "acid" = 50)
 	aggressiveness = 3
 	phrase = 12
 	can_toggle = FALSE
@@ -389,12 +422,12 @@
 	can_toggle = FALSE
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
-/obj/item/clothing/mask/gas/sechailer/ui_action_click(mob/user, actiontype)
-	if(actiontype == /datum/action/item_action/halt)
+/obj/item/clothing/mask/gas/sechailer/ui_action_click(mob/user, action)
+	if(istype(action, /datum/action/item_action/halt))
 		halt()
-	else if(actiontype == /datum/action/item_action/adjust)
+	else if(istype(action, /datum/action/item_action/adjust))
 		adjustmask(user)
-	else if(actiontype == /datum/action/item_action/selectphrase)
+	else if(istype(action, /datum/action/item_action/selectphrase))
 		var/key = phrase_list[phrase]
 		var/message = phrase_list[key]
 

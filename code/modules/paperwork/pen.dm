@@ -15,7 +15,7 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "pen"
 	item_state = "pen"
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_EARS
+	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_EARS
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
@@ -217,7 +217,7 @@
 
 /obj/item/pen/edagger/attack(mob/living/M, mob/living/user, def_zone)
 	var/extra_force_applied = FALSE
-	if(on && user.dir == M.dir && !M.incapacitated(TRUE) && user != M && backstab_cooldown <= world.time)
+	if(on && user.dir == M.dir && !M.incapacitated(INC_IGNORE_RESTRAINED) && user != M && backstab_cooldown <= world.time)
 		backstab_cooldown = (world.time + 10 SECONDS)
 		force += backstab_damage
 		extra_force_applied = TRUE

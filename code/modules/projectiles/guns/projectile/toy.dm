@@ -46,12 +46,19 @@
 
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer
-	name = "foam enforcer"
+	name = "foam force enforcer"
 	desc = "A foam shooting version of the Enforcer meant to be used for training new caddets who can't be trusted with rubber bullets."
 	icon_state = "enforcer"
 	mag_type = /obj/item/ammo_box/magazine/toy/enforcer
 	can_flashlight = TRUE
 	gun_light_overlay = "enforcer-light"
+
+
+
+/obj/item/gun/projectile/automatic/toy/pistol/enforcer/riot
+	name = "foam force riot enforcer"
+	desc = "RIOT! Meant to be used for training new caddets who can't be trusted with rubber bullets."
+	mag_type = /obj/item/ammo_box/magazine/toy/enforcer/riot
 
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer/ui_action_click()
@@ -83,7 +90,7 @@
 	item_state = "crossbow"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/toy/crossbow
 	fire_sound = 'sound/items/syringeproj.ogg'
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/gun/projectile/automatic/c20r/toy

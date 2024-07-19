@@ -19,11 +19,11 @@
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "cellconsole"
 	circuit = /obj/item/circuitboard/cryopodcontrol
-	density = 0
+	density = FALSE
 	interact_offline = 1
 	req_access = list(ACCESS_HEADS, ACCESS_ARMORY) //Heads of staff or the warden can go here to claim recover items from their department that people went were cryodormed with.
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 	var/mode = null
 
 	//Used for logging people entering cryosleep and important items they are carrying.
@@ -61,10 +61,10 @@
 	user.set_machine(src)
 	add_fingerprint(usr)
 
-/obj/machinery/computer/cryopod/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/cryopod/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "CryopodConsole", name, 450, 530)
+		ui = new(user, src, "CryopodConsole", name)
 		ui.open()
 
 /obj/machinery/computer/cryopod/ui_data(mob/user)
@@ -204,7 +204,7 @@
 	density = TRUE
 	anchored = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 	base_icon_state = "bodyscanner-open"
 	var/occupied_icon_state = "bodyscanner"
 	var/on_store_message = "помещен в криохранилище."
@@ -372,7 +372,7 @@
 	items -= announce // or the autosay radio.
 
 	for(var/obj/item/I in items)
-		if(istype(I, /obj/item/pda))
+		if(is_pda(I))
 			var/obj/item/pda/P = I
 			QDEL_NULL(P.id)
 			qdel(P)
@@ -476,69 +476,56 @@
 	name = initial(name)
 
 
-/obj/machinery/cryopod/attackby(obj/item/I, mob/user, params)
+/obj/machinery/cryopod/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing))
+		return .
+	var/mob/living/target = grabbed_thing
+	if(occupant)
+		to_chat(grabber, span_notice("[src] is in use."))
+		return .
+	if(target.stat == DEAD)
+		to_chat(grabber, span_notice("Dead people can not be put into cryo."))
+		return .
+	if(target.has_buckled_mobs()) //mob attached to us
+		to_chat(grabber, span_warning("[target] will not fit into the [src] because [target.p_they()] [target.p_have()] a slime latched onto [target.p_their()] head."))
+		return .
+	if(!check_occupant_allowed(target))
+		return .
 
-	if(istype(I, /obj/item/grab))
-		var/obj/item/grab/G = I
-
-		if(occupant)
-			to_chat(user, span_notice("[src] is in use."))
-			return
-
-		if(!ismob(G.affecting))
-			return
-
-		if(!check_occupant_allowed(G.affecting))
-			return
-
-		var/willing = null //We don't want to allow people to be forced into despawning.
-		var/mob/living/M = G.affecting
-		time_till_despawn = initial(time_till_despawn)
-
-		if(!istype(M) || M.stat == DEAD)
-			to_chat(user, span_notice("Dead people can not be put into cryo."))
-			return
-
-		if(M.client)
-			if(alert(M,"Would you like to enter long-term storage?",,"Yes","No") == "Yes")
-				if(!M || !G || !G.affecting) return
-				willing = willing_time_divisor
-		else
-			willing = 1
-
-		if(willing)
-
-			visible_message("[user] starts putting [G.affecting.name] into [src].")
-
-			if(do_after(user, 20, target = G.affecting))
-				if(!M || !G || !G.affecting)
-					return
-
-				if(occupant)
-					to_chat(user, span_boldnotice("[src] is in use."))
-					return
-
-				add_fingerprint(user)
-				take_occupant(M, willing)
-
-			else //because why the fuck would you keep going if the mob isn't in the pod
-				to_chat(user, span_notice("You stop putting [M] into the cryopod."))
-				return
-
-
-			to_chat(M, span_notice("[on_enter_occupant_message]"))
-			to_chat(M, span_boldnotice("If you ghost, log out or close your client now, your character will shortly be permanently removed from the round."))
-
-			take_occupant(M, willing)
+	var/willing = null //We don't want to allow people to be forced into despawning.
+	time_till_despawn = initial(time_till_despawn)
+	if(target.client)
+		if(alert(target, "Would you like to enter long-term storage?",,"Yes","No") == "Yes")
+			if(!target || !grabber || grabber.pulling != target || !grabber.Adjacent(src))
+				return .
+			willing = willing_time_divisor
 	else
-		return ..()
+		willing = 1
+
+	if(!willing)
+		return .
+
+	visible_message("[grabber] starts putting [target.name] into [src].")
+	if(!do_after(grabber, 2 SECONDS, target))
+		to_chat(grabber, span_notice("You stop putting [target] into the cryopod."))
+		return .
+
+	if(!target || !grabber || grabber.pulling != target || !grabber.Adjacent(src))
+		return .
+
+	if(occupant || target.stat == DEAD || target.has_buckled_mobs())
+		return .
+
+	add_fingerprint(grabber)
+	take_occupant(target, willing)
 
 
 /obj/machinery/cryopod/MouseDrop_T(atom/movable/O, mob/user, params)
 
 	if(O.loc == user) //no you can't pull things out of your ass
 		return
-	if(user.incapacitated()) //are you cuffed, dying, lying, stunned or other
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //are you cuffed, dying, lying, stunned or other
 		return
 	if(get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)) // is the mob anchored, too far away from you, or are you too far away from the source
 		return
@@ -596,7 +583,7 @@
 			visible_message("[user] starts climbing into the cryo pod.")
 		else
 			visible_message("[user] starts putting [L] into the cryo pod.")
-		if(do_after(user, 2 SECONDS, target = L))
+		if(do_after(user, 2 SECONDS, L))
 			if(!L)
 				return
 			if(occupant)
@@ -636,7 +623,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat != 0)
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(usr != occupant)
@@ -661,7 +648,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat != 0 || !check_occupant_allowed(usr))
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !check_occupant_allowed(usr))
 		return
 
 	if(occupant)
@@ -677,7 +664,7 @@
 
 	visible_message("[usr] starts climbing into [src].")
 
-	if(do_after(usr, 20, target = usr))
+	if(do_after(usr, 2 SECONDS, usr))
 
 		if(!usr || !usr.client)
 			return
@@ -686,7 +673,6 @@
 			to_chat(usr, span_boldnotice("\The [src] is in use."))
 			return
 
-		usr.stop_pulling()
 		usr.forceMove(src)
 		occupant = usr
 		time_till_despawn = initial(time_till_despawn) / willing_time_divisor
@@ -779,7 +765,7 @@
 			target_cryopod = safepick(free_cryopods)
 		if(target_cryopod.check_occupant_allowed(person_to_cryo))
 			var/turf/T = get_turf(person_to_cryo)
-			var/obj/effect/portal/SP = new /obj/effect/portal(T, null, null, 4 SECONDS, create_sparks = FALSE)
+			var/obj/effect/portal/SP = new /obj/effect/portal(T, null, null, 4 SECONDS, null, FALSE)
 			SP.name = "NT SSD Teleportation Portal"
 			target_cryopod.take_occupant(person_to_cryo, 1)
 			return 1

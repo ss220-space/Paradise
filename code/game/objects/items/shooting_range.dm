@@ -13,11 +13,11 @@
 	for(var/obj/structure/target_stake/T in view(3, src))
 		if(T.pinned_target == src)
 			T.pinned_target = null
-			T.density = TRUE
+			T.set_density(TRUE)
 			break
 	return ..() // delete target
 
-/obj/item/target/Move()
+/obj/item/target/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	// After target moves, check for nearby stakes. If associated, move to target
 	for(var/obj/structure/target_stake/M in view(3, src))
@@ -49,8 +49,8 @@
 
 	if(stake)
 		if(stake.pinned_target)
-			stake.density = TRUE
-			density = FALSE
+			stake.set_density(TRUE)
+			set_density(FALSE)
 			layer = OBJ_LAYER
 
 			loc = user.loc

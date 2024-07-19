@@ -37,7 +37,7 @@
 		/obj/item/stack/sheet/plastic				= /datum/species/golem/plastic,
 		/obj/item/stack/sheet/brass					= /datum/species/golem/clockwork)
 
-	if(istype(I, /obj/item/stack))
+	if(isstack(I))
 		var/obj/item/stack/O = I
 		var/species = golem_shell_species_types[O.merge_type]
 		if(species)

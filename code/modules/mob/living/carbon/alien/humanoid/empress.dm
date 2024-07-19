@@ -9,7 +9,7 @@
 	bubble_icon = "alienroyal"
 	large = TRUE
 	move_resist = MOVE_FORCE_STRONG
-	ventcrawler = 0
+	ventcrawler_trait = null
 
 /mob/living/carbon/alien/humanoid/empress/large
 	name = "alien empress"
@@ -23,7 +23,7 @@
 
 	if(stat == DEAD)
 		icon_state = "empress_dead"
-	else if(stat == UNCONSCIOUS || lying_angle || resting)
+	else if(stat == UNCONSCIOUS || body_position == LYING_DOWN)
 		icon_state = "empress_sleep"
 	else
 		icon_state = "empress_s"

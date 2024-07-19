@@ -11,7 +11,7 @@
 	icon_state = "syndbeacon"
 
 	anchored = TRUE
-	density = 1
+	density = TRUE
 
 	var/temptext = ""
 	var/selfdestructing = 0
@@ -21,7 +21,7 @@
 	add_fingerprint(user)
 	usr.set_machine(src)
 	var/dat = {"<meta charset="UTF-8"><font color=#005500><i>Scanning [pick("retina pattern", "voice print", "fingerprints", "dna sequence")]...<br>Identity confirmed,<br></i></font>"}
-	if(istype(user, /mob/living/carbon/human) || istype(user, /mob/living/silicon/ai))
+	if(ishuman(user) || istype(user, /mob/living/silicon/ai))
 		if(is_special_character(user))
 			dat += "<font color=#07700><i>Operative record found. Greetings, Agent [user.name].</i></font><br>"
 		else if(charges < 1)
@@ -55,7 +55,7 @@
 			src.updateUsrDialog()
 			spawn(rand(50,200)) selfdestruct()
 			return
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/N = M
 			var/objective = "Free Objective"
 			switch(rand(1,100))
@@ -109,7 +109,7 @@
 	icon_state = "beacon"
 
 	anchored = FALSE
-	density = 1
+	density = TRUE
 	layer = MOB_LAYER - 0.2 //so people can't hide it and it's REALLY OBVIOUS
 	stat = 0
 

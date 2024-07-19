@@ -94,8 +94,7 @@
 	name = "cult hood"
 	icon_state = "culthood"
 	desc = "A hood worn by the followers of a cult."
-	flags = BLOCKHAIR
-	flags_inv = HIDENAME
+	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 	cold_protection = HEAD
@@ -152,6 +151,7 @@
 	slowdown = 1
 	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75)
 	flags_inv = HIDEGLOVES|HIDEJUMPSUIT|HIDETAIL
+	flags_inv_transparent = HIDEJUMPSUIT
 	magical = TRUE
 	species_restricted = null
 	sprite_sheets = list(
@@ -165,6 +165,7 @@
 	item_state = "cult_armour"
 	w_class = WEIGHT_CLASS_BULKY
 	armor = list("melee" = 50, "bullet" = 40, "laser" = 50, "energy" = 30, "bomb" = 50, "bio" = 30, "rad" = 30, "fire" = 50, "acid" = 60)
+	flags_inv_transparent = HIDEGLOVES
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
@@ -179,8 +180,7 @@
 	icon_state = "cult_hoodalt"
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 40,"energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 	body_parts_covered = HEAD
-	flags = BLOCKHAIR
-	flags_inv = HIDENAME
+	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 	magical = TRUE
 
@@ -209,7 +209,6 @@
 	desc = "Blood-soaked robes infused with dark magic; allows the user to move at inhuman speeds, but at the cost of increased damage."
 	icon_state = "flagellantrobe"
 	item_state = "flagellantrobe"
-	flags_inv = HIDEJUMPSUIT
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	armor = list("melee" = -50, "bullet" = -50, "laser" = -50,"energy" = -50, "bomb" = -50, "bio" = -50, "rad" = -50, "fire" = 0, "acid" = 0)
@@ -234,7 +233,7 @@
 		user.drop_item_ground(src, force = TRUE)
 		user.Confused(20 SECONDS)
 		user.Weaken(10 SECONDS)
-	else if(slot == SLOT_HUD_OUTER_SUIT)
+	else if(slot == ITEM_SLOT_CLOTH_OUTER)
 		user.add_movespeed_modifier(/datum/movespeed_modifier/cult_robe)
 
 
@@ -248,8 +247,7 @@
 	desc = "Blood-soaked garb infused with dark magic; allows the user to move at inhuman speeds, but at the cost of increased damage."
 	icon_state = "flagellanthood"
 	item_state = "flagellanthood"
-	flags = BLOCKHAIR
-	flags_inv = HIDENAME
+	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	sprite_sheets = list(
@@ -270,16 +268,26 @@
 	increment = 5
 	max = 40
 	prefix = "darkened"
-	claw_damage_increase = 4
+	claws_increment = 4
+
 
 /obj/item/whetstone/cult/update_icon_state()
-	icon_state = "cult_sharpener[used ? "_used" : ""]"
+	icon_state = "cult_sharpener[!uses ? "_used" : ""]"
+
 
 /obj/item/whetstone/cult/attackby(obj/item/I, mob/user, params)
-	..()
-	if(used)
-		to_chat(user, "<span class='notice'>[src] crumbles to ashes.</span>")
+	. = ..()
+	if(!uses)
+		to_chat(user, span_notice("[src] crumbles to ashes."))
 		qdel(src)
+
+
+/obj/item/whetstone/cult/attack_self(mob/user)
+	. = ..()
+	if(!uses)
+		to_chat(user, span_notice("[src] crumbles to ashes."))
+		qdel(src)
+
 
 /obj/item/reagent_containers/food/drinks/bottle/unholywater
 	name = "flask of unholy water"
@@ -295,7 +303,7 @@
 	item_state = "blindfold"
 	see_in_dark = 8
 	invis_override = SEE_INVISIBLE_HIDDEN_RUNES
-	flash_protect = TRUE
+	flash_protect = FLASH_PROTECTION_FLASH
 	prescription = TRUE
 	origin_tech = null
 
@@ -389,7 +397,7 @@
 			continue
 		if(T == mobloc)
 			continue
-		if(istype(T, /turf/space))
+		if(isspaceturf(T))
 			continue
 		if(T.x > world.maxx-outer_tele_radius || T.x < outer_tele_radius)
 			continue	//putting them at the edge is dumb
@@ -408,7 +416,11 @@
 		var/atom/movable/pulled = handle_teleport_grab(destination, C)
 		C.forceMove(destination)
 		if(pulled)
-			C.start_pulling(pulled) //forcemove resets pulls, so we need to re-pull
+			if(C.pull_hand == PULL_WITHOUT_HANDS)
+				C.start_pulling(pulled) //forcemove resets pulls, so we need to re-pull
+			else if(!C.get_inactive_hand() && C.swap_hand())
+				C.start_pulling(pulled)
+				C.swap_hand()
 
 		new /obj/effect/temp_visual/dir_setting/cult/phase(destination, C.dir)
 		playsound(destination, 'sound/effects/phasein.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -420,10 +432,21 @@
 /obj/item/melee/cultblade/ghost
 	name = "eldritch sword"
 	force = 15
-	flags = NODROP | DROPDEL
+	item_flags = DROPDEL
+
+
+/obj/item/melee/cultblade/ghost/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/head/hooded/culthood/alt/ghost
-	flags = NODROP
+
+
+/obj/item/clothing/head/hooded/culthood/alt/ghost/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/suit/hooded/cultrobes/alt/ghost
 	name = "ghostly cult robes"
@@ -431,16 +454,32 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	armor = list(melee = 50, bullet = 30, laser = 50, energy = 20, bomb = 25, bio = 10, rad = 0, fire = 10, acid = 10)
-	flags_inv = HIDEJUMPSUIT
-	flags = NODROP | DROPDEL
+	item_flags = DROPDEL
 	hoodtype = /obj/item/clothing/head/hooded/culthood/alt/ghost
 
 
+/obj/item/clothing/suit/hooded/cultrobes/alt/ghost/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
+
 /obj/item/clothing/shoes/cult/ghost
-	flags = NODROP | DROPDEL
+	item_flags = DROPDEL
+
+
+/obj/item/clothing/shoes/cult/ghost/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/under/color/black/ghost
-	flags = NODROP | DROPDEL
+	item_flags = DROPDEL
+
+
+/obj/item/clothing/under/color/black/ghost/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /datum/outfit/ghost_cultist
 	name = "Cultist Ghost"
@@ -500,7 +539,7 @@
 	if(iscultist(owner)) // Cultist holding the shield
 
 		// Hit by a projectile
-		if(istype(hitby, /obj/item/projectile))
+		if(isprojectile(hitby))
 			var/obj/item/projectile/P = hitby
 			var/shatter_chance = 0 // Percent chance of the shield shattering on a projectile hit
 			var/threshold // Depends on the damage Type (Brute or Burn)
@@ -581,7 +620,6 @@
 	desc = "A sickening spear composed entirely of crystallized blood."
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "bloodspear0"
-	slot_flags = 0
 	force = 17
 	force_unwielded = 17
 	force_wielded = 24
@@ -610,7 +648,7 @@
 		var/mob/living/L = hit_atom
 		if(iscultist(L))
 			playsound(src, 'sound/weapons/throwtap.ogg', 50)
-			if(!L.restrained() && L.put_in_active_hand(src))
+			if(ishuman(L) && L.put_in_active_hand(src))
 				L.visible_message("<span class='warning'>[L] catches [src] out of the air!</span>")
 			else
 				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
@@ -682,7 +720,7 @@
 	guns_left = 24
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
 	fire_sound = 'sound/magic/wand_teleport.ogg'
-	flags = NOBLUDGEON | DROPDEL
+	item_flags = NOBLUDGEON|DROPDEL
 
 /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
 	ammo_type = /obj/item/ammo_casing/magic/arcane_barrage/blood

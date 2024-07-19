@@ -9,8 +9,9 @@
 	icon_state = "detscanner"
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "electronic"
-	flags = CONDUCT | NOBLUDGEON
-	slot_flags = SLOT_FLAG_BELT
+	flags = CONDUCT
+	item_flags = NOBLUDGEON
+	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "engineering=4;biotech=2;programming=5"
 	var/scanning = FALSE
 	var/list/log = list()
@@ -59,8 +60,8 @@
 	else
 		to_chat(user, "<span class='warning'>В записях станции не найдено совпадений.</span>")
 
-/obj/item/detective_scanner/ui_action_click(mob/user, actiontype)
-	if(actiontype == /datum/action/item_action/print_forensic_report)
+/obj/item/detective_scanner/ui_action_click(mob/user, action)
+	if(istype(action, /datum/action/item_action/print_forensic_report))
 		print_scanner_report()
 	else
 		clear_scanner()
@@ -166,7 +167,7 @@
 							var/blood_type = R.data["blood_type"]
 							blood[blood_DNA] = blood_type
 
-			if(istype(scan_atom, /obj/item/clothing))
+			if(isclothing(scan_atom))
 				var/obj/item/clothing/scanned_clothing = scan_atom
 				if(scanned_clothing.spy_spider_attached)
 					found_spy_device = TRUE

@@ -36,10 +36,10 @@
 		if(timer_off) //override original proc for plastic explosions
 			if(!flag)
 				return
-			if(istype(AM, /mob/living/carbon))
+			if(iscarbon(AM))
 				return
 			to_chat(user, "<span class='notice'>You start planting the [src].</span>")
-			if(do_after(user, 25 * toolspeed * gettoolspeedmod(user), target = AM))
+			if(do_after(user, 2.5 SECONDS * toolspeed * gettoolspeedmod(user), AM))
 				if(!user.drop_item_ground(src))
 					return
 				src.target = AM
@@ -78,7 +78,7 @@
 	S.start()
 	//location.attempt_drill(null,TRUE,3) //orange says it doesnt include the actual middle
 	for(var/turf/simulated/mineral/rock in circlerangeturfs(location, boom_sizes[3]))
-		var/distance = get_dist_euclidian(location,rock)
+		var/distance = get_dist_euclidean(location, rock)
 		if(distance <= boom_sizes[1])
 			rock.attempt_drill(null,TRUE,3)
 		else if (distance <= boom_sizes[2])
@@ -88,7 +88,7 @@
 
 	for(var/mob/living/carbon/C in circlerange(location,boom_sizes[3]))
 		if(ishuman(C)) //working on everyone
-			var/distance = get_dist_euclidian(location,C)
+			var/distance = get_dist_euclidean(location, C)
 			C.flash_eyes()
 			C.Weaken((boom_sizes[2] - distance) * 1 SECONDS) //1 second for how close you are to center if you're in range
 			C.AdjustDeaf((boom_sizes[3] - distance) * 10 SECONDS)

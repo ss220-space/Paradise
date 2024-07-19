@@ -13,7 +13,7 @@
 	active_power_usage = 200
 	pass_flags = PASSTABLE
 	/// Allowed item to recharge
-	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/rcs, /obj/item/bodyanalyzer, /obj/item/handheld_chem_dispenser)
+	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton/security, /obj/item/rcs, /obj/item/bodyanalyzer, /obj/item/handheld_chem_dispenser)
 	/// Rechargin multiplier
 	var/recharge_coeff = 1
 	/// The item that is being charged
@@ -28,6 +28,7 @@
 	component_parts += new /obj/item/circuitboard/recharger(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	RefreshParts()
+	update_icon()
 
 
 /obj/machinery/recharger/RefreshParts()
@@ -153,20 +154,18 @@
 		if(E.cell)
 			E.cell.emp_act(severity)
 
-	else if(istype(charging, /obj/item/melee/baton))
-		var/obj/item/melee/baton/B = charging
+	else if(istype(charging, /obj/item/melee/baton/security))
+		var/obj/item/melee/baton/security/B = charging
 		if(B.cell)
 			B.cell.charge = 0
+			B.update_icon()
 	..(severity)
 
+
 /obj/machinery/recharger/power_change(forced = FALSE)
-	if(!..())
-		return
-	if(stat & NOPOWER)
-		set_light_on(FALSE)
-	else
-		set_light(1, LIGHTING_MINIMUM_POWER, l_on = TRUE)
-	update_icon()
+	. = ..()
+	if(.)
+		update_icon()
 
 
 /obj/machinery/recharger/update_icon_state()
@@ -192,7 +191,7 @@
 	if((stat & NOPOWER) || panel_open)
 		return
 
-	underlays += emissive_appearance(icon, "[icon_state]_lightmask")
+	underlays += emissive_appearance(icon, "[icon_state]_lightmask", src)
 
 
 /obj/machinery/recharger/proc/get_cell_from(obj/item/I)
@@ -200,8 +199,8 @@
 		var/obj/item/gun/energy/E = I
 		return E.cell
 
-	if(istype(I, /obj/item/melee/baton))
-		var/obj/item/melee/baton/B = I
+	if(istype(I, /obj/item/melee/baton/security))
+		var/obj/item/melee/baton/security/B = I
 		return B.cell
 
 	if(istype(I, /obj/item/rcs))

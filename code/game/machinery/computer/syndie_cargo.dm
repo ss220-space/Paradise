@@ -343,7 +343,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 			if(MA.anchored)
 				continue
 			var/mob/MB = get_mob_in_atom_without_warning(MA)
-			if(MB?.stat || istype(MA, /mob/living)) // Если окажется что на паде труп или живое существо, то это защитит его от уничтожения
+			if(MB?.stat || isliving(MA)) // Если окажется что на паде труп или живое существо, то это защитит его от уничтожения
 				continue
 			if(istype(MA,/obj/structure/closet/crate/syndicate) || istype(MA,/obj/structure/closet/crate/secure/syndicate))
 				++crate_count
@@ -538,10 +538,10 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 		return 1
 	return ..()
 
-/obj/machinery/computer/syndie_supplycomp/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/syndie_supplycomp/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "SyndieCargoConsole", name, 900, 800, master_ui, state)
+		ui = new(user, src, "SyndieCargoConsole", name)
 		ui.open()
 
 /obj/machinery/computer/syndie_supplycomp/ui_data(mob/user)
