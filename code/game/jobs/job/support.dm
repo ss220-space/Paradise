@@ -374,7 +374,6 @@
 				stack_trace("Mimicking can not find it own voice.")
 				return
 			if(voice.selected)
-				owner.update_tts_seed(owner.tts_seed)
 				selected = null
 			voice_slots -= voice
 			empty_slots++
