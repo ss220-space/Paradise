@@ -64,6 +64,9 @@
 	..()
 	return 1
 
+/obj/structure/closet/critter/shove_impact(mob/living/target, mob/living/attacker)
+	return FALSE
+
 /obj/structure/closet/critter/corgi
 	name = "dog corgi crate"
 	content_mob = /mob/living/simple_animal/pet/dog/corgi
