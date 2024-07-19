@@ -67,3 +67,5 @@ stddef.dm
 #Ignore cached sound files.
 /sound/tts_cache/**/*
 /sound/tts_scrambled/**/*
+/buggy.rsc
+/paradise.rsc
