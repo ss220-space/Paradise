@@ -48,10 +48,8 @@
 		human.SetKnockdown(0)
 		if(prob(15))
 			var/list/fractured_organs = human.check_fractures()
-			shuffle(fractured_organs)
-			for(var/obj/item/organ/external/bodypart as anything in fractured_organs)
-				if(bodypart.mend_fracture())
-					break
+			var/obj/item/organ/external/bodypart = pick(fractured_organs)
+			bodypart.mend_fracture()
 		if(prob(1))
 			human.check_and_regenerate_organs()
 
