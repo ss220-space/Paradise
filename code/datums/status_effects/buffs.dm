@@ -47,9 +47,8 @@
 		human.adjustCloneLoss(-0.5)
 		human.SetKnockdown(0)
 		if(prob(15))
-			var/list/fractured_organs = human.check_fractures()
-			var/obj/item/organ/external/bodypart = pick(fractured_organs)
-			bodypart.mend_fracture()
+			var/obj/item/organ/external/bodypart = safepick(human.check_fractures())
+			bodypart?.mend_fracture()
 		if(prob(1))
 			human.check_and_regenerate_organs()
 
