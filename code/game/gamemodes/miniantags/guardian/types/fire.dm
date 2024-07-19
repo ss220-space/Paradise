@@ -13,6 +13,15 @@
 	bio_fluff_string = "Ваш рой скарабеев заканчивает мутировать и оживает, готовый сеять хаос в произвольном порядке."
 	var/toggle = FALSE
 
+
+/mob/living/simple_animal/hostile/guardian/fire/Initialize(mapload, mob/living/host)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
 /mob/living/simple_animal/hostile/guardian/fire/Life(seconds, times_fired) //Dies if the summoner dies
 	..()
 	if(summoner)
@@ -36,28 +45,24 @@
 				new /obj/effect/temp_visual/guardian/phase/out(get_turf(M))
 				summoner.AdjustHallucinate(10 SECONDS)
 
-/mob/living/simple_animal/hostile/guardian/fire/Crossed(AM as mob|obj, oldloc)
-	..()
-	collision_ignite(AM)
 
-/mob/living/simple_animal/hostile/guardian/fire/Bumped(atom/movable/moving_atom)
-	..()
-	collision_ignite(moving_atom)
+/mob/living/simple_animal/hostile/guardian/fire/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
 
-/mob/living/simple_animal/hostile/guardian/fire/Bump(AM as mob|obj)
-	..()
-	collision_ignite(AM)
+	collision_ignite(arrived)
 
-/mob/living/simple_animal/hostile/guardian/fire/proc/collision_ignite(AM as mob|obj)
+
+/mob/living/simple_animal/hostile/guardian/fire/MobBump(mob/living/bumped_mob)
+	. = ..()
+	collision_ignite(bumped_mob)
+
+
+/mob/living/simple_animal/hostile/guardian/fire/proc/collision_ignite(atom/movable/AM)
 	if(isliving(AM))
 		var/mob/living/M = AM
 		if(AM != summoner && M.fire_stacks < 7)
 			M.fire_stacks = 7
 			M.IgniteMob()
-
-/mob/living/simple_animal/hostile/guardian/fire/Bump(AM as mob|obj)
-	..()
-	collision_ignite(AM)
 
 
 /obj/effect/proc_holder/spell/aoe/guardian_hallucination

@@ -99,7 +99,7 @@
 /obj/effect/abstract/acid_act()
 	return
 
-/obj/effect/abstract/fire_act()
+/obj/effect/abstract/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	return
 
 /obj/effect/abstract/has_gravity(turf/gravity_turf)
@@ -148,5 +148,5 @@
 		qdel(src)
 
 /obj/effect/decal/blob_act(obj/structure/blob/B)
-	if(B && B.loc == loc)
+	if(B && B.loc == loc && !QDELETED(src))
 		qdel(src)

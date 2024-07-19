@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { Button, LabeledList, NoticeBox, Section, Box } from '../components';
 import { Window } from '../layouts';
@@ -18,7 +17,7 @@ export const BotClean = (props, context) => {
     cleanblood,
   } = data;
   return (
-    <Window>
+    <Window width={500} height={500}>
       <Window.Content scrollable>
         <NoticeBox>
           Swipe an ID card to {locked ? 'unlock' : 'lock'} this interface.
@@ -31,7 +30,8 @@ export const BotClean = (props, context) => {
                 content={on ? 'On' : 'Off'}
                 selected={on}
                 disabled={noaccess}
-                onClick={() => act('power')} />
+                onClick={() => act('power')}
+              />
             </LabeledList.Item>
             <LabeledList.Item label="Patrol">
               <Button.Checkbox
@@ -39,28 +39,28 @@ export const BotClean = (props, context) => {
                 checked={autopatrol}
                 content="Auto Patrol"
                 disabled={noaccess}
-                onClick={() => act('autopatrol')} />
+                onClick={() => act('autopatrol')}
+              />
             </LabeledList.Item>
             {!!maintpanel && (
               <LabeledList.Item label="Maintenance Panel">
-                <Box color="bad">
-                  Panel Open!
-                </Box>
+                <Box color="bad">Panel Open!</Box>
               </LabeledList.Item>
             )}
             <LabeledList.Item label="Safety System">
               <Box color={emagged ? 'bad' : 'good'}>
-                {emagged ? "DISABLED!" : "Enabled"}
+                {emagged ? 'DISABLED!' : 'Enabled'}
               </Box>
             </LabeledList.Item>
             {!!canhack && (
               <LabeledList.Item label="Hacking">
                 <Button
                   icon="terminal"
-                  content={emagged ? "Restore Safties" : "Hack"}
+                  content={emagged ? 'Restore Safties' : 'Hack'}
                   disabled={noaccess}
                   color="bad"
-                  onClick={() => act('hack')} />
+                  onClick={() => act('hack')}
+                />
               </LabeledList.Item>
             )}
             <LabeledList.Item label="Remote Access">
@@ -69,7 +69,8 @@ export const BotClean = (props, context) => {
                 checked={!remote_disabled}
                 content="AI Remote Control"
                 disabled={noaccess}
-                onClick={() => act('disableremote')} />
+                onClick={() => act('disableremote')}
+              />
             </LabeledList.Item>
           </LabeledList>
         </Section>
@@ -79,7 +80,8 @@ export const BotClean = (props, context) => {
             checked={cleanblood}
             content="Clean Blood"
             disabled={noaccess}
-            onClick={() => act('blood')} />
+            onClick={() => act('blood')}
+          />
         </Section>
         {painame && (
           <Section title="pAI">
@@ -88,7 +90,8 @@ export const BotClean = (props, context) => {
               icon="eject"
               content={painame}
               disabled={noaccess}
-              onClick={() => act('ejectpai')} />
+              onClick={() => act('ejectpai')}
+            />
           </Section>
         )}
       </Window.Content>

@@ -93,8 +93,10 @@
  * Arguments:
  * * block - block to manipulate with.
  * * activate - `TRUE` for activate, `FALSE` for deactivate.
- * * update_default_status - whether to add/removes this block in/from `gene default_genes` variable.
+ * * update_default_status - whether to add/remove this block in/from `gene default_genes` variable.
  * * ignore_species_default - if `TRUE` gene will be always removed, even if it belongs to `species default_genes` variable.
+ *
+ * Returns `TRUE` if a gene was changed, `FALSE` otherwise.
  */
 /mob/proc/force_gene_block(block, activate = FALSE, update_default_status = FALSE, ignore_species_default = FALSE)
 	return
@@ -104,9 +106,9 @@
 	var/force_flags = MUTCHK_FORCED
 	if(ignore_species_default)
 		force_flags |= MUTCHK_IGNORE_DEFAULT
-	dna.SetSEState(block, activate, TRUE)
-	check_gene_block(block, force_flags)
-	if(update_default_status)
+	dna.SetSEState(block, activate)
+	. = check_gene_block(block, force_flags)
+	if(. && update_default_status)
 		if(activate)
 			LAZYOR(dna.default_blocks, block)
 		else

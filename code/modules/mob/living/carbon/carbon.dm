@@ -32,7 +32,7 @@
 		adjustBruteLoss(10)
 
 
-/mob/living/carbon/Move(NewLoc, direct)
+/mob/living/carbon/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(.)
 		if(nutrition && stat != DEAD && !isvampire(src))
@@ -329,19 +329,20 @@
 		H.play_xylophone()
 
 
-/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
+/mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash)
 	. = ..()
 	var/damage = intensity - check_eye_prot()
 	var/extra_damage = 0
 	if(.)
 		if(visual)
 			return
-		if(weakeyes)
-			Stun(4 SECONDS)
 
 		var/obj/item/organ/internal/eyes/E = get_int_organ(/obj/item/organ/internal/eyes)
 		if(!E || (E && E.weld_proof))
 			return
+
+		if(weakeyes)
+			Stun(4 SECONDS)
 
 		var/extra_darkview = 0
 		if(E.see_in_dark)
@@ -349,8 +350,8 @@
 			extra_damage = extra_darkview
 
 		var/light_amount = 10 // assume full brightness
-		if(isturf(src.loc))
-			var/turf/T = src.loc
+		if(isturf(loc))
+			var/turf/T = loc
 			light_amount = round(T.get_lumcount() * 10)
 
 		// a dark view of 8, in full darkness, will result in maximum 1st tier damage
@@ -358,16 +359,16 @@
 
 		switch(damage)
 			if(1)
-				to_chat(src, "<span class='warning'>Ваши глаза немного щиплет.</span>")
+				to_chat(src, span_warning("Ваши глаза немного щиплет."))
 				var/minor_damage_multiplier = min(40 + extra_prob, 100) / 100
 				var/minor_damage = minor_damage_multiplier * (1 + extra_damage)
 				E.receive_damage(minor_damage, 1)
 			if(2)
-				to_chat(src, "<span class='warning'>Ваши глаза пылают.</span>")
+				to_chat(src, span_warning("Ваши глаза пылают."))
 				E.receive_damage(rand(2, 4) + extra_damage, 1)
 
 			else
-				to_chat(src, "Глаза сильно чешутся и пылают!</span>")
+				to_chat(src, span_warning("Глаза сильно чешутся и пылают!"))
 				E.receive_damage(rand(12, 16) + extra_damage, 1)
 
 		if(E.damage > E.min_bruised_damage)
@@ -376,22 +377,22 @@
 
 			if(E.damage > (E.min_bruised_damage + E.min_broken_damage) / 2)
 				if(!E.is_robotic())
-					to_chat(src, "<span class='warning'>Ваши глаза начинают сильно пылать!</span>")
+					to_chat(src, span_warning("Ваши глаза начинают сильно пылать!"))
 				else //snowflake conditions piss me off for the record
-					to_chat(src, "<span class='warning'>Вас ослепила вспышка!</span>")
+					to_chat(src, span_warning("Вас ослепила вспышка!"))
 
 			else if(E.damage >= E.min_broken_damage)
-				to_chat(src, "<span class='warning'>Вы ничего не видите!</span>")
+				to_chat(src, span_warning("Вы ничего не видите!"))
 
 			else
-				to_chat(src, "<span class='warning'>Ваши глаза начинают изрядно болеть. Это определенно не очень хорошо!</span>")
+				to_chat(src, span_warning("Ваши глаза начинают изрядно болеть. Это определенно не очень хорошо!"))
 		if(mind && has_bane(BANE_LIGHT))
 			mind.disrupt_spells(-500)
-		return 1
+		return TRUE
 
 	else if(damage == 0) // just enough protection
 		if(prob(20))
-			to_chat(src, "<span class='notice'>Что-то яркое вспыхнуло на периферии вашего зрения!</span>")
+			to_chat(src, span_notice("Что-то яркое вспыхнуло на периферии вашего зрения!"))
 			if(mind && has_bane(BANE_LIGHT))
 				mind.disrupt_spells(0)
 
@@ -519,53 +520,96 @@
 
 
 /mob/proc/throw_item(atom/target)
-	return
+	return TRUE
 
 
 /mob/living/carbon/throw_item(atom/target)
-	if(!target || !isturf(loc) || is_screen_atom(target))
-		throw_mode_off()
-		return
-
-	var/obj/item/I = get_active_hand()
-
-	if(!I || I.override_throw(src, target) || HAS_TRAIT(I, TRAIT_NODROP))
-		throw_mode_off()
-		return
+	. = ..()
 
 	throw_mode_off()
+
+	if(!target || !isturf(loc) || is_screen_atom(target))
+		return FALSE
+
 	var/atom/movable/thrown_thing
+	var/obj/item/held_item = get_active_hand()
+	// we can't check for if it's a neckgrab throw when totaling up power_throw
+	// since we've already stopped pulling them by then, so get it early
+	var/neckgrab_throw = FALSE
+	if(!held_item)
+		if(isliving(pulling) && grab_state >= GRAB_AGGRESSIVE && (pull_hand == PULL_WITHOUT_HANDS || pull_hand == hand))
+			var/mob/living/throwable_mob = pulling
+			if(!throwable_mob.buckled)
+				thrown_thing = throwable_mob
+				if(grab_state >= GRAB_NECK)
+					neckgrab_throw = TRUE
+				stop_pulling()
+				if(HAS_TRAIT(src, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
+					to_chat(src, span_notice("Вы осторожно отпускаете [throwable_mob.declent_ru(ACCUSATIVE)]."))
+					return FALSE
+	else
+		if(held_item.override_throw(src, target) || (held_item.item_flags & ABSTRACT))	//can't throw abstract items
+			return FALSE
+		if(!drop_item_ground(held_item, silent = TRUE))
+			return FALSE
+		if(held_item.throwforce && (GLOB.pacifism_after_gt || HAS_TRAIT(src, TRAIT_PACIFISM)))
+			to_chat(src, span_notice("Вы осторожно опускаете [held_item.declent_ru(ACCUSATIVE)] на землю."))
+			return FALSE
+		thrown_thing = held_item
 
-	if(istype(I, /obj/item/grab))
-		var/obj/item/grab/G = I
-		var/mob/throwable_mob = G.get_mob_if_throwable() //throw the person instead of the grab
-		qdel(G)	//We delete the grab.
-		if(throwable_mob)
-			thrown_thing = throwable_mob
-			if(HAS_TRAIT(src, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-				to_chat(src, span_notice("[pluralize_ru(src.gender,"Ты","Вы")] осторожно отпускае[pluralize_ru(src.gender,"шь","те")] [throwable_mob.declent_ru(ACCUSATIVE)]."))
-				return
-			var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
-			var/turf/end_T = get_turf(target)
-			throwable_mob.forceMove(start_T)
-			if(start_T && end_T)
-				var/start_T_descriptor = "<font color='#6b5d00'>tile at [start_T.x], [start_T.y], [start_T.z] in area [get_area(start_T)]</font>"
-				var/end_T_descriptor = "<font color='#6b4400'>tile at [end_T.x], [end_T.y], [end_T.z] in area [get_area(end_T)]</font>"
+	if(!thrown_thing)
+		return FALSE
 
-				add_attack_logs(src, throwable_mob, "Thrown from [start_T_descriptor] with the target [end_T_descriptor]")
+	var/mob/living/throwing_mob
+	if(isliving(thrown_thing))
+		throwing_mob = thrown_thing
+		var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
+		var/turf/end_T = get_turf(target)
+		if(start_T && end_T)
+			var/start_T_descriptor = "<font color='#6b5d00'>tile at [start_T.x], [start_T.y], [start_T.z] in area [get_area(start_T)]</font>"
+			var/end_T_descriptor = "<font color='#6b4400'>tile at [end_T.x], [end_T.y], [end_T.z] in area [get_area(end_T)]</font>"
+			add_attack_logs(src, throwing_mob, "Thrown from [start_T_descriptor] with the target [end_T_descriptor]")
 
-	else if(!(I.item_flags & ABSTRACT)) //can't throw abstract items
-		thrown_thing = I
-		drop_item_ground(I, silent = TRUE)
+	//We assign a default frequency number for the sound of the throw.
+	var/frequency_number = 1
+	if(!throwing_mob)
+		var/obj/item/thrown_item = thrown_thing	// always item otherwise
+		//At normal weight, the frequency is at 1. For tiny, it is 1.25. For huge, it is 0.75.
+		frequency_number = 1 - (thrown_item.w_class - 3) / 8
 
-		if(GLOB.pacifism_after_gt || (HAS_TRAIT(src, TRAIT_PACIFISM) && I.throwforce))
-			to_chat(src, span_notice("[pluralize_ru(src.gender,"Ты","Вы")] осторожно опускае[pluralize_ru(src.gender,"шь","те")] [I.declent_ru(ACCUSATIVE)] на землю."))
-			return
+	var/power_throw = 0
+	if(HULK in mutations)
+		power_throw++
+	if(DWARF in mutations)
+		power_throw--
+	if(throwing_mob && (DWARF in throwing_mob.mutations))
+		power_throw++
+	if(neckgrab_throw)
+		power_throw++
 
-	if(thrown_thing)
-		visible_message(span_danger("[src.declent_ru(NOMINATIVE)] броса[pluralize_ru(src.gender,"ет","ют")] [thrown_thing.declent_ru(ACCUSATIVE)]."))
-		newtonian_move(get_dir(target, src))
-		thrown_thing.throw_at(target, thrown_thing.throw_range, thrown_thing.throw_speed, src, null, null, null, move_force)
+	do_attack_animation(target, no_effect = TRUE)
+	var/sound/throwsound = 'sound/weapons/throw.ogg'
+	var/power_throw_text = ""
+	if(power_throw > 0) //If we have anything that boosts our throw power like hulk, we use the rougher heavier variant.
+		throwsound = 'sound/weapons/throwhard.ogg'
+		power_throw_text = " мощно"
+	if(power_throw < 0) //if we have anything that weakens our throw power like dward, we use a slower variant.
+		throwsound = 'sound/weapons/throwsoft.ogg'
+		power_throw_text = " немощно"
+
+	// Adds a bit of randomness in the frequency to not sound exactly the same.
+	// The volume of the sound takes the minimum between the distance thrown or the max range an item,
+	// but no more than 50. Short throws are quieter. A fast throwing speed also makes the noise sharper.
+	frequency_number = frequency_number + (rand(-5, 5) / 100)
+
+	playsound(src, throwsound, min(8 * min(get_dist(loc, target), thrown_thing.throw_range), 50), vary = TRUE, extrarange = -1, frequency = frequency_number)
+
+	visible_message(
+		span_danger("[declent_ru(NOMINATIVE)][power_throw_text] броса[pluralize_ru(gender,"ет","ют")] [thrown_thing.declent_ru(ACCUSATIVE)]."),
+		span_danger("Вы[power_throw_text] бросаете [thrown_thing.declent_ru(ACCUSATIVE)]."),
+	)
+	newtonian_move(get_dir(target, src))
+	thrown_thing.throw_at(target, thrown_thing.throw_range, max(1, thrown_thing.throw_speed + power_throw), src, null, null, null, move_force)
 
 
 //generates realistic-ish pulse output based on preset levels
@@ -847,13 +891,6 @@ so that different stomachs can handle things in different ways VB*/
 	..(clean_hands, clean_mask, clean_feet)
 
 
-/mob/living/carbon/get_pull_push_speed_modifier(current_delay)
-	if(!(mobility_flags & MOBILITY_MOVE))
-		return pull_push_speed_modifier * 1.2
-	var/average_delay = (cached_multiplicative_slowdown + current_delay) / 2
-	return current_delay > average_delay ? pull_push_speed_modifier : (average_delay / current_delay)
-
-
 /mob/living/carbon/proc/shock_reduction()
 	var/shock_reduction = 0
 	if(reagents)
@@ -889,3 +926,25 @@ so that different stomachs can handle things in different ways VB*/
 	else
 		remove_movespeed_modifier(/datum/movespeed_modifier/carbon_crawling)
 
+/mob/living/carbon/proc/remove_all_parasites(vomit_organs = FALSE)
+	var/static/list/parasite_organs = typecacheof(list(
+		/obj/item/organ/internal/body_egg,
+		/obj/item/organ/internal/legion_tumour,
+	))
+
+	var/should_vomit = FALSE
+	var/turf/current_turf = get_turf(src)
+	for(var/obj/item/organ/internal/organ as anything in internal_organs)
+		if(!is_type_in_typecache(organ, parasite_organs))
+			continue
+		organ.remove(src)
+		if(QDELETED(organ))
+			continue
+		if(vomit_organs)
+			should_vomit = TRUE
+			organ.forceMove(current_turf)
+		else
+			qdel(organ)
+
+	if(should_vomit)
+		fakevomit()

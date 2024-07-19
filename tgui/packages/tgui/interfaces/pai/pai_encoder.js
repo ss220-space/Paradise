@@ -3,13 +3,10 @@ import { Input, LabeledList, Section } from '../../components';
 
 export const pai_encoder = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    radio_name,
-    radio_rank,
-  } = data.app_data;
+  const { radio_name, radio_rank } = data.app_data;
 
   return (
-    <Section title="Your name and rank in radio channels" >
+    <Section title="Your name and rank in radio channels">
       <LabeledList>
         <LabeledList.Item label="Your current name and rank">
           {radio_name}, {radio_rank}

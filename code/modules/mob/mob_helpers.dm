@@ -1,17 +1,3 @@
-/proc/issmall(A)
-	if(A && ishuman(A))
-		var/mob/living/carbon/human/H = A
-		if(H.dna.species && H.dna.species.is_small)
-			return 1
- 	return 0
-
-/proc/ispet(A)
-	if(isanimal(A))
-		var/mob/living/simple_animal/SA = A
-		if(SA.can_collar)
-			return 1
-	return 0
-
 /mob/proc/get_screen_colour()
 
 /mob/proc/update_client_colour(var/time = 10) //Update the mob's client.color with an animation the specified time in length.
@@ -45,7 +31,7 @@
 
 
 /proc/isLivingSSD(mob/M)
-	return istype(M) && M.player_logged && M.stat != DEAD
+	return istype(M) && !isnull(M.player_logged) && M.stat != DEAD
 
 /proc/isAntag(A)
 	if(isliving(A))
@@ -849,16 +835,17 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		adjacent = get_turf(adjacent)
 		if(!adjacent)
 			return FALSE
-	if(adjacent.density)
+	if(loc == adjacent)
+		return TRUE
+	if(!in_range(src, adjacent))
 		return FALSE
-	if(!in_range(loc, adjacent))
+	var/border_dir = get_dir(adjacent, src)
+	if(!is_type_in_list(adjacent, types_to_exclude) && !adjacent.CanPass(src, border_dir))
 		return FALSE
-	for(var/atom/check_atom in adjacent)
-		if(islist(types_to_exclude) && is_type_in_list(check_atom, types_to_exclude))
+	for(var/atom/check_atom as anything in adjacent)
+		if(is_type_in_list(check_atom, types_to_exclude))
 			continue
-		if(check_atom.density)
-			return FALSE
-		if(!check_atom.CanPass(src, loc))
+		if(!check_atom.CanPass(src, border_dir))
 			return FALSE
 	return TRUE
 

@@ -16,6 +16,10 @@
 /obj/item/onetankbomb/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/proximity_monitor)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 
 /obj/item/onetankbomb/examine(mob/user)
@@ -98,9 +102,11 @@
 		bombassembly.HasProximity(AM)
 
 
-/obj/item/onetankbomb/Crossed(atom/movable/AM, oldloc) //for mousetraps
+/obj/item/onetankbomb/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
 	if(bombassembly)
-		bombassembly.Crossed(AM, oldloc)
+		bombassembly.assembly_crossed(arrived, old_loc)
 
 
 /obj/item/onetankbomb/on_found(mob/finder) //for mousetraps

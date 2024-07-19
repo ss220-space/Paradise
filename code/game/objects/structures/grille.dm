@@ -18,8 +18,7 @@
 	var/rods_broken = 1
 	var/grille_type
 	var/broken_type = /obj/structure/grille/broken
-	var/shockcooldown = 0
-	var/my_shockcooldown = 1 SECONDS
+	COOLDOWN_DECLARE(shock_cooldown)
 
 /obj/structure/grille/fence
 	var/width = 2
@@ -101,14 +100,14 @@
 	take_damage(25) //second time turn into broken
 	. &= ~(FALL_INTERCEPTED | FALL_NO_MESSAGE | FALL_RETAIN_PULL)
 
-/obj/structure/grille/Bumped(atom/movable/moving_atom)
-	..()
 
-	if(ismob(moving_atom))
-		if(!(shockcooldown <= world.time))
-			return
-		shock(moving_atom, 70)
-		shockcooldown = world.time + my_shockcooldown
+/obj/structure/grille/Bumped(atom/movable/moving_atom)
+	. = ..()
+	if(!COOLDOWN_FINISHED(src, shock_cooldown) || !ismob(moving_atom))
+		return .
+	shock(moving_atom, 70)
+	COOLDOWN_START(src, shock_cooldown, 1 SECONDS)
+
 
 /obj/structure/grille/attack_animal(mob/user)
 	. = ..()
@@ -146,10 +145,12 @@
 		return prob(30)
 
 
-/obj/structure/grille/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
-	. = !density
-	if(checkpass(caller, PASSGRILLE))
-		. = TRUE
+/obj/structure/grille/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(!density)
+		return TRUE
+	if(pass_info.pass_flags == PASSEVERYTHING || (pass_info.pass_flags & PASSGRILLE))
+		return TRUE
+	return FALSE
 
 
 /obj/structure/grille/attackby(obj/item/W, mob/user, params)

@@ -31,13 +31,6 @@
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
-	sprite_sheets_obj = list(
-		SPECIES_UNATHI = 'icons/obj/clothing/species/unathi/hats.dmi',
-		SPECIES_TAJARAN = 'icons/obj/clothing/species/tajaran/hats.dmi',
-		SPECIES_SKRELL = 'icons/obj/clothing/species/skrell/hats.dmi',
-		SPECIES_VOX = 'icons/obj/clothing/species/vox/hats.dmi',
-		SPECIES_VULPKANIN = 'icons/obj/clothing/species/vulpkanin/hats.dmi'
-		)
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/Initialize(mapload, obj/item/clothing/suit/space/hardsuit/parent)
@@ -155,13 +148,6 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi'
-		)
-	sprite_sheets_obj = list(
-		SPECIES_UNATHI = 'icons/obj/clothing/species/unathi/suits.dmi',
-		SPECIES_TAJARAN = 'icons/obj/clothing/species/tajaran/suits.dmi',
-		SPECIES_SKRELL = 'icons/obj/clothing/species/skrell/suits.dmi',
-		SPECIES_VOX = 'icons/obj/clothing/species/vox/suits.dmi',
-		SPECIES_VULPKANIN = 'icons/obj/clothing/species/vulpkanin/suits.dmi'
 		)
 
 
@@ -417,12 +403,14 @@
 		clothing_flags |= visor_clothing_flags
 		flags_cover |= (HEADCOVERSEYES|HEADCOVERSMOUTH)
 		flags_inv |= visor_flags_inv
+		flags_inv_transparent |= visor_flags_inv_transparent
 		cold_protection |= HEAD
 		armor.rad = 100
 	else
 		clothing_flags &= ~visor_clothing_flags
 		flags_cover &= ~(HEADCOVERSEYES|HEADCOVERSMOUTH)
 		flags_inv &= ~visor_flags_inv
+		flags_inv_transparent &= ~visor_flags_inv_transparent
 		cold_protection &= ~HEAD
 		armor.rad = combat_rad
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
@@ -625,8 +613,8 @@
 	item_state = "medical_helm"
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 5, "bomb" = 10, "bio" = 100, "rad" = 60, "fire" = 60, "acid" = 75)
 	item_color = "medical"
-	flash_protect = 0
-	scan_reagents = 1 //Generally worn by the CMO, so they'd get utility off of seeing reagents
+	flash_protect = FLASH_PROTECTION_NONE
+	scan_reagents = TRUE //Generally worn by the CMO, so they'd get utility off of seeing reagents
 
 /obj/item/clothing/suit/space/hardsuit/medical
 	name = "medical hardsuit"
@@ -691,8 +679,8 @@
 	icon_state = "hardsuit0-brigmed"
 	armor = list("melee" = 30, "bullet" = 10, "laser" = 20, "energy" = 15, "bomb" = 10, "bio" = 100, "rad" = 60, "fire" = 60, "acid" = 75)
 	item_color = "brigmed"
-	flash_protect = 0
-	scan_reagents = 1
+	flash_protect = FLASH_PROTECTION_NONE
+	scan_reagents = TRUE
 
 /obj/item/clothing/suit/space/hardsuit/security/brigmed
 	name = "brig physician's hardsuit"

@@ -59,7 +59,7 @@
 	AddElement(/datum/element/simple_flying)
 
 
-/mob/living/simple_animal/hostile/ghost/Process_Spacemove(movement_dir = NONE)
+/mob/living/simple_animal/hostile/ghost/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/hostile/ghost/Life(seconds, times_fired)
@@ -112,7 +112,7 @@
 	icon_living = "eskimo"
 	maxHealth = 55
 	health = 55
-	weather_immunities = list("snow")
+	weather_immunities = list(TRAIT_SNOWSTORM_IMMUNE)
 	gold_core_spawnable = NO_SPAWN
 	melee_damage_lower = 17
 	melee_damage_upper = 20

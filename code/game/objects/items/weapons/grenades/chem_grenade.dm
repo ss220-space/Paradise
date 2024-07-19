@@ -32,6 +32,10 @@
 	if(payload_name)
 		payload_name += " " // formatting, ignore me
 	update_icon()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 
 /obj/item/grenade/chem_grenade/Destroy()
@@ -242,7 +246,7 @@
 	if(nadeassembly)
 		nadeassembly.HasProximity(AM)
 
-/obj/item/grenade/chem_grenade/Move() // prox sensors and infrared care about this
+/obj/item/grenade/chem_grenade/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE) // prox sensors and infrared care about this
 	. = ..()
 	if(nadeassembly)
 		nadeassembly.process_movement()
@@ -252,9 +256,13 @@
 	if(nadeassembly)
 		nadeassembly.process_movement()
 
-/obj/item/grenade/chem_grenade/Crossed(atom/movable/AM, oldloc)
+
+/obj/item/grenade/chem_grenade/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
 	if(nadeassembly)
-		nadeassembly.Crossed(AM, oldloc)
+		nadeassembly.assembly_crossed(arrived, old_loc)
+
 
 /obj/item/grenade/chem_grenade/on_found(mob/finder)
 	if(nadeassembly)
@@ -268,10 +276,11 @@
 	if(nadeassembly)
 		nadeassembly.hear_message(M, msg)
 
-/obj/item/grenade/chem_grenade/Bump()
-	..()
-	if(nadeassembly)
-		nadeassembly.process_movement()
+/obj/item/grenade/chem_grenade/Bump(atom/bumped_atom)
+	. = ..()
+	if(!nadeassembly)
+		return .
+	nadeassembly.process_movement()
 
 /obj/item/grenade/chem_grenade/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // called when a throw stops
 	..()

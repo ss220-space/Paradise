@@ -41,10 +41,16 @@
 /mob/proc/run_quick_equip()
 	var/obj/item/I = get_active_hand()
 	if(!I)
+		if(pulling && isliving(src))
+			var/mob/living/grabber = src
+			if(!isnull(grabber.pull_hand) && grabber.pull_hand != PULL_WITHOUT_HANDS)
+				if(next_move <= world.time && grabber.hand == grabber.pull_hand && grabber.on_grab_quick_equip(pulling, grabber.pull_hand))
+					grabber.changeNext_move(CLICK_CD_GRABBING)
+				return
 		to_chat(src, span_warning("Вы ничего не держите в руке!"))
 		return
 
-	if(!QDELETED(I))
+	if(!QDELETED(I) && I.user_can_equip(src))
 		I.equip_to_best_slot(src)
 
 
@@ -305,7 +311,7 @@
 	if(QDELING(I))
 		return FALSE
 
-	if(!force && !put_in_hand_check(I, hand_id))
+	if(!put_in_hand_check(I, hand_id) && !force)
 		return FALSE
 
 	if(!ignore_anim)
@@ -604,10 +610,13 @@
 
 
 /**
- * Collects all the bitflags from the obscured slots.
- * Works only for humans and checks only suits, headgear and masks currently.
+ * Collects flags_inv bitflags from all equipped items and returns slots considered as obscure.
+ *
+ * Arguments:
+ * * check_transparent - If `TRUE` bitflags from var/flags_inv_transparent will be considered, works like a toggle (^=) for var/flags_inv.
+ * Used in overlay updates to properly cover or uncover certain zones.
  */
-/mob/proc/check_obscured_slots()
+/mob/proc/check_obscured_slots(check_transparent)
 	. = NONE
 
 
@@ -616,11 +625,10 @@
  * and not actually wearing it in any REAL equipment slot.
  */
 /mob/proc/is_general_slot(slot)
-	return (slot & (ITEM_SLOT_HANDS|ITEM_SLOT_POCKETS|ITEM_SLOT_BACKPACK|ITEM_SLOT_HANDCUFFED|ITEM_SLOT_LEGCUFFED))
+	return (slot & (ITEM_SLOT_HANDS|ITEM_SLOT_POCKETS|ITEM_SLOT_BACKPACK|ITEM_SLOT_HANDCUFFED|ITEM_SLOT_LEGCUFFED|ITEM_SLOT_ACCESSORY))
 
 
-//Outdated but still in use apparently. This should at least be a human proc.
-//Daily reminder to murder this - Remie.
+/// Collects all items in possibly equipped slots.
 /mob/proc/get_equipped_items(include_pockets = FALSE, include_hands = FALSE)
 	var/list/items = list()
 	if(back)
@@ -633,6 +641,20 @@
 		if(r_hand)
 			items += r_hand
 	return items
+
+
+/// Same as above but we get slots, not items.
+/mob/proc/get_equipped_slots(include_pockets = FALSE, include_hands = FALSE)
+	. = NONE
+	if(back)
+		. |= ITEM_SLOT_BACK
+	if(wear_mask)
+		. |= ITEM_SLOT_MASK
+	if(include_hands)
+		if(l_hand)
+			. |= ITEM_SLOT_HAND_LEFT
+		if(r_hand)
+			. |= ITEM_SLOT_HAND_RIGHT
 
 
 /mob/proc/get_all_slots()

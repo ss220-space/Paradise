@@ -14,6 +14,7 @@
 	use_to_pickup = TRUE
 	origin_tech = "engineering=1"
 
+
 /obj/item/storage/conveyor/bluespace
 	name = "bluespace conveyor belt placer"
 	desc = "This device facilitates the rapid deployment of conveyor belts. It utilises bluespace in order to hold many more belts than its regular counterpart."
@@ -24,23 +25,26 @@
 	max_combined_w_class = 200 //50 belts
 	origin_tech = "engineering=2;bluespace=1"
 
+
 /obj/item/storage/conveyor/attackby(obj/item/I, mob/user, params) //So we can link belts en masse
 	if(istype(I, /obj/item/conveyor_switch_construct))
-		var/obj/item/conveyor_switch_construct/S = I
+		var/obj/item/conveyor_switch_construct/switch_construct = I
 		var/linked = FALSE //For nice message
-		for(var/obj/item/conveyor_construct/C in src)
-			C.id = S.id
+		for(var/obj/item/conveyor_construct/conveyor in contents)
+			conveyor.id = switch_construct.id
 			linked = TRUE
 		if(linked)
-			to_chat(user, "<span class='notice'>All belts in [src] linked with [S].</span>")
+			to_chat(user, span_notice("All belts in [src] linked with [switch_construct]."))
 	else
 		return ..()
 
-/obj/item/storage/conveyor/afterattack(atom/A, mob/user, proximity)
+
+/obj/item/storage/conveyor/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
-	var/obj/item/conveyor_construct/C = locate() in src
-	if(!C)
-		to_chat(user, "<span class='notice'>There are no belts in [src].</span>")
-	else
-		C.afterattack(A, user, proximity)
+	var/obj/item/conveyor_construct/conveyor = locate() in contents
+	if(!conveyor)
+		to_chat(user, span_warning("There are no belts in [src]."))
+		return
+	conveyor.afterattack(target, user, proximity)
+

@@ -34,8 +34,9 @@
 
 
 
-/mob/living/simple_animal/bot/cleanbot/New()
-	..()
+/mob/living/simple_animal/bot/cleanbot/Initialize(mapload)
+	. = ..()
+
 	get_targets()
 
 	var/datum/job/janitor/J = new/datum/job/janitor
@@ -147,7 +148,7 @@
 	if(target)
 		if(!path || !length(path)) //No path, need a new one
 			//Try to produce a path to the target, and ignore airlocks to which it has access.
-			path = get_path_to(src, target, 30, id = access_card)
+			path = get_path_to(src, target, max_distance = 30, access = access_card.GetAccess())
 			if(!bot_move(target))
 				add_to_ignore(target)
 				target = null
@@ -224,10 +225,10 @@
 	ui_interact(M)
 
 
-/mob/living/simple_animal/bot/cleanbot/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/mob/living/simple_animal/bot/cleanbot/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BotClean", name, 500, 500)
+		ui = new(user, src, "BotClean", name)
 		ui.open()
 
 

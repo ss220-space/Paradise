@@ -14,11 +14,11 @@
 
 /datum/status_effect/freon/on_apply()
 	RegisterSignal(owner, COMSIG_LIVING_RESIST, PROC_REF(owner_resist))
-	RegisterSignal(owner, COMSIG_HUMAN_APPLY_OVERLAY, PROC_REF(update_overlay))
+	RegisterSignal(owner, COMSIG_CARBON_APPLY_OVERLAY, PROC_REF(update_overlay))
 	if(!owner.stat)
 		to_chat(owner, "<span class='userdanger'>You become frozen in a cube!</span>")
 	cube = icon('icons/effects/freeze.dmi', ice_state)
-	owner.add_overlay(cube)
+	update_overlay()
 	owner.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
 	return ..()
 
@@ -44,9 +44,9 @@
 		to_chat(owner, "The cube melts!")
 	owner.cut_overlay(cube)
 	owner.adjust_bodytemperature(100)
-	UnregisterSignal(owner, COMSIG_LIVING_RESIST)
-	UnregisterSignal(owner, COMSIG_HUMAN_APPLY_OVERLAY)
+	UnregisterSignal(owner, list(COMSIG_CARBON_APPLY_OVERLAY, COMSIG_LIVING_RESIST))
 	owner.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
+
 
 /datum/status_effect/freon/watcher
 	duration = 1.5 SECONDS

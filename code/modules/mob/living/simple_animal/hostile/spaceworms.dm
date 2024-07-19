@@ -57,7 +57,7 @@
 	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
 
 
-/mob/living/simple_animal/hostile/spaceWorm/Process_Spacemove(movement_dir = NONE)
+/mob/living/simple_animal/hostile/spaceWorm/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE //space worms can flyyyyyy
 
 //Worm Head, Controls the AI for the entire worm "entity"
@@ -130,8 +130,9 @@
 		attemptToEat(target)
 
 //Attempt to eat things we bump into, Mobs, Walls, Clowns
-/mob/living/simple_animal/hostile/spaceWorm/wormHead/Bump(atom/obstacle)
-	attemptToEat(obstacle)
+/mob/living/simple_animal/hostile/spaceWorm/wormHead/Bump(atom/bumped_atom)
+	. = ..()
+	attemptToEat(bumped_atom)
 
 //Attempt to eat things, only the head can eat
 /mob/living/simple_animal/hostile/spaceWorm/wormHead/proc/attemptToEat(var/atom/noms)
@@ -228,7 +229,7 @@
 
 
 //Move all segments if one piece moves.
-/mob/living/simple_animal/hostile/spaceWorm/Move()
+/mob/living/simple_animal/hostile/spaceWorm/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/segmentNextPos = loc
 	. = ..()
 	if(.)

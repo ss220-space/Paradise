@@ -4,7 +4,7 @@
 
 #define CHUNK_SIZE 16 // Only chunk sizes that are to the power of 2. E.g: 2, 4, 8, 16, etc..
 /// Takes a position, transforms it into a chunk bounded position. Indexes at 1 so it'll land on actual turfs always
-#define GET_CHUNK_COORD(v) (FLOOR(v, CHUNK_SIZE) + 1)
+#define GET_CHUNK_COORD(v) (max((FLOOR(v, CHUNK_SIZE)), 1))
 GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 
 /datum/cameranet
@@ -96,8 +96,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 
 // Updates the chunks that the turf is located in. Use this when obstacles are destroyed or	when doors open.
 
-/datum/cameranet/proc/updateVisibility(atom/A, opacity_check = 1)
-
+/datum/cameranet/proc/updateVisibility(atom/A, opacity_check = TRUE)
 	if(!SSticker || (opacity_check && !A.opacity))
 		return
 	majorChunkChange(A, 2)

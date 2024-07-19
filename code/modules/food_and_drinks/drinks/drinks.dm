@@ -93,7 +93,7 @@
 			"<span class='notice'>You start chugging [src].</span>",
 			"<span class='notice'>You hear what sounds like gulping.</span>")
 		chugging = TRUE
-		while(do_after(chugger, 4 SECONDS, chugger, progress = FALSE, max_interact_count = 1, cancel_message = span_warning("You stop chugging [src].")))
+		while(do_after(chugger, 4 SECONDS, chugger, progress = FALSE, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("You stop chugging [src].")))
 			chugger.eat(src, chugger, 25) //Half of a glass, quarter of a bottle.
 			if(!reagents.total_volume) //Finish in style.
 				chugger.emote("gasp")
@@ -379,18 +379,6 @@
 	desc = "A cup with the british flag emblazoned on it."
 	icon_state = "britcup"
 	volume = 30
-
-/obj/item/reagent_containers/food/drinks/bag
-	name = "drink bag"
-	desc = "Normally put in wine boxes, or down pants at stadium events."
-	icon_state = "goonbag"
-	volume = 70
-
-/obj/item/reagent_containers/food/drinks/bag/goonbag
-	name = "goon from a Blue Toolbox special edition"
-	desc = "Wine from the land down under, where the dingos roam and the roos do wander."
-	icon_state = "goonbag"
-	list_reagents = list("wine" = 70)
 
 /obj/item/reagent_containers/food/drinks/oilcan
 	name = "oil can"

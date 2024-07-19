@@ -268,8 +268,7 @@ effective or pretty fucking useless.
 
 
 /obj/item/teleporter/proc/attempt_teleport(mob/living/user, EMP_D = FALSE)
-	for(var/obj/item/grab/G in user)
-		qdel(G)
+	pulledby?.stop_pulling()
 	dir_correction(user)
 	if(!charges && !EMP_D) //If it's empd, you are moving no matter what.
 		to_chat(user, span_warning("[src] is still recharging."))
@@ -325,7 +324,7 @@ effective or pretty fucking useless.
 
 
 /obj/item/teleporter/proc/tile_check(turf/check_turf)
-	return isfloorturf(check_turf) || isspaceturf(check_turf)
+	return isfloorturf(check_turf) || isspaceturf(check_turf) || isopenspaceturf(check_turf)
 
 
 /obj/item/teleporter/proc/dir_correction(mob/user) //Direction movement, screws with teleport distance and saving throw, and thus must be removed first

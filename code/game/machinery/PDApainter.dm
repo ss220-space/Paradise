@@ -8,7 +8,7 @@
 	anchored = TRUE
 	max_integrity = 200
 	var/obj/item/pda/storedpda = null
-	var/list/colorlist = list()
+	var/static/list/colorlist
 	var/statusLabel
 	var/statusLabelCooldownTime = 0
 	var/statusLabelCooldownTimeSecondsToAdd = 20 // 20 deciseconds = 2 seconds, 1sec = 0.1 decisecond
@@ -18,19 +18,32 @@
 /obj/machinery/pdapainter/Initialize(mapload)
 	. = ..()
 
-	var/blocked = list(/obj/item/pda/silicon, /obj/item/pda/silicon/ai, /obj/item/pda/silicon/robot, /obj/item/pda/silicon/pai, /obj/item/pda/heads,
-						/obj/item/pda/clear, /obj/item/pda/syndicate, /obj/item/pda/chameleon, /obj/item/pda/chameleon/broken)
+	if(colorlist)
+		return
 
-	for(var/thing in typesof(/obj/item/pda) - blocked)
-		var/obj/item/pda/P = thing
+	var/list/available_pdas = typesof(/obj/item/pda) - list(
+		/obj/item/pda/silicon,
+		/obj/item/pda/silicon/ai,
+		/obj/item/pda/silicon/robot,
+		/obj/item/pda/silicon/pai,
+		/obj/item/pda/heads,
+		/obj/item/pda/clear,
+		/obj/item/pda/syndicate,
+		/obj/item/pda/chameleon,
+		/obj/item/pda/chameleon/broken,
+	)
 
+	var/new_color_list = list()
+	for(var/obj/item/pda/pda as anything in available_pdas)
 		// Get Base64 version of an icon for our TGUI needs.
 		// Always try to get first frame as it can be animation resulting in all frames in single image.
 		// pda-library as an example has 4 frames
-		var/iconImage = "[icon2base64(icon(initial(P.icon), initial(P.icon_state), frame = 1))]"
-		colorlist[initial(P.icon_state)] = list(iconImage, initial(P.desc))
+		var/base64icon = "[icon2base64(icon(initial(pda.icon), initial(pda.icon_state), frame = 1))]"
+		new_color_list[initial(pda.icon_state)] = list(base64icon, initial(pda.desc))
 
-	colorlist = sortAssoc(colorlist)
+	new_color_list = sortAssoc(new_color_list)
+	colorlist = new_color_list
+
 
 /obj/machinery/pdapainter/Destroy()
 	QDEL_NULL(storedpda)
@@ -124,10 +137,10 @@
 
 // TGUI Related.
 
-/obj/machinery/pdapainter/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/pdapainter/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "PDAPainter",  "PDA painting machine", 545, 350, master_ui, state)
+		ui = new(user, src, "PDAPainter",  "PDA painting machine")
 		ui.open()
 
 /obj/machinery/pdapainter/ui_data(mob/user)
@@ -135,7 +148,7 @@
 
 	if(storedpda)
 		data["hasPDA"] = TRUE
-		data["pdaIcon"] = storedpda.iconImage
+		data["pdaIcon"] = storedpda.base64icon
 		data["pdaOwnerName"] = storedpda.owner
 		data["pdaJobName"] = storedpda.ownjob
 	else
@@ -170,9 +183,10 @@
 			eject_pda()
 		if("choose_pda")
 			if(storedpda)
-				storedpda.icon_state = params["selectedPda"]
-				storedpda.desc = colorlist[storedpda.icon_state][2]
-				storedpda.iconImage = colorlist[storedpda.icon_state][1]
+				storedpda.remove_pda_case()
+				var/new_icon = params["selectedPda"]
+				storedpda.current_painting = list("icon" = new_icon, "base64" = colorlist[new_icon][1], "desc" = colorlist[new_icon][2])
+				storedpda.update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 				playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 15, TRUE)
 				statusLabel = "Покраска завершена"
 				statusLabelCooldownTime = world.time + statusLabelCooldownTimeSecondsToAdd

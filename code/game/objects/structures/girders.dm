@@ -408,10 +408,12 @@
 		return prob(girderpasschance)
 
 
-/obj/structure/girder/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
-	. = !density
-	if(checkpass(caller, PASSGRILLE))
-		. = TRUE
+/obj/structure/girder/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(!density)
+		return TRUE
+	if(pass_info.pass_flags == PASSEVERYTHING || (pass_info.pass_flags & PASSGRILLE))
+		return TRUE
+	return FALSE
 
 
 /obj/structure/girder/deconstruct(disassembled = TRUE)

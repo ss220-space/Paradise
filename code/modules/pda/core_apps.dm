@@ -27,7 +27,7 @@
 		if("UpdateInfo")
 			pda.ownjob = pda.id.assignment
 			pda.ownrank = pda.id.rank
-			pda.name = "PDA-[pda.owner] ([pda.ownjob])"
+			pda.update_appearance(UPDATE_NAME)
 		if("pai")
 			if(pda.pai)
 				if(pda.pai.loc != pda)

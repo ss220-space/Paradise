@@ -19,6 +19,16 @@
 		if(istype(checked_atom, type))
 			. += checked_atom
 
+
+///Returns true if the src countain the atom target
+/atom/proc/contains(atom/target)
+	if(!target)
+		return FALSE
+	for(var/atom/location = target.loc, location, location = location.loc)
+		if(location == src)
+			return TRUE
+
+
 /// Forces atom to drop all the important items while dereferencing them from their
 /// containers both ways. To be used to preserve important items before mob gib/self-gib.
 /// Returns a list with all saved items.
