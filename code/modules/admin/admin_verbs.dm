@@ -235,10 +235,6 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	/client/proc/resolveAllMentorTickets
 ))
 
-/client/proc/on_holder_add()
-	if(chatOutput && chatOutput.loaded)
-		chatOutput.loadAdmin()
-
 /client/proc/add_admin_verbs()
 	if(holder)
 		// If they have ANYTHING OTHER THAN ONLY VIEW RUNTIMES (65536), then give them the default admin verbs
