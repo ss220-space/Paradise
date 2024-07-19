@@ -440,6 +440,7 @@
 		return
 	var/new_voice = new /datum/mimicking_voice(H.name, H.tts_seed)
 	mimic.add_voice(new_voice)
+	SStgui.update_uis(mimic)
 
 //action given to antag clowns
 /datum/action/innate/toggle_clumsy
