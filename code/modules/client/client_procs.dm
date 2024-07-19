@@ -57,9 +57,6 @@
 		if(!asset_cache_job)
 			return
 
-	if(href_list["_src_"] == "chat")
-		return chatOutput.Topic(href, href_list)
-
 	// Rate limiting
 	var/mtl = 150 // 150 topics per minute
 	if(!holder) // Admins are allowed to spam click, deal with it.
@@ -154,6 +151,9 @@
 	if(tgui_Topic(href_list))
 		return
 
+	if(href_list["reload_tguipanel"])
+		nuke_chat()
+
 	//byond bug ID:2256651
 	if(asset_cache_job && (asset_cache_job in completed_asset_jobs))
 		to_chat(src, "<span class='danger'> An error has been detected in how your client is receiving resources. Attempting to correct.... (If you keep seeing these messages you might want to close byond and reconnect)</span>")
@@ -231,8 +231,9 @@
 	///////////
 /client/New(TopicData)
 	var/tdata = TopicData //save this for later use
-	chatOutput = new /datum/chatOutput(src) // Right off the bat.
 	TopicData = null							//Prevent calls to client.Topic from connect
+
+	tgui_panel = new(src, "chat_panel")
 
 	if(connection != "seeker")					//Invalid connection type.
 		return null
@@ -290,15 +291,11 @@
 	// YOU WILL BREAK STUFF. SERIOUSLY. -aa07
 	GLOB.clients += src
 
-	spawn() // Goonchat does some non-instant checks in start()
-		chatOutput.start()
-
 	if( (world.address == address || !address) && !GLOB.host )
 		GLOB.host = key
 		world.update_status()
 
 	if(holder)
-		on_holder_add()
 		add_admin_verbs()
 		// Must be async because any sleeps (happen in sql queries) will break connectings clients
 		INVOKE_ASYNC(src, PROC_REF(admin_memo_output), "Show", FALSE, TRUE)
@@ -325,12 +322,12 @@
 	if(SSinput.initialized)
 		set_macros()
 
+	// Initialize tgui panel
+	tgui_panel.initialize()
+
 	donator_check()
 	check_ip_intel()
 	send_resources()
-
-	if(prefs.toggles & PREFTOGGLE_UI_DARKMODE) // activates dark mode if its flagged. -AA07
-		activate_darkmode()
 
 	if(GLOB.changelog_hash && prefs.lastchangelog != GLOB.changelog_hash) //bolds the changelog button on the interface so we know there are updates.
 		to_chat(src, span_info("You have unread updates in the changelog."))
@@ -934,91 +931,6 @@
 /client/proc/on_varedit()
 	datum_flags |= DF_VAR_EDITED
 
-
-/////////////////
-// DARKMODE UI //
-/////////////////
-// IF YOU CHANGE ANYTHING IN ACTIVATE, MAKE SURE IT HAS A DEACTIVATE METHOD, -AA07
-/client/proc/activate_darkmode()
-	///// BUTTONS /////
-	/* Rpane */
-	winset(src, "rpane.fullscreenb", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.textb", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.infob", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.wikib", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.rulesb", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.githubb", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.webmap", "background-color=#494949;text-color=#a4bad6")
-	/* Outputwindow */
-	winset(src, "outputwindow.saybutton", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "outputwindow.mebutton", "background-color=#494949;text-color=#a4bad6")
-
-	///// UI ELEMENTS /////
-	/* Mainwindow */
-	winset(src, "mainwindow", "background-color=#171717")
-	winset(src, "mainwindow.mainvsplit", "background-color=#202020")
-	winset(src, "mainwindow.tooltip", "background-color=#171717")
-	/* Outputwindow */
-	winset(src, "outputwindow", "background-color=#202020")
-	winset(src, "outputwindow.input", "text-color=#a4bad6;background-color=#202020")
-	winset(src, "outputwindow.browseroutput", "background-color=#202020")
-	/* Rpane */
-	winset(src, "rpane", "background-color=#202020")
-	winset(src, "rpane.rpanewindow", "background-color=#202020")
-	/* Browserwindow */
-
-	//winset(src, "browserwindow", "background-color=#272727")
-	//winset(src, "browserwindow.browser", "background-color=#272727")
-	/* Infowindow */
-	winset(src, "infowindow", "background-color=#202020;text-color=#a4bad6")
-	winset(src, "infowindow.info", "background-color=#171717;text-color=#a4bad6;highlight-color=#009900;tab-text-color=#a4bad6;tab-background-color=#202020")
-	//Macros
-	winset(src, "default-Tab", "parent=default;name=Tab;command=\".winset \\\"mainwindow.macro=legacy input.focus=true input.background-color=[COLOR_DARK_INPUT_ENABLED]\\\"\"")
-	winset(src, "legacy-Tab", "parent=legacy;name=Tab;command=\".winset \\\"mainwindow.macro=default map.focus=true input.background-color=[COLOR_DARK_INPUT_DISABLED]\\\"\"")
-
-	// NOTIFY USER
-	to_chat(src, "<span class='notice'>Darkmode Enabled</span>")
-
-/client/proc/deactivate_darkmode()
-	///// BUTTONS /////
-	/* Rpane */
-	winset(src, "rpane.fullscreenb", "background-color=none;text-color=#000000")
-	winset(src, "rpane.textb", "background-color=none;text-color=#000000")
-	winset(src, "rpane.infob", "background-color=none;text-color=#000000")
-	winset(src, "rpane.wikib", "background-color=none;text-color=#000000")
-	//winset(src, "rpane.forumb", "background-color=none;text-color=#000000")
-	winset(src, "rpane.rulesb", "background-color=none;text-color=#000000")
-	winset(src, "rpane.githubb", "background-color=none;text-color=#000000")
-	winset(src, "rpane.webmap", "background-color=none;text-color=#000000")
-	/* Outputwindow */
-	winset(src, "outputwindow.saybutton", "background-color=none;text-color=#000000")
-	winset(src, "outputwindow.mebutton", "background-color=none;text-color=#000000")
-
-	///// UI ELEMENTS /////
-	/* Mainwindow */
-	winset(src, "mainwindow", "background-color=none")
-	winset(src, "mainwindow.mainvsplit", "background-color=none")
-	winset(src, "mainwindow.tooltip", "background-color=none")
-	/* Outputwindow */
-	winset(src, "outputwindow", "background-color=none")
-	winset(src, "outputwindow.input", "text-color=none; background-color=#F0F0F0")
-	winset(src, "outputwindow.browseroutput", "background-color=none")
-	/* Rpane */
-	winset(src, "rpane", "background-color=none")
-	winset(src, "rpane.rpanewindow", "background-color=none")
-	/* Browserwindow */
-	//winset(src, "browserwindow", "background-color=none")
-	//winset(src, "browserwindow.browser", "background-color=none")
-	/* Infowindow */
-	winset(src, "infowindow", "background-color=none;text-color=#000000")
-	winset(src, "infowindow.info", "background-color=none;text-color=#000000;highlight-color=#007700;tab-text-color=#000000;tab-background-color=none")
-	//Macros
-	winset(src, "default-Tab", "parent=default;name=Tab;command=\".winset \\\"mainwindow.macro=legacy input.focus=true input.background-color=[COLOR_INPUT_ENABLED]\\\"\"")
-	winset(src, "legacy-Tab", "parent=legacy;name=Tab;command=\".winset \\\"mainwindow.macro=default map.focus=true input.background-color=[COLOR_INPUT_DISABLED]\\\"\"")
-
-	///// NOTIFY USER /////
-	to_chat(src, "<span class='notice'>Darkmode Disabled</span>") // what a sick fuck
-
 /client/proc/generate_clickcatcher()
 	if(!void)
 		void = new()
@@ -1157,7 +1069,7 @@
 	if(prefs)
 		prefs.load_preferences(usr)
 	if(prefs && prefs.discord_id && length(prefs.discord_id) < 32)
-		to_chat(usr, chat_box_red("<span class='darkmblue'>Аккаунт Discord уже привязан!<br>Чтобы отвязать используйте команду <span class='boldannounce'>!отвязать_аккаунт</span><br>В канале <b>#дом-бота</b> в Discord-сообществе!</span>"))
+		to_chat(usr, chat_box_red("<span class='darkmblue'>Аккаунт Discord уже привязан!<br>Чтобы отвязать используйте команду [span_boldannounceooc("!отвязать_аккаунт")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!</span>"))
 		return
 	var/token = md5("[world.time+rand(1000,1000000)]")
 	if(SSdbcore.IsConnected())
@@ -1168,7 +1080,7 @@
 			qdel(query_update_token)
 			return
 		qdel(query_update_token)
-		to_chat(usr, chat_box_notice("<span class='darkmblue'>Для завершения привязки используйте команду<br><span class='boldannounce'>!привязать_аккаунт [token]</span><br>В канале <b>#дом-бота</b> в Discord-сообществе!</span>"))
+		to_chat(usr, chat_box_notice("<span class='darkmblue'>Для завершения привязки используйте команду<br>[span_boldannounceooc("!привязать_аккаунт [token]")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!</span>"))
 		if(prefs)
 			prefs.load_preferences(usr)
 

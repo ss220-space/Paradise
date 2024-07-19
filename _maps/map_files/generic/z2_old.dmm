@@ -11138,7 +11138,7 @@
 /area/admin)
 "iru" = (
 /obj/structure/table/wood,
-/obj/item/abductor_baton,
+/obj/item/melee/baton/abductor,
 /obj/item/abductor/silencer,
 /obj/item/abductor/mind_device,
 /obj/item/abductor/gizmo,
@@ -24556,11 +24556,11 @@
 	layer = 2.9
 	},
 /obj/structure/table/wood,
-/obj/item/melee/classic_baton/telescopic,
-/obj/item/melee/classic_baton/telescopic,
-/obj/item/melee/classic_baton/telescopic,
-/obj/item/melee/classic_baton/telescopic,
-/obj/item/melee/classic_baton/telescopic,
+/obj/item/melee/baton/telescopic,
+/obj/item/melee/baton/telescopic,
+/obj/item/melee/baton/telescopic,
+/obj/item/melee/baton/telescopic,
+/obj/item/melee/baton/telescopic,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},

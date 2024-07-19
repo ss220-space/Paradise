@@ -544,7 +544,7 @@
 		robot_arm = I.type
 		qdel(I)
 
-	else if((istype(I, /obj/item/melee/baton)) && (build_step >= 3))
+	else if((istype(I, /obj/item/melee/baton/security)) && (build_step >= 3))
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return
 		build_step++

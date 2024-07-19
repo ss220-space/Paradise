@@ -180,9 +180,16 @@
 	item_color = "officer"
 	displays_id = 0
 
-/obj/item/clothing/under/rank/centcom/representative/New()
-	..()
+
+/obj/item/clothing/under/rank/centcom/representative/Initialize(mapload)
+	. = ..()
+	update_appearance(UPDATE_DESC)
+
+
+/obj/item/clothing/under/rank/centcom/representative/update_desc(updates = ALL)
+	. = ..()
 	desc = "Gold trim on space-black cloth, this uniform bears [station_name()] on the left shoulder."
+
 
 /obj/item/clothing/under/rank/centcom/magistrate
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrate\" and bears \"N.S.S. Cyberiad\" on the left shoulder."
@@ -192,9 +199,16 @@
 	item_color = "officer"
 	displays_id = 0
 
-/obj/item/clothing/under/rank/centcom/magistrate/New()
-	..()
+
+/obj/item/clothing/under/rank/centcom/magistrate/Initialize(mapload)
+	. = ..()
+	update_appearance(UPDATE_DESC)
+
+
+/obj/item/clothing/under/rank/centcom/magistrate/update_desc(updates = ALL)
+	. = ..()
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrate\" and bears [station_name()] on the left shoulder."
+
 
 /obj/item/clothing/under/rank/centcom/diplomatic
 	desc = "A very gaudy and official looking uniform of the Nanotrasen Diplomatic Corps."
@@ -1042,7 +1056,6 @@
 	icon_state = "colorize_skirt"
 	item_state = "colorize_skirt"
 	item_color = "colorize_skirt"
-	var/colour = null
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
@@ -1055,28 +1068,10 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
 		)
 
+
 /obj/item/clothing/under/colour/skirt/Initialize(mapload)
 	. = ..()
-	add_atom_colour(colour, FIXED_COLOUR_PRIORITY)
-	update_icon()
-
-/obj/item/clothing/under/colour/skirt/attack_self(mob/user)
-	if(icon_state == initial(icon_state))
-		icon_state = icon_state + "_t"
-		item_state = icon_state + "_t"
-	else
-		icon_state = initial(icon_state)
-		item_state = initial(item_state)
-	user.update_inv_wear_suit()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
-
-/obj/item/clothing/under/colour/skirt/New()
-	..()
 	AddComponent(/datum/component/spraycan_paintable)
-	START_PROCESSING(SSobj, src)
-	update_icon()
 
 
 /obj/item/clothing/under/ussptracksuit_red

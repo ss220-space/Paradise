@@ -10,6 +10,7 @@
 	var/datum/slime_age/age_state = new /datum/slime_age/baby
 	var/docile = 0
 	faction = list("slime", "neutral")
+	allows_unconscious = TRUE
 
 	harm_intent_damage = 3
 	icon_living = "grey baby slime"

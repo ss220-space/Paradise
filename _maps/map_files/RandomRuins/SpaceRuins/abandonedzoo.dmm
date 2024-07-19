@@ -346,7 +346,7 @@
 	d2 = 4
 	},
 /obj/structure/rack,
-/obj/item/melee/baton/cattleprod,
+/obj/item/melee/baton/security/cattleprod,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

@@ -32,6 +32,17 @@
 	owner.som.masters += owner
 	return ..()
 
+/datum/antagonist/traitor/apply_innate_effects(mob/living/mob_override)
+	. = ..()
+	var/mob/living/datum_owner = mob_override || owner.current
+	datum_owner.AddComponent(/datum/component/codeword_hearing, GLOB.syndicate_code_phrase_regex, "codephrases", src)
+	datum_owner.AddComponent(/datum/component/codeword_hearing, GLOB.syndicate_code_response_regex, "coderesponses", src)
+
+/datum/antagonist/traitor/remove_innate_effects(mob/living/mob_override)
+	. = ..()
+	var/mob/living/datum_owner = mob_override || owner.current
+	for(var/datum/component/codeword_hearing/component in datum_owner.GetComponents(/datum/component/codeword_hearing))
+		component.delete_if_from_source(src)
 
 /datum/antagonist/traitor/Destroy(force)
 	// Remove contractor if present
@@ -47,8 +58,6 @@
 		slaved.serv -= owner
 		slaved.leave_serv_hud(owner)
 		owner.som = null
-
-	owner.current.client?.chatOutput?.clear_syndicate_codes()
 
 	if(hidden_uplink)
 		var/obj/item/uplink_holder = hidden_uplink.loc
@@ -226,14 +235,11 @@
 	if(!owner.current)
 		return
 
-	var/mob/traitor_mob = owner.current
-
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
 	antag_memory += "<b>Code Phrase</b>: <span class='red'>[phrases]</span><br>"
 	antag_memory += "<b>Code Response</b>: <span class='red'>[responses]</span><br>"
-	traitor_mob.client.chatOutput?.notify_syndicate_codes()
 
 	var/list/messages = list()
 	if(!silent)
