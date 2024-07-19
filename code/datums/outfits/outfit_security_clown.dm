@@ -128,6 +128,9 @@
 		I.access.Add(ACCESS_CLOWN, ACCESS_MIME, ACCESS_THEATRE)
 		I.assignment = name
 	H.sec_hud_set_ID()
+	var/datum/action/innate/mimicking/mimicking = new
+	mimicking.Grant(H)
+	H.verbs += /mob/living/carbon/human/proc/mimicking
 
 
 //=========== security clown equipment ===========
