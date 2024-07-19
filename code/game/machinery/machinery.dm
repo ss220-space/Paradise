@@ -129,6 +129,38 @@ Class Procs:
 	var/datum/radio_frequency/radio_connection
 	/// This is if the machinery is being repaired
 	var/being_repaired = FALSE
+	/// Viable flags to go here are START_PROCESSING_ON_INIT, or START_PROCESSING_MANUALLY. See code\__DEFINES\machines.dm for more information on these flags.
+	var/processing_flags = START_PROCESSING_ON_INIT
+	/// What subsystem this machine will use, which is generally SSmachines or SSfastprocess. By default all machinery use SSmachines. This fires a machine's process() roughly every 2 seconds.
+	var/subsystem_type = /datum/controller/subsystem/machines
+
+
+/obj/machinery/Initialize(mapload)
+	if(!armor)
+		armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
+	. = ..()
+	GLOB.machines += src
+
+	myArea = get_area(src)
+	if(myArea)
+		RegisterSignal(src, COMSIG_ATOM_EXITED_AREA, PROC_REF(onAreaExited))
+		LAZYADD(myArea.machinery_cache, src)
+
+	if(processing_flags & START_PROCESSING_ON_INIT)
+		begin_processing()
+
+	power_change()
+
+
+/obj/machinery/Destroy()
+	if(myArea)
+		LAZYREMOVE(myArea.machinery_cache, src)
+		myArea = null
+		UnregisterSignal(src, COMSIG_ATOM_EXITED_AREA)
+	GLOB.machines.Remove(src)
+	end_processing()
+	return ..()
+
 
 /*
  * reimp, attempts to flicker this machinery if the behavior is supported.
@@ -144,24 +176,6 @@ Class Procs:
 	return FALSE
 
 
-/obj/machinery/Initialize(mapload)
-	if(!armor)
-		armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
-	. = ..()
-	GLOB.machines += src
-
-	myArea = get_area(src)
-	if(myArea)
-		RegisterSignal(src, COMSIG_ATOM_EXITED_AREA, PROC_REF(onAreaExited))
-		LAZYADD(myArea.machinery_cache, src)
-
-	if(!speed_process)
-		START_PROCESSING(SSmachines, src)
-	else
-		START_PROCESSING(SSfastprocess, src)
-
-	power_change()
-
 /obj/machinery/proc/onAreaExited()
 	SIGNAL_HANDLER
 	if(myArea == get_area(src))
@@ -175,33 +189,44 @@ Class Procs:
 	//message_admins("[src] entered [myArea]")
 	power_change()
 
+
+/// Helper proc for telling a machine to start processing with the subsystem type that is located in its `subsystem_type` var.
+/obj/machinery/proc/begin_processing()
+	if(speed_process)
+		START_PROCESSING(SSfastprocess, src)
+		return
+	var/datum/controller/subsystem/processing/subsystem = locate(subsystem_type) in Master.subsystems
+	START_PROCESSING(subsystem, src)
+
+
+/// Helper proc for telling a machine to stop processing with the subsystem type that is located in its `subsystem_type` var.
+/obj/machinery/proc/end_processing()
+	if(speed_process)
+		STOP_PROCESSING(SSfastprocess, src)
+		return
+	var/datum/controller/subsystem/processing/subsystem = locate(subsystem_type) in Master.subsystems
+	STOP_PROCESSING(subsystem, src)
+
+
 // gotta go fast
 /obj/machinery/makeSpeedProcess()
 	if(speed_process)
 		return
 	speed_process = TRUE
-	STOP_PROCESSING(SSmachines, src)
+	var/datum/controller/subsystem/processing/subsystem = locate(subsystem_type) in Master.subsystems
+	STOP_PROCESSING(subsystem, src)
 	START_PROCESSING(SSfastprocess, src)
+
 
 // gotta go slow
 /obj/machinery/makeNormalProcess()
 	if(!speed_process)
 		return
 	speed_process = FALSE
+	var/datum/controller/subsystem/processing/subsystem = locate(subsystem_type) in Master.subsystems
 	STOP_PROCESSING(SSfastprocess, src)
-	START_PROCESSING(SSmachines, src)
+	START_PROCESSING(subsystem, src)
 
-/obj/machinery/Destroy()
-	if(myArea)
-		LAZYREMOVE(myArea.machinery_cache, src)
-		myArea = null
-		UnregisterSignal(src, COMSIG_ATOM_EXITED_AREA)
-	GLOB.machines.Remove(src)
-	if(!speed_process)
-		STOP_PROCESSING(SSmachines, src)
-	else
-		STOP_PROCESSING(SSfastprocess, src)
-	return ..()
 
 /obj/machinery/has_prints()
 	return TRUE
@@ -257,7 +282,7 @@ Class Procs:
 
 /obj/machinery/ui_status(mob/user, datum/ui_state/state)
 	if(!interact_offline && (stat & (NOPOWER|BROKEN)))
-		return STATUS_CLOSE
+		return UI_CLOSE
 
 	return ..()
 

@@ -143,15 +143,28 @@
 	var/triggered = FALSE
 
 
-/obj/effect/meatgrinder/Crossed(atom/movable/AM, oldloc)
+/obj/effect/meatgrinder/Initialize(mapload)
 	. = ..()
-	Bumped(AM)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
+/obj/effect/meatgrinder/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	INVOKE_ASYNC(src, PROC_REF(collide), arrived)
 
 
 /obj/effect/meatgrinder/Bumped(atom/movable/moving_atom)
 	. = ..()
+	collide(moving_atom)
+
+
+/obj/effect/meatgrinder/proc/collide(atom/movable/moving_atom)
 	if(triggered || !ishuman(moving_atom))
-		return .
+		return
 	visible_message(span_warning("[moving_atom] triggered the [bicon(src)] [src]!"))
 	triggered = TRUE
 	do_sparks(3, 1, src)

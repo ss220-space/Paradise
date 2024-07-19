@@ -11,16 +11,26 @@
 	layer = OBJ_LAYER + 0.9
 	animate_movement = NO_STEPS
 	var/amount = 3
-	var/expand = 1
-	var/metal = 0
+	var/metal = FALSE
 
-/obj/effect/particle_effect/foam/New(loc, ismetal=0)
-	..(loc)
-	icon_state = "[ismetal ? "m":""]foam"
-	if(!ismetal && reagents)
+
+/obj/effect/particle_effect/foam/Initialize(mapload, metal = FALSE)
+	. = ..()
+
+	icon_state = "[metal ? "m":""]foam"
+
+	if(!metal && reagents)
 		color = mix_color_from_reagents(reagents.reagent_list)
-	metal = ismetal
-	playsound(src, 'sound/effects/bubbles2.ogg', 80, 1, -3)
+
+	src.metal = metal
+	playsound(src, 'sound/effects/bubbles2.ogg', 80, TRUE, -3)
+
+	if(!metal)
+		var/static/list/loc_connections = list(
+			COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+		)
+		AddElement(/datum/element/connect_loc, loc_connections)
+
 	spawn(3 + metal*3)
 		process()
 	spawn(120)
@@ -42,7 +52,7 @@
 		flick("[icon_state]-disolve", src)
 		sleep(5)
 		qdel(src)
-	return
+
 
 // on delete, transfer any reagents to the floor
 /obj/effect/particle_effect/foam/Destroy()
@@ -94,21 +104,28 @@
 		spawn(5)
 			qdel(src)
 
-/obj/effect/particle_effect/foam/Crossed(atom/movable/AM, oldloc)
-	if(metal)
+
+/obj/effect/particle_effect/foam/proc/on_entered(datum/source, mob/living/carbon/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(!iscarbon(arrived))
 		return
 
-	if(iscarbon(AM))
-		var/mob/living/carbon/M = AM
-		if(M.slip(4 SECONDS))
-			if(reagents)
-				for(var/reagent_id in reagents.reagent_list)
-					var/amount = M.reagents.get_reagent_amount(reagent_id)
-					if(amount < 25)
-						M.reagents.add_reagent(reagent_id, min(round(amount / 2), 15))
-				if(reagents.total_volume)
-					var/fraction = 5 / reagents.total_volume
-					reagents.reaction(M, REAGENT_TOUCH, fraction)
+	if(!arrived.slip(4 SECONDS))
+		return
+
+	if(!reagents)
+		return
+
+	for(var/reagent_id in reagents.reagent_list)
+		var/amount = arrived.reagents.get_reagent_amount(reagent_id)
+		if(amount < 25)
+			arrived.reagents.add_reagent(reagent_id, min(round(amount / 2), 15))
+
+	if(reagents.total_volume)
+		var/fraction = 5 / reagents.total_volume
+		reagents.reaction(arrived, REAGENT_TOUCH, fraction)
+
 
 /datum/effect_system/foam_spread
 	effect_type = /obj/effect/particle_effect/foam

@@ -102,7 +102,7 @@
 /mob/living/UnarmedAttack(atom/A, proximity_flag)
 	if(!can_unarmed_attack())
 		return
-	if(proximity_flag && pulling && (!isnull(pull_hand) && (pull_hand == PULL_WITHOUT_HANDS || pull_hand == hand)))
+	if(proximity_flag && pulling && !isnull(pull_hand) && pull_hand != PULL_WITHOUT_HANDS && pull_hand == hand)
 		if(A.grab_attack(src, pulling))
 			changeNext_move(CLICK_CD_GRABBING)
 			return
@@ -111,7 +111,7 @@
 /mob/living/simple_animal/hostile/UnarmedAttack(atom/A, proximity_flag)
 	if(!can_unarmed_attack())
 		return
-	if(proximity_flag && pulling && (!isnull(pull_hand) && (pull_hand == PULL_WITHOUT_HANDS || pull_hand == hand)))
+	if(proximity_flag && pulling && !isnull(pull_hand) && pull_hand != PULL_WITHOUT_HANDS && pull_hand == hand)
 		if(A.grab_attack(src, pulling))
 			changeNext_move(CLICK_CD_GRABBING)
 			return

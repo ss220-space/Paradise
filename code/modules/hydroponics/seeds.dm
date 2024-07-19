@@ -438,3 +438,9 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 	add_random_reagents(1,2)
 	add_random_traits(1,2)
 	return
+
+/obj/item/seeds/attack_ghost(mob/dead/observer/user)
+	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.
+		return
+	if(user.plant_analyzer)
+		to_chat(user, get_analyzer_text())

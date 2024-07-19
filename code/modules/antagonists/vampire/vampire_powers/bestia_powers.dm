@@ -484,11 +484,13 @@
 /obj/effect/proc_holder/spell/vampire/self/dissect_info/cast(list/targets, mob/user = usr)
 	ui_interact(user)
 
+/obj/effect/proc_holder/spell/vampire/self/dissect_info/ui_state(mob/user)
+	return GLOB.always_state
 
-/obj/effect/proc_holder/spell/vampire/self/dissect_info/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/effect/proc_holder/spell/vampire/self/dissect_info/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "VampireTrophiesStatus", "Trophies Status", 700, 800, master_ui, state)
+		ui = new(user, src, "VampireTrophiesStatus", "Trophies Status")
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -1464,6 +1466,7 @@
 
 /obj/structure/closet/coffin/vampire/Initialize(mapload, mob/living/carbon/human/_human_vampire)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_WEATHER_IMMUNE, INNATE_TRAIT)
 	create_interior()
 	set_light(2, 10, "#700000")
 	if(istype(_human_vampire))
@@ -1626,7 +1629,7 @@
 				continue
 
 			if(prob(chance_regrow_limb))
-				new limb_path(human_vampire)
+				new limb_path(human_vampire, ORGAN_MANIPULATION_DEFAULT)
 				break
 
 	// here goes rejuvenate little brother

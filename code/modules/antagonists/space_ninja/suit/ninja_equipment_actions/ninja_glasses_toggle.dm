@@ -15,7 +15,7 @@
 		if(NINJA_NIGHTVISION)
 			see_in_dark = 8
 			lighting_alpha = 160
-			flash_protect = -1
+			flash_protect = FLASH_PROTECTION_SENSITIVE
 			vision_flags &= ~SEE_MOBS
 			icon_state = "[initial(icon_state)]"
 			item_state = "[initial(item_state)]"
@@ -23,7 +23,7 @@
 		if(NINJA_THERMALS)
 			see_in_dark = 2
 			lighting_alpha = 220
-			flash_protect = -1
+			flash_protect = FLASH_PROTECTION_SENSITIVE
 			vision_flags |= SEE_MOBS
 			icon_state = "[initial(icon_state)]_red"
 			item_state = "[initial(item_state)]_red"
@@ -31,7 +31,7 @@
 		if(NINJA_FLASHPROTECTION)
 			see_in_dark = 2
 			lighting_alpha = null
-			flash_protect = 1
+			flash_protect = FLASH_PROTECTION_FLASH
 			vision_flags &= ~SEE_MOBS
 			icon_state = "[initial(icon_state)]_blue"
 			item_state = "[initial(item_state)]_blue"

@@ -11,6 +11,17 @@
 	barefootstep = FOOTSTEP_LAVA
 	clawfootstep = FOOTSTEP_LAVA
 	heavyfootstep = FOOTSTEP_LAVA
+	/// How much fire damage we deal to living mobs stepping on us
+	var/lava_damage = 20
+	/// How many firestacks we add to living mobs stepping on us
+	var/lava_firestacks = 20
+	/// How much temperature we expose objects with
+	var/temperature_damage = 10000
+	/// Mobs with this trait won't burn.
+	var/immunity_trait = TRAIT_LAVA_IMMUNE
+	/// Objects with these flags won't burn.
+	var/immunity_resistance_flags = LAVA_PROOF
+
 
 /turf/simulated/floor/plating/lava/ex_act()
 	return
@@ -55,64 +66,103 @@
 	return TRUE
 
 /turf/simulated/floor/plating/lava/is_safe()
-	if(find_safeties() && ..())
+	if(HAS_TRAIT(src, TRAIT_LAVA_STOPPED) && ..())
 		return TRUE
 	return FALSE
 
-/turf/simulated/floor/plating/lava/proc/burn_stuff(AM)
-	. = FALSE
 
-	if(locate(/obj/vehicle/lavaboat) in src.contents)
+///Generic return value of the can_burn_stuff() proc. Does nothing.
+#define LAVA_BE_IGNORING 0
+/// Another. Won't burn the target but will make the turf start processing.
+#define LAVA_BE_PROCESSING 1
+/// Burns the target and makes the turf process (depending on the return value of do_burn()).
+#define LAVA_BE_BURNING 2
+
+///Proc that sets on fire something or everything on the turf that's not immune to lava. Returns TRUE to make the turf start processing.
+/turf/simulated/floor/plating/lava/proc/burn_stuff(atom/movable/to_burn)
+	if(HAS_TRAIT(src, TRAIT_LAVA_STOPPED))
 		return FALSE
 
-	if(find_safeties())
+	var/thing_to_check = contents
+	if(to_burn)
+		thing_to_check = list(to_burn)
+	for(var/atom/movable/burn_target as anything in thing_to_check)
+		switch(can_burn_stuff(burn_target))
+			if(LAVA_BE_IGNORING)
+				continue
+			if(LAVA_BE_BURNING)
+				if(!do_burn(burn_target))
+					continue
+		. = TRUE
+
+
+/turf/simulated/floor/plating/lava/proc/can_burn_stuff(atom/movable/burn_target)
+	if(QDELETED(burn_target))
+		return LAVA_BE_IGNORING
+	if(burn_target.movement_type & MOVETYPES_NOT_TOUCHING_GROUND || !burn_target.has_gravity()) //you're flying over it.
+		return LAVA_BE_IGNORING
+
+	if(isobj(burn_target))
+		if(burn_target.throwing) // to avoid gulag prisoners easily escaping, throwing only works for objects.
+			return LAVA_BE_IGNORING
+		var/obj/burn_obj = burn_target
+		if((burn_obj.resistance_flags & immunity_resistance_flags) || (burn_obj.resistance_flags & INDESTRUCTIBLE))
+			return LAVA_BE_PROCESSING
+		return LAVA_BE_BURNING
+
+	if(!isliving(burn_target))
+		return LAVA_BE_IGNORING
+
+	if(HAS_TRAIT(burn_target, immunity_trait))
+		return LAVA_BE_PROCESSING
+
+	var/mob/living/burn_living = burn_target
+	if(burn_living.incorporeal_move)
+		return LAVA_BE_PROCESSING
+
+	var/atom/movable/burn_buckled = burn_living.buckled
+	if(burn_buckled)
+		if(burn_buckled.movement_type & MOVETYPES_NOT_TOUCHING_GROUND || !burn_buckled.has_gravity())
+			return LAVA_BE_PROCESSING
+		if(isobj(burn_buckled))
+			var/obj/burn_buckled_obj = burn_buckled
+			if((burn_buckled_obj.resistance_flags & immunity_resistance_flags) || (burn_buckled_obj.resistance_flags & INDESTRUCTIBLE))
+				return LAVA_BE_PROCESSING
+		else if(HAS_TRAIT(burn_buckled, immunity_trait))
+			return LAVA_BE_PROCESSING
+
+	return LAVA_BE_BURNING
+
+#undef LAVA_BE_IGNORING
+#undef LAVA_BE_PROCESSING
+#undef LAVA_BE_BURNING
+
+
+/turf/simulated/floor/plating/lava/proc/do_burn(atom/movable/burn_target)
+	if(QDELETED(burn_target))
 		return FALSE
 
-	var/thing_to_check = src
-	if(AM)
-		thing_to_check = list(AM)
-	for(var/thing in thing_to_check)
-		if(isobj(thing))
-			var/obj/O = thing
-			if(!O.simulated)
-				continue
-			if((O.resistance_flags & (LAVA_PROOF|INDESTRUCTIBLE)) || O.throwing)
-				continue
-			. = TRUE
-			if((O.resistance_flags & (ON_FIRE)))
-				continue
-			if(!(O.resistance_flags & FLAMMABLE))
-				O.resistance_flags |= FLAMMABLE //Even fireproof things burn up in lava
-			if(O.resistance_flags & FIRE_PROOF)
-				O.resistance_flags &= ~FIRE_PROOF
-			if(O.armor.getRating("fire") > 50) //obj with 100% fire armor still get slowly burned away.
-				O.armor = O.armor.setRating(fire_value = 50)
-			O.fire_act(10000, 1000)
+	if(isobj(burn_target))
+		var/obj/burn_obj = burn_target
+		if(burn_obj.resistance_flags & ON_FIRE) // already on fire; skip it.
+			return TRUE
+		if(!(burn_obj.resistance_flags & FLAMMABLE))
+			burn_obj.resistance_flags |= FLAMMABLE //Even fireproof things burn up in lava
+		if(burn_obj.resistance_flags & FIRE_PROOF)
+			burn_obj.resistance_flags &= ~FIRE_PROOF
+		if(burn_obj.armor.getRating(FIRE) > 50) //obj with 100% fire armor still get slowly burned away.
+			burn_obj.armor.setRating(fire_value = 50)
+		burn_obj.fire_act(exposed_temperature = temperature_damage, exposed_volume = 1000)
+		return TRUE
 
-		else if(isliving(thing))
-			. = TRUE
-			var/mob/living/L = thing
-			if(L.incorporeal_move || (L.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
-				continue	//YOU'RE FLYING OVER IT
-			var/buckle_check = L.buckling
-			if(!buckle_check)
-				buckle_check = L.buckled
-			if(isobj(buckle_check))
-				var/obj/O = buckle_check
-				if(O.resistance_flags & LAVA_PROOF)
-					continue
-			else if(isliving(buckle_check))
-				var/mob/living/live = buckle_check
-				if("lava" in live.weather_immunities)
-					continue
+	if(isliving(burn_target))
+		var/mob/living/burn_living = burn_target
+		burn_living.adjust_fire_stacks(lava_firestacks)
+		burn_living.IgniteMob()
+		burn_living.adjustFireLoss(lava_damage)
+		return TRUE
 
-			if("lava" in L.weather_immunities)
-				continue
-
-			L.adjustFireLoss(20)
-			if(L) //mobs turning into object corpses could get deleted here.
-				L.adjust_fire_stacks(20)
-				L.IgniteMob()
+	return FALSE
 
 
 /turf/simulated/floor/plating/lava/attackby(obj/item/C, mob/user, params) //Lava isn't a good foundation to build on
@@ -164,8 +214,10 @@
 	baseturf = /turf/simulated/floor/plating/lava/smooth
 	icon = 'icons/turf/floors/lava.dmi'
 	icon_state = "unsmooth"
-	smooth = SMOOTH_MORE | SMOOTH_BORDER
-	canSmoothWith = list(/turf/simulated/floor/plating/lava/smooth)
+	base_icon_state = "lava"
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_FLOOR_LAVA
+	smoothing_groups = SMOOTH_GROUP_FLOOR_LAVA
 
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface
 	temperature = 300
@@ -182,12 +234,17 @@
 	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma
 	desc = "A flowing stream of chilled liquid plasma. You probably shouldn't get in."
 	icon = 'icons/turf/floors/liquidplasma.dmi'
+	base_icon_state = "liquidplasma"
 	icon_state = "unsmooth"
-	smooth = SMOOTH_MORE | SMOOTH_BORDER
+	smooth = SMOOTH_BITMASK
 
 	light_range = 3
 	light_power = 0.75
 	light_color = LIGHT_COLOR_PINK
+	lava_damage = 2
+	/// How much fire and toxic damage we deal to human mobs stepping on us
+	var/human_tox_fire_damage = 15
+
 
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma/examine(mob/user)
 	. = ..()
@@ -201,66 +258,42 @@
 		return
 	to_chat(user, "<span class='notice'>You scoop out some plasma from the [src] using [I].</span>")
 
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma/burn_stuff(AM)
-	. = FALSE
-	if(find_safeties())
+
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma/do_burn(atom/movable/burn_target)
+	if(QDELETED(burn_target))
 		return FALSE
 
-	var/thing_to_check = src
-	if(AM)
-		thing_to_check = list(AM)
-	for(var/thing in thing_to_check)
-		if(isobj(thing))
-			var/obj/O = thing
-			if(!O.simulated)
-				continue
-			if((O.resistance_flags & (LAVA_PROOF|INDESTRUCTIBLE)) || O.throwing)
-				continue
-			. = TRUE
-			if((O.resistance_flags & ON_FIRE))
-				continue
-			if(!(O.resistance_flags & FLAMMABLE))
-				O.resistance_flags |= FLAMMABLE //Even fireproof things burn up in lava
-			if(O.resistance_flags & FIRE_PROOF)
-				O.resistance_flags &= ~FIRE_PROOF
-			if(O.armor.getRating(FIRE) > 50) //obj with 100% fire armor still get slowly burned away.
-				O.armor = O.armor.setRating(fire_value = 50)
-			O.fire_act(10000, 1000)
+	if(isobj(burn_target))
+		var/obj/burn_obj = burn_target
+		if(burn_obj.resistance_flags & ON_FIRE) // already on fire; skip it.
+			return TRUE
+		if(!(burn_obj.resistance_flags & FLAMMABLE))
+			burn_obj.resistance_flags |= FLAMMABLE //Even fireproof things burn up in lava
+		if(burn_obj.resistance_flags & FIRE_PROOF)
+			burn_obj.resistance_flags &= ~FIRE_PROOF
+		if(burn_obj.armor.getRating(FIRE) > 50) //obj with 100% fire armor still get slowly burned away.
+			burn_obj.armor.setRating(fire_value = 50)
+		burn_obj.fire_act(exposed_temperature = temperature_damage, exposed_volume = 1000)
+		return TRUE
 
-		if(!isliving(thing))
-			continue
-		. = TRUE
-		var/mob/living/burn_living = thing
-		if(burn_living.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
-			continue	//YOU'RE FLYING OVER IT
-		var/buckle_check = burn_living.buckling
-		if(!buckle_check)
-			buckle_check = burn_living.buckled
-		if(isobj(buckle_check))
-			var/obj/O = buckle_check
-			if(O.resistance_flags & LAVA_PROOF)
-				continue
-		else if(isliving(buckle_check))
-			var/mob/living/live = buckle_check
-			if("lava" in live.weather_immunities)
-				continue
-		if("lava" in burn_living.weather_immunities)
-			continue
-		burn_living.adjustFireLoss(2)
-		if(QDELETED(burn_living))
-			return
-		burn_living.adjust_fire_stacks(20) //dipping into a stream of plasma would probably make you more flammable than usual
+	if(isliving(burn_target))
+		var/mob/living/burn_living = burn_target
+		burn_living.adjust_fire_stacks(lava_firestacks)
 		burn_living.IgniteMob()
+		burn_living.adjustFireLoss(lava_damage)
 		burn_living.adjust_bodytemperature(-rand(50, 65)) //its cold, man
 		if(!ishuman(burn_living) || prob(65))
-			return
+			return TRUE
 		var/mob/living/carbon/human/burn_human = burn_living
-		var/datum/species/burn_species = burn_human.dna.species
-		if(istype(burn_species, /datum/species/plasmaman) || istype(burn_species, /datum/species/machine)) //ignore plasmamen/robotic species.
-			return
+		var/datum/species/burn_species = burn_human.dna.species.name
+		if(burn_species == SPECIES_PLASMAMAN || burn_species == SPECIES_MACNINEPERSON) //ignore plasmamen/robotic species.
+			return TRUE
+		burn_human.adjustToxLoss(human_tox_fire_damage) //Cold mutagen is bad for you, more at 11.
+		burn_human.adjustFireLoss(human_tox_fire_damage)
+		return TRUE
 
-		burn_human.adjustToxLoss(15) //Cold mutagen is bad for you, more at 11.
-		burn_human.adjustFireLoss(15)
+	return FALSE
+
 
 // It's not the liquid itself. It's the atmos over it. Don't wanna spend resources on simulating over snow and lava.
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma/cold

@@ -14,6 +14,14 @@
 	var/obj/item/assembly/a_right = null
 
 
+/obj/item/assembly_holder/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
 /obj/item/assembly_holder/Destroy()
 	if(a_left)
 		a_left.holder = null
@@ -101,11 +109,17 @@
 		a_right.HasProximity(AM)
 
 
-/obj/item/assembly_holder/Crossed(atom/movable/AM, oldloc)
+/obj/item/assembly_holder/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	INVOKE_ASYNC(src, PROC_REF(assembly_crossed), arrived, old_loc)
+
+
+/obj/item/assembly_holder/proc/assembly_crossed(atom/movable/crossed, atom/old_loc)
 	if(a_left)
-		a_left.Crossed(AM, oldloc)
+		a_left.assembly_crossed(crossed, old_loc)
 	if(a_right)
-		a_right.Crossed(AM, oldloc)
+		a_right.assembly_crossed(crossed, old_loc)
 
 
 /obj/item/assembly_holder/on_found(mob/finder)

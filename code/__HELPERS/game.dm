@@ -112,13 +112,16 @@
 			return FALSE
 	return TRUE
 
-/proc/get_dist_euclidian(atom/Loc1 as turf|mob|obj,atom/Loc2 as turf|mob|obj)
-	var/dx = Loc1.x - Loc2.x
-	var/dy = Loc1.y - Loc2.y
 
-	var/dist = sqrt(dx**2 + dy**2)
+///Returns the distance between two atoms
+/proc/get_dist_euclidean(atom/first_location, atom/second_location)
+	var/dx = first_location.x - second_location.x
+	var/dy = first_location.y - second_location.y
+
+	var/dist = sqrt(dx ** 2 + dy ** 2)
 
 	return dist
+
 
 /proc/circlerangeturfs(center=usr,radius=3)
 

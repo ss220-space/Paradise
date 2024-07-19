@@ -121,15 +121,12 @@
 	if(!can_dispense_pipe(whatdpipe, RPD_DISPOSALS_MODE))
 		log_runtime(EXCEPTION("Failed to spawn [get_pipe_name(whatdpipe, PIPETYPE_DISPOSAL)] - possible tampering detected"))
 		return
-	var/obj/structure/disposalconstruct/P = new(T, whatdpipe, iconrotation)
-	if(!iconrotation) //Automatic rotation
-		P.dir = user.dir
-	if(!iconrotation && whatdpipe != PIPE_DISPOSALS_JUNCTION_RIGHT) //Disposals pipes are in the opposite direction to atmos pipes, so we need to flip them. Junctions don't have this quirk though
-		P.flip()
-	to_chat(user, "<span class='notice'>[src] rapidly dispenses [P]!</span>")
+	var/rotate_dir = iconrotation ? iconrotation : user.dir
+	var/obj/structure/disposalconstruct/construct = new(T, whatdpipe, rotate_dir)
+	to_chat(user, span_notice("[src] rapidly dispenses the [construct.pipename]!"))
 	activate_rpd(TRUE)
 	if(auto_wrench)
-		P.wrench_act(user, integrated_wrench)
+		construct.wrench_act(user, integrated_wrench)
 
 /obj/item/rpd/proc/rotate_all_pipes(mob/user, turf/T) //Rotate all pipes on a turf
 	for(var/obj/item/pipe/P in T)
@@ -174,13 +171,20 @@
 /obj/item/rpd/attack_self(mob/user)
 	ui_interact(user)
 
-/obj/item/rpd/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
+/obj/item/rpd/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/rpd/ui_interact(mob/user, datum/tgui/ui = null)
 	user.set_machine(src)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "RPD", name, 450, 650, master_ui, state)
+		ui = new(user, src, "RPD", name)
 		ui.open()
 
+/obj/item/rpd/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/rpd)
+	)
 
 /obj/item/rpd/AltClick(mob/living/user)
 	if(!istype(user) || !Adjacent(user))
@@ -211,15 +215,20 @@
 
 	switch(action)
 		if("iconrotation")
-			iconrotation = text2num(sanitize(params["iconrotation"]))
+			if(isnum(params["iconrotation"]))
+				iconrotation = params["iconrotation"]
 		if("whatpipe")
-			whatpipe = text2num(sanitize(params["whatpipe"]))
+			if(isnum(params["whatpipe"]))
+				whatpipe = params["whatpipe"]
 		if("whatdpipe")
-			whatdpipe = text2num(sanitize(params["whatdpipe"]))
+			if(isnum(params["whatdpipe"]))
+				whatdpipe = params["whatdpipe"]
 		if("pipe_category")
-			pipe_category = text2num(sanitize(params["pipe_category"]))
+			if(isnum(params["pipe_category"]))
+				pipe_category = params["pipe_category"]
 		if("mode")
-			mode = text2num(sanitize(params["mode"]))
+			if(isnum(params["mode"]))
+				mode = params["mode"]
 		if("auto_wrench")
 			auto_wrench = !auto_wrench
 

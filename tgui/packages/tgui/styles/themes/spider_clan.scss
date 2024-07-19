@@ -1,13 +1,16 @@
 @use 'sass:color';
 @use 'sass:meta';
 
-@use '../colors.scss' with ($primary: #00ff00,
+@use '../colors.scss' with (
+  $primary: #00ff00,
   $fg-map-keys: (),
-  $bg-map-keys: (),
+  $bg-map-keys: ()
 );
-@use '../base.scss' with ($color-fg: #1efa72, $color-bg: #002800,
+@use '../base.scss' with (
+  $color-fg: #1efa72,
+  $color-bg: #002800,
   $color-bg-grad-spread: 5%,
-  $border-radius: 2px,
+  $border-radius: 2px
 );
 
 .theme-spider_clan {
@@ -15,32 +18,51 @@
   @include meta.load-css('../atomic/color.scss');
 
   // Components
-  @include meta.load-css('../components/Button.scss', $with: ('color-default': #15e264,
+  @include meta.load-css(
+    '../components/Button.scss',
+    $with: (
+      'color-default': #15e264,
       'color-disabled': #3a3a3a,
       'color-selected': #3cfd1e,
       'color-caution': #be6209,
-      'color-danger': #9a9d00,
-    ));
+      'color-danger': #9a9d00
+    )
+  );
 
-  @include meta.load-css('../components/Input.scss', $with: ('border-color': #87ce87,
-    ));
-  @include meta.load-css('../components/NoticeBox.scss', $with: ('color-background': #044a1b,
-    ));
-  @include meta.load-css('../components/NumberInput.scss', $with: ('border-color': #87ce87,
-    ));
-  @include meta.load-css('../components/ProgressBar.scss', $with: ('color-background': rgba(0, 0, 0, 0.5),
-    ));
-  @include meta.load-css('../components/Section.scss', $with: ('color-background': #003000,
-    ));
-  @include meta.load-css('../components/Tooltip.scss', $with: ('color-background': #002800));
+  @include meta.load-css(
+    '../components/Input.scss',
+    $with: ('border-color': #87ce87)
+  );
+  @include meta.load-css(
+    '../components/NoticeBox.scss',
+    $with: ('background-color': #044a1b)
+  );
+  @include meta.load-css(
+    '../components/NumberInput.scss',
+    $with: ('border-color': #87ce87)
+  );
+  @include meta.load-css(
+    '../components/ProgressBar.scss',
+    $with: ('background-color': rgba(0, 0, 0, 0.5))
+  );
+  @include meta.load-css(
+    '../components/Section.scss',
+    $with: ('background-color': #003000)
+  );
+  @include meta.load-css(
+    '../components/Tooltip.scss',
+    $with: ('background-color': #002800)
+  );
 
   @include meta.load-css('../components/Dropdown.scss');
 
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css('../layouts/TitleBar.scss', $with: ('color-background': #044a1b,
-    ));
+  @include meta.load-css(
+    '../layouts/TitleBar.scss',
+    $with: ('background-color': #044a1b)
+  );
 
   .Tooltip {
     font-family: 'Times New Roman', Times, serif;
@@ -49,10 +71,9 @@
 
   .Button {
     font-family: 'Times New Roman', Times, serif;
-    font-size: 16px;
+    font-size: 15px;
     border-radius: 20px;
     color: #003920 !important;
-
   }
 
   .Button_red {
@@ -83,7 +104,7 @@
   }
 
   .Button_disabled {
-    background-color: rgba(50, 50, 50, 0.5)  !important;
+    background-color: rgba(50, 50, 50, 0.5) !important;
     color: #15e264 !important;
   }
 

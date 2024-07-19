@@ -387,10 +387,12 @@
 /obj/item/projectile/bullet/weakbullet3/c257
 	damage = 20
 
-/obj/item/projectile/bullet/weakbullet3/c257/phosphorus
-
 /obj/item/projectile/bullet/weakbullet3/c257/phosphorus/on_hit(atom/target, blocked, hit_zone)
 	do_sparks(rand(1, 3), FALSE, target)
 	if(..(target, blocked))
 		var/mob/living/target_living = target
-		target_living.flash_eyes()
+
+		if(target_living.check_eye_prot() == FLASH_PROTECTION_FLASH)	// Just a visual effect for sunglasses users.
+			target_living.flash_eyes(intensity = 2, visual = TRUE)
+		else
+			target_living.flash_eyes(affect_silicon = TRUE)

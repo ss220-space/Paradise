@@ -131,7 +131,7 @@
  * * target_uplink - uplink we are buying from.
  * * buyer - mob who performs the transaction.
  */
-/datum/uplink_item/proc/buy(obj/item/uplink/hidden/target_uplink, mob/living/carbon/human/buyer)
+/datum/uplink_item/proc/buy(obj/item/uplink/hidden/target_uplink, mob/living/carbon/human/buyer, put_in_hands = TRUE)
 
 	if(!istype(target_uplink))
 		return FALSE
@@ -166,7 +166,9 @@
 		add_game_logs("purchased [name].", buyer)
 		if(!buyer.mind.special_role)
 			message_admins("[key_name_admin(buyer)] purchased [name], as a non antagonist.")
-	buyer.put_in_any_hand_if_possible(spawned)
+
+	if(put_in_hands)
+		buyer.put_in_any_hand_if_possible(spawned)
 
 	if(istype(spawned, /obj/item/storage/box) && length(spawned.contents))
 		for(var/atom/box_item in spawned)
@@ -174,6 +176,7 @@
 	else
 		target_uplink.purchase_log += "<BIG>[bicon(spawned)]</BIG>"
 
+	return spawned
 
 /*
 //
@@ -384,7 +387,7 @@
 	name = "Genetic Superiority Injector"
 	desc = "Experimental DNA injector which will give you one advanced gene modification and increase your gene stability."
 	item = /obj/item/dna_upgrader
-	cost = 75
+	cost = 55
 	job = list(JOB_TITLE_CMO, JOB_TITLE_GENETICIST)
 	surplus = 0
 

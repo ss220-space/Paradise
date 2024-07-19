@@ -398,6 +398,14 @@
 		to_chat(user, span_notice("There are no removeable organs in [target]'s [parse_zone(target_zone)]!"))
 		return SURGERY_BEGINSTEP_SKIP
 
+	var/mob/living/simple_animal/borer/B = target.has_brain_worms()
+	if(target_zone == BODY_ZONE_HEAD && B && B.host == target)
+		user.visible_message(
+			"[user] begins to extract [B] from [target]'s [parse_zone(target_zone)].",
+			span_notice("You begin to extract [B] from [target]'s [parse_zone(target_zone)]...")
+		)
+		return ..()
+
 	for(var/obj/item/organ/internal/organ as anything in organs)
 		if(organ.unremovable)
 			continue
@@ -424,14 +432,6 @@
 	return ..()
 
 /datum/surgery_step/internal/manipulate_organs/extract/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!extracting || extracting.owner != target)
-		user.visible_message(
-			span_notice("[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!"),
-			span_notice("You can't extract anything from [target]'s [parse_zone(target_zone)]!")
-		)
-		return SURGERY_STEP_CONTINUE
-
-
 	var/mob/living/simple_animal/borer/B = target.has_brain_worms()
 	if(target_zone == BODY_ZONE_HEAD && B && B.host == target)
 		user.visible_message(
@@ -440,6 +440,13 @@
 		)
 		add_attack_logs(user, target, "Surgically removed [B]. INTENT: [uppertext(user.a_intent)]")
 		B.leave_host()
+		return SURGERY_STEP_CONTINUE
+
+	if(!extracting || extracting.owner != target)
+		user.visible_message(
+			span_notice("[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!"),
+			span_notice("You can't extract anything from [target]'s [parse_zone(target_zone)]!")
+		)
 		return SURGERY_STEP_CONTINUE
 
 	user.visible_message(

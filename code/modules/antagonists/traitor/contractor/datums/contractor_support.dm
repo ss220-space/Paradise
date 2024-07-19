@@ -39,7 +39,7 @@
 		/obj/item/clothing/mask/chameleon = 1,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
 		/obj/item/lighter = 1,
-		/obj/item/melee/baton/cattleprod = 1,
+		/obj/item/melee/baton/security/cattleprod = 1,
 		/obj/item/stock_parts/cell/super = 1
 	)
 /datum/outfit/contractor_partner/post_equip(mob/living/carbon/human/partner, visualsOnly)

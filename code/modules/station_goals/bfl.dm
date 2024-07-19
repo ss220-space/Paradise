@@ -274,7 +274,10 @@
 	icon_state = "Receiver_Off"
 	anchored = TRUE
 	interact_offline = TRUE
-
+	pixel_x = -32
+	pixel_y = -32
+	base_pixel_x = -32
+	base_pixel_y = -32
 	var/state = FALSE
 	var/mining = FALSE
 	///Receiver's internal storage for ore
@@ -289,6 +292,35 @@
 	var/ore_count = 0
 	///Used for storing last icon update for receiver lights on borders of receiver
 	var/last_light_state_number = 0
+
+
+/obj/machinery/bfl_receiver/Initialize(mapload)
+	. = ..()
+	//it just works ¯\_(ツ)_/¯
+	internal = new internal_type(src)
+	receiver_light = new (loc)
+	playsound(src, 'sound/BFL/drill_sound.ogg', 100, TRUE)
+
+	var/turf/turf_under = get_turf(src)
+	if(locate(/obj/bfl_crack) in turf_under)
+		ore_type = PLASMA
+	else if(istype(turf_under, /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface))
+		ore_type = SAND
+	else
+		ore_type = NOTHING
+
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
+/obj/machinery/bfl_receiver/Destroy()
+	QDEL_NULL(internal)
+	QDEL_NULL(receiver_light)
+	QDEL_NULL(lens)
+	return ..()
+
 
 /obj/machinery/bfl_receiver/attack_hand(mob/user)
 	if(..())
@@ -353,27 +385,6 @@
 
 	update_state()
 
-/obj/machinery/bfl_receiver/Initialize()
-	. = ..()
-	pixel_x = -32
-	pixel_y = -32
-	//it just works ¯\_(ツ)_/¯
-	internal = new internal_type(src)
-	receiver_light = new (loc)
-	playsound(src, 'sound/BFL/drill_sound.ogg', 100, TRUE)
-
-	var/turf/turf_under = get_turf(src)
-	if(locate(/obj/bfl_crack) in turf_under)
-		ore_type = PLASMA
-	else if(istype(turf_under, /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface))
-		ore_type = SAND
-	else
-		ore_type = NOTHING
-
-/obj/machinery/bfl_receiver/Destroy()
-	qdel(receiver_light)
-	return ..()
-
 
 /obj/machinery/bfl_receiver/update_icon_state()
 	icon_state = "Receiver_[state ? "On" : "Off"]"
@@ -392,11 +403,14 @@
 	update_icon(UPDATE_ICON_STATE)
 	T.ChangeTurf(turf_under.type)
 
-/obj/machinery/bfl_receiver/Crossed(atom/movable/AM, oldloc)
-	. = ..()
-	if(istype(AM, /obj/machinery/bfl_lens))
-		var/obj/machinery/bfl_lens/bfl_lens = AM
+
+/obj/machinery/bfl_receiver/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(istype(arrived, /obj/machinery/bfl_lens))
+		var/obj/machinery/bfl_lens/bfl_lens = arrived
 		bfl_lens.step_count = 0
+
 
 #undef PLASMA
 #undef SAND
@@ -480,8 +494,16 @@
 		var/obj/machinery/bfl_receiver/receiver = locate() in get_turf(src)
 		if(receiver)
 			receiver.lens = anchored ? src : null
+			var/static/list/give_turf_traits
+			if(!give_turf_traits)
+				give_turf_traits = string_list(list(TRAIT_CHASM_STOPPED))
+			if(anchored)
+				AddElement(/datum/element/give_turf_traits, give_turf_traits)
+			else
+				RemoveElement(/datum/element/give_turf_traits, give_turf_traits)
 
 	update_icon()
+
 
 /obj/machinery/bfl_lens/Initialize()
 	. = ..()

@@ -1,5 +1,14 @@
 import { useBackend } from '../backend';
-import { Box, Button, Dropdown, Flex, Icon, LabeledList, Modal, Section } from '../components';
+import {
+  Box,
+  Button,
+  Dropdown,
+  Flex,
+  Icon,
+  LabeledList,
+  Modal,
+  Section,
+} from '../components';
 import { Window } from '../layouts';
 
 export const ShuttleConsole = (props, context) => {
@@ -16,7 +25,8 @@ export const ShuttleConsole = (props, context) => {
           height={12}
           fontSize="28px"
           fontFamily="monospace"
-          textAlign="center">
+          textAlign="center"
+        >
           <Flex>
             <Flex.Item mt={2}>
               <Icon name="minus-circle" />
@@ -44,11 +54,11 @@ export const ShuttleConsole = (props, context) => {
 };
 
 const getLocationNameById = (locations, id) => {
-  return locations?.find(location => location.id === id)?.name;
+  return locations?.find((location) => location.id === id)?.name;
 };
 
 const getLocationIdByName = (locations, name) => {
-  return locations?.find(location => location.name === name)?.id;
+  return locations?.find((location) => location.name === name)?.id;
 };
 
 const STATUS_COLOR_KEYS = {
@@ -88,7 +98,8 @@ export const ShuttleConsoleContent = (props, context) => {
       </Box>
       <Section
         title={type === 'shuttle' ? 'Shuttle Controls' : 'Base Launch Controls'}
-        level={2}>
+        level={2}
+      >
         <LabeledList>
           <LabeledList.Item label="Location">
             {docked_location || 'Not Available'}
@@ -96,60 +107,64 @@ export const ShuttleConsoleContent = (props, context) => {
           <LabeledList.Item
             label="Destination"
             buttons={
-              type !== 'shuttle'
-              && locations.length === 0
-              && !!blind_drop
-              &&<Button
-                color="bad"
-                icon="exclamation-triangle"
-                disabled={authorization_required || !blind_drop}
-                content={'Blind Drop'}
-                onClick={() => act('random')}
-              />
-            }>
+              type !== 'shuttle' &&
+              locations.length === 0 &&
+              !!blind_drop && (
+                <Button
+                  color="bad"
+                  icon="exclamation-triangle"
+                  disabled={authorization_required || !blind_drop}
+                  content={'Blind Drop'}
+                  onClick={() => act('random')}
+                />
+              )
+            }
+          >
             {(locations.length === 0 && (
               <Box mb={1.7} color="bad">
                 Not Available
               </Box>
-            ))
-              ||(locations.length === 1 && (
+            )) ||
+              (locations.length === 1 && (
                 <Box mb={1.7} color="average">
                   {getLocationNameById(locations, destination)}
                 </Box>
               )) || (
-              <Dropdown
-                mb={1.7}
-                over
-                width="240px"
-                options={locations.map(location => location.name)}
-                disabled={locked || authorization_required}
-                selected={
-                  getLocationNameById(locations, destination)
-                  || 'Select a Destination'
-                }
-                onSelected={value =>
-                  act('set_destination', {
-                    destination: getLocationIdByName(locations, value),
-                  })}
-              />
-            )}
+                <Dropdown
+                  mb={1.7}
+                  over
+                  width="240px"
+                  options={locations.map((location) => location.name)}
+                  disabled={locked || authorization_required}
+                  selected={
+                    getLocationNameById(locations, destination) ||
+                    'Select a Destination'
+                  }
+                  onSelected={(value) =>
+                    act('set_destination', {
+                      destination: getLocationIdByName(locations, value),
+                    })
+                  }
+                />
+              )}
           </LabeledList.Item>
         </LabeledList>
         <Button
           fluid
           content="Depart"
           disabled={
-            !getLocationNameById(locations, destination)
-            || locked
-            || authorization_required
-            || status !== "Idle"
+            !getLocationNameById(locations, destination) ||
+            locked ||
+            authorization_required ||
+            status !== 'Idle'
           }
           icon="arrow-up"
           textAlign="center"
           onClick={() =>
             act('move', {
               shuttle_id: destination,
-            })}
+            })
+          }
         />
       </Section>
     </Section>

@@ -379,12 +379,16 @@
 		for(var/mob/living/carbon/M in range(2,src))
 			smoke_mob(M)
 
-/obj/effect/particle_effect/smoke/vomiting/smoke_mob(mob/living/carbon/M)
-	if(..())
-		M.drop_from_active_hand()
-		M.vomit()
-		M.emote("cough")
-		return 1
+
+/obj/effect/particle_effect/smoke/vomiting/smoke_mob(mob/living/carbon/victim)
+	. = ..()
+	if(!.)
+		return .
+	victim.drop_from_active_hand()
+	victim.vomit()
+	INVOKE_ASYNC(victim, TYPE_PROC_REF(/mob, emote), "cough")
+
+
 /datum/effect_system/smoke_spread/vomiting
 	effect_type = /obj/effect/particle_effect/smoke/vomiting
 

@@ -8,6 +8,8 @@
 	icon_state = "portal"
 	base_icon_state = "portal"
 	anchored = TRUE
+	density = TRUE // dense for receiving bumbs
+	layer = HIGH_OBJ_LAYER
 
 	var/obj/item/target
 	/// The UID and `name` of the object that created this portal. For example, a wormhole jaunter.
@@ -24,15 +26,18 @@
 	var/can_multitool_to_remove = FALSE
 	var/can_mecha_pass = FALSE
 	var/ignore_tele_proof_area_setting = FALSE
-	var/one_use = FALSE // Does this portal go away after one teleport?
+	// Does this portal go away after one teleport?
+	var/one_use = FALSE
+	/// Does this portal bypass teleport restrictions? like TRAIT_NO_TELEPORT
+	var/force_teleport = FALSE
 	/// The time after which the effects should play again. Too many effects can lag the server
 	var/effect_cooldown = 0
 	///Whether or not portal use will cause sparks
 	var/create_sparks = TRUE
 
 
-/obj/effect/portal/New(loc, turf/target = null, obj/creation_object = null, lifespan = 30 SECONDS, mob/creation_mob = null, create_sparks = TRUE)
-	..()
+/obj/effect/portal/Initialize(mapload, turf/target = null, obj/creation_object = null, lifespan = 30 SECONDS, mob/creation_mob = null, create_sparks = TRUE)
+	. = ..()
 
 	GLOB.portals += src
 	src.target = target
@@ -92,21 +97,14 @@
 	return
 
 
-/obj/effect/portal/Crossed(atom/movable/AM, oldloc)
-	if(isobserver(AM))
-		return ..()
+/obj/effect/portal/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(!force_teleport && (HAS_TRAIT(mover, TRAIT_NO_TELEPORT) || !can_teleport(mover)))
+		return TRUE
 
-	if(target && (get_turf(oldloc) == get_turf(target)))
-		return ..()
 
-	if(istype(AM, /obj/effect/portal))
-		qdel(AM)
-		qdel(src)
-		log_debug("Portal [src] crossed by another portal [AM]")
-		return
-
-	if(!teleport(AM))
-		return ..()
+/obj/effect/portal/Bumped(atom/movable/moving_atom)
+	teleport(moving_atom)
 
 
 /obj/effect/portal/attack_tk(mob/user)
@@ -116,11 +114,19 @@
 /obj/effect/portal/attack_hand(mob/user)
 	. = ..()
 	if(.)
-		return
-	if(get_turf(user) == get_turf(src))
-		teleport(user)
+		return .
 	if(Adjacent(user))
-		user.forceMove(get_turf(src))
+		teleport(user)
+
+
+/obj/effect/portal/attack_robot(mob/living/user)
+	if(Adjacent(user))
+		teleport(user)
+
+
+/obj/effect/portal/attack_ghost(mob/user)
+	if(target)
+		teleport(user)
 
 
 /obj/effect/portal/multitool_act(mob/user, obj/item/I)
@@ -130,20 +136,20 @@
 	if(can_multitool_to_remove)
 		qdel(src)
 	else
-		user.forceMove(get_turf(src))
+		teleport(user)
 
 
-/obj/effect/portal/proc/can_teleport(atom/movable/M)
+/obj/effect/portal/proc/can_teleport(atom/movable/M, silent = FALSE)
 	. = TRUE
 
 	if(!istype(M))
-		. = FALSE
+		return FALSE
 
 	if(!M.simulated || iseffect(M))
-		. = FALSE
+		return FALSE
 
 	if(!can_mecha_pass && M.anchored && ismecha(M))
-		. = FALSE
+		return FALSE
 
 
 /obj/effect/portal/proc/teleport(atom/movable/M)
@@ -165,8 +171,6 @@
 		investigate_log("[M] has used a portal, [creator_string].", INVESTIGATE_TELEPORTATION)
 
 	if(prob(failchance))
-		icon_state = fail_icon
-		update_icon(UPDATE_ICON_STATE)
 		var/list/target_z = levels_by_trait(SPAWN_RUINS)
 		target_z -= M.z
 		if(!attempt_teleport(M, locate(rand(5, world.maxx - 5), rand(5, world.maxy -5), pick(target_z)), 0, FALSE)) // Try to send them to deep space.
@@ -213,7 +217,7 @@
 		. += span_warning("[src] is shaking, it looks very unstable!")
 
 
-/obj/effect/portal/hand_tele/can_teleport(atom/movable/M)
+/obj/effect/portal/hand_tele/can_teleport(atom/movable/M, silent = FALSE)
 	if(inactive)
 		return FALSE
 	return ..()

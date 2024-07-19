@@ -91,7 +91,7 @@
 	throw_range = 7
 	force = 0
 	w_class = WEIGHT_CLASS_TINY
-	var/dye_color = "#FFFFFF"
+	var/hair_dye_color = "#FFFFFF"
 
 
 /obj/item/hair_dye_bottle/Initialize(mapload)
@@ -101,7 +101,7 @@
 
 /obj/item/hair_dye_bottle/update_overlays()
 	. = ..()
-	. += mutable_appearance(icon, icon_state = "hairdyebottle-overlay", color = dye_color)
+	. += mutable_appearance(icon, icon_state = "hairdyebottle-overlay", color = hair_dye_color)
 
 
 /obj/item/hair_dye_bottle/attack(mob/living/carbon/M, mob/user)
@@ -130,14 +130,14 @@
 		if(do_after(user, 5 SECONDS, H))
 			switch(what_to_dye)
 				if("hair")
-					H.change_hair_color(dye_color)
+					H.change_hair_color(hair_dye_color)
 				if("alt. hair theme")
-					H.change_hair_color(dye_color, 1)
+					H.change_hair_color(hair_dye_color, 1)
 				if("facial hair")
-					H.change_facial_hair_color(dye_color)
+					H.change_facial_hair_color(hair_dye_color)
 				if("alt. facial hair theme")
-					H.change_facial_hair_color(dye_color, 1)
+					H.change_facial_hair_color(hair_dye_color, 1)
 				if("body")
-					H.change_skin_color(dye_color)
+					H.change_skin_color(hair_dye_color)
 			H.update_dna()
 		user.visible_message(span_notice("[user] finishes dying [M]'s [what_to_dye]!"), span_notice("You finish dying [M]'s [what_to_dye]!"))

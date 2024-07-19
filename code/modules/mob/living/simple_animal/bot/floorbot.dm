@@ -44,8 +44,8 @@
 	#define TILE_EMAG		6
 
 
-/mob/living/simple_animal/bot/floorbot/New(mapload, new_toolbox_color)
-	..()
+/mob/living/simple_animal/bot/floorbot/Initialize(mapload, new_toolbox_color)
+	. = ..()
 	toolbox_color = new_toolbox_color
 	update_icon()
 	var/datum/job/engineer/J = new/datum/job/engineer
@@ -245,9 +245,9 @@
 		if(!length(path))
 			if(!isturf(target))
 				var/turf/TL = get_turf(target)
-				path = get_path_to(src, TL, 30, id = access_card, simulated_only = FALSE)
+				path = get_path_to(src, TL, max_distance = 30, access = access_card.GetAccess(), simulated_only = FALSE)
 			else
-				path = get_path_to(src, target, 30, id = access_card, simulated_only = FALSE)
+				path = get_path_to(src, target, max_distance = 30, access = access_card.GetAccess(), simulated_only = FALSE)
 
 			if(!bot_move(target))
 				add_to_ignore(target)
