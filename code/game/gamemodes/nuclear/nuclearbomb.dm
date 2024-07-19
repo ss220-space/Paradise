@@ -378,6 +378,9 @@ GLOBAL_VAR(bomb_set)
 	. = TRUE
 	if(exploded)
 		return
+	if(SSticker?.mode?.blob_stage == BLOB_STAGE_STORM)
+		to_chat(usr, span_notice("Плотное облако спор не дает вам разглядеть кнопки на боеглоловке и что-либо с ней сделать."))
+		return
 	switch(action)
 		if("deploy")
 			if(removal_stage != NUKE_MOBILE)
@@ -459,6 +462,9 @@ GLOBAL_VAR(bomb_set)
 				return
 			if(!core)
 				to_chat(usr, "<span class='danger'>[src]'s screen blinks red! There is no plutonium core in [src]!</span>")
+				return
+			if(isblobinfected(usr.mind))
+				to_chat(usr, span_notice("Что-то внутри вас не дает вам это сделать."))
 				return
 			timing = !(timing)
 			update_icon()

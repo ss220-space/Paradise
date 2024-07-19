@@ -179,8 +179,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 			if(freqlock)
 				return
 			var/freq = params["ichannel"]
-			if(has_channel_access(usr, freq))
-				set_frequency(text2num(freq))
+			if(has_channel_access(usr, num2text(freq)))
+				set_frequency(freq)
 		if("listen")
 			listening = !listening
 		if("broadcast")
@@ -420,7 +420,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	// --- Cyborg ---
 	else if(isrobot(M))
-		jobname = JOB_TITLE_CYBORG
+		var/mob/living/silicon/robot/R = M
+		jobname = R.mind.role_alt_title ? R.mind.role_alt_title : JOB_TITLE_CYBORG
 		rank = JOB_TITLE_CYBORG
 
 	// --- Personal AI (pAI) ---

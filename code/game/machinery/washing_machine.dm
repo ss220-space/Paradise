@@ -1,357 +1,604 @@
+#define STATE_FULL (1<<0)
+#define STATE_OPENED (1<<1)
+#define STATE_BLOODY (1<<2)
+#define STATE_WORKING (1<<3)
+#define STATE_PANEL (1<<4)
+#define STATE_HACKED (1<<5)
+#define STATE_DISABLED (1<<6)
+#define STATE_SHOCKED (1<<7)
+#define MAX_WASH_CAPACITY 5
+
+/// Dye registry, add dye colors and their resulting output here if you want the sprite to change instead of just the color.
+GLOBAL_LIST_INIT(dye_registry, list(
+	DYE_REGISTRY_UNDER = list(
+		DYE_RED = /obj/item/clothing/under/color/red,
+		DYE_ORANGE = /obj/item/clothing/under/color/orange,
+		DYE_YELLOW = /obj/item/clothing/under/color/yellow,
+		DYE_GREEN = /obj/item/clothing/under/color/green,
+		DYE_BLUE = /obj/item/clothing/under/color/blue,
+		DYE_PURPLE = /obj/item/clothing/under/color/lightpurple,
+		DYE_BLACK = /obj/item/clothing/under/color/black,
+		DYE_WHITE = /obj/item/clothing/under/color/white,
+		DYE_RAINBOW = /obj/item/clothing/under/rainbow,
+		DYE_MIME = /obj/item/clothing/under/mime,
+		DYE_CLOWN = /obj/item/clothing/under/rank/clown,
+		DYE_QM = /obj/item/clothing/under/rank/cargo/official,
+		DYE_LAW = /obj/item/clothing/under/lawyer/oldman,
+		DYE_CAPTAIN = /obj/item/clothing/under/rank/captain,
+		DYE_HOP = /obj/item/clothing/under/rank/head_of_personnel,
+		DYE_HOS = /obj/item/clothing/under/rank/head_of_security,
+		DYE_CE = /obj/item/clothing/under/rank/chief_engineer,
+		DYE_RD = /obj/item/clothing/under/rank/research_director,
+		DYE_CMO = /obj/item/clothing/under/rank/chief_medical_officer,
+		DYE_REDCOAT = /obj/item/clothing/under/redcoat,
+		DYE_PRISONER = /obj/item/clothing/under/color/orange/prison,
+		DYE_SYNDICATE = /obj/item/clothing/under/syndicate,
+		DYE_CENTCOM = /obj/item/clothing/under/rank/centcom_commander,
+	),
+	DYE_REGISTRY_GLOVES = list(
+		DYE_RED = /obj/item/clothing/gloves/color/red,
+		DYE_ORANGE = /obj/item/clothing/gloves/color/orange,
+		DYE_YELLOW = /obj/item/clothing/gloves/color/yellow,
+		DYE_GREEN = /obj/item/clothing/gloves/color/green,
+		DYE_BLUE = /obj/item/clothing/gloves/color/blue,
+		DYE_PURPLE = /obj/item/clothing/gloves/color/purple,
+		DYE_BLACK = /obj/item/clothing/gloves/color/black,
+		DYE_WHITE = /obj/item/clothing/gloves/color/white,
+		DYE_RAINBOW = /obj/item/clothing/gloves/color/rainbow,
+		DYE_MIME = /obj/item/clothing/gloves/color/white,
+		DYE_CLOWN = /obj/item/clothing/gloves/color/rainbow,
+		DYE_QM = /obj/item/clothing/gloves/color/brown,
+		DYE_CAPTAIN = /obj/item/clothing/gloves/color/captain,
+		DYE_HOP = /obj/item/clothing/gloves/color/grey,
+		DYE_HOS = /obj/item/clothing/gloves/combat,
+		DYE_CE = /obj/item/clothing/gloves/color/black,
+		DYE_RD = /obj/item/clothing/gloves/color/grey,
+		DYE_CMO = /obj/item/clothing/gloves/color/latex/nitrile,
+		DYE_REDCOAT = /obj/item/clothing/gloves/color/white,
+		DYE_SYNDICATE = /obj/item/clothing/gloves/combat,
+		DYE_CENTCOM = /obj/item/clothing/gloves/combat,
+	),
+	DYE_REGISTRY_BANDANA = list(
+		DYE_RED = /obj/item/clothing/mask/bandana/red,
+		DYE_ORANGE = /obj/item/clothing/mask/bandana/orange,
+		DYE_YELLOW = /obj/item/clothing/mask/bandana/gold,
+		DYE_GREEN = /obj/item/clothing/mask/bandana/green,
+		DYE_BLUE = /obj/item/clothing/mask/bandana/blue,
+		DYE_PURPLE = /obj/item/clothing/mask/bandana/purple,
+		DYE_BLACK = /obj/item/clothing/mask/bandana/black,
+	),
+	DYE_REGISTRY_SHOES = list(
+		DYE_RED = /obj/item/clothing/shoes/red,
+		DYE_ORANGE = /obj/item/clothing/shoes/orange,
+		DYE_YELLOW = /obj/item/clothing/shoes/yellow,
+		DYE_GREEN = /obj/item/clothing/shoes/green,
+		DYE_BLUE = /obj/item/clothing/shoes/blue,
+		DYE_PURPLE = /obj/item/clothing/shoes/purple,
+		DYE_BLACK = /obj/item/clothing/shoes/black,
+		DYE_WHITE = /obj/item/clothing/shoes/white,
+		DYE_RAINBOW = /obj/item/clothing/shoes/rainbow,
+		DYE_MIME = /obj/item/clothing/shoes/black,
+		DYE_CLOWN = /obj/item/clothing/shoes/rainbow,
+		DYE_QM = /obj/item/clothing/shoes/brown,
+		DYE_CAPTAIN = /obj/item/clothing/shoes/brown,
+		DYE_HOP = /obj/item/clothing/shoes/brown,
+		DYE_CE = /obj/item/clothing/shoes/brown,
+		DYE_RD = /obj/item/clothing/shoes/brown,
+		DYE_CMO = /obj/item/clothing/shoes/brown,
+		DYE_SYNDICATE = /obj/item/clothing/shoes/combat,
+		DYE_CENTCOM = /obj/item/clothing/shoes/combat,
+	),
+	DYE_REGISTRY_BEDSHEET = list(
+		DYE_RED = /obj/item/bedsheet/red,
+		DYE_ORANGE = /obj/item/bedsheet/orange,
+		DYE_YELLOW = /obj/item/bedsheet/yellow,
+		DYE_GREEN = /obj/item/bedsheet/green,
+		DYE_BLUE = /obj/item/bedsheet/blue,
+		DYE_PURPLE = /obj/item/bedsheet/purple,
+		DYE_BLACK = /obj/item/bedsheet/black,
+		DYE_WHITE = /obj/item/bedsheet,
+		DYE_RAINBOW = /obj/item/bedsheet/rainbow,
+		DYE_MIME = /obj/item/bedsheet/mime,
+		DYE_CLOWN = /obj/item/bedsheet/clown,
+		DYE_QM = /obj/item/bedsheet/qm,
+		DYE_LAW = /obj/item/bedsheet/black,
+		DYE_CAPTAIN = /obj/item/bedsheet/captain,
+		DYE_HOP = /obj/item/bedsheet/hop,
+		DYE_HOS = /obj/item/bedsheet/hos,
+		DYE_CE = /obj/item/bedsheet/ce,
+		DYE_RD = /obj/item/bedsheet/rd,
+		DYE_CMO = /obj/item/bedsheet/cmo,
+		DYE_SYNDICATE = /obj/item/bedsheet/syndie,
+		DYE_CENTCOM = /obj/item/bedsheet/centcom,
+	),
+	DYE_REGISTRY_SOFTCAP = list(
+		DYE_RED = /obj/item/clothing/head/soft/red,
+		DYE_ORANGE = /obj/item/clothing/head/soft/orange,
+		DYE_YELLOW = /obj/item/clothing/head/soft/yellow,
+		DYE_GREEN = /obj/item/clothing/head/soft/green,
+		DYE_BLUE = /obj/item/clothing/head/soft/blue,
+		DYE_PURPLE = /obj/item/clothing/head/soft/purple,
+		DYE_BLACK = /obj/item/clothing/head/soft/black,
+		DYE_RAINBOW = /obj/item/clothing/head/soft/rainbow,
+		DYE_MIME = /obj/item/clothing/head/soft/mime,
+		DYE_CLOWN = /obj/item/clothing/head/soft/rainbow,
+	),
+	DYE_REGISTRY_PONCHO = list(
+		DYE_RED = /obj/item/clothing/neck/poncho/red,
+		DYE_ORANGE = /obj/item/clothing/neck/poncho/orange,
+		DYE_YELLOW = /obj/item/clothing/neck/poncho/yellow,
+		DYE_GREEN = /obj/item/clothing/neck/poncho/green,
+		DYE_BLUE = /obj/item/clothing/neck/poncho/blue,
+		DYE_PURPLE = /obj/item/clothing/neck/poncho/purple,
+		DYE_BLACK = /obj/item/clothing/neck/poncho/black,
+		DYE_WHITE = /obj/item/clothing/neck/poncho/white,
+		DYE_RAINBOW = /obj/item/clothing/neck/poncho/rainbow,
+		DYE_MIME = /obj/item/clothing/neck/poncho/mime,
+		DYE_CLOWN = /obj/item/clothing/neck/poncho/rainbow,
+	),
+))
+
 /obj/machinery/washing_machine
-	name = "Washing Machine"
+	name = "washing machine"
 	desc = "Gets rid of those pesky bloodstains, or your money back!"
 	icon = 'icons/obj/machines/washing_machine.dmi'
-	icon_state = "wm_10"
+	icon_state = "machine"
 	density = TRUE
 	anchored = TRUE
-	var/state = 1
-	//1 = empty, open door
-	//2 = empty, closed door
-	//3 = full, open door
-	//4 = full, closed door
-	//5 = running
-	//6 = blood, open door
-	//7 = blood, closed door
-	//8 = blood, running
-	var/panel = 0
-	//0 = closed
-	//1 = open
-	var/hacked = 1 //Bleh, screw hacking, let's have it hacked by default.
-	//0 = not hacked
-	//1 = hacked
-	var/gibs_ready = 0
-	var/obj/crayon
+	active_power_usage = 200
+	/// Bitflags indicating current machine status
+	var/state = NONE
+	/// Item used as a colour source
+	var/obj/item/color_source
+	/// Our sweet wires
+	var/datum/wires/washing_machine/wires
+
+
+/obj/machinery/washing_machine/Initialize(mapload)
+	. = ..()
+	wires = new(src)
+	update_icon(UPDATE_OVERLAYS)
+
+
+/obj/machinery/washing_machine/Destroy()
+	dump_contents(forced = TRUE)
+	SStgui.close_uis(wires)
+	QDEL_NULL(wires)
+	return ..()
+
+
+/obj/machinery/washing_machine/deconstruct(disassembled = TRUE)
+	new /obj/item/stack/sheet/metal(drop_location(), 2)
+	qdel(src)
+
+
+/// Dumps every movable atom in the machine's contents list
+/obj/machinery/washing_machine/proc/dump_contents(forced = FALSE)
+	if(!forced && (state & STATE_WORKING))
+		return
+	var/atom/drop_loc = drop_location()
+	for(var/atom/movable/thing as anything in contents)
+		thing.forceMove(drop_loc)
+	color_source = null
+	var/toggle_states = NONE
+	if(!(state & STATE_OPENED))
+		toggle_states |= STATE_OPENED
+	if(state & STATE_FULL)
+		toggle_states |= STATE_FULL
+	if(toggle_states)
+		toggle_state(toggle_states)
+
+
+/obj/machinery/washing_machine/examine(mob/user)
+	. = ..()
+	if(state & STATE_PANEL)
+		. += span_notice("Its wires are exposed.")
+	if(state & STATE_BLOODY)
+		. += span_notice("Cleaning is highly advised.")
+	if(state & (STATE_DISABLED|STATE_HACKED))
+		. += span_warning("The red light on the panel is blinking...")
+	if(!(state & (STATE_OPENED|STATE_WORKING)) && (state & STATE_FULL))
+		. += span_info("<b>Alt-click</b> to start the washing cycle.")
+
+
+/obj/machinery/washing_machine/process(seconds_per_tick)
+	if(!(state & STATE_WORKING))
+		animate(src, transform = matrix(), time = 0.2 SECONDS)
+		return PROCESS_KILL
+	if(anchored)
+		if(SPT_PROB(30, seconds_per_tick))
+			var/matrix/animatrix = new(transform)
+			animatrix.Translate(rand(-1, 1), rand(0, 1))
+			animate(src, transform = animatrix, time= 0.1 SECONDS)
+			animate(transform = matrix(), time = 0.1 SECONDS)
+	else
+		if(SPT_PROB(2.5, seconds_per_tick))
+			step(src, pick(GLOB.cardinal))
+		var/matrix/animatrix = new(transform)
+		animatrix.Translate(rand(-3, 3), rand(-1, 3))
+		animate(src, transform = animatrix, time = 0.2 SECONDS)
+
+
+/obj/machinery/washing_machine/relaymove(mob/living/user, direction)
+	container_resist(user)
+
+
+/obj/machinery/washing_machine/container_resist(mob/living/user)
+	if(!(state & STATE_WORKING))
+		add_fingerprint(user)
+		dump_contents()
+
+
+/**
+ * Toggles machine bitflag for `state` variable and calls icon update.
+ *
+ * Arguments:
+ * * new_state - Bitflag, adds/removes new state
+ */
+/obj/machinery/washing_machine/proc/toggle_state(new_state)
+	. = state
+	state ^= new_state
+	if(. != state)
+		update_icon(UPDATE_OVERLAYS)
+
+
+#define WASHER_OVERLAY_CLOSED 1
+#define WASHER_OVERLAY_CLOSED_FULL 2
+#define WASHER_OVERLAY_CLOSED_BLOODY 3
+#define WASHER_OVERLAY_OPENED 4
+#define WASHER_OVERLAY_OPENED_FULL 5
+#define WASHER_OVERLAY_OPENED_BLOODY 6
+#define WASHER_OVERLAY_WORKING 7
+#define WASHER_OVERLAY_WORKING_BLOODY 8
+#define WASHER_OVERLAY_PANEL 9
+
+/obj/machinery/washing_machine/update_overlays()
+	. = ..()
+
+	var/static/list/washer_overlays
+	if(isnull(washer_overlays))
+		washer_overlays = list(
+			iconstate2appearance(icon, "closed"),
+			iconstate2appearance(icon, "closed_full"),
+			iconstate2appearance(icon, "closed_bloody"),
+			iconstate2appearance(icon, "opened"),
+			iconstate2appearance(icon, "opened_full"),
+			iconstate2appearance(icon, "opened_bloody"),
+			iconstate2appearance(icon, "working"),
+			iconstate2appearance(icon, "working_bloody"),
+			iconstate2appearance(icon, "panel"),
+		)
+
+	if(state & STATE_PANEL)
+		. += washer_overlays[WASHER_OVERLAY_PANEL]
+
+	if(state & STATE_WORKING)
+		. += washer_overlays[WASHER_OVERLAY_CLOSED]
+		if(state & STATE_BLOODY)
+			. += washer_overlays[WASHER_OVERLAY_WORKING_BLOODY]
+		else
+			. += washer_overlays[WASHER_OVERLAY_WORKING]
+		return .
+
+	if(state & STATE_OPENED)
+		. += washer_overlays[WASHER_OVERLAY_OPENED]
+		if(state & STATE_BLOODY)
+			. += washer_overlays[WASHER_OVERLAY_OPENED_BLOODY]
+		else if(state & STATE_FULL)
+			. += washer_overlays[WASHER_OVERLAY_OPENED_FULL]
+		return .
+
+	. += washer_overlays[WASHER_OVERLAY_CLOSED]
+	if(state & STATE_BLOODY)
+		. += washer_overlays[WASHER_OVERLAY_CLOSED_BLOODY]
+	else if(state & STATE_FULL)
+		. += washer_overlays[WASHER_OVERLAY_CLOSED_FULL]
+
+#undef WASHER_OVERLAY_CLOSED
+#undef WASHER_OVERLAY_CLOSED_FULL
+#undef WASHER_OVERLAY_CLOSED_BLOODY
+#undef WASHER_OVERLAY_OPENED
+#undef WASHER_OVERLAY_OPENED_FULL
+#undef WASHER_OVERLAY_OPENED_BLOODY
+#undef WASHER_OVERLAY_WORKING
+#undef WASHER_OVERLAY_WORKING_BLOODY
+#undef WASHER_OVERLAY_PANEL
+
+
+/obj/machinery/washing_machine/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(state & STATE_WORKING)
+		to_chat(user, span_warning("[src] is working!"))
+		return .
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return .
+	toggle_state(STATE_PANEL)
+	if(state & STATE_PANEL)
+		panel_open = TRUE
+		to_chat(user, span_notice("You open the maintenance panel of [src]."))
+	else
+		panel_open = FALSE
+		to_chat(user, span_notice("You close the maintenance panel of [src]."))
+
+
+/obj/machinery/washing_machine/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(state & STATE_WORKING)
+		to_chat(user, span_warning("[src] is working!"))
+		return .
+	if(state & STATE_PANEL)
+		to_chat(user, span_warning("Close the maintenance panel first!"))
+		return .
+	default_unfasten_wrench(user, I, 5 SECONDS)
+
+
+/obj/machinery/washing_machine/wirecutter_act(mob/user, obj/item/I)
+	. = TRUE
+	if(state & STATE_WORKING)
+		to_chat(user, span_warning("[src] is working!"))
+		return .
+	if(!(state & STATE_PANEL))
+		to_chat(user, span_warning("Open the maintenance panel first!"))
+		return .
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return .
+	wires.Interact(user)
+
+
+/obj/machinery/washing_machine/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(state & STATE_WORKING)
+		to_chat(user, span_warning("[src] is working!"))
+		return .
+	if(!(state & STATE_PANEL))
+		to_chat(user, span_warning("Open the maintenance panel first!"))
+		return .
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return .
+	wires.Interact(user)
+
+
+/obj/machinery/washing_machine/emag_act(mob/user)
+	if(emagged)
+		return
+	emagged = TRUE
+	if(!wires.is_cut(WIRE_WASHER_HACK))
+		wires.cut(WIRE_WASHER_HACK)
+	do_sparks(3, 0, src)
+	add_attack_logs(user, src, "emagged")
+	. = ..()
+
+
+/obj/machinery/washing_machine/unemag()
+	if(!emagged)
+		return
+	emagged = FALSE
+	if(wires.is_cut(WIRE_WASHER_HACK))
+		wires.cut(WIRE_WASHER_HACK)
+
+
+/obj/machinery/washing_machine/attack_hand(mob/living/user)
+	. = ..()
+	if(.)
+		return .
+
+	if(!generic_check(user, states_to_ignore = STATE_BLOODY|STATE_DISABLED|STATE_OPENED|STATE_FULL))
+		return .
+
+	if((state & STATE_SHOCKED) && shock(user, 60))
+		return .
+
+	if(state & STATE_OPENED)
+		if(state & STATE_BLOODY)
+			to_chat(user, span_warning("[src] needs to be cleaned first!"))
+			return .
+		toggle_state(STATE_OPENED)
+		return .
+
+	dump_contents()
+
+
+/obj/machinery/washing_machine/clean_blood()
+	. = ..()
+	if(!(state & STATE_BLOODY))
+		return .
+	if(state & STATE_OPENED)
+		if(usr)
+			to_chat(usr, span_notice("You have completely cleaned [src]."))
+		toggle_state(STATE_BLOODY)
+	else
+		if(usr)
+			to_chat(usr, span_warning("Open [src]'s hatch first!"))
+
+
+/obj/machinery/washing_machine/attackby(obj/item/I, mob/user, params)
+	var/is_mob_holder = istype(I, /obj/item/holder)
+	if(!(state & STATE_OPENED) || istype(I, /obj/item/card/emag) || istype(I, /obj/item/soap) || (!(state & STATE_HACKED) && is_mob_holder))
+		return ..()
+	if(state & STATE_BLOODY)
+		to_chat(user, span_warning("[src] needs to be cleaned first!"))
+		return TRUE
+	var/contents_len = length(contents)
+	if((contents_len + (is_mob_holder ? length(I.contents) : 0)) >= MAX_WASH_CAPACITY)
+		to_chat(user, span_warning("[src] is full!"))
+		return TRUE
+	if(is_mob_holder)
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		add_fingerprint(user)
+		for(var/mob/living/simple_animal/pet in I.contents)
+			pet.forceMove(src)
+		if(!QDELETED(I))
+			qdel(I)
+		if(!contents_len)
+			toggle_state(STATE_FULL)
+		return FALSE
+	else if(!user.drop_transfer_item_to_loc(I, src))
+		return ..()
+	if(I.dye_color)
+		color_source = I
+	if(!contents_len)
+		toggle_state(STATE_FULL)
+
+
+/obj/machinery/washing_machine/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !(state & STATE_OPENED) || !(state & STATE_HACKED) || !isanimal(grabbed_thing))
+		return .
+	var/contents_len = length(contents)
+	add_fingerprint(grabber)
+	grabbed_thing.forceMove(src)
+	if(!contents_len)
+		toggle_state(STATE_FULL)
+
+
+/// All generic checks with feedback for the user
+/obj/machinery/washing_machine/proc/generic_check(mob/living/user, states_to_ignore)
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, span_warning("You cannot do that right now!"))
+		return FALSE
+	if(!(states_to_ignore & STATE_WORKING) && (state & STATE_WORKING))
+		to_chat(user, span_warning("[src] is working!"))
+		return FALSE
+	if(!(states_to_ignore & STATE_OPENED) && (state & STATE_OPENED))
+		to_chat(user, span_warning("Close the hatch first!"))
+		return FALSE
+	if(!(states_to_ignore & STATE_FULL) && !(state & STATE_FULL))
+		to_chat(user, span_warning("[src] has no items to wash!"))
+		return FALSE
+	if(!(states_to_ignore & STATE_PANEL) && (state & STATE_PANEL))
+		to_chat(user, span_warning("Close the maintenance panel first!"))
+		return FALSE
+	if(!(states_to_ignore & STATE_BLOODY) && (state & STATE_BLOODY))
+		to_chat(user, span_warning("[src] needs to be cleaned first!"))
+		return FALSE
+	if(!(states_to_ignore & STATE_DISABLED) && (state & STATE_DISABLED))
+		to_chat(user, span_warning("[src] is malfunctioning!"))
+		return FALSE
+	return TRUE
+
+
+/obj/machinery/washing_machine/attack_ai(mob/user)
+	turn_on(user)
+
+
+/obj/machinery/washing_machine/AltClick(mob/user)
+	if(Adjacent(user) && generic_check(user))
+		turn_on(user)
+
 
 /obj/machinery/washing_machine/verb/start()
 	set name = "Start Washing"
 	set category = "Object"
 	set src in oview(1)
 
-	if(!isliving(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED)) //ew ew ew usr, but it's the only way to check.
-		return
-
-	if( state != 4 )
-		to_chat(usr, "The washing machine cannot run in this state.")
-		return
-
-	if( locate(/mob,contents) )
-		state = 8
-	else
-		state = 5
-	update_icon()
-	sleep(200)
-	for(var/atom/A in contents)
-		A.clean_blood()
-
-	//Tanning!
-	for(var/obj/item/stack/sheet/hairlesshide/HH in contents)
-		new /obj/item/stack/sheet/wetleather(src, HH.amount)
-		qdel(HH)
+	if(generic_check(usr))
+		turn_on(usr)
 
 
-	if(crayon)
-		var/wash_color
-		if(istype(crayon,/obj/item/toy/crayon))
-			var/obj/item/toy/crayon/CR = crayon
-			wash_color = CR.colourName
-		else if(istype(crayon,/obj/item/stamp))
-			var/obj/item/stamp/ST = crayon
-			wash_color = ST.item_color
-
-		if(wash_color)
-			var/new_jumpsuit_icon_state = ""
-			var/new_jumpsuit_item_state = ""
-			var/new_jumpsuit_name = ""
-			var/new_glove_icon_state = ""
-			var/new_glove_item_state = ""
-			var/new_glove_name = ""
-			var/new_bandana_icon_state = ""
-			var/new_bandana_item_state = ""
-			var/new_bandana_name = ""
-			var/new_shoe_icon_state = ""
-			var/new_shoe_name = ""
-			var/new_sheet_icon_state = ""
-			var/new_sheet_name = ""
-			var/new_softcap_icon_state = ""
-			var/new_softcap_name = ""
-			var/new_poncho_icon_state = ""
-			var/new_poncho_desc = ""
-			var/new_poncho_name = ""
-			var/new_desc = "The colors are a bit dodgy."
-			for(var/T in typesof(/obj/item/clothing/under))
-				var/obj/item/clothing/under/J = new T
-				if(wash_color == J.item_color)
-					new_jumpsuit_icon_state = J.icon_state
-					new_jumpsuit_item_state = J.item_state
-					new_jumpsuit_name = J.name
-					qdel(J)
-					break
-				qdel(J)
-			for(var/T in typesof(/obj/item/clothing/gloves/color))
-				var/obj/item/clothing/gloves/color/G = new T
-				if(wash_color == G.item_color)
-					new_glove_icon_state = G.icon_state
-					new_glove_item_state = G.item_state
-					new_glove_name = G.name
-					qdel(G)
-					break
-				qdel(G)
-			for(var/T in typesof(/obj/item/clothing/shoes))
-				var/obj/item/clothing/shoes/S = new T
-				if(wash_color == S.item_color)
-					new_shoe_icon_state = S.icon_state
-					new_shoe_name = S.name
-					qdel(S)
-					break
-				qdel(S)
-			for(var/T in typesof(/obj/item/clothing/mask/bandana))
-				var/obj/item/clothing/mask/bandana/M = new T
-				if(wash_color == M.item_color)
-					new_bandana_icon_state = M.icon_state
-					new_bandana_item_state = M.item_state
-					new_bandana_name = M.name
-					qdel(M)
-					break
-				qdel(M)
-			for(var/T in typesof(/obj/item/bedsheet))
-				var/obj/item/bedsheet/B = new T
-				if(wash_color == B.item_color)
-					new_sheet_icon_state = B.icon_state
-					new_sheet_name = B.name
-					qdel(B)
-					break
-				qdel(B)
-			for(var/T in typesof(/obj/item/clothing/head/soft))
-				var/obj/item/clothing/head/soft/H = new T
-				if(wash_color == H.item_color)
-					new_softcap_icon_state = H.icon_state
-					new_softcap_name = H.name
-					qdel(H)
-					break
-				qdel(H)
-			for(var/T in typesof(/obj/item/clothing/neck/poncho))
-				var/obj/item/clothing/neck/poncho/P = new T
-				if(wash_color == P.item_color)
-					new_poncho_icon_state = P.icon_state
-					new_poncho_desc = P.desc
-					new_poncho_name = P.name
-					qdel(P)
-					break
-				qdel(P)
-			if(new_jumpsuit_icon_state && new_jumpsuit_item_state && new_jumpsuit_name)
-				for(var/obj/item/clothing/under/J in contents)
-					if(!J.dyeable)
-						continue
-					J.item_state = new_jumpsuit_item_state
-					J.icon_state = new_jumpsuit_icon_state
-					J.item_color = wash_color
-					J.name = new_jumpsuit_name
-					J.desc = new_desc
-			if(new_glove_icon_state && new_glove_item_state && new_glove_name)
-				for(var/obj/item/clothing/gloves/color/G in contents)
-					if(!G.dyeable)
-						continue
-					G.item_state = new_glove_item_state
-					G.icon_state = new_glove_icon_state
-					G.item_color = wash_color
-					G.name = new_glove_name
-					if(!istype(G, /obj/item/clothing/gloves/color/black/thief))
-						G.desc = new_desc
-			if(new_shoe_icon_state && new_shoe_name)
-				for(var/obj/item/clothing/shoes/S in contents)
-					if(!S.dyeable)
-						continue
-					S.icon_state = new_shoe_icon_state
-					S.item_color = wash_color
-					S.name = new_shoe_name
-					S.desc = new_desc
-			if(new_bandana_icon_state && new_bandana_name)
-				for(var/obj/item/clothing/mask/bandana/M in contents)
-					if(!M.dyeable)
-						continue
-					M.item_state = new_bandana_item_state
-					M.icon_state = new_bandana_icon_state
-					M.item_color = wash_color
-					M.name = new_bandana_name
-					M.desc = new_desc
-			if(new_sheet_icon_state && new_sheet_name)
-				for(var/obj/item/bedsheet/B in contents)
-					B.icon_state = new_sheet_icon_state
-					B.item_color = wash_color
-					B.name = new_sheet_name
-					B.desc = new_desc
-			if(new_softcap_icon_state && new_softcap_name)
-				for(var/obj/item/clothing/head/soft/H in contents)
-					if(!H.dyeable)
-						continue
-					H.icon_state = new_softcap_icon_state
-					H.item_color = wash_color
-					H.name = new_softcap_name
-					H.desc = new_desc
-			if(new_poncho_icon_state && new_poncho_name)
-				for(var/obj/item/clothing/neck/poncho/P in contents)
-					if(!P.dyeable)
-						continue
-					P.icon_state = new_poncho_icon_state
-					P.item_color = wash_color
-					P.name = new_poncho_name
-					P.desc = "[new_poncho_desc] [new_desc]"
-		QDEL_NULL(crayon)
+/// Engages washing cycle
+/obj/machinery/washing_machine/proc/turn_on(mob/user)
+	if(state & (STATE_WORKING|STATE_OPENED|STATE_BLOODY|STATE_PANEL|STATE_DISABLED) || !(state & STATE_FULL))
+		return FALSE
+	if((state & STATE_SHOCKED) && user && !issilicon(user) && shock(user, 100))
+		return FALSE
+	var/toggle_states = STATE_WORKING
+	if(locate(/mob/living/simple_animal, contents))
+		toggle_states |= STATE_BLOODY
+	toggle_state(toggle_states)
+	playsound(loc, 'sound/machines/terminal_button08.ogg', 50, TRUE)
+	use_power = ACTIVE_POWER_USE
+	addtimer(CALLBACK(src, PROC_REF(wash_cycle_end)), 20 SECONDS)
+	START_PROCESSING(SSfastprocess, src)
+	return TRUE
 
 
-	if( locate(/mob,contents) )
-		state = 7
-		gibs_ready = 1
-	else
-		state = 4
-	update_icon()
+/// Ending of the machine wash cycle
+/obj/machinery/washing_machine/proc/wash_cycle_end()
+	for(var/atom/movable/thing as anything in contents)
+		thing.clean_blood()
+		thing.machine_wash(src)
 
-/obj/machinery/washing_machine/verb/climb_out()
-	set name = "Climb out"
-	set category = "Object"
-	set src in usr.loc
-
-	sleep(20)
-	if(state in list(1,3,6) )
-		usr.forceMove(loc)
+	playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
+	QDEL_NULL(color_source)
+	use_power = IDLE_POWER_USE
+	toggle_state(STATE_WORKING)
 
 
-/obj/machinery/washing_machine/update_icon_state()
-	icon_state = "wm_[state][panel]"
+/obj/machinery/washing_machine/proc/pulsed_callback(wire_check, state_check)
+	if(!wires.is_cut(wire_check) && (state & state_check))
+		toggle_state(state_check)
 
 
-/obj/machinery/washing_machine/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
-	. = TRUE
-	if(grabber.grab_state < GRAB_AGGRESSIVE || state != 1 || !hacked || !iscorgi(grabbed_thing))
-		return .
-	add_fingerprint(grabber)
-	grabbed_thing.forceMove(src)
-	state = 3
-	update_icon()
+/// What happens to this object when washed inside a washing machine
+/atom/movable/proc/machine_wash(obj/machinery/washing_machine/washer)
+	return
 
 
-/obj/machinery/washing_machine/attackby(obj/item/W as obj, mob/user as mob, params)
-	/*if(istype(W,/obj/item/screwdriver))
-		panel = !panel
-		to_chat(user, span_notice("you [panel ? ")open" : "close"] the [src]'s maintenance panel")*/
-	if(default_unfasten_wrench(user, W))
-		add_fingerprint(user)
-		power_change()
-		return
-	if(istype(W,/obj/item/toy/crayon) ||istype(W,/obj/item/stamp))
-		if( state in list(	1, 3, 6 ) )
-			if(!crayon)
-				add_fingerprint(user)
-				user.drop_transfer_item_to_loc(W, src)
-				crayon = W
-				update_icon()
-			else
-				return ..()
-		else
-			return ..()
-	else if(istype(W,/obj/item/stack/sheet/hairlesshide) || \
-		istype(W,/obj/item/clothing/under) || \
-		istype(W,/obj/item/clothing/mask) || \
-		istype(W,/obj/item/clothing/head) || \
-		istype(W,/obj/item/clothing/gloves) || \
-		istype(W,/obj/item/clothing/shoes) || \
-		istype(W,/obj/item/clothing/suit) || \
-		istype(W,/obj/item/bedsheet) || \
-		istype(W,/obj/item/clothing/neck/poncho))
-
-		//YES, it's hardcoded... saves a var/can_be_washed for every single clothing item.
-		if( istype(W,/obj/item/clothing/suit/space ) )
-			to_chat(user, "This item does not fit.")
-			return
-		if( istype(W,/obj/item/clothing/suit/syndicatefake ) )
-			to_chat(user, "This item does not fit.")
-			return
-//		if( istype(W,/obj/item/clothing/suit/powered ) )
-//			to_chat(user, "This item does not fit.")
-//			return
-		if( istype(W,/obj/item/clothing/suit/cyborg_suit ) )
-			to_chat(user, "This item does not fit.")
-			return
-		if( istype(W,/obj/item/clothing/suit/bomb_suit ) )
-			to_chat(user, "This item does not fit.")
-			return
-		if( istype(W,/obj/item/clothing/suit/armor ) )
-			to_chat(user, "This item does not fit.")
-			return
-		if( istype(W,/obj/item/clothing/suit/armor ) )
-			to_chat(user, "This item does not fit.")
-			return
-		if( istype(W,/obj/item/clothing/mask/gas ) )
-			to_chat(user, "This item does not fit.")
-			return
-		if( istype(W,/obj/item/clothing/mask/cigarette ) )
-			to_chat(user, "This item does not fit.")
-			return
-		if( istype(W,/obj/item/clothing/head/syndicatefake ) )
-			to_chat(user, "This item does not fit.")
-			return
-//		if( istype(W,/obj/item/clothing/head/powered ) )
-//			to_chat(user, "This item does not fit.")
-//			return
-		if( istype(W,/obj/item/clothing/head/helmet ) )
-			to_chat(user, "This item does not fit.")
-			return
-		if( istype(W,/obj/item/clothing/gloves/furgloves ) )
-			to_chat(user, "This item does not fit.")
-			return
-		if(HAS_TRAIT(W, TRAIT_NODROP)) //if "can't drop" item
-			to_chat(user, span_notice("\The [W] is stuck to your hand, you cannot put it in the washing machine!"))
-			return
-
-		if(contents.len < 5)
-			if( state in list(1, 3) )
-				add_fingerprint(user)
-				user.drop_transfer_item_to_loc(W, src)
-				state = 3
-			else
-				to_chat(user, span_notice("You can't put the item in right now."))
-		else
-			to_chat(user, span_notice("The washing machine is full."))
-		update_icon()
-	else
-		return ..()
-
-/obj/machinery/washing_machine/attack_hand(mob/user as mob)
-	add_fingerprint(user)
-	switch(state)
-		if(1)
-			state = 2
-		if(2)
-			state = 1
-			for(var/atom/movable/O in contents)
-				O.forceMove(loc)
-		if(3)
-			state = 4
-		if(4)
-			state = 3
-			for(var/atom/movable/O in contents)
-				O.forceMove(loc)
-			crayon = null
-			state = 1
-		if(5)
-			to_chat(user, span_warning("The [src] is busy."))
-		if(6)
-			state = 7
-		if(7)
-			if(gibs_ready)
-				gibs_ready = 0
-				if(locate(/mob,contents))
-					var/mob/M = locate(/mob,contents)
-					M.gib()
-			for(var/atom/movable/O in contents)
-				O.forceMove(loc)
-			crayon = null
-			state = 1
-
-
-	update_icon()
-
-/obj/machinery/washing_machine/deconstruct(disassembled = TRUE)
-	new /obj/item/stack/sheet/metal(drop_location(), 2)
+/obj/item/stack/sheet/hairlesshide/machine_wash(obj/machinery/washing_machine/washer)
+	new /obj/item/stack/sheet/wetleather(washer, amount)
 	qdel(src)
+
+
+/mob/living/simple_animal/machine_wash(obj/machinery/washing_machine/washer)
+	investigate_log("has been gibbed by a washing machine.", INVESTIGATE_DEATHS)
+	gib()
+
+
+/obj/item/machine_wash(obj/machinery/washing_machine/washer)
+	if(washer.color_source)
+		dye_item(washer.color_source.dye_color)
+
+
+/obj/item/clothing/shoes/orange/machine_wash(obj/machinery/washing_machine/washer)
+	if(shackles)
+		shackles.forceMove(washer)
+		set_shackles(null)
+	. = ..()
+
+
+/obj/item/proc/dye_item(dye_color, dye_key_override)
+	var/dye_key_selector = dye_key_override ? dye_key_override : dying_key
+	if(undyeable)
+		return FALSE
+	if(!dye_key_selector)
+		return FALSE
+	if(!GLOB.dye_registry[dye_key_selector])
+		stack_trace("Item just tried to be dyed with an invalid registry key: [dye_key_selector]")
+		return FALSE
+	var/obj/item/target_type = GLOB.dye_registry[dye_key_selector][dye_color]
+	if(!target_type)
+		return FALSE
+
+	name = initial(target_type.name)
+	desc = "[initial(target_type.desc)] The colors are a bit dodgy."
+
+	icon = initial(target_type.icon)
+	icon_state = initial(target_type.icon_state)
+	item_state = initial(target_type.item_state)
+	item_color = initial(target_type.item_color)
+
+	lefthand_file = initial(target_type.lefthand_file)
+	righthand_file = initial(target_type.righthand_file)
+
+	if(initial(target_type.sprite_sheets) || initial(target_type.onmob_sheets))
+		// Sprites-related variables are lists, which can not be retrieved using initial(). As such, we need to instantiate the target_type.
+		var/obj/item/dummy = new target_type(null)
+		sprite_sheets = dummy.sprite_sheets
+		onmob_sheets = dummy.onmob_sheets
+		qdel(dummy)
+
+	update_appearance()
+	return target_type //successfully "appearance copy" dyed something; returns the target type as a hacky way of extending
+
+
+#undef STATE_FULL
+#undef STATE_OPENED
+#undef STATE_BLOODY
+#undef STATE_WORKING
+#undef STATE_PANEL
+#undef STATE_HACKED
+#undef STATE_DISABLED
+#undef STATE_SHOCKED
+#undef MAX_WASH_CAPACITY
+

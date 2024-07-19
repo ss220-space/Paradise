@@ -125,6 +125,7 @@
 
 /obj/mecha/Initialize()
 	. = ..()
+	ADD_TRAIT(src, TRAIT_WEATHER_IMMUNE, INNATE_TRAIT)
 	icon_state += "-open"
 	add_radio()
 	add_cabin()
@@ -1078,7 +1079,7 @@
 				to_chat(user, span_warning("No AI detected in the [name] onboard computer."))
 				return
 			if(AI.mind.special_role) //Malf AIs cannot leave mechs. Except through death.
-				to_chat(user, span_boldannounce("ACCESS DENIED."))
+				to_chat(user, span_boldannounceic("ACCESS DENIED."))
 				return
 			AI.aiRestorePowerRoutine = 0//So the AI initially has power.
 			AI.control_disabled = TRUE

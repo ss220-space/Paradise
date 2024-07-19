@@ -9,6 +9,7 @@
 	pass_flags = PASSTABLE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	movement_type = FLYING
+	animate_movement = NO_STEPS
 	hitsound = 'sound/weapons/pierce.ogg'
 	var/hitsound_wall = ""
 	/// Body part at which the projectile was aimed.
@@ -42,7 +43,6 @@
 	var/spread = 0
 	/// If set to `TRUE` [/obj/item/hardsuit_taser_proof] upgrage will block this projectile.
 	var/shockbull = FALSE
-	animate_movement = NO_STEPS
 
 	var/ignore_source_check = FALSE
 
@@ -111,6 +111,8 @@
 	var/dismember_limbs = FALSE
 	/// If `TRUE`, projectile with dismemberment will forcefully cut head instead of gibbing them
 	var/dismember_head = FALSE
+	/// Probability to hit lying non-dead mobs
+	var/hit_crawling_mobs_chance = 0
 
 
 /obj/item/projectile/Initialize(mapload)

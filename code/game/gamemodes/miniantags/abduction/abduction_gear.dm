@@ -16,7 +16,7 @@
 	origin_tech = "magnets=7;biotech=4;powerstorage=4;abductor=4"
 	armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 15, "bomb" = 15, "bio" = 15, "rad" = 15, "fire" = 70, "acid" = 70)
 	actions_types = list(/datum/action/item_action/hands_free/activate)
-	allowed = list(/obj/item/abductor, /obj/item/abductor_baton, /obj/item/melee/baton, /obj/item/gun/energy, /obj/item/restraints/handcuffs)
+	allowed = list(/obj/item/abductor, /obj/item/melee/baton, /obj/item/gun/energy, /obj/item/restraints/handcuffs)
 	var/mode = VEST_STEALTH
 	var/stealth_active = 0
 	var/combat_cooldown = 10
@@ -144,7 +144,7 @@
 /obj/item/abductor
 	icon = 'icons/obj/abductor.dmi'
 
-/obj/item/abductor/proc/AbductorCheck(user)
+/obj/item/proc/AbductorCheck(user)
 	if(isabductor(user))
 		return TRUE
 	to_chat(user, "<span class='warning'>You can't figure how this works!</span>")
@@ -264,14 +264,14 @@
 	origin_tech = "materials=4;programming=7;abductor=3"
 
 /obj/item/abductor/silencer/attack(mob/living/M, mob/user)
-	if(!AbductorCheck(user))
+	if(!isgrey(user) && !AbductorCheck(user))
 		return
 	radio_off(M, user)
 
 /obj/item/abductor/silencer/afterattack(atom/target, mob/living/user, flag, params)
 	if(flag)
 		return
-	if(!AbductorCheck(user))
+	if(!isgrey(user) && !AbductorCheck(user))
 		return
 	radio_off(target, user)
 
@@ -420,27 +420,50 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 /obj/item/paper/abductor/AltClick()
 	return
 
+
 #define BATON_STUN 0
 #define BATON_SLEEP 1
 #define BATON_CUFF 2
 #define BATON_PROBE 3
 #define BATON_MODES 4
 
-/obj/item/abductor_baton
+/obj/item/melee/baton/abductor
 	name = "advanced baton"
 	desc = "A quad-mode baton used for incapacitation and restraining of specimens."
-	var/mode = BATON_STUN
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "wonderprodStun"
 	item_state = "wonderprod"
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "materials=4;combat=4;biotech=7;abductor=4"
 	force = 7
-	w_class = WEIGHT_CLASS_NORMAL
+	affect_cyborgs = TRUE
+	affect_bots = TRUE
+	cooldown = 0 SECONDS
+	stamina_damage = 0
+	knockdown_time = 14 SECONDS
+	allows_stun_in_harm = TRUE
+	on_stun_sound = 'sound/weapons/egloves.ogg'
 	actions_types = list(/datum/action/item_action/toggle_mode)
+	var/mode = BATON_STUN
 
-/obj/item/abductor_baton/proc/toggle(mob/living/user = usr)
-	mode = (mode+1)%BATON_MODES
+
+/obj/item/melee/baton/abductor/get_stun_description(mob/living/target, mob/living/user)
+	return // chat messages are handled in their own procs.
+
+
+/obj/item/melee/baton/abductor/get_cyborg_stun_description(mob/living/target, mob/living/user)
+	return // same as above.
+
+
+/obj/item/melee/baton/abductor/attack_self(mob/living/user)
+	. = ..()
+	toggle(user)
+
+
+/obj/item/melee/baton/abductor/proc/toggle(mob/living/user = usr)
+	if(!AbductorCheck(user))
+		return
+	mode = (mode + 1) % BATON_MODES
 	var/txt
 	switch(mode)
 		if(BATON_STUN)
@@ -452,13 +475,21 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		if(BATON_PROBE)
 			txt = "probing"
 
-	to_chat(usr, "<span class='notice'>You switch the baton to [txt] mode.</span>")
-	update_icon(UPDATE_ICON_STATE)
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	var/is_stun_mode = (mode == BATON_STUN)
+	var/is_stun_or_sleep = (mode == BATON_STUN) || (mode == BATON_SLEEP)
 
-/obj/item/abductor_baton/update_icon_state()
+	affect_cyborgs = is_stun_mode
+	affect_bots = is_stun_mode
+	log_stun_attack = is_stun_mode // other modes have their own log entries.
+	skip_harm_attack = !is_stun_or_sleep
+	stun_animation = is_stun_or_sleep
+	on_stun_sound = is_stun_or_sleep ? 'sound/weapons/egloves.ogg' : null
+
+	to_chat(user, span_notice("You switch the baton to [txt] mode."))
+	update_icon(UPDATE_ICON_STATE)
+
+
+/obj/item/melee/baton/abductor/update_icon_state()
 	switch(mode)
 		if(BATON_STUN)
 			icon_state = "wonderprodStun"
@@ -472,115 +503,128 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		if(BATON_PROBE)
 			icon_state = "wonderprodProbe"
 			item_state = "wonderprodProbe"
+	update_equipped_item(update_speedmods = FALSE)
 
-/obj/item/abductor_baton/attack(mob/target, mob/living/user)
-	if(!isabductor(user))
-		return
 
-	if(isrobot(target))
-		..()
-		return
-
-	if(!isliving(target))
-		return
-
-	var/mob/living/L = target
-
-	user.do_attack_animation(L)
-
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
-			playsound(L, 'sound/weapons/genhit.ogg', 50, 1)
-			return 0
-
+/obj/item/melee/baton/abductor/examine(mob/user)
+	. = ..()
+	if(!AbductorCheck(user))
+		return .
 	switch(mode)
 		if(BATON_STUN)
-			StunAttack(L,user)
+			. += span_warning("The baton is in stun mode.")
 		if(BATON_SLEEP)
-			SleepAttack(L,user)
+			. += span_warning("The baton is in sleep inducement mode.")
 		if(BATON_CUFF)
-			CuffAttack(L,user)
+			. += span_warning("The baton is in restraining mode.")
 		if(BATON_PROBE)
-			ProbeAttack(L,user)
+			. += span_warning("The baton is in probing mode.")
 
-/obj/item/abductor_baton/attack_self(mob/living/user)
-	toggle(user)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
 
-/obj/item/abductor_baton/proc/StunAttack(mob/living/L,mob/living/user)
-	L.lastattacker = user.real_name
-	L.lastattackerckey = user.ckey
+/obj/item/melee/baton/abductor/baton_attack(mob/target, mob/living/user, add_melee_cooldown = TRUE, skip_attack_anim = FALSE)
+	if(!AbductorCheck(user))
+		return BATON_ATTACK_DONE
+	return ..()
 
-	L.Weaken(14 SECONDS)
-	L.Stun(14 SECONDS)
-	L.Stuttering(14 SECONDS)
 
-	L.visible_message("<span class='danger'>[user] has stunned [L] with [src]!</span>", \
-							"<span class='userdanger'>[user] has stunned you with [src]!</span>")
-	playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
+/obj/item/melee/baton/abductor/baton_effect(mob/living/carbon/target, mob/living/user, stun_override)
+	switch(mode)
+		if(BATON_STUN)
+			StunAttack(target, user)
+		if(BATON_SLEEP)
+			SleepAttack(target,user)
+		if(BATON_CUFF)
+			CuffAttack(target,user)
+		if(BATON_PROBE)
+			ProbeAttack(target,user)
 
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		H.forcesay(GLOB.hit_appends)
 
-	add_attack_logs(user, L, "Stunned with [src]")
+/obj/item/melee/baton/abductor/proc/StunAttack(mob/living/carbon/target, mob/living/user)
+	target.visible_message(
+		span_danger("[user] stuns [target] with [src]!"),
+		span_userdanger("[user] stuns you with [src]!"),
+	)
+	target.AdjustJitter(40 SECONDS, bound_upper = 40 SECONDS)
+	target.AdjustStuttering(16 SECONDS, bound_upper = 16 SECONDS)
+	target.AdjustConfused(10 SECONDS, bound_upper = 10 SECONDS)
+	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK)
+	if(iscarbon(target))
+		target.shock_internal_organs(33)
+	target.Weaken(knockdown_time)
 
-/obj/item/abductor_baton/proc/SleepAttack(mob/living/L,mob/living/user)
-	if(HAS_TRAIT(L, TRAIT_INCAPACITATED))
-		L.visible_message("<span class='danger'>[user] has induced sleep in [L] with [src]!</span>", \
-							"<span class='userdanger'>You suddenly feel very drowsy!</span>")
-		playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
-		L.Sleeping(120 SECONDS)
-		add_attack_logs(user, L, "Put to sleep with [src]")
+
+/obj/item/melee/baton/abductor/proc/SleepAttack(mob/living/target, mob/living/user)
+	if(target.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
+		target.visible_message(
+			span_danger("[user] induces sleep in [target] with [src]!"),
+			span_userdanger("You suddenly feel very drowsy!"),
+		)
+		playsound(src, on_stun_sound, 50, TRUE, -1)
+		target.Sleeping(2 MINUTES)
+		add_attack_logs(user, target, "put to sleep with [src]")
 	else
-		L.AdjustDrowsy(2 SECONDS)
-		to_chat(user, "<span class='warning'>Sleep inducement works fully only on stunned specimens!</span>")
-		L.visible_message("<span class='danger'>[user] tried to induce sleep in [L] with [src]!</span>", \
-							"<span class='userdanger'>You suddenly feel drowsy!</span>")
+		target.AdjustDrowsy(2 SECONDS)
+		to_chat(user, span_warning("Sleep inducement works fully only on stunned specimens! "))
+		target.visible_message(
+			span_danger("[user] tried to induce sleep in [target] with [src]!"),
+			span_userdanger("You suddenly feel drowsy!"),
+		)
 
-/obj/item/abductor_baton/proc/CuffAttack(mob/living/L,mob/living/user)
-	if(!iscarbon(L))
+
+/obj/item/melee/baton/abductor/proc/CuffAttack(mob/living/carbon/target, mob/living/user)
+	if(!iscarbon(target))
 		return
-	var/mob/living/carbon/C = L
-	if(C.has_organ_for_slot(ITEM_SLOT_HANDCUFFED) && !C.handcuffed)
-		playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
-		C.visible_message("<span class='danger'>[user] begins restraining [C] with [src]!</span>", \
-								"<span class='userdanger'>[user] begins shaping an energy field around your hands!</span>")
-		if(do_after(user, 3 SECONDS, C, NONE))
-			if(C.handcuffed)
-				return
+	if(!target.has_organ_for_slot(ITEM_SLOT_HANDCUFFED))
+		to_chat(user, span_warning("[target] has no hands!"))
+		return
+	if(target.handcuffed)
+		to_chat(user, span_warning("[target] is already handcuffed!"))
+		return
+	playsound(src, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
+	target.visible_message(
+		span_danger("[user] begins restraining [target] with [src]!"),
+		span_userdanger("[user] begins shaping an energy field around your hands!"),
+	)
+	if(do_after(user, 3 SECONDS, target, NONE))
+		if(target.handcuffed || !target.has_organ_for_slot(ITEM_SLOT_HANDCUFFED))
+			return
+		target.apply_restraints(new /obj/item/restraints/handcuffs/cable/zipties/used(null), ITEM_SLOT_HANDCUFFED, TRUE)
+		to_chat(user, span_notice("You restrain [target]."))
+		add_attack_logs(user, target, "handcuffed ([src])")
+	else
+		to_chat(user, span_warning("You fail to restrain [target]!"))
 
-			C.apply_restraints(new /obj/item/restraints/handcuffs/cable/zipties/used(null), ITEM_SLOT_HANDCUFFED, TRUE)
 
-			to_chat(user, "<span class='notice'>You handcuff [C].</span>")
-			add_attack_logs(user, C, "Handcuffed ([src])")
+/obj/item/melee/baton/abductor/proc/ProbeAttack(mob/living/carbon/human/target, mob/living/user)
+	target.visible_message(
+		span_danger("[user] probes [target] with [src]!"),
+		span_userdanger("[user] probes you!"),
+	)
+
+	var/species = span_warning("Unknown species")
+	var/helptext = span_warning("Species unsuitable for experiments.")
+
+	if(ishuman(target))
+		species = span_notice("<b>[target.dna.species.name]</b>")
+		if(ischangeling(target))
+			species = span_warning("Changeling lifeform")
+		if(target.get_int_organ(/obj/item/organ/internal/heart/gland))
+			helptext = span_warning("Experimental gland detected!")
 		else
-			to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
+			if(target.get_organ_slot(INTERNAL_ORGAN_HEART))
+				helptext = span_notice("Subject suitable for experiments.")
+			else
+				helptext = span_warning("Subject unsuitable for experiments.")
 
-/obj/item/abductor_baton/proc/ProbeAttack(mob/living/L,mob/living/user)
-	L.visible_message("<span class='danger'>[user] probes [L] with [src]!</span>", \
-						"<span class='userdanger'>[user] probes you!</span>")
-
-	var/species = "<span class='warning'>Unknown species</span>"
-	var/helptext = "<span class='warning'>Species unsuitable for experiments.</span>"
-
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		species = "<span clas=='notice'>[H.dna.species.name]</span>"
-		if(ischangeling(L))
-			species = "<span class='warning'>Changeling lifeform</span>"
-		var/obj/item/organ/internal/heart/gland/temp = locate() in H.internal_organs
-		if(temp)
-			helptext = "<span class='warning'>Experimental gland detected!</span>"
-		else
-			helptext = "<span class='notice'>Subject suitable for experiments.</span>"
-
-	to_chat(user,"<span class='notice'>Probing result: </span>[species]")
+	to_chat(user, "[span_notice("Probing result:")] [species]")
 	to_chat(user, "[helptext]")
+
+#undef BATON_STUN
+#undef BATON_SLEEP
+#undef BATON_CUFF
+#undef BATON_PROBE
+#undef BATON_MODES
+
 
 /obj/item/restraints/handcuffs/energy
 	name = "hard-light energy field"
@@ -600,17 +644,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	do_sparks(4, 0, user.loc)
 	. = ..()
 
-/obj/item/abductor_baton/examine(mob/user)
-	. = ..()
-	switch(mode)
-		if(BATON_STUN)
-			. += "<span class='notice'>The baton is in stun mode.</span>"
-		if(BATON_SLEEP)
-			. += "<span class='notice'>The baton is in sleep inducement mode.</span>"
-		if(BATON_CUFF)
-			. += "<span class='notice'>The baton is in restraining mode.</span>"
-		if(BATON_PROBE)
-			. += "<span class='notice'>The baton is in probing mode.</span>"
 
 /obj/item/radio/headset/abductor
 	name = "alien headset"

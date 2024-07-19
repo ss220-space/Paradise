@@ -51,6 +51,7 @@
 		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+	update_flipped_turf()
 
 
 /obj/structure/table/examine(mob/user)
@@ -168,10 +169,12 @@
 		return dir != border_dir
 
 
-/obj/structure/table/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
-	. = !density
-	if(checkpass(caller, PASSTABLE))
-		. = TRUE
+/obj/structure/table/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(!density)
+		return TRUE
+	if(pass_info.pass_flags == PASSEVERYTHING || (pass_info.pass_flags & PASSTABLE))
+		return TRUE
+	return FALSE
 
 
 /obj/structure/table/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
@@ -222,9 +225,9 @@
 		return FALSE // Blocked
 
 
-/obj/structure/table/can_touch(mob/living/user)
+/obj/structure/table/can_touch(mob/living/user, flip = FALSE)
 	. = ..()
-	if(. && flipped)
+	if(. && !flip && flipped)
 		to_chat(user, span_notice("You cannot climb on the flipped table."))
 		return FALSE
 
@@ -376,7 +379,7 @@
 
 
 /obj/structure/table/proc/actual_flip(mob/living/user)
-	if(!can_be_flipped || !can_touch(user))
+	if(!can_be_flipped || !can_touch(user, flip = TRUE))
 		return FALSE
 
 	if(!flipped)
@@ -412,6 +415,7 @@
 	smooth = NONE
 	flags |= ON_BORDER
 	playsound(loc, flip_sound, 100, TRUE)
+	update_flipped_turf()
 
 	for(var/check_dir in list(turn(direction, 90), turn(direction, -90)))
 		var/obj/structure/table/other_table = locate(/obj/structure/table, get_step(src, check_dir))
@@ -442,6 +446,7 @@
 	smooth = initial(smooth)
 	flags &= ~ON_BORDER
 	playsound(loc, flip_sound, 100, TRUE)
+	update_flipped_turf()
 
 	for(var/check_dir in list(turn(dir, 90), turn(dir, -90)))
 		var/obj/structure/table/other_table = locate(/obj/structure/table, get_step(src, check_dir))
@@ -449,12 +454,24 @@
 			other_table.unflip()
 	dir = initial(dir)
 	update_icon(UPDATE_ICON_STATE)
+	queue_smooth(src)
+	queue_smooth_neighbors(src)
 
 	creates_cover = TRUE
 	if(isturf(loc))
 		ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 
 	return TRUE
+
+
+/obj/structure/table/proc/update_flipped_turf()
+	var/static/list/give_turf_traits
+	if(!give_turf_traits)
+		give_turf_traits = string_list(list(TRAIT_TURF_IGNORE_SLOWDOWN, TRAIT_TURF_IGNORE_SLIPPERY))
+	if(flipped)
+		RemoveElement(/datum/element/give_turf_traits, give_turf_traits)
+	else
+		AddElement(/datum/element/give_turf_traits, give_turf_traits)
 
 
 /*
@@ -847,10 +864,12 @@
 		return TRUE
 
 
-/obj/structure/rack/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
-	. = !density
-	if(checkpass(caller, PASSTABLE))
-		. = TRUE
+/obj/structure/rack/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(!density)
+		return TRUE
+	if(pass_info.pass_flags == PASSEVERYTHING || (pass_info.pass_flags & PASSTABLE))
+		return TRUE
+	return FALSE
 
 
 /obj/structure/rack/MouseDrop_T(obj/item/dropping, mob/user, params)

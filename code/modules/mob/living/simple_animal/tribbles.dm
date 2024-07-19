@@ -153,6 +153,7 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	item_state = "furgloves"
 	transfer_prints = TRUE
 	transfer_blood = TRUE
+	undyeable = TRUE
 
 // Equivalent to a winter coat's hood
 /obj/item/clothing/head/furcap

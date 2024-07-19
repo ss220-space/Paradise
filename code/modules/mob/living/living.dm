@@ -1,10 +1,3 @@
-/mob/living
-	/// True devil variables
-	var/list/ownedSoullinks //soullinks we are the owner of
-	var/list/sharedSoullinks //soullinks we are a/the sharer of
-	var/canEnterVentWith = "/obj/item/implant=0&/obj/item/clothing/mask/facehugger=0&/obj/item/radio/borg=0&/obj/machinery/camera=0"
-	var/datum/middleClickOverride/middleClickOverride = null
-
 /mob/living/Initialize()
 	. = ..()
 	AddElement(/datum/element/movetype_handler)
@@ -29,6 +22,9 @@
 		verbs += /mob/living/proc/toggle_resting
 		if(!density)	// we want undense mobs to stay undense when they stop resting
 			ADD_TRAIT(src, TRAIT_UNDENSE, INNATE_TRAIT)
+
+	if(length(weather_immunities))
+		add_traits(weather_immunities, INNATE_TRAIT)
 
 	GLOB.mob_living_list += src
 
@@ -135,11 +131,12 @@
 	var/cat = iscat(src)
 	var/functional_legs = TRUE
 	var/skip_weaken = FALSE
-	for(var/zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
-		var/obj/item/organ/external/leg = get_organ(zone)
-		if(leg.has_fracture())
-			functional_legs = FALSE
-			break
+	if(ishuman(src))
+		for(var/zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
+			var/obj/item/organ/external/leg = get_organ(zone)
+			if(leg.has_fracture())
+				functional_legs = FALSE
+				break
 	if(((istajaran(src) && functional_legs) || cat) && body_position != LYING_DOWN && can_help_themselves)
 		. |= ZIMPACT_NO_MESSAGE|ZIMPACT_NO_SPIN
 		skip_weaken = TRUE
@@ -446,14 +443,20 @@
 
 
 /// Special projectiles handling for living mobs
-/mob/living/proc/projectile_allow_through(obj/item/projectile, border_dir)
-	if(!(mobility_flags & (MOBILITY_REST|MOBILITY_LIEDOWN)))	// default behavior for generic mobs
+/mob/living/proc/projectile_allow_through(obj/item/projectile/projectile, border_dir)
+	// default behavior for generic mobs
+	if(!(mobility_flags & (MOBILITY_REST|MOBILITY_LIEDOWN)))
 		return !density
-	if(stat == DEAD)	// DEAD mobs are fine to skip if they are not dense or lying
+	// DEAD mobs are fine to skip if they are not dense or lying
+	if(stat == DEAD)
 		return !density || body_position == LYING_DOWN
-	if(density || body_position == STANDING_UP)	// always hitting dense/standing mobs
+	// always hitting dense/standing mobs
+	if(density || body_position == STANDING_UP)
 		return FALSE
-	return prob(67)	// 33% to hit lying mobs
+	// otherwise chance to hit is defined by the projectile var/hit_crawling_mobs_chance
+	if(projectile.hit_crawling_mobs_chance > 0 && projectile.hit_crawling_mobs_chance <= 100)
+		return !prob(projectile.hit_crawling_mobs_chance)
+	return TRUE
 
 
 /mob/living/tompost_bump_override(atom/movable/mover, border_dir)
@@ -471,10 +474,6 @@
 		if(REVERSE_DIR(check_dir) & border_dir)
 			return pulledby
 		return prob(50) ? pulledby : src
-
-
-/mob/living/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
-	return TRUE // Unless you're a mule, something's trying to run you over.
 
 
 //for more info on why this is not atom/pull, see examinate() in mob.dm
@@ -1253,7 +1252,7 @@
 
 
 //called when the mob receives a bright flash
-/mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/flash)
+/mob/living/proc/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash)
 	if(status_flags & GODMODE)
 		return FALSE
 	if(check_eye_prot() < intensity && (override_blindness_check || !(BLINDNESS in mutations)))
@@ -1263,13 +1262,13 @@
 
 
 /mob/living/proc/check_eye_prot()
-	var/number = 0
+	var/eye_prot = FLASH_PROTECTION_NONE
 	var/datum/antagonist/vampire/vampire = mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(vampire?.get_ability(/datum/vampire_passive/eyes_flash_protection))
-		number++
+		eye_prot += FLASH_PROTECTION_FLASH
 	if(vampire?.get_ability(/datum/vampire_passive/eyes_welding_protection))
-		number++
-	return number
+		eye_prot += FLASH_PROTECTION_FLASH
+	return eye_prot
 
 
 /mob/living/proc/check_ear_prot()
@@ -1341,8 +1340,8 @@
 	var/amplitude = min(4, (jitteriness / 100) + 1)
 	var/pixel_x_diff = rand(-amplitude, amplitude)
 	var/pixel_y_diff = rand(-amplitude / 3, amplitude / 3)
-	animate(src, pixel_x = pixel_x_diff, pixel_y = pixel_y_diff, time = 0.2 SECONDS, loop = loop_amount, flags = (ANIMATION_RELATIVE|ANIMATION_PARALLEL))
-	animate(pixel_x = -pixel_x_diff, pixel_y = -pixel_y_diff, time = 0.2 SECONDS, flags = ANIMATION_RELATIVE)
+	animate(src, pixel_x = pixel_x_diff, pixel_y = pixel_y_diff, time = 0.2 SECONDS, loop = loop_amount, flags = ANIMATION_PARALLEL)
+	animate(pixel_x = -pixel_x_diff, pixel_y = -pixel_y_diff, time = 0.2 SECONDS)
 
 
 /mob/living/proc/get_temperature(datum/gas_mixture/environment)
@@ -1413,13 +1412,13 @@
 	return ..() && !(buckled && buckled.buckle_prevents_pull)
 
 
-/mob/living/proc/can_pull(supress_message = FALSE)
+/mob/living/proc/can_pull(hand_to_check, supress_message = FALSE)
 	if(pull_hand == PULL_WITHOUT_HANDS)
 		return TRUE
-	var/hand_occupied = hand ? l_hand : r_hand
-	if(hand_occupied || (!isnull(pull_hand) && hand == pull_hand))
+	var/hand_occupied = (hand_to_check == ACTIVE_HAND_LEFT) ? l_hand : r_hand
+	if(hand_occupied || (!isnull(pull_hand) && hand_to_check == pull_hand))
 		if(!supress_message)
-			to_chat(src, span_warning("Освободите [hand ? "левую" : "правую"] руку!"))
+			to_chat(src, span_warning("Освободите [(hand_to_check == ACTIVE_HAND_LEFT) ? "левую" : "правую"] руку!"))
 		return FALSE
 	return TRUE
 
@@ -1445,7 +1444,17 @@
 			return FALSE
 		stop_pulling()
 
-	if(!can_pull(supress_message))
+	// carbons can try to pull with other hand
+	if(iscarbon(src))
+		var/active_hand_available = can_pull(hand, supress_message = TRUE)
+		var/inactive_hand_available = can_pull(!hand, supress_message = TRUE)
+		if(!active_hand_available && !inactive_hand_available)
+			if(!supress_message)
+				can_pull(hand)	// we still need to inform user about his active hand unavailability
+			return FALSE
+		if(!active_hand_available && !swap_hand())
+			return FALSE
+	else if(!can_pull(hand, supress_message))
 		return FALSE
 
 	. = TRUE
@@ -1820,7 +1829,7 @@
 		return TRUE
 	face_atom(target)
 	if(!has_vision(information_only = TRUE))
-		to_chat(src, span_notice("Здесь что-то есть, но вы не видите — что именно."))
+		to_chat(src, chat_box_regular(span_notice("Здесь что-то есть, но вы не видите — что именно.")), MESSAGE_TYPE_INFO, confidential = TRUE)
 		return TRUE
 	return FALSE
 

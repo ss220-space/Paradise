@@ -111,6 +111,7 @@
 /mob/living/silicon/robot/drone/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
+	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
 
 
 /mob/living/silicon/robot/drone/Destroy()
@@ -128,6 +129,14 @@
 	additional_law_channels["Drone"] = get_language_prefix(LANGUAGE_DRONE_BINARY)
 
 	playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
+
+
+/mob/living/silicon/robot/drone/proc/disposal_handling(disposal_source, obj/structure/disposalholder/disposal_holder, obj/machinery/disposal/disposal_machine, hasmob)
+	SIGNAL_HANDLER
+
+	if(mail_destination)
+		disposal_holder.destinationTag = mail_destination
+
 
 //Redefining some robot procs...
 /mob/living/silicon/robot/drone/rename_character(oldname, newname)
@@ -389,7 +398,7 @@
 /mob/living/silicon/robot/drone/remove_robot_verbs()
 	src.verbs -= silicon_subsystems
 
-/mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
+/mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash/noise)
 	if(affect_silicon)
 		return ..()
 

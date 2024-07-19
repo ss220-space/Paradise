@@ -512,7 +512,7 @@
 	return ..()
 
 /mob/living/shove_impact(mob/living/target, mob/living/attacker)
-	if(src.body_position)
+	if(body_position == LYING_DOWN)
 		return FALSE
 	add_attack_logs(attacker, target, "pushed into [src]", ATKLOG_ALL)
 	playsound(src, 'sound/weapons/punch1.ogg', 50, 1)

@@ -516,7 +516,7 @@
 
 
 			var/amount = 1
-			if(params["multiple"] == "1") // 1 is a string here. DO NOT MAKE THIS A BOOLEAN YOU DORK
+			if(params["multiple"])
 				var/num_input = input(usr, "Amount", "How many crates? (20 Max)") as null|num
 				if(!num_input || (!is_public && !is_authorized(usr)) || ..()) // Make sure they dont walk away
 					return

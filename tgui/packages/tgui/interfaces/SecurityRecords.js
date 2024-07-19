@@ -1,16 +1,15 @@
 import { createSearch, decodeHtmlEntities } from 'common/string';
-
 import { useBackend, useLocalState } from '../backend';
 import {
   Box,
   Button,
-  Stack,
   Icon,
   Input,
   LabeledList,
   Section,
-  Table,
+  Stack,
   Tabs,
+  Table,
 } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
@@ -43,7 +42,7 @@ export const SecurityRecords = (properties, context) => {
   let body;
   if (!loginState.logged_in) {
     return (
-      <Window width={800} height={800} theme="security">
+      <Window width={800} height={900} theme="security">
         <Window.Content>
           <LoginScreen />
         </Window.Content>
@@ -178,25 +177,27 @@ const SortButton = (properties, context) => {
   const [sortOrder, setSortOrder] = useLocalState(context, 'sortOrder', true);
   const { id, children } = properties;
   return (
-    <Table.Cell>
-      <Button
-        color={sortId !== id && 'transparent'}
-        width="100%"
-        onClick={() => {
-          if (sortId === id) {
-            setSortOrder(!sortOrder);
-          } else {
-            setSortId(id);
-            setSortOrder(true);
-          }
-        }}
-      >
-        {children}
-        {sortId === id && (
-          <Icon name={sortOrder ? 'sort-up' : 'sort-down'} ml="0.25rem;" />
-        )}
-      </Button>
-    </Table.Cell>
+    <Stack.Item grow>
+      <Table.Cell>
+        <Button
+          color={sortId !== id && 'transparent'}
+          fluid
+          onClick={() => {
+            if (sortId === id) {
+              setSortOrder(!sortOrder);
+            } else {
+              setSortId(id);
+              setSortOrder(true);
+            }
+          }}
+        >
+          {children}
+          {sortId === id && (
+            <Icon name={sortOrder ? 'sort-up' : 'sort-down'} ml="0.25rem;" />
+          )}
+        </Button>
+      </Table.Cell>
+    </Stack.Item>
   );
 };
 
@@ -205,30 +206,32 @@ const SecurityRecordsActions = (properties, context) => {
   const { isPrinting } = data;
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
   return (
-    <>
+    <Stack fill>
       <Stack.Item>
         <Button
+          ml="0.25rem"
           content="New Record"
           icon="plus"
           onClick={() => act('new_general')}
         />
+      </Stack.Item>
+      <Stack.Item>
         <Button
           disabled={isPrinting}
           icon={isPrinting ? 'spinner' : 'print'}
           iconSpin={!!isPrinting}
           content="Print Cell Log"
-          ml="0.25rem"
           onClick={() => modalOpen(context, 'print_cell_log')}
         />
       </Stack.Item>
-      <Stack.Item grow="1" ml="0.5rem">
+      <Stack.Item grow>
         <Input
           placeholder="Search by Name, ID, Assignment, Fingerprint, Status"
-          width="100%"
+          fluid
           onInput={(e, value) => setSearchText(value)}
         />
       </Stack.Item>
-    </>
+    </Stack>
   );
 };
 
@@ -277,49 +280,112 @@ const SecurityRecordsPageView = (properties, context) => {
   }
   return (
     <>
-      <Section
-        title="General Data"
-        level={2}
-        mt="-6px"
-        buttons={
-          <>
-            <Button
-              disabled={isPrinting}
-              icon={isPrinting ? 'spinner' : 'print'}
-              iconSpin={!!isPrinting}
-              content="Print Record"
-              onClick={() => act('print_record')}
-            />
-            <Button.Confirm
-              icon="trash"
-              tooltip={
-                'WARNING: This will also delete the Security ' +
-                'and Medical records associated to this crew member!'
+      <Stack.Item grow>
+        <Section
+          fill
+          scrollable
+          level={2}
+          mt="-6px"
+          title="General Data"
+          buttons={
+            <>
+              <Button
+                disabled={isPrinting}
+                icon={isPrinting ? 'spinner' : 'print'}
+                iconSpin={!!isPrinting}
+                content="Print Record"
+                onClick={() => act('print_record')}
+              />
+              <Button.Confirm
+                icon="trash"
+                tooltip={
+                  'WARNING: This will also delete the Security ' +
+                  'and Medical records associated with this crew member!'
+                }
+                tooltipPosition="bottom-start"
+                content="Delete Record"
+                onClick={() => act('delete_general')}
+              />
+            </>
+          }
+        >
+          <SecurityRecordsViewGeneral />
+        </Section>
+      </Stack.Item>
+      {!security || !security.fields ? (
+        <Stack.Item grow color="bad">
+          <Section
+            fill
+            title="Security Data"
+            buttons={
+              <Button
+                icon="pen"
+                content="Create New Record"
+                onClick={() => act('new_security')}
+              />
+            }
+          >
+            <Stack fill>
+              <Stack.Item
+                bold
+                grow
+                textAlign="center"
+                fontSize={1.75}
+                align="center"
+                color="label"
+              >
+                <Icon.Stack>
+                  <Icon name="scroll" size={5} color="gray" />
+                  <Icon name="slash" size={5} color="red" />
+                </Icon.Stack>
+                <br />
+                Security records lost!
+              </Stack.Item>
+            </Stack>
+          </Section>
+        </Stack.Item>
+      ) : (
+        <>
+          <Stack.Item grow>
+            <Section
+              fill
+              scrollable
+              title="Security Data"
+              buttons={
+                <Button.Confirm
+                  icon="trash"
+                  disabled={security.empty}
+                  content="Delete Record"
+                  onClick={() => act('delete_security')}
+                />
               }
-              tooltipPosition="bottom-start"
-              content="Delete Record"
-              onClick={() => act('delete_general')}
-            />
-          </>
-        }
-      >
-        <SecurityRecordsViewGeneral />
-      </Section>
-      <Section
-        title="Security Data"
-        level={2}
-        mt="-12px"
-        buttons={
-          <Button.Confirm
-            icon="trash"
-            disabled={security.empty}
-            content="Delete Record"
-            onClick={() => act('delete_security')}
-          />
-        }
-      >
-        <SecurityRecordsViewSecurity />
-      </Section>
+            >
+              <Stack.Item>
+                <LabeledList>
+                  {security.fields.map((field, i) => (
+                    <LabeledList.Item
+                      key={i}
+                      label={field.field}
+                      preserveWhitespace
+                    >
+                      {decodeHtmlEntities(field.value)}
+                      {!!field.edit && (
+                        <Button
+                          icon="pen"
+                          ml="0.5rem"
+                          mb={field.line_break ? '1rem' : 'initial'}
+                          onClick={() => doEdit(context, field)}
+                        />
+                      )}
+                    </LabeledList.Item>
+                  ))}
+                </LabeledList>
+              </Stack.Item>
+            </Section>
+          </Stack.Item>
+          <SecurityRecordsViewSecurity />
+        </>
+      )}
     </>
   );
 };
@@ -328,14 +394,20 @@ const SecurityRecordsViewGeneral = (_properties, context) => {
   const { data } = useBackend(context);
   const { general } = data;
   if (!general || !general.fields) {
-    return <Box color="bad">General records lost!</Box>;
+    return (
+      <Stack fill vertical>
+        <Stack.Item grow color="bad">
+          <Section fill>General records lost!</Section>
+        </Stack.Item>
+      </Stack>
+    );
   }
   return (
-    <>
-      <Box float="left">
+    <Stack>
+      <Stack.Item grow>
         <LabeledList>
           {general.fields.map((field, i) => (
-            <LabeledList.Item key={i} label={field.field} prewrap>
+            <LabeledList.Item key={i} label={field.field} preserveWhitespace>
               {decodeHtmlEntities('' + field.value)}
               {!!field.edit && (
                 <Button
@@ -348,70 +420,37 @@ const SecurityRecordsViewGeneral = (_properties, context) => {
             </LabeledList.Item>
           ))}
         </LabeledList>
-      </Box>
-      <Box position="absolute" right="0" textAlign="right">
-        {!!general.has_photos &&
-          general.photos.map((p, i) => (
-            <Box
-              key={i}
-              display="inline-block"
-              textAlign="center"
-              color="label"
-            >
-              <img
-                src={p}
-                style={{
-                  width: '96px',
-                  'margin-bottom': '0.5rem',
-                  '-ms-interpolation-mode': 'nearest-neighbor',
-                }}
-              />
-              <br />
-              Photo #{i + 1}
-            </Box>
-          ))}
-      </Box>
-    </>
+      </Stack.Item>
+      {!!general.has_photos &&
+        general.photos.map((p, i) => (
+          <Stack.Item key={i} inline textAlign="center" color="label" ml={0}>
+            <img
+              src={p}
+              style={{
+                width: '96px',
+                'margin-top': '5rem',
+                'margin-bottom': '0.5rem',
+                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                'image-rendering': 'pixelated',
+              }}
+            />
+            <br />
+            Photo #{i + 1}
+          </Stack.Item>
+        ))}
+    </Stack>
   );
 };
 
 const SecurityRecordsViewSecurity = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { security } = data;
-  if (!security || !security.fields) {
-    return (
-      <Box color="bad">
-        Security records lost!
-        <br />
-        <Button
-          icon="pen"
-          content="Create New Record"
-          mt="0.5rem"
-          onClick={() => act('new_security')}
-        />
-      </Box>
-    );
-  }
   return (
-    <>
-      <LabeledList>
-        {security.fields.map((field, i) => (
-          <LabeledList.Item key={i} label={field.field} prewrap>
-            {decodeHtmlEntities(field.value)}
-            {!!field.edit && (
-              <Button
-                icon="pen"
-                ml="0.5rem"
-                mb={field.line_break ? '1rem' : 'initial'}
-                onClick={() => doEdit(context, field)}
-              />
-            )}
-          </LabeledList.Item>
-        ))}
-      </LabeledList>
+    <Stack.Item height="150px">
       <Section
+        fill
+        scrollable
         title="Comments/Log"
-        level={2}
         buttons={
           <Button
             icon="comment"
@@ -424,8 +463,8 @@ const SecurityRecordsViewSecurity = (_properties, context) => {
           <Box color="label">No comments found.</Box>
         ) : (
           security.comments.map((comment, i) => (
-            <Box key={i} prewrap>
-              <Box color="label" display="inline">
+            <Box key={i} preserveWhitespace>
+              <Box color="label" inline>
                 {comment.header || 'Auto-generated'}
               </Box>
               <br />
@@ -440,6 +479,6 @@ const SecurityRecordsViewSecurity = (_properties, context) => {
           ))
         )}
       </Section>
-    </>
+    </Stack.Item>
   );
 };

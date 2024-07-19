@@ -1,14 +1,13 @@
 import { round } from 'common/math';
-
 import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  Flex,
   Icon,
   LabeledList,
   ProgressBar,
   Section,
+  Stack,
 } from '../components';
 import { Window } from '../layouts';
 
@@ -45,10 +44,14 @@ export const Sleeper = (props, context) => {
   const { hasOccupant } = data;
   const body = hasOccupant ? <SleeperMain /> : <SleeperEmpty />;
   return (
-    <Window width={550} height={775}>
-      <Window.Content className="Layout__content--flexColumn">
-        {body}
-        <SleeperDialysis />
+    <Window width={550} height={760}>
+      <Window.Content scrollable>
+        <Stack fill vertical>
+          <Stack.Item grow>{body}</Stack.Item>
+          <Stack.Item>
+            <SleeperDialysis />
+          </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -74,7 +77,7 @@ const SleeperOccupant = (props, context) => {
       title="Occupant"
       buttons={
         <>
-          <Box color="label" display="inline">
+          <Box color="label" inline>
             Auto-eject if dead:&nbsp;
           </Box>
           <Button
@@ -232,7 +235,7 @@ const SleeperChemicals = (props, context) => {
   const { act, data } = useBackend(context);
   const { occupant, chemicals, maxchem, amounts } = data;
   return (
-    <Section title="Occupant Chemicals" flexGrow="1">
+    <Section title="Occupant Chemicals">
       {chemicals.map((chem, i) => {
         let barColor = '';
         let odWarning;
@@ -262,7 +265,7 @@ const SleeperChemicals = (props, context) => {
               lineHeight="18px"
               buttons={odWarning}
             >
-              <Flex align="flex-start">
+              <Stack>
                 <ProgressBar
                   min="0"
                   max={maxchem}
@@ -300,7 +303,7 @@ const SleeperChemicals = (props, context) => {
                     }
                   />
                 ))}
-              </Flex>
+              </Stack>
             </Section>
           </Box>
         );
@@ -311,14 +314,14 @@ const SleeperChemicals = (props, context) => {
 
 const SleeperEmpty = (props, context) => {
   return (
-    <Section textAlign="center" flexGrow="1">
-      <Flex height="100%">
-        <Flex.Item grow="1" align="center" color="label">
+    <Section fill textAlign="center">
+      <Stack fill>
+        <Stack.Item grow align="center" color="label">
           <Icon name="user-slash" mb="0.5rem" size="5" />
           <br />
           No occupant detected.
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };

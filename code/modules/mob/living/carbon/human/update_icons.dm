@@ -1331,7 +1331,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 
 /mob/living/carbon/human/update_unconscious_overlay()
-	if(stat == UNCONSCIOUS)
+	if(stat == UNCONSCIOUS && !HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		var/mutable_appearance/sleep_effect = mutable_appearance('icons/effects/effects.dmi', "sleep", -SLEEP_LAYER, appearance_flags = KEEP_APART|RESET_TRANSFORM|RESET_COLOR)
 		sleep_effect.pixel_z = 8
 		overlays_standing[SLEEP_LAYER] = sleep_effect

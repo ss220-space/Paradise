@@ -201,7 +201,7 @@
 			else
 				permitted = TRUE
 
-			if(G.whitelisted && (G.whitelisted != H.dna.species.name || !is_alien_whitelisted(H, G.whitelisted)))
+			if(G.whitelisted && G.whitelisted != H.dna.species.name)
 				permitted = FALSE
 
 			if(H.client.donator_level < G?.donator_tier)
@@ -283,7 +283,8 @@
 		PDA.owner = H.real_name
 		PDA.ownjob = C.assignment
 		PDA.ownrank = C.rank
-		PDA.name = "PDA-[H.real_name] ([PDA.ownjob])"
+		PDA.update_appearance(UPDATE_NAME)
+
 
 
 /datum/outfit/job/get_chameleon_disguise_info()
@@ -295,13 +296,7 @@
 
 
 /datum/job/proc/would_accept_job_transfer_from_player(mob/player)
-	if(!transfer_allowed)
-		return FALSE
-	if(!guest_jobbans(title)) // actually checks if job is a whitelisted position
-		return TRUE
-	if(!istype(player))
-		return FALSE
-	return is_job_whitelisted(player, title)
+	return transfer_allowed
 
 
 /datum/job/proc/can_novice_play(client/C)

@@ -113,28 +113,29 @@
 		destturf = get_turf(destination)
 
 	if(!is_teleport_allowed(destturf.z) && !ignore_area_flag)
-		return 0
+		return FALSE
 	// Only check the destination zlevel for is_teleport_allowed. Checking origin as well breaks ERT teleporters.
 
 	var/area/destarea = get_area(destturf)
 
 	if(!ignore_area_flag)
 		if(curarea.tele_proof)
-			return 0
+			return FALSE
 		if(destarea.tele_proof)
-			return 0
+			return FALSE
 
 	if(!destturf || !curturf)
-		return 0
+		return FALSE
 
-	playSpecials(curturf,effectin,soundin)
+	if(SEND_SIGNAL(teleatom, COMSIG_MOVABLE_TELEPORTING, curturf, destturf) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
+	if(SEND_SIGNAL(destturf, COMSIG_ATOM_INTERCEPT_TELEPORTING, curturf) & COMPONENT_BLOCK_TELEPORT)
+		return FALSE
 
-	if(force_teleport)
-		teleatom.forceMove(destturf)
-		playSpecials(destturf,effectout,soundout)
-	else
-		if(teleatom.Move(destturf))
-			playSpecials(destturf,effectout,soundout)
+	playSpecials(curturf, effectin, soundin)
+	var/success = teleatom.forceMove(destturf)
+	if(success)
+		playSpecials(destturf, effectout, soundout)
 
 	if(isliving(teleatom))
 		var/mob/living/L = teleatom
@@ -143,10 +144,9 @@
 		if(L.has_buckled_mobs())
 			L.unbuckle_all_mobs(force = TRUE)
 
-	destarea.Entered(teleatom)
 	teleatom.on_teleported()
 
-	return 1
+	return TRUE
 
 /datum/teleport/proc/teleport()
 	if(teleportChecks())

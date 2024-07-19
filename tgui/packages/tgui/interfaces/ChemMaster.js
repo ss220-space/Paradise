@@ -1,5 +1,13 @@
 import { useBackend } from '../backend';
-import { Box, Button, Flex, Icon, LabeledList, Section } from '../components';
+import {
+  Box,
+  Button,
+  Flex,
+  Icon,
+  LabeledList,
+  Section,
+  Stack,
+} from '../components';
 import { Window } from '../layouts';
 import { BeakerContents } from './common/BeakerContents';
 import { classes } from 'common/react';
@@ -141,18 +149,20 @@ export const ChemMaster = (props, context) => {
   return (
     <Window width={575} height={500}>
       <ComplexModal />
-      <Window.Content scrollable className="Layout__content--flexColumn">
-        <ChemMasterBeaker
-          beaker={beaker}
-          beakerReagents={beaker_reagents}
-          bufferNonEmpty={buffer_reagents.length > 0}
-        />
-        <ChemMasterBuffer mode={mode} bufferReagents={buffer_reagents} />
-        <ChemMasterProduction
-          isCondiment={condi}
-          bufferNonEmpty={buffer_reagents.length > 0}
-        />
-        <ChemMasterCustomization />
+      <Window.Content scrollable>
+        <Stack fill vertical>
+          <ChemMasterBeaker
+            beaker={beaker}
+            beakerReagents={beaker_reagents}
+            bufferNonEmpty={buffer_reagents.length > 0}
+          />
+          <ChemMasterBuffer mode={mode} bufferReagents={buffer_reagents} />
+          <ChemMasterProduction
+            isCondiment={condi}
+            bufferNonEmpty={buffer_reagents.length > 0}
+          />
+          <ChemMasterCustomization />
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -162,83 +172,83 @@ const ChemMasterBeaker = (props, context) => {
   const { act } = useBackend(context);
   const { beaker, beakerReagents, bufferNonEmpty } = props;
   return (
-    <Section
-      title="Beaker"
-      flexGrow="0"
-      flexBasis="300px"
-      buttons={
-        bufferNonEmpty ? (
-          <Button.Confirm
-            icon="eject"
-            disabled={!beaker}
-            content="Eject and Clear Buffer"
-            onClick={() => act('eject')}
-          />
-        ) : (
-          <Button
-            icon="eject"
-            disabled={!beaker}
-            content="Eject and Clear Buffer"
-            onClick={() => act('eject')}
-          />
-        )
-      }
-    >
-      {beaker ? (
-        <BeakerContents
-          beakerLoaded
-          beakerContents={beakerReagents}
-          buttons={(chemical, i) => (
-            <Box mb={i < beakerReagents.length - 1 && '2px'}>
-              <Button
-                content="Analyze"
-                mb="0"
-                onClick={() =>
-                  modalOpen(context, 'analyze', {
-                    idx: i + 1,
-                    beaker: 1,
-                  })
-                }
-              />
-              {transferAmounts.map((am, j) => (
+    <Stack.Item>
+      <Section
+        title="Beaker"
+        buttons={
+          bufferNonEmpty ? (
+            <Button.Confirm
+              icon="eject"
+              disabled={!beaker}
+              content="Eject and Clear Buffer"
+              onClick={() => act('eject')}
+            />
+          ) : (
+            <Button
+              icon="eject"
+              disabled={!beaker}
+              content="Eject and Clear Buffer"
+              onClick={() => act('eject')}
+            />
+          )
+        }
+      >
+        {beaker ? (
+          <BeakerContents
+            beakerLoaded
+            beakerContents={beakerReagents}
+            buttons={(chemical, i) => (
+              <Box mb={i < beakerReagents.length - 1 && '2px'}>
                 <Button
-                  key={j}
-                  content={am}
+                  content="Analyze"
+                  mb="0"
+                  onClick={() =>
+                    modalOpen(context, 'analyze', {
+                      idx: i + 1,
+                      beaker: 1,
+                    })
+                  }
+                />
+                {transferAmounts.map((am, j) => (
+                  <Button
+                    key={j}
+                    content={am}
+                    mb="0"
+                    onClick={() =>
+                      act('add', {
+                        id: chemical.id,
+                        amount: am,
+                      })
+                    }
+                  />
+                ))}
+                <Button
+                  content="All"
                   mb="0"
                   onClick={() =>
                     act('add', {
                       id: chemical.id,
-                      amount: am,
+                      amount: chemical.volume,
                     })
                   }
                 />
-              ))}
-              <Button
-                content="All"
-                mb="0"
-                onClick={() =>
-                  act('add', {
-                    id: chemical.id,
-                    amount: chemical.volume,
-                  })
-                }
-              />
-              <Button
-                content="Custom.."
-                mb="0"
-                onClick={() =>
-                  modalOpen(context, 'addcustom', {
-                    id: chemical.id,
-                  })
-                }
-              />
-            </Box>
-          )}
-        />
-      ) : (
-        <Box color="label">No beaker loaded.</Box>
-      )}
-    </Section>
+                <Button
+                  content="Custom.."
+                  mb="0"
+                  onClick={() =>
+                    modalOpen(context, 'addcustom', {
+                      id: chemical.id,
+                    })
+                  }
+                />
+              </Box>
+            )}
+          />
+        ) : (
+          <Box color="label">No beaker loaded.</Box>
+        )}
+      </Section>
+    </Stack.Item>
   );
 };
 
@@ -246,77 +256,77 @@ const ChemMasterBuffer = (props, context) => {
   const { act } = useBackend(context);
   const { mode, bufferReagents = [] } = props;
   return (
-    <Section
-      title="Buffer"
-      flexGrow="0"
-      flexBasis="300px"
-      buttons={
-        <Box color="label">
-          Transferring to&nbsp;
-          <Button
-            icon={mode ? 'flask' : 'trash'}
-            color={!mode && 'bad'}
-            content={mode ? 'Beaker' : 'Disposal'}
-            onClick={() => act('toggle')}
-          />
-        </Box>
-      }
-    >
-      {bufferReagents.length > 0 ? (
-        <BeakerContents
-          beakerLoaded
-          beakerContents={bufferReagents}
-          buttons={(chemical, i) => (
-            <Box mb={i < bufferReagents.length - 1 && '2px'}>
-              <Button
-                content="Analyze"
-                mb="0"
-                onClick={() =>
-                  modalOpen(context, 'analyze', {
-                    idx: i + 1,
-                    beaker: 0,
-                  })
-                }
-              />
-              {transferAmounts.map((am, i) => (
+    <Stack.Item>
+      <Section
+        title="Buffer"
+        buttons={
+          <Box color="label">
+            Transferring to&nbsp;
+            <Button
+              icon={mode ? 'flask' : 'trash'}
+              color={!mode && 'bad'}
+              content={mode ? 'Beaker' : 'Disposal'}
+              onClick={() => act('toggle')}
+            />
+          </Box>
+        }
+      >
+        {bufferReagents.length > 0 ? (
+          <BeakerContents
+            beakerLoaded
+            beakerContents={bufferReagents}
+            buttons={(chemical, i) => (
+              <Box mb={i < bufferReagents.length - 1 && '2px'}>
                 <Button
-                  key={i}
-                  content={am}
+                  content="Analyze"
+                  mb="0"
+                  onClick={() =>
+                    modalOpen(context, 'analyze', {
+                      idx: i + 1,
+                      beaker: 0,
+                    })
+                  }
+                />
+                {transferAmounts.map((am, i) => (
+                  <Button
+                    key={i}
+                    content={am}
+                    mb="0"
+                    onClick={() =>
+                      act('remove', {
+                        id: chemical.id,
+                        amount: am,
+                      })
+                    }
+                  />
+                ))}
+                <Button
+                  content="All"
                   mb="0"
                   onClick={() =>
                     act('remove', {
                       id: chemical.id,
-                      amount: am,
+                      amount: chemical.volume,
                     })
                   }
                 />
-              ))}
-              <Button
-                content="All"
-                mb="0"
-                onClick={() =>
-                  act('remove', {
-                    id: chemical.id,
-                    amount: chemical.volume,
-                  })
-                }
-              />
-              <Button
-                content="Custom.."
-                mb="0"
-                onClick={() =>
-                  modalOpen(context, 'removecustom', {
-                    id: chemical.id,
-                  })
-                }
-              />
-            </Box>
-          )}
-        />
-      ) : (
-        <Box color="label">Buffer is empty.</Box>
-      )}
-    </Section>
+                <Button
+                  content="Custom.."
+                  mb="0"
+                  onClick={() =>
+                    modalOpen(context, 'removecustom', {
+                      id: chemical.id,
+                    })
+                  }
+                />
+              </Box>
+            )}
+          />
+        ) : (
+          <Box color="label">Buffer is empty.</Box>
+        )}
+      </Section>
+    </Stack.Item>
   );
 };
 
@@ -324,20 +334,27 @@ const ChemMasterProduction = (props, context) => {
   const { act } = useBackend(context);
   if (!props.bufferNonEmpty) {
     return (
-      <Section title="Production" height="100%" flexGrow="1">
-        <Flex height="100%">
-          <Flex.Item grow="1" align="center" textAlign="center" color="label">
-            <Icon name="tint-slash" mb="0.5rem" size="5" />
-            <br />
-            Buffer is empty.
-          </Flex.Item>
-        </Flex>
-      </Section>
+      <Stack.Item grow>
+        <Section title="Production" fill>
+          <Stack fill>
+            <Stack.Item
+              grow="1"
+              align="center"
+              textAlign="center"
+              color="label"
+            >
+              <Icon name="tint-slash" mb="0.5rem" size="5" />
+              <br />
+              Buffer is empty.
+            </Stack.Item>
+          </Stack>
+        </Section>
+      </Stack.Item>
     );
   }
 
   return (
-    <Section title="Production" height="100%" flexGrow="1">
+    <Section title="Production" fill>
       {!props.isCondiment ? (
         <ChemMasterProductionChemical />
       ) : (

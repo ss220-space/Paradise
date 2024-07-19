@@ -109,7 +109,7 @@
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/structure/necropolis_gate/attack_hand(mob/user)
 	if(locked)
-		to_chat(user, "<span class='boldannounce'>Кажется, эта дверь [open ? "навеки открыта":"намертво запечатана"].</span>")
+		to_chat(user, span_boldannounceic("Кажется, эта дверь [open ? "навеки открыта":"намертво запечатана"]."))
 		return
 	toggle_the_gate(user)
 	return ..()
@@ -192,7 +192,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		var/safety = alert(user, "You think this might be a bad idea...", "Knock on the door?", "Proceed", "Abort")
 		if(safety == "Abort" || !in_range(src, user) || !src || open || changing_openness || user.incapacitated())
 			return
-		user.visible_message("<span class='warning'>[user] knocks on [src]...</span>", "<span class='boldannounce'>You tentatively knock on [src]...</span>")
+		user.visible_message("<span class='warning'>[user] knocks on [src]...</span>", span_boldannounceic("You tentatively knock on [src]..."))
 		playsound(user.loc, 'sound/effects/shieldbash.ogg', 100, 1)
 		sleep(50)
 	return ..()
@@ -291,6 +291,21 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+	toggle_fallen(FALSE, TRUE)
+
+
+/obj/structure/stone_tile/proc/toggle_fallen(new_fallen, init)
+	if(new_fallen == fallen && !init)
+		return
+	. = new_fallen
+	fallen = new_fallen
+	var/static/list/give_turf_traits
+	if(!give_turf_traits)
+		give_turf_traits = string_list(list(TRAIT_LAVA_STOPPED, TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN))
+	if(fallen)
+		RemoveElement(/datum/element/give_turf_traits, give_turf_traits)
+	else
+		AddElement(/datum/element/give_turf_traits, give_turf_traits)
 
 
 /obj/structure/stone_tile/Destroy(force)
@@ -339,7 +354,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	else
 		playsound(src, 'sound/mecha/mechmove04.ogg', 50, TRUE)
 	animate(src, alpha = 0, pixel_y = pixel_y - 3, time = 5)
-	fallen = TRUE
+	toggle_fallen(TRUE)
 	if(break_that_sucker)
 		QDEL_IN(src, 10)
 	else
@@ -351,7 +366,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	animate(src, alpha = initial(alpha), pixel_x = initial(pixel_x), pixel_y = initial(pixel_y), time = 30)
 	sleep(30)
 	falling = FALSE
-	fallen = FALSE
+	toggle_fallen(FALSE)
 
 /obj/structure/stone_tile/proc/crossed_effect(atom/movable/AM, oldloc)
 	return

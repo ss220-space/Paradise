@@ -577,8 +577,7 @@
 "wn" = (
 /obj/item/trash/sosjerky,
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
@@ -1118,8 +1117,7 @@
 /obj/item/reagent_containers/food/snacks/meatbreadslice,
 /obj/item/reagent_containers/food/snacks/meatbreadslice,
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken5";

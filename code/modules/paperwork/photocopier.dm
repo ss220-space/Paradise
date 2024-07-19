@@ -259,9 +259,7 @@
 		else
 			P.forceMove(loc)
 
-	P.update_icon()
-
-	P.icon_state = "paper_words"
+	P.update_appearance(UPDATE_ICON|UPDATE_DESC)
 	P.name = bundle.name
 	P.pixel_y = rand(-8, 8)
 	P.pixel_x = rand(-9, 9)
@@ -613,7 +611,7 @@
 	default_unfasten_wrench(user, I)
 
 /obj/machinery/photocopier/obj_break(damage_flag)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(toner > 0)
 			new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
 			toner = 0

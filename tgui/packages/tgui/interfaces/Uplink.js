@@ -10,6 +10,7 @@ import {
   Input,
   Section,
   Stack,
+  Divider,
   Tabs,
   LabeledList,
   Icon,
@@ -27,6 +28,8 @@ const PickTab = (index) => {
     case 0:
       return <ItemsPage />;
     case 1:
+      return <CartPage />;
+    case 2:
       return <ExploitableInfoPage />;
     default:
       return 'SOMETHING WENT VERY WRONG PLEASE AHELP';
@@ -35,6 +38,7 @@ const PickTab = (index) => {
 
 export const Uplink = (props, context) => {
   const { act, data } = useBackend(context);
+  const { cart } = data;
 
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
@@ -56,6 +60,18 @@ export const Uplink = (props, context) => {
                 icon="store"
               >
                 View Market
+              </Tabs.Tab>
+              <Tabs.Tab
+                key="Cart"
+                selected={tabIndex === 1}
+                onClick={() => {
+                  setTabIndex(1);
+                  setSearchText('');
+                }}
+                icon="shopping-cart"
+              >
+                View Shopping Cart{' '}
+                {cart && cart.length ? '(' + cart.length + ')' : ''}
               </Tabs.Tab>
               <Tabs.Tab
                 key="ExploitableInfo"
@@ -467,9 +483,9 @@ const ExploitableInfoPage = (_properties, context) => {
   const crew = SelectMembers(exploitable, searchText);
 
   return (
-    <Stack fill>
-      <Stack.Item width="30%">
-        <Section fill scrollable title="Exploitable Records">
+    <Section fill title="Exploitable Records">
+      <Stack fill>
+        <Stack.Item width="30%">
           <Input
             fluid
             mb={1}
@@ -487,30 +503,34 @@ const ExploitableInfoPage = (_properties, context) => {
               </Tabs.Tab>
             ))}
           </Tabs>
-        </Section>
-      </Stack.Item>
-      <Stack.Item grow>
-        <Section fill scrollable title={selectedRecord.name}>
-          <LabeledList>
-            <LabeledList.Item label="Age">
-              {selectedRecord.age}
-            </LabeledList.Item>
-            <LabeledList.Item label="Fingerprint">
-              {selectedRecord.fingerprint}
-            </LabeledList.Item>
-            <LabeledList.Item label="Rank">
-              {selectedRecord.rank}
-            </LabeledList.Item>
-            <LabeledList.Item label="Sex">
-              {selectedRecord.sex}
-            </LabeledList.Item>
-            <LabeledList.Item label="Species">
-              {selectedRecord.species}
-            </LabeledList.Item>
-          </LabeledList>
-        </Section>
-      </Stack.Item>
-    </Stack>
+        </Stack.Item>
+        <Divider vertical />
+        <Stack.Item grow>
+          <Section fill scrollable title={selectedRecord.name}>
+            <LabeledList>
+              <LabeledList.Item label="Age">
+                {selectedRecord.age}
+              </LabeledList.Item>
+              <LabeledList.Item label="Fingerprint">
+                {selectedRecord.fingerprint}
+              </LabeledList.Item>
+              <LabeledList.Item label="Rank">
+                {selectedRecord.rank}
+              </LabeledList.Item>
+              <LabeledList.Item label="Sex">
+                {selectedRecord.sex}
+              </LabeledList.Item>
+              <LabeledList.Item label="Species">
+                {selectedRecord.species}
+              </LabeledList.Item>
+              <LabeledList.Item label="Records">
+                {selectedRecord.exploit_record}
+              </LabeledList.Item>
+            </LabeledList>
+          </Section>
+        </Stack.Item>
+      </Stack>
+    </Section>
   );
 };
 

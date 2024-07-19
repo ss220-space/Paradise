@@ -113,7 +113,10 @@
 /datum/antagonist/ninja/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/user = ..()
 	user.faction = list(ROLE_NINJA)
-	human_ninja = ishuman(user) ? user : null
+
+
+/datum/antagonist/ninja/proc/change_species(mob/living/mob_to_change = null) // This should be used to fully to remove robo-limbs & change species for lack of sprites
+	human_ninja = ishuman(mob_to_change) ? mob_to_change : null
 	if(human_ninja)
 		human_ninja.set_species(/datum/species/human)	// only human ninjas for now
 		human_ninja.revive()

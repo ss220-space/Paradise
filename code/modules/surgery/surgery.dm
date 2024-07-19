@@ -520,7 +520,7 @@
 				germs += H.germ_level * 0.25
 
 	for(var/obj/effect/decal/cleanable/M in view(2, E.loc))//germs from messes
-		if(length(get_path_to(E.loc, M.loc, 2, simulated_only = FALSE)))
+		if(length(get_path_to(E.loc, M.loc, max_distance = 2, simulated_only = FALSE)))
 			germs++
 
 	if(tool && tool.blood_DNA && length(tool.blood_DNA)) //germs from blood-stained tools

@@ -102,7 +102,7 @@
 	usr.show_message(t, 1)
 
 
-/mob/proc/show_message(msg, type, alt, alt_type)
+/mob/proc/show_message(msg, type, alt, alt_type, chat_message_type)
 
 	if(!client)
 		return
@@ -124,9 +124,9 @@
 
 	// Added voice muffling for Issue 41.
 	if(stat == UNCONSCIOUS)
-		to_chat(src, "<I>…Вам почти удаётся расслышать чьи-то слова…</I>")
+		to_chat(src, "<I>…Вам почти удаётся расслышать чьи-то слова…</I>", MESSAGE_TYPE_LOCALCHAT)
 	else
-		to_chat(src, msg)
+		to_chat(src, msg, chat_message_type)
 
 
 // Show a message to all mobs in sight of this one
@@ -134,7 +134,7 @@
 // message is the message output to anyone who can see e.g. "[src] does something!"
 // self_message (optional) is what the src mob sees  e.g. "You do something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
-/mob/visible_message(message, self_message, blind_message, list/ignored_mobs)
+/mob/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type)
 	if(!isturf(loc)) // mobs inside objects (such as lockers) shouldn't have their actions visible to those outside the object
 		for(var/mob/mob as anything in (get_mobs_in_view(3, src, include_radio = FALSE) - ignored_mobs))
 			if(mob.see_invisible < invisibility)
@@ -146,7 +146,7 @@
 				if(!blind_message) // for some reason VISIBLE action has blind_message param so if we are not in the same object but next to it, lets show it
 					continue
 				msg = blind_message
-			mob.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
+			mob.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE, chat_message_type)
 		return
 
 	for(var/mob/mob as anything in (get_mobs_in_view(7, src, include_radio = FALSE) - ignored_mobs))
@@ -155,7 +155,7 @@
 		var/msg = message
 		if(self_message && mob == src)
 			msg = self_message
-		mob.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
+		mob.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE, chat_message_type)
 
 
 // Show a message to all mobs in sight of this atom
@@ -340,7 +340,7 @@
 
 /mob/proc/run_examinate(atom/A)
 	var/list/result = A.examine(src)
-	to_chat(src, chat_box_examine(result.Join("\n")))
+	to_chat(src, chat_box_examine(result.Join("\n")), MESSAGE_TYPE_INFO, confidential = TRUE)
 
 
 /mob/verb/mode()

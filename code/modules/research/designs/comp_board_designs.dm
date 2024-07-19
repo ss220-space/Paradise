@@ -345,7 +345,7 @@
 /datum/design/teleconsole_robotics
 	name = "Console Board (Robotics Teleporter Console)"
 	desc = "Allows for the construction of circuit boards used to build a robotics teleporter control console."
-	id = "teleconsole"
+	id = "teleconsole_robotics"
 	req_tech = list("programming" = 2, "bluespace" = 3, "plasmatech" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)

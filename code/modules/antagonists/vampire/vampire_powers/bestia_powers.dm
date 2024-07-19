@@ -1466,6 +1466,7 @@
 
 /obj/structure/closet/coffin/vampire/Initialize(mapload, mob/living/carbon/human/_human_vampire)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_WEATHER_IMMUNE, INNATE_TRAIT)
 	create_interior()
 	set_light(2, 10, "#700000")
 	if(istype(_human_vampire))

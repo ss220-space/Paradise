@@ -3,7 +3,7 @@
 /turf/simulated/mineral //wall piece
 	name = "rock"
 	icon = 'icons/turf/smoothrocks.dmi'
-	icon_state = "smoothrocks"
+	icon_state = "smoothrocks-0"
 	base_icon_state = "smoothrocks"
 	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_MINERAL_WALLS
@@ -369,7 +369,7 @@
 
 /turf/simulated/mineral/random/volcanic/hard
 	name = "hardened basalt"
-	icon_state = "rock_hard"
+	icon_state = "smoothrocks_hard-0"
 	icon = 'icons/turf/smoothrocks_hard.dmi'
 	base_icon_state = "smoothrocks_hard"
 	mineralChance = 24
@@ -382,7 +382,7 @@
 
 /turf/simulated/mineral/random/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	icon_state = "rock_volcanic"
+	icon_state = "smoothrocks_volcanic-0"
 	icon = 'icons/turf/smoothrocks_volcanic.dmi'
 	base_icon_state = "smoothrocks_volcanic"
 	mineralChance = 60

@@ -42,7 +42,7 @@
 		"втягивает теплый воздух!",
 		"задерживает дыхание!")
 
-	species_traits = list(LIPS, IS_WHITELISTED, EXOTIC_COLOR)
+	species_traits = list(LIPS, EXOTIC_COLOR)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
 	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS
 	has_gender = FALSE

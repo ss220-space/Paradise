@@ -59,9 +59,6 @@
 		S.race_key = ++rkey //Used in mob icon caching.
 		GLOB.all_species[S.name] = S
 
-		if(IS_WHITELISTED in S.species_traits)
-			GLOB.whitelisted_species += S.name
-
 	init_subtypes(/datum/crafting_recipe, GLOB.crafting_recipes)
 
 	//Pipe list building

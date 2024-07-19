@@ -181,7 +181,7 @@
 	var/list/borks = typesof(/obj/item/reagent_containers/food/snacks) - blocked
 	// BORK BORK BORK
 
-	playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
+	playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, TRUE)
 
 	for(var/mob/living/carbon/C in viewers(get_turf(holder.my_atom), null))
 		C.flash_eyes()
@@ -193,7 +193,7 @@
 			B.forceMove(get_turf(holder.my_atom))
 			if(prob(50))
 				for(var/j = 1, j <= rand(1, 3), j++)
-					step(B, pick(NORTH,SOUTH,EAST,WEST))
+					step(B, pick(NORTH, SOUTH, EAST, WEST))
 
 
 /datum/chemical_reaction/slimebork2
@@ -226,19 +226,19 @@
 	borks -= blocked
 	// BORK BORK BORK
 
-	playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
+	playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, TRUE)
 
 	for(var/mob/living/carbon/M in viewers(get_turf(holder.my_atom), null))
 		M.flash_eyes()
 
-	for(var/i = 1, i <= 4 + rand(1,2), i++)
+	for(var/i = 1, i <= 4 + rand(1, 2), i++)
 		var/chosen = pick(borks)
 		var/obj/B = new chosen
 		if(B)
 			B.forceMove(get_turf(holder.my_atom))
 			if(prob(50))
 				for(var/j = 1, j <= rand(1, 3), j++)
-					step(B, pick(NORTH,SOUTH,EAST,WEST))
+					step(B, pick(NORTH, SOUTH, EAST, WEST))
 
 
 //Blue

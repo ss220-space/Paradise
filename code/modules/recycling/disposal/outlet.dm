@@ -7,95 +7,113 @@
 	icon_state = "outlet"
 	density = TRUE
 	anchored = TRUE
-	var/active = FALSE
-	var/turf/target	// this will be where the output objects are 'thrown' to.
-	var/obj/structure/disposalpipe/trunk/linkedtrunk
-	var/mode = FALSE // Is the maintenance panel open? Different than normal disposal's mode
-	/// The last time a sound was played
-	var/last_sound
+	/// This will be where the output objects are 'thrown' to.
+	var/turf/target
+	/// Direct ref to the trunk pipe underneath us
+	var/obj/structure/disposalpipe/trunk/trunk
+	/// Is the maintenance panel open? Different than normal disposal's mode
+	var/mode = FALSE
+	/// How far we're spitting fir- atoms
+	var/eject_range = 3
+	/// How fast we're spitting fir- atoms
+	var/eject_speed = 1
+	COOLDOWN_DECLARE(eject_effects_cd)
 
 
-/obj/structure/disposaloutlet/Initialize(mapload)
+/obj/structure/disposaloutlet/Initialize(mapload, obj/structure/disposalconstruct/made_from)
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(setup)), 0) // Wait of 0, but this wont actually do anything until the MC is firing
+	if(made_from)
+		setDir(made_from.dir)
 
-/obj/structure/disposaloutlet/proc/setup()
 	target = get_ranged_target_turf(src, dir, 10)
-	var/obj/structure/disposalpipe/trunk/T = locate() in get_turf(src)
-	if(T)
-		T.nicely_link_to_other_stuff(src)
+
+	return INITIALIZE_HINT_LATELOAD
+
+
+/obj/structure/disposaloutlet/LateInitialize()
+	. = ..()
+	var/obj/structure/disposalpipe/trunk/found_trunk = locate() in loc
+	if(found_trunk)
+		found_trunk.set_linked(src)
+		trunk = found_trunk
+
 
 /obj/structure/disposaloutlet/Destroy()
-	if(linkedtrunk)
-		linkedtrunk.remove_trunk_links()
-	expel(FALSE)
+	if(trunk)
+		// preemptively expel the contents from the trunk
+		// in case the outlet is deleted before expel_holder could be called.
+		var/obj/structure/disposalholder/holder = locate() in trunk
+		if(holder)
+			trunk.expel(holder)
+		trunk.linked = null
+		trunk = null
 	return ..()
 
 
-/obj/structure/disposaloutlet/proc/expel(animation = TRUE)
-	if(animation)
-		flick("outlet-open", src)
-		var/play_sound = FALSE
-		if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
-			play_sound = TRUE
-			last_sound = world.time
-		if(play_sound)
-			playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 0, FALSE)
-			//wait until correct animation frame
-			addtimer(CALLBACK(GLOBAL_PROC, /proc/playsound, src, 'sound/machines/hiss.ogg', 50, FALSE, 0), 2 SECONDS, TIMER_DELETE_ME)
-	for(var/atom/movable/AM in contents)
-		AM.forceMove(loc)
-		AM.pipe_eject(dir)
-		if(QDELETED(AM))
-			return
-		if(isliving(AM))
-			var/mob/living/mob_to_immobilize = AM
-			if(isdrone(mob_to_immobilize) || istype(mob_to_immobilize, /mob/living/silicon/robot/syndicate/saboteur)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
-				return
-			mob_to_immobilize.Immobilize(1 SECONDS)
-		AM.throw_at(target, 3, 1)
+// expel the contents of the holder object, then delete it
+// called when the holder exits the outlet
+/obj/structure/disposaloutlet/proc/expel(obj/structure/disposalholder/holder)
+	holder.active = FALSE
+	flick("outlet-open", src)
+	if(COOLDOWN_FINISHED(src, eject_effects_cd))
+		COOLDOWN_START(src, eject_effects_cd, DISPOSAL_SOUND_COOLDOWN)
+		playsound(src, 'sound/machines/warning-buzzer.ogg', 50, FALSE, FALSE)
+		addtimer(CALLBACK(src, PROC_REF(expel_holder), holder, TRUE), 2 SECONDS)
+	else
+		addtimer(CALLBACK(src, PROC_REF(expel_holder), holder), 2 SECONDS)
+
+
+/obj/structure/disposaloutlet/proc/expel_holder(obj/structure/disposalholder/holder, playsound = FALSE)
+	if(playsound)
+		playsound(src, 'sound/machines/hiss.ogg', 50, FALSE)
+
+	if(QDELETED(holder))
+		return
+
+	pipe_eject(holder, dir, TRUE, target, eject_range, eject_speed)
+	holder.vent_gas(loc)
+	qdel(holder)
 
 
 /obj/structure/disposaloutlet/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return .
 	add_fingerprint(user)
-	I.play_tool_sound(src)
 	to_chat(user, span_notice("You [mode == FALSE ? "remove" : "attach"] the screws around the power connection."))
 	mode = !mode
-	return TRUE
 
 
-/obj/structure/disposaloutlet/welder_act(mob/user, obj/item/I)
+/obj/structure/disposaloutlet/welder_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
-		return
+		return .
 	WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
-	if(I.use_tool(src, user, 20, volume = I.tool_volume))
-		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
-		var/obj/structure/disposalconstruct/C = new (src.loc)
-		C.ptype = PIPE_DISPOSALS_OUTLET
-		C.update()
-		C.set_anchored(TRUE)
-		C.set_density(TRUE)
-		transfer_fingerprints_to(C)
-		qdel(src)
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+		return
+	WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
+	broken(anchor = TRUE)
+
+
+/obj/structure/disposaloutlet/proc/broken(anchor = FALSE)
+	var/obj/structure/disposalconstruct/construct = new(loc, null, null, src)
+	if(anchor)
+		construct.set_anchored(TRUE)
+	transfer_fingerprints_to(construct)
+	qdel(src)
 
 
 //When the disposalsoutlet is forcefully moved. Due to meteorshot or the recall item spell for instance
 /obj/structure/disposaloutlet/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(!loc)
-		return
-	var/turf/T = old_loc
-	if(T.intact)
-		var/turf/simulated/floor/F = T
-		F.remove_tile(null,TRUE,TRUE)
-		T.visible_message("<span class='warning'>The floortile is ripped from the floor!</span>", "<span class='warning'>You hear a loud bang!</span>")
-	if(linkedtrunk)
-		linkedtrunk.remove_trunk_links()
-	var/obj/structure/disposalconstruct/C = new (loc)
-	transfer_fingerprints_to(C)
-	C.ptype = PIPE_DISPOSALS_OUTLET
-	C.update()
-	C.set_anchored(FALSE)
-	C.set_density(TRUE)
-	qdel(src)
+		return .
+	var/turf/simulated/floor/floor = old_loc
+	if(isfloorturf(floor) && floor.intact)
+		floor.remove_tile(null, TRUE, TRUE)
+		floor.visible_message(
+			span_warning("The floortile is ripped from the floor!"),
+			span_warning("You hear a loud bang!"),
+		)
+	broken()
+
