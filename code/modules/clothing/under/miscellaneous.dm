@@ -1057,27 +1057,7 @@
 
 /obj/item/clothing/under/colour/skirt/Initialize(mapload)
 	. = ..()
-	add_atom_colour(colour, FIXED_COLOUR_PRIORITY)
-	update_icon()
-
-/obj/item/clothing/under/colour/skirt/attack_self(mob/user)
-	if(icon_state == initial(icon_state))
-		icon_state = icon_state + "_t"
-		item_state = icon_state + "_t"
-	else
-		icon_state = initial(icon_state)
-		item_state = initial(item_state)
-	user.update_inv_wear_suit()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
-
-/obj/item/clothing/under/colour/skirt/New()
-	..()
 	AddComponent(/datum/component/spraycan_paintable)
-	START_PROCESSING(SSobj, src)
-	update_icon()
-
 
 /obj/item/clothing/under/ussptracksuit_red
 	name = "red track suit"
