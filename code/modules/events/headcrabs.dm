@@ -13,12 +13,12 @@
 
 /datum/event/headcrabs/start()
 	var/list/availableareas = list()
-	for(var/area/maintenance/A in world)
+	for(var/area/maintenance/A in GLOB.all_areas)
 		availableareas += A
 	var/area/randomarea = pick(availableareas)
 	var/list/turf/simulated/floor/turfs = list()
 	for(var/turf/simulated/floor/F in randomarea)
-		if(turf_clear(F))
+		if(!F.is_blocked_turf(exclude_mobs = TRUE))
 			turfs += F
 	var/list/spawn_types = list()
 	var/max_number

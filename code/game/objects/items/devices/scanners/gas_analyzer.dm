@@ -159,7 +159,7 @@
 				target_mode = ANALYZER_MODE_SURROUNDINGS
 				scan_target = get_turf(src)
 
-	var/mixture = scan_target.return_analyzable_air()
+	var/mixture = scan_target?.return_analyzable_air()
 	if(!mixture)
 		return FALSE
 	var/list/airs = islist(mixture) ? mixture : list(mixture)
@@ -205,7 +205,7 @@
  * Also used in other chat-based gas scans.
  */
 /proc/atmos_scan(mob/user, atom/target, silent=FALSE, print=TRUE)
-	var/mixture = target.return_analyzable_air()
+	var/mixture = target?.return_analyzable_air()
 	if(!mixture)
 		return FALSE
 

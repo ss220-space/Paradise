@@ -36,7 +36,7 @@
 		if(isnull(A))
 			continue
 		for(var/turf/simulated/floor/F in A.contents)
-			if(turf_clear(F))
+			if(!F.is_blocked_turf(exclude_mobs = TRUE))
 				turfs += F
 
 	if(!length(turfs))

@@ -429,7 +429,7 @@
 
 /obj/item/twohanded/shockpaddles/equipped(mob/user, slot, initial)
 	. = ..()
-	RegisterSignal(user, COMSIG_MOB_CLIENT_MOVED, PROC_REF(on_mob_move))
+	RegisterSignal(user, COMSIG_MOB_CLIENT_MOVED, PROC_REF(on_mob_move), override = TRUE)
 
 /obj/item/twohanded/shockpaddles/on_mob_move(mob/user, dir)
 	if(defib && !in_range(defib, src))
