@@ -40,6 +40,8 @@
 
 	faction = list("russian")
 	gold_core_spawnable = HOSTILE_SPAWN
+	weather_immunities = list(TRAIT_SNOWSTORM_IMMUNE)
+
 
 /mob/living/simple_animal/hostile/bear/handle_automated_movement()
 	if(..())

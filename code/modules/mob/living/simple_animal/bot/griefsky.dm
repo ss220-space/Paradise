@@ -244,7 +244,7 @@
 
 /mob/living/simple_animal/bot/secbot/griefsky/explode()
 	SSmove_manager.stop_looping(src)
-	visible_message("<span class='boldannounce'>[src] lets out a huge cough as it blows apart!</span>")
+	visible_message(span_boldannounceic("[src] lets out a huge cough as it blows apart!"))
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/assembly/prox_sensor(Tsec)
 	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)

@@ -85,6 +85,16 @@
 	} while(FALSE)
 
 
+// Generic listoflist safe add and removal macros:
+///If value is a list, wrap it in a list so it can be used with list add/remove operations
+#define LIST_VALUE_WRAP_LISTS(value) (islist(value) ? list(value) : value)
+///Add an untyped item to a list, taking care to handle list items by wrapping them in a list to remove the footgun
+#define UNTYPED_LIST_ADD(list, item) (list += LIST_VALUE_WRAP_LISTS(item))
+///Remove an untyped item to a list, taking care to handle list items by wrapping them in a list to remove the footgun
+#define UNTYPED_LIST_REMOVE(list, item) (list -= LIST_VALUE_WRAP_LISTS(item))
+
+#define reverseList(L) reverse_range(L.Copy())
+
 //Returns a list in plain english as a string
 /proc/english_list(var/list/input, nothing_text = "nothing", and_text = " and ", comma_text = ", ", final_comma_text = "" )
 	var/total = input.len
@@ -1110,3 +1120,50 @@ proc/dd_sortedObjectList(list/incoming)
 			stack_trace("[name] is not sorted. value at [index] ([value]) is in the wrong place compared to the previous value of [last_value] (when compared to by [cmp])")
 
 		last_value = value
+
+
+/// Turns an associative list into a flat list of keys
+/proc/assoc_to_keys(list/input)
+	var/list/keys = list()
+	for(var/key in input)
+		UNTYPED_LIST_ADD(keys, key)
+	return keys
+
+
+///Copies a list, and all lists inside it recusively
+///Does not copy any other reference type
+/proc/deep_copy_list(list/inserted_list)
+	if(!islist(inserted_list))
+		return inserted_list
+	. = inserted_list.Copy()
+	for(var/i in 1 to inserted_list.len)
+		var/key = .[i]
+		if(isnum(key))
+			// numbers cannot ever be associative keys
+			continue
+		var/value = .[key]
+		if(islist(value))
+			value = deep_copy_list(value)
+			.[key] = value
+		if(islist(key))
+			key = deep_copy_list(key)
+			.[i] = key
+			.[key] = value
+
+
+///replaces reverseList ~Carnie
+/proc/reverse_range(list/inserted_list, start = 1, end = 0)
+	if(inserted_list.len)
+		start = start % inserted_list.len
+		end = end % (inserted_list.len + 1)
+		if(start <= 0)
+			start += inserted_list.len
+		if(end <= 0)
+			end += inserted_list.len + 1
+
+		--end
+		while(start < end)
+			inserted_list.Swap(start++, end--)
+
+	return inserted_list
+

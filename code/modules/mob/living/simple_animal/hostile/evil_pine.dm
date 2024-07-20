@@ -29,7 +29,7 @@
 	death_sound = 'sound/misc/demon_dies.ogg'
 
 	faction = list("hostile", "winter")
-	weather_immunities = list("snow")
+	weather_immunities = list(TRAIT_SNOWSTORM_IMMUNE)
 
 	speak = list("Your head will be my new ornament!", "I HATE HOLYDAYS!", "I WILL SMASH YOU!")
 	speak_chance = 20

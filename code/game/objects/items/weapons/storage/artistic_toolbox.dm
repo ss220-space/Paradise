@@ -17,7 +17,7 @@
 	blurry_chance = 8
 	var/list/servantlinks = list()
 	var/hunger = 0
-	var/hunger_message_level = 0
+	var/hunger_level = 0
 	var/mob/living/carbon/human/original_owner = null
 	var/activated = FALSE
 
@@ -104,7 +104,7 @@
 	if(!L)
 		return
 	hunger = 0
-	hunger_message_level = 0
+	set_hunger_level(new_hunger_level = 0)
 	playsound(loc, 'sound/goonstation/misc/burp_alien.ogg', 50, 0)
 
 	if(L != original_owner)
@@ -145,6 +145,16 @@
 	playsound(loc, 'sound/goonstation/effects/screech.ogg', 100, 1)
 	return ..()
 
+
+/obj/item/storage/toolbox/green/memetic/proc/set_hunger_level(new_hunger_level)
+	if(hunger_level == new_hunger_level)
+		return FALSE
+
+	hunger_level = new_hunger_level
+	update_icon(UPDATE_ICON_STATE)
+	return TRUE
+
+
 /datum/disease/memetic_madness
 	name = "Memetic Kill Agent"
 	max_stages = 4
@@ -164,6 +174,9 @@
 	if(absorption_applied && affected_mob)
 		affected_mob.remove_status_effect_absorption(source = name, effect_type = list(STUN, WEAKEN, STAMCRIT, KNOCKDOWN, PARALYZE))
 	return ..()
+
+/obj/item/storage/toolbox/green/memetic/update_icon_state()
+	icon_state = "green[hunger_level <= 2 ? "" : hunger_level]"
 
 /datum/disease/memetic_madness/stage_act()
 	..()
@@ -192,20 +205,16 @@
 		stage = 1
 		switch(progenitor.hunger)
 			if(10 to 60)
-				if(progenitor.hunger_message_level < 1)
-					progenitor.hunger_message_level = 1
+				if(progenitor.set_hunger_level(new_hunger_level = 1))
 					to_chat(affected_mob, "<i><b><font face = Tempus Sans ITC>Feed Me the unclean ones...They will be purified...</font></b></i>")
 			if(61 to 120)
-				if(progenitor.hunger_message_level < 2)
-					progenitor.hunger_message_level = 2
+				if(progenitor.set_hunger_level(new_hunger_level = 2))
 					to_chat(affected_mob, "<i><b><font face = Tempus Sans ITC>I hunger for the flesh of the impure...</font></b></i>")
 			if(121 to 210)
-				if(prob(10) && progenitor.hunger_message_level < 3)
-					progenitor.hunger_message_level = 3
+				if(progenitor.set_hunger_level(new_hunger_level = 3))
 					to_chat(affected_mob, "<i><b><font face = Tempus Sans ITC>The hunger of your Master grows with every passing moment.  Feed Me at once.</font></b></i>")
 			if(211 to 399)
-				if(progenitor.hunger_message_level < 4)
-					progenitor.hunger_message_level = 4
+				if(progenitor.set_hunger_level(new_hunger_level = 4))
 					to_chat(affected_mob, "<i><b><font face = Tempus Sans ITC>His Grace starves in your hands.  Feed Me the unclean or suffer.</font></b></i>")
 			if(400 to INFINITY)
 				affected_mob.visible_message("<span class='userdanger'>[progenitor] consumes [affected_mob] whole!</span>")

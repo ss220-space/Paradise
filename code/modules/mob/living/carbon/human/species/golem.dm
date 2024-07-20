@@ -375,13 +375,16 @@
 		NEUTER = null
 		)
 
-/datum/species/golem/titanium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
-	. = ..()
-	C.weather_immunities |= "ash"
 
-/datum/species/golem/titanium/on_species_loss(mob/living/carbon/C)
+/datum/species/golem/titanium/on_species_gain(mob/living/carbon/owner)
 	. = ..()
-	C.weather_immunities -= "ash"
+	ADD_TRAIT(owner, TRAIT_ASHSTORM_IMMUNE, name)
+
+
+/datum/species/golem/titanium/on_species_loss(mob/living/carbon/owner)
+	. = ..()
+	REMOVE_TRAIT(owner, TRAIT_ASHSTORM_IMMUNE, name)
+
 
 //Even more resistant to burn damage and immune to ashstorms and lava
 /datum/species/golem/plastitanium
@@ -397,15 +400,16 @@
 		NEUTER = null
 		)
 
-/datum/species/golem/plastitanium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
-	. = ..()
-	C.weather_immunities |= "lava"
-	C.weather_immunities |= "ash"
 
-/datum/species/golem/plastitanium/on_species_loss(mob/living/carbon/C)
+/datum/species/golem/plastitanium/on_species_gain(mob/living/carbon/owner)
 	. = ..()
-	C.weather_immunities -= "ash"
-	C.weather_immunities -= "lava"
+	owner.add_traits(list(TRAIT_ASHSTORM_IMMUNE, TRAIT_LAVA_IMMUNE), name)
+
+
+/datum/species/golem/plastitanium/on_species_loss(mob/living/carbon/owner)
+	. = ..()
+	owner.remove_traits(list(TRAIT_ASHSTORM_IMMUNE, TRAIT_LAVA_IMMUNE), name)
+
 
 //Fast and regenerates... but can only speak like an abductor
 /datum/species/golem/alloy

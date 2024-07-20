@@ -100,6 +100,7 @@
 	//onclose(user, "arcade")
 	var/datum/browser/popup = new(user, "arcade", "Space Villian 2000", 420, 280, src)
 	popup.set_content(dat)
+	popup.open()
 	return
 
 /obj/machinery/computer/arcade/battle/Topic(href, href_list)

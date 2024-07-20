@@ -6,6 +6,7 @@
 	density = FALSE
 	anchored = TRUE
 	pass_flags_self = PASSFLAPS
+	can_astar_pass = CANASTARPASS_ALWAYS_PROC
 	opacity = TRUE
 	layer = 4
 	armor = list(melee = 100, bullet = 80, laser = 80, energy = 100, bomb = 50, bio = 100, rad = 100, fire = 50, acid = 50)
@@ -80,17 +81,15 @@
 			return FALSE
 
 
-/obj/structure/plasticflaps/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
-	if(isliving(caller))
-		if(isbot(caller))
+/obj/structure/plasticflaps/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(pass_info.is_living)
+		if(pass_info.is_bot)
 			return TRUE
-
-		var/mob/living/M = caller
-		if(!is_ventcrawler(M) && M.mob_size != MOB_SIZE_TINY)
+		if(!pass_info.can_ventcrawl && pass_info.mob_size != MOB_SIZE_TINY)
 			return FALSE
-	var/atom/movable/M = caller
-	if(M?.pulling)
-		return CanPathfindPass(ID, to_dir, M.pulling)
+
+	if(pass_info.pulling_info)
+		return CanAStarPass(to_dir, pass_info.pulling_info)
 	return TRUE //diseases, stings, etc can pass
 
 

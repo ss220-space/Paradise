@@ -420,6 +420,10 @@
 		to_chat(user, span_warning("Central Command will not allow the shuttle to be called. Consider all contracts terminated."))
 		return
 
+	if(SSticker?.mode?.blob_stage >= BLOB_STAGE_FIRST && SSshuttle.emergencyNoEscape)
+		to_chat(user, span_warning("Under directive 7-10, [station_name()] is quarantined until further notice."))
+		return
+
 	if(SSshuttle.emergencyNoEscape)
 		to_chat(user, span_warning("The emergency shuttle may not be sent at this time. Please try again later."))
 		return
@@ -428,9 +432,6 @@
 		to_chat(user, span_warning("The emergency shuttle may not be called while returning to Central Command."))
 		return
 
-	if(SSticker.mode.name == "blob")
-		to_chat(user, span_warning("Under directive 7-10, [station_name()] is quarantined until further notice."))
-		return
 
 	SSshuttle.requestEvac(user, reason)
 	add_game_logs("has called the shuttle: [reason]", user)

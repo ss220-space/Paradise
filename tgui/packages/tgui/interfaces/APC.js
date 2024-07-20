@@ -206,7 +206,6 @@ const ApcContent = (props, context) => {
             label="Night Shift Lighting"
             buttons={
               <Button
-                mt={0.4}
                 icon="lightbulb-o"
                 content={data.nightshiftLights ? 'Enabled' : 'Disabled'}
                 onClick={() => act('toggle_nightshift')}
@@ -217,6 +216,7 @@ const ApcContent = (props, context) => {
             label="Emergency Lighting Fallback"
             buttons={
               <Button
+                mt={0.4}
                 icon="lightbulb-o"
                 content={data.emergencyLights ? 'Engaged' : 'Disengaged'}
                 disabled={locked}

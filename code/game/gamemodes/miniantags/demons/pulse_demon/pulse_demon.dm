@@ -630,7 +630,7 @@
 	emote("me", message = "[pick(emote_hear)]")
 	return TRUE
 
-/mob/living/simple_animal/demon/pulse_demon/visible_message(message, self_message, blind_message, list/ignored_mobs)
+/mob/living/simple_animal/demon/pulse_demon/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type)
 	// overriden because pulse demon is quite often in non-turf locs, and /mob/visible_message acts differently there
 	for(var/mob/M in get_mobs_in_view(7, src))
 		if(M.see_invisible < invisibility)
@@ -638,7 +638,7 @@
 		var/msg = message
 		if(self_message && M == src)
 			msg = self_message
-		M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
+		M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 /mob/living/simple_animal/demon/pulse_demon/proc/try_hijack_apc(obj/machinery/power/apc/A, remote = FALSE)
 	// one APC per pulse demon, one pulse demon per APC, no duplicate APCs

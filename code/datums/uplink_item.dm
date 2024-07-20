@@ -387,7 +387,7 @@
 	name = "Genetic Superiority Injector"
 	desc = "Experimental DNA injector which will give you one advanced gene modification and increase your gene stability."
 	item = /obj/item/dna_upgrader
-	cost = 75
+	cost = 55
 	job = list(JOB_TITLE_CMO, JOB_TITLE_GENETICIST)
 	surplus = 0
 
@@ -646,6 +646,15 @@
 	item = /obj/item/clothing/mask/holo_cigar
 	cost = 10
 	race = list(SPECIES_HUMAN)
+
+//Grey
+
+/datum/uplink_item/racial/agent_belt
+	name = "Agent Belt"
+	desc = "A military toolbelt used by abductor agents. Contains a full set of alien tools."
+	item = /obj/item/storage/belt/military/abductor/full
+	cost = 16
+	race = list(SPECIES_GREY)
 
 
 // DANGEROUS WEAPONS

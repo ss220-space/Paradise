@@ -118,8 +118,7 @@
 /area/ruin/powered)
 "z" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /turf/simulated/mineral,
 /area/ruin/powered)
@@ -230,8 +229,7 @@
 /area/ruin/powered)
 "N" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /turf/simulated/mineral,
 /area/ruin/powered)

@@ -848,7 +848,7 @@
 	moving.Move(next, get_dir(moving, next), FALSE, !(flags & MOVEMENT_LOOP_NO_DIR_UPDATE))
 	return old_loc != moving?.loc ? MOVELOOP_SUCCESS : MOVELOOP_FAILURE
 
-/*
+
 /**
  * Snowflake disposal movement. Moves a disposal holder along a chain of disposal pipes
  *
@@ -887,4 +887,4 @@
 	var/atom/old_loc = moving.loc
 	holder.current_pipe = holder.current_pipe.transfer(holder)
 	return old_loc != moving?.loc ? MOVELOOP_SUCCESS : MOVELOOP_FAILURE
-*/
+

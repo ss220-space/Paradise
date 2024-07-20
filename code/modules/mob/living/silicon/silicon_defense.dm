@@ -5,17 +5,17 @@
 	if(..()) //if harm or disarm intent
 		var/damage = M.attack_damage
 		if(prob(90))
-			playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
-			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", "<span class='userdanger'>[M] has slashed at [src]!</span>")
+			playsound(loc, 'sound/weapons/slash.ogg', 25, TRUE, -1)
+			visible_message(span_danger("[M] has slashed at [src]!"), span_userdanger("[M] has slashed at [src]!"))
 			if(prob(8))
-				flash_eyes(affect_silicon = 1)
+				flash_eyes(affect_silicon = TRUE)
 			add_attack_logs(M, src, "Alien attacked")
 			adjustBruteLoss(damage)
 			updatehealth()
 		else
-			playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
-			visible_message("<span class='danger'>[M] took a swipe at [src]!</span>", \
-							"<span class='userdanger'>[M] took a swipe at [src]!</span>")
+			playsound(loc, 'sound/weapons/slashmiss.ogg', 25, TRUE, -1)
+			visible_message(span_danger("[M] took a swipe at [src]!"), \
+							span_userdanger("[M] took a swipe at [src]!"))
 	return
 
 /mob/living/silicon/attack_animal(mob/living/simple_animal/M)

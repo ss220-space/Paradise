@@ -192,10 +192,10 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return COMPONENT_ATOM_BLOCK_EXIT
 
 
-/obj/structure/window/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+/obj/structure/window/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	if(!density)
 		return TRUE
-	if((dir == FULLTILE_WINDOW_DIR) || (dir == to_dir) || fulltile)
+	if(fulltile || (dir == FULLTILE_WINDOW_DIR) || (dir == to_dir))
 		return FALSE
 	return TRUE
 
@@ -741,6 +741,9 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/structure/window/full/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
 
+/obj/structure/window/full/plasmareinforced/BlockSuperconductivity()
+	return TRUE
+
 /obj/structure/window/full/reinforced
 	name = "reinforced window"
 	desc = "It looks rather strong. Might take a few good hits to shatter it."
@@ -762,6 +765,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	name = "tinted window"
 	desc = "It looks rather strong and opaque. Might take a few good hits to shatter it."
 	icon = 'icons/obj/smooth_structures/tinted_window.dmi'
+	icon_state = "tinted_window-0"
 	base_icon_state = "tinted_window"
 	opacity = TRUE
 

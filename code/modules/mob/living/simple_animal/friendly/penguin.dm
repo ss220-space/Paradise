@@ -18,6 +18,8 @@
 	turns_per_move = 10
 	icon = 'icons/mob/penguins.dmi'
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
+	weather_immunities = list(TRAIT_SNOWSTORM_IMMUNE)
+
 
 /mob/living/simple_animal/pet/penguin/Initialize(mapload)
 	. = ..()
@@ -32,6 +34,7 @@
 	icon_dead = "penguin_dead"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/bird = 4)
 	gold_core_spawnable = FRIENDLY_SPAWN
+
 
 /mob/living/simple_animal/pet/penguin/eldrich
 	name = "Albino penguin"
@@ -48,6 +51,7 @@
 	emote_hear = list("whistles!", "gakkers!")
 	emote_see = list("shakes its beak.", "flaps it's wings.","preens itself.")
 	faction = list("penguin", "cult")
+
 
 /mob/living/simple_animal/pet/penguin/emperor/shamebrero
 	name = "Shamebrero penguin"

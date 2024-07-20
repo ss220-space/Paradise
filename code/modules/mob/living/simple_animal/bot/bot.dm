@@ -44,6 +44,8 @@
 	var/emagged = 0
 	/// The ID card that the bot "holds".
 	var/obj/item/card/id/access_card
+	/// All access ID holder
+	var/static/obj/item/card/id/all_access
 	var/list/prev_access = list()
 	var/on = TRUE
 	/// Maint panel
@@ -327,7 +329,7 @@
 	else
 		for(var/uid in ignore_list)
 			var/atom/referredatom = locateUID(uid)
-			if(!referredatom || QDELETED(referredatom))
+			if(QDELETED(referredatom))
 				ignore_list -= uid
 		ignorelistcleanuptimer = 1
 
@@ -516,6 +518,8 @@
 
 
 /mob/living/simple_animal/bot/proc/disable(time)
+	if(!time)
+		return
 	if(disabling_timer_id)
 		deltimer(disabling_timer_id) // if we already have disabling timer, lets replace it with new one
 	if(on)
@@ -589,12 +593,12 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	return scan_target
 
 
-/mob/living/simple_animal/bot/proc/add_to_ignore(atom/A)
+/mob/living/simple_animal/bot/proc/add_to_ignore(atom/subject)
 	if(ignore_list.len < 50) //This will help keep track of them, so the bot is always trying to reach a blocked spot.
-		ignore_list |= A.UID()
+		ignore_list += subject.UID()
 	else  //If the list is full, insert newest, delete oldest.
 		ignore_list.Cut(1, 2)
-		ignore_list |= A.UID()
+		ignore_list += subject.UID()
 
 
 /**
@@ -645,23 +649,27 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		access_card.access = prev_access
 
 
-/mob/living/simple_animal/bot/proc/call_bot(caller, turf/waypoint, message=TRUE)
+/mob/living/simple_animal/bot/proc/call_bot(caller, turf/waypoint, message = TRUE)
+	if(isAI(caller) && calling_ai && calling_ai != src) //Prevents an override if another AI is controlling this bot.
+		return FALSE
+
 	bot_reset() //Reset a bot before setting it to call mode.
-	var/area/end_area = get_area(waypoint)
 
-	//For giving the bot temporary all-access.
-	var/obj/item/card/id/all_access = new /obj/item/card/id
-	var/datum/job/captain/All = new/datum/job/captain
-	all_access.access = All.get_access()
+	//For giving the bot temporary all-access. This method is bad and makes me feel bad. Refactoring access to a component is for another PR.
+	//Easier then building the list ourselves. I'm sorry.
+	if(!all_access)
+		all_access = new /obj/item/card/id
+		all_access.access = get_all_accesses()
 
-	set_path(get_path_to(src, waypoint, 200, id = access_card))
+	set_path(get_path_to(src, waypoint, max_distance = 200, access = all_access.GetAccess()))
 	calling_ai = caller //Link the AI to the bot!
 	ai_waypoint = waypoint
 
 	if(path && length(path)) //Ensures that a valid path is calculated!
+		var/area/end_area = get_area(waypoint)
 		if(!on)
 			turn_on() //Saves the AI the hassle of having to activate a bot manually.
-		access_card = all_access //Give the bot all-access while under the AI's command.
+		access_card.access = all_access.GetAccess() //Give the bot all-access while under the AI's command.
 		if(client)
 			reset_access_timer_id = addtimer(CALLBACK(src, PROC_REF(bot_reset)), 60 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE) //if the bot is player controlled, they get the extra access for a limited time
 			to_chat(src, span_notice("[span_big("Priority waypoint set by [calling_ai] <b>[caller]</b>. Proceed to <b>[end_area.name]</b>.")]<br>[path.len-1] meters to destination. You have been granted additional door access for 60 seconds."))
@@ -701,6 +709,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	access_card.access = prev_access
 	tries = 0
 	mode = BOT_IDLE
+	ignore_list = list()
 	diag_hud_set_botstat()
 	diag_hud_set_botmode()
 
@@ -720,7 +729,6 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 
 /mob/living/simple_animal/bot/proc/start_patrol()
-	set_path(null)
 	if(tries >= BOT_STEP_MAX_RETRIES) //Bot is trapped, so stop trying to patrol.
 		auto_patrol = FALSE
 		tries = 0
@@ -955,13 +963,17 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
  */
 /mob/living/simple_animal/bot/proc/calc_path(turf/avoid)
 	check_bot_access()
-	set_path(get_path_to(src, patrol_target, 120, id = access_card, exclude = avoid))
+	set_path(get_path_to(src, patrol_target, max_distance = 120, access = access_card.GetAccess(), exclude = avoid, diagonal_handling = DIAGONAL_REMOVE_ALL))
 
 
 /mob/living/simple_animal/bot/proc/calc_summon_path(turf/avoid)
-	set waitfor = FALSE
 	check_bot_access()
-	set_path(get_path_to(src, summon_target, 150, id = access_card, exclude = avoid))
+	var/datum/callback/path_complete = CALLBACK(src, PROC_REF(on_summon_path_finish))
+	SSpathfinder.pathfind(src, summon_target, max_distance = 150, access = access_card.GetAccess(), exclude = avoid, diagonal_handling = DIAGONAL_REMOVE_ALL, on_finish = list(path_complete))
+
+
+/mob/living/simple_animal/bot/proc/on_summon_path_finish(list/path)
+	set_path(path)
 	if(!length(path)) //Cannot reach target. Give up and announce the issue.
 		speak("Summon command failed, destination unreachable.", radio_channel)
 		bot_reset()
@@ -977,8 +989,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		return
 
 	else if(length(path) && summon_target)		//Proper path acquired!
-		var/turf/next = path[1]
-		if(next == loc)
+		if(path[1] == loc)
 			increment_path()
 			return
 
@@ -1313,6 +1324,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 			MA.dir = direction
 			var/image/I = image(loc = T)
 			I.appearance = MA
+			SET_PLANE(I, GAME_PLANE, T)
 			path[T] = I
 			path_images += I
 

@@ -771,3 +771,24 @@
 
 /datum/config_entry/number/jobs_high_pop_mode_amount
 	default = 80
+
+
+/datum/config_entry/number/error_cooldown // The "cooldown" time for each occurrence of a unique error
+	default = 600
+	integer = FALSE
+	min_val = 0
+
+
+/datum/config_entry/number/error_limit // How many occurrences before the next will silence them
+	default = 50
+
+
+/datum/config_entry/number/error_silence_time // How long a unique error will be silenced for
+	default = 6000
+	integer = FALSE
+
+
+/datum/config_entry/number/error_msg_delay // How long to wait between messaging admins about occurrences of a unique error
+	default = 50
+	integer = FALSE
+

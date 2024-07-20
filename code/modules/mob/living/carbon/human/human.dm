@@ -954,19 +954,19 @@
 ///check_eye_prot()
 ///Returns a number between -1 to 2
 /mob/living/carbon/human/check_eye_prot()
-	var/number = ..()
+	var/eye_prot = ..()
 	if(istype(head, /obj/item/clothing/head))			//are they wearing something on their head
 		var/obj/item/clothing/head/HFP = head			//if yes gets the flash protection value from that item
-		number += HFP.flash_protect
+		eye_prot += HFP.flash_protect
 	if(istype(glasses, /obj/item/clothing/glasses))		//glasses
 		var/obj/item/clothing/glasses/GFP = glasses
-		number += GFP.flash_protect
+		eye_prot += GFP.flash_protect
 	if(istype(wear_mask, /obj/item/clothing/mask))		//mask
 		var/obj/item/clothing/mask/MFP = wear_mask
-		number += MFP.flash_protect
+		eye_prot += MFP.flash_protect
 	for(var/obj/item/organ/internal/cyberimp/eyes/EFP in internal_organs)
-		number += EFP.flash_protect
-	return number
+		eye_prot += EFP.flash_protect
+	return eye_prot
 
 
 /mob/living/carbon/human/check_ear_prot()

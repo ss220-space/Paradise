@@ -14,7 +14,7 @@
 
 	var/eye_colour = "#000000" // Should never be null
 	var/old_eye_colour = "#000000"
-	var/flash_protect = 0
+	var/flash_protect = FLASH_PROTECTION_NONE
 	var/aug_message = "Your vision is augmented!"
 
 /obj/item/organ/internal/cyberimp/eyes/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
@@ -46,7 +46,7 @@
 		if(prob(10 * severity))
 			return
 	to_chat(owner, span_warning("Static obfuscates your vision!"))
-	owner.flash_eyes(visual = 1)
+	owner.flash_eyes(3, visual = TRUE)
 
 /obj/item/organ/internal/cyberimp/eyes/meson
 	name = "Meson scanner implant"
@@ -74,7 +74,7 @@
 	implant_color = "#FFCC00"
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	flash_protect = -1
+	flash_protect = FLASH_PROTECTION_SENSITIVE
 	origin_tech = "materials=5;programming=4;biotech=4;magnets=4"
 	aug_message = "You see prey everywhere you look..."
 
@@ -138,7 +138,7 @@
 	slot = INTERNAL_ORGAN_EYE_SHIELD_DEVICE
 	origin_tech = "materials=4;biotech=3;engineering=4;plasmatech=3"
 	implant_color = "#101010"
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	// Welding with thermals will still hurt your eyes a bit.
 
 /obj/item/organ/internal/cyberimp/eyes/shield/emp_act(severity)
