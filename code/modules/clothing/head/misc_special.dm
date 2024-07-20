@@ -37,7 +37,7 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/helmet.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
@@ -60,6 +60,16 @@
 	desc = "A white welding helmet with a character written across it."
 	icon_state = "welding_white"
 
+/obj/item/clothing/head/welding/bigbrother
+	name = "big brother decal welding helmet"
+	desc = "A welding helmet with lines and decorated with red protective glass."
+	icon_state = "welding_bigbrother"
+
+/obj/item/clothing/head/welding/slavic
+	name = "slavic decal welding helmet"
+	desc = "A welding helmet with lines and decorated yellow protective glass."
+	icon_state = "welding_slavic"
+
 /obj/item/clothing/head/welding/attack_self(mob/user)
 	weldingvisortoggle(user)
 
@@ -68,9 +78,12 @@
 		if(icon_state != "welding")
 			to_chat(user, "<span class = 'warning'>Похоже, тут уже есть слой краски!</span>")
 			return
-		var/obj/item/toy/crayon/spraycan/C = I
+		var/obj/item/toy/crayon/spraycan/paintkit/C = I
 		if(C.capped)
 			to_chat(user, "<span class = 'warning'>Вы не можете раскрасить [src], если крышка на банке закрыта!</span>")
+			return
+		if(C.uses <= 1)
+			to_chat(user, "<span class = 'warning'>Не похоже что бы осталось достаточно краски.</span>")
 			return
 		var/list/weld_icons = list("Flame" = image(icon = src.icon, icon_state = "welding_redflame"),
 									"Blue Flame" = image(icon = src.icon, icon_state = "welding_blueflame"),
@@ -78,15 +91,20 @@
 		var/list/weld = list("Flame" = "welding_redflame",
 							"Blue Flame" = "welding_blueflame",
 							"White Flame" = "welding_white")
+		if(istype(I, /obj/item/toy/crayon/spraycan/paintkit))
+			weld = list(C.weld = C.weld_icons)
+			weld_icons = list(C.weld = image(icon = src.icon, icon_state = C.weld_icons))
+			if(C.used)
+				to_chat(user, span_warning("Кажется этот набор уже был использован. Вам этого не хватит для покраски"))
+				return
+			C.used = TRUE
 		var/choice = show_radial_menu(user, src, weld_icons)
 		if(!choice || I.loc != user || !Adjacent(user))
-			return
-		if(C.uses <= 0)
-			to_chat(user, "<span class = 'warning'>Не похоже что бы осталось достаточно краски.</span>")
 			return
 		icon_state = weld[choice]
 		paint = weld[choice]
 		C.uses--
+		to_chat(user, span_notice("Вы успешно покрасили [src]."))
 		update_icon()
 	if(istype(I, /obj/item/soap) && (icon_state != initial(icon_state)))
 		icon_state = initial(icon_state)

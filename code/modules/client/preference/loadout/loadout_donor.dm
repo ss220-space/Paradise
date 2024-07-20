@@ -93,6 +93,15 @@
 	display_name = "Guy Fawkes mask"
 	path = /obj/item/clothing/mask/face/fawkes
 
+
+/datum/gear/donor/bitbrother
+	display_name = "spraycan bigbrother"
+	path = /obj/item/toy/crayon/spraycan/paintkit/bigbrother
+
+/datum/gear/donor/slavic
+	display_name = "spraycan slavic"
+	path = /obj/item/toy/crayon/spraycan/paintkit/slavic
+
 /datum/gear/donor/id_decal_silver
 	display_name = "Silver ID Decal"
 	path = /obj/item/id_decal/silver

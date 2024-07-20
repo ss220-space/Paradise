@@ -269,7 +269,7 @@
 //Spraycan stuff
 
 /obj/item/toy/crayon/spraycan
-	name = "spraycan"
+	name = "Nanotrasen-brand Rapid Paint Applicator"
 	icon_state = "spraycan_cap"
 	desc = "A metallic container containing tasty paint."
 	var/capped = 1
@@ -278,7 +278,6 @@
 
 /obj/item/toy/crayon/spraycan/New()
 	..()
-	name = "Nanotrasen-brand Rapid Paint Applicator"
 	update_icon()
 
 /obj/item/toy/crayon/spraycan/attack_self(mob/living/user as mob)
@@ -328,3 +327,31 @@
 	var/image/I = image('icons/obj/crayons.dmi', icon_state = "[capped ? "spraycan_cap_colors" : "spraycan_colors"]")
 	I.color = colour
 	. += I
+
+/obj/item/toy/crayon/spraycan/paintkit
+	colour = "#ffffff"
+	var/used = FALSE
+	var/weld_icons
+	var/weld
+
+/obj/item/toy/crayon/spraycan/paintkit/New()
+	..()
+	name = "Paintkit '[name]'"
+	update_icon()
+
+/obj/item/toy/crayon/spraycan/paintkit/update_icon_state()
+	return
+
+/obj/item/toy/crayon/spraycan/paintkit/bigbrother
+	name = "Big Brother"
+	desc = "Баночка черно-золотой краски с трафаретом для покраски сварочного шлема, к баночке прикреплена записка что гласит 'Eyes everywhere'."
+	icon_state = "spraycan_bigbrother"
+	weld_icons = "welding_bigbrother"
+	weld = "Big brother"
+
+/obj/item/toy/crayon/spraycan/paintkit/slavic
+	name = "Slavic"
+	desc = "Баночка с краской цвета хаки и трафаретом для покраски сварочного шлема, к баночке прикреплена записка что гласит 'Head, eyes, blyad'."
+	icon_state = "spraycan_slavic"
+	weld_icons = "welding_slavic"
+	weld = "Slavic"
