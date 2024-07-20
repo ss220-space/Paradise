@@ -94,12 +94,12 @@
 	path = /obj/item/clothing/mask/face/fawkes
 
 
-/datum/gear/donor/bitbrother
-	display_name = "spraycan bigbrother"
+/datum/gear/donor/bigbrother
+	display_name = "Spraycan Big Brother"
 	path = /obj/item/toy/crayon/spraycan/paintkit/bigbrother
 
 /datum/gear/donor/slavic
-	display_name = "spraycan slavic"
+	display_name = "Spraycan Slavic"
 	path = /obj/item/toy/crayon/spraycan/paintkit/slavic
 
 /datum/gear/donor/id_decal_silver
