@@ -39,6 +39,11 @@
 	if(!iscarbon(target))
 		return
 	if(user && imp)
+		if(NO_BIOCHIPS in target.dna.species.species_traits)
+			var/list/whitelisted_implants = list(/obj/item/implant/traitor, /obj/item/implant/mindshield, /obj/item/implant/mindshield/ert) // paradise balance moment
+			if(!(imp.type in whitelisted_implants))
+				to_chat(user, span_warning("Био-чип не приживётся в этом теле."))
+				return
 		if(target != user)
 			target.visible_message(span_warning("[user] is attempting to bio-chip [target]."))
 

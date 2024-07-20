@@ -19,6 +19,9 @@
 	if(!patient.bodyparts_by_name[check_zone(storedorgan.parent_organ_zone)])
 		to_chat(user, span_warning("Missing limb!"))
 		return FALSE
+	if(NO_CYBERIMPS in patient.dna.species.species_traits)
+		to_chat(user, span_warning("Ваш вид неспособен принять этот кибер-имплант!"))
+		return FALSE
 	storedorgan.insert(user)//insert stored organ into the user
 	user.visible_message(span_notice("[user] presses a button on [src], and you hear a short mechanical noise."), span_notice("You feel a sharp sting as [src] plunges into your body."))
 	playsound(get_turf(user), usesound, 50, 1)

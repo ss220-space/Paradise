@@ -519,6 +519,14 @@
 		to_chat(user, span_warning("[target] already has [organ]."))
 		return SURGERY_BEGINSTEP_SKIP
 
+	if((istype(organ, /obj/item/organ/internal/cyberimp)) && (NO_CYBERIMPS in target.dna.species.species_traits))
+		to_chat(user, span_notice("Кибер-импланты не приживутся в этом теле."))
+		return SURGERY_BEGINSTEP_SKIP
+
+	if((organ.status == ORGAN_ROBOT) && (NO_ROBOPARTS in target.dna.species.species_traits))
+		to_chat(user, span_notice("Вы не можете установить кибернетические органы в это существо."))
+		return SURGERY_BEGINSTEP_SKIP
+
 	if(affected)
 		user.visible_message(
 			"[user] starts transplanting [tool] into [target]'s [affected.name].",
