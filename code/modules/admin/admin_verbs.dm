@@ -714,7 +714,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	switch(punishment)
 		// These smiting types are valid for all living mobs
 		if("Lightning bolt")
-			M.electrocute_act(5, "Lightning Bolt", safety = TRUE, override = TRUE)
+			M.electrocute_act(5, "молнии", flags = SHOCK_NOGLOVES)
 			playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 			M.adjustFireLoss(75)
 			M.Weaken(10 SECONDS)

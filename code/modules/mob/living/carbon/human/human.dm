@@ -578,37 +578,37 @@
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
-//Added a safety check in case you want to shock a human mob directly through electrocute_act.
-/mob/living/carbon/human/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
-	if(tesla_shock)
-		var/total_coeff = 1
-		if(gloves)
-			var/obj/item/clothing/gloves/G = gloves
-			if(G.siemens_coefficient <= 0)
-				total_coeff -= 0.5
-		if(wear_suit)
-			var/obj/item/clothing/suit/S = wear_suit
-			if(S.siemens_coefficient <= 0)
-				total_coeff -= 0.95
-			else if(S.siemens_coefficient == (-1))
-				total_coeff -= 1
-		siemens_coeff = total_coeff
-		if(tesla_ignore)
-			siemens_coeff = 0
-	else if(!safety)
-		var/gloves_siemens_coeff = 1
-		if(gloves)
-			var/obj/item/clothing/gloves/G = gloves
-			gloves_siemens_coeff = G.siemens_coefficient
-		siemens_coeff = gloves_siemens_coeff
-	if(undergoing_cardiac_arrest() && !illusion)
-		if(shock_damage * siemens_coeff >= 1 && prob(25))
-			set_heartattack(FALSE)
-			if(stat == CONSCIOUS)
-				to_chat(src, "<span class='notice'>You feel your heart beating again!</span>")
 
-	dna.species.spec_electrocute_act(src, shock_damage, source, siemens_coeff, safety, override, tesla_shock, illusion, stun)
-	. = ..(shock_damage, source, siemens_coeff, safety, override, tesla_shock, illusion, stun)
+///Calculates the siemens coeff based on clothing and species, can also restart hearts.
+/mob/living/carbon/human/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+	//Calculates the siemens coeff based on clothing. Completely ignores the arguments
+	if(flags & SHOCK_TESLA) //I hate this entire block. This gets the siemens_coeff for tesla shocks
+		if(gloves && gloves.siemens_coefficient <= 0)
+			siemens_coeff -= 0.5
+		if(wear_suit)
+			if(wear_suit.siemens_coefficient == -1)
+				siemens_coeff -= 1
+			else if(wear_suit.siemens_coefficient <= 0)
+				siemens_coeff -= 0.95
+		siemens_coeff = max(siemens_coeff, 0)
+	else if(!(flags & SHOCK_NOGLOVES)) //This gets the siemens_coeff for all non tesla shocks
+		if(gloves)
+			siemens_coeff *= gloves.siemens_coefficient
+	//siemens_coeff *= physiology.siemens_coeff
+	siemens_coeff *= dna.species.siemens_coeff
+	. = ..()
+	//Don't go further if the shock was blocked/too weak.
+	if(!.)
+		return .
+	if(!(flags & SHOCK_ILLUSION))
+		if(shock_damage * siemens_coeff >= 5)
+			forcesay()
+		if(undergoing_cardiac_arrest() && (shock_damage * siemens_coeff >= 1) && prob(25))
+			if(set_heartattack(FALSE) && stat == CONSCIOUS)
+				to_chat(src, span_notice("You feel your heart beating again!"))
+
+	dna.species.spec_electrocute_act(src, shock_damage, source, siemens_coeff, flags, jitter_time, stutter_time, stun_duration)
+
 
 /mob/living/carbon/human/Topic(href, href_list)
 	if(in_range(src, usr) && !usr.incapacitated() && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

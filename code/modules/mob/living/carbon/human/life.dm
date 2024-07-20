@@ -1042,6 +1042,7 @@
 		return FALSE
 
 	heart.beating = !status
+	return TRUE
 
 /mob/living/carbon/human/handle_heartattack()
 	if(!can_heartattack() || !undergoing_cardiac_arrest() || reagents.has_reagent("corazone"))
