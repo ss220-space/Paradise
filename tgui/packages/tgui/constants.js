@@ -141,6 +141,41 @@ export const RADIO_CHANNELS = [
     freq: 1459,
     color: '#1ecc43',
   },
+  {
+    name: 'SyndTaipan',
+    freq: 1227,
+    color: '#ffec8b',
+  },
+  {
+    name: 'Soviet',
+    freq: 1217,
+    color: '#ffec8b',
+  },
+  {
+    name: 'Spider Clan',
+    freq: 1265,
+    color: '#1ecc43',
+  },
+  {
+    name: 'Alpha wave',
+    freq: 1522,
+    color: '#88910f',
+  },
+  {
+    name: 'Beta wave',
+    freq: 1532,
+    color: '#1d83f7',
+  },
+  {
+    name: 'Gamma wave',
+    freq: 1542,
+    color: '#d46549',
+  },
+  {
+    name: 'Spy Spider',
+    freq: 1251,
+    color: '#776f96',
+  },
 ];
 
 const GASES = [
