@@ -115,6 +115,9 @@
 		T.extinguish_light()
 		for(var/atom/A in T.contents)
 			A.extinguish_light()
+		for(var/mob/target in T.contents)
+			for(var/obj/item/item in target.get_equipped_items(TRUE, TRUE))
+				item.extinguish_light()
 
 
 /obj/effect/proc_holder/spell/shadowling_shadow_walk
