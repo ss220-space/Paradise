@@ -707,10 +707,10 @@
 	desc = "On the poster you can see: A red-haired man in aviator glasses, slightly over 30, with a cigar in his mouth, dressed in a fur coat over a tactical turtleneck."
 	icon_state = "Viper"
 
-/obj/structure/sign/poster/secret/Lizard
+/obj/structure/sign/poster/secret/lizard
 	name = "Lewd Lizard"
 	desc = "This lewd poster depicts a lizard preparing to mate."
-	icon_state = "Lizard"
+	icon_state = "lizard"
 
 /obj/structure/sign/poster/contraband/Enlist_Gorlex
 	name = "Enlist"
