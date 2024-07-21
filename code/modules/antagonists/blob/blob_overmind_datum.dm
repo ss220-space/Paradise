@@ -18,7 +18,8 @@
 
 /datum/antagonist/blob_overmind/on_gain()
 	if(!reagent)
-		reagent = pick(subtypesof(/datum/reagent/blob))
+		var/reagent_type = pick(subtypesof(/datum/reagent/blob))
+		reagent = new reagent_type
 	return ..()
 
 /datum/antagonist/blob_overmind/add_owner_to_gamemode()

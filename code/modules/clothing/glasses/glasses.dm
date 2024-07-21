@@ -69,7 +69,7 @@
 	return TRUE
 
 
-/obj/item/clothing/glasses/visor_toggling()
+/obj/item/clothing/glasses/visor_toggling(mob/user)
 	. = ..()
 	if(!.)
 		return .

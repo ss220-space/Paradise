@@ -13,7 +13,7 @@
 	weather_duration_upper = 120 SECONDS
 
 	end_duration = 10 SECONDS
-	end_message = span_boldannounce("The snowfall dies down, it should be safe to go outside again.")
+	end_message = span_boldannounceic("The snowfall dies down, it should be safe to go outside again.")
 	end_overlay = "light_snow"
 
 	area_type = /area/vision_change_area/awaymission/evil_santa_storm

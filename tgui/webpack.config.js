@@ -32,6 +32,7 @@ module.exports = (env = {}, argv) => {
     target: ['web', 'es5', 'browserslist:ie 11'],
     entry: {
       'tgui': ['./packages/tgui-polyfill', './packages/tgui'],
+      'tgui-panel': ['./packages/tgui-polyfill', './packages/tgui-panel'],
     },
     output: {
       path: argv.useTmpFolder
