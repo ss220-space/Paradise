@@ -51,11 +51,12 @@
 /obj/machinery/computer/roboquest/Initialize(mapload)
 	..()
 	generate_roboshop()
-	var/mapping_pad = locate(/obj/machinery/roboquest_pad) in range(2, src)
-	if(mapping_pad)
-		pad = mapping_pad
-		pad.console = src
-		canCheck = TRUE
+	if(mapload)
+		var/mapping_pad = locate(/obj/machinery/roboquest_pad) in get_area(src)
+		if(mapping_pad)
+			pad = mapping_pad
+			pad.console = src
+			canCheck = TRUE
 
 /obj/machinery/computer/roboquest/New()
 	generate_roboshop()
