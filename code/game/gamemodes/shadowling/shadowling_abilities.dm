@@ -114,8 +114,8 @@
 	for(var/turf/T in targets)
 		T.extinguish_light()
 		for(var/atom/A in T.contents)
-			if(ismob(A))
-				var/mob/target = A
+			if(isliving(A))
+				var/mob/living/target = A
 				for(var/obj/item/item in target.get_equipped_items(TRUE, TRUE))
 					item.extinguish_light()
 			A.extinguish_light()
