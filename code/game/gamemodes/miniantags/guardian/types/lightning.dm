@@ -1,7 +1,3 @@
-/obj/effect/ebeam/chain
-	name = "lightning chain"
-	layer = LYING_MOB_LAYER
-
 /mob/living/simple_animal/hostile/guardian/beam
 	melee_damage_lower = 15
 	melee_damage_upper = 15
@@ -36,7 +32,7 @@
 /mob/living/simple_animal/hostile/guardian/beam/Manifest()
 	..()
 	if(summoner)
-		summonerchain = Beam(summoner, "lightning[rand(1,12)]", 'icons/effects/effects.dmi', time=INFINITY, maxdistance=INFINITY, beam_type=/obj/effect/ebeam/chain)
+		summonerchain = Beam(summoner, "lightning[rand(1,12)]", 'icons/effects/effects.dmi', time=INFINITY, maxdistance=INFINITY, beam_type=/obj/effect/ebeam/chain, beam_layer = LYING_MOB_LAYER)
 	while(loc != summoner)
 		if(successfulshocks > 5)
 			successfulshocks = 0
@@ -63,7 +59,7 @@
 	cleardeletedchains()
 	if(summoner)
 		if(!summonerchain)
-			summonerchain = Beam(summoner, "lightning[rand(1,12)]", 'icons/effects/effects.dmi', time=INFINITY, maxdistance=INFINITY, beam_type=/obj/effect/ebeam/chain)
+			summonerchain = Beam(summoner, "lightning[rand(1,12)]", 'icons/effects/effects.dmi', time=INFINITY, maxdistance=INFINITY, beam_type=/obj/effect/ebeam/chain, beam_layer = LYING_MOB_LAYER)
 		. += chainshock(summonerchain)
 	if(enemychains.len)
 		for(var/chain in enemychains)

@@ -126,9 +126,6 @@
 /// Whether a moth's wings are burnt
 #define STATUS_EFFECT_BURNT_WINGS /datum/status_effect/burnt_wings
 
-/// If a moth is in a cocoon
-#define STATUS_EFFECT_COCOONED /datum/status_effect/cocooned
-
 //human status effects
 // incapacitating
 #define STATUS_EFFECT_STUN /datum/status_effect/incapacitating/stun

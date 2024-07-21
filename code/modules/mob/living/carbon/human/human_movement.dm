@@ -1,6 +1,6 @@
-/mob/living/carbon/human/Moved(atom/OldLoc, Dir, Forced = FALSE)
+/mob/living/carbon/human/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
-	if(!Forced && (!OldLoc || !OldLoc.has_gravity()) && has_gravity())
+	if(!forced && (!old_loc || !old_loc.has_gravity()) && has_gravity())
 		thunk()
 
 
@@ -16,29 +16,15 @@
 	return considering
 
 
-/mob/living/carbon/human/Process_Spacemove(movement_dir = NONE)
-	. = ..()
-	if(.)
-		return .
-
-	var/list/jetpacks = list()
-
-	if(istype(back, /obj/item/tank/jetpack))
-		jetpacks += back
-
-	var/obj/item/clothing/suit/space/space_suit = wear_suit
-	if(istype(space_suit) && space_suit.jetpack)
-		jetpacks += space_suit.jetpack
-
-	for(var/obj/item/tank/jetpack/jetpack as anything in jetpacks)
-		if((movement_dir || jetpack.stabilizers) && jetpack.allow_thrust(0.01, src, should_leave_trail = movement_dir))
-			return TRUE
-
-	if(dna.species.spec_Process_Spacemove(src, movement_dir))
+/mob/living/carbon/human/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
+	if(movement_type & FLYING)
 		return TRUE
+	if(dna.species.spec_Process_Spacemove(src, movement_dir, continuous_move = FALSE))
+		return TRUE
+	return ..()
 
 
-/mob/living/carbon/human/Move(NewLoc, direct)
+/mob/living/carbon/human/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(.) // did we actually move?
 		if(body_position != LYING_DOWN && !buckled && !throwing)
@@ -57,11 +43,11 @@
 					playsound(src, "bonebreak", 10, TRUE)
 
 	if(!has_gravity())
-		return
+		return .
 
 	var/obj/item/clothing/shoes/S = shoes
 
-	if(S && body_position != LYING_DOWN && loc == NewLoc)
+	if(S && body_position != LYING_DOWN && loc == newloc)
 		SEND_SIGNAL(S, COMSIG_SHOES_STEP_ACTION)
 
 	//Bloody footprints
@@ -113,7 +99,7 @@
 	update_fractures_slowdown()
 
 
-/mob/living/carbon/human/set_usable_hands(new_value, special = ORGAN_MANIPULATION_DEFAULT)
+/mob/living/carbon/human/set_usable_hands(new_value, special = ORGAN_MANIPULATION_DEFAULT, hand_index)
 	. = ..()
 	if(isnull(.) || special != ORGAN_MANIPULATION_DEFAULT)
 		return .
@@ -186,7 +172,7 @@
 
 /// Proc used to inflict stamina damage when user is moving from no gravity to positive gravity.
 /mob/living/carbon/human/proc/thunk()
-	if(buckled || incorporeal_move || mob_negates_gravity())
+	if(buckled || incorporeal_move || body_position == LYING_DOWN || mob_negates_gravity())
 		return
 
 	if(dna?.species.spec_thunk(src)) //Species level thunk overrides
@@ -206,7 +192,7 @@
 	if(HAS_TRAIT(src, TRAIT_NO_SLIP_WATER) && !(lube_flags & SLIP_IGNORE_NO_SLIP_WATER))
 		return FALSE
 
-	if(HAS_TRAIT(src, TRAIT_NO_SLIP_ICE) && (lube_flags & (SLIDE_ICE|SLIDE)))
+	if(HAS_TRAIT(src, TRAIT_NO_SLIP_ICE) && (lube_flags & SLIDE_ICE))
 		return FALSE
 
 	return ..()

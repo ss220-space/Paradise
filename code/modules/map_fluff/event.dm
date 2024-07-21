@@ -37,5 +37,5 @@
 	dock_name     = "NAV Trurl"
 	company_name  = "Nanotrasen"
 	company_short = "NT"
-	starsys_name  = "Epsilon Eridani "
+	starsys_name  = "Epsilon Eridani"
 	admin_only = TRUE

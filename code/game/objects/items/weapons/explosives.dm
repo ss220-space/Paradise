@@ -20,6 +20,10 @@
 /obj/item/grenade/plastic/Initialize(mapload)
 	. = ..()
 	image_overlay = mutable_appearance('icons/obj/weapons/grenade.dmi', "[item_state]2")
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 
 /obj/item/grenade/plastic/Destroy()
@@ -31,23 +35,31 @@
 /obj/item/grenade/plastic/attackby(obj/item/I, mob/user, params)
 	if(!nadeassembly && istype(I, /obj/item/assembly_holder))
 		var/obj/item/assembly_holder/assembly_holder = I
+		if(!assembly_holder.secured)
+			to_chat(user, span_warning("[assembly_holder] must be secured first!"))
+			return
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		nadeassembly = assembly_holder
 		assembly_holder.master = src
 		assemblyattacher = user.ckey
-		to_chat(user, "<span class='notice'>You add [assembly_holder] to the [name].</span>")
+		to_chat(user, span_notice("You add [assembly_holder] to the [name]."))
 		playsound(src, 'sound/weapons/tap.ogg', 20, 1)
 		update_icon(UPDATE_ICON_STATE)
 		return
-	if(nadeassembly && I.tool_behaviour == TOOL_WIRECUTTER)
-		playsound(src, I.usesound, 20, 1)
-		nadeassembly.forceMove_turf()
-		nadeassembly.master = null
-		nadeassembly = null
-		update_icon(UPDATE_ICON_STATE)
-		return
-	..()
+	return ..()
+
+
+/obj/item/grenade/plastic/wirecutter_act(mob/living/user, obj/item/I)
+	if(!nadeassembly)
+		return FALSE
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return .
+	nadeassembly.forceMove_turf()
+	nadeassembly.master = null
+	nadeassembly = null
+	update_icon(UPDATE_ICON_STATE)
 
 
 //assembly stuff
@@ -55,9 +67,11 @@
 	prime()
 
 
-/obj/item/grenade/plastic/Crossed(atom/movable/AM, oldloc)
+/obj/item/grenade/plastic/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
 	if(nadeassembly)
-		nadeassembly.Crossed(AM, oldloc)
+		nadeassembly.assembly_crossed(arrived, old_loc)
 
 
 /obj/item/grenade/plastic/on_found(mob/finder)

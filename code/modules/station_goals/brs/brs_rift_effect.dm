@@ -3,7 +3,7 @@
 	desc = "Аномальное образование с неизвестными свойствами."
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "singularity_fog"
-	appearance_flags = 0
+	appearance_flags = LONG_GLIDE
 	layer = MASSIVE_OBJ_LAYER
 	invisibility = INVISIBILITY_ANOMALY
 	level = 1 // t-ray scaners show only things with level = 1

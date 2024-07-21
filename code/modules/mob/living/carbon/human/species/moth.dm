@@ -126,7 +126,7 @@
 		apply_damage(I.force * FLYSWATTER_DAMAGE_MULTIPLIER, I.damtype, affecting, FALSE, H) //making flyswatters do 10x damage to moff
 
 
-/datum/species/moth/spec_Process_Spacemove(mob/living/carbon/human/user, movement_dir)
+/datum/species/moth/spec_Process_Spacemove(mob/living/carbon/human/user, movement_dir, continuous_move = FALSE)
 	. = FALSE
 	var/turf/user_turf = get_turf(user)
 	if(!user_turf)
@@ -213,9 +213,7 @@
 	icon_state = pick("cocoon1", "cocoon2", "cocoon3")
 
 /obj/structure/moth/cocoon/Destroy()
-	if(!preparing_to_emerge)
-		visible_message("<span class='danger'>[src] splits open from within!</span>")
-	else
+	if(preparing_to_emerge)
 		visible_message("<span class='danger'>[src] is smashed open, harming the Nian within!</span>")
 		for(var/mob/living/carbon/human/H in contents)
 			H.forceMove(loc)
@@ -225,9 +223,11 @@
 			H.AdjustWeakened(10 SECONDS)
 		return ..()
 
+	visible_message("<span class='danger'>[src] splits open from within!</span>")
 	for(var/mob/living/carbon/human/H in contents)
 		H.forceMove(loc)
 		H.adjust_nutrition(COCOON_NUTRITION_AMOUNT)
+		H.remove_status_effect(STATUS_EFFECT_BURNT_WINGS)
 		REMOVE_TRAIT(H, TRAIT_KNOCKEDOUT, COCOONED_TRAIT)
 	return ..()
 
@@ -246,9 +246,6 @@
 	owner.UpdateAppearance()
 	return ..()
 
-/datum/status_effect/cocooned
-	id = "cocooned"
-	alert_type = null
 
 #undef COCOON_WEAVE_DELAY
 #undef COCOON_EMERGE_DELAY

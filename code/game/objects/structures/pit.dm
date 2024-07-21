@@ -182,7 +182,7 @@
 	desc = "You're not the first."
 	icon = 'icons/obj/pit.dmi'
 	icon_state = "wood"
-	layer = BELOW_OBJ_LAYER + 0.01
+	layer = BUTTONS_LAYER
 	pixel_x = 5
 	pixel_y = 8
 	anchored = TRUE

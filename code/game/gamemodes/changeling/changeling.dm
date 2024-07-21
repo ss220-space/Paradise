@@ -16,7 +16,7 @@
 	var/list/datum/mind/pre_changelings = list()
 
 
-/datum/game_mode/changeling/Destroy(force, ...)
+/datum/game_mode/changeling/Destroy(force)
 	pre_changelings.Cut()
 	return ..()
 

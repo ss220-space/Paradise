@@ -80,16 +80,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/proc/can_approve(mob/user)
 	if(SSshuttle.points < cost)
-		to_chat(user, span_warning("There are insufficient supply points for this request."))
+		user.balloon_alert(user, "недостаточно очков поставок!")
 		return FALSE
 	if(credits_cost && SSshuttle.cargo_money_account.money < credits_cost)
-		to_chat(user, span_warning("There are not enough money on cargo account for this request."))
+		user.balloon_alert(user, "недостаточно денег на счету!")
 		return FALSE
 	if(!length(required_tech))
 		return TRUE
 	for(var/tech_id in required_tech)
 		if(!SSshuttle.techLevels[tech_id] || required_tech[tech_id] > SSshuttle.techLevels[tech_id])
-			to_chat(user, span_warning("You have not sent the necessary technological disks to Centcomm."))
+			user.balloon_alert(user, "повысьте уровни технологий!")
 			return FALSE
 	return TRUE
 
@@ -390,9 +390,9 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/security/baton
 	name = "Stun Batons Crate"
-	contains = list(/obj/item/melee/baton/loaded,
-					/obj/item/melee/baton/loaded,
-					/obj/item/melee/baton/loaded)
+	contains = list(/obj/item/melee/baton/security/loaded,
+					/obj/item/melee/baton/security/loaded,
+					/obj/item/melee/baton/security/loaded)
 	cost = 20
 	containername = "stun baton crate"
 
@@ -437,8 +437,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/security/telescopic
 	name = "Telescopic Baton Crate"
-	contains = list(/obj/item/melee/classic_baton/telescopic,
-					/obj/item/melee/classic_baton/telescopic)
+	contains = list(/obj/item/melee/baton/telescopic,
+					/obj/item/melee/baton/telescopic)
 	cost = 20
 	containername = "telescopic baton crate"
 
@@ -802,7 +802,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 				/obj/item/clothing/mask/gas/sechailer,
 				/obj/item/clothing/glasses/hud/security/sunglasses,
 				/obj/item/clothing/head/helmet,
-				/obj/item/melee/baton/loaded,
+				/obj/item/melee/baton/security/loaded,
 				/obj/item/clothing/suit/armor/secjacket)
 	cost = 40 // Convenience has a price and this pack is genuinely loaded
 	containername = "officer starter crate"
@@ -1374,12 +1374,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	required_tech = list("biotech" = 6, "combat" = 2)
 
 /datum/supply_packs/medical/cloning
-	name = "NanoTrasen Special Delivery Crate"
+	name = "NanoTrasen Experimental Cloning Machine Crate"
 	contains = list(/obj/item/circuitboard/clonepod,
 					/obj/item/circuitboard/cloning)
-	cost = 900
+	cost = 350
 	containertype = /obj/structure/closet/crate/secure
-	containername = "NanoTrasen special delivery crate"
+	containername = "NanoTrasen experimental cloning machine crate"
 	access = ACCESS_CMO
 	announce_beacons = list("Medbay" = list("Chief Medical Officer's Desk"))
 
@@ -2580,8 +2580,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/misc/mafia
 	name = "Mafia Supply Crate"
-	contains = list(/obj/item/clothing/suit/browntrenchcoat,
-					/obj/item/clothing/suit/blacktrenchcoat,
+	contains = list(/obj/item/clothing/suit/storage/browntrenchcoat,
+					/obj/item/clothing/suit/storage/blacktrenchcoat,
 					/obj/item/clothing/head/fedora/whitefedora,
 					/obj/item/clothing/head/fedora/brownfedora,
 					/obj/item/clothing/head/fedora,

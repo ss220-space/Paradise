@@ -25,6 +25,7 @@
 									"<span class='danger'>[user] is slitting [user.p_their()] throat with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>"))
 		return BRUTELOSS
 
+
 /obj/item/shard/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/caltrop, force)
@@ -41,6 +42,11 @@
 			pixel_y = rand(-5, 5)
 	if(icon_prefix)
 		icon_state = "[icon_prefix][icon_state]"
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /obj/item/shard/afterattack(atom/movable/AM, mob/user, proximity)
 	if(!proximity || !(src in user))
@@ -90,12 +96,15 @@
 		to_chat(user, span_notice("You add the newly-formed glass to the stack. It now contains [new_amount] sheet\s."))
 	qdel(src)
 
-/obj/item/shard/Crossed(mob/living/L, oldloc)
-	if(istype(L) && L.has_gravity())
-		if(L.incorporeal_move || (L.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
-			return
-		playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
-	return ..()
+
+/obj/item/shard/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(!isliving(arrived) || arrived.incorporeal_move || (arrived.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
+		return
+
+	playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
+
 
 /obj/item/shard/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	C.stored_comms["glass"] += 3

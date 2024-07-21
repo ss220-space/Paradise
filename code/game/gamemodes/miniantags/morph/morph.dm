@@ -156,7 +156,7 @@
 	if(!istype(living))
 		return -ITEM_EAT_COST // Anything other than a tasty mob will make me sad ;(
 	var/gained_food = max(5, 10 * living.mob_size) // Tiny things are worth less
-	if(ishuman(living) && !ismonkeybasic(living))
+	if(ishuman(living) && !is_monkeybasic(living))
 		gained_food += 10 // Humans are extra tasty
 
 	return gained_food

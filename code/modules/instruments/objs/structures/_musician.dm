@@ -21,8 +21,11 @@
 /obj/structure/musician/ui_data(mob/user)
 	return song.ui_data(user)
 
-/obj/structure/musician/ui_interact(mob/user)
-	song.ui_interact(user)
+/obj/structure/musician/ui_state(mob/user)
+	return GLOB.physical_state
+
+/obj/structure/musician/ui_interact(mob/user, datum/tgui/ui = null)
+	song.ui_interact(user, ui)
 
 /obj/structure/musician/ui_act(action, params)
 	if(..())

@@ -52,11 +52,16 @@
 			/mob/living/simple_animal/mouse,
 			/mob/living/simple_animal/mouse/brown,
 			/mob/living/simple_animal/mouse/gray,
-			/mob/living/simple_animal/mouse/white)
+			/mob/living/simple_animal/mouse/white,
+			/mob/living/simple_animal/mouse/blobinfected)
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/squeak, list("[squeak_sound]" = 1), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a mouse or whatever
+	AddComponent(/datum/component/squeak, list(squeak_sound), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE, dead_check = TRUE) //as quiet as a mouse or whatever
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability) && isturf(loc))
@@ -140,19 +145,24 @@
 			return
 	. = ..()
 
-/mob/living/simple_animal/mouse/pull_constraint(atom/movable/AM, show_message = FALSE) //Prevents mouse from pulling things
-	if(istype(AM, /obj/item/reagent_containers/food/snacks/cheesewedge))
+/mob/living/simple_animal/mouse/pull_constraint(atom/movable/pulled_atom, state, supress_message = FALSE) //Prevents mouse from pulling things
+	if(istype(pulled_atom, /obj/item/reagent_containers/food/snacks/cheesewedge))
 		return TRUE // Get dem
-	if(show_message)
-		to_chat(src, "<span class='warning'>You are too small to pull anything except cheese.</span>")
+	if(!supress_message)
+		to_chat(src, span_warning("You are too small to pull anything except cheese."))
 	return FALSE
 
-/mob/living/simple_animal/mouse/Crossed(AM as mob|obj, oldloc)
-	if(ishuman(AM))
-		if(!stat)
-			var/mob/M = AM
-			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
-	..()
+
+/mob/living/simple_animal/mouse/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	mouse_crossed(arrived)
+
+
+/mob/living/simple_animal/mouse/proc/mouse_crossed(atom/movable/arrived)
+	if(!stat && ishuman(arrived))
+		to_chat(arrived, span_notice("[bicon(src)] Squeek!"))
+
 
 /mob/living/simple_animal/mouse/ratvar_act()
 	new/mob/living/simple_animal/mouse/clockwork(loc)
@@ -237,6 +247,7 @@
 	audio_cooldown = 1 MINUTES
 	var/anim_type = SNIFF
 	volume = 1
+	emote_type = EMOTE_VISIBLE|EMOTE_FORCE_NO_RUNECHAT
 
 /datum/emote/living/simple_animal/mouse/idle/run_emote(mob/living/simple_animal/mouse/user, params, type_override, intentional)
 	INVOKE_ASYNC(user, TYPE_PROC_REF(/mob/living/simple_animal/mouse, do_idle_animation), anim_type)
@@ -305,46 +316,31 @@
 	var/cycles_limit = 60
 	var/has_burst = FALSE
 
-/mob/living/simple_animal/mouse/blobinfected/Life()
-	cycles_alive++
-	var/timeleft = (cycles_limit - cycles_alive) * 2
-	if(ismob(loc)) // if someone ate it, burst immediately
-		burst(FALSE)
-	else if(timeleft < 1) // if timer expired, burst.
-		burst(FALSE)
-	else if(cycles_alive % 2 == 0) // give the mouse/player a countdown reminder every 2 cycles
-		to_chat(src, "<span class='warning'>[timeleft] seconds until you burst, and become a blob...</span>")
-	return ..()
+/mob/living/simple_animal/mouse/blobinfected/Initialize(mapload)
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(get_mind)), MOUSE_REVOTE_TIME)
 
-/mob/living/simple_animal/mouse/blobinfected/death(gibbed)
-	burst(gibbed)
-	return ..(gibbed)
-
-/mob/living/simple_animal/mouse/blobinfected/proc/burst(gibbed)
-	if(has_burst)
-		return FALSE
-	var/turf/T = get_turf(src)
-	if(!is_station_level(T.z) || isspaceturf(T))
-		to_chat(src, "<span class='userdanger'>You feel ready to burst, but this isn't an appropriate place!  You must return to the station!</span>")
-		return FALSE
-	has_burst = TRUE
-	var/datum/mind/blobmind = mind
-	var/client/C = client
-	if(istype(blobmind) && istype(C))
-		blobmind.special_role = SPECIAL_ROLE_BLOB
-		var/obj/structure/blob/core/core = new(T, 200, C, 3)
-		core.lateblobtimer()
-	else
-		new /obj/structure/blob/core(T) // Ghosts will be prompted to control it.
-	if(ismob(loc)) // in case some taj/etc ate the mouse.
-		var/mob/M = loc
-		M.gib()
-	if(!gibbed)
-		gib()
 
 /mob/living/simple_animal/mouse/blobinfected/get_scooped(mob/living/carbon/grabber)
 	to_chat(grabber, "<span class='warning'>You try to pick up [src], but they slip out of your grasp!</span>")
 	to_chat(src, "<span class='warning'>[src] tries to pick you up, but you wriggle free of their grasp!</span>")
+
+/mob/living/simple_animal/mouse/blobinfected/proc/get_mind()
+	if(mind || !SSticker || !SSticker.mode)
+		return
+	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за мышь, зараженную Блобом?", ROLE_BLOB, TRUE, source = /mob/living/simple_animal/mouse/blobinfected)
+	if(!length(candidates))
+		log_and_message_admins("There were no players willing to play as a mouse infected with a blob.")
+		return
+	var/mob/M = pick(candidates)
+	key = M.key
+	var/datum/antagonist/blob_infected/blob_datum = new
+	blob_datum.time_to_burst_hight = TIME_TO_BURST_MOUSE_HIGHT
+	blob_datum.time_to_burst_low = TIME_TO_BURST_MOUSE_LOW
+	mind.add_antag_datum(blob_datum)
+	to_chat(src, span_userdanger("Теперь вы мышь, заражённая спорами Блоба. Найдите какое-нибудь укромное место до того, как вы взорветесь и станете Блобом! Вы можете перемещаться по вентиляции, нажав Alt+ЛКМ на вентиляционном отверстии."))
+	log_game("[key] has become blob infested mouse.")
+	notify_ghosts("Заражённая мышь появилась в [get_area(src)].", source = src, action = NOTIFY_FOLLOW)
 
 /mob/living/simple_animal/mouse/fluff/clockwork
 	name = "Chip"
@@ -463,7 +459,7 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 		GLOB.hamster_count--
 	. = ..()
 
-/mob/living/simple_animal/mouse/hamster/pull_constraint(atom/movable/AM, show_message = FALSE)
+/mob/living/simple_animal/mouse/hamster/pull_constraint(atom/movable/pulled_atom, state, supress_message = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/mouse/hamster/Life(seconds, times_fired)
@@ -490,9 +486,10 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 	holder_type = /obj/item/holder/hamster
 
 
-/mob/living/simple_animal/mouse/hamster/baby/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
-	if(show_message)
+/mob/living/simple_animal/mouse/hamster/baby/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
+	if(!supress_message)
 		to_chat(src, span_warning("Вы слишком малы чтобы что-то тащить."))
+	return FALSE
 
 
 /mob/living/simple_animal/mouse/hamster/baby/Life(seconds, times_fired)
@@ -505,14 +502,13 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 				mind.transfer_to(A)
 			qdel(src)
 
-/mob/living/simple_animal/mouse/hamster/baby/Crossed(AM as mob|obj, oldloc)
-	if(ishuman(AM))
-		if(!stat)
-			var/mob/M = AM
-			to_chat(M, "<span class='notice'>[bicon(src)] раздавлен!</span>")
-			death()
-			splat(user = AM)
-	..()
+
+/mob/living/simple_animal/mouse/hamster/baby/mouse_crossed(atom/movable/arrived)
+	if(!stat && ishuman(arrived))
+		to_chat(arrived, span_notice("[bicon(src)] раздавл[genderize_ru(gender, "ен", "на", "но")]!"))
+		death()
+		splat(user = arrived)
+
 
 #undef SNIFF
 #undef SHAKE

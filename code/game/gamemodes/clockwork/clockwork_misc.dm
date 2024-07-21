@@ -5,7 +5,7 @@
 	icon = 'icons/obj/lavaland/dead_ratvar.dmi'
 	icon_state = "dead_ratvar"
 	flags = ON_BORDER
-	appearance_flags = 0
+	appearance_flags = LONG_GLIDE
 	layer = FLY_LAYER
 	anchored = TRUE
 	density = TRUE
@@ -46,9 +46,10 @@
 /obj/effect/clockwork/overlay/wall
 	name = "clockwork wall"
 	icon = 'icons/turf/walls/clockwork_wall.dmi'
-	icon_state = "clockwork_wall"
-	canSmoothWith = list(/obj/effect/clockwork/overlay/wall, /obj/structure/falsewall/brass)
-	smooth = SMOOTH_TRUE
+	icon_state = "clockwork_wall-0"
+	base_icon_state = "clockwork_wall"
+	canSmoothWith = SMOOTH_GROUP_WALLS
+	smooth = SMOOTH_BITMASK
 	layer = CLOSED_TURF_LAYER
 
 /obj/effect/clockwork/overlay/wall/Initialize(mapload)

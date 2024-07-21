@@ -9,6 +9,7 @@
 #define ALERT_LEGCUFFED "legcuffed"
 #define ALERT_EMBEDDED "embedded"
 #define ALERT_NUTRITION "nutrition"
+#define ALERT_DIRECTION_LOCK "direction_lock"
 
 /** Silicon related */
 #define ALERT_LOCKED "locked"

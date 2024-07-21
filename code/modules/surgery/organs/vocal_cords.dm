@@ -397,6 +397,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 		for(var/mob/living/listener as anything in listeners)
 			listener.SetStunned(0)
 			listener.SetWeakened(0)
+			listener.SetKnockdown(0)
 			listener.SetParalysis(0) //i said get up i don't care if you're being tazed
 			listener.set_resting(FALSE, instant = TRUE)
 			listener.get_up(instant = TRUE)

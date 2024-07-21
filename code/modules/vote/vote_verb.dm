@@ -7,6 +7,12 @@
 	else
 		to_chat(usr, "There is no active vote")
 
+/mob/proc/immediate_vote()
+	if(SSvote.active_vote)
+		SSvote.active_vote.ui_interact(src)
+	else
+		to_chat(src, "There is no active vote")
+
 /client/proc/start_vote()
 	set category = "Admin"
 	set name = "Start Vote"

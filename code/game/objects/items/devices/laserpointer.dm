@@ -55,9 +55,9 @@
 		if(!diode)
 			user.drop_transfer_item_to_loc(W, src)
 			diode = W
-			to_chat(user, "<span class='notice'>You install a [diode.name] in [src].</span>")
+			user.balloon_alert(user, "установлено")
 		else
-			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
+			user.balloon_alert(user, "уже установлено!")
 		return
 
 	return ..()
@@ -65,7 +65,7 @@
 /obj/item/laser_pointer/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(diode)
-		to_chat(user, "<span class='notice'>You remove the [diode.name] from the [src].</span>")
+		user.balloon_alert(user, "микролазер извлечён")
 		diode.forceMove(get_turf(loc))
 		diode = null
 
@@ -78,16 +78,16 @@
 	if( !(user in (viewers(7,target))) )
 		return
 	if(!diode)
-		to_chat(user, "<span class='notice'>You point [src] at [target], but nothing happens!</span>")
+		user.balloon_alert(user, "не функционирует!")
 		return
 	if(!user.IsAdvancedToolUser())
-		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		user.balloon_alert(user, "вы недостаточно ловки!")
 		return
 	add_fingerprint(user)
 
 	//nothing happens if the battery is drained
 	if(recharge_locked)
-		to_chat(user, "<span class='notice'>You point [src] at [target], but it's still charging.</span>")
+		user.balloon_alert(user, "идёт перезарядка")
 		return
 
 	var/outmsg
@@ -99,45 +99,38 @@
 		if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
 			add_attack_logs(user, C, "Shone a laser in the eyes with [src]")
 
-			var/severity = 1
-			if(prob(33))
-				severity = 2
-			else if(prob(50))
-				severity = 0
-
 			//20% chance to actually hit the eyes
-			if(prob(effectchance * diode.rating) && C.flash_eyes(severity))
-				outmsg = "<span class='notice'>You blind [C] by shining [src] in [C.p_their()] eyes.</span>"
+			if(prob(effectchance * diode.rating) && C.flash_eyes(intensity = rand(0, 2)))
+				outmsg = span_notice("You blind [C] by shining [src] in [C.p_their()] eyes.")
 				if(C.weakeyes)
 					C.Stun(2 SECONDS)
 			else
-				outmsg = "<span class='warning'>You fail to blind [C] by shining [src] at [C.p_their()] eyes!</span>"
+				outmsg = span_warning("You fail to blind [C] by shining [src] at [C.p_their()] eyes!")
 
 	//robots and AI
 	else if(issilicon(target))
 		var/mob/living/silicon/S = target
 		//20% chance to actually hit the sensors
-		if(prob(effectchance * diode.rating))
-			S.flash_eyes(affect_silicon = 1)
+		if(prob(effectchance * diode.rating) && S.flash_eyes(affect_silicon = TRUE))
 			S.Weaken(rand(10 SECONDS, 20 SECONDS))
-			to_chat(S, "<span class='warning'>Your sensors were overloaded by a laser!</span>")
-			outmsg = "<span class='notice'>You overload [S] by shining [src] at [S.p_their()] sensors.</span>"
+			to_chat(S, span_warning("Your sensors were overloaded by a [src]!"))
+			outmsg = span_notice("You overload [S] by shining [src] at [S.p_their()] sensors.")
 
 			add_attack_logs(user, S, "shone [src] in their eyes")
 		else
-			outmsg = "<span class='notice'>You fail to overload [S] by shining [src] at [S.p_their()] sensors.</span>"
+			outmsg = span_notice("You fail to overload [S] by shining [src] at [S.p_their()] sensors.")
 
 	//cameras
 	else if(istype(target, /obj/machinery/camera))
 		var/obj/machinery/camera/C = target
 		if(prob(effectchance * diode.rating))
 			C.emp_act(1)
-			outmsg = "<span class='notice'>You hit the lens of [C] with [src], temporarily disabling the camera!</span>"
+			outmsg = span_notice("You hit the lens of [C] with [src], temporarily disabling the camera!")
 
 			log_admin("[key_name(user)] EMPd a camera with a laser pointer")
 			add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
 		else
-			outmsg = "<span class='info'>You missed the lens of [C] with [src].</span>"
+			outmsg = span_info("You missed the lens of [C] with [src].")
 
 	//laser pointer image
 	is_pointing = TRUE

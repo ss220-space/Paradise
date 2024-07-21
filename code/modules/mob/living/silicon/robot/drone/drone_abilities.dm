@@ -19,8 +19,6 @@
 		to_chat(src, "<span class='notice'>\The [D] acknowledges your signal.</span>")
 		D.flush_count = D.flush_every_ticks
 
-	return
-
 
 /mob/living/silicon/robot/drone/verb/hide()
 	set name = "Hide"

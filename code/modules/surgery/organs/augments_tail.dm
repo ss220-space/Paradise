@@ -95,7 +95,7 @@
 	implant_ability.Remove(owner)
 	. = ..()
 
-/obj/item/organ/internal/cyberimp/tail/blade/ui_action_click(mob/user, actiontype, leftclick)
+/obj/item/organ/internal/cyberimp/tail/blade/ui_action_click(mob/user, action, leftclick)
 
 	if(implant_emp_downtime) // 100 sec cooldown after EMP
 		to_chat(owner, span_warning("Ваш имплант всё ещё перегружен после ЭМИ!"))

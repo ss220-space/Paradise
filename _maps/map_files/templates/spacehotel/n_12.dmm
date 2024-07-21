@@ -103,12 +103,12 @@
 /turf/simulated/wall/indestructible/metal,
 /area/template_noop)
 "p" = (
-/obj/effect/view_portal/visual{
-	dist = 0;
-	id = "poolland";
-	radius = 0
-	},
 /obj/machinery/light/small,
+/obj/effect/visual_portal{
+	id = "poolland";
+	radius = 0;
+	distance = 0
+	},
 /turf/simulated/floor/indestructible{
 	icon_state = "freezerfloor";
 	opacity = 1

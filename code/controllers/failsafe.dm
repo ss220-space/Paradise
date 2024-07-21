@@ -43,10 +43,10 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 				break
 			else if(defcon == 1) //Exit Failsafe if we weren't able to recover the MC in the last stage
 				log_game("FailSafe: Failed to recover MC while in emergency state. Failsafe exiting.")
-				message_admins("<span class='boldannounce'>Failsafe failed criticaly while trying to recreate broken MC. Please manually fix the MC or reboot the server. Failsafe exiting now.</span>")
-				message_admins("<span class='boldannounce'>You can try manually calling these two procs:.</span>")
-				message_admins("<span class='boldannounce'><code>/proc/recover_all_SS_and_recreate_master</code>: Most stuff should still function but expect instability/runtimes/broken stuff.</span>")
-				message_admins("<span class='boldannounce'><code>/proc/delete_all_SS_and_recreate_master</code>: Most stuff will be broken but basic stuff like movement and chat should still work.</span>")
+				message_admins(span_boldannounceooc("Failsafe failed criticaly while trying to recreate broken MC. Please manually fix the MC or reboot the server. Failsafe exiting now."))
+				message_admins(span_boldannounceooc("You can try manually calling these two procs:."))
+				message_admins(span_boldannounceooc("<code>/proc/recover_all_SS_and_recreate_master</code>: Most stuff should still function but expect instability/runtimes/broken stuff."))
+				message_admins(span_boldannounceooc("<code>/proc/delete_all_SS_and_recreate_master</code>: Most stuff will be broken but basic stuff like movement and chat should still work."))
 			else if(recovery_result == -1) //Failed to recreate MC
 				defcon--
 			sleep(initial(processing_interval)) //Wait a bit until the next try
@@ -81,11 +81,11 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 							--defcon
 
 						if(2)
-							to_chat(GLOB.admins, "<span class='boldannounce'>Warning: DEFCON [defcon_pretty()]. The Master Controller has not fired in the last [(5 - defcon) * processing_interval] ticks. Automatic restart in [processing_interval] ticks.</span>")
+							to_chat(GLOB.admins, span_boldannounceooc("Warning: DEFCON [defcon_pretty()]. The Master Controller has not fired in the last [(5 - defcon) * processing_interval] ticks. Automatic restart in [processing_interval] ticks."))
 							--defcon
 
 						if(1)
-							to_chat(GLOB.admins, "<span class='boldannounce'>Warning: DEFCON [defcon_pretty()]. The Master Controller has still not fired within the last [(5 - defcon) * processing_interval] ticks. Killing and restarting...</span>")
+							to_chat(GLOB.admins, span_boldannounceooc("Warning: DEFCON [defcon_pretty()]. The Master Controller has still not fired within the last [(5 - defcon) * processing_interval] ticks. Killing and restarting..."))
 							--defcon
 							var/rtn = Recreate_MC()
 							if(rtn > 0)
@@ -94,7 +94,7 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 								to_chat(GLOB.admins, "<span class='adminnotice'>MC restarted successfully</span>")
 							else if(rtn < 0)
 								log_game("FailSafe: Could not restart MC, runtime encountered. Entering defcon 0")
-								to_chat(GLOB.admins, "<span class='boldannounce'>ERROR: DEFCON [defcon_pretty()]. Could not restart MC, runtime encountered. I will silently keep retrying.</span>")
+								to_chat(GLOB.admins, span_boldannounceooc("ERROR: DEFCON [defcon_pretty()]. Could not restart MC, runtime encountered. I will silently keep retrying."))
 							//if the return number was 0, it just means the mc was restarted too recently, and it just needs some time before we try again
 							//no need to handle that specially when defcon 0 can handle it
 
@@ -136,7 +136,7 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 		to_chat(GLOB.admins, "<span class='adminnotice'>Failsafe recovered MC while in emergency state [defcon_pretty()]</span>")
 	else
 		log_game("FailSafe: Failsafe in emergency state and was unable to recreate MC while in defcon state [defcon_pretty()].")
-		message_admins("<span class='boldannounce'>Failsafe in emergency state and master down, trying to recreate MC while in defcon level [defcon_pretty()] failed.</span>")
+		message_admins(span_boldannounceooc("Failsafe in emergency state and master down, trying to recreate MC while in defcon level [defcon_pretty()] failed."))
 
 
 ///Recreate all SSs which will still cause data survive due to Recover(), the new Master will then find and take them from global.vars
@@ -155,7 +155,7 @@ GLOBAL_REAL(Failsafe, /datum/controller/failsafe)
 		Master.Initialize(10, FALSE, TRUE) //Need to manually start the MC, normally world.new would do this
 		to_chat(GLOB.admins, "<span class='boldnotice'>MC successfully recreated after recovering all subsystems!</span>")
 	else
-		message_admins("<span class='boldannounce'>Failed to create new MC!</span>")
+		message_admins(span_boldannounceooc("Failed to create new MC!"))
 
 
 /datum/controller/failsafe/proc/defcon_pretty()

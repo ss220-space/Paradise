@@ -35,7 +35,7 @@
 		/datum/goon_vampire_passive/full = 500)
 
 
-/datum/antagonist/goon_vampire/Destroy(force, ...)
+/datum/antagonist/goon_vampire/Destroy(force)
 	owner.current.create_log(CONVERSION_LOG, "De-goon-vampired")
 	draining = null
 	return ..()

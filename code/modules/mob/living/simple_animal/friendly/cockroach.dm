@@ -23,21 +23,40 @@
 	del_on_death = 1
 	tts_seed = "Villagerm"
 
-/mob/living/simple_animal/cockroach/can_die()
-	return ..() && !SSticker?.mode?.explosion_in_progress //If the nuke is going off, then cockroaches are invincible. Keeps the nuke from killing them, cause cockroaches are immune to nukes.
 
-/mob/living/simple_animal/cockroach/Crossed(var/atom/movable/AM, oldloc)
-	if(isliving(AM))
-		var/mob/living/A = AM
-		if(A.mob_size > MOB_SIZE_SMALL)
+/mob/living/simple_animal/cockroach/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
+/mob/living/simple_animal/cockroach/can_die()
+	// If the nuke is going off, then cockroaches are invincible.
+	// Keeps the nuke from killing them, cause cockroaches are immune to nukes.
+	return ..() && !SSticker?.mode?.explosion_in_progress
+
+
+/mob/living/simple_animal/cockroach/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(isliving(arrived))
+		var/mob/living/arrived_mob = arrived
+		if(arrived_mob.mob_size > MOB_SIZE_SMALL)
 			if(prob(squish_chance))
-				A.visible_message("<span class='notice'>\The [A] squashed \the [name].</span>", "<span class='notice'>You squashed \the [name].</span>")
+				arrived_mob.visible_message(
+					span_notice("[arrived_mob] squashed [name]."),
+					span_notice("You squashed [name]."),
+				)
 				death()
 			else
-				visible_message("<span class='notice'>\The [name] avoids getting crushed.</span>")
-	else if(isstructure(AM))
-		visible_message("<span class='notice'>As \the [AM] moved over \the [name], it was crushed.</span>")
+				visible_message(span_notice("[name] avoids getting crushed."))
+
+	else if(isstructure(arrived))
+		visible_message(span_notice("As [arrived.name] moved over [name], it was crushed."))
 		death()
+
 
 /mob/living/simple_animal/cockroach/ex_act() //Explosions are a terrible way to handle a cockroach.
 	return

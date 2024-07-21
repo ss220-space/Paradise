@@ -29,9 +29,22 @@
 	var/resetTime = 15
 	var/cloneMode = FALSE
 	var/cloneCount = 0
+	/// The distance to your rnd console. Useful for creative mapping.
+	var/console_dist = 3
 	var/list/item_reactions = list()
 	var/list/valid_items = list() //valid items for special reactions like transforming
 	var/list/critical_items = list() //items that can cause critical reactions
+
+
+/obj/machinery/r_n_d/experimentor/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+
+/obj/machinery/r_n_d/experimentor/LateInitialize()
+	. = ..()
+	console_connect()
+
 
 /obj/machinery/r_n_d/experimentor/proc/ConvertReqString2List(list/source_list)
 	var/list/temp_list = params2list(source_list)
@@ -547,6 +560,12 @@
 	update_icon(UPDATE_ICON_STATE)
 
 
+/obj/machinery/r_n_d/experimentor/proc/console_connect()
+	var/obj/machinery/computer/rdconsole/D = locate(/obj/machinery/computer/rdconsole) in oview(console_dist, src)
+	if(D)
+		linked_console = D
+
+
 /obj/machinery/r_n_d/experimentor/Topic(href, href_list)
 	if(..())
 		return
@@ -559,9 +578,7 @@
 		usr << browse(null, "window=experimentor")
 		return
 	else if(scantype == "search")
-		var/obj/machinery/computer/rdconsole/D = locate(/obj/machinery/computer/rdconsole) in oview(3,src)
-		if(D)
-			linked_console = D
+		console_connect()
 	else if(scantype == "eject")
 		ejectItem()
 	else if(scantype == "refresh")

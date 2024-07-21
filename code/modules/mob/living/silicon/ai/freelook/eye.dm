@@ -51,8 +51,8 @@
 		var/obj/machinery/hologram/holopad/H = ai.current
 		H.move_hologram(ai, destination)
 
-/mob/camera/aiEye/Move()
-	return 0
+/mob/camera/aiEye/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
+	return FALSE
 
 /mob/camera/aiEye/zMove(dir, turf/target, z_move_flags = NONE, recursions_left = 1, list/falling_movs)
 	. = ..()

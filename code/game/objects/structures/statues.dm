@@ -222,7 +222,7 @@
 
 /obj/structure/statue/bananium/Bumped(atom/movable/moving_atom)
 	honk()
-	..()
+	. = ..()
 
 /obj/structure/statue/bananium/attackby(obj/item/W, mob/user, params)
 	honk()

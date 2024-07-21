@@ -85,7 +85,7 @@
 	else
 		M.LAssailant = user
 
-	if(!ishuman(user) || ismonkeybasic(user))
+	if(!ishuman(user) || is_monkeybasic(user))
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
 	if(!user.mind || !user.mind.isholy)

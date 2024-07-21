@@ -33,7 +33,8 @@
 	else if(iscogscarab(speaker))
 		jobname = "Unknown"
 	else if(isrobot(speaker))
-		jobname = JOB_TITLE_CYBORG
+		var/mob/living/silicon/robot/R = speaker
+		jobname = R.mind.role_alt_title ? R.mind.role_alt_title : JOB_TITLE_CYBORG
 	else if(ispAI(speaker))
 		jobname = "Personal AI"
 	else if(isAutoAnnouncer(speaker))

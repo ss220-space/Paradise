@@ -137,10 +137,9 @@
 		user.stop_pulling()
 		return
 
-	victim.forceMove(holder)
 	victim.emote("scream")
+	victim.forceMove(holder)
 	enter_point.visible_message(span_warning("<b>[user] drags [victim] into [enter_point]!</b>"))
-	user.stop_pulling()
 	to_chat(user, "<b>You begin to feast on [victim]. You can not move while you are doing this.</b>")
 	enter_point.visible_message(span_warning("<B>Loud eating sounds come from the blood...</b>"))
 	var/sound
@@ -209,9 +208,10 @@
 	var/turf/mobloc = get_turf(user)
 	sink_animation(enter_point, user)
 	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(mobloc)
+	var/victim = user.pulling
 	user.forceMove(holder)
 	user.ExtinguishMob()
-	handle_consumption(user, user.pulling, enter_point, holder)
+	handle_consumption(user, victim, enter_point, holder)
 	post_phase_in(user, holder)
 
 

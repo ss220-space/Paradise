@@ -101,7 +101,7 @@
 	usr.show_message(t, 1)
 
 
-/mob/proc/show_message(msg, type, alt, alt_type)
+/mob/proc/show_message(msg, type, alt, alt_type, chat_message_type)
 
 	if(!client)
 		return
@@ -123,9 +123,9 @@
 
 	// Added voice muffling for Issue 41.
 	if(stat == UNCONSCIOUS)
-		to_chat(src, "<I>…Вам почти удаётся расслышать чьи-то слова…</I>")
+		to_chat(src, "<I>…Вам почти удаётся расслышать чьи-то слова…</I>", MESSAGE_TYPE_LOCALCHAT)
 	else
-		to_chat(src, msg)
+		to_chat(src, msg, chat_message_type)
 
 
 // Show a message to all mobs in sight of this one
@@ -133,7 +133,7 @@
 // message is the message output to anyone who can see e.g. "[src] does something!"
 // self_message (optional) is what the src mob sees  e.g. "You do something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
-/mob/visible_message(message, self_message, blind_message, list/ignored_mobs)
+/mob/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type)
 	if(!isturf(loc)) // mobs inside objects (such as lockers) shouldn't have their actions visible to those outside the object
 		for(var/mob/mob as anything in (get_mobs_in_view(3, src, include_radio = FALSE) - ignored_mobs))
 			if(mob.see_invisible < invisibility)
@@ -145,7 +145,7 @@
 				if(!blind_message) // for some reason VISIBLE action has blind_message param so if we are not in the same object but next to it, lets show it
 					continue
 				msg = blind_message
-			mob.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
+			mob.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE, chat_message_type)
 		return
 
 	for(var/mob/mob as anything in (get_mobs_in_view(7, src, include_radio = FALSE) - ignored_mobs))
@@ -154,7 +154,7 @@
 		var/msg = message
 		if(self_message && mob == src)
 			msg = self_message
-		mob.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
+		mob.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE, chat_message_type)
 
 
 // Show a message to all mobs in sight of this atom
@@ -353,42 +353,7 @@
 
 /mob/proc/run_examinate(atom/A)
 	var/list/result = A.examine(src)
-	to_chat(src, chat_box_examine(result.Join("\n")))
-
-
-/mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
-	if((!( istype(l_hand, /obj/item/grab) ) && !( istype(r_hand, /obj/item/grab) )))
-		if(!( L ))
-			return null
-		else
-			return L.container
-	else
-		if(!( L ))
-			L = new /obj/effect/list_container/mobl( null )
-			L.container += src
-			L.master = src
-		if(istype(l_hand, /obj/item/grab))
-			var/obj/item/grab/G = l_hand
-			if(!( L.container.Find(G.affecting) ))
-				L.container += G.affecting
-				if(G.affecting)
-					G.affecting.ret_grab(L, 1)
-		if(istype(r_hand, /obj/item/grab))
-			var/obj/item/grab/G = r_hand
-			if(!( L.container.Find(G.affecting) ))
-				L.container += G.affecting
-				if(G.affecting)
-					G.affecting.ret_grab(L, 1)
-		if(!( flag ))
-			if(L.master == src)
-				var/list/temp = list(  )
-				temp += L.container
-				//L = null
-				qdel(L)
-				return temp
-			else
-				return L.container
-	return
+	to_chat(src, chat_box_examine(result.Join("\n")), MESSAGE_TYPE_INFO, confidential = TRUE)
 
 
 /mob/verb/mode()
@@ -405,22 +370,18 @@
 	var/obj/item/I = get_active_hand()
 	if(I)
 		I.attack_self(src)
-		update_inv_l_hand()
-		update_inv_r_hand()
+		update_inv_hands()
 		return
+
+	if(pulling && isliving(src))
+		var/mob/living/grabber = src
+		if(!isnull(grabber.pull_hand) && grabber.pull_hand != PULL_WITHOUT_HANDS)
+			if(grabber.next_move <= world.time && grabber.hand == grabber.pull_hand)
+				grabber.grab(pulling)
+			return
 
 	limb_attack_self()
 
-/*
-/mob/verb/dump_source()
-
-	var/master = "<PRE>"
-	for(var/t in typesof(/area))
-		master += text("[]\n", t)
-		//Foreach goto(26)
-	src << browse(master)
-	return
-*/
 
 /// Cleanup proc that's called when a mob loses a client, either through client destroy or logout
 /// Logout happens post client del, so we can't just copypaste this there. This keeps things clean and consistent

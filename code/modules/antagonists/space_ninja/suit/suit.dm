@@ -23,6 +23,7 @@
 	strip_delay = 12
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	flags_inv = HIDEGLOVES|HIDEJUMPSUIT|HIDETAIL
+	flags_inv_transparent = HIDEGLOVES|HIDEJUMPSUIT
 	actions = list()
 	action_icon = list()
 	action_icon_state = list()
@@ -382,12 +383,9 @@
 			if(disguise_active) // If chameleon is active.
 				used_power += s_acost
 			if(spirited) // If spirit form is active.
-				if(istype(ninja.r_hand, /obj/item/grab))
-					ninja.drop_item_ground(ninja.r_hand, force = TRUE)
+				if(ninja.pulling && ninja.grab_state > GRAB_PASSIVE)
 					to_chat(ninja, span_warning("You can't hold anyone that tight, when \"Spirit Form\" is active!"))
-				if(istype(ninja.l_hand, /obj/item/grab))
-					ninja.drop_item_ground(ninja.l_hand, force = TRUE)
-					to_chat(ninja, span_warning("You can't hold anyone that tight, when \"Spirit Form\" is active!"))
+					ninja.stop_pulling()
 				used_power += cell.maxcharge * s_spirit_form__percent_cost //that shit is NOT cheap
 			if(cell.charge < used_power) // Проверка на случай когда он не может отнять энергию до нуля и в итоге вечно торчит в инвизе/форме духа/хамелионе
 				cell.charge = 0
@@ -403,18 +401,18 @@
 
 	ninja.adjust_bodytemperature(BODYTEMP_NORMAL - ninja.bodytemperature)
 
-/obj/item/clothing/suit/space/space_ninja/ui_action_click(mob/ninja, action)
+/obj/item/clothing/suit/space/space_ninja/ui_action_click(mob/ninja, datum/action/action)
 	if(!isninja(ninja) && !anyone)
 		to_chat(ninja, span_danger("<B>fÄTaL ÈÈRRoR</B>: 382200-*#00CÖDE <B>RED</B>\nUNAUHORIZED USÈ DETÈCeD\nCoMMÈNCING SUB-R0UIN3 13...\nTÈRMInATING U-U-USÈR..."))
 		ninja.dust()
 		return FALSE
-	if(action == /datum/action/item_action/advanced/ninja/SpiderOS)
+	if(istype(action, /datum/action/item_action/advanced/ninja/SpiderOS))
 		ui_interact(ninja)
 		return TRUE
 	if(!s_initialized)
 		to_chat(ninja, span_warning("<b>ERROR</b>: suit offline. Please activate suit."))
 		return FALSE
-	switch(action)
+	switch(action.type)
 		if(/datum/action/item_action/advanced/ninja/ninja_autodust)
 			ninja_toggle_autodust()
 			return TRUE
@@ -651,9 +649,9 @@
 /obj/item/clothing/suit/space/space_ninja/proc/toggle_ninja_nodrop(obj/item/ninja_clothing)
 	var/prev_has = HAS_TRAIT_FROM(ninja_clothing, TRAIT_NODROP, NINJA_TRAIT)
 	if(prev_has)
-		REMOVE_TRAIT(src, TRAIT_NODROP, NINJA_TRAIT)
+		REMOVE_TRAIT(ninja_clothing, TRAIT_NODROP, NINJA_TRAIT)
 	else
-		ADD_TRAIT(src, TRAIT_NODROP, NINJA_TRAIT)
+		ADD_TRAIT(ninja_clothing, TRAIT_NODROP, NINJA_TRAIT)
 	current_initialisation_text = "[prev_has ? "Разблокировка" : "Блокировка"]: [ninja_clothing.name]... Успех"
 	playsound(ninja_clothing.loc, 'sound/items/piston.ogg', 10, TRUE)
 	sleep(10)

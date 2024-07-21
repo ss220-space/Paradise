@@ -128,7 +128,7 @@
 
 
 /mob/living/carbon/alien/check_eye_prot()
-	return 2
+	return FLASH_PROTECTION_WELDER
 
 /mob/living/carbon/alien/handle_environment(var/datum/gas_mixture/environment)
 

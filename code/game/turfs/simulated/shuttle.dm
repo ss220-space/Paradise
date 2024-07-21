@@ -2,15 +2,13 @@
 	name = "wall"
 	desc = "A light-weight titanium wall used in shuttles."
 	icon = 'icons/turf/walls/shuttle/shuttle_wall.dmi'
-	icon_state = "shuttle"
+	icon_state = "shuttle-0"
+	base_icon_state = "shuttle"
 	explosion_block = 3
 	explosion_vertical_block = 2
-	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
-	canSmoothWith = list(
-		/turf/simulated/wall/shuttle, /obj/machinery/door/airlock/shuttle,
-		/obj/structure/window/full/shuttle, /obj/machinery/door/airlock,
-		/obj/structure/shuttle/engine, /obj/structure/filler,
-		/obj/structure/lattice/catwalk, /obj/structure/falsewall/titanium)
+	smooth = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
+	smoothing_groups = SMOOTH_GROUP_SHUTTLE_PARTS + SMOOTH_GROUP_TITANIUM_WALLS + SMOOTH_GROUP_PLASTITANIUM_WALLS
+	canSmoothWith = SMOOTH_GROUP_SHUTTLE_PARTS + SMOOTH_GROUP_AIRLOCK + SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE + SMOOTH_GROUP_FILLER + SMOOTH_GROUP_TITANIUM_WALLS + SMOOTH_GROUP_PLASTITANIUM_WALLS + SMOOTH_GROUP_TRANSPARENT_FLOOR
 	thermal_conductivity = 0.05
 	heat_capacity = 0
 
@@ -66,32 +64,22 @@
 	return
 
 /turf/simulated/wall/shuttle/nodiagonal
-	smooth = SMOOTH_MORE
-	icon_state = "shuttle_nd"
+	icon_state = "shuttle-15"
 
 /turf/simulated/wall/shuttle/nosmooth
 	icon_state = "shuttle_ns"
-	smooth = SMOOTH_FALSE
+	smooth = NONE
 
 /turf/simulated/wall/shuttle/onlyselfsmooth
-	icon_state = "shuttle_ss"
-	canSmoothWith = list(/turf/simulated/wall/shuttle)
+	canSmoothWith = SMOOTH_GROUP_SHUTTLE_PARTS
 
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal
-	smooth = SMOOTH_MORE
-	icon_state = "shuttle_ndss"
+	icon_state = "shuttle-15"
 
 /turf/simulated/wall/shuttle/overspace
 	icon_state = "overspace"
 	fixed_underlay = list("space"=1)
 
-/turf/simulated/wall/shuttle/Initialize()
-	..()
-	var/obj/O
-	O = new()
-	O.underlays.Add(src)
-	underlays = O.underlays
-	qdel(O)
 
 /turf/simulated/wall/shuttle/copyTurf(turf/T)
 	. = ..()
@@ -180,6 +168,7 @@
 /turf/simulated/floor/shuttle/transparent_floor
 	icon_state = "transparent"
 	transparent_floor = TURF_TRANSPARENT
+	smoothing_groups = SMOOTH_GROUP_TRANSPARENT_FLOOR
 
 /turf/simulated/floor/shuttle/transparent_floor/Initialize()
 	..()
