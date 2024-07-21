@@ -67,7 +67,7 @@
 	if(. && !isertmindshielded(user) && !emagged)
 		balloon_alert(usr, "имплант \"ERT Mindshield\" не обнаружен!")
 		return FALSE
-	else if(. && emagged && (isertmindshielded(user) || ismindshielded(user)))
+	else if(. && emagged && ismindshielded(user))
 		balloon_alert(usr, "имплант защиты разума обнаружен. Самоликвидация.")
 		var/turf/T = get_turf(src.loc)
 		user.show_message(span_danger("[src] has been exploded!"))
