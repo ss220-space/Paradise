@@ -70,21 +70,21 @@
 			qdel(gun)
 			var/obj/item/gun/energy/kinetic_accelerator/mega/newgun = new(get_turf(user))
 			user.put_in_hands(newgun)
-			to_chat(user, span_notice("Harsh tendrils wraps around the kinetic accelerator, merging the parts and kinetic accelerator to form a mega kinetic accelerator."))
+			balloon_alert(user, "КА улучшено!")
 			qdel(src)
 		if(/obj/item/gun/energy/plasmacutter/adv)
 			var/obj/item/gun/energy/plasmacutter/adv/gun = target
 			qdel(gun)
 			var/obj/item/gun/energy/plasmacutter/adv/mega/newgun = new(get_turf(user))
 			user.put_in_hands(newgun)
-			to_chat(user,span_notice("Harsh tendrils wraps around the plasma cutter, merging the parts and cutter to form a mega plasma cutter."))
+			balloon_alert(user, "резак улучшен!")
 			qdel(src)
 		if(/obj/item/gun/energy/plasmacutter/shotgun)
 			var/obj/item/gun/energy/plasmacutter/shotgun/gun = target
 			qdel(gun)
 			var/obj/item/gun/energy/plasmacutter/shotgun/mega/newgun = new(get_turf(user))
 			user.put_in_hands(newgun)
-			to_chat(user,span_notice("Harsh tendrils wraps around the plasma cutter shotgun, merging the parts and cutter to form a mega plasma cutter shotgun."))
+			balloon_alert(user, "веерный резак улучшен!")
 			qdel(src)
 		if(/obj/item/twohanded/kinetic_crusher) //sure hope there is a better way to do it..
 			var/obj/item/twohanded/kinetic_crusher/gun = target
@@ -94,7 +94,7 @@
 			qdel(gun)
 			var/obj/item/twohanded/kinetic_crusher/almost/newgun = new(get_turf(user))
 			user.put_in_hands(newgun)
-			to_chat(user,span_notice("Harsh tendrils wraps around the kinetic crusher, but there is not enough magmite to fully upgrade it! You need more magmite"))
+			balloon_alert(user, "Крашер улучшен!")
 			qdel(src)
 		if(/obj/item/twohanded/kinetic_crusher/almost)
 			var/obj/item/twohanded/kinetic_crusher/almost/gun = target
@@ -104,6 +104,6 @@
 			qdel(gun)
 			var/obj/item/twohanded/kinetic_crusher/mega/newgun = new(get_turf(user))
 			user.put_in_hands(newgun)
-			to_chat(user,span_notice("Harsh tendrils wraps around the kinetic crusher, merging the parts and crusher to form a mega kinetic crusher."))
+			balloon_alert(user, "Крашер полностью улучшен!")
 			qdel(src)
 
