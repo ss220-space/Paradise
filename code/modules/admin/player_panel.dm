@@ -364,7 +364,15 @@
 				dat += "<a href='?_src_=holder;call_shuttle=2'>Send Back</a><br>"
 			else
 				dat += "ETA: <a href='?_src_=holder;edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]</a><BR>"
-
+		if(!SSshuttle.emergencyNoEscape)
+			dat += "<a href='?src=[UID()];lockdown_shuttle=1'>Lockdown Shuttle</a><br>"
+		else
+			if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
+				dat += span_danger("<B>Emergency shuttle stranded</B>")
+				dat += "<BR><a href='?src=[UID()];stop_lockdown=1'>Stop lockdown and De-Strandise</a><br>"
+			else
+				dat += span_danger("<B>Emergency shuttle lockdowned</B>")
+				dat += "<BR><a href='?src=[UID()];stop_lockdown=1'>Stop lockdown</a><br>"
 		dat += "<a href='?src=[UID()];delay_round_end=1'>[SSticker.delay_end ? "End Round Normally" : "Delay Round End"]</a><br>"
 		dat += "<br><b>Antagonist Teams</b><br>"
 		dat += "<a href='?src=[UID()];check_teams=1'>View Teams</a><br>"
