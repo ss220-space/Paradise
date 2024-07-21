@@ -115,7 +115,8 @@
 		T.extinguish_light()
 		for(var/atom/A in T.contents)
 			if(istype(A, /mob))
-				for(var/obj/item/item in A.get_equipped_items(TRUE, TRUE))
+				var/mob/target = A
+				for(var/obj/item/item in target.get_equipped_items(TRUE, TRUE))
 					item.extinguish_light()
 			A.extinguish_light()
 
