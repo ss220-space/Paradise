@@ -1,6 +1,5 @@
 .Minesweeper__closed {
   vertical-align: middle;
-  text-align: left;
   border: 3px outset #fcfcfc;
   font-size: 15px;
 }
@@ -9,6 +8,7 @@
   vertical-align: middle;
   text-align: center;
   font-size: medium;
+  background-color: rgb(178, 178, 178) !important;
 }
 
 .Minesweeper__message {
