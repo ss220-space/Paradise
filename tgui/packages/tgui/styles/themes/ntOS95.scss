@@ -11,17 +11,17 @@ $dark-gray: #858585;
 $scrollbar-color-multiplier: 1;
 
 @use '../colors.scss' with (
-   $primary: #000000,
-   $good: #007c11,
-   $average: #f0ec11,
-   $bad: #db2828,
-   $label: #000000,
- );
+  $primary: #000000,
+  $good: #007c11,
+  $average: #f0ec11,
+  $bad: #db2828,
+  $label: #000000
+);
 @use '../base.scss' with (
-   $color-bg: #008081,
-   $color-bg-grad-spread: 0%,
-   $border-radius: 0,
- );
+  $color-bg: #008081,
+  $color-bg-grad-spread: 0%,
+  $border-radius: 0
+);
 
 .theme-ntOS95 {
   // Atomic classes
@@ -35,42 +35,39 @@ $scrollbar-color-multiplier: 1;
       'color-disabled': #707070,
       'color-selected': #007c11,
       'color-caution': #be6209,
-      'color-danger': #9d0808,
+      'color-danger': #9d0808
     )
   );
   @include meta.load-css(
     '../components/ProgressBar.scss',
-    $with: ('color-background': rgba(0, 0, 0, 0.5))
+    $with: ('background-color': rgba(0, 0, 0, 0.5))
   );
   @include meta.load-css(
     '../components/Section.scss',
-    $with: ('color-background': rgba(0, 0, 0, 0.4))
+    $with: ('background-color': rgba(0, 0, 0, 0.4))
   );
 
   @include meta.load-css(
     '../components/Tooltip.scss',
-    $with: ('color-background': #ecee9e)
+    $with: ('background-color': #ecee9e)
   );
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
   @include meta.load-css(
     '../layouts/TitleBar.scss',
-    $with: ('color-background': #000080)
+    $with: ('background-color': #000080)
   );
 
   .Button {
     color: #161613;
     background-color: #c2c2c2;
     //border: base.em(2px) outset #E8E4C9;
-    outline: 2px outset #c3c3c3;
+    outline: base.em(2px) outset #c3c3c3;
   }
   .Button:hover {
     background-color: #002ead;
     transition: 0.1s;
-  }
-  .Button--selected {
-    background-color: #007c11;
   }
 
   .Section {
@@ -79,12 +76,12 @@ $scrollbar-color-multiplier: 1;
     }
     color: black;
     background-color: #c0c0c0;
-    outline: 2px outset #c3c3c3;
+    outline: base.em(2px) outset #c3c3c3;
   }
 
   .Input {
     background-color: white;
-    outline: 2px inset #c3c3c3;
+    outline: base.em(2px) inset #c3c3c3;
     color: black;
     &__input:-ms-input-placeholder {
       color: black;
@@ -93,7 +90,7 @@ $scrollbar-color-multiplier: 1;
 
   .TextArea {
     background-color: white;
-    outline: 2px inset #c3c3c3;
+    outline: base.em(2px) inset #c3c3c3;
   }
 
   .Layout__content {
@@ -158,7 +155,7 @@ $scrollbar-color-multiplier: 1;
     //outline: base.em(3px) outset #c0c0c0
   }
   .Box {
-    outline: 3px outset #c0c0c0;
+    outline: base.em(3px) outset #c0c0c0;
   }
   .Tooltip {
     color: black;

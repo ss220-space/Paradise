@@ -18,20 +18,20 @@ $dark-gray: #858585;
 $scrollbar-color-multiplier: 0.5;
 
 @use '../colors.scss' with (
-   $primary: black,
-   $label: rgb(255, 132, 153),
-   $good: pink,
+  $primary: black,
+  $label: rgb(255, 132, 153),
+  $good: pink,
 
-   $bad: red,
-   // $fg-map-keys: (),
-   // $bg-map-keys: (),
- );
+  $bad: red,
+  // $fg-map-keys: (),
+  // $bg-map-keys: (),
+);
 
 @use '../base.scss' with (
-   $color-bg: orange,
-   $color-bg-grad-spread: 12%,
-   //$border-radius: 0,
- );
+    $color-bg: orange,
+    $color-bg-grad-spread: 12%,
+    //$border-radius: 0,
+  );
 
 .theme-ntos_cat {
   // Atomic classes
@@ -50,15 +50,15 @@ $scrollbar-color-multiplier: 0.5;
   );
   @include meta.load-css(
     '../components/ProgressBar.scss',
-    $with: ('color-default': rgb(255, 132, 153, 0.75))
+    $with: ('color-default-fill': rgb(255, 132, 153, 0.75))
   );
   @include meta.load-css(
     '../components/Section.scss',
-    $with: ('color-background': rgba(124, 62, 34, 0.75))
+    $with: ('background-color': rgba(124, 62, 34, 0.75))
   );
   @include meta.load-css(
     '../components/Tooltip.scss',
-    $with: ('color-background': rgba(255, 153, 0, 0.75))
+    $with: ('background-color': rgba(255, 153, 0, 0.75))
   );
 
   // Layouts
@@ -66,12 +66,12 @@ $scrollbar-color-multiplier: 0.5;
   @include meta.load-css('../layouts/Window.scss');
   @include meta.load-css(
     '../layouts/TitleBar.scss',
-    $with: ('color-background': rgb(255, 132, 153, 0.75))
+    $with: ('background-color': rgb(255, 132, 153, 0.75))
   );
 
   .Section {
     color: black;
-    outline: 2px inset rgb(255, 132, 153);
+    outline: base.em(2px) inset rgb(255, 132, 153);
   }
   .Button {
     color: rgb(255, 132, 153);
@@ -129,14 +129,14 @@ $scrollbar-color-multiplier: 0.5;
     background-color: rgb(255, 132, 153);
   }
   .Box {
-    outline: 3px outset #c0c0c0;
+    outline: base.em(3px) outset #c0c0c0;
   }
   .Tooltip {
     color: black;
   }
   .Input {
     background-color: white;
-    outline: 2px inset rgb(255, 132, 153);
+    outline: base.em(2px) inset rgb(255, 132, 153);
   }
   .NtosWindow__header {
     background-color: #454255;

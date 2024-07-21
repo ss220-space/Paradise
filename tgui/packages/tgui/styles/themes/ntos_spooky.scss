@@ -5,11 +5,11 @@
 @use '../colors.scss' with (
   $primary: #3f021a,
   $good: #e62626,
-  $bad: #970934,
+  $bad: #970934
 );
 @use '../base.scss' with (
   $color-bg: #240101,
-  $color-bg-grad-spread: 12%,
+  $color-bg-grad-spread: 12%
 );
 
 .theme-ntos_spooky {
@@ -38,20 +38,20 @@
   @include meta.load-css('../components/Modal.scss');
   @include meta.load-css(
     '../components/NoticeBox.scss',
-    $with: ('color-background': #740707)
+    $with: ('background-color': #740707)
   );
   @include meta.load-css('../components/NumberInput.scss');
   @include meta.load-css('../components/Section.scss');
   @include meta.load-css('../components/Table.scss');
   @include meta.load-css(
     '../components/Tooltip.scss',
-    $with: ('color-background': #000000)
+    $with: ('background-color': #000000)
   );
   @include meta.load-css(
     '../components/ProgressBar.scss',
     $with: (
-      'color-default': rgba(190, 0, 0, 0.75),
-      'color-background': rgba(34, 1, 1, 0.5)
+      'color-default-fill': rgba(190, 0, 0, 0.75),
+      'background-color': rgba(34, 1, 1, 0.5)
     )
   );
 
@@ -60,7 +60,7 @@
   @include meta.load-css('../layouts/Window.scss');
   @include meta.load-css(
     '../layouts/TitleBar.scss',
-    $with: ('color-background': #6b0808)
+    $with: ('background-color': #6b0808)
   );
 
   .Layout__content {

@@ -7,16 +7,16 @@
 @use 'sass:meta';
 
 @use '../colors.scss' with (
-   $primary: #24e87e,
-   $label: #24e87e,
-   $good: rgba(36, 232, 127, 0.50),
-   // $fg-map-keys: (),
-   // $bg-map-keys: (),
- );
+  $primary: #24e87e,
+  $label: #24e87e,
+  $good: rgba(36, 232, 127, 0.5),
+  // $fg-map-keys: (),
+  // $bg-map-keys: (),
+);
 @use '../base.scss' with (
-   $color-bg: #121b12,
-   $color-bg-grad-spread: 0%,
- );
+  $color-bg: #121b12,
+  $color-bg-grad-spread: 0%
+);
 
 .theme-ntos_terminal {
   // Atomic classes
@@ -38,8 +38,8 @@
   @include meta.load-css(
     '../components/ProgressBar.scss',
     $with: (
-      'color-background': rgba(0, 0, 0, 0.5),
-      'color-default': rgba(36, 232, 127, 0.5)
+      'background-color': rgba(0, 0, 0, 0.5),
+      'color-default-fill': rgba(36, 232, 127, 0.5)
     )
   );
   @include meta.load-css('../components/Modal.scss');
@@ -50,7 +50,7 @@
   @include meta.load-css('../layouts/Window.scss');
   @include meta.load-css(
     '../layouts/TitleBar.scss',
-    $with: ('color-background': rgba(0, 97, 0, 0.25))
+    $with: ('background-color': rgba(0, 97, 0, 0.25))
   );
 
   .Layout__content {
