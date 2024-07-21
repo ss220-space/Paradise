@@ -7,7 +7,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "biotech=3"
 
-/obj/item/hivelordstabilizer/afterattack(obj/item/organ/internal/M, mob/user)
+/obj/item/hivelordstabilizer/afterattack(obj/item/organ/internal/M, mob/user, proximity)
 	. = ..()
 	if(!proximity)
 		return
