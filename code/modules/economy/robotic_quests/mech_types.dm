@@ -9,7 +9,7 @@
 	/// List of all compatible modules with this kind of mecha
 	var/list/wanted_modules
 	/// Icon - used in tgui
-	var/icon/mech_icon = icon('icons/obj/mecha/mecha.dmi', "ripley-open", SOUTH, 1)
+	var/mech_icon = "ripley-open"
 	/// Type of mech (combat | medical | working)
 	var/mech_class
 	/// Amount of maximum mech modules
@@ -21,7 +21,7 @@
 	name = "APLU MK-II \"Ripley\""
 	mech_type = /obj/mecha/working/ripley
 	mech_class = WORKING_MECH
-	mech_icon = icon('icons/obj/mecha/mecha.dmi', "ripley-open", SOUTH, 1)
+	mech_icon = "ripley-open"
 	max_modules = 6
 	cash_reward = 500
 	wanted_modules = list(
@@ -46,7 +46,7 @@
 	name = "APLU \"Firefighter\""
 	mech_type = /obj/mecha/working/ripley/firefighter
 	mech_class = WORKING_MECH
-	mech_icon = icon('icons/obj/mecha/mecha.dmi', "firefighter-open", SOUTH, 1)
+	mech_icon = "firefighter-open"
 	max_modules = 6
 	cash_reward = 700
 	wanted_modules = list(
@@ -70,7 +70,7 @@
 	name =  "APLU \"Clarke\""
 	mech_type = /obj/mecha/working/clarke
 	mech_class = WORKING_MECH
-	mech_icon = icon('icons/obj/mecha/mecha.dmi', "clarke", SOUTH, 1, 0)
+	mech_icon = "clarke"
 	max_modules = 4
 	cash_reward = 1000
 	wanted_modules = list(
@@ -95,7 +95,7 @@
 	name = "Odysseus"
 	mech_type = /obj/mecha/medical/odysseus
 	mech_class = MEDICAL_MECH
-	mech_icon = icon('icons/obj/mecha/mecha.dmi', "odysseus", SOUTH, 1)
+	mech_icon = "odysseus"
 	max_modules = 4
 	cash_reward = 750
 	wanted_modules = list(
@@ -111,7 +111,7 @@
 	name = "Gygax"
 	mech_type = /obj/mecha/combat/gygax
 	mech_class = COMBAT_MECH
-	mech_icon = icon('icons/obj/mecha/mecha.dmi', "gygax", SOUTH, 1)
+	mech_icon = "gygax"
 	max_modules = 3
 	cash_reward = 1250
 	wanted_modules = list(
@@ -136,7 +136,7 @@
 	name = "Durand Mk. II"
 	mech_type = /obj/mecha/combat/durand
 	mech_class = COMBAT_MECH
-	mech_icon = icon('icons/obj/mecha/mecha.dmi', "durand", SOUTH, 1)
+	mech_icon = "durand"
 	max_modules = 3
 	cash_reward = 1750
 	wanted_modules = list(

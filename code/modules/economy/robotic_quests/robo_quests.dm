@@ -60,7 +60,7 @@
 	questinfo["name"] = name
 	generate_flavour()
 	questinfo["desc"] = desc
-	questinfo["icon"] = icon2base64(selected.mech_icon)
+	questinfo["icon"] = path2assetID(mech)
 	choosen_mech = selected.mech_type //тут мы выбираем меха из заготовок
 	questinfo["modules"] = list()
 	maximum_cash = rand(round(0.75 * selected.cash_reward), round(1.25 * selected.cash_reward))

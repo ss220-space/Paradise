@@ -1,3 +1,4 @@
+import { classes } from 'common/react';
 import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
 import {
@@ -5,12 +6,11 @@ import {
   Section,
   Tooltip,
   Button,
-  Flex,
+  Stack,
   LabeledList,
   Divider,
 } from '../components';
 import { Window } from '../layouts';
-import { FlexItem } from '../components/Flex';
 
 export const RoboQuest = (props, context) => {
   const { act, data } = useBackend(context);
@@ -28,18 +28,21 @@ export const RoboQuest = (props, context) => {
     points,
     cats,
   } = data;
+
   const [shopState, changeShopState] = useLocalState(
     context,
     'shopState',
     false
   );
+
   return (
-    <Window theme={style} resizable>
+    <Window theme={style} width={940} height={540}>
       <Window.Content>
-        <Flex>
-          <FlexItem basis={40}>
+        <Stack fill>
+          <Stack.Item basis={40}>
             {!shopState && (
               <Section
+                fill
                 title="Mecha"
                 buttons={
                   <Button
@@ -50,84 +53,74 @@ export const RoboQuest = (props, context) => {
                   />
                 }
               >
-                <Flex>
-                  <FlexItem basis={60} textAlign="center" align="center">
+                <Stack>
+                  <Stack.Item basis={60} textAlign="center" align="center">
                     {!!hasTask && (
                       <img
-                        height="128px"
-                        width="128px"
-                        src={`data:image/jpeg;base64,${questInfo.icon}`}
-                        style={{
-                          'margin-left': '0px',
-                          '-ms-interpolation-mode': 'nearest-neighbor',
-                        }}
+                        className={classes([
+                          'roboquest_large128x128',
+                          questInfo.icon,
+                        ])}
                       />
                     )}
-                  </FlexItem>
-                  <FlexItem>
+                  </Stack.Item>
+                  <Stack.Item>
                     <Divider vertical />
-                  </FlexItem>
-                  <FlexItem basis={42}>
-                    <Flex>
-                      <FlexItem>
+                  </Stack.Item>
+                  <Stack.Item basis={42}>
+                    <Stack>
+                      <Stack.Item>
                         {!!hasTask &&
                           questInfo.modules.map(
                             (i) =>
                               i.id < 4 && (
                                 <img
                                   key={i.id}
-                                  height="64px"
-                                  width="64px"
-                                  src={`data:image/jpeg;base64,${i.icon}`}
-                                  style={{
-                                    'margin-left': '0px',
-                                    '-ms-interpolation-mode':
-                                      'nearest-neighbor',
-                                  }}
+                                  className={classes([
+                                    'roboquest64x64',
+                                    i.icon,
+                                  ])}
                                 />
                               )
                           )}
-                      </FlexItem>
-                      <FlexItem>
+                      </Stack.Item>
+                      <Stack.Item>
                         {!!hasTask &&
                           questInfo.modules.map(
                             (i) =>
                               i.id > 3 && (
                                 <img
                                   key={i.id}
-                                  height="64px"
-                                  width="64px"
-                                  src={`data:image/jpeg;base64,${i.icon}`}
-                                  style={{
-                                    'margin-left': '0px',
-                                    '-ms-interpolation-mode':
-                                      'nearest-neighbor',
-                                  }}
+                                  className={classes([
+                                    'roboquest64x64',
+                                    i.icon,
+                                  ])}
                                 />
                               )
                           )}
-                      </FlexItem>
-                    </Flex>
-                  </FlexItem>
-                </Flex>
-                <Fragment>
+                      </Stack.Item>
+                    </Stack>
+                  </Stack.Item>
+                </Stack>
+                <>
                   <Divider />
                   <b>{checkMessage}</b>
-                </Fragment>
+                </>
                 {!!cooldown && (
-                  <Fragment>
+                  <>
                     <b>
                       За отказ от заказа, вы были отстранены от работы на
                       некоторое время.
                     </b>
                     <br />
                     <b>{cooldown}</b>
-                  </Fragment>
+                  </>
                 )}
               </Section>
             )}
             {!!shopState && (
               <Section
+                fill
                 title={
                   <Box>
                     Corps bounties
@@ -140,26 +133,25 @@ export const RoboQuest = (props, context) => {
                 }
               >
                 {/* <Box overflowY="auto" overflowX="hiddem"> */}
-                <Flex direction="column" alignContent="center">
+                <Stack direction="column" alignContent="center">
                   {cats.number.map((stage) => (
-                    <FlexItem key={stage}>
-                      <Flex
-                        direction="row"
+                    <Stack.Item key={stage}>
+                      <Stack
                         alignContent="center"
                         textAlign="center"
                         mr={8}
                         ml={8}
                       >
                         {cats[stage].map((cat) => (
-                          <FlexItem grow="1" key={cat}>
-                            <Flex direction="column" alignContent="center">
+                          <Stack.Item grow="1" key={cat}>
+                            <Stack vertical alignContent="center">
                               {!(
                                 shopItems[cat] === undefined ||
                                 shopItems[cat].length === 0
                               ) &&
                                 shopItems[cat].map((i) => (
-                                  <FlexItem grow="1" basis="33" key={i.path}>
-                                    <Button
+                                  <Stack.Item grow="1" basis="33" key={i.path}>
+                                    {/* <Button
                                       height="64px"
                                       width="64px"
                                       onClick={() =>
@@ -169,63 +161,61 @@ export const RoboQuest = (props, context) => {
                                       }
                                     >
                                       <img
-                                        height="64px"
-                                        width="64px"
-                                        src={`data:image/jpeg;base64,${i.icon}`}
-                                        style={{
-                                          'margin-left': '-6px',
-                                          '-ms-interpolation-mode':
-                                            'nearest-neighbor',
-                                        }}
+                                        className={classes([
+                                          'roboquest64x64',
+                                          i.icon,
+                                        ])}
                                       />
                                       <Tooltip
                                         title={i.name}
                                         content={`${i.desc}\n ${i.cost.working + '|' + i.cost.medical + '|' + i.cost.security}`}
-                                        position="right"
                                       />
-                                    </Button>
-                                  </FlexItem>
+                                    </Button> */}
+                                  </Stack.Item>
                                 ))}
-                            </Flex>
-                          </FlexItem>
+                            </Stack>
+                          </Stack.Item>
                         ))}
-                      </Flex>
-                    </FlexItem>
+                      </Stack>
+                    </Stack.Item>
                   ))}
-                </Flex>
+                </Stack>
               </Section>
             )}
-          </FlexItem>
-          <FlexItem basis={20}>
+          </Stack.Item>
+          <Stack.Item basis={20}>
             <Section
+              fill
               title="Other"
               buttons={
-                <Fragment>
+                <>
                   <Button
                     content="Shop"
                     icon="shopping-cart"
                     onClick={() => changeShopState(!shopState)}
                   />
                   <Button icon="cog" onClick={() => act('ChangeStyle')} />
-                </Fragment>
+                </>
               }
             >
               {!!name && (
-                <Fragment>
+                <>
                   Здраствуйте,
                   <br />
                   <b>{name}</b>
                   <br />
-                </Fragment>
+                </>
               )}
             </Section>
-          </FlexItem>
-          <FlexItem basis={38}>
+          </Stack.Item>
+          <Stack.Item basis={38}>
             {!shopState && (
               <Section
+                fill
+                scrollable
                 title="Info"
                 buttons={
-                  <Fragment>
+                  <>
                     <Button
                       icon="id-card"
                       content="Eject ID"
@@ -241,7 +231,7 @@ export const RoboQuest = (props, context) => {
                       />
                     )}
                     {!!hasTask && (
-                      <Fragment>
+                      <>
                         <Button
                           content="Print"
                           icon="print"
@@ -254,9 +244,9 @@ export const RoboQuest = (props, context) => {
                           disabled={!hasID || cooldown}
                           onClick={() => act('RemoveTask')}
                         />
-                      </Fragment>
+                      </>
                     )}
-                  </Fragment>
+                  </>
                 }
               >
                 <Box mx="0.5rem" mb="1rem">
@@ -278,7 +268,6 @@ export const RoboQuest = (props, context) => {
                   </Box>
                 </Section>
                 <Box mb="0.5rem" textAlign="center">
-                  <br />
                   <Button
                     icon="arrow-up"
                     width="15rem"
@@ -302,11 +291,12 @@ export const RoboQuest = (props, context) => {
             )}
             {!!shopState && (
               <Section
+                fill
                 title={
-                  <Fragment>
+                  <>
                     RoboQuest Shop
                     <Box>Points: {points.robo}</Box>
-                  </Fragment>
+                  </>
                 }
               >
                 <Box maxHeight={30} overflowY="auto" overflowX="hidden">
@@ -314,6 +304,7 @@ export const RoboQuest = (props, context) => {
                     (i) =>
                       (!i.emagOnly || style === 'syndicate') && (
                         <Section
+                          fill
                           key={i.name}
                           title={i.name}
                           buttons={
@@ -334,8 +325,8 @@ export const RoboQuest = (props, context) => {
                 </Box>
               </Section>
             )}
-          </FlexItem>
-        </Flex>
+          </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );

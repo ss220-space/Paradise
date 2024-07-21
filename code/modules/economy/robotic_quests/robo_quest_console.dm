@@ -131,9 +131,7 @@
 					category += "_[cat]"
 				else
 					category = cat
-		var/icon/combined = icon('icons/misc/robo_ui.dmi', category)
-		combined.Blend(item.tgui_icon, ICON_OVERLAY)
-		var/newitem = list("name" = item.name, "desc" = item.desc, "cost" = item.cost, "icon" = icon2base64(combined), "path" = path, "emagOnly" = item.emag_only)
+		var/newitem = list("name" = item.name, "desc" = item.desc, "cost" = item.cost, "icon" = path2assetID(path), "path" = path, "emagOnly" = item.emag_only)
 		newshop[category] += list(newitem)
 	shop_items = newshop
 
@@ -148,10 +146,10 @@
 		return TRUE
 	ui_interact(user)
 
-/obj/machinery/computer/roboquest/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/roboquest/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "RoboQuest", name, 800, 475, master_ui, state)
+		ui = new(user, src, "RoboQuest", name)
 		ui.open()
 
 /obj/machinery/computer/roboquest/ui_data(mob/user)
@@ -183,6 +181,12 @@
 	data["cats"] = CATS_BY_STAGE
 	data["shopItems"] = shop_items
 	return data
+
+/obj/machinery/computer/roboquest/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/roboquest),
+		get_asset_datum(/datum/asset/spritesheet/roboquest_large)
+	)
 
 /obj/machinery/computer/roboquest/ui_act(action, list/params, datum/tgui/ui)
 	switch(action)
