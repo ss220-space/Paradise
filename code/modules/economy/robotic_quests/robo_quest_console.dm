@@ -362,11 +362,16 @@
 		console.canSend = FALSE
 
 /obj/machinery/roboquest_pad/New()
-	RegisterSignal(src, COMSIG_MOVABLE_UNCROSSED, PROC_REF(ismechgone))
 	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXITED = PROC_REF(on_exited),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/machinery/roboquest_pad/proc/ismechgone(datum/source, atom/movable/exiting)
-	if(ismecha(exiting) && console)
+/obj/machinery/roboquest_pad/proc/on_exited(datum/source, atom/movable/departed, atom/newLoc)
+	SIGNAL_HANDLER
+
+	if(ismecha(departed) && console)
 		console.canSend = FALSE
 
 /obj/machinery/roboquest_pad/multitool_act(mob/living/user, obj/item/I)
