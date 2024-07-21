@@ -74,7 +74,7 @@
 		T.hotspot_expose(700,125)
 		explosion(T, -1, -1, 2, 3, cause = src)
 		qdel(src)
-	else if(. && !isertmindshielded(user) && !ismindshielded(user) && emagged)
+	else if(. && !ismindshielded(user) && emagged)
 		return TRUE
 
 
