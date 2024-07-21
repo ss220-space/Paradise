@@ -75,6 +75,9 @@
 
 /obj/effect/accelerated_particle/proc/propagate()
 	addtimer(CALLBACK(src, PROC_REF(propagate)), 1)
-	if(!step(src,dir))
-		forceMove(get_step(src, dir))
+	if(step(src, dir))
+		return
+	var/turf/check = get_step(src, dir)
+	if(check)
+		forceMove(check)
 

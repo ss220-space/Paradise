@@ -336,3 +336,12 @@
 	item_list = list(
 		/obj/item/storage/box/syndie_kit/pai
 		)
+
+/datum/thief_kit/donksoft_kit
+	name = "Набор Donksoft SMG"
+	desc = "В набор включен пистолет-пулемёт, стреляющий пенными дротиками, которые при попадании снижают выносливость противника. Благодаря мягкому материалу пуль, удары безопасны для здоровья и не оставляют синяков."
+	item_list = list(
+		/obj/item/gun/projectile/automatic/c20r/toy/riot,
+		/obj/item/ammo_box/magazine/toy/smgm45/riot,
+		/obj/item/ammo_box/foambox/riot,
+		)

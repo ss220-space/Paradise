@@ -606,7 +606,7 @@
 /area/admin)
 "fI" = (
 /obj/structure/table/wood,
-/obj/item/abductor_baton,
+/obj/item/melee/baton/abductor,
 /obj/item/abductor/silencer,
 /obj/item/abductor/mind_device,
 /obj/item/abductor/gizmo,
