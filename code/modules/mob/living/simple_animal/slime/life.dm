@@ -1,12 +1,4 @@
 
-/mob/living/simple_animal/slime
-	var/AIproc = 0 // determines if the AI loop is activated
-	var/Atkcool = 0 // attack cooldown
-	var/Tempstun = 0 // temporary temperature stuns
-	var/Discipline = 0 // if a slime has been hit with a freeze gun, or wrestled/attacked off a human, they become disciplined and don't attack anymore for a while
-	var/SStun = 0 // stun variable
-
-
 /mob/living/simple_animal/slime/Life()
 	set invisibility = 0
 
@@ -31,13 +23,6 @@
 	if(!destination && !QDELETED(src))
 		stack_trace("Slime moved to null space")
 
-// Unlike most of the simple animals, slimes support UNCONSCIOUS
-/mob/living/simple_animal/slime/update_stat(reason = "none given", should_log = FALSE)
-	if(status_flags & GODMODE)
-		return ..()
-	if(stat == UNCONSCIOUS && health > 0)
-		return
-	..()
 
 /mob/living/simple_animal/slime/proc/AIprocess()  // the master AI process
 

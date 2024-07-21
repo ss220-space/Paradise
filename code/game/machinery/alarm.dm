@@ -733,7 +733,7 @@
 			if(!vent_data)
 				continue
 			vent_info["id_tag"] = id_tag
-			vent_info["name"] = sanitize(long_name)
+			vent_info["name"] = readd_quote(sanitize(long_name))
 			vent_info += vent_data
 			vents += list(vent_info)
 	data["vents"] = vents
@@ -746,18 +746,18 @@
 			if(!scrubber_data)
 				continue
 			scrubber_data["id_tag"] = id_tag
-			scrubber_data["name"] = sanitize(long_name)
+			scrubber_data["name"] = readd_quote(sanitize(long_name))
 			scrubbers += list(scrubber_data)
 	data["scrubbers"] = scrubbers
 	return data
 
 /obj/machinery/alarm/proc/get_console_data(mob/user)
 	var/list/data = list()
-	data["name"] = sanitize(name)
+	data["name"] = readd_quote(sanitize(name))
 	data["ref"] = "\ref[src]"
 	data["danger"] = max(danger_level, alarm_area.atmosalm)
 	var/area/A = get_area(src)
-	data["area"] = sanitize(A.name)
+	data["area"] = readd_quote(sanitize(A.name))
 	var/turf/T = get_turf(src)
 	data["x"] = T.x
 	data["y"] = T.y
@@ -956,9 +956,12 @@
 
 
 /obj/machinery/alarm/ui_state(mob/user)
-	if(isAI(user))
-		var/mob/living/silicon/ai/AI = user
-		if(!AI.lacks_power() || AI.apc_override)
+	if(issilicon(user))
+		if(isAI(user))
+			var/mob/living/silicon/ai/AI = user
+			if(!AI.lacks_power() || AI.apc_override)
+				return GLOB.always_state
+		if(isrobot(user))
 			return GLOB.always_state
 
 	else if(ishuman(user))
