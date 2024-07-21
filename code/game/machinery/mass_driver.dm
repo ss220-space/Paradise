@@ -72,15 +72,14 @@
 	desc = "Now you're here, now you're over there."
 	density = TRUE
 
-/obj/machinery/mass_driver/bumper/Bumped(atom/movable/moving_atom)
-	..()
 
+/obj/machinery/mass_driver/bumper/Bumped(atom/movable/moving_atom)
+	. = ..()
 	set_density(FALSE)
 	step(moving_atom, get_dir(moving_atom, src))
 	spawn(1)
 		set_density(TRUE)
 	drive()
-	return
 
 ////////////////MASS DRIVER FRAME///////////////////
 

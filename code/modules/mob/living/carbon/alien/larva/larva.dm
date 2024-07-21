@@ -90,10 +90,17 @@
 /mob/living/carbon/alien/larva/show_inv(mob/user)
 	return
 
-/mob/living/carbon/alien/larva/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
+/mob/living/carbon/alien/larva/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
 	return FALSE
 
 
 /mob/living/carbon/alien/larva/can_unarmed_attack() //We bite stuff, and our head is always free.
 	return TRUE
+
+
+/mob/living/carbon/alien/larva/update_layer()
+	..()
+	if(pulledby && loc == pulledby.loc)
+		return
+	hide_action?.update_layer()
 

@@ -58,7 +58,7 @@
 	set category = "Subsystems"
 	set name = "Atmospherics Control"
 
-	atmos_control.ui_interact(usr, state = GLOB.self_state)
+	atmos_control.ui_interact(usr)
 
 /********************
 *	Crew Monitor	*
@@ -66,7 +66,7 @@
 /mob/living/silicon/proc/subsystem_crew_monitor()
 	set category = "Subsystems"
 	set name = "Crew Monitor"
-	crew_monitor.ui_interact(usr, state = GLOB.self_state)
+	crew_monitor.ui_interact(usr)
 
 /****************
 *	Law Manager	*
@@ -75,7 +75,7 @@
 	set name = "Law Manager"
 	set category = "Subsystems"
 
-	law_manager.ui_interact(usr, state = GLOB.conscious_state)
+	law_manager.ui_interact(usr)
 
 /********************
 *	Power Monitor	*
@@ -84,7 +84,7 @@
 	set category = "Subsystems"
 	set name = "Power Monitor"
 
-	power_monitor.ui_interact(usr, state = GLOB.self_state)
+	power_monitor.ui_interact(usr)
 
 /mob/living/silicon/robot/proc/self_diagnosis()
 	set category = "Robot Commands"

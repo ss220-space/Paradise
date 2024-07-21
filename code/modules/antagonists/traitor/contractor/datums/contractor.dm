@@ -24,7 +24,7 @@
 	var/obj/item/contractor_uplink/contractor_uplink = null
 
 
-/datum/antagonist/contractor/Destroy(force, ...)
+/datum/antagonist/contractor/Destroy(force)
 	var/datum/antagonist/traitor/traitor_datum = owner?.has_antag_datum(/datum/antagonist/traitor)
 	if(traitor_datum)
 		traitor_datum.hidden_uplink?.contractor = null

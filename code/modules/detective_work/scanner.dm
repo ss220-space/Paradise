@@ -60,8 +60,8 @@
 	else
 		to_chat(user, "<span class='warning'>В записях станции не найдено совпадений.</span>")
 
-/obj/item/detective_scanner/ui_action_click(mob/user, actiontype)
-	if(actiontype == /datum/action/item_action/print_forensic_report)
+/obj/item/detective_scanner/ui_action_click(mob/user, action)
+	if(istype(action, /datum/action/item_action/print_forensic_report))
 		print_scanner_report()
 	else
 		clear_scanner()

@@ -110,7 +110,7 @@
 	src.robot_heal = robot_heal
 
 
-/datum/component/aura_healing/Destroy(force, silent)
+/datum/component/aura_healing/Destroy(force)
 	STOP_PROCESSING(SSaura_healing, src)
 	var/alert_category = "aura_healing_[\ref(src)]"
 

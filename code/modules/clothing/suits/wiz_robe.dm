@@ -157,6 +157,7 @@
 	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 30, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100)
 	allowed = list(/obj/item/teleportation_scroll)
 	flags_inv = HIDEJUMPSUIT
+	flags_inv_transparent = HIDEJUMPSUIT
 	strip_delay = 50
 	put_on_delay = 50
 	resistance_flags = FIRE_PROOF | ACID_PROOF

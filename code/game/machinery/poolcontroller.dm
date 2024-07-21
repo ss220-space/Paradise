@@ -117,7 +117,7 @@
 	if(!drownee)
 		return
 
-	if(drownee && ((drownee.body_position == LYING_DOWN && !drownee.player_logged) || deep_water)) //Mob lying down and not SSD or water is deep (determined by controller)
+	if(drownee && ((drownee.body_position == LYING_DOWN && isnull(drownee.player_logged)) || deep_water)) //Mob lying down and not SSD or water is deep (determined by controller)
 		if(drownee.internal)
 			return //Has internals, no drowning
 		if((NO_BREATHE in drownee.dna.species.species_traits) || (BREATHLESS in drownee.mutations))
@@ -155,10 +155,10 @@
 	linkedmist.Cut()
 
 
-/obj/machinery/poolcontroller/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/poolcontroller/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "PoolController", "Pool Controller Interface", 520, 410)
+		ui = new(user, src, "PoolController", "Pool Controller Interface")
 		ui.open()
 
 /obj/machinery/poolcontroller/proc/temp_to_str(temp)

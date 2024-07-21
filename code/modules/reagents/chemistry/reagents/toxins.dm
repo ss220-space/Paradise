@@ -297,7 +297,7 @@
 	if(current_cycle != 10 || !ishuman(target) || !target.dna || !islist(data) || !istype(data["dna"], /datum/dna))
 		return ..()
 	var/datum/dna/reagent_dna = data["dna"]
-	if(!reagent_dna.species.is_small)
+	if(!reagent_dna.species.is_monkeybasic)
 		target.change_dna(reagent_dna, TRUE, TRUE)
 		target.special_post_clone_handling()
 	return ..()
@@ -1194,6 +1194,9 @@
 			M.AdjustEyeBlurry(20 SECONDS)
 	return ..() | update_flags
 
+/datum/reagent/capulettium/on_mob_delete(mob/living/M)
+	fakerevive(M)
+	..()
 
 /datum/reagent/capulettium_plus
 	name = "Capulettium Plus"
@@ -1214,8 +1217,7 @@
 	return ..()
 
 /datum/reagent/capulettium_plus/on_mob_delete(mob/living/M)
-	if(HAS_TRAIT(M, TRAIT_FAKEDEATH))
-		fakerevive(M)
+	fakerevive(M)
 	..()
 
 /datum/reagent/toxic_slurry

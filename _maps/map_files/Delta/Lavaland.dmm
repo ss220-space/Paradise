@@ -123,10 +123,8 @@
 	},
 /area/mine/laborcamp)
 "ax" = (
-/obj/structure/disposalpipe/junction{
-	dir = 4;
-	icon_state = "pipe-j2";
-	tag = "icon-pipe-j2 (EAST)"
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -747,8 +745,7 @@
 /area/mine/living_quarters)
 "cp" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -1240,9 +1237,8 @@
 	},
 /area/mine/living_quarters)
 "ei" = (
-/obj/structure/disposalpipe/junction{
-	dir = 4;
-	icon_state = "pipe-y"
+/obj/structure/disposalpipe/junction/yjunction{
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -1491,8 +1487,7 @@
 /area/mine/living_quarters)
 "fi" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -1953,8 +1948,7 @@
 /area/mine/production)
 "gL" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2396,8 +2390,7 @@
 	network = list("Mining Outpost")
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -3694,8 +3687,7 @@
 /area/mine/living_quarters)
 "qF" = (
 /obj/structure/disposalpipe/junction{
-	dir = 4;
-	tag = "icon-pipe-j1 (EAST)"
+	dir = 4
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -3743,8 +3735,7 @@
 	network = list("Mining Outpost")
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -4158,10 +4149,8 @@
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/mine/necropolis)
 "uw" = (
-/obj/structure/disposalpipe/junction{
-	dir = 1;
-	icon_state = "pipe-j2";
-	tag = "icon-pipe-j2"
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -4179,8 +4168,7 @@
 /area/mine/living_quarters)
 "ux" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -4914,8 +4902,7 @@
 "AB" = (
 /obj/machinery/light/small,
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 9;
@@ -5781,8 +5768,7 @@
 	dir = 8
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,

@@ -6,9 +6,9 @@
 
 //NEVER HAVE ANYTHING BELOW THIS PLANE ADJUST IF YOU NEED MORE SPACE
 //FOR MORE INFORMATION ON EVERY PLANE, SEE plane_master_subtypes.dm
-#define LOWEST_EVER_PLANE -100
+#define LOWEST_EVER_PLANE -50
 
-#define CLICKCATCHER_PLANE -80
+#define CLICKCATCHER_PLANE -30
 
 
 #define PLANE_SPACE -25
@@ -75,7 +75,7 @@
 ///Popup Chat Messages
 #define RUNECHAT_PLANE 30
 /// Plane for balloon text (text that fades up)
-//#define BALLOON_CHAT_PLANE 31
+#define BALLOON_CHAT_PLANE 31
 
 //-------------------- HUD ---------------------
 //HUD layer defines
@@ -91,6 +91,7 @@
 /// Debug View. This should always be on top. No exceptions.
 #define HUD_PLANE_DEBUGVIEW 50
 
+#define OPENSPACE_LAYER 100 //Openspace layer over all
 //-------------------- Rendering ---------------------
 #define RENDER_PLANE_GAME 100
 #define RENDER_PLANE_NON_GAME 101
@@ -168,7 +169,6 @@
 #define LOW_SIGIL_LAYER 2.52
 #define SIGIL_LAYER 2.54
 #define HIGH_SIGIL_LAYER 2.56
-
 #define BELOW_OPEN_DOOR_LAYER 2.6
 #define BLASTDOOR_LAYER 2.65
 #define OPEN_DOOR_LAYER 2.7
@@ -180,9 +180,10 @@
 //#define OBJ_LAYER 3 //For easy recordkeeping; this is a byond define
 #define CLOSED_DOOR_LAYER 3.1
 #define CLOSED_FIREDOOR_LAYER 3.11
-#define SHUTTER_LAYER 3.12 // HERE BE DRAGONS
 #define ABOVE_OBJ_LAYER 3.2
+#define SHUTTER_LAYER 3.21 // HERE BE DRAGONS
 #define ABOVE_WINDOW_LAYER 3.3
+#define BUTTONS_LAYER 3.31
 #define CLOSED_BLASTDOOR_LAYER 3.35
 #define SIGN_LAYER 3.4
 #define NOT_HIGH_OBJ_LAYER 3.5
@@ -215,6 +216,7 @@
 #define POINT_LAYER 12
 #define CHAT_LAYER 12.0001 // Do not insert layers between these two values
 #define CHAT_LAYER_MAX 12.9999
+
 #define LIGHTING_LAYER 15
 #define ABOVE_LIGHTING_LAYER 17
 #define BYOND_LIGHTING_LAYER 19
@@ -234,4 +236,4 @@
 
 #define SPLASHSCREEN_LAYER 33
 
-#define OPENSPACE_LAYER 600 //Openspace layer over all
+

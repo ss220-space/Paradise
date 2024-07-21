@@ -1,7 +1,3 @@
-#define DEVIL_R_HAND_LAYER 1
-#define DEVIL_L_HAND_LAYER 2
-#define DEVIL_TOTAL_LAYERS 2
-
 // This is used primarily for having hands.
 /mob/living/carbon/true_devil
 	name = "True Devil"
@@ -18,7 +14,6 @@
 	universal_speak = TRUE //The devil speaks all languages meme
 	var/ascended = FALSE
 	var/mob/living/oldform
-	var/list/devil_overlays[DEVIL_TOTAL_LAYERS]
 
 /mob/living/carbon/true_devil/New(loc, mob/living/carbon/dna_source)
 	if(dna_source)
@@ -98,7 +93,7 @@
 /mob/living/carbon/true_devil/assess_threat()
 	return 666
 
-/mob/living/carbon/true_devil/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
+/mob/living/carbon/true_devil/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash)
 	if(mind && has_bane(BANE_LIGHT))
 		mind.disrupt_spells(-500)
 		return ..() //flashes don't stop devils UNLESS it's their bane.
@@ -133,7 +128,7 @@
 		// If the devil wants to actually attack, they have the pitchfork.
 
 
-/mob/living/carbon/true_devil/Process_Spacemove(movement_dir = NONE)
+/mob/living/carbon/true_devil/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
 
@@ -214,4 +209,3 @@
 		adjustBruteLoss(b_loss)
 	return ..()
 
-#undef DEVIL_TOTAL_LAYERS

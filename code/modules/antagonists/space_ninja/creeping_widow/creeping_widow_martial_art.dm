@@ -50,6 +50,12 @@
 					/datum/martial_combo/ninja_martial_art/neck_slice)
 	has_explaination_verb = TRUE
 	reflection_chance = 50
+	grab_speed = 2 SECONDS
+	grab_resist_chances = list(
+		MARTIAL_GRAB_AGGRESSIVE = 40,
+		MARTIAL_GRAB_NECK = 10,
+		MARTIAL_GRAB_KILL = 5,
+	)
 	var/obj/item/clothing/suit/space/space_ninja/my_suit
 	var/obj/item/melee/energy_katana/my_energy_katana
 
@@ -74,9 +80,10 @@
 
 /datum/martial_art/ninja_martial_art/grab_act(var/mob/living/carbon/human/attacker, var/mob/living/carbon/human/defender)
 	MARTIAL_ARTS_ACT_CHECK
-	var/obj/item/grab/grab_item = defender.grabbedby(attacker, 1)
-	if(grab_item)
-		grab_item.state = GRAB_AGGRESSIVE //Instant aggressive grab
+	var/old_grab_state = attacker.grab_state
+	var/grab_success = defender.grabbedby(attacker, supress_message = TRUE)
+	if(grab_success && old_grab_state == GRAB_PASSIVE)
+		defender.grippedby(attacker) //Instant aggressive grab
 		add_attack_logs(attacker, defender, "Melee attacked with martial-art [src] : aggressively grabbed")
 	if(!defender.stat && defender.body_position != LYING_DOWN)
 		if(attacker.dir == defender.dir && has_focus)

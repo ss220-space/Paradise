@@ -158,6 +158,25 @@
 /obj/item/storage/firstaid/adv/empty/populate_contents()
 	return
 
+/obj/item/storage/firstaid/paramed
+	name = "paramed first-aid kit"
+	desc = "A medical kit that contains several medical patches and injectors for the treatment of various diseases."
+	icon_state = "firstaid_paramed"
+	item_state = "firstaid_paramed"
+	med_bot_skin = "paramed"
+
+/obj/item/storage/firstaid/paramed/populate_contents()
+	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/salbutamol(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/charcoal(src)
+	new /obj/item/reagent_containers/food/pill/patch/styptic(src)
+	new	/obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
+	new /obj/item/stack/medical/bruise_pack(src)
+	new /obj/item/stack/medical/ointment(src)
+
+/obj/item/storage/firstaid/paramed/empty/populate_contents()
+	return
+
 /obj/item/storage/firstaid/machine
 	name = "machine repair kit"
 	desc = "A kit that contains supplies to repair IPCs on the go."

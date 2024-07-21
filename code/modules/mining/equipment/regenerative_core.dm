@@ -173,14 +173,14 @@
 
 /obj/item/organ/internal/legion_tumour/insert(mob/living/carbon/egg_owner, special)
 	. = ..()
-	ADD_TRAIT(egg_owner, TRAIT_XENO_HOST, GENERIC_TRAIT)
+	ADD_TRAIT(egg_owner, TRAIT_LEGION_TUMOUR, GENERIC_TRAIT)
 	egg_owner.med_hud_set_status()
 
 /obj/item/organ/internal/legion_tumour/remove(mob/living/carbon/egg_owner, special)
 	stage = 0
 	elapsed_time = 0
 	if(egg_owner)
-		REMOVE_TRAIT(egg_owner, TRAIT_XENO_HOST, GENERIC_TRAIT)
+		REMOVE_TRAIT(egg_owner, TRAIT_LEGION_TUMOUR, GENERIC_TRAIT)
 		egg_owner.med_hud_set_status()
 	. = ..()
 

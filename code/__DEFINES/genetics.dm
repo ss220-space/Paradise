@@ -133,7 +133,6 @@
 
 //Species traits.
 
-#define IS_WHITELISTED 	"whitelisted"
 #define LIPS			"lips"
 #define NO_BLOOD		"no_blood"
 #define NO_BREATHE 		"no_breathe"

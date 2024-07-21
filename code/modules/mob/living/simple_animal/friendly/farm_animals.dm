@@ -57,7 +57,8 @@
 			var/step = get_step(src, direction)
 			if(step)
 				if(locate(/obj/structure/spacevine) in step || locate(/obj/structure/glowshroom) in step)
-					Move(step, get_dir(src, step))
+					step_with_glide(step)
+
 
 /mob/living/simple_animal/hostile/retaliate/goat/Life(seconds, times_fired)
 	. = ..()
@@ -68,7 +69,7 @@
 	..()
 	visible_message("<span class='danger'>[src] gets an evil-looking gleam in their eye.</span>")
 
-/mob/living/simple_animal/hostile/retaliate/goat/Move()
+/mob/living/simple_animal/hostile/retaliate/goat/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(!stat)
 		eat_plants()

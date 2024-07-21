@@ -42,19 +42,19 @@
 /datum/space_level/proc/build_space_destination_arrays()
 	// We skip `add_to_transit` here because we want to skip the checks in order to save time
 	// Bottom border
-	for(var/turf/space/S in block(locate(1,1,zpos),locate(world.maxx,TRANSITION_BORDER_SOUTH,zpos)))
+	for(var/turf/space/S in block(1,1,zpos, world.maxx,TRANSITION_BORDER_SOUTH,zpos))
 		transit_south |= S
 
 	// Top border
-	for(var/turf/space/S in block(locate(1,world.maxy,zpos),locate(world.maxx,TRANSITION_BORDER_NORTH,zpos)))
+	for(var/turf/space/S in block(1,world.maxy,zpos, world.maxx,TRANSITION_BORDER_NORTH,zpos))
 		transit_north |= S
 
 	// Left border
-	for(var/turf/space/S in block(locate(1,TRANSITION_BORDER_SOUTH + 1,zpos),locate(TRANSITION_BORDER_WEST,TRANSITION_BORDER_NORTH - 1,zpos)))
+	for(var/turf/space/S in block(1,TRANSITION_BORDER_SOUTH + 1,zpos, TRANSITION_BORDER_WEST,TRANSITION_BORDER_NORTH - 1,zpos))
 		transit_west |= S
 
 	// Right border
-	for(var/turf/space/S in block(locate(TRANSITION_BORDER_EAST,TRANSITION_BORDER_SOUTH + 1,zpos),locate(world.maxx,TRANSITION_BORDER_NORTH - 1,zpos)))
+	for(var/turf/space/S in block(TRANSITION_BORDER_EAST,TRANSITION_BORDER_SOUTH + 1,zpos, world.maxx,TRANSITION_BORDER_NORTH - 1,zpos))
 		transit_east |= S
 
 /datum/space_level/proc/add_to_transit(turf/space/S)
@@ -118,7 +118,7 @@
 
 
 /datum/space_level/proc/get_turfs()
-	return block(locate(1, 1, zpos), locate(world.maxx, world.maxy, zpos))
+	return block(1, 1, zpos, world.maxx, world.maxy, zpos)
 
 /datum/space_level/proc/set_linkage(transition_type)
 	if(linkage == transition_type)

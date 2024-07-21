@@ -14,10 +14,10 @@
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 
-/obj/item/clothing/suit/space/space_ninja/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/clothing/suit/space/space_ninja/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "SpiderOS", name, 700, 700, master_ui, state)
+		ui = new(user, src, "SpiderOS", name)
 		ui.open()
 
 /obj/item/clothing/suit/space/space_ninja/ui_data(mob/user)
@@ -177,7 +177,7 @@
 		if("move")
 			var/destination = params["move"]
 			if(!options.Find(destination))
-				message_admins("[span_boldannounce("EXPLOIT: [ADMIN_LOOKUPFLW(usr)]")] attempted to move [shuttle_controller.shuttleId] to an invalid location! [ADMIN_COORDJMP(src)]")
+				message_admins("[span_boldannounceic("EXPLOIT: [ADMIN_LOOKUPFLW(usr)]")] attempted to move [shuttle_controller.shuttleId] to an invalid location! [ADMIN_COORDJMP(src)]")
 				return
 			switch(SSshuttle.moveShuttle(shuttle_controller.shuttleId, destination, TRUE, usr))
 				if(0)

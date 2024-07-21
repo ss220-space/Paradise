@@ -16,8 +16,9 @@
 /turf/template_noop,
 /area/template_noop)
 "es" = (
-/obj/machinery/conveyor/northeast{
-	id = null
+/obj/machinery/conveyor{
+	id = "syndiecake";
+	dir = 5
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -29,16 +30,18 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "fU" = (
-/obj/machinery/conveyor/east{
-	id = null
-	},
 /obj/machinery/gibber/autogibber,
 /obj/structure/plasticflaps,
+/obj/machinery/conveyor{
+	id = "syndiecake";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "fY" = (
-/obj/machinery/conveyor/east{
-	id = null
+/obj/machinery/conveyor{
+	id = "syndiecake";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin)
@@ -53,14 +56,16 @@
 "iK" = (
 /mob/living/simple_animal/pet/dog/corgi,
 /mob/living/simple_animal/pet/dog/corgi,
-/obj/machinery/conveyor/east{
-	id = null
+/obj/machinery/conveyor{
+	id = "syndiecake";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "jf" = (
-/obj/machinery/conveyor/north/ccw{
-	id = null
+/obj/machinery/conveyor/inverted{
+	id = "syndiecake";
+	dir = 10
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -69,9 +74,8 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "kh" = (
-/obj/machinery/conveyor/east{
-	dir = 2;
-	id = null
+/obj/machinery/conveyor{
+	id = "syndiecake"
 	},
 /turf/simulated/floor/plasteel,
 /area/space)
@@ -153,6 +157,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
+"rG" = (
+/mob/living/simple_animal/pet/dog/corgi,
+/obj/machinery/conveyor_switch/oneway{
+	id = "syndiecake"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
 "rJ" = (
 /obj/structure/lattice,
 /turf/space,
@@ -165,7 +176,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "rU" = (
-/obj/effect/spawner/random_spawners/oil_maybe,
+/obj/effect/spawner/random_spawners/oil_20,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "sd" = (
@@ -212,6 +223,13 @@
 	},
 /turf/simulated/wall,
 /area/ruin/unpowered)
+"vV" = (
+/obj/machinery/conveyor{
+	id = "syndiecake";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
 "xT" = (
 /obj/machinery/door/airlock/mining/glass{
 	locked = 1;
@@ -242,7 +260,7 @@
 /turf/space,
 /area/ruin)
 "zt" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/obj/effect/spawner/random_spawners/wall_rusted_70,
 /turf/simulated/wall,
 /area/space)
 "zF" = (
@@ -342,8 +360,15 @@
 /area/ruin/unpowered)
 "GB" = (
 /mob/living/simple_animal/pet/dog/corgi,
-/obj/machinery/conveyor/east{
-	id = null
+/obj/machinery/conveyor{
+	id = "syndiecake";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"He" = (
+/obj/machinery/conveyor_switch/oneway{
+	id = "syndiecake"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -447,9 +472,8 @@
 /turf/simulated/floor/plasteel/airless,
 /area/ruin)
 "QF" = (
-/obj/machinery/conveyor/east{
-	dir = 2;
-	id = null
+/obj/machinery/conveyor{
+	id = "syndiecake"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin)
@@ -490,7 +514,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "TM" = (
-/obj/effect/spawner/random_spawners/wall_rusted_probably,
+/obj/effect/spawner/random_spawners/wall_rusted_70,
 /turf/simulated/wall,
 /area/ruin)
 "TT" = (
@@ -501,8 +525,9 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Uq" = (
-/obj/machinery/conveyor/east{
-	id = null
+/obj/machinery/conveyor{
+	id = "syndiecake";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/space)
@@ -561,8 +586,9 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Zs" = (
-/obj/machinery/conveyor/east{
-	id = null
+/obj/machinery/conveyor{
+	id = "syndiecake";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -659,9 +685,9 @@ Hy
 Hy
 EJ
 ob
-ho
+rG
 BI
-sN
+He
 sN
 EJ
 AH
@@ -859,8 +885,8 @@ Hy
 Hy
 EJ
 es
-jf
-jf
+vV
+vV
 jf
 sN
 EJ

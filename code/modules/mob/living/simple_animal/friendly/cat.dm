@@ -129,35 +129,31 @@
 
 
 /mob/living/simple_animal/pet/cat/post_lying_on_rest()
-	if(stat == DEAD)
-		return
-	ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
-	if(!icon_resting || !icon_sit)
-		return
 	if(sitting)
 		custom_emote(EMOTE_VISIBLE, pick("сад%(ит,ят)%ся.", "приседа%(ет,ют)% на задних лапах.", "выгляд%(ит,ят)% настороженным%(*,и)%."))
+
+
+/mob/living/simple_animal/pet/cat/on_standing_up()
+	sitting = FALSE
+	. = ..()
+
+
+/mob/living/simple_animal/pet/cat/update_icons()
+	if(stat == DEAD)
+		icon_state = icon_dead
+		regenerate_icons()
+		return
+	if(sitting)
 		icon_state = "[icon_living]_[icon_sit]"
 		if(collar_type)
 			collar_type = "[initial(collar_type)]_[icon_sit]"
-			regenerate_icons()
-	else
+	else if(resting || body_position == LYING_DOWN)
 		icon_state = icon_resting
 		if(collar_type)
 			collar_type = "[initial(collar_type)]_rest"
-			regenerate_icons()
-
-
-/mob/living/simple_animal/pet/cat/post_get_up()
-	sitting = FALSE
-	if(stat == DEAD)
-		return
-	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
-	if(!icon_resting || !icon_sit)
-		return
-	icon_state = icon_living
-	if(collar_type)
-		collar_type = initial(collar_type)
-		regenerate_icons()
+	else
+		icon_state = icon_living
+	regenerate_icons()
 
 
 /mob/living/simple_animal/pet/cat/handle_automated_action()
@@ -196,7 +192,7 @@
 	if(!stat && !resting && !buckled)
 		turns_since_scan++
 		if(turns_since_scan > 5)
-			walk_to(src,0)
+			SSmove_manager.stop_looping(src)
 			turns_since_scan = 0
 			if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc) ))
 				movement_target = null
@@ -210,8 +206,7 @@
 						break
 			if(movement_target)
 				stop_automated_movement = 1
-				glide_for(3)
-				walk_to(src,movement_target,0,3)
+				SSmove_manager.move_to(src, movement_target, 1, 4)
 
 
 /mob/living/simple_animal/pet/cat/Proc

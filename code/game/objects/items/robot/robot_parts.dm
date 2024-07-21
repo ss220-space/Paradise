@@ -18,7 +18,7 @@
 		if(R)
 			name = "[R.company] [initial(name)]"
 			desc = "[R.desc]"
-			if(icon_state in icon_states(R.icon))
+			if(icon_exists(R.icon, icon_state))
 				icon = R.icon
 	else
 		name = "robot [initial(name)]"

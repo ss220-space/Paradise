@@ -48,6 +48,7 @@
 #define INTERNAL_ORGAN_HAIR "hair_organ"	// yeah thats a thing
 #define INTERNAL_ORGAN_HONK_BLADDER "honk_bladder"
 #define INTERNAL_ORGAN_BRAIN_TUMOR "brain_tumor"
+#define INTERNAL_ORGAN_HIGHRP_TUMOR "highrp_tumor"
 
 
 // insert/remove organ special defines

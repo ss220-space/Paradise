@@ -13,6 +13,7 @@
 	icon_state = "plasmaman"
 	item_state = "plasmaman"
 	item_color = "plasmaman"
+	can_adjust = FALSE
 
 /obj/item/clothing/under/plasmaman/examine(mob/user)
 	. = ..()

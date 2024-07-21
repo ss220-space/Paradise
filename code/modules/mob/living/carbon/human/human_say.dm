@@ -164,9 +164,7 @@
 				S.message = pick("NEEIIGGGHHHH!", "NEEEIIIIGHH!", "NEIIIGGHH!", "HAAWWWWW!", "HAAAWWW!")
 
 		if(dna)
-			for(var/datum/dna/gene/gene in GLOB.dna_genes)
-				if(!gene.block)
-					continue
+			for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
 				if(gene.is_active(src))
 					S.message = gene.OnSay(src, S.message)
 

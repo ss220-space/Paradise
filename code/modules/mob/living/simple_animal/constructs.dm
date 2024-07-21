@@ -338,7 +338,7 @@
 						Bring those who still cling to this world of illusion back to the master so they may know Truth.</B>"
 
 
-/mob/living/simple_animal/hostile/construct/harvester/Process_Spacemove(movement_dir = NONE)
+/mob/living/simple_animal/hostile/construct/harvester/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
 

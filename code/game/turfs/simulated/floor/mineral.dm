@@ -152,11 +152,10 @@
 	icons = list("bananium","bananium_dam")
 	var/spam_flag = 0
 
-/turf/simulated/floor/mineral/bananium/Entered(mob/living/M)
-	.=..()
-	if(!.)
-		if(istype(M))
-			squeek()
+/turf/simulated/floor/mineral/bananium/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	if(isliving(arrived))
+		squeek()
 
 /turf/simulated/floor/mineral/bananium/attackby(obj/item/W, mob/user, params)
 	.=..()
@@ -192,7 +191,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		to_chat(H, span_warning("You lose your footing trying to pry off the tile!"))
-		H.slip(10 SECONDS, src, TURF_WET_LUBE, tilesSlipped = 4)
+		H.slip(10 SECONDS, src, TURF_WET_LUBE)
 	return
 
 //TRANQUILLITE

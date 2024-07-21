@@ -84,10 +84,6 @@
 	health = 300
 	maxHealth = 300
 
-/mob/living/simple_animal/pet/slugcat/New()
-	..()
-	regenerate_icons()
-
 
 /mob/living/simple_animal/pet/slugcat/attackby(obj/item/W, mob/user, params)
 	if(stat != DEAD)
@@ -146,11 +142,12 @@
 	if(usr != src)
 		return TRUE
 
+
 /mob/living/simple_animal/pet/slugcat/regenerate_icons()
-	..()
-	if(inventory_hand)
-		if(istype(inventory_hand, /obj/item/twohanded/spear))
-			speared()
+	cut_overlays()
+	if(pcollar && collar_type)
+		add_overlay("[collar_type]collar")
+		add_overlay("[collar_type]tag")
 
 	if(inventory_head)
 		var/image/head_icon
@@ -168,32 +165,28 @@
 
 		add_overlay(head_icon)
 
+	update_fire()
+
 	if(blocks_emissive)
 		add_overlay(get_emissive_block())
 
 
-/mob/living/simple_animal/pet/slugcat/post_lying_on_rest()
-	if(stat == DEAD)
-		return
-	drop_hand()
+/mob/living/simple_animal/pet/slugcat/on_lying_down(new_lying_angle)
 	if(inventory_head)
 		hat_offset_y = hat_offset_y_rest
-		regenerate_icons()
+	drop_hand()
 	. = ..()
 
 
-/mob/living/simple_animal/pet/slugcat/post_get_up()
+/mob/living/simple_animal/pet/slugcat/on_standing_up()
 	if(inventory_head)
 		hat_offset_y = initial(hat_offset_y)
-		regenerate_icons()
 	. = ..()
 
 
 /mob/living/simple_animal/pet/slugcat/proc/speared()
-	icon_state = "[initial(icon_state)]_spear"
-
+	icon_living = "[icon_living]_spear"
 	var/obj/item/twohanded/spear = inventory_hand
-
 	attacktext = "бьёт копьём"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	melee_damage_type = BRUTE
@@ -201,9 +194,10 @@
 	melee_damage_upper = round(spear.force_wielded / (is_reduce_damage ? 2 : 1))
 	armour_penetration = spear.armour_penetration
 	obj_damage = spear.force
+	update_icons()
 
 /mob/living/simple_animal/pet/slugcat/proc/unspeared()
-	icon_state = initial(icon_state)
+	icon_living = initial(icon_living)
 	attacktext = initial(attacktext)
 	attack_sound = initial(attack_sound)
 	melee_damage_type = initial(melee_damage_type)
@@ -211,6 +205,7 @@
 	melee_damage_upper = initial(melee_damage_upper)
 	armour_penetration = initial(armour_penetration)
 	obj_damage = initial(obj_damage)
+	update_icons()
 
 /mob/living/simple_animal/pet/slugcat/proc/get_hat_overlay()
 	if(hat_icon_file && hat_icon_state)
@@ -328,10 +323,12 @@
 
 	return TRUE
 
+
 /mob/living/simple_animal/pet/slugcat/proc/move_item_to_hand(obj/item/item_to_add)
 	item_to_add.forceMove(src)
 	inventory_hand = item_to_add
-	regenerate_icons()
+	speared()
+
 
 /mob/living/simple_animal/pet/slugcat/proc/remove_from_hand(mob/user)
 	if(inventory_hand)
@@ -342,21 +339,19 @@
 		to_chat(user, span_warning("Вы забрали [inventory_hand.name] с лап [src]."))
 		drop_item_ground(inventory_hand)
 		user.put_in_hands(inventory_hand, ignore_anim = FALSE)
-
 		null_hand()
-
-		regenerate_icons()
 	else
 		to_chat(user, span_warning("В лапах [src] нечего отбирать!"))
 		return FALSE
 
 	return TRUE
 
+
 /mob/living/simple_animal/pet/slugcat/proc/drop_hand()
 	if(inventory_hand)
 		drop_item_ground(inventory_hand)
 		null_hand()
-		regenerate_icons()
+
 
 /mob/living/simple_animal/pet/slugcat/proc/null_hand()
 	unspeared()

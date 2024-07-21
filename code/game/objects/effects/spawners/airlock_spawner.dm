@@ -111,13 +111,14 @@ This spawner places pipe leading up to the interior door, you will need to finis
 			the_button.pixel_y = 7
 		if(EAST)
 			the_button.pixel_x = 7
-			the_button.pixel_y = -25
+			the_button.pixel_y -= 25
 		if(SOUTH)
 			the_button.pixel_x -= 25
 			the_button.pixel_y -= 7
 		if(WEST)
 			the_button.pixel_x -= 7
 			the_button.pixel_y -= 25
+	the_button.layer = ABOVE_WINDOW_LAYER
 	the_button.req_access = required_access
 	return the_button
 
@@ -126,6 +127,8 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	var/obj/machinery/airlock_sensor/AS = new(T)
 	var/obj/machinery/embedded_controller/radio/airlock/airlock_controller/AC = new(T, id_to_link, radio_frequency, OUTER_DOOR_TAG, INNER_DOOR_TAG, AIRPUMP_TAG, SENSOR_TAG)
 	AC.req_access = required_access
+	AC.layer = ABOVE_WINDOW_LAYER
+	AS.layer = ABOVE_WINDOW_LAYER
 	AS.id_tag = SENSOR_TAG
 	AS.set_frequency(radio_frequency)
 	if(interior_direction != WEST && exterior_direction != WEST) //If west wall is free, place stuff there

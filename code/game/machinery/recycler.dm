@@ -88,25 +88,14 @@
 	icon_state = icon_name + "[is_powered]" + "[(blood ? "bld" : "")]" // add the blood tag at the end
 
 
-// This is purely for admin possession !FUN!.
-/obj/machinery/recycler/Bump(atom/movable/AM)
-	..()
-	if(AM)
-		Bumped(AM)
-
 /obj/machinery/recycler/Bumped(atom/movable/moving_atom)
-	..()
-
-	if(stat & (BROKEN|NOPOWER))
-		return
-	if(!anchored)
-		return
-	if(emergency_mode)
-		return
-
+	. = ..()
+	if((stat & (BROKEN|NOPOWER)) || !anchored || emergency_mode)
+		return .
 	var/move_dir = get_dir(loc, moving_atom.loc)
 	if(move_dir == eat_dir)
 		eat(moving_atom)
+
 
 /obj/machinery/recycler/proc/eat(atom/AM0, sound = 1)
 	var/list/to_eat = list(AM0)

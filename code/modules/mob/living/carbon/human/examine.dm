@@ -49,10 +49,8 @@
 	if(w_uniform && !skipjumpsuit && !(w_uniform.item_flags & ABSTRACT))
 		//Ties
 		var/tie_msg
-		if(istype(w_uniform,/obj/item/clothing/under))
-			var/obj/item/clothing/under/U = w_uniform
-			if(U.accessories.len)
-				tie_msg += " with [english_accessory_list(U)]"
+		if(istype(w_uniform, /obj/item/clothing/under) && LAZYLEN(w_uniform.accessories))
+			tie_msg += " with [english_accessory_list(w_uniform)]"
 
 		if(w_uniform.blood_DNA)
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] wearing [bicon(w_uniform)] [w_uniform.gender==PLURAL?"some":"a"] [w_uniform.blood_color != "#030303" ? "blood-stained":"oil-stained"] [w_uniform.name][tie_msg]!</span>\n"
@@ -452,7 +450,7 @@
 	if(!length(examine_list))
 		return
 
-	return examine_list.Join("\n")
+	return examine_list.Join("\n") + "\n" 
 
 
 //Helper procedure. Called by /mob/living/carbon/human/examine() and /mob/living/carbon/human/Topic() to determine HUD access to security and medical records.

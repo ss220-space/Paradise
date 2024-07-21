@@ -100,7 +100,7 @@ SUBSYSTEM_DEF(throwing)
 /datum/thrownthing/New(thrownthing, target, init_dir, maxrange, speed, thrower, diagonals_first, force, callback, target_zone, dodgeable)
 	. = ..()
 	src.thrownthing = thrownthing
-	RegisterSignal(thrownthing, COMSIG_PARENT_QDELETING, PROC_REF(on_thrownthing_qdel))
+	RegisterSignal(thrownthing, COMSIG_QDELETING, PROC_REF(on_thrownthing_qdel))
 	src.starting_turf = get_turf(thrownthing)
 	src.target_turf = get_turf(target)
 	if(target_turf != target)
@@ -176,7 +176,7 @@ SUBSYSTEM_DEF(throwing)
 			finalize()
 			return
 
-		if(!AM.Move(step, get_dir(AM, step), speed)) // we hit something during our move...
+		if(!AM.Move(step, get_dir(AM, step), DELAY_TO_GLIDE_SIZE(1 / speed))) // we hit something during our move...
 			if(AM.throwing) // ...but finalize() wasn't called on Bump() because of a higher level definition that doesn't always call parent.
 				finalize()
 			return
@@ -218,15 +218,14 @@ SUBSYSTEM_DEF(throwing)
 	if(QDELETED(thrownthing))
 		return
 
-	if(isturf(thrownthing.loc))
-		thrownthing.newtonian_move(REVERSE_DIR(init_dir))
+	thrownthing.newtonian_move(REVERSE_DIR(init_dir))
 
 	qdel(src)
 
 
 /datum/thrownthing/proc/hitcheck()
 	for(var/atom/movable/obstacle as anything in get_turf(thrownthing))
-		if(obstacle == thrownthing || (obstacle == thrower && !ismob(thrownthing)))
+		if(obstacle == thrownthing || obstacle == thrower)
 			continue
 		if(ismob(obstacle) && (thrownthing.pass_flags & PASSMOB))
 			continue

@@ -15,7 +15,7 @@
 	handle_layer()
 	handle_offsets()
 
-/obj/structure/musician/drumkit/Move(NewLoc, Dir = 0, movetime)
+/obj/structure/musician/drumkit/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	handle_layer()
 	handle_offsets()

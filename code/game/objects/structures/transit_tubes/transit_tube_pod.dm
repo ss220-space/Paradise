@@ -53,7 +53,7 @@
 	return ..()
 
 
-/obj/structure/transit_tube_pod/Process_Spacemove(movement_dir = NONE)
+/obj/structure/transit_tube_pod/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	if(moving) //No drifting while moving in the tubes
 		return TRUE
 	return ..()

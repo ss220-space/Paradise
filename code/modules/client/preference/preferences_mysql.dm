@@ -413,7 +413,7 @@
 		if(!istype(geartype))
 			loadout_gear -= gear // Delete wrong/outdated data
 			continue
-		if(geartype.donator_tier > parent.donator_level)
+		if(geartype.donator_tier > parent.donator_level && parent.prefs)
 			loadout_gear -= gear // Gagaga, donate again
 			continue
 		var/datum/gear/new_gear = new geartype.type

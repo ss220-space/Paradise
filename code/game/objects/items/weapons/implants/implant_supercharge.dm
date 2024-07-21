@@ -14,6 +14,7 @@
 	to_chat(imp_in, span_notice("You feel an electric sensation as your components enter overdrive!"))
 	imp_in.SetStunned(0)
 	imp_in.SetWeakened(0)
+	imp_in.SetKnockdown(0)
 	imp_in.SetImmobilized(0)
 	imp_in.SetParalysis(0)
 	imp_in.adjustStaminaLoss(-100)

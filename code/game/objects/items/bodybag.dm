@@ -58,6 +58,8 @@
 	close_sound_volume = 15
 	density = FALSE
 	integrity_failure = 50
+	pull_push_slowdown = 0
+	ignore_density_closed = TRUE
 	var/foldedbag_path = /obj/item/bodybag
 	var/obj/item/bodybag/foldedbag_instance = null
 
@@ -78,11 +80,16 @@
 	return ..()
 
 
+/obj/structure/closet/body_bag/open()
+	. = ..()
+	if(.)
+		pull_push_slowdown = 0
+
+
 /obj/structure/closet/body_bag/close()
-	if(..())
-		set_density(FALSE)
-		return TRUE
-	return FALSE
+	. = ..()
+	if(. && length(contents))
+		pull_push_slowdown = 1.3
 
 
 /obj/structure/closet/body_bag/update_icon_state()
@@ -132,7 +139,7 @@
 	return ..()
 
 
-/obj/structure/closet/body_bag/relaymove(mob/user as mob)
+/obj/structure/closet/body_bag/relaymove(mob/user)
 	if(user.stat)
 		return
 

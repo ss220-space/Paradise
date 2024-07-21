@@ -7,7 +7,7 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 
-	layer = BELOW_OBJ_LAYER + 0.01
+	layer = BUTTONS_LAYER
 
 	var/on = 1
 

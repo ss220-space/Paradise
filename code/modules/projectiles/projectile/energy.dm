@@ -75,6 +75,12 @@
 	stutter = 2 SECONDS
 	shockbull = TRUE
 
+/obj/item/projectile/energy/bolt/on_hit(atom/target)
+	. = ..()
+	var/mob/living/simple_animal/hostile/carp/carp = target
+	if(istype(carp))
+		carp.gib()
+
 /obj/item/projectile/energy/bolt/large
 	damage = 20
 	weaken = 0.1 SECONDS

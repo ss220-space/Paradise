@@ -5,11 +5,13 @@
 	item_state = "fingerless"
 	item_color = null	//So they don't wash.
 	transfer_prints = TRUE
+	clothing_flags = NONE
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	strip_delay = 40
 	put_on_delay = 20
 	clipped = 1
+	undyeable = TRUE
 
 /obj/item/clothing/gloves/fingerless/weaver
 	name = "weaver chitin gloves"
@@ -238,9 +240,15 @@
 	var/razor_damage_low = 8
 	var/razor_damage_high = 9
 
-/obj/item/clothing/gloves/color/black/razorgloves/sharpen_act(increase)
-	razor_damage_low += increase
-	razor_damage_high += increase
+
+/obj/item/clothing/gloves/color/black/razorgloves/sharpen_act(obj/item/whetstone/whetstone, mob/user)
+	if(razor_damage_low > initial(razor_damage_low))
+		to_chat(user, span_warning("[src] has already been refined before. It cannot be sharpened further!"))
+		return FALSE
+	razor_damage_low = clamp(razor_damage_low + whetstone.increment, 0, whetstone.max)
+	razor_damage_high = clamp(razor_damage_high + whetstone.increment, 0, whetstone.max)
+	return TRUE
+
 
 /obj/item/clothing/gloves/color/black/razorgloves/Touch(atom/A, proximity)
 	. = FALSE

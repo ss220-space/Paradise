@@ -31,10 +31,10 @@
 	ui_interact(user)
 	return
 
-/obj/machinery/computer/supplyquest/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/supplyquest/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "QuestConsole", name, 1000, 820, master_ui, state)
+		ui = new(user, src, "QuestConsole", name)
 		ui.open()
 
 #define BASE_HIGHTECH_COST 40000
@@ -97,6 +97,9 @@
 	data["at_station"] = SSshuttle.supply.getDockedId() == "supply_home"
 	data["timeleft"] = SSshuttle.supply.timeLeft(600)
 	return data
+
+/obj/machinery/computer/supplyquest/ui_assets(mob/user)
+	return list(get_asset_datum(/datum/asset/spritesheet/cargo_quest))
 
 /obj/machinery/computer/supplyquest/ui_act(action, list/params)
 	if(..())
@@ -331,8 +334,11 @@
 /obj/item/qm_quest_tablet/attack_self(mob/user as mob)
 	ui_interact(user)
 
-/obj/item/qm_quest_tablet/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	integrated_console.ui_interact(user, ui_key, ui, force_open, master_ui, state)
+/obj/item/qm_quest_tablet/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/qm_quest_tablet/ui_interact(mob/user, datum/tgui/ui = null)
+	integrated_console.ui_interact(user, ui)
 
 /obj/item/qm_quest_tablet/cargotech
 	name = "Portable Quest Monitor"

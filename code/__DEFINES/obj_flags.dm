@@ -66,4 +66,6 @@
 #define BLOCK_CAPSAICIN (1<<4)
 /// Whether this item ignores any manipulations with slowdown variable, like slime speed potions
 #define FIXED_SLOWDOWN (1<<5)
+/// Checks for finger coverage, prevents damage from nettles
+#define FINGERS_COVERED (1<<6)
 

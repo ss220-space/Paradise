@@ -43,27 +43,27 @@
 	var/obj/item/reagent_containers/food/snacks/deepfryholder/type = new(get_turf(src))
 	return type
 
-/obj/machinery/cooker/deepfryer/special_attack(obj/item/grab/G, mob/user)
-	if(ishuman(G.affecting))
-		if(G.state < GRAB_AGGRESSIVE)
-			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
-			return 0
-		var/mob/living/carbon/human/C = G.affecting
-		var/obj/item/organ/external/head/head = C.get_organ(BODY_ZONE_HEAD)
-		if(!head)
-			to_chat(user, "<span class='warning'>This person doesn't have a head!</span>")
-			return 0
-		add_fingerprint(user)
-		C.visible_message("<span class='danger'>[user] dunks [C]'s face into [src]!</span>", \
-						"<span class='userdanger'>[user] dunks your face into [src]!</span>")
-		C.emote("scream")
-		user.changeNext_move(CLICK_CD_MELEE)
-		C.apply_damage(25, BURN, BODY_ZONE_HEAD) //25 fire damage and disfigurement because your face was just deep fried!
-		head.disfigure()
-		add_attack_logs(user, G.affecting, "Deep-fried with [src]")
-		qdel(G) //Removes the grip so the person MIGHT have a small chance to run the fuck away and to prevent rapid dunks.
-		return 0
-	return 0
+
+/obj/machinery/cooker/deepfryer/special_grab_attack(atom/movable/grabbed_thing, mob/living/grabber)
+	if(!ishuman(grabbed_thing) || !Adjacent(grabbed_thing))
+		return
+	var/mob/living/carbon/human/victim = grabbed_thing
+	var/obj/item/organ/external/head/head = victim.get_organ(BODY_ZONE_HEAD)
+	if(!head)
+		to_chat(grabber, span_warning("This person doesn't have a head!"))
+		return
+	add_fingerprint(grabber)
+	victim.visible_message(
+		span_danger("[grabber] dunks [victim]'s face into [src]!"),
+		span_userdanger("[grabber] dunks your face into [src]!"),
+	)
+	if(victim.has_pain())
+		victim.emote("scream")
+	victim.apply_damage(25, BURN, BODY_ZONE_HEAD) //25 fire damage and disfigurement because your face was just deep fried!
+	head.disfigure()
+	add_attack_logs(grabber, victim, "Deep-fried with [src]")
+	//Removes the grip so the person MIGHT have a small chance to run the fuck away and to prevent rapid dunks.
+	grabber.stop_pulling()
 
 
 /obj/machinery/cooker/deepfryer/checkSpecials(obj/item/I)

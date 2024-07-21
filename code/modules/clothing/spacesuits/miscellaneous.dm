@@ -287,9 +287,7 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		)
-	sprite_sheets_obj = list(
-		SPECIES_VOX = 'icons/obj/clothing/species/vox/hats.dmi'
-		)
+
 
 /obj/item/clothing/suit/space/eva/paramedic
 	name = "Paramedic EVA suit"
@@ -311,9 +309,7 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		)
-	sprite_sheets_obj = list(
-		SPECIES_VOX = 'icons/obj/clothing/species/vox/suits.dmi'
-		)
+
 
 /obj/item/clothing/suit/space/eva
 	name = "EVA suit"
@@ -332,12 +328,7 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		)
-	sprite_sheets_obj = list(
-		SPECIES_TAJARAN = 'icons/obj/clothing/species/tajaran/suits.dmi',
-		SPECIES_UNATHI = 'icons/obj/clothing/species/unathi/suits.dmi',
-		SPECIES_VOX = 'icons/obj/clothing/species/vox/suits.dmi',
-		SPECIES_VULPKANIN = 'icons/obj/clothing/species/vulpkanin/suits.dmi'
-		)
+
 
 /obj/item/clothing/head/helmet/space/eva
 	name = "EVA helmet"
@@ -345,7 +336,7 @@
 	item_state = "s_helmet"
 	desc = "A lightweight space helmet with the basic ability to protect the wearer from the vacuum of space during emergencies."
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
-	flash_protect = 0
+	flash_protect = FLASH_PROTECTION_NONE
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
 	sprite_sheets = list(
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/helmet.dmi',
@@ -357,10 +348,7 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi'
 		)
-	sprite_sheets_obj = list(
-		SPECIES_VOX = 'icons/obj/clothing/species/vox/hats.dmi',
-		SPECIES_VULPKANIN = 'icons/obj/clothing/species/vulpkanin/hats.dmi'
-		)
+
 
 //Mime's Hardsuit
 /obj/item/clothing/head/helmet/space/eva/mime
@@ -373,7 +361,7 @@
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi')
-	sprite_sheets_obj = null
+
 
 /obj/item/clothing/suit/space/eva/mime
 	name = "mime eva suit"
@@ -385,7 +373,7 @@
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi')
-	sprite_sheets_obj = null
+
 
 /obj/item/clothing/head/helmet/space/eva/clown
 	name = "clown eva helmet"
@@ -397,7 +385,7 @@
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi')
-	sprite_sheets_obj = null
+
 
 /obj/item/clothing/suit/space/eva/clown
 	name = "clown eva suit"
@@ -409,7 +397,7 @@
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi')
-	sprite_sheets_obj = null
+
 
 //pirate-themed stuff
 /obj/item/clothing/suit/space/eva/pirate
@@ -436,7 +424,7 @@
 	item_state = "s_helmet"
 	desc = "A lightweight pirate-themed space helmet with white skull on it designed to protect from vacuum and those nasty lasers flying from the victims of pirate raid."
 	armor = list(melee = 10, bullet = 5, laser = 30, energy = 25, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	sprite_sheets = list(
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/helmet.dmi',

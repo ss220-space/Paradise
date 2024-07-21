@@ -59,6 +59,7 @@
 				l_hand_ignore = TRUE
 			else
 				ADD_TRAIT(l_hand_obj, TRAIT_NODROP, ANTIDROP_TRAIT)
+				RegisterSignal(l_hand_obj, COMSIG_ITEM_DROPPED, PROC_REF(on_held_item_dropped))
 				l_hand_ignore = FALSE
 
 		if(r_hand_obj)
@@ -66,6 +67,7 @@
 				r_hand_ignore = TRUE
 			else
 				ADD_TRAIT(r_hand_obj, TRAIT_NODROP, ANTIDROP_TRAIT)
+				RegisterSignal(r_hand_obj, COMSIG_ITEM_DROPPED, PROC_REF(on_held_item_dropped))
 				r_hand_ignore = FALSE
 
 		if(!l_hand_obj && !r_hand_obj)
@@ -87,6 +89,24 @@
 		to_chat(owner, span_notice("Your hands relax..."))
 		l_hand_obj = null
 		r_hand_obj = null
+
+
+/obj/item/organ/internal/cyberimp/brain/anti_drop/proc/on_held_item_dropped(obj/item/source, mob/user, slot)
+	SIGNAL_HANDLER
+
+	REMOVE_TRAIT(source, TRAIT_NODROP, ANTIDROP_TRAIT)
+	UnregisterSignal(source, COMSIG_ITEM_DROPPED)
+
+	if(l_hand_obj == source)
+		l_hand_obj = null
+		l_hand_ignore = FALSE
+	else if(r_hand_obj == source)
+		r_hand_obj = null
+		r_hand_ignore = FALSE
+
+	if(!l_hand_obj && !r_hand_obj)
+		active = FALSE
+
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/emp_act(severity)
 	if(!owner || emp_proof)

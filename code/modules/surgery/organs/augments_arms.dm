@@ -493,7 +493,7 @@
 	name = "telebaton implant"
 	desc = "Telescopic baton implant. Does what it says on the tin" // A better description
 
-	contents = newlist(/obj/item/melee/classic_baton)
+	contents = newlist(/obj/item/melee/baton)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/items.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "baton")
 

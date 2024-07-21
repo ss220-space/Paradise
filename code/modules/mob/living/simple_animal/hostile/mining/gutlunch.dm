@@ -9,7 +9,7 @@
 	speak_emote = list("warbles", "quavers")
 	emote_hear = list("trills.")
 	emote_see = list("sniffs.", "burps.")
-	weather_immunities = list("lava","ash")
+	weather_immunities = list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE)
 	faction = list("mining", "ashwalker")
 	density = FALSE
 	speak_chance = 1

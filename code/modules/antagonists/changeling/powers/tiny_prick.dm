@@ -13,7 +13,7 @@
 	click_override = new(CALLBACK(src, PROC_REF(try_to_sting)))
 
 
-/datum/action/changeling/sting/Destroy(force, ...)
+/datum/action/changeling/sting/Destroy(force)
 	if(cling.owner.current && cling.owner.current.middleClickOverride == click_override) // this is a very scuffed way of doing this honestly
 		cling.owner.current.middleClickOverride = null
 	QDEL_NULL(click_override)
@@ -137,7 +137,7 @@
 	var/datum/dna/selected_dna = null
 
 
-/datum/action/changeling/sting/transformation/Destroy(force, ...)
+/datum/action/changeling/sting/transformation/Destroy(force)
 	selected_dna = null
 	return ..()
 
@@ -156,7 +156,7 @@
 	if(!selected_dna)
 		return
 
-	if((NOTRANSSTING in selected_dna.species.species_traits) || selected_dna.species.is_small)
+	if((NOTRANSSTING in selected_dna.species.species_traits) || selected_dna.species.is_monkeybasic)
 		to_chat(cling?.owner?.current, span_warning("The selected DNA is incompatible with our sting."))
 		return
 
@@ -180,7 +180,7 @@
 
 /datum/action/changeling/sting/transformation/sting_action(mob/user, mob/target)
 	add_attack_logs(user, target, "Transformation sting (changeling) (new identity is [selected_dna.real_name])")
-	if(issmall(target))
+	if(is_monkeybasic(target))
 		to_chat(user, span_notice("Our genes cry out as we sting [target.name]!"))
 
 	if(iscarbon(target) && (target.status_flags & CANWEAKEN))

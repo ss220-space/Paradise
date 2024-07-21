@@ -29,7 +29,7 @@
 	..()
 
 
-/datum/antagonist/mindslave/Destroy(force, ...)
+/datum/antagonist/mindslave/Destroy(force)
 	if(owner.som)
 		owner.som.serv -= owner
 		owner.som.leave_serv_hud(owner)

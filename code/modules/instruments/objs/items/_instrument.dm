@@ -33,10 +33,10 @@
 /obj/item/instrument/ui_data(mob/user)
 	return song.ui_data(user)
 
-/obj/item/instrument/ui_interact(mob/user)
+/obj/item/instrument/ui_interact(mob/user, datum/tgui/ui = null)
 	if(!isliving(user) || user.incapacitated())
 		return
-	song.ui_interact(user)
+	song.ui_interact(user, ui)
 
 /obj/item/instrument/ui_act(action, params)
 	if(..())

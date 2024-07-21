@@ -107,6 +107,9 @@
 	if(force_apply) // Does not take priority over god mode? I guess
 		return FALSE
 
+	if(SEND_SIGNAL(src, COMSIG_LIVING_GENERIC_INCAPACITATE_CHECK, check_flags, force_apply) & COMPONENT_NO_EFFECT)
+		return TRUE
+
 	// Do we have the correct flag set to allow this status?
 	// This checks that ALL flags are set, not just one of them.
 	if((status_flags & check_flags) == check_flags)

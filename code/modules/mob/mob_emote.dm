@@ -146,25 +146,22 @@
 
 	else if(params)
 		message_param = "дела%(ет,ют)% кувырок в сторону %t."
-	else if(ishuman(user))
-		var/obj/item/grab/grab = user.get_active_hand()
-		if(istype(grab) && grab.affecting)
-			var/mob/living/target = grab.affecting
+	else if(ishuman(user) && isliving(user.pulling) && user.grab_state > GRAB_PASSIVE)
+		var/mob/living/target = user.pulling
+		if(user.buckled || target.buckled)
+			to_chat(user, span_warning("[target] is buckled, you can't flip around [target.p_them()]!"))
+			return TRUE
 
-			if(user.buckled || target.buckled)
-				to_chat(user, span_warning("[target] is buckled, you can't flip around [target.p_them()]!"))
-				return TRUE
-
-			var/turf/oldloc = user.loc
-			var/turf/newloc = target.loc
-			if(isturf(oldloc) && isturf(newloc))
-				user.SpinAnimation(5, 1)
-				var/old_pass = user.pass_flags
-				user.pass_flags |= (PASSTABLE)
-				step(user, get_dir(oldloc, newloc))
-				user.pass_flags = old_pass
-				message = "дела%(ет,ют)% кувырок через [target.name]!"
-				return ..()
+		var/turf/oldloc = user.loc
+		var/turf/newloc = target.loc
+		if(isturf(oldloc) && isturf(newloc))
+			user.SpinAnimation(5, 1)
+			var/old_pass = user.pass_flags
+			user.pass_flags |= (PASSTABLE)
+			step(user, get_dir(oldloc, newloc))
+			user.pass_flags = old_pass
+			message = "дела%(ет,ют)% кувырок через [target.name]!"
+			return ..()
 
 	user.SpinAnimation(5, 1)
 

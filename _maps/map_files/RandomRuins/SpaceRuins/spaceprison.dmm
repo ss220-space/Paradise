@@ -2258,10 +2258,12 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/door_timer/cell_6,
 /obj/structure/cable{
 	icon_state = "1-2";
 	pixel_y = 0
+	},
+/obj/machinery/door_timer/cell_6{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plating,
 /area/ruin/spaceprison)

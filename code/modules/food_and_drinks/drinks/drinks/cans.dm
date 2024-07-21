@@ -238,8 +238,8 @@
 	list_reagents = list("mutagen" = 25, "charcoal" = 10, "thirteenloko" = 15)
 
 /obj/item/reagent_containers/food/drinks/cans/ale
-	name = "Magm-Ale"
-	desc = "A true dorf's drink of choice."
+	name = "Tail Tells Tales Ale"
+	desc = "The label has a tail drawn on it that extends the entire length of the bottle. If you rip it off, you can read some short tale or legend on the back of the label."
 	icon_state = "alebottle"
 	item_state = "beer"
 	is_glass = 1

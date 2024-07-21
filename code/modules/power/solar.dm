@@ -165,11 +165,11 @@
 		if(T.x == 1 || T.x==world.maxx || T.y==1 || T.y==world.maxy)		// not obscured if we reach the edge
 			break
 
-		if(T.density)			// if we hit a solid turf, panel is obscured
-			obscured = 1
+		if(IS_OPAQUE_TURF(T))			// if we hit an opaque turf, panel is obscured
+			obscured = TRUE
 			return
 
-	obscured = 0		// if hit the edge or stepped 20 times, not obscured
+	obscured = FALSE		// if hit the edge or stepped 20 times, not obscured
 	update_solar_exposure()
 
 
@@ -388,10 +388,10 @@
 		return
 	ui_interact(user)
 
-/obj/machinery/power/solar_control/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/power/solar_control/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "SolarControl", name, 490, 300)
+		ui = new(user, src, "SolarControl", name)
 		ui.open()
 
 /obj/machinery/power/solar_control/ui_data(mob/user)

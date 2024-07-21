@@ -111,7 +111,7 @@
 	else
 		return ..()
 
-/mob/living/simple_animal/hostile/guardian/Move() //Returns to summoner if they move out of range
+/mob/living/simple_animal/hostile/guardian/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE) //Returns to summoner if they move out of range
 	. = ..()
 	snapback()
 

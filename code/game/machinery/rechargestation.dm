@@ -99,8 +99,7 @@
 	qdel(src)
 
 /obj/machinery/recharge_station/Bumped(atom/movable/moving_atom)
-	..()
-
+	. = ..()
 	if(ismob(moving_atom))
 		move_inside(moving_atom)
 
@@ -299,7 +298,6 @@
 		to_chat(user, span_notice("Only non-organics may enter the recharger!"))
 		return
 
-	user.stop_pulling()
 	user.forceMove(src)
 	occupant = user
 

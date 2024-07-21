@@ -2437,6 +2437,7 @@
 		if(25)
 			M.SetStunned(0)
 			M.SetWeakened(0)
+			M.SetKnockdown(0)
 			M.SetParalysis(0)
 			M.SetSleeping(0)
 			M.SetDrowsy(0)

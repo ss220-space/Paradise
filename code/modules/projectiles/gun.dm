@@ -4,7 +4,7 @@
 	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "detective"
 	item_state = "gun"
-	appearance_flags = TILE_BOUND|PIXEL_SCALE|KEEP_TOGETHER
+	appearance_flags = TILE_BOUND|PIXEL_SCALE|KEEP_TOGETHER|LONG_GLIDE
 	flags =  CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=2000)
@@ -217,7 +217,10 @@
 
 	if(flag)
 		if(user.zone_selected == "mouth")
-			handle_suicide(user, target, params)
+			if(target == user && HAS_TRAIT(user, TRAIT_BADASS))
+				user.visible_message("<span class='danger'>[user] blows smoke off of [src]'s barrel. What a badass.</span>")
+			else
+				handle_suicide(user, target, params)
 			return
 
 
@@ -231,7 +234,7 @@
 				user.drop_from_active_hand()
 				return
 
-	if(weapon_weight == WEAPON_HEAVY && user.get_inactive_hand())
+	if(weapon_weight == WEAPON_HEAVY && (user.get_inactive_hand() || !user.has_inactive_hand() || (user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)))
 		to_chat(user, "<span class='userdanger'>You need both hands free to fire \the [src]!</span>")
 		return
 
@@ -244,7 +247,8 @@
 			if(G == src || G.weapon_weight >= WEAPON_MEDIUM)
 				continue
 			else if(G.can_trigger_gun(user))
-				bonus_spread += dual_wield_spread * G.weapon_weight
+				if(!HAS_TRAIT(user, TRAIT_BADASS))
+					bonus_spread += dual_wield_spread * G.weapon_weight
 				loop_counter++
 				addtimer(CALLBACK(G, PROC_REF(process_fire), target, user, 1, params, null, bonus_spread), loop_counter)
 
@@ -293,7 +297,7 @@
 	if(burst_size > 1)
 		if(chambered && chambered.harmful)
 			if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
-				to_chat(user, "<span class='warning'>[src] is lethally chambered! You don't want to risk harming anyone...</span>")
+				to_chat(user, span_warning("[src] is lethally chambered! You don't want to risk harming anyone..."))
 				return
 		firing_burst = 1
 		for(var/i = 1 to burst_size)
@@ -326,7 +330,7 @@
 		if(chambered)
 			if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
 				if(chambered.harmful) // Is the bullet chambered harmful?
-					to_chat(user, "<span class='warning'>[src] is lethally chambered! You don't want to risk harming anyone...</span>")
+					to_chat(user, span_warning("[src] is lethally chambered! You don't want to risk harming anyone..."))
 					return
 			sprd = round((pick(1,-1)) * (randomized_gun_spread + randomized_bonus_spread))
 			if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src))
@@ -360,23 +364,23 @@
 			if (malf_counter <= 0 && prob(50))
 				user.drop_item_ground(user.tkgrabbed_objects[src])
 				new /obj/effect/decal/cleanable/ash(loc)
-				to_chat(user, "<span class='userdanger'>WOAH! [src] blows up!</span>")
-				playsound(user, 'sound/effects/explosion1.ogg', 30, 1)
+				to_chat(user, span_userdanger("WOAH! [src] blows up!"))
+				playsound(user, 'sound/effects/explosion1.ogg', 30, TRUE)
 				qdel(src)
 				return FALSE
 			return TRUE
 		if(malf_counter <= 0 && prob(50))
 			new /obj/effect/decal/cleanable/ash(user.loc)
-			user.take_organ_damage(0,30)
+			user.take_organ_damage(0, 30)
 			user.flash_eyes()
-			to_chat(user, "<span class='userdanger'>WOAH! [src] blows up in your hands!</span>")
-			playsound(user, 'sound/effects/explosion1.ogg', 30, 1)
+			to_chat(user, span_userdanger("WOAH! [src] blows up in your hands!"))
+			playsound(user, 'sound/effects/explosion1.ogg', 30, TRUE)
 			qdel(src)
 			return FALSE
 		if(prob(40 - (malf_counter > 0 ? round(malf_counter / self_shot_divisor) : 0)))
-			playsound(user, fire_sound, 30, 1)
-			to_chat(user, "<span class='userdanger'>[src] blows up in your face!</span>")
-			user.take_organ_damage(0,10)
+			playsound(user, fire_sound, 30, TRUE)
+			to_chat(user, span_userdanger("[src] blows up in your face!"))
+			user.take_organ_damage(0, 10)
 			return FALSE
 
 /obj/item/gun/attack(mob/M, mob/user)
@@ -535,7 +539,7 @@
 			bayonet.forceMove(src)
 
 		var/overlay_type = "bayonet"	//Generic state.
-		if(bayonet.icon_state in icon_states('icons/obj/weapons/bayonets.dmi'))	//Snowflake state?
+		if(icon_exists('icons/obj/weapons/bayonets.dmi', bayonet.icon_state))	//Snowflake state?
 			overlay_type = bayonet.icon_state
 		bayonet_overlay = mutable_appearance('icons/obj/weapons/bayonets.dmi', overlay_type)
 		bayonet_overlay.pixel_x = bayonet_x_offset
@@ -619,7 +623,7 @@
 	target.visible_message("<span class='warning'>[user] pulls the trigger!</span>", "<span class='userdanger'>[user] pulls the trigger!</span>")
 
 	if(chambered && chambered.BB)
-		chambered.BB.damage *= 5
+		chambered.BB.damage *= 15
 
 	process_fire(target, user, 1, params)
 

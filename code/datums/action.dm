@@ -1,7 +1,7 @@
-#define BUTTON_LAYER_OFFSET_ICON (HUD_LAYER + 0.1)
-#define BUTTON_LAYER_OFFSET_UNAVAILABLE (HUD_LAYER + 0.2)
-#define BUTTON_LAYER_OFFSET_MAPTEXT (HUD_LAYER + 0.3)
-#define BUTTON_LAYER_OFFSET_SELECTOR (HUD_LAYER + 0.4)
+#define BUTTON_LAYER_ICON -4
+#define BUTTON_LAYER_UNAVAILABLE -3
+#define BUTTON_LAYER_MAPTEXT -2
+#define BUTTON_LAYER_SELECTOR -1
 
 /datum/action
 	var/name = "Generic Action"
@@ -178,7 +178,7 @@
 
 
 /datum/action/proc/apply_unavailable_effect()
-	var/static/mutable_appearance/unavailable_effect = mutable_appearance('icons/mob/screen_white.dmi', "template", BUTTON_LAYER_OFFSET_UNAVAILABLE, alpha = 200, appearance_flags = RESET_COLOR|RESET_ALPHA, color = "#000000")
+	var/static/mutable_appearance/unavailable_effect = mutable_appearance('icons/mob/screen_white.dmi', "template", BUTTON_LAYER_UNAVAILABLE, alpha = 200, appearance_flags = RESET_COLOR|RESET_ALPHA, color = "#000000")
 	button.add_overlay(unavailable_effect)
 
 
@@ -186,7 +186,7 @@
 	button.cut_overlays()
 	if(!icon_icon || !button_icon_state)
 		return
-	var/mutable_appearance/new_icon = mutable_appearance(icon_icon, button_icon_state, BUTTON_LAYER_OFFSET_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
+	var/mutable_appearance/new_icon = mutable_appearance(icon_icon, button_icon_state, BUTTON_LAYER_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
 	button.add_overlay(new_icon)
 
 
@@ -221,7 +221,7 @@
 		return FALSE
 	if(target && attack_self)
 		var/obj/item/I = target
-		I.ui_action_click(owner, type, left_click)
+		I.ui_action_click(owner, src, left_click)
 	return TRUE
 
 
@@ -231,7 +231,7 @@
 		return ..()
 	if(!target)
 		return
-	var/mutable_appearance/new_icon = mutable_appearance(target.icon, target.icon_state, BUTTON_LAYER_OFFSET_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
+	var/mutable_appearance/new_icon = mutable_appearance(target.icon, target.icon_state, BUTTON_LAYER_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
 	new_icon.copy_overlays(target)
 	button.add_overlay(new_icon)
 
@@ -305,11 +305,6 @@
 
 /datum/action/item_action/toggle_welding_screen/plasmaman
 	name = "Toggle Welding Screen"
-
-/datum/action/item_action/toggle_welding_screen/plasmaman/Trigger(left_click = TRUE)
-	var/obj/item/clothing/head/helmet/space/plasmaman/H = target
-	if(istype(H))
-		H.toggle_welding_screen(owner)
 
 /datum/action/item_action/toggle_helmet_mode
 	name = "Toggle Helmet Mode"
@@ -452,8 +447,11 @@
 
 /datum/action/item_action/remove_tape/Trigger(left_click = TRUE)
 	if(..())
-		var/datum/component/ducttape/DT = target.GetComponent(/datum/component/ducttape)
-		DT.remove_tape(target, usr)
+		var/component = target.GetComponent(/datum/component/ducttape)
+		if(component)
+			usr.transfer_fingerprints_to(target)
+			to_chat(usr, span_notice("You tear the tape off [target]!"))
+			qdel(component)
 
 /datum/action/item_action/toggle_jetpack
 	name = "Toggle Jetpack"
@@ -469,6 +467,8 @@
 
 /datum/action/item_action/toggle_jetpack/ninja
 	name = "Toggle Jetpack"
+	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon_state = "background_green"
 
 /datum/action/item_action/toggle_jetpack/ninja/apply_unavailable_effect()
 	return
@@ -483,11 +483,13 @@
 
 /datum/action/item_action/jetpack_stabilization/ninja
 	name = "Toggle Jetpack Stabilization"
+	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon_state = "background_green"
 
 /datum/action/item_action/jetpack_stabilization/ninja/UpdateButtonIcon()
 	. = ..()
 	var/obj/item/tank/jetpack/J = target
-	if(!istype(J) || !J.stabilizers)
+	if(!istype(J) || !J.stabilize)
 		button.icon_state = "[background_icon_state]"
 	else
 		button.icon_state = "[background_icon_state]_active"
@@ -519,7 +521,7 @@
 
 /datum/action/item_action/toggle_research_scanner/ApplyIcon()
 	button.cut_overlays()
-	var/static/mutable_appearance/new_icon = mutable_appearance('icons/mob/actions/actions.dmi', "scan_mode", BUTTON_LAYER_OFFSET_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
+	var/static/mutable_appearance/new_icon = mutable_appearance('icons/mob/actions/actions.dmi', "scan_mode", BUTTON_LAYER_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
 	button.add_overlay(new_icon)
 
 
@@ -681,7 +683,7 @@
 	var/obj/effect/proc_holder/spell/spell = target
 	if(!istype(spell) || !spell.need_active_overlay)
 		return
-	var/static/mutable_appearance/selector = mutable_appearance('icons/mob/screen_gen.dmi', "selector", BUTTON_LAYER_OFFSET_SELECTOR, appearance_flags = RESET_COLOR|RESET_ALPHA)
+	var/static/mutable_appearance/selector = mutable_appearance('icons/mob/screen_gen.dmi', "selector", BUTTON_LAYER_SELECTOR, appearance_flags = RESET_COLOR|RESET_ALPHA)
 	if(spell.active)
 		button.add_overlay(selector)
 	else
@@ -692,7 +694,7 @@
 	button.cut_overlays()
 	if(!button_icon || !button_icon_state)
 		return
-	var/mutable_appearance/new_icon = mutable_appearance(button_icon, button_icon_state, BUTTON_LAYER_OFFSET_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
+	var/mutable_appearance/new_icon = mutable_appearance(button_icon, button_icon_state, BUTTON_LAYER_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
 	button.add_overlay(new_icon)
 
 
@@ -700,11 +702,11 @@
 	var/obj/effect/proc_holder/spell/spell = target
 	if(!istype(spell))
 		return ..()
-	var/mutable_appearance/unavailable_effect = mutable_appearance('icons/mob/screen_white.dmi', "template", BUTTON_LAYER_OFFSET_UNAVAILABLE, appearance_flags = RESET_COLOR|RESET_ALPHA, color = "#000000")
+	var/mutable_appearance/unavailable_effect = mutable_appearance('icons/mob/screen_white.dmi', "template", BUTTON_LAYER_UNAVAILABLE, appearance_flags = RESET_COLOR|RESET_ALPHA, color = "#000000")
 	unavailable_effect.alpha = spell.cooldown_handler.get_cooldown_alpha()
 	button.add_overlay(unavailable_effect)
 	// Make a holder for the charge text
-	var/static/mutable_appearance/maptext_holder = mutable_appearance('icons/effects/effects.dmi', "nothing", BUTTON_LAYER_OFFSET_MAPTEXT, appearance_flags = RESET_COLOR|RESET_ALPHA)
+	var/static/mutable_appearance/maptext_holder = mutable_appearance('icons/effects/effects.dmi', "nothing", BUTTON_LAYER_MAPTEXT, appearance_flags = RESET_COLOR|RESET_ALPHA)
 	var/text = spell.cooldown_handler.statpanel_info()
 	maptext_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[text]</div>"
 	button.add_overlay(maptext_holder)
@@ -747,7 +749,7 @@
 
 /datum/action/innate/research_scanner/ApplyIcon()
 	button.cut_overlays()
-	var/static/mutable_appearance/new_icon = mutable_appearance('icons/mob/actions/actions.dmi', "scan_mode", BUTTON_LAYER_OFFSET_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
+	var/static/mutable_appearance/new_icon = mutable_appearance('icons/mob/actions/actions.dmi', "scan_mode", BUTTON_LAYER_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
 	button.add_overlay(new_icon)
 
 
@@ -785,7 +787,7 @@
 	button.cut_overlays()
 	if(!mmi)
 		return
-	var/mutable_appearance/new_icon = mutable_appearance(mmi.icon, mmi.icon_state, BUTTON_LAYER_OFFSET_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
+	var/mutable_appearance/new_icon = mutable_appearance(mmi.icon, mmi.icon_state, BUTTON_LAYER_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
 	new_icon.copy_overlays(mmi)
 	button.add_overlay(new_icon)
 
@@ -925,7 +927,7 @@
 	var/progress = get_availability_percentage()
 	if(progress == 1)
 		no_count = TRUE
-	var/mutable_appearance/unavailable_effect = mutable_appearance(coold_overlay_icon, coold_overlay_icon_state, BUTTON_LAYER_OFFSET_UNAVAILABLE, appearance_flags = RESET_COLOR|RESET_ALPHA, color = "#000000")
+	var/mutable_appearance/unavailable_effect = mutable_appearance(coold_overlay_icon, coold_overlay_icon_state, BUTTON_LAYER_UNAVAILABLE, appearance_flags = RESET_COLOR|RESET_ALPHA, color = "#000000")
 	unavailable_effect.alpha = no_count ? 80 : 220 - 140 * progress
 	button.add_overlay(unavailable_effect)
 	if(!no_count && charge_type != ADV_ACTION_TYPE_CHARGES)
@@ -937,14 +939,14 @@
 
 /datum/action/item_action/advanced/proc/add_percentage_overlay(progress)
 	// Make a holder for the charge text
-	var/static/mutable_appearance/count_down_holder = mutable_appearance('icons/effects/effects.dmi', "nothing", BUTTON_LAYER_OFFSET_MAPTEXT, appearance_flags = RESET_COLOR|RESET_ALPHA)
+	var/static/mutable_appearance/count_down_holder = mutable_appearance('icons/effects/effects.dmi', "nothing", BUTTON_LAYER_MAPTEXT, appearance_flags = RESET_COLOR|RESET_ALPHA)
 	count_down_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[round_down(progress * 100)]%</div>"
 	button.add_overlay(count_down_holder)
 
 
 /datum/action/item_action/advanced/proc/add_charges_overlay()
 	// Make a holder for the charge text
-	var/static/mutable_appearance/charges_holder = mutable_appearance('icons/effects/effects.dmi', "nothing", BUTTON_LAYER_OFFSET_MAPTEXT, appearance_flags = RESET_COLOR|RESET_ALPHA)
+	var/static/mutable_appearance/charges_holder = mutable_appearance('icons/effects/effects.dmi', "nothing", BUTTON_LAYER_MAPTEXT, appearance_flags = RESET_COLOR|RESET_ALPHA)
 	charges_holder.maptext = "<div style=\"font-size:6pt;color:#ffffff;font:'Small Fonts';text-align:center;\" valign=\"bottom\">[charge_counter]/[charge_max]</div>"
 	button.add_overlay(charges_holder)
 
@@ -991,8 +993,8 @@
 	UpdateButtonIcon()
 
 
-#undef BUTTON_LAYER_OFFSET_ICON
-#undef BUTTON_LAYER_OFFSET_UNAVAILABLE
-#undef BUTTON_LAYER_OFFSET_MAPTEXT
-#undef BUTTON_LAYER_OFFSET_SELECTOR
+#undef BUTTON_LAYER_ICON
+#undef BUTTON_LAYER_UNAVAILABLE
+#undef BUTTON_LAYER_MAPTEXT
+#undef BUTTON_LAYER_SELECTOR
 
