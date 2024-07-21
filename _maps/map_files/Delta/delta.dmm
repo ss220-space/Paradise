@@ -100635,7 +100635,9 @@
 /obj/machinery/newscaster{
 	pixel_x = 28
 	},
-/obj/machinery/computer/arcade,
+/obj/machinery/arcade/minesweeper{
+	freeplay = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -182449,8 +182451,8 @@ oId
 xyi
 fVK
 cQj
-cQj
 iUT
+cQj
 pWQ
 cTc
 lQm

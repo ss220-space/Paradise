@@ -46401,121 +46401,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-<<<<<<< HEAD
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
-"nmo" = (
-/obj/effect/decal/warning_stripes/white,
-/obj/machinery/kitchen_machine/oven{
-	pixel_y = 3
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
-/area/crew_quarters/kitchen)
-"nmq" = (
-/obj/structure/table,
-/obj/item/clothing/gloves/color/yellow,
-/obj/item/wirecutters,
-/obj/item/multitool,
-/obj/item/screwdriver,
-/obj/machinery/camera{
-	c_tag = "Brig Firing Range";
-	dir = 1
-	},
-/obj/item/radio/intercom/department/security{
-	name = "south station intercom (Security)";
-	pixel_y = -28
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
-/area/security/range)
-"nmE" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/maintenance/engineering)
-"nmF" = (
-/obj/effect/decal/cleanable/shreds,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/xenozoo)
-"nmU" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "redcorner"
-	},
-/area/security/permabrig)
-"nnm" = (
-/obj/machinery/hologram/holopad,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel,
-/area/toxins/launch)
-"nnn" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
-/turf/simulated/floor/wood,
-/area/crew_quarters/captain)
-"nnD" = (
-/obj/structure/table/wood/fancy/royalblue,
-/obj/item/reagent_containers/food/snacks/grown/banana{
-	pixel_x = 4;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/food/snacks/grown/banana{
-	pixel_x = -1;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/food/snacks/grown/banana{
-	pixel_x = -6;
-	pixel_y = 3
-	},
-/turf/simulated/floor/carpet/black,
-/area/quartermaster/storage)
-"nnR" = (
-/obj/machinery/arcade/minesweeper,
-/turf/simulated/floor/carpet/arcade,
-/area/crew_quarters/arcade)
-"nnZ" = (
-/obj/effect/turf_decal/siding/wood/corner{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/wood/fancy/cherry,
-/area/crew_quarters/bar/atrium)
-"non" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/universal{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
-"noz" = (
-/obj/effect/turf_decal/stripes/white/line{
-	dir = 5
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/security/permabrig)
-"noE" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-=======
->>>>>>> master220
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -71080,6 +70965,10 @@
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
+"nkz" = (
+/obj/machinery/arcade/minesweeper,
+/turf/simulated/floor/carpet/arcade,
+/area/crew_quarters/arcade)
 "nkK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
@@ -78621,13 +78510,15 @@
 	},
 /area/medical/cmo)
 "sku" = (
-/obj/machinery/computer/arcade,
 /obj/machinery/camera{
 	c_tag = "Prison Library";
 	dir = 6;
 	network = list("Prison","SS13")
 	},
 /obj/effect/decal/cleanable/dust,
+/obj/machinery/arcade/minesweeper{
+	freeplay = 1
+	},
 /turf/simulated/floor/wood,
 /area/security/permabrig)
 "skM" = (
@@ -122666,7 +122557,7 @@ aFI
 buY
 aGO
 aKI
-aJv
+nkz
 aIp
 aMC
 aOb
@@ -123686,23 +123577,6 @@ aCh
 bdI
 awl
 avq
-<<<<<<< HEAD
-avq
-aBu
-arR
-avq
-ayb
-aFI
-aGP
-aIs
-nnR
-aKK
-nnR
-aOc
-aPf
-aQv
-aPm
-=======
 bhR
 aKK
 aKK
@@ -123718,7 +123592,6 @@ aFI
 bVD
 aVw
 cbT
->>>>>>> master220
 lYa
 aWP
 aZA
