@@ -6373,7 +6373,7 @@
 /area/ruin/space/pirate_base/entertainment)
 "sj" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rat,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -11260,7 +11260,7 @@
 /turf/simulated/floor/pod,
 /area/ruin/space/pirate_base/security_atrium)
 "GT" = (
-/mob/living/simple_animal/mouse/brown,
+/obj/effect/spawner/random_spawners/mouse,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)

@@ -2894,7 +2894,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "cCi" = (
-/mob/living/simple_animal/mouse/gray{
+/mob/living/simple_animal/mouse{
 	faction = list("neutral","syndicate")
 	},
 /turf/simulated/floor/engine/air,

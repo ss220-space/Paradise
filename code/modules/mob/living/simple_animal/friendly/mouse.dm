@@ -35,8 +35,6 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	mob_size = MOB_SIZE_TINY
-	var/mouse_color //brown, gray and white, leave blank for random
-	var/non_standard = FALSE //for no "mouse_" with mouse_color
 	layer = MOB_LAYER
 	atmos_requirements = list("min_oxy" = 16, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 223		//Below -50 Degrees Celcius
@@ -52,13 +50,11 @@
 	var/static/list/animated_mouses = list(
 			/mob/living/simple_animal/mouse,
 			/mob/living/simple_animal/mouse/brown,
-			/mob/living/simple_animal/mouse/gray,
 			/mob/living/simple_animal/mouse/white,
 			/mob/living/simple_animal/mouse/blobinfected)
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
-	update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 	AddComponent(/datum/component/squeak, list(squeak_sound), 100, extrarange = SHORT_RANGE_SOUND_EXTRARANGE, dead_check = TRUE) //as quiet as a mouse or whatever
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
@@ -99,7 +95,7 @@
 
 /mob/living/simple_animal/mouse/proc/do_idle_animation(anim)
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, "mouse_animation_trait_[anim]")
-	flick("mouse_[mouse_color]_idle[anim]",src)
+	flick("[initial(icon_state)]_idle[anim]",src)
 	addtimer(CALLBACK(src, PROC_REF(animation_end), anim), 2 SECONDS)
 
 /mob/living/simple_animal/mouse/proc/animation_end(anim)
@@ -123,31 +119,13 @@
 		verbs += /mob/living/simple_animal/mouse/proc/washup
 
 
-/mob/living/simple_animal/mouse/proc/color_pick()
-	mouse_color = pick(list("brown", "gray", "white"))
-	return TRUE
+/mob/living/simple_animal/mouse/update_icons()
+	if(!jetpack)
+		..()
+		return
 
-
-/mob/living/simple_animal/mouse/update_icon_state()
-	if(!mouse_color && !color_pick())
-		icon_state		= initial(icon_state)
-		icon_living		= initial(icon_living)
-		icon_dead		= initial(icon_dead)
-		icon_resting	= initial(icon_resting)
-	else
-		var/new_icon_state = "mouse_[mouse_color][jetpack ? "_jet" : ""]"
-		icon_state		= new_icon_state
-		icon_living		= new_icon_state
-		icon_dead		= "mouse_[mouse_color]_dead"
-		icon_resting	= "mouse_[mouse_color]_sleep"
-
-
-/mob/living/simple_animal/mouse/update_desc(updates)
-	. = ..()
-	if(!mouse_color && !color_pick())
-		desc = initial(desc)
-	else
-		desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
+	icon_state = "[initial(icon_state)]_jet"
+	regenerate_icons()
 
 
 /mob/living/simple_animal/mouse/attack_hand(mob/living/carbon/human/M)
@@ -233,7 +211,7 @@
 		span_italics("You hear the roar of a small engine."))
 
 	RegisterSignal(src, COMSIG_MOB_GHOSTIZE, PROC_REF(remove_from_back))
-	update_icon(UPDATE_ICON_STATE)
+	update_icons()
 	update_move_type(item_to_add)
 	return TRUE
 
@@ -261,7 +239,7 @@
 	jetpack = null
 
 	UnregisterSignal(src, COMSIG_MOB_GHOSTIZE)
-	update_icon(UPDATE_ICON_STATE)
+	update_icons()
 	update_move_type(removed_item)
 
 
@@ -337,14 +315,10 @@
 	desc = "It's toast."
 	death()
 
-/mob/living/simple_animal/mouse/proc/splat(obj/item/item = null, mob/living/user = null)
-	if(non_standard)
-		var/temp_state = initial(icon_state)
-		icon_dead = "[temp_state]_splat"
-		icon_state = "[temp_state]_splat"
-	else
-		icon_dead = "mouse_[mouse_color]_splat"
-		icon_state = "mouse_[mouse_color]_splat"
+/mob/living/simple_animal/mouse/proc/splat(obj/item/item, mob/living/user)
+	var/temp_state = initial(icon_state)
+	icon_dead = "[temp_state]_splat"
+	icon_state = "[temp_state]_splat"
 
 	if(prob(50))
 		var/turf/location = get_turf(src)
@@ -447,17 +421,17 @@
  */
 
 /mob/living/simple_animal/mouse/white
-	mouse_color = "white"
 	icon_state = "mouse_white"
+	icon_living = "mouse_white"
+	icon_dead = "mouse_white_dead"
+	icon_resting = "mouse_white_sleep"
 	tts_seed = "Meepo"
 
-/mob/living/simple_animal/mouse/gray
-	mouse_color = "gray"
-	icon_state = "mouse_gray"
-
 /mob/living/simple_animal/mouse/brown
-	mouse_color = "brown"
 	icon_state = "mouse_brown"
+	icon_living = "mouse_brown"
+	icon_dead = "mouse_brown_dead"
+	icon_resting = "mouse_brown_sleep"
 	tts_seed = "Clockwerk"
 
 //TOM IS ALIVE! SQUEEEEEEEE~K :)
@@ -513,8 +487,10 @@
 /mob/living/simple_animal/mouse/fluff/clockwork
 	name = "Chip"
 	real_name = "Chip"
-	mouse_color = "clockwork"
 	icon_state = "mouse_clockwork"
+	icon_living = "mouse_clockwork"
+	icon_dead = "mouse_clockwork_dead"
+	icon_resting = "mouse_clockwork_sleep"
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "stamps on"
@@ -538,43 +514,22 @@
 /mob/living/simple_animal/mouse/rat
 	name = "rat"
 	real_name = "rat"
-	desc = "Крыса. Рожа у неё хитрая и знакомая..."
+	desc = "Серая крыса. Не самый яркий представитель своего вида."
 	squeak_sound = 'sound/creatures/rat_squeak.ogg'
 	icon_state 		= "rat_gray"
 	icon_living 	= "rat_gray"
 	icon_dead 		= "rat_gray_dead"
 	icon_resting 	= "rat_gray_sleep"
-	non_standard = TRUE
-	mouse_color = null
 	maxHealth = 15
 	health = 15
 	mob_size = MOB_SIZE_SMALL
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/mouse = 2)
 
 
-/mob/living/simple_animal/mouse/rat/color_pick()
-	mouse_color = pick(list("gray", "white", "irish"))
-	return TRUE
-
-
-/mob/living/simple_animal/mouse/rat/update_icon_state()
-	if(!mouse_color && !color_pick())
-		icon_state		= initial(icon_state)
-		icon_living		= initial(icon_living)
-		icon_dead		= initial(icon_dead)
-		icon_resting	= initial(icon_resting)
-	else
-		icon_state		= "rat_[mouse_color]"
-		icon_living		= "rat_[mouse_color]"
-		icon_dead		= "rat_[mouse_color]_dead"
-		icon_resting	= "rat_[mouse_color]_sleep"
-
-
 /mob/living/simple_animal/mouse/rat/gray
 	name = "gray rat"
 	real_name = "gray rat"
 	desc = "Серая крыса. Не самый яркий представитель своего вида."
-	mouse_color = "gray"
 
 /mob/living/simple_animal/mouse/rat/white
 	name = "white rat"
@@ -584,7 +539,6 @@
 	icon_living 	= "rat_white"
 	icon_dead 		= "rat_white_dead"
 	icon_resting 	= "rat_white_sleep"
-	mouse_color = "white"
 
 /mob/living/simple_animal/mouse/rat/irish
 	name = "irish rat"		//Да, я знаю что это вид. Это каламбурчик.
@@ -594,7 +548,6 @@
 	icon_living 	= "rat_irish"
 	icon_dead 		= "rat_irish_dead"
 	icon_resting 	= "rat_irish_sleep"
-	mouse_color = "irish"
 
 #define MAX_HAMSTER 50
 GLOBAL_VAR_INIT(hamster_count, 0)
@@ -608,7 +561,6 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 	icon_dead = "hamster_dead"
 	icon_resting = "hamster_rest"
 	gender = MALE
-	non_standard = TRUE
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	speak_chance = 0
 	childtype = list(/mob/living/simple_animal/mouse/hamster/baby)
@@ -619,19 +571,18 @@ GLOBAL_VAR_INIT(hamster_count, 0)
 	maxHealth = 10
 	health = 10
 
-/mob/living/simple_animal/mouse/hamster/color_pick()
-	return FALSE
-
 
 /mob/living/simple_animal/mouse/hamster/update_desc(updates)
 	. = ..()	// We get initial desc here.
 	desc += gender == MALE ? " Самец!" : " Самочка! Ох... Нет..."
 
 
-/mob/living/simple_animal/mouse/hamster/New()
-	gender = prob(80) ? MALE : FEMALE
-	GLOB.hamster_count++
+/mob/living/simple_animal/mouse/hamster/Initialize(mapload)
 	. = ..()
+	GLOB.hamster_count++
+	gender = prob(80) ? MALE : FEMALE
+	update_appearance(UPDATE_DESC)
+
 
 /mob/living/simple_animal/mouse/hamster/Destroy()
 	GLOB.hamster_count--

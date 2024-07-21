@@ -2663,7 +2663,7 @@
 	},
 /area/ruin/ussp_xeno/gym_ussp)
 "KR" = (
-/mob/living/simple_animal/mouse/white,
+/obj/effect/spawner/random_spawners/mouse,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
