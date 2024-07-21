@@ -33,6 +33,19 @@
 		else
 			piece = "<span class='message'><span class='body'>[piece]</span></span>"
 		msg += (piece + " ")
+
+	if(msg == "")
+		. = ""
+		return
+
+	if(isliving(src))
+		for(var/datum/component/codeword_hearing/hearing_datum in GetComponents(/datum/component/codeword_hearing))
+			var/tmp_msg = hearing_datum.handle_hearing(msg)
+			if(!tmp_msg)
+				continue
+			msg = tmp_msg
+			log_debug(msg)
+
 	return trim(msg)
 
 /mob/proc/combine_message_tts(list/message_pieces, mob/speaker, always_stars = FALSE)

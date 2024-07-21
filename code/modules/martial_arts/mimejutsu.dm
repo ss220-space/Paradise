@@ -62,7 +62,7 @@
 		var/mob/living/carbon/human/H = user
 		var/datum/martial_art/mimejutsu/F = new/datum/martial_art/mimejutsu(null)
 		F.teach(H)
-		to_chat(H, "<span class='boldannounce'>...</span>")
+		to_chat(H, span_boldannounceic("..."))
 		used = TRUE
 		desc = "An old manual of the martial art of mimes. The pages are blank."
 	else

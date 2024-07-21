@@ -216,3 +216,37 @@
   - bugfix: Registered Turf Signals Stay Registered (#5455)
   - refactor: Updated Error Code (#5468)
   - refactor: Updated Pathing (#5488)
+  - bugfix: Fixing Runtime Popup (#5501)
+'2024-07-19':
+  Antoonij:
+  - bugfix: deathnettle now stings without fingers being covered (#5496)
+  - tweak: New thief bundle + slug adjustments (#5503)
+  - tweak: crossbow now gibs space carp && e dagger 2 illegal lvl (#5502)
+  Den109G:
+  - bugfix: Fix welding sec-glasses giving you permanent HUD (#5494)
+  Dimach:
+  - refactor: replace goonChat with TGchat (#5404)
+  ItsMeJaba:
+  - bugfix: turret's connection to control panel in AI Satellite Antechamber (#5450)
+  LiquidPotroh:
+  - bugfix: ETR nullrod afterattack checks (#5493)
+  Quinalion:
+  - add: Abductor Toolbelt in racial Uplink (#5499)
+  - tweak: Allow Grey use Silencer (#5498)
+  ROdenFL:
+  - bugfix: power monitor change back and alarms and assemeblies and camera (#5490)
+  Vladisvell:
+  - bugfix: Fixed taser animation bug (#5505)
+  - bugfix: Fixed negative atmospherics, made lavaland plasma burning nice (#5487)
+  - server: Updated nanomap renderer (#5511)
+  Zwei:
+  - bugfix: Runtimes Fixes N3 (#5510)
+  - bugfix: MultiZ Pull And Flying Mobs Fix (#5509)
+  - bugfix: HoS Laser Overlay Fix (#5504)
+  - bugfix: Slime Unconsious Stat Fixed (#5497)
+  - bugfix: Few Spacemove Fixes (#5483)
+  - bugfix: Holster Overlays (#5489)
+  - bugfix: Drones Have Disposal Signal On Init (#5466)
+  endipe:
+  - tweak: add ointment to nanomed-plus (#5413)
+  - add: new firstaid for paramed (#5418)
