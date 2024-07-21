@@ -139,7 +139,7 @@
 	icon_state = "camera"
 	item_state = "electropack"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = ITEM_SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_NECK
 	var/list/matter = list("metal" = 2000)
 	var/pictures_max = 10
 	var/pictures_left = 10
@@ -149,6 +149,14 @@
 	var/icon_off = "camera_off"
 	var/size = 3
 	var/see_ghosts = 0 //for the spoop of it
+
+	sprite_sheets = list(
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/neck.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/neck.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/neck.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/neck.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/neck.dmi'
+		)
 
 
 /obj/item/camera/spooky/CheckParts(list/parts_list)
