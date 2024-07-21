@@ -150,24 +150,24 @@
 
 
 /datum/roboshop_item/bluespace_core
-	name = "\improper bluespace anomaly core"
+	name = "bluespace anomaly core"
 	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
 	path = /obj/item/assembly/signaler/anomaly/bluespace
 	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 15)
 
 /datum/roboshop_item/mecha_drop
-	name = "\improper mecha drop tool"
+	name = "mecha drop tool"
 	path = /obj/item/mecha_drop
 	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 20)
 	emag_only = TRUE
 
 /datum/roboshop_item/bbag
-	name = "\improper bluespace bodybag"
+	name = "bluespace bodybag"
 	path = /obj/item/bodybag/bluespace
 	cost = list("working" = 0, "medical" = 6, "security" = 0, "robo" = 0)
 
 /datum/roboshop_item/holotool
-	name = "\improper holotool"
+	name = "holotool"
 	path = /obj/item/holotool
 	cost = list("working" = 6, "medical" = 0, "security" = 0, "robo" = 0)
 
@@ -179,6 +179,159 @@
 	name = "\improper experimental parts"
 	path = /obj/item/storage/box/stockparts/experimental_parts
 	cost = list("working" = 2, "medical" = 2, "security" = 2, "robo" = 0)
+
+//Paintkits
+/datum/roboshop_item/paint_ripley_titan
+	name = "Ripley, Firefighter \"Titan's Fist\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 5)
+	path = /obj/item/paintkit/ripley_titansfist
+
+/datum/roboshop_item/paint_ripley_earth
+	name = "Ripley, Firefighter \"Strike the Earth!\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 5)
+	path = /obj/item/paintkit/ripley_mercenary
+
+/datum/roboshop_item/paint_ripley_red
+	name = "Ripley, Firefighter \"Firestarter\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 4)
+	path = /obj/item/paintkit/ripley_red
+
+/datum/roboshop_item/paint_firefighter_hauler
+	name = "Ripley, Firefighter \"Hauler\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 4)
+	path = /obj/item/paintkit/firefighter_Hauler
+
+/datum/roboshop_item/paint_firefighter_zairjah
+	name = "Ripley, Firefighter \"Zairjah\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 5)
+	path = /obj/item/paintkit/firefighter_zairjah
+
+/datum/roboshop_item/paint_firefighter_combat
+	name = "Ripley, Firefighter \"Combat Ripley\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 5)
+	path = /obj/item/paintkit/firefighter_combat
+
+/datum/roboshop_item/paint_firefighter_reaper
+	name = "Ripley, Firefighter \"Reaper\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
+	path = /obj/item/paintkit/firefighter_Reaper
+
+/datum/roboshop_item/paint_firefighter_aluminizer
+	name = "Ripley, Firefighter \"Aluminizer\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 5)
+	path = /obj/item/paintkit/firefighter_aluminizer
+
+/datum/roboshop_item/paint_ripley_nt
+	name = "Ripley, Firefighter \"NT Special\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 5)
+	path = /obj/item/paintkit/ripley_nt
+
+/datum/roboshop_item/paint_clarke_orangey
+	name = "Clarke \"Orangey\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 4)
+	path = /obj/item/paintkit/clarke_orangey
+
+/datum/roboshop_item/paint_clarke_spiderclarke
+	name = "Clarke \"Spiderclarke\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 5)
+	path = /obj/item/paintkit/clarke_spiderclarke
+
+/datum/roboshop_item/paint_odysseus_hermes
+	name = "Odysseus \"Hermes\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 5)
+	path = /obj/item/paintkit/odysseus_hermes
+
+/datum/roboshop_item/paint_odysseus_reaper
+	name = "Odysseus \"Reaper\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
+	path = /obj/item/paintkit/odysseus_death
+
+/datum/roboshop_item/paint_gygax_alt
+	name = "Gygax \"Old\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 4)
+	path = /obj/item/paintkit/gygax_alt
+
+/datum/roboshop_item/paint_gygax_pobeda
+	name = "Gygax \"Pobeda\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 4)
+	path = /obj/item/paintkit/gygax_pobeda
+
+/datum/roboshop_item/paint_gygax_white
+	name = "Gygax \"White\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 4)
+	path = /obj/item/paintkit/gygax_white
+
+/datum/roboshop_item/paint_gygax_medgax
+	name = "Gygax \"Medgax\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
+	path = /obj/item/paintkit/gygax_medgax
+
+/datum/roboshop_item/paint_gygax_black
+	name = "Gygax \"Syndicate\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 4)
+	emag_only = TRUE
+	path = /obj/item/paintkit/gygax_syndie
+
+/datum/roboshop_item/paint_gygax_pirate
+	name = "Gygax \"Pirate\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
+	path = /obj/item/paintkit/gygax_pirate
+
+/datum/roboshop_item/paint_durand_unathi
+	name = "Durand \"Kharn MK. IV\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 4)
+	path = /obj/item/paintkit/durand_unathi
+
+/datum/roboshop_item/paint_durand_shire
+	name = "Durand \"Shire\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
+	path = /obj/item/paintkit/durand_shire
+
+/datum/roboshop_item/paint_durand_pirate
+	name = "Durand \"Pirate\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
+	path = /obj/item/paintkit/durand_pirate
+
+/datum/roboshop_item/paint_durand_nt
+	name = "Durand \"NT Special\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
+	path = /obj/item/paintkit/durand_nt
+
+/datum/roboshop_item/paint_durand_soviet
+	name = "Durand \"Dollhouse\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
+	path = /obj/item/paintkit/durand_soviet
+
+/datum/roboshop_item/paint_durand_executor
+	name = "Durand \"mk.V Executioner\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
+	path = /obj/item/paintkit/durand_executor
+
+/datum/roboshop_item/paint_phazon_imperion
+	name = "Phazon \"Imperion\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
+	path = /obj/item/paintkit/phazon_imperion
+
+/datum/roboshop_item/paint_phazon_janus
+	name = "Phazon \"Janus\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
+	path = /obj/item/paintkit/phazon_janus
+
+/datum/roboshop_item/paint_phazon_plazmus
+	name = "Phazon \"Plazmus\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
+	path = /obj/item/paintkit/phazon_plazmus
+
+/datum/roboshop_item/paint_phazon_blanco
+	name = "Phazon \"Blanco\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
+	path = /obj/item/paintkit/phazon_blanco
+
+/datum/roboshop_item/paint_phazon_nt
+	name = "Phazon \"NT Special\""
+	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
+	path = /obj/item/paintkit/phazon_nt
+
 
 #undef WORKING_CLASS
 #undef MEDICAL_CLASS

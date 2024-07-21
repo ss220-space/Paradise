@@ -8,6 +8,7 @@ import {
   Button,
   Stack,
   LabeledList,
+  ImageButton,
   Divider,
 } from '../components';
 import { Window } from '../layouts';
@@ -34,6 +35,15 @@ export const RoboQuest = (props, context) => {
     'shopState',
     false
   );
+
+  const cat_to_color = {
+    'medical': 'blue',
+    'working': 'brown',
+    'security': 'red',
+    'working_medical': 'olive',
+    'medical_security': 'violet',
+    'working_medical_security': 'grey',
+  };
 
   return (
     <Window theme={style} width={940} height={540}>
@@ -133,53 +143,41 @@ export const RoboQuest = (props, context) => {
                 }
               >
                 {/* <Box overflowY="auto" overflowX="hiddem"> */}
-                <Stack direction="column" alignContent="center">
-                  {cats.number.map((stage) => (
-                    <Stack.Item key={stage}>
-                      <Stack
-                        alignContent="center"
-                        textAlign="center"
-                        mr={8}
-                        ml={8}
-                      >
-                        {cats[stage].map((cat) => (
-                          <Stack.Item grow="1" key={cat}>
-                            <Stack vertical alignContent="center">
-                              {!(
-                                shopItems[cat] === undefined ||
-                                shopItems[cat].length === 0
-                              ) &&
-                                shopItems[cat].map((i) => (
-                                  <Stack.Item grow="1" basis="33" key={i.path}>
-                                    {/* <Button
-                                      height="64px"
-                                      width="64px"
-                                      onClick={() =>
-                                        act('buyItem', {
-                                          item: i.path,
-                                        })
-                                      }
-                                    >
-                                      <img
-                                        className={classes([
-                                          'roboquest64x64',
-                                          i.icon,
-                                        ])}
-                                      />
-                                      <Tooltip
-                                        title={i.name}
-                                        content={`${i.desc}\n ${i.cost.working + '|' + i.cost.medical + '|' + i.cost.security}`}
-                                      />
-                                    </Button> */}
-                                  </Stack.Item>
-                                ))}
-                            </Stack>
-                          </Stack.Item>
-                        ))}
-                      </Stack>
-                    </Stack.Item>
-                  ))}
-                </Stack>
+                {Object.keys(shopItems).map((cat) => (
+                  <Fragment fill key={cat}>
+                    {!(
+                      shopItems[cat] === undefined ||
+                      shopItems[cat].length === 0 ||
+                      cat === 'robo'
+                    ) &&
+                      shopItems[cat].map((i) => (
+                        <ImageButton
+                          key={i.path}
+                          asset
+                          color={cat_to_color[cat]}
+                          image={i.icon}
+                          imageAsset="roboquest64x64"
+                          title={
+                            <Box nowrap inline>
+                              {i.name}{' '}
+                              <b style={{ color: 'brown' }}>{i.cost.working}</b>
+                              |
+                              <b style={{ color: 'lightblue' }}>
+                                {i.cost.medical}
+                              </b>
+                              |<b style={{ color: 'red' }}>{i.cost.security}</b>
+                            </Box>
+                          }
+                          content={i.desc}
+                          onClick={() =>
+                            act('buyItem', {
+                              item: i.path,
+                            })
+                          }
+                        />
+                      ))}
+                  </Fragment>
+                ))}
               </Section>
             )}
           </Stack.Item>
@@ -292,6 +290,7 @@ export const RoboQuest = (props, context) => {
             {!!shopState && (
               <Section
                 fill
+                scrollable
                 title={
                   <>
                     RoboQuest Shop
@@ -299,30 +298,27 @@ export const RoboQuest = (props, context) => {
                   </>
                 }
               >
-                <Box maxHeight={30} overflowY="auto" overflowX="hidden">
-                  {shopItems.robo.map(
-                    (i) =>
-                      (!i.emagOnly || style === 'syndicate') && (
-                        <Section
-                          fill
-                          key={i.name}
-                          title={i.name}
-                          buttons={
-                            <Button
-                              content={'Buy (' + i.cost.robo + 'P)'}
-                              onClick={() =>
-                                act('buyItem', {
-                                  item: i.path,
-                                })
-                              }
-                            />
-                          }
-                        >
-                          <Box italic>{i.desc}</Box>
-                        </Section>
-                      )
-                  )}
-                </Box>
+                {shopItems.robo.map(
+                  (i) =>
+                    (!i.emagOnly || style === 'syndicate') && (
+                      <Section
+                        key={i.name}
+                        title={i.name}
+                        buttons={
+                          <Button
+                            content={'Buy (' + i.cost.robo + 'P)'}
+                            onClick={() =>
+                              act('buyItem', {
+                                item: i.path,
+                              })
+                            }
+                          />
+                        }
+                      >
+                        <Box italic>{i.desc}</Box>
+                      </Section>
+                    )
+                )}
               </Section>
             )}
           </Stack.Item>
