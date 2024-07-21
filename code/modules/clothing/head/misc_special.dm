@@ -80,10 +80,10 @@
 			return
 		var/obj/item/toy/crayon/spraycan/paintkit/C = I
 		if(C.capped)
-			to_chat(user, "<span class = 'warning'>Вы не можете раскрасить [src], если крышка на банке закрыта!</span>")
+			to_chat(user, span_warning("Вы не можете раскрасить [src], если крышка баллона краски закрыта!"))
 			return
 		if(C.uses <= 1)
-			to_chat(user, "<span class = 'warning'>Не похоже что бы осталось достаточно краски.</span>")
+			to_chat(user, span_warning("Не похоже, что бы осталось достаточно краски"))
 			return
 		var/list/weld_icons = list("Flame" = image(icon = src.icon, icon_state = "welding_redflame"),
 									"Blue Flame" = image(icon = src.icon, icon_state = "welding_blueflame"),
@@ -91,14 +91,16 @@
 		var/list/weld = list("Flame" = "welding_redflame",
 							"Blue Flame" = "welding_blueflame",
 							"White Flame" = "welding_white")
+		var/choice = null
 		if(istype(I, /obj/item/toy/crayon/spraycan/paintkit))
-			weld = list(C.weld = C.weld_icons)
-			weld_icons = list(C.weld = image(icon = src.icon, icon_state = C.weld_icons))
 			if(C.used)
-				to_chat(user, span_warning("Кажется этот набор уже был использован. Вам этого не хватит для покраски"))
+				to_chat(user, span_warning("Кажется, этот набор уже был использован. Вам этого не хватит для покраски."))
 				return
+			weld = list(C.name = C.weld_icons)
+			choice = C.name
 			C.used = TRUE
-		var/choice = show_radial_menu(user, src, weld_icons)
+		if(!choice)
+			choice = show_radial_menu(user, src, weld_icons)
 		if(!choice || I.loc != user || !Adjacent(user))
 			return
 		icon_state = weld[choice]

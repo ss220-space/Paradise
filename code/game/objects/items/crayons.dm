@@ -331,27 +331,23 @@
 /obj/item/toy/crayon/spraycan/paintkit
 	colour = "#ffffff"
 	var/used = FALSE
-	var/weld_icons
-	var/weld
+	var/weld_icons = "welding" //default
 
 /obj/item/toy/crayon/spraycan/paintkit/New()
 	..()
 	name = "Paintkit '[name]'"
-	update_icon()
 
 /obj/item/toy/crayon/spraycan/paintkit/update_icon_state()
 	return
 
 /obj/item/toy/crayon/spraycan/paintkit/bigbrother
 	name = "Big Brother"
-	desc = "Баночка черно-золотой краски с трафаретом для покраски сварочного шлема, к баночке прикреплена записка что гласит 'Eyes everywhere'."
+	desc = "Баллончик с черно-золотым корпусом. В комплекте идет одноразовый трафарет для покраски сварочного шлема. К нему прикреплена записка, на которой написано: «Eyes everywhere»."
 	icon_state = "spraycan_bigbrother"
 	weld_icons = "welding_bigbrother"
-	weld = "Big brother"
 
 /obj/item/toy/crayon/spraycan/paintkit/slavic
 	name = "Slavic"
-	desc = "Баночка с краской цвета хаки и трафаретом для покраски сварочного шлема, к баночке прикреплена записка что гласит 'Head, eyes, blyad'."
+	desc = "Баллончик с корпусом цвета хаки. В комплекте идет одноразовый трафарет для покраски сварочного шлема. К нему прикреплена записка, на которой написано: «Head, eyes, blyad»."
 	icon_state = "spraycan_slavic"
 	weld_icons = "welding_slavic"
-	weld = "Slavic"

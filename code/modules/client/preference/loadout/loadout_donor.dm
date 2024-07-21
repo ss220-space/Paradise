@@ -93,7 +93,6 @@
 	display_name = "Guy Fawkes mask"
 	path = /obj/item/clothing/mask/face/fawkes
 
-
 /datum/gear/donor/bigbrother
 	display_name = "Spraycan Big Brother"
 	path = /obj/item/toy/crayon/spraycan/paintkit/bigbrother
