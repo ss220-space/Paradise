@@ -26762,6 +26762,14 @@
 	icon_state = "neutral"
 	},
 /area/hallway/primary/central/north)
+"dKd" = (
+/obj/machinery/roboquest_pad,
+/obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteyellow"
+	},
+/area/assembly/chargebay)
 "dKe" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
@@ -94246,6 +94254,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/checkpoint/south)
+"qUZ" = (
+/obj/machinery/computer/roboquest,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteyellow"
+	},
+/area/assembly/chargebay)
 "qVw" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
@@ -215945,7 +215960,7 @@ orm
 oqZ
 oqZ
 wkh
-kve
+dKd
 mbL
 pFw
 pcf
@@ -216202,7 +216217,7 @@ orm
 orm
 oqZ
 wkh
-kve
+qUZ
 dYd
 rqm
 jwy

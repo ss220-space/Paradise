@@ -42571,6 +42571,7 @@
 /obj/structure/cable/orange{
 	icon_state = "0-2"
 	},
+/obj/machinery/roboquest_pad,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -65816,7 +65817,6 @@
 	},
 /area/maintenance/port)
 "oUw" = (
-/obj/machinery/roboquest_pad,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
