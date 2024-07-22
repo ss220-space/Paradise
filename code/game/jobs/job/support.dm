@@ -316,9 +316,14 @@
 	H.force_gene_block(GLOB.clumsyblock, TRUE, TRUE)
 	H.force_gene_block(GLOB.comicblock, TRUE, TRUE)
 	H.add_language(LANGUAGE_CLOWN)
-	var/datum/action/innate/mimicking/mimicking = new
-	mimicking.Grant(H)
-	H.verbs += /mob/living/carbon/human/proc/mimicking
+	H.grant_mimicking()
+
+/mob/living/carbon/human/proc/grant_mimicking()
+	if(!(locate(/datum/action/innate/mimicking) in actions))
+		var/datum/action/innate/mimicking/mimicking = new
+		mimicking.Grant(src)
+	if(!(locate(/mob/living/carbon/human/proc/mimicking) in verbs))
+		verbs += /mob/living/carbon/human/proc/mimicking
 
 /datum/action/innate/mimicking
 	name = "Mimicking"

@@ -42,9 +42,7 @@
 	equip_to_slot_or_del(new /obj/item/clothing/gloves/cursedclown, ITEM_SLOT_GLOVES)
 	equip_to_slot_or_del(new /obj/item/clothing/mask/cursedclown, ITEM_SLOT_MASK)
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/cursedclown, ITEM_SLOT_FEET)
-	var/datum/action/innate/mimicking/mimicking = new
-	mimicking.Grant(src)
-	verbs += /mob/living/carbon/human/proc/mimicking
+	grant_mimicking()
 
 /mob/living/carbon/human/proc/makeAntiCluwne()
 	to_chat(src, "<span class='danger'>You don't feel very funny.</span>")
