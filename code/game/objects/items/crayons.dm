@@ -273,6 +273,11 @@
 	icon_state = "spraycan_cap"
 	desc = "A metallic container containing tasty paint."
 	var/capped = 1
+	var/used = FALSE
+	var/can_be_used = 0 // 0 for unlimited used
+	var/list/weld_icons = list("Flame" = "welding_redflame",
+					"Blue Flame" = "welding_blueflame",
+					"White Flame" = "welding_white")
 	instant = 1
 	validSurfaces = list(/turf/simulated/floor,/turf/simulated/wall)
 
@@ -328,26 +333,39 @@
 	I.color = colour
 	. += I
 
+/obj/item/toy/crayon/spraycan/proc/update_used()
+	if(can_be_used == 1)
+		used = TRUE
+	uses--
+	can_be_used--
+
+/obj/item/toy/crayon/spraycan/proc/is_can_draw(var/obj/object, mob/living/user)
+	if(capped)
+		to_chat(user, span_warning("Вы не можете раскрасить [object], если крышка баллона краски закрыта!"))
+		return FALSE
+	if(uses <= 1)
+		to_chat(user, span_warning("Не похоже, что бы осталось достаточно краски"))
+		return FALSE
+	if(used)
+		to_chat(user, span_warning("Кажется, этот [src] уже был использован."))
+		return FALSE
+	return TRUE
+
 /obj/item/toy/crayon/spraycan/paintkit
 	colour = "#ffffff"
-	var/used = FALSE
-	var/weld_icons = "welding" //default
-
-/obj/item/toy/crayon/spraycan/paintkit/Initialize(mapload)
-	..()
-	name = "Paintkit «[name]»"
+	can_be_used = 1
 
 /obj/item/toy/crayon/spraycan/paintkit/update_icon_state()
 	return
 
 /obj/item/toy/crayon/spraycan/paintkit/bigbrother
-	name = "Big Brother"
+	name = "Paintkit «Big Brother»"
 	desc = "Баллончик с черно-золотым корпусом. В комплекте идет одноразовый трафарет для покраски сварочного шлема. К нему прикреплена записка, на которой написано: «Eyes everywhere»."
 	icon_state = "spraycan_bigbrother"
-	weld_icons = "welding_bigbrother"
+	weld_icons = list("Big Brother" = "welding_bigbrother")
 
 /obj/item/toy/crayon/spraycan/paintkit/slavic
-	name = "Slavic"
+	name = "Paintkit «Slavic»"
 	desc = "Баллончик с корпусом цвета хаки. В комплекте идет одноразовый трафарет для покраски сварочного шлема. К нему прикреплена записка, на которой написано: «Head, eyes, blyad»."
 	icon_state = "spraycan_slavic"
-	weld_icons = "welding_slavic"
+	weld_icons = list("Slavic" = "welding_slavic")
