@@ -44,7 +44,7 @@
 			if(!tmp_msg)
 				continue
 			msg = tmp_msg
-			log_debug(msg)
+			//log_debug(msg)
 
 	return trim(msg)
 
