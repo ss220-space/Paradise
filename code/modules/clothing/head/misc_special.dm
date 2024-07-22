@@ -62,28 +62,29 @@
 
 /obj/item/clothing/head/welding/bigbrother
 	name = "big brother decal welding helmet"
-	desc = "A welding helmet with lines and decorated with red protective glass."
+	desc = "A welding helmet with lines and red protective glass."
 	icon_state = "welding_bigbrother"
 
 /obj/item/clothing/head/welding/slavic
 	name = "slavic decal welding helmet"
-	desc = "A welding helmet with lines and decorated yellow protective glass."
+	desc = "A welding helmet with lines and yellow protective glass."
 	icon_state = "welding_slavic"
 
 /obj/item/clothing/head/welding/attack_self(mob/user)
 	weldingvisortoggle(user)
 
 /obj/item/clothing/head/welding/attackby(obj/item/I, mob/living/user)
-	if(istype(I, /obj/item/toy/crayon/spraycan))
-		if(icon_state != "welding")
-			to_chat(user, "<span class = 'warning'>Похоже, тут уже есть слой краски!</span>")
+	if(istype(I, /obj/item/toy/crayon/spraycan/paintkit))
+		if(!check_spraycan(I, user))
 			return
 		var/obj/item/toy/crayon/spraycan/paintkit/C = I
-		if(C.capped)
-			to_chat(user, span_warning("Вы не можете раскрасить [src], если крышка баллона краски закрыта!"))
+		if(C.used)
+			to_chat(user, span_warning("Кажется, этот набор уже был использован. Вам этого не хватит для покраски."))
 			return
-		if(C.uses <= 1)
-			to_chat(user, span_warning("Не похоже, что бы осталось достаточно краски"))
+		C.used = TRUE
+		adjust_paint(C.weld_icons, user, I)
+	else if(istype(I, /obj/item/toy/crayon/spraycan))
+		if(!check_spraycan(I, user))
 			return
 		var/list/weld_icons = list("Flame" = image(icon = src.icon, icon_state = "welding_redflame"),
 									"Blue Flame" = image(icon = src.icon, icon_state = "welding_blueflame"),
@@ -91,30 +92,37 @@
 		var/list/weld = list("Flame" = "welding_redflame",
 							"Blue Flame" = "welding_blueflame",
 							"White Flame" = "welding_white")
-		var/choice = null
-		if(istype(I, /obj/item/toy/crayon/spraycan/paintkit))
-			if(C.used)
-				to_chat(user, span_warning("Кажется, этот набор уже был использован. Вам этого не хватит для покраски."))
-				return
-			weld = list(C.name = C.weld_icons)
-			choice = C.name
-			C.used = TRUE
-		if(!choice)
-			choice = show_radial_menu(user, src, weld_icons)
+		var/choice = show_radial_menu(user, src, weld_icons)
 		if(!choice || I.loc != user || !Adjacent(user))
 			return
-		icon_state = weld[choice]
-		paint = weld[choice]
-		C.uses--
-		to_chat(user, span_notice("Вы успешно покрасили [src]."))
-		update_icon()
-	if(istype(I, /obj/item/soap) && (icon_state != initial(icon_state)))
-		icon_state = initial(icon_state)
-		paint = null
-		update_icon()
-	else
-		return ..()
+		adjust_paint(weld[choice], user, I)
+	else if(istype(I, /obj/item/soap) && paint)
+		adjust_paint(initial(icon_state), user)
+	else return ..()
 
+/obj/item/clothing/head/welding/proc/check_spraycan(var/obj/item/toy/crayon/spraycan/spray, mob/living/user)
+	if(paint)
+		to_chat(user, span_warning("Похоже, тут уже есть слой краски!"))
+		return FALSE
+	if(spray.capped)
+		to_chat(user, span_warning("Вы не можете раскрасить [src], если крышка баллона краски закрыта!"))
+		return FALSE
+	if(spray.uses <= 1)
+		to_chat(user, span_warning("Не похоже, что бы осталось достаточно краски"))
+		return FALSE
+	return TRUE
+
+/obj/item/clothing/head/welding/proc/adjust_paint(var/weld_icon_state, mob/living/user, var/obj/item/toy/crayon/C = null)
+	icon_state = weld_icon_state
+	if (weld_icon_state == initial(icon_state))
+		paint = null
+	else
+		paint = weld_icon_state
+		if(C)
+			C.uses--
+	to_chat(user, span_notice("Вы успешно [paint ? "покрасили" : "очистили от краски"] [src]."))
+	update_icon()
+	update_equipped_item(update_speedmods = FALSE)
 
 /*
  * Cakehat

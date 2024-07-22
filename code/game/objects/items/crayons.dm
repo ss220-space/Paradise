@@ -276,7 +276,7 @@
 	instant = 1
 	validSurfaces = list(/turf/simulated/floor,/turf/simulated/wall)
 
-/obj/item/toy/crayon/spraycan/New()
+/obj/item/toy/crayon/spraycan/Initialize(mapload)
 	..()
 	update_icon()
 
@@ -333,9 +333,9 @@
 	var/used = FALSE
 	var/weld_icons = "welding" //default
 
-/obj/item/toy/crayon/spraycan/paintkit/New()
+/obj/item/toy/crayon/spraycan/paintkit/Initialize(mapload)
 	..()
-	name = "Paintkit '[name]'"
+	name = "Paintkit «[name]»"
 
 /obj/item/toy/crayon/spraycan/paintkit/update_icon_state()
 	return
