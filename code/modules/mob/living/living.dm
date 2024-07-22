@@ -1727,12 +1727,13 @@
 
 /mob/living/extinguish_light(force = FALSE)
 	for(var/atom/A in src)
+		for(var/obj/item/item in A.contents)
+			continue
 		if(A.light_range > 0)
-			if(isitem(A))
-				for(var/obj/item/item in src.get_equipped_items(TRUE, TRUE))
-					item.extinguish_light()
 			A.extinguish_light(force)
-
+	for(var/obj/item/item in src.get_equipped_items(TRUE, TRUE))
+		if(item.light_range > 0)
+			item.extinguish_light(force)
 
 /mob/living/vv_edit_var(var_name, var_value)
 	switch(var_name)
