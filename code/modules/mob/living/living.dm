@@ -1729,8 +1729,8 @@
 	for(var/atom/A in src)
 		if(A.light_range > 0)
 			if(isitem(A))
-				var/obj/item/item = src.get_equipped_items(TRUE, TRUE)
-				item.extinguish_light()
+				for(var/obj/item/item in src.get_equipped_items(TRUE, TRUE))
+					item.extinguish_light()
 			A.extinguish_light(force)
 
 
