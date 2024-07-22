@@ -1728,6 +1728,9 @@
 /mob/living/extinguish_light(force = FALSE)
 	for(var/atom/A in src)
 		if(A.light_range > 0)
+			if(isitem(A))
+				var/obj/item/item = src.get_equipped_items(TRUE, TRUE)
+				item.extinguish_light()
 			A.extinguish_light(force)
 
 
