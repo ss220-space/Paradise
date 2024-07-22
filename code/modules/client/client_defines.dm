@@ -30,11 +30,6 @@
 
 	var/adminhelped = 0
 
-		///////////////
-		//SOUND STUFF//
-		///////////////
-	var/ambience_playing = FALSE
-
 		////////////
 		//SECURITY//
 		////////////
