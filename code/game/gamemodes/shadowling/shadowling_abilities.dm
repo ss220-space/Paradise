@@ -115,7 +115,7 @@
 		T.extinguish_light()
 		for(var/atom/A in T.contents)
 			var/mob/living/extinguish_light = A
-			for(var/obj/item/item in extinguish_light.get_equipped_items(TRUE, TRUE))
+			for(var/obj/item/item in extinguish_light?.get_equipped_items(TRUE, TRUE))
 				item.extinguish_light()
 			A.extinguish_light()
 
