@@ -1726,12 +1726,7 @@
 	return
 
 /mob/living/extinguish_light(force = FALSE)
-	for(var/atom/A in src)
-		for(var/obj/item/item in A.contents)
-			continue
-		if(A.light_range > 0)
-			A.extinguish_light(force)
-	for(var/obj/item/item in src.get_equipped_items(TRUE, TRUE))
+	for(var/obj/item/item as anything in get_equipped_items(TRUE, TRUE))
 		if(item.light_range > 0)
 			item.extinguish_light(force)
 
