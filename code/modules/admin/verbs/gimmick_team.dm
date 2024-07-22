@@ -21,13 +21,13 @@
 	var/selected_species = null
 	if(alert("Вы хотите выбрать какую-то расу для отряда? Нет - будут обычные люди.",,"Да","Нет")=="Да")
 		force_species = TRUE
-		selected_species = input("Выберете расу", "Выбор расы",null) as null|anything in GLOB.all_species
+		selected_species = tgui_input_list(src, "Выберете расу", "Выбор расы", GLOB.all_species)
 		if(!selected_species)
 			alert("Спавн остановлен.")
 			return	// You didn't pick, abort
 
 	var/list/teamsizeoptions = list(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-	var/teamsize = input(src, "Укажите количество игроков?") as null|anything in teamsizeoptions
+	var/teamsize = tgui_input_list(src, "Укажите количество игроков.", "Количество игроков", teamsizeoptions)
 	if(!(teamsize in teamsizeoptions))
 		alert("Недопустимый размер отряда. Отмена.")
 		return

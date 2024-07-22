@@ -5,6 +5,12 @@
 //	var/turf/T = get_turf(A)
 //	return T ? T.loc : null
 
+#define MANUAL_PICK_MESSAGE(X) "Выберите игроков для спавна. Это будет продолжаться до тех пор, пока не останется призраков для выбора или пока [X] оставшихся слотов не будут заполнены."
+#define VETO_PICK_MESSAGE(X) "Выберите игроков. Это будет продолжаться до тех пор, пока не останется согласившихся призраков для выбора или пока [X] оставшихся слотов не будут заполнены."
+#define MANUAL_PICK_TITLE "Активные игроки"
+#define VETO_PICK_TITLE "Кандидаты"
+
+
 /proc/get_area_name(atom/X, format_text = FALSE)
 	var/area/A = isarea(X) ? X : get_area(X)
 	if(!A)
@@ -487,10 +493,11 @@
 		else
 			candidate_ghosts -= G
 	for(var/i = max_slots, (i > 0 && candidate_ghosts.len), i--)
-		var/this_ghost = input(adminclient, "Pick players. This will go on until there either no more ghosts to pick from or the [i] remaining slot(s) are full.", "Candidates") as null|anything in candidate_ghosts
+		var/this_ghost = tgui_input_list(adminclient, VETO_PICK_MESSAGE(i), VETO_PICK_TITLE, candidate_ghosts)
 		candidate_ghosts -= this_ghost
 		selected_ghosts += this_ghost
 	return selected_ghosts
+
 
 /proc/pick_candidates_manually(client/admin_client, teamsize)
 	var/list/possible_ghosts = list()
@@ -500,7 +507,7 @@
 			if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 				possible_ghosts += G
 	for(var/i=teamsize,(i>0&&possible_ghosts.len),i--) //Decrease with every member selected.
-		var/candidate = input(admin_client, "Pick characters to spawn. This will go on until there either no more ghosts to pick from, or the slots are full.", "Active Players") as null|anything in possible_ghosts // auto-picks if only one candidate
+		var/candidate = tgui_input_list(admin_client, MANUAL_PICK_MESSAGE(i), MANUAL_PICK_TITLE, possible_ghosts) // auto-picks if only one candidate
 		if(candidate == null)
 			break;
 		possible_ghosts -= candidate

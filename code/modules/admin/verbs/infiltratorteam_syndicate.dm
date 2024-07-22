@@ -19,7 +19,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	if(alert("Создавать полноразмерную команду, даже если призраков недостаточно для их заполнения.?",,"Да","Нет")=="Да")
 		spawn_dummies = 1
 	var/list/teamsizeoptions = list(2,3,4,5,6)
-	var/teamsize = input(src, "Сколько должно быть членов, включая лидера?") as null|anything in teamsizeoptions
+	var/teamsize = tgui_input_list(src, "Сколько должно быть членов, включая лидера?","Количество членов отряда", teamsizeoptions)
 	if(!(teamsize in teamsizeoptions))
 		alert("Недопустимый размер команды. Отмена.")
 		return
