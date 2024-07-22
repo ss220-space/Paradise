@@ -401,13 +401,3 @@
 	name = "Syndicate armored gloves"
 	icon_state = "syndicate_swat"
 	item_state = "syndicate_swat_gl"
-	sprite_sheets = list(
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/gloves.dmi',
-		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/gloves.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/gloves.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/gloves.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/gloves.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi'
-		)
