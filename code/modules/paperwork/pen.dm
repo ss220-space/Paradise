@@ -222,7 +222,7 @@
 		force += backstab_damage
 		extra_force_applied = TRUE
 		M.Weaken(2 SECONDS)
-		M.adjustStaminaLoss(40)
+		M.apply_damage(40, STAMINA)
 		add_attack_logs(user, M, "Backstabbed with [src]", ATKLOG_ALL)
 		M.visible_message(span_warning("[user] stabs [M] in the back!"), span_userdanger("[user] stabs you in the back! The energy blade makes you collapse in pain!"))
 		playsound(loc, backstab_sound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)

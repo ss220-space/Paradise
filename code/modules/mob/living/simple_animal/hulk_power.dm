@@ -350,9 +350,10 @@
 	playsound(user, 'sound/items/airhorn.ogg', CHANNEL_BUZZ)
 	for(var/mob/living/carbon/M in ohearers(2))
 		if(CLUMSY in M.mutations)
-			M.adjustBruteLoss(-10)
-			M.adjustToxLoss(-10)
-			M.adjustOxyLoss(-10)
+			M.adjustBruteLoss(-10, FALSE)
+			M.adjustToxLoss(-10, FALSE)
+			M.adjustOxyLoss(-10, FALSE)
+			M.updatehealth()
 			M.AdjustWeakened(-2 SECONDS)
 			M.AdjustStunned(-2 SECONDS)
 		else
@@ -388,9 +389,10 @@
 		return
 
 	var/mob/living/simple_animal/hulk/clown_hulk = user
-	clown_hulk.adjustBruteLoss(-50)
-	clown_hulk.adjustToxLoss(-10)
-	clown_hulk.adjustOxyLoss(-10)
+	clown_hulk.adjustBruteLoss(-50, FALSE)
+	clown_hulk.adjustToxLoss(-10, FALSE)
+	clown_hulk.adjustOxyLoss(-10, FALSE)
+	clown_hulk.updatehealth()
 	clown_hulk.AdjustWeakened(-2 SECONDS)
 	clown_hulk.AdjustStunned(-2 SECONDS)
 

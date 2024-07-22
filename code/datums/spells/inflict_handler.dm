@@ -48,8 +48,9 @@
 				target.heal_overall_damage(amt_dam_brute,0)
 			else if(amt_dam_fire <= 0)
 				target.heal_overall_damage(amt_dam_brute,amt_dam_fire)
-		target.adjustToxLoss(amt_dam_tox)
-		target.adjustOxyLoss(amt_dam_oxy)
+		target.adjustToxLoss(amt_dam_tox, FALSE)
+		target.adjustOxyLoss(amt_dam_oxy, FALSE)
+		target.updatehealth()
 		//disabling
 		target.Weaken(amt_weakened)
 		target.Paralyse(amt_paralysis)

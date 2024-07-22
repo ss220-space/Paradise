@@ -134,10 +134,11 @@
 		heal_amt *= 0.2
 
 	owner.adjust_alien_plasma(plasma_amt)
-	owner.adjustBruteLoss(-heal_amt)
-	owner.adjustFireLoss(-heal_amt)
-	owner.adjustOxyLoss(-heal_amt)
-	owner.adjustCloneLoss(-heal_amt)
+	owner.adjustBruteLoss(-heal_amt, FALSE)
+	owner.adjustFireLoss(-heal_amt, FALSE)
+	owner.adjustOxyLoss(-heal_amt, FALSE)
+	owner.adjustCloneLoss(-heal_amt, FALSE)
+	owner.updatehealth()
 	update_hud()
 
 

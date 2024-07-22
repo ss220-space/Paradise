@@ -30,8 +30,9 @@
 	var/mob/living/M = target
 	new /obj/effect/temp_visual/heal(get_turf(M), "#899d39")
 	M.heal_overall_damage(brute, burn)
-	M.adjustToxLoss(-tox)
-	M.adjustOxyLoss(-oxy)
+	M.adjustToxLoss(-tox, FALSE)
+	M.adjustOxyLoss(-oxy, FALSE)
+	M.updatehealth()
 	for(var/datum/disease/D in M.diseases)
 		if(D.curable)
 			D.cure(need_immunity = FALSE)

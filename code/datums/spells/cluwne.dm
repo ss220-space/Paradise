@@ -21,7 +21,7 @@
 	else
 		return
 	to_chat(src, span_danger("You feel funny."))
-	setBrainLoss(80, use_brain_mod = FALSE)
+	setBrainLoss(80)
 	set_nutrition(9000)
 	overeatduration = 9000
 	Confused(60 SECONDS)

@@ -53,9 +53,10 @@ Bonus
 
 	else
 		if(M.getFireLoss() > 0 || M.getBruteLoss() > 0)
-			M.adjustFireLoss(-get_damage)
-			M.adjustBruteLoss(-get_damage)
-			M.adjustToxLoss(get_damage)
+			M.adjustFireLoss(-get_damage, FALSE)
+			M.adjustBruteLoss(-get_damage, FALSE)
+			M.adjustToxLoss(get_damage, FALSE)
+			M.updatehealth()
 		else
 			return
 

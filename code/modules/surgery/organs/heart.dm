@@ -128,9 +128,10 @@
 				if(owner.client)
 					owner.client.color = ""
 
-				H.adjustBruteLoss(-cursed_heart.heal_brute)
-				H.adjustFireLoss(-cursed_heart.heal_burn)
-				H.adjustOxyLoss(-cursed_heart.heal_oxy)
+				H.adjustBruteLoss(-cursed_heart.heal_brute, FALSE)
+				H.adjustFireLoss(-cursed_heart.heal_burn, FALSE)
+				H.adjustOxyLoss(-cursed_heart.heal_oxy, FALSE)
+				H.updatehealth()
 
 /obj/item/organ/internal/heart/cybernetic
 	name = "cybernetic heart"

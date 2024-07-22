@@ -154,9 +154,10 @@
 			co2overloadtime = world.time
 		else if(world.time - co2overloadtime > 120)
 			Paralyse(6 SECONDS)
-			adjustOxyLoss(3)
+			var/oxy = 3
 			if(world.time - co2overloadtime > 300)
-				adjustOxyLoss(8)
+				oxy += 8
+			adjustOxyLoss(oxy)
 		if(prob(20))
 			emote("cough")
 

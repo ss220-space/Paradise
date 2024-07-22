@@ -71,9 +71,8 @@
 				Paralyse(2 SECONDS)
 			AdjustDeaf(60 SECONDS)
 
-	adjustBruteLoss(b_loss)
-	adjustFireLoss(f_loss)
-
+	adjustBruteLoss(b_loss, FALSE)
+	adjustFireLoss(f_loss, FALSE)
 	updatehealth()
 
 //can't equip anything

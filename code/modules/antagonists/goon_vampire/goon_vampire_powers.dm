@@ -172,11 +172,12 @@
 		return
 
 	counter++
-	user.adjustBruteLoss(-2)
-	user.adjustOxyLoss(-5)
-	user.adjustToxLoss(-2)
-	user.adjustFireLoss(-2)
-	user.adjustStaminaLoss(-10)
+	user.adjustBruteLoss(-2, FALSE)
+	user.adjustOxyLoss(-5, FALSE)
+	user.adjustToxLoss(-2, FALSE)
+	user.adjustFireLoss(-2, FALSE)
+	user.adjustStaminaLoss(-10, FALSE)
+	user.updatehealth()
 
 
 /obj/effect/proc_holder/spell/goon_vampire/targetted/hypnotise
@@ -333,7 +334,7 @@
 		target.Deaf(40 SECONDS)
 		target.Stuttering(40 SECONDS)
 		target.Jitter(300 SECONDS)
-		target.adjustStaminaLoss(60)
+		target.apply_damage(60, STAMINA)
 
 	for(var/obj/structure/window/window in view(4))
 		window.deconstruct(FALSE)

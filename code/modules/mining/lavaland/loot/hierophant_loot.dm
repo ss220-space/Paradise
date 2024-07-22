@@ -408,9 +408,10 @@
 
 /obj/effect/proc_holder/spell/hierophant_talisman_heal/cast(list/targets, mob/living/simple_animal/shade/talisman/user  = usr)
 	var/mob/living/carbon/human/target = targets[1]
-	target.adjustBruteLoss(-15)
-	target.adjustFireLoss(-15)
-	target.adjustToxLoss(-15)
+	target.adjustBruteLoss(-15, FALSE)
+	target.adjustFireLoss(-15, FALSE)
+	target.adjustToxLoss(-15, FALSE)
+	target.updatehealth()
 	if(target.health / target.maxHealth <= 0.25)
 		cooldown_handler.start_recharge(10 SECONDS)
 		to_chat(user, span_hierophant("This creature is dying... Pathetic but... You must protect this creature..."))

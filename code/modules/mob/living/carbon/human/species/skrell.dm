@@ -123,18 +123,19 @@
 	. = ..()
 	if(method == REAGENT_TOUCH)
 		if(M.getFireLoss() < 25 && M.getBruteLoss() < 25 && M.health != 100)
-			M.adjustBruteLoss(-4)
-			M.adjustFireLoss(-4)
+			M.adjustBruteLoss(-4, FALSE)
+			M.adjustFireLoss(-4, FALSE)
+			M.updatehealth()
 			to_chat(M, "<span class='notice'>Освежающая вода закрывает ваши мелкие раны!</span>")
 		M.adjustOxyLoss(-5)
 
 /datum/species/skrell/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "water")
-		H.adjustToxLoss(-1)
-
+		H.adjustToxLoss(-1, FALSE)
 		if(H.getFireLoss() < 25 && H.getBruteLoss() < 25)
-			H.adjustBruteLoss(-1)
-			H.adjustFireLoss(-1)
+			H.adjustBruteLoss(-1, FALSE)
+			H.adjustFireLoss(-1, FALSE)
+		H.updatehealth()
 		return TRUE
 	return ..()
 

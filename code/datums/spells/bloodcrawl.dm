@@ -158,14 +158,16 @@
 
 	if(ishuman(victim) || isrobot(victim))
 		to_chat(user, span_warning("You devour [victim]. Your health is fully restored."))
-		user.adjustBruteLoss(-1000)
-		user.adjustFireLoss(-1000)
-		user.adjustOxyLoss(-1000)
-		user.adjustToxLoss(-1000)
+		user.adjustBruteLoss(-1000, FALSE)
+		user.adjustFireLoss(-1000, FALSE)
+		user.adjustOxyLoss(-1000, FALSE)
+		user.adjustToxLoss(-1000, FALSE)
+		user.updatehealth()
 	else
 		to_chat(user, span_warning("You devour [victim], but this measly meal barely sates your appetite!"))
-		user.adjustBruteLoss(-25)
-		user.adjustFireLoss(-25)
+		user.adjustBruteLoss(-25, FALSE)
+		user.adjustFireLoss(-25, FALSE)
+		user.updatehealth()
 
 	if(isslaughterdemon(user))
 		var/mob/living/simple_animal/demon/slaughter/demon = user

@@ -282,8 +282,9 @@
 		var/datum/species/burn_species = burn_human.dna.species.name
 		if(burn_species == SPECIES_PLASMAMAN || burn_species == SPECIES_MACNINEPERSON) //ignore plasmamen/robotic species.
 			return TRUE
-		burn_human.adjustToxLoss(human_tox_fire_damage) //Cold mutagen is bad for you, more at 11.
-		burn_human.adjustFireLoss(human_tox_fire_damage)
+		burn_human.adjustToxLoss(human_tox_fire_damage, FALSE) //Cold mutagen is bad for you, more at 11.
+		burn_human.adjustFireLoss(human_tox_fire_damage, FALSE)
+		burn_human.updatehealth()
 		return TRUE
 
 	return FALSE

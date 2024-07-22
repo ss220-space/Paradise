@@ -211,7 +211,13 @@ Difficulty: Medium
 	return TRUE
 
 
-/mob/living/simple_animal/hostile/megafauna/legion/adjustHealth(amount, updating_health = TRUE)
+/mob/living/simple_animal/hostile/megafauna/legion/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
 	. = ..()
 
 	if(GLOB.necropolis_gate && !GLOB.necropolis_gate.legion_triggered)

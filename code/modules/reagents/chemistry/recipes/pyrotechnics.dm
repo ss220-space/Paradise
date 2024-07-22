@@ -107,9 +107,10 @@
 	var/turf/T = get_turf(holder.my_atom)
 	if(ismob(holder.my_atom))
 		var/mob/living/carbon/victim = holder.my_atom
-		victim.adjustBruteLoss(created_volume)
-		victim.adjustStaminaLoss(created_volume)
-		victim.adjustToxLoss(created_volume)
+		victim.adjustBruteLoss(created_volume, FALSE)
+		victim.adjustStaminaLoss(created_volume, FALSE)
+		victim.adjustToxLoss(created_volume, FALSE)
+		victim.updatehealth()
 		to_chat(victim, span_danger("You feel like you are being torn apart!"))
 
 	if(!T)

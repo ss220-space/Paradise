@@ -135,10 +135,11 @@
 
 		if(affected_mob.z == master.z)
 			if(timer <= STAGE_TIME)
-				affected_mob.adjustOxyLoss(health_change)
-				affected_mob.adjustBruteLoss(health_change)
-				affected_mob.adjustFireLoss(health_change)
-			affected_mob.adjustToxLoss(health_change)
+				affected_mob.adjustOxyLoss(health_change, FALSE)
+				affected_mob.adjustBruteLoss(health_change, FALSE)
+				affected_mob.adjustFireLoss(health_change, FALSE)
+			affected_mob.adjustToxLoss(health_change, FALSE)
+			affected_mob.updatehealth()
 		if(message != "")
 			affected_mob.say(message)
 			say_timer = 0

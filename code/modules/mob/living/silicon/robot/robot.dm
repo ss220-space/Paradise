@@ -763,8 +763,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			return
 		if(2.0)
 			if(stat != 2)
-				adjustBruteLoss(60)
-				adjustFireLoss(60)
+				adjustBruteLoss(60, FALSE)
+				adjustFireLoss(60, FALSE)
+				updatehealth()
 		if(3.0)
 			if(stat != 2)
 				adjustBruteLoss(30)
@@ -809,7 +810,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			return
 		var/obj/item/stack/cable_coil/coil = W
 		adjustFireLoss(-30)
-		updatehealth()
 		add_fingerprint(user)
 		coil.use(1)
 		user.visible_message("<span class='alert'>\The [user] fixes some of the burnt wires on \the [src] with \the [coil].</span>")
@@ -1577,11 +1577,18 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
 		sync()
 
-/mob/living/silicon/robot/adjustOxyLoss(amount, updating_health)
+
+/mob/living/silicon/robot/adjustOxyLoss(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	forced = FALSE,
+	used_weapon = null,
+)
 	if(suiciding)
 		return ..()
-	else
-		return STATUS_UPDATE_NONE
+	return STATUS_UPDATE_NONE
+
 
 /mob/living/silicon/robot/regenerate_icons()
 	. = ..()

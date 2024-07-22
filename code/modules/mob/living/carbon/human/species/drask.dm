@@ -102,7 +102,8 @@
 		H.adjustOxyLoss(-2, FALSE)
 		H.adjustToxLoss(-0.5, FALSE)
 		H.adjustBruteLoss(-2, FALSE)
-		H.adjustFireLoss(-4)
+		H.adjustFireLoss(-4, FALSE)
+		H.updatehealth()
 		var/obj/item/organ/external/head/head = H.get_organ(BODY_ZONE_HEAD)
 		head?.undisfigure()
 
@@ -113,8 +114,9 @@
 			return FALSE
 		if("salglu_solution")
 			if(prob(33))
-				H.adjustBruteLoss(-1)
-				H.adjustFireLoss(-1)
+				H.adjustBruteLoss(-1, FALSE)
+				H.adjustFireLoss(-1, FALSE)
+				H.updatehealth()
 			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM * H.metabolism_efficiency * H.digestion_ratio)
 			return FALSE
 	return ..()

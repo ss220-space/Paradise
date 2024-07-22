@@ -42,17 +42,19 @@
 			H.clear_alert("lightexposure")
 			var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 			if(istype(E))
-				E.receive_damage(-1)
+				E.internal_receive_damage(-1)
 			if(is_species(H, /datum/species/shadow/ling/lesser))
 				H.heal_overall_damage(2, 3)
 			else
 				H.heal_overall_damage(5, 7)
-			H.adjustToxLoss(-5)
-			H.adjustBrainLoss(-25) //Shad O. Ling gibbers, "CAN U BE MY THRALL?!!"
+			H.adjustToxLoss(-5, FALSE)
+			H.adjustBrainLoss(-25, FALSE) //Shad O. Ling gibbers, "CAN U BE MY THRALL?!!"
+			H.adjustCloneLoss(-1, FALSE)
+			H.updatehealth()
 			H.AdjustEyeBlurry(-2 SECONDS)
 			H.CureNearsighted()
 			H.CureBlind()
-			H.adjustCloneLoss(-1)
+
 			H.SetWeakened(0)
 			H.SetStunned(0)
 			H.SetKnockdown(0)

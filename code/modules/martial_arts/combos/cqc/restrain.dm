@@ -12,7 +12,7 @@
 	if(!target.stat)
 		target.visible_message("<span class='warning'>[user] locks [target] into a restraining position!</span>", \
 							"<span class='userdanger'>[user] locks you into a restraining position!</span>")
-		target.adjustStaminaLoss(30)
+		target.apply_damage(30, STAMINA)
 		target.Stun(4 SECONDS)
 		CQC.restraining = TRUE
 		addtimer(CALLBACK(CQC, TYPE_PROC_REF(/datum/martial_art/cqc, drop_restraining)), 50, TIMER_UNIQUE)
