@@ -80,6 +80,9 @@
 /mob/living/simple_animal/bot/medbot/machine
 	skin = "machine"
 
+/mob/living/simple_animal/bot/medbot/paramed
+	skin = "paramed"
+
 /mob/living/simple_animal/bot/medbot/mysterious
 	name = "\improper Mysterious Medibot"
 	desc = "International Medibot of mystery."
@@ -582,6 +585,8 @@
 				new /obj/item/storage/firstaid/aquatic_kit(Tsec)
 			if("machine")
 				new /obj/item/storage/firstaid/machine/empty(Tsec)
+			if("paramed")
+				new /obj/item/storage/firstaid/paramed/empty(Tsec)
 			else
 				new /obj/item/storage/firstaid(Tsec)
 

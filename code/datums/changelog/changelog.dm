@@ -13,7 +13,7 @@ GLOBAL_VAR_INIT(changelog_hash, "")
 		ui = new(user, src, "Changelog")
 		ui.open()
 
-/datum/changelog/ui_act(action, list/params)
+/datum/changelog/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return
@@ -22,7 +22,7 @@ GLOBAL_VAR_INIT(changelog_hash, "")
 		if (!changelog_item)
 			changelog_item = new /datum/asset/changelog_item(params["date"])
 			changelog_items[params["date"]] = changelog_item
-		return changelog_item.send(usr)
+		return ui.send_asset(changelog_item)
 
 /datum/changelog/ui_static_data(mob/user)
 	var/list/data = list( "dates" = list() )

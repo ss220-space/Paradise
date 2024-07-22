@@ -172,7 +172,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	set name = "Set Photo Focus"
 	set category = "Object"
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(!issilicon(usr) && (usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED)))
 		return
 
 	var/nsize = tgui_input_list(usr, "Photo Size", "Pick a size of resulting photo.", list(1,3,5,7))

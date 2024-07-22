@@ -264,14 +264,14 @@
 	origin_tech = "materials=4;programming=7;abductor=3"
 
 /obj/item/abductor/silencer/attack(mob/living/M, mob/user)
-	if(!AbductorCheck(user))
+	if(!isgrey(user) && !AbductorCheck(user))
 		return
 	radio_off(M, user)
 
 /obj/item/abductor/silencer/afterattack(atom/target, mob/living/user, flag, params)
 	if(flag)
 		return
-	if(!AbductorCheck(user))
+	if(!isgrey(user) && !AbductorCheck(user))
 		return
 	radio_off(target, user)
 
