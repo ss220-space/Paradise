@@ -55,8 +55,8 @@
 	if (light_power && light_range)
 		update_light()
 
-	if (opacity)
-		has_opaque_atom = TRUE
+	if(opacity)
+		directional_opacity = ALL_CARDINALS
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -144,20 +144,21 @@
 				to_chat(user, span_notice("Вы установили мостик."))
 				new /obj/structure/lattice/catwalk/fireproof(src)
 
-/turf/space/Entered(atom/movable/A as mob|obj, atom/OL, ignoreRest = 0)
-	..()
-	if((!(A) || !(src in A.locs)))
-		return
+
+/turf/space/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	if(!arrived || !(src in arrived.locs))
+		return .
 
 	if(destination_z && destination_x && destination_y)
-		destination_z = check_taipan_availability(A, destination_z)
-		A.zMove(null, locate(destination_x, destination_y, destination_z), ZMOVE_ALLOW_BUCKLED)
+		destination_z = check_taipan_availability(arrived, destination_z)
+		arrived.zMove(null, locate(destination_x, destination_y, destination_z), ZMOVE_ALLOW_BUCKLED)
 
-		if(isliving(A))
-			var/mob/living/L = A
-			if(L.pulling)
-				var/turf/T = get_step(L.loc,turn(A.dir, 180))
-				L.pulling.zMove(null, T, ZMOVE_ALLOW_BUCKLED)
+		var/atom/movable/current_pull = arrived.pulling
+		while(current_pull)
+			var/turf/target_turf = get_step(current_pull.pulledby.loc, REVERSE_DIR(current_pull.pulledby.dir)) || current_pull.pulledby.loc
+			current_pull.zMove(null, target_turf, ZMOVE_ALLOW_BUCKLED)
+			current_pull = current_pull.pulling
 
 
 /turf/space/proc/check_taipan_availability(atom/movable/A as mob|obj, destination_z)
@@ -356,9 +357,7 @@
 	return RCD_ACT_FAILED
 
 /turf/space/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
-	underlay_appearance.icon = 'icons/turf/space.dmi'
-	underlay_appearance.icon_state = SPACE_ICON_STATE
-	SET_PLANE(underlay_appearance, PLANE_SPACE, src)
+	generate_space_underlay(underlay_appearance, asking_turf)
 	return TRUE
 
 // the space turf SHOULD be on first z level. meaning we have invisible floor but only for movable atoms.

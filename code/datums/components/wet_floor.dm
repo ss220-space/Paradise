@@ -101,7 +101,7 @@
 			lube_flags |= (SLIDE|SLIP_IGNORE_NO_SLIP_WATER|SLIP_WHEN_LYING)
 		if(TURF_WET_PERMAFROST)
 			intensity = 10 SECONDS
-			lube_flags |= (SLIDE_ICE|SLIP_IGNORE_NO_SLIP_WATER|SLIP_WHEN_LYING)
+			lube_flags |= (SLIDE_ICE|SLIP_IGNORE_NO_SLIP_WATER)
 		else
 			qdel(parent.GetComponent(/datum/component/slippery))
 			return

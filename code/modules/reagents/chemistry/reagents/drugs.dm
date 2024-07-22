@@ -148,6 +148,13 @@
 			update_flags |= M.adjustToxLoss(6, FALSE)
 			update_flags |= M.adjustOxyLoss(20, FALSE)
 	return list(effect, update_flags)
+
+/datum/reagent/nicotine/handle_addiction(mob/living/M, consumption_rate)
+	if(HAS_TRAIT(M, TRAIT_BADASS))
+		return
+
+	return ..()
+
 /datum/reagent/moonlin
 	name = "Moonlin"
 	id = "moonlin"

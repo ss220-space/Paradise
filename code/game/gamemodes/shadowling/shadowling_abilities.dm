@@ -140,12 +140,12 @@
 	user.visible_message("<span class='warning'>[user] vanishes in a puff of black mist!</span>", "<span class='shadowling'>You enter the space between worlds as a passageway.</span>")
 	user.SetStunned(0)
 	user.SetWeakened(0)
+	user.SetKnockdown(0)
 	user.incorporeal_move = INCORPOREAL_NORMAL
 	user.alpha = 0
 	user.ExtinguishMob()
 	user.forceMove(get_turf(user)) //to properly move the mob out of a potential container
-	if(user.pulledby)
-		user.pulledby.stop_pulling()
+	user.pulledby?.stop_pulling()
 	user.stop_pulling()
 
 	sleep(4 SECONDS)
@@ -168,6 +168,12 @@
 	var/conseal_time = 4 SECONDS
 
 
+/obj/effect/proc_holder/spell/shadowling_guise/Destroy()
+	if(action?.owner)
+		reveal(action.owner)
+	return ..()
+
+
 /obj/effect/proc_holder/spell/shadowling_guise/create_new_targeting()
 	return new /datum/spell_targeting/self
 
@@ -178,14 +184,12 @@
 	addtimer(CALLBACK(src, PROC_REF(reveal), user), conseal_time)
 
 
-
 /obj/effect/proc_holder/spell/shadowling_guise/proc/reveal(mob/user)
 	if(QDELETED(user))
 		return
 
 	user.alpha = initial(user.alpha)
 	user.visible_message("<span class='warning'>[user] appears from nowhere!</span>", "<span class='shadowling'>Your shadowy guise slips away.</span>")
-
 
 
 /obj/effect/proc_holder/spell/shadowling_vision
@@ -195,6 +199,11 @@
 	base_cooldown = 0
 	clothes_req = FALSE
 	action_icon_state = "darksight"
+
+
+/obj/effect/proc_holder/spell/shadowling_vision/Destroy()
+	action?.owner?.set_vision_override(null)
+	return ..()
 
 
 /obj/effect/proc_holder/spell/shadowling_vision/create_new_targeting()
@@ -321,7 +330,7 @@
 			if(3)
 				to_chat(user, "<span class='notice'>You begin planting the tumor that will control the new thrall...</span>")
 				user.visible_message("<span class='warning'>A strange energy passes from [user]'s hands into [target]'s head!</span>")
-				to_chat(target, "<span class='boldannounce'>You feel your memories twisting, morphing. A sense of horror dominates your mind.</span>")
+				to_chat(target, span_boldannounceic("You feel your memories twisting, morphing. A sense of horror dominates your mind."))
 		if(!do_after(user, 7.7 SECONDS, target, NONE)) //around 23 seconds total for enthralling
 			to_chat(user, "<span class='warning'>The enthralling has been interrupted - your target's mind returns to its previous state.</span>")
 			to_chat(target, "<span class='userdanger'>You wrest yourself away from [user]'s hands and compose yourself</span>")
@@ -710,7 +719,7 @@
 			return
 
 		to_chat(user, "<span class='shadowling'><b><i>You release a massive surge of power into [thrall]!</b></i></span>")
-		user.visible_message("<span class='boldannounce'><i>Red lightning surges into [thrall]'s face!</i></span>")
+		user.visible_message(span_boldannounceic("<i>Red lightning surges into [thrall]'s face!</i>"))
 		playsound(thrall, 'sound/weapons/egloves.ogg', 50, TRUE)
 		playsound(thrall, 'sound/machines/defib_zap.ogg', 50, TRUE)
 		user.Beam(thrall, icon_state="red_lightning",icon='icons/effects/effects.dmi',time=1)
@@ -746,7 +755,7 @@
 			return
 
 		to_chat(user, "<span class='shadowling'><b><i>You release a massive surge of power into [thrall]!</b></i></span>")
-		user.visible_message("<span class='boldannounce'><i>Red lightning surges from [user]'s hands into [thrall]'s chest!</i></span>")
+		user.visible_message(span_boldannounceic("<i>Red lightning surges from [user]'s hands into [thrall]'s chest!</i>"))
 		playsound(thrall, 'sound/weapons/egloves.ogg', 50, TRUE)
 		playsound(thrall, 'sound/machines/defib_zap.ogg', 50, TRUE)
 		user.Beam(thrall, icon_state="red_lightning",icon='icons/effects/effects.dmi',time=1)
@@ -760,7 +769,7 @@
 		thrall.update_revive()
 		thrall.Weaken(8 SECONDS)
 		thrall.emote("gasp")
-		thrall.visible_message("<span class='boldannounce'>[thrall] heaves in breath, dim red light shining in [thrall.p_their()] eyes.</span>", \
+		thrall.visible_message(span_boldannounceic("[thrall] heaves in breath, dim red light shining in [thrall.p_their()] eyes."), \
 								"<span class='shadowling'><b><i>You have returned. One of your masters has brought you from the darkness beyond.</b></i></span>")
 		playsound(thrall, "bodyfall", 50, TRUE)
 
@@ -816,7 +825,7 @@
 	user.visible_message("<span class='warning'>[user]'s eyes flash a bright red!</span>", \
 						"<span class='notice'>You begin to draw [target]'s life force.</span>")
 	target.visible_message("<span class='warning'>[target]'s face falls slack, [target.p_their()] jaw slightly distending.</span>", \
-						"<span class='boldannounce'>You are suddenly transported... far, far away...</span>")
+						span_boldannounceic("You are suddenly transported... far, far away..."))
 	extend_limit_pressed = TRUE
 
 	if(!do_after(user, 15 SECONDS, target, max_interact_count = 1))

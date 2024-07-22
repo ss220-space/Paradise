@@ -89,7 +89,8 @@
 /obj/item/card/cmag/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
-	target.cmag_act(user)
+	INVOKE_ASYNC(target, TYPE_PROC_REF(/atom, cmag_act), user)
+
 
 /obj/item/card/id
 	name = "identification card"
@@ -127,8 +128,8 @@
 
 	var/obj/item/card/id/guest/guest_pass = null // Guest pass attached to the ID
 
-/obj/item/card/id/New()
-	..()
+/obj/item/card/id/Initialize(mapload)
+	. = ..()
 	spawn(30)
 		if(ishuman(loc) && blood_type == "\[UNSET\]")
 			var/mob/living/carbon/human/H = loc
@@ -157,7 +158,6 @@
 
 	var/datum/browser/popup = new(user, "idcard", name, 600, 400)
 	popup.set_content(dat)
-	popup.set_title_image(usr.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
 
 /obj/item/card/id/attack_self(mob/user as mob)
@@ -349,7 +349,6 @@
 	var/mob/living/carbon/human/registered_user = null
 	untrackable = 1
 	var/anyone = FALSE //Can anyone forge the ID or just syndicate?
-	var/list/card_images
 	var/list/save_slots = list()
 	var/num_of_save_slots = 3
 	var/list/appearances = list(
@@ -392,9 +391,9 @@
 /obj/item/card/id/syndicate/anyone
 	anyone = TRUE
 
-/obj/item/card/id/syndicate/New()
+/obj/item/card/id/syndicate/Initialize(mapload)
 	access = initial_access.Copy()
-	..()
+	. = ..()
 	save_slots.len = num_of_save_slots
 	for(var/i = 1 to num_of_save_slots)
 		save_slots[i] = list()
@@ -709,6 +708,12 @@
 			to_chat(registered_user, "<span class='notice'>Fingerprint hash changed to [new_fingerprint_hash].</span>")
 	RebuildHTML()
 
+/obj/item/card/id/syndicate/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/id_card)
+	)
+
+
 /obj/item/card/id/syndicate/ui_data(mob/user)
 	var/list/data = list()
 	data["registered_name"] = registered_name
@@ -730,21 +735,13 @@
 
 /obj/item/card/id/syndicate/ui_static_data(mob/user)
 	var/list/data = list()
-	if(!length(card_images))
-		var/list/new_images = list()
-		for(var/appearance_name in appearances)
-			new_images.Add(list(list(
-				"name" = appearance_name,
-				"image" = "[icon2base64(icon(initial(icon), appearance_name, SOUTH, 1))]"
-			)))
-		card_images = new_images
-	data["appearances"] = card_images
+	data["appearances"] = appearances
 	return data
 
-/obj/item/card/id/syndicate/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/card/id/syndicate/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AgentCard", name, 425, 500, master_ui, state)
+		ui = new(user, src, "AgentCard", name)
 		ui.open()
 
 /obj/item/card/id/syndicate/attack_self(mob/user)
@@ -817,10 +814,10 @@
 	registered_name = "Captain"
 	assignment = JOB_TITLE_CAPTAIN
 
-/obj/item/card/id/captains_spare/New()
+/obj/item/card/id/captains_spare/Initialize(mapload)
 	var/datum/job/captain/J = new/datum/job/captain
 	access = J.get_access()
-	..()
+	. = ..()
 
 /obj/item/card/id/admin
 	name = "admin ID card"
@@ -830,9 +827,9 @@
 	assignment = "Testing Shit"
 	untrackable = 1
 
-/obj/item/card/id/admin/New()
+/obj/item/card/id/admin/Initialize(mapload)
 	access = get_absolutely_all_accesses()
-	..()
+	. = ..()
 
 /obj/item/card/id/centcom
 	name = "central command ID card"
@@ -842,9 +839,9 @@
 	registered_name = "Central Command"
 	assignment = "General"
 
-/obj/item/card/id/centcom/New()
+/obj/item/card/id/centcom/Initialize(mapload)
 	access = get_all_centcom_access()
-	..()
+	. = ..()
 
 /obj/item/card/id/nanotrasen
 	name = "nanotrasen ID card"
@@ -893,8 +890,9 @@
 	registered_name = "Prisoner #13-007"
 
 /obj/item/card/id/prisoner/random
-/obj/item/card/id/prisoner/random/New()
-	..()
+
+/obj/item/card/id/prisoner/random/Initialize(mapload)
+	. = ..()
 	var/random_number = "#[rand(0, 99)]-[rand(0, 999)]"
 	name = "Prisoner [random_number]"
 	registered_name = name

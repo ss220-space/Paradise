@@ -382,8 +382,9 @@
 	var/treatment_virus = "spaceacillin"
 	var/robot_arm = /obj/item/robot_parts/l_arm
 
-/obj/item/firstaid_arm_assembly/New(loc, new_skin)
-	..()
+
+/obj/item/firstaid_arm_assembly/Initialize(mapload, new_skin)
+	. = ..()
 	if(new_skin)
 		skin = new_skin
 	update_icon(UPDATE_OVERLAYS)
@@ -543,7 +544,7 @@
 		robot_arm = I.type
 		qdel(I)
 
-	else if((istype(I, /obj/item/melee/baton)) && (build_step >= 3))
+	else if((istype(I, /obj/item/melee/baton/security)) && (build_step >= 3))
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return
 		build_step++

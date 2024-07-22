@@ -1,6 +1,6 @@
-/mob/living/carbon/human/Moved(atom/OldLoc, Dir, Forced = FALSE)
+/mob/living/carbon/human/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
-	if(!Forced && (!OldLoc || !OldLoc.has_gravity()) && has_gravity())
+	if(!forced && (!old_loc || !old_loc.has_gravity()) && has_gravity())
 		thunk()
 
 
@@ -24,7 +24,7 @@
 	return ..()
 
 
-/mob/living/carbon/human/Move(atom/newloc, direct = NONE, glide_size_override = 0)
+/mob/living/carbon/human/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(.) // did we actually move?
 		if(body_position != LYING_DOWN && !buckled && !throwing)
@@ -43,7 +43,7 @@
 					playsound(src, "bonebreak", 10, TRUE)
 
 	if(!has_gravity())
-		return
+		return .
 
 	var/obj/item/clothing/shoes/S = shoes
 
@@ -99,7 +99,7 @@
 	update_fractures_slowdown()
 
 
-/mob/living/carbon/human/set_usable_hands(new_value, special = ORGAN_MANIPULATION_DEFAULT)
+/mob/living/carbon/human/set_usable_hands(new_value, special = ORGAN_MANIPULATION_DEFAULT, hand_index)
 	. = ..()
 	if(isnull(.) || special != ORGAN_MANIPULATION_DEFAULT)
 		return .
@@ -113,7 +113,7 @@
 		if(!usable_legs && !(movement_type & (FLYING|FLOATING)))
 			ADD_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
 
-	update_hud_hands()
+	update_hands_HUD()
 
 
 /mob/living/carbon/human/on_movement_type_flag_enabled(datum/source, flag, old_movement_type)
@@ -167,7 +167,7 @@
 
 	update_limbless_slowdown()
 	update_fractures_slowdown()
-	update_hud_hands()
+	update_hands_HUD()
 
 
 /// Proc used to inflict stamina damage when user is moving from no gravity to positive gravity.

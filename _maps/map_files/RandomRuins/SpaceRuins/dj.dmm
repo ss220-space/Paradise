@@ -211,7 +211,7 @@
 	},
 /area/djstation)
 "aS" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/djstation)
 "aT" = (
 /obj/machinery/door/airlock{

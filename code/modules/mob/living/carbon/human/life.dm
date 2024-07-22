@@ -53,8 +53,6 @@
 
 	if(player_ghosted > 0 && stat == CONSCIOUS && job && !HAS_TRAIT(src, TRAIT_RESTRAINED))
 		handle_ghosted()
-	if(player_logged > 0 && stat != DEAD && job)
-		handle_ssd()
 
 	if(stat != DEAD)
 		return TRUE
@@ -67,18 +65,24 @@
 		if(player_ghosted % 150 == 0)
 			force_cryo_human(src)
 
-/mob/living/carbon/human/proc/handle_ssd()
-	player_logged++
-	if(istype(loc, /obj/machinery/cryopod))
-		return
-	if(CONFIG_GET(number/auto_cryo_ssd_mins) && (player_logged >= (CONFIG_GET(number/auto_cryo_ssd_mins) * 30)) && player_logged % 30 == 0)
-		var/turf/T = get_turf(src)
-		if(!is_station_level(T.z))
-			return
-		var/area/A = get_area(src)
-		cryo_ssd(src)
-		if(A.fast_despawn)
-			force_cryo_human(src)
+
+/mob/living/carbon/human/handle_SSD(seconds_per_tick)
+	. = ..()
+	if(!. || !job || istype(loc, /obj/machinery/cryopod) || !CONFIG_GET(number/auto_cryo_ssd_mins))
+		return .
+
+	if(player_logged < (CONFIG_GET(number/auto_cryo_ssd_mins) MINUTES))
+		return .
+
+	var/turf/our_turf = get_turf(src)
+	if(!our_turf || !is_station_level(our_turf.z))
+		return .
+
+	cryo_ssd(src)
+	var/area/our_area = get_area(src)
+	if(our_area.fast_despawn)
+		force_cryo_human(src)
+
 
 /mob/living/carbon/human/calculate_affecting_pressure(pressure)
 	var/pressure_difference = abs( pressure - ONE_ATMOSPHERE )

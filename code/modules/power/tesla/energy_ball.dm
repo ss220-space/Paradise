@@ -111,9 +111,9 @@
 	EB.orbit(src, orbitsize, pick(FALSE, TRUE), rand(10, 25), pick(3, 4, 5, 6, 36))
 
 
-/obj/singularity/energy_ball/Bump(atom/bumped_atom, custom_bump, effect_applied = TRUE)
+/obj/singularity/energy_ball/Bump(atom/bumped_atom, effect_applied = TRUE)
 	. = ..()
-	if(. || isnull(.))
+	if(.)
 		return .
 	dust_mobs(bumped_atom)
 

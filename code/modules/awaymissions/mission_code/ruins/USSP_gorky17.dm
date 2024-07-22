@@ -590,7 +590,7 @@
 	playsound(src, 'sound/effects/empulse.ogg', 80)
 	qdel(C)
 
-/area/ruin/space/USSP_gorky17/collapsed/vault/Entered(mob/living/bourgeois)
+/area/ruin/space/USSP_gorky17/collapsed/vault/Entered(mob/living/bourgeois, area/old_area)
 	. = ..()
 	if(!communism_has_fallen && istype(bourgeois) && !faction_check(bourgeois.faction, safe_faction))
 		var/obj/machinery/syndicatebomb/gorky17/bomb = locate(/obj/machinery/syndicatebomb/gorky17) in src

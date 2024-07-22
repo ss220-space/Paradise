@@ -3,6 +3,7 @@
 	icon = 'icons/obj/tribune.dmi'
 	icon_state = "nt_tribune"
 	desc = "Sturdy wooden tribune. When you look at it, you want to start making a speech."
+	flags = ON_BORDER
 	density = TRUE
 	anchored = FALSE
 	max_integrity = 100
@@ -12,6 +13,16 @@
 	var/buildstackamount = 5
 	var/mover_dir = null
 	var/ini_dir = null
+
+
+/obj/structure/tribune/Initialize(mapload)
+	. = ..()
+	handle_layer()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /obj/structure/tribune/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -35,9 +46,6 @@
 /obj/structure/tribune/proc/after_rotation(mob/user)
 	add_fingerprint(user)
 
-/obj/structure/tribune/Initialize(mapload) //Only for mappers
-	..()
-	handle_layer()
 
 /obj/structure/tribune/setDir(newdir)
 	. = ..()
@@ -68,14 +76,28 @@
 
 /obj/structure/tribune/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if(. || dir != border_dir)
+	if(dir != border_dir || (mover.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
 		return TRUE
 
 
-/obj/structure/tribune/CanExit(atom/movable/mover, moving_direction)
-	. = ..()
-	if(dir == moving_direction)
-		return !density || checkpass(mover, PASSGLASS)
+/obj/structure/tribune/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
+	SIGNAL_HANDLER
+
+	if(leaving.movement_type & PHASING)
+		return
+
+	if(leaving == src)
+		return // Let's not block ourselves.
+
+	if(leaving.throwing)
+		return
+
+	if(pass_flags_self & leaving.pass_flags)
+		return
+
+	if(density && dir == get_dir(leaving, newLoc))
+		leaving.Bump(src)
+		return COMPONENT_ATOM_BLOCK_EXIT
 
 
 /obj/structure/tribune/centcom

@@ -337,16 +337,16 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/spider_special_action()
 	return
 
-/mob/living/simple_animal/hostile/poison/terror_spider/ObjBump(obj/O)
-	if(istype(O, /obj/machinery/door/airlock))
-		var/obj/machinery/door/airlock/L = O
-		if(L.density) // must check density here, to avoid rapid bumping of an airlock that is in the process of opening, instantly forcing it closed
-			return try_open_airlock(L)
-	if(istype(O, /obj/machinery/door/firedoor))
-		var/obj/machinery/door/firedoor/F = O
-		if(F.density && !F.welded)
-			F.open()
-			return 1
+/mob/living/simple_animal/hostile/poison/terror_spider/ObjBump(obj/object)
+	if(istype(object, /obj/machinery/door/airlock))
+		var/obj/machinery/door/airlock/airlock = object
+		if(airlock.density) // must check density here, to avoid rapid bumping of an airlock that is in the process of opening, instantly forcing it closed
+			return try_open_airlock(airlock)
+	if(istype(object, /obj/machinery/door/firedoor))
+		var/obj/machinery/door/firedoor/firedoor = object
+		if(firedoor.density && !firedoor.welded)
+			firedoor.open()
+			return TRUE
 	. = ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/msg_terrorspiders(msgtext)

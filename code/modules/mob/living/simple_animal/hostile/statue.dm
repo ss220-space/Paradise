@@ -64,7 +64,7 @@
 	if(creator)
 		src.creator = creator
 
-/mob/living/simple_animal/hostile/statue/Move(atom/newloc, direct = NONE, glide_size_override = 0)
+/mob/living/simple_animal/hostile/statue/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(can_be_seen(newloc))
 		if(client)
 			to_chat(src, "<span class='warning'>You cannot move, there are eyes on you!</span>")

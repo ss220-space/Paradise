@@ -389,13 +389,13 @@
 	return 0
 
 
-/mob/living/simple_animal/hostile/proc/Goto(target, delay, minimum_distance)
+/mob/living/simple_animal/hostile/proc/Goto(target, delay, minimum_distance, timeout)
 	if(target == src.target)
 		approaching_target = TRUE
 	else
 		approaching_target = FALSE
 	var/glide_flag = delay > END_GLIDE_SPEED ? MOVEMENT_LOOP_IGNORE_GLIDE : NONE
-	SSmove_manager.move_to(src, target, minimum_distance, delay, flags = glide_flag)
+	return SSmove_manager.move_to(src, target, minimum_distance, delay, timeout, flags = glide_flag)
 
 
 /mob/living/simple_animal/hostile/adjustHealth(damage, updating_health = TRUE)
@@ -511,7 +511,7 @@
 	return iswallturf(T) || (ismineralturf(T) && !istype(T, /turf/simulated/mineral/ancient/outer))
 
 
-/mob/living/simple_animal/hostile/Move(atom/newloc, direct = NONE, glide_size_override = 0)
+/mob/living/simple_animal/hostile/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(dodging && approaching_target && prob(dodge_prob) && !moving_diagonally && isturf(loc) && isturf(newloc))
 		return dodge(newloc, dir)
 	else

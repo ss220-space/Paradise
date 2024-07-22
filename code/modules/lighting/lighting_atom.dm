@@ -31,7 +31,8 @@
 // Will update the light (duh).
 // Creates or destroys it if needed, makes it update values, makes sure it's got the correct source turf...
 /atom/proc/update_light()
-	set waitfor = FALSE
+	SHOULD_NOT_SLEEP(TRUE)
+
 	if(QDELETED(src))
 		return
 
@@ -51,38 +52,9 @@
 		else
 			light = new/datum/light_source(src, .)
 
+
 /atom/proc/extinguish_light(force = FALSE)
 	return
-
-// If we have opacity, make sure to tell (potentially) affected light sources.
-/atom/movable/Destroy()
-	var/turf/T = loc
-	. = ..()
-	if(opacity && istype(T))
-		var/old_has_opaque_atom = T.has_opaque_atom
-		T.recalc_atom_opacity()
-		if(old_has_opaque_atom != T.has_opaque_atom)
-			T.reconsider_lights()
-
-// Should always be used to change the opacity of an atom.
-// It notifies (potentially) affected light sources so they can update (if needed).
-/atom/proc/set_opacity(new_opacity)
-	if(new_opacity == opacity)
-		return
-
-	opacity = new_opacity
-	var/turf/T = loc
-	if(!isturf(T))
-		return
-
-	if(new_opacity == TRUE)
-		T.has_opaque_atom = TRUE
-		T.reconsider_lights()
-	else
-		var/old_has_opaque_atom = T.has_opaque_atom
-		T.recalc_atom_opacity()
-		if(old_has_opaque_atom != T.has_opaque_atom)
-			T.reconsider_lights()
 
 
 /atom/proc/flash_lighting_fx(_range = FLASH_LIGHT_RANGE, _power = FLASH_LIGHT_POWER, _color = LIGHT_COLOR_WHITE, _duration = FLASH_LIGHT_DURATION, _reset_lighting = TRUE)

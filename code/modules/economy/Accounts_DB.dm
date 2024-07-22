@@ -63,10 +63,10 @@ GLOBAL_VAR(current_date_string)
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/computer/account_database/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/account_database/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AccountsUplinkTerminal", name, 800, 600, master_ui, state)
+		ui = new(user, src, "AccountsUplinkTerminal", name)
 		ui.open()
 
 /obj/machinery/computer/account_database/ui_data(mob/user)
@@ -81,9 +81,10 @@ GLOBAL_VAR(current_date_string)
 				for(var/i in 1 to length(GLOB.all_money_accounts))
 					var/datum/money_account/D = GLOB.all_money_accounts[i]
 					accounts.Add(list(list(
-						"account_number" = D.account_number,
+						"account_number" = "[D.account_number]",
 						"owner_name" = D.owner_name,
 						"suspended" = D.suspended ? "SUSPENDED" : "Active",
+						"money" = "[D.money]", // needs to be strings because of TGUI localeCompare
 						"account_index" = i)))
 
 				data["accounts"] = accounts

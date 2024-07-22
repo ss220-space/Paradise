@@ -276,6 +276,7 @@
 				R.overdose_start(M)
 			if(R.volume < R.overdose_threshold && R.overdosed)
 				R.overdosed = FALSE
+				R.overdose_end(M)
 			if(R.overdosed)
 				var/list/overdose_results = R.overdose_process(M, R.volume >= R.overdose_threshold * 2 ? 2 : 1)
 				if(overdose_results) // to protect against poorly-coded overdose procs
@@ -566,7 +567,7 @@
 						if(mult > 0)
 							to_chat(H, "<span class='danger'>You are scalded by the hot chemicals!</span>")
 							affecting.receive_damage(0, round(log(chem_temp / 50) * 10))
-							H.emote("scream")
+							INVOKE_ASYNC(H, TYPE_PROC_REF(/mob, emote), "scream")
 						H.adjust_bodytemperature(min(max((chem_temp - T0C) - 20, 5), 500))
 				else if(chem_temp < H.dna.species.cold_level_1)
 					var/mult = H.dna.species.coldmod
@@ -574,7 +575,7 @@
 						if(mult > 0)
 							to_chat(H, "<span class='danger'>You are frostbitten by the freezing cold chemicals!</span>")
 							affecting.receive_damage(0, round(log(T0C - chem_temp / 50) * 10))
-							H.emote("scream")
+							INVOKE_ASYNC(H, TYPE_PROC_REF(/mob, emote), "scream")
 						H.adjust_bodytemperature(- min(max(T0C - chem_temp - 20, 5), 500))
 
 		if(method == REAGENT_INGEST)

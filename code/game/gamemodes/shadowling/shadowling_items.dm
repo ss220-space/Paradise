@@ -136,7 +136,7 @@
 	)
 	origin_tech = null
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	flash_protect = -1
+	flash_protect = FLASH_PROTECTION_SENSITIVE
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	item_flags = ABSTRACT|DROPDEL

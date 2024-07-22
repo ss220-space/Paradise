@@ -79,7 +79,7 @@
 		. += "waitlight"
 
 /obj/machinery/chem_master/blob_act(obj/structure/blob/B)
-	if(prob(50))
+	if(prob(50) && !QDELETED(src))
 		qdel(src)
 
 /obj/machinery/chem_master/power_change(forced = FALSE)
@@ -250,14 +250,17 @@
 		return TRUE
 	ui_interact(user)
 
-/obj/machinery/chem_master/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	var/datum/asset/chem_master/assets = get_asset_datum(/datum/asset/chem_master)
-	assets.send(user)
-
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/chem_master/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ChemMaster", name, 575, 500)
+		ui = new(user, src, "ChemMaster", name)
 		ui.open()
+
+/obj/machinery/chem_master/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/chem_master),
+		get_asset_datum(/datum/asset/spritesheet/chem_master/large)
+	)
 
 /obj/machinery/chem_master/ui_data(mob/user)
 	var/data[0]
@@ -373,7 +376,7 @@
 				if("change_pill_style")
 					var/list/choices = list()
 					for(var/i = 1 to MAX_PILL_SPRITE)
-						choices += "pill[i].png"
+						choices += "pill[i]"
 					ui_modal_bento(src, id, "Please select the new style for pills:", null, arguments, pillsprite, choices)
 				if("create_patch")
 					if(condi || !reagents.total_volume)
@@ -393,7 +396,7 @@
 				if("change_patch_style")
 					var/list/choices = list()
 					for(var/i = 1 to MAX_PATCH_SPRITE)
-						choices += "bandaid[i].png"
+						choices += "bandaid[i]"
 					ui_modal_bento(src, id, "Please select the new style for patches:", null, arguments, patchsprite, choices)
 				if("create_bottle")
 					if(condi || !reagents.total_volume)
@@ -404,7 +407,7 @@
 						bottle_styles = list("bottle", "small_bottle", "wide_bottle", "round_bottle", "reagent_bottle")
 					var/list/bottle_styles_png = list()
 					for(var/style in bottle_styles)
-						bottle_styles_png += "[style].png"
+						bottle_styles_png += "[style]"
 					ui_modal_bento(src, id, "Please select the new style for bottles:", null, arguments, bottlesprite, bottle_styles_png)
 				else
 					return FALSE

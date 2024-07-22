@@ -2,13 +2,14 @@
 
 /turf/simulated/mineral //wall piece
 	name = "rock"
-	icon = 'icons/turf/mining.dmi'
-	icon_state = "rock"
-	var/smooth_icon = 'icons/turf/smoothrocks.dmi'
-	smooth = SMOOTH_MORE | SMOOTH_BORDER
-	canSmoothWith = null
+	icon = 'icons/turf/smoothrocks.dmi'
+	icon_state = "smoothrocks-0"
+	base_icon_state = "smoothrocks"
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_MINERAL_WALLS
+	smoothing_groups = SMOOTH_GROUP_MINERAL_WALLS
 	baseturf = /turf/simulated/floor/plating/asteroid/airless
-	opacity = 1
+	opacity = TRUE
 	density = TRUE
 	blocks_air = TRUE
 	init_air = FALSE
@@ -32,12 +33,9 @@
 	var/hardness = 1 //how hard the material is, we'll have to have more powerful stuff if we want to blast harder materials.
 
 /turf/simulated/mineral/Initialize(mapload)
-	if(!canSmoothWith)
-		canSmoothWith = list(/turf/simulated/mineral)
 	var/matrix/M = new
 	//M.Translate(-4, -4)
 	transform = M
-	icon = smooth_icon
 	. = ..()
 	if(should_reset_color)
 		color = null
@@ -87,19 +85,23 @@
 	else
 		return attack_hand(user)
 
+
 /turf/simulated/mineral/proc/gets_drilled(mob/user, triggered_by_explosion = FALSE, override_bonus = FALSE)
-	if(mineralType && (mineralAmt > 0))
-		if(triggered_by_explosion && !override_bonus)
-			mineralAmt += 2 //bonus if it was exploded, USE EXPLOSIVES WOOO
-		new mineralType(src, mineralAmt)
-		if(is_mining_level(z))
-			SSticker?.score?.score_ore_mined++ // Only include ore spawned on mining level
-		SSblackbox.record_feedback("tally", "ore_mined", mineralAmt, mineralType)
+	var/cached_mineralType = mineralType
+	var/cached_mineralAmt = mineralAmt
 	for(var/obj/effect/temp_visual/mining_overlay/M in src)
 		qdel(M)
 	ChangeTurf(turf_type, defer_change)
 	addtimer(CALLBACK(src, PROC_REF(AfterChange)), 1, TIMER_UNIQUE)
-	playsound(src, 'sound/effects/break_stone.ogg', 50, 1) //beautiful destruction
+	playsound(src, 'sound/effects/break_stone.ogg', 50, TRUE) //beautiful destruction
+	if(cached_mineralType && cached_mineralAmt > 0)
+		if(triggered_by_explosion && !override_bonus)
+			cached_mineralAmt += 2	//bonus if it was exploded, USE EXPLOSIVES WOOO
+		new cached_mineralType(src, cached_mineralAmt)
+		if(is_mining_level(z))
+			SSticker?.score?.score_ore_mined++ // Only include ore spawned on mining level
+		SSblackbox.record_feedback("tally", "ore_mined", cached_mineralAmt, cached_mineralType)
+
 
 /turf/simulated/mineral/proc/attempt_drill(mob/user,triggered_by_explosion = FALSE, power = 1)
 	hardness -= power
@@ -187,8 +189,7 @@
 /turf/simulated/mineral/ancient
 	name = "ancient rock"
 	desc = "A rare asteroid rock that appears to be resistant to all mining tools except pickaxes!"
-	smooth = SMOOTH_MORE | SMOOTH_BORDER
-	canSmoothWith = list(/turf/simulated/mineral, /obj/structure/falsewall/mineral_ancient)
+	smooth = SMOOTH_BITMASK
 	mine_time = 6 SECONDS
 	color = COLOR_ANCIENT_ROCK
 	layer = MAP_EDITOR_TURF_LAYER
@@ -249,6 +250,7 @@
 	desc = "A rare and dense asteroid rock that appears to be resistant to everything except diamond and sonic tools! Can not be used to create portals to hell."
 	mine_time = 15 SECONDS
 	color = COLOR_COLD_ROCK
+	baseturf = /turf/simulated/floor/plating/asteroid/ancient/airless
 	var/static/list/allowed_picks_typecache
 
 /turf/simulated/mineral/ancient/outer/Initialize(mapload)
@@ -367,8 +369,9 @@
 
 /turf/simulated/mineral/random/volcanic/hard
 	name = "hardened basalt"
-	icon_state = "rock_hard"
-	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	icon_state = "smoothrocks_hard-0"
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
 	mineralChance = 24
 	hardness = 2
 	mineralSpawnChanceList = list(
@@ -379,8 +382,9 @@
 
 /turf/simulated/mineral/random/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	icon_state = "rock_volcanic"
-	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	icon_state = "smoothrocks_volcanic-0"
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
 	mineralChance = 60
 	hardness = 3
 	mineralSpawnChanceList = list(
@@ -417,12 +421,14 @@
 
 /turf/simulated/mineral/iron/volcanic/hard
 	name = "hardened basalt"
-	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
 	hardness = 2
 
 /turf/simulated/mineral/iron/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
 	hardness = 3
 
 /turf/simulated/mineral/uranium
@@ -442,12 +448,14 @@
 
 /turf/simulated/mineral/uranium/volcanic/hard
 	name = "hardened basalt"
-	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
 	hardness = 2
 
 /turf/simulated/mineral/uranium/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
 	hardness = 3
 
 /turf/simulated/mineral/diamond
@@ -467,12 +475,14 @@
 
 /turf/simulated/mineral/diamond/volcanic/hard
 	name = "hardened basalt"
-	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
 	hardness = 2
 
 /turf/simulated/mineral/diamond/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
 	hardness = 3
 
 /turf/simulated/mineral/gold
@@ -492,12 +502,14 @@
 
 /turf/simulated/mineral/gold/volcanic/hard
 	name = "hardened basalt"
-	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
 	hardness = 2
 
 /turf/simulated/mineral/gold/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
 	hardness = 3
 
 /turf/simulated/mineral/silver
@@ -517,12 +529,14 @@
 
 /turf/simulated/mineral/silver/volcanic/hard
 	name = "hardened basalt"
-	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
 	hardness = 2
 
 /turf/simulated/mineral/silver/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
 	hardness = 3
 
 /turf/simulated/mineral/titanium
@@ -542,12 +556,14 @@
 
 /turf/simulated/mineral/titanium/volcanic/hard
 	name = "hardened basalt"
-	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
 	hardness = 2
 
 /turf/simulated/mineral/titanium/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
 	hardness = 3
 
 /turf/simulated/mineral/plasma
@@ -567,12 +583,14 @@
 
 /turf/simulated/mineral/plasma/volcanic/hard
 	name = "hardened basalt"
-	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
 	hardness = 2
 
 /turf/simulated/mineral/plasma/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
 	hardness = 3
 
 /turf/simulated/mineral/clown
@@ -593,12 +611,14 @@
 
 /turf/simulated/mineral/clown/volcanic/hard
 	name = "hardened basalt"
-	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
 	hardness = 2
 
 /turf/simulated/mineral/clown/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
 	hardness = 3
 
 /turf/simulated/mineral/mime
@@ -619,12 +639,14 @@
 
 /turf/simulated/mineral/mime/volcanic/hard
 	name = "hardened basalt"
-	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
 	hardness = 2
 
 /turf/simulated/mineral/mime/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
 	hardness = 3
 
 /turf/simulated/mineral/bscrystal
@@ -645,12 +667,14 @@
 
 /turf/simulated/mineral/bscrystal/volcanic/hard
 	name = "hardened basalt"
-	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
 	hardness = 2
 
 /turf/simulated/mineral/bscrystal/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
 	hardness = 3
 
 /turf/simulated/mineral/gem
@@ -670,12 +694,14 @@
 
 /turf/simulated/mineral/gem/volcanic/hard
 	name = "hardened basalt"
-	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
 	hardness = 2
 
 /turf/simulated/mineral/gem/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
 	hardness = 3
 
 /turf/simulated/mineral/volcanic
@@ -694,11 +720,13 @@
 
 /turf/simulated/mineral/volcanic/lava_land_surface/hard
 	name = "hardened basalt"
-	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
 
 /turf/simulated/mineral/volcanic/lava_land_surface/hard/double
 	name = "hardened volcanic basalt"
-	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
 	hardness = 3
 
 //gibtonite state defines
@@ -812,12 +840,14 @@
 
 /turf/simulated/mineral/gibtonite/volcanic/hard
 	name = "hardened basalt"
-	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
 	hardness = 2
 
 /turf/simulated/mineral/gibtonite/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
 	hardness = 3
 
 #undef GIBTONITE_UNSTRUCK
@@ -847,10 +877,12 @@
 
 /turf/simulated/mineral/magmite/volcanic/hard
 	name = "hardened basalt"
-	smooth_icon = 'icons/turf/smoothrocks_hard.dmi'
+	icon = 'icons/turf/smoothrocks_hard.dmi'
+	base_icon_state = "smoothrocks_hard"
 	hardness = 2
 
 /turf/simulated/mineral/magmite/volcanic/hard/double
 	name = "hardened volcanic basalt"
-	smooth_icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	icon = 'icons/turf/smoothrocks_volcanic.dmi'
+	base_icon_state = "smoothrocks_volcanic"
 	hardness = 3

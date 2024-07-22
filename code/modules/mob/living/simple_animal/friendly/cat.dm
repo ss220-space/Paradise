@@ -129,35 +129,31 @@
 
 
 /mob/living/simple_animal/pet/cat/post_lying_on_rest()
-	if(stat == DEAD)
-		return
-	ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
-	if(!icon_resting || !icon_sit)
-		return
 	if(sitting)
 		custom_emote(EMOTE_VISIBLE, pick("сад%(ит,ят)%ся.", "приседа%(ет,ют)% на задних лапах.", "выгляд%(ит,ят)% настороженным%(*,и)%."))
+
+
+/mob/living/simple_animal/pet/cat/on_standing_up()
+	sitting = FALSE
+	. = ..()
+
+
+/mob/living/simple_animal/pet/cat/update_icons()
+	if(stat == DEAD)
+		icon_state = icon_dead
+		regenerate_icons()
+		return
+	if(sitting)
 		icon_state = "[icon_living]_[icon_sit]"
 		if(collar_type)
 			collar_type = "[initial(collar_type)]_[icon_sit]"
-			regenerate_icons()
-	else
+	else if(resting || body_position == LYING_DOWN)
 		icon_state = icon_resting
 		if(collar_type)
 			collar_type = "[initial(collar_type)]_rest"
-			regenerate_icons()
-
-
-/mob/living/simple_animal/pet/cat/post_get_up()
-	sitting = FALSE
-	if(stat == DEAD)
-		return
-	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
-	if(!icon_resting || !icon_sit)
-		return
-	icon_state = icon_living
-	if(collar_type)
-		collar_type = initial(collar_type)
-		regenerate_icons()
+	else
+		icon_state = icon_living
+	regenerate_icons()
 
 
 /mob/living/simple_animal/pet/cat/handle_automated_action()

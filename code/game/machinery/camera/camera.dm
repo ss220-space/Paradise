@@ -115,7 +115,7 @@
 
 /obj/machinery/camera/proc/setViewRange(num = 7)
 	view_range = num
-	GLOB.cameranet.updateVisibility(src, 0)
+	GLOB.cameranet.updateVisibility(src, opacity_check = FALSE)
 
 /obj/machinery/camera/singularity_pull(S, current_size)
 	if (status && current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects and the camera is still active, turn off the camera as it gets ripped off the wall.
@@ -234,7 +234,7 @@
 	..()
 	target.update_icon(UPDATE_ICON_STATE)
 	//Update what it can see.
-	GLOB.cameranet.updateVisibility(target, FALSE)
+	GLOB.cameranet.updateVisibility(target, opacity_check = FALSE)
 
 
 /obj/item/assembly/prox_sensor/camera_upgrade(obj/machinery/camera/target, power_use_update = TRUE)

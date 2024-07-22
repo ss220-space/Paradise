@@ -1,10 +1,6 @@
 
 // Defines are in code\__DEFINES\emotes.dm
 
-/// Sentinel for emote stats.
-/// If this is set for max stat, then its value will be ignored.
-#define DEFAULT_MAX_STAT_ALLOWED "defaultstat"
-
 /**
  * # Emote
  *
@@ -81,12 +77,12 @@
 	var/stat_allowed = CONSCIOUS
 	/// How unconscious/dead can you be while still being able to use this emote intentionally?
 	/// If this is set to DEFAULT_STAT_ALLOWED, it'll behave as if it isn't set.
-	var/max_stat_allowed = DEFAULT_MAX_STAT_ALLOWED
+	var/max_stat_allowed = DEFAULT_MAX_STAT_ALLOWED_EMOTE
 	/// How conscious do you need to be to have this emote forced out of you?
 	var/unintentional_stat_allowed = CONSCIOUS
 	/// Same as above, how unconscious/dead do you need to be to have this emote forced out of you?
 	/// If this is set to DEFAULT_STAT_ALLOWED, it'll behave as if it isn't set.
-	var/max_unintentional_stat_allowed = DEFAULT_MAX_STAT_ALLOWED
+	var/max_unintentional_stat_allowed = DEFAULT_MAX_STAT_ALLOWED_EMOTE
 	/// Sound to play when emote is called. Might be a list with different sounds. If you want to adjust this dynamically, see get_sound().
 	var/sound
 	/// Whether or not to vary the sound of the emote.
@@ -214,11 +210,11 @@
 				if(!ghost.client)
 					continue
 				if((ghost.client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTSIGHT) && !(ghost in viewers(user_turf, null)))
-					ghost.show_message(span_italics("[user] ([ghost_follow_link(user, ghost)]) [msg]"))
+					ghost.show_message(span_italics("[user] ([ghost_follow_link(user, ghost)]) [msg]"), chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 		if(isobserver(user))
 			for(var/mob/dead/observer/ghost in viewers(user))
-				ghost.show_message(span_deadsay("[displayed_msg]"), EMOTE_VISIBLE)
+				ghost.show_message(span_deadsay("[displayed_msg]"), EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 		else if((emote_type & (EMOTE_AUDIBLE|EMOTE_SOUND)) && user.mind && !user.mind.miming)
 			user.audible_message(displayed_msg, deaf_message = span_italics("You see how <b>[user]</b> [msg]"))
@@ -290,10 +286,10 @@
 	for(var/mob/viewer in can_see)
 		if(viewer.status_flags & PASSEMOTES)
 			for(var/obj/item/holder/holder in viewer.contents)
-				holder.show_message(text, EMOTE_VISIBLE)
+				holder.show_message(text, EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 			for(var/mob/living/mob in viewer.contents)
-				mob.show_message(text, EMOTE_VISIBLE)
+				mob.show_message(text, EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 		if((isobserver(viewer) || viewer.stat == CONSCIOUS) && viewer.client?.prefs?.toggles2 & PREFTOGGLE_2_RUNECHAT)
 			viewer.create_chat_message(user, text, list("emote"))
@@ -492,8 +488,8 @@
 		return FALSE
 
 	if(status_check && !is_type_in_typecache(user, mob_type_ignore_stat_typecache))
-		var/intentional_stat_check = (intentional && (user.stat <= stat_allowed && (max_stat_allowed == DEFAULT_MAX_STAT_ALLOWED || user.stat >= max_stat_allowed)))
-		var/unintentional_stat_check = (!intentional && (user.stat <= unintentional_stat_allowed && (max_unintentional_stat_allowed == DEFAULT_MAX_STAT_ALLOWED || user.stat >= max_unintentional_stat_allowed)))
+		var/intentional_stat_check = (intentional && (user.stat <= stat_allowed && (max_stat_allowed == DEFAULT_MAX_STAT_ALLOWED_EMOTE || user.stat >= max_stat_allowed)))
+		var/unintentional_stat_check = (!intentional && (user.stat <= unintentional_stat_allowed && (max_unintentional_stat_allowed == DEFAULT_MAX_STAT_ALLOWED_EMOTE || user.stat >= max_unintentional_stat_allowed)))
 		if(!intentional_stat_check && !unintentional_stat_check)
 			var/stat = stat_to_text(user.stat)
 			if(!intentional)
@@ -628,7 +624,4 @@
 				ghost.show_message("[ghost_follow_link(src, ghost)] [ghost_text]")
 
 	visible_message(text)
-
-
-#undef DEFAULT_MAX_STAT_ALLOWED
 

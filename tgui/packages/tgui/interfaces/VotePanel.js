@@ -14,25 +14,25 @@ export const VotePanel = (props, context) => {
     show_cancel,
   } = data;
   return (
-    <Window>
+    <Window width={400} height={500}>
       <Window.Content scrollable>
         <Section title={question}>
-          <Box mb={1}>
-            Time remaining: {Math.round(remaining / 10)}s
-          </Box>
-          {choices.map(choice => (
+          <Box mb={1}>Time remaining: {Math.round(remaining / 10)}s</Box>
+          {choices.map((choice) => (
             <Box key={choice}>
               <Button
-                content={choice + (show_counts ? " (" + (counts[choice] || 0) + ")" : "")}
-                onClick={() => act("vote", { "target": choice })}
-                selected={choice === user_vote} />
+                content={
+                  choice +
+                  (show_counts ? ' (' + (counts[choice] || 0) + ')' : '')
+                }
+                onClick={() => act('vote', { 'target': choice })}
+                selected={choice === user_vote}
+              />
             </Box>
           ))}
           {!!show_cancel && (
-            <Box key={"Cancel"}>
-              <Button
-                content={"Cancel"}
-                onClick={() => act("cancel")} />
+            <Box key={'Cancel'}>
+              <Button content={'Cancel'} onClick={() => act('cancel')} />
             </Box>
           )}
         </Section>

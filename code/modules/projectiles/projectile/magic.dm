@@ -43,15 +43,15 @@
 	var/turf/T3 = get_step(src,dir)
 	var/mob/living/L = locate(/mob/living) in T1 //if there's a mob alive in our front right diagonal, we hit it.
 	if(L && L.stat != DEAD)
-		Bump(L, custom_bump = TRUE) //Magic Bullet #teachthecontroversy
+		Bump(L) //Magic Bullet #teachthecontroversy
 		return
 	L = locate(/mob/living) in T2
 	if(L && L.stat != DEAD)
-		Bump(L, custom_bump = TRUE)
+		Bump(L)
 		return
 	L = locate(/mob/living) in T3
 	if(L && L.stat != DEAD)
-		Bump(L, custom_bump = TRUE)
+		Bump(L)
 		return
 	..()
 

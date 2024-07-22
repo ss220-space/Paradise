@@ -80,11 +80,8 @@
 	if(target.pulledby)
 		if(buckle_prevents_pull)
 			target.pulledby.stop_pulling()
-		//else if(isliving(target.pulledby))
-		//	var/mob/living/L = target.pulledby
-		//	L.reset_pull_offsets(target, TRUE)
-
-	QDEL_LIST(target.grabbed_by)
+		else if(isliving(target.pulledby))
+			target.pulledby.reset_pull_offsets(target, override = TRUE)
 
 	if(anchored)
 		ADD_TRAIT(target, TRAIT_NO_FLOATING_ANIM, BUCKLED_TRAIT)
@@ -350,9 +347,8 @@
 				span_italics("You hear metal clanking."),
 			)
 		add_fingerprint(user)
-		//if(isliving(buckled_mob.pulledby))
-		//	var/mob/living/L = buckled_mob.pulledby
-		//	L.set_pull_offsets(buckled_mob, L.grab_state)
+		if(isliving(buckled_mob.pulledby))
+			buckled_mob.pulledby.set_pull_offsets(buckled_mob, buckled_mob.pulledby.grab_state)
 	return buckled_mob
 
 

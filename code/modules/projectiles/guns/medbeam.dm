@@ -176,7 +176,3 @@
 /obj/item/gun/medbeam/proc/on_beam_release(mob/living/target)
 	return
 
-
-/obj/effect/ebeam/medical
-	name = "medical beam"
-

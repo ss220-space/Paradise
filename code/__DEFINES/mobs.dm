@@ -406,3 +406,23 @@
 /// Possible value of [/atom/movable/buckle_lying]. If set to a different (positive-or-zero) value than this, the buckling thing will force a lying angle on the buckled.
 #define NO_BUCKLE_LYING -1
 
+#define GRAB_PIXEL_SHIFT_PASSIVE 6
+#define GRAB_PIXEL_SHIFT_AGGRESSIVE 12
+#define GRAB_PIXEL_SHIFT_NECK 10
+#define GRAB_PIXEL_SHIFT_KILL 16
+
+#define PULL_LYING_MOB_SLOWDOWN 1.3
+#define PUSH_STANDING_MOB_SLOWDOWN 1.3
+
+#define ACTIVE_HAND_RIGHT 0
+#define ACTIVE_HAND_LEFT 1
+
+#define PULL_WITHOUT_HANDS "pull_without_hands"
+#define PULL_HAND_RIGHT 0
+#define PULL_HAND_LEFT 1
+
+/// Times it takes for a mob to be eaten by default.
+#define DEVOUR_TIME_DEFAULT (10 SECONDS)
+/// Time it takes for a simple mob to be eaten.
+#define DEVOUR_TIME_ANIMAL (3 SECONDS)
+

@@ -516,10 +516,10 @@
 	card.forceMove(card.loc)
 	icon_state = "[chassis]"
 
-/mob/living/silicon/pai/Bump(atom/bumped_atom, custom_bump)
+/mob/living/silicon/pai/Bump(atom/bumped_atom)
 	return
 
-/mob/living/silicon/pai/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
+/mob/living/silicon/pai/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
 	return FALSE
 
 /mob/living/silicon/pai/examine(mob/user)

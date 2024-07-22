@@ -210,6 +210,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	GLOB.shuttle_caller_list += src
 	..()
 
+
+/mob/living/silicon/ai/Initialize(mapload)
+	. = ..()
+	add_traits(list(TRAIT_PULL_BLOCKED, TRAIT_HANDS_BLOCKED), ROUNDSTART_TRAIT)
+
+
 /mob/living/silicon/ai/proc/on_mob_init()
 	to_chat(src, "<B>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</B>")
 	to_chat(src, "<B>To look at other parts of the station, click on yourself to get a camera menu.</B>")

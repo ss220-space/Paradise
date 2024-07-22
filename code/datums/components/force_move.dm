@@ -4,12 +4,15 @@
 /datum/component/force_move
 
 
-/datum/component/force_move/Initialize(atom/target, spin)
+/datum/component/force_move/Initialize(atom/target, spin, no_dir_update)
 	if(!target || !ismob(parent))
 		return COMPONENT_INCOMPATIBLE
 	var/mob/mob_parent = parent
 	var/dist = get_dist(mob_parent, target)
-	var/datum/move_loop/loop = SSmove_manager.move_towards(mob_parent, target, delay = 1, timeout = dist, flags = MOVEMENT_LOOP_TAKE_EXISTING_LOOP)
+	var/loop_flags = MOVEMENT_LOOP_TAKE_EXISTING_LOOP
+	if(spin || no_dir_update)
+		loop_flags |= MOVEMENT_LOOP_NO_DIR_UPDATE
+	var/datum/move_loop/loop = SSmove_manager.move_towards(mob_parent, target, delay = 1, timeout = dist, flags = loop_flags)
 	RegisterSignal(mob_parent, COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, PROC_REF(stop_move))
 	RegisterSignal(mob_parent, COMSIG_ATOM_PRE_PRESSURE_PUSH, PROC_REF(stop_pressure))
 	if(spin)

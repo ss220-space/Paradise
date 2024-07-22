@@ -41,8 +41,6 @@
 		return 0
 	if(istype(check, /obj/item/reagent_containers/food/snacks))
 		return 1
-	if(istype(check, /obj/item/grab))
-		return special_attack(check, user)
 	if(has_specials && checkSpecials(check))
 		return TRUE
 	to_chat(user, "<span class ='notice'>You can only process food!</span>")
@@ -94,6 +92,18 @@
 /obj/machinery/cooker/proc/gettype()
 	var/obj/item/reagent_containers/food/snacks/type = new(get_turf(src))
 	return type
+
+
+/obj/machinery/cooker/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE)
+		return .
+	special_grab_attack(grabbed_thing, grabber)
+
+
+/obj/machinery/cooker/proc/special_grab_attack(atom/movable/grabbed_thing, mob/living/grabber)
+	return
+
 
 /obj/machinery/cooker/attackby(obj/item/I, mob/user, params)
 	if(upgradeable)
@@ -154,10 +164,6 @@
 	if(default_deconstruction_screwdriver(user, openicon, officon, I))
 		return TRUE
 
-
-
-/obj/machinery/cooker/proc/special_attack(obj/item/grab/G, mob/user)
-	return 0
 
 // MAKE SURE TO OVERRIDE THESE ON THE MACHINE IF IT HAS SPECIAL FOOD INTERACTIONS!
 // FAILURE TO OVERRIDE WILL RESULT IN FAILURE TO PROPERLY HANDLE SPECIAL INTERACTIONS!		--FalseIncarnate

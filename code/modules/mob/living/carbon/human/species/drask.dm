@@ -42,7 +42,7 @@
 		"втягивает теплый воздух!",
 		"задерживает дыхание!")
 
-	species_traits = list(LIPS, IS_WHITELISTED, EXOTIC_COLOR)
+	species_traits = list(LIPS, EXOTIC_COLOR)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
 	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS
 	has_gender = FALSE
@@ -107,10 +107,16 @@
 		head?.undisfigure()
 
 /datum/species/drask/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == "iron")
-		return TRUE
-	if(R.id == "salglu_solution")
-		return TRUE
+	switch(R.id)
+		if("iron")
+			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM * H.metabolism_efficiency * H.digestion_ratio)
+			return FALSE
+		if("salglu_solution")
+			if(prob(33))
+				H.adjustBruteLoss(-1)
+				H.adjustFireLoss(-1)
+			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM * H.metabolism_efficiency * H.digestion_ratio)
+			return FALSE
 	return ..()
 
 #undef DRASK_COOLINGSTARTTEMP

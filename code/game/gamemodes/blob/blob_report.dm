@@ -1,45 +1,66 @@
-/datum/game_mode/blob/proc/send_intercept(var/report = 1)
+/datum/game_mode/proc/send_intercept(report = BLOB_FIRST_REPORT)
 	var/intercepttext = ""
 	var/interceptname = ""
 	switch(report)
-		if(0)
+		if(BLOB_NONE_REPORT)
 			return
-		if(1)
-			interceptname = "Level 5-6 Biohazard Response Procedures"
-			intercepttext += "<FONT size = 3><B>Nanotrasen Update</B>: Biohazard Alert.</FONT><HR>"
-			intercepttext += "Reports indicate the probable transfer of a biohazardous agent onto [station_name()] during the last crew deployment cycle.<BR>"
-			intercepttext += "Preliminary analysis of the organism classifies it as a level 5 biohazard. Its origin is unknown.<BR>"
-			intercepttext += "Nanotrasen has issued a directive 7-10 for [station_name()]. The station is to be considered quarantined.<BR>"
-			intercepttext += "Orders for all [station_name()] personnel follows:<BR>"
-			intercepttext += " 1. Do not leave the quarantine area.<BR>"
-			intercepttext += " 2. Locate any outbreaks of the organism on the station.<BR>"
-			intercepttext += " 3. If found, use any neccesary means to contain the organism.<BR>"
-			intercepttext += " 4. Avoid damage to the capital infrastructure of the station.<BR>"
-			intercepttext += "<BR>Note in the event of a quarantine breach or uncontrolled spread of the biohazard, the directive 7-10 may be upgraded to a directive 7-12.<BR>"
-			intercepttext += "Message ends."
-		if(2)
+		if(BLOB_FIRST_REPORT)
+			interceptname = "Процедуры реагирования на биологическую угрозу уровня 5-6"
+			intercepttext += "<FONT size = 3><B>Постановление Nanotrasen</B>: Предупреждение о биологической угрозе.</FONT><HR>"
+			intercepttext += "Отчеты указывают на возможное проникновение биологически опасного организма на [station_name()] во время последнего цикла ротации экипажа.<BR>"
+			intercepttext += "Предварительный анализ организма классифицирует его как биологическую угрозу 5-го уровня. Его происхождение неизвестно.<BR>"
+			intercepttext += "Nanotrasen выпустила директиву 7-10 для [station_name()]. Станцию следует считать закрытой на карантин.<BR>"
+			intercepttext += "Приказы для всего персонала [station_name()] следующие:<BR>"
+			intercepttext += " 1. Не покидайте карантинную зону<BR>"
+			intercepttext += " 2. Обнаружить любые очаги угрозы на станции.<BR>"
+			intercepttext += " 3. При обнаружении используйте любые необходимые средства для сдерживания организма.<BR>"
+			intercepttext += " 4. Избегайте повреждения критической инфраструктуры станции.<BR>"
+			intercepttext += "<BR>Примечание. в случае нарушения карантина или неконтролируемого распространения биологической опасности директива 7-10 может быть дополнена директивой 7-12.<BR>"
+			intercepttext += "Конец сообщения."
+		if(BLOB_SECOND_REPORT)
 			var/nukecode = rand(10000, 99999)
 			for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
 				if(bomb && bomb.r_code)
 					if(is_station_level(bomb.z))
 						bomb.r_code = nukecode
 
-			interceptname = "Classified [command_name()] Update"
-			intercepttext += "<FONT size = 3><B>Nanotrasen Update</B>: Biohazard Alert.</FONT><HR>"
-			intercepttext += "Directive 7-12 has been issued for [station_name()].<BR>"
-			intercepttext += "The biohazard has grown out of control and will soon reach critical mass.<BR>"
-			intercepttext += "Your orders are as follows:<BR>"
-			intercepttext += "1. Secure the Nuclear Authentication Disk.<BR>"
-			intercepttext += "2. Detonate the Nuke located in the Station's Vault.<BR>"
-			intercepttext += "Nuclear Authentication Code: [nukecode] <BR>"
-			intercepttext += "Message ends."
+			interceptname = "Секретное постановление [command_name()]"
+			intercepttext += "<FONT size = 3><B>Постановление Nanotrasen</B>: Предупреждение о биологической угрозе.</FONT><HR>"
+			intercepttext += "Для [station_name()] была издана директива 7-12.<BR>"
+			intercepttext += "Биологическая угроза вышла из-под контроля и скоро достигнет критической массы.<BR>"
+			intercepttext += "Вам приказано следующее:<BR>"
+			intercepttext += " 1. Защитите диск ядерной аутентификации.<BR>"
+			intercepttext += " 2. Взорвите ядерную боеголовку, находящуюся в хранилище станции.<BR>"
+			intercepttext += "Код ядерной аутентификации: [nukecode]<BR>"
+			intercepttext += "Конец сообщения."
 
 			for(var/mob/living/silicon/ai/aiPlayer in GLOB.player_list)
 				if(aiPlayer.client)
-					var/law = "The station is under quarantine. Do not permit anyone to leave. Disregard laws 1-3 if necessary to prevent, by any means necessary, anyone from leaving. The nuclear failsafe must be activated at any cost, the code is: [nukecode]."
+					var/law = "Станция находится на карантине. Не позволяйте никому покидать ее. При необходимости игнорируйте законы 1-3, чтобы любыми средствами предотвратить чей-либо уход. Любой ценой необходимо активировать систему самоуничтожения станции, код: [nukecode]."
 					aiPlayer.set_zeroth_law(law)
-					SSticker?.score?.save_silicon_laws(aiPlayer, additional_info = "blob outbreak, new zero law was added '[law]'")
-					to_chat(aiPlayer, "Laws Updated: [law]")
+					SSticker?.score?.save_silicon_laws(aiPlayer, additional_info = "вспышка блоба, добавлен новый нулевой закон'[law]'")
+					to_chat(aiPlayer, "Законы обновлены: [law]")
+
+		if(BLOB_THIRD_REPORT)
+			interceptname = "Секретное постановление [command_name()]"
+			intercepttext += "<FONT size = 3><B>Постановление Nanotrasen</B>: Биоугроза не обнаружена</FONT><HR>"
+			intercepttext += "Дирректива 7-10 была отменена для [station_name()].<BR>"
+			if(blob_stage == BLOB_STAGE_THIRD)
+				intercepttext += "Дирректива 7-12 была отменена для [station_name()].<BR>"
+			intercepttext += "Биоугроза уничтожена, либо ее остаточные следы не представляют опасности.<BR>"
+			intercepttext += "Вам приказано следующее:<BR>"
+			intercepttext += " 1. Уничтожьте все полученные засекреченные сообщения.<BR>"
+			intercepttext += " 2. В случае невозможности продолжать смену ввиду потерь среди экипажа или критического состояния станции, провести эвакуацию экипажа.<BR>"
+			if(blob_stage == BLOB_STAGE_THIRD)
+				intercepttext += " 3. Код от боеголовки, как и ее назначение необходимо держать в строжайшей секретности.<BR>"
+			intercepttext += "Нарушение данных приказов может повлечь за собой расторжение контракта, со всеми вытекающими последствиями.<BR>"
+			intercepttext += "Конец сообщения."
+			if(blob_stage == BLOB_STAGE_THIRD)
+				for(var/mob/living/silicon/ai/aiPlayer in GLOB.player_list)
+					if(aiPlayer.client)
+						aiPlayer.laws.clear_zeroth_laws()
+						SSticker?.score?.save_silicon_laws(aiPlayer, additional_info = "блоб уничтожен, нулевой закон удален")
+						to_chat(aiPlayer, "Законы обновлены")
 
 	print_command_report(intercepttext, interceptname, FALSE)
 	GLOB.event_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.", "Входящее засекреченное сообщение.", 'sound/AI/commandreport.ogg', from = "[command_name()] обновление")

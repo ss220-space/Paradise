@@ -931,7 +931,7 @@
 	},
 /area/shuttle/administration)
 "Az" = (
-/turf/simulated/wall/shuttle/nodiagonal{
+/turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/shuttle/administration)
@@ -1234,7 +1234,7 @@
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/administration)
 "Jg" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal{
+/turf/simulated/wall/shuttle/onlyselfsmooth{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/shuttle/administration)

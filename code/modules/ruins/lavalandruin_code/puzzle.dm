@@ -203,7 +203,7 @@
 	var/obj/effect/sliding_puzzle/source
 	var/icon/puzzle_icon
 
-/obj/structure/puzzle_element/Move(atom/newloc, direct = NONE, glide_size_override = 0)
+/obj/structure/puzzle_element/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(!isturf(newloc) ||  moving_diagonally || get_dist(get_step(src,dir),get_turf(source)) > 1)
 		return 0
 
@@ -238,7 +238,7 @@
 		animate(src, pixel_x=rand(-5,5), pixel_y=rand(-2,2), time=1)
 	QDEL_IN(src,COLLAPSE_DURATION)
 
-/obj/structure/puzzle_element/Moved()
+/obj/structure/puzzle_element/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	source.validate()
 

@@ -46,9 +46,10 @@
 /obj/effect/clockwork/overlay/wall
 	name = "clockwork wall"
 	icon = 'icons/turf/walls/clockwork_wall.dmi'
-	icon_state = "clockwork_wall"
-	canSmoothWith = list(/obj/effect/clockwork/overlay/wall, /obj/structure/falsewall/brass)
-	smooth = SMOOTH_TRUE
+	icon_state = "clockwork_wall-0"
+	base_icon_state = "clockwork_wall"
+	canSmoothWith = SMOOTH_GROUP_WALLS
+	smooth = SMOOTH_BITMASK
 	layer = CLOSED_TURF_LAYER
 
 /obj/effect/clockwork/overlay/wall/Initialize(mapload)

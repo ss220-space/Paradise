@@ -15,6 +15,9 @@
 	var/icon_gib = null	//We only try to show a gibbing animation if this exists.
 	var/flip_on_death = FALSE //Flip the sprite upside down on death. Mostly here for things lacking custom dead sprites.
 
+	/// Whether we can apply unconscious effects on this mob (Sleeping, Paralyse etc.)
+	var/allows_unconscious = FALSE
+
 	var/list/speak = list()
 	var/speak_chance = 0
 	var/list/emote_hear = list()	//Hearable emotes
@@ -122,6 +125,13 @@
 	///What kind of footstep this mob should have. Null if it shouldn't have any.
 	var/footstep_type
 
+	var/AIproc = 0 // determines if the AI loop is activated
+	var/Atkcool = 0 // attack cooldown
+	var/Tempstun = 0 // temporary temperature stuns
+	var/Discipline = 0 // if a slime has been hit with a freeze gun, or wrestled/attacked off a human, they become disciplined and don't attack anymore for a while
+	var/SStun = 0 // stun variable
+
+
 /mob/living/simple_animal/Initialize(mapload)
 	. = ..()
 	GLOB.simple_animals[AIStatus] += src
@@ -140,7 +150,8 @@
 		pcollar = new(src)
 		regenerate_icons()
 	if(footstep_type)
-		AddComponent(/datum/component/footstep, footstep_type)
+		AddElement(/datum/element/footstep, footstep_type)
+
 
 /mob/living/simple_animal/Destroy()
 	QDEL_NULL(pcollar)
@@ -197,28 +208,32 @@
 	med_hud_set_health()
 
 
-/mob/living/simple_animal/post_lying_on_rest()
-	if(stat == DEAD)
-		return
+/mob/living/simple_animal/on_lying_down(new_lying_angle)
+	. = ..()
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
-	if(!icon_resting)
-		return
-	icon_state = icon_resting
-	if(collar_type)
-		collar_type = "[initial(collar_type)]_rest"
-		regenerate_icons()
+	update_icons()
 
 
-/mob/living/simple_animal/post_get_up()
-	if(stat == DEAD)
-		return
+/mob/living/simple_animal/on_standing_up()
+	. = ..()
 	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
-	if(!icon_resting)
-		return
-	icon_state = icon_living
-	if(collar_type)
-		collar_type = initial(collar_type)
+	update_icons()
+
+
+/mob/living/simple_animal/update_icons()
+	if(stat == DEAD)
+		icon_state = icon_dead || initial(icon_state)
 		regenerate_icons()
+		return
+	if(resting || body_position == LYING_DOWN)
+		icon_state = icon_resting || initial(icon_state)
+		if(collar_type)
+			collar_type = "[initial(collar_type)]_rest"
+	else
+		icon_state = icon_living || initial(icon_state)
+		if(collar_type)
+			collar_type = initial(collar_type)
+	regenerate_icons()
 
 
 /mob/living/simple_animal/update_stat(reason = "none given", should_log = FALSE)
@@ -227,9 +242,11 @@
 	if(stat != DEAD)
 		if(health <= 0)
 			death()
+		else if(allows_unconscious && HAS_TRAIT(src, TRAIT_KNOCKEDOUT))
+			set_stat(UNCONSCIOUS)
 		else
 			set_stat(CONSCIOUS)
-	..()
+	return ..()
 
 
 /mob/living/simple_animal/proc/handle_automated_action()
@@ -425,13 +442,11 @@
 		qdel(src)
 	else
 		health = 0
-		icon_state = icon_dead
+		update_icons()
 		if(flip_on_death)
 			transform = transform.Turn(180)
 		ADD_TRAIT(src, TRAIT_UNDENSE, SIMPLE_MOB_DEATH_TRAIT)
-		if(collar_type)
-			collar_type = "[initial(collar_type)]_dead"
-		regenerate_icons()
+
 
 /mob/living/simple_animal/proc/CanAttack(atom/the_target)
 	if(see_invisible < the_target.invisibility)
@@ -488,11 +503,9 @@
 	..()
 	health = maxHealth
 	icon = initial(icon)
-	icon_state = icon_living
+	update_icons()
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, SIMPLE_MOB_DEATH_TRAIT)
-	if(collar_type)
-		collar_type = "[initial(collar_type)]"
-		regenerate_icons()
+
 
 /mob/living/simple_animal/proc/check_if_child(mob/possible_child)
 	for(var/childpath in childtype)
@@ -682,6 +695,8 @@
 		add_overlay("[collar_type]collar")
 		add_overlay("[collar_type]tag")
 
+	update_fire()
+
 	if(blocks_emissive)
 		add_overlay(get_emissive_block())
 
@@ -731,11 +746,12 @@
 	if(. && length(src.damaged_sound))
 		playsound(src, pick(src.damaged_sound), 40, 1)
 
-/mob/living/simple_animal/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
-	if(pull_constraint(AM, show_message))
+/mob/living/simple_animal/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
+	if(pull_constraint(pulled_atom, state, supress_message))
 		return ..()
+	return FALSE
 
-/mob/living/simple_animal/proc/pull_constraint(atom/movable/AM, show_message = FALSE)
+/mob/living/simple_animal/proc/pull_constraint(atom/movable/pulled_atom, state, supress_message = FALSE)
 	return TRUE
 
 

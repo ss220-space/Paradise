@@ -32,9 +32,15 @@
 
 	var/attached = 0
 
-/obj/item/clothing/mask/facehugger/ComponentInitialize()
+
+/obj/item/clothing/mask/facehugger/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/proximity_monitor)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /obj/item/clothing/mask/facehugger/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	..()
@@ -66,35 +72,38 @@
 	if(real)//So that giant red text about probisci doesn't show up for fake ones
 		switch(stat)
 			if(DEAD,UNCONSCIOUS)
-				. += "<span class='boldannounce'>[src] is not moving.</span>"
+				. += span_boldannounceic("[src] is not moving.")
 			if(CONSCIOUS)
-				. += "<span class='boldannounce'>[src] seems to be active!</span>"
+				. += span_boldannounceic("[src] seems to be active!")
 		if(sterile)
-			. += "<span class='boldannounce'>It looks like the proboscis has been removed.</span>"
+			. += span_boldannounceic("It looks like the proboscis has been removed.")
 
 /obj/item/clothing/mask/facehugger/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
 		Die()
 
-/obj/item/clothing/mask/facehugger/equipped(mob/M)
-	//SHOULD_CALL_PARENT(FALSE)
-	if(!Attach(M))
+
+/obj/item/clothing/mask/facehugger/equipped(mob/living/user, slot, initial = FALSE)
+	if(!Attach(user))
 		return ..()
 
-/obj/item/clothing/mask/facehugger/Crossed(atom/target, oldloc)
-	HasProximity(target)
-	return
+
+/obj/item/clothing/mask/facehugger/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	HasProximity(arrived)
+
 
 /obj/item/clothing/mask/facehugger/on_found(mob/finder)
 	if(stat != DEAD)
 		return HasProximity(finder)
-	return 0
+	return FALSE
 
 /obj/item/clothing/mask/facehugger/HasProximity(atom/movable/AM)
 	if(CanHug(AM) && Adjacent(AM))
 		return Attach(AM)
-	return 0
+	return FALSE
 
 /obj/item/clothing/mask/facehugger/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
 	if(!..())

@@ -45,7 +45,7 @@
 				if(C.number)
 					number = max(number, C.number + 1)
 		var/cam_tag = "[A.name] #[number]"
-		c_tag = sanitize(cam_tag)
+		src.c_tag = sanitize(cam_tag)
 
 
 // CHECKS

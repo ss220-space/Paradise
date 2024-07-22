@@ -5,11 +5,13 @@
 	item_state = "fingerless"
 	item_color = null	//So they don't wash.
 	transfer_prints = TRUE
+	clothing_flags = NONE
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	strip_delay = 40
 	put_on_delay = 20
 	clipped = 1
+	undyeable = TRUE
 
 /obj/item/clothing/gloves/fingerless/weaver
 	name = "weaver chitin gloves"

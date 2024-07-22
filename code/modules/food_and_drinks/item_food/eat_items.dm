@@ -43,52 +43,50 @@
 
 
 /obj/item/proc/try_item_eat(mob/living/carbon/target, mob/user)
-	if(ishuman(target) && item_eat(target, user))
+	if(ishuman(target) && check_item_eat(target, user))
+		INVOKE_ASYNC(src, PROC_REF(item_eat), target, user)
 		return TRUE
 	return FALSE
 
 //Eat all thing in my hand
 /obj/item/proc/item_eat(mob/living/carbon/target, mob/user)
-	if(!check_item_eat(target, user))
-		return FALSE
-
-	var/chat_message_to_user = "Вы кормите [target] [src.name]."
-	var/chat_message_to_target = "[user] покормил вас [src.name]."
+	var/chat_message_to_user = "Вы кормите [target] [name]."
+	var/chat_message_to_target = "[user] покормил вас [name]."
 	switch(user.a_intent)
 		if(INTENT_HELP, INTENT_GRAB)
 			if(target.nutrition >= NUTRITION_LEVEL_FULL)
-				chat_message_to_user = "В [target == user ? "вас" : target] больше не лезет [src.name]. [target == user ? "Вы" : target] наел[target == user ? "ись" : genderize_ru(target.gender,"ся","ась","ось","ись")]!"
-				return FALSE
-			else if (target == user)
-				chat_message_to_user = "Вы откусили от [src.name]. Вкуснятина!"
+				chat_message_to_user = "В [target == user ? "вас" : target] больше не лезет [name]. [target == user ? "Вы" : target] наел[target == user ? "ись" : genderize_ru(target.gender,"ся","ась","ось","ись")]!"
+				return
+			else if(target == user)
+				chat_message_to_user = "Вы откусили от [name]. Вкуснятина!"
 		if(INTENT_HARM)
 			chat_message_to_user = "В [target == user ? "вас" : target] больше не лезет. Но [target == user ? "вы" : user] насильно запихива[target == user ? "ете" : pluralize_ru(user.gender,"ет","ют")] [src.name] в рот!"
-			if (target != user)
-				chat_message_to_target = "В ваш рот насильно запихивают [src.name]!"
+			if(target != user)
+				chat_message_to_target = "В ваш рот насильно запихивают [name]!"
 			if(target.nutrition >= NUTRITION_LEVEL_FULL)
 				target.vomit(nutritional_value + 20)
 				target.adjustStaminaLoss(15)
 
-	if (target != user)
+	if(target != user)
 		if(!forceFed(target, user, FALSE))
-			return FALSE
-		to_chat(target, "<span class='notice'>[chat_message_to_target]</span>")
+			return
+		to_chat(target, span_notice("[chat_message_to_target]"))
 		add_attack_logs(user, src, "Force Fed [target], item [src]")
 
-	to_chat(user, "<span class='notice'>[chat_message_to_user]</span>")
+	to_chat(user, span_notice("[chat_message_to_user]"))
 
 	current_bites++
-	playsound(target.loc, 'sound/items/eatfood.ogg', 50, 0)
+	playsound(target.loc, 'sound/items/eatfood.ogg', 50, FALSE)
 	if(!isvampire(target)) //Dont give nutrition to vampires
 		target.adjust_nutrition(nutritional_value)
 	obj_integrity = max(obj_integrity - integrity_bite, 0)
 	colour_change()
 	if(current_bites >= max_bites)
-		to_chat(user, "<span class='notice'>[target == user ? "Вы доели" : "[target] доел"] [src.name].</span>")
+		to_chat(user, span_notice("[target == user ? "Вы доели" : "[target] доел"] [name]."))
 		qdel(src)
 
 	SSticker.score.score_food_eaten++
-	return TRUE
+
 
 /obj/item/proc/forceFed(mob/living/carbon/target, mob/user, var/instant_application = FALSE)
 	if(!instant_application)

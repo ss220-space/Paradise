@@ -208,9 +208,9 @@
 	addtimer(CALLBACK(src, PROC_REF(go_invisible)), 1 SECONDS, TIMER_OVERRIDE|TIMER_UNIQUE)
 
 
-/obj/structure/closet/cardboard/agent/Bump(atom/bumped_atom, custom_bump)
+/obj/structure/closet/cardboard/agent/Bump(atom/bumped_atom)
 	. = ..()
-	if(. || isnull(.) || !isliving(bumped_atom))
+	if(. || !isliving(bumped_atom))
 		return .
 	reveal()
 

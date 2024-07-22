@@ -56,7 +56,6 @@
 
 		current_test = test
 		var/duration = REALTIMEOFDAY
-
 		test.Run()
 
 		durations[I] = REALTIMEOFDAY - duration

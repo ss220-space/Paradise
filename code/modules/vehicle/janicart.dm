@@ -32,7 +32,7 @@
 				buckled_mob.pixel_y = 7
 
 
-/obj/vehicle/janicart/Moved(atom/OldLoc, Dir, Forced = FALSE, momentum_change = TRUE)
+/obj/vehicle/janicart/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(. && floorbuffer && isturf(loc))
 		loc.clean_blood()

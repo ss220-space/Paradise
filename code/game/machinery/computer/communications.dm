@@ -318,10 +318,10 @@
 
 	ui_interact(user)
 
-/obj/machinery/computer/communications/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/communications/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "CommunicationsComputer",  name, 500, 600, master_ui, state)
+		ui = new(user, src, "CommunicationsComputer", name)
 		ui.open()
 
 /obj/machinery/computer/communications/ui_data(mob/user)
@@ -420,6 +420,10 @@
 		to_chat(user, span_warning("Central Command will not allow the shuttle to be called. Consider all contracts terminated."))
 		return
 
+	if(SSticker?.mode?.blob_stage >= BLOB_STAGE_FIRST && SSshuttle.emergencyNoEscape)
+		to_chat(user, span_warning("Under directive 7-10, [station_name()] is quarantined until further notice."))
+		return
+
 	if(SSshuttle.emergencyNoEscape)
 		to_chat(user, span_warning("The emergency shuttle may not be sent at this time. Please try again later."))
 		return
@@ -428,9 +432,6 @@
 		to_chat(user, span_warning("The emergency shuttle may not be called while returning to Central Command."))
 		return
 
-	if(SSticker.mode.name == "blob")
-		to_chat(user, span_warning("Under directive 7-10, [station_name()] is quarantined until further notice."))
-		return
 
 	SSshuttle.requestEvac(user, reason)
 	add_game_logs("has called the shuttle: [reason]", user)

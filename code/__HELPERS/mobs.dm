@@ -295,12 +295,12 @@
  * * extra_checks - Additional checks to perform before the action is executed.
  * * interaction_key - The assoc key under which the do_after is capped, with max_interact_count being the cap. Interaction key will default to target if not set.
  * * max_interact_count - The maximum amount of interactions allowed.
- * * cancel_message - Message shown to the user if they exceeds max interaction count. Use "" to remove it.
+ * * cancel_on_max - If `TRUE` this proc will fail after reaching max_interact_count.
+ * * cancel_message - Message shown to the user if cancel_on_max is set to `TRUE` and they exceeds max interaction count. Use empty string ("") to skip default cancel message.
  *
  * Returns `TRUE` on success, `FALSE` on failure.
  */
-
-/proc/do_after(mob/user, delay, atom/target, timed_action_flags = DEFAULT_DOAFTER_IGNORE, progress = TRUE, datum/callback/extra_checks, interaction_key, max_interact_count = INFINITY, cancel_message = span_warning("Attempt cancelled."))
+/proc/do_after(mob/user, delay, atom/target, timed_action_flags = DEFAULT_DOAFTER_IGNORE, progress = TRUE, datum/callback/extra_checks, interaction_key, max_interact_count = INFINITY, cancel_on_max = FALSE, cancel_message = span_warning("Attempt cancelled."))
 	if(!user)
 		return FALSE
 
@@ -312,8 +312,8 @@
 	if(interaction_key) //Do we have a interaction_key now?
 		var/current_interaction_count = LAZYACCESS(user.do_afters, interaction_key) || 0
 		if(current_interaction_count >= max_interact_count) //We are at our peak
-			if(cancel_message)
-				to_chat(user, "[cancel_message]")
+			if(cancel_on_max)	// we are adding extra one, to catch this on while loop
+				LAZYSET(user.do_afters, interaction_key, current_interaction_count + 1)
 			return FALSE
 		LAZYSET(user.do_afters, interaction_key, current_interaction_count + 1)
 
@@ -352,6 +352,16 @@
 			. = FALSE
 			break
 
+		if(cancel_on_max && interaction_key)
+			var/current_interaction_count = LAZYACCESS(user.do_afters, interaction_key) || 0
+			if(current_interaction_count > max_interact_count)
+				// we need to reduce count by one, since its just a marker
+				LAZYSET(user.do_afters, interaction_key, current_interaction_count - 1)
+				if(cancel_message)
+					to_chat(user, "[cancel_message]")
+				. = FALSE
+				break
+
 		if(drifting && (!(timed_action_flags & DA_IGNORE_SPACE_DRIFT) || !SSmove_manager.processing_on(user, SSspacedrift)))
 			drifting = FALSE
 			user_loc = user.loc
@@ -363,7 +373,7 @@
 			|| (!(timed_action_flags & DA_IGNORE_INCAPACITATED) && HAS_TRAIT_NOT_FROM(user, TRAIT_INCAPACITATED, STAT_TRAIT)) \
 			|| (!(timed_action_flags & DA_IGNORE_RESTRAINED) && HAS_TRAIT(user, TRAIT_RESTRAINED)) \
 			|| (gripper_check && gripper?.isEmpty()) \
-			|| extra_checks?.Invoke())
+			|| (extra_checks && !extra_checks.Invoke()))
 			. = FALSE
 			break
 
@@ -384,14 +394,6 @@
 		LAZYREMOVE(user.do_afters, interaction_key)
 
 	SEND_SIGNAL(user, COMSIG_DO_AFTER_ENDED)
-
-
-/// Upon any of the callbacks in the list returning TRUE, the proc will return TRUE.
-/proc/check_for_true_callbacks(list/extra_checks)
-	for(var/datum/callback/CB in extra_checks)
-		if(CB.Invoke())
-			return TRUE
-	return FALSE
 
 
 /proc/is_species(A, species_datum)

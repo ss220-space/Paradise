@@ -60,10 +60,10 @@
 	var/last_known_ckey = null	// Used in logging
 
 	var/obj/machinery/machine = null
-	var/currently_grab_pulled = null  /// only set while the move is ongoing, to prevent shuffling between pullees
 	var/memory = ""
 	var/next_move = null
-	var/hand = null			// 0 - right hand is active, 1 - left hand is active
+	/// Currently active mob's hand.
+	var/hand = ACTIVE_HAND_RIGHT
 	var/real_name = null
 	var/flavor_text = ""
 	var/med_record = ""
@@ -112,8 +112,6 @@
 
 	var/research_scanner = 0 //For research scanner equipped mobs. Enable to show research data when examining.
 
-	var/list/obj/item/grab/grabbed_by
-	var/list/obj/item/twohanded/garrote/garroted_by
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 	var/list/mapobjs
 
@@ -202,8 +200,8 @@
 	///How many usable hands does this mob currently have. Should only be changed through set_usable_hands()
 	var/usable_hands = 2
 
-	//SSD var, changed it up some so people can have special things happen for different mobs when SSD.
-	var/player_logged = 0
+	/// SSD var. When mob has SSD status it contains num value (in deciseconds), since last mob logout. Always null otherwise.
+	var/player_logged
 
 	//Ghosted var, set only if a player has manually ghosted out of this mob.
 	var/player_ghosted = 0

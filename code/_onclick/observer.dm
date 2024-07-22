@@ -88,10 +88,6 @@
 		if(com && com.target)
 			user.forceMove(get_turf(com.target))
 
-/obj/effect/portal/attack_ghost(mob/user)
-	if(target)
-		user.forceMove(get_turf(target))
-
 /obj/machinery/gateway/centerstation/attack_ghost(mob/user)
 	if(awaygate)
 		user.forceMove(awaygate.loc)

@@ -1601,7 +1601,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/crashedipcship/aft)
 "Ah" = (
-/turf/simulated/wall/shuttle/nodiagonal{
+/turf/simulated/wall/shuttle{
 	color = "#A9E0FF"
 	},
 /area/ruin/space/crashedipcship/engine)
@@ -1626,7 +1626,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/crashedipcship/middle)
 "An" = (
-/turf/simulated/wall/shuttle/nodiagonal{
+/turf/simulated/wall/shuttle{
 	color = "#A9E0FF"
 	},
 /area/ruin/space/crashedipcship/aft)

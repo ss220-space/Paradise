@@ -3,7 +3,6 @@ GLOBAL_LIST_EMPTY(all_species)
 GLOBAL_LIST_EMPTY(all_languages)
 GLOBAL_LIST_EMPTY(language_keys)					// Table of say codes for all languages
 GLOBAL_LIST_EMPTY(all_superheroes)
-GLOBAL_LIST_EMPTY(whitelisted_species)
 
 GLOBAL_LIST_EMPTY(clients)							//list of all clients
 GLOBAL_LIST_EMPTY(admins)							//list of all clients whom are admins
@@ -42,6 +41,8 @@ GLOBAL_LIST_EMPTY(taipan_players_active)	//List of all Taipan operatives active
 GLOBAL_LIST_EMPTY(emote_list)
 
 GLOBAL_LIST_EMPTY(uplink_items)
+
+GLOBAL_LIST_EMPTY(mining_vendor_items)
 
 GLOBAL_LIST_EMPTY(mob_config_movespeed_type_lookup)
 
