@@ -336,6 +336,10 @@
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXITED = PROC_REF(on_exited),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/machinery/roboquest_pad/Destroy()
 	if(console)
@@ -365,13 +369,6 @@
 		if(destination)
 			do_teleport(box, destination)
 		console.canSend = FALSE
-
-/obj/machinery/roboquest_pad/New()
-	. = ..()
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_EXITED = PROC_REF(on_exited),
-	)
-	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/machinery/roboquest_pad/proc/on_exited(datum/source, atom/movable/departed, atom/newLoc)
 	SIGNAL_HANDLER
