@@ -90267,7 +90267,7 @@
 	dir = 9;
 	icon_state = "darkpurple"
 	},
-/area/assembly/robotics)
+/area/assembly/chargebay)
 "qer" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
