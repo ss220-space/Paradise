@@ -151,11 +151,12 @@
 	var/see_ghosts = 0 //for the spoop of it
 
 	sprite_sheets = list(
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/neck.dmi',
+		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/neck.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/neck.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/neck.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/neck.dmi',
-		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/neck.dmi',
-		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/neck.dmi',
-		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/neck.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/neck.dmi'
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/neck.dmi'
 		)
 
 
