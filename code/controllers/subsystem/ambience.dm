@@ -30,6 +30,7 @@ SUBSYSTEM_DEF(ambience)
 		if(isnull(client_iterator))
 			ambience_listening_clients -= client_iterator
 			client_old_areas -= client_iterator
+			continue
 
 		//Check to see if the client isn't held by a new player
 		var/mob/client_mob = client_iterator?.mob
