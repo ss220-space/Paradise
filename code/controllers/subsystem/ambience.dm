@@ -15,7 +15,7 @@ SUBSYSTEM_DEF(ambience)
 
 /datum/controller/subsystem/ambience/proc/remove_ambience_client(client/to_remove)
 	ambience_listening_clients -= to_remove
-	currentrun -= to_remove
+	client_old_areas -= to_remove
 	currentrun -= to_remove
 
 /datum/controller/subsystem/ambience/fire(resumed)
