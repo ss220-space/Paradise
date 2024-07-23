@@ -88175,14 +88175,6 @@
 	icon_state = "darkblue"
 	},
 /area/medical/morgue)
-"pDY" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/space/openspace,
-/area/solar/west)
 "pEi" = (
 /obj/machinery/light{
 	dir = 4
@@ -288099,7 +288091,7 @@ orm
 orm
 orm
 psY
-pDY
+urj
 bWy
 bWy
 bWy
