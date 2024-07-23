@@ -1,5 +1,3 @@
-#define NUKESCALINGMODIFIER 6
-
 /datum/game_mode
 	var/list/datum/mind/syndicates = list()
 
@@ -7,10 +5,10 @@
 	name = "nuclear emergency"
 	config_tag = "nuclear"
 	required_players = 30	// 30 players - 5 players to be the nuke ops = 25 players remaining
-	required_enemies = 5
-	recommended_enemies = 5
+	required_enemies = NUKERS_COUNT
+	recommended_enemies = NUKERS_COUNT
 
-	var/const/agents_possible = 5 //If we ever need more syndicate agents.
+	var/const/agents_possible = NUKERS_COUNT //If we ever need more syndicate agents.
 
 	var/nukes_left = 1 //Call 3714-PRAY right now and order more nukes! Limited offer!
 	var/nuke_off_station = 0 //Used for tracking if the syndies actually haul the nuke to the station
@@ -529,5 +527,3 @@
 
 	return dat
 
-
-#undef NUKESCALINGMODIFIER

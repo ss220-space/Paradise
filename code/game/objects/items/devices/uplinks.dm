@@ -509,6 +509,12 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/radio/uplink/sst/choose_uplink()
 	return UPLINK_TYPE_SST
 
+/obj/item/radio/uplink/sst/get_uses_amount()
+	var/danger = GLOB.player_list.len
+	while(!ISMULTIPLE(++danger, 10)) //Increments danger up to the nearest multiple of ten
+	danger *= NUKESCALINGMODIFIER
+	return ..() + round(danger/ NUKERS_COUNT) + danger % NUKERS_COUNT
+
 
 /obj/item/radio/uplink/admin/choose_uplink()
 	return UPLINK_TYPE_ADMIN
