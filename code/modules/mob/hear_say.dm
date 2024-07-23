@@ -1,4 +1,4 @@
-#define EMPHASIS_LETTERS_REGEX "\[^\\+|\\||_%]"
+#define EMPHASIS_LETTERS_REGEX "\[^\\+\\|_%]"
 // At minimum every mob has a hear_say proc.
 
 /mob/proc/combine_message(list/message_pieces, mob/speaker, always_stars = FALSE)
