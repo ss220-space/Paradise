@@ -273,8 +273,7 @@
 	icon_state = "spraycan_cap"
 	desc = "A metallic container containing tasty paint."
 	var/capped = 1
-	var/used = FALSE
-	var/can_be_used = 0 // 0 for unlimited used
+	var/not_used = -1 // -1 for unlimited used
 	var/list/weld_icons = list("Flame" = "welding_redflame",
 					"Blue Flame" = "welding_blueflame",
 					"White Flame" = "welding_white")
@@ -333,11 +332,10 @@
 	I.color = colour
 	. += I
 
-/obj/item/toy/crayon/spraycan/proc/update_used()
-	if(can_be_used == 1)
-		used = TRUE
-	uses--
-	can_be_used--
+/obj/item/toy/crayon/spraycan/proc/update_not_used()
+	if(!not_used)
+		not_used = FALSE
+	not_used--
 
 /obj/item/toy/crayon/spraycan/proc/is_can_draw(var/obj/object, mob/living/user)
 	if(capped)
@@ -346,14 +344,14 @@
 	if(uses <= 1)
 		to_chat(user, span_warning("Не похоже, что бы осталось достаточно краски"))
 		return FALSE
-	if(used)
+	if(!not_used)
 		to_chat(user, span_warning("Кажется, этот [src] уже был использован."))
 		return FALSE
 	return TRUE
 
 /obj/item/toy/crayon/spraycan/paintkit
 	colour = "#ffffff"
-	can_be_used = 1
+	not_used = TRUE
 
 /obj/item/toy/crayon/spraycan/paintkit/update_icon_state()
 	return

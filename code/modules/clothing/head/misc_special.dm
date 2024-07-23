@@ -16,6 +16,7 @@
 	name = "welding helmet"
 	desc = "A head-mounted face cover designed to protect the wearer completely from space-arc eye."
 	icon_state = "welding"
+	base_icon_state = "welding"
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	item_state = "welding"
 	materials = list(MAT_METAL=1750, MAT_GLASS=400)
@@ -89,20 +90,20 @@
 			return
 		adjust_paint(spray.weld_icons[choice], user, I)
 	else if(istype(I, /obj/item/soap) && paint)
-		adjust_paint(initial(icon_state), user)
+		adjust_paint(null, user)
 	else return ..()
 
+/obj/item/clothing/head/welding/update_icon_state()
+	icon_state = paint ? paint : base_icon_state
+	return ..()
+
 /obj/item/clothing/head/welding/proc/adjust_paint(var/weld_icon_state, mob/living/user = null, var/obj/item/toy/crayon/spraycan/spray = null)
-	icon_state = weld_icon_state
-	if(weld_icon_state == initial(icon_state))
-		paint = null
-	else
-		paint = weld_icon_state
-		if(spray)
-			spray.update_used()
+	paint = weld_icon_state
+	if(spray)
+		spray.update_not_used()
 	if(user)
 		to_chat(user, span_notice("Вы успешно [paint ? "покрасили" : "очистили от краски"] [src]."))
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	update_equipped_item(update_speedmods = FALSE)
 
 /*
