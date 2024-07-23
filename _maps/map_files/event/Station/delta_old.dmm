@@ -1122,13 +1122,6 @@
 	icon_state = "darkyellow"
 	},
 /area/engine/mechanic_workshop/hangar)
-"apB" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plating,
-/area/hallway/secondary/entry/westarrival)
 "apF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1153,13 +1146,6 @@
 /obj/machinery/light,
 /turf/simulated/floor/wood,
 /area/civilian/vacantoffice)
-"apL" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plating,
-/area/hallway/secondary/entry/westarrival)
 "apM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/reagent_dispensers/fueltank,
@@ -1278,13 +1264,6 @@
 	icon_state = "blue"
 	},
 /area/bridge/checkpoint/north)
-"aqM" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plating,
-/area/hallway/secondary/entry/eastarrival)
 "aqN" = (
 /obj/structure/filingcabinet,
 /obj/machinery/newscaster{
@@ -1340,13 +1319,6 @@
 /obj/item/gun/energy/kinetic_accelerator,
 /turf/simulated/floor/plasteel,
 /area/engine/mechanic_workshop/expedition)
-"arm" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plating,
-/area/hallway/secondary/entry/eastarrival)
 "arn" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -56844,7 +56816,7 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/tcommsat/chamber)
 "ihW" = (
 /obj/machinery/requests_console{
@@ -81178,12 +81150,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/fitness)
-"oTI" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/construction/hallway)
 "oTL" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -82988,6 +82954,7 @@
 	},
 /obj/item/circuitboard/mecha_control,
 /obj/effect/decal/warning_stripes/southwest,
+/obj/structure/disposalpipe/junction,
 /turf/simulated/floor/plasteel,
 /area/storage/tech)
 "psg" = (
@@ -96139,7 +96106,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "sSo" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -102190,9 +102157,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/security/execution)
-"uAX" = (
-/turf/simulated/wall/r_wall,
-/area/construction/hallway)
 "uBr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -108749,10 +108713,6 @@
 	tag = "icon-whiteblue (WEST)"
 	},
 /area/medical/sleeper)
-"wjF" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/plating,
-/area/construction/hallway)
 "wjI" = (
 /turf/simulated/wall/r_wall,
 /area/maintenance/asmaint2)
@@ -120496,13 +120456,13 @@ aaa
 aaa
 aaa
 aaa
-uAX
+aaa
 gXq
 gXq
 gXq
 gXq
 gXq
-uAX
+aaa
 aaa
 aaa
 aaa
@@ -120753,13 +120713,13 @@ aaa
 aaa
 aaa
 aaa
-uAX
-uAX
+aaa
+aaa
 gXq
 vAm
 gXq
-uAX
-uAX
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -121010,13 +120970,13 @@ aaa
 aaa
 aaa
 aaa
-iGw
-uAX
-oTI
+aaa
+aaa
+tOj
 bdu
-wjF
-uAX
-iGw
+tOj
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -121268,11 +121228,11 @@ bvh
 iGw
 bvh
 bvh
-uAX
+iGw
 tOj
 heT
 tOj
-uAX
+iGw
 bvh
 bvh
 iGw
@@ -151249,8 +151209,8 @@ aaa
 aaa
 aaa
 aaa
-agp
-agp
+aaa
+aaa
 aaa
 aaa
 iGw
@@ -151507,8 +151467,8 @@ gXq
 gXq
 gXq
 gXq
-agp
-agp
+aaa
+aaa
 agp
 agp
 ahS
@@ -151765,7 +151725,7 @@ gXq
 gXq
 gXq
 gXq
-apB
+ahS
 ahS
 alv
 axa
@@ -152279,7 +152239,7 @@ gXq
 gXq
 gXq
 gXq
-apL
+ahS
 ahS
 ahr
 aud
@@ -152535,8 +152495,8 @@ gXq
 gXq
 gXq
 gXq
-agp
-agp
+aaa
+iGw
 agp
 agp
 ahS
@@ -152791,8 +152751,8 @@ aaa
 aaa
 aaa
 aaa
-agp
-agp
+aaa
+aaa
 iGw
 aaa
 iGw
@@ -155875,8 +155835,8 @@ aaa
 aaa
 aaa
 aaa
-aiE
-aiE
+aaa
+aaa
 iGw
 aaa
 iGw
@@ -156133,8 +156093,8 @@ gXq
 gXq
 gXq
 gXq
-aiE
-aiE
+aaa
+iGw
 aiE
 ajN
 ala
@@ -156391,7 +156351,7 @@ gXq
 gXq
 gXq
 gXq
-aqM
+ala
 ala
 alw
 awV
@@ -156905,7 +156865,7 @@ gXq
 gXq
 gXq
 gXq
-arm
+ala
 ala
 ahv
 aNA
@@ -157161,7 +157121,7 @@ gXq
 gXq
 gXq
 gXq
-arA
+aaa
 arA
 arA
 arA
@@ -157417,8 +157377,8 @@ aaa
 aaa
 aaa
 aaa
-arA
-arA
+aaa
+aaa
 arA
 arT
 atR
@@ -168598,11 +168558,11 @@ qEC
 qEC
 iGw
 aaa
+aaa
 hLL
 lsh
-lsh
-lsh
 hLL
+aaa
 aaa
 iGw
 mFN
@@ -168855,11 +168815,11 @@ kud
 qEC
 iGw
 iGw
-mFN
+iGw
 gXq
 qGq
 gXq
-mFN
+iGw
 iGw
 iGw
 hLL
