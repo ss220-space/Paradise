@@ -17057,7 +17057,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel/freezer,
+/turf/simulated/floor/plasteel/white,
 /area/medical/research/restroom)
 "clh" = (
 /obj/machinery/light{
@@ -23693,9 +23693,6 @@
 	icon_state = "whitegreen"
 	},
 /area/medical/virology/lab)
-"dgJ" = (
-/turf/simulated/mineral/ancient/outer,
-/area/space)
 "dgS" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -30493,9 +30490,6 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/serviceyard)
-"evK" = (
-/turf/simulated/floor/plating,
-/area/space)
 "evL" = (
 /obj/machinery/light{
 	dir = 4
@@ -46339,10 +46333,6 @@
 /obj/item/bedsheet/hop,
 /turf/simulated/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
-"hxj" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/space)
 "hxk" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -54579,9 +54569,6 @@
 	icon_state = "dark"
 	},
 /area/security/prison/cell_block/A)
-"jbp" = (
-/turf/simulated/wall,
-/area/space)
 "jbu" = (
 /turf/simulated/floor/wood/fancy/oak{
 	icon_state = "fancy-wood-oak-broken7"
@@ -59381,7 +59368,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/white,
 /area/toxins/launch)
 "jZO" = (
 /obj/effect/turf_decal/stripes/line{
@@ -102158,9 +102145,6 @@
 	icon_state = "navybluealt"
 	},
 /area/teleporter/quantum/science)
-"ssJ" = (
-/turf/simulated/mineral/ancient/outer,
-/area/maintenance/cele/command)
 "ssO" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
@@ -171875,7 +171859,7 @@ tXl
 tXl
 tXl
 tXl
-ssJ
+aeM
 qSB
 kfe
 iQJ
@@ -171969,7 +171953,7 @@ hGV
 oqZ
 aeM
 aeM
-aeM
+bgR
 rmJ
 sEz
 sEz
@@ -181932,7 +181916,7 @@ oqZ
 oqZ
 oqZ
 oqZ
-euM
+oqZ
 oqZ
 oqZ
 hGV
@@ -182189,7 +182173,7 @@ oqZ
 oqZ
 oqZ
 oqZ
-euM
+oqZ
 oqZ
 oqZ
 oqZ
@@ -182446,7 +182430,7 @@ aeM
 aeM
 aeM
 aeM
-dgJ
+aeM
 aeM
 aeM
 oqZ
@@ -182703,7 +182687,7 @@ aeM
 aeM
 aeM
 aeM
-dgJ
+aeM
 aeM
 aeM
 aeM
@@ -182960,8 +182944,8 @@ pSD
 pSD
 oGF
 pSD
-jbp
-gsa
+pSD
+aeM
 aeM
 aeM
 aeM
@@ -183217,8 +183201,8 @@ oGF
 tQO
 xKG
 dkC
-jbp
-gsa
+pSD
+aeM
 aeM
 aeM
 aeM
@@ -183474,8 +183458,8 @@ oGF
 brz
 xKG
 dkC
-jbp
-gsa
+pSD
+aeM
 aeM
 aeM
 aeM
@@ -183731,7 +183715,7 @@ pSD
 rLf
 cSx
 pSD
-jbp
+pSD
 oGF
 pSD
 oGF
@@ -183988,7 +183972,7 @@ pSD
 wPn
 xKG
 xKG
-evK
+brz
 gXT
 tQO
 kaC
@@ -184245,7 +184229,7 @@ oGF
 wPn
 bxd
 xKG
-hxj
+oNy
 xUo
 wPn
 bxd
@@ -184502,7 +184486,7 @@ pSD
 wCL
 wPn
 xKG
-hxj
+oNy
 brz
 rLf
 wCL
@@ -184759,7 +184743,7 @@ aeM
 pSD
 pSD
 wCL
-evK
+brz
 wSO
 xKG
 xKG
@@ -185016,7 +185000,7 @@ aeM
 aeM
 aeM
 pSD
-jbp
+pSD
 pSD
 oGF
 oGF
@@ -185273,7 +185257,7 @@ oqZ
 aeM
 aeM
 aeM
-dgJ
+aeM
 aeM
 aeM
 aeM
@@ -185530,7 +185514,7 @@ oqZ
 oqZ
 oqZ
 aeM
-dgJ
+aeM
 aeM
 aeM
 aeM
@@ -185787,7 +185771,7 @@ oqZ
 oqZ
 oqZ
 oqZ
-euM
+oqZ
 oqZ
 oqZ
 oqZ
@@ -186044,7 +186028,7 @@ hGV
 hGV
 oqZ
 oqZ
-euM
+oqZ
 oqZ
 oqZ
 oqZ
@@ -219752,7 +219736,7 @@ soY
 ukL
 orm
 orm
-dFy
+eKX
 oqZ
 oqZ
 oqZ
@@ -236667,8 +236651,8 @@ orm
 orm
 orm
 orm
-orm
-orm
+oqZ
+oqZ
 oqZ
 aeM
 aeM
@@ -236925,8 +236909,8 @@ orm
 orm
 orm
 orm
-orm
-orm
+oqZ
+oqZ
 aeM
 aeM
 axG
@@ -237183,8 +237167,8 @@ orm
 orm
 orm
 orm
-orm
-orm
+oqZ
+oqZ
 aeM
 aeM
 sEm
@@ -237441,8 +237425,8 @@ orm
 orm
 orm
 orm
-orm
-dFy
+oqZ
+eKX
 aeM
 aeM
 sEm
@@ -237699,8 +237683,8 @@ orm
 orm
 orm
 orm
-dFy
-orm
+eKX
+oqZ
 aeM
 lrN
 hSX
@@ -237708,10 +237692,10 @@ fWX
 aeM
 aeM
 aeM
-orm
-orm
-orm
-orm
+oqZ
+oqZ
+oqZ
+oqZ
 orm
 qdY
 orm
@@ -237957,15 +237941,15 @@ orm
 orm
 orm
 dFy
-orm
+oqZ
 lQN
 xPo
 hSX
 kmc
 lQN
-orm
-dFy
-orm
+oqZ
+eKX
+oqZ
 orm
 orm
 orm
