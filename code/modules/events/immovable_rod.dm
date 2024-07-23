@@ -125,7 +125,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		. += span_notice("Этот стержень пока не поразил ни одного существа...")
 		return .
 
-	. += "<span class='notice'>Этот стержень установил следующий счёт: \n\
+	. += "\t<span class='notice'>Этот стержень установил следующий счёт: \n\
 		\t\t<b>[num_mobs_hit]</b> [declension_ru(num_mobs_hit, "живое существо", "живых существа", "живых существ")], \n\
 		\t\t<b>[num_sentient_mobs_hit]</b> из которых [declension_ru(num_sentient_mobs_hit, "обладало", "обладали", "обладали")] разумом, и \n\
 		\t\t<b>[num_sentient_people_hit]</b> из них [declension_ru(num_sentient_people_hit, "было гуманоидом", "были гуманоидами", "были гуманоидами")].</span>"
