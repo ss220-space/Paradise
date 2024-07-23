@@ -156,8 +156,8 @@
 		build_inventory(premium, coin_records)
 	for(var/datum/data/vending_product/R in (product_records + coin_records + hidden_records))
 		var/obj/item/I = R.product_path
-		var/pp = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-")
-		imagelist[pp] = "[icon2base64(icon(initial(I.icon), initial(I.icon_state)))]"
+		var/pp = path2assetID(R.product_path)
+		imagelist[pp] = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1, FALSE))]"
 	if(LAZYLEN(slogan_list))
 		// So not all machines speak at the exact same time.
 		// The first time this machine says something will be at slogantime + this random value,
