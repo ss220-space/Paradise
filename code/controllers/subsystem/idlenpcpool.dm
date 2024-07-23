@@ -1,3 +1,5 @@
+GLOBAL_VAR_INIT(idlenpc_suspension, TRUE)
+
 SUBSYSTEM_DEF(idlenpcpool)
 	name = "Idling NPC Pool"
 	flags = SS_POST_FIRE_TIMING|SS_BACKGROUND
@@ -33,6 +35,7 @@ SUBSYSTEM_DEF(idlenpcpool)
 
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
+	var/suspension = GLOB.idlenpc_suspension
 
 	while(currentrun.len)
 		var/mob/living/simple_animal/SA = currentrun[currentrun.len]
@@ -41,7 +44,8 @@ SUBSYSTEM_DEF(idlenpcpool)
 			log_debug("idlenpcpool encountered an invalid entry, resumed: [resumed], SA [SA], type of SA [SA?.type], null [SA == null], qdelled [QDELETED(SA)], SA in AI_IDLE list: [SA in GLOB.simple_animals[AI_IDLE]]")
 			GLOB.simple_animals[AI_IDLE] -= SA
 			continue
-
+		if(suspension && !SSmobs.clients_by_zlevel[SA.z].len)
+			continue
 		if(!SA.ckey)
 			if(SA.stat != DEAD)
 				SA.handle_automated_movement()

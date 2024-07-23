@@ -185,6 +185,9 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/force_verb_bypass,
 	/client/proc/reregister_docks,
 	/client/proc/cmd_display_overlay_log,
+	/client/proc/toggle_mobs_suspension,
+	/client/proc/toggle_Idlenpcpool_suspension,
+	/client/proc/toggle_npcpool_suspension
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,

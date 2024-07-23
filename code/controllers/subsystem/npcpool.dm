@@ -1,3 +1,5 @@
+GLOBAL_VAR_INIT(npcpool_suspension, TRUE)
+
 SUBSYSTEM_DEF(npcpool)
 	name = "NPC Pool"
 	flags = SS_POST_FIRE_TIMING|SS_NO_INIT|SS_BACKGROUND
@@ -17,6 +19,7 @@ SUBSYSTEM_DEF(npcpool)
 		src.currentrun = activelist.Copy()
 
 	var/list/currentrun = src.currentrun
+	var/suspension = GLOB.npcpool_suspension
 
 	while(currentrun.len)
 		var/mob/living/simple_animal/SA = currentrun[currentrun.len]
@@ -24,6 +27,9 @@ SUBSYSTEM_DEF(npcpool)
 		if(!SA)
 			log_debug("npcpool encountered an invalid entry, resumed: [resumed], SA [SA], type of SA [SA?.type], null [SA == null], qdelled [QDELETED(SA)], SA in AI_ON list: [SA in GLOB.simple_animals[AI_ON]]")
 			GLOB.simple_animals[AI_ON] -= SA
+			continue
+
+		if(suspension && !SSmobs.clients_by_zlevel[SA.z].len)
 			continue
 
 		if(!SA.ckey && !HAS_TRAIT(SA, TRAIT_NO_TRANSFORM))

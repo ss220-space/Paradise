@@ -1,3 +1,5 @@
+GLOBAL_VAR_INIT(mob_suspension, TRUE)
+
 SUBSYSTEM_DEF(mobs)
 	name = "Mobs"
 	priority = FIRE_PRIORITY_MOBS
@@ -42,9 +44,13 @@ SUBSYSTEM_DEF(mobs)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	var/times_fired = src.times_fired
+	var/suspension = GLOB.mob_suspension
+
 	while(currentrun.len)
 		var/mob/living/L = currentrun[currentrun.len]
 		currentrun.len--
+		if(suspension && !clients_by_zlevel[L?.z].len)
+			continue
 		if(L)
 			L.Life(seconds, times_fired)
 		else
