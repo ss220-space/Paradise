@@ -199,15 +199,10 @@
 	var/msg = "<span class='info'>This is \a <span class='name'>[src].</span>\n"
 	if(seed)
 		msg += seed.get_analyzer_text()
-	var/reag_txt = ""
-	if(seed)
 		for(var/reagent_id in seed.reagents_add)
 			var/datum/reagent/R  = GLOB.chemical_reagents_list[reagent_id]
 			var/amt = reagents.get_reagent_amount(reagent_id)
-			reag_txt += "\n<span class='info'>- [R.name]: [amt]</span>"
-
-	if(reag_txt)
-		msg += reag_txt
+			msg += "\n<span class='info'>- [R.name]: [amt]</span>"
 	to_chat(user, msg)
 
 /obj/item/reagent_containers/food/snacks/grown/attack_ghost(mob/dead/observer/user)

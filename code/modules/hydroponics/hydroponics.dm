@@ -1055,19 +1055,21 @@
 #undef LID_LAYER
 
 /obj/machinery/hydroponics/proc/send_plant_details(mob/user)
+	var/list/msg = list()
 	if(myseed)
-		to_chat(user, "*** <B>[myseed.plantname]</B> ***") //Carn: now reports the plants growing, not the seeds.
-		to_chat(user, "- Plant Age: <span class='notice'>[age]</span>")
+		msg += "*** <B>[myseed.plantname]</B> ***" //Carn: now reports the plants growing, not the seeds.
+		msg += "- Plant Age: <span class='notice'>[age]</span>"
 		var/list/text_string = myseed.get_analyzer_text()
 		if(text_string)
-			to_chat(user, text_string)
+			msg += text_string
 	else
-		to_chat(user, "<B>No plant found.</B>")
-	to_chat(user, "- Weed level: <span class='notice'>[weedlevel] / 10</span>")
-	to_chat(user, "- Pest level: <span class='notice'>[pestlevel] / 10</span>")
-	to_chat(user, "- Toxicity level: <span class='notice'>[toxic] / 100</span>")
-	to_chat(user, "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>")
-	to_chat(user, "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>")
+		msg += "<B>No plant found.</B>"
+	msg += "- Weed level: <span class='notice'>[weedlevel] / 10</span>"
+	msg += "- Pest level: <span class='notice'>[pestlevel] / 10</span>"
+	msg += "- Toxicity level: <span class='notice'>[toxic] / 100</span>"
+	msg += "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>"
+	msg += "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>"
+	to_chat(user, msg.Join("\n"))
 
 /obj/machinery/hydroponics/attack_ghost(mob/dead/observer/user)
 	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.
