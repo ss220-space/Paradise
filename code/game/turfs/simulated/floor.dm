@@ -363,6 +363,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
 			add_attack_logs(user, src, "Constructed window with RCD")
+			var/datum/gas_mixture/gas_mixture = air
 			new /obj/structure/grille(src)
 			for(var/obj/structure/window/del_window in src)
 				qdel(del_window)
@@ -379,6 +380,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 			else
 				new our_rcd.window_type(src)
 			ChangeTurf(our_rcd.floor_type) // Platings go under windows.
+			copy_air(gas_mixture)
 			return RCD_ACT_SUCCESSFULL
 		if(RCD_MODE_FIRELOCK)
 			if(our_rcd.checkResource(8, user))
