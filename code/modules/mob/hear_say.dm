@@ -14,7 +14,7 @@
 			return SP.speaking.format_message(piece, speaker)
 
 		if(iteration_count == 1)
-			var/regex/my_regex = regex(EMPHASIS_LETTERS_REGEX, "g")
+			var/static/regex/my_regex = regex(EMPHASIS_LETTERS_REGEX)
 			var/capital_letter = my_regex.Find(piece)
 			if(capital_letter)
 				piece = my_regex.Replace_char(piece, uppertext(piece[capital_letter]), 1, capital_letter+1)
