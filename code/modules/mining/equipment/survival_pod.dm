@@ -222,6 +222,9 @@
 			qdel(src)
 			return ..()
 
+/obj/item/gps/computer/ui_state(mob/user)
+	return GLOB.default_state
+
 /obj/item/gps/computer/attack_hand(mob/user)
 	attack_self(user)
 
