@@ -44,6 +44,7 @@ GLOBAL_VAR_INIT(scrambleblock, 0)
 GLOBAL_VAR_INIT(weakblock, 0)
 GLOBAL_VAR_INIT(hornsblock, 0)
 GLOBAL_VAR_INIT(comicblock, 0)
+GLOBAL_VAR_INIT(knockdownblock, 0)
 
 // Powers
 GLOBAL_VAR_INIT(soberblock, 0)

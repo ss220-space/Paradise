@@ -76,6 +76,7 @@
 	GLOB.weakblock				= getAssignedBlock("WEAK", numsToAssign)
 	GLOB.hornsblock				= getAssignedBlock("HORNS", numsToAssign)
 	GLOB.comicblock				= getAssignedBlock("COMIC", numsToAssign)
+	GLOB.knockdownblock			= getAssignedBlock("LEGPARALYSIS", numsToAssign)
 
 	// Powers
 	GLOB.soberblock				= getAssignedBlock("SOBER", numsToAssign,									good = TRUE)

@@ -337,3 +337,18 @@
 			H.dna.species.punchdamagelow -= (2 * modifier)
 			H.dna.species.punchdamagehigh -= (3 * modifier)
 			H.dna.species.strength_modifier -= (0.15 * modifier)
+
+/datum/dna/gene/disability/legparalysis
+	name = "leg_paralysis"
+	activation_message = "Вы не чуствуете ног."
+	deactivation_message = "Ноги снова работают, можно ходить."
+	instability = -GENE_INSTABILITY_MODERATE
+	mutation = LEGPARALYSIS
+
+/datum/dna/gene/disability/legparalysis/New()
+	..()
+	block = GLOB.knockdownblock
+
+/datum/dna/gene/disability/legparalysis/OnMobLife(mob/living/carbon/human/H)
+	. = ..()
+	H.Knockdown(3 SECONDS)
