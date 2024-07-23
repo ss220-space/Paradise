@@ -49,7 +49,7 @@ SUBSYSTEM_DEF(mobs)
 	while(currentrun.len)
 		var/mob/living/L = currentrun[currentrun.len]
 		currentrun.len--
-		if(suspension && !clients_by_zlevel[L?.z].len)
+		if(suspension && L?.z && !clients_by_zlevel[L.z].len)
 			continue
 		if(L)
 			L.Life(seconds, times_fired)
