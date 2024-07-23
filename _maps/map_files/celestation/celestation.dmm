@@ -8393,6 +8393,7 @@
 /obj/machinery/door/firedoor/border_only{
 	dir = 1
 	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
@@ -26417,6 +26418,7 @@
 	},
 /area/library)
 "dFB" = (
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -32393,9 +32395,12 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/heads/hop)
 "eQO" = (
-/obj/machinery/computer/cryopod/robot,
-/turf/space/openspace,
-/area/space)
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
+	name = "KEEP CLEAR: DOCKING AREA"
+	},
+/turf/simulated/wall/r_wall,
+/area/engine/mechanic_workshop/hangar)
 "eQS" = (
 /obj/machinery/light{
 	dir = 1
@@ -80411,9 +80416,6 @@
 "ohH" = (
 /turf/simulated/mineral/ancient,
 /area/maintenance/cele/arrival)
-"ohN" = (
-/turf/simulated/wall/shuttle/overspace,
-/area/mine/unexplored/cere/orbiting)
 "ohP" = (
 /obj/machinery/portable_atmospherics/canister/toxins,
 /obj/effect/decal/cleanable/dirt,
@@ -85325,6 +85327,7 @@
 	},
 /area/assembly/robotics)
 "pck" = (
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
@@ -88175,6 +88178,11 @@
 	icon_state = "darkblue"
 	},
 /area/medical/morgue)
+"pDY" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/structure/railing,
+/turf/simulated/floor/glass,
+/area/security/prison/cell_block/A)
 "pEi" = (
 /obj/machinery/light{
 	dir = 4
@@ -102745,13 +102753,6 @@
 	icon_state = "dark"
 	},
 /area/aisat/maintenance)
-"syJ" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
-	name = "KEEP CLEAR: DOCKING AREA"
-	},
-/turf/simulated/wall/r_wall,
-/area/mine/unexplored/cere/orbiting)
 "syK" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -111998,7 +111999,6 @@
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/starboard2)
 "ujq" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/status_display{
 	pixel_x = 32
 	},
@@ -122312,10 +122312,6 @@
 /obj/effect/spawner/random_spawners/rock_50,
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/apmaint2)
-"wkP" = (
-/obj/structure/chair/sofa/corp/corner,
-/turf/space/openspace,
-/area/space)
 "wkR" = (
 /obj/structure/cable/orange{
 	icon_state = "4-8"
@@ -128156,6 +128152,7 @@
 	pixel_x = 32;
 	random_basetype = /obj/structure/sign/poster/official
 	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/wood/fancy/light{
 	color = "gray"
 	},
@@ -230197,7 +230194,7 @@ orm
 orm
 orm
 orm
-eQO
+orm
 orm
 orm
 orm
@@ -240316,7 +240313,7 @@ oqZ
 oqZ
 aeM
 aeM
-aeM
+dwH
 dwH
 nBD
 yel
@@ -240327,7 +240324,7 @@ aeM
 aeM
 oqZ
 oqZ
-oqZ
+aeM
 aeM
 aeM
 aFz
@@ -240572,10 +240569,10 @@ oqZ
 oqZ
 oqZ
 oqZ
-oqZ
 aeM
 aeM
-aeM
+dwH
+dwH
 dwH
 wws
 dwH
@@ -240829,10 +240826,10 @@ oqZ
 oqZ
 oqZ
 oqZ
-oqZ
 aeM
 aeM
-kkS
+aFz
+aFz
 gmb
 aqZ
 gmb
@@ -252391,8 +252388,8 @@ orm
 orm
 orm
 orm
-syJ
-mCv
+oqZ
+eQO
 sOC
 sOC
 sOC
@@ -252648,7 +252645,7 @@ orm
 orm
 orm
 orm
-orm
+oqZ
 oqZ
 aeM
 aeM
@@ -252691,7 +252688,7 @@ syu
 aeM
 aeM
 oqZ
-orm
+oqZ
 orm
 orm
 orm
@@ -252948,7 +252945,7 @@ eKp
 oqn
 oqn
 wSn
-tZk
+wMe
 orm
 orm
 orm
@@ -253205,7 +253202,7 @@ fJJ
 ued
 tBI
 ued
-orm
+oqZ
 orm
 orm
 orm
@@ -253462,7 +253459,7 @@ oqn
 oqn
 oqn
 oqn
-orm
+oqZ
 orm
 orm
 orm
@@ -253719,7 +253716,7 @@ syu
 aeM
 aeM
 oqZ
-orm
+oqZ
 orm
 orm
 orm
@@ -278753,7 +278750,7 @@ sYP
 ldS
 thd
 thd
-kmu
+pDY
 tNv
 tNv
 tNv
@@ -297084,9 +297081,9 @@ wEV
 wEV
 wEV
 orm
-orm
-orm
-orm
+oqZ
+oqZ
+oqZ
 oqZ
 oqZ
 oqZ
@@ -297342,7 +297339,7 @@ orm
 orm
 orm
 orm
-orm
+oqZ
 rBw
 rBw
 rBw
@@ -298884,7 +298881,7 @@ orm
 orm
 orm
 orm
-orm
+oqZ
 rBw
 rBw
 rBw
@@ -299141,8 +299138,8 @@ wEV
 wEV
 orm
 orm
-orm
-orm
+oqZ
+oqZ
 oqZ
 oqZ
 oqZ
@@ -305347,19 +305344,19 @@ oqZ
 orm
 orm
 orm
+orm
+orm
+oqZ
+orm
+oqZ
+oqZ
+orm
 oqZ
 oqZ
 oqZ
 orm
 orm
 orm
-orm
-oqZ
-oqZ
-oqZ
-orm
-orm
-orm
 oqZ
 oqZ
 oqZ
@@ -305375,7 +305372,7 @@ oqZ
 oqZ
 oqZ
 orm
-wkP
+orm
 jqn
 jqn
 jqn
@@ -305603,13 +305600,13 @@ oqZ
 oqZ
 oqZ
 orm
-oqZ
-oqZ
-oqZ
-oqZ
-oqZ
 orm
 orm
+oqZ
+oqZ
+oqZ
+oqZ
+oqZ
 oqZ
 oqZ
 oqZ
@@ -305849,6 +305846,8 @@ aeM
 oqZ
 oqZ
 oqZ
+orm
+orm
 oqZ
 oqZ
 oqZ
@@ -305858,10 +305857,8 @@ oqZ
 oqZ
 oqZ
 oqZ
-oqZ
-oqZ
-oqZ
-oqZ
+orm
+orm
 oqZ
 oqZ
 oqZ
@@ -306105,10 +306102,10 @@ oqZ
 oqZ
 oqZ
 oqZ
-oqZ
-oqZ
-oqZ
-oqZ
+orm
+orm
+orm
+orm
 oqZ
 oqZ
 oqZ
@@ -306359,14 +306356,14 @@ orm
 orm
 orm
 orm
-oqZ
-oqZ
-oqZ
-oqZ
-oqZ
-oqZ
-oqZ
-oqZ
+orm
+orm
+orm
+orm
+orm
+orm
+orm
+orm
 oqZ
 oqZ
 oqZ
@@ -306621,9 +306618,9 @@ orm
 orm
 orm
 orm
-oqZ
-oqZ
-oqZ
+orm
+orm
+orm
 oqZ
 oqZ
 oqZ
@@ -306879,8 +306876,8 @@ orm
 orm
 orm
 orm
-oqZ
-oqZ
+orm
+orm
 oqZ
 oqZ
 aeM
@@ -307137,7 +307134,7 @@ orm
 orm
 orm
 orm
-oqZ
+orm
 oqZ
 aeM
 aeM
@@ -308712,7 +308709,7 @@ cOV
 cOV
 wEV
 orm
-ohN
+ayB
 ayB
 ayB
 ayB
@@ -310254,7 +310251,7 @@ cOV
 cOV
 wEV
 orm
-ohN
+ayB
 ayB
 ayB
 ayB
