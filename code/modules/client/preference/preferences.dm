@@ -280,7 +280,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		loaded_preferences_successfully = load_preferences(C) // Do not call this with no client/C, it generates a runtime / SQL error
 		if(loaded_preferences_successfully)
 			if(load_character(C))
-				C.prefs?.init_custom_emotes(C.prefs.custom_emotes)
+				C?.prefs?.init_custom_emotes(C.prefs.custom_emotes)
 				return
 	//we couldn't load character data so just randomize the character appearance + name
 	random_character()		//let's create a random character then - rather than a fat, bald and naked man.

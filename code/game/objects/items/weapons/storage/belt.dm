@@ -217,11 +217,11 @@
 		/obj/item/reagent_containers/food/snacks/donut,
 		/obj/item/reagent_containers/food/snacks/candy/confectionery/toffee,
 		/obj/item/kitchen/knife/combat,
+		/obj/item/melee/baton/security,
 		/obj/item/melee/baton,
-		/obj/item/melee/classic_baton,
 		/obj/item/flashlight/seclite,
 		/obj/item/holosign_creator/security,
-		/obj/item/melee/classic_baton/telescopic,
+		/obj/item/melee/baton/telescopic,
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/forensics/sample_kit/powder,
 		/obj/item/forensics/sample_kit,
@@ -233,7 +233,7 @@
 	new /obj/item/restraints/handcuffs(src)
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/flash(src)
-	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/melee/baton/security/loaded(src)
 	update_icon()
 
 /obj/item/storage/belt/security/detective
@@ -251,14 +251,14 @@
 
 /obj/item/storage/belt/security/response_team/populate_contents()
 	new /obj/item/reagent_containers/spray/pepper(src)
-	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/melee/baton/security/loaded(src)
 	new /obj/item/flash(src)
-	new /obj/item/melee/classic_baton/telescopic(src)
+	new /obj/item/melee/baton/telescopic(src)
 	new /obj/item/grenade/flashbang(src)
 	update_icon()
 
 /obj/item/storage/belt/security/response_team_gamma/populate_contents()
-	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/melee/baton/security/loaded(src)
 	new /obj/item/reagent_containers/spray/pepper(src)
 	new /obj/item/flash(src)
 	new /obj/item/grenade/flashbang(src)
@@ -475,7 +475,7 @@
 	new /obj/item/storage/pouch/fast(src)
 	new /obj/item/storage/pouch/fast(src)
 	new /obj/item/storage/pouch/fast(src)
-	new /obj/item/melee/classic_baton/telescopic(src)
+	new /obj/item/melee/baton/telescopic(src)
 
 /obj/item/storage/belt/janitor
 	name = "janibelt"

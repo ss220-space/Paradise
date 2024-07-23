@@ -3458,14 +3458,14 @@
 /area/centcom/specops)
 "bKX" = (
 /obj/structure/rack,
-/obj/item/melee/classic_baton/telescopic{
+/obj/item/melee/baton/telescopic{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/melee/classic_baton/telescopic{
+/obj/item/melee/baton/telescopic{
 	pixel_y = 1
 	},
-/obj/item/melee/classic_baton/telescopic{
+/obj/item/melee/baton/telescopic{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -15408,7 +15408,7 @@
 /obj/item/storage/box/ids{
 	pixel_y = 10
 	},
-/obj/item/melee/classic_baton/ntcane,
+/obj/item/melee/baton/ntcane,
 /obj/item/storage/briefcase,
 /obj/item/lighter/zippo/blue,
 /turf/simulated/floor/wood,
@@ -18640,7 +18640,7 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "jWu" = (
-/obj/item/melee/classic_baton{
+/obj/item/melee/baton{
 	color = "#b30086"
 	},
 /turf/simulated/floor/plating,
@@ -44497,10 +44497,10 @@
 /obj/item/nullrod,
 /obj/item/nullrod,
 /obj/item/nullrod,
-/obj/item/melee/classic_baton/telescopic,
-/obj/item/melee/classic_baton/telescopic,
-/obj/item/melee/classic_baton/telescopic,
-/obj/item/melee/classic_baton/telescopic,
+/obj/item/melee/baton/telescopic,
+/obj/item/melee/baton/telescopic,
+/obj/item/melee/baton/telescopic,
+/obj/item/melee/baton/telescopic,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

@@ -37,8 +37,8 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 			user.visible_message("<span class='warning'>[user]'s things suddenly slip off. They hunch over and vomit up a copious amount of purple goo which begins to shape around them!</span>", \
 								"<span class='shadowling'>You remove any equipment which would hinder your hatching and begin regurgitating the resin which will protect you.</span>")
 
-			for(var/obj/item/item in user.get_equipped_items(include_pockets = TRUE))
-				user.drop_item_ground(item)
+			for(var/obj/item/item as anything in user.get_equipped_items(include_pockets = TRUE))
+				user.drop_item_ground(item, force = TRUE)
 
 
 			sleep(5 SECONDS)
@@ -271,8 +271,8 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
  * Testing purpose.
  */
 /mob/living/carbon/human/proc/make_unhatched_shadowling()
-	for(var/obj/item/item in get_equipped_items(include_pockets = TRUE))
-		drop_item_ground(item)
+	for(var/obj/item/item as anything in get_equipped_items(include_pockets = TRUE))
+		drop_item_ground(item, force = TRUE)
 
 	var/newNameId = pick(GLOB.possibleShadowlingNames)
 	GLOB.possibleShadowlingNames.Remove(newNameId)

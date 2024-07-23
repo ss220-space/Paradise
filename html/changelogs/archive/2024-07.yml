@@ -160,13 +160,93 @@
   - bugfix: BlueShield's gun now stores in cryo (#5333)
   Rafnik02:
   - add: His Grace now opens his mouth when he is hungry. (#5331)
+  Renascitur:
+  - add: Gib for pulse weaponry (#5426)
   Vladisvell:
   - tweak: Disable disabling of hardware acceleration in sake of enabling hardware
       acceleration (#5446)
   - tweak: Global variables now always display lists in contracted state (#5439)
   - bugfix: fixes table smoothing after unflipping (#5445)
+  Zwei:
+  - refactor: Weather Traits Implementation (#5423)
   dageavtobusnick:
   - refactor: Blob gamemode+event fix and rework (#5312)
   kukur:
   - bugfix: AI PDA Messages Fix (#5431)
   - unknown: robotic organ removal (#5430)
+'2024-07-15':
+  Antoonij:
+  - bugfix: Plastic reaction (#5407)
+  Aziz Chynaliev:
+  - server: add testmerge conflict detection
+  Den109G:
+  - refactor: Change landmarks's strings to defines. (#5457)
+  LiquidPotroh:
+  - bugfix: Slowed effect is not applied correctly (#5453)
+  ROdenFL:
+  - bugfix: alarm vending powermonitor (#5412)
+  SAAD:
+  - tweak: Celestations improvement part 2 (#5428)
+  - add: '"I''m definitely not an idiot" sign (#5394)'
+  TimChi:
+  - tweak: decrease tk cost on dna upgrader (#5449)
+  Zwei:
+  - unknown: Disposals Rework (#5440)
+  dageavtobusnick:
+  - unknown: blob mode&event rework bugfixes and qol tweaks (#5458)
+'2024-07-17':
+  Antoonij:
+  - bugfix: hatch gasmask (#5470)
+  Vladisvell:
+  - bugfix: Returned old bubblegum speed after movement refactor (#5475)
+  - bugfix: Fixes ghosts and bots multi-z rendering (#5464)
+  Zwei:
+  - bugfix: Shooting With Grab Fix (#5459)
+  - bugfix: Living Have No Limbs (#5456)
+  - bugfix: Correct Jetpack Dereference (#5465)
+  dageavtobusnick:
+  - bugfix: immortal blob fix (#5482)
+  dependabot[bot]:
+  - server: bump braces from 3.0.2 to 3.0.3 in /tgui (#5463)
+'2024-07-18':
+  Vladisvell:
+  - add: Experimental gliding feature (#5432)
+  Zwei:
+  - unknown: Batons Rework (#5144)
+  - bugfix: Registered Turf Signals Stay Registered (#5455)
+  - refactor: Updated Error Code (#5468)
+  - refactor: Updated Pathing (#5488)
+  - bugfix: Fixing Runtime Popup (#5501)
+'2024-07-19':
+  Antoonij:
+  - bugfix: deathnettle now stings without fingers being covered (#5496)
+  - tweak: New thief bundle + slug adjustments (#5503)
+  - tweak: crossbow now gibs space carp && e dagger 2 illegal lvl (#5502)
+  Den109G:
+  - bugfix: Fix welding sec-glasses giving you permanent HUD (#5494)
+  Dimach:
+  - refactor: replace goonChat with TGchat (#5404)
+  ItsMeJaba:
+  - bugfix: turret's connection to control panel in AI Satellite Antechamber (#5450)
+  LiquidPotroh:
+  - bugfix: ETR nullrod afterattack checks (#5493)
+  Quinalion:
+  - add: Abductor Toolbelt in racial Uplink (#5499)
+  - tweak: Allow Grey use Silencer (#5498)
+  ROdenFL:
+  - bugfix: power monitor change back and alarms and assemeblies and camera (#5490)
+  Vladisvell:
+  - bugfix: Fixed taser animation bug (#5505)
+  - bugfix: Fixed negative atmospherics, made lavaland plasma burning nice (#5487)
+  - server: Updated nanomap renderer (#5511)
+  Zwei:
+  - bugfix: Runtimes Fixes N3 (#5510)
+  - bugfix: MultiZ Pull And Flying Mobs Fix (#5509)
+  - bugfix: HoS Laser Overlay Fix (#5504)
+  - bugfix: Slime Unconsious Stat Fixed (#5497)
+  - bugfix: Few Spacemove Fixes (#5483)
+  - bugfix: Holster Overlays (#5489)
+  - bugfix: Drones Have Disposal Signal On Init (#5466)
+  endipe:
+  - tweak: add ointment to nanomed-plus (#5413)
+  - add: new firstaid for paramed (#5418)

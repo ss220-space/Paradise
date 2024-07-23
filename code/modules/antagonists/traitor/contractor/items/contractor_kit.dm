@@ -53,7 +53,7 @@
 	new /obj/item/clothing/head/helmet/space/syndicate/contractor(src)
 	new /obj/item/clothing/suit/space/syndicate/contractor(src)
 	new /obj/item/tank/jetpack/oxygen/harness(src)
-	new /obj/item/melee/classic_baton/telescopic/contractor(src)
+	new /obj/item/melee/baton/telescopic/contractor(src)
 	new /obj/item/clothing/under/chameleon(src)
 	new /obj/item/clothing/mask/chameleon(src)
 	new /obj/item/pen/fakesign(src)

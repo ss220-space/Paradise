@@ -70,7 +70,7 @@
 	if(user && !can_use(user))
 		return FALSE
 
-	if(visor_toggling())
+	if(visor_toggling(user))
 		update_equipped_item(update_speedmods = FALSE)
 		if(user)
 			to_chat(user, span_notice("You adjust [src] [up ? "up" : "down"]."))
@@ -79,7 +79,7 @@
 	return FALSE
 
 
-/obj/item/clothing/proc/visor_toggling() //handles all the actual toggling of flags
+/obj/item/clothing/proc/visor_toggling(mob/user) //handles all the actual toggling of flags
 	if(!can_toggle)
 		return FALSE
 
@@ -868,9 +868,9 @@ BLIND     // can't see anything
 		to_chat(user, span_warning("You cannot remove the jetpack from [src] while wearing it."))
 		return
 	jetpack.turn_off(user)
+	jetpack.our_suit = null
 	jetpack.forceMove(drop_location())
 	jetpack = null
-	jetpack.our_suit = null
 	to_chat(user, span_notice("You successfully remove the jetpack from [src]."))
 
 

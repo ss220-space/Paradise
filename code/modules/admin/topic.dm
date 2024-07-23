@@ -3172,7 +3172,7 @@
 				GLOB.max_ex_flash_range = newBombCap
 				GLOB.max_ex_flame_range = newBombCap
 
-				message_admins("<span class='boldannounce'>[key_name_admin(usr)] changed the bomb cap to [GLOB.max_ex_devastation_range], [GLOB.max_ex_heavy_range], [GLOB.max_ex_light_range]</span>")
+				message_admins(span_boldannounceooc("[key_name_admin(usr)] changed the bomb cap to [GLOB.max_ex_devastation_range], [GLOB.max_ex_heavy_range], [GLOB.max_ex_light_range]"))
 				log_admin("[key_name(usr)] changed the bomb cap to [GLOB.max_ex_devastation_range], [GLOB.max_ex_heavy_range], [GLOB.max_ex_light_range]")
 
 			if("flicklights")
@@ -3580,14 +3580,15 @@
 				return 1
 
 	else if(href_list["viewruntime"])
-		var/datum/ErrorViewer/error_viewer = locateUID(href_list["viewruntime"])
+		var/datum/error_viewer/error_viewer = locate(href_list["viewruntime"])
 		if(!istype(error_viewer))
-			to_chat(usr, "<span class='warning'>That runtime viewer no longer exists.</span>")
+			to_chat(usr, span_warning("That runtime viewer no longer exists."))
 			return
+
 		if(href_list["viewruntime_backto"])
-			error_viewer.showTo(usr, locateUID(href_list["viewruntime_backto"]), href_list["viewruntime_linear"])
+			error_viewer.show_to(usr, locateUID(href_list["viewruntime_backto"]), href_list["viewruntime_linear"])
 		else
-			error_viewer.showTo(usr, null, href_list["viewruntime_linear"])
+			error_viewer.show_to(usr, null, href_list["viewruntime_linear"])
 
 	else if(href_list["add_station_goal"])
 		if(!check_rights(R_EVENT))

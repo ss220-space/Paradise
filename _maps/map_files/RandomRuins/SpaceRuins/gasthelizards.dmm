@@ -879,7 +879,7 @@
 /area/ruin/space/gasthelizards/viewzone)
 "DB" = (
 /obj/structure/rack,
-/obj/item/melee/baton/cattleprod,
+/obj/item/melee/baton/security/cattleprod,
 /obj/item/restraints/handcuffs,
 /obj/machinery/power/apc{
 	dir = 8;
