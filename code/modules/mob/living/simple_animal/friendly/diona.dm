@@ -119,6 +119,8 @@
 	return ..()
 
 /mob/living/simple_animal/diona/proc/gestalt_heal(mob/living/carbon/human/M)
+	if(!Adjacent(M))
+		return FALSE
 	forceMove(M)
 	if(stat != CONSCIOUS)
 		qdel(src)
