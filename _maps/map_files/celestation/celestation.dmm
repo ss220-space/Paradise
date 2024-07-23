@@ -20601,6 +20601,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/machinery/quantumpad/cere/servise_engineering2,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},
@@ -20887,8 +20888,7 @@
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "navyblue"
+	icon_state = "dark"
 	},
 /area/turret_protected/ai)
 "cMA" = (
@@ -113795,6 +113795,7 @@
 /obj/structure/sign/engineering{
 	pixel_y = -32
 	},
+/obj/machinery/quantumpad/cere/servise_engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull"
 	},
@@ -183687,7 +183688,7 @@ nBJ
 woS
 woS
 woS
-bFd
+wMe
 hGV
 hGV
 hGV
@@ -183944,7 +183945,7 @@ tpW
 uMl
 oqZ
 oqZ
-hGV
+oqZ
 hGV
 vTQ
 hGV
@@ -219736,7 +219737,7 @@ soY
 ukL
 orm
 orm
-eKX
+oqZ
 oqZ
 oqZ
 oqZ
@@ -219993,7 +219994,7 @@ soY
 ukL
 orm
 orm
-dFy
+orm
 orm
 orm
 orm
@@ -220250,7 +220251,7 @@ soY
 ukL
 orm
 orm
-dFy
+orm
 orm
 orm
 orm
@@ -220507,7 +220508,7 @@ soY
 ukL
 orm
 orm
-dFy
+orm
 orm
 orm
 orm
@@ -255136,7 +255137,7 @@ hPQ
 mkp
 lcu
 lcu
-aeM
+lcu
 aeM
 oqZ
 dFy
