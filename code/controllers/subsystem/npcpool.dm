@@ -31,7 +31,7 @@ SUBSYSTEM_DEF(npcpool)
 
 		var/turf/T = get_turf(SA)
 
-		if(suspension && !SSmobs.clients_by_zlevel[T?.z].len)
+		if(suspension && T && !length(SSmobs.clients_by_zlevel[T.z]))
 			continue
 
 		if(!SA.ckey && !HAS_TRAIT(SA, TRAIT_NO_TRANSFORM))

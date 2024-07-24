@@ -46,7 +46,7 @@ SUBSYSTEM_DEF(idlenpcpool)
 			continue
 
 		var/turf/T = get_turf(SA)
-		if(suspension && !SSmobs.clients_by_zlevel[T?.z].len)
+		if(suspension && T && !length(SSmobs.clients_by_zlevel[T.z]))
 			continue
 
 		if(!SA.ckey)
