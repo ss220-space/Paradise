@@ -130,7 +130,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 				log_and_message_admins("attempted to restart the server via the Profiler, without access.")
 				return
 			log_and_message_admins("has requested an immediate world restart via client side debugging tools")
-			to_chat(world, "<span class='boldannounce'>Rebooting world immediately due to host request</span>")
+			to_chat(world, span_boldannounceooc("Rebooting world immediately due to host request"))
 		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 		// Now handle a reboot
 		if(config && CONFIG_GET(flag/shutdown_on_reboot))
@@ -154,14 +154,12 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	#endif
 
 	// If we had an update or pending TM, set a 60 second timeout
-	var/secs_before_auto_reconnect = 10
 	if(GLOB.pending_server_update)
-		secs_before_auto_reconnect = 60
-		to_chat(world, "<span class='boldannounce'>Reboot will take a little longer, due to pending updates.</span>")
+		to_chat(world, span_boldannounceooc("Reboot will take a little longer, due to pending updates."))
 
 	// Send the reboot banner to all players
 	for(var/client/C in GLOB.clients)
-		C << output(list2params(list(secs_before_auto_reconnect)), "browseroutput:reboot")
+		C?.tgui_panel?.send_roundrestart()
 		if(CONFIG_GET(string/server)) // If you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
 			C << link("byond://[CONFIG_GET(string/server)]")
 

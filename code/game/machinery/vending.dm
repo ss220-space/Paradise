@@ -156,8 +156,8 @@
 		build_inventory(premium, coin_records)
 	for(var/datum/data/vending_product/R in (product_records + coin_records + hidden_records))
 		var/obj/item/I = R.product_path
-		var/pp = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-")
-		imagelist[pp] = "[icon2base64(icon(initial(I.icon), initial(I.icon_state)))]"
+		var/pp = path2assetID(R.product_path)
+		imagelist[pp] = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1, FALSE))]"
 	if(LAZYLEN(slogan_list))
 		// So not all machines speak at the exact same time.
 		// The first time this machine says something will be at slogantime + this random value,
@@ -1229,11 +1229,11 @@
 	broken_lightmask_overlay = "cart_broken_lightmask"
 	deny_overlay = "cart_deny"
 
-	products = list(/obj/item/pda =10,/obj/item/eftpos = 6,/obj/item/cartridge/mob_hunt_game = 25,/obj/item/cartridge/medical = 10,/obj/item/cartridge/chemistry = 10,
+	products = list(/obj/item/pda =10,/obj/item/eftpos = 6,/obj/item/cartridge/medical = 10,/obj/item/cartridge/chemistry = 10,
 					/obj/item/cartridge/engineering = 10,/obj/item/cartridge/atmos = 10,/obj/item/cartridge/janitor = 10,
 					/obj/item/cartridge/signal/toxins = 10,/obj/item/cartridge/signal = 10)
 	contraband = list(/obj/item/cartridge/clown = 1,/obj/item/cartridge/mime = 1)
-	prices = list(/obj/item/pda =300,/obj/item/eftpos = 200,/obj/item/cartridge/mob_hunt_game = 50,/obj/item/cartridge/medical = 200,/obj/item/cartridge/chemistry = 150,/obj/item/cartridge/engineering = 100,
+	prices = list(/obj/item/pda =300,/obj/item/eftpos = 200,/obj/item/cartridge/medical = 200,/obj/item/cartridge/chemistry = 150,/obj/item/cartridge/engineering = 100,
 					/obj/item/cartridge/atmos = 75,/obj/item/cartridge/janitor = 100,/obj/item/cartridge/signal/toxins = 150,
 					/obj/item/cartridge/signal = 75)
 	refill_canister = /obj/item/vending_refill/cart
@@ -1400,7 +1400,7 @@
 					/obj/item/reagent_containers/glass/bottle/oculine = 2, /obj/item/reagent_containers/glass/bottle/toxin = 4, /obj/item/reagent_containers/syringe/antiviral = 6,
 					/obj/item/reagent_containers/syringe/insulin = 6, /obj/item/reagent_containers/syringe/calomel = 10, /obj/item/reagent_containers/syringe/heparin = 4, /obj/item/reagent_containers/hypospray/autoinjector = 5, /obj/item/reagent_containers/food/pill/salbutamol = 10,
 					/obj/item/reagent_containers/food/pill/mannitol = 10, /obj/item/reagent_containers/food/pill/mutadone = 5, /obj/item/stack/medical/bruise_pack/advanced = 4, /obj/item/stack/medical/ointment/advanced = 4, /obj/item/stack/medical/bruise_pack = 4,
-					/obj/item/stack/medical/splint = 4, /obj/item/reagent_containers/glass/beaker = 4, /obj/item/reagent_containers/dropper = 4, /obj/item/healthanalyzer = 4,
+					/obj/item/stack/medical/ointment = 4, /obj/item/stack/medical/splint = 4, /obj/item/reagent_containers/glass/beaker = 4, /obj/item/reagent_containers/dropper = 4, /obj/item/healthanalyzer = 4,
 					/obj/item/healthupgrade = 4, /obj/item/reagent_containers/hypospray/safety = 2, /obj/item/sensor_device = 2, /obj/item/pinpointer/crew = 2, /obj/item/reagent_containers/iv_bag/slime = 1)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/sulfonal = 1, /obj/item/reagent_containers/glass/bottle/pancuronium = 1)
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
@@ -3071,7 +3071,7 @@
 		/obj/item/gun/projectile/automatic/wt550 = 3,
 		/obj/item/ammo_box/magazine/wt550m9 = 6,
 		/obj/item/gun/energy/dominator/sibyl = 2,
-		/obj/item/melee/classic_baton/telescopic = 4
+		/obj/item/melee/baton/telescopic = 4
 	)
 	contraband = list(/obj/item/storage/fancy/donut_box = 2)
 	refill_canister = /obj/item/vending_refill/nta

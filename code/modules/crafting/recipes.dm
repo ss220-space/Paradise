@@ -49,7 +49,7 @@
 
 /datum/crafting_recipe/stunprod
 	name = "Stunprod"
-	result = /obj/item/melee/baton/cattleprod
+	result = /obj/item/melee/baton/security/cattleprod
 	reqs = list(/obj/item/restraints/handcuffs/cable = 1,
 				/obj/item/stack/rods = 1,
 				/obj/item/assembly/igniter = 1)
@@ -116,7 +116,7 @@
 	result = /mob/living/simple_animal/bot/secbot
 	reqs = list(/obj/item/assembly/signaler = 1,
 				/obj/item/clothing/head/helmet = 1,
-				/obj/item/melee/baton = 1,
+				/obj/item/melee/baton/security = 1,
 				/obj/item/assembly/prox_sensor = 1,
 				/obj/item/robot_parts/r_arm = 1)
 	tools = list(TOOL_WELDER)
@@ -1411,42 +1411,6 @@
 	time = 5 SECONDS
 	reqs = list(/obj/item/stack/sheet/wood = 2,
 				/obj/item/stack/sheet/cloth = 3)
-	category = CAT_MISC
-
-/datum/crafting_recipe/brig_cleaner
-	name = "Brig cleaner"
-	result = /obj/item/reagent_containers/spray/cleaner/brig/empty
-	reqs = list(/obj/item/reagent_containers/spray = 1)
-	blacklist = list(/obj/item/reagent_containers/spray/cleaner/brig)
-	pathtools = list(/obj/item/toy/crayon/red = 1)
-	time = 1.5 SECONDS
-	category = CAT_MISC
-
-/datum/crafting_recipe/chemical_cleaner
-	name = "Chemical cleaner"
-	result = /obj/item/reagent_containers/spray/cleaner/chemical/empty
-	reqs = list(/obj/item/reagent_containers/spray = 1)
-	blacklist = list(/obj/item/reagent_containers/spray/cleaner/chemical)
-	pathtools = list(/obj/item/toy/crayon/orange = 1)
-	time = 1.5 SECONDS
-	category = CAT_MISC
-
-/datum/crafting_recipe/janitor_cleaner
-	name = "Janitor cleaner"
-	result = /obj/item/reagent_containers/spray/cleaner/janitor/empty
-	reqs = list(/obj/item/reagent_containers/spray = 1)
-	blacklist = list(/obj/item/reagent_containers/spray/cleaner/janitor)
-	pathtools = list(/obj/item/toy/crayon/purple = 1)
-	time = 1.5 SECONDS
-	category = CAT_MISC
-
-/datum/crafting_recipe/medical_cleaner
-	name = "Medical cleaner"
-	result = /obj/item/reagent_containers/spray/cleaner/medical/empty
-	reqs = list(/obj/item/reagent_containers/spray = 1)
-	blacklist = list(/obj/item/reagent_containers/spray/cleaner/medical)
-	pathtools = list(/obj/item/toy/crayon/white = 1)
-	time = 1.5 SECONDS
 	category = CAT_MISC
 
 /datum/crafting_recipe/pathcloak

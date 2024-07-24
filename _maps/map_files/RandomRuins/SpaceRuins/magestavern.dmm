@@ -655,11 +655,7 @@
 	},
 /area/ruin/unpowered)
 "Dx" = (
-/obj/structure/closet{
-	icon_closed = "cabinet_closed";
-	icon_opened = "cabinet_open";
-	icon_state = "cabinet_closed"
-	},
+/obj/structure/closet/cabinet,
 /obj/item/clothing/head/wizard,
 /obj/item/clothing/suit/wizrobe,
 /obj/item/clothing/shoes/sandal/magic,

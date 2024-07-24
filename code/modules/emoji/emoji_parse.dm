@@ -3,7 +3,7 @@
 
 /proc/handleDiscordEmojis(msg)
 	var/list/listmsg = splittext_char(msg, " ")
-	var/list/newMsg = new/list(listmsg.len)
+	var/list/newMsg = list()
 	var/list/discordEmojis = CONFIG_GET(keyed_list/emoji)
 	for (var/word in listmsg)
 		var/emoji = discordEmojis[lowertext(word)]
@@ -11,7 +11,7 @@
 			newMsg += DISCORD_EMOJI_IMAGE(emoji, 32, 32)
 		else
 			newMsg += word
-	return copytext_char(jointext(newMsg, " "), 2)
+	return jointext(newMsg, " ")
 
 /proc/generateDiscordEmojiTable()
 	var/const/itemsInRow = 7

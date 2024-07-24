@@ -423,9 +423,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 		else
 			user.drop_transfer_item_to_loc(C, src)
 			to_chat(user, "<span class='notice'>You slide \the [C] into \the [src].</span>")
-	else if(istype(C, /obj/item/nanomob_card))
-		if(cartridge && istype(cartridge, /obj/item/cartridge/mob_hunt_game))
-			cartridge.attackby(C, user, params)
 	else
 		return ..()
 

@@ -3458,14 +3458,14 @@
 /area/centcom/specops)
 "bKX" = (
 /obj/structure/rack,
-/obj/item/melee/classic_baton/telescopic{
+/obj/item/melee/baton/telescopic{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/melee/classic_baton/telescopic{
+/obj/item/melee/baton/telescopic{
 	pixel_y = 1
 	},
-/obj/item/melee/classic_baton/telescopic{
+/obj/item/melee/baton/telescopic{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -9702,7 +9702,7 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced,
-/obj/structure/closet/secure_closet/bar{
+/obj/structure/closet/secure_closet/cabinet/bar{
 	req_access = list(114,104,109)
 	},
 /turf/simulated/floor/plasteel{
@@ -15408,7 +15408,7 @@
 /obj/item/storage/box/ids{
 	pixel_y = 10
 	},
-/obj/item/melee/classic_baton/ntcane,
+/obj/item/melee/baton/ntcane,
 /obj/item/storage/briefcase,
 /obj/item/lighter/zippo/blue,
 /turf/simulated/floor/wood,
@@ -18640,7 +18640,7 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "jWu" = (
-/obj/item/melee/classic_baton{
+/obj/item/melee/baton{
 	color = "#b30086"
 	},
 /turf/simulated/floor/plating,
@@ -42580,7 +42580,7 @@
 /obj/item/storage/box/drinkingglasses,
 /obj/item/storage/box/drinkingglasses,
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/structure/closet/secure_closet/bar,
+/obj/structure/closet/secure_closet/cabinet/bar,
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
 "uSa" = (
@@ -44187,8 +44187,7 @@
 /obj/item/ammo_box/magazine/m45,
 /obj/item/ammo_box/magazine/m45,
 /obj/item/ammo_box/magazine/m45,
-/obj/structure/closet{
-	icon_state = "cabinet";
+/obj/structure/closet/secure_closet/cabinet{
 	req_access = list(114)
 	},
 /obj/item/clothing/head/helmet/space/deathsquad/beret,
@@ -44497,10 +44496,10 @@
 /obj/item/nullrod,
 /obj/item/nullrod,
 /obj/item/nullrod,
-/obj/item/melee/classic_baton/telescopic,
-/obj/item/melee/classic_baton/telescopic,
-/obj/item/melee/classic_baton/telescopic,
-/obj/item/melee/classic_baton/telescopic,
+/obj/item/melee/baton/telescopic,
+/obj/item/melee/baton/telescopic,
+/obj/item/melee/baton/telescopic,
+/obj/item/melee/baton/telescopic,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -47494,9 +47493,7 @@
 	},
 /area/centcom/supply)
 "xpw" = (
-/obj/structure/closet{
-	icon_state = "cabinet"
-	},
+/obj/structure/closet/cabinet,
 /obj/item/clothing/under/color/lightpurple,
 /obj/item/clothing/under/color/purple,
 /obj/item/storage/backpack/satchel,

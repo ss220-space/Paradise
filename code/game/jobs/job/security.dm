@@ -43,7 +43,7 @@
 	l_hand = /obj/item/storage/lockbox/sibyl_system_mod
 	backpack_contents = list(
 		/obj/item/restraints/handcuffs = 1,
-		/obj/item/melee/classic_baton/telescopic = 1,
+		/obj/item/melee/baton/telescopic = 1,
 		/obj/item/security_voucher = 1
 	)
 
@@ -143,7 +143,7 @@
 	l_hand = /obj/item/storage/briefcase/crimekit
 	backpack_contents = list(
 		/obj/item/storage/box/evidence = 1,
-		/obj/item/melee/classic_baton/telescopic = 1
+		/obj/item/melee/baton/telescopic = 1
 	)
 	satchel = /obj/item/storage/backpack/satchel_detective
 	box = /obj/item/storage/box/survival_security/detective

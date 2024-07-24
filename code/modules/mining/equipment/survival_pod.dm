@@ -169,6 +169,7 @@
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "table"
 	smooth = NONE
+	can_be_flipped = FALSE
 
 //Sleeper
 /obj/machinery/sleeper/survival_pod
