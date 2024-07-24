@@ -537,7 +537,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 
 /obj/machinery/crematorium/proc/try_cremate(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(!issilicon(user) && (user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
 		return
 
 	if(stat & NOPOWER)
