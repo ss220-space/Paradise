@@ -225,7 +225,7 @@
 		else if(isliving(A))
 			var/dist = get_dist(source, A)
 			var/mob/living/L = A
-			if(dist <= zap_range && (dist < closest_dist || !closest_mob) && L.stat != DEAD && !L.tesla_ignore)
+			if(dist <= zap_range && (dist < closest_dist || !closest_mob) && L.stat != DEAD && !HAS_TRAIT(L, TRAIT_TESLA_SHOCKIMMUNE))
 				closest_mob = L
 				closest_atom = A
 				closest_dist = dist
@@ -280,7 +280,7 @@
 
 	else if(closest_mob)
 		var/shock_damage = clamp(round(power/400), 10, 90) + rand(-5, 5)
-		closest_mob.electrocute_act(shock_damage, source, 1, tesla_shock = TRUE)
+		closest_mob.electrocute_act(shock_damage, "шара тесла", flags = SHOCK_TESLA)
 		if(issilicon(closest_mob))
 			var/mob/living/silicon/S = closest_mob
 			if(stun_mobs)

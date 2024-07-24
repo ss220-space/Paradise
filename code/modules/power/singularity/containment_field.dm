@@ -126,7 +126,7 @@
 		if(isliving(user) && !issilicon(user))
 			var/stun = (min(shock_damage, 15)) STATUS_EFFECT_CONSTANT
 			user.Weaken(stun)
-			user.electrocute_act(shock_damage, src, 1)
+			user.electrocute_act(shock_damage, "сдерживающего барьера")
 
 		else if(issilicon(user))
 			if(prob(20))
