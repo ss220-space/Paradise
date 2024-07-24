@@ -145,7 +145,7 @@
 		span_italics("You hear a short mechanical noise."))
 	playsound(get_turf(owner), src.sound_on, 50, 1)
 
-/obj/item/organ/internal/cyberimp/arm/ui_action_click()
+/obj/item/organ/internal/cyberimp/arm/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(crit_fail || (!active_item && !contents.len))
 		to_chat(owner, span_warning("The implant doesn't respond. It seems to be broken..."))
 		return

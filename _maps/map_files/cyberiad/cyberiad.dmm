@@ -9838,7 +9838,7 @@
 	},
 /area/security/detectives_office)
 "aFD" = (
-/obj/structure/closet/secure_closet/detective,
+/obj/structure/closet/secure_closet/cabinet/detective,
 /obj/item/storage/lockbox/spy_kit,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -11084,9 +11084,6 @@
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "aJA" = (
-/obj/machinery/computer/mob_battle_terminal/blue{
-	pixel_x = -32
-	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "aJD" = (
@@ -11456,7 +11453,6 @@
 /area/civilian/barber)
 "aKF" = (
 /obj/structure/table,
-/obj/machinery/computer/mob_healer_terminal,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "aKG" = (
@@ -19085,7 +19081,6 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/machinery/computer/mob_battle_terminal/red,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "bia" = (
@@ -38040,9 +38035,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "coY" = (
-/obj/structure/closet{
-	icon_state = "cabinet"
-	},
+/obj/structure/closet/cabinet,
 /obj/item/reagent_containers/food/drinks/bottle/whiskey,
 /obj/item/reagent_containers/food/drinks/drinkingglass,
 /obj/item/reagent_containers/food/drinks/drinkingglass,
@@ -48096,7 +48089,7 @@
 	},
 /area/atmos/distribution)
 "cSn" = (
-/obj/structure/closet/secure_closet/bar,
+/obj/structure/closet/secure_closet/cabinet/bar,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
@@ -70389,9 +70382,6 @@
 /area/aisat/maintenance)
 "mMC" = (
 /obj/machinery/vending/coffee,
-/obj/machinery/computer/mob_healer_terminal{
-	pixel_y = -32
-	},
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -79935,7 +79925,6 @@
 	},
 /area/security/medbay)
 "tbC" = (
-/obj/effect/landmark/battle_mob_point,
 /turf/simulated/floor/engine,
 /area/holodeck/alphadeck)
 "tcn" = (
