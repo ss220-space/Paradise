@@ -56,8 +56,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "bT" = (
@@ -82,8 +81,7 @@
 /obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "bV" = (
@@ -233,15 +231,11 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "dQ" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken5";
-	tag = "icon-wood-broken5"
-	},
+/turf/simulated/floor/wood/airless,
 /area/ruin/ussp_xeno/out)
 "ef" = (
 /obj/structure/disposalpipe/trunk{
@@ -262,9 +256,6 @@
 	icon_state = "darkred"
 	},
 /area/ruin/ussp_xeno/gym_ussp)
-"er" = (
-/turf/simulated/floor/wood,
-/area/ruin/ussp_xeno/out)
 "eD" = (
 /obj/structure/alien/weeds,
 /mob/living/simple_animal/hostile/alien/drone,
@@ -336,8 +327,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "fL" = (
@@ -405,7 +395,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/storage)
@@ -417,8 +406,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/ruin/ussp_xeno/medbay)
 "gG" = (
@@ -459,8 +447,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/ruin/ussp_xeno/medbay)
 "gW" = (
@@ -509,8 +496,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "hr" = (
@@ -694,8 +680,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "jC" = (
@@ -708,8 +693,8 @@
 	},
 /area/ruin/ussp_xeno/entrance)
 "jF" = (
-/turf/simulated/floor/plating/asteroid,
-/area/template_noop)
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/ussp_xeno/out)
 "jL" = (
 /obj/item/mop,
 /obj/item/reagent_containers/glass/bucket{
@@ -757,8 +742,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/ruin/ussp_xeno/medbay)
 "kR" = (
@@ -774,7 +758,7 @@
 	pixel_y = 13
 	},
 /obj/item/trash/plate,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/ussp_xeno/out)
 "lk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -894,12 +878,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/ruin/ussp_xeno/out)
-"no" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6";
-	tag = "icon-wood-broken6"
-	},
 /area/ruin/ussp_xeno/out)
 "nq" = (
 /obj/structure/dresser,
@@ -1091,8 +1069,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "qy" = (
@@ -1167,7 +1144,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/admiral)
@@ -1188,7 +1164,7 @@
 /area/ruin/ussp_xeno/admiral)
 "sh" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/ussp_xeno/out)
 "sp" = (
 /obj/structure/bed,
@@ -1217,8 +1193,7 @@
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "sG" = (
@@ -1319,7 +1294,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/storage)
@@ -1336,7 +1310,7 @@
 /area/ruin/ussp_xeno/baracks)
 "uu" = (
 /obj/structure/table_frame/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/ussp_xeno/out)
 "uw" = (
 /obj/machinery/light_switch{
@@ -1453,8 +1427,7 @@
 /obj/item/organ/internal/brain/xeno,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/ruin/ussp_xeno/medbay)
 "vL" = (
@@ -1484,7 +1457,6 @@
 	on = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkred"
 	},
 /area/ruin/ussp_xeno/entrance)
@@ -1638,8 +1610,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "xi" = (
@@ -1770,7 +1741,7 @@
 	alarm_frequency = 1200
 	},
 /turf/simulated/floor/plasteel{
-	dir = 9;
+	dir = 1;
 	icon_state = "darkred"
 	},
 /area/ruin/ussp_xeno/entrance)
@@ -1790,7 +1761,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/medbay)
@@ -1899,8 +1869,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "ramptop";
-	tag = "icon-stage_stairs"
+	icon_state = "ramptop"
 	},
 /area/ruin/ussp_xeno/gym_ussp)
 "AX" = (
@@ -1958,7 +1927,7 @@
 	icon_state = "1-2"
 	},
 /mob/living/simple_animal/hostile/alien/drone{
-	dir = 8;
+	dir = 8
 	},
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2110,7 +2079,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/storage)
@@ -2254,7 +2222,7 @@
 /area/ruin/ussp_xeno/admiral)
 "FK" = (
 /mob/living/simple_animal/hostile/carp,
-/turf/simulated/floor/plating/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/ussp_xeno/out)
 "FX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -2300,8 +2268,7 @@
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/ruin/ussp_xeno/medbay)
 "GC" = (
@@ -2330,10 +2297,7 @@
 /obj/structure/chair/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
-	},
+/turf/simulated/floor/wood/airless,
 /area/ruin/ussp_xeno/out)
 "GH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -2460,12 +2424,6 @@
 	tag = "icon-whitebluecorner"
 	},
 /area/ruin/ussp_xeno/medbay)
-"HV" = (
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7";
-	tag = "icon-wood-broken7"
-	},
-/area/ruin/ussp_xeno/out)
 "HW" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -30
@@ -2602,9 +2560,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/ussp_xeno/storage)
-"Kx" = (
-/turf/simulated/floor/plating/asteroid,
-/area/ruin/ussp_xeno/out)
 "KA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/junction/reversed{
@@ -2711,7 +2666,7 @@
 /area/ruin/ussp_xeno/dorms_ussp)
 "Ly" = (
 /obj/structure/piano,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/airless,
 /area/ruin/ussp_xeno/out)
 "LM" = (
 /obj/structure/disposalpipe/segment{
@@ -2738,8 +2693,7 @@
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "vault"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Mg" = (
@@ -2763,8 +2717,7 @@
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (SOUTHEAST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Mn" = (
@@ -2838,17 +2791,7 @@
 /obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (SOUTHWEST)"
-	},
-/area/ruin/ussp_xeno/medbay)
-"Nf" = (
-/obj/effect/decal/cleanable/blood,
-/obj/structure/alien/weeds,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault";
-	tag = "icon-vault (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Nh" = (
@@ -2882,12 +2825,6 @@
 	icon_state = "darkred"
 	},
 /area/ruin/ussp_xeno/dorms_ussp)
-"Nz" = (
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
-/area/ruin/ussp_xeno/out)
 "NC" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/structure/disposalpipe/segment,
@@ -2897,8 +2834,7 @@
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "NL" = (
@@ -2907,7 +2843,7 @@
 	pixel_y = 10
 	},
 /mob/living/simple_animal/hostile/alien/drone{
-	dir = 8;
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2945,8 +2881,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Oa" = (
@@ -2986,8 +2921,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Ol" = (
@@ -3023,7 +2957,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/baracks)
@@ -3195,8 +3128,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Qi" = (
@@ -3246,7 +3178,6 @@
 "RO" = (
 /obj/effect/decal/cleanable/blood/writing,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/dorms_ussp)
@@ -3322,8 +3253,7 @@
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTHWEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "Tr" = (
@@ -3455,8 +3385,7 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (WEST)"
+	icon_state = "whiteblue"
 	},
 /area/ruin/ussp_xeno/medbay)
 "UM" = (
@@ -3588,7 +3517,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/dorms_ussp)
@@ -3695,7 +3623,7 @@
 	},
 /obj/effect/decal/cleanable/cobweb,
 /mob/living/simple_animal/hostile/alien/drone{
-	dir = 8;
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3818,7 +3746,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkredfull"
 	},
 /area/ruin/ussp_xeno/gym_ussp)
@@ -3832,13 +3759,13 @@ ZQ
 ZQ
 ZQ
 ZQ
-Kx
-Kx
-Kx
-Kx
-Kx
-Kx
-Kx
+jF
+jF
+jF
+jF
+jF
+jF
+jF
 ZQ
 ZQ
 ZQ
@@ -3857,16 +3784,16 @@ ZQ
 ZQ
 ZQ
 jF
-Kx
-Kx
-Kx
+jF
+jF
+jF
 OM
 OM
 OM
 OM
-Kx
-Kx
-Kx
+jF
+jF
+jF
 KT
 ZQ
 ZQ
@@ -3881,9 +3808,9 @@ ZQ
 ZQ
 ZQ
 ZQ
-Kx
-Kx
-Kx
+jF
+jF
+jF
 OM
 OM
 OM
@@ -3893,11 +3820,11 @@ OM
 OM
 OM
 OM
-Kx
-Kx
-Kx
-Kx
-Kx
+jF
+jF
+jF
+jF
+jF
 ZQ
 ZQ
 ZQ
@@ -3908,8 +3835,8 @@ ZQ
 ZQ
 KT
 ZQ
-Kx
-Kx
+jF
+jF
 OM
 OM
 Ak
@@ -3923,8 +3850,8 @@ OM
 OM
 OM
 OM
-Kx
-Kx
+jF
+jF
 ZQ
 ZQ
 ZQ
@@ -3935,7 +3862,7 @@ ZQ
 ZQ
 ZQ
 ZQ
-Kx
+jF
 OM
 OM
 OM
@@ -3951,9 +3878,9 @@ OM
 OM
 OM
 OM
-Kx
-Kx
-Kx
+jF
+jF
+jF
 ZQ
 ZQ
 ZQ
@@ -3961,8 +3888,8 @@ ZQ
 (6,1,1) = {"
 ZQ
 ZQ
-Kx
-Kx
+jF
+jF
 OM
 OM
 OM
@@ -3980,15 +3907,15 @@ OM
 OM
 OM
 OM
-Kx
+jF
 ZQ
 ZQ
 ZQ
 "}
 (7,1,1) = {"
 ZQ
-Kx
-Kx
+jF
+jF
 OM
 OM
 OM
@@ -4007,14 +3934,14 @@ OM
 OM
 OM
 OM
-Kx
-Kx
-Kx
+jF
+jF
+jF
 ZQ
 "}
 (8,1,1) = {"
 ZQ
-Kx
+jF
 OM
 OM
 OM
@@ -4035,13 +3962,13 @@ OM
 OM
 OM
 OM
-Kx
+jF
 FK
 ZQ
 "}
 (9,1,1) = {"
-Kx
-Kx
+jF
+jF
 OM
 OM
 OM
@@ -4063,11 +3990,11 @@ OM
 OM
 OM
 OM
-Kx
+jF
 ZQ
 "}
 (10,1,1) = {"
-Kx
+jF
 OM
 OM
 OM
@@ -4090,11 +4017,11 @@ ll
 ll
 OM
 OM
-Kx
+jF
 ZQ
 "}
 (11,1,1) = {"
-Kx
+jF
 OM
 OM
 OM
@@ -4117,11 +4044,11 @@ oA
 ll
 OM
 OM
-Kx
+jF
 ZQ
 "}
 (12,1,1) = {"
-Kx
+jF
 OM
 OM
 OM
@@ -4144,11 +4071,11 @@ HW
 ll
 OM
 OM
-Kx
+jF
 ZQ
 "}
 (13,1,1) = {"
-Kx
+jF
 OM
 OM
 OM
@@ -4170,13 +4097,13 @@ BB
 Qi
 ll
 OM
-Kx
-Kx
+jF
+jF
 ZQ
 "}
 (14,1,1) = {"
-Kx
-Kx
+jF
+jF
 OM
 OM
 OM
@@ -4197,13 +4124,13 @@ Mu
 vA
 vL
 OM
-Kx
-Kx
+jF
+jF
 ZQ
 "}
 (15,1,1) = {"
 ZQ
-Kx
+jF
 OM
 OM
 OM
@@ -4225,12 +4152,12 @@ CX
 ll
 OM
 OM
-Kx
+jF
 ZQ
 "}
 (16,1,1) = {"
 ZQ
-Kx
+jF
 OM
 OM
 OM
@@ -4252,12 +4179,12 @@ ll
 ll
 OM
 OM
-Kx
+jF
 ZQ
 "}
 (17,1,1) = {"
 ZQ
-Kx
+jF
 OM
 OM
 OM
@@ -4279,13 +4206,13 @@ GK
 KP
 KP
 OM
-Kx
+jF
 ZQ
 "}
 (18,1,1) = {"
 ZQ
-Kx
-Kx
+jF
+jF
 OM
 OM
 IT
@@ -4306,13 +4233,13 @@ ZY
 YA
 DP
 mZ
-Kx
+jF
 ZQ
 "}
 (19,1,1) = {"
 ZQ
 ZQ
-Kx
+jF
 OM
 OM
 Lh
@@ -4333,13 +4260,13 @@ uj
 nU
 uW
 ef
-Kx
+jF
 ZQ
 "}
 (20,1,1) = {"
 ZQ
 ZQ
-Kx
+jF
 OM
 OM
 Lh
@@ -4360,14 +4287,14 @@ KP
 KP
 KP
 OM
-Kx
+jF
 ZQ
 "}
 (21,1,1) = {"
 ZQ
 ZQ
-Kx
-Kx
+jF
+jF
 OM
 Lh
 Xh
@@ -4387,14 +4314,14 @@ GK
 OM
 OM
 OM
-Kx
+jF
 ZQ
 "}
 (22,1,1) = {"
 ZQ
 KT
-Kx
-Kx
+jF
+jF
 OM
 SQ
 qZ
@@ -4414,14 +4341,14 @@ GK
 OM
 OM
 OM
-Kx
+jF
 ZQ
 "}
 (23,1,1) = {"
 ZQ
 ZQ
-Kx
-Kx
+jF
+jF
 Ee
 IT
 mE
@@ -4441,14 +4368,14 @@ uj
 OM
 OM
 OM
-Kx
+jF
 ZQ
 "}
 (24,1,1) = {"
 ZQ
 ZQ
-Kx
-Kx
+jF
+jF
 OM
 Lh
 Lh
@@ -4468,13 +4395,13 @@ KP
 OM
 OM
 OM
-Kx
+jF
 ZQ
 "}
 (25,1,1) = {"
 ZQ
 ZQ
-Kx
+jF
 OM
 OM
 Ka
@@ -4494,14 +4421,14 @@ KY
 kr
 OM
 OM
-Kx
+jF
 FK
 ZQ
 "}
 (26,1,1) = {"
 ZQ
-Kx
-Kx
+jF
+jF
 OM
 OM
 Ka
@@ -4521,13 +4448,13 @@ Na
 kr
 OM
 OM
-Kx
-Kx
+jF
+jF
 ZQ
 "}
 (27,1,1) = {"
 ZQ
-Kx
+jF
 OM
 OM
 OM
@@ -4549,12 +4476,12 @@ KY
 OM
 OM
 OM
-Kx
+jF
 ZQ
 "}
 (28,1,1) = {"
 ZQ
-Kx
+jF
 OM
 OM
 OM
@@ -4576,13 +4503,13 @@ kr
 OM
 OM
 OM
-Kx
-Kx
+jF
+jF
 "}
 (29,1,1) = {"
 ZQ
-Kx
-Kx
+jF
+jF
 OM
 OM
 Ka
@@ -4604,12 +4531,12 @@ OM
 OM
 OM
 OM
-Kx
+jF
 "}
 (30,1,1) = {"
 ZQ
 ZQ
-Kx
+jF
 OM
 OM
 Ka
@@ -4631,12 +4558,12 @@ OM
 OM
 OM
 OM
-Kx
+jF
 "}
 (31,1,1) = {"
 ZQ
 ZQ
-Kx
+jF
 OM
 OM
 OM
@@ -4658,13 +4585,13 @@ OM
 OM
 OM
 OM
-Kx
+jF
 "}
 (32,1,1) = {"
 ZQ
 ZQ
-Kx
-Kx
+jF
+jF
 OM
 OM
 KZ
@@ -4683,15 +4610,15 @@ XO
 kr
 OM
 OM
-Kx
-Kx
-Kx
+jF
+jF
+jF
 "}
 (33,1,1) = {"
 ZQ
 ZQ
 ZQ
-Kx
+jF
 OM
 OM
 Ol
@@ -4702,7 +4629,7 @@ kr
 wb
 Jt
 BA
-Nf
+Xd
 GB
 kr
 KY
@@ -4711,8 +4638,8 @@ kr
 OM
 OM
 OM
-Kx
-Kx
+jF
+jF
 "}
 (34,1,1) = {"
 ZQ
@@ -4738,19 +4665,19 @@ OM
 OM
 OM
 OM
-Kx
-Kx
+jF
+jF
 "}
 (35,1,1) = {"
 ZQ
 ZQ
 ZQ
-Kx
+jF
 kh
 dQ
 Ly
-no
-Nz
+dQ
+dQ
 sh
 Fz
 OM
@@ -4762,35 +4689,35 @@ OM
 OM
 OM
 OM
-Kx
-Kx
-Kx
-Kx
-Kx
+jF
+jF
+jF
+jF
+jF
 "}
 (36,1,1) = {"
 ZQ
 ZQ
 ZQ
-Kx
-Kx
+jF
+jF
 kh
-Nz
-er
+dQ
+dQ
 kR
 GG
 RR
 OM
 OM
 OM
-Kx
+jF
 OM
 OM
-Kx
-Kx
-Kx
-Kx
-Kx
+jF
+jF
+jF
+jF
+jF
 ZQ
 ZQ
 ZQ
@@ -4800,21 +4727,21 @@ ZQ
 ZQ
 ZQ
 ZQ
-Kx
-Kx
+jF
+jF
 um
 pH
 kh
 kh
 Fz
 OM
-Kx
-Kx
+jF
+jF
 FK
-Kx
-Kx
-Kx
-Kx
+jF
+jF
+jF
+jF
 ZQ
 ZQ
 ZQ
@@ -4828,18 +4755,18 @@ ZQ
 KT
 ZQ
 ZQ
-Kx
-Kx
-HV
-er
+jF
+jF
+dQ
+dQ
 uu
 RR
 OM
-Kx
-Kx
-Kx
-Kx
-Kx
+jF
+jF
+jF
+jF
+jF
 ZQ
 ZQ
 ZQ
@@ -4856,14 +4783,14 @@ ZQ
 ZQ
 ZQ
 ZQ
-Kx
-Kx
-Kx
+jF
+jF
+jF
 OM
 OM
-Kx
-Kx
-Kx
+jF
+jF
+jF
 ZQ
 ZQ
 ZQ
