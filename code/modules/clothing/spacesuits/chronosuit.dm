@@ -42,7 +42,7 @@
 	camera.holder = user
 	user.remote_control = camera
 
-/obj/item/clothing/suit/space/chronos/ui_action_click()
+/obj/item/clothing/suit/space/chronos/ui_action_click(mob/user, datum/action/action, leftclick)
 	if((cooldown <= world.time) && !teleporting && !activating)
 		if(!activated)
 			activate()

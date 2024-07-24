@@ -1133,7 +1133,7 @@
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/clothing/suit/advanced_protective_suit/ui_action_click()
+/obj/item/clothing/suit/advanced_protective_suit/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(on)
 		on = 0
 		to_chat(usr, "You turn the suit's special processes off.")

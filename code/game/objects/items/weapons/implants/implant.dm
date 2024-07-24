@@ -146,7 +146,7 @@
 	return
 
 
-/obj/item/implant/ui_action_click()
+/obj/item/implant/ui_action_click(mob/user, datum/action/action, leftclick)
 	activate("action_button")
 
 

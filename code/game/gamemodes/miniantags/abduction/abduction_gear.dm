@@ -66,7 +66,7 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/clothing/suit/armor/abductor/vest/item_action_slot_check(slot, mob/user)
+/obj/item/clothing/suit/armor/abductor/vest/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_CLOTH_OUTER) //we only give the mob the ability to activate the vest if he's actually wearing it.
 		return TRUE
 
@@ -104,7 +104,7 @@
 	DeactivateStealth()
 	return 0
 
-/obj/item/clothing/suit/armor/abductor/vest/ui_action_click()
+/obj/item/clothing/suit/armor/abductor/vest/ui_action_click(mob/user, datum/action/action, leftclick)
 	switch(mode)
 		if(VEST_COMBAT)
 			Adrenaline()

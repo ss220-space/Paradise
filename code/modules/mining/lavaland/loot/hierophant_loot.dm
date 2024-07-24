@@ -122,7 +122,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 
-/obj/item/hierophant_club/ui_action_click(mob/user, action)
+/obj/item/hierophant_club/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_unfriendly_fire)) //toggle friendly fire...
 		friendly_fire_check = !friendly_fire_check
 		to_chat(user, "<span class='warning'>You toggle friendly fire [friendly_fire_check ? "off":"on"]!</span>")
