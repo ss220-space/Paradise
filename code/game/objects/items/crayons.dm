@@ -332,12 +332,11 @@
 	I.color = colour
 	. += I
 
-/obj/item/toy/crayon/spraycan/proc/update_not_used()
-	if(!not_used)
-		not_used = FALSE
-	not_used--
+/obj/item/toy/crayon/spraycan/proc/draw_paint()
+	not_used = (not_used > 0) ? FALSE : not_used
+	uses--
 
-/obj/item/toy/crayon/spraycan/proc/is_can_draw(var/obj/object, mob/living/user)
+/obj/item/toy/crayon/spraycan/proc/is_can_draw_paint(var/obj/object, mob/living/user)
 	if(capped)
 		to_chat(user, span_warning("Вы не можете раскрасить [object], если крышка баллона краски закрыта!"))
 		return FALSE

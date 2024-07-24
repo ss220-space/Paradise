@@ -80,8 +80,8 @@
 		var/list/weld_icons = null
 		if(paint)
 			to_chat(user, span_warning("Похоже, тут уже есть слой краски!"))
-			return FALSE
-		if(!spray.is_can_draw(src, user))
+			return
+		if(!spray.is_can_draw_paint(src, user))
 			return
 		for(var/weld_icon in spray.weld_icons)
 			weld_icons += list("[weld_icon]" = image(icon = src.icon, icon_state = spray.weld_icons[weld_icon]))
@@ -99,8 +99,8 @@
 
 /obj/item/clothing/head/welding/proc/adjust_paint(var/weld_icon_state, mob/living/user = null, var/obj/item/toy/crayon/spraycan/spray = null)
 	paint = weld_icon_state
-	if(spray)
-		spray.update_not_used()
+	if(spray && paint)
+		spray.draw_paint()
 	if(user)
 		to_chat(user, span_notice("Вы успешно [paint ? "покрасили" : "очистили от краски"] [src]."))
 	update_icon(UPDATE_ICON_STATE)
