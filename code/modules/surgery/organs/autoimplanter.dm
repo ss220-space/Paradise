@@ -13,7 +13,7 @@
 
 /obj/item/autoimplanter/attack_self(mob/user)//when the object is used...
 	if(!storedorgan)
-		to_chat(user, span_notice("Киберимплант в устройстве не обнаружен."))
+		to_chat(user, span_notice("Киберимплант не обнаружен."))
 		return FALSE
 	var/mob/living/carbon/human/patient = user
 	if(!patient.bodyparts_by_name[check_zone(storedorgan.parent_organ_zone)])
