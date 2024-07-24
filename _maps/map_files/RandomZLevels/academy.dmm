@@ -14,7 +14,6 @@
 /area/awaymission/academy/headmaster)
 "af" = (
 /obj/structure/table,
-/obj/machinery/computer/mob_healer_terminal,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},

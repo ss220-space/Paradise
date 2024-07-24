@@ -106504,7 +106504,6 @@
 	},
 /area/medical/surgery/theatre)
 "tpw" = (
-/obj/effect/landmark/battle_mob_point,
 /turf/simulated/floor/engine{
 	name = "Holodeck Projector Floor"
 	},
