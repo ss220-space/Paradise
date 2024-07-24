@@ -74,10 +74,6 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/drake)
-"hx" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/ruin/unpowered/drake)
 "hQ" = (
 /obj/structure/stone_tile/cracked{
 	dir = 1
@@ -263,9 +259,6 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/drake)
-"LB" = (
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/drake)
 "NI" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile/cracked{
@@ -280,9 +273,6 @@
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/drake)
-"Os" = (
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
 /area/ruin/unpowered/drake)
 "PI" = (
 /obj/structure/stone_tile{
@@ -498,7 +488,7 @@ gY
 RQ
 QD
 gY
-Os
+qj
 gY
 bB
 bB
@@ -714,7 +704,7 @@ ZL
 gY
 aS
 Vs
-Os
+qj
 gY
 bB
 bB
@@ -769,7 +759,7 @@ xU
 gY
 gY
 gY
-hx
+bB
 bB
 bB
 bB
@@ -877,7 +867,7 @@ gY
 gY
 gY
 gY
-LB
+gY
 gY
 bB
 bB
