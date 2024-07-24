@@ -251,7 +251,7 @@
 /obj/structure/flora/swarmer_act()
 	return FALSE
 
-/turf/simulated/floor/plating/lava/swarmer_act()
+/turf/simulated/floor/lava/swarmer_act()
 	if(!is_safe())
 		new /obj/structure/lattice/catwalk/swarmer_catwalk(src)
 	return FALSE
