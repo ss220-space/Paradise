@@ -76,9 +76,6 @@
 /obj/machinery/light/spot,
 /turf/simulated/floor/shuttle,
 /area/shuttle/supply)
-"p" = (
-/turf/simulated/floor/shuttle,
-/area/shuttle/supply)
 "t" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -135,7 +132,7 @@ i
 e
 e
 e
-p
+e
 u
 w
 "}
@@ -191,7 +188,7 @@ j
 e
 e
 e
-p
+e
 u
 y
 "}
