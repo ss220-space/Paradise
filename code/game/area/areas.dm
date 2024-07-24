@@ -522,7 +522,7 @@
 
 
 /area/Entered(atom/movable/arrived, area/old_area)
-
+	set waitfor = FALSE
 	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, arrived, old_area)
 	SEND_SIGNAL(arrived, COMSIG_ATOM_ENTERED_AREA, src, old_area)
 
