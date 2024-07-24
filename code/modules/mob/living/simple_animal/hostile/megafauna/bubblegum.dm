@@ -234,7 +234,7 @@ Difficulty: Hard
 	SetRecoveryTime(20)
 
 
-#define BUBLEGUM_CHARGE_SPEED 0.7
+#define BUBLEGUM_CHARGE_SPEED 0.4
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/charge(atom/chargeat = target, delay = 5, chargepast = 2)
 	if(!chargeat)

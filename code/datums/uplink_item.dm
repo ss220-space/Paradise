@@ -647,6 +647,15 @@
 	cost = 10
 	race = list(SPECIES_HUMAN)
 
+//Grey
+
+/datum/uplink_item/racial/agent_belt
+	name = "Agent Belt"
+	desc = "A military toolbelt used by abductor agents. Contains a full set of alien tools."
+	item = /obj/item/storage/belt/military/abductor/full
+	cost = 16
+	race = list(SPECIES_GREY)
+
 
 // DANGEROUS WEAPONS
 

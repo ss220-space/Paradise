@@ -234,7 +234,7 @@
 				user.drop_from_active_hand()
 				return
 
-	if(weapon_weight == WEAPON_HEAVY && user.get_inactive_hand())
+	if(weapon_weight == WEAPON_HEAVY && (user.get_inactive_hand() || !user.has_inactive_hand() || (user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)))
 		to_chat(user, "<span class='userdanger'>You need both hands free to fire \the [src]!</span>")
 		return
 

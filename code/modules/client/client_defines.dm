@@ -30,11 +30,6 @@
 
 	var/adminhelped = 0
 
-		///////////////
-		//SOUND STUFF//
-		///////////////
-	var/ambience_playing = FALSE
-
 		////////////
 		//SECURITY//
 		////////////
@@ -85,10 +80,6 @@
 
 	//datum that controls the displaying and hiding of tooltips
 	var/datum/tooltip/tooltips
-
-	// Their chat window, sort of important.
-	// See /goon/code/datums/browserOutput.dm
-	var/datum/chatOutput/chatOutput
 
 	// Donator stuff.
 	var/donator_level = 0

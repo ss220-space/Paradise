@@ -83,6 +83,7 @@
 #define INIT_ORDER_GAME_EVENTS -26
 #define INIT_ORDER_PATH -50
 #define INIT_ORDER_PERSISTENCE -95
+#define INIT_ORDER_CHAT -100 // Should be last to ensure chat remains smooth during init.
 
 // Subsystem fire priority, from lowest to highest priority
 // If the subsystem isn't listed here it's either DEFAULT or PROCESS (if it's a processing subsystem child)
@@ -98,6 +99,7 @@
 #define FIRE_PRIORITY_WET_FLOORS	20
 #define FIRE_PRIORITY_AIR			20
 #define FIRE_PRIORITY_NPC			20
+#define FIRE_PRIORITY_PATHFINDING	23
 #define FIRE_PRIORITY_PROCESS		25
 #define FIRE_PRIORITY_THROWING		25
 #define FIRE_PRIORITY_SPACEDRIFT	30
@@ -110,6 +112,7 @@
 #define FIRE_PRIORITY_MOBS			100
 #define FIRE_PRIORITY_TGUI			110
 #define FIRE_PRIORITY_TICKER		200
+#define FIRE_PRIORITY_CHAT 			400
 #define FIRE_PRIORITY_RUNECHAT		410 // I hate how high the fire priority on this is -aa
 #define FIRE_PRIORITY_OVERLAYS		500
 #define FIRE_PRIORITY_TIMER			700
