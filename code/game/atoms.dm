@@ -164,7 +164,6 @@
 
 //called if Initialize returns INITIALIZE_HINT_LATELOAD
 /atom/proc/LateInitialize()
-	set waitfor = FALSE
 	return
 
 // Put your AddComponent() calls here
@@ -627,7 +626,6 @@
 	return
 
 /atom/proc/ex_act()
-	set waitfor = FALSE
 	return
 
 /atom/proc/blob_act(obj/structure/blob/B)
