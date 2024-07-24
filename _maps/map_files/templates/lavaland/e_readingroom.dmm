@@ -11,7 +11,7 @@
 	dir = 8
 	},
 /obj/item/stack/sheet/wood,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "bm" = (
 /obj/structure/stone_tile/cracked{
@@ -152,7 +152,7 @@
 /obj/structure/chair/brass{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "eY" = (
 /obj/structure/stone_tile,
@@ -238,7 +238,7 @@
 	dir = 8
 	},
 /obj/item/clockwork/clockgolem_remains,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "jO" = (
 /obj/structure/stone_tile/slab/cracked,
@@ -278,7 +278,7 @@
 	dir = 8
 	},
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "lB" = (
 /obj/structure/stone_tile/cracked{
@@ -292,7 +292,7 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/surrounding/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "mx" = (
 /obj/structure/stone_tile/cracked{
@@ -354,7 +354,7 @@
 /obj/structure/chair/brass{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "pc" = (
 /obj/structure/stone_tile/slab/cracked,
@@ -533,7 +533,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "zY" = (
 /obj/structure/stone_tile/surrounding,
@@ -563,7 +563,7 @@
 /obj/structure/stone_tile{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "AH" = (
 /obj/structure/stone_tile/block/cracked{
@@ -572,7 +572,7 @@
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "Bt" = (
 /obj/structure/stone_tile,
@@ -657,19 +657,19 @@
 	dir = 8
 	},
 /obj/structure/bookcase,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "Ew" = (
 /obj/structure/stone_tile/slab/cracked,
 /obj/structure/bookcase/random/religion{
 	move_resist = 45000
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "Fh" = (
 /obj/structure/stone_tile/slab/cracked,
 /obj/item/clockwork/clockgolem_remains,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "Fr" = (
 /obj/structure/stone_tile,
@@ -752,7 +752,7 @@
 	},
 /obj/structure/table/reinforced/brass,
 /obj/item/storage/toolbox/brass,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "Ij" = (
 /obj/structure/stone_tile,
@@ -791,7 +791,7 @@
 	},
 /obj/structure/table/reinforced/brass,
 /obj/item/wirecutters/brass,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "Jk" = (
 /obj/structure/stone_tile/cracked{
@@ -810,7 +810,7 @@
 "Jx" = (
 /obj/structure/stone_tile/surrounding,
 /obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "JR" = (
 /obj/structure/stone_tile/block/cracked{
@@ -914,7 +914,7 @@
 	dir = 1
 	},
 /obj/structure/bookcase,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "MQ" = (
 /obj/structure/stone_tile/cracked{
@@ -928,7 +928,7 @@
 	dir = 8
 	},
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "MX" = (
 /obj/structure/stone_tile/block/cracked{
@@ -938,7 +938,7 @@
 	dir = 8
 	},
 /obj/structure/bookcase,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "Ny" = (
 /obj/structure/stone_tile/block/cracked{
@@ -950,7 +950,7 @@
 /obj/structure/table/reinforced/brass,
 /obj/item/weldingtool/experimental/brass,
 /obj/item/screwdriver/brass,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "ND" = (
 /obj/structure/stone_tile/cracked{
@@ -1015,7 +1015,7 @@
 /area/mine/necropolis)
 "PD" = (
 /obj/structure/stone_tile/slab/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "PG" = (
 /obj/structure/stone_tile/surrounding,
@@ -1116,7 +1116,7 @@
 	},
 /obj/structure/stone_tile/center,
 /obj/item/stack/sheet/wood,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "TZ" = (
 /obj/structure/stone_tile/slab/cracked,
@@ -1269,7 +1269,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 
 (1,1,1) = {"

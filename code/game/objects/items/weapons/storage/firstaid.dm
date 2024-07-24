@@ -243,6 +243,7 @@
 /obj/item/storage/firstaid/syndie
 	name = "first-aid tacticool kit"
 	icon_state = "bezerk"
+	item_state = "bezerkaid"
 	desc = "I hope you've got insurance."
 	max_w_class = WEIGHT_CLASS_NORMAL
 	treatment_oxy = "perfluorodecalin"

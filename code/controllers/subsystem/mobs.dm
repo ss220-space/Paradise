@@ -1,3 +1,5 @@
+GLOBAL_VAR_INIT(mob_suspension, TRUE)
+
 SUBSYSTEM_DEF(mobs)
 	name = "Mobs"
 	priority = FIRE_PRIORITY_MOBS
@@ -42,12 +44,20 @@ SUBSYSTEM_DEF(mobs)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	var/times_fired = src.times_fired
+	var/suspension = GLOB.mob_suspension
+
 	while(currentrun.len)
 		var/mob/living/L = currentrun[currentrun.len]
 		currentrun.len--
+
 		if(L)
+			var/turf/T = get_turf(L)
+			if(suspension && T && !length(clients_by_zlevel[T.z]))
+				continue
+
 			L.Life(seconds, times_fired)
 		else
 			GLOB.mob_living_list.Remove(L)
+
 		if(MC_TICK_CHECK)
 			return
