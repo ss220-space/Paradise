@@ -482,11 +482,11 @@
 	dir = 1;
 	layer = 2.9
 	},
-/turf/simulated/floor/mineral/plasma,
+/turf/space,
 /area/ruin/unpowered)
 "bG" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/floor/shuttle/plating,
+/turf/space,
 /area/ruin/unpowered)
 "bH" = (
 /turf/simulated/wall/mineral/titanium,
