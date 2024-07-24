@@ -17,7 +17,6 @@
 	// We're a BIG wall, larger then 32x32, so we need to be on the game plane
 	// Otherwise we'll draw under shit in weird ways
 	plane = GAME_PLANE
-	temperature = TCMB
 	var/environment_type = "asteroid"
 	var/turf/simulated/floor/plating/turf_type = /turf/simulated/floor/plating/asteroid/airless
 	var/mineralType = null
@@ -64,12 +63,12 @@
 	if(!user.IsAdvancedToolUser())
 		to_chat(usr, span_warning("You don't have the dexterity to do this!"))
 		return
+	var/turf/T = user.loc
+	if(!isturf(T))
+		return ..()
 
 	if(istype(I, /obj/item/pickaxe))
 		var/obj/item/pickaxe/P = I
-		var/turf/T = user.loc
-		if(!isturf(T))
-			return
 
 		if(last_act + (mine_time* P.toolspeed * gettoolspeedmod(user)) > world.time) // Prevents message spam
 			return
@@ -78,6 +77,19 @@
 		P.playDigSound()
 
 		if(do_after(user, mine_time* P.toolspeed * gettoolspeedmod(user), src))
+			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
+				to_chat(user, span_notice("You finish cutting into the rock."))
+				attempt_drill(user)
+				SSblackbox.record_feedback("tally", "pick_used_mining", 1, P.name)
+	else if(istype(I, /obj/item/pen/survival))
+		var/obj/item/pen/survival/P = I
+		if(last_act + (mine_time* P.toolspeed * gettoolspeedmod(user)) > world.time) // Prevents message spam
+			return
+		last_act = world.time
+		to_chat(user, span_notice("You start picking with your pen..."))
+		playsound(user, 'sound/effects/picaxe1.ogg', 20, TRUE)
+
+		if(do_after(user, mine_time* P.toolspeed * gettoolspeedmod(user), target = src))
 			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
 				to_chat(user, span_notice("You finish cutting into the rock."))
 				attempt_drill(user)
@@ -250,6 +262,7 @@
 	desc = "A rare and dense asteroid rock that appears to be resistant to everything except diamond and sonic tools! Can not be used to create portals to hell."
 	mine_time = 15 SECONDS
 	color = COLOR_COLD_ROCK
+	temperature = TCMB
 	baseturf = /turf/simulated/floor/plating/asteroid/ancient/airless
 	var/static/list/allowed_picks_typecache
 

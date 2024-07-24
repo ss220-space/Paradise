@@ -78,9 +78,7 @@
 "Y" = (
 /obj/machinery/door/airlock/diamond,
 /obj/structure/fans/tiny/invisible,
-/turf/simulated/floor/mineral/silver{
-	blocks_air = 1
-	},
+/turf/simulated/floor/mineral/silver,
 /area/ruin/powered/pride)
 "Z" = (
 /obj/effect/mapping_helpers/no_lava,

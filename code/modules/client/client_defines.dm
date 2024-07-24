@@ -30,6 +30,12 @@
 
 	var/adminhelped = 0
 
+		///////////////
+		//SOUND STUFF//
+		///////////////
+
+	var/white_noise_playing = FALSE
+
 		////////////
 		//SECURITY//
 		////////////
