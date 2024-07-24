@@ -147,6 +147,7 @@
 /obj/item/storage/firstaid/with_mousetrap/syndie
 	name = "first-aid tacticool kit"
 	icon_state = "bezerk"
+	item_state = "bezerkaid"
 	desc = "I hope you've got insurance."
 	max_w_class = WEIGHT_CLASS_NORMAL
 	med_bot_skin = "bezerk"
