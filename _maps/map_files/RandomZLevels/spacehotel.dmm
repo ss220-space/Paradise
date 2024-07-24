@@ -9,7 +9,7 @@
 /turf/simulated/wall/indestructible/mineral_rock,
 /area/awaymission/beach)
 "ad" = (
-/turf/simulated/floor/plating/lava/smooth,
+/turf/simulated/floor/lava,
 /area/awaymission)
 "ae" = (
 /turf/simulated/wall/indestructible/metal,
@@ -848,7 +848,7 @@
 	},
 /area/awaymission)
 "dF" = (
-/turf/simulated/floor/plating/lava/smooth,
+/turf/simulated/floor/lava,
 /area/awaymission/spacehotel/snowland)
 "dI" = (
 /obj/machinery/light,

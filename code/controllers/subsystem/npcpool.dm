@@ -1,3 +1,5 @@
+GLOBAL_VAR_INIT(npcpool_suspension, TRUE)
+
 SUBSYSTEM_DEF(npcpool)
 	name = "NPC Pool"
 	flags = SS_POST_FIRE_TIMING|SS_NO_INIT|SS_BACKGROUND
@@ -17,6 +19,7 @@ SUBSYSTEM_DEF(npcpool)
 		src.currentrun = activelist.Copy()
 
 	var/list/currentrun = src.currentrun
+	var/suspension = GLOB.npcpool_suspension
 
 	while(currentrun.len)
 		var/mob/living/simple_animal/SA = currentrun[currentrun.len]
@@ -26,6 +29,11 @@ SUBSYSTEM_DEF(npcpool)
 			GLOB.simple_animals[AI_ON] -= SA
 			continue
 
+		var/turf/T = get_turf(SA)
+
+		if(suspension && T && !length(SSmobs.clients_by_zlevel[T.z]))
+			continue
+
 		if(!SA.ckey && !HAS_TRAIT(SA, TRAIT_NO_TRANSFORM))
 			if(SA.stat != DEAD)
 				SA.handle_automated_movement()
@@ -33,5 +41,6 @@ SUBSYSTEM_DEF(npcpool)
 				SA.handle_automated_action()
 			if(SA.stat != DEAD)
 				SA.handle_automated_speech()
+
 		if(MC_TICK_CHECK)
 			return

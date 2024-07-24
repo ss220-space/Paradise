@@ -111,6 +111,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/crashedipcship/middle)
+"cc" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/crashedipcship/engine)
 "ci" = (
 /obj/machinery/optable,
 /mob/living/carbon/human/machine/created,
@@ -122,7 +129,7 @@
 "cj" = (
 /obj/structure/cable{
 	icon_state = "4-8";
-	pixel_y = 0
+	tag = ""
 	},
 /obj/effect/turf_decal{
 	dir = 6;
@@ -181,6 +188,7 @@
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
+	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/machinery/power/emitter{
@@ -280,7 +288,8 @@
 /area/ruin/space/crashedipcship/asteroid)
 "eb" = (
 /obj/structure/cable{
-	icon_state = "2-4"
+	icon_state = "2-4";
+	tag = ""
 	},
 /obj/item/tank/internals/plasma/full{
 	pixel_y = -3;
@@ -295,7 +304,7 @@
 /turf/simulated/floor/grass{
 	oxygen = 0;
 	nitrogen = 0;
-	temperature = 2.7
+	name = "grass patch airless"
 	},
 /area/ruin/space/crashedipcship/aft)
 "eo" = (
@@ -438,7 +447,7 @@
 "hZ" = (
 /obj/structure/cable{
 	icon_state = "4-8";
-	pixel_y = 0
+	tag = ""
 	},
 /obj/structure/spacevine,
 /obj/machinery/door/airlock/hatch{
@@ -449,7 +458,7 @@
 "ij" = (
 /obj/structure/cable{
 	icon_state = "4-8";
-	pixel_y = 0
+	tag = ""
 	},
 /obj/structure/spacevine,
 /obj/effect/mob_spawn/headcrab,
@@ -536,6 +545,12 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/middle)
+"ku" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/wall/r_wall/coated,
+/area/ruin/space/crashedipcship/engine)
 "kL" = (
 /obj/machinery/power/smes,
 /obj/structure/cable,
@@ -562,6 +577,7 @@
 /area/ruin/space/crashedipcship/asteroid)
 "kW" = (
 /obj/structure/cable{
+	d2 = 4;
 	icon_state = "0-4"
 	},
 /obj/machinery/light_construct/small{
@@ -629,7 +645,7 @@
 /turf/simulated/floor/grass{
 	oxygen = 0;
 	nitrogen = 0;
-	temperature = 2.7
+	name = "grass patch airless"
 	},
 /area/ruin/space/crashedipcship/aft)
 "lH" = (
@@ -661,14 +677,18 @@
 "lZ" = (
 /obj/structure/cable{
 	icon_state = "4-8";
-	pixel_y = 0
+	tag = ""
 	},
 /obj/structure/cable{
-	icon_state = "1-8"
+	icon_state = "1-8";
+	tag = ""
 	},
 /obj/structure/spacevine,
 /obj/effect/decal/cleanable/ash,
 /obj/item/stock_parts/matter_bin/super,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
@@ -737,7 +757,7 @@
 /turf/simulated/floor/grass{
 	oxygen = 0;
 	nitrogen = 0;
-	temperature = 2.7
+	name = "grass patch airless"
 	},
 /area/ruin/space/crashedipcship/aft)
 "mO" = (
@@ -755,6 +775,14 @@
 /obj/item/clothing/gloves/ring/fluff/benjaminfallout,
 /turf/simulated/floor/beach/water,
 /area/ruin/space/crashedipcship/asteroid)
+"mZ" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/simulated/wall/shuttle{
+	color = "#A9E0FF"
+	},
+/area/ruin/space/crashedipcship/middle)
 "nb" = (
 /obj/machinery/mech_bay_recharge_port{
 	dir = 2
@@ -797,7 +825,7 @@
 "nW" = (
 /obj/structure/cable{
 	icon_state = "4-8";
-	pixel_y = 0
+	tag = ""
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -840,7 +868,8 @@
 /area/ruin/space/crashedipcship/asteroid)
 "oI" = (
 /obj/structure/cable{
-	icon_state = "1-4"
+	icon_state = "1-4";
+	tag = ""
 	},
 /obj/item/stock_parts/capacitor,
 /obj/effect/decal/cleanable/dirt,
@@ -849,7 +878,7 @@
 "oS" = (
 /obj/structure/cable{
 	icon_state = "4-8";
-	pixel_y = 0
+	tag = ""
 	},
 /obj/structure/spacevine,
 /obj/structure/spacevine,
@@ -887,7 +916,10 @@
 "pJ" = (
 /obj/structure/cable{
 	icon_state = "4-8";
-	pixel_y = 0
+	tag = ""
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
 	},
 /obj/effect/turf_decal{
 	dir = 1;
@@ -948,6 +980,7 @@
 /area/ruin/space/crashedipcship/engine)
 "qF" = (
 /obj/structure/cable{
+	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/atmospherics/pipe/manifold/visible{
@@ -1191,6 +1224,7 @@
 /area/ruin/space/crashedipcship/middle)
 "vj" = (
 /obj/structure/cable{
+	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/rad_collector,
@@ -1234,6 +1268,7 @@
 	dir = 1
 	},
 /obj/structure/cable{
+	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
@@ -1372,6 +1407,9 @@
 	dir = 5
 	},
 /obj/machinery/light,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /obj/item/shard{
 	icon_state = "medium";
 	pixel_x = -7;
@@ -1437,7 +1475,7 @@
 /obj/machinery/computer/sm_monitor,
 /obj/structure/cable{
 	icon_state = "4-8";
-	pixel_y = 0
+	tag = ""
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/engine)
@@ -1465,7 +1503,7 @@
 "yN" = (
 /obj/structure/cable{
 	icon_state = "4-8";
-	pixel_y = 0
+	tag = ""
 	},
 /obj/item/circuitboard/smes,
 /obj/item/stock_parts/cell/high/empty,
@@ -1562,6 +1600,11 @@
 /obj/structure/grille,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/crashedipcship/aft)
+"Ah" = (
+/turf/simulated/wall/shuttle{
+	color = "#A9E0FF"
+	},
+/area/ruin/space/crashedipcship/engine)
 "Ai" = (
 /obj/item/tank/internals/plasma/empty,
 /obj/effect/decal/cleanable/dirt,
@@ -1582,6 +1625,11 @@
 /obj/structure/railing,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/crashedipcship/middle)
+"An" = (
+/turf/simulated/wall/shuttle{
+	color = "#A9E0FF"
+	},
+/area/ruin/space/crashedipcship/aft)
 "Au" = (
 /obj/item/shard{
 	icon_state = "small"
@@ -1593,7 +1641,8 @@
 "AC" = (
 /obj/item/book/manual/ripley_build_and_repair,
 /obj/structure/cable{
-	icon_state = "1-2"
+	icon_state = "1-2";
+	tag = ""
 	},
 /obj/effect/turf_decal{
 	dir = 1;
@@ -1703,7 +1752,7 @@
 "Cu" = (
 /obj/structure/cable{
 	icon_state = "4-8";
-	pixel_y = 0
+	tag = ""
 	},
 /obj/machinery/door/airlock/hatch{
 	color = "lightblue"
@@ -1772,7 +1821,7 @@
 /turf/simulated/floor/grass{
 	oxygen = 0;
 	nitrogen = 0;
-	temperature = 2.7
+	name = "grass patch airless"
 	},
 /area/ruin/space/crashedipcship/aft)
 "Ec" = (
@@ -1794,6 +1843,7 @@
 /area/ruin/space/crashedipcship/middle)
 "EA" = (
 /obj/structure/cable{
+	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/item/stock_parts/cell/high/empty,
@@ -1890,7 +1940,8 @@
 /area/ruin/space/crashedipcship/aft)
 "FX" = (
 /obj/structure/cable{
-	icon_state = "1-2"
+	icon_state = "1-2";
+	tag = ""
 	},
 /obj/machinery/door/airlock/hatch{
 	color = "lightblue"
@@ -1927,7 +1978,7 @@
 "Gm" = (
 /obj/structure/cable{
 	icon_state = "4-8";
-	pixel_y = 0
+	tag = ""
 	},
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
@@ -1937,7 +1988,7 @@
 /obj/item/circuitboard/cyborgrecharger,
 /obj/structure/cable{
 	icon_state = "4-8";
-	pixel_y = 0
+	tag = ""
 	},
 /turf/simulated/floor/grass,
 /area/ruin/space/crashedipcship/middle)
@@ -1960,7 +2011,7 @@
 "GW" = (
 /obj/structure/cable{
 	icon_state = "4-8";
-	pixel_y = 0
+	tag = ""
 	},
 /obj/machinery/door/airlock/highsecurity{
 	color = "lightblue"
@@ -2027,8 +2078,7 @@
 	dir = 8
 	},
 /obj/structure/cable{
-	icon_state = "4-8";
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
@@ -2107,8 +2157,7 @@
 /area/ruin/space/crashedipcship/middle)
 "Jy" = (
 /obj/structure/cable{
-	icon_state = "4-8";
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /obj/item/shard,
 /obj/effect/landmark/tiles/damageturf,
@@ -2126,6 +2175,7 @@
 	dir = 5
 	},
 /obj/structure/cable{
+	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/rad_collector,
@@ -2156,8 +2206,7 @@
 	on = 1
 	},
 /obj/structure/cable{
-	icon_state = "4-8";
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -2234,7 +2283,7 @@
 "KS" = (
 /obj/structure/cable{
 	icon_state = "4-8";
-	pixel_y = 0
+	tag = ""
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium,
@@ -2315,6 +2364,7 @@
 /area/ruin/space/crashedipcship/asteroid)
 "Mw" = (
 /obj/structure/cable{
+	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/effect/turf_decal{
@@ -2529,7 +2579,7 @@
 /turf/simulated/floor/grass{
 	oxygen = 0;
 	nitrogen = 0;
-	temperature = 2.7
+	name = "grass patch airless"
 	},
 /area/ruin/space/crashedipcship/aft)
 "Qb" = (
@@ -2733,7 +2783,8 @@
 "TQ" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/cable{
-	icon_state = "1-2"
+	icon_state = "1-2";
+	tag = ""
 	},
 /obj/effect/mob_spawn/human/corpse/ipc,
 /obj/effect/turf_decal{
@@ -2784,11 +2835,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/shard)
-"UV" = (
-/turf/simulated/wall/shuttle{
-	color = "#A9E0FF"
-	},
-/area/ruin/space/crashedipcship/aft)
 "UX" = (
 /obj/machinery/light{
 	dir = 1;
@@ -2805,6 +2851,7 @@
 	dir = 9
 	},
 /obj/structure/cable{
+	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/rad_collector,
@@ -2813,7 +2860,7 @@
 "Vs" = (
 /obj/structure/cable{
 	icon_state = "4-8";
-	pixel_y = 0
+	tag = ""
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -2855,11 +2902,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/middle)
-"WH" = (
-/turf/simulated/wall/shuttle{
-	color = "#A9E0FF"
-	},
-/area/ruin/space/crashedipcship/engine)
 "Xd" = (
 /obj/effect/turf_decal{
 	dir = 1;
@@ -2903,10 +2945,12 @@
 "XO" = (
 /obj/machinery/power/terminal,
 /obj/structure/cable{
+	d2 = 8;
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
-	icon_state = "2-8"
+	icon_state = "2-8";
+	tag = ""
 	},
 /obj/item/tank/internals/plasma/full{
 	pixel_y = -3;
@@ -2919,10 +2963,11 @@
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /obj/structure/cable{
 	icon_state = "4-8";
-	pixel_y = 0
+	tag = ""
 	},
 /obj/structure/cable{
-	icon_state = "1-8"
+	icon_state = "1-8";
+	tag = ""
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
@@ -3005,7 +3050,7 @@
 "ZK" = (
 /obj/structure/cable{
 	icon_state = "4-8";
-	pixel_y = 0
+	tag = ""
 	},
 /obj/effect/turf_decal{
 	dir = 4;
@@ -3021,7 +3066,7 @@
 /turf/simulated/floor/grass{
 	oxygen = 0;
 	nitrogen = 0;
-	temperature = 2.7
+	name = "grass patch airless"
 	},
 /area/ruin/space/crashedipcship/aft)
 "ZV" = (
@@ -3036,7 +3081,8 @@
 /area/ruin/space/crashedipcship/aft)
 "ZW" = (
 /obj/structure/cable{
-	icon_state = "1-8"
+	icon_state = "1-8";
+	tag = ""
 	},
 /obj/item/tank/internals/plasma/empty{
 	pixel_x = 5
@@ -4424,11 +4470,11 @@ ls
 tn
 NN
 Cx
-UV
+An
 Ke
 lE
-UV
-UV
+An
+An
 uP
 uP
 Uw
@@ -4480,8 +4526,8 @@ rH
 OJ
 DH
 YB
-UV
-UV
+An
+An
 uP
 uP
 uP
@@ -4533,7 +4579,7 @@ wt
 mL
 QX
 YW
-UV
+An
 uP
 uP
 uP
@@ -4679,7 +4725,7 @@ uP
 uP
 uP
 uP
-UV
+An
 Rb
 tf
 ue
@@ -4689,7 +4735,7 @@ vS
 CM
 cq
 LV
-UV
+An
 uP
 uP
 uP
@@ -4731,17 +4777,17 @@ uP
 uP
 uP
 uP
-UV
-UV
-UV
-UV
-UV
+An
+An
+An
+An
+An
 Fn
-UV
-UV
-UV
-UV
-UV
+An
+An
+An
+An
+An
 uP
 uP
 uP
@@ -4783,17 +4829,17 @@ uP
 uP
 uP
 uP
-UV
+An
 zb
 vB
 Nl
-UV
+An
 kW
-UV
+An
 cr
 vl
 SN
-UV
+An
 uP
 uP
 uP
@@ -4839,9 +4885,9 @@ Ad
 XN
 sw
 zN
-UV
+An
 KS
-UV
+An
 IU
 EL
 ci
@@ -4943,9 +4989,9 @@ Ad
 Zd
 hN
 zN
-UV
+An
 rl
-UV
+An
 IU
 wC
 FC
@@ -4991,17 +5037,17 @@ uP
 uP
 uP
 uP
-UV
+An
 Mz
 SH
 ZV
-UV
+An
 Gm
-UV
+An
 jf
 AM
 SN
-UV
+An
 uP
 uP
 uP
@@ -5043,17 +5089,17 @@ uP
 uP
 uP
 Yl
-UV
-UV
-UV
-UV
-UV
+An
+An
+An
+An
+An
 Cu
-UV
-UV
-UV
-UV
-UV
+An
+An
+An
+An
+An
 Yl
 uP
 uP
@@ -5410,7 +5456,7 @@ fo
 Yl
 Yl
 Yl
-Yl
+mZ
 Yl
 hZ
 Yl
@@ -5461,7 +5507,7 @@ qa
 eY
 Yl
 vL
-vL
+ku
 vL
 vL
 ij
@@ -5511,17 +5557,17 @@ Yl
 fo
 Cr
 fo
-WH
-WH
-WH
-WH
-WH
+Ah
+Ah
+Ah
+Ah
+Ah
 GW
-WH
-WH
-WH
-WH
-WH
+Ah
+Ah
+Ah
+Ah
+Ah
 fo
 Cr
 fo
@@ -5726,7 +5772,7 @@ mv
 RS
 cG
 Au
-fx
+cc
 lj
 lh
 Qd
@@ -5769,9 +5815,9 @@ uP
 uP
 uP
 uP
-WH
-WH
-WH
+Ah
+Ah
+Ah
 UX
 tv
 yz
@@ -5781,9 +5827,9 @@ AK
 UU
 aL
 xk
-WH
-WH
-WH
+Ah
+Ah
+Ah
 uP
 uP
 uP
@@ -5820,10 +5866,10 @@ uP
 uP
 uP
 uP
-WH
-WH
-WH
-WH
+Ah
+Ah
+Ah
+Ah
 HM
 La
 La
@@ -5833,10 +5879,10 @@ La
 La
 La
 Jy
-WH
-WH
-WH
-WH
+Ah
+Ah
+Ah
+Ah
 uP
 uP
 uP
@@ -5871,11 +5917,11 @@ uP
 uP
 uP
 uP
-WH
+Ah
 Nn
 dQ
 dQ
-WH
+Ah
 Vs
 HN
 Ry
@@ -5885,11 +5931,11 @@ mF
 Ry
 JH
 nW
-WH
+Ah
 dQ
 dQ
 Nn
-WH
+Ah
 uP
 uP
 uP
@@ -5923,7 +5969,7 @@ uP
 uP
 uP
 uP
-WH
+Ah
 pF
 Ko
 eb
@@ -5941,7 +5987,7 @@ ak
 RW
 oI
 pO
-WH
+Ah
 uP
 uP
 uP
@@ -5975,11 +6021,11 @@ uP
 uP
 uP
 uP
-WH
+Ah
 Nu
 eb
 ZW
-WH
+Ah
 JY
 Hu
 Ry
@@ -5989,11 +6035,11 @@ mF
 Ry
 Vp
 mH
-WH
+Ah
 TJ
 yN
 IX
-WH
+Ah
 uP
 uP
 uP
@@ -6027,11 +6073,11 @@ uP
 uP
 uP
 uP
-WH
+Ah
 RN
 XO
 kL
-WH
+Ah
 Xi
 La
 La
@@ -6041,11 +6087,11 @@ La
 La
 La
 qu
-WH
+Ah
 EA
 vz
 MK
-WH
+Ah
 uP
 uP
 uP
@@ -6079,25 +6125,25 @@ uP
 uP
 uP
 uP
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
-WH
+Ah
+Ah
+Ah
+Ah
+Ah
+Ah
+Ah
+Ah
+Ah
+Ah
+Ah
+Ah
+Ah
+Ah
+Ah
+Ah
+Ah
+Ah
+Ah
 uP
 uP
 uP
@@ -6135,17 +6181,17 @@ uP
 uP
 uP
 uP
-WH
+Ah
 Kw
 kP
 Kw
 kP
-WH
+Ah
 Kw
 kP
 Kw
 kP
-WH
+Ah
 uP
 uP
 uP
@@ -6187,17 +6233,17 @@ uP
 uP
 uP
 uP
-WH
+Ah
 ws
 RQ
 ws
 RQ
-WH
+Ah
 ws
 RQ
 ws
 RQ
-WH
+Ah
 uP
 uP
 uP

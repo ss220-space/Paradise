@@ -307,7 +307,7 @@
 		toggle_magpulse(user, silent = TRUE)
 
 
-/obj/item/clothing/shoes/magboots/gravity/item_action_slot_check(slot)
+/obj/item/clothing/shoes/magboots/gravity/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_FEET)
 		return TRUE
 

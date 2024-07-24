@@ -3,7 +3,7 @@
 /turf/template_noop,
 /area/template_noop)
 "ab" = (
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "ac" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -193,7 +193,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating{
-	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface;
+	baseturf = /turf/simulated/floor/lava/lava_land_surface;
 	oxygen = 14;
 	nitrogen = 23;
 	temperature = 300
@@ -494,7 +494,7 @@
 	pixel_y = 21;
 	req_access = list(150)
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "aT" = (
 /obj/effect/turf_decal/stripes/line{
@@ -628,7 +628,7 @@
 	req_access = list(150)
 	},
 /turf/simulated/floor/plating{
-	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface;
+	baseturf = /turf/simulated/floor/lava/lava_land_surface;
 	oxygen = 14;
 	nitrogen = 23;
 	temperature = 300
@@ -830,7 +830,7 @@
 	pixel_y = 21;
 	req_access = list(150)
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "br" = (
 /obj/effect/decal/cleanable/dirt,
@@ -880,7 +880,7 @@
 	req_access = list(150)
 	},
 /turf/simulated/floor/plating{
-	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface;
+	baseturf = /turf/simulated/floor/lava/lava_land_surface;
 	oxygen = 14;
 	nitrogen = 23;
 	temperature = 300
@@ -1463,7 +1463,7 @@
 /area/ruin/unpowered/syndicate_lava_base/chemistry)
 "dG" = (
 /obj/structure/lattice/catwalk,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "dI" = (
 /obj/structure/table/glass,
@@ -3609,7 +3609,7 @@
 	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating{
-	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface;
+	baseturf = /turf/simulated/floor/lava/lava_land_surface;
 	oxygen = 14;
 	nitrogen = 23;
 	temperature = 300
@@ -3744,7 +3744,7 @@
 	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating{
-	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface;
+	baseturf = /turf/simulated/floor/lava/lava_land_surface;
 	oxygen = 14;
 	nitrogen = 23;
 	temperature = 300
@@ -3754,7 +3754,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating{
-	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface;
+	baseturf = /turf/simulated/floor/lava/lava_land_surface;
 	oxygen = 14;
 	nitrogen = 23;
 	temperature = 300
@@ -3919,7 +3919,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating{
-	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface;
+	baseturf = /turf/simulated/floor/lava/lava_land_surface;
 	oxygen = 14;
 	nitrogen = 23;
 	temperature = 300
@@ -4182,7 +4182,7 @@
 	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating{
-	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface;
+	baseturf = /turf/simulated/floor/lava/lava_land_surface;
 	oxygen = 14;
 	nitrogen = 23;
 	temperature = 300
@@ -4242,7 +4242,7 @@
 "jk" = (
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating{
-	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface;
+	baseturf = /turf/simulated/floor/lava/lava_land_surface;
 	oxygen = 14;
 	nitrogen = 23;
 	temperature = 300
@@ -5343,7 +5343,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating{
-	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface;
+	baseturf = /turf/simulated/floor/lava/lava_land_surface;
 	oxygen = 14;
 	nitrogen = 23;
 	temperature = 300

@@ -372,6 +372,7 @@
 	desc = "A square piece of wood standing on four wooden legs. It can not move."
 	icon = 'icons/obj/smooth_structures/wood_table.dmi'
 	icon_state = "wood_table"
+	base_icon_state = "wood_table"
 	canSmoothWith = SMOOTH_GROUP_WOOD_TABLES
 
 /obj/structure/chair/stool/holostool/has_prints()

@@ -302,3 +302,12 @@
 /obj/item/pen/fakesign
 	fake_signing = TRUE
 	//desc = "It's a normal black ink pen with constantly moving tip. Wait what?" //documented bcs its should be stealthy item, like edagger and poison
+
+/obj/item/pen/survival
+	name = "survival pen"
+	desc = "The latest in portable survival technology, this pen was designed as a miniature diamond pickaxe."
+	icon = 'icons/obj/bureaucracy.dmi'
+	icon_state = "digging_pen"
+	toolspeed = 10 //You will never willingly choose to use one of these over a shovel.
+	colour = COLOR_BLUE
+

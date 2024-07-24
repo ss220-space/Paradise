@@ -42,6 +42,11 @@
 /obj/item/kitchen/utensil/fork,
 /turf/simulated/floor/carpet,
 /area/ruin/powered/green_bio)
+"dR" = (
+/obj/structure/rack,
+/obj/item/clothing/mask/gas,
+/turf/simulated/floor/pod/light,
+/area/ruin/powered/green_bio)
 "en" = (
 /obj/effect/turf_decal/siding/green{
 	dir = 8
@@ -60,6 +65,11 @@
 /area/ruin/powered/green_bio)
 "gm" = (
 /turf/simulated/wall/mineral/wood/nonmetal,
+/area/ruin/powered/green_bio)
+"gD" = (
+/obj/structure/table,
+/obj/item/clothing/shoes/sandal/fancy,
+/turf/simulated/floor/pod,
 /area/ruin/powered/green_bio)
 "gP" = (
 /obj/structure/window/plasmareinforced{
@@ -110,8 +120,7 @@
 	pixel_x = 11
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/ruin/powered/green_bio)
 "jG" = (
@@ -171,6 +180,7 @@
 /area/ruin/powered/green_bio)
 "mP" = (
 /obj/structure/table,
+/obj/item/camera,
 /turf/simulated/floor/pod,
 /area/ruin/powered/green_bio)
 "nK" = (
@@ -224,6 +234,11 @@
 /obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/indestructible/grass,
 /area/ruin/powered/green_bio)
+"ra" = (
+/obj/structure/rack,
+/obj/item/pickaxe,
+/turf/simulated/floor/pod/light,
+/area/ruin/powered/green_bio)
 "rj" = (
 /obj/machinery/hydroponics/soil,
 /turf/simulated/floor/indestructible/grass,
@@ -234,6 +249,11 @@
 	tag = "icon-plant-34"
 	},
 /turf/simulated/floor/wood,
+/area/ruin/powered/green_bio)
+"rv" = (
+/obj/structure/table,
+/obj/item/clothing/shoes/footwraps,
+/turf/simulated/floor/pod,
 /area/ruin/powered/green_bio)
 "rN" = (
 /obj/structure/railing/wooden{
@@ -256,8 +276,7 @@
 	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/ruin/powered/green_bio)
 "tg" = (
@@ -399,6 +418,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/item/tank/internals/oxygen,
 /turf/simulated/floor/pod/light,
 /area/ruin/powered/green_bio)
 "De" = (
@@ -411,8 +431,7 @@
 /obj/structure/window/reinforced,
 /obj/structure/closet/secure_closet/freezer/meat,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/ruin/powered/green_bio)
 "Du" = (
@@ -451,8 +470,7 @@
 /obj/structure/table/reinforced,
 /obj/item/kitchen/knife,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/ruin/powered/green_bio)
 "FN" = (
@@ -568,6 +586,11 @@
 /obj/structure/chair/sofa/right,
 /turf/simulated/floor/carpet,
 /area/ruin/powered/green_bio)
+"Lq" = (
+/obj/structure/rack,
+/obj/item/soap,
+/turf/simulated/floor/pod/light,
+/area/ruin/powered/green_bio)
 "Mc" = (
 /obj/structure/railing/wooden{
 	dir = 4
@@ -579,6 +602,11 @@
 /area/ruin/powered/green_bio)
 "MD" = (
 /turf/simulated/wall/indestructible/rock,
+/area/ruin/powered/green_bio)
+"MQ" = (
+/obj/structure/table,
+/obj/item/paper,
+/turf/simulated/floor/pod,
 /area/ruin/powered/green_bio)
 "Ne" = (
 /obj/structure/window/reinforced{
@@ -632,8 +660,7 @@
 /area/ruin/powered/green_bio)
 "SL" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/ruin/powered/green_bio)
 "SY" = (
@@ -1297,7 +1324,7 @@ ol
 zf
 CL
 qj
-mP
+MQ
 mg
 hW
 "}
@@ -1332,7 +1359,7 @@ MD
 MD
 ol
 mg
-fG
+ra
 CL
 mP
 mg
@@ -1369,7 +1396,7 @@ MD
 MD
 MD
 mg
-fG
+Lq
 CL
 CL
 zf
@@ -1480,9 +1507,9 @@ ol
 ol
 MD
 mg
-fG
+dR
 CL
-mP
+rv
 mg
 hW
 "}
@@ -1519,7 +1546,7 @@ ol
 zf
 CL
 zh
-mP
+gD
 mg
 hW
 "}

@@ -1,11 +1,14 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/template_noop,
+/area/template_noop)
 "c" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 1;
 	tag = "icon-heater (NORTH)"
 	},
 /obj/structure/window/reinforced,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/shuttle/plating,
 /area/space/nearstation)
 "d" = (
 /turf/space,
@@ -73,9 +76,6 @@
 /obj/item/stack/ore/tranquillite,
 /turf/simulated/floor/plasteel/airless,
 /area/space/nearstation)
-"r" = (
-/turf/template_noop,
-/area/template_noop)
 "s" = (
 /obj/item/shard,
 /turf/simulated/floor/plating/asteroid/airless,
@@ -133,7 +133,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/shuttle/plating,
 /area/space/nearstation)
 "B" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -146,7 +146,7 @@
 	icon_state = "burst_r";
 	tag = "icon-burst_r (WEST)"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/shuttle/plating,
 /area/space/nearstation)
 "C" = (
 /obj/effect/mob_spawn/human/corpse/clownmili,
@@ -162,7 +162,7 @@
 	icon_state = "propulsion_l";
 	tag = "icon-propulsion_l (WEST)"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/shuttle/plating,
 /area/space/nearstation)
 "F" = (
 /obj/structure/computerframe/HONKputer,
@@ -211,6 +211,13 @@
 	},
 /turf/simulated/floor/plasteel/airless,
 /area/space/nearstation)
+"M" = (
+/turf/simulated/wall/shuttle{
+	icon_state = "swall_f5";
+	tag = "icon-swall_f5"
+	},
+/turf/simulated/mineral/random/labormineral,
+/area/space/nearstation)
 "N" = (
 /turf/space,
 /turf/simulated/wall/shuttle{
@@ -245,7 +252,7 @@
 	icon_state = "propulsion_l";
 	tag = "icon-propulsion_l (WEST)"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/shuttle/plating,
 /area/space/nearstation)
 "S" = (
 /turf/space,
@@ -281,76 +288,76 @@
 /area/space/nearstation)
 
 (1,1,1) = {"
-r
-r
-r
-r
+a
+a
+a
+a
 m
 m
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
-r
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
 "}
 (2,1,1) = {"
-r
-r
-r
+a
+a
+a
 m
 m
 m
 m
 m
-r
-r
-r
-r
-r
-r
+a
+a
+a
+a
+a
+a
 m
 m
-r
-r
-r
-r
+a
+a
+a
+a
 "}
 (3,1,1) = {"
-r
-r
-r
+a
+a
+a
 m
 m
 m
 m
 m
 m
-r
+a
 m
 m
 m
 m
 m
 m
-r
-r
-r
-r
+a
+a
+a
+a
 "}
 (4,1,1) = {"
-r
-r
-r
-r
+a
+a
+a
+a
 m
 m
 m
@@ -362,18 +369,18 @@ m
 m
 m
 m
-r
-r
-r
-r
-r
+a
+a
+a
+a
+a
 "}
 (5,1,1) = {"
-r
-r
-r
-r
-r
+a
+a
+a
+a
+a
 m
 m
 m
@@ -388,14 +395,14 @@ m
 m
 m
 m
-r
+a
 "}
 (6,1,1) = {"
-r
-r
-r
-r
-r
+a
+a
+a
+a
+a
 m
 m
 m
@@ -409,14 +416,14 @@ m
 m
 m
 m
-r
-r
+a
+a
 "}
 (7,1,1) = {"
-r
-r
-r
-r
+a
+a
+a
+a
 m
 m
 m
@@ -430,14 +437,14 @@ m
 m
 m
 m
-r
-r
-r
+a
+a
+a
 "}
 (8,1,1) = {"
-r
-r
-r
+a
+a
+a
 n
 m
 m
@@ -452,14 +459,14 @@ m
 m
 m
 m
-r
-r
-r
+a
+a
+a
 "}
 (9,1,1) = {"
-r
-r
-r
+a
+a
+a
 n
 m
 m
@@ -474,9 +481,9 @@ m
 m
 m
 n
-r
-r
-r
+a
+a
+a
 "}
 (10,1,1) = {"
 d
@@ -496,9 +503,9 @@ m
 m
 n
 n
-r
-r
-r
+a
+a
+a
 "}
 (11,1,1) = {"
 c
@@ -519,8 +526,8 @@ m
 n
 n
 n
-r
-r
+a
+a
 "}
 (12,1,1) = {"
 c
@@ -542,7 +549,7 @@ m
 m
 n
 n
-r
+a
 "}
 (13,1,1) = {"
 c
@@ -564,7 +571,7 @@ m
 m
 m
 m
-r
+a
 "}
 (14,1,1) = {"
 d
@@ -586,13 +593,13 @@ m
 m
 n
 m
-r
+a
 "}
 (15,1,1) = {"
-r
-r
-r
-r
+a
+a
+a
+a
 m
 m
 m
@@ -611,19 +618,19 @@ m
 m
 "}
 (16,1,1) = {"
-r
-r
-r
-r
+a
+a
+a
+a
 m
-r
-r
-r
+a
+a
+a
 S
 m
 m
 J
-m
+M
 m
 m
 m
@@ -633,14 +640,14 @@ m
 m
 "}
 (17,1,1) = {"
-r
-r
-r
-r
-r
-r
-r
-r
+a
+a
+a
+a
+a
+a
+a
+a
 v
 m
 F
@@ -655,20 +662,20 @@ m
 m
 "}
 (18,1,1) = {"
-r
-r
-r
-r
-r
-r
-r
+a
+a
+a
+a
+a
+a
+a
 U
 w
 m
 G
 K
 N
-m
+M
 m
 m
 m
@@ -677,13 +684,13 @@ m
 m
 "}
 (19,1,1) = {"
-r
-r
-r
-r
-r
-r
-r
+a
+a
+a
+a
+a
+a
+a
 v
 n
 p
@@ -699,13 +706,13 @@ n
 n
 "}
 (20,1,1) = {"
-r
-r
-r
-r
-r
-r
-r
+a
+a
+a
+a
+a
+a
+a
 V
 x
 C
@@ -716,18 +723,18 @@ V
 m
 m
 m
-r
-r
-r
+a
+a
+a
 "}
 (21,1,1) = {"
-r
-r
-r
-r
-r
-r
-r
+a
+a
+a
+a
+a
+a
+a
 e
 k
 k
@@ -737,19 +744,19 @@ k
 e
 m
 m
-r
-r
-r
-r
+a
+a
+a
+a
 "}
 (22,1,1) = {"
-r
-r
-r
-r
-r
-r
-r
+a
+a
+a
+a
+a
+a
+a
 e
 k
 k
@@ -759,19 +766,19 @@ k
 e
 m
 m
-r
-r
-r
-r
+a
+a
+a
+a
 "}
 (23,1,1) = {"
-r
-r
-r
-r
-r
-r
-r
+a
+a
+a
+a
+a
+a
+a
 X
 y
 k
@@ -780,20 +787,20 @@ k
 Q
 X
 m
-r
-r
-r
-r
-r
+a
+a
+a
+a
+a
 "}
 (24,1,1) = {"
-r
-r
-r
-r
-r
-r
-r
+a
+a
+a
+a
+a
+a
+a
 v
 y
 k
@@ -802,20 +809,20 @@ k
 y
 v
 m
-r
-r
-r
-r
-r
+a
+a
+a
+a
+a
 "}
 (25,1,1) = {"
-r
-r
-r
-r
-r
-r
-r
+a
+a
+a
+a
+a
+a
+a
 v
 z
 D
@@ -824,20 +831,20 @@ k
 y
 v
 m
-r
-r
-r
-r
-r
+a
+a
+a
+a
+a
 "}
 (26,1,1) = {"
-r
-r
-r
-r
-r
-r
-r
+a
+a
+a
+a
+a
+a
+a
 v
 k
 k
@@ -845,21 +852,21 @@ D
 D
 k
 v
-r
-r
-r
-r
-r
-r
+a
+a
+a
+a
+a
+a
 "}
 (27,1,1) = {"
-r
-r
-r
-r
-r
-r
-r
+a
+a
+a
+a
+a
+a
+a
 W
 A
 A
@@ -867,32 +874,32 @@ A
 A
 A
 W
-r
-r
-r
-r
-r
-r
+a
+a
+a
+a
+a
+a
 "}
 (28,1,1) = {"
-r
-r
-r
-r
-r
-r
-r
-r
+a
+a
+a
+a
+a
+a
+a
+a
 B
 E
 E
 E
 R
-r
-r
-r
-r
-r
-r
-r
+a
+a
+a
+a
+a
+a
+a
 "}

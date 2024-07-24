@@ -22,7 +22,7 @@
 	var/max_failed_spreads = 5
 	/// Turfs where the glowshroom cannot spread to
 	var/static/list/blacklisted_glowshroom_turfs = typecacheof(list(
-		/turf/simulated/floor/plating/lava,
+		/turf/simulated/floor/lava,
 		/turf/simulated/floor/chasm,
 		/turf/simulated/floor/beach/water,
 		/turf/simulated/floor/indestructible/beach/water))
