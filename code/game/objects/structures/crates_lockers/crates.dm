@@ -49,7 +49,7 @@
 	if(rigged && locate(/obj/item/radio/electropack) in src)
 		if(isliving(usr))
 			var/mob/living/L = usr
-			if(L.electrocute_act(17, src))
+			if(L.electrocute_act(17, "электропака в ящике"))
 				do_sparks(5, 1, src)
 				return 2
 
@@ -150,7 +150,7 @@
 		if(rigged && locate(/obj/item/radio/electropack) in src)
 			if(isliving(user))
 				var/mob/living/L = user
-				if(L.electrocute_act(17, src))
+				if(L.electrocute_act(17, "электропака в ящике"))
 					do_sparks(5, 1, src)
 					return
 		add_fingerprint(user)

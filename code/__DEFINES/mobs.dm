@@ -426,3 +426,22 @@
 /// Time it takes for a simple mob to be eaten.
 #define DEVOUR_TIME_ANIMAL (3 SECONDS)
 
+
+//Flags used by the flags parameter of electrocute act.
+///Makes it so that the shock doesn't take gloves into account.
+#define SHOCK_NOGLOVES (1<<0)
+///Used when the shock is from a tesla bolt.
+#define SHOCK_TESLA (1<<1)
+///Used when an illusion shocks something. Makes the shock deal stamina damage and not trigger certain secondary effects.
+#define SHOCK_ILLUSION (1<<2)
+///The shock doesn't stun.
+#define SHOCK_NOSTUN (1<<3)
+/// No default message is sent from the shock
+#define SHOCK_SUPPRESS_MESSAGE (1<<4)
+/// Ignores TRAIT_SHOCKIMMUNE / TRAIT_TESLA_SHOCKIMMUNE
+#define SHOCK_IGNORE_IMMUNITY (1<<5)
+/// Prevents the immediate stun, instead only gives the delay
+#define SHOCK_DELAY_STUN (1<<6)
+/// Makes the weaken into a knockdown
+#define SHOCK_KNOCKDOWN (1<<7)
+

@@ -684,3 +684,8 @@
 		if(!(thing.item_flags & IGNORE_SLOWDOWN))
 			. += thing.slowdown
 
+
+/// Returns if the carbon is wearing shock proof gloves
+/mob/living/carbon/human/proc/wearing_shock_proof_gloves()
+	return gloves?.siemens_coefficient == 0
+
