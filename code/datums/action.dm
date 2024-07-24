@@ -132,11 +132,11 @@
 /datum/action/proc/IsAvailable()// returns 1 if all checks pass
 	if(!owner)
 		return FALSE
-	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
+	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED) && !isAI(owner))
 		return FALSE
 	if((check_flags & AB_CHECK_IMMOBILE) && HAS_TRAIT(owner, TRAIT_IMMOBILIZED))
 		return FALSE
-	if((check_flags & AB_CHECK_INCAPACITATED) && HAS_TRAIT_NOT_FROM(owner, TRAIT_INCAPACITATED, STAT_TRAIT))
+	if((check_flags & AB_CHECK_INCAPACITATED) && HAS_TRAIT_NOT_FROM(owner, TRAIT_INCAPACITATED, STAT_TRAIT) && !isAI(owner))
 		return FALSE
 	if((check_flags & AB_CHECK_LYING) && owner.IsLying())
 		return FALSE
