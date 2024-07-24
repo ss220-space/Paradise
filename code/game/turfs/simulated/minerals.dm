@@ -17,7 +17,6 @@
 	// We're a BIG wall, larger then 32x32, so we need to be on the game plane
 	// Otherwise we'll draw under shit in weird ways
 	plane = GAME_PLANE
-	temperature = TCMB
 	var/environment_type = "asteroid"
 	var/turf/simulated/floor/plating/turf_type = /turf/simulated/floor/plating/asteroid/airless
 	var/mineralType = null
@@ -250,6 +249,7 @@
 	desc = "A rare and dense asteroid rock that appears to be resistant to everything except diamond and sonic tools! Can not be used to create portals to hell."
 	mine_time = 15 SECONDS
 	color = COLOR_COLD_ROCK
+	temperature = TCMB
 	baseturf = /turf/simulated/floor/plating/asteroid/ancient/airless
 	var/static/list/allowed_picks_typecache
 
