@@ -21,9 +21,6 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-	if(SSvote.active_vote)
-		to_chat(usr, "A vote is already in progress")
-		return
 
 	// Ask admins which type of vote they want to start
 	var/vote_types = subtypesof(/datum/vote)

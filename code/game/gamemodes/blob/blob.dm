@@ -129,9 +129,10 @@
 /datum/game_mode/proc/report_blob_death()
 	send_intercept(BLOB_THIRD_REPORT)
 	if(SSshuttle)
-		SSshuttle.stop_lockdown()
+		addtimer(CALLBACK(SSshuttle, TYPE_PROC_REF(/datum/controller/subsystem/shuttle, stop_lockdown)), TIME_TO_SWITCH_CODE)
 	if(blob_stage >= BLOB_STAGE_SECOND && GLOB.security_level == SEC_LEVEL_GAMMA)
-		addtimer(CALLBACK(GLOBAL_PROC, /proc/set_security_level, SEC_LEVEL_RED), TIME_TO_SWITCH_CODE)
+		addtimer(CALLBACK(GLOBAL_PROC, /proc/set_security_level, SEC_LEVEL_RED), TIME_TO_SWITCH_CODE * 2)
+	addtimer(CALLBACK(SSvote, TYPE_PROC_REF(/datum/controller/subsystem/vote, start_vote), new /datum/vote/crew_transfer), TIME_TO_SWITCH_CODE * 3)
 	blob_stage = BLOB_STAGE_ZERO
 
 
