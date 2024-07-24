@@ -400,6 +400,6 @@
 
 /obj/item/clothing/gloves/combat/swat/syndicate
 	desc = "A pair of gloves made of the best reinforced materials. Protects against the effects of electricity, as well as partially acid and fire. Show these NT pigs on your fingers who's the boss here!"
-	name = "Syndicate armored gloves"
+	name = "syndicate armored gloves"
 	icon_state = "syndicate_swat"
 	item_state = "syndicate_swat_gl"
