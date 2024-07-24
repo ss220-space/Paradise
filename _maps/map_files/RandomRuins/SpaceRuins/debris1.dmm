@@ -13,10 +13,6 @@
 	},
 /turf/space,
 /area/space)
-"d" = (
-/obj/structure/lattice,
-/turf/space,
-/area/template_noop)
 "e" = (
 /obj/structure/grille/broken,
 /turf/space,
@@ -25,13 +21,6 @@
 /obj/structure/disposalpipe/broken{
 	dir = 4
 	},
-/turf/space,
-/area/space)
-"h" = (
-/obj/structure/disposalpipe/broken{
-	dir = 8
-	},
-/obj/item/stack/cable_coil/cut,
 /turf/space,
 /area/space)
 "l" = (
@@ -54,9 +43,6 @@
 /obj/structure/girder/displaced,
 /turf/space,
 /area/space)
-"r" = (
-/turf/space,
-/area/template_noop)
 "t" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -68,22 +54,13 @@
 /obj/item/airlock_electronics,
 /turf/space,
 /area/space)
-"v" = (
-/obj/structure/lattice,
-/turf/space,
-/area/space)
 "x" = (
-/obj/structure/disposalpipe/junction{
-	dir = 2
-	},
+/obj/structure/disposalpipe/junction,
 /turf/space,
-/area/space)
-"y" = (
-/turf/simulated/floor/plating/burnt,
 /area/space)
 "z" = (
 /obj/item/stack/sheet/metal,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "B" = (
 /obj/structure/lattice,
@@ -102,18 +79,15 @@
 	pixel_y = 0;
 	tag = ""
 	},
-/turf/simulated/floor/plating/burnt,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "E" = (
 /obj/item/stack/rods,
 /turf/space,
 /area/space)
-"F" = (
-/turf/simulated/floor/plating,
-/area/space)
 "G" = (
 /obj/random/toolbox,
-/turf/simulated/floor/plating/burnt,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "I" = (
 /obj/structure/grille/broken,
@@ -137,22 +111,21 @@
 	pixel_y = -24
 	},
 /obj/structure/cable,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "Q" = (
 /obj/effect/decal/cleanable/shreds{
 	pixel_x = 4;
 	pixel_y = 3
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "T" = (
 /obj/structure/girder,
-/turf/simulated/floor/plating/burnt,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "U" = (
-/obj/effect/spawner/random_barrier/wall_probably,
-/turf/space,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "V" = (
 /turf/simulated/wall,
@@ -162,7 +135,7 @@
 /area/space)
 "Y" = (
 /obj/item/shard,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "Z" = (
 /obj/item/stack/sheet/metal,
@@ -193,30 +166,30 @@ a
 "}
 (2,1,1) = {"
 a
-a
-r
-r
-r
-r
-r
-r
-r
-r
-r
-d
-d
-d
-r
-r
-d
-r
-a
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
+N
+N
+N
+X
+X
+N
+X
+X
 a
 "}
 (3,1,1) = {"
 a
-d
-v
+N
+N
 X
 X
 X
@@ -232,12 +205,12 @@ X
 X
 X
 X
-r
+X
 a
 "}
 (4,1,1) = {"
 a
-d
+N
 X
 m
 X
@@ -250,63 +223,63 @@ X
 X
 X
 X
-v
+N
 Z
 X
 X
-d
+N
 a
 "}
 (5,1,1) = {"
 a
-r
+X
 X
 g
-F
+U
 X
 E
 I
 X
 X
-v
+N
 X
-F
-v
-v
+U
+N
+N
 X
 X
 X
-r
+X
 a
 "}
 (6,1,1) = {"
 a
-r
+X
 J
 x
 C
 E
-v
-F
+N
+U
 X
 E
 X
-v
-g
+N
+X
 Z
 X
 X
-F
+U
 X
-r
+X
 a
 "}
 (7,1,1) = {"
 a
-r
 X
 X
-y
+X
+U
 E
 X
 E
@@ -314,18 +287,18 @@ Y
 X
 n
 X
-h
+l
 E
-F
+U
 X
-v
+N
 X
-r
+X
 a
 "}
 (8,1,1) = {"
 a
-r
+X
 X
 X
 X
@@ -334,7 +307,7 @@ l
 p
 X
 X
-y
+U
 p
 X
 X
@@ -342,14 +315,14 @@ X
 E
 X
 X
-r
+X
 a
 "}
 (9,1,1) = {"
 a
-r
 X
-v
+X
+N
 X
 o
 X
@@ -358,27 +331,27 @@ Z
 l
 X
 E
-a
+X
 X
 X
 V
 X
 X
-r
+X
 a
 "}
 (10,1,1) = {"
 a
-r
+X
 X
 Z
 Q
-v
+N
 X
-y
-v
+U
+N
 D
-y
+U
 U
 X
 X
@@ -386,34 +359,34 @@ E
 X
 X
 n
-r
+X
 a
 "}
 (11,1,1) = {"
 a
-r
+X
 X
 X
 I
-v
-v
+N
+N
 X
-v
+N
 t
 O
 V
 X
 X
-F
+U
 E
 Z
 X
-d
+N
 a
 "}
 (12,1,1) = {"
 a
-r
+X
 X
 X
 X
@@ -421,7 +394,7 @@ X
 J
 b
 c
-v
+N
 G
 V
 X
@@ -430,12 +403,12 @@ e
 X
 X
 X
-r
+X
 a
 "}
 (13,1,1) = {"
 a
-r
+X
 X
 X
 X
@@ -452,56 +425,56 @@ X
 X
 e
 Z
-r
+X
 a
 "}
 (14,1,1) = {"
 a
-r
 X
 X
 X
 X
-v
 X
-v
+N
+X
+N
 N
 E
 E
 K
 X
-v
+N
 o
 X
 X
-r
+X
 a
 "}
 (15,1,1) = {"
 a
-r
+X
+X
+E
+X
+X
+X
 X
 E
 X
 X
 X
 X
-E
-J
-C
 X
 X
 X
 X
 X
-X
-X
-d
+N
 a
 "}
 (16,1,1) = {"
 a
-r
+X
 X
 X
 E
@@ -511,19 +484,18 @@ X
 Z
 X
 n
-v
+N
 X
 z
 n
 X
 Z
 X
-d
+N
 a
 "}
 (17,1,1) = {"
 a
-r
 X
 X
 X
@@ -532,7 +504,8 @@ X
 X
 X
 X
-F
+X
+U
 X
 X
 X
@@ -540,12 +513,11 @@ p
 X
 X
 X
-r
+X
 a
 "}
 (18,1,1) = {"
 a
-r
 X
 X
 X
@@ -557,34 +529,35 @@ X
 X
 X
 X
-v
+X
+N
 X
 X
 X
 X
-r
+X
 a
 "}
 (19,1,1) = {"
 a
-a
-r
-r
-r
-r
-d
-r
-d
-r
-r
-r
-r
-r
-r
-r
-r
-r
-a
+X
+X
+X
+X
+X
+N
+X
+N
+X
+X
+X
+X
+X
+X
+X
+X
+X
+X
 a
 "}
 (20,1,1) = {"
