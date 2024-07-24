@@ -5,10 +5,23 @@
 "b" = (
 /obj/structure/bed,
 /obj/item/bedsheet/centcom,
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered/misc_lavaruin)
+"d" = (
+/obj/machinery/door/airlock/wood/glass,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/wood{
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
+	},
 /area/ruin/unpowered/misc_lavaruin)
 "g" = (
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood{
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
+	},
 /area/ruin/unpowered/misc_lavaruin)
 "k" = (
 /turf/simulated/wall/indestructible,
@@ -17,15 +30,23 @@
 /obj/structure/table/wood,
 /obj/item/paper/fluff/stations/lavaland/sloth/note,
 /obj/item/flashlight/lamp,
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood{
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
+	},
 /area/ruin/unpowered/misc_lavaruin)
 "v" = (
 /obj/structure/chair/wood,
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood{
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
+	},
 /area/ruin/unpowered/misc_lavaruin)
 "w" = (
 /obj/effect/spawner/random_spawners/dirt_50,
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/ruin/unpowered/misc_lavaruin)
 "z" = (
 /turf/simulated/floor/sepia{
@@ -34,16 +55,20 @@
 /area/ruin/unpowered/misc_lavaruin)
 "A" = (
 /obj/machinery/door/airlock/wood/glass,
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood{
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
+	},
 /area/ruin/unpowered/misc_lavaruin)
 "C" = (
 /obj/machinery/computer/security/wooden_tv{
 	network = list("SS13","Research Outpost","Mining Outpost")
 	},
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/ruin/unpowered/misc_lavaruin)
 "D" = (
-/turf/simulated/floor/carpet/green,
+/turf/simulated/floor/wood,
 /area/ruin/unpowered/misc_lavaruin)
 "F" = (
 /obj/structure/table/wood,
@@ -55,13 +80,17 @@
 	pixel_x = 10;
 	pixel_y = -1
 	},
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood{
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
+	},
 /area/ruin/unpowered/misc_lavaruin)
 "G" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
 /obj/item/reagent_containers/food/snacks/grown/citrus/orange,
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/ruin/unpowered/misc_lavaruin)
 "J" = (
 /obj/effect/baseturf_helper/lava_land/surface,
@@ -69,13 +98,17 @@
 /area/ruin/unpowered/misc_lavaruin)
 "M" = (
 /obj/machinery/vending/cola/free,
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood{
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
+	},
 /area/ruin/unpowered/misc_lavaruin)
 "O" = (
 /obj/structure/chair/comfy/beige{
 	dir = 1
 	},
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/ruin/unpowered/misc_lavaruin)
 "P" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -86,13 +119,21 @@
 /area/ruin/unpowered/misc_lavaruin)
 "W" = (
 /obj/machinery/vending/snack/free,
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/ruin/unpowered/misc_lavaruin)
 "X" = (
 /obj/structure/chair/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood{
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Z" = (
+/obj/machinery/door/airlock/wood/glass,
+/turf/simulated/floor/wood,
 /area/ruin/unpowered/misc_lavaruin)
 
 (1,1,1) = {"
@@ -242,7 +283,7 @@ k
 k
 k
 z
-A
+d
 g
 g
 J
@@ -449,7 +490,7 @@ k
 z
 k
 C
-g
+D
 O
 k
 z
@@ -478,7 +519,7 @@ k
 z
 k
 z
-A
+Z
 D
 w
 G
@@ -511,7 +552,7 @@ k
 k
 k
 W
-g
+D
 b
 k
 z
