@@ -326,7 +326,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	QDEL_NULL(robot_suit)
 	QDEL_NULL(spark_system)
 	QDEL_NULL(self_diagnosis)
-	QDEL_NULL(mail_setter)
 	QDEL_NULL(ion_trail)
 	return ..()
 
