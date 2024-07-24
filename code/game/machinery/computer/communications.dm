@@ -509,13 +509,11 @@
 			var/obj/item/paper/P = new (C.loc)
 			P.name = "paper- '[title]'"
 			P.info = text
-			P.update_icon()
 			if(add_to_records)
 				C.messagetitle.Add("[title]")
 				C.messagetext.Add(text)
 			if(goal)
-				var/obj/item/stamp/navcom/stamp = new()
-				P.stamp(stamp)
+				P.stamp(/obj/item/stamp/navcom)
 				goal.papers_list.Add(P)
 
 /proc/print_centcom_report(text = "", title = "Incoming Message")
