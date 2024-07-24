@@ -54,9 +54,9 @@
 		RegisterSignal(owner, COMSIG_LIVING_SET_BODY_POSITION, PROC_REF(update_status_on_signal))
 	if(check_flags & AB_CHECK_IMMOBILE)
 		RegisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_IMMOBILIZED), SIGNAL_REMOVETRAIT(TRAIT_IMMOBILIZED)), PROC_REF(update_status_on_signal))
-	if(check_flags & AB_CHECK_HANDS_BLOCKED)
+	if(check_flags & AB_CHECK_HANDS_BLOCKED && !isAI(owner))
 		RegisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), SIGNAL_REMOVETRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(update_status_on_signal))
-	if(check_flags & AB_CHECK_INCAPACITATED)
+	if(check_flags & AB_CHECK_INCAPACITATED && !isAI(owner))
 		RegisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_INCAPACITATED), SIGNAL_REMOVETRAIT(TRAIT_INCAPACITATED)), PROC_REF(update_status_on_signal))
 	return TRUE
 
