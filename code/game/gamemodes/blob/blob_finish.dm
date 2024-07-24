@@ -29,24 +29,21 @@
 		if(GAMEMODE_IS_BLOB)
 			SSticker.mode_result = "blob win - blob took over"
 			add_game_logs("Blob mode completed with a blob victory.")
-		to_chat(world, "<BR><FONT size = 3><B>Частичная победа блоба!</B></FONT>")
-		to_chat(world, "<FONT size = 3><B>Полная победа блоба!</B></FONT>")
+		to_chat(world, "<BR><FONT size = 3><B>Полная победа блоба!</B></FONT>")
 		to_chat(world, "<B>Блоб захватил станцию!</B>")
 		to_chat(world, "<B>Вся станция была поглощена блобом.</B>")
 	else if(!GLOB.blob_cores.len)
 		if(GAMEMODE_IS_BLOB)
 			add_game_logs("Blob mode completed with a crew victory.")
 			SSticker.mode_result = "blob loss - blob eliminated"
-		to_chat(world, "<BR><FONT size = 3><B>Частичная победа блоба!</B></FONT>")
-		to_chat(world, "<FONT size = 3><B>Полная победа экипажа!</B></FONT>")
-		to_chat(world, "<B>Победа персонала станции!</B>")
+		to_chat(world, "<BR><FONT size = 3><B>Полная победа персонала станции!</B></FONT>")
+		to_chat(world, "<B>Экипаж защитил станцию от блоба!</B>")
 		to_chat(world, "<B>Инопланетный организм был истреблен.</B>")
 	else
 		if(GAMEMODE_IS_BLOB)
 			add_game_logs("Blob mode completed with a draw.")
 			SSticker.mode_result = "draw - the station was not destroyed, blob is alife "
-		to_chat(world, "<BR><FONT size = 3><B>Частичная победа блоба!</B></FONT>")
-		to_chat(world, "<FONT size = 3><B>Ничья!</B></FONT>")
+		to_chat(world, "<BR><FONT size = 3><B>Ничья!</B></FONT>")
 		to_chat(world, "<B>Экипаж эвакуирован!</B>")
 		to_chat(world, "<B>Инопланетный организм не был истреблен.</B>")
 	to_chat(world, "<B>Целью блобов было:</B>")
