@@ -56,7 +56,7 @@
 		RegisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_IMMOBILIZED), SIGNAL_REMOVETRAIT(TRAIT_IMMOBILIZED)), PROC_REF(update_status_on_signal))
 	if(check_flags & AB_CHECK_HANDS_BLOCKED && !isAI(owner))
 		RegisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), SIGNAL_REMOVETRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(update_status_on_signal))
-	if(check_flags & AB_CHECK_INCAPACITATED && !isAI(owner))
+	if(check_flags & AB_CHECK_INCAPACITATED)
 		RegisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_INCAPACITATED), SIGNAL_REMOVETRAIT(TRAIT_INCAPACITATED)), PROC_REF(update_status_on_signal))
 	return TRUE
 
@@ -136,7 +136,7 @@
 		return FALSE
 	if((check_flags & AB_CHECK_IMMOBILE) && HAS_TRAIT(owner, TRAIT_IMMOBILIZED))
 		return FALSE
-	if((check_flags & AB_CHECK_INCAPACITATED) && HAS_TRAIT_NOT_FROM(owner, TRAIT_INCAPACITATED, STAT_TRAIT) && !isAI(owner))
+	if((check_flags & AB_CHECK_INCAPACITATED) && HAS_TRAIT_NOT_FROM(owner, TRAIT_INCAPACITATED, STAT_TRAIT))
 		return FALSE
 	if((check_flags & AB_CHECK_LYING) && owner.IsLying())
 		return FALSE
