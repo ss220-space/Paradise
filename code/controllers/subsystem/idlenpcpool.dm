@@ -44,12 +44,16 @@ SUBSYSTEM_DEF(idlenpcpool)
 			log_debug("idlenpcpool encountered an invalid entry, resumed: [resumed], SA [SA], type of SA [SA?.type], null [SA == null], qdelled [QDELETED(SA)], SA in AI_IDLE list: [SA in GLOB.simple_animals[AI_IDLE]]")
 			GLOB.simple_animals[AI_IDLE] -= SA
 			continue
-		if(suspension && !SSmobs.clients_by_zlevel[SA.z].len)
+
+		var/turf/T = get_turf(SA)
+		if(suspension && !SSmobs.clients_by_zlevel[T?.z].len)
 			continue
+
 		if(!SA.ckey)
 			if(SA.stat != DEAD)
 				SA.handle_automated_movement()
 			if(SA.stat != DEAD)
 				SA.consider_wakeup()
+
 		if(MC_TICK_CHECK)
 			return

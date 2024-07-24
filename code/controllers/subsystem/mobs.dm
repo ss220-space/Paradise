@@ -49,11 +49,14 @@ SUBSYSTEM_DEF(mobs)
 	while(currentrun.len)
 		var/mob/living/L = currentrun[currentrun.len]
 		currentrun.len--
-		if(suspension && L?.z && !clients_by_zlevel[L.z].len)
-			continue
+
 		if(L)
+			var/turf/T = get_turf(L)
+			if(suspension && !clients_by_zlevel[T?.z].len)
+				continue
 			L.Life(seconds, times_fired)
 		else
 			GLOB.mob_living_list.Remove(L)
+
 		if(MC_TICK_CHECK)
 			return

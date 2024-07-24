@@ -29,7 +29,9 @@ SUBSYSTEM_DEF(npcpool)
 			GLOB.simple_animals[AI_ON] -= SA
 			continue
 
-		if(suspension && !SSmobs.clients_by_zlevel[SA.z].len)
+		var/turf/T = get_turf(SA)
+
+		if(suspension && !SSmobs.clients_by_zlevel[T?.z].len)
 			continue
 
 		if(!SA.ckey && !HAS_TRAIT(SA, TRAIT_NO_TRANSFORM))
@@ -39,5 +41,6 @@ SUBSYSTEM_DEF(npcpool)
 				SA.handle_automated_action()
 			if(SA.stat != DEAD)
 				SA.handle_automated_speech()
+
 		if(MC_TICK_CHECK)
 			return
