@@ -25,15 +25,19 @@ SUBSYSTEM_DEF(vote)
 	active_vote.start()
 
 /datum/controller/subsystem/vote/proc/on_vote_end()
-	if(votes_queue.len)
-		var/datum/vote/vote = votes_queue[1]
+	for(var/datum/vote/vote in votes_queue)
 		votes_queue -= vote
+		if(QDELETED(vote))
+			continue
 		start_vote(vote)
+		break;
 
 /datum/controller/subsystem/vote/proc/clear_transfer_votes()
-	for(var/vote in votes_queue)
+	for(var/datum/vote/vote in votes_queue)
 		if(istype(vote, /datum/vote/crew_transfer))
 			votes_queue -= vote
+			if(!QDELETED(vote))
+				qdel(vote)
 
 /datum/controller/subsystem/vote/Topic(href, list/href_list)
 	if(href_list["vote"] == "open")
