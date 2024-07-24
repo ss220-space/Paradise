@@ -74999,7 +74999,6 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/computer/mob_healer_terminal,
 /obj/structure/table,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
@@ -126951,7 +126950,6 @@
 	},
 /area/medical/medbay)
 "xHm" = (
-/obj/effect/landmark/battle_mob_point,
 /turf/simulated/floor/engine{
 	name = "Holodeck Projector Floor"
 	},

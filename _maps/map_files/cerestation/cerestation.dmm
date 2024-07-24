@@ -81244,7 +81244,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint2)
 "tpw" = (
-/obj/effect/landmark/battle_mob_point,
 /turf/simulated/floor/engine{
 	name = "Holodeck Projector Floor"
 	},

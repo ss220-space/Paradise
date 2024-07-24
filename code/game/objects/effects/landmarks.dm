@@ -680,10 +680,6 @@
 	var/turf/simulated/T = get_turf(src)
 	T.burn_tile()
 
-
-/obj/effect/landmark/battle_mob_point
-	name = "Nanomob Battle Avatar Spawn Point"
-
 /obj/effect/landmark/spawner/bubblegum_arena
 	name = "bubblegum_arena_human"
 	icon_state = "awaystart"
