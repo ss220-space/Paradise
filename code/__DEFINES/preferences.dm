@@ -55,7 +55,7 @@
 #define PREFTOGGLE_2_SEE_ITEM_OUTLINES		(1<<9) // 512
 // Yes I know this being an "enable to disable" is misleading, but it avoids having to tweak all existing pref entries
 #define PREFTOGGLE_2_REVERB_DISABLE			(1<<10) // 1024
-#define PREFTOGGLE_2_MC_TABS				(1<<11) // 2048
+#define PREFTOGGLE_2_MC_TAB					(1<<11) // 2048
 #define PREFTOGGLE_2_DISABLE_TGUI_LISTS		(1<<12) // 4096
 #define PREFTOGGLE_2_PARALLAX_MULTIZ		(1<<13) // 8192
 #define PREFTOGGLE_2_DISABLE_VOTE_POPUPS	(1<<14)	// 16384
@@ -73,6 +73,23 @@
 #error toggles_2 bitflag over 16777215. Please make an issue report and postpone the feature you are working on.
 #endif
 
+// This is a list index. Required to start at 1 instead of 0 so it's properly placed in the list
+#define PREFTOGGLE_CATEGORY_GENERAL		1
+#define PREFTOGGLE_CATEGORY_LIVING		2
+#define PREFTOGGLE_CATEGORY_GHOST		3
+#define PREFTOGGLE_CATEGORY_ADMIN		4
+
+// Preftoggle type defines
+/// Special toggles, stuff that just overrides set_toggles entirely
+#define PREFTOGGLE_SPECIAL		0
+/// Interacts with the sound bitflag
+#define PREFTOGGLE_SOUND		1
+/// Interacts with the light bitflag
+#define PREFTOGGLE_LIGHT		2
+/// Interacts with the toggles bitflag
+#define PREFTOGGLE_TOGGLE1		3
+/// Interacts with the toggles2 bitflag
+#define PREFTOGGLE_TOGGLE2		4
 
 
 // Admin attack logs filter system, see /proc/add_attack_logs

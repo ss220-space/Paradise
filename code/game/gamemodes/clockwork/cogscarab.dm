@@ -83,7 +83,7 @@
 
 /mob/living/silicon/robot/cogscarab/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/ratvar()
-	connected_ai = null
+	set_connected_ai(null)
 
 	aiCamera = new/obj/item/camera/siliconcam/drone_camera(src)
 	additional_law_channels["Drone"] = get_language_prefix(LANGUAGE_DRONE_BINARY)
@@ -122,10 +122,11 @@
 	//rounds to 30 and divides by 30. if timer full, 6 - 5, state 1. from 1 to 6.
 
 
-/mob/living/silicon/robot/cogscarab/Stat()
-	..()
+/mob/living/silicon/robot/cogscarab/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
 	if(mind?.current)
-		stat("Wind Up Timer:", "[wind_up_timer]")
+		status_tab_data[++status_tab_data.len] = list("Wind Up Timer:", "[wind_up_timer]")
 
 /mob/living/silicon/robot/cogscarab/rename_character(oldname, newname)
 	// force it to not actually change most things

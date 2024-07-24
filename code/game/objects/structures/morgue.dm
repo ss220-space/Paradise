@@ -530,7 +530,6 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 /obj/machinery/crematorium/verb/cremate_verb()
 	set name = "Cremate"
-	set category = null
 	set src in oview(1)
 
 	try_cremate(usr)

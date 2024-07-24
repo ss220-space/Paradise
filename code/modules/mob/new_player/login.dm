@@ -31,11 +31,12 @@
 
 	add_sight(SEE_TURFS)
 	GLOB.player_list |= src
+	GLOB.new_player_mobs |= src
 
 	new_player_panel()
 
 	if(ckey in GLOB.deadmins)
-		verbs += /client/proc/readmin
+		add_verb(src, /client/proc/readmin)
 	spawn(40)
 		if(client)
 			client.playtitlemusic()

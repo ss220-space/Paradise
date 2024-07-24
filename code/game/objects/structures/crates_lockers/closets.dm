@@ -320,7 +320,6 @@ GLOBAL_LIST_EMPTY(closets)
 
 /obj/structure/closet/verb/verb_toggleopen()
 	set src in oview(1)
-	set category = null
 	set name = "Toggle Open"
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

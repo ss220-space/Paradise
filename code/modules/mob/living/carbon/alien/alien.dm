@@ -82,14 +82,13 @@
 	)
 
 
-/mob/living/carbon/alien/Stat()
-	..()
-	statpanel("Status")
-	stat(null, "Intent: [a_intent]")
-	stat(null, "Move Mode: [m_intent]")
-	show_stat_emergency_shuttle_eta()
+/mob/living/carbon/alien/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Intent:", "[a_intent]")
+	status_tab_data[++status_tab_data.len] = list("Move Mode:", "[m_intent]")
 	if(can_evolve)
-		stat(null, "Evolution progress: [evolution_points]/[max_evolution_points]")
+		status_tab_data[++status_tab_data.len] = list("Evolution progress: [evolution_points]/[max_evolution_points]")
 
 
 /mob/living/carbon/alien/get_default_language()

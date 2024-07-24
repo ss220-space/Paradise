@@ -16,7 +16,6 @@
 /obj/effect/proc_holder/spell/morph
 	name = "Morph"
 	desc = "Mimic the appearance of your choice!"
-	panel = "Abilities"
 	base_cooldown = 3 MINUTES
 
 	clothes_req = FALSE

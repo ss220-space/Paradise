@@ -5,7 +5,6 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 /obj/effect/proc_holder/spell/shadowling_hatch
 	name = "Hatch"
 	desc = "Casts off your disguise."
-	panel = "Shadowling Evolution"
 	base_cooldown = 5 MINUTES
 	clothes_req = FALSE
 	action_icon_state = "hatch"
@@ -161,7 +160,6 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 /obj/effect/proc_holder/spell/shadowling_ascend
 	name = "Ascend"
 	desc = "Enters your true form."
-	panel = "Shadowling Evolution"
 	base_cooldown = 5 MINUTES
 	clothes_req = FALSE
 	action_icon_state = "ascend"

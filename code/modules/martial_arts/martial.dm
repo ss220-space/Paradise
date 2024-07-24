@@ -191,9 +191,9 @@
 		if(istype(MA, src))
 			return FALSE
 	if(has_explaination_verb)
-		H.verbs |= /mob/living/carbon/human/proc/martial_arts_help
+		add_verb(H, /mob/living/carbon/human/proc/martial_arts_help)
 	if(has_dirslash)
-		H.verbs |= /mob/living/carbon/human/proc/dirslash_enabling
+		add_verb(H, /mob/living/carbon/human/proc/dirslash_enabling)
 		H.dirslash_enabled = TRUE
 	temporary = make_temporary
 	H.mind.known_martial_arts.Add(src)
@@ -208,10 +208,10 @@
 	deltimer(combo_timer)
 	H.mind.known_martial_arts.Remove(MA)
 	H.mind.martial_art = get_highest_weight(H)
-	remove_verbs(H)
+	remove_verb(H)
 	return TRUE
 
-/datum/martial_art/proc/remove_verbs(mob/living/carbon/human/old_human)
+/datum/martial_art/proc/remove_verb(mob/living/carbon/human/old_human)
 	old_human.verbs -= /mob/living/carbon/human/proc/martial_arts_help
 	old_human.verbs -= /mob/living/carbon/human/proc/dirslash_enabling
 	old_human.dirslash_enabled = initial(old_human.dirslash_enabled)

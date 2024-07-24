@@ -29,7 +29,6 @@
 /obj/effect/proc_holder/spell/shadowling_glare
 	name = "Glare"
 	desc = "Stuns and mutes a target for a decent duration. Duration depends on the proximity to the target."
-	panel = "Shadowling Abilities"
 	base_cooldown = 30 SECONDS
 	clothes_req = FALSE
 	need_active_overlay = TRUE
@@ -85,7 +84,6 @@
 /obj/effect/proc_holder/spell/aoe/shadowling_veil
 	name = "Veil"
 	desc = "Extinguishes most nearby light sources."
-	panel = "Shadowling Abilities"
 	base_cooldown = 15 SECONDS //Short cooldown because people can just turn the lights back on
 	clothes_req = FALSE
 	var/blacklisted_lights = list(/obj/item/flashlight/flare, /obj/item/flashlight/slime)
@@ -120,7 +118,6 @@
 /obj/effect/proc_holder/spell/shadowling_shadow_walk
 	name = "Shadow Walk"
 	desc = "Phases you into the space between worlds for a short time, allowing movement through walls and invisbility."
-	panel = "Shadowling Abilities"
 	base_cooldown = 30 SECONDS //Used to be twice this, buffed
 	clothes_req = FALSE
 	phase_allowed = TRUE
@@ -161,7 +158,6 @@
 /obj/effect/proc_holder/spell/shadowling_guise
 	name = "Guise"
 	desc = "Wraps your form in shadows, making you harder to see."
-	panel = "Thrall Abilities"
 	base_cooldown = 120 SECONDS
 	clothes_req = FALSE
 	action_icon_state = "shadow_walk"
@@ -195,7 +191,6 @@
 /obj/effect/proc_holder/spell/shadowling_vision
 	name = "Shadowling Darksight"
 	desc = "Gives you night and thermal vision."
-	panel = "Shadowling Abilities"
 	base_cooldown = 0
 	clothes_req = FALSE
 	action_icon_state = "darksight"
@@ -225,13 +220,11 @@
 /obj/effect/proc_holder/spell/shadowling_vision/thrall
 	desc = "Thrall Darksight"
 	desc = "Gives you night vision."
-	panel = "Thrall Abilities"
 
 
 /obj/effect/proc_holder/spell/aoe/shadowling_icy_veins
 	name = "Icy Veins"
 	desc = "Instantly freezes the blood of nearby people, stunning them and causing burn damage."
-	panel = "Shadowling Abilities"
 	base_cooldown = 25 SECONDS
 	clothes_req = FALSE
 	action_icon_state = "icy_veins"
@@ -275,7 +268,6 @@
 /obj/effect/proc_holder/spell/shadowling_enthrall //Turns a target into the shadowling's slave. This overrides all previous loyalties
 	name = "Enthrall"
 	desc = "Allows you to enslave a conscious, non-braindead, non-catatonic human to your will. This takes some time to cast."
-	panel = "Shadowling Abilities"
 	base_cooldown = 0
 	clothes_req = FALSE
 	action_icon_state = "enthrall"
@@ -356,7 +348,6 @@
 /obj/effect/proc_holder/spell/shadowling_regen_armor
 	name = "Rapid Re-Hatch"
 	desc = "Re-forms protective chitin that may be lost during cloning or similar processes."
-	panel = "Shadowling Abilities"
 	base_cooldown = 60 SECONDS
 	clothes_req = FALSE
 	action_icon_state = "regen_armor"
@@ -394,7 +385,6 @@
 /obj/effect/proc_holder/spell/shadowling_collective_mind
 	name = "Collective Hivemind"
 	desc = "Gathers the power of all of your thralls and compares it to what is needed for ascendance. Also gains you new abilities."
-	panel = "Shadowling Abilities"
 	base_cooldown = 30 SECONDS //30 second cooldown to prevent spam
 	clothes_req = FALSE
 	var/blind_smoke_acquired
@@ -482,7 +472,6 @@
 /obj/effect/proc_holder/spell/shadowling_blindness_smoke
 	name = "Blindness Smoke"
 	desc = "Spews a cloud of smoke which will blind enemies."
-	panel = "Shadowling Abilities"
 	base_cooldown = 60 SECONDS
 	clothes_req = FALSE
 	action_icon_state = "black_smoke"
@@ -540,7 +529,6 @@
 /obj/effect/proc_holder/spell/aoe/shadowling_screech
 	name = "Sonic Screech"
 	desc = "Deafens, stuns, and confuses nearby people. Also shatters windows."
-	panel = "Shadowling Abilities"
 	base_cooldown = 30 SECONDS
 	clothes_req = FALSE
 	action_icon_state = "screech"
@@ -593,7 +581,6 @@
 /obj/effect/proc_holder/spell/shadowling_null_charge
 	name = "Null Charge"
 	desc = "Empties an APC, preventing it from recharging until fixed."
-	panel = "Shadowling Abilities"
 	base_cooldown = 60 SECONDS
 	clothes_req = FALSE
 	action_icon_state = "null_charge"
@@ -656,7 +643,6 @@
 /obj/effect/proc_holder/spell/shadowling_revive_thrall
 	name = "Black Recuperation"
 	desc = "Revives or empowers a thrall."
-	panel = "Shadowling Abilities"
 	base_cooldown = 1 MINUTES
 	clothes_req = FALSE
 	action_icon_state = "revive_thrall"
@@ -781,7 +767,6 @@
 /obj/effect/proc_holder/spell/shadowling_extend_shuttle
 	name = "Destroy Engines"
 	desc = "Extends the time of the emergency shuttle's arrival by ten minutes using a life force of our enemy. Shuttle will be unable to be recalled. This can only be used once."
-	panel = "Shadowling Abilities"
 	clothes_req = FALSE
 	base_cooldown = 60 SECONDS
 	selection_activated_message		= "<span class='notice'>You start gathering destructive powers to delay the shuttle. <B>Left-click to cast at a target!</B></span>"
@@ -855,7 +840,6 @@
 /obj/effect/proc_holder/spell/ascendant_annihilate
 	name = "Annihilate"
 	desc = "Gibs someone instantly."
-	panel = "Ascendant"
 	base_cooldown = 0
 	clothes_req = FALSE
 	human_req = FALSE
@@ -911,7 +895,6 @@
 /obj/effect/proc_holder/spell/ascendant_hypnosis
 	name = "Hypnosis"
 	desc = "Instantly enthralls a human."
-	panel = "Ascendant"
 	base_cooldown = 0
 	clothes_req = FALSE
 	human_req = FALSE
@@ -953,7 +936,6 @@
 /obj/effect/proc_holder/spell/ascendant_phase_shift
 	name = "Phase Shift"
 	desc = "Phases you into the space between worlds at will, allowing you to move through walls and become invisible."
-	panel = "Ascendant"
 	base_cooldown = 1.5 SECONDS
 	clothes_req = FALSE
 	human_req = FALSE
@@ -985,7 +967,6 @@
 /obj/effect/proc_holder/spell/aoe/ascendant_storm
 	name = "Lightning Storm"
 	desc = "Shocks everyone nearby."
-	panel = "Ascendant"
 	base_cooldown = 10 SECONDS
 	clothes_req = FALSE
 	human_req = FALSE
@@ -1026,7 +1007,6 @@
 /obj/effect/proc_holder/spell/ascendant_transmit
 	name = "Ascendant Broadcast"
 	desc = "Sends a message to the whole wide world."
-	panel = "Ascendant"
 	base_cooldown = 20 SECONDS
 	clothes_req = FALSE
 	human_req = FALSE

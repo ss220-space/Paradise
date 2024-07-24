@@ -358,7 +358,6 @@
 
 /mob/verb/mode()
 	set name = "Activate Held Object"
-	set category = null
 	set src = usr
 
 	if(ismecha(loc))
@@ -454,146 +453,11 @@
 		else
 			return "<span class='notice'>[copytext_preserve_html(msg, 1, 57)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
 
-/mob/proc/is_dead()
-	return stat == DEAD
-
 /mob
 	var/newPlayerType = /mob/new_player
 
-/mob/verb/abandon_mob()
-	set name = "Respawn"
-	set category = "OOC"
-
-	if(!GLOB.abandon_allowed)
-		to_chat(usr, "<span class='warning'>Respawning is disabled.</span>")
-		return
-
-	if(stat != DEAD || !SSticker)
-		to_chat(usr, "<span class='boldnotice'>You must be dead to use this!</span>")
-		return
-
-	if(!(usr in GLOB.respawnable_list))
-		to_chat(usr, "You are not dead or you have given up your right to be respawned!")
-		return
-
-	var/deathtime = world.time - src.timeofdeath
-	if(istype(src,/mob/dead/observer))
-		var/mob/dead/observer/G = src
-		if(cannotPossess(G))
-			to_chat(usr, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
-			return
-
-	var/deathtimeminutes = round(deathtime / 600)
-	var/pluralcheck = "minute"
-	if(deathtimeminutes == 0)
-		pluralcheck = ""
-	else if(deathtimeminutes == 1)
-		pluralcheck = " [deathtimeminutes] minute and"
-	else if(deathtimeminutes > 1)
-		pluralcheck = " [deathtimeminutes] minutes and"
-	var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10,1)
-
-	if(deathtimeminutes < CONFIG_GET(number/respawn_delay))
-		to_chat(usr, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
-		to_chat(usr, "<span class='warning'>You must wait [CONFIG_GET(number/respawn_delay)] minutes to respawn!</span>")
-		return
-
-	if(alert("Are you sure you want to respawn?", "Are you sure?", "Yes", "No") != "Yes")
-		return
-
-	add_game_logs("has respawned.", usr)
-
-	to_chat(usr, "<span class='boldnotice'>Make sure to play a different character, and please roleplay correctly!</span>")
-
-	if(!client)
-		add_game_logs("respawn failed due to disconnect.", usr)
-		return
-	client.screen.Cut()
-	client.screen += client.void
-
-	if(!client)
-		add_game_logs("respawn failed due to disconnect.", usr)
-		return
-
-	GLOB.respawnable_list -= usr
-	var/mob/new_player/M = new /mob/new_player()
-	if(!client)
-		add_game_logs("respawn failed due to disconnect.", usr)
-		qdel(M)
-		return
-
-	M.key = key
-	GLOB.respawnable_list += usr
-	return
-
-/mob/verb/observe()
-	set name = "Observe"
-	set category = "OOC"
-	var/is_admin = 0
-
-	if(client.holder && (client.holder.rights & R_ADMIN))
-		is_admin = 1
-	else if(stat != DEAD || isnewplayer(src))
-		to_chat(usr, "<span class='notice'>You must be observing to use this!</span>")
-		return
-
-	if(is_admin && stat == DEAD)
-		is_admin = 0
-
-	var/list/names = list()
-	var/list/namecounts = list()
-	var/list/creatures = list()
-
-	for(var/obj/O in GLOB.poi_list)
-		if(!O.loc)
-			continue
-		if(istype(O, /obj/item/disk/nuclear))
-			var/name = "Nuclear Disk"
-			if(names.Find(name))
-				namecounts[name]++
-				name = "[name] ([namecounts[name]])"
-			else
-				names.Add(name)
-				namecounts[name] = 1
-			creatures[name] = O
-
-		if(istype(O, /obj/singularity))
-			var/name = "Singularity"
-			if(names.Find(name))
-				namecounts[name]++
-				name = "[name] ([namecounts[name]])"
-			else
-				names.Add(name)
-				namecounts[name] = 1
-			creatures[name] = O
-
-
-	for(var/mob/M in sortAtom(GLOB.mob_list))
-		var/name = M.name
-		if(names.Find(name))
-			namecounts[name]++
-			name = "[name] ([namecounts[name]])"
-		else
-			names.Add(name)
-			namecounts[name] = 1
-
-		creatures[name] = M
-
-
-	client.perspective = EYE_PERSPECTIVE
-
-	var/eye_name = null
-
-	var/ok = "[is_admin ? "Admin Observe" : "Observe"]"
-	eye_name = input("Please, select a player!", ok, null, null) as null|anything in creatures
-
-	if(!eye_name)
-		return
-
-	var/mob/mob_eye = creatures[eye_name]
-
-	if(client && mob_eye)
-		client.eye = mob_eye
+/mob/proc/is_dead()
+	return stat == DEAD
 
 /mob/verb/cancel_camera()
 	set name = "Cancel Camera View"
@@ -697,130 +561,10 @@
 /mob/proc/is_muzzled()
 	return 0
 
-/mob/Stat()
-	..()
-
-	show_stat_turf_contents()
-
-	statpanel("Status") // We only want alt-clicked turfs to come before Status
-	stat(null, "Round ID: [GLOB.round_id ? GLOB.round_id : "NULL"]")
-
-	for(var/obj/effect/proc_holder/spell/spell as anything in mob_spell_list)
-		add_spell_to_statpanel(spell)
-	if(mind && isliving(src))
-		for(var/obj/effect/proc_holder/spell/spell as anything in mind.spell_list)
-			add_spell_to_statpanel(spell)
-
-	// Allow admins + PR reviewers to VIEW the panel. Doesnt mean they can click things.
-	if((is_admin(src) || check_rights(R_VIEWRUNTIMES, FALSE)))
-		// Shows SDQL2 list
-		if(length(GLOB.sdql2_queries))
-			if(statpanel("SDQL2"))
-				stat("Access Global SDQL2 List", GLOB.sdql2_vv_statobj)
-				for(var/i in GLOB.sdql2_queries)
-					var/datum/sdql2_query/Q = i
-					Q.generate_stat()
-		// Below are checks to see which MC panel you are looking at
-		if(client?.prefs.toggles2 & PREFTOGGLE_2_MC_TABS)
-			// Shows MC Metadata
-			if(statpanel("MC|M"))
-				stat("Info", "Showing MC metadata")
-				var/turf/T = get_turf(client.eye)
-				stat("Location:", COORD(T))
-				stat("CPU:", "[Master.formatcpu(world.cpu)]")
-				stat("Map CPU:", "[Master.formatcpu(world.map_cpu)]")
-				//stat("Map CPU:", "[Master.formatcpu(world.map_cpu)]")
-				stat("Instances:", "[num2text(world.contents.len, 10)]")
-				GLOB.stat_entry()
-				stat("Server Time:", time_stamp())
-				if(Master)
-					Master.stat_entry()
-				else
-					stat("Master Controller:", "ERROR")
-				if(Failsafe)
-					Failsafe.stat_entry()
-				else
-					stat("Failsafe Controller:", "ERROR")
-
-			// Shows subsystems with SS_NO_FIRE
-			if(statpanel("MC|N"))
-				stat("Info", "Showing subsystems that do not fire")
-				if(Master)
-					for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
-						if(SS.flags & SS_NO_FIRE)
-							SS.stat_entry()
-
-			// Shows subsystems with the SS_CPUDISPLAY_LOW flag
-			if(statpanel("MC|L"))
-				stat("Info", "Showing subsystems marked as low intensity")
-				if(Master)
-					for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
-						if((SS.cpu_display == SS_CPUDISPLAY_LOW) && !(SS.flags & SS_NO_FIRE))
-							SS.stat_entry()
-
-			// Shows subsystems with the SS_CPUDISPLAY_DEFAULT flag
-			if(statpanel("MC|D"))
-				stat("Info", "Showing subsystems marked as default intensity")
-				if(Master)
-					for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
-						if((SS.cpu_display == SS_CPUDISPLAY_DEFAULT) && !(SS.flags & SS_NO_FIRE))
-							SS.stat_entry()
-
-			// Shows subsystems with the SS_CPUDISPLAY_HIGH flag
-			if(statpanel("MC|H"))
-				stat("Info", "Showing subsystems marked as high intensity")
-				if(Master)
-					for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
-						if((SS.cpu_display == SS_CPUDISPLAY_HIGH) && !(SS.flags & SS_NO_FIRE))
-							SS.stat_entry()
-
-	statpanel("Status") // Switch to the Status panel again, for the sake of the lazy Stat procs
-
-	if(client?.statpanel == "Status")
-		if(SSticker)
-			show_stat_station_time()
-		stat(null, "Players Connected: [length(GLOB.clients)]")
-
-
-// this function displays the station time in the status panel
-/mob/proc/show_stat_station_time()
-	stat(null, "Current Map: [SSmapping.map_datum.name]")
-	if(SSmapping.next_map)
-		stat(null, "Next Map: [SSmapping.next_map.name]")
-	stat(null, "Round Time: [ROUND_TIME_TEXT()]")
-	stat(null, "Station Time: [station_time_timestamp()]")
-	stat(null, "Server TPS: [world.fps]")
-	stat(null, "Desired Client FPS: [client?.prefs?.clientfps]")
-	stat(null, "Time Dilation: [round(SStime_track.time_dilation_current,1)]% " + \
-				"AVG:([round(SStime_track.time_dilation_avg_fast,1)]%, " + \
-				"[round(SStime_track.time_dilation_avg,1)]%, " + \
-				"[round(SStime_track.time_dilation_avg_slow,1)]%)")
-	stat(null, "Ping: [round(client.lastping, 1)]ms (Average: [round(client.avgping, 1)]ms)")
-
-// this function displays the shuttles ETA in the status panel if the shuttle has been called
-/mob/proc/show_stat_emergency_shuttle_eta()
-	var/ETA = SSshuttle.emergency.getModeStr()
-	if(ETA)
-		stat(null, "[ETA] [SSshuttle.emergency.getTimerStr()]")
-
-/mob/proc/show_stat_turf_contents()
-	if(listed_turf && client)
-		if(!TurfAdjacent(listed_turf))
-			listed_turf = null
-		else
-			statpanel(listed_turf.name, null, listed_turf)
-			var/list/statpanel_things = list()
-			for(var/foo in listed_turf)
-				var/atom/A = foo
-				if(A.invisibility > see_invisible)
-					continue
-				if(!A.simulated)
-					continue
-				statpanel_things += A
-			statpanel(listed_turf.name, null, statpanel_things)
-
-/mob/proc/add_spell_to_statpanel(obj/effect/proc_holder/spell/S)
-	statpanel(S.panel,"[S.cooldown_handler.statpanel_info()]", S)
+/mob/proc/get_status_tab_items()
+	SHOULD_CALL_PARENT(TRUE)
+	var/list/status_tab_data = list()
+	return status_tab_data
 
 // facing verbs
 /mob/proc/canface()

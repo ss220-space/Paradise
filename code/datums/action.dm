@@ -707,7 +707,7 @@
 	button.add_overlay(unavailable_effect)
 	// Make a holder for the charge text
 	var/static/mutable_appearance/maptext_holder = mutable_appearance('icons/effects/effects.dmi', "nothing", BUTTON_LAYER_MAPTEXT, appearance_flags = RESET_COLOR|RESET_ALPHA)
-	var/text = spell.cooldown_handler.statpanel_info()
+	var/text = spell.cooldown_handler.cooldown_info()
 	maptext_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[text]</div>"
 	button.add_overlay(maptext_holder)
 
