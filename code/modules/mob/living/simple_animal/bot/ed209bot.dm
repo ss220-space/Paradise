@@ -84,9 +84,6 @@
 			else if (lasercolor == "r")
 				name = pick("RED RAMPAGE","RED ROVER","RED KILLDEATH MURDERBOT")
 
-	//SECHUD
-	var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
-	secsensor.add_hud_to(src)
 
 
 /mob/living/simple_animal/bot/ed209/proc/setup_access()

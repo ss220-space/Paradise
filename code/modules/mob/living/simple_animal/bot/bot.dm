@@ -224,7 +224,6 @@
 	// give us the hud too!
 	if(path_hud)
 		path_hud.add_to_hud(src)
-		path_hud.add_hud_to(src)
 
 
 /mob/living/simple_animal/bot/proc/add_bot_filter()
@@ -249,6 +248,10 @@
 	if(path_hud)
 		QDEL_NULL(path_hud)
 		path_hud = null
+
+	var/datum/atom_hud/data_hud = GLOB.huds[data_hud_type]
+	if(data_hud)
+		data_hud.remove_hud_from(src)
 
  	GLOB.bots_list -= src
 

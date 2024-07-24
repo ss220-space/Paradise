@@ -32,6 +32,16 @@
 	..()
 	Link_Abduction_Equipment()
 
+/obj/machinery/abductor/console/Destroy()
+	gizmo = null
+	vest = null
+	experiment = null
+	pad = null
+	camera = null
+	disguises.Cut()
+	return ..()
+
+
 /obj/machinery/abductor/console/attack_hand(mob/user)
 	if(..())
 		return

@@ -75,7 +75,7 @@
 	update_icons()
 
 
-/mob/living/silicon/robot/drone/Destroy()
+/mob/living/silicon/robot/cogscarab/Destroy()
 	for(var/datum/action/innate/hide/drone/cogscarab/hide in actions)
 		hide.Remove(src)
 	. = ..()

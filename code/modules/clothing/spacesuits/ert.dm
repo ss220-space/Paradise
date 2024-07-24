@@ -42,6 +42,10 @@
 	if(in_range(user, src) && has_camera)
 		. += "<span class='notice'>This helmet has a built-in camera. It's [camera ? "" : "in"]active.</span>"
 
+/obj/item/clothing/head/helmet/space/hardsuit/ert/Destroy()
+	QDEL_NULL(camera)
+	return ..()
+
 /obj/item/clothing/head/helmet/space/hardsuit/ert/gamma
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100, fire = 80, acid = 80)
@@ -397,3 +401,7 @@
 	. = ..()
 	if(in_range(user, src) && has_camera)
 		. += "<span class='notice'>This helmet has a built-in camera. It's [camera ? "" : "in"]active.</span>"
+
+/obj/item/clothing/head/helmet/space/ert_eva_amber/Destroy()
+	QDEL_NULL(camera)
+	return ..()

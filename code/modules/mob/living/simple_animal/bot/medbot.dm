@@ -145,8 +145,6 @@
 	prev_access = access_card.access
 	qdel(J)
 
-	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medsensor.add_hud_to(src)
 
 	if(new_skin)
 		skin = new_skin

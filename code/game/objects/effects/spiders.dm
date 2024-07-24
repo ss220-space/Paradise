@@ -114,6 +114,8 @@
 /obj/structure/spider/spiderling/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	entry_vent = null
+	// Release possible ref if a walk is still being processed
+	walk_to(src, 0)
 	new /obj/effect/decal/cleanable/spiderling_remains(get_turf(src))
 	return ..()
 
