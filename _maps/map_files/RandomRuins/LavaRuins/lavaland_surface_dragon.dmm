@@ -74,10 +74,6 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/drake)
-"hx" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "hQ" = (
 /obj/structure/stone_tile/cracked{
 	dir = 1
@@ -261,9 +257,6 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/drake)
-"LB" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/drake)
 "NI" = (
@@ -766,7 +759,7 @@ xU
 gY
 gY
 gY
-hx
+bB
 bB
 bB
 bB
@@ -874,7 +867,7 @@ gY
 gY
 gY
 gY
-LB
+gY
 gY
 bB
 bB
