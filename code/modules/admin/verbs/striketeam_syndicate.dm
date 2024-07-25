@@ -54,7 +54,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	GLOB.sent_syndicate_strike_team = 1
 
 	//Spawns commandos and equips them.
-	for(var/obj/effect/landmark/L  in GLOB.landmarks_list)
+	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 		if(syndicate_commando_number <= 0)
 			break
 
