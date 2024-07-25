@@ -1,4 +1,8 @@
+#ifdef UNIT_TESTS
+GLOBAL_VAR_INIT(mob_suspension, FALSE)
+#else
 GLOBAL_VAR_INIT(mob_suspension, TRUE)
+#endif
 
 SUBSYSTEM_DEF(mobs)
 	name = "Mobs"
