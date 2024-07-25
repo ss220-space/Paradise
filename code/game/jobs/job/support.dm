@@ -322,8 +322,7 @@
 	if(!(locate(/datum/action/innate/mimicking) in actions))
 		var/datum/action/innate/mimicking/mimicking = new
 		mimicking.Grant(src)
-	if(!(locate(/mob/living/carbon/human/proc/mimicking) in verbs))
-		verbs += /mob/living/carbon/human/proc/mimicking
+	verbs |= /mob/living/carbon/human/proc/mimicking
 
 /datum/action/innate/mimicking
 	name = "Mimicking"
