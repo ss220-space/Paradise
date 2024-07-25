@@ -1769,7 +1769,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 //returns the number of ticks slept
 /proc/stoplag(initial_delay)
-	if(!Master || !(Master.current_runlevel & RUNLEVELS_DEFAULT))
+	if (!Master || Master.init_stage_completed < INITSTAGE_MAX)
 		sleep(world.tick_lag)
 		return 1
 	if(!initial_delay)

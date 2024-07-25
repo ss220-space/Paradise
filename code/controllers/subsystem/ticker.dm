@@ -89,6 +89,7 @@ SUBSYSTEM_DEF(ticker)
 
 	randomtips = file2list("strings/tips.txt")
 	memetips = file2list("strings/sillytips.txt")
+	return SS_INIT_SUCCESS
 
 
 /datum/controller/subsystem/ticker/fire()
