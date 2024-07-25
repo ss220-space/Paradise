@@ -1,3 +1,5 @@
+GLOBAL_VAR_INIT(idlenpc_suspension, TRUE)
+
 SUBSYSTEM_DEF(idlenpcpool)
 	name = "Idling NPC Pool"
 	flags = SS_POST_FIRE_TIMING|SS_BACKGROUND
@@ -33,6 +35,7 @@ SUBSYSTEM_DEF(idlenpcpool)
 
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
+	var/suspension = GLOB.idlenpc_suspension
 
 	while(currentrun.len)
 		var/mob/living/simple_animal/SA = currentrun[currentrun.len]
@@ -42,10 +45,15 @@ SUBSYSTEM_DEF(idlenpcpool)
 			GLOB.simple_animals[AI_IDLE] -= SA
 			continue
 
+		var/turf/T = get_turf(SA)
+		if(suspension && T && !length(SSmobs.clients_by_zlevel[T.z]))
+			continue
+
 		if(!SA.ckey)
 			if(SA.stat != DEAD)
 				SA.handle_automated_movement()
 			if(SA.stat != DEAD)
 				SA.consider_wakeup()
+
 		if(MC_TICK_CHECK)
 			return

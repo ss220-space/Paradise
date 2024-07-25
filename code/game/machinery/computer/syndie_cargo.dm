@@ -374,7 +374,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 
 					if(find_slip && istype(thing,/obj/item/paper/manifest))
 						var/obj/item/paper/manifest/slip = thing
-						var/slip_stamped_len = length(slip.stamped)
+						var/slip_stamped_len = LAZYLEN(slip.stamped)
 						if(slip_stamped_len) //yes, the clown stamp will work. clown is the highest authority on the station, it makes sense
 							// Did they mark it as erroneous?
 							var/denied = 0

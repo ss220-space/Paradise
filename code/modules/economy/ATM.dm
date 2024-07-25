@@ -301,13 +301,7 @@ log transactions
 					<i>Service terminal ID:</i> [machine_id]<br>"}
 
 				//stamp the paper
-				var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
-				stampoverlay.icon_state = "paper_stamp-cent"
-				if(!R.stamped)
-					R.stamped = new()
-				R.stamped += /obj/item/stamp
-				LAZYADD(R.stamp_overlays, stampoverlay)
-				R.stamps += "<HR><i>This paper has been stamped by the Automatic Teller Machine.</i>"
+				R.stamp(/obj/item/stamp, TRUE, "<i>This paper has been stamped by the Automatic Teller Machine.</i>", "stamp-cent")
 
 			playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)
 

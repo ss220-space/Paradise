@@ -80,7 +80,7 @@
 		if(isrobot(user))
 			effect = SOUND_EFFECT_MEGAPHONE_ROBOT
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, user, M, message_tts, user.tts_seed, FALSE, effect)
-		log_debug("megaphone.saymsg(): [message]")
+		//log_debug("megaphone.saymsg(): [message]")
 
 /obj/item/megaphone/emag_act(mob/user)
 	if(!emagged)

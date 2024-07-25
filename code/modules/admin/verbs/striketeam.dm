@@ -150,9 +150,7 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 			Код ядерной аутентификации: <b>[nuke_code ? nuke_code : "Не предоставлен"]</b></p>\
 			<p><b>Удачи, солдат!</b></p>"
 			P.name = "Руководство Специальных Операций"
-			var/obj/item/stamp/centcom/stamp = new
-			P.stamp(stamp)
-			qdel(stamp)
+			P.stamp(/obj/item/stamp/centcom)
 
 	for(var/thing in GLOB.landmarks_list)
 		var/obj/effect/landmark/L = thing

@@ -250,3 +250,99 @@
   endipe:
   - tweak: add ointment to nanomed-plus (#5413)
   - add: new firstaid for paramed (#5418)
+'2024-07-22':
+  Antoonij:
+  - bugfix: species meat reagent name fix (#5526)
+  Vladisvell:
+  - tweak: Removes ambience playing from entering area (#5537)
+'2024-07-24':
+  Antoonij:
+  - bugfix: morph teleport (#5448)
+  - bugfix: shadowling veil fix (#5518)
+  - bugfix: rcd window mode air fix (#5542)
+  - add: advancedtoolusing for borers && chans (#5389)
+  - add: shadow update (#5441)
+  Aziz Chynaliev:
+  - del: Cleaners now can be colored using crayons " (#5554)
+  BoshyG:
+  - add: Varieties of armored gloves for ERT and Syndicate (and some other roles)
+      (#5527)
+  Daeberdir:
+  - unknown: '`/tableflip` icons and new "hotkey". (#4975)'
+  - refactor: wooden cabinets visuals standartising. (#5227)
+  Den109G:
+  - del: Comment debug code for saylogs (#5532)
+  FanTik-Ratge:
+  - imageadd: new maid sex uniform  (#5477)
+  - imageadd: Foodfart (#5513)
+  - imageadd: Kitchen update (#5476)
+  Helmsman:
+  - add: ash tendril has heal aura that heals ash walkers (#5132)
+  Lentye:
+  - add: Добавление категории карго контрабанды, увеличение списка контры (#5168)
+  LiquidPotroh:
+  - tweak: Disarms without slowdown (#5451)
+  - add: Abductors moderate event (#4852)
+  MstrKabach:
+  - refactor: Cleaners now can be colored using crayons  (#4895)
+  NightDawnFox:
+  - add: '3 lavaland tweaks in one: new injector, capsule now toss you & new shaft
+      miner pens (#5057)'
+  - balance: a bunch of weaken -> knockdown changes (#5523)
+  - add: syndicate reverse card (#5137)
+  Quinalion:
+  - balance: Sleeping Carp Rollback (#5480)
+  ROdenFL:
+  - bugfix: vending icon fixes (#5549)
+  - bugfix: revenant gas scan runtime (#5535)
+  - bugfix: empty message runtime and some plan analyzer standartization (#5536)
+  - bugfix: not working async input replaced by tgui_input_list, stationary gps ui
+      state, nanomap marker border return, remove bad \t (#5541)
+  - unknown: text emphasis (#5543)
+  - balance: uplink refund and holoparasites (#5447)
+  SAAD:
+  - server: Celestation improvement 3 (#5547)
+  - bugfix: July Lavalend ruins general cleanup (#5551)
+  SHODAN:
+  - imageadd: new_sprite_tools (#5485)
+  TimChi:
+  - add: Cursed Piano (#5100)
+  Vladisvell:
+  - add: Mobs are now suspended when there are no alive players on the same z level
+      (#5548)
+  - del: Removes NanoMob (#5550)
+  - bugfix: Failed test fixes (#5553)
+  - tweak: Light is no more light, but let there be light (#5519)
+  - add: Added waitfor = 0 for some background tasks (#5506)
+  - bugfix: Returns white noise, ambience now works (#5538)
+  - add: Enables and improves Garbage Collector (#5360)
+  - refactor: Removes all lava platings, lava is smoothed by default (#5479)
+  - del: Added waitfor = 0 for some background tasks" (#5558)
+  Zwei:
+  - bugfix: Bandanas Head Sprites Fix (#5539)
+  - bugfix: Jaunter Checks Storage (#5544)
+  - bugfix: Correct Newtonian Movement After Throwing (#5495)
+  - bugfix: Hardsuits And Hooded Suits Update (#5507)
+  - tweak: Alien Grab Movespeed Penalty Return (#5371)
+  - refactor: Electrocute Refactor (#5515)
+  captainnelly:
+  - bugfix: beds and chairs obj layer (#4997)
+  dageavtobusnick:
+  - bugfix: blob overmind now visible in orbit (#5534)
+  endipe:
+  - add: cultivator now has a progress-bar (#5471)
+  pilygun:
+  - add: Баунти) Leather Syndicate Coat in t2 loadout donor (#5516)
+  - imageadd: New sprites Weapons  (#5517)
+'2024-07-25':
+  MstrKabach:
+  - add: Camera can be worn around the neck (#5525)
+  Vladisvell:
+  - tweak: removed debug log for megaphones (#5566)
+  Zwei:
+  - tweak: Show Runtimes Amount By Type (#5559)
+  - bugfix: Stamp Overlays Fix (#5556)
+  dageavtobusnick:
+  - refactor: blob objective update fix (#5560)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#5565)

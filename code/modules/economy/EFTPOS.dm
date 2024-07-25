@@ -72,7 +72,7 @@
 		<b>Station time:</b> [station_time_timestamp()] <br>
 		-------------------------------------- <br>
 		This notice does not require a signature.</tt>"}
-	ch.stamps += "<hr><i>This paper has been stamped by the [machine_name].</i>"
+	ch.stamp(/obj/item/stamp, TRUE, "<i>This paper has been stamped by the [machine_name].</i>")
 	user.put_in_hands(ch, ignore_anim = FALSE)
 
 /obj/item/eftpos/proc/print_reference(mob/user)
@@ -83,7 +83,7 @@
 		-------------------------------------- <br>
 		<b>Access code:</b> [access_code] <br>
 		Do not lose or misplace this note.</tt>"}
-	ref.stamps += "<hr><i>This paper has been stamped by the [machine_name].</i>"
+	ref.stamp(/obj/item/stamp, TRUE, "<i>This paper has been stamped by the [machine_name].</i>")
 	user.put_in_hands(ref, ignore_anim = FALSE)
 
 /obj/item/eftpos/proc/reconnect_database()

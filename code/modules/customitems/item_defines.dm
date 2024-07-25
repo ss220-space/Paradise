@@ -1272,7 +1272,7 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/toy/plushie/fluff/fox/ui_action_click(mob/user)
+/obj/item/toy/plushie/fluff/fox/ui_action_click(mob/user, datum/action/action, leftclick)
 	change_color()
 
 
@@ -1326,7 +1326,7 @@
 	var/adjusted = FALSE
 
 
-/obj/item/clothing/head/fluff/chronx/ui_action_click()
+/obj/item/clothing/head/fluff/chronx/ui_action_click(mob/user, datum/action/action, leftclick)
 	adjust()
 
 

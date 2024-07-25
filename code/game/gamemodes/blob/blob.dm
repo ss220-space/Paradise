@@ -104,7 +104,7 @@
 
 
 /datum/game_mode/proc/update_blob_objective()
-	if(blob_objective)
+	if(blob_objective && !blob_objective.completed)
 		blob_objective.critical_mass = GLOB.blobs.len
 		blob_objective.needed_critical_mass = blob_win_count
 		blob_objective.set_target()

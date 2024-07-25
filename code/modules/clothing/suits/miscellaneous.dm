@@ -778,6 +778,22 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
+/obj/item/clothing/suit/storage/leather_trenchcoat/runner
+	name = "leather trenchcoat"
+	desc = "Длинное кожаное пальто-тренч с натуральным мехом. Вы чувствуете себя одиноко, когда носите его..."
+	icon_state = "bladerunner_coat"
+	item_state = "bladerunner_coat"
+
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		)
 
 //trackjackets
 
@@ -1117,7 +1133,7 @@
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/clothing/suit/advanced_protective_suit/ui_action_click()
+/obj/item/clothing/suit/advanced_protective_suit/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(on)
 		on = 0
 		to_chat(usr, "You turn the suit's special processes off.")

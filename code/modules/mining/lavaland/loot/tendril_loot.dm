@@ -165,7 +165,7 @@
 	if(!COOLDOWN_FINISHED(src, vehicle_move_cooldown))
 		return FALSE
 	//We can move from land to lava, or lava to land, but not from land to land
-	if(!istype(get_step(src, direction), /turf/simulated/floor/plating/lava/smooth) && !istype(get_turf(src), /turf/simulated/floor/plating/lava/smooth))
+	if(!istype(get_step(src, direction), /turf/simulated/floor/lava) && !istype(get_turf(src), /turf/simulated/floor/lava))
 		to_chat(user, span_warning("You cannot traverse futher!"))
 		COOLDOWN_START(src, vehicle_move_cooldown, 0.5 SECONDS)
 		return FALSE

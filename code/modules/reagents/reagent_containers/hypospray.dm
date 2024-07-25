@@ -322,6 +322,26 @@
 	amount_per_transfer_from_this = 42
 	list_reagents = list("salbutamol" = 10, "teporone" = 15, "epinephrine" = 10, "lavaland_extract" = 2, "weak_omnizine" = 5) //Short burst of healing, followed by minor healing from the saline
 
+/obj/item/reagent_containers/hypospray/autoinjector/survival/luxury
+	name = "luxury medipen"
+	desc = "Cutting edge bluespace technology allowed Nanotrasen to compact 40 of volume into a single medipen. Contains rare and powerful chemicals used to aid in exploration of very hard enviroments.  <br><span class='boldwarning'>WARNING: more than one pen injection in quick succession WILL result in quick death.</span>"
+	icon_state = "redinjector"
+	volume = 40
+	amount_per_transfer_from_this = 40
+	list_reagents = list("salbutamol" = 10, "adv_lava_extract" = 10, "teporone" = 10, "hydrocodone" = 10)
+
+/obj/item/reagent_containers/hypospray/autoinjector/survival/luxury/attack(mob/living/M, mob/user)
+	if(lavaland_equipment_pressure_check(get_turf(user)))
+		amount_per_transfer_from_this = initial(amount_per_transfer_from_this)
+		return ..()
+
+	to_chat(user,span_notice("You start manually releasing the low-pressure gauge..."))
+	if(!do_after(user, 5 SECONDS, target = M)) //5 seconds release and...
+		return
+
+	amount_per_transfer_from_this = initial(amount_per_transfer_from_this) * 0.3 //1/3 of the reagents
+	return ..()
+
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium
 	name = "protoype nanite autoinjector"
 	desc = "After a short period of time the nanites will slow the body's systems and assist with body repair. Nanomachines son."

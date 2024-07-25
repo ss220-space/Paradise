@@ -256,7 +256,7 @@
 		if(M == user)
 			continue
 		M.Beam(L, icon_state = "purple_lightning", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
-		M.electrocute_act(shock_damage, L, safety = TRUE)
+		M.electrocute_act(shock_damage, "настенной лампы", flags = SHOCK_NOGLOVES)
 		do_sparks(4, 0, M)
 		playsound(M, 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 
