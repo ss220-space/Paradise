@@ -107,7 +107,7 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 			commando_number--
 
 	//Spawns the rest of the commando gear.
-	for(var/obj/effect/landmark/L  in GLOB.landmarks_list)
+	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 
 		if(L.name == "Commando_Manual")
 			//new /obj/item/gun/energy/pulse_rifle(L.loc)
