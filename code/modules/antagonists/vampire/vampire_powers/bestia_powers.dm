@@ -1897,6 +1897,7 @@
 	minbodytemp = 0
 	maxbodytemp = 600	// better than human vampire but still dangerous
 	heat_damage_per_tick = 5 	// we are a vampire animal and high temperatures are pretty bad
+	AI_delay_max = 0 SECONDS
 	var/dead_for_sure = FALSE	// we need this to prevent death() proc to invoke nultiple times
 	var/datum/antagonist/vampire/vampire
 	var/mob/living/carbon/human/human_vampire
@@ -2249,7 +2250,7 @@
 	if(isliving(target))
 		var/mob/living/l_target = target
 		if(l_target.stat != CONSCIOUS && (!isvampire(user) && !isvampirethrall(user)))	// will change target on attacker instantly if its current target is unconscious or dead
-			target = user
+			GiveTarget(user)
 
 
 /mob/living/simple_animal/hostile/vampire/bats_summoned/Found(atom/A)
