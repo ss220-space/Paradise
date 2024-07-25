@@ -6373,7 +6373,7 @@
 /area/ruin/space/pirate_base/entertainment)
 "sj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/random_spawners/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -7100,10 +7100,7 @@
 	icon_state = "tube-broken";
 	status = 2
 	},
-/mob/living/simple_animal/mouse/brown{
-	desc = "Главный помощник архитектора станции.";
-	real_name = "Инспектор Мышь"
-	},
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
 "ul" = (
@@ -11260,7 +11257,7 @@
 /turf/simulated/floor/pod,
 /area/ruin/space/pirate_base/security_atrium)
 "GT" = (
-/obj/effect/spawner/random_spawners/mouse,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
@@ -16348,10 +16345,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
 "WA" = (
-/mob/living/simple_animal/mouse/brown{
-	desc = "Главный помощник архитектора станции.";
-	real_name = "Инспектор Мышь"
-	},
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/mining)
 "WD" = (

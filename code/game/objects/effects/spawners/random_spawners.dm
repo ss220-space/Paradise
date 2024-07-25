@@ -151,13 +151,16 @@
 	/obj/effect/decal/cleanable/fungus = 7)
 
 
-/obj/effect/spawner/random_spawners/mouse
-	name = "random color mouse"
+/obj/effect/spawner/random_spawners/rodent
+	name = "50pc mouse 50pc rat"
 	icon_state = "mouse"
 	result = list(
-		/mob/living/simple_animal/mouse,
-		/mob/living/simple_animal/mouse/white,
-		/mob/living/simple_animal/mouse/brown,
+		/mob/living/simple_animal/mouse = 1,
+		/mob/living/simple_animal/mouse/white = 1,
+		/mob/living/simple_animal/mouse/brown = 1,
+		/mob/living/simple_animal/mouse/rat = 1,
+		/mob/living/simple_animal/mouse/rat/white = 1,
+		/mob/living/simple_animal/mouse/rat/irish = 1,
 	)
 
 
