@@ -183,10 +183,10 @@
 
 /mob/living/simple_animal/hostile/poison/bees/proc/pollinate(obj/machinery/hydroponics/Hydro)
 	if(!istype(Hydro) || !Hydro.myseed || Hydro.dead || Hydro.recent_bee_visit || Hydro.lid_closed)
-		target = null
+		GiveTarget(null)
 		return
 
-	target = null //so we pick a new hydro tray next FindTarget(), instead of loving the same plant for eternity
+	GiveTarget(null) //so we pick a new hydro tray next FindTarget(), instead of loving the same plant for eternity
 	wanted_objects -= hydroponicstypecache //so we only hunt them while they're alive/seeded/not visisted
 	Hydro.recent_bee_visit = TRUE
 	spawn(BEE_TRAY_RECENT_VISIT)
@@ -307,14 +307,15 @@
 	QDEL_NULL(queen)
 	return ..()
 
+
 /mob/living/simple_animal/hostile/poison/bees/consider_wakeup()
-	if(beehome && loc == beehome) // If bees are chilling in their nest, they're not actively looking for targets
-		idle = min(100, ++idle)
-		if(idle >= BEE_IDLE_ROAMING && prob(BEE_PROB_GOROAM))
-			toggle_ai(AI_ON)
-			forceMove(beehome.drop_location())
-	else
-		..()
+	if(!beehome || loc != beehome) // If bees are chilling in their nest, they're not actively looking for targets
+		return ..()
+	idle = min(100, ++idle)
+	if(idle >= BEE_IDLE_ROAMING && prob(BEE_PROB_GOROAM))
+		forceMove(beehome.loc)
+		toggle_ai(AI_ON)
+
 
 //Syndicate Bees
 /mob/living/simple_animal/hostile/poison/bees/syndi
@@ -327,6 +328,7 @@
 	faction = list("hostile", "syndicate")
 	search_objects = FALSE //these bees don't care about trivial things like plants, especially when there is havoc to sow
 	bee_syndicate = TRUE
+	AI_delay_max = 0 SECONDS
 	var/list/master_and_friends = list()
 
 /mob/living/simple_animal/hostile/poison/bees/syndi/New()
