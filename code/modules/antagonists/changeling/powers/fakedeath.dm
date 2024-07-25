@@ -46,7 +46,7 @@
 		return FALSE
 
 	if(!user.stat)//Confirmation for living changelings if they want to fake their death
-		switch(alert("Are we sure we wish to fake our death?",, "Yes", "No"))
+		switch(tgui_alert(user, "Are we sure we wish to fake our death?", "Fake Death", list("Yes", "No")))
 			if("No")
 				return FALSE
 
