@@ -5,8 +5,8 @@
 
 /datum/event/rogue_drone/start()
 	var/list/possible_spawns = list()
-	for(var/obj/effect/landmark/C in GLOB.carplist)
-		possible_spawns.Add(C)
+	for(var/thing in GLOB.carplist)
+		possible_spawns.Add(thing)
 
 	var/num = rand(2, 12)
 	for(var/i = 0, i < num, i++)
