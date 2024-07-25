@@ -292,7 +292,7 @@ SUBSYSTEM_DEF(garbage)
 		postpone(time)
 
 	var/threshold = 0
-	//Issue with global config not loading can happen
+	//Issue with global config not loading can happen when hard deletions happening before config loading
 	if(global.config)
 		threshold = CONFIG_GET(number/hard_deletes_overrun_threshold)
 
