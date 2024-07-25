@@ -194,15 +194,13 @@
 		var/obj/item/paper/P = new
 		P.info = "The nuclear authorization code is: <b>[nuke_code]</b>"
 		P.name = "nuclear bomb code"
-		var/obj/item/stamp/syndicate/stamp = new
-		P.stamp(stamp)
-		qdel(stamp)
+		P.stamp(/obj/item/stamp/syndicate)
 
 		if(SSticker.mode.config_tag=="nuclear")
-			P.loc = synd_mind.current.loc
+			P.forceMove(synd_mind.current.loc)
 		else
 			var/mob/living/carbon/human/H = synd_mind.current
-			P.loc = H.loc
+			P.forceMove(H.loc)
 			H.equip_to_slot_or_del(P, ITEM_SLOT_POCKET_RIGHT, 0)
 			H.update_icons()
 
