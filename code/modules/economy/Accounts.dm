@@ -100,13 +100,7 @@ GLOBAL_LIST_EMPTY(all_money_accounts)
 			<i>Authorised NT officer overseeing creation:</i> [overseer]<br>"}
 
 		//stamp the paper
-		var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
-		stampoverlay.icon_state = "paper_stamp-cent"
-		if(!R.stamped)
-			R.stamped = new
-		R.stamped += /obj/item/stamp
-		LAZYADD(R.stamp_overlays, stampoverlay)
-		R.stamps += "<HR><i>This paper has been stamped by the Accounts Database.</i>"
+		R.stamp(/obj/item/stamp, TRUE, "<i>This paper has been stamped by the Accounts Database.</i>", "stamp-cent")
 
 	//add the account
 	M.transaction_log.Add(T)

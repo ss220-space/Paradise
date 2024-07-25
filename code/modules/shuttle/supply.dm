@@ -158,10 +158,11 @@
 				if(find_slip && istype(thing,/obj/item/paper/manifest))
 					var/obj/item/paper/manifest/slip = thing
 					// TODO: Check for a signature, too.
-					if(length(slip.stamped)) //yes, the clown stamp will work. clown is the highest authority on the station, it makes sense
+					var/slip_stamped_len = LAZYLEN(slip.stamped)
+					if(slip_stamped_len) //yes, the clown stamp will work. clown is the highest authority on the station, it makes sense
 						// Did they mark it as erroneous?
 						var/denied = FALSE
-						for(var/i in 1 to length(slip.stamped))
+						for(var/i in 1 to slip_stamped_len)
 							if(slip.stamped[i] == /obj/item/stamp/denied)
 								denied = TRUE
 						if(slip.erroneous && denied) // Caught a mistake by Centcom (IDEA: maybe Centcom rarely gets offended by this)
