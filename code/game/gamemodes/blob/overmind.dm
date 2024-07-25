@@ -55,6 +55,10 @@
 			hud_used.blobpwrdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#82ed00'>[round(src.blob_points)]</font></div>"
 
 
+/mob/camera/blob/memory()
+	SSticker.mode.update_blob_objective()
+	..()
+
 /mob/camera/blob/say(message)
 	if(!message)
 		return

@@ -401,7 +401,7 @@
 
 	ninja.adjust_bodytemperature(BODYTEMP_NORMAL - ninja.bodytemperature)
 
-/obj/item/clothing/suit/space/space_ninja/ui_action_click(mob/ninja, datum/action/action)
+/obj/item/clothing/suit/space/space_ninja/ui_action_click(mob/ninja, datum/action/action, leftclick)
 	if(!isninja(ninja) && !anyone)
 		to_chat(ninja, span_danger("<B>fÄTaL ÈÈRRoR</B>: 382200-*#00CÖDE <B>RED</B>\nUNAUHORIZED USÈ DETÈCeD\nCoMMÈNCING SUB-R0UIN3 13...\nTÈRMInATING U-U-USÈR..."))
 		ninja.dust()

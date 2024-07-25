@@ -62,7 +62,7 @@
 		to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
 		if(iscarbon(user))
 			var/mob/living/carbon/carbon = user
-			carbon.Weaken(10 SECONDS)
+			carbon.Knockdown(10 SECONDS)
 			carbon.Stuttering(20 SECONDS)
 		return
 
@@ -124,7 +124,7 @@
 		to_chat(user, span_clocklarge("\"Now now, this is for my servants, not you.\""))
 		if(iscarbon(user))
 			var/mob/living/carbon/carbon = user
-			carbon.Weaken(10 SECONDS)
+			carbon.Knockdown(10 SECONDS)
 			carbon.Stuttering(20 SECONDS)
 		return
 	switch(enchant_type)
@@ -138,7 +138,7 @@
 				visible_message(span_warning("[target]'s holy weapon absorbs the light!"))
 				deplete_spell()
 				return
-			living.Weaken(4 SECONDS)
+			living.Knockdown(3 SECONDS)
 			living.adjustStaminaLoss(30)
 			living.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 			living.flash_eyes(1, TRUE)
@@ -403,7 +403,7 @@
 
 /obj/item/twohanded/clock_hammer/attack(mob/living/M, mob/living/user, def_zone)
 	if(!isclocker(user))
-		user.Weaken(10 SECONDS)
+		user.Knockdown(10 SECONDS)
 		user.drop_item_ground(src, force = TRUE)
 		user.emote("scream")
 		user.visible_message("<span class='warning'>A powerful force shoves [user] away from [M]!</span>",
@@ -635,7 +635,7 @@
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.vomit()
-				C.Weaken(10 SECONDS)
+				C.Knockdown(10 SECONDS)
 		else
 			to_chat(user, "<span class='clocklarge'>\"Did you like having head?\"</span>")
 			to_chat(user, "<span class='userdanger'>The buckler suddenly hits you in the head!</span>")
@@ -693,7 +693,7 @@
 	if(enchant_type)
 		. += "clockwork_robe_overlay_[enchant_type]"
 
-/obj/item/clothing/suit/hooded/clockrobe/ui_action_click(mob/user, action)
+/obj/item/clothing/suit/hooded/clockrobe/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/activate/enchant))
 		if(!iscarbon(user))
 			return
@@ -719,7 +719,7 @@
 			to_chat(carbon, "<span class='danger'>Robe tightens, as it frees you to be flexible around!</span>")
 			add_attack_logs(user, user, "speed boosted with [src]", ATKLOG_ALL)
 	else
-		ToggleHood(user)
+		ToggleHood()
 
 /obj/item/clothing/suit/hooded/clockrobe/proc/uncloak(mob/user)
 	animate(user, alpha = 255, time = 1 SECONDS)
@@ -765,7 +765,7 @@
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.vomit()
-				C.Weaken(10 SECONDS)
+				C.Knockdown(10 SECONDS)
 		else
 			to_chat(user, "<span class='clocklarge'>\"I think this armor is too hot for you to handle.\"</span>")
 			user.emote("scream")
@@ -892,7 +892,7 @@
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.vomit(20)
-				C.Weaken(10 SECONDS)
+				C.Knockdown(10 SECONDS)
 		else
 			to_chat(user, "<span class='clocklarge'>\"I think this armor is too hot for you to handle.\"</span>")
 			user.emote("scream")
@@ -1019,7 +1019,7 @@
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.vomit()
-				C.Weaken(10 SECONDS)
+				C.Knockdown(10 SECONDS)
 		else
 			to_chat(user, "<span class='clocklarge'>\"Did you like having arms?\"</span>")
 			to_chat(user, "<span class='userdanger'>The gauntlets suddenly squeeze tight, crushing your arms before you manage to get them off!</span>")
@@ -1059,7 +1059,7 @@
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.vomit()
-				C.Weaken(10 SECONDS)
+				C.Knockdown(10 SECONDS)
 		else
 			to_chat(user, "<span class='clocklarge'>\"Let's see if you can dance with these.\"</span>")
 			to_chat(user, "<span class='userdanger'>The treads turn searing hot as you scramble to get them off!</span>")
@@ -1106,7 +1106,7 @@
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.vomit(20)
-				C.Weaken(10 SECONDS)
+				C.Knockdown(10 SECONDS)
 		else
 			to_chat(user, "<span class='heavy_brass'>\"Do you have a hole in your head? You're about to.\"</span>")
 			to_chat(user, "<span class='userdanger'>The helmet tries to drive a spike through your head as you scramble to remove it!</span>")
@@ -1136,7 +1136,7 @@
 		if(!iscultist(user))
 			to_chat(user, span_clocklarge("\"I think you need some different glasses. This too bright for you.\""))
 			user.flash_eyes()
-			user.Weaken(2 SECONDS)
+			user.Knockdown(2 SECONDS)
 			playsound(loc, 'sound/weapons/flash.ogg', 50, TRUE)
 		else
 			to_chat(user, span_clocklarge("\"Consider yourself judged, whelp.\""))

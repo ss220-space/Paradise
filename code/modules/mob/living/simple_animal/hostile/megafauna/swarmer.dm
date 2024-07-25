@@ -145,7 +145,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 
 	if(newloc.z == z) //so these actions are Z-specific
 		if(islava(newloc))
-			var/turf/simulated/floor/plating/lava/L = newloc
+			var/turf/simulated/floor/lava/L = newloc
 			if(!L.is_safe())
 				StartAction(20)
 				new /obj/structure/lattice/catwalk/swarmer_catwalk(newloc)
@@ -283,7 +283,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 		else
 			var/mob/living/L = target
 			L.attack_animal(src)
-			L.electrocute_act(10, src, safety = TRUE) //safety = TRUE means we don't check gloves... Ok?
+			L.electrocute_act(10, "свармера", flags = SHOCK_NOGLOVES) // SHOCK_NOGLOVES means we don't check gloves... Ok?
 		return TRUE
 	else
 		return ..()

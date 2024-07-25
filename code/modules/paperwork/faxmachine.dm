@@ -453,14 +453,13 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	text = replacetext(text, "<img src = syndielogo.png>", "` SYNDIE LOGO `\n")
 	text = replacetextEx(text, "<img src = syndielogo.png>", "` SYNDIE LOGO `\n")
 	var/textstamps = paper.stamps
-	for(var/type in paper.stamped)
-		var/obj/item/stamp/stamp = new type()
-		if(istype(stamp, /obj/item/stamp/chameleon))
+	for(var/obj/item/stamp/stamp_path as anything in paper.stamped)
+		if(ispath(stamp_path, /obj/item/stamp/chameleon))
 			var/text_stamp = replacetext(textstamps, regex(".*?<img src=large_stamp-(.*?).png>.*"), "$1") // pops from textstamps.
 			textstamps = replacetext(textstamps, regex("<img src=large_stamp-.*?.png>"), "")
 			text += "` [text_stamp] (CHAMELEON) stamp `"
 		else
-			text += "` [replacetext(replacetext(stamp.name, "rubber", ""), "'s", "")] `"
+			text += "` [replacetext(replacetext(initial(stamp_path.name), "rubber", ""), "'s", "")] `"
 
 	return strip_html_properly(text, MAX_PAPER_MESSAGE_LEN, TRUE) //So satisfying that max paper length equals max description disorcd
 

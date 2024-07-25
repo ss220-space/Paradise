@@ -1,12 +1,12 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /turf/simulated/wall/clockwork{
-	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface
+	baseturf = /turf/simulated/floor/lava/lava_land_surface
 	},
 /area/lavaland/surface/outdoors/unexplored/danger)
 "b" = (
 /turf/simulated/floor/clockwork{
-	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface;
+	baseturf = /turf/simulated/floor/lava/lava_land_surface;
 	temperature = 300;
 	oxygen = 14;
 	nitrogen = 23

@@ -35,7 +35,8 @@
 		///////////////
 		//SOUND STUFF//
 		///////////////
-	var/ambience_playing = FALSE
+
+	var/white_noise_playing = FALSE
 
 		////////////
 		//SECURITY//

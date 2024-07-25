@@ -196,15 +196,13 @@
 		var/obj/item/paper/P = new
 		P.info = "The nuclear authorization code is: <b>[nuke_code]</b>"
 		P.name = "nuclear bomb code"
-		var/obj/item/stamp/syndicate/stamp = new
-		P.stamp(stamp)
-		qdel(stamp)
+		P.stamp(/obj/item/stamp/syndicate)
 
 		if(SSticker.mode.config_tag=="nuclear")
-			P.loc = synd_mind.current.loc
+			P.forceMove(synd_mind.current.loc)
 		else
 			var/mob/living/carbon/human/H = synd_mind.current
-			P.loc = H.loc
+			P.forceMove(H.loc)
 			H.equip_to_slot_or_del(P, ITEM_SLOT_POCKET_RIGHT, 0)
 			H.update_icons()
 
@@ -253,7 +251,7 @@
 
 	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(synd_mob), ITEM_SLOT_CLOTH_INNER)
 	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(synd_mob), ITEM_SLOT_FEET)
-	synd_mob.equip_or_collect(new /obj/item/clothing/gloves/combat(synd_mob), ITEM_SLOT_GLOVES)
+	synd_mob.equip_or_collect(new /obj/item/clothing/gloves/combat/swat/syndicate(synd_mob), ITEM_SLOT_GLOVES)
 	synd_mob.equip_to_slot_or_del(new /obj/item/card/id/syndicate(synd_mob), ITEM_SLOT_ID)
 	synd_mob.equip_to_slot_or_del(new /obj/item/storage/backpack(synd_mob), ITEM_SLOT_BACK)
 	synd_mob.equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/pistol(synd_mob), ITEM_SLOT_BELT)

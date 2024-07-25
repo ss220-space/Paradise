@@ -79,7 +79,6 @@
 #define INIT_ORDER_SHUTTLE -22
 #define INIT_ORDER_CARGO_QUESTS -23
 #define INIT_ORDER_NIGHTSHIFT -24
-#define INIT_ORDER_NANOMOB -25
 #define INIT_ORDER_GAME_EVENTS -26
 #define INIT_ORDER_PATH -50
 #define INIT_ORDER_PERSISTENCE -95
@@ -90,7 +89,6 @@
 // If the subsystem isn't listed here it's either DEFAULT or PROCESS (if it's a processing subsystem child)
 
 #define FIRE_PRIORITY_PING         	10
-#define FIRE_PRIORITY_NANOMOB       10
 #define FIRE_PRIORITY_NIGHTSHIFT	10
 #define FIRE_PRIORITY_IDLE_NPC		10
 #define FIRE_PRIORITY_CLEANUP		10

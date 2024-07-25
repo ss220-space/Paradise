@@ -1,3 +1,8 @@
+#define LIGHT_AMOUNT_HEAL 2
+#define LIGHT_AMOUNT_DAMAGE 2
+#define TIME_TO_EMPOWER (1 MINUTES)
+#define TIME_TO_EXHAUST (5 SECONDS)
+
 /datum/species/shadow
 	name = SPECIES_SHADOW_BASIC
 	name_plural = "Shadows"
@@ -39,40 +44,70 @@
 	button_icon_state = "blind"
 
 /datum/action/innate/shadow/darkvision/Activate()
-	var/mob/living/carbon/human/H = owner
-	if(!H.vision_type)
-		H.set_vision_override(/datum/vision_override/nightvision)
-		to_chat(H, "<span class='notice'>Вы изменяете свой взор, чтобы видеть сквозь тьму.</span>")
+	var/mob/living/carbon/human/human = owner
+	if(!human.vision_type)
+		human.set_vision_override(/datum/vision_override/nightvision)
+		to_chat(human, "<span class='notice'>Вы изменяете свой взор, чтобы видеть сквозь тьму.</span>")
 	else
-		H.set_vision_override(null)
-		to_chat(H, "<span class='notice'>Вы изменяете свой взор, чтобы вновь различать свет и тени.</span>")
+		human.set_vision_override(null)
+		to_chat(human, "<span class='notice'>Вы изменяете свой взор, чтобы вновь различать свет и тени.</span>")
 
-/datum/species/shadow/on_species_gain(mob/living/carbon/human/H)
+/datum/species/shadow/on_species_gain(mob/living/carbon/human/human)
 	..()
 	if(grant_vision_toggle)
-		var/datum/action/innate/shadow/darkvision/vision_toggle = locate() in H.actions
+		var/datum/action/innate/shadow/darkvision/vision_toggle = locate() in human.actions
 		if(!vision_toggle)
 			vision_toggle = new
-			vision_toggle.Grant(H)
+			vision_toggle.Grant(human)
 
-/datum/species/shadow/on_species_loss(mob/living/carbon/human/H)
+/datum/species/shadow/on_species_loss(mob/living/carbon/human/human)
 	..()
-	var/datum/action/innate/shadow/darkvision/vision_toggle = locate() in H.actions
+	var/datum/action/innate/shadow/darkvision/vision_toggle = locate() in human.actions
 	if(grant_vision_toggle && vision_toggle)
-		H.vision_type = null
-		vision_toggle.Remove(H)
-	H.clear_alert("lightexposure")
+		human.vision_type = null
+		vision_toggle.Remove(human)
+	human.clear_alert("lightexposure")
+	human.remove_status_effect(STATUS_EFFECT_SHADOW_EMPOWER)
 
-/datum/species/shadow/handle_life(mob/living/carbon/human/H)
-	var/light_amount = 0
-	if(isturf(H.loc))
-		var/turf/T = H.loc
-		light_amount = T.get_lumcount() * 10
-
-		if(light_amount > 2) //if there's enough light, start dying
-			H.take_overall_damage(1,1)
-			H.throw_alert("lightexposure", /atom/movable/screen/alert/lightexposure)
-		else if(light_amount < 2) //heal in the dark
-			H.heal_overall_damage(1,1)
-			H.clear_alert("lightexposure")
+/datum/species/shadow/handle_life(mob/living/carbon/human/human)
+	if(!light_check(human)) //if there's enough light, start dying
+		human.take_overall_damage(1,1)
+		human.throw_alert("lightexposure", /atom/movable/screen/alert/lightexposure)
+	else if(light_check(human)) //heal in the dark
+		human.heal_overall_damage(1,1)
+		human.clear_alert("lightexposure")
 	..()
+
+/datum/species/shadow/proc/empower_handler(mob/living/carbon/human/human, empowering = FALSE)
+	switch(empowering)
+		if(TRUE)
+			if(do_after(human, TIME_TO_EMPOWER, human, ALL, progress = FALSE, max_interact_count = 1, extra_checks = CALLBACK(src, PROC_REF(light_check), human)))
+				human.apply_status_effect(STATUS_EFFECT_SHADOW_EMPOWER)
+		if(FALSE)
+			if(do_after(human, TIME_TO_EXHAUST, human, ALL, progress = FALSE, max_interact_count = 1)) // NO extra_checks. Out in the light? Lose empower.
+				human.remove_status_effect(STATUS_EFFECT_SHADOW_EMPOWER)
+
+/datum/species/shadow/proc/light_check(mob/living/carbon/human/human)
+	var/turf/T = get_turf(human)
+	if(T)
+		var/light_amount = T.get_lumcount() * 10
+		if(light_amount > LIGHT_AMOUNT_DAMAGE)
+			if(human.has_status_effect(STATUS_EFFECT_SHADOW_EMPOWER))
+				empower_handler(human)
+			return FALSE
+		else if(light_amount < LIGHT_AMOUNT_HEAL)
+			if(!human.has_status_effect(STATUS_EFFECT_SHADOW_EMPOWER))
+				empower_handler(human, empowering = TRUE)
+	return TRUE // yes, we will heal in nullspace..
+
+/datum/species/shadow/bullet_act(obj/item/projectile/P, mob/living/carbon/human/human)
+	if(human.stat == DEAD)
+		return TRUE
+	if(human.has_status_effect(STATUS_EFFECT_SHADOW_EMPOWER) && prob(50))
+		return FALSE
+	return TRUE
+
+#undef LIGHT_AMOUNT_HEAL
+#undef LIGHT_AMOUNT_DAMAGE
+#undef TIME_TO_EMPOWER
+#undef TIME_TO_EXHAUST

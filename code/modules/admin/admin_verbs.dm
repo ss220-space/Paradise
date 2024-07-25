@@ -172,6 +172,9 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/force_verb_bypass,
 	/client/proc/reregister_docks,
 	/client/proc/cmd_display_overlay_log,
+	/client/proc/toggle_mobs_suspension,
+	/client/proc/toggle_Idlenpcpool_suspension,
+	/client/proc/toggle_npcpool_suspension
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -692,7 +695,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	switch(punishment)
 		// These smiting types are valid for all living mobs
 		if("Lightning bolt")
-			M.electrocute_act(5, "Lightning Bolt", safety = TRUE, override = TRUE)
+			M.electrocute_act(5, "молнии", flags = SHOCK_NOGLOVES)
 			playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 			M.adjustFireLoss(75)
 			M.Weaken(10 SECONDS)
