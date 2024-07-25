@@ -223,9 +223,9 @@
 				client.prefs.real_name = random_name(client.prefs.gender,client.prefs.species)
 			observer.real_name = client.prefs.real_name
 			observer.name = observer.real_name
-			observer.key = key
-			QDEL_NULL(mind)
+			observer.key = key			
 			if (CONFIG_GET(flag/respawn_observer)) GLOB.respawnable_list += observer			// If enabled in config - observer cant respawn as Player
+			mind.current = null
 			qdel(src)
 			return 1
 	if(href_list["tos"])
