@@ -195,8 +195,7 @@ GLOBAL_LIST_INIT(maploader_typecache, typecacheof(/obj/effect/landmark/map_loade
 	var/watch = start_watch()
 	log_debug("Loading map templates on z-level '[zpos]'!")
 	GLOB.space_manager.add_dirt(zpos) // Let's not repeatedly resume init for each template
-	for(var/atom/movable/AM in late_maps)
-		AM.Initialize()
+	SSatoms.InitializeAtoms(late_maps)
 	late_maps.Cut()
 	GLOB.space_manager.remove_dirt(zpos)
 	log_debug("Took [stop_watch(watch)]s")
