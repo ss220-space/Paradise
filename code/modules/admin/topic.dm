@@ -395,14 +395,16 @@
 		href_list["secrets"] = "check_antagonist"
 
 	else if(href_list["stop_lockdown"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_ADMIN))
+			return
 		var message = (SSshuttle.emergency.mode == SHUTTLE_STRANDED)?"de-lockdowned and de-strandise the Emergency Shuttle":"de-lockdowned the Emergency Shuttle"
 		SSshuttle?.stop_lockdown()
 		log_and_message_admins(span_adminnotice("[key_name_admin(usr)] [message]"))
 		href_list["secrets"] = "check_antagonist"
 
 	else if(href_list["lockdown_shuttle"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_ADMIN))
+			return
 
 		SSshuttle?.lockdown_escape()
 		log_and_message_admins(span_adminnotice("[key_name_admin(usr)] lockdowned the Emergency Shuttle"))
