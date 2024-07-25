@@ -180,7 +180,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/list/filtered_variables = list(
 		NAMEOF(src, name),
 		NAMEOF(src, parent_type),
-		NAMEOF(src, statclick),
 		NAMEOF(src, tag),
 		NAMEOF(src, type),
 		NAMEOF(src, vars),
