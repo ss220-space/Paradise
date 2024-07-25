@@ -130,9 +130,9 @@
 	add_language(LANGUAGE_TRINARY, 1)
 
 	//Verbs for pAI mobile form, chassis and Say flavor text
-	verbs += /mob/living/silicon/pai/proc/choose_chassis
-	verbs += /mob/living/silicon/pai/proc/choose_verbs
-	verbs += /mob/living/silicon/pai/proc/pai_change_voice
+	add_verb(src, /mob/living/silicon/pai/proc/choose_chassis)
+	add_verb(src, /mob/living/silicon/pai/proc/choose_verbs)
+	add_verb(src, /mob/living/silicon/pai/proc/pai_change_voice)
 
 	var/datum/action/innate/pai_soft/P = new
 	P.Grant(src)
@@ -362,7 +362,7 @@
 		finalized = alert("Look at your sprite. Is this what you wish to use?",,"No","Yes")
 
 	chassis = my_choices[choice]
-	verbs -= /mob/living/silicon/pai/proc/choose_chassis
+	remove_verb(src, /mob/living/silicon/pai/proc/choose_chassis)
 
 /mob/living/silicon/pai/proc/choose_verbs()
 	set category = "pAI Commands"
@@ -376,7 +376,7 @@
 	speak_exclamation = sayverbs[(sayverbs.len>1 ? 2 : sayverbs.len)]
 	speak_query = sayverbs[(sayverbs.len>2 ? 3 : sayverbs.len)]
 
-	verbs -= /mob/living/silicon/pai/proc/choose_verbs
+	remove_verb(src, /mob/living/silicon/pai/proc/choose_verbs)
 
 /mob/living/silicon/pai/proc/pai_change_voice()
 	set name = "Change Voice"

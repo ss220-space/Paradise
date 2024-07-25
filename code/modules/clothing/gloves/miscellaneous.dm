@@ -189,11 +189,11 @@
 	owner = user
 	if(istype(owner) && slot == ITEM_SLOT_GLOVES)
 		owner.dirslash_enabled = TRUE
-		owner.verbs += /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling
+		add_verb(owner, /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling)
 	. = ..()
 
 /obj/item/clothing/gloves/fingerless/rapid/dropped(mob/user, slot, silent = FALSE)
-	owner.verbs -= /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling
+	remove_verb(owner, /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling)
 	owner.dirslash_enabled = initial(owner.dirslash_enabled)
 	. = ..()
 

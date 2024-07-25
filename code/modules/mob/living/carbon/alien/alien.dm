@@ -52,7 +52,7 @@
 /mob/living/carbon/alien/New()
 	..()
 	create_reagents(1000)
-	verbs += /mob/living/verb/mob_sleep
+	add_verb(src, /mob/living/verb/mob_sleep)
 	night_vision_action = new
 	night_vision_action.Grant(src)
 

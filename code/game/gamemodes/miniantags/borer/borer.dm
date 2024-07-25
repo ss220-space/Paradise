@@ -569,7 +569,7 @@
 
 	var/mob/living/carbon/H = host
 	H.borer = null
-	H.verbs -= /mob/living/proc/borer_comm
+	remove_verb(H, /mob/living/proc/borer_comm)
 	talk_to_borer_action.Remove(host)
 	H.status_flags &= ~PASSEMOTES
 	host = null

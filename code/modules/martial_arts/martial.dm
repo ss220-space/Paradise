@@ -212,8 +212,8 @@
 	return TRUE
 
 /datum/martial_art/proc/remove_verb(mob/living/carbon/human/old_human)
-	old_human.verbs -= /mob/living/carbon/human/proc/martial_arts_help
-	old_human.verbs -= /mob/living/carbon/human/proc/dirslash_enabling
+	remove_verb(old_human, /mob/living/carbon/human/proc/martial_arts_help)
+	remove_verb(old_human, /mob/living/carbon/human/proc/dirslash_enabling)
 	old_human.dirslash_enabled = initial(old_human.dirslash_enabled)
 	return TRUE
 

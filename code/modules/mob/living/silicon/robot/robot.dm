@@ -613,12 +613,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	toggle_sensor_mode()
 
 /mob/living/silicon/robot/proc/add_robot_verbs()
-	src.verbs |= GLOB.robot_verbs_default
-	src.verbs |= silicon_subsystems
+	add_verb(src, GLOB.robot_verbs_default)
+	add_verb(src, silicon_subsystems)
 
 /mob/living/silicon/robot/proc/remove_robot_verbs()
-	src.verbs -= GLOB.robot_verbs_default
-	src.verbs -= silicon_subsystems
+	remove_verb(src, GLOB.robot_verbs_default)
+	remove_verb(src, silicon_subsystems)
 
 /mob/living/silicon/robot/verb/cmd_robot_alerts()
 	set category = "Robot Commands"
@@ -1468,7 +1468,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(R)
 		R.UnlinkSelf()
 		to_chat(R, "Buffers flushed and reset. Camera system shutdown. All systems operational.")
-		src.verbs -= /mob/living/silicon/robot/proc/ResetSecurityCodes
+		remove_verb(src, /mob/living/silicon/robot/proc/ResetSecurityCodes)
 
 /mob/living/silicon/robot/mode()
 	set name = "Activate Held Object"

@@ -19,7 +19,7 @@
 	GLOB.mob_list += src
 	return INITIALIZE_HINT_NORMAL
 
-/mob/new_player/verb/new_player_panel()
+/mob/new_player/proc/new_player_panel()
 	set src = usr
 
 	if(client.tos_consent)
@@ -97,7 +97,7 @@
 			status_tab_data[++status_tab_data.len] = list("Time To Start:", SSticker.ticker_going ? deciseconds_to_time_stamp(SSticker.pregame_timeleft) : "DELAYED")
 
 		if(SSticker.current_state == GAME_STATE_PREGAME)
-			stat("Players Ready:", "[totalPlayersReady]")
+			status_tab_data[++status_tab_data.len] = list("Players Ready:", "[totalPlayersReady]")
 			totalPlayersReady = 0
 			for(var/mob/new_player/player in GLOB.player_list)
 				if(check_rights(R_ADMIN, 0, src))

@@ -63,7 +63,7 @@
 	//Shhhh it's a secret. No one needs to know about infinite power for clockwork drone
 	cell = new /obj/item/stock_parts/cell/high/slime(src)
 	mmi = null
-	verbs -= /mob/living/silicon/robot/verb/Namepick
+	remove_verb(src, /mob/living/silicon/robot/verb/Namepick)
 	module = new /obj/item/robot_module/cogscarab(src)
 
 	var/datum/action/innate/hide/drone/cogscarab/hide = new()
@@ -240,10 +240,10 @@
 
 
 /mob/living/silicon/robot/cogscarab/add_robot_verbs()
-	src.verbs |= silicon_subsystems
+	add_verb(src, silicon_subsystems)
 
 /mob/living/silicon/robot/cogscarab/remove_robot_verbs()
-	src.verbs -= silicon_subsystems
+	remove_verb(src, silicon_subsystems)
 
 /mob/living/silicon/robot/cogscarab/toggle_sensor_mode()
 	var/sensor_type = input("Please select sensor type.", "Sensor Integration", null) in list("Medical","Diagnostic", "Multisensor","Disable")

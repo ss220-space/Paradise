@@ -429,7 +429,7 @@
 	name = "Set Your OOC Color"
 	description = "Pick a custom OOC color"
 	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
-	rights_required = R_ADMIN
+	rights_required = R_ADMIN | R_DEBUG
 	blackbox_message = "Set Own OOC"
 
 /datum/preference_toggle/special_toggle/set_ooc_color/set_toggles(client/user)
@@ -478,7 +478,7 @@
 	description = "Toggle seeing an attack animation"
 	preftoggle_bitflag = PREFTOGGLE_2_ITEMATTACK
 	preftoggle_toggle = PREFTOGGLE_TOGGLE2
-	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	preftoggle_category = PREFTOGGLE_CATEGORY_LIVING
 	enable_message = "You will now see attack animations."
 	disable_message = "You will no longer see attack animations."
 
@@ -487,17 +487,17 @@
 	description = "Toggles seeing prayers"
 	preftoggle_bitflag = PREFTOGGLE_CHAT_PRAYER
 	preftoggle_toggle = PREFTOGGLE_TOGGLE1
-	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
 	enable_message = "You will now see prayerchat."
 	disable_message = "You will no longer see prayerchat."
 	blackbox_message = "Toggle Prayers"
 
 /datum/preference_toggle/toggle_prayers_notify
 	name = "Toggle Prayers Notify"
-	description = "Toggles seeing prayers"
+	description = "Toggles hearing prayers notify"
 	preftoggle_bitflag = SOUND_PRAYERNOTIFY
 	preftoggle_toggle = PREFTOGGLE_SOUND
-	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
 	enable_message = "You will now hear when prayers are made."
 	disable_message = "You will no longer hear when prayers are made."
 	blackbox_message = "Toggle Prayer Sound"
@@ -551,3 +551,13 @@
 	enable_message = "You will now  display a typing indicator for emotes."
 	disable_message = "You will no longer  display a typing indicator for emotes."
 	blackbox_message = "Toggle Typing Indicator (Emote)"
+
+/datum/preference_toggle/toggle_tgui_input_lists
+	name = "Toggle TGUI Input"
+	description = "Switches input lists between the TGUI and the standard one"
+	preftoggle_bitflag = PREFTOGGLE_2_DISABLE_TGUI_LISTS
+	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You will now use TGUI Input."
+	disable_message = "You will no longer use TGUI Input."
+	blackbox_message = "Toggle TGUI Input"

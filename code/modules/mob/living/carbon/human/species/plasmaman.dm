@@ -55,13 +55,13 @@
 
 /datum/species/plasmaman/on_species_gain(mob/living/carbon/human/H)
 	..()
-	H.verbs |= /mob/living/carbon/human/proc/emote_rattle
+	add_verb(H, /mob/living/carbon/human/proc/emote_rattle)
 	RegisterSignal(H, COMSIG_CARBON_RECEIVE_FRACTURE, PROC_REF(on_fracture))
 
 
 /datum/species/plasmaman/on_species_loss(mob/living/carbon/human/H)
 	..()
-	H.verbs -= /mob/living/carbon/human/proc/emote_rattle
+	remove_verb(H, /mob/living/carbon/human/proc/emote_rattle)
 	UnregisterSignal(H, COMSIG_CARBON_RECEIVE_FRACTURE)
 
 //внёс перевод акцента речи, шипящий звук. Но я не смог осилить и он почему-то по прежнему не работает, похоже не тут настраивается -- ПУПС

@@ -66,7 +66,7 @@
 		add_verb(src, /client/proc/readmin)
 
 	//Clear ability list and update from mob.
-	client.verbs -= GLOB.ability_verbs
+	remove_verb(client, GLOB.ability_verbs)
 
 	client.update_active_keybindings()
 

@@ -529,8 +529,8 @@
 		sman = slimeman
 	if(slime_spell)
 		parent_spell = slime_spell
-	verbs -= /mob/living/simple_animal/slime/verb/Evolve
-	verbs -= /mob/living/simple_animal/slime/verb/Reproduce
+	remove_verb(src, /mob/living/simple_animal/slime/verb/Evolve)
+	remove_verb(src, /mob/living/simple_animal/slime/verb/Reproduce)
 
 /mob/living/simple_animal/slime/invalid/Destroy()
 	parent_spell = null

@@ -56,12 +56,20 @@ SUBSYSTEM_DEF(statpanels)
 		if(!target.holder || !(target.prefs?.toggles2 & PREFTOGGLE_2_MC_TAB))
 			target.stat_panel.send_message("remove_mc_tab", !target.holder ? TRUE : FALSE)
 
-		else if(target.mob && check_rights(R_DEBUG | R_VIEWRUNTIMES, FALSE, target.mob) && target.prefs?.toggles2 & PREFTOGGLE_2_MC_TAB)
-			if(!("MC" in target.panel_tabs))
-				target.stat_panel.send_message("add_mc_tab", target.holder.href_token)
+		else if(target.mob && check_rights(R_DEBUG | R_VIEWRUNTIMES, FALSE, target.mob))
+			// Shows SDQL2 list
+			if(!length(GLOB.sdql2_queries) && ("SDQL2" in target.panel_tabs))
+				target.stat_panel.send_message("remove_sdql2")
 
-			if(target.stat_tab == "MC" && ((num_fires % mc_wait == 0)))
-				set_MC_tab(target)
+			else if(length(GLOB.sdql2_queries) && (target.stat_tab == "SDQL2" || !("SDQL2" in target.panel_tabs)) && num_fires % default_wait == 0)
+				set_SDQL2_tab(target)
+
+			if(target.prefs?.toggles2 & PREFTOGGLE_2_MC_TAB)
+				if(!("MC" in target.panel_tabs))
+					target.stat_panel.send_message("add_mc_tab", target.holder.href_token)
+
+				if(target.stat_tab == "MC" && ((num_fires % mc_wait == 0)))
+					set_MC_tab(target)
 
 		if(target.mob)
 			var/mob/target_mob = target.mob
@@ -90,6 +98,16 @@ SUBSYSTEM_DEF(statpanels)
 		generate_mc_data()
 	target.stat_panel.send_message("update_mc", list(mc_data = mc_data, coord_entry = coord_entry))
 
+/datum/controller/subsystem/statpanels/proc/set_SDQL2_tab(client/target)
+	var/list/sdql2A = list()
+	sdql2A[++sdql2A.len] = list("", "Access Global SDQL2 List", GLOB.sdql2_vv_statobj.UID())
+	var/list/sdql2B = list()
+	for(var/datum/sdql2_query/query as anything in GLOB.sdql2_queries)
+		sdql2B = query.generate_stat()
+
+	sdql2A += sdql2B
+	target.stat_panel.send_message("update_sdql2", sdql2A)
+
 /datum/controller/subsystem/statpanels/proc/set_turf_examine_tab(client/target, mob/target_mob)
 	var/list/overrides = list()
 	for(var/image/target_image as anything in target.images)
@@ -106,6 +124,8 @@ SUBSYSTEM_DEF(statpanels)
 		if(turf_content in overrides)
 			continue
 		if(turf_content.IsObscured())
+			continue
+		if(!turf_content.name)
 			continue
 		atoms_to_display += turf_content
 
@@ -211,6 +231,12 @@ SUBSYSTEM_DEF(statpanels)
 	if(target.stat_tab == "MC")
 		set_MC_tab(target)
 		return TRUE
+
+	if(!length(GLOB.sdql2_queries) && ("SDQL2" in target.panel_tabs))
+		target.stat_panel.send_message("remove_sdql2")
+
+	else if(length(GLOB.sdql2_queries) && target.stat_tab == "SDQL2")
+		set_SDQL2_tab(target)
 
 /// Stat panel window declaration, we don't usually allow this but tgui windows/panels are exceptions
 /* check_grep:ignore */ /client/var/datum/tgui_window/stat_panel

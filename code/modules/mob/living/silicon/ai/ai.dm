@@ -114,12 +114,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/all_eyes = list()
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
-	verbs |= GLOB.ai_verbs_default
-	verbs |= silicon_subsystems
+	add_verb(src, GLOB.ai_verbs_default)
+	add_verb(src, silicon_subsystems)
 
 /mob/living/silicon/ai/proc/remove_ai_verbs()
-	verbs -= GLOB.ai_verbs_default
-	verbs -= silicon_subsystems
+	remove_verb(src, GLOB.ai_verbs_default)
+	remove_verb(src, silicon_subsystems)
 
 /mob/living/silicon/ai/New(loc, var/datum/ai_laws/L, var/obj/item/mmi/B, var/safety = 0)
 	announcement = new()
@@ -154,7 +154,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	else
 		make_laws()
 
-	verbs += /mob/living/silicon/ai/proc/show_laws_verb
+	add_verb(src, /mob/living/silicon/ai/proc/show_laws_verb)
 
 	aiMulti = new(src)
 	aiRadio = new(src)

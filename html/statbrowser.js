@@ -28,6 +28,7 @@ var mc_tab_parts = [['Loading...', '']];
 var href_token = null;
 var verb_tabs = [];
 var verbs = [['', '']]; // list with a list inside
+var sdql2 = [];
 var permanent_tabs = []; // tabs that won't be cleared by wipes
 var turf_row_inner_height = 33;
 var turf_row_outer_height = 35;
@@ -131,7 +132,10 @@ function removePermanentTab(name) {
 
 function checkStatusTab() {
 	for (var i = 0; i < menu.children.length; i++) {
-		if (!verb_tabs.includes(menu.children[i].id) && !permanent_tabs.includes(menu.children[i].id)) {
+		if (
+			!verb_tabs.includes(menu.children[i].id) &&
+			!permanent_tabs.includes(menu.children[i].id)
+		) {
 			menu.removeChild(menu.children[i]);
 		}
 	}
@@ -223,10 +227,12 @@ function TakeTabFromByond(tab) {
 
 function tab_change(tab) {
 	if (tab == current_tab) return;
-	if (document.getElementById(current_tab)) document.getElementById(current_tab).className = 'button'; // disable active on last button
+	if (document.getElementById(current_tab))
+		document.getElementById(current_tab).className = 'button'; // disable active on last button
 	current_tab = tab;
 	set_byond_tab(tab);
-	if (document.getElementById(tab)) document.getElementById(tab).className = 'button active'; // make current button active
+	if (document.getElementById(tab))
+		document.getElementById(tab).className = 'button active'; // make current button active
 	var verb_tabs_thingy = verb_tabs.includes(tab);
 	if (tab == 'Status') {
 		draw_status();
@@ -236,6 +242,8 @@ function tab_change(tab) {
 		draw_verbs(tab);
 	} else if (tab == 'Debug Stat Panel') {
 		draw_debug();
+	} else if (tab == 'SDQL2') {
+		draw_sdql2();
 	} else if (tab == turfname) {
 		draw_listedturf();
 	} else {
@@ -375,6 +383,30 @@ function draw_mc() {
 	document.getElementById('statcontent').appendChild(table);
 }
 
+function draw_sdql2() {
+	statcontentdiv.textContent = '';
+	var table = document.createElement('table');
+	for (var i = 0; i < sdql2.length; i++) {
+		var part = sdql2[i];
+		var tr = document.createElement('tr');
+		var td1 = document.createElement('td');
+		td1.textContent = part[0];
+		var td2 = document.createElement('td');
+		if (part[2]) {
+			var a = document.createElement('a');
+			a.href = '?src=' + part[2] + ';statpanel_item_click=left';
+			a.textContent = part[1];
+			td2.appendChild(a);
+		} else {
+			td2.textContent = part[1];
+		}
+		tr.appendChild(td1);
+		tr.appendChild(td2);
+		table.appendChild(tr);
+	}
+	document.getElementById('statcontent').appendChild(table);
+}
+
 function listedturf_add_row(table, table_index, true_index) {
 	let row = table.insertRow(table_index);
 	row.style.height = turf_row_inner_height + 'px';
@@ -498,10 +530,19 @@ function listedturf_scrolled() {
 		return;
 	}
 
-	let desired_min_row = Math.min(turf_size, Math.max(0, Math.floor(top_edge / turf_row_outer_height) - 10));
-	let desired_max_row = Math.min(turf_size, desired_min_row + Math.ceil(height / turf_row_outer_height) + 21);
+	let desired_min_row = Math.min(
+		turf_size,
+		Math.max(0, Math.floor(top_edge / turf_row_outer_height) - 10)
+	);
+	let desired_max_row = Math.min(
+		turf_size,
+		desired_min_row + Math.ceil(height / turf_row_outer_height) + 21
+	);
 	padding.style.height = desired_min_row * turf_row_outer_height + 'px';
-	if (desired_min_row == turf_rows.min_row && desired_max_row == turf_rows.max_row) {
+	if (
+		desired_min_row == turf_rows.min_row &&
+		desired_max_row == turf_rows.max_row
+	) {
 		listedturf_fill_all();
 		suppress_next_scroll_message = false;
 		return;
@@ -512,7 +553,11 @@ function listedturf_scrolled() {
 			listedturf_add_row(table, i - desired_min_row + 1, i);
 		}
 	} else if (desired_min_row > turf_rows.min_row) {
-		for (let i = turf_rows.min_row; i < desired_min_row && i < turf_rows.max_row; i++) {
+		for (
+			let i = turf_rows.min_row;
+			i < desired_min_row && i < turf_rows.max_row;
+			i++
+		) {
 			if (turf_rows[i]) {
 				turf_rows[i].remove();
 				delete turf_rows[i];
@@ -524,14 +569,22 @@ function listedturf_scrolled() {
 	padding.style.height = turf_rows.min_row * turf_row_outer_height + 'px';
 
 	if (desired_max_row < turf_rows.max_row) {
-		for (let i = Math.max(desired_max_row, turf_rows.min_row); i < turf_rows.max_row; i++) {
+		for (
+			let i = Math.max(desired_max_row, turf_rows.min_row);
+			i < turf_rows.max_row;
+			i++
+		) {
 			if (turf_rows[i]) {
 				turf_rows[i].remove();
 				delete turf_rows[i];
 			}
 		}
 	} else if (desired_max_row > turf_rows.max_row) {
-		for (let i = Math.max(turf_rows.min_row, turf_rows.max_row); i < desired_max_row; i++) {
+		for (
+			let i = Math.max(turf_rows.min_row, turf_rows.max_row);
+			i < desired_max_row;
+			i++
+		) {
 			listedturf_add_row(table, i - turf_rows.min_row + 1, i);
 		}
 	}
@@ -540,7 +593,10 @@ function listedturf_scrolled() {
 	listedturf_fill_all();
 
 	if (!suppress_next_scroll_message) {
-		Byond.sendMessage('Listedturf-Scroll', { 'min': turf_rows.min_row, 'max': turf_rows.max_row });
+		Byond.sendMessage('Listedturf-Scroll', {
+			'min': turf_rows.min_row,
+			'max': turf_rows.max_row,
+		});
 	}
 	suppress_next_scroll_message = false;
 }
@@ -612,6 +668,15 @@ function remove_mc() {
 	}
 }
 
+function remove_sdql2() {
+	if (sdql2) {
+		sdql2 = [];
+		removePermanentTab('SDQL2');
+		if (current_tab == 'SDQL2') tab_change('Status');
+	}
+	checkStatusTab();
+}
+
 function make_verb_onclick(command) {
 	return function () {
 		run_after_focus(function () {
@@ -646,7 +711,11 @@ function draw_verbs(cat) {
 		}
 		var command = part[1];
 
-		if (command && name.lastIndexOf(cat, 0) != -1 && (name.length == cat.length || name.charAt(cat.length) == '.')) {
+		if (
+			command &&
+			name.lastIndexOf(cat, 0) != -1 &&
+			(name.length == cat.length || name.charAt(cat.length) == '.')
+		) {
 			var subCat = name.lastIndexOf('.') != -1 ? name.split('.')[1] : null;
 			if (subCat && !additions[subCat]) {
 				var newTable = document.createElement('div');
@@ -859,6 +928,18 @@ Byond.subscribeTo('update_mc', function (payload) {
 	}
 });
 
+Byond.subscribeTo('update_sdql2', function (S) {
+	sdql2 = S;
+	if (sdql2.length > 0 && !verb_tabs.includes('SDQL2')) {
+		verb_tabs.push('SDQL2');
+		addPermanentTab('SDQL2');
+	}
+
+	if (current_tab == 'SDQL2') {
+		draw_sdql2();
+	}
+});
+
 Byond.subscribeTo('create_debug', function () {
 	if (!document.getElementById('Debug Stat Panel')) {
 		addPermanentTab('Debug Stat Panel');
@@ -916,6 +997,8 @@ Byond.subscribeTo('add_mc_tab', function (ht) {
 });
 
 Byond.subscribeTo('remove_listedturf', remove_listedturf);
+
+Byond.subscribeTo('remove_sdql2', remove_sdql2);
 
 Byond.subscribeTo('remove_mc', remove_mc);
 

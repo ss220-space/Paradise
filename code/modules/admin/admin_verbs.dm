@@ -210,7 +210,7 @@ GLOBAL_LIST_INIT(admin_verbs_mentor, list(
 GLOBAL_LIST_INIT(admin_verbs_proccall, list(
 	/client/proc/callproc,
 	/client/proc/callproc_datum,
-	// /client/proc/SDQL2_query
+	/client/proc/SDQL2_query
 ))
 GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	/client/proc/openAdminTicketUI,

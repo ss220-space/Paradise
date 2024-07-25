@@ -104,12 +104,12 @@
 
 /datum/dna/gene/basic/grant_verb/activate(mob/living/mutant, flags)
 	. = ..()
-	mutant.verbs |= verbtype
+	add_verb(mutant, verbtype)
 
 
 /datum/dna/gene/basic/grant_verb/deactivate(mob/living/mutant, flags)
 	. = ..()
-	mutant.verbs -= verbtype
+	remove_verb(mutant, verbtype)
 
 
 // WAS: /datum/bioEffect/cryokinesis

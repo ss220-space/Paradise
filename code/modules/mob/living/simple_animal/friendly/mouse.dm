@@ -116,10 +116,10 @@
 	color_pick()
 
 	if(is_available_for_anim())
-		verbs += /mob/living/simple_animal/mouse/proc/sniff
-		verbs += /mob/living/simple_animal/mouse/proc/shake
-		verbs += /mob/living/simple_animal/mouse/proc/scratch
-		verbs += /mob/living/simple_animal/mouse/proc/washup
+		add_verb(src, /mob/living/simple_animal/mouse/proc/sniff)
+		add_verb(src, /mob/living/simple_animal/mouse/proc/shake)
+		add_verb(src, /mob/living/simple_animal/mouse/proc/scratch)
+		add_verb(src, /mob/living/simple_animal/mouse/proc/washup)
 
 /mob/living/simple_animal/mouse/proc/color_pick()
 	if(!mouse_color)
