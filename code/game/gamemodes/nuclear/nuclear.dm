@@ -83,14 +83,6 @@
 ////////////////////////////////////////////////////////////////////////////////////////
 
 /datum/game_mode/nuclear/post_setup()
-
-	var/list/turf/synd_spawn = list()
-
-	for(var/obj/effect/landmark/A in GLOB.nukespawn)
-		synd_spawn += get_turf(A)
-		qdel(A)
-		continue
-
 	var/obj/effect/landmark/nuke_spawn = locate("landmark*Nuclear-Bomb")
 
 	var/nuke_code = rand(10000, 99999)
@@ -99,9 +91,9 @@
 	var/spawnpos = 1
 
 	for(var/datum/mind/synd_mind in syndicates)
-		if(spawnpos > synd_spawn.len)
+		if(spawnpos > GLOB.nukespawn.len)
 			spawnpos = 2
-		synd_mind.current.loc = synd_spawn[spawnpos]
+		synd_mind.current.loc = GLOB.nukespawn[spawnpos]
 		synd_mind.offstation_role = TRUE
 		forge_syndicate_objectives(synd_mind)
 		create_syndicate(synd_mind)
@@ -121,7 +113,7 @@
 
 	scale_telecrystals()
 	share_telecrystals()
-	if(nuke_spawn && synd_spawn.len > 0)
+	if(nuke_spawn && GLOB.nukespawn.len > 0)
 		var/obj/machinery/nuclearbomb/syndicate/the_bomb = new /obj/machinery/nuclearbomb/syndicate(nuke_spawn.loc)
 		the_bomb.r_code = nuke_code
 
