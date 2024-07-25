@@ -2165,7 +2165,7 @@
 	},
 /area/security/permabrig)
 "ajl" = (
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/structure/toilet{
 	pixel_y = 8
 	},
@@ -2863,7 +2863,7 @@
 	},
 /area/security/brig)
 "als" = (
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -7447,7 +7447,7 @@
 	},
 /area/security/permabrig)
 "axY" = (
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/flour,
 /turf/simulated/floor/plasteel{
@@ -9234,7 +9234,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aDG" = (
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/cable_coil/random,
 /turf/simulated/floor/plating,
@@ -12094,7 +12094,7 @@
 	},
 /area/maintenance/fpmaint)
 "aMR" = (
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aMS" = (
@@ -12220,7 +12220,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/mob/living/simple_animal/mouse,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aNA" = (
@@ -21935,7 +21935,7 @@
 	},
 /area/hydroponics)
 "bru" = (
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/wood,
 /area/maintenance/fpmaint)
 "brv" = (
@@ -22669,7 +22669,7 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/crew_quarters/bar)
 "btK" = (
-/mob/living/simple_animal/mouse/rat/gray/Ratatui,
+/mob/living/simple_animal/mouse/rat/Ratatui,
 /obj/effect/decal/warning_stripes/west{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "siding8"
@@ -23922,7 +23922,7 @@
 	},
 /area/maintenance/livingcomplex)
 "bxC" = (
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood/fancy/oak,
@@ -25401,7 +25401,7 @@
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/maintenance/engineering)
 "bCo" = (
-/mob/living/simple_animal/mouse,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bCp" = (
@@ -26536,7 +26536,7 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
 "bGs" = (
-/mob/living/simple_animal/mouse/brown,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -26860,7 +26860,7 @@
 	},
 /area/crew_quarters/kitchen)
 "bHv" = (
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/item/clothing/head/chefhat,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
@@ -35241,7 +35241,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "cgf" = (
-/mob/living/simple_animal/mouse/white,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -37205,7 +37205,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "cma" = (
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/structure/toilet{
 	dir = 4
 	},
@@ -40722,7 +40722,7 @@
 /turf/simulated/wall/r_wall/coated,
 /area/maintenance/incinerator)
 "cxZ" = (
-/mob/living/simple_animal/mouse,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -52995,7 +52995,7 @@
 	},
 /area/atmos)
 "dgS" = (
-/mob/living/simple_animal/mouse,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/effect/landmark/event/blobstart,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -61302,7 +61302,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "gDo" = (
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
@@ -64876,7 +64876,7 @@
 /turf/simulated/wall/r_wall/coated,
 /area/toxins/misc_lab)
 "iZU" = (
-/mob/living/simple_animal/mouse/brown,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -68780,7 +68780,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/genetics)
 "lQx" = (
-/mob/living/simple_animal/mouse,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/effect/landmark/event/xeno_spawn,
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -69117,7 +69117,7 @@
 	},
 /area/medical/cmo)
 "lYo" = (
-/mob/living/simple_animal/mouse,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "lYp" = (
@@ -75403,7 +75403,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "qkn" = (
-/mob/living/simple_animal/mouse,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -77894,7 +77894,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/lobby)
 "rOr" = (
-/mob/living/simple_animal/mouse,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},

@@ -452,8 +452,10 @@
 	if(!H.frozen) //admin freeze has no breaks
 		. = stun_mod * amount
 
-/datum/species/proc/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+
+/datum/species/proc/spec_electrocute_act(mob/living/carbon/human/affected, shock_damage, source, siemens_coeff, flags, jitter_time, stutter_time, stun_duration)
 	return
+
 
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style && attacker_style.help_act(user, target) == TRUE)//adminfu only...

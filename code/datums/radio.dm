@@ -112,5 +112,4 @@
 
 //callback used by objects to react to incoming radio signals
 /obj/proc/receive_signal(datum/signal/signal, receive_method, receive_param)
-	set waitfor = FALSE
 	return null

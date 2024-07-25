@@ -131,8 +131,11 @@
 	name = "moaus"
 	real_name = "moaus"
 	desc = "A fancy clocked mouse. And it still squeeks!"
+	icon_state = "mouse_clockwork"
+	icon_living = "mouse_clockwork"
+	icon_dead = "mouse_clockwork_dead"
+	icon_resting = "mouse_clockwork_sleep"
 	icon = 'icons/mob/clockwork_mobs.dmi'
-	mouse_color = "clock" // Check mouse/New()
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	pressure_resistance = 100

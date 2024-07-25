@@ -24,7 +24,7 @@
 	neck = /obj/item/clothing/neck/cloak/syndieadm
 	back = /obj/item/storage/backpack
 	head = /obj/item/clothing/head/helmet/space/deathsquad/beret
-	gloves = /obj/item/clothing/gloves/combat
+	gloves = /obj/item/clothing/gloves/combat/swat/syndicate
 	shoes = /obj/item/clothing/shoes/combat
 	mask = /obj/item/clothing/mask/cigarette/cigar/havana
 	belt = /obj/item/gun/projectile/automatic/pistol/deagle/camo

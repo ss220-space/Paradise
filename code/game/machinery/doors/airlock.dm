@@ -199,7 +199,7 @@ About the new airlock wires panel:
 				justzap = TRUE
 				addtimer(VARSET_CALLBACK(src, justzap, FALSE), 1 SECONDS)
 				return
-		else if(!operating && user.AmountHallucinate() > 50 SECONDS && prob(10) && user.electrocute_act(50, src, 1, illusion = TRUE))
+		else if(!operating && user.AmountHallucinate() > 50 SECONDS && prob(10) && user.electrocute_act(50, "шлюза", flags = SHOCK_ILLUSION))
 			return
 	return ..()
 
