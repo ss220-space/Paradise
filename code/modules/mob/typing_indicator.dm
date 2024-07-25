@@ -114,14 +114,4 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 				set_typing_indicator(FALSE)
 
 
-/client/verb/emote_indicator()
-	set name = "Show/Hide Emote Typing Indicator"
-	set category = "Preferences"
-	set desc = "Toggles showing an indicator when you are typing an emote."
-	prefs.toggles2 ^= PREFTOGGLE_2_EMOTE_BUBBLE
-	prefs.save_preferences(src)
-	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_EMOTE_BUBBLE) ? "no longer" : "now"] display a typing indicator for emotes.")
-
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Typing Indicator (Emote)") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
-
 #undef TYPING_INDICATOR_LIFETIME

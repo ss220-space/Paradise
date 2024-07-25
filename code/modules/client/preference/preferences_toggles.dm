@@ -492,8 +492,8 @@
 	disable_message = "You will no longer see prayerchat."
 	blackbox_message = "Toggle Prayers"
 
-/datum/preference_toggle/toggleprayers
-	name = "Toggle Prayers"
+/datum/preference_toggle/toggle_prayers_notify
+	name = "Toggle Prayers Notify"
 	description = "Toggles seeing prayers"
 	preftoggle_bitflag = SOUND_PRAYERNOTIFY
 	preftoggle_toggle = PREFTOGGLE_SOUND
@@ -502,7 +502,7 @@
 	disable_message = "You will no longer hear when prayers are made."
 	blackbox_message = "Toggle Prayer Sound"
 
-/datum/preference_toggle/toggleprayers
+/datum/preference_toggle/toggle_karma_reminder
 	name = "Toggle End Round Karma Reminder"
 	description = "Toggles displaying end of round karma reminder"
 	preftoggle_bitflag = PREFTOGGLE_DISABLE_KARMA_REMINDER
@@ -532,7 +532,7 @@
 		var/datum/plane_master_group/group = my_hud.master_groups[group_key]
 		group.transform_lower_turfs(my_hud, my_hud.current_plane_offset)
 
-/datum/preference_toggle/toggle_tgui_input_lists
+/datum/preference_toggle/toggle_vote_popup
 	name = "Toggle Vote Popup"
 	description = "Toggles the popup of the voting window on the screen when voting starts (Now working only with map votes)"
 	preftoggle_bitflag = PREFTOGGLE_2_DISABLE_VOTE_POPUPS
@@ -542,3 +542,12 @@
 	disable_message = "You will no longer receive popups when vote starts."
 	blackbox_message = "Toggle Vote Popup"
 
+/datum/preference_toggle/toggle_emote_indicator
+	name = "Toggle Emote Typing Indicator"
+	description = "Toggles showing an indicator when you are typing an emote."
+	preftoggle_bitflag = PREFTOGGLE_2_EMOTE_BUBBLE
+	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "You will now  display a typing indicator for emotes."
+	disable_message = "You will no longer  display a typing indicator for emotes."
+	blackbox_message = "Toggle Typing Indicator (Emote)"
