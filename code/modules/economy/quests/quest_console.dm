@@ -215,12 +215,8 @@
 
 	paper.info += "</ul><br><span class=\"large-text\"> Ориентировочная награда: [quest.reward]</span><br>"
 	paper.info += "<br><hr><br><span class=\"small-text\">Этот документ имеет автоматическую печать [station_name()] </span><br></div>"
-	var/obj/item/stamp/navcom/stamp = new()
-	paper.stamp(stamp)
-	paper.update_icon()
+	paper.stamp(/obj/item/stamp/navcom)
 	paper.name = "Форма запроса на поставку"
-
-
 
 
 /obj/machinery/computer/supplyquest/workers
@@ -294,9 +290,7 @@
 			paper.info += "<span class=\"small-text\">Вы получили скидку в <b>[quest.customer.cargo_sale[sale_category] * quest.customer.modificator * 100]%</b> в категории <b>[sale_category]</b> в списке заказов. </span><br>"
 	paper.info += "<hr><br><span class=\"small-text\">[pick(phrases)] </span><br>"
 	paper.info += "<br><hr><br><span class=\"small-text\">Этот документ имеет автоматическую печать [station_name()] </span><br></div>"
-	var/obj/item/stamp/navcom/stamp = new()
-	paper.stamp(stamp)
-	paper.update_icon()
+	paper.stamp(/obj/item/stamp/navcom)
 	paper.name = "Отчёт о поставке"
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	print_animation()
