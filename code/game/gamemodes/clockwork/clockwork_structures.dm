@@ -475,7 +475,7 @@
 	var/confirm_final = tgui_alert(user, "This is the FINAL step to summon, the crew will be alerted to your presence AND your location!",
 	"The power comes...", list("Let Ratvar shine ones more!", "No"))
 	if(user)
-		if(confirm_final != "Yes" || confirm_final == null)
+		if(confirm_final != "Let Ratvar shine ones more!" || confirm_final == null)
 			to_chat(user, "<span class='clockitalic'><b>You decide to prepare further before pincing the shard.</b></span>")
 			return FALSE
 		return TRUE
