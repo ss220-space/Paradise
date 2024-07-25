@@ -66,7 +66,7 @@
 	return TRUE
 
 /atom/movable/screen/movable/action_button/proc/set_to_keybind(mob/user)
-	var/keybind_to_set_to = sanitize_russian_key_to_english(input(user, "What keybind do you want to set this action button to? You can use non-single keys, but they must be in the correct case, f.e. \"Space\" or \"CtrlE\"") as text)
+	var/keybind_to_set_to = tgui_input_keycombo(user, "What keybind do you want to set this action button to?")
 	if(length(keybind_to_set_to) == 1)
 		keybind_to_set_to = uppertext(keybind_to_set_to)
 	if(keybind_to_set_to)

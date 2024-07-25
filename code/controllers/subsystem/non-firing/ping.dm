@@ -9,6 +9,7 @@ SUBSYSTEM_DEF(ping)
 	wait = 4 SECONDS
 	flags = SS_NO_INIT
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
+	init_stage = INITSTAGE_EARLY
 	cpu_display = SS_CPUDISPLAY_LOW
 	ss_id = "ping"
 

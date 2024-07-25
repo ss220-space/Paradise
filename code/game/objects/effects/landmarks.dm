@@ -98,12 +98,18 @@
 			GLOB.syndicateofficer += loc
 			qdel(src)
 
-	GLOB.landmarks_list += src
+		if("Syndicate-Spawn")
+			GLOB.nukespawn += loc
+
+	if(!QDELETED(src))
+		GLOB.landmarks_list += src
+
 	return 1
 
 /obj/effect/landmark/Destroy()
+	. = ..()
 	GLOB.landmarks_list -= src
-	return ..()
+	return QDEL_HINT_HARDDEL_NOW
 
 /obj/effect/landmark/singularity_act()
 	return

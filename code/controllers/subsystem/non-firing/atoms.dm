@@ -20,7 +20,8 @@ SUBSYSTEM_DEF(atoms)
 	setupgenetics()
 	initialized = INITIALIZATION_INNEW_MAPLOAD
 	InitializeAtoms()
-
+	initialized = INITIALIZATION_INNEW_REGULAR
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/atoms/proc/InitializeAtoms(list/atoms, noisy = TRUE)
 	if(initialized == INITIALIZATION_INSSATOMS)
@@ -57,8 +58,6 @@ SUBSYSTEM_DEF(atoms)
 	else
 		log_debug("	Initialized [count] atoms in [stop_watch(watch)]s")
 	pass(count)
-
-	initialized = INITIALIZATION_INNEW_REGULAR
 
 	if(late_loaders.len)
 		watch = start_watch()

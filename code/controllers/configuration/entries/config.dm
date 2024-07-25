@@ -596,9 +596,6 @@
 
 /datum/config_entry/flag/disable_karma
 
-/datum/config_entry/number/tick_limit_mc_init
-	default = TICK_LIMIT_MC_INIT_DEFAULT
-
 /datum/config_entry/number/base_mc_tick_rate
 	integer = FALSE
 	default = 1

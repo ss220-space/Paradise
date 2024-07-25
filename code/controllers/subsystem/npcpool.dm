@@ -1,4 +1,8 @@
+#ifdef UNIT_TESTS
+GLOBAL_VAR_INIT(npcpool_suspension, FALSE)
+#else
 GLOBAL_VAR_INIT(npcpool_suspension, TRUE)
+#endif
 
 SUBSYSTEM_DEF(npcpool)
 	name = "NPC Pool"

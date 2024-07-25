@@ -1,4 +1,8 @@
+#ifdef UNIT_TESTS
+GLOBAL_VAR_INIT(idlenpc_suspension, FALSE)
+#else
 GLOBAL_VAR_INIT(idlenpc_suspension, TRUE)
+#endif
 
 SUBSYSTEM_DEF(idlenpcpool)
 	name = "Idling NPC Pool"
@@ -20,6 +24,8 @@ SUBSYSTEM_DEF(idlenpcpool)
 
 /datum/controller/subsystem/idlenpcpool/Initialize()
 	idle_mobs_by_zlevel = new /list(world.maxz, 0)
+	return SS_INIT_SUCCESS
+
 
 /datum/controller/subsystem/idlenpcpool/proc/MaxZChanged()
 	if (!islist(idle_mobs_by_zlevel))
