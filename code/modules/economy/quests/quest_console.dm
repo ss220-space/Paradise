@@ -171,7 +171,7 @@
 				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 				return FALSE
 			var/datum/money_account/cargo_money_account = GLOB.department_accounts["Cargo"]
-			var/attempt_pin = input("Enter pin code", "Centcomm transaction") as num
+			var/attempt_pin = tgui_input_number(user, "Enter pin code", "Centcomm Transaction")
 			if(..() || !attempt_account_access(cargo_money_account.account_number, attempt_pin, 2))
 				to_chat(user, span_warning("Unable to access account: incorrect credentials."))
 				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)

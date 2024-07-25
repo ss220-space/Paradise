@@ -508,7 +508,7 @@
 	. = TRUE
 	switch(action)
 		if("delete_info")
-			var/response = alert(registered_user, "Are you sure you want to delete all card info?","Delete Card Info", "No", "Yes")
+			var/response = tgui_alert(registered_user, "Are you sure you want to delete all information saved on the card?", "Delete Card Information", list("No", "Yes"))
 			if(response == "Yes")
 				name = initial(name)
 				registered_name = initial(registered_name)
@@ -534,7 +534,7 @@
 			clear_slot(params["slot"])
 			to_chat(registered_user, "<span class='notice'>You have successfully cleared slot [params["slot"]].</span>")
 		if("clear_access")
-			var/response = alert(registered_user, "Are you sure you want to reset access saved on the card?","Reset Access", "No", "Yes")
+			var/response = tgui_alert(registered_user, "Are you sure you want to reset access saved on the card?", "Reset Access", list("No", "Yes"))
 			if(response == "Yes")
 				access = initial_access.Copy() // Initial() doesn't work on lists
 				to_chat(registered_user, "<span class='notice'>Card access reset.</span>")
@@ -542,8 +542,8 @@
 			untrackable = !untrackable
 			to_chat(registered_user, "<span class='notice'>This ID card is now [untrackable ? "untrackable" : "trackable"] by the AI's.</span>")
 		if("change_name")
-			var/new_name = reject_bad_name(input(registered_user,"What name would you like to put on this card?","Agent Card Name", ishuman(registered_user) ? registered_user.real_name : registered_user.name), TRUE)
-			if(!Adjacent(registered_user))
+			var/new_name = reject_bad_name(tgui_input_text(registered_user, "What name would you like to use on this card?", "Agent Card name", ishuman(registered_user) ? registered_user.real_name : registered_user.name), TRUE)
+			if(!Adjacent(registered_user) || isnull(new_name))
 				return
 			registered_name = new_name
 			UpdateName()
@@ -560,7 +560,7 @@
 			photo = newphoto
 			to_chat(registered_user, span_notice("Photo changed. Select another occupation and take a new photo if you wish to appear with different clothes."))
 		if("change_appearance")
-			var/choice = input(registered_user, "Select the appearance for this card.", "Agent Card Appearance") in appearances
+			var/choice = tgui_input_list(registered_user, "Select the appearance for this card.", "Agent Card Appearance", appearances)
 			if(!Adjacent(registered_user))
 				return
 			if(!choice)
@@ -587,8 +587,8 @@
 			icon_state = choice
 			to_chat(usr, "<span class='notice'>Appearance changed to [choice].</span>")
 		if("change_sex")
-			var/new_sex = sanitize(stripped_input(registered_user,"What sex would you like to put on this card?","Agent Card Sex", ishuman(registered_user) ? capitalize(registered_user.gender) : "Male", MAX_MESSAGE_LEN))
-			if(!Adjacent(registered_user))
+			var/new_sex = tgui_input_text(registered_user,"What sex would you like to put on this card?", "Agent Card Sex", ishuman(registered_user) ? capitalize(registered_user.gender) : "Male")
+			if(!Adjacent(registered_user) || isnull(new_sex))
 				return
 			sex = new_sex
 			to_chat(registered_user, "<span class='notice'>Sex changed to [new_sex].</span>")
@@ -597,8 +597,8 @@
 			if(ishuman(registered_user))
 				var/mob/living/carbon/human/H = registered_user
 				default = H.age
-			var/new_age = sanitize(input(registered_user,"What age would you like to be written on this card?","Agent Card Age", default) as text)
-			if(!Adjacent(registered_user))
+			var/new_age = tgui_input_number(registered_user, "What age would you like to be written on this card?", "Agent Card Age", default, 300, 17)
+			if(!Adjacent(registered_user) || isnull(new_age))
 				return
 			age = new_age
 			to_chat(registered_user, "<span class='notice'>Age changed to [new_age].</span>")
@@ -615,13 +615,13 @@
 				"Custom",
 			)
 
-			var/department = input(registered_user, "What job would you like to put on this card?\nChoose a department or a custom job title.\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in departments
+			var/department = tgui_input_list(registered_user, "What job would you like to put on this card?\nChoose a department or a custom job title.\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", departments)
 			var/new_job = JOB_TITLE_CIVILIAN
 			var/new_rank = JOB_TITLE_CIVILIAN
 
 			if(department == "Custom")
-				new_job = sanitize(stripped_input(registered_user,"Choose a custom job title:","Agent Card Occupation", "Civilian", MAX_MESSAGE_LEN))
-				var/department_icon = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in departments
+				new_job = tgui_input_text(registered_user, "Choose a custom job title:", "Agent Card Occupation", "Assistant")
+				var/department_icon = tgui_input_list(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", departments)
 				switch(department_icon)
 					if("Engineering")
 						new_rank = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.engineering_positions
@@ -657,7 +657,7 @@
 						new_job = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs() + get_all_special_jobs())
 				new_rank = new_job
 
-			if(!Adjacent(registered_user))
+			if(!Adjacent(registered_user) || isnull(new_job))
 				return
 			assignment = new_job
 			rank = new_rank
@@ -665,8 +665,8 @@
 			UpdateName()
 			registered_user.sec_hud_set_ID()
 		if("change_money_account")
-			var/new_account = input(registered_user,"What money account would you like to link to this card?","Agent Card Account",12345) as num
-			if(!Adjacent(registered_user))
+			var/new_account = tgui_input_number(registered_user, "What money account would you like to link to this card?", "Agent Card Account", 12345, 9999999)
+			if(!Adjacent(registered_user) || !isnull(new_account))
 				return
 			associated_account_number = new_account
 			to_chat(registered_user, "<span class='notice'>Linked money account changed to [new_account].</span>")
@@ -677,8 +677,8 @@
 				if(H.dna)
 					default = H.dna.blood_type
 
-			var/new_blood_type = sanitize(input(registered_user,"What blood type would you like to be written on this card?","Agent Card Blood Type",default) as text)
-			if(!Adjacent(registered_user))
+			var/new_blood_type = tgui_input_text(registered_user, "What blood type would you like to be written on this card?", "Agent Card Blood Type", default)
+			if(!Adjacent(registered_user) || !new_blood_type)
 				return
 			blood_type = new_blood_type
 			to_chat(registered_user, "<span class='notice'>Blood type changed to [new_blood_type].</span>")
@@ -689,8 +689,8 @@
 				if(H.dna)
 					default = H.dna.unique_enzymes
 
-			var/new_dna_hash = sanitize(input(registered_user,"What DNA hash would you like to be written on this card?","Agent Card DNA Hash",default) as text)
-			if(!Adjacent(registered_user))
+			var/new_dna_hash = tgui_input_text(registered_user, "What DNA hash would you like to be written on this card?", "Agent Card DNA Hash", default)
+			if(!Adjacent(registered_user) || !new_dna_hash)
 				return
 			dna_hash = new_dna_hash
 			to_chat(registered_user, "<span class='notice'>DNA hash changed to [new_dna_hash].</span>")
@@ -701,8 +701,8 @@
 				if(H.dna)
 					default = md5(H.dna.uni_identity)
 
-			var/new_fingerprint_hash = sanitize(input(registered_user,"What fingerprint hash would you like to be written on this card?","Agent Card Fingerprint Hash",default) as text)
-			if(!Adjacent(registered_user))
+			var/new_fingerprint_hash = tgui_input_text(registered_user, "What fingerprint hash would you like to be written on this card?", "Agent Card Fingerprint Hash", default)
+			if(!Adjacent(registered_user) || !new_fingerprint_hash)
 				return
 			fingerprint_hash = new_fingerprint_hash
 			to_chat(registered_user, "<span class='notice'>Fingerprint hash changed to [new_fingerprint_hash].</span>")
@@ -752,7 +752,7 @@
 	if(!anyone)
 		if(user != registered_user)
 			return ..()
-	switch(alert("Would you like to display \the [src] or edit it?","Choose","Show","Edit"))
+	switch(tgui_alert(user, "Would you like to display [src] or edit it?", "Choose", list("Show", "Edit")))
 		if("Show")
 			return ..()
 		if("Edit")
