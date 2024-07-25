@@ -34,9 +34,7 @@
 					if("revenantspawn")
 						spawn_locs += L.loc
 		if(!spawn_locs) //If we can't find any revenant spawns, try the carp spawns
-			for(var/thing in GLOB.carplist)
-				if(isturf(thing))
-					spawn_locs += thing
+			spawn_locs += GLOB.carplist
 		if(!spawn_locs) //If we can't find either, just spawn the revenant at the player's location
 			spawn_locs += get_turf(player_mind.current)
 		if(!spawn_locs) //If we can't find THAT, then just retry
