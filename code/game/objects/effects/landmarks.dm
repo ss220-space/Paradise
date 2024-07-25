@@ -97,8 +97,12 @@
 		if("Syndicate Officer")
 			GLOB.syndicateofficer += loc
 			qdel(src)
+		if("Syndicate-Spawn")
+			GLOB.nukespawn += loc
 
-	GLOB.landmarks_list += src
+	if(QDELING(src) || QDELETED(src))
+		GLOB.landmarks_list += src
+
 	return 1
 
 /obj/effect/landmark/Destroy()

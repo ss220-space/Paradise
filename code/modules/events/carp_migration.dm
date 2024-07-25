@@ -30,9 +30,8 @@
 /datum/event/carp_migration/proc/spawn_fish(num_groups, group_size_min = 3, group_size_max = 5)
 	var/list/spawn_locations = list()
 
-	for(var/obj/effect/landmark/C in GLOB.landmarks_list)
-		if(C.name == "carpspawn")
-			spawn_locations.Add(C.loc)
+	for(var/obj/effect/landmark/C in GLOB.carplist)
+		spawn_locations.Add(C.loc)
 	spawn_locations = shuffle(spawn_locations)
 	num_groups = min(num_groups, spawn_locations.len)
 
