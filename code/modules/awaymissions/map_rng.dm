@@ -43,7 +43,7 @@
 /obj/effect/landmark/map_loader/random
 	var/template_list = ""
 
-/obj/effect/landmark/map_loader/random/Initialize()
+/obj/effect/landmark/map_loader/random/Initialize(mapload)
 	..()
 	if(template_list)
 		template_name = safepick(splittext(template_list, ";"))
