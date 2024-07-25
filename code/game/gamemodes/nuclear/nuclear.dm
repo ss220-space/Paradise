@@ -83,16 +83,6 @@
 ////////////////////////////////////////////////////////////////////////////////////////
 
 /datum/game_mode/nuclear/post_setup()
-
-	var/list/turf/synd_spawn = list()
-
-	for(var/thing in GLOB.landmarks_list)
-		var/obj/effect/landmark/A = thing
-		if(A.name == "Syndicate-Spawn")
-			synd_spawn += get_turf(A)
-			qdel(A)
-			continue
-
 	var/obj/effect/landmark/nuke_spawn = locate("landmark*Nuclear-Bomb")
 
 	var/nuke_code = rand(10000, 99999)
@@ -101,9 +91,9 @@
 	var/spawnpos = 1
 
 	for(var/datum/mind/synd_mind in syndicates)
-		if(spawnpos > synd_spawn.len)
+		if(spawnpos > GLOB.nukespawn.len)
 			spawnpos = 2
-		synd_mind.current.loc = synd_spawn[spawnpos]
+		synd_mind.current.loc = GLOB.nukespawn[spawnpos]
 		synd_mind.offstation_role = TRUE
 		forge_syndicate_objectives(synd_mind)
 		create_syndicate(synd_mind)
@@ -123,7 +113,7 @@
 
 	scale_telecrystals()
 	share_telecrystals()
-	if(nuke_spawn && synd_spawn.len > 0)
+	if(nuke_spawn && GLOB.nukespawn.len > 0)
 		var/obj/machinery/nuclearbomb/syndicate/the_bomb = new /obj/machinery/nuclearbomb/syndicate(nuke_spawn.loc)
 		the_bomb.r_code = nuke_code
 
@@ -196,15 +186,13 @@
 		var/obj/item/paper/P = new
 		P.info = "The nuclear authorization code is: <b>[nuke_code]</b>"
 		P.name = "nuclear bomb code"
-		var/obj/item/stamp/syndicate/stamp = new
-		P.stamp(stamp)
-		qdel(stamp)
+		P.stamp(/obj/item/stamp/syndicate)
 
 		if(SSticker.mode.config_tag=="nuclear")
-			P.loc = synd_mind.current.loc
+			P.forceMove(synd_mind.current.loc)
 		else
 			var/mob/living/carbon/human/H = synd_mind.current
-			P.loc = H.loc
+			P.forceMove(H.loc)
 			H.equip_to_slot_or_del(P, ITEM_SLOT_POCKET_RIGHT, 0)
 			H.update_icons()
 
@@ -253,7 +241,7 @@
 
 	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(synd_mob), ITEM_SLOT_CLOTH_INNER)
 	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(synd_mob), ITEM_SLOT_FEET)
-	synd_mob.equip_or_collect(new /obj/item/clothing/gloves/combat(synd_mob), ITEM_SLOT_GLOVES)
+	synd_mob.equip_or_collect(new /obj/item/clothing/gloves/combat/swat/syndicate(synd_mob), ITEM_SLOT_GLOVES)
 	synd_mob.equip_to_slot_or_del(new /obj/item/card/id/syndicate(synd_mob), ITEM_SLOT_ID)
 	synd_mob.equip_to_slot_or_del(new /obj/item/storage/backpack(synd_mob), ITEM_SLOT_BACK)
 	synd_mob.equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/pistol(synd_mob), ITEM_SLOT_BELT)

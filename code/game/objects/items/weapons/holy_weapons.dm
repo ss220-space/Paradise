@@ -320,7 +320,7 @@
 		S.real_name = name
 		S.name = name
 		S.ckey = theghost.ckey
-		var/input = stripped_input(S, "What are you named?", null, "", MAX_NAME_LEN)
+		var/input = tgui_input_text(S, "What are you named?", "Change Name", max_length = MAX_NAME_LEN)
 
 		if(src && input)
 			name = input

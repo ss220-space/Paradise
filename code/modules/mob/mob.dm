@@ -438,19 +438,20 @@
 	set src in usr
 	if(usr != src)
 		to_chat(usr, "No.")
-	var/msg = input(usr,"Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance.","Flavor Text",html_decode(flavor_text)) as message|null
-
-	if(msg != null)
-		msg = copytext_char(msg, 1, MAX_PAPER_MESSAGE_LEN)
-		msg = html_encode(msg)
-
-		flavor_text = msg
+	var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Flavor Text", flavor_text, multiline = TRUE)
+	if(isnull(msg))
+		return
+	if(stat)
+		to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
+		return
+	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
+	flavor_text = msg
 
 /mob/proc/print_flavor_text(var/shrink = TRUE)
 	if(flavor_text && flavor_text != "")
 		var/msg = replacetext(flavor_text, "\n", " ")
 		if(length(msg) <= 60 || !shrink)
-			return "<span class='notice'>[html_encode(msg)]</span>" //Repeat after me, "I will not give players access to decoded HTML."
+			return "<span class='notice'>[msg]</span>" // There is already encoded by tgui_input
 		else
 			return "<span class='notice'>[copytext_preserve_html(msg, 1, 57)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
 
