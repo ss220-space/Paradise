@@ -84,16 +84,14 @@
 	if(!bee_syndicate && !beehome)
 		. += "<span class='warning'>This bee is homeless!</span>"
 
+
 /mob/living/simple_animal/hostile/poison/bees/ListTargets() // Bee processing is expessive, so we override them finding targets here.
 	if(!search_objects) //In case we want to have purely hostile bees
 		return ..()
-	else
-		. = list() // The following code is only very slightly slower than just returning oview(vision_range, targets_from), but it saves us much more work down the line
-		var/list/searched_for = oview(vision_range, targets_from)
-		for(var/obj/A in searched_for)
-			. += A
-		for(var/mob/A in searched_for)
-			. += A
+	. = list() // The following code is only very slightly slower than just returning oview(vision_range, targets_from), but it saves us much more work down the line
+	for(var/atom/movable/movable in oview(vision_range, targets_from))
+		. += movable
+
 
 // All bee sprites are made up of overlays. They do not have any special sprite overlays for items placed on them, such as collars, so this proc is unneeded.
 /mob/living/simple_animal/hostile/poison/bees/regenerate_icons()
