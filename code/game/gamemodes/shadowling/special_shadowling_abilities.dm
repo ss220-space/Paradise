@@ -42,19 +42,13 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	if(QDELETED(user))
 		return
 
-	var/turf/simulated/floor/F
 	var/turf/shadowturf = get_turf(user)
-	for(F in orange(1, user))
+	for(var/turf/simulated/floor/F in orange(1, user))
 		new /obj/structure/alien/resin/wall/shadowling(F)
 
-		var/turf/simulated/floor/F
-		var/turf/shadowturf = get_turf(user)
-		for(F in orange(1, user))
-			new /obj/structure/alien/resin/wall/shadowling(F)
-
-		for(var/obj/structure/alien/resin/wall/shadowling/R in shadowturf) //extremely hacky
-			qdel(R)
-			new /obj/structure/alien/weeds/node(shadowturf) //Dim lighting in the chrysalis -- removes itself afterwards
+	for(var/obj/structure/alien/resin/wall/shadowling/R in shadowturf) //extremely hacky
+		qdel(R)
+		new /obj/structure/alien/weeds/node(shadowturf) //Dim lighting in the chrysalis -- removes itself afterwards
 
 	//Can't die while hatching
 	user.dna.species.brute_mod = 0;
@@ -203,7 +197,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	if(QDELETED(user))
 		return
 	user.visible_message("<span class='warning'>[user]'s body begins to violently stretch and contort.</span>", \
-					  "<span class='shadowling'>You begin to rend apart the final barriers to godhood.</span>")
+						"<span class='shadowling'>You begin to rend apart the final barriers to godhood.</span>")
 
 	sleep(4 SECONDS)
 	if(QDELETED(user))
