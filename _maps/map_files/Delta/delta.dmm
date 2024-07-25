@@ -31673,7 +31673,7 @@
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology)
 "djc" = (
-/obj/structure/closet/secure_closet/bar,
+/obj/structure/closet/secure_closet/cabinet/bar,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -32931,9 +32931,7 @@
 	},
 /area/crew_quarters/fitness)
 "dod" = (
-/obj/structure/closet{
-	icon_state = "cabinet"
-	},
+/obj/structure/closet/cabinet,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/shoes/sandal/white,
 /obj/item/clothing/under/pants/white,
@@ -48225,7 +48223,7 @@
 	},
 /area/quartermaster/storage)
 "fvg" = (
-/obj/structure/closet/secure_closet/detective,
+/obj/structure/closet/secure_closet/cabinet/detective,
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
 "fvo" = (
@@ -74982,7 +74980,6 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/computer/mob_healer_terminal,
 /obj/structure/table,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
@@ -93041,9 +93038,7 @@
 	},
 /area/security/processing)
 "pVM" = (
-/obj/structure/closet{
-	icon_state = "cabinet"
-	},
+/obj/structure/closet/cabinet,
 /obj/item/reagent_containers/food/drinks/bottle/whiskey,
 /obj/item/reagent_containers/food/drinks/drinkingglass,
 /obj/item/reagent_containers/food/drinks/drinkingglass,
@@ -97676,9 +97671,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "qVB" = (
-/obj/structure/closet{
-	icon_state = "cabinet"
-	},
+/obj/structure/closet/cabinet,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
@@ -126931,7 +126924,6 @@
 	},
 /area/medical/medbay)
 "xHm" = (
-/obj/effect/landmark/battle_mob_point,
 /turf/simulated/floor/engine{
 	name = "Holodeck Projector Floor"
 	},

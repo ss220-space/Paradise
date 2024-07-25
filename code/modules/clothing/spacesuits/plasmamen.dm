@@ -42,7 +42,7 @@
 		weldingvisortoggle(user)
 
 
-/obj/item/clothing/head/helmet/space/plasmaman/ui_action_click(mob/user, action, leftclick)
+/obj/item/clothing/head/helmet/space/plasmaman/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_helmet_light))
 		toggle_light(user)
 	else if(istype(action, /datum/action/item_action/toggle_welding_screen/plasmaman))

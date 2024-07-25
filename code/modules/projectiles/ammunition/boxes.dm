@@ -163,11 +163,35 @@
 	ammo_type = /obj/item/ammo_casing/c45
 	max_ammo = 20
 
+/obj/item/ammo_box/c45/ext
+	name = "ammo box extended (.45)"
+	icon_state = "ammobox_45"
+	max_ammo = 40
+
 /obj/item/ammo_box/rubber45
 	name = "ammo box (.45 rubber)"
 	icon_state = "45box-r"
 	ammo_type = /obj/item/ammo_casing/rubber45
 	max_ammo = 16
+
+/obj/item/ammo_box/rubber45/ext
+	name = "ammo box extended(.45 rubber)"
+	icon_state = "ammobox_45"
+	max_ammo = 40
+
+/obj/item/ammo_box/a556
+	name = "ammo box (5.56 mm)"
+	icon_state = "ammobox_556"
+	origin_tech = "combat=2"
+	ammo_type = /obj/item/ammo_casing/a556
+	max_ammo = 60
+
+/obj/item/ammo_box/ak814
+	name = "AK ammo box (5.45x39mm)"
+	icon_state = "ammobox_AK"
+	origin_tech = "combat=5;syndicate=1"
+	ammo_type = /obj/item/ammo_casing/a545
+	max_ammo = 60
 
 /obj/item/ammo_box/c46x30mm
 	name = "ammo box (4.6x30mm)"
@@ -235,6 +259,40 @@
 	icon_state = "foambox_sniper_riot"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/sniper/riot
 
+/obj/item/ammo_box/sniper_rounds_compact
+	name = "Box of compact sniper rounds (.50L COMP)"
+	icon_state = "ammobox_sniperCOMP"
+	origin_tech = "combat=5"
+	ammo_type = /obj/item/ammo_casing/compact
+	max_ammo = 20
+
+/obj/item/ammo_box/sniper_rounds_penetrator
+	name = "Box of penetrator sniper rounds (.50 PE)"
+	icon_state = "ammobox_sniperPE"
+	origin_tech = "combat=6"
+	ammo_type = /obj/item/ammo_casing/penetrator
+	max_ammo = 20
+
+/obj/item/ammo_box/m10mm
+	name = "ammo box (10mm)"
+	icon_state = "ammobox_10AP"
+	ammo_type = /obj/item/ammo_casing/c10mm
+	max_ammo = 60
+
+/obj/item/ammo_box/m10mm/ap
+	name = "ammo box (10mm AP)"
+	ammo_type = /obj/item/ammo_casing/c10mm/ap
+
+/obj/item/ammo_box/m10mm/hp
+	name = "ammo box (10mm HP)"
+	icon_state = "ammobox_10HP"
+	ammo_type = /obj/item/ammo_casing/c10mm/hp
+
+/obj/item/ammo_box/m10mm/fire
+	name = "ammo box (10mm incendiary)"
+	icon_state = "ammobox_10incendiary"
+	ammo_type = /obj/item/ammo_casing/c10mm/fire
+
 /**
  * SPEEDLOADER
  */
@@ -285,6 +343,12 @@
 	ammo_type = /obj/item/ammo_casing/c38/hp
 	icon_state = "38hp-6"
 	icon_prefix = "38hp"
+
+/obj/item/ammo_box/nagant
+	name = "ammo box (7.62x38mm nagant)"
+	icon_state = "ammobox_nagant"
+	ammo_type = /obj/item/ammo_casing/n762
+	max_ammo = 20
 
 // SHOTGUN
 /obj/item/ammo_box/speedloader/shotgun
@@ -408,3 +472,9 @@
 	ammo_type = /obj/item/ammo_casing/a762
 	max_ammo = 5
 	multiple_sprites = 1
+
+/obj/item/ammo_box/a762
+	name = "ammo box (7.62x54mm mosin)"
+	icon_state = "ammobox_mosin"
+	ammo_type = /obj/item/ammo_casing/a762
+	max_ammo = 40

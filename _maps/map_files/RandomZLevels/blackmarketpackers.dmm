@@ -5465,11 +5465,6 @@
 /obj/effect/mob_spawn/human/corpse/damaged,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
-"Bb" = (
-/turf/simulated/wall/shuttle{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
-/area/awaymission/BMPship/TraderShuttle)
 "Bi" = (
 /obj/structure/table,
 /obj/item/kitchen/utensil/fork,
@@ -6909,7 +6904,7 @@
 /mob/living/simple_animal/hostile/syndicate/ranged/space{
 	health = 300;
 	maxHealth = 300
-},
+	},
 /turf/simulated/floor/pod,
 /area/awaymission/BMPship/Shelter)
 "Pt" = (
@@ -20938,7 +20933,7 @@ ig
 ig
 LN
 Pt
-Bb
+ig
 NH
 aa
 aa
@@ -21458,7 +21453,7 @@ Zb
 aa
 qL
 aa
-Bb
+ig
 Hy
 aa
 aa
