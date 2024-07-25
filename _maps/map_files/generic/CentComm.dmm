@@ -4549,7 +4549,7 @@
 /obj/structure/stone_tile/surrounding/burnt,
 /obj/structure/stone_tile/center/burnt,
 /obj/effect/landmark/spawner/bubblegum,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/space/bubblegum_arena)
 "cjr" = (
 /obj/structure/rack,
@@ -7951,7 +7951,7 @@
 	},
 /area/syndicate_mothership/jail)
 "dQQ" = (
-/obj/structure/closet/secure_closet/random_drinks{
+/obj/structure/closet/secure_closet/cabinet/bar/random_drinks{
 	layer = 3.5
 	},
 /turf/simulated/floor/wood,
@@ -8041,7 +8041,7 @@
 /area/ninja/outside)
 "dTR" = (
 /obj/structure/stone_tile/slab/burnt,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/space/bubblegum_arena)
 "dTZ" = (
 /obj/item/flag/nt,
@@ -21645,7 +21645,7 @@
 /turf/simulated/floor/carpet,
 /area/wizard_station)
 "kEk" = (
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/space/bubblegum_arena)
 "kEv" = (
 /obj/effect/turf_decal/caution/stand_clear/red,
@@ -31492,7 +31492,7 @@
 /area/shuttle/siberia)
 "oJP" = (
 /obj/structure/stone_tile/slab/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/space/bubblegum_arena)
 "oKa" = (
 /obj/machinery/recharge_station/ert,
@@ -34389,7 +34389,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/infteam)
 "pYv" = (
-/obj/structure/closet/secure_closet/bar{
+/obj/structure/closet/secure_closet/cabinet/bar{
 	req_access = list()
 	},
 /obj/item/storage/box/beakers/bluespace,
@@ -36057,8 +36057,7 @@
 	color = "#444444";
 	dir = 1
 	},
-/obj/structure/closet{
-	icon_state = "cabinet";
+/obj/structure/closet/cabinet{
 	req_access = list(114)
 	},
 /turf/simulated/floor/wood/fancy/light,
@@ -44654,7 +44653,7 @@
 	},
 /area/syndicate_mothership/control)
 "uBh" = (
-/obj/structure/closet/secure_closet/bar,
+/obj/structure/closet/secure_closet/cabinet/bar,
 /obj/item/storage/box/beakers/bluespace,
 /obj/item/storage/box/drinkingglasses,
 /obj/item/storage/box/drinkingglasses,
@@ -50973,9 +50972,7 @@
 	},
 /area/centcom/supply)
 "xpw" = (
-/obj/structure/closet{
-	icon_state = "cabinet"
-	},
+/obj/structure/closet/cabinet,
 /obj/item/clothing/under/color/lightpurple,
 /obj/item/clothing/under/color/purple,
 /obj/item/storage/backpack/satchel,
