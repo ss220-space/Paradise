@@ -270,10 +270,11 @@
 
 /obj/item/toy/crayon/spraycan
 	name = "Nanotrasen-brand Rapid Paint Applicator"
-	icon_state = "spraycan_cap"
+	icon_state = "spraycan"
 	desc = "A metallic container containing tasty paint."
+	/// Current state of the cap
 	var/capped = 1
-	var/not_used = -1 // -1 for unlimited used
+	/// List of icon_state and names for paint welding mask
 	var/list/weld_icons = list("Flame" = "welding_redflame",
 					"Blue Flame" = "welding_blueflame",
 					"White Flame" = "welding_white")
@@ -281,7 +282,7 @@
 	validSurfaces = list(/turf/simulated/floor,/turf/simulated/wall)
 
 /obj/item/toy/crayon/spraycan/Initialize(mapload)
-	..()
+	. = ..()
 	update_icon()
 
 /obj/item/toy/crayon/spraycan/attack_self(mob/living/user as mob)
@@ -321,39 +322,37 @@
 			playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
 		..()
 
-
-/obj/item/toy/crayon/spraycan/update_icon_state()
-	icon_state = "spraycan[capped ? "_cap" : ""]"
-
-
 /obj/item/toy/crayon/spraycan/update_overlays()
 	. = ..()
 	var/image/I = image('icons/obj/crayons.dmi', icon_state = "[capped ? "spraycan_cap_colors" : "spraycan_colors"]")
 	I.color = colour
 	. += I
 
-/obj/item/toy/crayon/spraycan/proc/draw_paint()
-	not_used = (not_used > 0) ? FALSE : not_used
+/obj/item/toy/crayon/spraycan/proc/draw_paint(mob/living/user)
 	uses--
+	if(!uses)
+		to_chat(user, span_warning("Вы израсходовали [name]!"))
+		playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
+		qdel(src)
 
-/obj/item/toy/crayon/spraycan/proc/is_can_draw_paint(var/obj/object, mob/living/user)
+/obj/item/toy/crayon/spraycan/proc/can_paint(obj/object, mob/living/user)
 	if(capped)
 		to_chat(user, span_warning("Вы не можете раскрасить [object], если крышка баллона краски закрыта!"))
 		return FALSE
-	if(uses <= 1)
+	if(!uses)
 		to_chat(user, span_warning("Не похоже, что бы осталось достаточно краски"))
-		return FALSE
-	if(!not_used)
-		to_chat(user, span_warning("Кажется, этот [src] уже был использован."))
 		return FALSE
 	return TRUE
 
 /obj/item/toy/crayon/spraycan/paintkit
 	colour = "#ffffff"
-	not_used = TRUE
+	uses = 1
+	validSurfaces = null
 
-/obj/item/toy/crayon/spraycan/paintkit/update_icon_state()
-	return
+/obj/item/toy/crayon/spraycan/paintkit/attack_self(mob/living/user as mob)
+	to_chat(user, span_notice("Вы [capped ? "сняли" : "вернули"] колпачок [name]"))
+	capped = !capped
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/toy/crayon/spraycan/paintkit/bigbrother
 	name = "Paintkit «Big Brother»"

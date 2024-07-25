@@ -28,6 +28,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	visor_flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	resistance_flags = FIRE_PROOF
+	/// Name icon_state, which is used for painting
 	var/paint = null
 
 	sprite_sheets = list(
@@ -76,33 +77,32 @@
 
 /obj/item/clothing/head/welding/attackby(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/toy/crayon/spraycan))
-		var/obj/item/toy/crayon/spraycan/spray = I
-		var/list/weld_icons = null
-		if(paint)
-			to_chat(user, span_warning("Похоже, тут уже есть слой краски!"))
-			return
-		if(!spray.is_can_draw_paint(src, user))
-			return
-		for(var/weld_icon in spray.weld_icons)
-			weld_icons += list("[weld_icon]" = image(icon = src.icon, icon_state = spray.weld_icons[weld_icon]))
-		var/choice = show_radial_menu(user, src, weld_icons)
-		if(!choice || I.loc != user || !Adjacent(user))
-			return
-		adjust_paint(spray.weld_icons[choice], user, I)
+		adjust_paint(user, I)
 	else if(istype(I, /obj/item/soap) && paint)
-		adjust_paint(null, user)
+		adjust_paint()
 	else return ..()
 
 /obj/item/clothing/head/welding/update_icon_state()
 	icon_state = paint ? paint : base_icon_state
 	return ..()
 
-/obj/item/clothing/head/welding/proc/adjust_paint(var/weld_icon_state, mob/living/user = null, var/obj/item/toy/crayon/spraycan/spray = null)
-	paint = weld_icon_state
-	if(spray && paint)
-		spray.draw_paint()
-	if(user)
-		to_chat(user, span_notice("Вы успешно [paint ? "покрасили" : "очистили от краски"] [src]."))
+/obj/item/clothing/head/welding/proc/adjust_paint(mob/living/user = null, obj/item/toy/crayon/spraycan/spray = null)
+	if(spray && user)
+		if(paint)
+			to_chat(user, span_warning("Похоже, тут уже есть слой краски!"))
+			return
+		if(!spray.can_paint(src, user))
+			return
+		var/list/weld_icons = null
+		for(var/weld_icon in spray.weld_icons)
+			weld_icons += list("[weld_icon]" = image(icon = src.icon, icon_state = spray.weld_icons[weld_icon]))
+		var/choice = show_radial_menu(user, src, weld_icons)
+		if(!choice || spray.loc != user || !Adjacent(user))
+			return
+		spray.draw_paint(user)
+		paint = spray.weld_icons[choice]
+	else
+		paint = null
 	update_icon(UPDATE_ICON_STATE)
 	update_equipped_item(update_speedmods = FALSE)
 
