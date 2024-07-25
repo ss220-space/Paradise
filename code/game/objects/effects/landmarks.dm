@@ -100,7 +100,7 @@
 		if("Syndicate-Spawn")
 			GLOB.nukespawn += loc
 
-	if(QDELING(src) || QDELETED(src))
+	if(QDELETED(src))
 		GLOB.landmarks_list += src
 
 	return 1
