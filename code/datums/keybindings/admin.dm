@@ -77,6 +77,7 @@
 	if(.)
 		return .
 	user.holder.player_panel_new()
+	return TRUE
 
 
 /datum/keybinding/admin/apm

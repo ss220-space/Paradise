@@ -7,8 +7,7 @@
 	. = ..()
 	if(.)
 		return .
-	user.mob.emote(initial(linked_emote.key), intentional = TRUE)
-	return TRUE
+	return user.mob.emote(initial(linked_emote.key), intentional = TRUE)
 
 
 /**
