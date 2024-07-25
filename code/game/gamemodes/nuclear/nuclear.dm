@@ -241,7 +241,7 @@
 
 	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(synd_mob), ITEM_SLOT_CLOTH_INNER)
 	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(synd_mob), ITEM_SLOT_FEET)
-	synd_mob.equip_or_collect(new /obj/item/clothing/gloves/combat(synd_mob), ITEM_SLOT_GLOVES)
+	synd_mob.equip_or_collect(new /obj/item/clothing/gloves/combat/swat/syndicate(synd_mob), ITEM_SLOT_GLOVES)
 	synd_mob.equip_to_slot_or_del(new /obj/item/card/id/syndicate(synd_mob), ITEM_SLOT_ID)
 	synd_mob.equip_to_slot_or_del(new /obj/item/storage/backpack(synd_mob), ITEM_SLOT_BACK)
 	synd_mob.equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/pistol(synd_mob), ITEM_SLOT_BELT)
