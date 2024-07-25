@@ -19,7 +19,7 @@
 	if(template_name)
 		template = GLOB.map_templates[template_name]
 
-/obj/effect/landmark/map_loader/Initialize()
+/obj/effect/landmark/map_loader/Initialize(mapload)
 	. = ..()
 	if(template)
 		load(template)
