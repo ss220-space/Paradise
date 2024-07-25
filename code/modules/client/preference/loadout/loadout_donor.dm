@@ -19,6 +19,12 @@
 	display_name = "Kitty ears"
 	path = /obj/item/clothing/head/kitty
 
+/datum/gear/donor/leather_trenchcoat
+	display_name = "Leather Trenchcoat"
+	path = /obj/item/clothing/suit/storage/leather_trenchcoat/runner
+	donator_tier = 2
+	cost = 1
+
 /datum/gear/donor/furgloves
 	display_name = "Fur Gloves"
 	path = /obj/item/clothing/gloves/furgloves
@@ -346,4 +352,10 @@
 	path = /obj/item/pda_case/beer
 	donator_tier = 1
 	cost = 1
+
+/datum/gear/donor/maid_s
+	donator_tier = 2
+	cost = 1
+	display_name = "Short maid costume"
+	path = /obj/item/clothing/under/maid_s
 

@@ -327,7 +327,7 @@
 	. = ..()
 	linked_node = node
 	if(!forbidden_turf_types)
-		forbidden_turf_types = typecacheof(list(/turf/space, /turf/simulated/floor/chasm, /turf/simulated/floor/plating/lava))
+		forbidden_turf_types = typecacheof(list(/turf/space, /turf/simulated/floor/chasm, /turf/simulated/floor/lava))
 
 	if(is_type_in_typecache(loc, forbidden_turf_types))
 		qdel(src)

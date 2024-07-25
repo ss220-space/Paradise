@@ -105,7 +105,7 @@
 	set category = "Object"
 	set src in usr
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated() || !isAI(usr) && HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/n_name = sanitize(copytext_char(input(usr, "What would you like to label the photo?", "Photo Labelling", name) as text, 1, MAX_NAME_LEN))
@@ -139,7 +139,7 @@
 	icon_state = "camera"
 	item_state = "electropack"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = ITEM_SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_NECK
 	var/list/matter = list("metal" = 2000)
 	var/pictures_max = 10
 	var/pictures_left = 10
@@ -149,6 +149,15 @@
 	var/icon_off = "camera_off"
 	var/size = 3
 	var/see_ghosts = 0 //for the spoop of it
+
+	sprite_sheets = list(
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/neck.dmi',
+		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/neck.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/neck.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/neck.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/neck.dmi',
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/neck.dmi'
+		)
 
 
 /obj/item/camera/spooky/CheckParts(list/parts_list)

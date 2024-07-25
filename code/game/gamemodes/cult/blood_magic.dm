@@ -438,7 +438,7 @@
 	else
 		to_chat(user, span_cultitalic("In a brilliant flash of red, [L] falls to the ground!"))
 		// These are in life cycles, so double the time that's stated.
-		L.Weaken(4 SECONDS)
+		L.Knockdown(3 SECONDS)
 		L.adjustStaminaLoss(30)
 		L.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 		L.flash_eyes(1, TRUE)

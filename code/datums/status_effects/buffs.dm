@@ -24,6 +24,37 @@
 	playsound(owner, 'sound/magic/teleport_diss.ogg', 50, 1)
 	owner.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
 
+/datum/status_effect/shadow_empower
+	id = "shadow_empower"
+	alert_type = /atom/movable/screen/alert/status_effect/shadow_empower
+
+/atom/movable/screen/alert/status_effect/shadow_empower
+	name = "Darkness empower"
+	desc = "Your body is enhanced with darkness and heals much stronger."
+	icon_state = "glare"
+
+/datum/status_effect/shadow_empower/on_apply()
+	to_chat(owner, span_revenbignotice("You feel empowered with darkness!"))
+	playsound(owner, 'sound/magic/teleport_app.ogg', 50, 1)
+	return TRUE
+
+/datum/status_effect/shadow_empower/tick(seconds_between_ticks)
+	if(ishuman(owner) && owner.stat != DEAD)
+		var/mob/living/carbon/human/human = owner
+		human.heal_overall_damage(1,1)
+		human.adjustToxLoss(-0.5)
+		human.adjustBrainLoss(-1)
+		human.adjustCloneLoss(-0.5)
+		human.SetKnockdown(0)
+		if(prob(15))
+			var/obj/item/organ/external/bodypart = safepick(human.check_fractures())
+			bodypart?.mend_fracture()
+		if(prob(1))
+			human.check_and_regenerate_organs()
+
+/datum/status_effect/shadow_empower/on_remove()
+	to_chat(owner, span_revenbignotice("You feel exhausted! Darkness no longer supports you!"))
+	playsound(owner, 'sound/magic/teleport_diss.ogg', 50, 1)
 
 /datum/status_effect/void_price
 	id = "void_price"

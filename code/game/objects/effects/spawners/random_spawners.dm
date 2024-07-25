@@ -151,6 +151,28 @@
 	/obj/effect/decal/cleanable/fungus = 7)
 
 
+/obj/effect/spawner/random_spawners/rodent
+	name = "50pc mouse 50pc rat"
+	icon_state = "mouse"
+	result = list(
+		/mob/living/simple_animal/mouse = 1,
+		/mob/living/simple_animal/mouse/white = 1,
+		/mob/living/simple_animal/mouse/brown = 1,
+		/mob/living/simple_animal/mouse/rat = 1,
+		/mob/living/simple_animal/mouse/rat/white = 1,
+		/mob/living/simple_animal/mouse/rat/irish = 1,
+	)
+
+
+/obj/effect/spawner/random_spawners/rat
+	name = "random color rat"
+	icon_state = "rat"
+	result = list(
+		/mob/living/simple_animal/mouse/rat,
+		/mob/living/simple_animal/mouse/rat/white,
+		/mob/living/simple_animal/mouse/rat/irish,
+	)
+
 
 // z6 DEPOT SPAWNERS
 

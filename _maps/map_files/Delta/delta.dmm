@@ -1,7 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aaa" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/brown,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/bar)
 "aab" = (
@@ -14,7 +14,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "aac" = (
@@ -266,7 +266,7 @@
 /obj/machinery/light_construct{
 	dir = 1
 	},
-/mob/living/simple_animal/mouse/brown,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whiteblue"
@@ -300,7 +300,7 @@
 /area/medical/reception)
 "aaC" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitehall"
@@ -314,7 +314,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/blood/writing,
-/mob/living/simple_animal/mouse,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "tranquillite"
@@ -331,7 +331,7 @@
 	dir = 4
 	},
 /obj/structure/grille/broken,
-/mob/living/simple_animal/mouse,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitehall"
@@ -357,7 +357,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/mob/living/simple_animal/mouse,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
 "aaH" = (
@@ -388,7 +388,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowfull"
 	},
@@ -445,7 +445,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -458,14 +458,14 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/mob/living/simple_animal/mouse/brown,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/library)
 "aaO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/mob/living/simple_animal/mouse/brown,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/wood,
 /area/maintenance/library)
 "aaP" = (
@@ -473,7 +473,7 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
 "aaQ" = (
@@ -484,7 +484,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/brown,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -497,7 +497,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/mob/living/simple_animal/mouse/white,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/starboardsolar)
 "aaS" = (
@@ -544,10 +544,12 @@
 	},
 /area/crew_quarters/locker)
 "abW" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/white,
+/mob/living/simple_animal/mouse/brown{
+	desc = "Совершенно точно и официально уполномоченный следить за состоянием станции непосредственно, как главный архитектор.";
+	name = "Инспектор Мышь"
+	},
 /turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/area/maintenance/casino)
 "abZ" = (
 /obj/machinery/smartfridge/secure/medbay/organ,
 /turf/simulated/floor/plasteel{
@@ -2336,10 +2338,7 @@
 	},
 /area/engine/mechanic_workshop/expedition)
 "auk" = (
-/mob/living/simple_animal/mouse/brown{
-	desc = "Главный помощник архитектора станции.";
-	real_name = "Инспектор Мышь"
-	},
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aul" = (
@@ -2404,7 +2403,7 @@
 "auA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/chair/stool,
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
 "auB" = (
@@ -3691,10 +3690,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/mob/living/simple_animal/mouse/brown{
-	desc = "Главный помощник архитектора станции.";
-	real_name = "Инспектор Мышь"
-	},
+/obj/effect/spawner/random_spawners/rodent,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 8
@@ -5729,7 +5725,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "aPJ" = (
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "cautioncorner"
@@ -9796,7 +9792,7 @@
 /area/maintenance/casino)
 "bpe" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "bpf" = (
@@ -13005,7 +13001,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/mob/living/simple_animal/mouse/rat/gray/Ratatui,
+/mob/living/simple_animal/mouse/rat/Ratatui,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -17062,7 +17058,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/brown,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "bWb" = (
@@ -21241,10 +21237,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/mob/living/simple_animal/mouse/brown{
-	desc = "Главный помощник архитектора станции.";
-	real_name = "Инспектор Мышь"
-	},
+/obj/effect/spawner/random_spawners/rodent,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
@@ -31680,7 +31673,7 @@
 /turf/simulated/floor/plating,
 /area/toxins/xenobiology)
 "djc" = (
-/obj/structure/closet/secure_closet/bar,
+/obj/structure/closet/secure_closet/cabinet/bar,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -32938,9 +32931,7 @@
 	},
 /area/crew_quarters/fitness)
 "dod" = (
-/obj/structure/closet{
-	icon_state = "cabinet"
-	},
+/obj/structure/closet/cabinet,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/shoes/sandal/white,
 /obj/item/clothing/under/pants/white,
@@ -38274,7 +38265,7 @@
 	icon_state = "2-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "dLD" = (
@@ -44045,7 +44036,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/wood/fancy/oak,
 /area/maintenance/trading)
 "ewt" = (
@@ -48232,7 +48223,7 @@
 	},
 /area/quartermaster/storage)
 "fvg" = (
-/obj/structure/closet/secure_closet/detective,
+/obj/structure/closet/secure_closet/cabinet/detective,
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
 "fvo" = (
@@ -49977,7 +49968,7 @@
 /turf/simulated/wall,
 /area/medical/research)
 "fRu" = (
-/mob/living/simple_animal/mouse/brown,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
 "fRH" = (
@@ -52874,7 +52865,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/mob/living/simple_animal/mouse/brown,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/kitchen)
 "gCd" = (
@@ -54349,7 +54340,7 @@
 "gPv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bed/roller,
-/mob/living/simple_animal/mouse/brown,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "gPw" = (
@@ -56765,7 +56756,7 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
-/mob/living/simple_animal/mouse/brown,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "huw" = (
@@ -56814,7 +56805,7 @@
 /area/medical/cmostore)
 "huZ" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
 "hvg" = (
@@ -57776,7 +57767,7 @@
 	},
 /area/security/podbay)
 "hHE" = (
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "hHK" = (
@@ -59548,7 +59539,7 @@
 	},
 /area/crew_quarters/locker)
 "ies" = (
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint3)
 "ieY" = (
@@ -64250,13 +64241,6 @@
 	icon_state = "red"
 	},
 /area/security/processing)
-"jlW" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/brown,
-/turf/simulated/floor/plasteel{
-	icon_state = "tranquillite"
-	},
-/area/maintenance/kitchen)
 "jme" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/decal/warning_stripes/west,
@@ -65723,7 +65707,7 @@
 	},
 /area/crew_quarters/kitchen)
 "jCx" = (
-/mob/living/simple_animal/mouse/white,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
 "jCz" = (
@@ -65990,7 +65974,7 @@
 	},
 /area/crew_quarters/fitness)
 "jGj" = (
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite"
 	},
@@ -67220,7 +67204,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "jVO" = (
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
 "jWg" = (
@@ -67820,7 +67804,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/detectives_office)
 "keu" = (
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/kitchen)
 "kew" = (
@@ -69837,7 +69821,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/ai)
 "kEo" = (
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
@@ -70848,10 +70832,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/brown{
-	desc = "Главный помощник архитектора станции.";
-	real_name = "Инспектор Мышь"
-	},
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "kSt" = (
@@ -74714,7 +74695,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -74999,7 +74980,6 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/computer/mob_healer_terminal,
 /obj/structure/table,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
@@ -75322,7 +75302,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
 "lYc" = (
@@ -75381,7 +75361,7 @@
 /area/security/podbay)
 "lYK" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite"
 	},
@@ -77371,10 +77351,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/mob/living/simple_animal/mouse/brown{
-	desc = "Главный помощник архитектора станции.";
-	real_name = "Инспектор Мышь"
-	},
+/obj/effect/spawner/random_spawners/rodent,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
@@ -78414,7 +78391,7 @@
 	dir = 10
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
 "mGq" = (
@@ -79887,7 +79864,7 @@
 	},
 /area/hallway/primary/central/south)
 "mYk" = (
-/mob/living/simple_animal/mouse,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/wood,
 /area/crew_quarters/theatre)
 "mYl" = (
@@ -86084,7 +86061,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/glass/reinforced,
 /area/maintenance/asmaint4)
 "ouL" = (
@@ -91735,7 +91712,7 @@
 /turf/simulated/floor/plating,
 /area/bridge)
 "pGX" = (
-/mob/living/simple_animal/mouse,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
 "pGY" = (
@@ -93061,9 +93038,7 @@
 	},
 /area/security/processing)
 "pVM" = (
-/obj/structure/closet{
-	icon_state = "cabinet"
-	},
+/obj/structure/closet/cabinet,
 /obj/item/reagent_containers/food/drinks/bottle/whiskey,
 /obj/item/reagent_containers/food/drinks/drinkingglass,
 /obj/item/reagent_containers/food/drinks/drinkingglass,
@@ -93359,7 +93334,7 @@
 	},
 /area/chapel/office)
 "pYt" = (
-/mob/living/simple_animal/mouse/brown,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "pYG" = (
@@ -94604,7 +94579,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint3)
 "qmz" = (
@@ -95146,7 +95121,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite"
 	},
@@ -95999,7 +95974,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/flour,
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -97696,9 +97671,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "qVB" = (
-/obj/structure/closet{
-	icon_state = "cabinet"
-	},
+/obj/structure/closet/cabinet,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
@@ -98447,7 +98420,7 @@
 /area/crew_quarters/captain/bedroom)
 "reA" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/brown,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "reH" = (
@@ -103279,7 +103252,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel,
 /area/maintenance/starboard)
 "sno" = (
@@ -106204,7 +106177,7 @@
 /turf/simulated/floor/carpet,
 /area/lawoffice)
 "sWz" = (
-/mob/living/simple_animal/mouse/white,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
@@ -110910,7 +110883,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/electrical)
 "tYm" = (
@@ -111727,7 +111700,7 @@
 /obj/structure/chair/office{
 	dir = 4
 	},
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "uhP" = (
@@ -115907,7 +115880,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/mob/living/simple_animal/mouse/brown,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "vhV" = (
@@ -116814,7 +116787,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/blood_5,
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -121805,7 +121778,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/mob/living/simple_animal/mouse/brown,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "wyT" = (
@@ -122391,7 +122364,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/mob/living/simple_animal/mouse/white,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -126951,7 +126924,6 @@
 	},
 /area/medical/medbay)
 "xHm" = (
-/obj/effect/landmark/battle_mob_point,
 /turf/simulated/floor/engine{
 	name = "Holodeck Projector Floor"
 	},
@@ -127433,7 +127405,7 @@
 /area/chapel/main)
 "xLM" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "xLU" = (
@@ -157177,7 +157149,7 @@ czv
 cCn
 hKB
 bqN
-hKB
+abW
 bqN
 dbm
 dEt
@@ -180128,7 +180100,7 @@ kRE
 lov
 uWH
 imN
-abW
+reA
 yfp
 mde
 dLy
@@ -184519,7 +184491,7 @@ vzF
 eBw
 puz
 fbI
-jlW
+lYK
 bmM
 txD
 qOp

@@ -280,18 +280,6 @@
 			src.emagged = 0
 			setMenuState(usr, COMM_SCREEN_MAIN)
 
-		if("RestartNanoMob")
-			if(SSmob_hunt)
-				if(SSmob_hunt.manual_reboot())
-					var/loading_msg = pick("Respawning spawns", "Reticulating splines", "Flipping hat",
-										"Capturing all of them", "Fixing minor text issues", "Being the very best",
-										"Nerfing this", "Not communicating with playerbase", "Coding a ripoff in a 2D spaceman game")
-					to_chat(usr, span_notice("Restarting Nano-Mob Hunter GO! game server. [loading_msg]..."))
-				else
-					to_chat(usr, span_warning("Nano-Mob Hunter GO! game server reboot failed due to recent restart. Please wait before re-attempting."))
-			else
-				to_chat(usr, span_danger("Nano-Mob Hunter GO! game server is offline for extended maintenance. Contact your Central Command administrators for more info if desired."))
-
 
 
 /obj/machinery/computer/communications/emag_act(user as mob)
@@ -521,13 +509,11 @@
 			var/obj/item/paper/P = new (C.loc)
 			P.name = "paper- '[title]'"
 			P.info = text
-			P.update_icon()
 			if(add_to_records)
 				C.messagetitle.Add("[title]")
 				C.messagetext.Add(text)
 			if(goal)
-				var/obj/item/stamp/navcom/stamp = new()
-				P.stamp(stamp)
+				P.stamp(/obj/item/stamp/navcom)
 				goal.papers_list.Add(P)
 
 /proc/print_centcom_report(text = "", title = "Incoming Message")

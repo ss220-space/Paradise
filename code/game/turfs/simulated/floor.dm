@@ -378,7 +378,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 						new_window.dir = cdir
 			else
 				new our_rcd.window_type(src)
-			ChangeTurf(our_rcd.floor_type) // Platings go under windows.
+			ChangeTurf(our_rcd.floor_type, ignore_air = TRUE) // Platings go under windows.
 			return RCD_ACT_SUCCESSFULL
 		if(RCD_MODE_FIRELOCK)
 			if(our_rcd.checkResource(8, user))
