@@ -112,7 +112,7 @@
 
 /datum/game_mode/proc/blob_died()
 	if(!GLOB.blob_cores.len && blob_stage >= BLOB_STAGE_FIRST && blob_stage < BLOB_STAGE_STORM)
-		addtimer(CALLBACK(src, PROC_REF(report_blob_death), SEC_LEVEL_RED), TIME_TO_ANNOUNCE_BLOBS_DIE)
+		addtimer(CALLBACK(src, PROC_REF(report_blob_death), BLOB_DEATH_REPORT_FIRST), TIME_TO_ANNOUNCE_BLOBS_DIE)
 
 
 /datum/game_mode/proc/get_blobs_minds()
@@ -126,14 +126,22 @@
 	return blob_list
 
 
-/datum/game_mode/proc/report_blob_death()
-	send_intercept(BLOB_THIRD_REPORT)
-	if(SSshuttle)
-		addtimer(CALLBACK(SSshuttle, TYPE_PROC_REF(/datum/controller/subsystem/shuttle, stop_lockdown)), TIME_TO_SWITCH_CODE)
-	if(blob_stage >= BLOB_STAGE_SECOND && GLOB.security_level == SEC_LEVEL_GAMMA)
-		addtimer(CALLBACK(GLOBAL_PROC, /proc/set_security_level, SEC_LEVEL_RED), TIME_TO_SWITCH_CODE * 2)
-	addtimer(CALLBACK(SSvote, TYPE_PROC_REF(/datum/controller/subsystem/vote, start_vote), new /datum/vote/crew_transfer), TIME_TO_SWITCH_CODE * 3)
-	blob_stage = BLOB_STAGE_ZERO
+/datum/game_mode/proc/report_blob_death(report_number)
+	switch(report_number)
+		if (BLOB_DEATH_REPORT_FIRST)
+			send_intercept(BLOB_THIRD_REPORT)
+		if (BLOB_DEATH_REPORT_SECOND)
+			SSshuttle?.stop_lockdown()
+		if (BLOB_DEATH_REPORT_THIRD)
+			if(blob_stage >= BLOB_STAGE_SECOND && GLOB.security_level == SEC_LEVEL_GAMMA)
+				set_security_level(SEC_LEVEL_RED)
+		if (BLOB_DEATH_REPORT_FOURTH)
+			blob_stage = BLOB_STAGE_ZERO
+			SSvote.start_vote(new /datum/vote/crew_transfer)
+			return
+		else
+			return
+	addtimer(CALLBACK(src, PROC_REF(report_blob_death), report_number + 1), TIME_TO_SWITCH_CODE)
 
 
 /datum/game_mode/proc/make_blobs(count, need_new_blob = FALSE)
