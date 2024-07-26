@@ -239,7 +239,7 @@
 				briefing_msg = "Вам разрешается убивать нексеноморфов среди вас. Прежде всего вам лучше обнаружить других себеподобных и подготовить место для улья.."
 			if("ЖИВОТНОЕ")
 				is_new_mind = TRUE
-					var/beast = pick("carp","bear","statue","giantspider")
+					var/beast = pick("carp", "bear", "statue", "giantspider")
 					switch(beast)
 						if("carp")
 							new_mob = new /mob/living/simple_animal/hostile/carp(M.loc)
