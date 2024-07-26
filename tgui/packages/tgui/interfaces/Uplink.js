@@ -46,7 +46,7 @@ export const Uplink = (props, context) => {
   return (
     <Window width={900} height={650} theme="syndicate">
       <ComplexModal />
-      <Window.Content scrollable>
+      <Window.Content>
         <Stack fill vertical>
           <Stack.Item>
             <Tabs>
@@ -498,28 +498,30 @@ const ExploitableInfoPage = (_properties, context) => {
   return (
     <Section fill title="Exploitable Records">
       <Stack fill>
-        <Stack.Item width="30%">
-          <Input
-            fluid
-            mb={1}
-            placeholder="Search Crew"
-            onInput={(e, value) => setSearchText(value)}
-          />
-          <Tabs vertical>
-            {crew.map((r) => (
-              <Tabs.Tab
-                key={r}
-                selected={r === selectedRecord}
-                onClick={() => setSelectedRecord(r)}
-              >
-                {r.name}
-              </Tabs.Tab>
-            ))}
-          </Tabs>
+        <Stack.Item width="30%" fill>
+          <Section fill scrollable>
+            <Input
+              fluid
+              mb={1}
+              placeholder="Search Crew"
+              onInput={(e, value) => setSearchText(value)}
+            />
+            <Tabs vertical>
+              {crew.map((r) => (
+                <Tabs.Tab
+                  key={r}
+                  selected={r === selectedRecord}
+                  onClick={() => setSelectedRecord(r)}
+                >
+                  {r.name}
+                </Tabs.Tab>
+              ))}
+            </Tabs>
+          </Section>
         </Stack.Item>
         <Divider vertical />
         <Stack.Item grow>
-          <Section fill scrollable title={selectedRecord.name}>
+          <Section fill title={selectedRecord.name} scrollable>
             <LabeledList>
               <LabeledList.Item label="Age">
                 {selectedRecord.age}

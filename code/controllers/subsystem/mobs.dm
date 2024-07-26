@@ -1,4 +1,8 @@
+#ifdef UNIT_TESTS
+GLOBAL_VAR_INIT(mob_suspension, FALSE)
+#else
 GLOBAL_VAR_INIT(mob_suspension, TRUE)
+#endif
 
 SUBSYSTEM_DEF(mobs)
 	name = "Mobs"
@@ -25,6 +29,7 @@ SUBSYSTEM_DEF(mobs)
 /datum/controller/subsystem/mobs/Initialize()
 	clients_by_zlevel = new /list(world.maxz, 0)
 	dead_players_by_zlevel = new /list(world.maxz, 0)
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/mobs/proc/MaxZChanged()
 	if (!islist(clients_by_zlevel))

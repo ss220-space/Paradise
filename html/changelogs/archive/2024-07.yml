@@ -339,16 +339,23 @@
   - bugfix: ai interaction with crematorium and mech ability (#5563)
   Daeberdir:
   - add: Jetpack for mices. (#5176)
+  FanTik-Ratge:
+  - imageadd: maid-fix (#5569)
   MstrKabach:
   - add: Camera can be worn around the neck (#5525)
   ROdenFL:
   - add: tgui inputs (#5385)
   - bugfix: landmarks not a thing (#5567)
+  - bugfix: ghost piano, paper input revert, uplink, cult invoke fix (#5572)
   Vladisvell:
   - tweak: removed debug log for megaphones (#5566)
+  - bugfix: Returns possibility to reference tracking, fixes mobs hard deletion issue
+      and makes landmarks hard delete now (#5568)
   Zwei:
   - tweak: Show Runtimes Amount By Type (#5559)
   - bugfix: Stamp Overlays Fix (#5556)
+  - refactor: Pimp My Master (#5514)
+  - tweak: Optimized NPC Handling (#5570)
   dageavtobusnick:
   - refactor: blob objective update fix (#5560)
   github-actions[bot]:

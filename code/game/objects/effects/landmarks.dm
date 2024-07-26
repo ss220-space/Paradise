@@ -107,8 +107,9 @@
 	return 1
 
 /obj/effect/landmark/Destroy()
+	. = ..()
 	GLOB.landmarks_list -= src
-	return ..()
+	return QDEL_HINT_HARDDEL_NOW
 
 /obj/effect/landmark/singularity_act()
 	return

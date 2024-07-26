@@ -24,7 +24,7 @@ SUBSYSTEM_DEF(verb_manager)
 	wait = 1
 	flags = SS_TICKER | SS_NO_INIT
 	priority = FIRE_PRIORITY_DELAYED_VERBS
-	runlevels = RUNLEVEL_INIT | RUNLEVELS_DEFAULT
+	runlevels = RUNLEVELS_DEFAULT
 	ss_id = "verb_manager"
 
 	///list of callbacks to procs called from verbs or verblike procs that were executed when the server was overloaded and had to delay to the next tick.

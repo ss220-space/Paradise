@@ -46,6 +46,7 @@
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	pull_force = MOVE_FORCE_EXTREMELY_STRONG
 	status_flags = GODMODE // Cannot push also
+	AI_delay_max = 0 SECONDS
 
 	var/cannot_be_seen = 1
 	var/mob/living/creator = null

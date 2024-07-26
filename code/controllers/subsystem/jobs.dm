@@ -24,6 +24,7 @@ SUBSYSTEM_DEF(jobs)
 
 /datum/controller/subsystem/jobs/Initialize()
 	SetupOccupations()
+	return SS_INIT_SUCCESS
 
 
 // Only fires every 5 minutes
