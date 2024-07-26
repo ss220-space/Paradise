@@ -239,7 +239,7 @@
 				briefing_msg = "Вам разрешается убивать нексеноморфов среди вас. Прежде всего вам лучше обнаружить других себеподобных и подготовить место для улья.."
 			if("ЖИВОТНОЕ")
 				is_new_mind = TRUE
-				var/beast = pick("carp", "bear", "statue", "giantspider")
+				var/beast = pick("carp", "bear", "statue", "giantspider", "syndiemouse")
 				switch(beast)
 					if("carp")
 						new_mob = new /mob/living/simple_animal/hostile/carp(M.loc)
@@ -256,6 +256,8 @@
 								new_mob = new /mob/living/simple_animal/hostile/poison/giant_spider/nurse(M.loc)
 							if("basicspider")
 								new_mob = new /mob/living/simple_animal/hostile/poison/giant_spider(M.loc)
+					if("syndiemouse")
+						new_mob = new /mob/living/simple_animal/hostile/retaliate/syndirat(M.loc)
 				briefing_msg = "Вы агрессивное животное, питаемое жаждой голода, вы можете совершать убийства, \
 				сбиваться в стаи или следовать своему пути одиночки, но цель всегда будет одна - утолить свой голод."
 				new_mob.universal_speak = TRUE
