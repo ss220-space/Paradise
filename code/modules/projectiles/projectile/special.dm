@@ -399,7 +399,7 @@
 	G.forceMove(T)
 	var/mob/living/simple_animal/hostile/mimic/copy/ranged/R = new /mob/living/simple_animal/hostile/mimic/copy/ranged(T, G, firer)
 	if(ismob(target))
-		R.target = target
+		R.GiveTarget(target)
 
 /obj/item/projectile/bullet/a84mm_hedp
 	name ="\improper HEDP rocket"

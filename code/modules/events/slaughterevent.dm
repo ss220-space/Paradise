@@ -38,15 +38,11 @@
 /datum/event/spawn_slaughter/proc/get_spawn_loc(mob/player)
 	RETURN_TYPE(/turf)
 	var/list/spawn_locs = list()
-	for(var/thing in GLOB.landmarks_list)
-		var/obj/effect/landmark/landmark = thing
+	for(var/obj/effect/landmark/landmark in GLOB.landmarks_list)
 		if(isturf(landmark.loc) && landmark.name == "revenantspawn")
 			spawn_locs += landmark.loc
 	if(!spawn_locs)	// If we can't find any good spots, try the carp spawns
-		for(var/thing in GLOB.landmarks_list)
-			var/obj/effect/landmark/landmark = thing
-			if(isturf(landmark.loc) && landmark.name == "carpspawn")
-				spawn_locs += landmark.loc
+		spawn_locs += GLOB.carplist
 	if(!spawn_locs) //If we can't find a good place, just spawn at the player's location
 		spawn_locs += get_turf(player)
 	if(!spawn_locs) //If we can't find THAT, then give up

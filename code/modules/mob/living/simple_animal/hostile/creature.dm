@@ -15,4 +15,4 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 	faction = list("creature")
 	gold_core_spawnable = HOSTILE_SPAWN
-
+	AI_delay_max = 0 SECONDS

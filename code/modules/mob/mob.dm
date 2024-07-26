@@ -10,6 +10,9 @@
 	QDEL_LIST(diseases)
 	for(var/alert in alerts)
 		clear_alert(alert)
+	if(client)
+		var/client/client_ = client
+		client_.movingmob = null
 	ghostize()
 	QDEL_LIST_ASSOC_VAL(tkgrabbed_objects)
 	if(buckled)
