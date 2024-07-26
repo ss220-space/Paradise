@@ -164,7 +164,10 @@
 
 //////////////HOSTILE MOB TARGETTING AND AGGRESSION////////////
 
+
 /mob/living/simple_animal/hostile/proc/ListTargets()//Step 1, find out what we can see
+	if(retaliate_only && !enemies.len)
+		return list()
 	if(!search_objects)
 		. = hearers(vision_range, targets_from) - src //Remove self, so we don't suicide
 
@@ -176,11 +179,7 @@
 	else
 		. = oview(vision_range, targets_from)
 	if(retaliate_only)
-		if(!enemies.len)
-			return list()
-		var/list/see = .
-		see &= enemies // Remove all entries that aren't in enemies
-		return see
+		return . &= enemies // Remove all entries that aren't in enemies
 
 
 /mob/living/simple_animal/hostile/proc/FindTarget(list/possible_targets)//Step 2, filter down possible targets to things we actually care about
