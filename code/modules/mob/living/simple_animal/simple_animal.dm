@@ -107,10 +107,18 @@
 
 	var/attacked_sound = "punch"
 
-	var/AIStatus = AI_ON //The Status of our AI, can be set to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever)
-	var/can_have_ai = TRUE //once we have become sentient, we can never go back
-
-	var/shouldwakeup = FALSE //convenience var for forcibly waking up an idling AI on next check.
+	/// The Status of our AI, can be set to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever).
+	var/AIStatus = AI_ON
+	/// Once we have become sentient, we can never go back.
+	var/can_have_ai = TRUE
+	/// Convenience var for forcibly waking up an idling AI on next check.
+	var/shouldwakeup = FALSE
+	/// SSnpcpool will add random delay to the next mob's move or action, taking this var's value into account.
+	/// Lower the delay faster the mob can response.
+	/// Set this to zero for critical mobs, like megafauna.
+	var/AI_delay_max = 3 SECONDS
+	/// Current delay for the next mob's move/action. Used by SSnpcpool and SSidlenpcpool.
+	var/AI_delay_current
 
 	///Domestication.
 	var/tame = FALSE
@@ -156,16 +164,15 @@
 	QDEL_NULL(pcollar)
 	master_commander = null
 	GLOB.simple_animals[AIStatus] -= src
-	if(SSnpcpool.state == SS_PAUSED && LAZYLEN(SSnpcpool.currentrun))
-		SSnpcpool.currentrun -= src
+	SSnpcpool.currentrun -= src
 
 	if(nest)
 		nest.spawned_mobs -= src
 		nest = null
 
-	var/turf/T = get_turf(src)
-	if (T && AIStatus == AI_Z_OFF)
-		SSidlenpcpool.idle_mobs_by_zlevel[T.z] -= src
+	var/turf/our_turf = get_turf(src)
+	if(our_turf && AIStatus == AI_Z_OFF)
+		SSidlenpcpool.idle_mobs_by_zlevel[our_turf.z] -= src
 
 	return ..()
 
@@ -641,22 +648,28 @@
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
+
 /mob/living/simple_animal/proc/toggle_ai(togglestatus)
+	if(AIStatus == togglestatus)
+		return
 	if(!can_have_ai && (togglestatus != AI_OFF))
 		return
-	if(AIStatus != togglestatus)
-		if(togglestatus > 0 && togglestatus < 5)
-			if(togglestatus == AI_Z_OFF || AIStatus == AI_Z_OFF)
-				var/turf/T = get_turf(src)
-				if(AIStatus == AI_Z_OFF)
-					SSidlenpcpool.idle_mobs_by_zlevel[T.z] -= src
-				else
-					SSidlenpcpool.idle_mobs_by_zlevel[T.z] += src
-			GLOB.simple_animals[AIStatus] -= src
-			GLOB.simple_animals[togglestatus] += src
-			AIStatus = togglestatus
+	var/turf/our_turf = get_turf(src)
+	if(QDELETED(src) || !our_turf)
+		return
+	if(togglestatus < AI_ON || togglestatus > AI_Z_OFF)
+		stack_trace("Something attempted to set simple animals AI to an invalid state: [togglestatus]")
+		return
+	if(togglestatus == AI_Z_OFF || AIStatus == AI_Z_OFF)
+		if(AIStatus == AI_Z_OFF)
+			SSidlenpcpool.idle_mobs_by_zlevel[our_turf.z] -= src
 		else
-			stack_trace("Something attempted to set simple animals AI to an invalid state: [togglestatus]")
+			SSidlenpcpool.idle_mobs_by_zlevel[our_turf.z] += src
+	GLOB.simple_animals[AIStatus] -= src
+	GLOB.simple_animals[togglestatus] += src
+	AIStatus = togglestatus
+	AI_delay_current = world.time
+
 
 /mob/living/simple_animal/proc/consider_wakeup()
 	if(pulledby || shouldwakeup)
@@ -665,9 +678,8 @@
 
 /mob/living/simple_animal/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = TRUE)
 	..()
-	if(AIStatus == AI_Z_OFF && old_turf?.z)
+	if(old_turf && AIStatus == AI_Z_OFF)
 		SSidlenpcpool.idle_mobs_by_zlevel[old_turf.z] -= src
-	if(!QDELETED(src))
 		toggle_ai(initial(AIStatus))
 
 

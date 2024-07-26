@@ -427,7 +427,7 @@
 
 	if(href_list["write"] )
 		var/id = href_list["write"]
-		var/input_element = tgui_input_text(usr, "Enter what you want to write:", "Write", multiline = TRUE, encode = FALSE)
+		var/input_element = input("Enter what you want to write:", "Write") as message
 
 		topic_href_write(id, input_element)
 
@@ -767,6 +767,11 @@
 	footer = "<br /><br /><font face=\"Verdana\" size = \"1\"><i>Подпись&#58;</font> <font face=\"[signfont]\" size = \"1\">[GLOB.genname]</font></i><font face=\"Verdana\" size = \"1\">, в должности <i>Nanotrasen Navy Officer</i></font><hr /><p style='font-family:Verdana;'><font size = \"1\"><em>*Содержимое данного документа следует считать конфиденциальным. Если не указано иное, распространение содержащейся в данном документе информации среди третьих лиц и сторонних организаций строго запрещено. </em> <br /> <em>*Невыполнение директив, содержащихся в данном документе, считается нарушением политики корпорации и может привести к наложению различных дисциплинарных взысканий. </em> <br /> <em> *Данный документ считается действительным только при наличии подписи и печати офицера Центрального Командования.</em></font></p>"
 	populatefields()
 
+
+/obj/item/paper/central_command/archive/station_reports
+	info = "<font face=\"Verdana\" color=black><center><B>Приветствую Центральное командование</B></center><BR>Сообщает вам ██████████ █████████, в должности капитан </span>.<BR><BR>В данный момент на станции код: Зеленый </span><BR>Активные угрозы для станции: <B>Отсуствуют </span></B><BR>Потери среди экипажа: Отсуствуют </span><BR>Повреждения на станции: Отсуствуют</span><BR>Общее состояние станции: Удовлетворительное </span><BR>Дополнительная информация: Отсутствует<BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR>Подпись:  ██████████ █████████ <HR><font size = \"1\">*В данном документе описывается полное состояние станции, необходимо перечислить всю доступную информацию. <BR>*Информацию, которую вы считаете нужной, необходимо сообщить в разделе – дополнительная информация. <BR>*<B>Данный документ считается официальным только после подписи уполномоченного лица и наличии на документе его печати.</B> </font></font>"
+
+/obj/item/paper/central_command/archive/memes
 
 /obj/item/paper/thief
 	name = "Инструкции"

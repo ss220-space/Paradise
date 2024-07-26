@@ -29,6 +29,7 @@
 	universal_speak = TRUE
 	sentience_type = SENTIENCE_BOSS
 	response_help = "pets"
+	AI_delay_max = 0 SECONDS
 	var/scale_with_time = TRUE
 	var/reviver = null
 	var/dif_mult = 1 // Scales with number of enemies

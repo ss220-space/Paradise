@@ -58,21 +58,12 @@
 	else
 		..()
 
-/mob/living/simple_animal/hostile/clockwork/marauder/FindTarget(list/possible_targets, HasTargetsList)
-	. = list()
-	if(!HasTargetsList)
-		possible_targets = ListTargets()
-	for(var/pos_targ in possible_targets)
-		var/atom/A = pos_targ
-		if(Found(A))
-			. = list(A)
-			break
-		if(CanAttack(A) && !isclocker(A))//Can we attack it? And no biting our friends!!
-			. += A
-			continue
-	var/Target = PickTarget(.)
-	GiveTarget(Target)
-	return Target
+
+/mob/living/simple_animal/hostile/clockwork/marauder/CanAttack(atom/the_target)
+	if(isclocker(the_target))
+		return FALSE
+	return ..()
+
 
 /mob/living/simple_animal/hostile/clockwork/marauder/bullet_act(obj/item/projectile/P)
 	if(deflect_projectile(P))

@@ -125,6 +125,7 @@
 	var/photo
 	var/dat
 	var/stamped = 0
+	var/registered = FALSE
 
 	var/obj/item/card/id/guest/guest_pass = null // Guest pass attached to the ID
 
@@ -1078,19 +1079,60 @@
 
 /obj/item/card/id/ert/commander
 	icon_state = "ERT_leader"
+
 /obj/item/card/id/ert/security
 	icon_state = "ERT_security"
+
 /obj/item/card/id/ert/engineering
 	icon_state = "ERT_engineering"
+
 /obj/item/card/id/ert/medic
 	icon_state = "ERT_medical"
+
+/obj/item/card/id/ert/registration
+	name = "EDDITABLE ERT ID"
+	icon_state = "ERT_empty"
+	item_state = "ert-id"
+	var/membership
+	access = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_MEDICAL, ACCESS_CENT_SECURITY, ACCESS_CENT_STORAGE, ACCESS_CENT_SPECOPS, ACCESS_SALVAGE_CAPTAIN)
+
+/obj/item/card/id/ert/registration/commander
+	icon_state = "ERT_leader"
+	membership = "Leader"
+
+/obj/item/card/id/ert/registration/security
+	icon_state = "ERT_security"
+	membership = "Officer"
+
+/obj/item/card/id/ert/registration/engineering
+	icon_state = "ERT_engineering"
+	membership = "Engineer"
+
+/obj/item/card/id/ert/registration/medic
+	icon_state = "ERT_medical"
+	membership = "Medic"
+
+/obj/item/card/id/ert/registration/janitor
+	icon_state = "ERT_janitorial"
+	membership = "Janitor"
+
+/obj/item/card/id/ert/registration/attack_self(mob/user as mob)
+	if(!registered && ishuman(user))
+		registered_name = "[pick("Лейтенант", "Капитан", "Майор")] [user.real_name]"
+		SetOwnerInfo(user)
+		assignment = "Emergency Response Team [membership]"
+		RebuildHTML()
+		UpdateName()
+		registered = TRUE
+		to_chat(user, "<span class='notice'>The ID is now registered as yours.</span>")
+	else
+		..()
 
 /obj/item/card/id/golem
 	name = "Free Golem ID"
 	desc = "A card used to claim mining points and buy gear. Use it to mark it as yours."
 	icon_state = "research"
 	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME) //access to robots/mechs
-	var/registered = FALSE
 
 /obj/item/card/id/golem/attack_self(mob/user as mob)
 	if(!registered && ishuman(user))

@@ -25,7 +25,8 @@ GLOBAL_LIST_EMPTY(alive_mob_list)			//List of all alive mobs, including clientle
 GLOBAL_LIST_EMPTY(dead_mob_list)				//List of all dead mobs, including clientless. Excludes /mob/new_player
 GLOBAL_LIST_EMPTY(respawnable_list)			//List of all mobs, dead or in mindless creatures that still be respawned.
 GLOBAL_LIST_EMPTY(non_respawnable_keys)	//List of ckeys that are excluded from respawning for remainder of round.
-GLOBAL_LIST_INIT(simple_animals, list(list(), list(), list(), list()))			//One for each AI_* status define, List of all simple animals, including clientless
+/// One for each AI_* status define, List of all simple animals, including clientless
+GLOBAL_LIST_INIT(simple_animals, list(list(), list(), list(), list()))
 GLOBAL_LIST_EMPTY(bots_list) 					//List of all bots(beepsky, medibots,etc)
 GLOBAL_LIST_EMPTY(morphs_alive_list)
 

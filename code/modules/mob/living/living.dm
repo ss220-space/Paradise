@@ -1676,15 +1676,26 @@
 	if(isnull(client))
 		registered_z = null
 		return
-	if(new_z)
-		SSmobs.clients_by_zlevel[new_z] += src
-		for (var/I in length(SSidlenpcpool.idle_mobs_by_zlevel[new_z]) to 1 step -1) //Backwards loop because we're removing (guarantees optimal rather than worst-case performance), it's fine to use .len here but doesn't compile on 511
-			var/mob/living/simple_animal/SA = SSidlenpcpool.idle_mobs_by_zlevel[new_z][I]
-			if (SA)
-				SA.toggle_ai(AI_ON) // Guarantees responsiveness for when appearing right next to mobs
-			else
-				SSidlenpcpool.idle_mobs_by_zlevel[new_z] -= SA
+	if(!new_z)
+		registered_z = new_z
+		return
+	//Figure out how many clients were here before
+	var/oldlen = SSmobs.clients_by_zlevel[new_z].len
+	SSmobs.clients_by_zlevel[new_z] += src
+	for(var/index in length(SSidlenpcpool.idle_mobs_by_zlevel[new_z]) to 1 step -1) //Backwards loop because we're removing (guarantees optimal rather than worst-case performance), it's fine to use .len here but doesn't compile on 511
+		var/mob/living/simple_animal/animal = SSidlenpcpool.idle_mobs_by_zlevel[new_z][index]
+		if(animal)
+			if(!oldlen)
+				//Start AI idle if nobody else was on this z level before (mobs will switch off when this is the case)
+				animal.toggle_ai(AI_IDLE)
+			//If they are also within a close distance ask the AI if it wants to wake up
+			if(get_dist(get_turf(src), get_turf(animal)) < MAX_SIMPLEMOB_WAKEUP_RANGE)
+				animal.consider_wakeup() // Ask the mob if it wants to turn on it's AI
+		//They should clean up in destroy, but often don't so we get them here
+		else
+			SSidlenpcpool.idle_mobs_by_zlevel[new_z] -= animal
 	registered_z = new_z
+
 
 /mob/living/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = TRUE)
 	..()

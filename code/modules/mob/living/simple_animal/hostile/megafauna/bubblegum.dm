@@ -134,7 +134,7 @@ Difficulty: Hard
 	RegisterSignal(src, COMSIG_HOSTILE_FOUND_TARGET, PROC_REF(i_see_you))
 	for(var/mob/living/carbon/human/H in range(18)) //suprise motherfucker bubblegum wakes up fast
 		to_chat(H, "<span class='colossus'><b>You DARE to insult my body with these constructs? I curse you as you curse ME!</b></span>")
-		FindTarget(list(H), 1) //From down town with the pile driver
+		FindTarget(list(H)) //From down town with the pile driver
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/unrage()
 	return //They are pissed. Also whoever enraged them is stuck fighting them so, kinda a M.A.D situation.
@@ -656,7 +656,8 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/charge_end(datum/source)
 	. = ..()
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)
 
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Destroy()
@@ -703,4 +704,4 @@ Difficulty: Hard
 	RegisterSignal(src, COMSIG_HOSTILE_FOUND_TARGET, PROC_REF(i_see_you))
 	for(var/mob/living/carbon/human/H in range(20))
 		to_chat(H, "<span class='colossus'><b>MY HANDS WILL RELISH ENDING YOU... HERE AND NOW!</b></span>")
-		FindTarget(list(H), 1)
+		FindTarget(list(H))

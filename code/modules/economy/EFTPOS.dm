@@ -257,7 +257,7 @@
 				playsound(src, 'sound/machines/terminal_alert.ogg', 30, 0)
 		if("scan_card")
 			var/obj/item/active_hand = usr.get_active_hand()
-			var/obj/item/card/id/id_card = active_hand.GetID()
+			var/obj/item/card/id/id_card = active_hand?.GetID()
 			if(!istype(id_card))
 				return
 			scan_card(id_card, usr)

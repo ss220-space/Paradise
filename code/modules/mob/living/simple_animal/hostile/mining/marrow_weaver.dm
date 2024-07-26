@@ -59,8 +59,8 @@
 	..()
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/AttackingTarget()
-	..()
-	if(isliving(target))
+	. = ..()
+	if(. && isliving(target))
 		var/mob/living/L = target
 		if(target.reagents)
 			L.reagents.add_reagent(poison_type, poison_per_bite)

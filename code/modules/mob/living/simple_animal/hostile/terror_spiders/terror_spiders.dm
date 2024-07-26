@@ -53,6 +53,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	//ATTACK
 	melee_damage_lower = 15
 	melee_damage_upper = 20
+	AI_delay_max = 0 SECONDS
 
 	//MOVEMENT
 	pass_flags = PASSTABLE
