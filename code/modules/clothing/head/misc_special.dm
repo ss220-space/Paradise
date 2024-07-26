@@ -97,7 +97,7 @@
 		for(var/weld_icon in spray.weld_icons)
 			weld_icons += list("[weld_icon]" = image(icon = src.icon, icon_state = spray.weld_icons[weld_icon]))
 		var/choice = show_radial_menu(user, src, weld_icons)
-		if(!choice || spray.loc != user || !Adjacent(user))
+		if(!choice || spray.loc != user)
 			return
 		spray.draw_paint(user)
 		paint = spray.weld_icons[choice]
