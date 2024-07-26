@@ -44,7 +44,7 @@ export const Uplink = (props, context) => {
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
 
   return (
-    <Window width={900} height={650} theme="syndicate">
+    <Window width={900} height={600} theme="syndicate">
       <ComplexModal />
       <Window.Content>
         <Stack fill vertical>
@@ -559,6 +559,7 @@ modalRegisterBodyOverride('become_contractor', (modal, context) => {
   const isAdminForced = !!data?.contractor?.is_admin_forced;
   return (
     <Section
+      height="65%"
       level="2"
       m="-1rem"
       pb="1rem"

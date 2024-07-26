@@ -2093,9 +2093,6 @@
 				var/datum/antagonist/contractor/contractor_datum = new()
 				contractor_datum.is_admin_forced = TRUE
 				add_antag_datum(contractor_datum)
-
-				add_antag_datum(/datum/antagonist/contractor)
-
 				// Notify
 				log_admin("[key_name(usr)] has contractored [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has contractored [key_name_admin(current)]")
