@@ -685,6 +685,9 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/proc/target(mob/living/target)
 	if(disabled)
 		return
+	for(var/obj/machinery/door/poddoor/D in get_turf(src))
+		if(D.icon_state == "closed")
+			return
 	if(target)
 		last_target = target
 		if(has_cover)

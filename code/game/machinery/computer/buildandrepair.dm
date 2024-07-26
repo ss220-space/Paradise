@@ -421,6 +421,10 @@
 	board_name = "Syndicate Drop Pod"
 	build_path = /obj/machinery/computer/shuttle/syndicate/drop_pod
 
+/obj/item/circuitboard/shuttle/nt/drop_pod
+	board_name = "Nanotrasen Drop Pod"
+	build_path = /obj/machinery/computer/shuttle/nt/drop_pod
+
 /obj/item/circuitboard/shuttle/golem_ship
 	board_name = "Golem Ship"
 	build_path = /obj/machinery/computer/shuttle/golem_ship
