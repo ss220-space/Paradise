@@ -656,7 +656,8 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/charge_end(datum/source)
 	. = ..()
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)
 
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Destroy()
