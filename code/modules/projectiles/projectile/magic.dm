@@ -213,26 +213,19 @@
 				Robot.clear_zeroth_law()
 			if("ТЕРРОР")
 				is_new_mind = TRUE
-				var/terror = pick(list(
-					20; "lurker"
-					20; "knight"
-					20; "drone"
-					15; "widow"
-					15; "reaper"
-					10; "destroyer"
-					))
+				var/terror = pick(prob(20); "lurker", prob(20); "knight", prob(20); "drone", prob(15); "widow", prob(15); "reaper", prob(10); "destroyer")
 				switch(terror)
-					if(lurker)
+					if("lurker")
 						new_mob = new /mob/living/simple_animal/hostile/poison/terror_spider/lurker(M.loc)
-					if(knight)
+					if("knight")
 						new_mob = new /mob/living/simple_animal/hostile/poison/terror_spider/knight(M.loc)
-					if(drone)
+					if("drone")
 						new_mob = new /mob/living/simple_animal/hostile/poison/terror_spider/builder(M.loc)
-					if(widow)
+					if("widow")
 						new_mob = new /mob/living/simple_animal/hostile/poison/terror_spider/widow(M.loc)
-					if(reaper)
+					if("reaper")
 						new_mob = new /mob/living/simple_animal/hostile/poison/terror_spider/reaper(M.loc)
-					if(destroyer)
+					if("destroyer")
 						new_mob = new /mob/living/simple_animal/hostile/poison/terror_spider/destroyer(M.loc)
 				new_mob.universal_speak = TRUE
 			if("КСЕНОМОРФ")
