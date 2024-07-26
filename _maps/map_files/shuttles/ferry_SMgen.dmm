@@ -168,11 +168,11 @@
 	},
 /area/shuttle/transport)
 "w" = (
+/obj/machinery/portable_atmospherics/canister/nitrogen,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
 /obj/machinery/light,
-/obj/machinery/portable_atmospherics/canister/toxins,
 /turf/simulated/floor/plasteel{
 	dir = 7;
 	icon_state = "yellow"
@@ -199,10 +199,10 @@
 	},
 /area/shuttle/transport)
 "B" = (
+/obj/machinery/portable_atmospherics/canister/nitrogen,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
-/obj/machinery/portable_atmospherics/canister/toxins,
 /turf/simulated/floor/plasteel{
 	dir = 7;
 	icon_state = "yellow"
