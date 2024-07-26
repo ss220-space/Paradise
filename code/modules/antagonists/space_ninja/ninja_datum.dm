@@ -359,8 +359,7 @@
 	for(var/datum/mind/traitor in pre_antags)
 		var/datum/antagonist/traitor/traitor_datum = new
 		traitor_datum.give_objectives = FALSE
-		if(prob(10))
-			traitor_datum.is_contractor = TRUE
+		traitor_datum.is_contractor = TRUE
 		traitor.add_antag_datum(traitor_datum)
 
 		var/objective_amount = protect_objective ? CONFIG_GET(number/traitor_objectives_amount) - 1 : CONFIG_GET(number/traitor_objectives_amount)

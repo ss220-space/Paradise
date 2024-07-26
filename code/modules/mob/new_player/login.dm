@@ -25,9 +25,13 @@
 	client.screen = list() // Remove HUD items just in case.
 	client.images = list()
 	if(!hud_used)
-		create_mob_hud()
+		create_mob_hud()	 // creating a hud will add it to the client's screen, which can process a disconnect
+		if(!client)
+			return FALSE
 	if(hud_used)
-		hud_used.show_hud(hud_used.hud_version)
+		hud_used.show_hud(hud_used.hud_version)	// see above, this can process a disconnect
+		if(!client)
+			return FALSE
 
 	add_sight(SEE_TURFS)
 	GLOB.player_list |= src
@@ -36,9 +40,11 @@
 
 	if(ckey in GLOB.deadmins)
 		verbs += /client/proc/readmin
-	spawn(40)
-		if(client)
-			client.playtitlemusic()
+	. = TRUE
+
+	spawn(4 SECONDS)
+		client?.playtitlemusic()
+
 
 /mob/new_player/proc/whitelist_check()
 	// Admins are immune to overflow rerouting

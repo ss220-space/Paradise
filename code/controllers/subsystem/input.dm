@@ -9,6 +9,7 @@ SUBSYSTEM_DEF(input)
 	init_order = INIT_ORDER_INPUT
 	priority = FIRE_PRIORITY_INPUT
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
+	init_stage = INITSTAGE_EARLY
 	offline_implications = "Player input will no longer be recognised. Immediate server restart recommended."
 	cpu_display = SS_CPUDISPLAY_HIGH
 	ss_id = "input"
@@ -19,7 +20,7 @@ SUBSYSTEM_DEF(input)
 
 /datum/controller/subsystem/input/Initialize()
 	refresh_client_macro_sets()
-
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/input/get_stat_details()
 	return "P: [length(processing)]"

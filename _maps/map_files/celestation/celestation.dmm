@@ -2596,7 +2596,7 @@
 /turf/simulated/floor/plating,
 /area/security/interrogation)
 "awr" = (
-/mob/living/simple_animal/mouse/white,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -3263,7 +3263,7 @@
 	},
 /area/tcommsat/computer)
 "aBq" = (
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/cele/command)
 "aBy" = (
@@ -3763,7 +3763,7 @@
 	},
 /area/toxins/lab)
 "aFH" = (
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -6653,7 +6653,7 @@
 /turf/simulated/floor/carpet/black,
 /area/chapel/office)
 "bbu" = (
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/wood/fancy/oak,
 /area/maintenance/gambling_den2)
 "bbw" = (
@@ -12751,7 +12751,7 @@
 /turf/simulated/floor/carpet/cyan,
 /area/crew_quarters/fitness)
 "bLH" = (
-/mob/living/simple_animal/mouse/white,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/cele/arrival)
 "bLI" = (
@@ -20386,7 +20386,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/cele/medbay)
 "cIY" = (
@@ -23783,7 +23783,7 @@
 /turf/simulated/floor/plating,
 /area/aisat/atmospherics)
 "die" = (
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/cele/engineering)
 "dif" = (
@@ -28248,7 +28248,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/asmaint5)
 "dXU" = (
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/cele/cargo)
 "dXV" = (
@@ -28527,7 +28527,7 @@
 	},
 /area/medical/sleeper)
 "ebY" = (
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -34323,7 +34323,7 @@
 	},
 /area/hallway/primary/central)
 "fli" = (
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/wood/fancy/oak,
 /area/maintenance/cele/medbay)
 "flk" = (
@@ -37238,7 +37238,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarstarboard)
 "fNe" = (
-/mob/living/simple_animal/mouse/white,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/cele/servise)
 "fNq" = (
@@ -46946,7 +46946,7 @@
 	},
 /area/medical/virology/lab)
 "hCz" = (
-/mob/living/simple_animal/mouse/white,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/cele/engineering)
 "hCC" = (
@@ -48492,7 +48492,7 @@
 /turf/simulated/floor/carpet/purple,
 /area/crew_quarters/hor)
 "hTe" = (
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/cele/servise)
 "hTl" = (
@@ -55749,7 +55749,7 @@
 	},
 /area/engine/mechanic_workshop/hangar)
 "jmV" = (
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/cele/arrival)
 "jnc" = (
@@ -57395,7 +57395,7 @@
 	},
 /area/hallway/primary/central)
 "jDL" = (
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint3)
 "jEc" = (
@@ -74512,7 +74512,7 @@
 	},
 /area/maintenance/atmospherics)
 "mXW" = (
-/mob/living/simple_animal/mouse/white,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable/orange{
@@ -75767,7 +75767,7 @@
 /turf/simulated/floor/glass,
 /area/toxins/hallway)
 "njU" = (
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/cele/cargo)
 "nkb" = (
@@ -77678,7 +77678,7 @@
 /turf/simulated/openspace,
 /area/maintenance/genetics)
 "nDu" = (
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/port2)
 "nDA" = (
@@ -80343,7 +80343,7 @@
 	},
 /area/maintenance/asmaint5)
 "ogV" = (
-/mob/living/simple_animal/mouse/white,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/cele/medbay)
 "ogX" = (
@@ -83535,7 +83535,7 @@
 	},
 /area/bridge)
 "oNC" = (
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -85749,7 +85749,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/heads/hop)
 "phF" = (
-/mob/living/simple_animal/mouse/rat/gray/Ratatui,
+/mob/living/simple_animal/mouse/rat/Ratatui,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -96521,7 +96521,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
 	},
@@ -97893,7 +97893,7 @@
 /turf/simulated/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "rzQ" = (
-/mob/living/simple_animal/mouse/white,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating/asteroid,
 /area/maintenance/cele/command)
 "rzW" = (
@@ -121752,7 +121752,7 @@
 	},
 /area/quartermaster/office)
 "wfX" = (
-/mob/living/simple_animal/mouse,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/cele/medbay)
 "wfY" = (

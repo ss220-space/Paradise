@@ -41,8 +41,7 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 	var/list/candidates = pick_candidates_all_types(src, HONKSQUAD_POSSIBLE, "Присоединиться к ХОНКскваду?", , 21, 30 SECONDS, FALSE, 60, TRUE, FALSE,, "ХОНКсквад", input)
 
 //Spawns HONKsquad and equips them.
-	for(var/thing in GLOB.landmarks_list)
-		var/obj/effect/landmark/L = thing
+	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 		if(honksquad_number<=0)	break
 		if(L.name == "HONKsquad")
 			honk_leader_selected = (honksquad_number == HONKSQUAD_POSSIBLE ? 1 : 0)

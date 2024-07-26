@@ -31,6 +31,7 @@
 	status_flags = CANPUSH
 	minbodytemp = 0
 	nightvision = 8
+	AI_delay_max = 0.5 SECONDS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	gold_core_spawnable = HOSTILE_SPAWN
 	death_sound = 'sound/voice/hiss6.ogg'
