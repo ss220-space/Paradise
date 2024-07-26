@@ -11,6 +11,7 @@
 
 /datum/vote/crew_transfer/handle_result(result)
 	if(result == "Initiate Crew Transfer")
+		SSvote.clear_transfer_votes()
 		init_shift_change(null, TRUE)
 
 // Map vote
