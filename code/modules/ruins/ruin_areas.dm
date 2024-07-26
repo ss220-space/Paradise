@@ -56,3 +56,8 @@
 /area/ruin/spaceprison
 	name = "Space Prison"
 	icon_state = "spaceprison"
+
+//Astroak
+/area/ruin/astroak
+	name = "astroak"
+	icon_state = "away"

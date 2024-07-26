@@ -1,0 +1,1612 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aP" = (
+/obj/item/trash/tastybread,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"bV" = (
+/obj/structure/bed,
+/obj/item/bedsheet/wiz,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"cD" = (
+/obj/structure/sign/holy,
+/turf/simulated/wall/mineral/wood/nonmetal,
+/area/ruin/Astroak)
+"cH" = (
+/obj/structure/window/reinforced/survival_pod{
+	dir = 6;
+	name = "window"
+	},
+/turf/simulated/floor/grass,
+/area/ruin/Astroak)
+"dw" = (
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 4
+	},
+/obj/effect/rune,
+/turf/simulated/floor/engine/cult,
+/area/ruin/Astroak)
+"eH" = (
+/obj/structure/bookcase/random/religion,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"eJ" = (
+/obj/structure/window/reinforced/survival_pod{
+	name = "window";
+	dir = 4
+	},
+/turf/simulated/floor/grass,
+/area/ruin/Astroak)
+"eM" = (
+/obj/structure/mineral_door/wood,
+/obj/structure/barricade/wooden/crude,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"fM" = (
+/obj/structure/sign/poster/official/tsf_emblem,
+/turf/simulated/wall/mineral/wood,
+/area/ruin/Astroak)
+"fW" = (
+/obj/structure/window/reinforced/survival_pod{
+	name = "window";
+	dir = 4
+	},
+/obj/structure/window/reinforced/survival_pod{
+	name = "window";
+	dir = 2
+	},
+/turf/simulated/floor/grass,
+/area/ruin/Astroak)
+"gl" = (
+/obj/item/stack/sheet/wood,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"gy" = (
+/obj/structure/flora/grass/jungle,
+/turf/simulated/floor/grass,
+/area/ruin/Astroak)
+"gE" = (
+/obj/item/melee/cultblade,
+/turf/simulated/floor/engine/cult,
+/area/ruin/Astroak)
+"gJ" = (
+/obj/structure/window/reinforced/survival_pod{
+	name = "window";
+	dir = 2
+	},
+/turf/simulated/floor/grass,
+/area/ruin/Astroak)
+"gK" = (
+/obj/structure/sacrificealtar,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"hC" = (
+/obj/structure/cult/archives,
+/turf/simulated/floor/engine/cult,
+/area/ruin/Astroak)
+"kz" = (
+/obj/structure/mineral_door/wood,
+/turf/simulated/floor/wood/birch,
+/area/ruin/Astroak)
+"lt" = (
+/obj/item/trash/candle{
+	pixel_y = 11
+	},
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"ly" = (
+/obj/item/restraints/legcuffs/bola/cult,
+/turf/simulated/floor/engine/cult,
+/area/ruin/Astroak)
+"lA" = (
+/obj/structure/cult/altar,
+/obj/item/book_of_babel,
+/turf/simulated/floor/engine/cult,
+/area/ruin/Astroak)
+"mw" = (
+/obj/structure/closet,
+/obj/item/stack/sheet/runed_metal_fake,
+/turf/simulated/floor/engine/cult,
+/area/ruin/Astroak)
+"mM" = (
+/obj/effect/decal/cleanable/blood/gibs/old,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"ne" = (
+/obj/structure/sign/poster/ripped,
+/turf/simulated/wall/mineral/wood,
+/area/ruin/Astroak)
+"nG" = (
+/obj/structure/cult/archives,
+/obj/item/clothing/suit/space/cult,
+/turf/simulated/floor/engine/cult,
+/area/ruin/Astroak)
+"nL" = (
+/obj/structure/table_frame/wood,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"nO" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"oi" = (
+/obj/structure/mineral_door/wood,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"oY" = (
+/obj/item/flashlight/lantern,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"pq" = (
+/obj/effect/decal/cleanable/blood/old,
+/obj/item/flag/cult,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"pB" = (
+/obj/structure/closet/crate/trashcart/gibs,
+/turf/simulated/floor/engine/cult,
+/area/ruin/Astroak)
+"qF" = (
+/obj/effect/decal/cleanable/blood/writing,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"qO" = (
+/mob/living/simple_animal/hostile/illusion/cult{
+	deathmessage = "disappears into the air with a cry of agony";
+	desc = "The deceived soul";
+	health = 200;
+	maxHealth = 350;
+	name = "The soul of the cultist";
+	icon = 'icons/mob/mob.dmi';
+	icon_living = "shade";
+	icon_state = "shade";
+	icon_dead = "shade_dead";
+	melee_damage_lower = 10;
+	melee_damage_upper = 25
+	},
+/turf/simulated/floor/engine/cult,
+/area/ruin/Astroak)
+"rb" = (
+/obj/item/fish_eggs/babycarp,
+/obj/item/shard,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"rD" = (
+/obj/structure/wooden_sign{
+	desc = "Астроак открыт для посещения";
+	name = "Астроак"
+	},
+/turf/simulated/floor/grass,
+/area/ruin/Astroak)
+"sF" = (
+/obj/item/toy/sword,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"sT" = (
+/obj/structure/sacrificealtar,
+/obj/item/nullrod/carp,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"sX" = (
+/turf/simulated/wall/mineral/wood,
+/area/ruin/Astroak)
+"tE" = (
+/obj/structure/noticeboard,
+/turf/simulated/wall/mineral/wood,
+/area/ruin/Astroak)
+"uI" = (
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8;
+	name = "window"
+	},
+/turf/simulated/floor/grass,
+/area/ruin/Astroak)
+"uJ" = (
+/obj/structure/table/wood/fancy/red,
+/obj/item/toy/carpplushie/ice,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"wh" = (
+/obj/effect/decal/cleanable/blood/writing,
+/turf/simulated/floor/engine/cult,
+/area/ruin/Astroak)
+"wk" = (
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"wU" = (
+/obj/structure/window/full/paperframe,
+/obj/structure/curtain/open/shower/security,
+/turf/simulated/floor/wood/birch,
+/area/ruin/Astroak)
+"yF" = (
+/turf/simulated/wall/mineral/wood/nonmetal,
+/area/ruin/Astroak)
+"zb" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/space,
+/area/space)
+"zg" = (
+/obj/item/trash/candle,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"zC" = (
+/obj/item/trash/candle{
+	pixel_y = 13
+	},
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"zK" = (
+/obj/item/flag/cult,
+/obj/effect/decal/cleanable/blood/gibs/old,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"zN" = (
+/obj/structure/cult/altar,
+/obj/item/tome,
+/turf/simulated/floor/engine/cult,
+/area/ruin/Astroak)
+"zR" = (
+/turf/simulated/floor/grass,
+/area/ruin/Astroak)
+"Af" = (
+/obj/structure/window/reinforced/survival_pod{
+	name = "window";
+	dir = 2
+	},
+/obj/structure/flora/grass/jungle,
+/turf/simulated/floor/grass,
+/area/ruin/Astroak)
+"Be" = (
+/obj/structure/bed,
+/obj/item/bedsheet/fluff/hugosheet,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"Bi" = (
+/obj/item/melee/cultblade/dagger,
+/turf/simulated/floor/engine/cult,
+/area/ruin/Astroak)
+"Bj" = (
+/obj/structure/window/reinforced/survival_pod{
+	name = "window";
+	dir = 2
+	},
+/obj/structure/window/reinforced/survival_pod{
+	name = "window";
+	dir = 4
+	},
+/turf/simulated/floor/grass,
+/area/ruin/Astroak)
+"BG" = (
+/obj/structure/window/reinforced/survival_pod{
+	name = "window";
+	dir = 10
+	},
+/obj/structure/window/reinforced/survival_pod{
+	name = "window";
+	dir = 9
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8;
+	name = "window"
+	},
+/turf/simulated/floor/grass,
+/area/ruin/Astroak)
+"BY" = (
+/obj/structure/sign/poster/contraband/very_robust,
+/turf/simulated/wall/cult,
+/area/ruin/Astroak)
+"DC" = (
+/obj/item/trash/candle,
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 4
+	},
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"DN" = (
+/obj/structure/closet/crate,
+/obj/item/pickaxe/diamond,
+/obj/item/pickaxe/diamond,
+/turf/simulated/floor/grass,
+/area/ruin/Astroak)
+"DP" = (
+/obj/item/trash/candy,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"DS" = (
+/obj/structure/sign/poster/contraband/wanted,
+/turf/simulated/wall/mineral/wood,
+/area/ruin/Astroak)
+"DX" = (
+/obj/item/shield/riot/buckler,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"Eg" = (
+/turf/simulated/wall/indestructible/rock/dark,
+/area/ruin/Astroak)
+"ED" = (
+/obj/effect/decal/cleanable/glass/plasma,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/reagent_containers/glass/bucket/wooden,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"EW" = (
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 4
+	},
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"EX" = (
+/obj/effect/decal/cleanable/blood/gibs/old,
+/obj/item/holder/narsian{
+	name = "Nar'SIe Corgi"
+	},
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"FE" = (
+/obj/structure/statue/carp_mini{
+	pixel_y = 16
+	},
+/obj/structure/table/wood/fancy/red,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"Ga" = (
+/obj/structure/flora/tree/dead,
+/turf/simulated/floor/grass,
+/area/ruin/Astroak)
+"Ge" = (
+/obj/structure/cult/pylon,
+/turf/simulated/floor/engine/cult,
+/area/ruin/Astroak)
+"GG" = (
+/obj/structure/curtain/open/shower/security,
+/obj/structure/mineral_door/wood,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"GI" = (
+/obj/effect/decal/remains/human,
+/mob/living/simple_animal/hostile/carp/MCarp,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"GL" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"GT" = (
+/turf/simulated/floor/indestructible/beach/water/deep/dense,
+/area/ruin/Astroak)
+"Hb" = (
+/obj/effect/decal/cleanable/glass/plasma,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"Hc" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/window/reinforced/survival_pod{
+	name = "window";
+	dir = 10
+	},
+/turf/simulated/floor/grass,
+/area/ruin/Astroak)
+"Hd" = (
+/obj/item/reagent_containers/food/drinks/bottle/unholywater,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"HE" = (
+/obj/structure/closet,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"HL" = (
+/obj/structure/cult/forge,
+/turf/simulated/floor/engine/cult,
+/area/ruin/Astroak)
+"Ih" = (
+/obj/structure/window/reinforced/survival_pod{
+	name = "window";
+	dir = 2
+	},
+/obj/structure/window/reinforced/survival_pod{
+	name = "window";
+	dir = 2
+	},
+/obj/structure/window/reinforced/survival_pod{
+	name = "window";
+	dir = 4
+	},
+/turf/simulated/floor/grass,
+/area/ruin/Astroak)
+"Ii" = (
+/turf/simulated/floor/engine/cult,
+/area/ruin/Astroak)
+"It" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/window/reinforced/survival_pod{
+	name = "window";
+	dir = 2
+	},
+/turf/simulated/floor/grass,
+/area/ruin/Astroak)
+"Jf" = (
+/obj/item/reagent_containers/glass/bucket/wooden,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"Ky" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/turf/simulated/floor/grass,
+/area/ruin/Astroak)
+"KJ" = (
+/mob/living/simple_animal/hostile/carp/MCarp,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"Lr" = (
+/obj/machinery/shield/cult/barrier,
+/turf/simulated/floor/engine/cult,
+/area/ruin/Astroak)
+"LX" = (
+/obj/machinery/door/window/survival_pod{
+	dir = 8
+	},
+/turf/simulated/floor/grass,
+/area/ruin/Astroak)
+"Md" = (
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/Astroak)
+"MC" = (
+/obj/structure/decorative_structures/corpse,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"Ni" = (
+/obj/structure/bed,
+/obj/item/bedsheet/cult,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"Np" = (
+/obj/structure/sign/poster/official/religious,
+/turf/simulated/wall/mineral/wood/nonmetal,
+/area/ruin/Astroak)
+"Nw" = (
+/obj/structure/window/reinforced/survival_pod{
+	name = "window";
+	dir = 9
+	},
+/turf/simulated/floor/grass,
+/area/ruin/Astroak)
+"NL" = (
+/obj/structure/table/wood/fancy/red,
+/obj/item/toy/carpplushie/nebula,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"OQ" = (
+/obj/structure/table/wood/fancy,
+/obj/item/storage/fancy/cigarettes/cigpack_carp,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"OV" = (
+/obj/structure/table/wood/fancy/red,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"Py" = (
+/obj/item/trash/chips,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"PM" = (
+/turf/space,
+/area/space)
+"Qw" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/engine/cult,
+/area/ruin/Astroak)
+"QD" = (
+/obj/structure/window/reinforced/survival_pod{
+	dir = 6;
+	name = "window"
+	},
+/obj/structure/window/reinforced/survival_pod{
+	name = "window";
+	dir = 10
+	},
+/obj/structure/window/reinforced/survival_pod{
+	name = "window";
+	dir = 2
+	},
+/turf/simulated/floor/grass,
+/area/ruin/Astroak)
+"QI" = (
+/obj/structure/window/reinforced/survival_pod{
+	name = "window";
+	dir = 10
+	},
+/turf/simulated/floor/grass,
+/area/ruin/Astroak)
+"Rm" = (
+/turf/simulated/wall/cult,
+/area/ruin/Astroak)
+"RO" = (
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"Sf" = (
+/obj/structure/closet,
+/obj/item/clothing/suit/hooded/carp_costume,
+/obj/item/clothing/suit/hooded/carp_costume,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"Tw" = (
+/obj/item/chair/wood,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"TW" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/Astroak)
+"Uy" = (
+/obj/item/fluff/rsik_katana,
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"Vp" = (
+/obj/item/flashlight/lantern,
+/obj/structure/window/reinforced,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"Wd" = (
+/obj/item/fish_eggs/clownfish,
+/turf/simulated/floor/indestructible/beach/water/deep/dense,
+/area/ruin/Astroak)
+"Yx" = (
+/obj/structure/window/reinforced/survival_pod{
+	name = "window";
+	dir = 2
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8;
+	name = "window"
+	},
+/turf/simulated/floor/grass,
+/area/ruin/Astroak)
+"ZC" = (
+/obj/structure/table_frame/wood,
+/obj/item/flashlight/lantern,
+/turf/simulated/floor/wood/fancy/birch,
+/area/ruin/Astroak)
+"ZY" = (
+/obj/structure/window/reinforced/survival_pod{
+	name = "window";
+	dir = 1
+	},
+/obj/machinery/door/window/survival_pod{
+	dir = 8
+	},
+/turf/simulated/floor/grass,
+/area/ruin/Astroak)
+
+(1,1,1) = {"
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+"}
+(2,1,1) = {"
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+wk
+PM
+zb
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+Md
+Md
+Md
+PM
+PM
+PM
+PM
+PM
+"}
+(3,1,1) = {"
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+wk
+wk
+wk
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+Md
+Md
+Md
+Md
+TW
+Md
+PM
+PM
+PM
+PM
+"}
+(4,1,1) = {"
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+wk
+wk
+wk
+wk
+sX
+sX
+PM
+PM
+PM
+PM
+PM
+PM
+Md
+Md
+Md
+Md
+Md
+Md
+Md
+PM
+PM
+PM
+PM
+"}
+(5,1,1) = {"
+PM
+PM
+PM
+PM
+PM
+PM
+wk
+wk
+wk
+EW
+wk
+sX
+Eg
+Eg
+PM
+PM
+PM
+PM
+TW
+Md
+Md
+ZY
+LX
+BG
+Yx
+Md
+Md
+PM
+PM
+PM
+"}
+(6,1,1) = {"
+PM
+PM
+PM
+PM
+PM
+wk
+wk
+wk
+wk
+EW
+wk
+sX
+Eg
+Eg
+Eg
+Eg
+sX
+sX
+sX
+uI
+uI
+Nw
+zR
+zR
+QI
+Yx
+Md
+PM
+PM
+PM
+"}
+(7,1,1) = {"
+PM
+PM
+PM
+PM
+zb
+sX
+sX
+sX
+wk
+GI
+wk
+sX
+Eg
+Eg
+Eg
+sX
+sX
+GT
+sX
+sX
+Ky
+zR
+zR
+Ky
+cH
+Bj
+Md
+Md
+PM
+PM
+"}
+(8,1,1) = {"
+PM
+PM
+PM
+PM
+PM
+sX
+Eg
+sX
+eM
+eM
+sX
+sX
+sX
+sX
+ne
+sX
+Wd
+GT
+GT
+DS
+zR
+zR
+Ga
+zR
+gJ
+Md
+Md
+Md
+Md
+PM
+"}
+(9,1,1) = {"
+PM
+PM
+PM
+PM
+PM
+Eg
+Eg
+sX
+wk
+wk
+oY
+wk
+lt
+wk
+wk
+Vp
+GT
+GT
+Wd
+sX
+zR
+zR
+zR
+zR
+Af
+Md
+Md
+Md
+PM
+PM
+"}
+(10,1,1) = {"
+PM
+PM
+PM
+PM
+Eg
+Eg
+sX
+sX
+wk
+gl
+wk
+Py
+wk
+wk
+wk
+Tw
+ED
+rb
+Hb
+sX
+gy
+zR
+zR
+zR
+QI
+Yx
+Md
+Md
+Md
+PM
+"}
+(11,1,1) = {"
+PM
+PM
+PM
+Eg
+Eg
+Eg
+Eg
+sX
+sX
+NL
+wk
+gK
+MC
+qF
+qF
+qF
+KJ
+wk
+DP
+GG
+zR
+zR
+zR
+zR
+zR
+QD
+Md
+Md
+Md
+PM
+"}
+(12,1,1) = {"
+PM
+PM
+PM
+PM
+Eg
+Eg
+Eg
+Eg
+sX
+nL
+wk
+lt
+wk
+sF
+zg
+wk
+wk
+wk
+wk
+cD
+rD
+zR
+Ky
+zR
+cH
+Ih
+Md
+Md
+TW
+Md
+"}
+(13,1,1) = {"
+PM
+PM
+PM
+PM
+Eg
+Eg
+Eg
+Eg
+sX
+FE
+wk
+wk
+wk
+wk
+wk
+wk
+RO
+wk
+Tw
+kz
+zR
+zR
+zR
+gy
+gJ
+Md
+Md
+Md
+Md
+PM
+"}
+(14,1,1) = {"
+PM
+PM
+PM
+zb
+PM
+Eg
+Eg
+Eg
+sX
+OV
+wk
+wk
+zC
+wk
+wk
+wk
+wk
+wk
+KJ
+tE
+zR
+zR
+zR
+zR
+gJ
+Md
+Md
+Md
+Md
+PM
+"}
+(15,1,1) = {"
+PM
+PM
+PM
+PM
+PM
+Eg
+Eg
+Eg
+sX
+uJ
+wk
+sT
+KJ
+EW
+aP
+wk
+wk
+oY
+wk
+fM
+zR
+zR
+zR
+zR
+It
+Md
+Md
+Md
+Md
+PM
+"}
+(16,1,1) = {"
+PM
+PM
+PM
+PM
+PM
+Eg
+Eg
+Eg
+sX
+sX
+wk
+wk
+DX
+DC
+sX
+gl
+Np
+oi
+yF
+sX
+gy
+zR
+zR
+zR
+gJ
+Md
+Md
+Md
+PM
+PM
+"}
+(17,1,1) = {"
+PM
+PM
+PM
+PM
+PM
+PM
+Eg
+Eg
+Eg
+sX
+eH
+eH
+wk
+RO
+sX
+wk
+wk
+GL
+Jf
+sX
+sX
+zR
+Ky
+zR
+Hc
+Yx
+Md
+Md
+Md
+PM
+"}
+(18,1,1) = {"
+PM
+PM
+PM
+PM
+PM
+PM
+Eg
+Eg
+sX
+sX
+sX
+sX
+eH
+OQ
+sX
+GL
+KJ
+Uy
+GL
+ZC
+wU
+zR
+zR
+zR
+zR
+gJ
+Md
+Md
+Md
+PM
+"}
+(19,1,1) = {"
+PM
+PM
+PM
+PM
+PM
+PM
+Eg
+Eg
+Rm
+zK
+Lr
+sX
+yF
+yF
+sX
+wk
+wk
+GL
+Sf
+sX
+sX
+zR
+zR
+zR
+cH
+Bj
+Md
+Md
+PM
+PM
+"}
+(20,1,1) = {"
+PM
+PM
+PM
+PM
+PM
+PM
+Eg
+Eg
+Rm
+wk
+gE
+Lr
+Lr
+Lr
+sX
+wk
+wk
+wk
+HE
+sX
+DN
+zR
+cH
+eJ
+fW
+Md
+Md
+Md
+PM
+PM
+"}
+(21,1,1) = {"
+PM
+PM
+PM
+PM
+PM
+PM
+Eg
+Rm
+Rm
+Ii
+Ii
+wk
+mM
+pq
+sX
+Ni
+bV
+Be
+sX
+sX
+eJ
+eJ
+fW
+Md
+Md
+Md
+Md
+Md
+PM
+PM
+"}
+(22,1,1) = {"
+PM
+PM
+PM
+PM
+PM
+Eg
+Eg
+Rm
+nG
+Ii
+qO
+wk
+Hd
+Ii
+sX
+sX
+sX
+sX
+sX
+Eg
+Md
+Md
+Md
+Md
+Md
+Md
+Md
+PM
+PM
+PM
+"}
+(23,1,1) = {"
+PM
+PM
+PM
+PM
+Eg
+Eg
+Eg
+BY
+hC
+dw
+wh
+wh
+Qw
+Ii
+lA
+Rm
+Eg
+Eg
+Eg
+Eg
+Md
+Md
+Md
+Md
+Md
+Md
+Md
+PM
+PM
+PM
+"}
+(24,1,1) = {"
+PM
+PM
+PM
+PM
+PM
+Eg
+Eg
+Rm
+HL
+Ii
+nO
+wk
+Ii
+Bi
+zN
+Rm
+Eg
+Eg
+Eg
+Eg
+Md
+Md
+Md
+PM
+PM
+Md
+PM
+PM
+PM
+PM
+"}
+(25,1,1) = {"
+PM
+PM
+PM
+PM
+Eg
+Eg
+Eg
+sX
+Ii
+wk
+wk
+Ii
+qO
+Ii
+Ge
+Rm
+Eg
+Eg
+Eg
+Eg
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+zb
+PM
+PM
+"}
+(26,1,1) = {"
+PM
+PM
+PM
+PM
+PM
+Eg
+Eg
+sX
+Ge
+ly
+Ii
+Ii
+Ii
+Rm
+Rm
+Rm
+Eg
+Eg
+Eg
+Eg
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+"}
+(27,1,1) = {"
+PM
+PM
+PM
+PM
+PM
+PM
+Eg
+sX
+Rm
+Rm
+pB
+EX
+mw
+Rm
+Eg
+Eg
+Eg
+Eg
+Eg
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+"}
+(28,1,1) = {"
+PM
+PM
+zb
+PM
+PM
+PM
+Eg
+Eg
+Eg
+Rm
+Rm
+sX
+sX
+Rm
+Eg
+Eg
+Eg
+Eg
+PM
+PM
+PM
+zb
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+"}
+(29,1,1) = {"
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+Eg
+Eg
+Eg
+Eg
+Eg
+Rm
+Eg
+Eg
+Eg
+Eg
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+"}
+(30,1,1) = {"
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+Eg
+Eg
+Eg
+Eg
+Eg
+Eg
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+"}
+(31,1,1) = {"
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+zb
+PM
+PM
+Eg
+Eg
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+"}
+(32,1,1) = {"
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+PM
+"}
