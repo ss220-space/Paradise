@@ -59,7 +59,7 @@
 
 	// Rate limiting
 	var/mtl = CONFIG_GET(number/minute_topic_limit)
-	if(!holder && href_list["window_id"] != "statbrowser" && mtl) // Admins are allowed to spam click, deal with it.
+	if(!holder && (href_list["window_id"] != "statbrowser") && mtl) // Admins are allowed to spam click, deal with it.
 		var/minute = round(world.time, 600)
 		if (!topiclimiter)
 			topiclimiter = new(LIMITER_SIZE)
