@@ -835,8 +835,8 @@
 /obj/machinery/vending/proc/do_vend(datum/data/vending_product/R, mob/user)
 	if(!item_slot || !inserted_item)
 		var/put_on_turf = TRUE
-		var/obj/vended = new R.product_path(drop_location())
-		if(user && iscarbon(user) && user.Adjacent(src))
+		var/obj/item/vended = new R.product_path(drop_location())
+		if(istype(vended) && user && iscarbon(user) && user.Adjacent(src))
 			if(user.put_in_hands(vended, ignore_anim = FALSE))
 				put_on_turf = FALSE
 		if(put_on_turf)
@@ -3521,7 +3521,7 @@
 		/obj/mecha/combat/durand = 10,
 		/obj/mecha/combat/gygax = 10,
 		/obj/mecha/combat/phazon = 10,
-		/obj/mecha/medical/odysseus/full_load = 10,
+		/obj/mecha/medical/odysseus = 10,
 		/obj/mecha/working/ripley = 10,
 		/obj/mecha/working/ripley/firefighter = 10,
 		/obj/mecha/working/clarke = 10)
