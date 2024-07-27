@@ -511,9 +511,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 /obj/item/radio/uplink/sst/get_uses_amount()
 	var/danger = GLOB.player_list.len
-	var/temp_danger = round(danger/10)
-	temp_danger += (ISMULTIPLE(danger, 10) || danger % 10 >= 5)? 0: 1
-	danger = temp_danger * 10
+	var/temp_danger = (danger + 9)
+	danger = temp_danger - temp_danger % 10
 	danger *= NUKESCALINGMODIFIER
 	return ..() + round(danger/ NUKERS_COUNT) + danger % NUKERS_COUNT
 

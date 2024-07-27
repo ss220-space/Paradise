@@ -128,10 +128,9 @@
 	return ..()
 
 /datum/game_mode/nuclear/proc/scale_telecrystals()
-	var/danger
-	danger = GLOB.player_list.len
-	while(!ISMULTIPLE(++danger, 10)) //Increments danger up to the nearest multiple of ten
-
+	var/danger = GLOB.player_list.len
+	var/temp_danger = (danger + 9)
+	danger = temp_danger - temp_danger % 10
 	total_tc += danger * NUKESCALINGMODIFIER
 
 /datum/game_mode/nuclear/proc/share_telecrystals()
