@@ -14,12 +14,15 @@
 	job_rank = ROLE_TRAITOR
 	special_role = SPECIAL_ROLE_TRAITOR
 	antag_hud_type = ANTAG_HUD_TRAITOR
+	show_in_orbit = FALSE
 	/// How many telecrystals a traitor must forfeit to become a contractor.
 	var/tc_cost = 100
 	/// How long a traitor's chance to become a contractor lasts before going away. In deciseconds.
 	var/offer_duration = 10 MINUTES
 	/// world.time at which the offer will expire.
 	var/offer_deadline = -1
+	/// indicates whether the offer to become a contractor was given to the player by the admin
+	var/is_admin_forced = FALSE
 	/// The associated contractor uplink. Only present if the offer was accepted.
 	var/obj/item/contractor_uplink/contractor_uplink = null
 
@@ -67,6 +70,9 @@
 	 + "If you are interested, simply access your hidden uplink and select the \"Contracting Opportunity\" tab for more information.<br>"
 	messages.Add("<b><font size=4 color=red>You have been offered a chance to become a Contractor.</font></b><br>")
 	messages.Add("<font color=red>[greet_text]</font>")
+	if(!is_admin_forced)
+		messages.Add("<b><i><font color=red>Hurry up. You are not the only one who received this offer. Their number is limited. \
+        			If other traitors accept all offers before you, you will not be able to accept one of them.</font></i></b>")
 	messages.Add("<b><i><font color=red>This offer will expire in 10 minutes starting now (expiry time: <u>[station_time_timestamp(time = offer_deadline)]</u>).</font></i></b>")
 	return messages
 
@@ -94,9 +100,12 @@
 	if(contractor_uplink || !istype(user))
 		return
 
-	if(uplink.uses < tc_cost || world.time >= offer_deadline)
+	var/offers_availability_check = !(SSticker?.mode?.contractor_accepted < CONTRACTOR_MAX_ACCEPTED || is_admin_forced)
+	if(uplink.uses < tc_cost || world.time >= offer_deadline || offers_availability_check)
 		var/reason = (uplink.uses < tc_cost) ? \
 			"you have insufficient telecrystals ([tc_cost] needed in total)" : \
+			(offers_availability_check) ? \
+			"all offers have already been accepted by other traitors": \
 			"the deadline has passed"
 		to_chat(user, span_warning("You can no longer become a contractor as [reason]."))
 		return
@@ -113,3 +122,8 @@
 
 	// Remove the TC
 	uplink.uses -= tc_cost
+
+	show_in_orbit = TRUE
+
+	if(!is_admin_forced)
+		SSticker?.mode?.contractor_accepted++

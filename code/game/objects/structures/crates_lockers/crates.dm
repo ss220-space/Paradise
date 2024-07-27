@@ -309,6 +309,9 @@
 	name = "trash Cart"
 	icon_state = "trashcart"
 
+/obj/structure/closet/crate/trashcart/NTdelivery
+	name = "Special Delivery from Central Command"
+
 /obj/structure/closet/crate/trashcart/gibs
 	desc = "A heavy, metal trashcart with wheels. You better don't ask."
 	name = "trash cart with gibs"

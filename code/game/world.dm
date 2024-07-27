@@ -57,7 +57,7 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 		// dumb and hardcoded but I don't care~
 		CONFIG_SET(string/servername, CONFIG_GET(string/servername) + " #[(world.port % 1000) / 100]")
 
-	GLOB.timezoneOffset = text2num(time2text(0, "hh")) * 36000
+	GLOB.timezoneOffset = timezone * 36000
 
 	startup_procs() // Call procs that need to occur on startup (Generate lists, load MOTD, etc)
 

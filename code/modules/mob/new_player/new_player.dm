@@ -130,8 +130,9 @@
 		query.warn_execute()
 		qdel(query)
 		src << browse(null, "window=privacy_consent")
-		client.tos_consent = TRUE
-		new_player_panel_proc()
+		if(client)
+			client.tos_consent = TRUE
+			new_player_panel_proc()
 	if(href_list["consent_rejected"])
 		client.tos_consent = FALSE
 		to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
@@ -298,7 +299,8 @@
 		if(client)
 			client.prefs.process_link(src, href_list)
 	else if(!href_list["late_join"])
-		new_player_panel()
+		if(client)
+			new_player_panel()
 
 /mob/new_player/proc/IsJobAvailable(rank)
 	var/datum/job/job = SSjobs.GetJob(rank)

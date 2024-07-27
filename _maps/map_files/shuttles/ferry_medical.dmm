@@ -1,0 +1,392 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	tag = "icon-propulsion (EAST)"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/transport)
+"b" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/glass/bottle/ether{
+	pixel_x = -4
+	},
+/obj/item/reagent_containers/syringe{
+	pixel_x = -1;
+	pixel_y = 11
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
+	name = "Surgery Cleaner";
+	pixel_x = 6;
+	pixel_y = -2
+	},
+/obj/machinery/light/spot,
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue"
+	},
+/area/shuttle/transport)
+"d" = (
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull"
+	},
+/area/shuttle/transport)
+"e" = (
+/obj/machinery/optable,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (NORTH)"
+	},
+/area/shuttle/transport)
+"g" = (
+/obj/machinery/bodyscanner,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (NORTH)"
+	},
+/area/shuttle/transport)
+"h" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/surgery{
+	pixel_x = -1;
+	pixel_y = 2
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue"
+	},
+/area/shuttle/transport)
+"j" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitebluecorner"
+	},
+/area/shuttle/transport)
+"o" = (
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 2;
+	height = 12;
+	id = "ferry";
+	name = "ferry shuttle";
+	roundstart_move = "ferry_away";
+	timid = 1;
+	width = 5
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/shuttle{
+	id_tag = "s_docking_airlock";
+	req_access = list(5,103)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/shuttle/transport)
+"q" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/shuttle/transport)
+"r" = (
+/obj/machinery/bodyscanner{
+	layer = 3.5
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (NORTHEAST)"
+	},
+/area/shuttle/transport)
+"s" = (
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull"
+	},
+/area/shuttle/transport)
+"t" = (
+/obj/machinery/sleeper/upgraded{
+	dir = 2
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitebluecorner"
+	},
+/area/shuttle/transport)
+"w" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluefull"
+	},
+/area/shuttle/transport)
+"x" = (
+/obj/machinery/sleeper/upgraded{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (NORTH)"
+	},
+/area/shuttle/transport)
+"y" = (
+/obj/machinery/vending/medical,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (NORTH)"
+	},
+/area/shuttle/transport)
+"z" = (
+/obj/machinery/computer/shuttle/ferry/request{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (SOUTHWEST)"
+	},
+/area/shuttle/transport)
+"B" = (
+/turf/simulated/wall/shuttle{
+	dir = 3
+	},
+/area/shuttle/transport)
+"D" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitebluecorner"
+	},
+/area/shuttle/transport)
+"E" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/iv_bag/blood/AMinus,
+/obj/item/reagent_containers/iv_bag/blood/APlus,
+/obj/item/reagent_containers/iv_bag/blood/BMinus,
+/obj/item/reagent_containers/iv_bag/blood/BPlus,
+/obj/item/reagent_containers/iv_bag/blood/OPlus,
+/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/salglu,
+/obj/item/reagent_containers/iv_bag/salglu,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (SOUTHEAST)"
+	},
+/area/shuttle/transport)
+"G" = (
+/obj/machinery/shower{
+	pixel_y = 20
+	},
+/obj/structure/curtain/medical,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/shuttle/transport)
+"I" = (
+/obj/structure/window/plasmareinforced{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/structure/closet/secure_closet/medical2,
+/obj/item/storage/box/masks,
+/obj/item/storage/box/gloves{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (SOUTHWEST)"
+	},
+/area/shuttle/transport)
+"J" = (
+/turf/simulated/wall/shuttle,
+/area/shuttle/transport)
+"L" = (
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_y = 64
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitebluecorner"
+	},
+/area/shuttle/transport)
+"N" = (
+/obj/machinery/bodyscanner,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (NORTHEAST)"
+	},
+/area/shuttle/transport)
+"O" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/shuttle{
+	id_tag = "s_docking_airlock";
+	req_access = list(5,103)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/shuttle/transport)
+"P" = (
+/obj/structure/window/full/shuttle,
+/obj/structure/grille,
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/transport)
+"R" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluecorner"
+	},
+/area/shuttle/transport)
+"T" = (
+/turf/simulated/wall/shuttle{
+	tag = "icon-swall2"
+	},
+/area/shuttle/transport)
+"V" = (
+/obj/structure/sink{
+	pixel_y = 22
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitebluecorner"
+	},
+/area/shuttle/transport)
+"Y" = (
+/obj/machinery/sleeper/upgraded{
+	dir = 1
+	},
+/obj/machinery/light/spot,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitebluecorner"
+	},
+/area/shuttle/transport)
+"Z" = (
+/obj/structure/closet/crate/medical,
+/obj/structure/window/plasmareinforced{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/item/vending_refill/medical,
+/obj/item/reagent_containers/glass/bottle/charcoal,
+/obj/item/reagent_containers/glass/bottle/charcoal,
+/obj/item/reagent_containers/glass/bottle/atropine,
+/obj/item/reagent_containers/glass/bottle/atropine,
+/obj/item/reagent_containers/glass/bottle/ether,
+/obj/item/reagent_containers/glass/bottle/ether,
+/obj/item/reagent_containers/glass/bottle/oculine,
+/obj/item/reagent_containers/glass/bottle/oculine,
+/obj/item/stack/nanopaste,
+/obj/item/stack/nanopaste,
+/obj/item/robot_parts/l_arm{
+	pixel_x = -10;
+	pixel_y = 8
+	},
+/obj/item/robot_parts/l_arm{
+	pixel_x = -10;
+	pixel_y = 8
+	},
+/obj/item/robot_parts/r_arm,
+/obj/item/robot_parts/r_arm,
+/obj/item/robot_parts/l_leg,
+/obj/item/robot_parts/l_leg,
+/obj/item/robot_parts/r_leg,
+/obj/item/robot_parts/r_leg,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (NORTH)"
+	},
+/area/shuttle/transport)
+
+(1,1,1) = {"
+a
+a
+O
+a
+a
+"}
+(2,1,1) = {"
+J
+Z
+j
+I
+J
+"}
+(3,1,1) = {"
+J
+x
+D
+b
+J
+"}
+(4,1,1) = {"
+J
+e
+L
+h
+J
+"}
+(5,1,1) = {"
+J
+r
+D
+E
+J
+"}
+(6,1,1) = {"
+J
+B
+G
+T
+J
+"}
+(7,1,1) = {"
+J
+y
+q
+z
+J
+"}
+(8,1,1) = {"
+P
+t
+w
+Y
+J
+"}
+(9,1,1) = {"
+J
+d
+w
+s
+J
+"}
+(10,1,1) = {"
+J
+V
+w
+R
+P
+"}
+(11,1,1) = {"
+J
+N
+q
+g
+J
+"}
+(12,1,1) = {"
+J
+P
+o
+P
+J
+"}
