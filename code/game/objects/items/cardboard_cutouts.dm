@@ -41,7 +41,7 @@
 			icon_state = initial(icon_state) //This resets a cutout to its blank state - this is intentional to allow for resetting
 			pushed_over = FALSE
 		
-		var/image/I = image(icon = 'icons/obj/cardboard_cutout.dmi' , icon_state = src.icon_state, loc = user)
+		var/image/I = image(icon = src.icon , icon_state = src.icon_state, loc = user)
 		I.override = 1
 		I.color = color
 		user.add_alt_appearance("sneaking_mission", I, GLOB.player_list)
