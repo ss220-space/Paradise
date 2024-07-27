@@ -129,7 +129,7 @@
 /area/syndicate_mothership/cargo)
 "abb" = (
 /obj/machinery/plantgenes,
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/centcom/evac)
 "abk" = (
 /obj/machinery/light,
@@ -2065,7 +2065,7 @@
 /obj/item/reagent_containers/glass/beaker/bluespace,
 /obj/item/reagent_containers/glass/beaker/bluespace,
 /obj/item/reagent_containers/glass/beaker/bluespace,
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/centcom/evac)
 "aRW" = (
 /turf/simulated/floor/plasteel{
@@ -3531,7 +3531,7 @@
 "bGq" = (
 /obj/machinery/smartfridge,
 /obj/structure/window/reinforced,
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/centcom/evac)
 "bGz" = (
 /obj/machinery/door/airlock/syndicate/public{
@@ -7626,7 +7626,7 @@
 /obj/structure/sink{
 	pixel_y = 32
 	},
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/centcom/evac)
 "dGU" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -8052,7 +8052,7 @@
 "dUh" = (
 /obj/structure/table,
 /obj/machinery/smartfridge/disks,
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/centcom/evac)
 "dUj" = (
 /obj/machinery/door/airlock/public/glass,
@@ -8988,9 +8988,12 @@
 	},
 /area/centcom/jail)
 "erZ" = (
-/obj/structure/railing{
-	dir = 1;
-	pixel_y = -32
+/obj/effect/step_trigger/teleporter{
+	teleport_x = 137;
+	teleport_y = 65;
+	teleport_z = 1;
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2"
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -11277,7 +11280,7 @@
 "fyV" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/snacks/sliceable/birthdaycake,
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/centcom/specops)
 "fzw" = (
 /turf/simulated/floor/plasteel{
@@ -12638,7 +12641,7 @@
 /obj/item/storage/box/disks_plantgene,
 /obj/item/storage/box/disks_plantgene,
 /obj/item/storage/box/disks_plantgene,
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/centcom/evac)
 "gcZ" = (
 /obj/structure/closet/secure_closet/brig,
@@ -13991,10 +13994,6 @@
 	icon = 'icons/mob/screen_gen.dmi';
 	icon_state = "x2"
 	},
-/obj/structure/railing{
-	pixel_y = 32;
-	density = 0
-	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
 	dir = 8;
@@ -14134,7 +14133,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/centcom/evac)
 "gUz" = (
 /obj/effect/turf_decal/siding/wood{
@@ -14870,10 +14869,6 @@
 	teleport_z = 1;
 	icon = 'icons/mob/screen_gen.dmi';
 	icon_state = "x2"
-	},
-/obj/structure/railing{
-	pixel_y = 32;
-	density = 0
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -16457,9 +16452,6 @@
 	name = "floor"
 	},
 /area/syndicate_mothership/outside)
-"ikU" = (
-/turf/simulated/floor/wood/cold,
-/area/centcom/zone2)
 "ild" = (
 /obj/machinery/abductor/pad{
 	team = 1
@@ -17357,7 +17349,7 @@
 /turf/simulated/floor/indestructible/asteroid,
 /area/syndicate_mothership/outside)
 "iFf" = (
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/centcom/evac)
 "iFr" = (
 /obj/item/twohanded/required/kirbyplants{
@@ -17752,7 +17744,7 @@
 	height = 12;
 	id = "ferry_away";
 	name = "centcom bay 2";
-	turf_type = /turf/simulated/floor;
+	turf_type = /turf/simulated/floor/plating/airless;
 	width = 5
 	},
 /turf/simulated/floor/plating/airless,
@@ -18485,7 +18477,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/centcom/specops)
 "jkA" = (
 /obj/effect/turf_decal{
@@ -19305,7 +19297,7 @@
 "jBs" = (
 /obj/structure/toilet,
 /obj/machinery/light/small{
-	dir = 1
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -23516,7 +23508,7 @@
 /obj/structure/chair/comfy/brown{
 	dir = 1
 	},
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/centcom/specops)
 "lxP" = (
 /obj/machinery/door/window/brigdoor{
@@ -23863,7 +23855,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/centcom/evac)
 "lFw" = (
 /obj/structure/reagent_dispensers/beerkeg/nuke{
@@ -24004,7 +23996,7 @@
 "lJm" = (
 /obj/machinery/biogenerator,
 /obj/structure/window/reinforced,
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/centcom/evac)
 "lJL" = (
 /obj/effect/turf_decal{
@@ -24707,10 +24699,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/centcom/specops)
-"mbI" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/wood/cold,
-/area/centcom/zone1)
 "mbZ" = (
 /obj/structure/table/wood,
 /obj/item/clothing/under/plasmaman/wizard,
@@ -24880,7 +24868,7 @@
 	dir = 4
 	},
 /obj/machinery/smartfridge/drying_rack,
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/centcom/evac)
 "meN" = (
 /obj/structure/flora/grass/both,
@@ -24941,10 +24929,6 @@
 	teleport_z = 1;
 	icon_state = "x2";
 	icon = 'icons/mob/screen_gen.dmi'
-	},
-/obj/structure/railing{
-	layer = 4.3;
-	density = 0
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -25291,7 +25275,9 @@
 	teleport_x = 135;
 	teleport_y = 16;
 	teleport_z = 1;
-	mobs_only = 1
+	mobs_only = 1;
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -25964,7 +25950,7 @@
 	height = 6;
 	id = "pod3_away";
 	name = "recovery ship bay 3";
-	turf_type = /turf/simulated/floor;
+	turf_type = /turf/simulated/floor/plating/airless;
 	width = 5
 	},
 /turf/simulated/floor/plating/airless,
@@ -27720,7 +27706,6 @@
 /area/shuttle/trade/sol)
 "nfR" = (
 /obj/structure/bed/dogbed/ian{
-	layer = 2.9;
 	name = "Lounger";
 	pixel_x = -2
 	},
@@ -28300,7 +28285,7 @@
 	height = 7;
 	id = "supply_away";
 	name = "supply centcom";
-	turf_type = /turf/simulated/floor;
+	turf_type = /turf/simulated/floor/plating/airless;
 	width = 12
 	},
 /turf/simulated/floor/plating/airless,
@@ -29646,7 +29631,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/centcom/evac)
 "nUe" = (
 /obj/structure/plasticflaps/mining,
@@ -30440,7 +30425,7 @@
 	emagged = 1;
 	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez=20,/obj/item/reagent_containers/glass/bottle/nutrient/l4z=13,/obj/item/reagent_containers/glass/bottle/nutrient/rh=6,/obj/item/reagent_containers/spray/pestspray=20,/obj/item/reagent_containers/syringe=5,/obj/item/storage/bag/plants=5,/obj/item/cultivator=3,/obj/item/shovel/spade=3,/obj/item/plant_analyzer=4,/obj/item/reagent_containers/glass/bottle/ammonia=10,/obj/item/reagent_containers/glass/bottle/diethylamine=5)
 	},
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/centcom/evac)
 "okZ" = (
 /turf/simulated/floor/carpet/red,
@@ -30583,12 +30568,7 @@
 	dir = 8
 	},
 /obj/structure/table/reinforced,
-/obj/machinery/computer/message_monitor{
-	icon_keyboard = "laptop_key";
-	icon_state = "laptop";
-	normal_icon = "laptop";
-	icon_screen = "tank"
-	},
+/obj/machinery/computer/message_monitor/laptop,
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/specops)
 "ooz" = (
@@ -33746,8 +33726,19 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/zone1)
 "pMd" = (
-/turf/simulated/floor/wood/cold,
-/area/centcom/zone1)
+/obj/docking_port/stationary/transit{
+	dwidth = 3;
+	height = 7;
+	id = "shit_rain_transit";
+	name = "shit_rain in transit";
+	pixel_y = -32;
+	turf_type = /turf/space/transit/north;
+	width = 7
+	},
+/turf/space/transit/north{
+	icon_state = "black"
+	},
+/area/space)
 "pMv" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -35103,29 +35094,6 @@
 	icon_state = "darkjail"
 	},
 /area/syndicate_mothership/jail)
-"qqC" = (
-/obj/effect/turf_decal/tile/neutral{
-	color = "black";
-	icon_state = "tile_full";
-	layer = 5
-	},
-/obj/effect/turf_decal/tile/neutral{
-	color = "black";
-	icon_state = "tile_full";
-	layer = 5
-	},
-/obj/effect/turf_decal/tile/neutral{
-	color = "black";
-	icon_state = "tile_full";
-	layer = 5
-	},
-/obj/structure/railing,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
-	},
-/area/centcom/specops)
 "qqE" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 1;
@@ -36000,13 +35968,6 @@
 	dir = 8;
 	id_tag = "ERT_Drop"
 	},
-/obj/effect/step_trigger/teleporter{
-	teleport_x = 137;
-	teleport_y = 65;
-	teleport_z = 1;
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x2"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "rampbottom";
@@ -36311,7 +36272,7 @@
 	emagged = 1;
 	products = list(/obj/item/seeds/aloe=3,/obj/item/seeds/ambrosia=3,/obj/item/seeds/apple=3,/obj/item/seeds/banana=3,/obj/item/seeds/berry=3,/obj/item/seeds/cabbage=3,/obj/item/seeds/carrot=3,/obj/item/seeds/cherry=3,/obj/item/seeds/chanter=3,/obj/item/seeds/chili=3,/obj/item/seeds/cocoapod=3,/obj/item/seeds/coffee=3,/obj/item/seeds/comfrey=3,/obj/item/seeds/corn=3,/obj/item/seeds/cotton=3,/obj/item/seeds/nymph=3,/obj/item/seeds/eggplant=3,/obj/item/seeds/garlic=3,/obj/item/seeds/grape=3,/obj/item/seeds/grass=3,/obj/item/seeds/lemon=3,/obj/item/seeds/lime=3,/obj/item/seeds/onion=3,/obj/item/seeds/orange=3,/obj/item/seeds/peanuts=3,/obj/item/seeds/pineapple=3,/obj/item/seeds/poppy=3,/obj/item/seeds/potato=3,/obj/item/seeds/pumpkin=3,/obj/item/seeds/replicapod=3,/obj/item/seeds/wheat/rice=3,/obj/item/seeds/soya=3,/obj/item/seeds/sugarcane=3,/obj/item/seeds/sunflower=3,/obj/item/seeds/tea=3,/obj/item/seeds/tobacco=3,/obj/item/seeds/tomato=3,/obj/item/seeds/tower=3,/obj/item/seeds/watermelon=3,/obj/item/seeds/wheat=3,/obj/item/seeds/whitebeet=3,/obj/item/seeds/cannabis=3,/obj/item/seeds/amanita=2,/obj/item/seeds/fungus=3,/obj/item/seeds/glowshroom=2,/obj/item/seeds/liberty=2,/obj/item/seeds/nettle=2,/obj/item/seeds/plump=2,/obj/item/seeds/reishi=2,/obj/item/seeds/starthistle=2,/obj/item/seeds/random=2)
 	},
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/centcom/evac)
 "qQE" = (
 /turf/simulated/wall/indestructible/fakeglass{
@@ -38046,7 +38007,6 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "rFY" = (
-/obj/effect/decal/warning_stripes/yellow,
 /obj/effect/step_trigger/teleporter{
 	teleport_x = 205;
 	teleport_y = 89;
@@ -38054,8 +38014,8 @@
 	icon = 'icons/mob/screen_gen.dmi';
 	icon_state = "x2"
 	},
-/turf/simulated/floor/plating,
-/area/centcom/specops)
+/turf/space,
+/area/space)
 "rGl" = (
 /obj/machinery/libraryscanner,
 /turf/simulated/floor/plasteel{
@@ -38138,7 +38098,7 @@
 	height = 6;
 	id = "pod4_away";
 	name = "recovery ship bay 4";
-	turf_type = /turf/simulated/floor;
+	turf_type = /turf/simulated/floor/plating/airless;
 	width = 5
 	},
 /turf/simulated/floor/plating/airless,
@@ -38256,7 +38216,7 @@
 /area/syndicate_mothership/infteam)
 "rJC" = (
 /obj/structure/chair/comfy/brown,
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/centcom/specops)
 "rKb" = (
 /obj/effect/turf_decal/siding/wideplating{
@@ -38566,7 +38526,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/centcom/specops)
 "rRI" = (
 /obj/machinery/porta_turret/syndicate{
@@ -39306,9 +39266,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/elite_squad)
 "sjU" = (
-/obj/machinery/computer/shuttle/nt/drop_pod{
-	possible_destinations = "shit_rain_home"
-	},
+/obj/machinery/computer/shuttle/nt/drop_pod,
 /turf/simulated/wall/shuttle,
 /area/shuttle/nt_droppod)
 "skw" = (
@@ -41805,9 +41763,9 @@
 	},
 /area/centcom/bridge)
 "tqr" = (
-/obj/machinery/computer/shuttle{
-	possible_destinations = "shit_rain_home";
-	shuttleId = "shit_rain"
+/obj/machinery/computer/shuttle/nt/drop_pod/recall{
+	pixel_x = 32;
+	possible_destinations = "shit_rain_base"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -42449,7 +42407,8 @@
 	teleport_x = 203;
 	teleport_y = 41;
 	teleport_z = 1;
-	mobs_only = 1
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -43309,13 +43268,11 @@
 /area/syndicate_mothership/jail)
 "tXE" = (
 /obj/structure/railing{
-	layer = 4.3;
-	pixel_y = 32
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	color = "gray";
-	dir = 4;
-	icon_state = "rampbottom"
+	dir = 10;
+	icon_state = "navybluealt"
 	},
 /area/centcom/specops)
 "tYd" = (
@@ -43824,7 +43781,7 @@
 	id = "admin_away";
 	name = "centcom bay 1";
 	timid = 1;
-	turf_type = /turf/simulated/floor/indestructible/plating;
+	turf_type = /turf/simulated/floor/plating/airless;
 	width = 18
 	},
 /turf/simulated/floor/plating,
@@ -46726,7 +46683,7 @@
 "vvY" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/snacks/sliceable/pizza/macpizza,
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/centcom/specops)
 "vwe" = (
 /obj/machinery/door/window/brigdoor{
@@ -48129,19 +48086,10 @@
 	},
 /area/centcom/zone2)
 "waZ" = (
-/obj/effect/step_trigger/teleporter{
-	teleport_x = 216;
-	teleport_y = 26;
-	teleport_z = 1;
-	icon = 'icons/mob/screen_gen.dmi';
-	icon_state = "x2"
+/obj/structure/railing{
+	dir = 1
 	},
-/obj/structure/railing,
-/turf/simulated/floor/plasteel{
-	color = "gray";
-	dir = 4;
-	icon_state = "rampbottom"
-	},
+/turf/simulated/wall/indestructible/reinforced,
 /area/centcom/specops)
 "wbe" = (
 /obj/structure/table/wood,
@@ -51566,10 +51514,6 @@
 	icon = 'icons/mob/screen_gen.dmi';
 	icon_state = "x2"
 	},
-/obj/structure/railing{
-	layer = 4.3;
-	density = 0
-	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
 	dir = 8;
@@ -51745,7 +51689,7 @@
 	height = 6;
 	id = "pod2_away";
 	name = "recovery ship bay 2";
-	turf_type = /turf/simulated/floor;
+	turf_type = /turf/simulated/floor/plating/airless;
 	width = 5
 	},
 /turf/simulated/floor/plating/airless,
@@ -52139,7 +52083,7 @@
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/reagent_containers/glass/bucket,
 /obj/structure/window/reinforced,
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/centcom/evac)
 "xPO" = (
 /turf/simulated/wall/indestructible/necropolis,
@@ -52332,7 +52276,7 @@
 	height = 6;
 	id = "pod1_away";
 	name = "recovery ship bay 1";
-	turf_type = /turf/simulated/floor;
+	turf_type = /turf/simulated/floor/plating/airless;
 	width = 5
 	},
 /turf/simulated/floor/plating/airless,
@@ -66618,19 +66562,19 @@ oFJ
 oFJ
 oFJ
 kXq
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+pNM
+pNM
+pNM
+pNM
+pNM
+pNM
+pNM
+pNM
+pNM
+pNM
+pNM
+pNM
+pNM
 pNM
 pNM
 pNM
@@ -66875,20 +66819,20 @@ oFJ
 oFJ
 oFJ
 kXq
-yds
-yds
-yds
-yds
-yds
-yds
-yds
-yds
-yds
-yds
-yds
-yds
-yds
-yds
+pNM
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pNM
+mVX
 yds
 yds
 yds
@@ -67132,20 +67076,20 @@ oFJ
 oFJ
 oFJ
 kXq
-yds
-psf
-psf
-psf
-psf
-psf
-psf
-psf
-psf
-psf
-psf
-psf
-psf
-psf
+pNM
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pNM
+mVX
 yds
 psf
 psf
@@ -67389,20 +67333,20 @@ oFJ
 oFJ
 oFJ
 kXq
-yds
-psf
-psf
-psf
-psf
-psf
-psf
-psf
-psf
-psf
-psf
-psf
-psf
-psf
+pNM
+pwa
+pwa
+pwa
+sXI
+sXI
+sXI
+sXI
+sXI
+pwa
+pwa
+pwa
+pNM
+mVX
 yds
 psf
 psf
@@ -67646,20 +67590,20 @@ oFJ
 oFJ
 oFJ
 kXq
-yds
-psf
-psf
-psf
-psf
-psf
-psf
-psf
-psf
-psf
-psf
-psf
-psf
-psf
+pNM
+pwa
+pwa
+sXI
+sXI
+sXI
+sXI
+sXI
+sXI
+sXI
+pwa
+pwa
+pNM
+mVX
 yds
 psf
 psf
@@ -67903,20 +67847,20 @@ oFJ
 oFJ
 oFJ
 kXq
-yds
-psf
-psf
-psf
-psf
-psf
-psf
-psf
-psf
-psf
-psf
-psf
-psf
-psf
+pNM
+pwa
+pwa
+sXI
+sXI
+sXI
+sXI
+sXI
+sXI
+sXI
+pwa
+pwa
+pNM
+mVX
 yds
 psf
 psf
@@ -68160,20 +68104,20 @@ oFJ
 oFJ
 oFJ
 kXq
-yds
-psf
-psf
-psf
-psf
-vvx
-omP
-sEW
-sWH
-vvx
-psf
-psf
-psf
-psf
+pNM
+pwa
+pwa
+sXI
+sXI
+sXI
+sXI
+sXI
+sXI
+pMd
+pwa
+pwa
+pNM
+mVX
 yds
 psf
 psf
@@ -68417,20 +68361,20 @@ oFJ
 oFJ
 oFJ
 kXq
-yds
-psf
-psf
-psf
-psf
-ryN
-otM
-otM
-otM
-ryN
-psf
-psf
-psf
-psf
+pNM
+pwa
+pwa
+sXI
+sXI
+sXI
+sXI
+sXI
+sXI
+sXI
+pwa
+pwa
+pNM
+mVX
 yds
 psf
 psf
@@ -68674,20 +68618,20 @@ oFJ
 oFJ
 oFJ
 kXq
-yds
-psf
-psf
-psf
-psf
-vvx
-vTk
-oAE
-oSA
-vvx
-psf
-psf
-psf
-psf
+pNM
+pwa
+pwa
+sXI
+sXI
+sXI
+sXI
+sXI
+sXI
+sXI
+pwa
+pwa
+pNM
+mVX
 yds
 psf
 psf
@@ -68931,20 +68875,20 @@ oFJ
 oFJ
 oFJ
 kXq
-yds
-psf
-psf
-psf
-psf
-ryN
-vTk
-wIw
-vTk
-ryN
-psf
-psf
-psf
-psf
+pNM
+pwa
+pwa
+pwa
+sXI
+sXI
+sXI
+sXI
+sXI
+pwa
+pwa
+pwa
+pNM
+mVX
 yds
 psf
 psf
@@ -69188,20 +69132,20 @@ oFJ
 oFJ
 oFJ
 kXq
-yds
-psf
-psf
-psf
-psf
-ohw
-vTk
-wIw
-vTk
-ohw
-psf
-psf
-psf
-psf
+pNM
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pNM
+mVX
 yds
 psf
 psf
@@ -69445,20 +69389,20 @@ oFJ
 oFJ
 oFJ
 kXq
-yds
-psf
-psf
-psf
-psf
-ryN
-vTk
-wIw
-vTk
-ryN
-psf
-psf
-psf
-psf
+pNM
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pwa
+pNM
+mVX
 yds
 psf
 psf
@@ -69702,20 +69646,20 @@ oFJ
 oFJ
 oFJ
 kXq
-yds
-psf
-psf
-psf
-psf
-vvx
-ouP
-wIw
-oUG
-vvx
-psf
-psf
-psf
-psf
+pNM
+pNM
+pNM
+pNM
+pNM
+pNM
+pNM
+pNM
+pNM
+pNM
+pNM
+pNM
+pNM
+mVX
 yds
 psf
 psf
@@ -69960,19 +69904,19 @@ oFJ
 oFJ
 kXq
 yds
-psf
-psf
-psf
-psf
-ryN
-vTk
-wIw
-vTk
-ryN
-psf
-psf
-psf
-psf
+yds
+yds
+yds
+yds
+yds
+yds
+yds
+yds
+yds
+yds
+yds
+yds
+yds
 yds
 psf
 psf
@@ -70221,11 +70165,11 @@ psf
 psf
 psf
 psf
-ohL
-vTk
-wIw
-vTk
-ohL
+psf
+psf
+psf
+psf
+psf
 psf
 psf
 psf
@@ -70478,11 +70422,11 @@ psf
 psf
 psf
 psf
-ryN
-vTk
-wIw
-vTk
-ryN
+psf
+psf
+psf
+psf
+psf
 psf
 psf
 psf
@@ -70735,11 +70679,11 @@ psf
 psf
 psf
 psf
-vvx
-ovB
-wIw
-pan
-vvx
+psf
+psf
+psf
+psf
+psf
 psf
 psf
 psf
@@ -70992,11 +70936,11 @@ psf
 psf
 psf
 psf
-vvx
-ohw
-urM
-ohw
-vvx
+psf
+psf
+psf
+psf
+psf
 psf
 psf
 psf
@@ -71249,11 +71193,11 @@ psf
 psf
 psf
 psf
-psf
-psf
-psf
-psf
-psf
+vvx
+omP
+sEW
+sWH
+vvx
 psf
 psf
 psf
@@ -71506,11 +71450,11 @@ psf
 psf
 psf
 psf
-psf
-psf
-psf
-psf
-psf
+ryN
+otM
+otM
+otM
+ryN
 psf
 psf
 psf
@@ -71763,11 +71707,11 @@ psf
 psf
 psf
 psf
-psf
-psf
-psf
-psf
-psf
+vvx
+vTk
+oAE
+oSA
+vvx
 psf
 psf
 psf
@@ -72020,11 +71964,11 @@ psf
 psf
 psf
 psf
-psf
-psf
-psf
-psf
-psf
+ryN
+vTk
+wIw
+vTk
+ryN
 psf
 psf
 psf
@@ -72273,19 +72217,19 @@ mVX
 mVX
 mVX
 yds
-yds
-yds
-yds
-yds
-yds
-yds
-yds
-yds
-yds
-yds
-yds
-yds
-yds
+psf
+psf
+psf
+psf
+ohw
+vTk
+wIw
+vTk
+ohw
+psf
+psf
+psf
+psf
 yds
 psf
 psf
@@ -72530,19 +72474,19 @@ mVX
 mVX
 mVX
 yds
-yds
-yds
-yds
-yds
-yds
-yds
-yds
-yds
-yds
-yds
-yds
-yds
-yds
+psf
+psf
+psf
+psf
+ryN
+vTk
+wIw
+vTk
+ryN
+psf
+psf
+psf
+psf
 yds
 psf
 psf
@@ -72791,11 +72735,11 @@ psf
 psf
 psf
 psf
-psf
-psf
-psf
-psf
-psf
+vvx
+ouP
+wIw
+oUG
+vvx
 psf
 psf
 psf
@@ -73048,11 +72992,11 @@ psf
 psf
 psf
 psf
-psf
-psf
-psf
-psf
-psf
+ryN
+vTk
+wIw
+vTk
+ryN
 psf
 psf
 psf
@@ -73305,11 +73249,11 @@ psf
 psf
 psf
 psf
-psf
-psf
-psf
-psf
-psf
+ohL
+vTk
+wIw
+vTk
+ohL
 psf
 psf
 psf
@@ -73562,11 +73506,11 @@ psf
 psf
 psf
 psf
-psf
-psf
-psf
-psf
-psf
+ryN
+vTk
+wIw
+vTk
+ryN
 psf
 psf
 psf
@@ -73819,11 +73763,11 @@ psf
 psf
 psf
 psf
-usR
-uVr
-wnO
-wHu
-usR
+vvx
+ovB
+wIw
+pan
+vvx
 psf
 psf
 psf
@@ -74076,11 +74020,11 @@ psf
 psf
 psf
 psf
-tKr
-wPT
-wPT
-wPT
-tKr
+vvx
+ohw
+urM
+ohw
+vvx
 psf
 psf
 psf
@@ -74333,11 +74277,11 @@ psf
 psf
 psf
 psf
-usR
-vnx
-rzg
-jfd
-usR
+psf
+psf
+psf
+psf
+psf
 psf
 psf
 psf
@@ -74590,11 +74534,11 @@ psf
 psf
 psf
 psf
-usR
-vpr
-vtR
-rZs
-usR
+psf
+psf
+psf
+psf
+psf
 psf
 psf
 psf
@@ -74847,11 +74791,11 @@ psf
 psf
 psf
 psf
-tKr
-vpJ
-woV
-vtR
-usR
+psf
+psf
+psf
+psf
+psf
 psf
 psf
 psf
@@ -75104,11 +75048,11 @@ psf
 psf
 psf
 psf
-sZA
-qVX
-woV
-vtR
-usR
+psf
+psf
+psf
+psf
+psf
 psf
 psf
 psf
@@ -75357,19 +75301,19 @@ mVX
 mVX
 mVX
 yds
-psf
-psf
-psf
-psf
-sZA
-vAU
-woV
-vtR
-usR
-psf
-psf
-psf
-psf
+yds
+yds
+yds
+yds
+yds
+yds
+yds
+yds
+yds
+yds
+yds
+yds
+yds
 yds
 psf
 psf
@@ -75614,19 +75558,19 @@ mVX
 mVX
 mVX
 yds
-psf
-psf
-psf
-psf
-tKr
-vtR
-woV
-xbu
-usR
-psf
-psf
-psf
-psf
+yds
+yds
+yds
+yds
+yds
+yds
+yds
+yds
+yds
+yds
+yds
+yds
+yds
 yds
 psf
 psf
@@ -75875,11 +75819,11 @@ psf
 psf
 psf
 psf
-usR
-rdF
-woV
-xbu
-usR
+psf
+psf
+psf
+psf
+psf
 psf
 psf
 psf
@@ -76132,11 +76076,11 @@ psf
 psf
 psf
 psf
-usR
-usR
-woV
-usR
-usR
+psf
+psf
+psf
+psf
+psf
 psf
 psf
 psf
@@ -76390,9 +76334,9 @@ psf
 psf
 psf
 psf
-usR
-jmf
-usR
+psf
+psf
+psf
 psf
 psf
 psf
@@ -76903,11 +76847,11 @@ psf
 psf
 psf
 psf
-psf
-psf
-psf
-psf
-psf
+usR
+uVr
+wnO
+wHu
+usR
 psf
 psf
 psf
@@ -77160,11 +77104,11 @@ psf
 psf
 psf
 psf
-psf
-psf
-psf
-psf
-psf
+tKr
+wPT
+wPT
+wPT
+tKr
 psf
 psf
 psf
@@ -77417,11 +77361,11 @@ psf
 psf
 psf
 psf
-psf
-psf
-psf
-psf
-psf
+usR
+vnx
+rzg
+jfd
+usR
 psf
 psf
 psf
@@ -77670,19 +77614,19 @@ mVX
 mVX
 mVX
 yds
-yds
-yds
-yds
-yds
-yds
-yds
-yds
-yds
-yds
-yds
-yds
-yds
-yds
+psf
+psf
+psf
+psf
+usR
+vpr
+vtR
+rZs
+usR
+psf
+psf
+psf
+psf
 yds
 yds
 yds
@@ -77926,21 +77870,21 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+yds
+psf
+psf
+psf
+psf
+tKr
+vpJ
+woV
+vtR
+usR
+psf
+psf
+psf
+psf
+yds
 mVX
 mVX
 mVX
@@ -78183,21 +78127,21 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+yds
+psf
+psf
+psf
+psf
+sZA
+qVX
+woV
+vtR
+usR
+psf
+psf
+psf
+psf
+yds
 mVX
 mVX
 mVX
@@ -78440,21 +78384,21 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+yds
+psf
+psf
+psf
+psf
+sZA
+vAU
+woV
+vtR
+usR
+psf
+psf
+psf
+psf
+yds
 mVX
 mVX
 mVX
@@ -78697,21 +78641,21 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+yds
+psf
+psf
+psf
+psf
+tKr
+vtR
+woV
+xbu
+usR
+psf
+psf
+psf
+psf
+yds
 mVX
 mVX
 mVX
@@ -78954,21 +78898,21 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+yds
+psf
+psf
+psf
+psf
+usR
+rdF
+woV
+xbu
+usR
+psf
+psf
+psf
+psf
+yds
 mVX
 mVX
 mVX
@@ -79211,21 +79155,21 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+yds
+psf
+psf
+psf
+psf
+usR
+usR
+woV
+usR
+usR
+psf
+psf
+psf
+psf
+yds
 mVX
 mVX
 mVX
@@ -79468,21 +79412,21 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+yds
+psf
+psf
+psf
+psf
+psf
+usR
+jmf
+usR
+psf
+psf
+psf
+psf
+psf
+yds
 mVX
 mVX
 mVX
@@ -79725,21 +79669,21 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+yds
+psf
+psf
+psf
+psf
+psf
+psf
+psf
+psf
+psf
+psf
+psf
+psf
+psf
+yds
 mVX
 mVX
 mVX
@@ -79982,21 +79926,21 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+yds
+psf
+psf
+psf
+psf
+psf
+psf
+psf
+psf
+psf
+psf
+psf
+psf
+psf
+yds
 mVX
 mVX
 mVX
@@ -80239,21 +80183,21 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+yds
+psf
+psf
+psf
+psf
+psf
+psf
+psf
+psf
+psf
+psf
+psf
+psf
+psf
+yds
 mVX
 mVX
 mVX
@@ -80496,21 +80440,21 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+yds
+psf
+psf
+psf
+psf
+psf
+psf
+psf
+psf
+psf
+psf
+psf
+psf
+psf
+yds
 mVX
 mVX
 mVX
@@ -80753,21 +80697,21 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+yds
+yds
+yds
+yds
+yds
+yds
+yds
+yds
+yds
+yds
+yds
+yds
+yds
+yds
+yds
 mVX
 mVX
 mVX
@@ -88045,8 +87989,8 @@ nAN
 bBe
 aoW
 nIr
+nIr
 waZ
-nAN
 nAN
 fID
 fID
@@ -88302,8 +88246,8 @@ nAN
 vHF
 aoW
 kpi
-qqC
-nAN
+kpi
+waZ
 nAN
 fID
 fID
@@ -88559,8 +88503,8 @@ kmM
 xqF
 qap
 kpi
-qqC
-csZ
+kpi
+tXE
 nAN
 fID
 fID
@@ -93425,11 +93369,11 @@ tZe
 cYM
 onc
 lYZ
-ikU
-ikU
-ikU
-ikU
-ikU
+lYZ
+lYZ
+lYZ
+lYZ
+lYZ
 lYZ
 lYZ
 lYZ
@@ -93682,11 +93626,11 @@ mpW
 mES
 onc
 rKq
-ikU
-ikU
-ikU
-ikU
-ikU
+lYZ
+lYZ
+lYZ
+lYZ
+lYZ
 lYZ
 lYZ
 lYZ
@@ -93943,7 +93887,7 @@ mvQ
 cXc
 pup
 mNl
-ikU
+lYZ
 kfU
 fcH
 lYZ
@@ -94200,7 +94144,7 @@ kNq
 ufB
 uuD
 tpf
-ikU
+lYZ
 vCI
 pYF
 ohJ
@@ -95473,7 +95417,7 @@ onc
 jyl
 wUF
 tZe
-pMd
+wUF
 tle
 pNt
 tJC
@@ -95730,7 +95674,7 @@ onc
 qIR
 wUF
 tZe
-mbI
+nae
 onc
 onc
 onc
@@ -95987,7 +95931,7 @@ onc
 vod
 wUF
 tZe
-pMd
+wUF
 onc
 wfo
 xMC
@@ -108643,10 +108587,10 @@ mzs
 mzs
 cnO
 lSW
-nAN
-tXE
+aoW
 erZ
-nAN
+erZ
+waZ
 tzO
 rTL
 rTL
@@ -109639,11 +109583,11 @@ afP
 afP
 afP
 nAN
-rFY
-rFY
+mZo
+mZo
 shl
-rFY
-rFY
+mZo
+mZo
 nAN
 mCQ
 ooD
@@ -110153,11 +110097,11 @@ mVX
 mVX
 mVX
 mVX
-mVX
-mVX
-mVX
-mVX
-mVX
+rFY
+rFY
+rFY
+rFY
+rFY
 nAN
 nAN
 nAN
