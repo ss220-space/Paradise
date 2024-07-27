@@ -360,3 +360,41 @@
   - refactor: blob objective update fix (#5560)
   github-actions[bot]:
   - server: Automatic NanoMap Update (#5565)
+'2024-07-26':
+  Aziz Chynaliev:
+  - bugfix: incorrect timezone offset
+  - server: update byond version to 515.1642
+  - bugfix: world.timezone offset was correct
+  - bugfix: stupid fix of redundancy
+  FanTik-Ratge:
+  - imageadd: fix some inhand issue (#5576)
+  ItsMeJaba:
+  - add: Central Command rework (#3900)
+  ROdenFL:
+  - tweak: никаких костылей в кодвордах, люммокс молодец (#5580)
+  Zwei:
+  - tweak: Garbage Inits Later (#5574)
+  - tweak: Small AI Optimization (#5573)
+  - bugfix: Runtimes Fixes N4 (#5578)
+  dageavtobusnick:
+  - tweak: all roundstart traitors can accept contractor offer (#5555)
+  - tweak: add crew transfer vote after blob death (#5557)
+'2024-07-27':
+  Daeberdir:
+  - bugfix: mouse jet dropped on user death. (#5584)
+  ItsMeJaba:
+  - bugfix: centcom rework (#5583)
+  NuSanya:
+  - tweak: polymorph recharge and mob list (#5575)
+  ROdenFL:
+  - bugfix: tgui minor fixes(totally not working eftpos and cargo quests iconswithnospacewithword)s
+      (#5579)
+  SabrioBiblio:
+  - add: twohanded cardboard cutout (#5353)
+  Zwei:
+  - bugfix: Chem Grenade Prime Fix (#5581)
+  - unknown: Few Keybinding Tweaks (#5416)
+  endipe:
+  - unknown: new paintkit for welding (#5520)
+  pilygun:
+  - imageadd: QOL spr.Flashbang+mobcap (#5582)

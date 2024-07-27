@@ -2,7 +2,7 @@
 	GLOB.mob_list -= src
 	GLOB.dead_mob_list -= src
 	GLOB.alive_mob_list -= src
-	input_focus = null
+	focus = null
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)
@@ -30,8 +30,7 @@
 		GLOB.dead_mob_list += src
 	else
 		GLOB.alive_mob_list += src
-	input_focus = src
-	reset_perspective(src)
+	set_focus(src)
 	prepare_huds()
 	. = ..()
 	update_config_movespeed()
@@ -41,6 +40,9 @@
 
 /mob/vv_edit_var(var_name, var_value)
 	switch(var_name)
+		if(NAMEOF(src, focus))
+			set_focus(var_value)
+			. = TRUE
 		if(NAMEOF(src, machine))
 			set_machine(var_value)
 			. = TRUE

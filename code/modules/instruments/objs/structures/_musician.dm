@@ -27,10 +27,10 @@
 /obj/structure/musician/ui_interact(mob/user, datum/tgui/ui = null)
 	song.ui_interact(user, ui)
 
-/obj/structure/musician/ui_act(action, params)
+/obj/structure/musician/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
-	return song.ui_act(action, params)
+	return song.ui_act(action, params, ui, state)
 
 /obj/structure/musician/wrench_act(mob/living/user, obj/item/I)
 	default_unfasten_wrench(user, I, 40)
