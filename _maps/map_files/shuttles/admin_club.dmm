@@ -741,7 +741,7 @@
 	},
 /area/shuttle/administration)
 "Tm" = (
-/turf/simulated/wall/shuttle/nodiagonal,
+/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/shuttle/administration)
 "Tu" = (
 /obj/machinery/light/small,

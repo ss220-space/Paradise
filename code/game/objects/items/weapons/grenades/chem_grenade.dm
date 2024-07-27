@@ -292,15 +292,21 @@
 	if(stage != READY)
 		return
 
-	var/list/datum/reagents/reactants = list()
-	for(var/obj/item/reagent_containers/glass/G in beakers)
-		reactants += G.reagents
+	var/turf/source_turf = get_turf(src)
+	if(!source_turf)
+		return
 
-	if(!chem_splash(get_turf(src), affected_area, reactants, ignition_temp, threatscale) && !no_splash)
-		playsound(loc, 'sound/items/screwdriver2.ogg', 50, 1)
-		if(beakers.len)
-			for(var/obj/O in beakers)
-				O.forceMove(get_turf(src))
+	update_mob()
+
+	var/list/datum/reagents/reactants = list()
+	for(var/obj/item/reagent_containers/container as anything in beakers)
+		reactants += container.reagents
+
+	if(!chem_splash(source_turf, affected_area, reactants, ignition_temp, threatscale) && !no_splash)
+		playsound(loc, 'sound/items/screwdriver2.ogg', 50, TRUE)
+		if(length(beakers))
+			for(var/obj/item/reagent_containers/container as anything in beakers)
+				container.forceMove(source_turf)
 			beakers = list()
 		stage = EMPTY
 		update_icon(UPDATE_ICON_STATE)
@@ -311,8 +317,6 @@
 		var/mob/last = get_mob_by_ckey(nadeassembly.fingerprintslast)
 		message_admins("grenade primed by an assembly, [user ? "triggered by [key_name_admin(user)] and" : ""] attached by [key_name_admin(M)] [last ? "and last touched by [key_name_admin(last)]" : ""] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [ADMIN_VERBOSEJMP(src)]. [contained]")
 		add_game_logs("grenade primed by an assembly, [user ? "triggered by [key_name_log(user)] and" : ""] attached by [key_name_log(M)] [last ? "and last touched by [key_name_log(last)]" : ""] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [AREACOORD(src)]. [contained]", user)
-
-	update_mob()
 
 	qdel(src)
 

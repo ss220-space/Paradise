@@ -8,7 +8,7 @@
 /area/shuttle/transport)
 "d" = (
 /obj/machinery/vending/boozeomat,
-/turf/space,
+/turf/simulated/floor/carpet/royalblack,
 /area/shuttle/transport)
 "f" = (
 /obj/structure/bed/pod,

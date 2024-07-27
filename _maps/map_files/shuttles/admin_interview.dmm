@@ -120,6 +120,9 @@
 /obj/structure/chair{
 	dir = 4
 	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "navybluealt"
@@ -452,6 +455,9 @@
 	dir = 6;
 	icon_state = "darkredaltstrip"
 	},
+/area/shuttle/administration)
+"vk" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/shuttle/administration)
 "vo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -1281,8 +1287,8 @@ hA
 hA
 Zz
 hA
-zA
-zA
+vk
+vk
 cN
 av
 zA
@@ -1481,12 +1487,12 @@ mZ
 SE
 hA
 qf
-zA
+vk
 Ti
 Ru
 iK
-Ti
-zA
+vk
+vk
 Re
 hA
 hG
