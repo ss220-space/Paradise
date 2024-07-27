@@ -1575,14 +1575,14 @@
 	taste_description = "bad idea"
 	can_synth = FALSE
 
-/obj/screen/alert/adv_lava_extract
+/atom/movable/screen/alert/adv_lava_extract
 	name = "Strong Heartbeat"
 	desc = "Your heart beats with great force! Be carefull not to cause heart attack."
 	icon_state = "penthrite"
 
 /datum/reagent/medicine/adv_lava_extract/on_mob_add(mob/living/carbon/human/user)
 	. = ..()
-	user.throw_alert("penthrite", /obj/screen/alert/adv_lava_extract)
+	user.throw_alert("penthrite", /atom/movable/screen/alert/adv_lava_extract)
 
 /datum/reagent/medicine/adv_lava_extract/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
