@@ -111,14 +111,14 @@
 	. = ..()
 	if(.)
 		return .
-	user.mob.toggle_move_intent(MOVE_INTENT_WALK)
+	user.mob.toggle_move_intent()
 
 
 /datum/keybinding/mob/walk_hold/up(client/user)
 	. = ..()
 	if(.)
 		return .
-	user.mob.toggle_move_intent(MOVE_INTENT_RUN)
+	user.mob.toggle_move_intent()
 
 
 /datum/keybinding/mob/walk_toggle
