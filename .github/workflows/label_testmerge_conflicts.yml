@@ -19,7 +19,7 @@ jobs:
           ref: testmerge
       - name: Check for testmerge conflicts
         run: |
-          git fetch pull/${{ github.event.number }}/head:PR${{ github.event.number }}
+          git fetch origin pull/${{ github.event.number }}/head:PR${{ github.event.number }}
           git merge --no-commit --no-ff PR${{ github.event.number }}
           CONFLICTS=$(git ls-files -u | wc -l)
           if [ "$CONFLICTS" -gt 0 ] ; then
