@@ -3544,7 +3544,7 @@
 	},
 /area/ruin/space/spacehotelv1/guestroom1)
 "Ah" = (
-/mob/living/simple_animal/mouse/gray{
+/mob/living/simple_animal/mouse{
 	name = "Elliot"
 	},
 /turf/simulated/floor/plating,
@@ -7147,7 +7147,7 @@
 	layer = 4;
 	pixel_y = 26
 	},
-/mob/living/simple_animal/mouse/gray{
+/mob/living/simple_animal/mouse{
 	name = "Nicolas"
 	},
 /turf/simulated/floor/plasteel{

@@ -35,7 +35,7 @@ SUBSYSTEM_DEF(dbcore)
 /datum/controller/subsystem/dbcore/Initialize()
 	if(!schema_valid)
 		log_startup_progress("Database schema ([CONFIG_GET(number/db_version)]) doesn't match the latest schema version ([SQL_VERSION]). Roundstart has been delayed.")
-
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/dbcore/fire()
 	for(var/I in active_queries)

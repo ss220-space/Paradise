@@ -653,7 +653,7 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/ancient_robot_leg/bullet_act(obj/item/projectile/P)
 	if(core.stat == CONSCIOUS && !core.target && core.AIStatus != AI_OFF && !core.client)
 		if(P.firer && get_dist(core, P.firer) <= core.aggro_vision_range)
-			core.FindTarget(list(P.firer), 1)
+			core.FindTarget(list(P.firer))
 		core.Goto(P.starting, core.move_to_delay, 3)
 	..()
 

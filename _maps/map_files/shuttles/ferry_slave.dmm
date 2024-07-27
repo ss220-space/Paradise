@@ -1,0 +1,262 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	tag = "icon-propulsion (EAST)"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/transport)
+"e" = (
+/obj/item/storage/box/donkpockets{
+	pixel_x = 6;
+	pixel_y = -4
+	},
+/obj/structure/table/reinforced,
+/obj/item/storage/box/donkpockets{
+	pixel_x = -1;
+	pixel_y = -4
+	},
+/obj/machinery/kitchen_machine/microwave{
+	pixel_y = 14
+	},
+/turf/simulated/floor/shuttle/syndicate,
+/area/shuttle/transport)
+"g" = (
+/obj/structure/table/reinforced,
+/obj/item/melee/baton/telescopic,
+/obj/machinery/door/window/brigdoor{
+	color = "#FF0000";
+	req_access = list(104,106,63,19)
+	},
+/turf/simulated/floor/shuttle/syndicate,
+/area/shuttle/transport)
+"j" = (
+/turf/simulated/wall/shuttle{
+	tag = "icon-swall2"
+	},
+/area/shuttle/transport)
+"l" = (
+/obj/machinery/door/window/survival_pod{
+	dir = 1;
+	layer = 3;
+	req_access = list(104,106,63,19)
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8;
+	pixel_x = -4;
+	can_be_hit = 0;
+	damage_deflection = 100
+	},
+/turf/simulated/floor{
+	dir = 1;
+	icon_state = "darkgreycamo"
+	},
+/area/shuttle/transport)
+"n" = (
+/obj/machinery/light/spot{
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
+	},
+/obj/machinery/vending/autodrobe,
+/turf/simulated/floor/shuttle/syndicate,
+/area/shuttle/transport)
+"q" = (
+/obj/machinery/door/airlock/shuttle{
+	id_tag = "s_docking_airlock";
+	req_access = list(104,106,63,19)
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/shuttle,
+/area/shuttle/transport)
+"w" = (
+/obj/structure/closet/crate,
+/obj/structure/window/plasmareinforced{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/item/restraints/handcuffs/pinkcuffs,
+/obj/item/restraints/handcuffs,
+/obj/item/restraints/handcuffs,
+/obj/item/restraints/handcuffs,
+/obj/item/restraints/handcuffs/toy,
+/obj/item/restraints/handcuffs,
+/turf/simulated/floor/shuttle/syndicate,
+/area/shuttle/transport)
+"x" = (
+/turf/simulated/floor/shuttle,
+/area/shuttle/transport)
+"A" = (
+/obj/machinery/door/window/survival_pod{
+	dir = 1;
+	layer = 3;
+	req_access = list(104,106,63,19)
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 8;
+	layer = 2.9
+	},
+/turf/simulated/floor{
+	dir = 1;
+	icon_state = "darkgreycamo"
+	},
+/area/shuttle/transport)
+"G" = (
+/obj/structure/table/reinforced,
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 4
+	},
+/obj/item/phone{
+	attack_verb = list("bounced a check off","checked-out","tipped");
+	desc = "Also known as a cash register, or, more commonly, \"robbery magnet\". It's old and rusty, clearly non-functional and decorative only.";
+	icon = 'icons/obj/machines/pos.dmi';
+	icon_state = "pos";
+	name = "point of sale"
+	},
+/obj/machinery/light/spot{
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
+	},
+/turf/simulated/floor/shuttle/syndicate,
+/area/shuttle/transport)
+"J" = (
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/shuttle/syndicate,
+/area/shuttle/transport)
+"K" = (
+/turf/simulated/wall/shuttle{
+	dir = 3
+	},
+/area/shuttle/transport)
+"L" = (
+/obj/machinery/door/airlock/shuttle{
+	id_tag = "s_docking_airlock";
+	req_access = list(104,106,63,19)
+	},
+/turf/simulated/floor/shuttle/syndicate,
+/area/shuttle/transport)
+"N" = (
+/obj/machinery/computer/shuttle/ferry/request{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle/syndicate,
+/area/shuttle/transport)
+"R" = (
+/turf/simulated/floor/shuttle/syndicate,
+/area/shuttle/transport)
+"S" = (
+/obj/machinery/door/airlock/shuttle{
+	id_tag = "s_docking_airlock"
+	},
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 2;
+	height = 12;
+	id = "ferry";
+	name = "ferry shuttle";
+	roundstart_move = "ferry_away";
+	timid = 1;
+	width = 5
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/shuttle,
+/area/shuttle/transport)
+"T" = (
+/obj/structure/window/full/shuttle,
+/obj/structure/grille,
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/transport)
+"U" = (
+/turf/simulated/wall/shuttle,
+/area/shuttle/transport)
+"Z" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle/syndicate,
+/area/shuttle/transport)
+
+(1,1,1) = {"
+a
+a
+q
+a
+a
+"}
+(2,1,1) = {"
+U
+w
+R
+A
+U
+"}
+(3,1,1) = {"
+U
+e
+R
+l
+U
+"}
+(4,1,1) = {"
+U
+n
+R
+l
+U
+"}
+(5,1,1) = {"
+U
+J
+R
+l
+U
+"}
+(6,1,1) = {"
+U
+Z
+R
+l
+U
+"}
+(7,1,1) = {"
+U
+N
+R
+l
+U
+"}
+(8,1,1) = {"
+U
+K
+L
+j
+U
+"}
+(9,1,1) = {"
+T
+R
+R
+R
+T
+"}
+(10,1,1) = {"
+U
+G
+g
+L
+U
+"}
+(11,1,1) = {"
+U
+x
+x
+x
+U
+"}
+(12,1,1) = {"
+U
+T
+S
+T
+U
+"}

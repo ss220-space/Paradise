@@ -232,8 +232,9 @@
 
 	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override
 
-	/// The datum receiving keyboard input. parent mob by default.
-	var/datum/input_focus = null
+	/// The datum receiving keyboard input. src by default
+	var/datum/focus
+
 	var/last_emote = null
 
 	var/ghost_orbiting = 0

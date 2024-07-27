@@ -123,9 +123,11 @@
 	return 0.8
 
 
-/mob/living/carbon/alien/humanoid/toggle_move_intent() //because with movement intent change our pose changes
-	..()
-	update_icons()
+/mob/living/carbon/alien/humanoid/toggle_move_intent(new_move_intent) //because with movement intent change our pose changes
+	var/old_m_intent = m_intent
+	. = ..()
+	if(old_m_intent != m_intent)
+		update_icons()
 
 
 /mob/living/carbon/alien/humanoid/examine(mob/user)

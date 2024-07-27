@@ -130,8 +130,9 @@
 		query.warn_execute()
 		qdel(query)
 		src << browse(null, "window=privacy_consent")
-		client.tos_consent = TRUE
-		new_player_panel_proc()
+		if(client)
+			client.tos_consent = TRUE
+			new_player_panel_proc()
 	if(href_list["consent_rejected"])
 		client.tos_consent = FALSE
 		to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
@@ -200,7 +201,7 @@
 			to_chat(usr, "<span class='warning'>You must wait for the server to finish starting before you can join!</span>")
 			return FALSE
 
-		if(alert(src,"Are you sure you wish to observe?[(CONFIG_GET(flag/respawn_observer) ? "" : " You cannot normally join the round after doing this!")]","Player Setup","Yes","No") == "Yes")
+		if(tgui_alert(src,"Are you sure you wish to observe?[(CONFIG_GET(flag/respawn_observer) ? "" : " You cannot normally join the round after doing this!")]","Player Setup", list("Yes","No")) == "Yes")
 			if(!client)
 				return 1
 			var/mob/dead/observer/observer = new()
@@ -298,7 +299,8 @@
 		if(client)
 			client.prefs.process_link(src, href_list)
 	else if(!href_list["late_join"])
-		new_player_panel()
+		if(client)
+			new_player_panel()
 
 /mob/new_player/proc/IsJobAvailable(rank)
 	var/datum/job/job = SSjobs.GetJob(rank)
