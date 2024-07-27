@@ -176,6 +176,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/toggle_Idlenpcpool_suspension,
 	/client/proc/toggle_npcpool_suspension,
 	/client/proc/debug_atom_init,
+	/client/proc/debugstatpanel
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,

@@ -488,6 +488,7 @@
 	preftoggle_bitflag = PREFTOGGLE_CHAT_PRAYER
 	preftoggle_toggle = PREFTOGGLE_TOGGLE1
 	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
+	rights_required = R_ADMIN
 	enable_message = "You will now see prayerchat."
 	disable_message = "You will no longer see prayerchat."
 	blackbox_message = "Toggle Prayers"
@@ -498,6 +499,7 @@
 	preftoggle_bitflag = SOUND_PRAYERNOTIFY
 	preftoggle_toggle = PREFTOGGLE_SOUND
 	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
+	rights_required = R_ADMIN
 	enable_message = "You will now hear when prayers are made."
 	disable_message = "You will no longer hear when prayers are made."
 	blackbox_message = "Toggle Prayer Sound"
