@@ -71,7 +71,6 @@
 	var/gen_record = ""
 	var/exploit_record = ""
 	var/lastpuke = 0
-	var/can_strip = 1
 	/// For speaking/listening.
 	var/list/languages
 	/// For reagents that grant language knowlege.

@@ -80,6 +80,8 @@
 		hide.Remove(src)
 	. = ..()
 
+/mob/living/silicon/robot/cogscarab/add_strippable_element()
+	return
 
 /mob/living/silicon/robot/cogscarab/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/ratvar()

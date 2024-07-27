@@ -1144,6 +1144,8 @@
 //from [/datum/move_loop/has_target/jps/recalculate_path] ():
 #define COMSIG_MOVELOOP_JPS_REPATH "moveloop_jps_repath"
 
+///from of mob/MouseDrop(): (/atom/over, /mob/user)
+#define COMSIG_DO_MOB_STRIP "do_mob_strip"
 
 // /datum/component/transforming signals
 /// From /datum/component/transforming/proc/on_attack_self(obj/item/source, mob/user): (obj/item/source, mob/user, active)

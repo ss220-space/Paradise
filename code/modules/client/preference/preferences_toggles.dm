@@ -552,7 +552,7 @@
 	disable_message = "You will no longer  display a typing indicator for emotes."
 	blackbox_message = "Toggle Typing Indicator (Emote)"
 
-/datum/preference_toggle/toggle_tgui_input_lists
+/datum/preference_toggle/toggle_tgui_input
 	name = "Toggle TGUI Input"
 	description = "Switches inputs between the TGUI and the standard one"
 	preftoggle_bitflag = PREFTOGGLE_2_DISABLE_TGUI_INPUT
@@ -561,3 +561,13 @@
 	enable_message = "You will no longer use TGUI Input."
 	disable_message = "You will now use TGUI Input."
 	blackbox_message = "Toggle TGUI Input"
+
+/datum/preference_toggle/toggle_strip_tgui_size
+    name = "Toggle TGUI strip menu size"
+    description = "Toggles TGUI strip menu size between miniature and full-size."
+    preftoggle_bitflag = PREFTOGGLE_2_BIG_STRIP_MENU
+    preftoggle_toggle = PREFTOGGLE_TOGGLE2
+    preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+    enable_message = "You will see full-size TGUI strip menu."
+    disable_message = "You will see minuature TGUI strip menu."
+    blackbox_message = "Toggle TGUI strip menu size"

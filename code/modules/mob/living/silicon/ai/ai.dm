@@ -46,7 +46,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	mob_size = MOB_SIZE_LARGE
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
 	nightvision = 8
-	can_strip = 0
 	can_buckle_to = FALSE
 	var/list/network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	var/obj/machinery/camera/current = null
@@ -116,6 +115,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	add_verb(src, GLOB.ai_verbs_default)
 	add_verb(src, silicon_subsystems)
+
+/mob/living/silicon/ai/can_strip()
+	return FALSE
 
 /mob/living/silicon/ai/proc/remove_ai_verbs()
 	remove_verb(src, GLOB.ai_verbs_default)
