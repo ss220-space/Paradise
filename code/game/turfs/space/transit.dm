@@ -29,7 +29,7 @@
 		return
 	if(!arrived.simulated || istype(arrived, /obj/docking_port))
 		return //this was fucking hilarious, the docking ports were getting thrown to random Z-levels
-	if(!isobserver(arrived))
+	if(isobserver(arrived))
 		return
 	dump_in_space(arrived)
 
