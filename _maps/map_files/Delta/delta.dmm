@@ -91033,10 +91033,6 @@
 	dir = 5
 	},
 /mob/living/simple_animal/mouse/rat/Ratatui,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/sink{
 	dir = 8;
 	pixel_x = -11
@@ -91048,7 +91044,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/mob/living/simple_animal/mouse/rat/gray/Ratatui,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
