@@ -23,7 +23,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "Testmerge Conflict Detection"
           git fetch origin pull/${{ github.event.number }}/head:PR${{ github.event.number }}
-          git merge --no-commit --no-ff PR${{ github.event.number }}
+          git merge --no-commit --no-ff PR${{ github.event.number }} || true
           CONFLICTS=$(git ls-files -u | wc -l)
           if [ "$CONFLICTS" -gt 0 ] ; then
             echo "There is a merge conflict. Aborting"
