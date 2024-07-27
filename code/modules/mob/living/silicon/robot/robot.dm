@@ -194,6 +194,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	if(length(module?.borg_skins) <= 1 && (has_transform_animation || module?.has_transform_animation))
 		transform_animation(icon_state, TRUE)
+	add_strippable_element()
+
+/mob/living/silicon/robot/proc/add_strippable_element()
+	AddElement(/datum/element/strippable, create_strippable_list(list(/datum/strippable_item/borg_head)))
 
 
 /mob/living/silicon/robot/proc/init(alien, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)

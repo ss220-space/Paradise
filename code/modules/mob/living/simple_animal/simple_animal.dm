@@ -80,7 +80,8 @@
 	var/obj/item/clothing/accessory/petcollar/pcollar = null
 	var/collar_type //if the mob has collar sprites, define them.
 	var/unique_pet = FALSE // if the mob can be renamed
-	var/can_collar = FALSE // can add collar to mob or not
+	/// Can add collar to mob or not, use the set_can_collar if you want to change this on runtime
+	var/can_collar = FALSE
 
 	//Hot simple_animal baby making vars
 	var/list/childtype = null
@@ -159,7 +160,7 @@
 		regenerate_icons()
 	if(footstep_type)
 		AddElement(/datum/element/footstep, footstep_type)
-
+	add_strippable_element()
 
 /mob/living/simple_animal/Destroy()
 	QDEL_NULL(pcollar)
@@ -551,18 +552,6 @@
 		if(target)
 			return new childspawn(target)
 
-/mob/living/simple_animal/show_inv(mob/user)
-	if(!can_collar)
-		return
-
-	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8"><table><tr><td><B>Collar:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_NECK]'>[(pcollar && !(pcollar.item_flags & ABSTRACT)) ? pcollar : "<font color=grey>Empty</font>"]</A></td></tr></table>"}
-	dat += "<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>"
-
-	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 250)
-	popup.set_content(dat)
-	popup.open()
-
 /mob/living/simple_animal/get_item_by_slot(slot_id)
 	switch(slot_id)
 		if(ITEM_SLOT_NECK)
@@ -700,6 +689,20 @@
 	P.equipped(src)
 	return TRUE
 
+/mob/living/simple_animal/proc/remove_collar(atom/new_loc, mob/user)
+	if(!pcollar)
+		return
+
+	var/obj/old_collar = pcollar
+
+	if(!drop_item_ground(pcollar))
+		return
+
+	if(user)
+		user.put_in_hands(old_collar)
+
+	return old_collar
+
 
 /mob/living/simple_animal/regenerate_icons()
 	cut_overlays()
@@ -795,3 +798,15 @@
 	else if(glide_size != DEFAULT_GLIDE_SIZE)
 		set_glide_size(DEFAULT_GLIDE_SIZE)
 
+/mob/living/simple_animal/proc/set_can_collar(new_value)
+	can_collar = (new_value ? TRUE : FALSE)
+	if(can_collar)
+		add_strippable_element()
+		return
+	remove_collar(drop_location())
+	RemoveElement(/datum/element/strippable)
+
+/mob/living/simple_animal/proc/add_strippable_element()
+	if(!can_collar)
+		return
+	AddElement(/datum/element/strippable, create_strippable_list(list(/datum/strippable_item/pet_collar)))

@@ -105,6 +105,8 @@
 	scanner.Grant(src)
 	update_icons()
 
+/mob/living/silicon/robot/drone/add_strippable_element()
+	return
 
 /mob/living/silicon/robot/drone/Initialize(mapload)
 	. = ..()
