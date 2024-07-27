@@ -16,6 +16,7 @@
 	status_flags = NONE //no default canpush
 	can_strip = FALSE
 	pass_flags = PASSFLAPS
+	AI_delay_max = 0 SECONDS
 
 	speak_emote = list("states")
 	tts_seed = null
