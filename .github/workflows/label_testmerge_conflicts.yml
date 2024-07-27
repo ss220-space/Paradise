@@ -19,6 +19,8 @@ jobs:
           ref: testmerge
       - name: Check for testmerge conflicts
         run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "Testmerge Conflict Detection"
           git fetch origin pull/${{ github.event.number }}/head:PR${{ github.event.number }}
           git merge --no-commit --no-ff PR${{ github.event.number }}
           CONFLICTS=$(git ls-files -u | wc -l)
