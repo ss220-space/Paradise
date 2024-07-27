@@ -859,7 +859,7 @@
 /area/awaymission/UO45/central_hall)
 "cz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/under/pj/blue,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/central_hall)
@@ -869,7 +869,7 @@
 	initialize_directions = 7;
 	tag = "icon-manifold-b-f (WEST)"
 	},
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/under/suit_jacket/female,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/central_hall)
@@ -5586,7 +5586,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/crew_quarters)
 "mw" = (
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/under/pj/red,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/crew_quarters)
@@ -5866,7 +5866,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/crew_quarters)
 "mZ" = (
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/under/suit_jacket/navy,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/crew_quarters)
@@ -10760,7 +10760,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/mining)
 "wq" = (
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/mining)
 "wr" = (
@@ -11087,7 +11087,7 @@
 	dir = 4;
 	on = 1
 	},
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/mining)
 "wY" = (

@@ -22,10 +22,10 @@
 	create_reagents(volume)
 	noz = make_noz()
 
-/obj/item/watertank/ui_action_click()
+/obj/item/watertank/ui_action_click(mob/user, datum/action/action, leftclick)
 	toggle_mister()
 
-/obj/item/watertank/item_action_slot_check(slot, mob/user)
+/obj/item/watertank/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_BACK)
 		return TRUE
 

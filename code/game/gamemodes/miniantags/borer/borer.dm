@@ -140,8 +140,8 @@
 		return
 	if(stat != CONSCIOUS)
 		return
-	var/be_borer = alert("Become a cortical borer? (Warning, You can no longer be cloned!)",,"Yes","No")
-	if(be_borer == "No" || !src || QDELETED(src))
+	var/be_borer = tgui_alert(user, "Become a cortical borer? (Warning, You can no longer be cloned!)", "Cortical Borer", list("Yes", "No"))
+	if(be_borer != "Yes" || !src || QDELETED(src))
 		return
 	if(key)
 		return
@@ -725,6 +725,12 @@
 	if(borer)
 		return borer
 
+	return FALSE
+
+/mob/living/carbon/proc/BorerControlling()
+	var/mob/living/simple_animal/borer/borer = has_brain_worms()
+	if(borer && borer.controlling)
+		return TRUE
 	return FALSE
 
 /mob/living/carbon/proc/spawn_larvae()

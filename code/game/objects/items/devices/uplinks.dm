@@ -142,18 +142,24 @@ GLOBAL_LIST_EMPTY(world_uplinks)
  */
 /obj/item/uplink/proc/refund(mob/user)
 	var/obj/item/hold_item = user.get_active_hand()
-	if(!hold_item) // Make sure there's actually something in the hand before even bothering to check
+	if(!hold_item || !hold_item.check_uplink_validity()) // Make sure there's actually something in the hand before even bothering to check
 		return FALSE
 
 	for(var/datum/uplink_item/uplink_item as anything in uplink_items)
 		var/path = uplink_item.refund_path || uplink_item.item
-		var/cost = uplink_item.refund_amount || uplink_item.cost
-		if(hold_item.type == path && uplink_item.refundable && hold_item.check_uplink_validity())
-			uses += cost
-			used_TC -= cost
-			to_chat(user, span_notice("[hold_item] refunded."))
-			qdel(hold_item)
-			return
+		if(hold_item.type != path || !uplink_item.refundable)
+			continue
+
+		var/cost =  uplink_item.cost
+
+		if(uplink_item.item_to_refund_cost?[hold_item.UID()])
+			cost = uplink_item.item_to_refund_cost[hold_item.UID()]
+
+		uses += cost
+		used_TC -= cost
+		to_chat(user, span_notice("[hold_item] refunded."))
+		qdel(hold_item)
+		return
 
 	// If we are here, we didnt refund
 	to_chat(user, span_warning("[hold_item] is not refundable."))
@@ -248,10 +254,13 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 	if(contractor)
 		var/list/contractor_data = list(
-			available = uses >= contractor.tc_cost && world.time < contractor.offer_deadline,
+			available = uses >= contractor.tc_cost && world.time < contractor.offer_deadline && \
+			(SSticker?.mode?.contractor_accepted< CONTRACTOR_MAX_ACCEPTED || contractor.is_admin_forced),
 			affordable = uses >= contractor.tc_cost,
 			accepted = !isnull(contractor.contractor_uplink),
 			time_left = contractor.offer_deadline - world.time,
+			available_offers = CONTRACTOR_MAX_ACCEPTED - SSticker?.mode?.contractor_accepted,
+			is_admin_forced = contractor.is_admin_forced,
 		)
 		data["contractor"] = contractor_data
 

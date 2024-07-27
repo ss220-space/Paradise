@@ -11,6 +11,7 @@ SUBSYSTEM_DEF(assets)
 /datum/controller/subsystem/assets/Initialize(timeofday)
 	apply_configuration()
 	load_assets()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/assets/Recover()
 	cache = SSassets.cache

@@ -1,0 +1,259 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	tag = "icon-propulsion (EAST)"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/transport)
+"c" = (
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 2;
+	height = 12;
+	id = "ferry";
+	name = "ferry shuttle";
+	roundstart_move = "ferry_away";
+	timid = 1;
+	width = 5
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/shuttle{
+	id_tag = "s_docking_airlock"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"e" = (
+/turf/simulated/wall/shuttle,
+/area/shuttle/transport)
+"j" = (
+/obj/structure/sign/poster/contraband/communist_state{
+	pixel_y = -32
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"n" = (
+/obj/structure/table/wood,
+/obj/structure/sign/poster/contraband/communist_state{
+	pixel_y = 32
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"s" = (
+/obj/structure/chair/stool/bar,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"t" = (
+/obj/machinery/light,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"u" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"w" = (
+/obj/structure/table/wood,
+/obj/machinery/chem_dispenser/soda,
+/obj/structure/window/plasmareinforced{
+	dir = 8;
+	layer = 2.9
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"z" = (
+/obj/structure/table/wood,
+/obj/machinery/chem_dispenser/beer,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"C" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"G" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/shuttle{
+	id_tag = "s_docking_airlock"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"J" = (
+/obj/machinery/computer/shuttle/ferry/request{
+	dir = 4
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 8;
+	layer = 2.9
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"K" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/machinery/light,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"P" = (
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"R" = (
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"T" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"U" = (
+/obj/structure/table/wood,
+/obj/structure/sign/poster/contraband/communist_state{
+	pixel_y = -32
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"V" = (
+/obj/structure/window/full/shuttle,
+/obj/structure/grille,
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/transport)
+"W" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/bottle/vodka{
+	pixel_x = -5;
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/food/drinks/bottle/vodka{
+	pixel_x = 3;
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/food/drinks/bottle/vodka{
+	pixel_x = -1;
+	pixel_y = 5
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+
+(1,1,1) = {"
+a
+a
+G
+a
+a
+"}
+(2,1,1) = {"
+e
+w
+P
+J
+e
+"}
+(3,1,1) = {"
+e
+z
+P
+t
+e
+"}
+(4,1,1) = {"
+e
+n
+W
+j
+e
+"}
+(5,1,1) = {"
+e
+s
+s
+P
+e
+"}
+(6,1,1) = {"
+V
+P
+P
+P
+V
+"}
+(7,1,1) = {"
+V
+R
+P
+C
+V
+"}
+(8,1,1) = {"
+e
+T
+P
+T
+e
+"}
+(9,1,1) = {"
+e
+n
+P
+U
+e
+"}
+(10,1,1) = {"
+e
+u
+P
+K
+e
+"}
+(11,1,1) = {"
+e
+R
+P
+C
+e
+"}
+(12,1,1) = {"
+e
+V
+c
+V
+e
+"}

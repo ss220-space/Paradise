@@ -596,9 +596,6 @@
 
 /datum/config_entry/flag/disable_karma
 
-/datum/config_entry/number/tick_limit_mc_init
-	default = TICK_LIMIT_MC_INIT_DEFAULT
-
 /datum/config_entry/number/base_mc_tick_rate
 	integer = FALSE
 	default = 1
@@ -772,6 +769,15 @@
 /datum/config_entry/number/jobs_high_pop_mode_amount
 	default = 80
 
+
+/datum/config_entry/number/hard_deletes_overrun_threshold
+	integer = FALSE
+	min_val = 0
+	default = 0.5
+
+/datum/config_entry/number/hard_deletes_overrun_limit
+	default = 0
+	min_val = 0
 
 /datum/config_entry/number/error_cooldown // The "cooldown" time for each occurrence of a unique error
 	default = 600

@@ -472,10 +472,10 @@
 	if(!(A in summon_areas))
 		to_chat(user, "<span class='cultlarge'>Ratvar can only be summoned where the veil is weak - in [english_list(summon_areas)]!</span>")
 		return FALSE
-	var/confirm_final = alert(user, "This is the FINAL step to summon, the crew will be alerted to your presence AND your location!",
-	"The power comes...", "Let Ratvar shine ones more!", "No")
+	var/confirm_final = tgui_alert(user, "This is the FINAL step to summon, the crew will be alerted to your presence AND your location!",
+	"The power comes...", list("Let Ratvar shine ones more!", "No"))
 	if(user)
-		if(confirm_final == "No" || confirm_final == null)
+		if(confirm_final != "Let Ratvar shine ones more!")
 			to_chat(user, "<span class='clockitalic'><b>You decide to prepare further before pincing the shard.</b></span>")
 			return FALSE
 		return TRUE

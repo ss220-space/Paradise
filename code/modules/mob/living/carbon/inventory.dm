@@ -170,8 +170,9 @@
 /mob/living/carbon/do_unEquip(obj/item/I, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
 	. = ..()
 	if(!. || !I)
-		return
-
+		return .
+	//if we actually unequipped an item, this is because we dont want to run this proc twice, once for carbons and once for humans
+	var/not_handled = FALSE
 	if(I == back)
 		back = null
 		if(!QDELETED(src))
@@ -193,6 +194,13 @@
 		set_legcuffed(null)
 		if(!QDELETED(src))
 			update_legcuffed_status()
+	else
+		not_handled = TRUE
+
+	if(not_handled)
+		return .
+
+	update_equipment_speed_mods()
 
 
 /**

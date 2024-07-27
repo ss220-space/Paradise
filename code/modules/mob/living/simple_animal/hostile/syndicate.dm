@@ -28,6 +28,7 @@
 	del_on_death = 1
 	sentience_type = SENTIENCE_OTHER
 	footstep_type = FOOTSTEP_MOB_SHOE
+	AI_delay_max = 0 SECONDS
 
 ///////////////Sword and shield////////////
 
@@ -186,11 +187,11 @@
 	else
 		scan_cycles++
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/AIShouldSleep(var/list/possible_targets)
-	FindTarget(possible_targets, 1)
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/AIShouldSleep(list/possible_targets)
+	FindTarget(possible_targets)
 	return FALSE
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/proc/raise_alert(var/reason)
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/proc/raise_alert(reason)
 	if(istype(depotarea) && (!raised_alert || seen_revived_enemy) && !depotarea.used_self_destruct)
 		raised_alert = TRUE
 		say("Intruder!")
@@ -366,6 +367,7 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 	del_on_death = 1
 	deathmessage = "is smashed into pieces!"
+	AI_delay_max = 0 SECONDS
 
 /mob/living/simple_animal/hostile/viscerator/Initialize(mapload)
 	. = ..()

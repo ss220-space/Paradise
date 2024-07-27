@@ -577,6 +577,7 @@
 				I.forceMove(newloc)
 		I.dropped(src, slot, silent)
 
+	SEND_SIGNAL(I, COMSIG_ITEM_POST_UNEQUIP, force, newloc, no_move, invdrop, silent)
 	return TRUE
 
 

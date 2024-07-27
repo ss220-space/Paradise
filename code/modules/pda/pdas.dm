@@ -117,6 +117,7 @@
 
 /obj/item/pda/shaftminer
 	icon_state = "pda-miner"
+	special_pen = /obj/item/pen/survival
 
 /obj/item/pda/syndicate
 	default_cartridge = /obj/item/cartridge/syndicate

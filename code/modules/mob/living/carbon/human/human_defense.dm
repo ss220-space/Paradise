@@ -490,7 +490,7 @@ emp_act
 						if(prob(I.force))
 							visible_message(span_combatdanger("[src] has been knocked down!"), \
 											span_combatuserdanger("[src] has been knocked down!"))
-							apply_effect(4 SECONDS, WEAKEN, armor)
+							apply_effect(4 SECONDS, KNOCKDOWN, armor)
 							AdjustConfused(30 SECONDS)
 						if(mind && mind.special_role == SPECIAL_ROLE_REV && prob(I.force + ((100 - health)/2)) && src != user && I.damtype == BRUTE)
 							SSticker.mode.remove_revolutionary(mind)
@@ -511,7 +511,7 @@ emp_act
 					if(stat == CONSCIOUS && I.force && prob(I.force + 10))
 						visible_message(span_combatdanger("[src] has been knocked down!"), \
 										span_combatuserdanger("[src] has been knocked down!"))
-						apply_effect(4 SECONDS, WEAKEN, armor)
+						apply_effect(4 SECONDS, KNOCKDOWN, armor)
 
 					if(bloody)
 						if(wear_suit)

@@ -874,14 +874,9 @@
 					if(!isnull(params["val"]))
 						val=params["val"]
 					else
-						var/newval = input("Enter new value") as num|null
+						var/newval = tgui_input_number(usr, "Enter new value", "New Value", ONE_ATMOSPHERE, 1000 + ONE_ATMOSPHERE, 0, round_value = FALSE)
 						if(isnull(newval))
 							return
-						if(params["cmd"] == "set_external_pressure")
-							if(newval > 1000 + ONE_ATMOSPHERE)
-								newval = 1000 + ONE_ATMOSPHERE
-							if(newval < 0)
-								newval = 0
 						val = newval
 
 					// For those who read this: This radio BS is what makes air alarms take 10 years to update in the UI
@@ -892,7 +887,7 @@
 					var/env = params["env"]
 					var/varname = params["var"]
 					var/datum/tlv/tlv = TLV[env]
-					var/newval = input("Enter [varname] for [env]", "Alarm triggers", tlv.vars[varname]) as num|null
+					var/newval = tgui_input_number(usr, "Enter [varname] for [env]", "Alarm triggers", tlv.vars[varname], round_value = FALSE)
 
 					if(isnull(newval) || ..()) // No setting if you walked away
 						return
@@ -942,7 +937,7 @@
 			var/min_temperature = max(selected.min1, MIN_TEMPERATURE)
 			var/max_temperature_c = max_temperature - T0C
 			var/min_temperature_c = min_temperature - T0C
-			var/input_temperature = input("What temperature would you like the system to maintain? (Capped between [min_temperature_c]C and [max_temperature_c]C)", "Thermostat Controls") as num|null
+			var/input_temperature = tgui_input_number(usr, "What temperature would you like the system to maintain? (Capped between [min_temperature_c]C and [max_temperature_c]C)", "Thermostat Controls", target_temperature - T0C, max_temperature_c, min_temperature_c)
 			if(isnull(input_temperature) || ..()) // No temp setting if you walked away
 				return
 			input_temperature = input_temperature + T0C

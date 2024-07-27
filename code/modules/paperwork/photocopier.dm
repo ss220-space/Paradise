@@ -121,28 +121,26 @@
 	c.name = copy.name // -- Doohl
 	c.fields = copy.fields
 	c.stamps = copy.stamps
-	c.stamped = copy.stamped
-	c.ico = copy.ico
 	c.language = copy.language
-	c.offset_x = copy.offset_x
-	c.offset_y = copy.offset_y
+	c.stamped = LAZYLISTDUPLICATE(copy.stamped)
 	if(LAZYLEN(copy.stamp_overlays))
-		for(var/j = 1, j <= LAZYLEN(copy.stamp_overlays), j++) //gray overlay onto the copy
-			if(length(copy.ico))
-				var/image/img
-				if(findtext(copy.ico[j], "cap") || findtext(copy.ico[j], "cent") || findtext(copy.ico[j], "rep") || findtext(copy.ico[j], "magistrate") || findtext(copy.ico[j], "navcom"))
-					img = image('icons/obj/bureaucracy.dmi', "paper_stamp-circle")
-				else if(findtext(copy.ico[j], "deny"))
-					img = image('icons/obj/bureaucracy.dmi', "paper_stamp-x")
-				else if(findtext(copy.ico[j], "ok"))
-					img = image('icons/obj/bureaucracy.dmi', "paper_stamp-check")
-				else
-					img = image('icons/obj/bureaucracy.dmi', "paper_stamp-dots")
-				img.pixel_x = copy.offset_x[j]
-				img.pixel_y = copy.offset_y[j]
-				LAZYADD(c.stamp_overlays, img)
+		for(var/mutable_appearance/overlay as anything in copy.stamp_overlays)	//gray overlay onto the copy
+			var/mutable_appearance/new_mutable
+			if(findtext(overlay.icon_state, "cap") || findtext(overlay.icon_state, "cent") || findtext(overlay.icon_state, "rep") || findtext(overlay.icon_state, "magistrate") || findtext(overlay.icon_state, "navcom"))
+				new_mutable = mutable_appearance('icons/obj/bureaucracy.dmi', "paper_stamp-circle")
+			else if(findtext(overlay.icon_state, "deny"))
+				new_mutable = mutable_appearance('icons/obj/bureaucracy.dmi', "paper_stamp-x")
+			else if(findtext(overlay.icon_state, "ok"))
+				new_mutable = mutable_appearance('icons/obj/bureaucracy.dmi', "paper_stamp-check")
+			else
+				new_mutable = mutable_appearance('icons/obj/bureaucracy.dmi', "paper_stamp-dots")
+			new_mutable.pixel_w = overlay.pixel_w
+			new_mutable.pixel_z = overlay.pixel_z
+			LAZYADD(c.stamp_overlays, new_mutable)
 	c.updateinfolinks()
+	c.update_icon()
 	return c
+
 
 /**
   * Public proc for copying photo objs

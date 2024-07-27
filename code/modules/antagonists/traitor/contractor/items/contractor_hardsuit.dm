@@ -34,10 +34,10 @@
 	. = ..()
 	QDEL_NULL(scorpion)
 
-/obj/item/clothing/suit/space/hardsuit/contractor/ui_action_click(user, datum/action/action)
+/obj/item/clothing/suit/space/hardsuit/contractor/ui_action_click(mob/user, datum/action/action, leftclick)
 	switch(action.type)
 		if(/datum/action/item_action/toggle_helmet)
-			ToggleHelmet(user)
+			ToggleHelmet()
 			return TRUE
 		if(/datum/action/item_action/advanced/hook_upgrade)
 			toggle_hook()

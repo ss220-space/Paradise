@@ -1343,14 +1343,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
-"dB" = (
-/obj/structure/table/reinforced,
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high,
-/obj/item/melee/baton/security/loaded,
-/obj/item/melee/baton/security/loaded,
-/turf/simulated/floor/plasteel,
-/area/shuttle/pirate_corvette)
 "dD" = (
 /turf/simulated/floor/engine,
 /area/ruin/space/pirate_base/virus_lab)
@@ -6373,7 +6365,7 @@
 /area/ruin/space/pirate_base/entertainment)
 "sj" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/rat,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -7100,10 +7092,7 @@
 	icon_state = "tube-broken";
 	status = 2
 	},
-/mob/living/simple_animal/mouse/brown{
-	desc = "Главный помощник архитектора станции.";
-	real_name = "Инспектор Мышь"
-	},
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
 "ul" = (
@@ -8168,6 +8157,14 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/arrivals)
+"xq" = (
+/obj/structure/table/reinforced,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
+/obj/item/melee/baton/security/loaded,
+/obj/item/melee/baton/security/loaded,
+/turf/simulated/floor/plasteel,
+/area/shuttle/pirate_corvette)
 "xt" = (
 /turf/simulated/wall/r_wall,
 /area/ruin/space/pirate_base/lab_maint)
@@ -11260,7 +11257,7 @@
 /turf/simulated/floor/pod,
 /area/ruin/space/pirate_base/security_atrium)
 "GT" = (
-/mob/living/simple_animal/mouse/brown,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
@@ -16348,10 +16345,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
 "WA" = (
-/mob/living/simple_animal/mouse/brown{
-	desc = "Главный помощник архитектора станции.";
-	real_name = "Инспектор Мышь"
-	},
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/mining)
 "WD" = (
@@ -16760,11 +16754,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/pirate_base/atrium)
-"XR" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
-/area/shuttle/pirate_corvette)
 "XS" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
 /obj/effect/decal/cleanable/dirt,
@@ -20720,11 +20709,11 @@ qc
 qc
 qc
 Qf
-XR
+wI
 Kl
 Ay
 Ay
-XR
+wI
 sx
 qc
 qc
@@ -20820,15 +20809,15 @@ qc
 qc
 qc
 en
-XR
-XR
-XR
-XR
+wI
+wI
+wI
+wI
 NK
-XR
-XR
-XR
-XR
+wI
+wI
+wI
+wI
 mZ
 qc
 qc
@@ -20921,7 +20910,7 @@ qc
 Qf
 Ok
 Ok
-XR
+wI
 cj
 op
 cA
@@ -20931,7 +20920,7 @@ wI
 My
 gi
 Ey
-XR
+wI
 Ok
 wI
 sx
@@ -21027,9 +21016,9 @@ Xo
 Cz
 nf
 nf
-XR
+wI
 HJ
-XR
+wI
 Xp
 sT
 KQ
@@ -21129,7 +21118,7 @@ Cz
 RP
 Ns
 ej
-XR
+wI
 iL
 tk
 Ys
@@ -21226,7 +21215,7 @@ qc
 qc
 yL
 Ok
-XR
+wI
 OI
 GZ
 JS
@@ -21239,7 +21228,7 @@ Hh
 sT
 ei
 Mp
-XR
+wI
 sX
 qc
 Th
@@ -21329,18 +21318,18 @@ qc
 qc
 qc
 yL
-XR
 wI
 wI
 wI
-XR
-XR
-XR
+wI
+wI
+wI
+wI
 PN
-XR
-XR
+wI
+wI
 ME
-XR
+wI
 sX
 qc
 qc
@@ -21439,7 +21428,7 @@ wI
 mP
 qK
 Dm
-XR
+wI
 cm
 bi
 ZE
@@ -21537,11 +21526,11 @@ ey
 jN
 An
 vc
-XR
+wI
 fr
 uy
 Dm
-XR
+wI
 oQ
 eh
 pI
@@ -21741,11 +21730,11 @@ ey
 WE
 vJ
 zQ
-XR
+wI
 DE
 bh
 Fb
-XR
+wI
 cU
 eh
 xb
@@ -21845,12 +21834,12 @@ qv
 yz
 wI
 dZ
-dB
+xq
 Dm
-XR
+wI
 pT
-XR
-XR
+wI
+wI
 qc
 qc
 qc
@@ -21941,18 +21930,18 @@ qc
 qc
 qc
 en
-XR
 wI
 wI
 wI
-XR
-XR
-XR
+wI
+wI
+wI
+wI
 Wf
-XR
-XR
+wI
+wI
 gU
-XR
+wI
 mZ
 qc
 qc
@@ -22042,7 +22031,7 @@ qc
 qc
 en
 Ok
-XR
+wI
 hc
 WN
 vy
@@ -22055,7 +22044,7 @@ ji
 dd
 jl
 Om
-XR
+wI
 mZ
 qc
 Ac
@@ -22149,7 +22138,7 @@ zq
 oI
 Xu
 Jk
-XR
+wI
 Kb
 kG
 bT
@@ -22251,9 +22240,9 @@ xu
 zq
 uy
 Ri
-XR
+wI
 HJ
-XR
+wI
 KQ
 Wx
 Mj
@@ -22359,7 +22348,7 @@ wI
 My
 Jt
 Jt
-XR
+wI
 Ok
 wI
 uc
@@ -22452,15 +22441,15 @@ qc
 qc
 qc
 yL
-XR
-XR
-XR
-XR
+wI
+wI
+wI
+wI
 jg
-XR
-XR
-XR
-XR
+wI
+wI
+wI
+wI
 sX
 qc
 qc
@@ -22556,11 +22545,11 @@ qc
 qc
 qc
 je
-XR
+wI
 YQ
 ce
 HH
-XR
+wI
 uc
 qc
 qc
