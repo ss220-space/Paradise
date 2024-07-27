@@ -462,6 +462,72 @@
 /mob
 	var/newPlayerType = /mob/new_player
 
+/mob/verb/abandon_mob()
+	set name = "Respawn"
+	set category = "OOC"
+
+	if(!GLOB.abandon_allowed)
+		to_chat(usr, "<span class='warning'>Respawning is disabled.</span>")
+		return
+
+	if(stat != DEAD || !SSticker)
+		to_chat(usr, "<span class='boldnotice'>You must be dead to use this!</span>")
+		return
+
+	if(!(usr in GLOB.respawnable_list))
+		to_chat(usr, "You are not dead or you have given up your right to be respawned!")
+		return
+
+	var/deathtime = world.time - src.timeofdeath
+	if(istype(src,/mob/dead/observer))
+		var/mob/dead/observer/G = src
+		if(cannotPossess(G))
+			to_chat(usr, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+			return
+
+	var/deathtimeminutes = round(deathtime / 600)
+	var/pluralcheck = "minute"
+	if(deathtimeminutes == 0)
+		pluralcheck = ""
+	else if(deathtimeminutes == 1)
+		pluralcheck = " [deathtimeminutes] minute and"
+	else if(deathtimeminutes > 1)
+		pluralcheck = " [deathtimeminutes] minutes and"
+	var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10,1)
+
+	if(deathtimeminutes < CONFIG_GET(number/respawn_delay))
+		to_chat(usr, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
+		to_chat(usr, "<span class='warning'>You must wait [CONFIG_GET(number/respawn_delay)] minutes to respawn!</span>")
+		return
+
+	if(alert("Are you sure you want to respawn?", "Are you sure?", "Yes", "No") != "Yes")
+		return
+
+	add_game_logs("has respawned.", usr)
+
+	to_chat(usr, "<span class='boldnotice'>Make sure to play a different character, and please roleplay correctly!</span>")
+
+	if(!client)
+		add_game_logs("respawn failed due to disconnect.", usr)
+		return
+	client.screen.Cut()
+	client.screen += client.void
+
+	if(!client)
+		add_game_logs("respawn failed due to disconnect.", usr)
+		return
+
+	GLOB.respawnable_list -= usr
+	var/mob/new_player/M = new /mob/new_player()
+	if(!client)
+		add_game_logs("respawn failed due to disconnect.", usr)
+		qdel(M)
+		return
+
+	M.key = key
+	GLOB.respawnable_list += usr
+	return
+
 /mob/proc/is_dead()
 	return stat == DEAD
 
