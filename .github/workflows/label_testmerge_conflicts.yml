@@ -9,9 +9,36 @@ on:
 
 jobs:
   triage:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: eps1lon/actions-label-merge-conflict@v3.0.2
+      - name: Git checkout
+        uses: actions/checkout@v4
         with:
-          dirtyLabel: 'Testmerge Conflict'
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+          ref: testmerge
+      - name: Check for testmerge conflicts
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "Testmerge Conflict Detection"
+          git fetch origin pull/${{ github.event.number }}/head:PR${{ github.event.number }}
+          git merge --no-commit --no-ff PR${{ github.event.number }}
+          CONFLICTS=$(git ls-files -u | wc -l)
+          if [ "$CONFLICTS" -gt 0 ] ; then
+            echo "There is a merge conflict. Aborting"
+            git merge --abort
+            exit 1
+          fi
+          git branch -D PR${{ github.event.number }}
+      - name: Label PR
+        uses: jburgess/AddRemovePrLabels@v1.0.4
+        if: failure()
+        with:
+          githubToken: '${{ secrets.GITHUB_TOKEN }}'
+          labelsToAdd: 'Testmerge Conflict'
+      - name: Unlabel PR
+        uses: jburgess/AddRemovePrLabels@v1.0.4
+        if: success()
+        with:
+          githubToken: '${{ secrets.GITHUB_TOKEN }}'
+          labelsToRemove: 'Testmerge Conflict'

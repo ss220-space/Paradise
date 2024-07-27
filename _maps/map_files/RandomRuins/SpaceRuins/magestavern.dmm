@@ -78,7 +78,6 @@
 	pixel_y = 12
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/ruin/unpowered)
@@ -102,7 +101,6 @@
 /area/space)
 "eh" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/ruin/unpowered)
@@ -170,14 +168,12 @@
 "hb" = (
 /obj/effect/decal/cleanable/blood/writing,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/ruin/unpowered)
 "hq" = (
 /obj/machinery/kitchen_machine/oven,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/ruin/unpowered)
@@ -192,7 +188,6 @@
 /obj/structure/reagent_dispensers/beerkeg,
 /obj/machinery/light_construct,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/ruin/unpowered)
@@ -280,14 +275,12 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/ruin/unpowered)
 "kW" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/ruin/unpowered)
@@ -330,14 +323,12 @@
 /obj/effect/decal/ants,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/ruin/unpowered)
 "ol" = (
 /obj/machinery/kitchen_machine/candy_maker,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/ruin/unpowered)
@@ -404,7 +395,6 @@
 	},
 /obj/machinery/light_construct,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/ruin/unpowered)
@@ -479,10 +469,6 @@
 /obj/structure/table/wood/fancy/purple,
 /obj/item/reagent_containers/food/drinks/tea,
 /turf/simulated/floor/carpet/purple,
-/area/ruin/unpowered)
-"tJ" = (
-/obj/item/chair/wood,
-/turf/simulated/floor/carpet,
 /area/ruin/unpowered)
 "ua" = (
 /turf/simulated/floor/wood{
@@ -613,7 +599,6 @@
 "AF" = (
 /obj/machinery/icemachine,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/ruin/unpowered)
@@ -632,7 +617,6 @@
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/ruin/unpowered)
@@ -653,7 +637,6 @@
 	dir = 9
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/ruin/unpowered)
@@ -707,7 +690,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/ruin/unpowered)
@@ -748,7 +730,6 @@
 /obj/structure/table,
 /obj/machinery/processor,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/ruin/unpowered)
@@ -823,7 +804,6 @@
 "Kr" = (
 /obj/machinery/cooker/deepfryer,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/ruin/unpowered)
@@ -927,7 +907,6 @@
 /obj/structure/table,
 /obj/item/reagent_containers/food/snacks/spellburger,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/ruin/unpowered)
@@ -1006,7 +985,6 @@
 	},
 /obj/effect/decal/cleanable/blood/writing,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/ruin/unpowered)
@@ -1043,7 +1021,6 @@
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/ruin/unpowered)
@@ -2415,7 +2392,7 @@ tw
 gJ
 GM
 gJ
-tJ
+gJ
 ez
 qc
 ZN
@@ -2554,7 +2531,7 @@ ZN
 gJ
 gJ
 AW
-tJ
+gJ
 ri
 jR
 dY

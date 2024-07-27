@@ -2403,7 +2403,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 2
 	},
-/turf/space,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "YU" = (
 /obj/structure/bush,

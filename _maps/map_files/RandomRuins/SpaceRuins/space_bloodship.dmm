@@ -1,97 +1,56 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "dJ" = (
+/obj/item/clothing/suit/hooded/cultrobes/cult_shield,
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "ge" = (
 /obj/structure/table/wood,
-/obj/item/flashlight/lantern,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
+/obj/item/spellbook/oneuse/fake_gib,
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "iG" = (
-/obj/structure/cult/altar,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
+/obj/structure/cult/archives,
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "jV" = (
-/mob/living/simple_animal/hostile/illusion/cult{
-	deathmessage = "disappears into the air with a cry of agony";
-	desc = "The deceived soul";
-	health = 200;
-	maxHealth = 350;
-	name = "The soul of the cultist";
-	icon = 'icons/mob/mob.dmi';
-	icon_living = "shade";
-	icon_state = "shade";
-	icon_dead = "shade_dead";
-	melee_damage_lower = 10;
-	melee_damage_upper = 25
-	},
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
+/obj/machinery/door/airlock/public,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered)
+"kg" = (
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "lw" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/mineral/random,
 /area/ruin/unpowered)
 "nl" = (
-/obj/effect/decal/remains/human,
-/obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "oc" = (
 /turf/simulated/mineral/random,
 /area/ruin/unpowered)
 "oo" = (
 /obj/item/clothing/shoes/cult,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "pf" = (
-/obj/structure/table/wood,
-/obj/item/storage/firstaid/brute,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
+/obj/item/flag/cult,
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "pj" = (
-/obj/item/flag/cult,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
+/obj/structure/table/wood,
+/obj/item/storage/firstaid/doctor,
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "qE" = (
-/obj/effect/decal/remains/human,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
+/obj/structure/table/wood,
+/obj/item/candle/eternal,
+/obj/item/whetstone/cult,
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "sW" = (
 /turf/simulated/wall/shuttle,
@@ -105,17 +64,12 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "vW" = (
-/obj/item/clothing/suit/hooded/cultrobes/cult_shield,
-/obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
+/obj/item/reagent_containers/food/drinks/bottle/unholywater,
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "xv" = (
 /turf/space,
-/area/template_noop)
+/area/space)
 "xZ" = (
 /turf/simulated/wall/cult,
 /area/ruin/unpowered)
@@ -124,28 +78,48 @@
 /area/ruin/unpowered)
 "AW" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/candle/eternal,
-/obj/effect/temp_visual/cult/sparks,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
+/obj/item/storage/toolbox/emergency,
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "Bg" = (
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
+/mob/living/simple_animal/hostile/illusion/cult{
+	deathmessage = "disappears into the air with a cry of agony";
+	desc = "The deceived soul";
+	health = 200;
+	maxHealth = 350;
+	name = "The soul of the cultist";
+	icon = 'icons/mob/mob.dmi';
+	icon_living = "shade";
+	icon_state = "shade";
+	icon_dead = "shade_dead";
+	melee_damage_lower = 10;
+	melee_damage_upper = 25
 	},
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "Bs" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
+/obj/effect/rune/narsie{
+	color = "#ff0000";
+	used = 1
 	},
+/obj/item/clothing/accessory/medal/fluff/elo{
+	name = "Bloody Medal";
+	desc = "Rusted and bloodstained medal. Given to who believes in... illegible to you, rust erased last words."
+	},
+/mob/living/simple_animal/hostile/illusion/cult{
+	deathmessage = "disappears into the air with a cry of agony";
+	desc = "The deceived soul";
+	health = 350;
+	maxHealth = 350;
+	name = "The soul of the cultist";
+	icon = 'icons/mob/mob.dmi';
+	icon_living = "shade";
+	icon_state = "shade";
+	icon_dead = "shade_dead";
+	melee_damage_lower = 10;
+	melee_damage_upper = 25
+	},
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "Cb" = (
 /obj/structure/window/full/shuttle,
@@ -153,44 +127,48 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "Cj" = (
-/obj/item/clothing/head/helmet/space/cult,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
+/mob/living/simple_animal/hostile/illusion/cult{
+	deathmessage = "disappears into the air with a cry of agony";
+	desc = "The deceived soul";
+	health = 350;
+	maxHealth = 350;
+	name = "The soul of the cultist";
+	icon = 'icons/mob/mob.dmi';
+	icon_living = "shade";
+	icon_state = "shade";
+	icon_dead = "shade_dead";
+	melee_damage_lower = 10;
+	melee_damage_upper = 25
 	},
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "CJ" = (
 /turf/simulated/wall/shuttle/nosmooth,
 /area/ruin/unpowered)
 "CO" = (
-/obj/structure/cult/forge,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
+/obj/item/melee/cultblade,
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "CT" = (
-/obj/item/reagent_containers/food/drinks/bottle/unholywater,
-/obj/effect/decal/cleanable/crayon{
-	color = "#cc3300";
-	desc = null
+/obj/effect/decal/cleanable/blood/old,
+/mob/living/simple_animal/hostile/illusion/cult{
+	deathmessage = "disappears into the air with a cry of agony";
+	desc = "The deceived soul";
+	health = 200;
+	maxHealth = 350;
+	name = "The soul of the cultist";
+	icon = 'icons/mob/mob.dmi';
+	icon_living = "shade";
+	icon_state = "shade";
+	icon_dead = "shade_dead";
+	melee_damage_lower = 10;
+	melee_damage_upper = 25
 	},
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "Dp" = (
-/obj/machinery/door/airlock/public,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
-/area/ruin/unpowered)
+/turf/template_noop,
+/area/template_noop)
 "Dq" = (
 /turf/simulated/wall/shuttle/nosmooth{
 	dir = 9;
@@ -216,160 +194,72 @@
 	},
 /area/ruin/unpowered)
 "Hm" = (
-/obj/effect/decal/cleanable/blood/old,
-/mob/living/simple_animal/hostile/illusion/cult{
-	deathmessage = "disappears into the air with a cry of agony";
-	desc = "The deceived soul";
-	health = 200;
-	maxHealth = 350;
-	name = "The soul of the cultist";
-	icon = 'icons/mob/mob.dmi';
-	icon_living = "shade";
-	icon_state = "shade";
-	icon_dead = "shade_dead";
-	melee_damage_lower = 10;
-	melee_damage_upper = 25
-	},
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "Jn" = (
-/obj/structure/cult/pylon,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
+/obj/structure/bookcase,
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "Kp" = (
-/obj/structure/computerframe,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
-/area/ruin/unpowered)
-"KT" = (
-/obj/structure/table/wood,
-/obj/item/candle/eternal,
-/obj/item/whetstone/cult,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
-/area/ruin/unpowered)
-"KY" = (
-/mob/living/simple_animal/hostile/carp,
-/turf/space,
-/area/template_noop)
-"Li" = (
-/obj/structure/cult/archives,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
-/area/ruin/unpowered)
-"Lp" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/storage/toolbox/mechanical{
 	pixel_x = 4;
 	pixel_y = -4
 	},
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered)
+"KT" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lantern,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered)
+"KY" = (
+/obj/item/reagent_containers/food/drinks/bottle/unholywater,
+/obj/effect/decal/cleanable/crayon{
+	color = "#cc3300";
+	desc = null
 	},
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered)
+"Li" = (
+/obj/machinery/power/port_gen/pacman,
+/turf/simulated/floor/engine/cult,
+/area/ruin/unpowered)
+"Lp" = (
+/obj/structure/cult/altar,
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "Mi" = (
-/obj/item/clothing/suit/hooded/cultrobes,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "Mt" = (
-/obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
+/obj/structure/computerframe,
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "MO" = (
-/obj/item/reagent_containers/food/drinks/bottle/unholywater,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
+/obj/item/clothing/suit/hooded/cultrobes,
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "MV" = (
-/obj/effect/rune/narsie{
-	color = "#ff0000";
-	used = 1
-	},
-/obj/item/clothing/accessory/medal/fluff/elo{
-	name = "Bloody Medal";
-	desc = "Rusted and bloodstained medal. Given to who believes in... illegible to you, rust erased last words."
-	},
-/mob/living/simple_animal/hostile/illusion/cult{
-	deathmessage = "disappears into the air with a cry of agony";
-	desc = "The deceived soul";
-	health = 350;
-	maxHealth = 350;
-	name = "The soul of the cultist";
-	icon = 'icons/mob/mob.dmi';
-	icon_living = "shade";
-	icon_state = "shade";
-	icon_dead = "shade_dead";
-	melee_damage_lower = 10;
-	melee_damage_upper = 25
-	},
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
-/area/ruin/unpowered)
+/mob/living/simple_animal/hostile/carp,
+/turf/space,
+/area/space)
 "NA" = (
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "NF" = (
-/obj/machinery/power/port_gen/pacman,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "NU" = (
-/obj/effect/decal/cleanable/blood/old,
-/mob/living/simple_animal/hostile/illusion/cult{
-	deathmessage = "disappears into the air with a cry of agony";
-	desc = "The deceived soul";
-	health = 350;
-	maxHealth = 350;
-	name = "The soul of the cultist";
-	icon = 'icons/mob/mob.dmi';
-	icon_living = "shade";
-	icon_state = "shade";
-	icon_dead = "shade_dead";
-	melee_damage_lower = 10;
-	melee_damage_upper = 25
+/obj/effect/decal/cleanable/crayon{
+	color = "#cc3300";
+	desc = null
 	},
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "Pz" = (
 /turf/simulated/wall/shuttle/nosmooth{
@@ -378,6 +268,7 @@
 	},
 /area/ruin/unpowered)
 "RD" = (
+/obj/effect/decal/cleanable/blood/old,
 /mob/living/simple_animal/hostile/illusion/cult{
 	deathmessage = "disappears into the air with a cry of agony";
 	desc = "The deceived soul";
@@ -391,29 +282,16 @@
 	melee_damage_lower = 10;
 	melee_damage_upper = 25
 	},
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "TZ" = (
 /obj/structure/table/wood,
-/obj/item/spellbook/oneuse/fake_gib,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
+/obj/item/candle/eternal,
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "Uv" = (
-/obj/structure/table/wood,
-/obj/item/storage/firstaid/doctor,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
+/obj/structure/cult/forge,
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "UX" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -423,99 +301,77 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "Vn" = (
-/obj/structure/bookcase,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
+/obj/structure/table/wood,
+/obj/item/storage/firstaid/brute,
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "Wh" = (
-/obj/effect/decal/cleanable/crayon{
-	color = "#cc3300";
-	desc = null
-	},
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
+/obj/item/clothing/head/helmet/space/cult,
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "WW" = (
-/obj/structure/table/wood,
-/obj/item/candle/eternal,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "Xi" = (
-/obj/item/melee/cultblade,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
+/obj/structure/cult/pylon,
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "Yt" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/storage/toolbox/emergency,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
+/obj/item/candle/eternal,
+/obj/effect/temp_visual/cult/sparks,
+/turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 
 (1,1,1) = {"
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
 "}
 (2,1,1) = {"
+Dp
 xv
 xv
 xv
@@ -559,12 +415,10 @@ xv
 xv
 xv
 xv
-xv
-xv
+Dp
 "}
 (3,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -608,10 +462,10 @@ xv
 xv
 xv
 xv
+Dp
 "}
 (4,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -655,10 +509,10 @@ xv
 xv
 xv
 xv
+Dp
 "}
 (5,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -702,10 +556,10 @@ xv
 xv
 xv
 xv
+Dp
 "}
 (6,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -749,10 +603,10 @@ xv
 xv
 xv
 xv
+Dp
 "}
 (7,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -782,10 +636,10 @@ oc
 oc
 oc
 yu
-Bg
-Xi
-Bg
-Bg
+WW
+CO
+WW
+WW
 yu
 oc
 oc
@@ -796,10 +650,10 @@ xv
 xv
 xv
 xv
+Dp
 "}
 (8,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -829,10 +683,10 @@ oc
 oc
 yu
 oo
-Bg
-qE
-Bg
-Bg
+WW
+Hm
+WW
+WW
 yu
 oc
 oc
@@ -843,10 +697,10 @@ xv
 xv
 xv
 xv
+Dp
 "}
 (9,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -863,7 +717,7 @@ EI
 EI
 xv
 xv
-KY
+MV
 xv
 xv
 xv
@@ -874,13 +728,13 @@ EI
 oc
 oc
 yu
+Cj
 RD
 NU
-Wh
 xZ
+NU
 Wh
-Cj
-Bg
+WW
 yu
 oc
 oc
@@ -890,10 +744,10 @@ EI
 xv
 xv
 xv
+Dp
 "}
 (10,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -920,15 +774,15 @@ EI
 EI
 oc
 yu
-Bg
-Bg
-Wh
-Bg
-Bg
-Bg
-Wh
-Bg
-Bg
+WW
+WW
+NU
+WW
+WW
+WW
+NU
+WW
+WW
 yu
 oc
 oc
@@ -937,45 +791,45 @@ EI
 xv
 xv
 xv
+Dp
 "}
 (11,1,1) = {"
+Dp
 xv
-xv
-xv
-KY
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-EI
-EI
-EI
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-EI
-EI
-oc
-yu
-Bg
-qE
-xZ
-Bg
 MV
-Bg
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+oc
+yu
+WW
+Hm
 xZ
-Bg
-Bg
+WW
+Bs
+WW
+xZ
+WW
+WW
 yu
 oc
 oc
@@ -984,10 +838,10 @@ EI
 xv
 xv
 xv
+Dp
 "}
 (12,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -1014,15 +868,15 @@ EI
 EI
 oc
 yu
-Bg
-Bg
-Wh
-Bg
-Bg
-Bg
-Wh
-Bg
-Bg
+WW
+WW
+NU
+WW
+WW
+WW
+NU
+WW
+WW
 yu
 oc
 oc
@@ -1031,10 +885,10 @@ xv
 xv
 xv
 xv
+Dp
 "}
 (13,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -1062,13 +916,13 @@ EI
 oc
 oc
 yu
-Bg
-Bg
-CT
+WW
+WW
+KY
 xZ
-Wh
+NU
+vW
 MO
-Mi
 yu
 oc
 oc
@@ -1078,10 +932,10 @@ xv
 xv
 xv
 xv
+Dp
 "}
 (14,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -1110,11 +964,11 @@ EI
 oc
 oc
 yu
-dJ
-Bg
-qE
-Bg
-NU
+NF
+WW
+Hm
+WW
+RD
 yu
 oc
 oc
@@ -1125,10 +979,10 @@ xv
 xv
 xv
 xv
+Dp
 "}
 (15,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -1158,10 +1012,10 @@ EI
 oc
 oc
 yu
-Jn
-Bg
-Bg
-Jn
+Xi
+WW
+WW
+Xi
 yu
 oc
 oc
@@ -1172,10 +1026,10 @@ xv
 xv
 xv
 xv
+Dp
 "}
 (16,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -1219,10 +1073,10 @@ xv
 xv
 xv
 xv
+Dp
 "}
 (17,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -1266,10 +1120,10 @@ xv
 xv
 xv
 xv
+Dp
 "}
 (18,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -1285,7 +1139,7 @@ xv
 xv
 Dq
 Cb
-Dp
+jV
 Cb
 GR
 xv
@@ -1313,10 +1167,10 @@ xv
 xv
 xv
 xv
+Dp
 "}
 (19,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -1331,9 +1185,9 @@ Cb
 sW
 Dz
 sW
-Bg
-Bg
-Bg
+WW
+WW
+WW
 sW
 Dz
 sW
@@ -1360,10 +1214,10 @@ xv
 xv
 xv
 xv
+Dp
 "}
 (20,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -1373,18 +1227,18 @@ xv
 Dq
 Dz
 sW
-CO
+Uv
+Uv
 CO
 Xi
-Jn
 sW
-jV
 Bg
-Bg
+WW
+WW
 sW
-AW
 Yt
 AW
+Yt
 sW
 GR
 xv
@@ -1407,10 +1261,10 @@ xv
 xv
 xv
 xv
+Dp
 "}
 (21,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -1418,21 +1272,21 @@ xv
 xv
 Dq
 Dz
-Bg
+WW
 sW
-dJ
-dJ
-Bg
-Bg
+NF
+NF
+WW
+WW
 sW
 Cb
-Dp
+jV
 Cb
 sW
-pj
-Bg
-Bg
-Bg
+pf
+WW
+WW
+WW
 Dz
 GR
 xv
@@ -1454,33 +1308,33 @@ xv
 xv
 xv
 xv
+Dp
 "}
 (22,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
 Dq
 Dz
 sW
-Bg
-Bg
-sW
-jV
-Bg
-Bg
-Bg
-Bg
-Bg
-Bg
-Bg
+WW
+WW
 sW
 Bg
-Bg
-qE
-Bg
-Bg
+WW
+WW
+WW
+WW
+WW
+WW
+WW
+sW
+WW
+WW
+Hm
+WW
+WW
 sW
 GR
 xv
@@ -1501,34 +1355,34 @@ xv
 xv
 xv
 xv
+Dp
 "}
 (23,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 UX
 vK
 sW
+Li
 NF
-dJ
+WW
+sW
+WW
+WW
+Bg
+WW
+WW
+WW
+WW
+WW
 Bg
 sW
-Bg
-Bg
-jV
-Bg
-Bg
-Bg
-Bg
-Bg
-jV
-sW
-Bg
-Hm
-Bg
-Bg
-Bg
+WW
+CT
+WW
+WW
+WW
 Dz
 GR
 xv
@@ -1548,35 +1402,35 @@ xv
 xv
 xv
 xv
+Dp
 "}
 (24,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 UX
 vK
 Dz
+Li
 NF
-dJ
-Bg
+WW
 sW
-Bg
+WW
+Hm
 qE
 KT
-ge
+TZ
 WW
-Bg
-Bg
-Bg
-Bg
-Bg
+WW
+WW
+WW
+WW
 sW
-Bg
-Bg
-Bg
+WW
+WW
+WW
+Mi
 Mt
-Kp
 Cb
 EI
 EI
@@ -1595,35 +1449,35 @@ xv
 xv
 xv
 xv
+Dp
 "}
 (25,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 UX
 vK
 sW
+Li
 NF
-dJ
-jV
-Dp
 Bg
-dJ
+jV
+WW
+NF
+Vn
 pf
 pj
-Uv
-Bg
-Bg
-dJ
-Bg
-Bg
-Dp
-Bg
-Bg
-Bg
+WW
+WW
+NF
+WW
+WW
+jV
+WW
+WW
+WW
+Mi
 Mt
-Kp
 Cb
 EI
 oc
@@ -1642,35 +1496,35 @@ xv
 xv
 xv
 xv
+Dp
 "}
 (26,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 UX
 vK
 Dz
-NF
-nl
-Bg
+Li
+kg
+WW
 sW
-Bg
-Bg
+WW
+WW
+KT
 ge
 TZ
 WW
-Bg
-Bg
-qE
-Bg
-Bg
-sW
-Bg
+WW
 Hm
-qE
+WW
+WW
+sW
+WW
+CT
+Hm
+Mi
 Mt
-Kp
 Cb
 EI
 EI
@@ -1689,34 +1543,34 @@ xv
 xv
 xv
 xv
+Dp
 "}
 (27,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 UX
 vK
 sW
+Li
 NF
-dJ
-Bg
+WW
 sW
-Vn
-Bg
-Bg
-Bg
-Bg
-Bg
-Bg
-Bg
-Bg
+Jn
+WW
+WW
+WW
+WW
+WW
+WW
+WW
+WW
 sW
-Bg
-Bg
-Bg
-Bg
-Bg
+WW
+WW
+WW
+WW
+WW
 Dz
 Pz
 EI
@@ -1736,33 +1590,33 @@ xv
 xv
 xv
 xv
+Dp
 "}
 (28,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
 EE
 Dz
 sW
-Bg
-Bg
+WW
+WW
 sW
-Vn
-Bg
-Bg
-Bg
-Bg
-Bg
-Bg
-Bg
+Jn
+WW
+WW
+WW
+WW
+WW
+WW
+WW
 sW
-Bg
-Bg
-qE
-Bg
-Bg
+WW
+WW
+Hm
+WW
+WW
 sW
 Pz
 xv
@@ -1783,10 +1637,10 @@ xv
 xv
 xv
 xv
+Dp
 "}
 (29,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -1794,21 +1648,21 @@ xv
 xv
 EE
 sW
-Bs
+nl
 sW
+NF
 dJ
-vW
-Bg
-Bg
+WW
+WW
 sW
 Cb
-Dp
+jV
 Cb
 sW
-pj
-Bg
-Bg
-Bg
+pf
+WW
+WW
+WW
 Dz
 Pz
 xv
@@ -1830,10 +1684,10 @@ xv
 xv
 xv
 xv
+Dp
 "}
 (30,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -1843,18 +1697,18 @@ xv
 EE
 sW
 sW
-iG
-iG
-Li
-Jn
-sW
-jV
-Bg
-Bg
-sW
-AW
 Lp
-AW
+Lp
+iG
+Xi
+sW
+Bg
+WW
+WW
+sW
+Yt
+Kp
+Yt
 sW
 Pz
 xv
@@ -1877,10 +1731,10 @@ xv
 xv
 xv
 xv
+Dp
 "}
 (31,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -1895,9 +1749,9 @@ Cb
 Cb
 Dz
 sW
-Bg
-Bg
-Bg
+WW
+WW
+WW
 sW
 Dz
 CJ
@@ -1920,14 +1774,14 @@ xv
 xv
 xv
 xv
-KY
+MV
 xv
 xv
 xv
+Dp
 "}
 (32,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -1943,7 +1797,7 @@ xv
 xv
 EE
 Cb
-Dp
+jV
 Cb
 Pz
 xv
@@ -1971,10 +1825,10 @@ xv
 xv
 xv
 xv
+Dp
 "}
 (33,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -2018,10 +1872,10 @@ xv
 xv
 xv
 xv
+Dp
 "}
 (34,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -2065,10 +1919,10 @@ EI
 EI
 xv
 xv
+Dp
 "}
 (35,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -2112,10 +1966,10 @@ EI
 EI
 EI
 xv
+Dp
 "}
 (36,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -2159,10 +2013,10 @@ EI
 oc
 oc
 EI
+Dp
 "}
 (37,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -2206,10 +2060,10 @@ oc
 oc
 oc
 EI
+Dp
 "}
 (38,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -2253,10 +2107,10 @@ oc
 oc
 EI
 EI
+Dp
 "}
 (39,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -2267,43 +2121,43 @@ xv
 xv
 xv
 EI
-EI
-EI
-oc
-EI
-EI
-EI
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
 EI
 EI
 oc
+EI
+EI
+EI
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+xv
+EI
+EI
+oc
 oc
 EI
 EI
+Dp
 "}
 (40,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -2332,7 +2186,7 @@ xv
 xv
 xv
 xv
-KY
+MV
 xv
 xv
 xv
@@ -2347,15 +2201,15 @@ EI
 EI
 EI
 xv
+Dp
 "}
 (41,1,1) = {"
+Dp
 xv
 xv
 xv
 xv
-xv
-xv
-KY
+MV
 xv
 xv
 xv
@@ -2394,10 +2248,10 @@ EI
 EI
 xv
 xv
+Dp
 "}
 (42,1,1) = {"
-xv
-xv
+Dp
 xv
 xv
 xv
@@ -2441,8 +2295,10 @@ xv
 xv
 xv
 xv
+Dp
 "}
 (43,1,1) = {"
+Dp
 xv
 xv
 xv
@@ -2486,10 +2342,10 @@ xv
 xv
 xv
 xv
-xv
-xv
+Dp
 "}
 (44,1,1) = {"
+Dp
 xv
 xv
 xv
@@ -2533,53 +2389,52 @@ xv
 xv
 xv
 xv
-xv
-xv
+Dp
 "}
 (45,1,1) = {"
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
-xv
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
+Dp
 "}
