@@ -3,6 +3,12 @@
 	weight = 7
 	block_chance = 75
 	has_explaination_verb = TRUE
+	grab_speed = 2 SECONDS
+	grab_resist_chances = list(
+		MARTIAL_GRAB_AGGRESSIVE = 40,
+		MARTIAL_GRAB_NECK = 10,
+		MARTIAL_GRAB_KILL = 5,
+	)
 	combos = list(/datum/martial_combo/cqc/slam, /datum/martial_combo/cqc/kick, /datum/martial_combo/cqc/restrain, /datum/martial_combo/cqc/pressure, /datum/martial_combo/cqc/consecutive)
 	var/restraining = FALSE //used in cqc's disarm_act to check if the disarmed is being restrained and so whether they should be put in a chokehold or not
 	var/static/list/areas_under_siege = typecacheof(list(/area/crew_quarters/kitchen,
@@ -46,13 +52,13 @@
 /datum/martial_art/cqc/proc/drop_restraining()
 	restraining = FALSE
 
-/datum/martial_art/cqc/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
+/datum/martial_art/cqc/grab_act(mob/living/carbon/human/attacker, mob/living/carbon/human/defender)
 	MARTIAL_ARTS_ACT_CHECK
-	var/obj/item/grab/G = D.grabbedby(A, 1)
-	if(G)
-		G.state = GRAB_AGGRESSIVE //Instant aggressive grab
-		add_attack_logs(A, D, "Melee attacked with martial-art [src] : aggressively grabbed", ATKLOG_ALL)
-
+	var/old_grab_state = attacker.grab_state
+	var/grab_success = defender.grabbedby(attacker, supress_message = TRUE)
+	if(grab_success && old_grab_state == GRAB_PASSIVE)
+		defender.grippedby(attacker)	//Instant aggressive grab
+		add_attack_logs(attacker, defender, "Melee attacked with martial-art [src] : aggressively grabbed", ATKLOG_ALL)
 	return TRUE
 
 /datum/martial_art/cqc/harm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -87,14 +93,13 @@
 
 /datum/martial_art/cqc/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	MARTIAL_ARTS_ACT_CHECK
-	var/obj/item/grab/G = A.get_inactive_hand()
-	if(restraining && istype(G) && G.affecting == D)
+	if(restraining && A.pulling && A.pulling == D)
 		D.visible_message("<span class='danger'>[A] puts [D] into a chokehold!</span>", \
 							"<span class='userdanger'>[A] puts you into a chokehold!</span>")
 		D.SetSleeping(20 SECONDS)
 		restraining = FALSE
-		if(G.state < GRAB_NECK)
-			G.state = GRAB_NECK
+		if(A.grab_state < GRAB_NECK)
+			A.setGrabState(GRAB_NECK)
 		return TRUE
 	else
 		restraining = FALSE

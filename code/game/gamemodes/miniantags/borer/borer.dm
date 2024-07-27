@@ -140,12 +140,16 @@
 		return
 	if(stat != CONSCIOUS)
 		return
-	var/be_borer = alert("Become a cortical borer? (Warning, You can no longer be cloned!)",,"Yes","No")
-	if(be_borer == "No" || !src || QDELETED(src))
+	var/be_borer = tgui_alert(user, "Become a cortical borer? (Warning, You can no longer be cloned!)", "Cortical Borer", list("Yes", "No"))
+	if(be_borer != "Yes" || !src || QDELETED(src))
 		return
 	if(key)
 		return
 	transfer_personality(user.client)
+
+/mob/living/simple_animal/borer/sentience_act()
+	GrantBorerSpells()
+	hide_borer()
 
 /mob/living/simple_animal/borer/Stat()
 	..()
@@ -547,10 +551,10 @@
 	to_chat(src, "Вы выкручиваетесь из уха носителя и падаете на пол.")
 	leave_host()
 
-/mob/living/simple_animal/borer/proc/borer_leaving() //Returning "TRUE" breaks the loop, "FALSE" - continue
+/mob/living/simple_animal/borer/proc/borer_leaving()
 	if(!leaving || docile || bonding)
-		return TRUE
-	return FALSE
+		return FALSE
+	return TRUE
 
 /mob/living/simple_animal/borer/proc/leave_host()
 
@@ -616,10 +620,10 @@
 	assume_control()
 	bonding = FALSE
 
-/mob/living/simple_animal/borer/proc/borer_assuming() //Returning "TRUE" breaks the loop, "FALSE" - continue
+/mob/living/simple_animal/borer/proc/borer_assuming()
 	if(!bonding || docile || leaving)
-		return TRUE
-	return FALSE
+		return FALSE
+	return TRUE
 
 /mob/living/simple_animal/borer/proc/assume_control()
 
@@ -721,6 +725,12 @@
 	if(borer)
 		return borer
 
+	return FALSE
+
+/mob/living/carbon/proc/BorerControlling()
+	var/mob/living/simple_animal/borer/borer = has_brain_worms()
+	if(borer && borer.controlling)
+		return TRUE
 	return FALSE
 
 /mob/living/carbon/proc/spawn_larvae()

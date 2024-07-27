@@ -9,7 +9,7 @@ SUBSYSTEM_DEF(game_events)
 	var/list/processing = list()
 
 /datum/controller/subsystem/game_events/Initialize()
-	return
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/game_events/proc/add_to_process(datum/event)
 	if(!istype(event))

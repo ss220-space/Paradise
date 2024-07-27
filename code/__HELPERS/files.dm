@@ -2,7 +2,7 @@
 /proc/wrap_file(filepath)
 	if(IsAdminAdvancedProcCall())
 		// Admins shouldnt fuck with this
-		to_chat(usr, "<span class='boldannounce'>File load blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, span_boldannounceooc("File load blocked: Advanced ProcCall detected."))
 		log_and_message_admins("attempted to load files via advanced proc-call")
 		return
 
@@ -11,7 +11,7 @@
 /proc/wrap_file2text(filepath)
 	if(IsAdminAdvancedProcCall())
 		// Admins shouldnt fuck with this
-		to_chat(usr, "<span class='boldannounce'>File load blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, span_boldannounceooc("File load blocked: Advanced ProcCall detected."))
 		log_and_message_admins("attempted to load files via advanced proc-call")
 		return
 
@@ -34,7 +34,7 @@
 //Sends resource files to client cache
 /client/proc/getFiles()
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>Shelleo blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, span_boldannounceooc("Shelleo blocked: Advanced ProcCall detected."))
 		log_and_message_admins("attempted to call Shelleo via advanced proc-call")
 		return
 
@@ -43,7 +43,7 @@
 
 /client/proc/browse_files(root="data/logs/", max_iterations=10, list/valid_extensions=list(".txt",".log",".htm"))
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>Shelleo blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, span_boldannounceooc("Shelleo blocked: Advanced ProcCall detected."))
 		log_and_message_admins("attempted to call Shelleo via advanced proc-call")
 		return
 
@@ -89,3 +89,18 @@
 	GLOB.fileaccess_timer = world.time + FTPDELAY
 	return 0
 #undef FTPDELAY
+
+/// Returns the md5 of a file at a given path.
+/proc/md5filepath(path)
+	. = md5(file(path))
+
+/// Save file as an external file then md5 it.
+/// Used because md5ing files stored in the rsc sometimes gives incorrect md5 results.
+/proc/md5asfile(file)
+	var/static/notch = 0
+	// Its importaint this code can handle md5filepath sleeping instead of hard blocking, if it's converted to use rust_g.
+	var/filename = "tmp/md5asfile.[world.realtime].[world.timeofday].[world.time].[world.tick_usage].[notch]"
+	notch = WRAP(notch+1, 0, 2**15)
+	fcopy(file, filename)
+	. = md5filepath(filename)
+	fdel(filename)

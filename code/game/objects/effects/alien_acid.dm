@@ -25,6 +25,11 @@
 
 	START_PROCESSING(SSobj, src)
 
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /obj/effect/acid/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -52,17 +57,27 @@
 		qdel(src)
 		return 0
 
-/obj/effect/acid/Crossed(atom/movable/AM, oldloc)
-	if(isliving(AM))
-		var/mob/living/L = AM
-		if(L.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
-			return
-		if(L.m_intent != MOVE_INTENT_WALK && prob(40))
-			var/acid_used = min(acid_level * 0.05, 20)
-			if(L.acid_act(10, acid_used, "feet"))
-				acid_level = max(0, acid_level - acid_used * 10)
-				playsound(L, 'sound/weapons/sear.ogg', 50, TRUE)
-				to_chat(L, "<span class='userdanger'>[src] burns you!</span>")
+
+/obj/effect/acid/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(!isliving(arrived))
+		return
+
+	if(arrived.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
+		return
+
+	if(arrived.m_intent == MOVE_INTENT_WALK || prob(60))
+		return
+
+	var/acid_used = min(acid_level * 0.05, 20)
+	if(!arrived.acid_act(10, acid_used, "feet"))
+		return
+
+	acid_level = max(0, acid_level - acid_used * 10)
+	playsound(arrived, 'sound/weapons/sear.ogg', 50, TRUE)
+	to_chat(arrived, span_userdanger("[src] burns you!"))
+
 
 //xenomorph corrosive acid
 /obj/effect/acid/alien

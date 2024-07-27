@@ -9,11 +9,23 @@
 #define UNIT_TESTS
 #endif
 
-#ifdef TESTING
-//#define GC_FAILURE_HARD_LOOKUP	//makes paths that fail to GC call find_references before del'ing.
-									//implies FIND_REF_NO_CHECK_TICK
+///Used to find the sources of harddels, quite laggy, don't be surpised if it freezes your client for a good while
+//#define REFERENCE_TRACKING
+#ifdef REFERENCE_TRACKING
+#warn Reference tracking is enabled
+///Run a lookup on things hard deleting by default.
+//#define GC_FAILURE_HARD_LOOKUP
+#ifdef GC_FAILURE_HARD_LOOKUP
+#warn Lookup on things hard deleted is enabled
+///Don't stop when searching, go till you're totally done
+#define FIND_REF_NO_CHECK_TICK
+#endif //ifdef GC_FAILURE_HARD_LOOKUP
 
-//#define FIND_REF_NO_CHECK_TICK	//Sets world.loop_checks to false and prevents find references from sleeping
+// Log references in their own file, rather then in runtimes.log
+#endif //ifdef REFERENCE_TRACKING
+
+#ifdef TESTING
+#warn Testing mode is enabled
 
 #endif
 
@@ -41,3 +53,8 @@
 // If this is uncommented, will attempt to load and initialize prof.dll/libprof.so.
 // We do not ship byond-tracy. Build it yourself here: https://github.com/mafemergency/byond-tracy/
 // #define USE_BYOND_TRACY
+
+#ifndef PRELOAD_RSC //set to:
+#define PRELOAD_RSC 0 // 0 to allow using external resources or on-demand behaviour;
+#endif // 1 to use the default behaviour;
+	   // 2 for preloading absolutely everything;

@@ -39,17 +39,31 @@
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
 
-/mob/living/simple_animal/frog/attack_hand(mob/living/carbon/human/M as mob)
+
+/mob/living/simple_animal/frog/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
+/mob/living/simple_animal/frog/attack_hand(mob/living/carbon/human/M)
 	if(M.a_intent == INTENT_HELP)
 		get_scooped(M)
 	..()
 
-/mob/living/simple_animal/frog/Crossed(AM as mob|obj, oldloc)
-	if(ishuman(AM))
-		if(!stat)
-			var/mob/M = AM
-			to_chat(M, "<span class='notice'>[bicon(src)] квакнул!</span>")
-	..()
+
+/mob/living/simple_animal/frog/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	frog_crossed(arrived)
+
+
+/mob/living/simple_animal/frog/proc/frog_crossed(atom/movable/arrived)
+	if(!stat && ishuman(arrived))
+		to_chat(arrived, span_notice("[bicon(src)] квака[pluralize_ru(gender, "ет", "ют")]!"))
+
 
 /mob/living/simple_animal/frog/toxic
 	name = "яркая лягушка"
@@ -79,15 +93,15 @@
 		return ..()
 
 
-/mob/living/simple_animal/frog/toxic/Crossed(mob/living/carbon/human/user, oldloc)
-	if(!ishuman(user) || user.gloves)
+/mob/living/simple_animal/frog/toxic/frog_crossed(mob/living/carbon/human/arrived)
+	if(!ishuman(arrived) || arrived.shoes)
 		return ..()
 
-	var/obj/item/organ/external/left_foot = get_organ(BODY_ZONE_PRECISE_L_FOOT)
-	var/obj/item/organ/external/right_foot = get_organ(BODY_ZONE_PRECISE_R_FOOT)
+	var/obj/item/organ/external/left_foot = arrived.get_organ(BODY_ZONE_PRECISE_L_FOOT)
+	var/obj/item/organ/external/right_foot = arrived.get_organ(BODY_ZONE_PRECISE_R_FOOT)
 	if((left_foot && !left_foot.is_robotic()) || (right_foot && !right_foot.is_robotic()))
-		to_chat(user, span_warning("Ваши ступни начинают чесаться!"))
-		toxin_affect(user)
+		to_chat(arrived, span_warning("Ваши ступни начинают чесаться!"))
+		toxin_affect(arrived)
 
 	return ..()
 
@@ -106,7 +120,7 @@
 
 /mob/living/simple_animal/frog/scream/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/squeak, squeak_sound, 50, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a frog or whatever
+	AddComponent(/datum/component/squeak, squeak_sound, 50, extrarange = SHORT_RANGE_SOUND_EXTRARANGE, dead_check = TRUE) //as quiet as a frog or whatever
 
 /mob/living/simple_animal/frog/toxic/scream
 	var/squeak_sound = list ('sound/creatures/frog_scream1.ogg','sound/creatures/frog_scream2.ogg')
@@ -114,10 +128,32 @@
 
 /mob/living/simple_animal/frog/toxic/scream/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/squeak, squeak_sound, 50, extrarange = SHORT_RANGE_SOUND_EXTRARANGE) //as quiet as a frog or whatever
+	AddComponent(/datum/component/squeak, squeak_sound, 50, extrarange = SHORT_RANGE_SOUND_EXTRARANGE, dead_check = TRUE) //as quiet as a frog or whatever
 
 /mob/living/simple_animal/frog/handle_automated_movement()
 	. = ..()
 	if(!resting && !buckled && prob(1))
 		emote("warcry")
 
+/mob/living/simple_animal/frog/scream/mapper
+	name = "Лягушка"
+	real_name = "Маппер"
+	atmos_requirements = list("min_oxy"=0,"max_oxy"=0,"min_tox"=0,"max_tox"=0,"min_co2"=0,"max_co2"=0,"min_n2"=0,"max_n2"=0)
+	butcher_results = list(/obj/item/areaeditor/blueprints=1)
+	cold_damage_per_tick = 0
+	damage_coeff = list("brute"=0,"fire"=0,"tox"=0,"clone"=0,"stamina"=0,"oxy"=0)
+	death_sound = 'sound/creatures/mapper_death.ogg'
+	desc = "Окупировавшая один из офисов на Центральном командовании лягушка. Постоянно кричит что-то в монитор."
+	emote_hear = list("МГРЛЬК","МРГЛ","УААМРГЛ")
+	emote_see = list("лежит расслабленная","увлажнена","издает гортанные звуки","лупает глазками","сильно недовольна","ищет рантаймы")
+	maxHealth = 1000
+	maxbodytemp = 1000
+	scream_sound = list('sound/creatures/mapper_disappointed.ogg','sound/creatures/mapper_angry.ogg','sound/creatures/mapper_annoyed.ogg')
+	speak = list("МРГЛЬК!","ТРУБА В ТРУБЕ! РАНТАЙМ! ПИЗДЕЦ!","ЧЕРЕЗ ЧАС!","ЗЕРО НА ВАЙТЛИСТЕ!","1.5.7. В РЕЛИЗЕЕЕ!","ВОТ БИ СМ НА КОРОБКУ!","ДА КТО ЭТОТ ВАШ ПР?!","МУЛЬТИЗЕТА ХОЧЕТСЯ!")
+	squeak_sound = list('sound/creatures/mapper_disappointed.ogg','sound/creatures/mapper_angry.ogg','sound/creatures/mapper_annoyed.ogg')
+	talk_sound = list('sound/creatures/mapper_scream.ogg')
+	gold_core_spawnable = NO_SPAWN
+
+/mob/living/simple_animal/frog/scream/mapper/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/squeak, squeak_sound, 50, extrarange = SILENCED_SOUND_EXTRARANGE) //as quiet as a frog or whatever

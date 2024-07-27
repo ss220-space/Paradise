@@ -185,6 +185,10 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/force_verb_bypass,
 	/client/proc/reregister_docks,
 	/client/proc/cmd_display_overlay_log,
+	/client/proc/toggle_mobs_suspension,
+	/client/proc/toggle_Idlenpcpool_suspension,
+	/client/proc/toggle_npcpool_suspension,
+	/client/proc/debug_atom_init,
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -234,10 +238,6 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	/client/proc/resolveAllAdminTickets,
 	/client/proc/resolveAllMentorTickets
 ))
-
-/client/proc/on_holder_add()
-	if(chatOutput && chatOutput.loaded)
-		chatOutput.loadAdmin()
 
 /client/proc/add_admin_verbs()
 	if(holder)
@@ -535,17 +535,17 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		if("Big Bomb")
 			explosion(epicenter, 3, 5, 7, 5, cause = "Admin Drop Bomb")
 		if("Custom Bomb")
-			var/devastation_range = input("Devastation range (in tiles):") as null|num
-			if(devastation_range == null)
+			var/devastation_range = tgui_input_number(src, "Devastation range (in tiles):", "Custom Bomb", max_value = 255)
+			if(isnull(devastation_range))
 				return
-			var/heavy_impact_range = input("Heavy impact range (in tiles):") as null|num
-			if(heavy_impact_range == null)
+			var/heavy_impact_range = tgui_input_number(src, "Heavy impact range (in tiles):", "Custom Bomb", max_value = 255)
+			if(isnull(heavy_impact_range))
 				return
-			var/light_impact_range = input("Light impact range (in tiles):") as null|num
-			if(light_impact_range == null)
+			var/light_impact_range = tgui_input_number(src, "Light impact range (in tiles):", "Custom Bomb", max_value = 255)
+			if(isnull(light_impact_range))
 				return
-			var/flash_range = input("Flash range (in tiles):") as null|num
-			if(flash_range == null)
+			var/flash_range = tgui_input_number(src, "Flash range (in tiles):", "Custom Bomb", max_value = 255)
+			if(isnull(flash_range))
 				return
 			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1, cause = "Admin Drop Bomb")
 	log_admin("[key_name(usr)] created an admin explosion at [epicenter.loc]")
@@ -641,9 +641,9 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 				theghost = pick(candidates)
 				P.key = theghost.key
 				P.master_commander = H
-				P.universal_speak = 1
-				P.universal_understand = 1
-				P.can_collar = 1
+				P.universal_speak = TRUE
+				P.universal_understand = TRUE
+				P.set_can_collar(TRUE)
 				P.faction = list("neutral")
 				var/obj/item/clothing/accessory/petcollar/C = new
 				P.add_collar(C)
@@ -715,7 +715,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	switch(punishment)
 		// These smiting types are valid for all living mobs
 		if("Lightning bolt")
-			M.electrocute_act(5, "Lightning Bolt", safety = TRUE, override = TRUE)
+			M.electrocute_act(5, "молнии", flags = SHOCK_NOGLOVES)
 			playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 			M.adjustFireLoss(75)
 			M.Weaken(10 SECONDS)
@@ -1127,7 +1127,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	if(!S) return
 
 	var/datum/ui_module/law_manager/L = new(S)
-	L.ui_interact(usr, state = GLOB.admin_state)
+	L.ui_interact(usr)
 	log_and_message_admins("has opened [S]'s law manager.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Manage Silicon Laws") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 

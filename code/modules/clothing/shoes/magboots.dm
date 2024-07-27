@@ -117,7 +117,7 @@
 
 /obj/item/clothing/shoes/magboots/clown/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg' = 1, 'sound/effects/clownstep2.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
+	AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg', 'sound/effects/clownstep2.ogg'), 50, falloff_exponent = 20) //die off quick please
 
 /obj/item/clothing/shoes/magboots/clown/equipped(mob/user, slot, initial)
 	. = ..()
@@ -307,7 +307,7 @@
 		toggle_magpulse(user, silent = TRUE)
 
 
-/obj/item/clothing/shoes/magboots/gravity/item_action_slot_check(slot)
+/obj/item/clothing/shoes/magboots/gravity/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_FEET)
 		return TRUE
 

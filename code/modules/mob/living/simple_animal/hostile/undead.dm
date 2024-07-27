@@ -13,7 +13,7 @@
 		else
 			R.visible_message("[R] stares at [src] for a minute before turning away.")
 			if(R.target == src)
-				R.target = null
+				R.GiveTarget(null)
 	if(!found)
 		return ..()
 
@@ -112,7 +112,7 @@
 	icon_living = "eskimo"
 	maxHealth = 55
 	health = 55
-	weather_immunities = list("snow")
+	weather_immunities = list(TRAIT_SNOWSTORM_IMMUNE)
 	gold_core_spawnable = NO_SPAWN
 	melee_damage_lower = 17
 	melee_damage_upper = 20

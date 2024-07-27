@@ -31,7 +31,7 @@
 	tts_seed = "Cassiopeia"
 	var/prob_ai_massweb = 10
 
-/mob/living/simple_animal/hostile/poison/terror_spider/lurker/Move(atom/newloc, direct = NONE, glide_size_override = 0)
+/mob/living/simple_animal/hostile/poison/terror_spider/lurker/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(stat == DEAD)
 		icon_state = icon_dead

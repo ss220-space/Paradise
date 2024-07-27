@@ -64,9 +64,9 @@
 		mezzer()
 
 
-/obj/singularity/ratvar/Bump(atom/bumped_atom, custom_bump, effect_applied = TRUE)//you dare stand before a god?!
+/obj/singularity/ratvar/Bump(atom/bumped_atom, effect_applied = TRUE)//you dare stand before a god?!
 	. = ..()
-	if(. || isnull(.))
+	if(.)
 		return .
 	godsmack(bumped_atom)
 

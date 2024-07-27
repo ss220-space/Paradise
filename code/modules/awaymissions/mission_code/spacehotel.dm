@@ -3,9 +3,6 @@
 /area/awaymission/spacehotel
 	name = "Deep Space Hotel 419"
 	requires_power = FALSE
-	static_lighting = FALSE
-	base_lighting_alpha = 255
-	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/spacehotel/kitchen
 	name = "Hotel Kitchen"
@@ -17,16 +14,16 @@
 
 /area/awaymission/spacehotel/amazing_place
 	name = "Amazing Place"
-	requires_power = 0
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 
 /area/awaymission/spacehotel/snowland
 	name = "Snowland"
-	requires_power = 0
 
 /area/awaymission/spacehotel/undersea
 	name = "Undersea"
 	icon_state = "undersea"
-	requires_power = 0
 
 // "Directional" map template loader for N or S hotel room
 /obj/effect/landmark/map_loader/hotel_room
@@ -71,7 +68,7 @@
 	info = "<h3>Welcome to Deep Space Hotel 419!</h3>Thank you for choosing our hotel. Simply hand your credit or debit card to the concierge and get your room key! To check out, hand your credit card back.<small><h4>Conditions:</h4><ul><li>The hotel is not responsible for any losses due to time or space anomalies.<li>The hotel is not responsible for events that occur outside of the hotel station, including, but not limited to, events that occur inside of dimensional pockets.<li>The hotel is not responsible for overcharging your account.<li>The hotel is not responsible for missing persons.<li>The hotel is not responsible for mind-altering effects due to drugs, magic, demons, or space worms.</ul></small>"
 
 /obj/effect/landmark/map_loader/hotel_room/Initialize()
-	..()
+	. = ..()
 	// load and randomly assign rooms
 	var/global/list/south_room_templates = list()
 	var/global/list/north_room_templates = list()

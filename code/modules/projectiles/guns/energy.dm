@@ -234,7 +234,7 @@
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	fire_sound = shot.fire_sound
 	fire_delay = shot.delay
-	if(!isnull(user) && shot.select_name)
+	if(!isnull(user) && (shot.select_name || shot.fluff_select_name))
 		var/static/gun_modes_ru = list( //about 2/3 of them will never be shown in game, but better save, than sorry
 			"practice" = "режим практики",
 			"kill" = "летальный режим",
@@ -277,7 +277,7 @@
 			"accelerator" = "ускоренный выстрел",
 		)
 
-		balloon_alert(user, "[gun_modes_ru[shot.select_name]]")
+		balloon_alert(user, "[gun_modes_ru[shot.fluff_select_name ? shot.fluff_select_name : shot.select_name]]")
 	if(chambered)//phil235
 		if(chambered.BB)
 			qdel(chambered.BB)
@@ -334,7 +334,7 @@
 		. += bayonet_overlay
 
 
-/obj/item/gun/energy/ui_action_click()
+/obj/item/gun/energy/ui_action_click(mob/user, datum/action/action, leftclick)
 	toggle_gunlight()
 
 

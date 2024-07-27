@@ -13,7 +13,7 @@
 	var/deflection_chance = 0
 	/// Can it reflect projectiles in a random direction?
 	var/reroute_deflection = FALSE
-	///Chance to block melee attacks using items while on throw mode.
+	///Chance to block melee attacks using items
 	var/block_chance = 0
 	//Chance to reflect projectiles but NINJA!
 	var/reflection_chance = 0
@@ -41,6 +41,12 @@
 	var/in_stance = FALSE
 	/// The priority of which martial art is picked from all the ones someone knows, the higher the number, the higher the priority.
 	var/weight = 0
+	/// If provided, this overrides default time (in deciseconds) required to reinforce aggressive/neck grab to the next state.
+	var/grab_speed
+	/// If provided, this list will override victim's default resist chances for any grab state.
+	/// Examples: list(MARTIAL_GRAB_AGGRESSIVE = 60, MARTIAL_GRAB_NECK = 40, MARTIAL_GRAB_KILL = 5) or list(MARTIAL_GRAB_NECK = 5)
+	var/list/grab_resist_chances
+
 
 /datum/martial_art/New()
 	. = ..()
@@ -258,11 +264,11 @@
 /datum/martial_art/proc/explaination_footer(user)
 	return
 
-/datum/martial_art/proc/explaination_notice(user)
-	return to_chat(user, "<b><i>Combo steps can be provided only with empty hand!</b></i>")
-
 /datum/martial_art/proc/try_deflect(mob/user)
 	return prob(deflection_chance)
+
+/datum/martial_art/proc/explaination_notice(user)
+	return to_chat(user, "<b><i>Combo steps can be provided only with empty hand!</b></i>")
 
 /datum/martial_art/proc/intent_to_streak(intent)
 	switch(intent)
@@ -274,6 +280,23 @@
 			return "G"
 		if(MARTIAL_COMBO_STEP_HELP)
 			return "H"
+
+
+/// Returns martial art grab resist chance for passed grab state.
+/datum/martial_art/proc/get_resist_chance(grab_state)
+	if(!grab_resist_chances)
+		return null
+	switch(grab_state)
+		if(GRAB_AGGRESSIVE)
+			if(!isnull(grab_resist_chances[MARTIAL_GRAB_AGGRESSIVE]))	// can be 0 its a vaild number
+				return grab_resist_chances[MARTIAL_GRAB_AGGRESSIVE]
+		if(GRAB_NECK)
+			if(!isnull(grab_resist_chances[MARTIAL_GRAB_NECK]))
+				return grab_resist_chances[MARTIAL_GRAB_NECK]
+		if(GRAB_KILL)
+			if(!isnull(grab_resist_chances[MARTIAL_GRAB_KILL]))
+				return grab_resist_chances[MARTIAL_GRAB_KILL]
+
 
 //ITEMS
 
@@ -353,7 +376,7 @@
 		var/mob/living/carbon/human/H = user
 		var/datum/martial_art/plasma_fist/F = new/datum/martial_art/plasma_fist(null)
 		F.teach(H)
-		to_chat(H, "<span class='boldannounce'>You have learned the ancient martial art of Plasma Fist.</span>")
+		to_chat(H, span_boldannounceic("You have learned the ancient martial art of Plasma Fist."))
 		used = TRUE
 		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 
@@ -378,6 +401,12 @@
 	if(istype(user.mind.martial_art, /datum/martial_art/the_sleeping_carp))
 		to_chat(user, span_warning("You realise, that you have learned everything from Carp Teachings and decided to not read the scroll."))
 		return
+
+	to_chat(user, "<span class='sciradio'>You have learned the ancient martial art of the Sleeping Carp! \
+					Your hand-to-hand combat has become much more effective, and you are now able to deflect any projectiles directed toward you. \
+					However, you are also unable to use any ranged weaponry. \
+					You can learn more about your newfound art by using the Recall Teachings verb in the Sleeping Carp tab.</span>")
+
 
 	var/datum/martial_art/the_sleeping_carp/theSleepingCarp = new(null)
 	theSleepingCarp.teach(user)
@@ -407,7 +436,7 @@
 			to_chat(user, "<span class='warning'>The mere thought of combat, let alone CQC, makes your head spin!</span>")
 			return
 
-	to_chat(user, "<span class='boldannounce'>You remember the basics of CQC.</span>")
+	to_chat(user, span_boldannounceic("You remember the basics of CQC."))
 
 	var/datum/martial_art/cqc/CQC = new(null)
 	CQC.teach(user)
@@ -427,7 +456,7 @@
 	if(!istype(user))
 		return
 	if(user.mind && user.mind.assigned_role == JOB_TITLE_CHEF)
-		to_chat(user, "<span class='boldannounce'>You completely memorise the basics of CQC.</span>")
+		to_chat(user, span_boldannounceic(">You completely memorise the basics of CQC."))
 		var/datum/martial_art/cqc/CQC = new(null)
 		CQC.teach(user)
 		user.temporarily_remove_item_from_inventory(src)
@@ -455,7 +484,7 @@
 /obj/item/mr_chang_technique/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
 		return
-	to_chat(user, "<span class='boldannounce'>You remember the basics of Aggressive Marketing Technique.</span>")
+	to_chat(user, span_boldannounceic("You remember the basics of Aggressive Marketing Technique."))
 
 	var/datum/martial_art/mr_chang/mr_chang = new(null)
 	mr_chang.teach(user)
@@ -473,7 +502,7 @@
 /obj/item/throwing_manual/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
 		return
-	to_chat(user, "<span class='boldannounce'>You remember the basics of knife throwing.</span>")
+	to_chat(user, span_boldannounceic("You remember the basics of knife throwing."))
 
 	var/datum/martial_art/throwing/MA = new
 	MA.teach(user)

@@ -105,7 +105,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 
-/obj/item/defibrillator/ui_action_click(mob/user)
+/obj/item/defibrillator/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(!ishuman(user) || !Adjacent(user))
 		return
 
@@ -240,7 +240,7 @@
 		retrieve_paddles(user)
 
 
-/obj/item/defibrillator/item_action_slot_check(slot, mob/user)
+/obj/item/defibrillator/item_action_slot_check(slot, mob/user, datum/action/action)
 	return slot == ITEM_SLOT_BACK
 
 
@@ -266,7 +266,7 @@
 	origin_tech = "biotech=5"
 	heart_attack_probability = 10
 
-/obj/item/defibrillator/compact/item_action_slot_check(slot, mob/user)
+/obj/item/defibrillator/compact/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_BELT)
 		return TRUE
 
@@ -353,7 +353,6 @@
 	icon_state = "syndiepaddles"
 	item_state = "syndiepaddles"
 
-
 /obj/item/twohanded/shockpaddles/New(mainunit)
 	. = ..()
 	add_defib_component(mainunit)
@@ -423,16 +422,18 @@
 		defib.toggle_paddles(user)
 		if(!silent)
 			to_chat(user, span_notice("The paddles snap back into the main unit."))
-
+	UnregisterSignal(user, COMSIG_MOB_CLIENT_MOVED)
 
 /obj/item/twohanded/shockpaddles/equip_to_best_slot(mob/user, force = FALSE)
 	user.drop_item_ground(src)
 
+/obj/item/twohanded/shockpaddles/equipped(mob/user, slot, initial)
+	. = ..()
+	RegisterSignal(user, COMSIG_MOB_CLIENT_MOVED, PROC_REF(on_mob_move), override = TRUE)
 
-/obj/item/twohanded/shockpaddles/on_mob_move(dir, mob/user)
+/obj/item/twohanded/shockpaddles/on_mob_move(mob/user, dir)
 	if(defib && !in_range(defib, src))
 		user.drop_item_ground(src, force = TRUE)
-
 
 /obj/item/twohanded/shockpaddles/proc/check_defib_exists(obj/item/defibrillator/mainunit)
 	if(!mainunit || !istype(mainunit))	//To avoid weird issues from admin spawns

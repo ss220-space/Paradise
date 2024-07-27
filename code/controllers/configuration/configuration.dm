@@ -61,10 +61,6 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 
 	LoadModes()
 
-	if(CONFIG_GET(flag/usewhitelist))
-		load_whitelist()
-
-
 	load_overflow_whitelist()
 
 	load_twitch_censor_list()

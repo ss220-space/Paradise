@@ -12,14 +12,14 @@
 	weather_duration_upper = 120 SECONDS
 	weather_overlay = "ash_storm"
 
-	end_message = span_boldannounce("The shrieking wind whips away the last of the ash and falls to its usual murmur. It should be safe to go outside now.")
+	end_message = span_boldannounceic("The shrieking wind whips away the last of the ash and falls to its usual murmur. It should be safe to go outside now.")
 	end_duration = 30 SECONDS
 	end_overlay = "light_ash"
 
 	area_type = /area/lavaland/surface/outdoors
 	target_trait = ORE_LEVEL
 
-	immunity_type = "ash"
+	immunity_type = TRAIT_ASHSTORM_IMMUNE
 
 	probability = 90
 
@@ -102,29 +102,23 @@
 		basalt.refill_dug()
 	update_audio()
 
-/datum/weather/ash_storm/proc/is_ash_immune(atom/L)
-	while(L && !isturf(L))
-		if(ismecha(L)) //Mechs are immune
-			return TRUE
-		if(isvampirecoffin(L))
-			return TRUE
-		if(ishuman(L)) //Are you immune?
-			var/mob/living/carbon/human/target = L
-			if(target.get_thermal_protection() >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
-				return TRUE
-		if(istype(L, /mob/living/simple_animal/borer))
-			var/mob/living/simple_animal/borer/target = L
-			if(target.host?.get_thermal_protection() >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
-				return TRUE
-		if (istype(L, /mob/living/silicon))
-			return TRUE /// Borgs are protected and so their brains
-		L = L.loc //Matryoshka check
-	return FALSE //RIP you
 
-/datum/weather/ash_storm/weather_act(mob/living/L)
-	if(is_ash_immune(L))
-		return
-	L.adjustFireLoss(4)
+/datum/weather/ash_storm/can_weather_act(mob/living/mob_to_check)
+	. = ..()
+	if(!.)
+		return .
+	if(ishuman(mob_to_check))
+		var/mob/living/carbon/human/human_mob = mob_to_check
+		if(human_mob.get_thermal_protection() >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
+			return FALSE
+	else if(istype(mob_to_check, /mob/living/simple_animal/borer))
+		var/mob/living/simple_animal/borer/borer = mob_to_check
+		if(borer.host?.get_thermal_protection() >= FIRE_IMMUNITY_MAX_TEMP_PROTECT)
+			return FALSE
+
+
+/datum/weather/ash_storm/weather_act(mob/living/target)
+	target.adjustFireLoss(4)
 
 
 //Emberfalls are the result of an ash storm passing by close to the playable area of lavaland. They have a 10% chance to trigger in place of an ash storm.

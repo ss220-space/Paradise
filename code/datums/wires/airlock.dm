@@ -115,7 +115,7 @@
 		if(WIRE_IDSCAN)
 			//Sending a pulse through flashes the red light on the door (if the door has power).
 			if(A.arePowerSystemsOn() && A.density)
-				A.do_animate("deny")
+				INVOKE_ASYNC(A, TYPE_PROC_REF(/obj/machinery/door, do_animate), "deny")
 				if(A.emergency)
 					A.emergency = 0
 					A.update_icon()

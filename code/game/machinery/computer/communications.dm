@@ -70,7 +70,7 @@
 		message_admins("[key_name_admin(usr)] has changed the security level to [get_security_level()].")
 	tmp_alertlevel = 0
 
-/obj/machinery/computer/communications/ui_act(action, params)
+/obj/machinery/computer/communications/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 	if(!is_secure_level(z))
@@ -164,7 +164,7 @@
 			if(isAI(usr) || isrobot(usr))
 				to_chat(usr, span_warning("Firewalls prevent you from recalling the shuttle."))
 				return
-			var/response = alert("Are you sure you wish to recall the shuttle?", "Confirm", "Yes", "No")
+			var/response = tgui_alert(usr, "Are you sure you wish to recall the shuttle?", "Confirm", list("Yes", "No"))
 			if(response == "Yes")
 				cancel_call_proc(usr)
 				if(SSshuttle.emergency.timer)
@@ -214,11 +214,11 @@
 			setMenuState(usr, COMM_SCREEN_STAT)
 
 		if("setmsg1")
-			stat_msg1 = clean_input("Line 1", "Enter Message Text", stat_msg1)
+			stat_msg1 = tgui_input_text(ui.user, "Line 1", stat_msg1, "Enter Message Text", encode = FALSE)
 			setMenuState(usr, COMM_SCREEN_STAT)
 
 		if("setmsg2")
-			stat_msg2 = clean_input("Line 2", "Enter Message Text", stat_msg2)
+			stat_msg2 = tgui_input_text(ui.user, "Line 2", stat_msg2, "Enter Message Text", encode = FALSE)
 			setMenuState(usr, COMM_SCREEN_STAT)
 
 		if("nukerequest")
@@ -226,8 +226,8 @@
 				if(centcomm_message_cooldown > world.time)
 					to_chat(usr, span_warning("Arrays recycling. Please stand by."))
 					return
-				var/input = stripped_input(usr, "Please enter the reason for requesting the nuclear self-destruct codes. Misuse of the nuclear request system will not be tolerated under any circumstances.  Transmission does not guarantee a response.", "Self Destruct Code Request.","")
-				if(!input || ..() || !(is_authenticated(usr) == COMM_AUTHENTICATION_MAX))
+				var/input = tgui_input_text(ui.user, "Please enter the reason for requesting the nuclear self-destruct codes. Misuse of the nuclear request system will not be tolerated under any circumstances. Transmission does not guarantee a response.", "Self Destruct Code Request.")
+				if(isnull(input) || ..() || !(is_authenticated(ui.user) >= COMM_AUTHENTICATION_MAX))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
 					to_chat(usr, span_warning("Message '[input]' is too short. [COMM_CCMSGLEN_MINIMUM] character minimum."))
@@ -244,7 +244,7 @@
 				if(centcomm_message_cooldown > world.time)
 					to_chat(usr, span_warning("Arrays recycling. Please stand by."))
 					return
-				var/input = stripped_input(usr, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination.  Transmission does not guarantee a response.", "To abort, send an empty message.", "")
+				var/input = tgui_input_text(ui.user, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "CentComm Message")
 				if(!input || ..() || !(is_authenticated(usr) == COMM_AUTHENTICATION_MAX))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
@@ -263,7 +263,7 @@
 				if(centcomm_message_cooldown > world.time)
 					to_chat(usr, "Arrays recycling.  Please stand by.")
 					return
-				var/input = stripped_input(usr, "Please choose a message to transmit to \[ABNORMAL ROUTING CORDINATES\] via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "To abort, send an empty message.", "")
+				var/input = tgui_input_text(ui.user, "Please choose a message to transmit to \[ABNORMAL ROUTING CORDINATES\] via quantum entanglement. Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "Send Message")
 				if(!input || ..() || !(is_authenticated(usr) == COMM_AUTHENTICATION_MAX))
 					return
 				if(length(input) < COMM_CCMSGLEN_MINIMUM)
@@ -279,18 +279,6 @@
 			to_chat(usr, "Backup routing data restored!")
 			src.emagged = 0
 			setMenuState(usr, COMM_SCREEN_MAIN)
-
-		if("RestartNanoMob")
-			if(SSmob_hunt)
-				if(SSmob_hunt.manual_reboot())
-					var/loading_msg = pick("Respawning spawns", "Reticulating splines", "Flipping hat",
-										"Capturing all of them", "Fixing minor text issues", "Being the very best",
-										"Nerfing this", "Not communicating with playerbase", "Coding a ripoff in a 2D spaceman game")
-					to_chat(usr, span_notice("Restarting Nano-Mob Hunter GO! game server. [loading_msg]..."))
-				else
-					to_chat(usr, span_warning("Nano-Mob Hunter GO! game server reboot failed due to recent restart. Please wait before re-attempting."))
-			else
-				to_chat(usr, span_danger("Nano-Mob Hunter GO! game server is offline for extended maintenance. Contact your Central Command administrators for more info if desired."))
 
 
 
@@ -318,10 +306,10 @@
 
 	ui_interact(user)
 
-/obj/machinery/computer/communications/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/communications/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "CommunicationsComputer",  name, 500, 600, master_ui, state)
+		ui = new(user, src, "CommunicationsComputer", name)
 		ui.open()
 
 /obj/machinery/computer/communications/ui_data(mob/user)
@@ -420,6 +408,10 @@
 		to_chat(user, span_warning("Central Command will not allow the shuttle to be called. Consider all contracts terminated."))
 		return
 
+	if(SSticker?.mode?.blob_stage >= BLOB_STAGE_FIRST && SSshuttle.emergencyNoEscape)
+		to_chat(user, span_warning("Under directive 7-10, [station_name()] is quarantined until further notice."))
+		return
+
 	if(SSshuttle.emergencyNoEscape)
 		to_chat(user, span_warning("The emergency shuttle may not be sent at this time. Please try again later."))
 		return
@@ -428,9 +420,6 @@
 		to_chat(user, span_warning("The emergency shuttle may not be called while returning to Central Command."))
 		return
 
-	if(SSticker.mode.name == "blob")
-		to_chat(user, span_warning("Under directive 7-10, [station_name()] is quarantined until further notice."))
-		return
 
 	SSshuttle.requestEvac(user, reason)
 	add_game_logs("has called the shuttle: [reason]", user)
@@ -520,13 +509,11 @@
 			var/obj/item/paper/P = new (C.loc)
 			P.name = "paper- '[title]'"
 			P.info = text
-			P.update_icon()
 			if(add_to_records)
 				C.messagetitle.Add("[title]")
 				C.messagetext.Add(text)
 			if(goal)
-				var/obj/item/stamp/navcom/stamp = new()
-				P.stamp(stamp)
+				P.stamp(/obj/item/stamp/navcom)
 				goal.papers_list.Add(P)
 
 /proc/print_centcom_report(text = "", title = "Incoming Message")

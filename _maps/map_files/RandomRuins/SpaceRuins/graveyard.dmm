@@ -1081,11 +1081,6 @@
 	},
 /turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)
-"yn" = (
-/turf/simulated/wall/shuttle/nodiagonal{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
-/area/ruin/space/graveyard/church)
 "yA" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/simulated/floor/grass,
@@ -1270,8 +1265,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
@@ -1737,8 +1731,7 @@
 "LZ" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/graveyard/church)
@@ -1793,8 +1786,7 @@
 /area/ruin/space/graveyard/church)
 "OF" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
@@ -2411,7 +2403,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 2
 	},
-/turf/space,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "YU" = (
 /obj/structure/bush,
@@ -2693,7 +2685,7 @@ rb
 rb
 rb
 rb
-yn
+rb
 vN
 Sf
 Ra
@@ -2891,7 +2883,7 @@ rb
 Ap
 kj
 rb
-yn
+rb
 vN
 vN
 tC
@@ -2953,7 +2945,7 @@ vN
 vN
 vN
 vN
-yn
+rb
 rb
 rb
 rb
@@ -3109,7 +3101,7 @@ gS
 wR
 gS
 WS
-yn
+rb
 rb
 rb
 rb
@@ -3469,7 +3461,7 @@ Sl
 gM
 gM
 So
-yn
+rb
 rb
 Ap
 "}
@@ -3826,7 +3818,7 @@ Oo
 Cz
 gM
 So
-yn
+rb
 rb
 Ap
 "}
@@ -4180,7 +4172,7 @@ gS
 wR
 gS
 WS
-yn
+rb
 rb
 rb
 rb
@@ -4262,7 +4254,7 @@ OF
 Sw
 Sw
 CM
-yn
+rb
 DH
 RE
 NL
@@ -4314,7 +4306,7 @@ wH
 Zb
 rb
 rb
-yn
+rb
 Rf
 xy
 IH
@@ -4333,7 +4325,7 @@ gS
 vN
 vN
 vN
-yn
+rb
 kj
 kj
 Ap
@@ -4370,7 +4362,7 @@ rb
 rb
 rb
 rb
-yn
+rb
 vN
 vN
 ii
@@ -4422,7 +4414,7 @@ kj
 Ap
 kj
 rb
-yn
+rb
 vN
 tq
 ow
@@ -4583,7 +4575,7 @@ sm
 sm
 gS
 gS
-yn
+rb
 rb
 rb
 rb
@@ -4627,13 +4619,13 @@ WA
 Ap
 Ap
 rb
-yn
+rb
 vN
 vN
 gS
 gS
 vN
-yn
+rb
 rb
 Ap
 kj

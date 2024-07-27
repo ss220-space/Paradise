@@ -1194,6 +1194,9 @@
 			M.AdjustEyeBlurry(20 SECONDS)
 	return ..() | update_flags
 
+/datum/reagent/capulettium/on_mob_delete(mob/living/M)
+	fakerevive(M)
+	..()
 
 /datum/reagent/capulettium_plus
 	name = "Capulettium Plus"
@@ -1214,8 +1217,7 @@
 	return ..()
 
 /datum/reagent/capulettium_plus/on_mob_delete(mob/living/M)
-	if(HAS_TRAIT(M, TRAIT_FAKEDEATH))
-		fakerevive(M)
+	fakerevive(M)
 	..()
 
 /datum/reagent/toxic_slurry
@@ -1301,13 +1303,29 @@
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "electricity"
 
-/datum/reagent/teslium/on_mob_life(mob/living/M)
+
+/datum/reagent/teslium/on_mob_life(mob/living/affected_mob)
 	shock_timer++
 	if(shock_timer >= rand(5,30)) //Random shocks are wildly unpredictable
 		shock_timer = 0
-		M.electrocute_act(rand(5, 20), "Teslium in their body", 1, TRUE) //Override because it's caused from INSIDE of you
-		playsound(M, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		affected_mob.electrocute_act(rand(5, 20), "теслиума внутри организма", flags = SHOCK_NOGLOVES)	//SHOCK_NOGLOVES because it's caused from INSIDE of you
+		playsound(affected_mob, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	return ..()
+
+/*
+/datum/reagent/teslium/on_mob_add(mob/living/carbon/human/affected_mob)
+	. = ..()
+	if(!ishuman(affected_mob))
+		return .
+	affected_mob.physiology.siemens_coeff *= 2
+
+
+/datum/reagent/teslium/on_mob_delete(mob/living/carbon/human/affected_mob)
+	. = ..()
+	if(!ishuman(affected_mob))
+		return .
+	affected_mob.physiology.siemens_coeff *= 0.5
+*/
 
 /datum/reagent/gluttonytoxin
 	name = "Gluttony's Blessing"

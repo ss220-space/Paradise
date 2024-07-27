@@ -144,13 +144,8 @@
 				curse(user)
 
 		if("Body")
-			var/list/race_list = list(SPECIES_HUMAN, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_VULPKANIN, SPECIES_MOTH)
-			if(CONFIG_GET(flag/usealienwhitelist))
-				for(var/Spec in GLOB.whitelisted_species)
-					if(is_alien_whitelisted(H, Spec))
-						race_list += Spec
-			else
-				race_list += GLOB.whitelisted_species
+			var/list/race_list = list(SPECIES_HUMAN)
+			race_list += CONFIG_GET(str_list/playable_species)
 
 			var/datum/ui_module/appearance_changer/AC = ui_users[user]
 			if(!AC)

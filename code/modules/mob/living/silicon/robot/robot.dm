@@ -61,8 +61,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/list/custom_eye_names = list("Robot","Cricket","Noble","Standard")
 	var/emagged = FALSE
 	var/is_emaggable = TRUE
-	var/eye_protection = 0
-	var/ear_protection = 0
+	var/eye_protection = FLASH_PROTECTION_NONE
+	var/ear_protection = HEARING_PROTECTION_NONE
 	var/damage_protection = 0
 	var/emp_protection = FALSE
 	var/has_transform_animation = FALSE
@@ -194,6 +194,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	if(length(module?.borg_skins) <= 1 && (has_transform_animation || module?.has_transform_animation))
 		transform_animation(icon_state, TRUE)
+	add_strippable_element()
+
+/mob/living/silicon/robot/proc/add_strippable_element()
+	AddElement(/datum/element/strippable, create_strippable_list(list(/datum/strippable_item/borg_head)))
 
 
 /mob/living/silicon/robot/proc/init(alien, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
@@ -313,7 +317,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			mind.transfer_to(mmi.brainmob)
 			mmi.update_icon()
 		else
-			to_chat(src, "<span class='boldannounce'>Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug.</span>")
+			to_chat(src, span_boldannounceooc("Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug."))
 			ghostize()
 			error("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey].")
 		mmi = null
@@ -1097,7 +1101,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	set desc = "Toggles the lock on your cover."
 
 	if(can_lock_cover)
-		if(alert("Are you sure?", locked ? "Unlock Cover" : "Lock Cover", "Yes", "No") == "Yes")
+		if(tgui_alert(usr, "Are you sure?", locked ? "Unlock Cover" : "Lock Cover", list("Yes", "No")) == "Yes")
 			locked = !locked
 			update_icons()
 			to_chat(usr, "<span class='notice'>You [locked ? "lock" : "unlock"] your cover.</span>")
@@ -1105,8 +1109,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(!locked)
 		to_chat(usr, "<span class='warning'>You cannot lock your cover yourself. Find a robotocist.</span>")
 		return
-	if(alert("You cannnot lock your own cover again. Are you sure?\n           You will need a robotocist to re-lock you.", "Unlock Own Cover", "Yes", "No") == "Yes")
-		locked = !locked
+	if(tgui_alert(usr, "You cannnot lock your own cover again. Are you sure?\nYou will need a roboticist to re-lock you.", "Unlock Own Cover", list("Yes", "No")) == "Yes")
 		update_icons()
 		to_chat(usr, "<span class='notice'>You unlock your cover.</span>")
 
@@ -1381,7 +1384,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	drop_hat()
 	qdel(src)
 
-/mob/living/silicon/robot/Move(atom/newloc, direct = NONE, glide_size_override = 0)
+/mob/living/silicon/robot/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/oldLoc = src.loc
 	. = ..()
 	if(.)
@@ -1596,8 +1599,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	req_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
 	pdahide = 1
-	eye_protection = 2 // Immunity to flashes and the visual part of flashbangs
-	ear_protection = 1 // Immunity to the audio part of flashbangs
+	eye_protection = FLASH_PROTECTION_WELDER // Immunity to flashes and the visual part of flashbangs
+	ear_protection = HEARING_PROTECTION_MINOR // Immunity to the audio part of flashbangs
 	damage_protection = 10 // Reduce all incoming damage by this number
 	brute_mod = 0.5 // Пулевые орудия наносят на 50%+5ед меньше урона. Теперь полная обойма ружейных пуль не убьет киборга(но заставит потерять 2 модуля и броню)
 	burn_mod = 0.5 // Забавно, у киборга отряда смерти отражение лазерных снарядов, впрочем все еще снижает урон от взрывов, и позволяет пережить более чем одну ракету из SRM8.
@@ -1700,8 +1703,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	req_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
 	pdahide = 1
-	eye_protection = 2 // Immunity to flashes and the visual part of flashbangs
-	ear_protection = 1 // Immunity to the audio part of flashbangs
+	eye_protection = FLASH_PROTECTION_WELDER // Immunity to flashes and the visual part of flashbangs
+	ear_protection = HEARING_PROTECTION_MINOR // Immunity to the audio part of flashbangs
 	emp_protection = TRUE // Immunity to EMP, due to heavy shielding
 	damage_protection = 20 // Reduce all incoming damage by this number. Very high in the case of /destroyer borgs, since it is an admin-only borg.
 	can_lock_cover = TRUE

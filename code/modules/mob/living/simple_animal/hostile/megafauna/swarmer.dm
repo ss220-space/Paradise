@@ -51,7 +51,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	medal_type = BOSS_MEDAL_SWARMERS
 	score_type = SWARMER_BEACON_SCORE
 	faction = list("mining", "boss", "swarmer")
-	weather_immunities = list("lava","ash")
+	weather_immunities = list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE)
 	stop_automated_movement = TRUE
 	wander = FALSE
 	layer = BELOW_MOB_LAYER
@@ -108,7 +108,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 /mob/living/simple_animal/hostile/swarmer/ai
 	wander = 1
 	faction = list("swarmer", "mining")
-	weather_immunities = list("ash") //wouldn't be fun otherwise
+	weather_immunities = list(TRAIT_ASHSTORM_IMMUNE) //wouldn't be fun otherwise
 	AIStatus = AI_ON
 
 /mob/living/simple_animal/hostile/swarmer/ai/Initialize(mapload)
@@ -139,13 +139,13 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 				return
 
 
-/mob/living/simple_animal/hostile/swarmer/ai/Move(atom/newloc, direct = NONE, glide_size_override = 0)
+/mob/living/simple_animal/hostile/swarmer/ai/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(!newloc)
 		return FALSE
 
 	if(newloc.z == z) //so these actions are Z-specific
 		if(islava(newloc))
-			var/turf/simulated/floor/plating/lava/L = newloc
+			var/turf/simulated/floor/lava/L = newloc
 			if(!L.is_safe())
 				StartAction(20)
 				new /obj/structure/lattice/catwalk/swarmer_catwalk(newloc)
@@ -283,7 +283,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 		else
 			var/mob/living/L = target
 			L.attack_animal(src)
-			L.electrocute_act(10, src, safety = TRUE) //safety = TRUE means we don't check gloves... Ok?
+			L.electrocute_act(10, "свармера", flags = SHOCK_NOGLOVES) // SHOCK_NOGLOVES means we don't check gloves... Ok?
 		return TRUE
 	else
 		return ..()

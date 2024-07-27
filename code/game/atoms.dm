@@ -32,6 +32,9 @@
 	/// Things we can pass through while moving. If any of this matches the thing we're trying to pass's [pass_flags_self], then we can pass through.
 	var/pass_flags = NONE
 
+	/// How this atom should react to having its astar blocking checked
+	var/can_astar_pass = CANASTARPASS_DENSITY
+
 	///Chemistry.
 	var/container_type = NONE
 	var/datum/reagents/reagents = null
@@ -151,6 +154,8 @@
 	if(loc)
 		loc.InitializedOn(src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
 
+	SETUP_SMOOTHING()
+
 	SET_PLANE_IMPLICIT(src, plane)
 
 	ComponentInitialize()
@@ -198,7 +203,7 @@
 	if(istype(T.loc, /area/shuttle/syndicate_elite) || istype(T.loc, /area/syndicate_mothership))
 		return TRUE
 
-/atom/Destroy()
+/atom/Destroy(force)
 	if(alternate_appearances)
 		for(var/aakey in alternate_appearances)
 			var/datum/alternate_appearance/AA = alternate_appearances[aakey]
@@ -206,10 +211,16 @@
 		alternate_appearances = null
 
 	QDEL_NULL(reagents)
-	invisibility = INVISIBILITY_ABSTRACT
-	LAZYCLEARLIST(overlays)
+
+	// Checking length(overlays) before cutting has significant speed benefits
+	if(length(overlays))
+		overlays.Cut()
+
+	LAZYNULL(managed_overlays)
 
 	QDEL_NULL(light)
+	if(length(light_sources))
+		light_sources.Cut()
 
 	return ..()
 
@@ -314,7 +325,6 @@
 
 /atom/proc/Bumped(atom/movable/moving_atom)
 	SEND_SIGNAL(src, COMSIG_ATOM_BUMPED, moving_atom)
-	return FALSE
 
 
 /// Convenience proc to see if a container is open for chemistry handling
@@ -553,7 +563,9 @@
 	return
 
 
-/// Updates the overlays of the atom. It has to return a list of overlays if it can't call the parent to create one. The list can contain anything that would be valid for the add_overlay proc: Images, mutable appearances, icon states...
+/// Updates the overlays of the atom. It has to return a list of overlays if it can't call the parent to create one.
+/// The list can contain anything that would be valid for the add_overlay proc: Images, mutable appearances, icon states...
+/// WARNING: if you provide external list to this proc, IT MUST BE A COPY, since ref to this list is saved in var/managed_overlays.
 /atom/proc/update_overlays()
 	RETURN_TYPE(/list)
 	. = list()
@@ -711,6 +723,20 @@
 /atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(density && !AM.has_gravity()) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
 		addtimer(CALLBACK(src, PROC_REF(hitby_react), AM), 2)
+
+
+/**
+ * Called when living mob clicks on this atom with pulled movable.
+ * Adjacency and correct pull hand is already checked.
+ *
+ * Arguments:
+ * * grabber - Mob performing grab attack.
+ * * grabbed_thing - Movable pulled by grabber, equals to grabber.pulling.
+ *
+ * Return `TRUE` to skip further actions in unarmed attack chain.
+ */
+/atom/proc/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	return TRUE
 
 
 /// This proc applies special effects of a carbon mob hitting something, be it a wall, structure, or window. You can set mob_hurt to false to avoid double dipping through subtypes if returning ..()
@@ -1312,17 +1338,40 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return null
 	return L.AllowDrop() ? L : get_turf(L)
 
-/atom/Entered(atom/movable/arrived, atom/oldLoc)
-	SEND_SIGNAL(src, COMSIG_ATOM_ENTERED, arrived, oldLoc)
-	SEND_SIGNAL(arrived, COMSIG_ATOM_ENTERING, src, oldLoc)
 
-/atom/Exit(atom/movable/AM, atom/newLoc)
-	. = ..()
-	if(SEND_SIGNAL(src, COMSIG_ATOM_EXIT, AM, newLoc) & COMPONENT_ATOM_BLOCK_EXIT)
+/**
+ * An atom has entered this atom's contents
+ *
+ * Default behaviour is to send the [COMSIG_ATOM_ENTERED]
+ */
+/atom/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SEND_SIGNAL(src, COMSIG_ATOM_ENTERED, arrived, old_loc, old_locs)
+	SEND_SIGNAL(arrived, COMSIG_ATOM_ENTERING, src, old_loc, old_locs)
+
+
+/**
+ * An atom is attempting to exit this atom's contents
+ *
+ * Default behaviour is to send the [COMSIG_ATOM_EXIT]
+ */
+/atom/Exit(atom/movable/leaving, atom/newLoc)
+	// Don't call `..()` here, otherwise `Uncross()` gets called.
+	// See the doc comment on `Uncross()` to learn why this is bad.
+
+	if(SEND_SIGNAL(src, COMSIG_ATOM_EXIT, leaving, newLoc) & COMPONENT_ATOM_BLOCK_EXIT)
 		return FALSE
 
-/atom/Exited(atom/movable/AM, atom/newLoc)
-	SEND_SIGNAL(src, COMSIG_ATOM_EXITED, AM, newLoc)
+	return TRUE
+
+
+/**
+ * An atom has exited this atom's contents
+ *
+ * Default behaviour is to send the [COMSIG_ATOM_EXITED]
+ */
+/atom/Exited(atom/movable/departed, atom/newLoc)
+	SEND_SIGNAL(src, COMSIG_ATOM_EXITED, departed, newLoc)
+
 
 /*
 	Adds an instance of colour_type to the atom's atom_colours list
@@ -1464,13 +1513,14 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  * For turfs this will only be used if pathing_pass_method is TURF_PATHING_PASS_PROC
  *
  * Arguments:
- * * ID- An ID card representing what access we have (and thus if we can open things like airlocks or windows to pass through them). The ID card's physical location does not matter, just the reference
- * * to_dir- What direction we're trying to move in, relevant for things like directional windows that only block movement in certain directions
- * * caller- The movable we're checking pass flags for, if we're making any such checks
- * * no_id: When true, doors with public access will count as impassible
+ * * to_dir - What direction we're trying to move in, relevant for things like directional windows that only block movement in certain directions
+ * * pass_info - Datum that stores info about the thing that's trying to pass us
+ *
+ * IMPORTANT NOTE: /turf/proc/LinkBlockedWithAccess assumes that overrides of CanAStarPass will always return true if density is FALSE
+ * If this is NOT you, ensure you edit your can_astar_pass variable. Check __DEFINES/path.dm
  **/
-/atom/proc/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
-	if(caller && (caller.pass_flags & pass_flags_self))
+/atom/proc/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(pass_info.pass_flags & pass_flags_self)
 		return TRUE
 	. = !density
 
@@ -1507,13 +1557,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(mover.throwing && (pass_flags_self & LETPASSTHROW))
 		return TRUE
 	return !density
-
-
-/// Returns true or false to allow the mover to exit turf with src
-/atom/proc/CanExit(atom/movable/mover, moving_direction)
-	SHOULD_CALL_PARENT(TRUE)
-	SHOULD_BE_PURE(TRUE)
-	return TRUE
 
 
 /**

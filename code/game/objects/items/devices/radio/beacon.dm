@@ -270,7 +270,21 @@
 								/obj/item/storage/box/syndie_kit/hardsuit = 1,								// 30 TK
 								/obj/item/clothing/gloves/combat = 1,										// 0-5 TK
 								/obj/item/card/id/syndicate = 1,											// 10 TK
-								/obj/item/encryptionkey/syndicate = 1)										// 0-2 TK
+								/obj/item/encryptionkey/syndicate = 1),										// 0-2 TK
+			"Ocelot" = list(	"Name" = "\improper 'Ocelot' bundle",	// 95-227 TK
+								"Desc" = "It does not feel right to shoot an unarmed man… but I will get over it.",
+								/obj/item/kitchen/knife/combat = 1,											// 0 TK
+								/obj/item/gun/projectile/revolver = 2,                                      // 100 TK
+								/obj/item/ammo_box/a357 = 2,												// 0 TK
+								/obj/item/ammo_box/speedloader/a357 = 2,                                    // 5 TK
+								/obj/item/clothing/under/syndicate/tacticool = 1,                           // 0 TK
+								/obj/item/clothing/gloves/combat = 1,                                       // 0 TK
+								/obj/item/clothing/shoes/combat = 1,                                        // 0 TK
+								/obj/item/clothing/accessory/holster = 1,                                   // 5 TK
+								/obj/item/clothing/head/beret = 1,                                          // 0 TK
+								/obj/item/clothing/accessory/scarf/red = 1,                                	// 0 TK
+								/obj/item/encryptionkey/syndicate = 1,										// 0-2 TK
+								/obj/item/clothing/mask/holo_cigar = 1,)                                    // 10 TK
 	)
 
 /obj/item/radio/beacon/syndicate/bundle/magical //for d20 dice of fate

@@ -1,0 +1,339 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	tag = "icon-propulsion (EAST)"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/transport)
+"b" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/noslip{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor"
+	},
+/area/shuttle/transport)
+"d" = (
+/obj/machinery/vending/autodrobe,
+/obj/effect/decal/warning_stripes/south,
+/obj/structure/window/plasmareinforced{
+	dir = 8;
+	layer = 2.9
+	},
+/turf/simulated/floor/noslip{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor"
+	},
+/area/shuttle/transport)
+"e" = (
+/obj/machinery/vending/artvend,
+/obj/effect/decal/warning_stripes/north,
+/obj/structure/window/plasmareinforced{
+	dir = 8;
+	layer = 2.9
+	},
+/turf/simulated/floor/noslip{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor"
+	},
+/area/shuttle/transport)
+"m" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/noslip{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor"
+	},
+/area/shuttle/transport)
+"n" = (
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 2;
+	height = 12;
+	id = "ferry";
+	name = "ferry shuttle";
+	roundstart_move = "ferry_away";
+	timid = 1;
+	width = 5
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/shuttle{
+	id_tag = "s_docking_airlock";
+	req_access = list(31,105,101,102,63)
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/transport)
+"r" = (
+/turf/simulated/wall/shuttle,
+/area/shuttle/transport)
+"s" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/light/spot,
+/obj/machinery/computer/shuttle/ferry/request{
+	dir = 8
+	},
+/turf/simulated/floor/noslip{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor"
+	},
+/area/shuttle/transport)
+"v" = (
+/obj/machinery/vending/autodrobe,
+/obj/effect/decal/warning_stripes/south,
+/turf/simulated/floor/noslip{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor"
+	},
+/area/shuttle/transport)
+"x" = (
+/obj/structure/curtain/open/shower/security,
+/obj/structure/curtain/open/shower/security,
+/obj/structure/curtain/open/shower/security,
+/obj/structure/curtain/open/shower/security,
+/obj/structure/curtain/open/shower/security,
+/obj/structure/curtain/open/shower/centcom,
+/obj/structure/curtain/open/shower/centcom,
+/obj/structure/curtain/open/shower/centcom,
+/obj/structure/curtain/open/shower/centcom,
+/obj/structure/curtain/open/shower/centcom,
+/obj/structure/curtain/open,
+/obj/structure/curtain/open,
+/obj/structure/curtain/open,
+/obj/structure/curtain/open,
+/obj/structure/curtain/open,
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/noslip{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor"
+	},
+/area/shuttle/transport)
+"z" = (
+/obj/structure/window/full/shuttle,
+/obj/structure/grille,
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/transport)
+"D" = (
+/obj/machinery/vending/suitdispenser,
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/light/spot{
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
+	},
+/turf/simulated/floor/noslip{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor"
+	},
+/area/shuttle/transport)
+"F" = (
+/obj/machinery/vending/hatdispenser,
+/obj/effect/decal/warning_stripes/south,
+/turf/simulated/floor/noslip{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor"
+	},
+/area/shuttle/transport)
+"G" = (
+/turf/simulated/floor/carpet/red,
+/area/shuttle/transport)
+"H" = (
+/obj/machinery/vending/shoedispenser,
+/obj/effect/decal/warning_stripes/south,
+/turf/simulated/floor/noslip{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor"
+	},
+/area/shuttle/transport)
+"I" = (
+/turf/simulated/wall/shuttle{
+	dir = 3
+	},
+/area/shuttle/transport)
+"J" = (
+/turf/simulated/wall/shuttle{
+	tag = "icon-swall2"
+	},
+/area/shuttle/transport)
+"M" = (
+/obj/structure/closet/crate,
+/obj/item/instrument/xylophone,
+/obj/item/instrument/violin,
+/obj/item/instrument/trumpet,
+/obj/item/instrument/trombone,
+/obj/item/instrument/saxophone,
+/obj/item/instrument/piano_synth,
+/obj/item/instrument/recorder,
+/obj/item/instrument/guitar,
+/obj/item/instrument/glockenspiel,
+/obj/item/instrument/harmonica,
+/obj/item/instrument/eguitar,
+/obj/item/instrument/bikehorn,
+/obj/item/instrument/banjo,
+/obj/item/instrument/accordion,
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/noslip{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor"
+	},
+/area/shuttle/transport)
+"N" = (
+/obj/structure/dresser,
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/light/spot,
+/turf/simulated/floor/noslip{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor"
+	},
+/area/shuttle/transport)
+"O" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/shuttle{
+	id_tag = "s_docking_airlock";
+	req_access = list(31,105,101,102,63)
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/transport)
+"R" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/structure/chair/comfy/shuttle,
+/obj/machinery/light/spot{
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
+	},
+/turf/simulated/floor/noslip{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor"
+	},
+/area/shuttle/transport)
+"Z" = (
+/obj/structure/closet/crate,
+/obj/item/stack/sheet/cardboard{
+	amount = 50
+	},
+/obj/item/stack/sheet/cardboard{
+	amount = 50
+	},
+/obj/item/storage/fancy/crayons,
+/obj/item/stack/tile/carpet{
+	amount = 60
+	},
+/obj/item/stack/tile/carpet/black{
+	amount = 60
+	},
+/obj/item/stack/tile/carpet/blue{
+	amount = 60
+	},
+/obj/item/stack/tile/carpet/cyan{
+	amount = 60
+	},
+/obj/item/stack/tile/carpet/green{
+	amount = 60
+	},
+/obj/item/stack/tile/carpet/orange{
+	amount = 60
+	},
+/obj/item/stack/tile/carpet/purple{
+	amount = 60
+	},
+/obj/item/stack/tile/carpet/red{
+	amount = 60
+	},
+/obj/item/stack/tile/carpet/royalblack{
+	amount = 60
+	},
+/obj/item/stack/tile/carpet/royalblue{
+	amount = 60
+	},
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/noslip{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor"
+	},
+/area/shuttle/transport)
+
+(1,1,1) = {"
+a
+a
+O
+a
+a
+"}
+(2,1,1) = {"
+r
+d
+G
+e
+r
+"}
+(3,1,1) = {"
+r
+F
+G
+x
+r
+"}
+(4,1,1) = {"
+r
+D
+G
+N
+r
+"}
+(5,1,1) = {"
+r
+H
+G
+M
+r
+"}
+(6,1,1) = {"
+r
+v
+G
+Z
+r
+"}
+(7,1,1) = {"
+r
+I
+G
+J
+r
+"}
+(8,1,1) = {"
+r
+m
+G
+b
+r
+"}
+(9,1,1) = {"
+z
+m
+G
+b
+z
+"}
+(10,1,1) = {"
+z
+m
+G
+b
+z
+"}
+(11,1,1) = {"
+r
+R
+G
+s
+r
+"}
+(12,1,1) = {"
+r
+z
+n
+z
+r
+"}

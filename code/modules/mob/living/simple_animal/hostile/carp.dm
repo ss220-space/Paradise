@@ -35,6 +35,7 @@
 	faction = list("carp")
 	pressure_resistance = 200
 	gold_core_spawnable = HOSTILE_SPAWN
+	AI_delay_max = 0.5 SECONDS
 
 	var/carp_stamina_damage = 8
 

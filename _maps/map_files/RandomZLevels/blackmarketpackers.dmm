@@ -1019,7 +1019,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Dormitories)
 "dd" = (
-/mob/living/simple_animal/mouse,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Engines)
 "de" = (
@@ -1045,7 +1045,7 @@
 /area/awaymission/BMPship/TurretsSouth)
 "dj" = (
 /obj/effect/decal/warning_stripes/south,
-/mob/living/simple_animal/mouse/white,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/structure/sign/securearea{
 	name = "MAXIMUM ATTENTION";
 	pixel_x = -32
@@ -2951,7 +2951,7 @@
 /turf/simulated/floor/grass,
 /area/awaymission/BMPship/Kitchen)
 "iq" = (
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -3690,7 +3690,7 @@
 /area/awaymission/BMPship/Kitchen)
 "mu" = (
 /obj/structure/alien/weeds,
-/mob/living/simple_animal/mouse,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "mv" = (
@@ -4848,7 +4848,7 @@
 	},
 /area/awaymission/BMPship/CommonArea)
 "vL" = (
-/mob/living/simple_animal/mouse/white,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/structure/cable{
 	icon_state = "4-8";
 	tag = ""
@@ -5465,11 +5465,6 @@
 /obj/effect/mob_spawn/human/corpse/damaged,
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
-"Bb" = (
-/turf/simulated/wall/shuttle/nodiagonal{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
-/area/awaymission/BMPship/TraderShuttle)
 "Bi" = (
 /obj/structure/table,
 /obj/item/kitchen/utensil/fork,
@@ -5618,7 +5613,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/BMPship/Buffer)
 "Cy" = (
-/mob/living/simple_animal/mouse/gray,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/structure/cable{
 	icon_state = "2-4";
 	tag = ""
@@ -6649,7 +6644,7 @@
 /area/awaymission/BMPship/Containment)
 "LV" = (
 /obj/effect/decal/warning_stripes/south,
-/mob/living/simple_animal/mouse/brown,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
@@ -6909,7 +6904,7 @@
 /mob/living/simple_animal/hostile/syndicate/ranged/space{
 	health = 300;
 	maxHealth = 300
-},
+	},
 /turf/simulated/floor/pod,
 /area/awaymission/BMPship/Shelter)
 "Pt" = (
@@ -7075,7 +7070,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/mob/living/simple_animal/mouse,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/structure/spider/stickyweb,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -7515,7 +7510,7 @@
 	},
 /area/awaymission/BMPship/CommonArea)
 "VD" = (
-/mob/living/simple_animal/mouse,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
@@ -20938,7 +20933,7 @@ ig
 ig
 LN
 Pt
-Bb
+ig
 NH
 aa
 aa
@@ -21458,7 +21453,7 @@ Zb
 aa
 qL
 aa
-Bb
+ig
 Hy
 aa
 aa

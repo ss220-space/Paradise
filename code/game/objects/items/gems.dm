@@ -318,7 +318,7 @@
 	if(vampire && !used)
 		user.visible_message(span_warning("[user] forcefully squeezes [src] in his hands!"), \
 							span_notice("You squeeze [src] in your hands."))
-		if(!do_after(user, 10 SECONDS, user, max_interact_count = 1, cancel_message = span_warning("You relax your grip on [src]")))
+		if(!do_after(user, 10 SECONDS, user, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("You relax your grip on [src]")))
 			return
 		user.visible_message(span_warning("[user] begins to absorb the liquid contents of the crystal!"), \
 						span_notice("You absorb the contents of [src]. The energy from the crystal saturates your body."))

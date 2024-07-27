@@ -249,13 +249,21 @@
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Instruments") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/verb/toggle_input()
-	set name = "Toggle TGUI Input Lists"
+	set name = "Toggle TGUI Input"
 	set category = "Preferences"
-	set desc = "Switches input lists between the TGUI and the standard one"
-	prefs.toggles2 ^= PREFTOGGLE_2_DISABLE_TGUI_LISTS
+	set desc = "Switches inputs between the TGUI and the standard one"
+	prefs.toggles2 ^= PREFTOGGLE_2_DISABLE_TGUI_INPUT
 	prefs.save_preferences(src)
-	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_LISTS) ? "no longer" : "now"] use TGUI Input Lists.")
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle TGUI Input Lists") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT) ? "no longer" : "now"] use TGUI Inputs.")
+
+/client/verb/toggle_strip_tgui_size()
+	set name = "Toggle TGUI strip menu size"
+	set category = "Preferences"
+	set desc = "Toggles TGUI strip menu size between miniature and full-size."
+	prefs.toggles2 ^= PREFTOGGLE_2_BIG_STRIP_MENU
+	prefs.save_preferences(src)
+	to_chat(src, "You will see [(prefs.toggles2 & PREFTOGGLE_2_BIG_STRIP_MENU) ? "full-size" : "minuature"] TGUI strip menu.")
+	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle TGUI strip menu size") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/verb/toggle_vote_popup()
 	set name = "Toggle Vote Popup"
@@ -285,18 +293,6 @@
 	set desc = "Allows you to access the Setup Character screen. Changes to your character won't take effect until next round, but other changes will."
 	prefs.current_tab = 1
 	prefs.ShowChoices(usr)
-
-/client/verb/toggle_darkmode()
-	set name = "Toggle Darkmode"
-	set category = "Preferences"
-	set desc = "Toggles UI style between dark and light"
-	prefs.toggles ^= PREFTOGGLE_UI_DARKMODE
-	prefs.save_preferences(src)
-	if(prefs.toggles & PREFTOGGLE_UI_DARKMODE)
-		activate_darkmode()
-	else
-		deactivate_darkmode()
-	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Darkmode") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/verb/toggle_karma()
 	set name = "Toggle Karma Gains"
@@ -385,3 +381,4 @@
 	prefs.toggles2 ^= PREFTOGGLE_2_MC_TABS
 	prefs.save_preferences(src)
 	to_chat(src, "You will [(prefs.toggles2 & PREFTOGGLE_2_MC_TABS) ? "now" : "no longer"] see the MC tabs on the top right.")
+

@@ -49,12 +49,14 @@
 	desc = "Looks like some kind of thick resin."
 	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi'
 	icon_state = "resin"
+	base_icon_state = "resin_wall"
 	density = TRUE
 	opacity = TRUE
 	anchored = TRUE
-	canSmoothWith = list(/obj/structure/alien/resin)
+	canSmoothWith = SMOOTH_GROUP_ALIEN_RESIN
+	smoothing_groups = SMOOTH_GROUP_ALIEN_RESIN
 	max_integrity = 200
-	smooth = SMOOTH_TRUE
+	smooth = SMOOTH_BITMASK
 	var/resintype = null
 
 /obj/structure/alien/resin/Initialize()
@@ -67,7 +69,7 @@
 	. = ..()
 	T.air_update_turf(TRUE)
 
-/obj/structure/alien/resin/Move()
+/obj/structure/alien/resin/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
 	. = ..()
 	move_update_air(T)
@@ -81,7 +83,7 @@
 	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi'
 	icon_state = "resin"
 	resintype = "wall"
-	canSmoothWith = list(/obj/structure/alien/resin/wall, /obj/structure/alien/resin/membrane)
+	canSmoothWith = SMOOTH_GROUP_ALIEN_WALLS
 
 /obj/structure/alien/resin/wall/BlockSuperconductivity()
 	return 1
@@ -100,7 +102,7 @@
 	max_integrity = 160
 	resintype = "membrane"
 	pass_flags_self = PASSGLASS
-	canSmoothWith = list(/obj/structure/alien/resin/wall, /obj/structure/alien/resin/membrane)
+	canSmoothWith = SMOOTH_GROUP_ALIEN_WALLS
 
 
 /obj/structure/alien/resin/attack_alien(mob/living/carbon/alien/humanoid/A)
@@ -129,7 +131,7 @@
 	max_integrity = 160
 	resintype = "door"
 	canSmoothWith = null
-	smooth = SMOOTH_FALSE
+	smooth = NONE
 	pass_flags_self = PASSDOOR
 	var/state = RESIN_DOOR_CLOSED
 	var/operating = FALSE
@@ -325,7 +327,7 @@
 	. = ..()
 	linked_node = node
 	if(!forbidden_turf_types)
-		forbidden_turf_types = typecacheof(list(/turf/space, /turf/simulated/floor/chasm, /turf/simulated/floor/plating/lava))
+		forbidden_turf_types = typecacheof(list(/turf/space, /turf/simulated/floor/chasm, /turf/simulated/floor/lava))
 
 	if(is_type_in_typecache(loc, forbidden_turf_types))
 		qdel(src)

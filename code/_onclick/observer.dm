@@ -62,7 +62,7 @@
 	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_GHOST, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 	if(user.client)
-		if(user.gas_scan && atmos_scan(user = user, target = src, silent = TRUE))
+		if(isobserver(user) && user.gas_scan && atmos_scan(user = user, target = src, silent = TRUE))
 			return TRUE
 	return FALSE
 
@@ -87,10 +87,6 @@
 		var/obj/machinery/computer/teleporter/com = S.teleporter_console
 		if(com && com.target)
 			user.forceMove(get_turf(com.target))
-
-/obj/effect/portal/attack_ghost(mob/user)
-	if(target)
-		user.forceMove(get_turf(target))
 
 /obj/machinery/gateway/centerstation/attack_ghost(mob/user)
 	if(awaygate)

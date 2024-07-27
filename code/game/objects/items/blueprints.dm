@@ -89,16 +89,10 @@
 /obj/item/areaeditor/proc/edit_area(mob/user)
 	var/area/user_area = get_area(user)
 	var/prevname = "[sanitize(user_area.name)]"
-	var/str = stripped_input(usr,"New area name:", "Area Creation", prevname, MAX_NAME_LEN)
-
-	if(!str || !length(str) || str == prevname) //cancel
+	var/str = tgui_input_text(usr, "New area name:", "Blueprint Editing", prevname, MAX_NAME_LEN, encode = FALSE)
+	if(!str || !length(str) || str == prevname) // Cancel
 		return
-	if(length(str) > MAX_NAME_LEN)
-		to_chat(user, span_warning("The given name is too long. The area's name is unchanged."))
-		return
-
 	rename_area(user_area, str)
-
 	to_chat(user, span_notice("You rename the '[prevname]' to '[str]'."))
 	add_game_logs("has renamed [prevname] to [str]", user)
 	interact_prints(user)

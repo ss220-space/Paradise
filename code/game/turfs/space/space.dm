@@ -144,38 +144,42 @@
 				to_chat(user, span_notice("Вы установили мостик."))
 				new /obj/structure/lattice/catwalk/fireproof(src)
 
-/turf/space/Entered(atom/movable/A as mob|obj, atom/OL, ignoreRest = 0)
-	..()
-	if((!(A) || !(src in A.locs)))
-		return
+
+/turf/space/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	if(!arrived || !(src in arrived.locs))
+		return .
 
 	if(destination_z && destination_x && destination_y)
-		destination_z = check_taipan_availability(A, destination_z)
-		A.zMove(null, locate(destination_x, destination_y, destination_z), ZMOVE_ALLOW_BUCKLED)
+		destination_z = check_taipan_availability(arrived, destination_z)
+		arrived.zMove(null, locate(destination_x, destination_y, destination_z), ZMOVE_ALLOW_BUCKLED)
 
-		if(isliving(A))
-			var/mob/living/L = A
-			if(L.pulling)
-				var/turf/T = get_step(L.loc,turn(A.dir, 180))
-				L.pulling.zMove(null, T, ZMOVE_ALLOW_BUCKLED)
+		var/atom/movable/current_pull = arrived.pulling
+		while(current_pull)
+			var/turf/target_turf = get_step(current_pull.pulledby.loc, REVERSE_DIR(current_pull.pulledby.dir)) || current_pull.pulledby.loc
+			current_pull.zMove(null, target_turf, ZMOVE_ALLOW_BUCKLED)
+			current_pull = current_pull.pulling
 
 
-/turf/space/proc/check_taipan_availability(atom/movable/A as mob|obj, destination_z)
-	var/mob/living/check_mob = A
-	// if we are from taipan's crew, then we can easily access it.
-	if(istype(check_mob) && is_taipan(destination_z))
-		if(check_mob.mind in GLOB.taipan_players_active)
-			to_chat(A, span_info("Вы вернулись в ваш родной скрытый от чужих глаз сектор..."))
-			return destination_z
+/turf/space/proc/check_taipan_availability(atom/movable/arrived, destination_z)
+	if(!is_taipan(destination_z))
+		return destination_z
+	var/arrived_is_mob = isliving(arrived)
+	var/mob/living/arrived_mob = arrived
+	if(arrived_is_mob && (arrived_mob.mind in GLOB.taipan_players_active))
+		to_chat(arrived_mob, span_info("Вы вернулись в ваш родной скрытый от чужих глаз сектор..."))
+		return destination_z
 	// if we are not from taipan's crew, then we cannot get there until there is enought players on Taipan
-	if(is_taipan(destination_z) && length(GLOB.taipan_players_active) < TAIPAN_PLAYER_LIMIT)
+	if(length(GLOB.taipan_players_active) < TAIPAN_PLAYER_LIMIT)
 		var/datum/space_level/taipan_zlvl
 		var/datum/space_level/direct
 		for(var/list_parser in GLOB.space_manager.z_list)
 			var/datum/space_level/lvl = GLOB.space_manager.z_list[list_parser]
 			if(TAIPAN in lvl.flags)
 				taipan_zlvl = lvl
-		switch(A.dir)
+		if(!arrived.dir)
+			arrived.dir = SOUTH
+		switch(arrived.dir)
 			if(NORTH)
 				direct = taipan_zlvl.get_connection(Z_LEVEL_NORTH)
 			if(SOUTH)
@@ -184,14 +188,15 @@
 				direct = taipan_zlvl.get_connection(Z_LEVEL_EAST)
 			if(WEST)
 				direct = taipan_zlvl.get_connection(Z_LEVEL_WEST)
-		destination_z = direct.zpos
+		destination_z = direct?.zpos
 		// if we are still going to get to taipan after all the checks... Then get random available z_lvl instead
-		if(is_taipan(destination_z))
+		if(!destination_z || is_taipan(destination_z))
 			destination_z = pick(get_all_linked_levels_zpos())
-	//notification if we do get to taipan
-	if(istype(check_mob) && is_taipan(destination_z))
-		to_chat(check_mob, span_warning("Вы попадаете в загадочный сектор полный астероидов... Тут стоит быть осторожнее..."))
+		return destination_z
+	if(arrived_is_mob)
+		to_chat(arrived_mob, span_warning("Вы попадаете в загадочный сектор полный астероидов... Тут стоит быть осторожнее..."))
 	return destination_z
+
 
 /turf/space/proc/Sandbox_Spacemove(atom/movable/A as mob|obj)
 	var/cur_x
@@ -356,9 +361,7 @@
 	return RCD_ACT_FAILED
 
 /turf/space/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
-	underlay_appearance.icon = 'icons/turf/space.dmi'
-	underlay_appearance.icon_state = SPACE_ICON_STATE
-	SET_PLANE(underlay_appearance, PLANE_SPACE, src)
+	generate_space_underlay(underlay_appearance, asking_turf)
 	return TRUE
 
 // the space turf SHOULD be on first z level. meaning we have invisible floor but only for movable atoms.

@@ -153,7 +153,7 @@
 		update_icon()
 		playsound(src.loc, 'sound/weapons/crusher_reload.ogg', 135)
 
-/obj/item/twohanded/kinetic_crusher/ui_action_click(mob/user, action)
+/obj/item/twohanded/kinetic_crusher/ui_action_click(mob/user, datum/action/action, leftclick)
 	set_light_on(!light_on)
 	playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
 	update_icon()

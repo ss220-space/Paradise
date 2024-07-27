@@ -2,7 +2,7 @@
 	GLOB.mob_list -= src
 	GLOB.dead_mob_list -= src
 	GLOB.alive_mob_list -= src
-	input_focus = null
+	focus = null
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)
@@ -10,6 +10,9 @@
 	QDEL_LIST(diseases)
 	for(var/alert in alerts)
 		clear_alert(alert)
+	if(client)
+		var/client/client_ = client
+		client_.movingmob = null
 	ghostize()
 	QDEL_LIST_ASSOC_VAL(tkgrabbed_objects)
 	if(buckled)
@@ -27,16 +30,19 @@
 		GLOB.dead_mob_list += src
 	else
 		GLOB.alive_mob_list += src
-	input_focus = src
-	reset_perspective(src)
+	set_focus(src)
 	prepare_huds()
 	. = ..()
 	update_config_movespeed()
 	update_movespeed()
-
+	if(can_strip())
+		ADD_TRAIT(src, TRAIT_CAN_STRIP, GENERIC_TRAIT)
 
 /mob/vv_edit_var(var_name, var_value)
 	switch(var_name)
+		if(NAMEOF(src, focus))
+			set_focus(var_value)
+			. = TRUE
 		if(NAMEOF(src, machine))
 			set_machine(var_value)
 			. = TRUE
@@ -101,7 +107,7 @@
 	usr.show_message(t, 1)
 
 
-/mob/proc/show_message(msg, type, alt, alt_type)
+/mob/proc/show_message(msg, type, alt, alt_type, chat_message_type)
 
 	if(!client)
 		return
@@ -123,9 +129,9 @@
 
 	// Added voice muffling for Issue 41.
 	if(stat == UNCONSCIOUS)
-		to_chat(src, "<I>…Вам почти удаётся расслышать чьи-то слова…</I>")
+		to_chat(src, "<I>…Вам почти удаётся расслышать чьи-то слова…</I>", MESSAGE_TYPE_LOCALCHAT)
 	else
-		to_chat(src, msg)
+		to_chat(src, msg, chat_message_type)
 
 
 // Show a message to all mobs in sight of this one
@@ -133,7 +139,7 @@
 // message is the message output to anyone who can see e.g. "[src] does something!"
 // self_message (optional) is what the src mob sees  e.g. "You do something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
-/mob/visible_message(message, self_message, blind_message, list/ignored_mobs)
+/mob/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type)
 	if(!isturf(loc)) // mobs inside objects (such as lockers) shouldn't have their actions visible to those outside the object
 		for(var/mob/mob as anything in (get_mobs_in_view(3, src, include_radio = FALSE) - ignored_mobs))
 			if(mob.see_invisible < invisibility)
@@ -145,7 +151,7 @@
 				if(!blind_message) // for some reason VISIBLE action has blind_message param so if we are not in the same object but next to it, lets show it
 					continue
 				msg = blind_message
-			mob.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
+			mob.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE, chat_message_type)
 		return
 
 	for(var/mob/mob as anything in (get_mobs_in_view(7, src, include_radio = FALSE) - ignored_mobs))
@@ -154,7 +160,7 @@
 		var/msg = message
 		if(self_message && mob == src)
 			msg = self_message
-		mob.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
+		mob.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE, chat_message_type)
 
 
 // Show a message to all mobs in sight of this atom
@@ -330,20 +336,6 @@
 			client.screen = list()
 			hud_used.show_hud(hud_used.hud_version)
 
-/mob/proc/show_inv(mob/user)
-	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8"><table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_HAND_LEFT]'>[(l_hand && !(l_hand.item_flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_HAND_RIGHT]'>[(r_hand && !(r_hand.item_flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td>&nbsp;</td></tr>"}
-	dat += {"</table>
-	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
-	"}
-
-	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 250)
-	popup.set_content(dat)
-	popup.open()
-
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
 /mob/verb/examinate(atom/A as mob|obj|turf in view())
 	set name = "Examine"
@@ -353,42 +345,7 @@
 
 /mob/proc/run_examinate(atom/A)
 	var/list/result = A.examine(src)
-	to_chat(src, chat_box_examine(result.Join("\n")))
-
-
-/mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
-	if((!( istype(l_hand, /obj/item/grab) ) && !( istype(r_hand, /obj/item/grab) )))
-		if(!( L ))
-			return null
-		else
-			return L.container
-	else
-		if(!( L ))
-			L = new /obj/effect/list_container/mobl( null )
-			L.container += src
-			L.master = src
-		if(istype(l_hand, /obj/item/grab))
-			var/obj/item/grab/G = l_hand
-			if(!( L.container.Find(G.affecting) ))
-				L.container += G.affecting
-				if(G.affecting)
-					G.affecting.ret_grab(L, 1)
-		if(istype(r_hand, /obj/item/grab))
-			var/obj/item/grab/G = r_hand
-			if(!( L.container.Find(G.affecting) ))
-				L.container += G.affecting
-				if(G.affecting)
-					G.affecting.ret_grab(L, 1)
-		if(!( flag ))
-			if(L.master == src)
-				var/list/temp = list(  )
-				temp += L.container
-				//L = null
-				qdel(L)
-				return temp
-			else
-				return L.container
-	return
+	to_chat(src, chat_box_examine(result.Join("\n")), MESSAGE_TYPE_INFO, confidential = TRUE)
 
 
 /mob/verb/mode()
@@ -405,22 +362,18 @@
 	var/obj/item/I = get_active_hand()
 	if(I)
 		I.attack_self(src)
-		update_inv_l_hand()
-		update_inv_r_hand()
+		update_inv_hands()
 		return
+
+	if(pulling && isliving(src))
+		var/mob/living/grabber = src
+		if(!isnull(grabber.pull_hand) && grabber.pull_hand != PULL_WITHOUT_HANDS)
+			if(grabber.next_move <= world.time && grabber.hand == grabber.pull_hand)
+				grabber.grab(pulling)
+			return
 
 	limb_attack_self()
 
-/*
-/mob/verb/dump_source()
-
-	var/master = "<PRE>"
-	for(var/t in typesof(/area))
-		master += text("[]\n", t)
-		//Foreach goto(26)
-	src << browse(master)
-	return
-*/
 
 /// Cleanup proc that's called when a mob loses a client, either through client destroy or logout
 /// Logout happens post client del, so we can't just copypaste this there. This keeps things clean and consistent
@@ -477,19 +430,20 @@
 	set src in usr
 	if(usr != src)
 		to_chat(usr, "No.")
-	var/msg = input(usr,"Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance.","Flavor Text",html_decode(flavor_text)) as message|null
-
-	if(msg != null)
-		msg = copytext_char(msg, 1, MAX_PAPER_MESSAGE_LEN)
-		msg = html_encode(msg)
-
-		flavor_text = msg
+	var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Flavor Text", flavor_text, multiline = TRUE)
+	if(isnull(msg))
+		return
+	if(stat)
+		to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
+		return
+	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
+	flavor_text = msg
 
 /mob/proc/print_flavor_text(var/shrink = TRUE)
 	if(flavor_text && flavor_text != "")
 		var/msg = replacetext(flavor_text, "\n", " ")
 		if(length(msg) <= 60 || !shrink)
-			return "<span class='notice'>[html_encode(msg)]</span>" //Repeat after me, "I will not give players access to decoded HTML."
+			return "<span class='notice'>[msg]</span>" // There is already encoded by tgui_input
 		else
 			return "<span class='notice'>[copytext_preserve_html(msg, 1, 57)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
 
@@ -650,26 +604,6 @@
 		unset_machine()
 		src << browse(null, t1)
 
-	if(href_list["refresh"])
-		if(machine && in_range(src, usr))
-			show_inv(machine)
-
-	if(!usr.incapacitated() && in_range(src, usr))
-		if(href_list["item"])
-			var/slot = text2num(href_list["item"])
-			var/obj/item/what = get_item_by_slot(slot)
-
-			if(what)
-				usr.stripPanelUnequip(what,src,slot)
-			else
-				usr.stripPanelEquip(what,src,slot)
-
-	if(usr.machine == src)
-		if(Adjacent(usr))
-			show_inv(usr)
-		else
-			usr << browse(null,"window=mob\ref[src]")
-
 	if(href_list["flavor_more"])
 		usr << browse(text({"<HTML><meta charset="UTF-8"><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>"}, name, replacetext(flavor_text, "\n", "<BR>")), text("window=[];size=500x200", name))
 		onclose(usr, "[name]")
@@ -680,20 +614,9 @@
 		usr << browse(GLOB.scoreboard, "window=roundstats;size=700x900")
 
 
-// The src mob is trying to strip an item from someone
-// Defined in living.dm
-/mob/proc/stripPanelUnequip(obj/item/what, mob/who)
-	return
-
-// The src mob is trying to place an item on someone
-// Defined in living.dm
-/mob/proc/stripPanelEquip(obj/item/what, mob/who)
-	return
-
-
 /mob/MouseDrop(mob/living/user, src_location, over_location, src_control, over_control, params)
 	. = ..()
-	if(!. || usr != user || usr == src || !user.can_strip)
+	if(!. || usr != user || usr == src || !HAS_TRAIT(user, TRAIT_CAN_STRIP))
 		return FALSE
 	if(isliving(user) && user.mob_size <= MOB_SIZE_SMALL)
 		return FALSE // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
@@ -702,8 +625,7 @@
 		return FALSE
 	if(isLivingSSD(src) && user.client?.send_ssd_warning(src))
 		return FALSE
-	show_inv(user)
-
+	SEND_SIGNAL(src, COMSIG_DO_MOB_STRIP, user, usr)
 
 /mob/proc/is_mechanical()
 	return mind && (mind.assigned_role == JOB_TITLE_CYBORG || mind.assigned_role == JOB_TITLE_AI)
@@ -1204,6 +1126,9 @@
 /mob/proc/can_resist()
 	return FALSE		//overridden in living.dm
 
+///Can this mob use strip menu (defaut TRUE)
+/mob/proc/can_strip()
+	return TRUE
 
 ///Spin this mob around it's central axis
 /mob/proc/spin(spintime, speed)

@@ -31,10 +31,10 @@
 	ui_interact(user)
 	return
 
-/obj/machinery/computer/supplyquest/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/supplyquest/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "QuestConsole", name, 1000, 820, master_ui, state)
+		ui = new(user, src, "QuestConsole", name)
 		ui.open()
 
 #define BASE_HIGHTECH_COST 40000
@@ -97,6 +97,9 @@
 	data["at_station"] = SSshuttle.supply.getDockedId() == "supply_home"
 	data["timeleft"] = SSshuttle.supply.timeLeft(600)
 	return data
+
+/obj/machinery/computer/supplyquest/ui_assets(mob/user)
+	return list(get_asset_datum(/datum/asset/spritesheet/cargo_quest))
 
 /obj/machinery/computer/supplyquest/ui_act(action, list/params)
 	if(..())
@@ -168,7 +171,7 @@
 				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 				return FALSE
 			var/datum/money_account/cargo_money_account = GLOB.department_accounts["Cargo"]
-			var/attempt_pin = input("Enter pin code", "Centcomm transaction") as num
+			var/attempt_pin = tgui_input_number(user, "Enter pin code", "Centcomm Transaction")
 			if(..() || !attempt_account_access(cargo_money_account.account_number, attempt_pin, 2))
 				to_chat(user, span_warning("Unable to access account: incorrect credentials."))
 				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
@@ -212,12 +215,8 @@
 
 	paper.info += "</ul><br><span class=\"large-text\"> Ориентировочная награда: [quest.reward]</span><br>"
 	paper.info += "<br><hr><br><span class=\"small-text\">Этот документ имеет автоматическую печать [station_name()] </span><br></div>"
-	var/obj/item/stamp/navcom/stamp = new()
-	paper.stamp(stamp)
-	paper.update_icon()
+	paper.stamp(/obj/item/stamp/navcom)
 	paper.name = "Форма запроса на поставку"
-
-
 
 
 /obj/machinery/computer/supplyquest/workers
@@ -291,9 +290,7 @@
 			paper.info += "<span class=\"small-text\">Вы получили скидку в <b>[quest.customer.cargo_sale[sale_category] * quest.customer.modificator * 100]%</b> в категории <b>[sale_category]</b> в списке заказов. </span><br>"
 	paper.info += "<hr><br><span class=\"small-text\">[pick(phrases)] </span><br>"
 	paper.info += "<br><hr><br><span class=\"small-text\">Этот документ имеет автоматическую печать [station_name()] </span><br></div>"
-	var/obj/item/stamp/navcom/stamp = new()
-	paper.stamp(stamp)
-	paper.update_icon()
+	paper.stamp(/obj/item/stamp/navcom)
 	paper.name = "Отчёт о поставке"
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	print_animation()
@@ -331,8 +328,11 @@
 /obj/item/qm_quest_tablet/attack_self(mob/user as mob)
 	ui_interact(user)
 
-/obj/item/qm_quest_tablet/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	integrated_console.ui_interact(user, ui_key, ui, force_open, master_ui, state)
+/obj/item/qm_quest_tablet/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/qm_quest_tablet/ui_interact(mob/user, datum/tgui/ui = null)
+	integrated_console.ui_interact(user, ui)
 
 /obj/item/qm_quest_tablet/cargotech
 	name = "Portable Quest Monitor"

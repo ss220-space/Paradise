@@ -64,28 +64,6 @@
 		return TRUE
 	return FALSE
 
-/obj/item/clothing/mask/muzzle/Topic(href, href_list)
-	..()
-	if(href_list["locked"])
-		var/mob/living/carbon/wearer = locate(href_list["locked"])
-		var/success = 0
-		if(ishuman(usr))
-			visible_message("<span class='danger'>[usr] tries to [locked ? "unlock" : "lock"] [wearer]'s [name].</span>", \
-							"<span class='userdanger'>[usr] tries to [locked ? "unlock" : "lock"] [wearer]'s [name].</span>")
-			if(do_after(usr, POCKET_STRIP_DELAY, wearer, NONE))
-				if(locked)
-					success = do_unlock(usr)
-				else
-					success = do_lock(usr)
-			if(success)
-				visible_message("<span class='danger'>[usr] [locked ? "locks" : "unlocks"] [wearer]'s [name].</span>", \
-									"<span class='userdanger'>[usr] [locked ? "locks" : "unlocks"] [wearer]'s [name].</span>")
-				if(usr.machine == wearer && in_range(src, usr))
-					wearer.show_inv(usr)
-		else
-			to_chat(usr, "You lack the ability to manipulate the lock.")
-
-
 /obj/item/clothing/mask/muzzle/tapegag
 	name = "tape gag"
 	desc = "MHPMHHH!"
@@ -302,7 +280,7 @@
 /obj/item/clothing/mask/fakemoustache/attack_self(mob/user)
 	pontificate(user)
 
-/obj/item/clothing/mask/fakemoustache/item_action_slot_check(slot)
+/obj/item/clothing/mask/fakemoustache/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_MASK)
 		return TRUE
 
@@ -523,7 +501,6 @@
 	flags_inv = HIDENAME|HIDEFACIALHAIR
 	adjusted_slot_flags = ITEM_SLOT_HEAD
 	adjusted_flags_inv = HIDENAME|HIDEFACIALHAIR|HIDEHEADHAIR
-	dyeable = TRUE
 	can_toggle = TRUE
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
@@ -542,10 +519,17 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi'
 		)
 	actions_types = list(/datum/action/item_action/adjust)
+	dying_key = DYE_REGISTRY_BANDANA
 
 
 /obj/item/clothing/mask/bandana/attack_self(mob/user)
 	adjustmask(user)
+
+
+/obj/item/clothing/mask/bandana/adjustmask(mob/living/user)
+	. = ..()
+	if(.)
+		undyeable = up ? TRUE : initial(undyeable)
 
 
 /obj/item/clothing/mask/bandana/red

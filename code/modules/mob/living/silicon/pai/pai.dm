@@ -516,10 +516,10 @@
 	card.forceMove(card.loc)
 	icon_state = "[chassis]"
 
-/mob/living/silicon/pai/Bump(atom/bumped_atom, custom_bump)
+/mob/living/silicon/pai/Bump(atom/bumped_atom)
 	return
 
-/mob/living/silicon/pai/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
+/mob/living/silicon/pai/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
 	return FALSE
 
 /mob/living/silicon/pai/examine(mob/user)
@@ -587,7 +587,7 @@
 	if(!ishuman(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return ..()
 	if(usr == src)
-		switch(alert(user, "[src] wants you to pick [p_them()] up. Do it?",,"Yes","No"))
+		switch(tgui_alert(user, "[src] wants you to pick [p_them()] up. Do it?", "Pick up", list("Yes", "No")))
 			if("Yes")
 				if(Adjacent(user))
 					get_scooped(user)

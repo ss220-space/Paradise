@@ -14,7 +14,7 @@
 	blood_color = "#ada776"
 	burn_mod = 4 // holy shite, poor guys wont survive half a second cooking smores
 	brute_mod = 2 // damn, double wham, double dam
-	species_traits = list(LIPS, IS_WHITELISTED, NO_BREATHE, NO_BLOOD, NO_PAIN, NO_PAIN_FEEL, NO_SCAN, RADIMMUNE, VIRUSIMMUNE, NO_GERMS)
+	species_traits = list(LIPS, NO_BREATHE, NO_BLOOD, NO_PAIN, NO_PAIN_FEEL, NO_SCAN, RADIMMUNE, VIRUSIMMUNE, NO_GERMS)
 	dies_at_threshold = TRUE
 	var/touched_supermatter = FALSE
 

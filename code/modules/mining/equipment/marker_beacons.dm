@@ -58,10 +58,10 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 		transfer_fingerprints_to(M)
 
 /obj/item/stack/marker_beacon/AltClick(mob/living/user)
-	if(!istype(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ui_status(user, GLOB.physical_state) != STATUS_INTERACTIVE)
+	if(!istype(user) || ui_status(user, GLOB.physical_state) != UI_INTERACTIVE)
 		return
 	var/input_color = tgui_input_list(user, "Choose a color.", "Beacon Color", GLOB.marker_beacon_colors)
-	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ui_status(user, GLOB.physical_state) != STATUS_INTERACTIVE)
+	if(!istype(user) || ui_status(user, GLOB.physical_state) != UI_INTERACTIVE)
 		return
 	if(input_color)
 		picked_color = input_color
@@ -139,10 +139,10 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 
 /obj/structure/marker_beacon/AltClick(mob/living/user)
 	..()
-	if(!istype(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ui_status(user, GLOB.physical_state) != STATUS_INTERACTIVE)
+	if(!istype(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ui_status(user, GLOB.physical_state) != UI_INTERACTIVE)
 		return
 	var/input_color = tgui_input_list(user, "Choose a color.", "Beacon Color", GLOB.marker_beacon_colors)
-	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ui_status(user, GLOB.physical_state) != STATUS_INTERACTIVE)
+	if(!istype(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || ui_status(user, GLOB.physical_state) != UI_INTERACTIVE)
 		return
 	if(input_color)
 		picked_color = input_color

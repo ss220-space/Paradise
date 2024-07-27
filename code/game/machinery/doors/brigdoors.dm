@@ -16,7 +16,8 @@
 	desc = "A remote control for a door."
 	req_access = list(ACCESS_BRIG)
 	anchored = TRUE    		// can't pick it up
-	density = FALSE       		// can walk through it.
+	density = FALSE			// can walk through it.
+	layer = 4 				// above all glasses and other things
 	var/id = null     		// id of door it controls.
 	var/releasetime = 0		// when world.timeofday reaches it - release the prisoner
 	var/timing = 0    		// boolean, true/1 timer is on, false/0 means it's not timing
@@ -48,8 +49,6 @@
 	Radio.listening = 0
 	Radio.config(list("Security" = 0))
 	Radio.follow_target = src
-
-	set_pixel_offsets_from_dir(32, -32, 32, -32)
 
 	addtimer(CALLBACK(src, PROC_REF(delayed_update)), 2 SECONDS, TIMER_DELETE_ME)
 
@@ -340,10 +339,10 @@
 		return
 	ui_interact(user)
 
-/obj/machinery/door_timer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/door_timer/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BrigTimer",  name, 500, 450, master_ui, state)
+		ui = new(user, src, "BrigTimer", name)
 		ui.open()
 
 /obj/machinery/door_timer/ui_static_data(mob/user)
@@ -388,7 +387,10 @@
 			if(params["prisoner_name"])
 				prisoner_name = params["prisoner_name"]
 			else
-				prisoner_name = input("Prisoner Name:", name, prisoner_name) as text|null
+				var/new_name = tgui_input_text(usr, "Prisoner Name:", name, prisoner_name, MAX_NAME_LEN, encode = FALSE)
+				if(isnull(new_name))
+					return
+				prisoner_name = new_name
 			if(prisoner_name)
 				var/datum/data/record/R = find_security_record("name", prisoner_name)
 				if(istype(R))
@@ -396,10 +398,15 @@
 				else
 					prisoner_hasrecord = FALSE
 		if("prisoner_charge")
-			prisoner_charge = input("Prisoner Charge:", name, prisoner_charge) as text|null
+			var/new_charge = tgui_input_text(usr, "Prisoner Charge:", name, prisoner_charge, encode = FALSE)
+			if(isnull(new_charge))
+				return
+			prisoner_charge = new_charge
 		if("prisoner_time")
-			prisoner_time = input("Prisoner Time (in minutes):", name, prisoner_time) as num|null
-			prisoner_time = min(max(round(prisoner_time), 0), PERMABRIG_TIME)
+			var/new_time = tgui_input_number(usr, "Prisoner Time (in minutes):", name, prisoner_time, PERMABRIG_TIME)
+			if(isnull(new_time))
+				return
+			prisoner_time = new_time
 		if("start")
 			if(!prisoner_name || !prisoner_charge || !prisoner_time)
 				return FALSE
@@ -438,7 +445,7 @@
 
 		if("restart_timer")
 			if(timing)
-				var/reset_reason = sanitize(copytext(input(usr, "Reason for resetting timer:", name, "") as text|null, 1, MAX_MESSAGE_LEN))
+				var/reset_reason = tgui_input_text(usr, "Reason for resetting timer:", name)
 				if(!reset_reason)
 					to_chat(usr, span_warning("Cancelled reset: reason field is required."))
 					return FALSE
@@ -477,43 +484,26 @@
 /obj/machinery/door_timer/cell_1
 	name = "Cell 1"
 	id = "Cell 1"
-	dir = 2
-	pixel_y = -32
-
 
 /obj/machinery/door_timer/cell_2
 	name = "Cell 2"
 	id = "Cell 2"
-	dir = 2
-	pixel_y = -32
-
 
 /obj/machinery/door_timer/cell_3
 	name = "Cell 3"
 	id = "Cell 3"
-	dir = 2
-	pixel_y = -32
-
 
 /obj/machinery/door_timer/cell_4
 	name = "Cell 4"
 	id = "Cell 4"
-	dir = 2
-	pixel_y = -32
-
 
 /obj/machinery/door_timer/cell_5
 	name = "Cell 5"
 	id = "Cell 5"
-	dir = 2
-	pixel_y = -32
-
 
 /obj/machinery/door_timer/cell_6
 	name = "Cell 6"
 	id = "Cell 6"
-	dir = 4
-	pixel_x = 32
 
 /obj/machinery/door_timer/cell_7
 	name = "Cell 7"
@@ -522,4 +512,3 @@
 /obj/machinery/door_timer/cell_8
 	name = "Cell 8"
 	id = "Cell 8"
-

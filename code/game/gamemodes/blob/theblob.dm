@@ -8,6 +8,7 @@
 	opacity = TRUE
 	anchored = TRUE
 	pass_flags_self = PASSBLOB
+	can_astar_pass = CANASTARPASS_ALWAYS_PROC
 	max_integrity = 30
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
 	var/point_return = 0 //How many points the blob gets back when it removes a blob of that type. If less than 0, blob cannot be removed.
@@ -19,7 +20,8 @@
 	var/compromised_integrity = FALSE
 	var/mob/camera/blob/overmind
 	creates_cover = TRUE
-	obj_flags = BLOCK_Z_OUT_DOWN // stops blob mobs from falling on multiz.
+	obj_flags = BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP // stops blob mobs from falling on multiz.
+
 
 /obj/structure/blob/Initialize(mapload)
 	. = ..()
@@ -29,6 +31,11 @@
 	if(atmosblock)
 		air_update_turf(1)
 	ConsumeTile()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /obj/structure/blob/Destroy()
 	if(atmosblock)
@@ -59,10 +66,8 @@
 	return !atmosblock
 
 
-/obj/structure/blob/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
-	. = FALSE
-	if(checkpass(caller, PASSBLOB))
-		. = TRUE
+/obj/structure/blob/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	return pass_info.pass_flags == PASSEVERYTHING || (pass_info.pass_flags & PASSBLOB)
 
 
 /obj/structure/blob/process()
@@ -155,9 +160,12 @@
 		A.blob_act(src)
 	return 1
 
-/obj/structure/blob/Crossed(var/mob/living/L, oldloc)
-	..()
-	L.blob_act(src)
+
+/obj/structure/blob/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	arrived.blob_act(src)
+
 
 /obj/structure/blob/tesla_act(power)
 	..()
@@ -192,11 +200,13 @@
 	if(damage_flag)
 		armor_protection = armor.getRating(damage_flag)
 	damage_amount = round(damage_amount * (100 - armor_protection)*0.01, 0.1)
-	if(overmind && damage_flag)
+	if(overmind?.blob_reagent_datum && damage_flag)
 		damage_amount = overmind.blob_reagent_datum.damage_reaction(src, damage_amount, damage_type, damage_flag)
 	return damage_amount
 
 /obj/structure/blob/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+	if(QDELETED(src))
+		return
 	. = ..()
 	if(. && obj_integrity > 0)
 		check_integrity()
@@ -223,13 +233,13 @@
 
 /obj/structure/blob/proc/get_chem_name()
 	for(var/mob/camera/blob/B in GLOB.mob_list)
-		if(lowertext(B.blob_reagent_datum.color) == lowertext(src.color)) // Goddamit why we use strings for these
+		if(!QDELETED(B) && lowertext(B.blob_reagent_datum.color) == lowertext(src.color)) // Goddamit why we use strings for these
 			return B.blob_reagent_datum.name
 	return "unknown"
 
 /obj/structure/blob/proc/get_chem_desc()
 	for(var/mob/camera/blob/B in GLOB.mob_list)
-		if(lowertext(B.blob_reagent_datum.color) == lowertext(src.color)) // Goddamit why we use strings for these
+		if(!QDELETED(B) && lowertext(B.blob_reagent_datum.color) == lowertext(src.color)) // Goddamit why we use strings for these
 			return B.blob_reagent_datum.description
 	return "something unknown"
 

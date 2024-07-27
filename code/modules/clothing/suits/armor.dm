@@ -1,5 +1,5 @@
 /obj/item/clothing/suit/armor
-	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/melee/classic_baton/telescopic,/obj/item/kitchen/knife/combat)
+	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/kitchen/knife/combat)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	cold_protection = UPPER_TORSO|LOWER_TORSO
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
@@ -20,6 +20,7 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 	w_class = WEIGHT_CLASS_NORMAL
+	undyeable = TRUE
 
 /obj/item/clothing/suit/armor/vest
 	name = "armor"
@@ -555,7 +556,7 @@
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
 	hide_tail_by_species = list(SPECIES_VOX, SPECIES_VULPKANIN)
-	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore, /obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/melee/classic_baton/telescopic,/obj/item/kitchen/knife/combat)
+	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore, /obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/kitchen/knife/combat)
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'

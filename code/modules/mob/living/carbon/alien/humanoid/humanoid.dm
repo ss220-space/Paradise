@@ -2,6 +2,8 @@
 	name = "alien"
 	icon_state = "alien_s"
 	pass_flags = PASSTABLE
+	max_grab = GRAB_KILL
+	slowed_by_pull_and_push = FALSE
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat= 5, /obj/item/stack/sheet/animalhide/xeno = 1)
 	var/obj/item/r_store = null
 	var/obj/item/l_store = null
@@ -11,6 +13,15 @@
 	var/pounce_cooldown = 0
 	var/pounce_cooldown_time = 3 SECONDS
 	var/leap_on_click = FALSE
+
+GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
+		/datum/strippable_item/hand/left,
+		/datum/strippable_item/hand/right,
+		/datum/strippable_item/mob_item_slot/handcuffs,
+		/datum/strippable_item/mob_item_slot/legcuffs,
+		/datum/strippable_item/mob_item_slot/pocket/left,
+		/datum/strippable_item/mob_item_slot/pocket/right,
+)))
 
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
@@ -22,7 +33,8 @@
 	add_language(LANGUAGE_HIVE_XENOS)
 	..()
 	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/regurgitate)
-	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
+	AddElement(/datum/element/footstep, FOOTSTEP_MOB_CLAW, 0.5, -11)
+	AddElement(/datum/element/strippable, GLOB.strippable_alien_humanoid_items)
 	update_icons()
 
 
@@ -66,48 +78,6 @@
 	take_overall_damage(b_loss, f_loss)
 
 
-/mob/living/carbon/alien/humanoid/show_inv(mob/user as mob)
-	user.set_machine(src)
-
-	var/dat = {"<meta charset="UTF-8"><table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_HAND_LEFT]'>[(l_hand && !(l_hand.item_flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_HAND_RIGHT]'>[(r_hand && !(r_hand.item_flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td>&nbsp;</td></tr>"}
-
-	// No need to even show this right now since its unused.
-
-	/*dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_HEAD]'>[(head && !(head.item_flags&ABSTRACT)) ? head : "<font color=grey>Empty</font>"]</A></td></tr>"
-
-	dat += "<tr><td>&nbsp;</td></tr>"
-
-	dat += "<tr><td><B>Exosuit:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_CLOTH_OUTER]'>[(wear_suit && !(wear_suit.item_flags&ABSTRACT)) ? wear_suit : "<font color=grey>Empty</font>"]</A></td></tr>"*/
-
-	dat += "<tr><td><B>Chitin pouches:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_POCKET_LEFT]'>"
-	if(l_store && !(l_store.item_flags&ABSTRACT))
-		dat += "Left (Full)"
-	else
-		dat += "<font color=grey>Left (Empty)</font>"
-
-	dat += "</A>&nbsp;<A href='?src=[UID()];item=[ITEM_SLOT_POCKET_RIGHT]'>"
-	if(r_store && !(r_store.item_flags&ABSTRACT))
-		dat += "Right (Full)"
-	else
-		dat += "<font color=grey>Right (Empty)</font>"
-
-	if(handcuffed)
-		dat += "<tr><td><B>Handcuffed:</B> <A href='?src=[UID()];item=[ITEM_SLOT_HANDCUFFED]'>Remove</A></td></tr>"
-	if(legcuffed)
-		dat += "<tr><td><A href='?src=[UID()];item=[ITEM_SLOT_LEGCUFFED]'>Legcuffed</A></td></tr>"
-
-	dat += {"</table>
-	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
-	"}
-
-	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 500)
-	popup.set_content(dat)
-	popup.open()
-
-
 /mob/living/carbon/alien/humanoid/cuff_resist(obj/item/I, cuff_break = FALSE)
 	playsound(src, 'sound/voice/hiss5.ogg', 40, TRUE, TRUE)  //Alien roars when starting to break free
 	return ..(I, cuff_break = TRUE)
@@ -121,9 +91,11 @@
 	return 0.8
 
 
-/mob/living/carbon/alien/humanoid/toggle_move_intent() //because with movement intent change our pose changes
-	..()
-	update_icons()
+/mob/living/carbon/alien/humanoid/toggle_move_intent(new_move_intent) //because with movement intent change our pose changes
+	var/old_m_intent = m_intent
+	. = ..()
+	if(old_m_intent != m_intent)
+		update_icons()
 
 
 /mob/living/carbon/alien/humanoid/examine(mob/user)
@@ -163,4 +135,19 @@
 		. |= ITEM_SLOT_POCKET_RIGHT
 	if(l_store)
 		. |= ITEM_SLOT_POCKET_LEFT
+
+
+/mob/living/carbon/alien/humanoid/on_grab_quick_equip(atom/movable/grabbed_thing, current_pull_hand)
+	return grabbed_thing.devoured(src)
+
+
+/// Returns FALSE if we're not allowed to eat it, true otherwise
+/mob/living/carbon/alien/humanoid/proc/can_consume(mob/living/target)
+	if(!isliving(target) || !pulling || (pulling && pulling != target))
+		return FALSE
+	if(incapacitated() || grab_state < GRAB_AGGRESSIVE || stat != CONSCIOUS)
+		return FALSE
+	if(get_dir(src, target) != dir) // Gotta face em 4head
+		return FALSE
+	return TRUE
 

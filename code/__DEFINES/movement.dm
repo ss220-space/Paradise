@@ -117,9 +117,9 @@ GLOBAL_VAR_INIT(glide_size_multiplier, 1.0)
 #define ZMOVE_CHECK_PULLS (ZMOVE_CHECK_PULLING|ZMOVE_CHECK_PULLEDBY)
 
 /// Flags used in "Move Upwards" and "Move Downwards" verbs.
-#define ZMOVE_FLIGHT_FLAGS (ZMOVE_CAN_FLY_CHECKS|ZMOVE_INCAPACITATED_CHECKS|ZMOVE_CHECK_PULLS|ZMOVE_ALLOW_BUCKLED)
+#define ZMOVE_FLIGHT_FLAGS (ZMOVE_CAN_FLY_CHECKS|ZMOVE_INCAPACITATED_CHECKS|ZMOVE_CHECK_PULLS|ZMOVE_ALLOW_BUCKLED|ZMOVE_INCLUDE_PULLED)
 /// Used when walking upstairs
-#define ZMOVE_STAIRS_FLAGS (ZMOVE_CHECK_PULLEDBY|ZMOVE_ALLOW_BUCKLED|ZMOVE_INCLUDE_PULLED)
+#define ZMOVE_STAIRS_FLAGS (ZMOVE_CHECK_PULLEDBY|ZMOVE_ALLOW_BUCKLED)
 /// Used for falling down open space.
 #define ZMOVE_FALL_FLAGS (ZMOVE_FALL_CHECKS|ZMOVE_ALLOW_BUCKLED)
 
@@ -127,13 +127,15 @@ GLOBAL_VAR_INIT(glide_size_multiplier, 1.0)
 #define ACTIVE_MOVEMENT_OLDLOC 1
 #define ACTIVE_MOVEMENT_DIRECTION 2
 #define ACTIVE_MOVEMENT_FORCED 3
+#define ACTIVE_MOVEMENT_OLDLOCS 4
 
 /// The arguments of this macro correspond directly to the argument order of /atom/movable/proc/Moved
-#define SET_ACTIVE_MOVEMENT(_old_loc, _direction, _forced) \
+#define SET_ACTIVE_MOVEMENT(_old_loc, _direction, _forced, _oldlocs) \
 	active_movement = list( \
 		_old_loc, \
 		_direction, \
 		_forced, \
+		_oldlocs, \
 	)
 
 /// Finish any active movements

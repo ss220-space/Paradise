@@ -1,8 +1,23 @@
 #define CLOSE_DURATION 6
 #define OPEN_DURATION 6
 #define LAUNCH_COOLDOWN 30
-// A place where tube pods stop, and people can get in or out.
-// Mappers: use "Generate Instances from Directions" for this one.
+/*A place where tube pods stop, and people can get in or out.
+Mappers: use "Generate Instances from Directions" for this one.
+Guide "HOW DOES DIRS WORKS"
+Arrow start - direction of mob is aible to get into pod
+Arrow direction - where to pod will move
+
+		Station				Fliped
+	1			2		1			2
+	|		<---		 --->		|
+	--->		|		|		 <---
+
+	4			8		4			8
+  	 ---		/\	  ---		   /\
+	|			|		|			|
+   \/		  ---	 	\/			---
+
+*/
 /obj/structure/transit_tube/station
 	name = "station tube station"
 	desc = "The lynchpin of the transit system."
@@ -84,20 +99,18 @@
 			L.Weaken(10 SECONDS)
 
 
-/obj/structure/transit_tube/station/attackby(obj/item/W, mob/user, params)
-	add_fingerprint(user)
-	if(istype(W, /obj/item/grab) && hatch_state == TRANSIT_TUBE_OPEN)
-		var/obj/item/grab/G = W
-		if(ismob(G.affecting) && G.state >= GRAB_AGGRESSIVE)
-			var/mob/living/GM = G.affecting
-			for(var/obj/structure/transit_tube_pod/pod in loc)
-				pod.visible_message("<span class='warning'>[user] starts putting [GM] into [pod]!</span>")
-				if(do_after(user, 3 SECONDS, GM) && GM && G && G.affecting == GM)
-					GM.add_fingerprint(user)
-					GM.Weaken(10 SECONDS)
-					Bumped(GM)
-					qdel(G)
-				break
+/obj/structure/transit_tube/station/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || hatch_state != TRANSIT_TUBE_OPEN || !isliving(grabbed_thing))
+		return .
+	var/mob/living/target = grabbed_thing
+	for(var/obj/structure/transit_tube_pod/pod in loc)
+		pod.visible_message(span_warning("[grabber] starts putting [target] into [pod]!"))
+		if(do_after(grabber, 3 SECONDS, target) && grabber && target && grabber.pulling == target)
+			target.Weaken(10 SECONDS)
+			Bumped(target)
+		break
+
 
 /obj/structure/transit_tube/station/proc/open_hatch()
 	if(hatch_state == TRANSIT_TUBE_CLOSED)

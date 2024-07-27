@@ -10,6 +10,7 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	resistance_flags = NONE
+	undyeable = TRUE
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/mask.dmi',
@@ -36,7 +37,7 @@
 	icon_state = "weldingmask"
 	item_state = "weldingmask"
 	materials = list(MAT_METAL=4000, MAT_GLASS=2000)
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2
 	can_toggle = TRUE
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 55)
@@ -421,7 +422,7 @@
 	can_toggle = FALSE
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
-/obj/item/clothing/mask/gas/sechailer/ui_action_click(mob/user, action)
+/obj/item/clothing/mask/gas/sechailer/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/halt))
 		halt()
 	else if(istype(action, /datum/action/item_action/adjust))

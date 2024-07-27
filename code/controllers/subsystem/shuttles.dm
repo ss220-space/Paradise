@@ -2,9 +2,9 @@
 
 SUBSYSTEM_DEF(shuttle)
 	name = "Shuttle"
-	wait = 10
+	wait = 1 SECONDS
 	init_order = INIT_ORDER_SHUTTLE
-	flags = SS_KEEP_TIMING|SS_NO_TICK_CHECK
+	flags = SS_KEEP_TIMING
 	runlevels = RUNLEVEL_SETUP | RUNLEVEL_GAME
 	offline_implications = "Shuttles will no longer function and cargo will not generate points. Immediate server restart recommended."
 	cpu_display = SS_CPUDISPLAY_LOW
@@ -64,6 +64,7 @@ SUBSYSTEM_DEF(shuttle)
 	initial_move()
 
 	centcom_message = "<center>---[station_time_timestamp()]---</center><br>Remember to stamp and send back the supply manifests.<hr>"
+	return SS_INIT_SUCCESS
 
 
 /datum/controller/subsystem/shuttle/get_stat_details()

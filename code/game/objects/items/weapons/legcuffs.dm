@@ -27,9 +27,13 @@
 	var/obj/item/assembly/signaler/sig = null
 
 
-/obj/item/restraints/legcuffs/beartrap/New()
-	..()
-	icon_state = "[initial(icon_state)][armed]"
+/obj/item/restraints/legcuffs/beartrap/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_ICON_STATE)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 
 /obj/item/restraints/legcuffs/beartrap/Destroy()
@@ -109,16 +113,19 @@
 		return
 
 
-/obj/item/restraints/legcuffs/beartrap/Crossed(atom/movable/AM, oldloc)
-	..()
+/obj/item/restraints/legcuffs/beartrap/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
 
+	INVOKE_ASYNC(src, PROC_REF(triggered), arrived)
+
+
+/obj/item/restraints/legcuffs/beartrap/proc/triggered(mob/living/moving_thing)
 	if(!armed || !isturf(loc))
 		return
 
-	if(!iscarbon(AM) && !isanimal(AM))
+	if(!iscarbon(moving_thing) && !isanimal(moving_thing))
 		return
 
-	var/mob/living/moving_thing = AM
 	if(moving_thing.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 		return
 
@@ -183,6 +190,8 @@
 	var/reusable = TRUE
 	/// Duration of the weakening in seconds
 	var/weaken_amt = 0
+	/// Duration of the knockdown in seconds
+	var/knockdown_amt = 0
 	/// Cyclic bola spin sound.
 	var/spin_sound = 'sound/items/bola_spin.ogg'
 
@@ -215,7 +224,7 @@
 
 
 /obj/item/restraints/legcuffs/bola/proc/spin_loop(mob/living/user)
-	if(QDELETED(src) || !spinning || can_spin_check(user))
+	if(QDELETED(src) || !spinning || !can_spin_check(user))
 		reset_values(user)
 		return
 
@@ -237,16 +246,16 @@
 
 
 /**
- * If it returns `TRUE`, it breaks the loop, returning `FALSE`, continues the loop.
+ * If it returns `FALSE`, it breaks the loop, returning `TRUE`, continues the loop.
  */
 /obj/item/restraints/legcuffs/bola/proc/can_spin_check(mob/living/user)
 	if(QDELETED(user))
-		return TRUE
+		return FALSE
 	if(user.get_active_hand() != src)
-		return TRUE
+		return FALSE
 	if(!user.in_throw_mode)
-		return TRUE
-	return FALSE
+		return FALSE
+	return TRUE
 
 
 /obj/item/restraints/legcuffs/bola/carbon_skip_catch_check(mob/living/carbon/user)
@@ -293,6 +302,8 @@
 	target.apply_restraints(src, ITEM_SLOT_LEGCUFFED)
 	if(weaken_amt)
 		target.Weaken(weaken_amt)
+	if(knockdown_amt)
+		target.Knockdown(knockdown_amt)
 	playsound(loc, hitsound, 50, TRUE)
 	SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 	if(!reusable)

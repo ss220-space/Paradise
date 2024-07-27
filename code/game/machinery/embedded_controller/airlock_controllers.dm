@@ -36,10 +36,10 @@
 		tag_chamber_sensor = given_tag_chamber_sensor
 	..()
 
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ExternalAirlockController", name, 470, 290, master_ui, state)
+		ui = new(user, src, "ExternalAirlockController", name)
 		ui.open()
 
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller/ui_data(mob/user)
@@ -83,10 +83,10 @@
 	else
 		icon_state = "access_control_off"
 
-/obj/machinery/embedded_controller/radio/airlock/access_controller/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/embedded_controller/radio/airlock/access_controller/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AirlockAccessController", name, 470, 290, master_ui, state)
+		ui = new(user, src, "AirlockAccessController", name)
 		ui.open()
 
 /obj/machinery/embedded_controller/radio/airlock/access_controller/ui_data(mob/user)

@@ -77,7 +77,7 @@
 	item_state = "syndicate-helm-black-red"
 	desc = "A plastic replica of a syndicate agent's space helmet, you'll look just like a real murderous syndicate agent in this! This is a toy, it is not made for use in space!"
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME|HIDEHAIR
-
+	undyeable = TRUE
 	sprite_sheets = list(
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
@@ -252,7 +252,7 @@
 /obj/item/clothing/head/fedora/attack_self(mob/user)
 	tip_fedora(user)
 
-/obj/item/clothing/head/fedora/item_action_slot_check(slot)
+/obj/item/clothing/head/fedora/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_HEAD)
 		return TRUE
 

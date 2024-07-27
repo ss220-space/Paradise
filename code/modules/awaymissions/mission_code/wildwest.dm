@@ -143,15 +143,28 @@
 	var/triggered = FALSE
 
 
-/obj/effect/meatgrinder/Crossed(atom/movable/AM, oldloc)
+/obj/effect/meatgrinder/Initialize(mapload)
 	. = ..()
-	Bumped(AM)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
+/obj/effect/meatgrinder/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	INVOKE_ASYNC(src, PROC_REF(collide), arrived)
 
 
 /obj/effect/meatgrinder/Bumped(atom/movable/moving_atom)
 	. = ..()
+	collide(moving_atom)
+
+
+/obj/effect/meatgrinder/proc/collide(atom/movable/moving_atom)
 	if(triggered || !ishuman(moving_atom))
-		return .
+		return
 	visible_message(span_warning("[moving_atom] triggered the [bicon(src)] [src]!"))
 	triggered = TRUE
 	do_sparks(3, 1, src)
@@ -226,8 +239,7 @@
 			to_chat(user, span_warning("The communicator buzzes, and you hear the voice again: 'Really? I think not. Get them!'"))
 		if(option_threat)
 			to_chat(user, span_warning("The communicator buzzes, and you hear the voice again: 'Oh really now?' You hear a clicking sound. 'Team, get back here. We have trouble.' Then the line goes dead."))
-			for(var/thing in GLOB.landmarks_list)
-				var/obj/effect/landmark/L = thing
+			for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 				if(L.name == "wildwest_syndipod")
 					var/obj/spacepod/syndi/P = new /obj/spacepod/syndi(get_turf(L))
 					P.name = "Syndi Recon Pod"

@@ -191,7 +191,7 @@ MINPLAYERS DEVILAGENTS 25
 
 ## Whitelist for minor antags in ANTAG-PARADISE gamemode. Only antags from below will be choosen for random mode subtype (ANTAG_RANDOM).
 #ANTAG_PARADISE_RANDOM_MODE_WHITELIST TRAITOR
-#ANTAG_PARADISE_RANDOM_MODE_WHITELIST VAMPIRE 
+#ANTAG_PARADISE_RANDOM_MODE_WHITELIST VAMPIRE
 
 ## Chances for ANTAG-PARADISE gamemode subtypes.
 #ANTAG_PARADISE_MODE_SUBTYPES ANTAG_SINGLE 10
@@ -314,9 +314,6 @@ CHECK_RANDOMIZER
 ## Uncomment for automatic ban if proxy detected
 #PROXY_AUTOBAN
 
-## the whitelist
-#USEWHITELIST
-
 ## Use DB to load and store whitelist instead of text file.
 #USEWHITELIST_DATABASE
 
@@ -410,8 +407,22 @@ SSD_WARNING
 ## Malf and Rev will let the shuttle be called when the antags/protags are dead.
 #CONTINUOUS_ROUNDS
 
-## Uncomment to restrict non-admins from using humanoid alien races
-#USEALIENWHITELIST
+## List of playable races
+PLAYABLE_SPECIES Tajaran
+PLAYABLE_SPECIES Skrell
+PLAYABLE_SPECIES Unathi
+PLAYABLE_SPECIES Diona
+PLAYABLE_SPECIES Vulpkanin
+PLAYABLE_SPECIES Nian
+PLAYABLE_SPECIES Drask
+PLAYABLE_SPECIES Grey
+PLAYABLE_SPECIES Kidan
+PLAYABLE_SPECIES Machine
+PLAYABLE_SPECIES Nucleation
+PLAYABLE_SPECIES Plasmaman
+PLAYABLE_SPECIES Slime People
+PLAYABLE_SPECIES Vox
+PLAYABLE_SPECIES Wryn
 
 ## Comment this to unrestrict the number of alien players allowed in the round. The number represents the number of alien players for every human player.
 ALIEN_PLAYER_RATIO 0.2
@@ -515,10 +526,6 @@ EXTRA_SPACE_RUIN_LEVELS_MAX 8
 
 ## Uncomment this to disable karma and unlock all karma purchases for players by default
 #DISABLE_KARMA
-
-## Defines the ticklimit for subsystem initialization (In percents of a byond tick). Lower makes world start smoother. Higher makes it faster.
-##This is currently a testing optimized setting. A good value for production would be 98.
-TICK_LIMIT_MC_INIT 500
 
 ###Master Controller High Pop Mode###
 
@@ -675,3 +682,30 @@ DEFAULT_MAP /datum/map/cyberiad
 
 ## If the number of players is more or same than this, then we apply the highpop jobs config.
 JOBS_HIGH_POP_MODE_AMOUNT 80
+
+##Error handling related options
+## The "cooldown" time for each occurence of a unique error
+#ERROR_COOLDOWN 600
+## How many occurences before the next will silence them
+#ERROR_LIMIT 90
+## How long a unique error will be silenced for
+#ERROR_SILENCE_TIME 6000
+##How long to wait between messaging admins about occurences of a unique error
+#ERROR_MSG_DELAY 50
+
+## TOPIC RATE LIMITING
+## This allows you to limit how many topic calls (clicking on an interface window) the client can do in any given game second and/or game minute.
+## Admins are exempt from these limits.
+## Hitting the minute limit notifies admins.
+## Set to 0 or comment out to disable.
+SECOND_TOPIC_LIMIT 10
+MINUTE_TOPIC_LIMIT 150
+
+## CLICK RATE LIMITING
+## Same as above, but applies to clicking on objects in the game window.
+## This should be a higher then the interface limit to allow for the spam clickly nature of most battles.
+## Admins are exempt from these limits.
+## Hitting the minute limit notifies admins.
+## Set to 0 to disable.
+SECOND_CLICK_LIMIT 15
+MINUTE_CLICK_LIMIT 400

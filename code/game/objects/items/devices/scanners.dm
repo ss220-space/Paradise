@@ -205,22 +205,23 @@ REAGENT SCANNER
 	if(!ismob(viewer) || !viewer.client)
 		return
 	new /obj/effect/temp_visual/scan(get_turf(src))
-
 	var/list/t_ray_images = list()
-	for(var/mob/living/in_turf_living in viewers(scan_range, get_turf(src)))
-		if(!(in_turf_living.alpha < 255 || in_turf_living.invisibility == INVISIBILITY_LEVEL_TWO))
-			continue
 
-		var/image/I = new(loc = get_turf(in_turf_living))
-		var/mutable_appearance/MA = new(in_turf_living)
+	for(var/atom/movable/invisible_object as anything in view(scan_range, get_turf(src)))
+		if(!(istype(invisible_object, /obj/structure/closet/cardboard/agent/) || isliving(invisible_object)))
+			continue
+		if(!(invisible_object.alpha < 255 || invisible_object.invisibility == INVISIBILITY_LEVEL_TWO))
+			continue
+		var/image/I = new(loc = get_turf(invisible_object))
+		var/mutable_appearance/MA = new(invisible_object)
 		MA.alpha = 255
-		MA.dir = in_turf_living.dir
+		MA.dir = invisible_object.dir
 		if(MA.layer < TURF_LAYER)
 			MA.layer += TRAY_SCAN_LAYER_OFFSET
 		MA.plane = GAME_PLANE
 		I.appearance = MA
 		t_ray_images += I
-		alert_searchers(in_turf_living)
+		alert_searchers(invisible_object)
 
 	if(length(t_ray_images))
 		flick_overlay(t_ray_images, list(viewer.client), pulse_duration)
@@ -245,7 +246,7 @@ REAGENT SCANNER
 			if(H.reagents.reagent_list.len)
 				to_chat(user, "<span class='notice'>Subject contains the following reagents:</span>")
 				for(var/datum/reagent/R in H.reagents.reagent_list)
-					to_chat(user, "<span class='notice'>[R.volume]u of [R.name][R.overdosed ? "</span> - <span class = 'boldannounce'>OVERDOSING</span>" : ".</span>"]")
+					to_chat(user, "<span class='notice'>[R.volume]u of [R.name][R.overdosed ? "</span> - [span_boldannounceic("OVERDOSING")]" : ".</span>"]")
 			else
 				to_chat(user, "<span class = 'notice'>Subject contains no reagents.</span>")
 			if(H.reagents.addiction_list.len)
@@ -370,7 +371,6 @@ REAGENT SCANNER
 	var/datum/browser/popup = new(user, "scanner", scan_title, window_width, window_height)
 	popup.set_content("[get_header(user)]<hr>[scan_data]")
 	popup.open(no_focus = 1)
-	popup.resize(window_width,window_height)
 
 /obj/item/healthanalyzer/proc/get_header(mob/user)
 	return "<a href='?src=[src.UID()];user=[user.UID()];clear=1'>Очистить</a><a href='?src=[src.UID()];user=[user.UID()];mode=1'>Локализация</a>[advanced ? "<a href='?src=[src.UID()];user=[user.UID()];print=1'>Печать отчета</a>" : ""]"
@@ -502,7 +502,7 @@ REAGENT SCANNER
 			if(H.reagents.reagent_list.len)
 				. += "Обнаружены реагенты:"
 				for(var/datum/reagent/R in H.reagents.reagent_list)
-					. += "&emsp;[R.volume]u [R.name][R.overdosed ? " - <span class='boldannounce'>ПЕРЕДОЗИРОВКА</span>" : "."]"
+					. += "&emsp;[R.volume]u [R.name][R.overdosed ? " - [span_boldannounceic("ПЕРЕДОЗИРОВКА")]" : "."]"
 			else
 				. += "Реагенты не обнаружены."
 			if(H.reagents.addiction_list.len)
@@ -693,7 +693,8 @@ REAGENT SCANNER
 	actions_types = list(/datum/action/item_action/print_report)
 
 /obj/item/reagent_scanner/afterattack(obj/O, mob/user as mob)
-	try_item_eat(O, user)
+	if(try_item_eat(O, user))
+		return
 	if(user.stat)
 		return
 	if(!user.IsAdvancedToolUser())
@@ -754,7 +755,7 @@ REAGENT SCANNER
 	else
 		to_chat(usr, "<span class='notice'>[src]  has no logs or is already in use.</span>")
 
-/obj/item/reagent_scanner/ui_action_click()
+/obj/item/reagent_scanner/ui_action_click(mob/user, datum/action/action, leftclick)
 	print_report()
 
 /obj/item/slime_scanner

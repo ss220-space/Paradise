@@ -4,7 +4,7 @@
 /area/template_noop)
 "ab" = (
 /obj/structure/grille,
-/turf/template_noop,
+/turf/space,
 /area/space/nearstation)
 "ah" = (
 /obj/structure/grille,
@@ -14,31 +14,23 @@
 	},
 /turf/simulated/floor/plating,
 /area/djstation)
-"ai" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/simulated/wall/mineral/titanium/interior,
-/area/djstation)
 "ak" = (
 /obj/structure/grille{
 	density = 0;
 	icon_state = "brokengrille"
 	},
-/turf/template_noop,
+/turf/space,
 /area/space/nearstation)
 "am" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/structure/lattice/catwalk,
-/turf/template_noop,
-/area/template_noop)
+/turf/space,
+/area/space)
 "an" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
 /obj/structure/cable{
-	icon_state = "1-8"
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/djstation)
@@ -87,13 +79,12 @@
 "az" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/template_noop)
+/area/space)
 "aA" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -102,14 +93,13 @@
 	icon_state = "2-4"
 	},
 /obj/structure/lattice/catwalk,
-/turf/template_noop,
-/area/template_noop)
+/turf/space,
+/area/space)
 "aB" = (
 /obj/machinery/door/airlock/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/djstation)
 "aE" = (
@@ -135,8 +125,8 @@
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
-/turf/template_noop,
-/area/template_noop)
+/turf/space,
+/area/space)
 "aG" = (
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
@@ -211,7 +201,7 @@
 	},
 /area/djstation)
 "aS" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/djstation)
 "aT" = (
 /obj/machinery/door/airlock{
@@ -222,10 +212,7 @@
 	},
 /area/djstation)
 "aU" = (
-/turf/simulated/wall/mineral/titanium/nodecon/tileblend{
-	fixed_underlay = list("icon" = 'icons/turf/floors.dmi', "icon_state" = "dark");
-	icon_state = "4-i"
-	},
+/turf/simulated/wall/mineral/titanium/nodecon/tileblend,
 /area/djstation)
 "aV" = (
 /obj/machinery/light{
@@ -245,8 +232,8 @@
 /obj/structure/sign/poster/contraband/communist_state{
 	pixel_y = 32
 	},
-/turf/template_noop,
-/area/template_noop)
+/turf/space,
+/area/space)
 "bb" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -255,8 +242,8 @@
 	icon_state = "2-8"
 	},
 /obj/structure/lattice/catwalk,
-/turf/template_noop,
-/area/template_noop)
+/turf/space,
+/area/space)
 "bc" = (
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower{
@@ -288,8 +275,8 @@
 	icon_state = "2-8"
 	},
 /obj/structure/lattice/catwalk,
-/turf/template_noop,
-/area/template_noop)
+/turf/space,
+/area/space)
 "bh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
@@ -346,7 +333,7 @@
 	icon_state = "brokengrille"
 	},
 /obj/structure/lattice,
-/turf/template_noop,
+/turf/space,
 /area/space/nearstation)
 "bs" = (
 /obj/machinery/door/airlock/external{
@@ -363,26 +350,20 @@
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk,
-/turf/template_noop,
-/area/template_noop)
+/turf/space,
+/area/space)
 "bv" = (
 /obj/structure/lattice,
 /obj/structure/grille{
 	density = 0;
 	icon_state = "brokengrille"
 	},
-/turf/template_noop,
+/turf/space,
 /area/space/nearstation)
 "bw" = (
 /obj/structure/lattice,
-/turf/template_noop,
+/turf/space,
 /area/space/nearstation)
-"bx" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/wall/mineral/titanium/interior,
-/area/djstation)
 "by" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Cabin"
@@ -392,10 +373,11 @@
 	},
 /area/djstation)
 "bz" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating,
 /area/djstation)
@@ -425,39 +407,21 @@
 	},
 /turf/simulated/floor/plating,
 /area/djstation)
-"bB" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/djstation)
 "bE" = (
 /obj/structure/coatrack,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/djstation)
-"bH" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/wall/mineral/titanium/interior,
-/area/djstation)
 "bI" = (
 /obj/machinery/power/solar/fake,
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/template_noop)
+/area/space)
 "bJ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -483,10 +447,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_y = 32
-	},
 /obj/machinery/tcomms/relay/ruskie,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -494,7 +454,7 @@
 	},
 /area/djstation)
 "bN" = (
-/turf/template_noop,
+/turf/space,
 /area/djstation)
 "bP" = (
 /obj/machinery/power/solar/fake,
@@ -505,7 +465,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/template_noop)
+/area/space)
 "bR" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -522,8 +482,8 @@
 	icon_state = "1-4"
 	},
 /obj/structure/lattice/catwalk,
-/turf/template_noop,
-/area/template_noop)
+/turf/space,
+/area/space)
 "bT" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -543,7 +503,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/template_noop)
+/area/space)
 "dv" = (
 /obj/structure/coatrack,
 /turf/simulated/floor/plasteel{
@@ -566,13 +526,9 @@
 	},
 /area/djstation)
 "hJ" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
 /area/djstation)
@@ -622,7 +578,7 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "solarpanel"
 	},
-/area/template_noop)
+/area/space)
 "oE" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
@@ -636,6 +592,9 @@
 	pixel_y = -1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/djstation)
 "pT" = (
@@ -711,6 +670,9 @@
 /area/djstation)
 "zC" = (
 /obj/item/multitool,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating,
 /area/djstation)
 "AH" = (
@@ -725,6 +687,12 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plating,
 /area/djstation)
 "Bh" = (
@@ -738,8 +706,8 @@
 	icon_state = "2-8"
 	},
 /obj/structure/lattice/catwalk,
-/turf/template_noop,
-/area/template_noop)
+/turf/space,
+/area/space)
 "DI" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave{
@@ -752,7 +720,6 @@
 /area/djstation)
 "Er" = (
 /obj/structure/cable{
-	d2 = 2;
 	icon_state = "0-2"
 	},
 /obj/machinery/power/smes/magical{
@@ -788,13 +755,11 @@
 	},
 /area/djstation)
 "Ig" = (
-/obj/structure/grille,
-/obj/structure/window/full/shuttle,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	icon_state = "1-4"
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
 /area/djstation)
@@ -856,15 +821,11 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	icon_state = "2-4"
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/djstation)
 "Mu" = (
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_x = 32
-	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
@@ -879,13 +840,9 @@
 "Po" = (
 /obj/structure/lattice,
 /obj/structure/grille,
-/turf/template_noop,
+/turf/space,
 /area/space/nearstation)
 "Qg" = (
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_y = 32
-	},
 /obj/structure/table,
 /obj/item/paper/djstation{
 	info = "Station has stopped responding to my reports for about the past month. I assume Vostok just has his knickers in a twist.<br><br>Hell, not my problem. Got all the vodka and cigarettes I need to last me a year.";
@@ -917,9 +874,7 @@
 "Rl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 1
+	icon_state = "0-2"
 	},
 /obj/machinery/power/solar_control/autostart,
 /turf/simulated/floor/plating,
@@ -948,14 +903,11 @@
 	},
 /area/djstation)
 "Tc" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
 /turf/simulated/floor/plating,
 /area/djstation)
 "Uj" = (
@@ -971,10 +923,6 @@
 	},
 /area/djstation)
 "UD" = (
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_y = 32
-	},
 /obj/structure/chair/comfy/beige,
 /obj/item/lighter/zippo/engraved{
 	pixel_x = -38;
@@ -1004,8 +952,8 @@
 	name = "Docking port DJ Post";
 	width = 8
 	},
-/turf/template_noop,
-/area/template_noop)
+/turf/space,
+/area/space)
 "Xf" = (
 /obj/structure/sign/pods,
 /turf/simulated/wall/mineral/titanium/interior,
@@ -1019,7 +967,7 @@
 	pixel_x = 23;
 	pixel_y = 35
 	},
-/turf/template_noop,
+/turf/space,
 /area/djstation)
 "XI" = (
 /obj/structure/safe/floor,
@@ -1030,16 +978,8 @@
 	},
 /area/djstation)
 "YA" = (
-/obj/machinery/power/solar/fake,
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2";
-	pixel_y = 1
-	},
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "solarpanel"
-	},
-/area/template_noop)
+/turf/space,
+/area/space)
 "ZZ" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -1128,16 +1068,16 @@ aa
 (3,1,1) = {"
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
 ab
 ab
 ab
@@ -1145,228 +1085,228 @@ ab
 ak
 ab
 ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
 aa
 aa
 "}
 (4,1,1) = {"
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
 ab
 ab
 bw
 bw
-aa
+YA
 bw
 bw
 ab
 ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
 aa
 aa
 "}
 (5,1,1) = {"
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
 ab
 bw
 bw
 bP
-aa
+YA
 bP
 bw
 bw
 ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
 aa
 aa
 "}
 (6,1,1) = {"
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
 ab
 bw
 bI
 bS
-YA
+bI
 bS
 cP
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
 aa
 aa
 "}
 (7,1,1) = {"
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
 ab
 bw
 bI
 bS
-YA
+bI
 bS
 cP
-aa
+YA
 ao
 bT
 bT
 bT
 ao
 aZ
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
 aa
 aa
 "}
 (8,1,1) = {"
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
 ak
 bw
 bI
 bS
-YA
+bI
 bS
 cP
-aa
+YA
 ao
 EQ
 DI
 ku
 ao
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
+YA
 Wc
-aa
+YA
 aa
 aa
 "}
 (9,1,1) = {"
 aa
 aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
 bw
-aa
-aa
-aa
+YA
+YA
+YA
 ab
-aa
+YA
 bI
 bS
-YA
+bI
 bS
 cP
-aa
+YA
 ao
 Qg
 aM
@@ -1379,31 +1319,31 @@ aS
 IK
 ao
 ao
-aa
-aa
+YA
+YA
 aa
 aa
 "}
 (10,1,1) = {"
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
 am
-aa
+YA
 am
 bw
-aa
+YA
 ao
 NY
 aM
@@ -1416,28 +1356,28 @@ bE
 bR
 bR
 ao
-aa
-aa
+YA
+YA
 aa
 aa
 "}
 (11,1,1) = {"
 aa
 aa
-aa
-aa
+YA
+YA
 ab
 ab
-aa
+YA
 ab
 bp
 ab
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
 am
-aa
+YA
 am
 bw
 bw
@@ -1453,29 +1393,29 @@ bR
 bK
 wS
 bT
-aa
-aa
+YA
+YA
 aa
 aa
 "}
 (12,1,1) = {"
 aa
 aa
-aa
+YA
 ab
 ab
 bw
-aa
+YA
 bw
-aa
-aa
-aa
-aa
-bx
-ah
+YA
+YA
+YA
+YA
+ao
+bT
 Tc
-ai
-an
+ao
+Tc
 bT
 ao
 aS
@@ -1490,29 +1430,29 @@ kO
 Xf
 ao
 ao
-aa
-aa
+YA
+YA
 aa
 aa
 "}
 (13,1,1) = {"
 aa
 aa
-aa
+YA
 ab
-aa
+YA
 bw
 bP
 bP
 bP
 bP
-aa
-aa
-bz
+YA
+YA
+bT
 bJ
+an
 ap
-ap
-ap
+an
 au
 ao
 aG
@@ -1526,16 +1466,16 @@ aS
 Lv
 ZZ
 bT
-aa
-aa
-aa
+YA
+YA
+YA
 aa
 aa
 "}
 (14,1,1) = {"
 aa
 aa
-aa
+YA
 ak
 bI
 aA
@@ -1545,11 +1485,11 @@ be
 be
 bt
 bt
-bB
-bJ
-ap
+ah
+hJ
+Ig
 zC
-ap
+bz
 av
 ao
 Uj
@@ -1563,16 +1503,16 @@ bL
 bR
 So
 bT
-aa
-aa
-aa
+YA
+YA
+YA
 aa
 aa
 "}
 (15,1,1) = {"
 aa
 aa
-aa
+YA
 ab
 az
 aF
@@ -1580,7 +1520,7 @@ bP
 bP
 bP
 bP
-aa
+YA
 bw
 sJ
 bM
@@ -1600,16 +1540,16 @@ aS
 ao
 ao
 ao
-aa
-aa
-aa
+YA
+YA
+YA
 aa
 aa
 "}
 (16,1,1) = {"
 aa
 aa
-aa
+YA
 ab
 bI
 bb
@@ -1619,8 +1559,8 @@ be
 be
 bt
 bt
-hJ
-ap
+ah
+iU
 AP
 iU
 aq
@@ -1636,17 +1576,17 @@ aS
 ao
 ao
 bN
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
 aa
 aa
 "}
 (17,1,1) = {"
 aa
 aa
-aa
+YA
 ab
 bw
 bw
@@ -1655,8 +1595,8 @@ lv
 lv
 lv
 bw
-aa
-bz
+YA
+bT
 ap
 pE
 Rl
@@ -1673,31 +1613,31 @@ bs
 bA
 eD
 XG
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
 aa
 aa
 "}
 (18,1,1) = {"
 aa
 aa
-aa
+YA
 ab
 ab
 bw
-aa
-aa
+YA
+YA
 bw
 bw
-aa
-aa
-bH
-ah
-Ig
-ai
-hJ
+YA
+YA
+ao
+bT
+Tc
+ao
+Tc
 bT
 ao
 aS
@@ -1710,33 +1650,33 @@ aS
 ao
 ao
 bN
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
 aa
 aa
 "}
 (19,1,1) = {"
 aa
 aa
-aa
-aa
+YA
+YA
 ab
 ab
-aa
+YA
 ab
 ak
 ab
-aa
-aa
-aa
+YA
+YA
+YA
 bw
 am
-aa
+YA
 am
-aa
-aa
+YA
+YA
 ao
 XI
 sd
@@ -1746,71 +1686,71 @@ ao
 ao
 bw
 Po
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
 aa
 aa
 "}
 (20,1,1) = {"
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
 bw
-aa
+YA
 bw
 bw
 am
-aa
+YA
 am
-aa
-aa
+YA
+YA
 ao
 UD
 sd
 Qy
 ao
-aa
-aa
+YA
+YA
 ab
 Po
 bw
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
 aa
 aa
 "}
 (21,1,1) = {"
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
 bw
 ab
-aa
+YA
 bI
 Bh
 bI
 Bh
 cP
-aa
+YA
 ao
 vE
 sd
@@ -1822,32 +1762,32 @@ Po
 bw
 bw
 bw
-aa
-aa
-aa
+YA
+YA
+YA
 aa
 aa
 "}
 (22,1,1) = {"
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
 bw
-aa
+YA
 bw
 ab
-aa
+YA
 bI
 Bh
 bI
 Bh
 cP
-aa
+YA
 ao
 FB
 sd
@@ -1856,27 +1796,27 @@ ao
 Po
 Po
 bw
-aa
-aa
+YA
+YA
 bw
 bw
-aa
-aa
+YA
+YA
 aa
 aa
 "}
 (23,1,1) = {"
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
 bv
 bw
 bI
@@ -1884,36 +1824,36 @@ Bh
 bI
 Bh
 cP
-aa
+YA
 ao
 bT
 bT
 bT
 ao
-aa
+YA
 bw
-aa
-aa
-aa
+YA
+YA
+YA
 bw
-aa
-aa
-aa
+YA
+YA
+YA
 aa
 aa
 "}
 (24,1,1) = {"
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
 ab
 bw
 bI
@@ -1921,111 +1861,111 @@ Bh
 bI
 Bh
 cP
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
 bw
 bw
-aa
-aa
-aa
+YA
+YA
+YA
 bw
 bw
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
 aa
 aa
 "}
 (25,1,1) = {"
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
 ab
 bw
 bw
 lv
-aa
+YA
 lv
 bw
 bw
 ab
-aa
-aa
-aa
+YA
+YA
+YA
 bw
 bw
-aa
+YA
 bw
 bw
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
 aa
 aa
 "}
 (26,1,1) = {"
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
 ab
 ab
-aa
-aa
-aa
+YA
+YA
+YA
 bw
 bw
 ab
 ab
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
 bw
 bw
 bw
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
 aa
 aa
 "}
 (27,1,1) = {"
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
 ab
 ab
 ab
@@ -2033,82 +1973,82 @@ ab
 ab
 ab
 ab
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
+YA
 bw
-aa
-aa
-aa
+YA
+YA
+YA
 bw
-aa
-aa
+YA
+YA
 aa
 aa
 "}
 (28,1,1) = {"
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
 bw
-aa
-aa
+YA
+YA
 bw
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
 aa
 aa
 "}
 (29,1,1) = {"
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
 bw
 bw
 bw
@@ -2117,158 +2057,158 @@ bw
 bw
 bw
 bw
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
 aa
 aa
 "}
 (30,1,1) = {"
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
 bw
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
 bw
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
 aa
 aa
 "}
 (31,1,1) = {"
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
 bw
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
 bw
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
 aa
 aa
 "}
 (32,1,1) = {"
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
 bw
 bw
-aa
-aa
-aa
+YA
+YA
+YA
 aa
 aa
 "}
 (33,1,1) = {"
 aa
 aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
+YA
 bw
-aa
-aa
+YA
+YA
 aa
 aa
 "}

@@ -36,13 +36,14 @@
 	animate_ghostly_presence(src, -1, 20, 1) // Restart the floating animation after the attack animation, as it will be cancelled.
 
 
-/mob/living/simple_animal/possessed_object/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE) // Silly motherfuckers think they can pull things.
-	if(show_message)
-		to_chat(src, span_warning("You are unable to pull [AM]!"))
+/mob/living/simple_animal/possessed_object/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE) // Silly motherfuckers think they can pull things.
+	if(!supress_message)
+		to_chat(src, span_warning("You are unable to pull [pulled_atom]!"))
+	return FALSE
 
 
 /mob/living/simple_animal/possessed_object/ghost() // Ghosting will return the object to normal, and will not disqualify the ghoster from various mid-round antag positions.
-	var/response = alert(src, "End your possession of this object? (It will not stop you from respawning later)","Are you sure you want to ghost?","Ghost","Stay in body")
+	var/response = tgui_alert(src, "End your possession of this object? (It will not stop you from respawning later)", "Are you sure you want to ghost?", list("Ghost", "Stay in body"))
 	if(response != "Ghost")
 		return
 	set_resting(TRUE, instant = TRUE)

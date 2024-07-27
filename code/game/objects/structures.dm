@@ -2,8 +2,8 @@
 	icon = 'icons/obj/structures.dmi'
 	pressure_resistance = 8
 	max_integrity = 300
-	pull_push_speed_modifier = 1.2
 	pass_flags_self = PASSSTRUCTURE
+	pull_push_slowdown = 1.3
 	var/climbable
 	/// Determines if a structure adds the TRAIT_TURF_COVERED to its turf.
 	var/creates_cover = FALSE
@@ -45,17 +45,18 @@
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/structure/Move(atom/newloc, direct = NONE, glide_size_override = 0)
-	var/atom/old = loc
-	if(!..())
-		return FALSE
+
+/obj/structure/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
+	var/atom/old_loc = loc
+	. = ..()
+	if(!.)
+		return .
 
 	if(creates_cover)
-		if(isturf(old))
-			REMOVE_TRAIT(old, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
+		if(isturf(old_loc))
+			REMOVE_TRAIT(old_loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 		if(isturf(loc))
 			ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
-	return TRUE
 
 
 /obj/structure/has_prints()

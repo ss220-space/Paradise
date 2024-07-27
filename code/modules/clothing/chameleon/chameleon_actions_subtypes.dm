@@ -21,17 +21,39 @@
 	chameleon_blacklist |= typecacheof(list(/obj/item/pda/heads), only_root_path = TRUE)
 
 
-/datum/action/item_action/chameleon/change/pda/apply_job_data(datum/outfit/job/job_datum)
+/datum/action/item_action/chameleon/change/pda/update_look(obj/item/picked_item)
+	. = ..()
 	var/obj/item/pda/agent_pda = target
-	if(!istype(agent_pda))
-		return
 	var/obj/item/card/id/id_card = owner.get_id_card()
-	if(!id_card)
-		return
-	if(!istype(job_datum) || !ispath(job_datum.jobtype, /datum/job))
-		return
-	var/datum/job/jobpath = job_datum.jobtype
-	agent_pda.name = "PDA-[id_card.registered_name] ([initial(jobpath.title)])"
+	if(id_card)
+		agent_pda.custom_name = "PDA-[id_card.registered_name]"
+		if(!agent_pda.fakejob)
+			agent_pda.fakejob = id_card.assignment
+	else
+		agent_pda.custom_name = null
+
+	agent_pda.chameleon_skin = picked_item
+	agent_pda.update_appearance()
+
+	if(!ismob(agent_pda.loc))
+		UpdateButtonIcon()
+
+
+/datum/action/item_action/chameleon/change/pda/apply_outfit(datum/outfit/applying_from, list/all_items_to_apply)
+	var/obj/item/pda/agent_pda = target
+	agent_pda.fakejob = null
+	return ..()
+
+
+/datum/action/item_action/chameleon/change/pda/select_look(mob/user)
+	var/obj/item/pda/agent_pda = target
+	agent_pda.fakejob = null
+	return ..()
+
+
+/datum/action/item_action/chameleon/change/pda/apply_job_data(datum/job/job_datum)
+	var/obj/item/pda/agent_pda = target
+	agent_pda.fakejob = job_datum.title
 
 
 // Headset

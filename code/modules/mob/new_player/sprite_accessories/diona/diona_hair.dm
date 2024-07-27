@@ -140,3 +140,12 @@
 /datum/sprite_accessory/hair/diona/diona_rosealt
 	name = "Rose alt"
 	icon_state = "rose"
+
+//Sprites by vadim722
+/datum/sprite_accessory/hair/diona/diona_bigshroom
+	name = "Big Mushroom"
+	icon_state = "bigshroom"
+
+/datum/sprite_accessory/hair/diona/diona_rafflesia
+	name = "Sweet-smelling Rafflesia"
+	icon_state = "rafflesia"

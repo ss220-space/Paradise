@@ -1,3 +1,5 @@
+#define UPLINK_DISCOUNTS 4
+
 /**
  * Proc that generates a list of items, available for certain uplink.
  *
@@ -24,15 +26,13 @@
 			sales_items += uplink_item
 
 	if(generate_discounts)
-		for(var/i in 1 to 3)
+		for(var/i in 1 to UPLINK_DISCOUNTS)
 			var/datum/uplink_item/discount_origin = pick_n_take(sales_items)
-			discount_origin.refundable = FALSE
 
 			var/datum/uplink_item/discount_item = new discount_origin.type
 			var/discount = 0.5
 			var/init_cost = initial(discount_item.cost)
 			discount_item.limited_stock = 1
-			discount_item.refundable = FALSE
 			if(discount_item.cost >= 100)
 				discount *= 0.5 // If the item costs 100TC or more, it's only 25% off.
 			discount_item.cost = max(round(discount_item.cost * (1 - discount)), 1)
@@ -78,8 +78,8 @@
 	var/refundable = FALSE
 	/// Alternative path for refunds, in case the item purchased isn't what is actually refunded (ie: holoparasites).
 	var/refund_path
-	/// Specified refund amount in case there needs to be a TC penalty for refunds.
-	var/refund_amount
+	/// Associative list UID - refund cost
+	var/static/list/item_to_refund_cost
 
 
 /datum/uplink_item/Destroy(force)
@@ -131,7 +131,7 @@
  * * target_uplink - uplink we are buying from.
  * * buyer - mob who performs the transaction.
  */
-/datum/uplink_item/proc/buy(obj/item/uplink/hidden/target_uplink, mob/living/carbon/human/buyer)
+/datum/uplink_item/proc/buy(obj/item/uplink/hidden/target_uplink, mob/living/carbon/human/buyer, put_in_hands = TRUE)
 
 	if(!istype(target_uplink))
 		return FALSE
@@ -158,6 +158,21 @@
 	if(!spawned)
 		return .
 
+	if(category == "Discounted Gear" && refundable)
+		var/obj/item/refund_item
+		if(istype(spawned, refund_path))
+			refund_item = spawned
+		else
+			refund_item = locate(refund_path) in spawned
+
+		if(!item_to_refund_cost)
+			item_to_refund_cost = list()
+
+		if(refund_item)
+			item_to_refund_cost[refund_item.UID()] = cost
+		else
+			stack_trace("Can not find [refund_path] in [src]")
+
 	if(limited_stock > 0)
 		add_game_logs("purchased [name]. [name] was discounted to [cost].", buyer)
 		if(!buyer.mind.special_role)
@@ -166,7 +181,9 @@
 		add_game_logs("purchased [name].", buyer)
 		if(!buyer.mind.special_role)
 			message_admins("[key_name_admin(buyer)] purchased [name], as a non antagonist.")
-	buyer.put_in_any_hand_if_possible(spawned)
+
+	if(put_in_hands)
+		buyer.put_in_any_hand_if_possible(spawned)
 
 	if(istype(spawned, /obj/item/storage/box) && length(spawned.contents))
 		for(var/atom/box_item in spawned)
@@ -174,6 +191,7 @@
 	else
 		target_uplink.purchase_log += "<BIG>[bicon(spawned)]</BIG>"
 
+	return spawned
 
 /*
 //
@@ -384,7 +402,7 @@
 	name = "Genetic Superiority Injector"
 	desc = "Experimental DNA injector which will give you one advanced gene modification and increase your gene stability."
 	item = /obj/item/dna_upgrader
-	cost = 75
+	cost = 55
 	job = list(JOB_TITLE_CMO, JOB_TITLE_GENETICIST)
 	surplus = 0
 
@@ -635,6 +653,25 @@
 	cost = 40
 	race = list(SPECIES_NUCLEATION)
 
+//Human
+
+/datum/uplink_item/racial/holo_cigar
+	name = "Holo-Cigar"
+	desc = "A holo-cigar imported from the Sol system. The full effects of looking so badass aren't understood yet, but users show an increase in precision while dual-wielding firearms."
+	item = /obj/item/clothing/mask/holo_cigar
+	cost = 10
+	race = list(SPECIES_HUMAN)
+
+//Grey
+
+/datum/uplink_item/racial/agent_belt
+	name = "Agent Belt"
+	desc = "A military toolbelt used by abductor agents. Contains a full set of alien tools."
+	item = /obj/item/storage/belt/military/abductor/full
+	cost = 16
+	race = list(SPECIES_GREY)
+
+
 // DANGEROUS WEAPONS
 
 /datum/uplink_item/dangerous
@@ -852,7 +889,7 @@
 	cost = 69
 	refund_path = /obj/item/guardiancreator/tech/choose
 	refundable = TRUE
-	can_discount = FALSE
+	can_discount = TRUE
 
 // Ammunition
 
@@ -1119,10 +1156,10 @@
 /datum/uplink_item/stealthy_weapons/martialarts
 	name = "Martial Arts Scroll"
 	desc = "This scroll contains the secrets of an ancient martial arts technique. You will master unarmed combat, \
-			deflecting ranged weapon fire when you are in a defensive stance (throw mode). Learning this art means you will also refuse to use dishonorable ranged weaponry.\
+			deflecting all ranged weapon fire, but you also refuse to use dishonorable ranged weaponry. Learning this art means you will also refuse to use dishonorable ranged weaponry. \
 			Unable to be understood by vampire and changeling agents."
 	item = /obj/item/sleeping_carp_scroll
-	cost = 65
+	cost = 80
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 	refundable = TRUE
@@ -2045,6 +2082,12 @@
 	cost = 100
 	can_discount = FALSE
 
+/datum/uplink_item/badass/unocard
+	name = "Syndicate Reverse Card"
+	desc = "Hidden in an ordinary-looking playing card, this device will teleport an opponent's gun to your hand when they fire at you. Just make sure to hold this in your hand!"
+	item = /obj/item/syndicate_reverse_card
+	cost = 10
+
 /datum/uplink_item/implants/macrobomb
 	name = "Macrobomb Implant"
 	desc = "An implant injected into the body, and later activated either manually or automatically upon death. Upon death, releases a massive explosion that will wipe out everything nearby."
@@ -2180,3 +2223,5 @@
 	item = /obj/item/stack/telecrystal/twohundred_fifty
 	cost = 250
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+#undef UPLINK_DISCOUNTS

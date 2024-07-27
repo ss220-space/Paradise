@@ -46,7 +46,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	mob_size = MOB_SIZE_LARGE
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
 	nightvision = 8
-	can_strip = 0
 	can_buckle_to = FALSE
 	var/list/network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	var/obj/machinery/camera/current = null
@@ -116,6 +115,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	verbs |= GLOB.ai_verbs_default
 	verbs |= silicon_subsystems
+
+/mob/living/silicon/ai/can_strip()
+	return FALSE
 
 /mob/living/silicon/ai/proc/remove_ai_verbs()
 	verbs -= GLOB.ai_verbs_default
@@ -209,6 +211,12 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	GLOB.ai_list += src
 	GLOB.shuttle_caller_list += src
 	..()
+
+
+/mob/living/silicon/ai/Initialize(mapload)
+	. = ..()
+	add_traits(list(TRAIT_PULL_BLOCKED, TRAIT_HANDS_BLOCKED), ROUNDSTART_TRAIT)
+
 
 /mob/living/silicon/ai/proc/on_mob_init()
 	to_chat(src, "<B>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</B>")
@@ -563,7 +571,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		to_chat(src, "<span class='warning'>Please allow one minute to pass between announcements.</span>")
 		return
 
-	var/input = input(usr, "Please write a message to announce to the station crew.", "A.I. Announcement") as message|null
+	var/input = tgui_input_text(usr, "Please write a message to announce to the station crew.", "A.I. Announcement", multiline = TRUE, encode = FALSE)
 	if(!input)
 		return
 
@@ -582,7 +590,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
 
-	var/input = clean_input("Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","")
+	var/input = tgui_input_text(src, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason", multiline = TRUE, encode = FALSE)
 	if(!input || stat)
 		return
 
@@ -600,7 +608,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
 
-	var/confirm = alert("Are you sure you want to recall the shuttle?", "Confirm Shuttle Recall", "Yes", "No")
+	var/confirm = tgui_alert(src, "Are you sure you want to recall the shuttle?", "Confirm Shuttle Recall", list("Yes", "No"))
 
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
@@ -1052,7 +1060,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				custom_hologram = 1  // option is given in hologram menu
 
 	var/input
-	switch(alert("Would you like to select a hologram based on a crew member, an animal, or switch to a unique avatar?",,"Crew Member","Unique","Animal"))
+	switch(tgui_alert(usr, "Would you like to select a hologram based on a crew member, an animal, or switch to a unique avatar?", "Change Hologram", list("Crew Member", "Unique", "Animal")))
 		if("Crew Member")
 			var/personnel_list[] = list()
 
@@ -1228,8 +1236,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	set desc = "Change the message that's transmitted when a new crew member arrives on station."
 	set category = "AI Commands"
 
-	var/newmsg = clean_input("What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg)
-	if(isnull(newmsg))
+	var/newmsg = tgui_input_text(usr, "What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg, encode = FALSE)
+	if(isnull(newmsg) || newmsg == arrivalmsg)
 		to_chat(usr, "Arrival message changing aborted.")
 	else if(newmsg != arrivalmsg)
 		arrivalmsg = newmsg
@@ -1429,7 +1437,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				A = D
 
 		if(istype(A))
-			switch(alert(src, "Do you want to open \the [A] for [target]?", "Doorknob_v2a.exe", "Yes", "No"))
+			switch(tgui_alert(src, "Do you want to open \the [A] for [target]?", "Doorknob_v2a.exe", list("Yes", "No")))
 				if("Yes")
 					if(!A.density)
 						to_chat(src, "<span class='notice'>[A] was already opened.</span>")

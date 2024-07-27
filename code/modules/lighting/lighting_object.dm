@@ -9,6 +9,8 @@
 	layer = LIGHTING_LAYER
 	invisibility = INVISIBILITY_LIGHTING
 	simulated = FALSE
+	light_system = NO_LIGHT_SUPPORT
+	light_range = 0
 
 	var/turf/myturf
 
@@ -133,13 +135,7 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 	if(harderforce)
 		. = ..()
 
-/atom/movable/lighting_object/Crossed(atom/movable/AM, oldloc)
-	return
-
-/atom/movable/lighting_object/Uncrossed(atom/movable/AM)
-	return
-
-/atom/movable/lighting_object/Bump(atom/bumped_atom, custom_bump)
+/atom/movable/lighting_object/Bump(atom/bumped_atom)
 	return
 
 /atom/movable/lighting_object/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)

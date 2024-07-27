@@ -125,8 +125,10 @@
 
 /obj/item/nullrod/afterattack(atom/movable/AM, mob/user, proximity)
 	. = ..()
-	if(!sanctify_force)
+
+	if(!proximity || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !sanctify_force)
 		return
+
 	if(isliving(AM))
 		var/mob/living/L = AM
 		L.adjustFireLoss(sanctify_force) // Bonus fire damage for sanctified (ERT) versions of nullrod
@@ -318,7 +320,7 @@
 		S.real_name = name
 		S.name = name
 		S.ckey = theghost.ckey
-		var/input = stripped_input(S, "What are you named?", null, "", MAX_NAME_LEN)
+		var/input = tgui_input_text(S, "What are you named?", "Change Name", max_length = MAX_NAME_LEN)
 
 		if(src && input)
 			name = input

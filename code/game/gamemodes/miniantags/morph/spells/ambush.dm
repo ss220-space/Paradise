@@ -39,7 +39,7 @@
 
 
 /obj/effect/proc_holder/spell/morph_spell/ambush/proc/prepare_check(mob/living/simple_animal/hostile/morph/user)
-	return !user.morphed
+	return user.morphed
 
 
 /datum/status_effect/morph_ambush

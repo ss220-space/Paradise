@@ -29,6 +29,7 @@
 	universal_speak = TRUE
 	sentience_type = SENTIENCE_BOSS
 	response_help = "pets"
+	AI_delay_max = 0 SECONDS
 	var/scale_with_time = TRUE
 	var/reviver = null
 	var/dif_mult = 1 // Scales with number of enemies
@@ -62,8 +63,8 @@
 	if(istype(target, /obj/structure/elite_tumor))
 		var/obj/structure/elite_tumor/T = target
 		if(T.mychild == src && T.activity == TUMOR_PASSIVE)
-			var/response = alert(src, "Re-enter the tumor?","Despawn yourself?", "Yes", "No")
-			if(response == "No" || QDELETED(src) || !Adjacent(T))
+			var/response = tgui_alert(src, "Re-enter the tumor?", "Despawn yourself?", list("Yes", "No"))
+			if(response != "Yes" || QDELETED(src) || !Adjacent(T))
 				return
 			T.clear_activator(src)
 			T.mychild = null
@@ -490,13 +491,16 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	name = "magic wall"
 	icon = 'icons/turf/walls/hierophant_wall_temp.dmi'
 	icon_state = "wall"
+	base_icon_state = "hierophant_wall_temp"
 	duration = 50
 	layer = BELOW_MOB_LAYER
 	plane = GAME_PLANE
 	color = rgb(255,0,0)
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	light_color = LIGHT_COLOR_PURE_RED
-	smooth = SMOOTH_TRUE
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_HIERO_VORTEX
+	smoothing_groups = SMOOTH_GROUP_HIERO_VORTEX
 
 /obj/effect/temp_visual/elite_tumor_wall/Initialize(mapload, new_caster)
 	. = ..()

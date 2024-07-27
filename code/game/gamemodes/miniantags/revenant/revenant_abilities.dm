@@ -68,7 +68,7 @@
 			if(do_after(src, 2 SECONDS, target, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM)) //how about now
 				if(!target.stat)
 					to_chat(src, "<span class='revenwarning'>They are now powerful enough to fight off your draining.</span>")
-					to_chat(target, "<span class='boldannounce'>You feel something tugging across your body before subsiding.</span>")
+					to_chat(target, span_boldannounceic("You feel something tugging across your body before subsiding."))
 					draining = FALSE
 					return //hey, wait a minute...
 				to_chat(src, "<span class='revenminor'>You begin siphoning essence from [target]'s soul.</span>")
@@ -139,7 +139,7 @@
 /obj/effect/proc_holder/spell/revenant_transmit/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	for(var/mob/living/M in targets)
 		spawn(0)
-			var/msg = stripped_input(user, "What do you wish to tell [M]?", null, "")
+			var/msg = tgui_input_text(usr, "What do you wish to tell [M]?", null, "")
 			if(!msg)
 				cooldown_handler.revert_cast()
 				return
@@ -256,7 +256,7 @@
 		if(M == user)
 			continue
 		M.Beam(L, icon_state = "purple_lightning", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
-		M.electrocute_act(shock_damage, L, safety = TRUE)
+		M.electrocute_act(shock_damage, "настенной лампы", flags = SHOCK_NOGLOVES)
 		do_sparks(4, 0, M)
 		playsound(M, 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 
@@ -500,11 +500,11 @@
 		new/obj/effect/temp_visual/revenant(loc)
 		ChangeTurf(/turf/simulated/wall/rust)
 
-/turf/simulated/r_wall/defile()
+/turf/simulated/wall/r_wall/defile()
 	..()
 	if(prob(15))
 		new/obj/effect/temp_visual/revenant(loc)
-		ChangeTurf(/turf/simulated/r_wall/rust)
+		ChangeTurf(/turf/simulated/wall/r_wall/rust)
 
 /obj/structure/window/defile()
 	take_damage(rand(30,80))
@@ -527,7 +527,7 @@
 /atom/proc/defile()
 	return
 
-/turf/simulated/r_wall/rust/defile()
+/turf/simulated/wall/r_wall/rust/defile()
 	return
 
 /turf/simulated/wall/shuttle/defile()

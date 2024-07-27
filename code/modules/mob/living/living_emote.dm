@@ -408,11 +408,6 @@
 	emote_type = EMOTE_AUDIBLE|EMOTE_MOUTH
 	volume = 70
 	age_based = TRUE
-	// lock it so these emotes can only be used while unconscious
-	stat_allowed = UNCONSCIOUS
-	max_stat_allowed = UNCONSCIOUS
-	unintentional_stat_allowed = UNCONSCIOUS
-	max_unintentional_stat_allowed = UNCONSCIOUS
 
 
 /datum/emote/living/snore/get_sound(mob/living/carbon/human/user)
@@ -552,9 +547,9 @@
 		to_chat(user, span_boldwarning("You cannot send IC messages (muted)."))
 		return FALSE
 	else if(!params)
-		custom_emote = copytext_char(sanitize(input("Choose an emote to display.") as text|null), 1, MAX_MESSAGE_LEN)
+		custom_emote = tgui_input_text(user, "Choose an emote to display.", "Custom Emote")
 		if(custom_emote && !check_invalid(user, custom_emote))
-			var/type = input("Is this a visible or hearable emote?") as null|anything in list("Visible", "Hearable")
+			var/type = tgui_alert(user, "Is this a visible or hearable emote?", "Custom Emote", list("Visible", "Hearable"))
 			switch(type)
 				if("Visible")
 					custom_emote_type = EMOTE_VISIBLE
