@@ -412,7 +412,7 @@
 	var/strafed_backwards = FALSE //Checks if mecha moved backwards, while strafe is active (used later to modify speed and energy drain)
 
 	var/keyheld = FALSE //Checks if player pressed ALT button down while strafe is active
-	if(strafe && occupant.client?.input_data.keys_held["Alt"])
+	if(strafe && occupant.client?.keys_held["Alt"])
 		keyheld = TRUE
 
 	if(internal_damage & MECHA_INT_CONTROL_LOST)

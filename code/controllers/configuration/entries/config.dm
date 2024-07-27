@@ -798,3 +798,23 @@
 	default = 50
 	integer = FALSE
 
+
+/datum/config_entry/number/second_topic_limit
+	default = 10
+	min_val = 0
+
+
+/datum/config_entry/number/minute_topic_limit
+	default = 150
+	min_val = 0
+
+
+/datum/config_entry/number/second_click_limit
+	default = 15
+	min_val = 0
+
+
+/datum/config_entry/number/minute_click_limit
+	default = 400
+	min_val = 0
+
