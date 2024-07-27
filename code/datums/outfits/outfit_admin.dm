@@ -122,6 +122,7 @@
 	id = /obj/item/card/id/syndicate
 	box = /obj/item/storage/box/survival_syndi
 	backpack_contents = list(
+		/obj/item/radio/uplink/sst = 1,
 		/obj/item/grenade/plastic/x4 = 2,
 		/obj/item/reagent_containers/hypospray/combat/nanites = 1,
 		/obj/item/gun/projectile/revolver = 1,
@@ -162,6 +163,7 @@
 
 	backpack_contents = list(
 		/obj/item/tank/jetpack/oxygen/harness = 1,
+		/obj/item/radio/uplink/sst = 1,
 		/obj/item/ammo_box/magazine/mm556x45 = 1,
 		/obj/item/grenade/plastic/x4 = 2,
 		/obj/item/reagent_containers/hypospray/combat/nanites = 1,
