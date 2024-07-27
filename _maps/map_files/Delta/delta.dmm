@@ -91025,10 +91025,6 @@
 	dir = 8;
 	pixel_x = -11
 	},
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -25
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
@@ -91040,9 +91036,6 @@
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = -26
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
