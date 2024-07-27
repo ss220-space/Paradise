@@ -958,7 +958,7 @@
 "ahn" = (
 /obj/structure/sign/directions/evac,
 /turf/simulated/wall,
-/area/hallway/primary/starboard/west)
+/area/hallway/primary/starboard/south)
 "ahp" = (
 /obj/item/radio/intercom{
 	name = "west station intercom (General)";
@@ -1510,6 +1510,7 @@
 /obj/structure/morgue{
 	dir = 1
 	},
+/obj/effect/landmark/event/revenantspawn,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -5622,7 +5623,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/hallway/primary/starboard/west)
+/area/hallway/primary/starboard/south)
 "aQG" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -7530,6 +7531,7 @@
 /obj/structure/morgue{
 	dir = 1
 	},
+/obj/effect/landmark/event/revenantspawn,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -9688,6 +9690,7 @@
 /obj/structure/morgue{
 	dir = 1
 	},
+/obj/effect/landmark/event/revenantspawn,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -19859,7 +19862,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/hallway/primary/starboard/west)
+/area/hallway/primary/starboard/south)
 "cVh" = (
 /obj/structure/table,
 /obj/item/storage/fancy/donut_box,
@@ -26216,7 +26219,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/hallway/primary/starboard/west)
+/area/hallway/primary/starboard/south)
 "dVa" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -34168,7 +34171,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/hallway/primary/starboard/west)
+/area/hallway/primary/starboard/south)
 "fee" = (
 /obj/machinery/bodyscanner{
 	dir = 4
@@ -46804,7 +46807,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/hallway/primary/starboard/west)
+/area/hallway/primary/starboard/south)
 "hah" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -46926,7 +46929,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/hallway/primary/starboard/west)
+/area/hallway/primary/starboard/south)
 "hbl" = (
 /obj/structure/chair/comfy/black{
 	dir = 4
@@ -53091,6 +53094,9 @@
 	pixel_x = 26;
 	pixel_y = 28
 	},
+/obj/structure/railing{
+	dir = 1
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/cabin4)
 "ibZ" = (
@@ -56059,7 +56065,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/hallway/primary/starboard/west)
+/area/hallway/primary/starboard/south)
 "ixt" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -61391,6 +61397,7 @@
 /obj/structure/morgue{
 	dir = 2
 	},
+/obj/effect/landmark/event/revenantspawn,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -62069,7 +62076,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/hallway/primary/starboard/west)
+/area/hallway/primary/starboard/south)
 "jvC" = (
 /obj/machinery/door/window/eastright{
 	base_state = "left";
@@ -62370,6 +62377,7 @@
 /obj/structure/morgue{
 	dir = 1
 	},
+/obj/effect/landmark/event/revenantspawn,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -68373,7 +68381,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/hallway/primary/starboard/west)
+/area/hallway/primary/starboard/south)
 "kvG" = (
 /obj/effect/spawner/window/reinforced/polarized{
 	id = "blueshieldofficewindows"
@@ -69321,14 +69329,6 @@
 	icon_state = "whitehall"
 	},
 /area/maintenance/fsmaint3)
-"kDR" = (
-/obj/effect/landmark/event/revenantspawn,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
-	},
-/area/medical/morgue)
 "kDU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -85947,6 +85947,7 @@
 /obj/structure/morgue{
 	dir = 2
 	},
+/obj/effect/landmark/event/revenantspawn,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -87725,6 +87726,7 @@
 /obj/structure/morgue{
 	dir = 2
 	},
+/obj/effect/landmark/event/revenantspawn,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -98672,7 +98674,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/hallway/primary/starboard/west)
+/area/hallway/primary/starboard/south)
 "pgr" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -108515,7 +108517,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/hallway/primary/starboard/west)
+/area/hallway/primary/starboard/south)
 "qEE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -109787,7 +109789,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/hallway/primary/starboard/west)
+/area/hallway/primary/starboard/south)
 "qPb" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
@@ -111053,7 +111055,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/hallway/primary/starboard/west)
+/area/hallway/primary/starboard/south)
 "qZw" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -112321,7 +112323,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/hallway/primary/starboard/west)
+/area/hallway/primary/starboard/south)
 "rkX" = (
 /obj/structure/chair/comfy/blue{
 	dir = 4
@@ -119622,6 +119624,7 @@
 /obj/structure/morgue{
 	dir = 2
 	},
+/obj/effect/landmark/event/revenantspawn,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -130156,7 +130159,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/hallway/primary/starboard/west)
+/area/hallway/primary/starboard/south)
 "tQM" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -131958,7 +131961,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/hallway/primary/starboard/west)
+/area/hallway/primary/starboard/south)
 "udF" = (
 /obj/structure/grille/broken,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -142316,7 +142319,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/hallway/primary/starboard/west)
+/area/hallway/primary/starboard/south)
 "vMI" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -143327,7 +143330,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/hallway/primary/starboard/west)
+/area/hallway/primary/starboard/south)
 "vUN" = (
 /obj/structure/chair/comfy/teal{
 	dir = 4
@@ -147378,6 +147381,7 @@
 /obj/structure/morgue{
 	dir = 1
 	},
+/obj/effect/landmark/event/revenantspawn,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -147959,7 +147963,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/hallway/primary/starboard/west)
+/area/hallway/primary/starboard/south)
 "wFn" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -148794,7 +148798,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/hallway/primary/starboard/west)
+/area/hallway/primary/starboard/south)
 "wMc" = (
 /obj/structure/closet/wardrobe/virology_white,
 /turf/simulated/floor/plasteel{
@@ -151802,7 +151806,7 @@
 /area/maintenance/brig)
 "xkF" = (
 /turf/simulated/wall,
-/area/hallway/primary/starboard/west)
+/area/hallway/primary/starboard/south)
 "xkH" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -187848,7 +187852,7 @@ aBA
 oZX
 nTE
 bTO
-kDR
+irp
 rsK
 mTY
 dYq
