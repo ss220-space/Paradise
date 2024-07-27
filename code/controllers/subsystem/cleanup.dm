@@ -35,7 +35,7 @@ SUBSYSTEM_DEF(cleanup)
 		GLOB.human_list = "human_list",
 		GLOB.carbon_list = "carbon_list"
 	)
-
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/cleanup/fire(resumed)
 	for(var/L in lists_to_clean)

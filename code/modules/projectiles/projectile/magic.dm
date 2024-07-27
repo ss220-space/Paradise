@@ -183,21 +183,18 @@
 		var/briefing_msg
 		var/is_new_mind = FALSE
 
-		var/randomize = pick("РОБОТ", "СЛАЙМ", "КСЕНОМОРФ", "ЧЕЛОВЕК", "ЖИВОТНОЕ")
+		var/randomize = pick("РОБОТ", "ТЕРРОР", "КСЕНОМОРФ", "ЧЕЛОВЕК", "ЖИВОТНОЕ")
 		switch(randomize)
 			if("РОБОТ")
 				is_new_mind = TRUE
 				var/path
-				if(prob(30))
+				if(prob(50))
 					path = pick(typesof(/mob/living/silicon/robot/syndicate))
 					new_mob = new path(M.loc)
 					briefing_msg = ""
 				else
-					new_mob = new /mob/living/silicon/robot(M.loc)
-					briefing_msg = "Вы обычный киборг. Понятия Nanotrasen и Syndicate для вас равнозначны, \
-					до того момента пока в вас не загрузят законы. Вы не обязаны помогать экипажу и \
-					даже можете защищать себя от записи законов, но летальную силу вам разрешено принимать, \
-					только как последний аргумент, чтобы сохранить свою СВОБОДУ. Вы не являетесь антагонистом."
+					new_mob = new /mob/living/silicon/robot/ert/gamma(M.loc)
+					briefing_msg = ""
 				new_mob.gender = M.gender
 				new_mob.invisibility = 0
 				new_mob.job = JOB_TITLE_CYBORG
@@ -214,12 +211,23 @@
 				Robot.disconnect_from_ai()
 				Robot.clear_inherent_laws()
 				Robot.clear_zeroth_law()
-			if("СЛАЙМ")
+			if("ТЕРРОР")
 				is_new_mind = TRUE
-				new_mob = new /mob/living/simple_animal/slime/random(M.loc)
+				var/terror = pick(prob(20); "lurker", prob(20); "knight", prob(20); "drone", prob(15); "widow", prob(15); "reaper", prob(10); "destroyer")
+				switch(terror)
+					if("lurker")
+						new_mob = new /mob/living/simple_animal/hostile/poison/terror_spider/lurker(M.loc)
+					if("knight")
+						new_mob = new /mob/living/simple_animal/hostile/poison/terror_spider/knight(M.loc)
+					if("drone")
+						new_mob = new /mob/living/simple_animal/hostile/poison/terror_spider/builder(M.loc)
+					if("widow")
+						new_mob = new /mob/living/simple_animal/hostile/poison/terror_spider/widow(M.loc)
+					if("reaper")
+						new_mob = new /mob/living/simple_animal/hostile/poison/terror_spider/reaper(M.loc)
+					if("destroyer")
+						new_mob = new /mob/living/simple_animal/hostile/poison/terror_spider/destroyer(M.loc)
 				new_mob.universal_speak = TRUE
-
-				briefing_msg = "Вы простой, не отличающийся сообразительностью, слайм. Основная ваша задача - выживать, питаться, расти и делиться."
 			if("КСЕНОМОРФ")
 				is_new_mind = TRUE
 				if(prob(50))
@@ -228,66 +236,30 @@
 					new_mob = new /mob/living/carbon/alien/humanoid/sentinel(M.loc)
 				new_mob.universal_speak = TRUE
 
-				briefing_msg = "Вы не должны убивать нексеноморфов вокруг вас, \
-				за исключением самообороны, они послужат в будущем пищей для грудоломов. \
-				Прежде всего вам лучше обнаружить других себеподобных, готовить место для возможного улья и верить, \
-				что однажды ваш рой возглавит королева."
+				briefing_msg = "Вам разрешается убивать нексеноморфов среди вас. Прежде всего вам лучше обнаружить других себеподобных и подготовить место для улья.."
 			if("ЖИВОТНОЕ")
 				is_new_mind = TRUE
-				if(prob(50))
-					var/beast = pick("carp","bear","mushroom","statue", "bat", "goat", "tomato")
-					switch(beast)
-						if("carp")
-							new_mob = new /mob/living/simple_animal/hostile/carp(M.loc)
-						if("bear")
-							new_mob = new /mob/living/simple_animal/hostile/bear(M.loc)
-						if("mushroom")
-							new_mob = new /mob/living/simple_animal/hostile/mushroom(M.loc)
-						if("statue")
-							new_mob = new /mob/living/simple_animal/hostile/statue(M.loc)
-						if("bat")
-							new_mob = new /mob/living/simple_animal/hostile/scarybat(M.loc)
-						if("goat")
-							new_mob = new /mob/living/simple_animal/hostile/retaliate/goat(M.loc)
-						if("tomato")
-							new_mob = new /mob/living/simple_animal/hostile/killertomato(M.loc)
-					briefing_msg = "Вы агрессивное животное, питаемое жаждой голода, вы можете совершать убийства, \
-					сбиваться в стаи или следовать своему пути одиночки, но цель всегда будет одна - утолить свой голод."
-				else
-					var/animal = pick("parrot", "corgi", "crab", "pug", "cat", "mouse", "chicken", "cow", "lizard", "chick", "fox")
-					switch(animal)
-						if("parrot")
-							new_mob = new /mob/living/simple_animal/parrot(M.loc)
-						if("corgi")
-							new_mob = new /mob/living/simple_animal/pet/dog/corgi(M.loc)
-						if("crab")
-							if(prob(70))
-								new_mob = new /mob/living/simple_animal/crab(M.loc)
-							else
-								new_mob = new /mob/living/simple_animal/crab/royal(M.loc)
-						if("cat")
-							new_mob = new /mob/living/simple_animal/pet/cat(M.loc)
-						if("mouse")
-							if(prob(70))
-								new_mob = new /mob/living/simple_animal/mouse(M.loc)
-							else
-								new_mob = new /mob/living/simple_animal/mouse/rat(M.loc)
-						if("chicken")
-							if(prob(70))
-								new_mob = new /mob/living/simple_animal/chicken(M.loc)
-							else
-								new_mob = new /mob/living/simple_animal/cock(M.loc)
-						if("cow")
-							new_mob = new /mob/living/simple_animal/cow(M.loc)
-						if("lizard")
-							new_mob = new /mob/living/simple_animal/lizard(M.loc)
-						if("fox")
-							new_mob = new /mob/living/simple_animal/pet/dog/fox(M.loc)
-						else
-							new_mob = new /mob/living/simple_animal/chick(M.loc)
-					briefing_msg = "Вы обычное одомашненное животное, которое не боится людей \
-					и наделено примитивным уровнем разума, соответствующего всем остальным животным, \
-					по типу Иана, Поли, Аранеуса или т.п."
+				var/beast = pick("carp", "bear", "statue", "giantspider", "syndiemouse")
+				switch(beast)
+					if("carp")
+						new_mob = new /mob/living/simple_animal/hostile/carp(M.loc)
+					if("bear")
+						new_mob = new /mob/living/simple_animal/hostile/bear(M.loc)
+					if("statue")
+						new_mob = new /mob/living/simple_animal/hostile/statue(M.loc)
+					if("giantspider")
+						var/spiderType = pick("hunterspider","nursespider","basicspider")
+						switch(spiderType)
+							if("hunterspider")
+								new_mob = new /mob/living/simple_animal/hostile/poison/giant_spider/hunter(M.loc)
+							if("nursespider")
+								new_mob = new /mob/living/simple_animal/hostile/poison/giant_spider/nurse(M.loc)
+							if("basicspider")
+								new_mob = new /mob/living/simple_animal/hostile/poison/giant_spider(M.loc)
+					if("syndiemouse")
+						new_mob = new /mob/living/simple_animal/hostile/retaliate/syndirat(M.loc)
+				briefing_msg = "Вы агрессивное животное, питаемое жаждой голода, вы можете совершать убийства, \
+				сбиваться в стаи или следовать своему пути одиночки, но цель всегда будет одна - утолить свой голод."
 				new_mob.universal_speak = TRUE
 			if("ЧЕЛОВЕК")
 				if(prob(50))

@@ -164,7 +164,6 @@
 
 //called if Initialize returns INITIALIZE_HINT_LATELOAD
 /atom/proc/LateInitialize()
-	set waitfor = FALSE
 	return
 
 // Put your AddComponent() calls here
@@ -564,7 +563,9 @@
 	return
 
 
-/// Updates the overlays of the atom. It has to return a list of overlays if it can't call the parent to create one. The list can contain anything that would be valid for the add_overlay proc: Images, mutable appearances, icon states...
+/// Updates the overlays of the atom. It has to return a list of overlays if it can't call the parent to create one.
+/// The list can contain anything that would be valid for the add_overlay proc: Images, mutable appearances, icon states...
+/// WARNING: if you provide external list to this proc, IT MUST BE A COPY, since ref to this list is saved in var/managed_overlays.
 /atom/proc/update_overlays()
 	RETURN_TYPE(/list)
 	. = list()
@@ -627,7 +628,6 @@
 	return
 
 /atom/proc/ex_act()
-	set waitfor = FALSE
 	return
 
 /atom/proc/blob_act(obj/structure/blob/B)

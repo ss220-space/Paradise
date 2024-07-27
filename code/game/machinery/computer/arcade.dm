@@ -639,7 +639,7 @@
 					atom_say("WEEWOO WEEWOO, Spaceport Security en route!")
 					for(var/i, i<=3, i++)
 						var/mob/living/simple_animal/hostile/syndicate/ranged/orion/O = new/mob/living/simple_animal/hostile/syndicate/ranged/orion(get_turf(src))
-						O.target = usr
+						O.GiveTarget(usr)
 
 
 		fuel += FU

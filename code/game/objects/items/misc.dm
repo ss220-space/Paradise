@@ -3,11 +3,13 @@
 
 //Current contents:
 /*
-	mouse_drag_pointer
+	Cursor Drag Pointer
 	Beach Ball
+	Mouse Jetpack
 */
 
 /obj/item/mouse_drag_pointer = MOUSE_ACTIVE_POINTER
+
 
 /obj/item/beach_ball
 	icon = 'icons/misc/beach.dmi'
@@ -23,6 +25,15 @@
 	throw_range = 20
 	flags = CONDUCT
 	item_flags = NO_PIXEL_RANDOM_DROP
+
+
+/obj/item/mouse_jetpack
+	name = "improvised mouse jetpack"
+	desc = "A roughly made jetpack designed for satisfy extremely small persons."
+	icon_state = "jetpack_mouse"
+	icon = 'icons/obj/tank.dmi'
+	w_class = WEIGHT_CLASS_SMALL
+
 
 /obj/item/syndicate_reverse_card
 	name = "playing card"

@@ -93,6 +93,14 @@
 	display_name = "Guy Fawkes mask"
 	path = /obj/item/clothing/mask/face/fawkes
 
+/datum/gear/donor/bigbrother
+	display_name = "Spraycan Big Brother"
+	path = /obj/item/toy/crayon/spraycan/paintkit/bigbrother
+
+/datum/gear/donor/slavic
+	display_name = "Spraycan Slavic"
+	path = /obj/item/toy/crayon/spraycan/paintkit/slavic
+
 /datum/gear/donor/id_decal_silver
 	display_name = "Silver ID Decal"
 	path = /obj/item/id_decal/silver
@@ -353,9 +361,10 @@
 	donator_tier = 1
 	cost = 1
 
-/datum/gear/donor/maid_s
+/datum/gear/donor/maid
 	donator_tier = 2
 	cost = 1
 	display_name = "Short maid costume"
-	path = /obj/item/clothing/under/maid_s
+	path = /obj/item/clothing/under/maid
+
 

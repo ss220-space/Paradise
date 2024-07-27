@@ -19,7 +19,7 @@ SUBSYSTEM_DEF(afk)
 	else
 		non_cryo_antags = list(SPECIAL_ROLE_ABDUCTOR_AGENT, SPECIAL_ROLE_ABDUCTOR_SCIENTIST, \
 							SPECIAL_ROLE_SHADOWLING, SPECIAL_ROLE_WIZARD, SPECIAL_ROLE_WIZARD_APPRENTICE, SPECIAL_ROLE_NUKEOPS)
-
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/afk/fire()
 	var/list/toRemove = list()

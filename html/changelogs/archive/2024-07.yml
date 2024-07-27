@@ -264,6 +264,9 @@
   - add: shadow update (#5441)
   Aziz Chynaliev:
   - del: Cleaners now can be colored using crayons " (#5554)
+  BoshyG:
+  - add: Varieties of armored gloves for ERT and Syndicate (and some other roles)
+      (#5527)
   Daeberdir:
   - unknown: '`/tableflip` icons and new "hotkey". (#4975)'
   - refactor: wooden cabinets visuals standartising. (#5227)
@@ -273,10 +276,13 @@
   - imageadd: new maid sex uniform  (#5477)
   - imageadd: Foodfart (#5513)
   - imageadd: Kitchen update (#5476)
+  Helmsman:
+  - add: ash tendril has heal aura that heals ash walkers (#5132)
   Lentye:
   - add: Добавление категории карго контрабанды, увеличение списка контры (#5168)
   LiquidPotroh:
   - tweak: Disarms without slowdown (#5451)
+  - add: Abductors moderate event (#4852)
   MstrKabach:
   - refactor: Cleaners now can be colored using crayons  (#4895)
   NightDawnFox:
@@ -297,6 +303,8 @@
   SAAD:
   - server: Celestation improvement 3 (#5547)
   - bugfix: July Lavalend ruins general cleanup (#5551)
+  SHODAN:
+  - imageadd: new_sprite_tools (#5485)
   TimChi:
   - add: Cursed Piano (#5100)
   Vladisvell:
@@ -309,6 +317,7 @@
   - bugfix: Returns white noise, ambience now works (#5538)
   - add: Enables and improves Garbage Collector (#5360)
   - refactor: Removes all lava platings, lava is smoothed by default (#5479)
+  - del: Added waitfor = 0 for some background tasks" (#5558)
   Zwei:
   - bugfix: Bandanas Head Sprites Fix (#5539)
   - bugfix: Jaunter Checks Storage (#5544)
@@ -324,3 +333,68 @@
   - add: cultivator now has a progress-bar (#5471)
   pilygun:
   - add: Баунти) Leather Syndicate Coat in t2 loadout donor (#5516)
+  - imageadd: New sprites Weapons  (#5517)
+'2024-07-25':
+  Antoonij:
+  - bugfix: ai interaction with crematorium and mech ability (#5563)
+  Daeberdir:
+  - add: Jetpack for mices. (#5176)
+  FanTik-Ratge:
+  - imageadd: maid-fix (#5569)
+  MstrKabach:
+  - add: Camera can be worn around the neck (#5525)
+  ROdenFL:
+  - add: tgui inputs (#5385)
+  - bugfix: landmarks not a thing (#5567)
+  - bugfix: ghost piano, paper input revert, uplink, cult invoke fix (#5572)
+  Vladisvell:
+  - tweak: removed debug log for megaphones (#5566)
+  - bugfix: Returns possibility to reference tracking, fixes mobs hard deletion issue
+      and makes landmarks hard delete now (#5568)
+  Zwei:
+  - tweak: Show Runtimes Amount By Type (#5559)
+  - bugfix: Stamp Overlays Fix (#5556)
+  - refactor: Pimp My Master (#5514)
+  - tweak: Optimized NPC Handling (#5570)
+  dageavtobusnick:
+  - refactor: blob objective update fix (#5560)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#5565)
+'2024-07-26':
+  Aziz Chynaliev:
+  - bugfix: incorrect timezone offset
+  - server: update byond version to 515.1642
+  - bugfix: world.timezone offset was correct
+  - bugfix: stupid fix of redundancy
+  FanTik-Ratge:
+  - imageadd: fix some inhand issue (#5576)
+  ItsMeJaba:
+  - add: Central Command rework (#3900)
+  ROdenFL:
+  - tweak: никаких костылей в кодвордах, люммокс молодец (#5580)
+  Zwei:
+  - tweak: Garbage Inits Later (#5574)
+  - tweak: Small AI Optimization (#5573)
+  - bugfix: Runtimes Fixes N4 (#5578)
+  dageavtobusnick:
+  - tweak: all roundstart traitors can accept contractor offer (#5555)
+  - tweak: add crew transfer vote after blob death (#5557)
+'2024-07-27':
+  Daeberdir:
+  - bugfix: mouse jet dropped on user death. (#5584)
+  ItsMeJaba:
+  - bugfix: centcom rework (#5583)
+  NuSanya:
+  - tweak: polymorph recharge and mob list (#5575)
+  ROdenFL:
+  - bugfix: tgui minor fixes(totally not working eftpos and cargo quests iconswithnospacewithword)s
+      (#5579)
+  SabrioBiblio:
+  - add: twohanded cardboard cutout (#5353)
+  Zwei:
+  - bugfix: Chem Grenade Prime Fix (#5581)
+  - unknown: Few Keybinding Tweaks (#5416)
+  endipe:
+  - unknown: new paintkit for welding (#5520)
+  pilygun:
+  - imageadd: QOL spr.Flashbang+mobcap (#5582)

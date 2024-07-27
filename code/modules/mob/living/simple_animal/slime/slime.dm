@@ -11,6 +11,7 @@
 	var/docile = 0
 	faction = list("slime", "neutral")
 	allows_unconscious = TRUE
+	AI_delay_max = 0.5 SECONDS
 
 	harm_intent_damage = 3
 	icon_living = "grey baby slime"

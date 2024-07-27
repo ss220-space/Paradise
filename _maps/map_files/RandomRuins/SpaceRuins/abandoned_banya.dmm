@@ -544,7 +544,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
 "vI" = (
-/mob/living/simple_animal/mouse/brown,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -997,7 +997,7 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/USSP_SpaceBanya)
 "TI" = (
-/mob/living/simple_animal/mouse/brown,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/wood/oak,
 /area/ruin/USSP_SpaceBanya)
 "Ud" = (

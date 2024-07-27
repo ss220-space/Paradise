@@ -7,6 +7,7 @@ SUBSYSTEM_DEF(garbage)
 	flags = SS_POST_FIRE_TIMING|SS_BACKGROUND|SS_NO_INIT
 	runlevels = RUNLEVELS_DEFAULT | RUNLEVEL_LOBBY
 	init_order = INIT_ORDER_GARBAGE // Why does this have an init order if it has SS_NO_INIT?
+	//init_stage = INITSTAGE_EARLY
 	offline_implications = "Garbage statistics collection is no longer functional, not a big deal actually. No futher actions required."
 	cpu_display = SS_CPUDISPLAY_HIGH
 	ss_id = "garbage_collector"
@@ -210,7 +211,7 @@ SUBSYSTEM_DEF(garbage)
 					var/client/admin = c
 					if(!check_rights_for(admin, R_ADMIN))
 						continue
-					to_chat(admin, "## TESTING: GC: -- [ADMIN_VV(D)] | [type] was unable to be GC'd --")
+					to_chat(admin, "## TESTING: GC: -- [ADMIN_VV(D, "VV")] | [type] was unable to be GC'd --")
 				#endif
 				I.failures++
 
@@ -281,6 +282,7 @@ SUBSYSTEM_DEF(garbage)
 	type_info.hard_delete_time += tick_usage
 	if (tick_usage > type_info.hard_delete_max)
 		type_info.hard_delete_max = tick_usage
+
 	if (tick_usage > highest_del_ms)
 		highest_del_ms = tick_usage
 		highest_del_type_string = "[type]"
@@ -289,7 +291,12 @@ SUBSYSTEM_DEF(garbage)
 
 	if (time > 0.1 SECONDS)
 		postpone(time)
-	var/threshold = CONFIG_GET(number/hard_deletes_overrun_threshold)
+
+	var/threshold = 0
+	//Issue with global config not loading can happen when hard deletions happening before config loading
+	if(global.config)
+		threshold = CONFIG_GET(number/hard_deletes_overrun_threshold)
+
 	if (threshold && (time > threshold SECONDS))
 		if (!(type_info.qdel_flags & QDEL_ITEM_ADMINS_WARNED))
 			log_game("Error: [type]([refID]) took longer than [threshold] seconds to delete (took [round(time/10, 0.1)] seconds to delete)")

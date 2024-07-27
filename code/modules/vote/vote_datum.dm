@@ -26,8 +26,6 @@
 
 
 /datum/vote/New(_initiator, _question, list/_choices, _is_custom = FALSE)
-	if(SSvote.active_vote)
-		CRASH("Attempted to start another vote with one already in progress!")
 
 	if(_initiator)
 		initiator = _initiator
@@ -141,6 +139,7 @@
 		SSvote.active_vote = null
 		if(ooc_auto_muted && !CONFIG_GET(flag/ooc_allowed))
 			toggle_ooc()
+		addtimer(CALLBACK(SSvote, TYPE_PROC_REF(/datum/controller/subsystem/vote, on_vote_end)), 3 SECONDS)
 	return ..()
 
 
