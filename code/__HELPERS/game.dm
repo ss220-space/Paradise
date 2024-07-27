@@ -515,14 +515,14 @@
 	return players_to_spawn
 
 /proc/pick_candidates_all_types(client/admin_client, max_slot, question, be_special_type, antag_age_check = FALSE, poll_time = 300, ignore_respawnability = FALSE, min_hours = FALSE, flashwindow = TRUE, check_antaghud = TRUE, source, role_cleanname, reason)
-	var/type = alert(admin_client,"Как вы хотите выбрать членов команды? \n \
+	var/type = tgui_alert(admin_client,"Как вы хотите выбрать членов команды? \n \
 	Случайно - призраки получат предложение занять роль. \
 	После его окончания, среди них будет рандомно выбрано [max_slot] кандидатов \n \
 	С вето - призраки получат предложение занять роль.\
 	После его окончания, вам необходимо среди них выбрать [max_slot] кандидатов \n \
 	Вручную - Вам необходимо выбрать [max_slot] кандидатов среди всех призраков. \
 	(не рекомендуется, вы можете выбрать игрока на роль против его воли).",
-	"Выберите способ.", "Случайно", "С вето", "Вручную")
+	"Выберите способ.", list("Случайно", "С вето", "Вручную"))
 	switch(type)
 		if("Случайно")
 			return SSghost_spawns.poll_candidates(question, be_special_type, antag_age_check, poll_time, ignore_respawnability, min_hours, flashwindow, check_antaghud, source, role_cleanname, reason)

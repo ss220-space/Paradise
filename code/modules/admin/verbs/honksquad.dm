@@ -6,30 +6,30 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 
 /client/proc/honksquad()
 	if(!SSticker)
-		to_chat(usr, "<font color='red'>Игра еще не началась!</font>")
+		to_chat(src, "<font color='red'>Игра еще не началась!</font>")
 		return
 	if(world.time < 6000)
-		to_chat(usr, "<font color='red'>Осталось [(6000-world.time)/10] секунд до того, как это может быть вызвано.</font>")
+		to_chat(src, "<font color='red'>Осталось [(6000-world.time)/10] секунд до того, как это может быть вызвано.</font>")
 		return
-	if(alert("Вы хотите отправить ХОНКсквад? После согласия это необратимо.",,"Да","Нет")!="Да")
+	if(tgui_alert(src, "Вы хотите отправить ХОНКсквад? После согласия это необратимо.", "Подтверждение", list("Да","Нет"))!="Да")
 		return
 	var/is_security_clowns = FALSE
-	if(alert("Какую группу вы хотите послать?",,"ХОНК-сквад","ХОНК-смотрители")=="ХОНК-смотрители")
+	if(tgui_alert(src, "Какую группу вы хотите послать?","Тип отряда", list("ХОНК-сквад", "ХОНК-смотрители"))=="ХОНК-смотрители")
 		is_security_clowns = TRUE
 		GLOB.sent_clownsequritysquad += 1
 	else
 		GLOB.sent_honksquad += 1
 
 	if(GLOB.sent_honksquad > 1 && !is_security_clowns || GLOB.sent_clownsequritysquad > 1 && is_security_clowns)
-		to_chat(usr, "<font color='red'>Планета Клоунов уже отправила ХОНКсквад.</font>")
+		to_chat(src, "<font color='red'>Планета Клоунов уже отправила ХОНКсквад.</font>")
 		return
-	alert("Этот 'режим' будет продолжаться до тех пор, пока не будут восстановлены надлежащий уровень ХОНКа. Также, при необходимости, можно вызвать эвакуационный шаттл через админские кнопки.")
+	tgui_alert(src, "Этот 'режим' будет продолжаться до тех пор, пока не будут восстановлены надлежащий уровень ХОНКа. Также, при необходимости, можно вызвать эвакуационный шаттл через админские кнопки.")
 
 	var/input = null
 	while(!input)
-		input = sanitize(copytext_char(input(src, "Пожалуйста, уточните, какую миссию будет выполнять ХОНКсквад.", "Укажите миссию", ""),1,MAX_MESSAGE_LEN))
+		input = tgui_input_text(src, "Пожалуйста, уточните, какую миссию будет выполнять ХОНКсквад.", "Укажите миссию", "", max_length=MAX_MESSAGE_LEN)
 		if(!input)
-			if(alert("Ошибка, миссия не задана. Вы хотите приостановить процесс?",,"Да","Нет")=="Да")
+			if(tgui_alert(src, "Ошибка, миссия не задана. Вы хотите приостановить процесс?", "Подтверждение", list("Да","Нет"))=="Да")
 				return
 
 

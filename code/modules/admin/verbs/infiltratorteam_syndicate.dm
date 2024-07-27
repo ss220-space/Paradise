@@ -11,29 +11,28 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 		to_chat(src, "Только администраторы могут использовать эту команду.")
 		return
 	if(!SSticker)
-		alert("Игра еще не началась!")
+		tgui_alert(src, "Игра еще не началась!")
 		return
-	if(alert("Вы хотите отправить Диверсионный Отряд Синдиката?",,"Да","Нет")=="Нет")
+	if(tgui_alert(src, "Вы хотите отправить Диверсионный Отряд Синдиката?", "Подтверждение", list("Да","Нет"))=="Нет")
 		return
 	var/spawn_dummies = 0
-	if(alert("Создавать полноразмерную команду, даже если призраков недостаточно для их заполнения.?",,"Да","Нет")=="Да")
+	if(tgui_alert(src, "Создавать полноразмерную команду, даже если призраков недостаточно для их заполнения?", "Подтверждение", list("Да","Нет"))=="Да")
 		spawn_dummies = 1
 	var/list/teamsizeoptions = list(2,3,4,5,6)
 	var/teamsize = tgui_input_list(src, "Сколько должно быть членов, включая лидера?","Количество членов отряда", teamsizeoptions)
 	if(!(teamsize in teamsizeoptions))
-		alert("Недопустимый размер команды. Отмена.")
+		tgui_alert(src, "Недопустимый размер команды. Отмена.")
 		return
 	var/input = null
 	while(!input)
-		input = sanitize(copytext_char(input(src, "Пожалуйста, уточните, какую миссию будет выполнять Диверсионный Отряд Синдиката.", "Укажите миссию", ""),1,MAX_MESSAGE_LEN))
+		input = tgui_input_text(src, "Пожалуйста, уточните, какую миссию будет выполнять Диверсионный Отряд Синдиката.", "Укажите миссию", "", max_length=MAX_MESSAGE_LEN)
 		if(!input)
-			alert("Миссия не указана. Отмена.")
+			tgui_alert(src, "Миссия не указана. Отмена.")
 			return
-	var/tctext = input(src, "Как много ТК вы хотите дать каждому члену команды? Рекомендовано: 100-150. Они не могут продавать ТК.", 100) as num
-	var/tcamount = text2num(tctext)
-	tcamount = between(0, tcamount, 5000)
+	var/tcamount = tgui_input_number(src, "Как много ТК вы хотите дать каждому члену команды? Рекомендовано: 100-150. Они не могут продавать ТК.","Количество ТК", 100, 5000)
+
 	if(GLOB.sent_syndicate_infiltration_team == 1)
-		if(alert("Диверсионный Отряд Синдиката уже был отправлен. Нужно ли посылать еще один?",,"Да","Нет")=="Нет")
+		if(tgui_alert(src, "Диверсионный Отряд Синдиката уже был отправлен. Нужно ли посылать еще один?","Подтверждение", list("Да","Нет"))=="Нет")
 			return
 
 	var/syndicate_leader_selected = 0

@@ -9,51 +9,49 @@
 		return
 
 	if(!SSticker)
-		alert("Игра еще не началась!")
+		tgui_alert(src, "Игра еще не началась!")
 		return
 
-	if(alert("Вы хотите заспавнить Гиммик тим в ВАШЕЙ ТЕКУЩЕЙ ЛОКАЦИИ?",,"Да","Нет")=="Нет")
+	if(tgui_alert(src, "Вы хотите заспавнить Гиммик тим в ВАШЕЙ ТЕКУЩЕЙ ЛОКАЦИИ?", "Подтверждение", list("Да","Нет"))=="Нет")
 		return
 
 	var/turf/T = get_turf(mob)
 
 	var/force_species = FALSE
 	var/selected_species = null
-	if(alert("Вы хотите выбрать какую-то расу для отряда? Нет - будут обычные люди.",,"Да","Нет")=="Да")
+	if(tgui_alert(src, "Вы хотите выбрать какую-то расу для отряда? Нет - будут обычные люди.", "Подтверждение", list("Да","Нет"))=="Да")
 		force_species = TRUE
 		selected_species = tgui_input_list(src, "Выберете расу", "Выбор расы", GLOB.all_species)
 		if(!selected_species)
-			alert("Спавн остановлен.")
+			tgui_alert(src, "Спавн остановлен.")
 			return	// You didn't pick, abort
 
 	var/list/teamsizeoptions = list(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 	var/teamsize = tgui_input_list(src, "Укажите количество игроков.", "Количество игроков", teamsizeoptions)
 	if(!(teamsize in teamsizeoptions))
-		alert("Недопустимый размер отряда. Отмена.")
+		tgui_alert(src, "Недопустимый размер отряда. Отмена.")
 		return
 
 	var/team_name = null
 	while(!team_name)
-		team_name = sanitize(copytext_char(input(src, "Укажите название команды. По умолчанию \"Гиммик тим\".", "Укажите название", ""),1,MAX_MESSAGE_LEN))
+		team_name = tgui_input_text(src, "Укажите название команды. По умолчанию \"Гиммик тим\".", "Укажите название", "", max_length=MAX_MESSAGE_LEN)
 		if(!team_name)
 			team_name = "Гиммик тим"
 
 	var/themission = null
 	while(!themission)
-		themission = sanitize(copytext_char(input(src, "Укажите миссию отряда.", "Укажите миссию", ""),1,MAX_MESSAGE_LEN))
+		themission = tgui_input_text(src, "Укажите миссию отряда.", "Укажите миссию", "", max_length=MAX_MESSAGE_LEN)
 		if(!themission)
-			alert("Миссия не указана. Отмена.")
+			tgui_alert(src, "Миссия не указана. Отмена.")
 			return
 
-	var/minhours = input(usr, "Укажите минимальное количество часов для [team_name]?", "Минимальное число часов", 60) as null|num
+	var/minhours = tgui_input_number(src, "Укажите минимальное количество часов для [team_name]?", "Минимальное число часов", 60)
 
 	var/dresscode = robust_dress_shop()
 	if(!dresscode)
 		return
 
-	var/is_syndicate = 0
-	if(alert("Вы хотите, чтобы члены отряда автоматически классифицировались как антагонисты?",,"Да","Нет")=="Да")
-		is_syndicate = 1
+	var/is_syndicate = tgui_alert(src, "Вы хотите, чтобы члены отряда автоматически классифицировались как антагонисты?", "Подтверждение", list("Да","Нет"))=="Да"
 
 	var/list/players_to_spawn = list()
 	players_to_spawn = pick_candidates_all_types(src, teamsize, "Вы хотите сыграть за \a [team_name]?", min_hours = minhours, role_cleanname = team_name, reason = themission)

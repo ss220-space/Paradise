@@ -3826,5 +3826,5 @@
 			. += "|[ADMIN_FLW(O.mind.current,"BDY")]"
 
 /proc/you_realy_want_do_this()
-	var/sure = alert(usr, "Вы действительно хотите сделать это?", "Подтверждение", "Да", "Нет")
+	var/sure = tgui_alert(usr, "Вы действительно хотите сделать это?", "Подтверждение", "Да", "Нет")
 	return sure == "Да"
