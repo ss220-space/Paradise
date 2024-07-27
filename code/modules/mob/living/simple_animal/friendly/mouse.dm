@@ -61,6 +61,13 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
+
+/mob/living/simple_animal/mouse/death(gibbed)
+	if(jetpack)
+		remove_from_back(null)
+	. = ..()
+
+
 /mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability) && isturf(loc))
 		var/turf/simulated/floor/F = get_turf(src)
