@@ -901,13 +901,11 @@ so that different stomachs can handle things in different ways VB*/
 	return shock_reduction
 
 
-/mob/living/carbon/toggle_move_intent()
-	if(legcuffed)
-		to_chat(src, span_notice("Ваши ноги скованы! Вы не можете бежать, пока не снимете [legcuffed]!"))
-		m_intent = MOVE_INTENT_WALK	//Just incase
-		hud_used?.move_intent.icon_state = "walking"
-		update_move_intent_slowdown()
-		return
+/mob/living/carbon/can_change_move_intent(silent = FALSE)
+	if(m_intent == MOVE_INTENT_WALK && legcuffed)
+		if(!silent)
+			to_chat(src, span_notice("Ваши ноги скованы! Вы не можете бежать, пока не снимете [legcuffed.name]!"))
+		return FALSE
 	return ..()
 
 

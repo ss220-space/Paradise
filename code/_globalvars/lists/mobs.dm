@@ -15,6 +15,7 @@ GLOBAL_LIST_EMPTY(stealthminID)						//reference list with IDs that store ckeys,
 
 GLOBAL_LIST_EMPTY(player_list)				//List of all mobs **with clients attached**. Excludes /mob/new_player
 GLOBAL_LIST_EMPTY(new_player_mobs)			//List of all new player mobs in the lobby
+GLOBAL_LIST_EMPTY(keyloop_list) //as above but can be limited to boost performance
 GLOBAL_LIST_EMPTY(mob_list)					//List of all mobs, including clientless
 GLOBAL_LIST_EMPTY(silicon_mob_list)			//List of all silicon mobs, including clientless
 GLOBAL_LIST_EMPTY(mob_living_list)			//all instances of /mob/living and subtypes

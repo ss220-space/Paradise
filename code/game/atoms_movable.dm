@@ -1421,3 +1421,15 @@
 /// called when a mob gets shoved into an items turf. false means the mob will be shoved backwards normally, true means the mob will not be moved by the disarm proc.
 /atom/movable/proc/shove_impact(mob/living/target, mob/living/attacker)
 	return FALSE
+
+
+/**
+* A wrapper for setDir that should only be able to fail by living mobs.
+*
+* Called from [/atom/movable/proc/keyLoop], this exists to be overwritten by living mobs with a check to see if we're actually alive enough to change directions
+*
+* Not implemented currently.
+*/
+/atom/movable/proc/keybind_face_direction(direction)
+	setDir(direction)
+

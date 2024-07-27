@@ -141,12 +141,10 @@
 
 
 // SS runlevels
-
 #define RUNLEVEL_LOBBY (1<<0)
 #define RUNLEVEL_SETUP (1<<1)
 #define RUNLEVEL_GAME (1<<2)
 #define RUNLEVEL_POSTGAME (1<<3)
-
 #define RUNLEVELS_DEFAULT (RUNLEVEL_SETUP|RUNLEVEL_GAME|RUNLEVEL_POSTGAME)
 
 /// The timer key used to know how long subsystem initialization takes

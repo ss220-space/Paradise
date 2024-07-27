@@ -167,56 +167,56 @@
 	switch(action)
 		if("change_code")
 			if(world.timeofday < last_change + change_delay)
-				to_chat(usr, "[bicon(src)]<span class='notice'> Wait before next access code change.</span>")
+				to_chat(user, "[bicon(src)]<span class='notice'> Wait before next access code change.</span>")
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 1)
 				return
 			last_change = world.timeofday
 			if(access_code)
 				var/attempt_code = tgui_input_number(user, "Re-enter the current EFTPOS access code:", "Confirm old EFTPOS code", max_value = 9999, min_value = 1000)
-				if(!Adjacent(usr))
+				if(!Adjacent(user))
 					return
 				if(attempt_code != access_code)
-					to_chat(usr, "[bicon(src)]<span class='notice'> Incorrect code entered.</span>")
+					to_chat(user, "[bicon(src)]<span class='notice'> Incorrect code entered.</span>")
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 0)
 					return
 			var/trycode = tgui_input_number(user, "Enter a new access code for this device:", "Enter new EFTPOS code", max_value = 9999, min_value = 1000)
-			if(!Adjacent(usr) || !isnull(trycode))
+			if(!Adjacent(user) || !isnull(trycode))
 				return
 			access_code = trycode
-			print_reference(usr)
+			print_reference(user)
 		if("link_account")
 			if(duty_mode)
 				//запрещает редактировать это поле на служебном устройстве
-				to_chat(usr, "[bicon(src)]<span class='notice'> Feature not available on this device.</span>")
+				to_chat(user, "[bicon(src)]<span class='notice'> Feature not available on this device.</span>")
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 1)
 				return
 			if(!linked_db)
 				reconnect_database()
 			if(linked_db)
-				var/attempt_account_num = tgui_input_number(user, "Enter account number to pay EFTPOS charges into:", "New account number", max_value = 9999999, min_value = 1000000)
+				var/attempt_account_num = tgui_input_number(user, "Enter account number to pay EFTPOS charges into:", "New account number", max_value = 999999, min_value = 100000)
 				if(!attempt_account_num)
 					return
 				var/attempt_pin = tgui_input_number(user, "Enter pin code", "Account pin", max_value = 99999, min_value = 10000)
-				if(!Adjacent(usr) || !attempt_pin)
+				if(!Adjacent(user) || !attempt_pin)
 					return
 				linked_account = attempt_account_access(attempt_account_num, attempt_pin, 2)
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 30, 0)
 			else
-				to_chat(usr, "[bicon(src)]<span class='warning'> Server Error #523 Accounts Database Is Unreachable. Please retry and if the issue persists contact Nanotrasen IT support.</span>")
+				to_chat(user, "[bicon(src)]<span class='warning'> Server Error #523 Accounts Database Is Unreachable. Please retry and if the issue persists contact Nanotrasen IT support.</span>")
 				playsound(src, 'sound/machines/terminal_alert.ogg', 30, 0)
 		if("trans_purpose")
 			if (duty_mode)
-				to_chat(usr, "[bicon(src)]<span class='notice'> Feature not available on this device.</span>")
+				to_chat(user, "[bicon(src)]<span class='notice'> Feature not available on this device.</span>")
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 1)
 				return
 			var/purpose = tgui_input_text(user, "Enter reason for EFTPOS transaction", "Transaction purpose", transaction_purpose, encode = FALSE)
-			if(!Adjacent(usr) || !purpose)
+			if(!Adjacent(user) || isnull(purpose))
 				return
 			transaction_purpose = purpose
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 30, 0)
 		if("trans_value")
 			var/try_num = tgui_input_number(user, "Enter amount for EFTPOS transaction", "Transaction amount", transaction_amount)
-			if(!Adjacent(usr) || !isnull(try_num))
+			if(!Adjacent(user) || isnull(try_num))
 				return
 			transaction_amount = try_num
 		if("toggle_lock")
@@ -224,7 +224,7 @@
 			//но для этого нужно eftpos.js редактировать, заодно и все input перевести на tgui
 			if(transaction_locked && !transaction_paid)
 				//выход из режима оплаты c помощью карты или если код 0 (приоритетный выход)
-				var/list/access = usr.get_access()
+				var/list/access = user.get_access()
 				if((ACCESS_CENT_COMMANDER in access) || (ACCESS_CAPTAIN in access) || (ACCESS_HOP in access) || !access_code)
 					transaction_locked = 0
 					transaction_paid = 0
@@ -232,10 +232,10 @@
 					return
 				//выход с проверкой кода доступа
 				var/attempt_code = tgui_input_number(user, "Enter EFTPOS access code", "Reset Transaction", max_value = 9999, min_value = 1000)
-				if(!Adjacent(usr))
+				if(!Adjacent(user))
 					return
 				if(attempt_code != access_code)
-					to_chat(usr, "[bicon(src)]<span class='notice'> That is not a valid code!</span>")
+					to_chat(user, "[bicon(src)]<span class='notice'> That is not a valid code!</span>")
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 0)
 					return
 				transaction_locked = 0
@@ -246,30 +246,30 @@
 				//завершение оплаты с печатью чека
 				transaction_locked = 0
 				transaction_paid = 0
-				print_check(usr)
+				print_check(user)
 				return
 			if(linked_account && !transaction_locked)
 				//переводит EFTPOS в режим оплаты, если введен аккаунт получателя
 				transaction_locked = 1
 				playsound(src, 'sound/machines/terminal_prompt.ogg', 30, 0)
 			else
-				to_chat(usr, "[bicon(src)]<span class='warning'> Client Error #401 No Account Linked To Device.</span>")
+				to_chat(user, "[bicon(src)]<span class='warning'> Client Error #401 No Account Linked To Device.</span>")
 				playsound(src, 'sound/machines/terminal_alert.ogg', 30, 0)
 		if("scan_card")
-			var/obj/item/active_hand = usr.get_active_hand()
+			var/obj/item/active_hand = user.get_active_hand()
 			var/obj/item/card/id/id_card = active_hand?.GetID()
 			if(!istype(id_card))
 				return
-			scan_card(id_card, usr)
+			scan_card(id_card, user)
 		if("reset")
 			//reset the access code - requires HoP/captain access
-			var/list/access = usr.get_access()
+			var/list/access = user.get_access()
 			if((ACCESS_CENT_COMMANDER in access)  || (ACCESS_CAPTAIN in access) || (ACCESS_HOP in access))
 				access_code = 0
-				to_chat(usr, "[bicon(src)]<span class='notice'> Access code reset to 0.</span>")
+				to_chat(user, "[bicon(src)]<span class='notice'> Access code reset to 0.</span>")
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 30, 0)
 			else
-				to_chat(usr, "[bicon(src)]<span class='warning'> Not allowed ID access.</span>")
+				to_chat(user, "[bicon(src)]<span class='warning'> Not allowed ID access.</span>")
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 1)
 
 /obj/item/eftpos/proc/scan_card(obj/item/card/id/id_card, mob/user)
@@ -302,7 +302,7 @@
 			card_account = attempt_account_access(id_card.associated_account_number, pin_needed = FALSE)
 		else
 			var/attempt_pin = tgui_input_number(user, "Enter pin code", "EFTPOS transaction", max_value = 9999, min_value = 1000)
-			if(!attempt_pin || Adjacent(user))
+			if(!attempt_pin || !Adjacent(user))
 				return
 			card_account = attempt_account_access(id_card.associated_account_number, attempt_pin, 2)
 		if(!card_account || card_account.suspended)
@@ -322,5 +322,5 @@
 			visible_message("[bicon(src)] The [src] chimes.")
 			playsound(src, 'sound/machines/chime.ogg', 50, 0)
 	else
-		to_chat(usr, "[bicon(src)]<span class='warning'> Server Error #523 Accounts Database Is Unreachable. Please retry and if the issue persists contact Nanotrasen IT support.</span>")
+		to_chat(user, "[bicon(src)]<span class='warning'> Server Error #523 Accounts Database Is Unreachable. Please retry and if the issue persists contact Nanotrasen IT support.</span>")
 		playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)

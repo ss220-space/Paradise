@@ -44,6 +44,8 @@
 
 	///Used for limiting the rate of topic sends by the client to avoid abuse
 	var/list/topiclimiter
+	///Used for limiting the rate of clicks sends by the client to avoid abuse
+	var/list/clicklimiter
 
 	// comment out the line below when debugging locally to enable the options & messages menu
 	control_freak = CONTROL_FREAK_ALL
@@ -148,12 +150,28 @@
 
 	var/url
 
-	/// Input datum, what the client is pressing.
-	var/datum/input_data/input_data = new()
 	/// The client's active keybindings, depending on their active mob.
-	var/list/active_keybindings = list()
-	/// The client's movement keybindings to directions, which work regardless of modifiers.
-	var/list/movement_kb_dirs = list()
+	var/list/active_keybindings = list()	// will be removed later
+
+	/// A buffer of currently held keys.
+	var/list/keys_held = list()
+	/// A buffer for combinations such of modifiers + keys (ex: CtrlD, AltE, ShiftT). Format: `"key"` -> `"combo"` (ex: `"D"` -> `"CtrlD"`)
+	var/list/key_combos_held = list()
+	///custom movement keys for this client
+	var/list/movement_keys = list()
+	/// The direction we WANT to move, based off our keybinds
+	/// Will be udpated to be the actual direction later on
+	var/intended_direction = NONE
+	///Are we locking our movement input?
+	var/movement_locked = FALSE
+	/*
+	** These next two vars are to apply movement for keypresses and releases made while move delayed.
+	** Because discarding that input makes the game less responsive.
+	*/
+	/// On next move, add this dir to the move that would otherwise be done
+	var/next_move_dir_add
+	/// On next move, subtract this dir from the move that would otherwise be done
+	var/next_move_dir_sub
 
 	///used to make a special mouse cursor, this one for mouse up icon
 	var/mouse_up_icon = null
