@@ -2761,6 +2761,7 @@
 #include "code\modules\mob\living\simple_animal\friendly\lizard.dm"
 #include "code\modules\mob\living\simple_animal\friendly\moth.dm"
 #include "code\modules\mob\living\simple_animal\friendly\mouse.dm"
+#include "code\modules\mob\living\simple_animal\friendly\mouse_stripping.dm"
 #include "code\modules\mob\living\simple_animal\friendly\penguin.dm"
 #include "code\modules\mob\living\simple_animal\friendly\pet.dm"
 #include "code\modules\mob\living\simple_animal\friendly\possum.dm"
