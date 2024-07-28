@@ -60,6 +60,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "Testmerge Worker"
           git switch ${{ env.TESTMERGE_BRANCH }} || git switch -c ${{ env.TESTMERGE_BRANCH }}
+          echo '${{ steps.get_labeled_prs.outputs.labeled_pr_details }}'
           PR_DETAILS=$(echo '${{ steps.get_labeled_prs.outputs.labeled_pr_details }}' | jq -c '.[]')
 
           for PR_DETAIL in $PR_DETAILS; do
