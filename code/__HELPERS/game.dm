@@ -494,6 +494,8 @@
 			candidate_ghosts -= G
 	for(var/i = max_slots, (i > 0 && candidate_ghosts.len), i--)
 		var/this_ghost = tgui_input_list(adminclient, VETO_PICK_MESSAGE(i), VETO_PICK_TITLE, candidate_ghosts)
+		if(!this_ghost)
+			continue
 		candidate_ghosts -= this_ghost
 		selected_ghosts += this_ghost
 	return selected_ghosts
