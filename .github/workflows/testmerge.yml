@@ -71,10 +71,10 @@ jobs:
             exit 1
           fi
 
-          for PR_DETAIL in $PR_DETAILS; do
-            echo '$PR_DETAIL'
-            PR_NUMBER=$(echo $PR_DETAIL | jq -r '.number')
-            PR_TITLE=$(echo $PR_DETAIL | jq -r '.title')
+          $PR_DETAILS | while read -r PR_DETAIL; do
+            echo "$PR_DETAIL"
+            PR_NUMBER=$(echo "$PR_DETAIL" | jq -r '.number')
+            PR_TITLE=$(echo "$PR_DETAIL" | jq -r '.title')
             echo "Preparing $PR_TITLE (#$PR_NUMBER)"
 
             git fetch origin pull/$PR_NUMBER/head:pr-$PR_number
