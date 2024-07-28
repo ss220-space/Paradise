@@ -44,7 +44,7 @@ jobs:
             }
             const prDetails = JSON.stringify(labeledPRs);
             console.log(`Pull Requests with the label "${label_needed}" and no merge conflicts: ${prDetails}`);
-            if (prNumbers.length == 0) {
+            if (prDetails.length == 0) {
               core.setFailed(`No pull requests with the label "${label_needed}" and no merge conflicts found.`);
             }
             core.setOutput('labeled_pr_details', prDetails);
