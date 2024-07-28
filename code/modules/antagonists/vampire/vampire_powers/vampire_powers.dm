@@ -36,15 +36,15 @@
 
 
 /datum/vampire_passive/regen
-	gain_desc = "Your rejuvenation abilities have improved and will now heal you over time when used."
+	gain_desc = "Ваша способность «Восстановление» улучшена. Теперь она будет постепенно исцелять вас после использования."
 
 
 /datum/vampire_passive/vision
-	gain_desc = "Your vampiric vision has improved."
+	gain_desc = "Ваше вампирское зрение улучшено."
 
 
 /datum/vampire_passive/full
-	gain_desc = "You have reached your full potential. You are no longer weak to the effects of anything holy and your vision has improved greatly."
+	gain_desc = "Вы достигли полной силы и ничто святое больше не может ослабить вас. Ваше зрение значительно улучшилось."
 
 
 /obj/effect/proc_holder/spell/vampire

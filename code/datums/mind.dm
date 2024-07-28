@@ -417,7 +417,7 @@
 
 /datum/mind/proc/memory_edit_goon_vampire(mob/living/carbon/human/H)
 	. = _memory_edit_header("goonvampire")
-	var/datum/antagonist/goon_vampire/g_vamp = has_antag_datum(/datum/antagonist/goon_vampire)
+	var/datum/antagonist/vampire/goon_vampire/g_vamp = has_antag_datum(/datum/antagonist/vampire)
 	if(g_vamp)
 		. += "<b><font color='red'>GOON VAMPIRE</font></b>|<a href='?src=[UID()];goonvampire=clear'>no</a>"
 		. += "<br>Usable blood: <a href='?src=[UID()];goonvampire=edit_usable_blood'>[g_vamp.bloodusable]</a>"
@@ -457,7 +457,7 @@
 	. += _memory_edit_role_enabled(ROLE_VAMPIRE)
 	/** Enthralled ***/
 	. += "<br><b><i>enthralled</i></b>: "
-	if(has_antag_datum(/datum/antagonist/mindslave/thrall) || has_antag_datum(/datum/antagonist/mindslave/goon_thrall))
+	if(has_antag_datum(/datum/antagonist/mindslave/thrall))
 		. += "<b><font color='red'>THRALL</font></b>|<a href='?src=[UID()];vampthrall=clear'>no</a>"
 	else
 		. += "thrall|<b>NO</b>"
@@ -1615,7 +1615,7 @@
 				if(!isvampire(src))
 					return
 
-				remove_goon_vampire_role()
+				remove_vampire_role()
 				to_chat(current, "<FONT color='red' size = 3><B>Вы ослабли и потеряли свои силы! Вы больше не вампир и теперь останетесь в своей текущей форме!</B></FONT>")
 				log_admin("[key_name(usr)] has de-goon-vampired [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has de-goon-vampired [key_name_admin(current)]")
@@ -1624,7 +1624,7 @@
 				if(isvampire(src))
 					return
 
-				var/datum/antagonist/goon_vampire/g_vamp = new()
+				var/datum/antagonist/vampire/goon_vampire/g_vamp = new()
 				g_vamp.give_objectives = FALSE
 				add_antag_datum(g_vamp)
 				to_chat(usr, "<span class='notice'>У вампира [key] отсутствуют задания. Вы можете добавить их вручную или сгенерировать случайный набор, кнопкой <b>Randomize!</b></span>")
@@ -1638,7 +1638,7 @@
 				var/new_usable = input(usr, "Select a new value:", "Modify usable blood") as null|num
 				if(isnull(new_usable) || new_usable < 0)
 					return
-				var/datum/antagonist/goon_vampire/g_vamp = has_antag_datum(/datum/antagonist/goon_vampire)
+				var/datum/antagonist/vampire/goon_vampire/g_vamp = has_antag_datum(/datum/antagonist/vampire)
 				g_vamp.bloodusable = new_usable
 				current.update_action_buttons_icon()
 				log_admin("[key_name(usr)] has set [key_name(current)]'s usable blood to [new_usable].")
@@ -1652,7 +1652,7 @@
 				if(isnull(new_total) || new_total < 0)
 					return
 
-				var/datum/antagonist/goon_vampire/g_vamp = has_antag_datum(/datum/antagonist/goon_vampire)
+				var/datum/antagonist/vampire/goon_vampire/g_vamp = has_antag_datum(/datum/antagonist/vampire)
 				if(new_total < g_vamp.bloodtotal)
 					if(alert(usr, "Note that reducing the vampire's total blood may remove some active powers. Continue?", "Confirm New Total", "Yes", "No") == "No")
 						return
@@ -1664,7 +1664,7 @@
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s total blood to [new_total].")
 
 			if("autoobjectives")
-				var/datum/antagonist/goon_vampire/g_vamp = has_antag_datum(/datum/antagonist/goon_vampire)
+				var/datum/antagonist/vampire/goon_vampire/g_vamp = has_antag_datum(/datum/antagonist/vampire/goon_vampire)
 				g_vamp.give_objectives()
 				to_chat(usr, "<span class='notice'>Для вампира [key] сгенерированы задания. Вы можете отредактировать и объявить их вручную.</span>")
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")
@@ -1685,7 +1685,7 @@
 				if(isvampire(src))
 					return
 
-				var/datum/antagonist/vampire/vamp = new()
+				var/datum/antagonist/vampire/new_vampire/vamp = new()
 				vamp.give_objectives = FALSE
 				add_antag_datum(vamp)
 				to_chat(usr, "<span class='notice'>Vampire [key] has no objectives. You can add custom ones or generate random set by using <b>Randomize!</b> button.</span>")
@@ -1862,9 +1862,8 @@
 	else if(href_list["vampthrall"])
 		switch(href_list["vampthrall"])
 			if("clear")
-				if(has_antag_datum(/datum/antagonist/mindslave/thrall) || has_antag_datum(/datum/antagonist/mindslave/goon_thrall))
+				if(has_antag_datum(/datum/antagonist/mindslave/thrall))
 					remove_antag_datum(/datum/antagonist/mindslave/thrall)
-					remove_antag_datum(/datum/antagonist/mindslave/goon_thrall)
 					log_admin("[key_name(usr)] has de-vampthralled [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-vampthralled [key_name_admin(current)]")
 
@@ -2716,14 +2715,6 @@
 	remove_antag_datum(chan_datum)
 
 
-/datum/mind/proc/remove_goon_vampire_role()
-	var/datum/antagonist/goon_vampire/vamp = has_antag_datum(/datum/antagonist/goon_vampire)
-	if(!vamp)
-		return
-
-	remove_antag_datum(vamp)
-
-
 /datum/mind/proc/remove_vampire_role()
 	var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
 	if(!vamp)
@@ -2825,7 +2816,6 @@
 	remove_clocker_role()
 	remove_wizard_role()
 	remove_changeling_role()
-	remove_goon_vampire_role()
 	remove_vampire_role()
 	remove_syndicate_role()
 	remove_event_role()
@@ -2897,12 +2887,12 @@
 
 /datum/mind/proc/make_goon_vampire()
 	if(!isvampire(src))
-		add_antag_datum(/datum/antagonist/goon_vampire)
+		add_antag_datum(/datum/antagonist/vampire/goon_vampire)
 
 
 /datum/mind/proc/make_vampire()
 	if(!isvampire(src))
-		add_antag_datum(/datum/antagonist/vampire)
+		add_antag_datum(/datum/antagonist/vampire/new_vampire)
 
 
 /datum/mind/proc/make_Nuke()

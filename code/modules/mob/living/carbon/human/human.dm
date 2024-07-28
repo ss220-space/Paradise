@@ -230,13 +230,8 @@
 
 			var/datum/antagonist/vampire/vamp = mind.has_antag_datum(/datum/antagonist/vampire)
 			if(vamp)
-				stat("Total Blood", "[vamp.bloodtotal]")
-				stat("Usable Blood", "[vamp.bloodusable]")
-
-			var/datum/antagonist/goon_vampire/g_vamp = mind.has_antag_datum(/datum/antagonist/goon_vampire)
-			if(g_vamp)
-				stat("Всего крови", "[g_vamp.bloodtotal]")
-				stat("Доступная кровь", "[g_vamp.bloodusable]")
+				stat("Всего крови", "[vamp.bloodtotal]")
+				stat("Доступная кровь", "[vamp.bloodusable]")
 
 			if(isclocker(mind.current))
 				stat("Total Power", "[GLOB.clockwork_power]")

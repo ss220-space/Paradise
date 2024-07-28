@@ -39,12 +39,6 @@
 	if(vamp && life_tick == 1)
 		regenerate_icons() // Make sure the inventory updates
 
-	var/datum/antagonist/goon_vampire/g_vamp = mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-	if(g_vamp)
-		g_vamp.handle_vampire()
-		if(life_tick == 1)
-			regenerate_icons()
-
 	var/datum/antagonist/ninja/ninja = mind?.has_antag_datum(/datum/antagonist/ninja)
 	if(ninja)
 		ninja.handle_ninja()

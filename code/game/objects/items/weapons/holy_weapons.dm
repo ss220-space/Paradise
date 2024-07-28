@@ -49,11 +49,6 @@
 		vamp.adjust_nullification(30 + sanctify_force, 15 + sanctify_force)
 		return
 
-	var/datum/antagonist/goon_vampire/g_vamp = target.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-	if(ishuman(user) && g_vamp && !g_vamp.get_ability(/datum/goon_vampire_passive/full))
-		to_chat(target, span_warning("The nullrod's power interferes with your own!"))
-		g_vamp.nullified = max(5, g_vamp.nullified + 2)
-
 
 /obj/item/nullrod/pickup(mob/living/user)
 	if(sanctify_force && !user.mind?.isholy)
@@ -553,12 +548,6 @@
 					praying = FALSE
 					return
 
-				var/datum/antagonist/goon_vampire/g_vamp = M.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-				if(g_vamp && !g_vamp.get_ability(/datum/goon_vampire_passive/full))
-					g_vamp.nullified = max(120, g_vamp.nullified + 120)
-					to_chat(target, "<span class='userdanger'>[user]'s prayer to [SSticker.Bible_deity_name] has interfered with your power!</span>")
-					praying = FALSE
-					return
 
 			if(prob(25))
 				to_chat(target, "<span class='notice'>[user]'s prayer to [SSticker.Bible_deity_name] has eased your pain!</span>")
@@ -580,13 +569,6 @@
 	var/mob/living/carbon/human/holder = loc
 	if(!holder.l_hand == src && !holder.r_hand == src) // Holding this in your hand will
 		return
-
-	for(var/mob/living/carbon/human/target in range(5, loc))
-		var/datum/antagonist/goon_vampire/g_vamp = target.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-		if(g_vamp && !g_vamp.get_ability(/datum/goon_vampire_passive/full))
-			g_vamp.nullified = max(5, g_vamp.nullified + 2)
-			if(prob(10))
-				to_chat(target, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your powers!</span>")
 
 
 /obj/item/nullrod/salt

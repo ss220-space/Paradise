@@ -1,76 +1,4 @@
 /**
- * Goon Vampire spell handler.
- */
-/datum/spell_handler/goon_vampire
-	var/required_blood
-
-
-/datum/spell_handler/goon_vampire/can_cast(mob/user, charge_check, show_message, obj/effect/proc_holder/spell/spell)
-
-	var/datum/antagonist/goon_vampire/vampire = user?.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-
-	if(!vampire)
-		return FALSE
-
-	var/fullpower = vampire.get_ability(/datum/goon_vampire_passive/full)
-
-	if(user.stat >= DEAD)
-		if(show_message)
-			to_chat(user, span_warning("Но вы же мертвы!"))
-		return FALSE
-
-	if(vampire.nullified && !fullpower)
-		if(show_message)
-			to_chat(user, span_warning("Что-то блокирует ваши силы!"))
-		return FALSE
-
-	if(vampire.bloodusable < required_blood)
-		if(show_message)
-			to_chat(user, span_warning("Для этого вам потребуется не менее [required_blood] единиц крови!"))
-		return FALSE
-
-	//chapel check
-	if(is_type_in_typecache(get_area(user), GLOB.holy_areas) && !fullpower)
-		if(show_message)
-			to_chat(user, span_warning("Ваши силы не действуют на этой святой земле."))
-		return FALSE
-
-	return TRUE
-
-
-/datum/spell_handler/goon_vampire/spend_spell_cost(mob/user, obj/effect/proc_holder/spell/spell)
-	for(var/datum/action/spell_action/action in user.actions)
-		action.UpdateButtonIcon()
-
-	if(!required_blood) //don't take the blood yet if this is false!
-		return
-
-	var/datum/antagonist/goon_vampire/vamp = user?.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-	vamp?.bloodusable -= required_blood
-
-
-/datum/spell_handler/goon_vampire/revert_cast(mob/living/carbon/user, obj/effect/proc_holder/spell/spell)
-	var/datum/antagonist/goon_vampire/vamp = user?.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-	vamp?.bloodusable += required_blood
-
-
-/datum/spell_handler/goon_vampire/after_cast(list/targets, mob/user, obj/effect/proc_holder/spell/spell)
-
-	SSblackbox.record_feedback("tally", "goon_vampire_powers_used", 1, "[spell]")
-
-	if(!required_blood)
-		return
-
-	var/datum/antagonist/goon_vampire/vamp = user?.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-	to_chat(user, span_boldnotice("У Вас осталось [vamp.bloodusable] единиц крови."))
-
-
-/*******************
- * Spell handler end.
- ******************/
-
-
-/**
  * Basis of all vampire spells.
  */
 /obj/effect/proc_holder/spell/goon_vampire
@@ -101,7 +29,7 @@
 
 
 /obj/effect/proc_holder/spell/goon_vampire/create_new_handler()
-	var/datum/spell_handler/goon_vampire/H = new()
+	var/datum/spell_handler/vampire/H = new()
 	H.required_blood = required_blood
 	return H
 
@@ -127,8 +55,8 @@
 		return FALSE
 
 	//Vampires who have reached their full potential can affect nearly everything
-	var/datum/antagonist/goon_vampire/vampire = user.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-	if(vampire?.get_ability(/datum/goon_vampire_passive/full))
+	var/datum/antagonist/vampire/vampire = user.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(vampire?.get_ability(/datum/vampire_passive/full))
 		return TRUE
 
 	//Holy characters are resistant to vampire powers
@@ -160,8 +88,8 @@
 	user.set_resting(FALSE, instant = TRUE)
 	user.get_up(instant = TRUE)
 	to_chat(user, span_notice("Ваше тело наполняется чистой кровью, снимая все ошеломляющие эффекты."))
-	var/datum/antagonist/goon_vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/goon_vampire)
-	if(vampire?.get_ability(/datum/goon_vampire_passive/regen))
+	var/datum/antagonist/vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/vampire)
+	if(vampire?.get_ability(/datum/vampire_passive/regen))
 		effect_timer = addtimer(CALLBACK(src, PROC_REF(rejuvenate_effect), user), 3.5 SECONDS, TIMER_STOPPABLE|TIMER_LOOP)
 
 
@@ -420,8 +348,7 @@
 	if(!istype(target))
 		return FALSE
 
-	var/greet_text = "<b>You have been Enthralled by [user.real_name]. Follow [user.p_their()] every command.</b>"
-	target.mind.add_antag_datum(new /datum/antagonist/mindslave/goon_thrall(user.mind, greet_text))
+	target.mind.add_antag_datum(new /datum/antagonist/mindslave/thrall/goon_thrall(user.mind))
 	if(jobban_isbanned(target, ROLE_VAMPIRE))
 		SSticker.mode.replace_jobbanned_player(target, SPECIAL_ROLE_VAMPIRE_THRALL)
 	target.Stun(4 SECONDS)
@@ -440,24 +367,24 @@
 
 /obj/effect/proc_holder/spell/goon_vampire/self/cloak/update_name(updates = ALL, mob/user)
 	. = ..()
-	var/datum/antagonist/goon_vampire/vamp = user?.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
+	var/datum/antagonist/vampire/vamp = user?.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(!vamp)
 		return
 
-	var/new_name = "[initial(name)] ([vamp.iscloaking ? "Выключить" : "Включить"])"
+	var/new_name = "[initial(name)] ([vamp.is_goon_cloak ? "Выключить" : "Включить"])"
 	name = new_name
 	action?.name = new_name
 	action?.UpdateButtonIcon()
 
 
 /obj/effect/proc_holder/spell/goon_vampire/self/cloak/cast(list/targets, mob/living/carbon/human/user = usr)
-	var/datum/antagonist/goon_vampire/vamp = user?.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
+	var/datum/antagonist/vampire/vamp = user?.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(!vamp)
 		return
 
-	vamp.iscloaking = !vamp.iscloaking
+	vamp.is_goon_cloak = !vamp.is_goon_cloak
 	update_name(user = user)
-	to_chat(user, span_notice("Теперь вас будет <b>[vamp.iscloaking ? "не видно" : "видно"]</b> в темноте."))
+	to_chat(user, span_notice("Теперь вас будет <b>[vamp.is_goon_cloak ? "не видно" : "видно"]</b> в темноте."))
 
 
 /obj/effect/proc_holder/spell/goon_vampire/bats
@@ -649,16 +576,4 @@
 	..()
 	if(!gain_desc)
 		gain_desc = "Вы получили способность «[src]»."
-
-
-/datum/goon_vampire_passive/regen
-	gain_desc = "Ваша способность «Восстановление» улучшена. Теперь она будет постепенно исцелять вас после использования."
-
-
-/datum/goon_vampire_passive/vision
-	gain_desc = "Ваше вампирское зрение улучшено."
-
-
-/datum/goon_vampire_passive/full
-	gain_desc = "Вы достигли полной силы и ничто святое больше не может ослабить вас. Ваше зрение значительно улучшилось."
 

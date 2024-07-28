@@ -392,7 +392,7 @@
 
 /datum/antagonist/ninja/proc/generate_vampires()
 	for(var/datum/mind/vampire in pre_antags)
-		vampire.add_antag_datum(/datum/antagonist/vampire)
+		vampire.add_antag_datum(/datum/antagonist/vampire/new_vampire)
 
 
 /datum/antagonist/ninja/proc/generate_changelings()
