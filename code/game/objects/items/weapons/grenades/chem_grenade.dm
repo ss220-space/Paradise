@@ -474,6 +474,7 @@
 /obj/item/grenade/chem_grenade/firefighting
 	payload_name = "fire fighting grenade"
 	desc = "Can help to put out dangerous fires from a distance."
+	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "firefighting"
 	stage = READY
 
@@ -514,6 +515,7 @@
 /obj/item/grenade/chem_grenade/antiweed
 	payload_name = "weed killer"
 	desc = "Used for purging large areas of invasive plant species. Contents under pressure. Do not directly inhale contents."
+	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "antiweed"	
 	stage = READY
 
@@ -537,6 +539,7 @@
 /obj/item/grenade/chem_grenade/cleaner
 	payload_name = "cleaner"
 	desc = "BLAM!-brand foaming space cleaner. In a special applicator for rapid cleaning of wide areas."
+	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "cleaner"
 	stage = READY
 
@@ -558,6 +561,7 @@
 /obj/item/grenade/chem_grenade/teargas
 	payload_name = "teargas"
 	desc = "Used for nonlethal riot control. Contents under pressure. Do not directly inhale contents."
+	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "teargas"
 	stage = READY
 
