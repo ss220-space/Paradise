@@ -174,6 +174,7 @@
 			stack_trace("Can not find [refund_path] in [src]")
 
 	if(limited_stock > 0)
+		limited_stock--
 		add_game_logs("purchased [name]. [name] was discounted to [cost].", buyer)
 		if(!buyer.mind.special_role)
 			message_admins("[key_name_admin(buyer)] purchased [name] (discounted to [cost]), as a non antagonist.")
@@ -1829,6 +1830,17 @@
 	surplus = 0
 	hijack_only = TRUE //This is an item only useful for a hijack traitor, as such, it should only be available in those scenarios.
 	can_discount = FALSE
+
+/datum/uplink_item/device_tools/ion_caller
+	name = "Low Orbit Ion Cannon Remote"
+	desc = "The Syndicate has recently installed a remote satellite nearby capable of generating a localized ion storm every 15 minutes. \
+			However, your local authorities will be informed of your general location when it is activated."
+	item = /obj/item/ion_caller
+	limited_stock = 1	// Might be too annoying if someone had multiple.
+	cost = 30
+	surplus = 10
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 
 /datum/uplink_item/device_tools/syndicate_detonator
 	name = "Syndicate Detonator"
