@@ -72,7 +72,7 @@ jobs:
             PR_TITLE=$(echo "$PR_DETAIL" | jq -r '.title')
             echo "Preparing $PR_TITLE (#$PR_NUMBER)"
 
-            git fetch origin pull/$PR_NUMBER/head:pr-$PR_number
+            git fetch origin pull/$PR_NUMBER/head:pr-$PR_NUMBER
 
             # Check for merge conflicts
             git merge --no-commit --no-ff pr-$PR_NUMBER || true
