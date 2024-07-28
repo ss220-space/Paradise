@@ -555,6 +555,7 @@
 /obj/item/grenade/chem_grenade/teargas
 	payload_name = "teargas"
 	desc = "Used for nonlethal riot control. Contents under pressure. Do not directly inhale contents."
+	icon_state = "teargas"
 	stage = READY
 
 /obj/item/grenade/chem_grenade/teargas/Initialize(mapload)
