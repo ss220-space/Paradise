@@ -32,7 +32,6 @@
 	var/wing
 	var/datum/unarmed_attack/unarmed                  //For empty hand harm-intent attack
 	var/unarmed_type = /datum/unarmed_attack
-	var/silent_steps = 0          // Stops step noises
 
 	var/cold_level_1 = 260  // Cold damage level 1 below this point.
 	var/cold_level_2 = 200  // Cold damage level 2 below this point.

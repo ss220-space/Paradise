@@ -33,7 +33,6 @@
 				s_busy = FALSE
 				return
 			stealth = !stealth
-			n_shoes.silence_steps = TRUE
 			animate(ninja, alpha = NINJA_ALPHA_INVISIBILITY,time = 6)	// Я долго думала над этим и решила, что с учётом того, что теперь любой выстрел/удар от/по ниндзя выводит его из инвиза. Можно спокойно выкрутить альфу в 0
 			new /obj/effect/temp_visual/dir_setting/ninja/cloak(get_turf(ninja), ninja.dir)
 			ninja.visible_message(span_warning("[ninja.name] расстворил[genderize_ru(ninja.gender, "ся", "ась", "ось", "ись") ] в воздухе!"), span_notice("Теперь вас невозможно увидеть невооружённым глазом. Ровно как и стандартными оптическими приборами. Нагрузка костюма начала увеличиваться..."))
@@ -62,7 +61,6 @@
 		return FALSE
 	if(stealth)
 		stealth = !stealth
-		n_shoes.silence_steps = FALSE
 		var/stealth_alpha
 		stealth_alpha = spirited ? NINJA_ALPHA_SPIRIT_FORM : NINJA_ALPHA_NORMAL
 		animate(ninja, alpha = stealth_alpha, time = 6)

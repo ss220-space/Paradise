@@ -588,12 +588,13 @@ BLIND     // can't see anything
 	//var/chained = 0
 	var/can_cut_open = FALSE
 	var/cut_open = FALSE
+	var/footstep_type = FOOTSTEP_MOB_SHOE
+	var/footstep_volume = 1	//should be in [0-1]
 	body_parts_covered = FEET
 	slot_flags = ITEM_SLOT_FEET
 	pickup_sound = 'sound/items/handling/shoes_pickup.ogg'
 	drop_sound = 'sound/items/handling/shoes_drop.ogg'
 
-	var/silence_steps = 0
 	var/blood_state = BLOOD_STATE_NOT_BLOODY
 	var/list/bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0)
 
@@ -616,10 +617,10 @@ BLIND     // can't see anything
 
 
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/tape_roll) && !silence_steps)
-		var/obj/item/stack/tape_roll/TR = I
-		if((!silence_steps) && TR.use(4))
-			silence_steps = TRUE
+	if(istype(I, /obj/item/stack/tape_roll/thick) && !(SILENT_FOOTSTEPS in clothing_traits))
+		var/obj/item/stack/tape_roll/thick/TR = I
+		if(TR.use(10))
+			ADD_CLOTHING_TRAIT(user, src, SILENT_FOOTSTEPS)
 			GetComponent(/datum/component/jackboots)?.ClearFromParent()
 			to_chat(user, "You tape the soles of [src] to silence your footsteps.")
 

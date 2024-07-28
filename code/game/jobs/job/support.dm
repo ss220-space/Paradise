@@ -391,6 +391,14 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))
 		H.mind.miming = TRUE
 
+/datum/outfit/job/mime/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+
+	if(H)
+		ADD_TRAIT(H, SILENT_FOOTSTEPS, INNATE_TRAIT)
+
 
 
 /datum/job/janitor

@@ -130,14 +130,14 @@
 	pickup_sound = 'sound/items/handling/boots_pickup.ogg'
 	drop_sound = 'sound/items/handling/boots_drop.ogg'
 
-/obj/item/clothing/shoes/jackboots/Initialize(mapload)
+/obj/item/clothing/shoes/jackboots/loud/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/jackboots)
 
 /obj/item/clothing/shoes/jackboots/jacksandals
 	name = "jacksandals"
 	desc = "Nanotrasen-issue Security combat sandals for combat scenarios. They're jacksandals, however that works."
-	can_cut_open = 0
+	can_cut_open = FALSE
 	icon_state = "jacksandal"
 	item_color = "jacksandal"
 
@@ -151,7 +151,6 @@
 /obj/item/clothing/shoes/jackboots/armored
 	name = "armored shoes"
 	desc = "Combat shoed for combat scenarios. When you need some ballistic protection."
-	can_cut_open = TRUE
 	icon_state = "armored_shoes"
 	item_color = "armored_shoes"
 	item_state = "armored_shoes"
@@ -398,8 +397,9 @@
  	icon_state = "clothwrap"
  	item_state = "clothwrap"
  	force = 0
- 	silence_steps = TRUE
  	w_class = WEIGHT_CLASS_SMALL
+ 	footstep_type = FOOTSTEP_MOB_BAREFOOT
+ 	footstep_volume = 0.7
 
 /obj/item/clothing/shoes/footwraps/yellow
  	name = "yellow cloth footwraps"

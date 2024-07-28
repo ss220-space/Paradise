@@ -161,3 +161,5 @@
 #define RUNIC_MIND		"runic_mind"
 #define REPEATSURGERY	"repeat_syrgery"
 #define HAVE_REGENERATION "have_regeneration"
+// already declared for mob, but can be used for species
+// #define SILENT_FOOTSTEPS "silent_footsteps"

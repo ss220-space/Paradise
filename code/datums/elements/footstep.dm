@@ -120,7 +120,7 @@
 /datum/element/footstep/proc/play_humanstep(mob/living/carbon/human/source, atom/oldloc, direction, forced, list/old_locs, momentum_change)
 	SIGNAL_HANDLER
 
-	if(forced || !momentum_change || HAS_TRAIT(source, SILENT_FOOTSTEPS) || source.dna.species.silent_steps)
+	if(forced || !momentum_change || HAS_TRAIT(source, SILENT_FOOTSTEPS) || (SILENT_FOOTSTEPS in source.dna.species.species_traits))
 		return
 
 	var/list/prepared_steps = prepare_step(source)
@@ -130,22 +130,31 @@
 	//cache for sanic speed (lists are references anyways)
 	var/list/footstep_sounds = GLOB.footstep
 
-	if((source.wear_suit?.body_parts_covered | source.w_uniform?.body_parts_covered | source.shoes?.body_parts_covered) & FEET)
+	var/obj/item/clothing/shoes/shoes = source.shoes
+	var/shoes_volume_mod = 1
+	var/shoestep_type
+
+	if(((source.wear_suit?.body_parts_covered | source.w_uniform?.body_parts_covered | source.shoes?.body_parts_covered) & FEET) \
+		&& ((!istype(shoes)) || (istype(shoes) && shoes.footstep_type != FOOTSTEP_MOB_BAREFOOT)))
 		// we are wearing shoes
 
-		var/obj/item/clothing/shoes/shoes = source.shoes
-		if(istype(shoes) && shoes.silence_steps)
-			return
+		shoestep_type = prepared_steps[FOOTSTEP_MOB_SHOE]
 
-		var/shoestep_type = prepared_steps[FOOTSTEP_MOB_SHOE]
+		if(istype(shoes))
+			shoes_volume_mod = shoes.footstep_volume
+			shoestep_type = prepared_steps[shoes.footstep_type]
+
 		if(!isnull(shoestep_type) && footstep_sounds[shoestep_type]) // shoestep type can be null
 			playsound(source.loc, pick(footstep_sounds[shoestep_type][1]),
-				footstep_sounds[shoestep_type][2] * volume,
+				footstep_sounds[shoestep_type][2] * volume * shoes_volume_mod,
 				TRUE,
 				footstep_sounds[shoestep_type][3] + e_range, falloff_distance = 1, vary = sound_vary)
 
 	else
 		// we are barefoot
+
+		if(istype(shoes))
+			shoes_volume_mod = shoes.footstep_volume
 
 		if(source.dna.species.special_step_sounds)
 			playsound(source.loc, pick(source.dna.species.special_step_sounds), 50, TRUE, falloff_distance = 1, vary = sound_vary)
@@ -154,7 +163,7 @@
 			var/bare_footstep_sounds = GLOB.barefootstep
 			if(!isnull(barefoot_type) && bare_footstep_sounds[barefoot_type]) // barefoot_type can be null
 				playsound(source.loc, pick(bare_footstep_sounds[barefoot_type][1]),
-					bare_footstep_sounds[barefoot_type][2] * volume,
+					bare_footstep_sounds[barefoot_type][2] * volume * shoes_volume_mod,
 					TRUE,
 					bare_footstep_sounds[barefoot_type][3] + e_range, falloff_distance = 1, vary = sound_vary)
 

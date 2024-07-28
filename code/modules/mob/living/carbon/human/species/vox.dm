@@ -23,11 +23,9 @@
 
 	eyes = "vox_eyes_s"
 
-	species_traits = list(NO_SCAN, NO_GERMS, NO_DECAY, NOTRANSSTING)
+	species_traits = list(NO_SCAN, NO_GERMS, NO_DECAY, NOTRANSSTING, SILENT_FOOTSTEPS)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS //Species-fitted 'em all.
 	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS | HAS_SKIN_COLOR
-
-	silent_steps = TRUE
 
 	blood_species = "Vox"
 	blood_color = "#2299FC"

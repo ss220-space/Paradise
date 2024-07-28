@@ -263,7 +263,7 @@ do { \
 
 
 /obj/item/clothing/shoes/chameleon/noslip
-	clothing_traits = list(TRAIT_NO_SLIP_WATER)
+	clothing_traits = list(TRAIT_NO_SLIP_WATER, SILENT_FOOTSTEPS)
 
 
 /obj/item/clothing/shoes/chameleon/noslip/broken
