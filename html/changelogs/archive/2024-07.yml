@@ -415,12 +415,23 @@
   pilygun:
   - imageadd: QOL spr.Flashbang+mobcap (#5582)
 '2024-07-28':
+  Daeberdir:
+  - add: ION storm device. (#4435)
   Den109G:
   - bugfix: Shadows now can hatch (#5591)
+  - imagedel: Delete default case for inhands clothing (#5590)
+  Honker9999999:
+  - add: lavamechs paintkit (#4800)
   ROdenFL:
   - unknown: tgui panel (#5564)
+  - unknown: chem master (#5469)
+  - tweak: alt game prefs (#5595)
+  - bugfix: ATM pin number, empty tgui_input_lists, ATM levels (#5594)
+  - bugfix: mulptly striping (#5597)
   SAAD:
   - server: Celestation improvement 4 (#5589)
+  Valtor:
+  - add: Diona no roboparts, but regeneration from consuming nymphs (#5521)
   Vladisvell:
   - bugfix: Ghosts no longer can trigger explosion of abandoned crate (#5593)
   pilygun:
