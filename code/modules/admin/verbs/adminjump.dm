@@ -7,7 +7,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/chosen = tgui_input_list(src, null, "Jump to...", choices)
+	var/chosen = tgui_input_list(src, "What to jump to?", "Jump to...", choices)
 	if(!chosen)
 		return
 
