@@ -17,8 +17,8 @@ GLOBAL_LIST_INIT(rukeys, list(
 
 
 /proc/sanitize_english_key_to_russian(char)
-	if(LAZYIN(GLOB.enkeys, uppertext(char)))
-		return GLOB.enkeys[uppertext(char)]
+	if(LAZYIN(GLOB.enkeys, lowertext(char)))
+		return GLOB.enkeys[lowertext(char)]
 	return char
 
 /proc/sanitize_russian_key_to_english(char)
