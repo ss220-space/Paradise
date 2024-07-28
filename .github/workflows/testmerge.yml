@@ -42,12 +42,12 @@ jobs:
                 }
               }
             }
-            const prNumbers = JSON.stringify(labeledPRs);
-            console.log(`Pull Requests with the label "${label_needed}" and no merge conflicts: ${prNumbers}`);
+            const prDetails = JSON.stringify(labeledPRs);
+            console.log(`Pull Requests with the label "${label_needed}" and no merge conflicts: ${prDetails}`);
             if (prNumbers.length == 0) {
               core.setFailed(`No pull requests with the label "${label_needed}" and no merge conflicts found.`);
             }
-            core.setOutput('labeled_pr_numbers', JSON.stringify(labeledPRs));
+            core.setOutput('labeled_pr_details', prDetails);
       - name: Git checkout
         uses: actions/checkout@v4
         with:
