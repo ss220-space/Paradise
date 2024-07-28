@@ -655,7 +655,7 @@
 			var/input_tittle = "Режим выбора"
 
 			var/input_type
-			input_type = tgui_alert("Какие типы сигнатуры объектов необходимо найти?" , "Выбор Сигнатуры Объектов" , "Предмет" , "Структура" , "Питомец")
+			input_type = tgui_alert(user, "Какие типы сигнатуры объектов необходимо найти?" , "Выбор Сигнатуры Объектов" , list("Предмет" , "Структура" , "Питомец"))
 
 			var/input_subtype
 			switch(input_type)
@@ -714,7 +714,7 @@
 			to_chat(user, span_notice("Вы переключили пинпоинтер для обнаружения <b>[choosen_target]</b>. Найдено целей: <b>[length(current_targets)]</b>."))
 
 		if("Цели")
-			var/input_type = tgui_alert("Какую операцию стоит произвести?", "Выбор Операции", "Показать Цели", "Следующая Цель")
+			var/input_type = tgui_alert(user, "Какую операцию стоит произвести?", "Выбор Операции", list("Показать Цели", "Следующая Цель"))
 			switch(input_type)
 				if("Показать Цели")
 					setting = SETTING_OBJECT
