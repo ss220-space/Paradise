@@ -16,7 +16,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 
 
 /obj/effect/proc_holder/spell/shadowling_hatch/cast(list/targets, mob/living/carbon/human/user = usr)
-	if(user.stat || !ishuman(user) || !user || !is_shadow(user || isinspace(user)))
+	if(user.stat || !ishuman(user) || !user || !is_shadow(user) || isinspace(user))
 		return
 
 	if(!isturf(user.loc))
@@ -24,7 +24,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 		to_chat(user, "<span class='warning'>You must be standing on a floor to hatch!</span>")
 		return
 
-	if(tgui_alert(user,"Are you sure you want to hatch? You cannot undo this!", "Hatch", "Yes", "No") != "Yes")
+	if(tgui_alert(user,"Are you sure you want to hatch? You cannot undo this!", "Hatch", list("Yes", "No")) != "Yes")
 		to_chat(user, "<span class='warning'>You decide against hatching for now.")
 		revert_cast(user)
 		return
