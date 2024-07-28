@@ -62,6 +62,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "Testmerge Worker"
           git switch ${{ env.TESTMERGE_BRANCH }} || git switch -c ${{ env.TESTMERGE_BRANCH }}
+          git reset --hard ${{ env.BASE_BRANCH }}
 
           # Print debug information
           echo "PR details JSON:"
@@ -91,4 +92,4 @@ jobs:
             echo "Successfully merged $PR_TITLE (#$PR_NUMBER)"
           done
 
-          git push origin ${{ env.TESTMERGE_BRANCH }}
+          git push -f origin ${{ env.TESTMERGE_BRANCH }}
