@@ -397,6 +397,9 @@
 	else if(href_list["stop_lockdown"])
 		if(!check_rights(R_ADMIN))
 			return
+		if(!you_realy_want_do_this())
+			return
+
 		var message = (SSshuttle.emergency.mode == SHUTTLE_STRANDED)?"de-lockdowned and de-strandise the Emergency Shuttle":"de-lockdowned the Emergency Shuttle"
 		SSshuttle?.stop_lockdown()
 		log_and_message_admins(span_adminnotice("[key_name_admin(usr)] [message]"))
@@ -404,6 +407,9 @@
 
 	else if(href_list["lockdown_shuttle"])
 		if(!check_rights(R_ADMIN))
+			return
+
+		if(!you_realy_want_do_this())
 			return
 
 		SSshuttle?.lockdown_escape()
