@@ -174,15 +174,11 @@
 		if("Slaughter Demon")
 			name = "slaughter demon"
 			desc = "A cardboard cutout of a slaughter demon."
-			icon = 'icons/mob/mob.dmi'
-			icon_state = "daemon"
-			dir = "SOUTH"
+			icon_state = "cutout_demon"
 		if("Laughter Demon")
 			name = "laughter demon"
 			desc = "A cardboard cutout of a laughter demon."
-			icon = 'icons/mob/mob.dmi'
-			icon_state = "bowmon"
-			dir = "SOUTH"
+			icon_state = "cutout_bowmon"
 		if("Xenomorph Maid")
 			name = "lusty xenomorph maid ([rand(1, 999)])"
 			desc = "A cardboard cutout of a xenomorph maid."
@@ -194,9 +190,7 @@
 		if("Terror Spider")
 			name = "Gray Terror Spider"
 			desc = "A cardboard cutout of a terror spider."
-			icon = 'icons/mob/terrorspider.dmi'
-			icon_state = "terror_gray"
-			dir = "SOUTH"
+			icon_state = "cutout_terror"
 
 	return 1
 
