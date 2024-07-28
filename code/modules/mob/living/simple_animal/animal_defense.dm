@@ -32,7 +32,6 @@
 			playsound(loc, attacked_sound, 25, 1, -1)
 			attack_threshold_check(harm_intent_damage)
 			add_attack_logs(M, src, "Melee attacked with fists")
-			updatehealth()
 			return TRUE
 
 /mob/living/simple_animal/attack_alien(mob/living/carbon/alien/humanoid/M)
@@ -70,7 +69,7 @@
 			damage = rand(20 + M.age_state.damage, 35 + M.age_state.damage)
 		return attack_threshold_check(damage)
 
-/mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = BRUTE, armorcheck = "melee")
+/mob/living/simple_animal/proc/attack_threshold_check(damage, damagetype = BRUTE, armorcheck = MELEE)
 	var/temp_damage = damage
 	if(!damage_coeff[damagetype])
 		temp_damage = 0
@@ -81,7 +80,7 @@
 		visible_message("<span class='warning'>[src] looks unharmed.</span>")
 		return FALSE
 	else
-		apply_damage(damage, damagetype, null, getarmor(null, armorcheck))
+		apply_damage(damage, damagetype, null, getarmor(attack_flag = armorcheck))
 		return TRUE
 
 /mob/living/simple_animal/bullet_act(obj/item/projectile/Proj)
@@ -95,7 +94,7 @@
 	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
 		return
 	..()
-	var/bomb_armor = getarmor(null, "bomb")
+	var/bomb_armor = getarmor(attack_flag = BOMB)
 	switch(severity)
 		if(1)
 			if(prob(bomb_armor))

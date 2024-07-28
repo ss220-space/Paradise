@@ -306,13 +306,18 @@
 	slot = INTERNAL_ORGAN_STOMACH
 	origin_tech = "materials=2;powerstorage=2;biotech=2"
 
-/obj/item/organ/internal/cyberimp/chest/nutriment/insert(mob/living/carbon/M, special, dont_remove_slot)
-	M.hunger_drain *= hunger_modificator
-	. = ..()
 
-/obj/item/organ/internal/cyberimp/chest/nutriment/remove(mob/living/carbon/M, special)
-	M.hunger_drain /= hunger_modificator
+/obj/item/organ/internal/cyberimp/chest/nutriment/insert(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
+	if(. && ishuman(target))
+		target.physiology.hunger_mod *= hunger_modificator
+
+
+/obj/item/organ/internal/cyberimp/chest/nutriment/remove(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
+	if(. && ishuman(target))
+		target.physiology.hunger_mod /= hunger_modificator
+
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/emp_act(severity)
 	if(!owner || emp_proof)
@@ -407,21 +412,27 @@
 	revive_cost = 0
 	reviving = TRUE
 
+
 /obj/item/organ/internal/cyberimp/chest/reviver/proc/heal()
 	if(QDELETED(owner))
 		return
-	if(prob(90) && owner.getOxyLoss())
-		owner.adjustOxyLoss(-3)
-		revive_cost += 5
+	var/heal_brute = 0
+	var/heal_burn = 0
+	var/heal_tox = 0
+	var/heal_oxy = 0
 	if(prob(75) && owner.getBruteLoss())
-		owner.adjustBruteLoss(-1)
+		heal_brute += 1
 		revive_cost += 20
 	if(prob(75) && owner.getFireLoss())
-		owner.adjustFireLoss(-1)
+		heal_burn += 1
 		revive_cost += 20
 	if(prob(40) && owner.getToxLoss())
-		owner.adjustToxLoss(-1)
+		heal_tox += 1
 		revive_cost += 50
+	if(prob(90) && owner.getOxyLoss())
+		heal_oxy += 3
+		revive_cost += 5
+	owner.heal_damages(heal_brute, heal_burn, heal_tox, heal_oxy)
 
 
 /obj/item/organ/internal/cyberimp/chest/reviver/emp_act(severity)

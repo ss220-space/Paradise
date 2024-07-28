@@ -38,7 +38,7 @@
 
 
 /datum/weather/rad_storm/weather_act(mob/living/target)
-	var/resist = target.getarmor(null, RAD)
+	var/resist = target.getarmor(attack_flag = RAD)
 	target.apply_effect(20, IRRADIATE, resist)
 
 	if(!ishuman(target) || (RADIMMUNE in target.dna.species.species_traits) || !prob(max(0, 100 - resist)))

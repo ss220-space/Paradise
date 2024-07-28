@@ -107,9 +107,9 @@
 		return
 	switch(severity)
 		if(1)
-			receive_damage(20, 1)
+			internal_receive_damage(20, silent = TRUE)
 		if(2)
-			receive_damage(7, 1)
+			internal_receive_damage(7, silent = TRUE)
 
 
 /obj/item/organ/internal/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
@@ -330,7 +330,7 @@
 
 /obj/item/organ/internal/honktumor/cursed/on_life() //No matter what you do, no matter who you are, no matter where you go, you're always going to be a fat, stuttering dimwit.
 	..()
-	owner.setBrainLoss(80, use_brain_mod = FALSE)
+	owner.setBrainLoss(80)
 	owner.set_nutrition(9000)
 	owner.overeatduration = 9000
 
@@ -388,22 +388,12 @@
 			H.update_fhair()
 
 
-/obj/item/organ/internal/emp_act(severity)
-	if(!is_robotic() || emp_proof)
-		return
-	switch(severity)
-		if(1)
-			receive_damage(20, 1)
-		if(2)
-			receive_damage(7, 1)
-
-
 /obj/item/organ/internal/handle_germs()
 	..()
 	if(germ_level >= INFECTION_LEVEL_TWO)
 		if(prob(3 * owner.dna.species.germs_growth_rate))
 			// big message from every 1 damage is not good. If germs growth rate is big, it will spam the chat.
-			receive_damage(1, silent = prob(30*owner.dna.species.germs_growth_rate))
+			internal_receive_damage(1, silent = prob(30*owner.dna.species.germs_growth_rate))
 
 
 /mob/living/carbon/human/proc/check_infections()

@@ -577,10 +577,11 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			to_chat(M, "<span class='userdanger'>You are abruptly pulled through space!</span>")
 			logmsg = "a teleport to arrivals."
 		if("Moderate Heal")
-			M.adjustBruteLoss(-25)
-			M.adjustFireLoss(-25)
-			M.adjustToxLoss(-25)
-			M.adjustOxyLoss(-25)
+			var/update = NONE
+			update |= M.heal_overall_damage(25, 25, updating_health = FALSE, affect_robotic = TRUE)
+			update |= M.heal_damages(tox = 25, oxy = 25, updating_health = FALSE)
+			if(update)
+				M.updatehealth()
 			to_chat(M,"<span class='userdanger'>You feel invigorated!</span>")
 			logmsg = "a moderate heal."
 		if("Heal Over Time")
