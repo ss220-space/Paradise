@@ -380,6 +380,13 @@
   - tweak: all roundstart traitors can accept contractor offer (#5555)
   - tweak: add crew transfer vote after blob death (#5557)
 '2024-07-27':
+  Aziz Chynaliev:
+  - server: add testmerge conflict detector
+  - server: fix testmerge conflict detector
+  - server: fix testmerge conflict detector 2
+  - server: fix testmerge conflict detector 3
+  - server: fix testmerge conflict detector 4
+  - server: fix testmerge conflict detector 5
   Daeberdir:
   - bugfix: mouse jet dropped on user death. (#5584)
   ItsMeJaba:
@@ -389,12 +396,32 @@
   ROdenFL:
   - bugfix: tgui minor fixes(totally not working eftpos and cargo quests iconswithnospacewithword)s
       (#5579)
+  - unknown: strips menu (#5443)
+  SAAD:
+  - bugfix: July Space ruins general cleanup (#5552)
   SabrioBiblio:
   - add: twohanded cardboard cutout (#5353)
+  - bugfix: обновлён cardboard_cutouts (#5587)
   Zwei:
   - bugfix: Chem Grenade Prime Fix (#5581)
   - unknown: Few Keybinding Tweaks (#5416)
+  - tweak: Bots Have No AI Delay (#5585)
+  - tweak: Move Intent Toggle Old Behavior (#5588)
+  - bugfix: Lavaland Extract Alert Fix (#5586)
+  dageavtobusnick:
+  - tweak: add sst uplink to sst (#5545)
   endipe:
   - unknown: new paintkit for welding (#5520)
   pilygun:
   - imageadd: QOL spr.Flashbang+mobcap (#5582)
+'2024-07-28':
+  Den109G:
+  - bugfix: Shadows now can hatch (#5591)
+  ROdenFL:
+  - unknown: tgui panel (#5564)
+  SAAD:
+  - server: Celestation improvement 4 (#5589)
+  Vladisvell:
+  - bugfix: Ghosts no longer can trigger explosion of abandoned crate (#5593)
+  pilygun:
+  - imageadd: QOL spr.grenade 2 (#5592)
