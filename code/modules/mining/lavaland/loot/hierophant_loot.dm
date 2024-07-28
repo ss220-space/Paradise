@@ -392,7 +392,6 @@
 	stat_allowed = UNCONSCIOUS
 	action_icon_state = "hierophant_talisman_heal"
 	action_background_icon_state = "bg_hierophant_talisman"
-	panel = "Hierophant Talisman"
 
 /obj/effect/proc_holder/spell/hierophant_talisman_heal/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
@@ -432,7 +431,6 @@
 	centcom_cancast = FALSE
 	action_icon_state = "hierophant_talisman_teleport"
 	action_background_icon_state = "bg_hierophant_talisman"
-	panel = "Hierophant Talisman"
 
 /obj/effect/proc_holder/spell/hierophant_talisman_teleport/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
@@ -485,7 +483,6 @@
 	stat_allowed = UNCONSCIOUS
 	action_icon_state = "hierophant_talisman_message"
 	action_background_icon_state = "bg_hierophant_talisman"
-	panel = "Hierophant Talisman"
 
 /obj/effect/proc_holder/spell/hierophant_talisman_message/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()

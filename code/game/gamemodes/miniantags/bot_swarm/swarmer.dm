@@ -140,10 +140,10 @@
 	holder.pixel_y = I.Height() - world.icon_size
 	holder.icon_state = "hudstat"
 
-/mob/living/simple_animal/hostile/swarmer/Stat()
-	..()
-	if(statpanel("Status"))
-		stat("Resources:",resources)
+/mob/living/simple_animal/hostile/swarmer/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Resources:",resources)
 
 
 /mob/living/simple_animal/hostile/swarmer/move_into_vent(obj/machinery/atmospherics/ventcrawl_target, message = TRUE)

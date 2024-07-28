@@ -785,7 +785,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 /obj/item/verb/verb_pickup()
 	set src in oview(1)
-	set category = null
 	set name = "Pick up"
 
 	if(usr.incapacitated() || !isturf(loc) || !Adjacent(usr))

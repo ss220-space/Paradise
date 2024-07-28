@@ -127,7 +127,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	return formatted
 
 /obj/machinery/computer/card/verb/eject_id()
-	set category = null
 	set name = "Eject ID Card"
 	set src in oview(1)
 

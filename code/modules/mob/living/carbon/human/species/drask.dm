@@ -84,11 +84,11 @@
 
 /datum/species/drask/on_species_gain(mob/living/carbon/human/H)
 	..()
-	H.verbs |= /mob/living/carbon/human/proc/emote_hum
+	add_verb(H, /mob/living/carbon/human/proc/emote_hum)
 
 /datum/species/drask/on_species_loss(mob/living/carbon/human/H)
 	..()
-	H.verbs -= /mob/living/carbon/human/proc/emote_hum
+	remove_verb(H, /mob/living/carbon/human/proc/emote_hum)
 
 /datum/species/drask/handle_life(mob/living/carbon/human/H)
 	..()

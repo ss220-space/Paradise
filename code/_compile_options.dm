@@ -38,6 +38,9 @@
 #define MAX_BOOK_MESSAGE_LEN 9216
 #define MAX_NAME_LEN 50 	//diona names can get loooooooong
 
+/// Removes characters incompatible with file names.
+#define SANITIZE_FILENAME(text) (GLOB.filename_forbidden_chars.Replace(text, ""))
+
 //Update this whenever you need to take advantage of more recent byond features
 #define MIN_COMPILER_VERSION 513
 #define MIN_COMPILER_BUILD 1514

@@ -195,61 +195,60 @@
 	if(!body_accessory)
 		change_body_accessory("Plain Wings")
 
-/mob/living/carbon/human/Stat()
-	..()
-	statpanel("Status")
+/mob/living/carbon/human/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
 
-	stat(null, "Intent: [a_intent]")
-	stat(null, "Move Mode: [m_intent]")
+	status_tab_data[++status_tab_data.len] = list("Intent:", "[a_intent]")
+	status_tab_data[++status_tab_data.len] = list("Move Mode:", "[m_intent]")
 
-	show_stat_emergency_shuttle_eta()
+	var/total_user_contents = GetAllContents() // cache it
+	if(locate(/obj/item/gps) in total_user_contents)
+		var/turf/T = get_turf(src)
+		status_tab_data[++status_tab_data.len] = list("GPS:", "[COORD(T)]")
+	if(locate(/obj/item/assembly/health) in total_user_contents)
+		status_tab_data[++status_tab_data.len] = list("Health:", "[health]")
+	if(internal)
+		if(!internal.air_contents)
+			qdel(internal)
+		else
+			status_tab_data[++status_tab_data.len] = list("Internal Atmosphere Info:", "[internal.name]")
+			status_tab_data[++status_tab_data.len] = list("Tank Pressure:", "[internal.air_contents.return_pressure()]")
+			status_tab_data[++status_tab_data.len] = list("Distribution Pressure:", "[internal.distribute_pressure]")
 
-	if(client.statpanel == "Status")
-		var/total_user_contents = GetAllContents() // cache it
-		if(locate(/obj/item/gps) in total_user_contents)
-			var/turf/T = get_turf(src)
-			stat(null, "GPS: [COORD(T)]")
-		if(locate(/obj/item/assembly/health) in total_user_contents)
-			stat(null, "Health: [health]")
-		if(internal)
-			if(!internal.air_contents)
-				qdel(internal)
-			else
-				stat(null, "Internals: [internal.name]")
+	// I REALLY need to split up status panel things into datums
+	var/mob/living/simple_animal/borer/B = has_brain_worms()
+	if(B && B.controlling)
+		status_tab_data[++status_tab_data.len] = list("Chemicals", B.chemicals)
 
-		// I REALLY need to split up status panel things into datums
-		var/mob/living/simple_animal/borer/B = has_brain_worms()
-		if(B && B.controlling)
-			stat("Chemicals", B.chemicals)
+	if(mind)
+		var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
+		if(cling)
+			status_tab_data[++status_tab_data.len] = list("Chemical Storage:", "[cling.chem_charges]/[cling.chem_storage]")
+			status_tab_data[++status_tab_data.len] = list("Absorbed DNA:", "[cling.absorbed_count]")
 
-		if(mind)
-			var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
-			if(cling)
-				stat("Chemical Storage", "[cling.chem_charges]/[cling.chem_storage]")
-				stat("Absorbed DNA", cling.absorbed_count)
+		var/datum/antagonist/vampire/vamp = mind.has_antag_datum(/datum/antagonist/vampire)
+		if(vamp)
+			status_tab_data[++status_tab_data.len] = list("Total Blood:", "[vamp.bloodtotal]")
+			status_tab_data[++status_tab_data.len] = list("Usable Blood:", "[vamp.bloodusable]")
 
-			var/datum/antagonist/vampire/vamp = mind.has_antag_datum(/datum/antagonist/vampire)
-			if(vamp)
-				stat("Total Blood", "[vamp.bloodtotal]")
-				stat("Usable Blood", "[vamp.bloodusable]")
+		var/datum/antagonist/goon_vampire/g_vamp = mind.has_antag_datum(/datum/antagonist/goon_vampire)
+		if(g_vamp)
+			status_tab_data[++status_tab_data.len] = list("Всего крови", "[g_vamp.bloodtotal]")
+			status_tab_data[++status_tab_data.len] = list("Доступная кровь", "[g_vamp.bloodusable]")
 
-			var/datum/antagonist/goon_vampire/g_vamp = mind.has_antag_datum(/datum/antagonist/goon_vampire)
-			if(g_vamp)
-				stat("Всего крови", "[g_vamp.bloodtotal]")
-				stat("Доступная кровь", "[g_vamp.bloodusable]")
+		if(isclocker(mind.current))
+			status_tab_data[++status_tab_data.len] = list("Total Power", "[GLOB.clockwork_power]")
 
-			if(isclocker(mind.current))
-				stat("Total Power", "[GLOB.clockwork_power]")
-
-			var/datum/antagonist/ninja/ninja = mind?.has_antag_datum(/datum/antagonist/ninja)
-			if(ninja?.my_suit)
-				stat("Заряд костюма","[ninja.get_cell_charge()]")
-				stat("Заряд рывков","[ninja.get_dash_charge()]")
+		var/datum/antagonist/ninja/ninja = mind?.has_antag_datum(/datum/antagonist/ninja)
+		if(ninja?.my_suit)
+			status_tab_data[++status_tab_data.len] = list("Заряд костюма","[ninja.get_cell_charge()]")
+			status_tab_data[++status_tab_data.len] = list("Заряд рывков","[ninja.get_dash_charge()]")
 
 	if(isspacepod(loc)) // Spacdpods!
 		var/obj/spacepod/S = loc
-		stat("Spacepod Charge", "[istype(S.battery) ? "[(S.battery.charge / S.battery.maxcharge) * 100]" : "No cell detected"]")
-		stat("Spacepod Integrity", "[!S.health ? "0" : "[(S.health / initial(S.health)) * 100]"]%")
+		status_tab_data[++status_tab_data.len] = list("Spacepod Charge", "[istype(S.battery) ? "[(S.battery.charge / S.battery.maxcharge) * 100]" : "No cell detected"]")
+		status_tab_data[++status_tab_data.len] = list("Spacepod Integrity", "[!S.health ? "0" : "[(S.health / initial(S.health)) * 100]"]%")
 
 ///Define used for calculating explosve damage and effects upon humanoids. Result is >= 0
 #define ex_armor_reduction(value, armor) (clamp(value * (1 - (armor / 100)), 0, INFINITY))
@@ -941,7 +940,6 @@
 	return name
 
 /mob/living/carbon/human/verb/check_pulse()
-	set category = null
 	set name = "Check pulse"
 	set desc = "Approximately count somebody's pulse. Requires you to stand still at least 6 seconds."
 	set src in view(1)
@@ -1260,7 +1258,7 @@
 		to_chat(src, "<span class='warning'>You can't write on the floor in your current state!</span>")
 		return
 	if(!bloody_hands)
-		verbs -= /mob/living/carbon/human/proc/bloody_doodle
+		remove_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
 
 	if(gloves)
 		to_chat(src, "<span class='warning'>[gloves] are preventing you from writing anything down!</span>")

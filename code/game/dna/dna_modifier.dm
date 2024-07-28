@@ -113,7 +113,6 @@
 
 /obj/machinery/dna_scannernew/verb/eject()
 	set src in oview(1)
-	set category = null
 	set name = "Eject DNA Scanner"
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -139,7 +138,6 @@
 
 /obj/machinery/dna_scannernew/verb/move_inside()
 	set src in oview(1)
-	set category = null
 	set name = "Enter DNA Scanner"
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.buckled) //are you cuffed, dying, lying, stunned or other

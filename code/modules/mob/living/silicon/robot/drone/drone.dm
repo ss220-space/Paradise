@@ -85,7 +85,7 @@
 		var/datum/robot_component/C = components[V]
 		C.max_damage = 10
 
-	verbs -= /mob/living/silicon/robot/verb/Namepick
+	remove_verb(src, /mob/living/silicon/robot/verb/Namepick)
 	module = new /obj/item/robot_module/drone(src)
 
 	//Allows Drones to hear the Engineering channel.
@@ -123,7 +123,7 @@
 
 /mob/living/silicon/robot/drone/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/drone()
-	connected_ai = null
+	set_connected_ai(null)
 
 	aiCamera = new/obj/item/camera/siliconcam/drone_camera(src)
 	additional_law_channels["Drone"] = get_language_prefix(LANGUAGE_DRONE_BINARY)
@@ -262,7 +262,7 @@
 	holder_type = /obj/item/holder/drone/emagged
 	update_icons()
 	lawupdate = 0
-	connected_ai = null
+	set_connected_ai(null)
 	clear_supplied_laws()
 	clear_inherent_laws()
 	laws = new /datum/ai_laws/syndicate_override
@@ -393,10 +393,10 @@
 	return FALSE
 
 /mob/living/silicon/robot/drone/add_robot_verbs()
-	src.verbs |= silicon_subsystems
+	add_verb(src, silicon_subsystems)
 
 /mob/living/silicon/robot/drone/remove_robot_verbs()
-	src.verbs -= silicon_subsystems
+	remove_verb(src, silicon_subsystems)
 
 /mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash/noise)
 	if(affect_silicon)

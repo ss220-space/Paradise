@@ -19,7 +19,7 @@
 	GLOB.mob_list += src
 	return INITIALIZE_HINT_NORMAL
 
-/mob/new_player/verb/new_player_panel()
+/mob/new_player/proc/new_player_panel()
 	set src = usr
 
 	if(client.tos_consent)
@@ -84,36 +84,24 @@
 	popup.open(0)
 	return
 
-/mob/new_player/Stat()
-	statpanel("Status")
-
-	..()
-
-	statpanel("Lobby")
-	if(client.statpanel=="Lobby" && SSticker)
-		if(SSticker.hide_mode)
-			stat("Game Mode:", "Secret")
+/mob/new_player/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	if(SSticker)
+		if(!SSticker.hide_mode)
+			status_tab_data[++status_tab_data.len] = list("Game Mode:", "[GLOB.master_mode]")
 		else
-			if(SSticker.hide_mode == 0)
-				stat("Game Mode:", "[GLOB.master_mode]") // Old setting for showing the game mode
-			else
-				stat("Game Mode: ", "Secret")
-
-		if((SSticker.current_state == GAME_STATE_PREGAME) && SSticker.ticker_going)
-			stat("Time To Start:", round(SSticker.pregame_timeleft/10))
-		if((SSticker.current_state == GAME_STATE_PREGAME) && !SSticker.ticker_going)
-			stat("Time To Start:", "DELAYED")
+			status_tab_data[++status_tab_data.len] = list("Game Mode:", "Secret")
 
 		if(SSticker.current_state == GAME_STATE_PREGAME)
-			stat("Players:", "[totalPlayers]")
-			//if(check_rights(R_ADMIN, 0, src))
-			stat("Players Ready:", "[totalPlayersReady]")
-			totalPlayers = 0
+			status_tab_data[++status_tab_data.len] = list("Time To Start:", SSticker.ticker_going ? deciseconds_to_time_stamp(SSticker.pregame_timeleft) : "DELAYED")
+
+		if(SSticker.current_state == GAME_STATE_PREGAME)
+			status_tab_data[++status_tab_data.len] = list("Players Ready:", "[totalPlayersReady]")
 			totalPlayersReady = 0
 			for(var/mob/new_player/player in GLOB.player_list)
 				if(check_rights(R_ADMIN, 0, src))
-					stat("[player.key]", (player.ready)?("(Playing)"):(null))
-				totalPlayers++
+					status_tab_data[++status_tab_data.len] = list("[player.key]", player.ready ? "(Ready)" : "(Not ready)")
 				if(player.ready)
 					totalPlayersReady++
 

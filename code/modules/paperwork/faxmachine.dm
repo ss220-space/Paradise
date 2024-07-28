@@ -288,7 +288,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	SStgui.update_uis(src)
 
 /obj/machinery/photocopier/faxmachine/verb/eject_id()
-	set category = null
 	set name = "Eject ID Card"
 	set src in oview(1)
 

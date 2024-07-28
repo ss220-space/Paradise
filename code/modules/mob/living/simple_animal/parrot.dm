@@ -142,9 +142,10 @@
 	return ..()
 
 
-/mob/living/simple_animal/parrot/Stat()
-	..()
-	stat("Held Item", held_item)
+/mob/living/simple_animal/parrot/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Held Item", held_item)
 
 
 /*
