@@ -2236,6 +2236,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 					if(!no_amputate)	// I don't want this in my menu if it's not an option, heck.
 						valid_limb_states += "Amputated"
+					if(NO_ROBOPARTS in S.species_traits)
+						valid_limb_states -= "Prosthesis"
 
 					var/new_state = tgui_input_list(user, "What state do you wish the limb to be in?", "[limb_name]", valid_limb_states)
 					if(!new_state) return
@@ -2328,7 +2330,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						if("Kidneys")
 							organ = INTERNAL_ORGAN_KIDNEYS
 
-					var/new_state = tgui_input_list(user, "What state do you wish the organ to be in?", "[organ_name]", list("Normal", "Cybernetic"))
+					var/list/allowed_organs_type = (NO_ROBOPARTS in S.species_traits ? list("Normal") : list("Normal", "Cybernetic"))
+					var/new_state = tgui_input_list(user, "What state do you wish the organ to be in?", "[organ_name]", allowed_organs_type)
 					if(!new_state) return
 
 					switch(new_state)
