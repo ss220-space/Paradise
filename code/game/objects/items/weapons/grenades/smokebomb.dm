@@ -4,7 +4,7 @@
 	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "smokebomb"
 	det_time = 2 SECONDS
-	item_state = "smokebomb"
+	item_state = "flashbang"
 	slot_flags = ITEM_SLOT_BELT
 	var/datum/effect_system/smoke_spread/bad/smoke
 
