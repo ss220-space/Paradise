@@ -2341,7 +2341,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							organ_data[organ] = "cybernetic"
 
 				if("clientfps")
-					var/desiredfps = tgui_input_number(user, "Выберите желаемый FPS.\n  0 = значение по умолчанию ([CONFIG_GET(number/clientfps)]) < РЕКОМЕНДОВАНО\n -1 = синхронизировано с сервером ([world.fps])\n20/40/50 = Может помочь при проблемах с плавностью.", "Character Preference", clientfps, 120, world.fps)
+					var/desiredfps = tgui_input_number(user, "Выберите желаемый FPS.\n  0 = значение по умолчанию ([CONFIG_GET(number/clientfps)]) < РЕКОМЕНДОВАНО\n -1 = синхронизировано с сервером ([world.fps])\n20/40/50 = Может помочь при проблемах с плавностью.", "Character Preference", clientfps, 120, -1)
 					if(!isnull(desiredfps))
 						clientfps = desiredfps
 						if(clientfps)
