@@ -24,7 +24,7 @@
 					if(!(H.dna.species.name in S.species_allowed))
 						continue
 					valid_underwear[underwear] = GLOB.underwear_list[underwear]
-				if(!LAZYLEN(valid_sockstyles))
+				if(!LAZYLEN(valid_underwear))
 					to_chat(user, "There are no underwear for [H.dna.species.name].")
 					return
 				var/new_underwear = tgui_input_list(user, "Choose your underwear:", "Changing", valid_underwear)
