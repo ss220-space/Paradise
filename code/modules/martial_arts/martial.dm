@@ -467,9 +467,7 @@
 		to_chat(user, "<span class='notice'>You implant yourself, but nanobots can't find their target. You feel sharp pain in head!</span>")
 		if(isliving(user))
 			var/mob/living/L = user
-			L.adjustBrainLoss(20, FALSE)
-			L.adjustFireLoss(20, FALSE)
-			L.updatehealth()
+			L.apply_damages(burn = 20, brain = 20, spread_damage = TRUE)
 		user.temporarily_remove_item_from_inventory(src)
 		visible_message("<span class='warning'>[src] beeps ominously, and a moment later it blow up!</span>")
 		playsound(get_turf(src),'sound/effects/explosion2.ogg', 100, 1)

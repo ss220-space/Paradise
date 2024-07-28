@@ -113,11 +113,11 @@
 
 /obj/item/organ/internal/heart/gland/heals/activate()
 	to_chat(owner, "<span class='notice'>You feel curiously revitalized.</span>")
-	owner.adjustToxLoss(-20, FALSE)
-	owner.adjustBruteLoss(-20, FALSE)
-	owner.adjustOxyLoss(-20, FALSE)
-	owner.adjustFireLoss(-20, FALSE)
-	owner.updatehealth()
+	var/update = NONE
+	update |= owner.heal_overall_damage(20, 20, updating_health = FALSE)
+	update |= owner.heal_damages(tox = 20, oxy = 20, updating_health = FALSE)
+	if(update)
+		owner.updatehealth()
 
 /obj/item/organ/internal/heart/gland/slime
 	cooldown_low = 600

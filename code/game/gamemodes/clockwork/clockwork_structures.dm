@@ -394,9 +394,7 @@
 				if(!second_stage)
 					second_stage_check(converting)
 				else
-					converting.adjustBruteLoss(5, FALSE)
-					converting.adjustFireLoss(5, FALSE)
-					converting.updatehealth()
+					converting.take_overall_damage(5, 5)
 			if(17)
 				adjust_clockwork_power(CLOCK_POWER_SACRIFICE)
 				var/obj/item/mmi/robotic_brain/clockwork/cube = new (get_turf(src))

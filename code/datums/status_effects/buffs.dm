@@ -16,9 +16,7 @@
 	return ..()
 
 /datum/status_effect/shadow_mend/tick(seconds_between_ticks)
-	owner.adjustBruteLoss(-15, FALSE)
-	owner.adjustFireLoss(-15, FALSE)
-	owner.updatehealth()
+	owner.heal_overall_damage(15, 15)
 
 /datum/status_effect/shadow_mend/on_remove()
 	owner.visible_message("<span class='warning'>The violet light around [owner] glows black!</span>", "<span class='warning'>The tendrils around you cinch tightly and reap their toll...</span>")
@@ -176,11 +174,13 @@
 		var/heal_amount = (active_instances_length / tolerance) * basic_heal_amt
 		if(isanimal(owner))
 			var/mob/living/simple_animal/s_owner = owner
-			s_owner.adjustHealth(-heal_amount, updating_health = FALSE)
+			s_owner.adjustHealth(-heal_amount)
 		else
-			owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
-			owner.adjustOxyLoss(-heal_amount, updating_health = FALSE)
-		owner.updatehealth()
+			var/update = NONE
+			update |= owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
+			update |= owner.heal_damage_type(heal_amount, OXY, FALSE)
+			if(update)
+				owner.updatehealth("banana_power")
 		var/list/expired_instances = list()
 		for(var/i in 1 to active_instances_length)
 			active_instances[i]--
@@ -293,14 +293,12 @@
 			//Because a servant of medicines stops at nothing to help others, lets keep them on their toes and give them an additional boost.
 			if(itemUser.health < itemUser.maxHealth)
 				new /obj/effect/temp_visual/heal(get_turf(itemUser), "#375637")
-			itemUser.adjustBruteLoss(-1.5, FALSE)
-			itemUser.adjustFireLoss(-1.5, FALSE)
-			itemUser.adjustToxLoss(-1.5, FALSE)
-			itemUser.adjustOxyLoss(-1.5, FALSE)
-			itemUser.adjustStaminaLoss(-1.5, FALSE)
-			itemUser.adjustBrainLoss(-1.5, FALSE)
-			itemUser.adjustCloneLoss(-0.5, FALSE) //Becasue apparently clone damage is the bastion of all health
-			itemUser.updatehealth()
+			var/update = NONE
+			update |= itemUser.heal_overall_damage(1.5, 1.5, updating_health = FALSE)
+			update |= itemUser.heal_damages(tox = 1.5, oxy = 1.5, clone = 0.5, stamina = 1.5, brain = 1.5, updating_health = FALSE)
+			if(update)
+				owner.updatehealth("Hippocratic Oath")
+
 
 /atom/movable/screen/alert/status_effect/regenerative_core
 	name = "Reinforcing Tendrils"
@@ -317,9 +315,7 @@
 
 /datum/status_effect/regenerative_core/on_apply()
 	owner.ignore_slowdown(TRAIT_STATUS_EFFECT(id))
-	owner.adjustBruteLoss(-25, FALSE)
-	owner.adjustFireLoss(-25, FALSE)
-	owner.updatehealth()
+	owner.heal_overall_damage(25, 25, affect_robotic = TRUE)
 	owner.remove_CC()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
@@ -378,10 +374,12 @@
 	if(length(active_instances) >= 1)
 		var/heal_amount = (length(active_instances) / tolerance) * (freezing ? 2 : 10)
 		var/blood_restore = 30 * length(active_instances)
-		owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
-		owner.adjustOxyLoss(-heal_amount, FALSE)
+		var/update = NONE
+		update |= owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
+		update |= owner.heal_damage_type(heal_amount, OXY, FALSE)
+		if(update)
+			owner.updatehealth("fleshmend")
 		owner.blood_volume = min(owner.blood_volume + blood_restore, BLOOD_VOLUME_NORMAL)
-		owner.updatehealth()
 		var/list/expired_instances = list()
 		for(var/i in 1 to length(active_instances))
 			active_instances[i]--
@@ -453,9 +451,7 @@
 
 
 /datum/status_effect/panacea/tick(seconds_between_ticks)
-	owner.adjustToxLoss(-5, FALSE) //Has the same healing as 20 charcoal, but happens faster
-	owner.adjustBrainLoss(-5, FALSE)
-	owner.updatehealth()
+	owner.heal_damages(tox = 5, brain = 5)	//Has the same healing as 20 charcoal, but happens faster
 	owner.radiation = max(0, owner.radiation - 70) //Same radiation healing as pentetic
 	owner.AdjustDrunk(-12 SECONDS) //50% stronger than antihol
 	owner.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 10)
@@ -502,10 +498,11 @@
 			hope_message()
 		return
 	var/heal_multiplier = min(3, ((50 - owner.health) / 50 + 1)) // 1 hp at 50 health, 2 at 0, 3 at -50
-	owner.adjustBruteLoss(-heal_multiplier * 0.5, FALSE)
-	owner.adjustFireLoss(-heal_multiplier * 0.5, FALSE)
-	owner.adjustOxyLoss(-heal_multiplier, FALSE)
-	owner.updatehealth()
+	var/update = NONE
+	update |= owner.heal_overall_damage(heal_multiplier * 0.5, heal_multiplier * 0.5, updating_health = FALSE)
+	update |= owner.heal_damage_type(heal_multiplier, OXY, FALSE)
+	if(update)
+		owner.updatehealth("hope")
 	if(prob(heal_multiplier * 2))
 		hope_message()
 
@@ -689,10 +686,11 @@
 			war_message()
 		return
 	var/heal_multiplier = min(3, ((40 - owner.health) / 50 + 1)) // 1 hp at 40 health, 2 at -10, 3 at -60
-	owner.adjustBruteLoss(-heal_multiplier * 0.5, FALSE)
-	owner.adjustFireLoss(-heal_multiplier * 0.5, FALSE)
-	owner.adjustOxyLoss(-heal_multiplier, FALSE)
-	owner.updatehealth()
+	var/update = NONE
+	update |= owner.heal_overall_damage(heal_multiplier * 0.5, heal_multiplier * 0.5, updating_health = FALSE)
+	update |= owner.heal_damage_type(heal_multiplier, OXY, FALSE)
+	if(update)
+		owner.updatehealth("dragon strength")
 	if(prob(5))
 		hope_message()
 
@@ -762,10 +760,12 @@
 			owner.remove_status_effect(STATUS_EFFECT_DRILL_PAYBACK)
 			return
 	if(owner.stat != DEAD)
-		owner.adjustBruteLoss(-3, FALSE)
-		owner.adjustFireLoss(-3, FALSE)
-		owner.adjustStaminaLoss(-25, FALSE)
-		owner.updatehealth()
+		var/update = NONE
+		update |= owner.heal_overall_damage(3, 3, updating_health = FALSE)
+		update |= owner.heal_damage_type(25, STAMINA, FALSE)
+		if(update)
+			owner.updatehealth("drill_payback")
+
 
 /datum/status_effect/drill_payback/on_remove()
 	..()

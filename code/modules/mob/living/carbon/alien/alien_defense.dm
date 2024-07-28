@@ -79,4 +79,4 @@
 			damage = rand(10 + M.age_state.damage, 40 + M.age_state.damage)
 		adjustBruteLoss(damage)
 		add_attack_logs(M, src, "Slime'd for [damage] damage")
-		updatehealth("slime attack")
+

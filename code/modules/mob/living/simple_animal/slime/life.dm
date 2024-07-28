@@ -104,6 +104,7 @@
 
 	AIproc = 0
 
+
 /mob/living/simple_animal/slime/handle_environment(datum/gas_mixture/environment)
 	if(!environment)
 		return
@@ -127,10 +128,6 @@
 	else
 		Tempstun = 0
 
-	updatehealth("handle environment")
-
-
-	return //TODO: DEFERRED
 
 /mob/living/simple_animal/slime/proc/adjust_body_temperature(current, loc_temp, boost)
 	var/temperature = current

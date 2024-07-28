@@ -718,14 +718,15 @@
 
 	var/mob/living/carbon/dreamer = owner
 
-	if(isvampire(dreamer))
-		if(istype(dreamer.loc, /obj/structure/closet/coffin))
-			dreamer.adjustBruteLoss(-1, FALSE)
-			dreamer.adjustFireLoss(-1, FALSE)
-			dreamer.adjustToxLoss(-1, FALSE)
-			dreamer.updatehealth()
+	var/update = NONE
+	var/brute_heal = 0
+	var/burn_heal = 0
+	update |= dreamer.heal_damage_type(10, STAMINA, FALSE)
+	if(isvampire(dreamer) && istype(dreamer.loc, /obj/structure/closet/coffin))
+		brute_heal += 1
+		burn_heal += 1
+		update |= dreamer.heal_damage_type(1, TOX, FALSE)
 	dreamer.handle_dreams()
-	dreamer.adjustStaminaLoss(-10)
 	var/comfort = 1
 	if(istype(dreamer.buckled, /obj/structure/bed))
 		var/obj/structure/bed/bed = dreamer.buckled
@@ -742,9 +743,12 @@
 		comfort += 1 //Aren't naps SO much better when drunk?
 		dreamer.AdjustDrunk(-0.4 SECONDS * comfort) //reduce drunkenness while sleeping.
 	if(comfort > 1 && prob(3))//You don't heal if you're just sleeping on the floor without a blanket.
-		dreamer.adjustBruteLoss(-1 * comfort, FALSE)
-		dreamer.adjustFireLoss(-1 * comfort, FALSE)
-		dreamer.updatehealth()
+		brute_heal += 1 * comfort
+		burn_heal += 1 * comfort
+	if(brute_heal > 0 || burn_heal > 0)
+		update |= dreamer.heal_overall_damage(brute_heal, burn_heal, updating_health = FALSE)
+	if(update)
+		dreamer.updatehealth("sleeping")
 	if(prob(10) && dreamer.health)
 		dreamer.emote("snore")
 

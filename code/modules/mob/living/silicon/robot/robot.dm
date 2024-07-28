@@ -758,18 +758,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/ex_act(severity)
 	switch(severity)
-		if(1.0)
+		if(EXPLODE_DEVASTATE)
 			gib()
-			return
-		if(2.0)
-			if(stat != 2)
-				adjustBruteLoss(60, FALSE)
-				adjustFireLoss(60, FALSE)
-				updatehealth()
-		if(3.0)
-			if(stat != 2)
-				adjustBruteLoss(30)
-	return
+		if(EXPLODE_HEAVY)
+			if(stat != DEAD)
+				apply_damages(60, 60)
+		if(EXPLODE_LIGHT)
+			if(stat != DEAD)
+				apply_damage(30)
 
 
 /mob/living/silicon/robot/bullet_act(var/obj/item/projectile/Proj)

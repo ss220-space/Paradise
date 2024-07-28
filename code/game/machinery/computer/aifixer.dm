@@ -82,13 +82,10 @@
 	update_icon()
 	return TRUE
 
+
 /obj/machinery/computer/aifixer/proc/fix_ai() // Can we fix it? Probrably.
 	while(occupant.health < 100)
-		occupant.adjustOxyLoss(-1, FALSE)
-		occupant.adjustFireLoss(-1, FALSE)
-		occupant.adjustToxLoss(-1, FALSE)
-		occupant.adjustBruteLoss(-1, FALSE)
-		occupant.updatehealth()
+		occupant.heal_damages(brute = 1, burn = 1, tox = 1, oxy = 1)
 		if(occupant.health >= 0 && occupant.stat == DEAD)
 			occupant.update_revive()
 			update_icon()

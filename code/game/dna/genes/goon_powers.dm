@@ -247,6 +247,7 @@
 /obj/effect/proc_holder/spell/eat/proc/doHeal(mob/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
+		var/update = NONE
 		for(var/name in H.bodyparts_by_name)
 			var/obj/item/organ/external/affecting = null
 			if(!H.bodyparts_by_name[name])
@@ -254,9 +255,10 @@
 			affecting = H.bodyparts_by_name[name]
 			if(!isexternalorgan(affecting))
 				continue
-			affecting.heal_damage(4, 0, updating_health = FALSE)
-		H.UpdateDamageIcon()
-		H.updatehealth()
+			update |= affecting.heal_damage(4, 0, updating_health = FALSE)
+		if(update)
+			H.UpdateDamageIcon()
+			H.updatehealth()
 
 
 /obj/effect/proc_holder/spell/eat/cast(list/targets, mob/user = usr)

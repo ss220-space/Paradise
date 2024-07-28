@@ -608,9 +608,9 @@ emp_act
 		if(stat != DEAD)
 			L.evolution_points = min(L.evolution_points + L.attack_damage, L.max_evolution_points)
 			var/obj/item/organ/external/affecting = get_organ(ran_zone(L.zone_selected))
-			var/armor_block = run_armor_check(affecting, "melee")
+			var/armor_block = run_armor_check(affecting, MELEE)
 			apply_damage(L.attack_damage, BRUTE, affecting, armor_block)
-			updatehealth("larva attack")
+
 
 /mob/living/carbon/human/attack_alien(mob/living/carbon/alien/humanoid/M)
 	if(check_shields(M, 0, M.name))
@@ -635,7 +635,6 @@ emp_act
 
 			apply_damage(damage, BRUTE, affecting, armor_block, TRUE)
 			add_attack_logs(M, src, "Alien attacked")
-			updatehealth("alien attack")
 			var/all_objectives = M?.mind?.get_all_objectives()
 			if(mind && all_objectives)
 				for(var/datum/objective/pain_hunter/objective in all_objectives)
@@ -688,7 +687,6 @@ emp_act
 		affecting.add_autopsy_data(M.name, damage) // Add the mob's name to the autopsy data
 		var/armor = run_armor_check(affecting, MELEE, armour_penetration = M.armour_penetration)
 		apply_damage(damage, M.melee_damage_type, affecting, armor)
-		updatehealth("animal attack")
 		var/all_objectives = M?.mind?.get_all_objectives()
 		if(mind && all_objectives)
 			for(var/datum/objective/pain_hunter/objective in all_objectives)
@@ -761,7 +759,6 @@ emp_act
 					M.mech_toxin_damage(src)
 				else
 					return
-			updatehealth("mech melee attack")
 
 		M.occupant_message("<span class='danger'>You hit [src].</span>")
 		visible_message("<span class='danger'>[M.name] hits [src]!</span>", "<span class='userdanger'>[M.name] hits you!</span>")

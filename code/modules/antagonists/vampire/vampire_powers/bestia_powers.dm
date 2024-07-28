@@ -1578,12 +1578,11 @@
 	human_vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, human_vampire.nutrition + 10))
 
 	// damage types
-	human_vampire.adjustBruteLoss(-heal_brute, FALSE)
-	human_vampire.adjustFireLoss(-heal_burn, FALSE)
-	human_vampire.adjustToxLoss(-heal_tox, FALSE)
-	human_vampire.adjustOxyLoss(-heal_oxy, FALSE)
-	human_vampire.adjustCloneLoss(-heal_clone, FALSE)
-	human_vampire.updatehealth()
+	var/update = NONE
+	update |= human_vampire.heal_overall_damage(heal_brute, heal_burn, updating_health = FALSE, affect_robotic = TRUE)
+	update |= human_vampire.heal_damages(tox = heal_tox, oxy = heal_oxy, clone = heal_clone, updating_health = FALSE)
+	if(update)
+		human_vampire.updatehealth()
 
 	// blood
 	human_vampire.blood_volume = clamp(human_vampire.blood_volume + heal_blood, 0, BLOOD_VOLUME_NORMAL)

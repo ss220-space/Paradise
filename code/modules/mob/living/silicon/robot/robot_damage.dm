@@ -214,7 +214,7 @@
 		parts -= picked
 
 	if(. && updating_health)
-		updatehealth()
+		updatehealth("take overall damage")
 
 
 /mob/living/silicon/robot/get_blocking_resistance(

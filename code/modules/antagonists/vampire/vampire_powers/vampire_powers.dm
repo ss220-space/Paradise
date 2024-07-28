@@ -113,11 +113,11 @@
 
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate/proc/heal(mob/living/user, rejuv_bonus)
 	for(var/i in 1 to 5)
-		user.adjustBruteLoss(-2 * rejuv_bonus, FALSE)
-		user.adjustOxyLoss(-5 * rejuv_bonus, FALSE)
-		user.adjustToxLoss(-2 * rejuv_bonus, FALSE)
-		user.adjustFireLoss(-2 * rejuv_bonus, FALSE)
-		user.updatehealth()
+		var/update = NONE
+		update |= user.heal_overall_damage(2 * rejuv_bonus, 2 * rejuv_bonus, updating_health = FALSE, affect_robotic = TRUE)
+		update |= user.heal_damages(tox = 2 * rejuv_bonus, oxy = 5 * rejuv_bonus, updating_health = FALSE)
+		if(update)
+			user.updatehealth()
 		for(var/datum/reagent/R in user.reagents.reagent_list)
 			if(!R.harmless)
 				user.reagents.remove_reagent(R.id, 2 * rejuv_bonus)
@@ -356,9 +356,7 @@
 		return
 	if(H.mind.has_antag_datum(/datum/antagonist/vampire) || H.mind.special_role == SPECIAL_ROLE_VAMPIRE || H.mind.special_role == SPECIAL_ROLE_VAMPIRE_THRALL)
 		visible_message(span_notice("[H] looks refreshed!"))
-		H.adjustBruteLoss(-60, FALSE)
-		H.adjustFireLoss(-60, FALSE)
-		H.updatehealth()
+		H.heal_overall_damage(60, 60, affect_robotic = TRUE)
 		for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
 			if(prob(25))
 				bodypart.mend_fracture()

@@ -208,16 +208,12 @@
 				if(1 to 49)
 					radiation = max(radiation-1, 0)
 					if(prob(25))
-						adjustToxLoss(1, FALSE)
-						adjustFireLoss(1, FALSE)
-						updatehealth()
+						apply_damages(burn = 1, tox = 1, spread_damage = TRUE)
 						autopsy_damage = 2
 
 				if(50 to 74)
 					radiation = max(radiation-2, 0)
-					adjustToxLoss(1, FALSE)
-					adjustFireLoss(1, FALSE)
-					updatehealth()
+					apply_damages(burn = 1, tox = 1, spread_damage = TRUE)
 					autopsy_damage = 2
 					if(prob(5))
 						radiation = max(radiation-5, 0)
@@ -227,9 +223,7 @@
 
 				if(75 to 100)
 					radiation = max(radiation-2, 0)
-					adjustToxLoss(2, FALSE)
-					adjustFireLoss(2, FALSE)
-					updatehealth()
+					apply_damages(burn = 2, tox = 2, spread_damage = TRUE)
 					autopsy_damage = 4
 					if(prob(2))
 						to_chat(src, "<span class='danger'>You mutate!</span>")
@@ -238,9 +232,7 @@
 
 				if(101 to 150)
 					radiation = max(radiation-3, 0)
-					adjustToxLoss(2, FALSE)
-					adjustFireLoss(3, FALSE)
-					updatehealth()
+					apply_damages(burn = 3, tox = 2, spread_damage = TRUE)
 					autopsy_damage = 5
 					if(prob(4))
 						to_chat(src, "<span class='danger'>You mutate!</span>")
@@ -249,9 +241,7 @@
 
 				if(151 to INFINITY)
 					radiation = max(radiation-3, 0)
-					adjustToxLoss(2, FALSE)
-					adjustFireLoss(3, FALSE)
-					updatehealth()
+					apply_damages(burn = 3, tox = 2, spread_damage = TRUE)
 					autopsy_damage = 5
 					if(prob(6))
 						to_chat(src, "<span class='danger'>You mutate!</span>")

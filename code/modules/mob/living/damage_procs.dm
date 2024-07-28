@@ -165,7 +165,7 @@
 		if(. && updating_health)
 			should_update_health = TRUE
 	if(should_update_health)
-		updatehealth()
+		updatehealth("apply_damages")
 	if(should_update_damage_icon)
 		UpdateDamageIcon()
 
@@ -174,13 +174,18 @@
  * Simply a wrapper for calling mob adjustXLoss() procs to heal a certain damage type,
  * when you don't know what damage type you're healing exactly.
  */
-/mob/living/proc/heal_damage_type(heal_amount = 0, damagetype = BRUTE, updating_health = TRUE)
+/mob/living/proc/heal_damage_type(
+	heal_amount = 0,
+	damagetype = BRUTE,
+	updating_health = TRUE,
+	affect_robotic = FALSE,
+)
 	heal_amount = -abs(heal_amount)
 	switch(damagetype)
 		if(BRUTE)
-			return adjustBruteLoss(heal_amount, updating_health)
+			return adjustBruteLoss(heal_amount, updating_health, affect_robotic = affect_robotic)
 		if(BURN)
-			return adjustFireLoss(heal_amount, updating_health)
+			return adjustFireLoss(heal_amount, updating_health, affect_robotic = affect_robotic)
 		if(TOX)
 			return adjustToxLoss(heal_amount, updating_health)
 		if(OXY)
@@ -191,6 +196,37 @@
 			return adjustStaminaLoss(heal_amount, updating_health)
 		if(BRAIN)
 			return adjustBrainLoss(heal_amount, updating_health)
+
+
+/// Heal multiple damages at once via [heal_damage_type][/mob/living/proc/heal_damage_type]
+/mob/living/proc/heal_damages(
+	brute = 0,
+	burn = 0,
+	tox = 0,
+	oxy = 0,
+	clone = 0,
+	stamina = 0,
+	brain = 0,
+	updating_health = TRUE,
+	affect_robotic = FALSE,
+)
+	. = STATUS_UPDATE_NONE
+	if(brute)
+		. |= heal_damage_type(brute, BRUTE, FALSE, affect_robotic)
+	if(burn)
+		. |= heal_damage_type(burn, BURN, FALSE, affect_robotic)
+	if(tox)
+		. |= heal_damage_type(tox, TOX, FALSE)
+	if(oxy)
+		. |= heal_damage_type(oxy, OXY, FALSE)
+	if(clone)
+		. |= heal_damage_type(clone, CLONE, FALSE)
+	if(stamina)
+		. |= heal_damage_type(stamina, STAMINA, FALSE)
+	if(brain)
+		. |= heal_damage_type(brain, BRAIN, FALSE)
+	if(. && updating_health)
+		updatehealth("heal_damages")
 
 
 /// Returns current mob's damage for passed damage type

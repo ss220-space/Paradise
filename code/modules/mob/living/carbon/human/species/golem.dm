@@ -430,15 +430,17 @@
 	chance_name_male = 80
 	chance_name_female = 30
 
+
 //Regenerates because self-repairing super-advanced alien tech
 /datum/species/golem/alloy/handle_life(mob/living/carbon/human/H)
 	if(H.stat == DEAD)
 		return
-	H.adjustBruteLoss(-2, FALSE)
-	H.adjustFireLoss(-2, FALSE)
-	H.adjustToxLoss(-2, FALSE)
-	H.adjustOxyLoss(-2, FALSE)
-	H.updatehealth()
+	var/update = NONE
+	update |= H.heal_overall_damage(2, 2, updating_health = FALSE)
+	update |= H.heal_damages(tox = 2, oxy = 2, updating_health = FALSE)
+	if(update)
+		H.updatehealth()
+
 
 /datum/species/golem/alloy/can_understand(mob/other) //Can understand everyone, but they can only speak over their mindlink
 	return TRUE
@@ -497,11 +499,11 @@
 			if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
 				H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
 		if(light_amount > 0.2 && !H.suiciding) //if there's enough light, heal
-			H.adjustBruteLoss(-1, FALSE)
-			H.adjustFireLoss(-1, FALSE)
-			H.adjustToxLoss(-1, FALSE)
-			H.adjustOxyLoss(-1, FALSE)
-			H.updatehealth()
+			var/update = NONE
+			update |= H.heal_overall_damage(1, 1, updating_health = FALSE)
+			update |= H.heal_damages(tox = 1, oxy = 1, updating_health = FALSE)
+			if(update)
+				H.updatehealth()
 
 	if(!is_vamp && H.nutrition < NUTRITION_LEVEL_STARVING + 50)
 		H.adjustBruteLoss(2)

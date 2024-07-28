@@ -462,16 +462,14 @@
 				var/obj/item/organ/external/affecting = H.get_organ(BODY_ZONE_HEAD)
 				if(affecting)
 					affecting.disfigure()
-				H.adjustBruteLoss(5, FALSE)
-				H.adjustFireLoss(15, FALSE)
-				H.updatehealth()
+				H.take_overall_damage(5, 15)
 				H.emote("scream")
 			else
 				H.adjustBruteLoss(min(5, volume * 0.25))
 		else
 			to_chat(H, "<span class='warning'>The transparent acidic substance stings[volume < 25 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
 			if(volume >= 25)
-				H.adjustBruteLoss(2)
+				H.take_overall_damage(2)
 				H.emote("scream")
 
 

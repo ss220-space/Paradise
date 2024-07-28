@@ -134,12 +134,14 @@
 					health_change = round(timer/(4 * STAGE_TIME), 0.25)  //1 - ∞ toxins
 
 		if(affected_mob.z == master.z)
+			var/update = NONE
 			if(timer <= STAGE_TIME)
-				affected_mob.adjustOxyLoss(health_change, FALSE)
-				affected_mob.adjustBruteLoss(health_change, FALSE)
-				affected_mob.adjustFireLoss(health_change, FALSE)
-			affected_mob.adjustToxLoss(health_change, FALSE)
-			affected_mob.updatehealth()
+				update |= affected_mob.adjustOxyLoss(health_change, FALSE)
+				update |= affected_mob.adjustBruteLoss(health_change, FALSE)
+				update |= affected_mob.adjustFireLoss(health_change, FALSE)
+			update |= affected_mob.adjustToxLoss(health_change, FALSE)
+			if(update)
+				affected_mob.updatehealth("loyalty virus")
 		if(message != "")
 			affected_mob.say(message)
 			say_timer = 0

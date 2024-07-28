@@ -98,12 +98,11 @@
 	if(environment && H.bodytemperature > DRASK_COOLINGSTARTTEMP && environment.temperature <= ENVIRONMENT_COOLINGSTOPTEMP)
 		H.adjust_bodytemperature(-5)
 	if(H.bodytemperature < TCRYO)
-		H.adjustCloneLoss(-1, FALSE)
-		H.adjustOxyLoss(-2, FALSE)
-		H.adjustToxLoss(-0.5, FALSE)
-		H.adjustBruteLoss(-2, FALSE)
-		H.adjustFireLoss(-4, FALSE)
-		H.updatehealth()
+		var/update = NONE
+		update |= H.heal_overall_damage(2, 4, updating_health = FALSE)
+		update |= H.heal_damages(tox = 0.5, oxy = 2, clone = 1, updating_health = FALSE)
+		if(update)
+			H.updatehealth()
 		var/obj/item/organ/external/head/head = H.get_organ(BODY_ZONE_HEAD)
 		head?.undisfigure()
 
@@ -114,9 +113,7 @@
 			return FALSE
 		if("salglu_solution")
 			if(prob(33))
-				H.adjustBruteLoss(-1, FALSE)
-				H.adjustFireLoss(-1, FALSE)
-				H.updatehealth()
+				H.heal_overall_damage(1, 1, updating_health = FALSE)
 			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM * H.metabolism_efficiency * H.digestion_ratio)
 			return FALSE
 	return ..()

@@ -53,10 +53,11 @@ Bonus
 
 	else
 		if(M.getFireLoss() > 0 || M.getBruteLoss() > 0)
-			M.adjustFireLoss(-get_damage, FALSE)
-			M.adjustBruteLoss(-get_damage, FALSE)
-			M.adjustToxLoss(get_damage, FALSE)
-			M.updatehealth()
+			var/update = NONE
+			update |= M.heal_overall_damage(get_damage, get_damage, FALSE)
+			update |= M.heal_damage_type(get_damage, TOX, FALSE)
+			if(update)
+				M.updatehealth("damage converter symptom")
 		else
 			return
 

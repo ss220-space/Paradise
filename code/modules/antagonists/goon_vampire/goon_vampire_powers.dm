@@ -172,12 +172,11 @@
 		return
 
 	counter++
-	user.adjustBruteLoss(-2, FALSE)
-	user.adjustOxyLoss(-5, FALSE)
-	user.adjustToxLoss(-2, FALSE)
-	user.adjustFireLoss(-2, FALSE)
-	user.adjustStaminaLoss(-10, FALSE)
-	user.updatehealth()
+	var/update = NONE
+	update |= user.heal_overall_damage(2, 2, updating_health = FALSE, affect_robotic = TRUE)
+	update |= user.heal_damages(tox = 2, oxy = 5, stamina = 10, updating_health = FALSE)
+	if(update)
+		user.updatehealth()
 
 
 /obj/effect/proc_holder/spell/goon_vampire/targetted/hypnotise

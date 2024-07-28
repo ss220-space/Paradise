@@ -223,9 +223,7 @@
 		for(var/mob/living/carbon/human/H in contents)
 			H.forceMove(loc)
 			REMOVE_TRAIT(H, TRAIT_KNOCKEDOUT, COCOONED_TRAIT)
-			H.adjustBruteLoss(COCOON_HARM_AMOUNT, FALSE)
-			H.adjustFireLoss(COCOON_HARM_AMOUNT, FALSE)
-			H.updatehealth()
+			H.heal_overall_damage(COCOON_HARM_AMOUNT, COCOON_HARM_AMOUNT)
 			H.AdjustWeakened(10 SECONDS)
 		return ..()
 

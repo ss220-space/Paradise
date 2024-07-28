@@ -32,7 +32,6 @@
 			playsound(loc, attacked_sound, 25, 1, -1)
 			attack_threshold_check(harm_intent_damage)
 			add_attack_logs(M, src, "Melee attacked with fists")
-			updatehealth()
 			return TRUE
 
 /mob/living/simple_animal/attack_alien(mob/living/carbon/alien/humanoid/M)

@@ -223,20 +223,17 @@
 			if(0 to 50)
 				radiation--
 				if(prob(25))
-					adjustToxLoss(1)
-					updatehealth("handle mutations and radiation(0-50)")
+					apply_damage(1, TOX, spread_damage = TRUE)
 
 			if(50 to 75)
 				radiation -= 2
-				adjustToxLoss(1)
+				apply_damage(1, TOX, spread_damage = TRUE)
 				if(prob(5))
 					radiation -= 5
-				updatehealth("handle mutations and radiation(50-75)")
 
 			if(75 to 100)
 				radiation -= 3
-				adjustToxLoss(3)
-				updatehealth("handle mutations and radiation(75-100)")
+				apply_damage(3, TOX, spread_damage = TRUE)
 
 		radiation = clamp(radiation, 0, 100)
 

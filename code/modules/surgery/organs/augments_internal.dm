@@ -416,21 +416,23 @@
 /obj/item/organ/internal/cyberimp/chest/reviver/proc/heal()
 	if(QDELETED(owner))
 		return
-	var/update_health = NONE
-	if(prob(90) && owner.getOxyLoss())
-		update_health |= owner.adjustOxyLoss(-3, FALSE)
-		revive_cost += 5
+	var/heal_brute = 0
+	var/heal_burn = 0
+	var/heal_tox = 0
+	var/heal_oxy = 0
 	if(prob(75) && owner.getBruteLoss())
-		update_health |= owner.adjustBruteLoss(-1, FALSE)
+		heal_brute += 1
 		revive_cost += 20
 	if(prob(75) && owner.getFireLoss())
-		update_health |= owner.adjustFireLoss(-1, FALSE)
+		heal_burn += 1
 		revive_cost += 20
 	if(prob(40) && owner.getToxLoss())
-		update_health |= owner.adjustToxLoss(-1, FALSE)
+		heal_tox += 1
 		revive_cost += 50
-	if(update_health)
-		owner.updatehealth()
+	if(prob(90) && owner.getOxyLoss())
+		heal_oxy += 3
+		revive_cost += 5
+	owner.heal_damages(heal_brute, heal_burn, heal_tox, heal_oxy)
 
 
 /obj/item/organ/internal/cyberimp/chest/reviver/emp_act(severity)

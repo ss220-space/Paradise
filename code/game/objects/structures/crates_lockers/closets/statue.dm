@@ -45,11 +45,13 @@
 /obj/structure/closet/statue/process()
 	timer--
 	for(var/mob/living/M in src) //Go-go gadget stasis field
-		M.setToxLoss(intialTox, FALSE)
-		M.adjustFireLoss(intialFire - M.getFireLoss(), FALSE)
-		M.adjustBruteLoss(intialBrute - M.getBruteLoss(), FALSE)
-		M.setOxyLoss(intialOxy)
-		M.updatehealth()
+		var/update = NONE
+		update |= M.adjustFireLoss(intialFire - M.getFireLoss(), FALSE)
+		update |= M.adjustBruteLoss(intialBrute - M.getBruteLoss(), FALSE)
+		update |= M.setToxLoss(intialTox, FALSE)
+		update |= M.setOxyLoss(intialOxy, FALSE)
+		if(update)
+			M.updatehealth()
 	if(timer <= 0)
 		dump_contents()
 		STOP_PROCESSING(SSobj, src)

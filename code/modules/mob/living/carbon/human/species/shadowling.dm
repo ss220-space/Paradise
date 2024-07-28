@@ -43,14 +43,14 @@
 			var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 			if(istype(E))
 				E.internal_receive_damage(-1)
+			var/update = NONE
 			if(is_species(H, /datum/species/shadow/ling/lesser))
-				H.heal_overall_damage(2, 3)
+				update |= H.heal_overall_damage(2, 3, updating_health = FALSE)
 			else
-				H.heal_overall_damage(5, 7)
-			H.adjustToxLoss(-5, FALSE)
-			H.adjustBrainLoss(-25, FALSE) //Shad O. Ling gibbers, "CAN U BE MY THRALL?!!"
-			H.adjustCloneLoss(-1, FALSE)
-			H.updatehealth()
+				update |= H.heal_overall_damage(5, 7, updating_health = FALSE)
+			update |= H.heal_damages(tox = 5, clone = 1, brain = 25, updating_health = FALSE)
+			if(update)
+				H.updatehealth()
 			H.AdjustEyeBlurry(-2 SECONDS)
 			H.CureNearsighted()
 			H.CureBlind()
