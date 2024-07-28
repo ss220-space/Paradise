@@ -17,7 +17,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 
 
 /obj/effect/proc_holder/spell/shadowling_hatch/cast(list/targets, mob/living/carbon/human/user = usr)
-	if(user.stat || !ishuman(user) || !user || !is_shadow(user || isinspace(user)))
+	if(user.stat || !ishuman(user) || !user || !is_shadow(user) || isinspace(user))
 		return
 
 	if(!isturf(user.loc))
