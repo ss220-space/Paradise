@@ -107,11 +107,9 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	if(!uplink_item)
 		return FALSE
 	if(uplink_item.limited_stock == 0)
-		to_chat(buyer, span_warning("You have redeemed this discount already."))
+		to_chat(buyer, span_warning("You have redeemed this offer already."))
 		return FALSE
 	uplink_item.buy(src, buyer)
-	if(uplink_item.limited_stock > 0) // only decrement it if it's actually limited
-		uplink_item.limited_stock--
 	SStgui.update_uis(src)
 	return TRUE
 
