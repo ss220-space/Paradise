@@ -569,7 +569,12 @@
 	var/mob/living/carbon/human/holder = loc
 	if(!holder.l_hand == src && !holder.r_hand == src) // Holding this in your hand will
 		return
-
+	for(var/mob/living/carbon/human/target in range(5, loc))
+		var/datum/antagonist/vampire/goon_vampire/vamp = target.mind?.has_antag_datum(/datum/antagonist/vampire/goon_vampire)
+		if(vamp && !vamp.get_ability(/datum/vampire_passive/full))
+			vamp.adjust_nullification(5, 2)
+			if(prob(10))
+				to_chat(target, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your powers!</span>")
 
 /obj/item/nullrod/salt
 	name = "Holy Salt"

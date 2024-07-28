@@ -476,7 +476,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/datum/antagonist/vampire/vamp = H.mind?.has_antag_datum(/datum/antagonist/vampire)
+		var/datum/antagonist/vampire/goon_vampire/vamp = H.mind?.has_antag_datum(/datum/antagonist/vampire/goon_vampire)
 		if(vamp && !vamp.get_ability(/datum/vampire_passive/full)) //incapacitating but not lethal.
 			if(prob(min(25, current_cycle)))
 				to_chat(H, "<span class='danger'>You can't get the scent of garlic out of your nose! You can barely think...</span>")

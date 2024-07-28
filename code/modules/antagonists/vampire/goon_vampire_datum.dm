@@ -1,5 +1,6 @@
 /datum/antagonist/vampire/goon_vampire
 	name = "Goon-Vampire"
+	antag_datum_blacklist = list(/datum/antagonist/vampire/new_vampire)
 	upgrade_tiers = list(
 		/obj/effect/proc_holder/spell/goon_vampire/self/rejuvenate = 0,
 		/obj/effect/proc_holder/spell/goon_vampire/targetted/hypnotise = 0,
@@ -34,3 +35,20 @@
 /datum/antagonist/mindslave/thrall/goon_thrall/remove_owner_from_gamemode()
 	SSticker.mode.goon_vampire_enthralled -= owner
 
+
+/proc/is_goon_vampire(datum/source)
+	if(!source)
+		return FALSE
+
+	if(istype(source, /datum/mind))
+		var/datum/mind/our_mind = source
+		return our_mind.has_antag_datum(/datum/antagonist/vampire/goon_vampire)
+
+	if(!ismob(source))
+		return FALSE
+
+	var/mob/mind_holder = source
+	if(!mind_holder.mind)
+		return FALSE
+
+	return mind_holder.mind.has_antag_datum(/datum/antagonist/vampire/goon_vampire)

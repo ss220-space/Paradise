@@ -1,5 +1,6 @@
 /datum/antagonist/vampire/new_vampire
 	name = "Vampire"
+	antag_datum_blacklist = list(/datum/antagonist/vampire/goon_vampire)
 	upgrade_tiers = list(/obj/effect/proc_holder/spell/vampire/self/rejuvenate = 0,
 									/obj/effect/proc_holder/spell/vampire/glare = 0,
 									/datum/vampire_passive/vision = 100,

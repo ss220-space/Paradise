@@ -417,7 +417,7 @@
 
 /datum/mind/proc/memory_edit_goon_vampire(mob/living/carbon/human/H)
 	. = _memory_edit_header("goonvampire")
-	var/datum/antagonist/vampire/goon_vampire/g_vamp = has_antag_datum(/datum/antagonist/vampire)
+	var/datum/antagonist/vampire/g_vamp = has_antag_datum(/datum/antagonist/vampire)
 	if(g_vamp)
 		. += "<b><font color='red'>GOON VAMPIRE</font></b>|<a href='?src=[UID()];goonvampire=clear'>no</a>"
 		. += "<br>Usable blood: <a href='?src=[UID()];goonvampire=edit_usable_blood'>[g_vamp.bloodusable]</a>"
@@ -1664,7 +1664,7 @@
 				message_admins("[key_name_admin(usr)] has set [key_name_admin(current)]'s total blood to [new_total].")
 
 			if("autoobjectives")
-				var/datum/antagonist/vampire/goon_vampire/g_vamp = has_antag_datum(/datum/antagonist/vampire/goon_vampire)
+				var/datum/antagonist/vampire/g_vamp = has_antag_datum(/datum/antagonist/vampire)
 				g_vamp.give_objectives()
 				to_chat(usr, "<span class='notice'>Для вампира [key] сгенерированы задания. Вы можете отредактировать и объявить их вручную.</span>")
 				log_admin("[key_name(usr)] has automatically forged objectives for [key_name(current)]")

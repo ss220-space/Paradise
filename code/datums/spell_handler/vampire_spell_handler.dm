@@ -22,7 +22,7 @@
 			to_chat(user, span_warning("Но вы же мертвы!"))
 		return FALSE
 
-	if(vampire.nullified >= VAMPIRE_COMPLETE_NULLIFICATION && !fullpower) // above 100 nullification vampire powers are useless
+	if(((vampire.nullified >= VAMPIRE_COMPLETE_NULLIFICATION)||(is_goon_vampire(user) && vampire.nullified)) && !fullpower) // above 100 nullification vampire powers are useless
 		if(show_message)
 			to_chat(user, span_warning("Что-то блокирует ваши силы!"))
 		return FALSE
