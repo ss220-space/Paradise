@@ -57,16 +57,17 @@ jobs:
       - name: Iterate over PRs and perform actions
         id: prepare_testmerge_branch
         run: |
+          set -e
+
           git config --local user.email "action@github.com"
           git config --local user.name "Testmerge Worker"
           git switch ${{ env.TESTMERGE_BRANCH }} || git switch -c ${{ env.TESTMERGE_BRANCH }}
 
           # Print debug information
           echo "PR details JSON:"
-          echo '${{ steps.get_labeled_prs.outputs.labeled_pr_details }}'
+          echo "${{ steps.get_labeled_prs.outputs.labeled_pr_details }}"
 
-          echo '${{ steps.get_labeled_prs.outputs.labeled_pr_details }}' | jq -c '.[]' | while read -r PR_DETAIL; do
-            echo "$PR_DETAIL"
+          echo "${{ steps.get_labeled_prs.outputs.labeled_pr_details }}" | jq -c '.[]' | while read -r PR_DETAIL; do
             PR_NUMBER=$(echo "$PR_DETAIL" | jq -r '.number')
             PR_TITLE=$(echo "$PR_DETAIL" | jq -r '.title')
             echo "Preparing $PR_TITLE (#$PR_NUMBER)"
