@@ -46,13 +46,13 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 	add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS|SEE_SELF)
 	set_invis_see(SEE_INVISIBLE_OBSERVER_AI_EYE)
-	verbs += list(
+	add_verb(src, list(
 		/mob/dead/observer/proc/dead_tele,
 		/mob/dead/observer/proc/open_spawners_menu,
 		/mob/dead/observer/proc/emote_spin_ghost,
 		/mob/dead/observer/proc/emote_flip_ghost,
 		/mob/dead/observer/proc/open_minigames_menu,
-	)
+	))
 
 	// Our new boo spell.
 	AddSpell(new /obj/effect/proc_holder/spell/boo(null))
@@ -184,6 +184,7 @@ Works together with spawning an observer, noted above.
 		else
 			GLOB.non_respawnable_keys[ckey] = 1
 		ghost.key = key
+		ghost.client?.init_verbs()
 		SEND_SIGNAL(src, COMSIG_MOB_GHOSTIZE, ghost)
 		return ghost
 
@@ -273,12 +274,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		abstract_move(destination)//Get out of closets and such as a ghost
 
 
-/mob/dead/observer/Stat()
-	..()
-	statpanel("Status")
-	if(client.statpanel == "Status")
-		show_stat_emergency_shuttle_eta()
-		stat(null, "Respawnability: [(src in GLOB.respawnable_list) ? "Yes" : "No"]")
+/mob/dead/observer/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Respawnability:", "[(src in GLOB.respawnable_list) ? "Yes" : "No"]")
 
 /mob/dead/observer/verb/reenter_corpse()
 	set category = "Ghost"

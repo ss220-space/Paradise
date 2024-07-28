@@ -180,7 +180,6 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/list/filtered_variables = list(
 		NAMEOF(src, name),
 		NAMEOF(src, parent_type),
-		NAMEOF(src, statclick),
 		NAMEOF(src, tag),
 		NAMEOF(src, type),
 		NAMEOF(src, vars),
@@ -789,13 +788,11 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 
 
-/datum/controller/master/stat_entry()
-	if(!statclick)
-		statclick = new/obj/effect/statclick/debug(null, "Initializing...", src)
+/datum/controller/master/stat_entry(msg)
 	if(last_init_info)
-		stat("Last Init Info", last_init_info)
-	stat("Byond:", "(FPS:[world.fps]) (TickCount:[world.time / world.tick_lag]) (TickDrift:[round(Master.tickdrift, 1)]([round((Master.tickdrift / (world.time / world.tick_lag)) * 100, 0.1)]%))")
-	stat("Master Controller:", statclick.update("(TickRate:[Master.processing]) (Iteration:[Master.iteration]) (TickLimit: [round(Master.current_ticklimit, 0.1)])"))
+		msg += "Last Init Info: [last_init_info]"
+	msg = "(TickRate:[Master.processing]) (Iteration:[Master.iteration]) (TickLimit: [round(Master.current_ticklimit, 0.1)])"
+	return ..()
 
 
 // Currently unimplemented

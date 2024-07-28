@@ -161,7 +161,7 @@
 	name = "barrier grenade"
 	desc = "Instant cover."
 	icon = 'icons/obj/weapons/grenade.dmi'
-	icon_state = "flashbang"
+	icon_state = "barrier"
 	item_state = "flashbang"
 	actions_types = list(/datum/action/item_action/toggle_barrier_spread)
 	var/mode = SINGLE

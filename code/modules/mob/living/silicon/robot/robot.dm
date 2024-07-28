@@ -480,6 +480,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		status_flags &= ~CANPUSH
 
 	choose_icon()
+	if(client.stat_tab == "Status")
+		SSstatpanels.set_status_tab(client)
 	if(!static_radio_channels)
 		radio.config(module.channels)
 	notify_ai(ROBOT_NOTIFY_AI_MODULE)
@@ -615,12 +617,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	toggle_sensor_mode()
 
 /mob/living/silicon/robot/proc/add_robot_verbs()
-	src.verbs |= GLOB.robot_verbs_default
-	src.verbs |= silicon_subsystems
+	add_verb(src, GLOB.robot_verbs_default)
+	add_verb(src, silicon_subsystems)
 
 /mob/living/silicon/robot/proc/remove_robot_verbs()
-	src.verbs -= GLOB.robot_verbs_default
-	src.verbs -= silicon_subsystems
+	remove_verb(src, GLOB.robot_verbs_default)
+	remove_verb(src, silicon_subsystems)
 
 /mob/living/silicon/robot/verb/cmd_robot_alerts()
 	set category = "Robot Commands"
@@ -704,25 +706,34 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 // this function displays the cyborgs current cell charge in the stat panel
 /mob/living/silicon/robot/proc/show_cell_power()
-	if(cell)
-		stat(null, text("Charge Left: [cell.charge]/[cell.maxcharge]"))
-	else
-		stat(null, text("No Cell Inserted!"))
+	return list("Charge Left:", cell ? "[cell.charge]/[cell.maxcharge]" : "No Cell Inserted!")
+
+
+/mob/living/silicon/robot/proc/show_gps_coords()
+	var/turf/turf = get_turf(src)
+	return list("GPS:", "[COORD(turf)]")
+
+
+/mob/living/silicon/robot/proc/show_stack_energy(datum/robot_energy_storage/robot_energy_storage)
+	return list("[robot_energy_storage.name]:", "[robot_energy_storage.energy] / [robot_energy_storage.max_energy]")
 
 
 // update the status screen display
-/mob/living/silicon/robot/Stat()
-	..()
-	statpanel("Status")
-	if(client.statpanel == "Status")
-		show_cell_power()
+/mob/living/silicon/robot/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+
+	status_tab_data[++status_tab_data.len] = show_cell_power()
+
+	if(!module)
+		return
+
 	var/total_user_contents = GetAllContents()
 	if(locate(/obj/item/gps) in total_user_contents)
-		var/turf/T = get_turf(src)
-		stat(null, "GPS: [COORD(T)]")
-	if(module)
-		for(var/datum/robot_energy_storage/st in module.storages)
-			stat("[st.name]:", "[st.energy]/[st.max_energy]")
+		status_tab_data[++status_tab_data.len] = show_gps_coords()
+
+	for(var/datum/robot_energy_storage/robot_energy_storage in module.storages)
+		status_tab_data[++status_tab_data.len] = show_stack_energy(robot_energy_storage)
 
 
 /mob/living/silicon/robot/InCritical()
@@ -1460,7 +1471,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(R)
 		R.UnlinkSelf()
 		to_chat(R, "Buffers flushed and reset. Camera system shutdown. All systems operational.")
-		src.verbs -= /mob/living/silicon/robot/proc/ResetSecurityCodes
+		remove_verb(src, /mob/living/silicon/robot/proc/ResetSecurityCodes)
 
 /mob/living/silicon/robot/mode()
 	set name = "Activate Held Object"
@@ -1557,14 +1568,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/disconnect_from_ai()
 	if(connected_ai)
 		sync() // One last sync attempt
-		connected_ai.connected_robots -= src
-		connected_ai = null
+		set_connected_ai(null)
 
 /mob/living/silicon/robot/proc/connect_to_ai(var/mob/living/silicon/ai/AI)
 	if(AI && AI != connected_ai)
 		disconnect_from_ai()
-		connected_ai = AI
-		connected_ai.connected_robots |= src
+		set_connected_ai(AI)
 		notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
 		sync()
 
@@ -1588,6 +1597,17 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			disable_component("comms", 160)
 		if(2)
 			disable_component("comms", 60)
+
+/mob/living/silicon/robot/proc/set_connected_ai(new_ai)
+	if(connected_ai == new_ai)
+		return
+	. = connected_ai
+	connected_ai = new_ai
+	if(.)
+		var/mob/living/silicon/ai/old_ai = .
+		old_ai.connected_robots -= src
+	if(connected_ai)
+		connected_ai.connected_robots |= src
 
 /mob/living/silicon/robot/deathsquad
 	base_icon = "nano_bloodhound"

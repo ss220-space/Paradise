@@ -35,16 +35,16 @@
 
 	add_sight(SEE_TURFS)
 	GLOB.player_list |= src
+	GLOB.new_player_mobs |= src
 
 	new_player_panel()
 
 	if(ckey in GLOB.deadmins)
-		verbs += /client/proc/readmin
+		add_verb(src, /client/proc/readmin)
 	. = TRUE
 
 	spawn(4 SECONDS)
 		client?.playtitlemusic()
-
 
 /mob/new_player/proc/whitelist_check()
 	// Admins are immune to overflow rerouting

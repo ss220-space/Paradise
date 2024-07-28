@@ -75,7 +75,7 @@
 		icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 		icon_state = "[ckey]-drone"
 		to_chat(src, "<span class='notice'>You reconfigure your chassis and improve the station through your new aesthetics.</span>")
-	verbs -= /mob/living/silicon/robot/drone/verb/customize
+	remove_verb(src, /mob/living/silicon/robot/drone/verb/customize)
 
 /mob/living/silicon/robot/drone/get_scooped(mob/living/carbon/grabber)
 	var/obj/item/holder/H = ..()

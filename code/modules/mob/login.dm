@@ -69,10 +69,10 @@
 
 
 	if(ckey in GLOB.deadmins)
-		verbs += /client/proc/readmin
+		add_verb(src, /client/proc/readmin)
 
 	//Clear ability list and update from mob.
-	client.verbs -= GLOB.ability_verbs
+	remove_verb(client, GLOB.ability_verbs)
 
 	client.update_active_keybindings()
 
@@ -88,6 +88,7 @@
 
 	update_client_colour(0)
 	update_morgue()
+	client.init_verbs()
 
 	SEND_SIGNAL(src, COMSIG_MOB_CLIENT_LOGIN, client)
 	SEND_SIGNAL(src, COMSIG_MOB_LOGIN)

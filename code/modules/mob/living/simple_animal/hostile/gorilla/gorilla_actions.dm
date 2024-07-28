@@ -38,10 +38,10 @@
 	COOLDOWN_DECLARE(gorilla_actions_cooldown)
 
 
-/mob/living/simple_animal/hostile/gorilla/Stat()
-	. = ..()
-	if(statpanel("Status"))
-		stat(null, "Бананов съедено: [bananas_eaten]/[BANANAS_TO_ENLIGHTEN]")
+/mob/living/simple_animal/hostile/gorilla/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Бананов съедено:", "[bananas_eaten]/[BANANAS_TO_ENLIGHTEN]")
 
 
 /mob/living/simple_animal/hostile/gorilla/attackby(obj/item/I, mob/user, params)

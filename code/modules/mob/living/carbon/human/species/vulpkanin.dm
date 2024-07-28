@@ -73,14 +73,14 @@
 
 /datum/species/vulpkanin/on_species_gain(mob/living/carbon/human/H)
 	..()
-	H.verbs |= /mob/living/carbon/human/proc/emote_wag
-	H.verbs |= /mob/living/carbon/human/proc/emote_swag
-	H.verbs |= /mob/living/carbon/human/proc/emote_howl
-	H.verbs |= /mob/living/carbon/human/proc/emote_growl
+	add_verb(H, /mob/living/carbon/human/proc/emote_wag)
+	add_verb(H, /mob/living/carbon/human/proc/emote_swag)
+	add_verb(H, /mob/living/carbon/human/proc/emote_howl)
+	add_verb(H, /mob/living/carbon/human/proc/emote_growl)
 
 /datum/species/vulpkanin/on_species_loss(mob/living/carbon/human/H)
 	..()
-	H.verbs -= /mob/living/carbon/human/proc/emote_wag
-	H.verbs -= /mob/living/carbon/human/proc/emote_swag
-	H.verbs -= /mob/living/carbon/human/proc/emote_howl
-	H.verbs -= /mob/living/carbon/human/proc/emote_growl
+	remove_verb(H, /mob/living/carbon/human/proc/emote_wag)
+	remove_verb(H, /mob/living/carbon/human/proc/emote_swag)
+	remove_verb(H, /mob/living/carbon/human/proc/emote_howl)
+	remove_verb(H, /mob/living/carbon/human/proc/emote_growl)

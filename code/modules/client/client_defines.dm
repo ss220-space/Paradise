@@ -6,6 +6,8 @@
 		////////////////
 		//ADMIN THINGS//
 		////////////////
+	/// hides the byond verb panel as we use our own custom version
+	show_verb_panel = FALSE
 	var/datum/admins/holder = null
 
 	var/last_message	= "" //contains the last message sent by this client - used to protect against copy-paste spamming.
@@ -103,6 +105,15 @@
 	/// Messages currently seen by this client
 	var/list/seen_messages
 
+	/// list of tabs containing spells and abilities
+	var/list/spell_tabs = list()
+
+	/// our current tab
+	var/stat_tab
+
+	/// list of all tabs
+	var/list/panel_tabs = list()
+
 	var/fullscreen = FALSE
 
 	// Last world.time that the player tried to request their resources.
@@ -194,6 +205,9 @@
 	var/last_asset_job = 0
 	/// The ID of the last asset job that was properly finished
 	var/last_completed_asset_job = 0
+
+	/// Our object window datum. It stores info about and handles behavior for the object tab
+	var/datum/object_window_info/obj_window
 
 /client/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, tos_consent))

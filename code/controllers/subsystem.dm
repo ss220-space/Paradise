@@ -288,9 +288,6 @@
 
 /// Hook for printing stats to the "MC" statuspanel for admins to see performance and related stats etc.
 /datum/controller/subsystem/stat_entry(msg)
-	if(!statclick)
-		statclick = new/obj/effect/statclick/debug(null, "Initializing...", src)
-
 	var/ss_info = get_stat_details()
 
 	if(can_fire && !(SS_NO_FIRE & flags) && init_stage <= Master.init_stage_completed)
@@ -298,13 +295,7 @@
 	else
 		msg = "OFFLINE\t[ss_info]"
 
-	var/title = name
-	if(can_fire)
-		title = "[state_colour()]\[[state_letter()]][title]</font>"
-	else
-		title = "\[O][title]"
-
-	stat(title, statclick.update(msg))
+	return ..()
 
 
 /datum/controller/subsystem/proc/state_letter()

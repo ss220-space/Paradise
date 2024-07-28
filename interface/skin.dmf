@@ -15,9 +15,11 @@ menu "menu"
 		name = "&Reconnect"
 		command = ".reconnect"
 		category = "&File"
-	elem
-		name = ""
+	elem "debugmcbutton"
+		name = "&MC Debug"
+		command = "SS-Info-Breakdown"
 		category = "&File"
+		is-disabled = true
 	elem
 		name = "&Quit"
 		command = ".quit"
@@ -362,8 +364,8 @@ window "infowindow"
 		pos = 0,0
 		size = 0x0
 		is-pane = true
-	elem "info"
-		type = INFO
+	elem "statbrowser"
+		type = BROWSER
 		pos = 0,0
 		size = 0x0
 		anchor1 = 0,0

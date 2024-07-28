@@ -19,7 +19,7 @@
 			stack_trace("Mob [type] has improper ventcrawler_trait value.")
 
 	if(mobility_flags & MOBILITY_REST)
-		verbs += /mob/living/proc/toggle_resting
+		add_verb(src, /mob/living/proc/toggle_resting)
 		if(!density)	// we want undense mobs to stay undense when they stop resting
 			ADD_TRAIT(src, TRAIT_UNDENSE, INNATE_TRAIT)
 

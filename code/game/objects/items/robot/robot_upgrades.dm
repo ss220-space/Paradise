@@ -96,7 +96,7 @@
 
 /mob/living/silicon/robot/proc/shouldRename(newname)
 	if(src.stat == CONSCIOUS)
-		var/choice = tgui_alert(src, "Активирован протокол переименования. Предложенное имя: [newname]. Продолжить операцию?","Внимание!","Да","Нет")
+		var/choice = tgui_alert(src, "Активирован протокол переименования. Предложенное имя: [newname]. Продолжить операцию?", "Внимание!", list("Да", "Нет"))
 		if(src.stat == CONSCIOUS) //no abuse by using window in unconscious state
 			if(isnull("choice"))
 				return FALSE

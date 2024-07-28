@@ -10,7 +10,6 @@
 #define PD_UPGRADE_MAX_CHARGE   "Capacity"
 
 /obj/effect/proc_holder/spell/pulse_demon
-	panel = "Pulse Demon"
 	school = "pulse demon"
 	human_req = FALSE
 	clothes_req = FALSE
