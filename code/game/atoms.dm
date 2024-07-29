@@ -1673,6 +1673,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!usr?.client)
 		return
 
+	if(loc != usr.listed_turf)
+		return
+
 	if(href_list["statpanel_item_click"])
 		var/client/usr_client = usr.client
 		var/list/paramslist = list()
