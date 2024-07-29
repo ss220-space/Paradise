@@ -86,16 +86,16 @@
 
 /datum/species/tajaran/on_species_gain(mob/living/carbon/human/H)
 	..()
-	H.verbs |= /mob/living/carbon/human/proc/emote_wag
-	H.verbs |= /mob/living/carbon/human/proc/emote_swag
-	H.verbs |= /mob/living/carbon/human/proc/emote_purr
-	H.verbs |= /mob/living/carbon/human/proc/emote_purrl
-	H.verbs |= /mob/living/carbon/human/proc/emote_hiss_tajaran
+	add_verb(H, /mob/living/carbon/human/proc/emote_wag)
+	add_verb(H, /mob/living/carbon/human/proc/emote_swag)
+	add_verb(H, /mob/living/carbon/human/proc/emote_purr)
+	add_verb(H, /mob/living/carbon/human/proc/emote_purrl)
+	add_verb(H, /mob/living/carbon/human/proc/emote_hiss_tajaran)
 
 /datum/species/tajaran/on_species_loss(mob/living/carbon/human/H)
 	..()
-	H.verbs -= /mob/living/carbon/human/proc/emote_wag
-	H.verbs -= /mob/living/carbon/human/proc/emote_swag
-	H.verbs -= /mob/living/carbon/human/proc/emote_purr
-	H.verbs -= /mob/living/carbon/human/proc/emote_purrl
-	H.verbs -= /mob/living/carbon/human/proc/emote_hiss_tajaran
+	remove_verb(H, /mob/living/carbon/human/proc/emote_wag)
+	remove_verb(H, /mob/living/carbon/human/proc/emote_swag)
+	remove_verb(H, /mob/living/carbon/human/proc/emote_purr)
+	remove_verb(H, /mob/living/carbon/human/proc/emote_purrl)
+	remove_verb(H, /mob/living/carbon/human/proc/emote_hiss_tajaran)

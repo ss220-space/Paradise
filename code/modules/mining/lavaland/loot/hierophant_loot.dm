@@ -122,7 +122,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 
-/obj/item/hierophant_club/ui_action_click(mob/user, action)
+/obj/item/hierophant_club/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_unfriendly_fire)) //toggle friendly fire...
 		friendly_fire_check = !friendly_fire_check
 		to_chat(user, "<span class='warning'>You toggle friendly fire [friendly_fire_check ? "off":"on"]!</span>")
@@ -344,13 +344,12 @@
 		name = "Talisman of warding"
 		slave.real_name = name
 		slave.name = name
-		var/input = stripped_input(slave, "What are you named?", null, "", MAX_NAME_LEN)
-		if(QDELETED(src))
+		var/input = tgui_input_text(slave, "What are you named?", "Change Name", max_length = MAX_NAME_LEN)
+		if(QDELETED(src) || isnull(input))
 			return
-		if(input)
-			name = input
-			slave.real_name = input
-			slave.name = input
+		name = input
+		slave.real_name = input
+		slave.name = input
 		log_game("[slave.ckey] has become spirit of [user.real_name]'s talisman.")
 		to_chat(slave, span_hierophant("Now you are serving to [user.real_name]. You must ward him."))
 		update_icon(UPDATE_ICON_STATE)
@@ -393,7 +392,6 @@
 	stat_allowed = UNCONSCIOUS
 	action_icon_state = "hierophant_talisman_heal"
 	action_background_icon_state = "bg_hierophant_talisman"
-	panel = "Hierophant Talisman"
 
 /obj/effect/proc_holder/spell/hierophant_talisman_heal/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
@@ -433,7 +431,6 @@
 	centcom_cancast = FALSE
 	action_icon_state = "hierophant_talisman_teleport"
 	action_background_icon_state = "bg_hierophant_talisman"
-	panel = "Hierophant Talisman"
 
 /obj/effect/proc_holder/spell/hierophant_talisman_teleport/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
@@ -486,7 +483,6 @@
 	stat_allowed = UNCONSCIOUS
 	action_icon_state = "hierophant_talisman_message"
 	action_background_icon_state = "bg_hierophant_talisman"
-	panel = "Hierophant Talisman"
 
 /obj/effect/proc_holder/spell/hierophant_talisman_message/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
@@ -496,7 +492,7 @@
 
 /obj/effect/proc_holder/spell/hierophant_talisman_message/cast(list/targets, mob/living/simple_animal/shade/talisman/user)
 	var/mob/living/carbon/human/choice = targets[1]
-	var/msg = stripped_input(usr, "What do you wish to tell [choice]?", null, "")
+	var/msg = tgui_input_text(usr, "What do you wish to tell [choice]?", null, "")
 	if(!(msg))
 		return
 	add_say_logs(usr, msg, choice, "SLAUGHTER")

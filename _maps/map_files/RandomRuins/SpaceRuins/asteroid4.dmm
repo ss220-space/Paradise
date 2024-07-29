@@ -50,7 +50,7 @@
 /area/ruin/unpowered)
 "n" = (
 /obj/structure/shuttle/engine/propulsion/burst,
-/turf/simulated/floor/shuttle/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "G" = (
 /turf/simulated/wall/shuttle{

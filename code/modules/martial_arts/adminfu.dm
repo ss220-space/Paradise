@@ -69,7 +69,7 @@
 		var/mob/living/carbon/human/H = user
 		var/datum/martial_art/adminfu/F = new/datum/martial_art/adminfu(null)
 		F.teach(H)
-		to_chat(H, "<span class='boldannounce'>You have learned the ancient martial art of the Admins.</span>")
+		to_chat(H, span_boldannounceic("You have learned the ancient martial art of the Admins."))
 		used = TRUE
 		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 

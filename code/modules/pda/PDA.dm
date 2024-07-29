@@ -21,7 +21,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 	//Main variables
 	var/owner = null
-	var/default_cartridge = 0 // Access level defined by cartridge
+	var/default_cartridge = null // Access level defined by cartridge
+	var/special_pen = null //special variable for nonstandart pens in new PDAs
 	var/obj/item/cartridge/cartridge = null //current cartridge
 	var/datum/data/pda/app/current_app = null
 	var/datum/data/pda/app/lastapp = null
@@ -94,7 +95,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(default_cartridge)
 		cartridge = new default_cartridge(src)
 		cartridge.update_programs(src)
-	new /obj/item/pen(src)
+	if(special_pen)
+		new special_pen(src)
+	else
+		new /obj/item/pen(src)
 	start_program(find_program(/datum/data/pda/app/main_menu))
 
 
@@ -423,9 +427,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 		else
 			user.drop_transfer_item_to_loc(C, src)
 			to_chat(user, "<span class='notice'>You slide \the [C] into \the [src].</span>")
-	else if(istype(C, /obj/item/nanomob_card))
-		if(cartridge && istype(cartridge, /obj/item/cartridge/mob_hunt_game))
-			cartridge.attackby(C, user, params)
 	else
 		return ..()
 
@@ -474,16 +475,15 @@ GLOBAL_LIST_EMPTY(PDAs)
 	for(var/mob/O in hearers(3, loc))
 		O.show_message(text("[bicon(src)] *[ttone]*"))
 
-/obj/item/pda/proc/set_ringtone()
-	var/t = input("Please enter new ringtone", name, ttone) as text
+/obj/item/pda/proc/set_ringtone(mob/user)
+	var/new_tone = tgui_input_text(user, "Please enter new ringtone", name, ttone, max_length = 20, encode = FALSE)
 	if(in_range(src, usr) && loc == usr)
-		if(t)
-			if(hidden_uplink && hidden_uplink.check_trigger(usr, trim(lowertext(t)), lowertext(lock_code)))
+		if(new_tone)
+			if(hidden_uplink && hidden_uplink.check_trigger(usr, trim(lowertext(new_tone)), lowertext(lock_code)))
 				to_chat(usr, "The PDA softly beeps.")
 				close(usr)
 			else
-				t = sanitize(copytext_char(t, 1, 20))
-				ttone = t
+				ttone = new_tone
 			return 1
 	else
 		close(usr)

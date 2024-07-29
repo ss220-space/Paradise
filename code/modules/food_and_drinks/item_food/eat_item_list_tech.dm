@@ -117,13 +117,13 @@
 	max_bites = 6
 	nutritional_value = 15
 
-/obj/item/melee/baton
+/obj/item/melee/baton/security
 	material_type = MATERIAL_CLASS_TECH
 	max_bites = 6
 	nutritional_value = 10
 	is_only_grab_intent = TRUE
 
-/obj/item/melee/baton/cattleprod
+/obj/item/melee/baton/security/cattleprod
 	nutritional_value = 5
 
 

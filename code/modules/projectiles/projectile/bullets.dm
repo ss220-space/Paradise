@@ -8,6 +8,10 @@
 	hitsound_wall = "ricochet"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect
 
+/obj/item/projectile/bullet/slug
+	armour_penetration = 40
+	damage = 30
+
 /obj/item/projectile/bullet/weakbullet //beanbag, heavy stamina damage
 	name = "beanbag slug"
 	damage = 5

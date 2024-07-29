@@ -8,25 +8,16 @@
 
 	if(!tag || GLOB.TAGGERLOCATIONS[tag])
 		mail_destination = 0
-		UnregisterSignal(src, COMSIG_MOVABLE_DISPOSING)
 		return
 
 	to_chat(src, "<span class='notice'>You configure your internal beacon, tagging yourself for delivery to '[tag]'.</span>")
 	mail_destination = GLOB.TAGGERLOCATIONS.Find(tag)
-	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
 
 	//Auto flush if we use this verb inside a disposal chute.
 	var/obj/machinery/disposal/D = src.loc
 	if(istype(D))
 		to_chat(src, "<span class='notice'>\The [D] acknowledges your signal.</span>")
 		D.flush_count = D.flush_every_ticks
-
-
-/mob/living/silicon/robot/drone/proc/disposal_handling(disposal_source, obj/structure/disposalholder/disposal_holder, obj/machinery/disposal/disposal_machine, hasmob)
-	SIGNAL_HANDLER
-
-	if(mail_destination)
-		disposal_holder.destinationTag = mail_destination
 
 
 /mob/living/silicon/robot/drone/verb/hide()
@@ -84,7 +75,7 @@
 		icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 		icon_state = "[ckey]-drone"
 		to_chat(src, "<span class='notice'>You reconfigure your chassis and improve the station through your new aesthetics.</span>")
-	verbs -= /mob/living/silicon/robot/drone/verb/customize
+	remove_verb(src, /mob/living/silicon/robot/drone/verb/customize)
 
 /mob/living/silicon/robot/drone/get_scooped(mob/living/carbon/grabber)
 	var/obj/item/holder/H = ..()

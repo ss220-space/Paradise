@@ -163,7 +163,7 @@
 			add_game_logs("has completed an AI core in [AREACOORD(src)].", usr)
 			to_chat(user, span_notice("You connect the monitor."))
 			if(!brain)
-				var/open_for_latejoin = alert(user, "Would you like this core to be open for latejoining AIs?", "Latejoin", "Yes", "Yes", "No") == "Yes"
+				var/open_for_latejoin = tgui_alert(user, "Would you like this core to be open for latejoining AIs?", "Latejoin", list("Yes", "No")) == "Yes"
 				var/obj/structure/AIcore/deactivated/D = new(loc)
 				if(open_for_latejoin)
 					GLOB.empty_playable_ai_cores += D
@@ -297,7 +297,7 @@ That prevents a few funky behaviors.
 /atom/proc/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(istype(card))
 		if(card.flush)
-			to_chat(user, span_boldannounce("ERROR:") + "AI flush is in progress, cannot execute transfer protocol.")
+			to_chat(user, span_boldannounceic("ERROR:") + "AI flush is in progress, cannot execute transfer protocol.")
 			return 0
 	return 1
 

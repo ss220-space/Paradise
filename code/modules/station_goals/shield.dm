@@ -206,8 +206,12 @@ GLOBAL_LIST_INIT(meteor_shields, list())
 			if(meteor_to_destroy.shield_defense(src))
 				qdel(meteor_to_destroy)
 
+
 /obj/machinery/satellite/meteor_shield/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
-	return active
+	if(active)
+		return TRUE
+	return ..()
+
 
 /obj/machinery/satellite/meteor_shield/toggle(user)
 	. = ..()

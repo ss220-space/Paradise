@@ -21,7 +21,7 @@
 	even the simplest concepts of other minds. Their alien physiology allows them survive happily off a diet of nothing but light, \
 	water and other radiation."
 
-	species_traits = list(IS_PLANT, NO_GERMS, NO_DECAY, NO_DNA)
+	species_traits = list(IS_PLANT, NO_GERMS, NO_DECAY, NO_DNA, NO_ROBOPARTS, ONLY_SPECIES_LIMBS, NO_BIOCHIPS, NO_CYBERIMPS)
 	clothing_flags = HAS_SOCKS
 	default_hair_colour = "#000000"
 	has_gender = FALSE
@@ -78,11 +78,11 @@
 /datum/species/diona/on_species_gain(mob/living/carbon/human/H)
 	..()
 	H.gender = NEUTER
-	H.verbs |= /mob/living/carbon/human/proc/emote_creak
+	add_verb(H, /mob/living/carbon/human/proc/emote_creak)
 
 /datum/species/diona/on_species_loss(mob/living/carbon/human/H)
 	..()
-	H.verbs -= /mob/living/carbon/human/proc/emote_creak
+	remove_verb(H, /mob/living/carbon/human/proc/emote_creak)
 
 /datum/species/diona/on_species_loss(mob/living/carbon/human/H)
 	. = ..()

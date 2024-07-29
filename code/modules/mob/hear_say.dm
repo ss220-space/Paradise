@@ -1,3 +1,4 @@
+#define EMPHASIS_LETTERS_REGEX "\[^\\+\\|_%]"
 // At minimum every mob has a hear_say proc.
 
 /mob/proc/combine_message(list/message_pieces, mob/speaker, always_stars = FALSE)
@@ -13,7 +14,10 @@
 			return SP.speaking.format_message(piece, speaker)
 
 		if(iteration_count == 1)
-			piece = capitalize(piece)
+			var/static/regex/my_regex = regex(EMPHASIS_LETTERS_REGEX)
+			var/capital_letter = my_regex.Find(piece)
+			if(capital_letter)
+				piece = my_regex.Replace_char(piece, uppertext(piece[capital_letter]), 1, capital_letter+1)
 
 		if(always_stars)
 			piece = stars(piece)
@@ -33,7 +37,22 @@
 		else
 			piece = "<span class='message'><span class='body'>[piece]</span></span>"
 		msg += (piece + " ")
+
+	if(msg == "")
+		. = ""
+		return
+
+	if(isliving(src))
+		for(var/datum/component/codeword_hearing/hearing_datum in GetComponents(/datum/component/codeword_hearing))
+			var/tmp_msg = hearing_datum.handle_hearing(msg)
+			if(!tmp_msg)
+				continue
+			msg = tmp_msg
+			//log_debug(msg)
+
 	return trim(msg)
+
+#undef EMPHASIS_LETTERS_REGEX
 
 /mob/proc/combine_message_tts(list/message_pieces, mob/speaker, always_stars = FALSE)
 	var/iteration_count = 0
@@ -109,7 +128,7 @@
 		var/mob/living/carbon/human/H = speaker
 		speaker_name = H.GetVoice()
 
-	var/message_clean = combine_message(message_pieces, speaker)
+	var/message_clean = say_emphasis(combine_message(message_pieces, speaker))
 	message_clean = replace_characters(message_clean, list("+"))
 	if(message_clean == "")
 		return

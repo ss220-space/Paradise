@@ -266,7 +266,7 @@
 /datum/outfit/space_base_syndicate/rd
 	name = "Space Base Syndicate Research Director"
 	r_ear = /obj/item/radio/headset/syndicate/taipan // See del_types above
-	r_hand = /obj/item/melee/classic_baton/telescopic
+	r_hand = /obj/item/melee/baton/telescopic
 	l_pocket = /obj/item/melee/energy/sword/saber
 	head = /obj/item/clothing/head/beret/sci
 	suit = /obj/item/clothing/suit/storage/labcoat/fluff/aeneas_rinil

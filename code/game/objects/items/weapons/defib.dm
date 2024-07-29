@@ -105,7 +105,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 
-/obj/item/defibrillator/ui_action_click(mob/user)
+/obj/item/defibrillator/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(!ishuman(user) || !Adjacent(user))
 		return
 
@@ -240,7 +240,7 @@
 		retrieve_paddles(user)
 
 
-/obj/item/defibrillator/item_action_slot_check(slot, mob/user)
+/obj/item/defibrillator/item_action_slot_check(slot, mob/user, datum/action/action)
 	return slot == ITEM_SLOT_BACK
 
 
@@ -266,7 +266,7 @@
 	origin_tech = "biotech=5"
 	heart_attack_probability = 10
 
-/obj/item/defibrillator/compact/item_action_slot_check(slot, mob/user)
+/obj/item/defibrillator/compact/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_BELT)
 		return TRUE
 
@@ -429,7 +429,7 @@
 
 /obj/item/twohanded/shockpaddles/equipped(mob/user, slot, initial)
 	. = ..()
-	RegisterSignal(user, COMSIG_MOB_CLIENT_MOVED, PROC_REF(on_mob_move))
+	RegisterSignal(user, COMSIG_MOB_CLIENT_MOVED, PROC_REF(on_mob_move), override = TRUE)
 
 /obj/item/twohanded/shockpaddles/on_mob_move(mob/user, dir)
 	if(defib && !in_range(defib, src))

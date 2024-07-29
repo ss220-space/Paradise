@@ -135,3 +135,25 @@
 	if(!resting && !buckled && prob(1))
 		emote("warcry")
 
+/mob/living/simple_animal/frog/scream/mapper
+	name = "Лягушка"
+	real_name = "Маппер"
+	atmos_requirements = list("min_oxy"=0,"max_oxy"=0,"min_tox"=0,"max_tox"=0,"min_co2"=0,"max_co2"=0,"min_n2"=0,"max_n2"=0)
+	butcher_results = list(/obj/item/areaeditor/blueprints=1)
+	cold_damage_per_tick = 0
+	damage_coeff = list("brute"=0,"fire"=0,"tox"=0,"clone"=0,"stamina"=0,"oxy"=0)
+	death_sound = 'sound/creatures/mapper_death.ogg'
+	desc = "Окупировавшая один из офисов на Центральном командовании лягушка. Постоянно кричит что-то в монитор."
+	emote_hear = list("МГРЛЬК","МРГЛ","УААМРГЛ")
+	emote_see = list("лежит расслабленная","увлажнена","издает гортанные звуки","лупает глазками","сильно недовольна","ищет рантаймы")
+	maxHealth = 1000
+	maxbodytemp = 1000
+	scream_sound = list('sound/creatures/mapper_disappointed.ogg','sound/creatures/mapper_angry.ogg','sound/creatures/mapper_annoyed.ogg')
+	speak = list("МРГЛЬК!","ТРУБА В ТРУБЕ! РАНТАЙМ! ПИЗДЕЦ!","ЧЕРЕЗ ЧАС!","ЗЕРО НА ВАЙТЛИСТЕ!","1.5.7. В РЕЛИЗЕЕЕ!","ВОТ БИ СМ НА КОРОБКУ!","ДА КТО ЭТОТ ВАШ ПР?!","МУЛЬТИЗЕТА ХОЧЕТСЯ!")
+	squeak_sound = list('sound/creatures/mapper_disappointed.ogg','sound/creatures/mapper_angry.ogg','sound/creatures/mapper_annoyed.ogg')
+	talk_sound = list('sound/creatures/mapper_scream.ogg')
+	gold_core_spawnable = NO_SPAWN
+
+/mob/living/simple_animal/frog/scream/mapper/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/squeak, squeak_sound, 50, extrarange = SILENCED_SOUND_EXTRARANGE) //as quiet as a frog or whatever

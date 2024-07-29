@@ -2389,26 +2389,9 @@
 		P.mytarget = H
 		if(alert("Do you want the Evil Fax to activate automatically if [H] tries to ignore it?",,"Yes", "No") == "Yes")
 			P.activate_on_timeout = 1
-		P.x = rand(-2, 0)
-		P.y = rand(-1, 2)
-		P.offset_x += P.x
-		P.offset_y += P.y
-		P.update_icon()
-		var/stampvalue = "cent"
-		var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
-		stampoverlay.icon_state = "paper_stamp-[stampvalue]"
-		stampoverlay.pixel_x = P.x
-		stampoverlay.pixel_y = P.y
-		P.stamped = list()
-		P.stamped += /obj/item/stamp/centcom
-		if(!P.ico)
-			P.ico = new
-		P.ico += "paper_stamp-[stampvalue]"
-		LAZYADD(P.stamp_overlays, stampoverlay)
-		P.stamps += "<hr><img src=large_stamp-[stampvalue].png>"
-		P.update_icon()
+		P.stamp(/obj/item/stamp/centcom)
 		P.faxmachineid = fax.UID()
-		P.loc = fax.loc // Do not use fax.receivefax(P) here, as it won't preserve the type. Physically teleporting the fax paper is required.
+		P.forceMove(fax.loc)  // Do not use fax.receivefax(P) here, as it won't preserve the type. Physically teleporting the fax paper is required.
 		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
 			to_chat(H, "<span class='specialnoticebold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
 		to_chat(src.owner, "You sent a [eviltype] fax to [H]")
@@ -2484,24 +2467,7 @@
 			return
 		tmsg += "</font>"
 		P.info = tmsg
-		P.x = rand(-2, 0)
-		P.y = rand(-1, 2)
-		P.offset_x += P.x
-		P.offset_y += P.y
-		P.update_icon()
-		var/stampvalue = "cent"
-		var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
-		stampoverlay.icon_state = "paper_stamp-[stampvalue]"
-		stampoverlay.pixel_x = P.x
-		stampoverlay.pixel_y = P.y
-		P.stamped = list()
-		P.stamped += /obj/item/stamp/centcom
-		if(!P.ico)
-			P.ico = new
-		P.ico += "paper_stamp-[stampvalue]"
-		LAZYADD(P.stamp_overlays, stampoverlay)
-		P.stamps += "<hr><img src=large_stamp-[stampvalue].png>"
-		P.update_icon()
+		P.stamp(/obj/item/stamp/centcom)
 		fax.receivefax(P)
 		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
 			to_chat(H, "<span class='specialnoticebold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
@@ -2692,33 +2658,11 @@
 		else
 			P.name = "[customname]"
 		P.info = input
-		P.update_icon()
-		P.x = rand(-2, 0)
-		P.y = rand(-1, 2)
-		P.offset_x += P.x
-		P.offset_y += P.y
-		if(stamptype)
-			var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
-			stampoverlay.pixel_x = P.x
-			stampoverlay.pixel_y = P.y
-
-			if(!P.ico)
-				P.ico = new
-			P.ico += "paper_stamp-[stampvalue]"
-			stampoverlay.icon_state = "paper_stamp-[stampvalue]"
-
-			if(stamptype == "icon")
-				if(!P.stamped)
-					P.stamped = new
-				P.stamped += /obj/item/stamp/centcom
-				P.stamps += "<hr><img src=large_stamp-[stampvalue].png>"
-
-			else if(stamptype == "text")
-				if(!P.stamped)
-					P.stamped = new
-				P.stamped += /obj/item/stamp
-				P.stamps += "<hr><i>[stampvalue]</i>"
-			LAZYADD(P.stamp_overlays, stampoverlay)
+		P.update_icon(UPDATE_ICON_STATE)
+		if(stamptype == "icon")
+			P.stamp(/obj/item/stamp/centcom, special_stamped = "<img src=large_stamp-[stampvalue].png>", special_icon_state = "stamp-[stampvalue]")
+		else if(stamptype == "text")
+			P.stamp(/obj/item/stamp, special_stamped = "<i>[stampvalue]</i>", special_icon_state = "stamp-[stampvalue]")
 
 		if(destination != "All Departments")
 			if(!fax.receivefax(P))
@@ -3172,7 +3116,7 @@
 				GLOB.max_ex_flash_range = newBombCap
 				GLOB.max_ex_flame_range = newBombCap
 
-				message_admins("<span class='boldannounce'>[key_name_admin(usr)] changed the bomb cap to [GLOB.max_ex_devastation_range], [GLOB.max_ex_heavy_range], [GLOB.max_ex_light_range]</span>")
+				message_admins(span_boldannounceooc("[key_name_admin(usr)] changed the bomb cap to [GLOB.max_ex_devastation_range], [GLOB.max_ex_heavy_range], [GLOB.max_ex_light_range]"))
 				log_admin("[key_name(usr)] changed the bomb cap to [GLOB.max_ex_devastation_range], [GLOB.max_ex_heavy_range], [GLOB.max_ex_light_range]")
 
 			if("flicklights")
@@ -3580,20 +3524,21 @@
 				return 1
 
 	else if(href_list["viewruntime"])
-		var/datum/ErrorViewer/error_viewer = locateUID(href_list["viewruntime"])
+		var/datum/error_viewer/error_viewer = locate(href_list["viewruntime"])
 		if(!istype(error_viewer))
-			to_chat(usr, "<span class='warning'>That runtime viewer no longer exists.</span>")
+			to_chat(usr, span_warning("That runtime viewer no longer exists."))
 			return
+
 		if(href_list["viewruntime_backto"])
-			error_viewer.showTo(usr, locateUID(href_list["viewruntime_backto"]), href_list["viewruntime_linear"])
+			error_viewer.show_to(usr, locateUID(href_list["viewruntime_backto"]), href_list["viewruntime_linear"])
 		else
-			error_viewer.showTo(usr, null, href_list["viewruntime_linear"])
+			error_viewer.show_to(usr, null, href_list["viewruntime_linear"])
 
 	else if(href_list["add_station_goal"])
 		if(!check_rights(R_EVENT))
 			return
 		var/list/type_choices = typesof(/datum/station_goal)
-		var/picked = input("Choose goal type") in type_choices|null
+		var/picked = input("Choose goal type") as null|anything in type_choices
 		if(!picked)
 			return
 		var/datum/station_goal/G = new picked()
@@ -3602,7 +3547,7 @@
 			if(!newname)
 				return
 			G.name = newname
-			var/description = input("Enter [command_name()] message contents:") as message|null
+			var/description = input("Enter [command_name()] message contents:") as null|message
 			if(!description)
 				return
 			G.report_message = description

@@ -22,6 +22,8 @@
 	. = ..()
 	if(!.)
 		return FALSE
+	if(NO_ROBOPARTS in target.dna.species.species_traits)
+		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if(affected.has_fracture()) //The arm has to be in prime condition to augment it.
 		return FALSE
@@ -41,7 +43,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		"[user] starts augmenting [affected] with [tool].",
-		"You start augmenting [affected] with [tool]."
+		"You start augmenting [affected] with [tool].",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return ..()
 
@@ -50,7 +53,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		span_notice("[user] has finished augmenting [affected] with [tool]."),
-		span_notice("You augment [affected] with [tool].")
+		span_notice("You augment [affected] with [tool]."),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
 	if(L.part)

@@ -292,7 +292,7 @@
 	if(prob(power))
 		add_attack_logs(G, carbon_target, "shocked for [round(power)] for slipping on")
 		carbon_target.investigate_log("got shocked for [round(power)] while slipped on [carbon_target](last touched: [carbon_target.fingerprintslast])", INVESTIGATE_BOTANY)
-		carbon_target.electrocute_act(round(power), carbon_target, 1, TRUE)
+		carbon_target.electrocute_act(round(power), "подскальзывания", flags = SHOCK_NOGLOVES)
 
 /datum/plant_gene/trait/cell_charge/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	if(isliving(target))
@@ -301,7 +301,7 @@
 		if(prob(power))
 			add_attack_logs(G, C, "shocked for [round(power)], squashing [G]")
 			C.investigate_log("got shocked for [round(power)], squashing [G]", INVESTIGATE_BOTANY)
-			C.electrocute_act(round(power), G, 1, TRUE)
+			C.electrocute_act(round(power), "раздавленного плода", flags = SHOCK_NOGLOVES)
 
 /datum/plant_gene/trait/cell_charge/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
 	if(!G.reagents.total_volume)

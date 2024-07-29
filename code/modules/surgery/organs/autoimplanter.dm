@@ -13,14 +13,18 @@
 
 /obj/item/autoimplanter/attack_self(mob/user)//when the object is used...
 	if(!storedorgan)
-		to_chat(user, span_notice("[src] currently has no implant stored."))
+		to_chat(user, span_notice("Киберимплант не обнаружен."))
 		return FALSE
 	var/mob/living/carbon/human/patient = user
 	if(!patient.bodyparts_by_name[check_zone(storedorgan.parent_organ_zone)])
-		to_chat(user, span_warning("Missing limb!"))
+		to_chat(user, span_warning("Отсутствует требуемая часть тела!"))
+		return FALSE
+	if(NO_CYBERIMPS in patient.dna.species.species_traits)
+		to_chat(user, span_warning("Ваш вид неспособен принять этот киберимплант!"))
 		return FALSE
 	storedorgan.insert(user)//insert stored organ into the user
-	user.visible_message(span_notice("[user] presses a button on [src], and you hear a short mechanical noise."), span_notice("You feel a sharp sting as [src] plunges into your body."))
+	user.visible_message(span_notice("[user] активиру[pluralize_ru(user.gender,"ет","ют")] автоимплантер и вы слышите недолгий механический шум."), \
+	span_notice("Вы чувствуете острое жжение, когда автоимплантер приступает к работе."))
 	playsound(get_turf(user), usesound, 50, 1)
 	storedorgan = null
 	return TRUE
@@ -28,20 +32,20 @@
 /obj/item/autoimplanter/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/organ/internal/cyberimp))
 		if(storedorgan)
-			to_chat(user, span_notice("[src] already has an implant stored."))
+			to_chat(user, span_notice("В устройстве уже установлен киберимплант."))
 			return
 		if(!user.temporarily_remove_item_from_inventory(I))
 			return
 		I.forceMove(src)
 		storedorgan = I
-		to_chat(user, span_notice("You insert the [I] into [src]."))
+		to_chat(user, span_notice("Вы установили [I] в автоимплантер."))
 	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		if(!storedorgan)
-			to_chat(user, span_notice("There's no implant in [src] for you to remove."))
+			to_chat(user, span_notice("Из устройства нечего доставать."))
 		else
 			storedorgan.forceMove(get_turf(user))
 			storedorgan = null
-			to_chat(user, span_notice("You remove the [storedorgan] from [src]."))
+			to_chat(user, span_notice("Вы извлекли [storedorgan] из устройства."))
 			playsound(get_turf(user), I.usesound, 50, 1)
 
 /obj/item/autoimplanter/oneuse
@@ -50,18 +54,18 @@
 /obj/item/autoimplanter/oneuse/attack_self(mob/user)
 	if(..())
 		user.drop_from_active_hand()
-		visible_message(span_warning("[src] beeps ominously, and a moment later it bursts up in flames."))
+		visible_message(span_warning("Автоимплантер зловеще пищит и через мгновение вспыхивает, оставляя только пепел."))
 		new /obj/effect/decal/cleanable/ash(get_turf(src))
 		qdel(src)
 
 /obj/item/autoimplanter/oneuse/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_SCREWDRIVER)
+	if(I.tool_behaviour == TOOL_SCREWDRIVER && storedorgan)
 		storedorgan.forceMove(get_turf(user))
+		to_chat(user, span_notice("Вы извлекли [storedorgan] из устройства."))
 		storedorgan = null
-		to_chat(user, span_notice("You remove the [storedorgan] from [src]."))
 		playsound(get_turf(user), I.usesound, 50, 1)
 		user.temporarily_remove_item_from_inventory(src, force = TRUE)
-		visible_message(span_warning("[src] beeps ominously, and a moment later it bursts up in flames."))
+		visible_message(span_warning("Автоимплантер зловеще пищит и через мгновение вспыхивает, оставляя только пепел."))
 		new /obj/effect/decal/cleanable/ash(get_turf(src))
 		qdel(src)
 	. = ..()
@@ -96,11 +100,11 @@
 	uses--
 	if(uses == 0)
 		user.drop_from_active_hand()
-		visible_message(span_warning("[src] beeps ominously, and a moment later it bursts up in flames."))
+		visible_message(span_warning("Автоимплантер зловеще пищит и через мгновение вспыхивает, оставляя только пепел."))
 		new /obj/effect/decal/cleanable/ash(get_turf(src))
 		qdel(src)
 
 /obj/item/autoimplanter/traitor/examine(mob/user)
 	. = ..()
 	if(uses)
-		. += span_notice("There are [uses] uses left.")
+		. += span_notice("Осталось использований: [uses].")

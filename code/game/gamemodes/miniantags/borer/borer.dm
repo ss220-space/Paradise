@@ -140,8 +140,8 @@
 		return
 	if(stat != CONSCIOUS)
 		return
-	var/be_borer = alert("Become a cortical borer? (Warning, You can no longer be cloned!)",,"Yes","No")
-	if(be_borer == "No" || !src || QDELETED(src))
+	var/be_borer = tgui_alert(user, "Become a cortical borer? (Warning, You can no longer be cloned!)", "Cortical Borer", list("Yes", "No"))
+	if(be_borer != "Yes" || !src || QDELETED(src))
 		return
 	if(key)
 		return
@@ -151,14 +151,10 @@
 	GrantBorerSpells()
 	hide_borer()
 
-/mob/living/simple_animal/borer/Stat()
-	..()
-	statpanel("Status")
-
-	show_stat_emergency_shuttle_eta()
-
-	if(client.statpanel == "Status")
-		stat("Chemicals", chemicals)
+/mob/living/simple_animal/borer/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Chemicals", chemicals)
 
 
 /mob/living/simple_animal/borer/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
@@ -198,7 +194,7 @@
 				if(isobserver(M))
 					to_chat(M, "<span class='changeling'><i>Borer Communication from <b>[truename]</b> ([ghost_follow_link(src, ghost=M)]): [sended_message]</i>")
 		to_chat(src, "<span class='changeling'><i>[truename] [say_string]:</i> [sended_message]</span>")
-		host.verbs += /mob/living/proc/borer_comm
+		add_verb(host, /mob/living/proc/borer_comm)
 		talk_to_borer_action.Grant(host)
 
 /mob/living/simple_animal/borer/verb/toggle_silence_inside_host()
@@ -573,7 +569,7 @@
 
 	var/mob/living/carbon/H = host
 	H.borer = null
-	H.verbs -= /mob/living/proc/borer_comm
+	remove_verb(H, /mob/living/proc/borer_comm)
 	talk_to_borer_action.Remove(host)
 	H.status_flags &= ~PASSEMOTES
 	host = null
@@ -670,12 +666,12 @@
 
 		controlling = TRUE
 
-		host.verbs += /mob/living/carbon/proc/release_control
-		host.verbs += /mob/living/carbon/proc/punish_host
-		host.verbs += /mob/living/carbon/proc/spawn_larvae
-		host.verbs += /mob/living/carbon/proc/sneak_mode
-		host.verbs -= /mob/living/proc/borer_comm
-		host.verbs += /mob/living/proc/trapped_mind_comm
+		add_verb(host, /mob/living/carbon/proc/release_control)
+		add_verb(host, /mob/living/carbon/proc/punish_host)
+		add_verb(host, /mob/living/carbon/proc/spawn_larvae)
+		add_verb(host, /mob/living/carbon/proc/sneak_mode)
+		remove_verb(host, /mob/living/proc/borer_comm)
+		add_verb(host, /mob/living/proc/trapped_mind_comm)
 
 		GrantControlActions()
 		talk_to_borer_action.Remove(host)
@@ -725,6 +721,12 @@
 	if(borer)
 		return borer
 
+	return FALSE
+
+/mob/living/carbon/proc/BorerControlling()
+	var/mob/living/simple_animal/borer/borer = has_brain_worms()
+	if(borer && borer.controlling)
+		return TRUE
 	return FALSE
 
 /mob/living/carbon/proc/spawn_larvae()
@@ -788,12 +790,12 @@
 	machine = null
 	sneaking = FALSE
 
-	host.verbs -= /mob/living/carbon/proc/release_control
-	host.verbs -= /mob/living/carbon/proc/punish_host
-	host.verbs -= /mob/living/carbon/proc/spawn_larvae
-	host.verbs -= /mob/living/carbon/proc/sneak_mode
-	host.verbs += /mob/living/proc/borer_comm
-	host.verbs -= /mob/living/proc/trapped_mind_comm
+	remove_verb(host, /mob/living/carbon/proc/release_control)
+	remove_verb(host, /mob/living/carbon/proc/punish_host)
+	remove_verb(host, /mob/living/carbon/proc/spawn_larvae)
+	remove_verb(host, /mob/living/carbon/proc/sneak_mode)
+	add_verb(host, /mob/living/proc/borer_comm)
+	remove_verb(host, /mob/living/proc/trapped_mind_comm)
 
 	RemoveControlActions()
 	talk_to_borer_action.Grant(host)

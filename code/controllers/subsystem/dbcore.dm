@@ -35,7 +35,7 @@ SUBSYSTEM_DEF(dbcore)
 /datum/controller/subsystem/dbcore/Initialize()
 	if(!schema_valid)
 		log_startup_progress("Database schema ([CONFIG_GET(number/db_version)]) doesn't match the latest schema version ([SQL_VERSION]). Roundstart has been delayed.")
-
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/dbcore/fire()
 	for(var/I in active_queries)
@@ -252,7 +252,7 @@ SUBSYSTEM_DEF(dbcore)
   */
 /datum/controller/subsystem/dbcore/proc/NewQuery(sql_query, arguments)
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>DB query blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, span_boldannounceooc("DB query blocked: Advanced ProcCall detected."))
 		message_admins("[key_name(usr)] attempted to create a DB query via advanced proc-call")
 		log_and_message_admins("attempted to create a DB query via advanced proc-call")
 		return FALSE

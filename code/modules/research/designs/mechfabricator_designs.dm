@@ -2106,3 +2106,13 @@
 	materials = list(MAT_METAL=50000, MAT_DIAMOND=4000, MAT_BLUESPACE=4000)
 	construction_time = 40 SECONDS
 	category = list("Exosuit Paintkits")
+
+/datum/design/paint_ashed
+	name = "Ashed \"Mechs\""
+	id = "p_ashed"
+	build_type = MECHFAB
+	req_tech = list("engineering" = 5, "materials" = 6)
+	build_path = /obj/item/paintkit/ashed
+	materials = list(MAT_METAL=20000, MAT_PLASMA=8000, MAT_GLASS= 8000)
+	construction_time = 20 SECONDS
+	category = list("Exosuit Paintkits")
