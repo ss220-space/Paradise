@@ -29240,12 +29240,12 @@
 	},
 /area/medical/research)
 "eit" = (
-/obj/structure/table/holotable,
 /obj/item/razor,
 /obj/structure/mirror{
 	pixel_y = 32
 	},
 /obj/item/razor,
+/obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker/locker_toilet)
 "eiB" = (
@@ -36469,12 +36469,12 @@
 	},
 /area/crew_quarters/serviceyard)
 "fFb" = (
-/obj/structure/table/holotable,
 /obj/item/razor,
 /obj/item/razor,
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/toilet)
 "fFe" = (
@@ -113895,7 +113895,6 @@
 	},
 /area/hallway/primary/fore/east)
 "uzE" = (
-/obj/structure/table/holotable,
 /obj/item/paperplane,
 /obj/item/paper,
 /obj/item/paper,
@@ -113911,6 +113910,7 @@
 /obj/item/paper,
 /obj/item/paper,
 /obj/item/paper,
+/obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker/locker_toilet)
 "uzW" = (
