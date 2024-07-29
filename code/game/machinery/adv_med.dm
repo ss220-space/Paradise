@@ -176,9 +176,7 @@
 	go_out()
 
 /obj/machinery/bodyscanner/AltClick(mob/user)
-	eject()
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	go_out()
 	add_fingerprint(user)
@@ -361,7 +359,7 @@
 	. = TRUE
 	switch(action)
 		if("ejectify")
-			eject(usr)
+			go_out()
 		if("print_p")
 			if(isPrinting)
 				return

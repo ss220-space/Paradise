@@ -116,7 +116,7 @@
 	if(length(guardian_user.snares) < 6)
 		var/turf/snare_loc = get_turf(target)
 		var/obj/item/effect/snare/S = new /obj/item/effect/snare(snare_loc)
-		S.spawner = guardian_user
+		S.guardian = guardian_user
 		S.name = "[get_area(snare_loc)] trap ([snare_loc.x],[snare_loc.y],[snare_loc.z])"
 		guardian_user.snares |= S
 		to_chat(guardian_user, "<span class='notice'>Surveillance trap deployed!</span>")

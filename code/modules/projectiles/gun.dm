@@ -456,11 +456,6 @@
 		to_chat(user, span_notice("You unscrew [bayonet] from [src]."))
 		set_bayonet(null)
 
-/obj/item/gun/proc/toggle_gunlight()
-
-	toggle_gunlight(usr)
-
-
 /obj/item/gun/proc/toggle_gunlight(mob/user, silent = FALSE)
 	if(!gun_light)
 		return
@@ -493,7 +488,6 @@
 
 	if(gun_light)
 		gun_light.set_light_flags(gun_light.light_flags | LIGHT_ATTACHED)
-		verbs |= /obj/item/gun/proc/toggle_gunlight_verb
 		if(gun_light.loc != src)
 			gun_light.forceMove(src)
 		var/datum/action/item_action/toggle_gunlight/toggle_gunlight_action = locate() in actions
@@ -504,8 +498,6 @@
 				if(!(toggle_gunlight_action in user.actions))
 					toggle_gunlight_action.Grant(user)
 	else
-		verbs -= /obj/item/gun/proc/toggle_gunlight_verb
-
 		var/datum/action/item_action/toggle_gunlight/toggle_gunlight_action = locate() in actions
 		if(toggle_gunlight_action)
 			qdel(toggle_gunlight_action)

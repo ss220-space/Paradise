@@ -91,7 +91,7 @@
 	return ..()
 
 /obj/structure/ore_box/AltClick(mob/user)
-	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
+	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	add_fingerprint(user)

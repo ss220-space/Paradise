@@ -528,7 +528,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
 		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
 
-/obj/machinery/crematorium/AltClick(mob/user)ale. pai and spacepod ui update)
+/obj/machinery/crematorium/AltClick(mob/user)
 	try_cremate(usr)
 
 

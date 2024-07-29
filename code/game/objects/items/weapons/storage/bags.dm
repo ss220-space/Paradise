@@ -230,7 +230,7 @@
 	. += span_notice("You can<b>Alt-Click</b> on [src] to convert your plants into seeds.")
 
 /obj/item/storage/bag/plants/portaseeder/AltClick(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	for(var/obj/item/O in contents)
 		seedify(O, 1)

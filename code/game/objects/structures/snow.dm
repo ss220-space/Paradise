@@ -13,17 +13,16 @@
 /obj/structure/snow/has_prints()
 	return FALSE
 
-/obj/structure/snow/AltClick(mob/living/carbon/human/user)
-	if(!Adjacent(user) || !istype(user))
-		return
+/obj/structure/snow/AltClick(mob/user)
+	. = ..()
 	if(cooldown > world.time)
 		return
-	if(ishuman(user) && Adjacent(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(ishuman(user) && Adjacent(user))
 		var/mob/living/carbon/human/H = user
-		var/obj/item/snowball/S = new(drop_location())
+		var/obj/item/snowball/S = new
 		cooldown = world.time + 3 SECONDS
 
-	if(user.put_in_hands(S, ignore_anim = FALSE))
-		playsound(src, 'sound/weapons/slashmiss.ogg', 15) // crunchy snow sound
-	else
-		qdel(S) // Spawn in hands only
+		if(H.put_in_hands(S))
+			playsound(src, 'sound/weapons/slashmiss.ogg', 15) // crunchy snow sound
+		else
+			qdel(S) // Spawn in hands only

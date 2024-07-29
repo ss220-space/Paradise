@@ -374,7 +374,6 @@
 			to_chat(user, span_notice("You unscrew [magazine] from [src]."))
 			user.put_in_hands(magazine)
 			magazine = null
-			verbs -= /obj/item/gun/projectile/revolver/verb/spin
 	playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 	update_icon(UPDATE_OVERLAYS)
 
@@ -401,7 +400,6 @@
 				to_chat(user, span_notice("[src] already have [magazine]."))
 			else if(user.drop_transfer_item_to_loc(A, src))
 				magazine = A
-				verbs += /obj/item/gun/projectile/revolver/verb/spin
 				update_icon(UPDATE_OVERLAYS)
 				playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 		else if(istype(A, /obj/item/weaponcrafting/revolverbarrel))
