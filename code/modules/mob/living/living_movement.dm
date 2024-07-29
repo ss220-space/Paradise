@@ -354,3 +354,10 @@
 		end_look_down()
 	else
 		look_down()
+
+
+/mob/living/keybind_face_direction(direction)
+	if(stat > CONSCIOUS)
+		return
+	return ..()
+
