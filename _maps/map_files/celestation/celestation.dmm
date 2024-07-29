@@ -37633,6 +37633,12 @@
 	icon_state = "whitepurple"
 	},
 /area/medical/research/shallway)
+"fPl" = (
+/obj/machinery/door/airlock/external{
+	name = "Escape Pod"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "fPo" = (
 /obj/structure/railing{
 	dir = 4
@@ -77861,7 +77867,7 @@
 /area/turret_protected/aisat_interior/secondary)
 "nDk" = (
 /obj/machinery/door/airlock/external{
-	name = "Emergency Shuttle Airlock"
+	name = "Escape Pod Airlock"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
@@ -99848,7 +99854,7 @@
 /area/security/lobby)
 "rSu" = (
 /obj/machinery/door/airlock/external{
-	name = "Emergency Shuttle Airlock"
+	name = "Escape Pod Airlock"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
@@ -216359,7 +216365,7 @@ gqp
 pEz
 vWY
 esT
-rSu
+fPl
 gau
 gau
 gau
@@ -216616,7 +216622,7 @@ lit
 pEz
 mLQ
 esT
-rSu
+fPl
 gau
 dXC
 gau
