@@ -70250,10 +70250,6 @@
 	icon_state = "dark"
 	},
 /area/chapel/main)
-"llL" = (
-/obj/structure/extinguisher_cabinet/empty,
-/turf/space,
-/area/space)
 "llN" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
@@ -158142,7 +158138,7 @@ cth
 tSH
 pwN
 dIx
-llL
+aaq
 coE
 coE
 bqc
