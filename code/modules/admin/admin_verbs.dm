@@ -307,7 +307,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		GLOB.admin_verbs_mentor,
 		GLOB.admin_verbs_proccall,
 		GLOB.admin_verbs_show_debug_verbs,
-		GLOB.admin_verbs_ticket
+		GLOB.admin_verbs_ticket,
+		/client/proc/stealth
 		))
 	add_verb(src, /client/proc/show_verbs)
 
