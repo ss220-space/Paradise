@@ -10,7 +10,7 @@
 */
 
 /datum/element/squish
-	element_flags = ELEMENT_DETACH
+	element_flags = ELEMENT_DETACH_ON_HOST_DESTROY
 
 /datum/element/squish/Attach(datum/target, duration = 20 SECONDS, reverse = FALSE)
 	. = ..()
@@ -47,7 +47,7 @@
 #undef TALL_SCALE
 
 /datum/element/tilt_protection
-	element_flags = ELEMENT_DETACH
+	element_flags = ELEMENT_DETACH_ON_HOST_DESTROY
 
 /datum/element/tilt_protection/Attach(datum/target, duration = 20 SECONDS)
 	. = ..()
