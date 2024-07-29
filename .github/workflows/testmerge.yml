@@ -62,17 +62,18 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "Testmerge Worker"
           git switch ${{ env.TESTMERGE_BRANCH }} || git switch -c ${{ env.TESTMERGE_BRANCH }}
+          git reset --hard ${{ env.BASE_BRANCH }}
 
           # Print debug information
           echo "PR details JSON:"
-          echo "${{ steps.get_labeled_prs.outputs.labeled_pr_details }}"
+          echo '${{ steps.get_labeled_prs.outputs.labeled_pr_details }}'
 
-          echo "${{ steps.get_labeled_prs.outputs.labeled_pr_details }}" | jq -c '.[]' | while read -r PR_DETAIL; do
+          echo '${{ steps.get_labeled_prs.outputs.labeled_pr_details }}' | jq -c '.[]' | while read -r PR_DETAIL; do
             PR_NUMBER=$(echo "$PR_DETAIL" | jq -r '.number')
             PR_TITLE=$(echo "$PR_DETAIL" | jq -r '.title')
             echo "Preparing $PR_TITLE (#$PR_NUMBER)"
 
-            git fetch origin pull/$PR_NUMBER/head:pr-$PR_number
+            git fetch origin pull/$PR_NUMBER/head:pr-$PR_NUMBER
 
             # Check for merge conflicts
             git merge --no-commit --no-ff pr-$PR_NUMBER || true
@@ -91,4 +92,4 @@ jobs:
             echo "Successfully merged $PR_TITLE (#$PR_NUMBER)"
           done
 
-          git push origin ${{ env.TESTMERGE_BRANCH }}
+          git push -f origin ${{ env.TESTMERGE_BRANCH }}
