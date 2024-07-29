@@ -464,6 +464,7 @@
   - bugfix: less spam in admin log
   - server: add resources.txt config entries
   - server: increase TGUI connection lost threshold
+  - unknown: Physiology Implementation (#5529)
   NightDawnFox:
   - add: shooting with shotgun at point-blank range now throwing victim back. (#5491)
   ROdenFL:
