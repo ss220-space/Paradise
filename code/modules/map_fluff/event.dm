@@ -41,7 +41,7 @@
 	admin_only = TRUE
 
 /datum/map/delta_old
-	name = "Delta"
+	name = "Delta Legacy"
 	map_path = "_maps/map_files/event/Station/delta_old.dmm"
 	lavaland_path = "_maps/map_files/Delta/Lavaland.dmm"
 
