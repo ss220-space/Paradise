@@ -50847,9 +50847,9 @@
 /area/security/processing)
 "gto" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table/holotable,
 /obj/item/wrench,
 /obj/item/crowbar,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -70250,10 +70250,6 @@
 	icon_state = "dark"
 	},
 /area/chapel/main)
-"llL" = (
-/obj/structure/extinguisher_cabinet/empty,
-/turf/space,
-/area/space)
 "llN" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
@@ -105497,11 +105493,11 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 28
 	},
-/obj/structure/table/holotable,
 /obj/item/reagent_containers/food/snacks/beans,
 /obj/item/kitchen/utensil/pspoon{
 	pixel_x = 10
 	},
+/obj/structure/table,
 /turf/simulated/floor/plating,
 /area/maintenance/consarea_virology)
 "twQ" = (
@@ -158142,7 +158138,7 @@ cth
 tSH
 pwN
 dIx
-llL
+aaq
 coE
 coE
 bqc
