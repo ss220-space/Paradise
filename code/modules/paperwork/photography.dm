@@ -42,7 +42,9 @@
 
 /obj/item/photo/attackby(obj/item/P, mob/user, params)
 	if(is_pen(P) || istype(P, /obj/item/toy/crayon))
-		var/txt = sanitize(input(user, "What would you like to write on the back?", "Photo Writing", null)  as text)
+		var/txt = tgui_input_text(user, "What would you like to write on the back?", "Photo Writing")
+		if(!txt)
+			return
 		txt = copytext(txt, 1, 128)
 		if(loc == user && user.stat == 0)
 			scribble = txt
@@ -105,10 +107,12 @@
 	set category = "Object"
 	set src in usr
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(usr.incapacitated() || !isAI(usr) && HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
-	var/n_name = sanitize(copytext_char(input(usr, "What would you like to label the photo?", "Photo Labelling", name) as text, 1, MAX_NAME_LEN))
+	var/n_name = tgui_input_text(usr, "What would you like to label the photo?", "Photo Labelling", name)
+	if(!n_name)
+		return
 	//loc.loc check is for making possible renaming photos in clipboards
 	if((loc == usr || (loc.loc && loc.loc == usr)) && !usr.incapacitated() && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		name = "[(n_name ? text("[n_name]") : "photo")]"
@@ -139,7 +143,7 @@
 	icon_state = "camera"
 	item_state = "electropack"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = ITEM_SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_NECK
 	var/list/matter = list("metal" = 2000)
 	var/pictures_max = 10
 	var/pictures_left = 10
@@ -149,6 +153,15 @@
 	var/icon_off = "camera_off"
 	var/size = 3
 	var/see_ghosts = 0 //for the spoop of it
+
+	sprite_sheets = list(
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/neck.dmi',
+		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/neck.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/neck.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/neck.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/neck.dmi',
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/neck.dmi'
+		)
 
 
 /obj/item/camera/spooky/CheckParts(list/parts_list)
@@ -172,7 +185,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	set name = "Set Photo Focus"
 	set category = "Object"
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(!issilicon(usr) && (usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED)))
 		return
 
 	var/nsize = tgui_input_list(usr, "Photo Size", "Pick a size of resulting photo.", list(1,3,5,7))
@@ -400,7 +413,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 	var/datum/picture/P = new()
 	if(istype(src,/obj/item/camera/digital))
-		P.fields["name"] = input(user,"Name photo:","photo")
+		P.fields["name"] = tgui_input_text(user, "Name photo:", "Photo", encode = FALSE)
 		P.name = P.fields["name"]//So the name is displayed on the print/delete list.
 	else
 		P.fields["name"] = "photo"

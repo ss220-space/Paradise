@@ -8,6 +8,7 @@
 	opacity = TRUE
 	anchored = TRUE
 	pass_flags_self = PASSBLOB
+	can_astar_pass = CANASTARPASS_ALWAYS_PROC
 	max_integrity = 30
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
 	var/point_return = 0 //How many points the blob gets back when it removes a blob of that type. If less than 0, blob cannot be removed.
@@ -25,7 +26,6 @@
 /obj/structure/blob/Initialize(mapload)
 	. = ..()
 	GLOB.blobs += src
-	SSticker.mode.update_blob_objective()
 	setDir(pick(GLOB.cardinal))
 	check_integrity()
 	if(atmosblock)
@@ -42,7 +42,6 @@
 		atmosblock = FALSE
 		air_update_turf(1)
 	GLOB.blobs -= src
-	SSticker.mode.update_blob_objective()
 	if(isturf(loc)) //Necessary because Expand() is screwed up and spawns a blob and then deletes it
 		playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
 	return ..()
@@ -67,10 +66,8 @@
 	return !atmosblock
 
 
-/obj/structure/blob/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
-	. = FALSE
-	if(checkpass(caller, PASSBLOB))
-		. = TRUE
+/obj/structure/blob/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	return pass_info.pass_flags == PASSEVERYTHING || (pass_info.pass_flags & PASSBLOB)
 
 
 /obj/structure/blob/process()

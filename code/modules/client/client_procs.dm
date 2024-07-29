@@ -57,12 +57,9 @@
 		if(!asset_cache_job)
 			return
 
-	if(href_list["_src_"] == "chat")
-		return chatOutput.Topic(href, href_list)
-
 	// Rate limiting
-	var/mtl = 150 // 150 topics per minute
-	if(!holder) // Admins are allowed to spam click, deal with it.
+	var/mtl = CONFIG_GET(number/minute_topic_limit)
+	if(!holder && (href_list["window_id"] != "statbrowser") && mtl) // Admins are allowed to spam click, deal with it.
 		var/minute = round(world.time, 600)
 		if (!topiclimiter)
 			topiclimiter = new(LIMITER_SIZE)
@@ -81,8 +78,8 @@
 			to_chat(src, "<span class='danger'>[msg]</span>")
 			return
 
-	var/stl = 10 // 10 topics a second
-	if (!holder) // Admins are allowed to spam click, deal with it.
+	var/stl = CONFIG_GET(number/second_topic_limit)
+	if(!holder && stl) // Admins are allowed to spam click, deal with it.
 		var/second = round(world.time, 10)
 		if (!topiclimiter)
 			topiclimiter = new(LIMITER_SIZE)
@@ -153,6 +150,12 @@
 	// Tgui Topic middleware
 	if(tgui_Topic(href_list))
 		return
+
+	if(href_list["reload_statbrowser"])
+		stat_panel.reinitialize()
+
+	if(href_list["reload_tguipanel"])
+		nuke_chat()
 
 	//byond bug ID:2256651
 	if(asset_cache_job && (asset_cache_job in completed_asset_jobs))
@@ -231,8 +234,12 @@
 	///////////
 /client/New(TopicData)
 	var/tdata = TopicData //save this for later use
-	chatOutput = new /datum/chatOutput(src) // Right off the bat.
 	TopicData = null							//Prevent calls to client.Topic from connect
+
+	stat_panel = new(src, "statbrowser")
+	stat_panel.subscribe(src, PROC_REF(on_stat_panel_message))
+
+	tgui_panel = new(src, "chat_panel")
 
 	if(connection != "seeker")					//Invalid connection type.
 		return null
@@ -265,10 +272,12 @@
 	prefs = GLOB.preferences_datums[ckey]
 	if(!prefs)
 		prefs = new /datum/preferences(src)
-		set_macros()
 		GLOB.preferences_datums[ckey] = prefs
 	else
 		prefs.parent = src
+
+	if(SSinput.initialized)
+		set_macros()
 
 	// Setup widescreen
 	view = prefs.viewrange
@@ -290,15 +299,11 @@
 	// YOU WILL BREAK STUFF. SERIOUSLY. -aa07
 	GLOB.clients += src
 
-	spawn() // Goonchat does some non-instant checks in start()
-		chatOutput.start()
-
 	if( (world.address == address || !address) && !GLOB.host )
 		GLOB.host = key
 		world.update_status()
 
 	if(holder)
-		on_holder_add()
 		add_admin_verbs()
 		// Must be async because any sleeps (happen in sql queries) will break connectings clients
 		INVOKE_ASYNC(src, PROC_REF(admin_memo_output), "Show", FALSE, TRUE)
@@ -325,12 +330,19 @@
 	if(SSinput.initialized)
 		set_macros()
 
+	// Initialize tgui panel
+	tgui_panel.initialize()
+	// Initialize stat panel
+	stat_panel.initialize(
+		inline_html = file2text('html/statbrowser.html'),
+		inline_js = file2text('html/statbrowser.js'),
+		inline_css = file2text('html/statbrowser.css'),
+	)
+	addtimer(CALLBACK(src, PROC_REF(check_panel_loaded)), 30 SECONDS)
+
 	donator_check()
 	check_ip_intel()
 	send_resources()
-
-	if(prefs.toggles & PREFTOGGLE_UI_DARKMODE) // activates dark mode if its flagged. -AA07
-		activate_darkmode()
 
 	if(GLOB.changelog_hash && prefs.lastchangelog != GLOB.changelog_hash) //bolds the changelog button on the interface so we know there are updates.
 		to_chat(src, span_info("You have unread updates in the changelog."))
@@ -404,17 +416,22 @@
 /client/Destroy()
 	SSdebugview.stop_processing(src)
 	mob?.become_uncliented()
+
 	if(holder)
 		holder.owner = null
 		GLOB.admins -= src
 
 	GLOB.directory -= ckey
 	GLOB.clients -= src
+
 	if(movingmob)
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
+
+	if(obj_window)
+		QDEL_NULL(obj_window)
+
 	SSambience.remove_ambience_client(src)
-	SSinput.processing -= src
 	SSping.currentrun -= src
 	QDEL_LIST(parallax_layers_cached)
 	QDEL_NULL(void)
@@ -794,7 +811,7 @@
 			cidcheck[ckey] = computer_id
 
 			// Disable the reconnect button to force a CID change
-			winset(src, "reconnectbutton", "is-disable=true")
+			winset(src, "reconnectbutton", "is-disabled=true")
 
 			tokens[ckey] = cid_check_reconnect()
 			sleep(10) // Since browse is non-instant, and kinda async
@@ -935,89 +952,67 @@
 	datum_flags |= DF_VAR_EDITED
 
 
-/////////////////
-// DARKMODE UI //
-/////////////////
-// IF YOU CHANGE ANYTHING IN ACTIVATE, MAKE SURE IT HAS A DEACTIVATE METHOD, -AA07
-/client/proc/activate_darkmode()
-	///// BUTTONS /////
-	/* Rpane */
-	winset(src, "rpane.fullscreenb", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.textb", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.infob", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.wikib", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.rulesb", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.githubb", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.webmap", "background-color=#494949;text-color=#a4bad6")
-	/* Outputwindow */
-	winset(src, "outputwindow.saybutton", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "outputwindow.mebutton", "background-color=#494949;text-color=#a4bad6")
+/client/Click(atom/object, atom/location, control, params)
+	if(click_intercept_time)
+		if(click_intercept_time >= world.time)
+			click_intercept_time = 0 //Reset and return. Next click should work, but not this one.
+			return
+		click_intercept_time = 0 //Just reset. Let's not keep re-checking forever.
 
-	///// UI ELEMENTS /////
-	/* Mainwindow */
-	winset(src, "mainwindow", "background-color=#171717")
-	winset(src, "mainwindow.mainvsplit", "background-color=#202020")
-	winset(src, "mainwindow.tooltip", "background-color=#171717")
-	/* Outputwindow */
-	winset(src, "outputwindow", "background-color=#202020")
-	winset(src, "outputwindow.input", "text-color=#a4bad6;background-color=#202020")
-	winset(src, "outputwindow.browseroutput", "background-color=#202020")
-	/* Rpane */
-	winset(src, "rpane", "background-color=#202020")
-	winset(src, "rpane.rpanewindow", "background-color=#202020")
-	/* Browserwindow */
+	var/list/modifiers = params2list(params)
 
-	//winset(src, "browserwindow", "background-color=#272727")
-	//winset(src, "browserwindow.browser", "background-color=#272727")
-	/* Infowindow */
-	winset(src, "infowindow", "background-color=#202020;text-color=#a4bad6")
-	winset(src, "infowindow.info", "background-color=#171717;text-color=#a4bad6;highlight-color=#009900;tab-text-color=#a4bad6;tab-background-color=#202020")
-	//Macros
-	winset(src, "default-Tab", "parent=default;name=Tab;command=\".winset \\\"mainwindow.macro=legacy input.focus=true input.background-color=[COLOR_DARK_INPUT_ENABLED]\\\"\"")
-	winset(src, "legacy-Tab", "parent=legacy;name=Tab;command=\".winset \\\"mainwindow.macro=default map.focus=true input.background-color=[COLOR_DARK_INPUT_DISABLED]\\\"\"")
+	var/button_clicked = LAZYACCESS(modifiers, "button")
 
-	// NOTIFY USER
-	to_chat(src, "<span class='notice'>Darkmode Enabled</span>")
+	var/dragged = LAZYACCESS(modifiers, "drag")
+	if(dragged && button_clicked != dragged)
+		return
 
-/client/proc/deactivate_darkmode()
-	///// BUTTONS /////
-	/* Rpane */
-	winset(src, "rpane.fullscreenb", "background-color=none;text-color=#000000")
-	winset(src, "rpane.textb", "background-color=none;text-color=#000000")
-	winset(src, "rpane.infob", "background-color=none;text-color=#000000")
-	winset(src, "rpane.wikib", "background-color=none;text-color=#000000")
-	//winset(src, "rpane.forumb", "background-color=none;text-color=#000000")
-	winset(src, "rpane.rulesb", "background-color=none;text-color=#000000")
-	winset(src, "rpane.githubb", "background-color=none;text-color=#000000")
-	winset(src, "rpane.webmap", "background-color=none;text-color=#000000")
-	/* Outputwindow */
-	winset(src, "outputwindow.saybutton", "background-color=none;text-color=#000000")
-	winset(src, "outputwindow.mebutton", "background-color=none;text-color=#000000")
+	var/mcl = CONFIG_GET(number/minute_click_limit)
+	if(!holder && mcl)
+		var/minute = round(world.time, 600)
 
-	///// UI ELEMENTS /////
-	/* Mainwindow */
-	winset(src, "mainwindow", "background-color=none")
-	winset(src, "mainwindow.mainvsplit", "background-color=none")
-	winset(src, "mainwindow.tooltip", "background-color=none")
-	/* Outputwindow */
-	winset(src, "outputwindow", "background-color=none")
-	winset(src, "outputwindow.input", "text-color=none; background-color=#F0F0F0")
-	winset(src, "outputwindow.browseroutput", "background-color=none")
-	/* Rpane */
-	winset(src, "rpane", "background-color=none")
-	winset(src, "rpane.rpanewindow", "background-color=none")
-	/* Browserwindow */
-	//winset(src, "browserwindow", "background-color=none")
-	//winset(src, "browserwindow.browser", "background-color=none")
-	/* Infowindow */
-	winset(src, "infowindow", "background-color=none;text-color=#000000")
-	winset(src, "infowindow.info", "background-color=none;text-color=#000000;highlight-color=#007700;tab-text-color=#000000;tab-background-color=none")
-	//Macros
-	winset(src, "default-Tab", "parent=default;name=Tab;command=\".winset \\\"mainwindow.macro=legacy input.focus=true input.background-color=[COLOR_INPUT_ENABLED]\\\"\"")
-	winset(src, "legacy-Tab", "parent=legacy;name=Tab;command=\".winset \\\"mainwindow.macro=default map.focus=true input.background-color=[COLOR_INPUT_DISABLED]\\\"\"")
+		if(!clicklimiter)
+			clicklimiter = new(LIMITER_SIZE)
 
-	///// NOTIFY USER /////
-	to_chat(src, "<span class='notice'>Darkmode Disabled</span>") // what a sick fuck
+		if(minute != clicklimiter[CURRENT_MINUTE])
+			clicklimiter[CURRENT_MINUTE] = minute
+			clicklimiter[MINUTE_COUNT] = 0
+
+		clicklimiter[MINUTE_COUNT] += 1
+
+		if(clicklimiter[MINUTE_COUNT] > mcl)
+			var/msg = "Your previous click was ignored because you've done too many in a minute."
+			if(minute != clicklimiter[ADMINSWARNED_AT]) //only one admin message per-minute. (if they spam the admins can just boot/ban them)
+				clicklimiter[ADMINSWARNED_AT] = minute
+				msg += " Administrators have been informed."
+				add_game_logs("hit the per-minute click limit of [mcl] clicks in a given game minute", src)
+				message_admins("[ADMIN_LOOKUPFLW(usr)] Has hit the per-minute click limit of [mcl] clicks in a given game minute")
+			to_chat(src, span_danger("[msg]"))
+			return
+
+	var/scl = CONFIG_GET(number/second_click_limit)
+	if(!holder && scl)
+		var/second = round(world.time, 10)
+		if(!clicklimiter)
+			clicklimiter = new(LIMITER_SIZE)
+
+		if(second != clicklimiter[CURRENT_SECOND])
+			clicklimiter[CURRENT_SECOND] = second
+			clicklimiter[SECOND_COUNT] = 0
+
+		clicklimiter[SECOND_COUNT] += 1
+
+		if(clicklimiter[SECOND_COUNT] > scl)
+			to_chat(src, span_danger("Your previous click was ignored because you've done too many in a second"))
+			return
+
+	//check if the server is overloaded and if it is then queue up the click for next tick
+	//yes having it call a wrapping proc on the subsystem is fucking stupid glad we agree unfortunately byond insists its reasonable
+	if(!QDELETED(object) && TRY_QUEUE_VERB(VERB_CALLBACK(object, TYPE_PROC_REF(/atom, _Click), location, control, params), VERB_HIGH_PRIORITY_QUEUE_THRESHOLD, SSinput, control))
+		return
+
+	..()
+
 
 /client/proc/generate_clickcatcher()
 	if(!void)
@@ -1077,11 +1072,22 @@
 	fit_viewport()
 
 
+/**
+ * Manually clears any held keys, in case due to lag or other undefined behavior a key gets stuck.
+ *
+ * Hardcoded to the ESC key.
+ */
+/client/verb/reset_held_keys()
+	set name = "Reset Held Keys"
+	set hidden = TRUE
+	client_reset_held_keys()
+
+
 // Ported from /tg/, full credit to SpaceManiac and Timberpoes.
 /client/verb/fit_viewport()
 	set name = "Fit Viewport"
 	set desc = "Fit the size of the map window to match the viewport."
-	set category = "OOC"
+	set category = "Special Verbs"
 
 	// Fetch aspect ratio
 	var/list/view_size = getviewsize(view)
@@ -1139,6 +1145,11 @@
 	pct += delta
 	winset(src, "mainwindow.mainvsplit", "splitter=[pct]")
 
+/client/verb/fix_stat_panel()
+	set name = "Fix Stat Panel"
+	set hidden = TRUE
+
+	init_verbs()
 
 /client/verb/fitviewport() // wrapper for mainwindow
 	set hidden = 1
@@ -1157,7 +1168,7 @@
 	if(prefs)
 		prefs.load_preferences(usr)
 	if(prefs && prefs.discord_id && length(prefs.discord_id) < 32)
-		to_chat(usr, chat_box_red("<span class='darkmblue'>Аккаунт Discord уже привязан!<br>Чтобы отвязать используйте команду <span class='boldannounce'>!отвязать_аккаунт</span><br>В канале <b>#дом-бота</b> в Discord-сообществе!</span>"))
+		to_chat(usr, chat_box_red("<span class='darkmblue'>Аккаунт Discord уже привязан!<br>Чтобы отвязать используйте команду [span_boldannounceooc("!отвязать_аккаунт")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!</span>"))
 		return
 	var/token = md5("[world.time+rand(1000,1000000)]")
 	if(SSdbcore.IsConnected())
@@ -1168,7 +1179,7 @@
 			qdel(query_update_token)
 			return
 		qdel(query_update_token)
-		to_chat(usr, chat_box_notice("<span class='darkmblue'>Для завершения привязки используйте команду<br><span class='boldannounce'>!привязать_аккаунт [token]</span><br>В канале <b>#дом-бота</b> в Discord-сообществе!</span>"))
+		to_chat(usr, chat_box_notice("<span class='darkmblue'>Для завершения привязки используйте команду<br>[span_boldannounceooc("!привязать_аккаунт [token]")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!</span>"))
 		if(prefs)
 			prefs.load_preferences(usr)
 
@@ -1377,6 +1388,78 @@
 	var/list/screensize = getviewsize(view)
 	return round(max(screensize[1], screensize[2]) / 2)
 
+/// Compiles a full list of verbs and sends it to the browser
+/client/proc/init_verbs()
+	if(IsAdminAdvancedProcCall())
+		return
+	var/list/verblist = list()
+	var/list/verbstoprocess = verbs.Copy()
+	if(mob)
+		verbstoprocess += mob.verbs
+		for(var/AM in mob.contents)
+			var/atom/movable/thing = AM
+			verbstoprocess += thing.verbs
+	panel_tabs.Cut() // panel_tabs get reset in init_verbs on JS side anyway
+	for(var/thing in verbstoprocess)
+		var/procpath/verb_to_init = thing
+		if(!verb_to_init)
+			continue
+		if(verb_to_init.hidden)
+			continue
+		if(!istext(verb_to_init.category))
+			continue
+		panel_tabs |= verb_to_init.category
+		verblist[++verblist.len] = list(verb_to_init.category, verb_to_init.name)
+	src.stat_panel.send_message("init_verbs", list(panel_tabs = panel_tabs, verblist = verblist))
+
+/client/proc/check_panel_loaded()
+	if(stat_panel.is_ready())
+		return
+	to_chat(src, "<span class='userdanger'>Statpanel failed to load, click <a href='byond://?src=[UID()];reload_statbrowser=1'>here</a> to reload the panel </span>")
+
+/**
+ * Handles incoming messages from the stat-panel TGUI.
+ */
+/client/proc/on_stat_panel_message(type, payload)
+	switch(type)
+		if("Update-Verbs")
+			init_verbs()
+		if("Remove-Tabs")
+			panel_tabs -= payload["tab"]
+		if("Send-Tabs")
+			panel_tabs |= payload["tab"]
+		if("Reset-Tabs")
+			panel_tabs = list()
+		if("Set-Tab")
+			stat_tab = payload["tab"]
+			SSstatpanels.immediate_send_stat_data(src)
+		if("Listedturf-Scroll")
+			if(payload["min"] == payload["max"])
+				// Not properly loaded yet, send the default set.
+				SSstatpanels.refresh_client_obj_view(src)
+			else
+				SSstatpanels.refresh_client_obj_view(src, payload["min"], payload["max"])
+		// Uncomment to enable log_debug in stat panel code.
+		// Disabled normally due to HREF exploit concerns.
+		//if("Statpanel-Debug")
+		//	log_debug(payload)
+		if("Resend-Asset")
+			SSassets.transport.send_assets(src, list(payload))
+		if("Debug-Stat-Entry")
+			var/stat_item = locateUID(payload["stat_item_uid"])
+			if(!check_rights(R_DEBUG | R_VIEWRUNTIMES) || !stat_item)
+				return
+			var/class
+			if(istype(stat_item, /datum/controller/subsystem))
+				class = "subsystem"
+			else if(istype(stat_item, /datum/controller))
+				class = "controller"
+			else if(istype(stat_item, /datum))
+				class = "datum"
+			else
+				class = "unknown"
+			debug_variables(stat_item)
+			message_admins("Admin [key_name_admin(usr)] is debugging the [stat_item] [class].")
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

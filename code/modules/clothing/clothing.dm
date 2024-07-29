@@ -70,7 +70,7 @@
 	if(user && !can_use(user))
 		return FALSE
 
-	if(visor_toggling())
+	if(visor_toggling(user))
 		update_equipped_item(update_speedmods = FALSE)
 		if(user)
 			to_chat(user, span_notice("You adjust [src] [up ? "up" : "down"]."))
@@ -79,7 +79,7 @@
 	return FALSE
 
 
-/obj/item/clothing/proc/visor_toggling() //handles all the actual toggling of flags
+/obj/item/clothing/proc/visor_toggling(mob/user) //handles all the actual toggling of flags
 	if(!can_toggle)
 		return FALSE
 
@@ -788,7 +788,7 @@ BLIND     // can't see anything
 				flags_inv &= ~HIDETAIL
 				user.update_tail_layer()
 
-/obj/item/clothing/suit/ui_action_click(mob/user) //This is what happens when you click the HUD action button to adjust your suit.
+/obj/item/clothing/suit/ui_action_click(mob/user, datum/action/action, leftclick) //This is what happens when you click the HUD action button to adjust your suit.
 	if(!ignore_suitadjust)
 		adjustsuit(user)
 	else
@@ -855,6 +855,11 @@ BLIND     // can't see anything
 	if(jetpack && ispath(jetpack))
 		jetpack = new jetpack(src)
 		jetpack.our_suit = src
+
+
+/obj/item/clothing/suit/space/Destroy()
+	QDEL_NULL(jetpack)
+	return ..()
 
 
 /obj/item/clothing/suit/space/screwdriver_act(mob/user, obj/item/I)

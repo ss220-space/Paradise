@@ -3,7 +3,6 @@
 /obj/effect/proc_holder/spell/hulk_transform
 	name = "Transform"
 	desc = "Превращение в халка."
-	panel = "Hulk"
 	action_icon_state = "transformarion_hulk"
 	action_background_icon_state = "bg_hulk"
 	base_cooldown = 10 SECONDS
@@ -52,7 +51,6 @@
 /obj/effect/proc_holder/spell/hulk_dash
 	name = "Dash"
 	desc = "Разбег. Чем он дольше, тем больнее будет, тем кто встанет у вас на пути."
-	panel = "Hulk"
 	action_icon_state = "charge_hulk"
 	action_background_icon_state = "bg_hulk"
 	base_cooldown = 13 SECONDS
@@ -218,7 +216,6 @@
 /obj/effect/proc_holder/spell/hulk_jump
 	name = "Leap"
 	desc = "Прыжок. Можно легко сломать кому-то кость при столкновении."
-	panel = "Hulk"
 	action_icon_state = "jump_hulk"
 	action_background_icon_state = "bg_hulk"
 	base_cooldown = 13 SECONDS
@@ -335,7 +332,6 @@
 /obj/effect/proc_holder/spell/hulk_honk
 	name = "HulkHONK"
 	desc = "Ваш хонк заставляет ваших врагов пасть на пол и налить под себя смазку (от страха). На ваших братьях-клоунах работает как лечение."
-	panel = "Hulk"
 	action_icon_state = "honk_hulk"
 	action_background_icon_state = "bg_hulk"
 	base_cooldown = 25 SECONDS
@@ -375,7 +371,6 @@
 /obj/effect/proc_holder/spell/hulk_joke
 	name = "Joke"
 	desc = "Пускает большое облако дыма, а так-же лечит вас. Хорошее решение если вам нужно отступить."
-	panel = "Hulk"
 	action_icon_state = "joke_hulk"
 	action_background_icon_state = "bg_hulk"
 	base_cooldown = 35 SECONDS
@@ -411,7 +406,6 @@
 /obj/effect/proc_holder/spell/hulk_mill
 	name = "Windmill"
 	desc = "Вы начинаете крутить хвостом во все стороны и наносить им урон. Хорошим выбором будет использовать это в узких помещаниях."
-	panel = "Hulk"
 	action_icon_state = "mill_hulk"
 	action_background_icon_state = "bg_hulk"
 	base_cooldown = 20 SECONDS
@@ -470,7 +464,6 @@
 /obj/effect/proc_holder/spell/fireball/hulk_spit
 	name = "Fire Spit"
 	desc = "Вы харкаете во врага зеленой соплей и поджигаете его."
-	panel = "Hulk"
 	invocation_type = "none"
 	action_icon_state = "harchok_hulk"
 	action_background_icon_state = "bg_hulk"

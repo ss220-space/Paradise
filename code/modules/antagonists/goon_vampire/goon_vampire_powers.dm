@@ -76,7 +76,6 @@
 /obj/effect/proc_holder/spell/goon_vampire
 	name = "Report Me"
 	desc = "You shouldn't see this!"
-	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire_old"
 	human_req = TRUE

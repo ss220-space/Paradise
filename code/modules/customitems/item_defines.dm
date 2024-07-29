@@ -369,16 +369,16 @@
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
-	if(istype(target, /obj/item/melee/baton) && !istype(target, /obj/item/melee/baton/cattleprod))
+	if(istype(target, /obj/item/melee/baton/security) && !istype(target, /obj/item/melee/baton/security/cattleprod))
 		to_chat(user, "<span class='notice'>You modify the appearance of [target].</span>")
 		var/obj/item/melee/baton/the_baton = target
-		the_baton.base_icon = "desolate_baton"
+		the_baton.base_icon_state = "desolate_baton"
 		the_baton.item_state = "desolate_baton"
 		the_baton.icon = 'icons/obj/custom_items.dmi'
 		the_baton.lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 		the_baton.righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
 		the_baton.update_icon()
-		user.update_icons()
+		the_baton.update_equipped_item()
 		qdel(src)
 		return
 
@@ -1272,7 +1272,7 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/toy/plushie/fluff/fox/ui_action_click(mob/user)
+/obj/item/toy/plushie/fluff/fox/ui_action_click(mob/user, datum/action/action, leftclick)
 	change_color()
 
 
@@ -1326,7 +1326,7 @@
 	var/adjusted = FALSE
 
 
-/obj/item/clothing/head/fluff/chronx/ui_action_click()
+/obj/item/clothing/head/fluff/chronx/ui_action_click(mob/user, datum/action/action, leftclick)
 	adjust()
 
 

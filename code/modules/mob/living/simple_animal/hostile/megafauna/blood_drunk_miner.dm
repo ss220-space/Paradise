@@ -101,7 +101,6 @@ Difficulty: Medium
 	stat_allowed = UNCONSCIOUS
 	sound = 'sound/misc/enter_blood.ogg'
 	action_icon_state = "bloodcrawl"
-	panel = "Blood Drunk"
 
 /obj/effect/proc_holder/spell/blood_suit/create_new_targeting()
 	return new /datum/spell_targeting/self

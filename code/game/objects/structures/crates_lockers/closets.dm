@@ -22,7 +22,7 @@ GLOBAL_LIST_EMPTY(closets)
 	var/overlay_sparking = "sparking"
 	var/overlay_unlocked = "unlocked"
 	var/overlay_locked = "locked"
-	var/overlay_locker = "locker"
+	var/overlay_locker = null // TODO: 'locker'less closet sprites.
 	var/custom_door_overlay = null //handles overlay of door looking into screen
 	var/custom_open_overlay = null //handles overlay of opened door (its inner side)
 
@@ -43,6 +43,7 @@ GLOBAL_LIST_EMPTY(closets)
 	)
 	var/open_sound_volume = 35
 	var/close_sound_volume = 50
+	var/sparking_duration = 1 SECONDS
 	var/storage_capacity = 30 //This is so that someone can't pack hundreds of items in a locker/crate then open it in a populated area to crash clients.
 	var/material_drop = /obj/item/stack/sheet/metal
 	var/material_drop_amount = 2
@@ -320,7 +321,6 @@ GLOBAL_LIST_EMPTY(closets)
 
 /obj/structure/closet/verb/verb_toggleopen()
 	set src in oview(1)
-	set category = null
 	set name = "Toggle Open"
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

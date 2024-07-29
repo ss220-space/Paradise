@@ -22,7 +22,6 @@
 "af" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -74,7 +73,6 @@
 	name = "South-East Solar Panel"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -235,7 +233,6 @@
 "aE" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -384,7 +381,6 @@
 "bb" = (
 /obj/machinery/power/port_gen/pacman,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-2"
 	},
 /obj/effect/decal/cleanable/dust,
@@ -404,7 +400,6 @@
 /obj/machinery/power/smes,
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -532,7 +527,6 @@
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -546,7 +540,6 @@
 /area/space/nearstation)
 "bx" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-8"
 	},
 /obj/machinery/power/solar_control{
@@ -883,7 +876,6 @@
 "cq" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
@@ -1348,7 +1340,6 @@
 "iS" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
@@ -1451,7 +1442,6 @@
 	pixel_y = 0
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -1531,7 +1521,6 @@
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -1564,7 +1553,6 @@
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -1674,7 +1662,6 @@
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -1776,7 +1763,6 @@
 "tJ" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -1842,7 +1828,6 @@
 "vE" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating/airless,
@@ -2284,7 +2269,6 @@
 "Fh" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
@@ -2486,7 +2470,6 @@
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -2514,9 +2497,6 @@
 	},
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
-"Lr" = (
-/turf/simulated/floor/plating/airless,
 /area/ruin/spaceprison)
 "Me" = (
 /obj/structure/cable{
@@ -2562,7 +2542,6 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -2903,7 +2882,6 @@
 "Uv" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -2925,7 +2903,6 @@
 "Vs" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating/airless,
@@ -4619,7 +4596,7 @@ qp
 tJ
 ac
 cQ
-Lr
+ac
 ac
 ai
 sE

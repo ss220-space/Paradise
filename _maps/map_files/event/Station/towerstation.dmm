@@ -5775,7 +5775,7 @@
 /turf/simulated/floor/plasteel,
 /area/gateway)
 "dSg" = (
-/obj/structure/closet/secure_closet/detective,
+/obj/structure/closet/secure_closet/cabinet/detective,
 /obj/effect/turf_decal/delivery/red,
 /turf/simulated/floor/carpet/black,
 /area/security/detectives_office)
@@ -7348,7 +7348,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/medical/biostorage)
 "eVD" = (
-/obj/structure/closet/secure_closet/detective,
+/obj/structure/closet/secure_closet/cabinet/detective,
 /obj/effect/turf_decal/delivery/red,
 /obj/item/detective_scanner,
 /turf/simulated/floor/wood,
@@ -15250,7 +15250,7 @@
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
 "jOb" = (
-/obj/structure/closet/secure_closet/bar,
+/obj/structure/closet/secure_closet/cabinet/bar,
 /obj/effect/turf_decal/delivery/red,
 /obj/machinery/power/apc{
 	dir = 1;
@@ -28665,7 +28665,7 @@
 /turf/simulated/floor/carpet,
 /area/blueshield)
 "sAa" = (
-/obj/structure/closet/secure_closet/bar,
+/obj/structure/closet/secure_closet/cabinet/bar,
 /obj/effect/turf_decal/delivery/red,
 /turf/simulated/floor/carpet/black,
 /area/crew_quarters/bar)

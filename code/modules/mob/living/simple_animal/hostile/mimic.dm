@@ -31,6 +31,7 @@
 	var/is_electronic = 0
 	gold_core_spawnable = HOSTILE_SPAWN
 	del_on_death = 1
+	AI_delay_max = 0.5 SECONDS
 
 /mob/living/simple_animal/hostile/mimic/emp_act(severity)
 	if(is_electronic)
@@ -61,10 +62,6 @@
 	else
 		icon_state = initial(icon_state)
 
-/mob/living/simple_animal/hostile/mimic/crate/ListTargets()
-	if(attempt_open)
-		return ..()
-	return ..(1)
 
 /mob/living/simple_animal/hostile/mimic/crate/FindTarget()
 	. = ..()

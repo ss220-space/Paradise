@@ -1743,7 +1743,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/item/cardboard_cutout/adaptive,
+/obj/item/twohanded/cardboard_cutout/adaptive,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
@@ -2894,7 +2894,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "cCi" = (
-/mob/living/simple_animal/mouse/gray{
+/mob/living/simple_animal/mouse{
 	faction = list("neutral","syndicate")
 	},
 /turf/simulated/floor/engine/air,
@@ -4814,7 +4814,7 @@
 /turf/simulated/floor/engine,
 /area/syndicate/unpowered/syndicate_space_base/rnd/chemistry)
 "eCj" = (
-/obj/structure/closet/secure_closet/bar{
+/obj/structure/closet/secure_closet/cabinet/bar{
 	req_access = list(158)
 	},
 /obj/item/ammo_box/shotgun/buck,
@@ -16649,7 +16649,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/item/cardboard_cutout/adaptive,
+/obj/item/twohanded/cardboard_cutout/adaptive,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"

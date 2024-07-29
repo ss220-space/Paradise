@@ -74,7 +74,7 @@
 	if(dragged && !modifiers[dragged])
 		return
 	if(IsFrozen(A) && !is_admin(usr))
-		to_chat(usr, "<span class='boldannounce'>Interacting with admin-frozen players is not permitted.</span>")
+		to_chat(usr, span_boldannounceooc("Interacting with admin-frozen players is not permitted."))
 		return
 	if(modifiers["middle"] && modifiers["shift"] && modifiers["ctrl"])
 		MiddleShiftControlClickOn(A)
@@ -362,21 +362,12 @@
 /atom/proc/AltClickNoInteract(mob/user, atom/A)
 	var/turf/T = get_turf(A)
 	if(T && user.TurfAdjacent(T))
-		user.listed_turf = T
-		user.client.statpanel = T.name
+		user.set_listed_turf(T)
 
 /atom/proc/AltClick(mob/user)
-	turf_examine(user)
-
-/atom/proc/turf_examine(mob/user)
 	var/turf/T = get_turf(src)
-	if(T)
-		if(user.TurfAdjacent(T) && !HAS_TRAIT(user, TRAIT_MOVE_VENTCRAWLING))
-			user.listed_turf = T
-			user.client.statpanel = T.name
-			// If we had a method to force a `Stat` update, it would go here
-		else
-			user.listed_turf = null
+	if(T && (isturf(loc) || isturf(src)) && user.TurfAdjacent(T) && !HAS_TRAIT(user, TRAIT_MOVE_VENTCRAWLING))
+		user.set_listed_turf(T)
 
 
 /mob/proc/TurfAdjacent(var/turf/T)

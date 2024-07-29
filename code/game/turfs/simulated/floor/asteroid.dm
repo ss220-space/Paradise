@@ -150,7 +150,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	return ..()
 
 /turf/simulated/floor/plating/asteroid/basalt/lava //lava underneath
-	baseturf = /turf/simulated/floor/plating/lava/smooth
+	baseturf = /turf/simulated/floor/lava
 
 /turf/simulated/floor/plating/asteroid/basalt/airless
 	temperature = TCMB
@@ -189,7 +189,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	nitrogen = 23
 	temperature = 300
 	planetary_atmos = TRUE
-	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
+	baseturf = /turf/simulated/floor/lava/mapping_lava
 
 /turf/simulated/floor/plating/asteroid/airless
 	temperature = TCMB

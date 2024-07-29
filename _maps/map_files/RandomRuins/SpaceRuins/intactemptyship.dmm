@@ -3,35 +3,14 @@
 /turf/template_noop,
 /area/template_noop)
 "b" = (
-/turf/simulated/wall/shuttle/nosmooth/interior{
-	dir = 6;
-	icon_state = "gray_walls";
-	underlay_floor_icon = 'icons/turf/space.dmi';
-	underlay_floor_icon_state = "0"
-	},
-/turf/space,
-/area/ruin/powered)
-"c" = (
-/turf/simulated/wall/shuttle{
-	dir = 4;
-	icon_state = "gray_walls_full"
-	},
-/area/ruin/powered)
-"d" = (
-/turf/simulated/wall/shuttle/nosmooth/interior{
-	dir = 5;
-	icon_state = "gray_walls";
-	underlay_floor_icon = 'icons/turf/space.dmi';
-	underlay_floor_icon_state = "0"
-	},
-/turf/space,
+/turf/simulated/wall/shuttle,
 /area/ruin/powered)
 "e" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
 	tag = "icon-propulsion (EAST)"
 	},
-/turf/simulated/floor/shuttle/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "f" = (
 /obj/structure/window/reinforced{
@@ -41,20 +20,18 @@
 	dir = 8;
 	tag = "icon-heater (WEST)"
 	},
-/turf/simulated/floor/shuttle/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "g" = (
 /obj/structure/table/wood,
 /obj/item/clothing/under/shorts/black,
 /turf/simulated/floor/shuttle{
-	icon_state = "floor5";
-	tag = "icon-floor5"
+	icon_state = "floor5"
 	},
 /area/ruin/powered)
 "h" = (
 /turf/simulated/floor/shuttle{
-	icon_state = "floor5";
-	tag = "icon-floor5"
+	icon_state = "floor5"
 	},
 /area/ruin/powered)
 "i" = (
@@ -64,30 +41,26 @@
 	dir = 1
 	},
 /turf/simulated/floor/shuttle{
-	icon_state = "floor5";
-	tag = "icon-floor5"
+	icon_state = "floor5"
 	},
 /area/ruin/powered)
 "j" = (
 /obj/structure/closet,
 /turf/simulated/floor/shuttle{
-	icon_state = "floor5";
-	tag = "icon-floor5"
+	icon_state = "floor5"
 	},
 /area/ruin/powered)
 "k" = (
 /obj/machinery/vending/assist,
 /turf/simulated/floor/shuttle{
-	icon_state = "floor5";
-	tag = "icon-floor5"
+	icon_state = "floor5"
 	},
 /area/ruin/powered)
 "l" = (
 /obj/structure/table/wood,
 /obj/item/clothing/shoes/sandal,
 /turf/simulated/floor/shuttle{
-	icon_state = "floor5";
-	tag = "icon-floor5"
+	icon_state = "floor5"
 	},
 /area/ruin/powered)
 "m" = (
@@ -95,23 +68,20 @@
 	dir = 8
 	},
 /turf/simulated/floor/shuttle{
-	icon_state = "floor5";
-	tag = "icon-floor5"
+	icon_state = "floor5"
 	},
 /area/ruin/powered)
 "n" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/shuttle{
-	icon_state = "floor5";
-	tag = "icon-floor5"
+	icon_state = "floor5"
 	},
 /area/ruin/powered)
 "o" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/library/checkout,
 /turf/simulated/floor/shuttle{
-	icon_state = "floor5";
-	tag = "icon-floor5"
+	icon_state = "floor5"
 	},
 /area/ruin/powered)
 "p" = (
@@ -129,8 +99,7 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /turf/simulated/floor/shuttle{
-	icon_state = "floor5";
-	tag = "icon-floor5"
+	icon_state = "floor5"
 	},
 /area/ruin/powered)
 "s" = (
@@ -139,22 +108,19 @@
 	name = "Strange Ship Blast Door"
 	},
 /turf/simulated/floor/shuttle{
-	icon_state = "floor5";
-	tag = "icon-floor5"
+	icon_state = "floor5"
 	},
 /area/ruin/powered)
 "t" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/shuttle{
-	icon_state = "floor5";
-	tag = "icon-floor5"
+	icon_state = "floor5"
 	},
 /area/ruin/powered)
 "u" = (
 /obj/machinery/door/airlock/public/glass,
 /turf/simulated/floor/shuttle{
-	icon_state = "floor5";
-	tag = "icon-floor5"
+	icon_state = "floor5"
 	},
 /area/ruin/powered)
 "v" = (
@@ -162,8 +128,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/shuttle{
-	icon_state = "floor5";
-	tag = "icon-floor5"
+	icon_state = "floor5"
 	},
 /area/ruin/powered)
 "w" = (
@@ -171,8 +136,7 @@
 /obj/item/paper,
 /obj/item/pen,
 /turf/simulated/floor/shuttle{
-	icon_state = "floor5";
-	tag = "icon-floor5"
+	icon_state = "floor5"
 	},
 /area/ruin/powered)
 "x" = (
@@ -181,85 +145,31 @@
 	name = "Strange Ship Door Control";
 	pixel_x = 6
 	},
-/turf/simulated/wall/shuttle{
-	dir = 1;
-	icon_state = "gray_walls_directions"
-	},
+/turf/simulated/wall/shuttle,
 /area/ruin/powered)
 "y" = (
 /obj/machinery/light,
 /turf/simulated/floor/shuttle{
-	icon_state = "floor5";
-	tag = "icon-floor5"
+	icon_state = "floor5"
 	},
 /area/ruin/powered)
 "z" = (
 /mob/living/simple_animal/bot/medbot,
 /turf/simulated/floor/shuttle{
-	icon_state = "floor5";
-	tag = "icon-floor5"
+	icon_state = "floor5"
 	},
-/area/ruin/powered)
-"A" = (
-/turf/simulated/wall/shuttle/nosmooth/interior{
-	dir = 10;
-	icon_state = "gray_walls";
-	underlay_floor_icon = 'icons/turf/space.dmi';
-	underlay_floor_icon_state = "0"
-	},
-/turf/space,
 /area/ruin/powered)
 "B" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/simulated/floor/shuttle{
-	icon_state = "floor5";
-	tag = "icon-floor5"
+	icon_state = "floor5"
 	},
-/area/ruin/powered)
-"C" = (
-/turf/simulated/wall/shuttle/nosmooth/interior{
-	dir = 9;
-	icon_state = "gray_walls";
-	underlay_floor_icon = 'icons/turf/space.dmi';
-	underlay_floor_icon_state = "0"
-	},
-/turf/space,
 /area/ruin/powered)
 "D" = (
 /obj/machinery/light,
 /obj/structure/bed,
 /turf/simulated/floor/shuttle{
-	icon_state = "floor5";
-	tag = "icon-floor5"
-	},
-/area/ruin/powered)
-"E" = (
-/turf/simulated/wall/shuttle{
-	dir = 1;
-	icon_state = "gray_walls_directions"
-	},
-/area/ruin/powered)
-"F" = (
-/turf/simulated/wall/shuttle{
-	dir = 4;
-	icon_state = "gray_walls_directions"
-	},
-/area/ruin/powered)
-"S" = (
-/turf/simulated/wall/shuttle{
-	dir = 1;
-	icon_state = "gray_walls_full"
-	},
-/area/ruin/powered)
-"T" = (
-/turf/simulated/wall/shuttle{
-	icon_state = "gray_walls_directions"
-	},
-/area/ruin/powered)
-"V" = (
-/turf/simulated/wall/shuttle{
-	dir = 4;
-	icon_state = "gray_walls"
+	icon_state = "floor5"
 	},
 /area/ruin/powered)
 
@@ -268,10 +178,10 @@ a
 a
 a
 b
-T
+b
 s
 x
-d
+b
 a
 a
 a
@@ -280,11 +190,11 @@ a
 a
 e
 e
-c
+b
 n
 h
 h
-c
+b
 e
 e
 a
@@ -293,43 +203,43 @@ a
 b
 f
 f
-c
+b
 o
 h
 y
-c
+b
 f
 f
-d
+b
 "}
 (4,1,1) = {"
-c
+b
 g
 l
-c
+b
 p
 t
 p
-c
+b
 B
 n
-c
+b
 "}
 (5,1,1) = {"
-c
+b
 h
 h
-F
+b
 h
 h
 z
-F
+b
 h
 n
-c
+b
 "}
 (6,1,1) = {"
-c
+b
 i
 h
 m
@@ -339,10 +249,10 @@ h
 m
 h
 D
-c
+b
 "}
 (7,1,1) = {"
-c
+b
 j
 h
 h
@@ -352,10 +262,10 @@ h
 h
 h
 h
-c
+b
 "}
 (8,1,1) = {"
-c
+b
 k
 h
 h
@@ -365,70 +275,70 @@ h
 h
 h
 j
-c
+b
 "}
 (9,1,1) = {"
-A
-S
-V
-T
+b
+b
+b
+b
 q
 u
 q
-E
-V
-S
-C
+b
+b
+b
+b
 "}
 (10,1,1) = {"
 a
 a
-c
+b
 m
 h
 h
 h
 m
-c
+b
 a
 a
 "}
 (11,1,1) = {"
 a
 a
-c
+b
 h
 h
 v
 h
 h
-c
+b
 a
 a
 "}
 (12,1,1) = {"
 a
 a
-c
+b
 j
 r
 w
 n
 j
-c
+b
 a
 a
 "}
 (13,1,1) = {"
 a
 a
-A
-S
-S
-S
-S
-S
-C
+b
+b
+b
+b
+b
+b
+b
 a
 a
 "}

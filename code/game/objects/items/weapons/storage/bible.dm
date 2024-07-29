@@ -119,7 +119,7 @@
 		if(god_punishment == 5)
 			to_chat(chaplain, "<h1><span class='danger'>Вы злоупотребляете покровительством бога [deity_name], остановитесь и подумайте.</span></h1>")
 		else if(god_punishment > 5) //lets apply punishment AFTER heal
-			chaplain.electrocute_act(5, "Lightning Bolt", safety = TRUE, override = TRUE)
+			chaplain.electrocute_act(5, "молнии", flags = SHOCK_NOGLOVES)
 			playsound(get_turf(chaplain), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 			chaplain.adjustFireLoss(65)
 			chaplain.Weaken(10 SECONDS)

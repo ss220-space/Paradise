@@ -1,0 +1,238 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	tag = "icon-propulsion (EAST)"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/transport)
+"b" = (
+/turf/simulated/wall/shuttle{
+	dir = 3
+	},
+/area/shuttle/transport)
+"h" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/shuttle{
+	id_tag = "s_docking_airlock"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"i" = (
+/obj/effect/decal/cleanable/confetti,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"j" = (
+/obj/effect/decal/cleanable/blood/gibs/xeno,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"n" = (
+/obj/effect/decal/cleanable/blood/bubblegum,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"q" = (
+/turf/simulated/wall/shuttle{
+	tag = "icon-swall2"
+	},
+/area/shuttle/transport)
+"t" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"z" = (
+/obj/machinery/computer/shuttle/ferry/request{
+	dir = 4
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 8;
+	layer = 2.9
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"C" = (
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 2;
+	height = 12;
+	id = "ferry";
+	name = "ferry shuttle";
+	roundstart_move = "ferry_away";
+	timid = 1;
+	width = 5
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/shuttle{
+	id_tag = "s_docking_airlock"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"E" = (
+/turf/simulated/wall/shuttle,
+/area/shuttle/transport)
+"H" = (
+/obj/structure/toilet{
+	dir = 4
+	},
+/mob/living/simple_animal/hostile/megafauna/colossus{
+	faction = list("syndicate")
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"L" = (
+/obj/structure/toilet{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/megafauna/dragon{
+	faction = list("syndicate")
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"N" = (
+/obj/effect/rune{
+	icon = 'icons/effects/96x96.dmi';
+	icon_state = "rune_large"
+	},
+/obj/effect/decal/cleanable/confetti,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"P" = (
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"Q" = (
+/obj/structure/toilet,
+/mob/living/simple_animal/hostile/megafauna/bubblegum{
+	faction = list("syndicate")
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"T" = (
+/obj/structure/toilet{
+	dir = 1;
+	layer = 4
+	},
+/mob/living/simple_animal/hostile/megafauna/hierophant{
+	faction = list("syndicate")
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+"Z" = (
+/obj/structure/window/plasmareinforced{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/effect/decal/cleanable/blood/gibs/xeno,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/transport)
+
+(1,1,1) = {"
+a
+a
+h
+a
+a
+"}
+(2,1,1) = {"
+E
+z
+P
+Z
+E
+"}
+(3,1,1) = {"
+E
+i
+t
+i
+E
+"}
+(4,1,1) = {"
+E
+n
+P
+P
+E
+"}
+(5,1,1) = {"
+E
+i
+j
+n
+E
+"}
+(6,1,1) = {"
+E
+t
+H
+N
+E
+"}
+(7,1,1) = {"
+E
+Q
+P
+T
+E
+"}
+(8,1,1) = {"
+E
+P
+L
+t
+E
+"}
+(9,1,1) = {"
+E
+i
+P
+n
+E
+"}
+(10,1,1) = {"
+E
+n
+P
+j
+E
+"}
+(11,1,1) = {"
+E
+t
+P
+t
+E
+"}
+(12,1,1) = {"
+E
+b
+C
+q
+E
+"}

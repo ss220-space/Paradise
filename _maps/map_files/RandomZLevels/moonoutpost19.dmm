@@ -213,7 +213,7 @@
 	},
 /obj/item/clothing/under/rank/security,
 /obj/item/clothing/suit/armor/vest,
-/obj/item/melee/baton/loaded,
+/obj/item/melee/baton/security/loaded,
 /obj/item/clothing/head/helmet,
 /obj/effect/decal/cleanable/blood/gibs{
 	color = "red";
@@ -1621,10 +1621,9 @@
 	},
 /area/moonoutpost19/syndicateoutpost)
 "dr" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_state = "cabinetdetective";
-	name = "personal closet";
+/obj/structure/closet/secure_closet/cabinet{
+	desc = "It's a secure cabinet for personnel. The first card swiped gains control.";
+	name = "personal cabinet";
 	req_access = list(150)
 	},
 /obj/item/ammo_box/magazine/m10mm,
@@ -1638,11 +1637,7 @@
 	},
 /area/moonoutpost19/syndicateoutpost)
 "ds" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
+/obj/structure/closet/secure_closet/personal/cabinet{
 	req_access = list(150)
 	},
 /obj/item/stack/spacecash/c50,
@@ -6992,11 +6987,7 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "oA" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
+/obj/structure/closet/secure_closet/personal/cabinet{
 	req_access = list(271)
 	},
 /obj/item/clothing/under/suit_jacket/navy,
@@ -7222,11 +7213,7 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "oZ" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
+/obj/structure/closet/secure_closet/personal/cabinet{
 	req_access = list(271)
 	},
 /obj/item/clothing/under/assistantformal,
@@ -7245,11 +7232,7 @@
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19arrivals)
 "pg" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
+/obj/structure/closet/secure_closet/personal/cabinet{
 	req_access = list(271)
 	},
 /obj/item/clothing/under/suit_jacket/burgundy,

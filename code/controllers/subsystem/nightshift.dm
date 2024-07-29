@@ -20,6 +20,7 @@ SUBSYSTEM_DEF(nightshift)
 		flags |= SS_NO_FIRE
 	if(CONFIG_GET(flag/randomize_shift_time))
 		GLOB.gametime_offset = rand(0, 23) HOURS
+	return SS_INIT_SUCCESS
 
 
 /datum/controller/subsystem/nightshift/fire(resumed = FALSE)

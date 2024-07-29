@@ -36,10 +36,10 @@
 			to_chat(src, "<span class='danger'>Энергия на нуле. Стрельба заблокирована.</span>")
 			ranged = 0
 
-/mob/living/simple_animal/hostile/guardian/ranged/Stat()
-	..()
-	if(statpanel("Status"))
-		stat(null, "Запас энергии: [max(round(energy, 0.1), 0)]/150")
+/mob/living/simple_animal/hostile/guardian/ranged/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Запас энергии:", "[max(round(energy, 0.1), 0)]/150")
 
 /mob/living/simple_animal/hostile/guardian/ranged/OpenFire(atom/A)
 	if(ranged)

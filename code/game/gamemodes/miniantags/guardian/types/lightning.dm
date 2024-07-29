@@ -26,7 +26,7 @@
 	..()
 	AddSpell(new /obj/effect/proc_holder/spell/charge_up/bounce/lightning/guardian)
 
-/mob/living/simple_animal/hostile/guardian/beam/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+/mob/living/simple_animal/hostile/guardian/beam/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	return FALSE //You are lightning, you should not be hurt by such things.
 
 /mob/living/simple_animal/hostile/guardian/beam/Manifest()

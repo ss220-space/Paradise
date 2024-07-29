@@ -166,7 +166,7 @@
 	. = ..()
 	if(. || !COOLDOWN_FINISHED(src, shock_cooldown) || !isliving(user))
 		return
-	user.electrocute_act(15, "Energy Barrier", safety = TRUE)
+	user.electrocute_act(15, "энергетического барьера", flags = SHOCK_NOGLOVES)
 	COOLDOWN_START(src, shock_cooldown, 0.5 SECONDS)
 
 
@@ -174,6 +174,6 @@
 	. = ..()
 	if(!COOLDOWN_FINISHED(src, shock_cooldown) || !isliving(moving_living))
 		return .
-	moving_living.electrocute_act(15, "Energy Barrier", safety = TRUE)
+	moving_living.electrocute_act(15, "энергетического барьера", flags = SHOCK_NOGLOVES)
 	COOLDOWN_START(src, shock_cooldown, 0.5 SECONDS)
 

@@ -115,7 +115,7 @@
 		if(A.grab_attack(src, pulling))
 			changeNext_move(CLICK_CD_GRABBING)
 			return
-	target = A
+	GiveTarget(A)
 	AttackingTarget()
 
 /atom/proc/attack_animal(mob/user)

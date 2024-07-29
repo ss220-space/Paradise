@@ -21,7 +21,7 @@ GLOBAL_DATUM_INIT(air_alarm_repository, /datum/repository/air_alarm, new())
 		for(var/obj/machinery/alarm/alarm in (monitored_alarms ? monitored_alarms : GLOB.air_alarms)) // Generating the whole list again is a bad habit but I can't be bothered to fix it right now
 			if(!monitored_alarms && !is_station_contact(alarm.z))
 				continue
-			if(!alarm.remote_control)
+			if(!alarm.remote_control || !alarm.alarm_area.report_alerts)
 				continue
 			alarms[++alarms.len] = alarm.get_console_data()
 

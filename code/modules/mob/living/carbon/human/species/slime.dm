@@ -96,9 +96,9 @@
 	ADD_TRAIT(H, TRAIT_WATERBREATH, "species")
 	RegisterSignal(H, COMSIG_HUMAN_UPDATE_DNA, PROC_REF(blend))
 	blend(H)
-	H.verbs |= /mob/living/carbon/human/proc/emote_squish
-	H.verbs |= /mob/living/carbon/human/proc/emote_bubble
-	H.verbs |= /mob/living/carbon/human/proc/emote_pop
+	add_verb(H, /mob/living/carbon/human/proc/emote_squish)
+	add_verb(H, /mob/living/carbon/human/proc/emote_bubble)
+	add_verb(H, /mob/living/carbon/human/proc/emote_pop)
 
 
 /datum/species/slime/on_species_loss(mob/living/carbon/human/H)
@@ -117,9 +117,9 @@
 		changebeard.Remove(H)
 	REMOVE_TRAIT(H, TRAIT_WATERBREATH, "species")
 	UnregisterSignal(H, COMSIG_HUMAN_UPDATE_DNA)
-	H.verbs -= /mob/living/carbon/human/proc/emote_squish
-	H.verbs -= /mob/living/carbon/human/proc/emote_bubble
-	H.verbs -= /mob/living/carbon/human/proc/emote_pop
+	remove_verb(H, /mob/living/carbon/human/proc/emote_squish)
+	remove_verb(H, /mob/living/carbon/human/proc/emote_bubble)
+	remove_verb(H, /mob/living/carbon/human/proc/emote_pop)
 
 
 /datum/species/slime/proc/blend(mob/living/carbon/human/H)
