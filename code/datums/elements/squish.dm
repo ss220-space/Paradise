@@ -45,3 +45,19 @@
 
 #undef SHORT_SCALE
 #undef TALL_SCALE
+
+/datum/element/tilt_protection
+	element_flags = ELEMENT_DETACH
+
+/datum/element/tilt_protection/Attach(datum/target, duration = 20 SECONDS)
+	. = ..()
+	if(!iscarbon(target))
+		return ELEMENT_INCOMPATIBLE
+	addtimer(CALLBACK(src, PROC_REF(Detach)), duration)
+	ADD_TRAIT(target, TRAIT_FLATTENED, "vendor_flattening")
+
+/datum/element/tilt_protection/Detach(mob/living/carbon/C)
+	. = ..()
+	if(!istype(C))
+		return
+	REMOVE_TRAIT(C, TRAIT_FLATTENED, "vendor_flattening")

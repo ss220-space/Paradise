@@ -148,8 +148,10 @@
 	var/tiltable = TRUE
 	/// If this vendor is currently tipped
 	var/tilted = FALSE
+	/// If tilted, this variable should always be the rotation that was applied when we were tilted. Stored for the purposes of unapplying it.
+	var/tilted_rotation = 0
 	/// Amount of damage to deal when tipped
-	var/squish_damage = 40  // yowch
+	var/squish_damage = 30  // yowch
 	/// Factor of extra damage to deal when triggering a crit
 	var/crit_damage_factor = 2
 	/// Factor of extra damage to deal when you knock it over onto yourself
@@ -158,14 +160,14 @@
 	var/static/list/all_possible_crits = list()
 	/// Possible crit effects from this vending machine tipping.
 	var/list/possible_crits = list(
-		/datum/vendor_crit/pop_head,
+		// /datum/vendor_crit/pop_head, //too much i think
 		/datum/vendor_crit/embed,
 		/datum/vendor_crit/pin,
 		/datum/vendor_crit/shatter,
 		/datum/vendor_crit/lucky
 	)
 	/// number of shards to apply when a crit embeds
-	var/num_shards = 7
+	var/num_shards = 4
 	/// Last time the machine was punched
 	var/last_hit_time = 0
 	/// How long to wait before resetting the warning cooldown
@@ -1149,7 +1151,7 @@
 			picked_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_ARM, BODY_ZONE_R_LEG)
 			victim.apply_damage((damage_to_deal) * (1 / num_parts_to_pick), BRUTE, picked_zone)
 
-	victim.AddElement(/datum/element/squish, 80 SECONDS)
+	victim.AddElement(/datum/element/tilt_protection, 80 SECONDS) // use "/datum/element/squish" when people are ready for that.
 	if(victim.has_pain())
 		victim.emote("scream")
 
@@ -1219,9 +1221,11 @@
 /obj/machinery/vending/proc/tilt_over(mob/victim)
 	visible_message( span_danger("[src] tips over!"))
 	playsound(src, "sound/effects/bang.ogg", 100, TRUE)
-	var/matrix/M = matrix()
-	M.Turn(pick(90, 270))
-	transform = M
+	var/picked_rotation = pick(90, 270)
+	tilted_rotation = picked_rotation
+	var/matrix/to_turn = turn(transform, tilted_rotation)
+	animate(src, transform = to_turn, 0.2 SECONDS)
+
 	if(victim && get_turf(victim) != get_turf(src))
 		throw_at(get_turf(victim), 1, 1, spin = FALSE)
 
@@ -1247,9 +1251,8 @@
 	tilted = FALSE
 	layer = initial(layer)
 
-	var/matrix/M = matrix()
-	M.Turn(0)
-	transform = M
+	var/matrix/to_turn = turn(transform, -tilted_rotation)
+	animate(src, transform = to_turn, 0.2 SECONDS)
 
 /obj/machinery/vending/assist
 
