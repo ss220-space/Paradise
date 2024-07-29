@@ -4564,8 +4564,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "asteroid";
-	tag = "icon-asteroid (NORTH)"
+	icon_state = "asteroid"
 	},
 /area/hydroponics)
 "aNv" = (
@@ -4913,7 +4912,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "aPJ" = (
-/mob/living/simple_animal/mouse/gray,
+/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "cautioncorner"
@@ -11411,7 +11410,7 @@
 	},
 /area/security/range)
 "bBy" = (
-/mob/living/simple_animal/mouse/gray,
+/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
 "bBA" = (
@@ -14534,8 +14533,7 @@
 	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	icon_state = "asteroid";
-	tag = "icon-asteroid (NORTH)"
+	icon_state = "asteroid"
 	},
 /area/hydroponics)
 "bRe" = (
@@ -14947,8 +14945,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "asteroid";
-	tag = "icon-asteroid (NORTH)"
+	icon_state = "asteroid"
 	},
 /area/hydroponics)
 "bTs" = (
@@ -15237,8 +15234,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "asteroid";
-	tag = "icon-asteroid (NORTH)"
+	icon_state = "asteroid"
 	},
 /area/hydroponics)
 "bUn" = (
@@ -16390,7 +16386,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/mob/living/simple_animal/mouse/gray,
+/mob/living/simple_animal/mouse,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -19790,7 +19786,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/mob/living/simple_animal/mouse/gray,
+/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/engrooms)
 "cpJ" = (
@@ -26674,7 +26670,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "cSo" = (
-/mob/living/simple_animal/mouse/gray,
+/mob/living/simple_animal/mouse,
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"
@@ -26785,7 +26781,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/closet/secure_closet/bar,
+/obj/structure/closet/secure_closet/cabinet/bar,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/item/ammo_box/shotgun/beanbag,
 /turf/simulated/floor/plasteel{
@@ -27064,7 +27060,7 @@
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
-/obj/structure/closet/secure_closet/bar,
+/obj/structure/closet/secure_closet/cabinet/bar,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -30829,7 +30825,6 @@
 /area/toxins/mixing)
 "djJ" = (
 /obj/structure/table,
-/obj/machinery/computer/mob_healer_terminal,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -35083,8 +35078,7 @@
 	icon_state = "siding8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "asteroid";
-	tag = "icon-asteroid (NORTH)"
+	icon_state = "asteroid"
 	},
 /area/hydroponics)
 "dBA" = (
@@ -36674,8 +36668,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "asteroid";
-	tag = "icon-asteroid (NORTH)"
+	icon_state = "asteroid"
 	},
 /area/hydroponics)
 "dId" = (
@@ -44860,7 +44853,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/lounge)
 "eXS" = (
-/mob/living/simple_animal/mouse/gray{
+/mob/living/simple_animal/mouse{
 	real_name = "Товарищ Троцкий"
 	},
 /turf/simulated/floor/carpet,
@@ -47511,7 +47504,7 @@
 	},
 /area/turret_protected/aisat)
 "fKK" = (
-/mob/living/simple_animal/mouse/gray,
+/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "fLk" = (
@@ -48072,8 +48065,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "asteroid";
-	tag = "icon-asteroid (NORTH)"
+	icon_state = "asteroid"
 	},
 /area/hydroponics)
 "fTd" = (
@@ -48698,7 +48690,7 @@
 	},
 /area/atmos)
 "fYC" = (
-/mob/living/simple_animal/mouse/gray,
+/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
 "fYM" = (
@@ -54799,8 +54791,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "asteroid";
-	tag = "icon-asteroid (NORTH)"
+	icon_state = "asteroid"
 	},
 /area/hydroponics)
 "hEs" = (
@@ -54916,8 +54907,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "asteroid";
-	tag = "icon-asteroid (NORTH)"
+	icon_state = "asteroid"
 	},
 /area/hydroponics)
 "hFx" = (
@@ -55075,7 +55065,7 @@
 	},
 /area/security/podbay)
 "hHE" = (
-/mob/living/simple_animal/mouse/gray,
+/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "hHL" = (
@@ -69697,7 +69687,6 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/computer/mob_healer_terminal,
 /obj/structure/table,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
@@ -93895,7 +93884,7 @@
 	dir = 4;
 	pixel_y = 8
 	},
-/mob/living/simple_animal/mouse/gray,
+/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "sok" = (
@@ -101857,8 +101846,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "asteroid";
-	tag = "icon-asteroid (NORTH)"
+	icon_state = "asteroid"
 	},
 /area/hydroponics)
 "uwp" = (
@@ -107516,7 +107504,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
 "vTX" = (
-/obj/structure/closet/secure_closet/detective,
+/obj/structure/closet/secure_closet/cabinet/detective,
 /obj/item/hand_labeler,
 /obj/item/storage/box/evidence,
 /obj/item/storage/box/evidence,
@@ -111220,7 +111208,7 @@
 /area/security/checkpoint)
 "wQX" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/gray,
+/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "wRq" = (
@@ -114618,12 +114606,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/east)
-"xHm" = (
-/obj/effect/landmark/battle_mob_point,
-/turf/simulated/floor/engine{
-	name = "Holodeck Projector Floor"
-	},
-/area/holodeck/alphadeck)
 "xHs" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -115063,7 +115045,7 @@
 /area/chapel/main)
 "xLM" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/gray,
+/mob/living/simple_animal/mouse,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "xLU" = (
@@ -115852,7 +115834,7 @@
 /area/hallway/primary/aft)
 "xUX" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/gray,
+/mob/living/simple_animal/mouse,
 /obj/effect/landmark/ninja_teleport,
 /turf/simulated/floor/plating,
 /area/maintenance/library)
@@ -172397,10 +172379,10 @@ mYv
 foh
 lER
 lER
-xHm
 lER
 lER
-xHm
+lER
+lER
 lER
 lER
 eCY
