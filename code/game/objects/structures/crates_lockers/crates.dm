@@ -41,15 +41,15 @@
 	if(by_hand)
 		for(var/obj/O in src)
 			if(O.density)
-				var/response = alert(usr, "This crate has been packed with bluespace compression, an item inside won't fit back inside. Are you sure you want to open it?","Bluespace Compression Warning", "Yes", "No")
-				if(response == "No" || !Adjacent(usr))
+				var/response = tgui_alert(usr, "This crate has been packed with bluespace compression, an item inside won't fit back inside. Are you sure you want to open it?", "Bluespace Compression Warning", list("Yes", "No"))
+				if(response != "Yes" || !Adjacent(usr))
 					return FALSE
 				break
 
 	if(rigged && locate(/obj/item/radio/electropack) in src)
 		if(isliving(usr))
 			var/mob/living/L = usr
-			if(L.electrocute_act(17, src))
+			if(L.electrocute_act(17, "электропака в ящике"))
 				do_sparks(5, 1, src)
 				return 2
 
@@ -150,7 +150,7 @@
 		if(rigged && locate(/obj/item/radio/electropack) in src)
 			if(isliving(user))
 				var/mob/living/L = user
-				if(L.electrocute_act(17, src))
+				if(L.electrocute_act(17, "электропака в ящике"))
 					do_sparks(5, 1, src)
 					return
 		add_fingerprint(user)
@@ -267,8 +267,8 @@
 		locked = FALSE
 		broken = TRUE
 		playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		flick_overlay_view(image(icon, src, overlay_sparking), 1 SECONDS)
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 1 SECONDS)
+		flick_overlay_view(image(icon, src, overlay_sparking), sparking_duration)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), sparking_duration)
 		if(user)
 			to_chat(user, span_notice("You unlock [src]."))
 
@@ -283,8 +283,8 @@
 	if(prob(50 / severity))
 		locked = !locked
 		playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		flick_overlay_view(image(icon, src, overlay_sparking), 1 SECONDS)
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 1 SECONDS)
+		flick_overlay_view(image(icon, src, overlay_sparking), sparking_duration)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), sparking_duration)
 
 	if(prob(20 / severity))
 		if(locked)
@@ -308,6 +308,9 @@
 	desc = "A heavy, metal trashcart with wheels."
 	name = "trash Cart"
 	icon_state = "trashcart"
+
+/obj/structure/closet/crate/trashcart/NTdelivery
+	name = "Special Delivery from Central Command"
 
 /obj/structure/closet/crate/trashcart/gibs
 	desc = "A heavy, metal trashcart with wheels. You better don't ask."

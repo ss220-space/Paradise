@@ -64,6 +64,7 @@ SUBSYSTEM_DEF(shuttle)
 	initial_move()
 
 	centcom_message = "<center>---[station_time_timestamp()]---</center><br>Remember to stamp and send back the supply manifests.<hr>"
+	return SS_INIT_SUCCESS
 
 
 /datum/controller/subsystem/shuttle/get_stat_details()

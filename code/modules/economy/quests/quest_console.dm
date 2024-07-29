@@ -171,7 +171,7 @@
 				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 				return FALSE
 			var/datum/money_account/cargo_money_account = GLOB.department_accounts["Cargo"]
-			var/attempt_pin = input("Enter pin code", "Centcomm transaction") as num
+			var/attempt_pin = tgui_input_number(user, "Enter pin code", "Centcomm Transaction")
 			if(..() || !attempt_account_access(cargo_money_account.account_number, attempt_pin, 2))
 				to_chat(user, span_warning("Unable to access account: incorrect credentials."))
 				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
@@ -215,12 +215,8 @@
 
 	paper.info += "</ul><br><span class=\"large-text\"> Ориентировочная награда: [quest.reward]</span><br>"
 	paper.info += "<br><hr><br><span class=\"small-text\">Этот документ имеет автоматическую печать [station_name()] </span><br></div>"
-	var/obj/item/stamp/navcom/stamp = new()
-	paper.stamp(stamp)
-	paper.update_icon()
+	paper.stamp(/obj/item/stamp/navcom)
 	paper.name = "Форма запроса на поставку"
-
-
 
 
 /obj/machinery/computer/supplyquest/workers
@@ -294,9 +290,7 @@
 			paper.info += "<span class=\"small-text\">Вы получили скидку в <b>[quest.customer.cargo_sale[sale_category] * quest.customer.modificator * 100]%</b> в категории <b>[sale_category]</b> в списке заказов. </span><br>"
 	paper.info += "<hr><br><span class=\"small-text\">[pick(phrases)] </span><br>"
 	paper.info += "<br><hr><br><span class=\"small-text\">Этот документ имеет автоматическую печать [station_name()] </span><br></div>"
-	var/obj/item/stamp/navcom/stamp = new()
-	paper.stamp(stamp)
-	paper.update_icon()
+	paper.stamp(/obj/item/stamp/navcom)
 	paper.name = "Отчёт о поставке"
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	print_animation()

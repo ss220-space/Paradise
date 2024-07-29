@@ -44,6 +44,9 @@
 	 * The following variables are managed by the MC and should not be modified directly.
 	 */
 
+	/// Which stage does this subsystem init at. Earlier stages can fire while later stages init.
+	var/init_stage = INITSTAGE_MAIN
+
 	/// This var is set to TRUE after the subsystem has been initialized.
 	var/initialized = FALSE
 
@@ -117,6 +120,22 @@
 	return
 
 
+/**
+ * Used to initialize the subsystem. This is expected to be overriden by subtypes.
+ */
+/datum/controller/subsystem/Initialize()
+	return SS_INIT_NONE
+
+
+/datum/controller/subsystem/Destroy()
+	dequeue()
+	can_fire = FALSE
+	flags |= SS_NO_FIRE
+	if(Master)
+		Master.subsystems -= src
+	return ..()
+
+
 ///This is used so the mc knows when the subsystem sleeps. do not override.
 /datum/controller/subsystem/proc/ignite(resumed = FALSE)
 	SHOULD_NOT_OVERRIDE(TRUE)
@@ -152,15 +171,6 @@
 /datum/controller/subsystem/proc/fire(resumed = FALSE)
 	flags |= SS_NO_FIRE
 	CRASH("Subsystem [src]([type]) does not fire() but did not set the SS_NO_FIRE flag. Please add the SS_NO_FIRE flag to any subsystem that doesn't fire so it doesn't get added to the processing list and waste cpu.")
-
-
-/datum/controller/subsystem/Destroy()
-	dequeue()
-	can_fire = 0
-	flags |= SS_NO_FIRE
-	if(Master)
-		Master.subsystems -= src
-	return ..()
 
 
 /** Update next_fire for the next run.
@@ -276,39 +286,16 @@
 	return
 
 
-/// Used to initialize the subsystem AFTER the map has loaded
-/datum/controller/subsystem/proc/call_init(start_timeofday)
-	SHOULD_NOT_OVERRIDE(TRUE)
-	log_startup_progress("Initializing...")
-	Initialize()
-	initialized = TRUE
-	var/time = (REALTIMEOFDAY - start_timeofday) / 10
-	log_startup_progress("Initialized within [time] second[time == 1 ? "" : "s"]!")
-
-
-/datum/controller/subsystem/Initialize()
-	CRASH("Initialize() not overridden for [type]! Make the subsystem Initialize or add SS_NO_INIT to the flags")
-
-
 /// Hook for printing stats to the "MC" statuspanel for admins to see performance and related stats etc.
 /datum/controller/subsystem/stat_entry(msg)
-	if(!statclick)
-		statclick = new/obj/effect/statclick/debug(null, "Initializing...", src)
-
 	var/ss_info = get_stat_details()
 
-	if(can_fire && !(SS_NO_FIRE & flags))
+	if(can_fire && !(SS_NO_FIRE & flags) && init_stage <= Master.init_stage_completed)
 		msg = "[round(cost, 1)]ms | [round(tick_usage, 1)]%([round(tick_overrun, 1)]%) | [round(ticks, 0.1)]\t[ss_info]"
 	else
 		msg = "OFFLINE\t[ss_info]"
 
-	var/title = name
-	if(can_fire)
-		title = "[state_colour()]\[[state_letter()]][title]</font>"
-	else
-		title = "\[O][title]"
-
-	stat(title, statclick.update(msg))
+	return ..()
 
 
 /datum/controller/subsystem/proc/state_letter()

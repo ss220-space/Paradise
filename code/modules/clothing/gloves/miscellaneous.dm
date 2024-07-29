@@ -189,11 +189,11 @@
 	owner = user
 	if(istype(owner) && slot == ITEM_SLOT_GLOVES)
 		owner.dirslash_enabled = TRUE
-		owner.verbs += /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling
+		add_verb(owner, /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling)
 	. = ..()
 
 /obj/item/clothing/gloves/fingerless/rapid/dropped(mob/user, slot, silent = FALSE)
-	owner.verbs -= /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling
+	remove_verb(owner, /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling)
 	owner.dirslash_enabled = initial(owner.dirslash_enabled)
 	. = ..()
 
@@ -379,3 +379,27 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/gloves.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi'
 		)
+
+/obj/item/clothing/gloves/combat/swat
+	desc = "A pair of gloves made of the best reinforced materials. Protects against the effects of electricity, as well as partially acid and fire. Such gloves cost a fortune, you can say that wearing them, you literally have golden hands!"
+	name = "SWAT gloves"
+	icon_state = "swat_gloves"
+	item_state = "nt_swat_gl"
+	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 50)
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/gloves.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi'
+		)
+
+
+/obj/item/clothing/gloves/combat/swat/syndicate
+	desc = "A pair of gloves made of the best reinforced materials. Protects against the effects of electricity, as well as partially acid and fire. Show these NT pigs on your fingers who's the boss here!"
+	name = "syndicate armored gloves"
+	icon_state = "syndicate_swat"
+	item_state = "syndicate_swat_gl"

@@ -84,7 +84,7 @@
 
 
 /obj/structure/chair/e_chair/proc/shock(mob/living/user)
-	if(isliving(user) && (user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
+	if(isliving(user) && (user.incapacitated() || !isAI(user) && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
 		return
 
 	// special power handling
@@ -111,9 +111,9 @@
 
 	if(has_buckled_mobs())
 		for(var/mob/living/buckled_mob as anything in buckled_mobs)
-			buckled_mob.electrocute_act(110, src, 1)
+			buckled_mob.electrocute_act(110, "электрического стула")
 			to_chat(buckled_mob, span_userdanger("You feel a deep shock course through your body!"))
-			addtimer(CALLBACK(buckled_mob, TYPE_PROC_REF(/mob/living, electrocute_act), 110, src, 1), 0.1 SECONDS, TIMER_DELETE_ME)
+			addtimer(CALLBACK(buckled_mob, TYPE_PROC_REF(/mob/living, electrocute_act), 110, "электрического стула"), 0.1 SECONDS, TIMER_DELETE_ME)
 
 
 /obj/structure/chair/e_chair/proc/reset_echair()

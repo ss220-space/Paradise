@@ -55,22 +55,43 @@
 /mob/living/proc/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
 	return 0
 
-/mob/living/proc/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
-	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage)
+
+///As the name suggests, this should be called to apply electric shocks.
+/mob/living/proc/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+	if(SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage, source, siemens_coeff, flags) & COMPONENT_LIVING_BLOCK_SHOCK)
+		return FALSE
 	if(status_flags & GODMODE)	//godmode
 		return FALSE
-	if(HAS_TRAIT(src, TRAIT_SHOCKIMMUNE)) //shockproof
+	shock_damage *= siemens_coeff
+
+
+	// until physiology
+	if(reagents?.has_reagent("teslium"))
+		shock_damage *= 1.5
+
+
+	if(!(flags & SHOCK_IGNORE_IMMUNITY))
+		if((flags & SHOCK_TESLA) && HAS_TRAIT(src, TRAIT_TESLA_SHOCKIMMUNE))
+			return FALSE
+		if(HAS_TRAIT(src, TRAIT_SHOCKIMMUNE))
+			return FALSE
+	if(shock_damage < 1)
 		return FALSE
-	if(tesla_shock && tesla_ignore)
-		return FALSE
-	if(shock_damage > 0)
-		if(!illusion)
-			adjustFireLoss(shock_damage)
+	if(!(flags & SHOCK_ILLUSION))
+		adjustFireLoss(shock_damage)
+		if(shock_damage > 200)
+			playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
+			explosion(loc, -1, 0, 2, 2, cause = "[source] over electrocuted [name]")
+	else
+		adjustStaminaLoss(shock_damage)
+	if(!(flags & SHOCK_SUPPRESS_MESSAGE))
 		visible_message(
-			"<span class='danger'>[src.name] получа[pluralize_ru(src.gender,"ет","ют")] разряд током [source]!</span>",
-			"<span class='userdanger'>[pluralize_ru(src.gender,"Ты","Вы")] чувствуе[pluralize_ru(src.gender,"шь","те")] как через [pluralize_ru(src.gender,"твоё","ваше")] тело проходит электрический разряд!</span>",
-			"<span class='italics'>[pluralize_ru(src.gender,"Ты","Вы")] слыши[pluralize_ru(src.gender,"шь","те")] громкий электрический треск.</span>")
-		return shock_damage
+			span_danger("[name] получа[pluralize_ru(gender,"ет","ют")] удар током от [source]!"),
+			span_userdanger("Вы чувствуете как через Ваше тело проходит электрический разряд!"),
+			span_hear("Вы слышите громкий электрический треск."),
+		)
+	return shock_damage
+
 
 /mob/living/emp_act(severity)
 	..()

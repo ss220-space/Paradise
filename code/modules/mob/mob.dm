@@ -2,7 +2,7 @@
 	GLOB.mob_list -= src
 	GLOB.dead_mob_list -= src
 	GLOB.alive_mob_list -= src
-	input_focus = null
+	focus = null
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)
@@ -10,6 +10,9 @@
 	QDEL_LIST(diseases)
 	for(var/alert in alerts)
 		clear_alert(alert)
+	if(client)
+		var/client/client_ = client
+		client_.movingmob = null
 	ghostize()
 	QDEL_LIST_ASSOC_VAL(tkgrabbed_objects)
 	if(buckled)
@@ -27,16 +30,19 @@
 		GLOB.dead_mob_list += src
 	else
 		GLOB.alive_mob_list += src
-	input_focus = src
-	reset_perspective(src)
+	set_focus(src)
 	prepare_huds()
 	. = ..()
 	update_config_movespeed()
 	update_movespeed()
-
+	if(can_strip())
+		ADD_TRAIT(src, TRAIT_CAN_STRIP, GENERIC_TRAIT)
 
 /mob/vv_edit_var(var_name, var_value)
 	switch(var_name)
+		if(NAMEOF(src, focus))
+			set_focus(var_value)
+			. = TRUE
 		if(NAMEOF(src, machine))
 			set_machine(var_value)
 			. = TRUE
@@ -330,20 +336,6 @@
 			client.screen = list()
 			hud_used.show_hud(hud_used.hud_version)
 
-/mob/proc/show_inv(mob/user)
-	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8"><table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_HAND_LEFT]'>[(l_hand && !(l_hand.item_flags&ABSTRACT)) ? l_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_HAND_RIGHT]'>[(r_hand && !(r_hand.item_flags&ABSTRACT)) ? r_hand : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td>&nbsp;</td></tr>"}
-	dat += {"</table>
-	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
-	"}
-
-	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 250)
-	popup.set_content(dat)
-	popup.open()
-
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
 /mob/verb/examinate(atom/A as mob|obj|turf in view())
 	set name = "Examine"
@@ -358,7 +350,6 @@
 
 /mob/verb/mode()
 	set name = "Activate Held Object"
-	set category = null
 	set src = usr
 
 	if(ismecha(loc))
@@ -438,24 +429,22 @@
 	set src in usr
 	if(usr != src)
 		to_chat(usr, "No.")
-	var/msg = input(usr,"Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance.","Flavor Text",html_decode(flavor_text)) as message|null
-
-	if(msg != null)
-		msg = copytext_char(msg, 1, MAX_PAPER_MESSAGE_LEN)
-		msg = html_encode(msg)
-
-		flavor_text = msg
+	var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Flavor Text", flavor_text, multiline = TRUE)
+	if(isnull(msg))
+		return
+	if(stat)
+		to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
+		return
+	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
+	flavor_text = msg
 
 /mob/proc/print_flavor_text(var/shrink = TRUE)
 	if(flavor_text && flavor_text != "")
 		var/msg = replacetext(flavor_text, "\n", " ")
 		if(length(msg) <= 60 || !shrink)
-			return "<span class='notice'>[html_encode(msg)]</span>" //Repeat after me, "I will not give players access to decoded HTML."
+			return "<span class='notice'>[msg]</span>" // There is already encoded by tgui_input
 		else
 			return "<span class='notice'>[copytext_preserve_html(msg, 1, 57)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
-
-/mob/proc/is_dead()
-	return stat == DEAD
 
 /mob
 	var/newPlayerType = /mob/new_player
@@ -526,74 +515,8 @@
 	GLOB.respawnable_list += usr
 	return
 
-/mob/verb/observe()
-	set name = "Observe"
-	set category = "OOC"
-	var/is_admin = 0
-
-	if(client.holder && (client.holder.rights & R_ADMIN))
-		is_admin = 1
-	else if(stat != DEAD || isnewplayer(src))
-		to_chat(usr, "<span class='notice'>You must be observing to use this!</span>")
-		return
-
-	if(is_admin && stat == DEAD)
-		is_admin = 0
-
-	var/list/names = list()
-	var/list/namecounts = list()
-	var/list/creatures = list()
-
-	for(var/obj/O in GLOB.poi_list)
-		if(!O.loc)
-			continue
-		if(istype(O, /obj/item/disk/nuclear))
-			var/name = "Nuclear Disk"
-			if(names.Find(name))
-				namecounts[name]++
-				name = "[name] ([namecounts[name]])"
-			else
-				names.Add(name)
-				namecounts[name] = 1
-			creatures[name] = O
-
-		if(istype(O, /obj/singularity))
-			var/name = "Singularity"
-			if(names.Find(name))
-				namecounts[name]++
-				name = "[name] ([namecounts[name]])"
-			else
-				names.Add(name)
-				namecounts[name] = 1
-			creatures[name] = O
-
-
-	for(var/mob/M in sortAtom(GLOB.mob_list))
-		var/name = M.name
-		if(names.Find(name))
-			namecounts[name]++
-			name = "[name] ([namecounts[name]])"
-		else
-			names.Add(name)
-			namecounts[name] = 1
-
-		creatures[name] = M
-
-
-	client.perspective = EYE_PERSPECTIVE
-
-	var/eye_name = null
-
-	var/ok = "[is_admin ? "Admin Observe" : "Observe"]"
-	eye_name = input("Please, select a player!", ok, null, null) as null|anything in creatures
-
-	if(!eye_name)
-		return
-
-	var/mob/mob_eye = creatures[eye_name]
-
-	if(client && mob_eye)
-		client.eye = mob_eye
+/mob/proc/is_dead()
+	return stat == DEAD
 
 /mob/verb/cancel_camera()
 	set name = "Cancel Camera View"
@@ -611,26 +534,6 @@
 		unset_machine()
 		src << browse(null, t1)
 
-	if(href_list["refresh"])
-		if(machine && in_range(src, usr))
-			show_inv(machine)
-
-	if(!usr.incapacitated() && in_range(src, usr))
-		if(href_list["item"])
-			var/slot = text2num(href_list["item"])
-			var/obj/item/what = get_item_by_slot(slot)
-
-			if(what)
-				usr.stripPanelUnequip(what,src,slot)
-			else
-				usr.stripPanelEquip(what,src,slot)
-
-	if(usr.machine == src)
-		if(Adjacent(usr))
-			show_inv(usr)
-		else
-			usr << browse(null,"window=mob\ref[src]")
-
 	if(href_list["flavor_more"])
 		usr << browse(text({"<HTML><meta charset="UTF-8"><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>"}, name, replacetext(flavor_text, "\n", "<BR>")), text("window=[];size=500x200", name))
 		onclose(usr, "[name]")
@@ -641,20 +544,9 @@
 		usr << browse(GLOB.scoreboard, "window=roundstats;size=700x900")
 
 
-// The src mob is trying to strip an item from someone
-// Defined in living.dm
-/mob/proc/stripPanelUnequip(obj/item/what, mob/who)
-	return
-
-// The src mob is trying to place an item on someone
-// Defined in living.dm
-/mob/proc/stripPanelEquip(obj/item/what, mob/who)
-	return
-
-
 /mob/MouseDrop(mob/living/user, src_location, over_location, src_control, over_control, params)
 	. = ..()
-	if(!. || usr != user || usr == src || !user.can_strip)
+	if(!. || usr != user || usr == src || !HAS_TRAIT(user, TRAIT_CAN_STRIP))
 		return FALSE
 	if(isliving(user) && user.mob_size <= MOB_SIZE_SMALL)
 		return FALSE // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
@@ -663,8 +555,7 @@
 		return FALSE
 	if(isLivingSSD(src) && user.client?.send_ssd_warning(src))
 		return FALSE
-	show_inv(user)
-
+	SEND_SIGNAL(src, COMSIG_DO_MOB_STRIP, user, usr)
 
 /mob/proc/is_mechanical()
 	return mind && (mind.assigned_role == JOB_TITLE_CYBORG || mind.assigned_role == JOB_TITLE_AI)
@@ -697,130 +588,10 @@
 /mob/proc/is_muzzled()
 	return 0
 
-/mob/Stat()
-	..()
-
-	show_stat_turf_contents()
-
-	statpanel("Status") // We only want alt-clicked turfs to come before Status
-	stat(null, "Round ID: [GLOB.round_id ? GLOB.round_id : "NULL"]")
-
-	for(var/obj/effect/proc_holder/spell/spell as anything in mob_spell_list)
-		add_spell_to_statpanel(spell)
-	if(mind && isliving(src))
-		for(var/obj/effect/proc_holder/spell/spell as anything in mind.spell_list)
-			add_spell_to_statpanel(spell)
-
-	// Allow admins + PR reviewers to VIEW the panel. Doesnt mean they can click things.
-	if((is_admin(src) || check_rights(R_VIEWRUNTIMES, FALSE)))
-		// Shows SDQL2 list
-		if(length(GLOB.sdql2_queries))
-			if(statpanel("SDQL2"))
-				stat("Access Global SDQL2 List", GLOB.sdql2_vv_statobj)
-				for(var/i in GLOB.sdql2_queries)
-					var/datum/sdql2_query/Q = i
-					Q.generate_stat()
-		// Below are checks to see which MC panel you are looking at
-		if(client?.prefs.toggles2 & PREFTOGGLE_2_MC_TABS)
-			// Shows MC Metadata
-			if(statpanel("MC|M"))
-				stat("Info", "Showing MC metadata")
-				var/turf/T = get_turf(client.eye)
-				stat("Location:", COORD(T))
-				stat("CPU:", "[Master.formatcpu(world.cpu)]")
-				stat("Map CPU:", "[Master.formatcpu(world.map_cpu)]")
-				//stat("Map CPU:", "[Master.formatcpu(world.map_cpu)]")
-				stat("Instances:", "[num2text(world.contents.len, 10)]")
-				GLOB.stat_entry()
-				stat("Server Time:", time_stamp())
-				if(Master)
-					Master.stat_entry()
-				else
-					stat("Master Controller:", "ERROR")
-				if(Failsafe)
-					Failsafe.stat_entry()
-				else
-					stat("Failsafe Controller:", "ERROR")
-
-			// Shows subsystems with SS_NO_FIRE
-			if(statpanel("MC|N"))
-				stat("Info", "Showing subsystems that do not fire")
-				if(Master)
-					for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
-						if(SS.flags & SS_NO_FIRE)
-							SS.stat_entry()
-
-			// Shows subsystems with the SS_CPUDISPLAY_LOW flag
-			if(statpanel("MC|L"))
-				stat("Info", "Showing subsystems marked as low intensity")
-				if(Master)
-					for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
-						if((SS.cpu_display == SS_CPUDISPLAY_LOW) && !(SS.flags & SS_NO_FIRE))
-							SS.stat_entry()
-
-			// Shows subsystems with the SS_CPUDISPLAY_DEFAULT flag
-			if(statpanel("MC|D"))
-				stat("Info", "Showing subsystems marked as default intensity")
-				if(Master)
-					for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
-						if((SS.cpu_display == SS_CPUDISPLAY_DEFAULT) && !(SS.flags & SS_NO_FIRE))
-							SS.stat_entry()
-
-			// Shows subsystems with the SS_CPUDISPLAY_HIGH flag
-			if(statpanel("MC|H"))
-				stat("Info", "Showing subsystems marked as high intensity")
-				if(Master)
-					for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
-						if((SS.cpu_display == SS_CPUDISPLAY_HIGH) && !(SS.flags & SS_NO_FIRE))
-							SS.stat_entry()
-
-	statpanel("Status") // Switch to the Status panel again, for the sake of the lazy Stat procs
-
-	if(client?.statpanel == "Status")
-		if(SSticker)
-			show_stat_station_time()
-		stat(null, "Players Connected: [length(GLOB.clients)]")
-
-
-// this function displays the station time in the status panel
-/mob/proc/show_stat_station_time()
-	stat(null, "Current Map: [SSmapping.map_datum.name]")
-	if(SSmapping.next_map)
-		stat(null, "Next Map: [SSmapping.next_map.name]")
-	stat(null, "Round Time: [ROUND_TIME_TEXT()]")
-	stat(null, "Station Time: [station_time_timestamp()]")
-	stat(null, "Server TPS: [world.fps]")
-	stat(null, "Desired Client FPS: [client?.prefs?.clientfps]")
-	stat(null, "Time Dilation: [round(SStime_track.time_dilation_current,1)]% " + \
-				"AVG:([round(SStime_track.time_dilation_avg_fast,1)]%, " + \
-				"[round(SStime_track.time_dilation_avg,1)]%, " + \
-				"[round(SStime_track.time_dilation_avg_slow,1)]%)")
-	stat(null, "Ping: [round(client.lastping, 1)]ms (Average: [round(client.avgping, 1)]ms)")
-
-// this function displays the shuttles ETA in the status panel if the shuttle has been called
-/mob/proc/show_stat_emergency_shuttle_eta()
-	var/ETA = SSshuttle.emergency.getModeStr()
-	if(ETA)
-		stat(null, "[ETA] [SSshuttle.emergency.getTimerStr()]")
-
-/mob/proc/show_stat_turf_contents()
-	if(listed_turf && client)
-		if(!TurfAdjacent(listed_turf))
-			listed_turf = null
-		else
-			statpanel(listed_turf.name, null, listed_turf)
-			var/list/statpanel_things = list()
-			for(var/foo in listed_turf)
-				var/atom/A = foo
-				if(A.invisibility > see_invisible)
-					continue
-				if(!A.simulated)
-					continue
-				statpanel_things += A
-			statpanel(listed_turf.name, null, statpanel_things)
-
-/mob/proc/add_spell_to_statpanel(obj/effect/proc_holder/spell/S)
-	statpanel(S.panel,"[S.cooldown_handler.statpanel_info()]", S)
+/mob/proc/get_status_tab_items()
+	SHOULD_CALL_PARENT(TRUE)
+	var/list/status_tab_data = list()
+	return status_tab_data
 
 // facing verbs
 /mob/proc/canface()
@@ -1165,6 +936,9 @@
 /mob/proc/can_resist()
 	return FALSE		//overridden in living.dm
 
+///Can this mob use strip menu (defaut TRUE)
+/mob/proc/can_strip()
+	return TRUE
 
 ///Spin this mob around it's central axis
 /mob/proc/spin(spintime, speed)

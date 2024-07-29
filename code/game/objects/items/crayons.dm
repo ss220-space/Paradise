@@ -269,16 +269,20 @@
 //Spraycan stuff
 
 /obj/item/toy/crayon/spraycan
-	name = "spraycan"
-	icon_state = "spraycan_cap"
+	name = "Nanotrasen-brand Rapid Paint Applicator"
+	icon_state = "spraycan"
 	desc = "A metallic container containing tasty paint."
+	/// Current state of the cap
 	var/capped = 1
+	/// List of icon_state and names for paint welding mask
+	var/list/weld_icons = list("Flame" = "welding_redflame",
+					"Blue Flame" = "welding_blueflame",
+					"White Flame" = "welding_white")
 	instant = 1
 	validSurfaces = list(/turf/simulated/floor,/turf/simulated/wall)
 
-/obj/item/toy/crayon/spraycan/New()
-	..()
-	name = "Nanotrasen-brand Rapid Paint Applicator"
+/obj/item/toy/crayon/spraycan/Initialize(mapload)
+	. = ..()
 	update_icon()
 
 /obj/item/toy/crayon/spraycan/attack_self(mob/living/user as mob)
@@ -318,13 +322,46 @@
 			playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
 		..()
 
-
-/obj/item/toy/crayon/spraycan/update_icon_state()
-	icon_state = "spraycan[capped ? "_cap" : ""]"
-
-
 /obj/item/toy/crayon/spraycan/update_overlays()
 	. = ..()
 	var/image/I = image('icons/obj/crayons.dmi', icon_state = "[capped ? "spraycan_cap_colors" : "spraycan_colors"]")
 	I.color = colour
 	. += I
+
+/obj/item/toy/crayon/spraycan/proc/draw_paint(mob/living/user)
+	uses--
+	if(!uses)
+		to_chat(user, span_warning("Вы израсходовали [name]!"))
+		playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
+		qdel(src)
+
+/obj/item/toy/crayon/spraycan/proc/can_paint(obj/object, mob/living/user)
+	if(capped)
+		to_chat(user, span_warning("Вы не можете раскрасить [object], если крышка баллона краски закрыта!"))
+		return FALSE
+	if(!uses)
+		to_chat(user, span_warning("Не похоже, что бы осталось достаточно краски"))
+		return FALSE
+	return TRUE
+
+/obj/item/toy/crayon/spraycan/paintkit
+	colour = "#ffffff"
+	uses = 1
+	validSurfaces = null
+
+/obj/item/toy/crayon/spraycan/paintkit/attack_self(mob/living/user as mob)
+	to_chat(user, span_notice("Вы [capped ? "сняли" : "вернули"] колпачок [name]"))
+	capped = !capped
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/toy/crayon/spraycan/paintkit/bigbrother
+	name = "Paintkit «Big Brother»"
+	desc = "Баллончик с черно-золотым корпусом. В комплекте идет одноразовый трафарет для покраски сварочного шлема. К нему прикреплена записка, на которой написано: «Eyes everywhere»."
+	icon_state = "spraycan_bigbrother"
+	weld_icons = list("Big Brother" = "welding_bigbrother")
+
+/obj/item/toy/crayon/spraycan/paintkit/slavic
+	name = "Paintkit «Slavic»"
+	desc = "Баллончик с корпусом цвета хаки. В комплекте идет одноразовый трафарет для покраски сварочного шлема. К нему прикреплена записка, на которой написано: «Head, eyes, blyad»."
+	icon_state = "spraycan_slavic"
+	weld_icons = list("Slavic" = "welding_slavic")

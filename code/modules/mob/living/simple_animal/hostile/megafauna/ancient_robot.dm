@@ -586,8 +586,8 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/mob_negates_gravity() //No more being thrown around like a spastic child by grav anomalies
 	return TRUE
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
-	return
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+	return FALSE
 
 /mob/living/simple_animal/hostile/ancient_robot_leg
 	name = "leg"
@@ -653,7 +653,7 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/ancient_robot_leg/bullet_act(obj/item/projectile/P)
 	if(core.stat == CONSCIOUS && !core.target && core.AIStatus != AI_OFF && !core.client)
 		if(P.firer && get_dist(core, P.firer) <= core.aggro_vision_range)
-			core.FindTarget(list(P.firer), 1)
+			core.FindTarget(list(P.firer))
 		core.Goto(P.starting, core.move_to_delay, 3)
 	..()
 
@@ -744,8 +744,8 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/ancient_robot_leg/mob_negates_gravity()
 	return TRUE
 
-/mob/living/simple_animal/hostile/ancient_robot_leg/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
-	return
+/mob/living/simple_animal/hostile/ancient_robot_leg/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+	return FALSE
 
 /obj/item/projectile/bullet/ancient_robot_bullet
 	damage = 8

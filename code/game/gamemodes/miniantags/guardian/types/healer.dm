@@ -39,11 +39,11 @@
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medsensor.add_hud_to(src)
 
-/mob/living/simple_animal/hostile/guardian/healer/Stat()
-	..()
-	if(statpanel("Status"))
-		if(beacon_cooldown >= world.time)
-			stat(null, "Перезарядка блюспейс маяка: [max(round((beacon_cooldown - world.time)*0.1, 0.1), 0)] секунд")
+/mob/living/simple_animal/hostile/guardian/healer/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	if(beacon_cooldown >= world.time)
+		status_tab_data[++status_tab_data.len] = list("Перезарядка блюспейс маяка:", "[max(round((beacon_cooldown - world.time) * 0.1, 0.1), 0)] секунд")
 
 /mob/living/simple_animal/hostile/guardian/healer/AttackingTarget()
 	. = ..()

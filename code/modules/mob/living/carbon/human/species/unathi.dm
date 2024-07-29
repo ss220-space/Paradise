@@ -126,6 +126,7 @@
 		fire.Grant(H)
 	RegisterSignal(H, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(speedylegs))
 	speedylegs(H)
+	ADD_TRAIT(H,TRAIT_HEALS_FROM_ASH_TENDRIL, SPECIES_TRAIT)
 
 
 /datum/species/unathi/ashwalker/on_species_loss(mob/living/carbon/human/H)
@@ -134,6 +135,7 @@
 	if(fire)
 		fire.Remove(H)
 	UnregisterSignal(H, COMSIG_MOVABLE_Z_CHANGED)
+	REMOVE_TRAIT(H, TRAIT_HEALS_FROM_ASH_TENDRIL, SPECIES_TRAIT)
 
 
 /datum/species/unathi/ashwalker/proc/speedylegs(mob/living/carbon/human/H)
@@ -172,6 +174,7 @@
 		fire = new
 		fire.Grant(C)
 
+
 //removes the heal spell
 /datum/species/unathi/ashwalker/shaman/on_species_loss(mob/living/carbon/C)
 	. = ..()
@@ -186,14 +189,15 @@
 
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
 	..()
-	H.verbs |= /mob/living/carbon/human/proc/emote_wag
-	H.verbs |= /mob/living/carbon/human/proc/emote_swag
-	H.verbs |= /mob/living/carbon/human/proc/emote_hiss_unathi
-	H.verbs |= /mob/living/carbon/human/proc/emote_roar
-	H.verbs |= /mob/living/carbon/human/proc/emote_threat
-	H.verbs |= /mob/living/carbon/human/proc/emote_whip
-	H.verbs |= /mob/living/carbon/human/proc/emote_whip_l
-	H.verbs |= /mob/living/carbon/human/proc/emote_rumble
+	add_verb(H, list(
+		/mob/living/carbon/human/proc/emote_wag,
+		/mob/living/carbon/human/proc/emote_swag,
+		/mob/living/carbon/human/proc/emote_hiss_unathi,
+		/mob/living/carbon/human/proc/emote_roar,
+		/mob/living/carbon/human/proc/emote_threat,
+		/mob/living/carbon/human/proc/emote_whip,
+		/mob/living/carbon/human/proc/emote_whip_l,
+		/mob/living/carbon/human/proc/emote_rumble))
 	var/datum/action/innate/tail_cut/lash = locate() in H.actions
 	if(!lash)
 		lash = new
@@ -201,15 +205,15 @@
 
 /datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
 	..()
-	H.verbs -= /mob/living/carbon/human/proc/emote_wag
-	H.verbs -= /mob/living/carbon/human/proc/emote_swag
-	H.verbs -= /mob/living/carbon/human/proc/emote_hiss_unathi
-	H.verbs -= /mob/living/carbon/human/proc/emote_roar
-	H.verbs -= /mob/living/carbon/human/proc/emote_threat
-	H.verbs -= /mob/living/carbon/human/proc/emote_whip
-	H.verbs -= /mob/living/carbon/human/proc/emote_whip_l
-	H.verbs -= /mob/living/carbon/human/proc/emote_rumble
-
+	remove_verb(H, list(
+		/mob/living/carbon/human/proc/emote_wag,
+		/mob/living/carbon/human/proc/emote_swag,
+		/mob/living/carbon/human/proc/emote_hiss_unathi,
+		/mob/living/carbon/human/proc/emote_roar,
+		/mob/living/carbon/human/proc/emote_threat,
+		/mob/living/carbon/human/proc/emote_whip,
+		/mob/living/carbon/human/proc/emote_whip_l,
+		/mob/living/carbon/human/proc/emote_rumble))
 	var/datum/action/innate/tail_cut/lash = locate() in H.actions
 	if(lash)
 		lash.Remove(H)

@@ -68,7 +68,7 @@
 		. += image(icon = icon, icon_state = "enforcer_supp", pixel_x = 4)
 
 
-/obj/item/gun/projectile/automatic/pistol/enforcer/ui_action_click()
+/obj/item/gun/projectile/automatic/pistol/enforcer/ui_action_click(mob/user, datum/action/action, leftclick)
 	toggle_gunlight()
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal
@@ -123,7 +123,7 @@
 		. += image(icon = icon, icon_state = "sp8_supp")
 
 
-/obj/item/gun/projectile/automatic/pistol/sp8/ui_action_click()
+/obj/item/gun/projectile/automatic/pistol/sp8/ui_action_click(mob/user, datum/action/action, leftclick)
 	toggle_gunlight()
 
 

@@ -17,12 +17,14 @@ GLOBAL_LIST_INIT(rukeys, list(
 
 
 /proc/sanitize_english_key_to_russian(char)
-	var/new_char = GLOB.enkeys[lowertext(char)]
-	return (new_char != null) ? new_char : char
+	if(LAZYIN(GLOB.enkeys, lowertext(char)))
+		return GLOB.enkeys[lowertext(char)]
+	return char
 
 /proc/sanitize_russian_key_to_english(char)
-	var/new_char = GLOB.rukeys[uppertext(char)]
-	return (new_char != null) ? new_char : char
+	if(LAZYIN(GLOB.rukeys, uppertext(char)))
+		return GLOB.rukeys[uppertext(char)]
+	return char
 
 /proc/sanitize_english_string_to_russian(text)
 	. = ""

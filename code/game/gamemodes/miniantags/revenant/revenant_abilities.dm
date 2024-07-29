@@ -112,7 +112,6 @@
  */
 /obj/effect/proc_holder/spell/night_vision/revenant
 	base_cooldown = 0
-	panel = "Revenant Abilities"
 	message = "<span class='revennotice'>You toggle your night vision.</span>"
 	action_icon_state = "r_nightvision"
 	action_background_icon_state = "bg_revenant"
@@ -122,7 +121,6 @@
 /obj/effect/proc_holder/spell/revenant_transmit
 	name = "Transmit"
 	desc = "Telepathically transmits a message to the target."
-	panel = "Revenant Abilities"
 	base_cooldown = 0
 	clothes_req = FALSE
 	human_req = FALSE
@@ -139,7 +137,7 @@
 /obj/effect/proc_holder/spell/revenant_transmit/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	for(var/mob/living/M in targets)
 		spawn(0)
-			var/msg = stripped_input(user, "What do you wish to tell [M]?", null, "")
+			var/msg = tgui_input_text(usr, "What do you wish to tell [M]?", null, "")
 			if(!msg)
 				cooldown_handler.revert_cast()
 				return
@@ -153,7 +151,6 @@
 	clothes_req = FALSE
 	human_req = FALSE
 	action_background_icon_state = "bg_revenant"
-	panel = "Revenant Abilities (Locked)"
 	/// How long it reveals the revenant in deciseconds
 	var/reveal = 8 SECONDS
 	/// How long it stuns the revenant in deciseconds
@@ -201,7 +198,6 @@
 			return FALSE
 		name = "[initial(name)] ([cast_amount]E)"
 		to_chat(user, "<span class='revenwarning'>You have unlocked <B>[initial(name)]</B>!</span>")
-		panel = "Revenant Abilities"
 		locked = FALSE
 		cooldown_handler.revert_cast()
 		return FALSE
@@ -256,7 +252,7 @@
 		if(M == user)
 			continue
 		M.Beam(L, icon_state = "purple_lightning", icon = 'icons/effects/effects.dmi', time = 0.5 SECONDS)
-		M.electrocute_act(shock_damage, L, safety = TRUE)
+		M.electrocute_act(shock_damage, "настенной лампы", flags = SHOCK_NOGLOVES)
 		do_sparks(4, 0, M)
 		playsound(M, 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 

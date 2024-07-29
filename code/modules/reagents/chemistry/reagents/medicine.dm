@@ -1563,3 +1563,60 @@
 	update_flags |= M.adjustToxLoss(10, FALSE)
 
 	return list(0, update_flags)
+
+/datum/reagent/medicine/adv_lava_extract
+	name = "Modified Lavaland Extract"
+	id = "adv_lava_extract"
+	description = "A very expensive medicine that aids with pumping blood around the body, and prevents the heart from slowing down, healing patient in process. Overdose will cause heart attacks."
+	reagent_state = LIQUID
+	color = "#F5F5F5"
+	overdose_threshold = 10
+	harmless = FALSE
+	taste_description = "bad idea"
+	can_synth = FALSE
+
+/atom/movable/screen/alert/adv_lava_extract
+	name = "Strong Heartbeat"
+	desc = "Your heart beats with great force! Be carefull not to cause heart attack."
+	icon_state = "penthrite"
+
+/datum/reagent/medicine/adv_lava_extract/on_mob_add(mob/living/carbon/human/user)
+	. = ..()
+	user.throw_alert("penthrite", /atom/movable/screen/alert/adv_lava_extract)
+
+/datum/reagent/medicine/adv_lava_extract/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustOxyLoss(-3.5, FALSE)
+	update_flags |= M.adjustToxLoss(-2.5, FALSE)
+	update_flags |= M.adjustBruteLoss(-3, FALSE)
+	update_flags |= M.adjustFireLoss(-3, FALSE)
+	if(prob(50))
+		M.AdjustLoseBreath(-2 SECONDS)
+	M.SetConfused(0)
+	M.SetSleeping(0)
+	if(M.getFireLoss() > 35)
+		update_flags |= M.adjustFireLoss(-4, FALSE)
+	if(M.health < 0)
+		update_flags |= M.adjustToxLoss(-1, FALSE)
+		update_flags |= M.adjustBruteLoss(-1, FALSE)
+		update_flags |= M.adjustFireLoss(-1, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/medicine/adv_lava_extract/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustOxyLoss(4, FALSE)
+	update_flags |= M.adjustToxLoss(3, FALSE)
+	update_flags |= M.adjustBruteLoss(5, FALSE)
+	update_flags |= M.adjustFireLoss(5, FALSE)
+	update_flags |= M.adjustStaminaLoss(10, FALSE)
+	if(M.getFireLoss())
+		update_flags |= M.adjustFireLoss(5, FALSE) //It only makes existing burns worse
+	if(ishuman(M) && prob(7))
+		var/mob/living/carbon/human/H = M
+		if(!H.undergoing_cardiac_arrest())
+			H.set_heartattack(TRUE)
+	return ..() | update_flags
+
+/datum/reagent/medicine/adv_lava_extract/on_mob_delete(mob/living/carbon/human/user)
+	. = ..()
+	user.clear_alert("penthrite")

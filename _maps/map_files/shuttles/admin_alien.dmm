@@ -1,0 +1,1675 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ab" = (
+/obj/structure/alien/resin,
+/turf/simulated/wall/shuttle/nodiagonal,
+/area/shuttle/administration)
+"ak" = (
+/obj/structure/alien/weeds,
+/obj/structure/computerframe,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"aP" = (
+/obj/structure/table/reinforced,
+/obj/machinery/kitchen_machine/microwave/upgraded{
+	pixel_y = 6
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/carpet/black,
+/area/shuttle/administration)
+"bw" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 5;
+	do_not_delete_me = 1
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"bW" = (
+/obj/structure/chair/comfy/lime{
+	dir = 4
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"ce" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/gold{
+	dir = 6;
+	do_not_delete_me = 1
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/administration)
+"cQ" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/obj/machinery/light_construct{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/black,
+/area/shuttle/administration)
+"dn" = (
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkgrey"
+	},
+/area/shuttle/administration)
+"du" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
+/area/shuttle/administration)
+"dw" = (
+/obj/effect/turf_decal/stripes/black{
+	dir = 5;
+	do_not_delete_me = 1
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle,
+/area/shuttle/administration)
+"dI" = (
+/obj/structure/alien/resin,
+/turf/simulated/wall/shuttle,
+/area/shuttle/administration)
+"eh" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/carpet/black,
+/area/shuttle/administration)
+"en" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden,
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/shuttle/administration)
+"er" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/carpet/red,
+/area/shuttle/administration)
+"eF" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/obj/item/stack/sheet/metal,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkgrey"
+	},
+/area/shuttle/administration)
+"eS" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/obj/item/stack/tile/carpet/royalblue,
+/turf/simulated/floor/carpet/black,
+/area/shuttle/administration)
+"eX" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/obj/machinery/door/airlock/external{
+	frequency = 1331;
+	id_tag = "admin_s_inner";
+	name = "Ship External Access";
+	req_access = list(101)
+	},
+/obj/machinery/access_button{
+	command = "cycle_interior";
+	frequency = 1331;
+	master_tag = "admin_s_air_control";
+	pixel_x = -1;
+	pixel_y = -29;
+	req_access = list(101)
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"ge" = (
+/obj/structure/chair/comfy/lime,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"gz" = (
+/obj/structure/alien/weeds,
+/obj/structure/table_frame/wood,
+/turf/simulated/floor/carpet/black,
+/area/shuttle/administration)
+"gC" = (
+/obj/item/reagent_containers/food/drinks/bottle/wine{
+	pixel_x = -12;
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass,
+/obj/structure/alien/weeds,
+/obj/structure/table_frame/wood,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"gF" = (
+/obj/effect/turf_decal/stripes/black{
+	dir = 5;
+	do_not_delete_me = 1
+	},
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"im" = (
+/obj/machinery/light_construct/small,
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/shuttle/administration)
+"iv" = (
+/obj/machinery/door/airlock/external{
+	frequency = 1331;
+	id_tag = "admin_s_inner";
+	name = "Ship External Access";
+	req_access = list(101)
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"iX" = (
+/obj/effect/turf_decal/stripes/black{
+	dir = 9;
+	do_not_delete_me = 1
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle,
+/area/shuttle/administration)
+"jB" = (
+/obj/effect/turf_decal/stripes/black{
+	dir = 4;
+	do_not_delete_me = 1
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 8;
+	do_not_delete_me = 1
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "white"
+	},
+/area/shuttle/administration)
+"jD" = (
+/obj/effect/turf_decal/stripes/black{
+	dir = 8;
+	do_not_delete_me = 1
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 4;
+	do_not_delete_me = 1
+	},
+/obj/structure/alien/weeds,
+/obj/structure/alien/resin/door,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"jP" = (
+/obj/machinery/vending/coffee/free,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"jU" = (
+/obj/effect/turf_decal/stripes/black{
+	dir = 10;
+	do_not_delete_me = 1
+	},
+/obj/structure/alien/weeds/node,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle,
+/area/shuttle/administration)
+"jX" = (
+/obj/structure/alien/resin,
+/obj/structure/alien/resin,
+/turf/simulated/wall/shuttle,
+/area/shuttle/administration)
+"kj" = (
+/obj/effect/turf_decal/stripes/black{
+	dir = 4;
+	do_not_delete_me = 1
+	},
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"kA" = (
+/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"kF" = (
+/obj/effect/turf_decal/stripes/black{
+	dir = 5;
+	do_not_delete_me = 1
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 10;
+	do_not_delete_me = 1;
+	icon_state = "bs_deadlock"
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "white"
+	},
+/area/shuttle/administration)
+"kT" = (
+/obj/structure/chair/comfy/lime{
+	dir = 1
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"lo" = (
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle,
+/area/shuttle/administration)
+"lr" = (
+/obj/structure/alien/weeds,
+/obj/structure/table_frame,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"lx" = (
+/obj/structure/alien/weeds,
+/obj/machinery/constructable_frame/machine_frame,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"lR" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/structure/alien/weeds,
+/obj/item/chair/stool/bar,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"mg" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"mq" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 6
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkgrey"
+	},
+/area/shuttle/administration)
+"mV" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkgrey"
+	},
+/area/shuttle/administration)
+"nA" = (
+/obj/effect/turf_decal/stripes/black{
+	do_not_delete_me = 1
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 1;
+	do_not_delete_me = 1
+	},
+/obj/structure/alien/resin/door,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"nE" = (
+/obj/effect/turf_decal/stripes/black{
+	do_not_delete_me = 1
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 1;
+	do_not_delete_me = 1
+	},
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "white"
+	},
+/area/shuttle/administration)
+"nN" = (
+/obj/structure/alien/weeds,
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken Computer"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"oe" = (
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 8;
+	frequency = 1331;
+	id_tag = "admin_s_pump"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/shuttle/administration)
+"oY" = (
+/obj/machinery/door/airlock/centcom{
+	id_tag = "adminshuttle";
+	name = "Medbay";
+	opacity = 1;
+	req_access = list(101)
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 8;
+	do_not_delete_me = 1
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 4;
+	do_not_delete_me = 1
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"ph" = (
+/obj/structure/table/wood/fancy/royalblack,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"ps" = (
+/turf/space/transit/west{
+	icon_state = "speedspace_ew_1"
+	},
+/area/space)
+"qa" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
+"qk" = (
+/obj/effect/turf_decal/stripes/black{
+	do_not_delete_me = 1
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 1;
+	do_not_delete_me = 1
+	},
+/obj/structure/alien/weeds,
+/obj/structure/alien/resin/door,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"rc" = (
+/obj/structure/alien/resin,
+/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
+/area/shuttle/administration)
+"rv" = (
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"rJ" = (
+/obj/item/storage/fancy/cigarettes/dromedaryco{
+	pixel_y = 6
+	},
+/obj/item/lighter/zippo{
+	pixel_x = 5;
+	pixel_y = 4
+	},
+/obj/structure/table/wood/fancy/royalblue,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/carpet/black,
+/area/shuttle/administration)
+"sh" = (
+/obj/machinery/vending/medical,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"sk" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "adminshuttleshutters";
+	name = "Blast Shutters"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
+"tw" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4;
+	icon_state = "heater3x3_side";
+	tag = "icon-heater (NORTH)"
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#22aab7";
+	dir = 8
+	},
+/obj/structure/shuttle/engine/platform{
+	dir = 4;
+	layer = 2.9
+	},
+/turf/simulated/wall/shuttle,
+/area/shuttle/administration)
+"tA" = (
+/turf/simulated/wall/shuttle,
+/area/shuttle/administration)
+"tJ" = (
+/obj/effect/turf_decal/stripes/black{
+	dir = 8;
+	do_not_delete_me = 1
+	},
+/obj/structure/alien/weeds,
+/obj/machinery/suit_storage_unit{
+	state_open = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/shuttle/administration)
+"uh" = (
+/turf/simulated/wall/shuttle/nodiagonal,
+/area/shuttle/administration)
+"up" = (
+/obj/structure/shuttle/engine/platform{
+	dir = 8;
+	layer = 2.9
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/shuttle/administration)
+"vg" = (
+/obj/structure/fans/tiny,
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 8;
+	height = 18;
+	id = "admin";
+	name = "administration shuttle";
+	roundstart_move = "admin_away";
+	width = 18
+	},
+/obj/machinery/door/airlock/external{
+	frequency = 1331;
+	id_tag = "admin_s_outer";
+	name = "Ship External Access";
+	req_access = list(101)
+	},
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1331;
+	master_tag = "admin_s_air_control";
+	pixel_x = -1;
+	pixel_y = -29;
+	req_access = list(101)
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"vB" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds/node,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkgrey"
+	},
+/area/shuttle/administration)
+"wz" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "adminshuttleshutters";
+	name = "Blast Shutters"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
+"wU" = (
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	frequency = 1331;
+	id_tag = "admin_s_air_control";
+	pixel_y = 24;
+	req_access = list(152);
+	tag_airpump = "admin_s_pump";
+	tag_chamber_sensor = "admin_s_sensor";
+	tag_exterior_door = "admin_s_outer";
+	tag_interior_door = "admin_s_inner"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/shuttle/administration)
+"yC" = (
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken Computer"
+	},
+/obj/effect/turf_decal/stripes/gold{
+	dir = 5;
+	do_not_delete_me = 1
+	},
+/obj/machinery/light_construct/small{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/administration)
+"yU" = (
+/obj/structure/alien/weeds,
+/obj/machinery/light_construct{
+	dir = 1
+	},
+/obj/machinery/constructable_frame/machine_frame,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"za" = (
+/obj/structure/alien/weeds,
+/obj/item/stack/sheet/metal,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkgrey"
+	},
+/area/shuttle/administration)
+"zj" = (
+/obj/structure/table/wood/fancy/royalblue,
+/obj/structure/window/plasmareinforced{
+	color = "#22aab7";
+	dir = 8
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#22aab7";
+	dir = 1
+	},
+/obj/item/reagent_containers/food/drinks/shaker,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/carpet/black,
+/area/shuttle/administration)
+"zz" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/obj/machinery/light_construct,
+/turf/simulated/floor/carpet/red,
+/area/shuttle/administration)
+"zC" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/hatch{
+	name = "NVT Argos";
+	req_access = list(101)
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"zW" = (
+/obj/effect/turf_decal/stripes/black{
+	dir = 8;
+	do_not_delete_me = 1
+	},
+/obj/structure/alien/weeds,
+/obj/item/stack/sheet/metal,
+/obj/machinery/light_construct{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/shuttle/administration)
+"Aa" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4;
+	icon_state = "heater3x3";
+	tag = "icon-heater (NORTH)"
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#22aab7";
+	dir = 8
+	},
+/obj/structure/shuttle/engine/platform{
+	dir = 4;
+	layer = 2.9
+	},
+/turf/simulated/wall/shuttle,
+/area/shuttle/administration)
+"Ay" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 6;
+	do_not_delete_me = 1
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"AI" = (
+/obj/structure/alien/resin,
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/shuttle/administration)
+"AJ" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/obj/item/stack/rods,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkgrey"
+	},
+/area/shuttle/administration)
+"Cm" = (
+/obj/effect/turf_decal/stripes/black{
+	dir = 8;
+	do_not_delete_me = 1
+	},
+/obj/structure/alien/weeds,
+/obj/machinery/suit_storage_unit{
+	state_open = 1
+	},
+/obj/machinery/light_construct{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/shuttle/administration)
+"Cn" = (
+/obj/effect/turf_decal/stripes/gold{
+	dir = 5;
+	do_not_delete_me = 1;
+	icon_state = "gs_deadlock"
+	},
+/obj/structure/computerframe,
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/administration)
+"CK" = (
+/obj/structure/alien/weeds,
+/obj/machinery/light_construct{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"CW" = (
+/obj/structure/alien/weeds,
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"Dp" = (
+/obj/effect/turf_decal/stripes/black{
+	dir = 5;
+	do_not_delete_me = 1
+	},
+/obj/structure/alien/weeds,
+/obj/item/stack/sheet/metal{
+	amount = 2
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"Ef" = (
+/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"Ew" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/constructable_frame/machine_frame,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"Ey" = (
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"EL" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 4;
+	icon_state = "heater3x3_side_inv";
+	tag = "icon-heater (NORTH)"
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#22aab7";
+	dir = 8
+	},
+/obj/structure/shuttle/engine/platform{
+	dir = 4;
+	layer = 2.9
+	},
+/turf/simulated/wall/shuttle,
+/area/shuttle/administration)
+"Fj" = (
+/obj/structure/alien/weeds,
+/obj/machinery/light_construct{
+	dir = 1
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkgrey"
+	},
+/area/shuttle/administration)
+"FB" = (
+/obj/structure/alien/weeds,
+/obj/item/chair/stool/bar,
+/turf/simulated/floor/carpet/red,
+/area/shuttle/administration)
+"HM" = (
+/obj/structure/alien/weeds/node,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkgrey"
+	},
+/area/shuttle/administration)
+"HR" = (
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/shuttle/administration)
+"HT" = (
+/obj/structure/table,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"Il" = (
+/obj/machinery/door/window/brigdoor{
+	color = "#22aab7";
+	dir = 8;
+	icon_state = "rightsecure";
+	req_access = list(101)
+	},
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/carpet/black,
+/area/shuttle/administration)
+"IQ" = (
+/obj/machinery/computer/shuttle/admin{
+	dir = 1;
+	name = "NTV Argos shuttle console"
+	},
+/obj/effect/turf_decal/stripes/gold{
+	dir = 6;
+	do_not_delete_me = 1;
+	icon_state = "gs_deadlock"
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/administration)
+"JC" = (
+/obj/structure/table/reinforced,
+/obj/machinery/chem_dispenser/soda/upgraded,
+/obj/item/storage/box/drinkingglasses{
+	pixel_x = 1;
+	pixel_y = 5
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/carpet/black,
+/area/shuttle/administration)
+"JR" = (
+/obj/machinery/door_control{
+	id = "adminshuttleshutters";
+	name = "Shutter control";
+	pixel_x = 5;
+	pixel_y = -23;
+	req_access = list(101)
+	},
+/obj/item/twohanded/required/kirbyplants,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"Kc" = (
+/obj/machinery/iv_drip,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"Ku" = (
+/turf/simulated/floor/shuttle/transparent_floor,
+/area/shuttle/administration)
+"Lf" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkgrey"
+	},
+/area/shuttle/administration)
+"LI" = (
+/obj/effect/turf_decal/stripes/black{
+	dir = 6;
+	do_not_delete_me = 1
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"LL" = (
+/obj/structure/alien/weeds,
+/obj/machinery/constructable_frame/machine_frame,
+/turf/simulated/floor/carpet/black,
+/area/shuttle/administration)
+"Mb" = (
+/obj/structure/alien/weeds,
+/turf/simulated/floor/carpet/red,
+/area/shuttle/administration)
+"Mg" = (
+/obj/structure/chair/stool/bar,
+/obj/structure/alien/weeds,
+/obj/item/stack/tile/carpet/royalblue,
+/turf/simulated/floor/carpet/red,
+/area/shuttle/administration)
+"ML" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/black{
+	do_not_delete_me = 1
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 1;
+	do_not_delete_me = 1
+	},
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "white"
+	},
+/area/shuttle/administration)
+"Nh" = (
+/obj/effect/turf_decal/stripes/gold{
+	dir = 5;
+	do_not_delete_me = 1
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/administration)
+"Nj" = (
+/obj/machinery/optable,
+/obj/structure/alien/weeds,
+/obj/machinery/light_construct{
+	dir = 8
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"NB" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/item/flag/nt,
+/obj/structure/alien/weeds,
+/obj/machinery/light_construct{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkgrey"
+	},
+/area/shuttle/administration)
+"Oi" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 4;
+	do_not_delete_me = 1
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"OG" = (
+/obj/effect/turf_decal/stripes/black{
+	dir = 10;
+	do_not_delete_me = 1
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 5;
+	do_not_delete_me = 1;
+	icon_state = "bs_deadlock"
+	},
+/obj/structure/alien/weeds/node,
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "white"
+	},
+/area/shuttle/administration)
+"OK" = (
+/obj/structure/alien/weeds,
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"Pa" = (
+/obj/structure/table,
+/obj/structure/alien/weeds,
+/obj/item/stack/sheet/metal,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"Po" = (
+/turf/simulated/wall/shuttle/onlyselfsmooth,
+/area/shuttle/administration)
+"PD" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/obj/item/stack/tile/carpet/black,
+/turf/simulated/floor/carpet/red,
+/area/shuttle/administration)
+"PO" = (
+/obj/structure/alien/weeds,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/ash,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkgrey"
+	},
+/area/shuttle/administration)
+"PY" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds/node,
+/turf/simulated/floor/carpet/red,
+/area/shuttle/administration)
+"Qr" = (
+/obj/effect/turf_decal/stripes/black{
+	dir = 6;
+	do_not_delete_me = 1
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle,
+/area/shuttle/administration)
+"QC" = (
+/obj/structure/table/reinforced,
+/obj/machinery/chem_dispenser/beer/upgraded,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/carpet/black,
+/area/shuttle/administration)
+"QH" = (
+/obj/structure/chair/comfy/lime{
+	dir = 8
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"QW" = (
+/obj/structure/grille,
+/obj/structure/window/full/shuttle,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
+	id_tag = "adminshuttleshutters";
+	name = "Blast Shutters"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
+"Rq" = (
+/obj/effect/turf_decal/stripes/black{
+	dir = 8;
+	do_not_delete_me = 1
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 4;
+	do_not_delete_me = 1
+	},
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/obj/structure/alien/resin/door,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"Rx" = (
+/turf/space,
+/area/space)
+"RK" = (
+/obj/structure/alien/weeds,
+/obj/machinery/constructable_frame/machine_frame,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"RO" = (
+/obj/structure/table/wood/fancy/royalblack,
+/obj/item/candle/eternal,
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	pixel_x = 6;
+	pixel_y = 9
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"RS" = (
+/obj/effect/turf_decal/stripes/black{
+	dir = 8;
+	do_not_delete_me = 1;
+	icon_state = "bs_deadlock"
+	},
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "white"
+	},
+/area/shuttle/administration)
+"RY" = (
+/obj/structure/dispenser/oxygen,
+/obj/effect/turf_decal/stripes/black{
+	dir = 8;
+	do_not_delete_me = 1
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"Sf" = (
+/obj/effect/turf_decal/stripes/gold{
+	dir = 6;
+	do_not_delete_me = 1
+	},
+/obj/machinery/light/small,
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken Computer"
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/shuttle/administration)
+"Sn" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds/node,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkgrey"
+	},
+/area/shuttle/administration)
+"Su" = (
+/obj/structure/shuttle/engine/huge{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle/transparent_floor,
+/area/shuttle/administration)
+"TY" = (
+/obj/machinery/atmospherics/unary/tank/air{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/black{
+	dir = 8;
+	do_not_delete_me = 1
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"Uk" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external{
+	frequency = 1331;
+	id_tag = "admin_s_outer";
+	name = "Ship External Access";
+	req_access = list(101)
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "podfloor_dark"
+	},
+/area/shuttle/administration)
+"UK" = (
+/obj/structure/alien/weeds,
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"Vr" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/airlock_sensor{
+	frequency = 1331;
+	id_tag = "admin_s_sensor";
+	pixel_y = 26;
+	req_access = list(101)
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/shuttle/administration)
+"Vy" = (
+/obj/item/storage/ashtray/glass{
+	pixel_x = -6;
+	pixel_y = 7
+	},
+/obj/structure/alien/weeds,
+/obj/structure/table_frame/wood,
+/turf/simulated/floor/carpet/black,
+/area/shuttle/administration)
+"VU" = (
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds/node,
+/turf/simulated/floor/carpet/red,
+/area/shuttle/administration)
+"Xl" = (
+/obj/effect/turf_decal/stripes/black{
+	dir = 8;
+	do_not_delete_me = 1
+	},
+/obj/machinery/suit_storage_unit{
+	state_open = 1
+	},
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/shuttle/administration)
+"Ye" = (
+/obj/structure/table/reinforced,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"Yt" = (
+/obj/structure/alien/weeds/node,
+/obj/structure/alien/weeds,
+/obj/structure/alien/weeds,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkgrey"
+	},
+/area/shuttle/administration)
+"YN" = (
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	frequency = 1331;
+	id_tag = "admin_s_pump"
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "vfloor"
+	},
+/area/shuttle/administration)
+"ZW" = (
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/structure/alien/weeds,
+/obj/item/stack/rods,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkgrey"
+	},
+/area/shuttle/administration)
+
+(1,1,1) = {"
+Rx
+Rx
+tA
+sk
+sk
+qa
+tA
+Rx
+Rx
+Rx
+Rx
+tA
+tA
+tA
+tA
+tA
+Rx
+Rx
+"}
+(2,1,1) = {"
+Rx
+tA
+tA
+ge
+RO
+kT
+tA
+Po
+sk
+sk
+Po
+tA
+ak
+Nj
+Ye
+tA
+tA
+Rx
+"}
+(3,1,1) = {"
+tA
+tA
+RK
+rv
+gC
+kT
+dI
+yC
+Cn
+IQ
+Sf
+tA
+Ye
+RS
+kA
+Ef
+tA
+tA
+"}
+(4,1,1) = {"
+tA
+jP
+er
+PD
+VU
+zz
+jX
+CW
+Nh
+ce
+JR
+tA
+lo
+kF
+jB
+OG
+Ey
+tA
+"}
+(5,1,1) = {"
+Po
+yU
+er
+er
+er
+er
+uh
+uh
+OK
+rv
+uh
+dI
+dI
+dI
+ab
+nE
+nN
+tA
+"}
+(6,1,1) = {"
+wz
+bW
+Mb
+Mb
+zj
+Il
+QC
+Po
+jD
+jD
+Po
+mg
+Ew
+HT
+dI
+nE
+lx
+tA
+"}
+(7,1,1) = {"
+wz
+ph
+PY
+FB
+rJ
+eh
+JC
+dI
+dn
+dn
+tA
+iX
+jU
+HT
+dI
+ML
+sh
+tA
+"}
+(8,1,1) = {"
+wz
+QH
+Mb
+Mb
+Vy
+eS
+aP
+dI
+Fj
+HM
+nA
+dw
+Qr
+lr
+tA
+nE
+Ey
+tA
+"}
+(9,1,1) = {"
+Po
+lR
+Mb
+Mg
+gz
+cQ
+LL
+dI
+dn
+dn
+tA
+UK
+CK
+Pa
+tA
+nE
+Kc
+tA
+"}
+(10,1,1) = {"
+tA
+du
+jD
+du
+dI
+dI
+dI
+rc
+jD
+Rq
+du
+tA
+dI
+dI
+du
+oY
+rc
+tA
+"}
+(11,1,1) = {"
+Po
+Ay
+dn
+Dp
+AI
+Oi
+Oi
+LI
+Lf
+AJ
+gF
+kj
+Oi
+AI
+Ay
+Lf
+bw
+Po
+"}
+(12,1,1) = {"
+zC
+dn
+vB
+dn
+qk
+dn
+za
+dn
+Lf
+Lf
+Sn
+eF
+dn
+qk
+Lf
+Yt
+Lf
+QW
+"}
+(13,1,1) = {"
+zC
+dn
+dn
+vB
+qk
+dn
+dn
+HM
+dn
+za
+dn
+dn
+dn
+qk
+Lf
+Lf
+Lf
+QW
+"}
+(14,1,1) = {"
+Po
+tJ
+Cm
+tJ
+AI
+dn
+dn
+PO
+dn
+mq
+NB
+ZW
+mV
+AI
+Xl
+zW
+Xl
+Po
+"}
+(15,1,1) = {"
+tA
+EL
+Aa
+tw
+tA
+RY
+ab
+AI
+iv
+eX
+Po
+uh
+TY
+dI
+EL
+Aa
+tw
+tA
+"}
+(16,1,1) = {"
+tA
+up
+up
+up
+tA
+tA
+tA
+wU
+YN
+en
+HR
+tA
+tA
+tA
+up
+up
+up
+tA
+"}
+(17,1,1) = {"
+tA
+Ku
+Su
+Ku
+tA
+Rx
+tA
+Vr
+HR
+oe
+im
+tA
+Rx
+tA
+Ku
+Su
+Ku
+tA
+"}
+(18,1,1) = {"
+Rx
+Ku
+Ku
+Ku
+Rx
+Rx
+tA
+Po
+Uk
+vg
+Po
+tA
+Rx
+ps
+Ku
+Ku
+Ku
+Rx
+"}

@@ -27,11 +27,11 @@
 		forceMove(get_turf(summoner))
 		cooldown = world.time + 20
 
-/mob/living/simple_animal/hostile/guardian/assassin/Stat()
-	..()
-	if(statpanel("Status"))
-		if(stealthcooldown >= world.time)
-			stat(null, "Время до невидимости: [max(round((stealthcooldown - world.time)*0.1, 0.1), 0)] секунд")
+/mob/living/simple_animal/hostile/guardian/assassin/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	if(stealthcooldown >= world.time)
+		status_tab_data[++status_tab_data.len] = list("Время до невидимости:", "[max(round((stealthcooldown - world.time) * 0.1, 0.1), 0)] секунд")
 
 /mob/living/simple_animal/hostile/guardian/assassin/AttackingTarget()
 	var/mob/living/L = target

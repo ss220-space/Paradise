@@ -48,12 +48,9 @@
 /obj/item/paperplane/update_overlays()
 	. = ..()
 	var/list/stamped = internal_paper.stamped
-	if(!stamped)
-		stamped = new
-	else if(stamped)
-		for(var/S in stamped)
-			var/obj/item/stamp = S
-			. += "paperplane_[initial(stamp.icon_state)]"
+	if(LAZYLEN(stamped))
+		for(var/obj/item/stamp/stamp_path as anything in stamped)
+			. += "paperplane_[initial(stamp_path.icon_state)]"
 
 
 /obj/item/paperplane/attack_self(mob/user) // Unfold the paper plane
