@@ -107,11 +107,9 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	if(!uplink_item)
 		return FALSE
 	if(uplink_item.limited_stock == 0)
-		to_chat(buyer, span_warning("You have redeemed this discount already."))
+		to_chat(buyer, span_warning("You have redeemed this offer already."))
 		return FALSE
 	uplink_item.buy(src, buyer)
-	if(uplink_item.limited_stock > 0) // only decrement it if it's actually limited
-		uplink_item.limited_stock--
 	SStgui.update_uis(src)
 	return TRUE
 
@@ -254,10 +252,13 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 	if(contractor)
 		var/list/contractor_data = list(
-			available = uses >= contractor.tc_cost && world.time < contractor.offer_deadline,
+			available = uses >= contractor.tc_cost && world.time < contractor.offer_deadline && \
+			(SSticker?.mode?.contractor_accepted< CONTRACTOR_MAX_ACCEPTED || contractor.is_admin_forced),
 			affordable = uses >= contractor.tc_cost,
 			accepted = !isnull(contractor.contractor_uplink),
 			time_left = contractor.offer_deadline - world.time,
+			available_offers = CONTRACTOR_MAX_ACCEPTED - SSticker?.mode?.contractor_accepted,
+			is_admin_forced = contractor.is_admin_forced,
 		)
 		data["contractor"] = contractor_data
 
@@ -514,6 +515,13 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 /obj/item/radio/uplink/sst/choose_uplink()
 	return UPLINK_TYPE_SST
+
+/obj/item/radio/uplink/sst/get_uses_amount()
+	var/danger = GLOB.player_list.len
+	var/temp_danger = (danger + 9)
+	danger = temp_danger - temp_danger % 10
+	danger *= NUKESCALINGMODIFIER
+	return ..() + round(danger/ NUKERS_COUNT) + danger % NUKERS_COUNT
 
 
 /obj/item/radio/uplink/admin/choose_uplink()

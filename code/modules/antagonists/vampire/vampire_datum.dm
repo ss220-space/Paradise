@@ -230,7 +230,7 @@
 		cycle_counter = STATE_GRABBING
 		time_per_action = suck_rate_final*BITE_TIME_MOD
 
-	while(do_after(owner.current, time_per_action, target, NONE))
+	while(do_after(owner.current, time_per_action, target, NONE, interaction_key = DOAFTER_SOURCE_VAMPIRE_SUCKING, max_interact_count = 1))
 		cycle_counter++
 		owner.current.face_atom(target)
 

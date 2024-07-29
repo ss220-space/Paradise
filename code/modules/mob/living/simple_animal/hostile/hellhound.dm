@@ -29,6 +29,7 @@
 	nightvision = 9
 	universal_understand = 1
 	wander = 0
+	AI_delay_max = 0.5 SECONDS
 	var/life_regen_cycles = 0
 	var/life_regen_cycle_trigger = 10 // heal once for every X number of cycles spent resting
 	var/life_regen_amount = -10 // negative, because negative = healing
@@ -97,7 +98,7 @@
 	if(target && isliving(target))
 		var/mob/living/L = target
 		if(L.stat != CONSCIOUS)
-			target = user
+			GiveTarget(user)
 
 /mob/living/simple_animal/hostile/hellhound/greater
 	name = "Greater Hellhound"

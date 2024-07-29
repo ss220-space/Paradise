@@ -10,8 +10,7 @@
 
 	for(var/i=1, i <= lightsoutAmount, i++)
 		var/list/possibleEpicentres = list()
-		for(var/thing in GLOB.landmarks_list)
-			var/obj/effect/landmark/newEpicentre = thing
+		for(var/obj/effect/landmark/newEpicentre in GLOB.landmarks_list)
 			if(newEpicentre.name == "lightsout" && !(newEpicentre in epicentreList))
 				possibleEpicentres += newEpicentre
 		if(possibleEpicentres.len)

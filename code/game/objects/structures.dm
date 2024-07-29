@@ -76,7 +76,6 @@
 
 	set name = "Climb structure"
 	set desc = "Climbs onto a structure."
-	set category = null
 	set src in oview(1)
 
 	do_climb(usr)

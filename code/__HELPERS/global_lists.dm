@@ -136,11 +136,13 @@
 	GLOB.uplink_items = init_uplink_items_list()
 	GLOB.mining_vendor_items = init_mining_vendor_items_list()
 
-	// Keybindings
-	for(var/path in subtypesof(/datum/keybinding))
-		var/datum/keybinding/D = path
-		if(initial(D.name))
-			GLOB.keybindings += new path()
+	init_keybindings()
+
+	// Preference toggles
+	for(var/path in subtypesof(/datum/preference_toggle))
+		var/datum/preference_toggle/pref_toggle = path
+		if(initial(pref_toggle.name))
+			GLOB.preference_toggles += new path()
 
 	// Init chemical reagents
 	init_datum_subtypes(/datum/reagent, GLOB.chemical_reagents_list, null, "id")

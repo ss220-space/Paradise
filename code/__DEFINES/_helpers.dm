@@ -11,6 +11,8 @@
 /// Until a condition is true, sleep
 #define UNTIL(X) while(!(X)) stoplag()
 
+/// Takes a datum as input, returns its ref string
+#define text_ref(datum) ref(datum)
 
 #define WORKAROUND_IDENTIFIER "%//%"
 /// gives us the stack trace from CRASH() without ending the current proc.

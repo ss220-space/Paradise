@@ -362,7 +362,6 @@
 /obj/structure/table/verb/do_flip()
 	set name = "Flip/Unflip table"
 	set desc = "Flips or unflips a table"
-	set category = null
 	set src in oview(1)
 	actual_flip(usr)
 

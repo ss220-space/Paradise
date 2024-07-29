@@ -5,7 +5,6 @@
 	hand_path = /obj/item/melee/touch_attack/healtouch
 
 	school = "evocation"
-	panel = "Ashwalker"
 	base_cooldown = 20 SECONDS
 	clothes_req = FALSE
 

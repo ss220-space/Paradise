@@ -55,6 +55,10 @@
 			hud_used.blobpwrdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#82ed00'>[round(src.blob_points)]</font></div>"
 
 
+/mob/camera/blob/memory()
+	SSticker.mode.update_blob_objective()
+	..()
+
 /mob/camera/blob/say(message)
 	if(!message)
 		return
@@ -94,12 +98,12 @@
 /mob/camera/blob/blob_act(obj/structure/blob/B)
 	return
 
-/mob/camera/blob/Stat()
-	..()
-	if(statpanel("Status"))
-		if(blob_core)
-			stat(null, "Core Health: [blob_core.obj_integrity]")
-		stat(null, "Power Stored: [blob_points]/[max_blob_points]")
+/mob/camera/blob/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	if(blob_core)
+		status_tab_data[++status_tab_data.len] = list("Core Health:", "[blob_core.obj_integrity]")
+		status_tab_data[++status_tab_data.len] = list("Power Stored:", "[blob_points]/[max_blob_points]")
 
 /mob/camera/blob/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(world.time < last_movement)

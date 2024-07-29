@@ -89,6 +89,7 @@ SUBSYSTEM_DEF(ticker)
 
 	randomtips = file2list("strings/tips.txt")
 	memetips = file2list("strings/sillytips.txt")
+	return SS_INIT_SUCCESS
 
 
 /datum/controller/subsystem/ticker/fire()
@@ -321,10 +322,7 @@ SUBSYSTEM_DEF(ticker)
 	if(!GLOB.syndicate_code_phrase)
 		var/list/temp_syndicate_code_phrase = generate_code_phrase(return_list=TRUE)
 
-		var/list/words_for_regex = list()
-		for(var/word in temp_syndicate_code_phrase)
-			words_for_regex += list(lowertext(word), word, uppertext(word), capitalize(word))
-		var/codewords = jointext(words_for_regex, "|")
+		var/codewords = jointext(temp_syndicate_code_phrase, "|")
 		var/regex/codeword_match = new("([codewords])", "ig")
 
 		GLOB.syndicate_code_phrase_regex = codeword_match
@@ -335,11 +333,7 @@ SUBSYSTEM_DEF(ticker)
 	if(!GLOB.syndicate_code_response)
 		var/list/temp_syndicate_code_response = generate_code_phrase(return_list=TRUE)
 
-		var/list/words_for_regex = list()
-		for(var/word in temp_syndicate_code_response)
-			words_for_regex += list(lowertext(word), word, uppertext(word), capitalize(word))
-
-		var/codewords = jointext(words_for_regex, "|")
+		var/codewords = jointext(temp_syndicate_code_response, "|")
 		var/regex/codeword_match = new("([codewords])", "ig")
 
 		GLOB.syndicate_code_response_regex = codeword_match

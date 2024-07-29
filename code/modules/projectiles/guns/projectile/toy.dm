@@ -77,6 +77,7 @@
 	needs_permit = FALSE
 	pickup_sound = 'sound/items/handling/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/generic_drop3.ogg'
+	pb_knockback = 0
 
 /obj/item/gun/projectile/shotgun/toy/process_chamber()
 	..()

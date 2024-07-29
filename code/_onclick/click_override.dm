@@ -78,7 +78,7 @@
 			else
 				add_attack_logs(user, L, "electrocuted with[P.unlimited_power ? " unlimited" : null] power gloves [!P.unlimited_power ? "dealing [C.powernet?.get_electrocute_damage()] damage." : "dealing 1000 damage!!"]")
 				if(P.unlimited_power)
-					L.electrocute_act(1000, P, safety = TRUE, override = TRUE) //Just kill them
+					L.electrocute_act(1000, "перчаток", flags = SHOCK_NOGLOVES) //Just kill them
 				else
 					electrocute_mob(L, C, P)
 			break

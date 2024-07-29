@@ -7,6 +7,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //atom traits
 /// Trait used to prevent an atom from component radiation emission (see radioactivity.dm)
 #define TRAIT_BLOCK_RADIATION "block_radiation"
+/// Is this atom being actively shocked? Used to prevent repeated shocks.
+#define TRAIT_BEING_SHOCKED "being_shocked"
 
 /// Weather immunities, also protect mobs inside them.
 #define TRAIT_LAVA_IMMUNE "lava_immune" //Used by lava turfs and The Floor Is Lava.
@@ -51,7 +53,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FAKEDEATH "fakedeath"	//Makes the owner appear as dead to most forms of medical examination
 #define TRAIT_XENO_HOST "xeno_host"	//Tracks whether we're gonna be a baby alien's mummy.
 #define TRAIT_LEGION_TUMOUR "legion_tumour" //used in huds for special icon
-#define TRAIT_SHOCKIMMUNE "shockimmune"
+/// Are we immune to shocks?
+#define TRAIT_SHOCKIMMUNE "shock_immunity"
+/// Are we immune to specifically tesla / SM shocks?
+#define TRAIT_TESLA_SHOCKIMMUNE "tesla_shock_immunity"
 #define TRAIT_CHUNKYFINGERS "chunkyfingers"	//means that you can't use weapons with normal trigger guards.
 #define TRAIT_FORCE_DOORS "force_doors"
 #define TRAIT_EMOTE_MUTE "emote_mute"
@@ -63,6 +68,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// "Magic" trait that blocks the mob from moving or interacting with anything. Used for transient stuff like mob transformations or incorporality in special cases.
 /// Will block movement, `Life()` (!!!), and other stuff based on the mob.
 #define TRAIT_NO_TRANSFORM "block_transformations"
+/// This mob heals from ash tendril
+#define TRAIT_HEALS_FROM_ASH_TENDRIL "heals_from_ash_tendril"
 /// This mob heals from carp rifts.
 #define TRAIT_HEALS_FROM_CARP_RIFTS "heals_from_carp_rifts"
 /// This mob heals from cult pylons.
@@ -103,6 +110,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_SLIP_ALL "noslip_all"
 /// Give us unsafe_unwrenching protection
 #define TRAIT_GUSTPROTECTION "gustprotection"
+/// This mob can strip other mobs.
+#define TRAIT_CAN_STRIP "can_strip"
+
 
 /// Unlinks gliding from movement speed, meaning that there will be a delay between movements rather than a single move movement between tiles
 #define TRAIT_NO_GLIDE "no_glide"
