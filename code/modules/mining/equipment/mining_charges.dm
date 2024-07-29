@@ -41,7 +41,7 @@
 				return
 			if(iscarbon(AM))
 				return
-			balloon_alert(user, "установка взрывчатки..")
+			balloon_alert(user, "установка взрывчатки...")
 			if(do_after(user, 2.5 SECONDS * toolspeed * gettoolspeedmod(user), AM))
 				if(!user.drop_item_ground(src))
 					return
@@ -61,10 +61,10 @@
 		if(!(src in detonator.bombs) && !timer_off)
 			detonator.bombs += src
 			timer_off = TRUE
-			balloon_alert(user, "привязано к детонатору")
+			balloon_alert(user, "синхронизировано")
 			playsound(src, 'sound/machines/twobeep.ogg', 50)
 		else
-			balloon_alert(user, "уже привязано к другому!")
+			balloon_alert(user, "уже синхронизировано!")
 		detonator.update_icon()
 	..()
 

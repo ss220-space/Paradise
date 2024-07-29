@@ -25,7 +25,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 			possible_beacons += EP
 
 	if(!possible_beacons.len)
-		balloon_alert(user, "нет подходящих маячков!")
+		balloon_alert(user, "маяки не найдены!")
 		return
 
 	else
@@ -36,7 +36,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		if(!A)
 			return
 		beacon = A
-		balloon_alert(user, "привязано к маяку!")
+		balloon_alert(user, "синхронизация завершена")
 
 /obj/item/extraction_pack/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(!..())
@@ -52,12 +52,12 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 /obj/item/extraction_pack/afterattack(atom/movable/A, mob/living/carbon/human/user, flag, params)
 	. = ..()
 	if(!beacon)
-		balloon_alert(user, "не привязано к маяку!")
+		balloon_alert(user, "синхронизируйте с маяком!")
 		return
 	if(!can_use_indoors)
 		var/area/area = get_area(A)
 		if(!area.outdoors)
-			balloon_alert(user, "необходимо быть на улице!")
+			balloon_alert(user, "используйте снаружи!")
 			return
 	if(!flag)
 		return
@@ -71,9 +71,9 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 			return
 		if(A.anchored || (A.move_resist > max_force_fulton))
 			return
-		balloon_alert(user, "активация фултона...")
+		balloon_alert(user, "подготовка эвакуации...")
 		if(do_after(user, 5 SECONDS, A))
-			balloon_alert(user, "фултон активирован")
+			balloon_alert(user, "эвакуация завершена")
 			if(loc == user && istype(user.back, /obj/item/storage/backpack))
 				var/obj/item/storage/backpack/B = user.back
 				if(B.can_be_inserted(src, stop_messages = TRUE))

@@ -468,7 +468,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 			string_attached = 1
 			balloon_alert(user, "прикреплено!")
 		else
-			balloon_alert(user, "слишком короткое!") //how the f could you take less than one lenght of cable
+			balloon_alert(user, "недостаточно кабеля") //how the f could you take less than one lenght of cable
 			return
 
 	else if(istype(W,/obj/item/wirecutters))
@@ -480,7 +480,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		CC.update_icon()
 		overlays = list()
 		string_attached = null
-		balloon_alert(user, "откреплено!")
+		balloon_alert(user, "кабель срезан")
 	else ..()
 
 /obj/item/coin/welder_act(mob/user, obj/item/I)

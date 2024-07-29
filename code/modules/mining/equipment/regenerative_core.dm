@@ -13,7 +13,7 @@
 		return
 	var/obj/item/organ/internal/regenerative_core/C = M
 	if(!istype(C, /obj/item/organ/internal/regenerative_core))
-		balloon_alert(user, "неверная цель!")
+		to_chat(user, span_warning("The stabilizer only works on certain types of monster organs, generally regenerative in nature."))
 		return ..()
 
 	C.preserved()
@@ -78,13 +78,13 @@
 			return
 		else
 			if(H.stat == DEAD)
-				balloon_alert(user, "не работает на трупах!")
+				balloon_alert(user, "не сработает на трупах!")
 				return
 			if(H != user)
 				H.visible_message("[user] forces [H] to apply [src]... Black tendrils entangle and reinforce [H.p_them()]!")
 				SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "other"))
 			else
-				balloon_alert(user, "ядро использовано!")
+				to_chat(user, span_notice("You start to smear [src] on yourself. Disgusting tendrils hold you together and allow you to keep moving, but for how long?"))
 				SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "self"))
 			H.apply_status_effect(STATUS_EFFECT_REGENERATIVE_CORE)
 			user.temporarily_remove_item_from_inventory(src)
@@ -197,13 +197,13 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if(H.stat == DEAD)
-			balloon_alert(user, "не работает на трупах!")
+			balloon_alert(user, "не сработает на трупах!")
 			return
 		if(H != user)
 			H.visible_message("[user] forces [H] to apply [src]... Black tendrils entangle and reinforce [H.p_them()]!")
 			SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "other"))
 		else
-			balloon_alert(user, "орган стабилизирован!")
+			to_chat(user, span_notice("You start to smear [src] on yourself. Disgusting tendrils hold you together and allow you to keep moving, but for how long?"))
 			SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "self"))
 		H.apply_status_effect(STATUS_EFFECT_REGENERATIVE_CORE)
 		user.temporarily_remove_item_from_inventory(src)

@@ -61,7 +61,7 @@
 	add_fingerprint(usr)
 	if(href_list["removeall"])
 		dump_box_contents()
-		balloon_alert(usr, "опустошено")
+		balloon_alert(usr, "разгружено")
 	updateUsrDialog()
 
 /obj/structure/ore_box/deconstruct(disassembled = TRUE, mob/user)
@@ -98,8 +98,8 @@
 	add_fingerprint(usr)
 
 	if(contents.len < 1)
-		balloon_alert(usr, "уже пусто")
+		balloon_alert(usr, "груз отсутствует")
 		return
 
 	dump_box_contents()
-	balloon_alert(usr, "опустошено")
+	balloon_alert(usr, "разгружено")

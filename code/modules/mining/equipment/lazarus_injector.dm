@@ -48,7 +48,7 @@
 				update_icon(UPDATE_ICON_STATE)
 				return
 			else
-				balloon_alert(user, "оно не мертво!")
+				balloon_alert(user, "нельзя использовать на мёртвых!")
 				return
 		else
 			balloon_alert(user, "оно слишком разумно!")
@@ -59,7 +59,7 @@
 		add_attack_logs(user, src, "emagged")
 		malfunctioning = 1
 		if(user)
-			balloon_alert(user, "взломано!")
+			balloon_alert(user, "протоколы защиты сняты!")
 
 /obj/item/lazarus_injector/emp_act()
 	if(!malfunctioning)
