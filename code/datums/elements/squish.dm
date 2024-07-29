@@ -53,7 +53,8 @@
 	. = ..()
 	if(!iscarbon(target))
 		return ELEMENT_INCOMPATIBLE
-	addtimer(CALLBACK(src, PROC_REF(Detach)), duration)
+	var/mob/living/carbon/C = target
+	addtimer(CALLBACK(src, PROC_REF(Detach), C), duration)
 	ADD_TRAIT(target, TRAIT_FLATTENED, "vendor_flattening")
 
 /datum/element/tilt_protection/Detach(mob/living/carbon/C)
