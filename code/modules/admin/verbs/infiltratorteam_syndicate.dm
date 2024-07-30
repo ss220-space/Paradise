@@ -32,7 +32,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	var/tcamount = tgui_input_number(src, "Как много ТК вы хотите дать каждому члену команды? Рекомендовано: 100-150. Они не могут продавать ТК.","Количество ТК", 100, 5000)
 
 	if(GLOB.sent_syndicate_infiltration_team == 1)
-		if(tgui_alert(src, "Диверсионный Отряд Синдиката уже был отправлен. Нужно ли посылать еще один?","Подтверждение", list("Да","Нет"))=="Нет")
+		if(tgui_alert(src, "Диверсионный Отряд Синдиката уже был отправлен. Нужно ли посылать еще один?","Подтверждение", list("Да","Нет"))!="Да")
 			return
 
 	var/syndicate_leader_selected = 0
