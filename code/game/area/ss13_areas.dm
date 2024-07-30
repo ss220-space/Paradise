@@ -2073,7 +2073,7 @@ This applies to all STANDARD station areas
 
 /area/security/visiting_room
 	name = "Visiting Room"
-	icon_state = "visiting-room"
+	icon_state = "red"
 
 /area/security/prisonlockers
 	name = "Prisoner Lockers"
