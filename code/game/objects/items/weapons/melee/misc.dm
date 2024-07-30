@@ -53,7 +53,7 @@
 	return ..()
 
 /obj/item/melee/syndie_rapier
-	name = "Plastitanium Rapier"
+	name = "plastitanium Rapier"
 	desc = "A thin blade made of plastitanium with a diamond tip. It appears to be coated in a persistent layer of an unknown substance."
 	icon_state = "syndie_rapier"
 	item_state = "syndie_rapier"
