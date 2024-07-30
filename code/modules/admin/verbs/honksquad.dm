@@ -11,10 +11,10 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 	if(world.time < 6000)
 		to_chat(src, "<font color='red'>Осталось [(6000-world.time)/10] секунд до того, как это может быть вызвано.</font>")
 		return
-	if(tgui_alert(src, "Вы хотите отправить ХОНКсквад? После согласия это необратимо.", "Подтверждение", list("Да","Нет"))!="Да")
+	if(tgui_alert(src, "Вы хотите отправить ХОНКсквад? После согласия это необратимо.", "Подтверждение", list("Да","Нет")) != "Да")
 		return
 	var/is_security_clowns = FALSE
-	if(tgui_alert(src, "Какую группу вы хотите послать?","Тип отряда", list("ХОНК-сквад", "ХОНК-смотрители"))=="ХОНК-смотрители")
+	if(tgui_alert(src, "Какую группу вы хотите послать?","Тип отряда", list("ХОНК-сквад", "ХОНК-смотрители")) == "ХОНК-смотрители")
 		is_security_clowns = TRUE
 		GLOB.sent_clownsequritysquad += 1
 	else
@@ -29,7 +29,7 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 	while(!input)
 		input = tgui_input_text(src, "Пожалуйста, уточните, какую миссию будет выполнять ХОНКсквад.", "Укажите миссию", "", max_length=MAX_MESSAGE_LEN)
 		if(!input)
-			if(tgui_alert(src, "Ошибка, миссия не задана. Вы хотите приостановить процесс?", "Подтверждение", list("Да","Нет"))=="Да")
+			if(tgui_alert(src, "Ошибка, миссия не задана. Вы хотите приостановить процесс?", "Подтверждение", list("Да","Нет")) == "Да")
 				return
 
 

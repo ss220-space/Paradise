@@ -13,10 +13,10 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	if(!SSticker)
 		tgui_alert(src, "Игра еще не началась!")
 		return
-	if(tgui_alert(src, "Вы хотите отправить Диверсионный Отряд Синдиката?", "Подтверждение", list("Да","Нет"))!="Да")
+	if(tgui_alert(src, "Вы хотите отправить Диверсионный Отряд Синдиката?", "Подтверждение", list("Да","Нет")) != "Да")
 		return
 	var/spawn_dummies = 0
-	if(tgui_alert(src, "Создавать полноразмерную команду, даже если призраков недостаточно для их заполнения?", "Подтверждение", list("Да","Нет"))=="Да")
+	if(tgui_alert(src, "Создавать полноразмерную команду, даже если призраков недостаточно для их заполнения?", "Подтверждение", list("Да","Нет")) == "Да")
 		spawn_dummies = 1
 	var/list/teamsizeoptions = list(2,3,4,5,6)
 	var/teamsize = tgui_input_list(src, "Сколько должно быть членов, включая лидера?","Количество членов отряда", teamsizeoptions)
@@ -32,7 +32,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	var/tcamount = tgui_input_number(src, "Как много ТК вы хотите дать каждому члену команды? Рекомендовано: 100-150. Они не могут продавать ТК.","Количество ТК", 100, 5000)
 
 	if(GLOB.sent_syndicate_infiltration_team == 1)
-		if(tgui_alert(src, "Диверсионный Отряд Синдиката уже был отправлен. Нужно ли посылать еще один?","Подтверждение", list("Да","Нет"))!="Да")
+		if(tgui_alert(src, "Диверсионный Отряд Синдиката уже был отправлен. Нужно ли посылать еще один?","Подтверждение", list("Да","Нет")) != "Да")
 			return
 
 	var/syndicate_leader_selected = 0
