@@ -23,7 +23,7 @@
 /datum/vampire_passive/New()
 	..()
 	if(!gain_desc)
-		gain_desc = "You can now use [src]."
+		gain_desc = "Вы получили способность «[src]»."
 
 
 /datum/vampire_passive/Destroy(force)
@@ -48,6 +48,8 @@
 
 
 /obj/effect/proc_holder/spell/vampire
+	name = "Report Me"
+	desc = "You shouldn't see this!"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
 	human_req = TRUE

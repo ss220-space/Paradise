@@ -22,7 +22,8 @@
 			to_chat(user, span_warning("Но вы же мертвы!"))
 		return FALSE
 
-	if(((vampire.nullified >= VAMPIRE_COMPLETE_NULLIFICATION)||(is_goon_vampire(user) && vampire.nullified)) && !fullpower) // above 100 nullification vampire powers are useless
+	if(((vampire.nullified >= VAMPIRE_COMPLETE_NULLIFICATION) || \
+	(vampire.nullification == OLD_NULLIFICATION && vampire.nullified)) && !fullpower) // above 100 nullification vampire powers are useless
 		if(show_message)
 			to_chat(user, span_warning("Что-то блокирует ваши силы!"))
 		return FALSE
@@ -41,9 +42,6 @@
 
 
 /datum/spell_handler/vampire/spend_spell_cost(mob/user, obj/effect/proc_holder/spell/spell)
-	for(var/datum/action/spell_action/action in user.actions)
-		action.UpdateButtonIcon()
-
 	if(!required_blood || !deduct_blood_on_cast) //don't take the blood yet if this is false!
 		return
 
@@ -52,13 +50,8 @@
 	vampire?.bloodusable -= calculate_blood_cost(vampire)
 
 
-/datum/spell_handler/vampire/revert_cast(mob/living/carbon/user, obj/effect/proc_holder/spell/spell)
-	var/datum/antagonist/vampire/vampire = user?.mind?.has_antag_datum(/datum/antagonist/vampire)
-	vampire?.bloodusable += required_blood
-
-
 /datum/spell_handler/vampire/proc/calculate_blood_cost(datum/antagonist/vampire/vampire)
-	var/blood_cost_modifier = 1 + vampire.nullified / 100
+	var/blood_cost_modifier = 1 + (vampire.nullification == OLD_NULLIFICATION)? 0 : vampire.nullified / 100
 	var/blood_cost = round(required_blood * blood_cost_modifier)
 	return clamp(blood_cost, 0, vampire.bloodusable)
 
@@ -74,3 +67,6 @@
 	to_chat(user, span_boldnotice("У Вас осталось [vampire.bloodusable] единиц крови."))
 	SSblackbox.record_feedback("tally", "vampire_powers_used", 1, "[spell]") // Only log abilities which require blood
 
+/datum/spell_handler/vampire/goon/revert_cast(mob/living/carbon/user, obj/effect/proc_holder/spell/spell)
+	var/datum/antagonist/vampire/vampire = user?.mind?.has_antag_datum(/datum/antagonist/vampire)
+	vampire?.bloodusable += required_blood

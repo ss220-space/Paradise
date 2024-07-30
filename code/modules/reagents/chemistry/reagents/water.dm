@@ -340,22 +340,24 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 			update_flags |= M.adjustStaminaLoss(5, FALSE)
 			if(prob(20))
 				M.emote("scream")
-			vamp.adjust_nullification(20, 4)
+			vamp.base_nullification()
 			vamp.bloodusable = max(vamp.bloodusable - 3,0)
+			var/vomit_stun = (vamp.nullification == OLD_NULLIFICATION)? 8 SECONDS : FALSE
 			if(vamp.bloodusable)
-				V.vomit(0, TRUE, FALSE)
-				V.adjustBruteLoss(3)
+				V.vomit(0, TRUE, vomit_stun)
+				if(!vomit_stun)
+					V.adjustBruteLoss(3)
 			else
 				holder.remove_reagent(id, volume)
-				V.vomit(0, FALSE, FALSE)
+				V.vomit(0, FALSE, vomit_stun)
 				return
 		else
-			if(!vamp.bloodtotal)
+			if(!vamp.bloodtotal && vamp.nullification == NEW_NULLIFICATION)
 				return ..() | update_flags
 			switch(current_cycle)
 				if(1 to 4)
 					to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
-					vamp.adjust_nullification(20, 4)
+					vamp.base_nullification()
 				if(5 to 12)
 					to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
 					update_flags |= M.adjustFireLoss(1, FALSE)
@@ -363,7 +365,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 					M.Jitter(40 SECONDS)
 					if(prob(20))
 						M.emote("scream")
-					vamp.adjust_nullification(20, 4)
+					vamp.base_nullification()
 				if(13 to INFINITY)
 					M.visible_message("<span class='danger'>[M] suddenly bursts into flames!</span>",
 									"<span class='danger'>You suddenly ignite in a holy fire!</span>")
@@ -374,7 +376,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 					M.Jitter(60 SECONDS)
 					if(prob(40))
 						M.emote("scream")
-					vamp.adjust_nullification(20, 4)
+					vamp.base_nullification()
 
 	if(ishuman(M) && !M.mind?.isholy)
 		switch(current_cycle)

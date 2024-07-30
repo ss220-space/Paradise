@@ -1,20 +1,23 @@
 /datum/antagonist/vampire/goon_vampire
 	name = "Goon-Vampire"
+	nullification = OLD_NULLIFICATION
+	is_garlic_affected = TRUE
+	dust_in_space = FALSE
 	antag_datum_blacklist = list(/datum/antagonist/vampire/new_vampire)
 	upgrade_tiers = list(
-		/obj/effect/proc_holder/spell/goon_vampire/self/rejuvenate = 0,
-		/obj/effect/proc_holder/spell/goon_vampire/targetted/hypnotise = 0,
-		/obj/effect/proc_holder/spell/goon_vampire/glare = 0,
+		/obj/effect/proc_holder/spell/vampire/goon/self/rejuvenate = 0,
+		/obj/effect/proc_holder/spell/vampire/goon/targetted/hypnotise = 0,
+		/obj/effect/proc_holder/spell/vampire/goon/glare = 0,
 		/datum/vampire_passive/vision = 100,
-		/obj/effect/proc_holder/spell/goon_vampire/self/shapeshift = 100,
-		/obj/effect/proc_holder/spell/goon_vampire/self/cloak = 150,
-		/obj/effect/proc_holder/spell/goon_vampire/targetted/disease = 150,
-		/obj/effect/proc_holder/spell/goon_vampire/bats = 200,
-		/obj/effect/proc_holder/spell/goon_vampire/self/screech = 200,
+		/obj/effect/proc_holder/spell/vampire/goon/self/shapeshift = 100,
+		/obj/effect/proc_holder/spell/vampire/goon/self/cloak = 150,
+		/obj/effect/proc_holder/spell/vampire/goon/targetted/disease = 150,
+		/obj/effect/proc_holder/spell/vampire/goon/bats = 200,
+		/obj/effect/proc_holder/spell/vampire/goon/self/screech = 200,
 		/datum/vampire_passive/regen = 200,
-		/obj/effect/proc_holder/spell/goon_vampire/shadowstep = 250,
-		/obj/effect/proc_holder/spell/goon_vampire/self/jaunt = 300,
-		/obj/effect/proc_holder/spell/goon_vampire/targetted/enthrall = 300,
+		/obj/effect/proc_holder/spell/vampire/goon/shadowstep = 250,
+		/obj/effect/proc_holder/spell/vampire/goon/self/jaunt = 300,
+		/obj/effect/proc_holder/spell/vampire/goon/targetted/enthrall = 300,
 		/datum/vampire_passive/xray = 500,
 		/datum/vampire_passive/full = 500)
 

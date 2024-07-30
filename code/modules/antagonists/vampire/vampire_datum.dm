@@ -24,6 +24,12 @@
 	var/nullified = 0
 	/// Time between each suck iteration.
 	var/suck_rate = 5 SECONDS
+	/// Indicates the type of nullification (old or new)
+	var/nullification = NEW_NULLIFICATION
+	/// Does garlic affect vampire?
+	var/is_garlic_affected = FALSE
+	/// Does a vampire turn to dust after dying from space?
+	var/dust_in_space = FALSE
 	/// List of powers that all vampires unlock and at what blood level they unlock them, the rest of their powers are found in the vampire_subclass datum.
 	var/list/upgrade_tiers = list()
 
@@ -369,9 +375,6 @@
 		var/datum/vampire_passive/passive = spell
 		passive.owner = owner.current
 		passive.on_apply(src)
-	if(spell)
-		for(var/datum/action/spell_action/action in owner.current.actions)
-			action.UpdateButtonIcon()
 	powers += spell
 	owner.current.update_sight() // Life updates conditionally, so we need to update sight here in case the vamp gets new vision based on his powers. Maybe one day refactor to be more OOP and on the vampire's ability datum.
 	return spell
@@ -416,8 +419,6 @@
 		var/level = upgrade_tiers[ptype]
 		if(bloodtotal >= level)
 			add_ability(ptype)
-			for(var/datum/action/spell_action/action in owner.current.actions)
-				action.UpdateButtonIcon()
 
 	if(!subclass)
 		if(announce)
@@ -481,7 +482,7 @@
 		to_chat(owner.current, span_userdanger("Ваше тело обугливается, превращаясь в пепел! Укройтесь от звёздного света!"))
 		owner.current.adjustCloneLoss(10)	//I'm melting!
 		vamp_burn(85)
-		if(owner.current.cloneloss >= 100)
+		if(owner.current.cloneloss >= 100 && dust_in_space)
 			owner.current.dust()
 
 
@@ -527,8 +528,12 @@
 
 	if(is_type_in_typecache(get_area(owner.current), GLOB.holy_areas) && !get_ability(/datum/vampire_passive/full) && bloodtotal > 0)
 		vamp_burn(7)
+	switch(nullification)
+		if(OLD_NULLIFICATION)
+			nullified = max(0, nullified - 1)
 
-	nullified = max(0, nullified - 2)
+		if(NEW_NULLIFICATION)
+			nullified = max(0, nullified - 2)
 
 
 /datum/antagonist/vampire/proc/draw_HUD()
@@ -582,7 +587,21 @@
 
 /datum/antagonist/vampire/proc/adjust_nullification(base, extra)
 	// First hit should give full nullification, while subsequent hits increase the value slower
-	nullified = clamp(nullified + extra, base, VAMPIRE_NULLIFICATION_CAP)
+	switch(nullification)
+		if(OLD_NULLIFICATION)
+			nullified = max(base, nullified + extra)
+
+		if(NEW_NULLIFICATION)
+			nullified = clamp(nullified + extra, base, VAMPIRE_NULLIFICATION_CAP)
+
+
+/datum/antagonist/vampire/proc/base_nullification()
+	switch(nullification)
+		if(OLD_NULLIFICATION)
+			adjust_nullification(5, 2)
+
+		if(NEW_NULLIFICATION)
+			adjust_nullification(20, 4)
 
 
 /**

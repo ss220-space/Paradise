@@ -46,7 +46,12 @@
 	var/datum/antagonist/vampire/vamp = target.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(ishuman(user) && vamp && !vamp.get_ability(/datum/vampire_passive/full) && user.mind.isholy)
 		to_chat(target, span_warning("The nullrod's power interferes with your own!"))
-		vamp.adjust_nullification(30 + sanctify_force, 15 + sanctify_force)
+		switch(vamp.nullification)
+			if(OLD_NULLIFICATION)
+				vamp.base_nullification()
+
+			if(NEW_NULLIFICATION)
+				vamp.adjust_nullification(30 + sanctify_force, 15 + sanctify_force)
 		return
 
 
@@ -544,6 +549,12 @@
 				var/datum/antagonist/vampire/vamp = M.mind?.has_antag_datum(/datum/antagonist/vampire)
 				if(vamp && !vamp.get_ability(/datum/vampire_passive/full)) // Getting a full prayer off on a vampire will interrupt their powers for a large duration.
 					vamp.adjust_nullification(120, 50)
+					switch(vamp.nullification)
+						if(OLD_NULLIFICATION)
+							vamp.adjust_nullification(120, 120)
+
+						if(NEW_NULLIFICATION)
+							vamp.adjust_nullification(120, 50)
 					to_chat(target, "<span class='userdanger'>[user]'s prayer to [SSticker.Bible_deity_name] has interfered with your power!</span>")
 					praying = FALSE
 					return
@@ -570,8 +581,8 @@
 	if(!holder.l_hand == src && !holder.r_hand == src) // Holding this in your hand will
 		return
 	for(var/mob/living/carbon/human/target in range(5, loc))
-		var/datum/antagonist/vampire/goon_vampire/vamp = target.mind?.has_antag_datum(/datum/antagonist/vampire/goon_vampire)
-		if(vamp && !vamp.get_ability(/datum/vampire_passive/full))
+		var/datum/antagonist/vampire/vamp = target.mind?.has_antag_datum(/datum/antagonist/vampire)
+		if(vamp && vamp.nullification == OLD_NULLIFICATION && !vamp.get_ability(/datum/vampire_passive/full))
 			vamp.adjust_nullification(5, 2)
 			if(prob(10))
 				to_chat(target, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your powers!</span>")

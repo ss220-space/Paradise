@@ -1,5 +1,8 @@
 /datum/antagonist/vampire/new_vampire
 	name = "Vampire"
+	nullification = NEW_NULLIFICATION
+	is_garlic_affected = FALSE
+	dust_in_space = TRUE
 	antag_datum_blacklist = list(/datum/antagonist/vampire/goon_vampire)
 	upgrade_tiers = list(/obj/effect/proc_holder/spell/vampire/self/rejuvenate = 0,
 									/obj/effect/proc_holder/spell/vampire/glare = 0,
