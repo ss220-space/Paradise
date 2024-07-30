@@ -487,8 +487,18 @@
   github-actions[bot]:
   - server: Automatic NanoMap Update (#5606)
 '2024-07-30':
+  Aziz Chynaliev:
+  - bugfix: TTS with old Cyrillic and Norway characters
+  - server: add example resources.txt config and local asset hosting server script
+  Dimach:
+  - refactor: update vox_preload code (#5623)
   ROdenFL:
   - bugfix: null icon_states fix (#5620)
   - tweak: remove fullscreen button, hide karma verbs (#5621)
+  Vladisvell:
+  - add: Now you can make photos without flashing lights, also fixes photography (#5625)
+  dageavtobusnick:
+  - unknown: admin buttons fixes and tweaks (#5528)
+  - tweak: add contractor items to admin uplink (#5624)
   github-actions[bot]:
   - server: Automatic NanoMap Update (#5619)
