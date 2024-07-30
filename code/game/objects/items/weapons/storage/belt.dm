@@ -721,7 +721,7 @@
 	update_equipped_item(update_speedmods = FALSE)
 
 /obj/item/storage/belt/rapier/syndie
-	name = "Suspicious rapier sheath"
+	name = "suspicious rapier sheath"
 	desc = "A sinister, thin sheath, suitable for a rapier."
 	icon_state = "syndie_sheath"
 	item_state = "syndie_sheath"
