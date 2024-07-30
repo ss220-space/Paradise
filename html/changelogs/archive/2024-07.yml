@@ -470,11 +470,25 @@
   - add: more buttons in top-left menu (#5602)
   - admin: bold banned message (#5607)
   - add: clown mimic voice menu[bounty] (#5512)
+  - bugfix: holster abuz and deadmin hide stealth (#5612)
+  - tweak: antagonists -> special roles (#5611)
+  - bugfix: verbs |= -> add_verb (#5618)
   SAAD:
   - tweak: July delta general cleanup + Z1 shuttles air leaks fix (#5474)
   - add: Event map "delta dlya oldov" (#5467)
+  - tweak: change "Point to" category (#5613)
+  - bugfix: replace holotabes at any not-holodeck place (#5615)
+  - tweak: pods placement (#5614)
+  Vladisvell:
+  - bugfix: Fixed mob deleting with martial arts (#5616)
   Zwei:
   - bugfix: Vampire Sucking Unique DoAfter Source (#5609)
   - bugfix: Unconscious/Dead Facing Fix (#5610)
   github-actions[bot]:
   - server: Automatic NanoMap Update (#5606)
+'2024-07-30':
+  ROdenFL:
+  - bugfix: null icon_states fix (#5620)
+  - tweak: remove fullscreen button, hide karma verbs (#5621)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#5619)
