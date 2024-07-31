@@ -119,7 +119,7 @@
 
 	return ha_style
 
-/proc/random_marking_style(var/location = "body", species = SPECIES_HUMAN, var/datum/robolimb/robohead, var/body_accessory, var/alt_head)
+/proc/random_marking_style(location = "body", species = SPECIES_HUMAN, datum/robolimb/robohead, body_accessory, alt_head, gender)
 	var/m_style = "None"
 	var/list/valid_markings = list()
 	for(var/marking in GLOB.marking_styles_list)
@@ -128,6 +128,8 @@
 			valid_markings += marking
 			continue
 		if(S.marking_location != location) //If the marking isn't for the location we desire, skip.
+			continue
+		if((gender == MALE && S.gender == FEMALE) || (gender == FEMALE && S.gender == MALE))	// If the marking is not for that gender, skip that as well.
 			continue
 		if(!(species in S.species_allowed)) //If the user's head is not of a species the marking style allows, skip it. Otherwise, add it to the list.
 			continue

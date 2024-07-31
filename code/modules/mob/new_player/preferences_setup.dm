@@ -33,7 +33,7 @@
 		m_styles["head"] = random_marking_style("head", species, robohead, null, alt_head)
 		m_colours["head"] = randomize_skin_color(1)
 	if(S.bodyflags & HAS_BODY_MARKINGS)
-		m_styles["body"] = random_marking_style("body", species)
+		m_styles["body"] = random_marking_style("body", species, gender = src.gender)
 		m_colours["body"] = randomize_skin_color(1)
 	if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
 		m_styles["tail"] = random_marking_style("tail", species, null, body_accessory)

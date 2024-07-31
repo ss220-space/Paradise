@@ -18,6 +18,11 @@
 	if(current_fhair.gender != NEUTER && current_fhair.gender != gender)
 		reset_facial_hair()
 
+	var/body_marking = m_styles["body"]
+	var/datum/sprite_accessory/current_bmarking = GLOB.marking_styles_list[body_marking]
+	if(current_bmarking.gender != NEUTER && current_bmarking.gender != gender)
+		reset_markings("body")
+
 	if(update_dna)
 		update_dna()
 	sync_organ_dna(assimilate = 0)
@@ -463,7 +468,9 @@
 			else
 				if(!S.tails_allowed || !(bodypart_tail.body_accessory.name in S.tails_allowed))
 					continue
-		else if(!(dna.species.name in S.species_allowed)) //If the user is not of a species the marking style allows, skip it. Otherwise, add it to the list.
+		if((H.gender == MALE && S.gender == FEMALE) || (H.gender == FEMALE && S.gender == MALE))
+			continue
+		if(!(dna.species.name in S.species_allowed)) //If the user is not of a species the marking style allows, skip it. Otherwise, add it to the list.
 			continue
 		if(location == "head")
 			var/datum/sprite_accessory/body_markings/head/M = GLOB.marking_styles_list[S.name]

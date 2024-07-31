@@ -1554,7 +1554,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						m_colours["head"] = rand_hex_color()
 				if("m_style_body")
 					if(S.bodyflags & HAS_BODY_MARKINGS) //Species with body markings.
-						m_styles["body"] = random_marking_style("body", species)
+						m_styles["body"] = random_marking_style("body", species, gender = src.gender)
 				if("m_body_colour")
 					if(S.bodyflags & HAS_BODY_MARKINGS) //Species with body markings.
 						m_colours["body"] = rand_hex_color()
@@ -1646,7 +1646,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							m_colours["head"] = "#000000"
 
 						if(NS.bodyflags & HAS_BODY_MARKINGS) //Species with body markings/tattoos.
-							m_styles["body"] = random_marking_style("body", species)
+							m_styles["body"] = random_marking_style("body", species, gender = src.gender)
 						else
 							m_styles["body"] = "None"
 							m_colours["body"] = "#000000"
