@@ -131,29 +131,29 @@
 	var/should_update_health = FALSE
 	var/should_update_damage_icon = FALSE
 	if(brute)
-		. |= apply_damage(stamina, BRUTE, def_zone, blocked, sharp, used_weapon, spread_damage, forced, silent, FALSE, FALSE)
+		. |= apply_damage(brute, BRUTE, def_zone, blocked, sharp, used_weapon, spread_damage, forced, silent, FALSE, FALSE)
 		if(.)
 			if(updating_health)
 				should_update_health = TRUE
 			if(isexternalorgan(def_zone))
 				should_update_damage_icon = TRUE
 	if(burn)
-		. |= apply_damage(stamina, BURN, def_zone, blocked, sharp, used_weapon, spread_damage, forced, silent, FALSE, FALSE)
+		. |= apply_damage(burn, BURN, def_zone, blocked, sharp, used_weapon, spread_damage, forced, silent, FALSE, FALSE)
 		if(.)
 			if(updating_health)
 				should_update_health = TRUE
 			if(isexternalorgan(def_zone))
 				should_update_damage_icon = TRUE
 	if(tox)
-		. |= apply_damage(stamina, TOX, def_zone, blocked, sharp, used_weapon, spread_damage, forced, silent, FALSE, FALSE)
+		. |= apply_damage(tox, TOX, def_zone, blocked, sharp, used_weapon, spread_damage, forced, silent, FALSE, FALSE)
 		if(. && updating_health)
 			should_update_health = TRUE
 	if(oxy)
-		. |= apply_damage(stamina, OXY, def_zone, blocked, sharp, used_weapon, spread_damage, forced, silent, FALSE, FALSE)
+		. |= apply_damage(oxy, OXY, def_zone, blocked, sharp, used_weapon, spread_damage, forced, silent, FALSE, FALSE)
 		if(. && updating_health)
 			should_update_health = TRUE
 	if(clone)
-		. |= apply_damage(stamina, CLONE, def_zone, blocked, sharp, used_weapon, spread_damage, forced, silent, FALSE, FALSE)
+		. |= apply_damage(clone, CLONE, def_zone, blocked, sharp, used_weapon, spread_damage, forced, silent, FALSE, FALSE)
 		if(. && updating_health)
 			should_update_health = TRUE
 	if(stamina)
@@ -161,7 +161,7 @@
 		if(. && updating_health)
 			should_update_health = TRUE
 	if(brain)
-		. |= apply_damage(stamina, BRAIN, def_zone, blocked, sharp, used_weapon, spread_damage, forced, silent, FALSE, FALSE)
+		. |= apply_damage(brain, BRAIN, def_zone, blocked, sharp, used_weapon, spread_damage, forced, silent, FALSE, FALSE)
 		if(. && updating_health)
 			should_update_health = TRUE
 	if(should_update_health)
