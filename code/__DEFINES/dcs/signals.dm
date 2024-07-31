@@ -756,6 +756,8 @@
 #define COMSIG_ITEM_DISABLE_EMBED "item_disable_embed"
 ///from [/obj/effect/mine/proc/triggermine]:
 #define COMSIG_MINE_TRIGGERED "minegoboom"
+///from [/obj/item/organ/internal/remove]:
+#define COMSIG_ORGAN_REMOVED "organ_removed"
 
 /// Defib-specific signals
 

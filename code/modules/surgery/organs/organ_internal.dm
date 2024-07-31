@@ -96,7 +96,7 @@
 
 	if(send_signal)
 		SEND_SIGNAL(target, COMSIG_CARBON_LOSE_ORGAN, src)
-		SEND_SIGNAL(src, COMSIG_CARBON_LOSE_ORGAN)
+		SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED)
 
 	owner = null
 	START_PROCESSING(SSobj, src)

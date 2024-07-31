@@ -331,6 +331,7 @@
 		return
 
 	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN, src)
+	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED)
 	owner.internal_organs -= src
 
 	var/obj/item/organ/external/affected = owner.get_organ(parent_organ_zone)
