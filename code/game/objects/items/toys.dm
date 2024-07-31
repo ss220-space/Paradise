@@ -789,7 +789,7 @@
 	icon_state = "razymist_cat"
 	var/cooldown = 0
 
-/obj/item/toy/plushie/kotrazumist/attack_self(mob/user as mob)
+/obj/item/toy/plushie/kotrazumist/attack_self(mob/user)
 	. = ..()
 	if(cooldown < world.time)
 		cooldown = (world.time + 3 SECONDS) //3 second cooldown
