@@ -45,7 +45,7 @@
 	if(!vampire)
 		return .
 
-	. = vampire.damage_modifiers[damage_type] || 1
+	. = vampire.damage_modifiers[damage_type]
 
 
 /datum/antagonist/vampire/proc/get_trophies(trophie_type)
