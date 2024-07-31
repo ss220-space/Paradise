@@ -130,19 +130,20 @@
 	. = STATUS_UPDATE_NONE
 	var/should_update_health = FALSE
 	var/should_update_damage_icon = FALSE
+	var/def_zone_external = isexternalorgan(def_zone)
 	if(brute)
 		. |= apply_damage(brute, BRUTE, def_zone, blocked, sharp, used_weapon, spread_damage, forced, silent, FALSE, FALSE)
 		if(.)
 			if(updating_health)
 				should_update_health = TRUE
-			if(isexternalorgan(def_zone))
+			if(def_zone_external)
 				should_update_damage_icon = TRUE
 	if(burn)
 		. |= apply_damage(burn, BURN, def_zone, blocked, sharp, used_weapon, spread_damage, forced, silent, FALSE, FALSE)
 		if(.)
 			if(updating_health)
 				should_update_health = TRUE
-			if(isexternalorgan(def_zone))
+			if(def_zone_external)
 				should_update_damage_icon = TRUE
 	if(tox)
 		. |= apply_damage(tox, TOX, def_zone, blocked, sharp, used_weapon, spread_damage, forced, silent, FALSE, FALSE)
