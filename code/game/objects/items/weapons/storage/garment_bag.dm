@@ -64,6 +64,8 @@
 	new /obj/item/clothing/shoes/laceup(src)
 	new /obj/item/clothing/shoes/laceup/cap(src)
 	new /obj/item/clothing/suit/hooded/wintercoat/captain(src)
+	new /obj/item/clothing/head/crown(src)
+	new /obj/item/clothing/head/crown/fancy(src)
 
 /obj/item/storage/garmentbag/hop/populate_contents()
 	new /obj/item/clothing/head/hopcap(src)
