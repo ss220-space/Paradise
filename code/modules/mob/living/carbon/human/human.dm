@@ -447,6 +447,7 @@
 		return
 
 	dna.species.update_sight(src)
+	update_tint()
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
