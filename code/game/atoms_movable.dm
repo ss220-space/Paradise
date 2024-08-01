@@ -344,7 +344,7 @@
 		return FALSE
 	if(ismob(src))
 		var/mob/mob = src
-		mob.changeNext_move(CLICK_CD_GRABBING)
+		mob.changeNext_move(CLICK_CD_PULLING)
 	return pulling.Move(pull_turf, move_dir, glide_size)
 
 
