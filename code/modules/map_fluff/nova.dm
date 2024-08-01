@@ -1,4 +1,4 @@
-// Made by PiroMage (https://github.com/PiroMage)
+ц// Made by PiroMage (https://github.com/PiroMage)
 
 /datum/map/Nova
 	name = "Nova"
