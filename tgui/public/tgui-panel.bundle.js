@@ -150,7 +150,7 @@
  * @file
  * @copyright 2020 Aleksej Komarov
  * @license MIT
- */var t=n.CONNECTION_LOST_AFTER=45e3,e=n.AUTO_RECONNECT_AFTER=1e4},93753:function(S,n,t){"use strict";n.__esModule=!0,n.useGame=void 0;var e=t(88605),r=t(96943);/**
+ */var t=n.CONNECTION_LOST_AFTER=45e3,e=n.AUTO_RECONNECT_AFTER=15e3},93753:function(S,n,t){"use strict";n.__esModule=!0,n.useGame=void 0;var e=t(88605),r=t(96943);/**
  * @file
  * @copyright 2020 Aleksej Komarov
  * @license MIT
@@ -162,7 +162,7 @@
  * @file
  * @copyright 2020 Aleksej Komarov
  * @license MIT
- */var o={roundId:null,roundTime:null,roundRestartedAt:null,connectionLostAt:null,autoReconnectAfter:null},a=n.gameReducer=function(){function s(u,l){u===void 0&&(u=o);var m=l.type,d=l.payload,i=l.meta;return m===e.roundRestarted.type?Object.assign({},u,{roundRestartedAt:i.now,autoReconnectAfter:i.now+r.AUTO_RECONNECT_AFTER}):m===e.connectionLost.type?Object.assign({},u,{connectionLostAt:i.now}):m===e.connectionRestored.type?Object.assign({},u,{connectionLostAt:null}):m===e.autoReconnect.type?Object.assign({},u,{autoReconnectAfter:null}):u}return s}()},96943:function(S,n){"use strict";n.__esModule=!0,n.selectGame=void 0;/**
+ */var o=function(l,m){var d=Math.ceil(l),i=Math.floor(m);return Math.floor(Math.random()*(i-d+1)+d)},a={roundId:null,roundTime:null,roundRestartedAt:null,connectionLostAt:null,autoReconnectAfter:null},s=n.gameReducer=function(){function u(l,m){l===void 0&&(l=a);var d=m.type,i=m.payload,v=m.meta;return d===e.roundRestarted.type?Object.assign({},l,{roundRestartedAt:v.now,autoReconnectAfter:v.now+r.AUTO_RECONNECT_AFTER+o(0,150)*100}):d===e.connectionLost.type?Object.assign({},l,{connectionLostAt:v.now}):d===e.connectionRestored.type?Object.assign({},l,{connectionLostAt:null}):d===e.autoReconnect.type?Object.assign({},l,{autoReconnectAfter:null}):l}return u}()},96943:function(S,n){"use strict";n.__esModule=!0,n.selectGame=void 0;/**
  * @file
  * @copyright 2020 Aleksej Komarov
  * @license MIT
