@@ -16,7 +16,7 @@
 "ad" = (
 /obj/structure/stone_tile/surrounding/cracked,
 /obj/structure/stone_tile/center/burnt,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "ae" = (
 /obj/structure/closet/crate/medical,
@@ -94,7 +94,7 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/center,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "aE" = (
 /obj/structure/closet/secure_closet/security,
@@ -254,7 +254,7 @@
 /obj/structure/stone_tile/block{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "cH" = (
 /obj/machinery/door/firedoor,
@@ -309,7 +309,7 @@
 /area/mine/living_quarters)
 "dm" = (
 /obj/structure/stone_tile/block/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "ds" = (
 /obj/structure/cable{
@@ -648,7 +648,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "fU" = (
 /obj/structure/stone_tile/slab,
@@ -928,7 +928,7 @@
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "hB" = (
 /obj/machinery/door/airlock{
@@ -964,12 +964,15 @@
 /obj/structure/stone_tile/cracked{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "hJ" = (
-/obj/structure/stone_tile/slab,
-/turf/simulated/mineral/random/volcanic,
-/area/lavaland/surface/outdoors/necropolis)
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "hK" = (
 /obj/machinery/door/window/southleft{
 	dir = 8;
@@ -1061,8 +1064,11 @@
 /obj/structure/stone_tile/surrounding/cracked{
 	dir = 6
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
+"iq" = (
+/turf/simulated/mineral/random/volcanic,
+/area/lavaland/surface/outdoors/unexplored/danger)
 "is" = (
 /obj/structure/stone_tile/block{
 	dir = 1
@@ -1133,7 +1139,7 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "iH" = (
 /obj/structure/rack,
@@ -1164,7 +1170,7 @@
 	},
 /obj/structure/stone_tile/surrounding_tile/cracked,
 /obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "iU" = (
 /obj/structure/stone_tile/block/cracked,
@@ -1293,7 +1299,7 @@
 	dir = 1
 	},
 /obj/structure/stone_tile/surrounding_tile,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "jW" = (
 /obj/structure/fans/tiny,
@@ -1319,7 +1325,7 @@
 	dir = 4
 	},
 /obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "jZ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1417,7 +1423,7 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "ky" = (
 /obj/structure/stone_tile/surrounding_tile{
@@ -1454,7 +1460,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "kR" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -1642,6 +1648,15 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"lZ" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors/necropolis)
 "mc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/vending/cola/free,
@@ -1670,7 +1685,7 @@
 /obj/structure/stone_tile/surrounding_tile/burnt{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "mn" = (
 /obj/structure/table/wood,
@@ -1748,7 +1763,7 @@
 /turf/simulated/floor/plating,
 /area/mine/laborcamp/security)
 "mR" = (
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "mS" = (
 /obj/structure/stone_tile/surrounding_tile{
@@ -1770,8 +1785,8 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors/necropolis)
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "nj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -2145,7 +2160,7 @@
 /obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "pz" = (
 /obj/machinery/door_control{
@@ -2333,7 +2348,7 @@
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "qZ" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -2417,13 +2432,13 @@
 /obj/structure/stone_tile/block/burnt{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "rQ" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "rR" = (
 /obj/structure/stone_tile{
@@ -2509,7 +2524,7 @@
 /obj/structure/stone_tile/surrounding/cracked{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "sJ" = (
 /obj/machinery/door/airlock/maintenance{
@@ -2695,7 +2710,7 @@
 /obj/structure/stone_tile/block{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "tU" = (
 /obj/structure/ore_box,
@@ -2707,7 +2722,7 @@
 	name = "scrubber outlet"
 	},
 /obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/lobby)
 "tZ" = (
 /obj/structure/stone_tile{
@@ -2764,7 +2779,7 @@
 "uw" = (
 /obj/structure/stone_tile/surrounding/cracked,
 /obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "uz" = (
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
@@ -2941,7 +2956,7 @@
 /obj/structure/stone_tile/block{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "vb" = (
 /obj/structure/bed,
@@ -3264,7 +3279,7 @@
 	},
 /obj/structure/stone_tile/surrounding_tile,
 /obj/structure/stone_tile/center,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "xe" = (
 /turf/simulated/floor/plasteel{
@@ -3282,7 +3297,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "xq" = (
 /obj/structure/cable{
@@ -3303,7 +3318,7 @@
 /area/mine/laborcamp/security)
 "xr" = (
 /obj/structure/stone_tile/block/burnt,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "xC" = (
 /obj/machinery/driver_button{
@@ -3390,11 +3405,7 @@
 	},
 /area/mine/laborcamp)
 "yd" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 8
-	},
-/turf/simulated/mineral/random/volcanic,
-/area/lavaland/surface/outdoors/necropolis)
+/area/lavaland/surface/outdoors)
 "yg" = (
 /obj/structure/stone_tile/slab/cracked{
 	dir = 10
@@ -3416,7 +3427,7 @@
 /area/lavaland/surface/outdoors/necropolis)
 "yk" = (
 /obj/structure/stone_tile/block,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "yp" = (
 /obj/structure/clockwork/wall_gear,
@@ -3431,7 +3442,7 @@
 /obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "yx" = (
 /obj/structure/stone_tile/block/cracked{
@@ -3440,7 +3451,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "yy" = (
 /obj/structure/stone_tile/cracked{
@@ -3470,7 +3481,7 @@
 /obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "yS" = (
 /obj/effect/decal/cleanable/dirt,
@@ -3753,7 +3764,7 @@
 /obj/structure/stone_tile/surrounding_tile/burnt{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "AK" = (
 /obj/structure/stone_tile/cracked,
@@ -3875,7 +3886,7 @@
 /obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "Bn" = (
 /obj/structure/stone_tile/block,
@@ -3895,7 +3906,7 @@
 /obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "Bu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -4054,7 +4065,7 @@
 	dir = 1
 	},
 /obj/structure/stone_tile/center,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "Cj" = (
 /obj/structure/stone_tile,
@@ -4070,7 +4081,7 @@
 /obj/structure/stone_tile/block{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "Cn" = (
 /obj/machinery/door/firedoor,
@@ -4245,7 +4256,7 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/surrounding_tile,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "Dh" = (
 /obj/machinery/hologram/holopad,
@@ -4265,14 +4276,12 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "Dq" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 4
+/obj/structure/stone_tile,
+/obj/structure/stone_tile{
+	dir = 1
 	},
-/obj/structure/stone_tile/block/cracked{
-	dir = 8
-	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors/necropolis)
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Dt" = (
 /obj/structure/closet/crate/necropolis/tendril,
 /obj/structure/stone_tile/slab,
@@ -4296,7 +4305,7 @@
 /area/mine/necropolis)
 "DC" = (
 /obj/structure/stone_tile/block,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "DE" = (
 /obj/machinery/atmospherics/unary/tank/air{
@@ -4336,7 +4345,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "DP" = (
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "DQ" = (
 /obj/structure/stone_tile/block{
@@ -4470,10 +4479,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "EW" = (
-/obj/structure/stone_tile/block{
-	dir = 8
-	},
-/turf/simulated/mineral/random/volcanic,
+/turf/simulated/mineral/random/high_chance/volcanic,
 /area/lavaland/surface/outdoors/necropolis)
 "EZ" = (
 /turf/simulated/floor/plasteel{
@@ -4524,7 +4530,7 @@
 "Fy" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/lobby)
 "Fz" = (
 /obj/structure/closet/secure_closet/personal,
@@ -4615,7 +4621,7 @@
 /obj/structure/stone_tile/block{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "Gg" = (
 /obj/structure/stone_tile/block{
@@ -4660,7 +4666,7 @@
 	dir = 1
 	},
 /obj/structure/stone_tile/center,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "Gq" = (
 /obj/effect/decal/cleanable/dirt,
@@ -4741,7 +4747,7 @@
 /obj/structure/stone_tile/block{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "GQ" = (
 /obj/machinery/power/apc{
@@ -4781,7 +4787,7 @@
 	},
 /obj/structure/stone_tile/surrounding_tile,
 /obj/structure/stone_tile/center,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "Hi" = (
 /obj/structure/stone_tile/block/cracked{
@@ -4870,7 +4876,7 @@
 	dir = 4
 	},
 /obj/structure/stone_tile/center,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "HO" = (
 /obj/item/stack/ore/glass/basalt,
@@ -5171,7 +5177,7 @@
 	},
 /obj/structure/stone_tile/surrounding_tile/cracked,
 /obj/structure/stone_tile/center,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "Ky" = (
 /obj/structure/stone_tile/block{
@@ -5266,7 +5272,7 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/center,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "KX" = (
 /obj/structure/stone_tile/cracked{
@@ -5397,7 +5403,7 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "LV" = (
 /obj/structure/stone_tile/block{
@@ -5585,7 +5591,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "MW" = (
 /obj/structure/stone_tile/surrounding_tile,
@@ -5595,7 +5601,7 @@
 	},
 /area/mine/necropolis)
 "Ne" = (
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Ni" = (
 /obj/machinery/door/firedoor,
@@ -5619,7 +5625,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "Nu" = (
 /obj/machinery/mech_bay_recharge_port{
@@ -5748,7 +5754,7 @@
 /obj/structure/stone_tile/block{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "Oq" = (
 /obj/machinery/firealarm{
@@ -5917,7 +5923,7 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "Px" = (
 /obj/structure/table,
@@ -5958,7 +5964,7 @@
 /area/mine/necropolis)
 "PQ" = (
 /obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/lobby)
 "PR" = (
 /obj/structure/table,
@@ -6081,7 +6087,7 @@
 /obj/structure/stone_tile/block/burnt{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "QA" = (
 /obj/structure/stone_tile/block{
@@ -6151,7 +6157,7 @@
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "QW" = (
 /obj/structure/stone_tile/cracked{
@@ -6302,11 +6308,11 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/center/burnt,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "Sm" = (
 /obj/structure/stone_tile/surrounding_tile/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "Ss" = (
 /obj/structure/stone_tile/cracked{
@@ -6379,7 +6385,7 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "SF" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6415,7 +6421,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "SO" = (
 /obj/structure/cable{
@@ -6506,7 +6512,7 @@
 	dir = 1
 	},
 /obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "TA" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -6597,7 +6603,7 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/center,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "Uu" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -6649,7 +6655,7 @@
 	dir = 1
 	},
 /obj/structure/stone_tile/block,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "UL" = (
 /obj/machinery/recharge_station,
@@ -6686,7 +6692,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "UV" = (
 /obj/structure/closet/secure_closet/miner,
@@ -6764,7 +6770,7 @@
 	},
 /obj/structure/stone_tile/surrounding_tile,
 /obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "VA" = (
 /obj/structure/stone_tile/surrounding_tile/burnt,
@@ -6775,7 +6781,7 @@
 	dir = 4
 	},
 /obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "VB" = (
 /obj/machinery/door/firedoor,
@@ -7124,7 +7130,7 @@
 /obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "Yp" = (
 /obj/structure/stone_tile/block{
@@ -7194,7 +7200,7 @@
 /obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "YO" = (
 /obj/machinery/status_display{
@@ -7284,7 +7290,7 @@
 	},
 /obj/structure/stone_tile/surrounding_tile,
 /obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "Zn" = (
 /obj/structure/stone_tile/cracked{
@@ -7453,8 +7459,8 @@ yU
 yU
 yU
 yU
-rJ
-rJ
+EW
+EW
 Oy
 Oy
 Oy
@@ -7474,7 +7480,7 @@ Ne
 Ne
 Ne
 Ne
-Ne
+tG
 Or
 Or
 Or
@@ -7712,7 +7718,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Ne
@@ -7731,7 +7737,7 @@ Ne
 Ne
 Ne
 Ne
-Ne
+tG
 Or
 Or
 Or
@@ -7969,7 +7975,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Ne
@@ -7988,7 +7994,7 @@ Ne
 Ne
 Ne
 Ne
-Ne
+tG
 Or
 Or
 Or
@@ -8201,7 +8207,7 @@ tG
 Ne
 Ne
 Ne
-Cg
+bB
 Ne
 Ne
 Ne
@@ -8226,7 +8232,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 mR
 mR
 Ne
@@ -8245,7 +8251,7 @@ Ne
 Ne
 Ne
 Ne
-Ne
+tG
 Or
 Or
 Or
@@ -8502,7 +8508,7 @@ Ne
 Ne
 Ne
 Ne
-Ne
+tG
 Or
 Or
 Or
@@ -8699,11 +8705,11 @@ Ne
 Ne
 Ne
 Ne
-Cg
-Cg
+bB
+bB
 Ne
 Ne
-Cg
+bB
 Ne
 Ne
 Ne
@@ -8718,9 +8724,9 @@ Ne
 Ne
 Ne
 Ne
-Cg
-Cg
-Cg
+bB
+bB
+bB
 Ne
 Ne
 Ne
@@ -8759,7 +8765,7 @@ Ne
 Ne
 Ne
 Ne
-Ne
+tG
 Or
 Or
 Or
@@ -8975,8 +8981,8 @@ Ne
 Ne
 Ne
 Ne
-Cg
-Cg
+bB
+bB
 Ne
 Ne
 Ne
@@ -8997,7 +9003,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -9215,12 +9221,10 @@ Ne
 Ne
 Ne
 Ne
-Cg
+bB
 Ne
-Cg
-Cg
-Ne
-Ne
+bB
+bB
 Ne
 Ne
 Ne
@@ -9232,7 +9236,9 @@ Ne
 Ne
 Ne
 Ne
-Cg
+Ne
+Ne
+bB
 Ne
 Ne
 Ne
@@ -9254,7 +9260,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Ne
@@ -9273,7 +9279,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -9468,13 +9474,13 @@ Ne
 Ne
 Ne
 Ne
-Cg
+bB
 Ne
-Cg
-Cg
+bB
+bB
 Ne
 Ne
-Cg
+bB
 Ne
 Ne
 Ne
@@ -9510,7 +9516,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 mR
@@ -9530,7 +9536,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -9724,23 +9730,8 @@ Ne
 Ne
 Ne
 Ne
-Cg
-Cg
-Ne
-Cg
-Cg
-Ne
-Ne
-Ne
-Ne
-Cg
-Ne
-Ne
 bB
 bB
-Ne
-bB
-Ne
 Ne
 bB
 bB
@@ -9748,8 +9739,23 @@ Ne
 Ne
 Ne
 Ne
+bB
 Ne
-Cg
+Ne
+bB
+bB
+Ne
+bB
+Ne
+Ne
+bB
+bB
+Ne
+Ne
+Ne
+Ne
+Ne
+bB
 Ne
 Ne
 Ne
@@ -9787,7 +9793,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -10006,7 +10012,7 @@ Ne
 bB
 Ne
 Ne
-Cg
+bB
 Ne
 Ne
 Ne
@@ -10751,7 +10757,7 @@ Ne
 Ne
 Ne
 Ne
-Cg
+bB
 Ne
 Ne
 Ne
@@ -10795,7 +10801,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -11007,8 +11013,8 @@ Ne
 Ne
 Ne
 Ne
-Cg
-Cg
+bB
+bB
 Ne
 Ne
 Ne
@@ -11036,7 +11042,7 @@ Ne
 Ne
 Ne
 Ne
-Cg
+bB
 Ne
 "}
 (15,1,1) = {"
@@ -11052,7 +11058,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -11072,7 +11078,7 @@ Or
 Cg
 Cg
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -11329,7 +11335,7 @@ Cg
 Or
 Or
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -11525,7 +11531,7 @@ Ne
 Ne
 Ne
 Ne
-Cg
+bB
 Ne
 Ne
 iu
@@ -11549,7 +11555,7 @@ Ne
 Ne
 Ne
 Ne
-Cg
+bB
 Ne
 Ne
 "}
@@ -11566,8 +11572,8 @@ yU
 yU
 yU
 fU
-rJ
-rJ
+EW
+EW
 Oy
 Oy
 Ne
@@ -11586,7 +11592,7 @@ Cg
 Ne
 Or
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -11843,7 +11849,7 @@ Cg
 Ne
 Cg
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -12056,7 +12062,7 @@ hr
 iu
 ah
 XT
-Ne
+yd
 oA
 kk
 oA
@@ -12082,7 +12088,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Ne
 Ne
@@ -12100,7 +12106,7 @@ Cg
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -12339,7 +12345,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Ne
 Ne
@@ -12850,7 +12856,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 kj
 Oy
 Oy
@@ -13107,8 +13113,8 @@ yU
 yU
 yU
 yU
-rJ
-rJ
+EW
+EW
 Oy
 Oy
 Oy
@@ -13128,7 +13134,7 @@ Cg
 Cg
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -13385,7 +13391,7 @@ Cg
 Cg
 Cg
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -13642,7 +13648,7 @@ Cg
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -13880,8 +13886,8 @@ yU
 yU
 yU
 yU
-rJ
-rJ
+EW
+EW
 Oy
 Oy
 Ne
@@ -14137,7 +14143,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Ys
 Oy
 Ne
@@ -14413,7 +14419,7 @@ Cg
 Cg
 Cg
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -14670,7 +14676,7 @@ Cg
 Cg
 Cg
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -14927,7 +14933,7 @@ Cg
 Cg
 Cg
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -15184,7 +15190,7 @@ Cg
 Cg
 Cg
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -15441,7 +15447,7 @@ Cg
 Cg
 Cg
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -15677,7 +15683,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -15698,7 +15704,7 @@ Ne
 Cg
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -15913,8 +15919,8 @@ Ne
 Ne
 Ne
 Ne
-Cg
-Cg
+bB
+bB
 Ne
 Ne
 Ne
@@ -15934,8 +15940,8 @@ yU
 yU
 yU
 yU
-rJ
-rJ
+EW
+EW
 md
 Oy
 Oy
@@ -15955,7 +15961,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -16169,10 +16175,10 @@ Ne
 Ne
 Ne
 Ne
-Cg
-Cg
-Cg
-Cg
+bB
+bB
+bB
+bB
 Ne
 Ne
 Ne
@@ -16191,9 +16197,9 @@ yU
 yU
 yU
 yU
-rJ
-rJ
-rJ
+EW
+EW
+EW
 Oy
 Oy
 Oy
@@ -16426,9 +16432,9 @@ Ne
 Ne
 Ne
 Ne
-Cg
+bB
 Ne
-Cg
+bB
 Ne
 Ne
 Ne
@@ -16709,7 +16715,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Ne
 Ne
@@ -16966,7 +16972,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Ne
 Ne
@@ -17223,7 +17229,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Ne
 Ne
@@ -17240,7 +17246,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -17480,7 +17486,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Ne
 Ne
@@ -17497,7 +17503,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -17754,7 +17760,7 @@ Ne
 Ne
 Cg
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -18782,7 +18788,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -19018,7 +19024,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 md
 Oy
 Oy
@@ -19039,7 +19045,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -19275,8 +19281,8 @@ yU
 yU
 yU
 yU
-rJ
-rJ
+EW
+EW
 Oy
 Oy
 Oy
@@ -19296,7 +19302,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -19533,7 +19539,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -19553,7 +19559,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -19790,7 +19796,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -19810,7 +19816,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -20067,7 +20073,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -20324,7 +20330,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -20581,7 +20587,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -20838,7 +20844,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -21095,7 +21101,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -21334,8 +21340,8 @@ yU
 Oy
 Oy
 AM
-rJ
-rJ
+EW
+EW
 Oy
 Oy
 Ne
@@ -21352,7 +21358,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -21609,7 +21615,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -21846,7 +21852,7 @@ yU
 yU
 yU
 Oy
-rJ
+EW
 rJ
 rJ
 rJ
@@ -21866,7 +21872,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -22103,7 +22109,7 @@ yU
 yU
 yU
 Oy
-rJ
+EW
 rJ
 rJ
 rJ
@@ -22360,9 +22366,9 @@ yU
 yU
 yU
 Oy
-rJ
-rJ
-rJ
+EW
+EW
+EW
 Ys
 Oy
 Oy
@@ -22380,7 +22386,7 @@ Ne
 Cg
 Cg
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -22637,7 +22643,7 @@ Cg
 Cg
 Cg
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -22894,7 +22900,7 @@ Ne
 Cg
 Cg
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -24179,7 +24185,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -24416,7 +24422,7 @@ yU
 yU
 yU
 Oy
-rJ
+Oy
 Oy
 Oy
 Oy
@@ -24672,8 +24678,8 @@ yU
 yU
 yU
 yU
-rJ
-rJ
+EW
+EW
 Ce
 Oy
 Oy
@@ -25446,7 +25452,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -25703,7 +25709,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -25958,8 +25964,8 @@ yU
 yU
 yU
 kc
-rJ
-rJ
+EW
+EW
 Oy
 Oy
 Oy
@@ -26493,7 +26499,7 @@ Ne
 Ne
 Cg
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -26750,9 +26756,9 @@ Ne
 Ne
 Ne
 Cg
-Cg
-Cg
-Cg
+tG
+tG
+tG
 Or
 Or
 Or
@@ -27009,7 +27015,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -27267,7 +27273,7 @@ Ne
 Ne
 Cg
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -27500,9 +27506,9 @@ Rs
 yU
 yU
 Oy
-rJ
-rJ
-rJ
+EW
+EW
+EW
 Oy
 Oy
 Oy
@@ -27524,8 +27530,8 @@ Ne
 Ne
 Ne
 Cg
-Cg
-Cg
+tG
+tG
 Or
 Or
 Or
@@ -27757,7 +27763,7 @@ Rs
 yU
 yU
 Oy
-rJ
+EW
 rJ
 rJ
 rJ
@@ -27781,8 +27787,8 @@ Ne
 Ne
 Ne
 Ne
-Cg
-Cg
+tG
+tG
 Or
 Or
 Or
@@ -28014,11 +28020,11 @@ Rs
 yU
 yU
 Oy
+EW
 rJ
 rJ
 rJ
-rJ
-rJ
+EW
 Oy
 Ne
 Ne
@@ -28039,7 +28045,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -28275,7 +28281,7 @@ Oy
 rJ
 rJ
 rJ
-rJ
+EW
 Oy
 Ne
 Ne
@@ -28296,7 +28302,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -28530,8 +28536,8 @@ yU
 Oy
 Oy
 Oy
-rJ
-rJ
+EW
+EW
 kj
 Oy
 Ne
@@ -28553,7 +28559,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -28810,7 +28816,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -29067,7 +29073,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -29324,7 +29330,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -29581,7 +29587,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -29817,7 +29823,7 @@ Rs
 Rs
 yU
 yU
-rJ
+EW
 Ce
 Oy
 Oy
@@ -29838,8 +29844,8 @@ Ne
 Cg
 Ne
 Cg
-Cg
-Cg
+tG
+tG
 Or
 Or
 Or
@@ -30095,8 +30101,8 @@ Ne
 Ne
 Ne
 Ne
-Cg
-Cg
+tG
+tG
 Or
 Or
 Or
@@ -30333,7 +30339,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -30353,7 +30359,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -30590,7 +30596,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -30611,7 +30617,7 @@ Ne
 Ne
 Cg
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -30868,7 +30874,7 @@ Ne
 Ne
 Cg
 Cg
-Or
+iq
 Or
 Or
 Or
@@ -32650,7 +32656,7 @@ vB
 Oy
 rJ
 rJ
-rJ
+EW
 Oy
 Oy
 Oy
@@ -32904,10 +32910,10 @@ vB
 vB
 vB
 vB
+EW
 rJ
 rJ
-rJ
-rJ
+EW
 Oy
 Oy
 Oy
@@ -33162,8 +33168,8 @@ vB
 vB
 vB
 Oy
-rJ
-rJ
+EW
+EW
 Oy
 Oy
 Oy
@@ -33933,7 +33939,7 @@ vB
 vB
 vB
 Oy
-rJ
+Oy
 Oy
 Oy
 Oy
@@ -34189,9 +34195,9 @@ vB
 vB
 vB
 vB
-EW
-EW
-rJ
+Ce
+Ce
+Oy
 Oy
 Oy
 Oy
@@ -34448,7 +34454,7 @@ vB
 vB
 yU
 yU
-rJ
+Oy
 Oy
 Oy
 Oy
@@ -34705,7 +34711,7 @@ vB
 vB
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -34962,7 +34968,7 @@ vB
 vB
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -36762,7 +36768,7 @@ vB
 yU
 Oy
 Oy
-rJ
+EW
 Oy
 Oy
 Ne
@@ -37018,7 +37024,7 @@ vB
 vB
 yU
 Oy
-rJ
+EW
 rJ
 rJ
 Oy
@@ -37274,11 +37280,11 @@ vB
 vB
 vB
 yU
+EW
+EW
 rJ
 rJ
-rJ
-rJ
-rJ
+EW
 Ne
 Ne
 Ne
@@ -37532,10 +37538,10 @@ vB
 vB
 Mb
 Zc
+EW
 rJ
 rJ
-rJ
-rJ
+EW
 Ne
 Ne
 Ne
@@ -37789,7 +37795,7 @@ vB
 vB
 Oy
 Oy
-rJ
+EW
 rJ
 rJ
 Ys
@@ -38054,7 +38060,7 @@ Ne
 Ne
 Ne
 Ne
-Ne
+Kh
 Ne
 Ne
 Ne
@@ -38309,12 +38315,12 @@ Oy
 Oy
 Ne
 Ne
+Dq
 Ne
 Ne
 Ne
-Ne
-Ne
-Ne
+Cg
+hJ
 Ne
 Ne
 Ne
@@ -39599,10 +39605,10 @@ xj
 Pv
 MU
 SI
-SI
+Hi
 yx
-Hi
-Hi
+SI
+SI
 Hi
 SD
 BH
@@ -39849,14 +39855,14 @@ YQ
 Np
 fU
 cY
-Dq
-nb
 Ol
+cY
+lZ
 UJ
 Ol
 ip
 OS
-iU
+nb
 LS
 iU
 cG
@@ -40106,12 +40112,12 @@ Zn
 ev
 yU
 UO
-JS
-JS
-UU
+hI
 hI
 UU
 hI
+UU
+JS
 fP
 fP
 qY
@@ -43181,7 +43187,7 @@ In
 Aa
 yp
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -43439,7 +43445,7 @@ QW
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -43450,7 +43456,7 @@ Oy
 Ne
 Ne
 Ne
-QM
+Ne
 Ne
 Ne
 Ne
@@ -43696,7 +43702,7 @@ Rs
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -43953,7 +43959,7 @@ Rs
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -44209,7 +44215,7 @@ Rs
 Rs
 yU
 yU
-rJ
+EW
 Ys
 Oy
 Oy
@@ -44485,9 +44491,9 @@ Ne
 Ne
 Ne
 Ne
+Ne
 Cg
 Cg
-tG
 Or
 Or
 Or
@@ -44742,8 +44748,8 @@ Ne
 Ne
 Ne
 Ne
+Ne
 Cg
-tG
 Or
 Or
 Or
@@ -44980,7 +44986,7 @@ CR
 yk
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -44999,7 +45005,7 @@ Ne
 Ne
 Ne
 Ne
-tG
+Ne
 Or
 Or
 Or
@@ -45237,10 +45243,10 @@ Fw
 yk
 yU
 yU
-rJ
-rJ
+EW
+EW
 Gm
-rJ
+EW
 Oy
 Oy
 Kf
@@ -45501,7 +45507,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Ne
 Ne
@@ -45758,7 +45764,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Ne
 Ne
@@ -45772,7 +45778,7 @@ Ne
 Ne
 Cg
 Cg
-tG
+Cg
 Or
 Or
 Or
@@ -46012,9 +46018,9 @@ kj
 Oy
 Oy
 Oy
-rJ
-rJ
-rJ
+EW
+EW
+EW
 Oy
 Oy
 Oy
@@ -46268,9 +46274,9 @@ yU
 Oy
 Oy
 Oy
-rJ
-rJ
-rJ
+EW
+EW
+EW
 Oy
 Oy
 Oy
@@ -46779,8 +46785,8 @@ AK
 Bq
 yU
 yU
-rJ
-rJ
+EW
+EW
 WT
 Oy
 Oy
@@ -47038,8 +47044,8 @@ yU
 yU
 yU
 yU
-rJ
-rJ
+EW
+EW
 Oy
 Oy
 Oy
@@ -49114,7 +49120,7 @@ Ne
 Ne
 Cg
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -49869,8 +49875,8 @@ Py
 yU
 yU
 WT
-rJ
-rJ
+EW
+EW
 Oy
 Oy
 Ne
@@ -50900,7 +50906,7 @@ rJ
 rJ
 rJ
 rJ
-rJ
+EW
 Oy
 Oy
 Oy
@@ -51157,8 +51163,8 @@ rJ
 rJ
 rJ
 rJ
-rJ
-rJ
+EW
+EW
 Oy
 Oy
 Ne
@@ -51414,8 +51420,8 @@ rJ
 rJ
 rJ
 rJ
-rJ
-rJ
+EW
+EW
 Oy
 Oy
 Ne
@@ -51671,7 +51677,7 @@ rJ
 rJ
 rJ
 rJ
-rJ
+EW
 Oy
 Oy
 Ne
@@ -51923,12 +51929,12 @@ yU
 yU
 yU
 Oy
+EW
 rJ
 rJ
 rJ
 rJ
-rJ
-rJ
+EW
 Oy
 Oy
 Ne
@@ -52198,7 +52204,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -52455,7 +52461,7 @@ Ne
 Ne
 Ne
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -52696,8 +52702,8 @@ yU
 Oy
 Oy
 Oy
-rJ
-rJ
+EW
+EW
 Oy
 Oy
 Ne
@@ -52712,7 +52718,7 @@ Ne
 Ne
 Cg
 Cg
-Cg
+tG
 Or
 Or
 Or
@@ -53458,7 +53464,7 @@ yU
 yU
 yU
 hD
-rJ
+EW
 Oy
 Oy
 Oy
@@ -54485,7 +54491,7 @@ yU
 yU
 yU
 Oy
-rJ
+EW
 rJ
 Oy
 Oy
@@ -54741,8 +54747,8 @@ yU
 yU
 yU
 yU
-rJ
-rJ
+EW
+EW
 rJ
 WT
 Oy
@@ -54998,10 +55004,10 @@ yU
 yU
 yU
 yU
+EW
+EW
 rJ
-rJ
-rJ
-rJ
+EW
 Oy
 Oy
 Oy
@@ -55255,10 +55261,10 @@ yU
 yU
 yU
 yU
+EW
+EW
 rJ
-rJ
-rJ
-rJ
+EW
 Oy
 Oy
 Oy
@@ -55512,8 +55518,8 @@ yU
 yU
 yU
 yU
-rJ
-rJ
+EW
+EW
 rJ
 Oy
 Oy
@@ -55769,7 +55775,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Hx
 Oy
 Oy
@@ -56797,7 +56803,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -57570,7 +57576,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -57827,7 +57833,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -58082,12 +58088,12 @@ yU
 yU
 yU
 yU
-rJ
-rJ
+EW
+EW
 Hx
 Oy
-rJ
-rJ
+EW
+EW
 Oy
 Oy
 Oy
@@ -58602,7 +58608,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -58859,7 +58865,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -59367,9 +59373,9 @@ yU
 yU
 yU
 yU
-rJ
-rJ
-rJ
+EW
+EW
+EW
 Hx
 Oy
 Oy
@@ -59624,7 +59630,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -60402,7 +60408,7 @@ Oy
 Oy
 Oy
 Oy
-rJ
+EW
 rJ
 rJ
 Oy
@@ -60662,7 +60668,7 @@ Oy
 Oy
 rJ
 rJ
-rJ
+EW
 Oy
 Ne
 Ne
@@ -60917,8 +60923,8 @@ Oy
 Oy
 Oy
 Oy
-rJ
-rJ
+Oy
+EW
 Oy
 Oy
 Ne
@@ -61166,8 +61172,7 @@ yU
 yU
 yU
 yU
-rJ
-rJ
+EW
 Oy
 Oy
 Oy
@@ -61175,7 +61180,8 @@ Oy
 Oy
 Oy
 Oy
-rJ
+Oy
+Oy
 Oy
 Oy
 Ne
@@ -61682,7 +61688,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -61939,7 +61945,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -62195,7 +62201,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -63222,7 +63228,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 yh
 Oy
 Oy
@@ -63479,9 +63485,9 @@ yU
 yU
 yU
 yU
-rJ
-rJ
-rJ
+EW
+EW
+EW
 Oy
 Oy
 Oy
@@ -63736,7 +63742,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 rJ
 rJ
 rJ
@@ -63993,12 +63999,12 @@ yU
 yU
 yU
 yU
+EW
 rJ
 rJ
 rJ
 rJ
-rJ
-rJ
+EW
 Oy
 Oy
 Oy
@@ -64250,12 +64256,12 @@ yU
 yU
 yU
 yU
+EW
 rJ
 rJ
 rJ
 rJ
-rJ
-rJ
+EW
 Oy
 Oy
 Oy
@@ -64507,12 +64513,12 @@ yU
 yU
 yU
 yU
+EW
 rJ
 rJ
 rJ
 rJ
-rJ
-rJ
+EW
 Oy
 Oy
 Oy
@@ -64764,12 +64770,12 @@ yU
 yU
 yU
 yU
+EW
 rJ
 rJ
 rJ
 rJ
-rJ
-rJ
+EW
 Oy
 Oy
 Oy
@@ -65026,7 +65032,7 @@ rJ
 rJ
 rJ
 rJ
-rJ
+EW
 Oy
 Oy
 Oy
@@ -67077,7 +67083,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -67334,9 +67340,9 @@ yU
 yU
 yU
 yU
-rJ
-rJ
-rJ
+EW
+EW
+Oy
 Oy
 Oy
 Oy
@@ -67591,10 +67597,10 @@ yU
 yU
 yU
 yU
-rJ
-rJ
-rJ
-rJ
+EW
+EW
+EW
+EW
 Oy
 Oy
 Oy
@@ -67848,11 +67854,11 @@ yU
 yU
 yU
 yU
-rJ
-rJ
-rJ
-rJ
-rJ
+EW
+EW
+EW
+EW
+Oy
 Oy
 Oy
 Oy
@@ -68105,12 +68111,12 @@ yU
 yU
 yU
 yU
-hJ
-yd
-rJ
-rJ
-rJ
-rJ
+fU
+yh
+Oy
+EW
+EW
+Oy
 Oy
 Oy
 Oy
@@ -68367,8 +68373,8 @@ yU
 yU
 yU
 yU
-rJ
-rJ
+Oy
+Oy
 Oy
 Oy
 Oy
@@ -68624,9 +68630,9 @@ yU
 yU
 yU
 yU
-rJ
-rJ
-rJ
+EW
+Oy
+Oy
 Oy
 Oy
 Oy
@@ -68881,9 +68887,9 @@ yU
 yU
 yU
 yU
-rJ
-rJ
-rJ
+EW
+Oy
+Oy
 Oy
 Oy
 Oy
@@ -69138,8 +69144,8 @@ yU
 yU
 yU
 yU
-rJ
-rJ
+EW
+Oy
 Oy
 Oy
 Oy
@@ -69395,7 +69401,7 @@ yU
 yU
 yU
 yU
-rJ
+Oy
 Oy
 Oy
 Oy
@@ -70680,7 +70686,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -70937,8 +70943,8 @@ yU
 yU
 yU
 yU
-rJ
-rJ
+EW
+EW
 Oy
 Oy
 Oy
@@ -71189,12 +71195,12 @@ yU
 yU
 yU
 yU
-rJ
-rJ
-rJ
-rJ
-rJ
-rJ
+EW
+EW
+EW
+EW
+EW
+EW
 Oy
 Oy
 Oy
@@ -71446,11 +71452,11 @@ yU
 yU
 yU
 yU
-rJ
-rJ
+EW
+EW
 Oy
 Oy
-rJ
+EW
 Oy
 Oy
 Oy
@@ -71722,7 +71728,7 @@ Ne
 Ne
 Ne
 Ne
-Ne
+Cg
 Cg
 Or
 Or
@@ -71979,7 +71985,7 @@ Ne
 Ne
 Ne
 Ne
-Ne
+Cg
 Cg
 Or
 Or
@@ -72217,10 +72223,10 @@ yU
 yU
 yU
 yU
-rJ
-rJ
-rJ
-rJ
+EW
+EW
+EW
+EW
 yh
 Oy
 Oy
@@ -72236,7 +72242,7 @@ Ne
 Ne
 Ne
 Ne
-Ne
+Cg
 Cg
 Or
 Or
@@ -72493,7 +72499,7 @@ Ne
 Ne
 Ne
 Ne
-Ne
+Cg
 Cg
 Or
 Or
@@ -72738,7 +72744,7 @@ yU
 yU
 yU
 yU
-rJ
+EW
 Oy
 Oy
 Oy
@@ -72749,8 +72755,8 @@ Ne
 Ne
 Ne
 Ne
-Ne
-Ne
+Cg
+Cg
 Cg
 Or
 Or
