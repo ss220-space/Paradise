@@ -158,14 +158,11 @@
 			user.visible_message(span_notice("[user] скармлива[pluralize_ru(user.gender, "ет", "ют")] пшеницу [src.declent_ru(DATIVE)]! Она [pick(feedMessages)]."))
 			user.drop_transfer_item_to_loc(O, src)
 			qdel(O)
-
-			if(COOLDOWN_STARTED(src, feeded_cow))
-				COOLDOWN_RESET(src, feeded_cow)
 			COOLDOWN_START(src, feeded_cow, 60 SECONDS)
 			udder.feeded = TRUE
 
 		else
-			to_chat(user, span_notice("[capitalize(src.declent_ru(NOMINATIVE))] не голодна."))
+			user.balloon_alert(user, "[src.declent_ru(NOMINATIVE)] не голодна")
 
 	else if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
 		udder.milkAnimal(O, user)
@@ -324,7 +321,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 			eggsleft += rand(1, 4)
 			//world << eggsleft
 		else
-			to_chat(user, span_notice("Кажется, [src.declent_ru(NOMINATIVE)] не голодна."))
+			user.balloon_alert(user, "[src.declent_ru(NOMINATIVE)] не голодна")
 	else
 		..()
 
@@ -569,11 +566,11 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 /obj/item/udder/proc/milkAnimal(obj/O, mob/user)
 	var/obj/item/reagent_containers/glass/G = O
 	if(G.reagents.total_volume >= G.volume)
-		to_chat(user, span_warning("В ёмкости закончилось место."))
+		user.balloon_alert(user, "ёмкость заполнена!")
 		return
 	var/transfered = reagents.trans_to(O, rand(5,10))
 	if(transfered)
 		user.visible_message(span_notice("[user] до[pluralize_ru(user.gender, "ит", "ят")] корову."), \
 							span_notice("Вы доите корову."))
 	else
-		to_chat(user, span_warning("Вымя сухое. Подождите немного..."))
+		user.balloon_alert(user, "вымя сухое, подождите немного!")
