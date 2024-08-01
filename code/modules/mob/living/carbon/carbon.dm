@@ -516,6 +516,10 @@
 		throw_icon.icon_state = "act_throw_on"
 	if(client?.mouse_pointer_icon == initial(client.mouse_pointer_icon))
 		client.mouse_pointer_icon = THROW_MODE_ICON
+	// we nullify click cd when someone tries to throw a grabbed mob
+	// improves combat robustness a lot
+	if(pulling && grab_state > GRAB_PASSIVE)
+		changeNext_move(0)
 
 #undef THROW_MODE_ICON
 
