@@ -330,6 +330,9 @@
 	if(!(timed_action_flags & DA_IGNORE_EMPTY_GRIPPER) && istype(gripper) && !gripper.isEmpty())
 		gripper_check = TRUE
 
+	if(!(timed_action_flags & DA_IGNORE_SLOWDOWNS))
+		delay *= user.cached_multiplicative_actions_slowdown
+
 	var/datum/progressbar/progbar
 	var/endtime = world.time + delay
 	var/starttime = world.time
