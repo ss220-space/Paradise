@@ -787,28 +787,30 @@
 	desc = "Cat with warning cone on it. Wonder what do itself so smart?"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "razymist_cat"
-	var/cooldown = 0
+	COOLDOWN_DECLARE(cooldown)
 
-/obj/item/toy/plushie/kotrazumist/attack_self(mob/user as mob)
+/obj/item/toy/plushie/kotrazumist/attack_self(mob/user)
 	. = ..()
-	if(cooldown < world.time)
-		cooldown = (world.time + 3 SECONDS) //3 second cooldown
-		var/razumisttext = pick("I know everything about everything, please ask me something!", "I'm feeling extra wise today!", "Mrow!", "Purr!")
-		user.visible_message(span_notice(razumisttext))
+	if(. || !COOLDOWN_FINISHED(src, cooldown))
+		return .
+	var/razumisttext = pick("I know everything about everything, please ask me something!", "I'm feeling extra wise today!", "Mrow!", "Purr!")
+	user.visible_message(span_notice(razumisttext))
+	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
 /obj/item/toy/plushie/kotwithfunnyhat
 	name = "Rice Cat"
 	desc = "White cat plushie with straw hat for hard work on rice field!"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "ricehat_cat"
-	var/cooldown = 0
+	COOLDOWN_DECLARE(cooldown)
 
-/obj/item/toy/plushie/kotwithfunnyhat/attack_self(mob/user as mob)
+/obj/item/toy/plushie/kotwithfunnyhat/attack_self(mob/user)
 	. = ..()
-	if(cooldown < world.time)
-		cooldown = (world.time + 3 SECONDS) //3 second cooldown
-		var/ricetext = pick("Welcome to the rice fields!", "Where is my rice!", "Mrow!", "Purr!")
-		user.visible_message(span_notice(ricetext))
+	if(. || !COOLDOWN_FINISHED(src, cooldown))
+		return .
+	var/ricetext = pick("Welcome to the rice fields!", "Where is my rice!", "Mrow!", "Purr!")
+	user.visible_message(span_notice(ricetext))
+	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
 /obj/item/toy/plushie/voxplushie
 	name = "vox plushie"
