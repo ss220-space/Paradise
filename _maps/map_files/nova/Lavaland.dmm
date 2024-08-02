@@ -317,7 +317,7 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc{
-	dir = 4;
+	dir = 1;
 	name = "Labor Camp Security APC";
 	pixel_y = 28
 	},
@@ -1286,6 +1286,9 @@
 	icon_state = "brown"
 	},
 /area/mine/living_quarters)
+"jJ" = (
+/turf/simulated/floor/wood,
+/area/mine/cafeteria)
 "jM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -1604,8 +1607,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -2203,8 +2205,7 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -2220,8 +2221,7 @@
 	},
 /obj/machinery/atmospherics/meter,
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
@@ -2630,7 +2630,6 @@
 /area/mine/living_quarters)
 "tf" = (
 /obj/machinery/power/apc{
-	dir = 1;
 	name = "Labor Camp APC";
 	pixel_x = 1;
 	pixel_y = -28
@@ -3253,8 +3252,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/bed/roller,
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -3960,10 +3958,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/cafeteria)
 "BB" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
-	},
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
@@ -3971,6 +3965,9 @@
 	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 9
 	},
 /turf/simulated/floor/plating,
@@ -4366,15 +4363,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 5
 	},
 /turf/simulated/floor/wood,
 /area/mine/cafeteria)
@@ -4898,10 +4894,6 @@
 	},
 /area/mine/eva)
 "Ic" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
@@ -4909,6 +4901,9 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 9
 	},
 /turf/simulated/floor/plating,
@@ -5162,7 +5157,7 @@
 /area/mine/cafeteria)
 "Ku" = (
 /obj/machinery/vending/boozeomat,
-/turf/space,
+/turf/simulated/floor/wood,
 /area/mine/cafeteria)
 "Kv" = (
 /obj/structure/stone_tile/surrounding_tile{
@@ -7155,8 +7150,7 @@
 /area/lavaland/surface/outdoors/necropolis)
 "Yt" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -21827,7 +21821,7 @@ MI
 lJ
 IF
 DW
-sW
+jJ
 nU
 eT
 bB
