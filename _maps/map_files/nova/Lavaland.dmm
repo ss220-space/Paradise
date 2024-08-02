@@ -3404,8 +3404,6 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
-"yd" = (
-/area/lavaland/surface/outdoors)
 "yg" = (
 /obj/structure/stone_tile/slab/cracked{
 	dir = 10
@@ -12062,7 +12060,7 @@ hr
 iu
 ah
 XT
-yd
+Ne
 oA
 kk
 oA
