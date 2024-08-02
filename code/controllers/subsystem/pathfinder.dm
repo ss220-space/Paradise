@@ -17,6 +17,7 @@ SUBSYSTEM_DEF(pathfinder)
 
 /datum/controller/subsystem/pathfinder/Initialize()
 	space_type_cache = typecacheof(/turf/space)
+	return SS_INIT_SUCCESS
 
 
 /datum/controller/subsystem/pathfinder/get_stat_details()

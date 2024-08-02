@@ -596,9 +596,6 @@
 
 /datum/config_entry/flag/disable_karma
 
-/datum/config_entry/number/tick_limit_mc_init
-	default = TICK_LIMIT_MC_INIT_DEFAULT
-
 /datum/config_entry/number/base_mc_tick_rate
 	integer = FALSE
 	default = 1
@@ -773,6 +770,15 @@
 	default = 80
 
 
+/datum/config_entry/number/hard_deletes_overrun_threshold
+	integer = FALSE
+	min_val = 0
+	default = 0.5
+
+/datum/config_entry/number/hard_deletes_overrun_limit
+	default = 0
+	min_val = 0
+
 /datum/config_entry/number/error_cooldown // The "cooldown" time for each occurrence of a unique error
 	default = 600
 	integer = FALSE
@@ -791,4 +797,24 @@
 /datum/config_entry/number/error_msg_delay // How long to wait between messaging admins about occurrences of a unique error
 	default = 50
 	integer = FALSE
+
+
+/datum/config_entry/number/second_topic_limit
+	default = 10
+	min_val = 0
+
+
+/datum/config_entry/number/minute_topic_limit
+	default = 150
+	min_val = 0
+
+
+/datum/config_entry/number/second_click_limit
+	default = 15
+	min_val = 0
+
+
+/datum/config_entry/number/minute_click_limit
+	default = 400
+	min_val = 0
 

@@ -41,8 +41,8 @@
 		i--
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/GiveTarget(new_target)
-	target = new_target
-	if(target != null)
+	add_target(new_target)
+	if(!QDELETED(target))
 		if(wanted_objects[target.type] && loot.len < max_loot)
 			visible_message("<span class='notice'>\The [name] looks at [target.name] with hungry eyes.</span>")
 		else if(iscarbon(target) || issilicon(target))

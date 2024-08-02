@@ -213,12 +213,11 @@ SUBSYSTEM_DEF(throwing)
 		var/turf/T = get_turf(thrownthing)
 		T?.zFall(thrownthing)
 
-	SEND_SIGNAL(thrownthing, COMSIG_MOVABLE_THROW_LANDED, src)
-	thrownthing.end_throw()
-	if(QDELETED(thrownthing))
-		return
+	if(thrownthing)
+		SEND_SIGNAL(thrownthing, COMSIG_MOVABLE_THROW_LANDED, src)
+		thrownthing?.end_throw()
 
-	thrownthing.newtonian_move(REVERSE_DIR(init_dir))
+	thrownthing.newtonian_move(init_dir)
 
 	qdel(src)
 

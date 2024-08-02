@@ -1,0 +1,311 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	tag = "icon-propulsion (EAST)"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/transport)
+"c" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "brown"
+	},
+/area/shuttle/transport)
+"d" = (
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 2;
+	height = 12;
+	id = "ferry";
+	name = "ferry shuttle";
+	roundstart_move = "ferry_away";
+	timid = 1;
+	width = 5
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/shuttle{
+	id_tag = "s_docking_airlock";
+	req_access = list(32,101,19)
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/transport)
+"l" = (
+/turf/simulated/wall/shuttle,
+/area/shuttle/transport)
+"n" = (
+/obj/structure/closet/crate/engineering,
+/obj/item/grenade/chem_grenade/metalfoam,
+/obj/item/grenade/chem_grenade/metalfoam,
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50
+	},
+/obj/item/stack/sheet/plasteel{
+	amount = 50
+	},
+/obj/machinery/light/spot{
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "brown"
+	},
+/area/shuttle/transport)
+"o" = (
+/obj/machinery/recharge_station/upgraded,
+/obj/structure/window/plasmareinforced{
+	dir = 8;
+	layer = 2.9
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "brown"
+	},
+/area/shuttle/transport)
+"z" = (
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "brown"
+	},
+/area/shuttle/transport)
+"B" = (
+/obj/machinery/vending/engivend,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "brown"
+	},
+/area/shuttle/transport)
+"C" = (
+/obj/machinery/computer/shuttle/ferry/request,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "brown"
+	},
+/area/shuttle/transport)
+"G" = (
+/obj/machinery/satellite/meteor_shield,
+/obj/machinery/satellite/meteor_shield,
+/obj/machinery/satellite/meteor_shield,
+/obj/machinery/satellite/meteor_shield,
+/obj/machinery/satellite/meteor_shield,
+/obj/machinery/door/window/survival_pod{
+	dir = 2
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8;
+	pixel_x = -4;
+	can_be_hit = 0;
+	damage_deflection = 100
+	},
+/turf/simulated/floor/mech_bay_recharge_floor,
+/area/shuttle/transport)
+"I" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/shuttle{
+	id_tag = "s_docking_airlock";
+	req_access = list(32,101,19)
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/transport)
+"J" = (
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/machinery/autolathe/upgraded,
+/obj/machinery/light/spot{
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 8;
+	pixel_x = -4;
+	can_be_hit = 0;
+	damage_deflection = 100
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "brown"
+	},
+/area/shuttle/transport)
+"M" = (
+/obj/structure/closet/crate/engineering,
+/obj/item/rcd,
+/obj/item/rcd,
+/obj/item/rcd,
+/obj/item/rcd,
+/obj/item/rcd,
+/obj/item/rcd_ammo/large,
+/obj/item/rcd_ammo/large,
+/obj/item/rcd_ammo/large,
+/obj/item/rcd_ammo/large,
+/obj/item/rcd_ammo/large,
+/obj/item/rcd_ammo/large,
+/obj/item/rcd_ammo/large,
+/obj/item/rcd_ammo/large,
+/obj/item/rcd_ammo/large,
+/obj/item/rcd_ammo/large,
+/obj/machinery/light/spot,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "brown"
+	},
+/area/shuttle/transport)
+"N" = (
+/obj/machinery/recharge_station/upgraded,
+/obj/structure/window/plasmareinforced{
+	dir = 8;
+	layer = 2.9
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "brown"
+	},
+/area/shuttle/transport)
+"V" = (
+/obj/machinery/suit_storage_unit/engine,
+/turf/simulated/floor/plasteel{
+	icon_state = "brown"
+	},
+/area/shuttle/transport)
+"W" = (
+/obj/structure/window/full/shuttle,
+/obj/structure/grille,
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/transport)
+"Z" = (
+/turf/simulated/floor/plasteel,
+/area/shuttle/transport)
+
+(1,1,1) = {"
+a
+a
+I
+a
+a
+"}
+(2,1,1) = {"
+l
+o
+Z
+N
+l
+"}
+(3,1,1) = {"
+l
+G
+Z
+V
+l
+"}
+(4,1,1) = {"
+l
+G
+Z
+V
+l
+"}
+(5,1,1) = {"
+l
+G
+Z
+V
+l
+"}
+(6,1,1) = {"
+l
+J
+Z
+V
+l
+"}
+(7,1,1) = {"
+l
+B
+Z
+V
+l
+"}
+(8,1,1) = {"
+W
+z
+Z
+c
+W
+"}
+(9,1,1) = {"
+W
+C
+Z
+c
+W
+"}
+(10,1,1) = {"
+W
+z
+Z
+c
+W
+"}
+(11,1,1) = {"
+l
+n
+Z
+M
+l
+"}
+(12,1,1) = {"
+l
+W
+d
+W
+l
+"}

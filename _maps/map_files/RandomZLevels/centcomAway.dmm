@@ -6510,7 +6510,7 @@
 	},
 /area/awaymission/centcomAway/thunderdome)
 "qc" = (
-/obj/structure/closet/secure_closet/bar,
+/obj/structure/closet/secure_closet/cabinet/bar,
 /turf/simulated/floor/plasteel{
 	tag = "icon-redyellowfull (NORTHEAST)";
 	icon_state = "redyellowfull";

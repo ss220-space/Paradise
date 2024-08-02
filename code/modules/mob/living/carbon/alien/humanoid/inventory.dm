@@ -13,7 +13,6 @@
 		if(!QDELETED(src))
 			update_inv_pockets()
 
-
 /mob/living/carbon/alien/humanoid/equip_to_slot(obj/item/I, slot, initial)
 	if(!slot)
 		return

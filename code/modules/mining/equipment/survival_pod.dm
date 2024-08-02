@@ -42,41 +42,86 @@
 	. += "<span class='notice'>This capsule has the [template.name] stored.</span>"
 	. += "<span class='notice'>[template.description]</span>"
 
-/obj/item/survivalcapsule/attack_self()
-	// Can't grab when capsule is New() because templates aren't loaded then
+/obj/item/survivalcapsule/attack_self(mob/user)
+	. = ..()
+	if(.)
+		return .
+	//Can't grab when capsule is New() because templates aren't loaded then
 	get_template()
-	if(used == FALSE)
-		var/turf/UT = get_turf(usr)
-		if((check_level_trait(UT.z, STATION_LEVEL)) && !emagged)
-			to_chat(usr, "<span class='notice'>Error. Deployment was attempted on the station sector. Deployment aborted.</span>")
-			playsound(usr, 'sound/machines/buzz-sigh.ogg', 15, TRUE)
-			return
-		loc.visible_message("<span class='warning'>[src] begins to shake. Stand back!</span>")
-		used = TRUE
-		sleep(50)
-		var/turf/deploy_location = get_turf(src)
-		var/status = template.check_deploy(deploy_location)
-		switch(status)
-			if(SHELTER_DEPLOY_BAD_AREA)
-				loc.visible_message("<span class='warning'>[src] will not function in this area.</span>")
-			if(SHELTER_DEPLOY_BAD_TURFS, SHELTER_DEPLOY_ANCHORED_OBJECTS)
-				var/width = template.width
-				var/height = template.height
-				loc.visible_message("<span class='warning'>[src] doesn't have room to deploy! You need to clear a [width]x[height] area!</span>")
+	if(used)
+		return FALSE
+	var/turf/UT = get_turf(user)
+	if((check_level_trait(UT.z, STATION_LEVEL)) && !emagged)
+		to_chat(user, span_notice("Error. Deployment was attempted on the station sector. Deployment aborted."))
+		playsound(user, 'sound/machines/buzz-sigh.ogg', 15, TRUE)
+		return
+	loc.visible_message("<span class='warning'>[src] begins to shake. Stand back!</span>")
+	used = TRUE
+	addtimer(CALLBACK(src, PROC_REF(expand), user), 5 SECONDS)
+	return TRUE
 
-		if(status != SHELTER_DEPLOY_ALLOWED)
-			used = FALSE
-			return
+/// Expands the capsule into a full shelter, placing the template at the item's location (NOT triggerer's location)
+/obj/item/survivalcapsule/proc/expand(mob/triggerer)
+	if(QDELETED(src))
+		return
+	var/turf/deploy_location = get_turf(src)
+	var/status = template.check_deploy(deploy_location)
+	switch(status)
+		if(SHELTER_DEPLOY_BAD_AREA)
+			loc.visible_message(span_warning("[src] will not function in this area."))
+		if(SHELTER_DEPLOY_BAD_TURFS, SHELTER_DEPLOY_ANCHORED_OBJECTS)
+			loc.visible_message(span_warning("[src] doesn't have room to deploy! You need to clear a [template.width]x[template.height] area!"))
 
-		playsound(get_turf(src), 'sound/effects/phasein.ogg', 100, 1)
+	if(status != SHELTER_DEPLOY_ALLOWED)
+		used = FALSE
+		return
 
-		var/turf/T = deploy_location
-		if(!is_mining_level(T.z))//only report capsules away from the mining/lavaland level
-			message_admins("[ADMIN_LOOKUPFLW(usr)] activated a bluespace capsule away from the mining level!")
-			add_game_logs("activated a bluespace capsule away from the mining level at [COORD(T)]", usr)
-		template.load(deploy_location, centered = TRUE)
-		new /obj/effect/particle_effect/smoke(get_turf(src))
-		qdel(src)
+	yote_nearby(deploy_location)
+	template.load(deploy_location, centered = TRUE)
+	trigger_admin_alert(triggerer, deploy_location)
+	playsound(src, 'sound/effects/phasein.ogg', 100, TRUE)
+	new /obj/effect/particle_effect/smoke(get_turf(src))
+	qdel(src)
+
+/// Throws any mobs near the deployed location away from the item / shelter
+/// Does some math to make closer mobs get thrown further
+/obj/item/survivalcapsule/proc/yote_nearby(turf/deploy_location)
+	var/width = template.width
+	var/height = template.height
+	var/base_x_throw_distance = ceil(width / 2)
+	var/base_y_throw_distance = ceil(height / 2)
+	for(var/mob/living/did_not_stand_back in range(loc, "[width]x[height]"))
+		var/dir_to_center = get_dir(deploy_location, did_not_stand_back) || pick(GLOB.alldirs)
+		// Aiming to throw the target just enough to get them out of the range of the shelter
+		// IE: Stronger if they're closer, weaker if they're further away
+		var/throw_dist = 0
+		var/x_component = abs(did_not_stand_back.x - deploy_location.x)
+		var/y_component = abs(did_not_stand_back.y - deploy_location.y)
+		if(ISDIAGONALDIR(dir_to_center))
+			throw_dist = ceil(sqrt(base_x_throw_distance ** 2 + base_y_throw_distance ** 2) - (sqrt(x_component ** 2 + y_component ** 2)))
+			did_not_stand_back.forceMove(get_ranged_target_turf(deploy_location, dir_to_center, throw_dist))
+		else if(dir_to_center & (NORTH|SOUTH))
+			throw_dist = base_y_throw_distance - y_component + 1
+			did_not_stand_back.forceMove(get_ranged_target_turf(deploy_location, dir_to_center, base_y_throw_distance))
+		else if(dir_to_center & (EAST|WEST))
+			throw_dist = base_x_throw_distance - x_component + 1
+			did_not_stand_back.forceMove(get_ranged_target_turf(deploy_location, dir_to_center, base_x_throw_distance))
+		did_not_stand_back.Knockdown(6 SECONDS)
+		did_not_stand_back.throw_at(
+			target = get_edge_target_turf(did_not_stand_back, dir_to_center),
+			range = throw_dist,
+			speed = 3,
+			force = MOVE_FORCE_VERY_STRONG,
+		)
+
+/// Logs if the capsule was triggered, by default only if it happened on non-lavaland
+/obj/item/survivalcapsule/proc/trigger_admin_alert(mob/triggerer, turf/trigger_loc)
+	//only report capsules away from the mining/lavaland level
+	if(is_mining_level(trigger_loc.z))
+		return
+
+	message_admins("[ADMIN_LOOKUPFLW(triggerer)] activated a bluespace capsule away from the mining level!")
+	add_game_logs("activated a bluespace capsule away from the mining level at [COORD(trigger_loc)]", triggerer)
 
 /obj/item/survivalcapsule/luxury
 	name = "luxury bluespace shelter capsule"
@@ -169,6 +214,7 @@
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "table"
 	smooth = NONE
+	can_be_flipped = FALSE
 
 //Sleeper
 /obj/machinery/sleeper/survival_pod
@@ -221,6 +267,9 @@
 			gps.add_fingerprint(user)
 			qdel(src)
 			return ..()
+
+/obj/item/gps/computer/ui_state(mob/user)
+	return GLOB.default_state
 
 /obj/item/gps/computer/attack_hand(mob/user)
 	attack_self(user)

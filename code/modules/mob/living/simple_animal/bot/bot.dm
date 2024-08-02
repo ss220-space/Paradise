@@ -14,8 +14,8 @@
 	has_unlimited_silicon_privilege = TRUE
 	sentience_type = SENTIENCE_ARTIFICIAL
 	status_flags = NONE //no default canpush
-	can_strip = FALSE
 	pass_flags = PASSFLAPS
+	AI_delay_max = 0 SECONDS
 
 	speak_emote = list("states")
 	tts_seed = null
@@ -227,11 +227,14 @@
 		path_hud.add_hud_to(src)
 
 
+
 /mob/living/simple_animal/bot/proc/add_bot_filter()
 	if(QDELETED(src) || !SSradio || !bot_filter)
 		return
 	SSradio.add_object(bot_core, control_freq, bot_filter)
 
+/mob/living/simple_animal/bot/can_strip()
+	return FALSE
 
 /mob/living/simple_animal/bot/med_hud_set_health()
 	return diag_hud_set_bothealth() //we use a different hud
@@ -1008,10 +1011,6 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 /mob/living/simple_animal/bot/proc/openedDoor(obj/machinery/door/D)
 	frustration = 0
-
-
-/mob/living/simple_animal/bot/show_inv()
-	return
 
 
 /mob/living/simple_animal/bot/proc/show_controls(mob/user)

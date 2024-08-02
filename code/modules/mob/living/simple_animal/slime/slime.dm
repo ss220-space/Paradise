@@ -11,6 +11,7 @@
 	var/docile = 0
 	faction = list("slime", "neutral")
 	allows_unconscious = TRUE
+	AI_delay_max = 0.5 SECONDS
 
 	harm_intent_damage = 3
 	icon_living = "grey baby slime"
@@ -246,19 +247,20 @@
 /mob/living/simple_animal/slime/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
-/mob/living/simple_animal/slime/Stat()
-	if(..())
+/mob/living/simple_animal/slime/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
 
-		if(!docile)
-			stat(null, "Nutrition: [nutrition]/[get_max_nutrition()]")
+	if(!docile)
+		status_tab_data[++status_tab_data.len] = list("Nutrition:", "[nutrition]/[get_max_nutrition()]")
 
-		if(amount_grown >= age_state.amount_grown_for_split)
-			stat(null, "You can [age_state.stat_text][amount_grown >= age_state.amount_grown ? " [age_state.stat_text_evolve]" : ""]!")
+	if(amount_grown >= age_state.amount_grown_for_split)
+		status_tab_data[++status_tab_data.len] = list("You can:", "[age_state.stat_text][amount_grown >= age_state.amount_grown ? " [age_state.stat_text_evolve]" : ""]!")
 
-		if(stat == UNCONSCIOUS)
-			stat(null,"You are knocked out by high levels of BZ!")
-		else
-			stat(null,"Power Level: [powerlevel]")
+	if(stat == UNCONSCIOUS)
+		status_tab_data[++status_tab_data.len] = list("Power Level:", "You are knocked out by high levels of BZ!")
+	else
+		status_tab_data[++status_tab_data.len] = list("Power Level:", "[powerlevel]")
 
 
 /mob/living/simple_animal/slime/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE)
@@ -528,8 +530,8 @@
 		sman = slimeman
 	if(slime_spell)
 		parent_spell = slime_spell
-	verbs -= /mob/living/simple_animal/slime/verb/Evolve
-	verbs -= /mob/living/simple_animal/slime/verb/Reproduce
+	remove_verb(src, /mob/living/simple_animal/slime/verb/Evolve)
+	remove_verb(src, /mob/living/simple_animal/slime/verb/Reproduce)
 
 /mob/living/simple_animal/slime/invalid/Destroy()
 	parent_spell = null

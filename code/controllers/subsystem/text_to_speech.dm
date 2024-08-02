@@ -207,6 +207,7 @@ SUBSYSTEM_DEF(tts)
 	is_enabled = CONFIG_GET(flag/tts_enabled)
 	if(!is_enabled)
 		flags |= SS_NO_FIRE
+	return SS_INIT_SUCCESS
 
 
 /datum/controller/subsystem/tts/fire()
