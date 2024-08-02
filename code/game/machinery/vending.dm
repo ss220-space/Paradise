@@ -558,14 +558,14 @@
 		return
 	. = TRUE
 	if(tilted)
-		to_chat(span_warning("You'll need to right it first!"))
+		to_chat(user, span_warning("You'll need to right it first!"))
 		return
 	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/vending/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(tilted)
-		to_chat(span_warning("You'll need to right it first!"))
+		to_chat(user, span_warning("You'll need to right it first!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -574,7 +574,7 @@
 /obj/machinery/vending/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(tilted)
-		to_chat(span_warning("You'll need to right it first!"))
+		to_chat(user, span_warning("You'll need to right it first!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -587,7 +587,7 @@
 /obj/machinery/vending/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
 	if(tilted)
-		to_chat(span_warning("You'll need to right it first!"))
+		to_chat(user, span_warning("You'll need to right it first!"))
 		return
 	if(I.use_tool(src, user, 0, volume = 0))
 		wires.Interact(user)
@@ -595,7 +595,7 @@
 /obj/machinery/vending/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(tilted)
-		to_chat(span_warning("The fastening bolts aren't on the ground, you'll need to right it first!"))
+		to_chat(user, span_warning("The fastening bolts aren't on the ground, you'll need to right it first!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return

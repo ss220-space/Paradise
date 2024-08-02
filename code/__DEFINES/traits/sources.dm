@@ -140,3 +140,5 @@
 // item trait sources
 #define BROODMOTHER_TONGUE_TRAIT "broodmother_tongue"
 
+#define VENDOR_FLATTENING_TRAIT "vendor_flattening"
+

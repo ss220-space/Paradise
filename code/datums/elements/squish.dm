@@ -20,7 +20,7 @@
 	var/mob/living/carbon/C = target
 	var/was_lying = C.body_position == LYING_DOWN
 	addtimer(CALLBACK(src, PROC_REF(Detach), C, was_lying, reverse), duration)
-	ADD_TRAIT(target, TRAIT_FLATTENED, "vendor_flattening")
+	ADD_TRAIT(target, TRAIT_FLATTENED, VENDOR_FLATTENING_TRAIT)
 
 	if(reverse)
 		C.transform = C.transform.Scale(SHORT_SCALE, TALL_SCALE)
@@ -33,7 +33,7 @@
 	if(!istype(C))
 		return
 	var/is_lying = C.body_position == LYING_DOWN
-	REMOVE_TRAIT(C, TRAIT_FLATTENED, "vendor_flattening")
+	REMOVE_TRAIT(C, TRAIT_FLATTENED, VENDOR_FLATTENING_TRAIT)
 
 	if(reverse)
 		is_lying = !is_lying
@@ -55,10 +55,10 @@
 		return ELEMENT_INCOMPATIBLE
 	var/mob/living/carbon/C = target
 	addtimer(CALLBACK(src, PROC_REF(Detach), C), duration)
-	ADD_TRAIT(target, TRAIT_FLATTENED, "vendor_flattening")
+	ADD_TRAIT(target, TRAIT_FLATTENED, VENDOR_FLATTENING_TRAIT)
 
 /datum/element/tilt_protection/Detach(mob/living/carbon/C)
 	. = ..()
 	if(!istype(C))
 		return
-	REMOVE_TRAIT(C, TRAIT_FLATTENED, "vendor_flattening")
+	REMOVE_TRAIT(C, TRAIT_FLATTENED, VENDOR_FLATTENING_TRAIT)
