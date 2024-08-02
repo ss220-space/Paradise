@@ -415,6 +415,20 @@
   pilygun:
   - imageadd: QOL spr.Flashbang+mobcap (#5582)
 '2024-07-28':
+  Aziz Chynaliev:
+  - bugfix: allow to set FPS from -1 to 120
+  - server: add testmerge worker action
+  - server: fix testmerge worker action
+  - server: fix testmerge worker action 2
+  - server: fix testmerge worker action 3
+  - server: fix testmerge worker action 4
+  - server: fix testmerge worker action 5
+  - server: fix testmerge worker action 6
+  - server: fix testmerge worker action 7
+  - server: fix testmerge worker action 8
+  - server: fix testmerge worker action 9
+  - server: fix testmerge worker action 10
+  - server: add potential conflicts checker
   Daeberdir:
   - add: ION storm device. (#4435)
   Den109G:
@@ -428,11 +442,63 @@
   - tweak: alt game prefs (#5595)
   - bugfix: ATM pin number, empty tgui_input_lists, ATM levels (#5594)
   - bugfix: mulptly striping (#5597)
+  - bugfix: law_manager adminjump (#5600)
   SAAD:
   - server: Celestation improvement 4 (#5589)
   Valtor:
   - add: Diona no roboparts, but regeneration from consuming nymphs (#5521)
   Vladisvell:
   - bugfix: Ghosts no longer can trigger explosion of abandoned crate (#5593)
+  Zwei:
+  - bugfix: Tesla Zap Fix (#5601)
+  endipe:
+  - bugfix: no icon_state on cardboard (#5599)
   pilygun:
   - imageadd: QOL spr.grenade 2 (#5592)
+  - bugfix: chem_grenade spr (#5598)
+'2024-07-29':
+  Aziz Chynaliev:
+  - server: fix potential conflicts checker
+  - server: fix potential conflicts checker 2
+  - server: fix potential conflicts checker 3
+  - bugfix: less spam in admin log
+  - server: add resources.txt config entries
+  - server: increase TGUI connection lost threshold
+  NightDawnFox:
+  - add: shooting with shotgun at point-blank range now throwing victim back. (#5491)
+  ROdenFL:
+  - add: more buttons in top-left menu (#5602)
+  - admin: bold banned message (#5607)
+  - add: clown mimic voice menu[bounty] (#5512)
+  - bugfix: holster abuz and deadmin hide stealth (#5612)
+  - tweak: antagonists -> special roles (#5611)
+  - bugfix: verbs |= -> add_verb (#5618)
+  SAAD:
+  - tweak: July delta general cleanup + Z1 shuttles air leaks fix (#5474)
+  - add: Event map "delta dlya oldov" (#5467)
+  - tweak: change "Point to" category (#5613)
+  - bugfix: replace holotabes at any not-holodeck place (#5615)
+  - tweak: pods placement (#5614)
+  Vladisvell:
+  - bugfix: Fixed mob deleting with martial arts (#5616)
+  Zwei:
+  - bugfix: Vampire Sucking Unique DoAfter Source (#5609)
+  - bugfix: Unconscious/Dead Facing Fix (#5610)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#5606)
+'2024-07-30':
+  Aziz Chynaliev:
+  - bugfix: TTS with old Cyrillic and Norway characters
+  - server: add example resources.txt config and local asset hosting server script
+  Dimach:
+  - refactor: update vox_preload code (#5623)
+  ROdenFL:
+  - bugfix: null icon_states fix (#5620)
+  - tweak: remove fullscreen button, hide karma verbs (#5621)
+  Vladisvell:
+  - add: Now you can make photos without flashing lights, also fixes photography (#5625)
+  dageavtobusnick:
+  - unknown: admin buttons fixes and tweaks (#5528)
+  - tweak: add contractor items to admin uplink (#5624)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#5619)
