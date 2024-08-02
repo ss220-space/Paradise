@@ -55,7 +55,7 @@ export const gameMiddleware = (store) => {
       return next(withTimestamp(action));
     }
     if (type === autoReconnect.type) {
-      Byond.command('.reconnect');
+      // Byond.command('.reconnect');
       return;
     }
 

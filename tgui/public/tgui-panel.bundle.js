@@ -150,7 +150,7 @@
  * @file
  * @copyright 2020 Aleksej Komarov
  * @license MIT
- */var t=n.CONNECTION_LOST_AFTER=45e3,e=n.AUTO_RECONNECT_AFTER=15e3},93753:function(S,n,t){"use strict";n.__esModule=!0,n.useGame=void 0;var e=t(88605),r=t(96943);/**
+ */var t=n.CONNECTION_LOST_AFTER=2e4,e=n.AUTO_RECONNECT_AFTER=15e3},93753:function(S,n,t){"use strict";n.__esModule=!0,n.useGame=void 0;var e=t(88605),r=t(96943);/**
  * @file
  * @copyright 2020 Aleksej Komarov
  * @license MIT
@@ -158,7 +158,7 @@
  * @file
  * @copyright 2020 Aleksej Komarov
  * @license MIT
- */var s=function(m){return Object.assign({},m,{meta:Object.assign({},m.meta,{now:Date.now()})})},u=n.gameMiddleware=function(){function l(m){var d;return setInterval(function(){var i=m.getState();if(i){var v=(0,o.selectGame)(i),c=d&&Date.now()>=d+a.CONNECTION_LOST_AFTER,g=v.autoReconnectAfter&&Date.now()>=v.autoReconnectAfter;!v.connectionLostAt&&c&&m.dispatch(s((0,r.connectionLost)())),v.connectionLostAt&&!c&&m.dispatch(s((0,r.connectionRestored)())),g&&m.dispatch((0,r.autoReconnect)())}},1e3),function(i){return function(v){var c=v.type;if(c===e.pingSuccess.type||c===e.pingSoft.type)return d=Date.now(),i(v);if(c===r.roundRestarted.type)return i(s(v));if(c===r.autoReconnect.type){Byond.command(".reconnect");return}return i(v)}}}return l}()},44101:function(S,n,t){"use strict";n.__esModule=!0,n.gameReducer=void 0;var e=t(2590),r=t(3332);/**
+ */var s=function(m){return Object.assign({},m,{meta:Object.assign({},m.meta,{now:Date.now()})})},u=n.gameMiddleware=function(){function l(m){var d;return setInterval(function(){var i=m.getState();if(i){var v=(0,o.selectGame)(i),c=d&&Date.now()>=d+a.CONNECTION_LOST_AFTER,g=v.autoReconnectAfter&&Date.now()>=v.autoReconnectAfter;!v.connectionLostAt&&c&&m.dispatch(s((0,r.connectionLost)())),v.connectionLostAt&&!c&&m.dispatch(s((0,r.connectionRestored)())),g&&m.dispatch((0,r.autoReconnect)())}},1e3),function(i){return function(v){var c=v.type;if(c===e.pingSuccess.type||c===e.pingSoft.type)return d=Date.now(),i(v);if(c===r.roundRestarted.type)return i(s(v));if(c!==r.autoReconnect.type)return i(v)}}}return l}()},44101:function(S,n,t){"use strict";n.__esModule=!0,n.gameReducer=void 0;var e=t(2590),r=t(3332);/**
  * @file
  * @copyright 2020 Aleksej Komarov
  * @license MIT
