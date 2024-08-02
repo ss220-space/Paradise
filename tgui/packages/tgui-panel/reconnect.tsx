@@ -1,6 +1,6 @@
 import { Button, Stack } from 'tgui/components';
 
-let url: string | null = null;
+export let url: string | null = null;
 
 setInterval(() => {
   Byond.winget('', 'url').then((currentUrl) => {
