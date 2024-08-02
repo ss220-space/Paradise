@@ -10,7 +10,7 @@
 
 	if(proximity_flag && pulling && (!isnull(pull_hand) && (pull_hand == PULL_WITHOUT_HANDS || pull_hand == hand)))
 		if(A.grab_attack(src, pulling))
-			changeNext_move(CLICK_CD_GRABBING)
+			changeNext_move(grab_state > GRAB_PASSIVE ? CLICK_CD_GRABBING : CLICK_CD_PULLING)
 			return
 
 	// Special glove functions:
@@ -104,7 +104,7 @@
 		return
 	if(proximity_flag && pulling && !isnull(pull_hand) && pull_hand != PULL_WITHOUT_HANDS && pull_hand == hand)
 		if(A.grab_attack(src, pulling))
-			changeNext_move(CLICK_CD_GRABBING)
+			changeNext_move(grab_state > GRAB_PASSIVE ? CLICK_CD_GRABBING : CLICK_CD_PULLING)
 			return
 	A.attack_animal(src)
 
@@ -113,7 +113,7 @@
 		return
 	if(proximity_flag && pulling && !isnull(pull_hand) && pull_hand != PULL_WITHOUT_HANDS && pull_hand == hand)
 		if(A.grab_attack(src, pulling))
-			changeNext_move(CLICK_CD_GRABBING)
+			changeNext_move(grab_state > GRAB_PASSIVE ? CLICK_CD_GRABBING : CLICK_CD_PULLING)
 			return
 	GiveTarget(A)
 	AttackingTarget()
@@ -133,7 +133,7 @@
 		return
 	if(proximity_flag && pulling && (!isnull(pull_hand) && (pull_hand == PULL_WITHOUT_HANDS || pull_hand == hand)))
 		if(A.grab_attack(src, pulling))
-			changeNext_move(CLICK_CD_GRABBING)
+			changeNext_move(grab_state > GRAB_PASSIVE ? CLICK_CD_GRABBING : CLICK_CD_PULLING)
 			return
 	A.attack_alien(src)
 
