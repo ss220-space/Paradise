@@ -104,5 +104,8 @@
  *
  * Sends a round restart notification.
  */
-/datum/tgui_panel/proc/send_roundrestart()
-	window.send_message("roundrestart")
+/datum/tgui_panel/proc/send_roundrestart(position)
+	window.send_message("roundrestart", list(
+		"autoreconnect" = CONFIG_GET(flag/autoreconnect) && CONFIG_GET(flag/shutdown_on_reboot) && !CONFIG_GET(string/server),
+		"position" = position,
+	))
