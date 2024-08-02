@@ -140275,6 +140275,16 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/wall/r_wall,
 /area/turret_protected/ai)
+"vpN" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/gambling_den)
 "vpU" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -142045,6 +142055,13 @@
 	},
 /turf/simulated/floor/glass,
 /area/hallway/primary/fore)
+"vFv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/gambling_den)
 "vFz" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -245404,7 +245421,7 @@ avu
 yev
 lRC
 lRC
-lFD
+vpN
 lFD
 jtj
 dcL
@@ -247981,7 +247998,7 @@ epP
 jQa
 mnw
 qsW
-rCY
+vFv
 npG
 yev
 fEG
