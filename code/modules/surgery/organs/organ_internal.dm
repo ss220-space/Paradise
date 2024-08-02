@@ -95,7 +95,8 @@
 		action.Remove(organ_owner)
 
 	if(send_signal)
-		SEND_SIGNAL(target, COMSIG_CARBON_LOSE_ORGAN, src)
+		SEND_SIGNAL(organ_owner, COMSIG_CARBON_LOSE_ORGAN, src)
+		SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, organ_owner)
 
 	owner = null
 	START_PROCESSING(SSobj, src)
