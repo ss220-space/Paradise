@@ -489,7 +489,9 @@
 	if(!attempt_cast(user))
 		return
 	for(var/mob/living/carbon/human/human as anything in targets)
-		if(human.mind && human.mind in SSticker.mode.sintouched)
+		if(!human.mind)
+			continue
+		if(human.mind in SSticker.mode.sintouched)
 			continue
 		var/datum/disease/ectoplasmic/disease = new
 		disease.Contract(human)

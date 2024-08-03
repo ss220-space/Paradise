@@ -1780,6 +1780,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(1) // acedia
 			add_game_logs("[src] was influenced by the sin of Acedia.", src)
 			sin_objective = new /datum/objective/sintouched/acedia
+			sin_objective.on_apply(src)
 		if(2) // Gluttony
 			add_game_logs("[src] was influenced by the sin of gluttony.", src)
 			sin_objective = new /datum/objective/sintouched/gluttony
@@ -1787,6 +1788,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(3) // Greed
 			add_game_logs("[src] was influenced by the sin of greed.", src)
 			sin_objective = new /datum/objective/sintouched/greed
+			sin_objective.on_apply(src)
 		if(4) // sloth
 			add_game_logs("[src] was influenced by the sin of sloth.", src)
 			sin_objective = new /datum/objective/sintouched/sloth
