@@ -479,21 +479,21 @@
 
 
 /obj/effect/proc_holder/spell/aoe/revenant/blight/create_new_targeting()
-	var/datum/spell_targeting/aoe/T = new()
-	T.range = aoe_range
-	T.allowed_type = /mob/living/carbon
-	return T
+	var/datum/spell_targeting/aoe/target = new()
+	target.range = aoe_range
+	target.allowed_type = /mob/living/carbon
+	return target
 
 
 /obj/effect/proc_holder/spell/aoe/revenant/blight/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	if(!attempt_cast(user))
 		return
-	for(var/mob/living/carbon/M as anything in targets)
-		if(VIRUSIMMUNE in M.dna.species.species_traits)
+	for(var/mob/living/carbon/human/human as anything in targets)
+		if(human.mind && human.mind in SSticker.mode.sintouched)
 			continue
-		var/datum/disease/ectoplasmic/D = new
-		D.Contract(M)
-		new /obj/effect/temp_visual/revenant(get_turf(M))
+		var/datum/disease/ectoplasmic/disease = new
+		disease.Contract(human)
+		new /obj/effect/temp_visual/revenant(get_turf(human))
 
 /**
  * Defiling atoms.

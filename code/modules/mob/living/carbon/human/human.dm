@@ -1773,31 +1773,38 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		curse_high_rp()
 
 /mob/living/carbon/human/proc/influenceSin()
-	var/datum/objective/sintouched/O
+	if(!src.mind)
+		return
+	var/datum/objective/sintouched/sin_objective
 	switch(rand(1,7))//traditional seven deadly sins... except lust.
 		if(1) // acedia
 			add_game_logs("[src] was influenced by the sin of Acedia.", src)
-			O = new /datum/objective/sintouched/acedia
+			sin_objective = new /datum/objective/sintouched/acedia
 		if(2) // Gluttony
 			add_game_logs("[src] was influenced by the sin of gluttony.", src)
-			O = new /datum/objective/sintouched/gluttony
+			sin_objective = new /datum/objective/sintouched/gluttony
+			sin_objective.on_apply(src)
 		if(3) // Greed
 			add_game_logs("[src] was influenced by the sin of greed.", src)
-			O = new /datum/objective/sintouched/greed
+			sin_objective = new /datum/objective/sintouched/greed
 		if(4) // sloth
 			add_game_logs("[src] was influenced by the sin of sloth.", src)
-			O = new /datum/objective/sintouched/sloth
+			sin_objective = new /datum/objective/sintouched/sloth
+			sin_objective.on_apply(src)
 		if(5) // Wrath
 			add_game_logs("[src] was influenced by the sin of wrath.", src)
-			O = new /datum/objective/sintouched/wrath
+			sin_objective = new /datum/objective/sintouched/wrath
+			sin_objective.on_apply(src)
 		if(6) // Envy
 			add_game_logs("[src] was influenced by the sin of envy.", src)
-			O = new /datum/objective/sintouched/envy
+			sin_objective = new /datum/objective/sintouched/envy
+			sin_objective.on_apply(src)
 		if(7) // Pride
 			add_game_logs("[src] was influenced by the sin of pride.", src)
-			O = new /datum/objective/sintouched/pride
+			sin_objective = new /datum/objective/sintouched/pride
+			sin_objective.on_apply(src)
 	SSticker.mode.sintouched += src.mind
-	src.mind.objectives += O
+	src.mind.objectives += sin_objective
 	var/obj_count = 1
 	to_chat(src, "<span class='notice'> Your current objectives:")
 	for(var/datum/objective/objective in src.mind.objectives)
