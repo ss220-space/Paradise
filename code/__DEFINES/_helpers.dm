@@ -22,8 +22,3 @@
 /proc/_stack_trace(message, file, line)
 	CRASH("[message][WORKAROUND_IDENTIFIER][json_encode(list(file, line))][WORKAROUND_IDENTIFIER]")
 
-
-/// Gets shift x that would be required the bitflag (1<<x)
-/// We need the round because log has floating-point inaccuracy, and if we undershoot at all on list indexing we'll get the wrong index.
-#define TOBITSHIFT(bit) (round(log(2, bit), 1))
-
