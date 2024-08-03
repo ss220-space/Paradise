@@ -7,6 +7,7 @@
 	discovered = TRUE
 	severity = DANGEROUS
 	can_immunity = FALSE
+	ignore_immunity = TRUE
 	visibility_flags = HIDDEN_PANDEMIC
 
 /datum/disease/ectoplasmic/stage_act()
@@ -52,5 +53,3 @@
 				if(human.influenceSin())
 					to_chat(human, span_revenbignotice("You suddenly feel your soul become corrupted."))
 					cure()
-				
-
