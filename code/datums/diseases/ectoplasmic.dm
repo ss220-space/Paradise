@@ -39,9 +39,8 @@
 			if(prob(20))
 				human.adjustStaminaLoss(10)
 				human.AdjustWeakened(1)
-				to_chat(human, span_warning("You suddenly feel [pick("sick and tired", "nauseated", "dizzy", "stabbing pain in your head")].")
-				new /obj/effect/temp_visual/revenant(turf)
-				
+				to_chat(human, span_warning("You suddenly feel [pick("sick and tired", "nauseated", "dizzy", "stabbing pain in your head")]."))
+				new /obj/effect/temp_visual/revenant(turf)		
 		if(5)
 			if(prob(70))
 				human.adjustStaminaLoss(80)
