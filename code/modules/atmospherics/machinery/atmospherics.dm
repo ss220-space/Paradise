@@ -219,7 +219,7 @@ Pipelines + Other Objects -> Pipe network
 			to_chat(user, span_warning("As you begin unwrenching \the [src] a gust of air blows in your face... maybe you should reconsider?"))
 			unsafe_wrenching = TRUE //Oh dear oh dear
 
-		if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src, max_interact_count = 1, cancel_message = "") && !QDELETED(src))
+		if(do_after(user, 4 SECONDS * W.toolspeed, src, max_interact_count = 1, cancel_message = "", category = DA_CAT_TOOL) && !QDELETED(src))
 			user.visible_message( \
 				"[user] unfastens \the [src].", \
 				span_notice("You have unfastened \the [src]."), \

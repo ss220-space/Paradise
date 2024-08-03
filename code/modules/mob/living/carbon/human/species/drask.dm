@@ -22,7 +22,8 @@
 	oxy_mod = 2
 	exotic_blood = "cryoxadone"
 	body_temperature = 273
-	toolspeedmod = 1.2 //20% slower
+	toolspeedmod = 0.2 //20% slower
+	surgeryspeedmod = 0.2
 	bonefragility = 0.8
 	punchdamagelow = 5
 	punchdamagehigh = 12

@@ -6,7 +6,7 @@ Action speed is now calculated by using modifier datums which are added to mobs.
 
 This gives us the ability to have multiple sources of actionspeed, reliabily keep them applied and remove them when they should be
 
-THey can have unique sources and a bunch of extra fancy flags that control behaviour
+They can have unique sources and a bunch of extra fancy flags that control behaviour
 
 Previously trying to update action speed was a shot in the dark that usually meant mobs got stuck going faster or slower
 
@@ -25,7 +25,13 @@ this spits out a final calculated value which is used as a modifer in [/proc/do_
 	var/id
 	/// Higher ones override lower priorities. This is NOT used for ID, ID must be unique, if it isn't unique the newer one overwrites automatically if overriding.
 	var/priority = 0
-	/// Multiplicative slowdown
+	/// Unique category of this modifier. do_after will apply modifiers based on this.
+	/// Default value (DA_CAT_ALL) will affect all existing categories.
+	/// You can combine categories in one modifier via bitfield operations.
+	/// See code/_DEFINES/actionspeed_modification.dm
+	var/category = DA_CAT_ALL
+	/// Its a flat value that adds to/removes from a final action speed modifier.
+	/// Use negative numbers to make mob act faster, and positive values to act slower.
 	var/multiplicative_slowdown = 0
 	/// Other modification datums this conflicts with.
 	var/conflicts_with
@@ -147,28 +153,49 @@ GLOBAL_LIST_EMPTY(actionspeed_modification_cache)
 	return LAZYACCESS(actionspeed_modification, key)
 
 
-/// Go through the list of actionspeed modifiers and calculate a final actionspeed
+/// Go through the list of actionspeed modifiers and calculate a final actionspeed for every category
 /mob/proc/update_actionspeed()
-	. = 0
-	var/list/conflict_tracker = list()
-	for(var/key in get_actionspeed_modifiers())
-		var/datum/actionspeed_modifier/M = actionspeed_modification[key]
-		var/conflict = M.conflicts_with
-		var/amt = M.multiplicative_slowdown
-		if(conflict)
-			// Conflicting modifiers prioritize the larger slowdown or the larger speedup
-			// We purposefuly don't handle mixing speedups and slowdowns on the same id
-			if(abs(conflict_tracker[conflict]) < abs(amt))
-				conflict_tracker[conflict] = amt
-			else
+	. = GLOB.actionspeed_categories.Copy()
+	var/list/all_mods = get_actionspeed_modifiers()
+	for(var/category in .)
+		var/category_bit = text2num(category)
+		var/cat_all = (category_bit == DA_CAT_ALL)
+		var/list/conflict_tracker = list()
+		for(var/key in all_mods)
+			var/datum/actionspeed_modifier/modifier = actionspeed_modification[key]
+			if(!(modifier.category & category_bit))	// not our category, skip
 				continue
-		. += amt
+			if(cat_all && (modifier.category & DA_CAT_ALL) != DA_CAT_ALL)	// avoid modifying base mod by other categories
+				continue
+			var/conflict = modifier.conflicts_with
+			var/amt = modifier.multiplicative_slowdown
+			if(conflict)
+				// Conflicting modifiers prioritize the larger slowdown or the larger speedup
+				// We purposefuly don't handle mixing speedups and slowdowns on the same id
+				if(abs(conflict_tracker[conflict]) < abs(amt))
+					conflict_tracker[conflict] = amt
+				else
+					continue
+			.[category] += amt
+		.[category] = max(.[category], 0)	// negative values equals to zero mod
 	cached_multiplicative_actions_slowdown = .
 
 
-///Adds a default action speed
+///Adds a default action speed modifier
 /mob/proc/initialize_actionspeed()
-	add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/base, multiplicative_slowdown = 1)
+	add_actionspeed_modifier(/datum/actionspeed_modifier/base)
+
+
+/// Returns modifier value affected by passed category
+/mob/proc/get_actionspeed_by_category(category)
+	if(isnull(cached_multiplicative_actions_slowdown))
+		stack_trace("get_actionspeed_by_category() was called before action speed modifiers were initialized. Returning base value.")
+		return /datum/actionspeed_modifier/base::multiplicative_slowdown
+	var/text_cat = "[category]"
+	if(!isnum(category) || !(text_cat in GLOB.actionspeed_categories))
+		text_cat = "[DA_CAT_ALL]"
+		stack_trace("Wrong category argument passed '[category]'. Returning base value.")
+	return cached_multiplicative_actions_slowdown[text_cat]
 
 
 /// Get the action speed modifiers list of the mob
@@ -176,9 +203,4 @@ GLOBAL_LIST_EMPTY(actionspeed_modification_cache)
 	. = LAZYCOPY(actionspeed_modification)
 	for(var/id in actionspeed_mod_immunities)
 		. -= id
-
-
-/// Checks if a action speed modifier is valid and not missing any data
-/proc/actionspeed_data_null_check(datum/actionspeed_modifier/M) //Determines if a data list is not meaningful and should be discarded.
-	. = !(M.multiplicative_slowdown)
 

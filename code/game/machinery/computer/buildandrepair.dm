@@ -709,7 +709,7 @@
 
 			C.play_tool_sound(src)
 			to_chat(user, span_notice("You start to add cables to the frame."))
-			if(!do_after(user, 2 SECONDS * C.toolspeed * gettoolspeedmod(user), src))
+			if(!do_after(user, 2 SECONDS * C.toolspeed, src, category = DA_CAT_TOOL))
 				return
 			if(C.get_amount() < 5 || !C.use(5))
 				to_chat(user, span_warning("At some point during construction you lost some cable. Make sure you have five lengths before trying again."))
@@ -731,7 +731,7 @@
 
 			G.play_tool_sound(src)
 			to_chat(user, span_notice("You start to add the glass panel to the frame."))
-			if(!do_after(user, 2 SECONDS * G.toolspeed * gettoolspeedmod(user), src))
+			if(!do_after(user, 2 SECONDS * G.toolspeed, src, category = DA_CAT_TOOL))
 				return
 			if(G.get_amount() < 2 || !G.use(2))
 				to_chat(user, span_warning("At some point during construction you lost some glass. Make sure you have two sheets before trying again."))

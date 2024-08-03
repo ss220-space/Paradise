@@ -248,6 +248,6 @@
 	var/list/actionspeed_modification
 	/// List of action speed modifiers ignored by this mob. List -> List (id) -> List (sources)
 	var/list/actionspeed_mod_immunities
-	/// The calculated mob action speed slowdown based on the modifiers list
-	var/cached_multiplicative_actions_slowdown
+	/// The calculated mob action speed slowdown based on the modifiers list, sorted by category in associvative list
+	var/list/cached_multiplicative_actions_slowdown
 

@@ -216,7 +216,12 @@
 	/// Whether the presence of a body accessory on this species is optional or not.
 	var/optional_body_accessory = TRUE
 
-	var/toolspeedmod = 1
+	/// Flat bonus to various tool handling
+	/// Value of 0.1 adds 10% time delay to all performed actions in tool's category, -0.1 vice versa
+	/// READ ONLY!
+	var/toolspeedmod = 0
+	/// Same as above, used for surgery modifiers
+	var/surgeryspeedmod = 0
 
 	var/toxic_food = TOXIC
 	var/disliked_food = GROSS
@@ -297,6 +302,12 @@
 	if(speed_mod)
 		H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = speed_mod)
 
+	if(toolspeedmod)
+		H.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod, multiplicative_slowdown = toolspeedmod)
+
+	if(surgeryspeedmod)
+		H.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_surgery_mod, multiplicative_slowdown = surgeryspeedmod)
+
 	if(ventcrawler_trait)
 		var/static/list/ventcrawler_sanity = list(
 			TRAIT_VENTCRAWLER_ALWAYS,
@@ -362,6 +373,12 @@
 
 	if(speed_mod)
 		H.remove_movespeed_modifier(/datum/movespeed_modifier/species_speedmod)
+
+	if(toolspeedmod)
+		H.remove_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod)
+
+	if(surgeryspeedmod)
+		H.remove_actionspeed_modifier(/datum/actionspeed_modifier/species_surgery_mod)
 
 	H.meatleft = initial(H.meatleft)
 

@@ -1,2 +1,3 @@
 /datum/actionspeed_modifier/base
-	variable = TRUE
+	multiplicative_slowdown = 1
+

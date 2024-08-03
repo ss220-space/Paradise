@@ -6,7 +6,8 @@
 	target.add_fingerprint(user)
 	if(!tool_start_check(target, user, amount) && !delay)
 		return
-	delay *= toolspeed * gettoolspeedmod(user)
+	delay *= toolspeed
+	delay *= user.get_actionspeed_by_category(DA_CAT_TOOL)
 
 	// Play tool sound at the beginning of tool usage.
 	play_tool_sound(target, volume)
@@ -16,11 +17,11 @@
 		var/datum/callback/tool_check = CALLBACK(src, PROC_REF(tool_check_callback), user, target, amount, extra_checks)
 
 		if(ismob(target))
-			if(!do_after(user, delay, target, NONE, extra_checks = tool_check))
+			if(!do_after(user, delay, target, DA_IGNORE_SLOWDOWNS, extra_checks = tool_check))
 				return
 
 		else
-			if(!do_after(user, delay, target, extra_checks = tool_check))
+			if(!do_after(user, delay, target, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_SLOWDOWNS, extra_checks = tool_check))
 				return
 	else
 		// Invoke the extra checks once, just in case.
