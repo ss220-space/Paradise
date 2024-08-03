@@ -481,7 +481,7 @@
 /obj/effect/proc_holder/spell/aoe/revenant/blight/create_new_targeting()
 	var/datum/spell_targeting/aoe/target = new()
 	target.range = aoe_range
-	target.allowed_type = /mob/living/carbon
+	target.allowed_type = /mob/living/carbon/human
 	return target
 
 
