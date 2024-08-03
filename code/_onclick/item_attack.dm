@@ -143,3 +143,6 @@
 	visible_message("<span class='combat danger'>[attack_message]</span>",\
 		"<span class='combat userdanger'>[attack_message]</span>")
 	return 1
+
+/obj/item/attack_self_tk(mob/user)
+	attack_self(user)
