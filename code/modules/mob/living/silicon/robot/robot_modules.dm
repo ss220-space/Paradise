@@ -181,7 +181,6 @@
 	..()
 	modules += new /obj/item/extinguisher/mini(src) // for firefighting, and propulsion in space
 	modules += new /obj/item/crowbar/cyborg(src)
-	modules += new /obj/item/gps/cyborg(src)
 	// sec
 	modules += new /obj/item/restraints/handcuffs/cable/zipties(src)
 	modules += new /obj/item/melee/baton/telescopic(src) // for minimal possablity to execute sec part of the module and also for tests
@@ -266,7 +265,6 @@
 	modules += new /obj/item/surgicaldrill(src)
 	modules += new /obj/item/gripper/medical(src)
 	modules += new /obj/item/crowbar/cyborg(src)
-	modules += new /obj/item/gps/cyborg(src)
 	modules += new /obj/item/rlf(src)
 
 	emag = new /obj/item/reagent_containers/borghypo/emagged(src) // emagged med. cyborg gets a special hypospray.
@@ -297,7 +295,7 @@
 /obj/item/robot_module/engineering
 	name = "Engineering"
 	module_type = "Engineer"
-	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor)
+	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor, /mob/living/silicon/proc/subsystem_blueprints)
 	module_actions = list(
 		/datum/action/innate/robot_sight/meson,
 	)
@@ -332,14 +330,13 @@
 	modules += new /obj/item/gripper(src)
 	modules += new /obj/item/matter_decompiler(src)
 	modules += new /obj/item/floor_painter(src)
-	modules += new /obj/item/areaeditor/blueprints/cyborg(src)
 	modules += new /obj/item/stack/sheet/metal/cyborg(src)
 	modules += new /obj/item/stack/sheet/glass/cyborg(src)
 	modules += new /obj/item/stack/sheet/rglass/cyborg(src)
 	modules += new /obj/item/stack/cable_coil/cyborg(src)
 	modules += new /obj/item/stack/rods/cyborg(src)
 	modules += new /obj/item/stack/tile/plasteel/cyborg(src)
-	modules += new /obj/item/gps/cyborg(src)
+	modules += new /obj/item/storage/part_replacer(src)
 	emag = new /obj/item/gun/energy/emittercannon(src)
 
 	fix_modules()
@@ -376,7 +373,6 @@
 	modules += new /obj/item/clothing/mask/gas/sechailer/cyborg(src)
 	modules += new /obj/item/extinguisher/mini(src)
 	modules += new /obj/item/crowbar/cyborg(src)
-	modules += new /obj/item/gps/cyborg(src)
 	emag = new /obj/item/gun/energy/laser/cyborg(src)
 
 	fix_modules()
@@ -410,7 +406,6 @@
 	modules += new /obj/item/extinguisher/mini(src)
 	modules += new /obj/item/reagent_containers/spray/pestspray(src) //kill all kidans!
 	modules += new /obj/item/crowbar/cyborg(src)
-	modules += new /obj/item/gps/cyborg(src)
 	emag = new /obj/item/reagent_containers/spray(src)
 
 	emag.reagents.add_reagent("lube", 250)
@@ -469,7 +464,6 @@
 	modules += new /obj/item/reagent_containers/food/drinks/shaker(src)
 	modules += new /obj/item/extinguisher(src)
 	modules += new /obj/item/crowbar/cyborg(src)
-	modules += new /obj/item/gps/cyborg(src)
 	emag = new /obj/item/reagent_containers/food/drinks/cans/beer(src)
 
 	var/datum/reagents/R = new/datum/reagents(50)
@@ -548,7 +542,6 @@
 	modules += new /obj/item/storage/bag/sheetsnatcher/borg(src)
 	modules += new /obj/item/t_scanner/adv_mining_scanner/cyborg(src)
 	modules += new /obj/item/gun/energy/kinetic_accelerator/cyborg(src)
-	modules += new /obj/item/gps/cyborg(src)
 	modules += new /obj/item/crowbar/cyborg(src)
 	emag = new /obj/item/borg/stun(src)
 
@@ -597,7 +590,6 @@
 	modules += new /obj/item/melee/energy/sword/cyborg(src)
 	modules += new /obj/item/gun/energy/pulse/cyborg(src)
 	modules += new /obj/item/crowbar(src)
-	modules += new /obj/item/gps/cyborg(src)
 	modules += new /obj/item/gripper/nuclear(src)
 	modules += new /obj/item/pinpointer(src)
 	emag = null
@@ -622,7 +614,6 @@
 	modules += new /obj/item/pinpointer/operative(src)
 	modules += new /obj/item/pinpointer/nukeop(src)
 	modules += new /obj/item/gripper/nuclear(src)
-	modules += new /obj/item/gps/syndiecyborg(src)
 	emag = null
 
 	fix_modules()
@@ -663,7 +654,6 @@
 	modules += new /obj/item/pinpointer/operative(src)
 	modules += new /obj/item/pinpointer/nukeop(src)
 	modules += new /obj/item/gripper/nuclear(src)
-	modules += new /obj/item/gps/syndiecyborg(src)
 	emag = null
 
 	fix_modules()
@@ -703,7 +693,6 @@
 	modules += new /obj/item/stack/cable_coil/cyborg(src)
 	modules += new /obj/item/stack/rods/cyborg(src)
 	modules += new /obj/item/stack/tile/plasteel/cyborg(src)
-	modules += new /obj/item/gps/syndiecyborg(src)
 	emag = null
 
 	fix_modules()
@@ -728,7 +717,6 @@
 	modules += new /obj/item/pickaxe/drill/jackhammer(src) // for breaking walls to execute flanking moves
 	modules += new /obj/item/borg/destroyer/mobility(src)
 	modules += new /obj/item/crowbar/cyborg(src)
-	modules += new /obj/item/gps/syndiecyborg(src)
 	modules += new /obj/item/gripper/nuclear(src)
 	modules += new /obj/item/pinpointer(src)
 	emag = null
@@ -755,7 +743,6 @@
 	modules += new /obj/item/pickaxe/drill/jackhammer(src) // for breaking walls to execute flanking moves
 	modules += new /obj/item/extinguisher/mini(src)
 	modules += new /obj/item/crowbar/cyborg(src)
-	modules += new /obj/item/gps/cyborg(src)
 	modules += new /obj/item/gripper/nuclear(src)
 	modules += new /obj/item/pinpointer(src)
 	emag = null

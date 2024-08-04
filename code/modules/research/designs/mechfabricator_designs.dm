@@ -1579,6 +1579,16 @@
 	construction_time = 12 SECONDS
 	category = list("Cyborg Upgrade Modules")
 
+/datum/design/borg_upgrade_bsrped
+	name="Engineering Cyborg Upgrade (Bluespace RPED)"
+	id = "borg_upgrade_bsrped"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/bs_rped
+	req_tech = list("engineering" = 4, "bluespace" = 3)
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 2000, MAT_SILVER = 1000)
+	construction_time = 12 SECONDS
+	category = list("Cyborg Upgrade Modules")
+
 //IPC
 
 /datum/design/integrated_robotic_chassis

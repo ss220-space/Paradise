@@ -277,6 +277,39 @@
 	return TRUE
 
 
+/obj/item/borg/upgrade/bs_rped
+	name = "Engineering cyborg bluespace RPED"
+	desc = "A bluespace RPED replacement for engineering cyborg's RPED"
+	icon_state = "cyborg_upgrade3"
+	origin_tech = "engineering=3;bluespace=2"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/engineering
+
+
+/obj/item/borg/upgrade/bs_rped/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	for(var/obj/item/storage/part_replacer/part_replacer in robot.module.modules)
+		qdel(part_replacer)
+	robot.module.modules += new /obj/item/storage/part_replacer/bluespace(robot.module)
+	robot.module.rebuild()
+	return TRUE
+
+
+/obj/item/borg/upgrade/bs_rped/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	for(var/obj/item/storage/part_replacer/bluespace/part_replacer in robot.module)
+		qdel(part_replacer)
+
+	robot.module.modules += new /obj/item/storage/part_replacer(robot.module)
+	robot.module.rebuild()
+	return TRUE
+
+
+
 /obj/item/borg/upgrade/soh
 	name = "mining cyborg satchel of holding"
 	desc = "A satchel of holding replacement for mining cyborg's ore satchel module."
@@ -319,24 +352,14 @@
 /obj/item/borg/upgrade/gps/action(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
 		return FALSE
-
-	for(var/obj/item/gps/cyborg/gps in robot.module.modules)
-		qdel(gps)
-
-	robot.module.modules += new /obj/item/gps/cyborg/upgraded(robot.module)
-	robot.module.rebuild()
+	robot.gps.upgraded = TRUE
 	return TRUE
 
 
 /obj/item/borg/upgrade/gps/deactivate(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
 		return FALSE
-
-	for(var/obj/item/gps/cyborg/upgraded/gps in robot.module)
-		qdel(gps)
-
-	robot.module.modules += new /obj/item/gps/cyborg(robot.module)
-	robot.module.rebuild()
+	robot.gps.upgraded = FALSE
 	return TRUE
 
 
