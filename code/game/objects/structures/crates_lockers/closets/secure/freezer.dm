@@ -40,10 +40,15 @@
 /obj/structure/closet/secure_closet/freezer/meat
 	name = "meat fridge"
 	icon_state = "fridge"
+	overlay_unlocked = "f_unlocked"
+	overlay_locked = "f_locked"
 
 /obj/structure/closet/secure_closet/freezer/meat/populate_contents()
 	for(var/i in 1 to 4)
 		new /obj/item/reagent_containers/food/snacks/meat/humanoid/monkey(src)
+
+/obj/structure/closet/secure_closet/freezer/meat/empty/populate_contents()
+	return
 
 /obj/structure/closet/secure_closet/freezer/meat/open
 	req_access = null
@@ -53,12 +58,18 @@
 	name = "refrigerator"
 	icon_state = "fridge"
 
+	overlay_unlocked = "f_unlocked"
+	overlay_locked = "f_locked"
+
 /obj/structure/closet/secure_closet/freezer/fridge/populate_contents()
 	for(var/i in 1 to 5)
 		new /obj/item/reagent_containers/food/condiment/milk(src)
 		new /obj/item/reagent_containers/food/condiment/soymilk(src)
 	for(var/i in 1 to 2)
 		new /obj/item/storage/fancy/egg_box(src)
+
+/obj/structure/closet/secure_closet/freezer/fridge/empty/populate_contents()
+	return
 
 /obj/structure/closet/secure_closet/freezer/fridge/open
 	req_access = null
@@ -68,6 +79,10 @@
 	name = "freezer"
 	icon_state = "fridge"
 	req_access = list(ACCESS_HEADS_VAULT)
+
+	overlay_unlocked = "f_unlocked"
+	overlay_locked = "f_locked"
+
 
 /obj/structure/closet/secure_closet/freezer/money/populate_contents()
 	for(var/i in 1 to 3)
