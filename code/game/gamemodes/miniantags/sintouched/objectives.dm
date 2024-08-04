@@ -43,9 +43,8 @@
 /datum/objective/sintouched/wrath/on_apply(mob/living/carbon/human/human)
 	..()
 	var/datum/disease/berserker/disease = new
-	human.dna.species.punchdamagelow = 5
-	human.dna.species.punchdamagehigh = 10
-	human.dna.species.punchstunthreshold = 10
+	human.dna.species.punchdamagelow += 5
+	human.dna.species.punchdamagehigh += 10
 	disease.Contract(human)
 
 /datum/objective/sintouched/envy
@@ -60,11 +59,11 @@
 	
 /datum/objective/sintouched/pride/on_apply(mob/living/carbon/human/human)
 	..()
-	human.dna.species.brute_mod -= 0.1
-	human.dna.species.tox_mod -= 0.1
-	human.dna.species.stamina_mod -= 0.1
-	human.dna.species.oxy_mod -= 0.1
-	human.dna.species.burn_mod -= 0.1
+	max(0, human.dna.species.brute_mod - 0.1)
+	max(0, human.dna.species.tox_mod - 0.1)
+	max(0, human.dna.species.stamina_mod - 0.1)
+	max(0, human.dna.species.oxy_mod - 0.1)
+	max(0, human.dna.species.burn_mod - 0.1)
 
 /datum/objective/sintouched/acedia
 	explanation_text = "Angels, devils, good, evil... who cares?  Just ignore any hellish threats and do your job."
