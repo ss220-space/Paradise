@@ -89,6 +89,7 @@
 			while(do_after(user, 1 SECONDS, M))
 				measured_health = M.health
 				apply_to(M, user, 1, FALSE)
+				M.updatehealth()
 				if(measured_health == M.health)
 					to_chat(user, "<span class='notice'>[M] is finished healing and [src] powers down automatically.</span>")
 					break
