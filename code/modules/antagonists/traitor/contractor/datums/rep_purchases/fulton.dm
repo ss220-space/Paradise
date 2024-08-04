@@ -13,6 +13,7 @@
 	desc = "A modified fulton pack that can be used indoors thanks to Bluespace technology. Favored by Syndicate Contractors."
 	icon_state = "black"
 	can_use_indoors = TRUE
+
 /obj/item/storage/box/contractor/fulton_kit
 	name = "fulton extraction kit"
 	icon_state = "box_of_doom"

@@ -238,13 +238,11 @@
 
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
-			adjustBruteLoss(100)
-			adjustFireLoss(100)
+			apply_damages(100, 100)
 		if(EXPLODE_HEAVY)
-			adjustBruteLoss(60)
-			adjustFireLoss(60)
+			apply_damages(60, 60)
 		if(EXPLODE_LIGHT)
-			adjustBruteLoss(30)
+			apply_damage(30)
 
 
 // See software.dm for ui_act()

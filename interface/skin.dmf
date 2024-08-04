@@ -131,6 +131,10 @@ menu "menu"
 		command = "adminhelp"
 		category = "&Help"
 	elem
+		name = "&Fit Viewport"
+		command = "Fit-Viewport"
+		category = "&Help"
+	elem
 		name = "&Refresh TGUI"
 		command = "Refresh-TGUI"
 		category = "&Help"
@@ -292,9 +296,15 @@ window "rpane"
 		left = "infowindow"
 		right = "outputwindow"
 		is-vert = false
-	elem "textb"
+	elem "fullscreenb"
 		type = BUTTON
 		pos = 3,7
+		size = 65x16
+		text = "Fullscreen"
+		command = "fullscreen"
+	elem "textb"
+		type = BUTTON
+		pos = 70,7
 		size = 40x16
 		saved-params = "is-checked"
 		text = "Text"
@@ -303,7 +313,7 @@ window "rpane"
 		button-type = pushbox
 	elem "infob"
 		type = BUTTON
-		pos = 44,7
+		pos = 111,7
 		size = 40x16
 		is-checked = true
 		saved-params = "is-checked"
@@ -313,31 +323,31 @@ window "rpane"
 		button-type = pushbox
 	elem "wikib"
 		type = BUTTON
-		pos = 90,7
+		pos = 160,7
 		size = 50x16
 		text = "Wiki"
 		command = "wiki"
 	elem "rulesb"
 		type = BUTTON
-		pos = 141,7
+		pos = 211,7
 		size = 50x16
 		text = "Rules"
 		command = "rules"
 	elem "githubb"
 		type = BUTTON
-		pos = 192,7
+		pos = 262,7
 		size = 50x16
 		text = "GitHub"
 		command = "github"
 	elem "webmap"
 		type = BUTTON
-		pos = 243,7
+		pos = 313,7
 		size = 50x16
 		text = "Map"
 		command = "webmap"
 	elem "changelog"
 		type = BUTTON
-		pos = 310,7
+		pos = 370,7
 		size = 65x16
 		font-style = "bold"
 		text-color = #000000
@@ -346,7 +356,7 @@ window "rpane"
 		command = "Changelog"
 	elem "discordb"
 		type = BUTTON
-		pos = 376,7
+		pos = 436,7
 		size = 60x16
 		font-style = "bold"
 		text-color = #ffffff
@@ -355,7 +365,7 @@ window "rpane"
 		command = "discord"
 	elem "donate"
 		type = BUTTON
-		pos = 437,7
+		pos = 497,7
 		size = 60x16
 		font-style = "bold"
 		text-color = #ffffff

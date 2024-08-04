@@ -214,12 +214,20 @@ Difficulty: Medium
 /obj/item/projectile/kinetic/miner/enraged
 	damage = 35
 
-/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/adjustHealth(amount, updating_health = TRUE)
-	if(!enraged)
+
+/mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
+	if(!enraged && amount > 0)
 		var/adjustment_amount = amount * 0.1
 		if(world.time + adjustment_amount > next_move)
 			changeNext_move(adjustment_amount) //attacking it interrupts it attacking, but only briefly
-	. = ..()
+	return ..()
+
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/death(gibbed)
 	if(health > 0)

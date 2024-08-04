@@ -110,20 +110,30 @@
 	return verb
 
 
-/mob/living/carbon/alien/adjustToxLoss(amount, updating_health)
+/mob/living/carbon/alien/adjustToxLoss(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	forced = FALSE,
+	used_weapon = null,
+)
 	return STATUS_UPDATE_NONE
 
-/mob/living/carbon/alien/adjustFireLoss(amount, updating_health) // Weak to Fire
-	if(amount > 0)
-		return ..(amount * ALIEN_BURN_MOD)
-	else
-		return ..(amount)
 
-/mob/living/carbon/alien/adjustBruteLoss(amount, updating_health = TRUE)
-	if(amount > 0)
-		return ..(amount * ALIEN_BRUTE_MOD, updating_health)
-	else
-		return ..(amount, updating_health)
+/mob/living/carbon/alien/get_incoming_damage_modifier(
+	damage = 0,
+	damagetype = BRUTE,
+	def_zone = null,
+	sharp = FALSE,
+	used_weapon = null,
+)
+	. = ..()
+
+	switch(damagetype)
+		if(BRUTE)
+			. *= ALIEN_BRUTE_MOD
+		if(BURN)
+			. *= ALIEN_BURN_MOD
 
 
 /mob/living/carbon/alien/check_eye_prot()

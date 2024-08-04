@@ -184,11 +184,12 @@
 		cure()
 		return
 	if(progenitor in affected_mob.contents)
-		affected_mob.adjustOxyLoss(-5)
-		affected_mob.adjustBruteLoss(-12)
-		affected_mob.adjustFireLoss(-12)
-		affected_mob.adjustToxLoss(-5)
-		affected_mob.setStaminaLoss(0)
+		var/update = NONE
+		update |= affected_mob.heal_overall_damage(12, 12, updating_health = FALSE, affect_robotic = TRUE)
+		update |= affected_mob.heal_damages(tox = 5, oxy = 5, updating_health = FALSE)
+		update |= affected_mob.setStaminaLoss(0, FALSE)
+		if(update)
+			affected_mob.updatehealth()
 		affected_mob.AdjustDizzy(-20 SECONDS)
 		affected_mob.AdjustDrowsy(-20 SECONDS)
 		affected_mob.SetSleeping(0)

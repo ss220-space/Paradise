@@ -28,6 +28,7 @@ import {
   removeChatPage,
   saveChatToDisk,
 } from './actions';
+import { roundRestarted } from '../game/actions';
 import { MAX_PERSISTED_MESSAGES, MESSAGE_SAVE_INTERVAL } from './constants';
 import { createMessage, serializeMessage } from './model';
 import { chatRenderer } from './renderer';
@@ -182,7 +183,7 @@ export const chatMiddleware = (store) => {
       );
       return;
     }
-    if (type === 'roundrestart') {
+    if (type === roundRestarted.type) {
       // Save chat as soon as possible
       saveChatToStorage(store);
       return next(action);

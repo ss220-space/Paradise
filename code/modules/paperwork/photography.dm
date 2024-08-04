@@ -153,6 +153,7 @@
 	var/icon_off = "camera_off"
 	var/size = 3
 	var/see_ghosts = 0 //for the spoop of it
+	var/flashing_lights = TRUE
 
 	sprite_sheets = list(
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/neck.dmi',
@@ -180,6 +181,14 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	name = "camera obscura"
 	desc = "A polaroid camera, some say it can see ghosts!"
 	see_ghosts = 1
+
+/obj/item/camera/AltShiftClick(mob/user)
+	if(!issilicon(usr) && (usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED)))
+		return
+
+	flashing_lights = !flashing_lights
+
+	to_chat(usr, span_notice("You turned [src] flashing lights [flashing_lights ? "on" : "off"], making natural light [flashing_lights ? "invisible" : "visible"]"))
 
 /obj/item/camera/verb/change_size()
 	set name = "Set Photo Focus"
@@ -218,6 +227,10 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	..()
 
 
+/obj/item/camera/examine(mob/user)
+	. = ..()
+	. += span_notice("Press Alt + Shift + Left Click on [src] to toggle camera flashing")
+
 /obj/item/camera/proc/get_icon(list/turfs, turf/center, mob/user)
 
 	//Bigger icon base to capture those icons that were shifted to the next tile
@@ -232,7 +245,12 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		// Add ourselves to the list of stuff to draw
 		atoms.Add(the_turf)
 		// As well as anything that isn't invisible.
+
 		for(var/atom/A in the_turf)
+			if(istype(A, /atom/movable/lighting_object))
+				if(flashing_lights)
+					continue //Do not apply lighting, making whole image full bright.
+
 			if(A.invisibility)
 				if(see_ghosts && istype(A,/mob/dead/observer))
 					var/mob/dead/observer/O = A
@@ -262,6 +280,8 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	var/center_offset = (size-1)/2 * 32 + 1
 	for(var/i; i <= sorted.len; i++)
 		var/atom/A = sorted[i]
+		if(istype(A, /atom/movable/lighting_object))
+			continue //Lighting objects render last, need to be above all atoms and turfs displayed
 		if(A)
 			var/icon/img = getFlatIcon(A)//build_composite_icon(A)
 			if(istype(A, /obj/item/areaeditor/blueprints/ce))
@@ -275,20 +295,29 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 					if(living.body_position == LYING_DOWN)
 						// If they are, apply that effect to their picture.
 						img.BecomeLying()
+
 				// Calculate where we are relative to the center of the photo
 				var/xoff = (A.x - center.x) * 32 + center_offset
 				var/yoff = (A.y - center.y) * 32 + center_offset
 				if(ismovable(A))
 					xoff+=A:step_x
 					yoff+=A:step_y
+
 				res.Blend(img, blendMode2iconMode(A.blend_mode),  A.pixel_x + xoff, A.pixel_y + yoff)
 
-	// Lastly, render any contained effects on top.
+	// Render any contained effects on top.
 	for(var/turf/the_turf in turfs)
 		// Calculate where we are relative to the center of the photo
 		var/xoff = (the_turf.x - center.x) * 32 + center_offset
 		var/yoff = (the_turf.y - center.y) * 32 + center_offset
 		res.Blend(getFlatIcon(the_turf.loc), blendMode2iconMode(the_turf.blend_mode),xoff,yoff)
+
+	// Render lighting objects to make picture look nice
+	for(var/atom/movable/lighting_object/light in sorted)
+		var/xoff = (light.x - center.x) * 32 + center_offset
+		var/yoff = (light.y - center.y) * 32 + center_offset
+		res.Blend(getFlatIcon(light), blendMode2iconMode(BLEND_MULTIPLY),  light.pixel_x + xoff, light.pixel_y + yoff)
+
 	return res
 
 
@@ -350,8 +379,9 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	captureimage(target, user, flag)
 
 	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, 1, -3)
-	set_light(3, 2, LIGHT_COLOR_TUNGSTEN, l_on = TRUE)
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 2)
+	if(flashing_lights)
+		set_light(3, 2, LIGHT_COLOR_TUNGSTEN, l_on = TRUE)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 2)
 	pictures_left--
 	desc = "A polaroid camera. It has [pictures_left] photos left."
 	to_chat(user, "<span class='notice'>[pictures_left] photos left.</span>")

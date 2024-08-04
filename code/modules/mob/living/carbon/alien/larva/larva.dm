@@ -71,10 +71,8 @@
 				Paralyse(2 SECONDS)
 			AdjustDeaf(60 SECONDS)
 
-	adjustBruteLoss(b_loss)
-	adjustFireLoss(f_loss)
+	take_overall_damage(b_loss, f_loss)
 
-	updatehealth()
 
 //can't equip anything
 /mob/living/carbon/alien/larva/attack_ui(slot_id)

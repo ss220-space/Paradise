@@ -20,15 +20,15 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	var/voice_cd = null
 
 	var/list/available = list()
-	var/list/nonlethal_names = list("stun", "disabler", "disable", "non-lethal paralyzer", "practice", "ion",
+	var/list/nonlethal_names = list("stun", "disabler", "disable", "practice", "ion",
 								"energy", "bluetag", "redtag", "yield", "mutation",
 								"goddamn meteor", "plasma burst", "blue", "orange",
 								"lightning beam", "clown", "teleport beam", "gun mimic",
-								"kinetic")
-	var/list/lethal_names = list("kill", "lethal-eliminator", "scatter", "anti-vehicle",
+								"kinetic", "taser")
+	var/list/lethal_names = list("kill", "lethal", "scatter", "anti-vehicle",
 								"snipe", "precise", "declone", "mindfuck", "bolt",
 								"heavy bolt", "toxic dart", "spraydown", "accelerator")
-	var/list/destructive_names = list("destroy", "execution-slaughter", "annihilate")
+	var/list/destructive_names = list("destroy", "annihilate")
 
 /obj/item/sibyl_system_mod/proc/install(obj/item/gun/energy/W, mob/user = null)
 	if(user)
@@ -51,7 +51,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 
 
 /obj/item/sibyl_system_mod/proc/register(mob/user)
-	GLOB.sybsis_registry += list(src)
+	GLOB.sybsis_registry += src
 
 	if(!auth_id)
 		sibyl_sound(user, 'sound/voice/dominator/link.ogg', 10 SECONDS)
@@ -60,7 +60,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 
 
 /obj/item/sibyl_system_mod/proc/uninstall(obj/item/gun/energy/W)
-	GLOB.sybsis_registry -= list(src)
+	GLOB.sybsis_registry -= src
 	forceMove(get_turf(src))
 	W.verbs -= /obj/item/gun/energy/proc/toggle_voice
 
@@ -213,5 +213,5 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 
 
 /obj/item/sibyl_system_mod/Destroy()
-	GLOB.sybsis_registry -= list(src)
+	GLOB.sybsis_registry -= src
 	return ..()

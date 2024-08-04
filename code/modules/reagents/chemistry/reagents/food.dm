@@ -115,11 +115,12 @@
 		M.reagents.add_reagent("epinephrine", 1.2)
 	return ..() | update_flags
 
-/datum/reagent/consumable/sugar/overdose_start(mob/living/M)
-	to_chat(M, "<span class='danger'>Вы теряете сознание от гипергликемического шока!</span>")
-	M.overlay_fullscreen("hyperglycemia", /atom/movable/screen/fullscreen/impaired, 1)
-	M.emote("faint")
-	M.hunger_drain *= 2
+/datum/reagent/consumable/sugar/overdose_start(mob/living/carbon/human/affected)
+	to_chat(affected, "<span class='danger'>Вы теряете сознание от гипергликемического шока!</span>")
+	affected.overlay_fullscreen("hyperglycemia", /atom/movable/screen/fullscreen/impaired, 1)
+	affected.emote("faint")
+	if(ishuman(affected))
+		affected.physiology.hunger_mod *= 2
 	..()
 
 /datum/reagent/consumable/sugar/overdose_process(mob/living/M, severity)
@@ -140,10 +141,13 @@
 				H.vomit()
 	return ..() | update_flags
 
-/datum/reagent/consumable/sugar/overdose_end(mob/living/M)
-	M.clear_fullscreen("hyperglycemia")
-	M.hunger_drain /= 2
+
+/datum/reagent/consumable/sugar/overdose_end(mob/living/carbon/human/affected)
+	affected.clear_fullscreen("hyperglycemia")
+	if(ishuman(affected))
+		affected.physiology.hunger_mod *= 0.5
 	..()
+
 
 /datum/reagent/consumable/soysauce
 	name = "Soysauce"

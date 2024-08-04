@@ -653,7 +653,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/blob_act(obj/structure/blob/B)
 	if(stat != DEAD)
 		adjustBruteLoss(60)
-		updatehealth()
 		return 1
 	return 0
 
@@ -675,13 +674,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			gib()
 		if(2.0)
 			if(stat != 2)
-				adjustBruteLoss(60)
-				adjustFireLoss(60)
+				apply_damages(60, 60)
 		if(3.0)
 			if(stat != 2)
-				adjustBruteLoss(30)
+				apply_damage(30)
 
-	return
 
 /mob/living/silicon/ai/ratvar_act()
 	if(isclocker(src))
@@ -1272,7 +1269,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(W.tool_behaviour == TOOL_WRENCH)
 		if(anchored)
 			user.visible_message("<span class='notice'>\The [user] starts to unbolt \the [src] from the plating...</span>")
-			if(!do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
+			if(!do_after(user, 4 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
 				user.visible_message("<span class='notice'>\The [user] decides not to unbolt \the [src].</span>")
 				return
 			user.visible_message("<span class='notice'>\The [user] finishes unfastening \the [src]!</span>")
@@ -1280,7 +1277,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			return
 		else
 			user.visible_message("<span class='notice'>\The [user] starts to bolt \the [src] to the plating...</span>")
-			if(!do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
+			if(!do_after(user, 4 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
 				user.visible_message("<span class='notice'>\The [user] decides not to bolt \the [src].</span>")
 				return
 			user.visible_message("<span class='notice'>\The [user] finishes fastening down \the [src]!</span>")

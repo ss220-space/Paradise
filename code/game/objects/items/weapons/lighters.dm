@@ -56,10 +56,7 @@
 	else if(HAS_TRAIT(user, TRAIT_BADASS))
 		to_chat(user, span_notice("[src]'s flames lick your hand as you light it, but you don't flinch."))
 	else
-		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/external/affecting = H.get_organ(user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-		if(affecting.receive_damage( 0, 5 ))		//INFERNO
-			H.UpdateDamageIcon()
+		user.apply_damage(5, BURN, def_zone = user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)	//INFERNO
 		to_chat(user, span_notice("You light [src], but you burn your hand in the process."))
 	if(world.time > next_on_message)
 		playsound(src, 'sound/items/lighter/plastic_strike.ogg', 25, TRUE)
@@ -371,9 +368,7 @@
 					matchburnout()
 				else
 					cig.light("<span class='rose'>[user] spits fire at [M], burning [user.p_their()] face and lighting [cig] in the process.</span>")
-					var/obj/item/organ/external/head/affecting = M.get_organ("head")
-					affecting.receive_damage(0, 5)
-					M.UpdateDamageIcon()
+					M.apply_damage(5, BURN, def_zone = BODY_ZONE_HEAD)
 				playsound(user.loc, 'sound/effects/unathiignite.ogg', 40, FALSE)
 			else
 				cig.light("<span class='notice'>[user] holds [src] out for [M], and lights [cig].</span>")

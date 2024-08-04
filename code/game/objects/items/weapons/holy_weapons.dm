@@ -57,8 +57,7 @@
 
 /obj/item/nullrod/pickup(mob/living/user)
 	if(sanctify_force && !user.mind?.isholy)
-		user.adjustBruteLoss(force)
-		user.adjustFireLoss(sanctify_force)
+		user.take_overall_damage(force, sanctify_force)
 		user.Weaken(10 SECONDS)
 		user.drop_item_ground(src, force = TRUE)
 		user.visible_message(span_warning("[src] slips out of the grip of [user] as they try to pick it up, bouncing upwards and smacking [user.p_them()] in the face!"), \
@@ -562,10 +561,11 @@
 
 			if(prob(25))
 				to_chat(target, "<span class='notice'>[user]'s prayer to [SSticker.Bible_deity_name] has eased your pain!</span>")
-				target.adjustToxLoss(-5)
-				target.adjustOxyLoss(-5)
-				target.adjustBruteLoss(-5)
-				target.adjustFireLoss(-5)
+				var/update = NONE
+				update |= target.heal_overall_damage(5, 5, updating_health = FALSE)
+				update |= target.heal_damages(tox = 5, oxy = 5, updating_health = FALSE)
+				if(update)
+					target.updatehealth()
 
 			praying = FALSE
 

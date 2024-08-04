@@ -333,10 +333,7 @@
 		return SURGERY_INITIATE_SUCCESS
 
 	if(tool)
-		speed_mod = tool.toolspeed * gettoolspeedmod(user)
-
-	if(is_species(user, /datum/species/unathi/ashwalker/shaman))//shaman is slightly better at surgeries
-		speed_mod *= 0.9
+		speed_mod = tool.toolspeed * user.get_actionspeed_by_category(DA_CAT_SURGERY)
 
 	// Using an unoptimal tool slows down your surgery
 	var/implement_speed_mod = 1
@@ -354,7 +351,7 @@
 		prob_success = allowed_tools[implement_type]
 	prob_success *= get_location_modifier(target)
 
-	if(!do_after(user, modded_time, target))
+	if(!do_after(user, modded_time, target, DA_IGNORE_SLOWDOWNS))
 		surgery.step_in_progress = FALSE
 		return SURGERY_INITIATE_INTERRUPTED
 
