@@ -30,12 +30,11 @@
 
 
 /mob/living/carbon/human/beforeAdjacentClick(atom/A, params)
-	if(prob(dna.species.fragile_bones_chance * 3))
-		var/zone = "[hand ? "l" : "r"]_[pick("hand", "arm")]"
-		var/obj/item/organ/external/active_hand = get_organ(zone)
+	if(prob(get_bones_symptom_prob() * 3))
+		var/obj/item/organ/external/active_hand = get_organ(hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 		if(!active_hand.has_fracture())
 			var/used_item_name = get_active_hand()
-			to_chat(src, span_danger("[used_item_name? "You try to use [used_item_name], but y": "Y"]our [active_hand] don't withstand the load!"))
+			to_chat(src, span_danger("[used_item_name ? "You try to use [used_item_name], but y": "Y"]our [active_hand] don't withstand the load!"))
 			active_hand.fracture()
 
 

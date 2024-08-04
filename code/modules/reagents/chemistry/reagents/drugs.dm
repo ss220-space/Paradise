@@ -462,12 +462,13 @@
 	metabolization_rate = 1.5 * REAGENTS_METABOLISM
 	taste_description = "WAAAAGH"
 
-/datum/reagent/bath_salts/on_mob_add(mob/living/M)
+
+/datum/reagent/bath_salts/on_mob_add(mob/living/carbon/human/user)
 	. = ..()
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		H.dna.species.punchdamagelow += 5
-		H.dna.species.punchdamagehigh += 5
+	if(ishuman(user))
+		user.physiology.punch_damage_low += 5
+		user.physiology.punch_damage_high += 5
+
 
 /datum/reagent/bath_salts/on_mob_life(mob/living/M)
 	var/check = rand(0,100)
@@ -476,7 +477,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		for(var/obj/item/organ/internal/organ as anything in H.internal_organs)
-			organ.receive_damage(0.2, FALSE)
+			organ.internal_receive_damage(0.2)
 		M.SetParalysis(0)
 		M.SetStunned(0)
 		M.SetWeakened(0)
@@ -498,12 +499,13 @@
 		to_chat(M, "<span class='userdanger'>THEY'RE GONNA GET YOU!</span>")
 	return ..() | update_flags
 
-/datum/reagent/bath_salts/on_mob_delete(mob/living/M)
+
+/datum/reagent/bath_salts/on_mob_delete(mob/living/carbon/human/user)
 	. = ..()
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		H.dna.species.punchdamagelow -= 5
-		H.dna.species.punchdamagehigh -= 5
+	if(ishuman(user))
+		user.physiology.punch_damage_low -= 5
+		user.physiology.punch_damage_high -= 5
+
 
 /datum/reagent/bath_salts/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
@@ -522,7 +524,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		for(var/obj/item/organ/internal/organ as anything in H.internal_organs)
-			organ.receive_damage(1.8, FALSE)
+			organ.internal_receive_damage(1.8)
 	return list(0, update_flags)
 
 /datum/reagent/jenkem

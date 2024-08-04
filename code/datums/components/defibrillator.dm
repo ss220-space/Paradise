@@ -262,8 +262,7 @@
 		// Heal oxy and tox damage type by as much as we're under -100 health
 		var/damage_above_threshold = -(min(target.health, HEALTH_THRESHOLD_DEAD) - HEALTH_THRESHOLD_DEAD)
 		var/heal_amount = damage_above_threshold + 5
-		target.adjustOxyLoss(-heal_amount)
-		target.adjustToxLoss(-heal_amount)
+		target.heal_damages(tox = heal_amount, oxy = heal_amount)
 
 		// Inflict some brain damage scaling with time spent dead
 		var/defib_time_brain_damage = min(100 * time_dead / DEFIB_TIME_LIMIT, 99) // 20 from 1 minute onward, +20 per minute up to 99
@@ -310,7 +309,7 @@
 		span_danger("[user] has touched [target.name] with [parent]!"),
 		span_userdanger("[user] has touched [target.name] with [parent]!"),
 	)
-	target.adjustStaminaLoss(50)
+	target.apply_damage(50, STAMINA)
 	target.Weaken(4 SECONDS)
 	playsound(get_turf(parent), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 	target.emote("gasp")

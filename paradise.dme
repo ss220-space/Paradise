@@ -2637,6 +2637,7 @@
 #include "code\modules\mob\living\carbon\human\logout.dm"
 #include "code\modules\mob\living\carbon\human\monkey.dm"
 #include "code\modules\mob\living\carbon\human\npcs.dm"
+#include "code\modules\mob\living\carbon\human\physiology.dm"
 #include "code\modules\mob\living\carbon\human\update_icons.dm"
 #include "code\modules\mob\living\carbon\human\update_stat.dm"
 #include "code\modules\mob\living\carbon\human\species\_species.dm"

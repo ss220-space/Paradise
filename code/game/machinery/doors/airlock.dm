@@ -789,7 +789,7 @@ About the new airlock wires panel:
 		var/mob/living/simple_animal/hulk/H = user
 		H.attack_hulk(src)
 
-/obj/machinery/door/airlock/attack_hand(mob/user)
+/obj/machinery/door/airlock/attack_hand(mob/living/carbon/human/user)
 	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user)
 	if(shock_user(user, 100))
 		add_fingerprint(user)
@@ -798,10 +798,10 @@ About the new airlock wires panel:
 	if(headbutt_airlock(user))
 		add_fingerprint(user)
 		return // Smack that head against that airlock
-	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+	if(user.a_intent == INTENT_HARM && ishuman(user) && (user.dna.species.obj_damage + user.physiology.punch_obj_damage > 0))
 		add_fingerprint(user)
 		user.changeNext_move(CLICK_CD_MELEE)
-		attack_generic(user, user.dna.species.obj_damage)
+		attack_generic(user, user.dna.species.obj_damage + user.physiology.punch_obj_damage)
 		return
 	if(remove_airlock_note(user, FALSE))
 		add_fingerprint(user)
@@ -824,10 +824,8 @@ About the new airlock wires panel:
 			playsound(loc, 'sound/effects/bang.ogg', 25, 1)
 			if(!istype(H.head, /obj/item/clothing/head/helmet))
 				visible_message(span_warning("[user] headbutts the airlock."))
-				var/obj/item/organ/external/affecting = H.get_organ(BODY_ZONE_HEAD)
 				H.Weaken(10 SECONDS)
-				if(affecting.receive_damage(10, 0))
-					H.UpdateDamageIcon()
+				H.apply_damage(10, def_zone = BODY_ZONE_HEAD)
 			else
 				visible_message(span_warning("[user] headbutts the airlock. Good thing [user.p_theyre()] wearing a helmet."))
 			return TRUE

@@ -653,7 +653,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/blob_act(obj/structure/blob/B)
 	if(stat != DEAD)
 		adjustBruteLoss(60)
-		updatehealth()
 		return 1
 	return 0
 
@@ -675,13 +674,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			gib()
 		if(2.0)
 			if(stat != 2)
-				adjustBruteLoss(60)
-				adjustFireLoss(60)
+				apply_damages(60, 60)
 		if(3.0)
 			if(stat != 2)
-				adjustBruteLoss(30)
+				apply_damage(30)
 
-	return
 
 /mob/living/silicon/ai/ratvar_act()
 	if(isclocker(src))

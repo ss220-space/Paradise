@@ -100,7 +100,7 @@
 		span_warning("You think you've found something, but you've grabbed onto [target]'s [affected.name] instead, damaging it!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	affected.receive_damage(20)
+	target.apply_damage(20, def_zone = affected)
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/extract_implant/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)

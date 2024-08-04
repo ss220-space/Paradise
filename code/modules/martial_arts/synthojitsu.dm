@@ -64,7 +64,7 @@
 		var/mob/living/carbon/human/H = user
 		var/datum/martial_art/synthojitsu/F = new/datum/martial_art/synthojitsu(null)
 		F.teach(H)
-		H.adjustBrainLoss(50)
+		H.apply_damage(50, BRAIN)
 		H.Weaken(10 SECONDS)
 		to_chat(H, span_boldannounceic("Melee algorithms installed. Safety disabled."))
 		is_used = TRUE

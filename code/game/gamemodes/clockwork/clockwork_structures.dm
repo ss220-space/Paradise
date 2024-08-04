@@ -195,9 +195,9 @@
 			new /obj/effect/temp_visual/heal(get_turf(L), "#960000")
 
 			if(ishuman(L))
-				L.heal_overall_damage(10, 10, TRUE, FALSE, TRUE)
+				L.heal_overall_damage(10, 10, affect_robotic = TRUE)
 			if(isrobot(L))
-				L.heal_overall_damage(5, 5, TRUE)
+				L.heal_overall_damage(5, 5)
 
 			else if(isanimal(L))
 				var/mob/living/simple_animal/M = L
@@ -394,8 +394,7 @@
 				if(!second_stage)
 					second_stage_check(converting)
 				else
-					converting.adjustBruteLoss(5)
-					converting.adjustFireLoss(5)
+					converting.take_overall_damage(5, 5)
 			if(17)
 				adjust_clockwork_power(CLOCK_POWER_SACRIFICE)
 				var/obj/item/mmi/robotic_brain/clockwork/cube = new (get_turf(src))
@@ -418,7 +417,7 @@
 		target.Weaken(20 SECONDS)
 	else // just a living non-clocker civil
 		to_chat(target, "<span class='clocklarge'><b>\"You belong to me now.\"</b></span>")
-		target.heal_overall_damage(50, 50, TRUE)
+		target.heal_overall_damage(50, 50)
 		if(isgolem(target))
 			target.mind.wipe_memory()
 			target.set_species(/datum/species/golem/clockwork)

@@ -318,10 +318,16 @@
 		. += span_notice("[src] is in pristine condition.")
 
 
-/mob/living/simple_animal/bot/adjustHealth(amount, updating_health = TRUE)
-	if(amount > 0 && prob(10))
-		new /obj/effect/decal/cleanable/blood/oil(loc)
+/mob/living/simple_animal/bot/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
 	. = ..()
+	if(. && amount > 0 && prob(10))
+		new /obj/effect/decal/cleanable/blood/oil(loc)
 
 
 /mob/living/simple_animal/bot/handle_automated_action()

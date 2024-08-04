@@ -12,7 +12,7 @@
 			owner.adjustToxLoss(0.1 * PROCESS_ACCURACY)
 		else if(is_traumatized())
 			owner.adjustToxLoss(5)
-		receive_damage(1)
+		internal_receive_damage(1)
 
 
 /obj/item/organ/internal/headpocket

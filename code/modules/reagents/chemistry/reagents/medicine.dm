@@ -317,8 +317,8 @@
 /datum/reagent/medicine/synthflesh/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume, show_message = 1)
 	if(iscarbon(M))
 		if(method == REAGENT_TOUCH)
-			M.adjustBruteLoss(-1.5*volume)
-			M.adjustFireLoss(-1.5*volume)
+			var/heal_amount = 1.5 * volume
+			M.heal_overall_damage(heal_amount, heal_amount)
 			if(show_message)
 				to_chat(M, "<span class='notice'>The synthetic flesh integrates itself into your wounds, healing you.</span>")
 	..()
@@ -350,14 +350,16 @@
 	return ..() | update_flags
 
 /datum/reagent/medicine/ab_stimulant/overdose_process(mob/living/M, severity)
-	var/update_flags = STATUS_UPDATE_NONE
 	to_chat(M, "<span class='warning'>Ваша кожа лопается!</span>")
-	M.adjustBruteLoss(4)
-	M.adjustFireLoss(-6)
+	var/update = NONE
+	update |= M.apply_damage(4, BRUTE, spread_damage = TRUE, updating_health = FALSE)
+	update |= M.heal_damage_type(6, BURN, updating_health = FALSE)
+	if(update)
+		M.updatehealth()
 	if(prob(25) && !((NO_BLOOD) in M.mutations))
 		var/mob/living/carbon/human/H = M
 		H.bleed(20)
-	return ..() | update_flags
+	return ..()
 
 /datum/reagent/medicine/charcoal
 	name = "Charcoal"
@@ -490,7 +492,7 @@
 	if(prob(33))
 		if(ishuman(M))
 			var/mob/living/carbon/human/human = M
-			human.take_overall_damage(0.5, 0.5, FALSE, affect_robotic = FALSE)
+			human.take_overall_damage(0.5, 0.5, updating_health = FALSE, affect_robotic = FALSE)
 		else
 			update_flags |= M.adjustBruteLoss(0.5, FALSE)
 			update_flags |= M.adjustFireLoss(0.5, FALSE)
@@ -847,11 +849,12 @@
 				if(!M.suiciding && !(NOCLONE in M.mutations) && (!M.mind || M.mind?.is_revivable()))
 					var/time_dead = world.time - M.timeofdeath
 					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
-					M.adjustCloneLoss(50)
-					M.setOxyLoss(0)
-					M.adjustBruteLoss(rand(0, 15))
-					M.adjustToxLoss(rand(0, 15))
-					M.adjustFireLoss(rand(0, 15))
+					var/update = NONE
+					update |= M.take_overall_damage(rand(0, 15), rand(0, 15), updating_health = FALSE)
+					update |= M.apply_damages(tox = rand(0, 15), clone = 50, updating_health = FALSE)
+					update |= M.setOxyLoss(0, updating_health = FALSE)
+					if(update)
+						M.updatehealth()
 					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
 						var/necrosis_prob = 40 * min((20 MINUTES), max((time_dead - (1 MINUTES)), 0)) / ((20 MINUTES) - (1 MINUTES))
@@ -1519,16 +1522,15 @@
 	can_synth = FALSE
 
 /datum/reagent/medicine/grubjuice/on_mob_life(mob/living/carbon/M) //huge heal for huge liver problems
-	M.heal_overall_damage(4,4, FALSE)
-	..()
-	return TRUE
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.heal_overall_damage(4, 4)
+	return ..() | update_flags
 
 /datum/reagent/medicine/grubjuice/overdose_process(mob/living/M)
-	M.adjustBruteLoss(3, 0, FALSE)
-	M.adjustFireLoss(3, 0, FALSE)
-	M.adjustToxLoss(5, 0)
-	..()
-	return TRUE
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.take_overall_damage(3, 3, updating_health = FALSE)
+	update_flags |= M.apply_damage(5, TOX, updating_health = FALSE)
+	return list(0, update_flags)
 
 /datum/reagent/medicine/adrenaline
 	name = "adrenaline"

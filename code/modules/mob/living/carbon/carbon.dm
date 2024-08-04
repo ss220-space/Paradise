@@ -35,10 +35,6 @@
 /mob/living/carbon/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(.)
-		if(nutrition && stat != DEAD && !isvampire(src))
-			adjust_nutrition(-(hunger_drain * 0.1))
-			if(m_intent == MOVE_INTENT_RUN)
-				adjust_nutrition(-(hunger_drain * 0.1))
 		if((FAT in mutations) && m_intent == MOVE_INTENT_RUN && bodytemperature <= 360)
 			adjust_bodytemperature(2)
 
@@ -61,19 +57,7 @@
 
 			var/obj/item/I = user.get_active_hand()
 			if(I && I.force)
-				var/d = rand(round(I.force / 4), I.force)
-
-				if(ishuman(src))
-					var/mob/living/carbon/human/H = src
-					var/obj/item/organ/external/organ = H.get_organ(BODY_ZONE_CHEST)
-					if(istype(organ))
-						if(organ.receive_damage(d, 0))
-							H.UpdateDamageIcon()
-
-					H.updatehealth("stomach attack")
-
-				else
-					take_organ_damage(d)
+				apply_damage(rand(round(I.force / 4), I.force), def_zone = BODY_ZONE_CHEST)
 
 				for(var/mob/M in viewers(user, null))
 					if(M.client)
@@ -234,10 +218,8 @@
 					var/protected = FALSE // Protected from the fire
 					if((H.gloves?.max_heat_protection_temperature > 360) || (HEATRES in H.mutations))
 						protected = TRUE
-
-					var/obj/item/organ/external/active_hand = H.get_organ(H.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-					if(active_hand && !protected) // Wouldn't really work without a hand
-						active_hand.receive_damage(0, 5)
+					if(!protected)
+						H.apply_damage(5, BURN, def_zone = H.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 						self_message = "<span class='danger'>Вы обжигаете ваши руки пытаясь потушить [src.name]!</span>"
 						H.update_icons()
 
@@ -363,14 +345,14 @@
 				to_chat(src, span_warning("Ваши глаза немного щиплет."))
 				var/minor_damage_multiplier = min(40 + extra_prob, 100) / 100
 				var/minor_damage = minor_damage_multiplier * (1 + extra_damage)
-				E.receive_damage(minor_damage, 1)
+				E.internal_receive_damage(minor_damage, silent = TRUE)
 			if(2)
 				to_chat(src, span_warning("Ваши глаза пылают."))
-				E.receive_damage(rand(2, 4) + extra_damage, 1)
+				E.internal_receive_damage(rand(2, 4) + extra_damage, silent = TRUE)
 
 			else
 				to_chat(src, span_warning("Глаза сильно чешутся и пылают!"))
-				E.receive_damage(rand(12, 16) + extra_damage, 1)
+				E.internal_receive_damage(rand(12, 16) + extra_damage, silent = TRUE)
 
 		if(E.damage > E.min_bruised_damage)
 			AdjustEyeBlind(damage STATUS_EFFECT_CONSTANT)
