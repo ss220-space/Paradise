@@ -38778,9 +38778,6 @@
 /area/library/game_zone)
 "dRW" = (
 /obj/effect/landmark/start/captain,
-/obj/machinery/light{
-	dir = 1
-	},
 /turf/simulated/floor/carpet/royalblue,
 /area/crew_quarters/captain/bedroom)
 "dRX" = (
