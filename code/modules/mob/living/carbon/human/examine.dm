@@ -461,8 +461,8 @@
 
 		if(istype(H.glasses, /obj/item/clothing/glasses))
 			var/obj/item/clothing/glasses/glasses = H.glasses
-			if(hudglasses?.examine_extensions)
-				have_hud_exam |= hudglasses.examine_extensions
+			if(glasses?.examine_extensions)
+				have_hud_exam |= glasses.examine_extensions
 
 		if(istype(H.head, /obj/item/clothing/head/helmet/space))
 			var/obj/item/clothing/head/helmet/space/helmet = H.head
