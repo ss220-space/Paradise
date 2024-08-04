@@ -4,6 +4,7 @@
 	desc = "Caused by a revenant, it slowly depletes organic life forms and can corrupt soul."
 	cures = list("holywater")
 	cure_prob = 50
+	cure_text = "Holy water"
 	discovered = TRUE
 	severity = DANGEROUS
 	can_immunity = FALSE

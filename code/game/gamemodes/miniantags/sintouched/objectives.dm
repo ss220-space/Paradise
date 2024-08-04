@@ -59,11 +59,11 @@
 	
 /datum/objective/sintouched/pride/on_apply(mob/living/carbon/human/human)
 	..()
-	max(0, human.dna.species.brute_mod - 0.1)
-	max(0, human.dna.species.tox_mod - 0.1)
-	max(0, human.dna.species.stamina_mod - 0.1)
-	max(0, human.dna.species.oxy_mod - 0.1)
-	max(0, human.dna.species.burn_mod - 0.1)
+	human.dna.species.brute_mod = max(0.1, human.dna.species.brute_mod - 0.1)
+	human.dna.species.tox_mod = max(0.1, human.dna.species.tox_mod - 0.1)
+	human.dna.species.stamina_mod = max(0.1, human.dna.species.stamina_mod - 0.1)
+	human.dna.species.oxy_mod = max(0.1, human.dna.species.oxy_mod - 0.1)
+	human.dna.species.burn_mod = max(0.1, human.dna.species.burn_mod - 0.1)
 
 /datum/objective/sintouched/acedia
 	explanation_text = "Angels, devils, good, evil... who cares?  Just ignore any hellish threats and do your job."
