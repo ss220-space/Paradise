@@ -9,6 +9,7 @@ jobs:
   build:
     name: potential-conflicts-checker
     runs-on: ubuntu-latest
+    permissions: write-all
     steps:
       - uses: outsideris/potential-conflicts-checker-action@0.1.0
         with:

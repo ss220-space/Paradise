@@ -1,12 +1,13 @@
 /mob/living/carbon/alien/Life(seconds, times_fired)
-	if(..() && can_evolve && evolution_points < max_evolution_points)
+	. = ..()
+	if(. && can_evolve && evolution_points < max_evolution_points)
 		var/points_to_add = 1
 		if(locate(/obj/structure/alien/weeds) in loc)
 			points_to_add *= 2
 		if(body_position == LYING_DOWN)
 			points_to_add *= 2
 		evolution_points = min(evolution_points + points_to_add, max_evolution_points)
-		update_icons()
+
 
 /mob/living/carbon/alien/check_breath(datum/gas_mixture/breath)
 	if(status_flags & GODMODE)

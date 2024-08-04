@@ -208,10 +208,10 @@
 	deltimer(combo_timer)
 	H.mind.known_martial_arts.Remove(MA)
 	H.mind.martial_art = get_highest_weight(H)
-	remove_verb(H)
+	remove_martial_art_verbs(H)
 	return TRUE
 
-/datum/martial_art/proc/remove_verb(mob/living/carbon/human/old_human)
+/datum/martial_art/proc/remove_martial_art_verbs(mob/living/carbon/human/old_human)
 	remove_verb(old_human, /mob/living/carbon/human/proc/martial_arts_help)
 	remove_verb(old_human, /mob/living/carbon/human/proc/dirslash_enabling)
 	old_human.dirslash_enabled = initial(old_human.dirslash_enabled)
