@@ -22,7 +22,7 @@
 
 /datum/objective/sintouched/gluttony/on_apply(mob/living/carbon/human/human)
 	..()
-	human.dna.species.hunger_drain += 0.3
+	human.dna.species.hunger_drain_mod += 3
 	human.dna.species.species_traits |= NO_OBESITY
 	human.mind?.AddSpell(new /obj/effect/proc_holder/spell/eat)
 	
