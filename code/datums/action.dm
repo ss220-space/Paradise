@@ -54,7 +54,7 @@
 		RegisterSignal(owner, COMSIG_LIVING_SET_BODY_POSITION, PROC_REF(update_status_on_signal))
 	if(check_flags & AB_CHECK_IMMOBILE)
 		RegisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_IMMOBILIZED), SIGNAL_REMOVETRAIT(TRAIT_IMMOBILIZED)), PROC_REF(update_status_on_signal))
-	if(check_flags & AB_CHECK_HANDS_BLOCKED)
+	if(check_flags & AB_CHECK_HANDS_BLOCKED && !isAI(owner))
 		RegisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), SIGNAL_REMOVETRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(update_status_on_signal))
 	if(check_flags & AB_CHECK_INCAPACITATED)
 		RegisterSignal(owner, list(SIGNAL_ADDTRAIT(TRAIT_INCAPACITATED), SIGNAL_REMOVETRAIT(TRAIT_INCAPACITATED)), PROC_REF(update_status_on_signal))
@@ -132,7 +132,7 @@
 /datum/action/proc/IsAvailable()// returns 1 if all checks pass
 	if(!owner)
 		return FALSE
-	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED))
+	if((check_flags & AB_CHECK_HANDS_BLOCKED) && HAS_TRAIT(owner, TRAIT_HANDS_BLOCKED) && !isAI(owner))
 		return FALSE
 	if((check_flags & AB_CHECK_IMMOBILE) && HAS_TRAIT(owner, TRAIT_IMMOBILIZED))
 		return FALSE
@@ -707,7 +707,7 @@
 	button.add_overlay(unavailable_effect)
 	// Make a holder for the charge text
 	var/static/mutable_appearance/maptext_holder = mutable_appearance('icons/effects/effects.dmi', "nothing", BUTTON_LAYER_MAPTEXT, appearance_flags = RESET_COLOR|RESET_ALPHA)
-	var/text = spell.cooldown_handler.statpanel_info()
+	var/text = spell.cooldown_handler.cooldown_info()
 	maptext_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[text]</div>"
 	button.add_overlay(maptext_holder)
 

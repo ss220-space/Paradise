@@ -99,22 +99,23 @@
 
 /datum/species/kidan/on_species_gain(mob/living/carbon/human/H)
 	..()
-	H.verbs |= /mob/living/carbon/human/proc/emote_click
-	H.verbs |= /mob/living/carbon/human/proc/emote_clack
-	H.verbs |= /mob/living/carbon/human/proc/emote_wiggle
-	H.verbs |= /mob/living/carbon/human/proc/emote_wave_k
-	H.verbs -= /mob/living/carbon/human/verb/emote_pale
-	H.verbs -= /mob/living/carbon/human/verb/emote_blink
-	H.verbs -= /mob/living/carbon/human/verb/emote_blink_r
-	H.verbs -= /mob/living/carbon/human/verb/emote_blush
-	H.verbs -= /mob/living/carbon/human/verb/emote_wink
-	H.verbs -= /mob/living/carbon/human/verb/emote_smile
-	H.verbs -= /mob/living/carbon/human/verb/emote_snuffle
-	H.verbs -= /mob/living/carbon/human/verb/emote_grin
-	H.verbs -= /mob/living/carbon/human/verb/emote_eyebrow
-	H.verbs -= /mob/living/carbon/human/verb/emote_frown
-	H.verbs -= /mob/living/carbon/human/verb/emote_sniff
-	H.verbs -= /mob/living/carbon/human/verb/emote_glare
+	add_verb(H, list(/mob/living/carbon/human/proc/emote_click,
+					/mob/living/carbon/human/proc/emote_clack,
+			   		/mob/living/carbon/human/proc/emote_wiggle,
+			   		/mob/living/carbon/human/proc/emote_wave_k))
+	remove_verb(H, list(
+		/mob/living/carbon/human/verb/emote_pale,
+		/mob/living/carbon/human/verb/emote_blink,
+		/mob/living/carbon/human/verb/emote_blink_r,
+		/mob/living/carbon/human/verb/emote_blush,
+		/mob/living/carbon/human/verb/emote_wink,
+		/mob/living/carbon/human/verb/emote_smile,
+		/mob/living/carbon/human/verb/emote_snuffle,
+		/mob/living/carbon/human/verb/emote_grin,
+		/mob/living/carbon/human/verb/emote_eyebrow,
+		/mob/living/carbon/human/verb/emote_frown,
+		/mob/living/carbon/human/verb/emote_sniff,
+		/mob/living/carbon/human/verb/emote_glare))
 	// HUD for detecting pheromones
 	var/datum/atom_hud/kidan_hud = GLOB.huds[DATA_HUD_KIDAN_PHEROMONES]
 	kidan_hud.add_hud_to(H)
@@ -125,22 +126,24 @@
 
 /datum/species/kidan/on_species_loss(mob/living/carbon/human/H)
 	..()
-	H.verbs -= /mob/living/carbon/human/proc/emote_click
-	H.verbs -= /mob/living/carbon/human/proc/emote_clack
-	H.verbs -= /mob/living/carbon/human/proc/emote_wiggle
-	H.verbs -= /mob/living/carbon/human/proc/emote_wave_k
-	H.verbs |= /mob/living/carbon/human/verb/emote_pale
-	H.verbs |= /mob/living/carbon/human/verb/emote_blink
-	H.verbs |= /mob/living/carbon/human/verb/emote_blink_r
-	H.verbs |= /mob/living/carbon/human/verb/emote_blush
-	H.verbs |= /mob/living/carbon/human/verb/emote_wink
-	H.verbs |= /mob/living/carbon/human/verb/emote_smile
-	H.verbs |= /mob/living/carbon/human/verb/emote_snuffle
-	H.verbs |= /mob/living/carbon/human/verb/emote_grin
-	H.verbs |= /mob/living/carbon/human/verb/emote_eyebrow
-	H.verbs |= /mob/living/carbon/human/verb/emote_frown
-	H.verbs |= /mob/living/carbon/human/verb/emote_sniff
-	H.verbs |= /mob/living/carbon/human/verb/emote_glare
+	remove_verb(H, list(
+		/mob/living/carbon/human/proc/emote_click,
+		/mob/living/carbon/human/proc/emote_clack,
+		/mob/living/carbon/human/proc/emote_wiggle,
+		/mob/living/carbon/human/proc/emote_wave_k))
+	add_verb(H, list(
+		/mob/living/carbon/human/verb/emote_pale,
+		/mob/living/carbon/human/verb/emote_blink,
+		/mob/living/carbon/human/verb/emote_blink_r,
+		/mob/living/carbon/human/verb/emote_blush,
+		/mob/living/carbon/human/verb/emote_wink,
+		/mob/living/carbon/human/verb/emote_smile,
+		/mob/living/carbon/human/verb/emote_snuffle,
+		/mob/living/carbon/human/verb/emote_grin,
+		/mob/living/carbon/human/verb/emote_eyebrow,
+		/mob/living/carbon/human/verb/emote_frown,
+		/mob/living/carbon/human/verb/emote_sniff,
+		/mob/living/carbon/human/verb/emote_glare))
 
 	// Removing the HUD for detecting pheromones
 	var/datum/atom_hud/kidan_hud = GLOB.huds[DATA_HUD_KIDAN_PHEROMONES]

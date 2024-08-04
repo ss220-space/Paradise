@@ -120,7 +120,7 @@
  */
 /mob/verb/pointed(atom/target as mob|obj|turf in view(client.view, src))
 	set name = "Point To"
-	set category = "Object"
+	set category = "IC"
 
 	if(next_move >= world.time || !Master.current_runlevel) //No usage until subsystems initialized properly.
 		return

@@ -215,7 +215,7 @@
 
 			playsound(loc, coil.usesound, 50, TRUE)
 			to_chat(user, span_notice("You start to add cables to the frame."))
-			if(!do_after(user, 2 SECONDS * coil.toolspeed * gettoolspeedmod(user), src) || state != STATE_EMPTY)
+			if(!do_after(user, 2 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || state != STATE_EMPTY)
 				return
 
 			if(!coil.use(5))

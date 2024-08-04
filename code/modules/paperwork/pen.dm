@@ -222,7 +222,7 @@
 		force += backstab_damage
 		extra_force_applied = TRUE
 		M.Weaken(2 SECONDS)
-		M.adjustStaminaLoss(40)
+		M.apply_damage(40, STAMINA)
 		add_attack_logs(user, M, "Backstabbed with [src]", ATKLOG_ALL)
 		M.visible_message(span_warning("[user] stabs [M] in the back!"), span_userdanger("[user] stabs you in the back! The energy blade makes you collapse in pain!"))
 		playsound(loc, backstab_sound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)
@@ -302,3 +302,12 @@
 /obj/item/pen/fakesign
 	fake_signing = TRUE
 	//desc = "It's a normal black ink pen with constantly moving tip. Wait what?" //documented bcs its should be stealthy item, like edagger and poison
+
+/obj/item/pen/survival
+	name = "survival pen"
+	desc = "The latest in portable survival technology, this pen was designed as a miniature diamond pickaxe."
+	icon = 'icons/obj/bureaucracy.dmi'
+	icon_state = "digging_pen"
+	toolspeed = 10 //You will never willingly choose to use one of these over a shovel.
+	colour = COLOR_BLUE
+

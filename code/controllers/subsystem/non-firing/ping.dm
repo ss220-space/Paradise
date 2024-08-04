@@ -9,14 +9,16 @@ SUBSYSTEM_DEF(ping)
 	wait = 4 SECONDS
 	flags = SS_NO_INIT
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
+	init_stage = INITSTAGE_EARLY
 	cpu_display = SS_CPUDISPLAY_LOW
 	ss_id = "ping"
 
 	var/list/currentrun = list()
 
 
-/datum/controller/subsystem/ping/get_stat_details()
-	return "P:[GLOB.clients.len]"
+/datum/controller/subsystem/ping/stat_entry(msg)
+	msg = "P:[length(GLOB.clients)]"
+	return ..()
 
 
 /datum/controller/subsystem/ping/fire(resumed = FALSE)

@@ -20,23 +20,23 @@
 	attack_verb = list("beautifully sliced", "artistically cut", "smoothly stabbed", "quickly jabbed")
 	toolspeed = 0.75
 
-/obj/item/scissors/attack(mob/living/carbon/M as mob, mob/user as mob)
+/obj/item/scissors/attack(mob/living/carbon/M, mob/user)
 	if(user.a_intent != INTENT_HELP)
-		..()
-		return
+		return ..()
 	if(!(M in view(1))) //Adjacency test
-		..()
-		return
+		return ..()
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/C = H.get_organ(BODY_ZONE_HEAD)
+		if(!C)
+			return ..()
 		//facial hair
 		var/f_new_style = tgui_input_list(user, "Select a facial hair style", "Grooming", H.generate_valid_facial_hairstyles())
 		//handle normal hair
 		var/h_new_style = tgui_input_list(user, "Select a hair style", "Grooming", H.generate_valid_hairstyles())
 		user.visible_message("<span class='notice'>[user] starts cutting [M]'s hair!</span>", "<span class='notice'>You start cutting [M]'s hair!</span>") //arguments for this are: 1. what others see 2. what the user sees. --Fixed grammar, (TGameCo)
 		playsound(loc, 'sound/goonstation/misc/scissor.ogg', 100, 1)
-		if(do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), H)) //this is the part that adds a delay. delay is in deciseconds. --Made it 5 seconds, because hair isn't cut in one second in real life, and I want at least a little bit longer time, (TGameCo)
+		if(do_after(user, 5 SECONDS * toolspeed, H, category = DA_CAT_TOOL)) //this is the part that adds a delay. delay is in deciseconds. --Made it 5 seconds, because hair isn't cut in one second in real life, and I want at least a little bit longer time, (TGameCo)
 			if(!(M in view(1))) //Adjacency test
 				user.visible_message("<span class='notice'>[user] stops cutting [M]'s hair.</span>", "<span class='notice'>You stop cutting [M]'s hair.</span>")
 				return
@@ -54,13 +54,11 @@
 	force = 18 //same as e-daggers
 	var/is_cutting = 0 //to prevent spam clicking this for huge accumulation of losebreath.
 
-/obj/item/scissors/safety/attack(mob/living/carbon/M as mob, mob/user as mob)
+/obj/item/scissors/safety/attack(mob/living/carbon/M, mob/user)
 	if(user.a_intent != INTENT_HELP)
-		..()
-		return
+		return ..()
 	if(!(M in view(1)))
-		..()
-		return
+		return ..()
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 
@@ -68,7 +66,7 @@
 			is_cutting = 1
 			user.visible_message("<span class='notice'>[user] starts cutting [M]'s hair!</span>", "<span class='notice'>You start cutting [M]'s hair!</span>")
 			playsound(loc, 'sound/goonstation/misc/scissor.ogg', 100, 1)
-			if(do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), H))
+			if(do_after(user, 5 SECONDS * toolspeed, H, category = DA_CAT_TOOL))
 				playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
 				user.visible_message("<span class='danger'>[user] abruptly stops cutting [M]'s hair and slices [M.p_their()] throat!</span>", "<span class='danger'>You stop cutting [M]'s hair and slice [M.p_their()] throat!</span>") //Just a little off the top.
 				H.AdjustLoseBreath(20 SECONDS) //30 Oxy damage over time

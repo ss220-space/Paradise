@@ -15,9 +15,11 @@ menu "menu"
 		name = "&Reconnect"
 		command = ".reconnect"
 		category = "&File"
-	elem
-		name = ""
+	elem "debugmcbutton"
+		name = "&MC Debug"
+		command = "SS-Info-Breakdown"
 		category = "&File"
+		is-disabled = true
 	elem
 		name = "&Quit"
 		command = ".quit"
@@ -119,10 +121,26 @@ menu "menu"
 		saved-params = "is-checked"
 		command = ".winset \"menu.statusbar.is-checked=true?mapwindow.status_bar.is-visible=true:mapwindow.status_bar.is-visible=false\""
 	elem
+		name = "&Game Preferences"
+		command = "Game-Preferences"
+		category = "&Options"
+	elem
 		name = "&Help"
 	elem
 		name = "&Admin help"
 		command = "adminhelp"
+		category = "&Help"
+	elem
+		name = "&Fit Viewport"
+		command = "Fit-Viewport"
+		category = "&Help"
+	elem
+		name = "&Refresh TGUI"
+		command = "Refresh-TGUI"
+		category = "&Help"
+	elem
+		name = "&Fix Chat"
+		command = "Fix-Chat"
 		category = "&Help"
 
 
@@ -362,8 +380,8 @@ window "infowindow"
 		pos = 0,0
 		size = 0x0
 		is-pane = true
-	elem "info"
-		type = INFO
+	elem "statbrowser"
+		type = BROWSER
 		pos = 0,0
 		size = 0x0
 		anchor1 = 0,0

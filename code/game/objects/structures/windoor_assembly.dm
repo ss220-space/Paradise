@@ -102,11 +102,11 @@
 		return COMPONENT_ATOM_BLOCK_EXIT
 
 
-/obj/structure/windoor_assembly/attack_hand(mob/user)
-	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+/obj/structure/windoor_assembly/attack_hand(mob/living/carbon/human/user)
+	if(user.a_intent == INTENT_HARM && ishuman(user) && (user.dna.species.obj_damage + user.physiology.punch_obj_damage > 0))
 		add_fingerprint(user)
 		user.changeNext_move(CLICK_CD_MELEE)
-		attack_generic(user, user.dna.species.obj_damage)
+		attack_generic(user, user.dna.species.obj_damage + user.physiology.punch_obj_damage)
 		return
 	. = ..()
 
@@ -121,7 +121,7 @@
 					to_chat(user, "<span class='warning'>You need more [P] to do this!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start to reinforce [src] with [P]...</span>")
-				if(do_after(user, 4 SECONDS * P.toolspeed * gettoolspeedmod(user), src))
+				if(do_after(user, 4 SECONDS * P.toolspeed, src, category = DA_CAT_TOOL))
 					if(!src || secure || P.get_amount() < 2)
 						return
 					add_fingerprint(user)
@@ -134,7 +134,7 @@
 			//Adding cable to the assembly. Step 5 complete.
 			else if(iscoil(W) && anchored)
 				user.visible_message("<span class='notice'>[user] wires [src]...</span>", "<span class='notice'>You start to wire [src]...</span>")
-				if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
+				if(do_after(user, 4 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
 					if(!src || !anchored || state != "01")
 						return
 					add_fingerprint(user)
@@ -158,7 +158,7 @@
 					return
 				playsound(loc, W.usesound, 100, 1)
 				user.visible_message("<span class='notice'>[user] installs [W] into [src]...</span>", "<span class='notice'>You start to install [W.name] into [src]...</span>")
-				if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
+				if(do_after(user, 4 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
 					if(!src || electronics)
 						return
 					add_fingerprint(user)

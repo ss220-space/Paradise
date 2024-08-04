@@ -169,6 +169,9 @@ SUBSYSTEM_DEF(mapping)
 	else
 		world.name = station_name()
 
+	return SS_INIT_SUCCESS
+
+
 /datum/controller/subsystem/mapping/proc/setupPlanes()
 	plane_offset_to_true = list()
 	true_to_offset_planes = list()
@@ -252,7 +255,7 @@ SUBSYSTEM_DEF(mapping)
 /datum/controller/subsystem/mapping/proc/loadLavaland()
 	var/watch = start_watch()
 	log_startup_progress("Loading Lavaland...")
-	var/trait_list = list(ORE_LEVEL, REACHABLE, STATION_CONTACT, HAS_WEATHER, AI_OK, ZTRAIT_BASETURF = /turf/simulated/floor/plating/lava/smooth/mapping_lava)
+	var/trait_list = list(ORE_LEVEL, REACHABLE, STATION_CONTACT, HAS_WEATHER, AI_OK, ZTRAIT_BASETURF = /turf/simulated/floor/lava/mapping_lava)
 	var/lavaland_z_level = GLOB.space_manager.add_new_zlevel(MINING, linkage = UNAFFECTED, traits = trait_list)
 	GLOB.maploader.load_map(file(map_datum.lavaland_path), z_offset = lavaland_z_level)
 	log_startup_progress("Loaded Lavaland in [stop_watch(watch)]s")

@@ -80,14 +80,20 @@
 
 	return FALSE
 
-/mob/living/simple_animal/hostile/mushroom/adjustHealth(amount, updating_health = TRUE)//Possibility to flee from a fight just to make it more visually interesting
-	if(!retreat_distance && prob(33))
-		retreat_distance = 5
-		addtimer(CALLBACK(src, PROC_REF(stop_retreat)), 30)
-	. = ..()
 
-/mob/living/simple_animal/hostile/mushroom/proc/stop_retreat()
-	retreat_distance = null
+/mob/living/simple_animal/hostile/mushroom/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
+	. = ..()
+	//Possibility to flee from a fight just to make it more visually interesting
+	if(. && amount > 0 && !retreat_distance && prob(33))
+		retreat_distance = 5
+		addtimer(VARSET_CALLBACK(src, retreat_distance, null), 3 SECONDS)
+
 
 /mob/living/simple_animal/hostile/mushroom/attack_animal(mob/living/L)
 	if(istype(L, /mob/living/simple_animal/hostile/mushroom) && stat == DEAD)

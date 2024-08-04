@@ -109,6 +109,14 @@
 	name = "run/walk toggle"
 	icon_state = "running"
 
+
+/atom/movable/screen/mov_intent/update_icon_state()
+	if(hud?.mymob)
+		icon_state = (hud.mymob.m_intent == MOVE_INTENT_RUN) ? "running" : "walking"
+	else
+		icon_state = initial(icon_state)
+
+
 /atom/movable/screen/act_intent/simple_animal
 	icon = 'icons/mob/screen_simplemob.dmi'
 	screen_loc = ui_acti

@@ -89,13 +89,13 @@
 
 /obj/item/organ/internal/cyberimp/tail/blade/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	if(activated)
-		owner.apply_damage(slash_strength, damage_type, BODY_ZONE_TAIL, FALSE, TRUE)
+		owner.apply_damage(slash_strength, damage_type, BODY_ZONE_TAIL, sharp = TRUE)
 		playsound(owner.loc, slash_sound, 40, TRUE)
 		playsound(owner.loc, 'sound/effects/bone_break_5.ogg', 40, TRUE)
 	implant_ability.Remove(owner)
 	. = ..()
 
-/obj/item/organ/internal/cyberimp/tail/blade/ui_action_click(mob/user, action, leftclick)
+/obj/item/organ/internal/cyberimp/tail/blade/ui_action_click(mob/user, datum/action/action, leftclick)
 
 	if(implant_emp_downtime) // 100 sec cooldown after EMP
 		to_chat(owner, span_warning("Ваш имплант всё ещё перегружен после ЭМИ!"))
@@ -135,10 +135,9 @@
 /datum/action/innate/tail_cut/Activate()
 	var/mob/living/carbon/human/user = owner
 	var/obj/item/organ/internal/cyberimp/tail/blade/implant = user.get_organ_slot(INTERNAL_ORGAN_TAIL_DEVICE)
-	var/datum/species/unathi/U // For unathi disabilities
 	var/active_implant = FALSE
 	var/type_of_damage = BRUTE // I did it only because I need attacklogs without exception
-	var/damage_deal = 5		   // Same
+	var/damage_deal = 5 * user.physiology.tail_strength_mod
 
 	if(implant && implant.activated) // Prevents exception if you dont have the implant, but unathi
 		active_implant = TRUE
@@ -146,12 +145,6 @@
 	if(active_implant)
 		type_of_damage = implant.damage_type
 		damage_deal = implant.slash_strength
-
-	else if(isunathi(user))
-		U = user.dna.species
-		damage_deal = U.tail_strength * 5
-	else   // Not unathi, no implant, where did you get tail cut?
-		return
 
 	if(user.getStaminaLoss() >= 50) // I want to move this to IsAvailable(), but haven't figured out how to synchronise stamina regen with update_action_buttons yet
 		to_chat(user, span_warning("Вы слишком устали!"))
@@ -169,7 +162,7 @@
 			if(E)
 				var/target_armor = C.run_armor_check(E, MELEE)
 				C.apply_damage(damage_deal, type_of_damage, E, target_armor, TRUE)
-				C.adjustStaminaLoss(active_implant ? implant.stamina_damage : 0)
+				C.apply_damage(active_implant ? implant.stamina_damage : 0, STAMINA)
 				user.visible_message(span_danger("[user.declent_ru(NOMINATIVE)] бьёт хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"), \
 					 span_danger("Вы хлещете хвостом [C.declent_ru(ACCUSATIVE)] по [E.declent_ru(DATIVE)]!"))
 
@@ -180,7 +173,7 @@
 							objective.take_damage(damage_deal, type_of_damage)
 
 		else  // Dealing damage to simplemobs, silicons
-			C.apply_damage_type(damage_deal, type_of_damage)
+			C.apply_damage(damage_deal, type_of_damage)
 
 		user.adjustStaminaLoss(active_implant ? implant.self_stamina_damage : 15)
 		playsound(user.loc, active_implant ? implant.slash_sound : 'sound/weapons/slash.ogg', 50, FALSE)

@@ -134,20 +134,30 @@
 		if(hud_used)
 			hud_used.guardianhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#efeeef'>[resulthealth]%</font></div>"
 
-/mob/living/simple_animal/hostile/guardian/adjustHealth(amount, updating_health = TRUE) //The spirit is invincible, but passes on damage to the summoner
-	var/damage = amount * damage_transfer
-	if(summoner)
-		if(loc == summoner)
-			return
-		summoner.adjustBruteLoss(damage)
-		if(damage <= 0)
-			return
-		if(damage > 0)
-			to_chat(summoner, span_danger("Ваш [name] под атакой! Вы получаете урон!"))
-			summoner.visible_message(span_danger("Кровь хлещет из [summoner] ибо [src] получает урон!"))
-		if(summoner.stat == UNCONSCIOUS)
-			to_chat(summoner, span_danger("Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!"))
-			summoner.adjustCloneLoss(damage/2)
+
+/mob/living/simple_animal/hostile/guardian/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
+	. = STATUS_UPDATE_NONE
+	//The spirit is invincible, but passes on damage to the summoner
+	if(!summoner || loc == summoner)
+		return .
+
+	amount *= damage_transfer
+	summoner.adjustBruteLoss(amount)
+	if(amount <= 0)
+		return .
+
+	to_chat(summoner, span_danger("Ваш [name] под атакой! Вы получаете урон!"))
+	summoner.visible_message(span_danger("Кровь хлещет из [summoner] ибо [src] получает урон!"))
+	if(summoner.stat == UNCONSCIOUS)
+		to_chat(summoner, span_danger("Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!"))
+		summoner.adjustCloneLoss(amount / 2)
+
 
 /mob/living/simple_animal/hostile/guardian/ex_act(severity, target)
 	switch(severity)
@@ -191,7 +201,7 @@
 /mob/living/simple_animal/hostile/guardian/proc/Communicate(message)
 	var/input
 	if(!message)
-		input = stripped_input(src, "Введите сообщение для отправки вашему призывателю.", "Guardian", "")
+		input = tgui_input_text(src, "Введите сообщение для отправки вашему призывателю.", "Guardian")
 	else
 		input = message
 	if(!input)
@@ -258,7 +268,7 @@
 		to_chat(user, "[used_message]")
 		return
 	used = TRUE // Set this BEFORE the popup to prevent people using the injector more than once, polling ghosts multiple times, and receiving multiple guardians.
-	var/choice = alert(user, "[confirmation_message]",, "Да", "Нет")
+	var/choice = tgui_alert(user, "[confirmation_message]", "Confirm", list("Да", "Нет"))
 	if(choice == "Нет")
 		to_chat(user, span_warning("Вы решили не использовать [name]."))
 		used = FALSE
@@ -338,6 +348,7 @@
 	G.name_color = color_list[color]
 	var/picked_name = pick(name_list)
 	create_theme(G, user, picked_name, color)
+	G.client?.init_verbs()
 
 /obj/item/guardiancreator/proc/create_theme(mob/living/simple_animal/hostile/guardian/G, mob/living/user, picked_name, color)
 	G.name = "[picked_name] [color]"

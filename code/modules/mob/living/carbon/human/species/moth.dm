@@ -3,7 +3,7 @@
 #define COCOON_HARM_AMOUNT 50
 #define COCOON_NUTRITION_REQUIREMENT 201
 #define COCOON_NUTRITION_AMOUNT -200
-#define FLYSWATTER_DAMAGE_MULTIPLIER 9
+#define FLYSWATTER_DAMAGE_MULTIPLIER 10
 
 /datum/species/moth
 	name = SPECIES_MOTH
@@ -83,9 +83,9 @@
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)
 	..()
 	H.add_movespeed_mod_immunities(type, /datum/movespeed_modifier/limbless)
-	H.verbs |= /mob/living/carbon/human/proc/emote_flap
-	H.verbs |= /mob/living/carbon/human/proc/emote_aflap
-	H.verbs |= /mob/living/carbon/human/proc/emote_flutter
+	add_verb(H, /mob/living/carbon/human/proc/emote_flap)
+	add_verb(H, /mob/living/carbon/human/proc/emote_aflap)
+	add_verb(H, /mob/living/carbon/human/proc/emote_flutter)
 	var/datum/action/innate/cocoon/cocoon = locate() in H.actions
 	if(!cocoon)
 		cocoon = new
@@ -94,13 +94,14 @@
 	RegisterSignal(H, COMSIG_LIVING_AHEAL, PROC_REF(on_aheal))
 	RegisterSignal(H, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY, PROC_REF(on_change_body_accessory))
 	RegisterSignal(H, COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY, PROC_REF(on_change_head_accessory))
+	RegisterSignal(H, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, PROC_REF(damage_weakness))
 
 /datum/species/moth/on_species_loss(mob/living/carbon/human/H)
 	..()
 	H.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/limbless)
-	H.verbs -= /mob/living/carbon/human/proc/emote_flap
-	H.verbs -= /mob/living/carbon/human/proc/emote_aflap
-	H.verbs -= /mob/living/carbon/human/proc/emote_flutter
+	remove_verb(H, /mob/living/carbon/human/proc/emote_flap)
+	remove_verb(H, /mob/living/carbon/human/proc/emote_aflap)
+	remove_verb(H, /mob/living/carbon/human/proc/emote_flutter)
 	var/datum/action/innate/cocoon/cocoon = locate() in H.actions
 	if(cocoon)
 		cocoon.Remove(H)
@@ -108,6 +109,7 @@
 	UnregisterSignal(H, COMSIG_LIVING_AHEAL)
 	UnregisterSignal(H, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY)
 	UnregisterSignal(H, COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY)
+	UnregisterSignal(H, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS)
 	H.remove_status_effect(STATUS_EFFECT_BURNT_WINGS)
 
 /datum/species/moth/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
@@ -121,9 +123,12 @@
 /datum/species/moth/get_species_runechat_color(mob/living/carbon/human/H)
 	return H.m_colours["body"]
 
-/datum/species/moth/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
-	if(istype(I, /obj/item/melee/flyswatter) && I.force)
-		apply_damage(I.force * FLYSWATTER_DAMAGE_MULTIPLIER, I.damtype, affecting, FALSE, H) //making flyswatters do 10x damage to moff
+
+/datum/species/moth/proc/damage_weakness(datum/source, list/damage_mods, damage_amount, damagetype, def_zone, sharp, obj/item/used_weapon)
+	SIGNAL_HANDLER
+
+	if(istype(used_weapon, /obj/item/melee/flyswatter))
+		damage_mods += FLYSWATTER_DAMAGE_MULTIPLIER // Yes, a 10x damage modifier
 
 
 /datum/species/moth/spec_Process_Spacemove(mob/living/carbon/human/user, movement_dir, continuous_move = FALSE)
@@ -218,8 +223,7 @@
 		for(var/mob/living/carbon/human/H in contents)
 			H.forceMove(loc)
 			REMOVE_TRAIT(H, TRAIT_KNOCKEDOUT, COCOONED_TRAIT)
-			H.adjustBruteLoss(COCOON_HARM_AMOUNT)
-			H.adjustFireLoss(COCOON_HARM_AMOUNT)
+			H.heal_overall_damage(COCOON_HARM_AMOUNT, COCOON_HARM_AMOUNT)
 			H.AdjustWeakened(10 SECONDS)
 		return ..()
 

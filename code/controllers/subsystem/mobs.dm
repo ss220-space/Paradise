@@ -1,3 +1,9 @@
+#ifdef UNIT_TESTS
+GLOBAL_VAR_INIT(mob_suspension, FALSE)
+#else
+GLOBAL_VAR_INIT(mob_suspension, TRUE)
+#endif
+
 SUBSYSTEM_DEF(mobs)
 	name = "Mobs"
 	priority = FIRE_PRIORITY_MOBS
@@ -23,6 +29,7 @@ SUBSYSTEM_DEF(mobs)
 /datum/controller/subsystem/mobs/Initialize()
 	clients_by_zlevel = new /list(world.maxz, 0)
 	dead_players_by_zlevel = new /list(world.maxz, 0)
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/mobs/proc/MaxZChanged()
 	if (!islist(clients_by_zlevel))
@@ -42,12 +49,20 @@ SUBSYSTEM_DEF(mobs)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	var/times_fired = src.times_fired
+	var/suspension = GLOB.mob_suspension
+
 	while(currentrun.len)
 		var/mob/living/L = currentrun[currentrun.len]
 		currentrun.len--
+
 		if(L)
+			var/turf/T = get_turf(L)
+			if(suspension && T && !length(clients_by_zlevel[T.z]))
+				continue
+
 			L.Life(seconds, times_fired)
 		else
 			GLOB.mob_living_list.Remove(L)
+
 		if(MC_TICK_CHECK)
 			return

@@ -23,11 +23,11 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(V.iscloaking)
-			H.dna.species.burn_mod *= 1.3
+			H.physiology.burn_mod *= 1.3
 			user.RegisterSignal(user, COMSIG_LIVING_IGNITED, TYPE_PROC_REF(/mob/living, update_vampire_cloak))
 		else
 			user.UnregisterSignal(user, COMSIG_LIVING_IGNITED)
-			H.dna.species.burn_mod /= 1.3
+			H.physiology.burn_mod /= 1.3
 
 	update_vampire_spell_name(user)
 	to_chat(user, span_notice("You will now be <b>[V.iscloaking ? "hidden" : "seen"]</b> in darkness."))

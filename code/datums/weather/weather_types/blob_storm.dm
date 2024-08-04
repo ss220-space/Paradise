@@ -41,7 +41,7 @@
 		return FALSE
 	if(!mob_to_check.can_be_blob())
 		return FALSE
-	var/resist = mob_to_check.getarmor(null, BIO)
+	var/resist = mob_to_check.getarmor(attack_flag = BIO)
 	if(!prob(max(0, min(100, 110 - resist))))
 		return FALSE
 	return ..()

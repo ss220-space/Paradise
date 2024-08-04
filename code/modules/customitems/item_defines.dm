@@ -32,7 +32,7 @@
 	toolspeed = 1
 	usesound = 'sound/items/welder2.ogg'
 
-/obj/item/fluff/tattoo_gun/attack(mob/living/carbon/M as mob, mob/user as mob)
+/obj/item/fluff/tattoo_gun/attack(mob/living/carbon/M, mob/user)
 	if(user.a_intent == INTENT_HARM)
 		user.visible_message("<span class='warning'>[user] stabs [M] with the [src]!</span>", "<span class='warning'>You stab [M] with the [src]!</span>")
 		to_chat(M, "<span class='userdanger'>[user] stabs you with the [src]!<br></span><span class = 'warning'>You feel a tiny prick!</span>")
@@ -66,7 +66,7 @@
 
 	else
 		user.visible_message("<span class='notice'>[user] begins to apply a [tattoo_name] [target] with the [src].</span>", "<span class='notice'>You begin to tattoo [target] with the [src]!</span>")
-		if(!do_after(user, 3 SECONDS * toolspeed * gettoolspeedmod(user), M))
+		if(!do_after(user, 3 SECONDS * toolspeed, M, category = DA_CAT_TOOL))
 			return
 		user.visible_message("<span class='notice'>[user] finishes the [tattoo_name] on [target].</span>", "<span class='notice'>You finish the [tattoo_name].</span>")
 
@@ -1272,7 +1272,7 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/toy/plushie/fluff/fox/ui_action_click(mob/user)
+/obj/item/toy/plushie/fluff/fox/ui_action_click(mob/user, datum/action/action, leftclick)
 	change_color()
 
 
@@ -1326,7 +1326,7 @@
 	var/adjusted = FALSE
 
 
-/obj/item/clothing/head/fluff/chronx/ui_action_click()
+/obj/item/clothing/head/fluff/chronx/ui_action_click(mob/user, datum/action/action, leftclick)
 	adjust()
 
 

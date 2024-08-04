@@ -57,7 +57,7 @@
 			return TRUE
 		else
 			to_chat(user, span_notice("You begin reinforcing the floor..."))
-			if(do_after(user, 3 SECONDS * C.toolspeed * gettoolspeedmod(user), src))
+			if(do_after(user, 3 SECONDS * C.toolspeed, src, category = DA_CAT_TOOL))
 				if(R.get_amount() >= 2 && !istype(src, /turf/simulated/floor/engine))
 					ChangeTurf(/turf/simulated/floor/engine)
 					playsound(src, C.usesound, 80, 1)
@@ -85,7 +85,7 @@
 			to_chat(user, span_warning("You need two sheets to build a [C.name] floor!"))
 			return TRUE
 		to_chat(user, span_notice("You begin swapping the plating for [C]..."))
-		if(do_after(user, 3 SECONDS * C.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, 3 SECONDS * C.toolspeed, src, category = DA_CAT_TOOL))
 			if(R.get_amount() >= 2 && !transparent_floor)
 				if(istype(C, /obj/item/stack/sheet/plasmaglass)) //So, what type of glass floor do we want today?
 					ChangeTurf(/turf/simulated/floor/glass/plasma)
@@ -194,7 +194,7 @@
 	if(C.tool_behaviour == TOOL_WRENCH)
 		to_chat(user, span_notice("You begin removing rods..."))
 		playsound(src, C.usesound, 80, 1)
-		if(do_after(user, 3 SECONDS * C.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, 3 SECONDS * C.toolspeed, src, category = DA_CAT_TOOL))
 			if(!istype(src, /turf/simulated/floor/engine))
 				return
 			new /obj/item/stack/rods(src, 2)
@@ -387,7 +387,7 @@
 			return TRUE
 		else
 			to_chat(user, span_notice("You begin swapping the plating for [metal]..."))
-			if(do_after(user, 3 SECONDS * metal.toolspeed * gettoolspeedmod(user), src))
+			if(do_after(user, 3 SECONDS * metal.toolspeed, src, category = DA_CAT_TOOL))
 				if(metal.get_amount() >= 2)
 					ChangeTurf(/turf/simulated/floor/plating, FALSE, FALSE)
 					playsound(src, metal.usesound, 80, TRUE)

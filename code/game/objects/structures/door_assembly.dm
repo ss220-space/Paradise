@@ -58,11 +58,11 @@
 	else
 		. += "<span class='notice'>There is a small <i>paper</i> placard on the assembly[doorname].</span>"
 
-/obj/structure/door_assembly/attack_hand(mob/user)
-	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+/obj/structure/door_assembly/attack_hand(mob/living/carbon/human/user)
+	if(user.a_intent == INTENT_HARM && ishuman(user) && (user.dna.species.obj_damage + user.physiology.punch_obj_damage > 0))
 		add_fingerprint(user)
 		user.changeNext_move(CLICK_CD_MELEE)
-		attack_generic(user, user.dna.species.obj_damage)
+		attack_generic(user, user.dna.species.obj_damage + user.physiology.punch_obj_damage)
 		return
 	. = ..()
 
@@ -82,7 +82,7 @@
 			to_chat(user, "<span class='warning'>You need one length of cable to wire the airlock assembly!</span>")
 			return
 		user.visible_message("[user] wires the airlock assembly.", "You start to wire the airlock assembly...")
-		if(do_after(user, 4 SECONDS * coil.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, 4 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL))
 			if(coil.get_amount() < 1 || state != AIRLOCK_ASSEMBLY_NEEDS_WIRES)
 				return
 			add_fingerprint(user)
@@ -94,7 +94,7 @@
 		playsound(loc, W.usesound, 100, TRUE)
 		user.visible_message("[user] starts to install the airlock electronics into the airlock assembly.", "You start to install airlock electronics into the airlock assembly...")
 
-		if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, 4 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
 			if(state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
 				return
 			add_fingerprint(user)
@@ -123,7 +123,7 @@
 			return
 		playsound(loc, W.usesound, 100, TRUE)
 		user.visible_message("[user] installs the access control electronics into the airlock assembly.", "You start to install access control electronics into the airlock assembly...")
-		if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, 4 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
 			if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 				return
 			if(access_electronics)
@@ -142,7 +142,7 @@
 						if(istype(S, /obj/item/stack/sheet/rglass) || istype(S, /obj/item/stack/sheet/glass))
 							playsound(loc, S.usesound, 100, 1)
 							user.visible_message("[user] adds [S.name] to the airlock assembly.", "You start to install [S.name] into the airlock assembly...")
-							if(do_after(user, 4 SECONDS * S.toolspeed * gettoolspeedmod(user), src))
+							if(do_after(user, 4 SECONDS * S.toolspeed, src, category = DA_CAT_TOOL))
 								if(S.get_amount() < 1 || glass)
 									return
 								add_fingerprint(user)
@@ -159,7 +159,7 @@
 							if(S.get_amount() >= 2)
 								playsound(loc, S.usesound, 100, 1)
 								user.visible_message("[user] adds [S.name] to the airlock assembly.", "You start to install [S.name] into the airlock assembly...")
-								if(do_after(user, 4 SECONDS * S.toolspeed * gettoolspeedmod(user), src))
+								if(do_after(user, 4 SECONDS * S.toolspeed, src, category = DA_CAT_TOOL))
 									if(S.get_amount() < 2 || mineral)
 										return
 									add_fingerprint(user)
