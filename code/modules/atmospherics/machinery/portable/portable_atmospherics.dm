@@ -2,6 +2,7 @@
 	name = "atmoalter"
 	use_power = NO_POWER_USE
 	max_integrity = 250
+	pull_push_slowdown = 1.3
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 60, "acid" = 30)
 	var/datum/gas_mixture/air_contents = new
 
@@ -92,12 +93,12 @@
 	return air_contents
 
 /obj/machinery/portable_atmospherics/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
+	if(!ishuman(user) && !issilicon(user))
+		return
+	if(!Adjacent(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("You can't do that right now!"))
-		return
-	if(!in_range(src, user))
-		return
-	if(!ishuman(usr) && !issilicon(usr))
 		return
 	if(holding)
 		to_chat(user, span_notice("You remove [holding] from [src]."))

@@ -9,7 +9,8 @@
 	icon_state = "detscanner"
 	w_class = WEIGHT_CLASS_NORMAL
 	item_state = "electronic"
-	flags = CONDUCT | NOBLUDGEON
+	flags = CONDUCT
+	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "engineering=4;biotech=2;programming=5"
 	var/scanning = FALSE
@@ -59,8 +60,8 @@
 	else
 		to_chat(user, "<span class='warning'>В записях станции не найдено совпадений.</span>")
 
-/obj/item/detective_scanner/ui_action_click(mob/user, actiontype)
-	if(actiontype == /datum/action/item_action/print_forensic_report)
+/obj/item/detective_scanner/ui_action_click(mob/user, datum/action/action, leftclick)
+	if(istype(action, /datum/action/item_action/print_forensic_report))
 		print_scanner_report()
 	else
 		clear_scanner()

@@ -39,12 +39,12 @@
 
 /obj/effect/proc_holder/spell/morph_spell/reproduce/cast(list/targets, mob/living/simple_animal/hostile/morph/user)
 	to_chat(user, "<span class='sinister'>You prepare to split in two, making you unable to vent crawl!</span>")
-	user.ventcrawler = FALSE // Temporarily disable it
+	REMOVE_TRAIT(user, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)	// Temporarily disable it
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a morph?", ROLE_MORPH, TRUE, poll_time = 10 SECONDS, source = /mob/living/simple_animal/hostile/morph)
 	if(!length(candidates))
 		to_chat(user, "<span class='warning'>Your body refuses to split at the moment. Try again later.</span>")
 		revert_cast(user)
-		user.ventcrawler = initial(user.ventcrawler) // re enable the crawling
+		ADD_TRAIT(user, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)	// re enable the crawling
 		return
 	var/mob/C = pick(candidates)
 	user.use_food(hunger_cost)
@@ -59,6 +59,6 @@
 	player_mind.active = TRUE
 	player_mind.transfer_to(new_morph)
 	new_morph.make_morph_antag()
+	ADD_TRAIT(user, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT) // re enable the crawling
 	user.create_log(MISC_LOG, "Made a new morph using [src]", new_morph)
-	user.ventcrawler = initial(user.ventcrawler) // re enable the crawling
 

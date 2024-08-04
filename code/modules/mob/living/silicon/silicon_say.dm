@@ -79,7 +79,7 @@
 		var/message_tts = combine_message_tts(message_pieces, src)
 
 		if((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && can_hear())
-			create_chat_message(H, message_clean, TRUE, FALSE)
+			create_chat_message(H, message_clean, list("radio"))
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, H, src, message_tts, tts_seed, FALSE, SOUND_EFFECT_NONE)
 		log_debug("holopad_talk(): [message_clean]")
 		for(var/mob/M in hearers(T.loc))//The location is the object, default distance.
@@ -103,7 +103,7 @@
 		to_chat(src, "<i><span class='game say'>Holopad action relayed, <span class='name'>[real_name]</span> <span class='message'>[message]</span></span></i>")
 
 		for(var/mob/M in viewers(T.loc))
-			M.show_message(rendered, EMOTE_VISIBLE)
+			M.show_message(rendered, EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 		log_emote("(HPAD) [message]", src)
 	else //This shouldn't occur, but better safe then sorry.

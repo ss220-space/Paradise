@@ -272,7 +272,7 @@
 
 	M.visible_message("<span class='notice'>[M] starts entering a cryptic series of characters on [U].</span>",\
 					  "<span class='notice'>You start entering an extraction signal to your handlers on [U]...</span>")
-	if(do_after(M, EXTRACTION_PHASE_PREPARE, target = M))
+	if(do_after(M, EXTRACTION_PHASE_PREPARE, M))
 		if(!U.Adjacent(M) || extraction_deadline > world.time)
 			return
 		var/obj/effect/contractor_flare/F = new(get_turf(M))
@@ -407,19 +407,18 @@
 			stuff_to_transfer += I
 
 	// Remove accessories from the suit if present
-	if(length(H.w_uniform?.accessories))
-		for(var/obj/item/clothing/accessory/A in H.w_uniform.accessories)
-			A.on_removed(H)
-			H.w_uniform.accessories -= A
-			H.drop_item_ground(A)
-			stuff_to_transfer += A
+	if(LAZYLEN(H.w_uniform?.accessories))
+		for(var/obj/item/clothing/accessory/accessory as anything in H.w_uniform.accessories)
+			accessory.on_removed()
+			accessory.forceMove_turf()
+			stuff_to_transfer += accessory
 
 	// Transfer it all (or drop it if not possible)
 	for(var/i in stuff_to_transfer)
 		var/obj/item/I = i
 		if(GLOB.prisoner_belongings.give_item(I))
 			victim_belongings += I
-		else if(!(I.flags & ABSTRACT) && !HAS_TRAIT(I, TRAIT_NODROP)) // Anything that can't be put on hold, just drop it on the ground
+		else if(!(I.item_flags & ABSTRACT) && !HAS_TRAIT(I, TRAIT_NODROP)) // Anything that can't be put on hold, just drop it on the ground
 			I.forceMove(T)
 
 	// Give some species the necessary to survive. Courtesy of the Syndicate.

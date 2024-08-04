@@ -12,7 +12,8 @@
 	icon_resting = "nymph_sleep"
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
-	ventcrawler = 2
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
@@ -65,7 +66,7 @@
 /datum/action/innate/diona/evolve
 	name = "Evolve"
 	icon_icon = 'icons/obj/machines/cloning.dmi'
-	button_icon_state = "pod_1"
+	button_icon_state = "pod_cloning"
 
 /datum/action/innate/diona/evolve/Activate()
 	var/mob/living/simple_animal/diona/user = owner
@@ -90,7 +91,9 @@
 	evolve_action.Grant(src)
 	steal_blood_action.Grant(src)
 
-/mob/living/simple_animal/diona/UnarmedAttack(var/atom/A)
+/mob/living/simple_animal/diona/UnarmedAttack(atom/A)
+	if(!can_unarmed_attack())
+		return
 	if(isdiona(A) && (src in A.contents)) //can't attack your gestalt
 		visible_message("[src] wiggles around a bit.")
 	else
@@ -104,14 +107,59 @@
 	//Let people pick the little buggers up.
 	if(M.a_intent == INTENT_HELP)
 		if(isdiona(M))
-			to_chat(M, "You feel your being twine with that of [src] as it merges with your biomass.")
-			to_chat(src, "You feel your being twine with that of [M] as you merge with its biomass.")
-			throw_alert(gestalt_alert, /obj/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
-			forceMove(M)
+			gestalt_heal(M)
 		else
 			get_scooped(M)
 	else
 		..()
+/mob/living/simple_animal/diona/MouseDrop(mob/living/carbon/human/user, src_location, over_location, src_control, over_control, params)
+	if(isdiona(user)) // diona with NO HANDS?? Now it's not trouble.
+		gestalt_heal(user)
+		return FALSE
+	return ..()
+
+/mob/living/simple_animal/diona/proc/gestalt_heal(mob/living/carbon/human/M)
+	if(!Adjacent(M))
+		return FALSE
+	forceMove(M)
+	if(stat != CONSCIOUS)
+		qdel(src)
+		to_chat(M, span_notice("Тело нимфы сливается с вашим гештальтом."))
+		return TRUE // TRUE if nymph was deleted, FALSE - if not. Maybe I need this later..
+
+	if(ckey)
+		to_chat(src, span_notice("Ваше сознание соединяется с [M], когда вы сливаетесь с гештальтом."))
+		to_chat(M, span_notice("Ваше сознание соединяется с нимфой, когда она сливается с гештальтом."))
+		throw_alert(gestalt_alert, /atom/movable/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
+		return FALSE
+
+	to_chat(M, span_notice("Вы начинаете принимать нимфу в свой гештальт."))
+
+	if(!ckey && do_after(M, 5 SECONDS, M, ALL))
+		var/list/stock_limbs = /datum/species/diona::has_limbs
+		for(var/limb_zone in stock_limbs)
+			if(!M.bodyparts_by_name[limb_zone])
+				var/list/organ_data = stock_limbs[limb_zone]
+				var/limb_path = organ_data["path"]
+				var/obj/item/organ/new_organ = new limb_path(M)
+				organ_data["descriptor"] = new_organ.name
+				to_chat(M, span_notice("Нимфа занимает пустующее место в гештальте в качестве конечности."))
+				M.recalculate_limbs_status()
+				M.regenerate_icons()
+				qdel(src)
+				return TRUE
+
+		var/list/stock_organs = /datum/species/diona::has_organ
+		for(var/organ_slot in stock_organs)
+			if(!M.internal_organs_slot[organ_slot])
+				var/organ_path = stock_organs[organ_slot]
+				new organ_path(M)
+				to_chat(M, span_notice("Нимфа занимает пустующее место в гештальте в качестве органа."))
+				qdel(src)
+				return TRUE
+
+		to_chat(M, span_notice("Ваше сознание соединяется с нимфой, когда она сливается с гештальтом."))
+	return FALSE
 
 /mob/living/simple_animal/diona/proc/merge()
 	if(stat != CONSCIOUS)
@@ -137,7 +185,7 @@
 		M.status_flags |= PASSEMOTES
 		to_chat(src, "You feel your being twine with that of [M] as you merge with its biomass.")
 		forceMove(M)
-		throw_alert(gestalt_alert, /obj/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
+		throw_alert(gestalt_alert, /atom/movable/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
 		return TRUE
 	else
 		return FALSE
@@ -214,7 +262,7 @@
 	if(nutrition >= nutrition_need) // Prevents griefing by overeating plant items without evolving.
 		to_chat(src, "<span class='warning'>You're too full to consume this! Perhaps it's time to grow bigger...</span>")
 	else
-		if(do_after_once(src, 20, target = G))
+		if(do_after(src, 2 SECONDS, G, max_interact_count = 1))
 			visible_message("[src] ravenously consumes [G].", "You ravenously devour [G].")
 			playsound(loc, 'sound/items/eatfood.ogg', 30, 0, frequency = 1.5)
 			if(G.reagents.get_reagent_amount("nutriment") + G.reagents.get_reagent_amount("plantmatter") < 1)
@@ -272,12 +320,13 @@
 
 
 /mob/living/simple_animal/diona/put_in_hands(obj/item/I, force = FALSE, qdel_on_fail = FALSE, merge_stacks = TRUE, ignore_anim = TRUE, silent = FALSE)
-	I.forceMove(drop_location())
-	I.pixel_x = initial(I.pixel_x)
-	I.pixel_y = initial(I.pixel_y)
+	var/atom/drop_loc = drop_location()
+	I.forceMove(drop_loc)
+	I.pixel_x = I.base_pixel_x
+	I.pixel_y = I.base_pixel_y
 	I.layer = initial(I.layer)
-	I.plane = initial(I.plane)
-	I.dropped(src, null, silent)
+	SET_PLANE_EXPLICIT(I, initial(I.plane), drop_loc)
+	I.dropped(src, NONE, silent)
 
 
 /mob/living/simple_animal/diona/put_in_active_hand(obj/item/I, force = FALSE, ignore_anim = TRUE)

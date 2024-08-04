@@ -61,7 +61,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 		return
 	if(!iscarbon(usr) && !isrobot(usr))
 		return
-	if(!istype(user) || user.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	toggle_gps(user)
@@ -129,7 +129,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	. = ..()
 
 	var/mob/user = usr
-	if(!ishuman(user) || !Adjacent(user) || user.incapacitated())
+	if(!ishuman(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
 	attack_self(user)
@@ -138,10 +138,13 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps/ui_host()
 	return parent ? parent : src
 
-/obj/item/gps/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/gps/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/gps/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "GPS", "GPS", 450, 700)
+		ui = new(user, src, "GPS", "GPS")
 		ui.open()
 
 /obj/item/gps/ui_act(action, list/params)
@@ -220,7 +223,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 /obj/item/gps/internal
 	icon_state = null
-	flags = ABSTRACT
+	item_flags = ABSTRACT
 	local = TRUE
 	gpstag = "Eerie Signal"
 	desc = "Report to a coder immediately."

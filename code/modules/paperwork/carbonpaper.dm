@@ -29,6 +29,9 @@
 	set category = "Object"
 	set src in usr
 
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
+
 	if(copied == 0)
 		var/obj/item/paper/carbon/c = src
 		var/copycontents = html_decode(c.info)

@@ -12,7 +12,7 @@
 		return INVALID_DRAIN
 
 	to_chat(src, span_danger("Warni-***BZZZZZZZZZRT*** UPLOADING SPYDERPATCHER VERSION 9.5.2..."))
-	if (do_after(ninja, 60, target = src))
+	if(do_after(ninja, 1 MINUTES, src))
 		spark_system.start()
 		playsound(loc, "sparks", 50, TRUE, 5)
 		to_chat(src, span_danger("UPLOAD COMPLETE. NEW CYBORG MODEL DETECTED. INSTALLING..."))

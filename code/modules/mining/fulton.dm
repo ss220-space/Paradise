@@ -43,7 +43,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		return FALSE
 	if(!(loc == usr && loc.Adjacent(over_object)))
 		return FALSE
-	if(!ishuman(usr) || usr.incapacitated())
+	if(!ishuman(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return FALSE
 	over_object.add_fingerprint(usr)
 	afterattack(over_object, usr, TRUE, params)
@@ -72,7 +72,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		if(A.anchored || (A.move_resist > max_force_fulton))
 			return
 		to_chat(user, "<span class='notice'>You start attaching the pack to [A]...</span>")
-		if(do_after(user, 50, target = A))
+		if(do_after(user, 5 SECONDS, A))
 			to_chat(user, "<span class='notice'>You attach the pack to [A] and activate it.</span>")
 			if(loc == user && istype(user.back, /obj/item/storage/backpack))
 				var/obj/item/storage/backpack/B = user.back
@@ -91,7 +91,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 				M.buckled?.unbuckle_mob(force = TRUE) // Unbuckle them to prevent anchoring problems
 			else
 				A.set_anchored(TRUE)
-				A.density = FALSE
+				ADD_TRAIT(A, TRAIT_UNDENSE, FULTON_TRAIT)
 			var/obj/effect/extraction_holder/holder_obj = new(A.loc)
 			holder_obj.appearance = A.appearance
 			A.forceMove(holder_obj)
@@ -147,7 +147,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 			sleep(4)
 			holder_obj.cut_overlay(balloon3)
 			A.set_anchored(FALSE) // An item has to be unanchored to be extracted in the first place.
-			A.density = initial(A.density)
+			REMOVE_TRAIT(A, TRAIT_UNDENSE, FULTON_TRAIT)
 			animate(holder_obj, pixel_z = 0, time = 5)
 			sleep(5)
 			A.forceMove(holder_obj.loc)
@@ -163,7 +163,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	icon_state = "subspace_amplifier"
 
 /obj/item/fulton_core/attack_self(mob/user)
-	if(do_after(user, 15, target = user) && !QDELETED(src))
+	if(do_after(user, 1.5 SECONDS, user) && !QDELETED(src))
 		var/obj/structure/extraction_point/point = new(get_turf(user))
 		point.add_fingerprint(user)
 		qdel(src)

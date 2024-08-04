@@ -104,7 +104,7 @@
 
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/MouseDrop(mob/living/carbon/human/user, src_location, over_location, src_control, over_control, params)
-	if(!ishuman(user))
+	if(!ishuman(user) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return ..()
 
 	if((CLUMSY in user.mutations) && prob(50) && (resistance_flags & ON_FIRE))

@@ -23,8 +23,9 @@
 //#define span_blue(str) ("<span class='blue'>" + str + "</span>")
 //#define span_blueteamradio(str) ("<span class='blueteamradio'>" + str + "</span>")
 //#define span_bold(str) ("<span class='bold'>" + str + "</span>")
-#define span_boldannounce(str) ("<span class='boldannounce'>" + str + "</span>")
-//#define span_bolddanger(str) ("<span class='bolddanger'>" + str + "</span>")
+#define span_boldannounceic(str) ("<span class='boldannounceic'>" + str + "</span>")
+#define span_boldannounceooc(str) ("<span class='boldannounceooc'>" + str + "</span>")
+#define span_bolddanger(str) ("<span class='bolddanger'>" + str + "</span>")
 //#define span_boldnicegreen(str) ("<span class='boldnicegreen'>" + str + "</span>")
 #define span_boldnotice(str) ("<span class='boldnotice'>" + str + "</span>")
 #define span_boldwarning(str) ("<span class='boldwarning'>" + str + "</span>")
@@ -88,7 +89,6 @@
 //#define span_phobia(str) ("<span class='phobia'>" + str + "</span>")
 #define span_prefix(str) ("<span class='prefix'>" + str + "</span>")
 #define span_purple(str) ("<span class='purple'>" + str + "</span>")
-#define span_radio(str) ("<span class='radio'>" + str + "</span>")
 #define span_reallybig(str) ("<span class='reallybig'>" + str + "</span>")
 #define span_red(str) ("<span class='red'>" + str + "</span>")
 //#define span_redteamradio(str) ("<span class='redteamradio'>" + str + "</span>")
@@ -162,3 +162,4 @@
 // Spans that use embedded tgui components:
 // Sorted alphabetically
 #define span_tooltip(tip, main_text) ("<span data-component=\"Tooltip\" data-content=\"" + tip + "\" class=\"tooltip\">" + main_text + "</span>")
+

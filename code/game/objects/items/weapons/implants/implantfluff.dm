@@ -25,6 +25,13 @@
 	function = "Subjects injected with this bio-chip can activate an injection of medical cocktails that removes stuns, increases speed, and has mild healing effects."
 
 
+/datum/implant_fluff/protoadrenaline
+	name = "Cybersun Industries X-2 Adrenaline Bio-chip"
+	life = "One day."
+	notes = "One of Cybersun Industries oldest and simplest implants. This is the early prototype version of the RX-2. It's significantly cheaper than it's newer version."
+	function = "Subjects injected with this bio-chip can activate an injection of cheap medical cocktails that removes stuns, increases speed, and has mild healing effects."
+
+
 /datum/implant_fluff/supercharge
 	name = "Cybersun Industries RX-4 Synthetic Supercharge Bio-chip"
 	life = "Known to last for up to a year."

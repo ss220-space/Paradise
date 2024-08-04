@@ -52,6 +52,8 @@
 
 	current_user = null
 	user.unset_machine()
+	for(var/atom/movable/screen/plane_master/plane_static in user.hud_used?.get_true_plane_masters(CAMERA_STATIC_PLANE))
+		plane_static.hide_plane(user)
 	playsound(src, 'sound/machines/terminal_off.ogg', 25, 0)
 
 /obj/machinery/computer/camera_advanced/check_eye(mob/user)
@@ -110,6 +112,9 @@
 	eyeobj.name = "Camera Eye ([user.name])"
 	user.remote_control = eyeobj
 	user.reset_perspective(eyeobj)
+	// Who passes control like this god I hate static code
+	for(var/atom/movable/screen/plane_master/plane_static in user.hud_used?.get_true_plane_masters(CAMERA_STATIC_PLANE))
+		plane_static.unhide_plane(user)
 
 /mob/camera/aiEye/remote
 	name = "Inactive Camera Eye"
@@ -130,8 +135,8 @@
 	return ..()
 
 /mob/camera/aiEye/remote/update_remote_sight(mob/living/user)
-	user.see_invisible = SEE_INVISIBLE_LIVING //can't see ghosts through cameras
-	user.sight = SEE_TURFS | SEE_BLACKNESS
+	user.set_invis_see(SEE_INVISIBLE_LIVING) //can't see ghosts through cameras
+	set_sight(SEE_TURFS)
 	user.nightvision = 2
 	return 1
 
@@ -159,6 +164,7 @@
 			if(eye_user.client)
 				eye_user.client.images -= user_image
 				user_image = image(icon,loc,icon_state,FLY_LAYER)
+				SET_PLANE(user_image, ABOVE_GAME_PLANE, destination)
 				eye_user.client.images += user_image
 
 /mob/camera/aiEye/remote/relaymove(mob/user,direct)
@@ -235,7 +241,7 @@
 	if(final)
 		playsound(origin, 'sound/machines/terminal_prompt_confirm.ogg', 25, 0)
 		remote_eye.setLoc(get_turf(final))
-		C.overlay_fullscreen("flash", /obj/screen/fullscreen/flash/noise)
+		C.overlay_fullscreen("flash", /atom/movable/screen/fullscreen/flash/noise)
 		C.clear_fullscreen("flash", 3) //Shorter flash than normal since it's an ~~advanced~~ console!
 	else
 		playsound(origin, 'sound/machines/terminal_prompt_deny.ogg', 25, 0)

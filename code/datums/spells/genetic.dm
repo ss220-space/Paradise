@@ -15,8 +15,7 @@
 			continue
 
 		for(var/mutation in mutations)
-			target.dna.SetSEState(mutation, TRUE)
-			genemutcheck(target, mutation, null, MUTCHK_FORCED)
+			target.force_gene_block(mutation, TRUE)
 
 		for(var/trait in traits)
 			ADD_TRAIT(target, trait, MAGIC_TRAIT)
@@ -37,8 +36,7 @@
 	active_on -= target
 	if(!QDELETED(target))
 		for(var/mutation in mutations)
-			target.dna.SetSEState(mutation, FALSE)
-			genemutcheck(target, mutation, null, MUTCHK_FORCED)
+			target.force_gene_block(mutation, FALSE)
 
 		for(var/trait in traits)
 			REMOVE_TRAIT(target, trait, MAGIC_TRAIT)

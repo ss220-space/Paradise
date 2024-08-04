@@ -22,7 +22,7 @@
 	return TRUE
 
 
-/datum/antagonist/malf_ai/Destroy(force, ...)
+/datum/antagonist/malf_ai/Destroy(force)
 	var/mob/living/silicon/ai/malf = owner?.current
 	if(istype(malf))
 		malf.clear_zeroth_law()
@@ -88,14 +88,11 @@
 	if(!owner.current)
 		return
 
-	var/mob/traitor_mob = owner.current
-
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
 	antag_memory += "<b>Code Phrase</b>: <span class='red'>[phrases]</span><br>"
 	antag_memory += "<b>Code Response</b>: <span class='red'>[responses]</span><br>"
-	traitor_mob.client.chatOutput?.notify_syndicate_codes()
 
 	var/list/messages = list()
 	if(!silent)

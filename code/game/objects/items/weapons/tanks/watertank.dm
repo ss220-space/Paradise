@@ -22,21 +22,24 @@
 	create_reagents(volume)
 	noz = make_noz()
 
-/obj/item/watertank/ui_action_click()
+/obj/item/watertank/ui_action_click(mob/user, datum/action/action, leftclick)
 	toggle_mister()
 
-/obj/item/watertank/item_action_slot_check(slot, mob/user)
+/obj/item/watertank/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_BACK)
 		return TRUE
 
 /obj/item/watertank/verb/toggle_mister()
 	set name = "Toggle Mister"
 	set category = "Object"
+
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
+
 	if(usr.get_item_by_slot(ITEM_SLOT_BACK) != src)
 		to_chat(usr, "<span class='notice'>The watertank needs to be on your back to use.</span>")
 		return
-	if(usr.incapacitated())
-		return
+
 	on = !on
 
 	var/mob/living/carbon/human/user = usr
@@ -103,7 +106,6 @@
 	amount_per_transfer_from_this = 50
 	possible_transfer_amounts = list(25,50,100)
 	volume = 500
-	flags = NOBLUDGEON
 	container_type = OPENCONTAINER
 
 	var/obj/item/watertank/tank
@@ -133,10 +135,12 @@
 	else
 		return 1
 
-/obj/item/reagent_containers/spray/mister/Move()
+
+/obj/item/reagent_containers/spray/mister/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(loc != tank.loc)
-		loc = tank.loc
+		forceMove(tank.loc)
+
 
 /obj/item/reagent_containers/spray/mister/afterattack(obj/target, mob/user, proximity)
 	if(target.loc == loc || target == tank) //Safety check so you don't fill your mister with mutagen or something and then blast yourself in the face with it putting it away
@@ -245,10 +249,10 @@
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
 
-/obj/item/extinguisher/mini/nozzle/Move()
+/obj/item/extinguisher/mini/nozzle/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(tank && loc != tank.loc)
-		loc = tank
+		forceMove(tank)
 
 
 /obj/item/extinguisher/mini/nozzle/attack_self(mob/user)

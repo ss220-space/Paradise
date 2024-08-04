@@ -47,10 +47,10 @@
 	add_fingerprint(user)
 
 /obj/structure/inflatable/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+	if(!istype(user) || !Adjacent(user))
 		return
-	if(!Adjacent(user))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	deconstruct(TRUE)
 
@@ -77,7 +77,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	deconstruct(TRUE)
@@ -158,7 +158,7 @@
 		return
 
 	state_closed = !state_closed
-	density = state_closed
+	set_density(state_closed)
 	set_opacity(state_closed)
 	update_icon(UPDATE_ICON_STATE)
 	air_update_turf(TRUE)

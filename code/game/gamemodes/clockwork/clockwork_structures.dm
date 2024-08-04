@@ -1,5 +1,5 @@
 /obj/structure/clockwork
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	layer = BELOW_OBJ_LAYER
 	icon = 'icons/obj/clockwork.dmi'
@@ -13,7 +13,7 @@
 	name = "credence"
 	desc = "A strange brass platform with spinning cogs inside. It demands somethinge in exchange for goods... once upon a time. Now it's just a dull piece of brass."
 	icon_state = "altar"
-	density = 0
+	density = FALSE
 
 /obj/structure/clockwork/functional
 	max_integrity = 100
@@ -195,9 +195,9 @@
 			new /obj/effect/temp_visual/heal(get_turf(L), "#960000")
 
 			if(ishuman(L))
-				L.heal_overall_damage(10, 10, TRUE, FALSE, TRUE)
+				L.heal_overall_damage(10, 10, affect_robotic = TRUE)
 			if(isrobot(L))
-				L.heal_overall_damage(5, 5, TRUE)
+				L.heal_overall_damage(5, 5)
 
 			else if(isanimal(L))
 				var/mob/living/simple_animal/M = L
@@ -224,7 +224,7 @@
 	name = "credence"
 	desc = "A strange brass platform with spinning cogs inside. It demands something in exchange for goods..."
 	icon_state = "altar"
-	density = 0
+	density = FALSE
 	death_message = "<span class='danger'>The credence breaks in pieces as it dusts into nothing!</span>"
 	canbehidden = TRUE
 	choosable_items = list(
@@ -394,8 +394,7 @@
 				if(!second_stage)
 					second_stage_check(converting)
 				else
-					converting.adjustBruteLoss(5)
-					converting.adjustFireLoss(5)
+					converting.take_overall_damage(5, 5)
 			if(17)
 				adjust_clockwork_power(CLOCK_POWER_SACRIFICE)
 				var/obj/item/mmi/robotic_brain/clockwork/cube = new (get_turf(src))
@@ -418,7 +417,7 @@
 		target.Weaken(20 SECONDS)
 	else // just a living non-clocker civil
 		to_chat(target, "<span class='clocklarge'><b>\"You belong to me now.\"</b></span>")
-		target.heal_overall_damage(50, 50, TRUE)
+		target.heal_overall_damage(50, 50)
 		if(isgolem(target))
 			target.mind.wipe_memory()
 			target.set_species(/datum/species/golem/clockwork)
@@ -472,10 +471,10 @@
 	if(!(A in summon_areas))
 		to_chat(user, "<span class='cultlarge'>Ratvar can only be summoned where the veil is weak - in [english_list(summon_areas)]!</span>")
 		return FALSE
-	var/confirm_final = alert(user, "This is the FINAL step to summon, the crew will be alerted to your presence AND your location!",
-	"The power comes...", "Let Ratvar shine ones more!", "No")
+	var/confirm_final = tgui_alert(user, "This is the FINAL step to summon, the crew will be alerted to your presence AND your location!",
+	"The power comes...", list("Let Ratvar shine ones more!", "No"))
 	if(user)
-		if(confirm_final == "No" || confirm_final == null)
+		if(confirm_final != "Let Ratvar shine ones more!")
 			to_chat(user, "<span class='clockitalic'><b>You decide to prepare further before pincing the shard.</b></span>")
 			return FALSE
 		return TRUE

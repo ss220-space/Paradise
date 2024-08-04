@@ -32,7 +32,7 @@ FALSE if not
 	var/lagging = could_be_click_lag()
 	drag_start = 0
 
-	if(!(istype(over_object, /obj/screen) || (loc && loc == over_object.loc)))
+	if(!(is_screen_atom(over_object) || (loc && loc == over_object.loc)))
 		if(!Adjacent(usr) || !over_object.Adjacent(usr)) // should stop you from dragging through windows
 			if(lagging)
 				usr.ClickOn(src, params)
@@ -96,11 +96,11 @@ to inform the game this action was expected and its fine
 	return TRUE
 
 
-/obj/screen/IsAutoclickable()
+/atom/movable/screen/IsAutoclickable()
 	return FALSE
 
 
-/obj/screen/click_catcher/IsAutoclickable()
+/atom/movable/screen/click_catcher/IsAutoclickable()
 	return TRUE
 
 

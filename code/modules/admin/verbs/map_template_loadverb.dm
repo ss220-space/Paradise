@@ -21,8 +21,10 @@
 		return
 
 	var/list/preview = list()
-	for(var/S in template.get_affected_turfs(T,centered = TRUE))
-		preview += image('icons/turf/overlays.dmi',S,"greenOverlay")
+	for(var/turf/place_on as anything in template.get_affected_turfs(T,centered = TRUE))
+		var/image/I = image('icons/turf/overlays.dmi', place_on, "greenOverlay")
+		SET_PLANE(I, ABOVE_LIGHTING_PLANE, place_on)
+		preview += I
 	usr.client.images += preview
 	if(alert(usr,"Confirm location.","Template Confirm","Yes","No") == "Yes")
 		var/timer = start_watch()

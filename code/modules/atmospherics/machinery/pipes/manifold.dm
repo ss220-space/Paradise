@@ -204,7 +204,7 @@
 	icon_state = "map"
 	level = 1
 	alpha = 128		//set for the benefit of mapping - this is reset to opaque when the pipe is spawned in game
-	plane = FLOOR_PLANE
+	plane = GAME_PLANE
 	layer = GAS_PIPE_HIDDEN_LAYER
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers

@@ -168,7 +168,7 @@
 	desc = "\"Singulo\" brand spinning toy."
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "singularity_s1"
-	flags = NO_PIXEL_RANDOM_DROP
+	item_flags = NO_PIXEL_RANDOM_DROP
 
 /*
  * Toy swords
@@ -299,6 +299,15 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/ash_type = /obj/effect/decal/cleanable/ash
 
+
+/obj/item/toy/snappop/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
 /obj/item/toy/snappop/proc/pop_burst(var/n=3, var/c=1)
 	do_sparks(n, c, src)
 	new ash_type(loc)
@@ -315,12 +324,19 @@
 	..()
 	pop_burst()
 
-/obj/item/toy/snappop/Crossed(H as mob|obj, oldloc)
-	if(ishuman(H) || issilicon(H)) //i guess carp and shit shouldn't set them off
-		var/mob/living/carbon/M = H
-		if(issilicon(H) || M.m_intent == MOVE_INTENT_RUN)
-			to_chat(M, "<span class='danger'>You step on the snap pop!</span>")
-			pop_burst(2, 0)
+
+/obj/item/toy/snappop/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	var/is_silicon = issilicon(arrived)
+	if(!ishuman(arrived) && !is_silicon) //i guess carp and shit shouldn't set them off
+		return
+
+	var/mob/living/arrived_mob = arrived
+	if(is_silicon || arrived_mob.m_intent == MOVE_INTENT_RUN)
+		to_chat(arrived_mob, span_danger("You step on the snap pop!"))
+		pop_burst(2, 0)
+
 
 /obj/item/toy/snappop/phoenix
 	name = "phoenix snap pop"
@@ -768,15 +784,33 @@
 
 /obj/item/toy/plushie/kotrazumist
 	name = "Razumist Cat"
-	desc = "Cat with wanrning cone on it. Wonder what do itself so smart ?"
+	desc = "Cat with warning cone on it. Wonder what do itself so smart?"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "razymist_cat"
+	COOLDOWN_DECLARE(cooldown)
+
+/obj/item/toy/plushie/kotrazumist/attack_self(mob/user)
+	. = ..()
+	if(. || !COOLDOWN_FINISHED(src, cooldown))
+		return .
+	var/razumisttext = pick("I know everything about everything, please ask me something!", "I'm feeling extra wise today!", "Mrow!", "Purr!")
+	user.visible_message(span_notice(razumisttext))
+	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
 /obj/item/toy/plushie/kotwithfunnyhat
 	name = "Rice Cat"
-	desc = "White cat plushie with straw hat for hard work on rice field !"
+	desc = "White cat plushie with straw hat for hard work on rice field!"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "ricehat_cat"
+	COOLDOWN_DECLARE(cooldown)
+
+/obj/item/toy/plushie/kotwithfunnyhat/attack_self(mob/user)
+	. = ..()
+	if(. || !COOLDOWN_FINISHED(src, cooldown))
+		return .
+	var/ricetext = pick("Welcome to the rice fields!", "Where is my rice!", "Mrow!", "Purr!")
+	user.visible_message(span_notice(ricetext))
+	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
 /obj/item/toy/plushie/voxplushie
 	name = "vox plushie"
@@ -1295,23 +1329,25 @@
 	desc = "Faces into the floor!"
 	icon_state = "hampter_ert"
 
-/obj/item/toy/beaver
-	name = "Beaver plushie"
+/obj/item/toy/plushie/beaver
+	name = "beaver plushie"
 	desc = "Милая мягкая игрушка бобра. Держа его в руках, вы едва можете сдержаться от криков счастья."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "beaver_plushie"
 	item_state = "beaver_plushie"
 	w_class = WEIGHT_CLASS_SMALL
 	gender = MALE
+
+/obj/item/toy/plushie/beaver/sounded //only adminspawn
+	desc = "Милая мягкая игрушка бобра. Держа его в руках, вы едва можете сдержаться от криков счастья. Эта выглядит ещё лучше, чем обычно!"
 	COOLDOWN_DECLARE(cooldown)
 
-/obj/item/toy/beaver/attack_self(mob/user)
-
-	if(!COOLDOWN_FINISHED(src, cooldown))
-		return
-
-	playsound(loc, 'sound/items/beaver_plushie.ogg', 50, FALSE)
-	visible_message(span_boldnotice("BOBR KURWA!"))
+/obj/item/toy/plushie/beaver/sounded/attack_self(mob/user)
+	. = ..()
+	if(. || !COOLDOWN_FINISHED(src, cooldown))
+		return .
+	user.visible_message(span_boldnotice("BOBR KURWA!"))
+	playsound(user, 'sound/items/beaver_plushie.ogg', 50, FALSE)
 	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
 /*
@@ -1567,7 +1603,7 @@
 /obj/item/toy/minigibber/attackby(var/obj/O, var/mob/user, params)
 	if(istype(O,/obj/item/toy/character) && O.loc == user)
 		to_chat(user, "<span class='notice'>You start feeding \the [O] [bicon(O)] into \the [src]'s mini-input.</span>")
-		if(do_after(user, 10, target = src))
+		if(do_after(user, 1 SECONDS, src))
 			if(O.loc != user)
 				to_chat(user, "<span class='alert'>\The [O] is too far away to feed into \the [src]!</span>")
 			else
@@ -2069,18 +2105,15 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		to_chat(usr, "<span class='warning'>You can't do that right now!</span>")
 		return
 	dir = turn(dir, 270)
-	return 1
+	return TRUE
+
 
 /obj/item/toy/desk/AltClick(mob/user)
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(!in_range(src, user))
-		return
-	else
+	if(Adjacent(user))
 		rotate()
 
 /obj/item/toy/desk/officetoy

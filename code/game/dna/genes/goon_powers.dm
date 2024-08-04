@@ -32,16 +32,11 @@
 /datum/dna/gene/basic/stealth
 	instability = GENE_INSTABILITY_MODERATE
 
-/datum/dna/gene/basic/stealth/can_activate(mob/M, flags)
-	// Can only activate one of these at a time.
-	if(is_type_in_list(/datum/dna/gene/basic/stealth, M.active_genes))
-		testing("Cannot activate [type]: /datum/dna/gene/basic/stealth in M.active_genes.")
-		return FALSE
-	return ..()
 
-/datum/dna/gene/basic/stealth/deactivate(mob/living/M, connected, flags)
-	..()
-	M.alpha = 255
+/datum/dna/gene/basic/stealth/deactivate(mob/living/mutant, flags)
+	. = ..()
+	mutant.alpha = initial(mutant.alpha)
+
 
 // WAS: /datum/bioEffect/darkcloak
 /datum/dna/gene/basic/stealth/darkcloak
@@ -56,15 +51,15 @@
 	..()
 	block = GLOB.shadowblock
 
-/datum/dna/gene/basic/stealth/darkcloak/OnMobLife(mob/M)
-	var/turf/simulated/T = get_turf(M)
+/datum/dna/gene/basic/stealth/darkcloak/OnMobLife(mob/living/mutant)
+	var/turf/simulated/T = get_turf(mutant)
 	if(!istype(T))
 		return
 	var/light_available = T.get_lumcount() * 10
 	if(light_available <= 2)
-		M.alpha = round(M.alpha * 0.8)
+		mutant.alpha = round(mutant.alpha * 0.8)
 	else
-		M.alpha = 255
+		mutant.alpha = initial(mutant.alpha)
 
 //WAS: /datum/bioEffect/chameleon
 /datum/dna/gene/basic/stealth/chameleon
@@ -79,11 +74,11 @@
 	..()
 	block = GLOB.chameleonblock
 
-/datum/dna/gene/basic/stealth/chameleon/OnMobLife(mob/M)
-	if((world.time - M.last_movement) >= 30 && !M.stat && M.canmove && !M.restrained())
-		M.alpha -= 25
+/datum/dna/gene/basic/stealth/chameleon/OnMobLife(mob/living/mutant)
+	if((world.time - mutant.last_movement) >= 30 && (mutant.mobility_flags & MOBILITY_MOVE) && !HAS_TRAIT(mutant, TRAIT_RESTRAINED))
+		mutant.alpha -= 25
 	else
-		M.alpha = round(255 * 0.80)
+		mutant.alpha = round(255 * 0.80)
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -91,12 +86,12 @@
 	var/obj/effect/proc_holder/spell/spelltype
 
 
-/datum/dna/gene/basic/grant_spell/activate(mob/living/mutant, connected, flags)
+/datum/dna/gene/basic/grant_spell/activate(mob/living/mutant, flags)
 	. = ..()
 	mutant.AddSpell(new spelltype(null))
 
 
-/datum/dna/gene/basic/grant_spell/deactivate(mob/living/mutant, connected, flags)
+/datum/dna/gene/basic/grant_spell/deactivate(mob/living/mutant, flags)
 	. = ..()
 	for(var/obj/effect/proc_holder/spell/spell as anything in mutant.mob_spell_list)
 		if(istype(spell, spelltype))
@@ -107,14 +102,14 @@
 	var/verbtype
 
 
-/datum/dna/gene/basic/grant_verb/activate(mob/living/mutant, connected, flags)
+/datum/dna/gene/basic/grant_verb/activate(mob/living/mutant, flags)
 	. = ..()
-	mutant.verbs |= verbtype
+	add_verb(mutant, verbtype)
 
 
-/datum/dna/gene/basic/grant_verb/deactivate(mob/living/mutant, connected, flags)
+/datum/dna/gene/basic/grant_verb/deactivate(mob/living/mutant, flags)
 	. = ..()
-	mutant.verbs -= verbtype
+	remove_verb(mutant, verbtype)
 
 
 // WAS: /datum/bioEffect/cryokinesis
@@ -135,7 +130,6 @@
 /obj/effect/proc_holder/spell/cryokinesis
 	name = "Cryokinesis"
 	desc = "Drops the bodytemperature of another person."
-	panel = "Abilities"
 	base_cooldown = 120 SECONDS
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
@@ -188,8 +182,8 @@
 
 
 /obj/effect/self_deleting
-	density = 0
-	opacity = 0
+	density = FALSE
+	opacity = FALSE
 	anchored = TRUE
 	icon = null
 	desc = ""
@@ -223,7 +217,6 @@
 /obj/effect/proc_holder/spell/eat
 	name = "Eat"
 	desc = "Eat just about anything!"
-	panel = "Abilities"
 
 	base_cooldown = 30 SECONDS
 
@@ -254,6 +247,7 @@
 /obj/effect/proc_holder/spell/eat/proc/doHeal(mob/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
+		var/update = NONE
 		for(var/name in H.bodyparts_by_name)
 			var/obj/item/organ/external/affecting = null
 			if(!H.bodyparts_by_name[name])
@@ -261,9 +255,10 @@
 			affecting = H.bodyparts_by_name[name]
 			if(!isexternalorgan(affecting))
 				continue
-			affecting.heal_damage(4, 0, updating_health = FALSE)
-		H.UpdateDamageIcon()
-		H.updatehealth()
+			update |= affecting.heal_damage(4, 0, updating_health = FALSE)
+		if(update)
+			H.UpdateDamageIcon()
+			H.updatehealth()
 
 
 /obj/effect/proc_holder/spell/eat/cast(list/targets, mob/user = usr)
@@ -294,7 +289,7 @@
 
 		user.visible_message("<span class='danger'>[user] begins stuffing [the_item]'s [limb.name] into [user.p_their()] gaping maw!</span>")
 		var/oldloc = H.loc
-		if(!do_mob(user, H, EAT_MOB_DELAY))
+		if(!do_after(user, EAT_MOB_DELAY, H, NONE))
 			to_chat(user, "<span class='danger'>You were interrupted before you could eat [the_item]!</span>")
 		else
 			if(!limb || !H)
@@ -334,7 +329,6 @@
 /obj/effect/proc_holder/spell/leap
 	name = "Jump"
 	desc = "Leap great distances!"
-	panel = "Abilities"
 
 	base_cooldown = 6 SECONDS
 
@@ -350,7 +344,7 @@
 
 /obj/effect/proc_holder/spell/leap/cast(list/targets, mob/living/user = usr)
 	var/failure = FALSE
-	if(ismob(user.loc) || user.incapacitated() || user.buckled)
+	if(ismob(user.loc) || user.incapacitated(INC_IGNORE_RESTRAINED) || user.buckled)
 		to_chat(user, "<span class='warning'>You can't jump right now!</span>")
 		return
 	var/turf/turf_to_check = get_turf(user)
@@ -359,13 +353,12 @@
 		return
 
 	if(isturf(user.loc))
-		if(user.restrained())//Why being pulled while cuffed prevents you from moving
-			for(var/mob/living/M in range(user, 1))
-				if(M.pulling == user)
-					if(!M.restrained() && M.stat == 0 && M.canmove && user.Adjacent(M))
-						failure = TRUE
-					else
-						M.stop_pulling()
+		if(HAS_TRAIT(user, TRAIT_RESTRAINED))//Why being pulled while cuffed prevents you from moving
+			var/mob/living/puller = user.pulledby
+			if(puller && !puller.stat && (puller.mobility_flags & MOBILITY_MOVE) && user.Adjacent(puller))
+				failure = TRUE
+			else if(puller)
+				puller.stop_pulling()
 
 		user.visible_message("<span class='danger'>[user.name]</b> takes a huge leap!</span>")
 		playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1)
@@ -436,7 +429,6 @@
 /obj/effect/proc_holder/spell/polymorph
 	name = "Polymorph"
 	desc = "Mimic the appearance of others!"
-	panel = "Abilities"
 	base_cooldown = 3 MINUTES
 
 	clothes_req = FALSE
@@ -595,43 +587,70 @@
 	instability = GENE_INSTABILITY_MAJOR
 	mutation = STRONG
 
+
 /datum/dna/gene/basic/strong/New()
 	..()
 	block = GLOB.strongblock
 
 
 /datum/dna/gene/basic/strong/can_activate(mob/living/mutant, flags)
-	if(WEAK in mutant.mutations)
+	if(!ishuman(mutant) || (WEAK in mutant.mutations))
 		return FALSE
 	return ..()
 
 
-/datum/dna/gene/basic/strong/activate(mob/living/mutant, connected, flags)
+/datum/dna/gene/basic/strong/activate(mob/living/carbon/human/mutant, flags)
 	. = ..()
-	change_strength(mutant, 1)
+	RegisterSignal(mutant, COMSIG_HUMAN_SPECIES_CHANGED, PROC_REF(on_species_change))
+	add_strong_modifiers(mutant)
 
 
-/datum/dna/gene/basic/strong/deactivate(mob/living/mutant, connected, flags)
+/datum/dna/gene/basic/strong/deactivate(mob/living/carbon/human/mutant, flags)
 	. = ..()
-	change_strength(mutant, -1)
+	UnregisterSignal(mutant, COMSIG_HUMAN_SPECIES_CHANGED)
+	remove_strong_modifiers(mutant)
 
 
-/datum/dna/gene/basic/strong/proc/change_strength(mob/living/M, modifier)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(isvulpkanin(H) || isdrask(H) || isunathi(H))
-			H.dna.species.punchdamagelow += (1 * modifier)
-			H.dna.species.punchdamagehigh += (2 * modifier)
-			H.dna.species.strength_modifier += (0.1 * modifier)
-			if(isunathi(H))
-				var/datum/species/unathi/U = H.dna.species
-				U.tail_strength += (0.25 * modifier)
-			return
-		if(ishumanbasic(H))
-			H.dna.species.punchdamagelow += (3 * modifier)
-			H.dna.species.punchdamagehigh += (4 * modifier)
-			H.dna.species.strength_modifier += (0.25 * modifier)
+/datum/dna/gene/basic/strong/proc/on_species_change(mob/living/carbon/human/mutant, datum/species/old_species)
+	SIGNAL_HANDLER
+
+	if(old_species.name != mutant.dna.species.name)
+		remove_strong_modifiers(mutant, old_species)
+		add_strong_modifiers(mutant)
+
+
+/datum/dna/gene/basic/strong/proc/add_strong_modifiers(mob/living/carbon/human/mutant)
+	mutant.physiology.tail_strength_mod *= 1.25
+	switch(mutant.dna.species.name)
+		if(SPECIES_VULPKANIN, SPECIES_DRASK, SPECIES_UNATHI)
+			mutant.physiology.grab_resist_mod *= 1.1
+			mutant.physiology.punch_damage_low += 1
+			mutant.physiology.punch_damage_high += 2
+		if(SPECIES_HUMAN)
+			mutant.physiology.grab_resist_mod *= 1.25
+			mutant.physiology.punch_damage_low += 3
+			mutant.physiology.punch_damage_high += 4
 		else
-			H.dna.species.punchdamagelow += (2 * modifier)
-			H.dna.species.punchdamagehigh += (3 * modifier)
-			H.dna.species.strength_modifier += (0.15 * modifier)
+			mutant.physiology.grab_resist_mod *= 1.15
+			mutant.physiology.punch_damage_low += 2
+			mutant.physiology.punch_damage_high += 3
+
+
+/datum/dna/gene/basic/strong/proc/remove_strong_modifiers(mob/living/carbon/human/mutant, datum/species/species)
+	if(!species)
+		species = mutant.dna.species
+	mutant.physiology.tail_strength_mod /= 1.25
+	switch(species.name)
+		if(SPECIES_VULPKANIN, SPECIES_DRASK, SPECIES_UNATHI)
+			mutant.physiology.grab_resist_mod /= 1.1
+			mutant.physiology.punch_damage_low -= 1
+			mutant.physiology.punch_damage_high -= 2
+		if(SPECIES_HUMAN)
+			mutant.physiology.grab_resist_mod /= 1.25
+			mutant.physiology.punch_damage_low -= 3
+			mutant.physiology.punch_damage_high -= 4
+		else
+			mutant.physiology.grab_resist_mod /= 1.15
+			mutant.physiology.punch_damage_low -= 2
+			mutant.physiology.punch_damage_high -= 3
+

@@ -3,7 +3,7 @@
 	desc = "High Five?"
 	icon_state = "syndballoon"
 	item_state = null
-	flags = ABSTRACT|DROPDEL
+	item_flags = ABSTRACT|DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	force = 0
 	throwforce = 0
@@ -51,13 +51,15 @@
 /obj/item/melee/touch_attack/attack(mob/target, mob/living/carbon/user)
 	if(!iscarbon(user)) //Look ma, no hands
 		return
-	if(user.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't reach out!</span>")
 		return
 	..()
 
 
 /obj/item/melee/touch_attack/afterattack(atom/target, mob/user, proximity)
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
 	if(catchphrase)
 		user.say(catchphrase)
 	playsound(get_turf(user), on_use_sound, 50, TRUE)
@@ -76,7 +78,7 @@
 
 
 /obj/item/melee/touch_attack/disintegrate/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.incapacitated()) //exploding after touching yourself would be bad
+	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //exploding after touching yourself would be bad
 		return
 	var/mob/M = target
 	do_sparks(4, 0, M.loc) //no idea what the 0 is
@@ -94,7 +96,7 @@
 
 
 /obj/item/melee/touch_attack/fleshtostone/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || target == user || !isliving(target) || !iscarbon(user)) //getting hard after touching yourself would also be bad
+	if(!proximity || target == user || !isliving(target) || !iscarbon(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //getting hard after touching yourself would also be bad
 		return
 	if(user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't reach out!</span>")
@@ -116,7 +118,7 @@
 
 
 /obj/item/melee/touch_attack/fake_disintegrate/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.incapacitated()) //not exploding after touching yourself would be bad
+	if(!proximity || target == user || !ismob(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //not exploding after touching yourself would be bad
 		return
 	do_sparks(4, 0, target.loc)
 	playsound(target.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
@@ -133,7 +135,7 @@
 
 
 /obj/item/melee/touch_attack/cluwne/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || user.incapacitated()) //clowning around after touching yourself would unsurprisingly, be bad
+	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //clowning around after touching yourself would unsurprisingly, be bad
 		return
 
 	if(iswizard(target))

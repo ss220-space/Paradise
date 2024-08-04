@@ -52,15 +52,12 @@
 	if(!ishuman(user))
 		return TRUE
 	var/mob/living/carbon/human/H = user
-	if(H.gloves)
+	var/obj/item/clothing/gloves = H.gloves
+	if(isclothing(gloves) && gloves.clothing_flags & FINGERS_COVERED)
 		return TRUE
 	if(PIERCEIMMUNE in H.dna.species.species_traits)
 		return TRUE
-	var/organ = ((H.hand ? "l_":"r_") + "arm")
-	var/obj/item/organ/external/affecting = H.get_organ(organ)
-	if(affecting)
-		if(affecting.receive_damage(0, force))
-			H.UpdateDamageIcon()
+	H.apply_damage(force, BURN, def_zone = H.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 	to_chat(H, "<span class='userdanger'>The nettle burns your bare hand!</span>")
 	return TRUE
 
@@ -84,7 +81,7 @@
 /obj/item/grown/nettle/death
 	seed = /obj/item/seeds/nettle/death
 	name = "deathnettle"
-	desc = "The <span class='danger'>glowing</span> nettle incites <span class='boldannounce'>rage</span> in you just from looking at it!"
+	desc = "The <span class='danger'>glowing</span> nettle incites <span class='boldannounceic'>rage</span> in you just from looking at it!"
 	icon_state = "deathnettle"
 	force = 30
 	throwforce = 15
@@ -99,7 +96,8 @@
 		var/mob/living/carbon/human/H = user
 		if(PIERCEIMMUNE in H.dna.species.species_traits)
 			return ..()
-		if(!H.gloves && prob(50))
+		var/obj/item/clothing/gloves = H.gloves
+		if((!isclothing(gloves) || !(gloves.clothing_flags & FINGERS_COVERED)) && prob(50))
 			user.Paralyse(4 SECONDS)
 			to_chat(user, span_userdanger("You are stunned by the Deathnettle when you try picking it up!"))
 			return FALSE

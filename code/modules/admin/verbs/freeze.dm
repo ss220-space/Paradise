@@ -10,7 +10,6 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 
 /client/proc/freeze(atom/movable/M in view(maxview()))
 	set name = "\[Admin\] Freeze"
-	set category = null
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -42,7 +41,6 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 			add_overlay(AO)
 
 		set_anchored(TRUE)
-		canmove = FALSE
 		admin_prev_sleeping = AmountSleeping()
 		PermaSleeping()
 		frozen = AO
@@ -54,9 +52,8 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 			cut_overlay(frozen)
 
 		set_anchored(FALSE)
-		canmove = TRUE
 		frozen = null
-		SetSleeping(admin_prev_sleeping, TRUE)
+		SetSleeping(admin_prev_sleeping)
 		admin_prev_sleeping = null
 
 	to_chat(src, "<b><font color= red>You have been [frozen ? "frozen" : "unfrozen"] by [admin]</b></font>")

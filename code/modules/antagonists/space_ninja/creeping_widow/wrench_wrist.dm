@@ -4,7 +4,7 @@
 	explaination_text = "Wrenches enemy wrist, causing them to drop what they are holding if you are focused."
 
 /datum/martial_combo/ninja_martial_art/wrench_wrist/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/ninja_martial_art/creeping_widow)
-	if(!target.stat && !target.IsWeakened())
+	if(!target.stat && target.body_position != LYING_DOWN)
 		if(creeping_widow.has_focus)
 			user.say("この野郎!")
 			creeping_widow.has_focus = 0

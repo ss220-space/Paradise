@@ -113,7 +113,7 @@
 	if(resistance_flags & FIRE_PROOF)
 		return
 
-	if(P.lit && !user.restrained())
+	if(P.lit && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		if(istype(P, /obj/item/lighter/zippo))
 			class = "<span class='rose'>"
 
@@ -232,9 +232,10 @@
 	set category = "Object"
 	set src in usr
 
-	var/n_name = sanitize(copytext_char(input(usr, "What would you like to label the bundle?", "Bundle Labelling", name) as text, 1, MAX_NAME_LEN))
-	if((loc == usr && usr.stat == 0))
-		name = "[(n_name ? text("[n_name]") : "paper bundle")]"
+	var/n_name = tgui_input_text(usr, "What would you like to label the bundle?", "Bundle Labelling", name)
+	if(!Adjacent(usr) || !n_name || usr.stat)
+		return
+	name = "[(n_name ? "[n_name]" : "paper bundle")]"
 	add_fingerprint(usr)
 	return
 

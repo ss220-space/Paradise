@@ -49,11 +49,11 @@
 		return FALSE
 
 	L.AdjustSilence(20 SECONDS)
-	L.adjustStaminaLoss(39)
+	L.apply_damage(39, STAMINA)
 	if(!poisonable)
 		return TRUE
 	var/inject_target = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
-	if(L.IsParalyzed() || L.can_inject(null, FALSE, inject_target, FALSE) && prob(50))
+	if(HAS_TRAIT(L, TRAIT_INCAPACITATED) || L.can_inject(null, FALSE, inject_target, FALSE) && prob(50))
 		new /obj/item/organ/internal/body_egg/terror_eggs(L)
 		visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [target]!</span>")
 	else

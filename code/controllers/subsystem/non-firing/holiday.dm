@@ -20,6 +20,8 @@ SUBSYSTEM_DEF(holiday)
 			if(!holidays)
 				holidays = list()
 			holidays[holiday.name] = holiday
+	return SS_INIT_SUCCESS
+
 
 /datum/controller/subsystem/holiday/OnMasterLoad()
 	if(holidays)

@@ -5,7 +5,7 @@
 	item_state = "nothing"
 	force = 0
 	throwforce = 0
-	flags = DROPDEL|ABSTRACT
+	item_flags = DROPDEL|ABSTRACT
 	attack_verb = list("slapped")
 	hitsound = 'sound/weapons/slap.ogg'
 	/// How many smaller table smacks we can do before we're out

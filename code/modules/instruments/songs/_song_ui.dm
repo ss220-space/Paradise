@@ -44,15 +44,19 @@
 
 	return data
 
-/datum/song/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, parent, ui_key, ui, force_open)
+/datum/song/ui_state(mob/user)
+	return parent.ui_state(user)
+
+/datum/song/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, parent, ui)
 	if(!ui)
-		ui = new(user, parent, ui_key, "Instrument", parent?.name || "Instrument", 700, 500)
+		ui = new(user, parent, "Instrument", parent?.name || "Instrument")
 		ui.open()
 		ui.set_autoupdate(FALSE) // NO!!! Don't auto-update this!!
 
-/datum/song/ui_act(action, params)
+/datum/song/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = TRUE
+	var/mob/user = ui.user
 	switch(action)
 		if("newsong")
 			lines = new()
@@ -60,17 +64,10 @@
 			name = ""
 		if("import")
 			var/t = ""
-			do
-				t = html_encode(input(usr, "Please paste the entire song, formatted:", text("[]", name), t)  as message)
-				if(!in_range(parent, usr))
-					return
-
-				if(length_char(t) >= MUSIC_MAXLINES * MUSIC_MAXLINECHARS)
-					var/cont = input(usr, "Your message is too long! Would you like to continue editing it?", "", "yes") in list("yes", "no")
-					if(cont == "no")
-						break
-			while(length_char(t) > MUSIC_MAXLINES * MUSIC_MAXLINECHARS)
-			parse_song(t)
+			t = tgui_input_text(user, "Please paste the entire song, formatted:", parent.name, max_length = (MUSIC_MAXLINECHARS * MUSIC_MAXLINES), multiline = TRUE)
+			if(!t || !(state.can_use_topic(parent, user) == UI_INTERACTIVE))
+				return
+			parse_song(t, user)
 			return FALSE
 		if("help")
 			help = !help
@@ -83,12 +80,10 @@
 		if("tempo")
 			tempo = sanitize_tempo(text2num(params["new"]))
 		if("play")
-			INVOKE_ASYNC(src, PROC_REF(start_playing), usr)
+			INVOKE_ASYNC(src, PROC_REF(start_playing), user)
 		if("newline")
-			var/newline = html_encode(input("Enter your line: ", parent.name) as text|null)
-			if(!newline || !in_range(parent, usr))
-				return
-			if(length(lines) > MUSIC_MAXLINES)
+			var/newline = tgui_input_text(user, "Enter your line:", parent.name, max_length = MUSIC_MAXLINECHARS)
+			if(!newline || !state.can_use_topic(parent, user))
 				return
 			if(length(newline) > MUSIC_MAXLINECHARS)
 				newline = copytext(newline, 1, MUSIC_MAXLINECHARS)
@@ -100,8 +95,8 @@
 			lines.Cut(num, num + 1)
 		if("modifyline")
 			var/num = round(text2num(params["line"]))
-			var/content = stripped_input(usr, "Enter your line: ", parent.name, lines[num], MUSIC_MAXLINECHARS)
-			if(!content || !in_range(parent, usr))
+			var/content = tgui_input_text(user, "Enter your line:", parent.name, lines[num], max_length = MUSIC_MAXLINECHARS)
+			if(!content || !(state.can_use_topic(parent, user) == UI_INTERACTIVE))
 				return
 			if(num > length(lines) || num < 1)
 				return
@@ -148,12 +143,12 @@
 			set_dropoff_volume(initial(sustain_dropoff_volume), TRUE)
 		else
 			return FALSE
-	parent.add_fingerprint(usr)
+	parent.add_fingerprint(user)
 
 /**
   * Parses a song the user has input into lines and stores them.
   */
-/datum/song/proc/parse_song(text)
+/datum/song/proc/parse_song(text, mob/user)
 	set waitfor = FALSE
 	//split into lines
 	stop_playing()
@@ -167,12 +162,12 @@
 		else
 			tempo = sanitize_tempo(5) // default 120 BPM
 		if(length(lines) > MUSIC_MAXLINES)
-			to_chat(usr, "Too many lines!")
+			to_chat(user, "Too many lines!")
 			lines.Cut(MUSIC_MAXLINES + 1)
 		var/linenum = 1
 		for(var/l in lines)
 			if(length_char(l) > MUSIC_MAXLINECHARS)
-				to_chat(usr, "Line [linenum] too long!")
+				to_chat(user, "Line [linenum] too long!")
 				lines.Remove(l)
 			else
 				linenum++

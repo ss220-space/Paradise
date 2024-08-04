@@ -5,8 +5,7 @@
 	item_state = "earmuffs"
 	slot_flags = ITEM_SLOT_EARS
 	slot_flags_2 = ITEM_FLAG_TWOEARS
-	flags = EARBANGPROTECT
-	flags_2 = HEALS_EARS_2
+	item_flags = BANGPROTECT_TOTAL|HEALS_EARS
 	strip_delay = 15
 	put_on_delay = 25
 	resistance_flags = FLAMMABLE

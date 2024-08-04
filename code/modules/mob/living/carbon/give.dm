@@ -6,7 +6,7 @@
 		to_chat(usr, "<span class='danger'>Wait a second... \the [target] HAS NO HANDS! AHH!</span>")//cheesy messages ftw
 		return
 
-	if(target.incapacitated() || usr.incapacitated() || target.client == null)
+	if(target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || target.client == null)
 		return
 
 	var/obj/item/I = get_active_hand()
@@ -14,7 +14,7 @@
 	if(!I)
 		to_chat(usr, "<span class='warning'> You don't have anything in your hand to give to [target.name]</span>")
 		return
-	if(HAS_TRAIT(I, TRAIT_NODROP) || (I.flags & ABSTRACT))
+	if(HAS_TRAIT(I, TRAIT_NODROP) || (I.item_flags & ABSTRACT))
 		to_chat(usr, "<span class='notice'>That's not exactly something you can give.</span>")
 		return
 	if(target.r_hand == null || target.l_hand == null)
@@ -23,13 +23,13 @@
 			return
 		switch(ans)
 			if("Yes")
-				if(target.incapacitated() || usr.incapacitated())
+				if(target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 					return
 				if(!Adjacent(target))
 					to_chat(usr, "<span class='warning'> You need to stay in reaching distance while giving an object.</span>")
 					to_chat(target, "<span class='warning'> [usr.name] moved too far away.</span>")
 					return
-				if(HAS_TRAIT(I, TRAIT_NODROP) || (I.flags & ABSTRACT))
+				if(HAS_TRAIT(I, TRAIT_NODROP) || (I.item_flags & ABSTRACT))
 					to_chat(usr, "<span class='warning'>[I] stays stuck to your hand when you try to give it!</span>")
 					to_chat(target, "<span class='warning'>[I] stays stuck to [usr.name]'s hand when you try to take it!</span>")
 					return
@@ -58,6 +58,8 @@
 	set name = "Give Item (Toggle)"
 	set category = "IC"
 
+	if(incapacitated() || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		return
 	if(has_status_effect(STATUS_EFFECT_OFFERING_ITEM))
 		to_chat(src, "<span class='warning'>You're already offering an item to someone!</span>")
 		return
@@ -71,7 +73,7 @@
 	if(HAS_TRAIT(I, TRAIT_NODROP))
 		to_chat(src, "<span class='warning'>[I] is stuck to your hand, you can't give it away!</span>")
 		return
-	if(I.flags & ABSTRACT)
+	if(I.item_flags & ABSTRACT)
 		to_chat(src, "<span class='warning'>That's not exactly something you can give.</span>")
 		return
 
@@ -85,16 +87,16 @@
 /datum/status_effect/offering_item
 	id = "offering item"
 	duration = 10 SECONDS
-	alert_type = /obj/screen/alert/status_effect/offering_item
+	alert_type = /atom/movable/screen/alert/status_effect/offering_item
 
 /datum/status_effect/offering_item/on_creation(mob/living/new_owner, receiver_UID, item_UID)
 	. = ..()
-	var/obj/screen/alert/status_effect/offering_item/offer = linked_alert
+	var/atom/movable/screen/alert/status_effect/offering_item/offer = linked_alert
 	offer.item_UID = item_UID
 	offer.receiver_UID = receiver_UID
 
 
-/obj/screen/alert/status_effect/offering_item
+/atom/movable/screen/alert/status_effect/offering_item
 	name = "Offering Item"
 	desc = "You're currently offering an item someone. Make sure to keep the item in your hand so they can accept it! Click to stop offering your item."
 	icon_state = "offering_item"
@@ -103,7 +105,7 @@
 	/// UID of the item being given.
 	var/item_UID
 
-/obj/screen/alert/status_effect/offering_item/Click(location, control, params)
+/atom/movable/screen/alert/status_effect/offering_item/Click(location, control, params)
 	var/mob/living/carbon/receiver = locateUID(receiver_UID)
 	var/mob/living/carbon/giver = attached_effect.owner
 	var/obj/item/I = locateUID(item_UID)
@@ -125,10 +127,10 @@
 	..()
 	holder.mouse_pointer_icon = 'icons/misc/mouse_icons/give_item.dmi'
 	to_chat(holder, span_info("You can now left click on someone to give them your held item."))
-	RegisterSignal(holder.mob.get_active_hand(), list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(signal_qdel))
-	RegisterSignal(holder.mob, COMSIG_MOB_SWAP_HANDS, PROC_REF(signal_qdel))
+	RegisterSignal(holder.mob.get_active_hand(), list(COMSIG_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(signal_qdel))
+	RegisterSignal(holder.mob, list(COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(signal_qdel))
 
-/datum/click_intercept/give/Destroy(force = FALSE, ...)
+/datum/click_intercept/give/Destroy(force = FALSE)
 	holder.mouse_pointer_icon = initial(holder.mouse_pointer_icon)
 	if(!item_offered)
 		to_chat(holder.mob, span_info("You're no longer trying to give someone your held item."))
@@ -154,7 +156,7 @@
 		return
 	// We use UID() here so that the receiver can have more then one give request at one time.
 	// Otherwise, throwing a new "take item" alert would override any current one also named "take item".
-	receiver.throw_alert("take item [I.UID()]", /obj/screen/alert/take_item, alert_args = list(user, receiver, I))
+	receiver.throw_alert("take item [I.UID()]", /atom/movable/screen/alert/take_item, alert_args = list(user, receiver, I))
 	item_offered = TRUE // TRUE so we don't give them the default chat message in Destroy.
 	to_chat(user, span_info("You offer [I] to [receiver]."))
 	qdel(src)
@@ -166,7 +168,7 @@
  * Alert which appears for a user when another player is attempting to offer them an item.
  * The user can click the alert to accept, or simply do nothing to not take the item.
  */
-/obj/screen/alert/take_item
+/atom/movable/screen/alert/take_item
 	name = "Take Item"
 	desc = "someone wants to hand you an item!"
 	icon_state = "template"
@@ -179,7 +181,7 @@
 	var/item_UID
 
 
-/obj/screen/alert/take_item/Initialize(mapload, mob/living/giver, mob/living/receiver, obj/item/I)
+/atom/movable/screen/alert/take_item/Initialize(mapload, mob/living/giver, mob/living/receiver, obj/item/I)
 	. = ..()
 	desc = "[giver] wants to hand you \a [I]. Click here to accept it!"
 	giver_UID = giver.UID()
@@ -189,17 +191,17 @@
 	add_overlay(icon(I.icon, I.icon_state, SOUTH))
 	add_overlay("alert_flash")
 	// If either of these atoms are deleted, we need to cancel everything. Also saves having to do null checks before interacting with these atoms.
-	RegisterSignal(I, list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(cancel_give))
-	RegisterSignal(giver, list(COMSIG_PARENT_QDELETING, COMSIG_MOB_SWAP_HANDS), PROC_REF(cancel_give))
+	RegisterSignal(I, list(COMSIG_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(cancel_give))
+	RegisterSignal(giver, list(COMSIG_QDELETING, COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(cancel_give))
 
 
-/obj/screen/alert/take_item/Destroy()
+/atom/movable/screen/alert/take_item/Destroy()
 	var/mob/living/giver = locateUID(giver_UID)
 	giver.remove_status_effect(STATUS_EFFECT_OFFERING_ITEM)
 	return ..()
 
 
-/obj/screen/alert/take_item/proc/cancel_give()
+/atom/movable/screen/alert/take_item/proc/cancel_give()
 	SIGNAL_HANDLER
 	var/mob/living/giver = locateUID(giver_UID)
 	var/mob/living/receiver = locateUID(receiver_UID)
@@ -208,7 +210,7 @@
 	receiver.clear_alert("take item [item_UID]")
 
 
-/obj/screen/alert/take_item/Click(location, control, params)
+/atom/movable/screen/alert/take_item/Click(location, control, params)
 	var/mob/living/receiver = locateUID(receiver_UID)
 	if(receiver.stat != CONSCIOUS)
 		return
@@ -233,7 +235,7 @@
 	receiver.clear_alert("take item [item_UID]")
 
 
-/obj/screen/alert/take_item/do_timeout(mob/M, category)
+/atom/movable/screen/alert/take_item/do_timeout(mob/M, category)
 	var/mob/living/giver = locateUID(giver_UID)
 	var/mob/living/receiver = locateUID(receiver_UID)
 	// Make sure we're still nearby. We don't want to show a message if the giver not near us.

@@ -42,7 +42,7 @@
 	else
 		return ..()
 
-/obj/item/gun/rocketlauncher/can_shoot()
+/obj/item/gun/rocketlauncher/can_shoot(mob/user)
 	return rockets.len
 
 /obj/item/gun/rocketlauncher/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override = "")

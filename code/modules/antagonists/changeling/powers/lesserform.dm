@@ -27,7 +27,7 @@
 
 	user.visible_message(span_warning("[user] transforms!"), span_warning("Our genes cry out!"))
 	remove_changeling_mutations(user)
-	user.monkeyize()
+	user.force_gene_block(GLOB.monkeyblock, TRUE)
 
 	cling.give_power(new /datum/action/changeling/humanform)
 

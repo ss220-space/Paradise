@@ -14,7 +14,7 @@
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
 	resistance_flags = FIRE_PROOF
-	flags = NOSHARPENING
+	item_flags = NOSHARPENING
 	toolspeed = 1
 	light_power = 2
 	light_range = 2
@@ -54,7 +54,7 @@
 		icon_state = "sword[item_color]"
 		set_light_on(TRUE)
 		set_light_color(colormap[item_color])
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/melee/energy/attack_self(mob/living/carbon/user)

@@ -168,7 +168,7 @@
 		qdel(src)
 
 	else if(isigniter(I) && !HAS_TRAIT(I, TRAIT_NODROP))
-		var/obj/item/melee/baton/cattleprod/P = new /obj/item/melee/baton/cattleprod(drop_location())
+		var/obj/item/melee/baton/security/cattleprod/P = new(drop_location())
 
 		if(!remove_item_from_storage(user))
 			user.temporarily_remove_item_from_inventory(src)
@@ -279,7 +279,7 @@
 		return ..()
 	to_chat(user, "<span class='warning'>You begin gathering strength...</span>")
 	playsound(get_turf(src), 'sound/magic/lightning_chargeup.ogg', 65, 1)
-	if(do_after(user, 90, target = user))
+	if(do_after(user, 9 SECONDS, user))
 		to_chat(user, "<span class='userdanger'>You gather power! Time for a home run!</span>")
 		homerun_ready = 1
 	..()

@@ -49,7 +49,7 @@
 
 /datum/crafting_recipe/stunprod
 	name = "Stunprod"
-	result = /obj/item/melee/baton/cattleprod
+	result = /obj/item/melee/baton/security/cattleprod
 	reqs = list(/obj/item/restraints/handcuffs/cable = 1,
 				/obj/item/stack/rods = 1,
 				/obj/item/assembly/igniter = 1)
@@ -116,7 +116,7 @@
 	result = /mob/living/simple_animal/bot/secbot
 	reqs = list(/obj/item/assembly/signaler = 1,
 				/obj/item/clothing/head/helmet = 1,
-				/obj/item/melee/baton = 1,
+				/obj/item/melee/baton/security = 1,
 				/obj/item/assembly/prox_sensor = 1,
 				/obj/item/robot_parts/r_arm = 1)
 	tools = list(TOOL_WELDER)
@@ -347,6 +347,16 @@
 				/obj/item/shard = 1,
 				/obj/item/stack/rods = 1)
 	time = 40
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/nunchucks
+	name = "Nunchucks"
+	result = /obj/item/nunchuck
+	reqs = list(/obj/item/stack/tape_roll = 20,
+				/obj/item/stack/sheet/wood = 10,
+				/obj/item/stack/cable_coil = 10)
+	time = 4 SECONDS
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 

@@ -22,10 +22,11 @@
 /mob/living/simple_animal/diona/bee_friendly()
 	return TRUE
 
+
 /mob/living/carbon/human/bee_friendly()
 	if(isdiona(src)) //bees pollinate plants, duh.
 		return TRUE
-	if((wear_suit && (wear_suit.flags & THICKMATERIAL)) && (head && (head.flags & THICKMATERIAL)))
+	if(covered_with_thick_material(full_body_check = TRUE))
 		return TRUE
 	return FALSE
 
@@ -223,7 +224,7 @@
 					continue
 				if(B.loc == src)
 					B.forceMove(drop_location())
-				B.target = user
+				B.GiveTarget(user)
 				bees = TRUE
 			if(bees)
 				visible_message("<span class='danger'>[user] disturbs the bees!</span>")

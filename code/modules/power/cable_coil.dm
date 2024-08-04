@@ -135,7 +135,7 @@
 			if(get_amount() < 10)
 				to_chat(user, span_warning("You don't have enough [src] to make cable restraints!</span>"))
 				return
-			if(do_after(user, 2 SECONDS, target = user))
+			if(do_after(user, 2 SECONDS, user))
 				if(!use(10))
 					to_chat(user, span_warning("You don't have enough [src] to make cable restraints!</span>"))
 					return
@@ -169,7 +169,7 @@
 		return FALSE
 
 	if(target == user)
-		if(!do_mob(user, target, 1 SECONDS))
+		if(!do_after(user, 1 SECONDS, target, NONE))
 			return FALSE
 
 	var/cable_used = 0
@@ -190,12 +190,14 @@
 				break
 		else
 			break
+		var/update = NONE
 		while(cable_used <= MAXCABLEPERHEAL && current_organ.burn_dam && amount)
 			use(1)
 			cable_used++
-			current_organ.heal_damage(0, HEALPERCABLE, FALSE, TRUE, FALSE)
-		target.updatehealth("cable repair")
-		target.UpdateDamageIcon()
+			update |= current_organ.heal_damage(0, HEALPERCABLE, FALSE, TRUE, FALSE)
+		if(update)
+			target.updatehealth("cable repair")
+			target.UpdateDamageIcon()
 		user.visible_message(span_alert("[user] repairs some burn damage on [target]'s [current_organ.name] with [src]."))
 	return TRUE
 

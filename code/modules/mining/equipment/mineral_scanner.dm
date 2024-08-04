@@ -17,6 +17,8 @@
 	origin_tech = "engineering=1;magnets=1"
 
 /obj/item/mining_scanner/AltClick(mob/user)
+	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
 	speaker = !speaker
 	to_chat(user, "<span class='notice'>You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"].</span>")
 
@@ -58,6 +60,8 @@
 	origin_tech = "engineering=3;magnets=3"
 
 /obj/item/t_scanner/adv_mining_scanner/AltClick(mob/user)
+	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
 	speaker = !speaker
 	to_chat(user, "<span class='notice'>You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"].</span>")
 
@@ -115,7 +119,7 @@
 	plane = FULLSCREEN_PLANE
 	layer = FLASH_LAYER
 	icon = 'icons/effects/ore_visuals.dmi'
-	appearance_flags = 0 //to avoid having TILE_BOUND in the flags, so that the 480x480 icon states let you see it no matter where you are
+	appearance_flags = LONG_GLIDE //to avoid having TILE_BOUND in the flags, so that the 480x480 icon states let you see it no matter where you are
 	duration = 35
 	pixel_x = -224
 	pixel_y = -224

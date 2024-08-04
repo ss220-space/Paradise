@@ -1,12 +1,12 @@
 import { useBackend } from '../backend';
-import { Button, Flex, Section, Divider } from '../components';
+import { Button, Section, Stack, Divider } from '../components';
 import { Window } from '../layouts';
 
 export const VampireSpecMenu = (props, context) => {
   return (
-    <Window resizable theme="nologo">
+    <Window width={1500} height={820} theme="nologo">
       <Window.Content>
-        <Flex justify="space-around">
+        <Stack fill>
           <HemoMenu />
           <Divider vertical={1} />
           <UmbrMenu />
@@ -16,7 +16,7 @@ export const VampireSpecMenu = (props, context) => {
           <DantMenu />
           <Divider vertical={1} />
           <BestMenu />
-        </Flex>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -26,14 +26,15 @@ const HemoMenu = (props, context) => {
   const { act, data } = useBackend(context);
   const { subclasses } = data;
   return (
-    <Flex.Item grow={1} basis="25%">
+    <Stack.Item grow basis="20%">
       <Section title="Hemomancer">
         <h3>
           Focuses on blood magic and the manipulation of blood around you.
         </h3>
         <p>
           <b>Vampiric claws</b>: Unlocked at 150 blood, allows you to summon a
-          robust pair of claws that attack rapidly, drain a targets blood, and heal you.
+          robust pair of claws that attack rapidly, drain a targets blood, and
+          heal you.
         </p>
         <p>
           <b>Blood Barrier</b>: Unlocked at 250 blood, allows you to select two
@@ -67,7 +68,7 @@ const HemoMenu = (props, context) => {
         </p>
         <Button content="Hemomancer" onClick={() => act('hemomancer')} />
       </Section>
-    </Flex.Item>
+    </Stack.Item>
   );
 };
 
@@ -75,7 +76,7 @@ const UmbrMenu = (props, context) => {
   const { act, data } = useBackend(context);
   const { subclasses } = data;
   return (
-    <Flex.Item grow={1} basis="25%">
+    <Stack.Item grow basis="20%">
       <Section title="Umbrae">
         <h3>Focuses on darkness, stealth ambushing and mobility.</h3>
         <p>
@@ -84,11 +85,11 @@ const UmbrMenu = (props, context) => {
           While active, burn damage is more effective against you.
         </p>
         <p>
-          <b>Shadow anchor</b>: Unlocked at 250 blood, casting it will create
-          an anchor at the cast location after a short delay.
-          If you then cast the ability again, you are teleported back to the anchor.
-          If you do not cast again within 2 minutes, you are forced back to the anchor.
-          It will not teleport you between Z levels.
+          <b>Shadow anchor</b>: Unlocked at 250 blood, casting it will create an
+          anchor at the cast location after a short delay. If you then cast the
+          ability again, you are teleported back to the anchor. If you do not
+          cast again within 2 minutes, you are forced back to the anchor. It
+          will not teleport you between Z levels.
         </p>
         <p>
           <b>Shadow snare</b>: Unlocked at 250 blood, allows you to summon a
@@ -103,8 +104,8 @@ const UmbrMenu = (props, context) => {
           <b>Extinguish</b>: Unlocked at 600 blood, allows you to snuff out
           nearby electronic light sources and glowshrooms.
         </p>
-        <b>Shadow boxing</b>: Unlocked at 800 blood, sends out shadow
-        clones towards a target, damaging them while you remain in range.
+        <b>Shadow boxing</b>: Unlocked at 800 blood, sends out shadow clones
+        towards a target, damaging them while you remain in range.
         <p>
           <b>Full power</b>
           <Divider />
@@ -115,7 +116,7 @@ const UmbrMenu = (props, context) => {
         <p>In addition, you also gain permament X-ray vision.</p>
         <Button content="Umbrae" onClick={() => act('umbrae')} />
       </Section>
-    </Flex.Item>
+    </Stack.Item>
   );
 };
 
@@ -123,7 +124,7 @@ const GarMenu = (props, context) => {
   const { act, data } = useBackend(context);
   const { subclasses } = data;
   return (
-    <Flex.Item grow={1} basis="25%">
+    <Stack.Item grow basis="20%">
       <Section title="Gargantua">
         <h3>Focuses on tenacity and melee damage.</h3>
         <p>
@@ -136,8 +137,8 @@ const GarMenu = (props, context) => {
           active you cannot fire guns.
         </p>
         <p>
-          <b>Seismic stomp</b>: Unlocked at 250 blood, allows you to stomp the ground
-          to send out a shockwave, knocking people back.
+          <b>Seismic stomp</b>: Unlocked at 250 blood, allows you to stomp the
+          ground to send out a shockwave, knocking people back.
         </p>
         <p>
           <b>Blood rush</b>: Unlocked at 250 blood, gives you a short speed
@@ -154,8 +155,8 @@ const GarMenu = (props, context) => {
         </p>
         <p>
           <b>Demonic grasp</b>: Unlocked at 800 blood, allows you to send out a
-          demonic hand to snare someone. If you are on disarm/grab intent you will
-          push/pull the target, respectively.
+          demonic hand to snare someone. If you are on disarm/grab intent you
+          will push/pull the target, respectively.
         </p>
         <p>
           <b>Full Power</b>
@@ -165,7 +166,7 @@ const GarMenu = (props, context) => {
         </p>
         <Button content="Gargantua" onClick={() => act('gargantua')} />
       </Section>
-    </Flex.Item>
+    </Stack.Item>
   );
 };
 
@@ -173,7 +174,7 @@ const DantMenu = (props, context) => {
   const { act, data } = useBackend(context);
   const { subclasses } = data;
   return (
-    <Flex.Item grow={1} basis="25%">
+    <Stack.Item grow basis="20%">
       <Section title="Dantalion">
         <h3>Focuses on thralling and illusions.</h3>
         <p>
@@ -191,8 +192,8 @@ const DantMenu = (props, context) => {
           your thralls, your thralls can talk back in the same way.
         </p>
         <p>
-          <b>Subspace swap</b>: Unlocked at 250 blood, allows you to swap positions
-          with a target.
+          <b>Subspace swap</b>: Unlocked at 250 blood, allows you to swap
+          positions with a target.
         </p>
         <p>
           <b>Pacify</b>: Unlocked at 250 blood, allows you to pacify a target,
@@ -203,13 +204,14 @@ const DantMenu = (props, context) => {
           out an illusion to fool everyone nearby.
         </p>
         <p>
-          <b>Rally thralls</b>: Unlocked at 600 blood, removes all incapacitating effects from nearby thralls.
+          <b>Rally thralls</b>: Unlocked at 600 blood, removes all
+          incapacitating effects from nearby thralls.
         </p>
         <p>
-          <b>Blood bond</b>: Unlocked at 800 blood, when cast, all nearby thralls
-          become linked to you. If anyone in the network takes damage, it is shared
-          equally between everyone in the network. If a thrall goes out of range,
-          they will be removed from the network.
+          <b>Blood bond</b>: Unlocked at 800 blood, when cast, all nearby
+          thralls become linked to you. If anyone in the network takes damage,
+          it is shared equally between everyone in the network. If a thrall goes
+          out of range, they will be removed from the network.
         </p>
         <p>
           <b>Full Power</b>
@@ -219,7 +221,7 @@ const DantMenu = (props, context) => {
         </p>
         <Button content="Dantalion" onClick={() => act('dantalion')} />
       </Section>
-    </Flex.Item>
+    </Stack.Item>
   );
 };
 
@@ -227,7 +229,7 @@ const BestMenu = (props, context) => {
   const { act, data } = useBackend(context);
   const { subclasses } = data;
   return (
-    <Flex.Item grow={1} basis="25%">
+    <Stack.Item grow basis="20%">
       <Section title="Bestia">
         <h3>Focuses on transformations and trophies harvesting.</h3>
         <p>
@@ -235,47 +237,49 @@ const BestMenu = (props, context) => {
           current trophies amount and all the passive effects they provide.
         </p>
         <p>
-          <b>Dissect</b>: Unlocked at 150 blood, main source of gaining power, besides blood,
-          allows you to harvest human organs, as a trophies, to passively increase your might.
+          <b>Dissect</b>: Unlocked at 150 blood, main source of gaining power,
+          besides blood, allows you to harvest human organs, as a trophies, to
+          passively increase your might.
         </p>
         <p>
           <b>Dissect Cap</b>: You can only harvest one organ trophie at a time.
-          This can be increased at 600 blood and at full power to a
-          max of 3 trophies per victim.
+          This can be increased at 600 blood and at full power to a max of 3
+          trophies per victim.
         </p>
         <p>
-          <b>Infected Trophy</b>: Unlocked at 150 blood, allows you to stun enemies
-          from the safe distance and infect them with the deadly Grave Fever.
+          <b>Infected Trophy</b>: Unlocked at 150 blood, allows you to stun
+          enemies from the safe distance and infect them with the deadly Grave
+          Fever.
         </p>
         <p>
-          <b>Lunge</b>: Unlocked at 250 blood, allows you to rapidly close distance
-          to a victim or escape a dangerous situation.
+          <b>Lunge</b>: Unlocked at 250 blood, allows you to rapidly close
+          distance to a victim or escape a dangerous situation.
         </p>
         <p>
-          <b>Mark the Prey</b>: Unlocked at 250 blood, allows you to mark a victim
-          which drastically reduces their movement speed and forces them
+          <b>Mark the Prey</b>: Unlocked at 250 blood, allows you to mark a
+          victim which drastically reduces their movement speed and forces them
           to take spontaneous actions.
         </p>
         <p>
-          <b>Metamorphosis - Bats</b>: Unlocked at 400 blood, allows you to shapeshift
-          into the deadly and vicious space bats swarm.
+          <b>Metamorphosis - Bats</b>: Unlocked at 400 blood, allows you to
+          shapeshift into the deadly and vicious space bats swarm.
         </p>
         <p>
           <b>Anabiosis</b>: Unlocked at 600 blood, ancient technique which
           allows you to cure almost any wounds while sleeping in a coffin.
         </p>
         <p>
-          <b>Summon Bats</b>: Unlocked at 800 blood, allows you to call extraplanar
-          space bats to aid you in combat.
+          <b>Summon Bats</b>: Unlocked at 800 blood, allows you to call
+          extraplanar space bats to aid you in combat.
         </p>
         <p>
           <b>Full Power</b>
           <Divider />
-          <b>Metamorphosis - Hound</b>: Allows you to shapeshift into the ultimate
-          form of bluespace entity which took over your soul.
+          <b>Metamorphosis - Hound</b>: Allows you to shapeshift into the
+          ultimate form of bluespace entity which took over your soul.
         </p>
         <Button content="Bestia" onClick={() => act('bestia')} />
       </Section>
-    </Flex.Item>
+    </Stack.Item>
   );
 };

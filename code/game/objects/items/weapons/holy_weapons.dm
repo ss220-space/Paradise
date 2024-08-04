@@ -57,8 +57,7 @@
 
 /obj/item/nullrod/pickup(mob/living/user)
 	if(sanctify_force && !user.mind?.isholy)
-		user.adjustBruteLoss(force)
-		user.adjustFireLoss(sanctify_force)
+		user.take_overall_damage(force, sanctify_force)
 		user.Weaken(10 SECONDS)
 		user.drop_item_ground(src, force = TRUE)
 		user.visible_message(span_warning("[src] slips out of the grip of [user] as they try to pick it up, bouncing upwards and smacking [user.p_them()] in the face!"), \
@@ -125,8 +124,10 @@
 
 /obj/item/nullrod/afterattack(atom/movable/AM, mob/user, proximity)
 	. = ..()
-	if(!sanctify_force)
+
+	if(!proximity || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !sanctify_force)
 		return
+
 	if(isliving(AM))
 		var/mob/living/L = AM
 		L.adjustFireLoss(sanctify_force) // Bonus fire damage for sanctified (ERT) versions of nullrod
@@ -144,7 +145,7 @@
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
 	desc = "This hand of yours glows with an awesome power!"
-	flags = ABSTRACT|DROPDEL
+	item_flags = ABSTRACT|DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	hitsound = 'sound/weapons/sear.ogg'
 	damtype = BURN
@@ -318,7 +319,7 @@
 		S.real_name = name
 		S.name = name
 		S.ckey = theghost.ckey
-		var/input = stripped_input(S, "What are you named?", null, "", MAX_NAME_LEN)
+		var/input = tgui_input_text(S, "What are you named?", "Change Name", max_length = MAX_NAME_LEN)
 
 		if(src && input)
 			name = input
@@ -352,7 +353,7 @@
 	icon_state = "chainsaw1"
 	item_state = "mounted_chainsaw"
 	w_class = WEIGHT_CLASS_HUGE
-	flags = ABSTRACT
+	item_flags = ABSTRACT
 	sharp = TRUE
 	attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
 	hitsound = 'sound/weapons/chainsaw.ogg'
@@ -414,7 +415,7 @@
 	desc = "Particularly twisted deities grant gifts of dubious value."
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
-	flags = ABSTRACT
+	item_flags = ABSTRACT
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = TRUE
 
@@ -465,8 +466,8 @@
 	sharp = TRUE
 	embed_chance = 45
 	embedded_ignore_throwspeed_threshold = TRUE
-	slot_flags = null
-	flags = HANDSLOW
+	slot_flags = NONE
+	item_flags = SLOWS_WHILE_IN_HAND
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
 	drop_sound = 'sound/items/handling/knife_drop.ogg'
@@ -530,7 +531,7 @@
 		"<span class='info'>You kneel[M == user ? null : " next to [M]"] and begin a prayer to [SSticker.Bible_deity_name].</span>")
 
 	praying = TRUE
-	if(do_after(user, 15 SECONDS, target = M))
+	if(do_after(user, 15 SECONDS, M))
 		if(ishuman(M))
 			var/mob/living/carbon/human/target = M
 
@@ -560,10 +561,11 @@
 
 			if(prob(25))
 				to_chat(target, "<span class='notice'>[user]'s prayer to [SSticker.Bible_deity_name] has eased your pain!</span>")
-				target.adjustToxLoss(-5)
-				target.adjustOxyLoss(-5)
-				target.adjustBruteLoss(-5)
-				target.adjustFireLoss(-5)
+				var/update = NONE
+				update |= target.heal_overall_damage(5, 5, updating_health = FALSE)
+				update |= target.heal_damages(tox = 5, oxy = 5, updating_health = FALSE)
+				if(update)
+					target.updatehealth()
 
 			praying = FALSE
 
@@ -700,7 +702,7 @@
 		to_chat(missionary, "<span class='warning'>You halt the conversion as you realize [target] is mindless! Best to save your faith for someone more worthwhile.</span>")
 		return
 	to_chat(target, "<span class='userdanger'>Your mind seems foggy. For a moment, all you can think about is serving the greater good... the greater good...</span>")
-	if(do_after(missionary, 80))	//8 seconds to temporarily convert, roughly 3 seconds slower than a vamp's enthrall, but its a ranged thing
+	if(do_after(missionary, 8 SECONDS))	//8 seconds to temporarily convert, roughly 3 seconds slower than a vamp's enthrall, but its a ranged thing
 		if(faith < 100)		//to stop people from trying to exploit the do_after system to multi-convert, we check again if you have enough faith when it completes
 			to_chat(missionary, "<span class='warning'>You don't have enough faith to complete the conversion on [target]!</span>")
 			return

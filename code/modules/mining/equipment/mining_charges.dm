@@ -39,7 +39,7 @@
 			if(iscarbon(AM))
 				return
 			to_chat(user, "<span class='notice'>You start planting the [src].</span>")
-			if(do_after(user, 25 * toolspeed * gettoolspeedmod(user), target = AM))
+			if(do_after(user, 2.5 SECONDS * toolspeed, AM, category = DA_CAT_TOOL))
 				if(!user.drop_item_ground(src))
 					return
 				src.target = AM
@@ -78,7 +78,7 @@
 	S.start()
 	//location.attempt_drill(null,TRUE,3) //orange says it doesnt include the actual middle
 	for(var/turf/simulated/mineral/rock in circlerangeturfs(location, boom_sizes[3]))
-		var/distance = get_dist_euclidian(location,rock)
+		var/distance = get_dist_euclidean(location, rock)
 		if(distance <= boom_sizes[1])
 			rock.attempt_drill(null,TRUE,3)
 		else if (distance <= boom_sizes[2])
@@ -88,13 +88,13 @@
 
 	for(var/mob/living/carbon/C in circlerange(location,boom_sizes[3]))
 		if(ishuman(C)) //working on everyone
-			var/distance = get_dist_euclidian(location,C)
+			var/distance = get_dist_euclidean(location, C)
 			C.flash_eyes()
 			C.Weaken((boom_sizes[2] - distance) * 1 SECONDS) //1 second for how close you are to center if you're in range
 			C.AdjustDeaf((boom_sizes[3] - distance) * 10 SECONDS)
 			var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
 			if(istype(ears))
-				ears.receive_damage((boom_sizes[3] - distance) * 2) //something like that i guess. Mega charge makes 12 damage to ears if nearby
+				ears.internal_receive_damage((boom_sizes[3] - distance) * 2) //something like that i guess. Mega charge makes 12 damage to ears if nearby
 			to_chat(C, span_warning("<font size='2'><b>You are knocked down by the power of the mining charge!</font></b>"))
 	qdel(src)
 

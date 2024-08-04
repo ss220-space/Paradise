@@ -197,6 +197,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 	var/w_class_on = WEIGHT_CLASS_BULKY
+	item_flags = NOSHARPENING
 	force_unwielded = 3
 	force_wielded = 34
 	wieldsound = 'sound/weapons/saberon.ogg'
@@ -876,7 +877,7 @@
 	name = "hardplasma energy claws"
 	desc = "The power of the sun, in the claws of your hand."
 	icon_state = "pyro_claws"
-	flags = ABSTRACT|DROPDEL
+	item_flags = ABSTRACT|DROPDEL
 	force = 25
 	force_wielded = 25
 	damtype = BURN
@@ -917,7 +918,7 @@
 		if(A.arePowerSystemsOn())
 			user.visible_message("<span class='warning'>[user] jams [user.p_their()] [name] into the airlock and starts prying it open!</span>", "<span class='warning'>You start forcing the airlock open.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
 			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
-			if(!do_after(user, 25, target = A))
+			if(!do_after(user, 2.5 SECONDS, A))
 				return
 		user.visible_message("<span class='warning'>[user] forces the airlock open with [user.p_their()] [name]!</span>", "<span class='warning'>You force open the airlock.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
 		A.open(2)
@@ -945,11 +946,11 @@
 	else
 		. += "<span class='warning'>It is missing a pyroclastic anomaly core.</span>"
 
-/obj/item/clothing/gloves/color/black/pyro_claws/item_action_slot_check(slot)
+/obj/item/clothing/gloves/color/black/pyro_claws/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_GLOVES)
 		return TRUE
 
-/obj/item/clothing/gloves/color/black/pyro_claws/ui_action_click(mob/user)
+/obj/item/clothing/gloves/color/black/pyro_claws/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(!core)
 		to_chat(user, "<span class='notice'>[src] has no core to power it!</span>")
 		return

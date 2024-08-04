@@ -3,7 +3,8 @@
 	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rcd"
-	flags = CONDUCT | NOBLUDGEON
+	flags = CONDUCT
+	item_flags = NOBLUDGEON|NO_MAT_REDEMPTION
 	force = 0
 	throwforce = 10
 	throw_speed = 3
@@ -13,7 +14,6 @@
 	origin_tech = "engineering=4;materials=2"
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
-	flags_2 = NO_MAT_REDEMPTION_2
 	req_access = list(ACCESS_ENGINE)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
 	resistance_flags = FIRE_PROOF
@@ -244,10 +244,13 @@
 /obj/item/rcd/attack_self_tk(mob/user)
 	radial_menu(user)
 
-/obj/item/rcd/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/rcd/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/rcd/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "RCD", "Rapid Construction Device", 471, 673, master_ui, state)
+		ui = new(user, src, "RCD", "Rapid Construction Device")
 		ui.open()
 
 /obj/item/rcd/ui_data(mob/user)
@@ -455,9 +458,6 @@
 	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "rcd"
 	item_state = "rcdammo"
-	opacity = FALSE
-	density = FALSE
-	anchored = FALSE
 	origin_tech = "materials=3"
 	materials = list(MAT_METAL=16000, MAT_GLASS=8000)
 	var/ammoamt = 20

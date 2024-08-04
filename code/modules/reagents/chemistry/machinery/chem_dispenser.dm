@@ -75,7 +75,7 @@
 /obj/machinery/chem_dispenser/mutagensaltpeter
 	name = "botanical chemical dispenser"
 	desc = "Creates and dispenses chemicals useful for botany."
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 
 	dispensable_reagents = list(
 		"mutagen",
@@ -156,12 +156,10 @@
 		beaker = null
 		update_icon(UPDATE_OVERLAYS)
 
-
-/obj/machinery/chem_dispenser/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	// update the ui if it exists, returns null if no ui is passed/found
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/chem_dispenser/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ChemDispenser", ui_title, 477, 655)
+		ui = new(user, src, "ChemDispenser", ui_title)
 		ui.open()
 
 /obj/machinery/chem_dispenser/ui_data(mob/user)
@@ -347,13 +345,15 @@
 	. = ..()
 
 	if(!beaker)
-		return
+		return .
 
-	if(!icon_beaker)
-		icon_beaker = mutable_appearance(icon, "disp_beaker")
-
-	icon_beaker.pixel_x = rand(-10, 5)	// randomize beaker overlay position
-	. += icon_beaker
+	var/static/list/beaker_cache = list()
+	var/random_pixel = rand(-10, 5)	// randomize beaker overlay position
+	if(!beaker_cache["[random_pixel]"])
+		var/mutable_appearance/beaker_olay = mutable_appearance('icons/obj/chemical.dmi', "disp_beaker")
+		beaker_olay.pixel_w = random_pixel
+		beaker_cache["[random_pixel]"] = beaker_olay
+	. += beaker_cache["[random_pixel]"]
 
 
 /obj/machinery/chem_dispenser/soda
@@ -482,7 +482,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	item_state = "handheld_chem"
 	icon_state = "handheld_chem"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	var/obj/item/stock_parts/cell/high/cell = null
 	var/amount = 10
 	var/mode = "dispense"
@@ -537,11 +537,13 @@
 	else
 		to_chat(user, "<span class='warning'>The [src] lacks a power cell!</span>")
 
+/obj/item/handheld_chem_dispenser/ui_state(mob/user)
+	return GLOB.inventory_state
 
-/obj/item/handheld_chem_dispenser/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/handheld_chem_dispenser/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "HandheldChemDispenser", name, 390, 500)
+		ui = new(user, src, "HandheldChemDispenser", name)
 		ui.open()
 
 /obj/item/handheld_chem_dispenser/ui_data(mob/user)

@@ -11,6 +11,7 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	melee_damage_lower = 10 // slightly higher than araneus
 	melee_damage_upper = 30
 	a_intent = INTENT_HARM
@@ -28,6 +29,7 @@
 	nightvision = 9
 	universal_understand = 1
 	wander = 0
+	AI_delay_max = 0.5 SECONDS
 	var/life_regen_cycles = 0
 	var/life_regen_cycle_trigger = 10 // heal once for every X number of cycles spent resting
 	var/life_regen_amount = -10 // negative, because negative = healing
@@ -47,10 +49,10 @@
 		if(!wants_to_rest())
 			custom_emote(EMOTE_AUDIBLE, "рыч%(ит,ат)% и поднима%(ет,ют)%ся.")
 			playsound(get_turf(src), 'sound/hallucinations/growl2.ogg', 50, 1)
-			StopResting()
+			set_resting(FALSE, instant = TRUE)
 	else if(wants_to_rest())
 		custom_emote(EMOTE_VISIBLE, "лож%(ит,ат)%ся и начина%(ет,ют)% зализывать свои раны.")
-		StartResting()
+		set_resting(TRUE, instant = TRUE)
 
 /mob/living/simple_animal/hostile/hellhound/examine(mob/user)
 	. = ..()
@@ -79,8 +81,7 @@
 		if(life_regen_cycles >= life_regen_cycle_trigger)
 			life_regen_cycles = 0
 			to_chat(src, "<span class='notice'>You lick your wounds, helping them close.</span>")
-			adjustBruteLoss(life_regen_amount)
-			adjustFireLoss(life_regen_amount)
+			heal_overall_damage(life_regen_amount, life_regen_amount)
 		else
 			life_regen_cycles++
 
@@ -96,7 +97,7 @@
 	if(target && isliving(target))
 		var/mob/living/L = target
 		if(L.stat != CONSCIOUS)
-			target = user
+			GiveTarget(user)
 
 /mob/living/simple_animal/hostile/hellhound/greater
 	name = "Greater Hellhound"

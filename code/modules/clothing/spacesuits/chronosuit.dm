@@ -42,7 +42,7 @@
 	camera.holder = user
 	user.remote_control = camera
 
-/obj/item/clothing/suit/space/chronos/ui_action_click()
+/obj/item/clothing/suit/space/chronos/ui_action_click(mob/user, datum/action/action, leftclick)
 	if((cooldown <= world.time) && !teleporting && !activating)
 		if(!activated)
 			activate()
@@ -79,7 +79,7 @@
 		phaseanim.name = "phasing [user.name]"
 		phaseanim.icon = 'icons/mob/mob.dmi'
 		phaseanim.icon_state = "chronostuck"
-		phaseanim.density = 1
+		phaseanim.set_density(TRUE)
 		phaseanim.layer = FLY_LAYER
 		phaseanim.master = user
 		user.ExtinguishMob()
@@ -180,10 +180,10 @@
 
 /obj/effect/chronos_cam
 	name = "Chronosuit View"
-	density = 0
+	density = FALSE
 	anchored = TRUE
 	invisibility = INVISIBILITY_ABSTRACT
-	opacity = 0
+	opacity = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/mob/holder = null
 

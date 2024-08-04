@@ -38,10 +38,12 @@
 		projone.firer = usr
 		projone.firer_source_atom = src
 		projone.def_zone = BODY_ZONE_CHEST
+		projone.hit_crawling_mobs_chance = 33	// temporal soulution (or permanent), until weapons targeting rework
 		projtwo.starting = get_turf(my_atom)
 		projtwo.firer = usr
 		projtwo.firer_source_atom = src
 		projtwo.def_zone = BODY_ZONE_CHEST
+		projtwo.hit_crawling_mobs_chance = 33
 		spawn()
 			playsound(src, fire_sound, 50, 1)
 			projone.dumbfire(my_atom.dir)

@@ -1,7 +1,5 @@
 //Damage things	//TODO: merge these down to reduce on defines
 //Way to waste perfectly good damagetype names (BRUTE) on this... If you were really worried about case sensitivity, you could have just used lowertext(damagetype) in the proc...
-#define CUT 		"cut"
-#define BRUISE		"bruise"
 #define BRUTE		"brute"
 #define BURN		"fire"
 #define TOX			"tox"
@@ -20,11 +18,17 @@
 #define RAD 		"rad"
 #define FIRE 		"fire"
 #define ACID 		"acid"
-//#define MAGIC		"magic"
+#define MAGIC		"magic"
+
+/// All armors
+#define ARMOR_LIST_ALL(...) list(ACID, BIO, BOMB, BULLET, ENERGY, FIRE, LASER, MAGIC, MELEE, RAD)
 
 #define STUN		"stun"
 #define WEAKEN		"weaken"
+#define STAMCRIT	"stamcrit"
+#define KNOCKDOWN	"knockdown"
 #define PARALYZE	"paralize"
+#define SLEEP		"sleep"
 #define IMMOBILIZE	"immobilize"
 #define IRRADIATE	"irradiate"
 #define STUTTER		"stutter"
@@ -42,25 +46,40 @@
 #define OBLITERATION (1<<5)
 
 //Bitflags defining which status effects could be or are inflicted on a mob
-#define CANSTUN		(1<<0)
-#define CANWEAKEN	(1<<1)
-#define CANPARALYSE	(1<<2)
-#define CANPUSH		(1<<3)
-#define PASSEMOTES	(1<<4)      //Mob has a cortical borer or holders inside of it that need to see emotes.
-#define IGNORESLOWDOWN	(1<<5)
-#define IGNORE_SPEED_CHANGES	(1<<6)
-#define GODMODE		(1<<7)
+#define CANSTUN (1<<0)
+#define CANWEAKEN (1<<1)
+#define CANSTAMCRIT (1<<2)
+#define CANKNOCKDOWN (1<<3)
+#define CANPARALYSE (1<<4)
+#define CANPUSH	 (1<<5)
+#define PASSEMOTES (1<<6)      //Mob has a cortical borer or holders inside of it that need to see emotes.
+#define IGNORESLOWDOWN (1<<7)
+#define IGNORE_SPEED_CHANGES (1<<8)
+#define GODMODE (1<<9)
 
 //Health Defines
 #define HEALTH_THRESHOLD_CRIT 0
 #define HEALTH_THRESHOLD_DEAD -100
 
+/// Maximum amount of staminaloss, living mob can have.
+#define MAX_STAMINA_LOSS 120
+
 //Grab levels
-#define GRAB_PASSIVE  1
-#define GRAB_AGGRESSIVE  2
-#define GRAB_NECK    3
-#define GRAB_UPGRADING  4
-#define GRAB_KILL    5
+#define GRAB_PASSIVE 0
+#define GRAB_AGGRESSIVE 1
+#define GRAB_NECK 2
+#define GRAB_KILL 3
+
+#define MARTIAL_GRAB_AGGRESSIVE "martial_grab_aggressive"
+#define MARTIAL_GRAB_NECK "martial_grab_neck"
+#define MARTIAL_GRAB_KILL "martial_grab_kill"
+
+//Grab breakout odds
+#define GRAB_RESIST_CHANCE_AGGRESSIVE 60
+#define GRAB_RESIST_CHANCE_NECK 20
+#define GRAB_RESIST_CHANCE_KILL 5
+///Time to upgrade aggressive/neck grab to the next level.
+#define GRAB_UPGRADE_TIME (4 SECONDS)
 
 //Attack types for checking shields/hit reactions
 
@@ -134,6 +153,14 @@
 
 #define EMP_HEAVY 1
 #define EMP_LIGHT 2
+
+// Return values used in item/melee/baton/baton_attack.
+/// Does a normal item attack.
+#define BATON_DO_NORMAL_ATTACK 1
+/// The attack has been stopped. Either because the user was clumsy or the attack was blocked.
+#define BATON_ATTACK_DONE 2
+/// The baton attack is still going. baton_effect() is called.
+#define BATON_ATTACKING 3
 
 /*
 * converts life cycle values into deciseconds. try and avoid usage of this.

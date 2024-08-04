@@ -67,7 +67,7 @@
 	underlays.Cut()
 
 	if(event_triggered_by || event_source)
-		underlays += emissive_appearance(icon, "auth_lightmask")
+		underlays += emissive_appearance(icon, "auth_lightmask", src)
 
 
 /obj/machinery/keycard_auth/power_change(forced = FALSE)
@@ -83,10 +83,10 @@
 		return TRUE
 	ui_interact(user)
 
-/obj/machinery/keycard_auth/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/keycard_auth/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "KeycardAuth", name, 540, 300, master_ui, state)
+		ui = new(user, src, "KeycardAuth", name)
 		ui.open()
 
 
@@ -115,7 +115,7 @@
 	. = TRUE
 	switch(action)
 		if("ert")
-			ert_reason = stripped_input(usr, "Reason for ERT Call:", "", "")
+			ert_reason = tgui_input_text(usr, "Reason for ERT Call:", "Call ERT", encode = FALSE) // we strip this later in ERT_Announce
 		if("reset")
 			reset()
 		if("triggerevent")
@@ -135,13 +135,11 @@
 	event_triggered_by = null
 	event_confirmed_by = null
 	busy = FALSE
-	set_light_on(FALSE)
 	update_icon()
 
 
 /obj/machinery/keycard_auth/proc/broadcast_request()
 	update_icon()
-	set_light(1, LIGHTING_MINIMUM_POWER, l_on = TRUE)
 	for(var/obj/machinery/keycard_auth/KA in GLOB.machines)
 		if(KA == src)
 			continue
@@ -163,7 +161,6 @@
 		return
 	reset()
 
-	set_light(1, LIGHTING_MINIMUM_POWER, l_on = TRUE)
 	event_source = source
 	busy = TRUE
 	active = TRUE

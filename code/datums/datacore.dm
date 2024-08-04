@@ -36,60 +36,60 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 		var/department = 0
 		var/depthead = 0 			// Department Heads will be placed at the top of their lists.
 		if(real_rank in GLOB.command_positions)
-			heads[++heads.len] = list("name" = name, "rank" = rank, "active" = isactive)
+			heads[++heads.len] = list("name" = name, "rank" = rank, "real_rank" = real_rank, "active" = isactive)
 			department = 1
 			depthead = 1
 			if(real_rank == JOB_TITLE_CAPTAIN && heads.len != 1)
 				heads.Swap(1,  heads.len)
 
 		if((real_rank == JOB_TITLE_JUDGE) || (real_rank == JOB_TITLE_LAWYER) || (real_rank == JOB_TITLE_REPRESENTATIVE))
-			pro[++pro.len] = list("name" = name, "rank" = rank, "active" = isactive)
+			pro[++pro.len] = list("name" = name, "rank" = rank, "real_rank" = real_rank, "active" = isactive)
 			department = 1
 			if((real_rank == JOB_TITLE_JUDGE) && pro.len != 1)
 				pro.Swap(1,  pro.len)
 
 		if(real_rank in GLOB.security_positions)
-			sec[++sec.len] = list("name" = name, "rank" = rank, "active" = isactive)
+			sec[++sec.len] = list("name" = name, "rank" = rank, "real_rank" = real_rank, "active" = isactive)
 			department = 1
 			if(depthead && sec.len != 1)
 				sec.Swap(1, sec.len)
 
 		if(real_rank in GLOB.engineering_positions)
-			eng[++eng.len] = list("name" = name, "rank" = rank, "active" = isactive)
+			eng[++eng.len] = list("name" = name, "rank" = rank, "real_rank" = real_rank, "active" = isactive)
 			department = 1
 			if(depthead && eng.len != 1)
 				eng.Swap(1, eng.len)
 
 		if(real_rank in GLOB.medical_positions)
-			med[++med.len] = list("name" = name, "rank" = rank, "active" = isactive)
+			med[++med.len] = list("name" = name, "rank" = rank, "real_rank" = real_rank, "active" = isactive)
 			department = 1
 			if(depthead && med.len != 1)
 				med.Swap(1, med.len)
 
 		if(real_rank in GLOB.science_positions)
-			sci[++sci.len] = list("name" = name, "rank" = rank, "active" = isactive)
+			sci[++sci.len] = list("name" = name, "rank" = rank, "real_rank" = real_rank, "active" = isactive)
 			department = 1
 			if(depthead && sci.len != 1)
 				sci.Swap(1, sci.len)
 
 		if(real_rank in GLOB.service_positions)
-			ser[++ser.len] = list("name" = name, "rank" = rank, "active" = isactive)
+			ser[++ser.len] = list("name" = name, "rank" = rank, "real_rank" = real_rank, "active" = isactive)
 			department = 1
 			if(depthead && ser.len != 1)
 				ser.Swap(1, ser.len)
 
 		if(real_rank in GLOB.supply_positions)
-			sup[++sup.len] = list("name" = name, "rank" = rank, "active" = isactive)
+			sup[++sup.len] = list("name" = name, "rank" = rank, "real_rank" = real_rank, "active" = isactive)
 			department = 1
 			if(depthead && sup.len != 1)
 				sup.Swap(1, sup.len)
 
 		if(real_rank in GLOB.nonhuman_positions)
-			bot[++bot.len] = list("name" = name, "rank" = rank, "active" = isactive)
+			bot[++bot.len] = list("name" = name, "rank" = rank, "real_rank" = real_rank, "active" = isactive)
 			department = 1
 
 		if(!department && !(name in heads))
-			misc[++misc.len] = list("name" = name, "rank" = rank, "active" = isactive)
+			misc[++misc.len] = list("name" = name, "rank" = rank, "real_rank" = real_rank, "active" = isactive)
 
 
 	GLOB.PDA_Manifest = list(\

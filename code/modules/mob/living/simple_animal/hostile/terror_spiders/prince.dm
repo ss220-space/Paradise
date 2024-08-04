@@ -30,7 +30,7 @@
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	var/delimb_chance = 10
 	attack_sound = 'sound/creatures/terrorspiders/bite2.ogg'
-	ventcrawler = 0
+	ventcrawler_trait = null
 	ai_ventcrawls = FALSE
 	idle_ventcrawl_chance = 0
 	spider_tier = TS_TIER_3
@@ -59,7 +59,7 @@
 			var/obj/item/organ/external/NB = pick(L.bodyparts)
 			visible_message(span_warning("[src] Tears appart the [NB.name] of [L] with his razor sharp jaws!"))
 			NB.droplimb()  //dismemberment
-			L.adjustStaminaLoss(35)
+			L.apply_damage(35, STAMINA)
 	else
 		. = ..()
 

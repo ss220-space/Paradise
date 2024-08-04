@@ -64,28 +64,6 @@
 		return TRUE
 	return FALSE
 
-/obj/item/clothing/mask/muzzle/Topic(href, href_list)
-	..()
-	if(href_list["locked"])
-		var/mob/living/carbon/wearer = locate(href_list["locked"])
-		var/success = 0
-		if(ishuman(usr))
-			visible_message("<span class='danger'>[usr] tries to [locked ? "unlock" : "lock"] [wearer]'s [name].</span>", \
-							"<span class='userdanger'>[usr] tries to [locked ? "unlock" : "lock"] [wearer]'s [name].</span>")
-			if(do_mob(usr, wearer, POCKET_STRIP_DELAY))
-				if(locked)
-					success = do_unlock(usr)
-				else
-					success = do_lock(usr)
-			if(success)
-				visible_message("<span class='danger'>[usr] [locked ? "locks" : "unlocks"] [wearer]'s [name].</span>", \
-									"<span class='userdanger'>[usr] [locked ? "locks" : "unlocks"] [wearer]'s [name].</span>")
-				if(usr.machine == wearer && in_range(src, usr))
-					wearer.show_inv(usr)
-		else
-			to_chat(usr, "You lack the ability to manipulate the lock.")
-
-
 /obj/item/clothing/mask/muzzle/tapegag
 	name = "tape gag"
 	desc = "MHPMHHH!"
@@ -94,7 +72,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	resist_time = 150
 	mute = MUZZLE_MUTE_MUFFLE
-	flags = DROPDEL
+	item_flags = DROPDEL
 	var/trashtype = /obj/item/trash/tapetrash
 
 	sprite_sheets = list(
@@ -123,7 +101,9 @@
 	user.transfer_fingerprints_to(trash_gag)
 	user.put_in_active_hand(trash_gag, ignore_anim = FALSE)
 	playsound(user, 'sound/items/poster_ripped.ogg', 40, TRUE)
-	user.emote("scream")
+	if(user.has_pain())
+		// we have to use timer, since an item is still on user, while this proc is called
+		addtimer(CALLBACK(user, TYPE_PROC_REF(/mob, emote), "scream"), 0)
 
 
 /obj/item/clothing/mask/muzzle/tapegag/thick
@@ -300,7 +280,7 @@
 /obj/item/clothing/mask/fakemoustache/attack_self(mob/user)
 	pontificate(user)
 
-/obj/item/clothing/mask/fakemoustache/item_action_slot_check(slot)
+/obj/item/clothing/mask/fakemoustache/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_MASK)
 		return TRUE
 
@@ -516,12 +496,11 @@
 /obj/item/clothing/mask/bandana
 	name = "bandana"
 	desc = "A colorful bandana."
-	flags_inv = HIDENAME
-	w_class = WEIGHT_CLASS_TINY
-	slot_flags = ITEM_SLOT_MASK
-	adjusted_flags = ITEM_SLOT_HEAD
 	icon_state = "bandbotany"
-	dyeable = TRUE
+	w_class = WEIGHT_CLASS_TINY
+	flags_inv = HIDENAME|HIDEFACIALHAIR
+	adjusted_slot_flags = ITEM_SLOT_HEAD
+	adjusted_flags_inv = HIDENAME|HIDEFACIALHAIR|HIDEHEADHAIR
 	can_toggle = TRUE
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/mask.dmi',
@@ -540,18 +519,18 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi'
 		)
 	actions_types = list(/datum/action/item_action/adjust)
+	dying_key = DYE_REGISTRY_BANDANA
+
 
 /obj/item/clothing/mask/bandana/attack_self(mob/user)
 	adjustmask(user)
 
-/obj/item/clothing/mask/bandana/adjustmask(mob/user)
-	..()
-	var/mob/living/carbon/human/H = usr
-	if(H.l_hand && H.r_hand)
-		user.drop_item_ground(src)
-	else
-		user.drop_item_ground(src)
-		user.put_in_hands(src)
+
+/obj/item/clothing/mask/bandana/adjustmask(mob/living/user)
+	. = ..()
+	if(.)
+		undyeable = up ? TRUE : initial(undyeable)
+
 
 /obj/item/clothing/mask/bandana/red
 	name = "red bandana"
@@ -622,7 +601,7 @@
 	)
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
-	flags = AIRTIGHT
+	clothing_flags = AIRTIGHT
 	flags_cover = MASKCOVERSMOUTH
 
 

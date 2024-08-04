@@ -14,11 +14,11 @@
 
 /obj/vehicle/snowmobile/key/Initialize(mapload)
 	. = ..()
-	inserted_key = new /obj/item/key/snowmobile(null)
+	inserted_key = new /obj/item/key/snowmobile(src)
 
 /obj/vehicle/snowmobile/blue/key/Initialize(mapload)
 	. = ..()
-	inserted_key = new /obj/item/key/snowmobile(null)
+	inserted_key = new /obj/item/key/snowmobile(src)
 
 /obj/item/key/snowmobile
 	name = "snowmobile key"

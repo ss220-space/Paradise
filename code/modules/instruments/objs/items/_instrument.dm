@@ -30,18 +30,21 @@
 /obj/item/instrument/attack_self(mob/user)
 	ui_interact(user)
 
+/obj/item/instrument/ui_state(mob/user)
+	return GLOB.inventory_state
+
 /obj/item/instrument/ui_data(mob/user)
 	return song.ui_data(user)
 
-/obj/item/instrument/ui_interact(mob/user)
+/obj/item/instrument/ui_interact(mob/user, datum/tgui/ui = null)
 	if(!isliving(user) || user.incapacitated())
 		return
-	song.ui_interact(user)
+	song.ui_interact(user, ui)
 
-/obj/item/instrument/ui_act(action, params)
+/obj/item/instrument/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
-	return song.ui_act(action, params)
+	return song.ui_act(action, params, ui, state)
 
 /**
   * Whether the instrument should stop playing

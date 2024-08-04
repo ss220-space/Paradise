@@ -3,8 +3,7 @@
 		return FALSE
 	//robots don't die when gibbed. instead they drop their MMI'd brain
 	var/atom/movable/overlay/animation = null
-	notransform = 1
-	canmove = FALSE
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 
@@ -32,8 +31,7 @@
 /mob/living/silicon/robot/dust()
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
-	notransform = 1
-	canmove = FALSE
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 	if(mmi)

@@ -23,7 +23,7 @@
 	},
 /area/lavaland/surface/outdoors)
 "ae" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/ruin/powered/animal_hospital)
 "af" = (
 /obj/effect/spawner/window,
@@ -266,8 +266,16 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "aG" = (
-/obj/structure/extinguisher_cabinet,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "aJ" = (
 /turf/simulated/floor/plasteel/grimy{
@@ -313,6 +321,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/blue,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "aP" = (
@@ -682,7 +691,7 @@
 "bR" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/melee/baton/cattleprod{
+/obj/item/melee/baton/security/cattleprod{
 	desc = "On-the-fly rabies treatment.";
 	name = "cattle prod"
 	},
@@ -782,7 +791,7 @@
 /area/lavaland/surface/outdoors)
 "cc" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/ruin/powered/animal_hospital)
 "cd" = (
 /obj/structure/table/reinforced,
@@ -1228,15 +1237,15 @@ ae
 ae
 ae
 ae
+ae
 aG
-aL
 cw
 ae
 aV
 ba
 cI
+ae
 aG
-aL
 br
 bA
 aP
@@ -1408,8 +1417,8 @@ ae
 ae
 ae
 ae
+ae
 aG
-aL
 aP
 ae
 cf

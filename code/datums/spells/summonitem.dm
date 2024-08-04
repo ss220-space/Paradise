@@ -30,8 +30,10 @@
 			for(var/obj/item in hand_items)
 				if(istype(item, /obj/item/organ/internal/brain)) //Yeah, sadly this doesn't work due to the organ system.
 					break
-				if(ABSTRACT in item.flags)
-					continue
+				if(isitem(item))
+					var/obj/item/I = item
+					if(I.item_flags & ABSTRACT)
+						continue
 				if(HAS_TRAIT(item, TRAIT_NODROP))
 					message += "This feels very redundant, but you go through with it anyway.<br>"
 				marked_item = 		item

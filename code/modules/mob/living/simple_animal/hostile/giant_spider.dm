@@ -42,6 +42,7 @@
 	var/venom_per_bite = 0 // While the /poison/ type path remains as-is for consistency reasons, we're really talking about venom, not poison.
 	var/busy = 0
 	footstep_type = FOOTSTEP_MOB_CLAW
+	AI_delay_max = 0.5 SECONDS
 
 /mob/living/simple_animal/hostile/poison/giant_spider/AttackingTarget()
 	// This is placed here, NOT on /poison, because the other subtypes of /poison/ already override AttackingTarget() completely, and as such it would do nothing but confuse people there.
@@ -52,12 +53,12 @@
 		if(C.can_inject(null, FALSE, inject_target, FALSE))
 			C.reagents.add_reagent("spidertoxin", venom_per_bite)
 
-/mob/living/simple_animal/hostile/poison/giant_spider/get_spacemove_backup()
+/mob/living/simple_animal/hostile/poison/giant_spider/get_spacemove_backup(moving_direction, continuous_move)
 	. = ..()
 	// If we don't find any normal thing to use, attempt to use any nearby spider structure instead.
 	if(!.)
-		for(var/obj/structure/spider/S in range(1, get_turf(src)))
-			return S
+		for(var/obj/structure/spider/spider_thing in range(1, get_turf(src)))
+			return spider_thing
 
 //nursemaids - these create webs and eggs
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse
@@ -88,17 +89,35 @@
 	venom_per_bite = 10
 	move_to_delay = 5
 
+
 /mob/living/simple_animal/hostile/poison/giant_spider/handle_automated_movement() //Hacky and ugly.
 	. = ..()
-	if(AIStatus == AI_IDLE)
-		//1% chance to skitter madly away
-		if(!busy && prob(1))
-			stop_automated_movement = 1
-			Goto(pick(urange(20, src, 1)), move_to_delay)
-			spawn(50)
-				stop_automated_movement = 0
-				walk(src,0)
-		return 1
+	if(AIStatus != AI_IDLE)
+		return .
+
+	. = TRUE
+
+	//1% chance to skitter madly away
+	if(busy || !prob(1))
+		return .
+
+	var/turf/where
+	for(var/turf/check as anything in RANGE_TURFS(20, src))
+		if(!check.density)
+			where = check
+			break
+	if(!where)
+		return .
+
+	stop_automated_movement = TRUE
+	Goto(where, move_to_delay)
+	addtimer(CALLBACK(src, PROC_REF(start_automated_movement)), 5 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
+
+
+/mob/living/simple_animal/hostile/poison/giant_spider/proc/start_automated_movement()
+	SSmove_manager.stop_looping(src)
+	stop_automated_movement = FALSE
+
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/proc/GiveUp(C)
 	spawn(100)
@@ -202,7 +221,7 @@
 		busy = SPINNING_COCOON
 		src.visible_message("<span class='notice'>\the [src] begins to secrete a sticky substance around \the [cocoon_target].</span>")
 		stop_automated_movement = 1
-		walk(src,0)
+		SSmove_manager.stop_looping(src)
 		spawn(50)
 			if(busy == SPINNING_COCOON)
 				if(cocoon_target && istype(cocoon_target.loc, /turf) && get_dist(src,cocoon_target) <= 1)

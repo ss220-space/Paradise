@@ -33,7 +33,7 @@
 	desc = "A strangely translucent and iridescent crystal that looks like it used to be part of a larger structure. <span class='danger'>You get headaches just from looking at it.</span>"
 	icon = 'icons/obj/engines_and_power/supermatter.dmi'
 	icon_state = "darkmatter_shard"
-	density = 1
+	density = TRUE
 	anchored = FALSE
 	light_range = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF | NO_MALF_EFFECT
@@ -326,7 +326,7 @@
 	visible_message("<span class='userdanger'>[src] is consumed by the singularity!</span>")
 	for(var/mob/M in GLOB.mob_list)
 		M << 'sound/effects/supermatter.ogg' //everyone gunna know bout this
-		to_chat(M, "<span class='boldannounce'>A horrible screeching fills your ears, and a wave of dread washes over you...</span>")
+		to_chat(M, span_boldannounceic("A horrible screeching fills your ears, and a wave of dread washes over you..."))
 	qdel(src)
 	return(gain)
 
@@ -436,7 +436,7 @@
 		return
 	if(istype(W, /obj/item/retractor/supermatter))
 		to_chat(user, "<span class='notice'>[W] bounces off [src], you need to cut a sliver off first!</span>")
-	else if(!istype(W) || (W.flags & ABSTRACT) || !istype(user))
+	else if(!istype(W) || (W.item_flags & ABSTRACT) || !istype(user))
 		return
 	else if(user.drop_item_ground(W))
 		W.do_pickup_animation(src)
@@ -451,9 +451,12 @@
 		user.apply_effect(150, IRRADIATE)
 
 /obj/machinery/power/supermatter_shard/Bumped(atom/movable/moving_atom)
+	. = ..()
+	if(isprojectile(moving_atom))	// we update this in bullet_act()
+		return .
 	if(isnucleation(moving_atom))
 		nuclear_touch(moving_atom)
-		return
+		return .
 	if(isliving(moving_atom))
 		moving_atom.visible_message("<span class='danger'>\The [moving_atom] slams into \the [src] inducing a resonance... [moving_atom.p_their(TRUE)] body starts to glow and catch flame before flashing into ash.</span>",\
 		"<span class='userdanger'>You slam into \the [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\"</span>",\

@@ -19,7 +19,7 @@ SUBSYSTEM_DEF(afk)
 	else
 		non_cryo_antags = list(SPECIAL_ROLE_ABDUCTOR_AGENT, SPECIAL_ROLE_ABDUCTOR_SCIENTIST, \
 							SPECIAL_ROLE_SHADOWLING, SPECIAL_ROLE_WIZARD, SPECIAL_ROLE_WIZARD_APPRENTICE, SPECIAL_ROLE_NUKEOPS)
-
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/afk/fire()
 	var/list/toRemove = list()
@@ -32,7 +32,7 @@ SUBSYSTEM_DEF(afk)
 		// Only players and players with the AFK watch enabled
 		// No dead, unconcious, restrained, people without jobs or people on other Z levels than the station
 		if(!H.client || !(H.client.prefs.toggles2 & PREFTOGGLE_2_AFKWATCH) || !H.mind || \
-			H.stat || H.restrained() || !H.job || !is_station_level((T = get_turf(H)).z)) // Assign the turf as last. Small optimization
+			H.stat || HAS_TRAIT(H, TRAIT_RESTRAINED) || !H.job || !is_station_level((T = get_turf(H)).z)) // Assign the turf as last. Small optimization
 			if(afk_players[H.ckey])
 				toRemove += H.ckey
 			continue

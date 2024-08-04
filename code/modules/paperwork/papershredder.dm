@@ -3,7 +3,7 @@
 	desc = "For those documents you don't want seen."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "papershredder0"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	var/max_paper = 15
 	var/paperamount = 0
@@ -65,7 +65,7 @@
 	set category = "Object"
 	set src in range(1)
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(!paperamount)

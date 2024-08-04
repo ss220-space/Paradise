@@ -35,6 +35,13 @@ GLOBAL_LIST_EMPTY(uid_log)
 		GLOB.uid_log[type]++
 	return unique_datum_id
 
+
+/proc/UID_of(datum/target)
+	if(!isdatum(target))
+		CRASH("Non-datum passed as argument.")
+	return target.UID()
+
+
 /**
   * Locates a datum based off of the UID
   *

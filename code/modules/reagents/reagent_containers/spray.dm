@@ -5,7 +5,7 @@
 	icon_state = "cleaner"
 	item_state = "cleaner"
 	belt_icon = "cleaner"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	container_type = OPENCONTAINER
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0

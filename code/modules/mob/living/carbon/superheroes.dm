@@ -216,7 +216,7 @@
 				user.visible_message("<span class='danger'>[user] pulls out a pen and paper and begins filling an application form with [target].</span>")
 				to_chat(target, "<span class='danger'>You are being convinced by [user] to fill out an application form to become a henchman.</span>")//Ow the edge
 
-		if(!do_mob(user, target, 100)) //around 30 seconds total for enthralling, 45 for someone with a mindshield implant
+		if(!do_after(user, 10 SECONDS, target, NONE)) //around 30 seconds total for enthralling, 45 for someone with a mindshield implant
 			to_chat(user, "<span class='danger'>The enrollment process has been interrupted - you have lost the attention of [target].</span>")
 			to_chat(target, "<span class='warning'>You move away and are no longer under the charm of [user]. The application form is null and void.</span>")
 			recruiting = FALSE

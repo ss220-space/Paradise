@@ -35,7 +35,7 @@
 			playsound(src, teleport_sound, 100, vary = TRUE)
 			teleport_sound_cooldown = TRUE
 			addtimer(VARSET_CALLBACK(src, teleport_sound_cooldown, FALSE), 10 SECONDS)
-		if(do_after(user, 5 SECONDS, target = src))
+		if(do_after(user, 5 SECONDS, src))
 			do_teleport(user, user, 7)
 			investigate_log("teleported [key_name_log(user)] to [COORD(user)]", INVESTIGATE_TELEPORTATION)
 
@@ -116,7 +116,7 @@
 		/obj/item/gun/projectile/automatic/c20r/toy,
 		/obj/item/gun/projectile/automatic/l6_saw/toy,
 		/obj/item/gun/projectile/automatic/toy/pistol,
-		/obj/item/gun/projectile/automatic/toy/pistol/enforcer,
+		/obj/item/gun/projectile/automatic/toy/pistol/enforcer/riot,
 		/obj/item/gun/projectile/shotgun/toy,
 		/obj/item/gun/projectile/shotgun/toy/crossbow,
 		/obj/item/gun/projectile/shotgun/toy/tommygun,

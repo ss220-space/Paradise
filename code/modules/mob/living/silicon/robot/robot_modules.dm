@@ -139,14 +139,14 @@
 	R.add_language(LANGUAGE_MOTH, 0)
 
 /obj/item/robot_module/proc/add_subsystems_and_actions(mob/living/silicon/robot/R)
-	R.verbs |= subsystems
+	add_verb(R, subsystems)
 	for(var/A in module_actions)
 		var/datum/action/act = new A()
 		act.Grant(R)
 		R.module_actions += act
 
 /obj/item/robot_module/proc/remove_subsystems_and_actions(mob/living/silicon/robot/R)
-	R.verbs -= subsystems
+	remove_verb(R, subsystems)
 	for(var/datum/action/A in R.module_actions)
 		A.Remove(R)
 		qdel(A)
@@ -184,7 +184,7 @@
 	modules += new /obj/item/gps/cyborg(src)
 	// sec
 	modules += new /obj/item/restraints/handcuffs/cable/zipties(src)
-	modules += new /obj/item/melee/classic_baton/telescopic(src) // for minimal possablity to execute sec part of the module and also for tests
+	modules += new /obj/item/melee/baton/telescopic(src) // for minimal possablity to execute sec part of the module and also for tests
 	// janitorial
 	modules += new /obj/item/soap/nanotrasen(src)
 	modules += new /obj/item/lightreplacer/cyborg(src)
@@ -370,7 +370,7 @@
 /obj/item/robot_module/security/New()
 	..()
 	modules += new /obj/item/restraints/handcuffs/cable/zipties(src)
-	modules += new /obj/item/melee/baton/loaded(src)
+	modules += new /obj/item/melee/baton/security(src)
 	modules += new /obj/item/gun/energy/disabler/cyborg(src)
 	modules += new /obj/item/holosign_creator/security(src)
 	modules += new /obj/item/clothing/mask/gas/sechailer/cyborg(src)
@@ -382,7 +382,7 @@
 	fix_modules()
 
 /obj/item/robot_module/security/update_cells(unlink_cell = FALSE)
-	var/obj/item/melee/baton/baton = locate() in modules
+	var/obj/item/melee/baton/security/baton = locate() in modules
 	baton?.link_new_cell(unlink_cell)
 
 /obj/item/robot_module/janitor
@@ -723,7 +723,7 @@
 	..()
 
 	modules += new /obj/item/gun/energy/immolator/multi/cyborg(src) // See comments on /robot_module/combat below
-	modules += new /obj/item/melee/baton/loaded(src) // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
+	modules += new /obj/item/melee/baton/security(src) // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
 	modules += new /obj/item/restraints/handcuffs/cable/zipties(src)
 	modules += new /obj/item/pickaxe/drill/jackhammer(src) // for breaking walls to execute flanking moves
 	modules += new /obj/item/borg/destroyer/mobility(src)
@@ -750,7 +750,7 @@
 	// So, borg has way more burst damage, but also takes way longer to recharge / get back in the fight once depleted. Has to find a borg recharger and sit in it for ages.
 	// Organic gamma sec ERT carries alternate weapons, including a box of flashbangs, and can load up on a huge number of guns from science. Borg cannot do either.
 	// Overall, gamma borg has higher skill floor but lower skill ceiling.
-	modules += new /obj/item/melee/baton/loaded(src) // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
+	modules += new /obj/item/melee/baton/security(src) // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
 	modules += new /obj/item/restraints/handcuffs/cable/zipties(src)
 	modules += new /obj/item/pickaxe/drill/jackhammer(src) // for breaking walls to execute flanking moves
 	modules += new /obj/item/extinguisher/mini(src)

@@ -2,12 +2,13 @@ SUBSYSTEM_DEF(title)
 	name = "Title Screen"
 	flags = SS_NO_FIRE
 	init_order = INIT_ORDER_TITLE
+	init_stage = INITSTAGE_EARLY
 	ss_id = "title_screen"
 
 
 /datum/controller/subsystem/title/Initialize()
 	create_title_screen()
-
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/title/proc/create_title_screen(mob/user)
 	. = FALSE
@@ -56,9 +57,10 @@ SUBSYSTEM_DEF(title)
 
 			var/obj/effect/abstract/new_screen = new(splash)
 			new_screen.invisibility = NONE
+			new_screen.plane = splash.plane
 			new_screen.layer = splash.layer + 0.1
 			new_screen.icon = icon
-			new_screen.name = "Fancy Screen"
+			new_screen.name = "Space Station 13"
 			splash.current_screen = new_screen
 
 			// Below operations are needed to centrally place the new splashscreen on the lobby area

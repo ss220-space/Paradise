@@ -45,14 +45,18 @@
 			overlaystate = "greenOverlay"
 		if(AREASELECT_CORNERB)
 			overlaystate = "blueOverlay"
-	preview += image('icons/turf/overlays.dmi', T, overlaystate)
+	var/image/I = image('icons/turf/overlays.dmi', T, overlaystate)
+	SET_PLANE(I, ABOVE_LIGHTING_PLANE, T)
+	preview += I
 	BM.holder.images += preview
 	return T
 
 /datum/buildmode_mode/proc/highlight_region(region)
 	BM.holder.images -= preview
-	for(var/T in region)
-		preview += image('icons/turf/overlays.dmi', T, "redOverlay")
+	for(var/turf/T in region)
+		var/image/I = image('icons/turf/overlays.dmi', T, "redOverlay")
+		SET_PLANE(I, ABOVE_LIGHTING_PLANE, T)
+		preview += I
 	BM.holder.images += preview
 
 /datum/buildmode_mode/proc/deselect_region()

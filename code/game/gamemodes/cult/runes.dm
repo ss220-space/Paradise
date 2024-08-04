@@ -87,7 +87,7 @@ To draw a rune, use a ritual dagger.
 		// Everything else
 		var/obj/item/melee/cultblade/dagger/D = I
 		user.visible_message("<span class='warning'>[user] begins to erase [src] with [I].</span>")
-		if(do_after(user, initial(scribe_delay) * D.scribe_multiplier, target = src))
+		if(do_after(user, initial(scribe_delay) * D.scribe_multiplier, src))
 			to_chat(user, "<span class='notice'>You carefully erase the [lowertext(cultist_name)] rune.</span>")
 			qdel(src)
 		return
@@ -200,10 +200,10 @@ structure_check() searches for nearby cultist structures required for the invoca
 	new /obj/effect/temp_visual/dir_setting/cult/phase/out(location, user.dir)
 	new /obj/effect/temp_visual/dir_setting/cult/phase(target, user.dir)
 	// So that the mob only appears after the effect is finished
-	user.notransform = TRUE
+	ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	user.invisibility = INVISIBILITY_MAXIMUM
-	sleep(12)
-	user.notransform = FALSE
+	sleep(1.2 SECONDS)
+	REMOVE_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	user.invisibility = 0
 
 /obj/effect/rune/proc/do_invoke_glow()
@@ -337,8 +337,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			var/burndamage = convertee.getFireLoss()
 			if(brutedamage || burndamage) // If the convertee is injured
 				// Heal 90% of all damage, including robotic limbs
-				H.adjustBruteLoss(-(brutedamage * 0.9), robotic = TRUE)
-				H.adjustFireLoss(-(burndamage * 0.9), robotic = TRUE)
+				H.heal_overall_damage(brutedamage * 0.9, burndamage * 0.9, affect_robotic = TRUE)
 				if(ismachineperson(H))
 					H.visible_message("<span class='warning'>A dark force repairs [convertee]!</span>",
 					"<span class='cultitalic'>Your damage has been repaired. Now spread the blood to others.</span>")
@@ -839,7 +838,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		fail_invoke()
 		return
 
-	var/choice = alert(user, "You tear open a connection to the spirit realm...", null, "Summon a Cult Ghost", "Ascend as a Dark Spirit", "Cancel")
+	var/choice = tgui_alert(user, "You tear open a connection to the spirit realm...", "Invoke", list("Summon a Cult Ghost", "Ascend as a Dark Spirit", "Cancel"))
 	if(choice == "Summon a Cult Ghost")
 		if(!is_station_level(z) || istype(get_area(src), /area/space))
 			to_chat(user, "<span class='cultitalic'>The veil is not weak enough here to manifest spirits, you must be on station!</span>")

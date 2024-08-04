@@ -11,7 +11,8 @@
 	icon_state = "powersink0"
 	item_state = "electronic"
 	w_class = WEIGHT_CLASS_BULKY
-	flags = CONDUCT | NO_PIXEL_RANDOM_DROP
+	flags = CONDUCT
+	item_flags = NO_PIXEL_RANDOM_DROP
 	throwforce = 5
 	throw_speed = 1
 	throw_range = 2
@@ -42,7 +43,7 @@
 			if(mode == OPERATING)
 				STOP_PROCESSING(SSobj, src)
 			set_anchored(FALSE)
-			density = FALSE
+			set_density(FALSE)
 
 		if(CLAMPED_OFF)
 			if(!attached)
@@ -50,14 +51,14 @@
 			if(mode == OPERATING)
 				STOP_PROCESSING(SSobj, src)
 			set_anchored(TRUE)
-			density = TRUE
+			set_density(TRUE)
 
 		if(OPERATING)
 			if(!attached)
 				return
 			START_PROCESSING(SSobj, src)
 			set_anchored(TRUE)
-			density = TRUE
+			set_density(TRUE)
 
 	mode = value
 	update_icon(UPDATE_ICON_STATE)

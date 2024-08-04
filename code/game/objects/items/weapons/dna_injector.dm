@@ -128,8 +128,7 @@
 			target_dna.UpdateSE()
 		else
 			target_dna.SetSEValue(block, GetValue())
-		domutcheck(target, null, forcedmutation ? MUTCHK_FORCED : NONE)
-		target.update_mutations()
+		target.check_genes(forcedmutation ? MUTCHK_FORCED : NONE)
 
 	target.sync_organ_dna(assimilate = FALSE, old_ue = prev_UE)
 
@@ -165,7 +164,7 @@
 
 	if(M != user)
 		M.visible_message("<span class='danger'>[user] is trying to inject [M] with [src]!</span>", "<span class='userdanger'>[user] is trying to inject [M] with [src]!</span>")
-		if(!do_mob(user, M))
+		if(!do_after(user, 3 SECONDS, M, NONE))
 			return
 		M.visible_message("<span class='danger'>[user] injects [M] with the syringe with [src]!", \
 						"<span class='userdanger'>[user] injects [M] with the syringe with [src]!")

@@ -109,7 +109,7 @@
 
 	if(. && istype(target, /obj/item/organ/internal/brain/diona))
 		var/is_dead = owner.is_dead()
-		if(is_dead || do_after(owner, 1 MINUTES, target = owner))
+		if(is_dead || do_after(owner, 1 MINUTES, owner))
 			var/obj/item/organ/internal/brain/diona/brain = target
 			var/loc = owner.loc
 			var/datum/mind/mind = owner.mind
@@ -181,11 +181,11 @@
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 	if(istype(parent, /obj/item/organ/internal))
-		RegisterSignal(parent, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(transform_organ))
+		RegisterSignal(parent, COMSIG_ORGAN_REMOVED, PROC_REF(transform_organ))
 
 
 /datum/component/diona_internals/proc/transform_organ()
-	SIGNAL_HANDLER
+	SIGNAL_HANDLER // COMSIG_ORGAN_REMOVED
 
 	if(is_int_organ(parent))
 		var/obj/item/organ/internal/organ = parent

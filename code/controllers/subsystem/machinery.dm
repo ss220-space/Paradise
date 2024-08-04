@@ -21,6 +21,7 @@ SUBSYSTEM_DEF(machines)
 /datum/controller/subsystem/machines/Initialize()
 	makepowernets()
 	fire()
+	return SS_INIT_SUCCESS
 
 
 /datum/controller/subsystem/machines/proc/makepowernets()

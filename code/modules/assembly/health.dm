@@ -94,7 +94,7 @@
 
 	var/mob/living/user = usr
 
-	if(user.incapacitated() || user.restrained() || !in_range(loc, user))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !in_range(loc, user))
 		user << browse(null, "window=hscan")
 		onclose(user, "hscan")
 		return

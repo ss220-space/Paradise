@@ -24,7 +24,7 @@
 	var/sample_type
 	inuse = 1
 	to_chat(user, "<span class='notice'>You begin collecting evidence.</span>")
-	if(do_after(user, 2 SECONDS, target = src))
+	if(do_after(user, 2 SECONDS, src))
 		if(H.wear_mask)
 			to_chat(user, "<span class='warning'>\The [H] is wearing a mask.</span>")
 			inuse = 0
@@ -35,7 +35,7 @@
 			inuse = 0
 			return
 
-		if(user != H && H.a_intent != INTENT_HELP && !H.lying_angle)
+		if(user != H && H.a_intent != INTENT_HELP && H.body_position != LYING_DOWN)
 			user.visible_message("<span class='danger'>\The [user] tries to take a swab sample from \the [H], but they move away.</span>")
 			inuse = 0
 			return
@@ -104,7 +104,7 @@
 	add_fingerprint(user)
 	inuse = 1
 	to_chat(user, "<span class='notice'>You begin collecting evidence.</span>")
-	if(do_after(user, 2 SECONDS, target =src))
+	if(do_after(user, 2 SECONDS, src))
 		var/list/choices = list()
 		if(A.blood_DNA)
 			choices |= "Blood"

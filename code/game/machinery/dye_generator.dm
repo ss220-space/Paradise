@@ -7,7 +7,7 @@
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
-	var/dye_color = "#FFFFFF"
+	light_range = 2
 
 
 /obj/machinery/dye_generator/Initialize(mapload)
@@ -30,10 +30,10 @@
 
 	if(stat & BROKEN)
 		. += "[base_icon_state]_broken"
-		underlays += emissive_appearance(icon, "[base_icon_state]_broken_lightmask")
+		underlays += emissive_appearance(icon, "[base_icon_state]_broken_lightmask", src)
 	else
 		. += "[base_icon_state]"
-		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask")
+		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
 
 
 /obj/machinery/dye_generator/obj_break(damage_flag)
@@ -43,16 +43,13 @@
 
 /obj/machinery/dye_generator/power_change(forced = FALSE)
 	. = ..()
-	if(stat & NOPOWER)
-		set_light_on(FALSE)
-	else
-		set_light(1, LIGHTING_MINIMUM_POWER, dye_color)
 	if(.)
+		set_light_on(!(stat & NOPOWER))
 		update_icon(UPDATE_OVERLAYS)
 
 
 /obj/machinery/dye_generator/extinguish_light(force = FALSE)
-	if(light)
+	if(light_on)
 		set_light_on(FALSE)
 		underlays.Cut()
 
@@ -61,9 +58,10 @@
 	..()
 	if(stat & (BROKEN|NOPOWER))
 		return
-	var/temp = input(usr, "Choose a dye color", "Dye Color") as color
-	dye_color = temp
-	set_light(1, LIGHTING_MINIMUM_POWER, temp)
+	var/temp = input(usr, "Choose a dye color", "Dye Color") as color|null
+	if(!temp)
+		return
+	set_light_color(temp)
 
 
 /obj/machinery/dye_generator/attackby(obj/item/I, mob/user, params)
@@ -76,7 +74,7 @@
 		add_fingerprint(user)
 		var/obj/item/hair_dye_bottle/HD = I
 		user.visible_message(span_notice("[user] fills the [HD] up with some dye."),span_notice("You fill the [HD] up with some hair dye."))
-		HD.dye_color = dye_color
+		HD.dye_color = light_color
 		HD.update_icon(UPDATE_OVERLAYS)
 		return
 	return ..()
@@ -93,7 +91,7 @@
 	throw_range = 7
 	force = 0
 	w_class = WEIGHT_CLASS_TINY
-	var/dye_color = "#FFFFFF"
+	var/hair_dye_color = "#FFFFFF"
 
 
 /obj/item/hair_dye_bottle/Initialize(mapload)
@@ -103,7 +101,7 @@
 
 /obj/item/hair_dye_bottle/update_overlays()
 	. = ..()
-	. += mutable_appearance(icon, icon_state = "hairdyebottle-overlay", color = dye_color)
+	. += mutable_appearance(icon, icon_state = "hairdyebottle-overlay", color = hair_dye_color)
 
 
 /obj/item/hair_dye_bottle/attack(mob/living/carbon/M, mob/user)
@@ -129,17 +127,17 @@
 			to_chat(user, "You are too far away!")
 			return
 		user.visible_message(span_notice("[user] starts dying [M]'s [what_to_dye]!"), span_notice("You start dying [M]'s [what_to_dye]!"))
-		if(do_after(user, 50, target = H))
+		if(do_after(user, 5 SECONDS, H))
 			switch(what_to_dye)
 				if("hair")
-					H.change_hair_color(dye_color)
+					H.change_hair_color(hair_dye_color)
 				if("alt. hair theme")
-					H.change_hair_color(dye_color, 1)
+					H.change_hair_color(hair_dye_color, 1)
 				if("facial hair")
-					H.change_facial_hair_color(dye_color)
+					H.change_facial_hair_color(hair_dye_color)
 				if("alt. facial hair theme")
-					H.change_facial_hair_color(dye_color, 1)
+					H.change_facial_hair_color(hair_dye_color, 1)
 				if("body")
-					H.change_skin_color(dye_color)
+					H.change_skin_color(hair_dye_color)
 			H.update_dna()
 		user.visible_message(span_notice("[user] finishes dying [M]'s [what_to_dye]!"), span_notice("You finish dying [M]'s [what_to_dye]!"))

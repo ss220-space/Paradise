@@ -289,6 +289,12 @@ GLOBAL_LIST_INIT(cloth_recipes, list(
 	new /datum/stack_recipe("Empty sandbag", /obj/item/emptysandbag, 4),
 	new /datum/stack_recipe("Improvised gauze", /obj/item/stack/medical/bruise_pack/improvised, res_amount = 2, max_res_amount = 6),
 	new /datum/stack_recipe("Rag", /obj/item/reagent_containers/glass/rag),
+	new /datum/stack_recipe_list("Towels", list(
+		new /datum/stack_recipe("Short towel", /obj/item/clothing/suit/towel/short, 2),
+		new /datum/stack_recipe("Short towel alt", /obj/item/clothing/suit/towel/short/alt, 2),
+		new /datum/stack_recipe("Long towel", /obj/item/clothing/suit/towel, 3),
+		new /datum/stack_recipe("Long towel alt", /obj/item/clothing/suit/towel/alt, 3),
+	)),
 ))
 /obj/item/stack/sheet/cloth
 	name = "cloth"
@@ -376,7 +382,7 @@ GLOBAL_LIST_INIT(cardboard_recipes, list(
 	new /datum/stack_recipe("large box", /obj/item/storage/box/large, 4),
 	new /datum/stack_recipe("cardboard box", /obj/structure/closet/cardboard, 4),
 	null,
-	new /datum/stack_recipe("cardboard cutout", /obj/item/cardboard_cutout, 5),
+	new /datum/stack_recipe("cardboard cutout", /obj/item/twohanded/cardboard_cutout, 5),
 	new /datum/stack_recipe("cardborg helmet", /obj/item/clothing/head/cardborg),
 	new /datum/stack_recipe("cardborg suit", /obj/item/clothing/suit/cardborg, 3),
 	new /datum/stack_recipe("folder", /obj/item/folder),

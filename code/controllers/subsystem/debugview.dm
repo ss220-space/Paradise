@@ -37,7 +37,7 @@ SUBSYSTEM_DEF(debugview)
 	entries += "\[Processing] Cost: [round(SSprocessing.cost, 1)]ms | P: [length(SSprocessing.processing)]"
 	entries += "\[Projectiles] Cost: [round(SSprojectiles.cost, 1)]ms | P: [length(SSprojectiles.processing)]"
 	entries += "\[Runechat] Cost: [round(SSrunechat.cost, 1)]ms | AM: [SSrunechat.bucket_count] | SQ: [length(SSrunechat.second_queue)]"
-	entries += "\[TGUI] Cost: [round(SStgui.cost, 1)]ms | P: [length(SStgui.processing_uis)]"
+	entries += "\[TGUI] Cost: [round(SStgui.cost, 1)]ms | P: [length(SStgui.open_uis)]"
 	entries += "\[Timer] Cost: [round(SStimer.cost, 1)]ms | B: [SStimer.bucket_count] | P: [length(SStimer.second_queue)] | RST: [SStimer.bucket_reset_count]"
 
 	// Do some parsing to format it properly
@@ -51,7 +51,7 @@ SUBSYSTEM_DEF(debugview)
 
 
 /datum/controller/subsystem/debugview/proc/start_processing(client/C)
-	C.debug_text_overlay = new /obj/screen/debugtextholder
+	C.debug_text_overlay = new /atom/movable/screen/debugtextholder
 	C.screen |= C.debug_text_overlay
 	processing |= C
 
@@ -62,7 +62,7 @@ SUBSYSTEM_DEF(debugview)
 	qdel(C.debug_text_overlay)
 
 
-/obj/screen/debugtextholder
+/atom/movable/screen/debugtextholder
 	icon = 'icons/mob/screen_full.dmi'
 	icon_state = "default"
 	screen_loc = "CENTER-7,CENTER-7"
@@ -89,7 +89,7 @@ SUBSYSTEM_DEF(debugview)
 		if((SS.flags & SS_NO_FIRE) || !SS.can_fire)
 			continue
 
-		html += "[SS.state_colour()]\[[SS.state_letter()]][SS.ss_id]</font>\t[round(SS.cost, 1)]ms | [round(SS.tick_usage, 1)]% | [SS.get_stat_details()]"
+		html += "[SS.state_colour()]\[[SS.state_letter()]][SS.ss_id]</font>\t[round(SS.cost, 1)]ms | [round(SS.tick_usage, 1)]% [SS.get_stat_details() ? "| [SS.get_stat_details()] " : ""]| <a href=?_src_=vars;Vars=[SS.UID()]>VV Edit</a>"
 
 	popup.set_content(html.Join("<br>"))
 	popup.open(FALSE)

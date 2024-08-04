@@ -65,7 +65,7 @@
 	return TRUE
 
 
-/datum/antagonist/ninja/Destroy(force, ...)
+/datum/antagonist/ninja/Destroy(force)
 	owner.offstation_role = FALSE
 	human_ninja = null
 	creeping_widow = null
@@ -113,7 +113,10 @@
 /datum/antagonist/ninja/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/user = ..()
 	user.faction = list(ROLE_NINJA)
-	human_ninja = ishuman(user) ? user : null
+
+
+/datum/antagonist/ninja/proc/change_species(mob/living/mob_to_change = null) // This should be used to fully to remove robo-limbs & change species for lack of sprites
+	human_ninja = ishuman(mob_to_change) ? mob_to_change : null
 	if(human_ninja)
 		human_ninja.set_species(/datum/species/human)	// only human ninjas for now
 		human_ninja.revive()
@@ -206,7 +209,7 @@
 		return
 
 	if(!hud.ninja_energy_display)	// creating new interface if none
-		hud.ninja_energy_display = new /obj/screen()
+		hud.ninja_energy_display = new /atom/movable/screen()
 		hud.ninja_energy_display.name = "Заряд батареи"
 		hud.ninja_energy_display.icon = 'icons/mob/screen_64x64.dmi'
 		hud.ninja_energy_display.maptext_x = 0
@@ -227,7 +230,7 @@
 	// concentration level
 	if(!hud.ninja_focus_display && owner.martial_art && istype(owner.martial_art, /datum/martial_art/ninja_martial_art))
 		creeping_widow = owner.martial_art
-		hud.ninja_focus_display = new /obj/screen()
+		hud.ninja_focus_display = new /atom/movable/screen()
 		hud.ninja_focus_display.name = "Концентрация"
 		hud.ninja_focus_display.screen_loc = "EAST:-6,CENTER-2:15"
 		hud.infodisplay += hud.ninja_focus_display
@@ -356,8 +359,7 @@
 	for(var/datum/mind/traitor in pre_antags)
 		var/datum/antagonist/traitor/traitor_datum = new
 		traitor_datum.give_objectives = FALSE
-		if(prob(10))
-			traitor_datum.is_contractor = TRUE
+		traitor_datum.is_contractor = TRUE
 		traitor.add_antag_datum(traitor_datum)
 
 		var/objective_amount = protect_objective ? CONFIG_GET(number/traitor_objectives_amount) - 1 : CONFIG_GET(number/traitor_objectives_amount)

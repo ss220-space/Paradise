@@ -36,7 +36,7 @@
 		if(isnull(A))
 			continue
 		for(var/turf/simulated/floor/F in A.contents)
-			if(turf_clear(F))
+			if(!F.is_blocked_turf(exclude_mobs = TRUE))
 				turfs += F
 
 	if(!length(turfs))
@@ -49,7 +49,7 @@
 	vermin = rand(0, 4)
 	switch(vermin)
 		if(VERM_MICE)
-			spawn_types = list(/mob/living/simple_animal/mouse/gray, /mob/living/simple_animal/mouse/brown, /mob/living/simple_animal/mouse/white)
+			spawn_types = list(/mob/living/simple_animal/mouse, /mob/living/simple_animal/mouse/brown, /mob/living/simple_animal/mouse/white)
 			max_number = 12
 			vermstring = "мышей"
 		if(VERM_LIZARDS)
@@ -66,16 +66,16 @@
 			vermstring = "пауков"
 		if(VERM_RATS)
 			max_number = 8
-			if(prob(70))
-				spawn_types = list(/mob/living/simple_animal/mouse/rat)
-				vermstring = "крыс"
-			else
-				if(prob(50))
-					spawn_types = list(/mob/living/simple_animal/mouse/rat/white)
-					vermstring = "лабораторных крыс"
-				else
-					spawn_types = list(/mob/living/simple_animal/mouse/rat/irish)
-					vermstring = "ирландских крыс"
+			switch(rand(1, 20))
+				if(1 to 14)
+					spawn_types	= list(/mob/living/simple_animal/mouse/rat)
+					vermstring	= "крыс"
+				if(15 to 17)
+					spawn_types	= list(/mob/living/simple_animal/mouse/rat/white)
+					vermstring	= "лабораторных крыс"
+				if(18 to 20)
+					spawn_types	= list(/mob/living/simple_animal/mouse/rat/irish)
+					vermstring	= "ирландских крыс"
 		if(VERM_FROG)
 			max_number = 6
 			if(prob(85))

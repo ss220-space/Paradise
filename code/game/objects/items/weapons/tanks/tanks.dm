@@ -18,8 +18,9 @@
 	var/volume = 70
 	var/fillable = TRUE
 
-/obj/item/tank/New()
-	..()
+
+/obj/item/tank/Initialize(mapload)
+	. = ..()
 
 	air_contents = new /datum/gas_mixture()
 	air_contents.volume = volume //liters
@@ -28,7 +29,7 @@
 	populate_gas()
 
 	START_PROCESSING(SSobj, src)
-	return
+
 
 /obj/item/tank/Destroy()
 	QDEL_NULL(air_contents)
@@ -40,38 +41,54 @@
 /obj/item/tank/proc/populate_gas()
 	return
 
-/obj/item/tank/ui_action_click(mob/user)
+/obj/item/tank/ui_action_click(mob/user, datum/action/action, leftclick)
 	toggle_internals(user)
 
-/obj/item/tank/proc/toggle_internals(mob/user, silent = FALSE)
-	var/mob/living/carbon/C = user
-	if(!istype(C))
-		return FALSE
 
-	if(C.internal == src)
-		to_chat(C, "<span class='notice'>You close \the [src] valve.</span>")
-		C.internal = null
-	else
-		if(!C.get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE)) // Breathing tubes can always use internals, if they have one, skip ahead and turn internals on/off
-			if(!C.wear_mask) // Do we have a mask equipped?
-				return FALSE
+/obj/item/tank/proc/toggle_internals(mob/living/carbon/user, silent = FALSE)
+	if(!iscarbon(user))
+		return
 
-			var/obj/item/clothing/mask/M = C.wear_mask
-			// If the "mask" isn't actually a mask OR That mask isn't internals compatible AND Their headgear isn't internals compatible
-			if(!istype(M) || (!(initial(M.flags) & AIRTIGHT) && !(C.head && C.head.flags & AIRTIGHT)))
-				if(!silent)
-					to_chat(C, "<span class='warning'>You are not wearing a suitable mask or helmet.</span>")
-				return FALSE
-			if(M.up) // If the mask is equipped but pushed down
-				M.adjustmask(C) // Adjust it back
-
+	if(user.internal == src)
 		if(!silent)
-			if(C.internal)
-				to_chat(C, "<span class='notice'>You switch your internals to [src].</span>")
-			else
-				to_chat(C, "<span class='notice'>You open \the [src] valve.</span>")
-		C.internal = src
-	C.update_action_buttons_icon()
+			to_chat(user, span_notice("You close [src] valve."))
+		user.internal = null
+		user.update_action_buttons_icon()
+		return
+
+	// Breathing tubes can always use internals, if they have one, skip ahead and turn internals on/off
+	if(!user.get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
+		var/internals_allowed = FALSE
+		if(isclothing(user.wear_mask))
+			var/obj/item/clothing/cloth = user.wear_mask
+			if(cloth.clothing_flags & AIRTIGHT)
+				internals_allowed = TRUE
+
+			// If the mask is equipped but pushed down
+			var/obj/item/clothing/mask/our_mask = user.wear_mask
+			if(!internals_allowed && istype(our_mask) && our_mask.up && (initial(our_mask.clothing_flags) & AIRTIGHT))
+				our_mask.adjustmask(user) // Adjust it back
+				internals_allowed = TRUE
+
+		if(!internals_allowed && isclothing(user.head))
+			var/obj/item/clothing/our_helmet = user.head
+			if(our_helmet.clothing_flags & AIRTIGHT)
+				internals_allowed = TRUE
+
+		if(!internals_allowed)
+			if(!silent)
+				to_chat(user, span_warning("You are not wearing a suitable mask or helmet."))
+			return
+
+	if(!silent)
+		if(user.internal)
+			to_chat(user, span_notice("You switch your internals to [src]."))
+		else
+			to_chat(user, span_notice("You open [src] valve."))
+
+	user.internal = src
+	user.update_action_buttons_icon()
+
 
 /obj/item/tank/examine(mob/user, show_contents_info = TRUE)
 	. = ..()
@@ -108,7 +125,7 @@
 	. += "<span class='notice'>The pressure gauge displays [round(air_contents.return_pressure())] kPa</span>"
 
 /obj/item/tank/blob_act(obj/structure/blob/B)
-	if(B && B.loc == loc)
+	if(B && B.loc == loc && !QDELETED(src))
 		var/turf/location = get_turf(src)
 		if(!location)
 			qdel(src)
@@ -143,10 +160,13 @@
 
 	ui_interact(user)
 
-/obj/item/tank/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/tank/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/tank/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Tank",  name, 300, 150, master_ui, state)
+		ui = new(user, src, "Tank", name)
 		ui.open()
 
 /obj/item/tank/ui_data(mob/user)

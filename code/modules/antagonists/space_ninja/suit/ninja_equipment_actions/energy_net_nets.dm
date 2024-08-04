@@ -15,7 +15,7 @@
 	layer = ABOVE_ALL_MOB_LAYER
 	plane = GAME_PLANE
 	max_integrity = 200 //How much health it has.
-	can_buckle = 1
+	can_buckle = TRUE
 	buckle_lying = 0
 	buckle_prevents_pull = TRUE
 	///The creature currently caught in the net
@@ -48,8 +48,10 @@
 /obj/structure/energy_net/has_prints()
 	return FALSE
 
-/obj/structure/energy_net/user_buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
+
+/obj/structure/energy_net/user_buckle_mob(mob/living/target, mob/living/user, check_loc = TRUE)
 	return//We only want our target to be buckled
 
-/obj/structure/energy_net/user_unbuckle_mob(mob/living/buckled_mob, mob/living/user)
+
+/obj/structure/energy_net/user_unbuckle_mob(mob/living/target, mob/living/user)
 	return//The net must be destroyed to free the target

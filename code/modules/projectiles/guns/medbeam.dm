@@ -82,7 +82,7 @@
 	current_target = target
 	active = TRUE
 	current_beam = user.Beam(current_target, icon_state = "medbeam", time = 10 MINUTES, maxdistance = max_range, beam_type = /obj/effect/ebeam/medical)
-	RegisterSignal(current_beam, COMSIG_PARENT_QDELETING, PROC_REF(beam_died))//this is a WAY better rangecheck than what was done before (process check)
+	RegisterSignal(current_beam, COMSIG_QDELETING, PROC_REF(beam_died))//this is a WAY better rangecheck than what was done before (process check)
 
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 
@@ -158,11 +158,7 @@
 
 /obj/item/gun/medbeam/proc/on_beam_tick(mob/living/carbon/human/target)
 	var/prev_health = target.health
-	var/need_mob_update
-	need_mob_update = target.adjustBruteLoss(-4, updating_health = FALSE)
-	need_mob_update += target.adjustFireLoss(-4, updating_health = FALSE)
-	if(need_mob_update)
-		target.updatehealth()
+	target.heal_overall_damage(4, 4)
 	var/bones_mended = FALSE
 	if(ishuman(target))
 		for(var/obj/item/organ/external/bodypart as anything in target.bodyparts)
@@ -175,8 +171,4 @@
 
 /obj/item/gun/medbeam/proc/on_beam_release(mob/living/target)
 	return
-
-
-/obj/effect/ebeam/medical
-	name = "medical beam"
 

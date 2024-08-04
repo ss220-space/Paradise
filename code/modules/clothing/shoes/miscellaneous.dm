@@ -21,7 +21,7 @@
 	desc = "High speed, no drag combat boots."
 	permeability_coefficient = 0.01
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 25, "energy" = 25, "bomb" = 50, "bio" = 30, "rad" = 30, "fire" = 90, "acid" = 50)
-	flags = NOSLIP
+	clothing_traits = list(TRAIT_NO_SLIP_WATER, TRAIT_NO_SLIP_ICE)
 
 /obj/item/clothing/shoes/sandal
 	desc = "A pair of rather plain, wooden sandals."
@@ -47,7 +47,7 @@
 	name = "galoshes"
 	icon_state = "galoshes"
 	permeability_coefficient = 0.05
-	flags = NOSLIP
+	clothing_traits = list(TRAIT_NO_SLIP_WATER)
 	slowdown = SHOES_SLOWDOWN+1
 	strip_delay = 50
 	put_on_delay = 50
@@ -66,8 +66,7 @@
 /obj/item/clothing/shoes/galoshes/dry/proc/on_step()
 	SIGNAL_HANDLER
 	var/turf/simulated/t_loc = get_turf(src)
-	if(istype(t_loc) && t_loc.wet)
-		t_loc.MakeDry(TURF_WET_WATER)
+	SEND_SIGNAL(t_loc, COMSIG_TURF_MAKE_DRY, TURF_WET_WATER, TRUE, INFINITY)
 
 /obj/item/clothing/shoes/clown_shoes
 	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! Ctrl-click to toggle the waddle dampeners!"
@@ -80,7 +79,7 @@
 
 /obj/item/clothing/shoes/clown_shoes/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg' = 1, 'sound/effects/clownstep2.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
+	AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg', 'sound/effects/clownstep2.ogg'), 50, falloff_exponent = 20) //die off quick please
 
 /obj/item/clothing/shoes/clown_shoes/equipped(mob/user, slot, initial)
 	. = ..()
@@ -93,7 +92,7 @@
 		user.RemoveElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/clown_shoes/CtrlClick(mob/living/user)
-	if(!isliving(user))
+	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(user.get_active_hand() != src)
 		to_chat(user, "You must hold [src] in your hand to do this.")
@@ -297,15 +296,6 @@
 	item_color = "noble_boot"
 	item_state = "noble_boot"
 
-/obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/tape_roll) && !silence_steps)
-		var/obj/item/stack/tape_roll/TR = I
-		if((!silence_steps) && TR.use(4))
-			silence_steps = TRUE
-			GetComponent(/datum/component/jackboots)?.RemoveComponent()
-			to_chat(user, "You tape the soles of [src] to silence your footsteps.")
-	else
-		return ..()
 
 /obj/item/clothing/shoes/sandal/white
 	name = "White Sandals"
@@ -336,7 +326,7 @@
 /obj/item/clothing/shoes/cursedclown/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-	AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg' = 1, 'sound/effects/clownstep2.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
+	AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg', 'sound/effects/clownstep2.ogg'), 50, falloff_exponent = 20) //die off quick please
 
 /obj/item/clothing/shoes/singery
 	name = "yellow performer's boots"
@@ -474,12 +464,12 @@
 	var/datum/callback/last_jump = null
 
 
-/obj/item/clothing/shoes/bhop/item_action_slot_check(slot)
+/obj/item/clothing/shoes/bhop/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_FEET)
 		return TRUE
 
 
-/obj/item/clothing/shoes/bhop/ui_action_click(mob/user, action)
+/obj/item/clothing/shoes/bhop/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/jumper = user
@@ -491,6 +481,9 @@
 		return
 	if(user.throwing)
 		to_chat(user, span_warning("You can't jump in the middle of another jump!"))
+		return
+	if(!jumper.has_gravity())
+		to_chat(user, span_warning("You can't jump without gravity!"))
 		return
 
 	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
@@ -526,13 +519,13 @@
 	var/enabled_waddle = TRUE
 	jumpdistance = 7//-1 from to see the actual distance, e.g 7 goes over 6 tiles
 
-/obj/item/clothing/shoes/bhop/clown/ui_action_click(mob/user, action)
+/obj/item/clothing/shoes/bhop/clown/ui_action_click(mob/user, datum/action/action, leftclick)
 	user.emote("flip")
 	. = ..()
 
 /obj/item/clothing/shoes/bhop/clown/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg' = 1, 'sound/effects/clownstep2.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
+	AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg', 'sound/effects/clownstep2.ogg'), 50, falloff_exponent = 20) //die off quick please
 
 /obj/item/clothing/shoes/bhop/clown/equipped(mob/user, slot, initial)
 	. = ..()
@@ -544,7 +537,7 @@
 	user.RemoveElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/bhop/clown/CtrlClick(mob/living/user)
-	if(!isliving(user))
+	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(user.get_active_hand() != src)
 		to_chat(user, "You must hold [src] in your hand to do this.")
@@ -564,7 +557,7 @@
 
 /obj/item/clothing/shoes/ducky/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/squeak, list('sound/items/squeaktoy.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
+	AddComponent(/datum/component/squeak, list('sound/items/squeaktoy.ogg'), 50, falloff_exponent = 20) //die off quick please
 
 /obj/item/clothing/shoes/pathtreads
 	name = "pathfinder treads"
@@ -590,3 +583,22 @@
 	can_cut_open = FALSE
 	icon_state = "commandos_boots"
 	item_state = "commandos_boots"
+
+/obj/item/clothing/shoes/leather_boots
+	name = "high leather boots"
+	desc = "Стройные сапоги сделанные из кожи."
+	icon_state = "leather_boots"
+	item_state = "leather_boots"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/shoes.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/shoes.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/shoes.dmi'
+		)

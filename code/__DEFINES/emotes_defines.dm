@@ -80,3 +80,8 @@
 
 /// List of emotes useable by ghosties
 #define USABLE_DEAD_EMOTES list("*flip", "*spin")
+
+/// Sentinel for emote stats.
+/// If this is set for max stat, then its value will be ignored.
+#define DEFAULT_MAX_STAT_ALLOWED_EMOTE "defaultstat"
+

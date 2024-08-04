@@ -112,7 +112,7 @@
 			to_chat(user, "<span class='notice'>[src] refuses [I]! There [max_number-ticket_number==1 ? "is" : "are"] still [max_number-ticket_number] ticket\s left!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start to refill [src]'s ticket holder (doing this will reset its ticket count!).</span>")
-		if(do_after(user, 30, target = src))
+		if(do_after(user, 3 SECONDS, src))
 			add_fingerprint(user)
 			to_chat(user, "<span class='notice'>You insert [I] into [src] as it whirs nondescriptly.</span>")
 			user.drop_transfer_item_to_loc(I, src)

@@ -5,29 +5,12 @@
 	icon_keyboard = "med_key"
 	circuit = /obj/item/circuitboard/aiupload
 	var/mob/living/silicon/ai/current = null
-	var/opened = 0
 
 	light_color = LIGHT_COLOR_WHITE
 	light_range_on = 2
 
 
-// What the fuck even is this
-/obj/machinery/computer/aiupload/verb/AccessInternals()
-	set category = "Object"
-	set name = "Access Computer's Internals"
-	set src in oview(1)
-	if(get_dist(src, usr) > 1 || usr.incapacitated() || istype(usr, /mob/living/silicon))
-		return
-
-	opened = !opened
-	if(opened)
-		to_chat(usr, span_notice("The access panel is now open."))
-	else
-		to_chat(usr, span_notice("The access panel is now closed."))
-	return
-
-
-/obj/machinery/computer/aiupload/attackby(obj/item/O as obj, mob/user as mob, params)
+/obj/machinery/computer/aiupload/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/aiModule))
 		if(!current)//no AI selected
 			to_chat(user, span_danger("No AI selected. Please chose a target before proceeding with upload."))
@@ -46,7 +29,7 @@
 	return ..()
 
 
-/obj/machinery/computer/aiupload/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/aiupload/attack_hand(mob/user)
 	if(src.stat & NOPOWER)
 		to_chat(usr, "The upload computer has no power!")
 		return
@@ -65,8 +48,10 @@
 		to_chat(usr, "[src.current.name] selected for law changes.")
 	return
 
-/obj/machinery/computer/aiupload/attack_ghost(user as mob)
-	return 1
+
+/obj/machinery/computer/aiupload/attack_ghost(mob/user)
+	return TRUE
+
 
 // Why is this not a subtype
 /obj/machinery/computer/borgupload
@@ -78,7 +63,7 @@
 	var/mob/living/silicon/robot/current = null
 
 
-/obj/machinery/computer/borgupload/attackby(obj/item/aiModule/module as obj, mob/user as mob, params)
+/obj/machinery/computer/borgupload/attackby(obj/item/aiModule/module, mob/user, params)
 	if(istype(module, /obj/item/aiModule))
 		if(!current)//no borg selected
 			to_chat(user, span_danger("No borg selected. Please chose a target before proceeding with upload."))
@@ -92,7 +77,7 @@
 	return ..()
 
 
-/obj/machinery/computer/borgupload/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/borgupload/attack_hand(mob/user)
 	if(src.stat & NOPOWER)
 		to_chat(usr, "The upload computer has no power!")
 		return
@@ -108,5 +93,7 @@
 		to_chat(usr, "[src.current.name] selected for law changes.")
 	return
 
-/obj/machinery/computer/borgupload/attack_ghost(user as mob)
-		return 1
+
+/obj/machinery/computer/borgupload/attack_ghost(mob/user)
+		return TRUE
+

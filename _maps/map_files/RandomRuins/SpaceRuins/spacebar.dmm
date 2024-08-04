@@ -13,15 +13,15 @@
 /area/ruin/unpowered)
 "af" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "ah" = (
 /obj/machinery/door/poddoor/multi_tile/four_tile_ver{
 	id_tag = "secpodbay"
 	},
 /obj/structure/spacepoddoor,
-/turf/simulated/floor/plating/airless,
-/area/ruin/powered)
+/turf/simulated/floor/plating,
+/area/ruin/powered/space_bar)
 "am" = (
 /turf/simulated/wall,
 /area/ruin/powered/space_bar)
@@ -29,13 +29,13 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/unpowered)
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/powered/space_bar)
 "ao" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/ruin/powered)
 "aq" = (
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "ar" = (
 /obj/effect/decal/cleanable/dirt,
@@ -76,7 +76,7 @@
 /turf/simulated/floor/shuttle,
 /area/ruin/powered)
 "aD" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/clothing/accessory/holster,
 /turf/simulated/floor/wood,
 /area/ruin/powered/space_bar)
@@ -97,9 +97,6 @@
 /obj/structure/sign/poster/contraband/donut_corp,
 /turf/simulated/wall,
 /area/ruin/powered/space_bar)
-"aJ" = (
-/turf/simulated/wall,
-/area/ruin/powered)
 "aK" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
@@ -110,7 +107,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/space_bar)
 "aM" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/clothing/glasses/sunglasses,
 /obj/item/clothing/head/beret/black,
 /turf/simulated/floor/wood,
@@ -140,9 +137,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/powered/space_bar)
-"aT" = (
-/turf/simulated/floor/plating/airless,
-/area/ruin/powered/space_bar)
 "aU" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/wood,
@@ -169,8 +163,8 @@
 	},
 /area/ruin/powered/space_bar)
 "aY" = (
-/turf/simulated/floor/plating/airless,
-/area/ruin/powered)
+/turf/simulated/floor/plating,
+/area/ruin/powered/space_bar)
 "aZ" = (
 /obj/machinery/light{
 	dir = 1
@@ -195,11 +189,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/powered)
-"bf" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced,
-/turf/simulated/floor/plating/airless,
 /area/ruin/powered/space_bar)
 "bg" = (
 /turf/simulated/floor/carpet/blue,
@@ -208,7 +197,7 @@
 /obj/machinery/door/airlock/external/glass{
 	id_tag = "sb_in"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/powered/space_bar)
 "bk" = (
 /obj/structure/chair{
@@ -239,7 +228,7 @@
 /area/ruin/powered/space_bar)
 "bm" = (
 /turf/simulated/wall/r_wall,
-/area/ruin/powered)
+/area/ruin/powered/space_bar)
 "bn" = (
 /obj/structure/sink{
 	dir = 4;
@@ -248,7 +237,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/space_bar)
 "bp" = (
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/unpowered)
 "bq" = (
 /obj/machinery/light{
@@ -271,7 +260,7 @@
 "dG" = (
 /obj/structure/sink/puddle,
 /obj/item/toy/carpplushie/dehy_carp,
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/unpowered)
 "eb" = (
 /turf/simulated/floor/carpet/green,
@@ -281,15 +270,15 @@
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/powered/space_bar)
 "fb" = (
-/obj/structure/table/holotable/wood,
 /obj/item/newspaper,
 /obj/item/card/id/prisoner,
+/obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/ruin/powered/space_bar)
 "fi" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/airless,
-/area/ruin/powered)
+/turf/simulated/floor/plating,
+/area/ruin/powered/space_bar)
 "fp" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -305,19 +294,13 @@
 	},
 /turf/simulated/floor/shuttle,
 /area/ruin/powered)
-"gr" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/unpowered)
 "gv" = (
 /obj/machinery/arcade/claw,
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/powered/space_bar)
 "gz" = (
 /obj/structure/closet/crate/trashcart,
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/unpowered)
 "gT" = (
 /obj/structure/sign/barsign,
@@ -334,7 +317,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "iH" = (
 /obj/structure/window/reinforced/polarized,
@@ -365,7 +348,7 @@
 	c_tag = "Spacebar Shuttle and Pods LZ";
 	network = list("spacebar")
 	},
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/unpowered)
 "mN" = (
 /obj/effect/decal/cleanable/dirt,
@@ -417,7 +400,7 @@
 /obj/machinery/door/airlock/external/glass{
 	id_tag = "sb_in"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/powered/space_bar)
 "qr" = (
 /obj/structure/table/wood/fancy/black,
@@ -451,8 +434,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/powered)
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/powered/space_bar)
 "tT" = (
 /turf/simulated/wall/shuttle/nosmooth/interior{
 	dir = 5;
@@ -576,7 +559,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "EM" = (
 /obj/structure/coatrack,
@@ -587,8 +570,8 @@
 	id_tag = "sb_out"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/airless,
-/area/ruin/powered)
+/turf/simulated/floor/plating,
+/area/ruin/powered/space_bar)
 "GP" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/carpet/blue,
@@ -657,7 +640,7 @@
 /area/ruin/powered/space_bar)
 "Kp" = (
 /obj/item/trash/plate,
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/unpowered)
 "Kw" = (
 /obj/item/chair/stool/bar,
@@ -716,10 +699,10 @@
 /area/ruin/powered)
 "MC" = (
 /obj/structure/spacepoddoor,
-/turf/simulated/floor/plating/airless,
-/area/ruin/powered)
+/turf/simulated/floor/plating,
+/area/ruin/powered/space_bar)
 "Nn" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/clipboard,
 /obj/item/paper,
 /obj/item/reagent_containers/food/snacks/donut/sprinkles,
@@ -731,12 +714,8 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/space_bar)
-"OY" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/airless,
-/area/ruin/powered/space_bar)
 "Pa" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/machinery/chem_dispenser/soda,
 /turf/simulated/floor/wood,
 /area/ruin/powered/space_bar)
@@ -744,8 +723,8 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/unpowered)
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/powered/space_bar)
 "PH" = (
 /turf/simulated/mineral,
 /area/ruin/unpowered)
@@ -753,7 +732,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/powered/space_bar)
 "QQ" = (
 /obj/structure/bookcase,
@@ -771,12 +750,12 @@
 "Sx" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/unpowered)
 "SF" = (
 /obj/machinery/light,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/powered)
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/powered/space_bar)
 "Tq" = (
 /obj/machinery/light{
 	dir = 4
@@ -791,7 +770,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/powered/space_bar)
 "TB" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/reagent_containers/food/drinks/cans/beer,
 /obj/item/book/manual/barman_recipes,
 /obj/item/reagent_containers/food/drinks/shaker,
@@ -817,7 +796,7 @@
 /area/ruin/powered/space_bar)
 "TZ" = (
 /turf/space,
-/area/ruin/unpowered)
+/area/space)
 "Ug" = (
 /obj/structure/table/wood,
 /obj/item/deck/cards{
@@ -872,7 +851,7 @@
 /area/ruin/powered/space_bar)
 "XS" = (
 /obj/structure/reagent_dispensers/watertank,
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid,
 /area/ruin/unpowered)
 "YT" = (
 /obj/machinery/light/small{
@@ -1041,14 +1020,14 @@ aa
 aa
 ac
 ac
-bp
-bp
-bp
+ac
+ac
+ac
 TZ
 TZ
 TZ
-bp
-bp
+ac
+ac
 ac
 ac
 aa
@@ -1083,14 +1062,14 @@ ab
 ab
 ac
 ac
-bp
+ac
 be
 TZ
 TZ
 TZ
-bp
+ac
 be
-bp
+ac
 ac
 ac
 aa
@@ -1125,14 +1104,14 @@ ab
 ab
 ab
 ab
-bp
+ac
 bm
 MC
 MC
 MC
 ah
 bm
-bp
+ac
 ac
 ac
 ac
@@ -1167,14 +1146,14 @@ ab
 ab
 ab
 ab
-PH
+ab
 bm
 aY
 aY
 aY
 aY
 bm
-bp
+ac
 ac
 be
 ac
@@ -1218,9 +1197,9 @@ aY
 bm
 Sx
 Sx
-aJ
+am
 Gj
-aJ
+am
 ac
 ac
 ab
@@ -1260,9 +1239,9 @@ aY
 bm
 bp
 bp
-aJ
+am
 aY
-aJ
+am
 ac
 ab
 ab
@@ -1302,9 +1281,9 @@ ah
 bm
 bp
 bp
-aJ
+am
 fi
-aJ
+am
 Sx
 ae
 ae
@@ -1344,9 +1323,9 @@ bp
 tK
 bp
 bp
-aJ
+am
 Gj
-aJ
+am
 bp
 bp
 ae
@@ -1419,7 +1398,7 @@ as
 as
 as
 qc
-OY
+fi
 bj
 bp
 bp
@@ -1670,9 +1649,9 @@ TN
 as
 fb
 Xs
-bf
-OY
-bf
+It
+fi
+It
 bp
 bp
 tT
@@ -1713,12 +1692,12 @@ as
 Ca
 aH
 Cx
-aT
-bf
+aY
+It
 bp
 bp
 bp
-be
+PD
 bp
 bp
 bp
@@ -2262,7 +2241,7 @@ bp
 bp
 bp
 bp
-gr
+tK
 PH
 PH
 PH

@@ -69,13 +69,11 @@
 	onclose(user, "implant")
 
 
-/obj/machinery/implantchair/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/grab))
-		var/obj/item/grab/grab = I
-		if(put_mob(grab.affecting, user))
-			qdel(grab)
-	else
-		return ..()
+/obj/machinery/implantchair/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE)
+		return .
+	put_mob(grabbed_thing, grabber)
 
 
 /obj/machinery/implantchair/Topic(href, href_list)
@@ -127,7 +125,6 @@
 /obj/machinery/implantchair/proc/put_mob(mob/living/carbon/human/target, mob/living/user)
 	if(!put_mob_check(target, user))
 		return FALSE
-	target.stop_pulling()
 	target.pulledby?.stop_pulling()
 	target.forceMove(src)
 	occupant = target
@@ -144,7 +141,7 @@
 		return FALSE
 	if(target != user && (!Adjacent(user) && !user.Adjacent(target)))
 		return FALSE
-	if(!isliving(user) || user.incapacitated())
+	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 	if(!ishuman(target))
 		to_chat(user, span_warning("[src] cannot hold this!"))
@@ -169,7 +166,7 @@
 		return FALSE
 	if(occupant == user) // so that the guy inside can't eject himself -Agouri
 		return FALSE
-	if(user && (!ishuman(user) || user.incapacitated()))
+	if(user && (!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
 		return FALSE
 	occupant.forceMove(loc)
 	add_fingerprint(user)

@@ -20,15 +20,14 @@
 	// Notify players about transform.
 	user.visible_message(span_warning("[user] transforms!"), span_notice("We transform our appearance."))
 
-	user.dna.SetSEState(GLOB.monkeyblock, FALSE, TRUE)
-	genemutcheck(user, GLOB.monkeyblock, null, MUTCHK_FORCED)
+	user.force_gene_block(GLOB.monkeyblock, FALSE)
 
 	if(istype(user))
 		user.set_species(chosen_dna.species.type, keep_missing_bodyparts = TRUE)
 
 	user.dna = chosen_dna.Clone()
 	user.real_name = chosen_dna.real_name
-	domutcheck(user, null, MUTCHK_FORCED)
+	user.check_genes(MUTCHK_FORCED)
 	user.flavor_text = ""
 	user.dna.UpdateSE()
 	user.dna.UpdateUI()

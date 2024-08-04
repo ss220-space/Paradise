@@ -69,12 +69,10 @@
 	set category = "Эмоции"
 	emote("sniff", intentional = TRUE)
 
-/*
-/mob/living/carbon/human/verb/emote_snore()	// locked to unconscious stat
+/mob/living/carbon/human/verb/emote_snore()
 	set name = "▷ Храпеть "
 	set category = "Эмоции"
 	emote("snore", intentional = TRUE)
-*/
 
 /mob/living/carbon/human/verb/emote_whistle()
 	set name = "▷ Свистеть "

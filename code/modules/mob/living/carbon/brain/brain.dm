@@ -20,20 +20,6 @@
 	return ..()
 
 
-/mob/living/carbon/brain/update_canmove(delay_action_updates = FALSE)
-	if(in_contents_of(/obj/mecha))
-		canmove = TRUE
-		use_me = TRUE //If it can move, let it emote
-	else if(istype(loc, /obj/item/mmi))
-		canmove = TRUE //mmi won't move anyways so whatever
-	else
-		canmove = FALSE
-
-	if(!delay_action_updates)
-		update_action_buttons_icon()
-	return canmove
-
-
 /mob/living/carbon/brain/ex_act() //you cant blow up brainmobs because it makes transfer_to() freak out when borgs blow up.
 	return
 
@@ -42,7 +28,7 @@
 	return
 
 
-/mob/living/carbon/brain/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE)
+/mob/living/carbon/brain/incapacitated(ignore_flags)
 	return FALSE
 
 
@@ -74,18 +60,15 @@ I'm using this for Stat to give it a more nifty interface to work with
 		return B.dna.species.name
 
 
-/mob/living/carbon/brain/Stat()
-	..()
+/mob/living/carbon/brain/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
 	if(has_synthetic_assistance())
-		statpanel("Status")
-		show_stat_emergency_shuttle_eta()
-
-		if(client.statpanel == "Status")
-			//Knowing how well-off your mech is doing is really important as an MMI
-			if(ismecha(src.loc))
-				var/obj/mecha/M = src.loc
-				stat("Exosuit Charge:", "[istype(M.cell) ? "[M.cell.charge] / [M.cell.maxcharge]" : "No cell detected"]")
-				stat("Exosuit Integrity", "[!M.obj_integrity ? "0" : "[(M.obj_integrity / M.max_integrity) * 100]"]%")
+		//Knowing how well-off your mech is doing is really important as an MMI
+		if(ismecha(src.loc))
+			var/obj/mecha/M = src.loc
+			status_tab_data[++status_tab_data.len] = list("Exosuit Charge:", "[istype(M.cell) ? "[M.cell.charge] / [M.cell.maxcharge]" : "No cell detected"]")
+			status_tab_data[++status_tab_data.len] = list("Exosuit Integrity", "[!M.obj_integrity ? "0" : "[(M.obj_integrity / M.max_integrity) * 100]"]%")
 
 
 /mob/living/carbon/brain/can_safely_leave_loc()

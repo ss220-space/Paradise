@@ -308,7 +308,7 @@
 		for(var/datum/mind/head in heads)
 			var/target = (head in targets)
 			if(target)
-				text += "<span class='boldannounce'>Target</span>"
+				text += span_boldannounceooc("Target")
 			text += printplayer(head, 1)
 		text += "<br>"
 		to_chat(world, text)
@@ -327,7 +327,7 @@
 		if(M.current.stat == DEAD)
 			scoreboard.score_ops_killed++
 
-		else if(M.current.restrained())
+		else if(HAS_TRAIT(M, TRAIT_RESTRAINED))
 			scoreboard.score_arrested++
 
 	if(foecount == scoreboard.score_arrested)

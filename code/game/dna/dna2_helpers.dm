@@ -60,7 +60,8 @@
 			if(prob(prob))
 				M.dna.SetSEValue(i, rand(1, 4095), 1)
 		M.dna.UpdateSE()
-		domutcheck(M, null)
+		M.check_genes()
+
 
 // I haven't yet figured out what the fuck this is supposed to do.
 /proc/miniscramble(input, rs, rd)
@@ -262,7 +263,6 @@
 
 /datum/dna/proc/head_traits_to_dna(mob/living/carbon/human/character, obj/item/organ/external/head/head_organ)
 	if(!head_organ)
-		log_runtime(EXCEPTION("Attempting to reset DNA from a missing head!"), src)
 		return
 	if(!head_organ.h_style)
 		head_organ.h_style = "Skinhead"

@@ -145,7 +145,7 @@
 		span_italics("You hear a short mechanical noise."))
 	playsound(get_turf(owner), src.sound_on, 50, 1)
 
-/obj/item/organ/internal/cyberimp/arm/ui_action_click()
+/obj/item/organ/internal/cyberimp/arm/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(crit_fail || (!active_item && !contents.len))
 		to_chat(owner, span_warning("The implant doesn't respond. It seems to be broken..."))
 		return
@@ -436,7 +436,7 @@
 	desc = "Insert into a nearby APC to draw power from it."
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "wire1"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	var/drawing_power = FALSE
 
 /obj/item/apc_powercord/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -452,7 +452,7 @@
 		if(A.emagged || A.stat & BROKEN)
 			do_sparks(3, 1, A)
 			to_chat(H, span_warning("The APC power currents surge erratically, damaging your chassis!"))
-			H.adjustFireLoss(10,0)
+			H.adjustFireLoss(10)
 		else if(A.cell && A.cell.charge > 0)
 			if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
 				to_chat(user, span_warning("You are already fully charged!"))
@@ -466,7 +466,7 @@
 /obj/item/apc_powercord/proc/powerdraw_loop(obj/machinery/power/apc/A, mob/living/carbon/human/H)
 	H.visible_message(span_notice("[H] inserts a power connector into \the [A]."), span_notice("You begin to draw power from \the [A]."))
 	drawing_power = TRUE
-	while(do_after(H, 10, target = A))
+	while(do_after(H, 1 SECONDS, A))
 		if(loc != H)
 			to_chat(H, span_warning("You must keep your connector out while charging!"))
 			break
@@ -493,7 +493,7 @@
 	name = "telebaton implant"
 	desc = "Telescopic baton implant. Does what it says on the tin" // A better description
 
-	contents = newlist(/obj/item/melee/classic_baton)
+	contents = newlist(/obj/item/melee/baton)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/items.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "baton")
 

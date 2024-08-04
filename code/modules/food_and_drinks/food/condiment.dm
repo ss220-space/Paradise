@@ -56,7 +56,7 @@
 		to_chat(M, "<span class='notice'>You swallow some of contents of \the [src].</span>")
 	else
 		user.visible_message("<span class='warning'>[user] attempts to feed [M] from [src].</span>")
-		if(!do_mob(user, M))
+		if(!do_after(user, 3 SECONDS, M, NONE))
 			return
 		if(!reagents || !reagents.total_volume)
 			return // The condiment might be empty after the delay.

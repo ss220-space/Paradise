@@ -175,7 +175,7 @@
 	U.cameraFollow = target
 	U.tracking = 1
 
-	to_chat(U, span_notice("Attempting to track [target.get_visible_name()]..."))
+	to_chat(U, span_notice("Attempting to track [target.get_visible_name(add_id_name = FALSE)]..."))
 	sleep(min(30, get_dist(target, U.eyeobj) / 4))
 	spawn(15) //give the AI a grace period to stop moving.
 		U.tracking = 0
@@ -185,7 +185,7 @@
 		U.cameraFollow = null
 		return
 
-	to_chat(U, span_notice("Now tracking [target.get_visible_name()] on camera."))
+	to_chat(U, span_notice("Now tracking [target.get_visible_name(add_id_name = FALSE)] on camera."))
 
 	var/cameraticks = 0
 	spawn(0)

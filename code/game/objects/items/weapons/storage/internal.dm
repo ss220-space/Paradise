@@ -10,7 +10,6 @@
 	master_item = MI
 	loc = master_item
 	name = master_item.name
-	verbs -= /obj/item/verb/verb_pickup	//make sure this is never picked up.
 	..()
 
 
@@ -39,7 +38,7 @@
  */
 /obj/item/storage/internal/proc/handle_mousedrop(mob/living/carbon/human/user, obj/over_object)
 	. = FALSE
-	if(over_object == user && ishuman(user) && !user.incapacitated() && !ismecha(user.loc) && !is_ventcrawling(user) && user.Adjacent(master_item))
+	if(over_object == user && ishuman(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && !ismecha(user.loc) && !is_ventcrawling(user) && user.Adjacent(master_item))
 		open(user)
 		master_item.add_fingerprint(user)
 		return TRUE

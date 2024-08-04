@@ -1,6 +1,5 @@
 /proc/possess(obj/O as obj in world)
 	set name = "\[Admin\] Possess Obj"
-	set category = null
 
 	if(!check_rights(R_POSSESS))
 		return
@@ -26,11 +25,11 @@
 	usr.name = O.name
 	usr.client.eye = O
 	usr.control_object = O
+	SEND_SIGNAL(O, COMSIG_OBJ_POSSESSED, usr)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Possess Object") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /proc/release(obj/O as obj in world)
 	set name = "\[Admin\] Release Obj"
-	set category = null
 	//usr.loc = get_turf(usr)
 
 	if(!check_rights(R_POSSESS))
@@ -47,4 +46,5 @@
 	usr.loc = O.loc // Appear where the object you were controlling is -- TLE
 	usr.client.eye = usr
 	usr.control_object = null
+	SEND_SIGNAL(O, COMSIG_OBJ_RELEASED, usr)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Release Object") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!

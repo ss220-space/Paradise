@@ -4,6 +4,7 @@
 	detonate = 0
 	ttone = "data"
 
+
 /obj/item/pda/silicon/proc/set_name_and_job(newname as text, newjob as text, newrank as null|text)
 	owner = newname
 	ownjob = newjob
@@ -11,14 +12,17 @@
 		ownrank = newrank
 	else
 		ownrank = ownjob
-	name = newname + " (" + ownjob + ")"
+
+	custom_name = newname
+	update_appearance(UPDATE_NAME)
+
 
 /obj/item/pda/silicon/verb/cmd_send_pdamesg()
 	set category = "AI IM"
 	set name = "Send PDA Message"
 	set src in usr
 
-	if(!can_use())
+	if(!can_use(usr))
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(!M)
@@ -36,7 +40,7 @@
 	set name = "Show Message Log"
 	set src in usr
 
-	if(!can_use())
+	if(!can_use(usr))
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(!M)
@@ -53,7 +57,7 @@
 	set name = "Toggle Sender/Receiver"
 	set src in usr
 
-	if(!can_use())
+	if(!can_use(usr))
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	M.toff = !M.toff
@@ -65,7 +69,7 @@
 	set name = "Toggle Ringer"
 	set src in usr
 
-	if(!can_use())
+	if(!can_use(usr))
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	M.notify_silent = !M.notify_silent

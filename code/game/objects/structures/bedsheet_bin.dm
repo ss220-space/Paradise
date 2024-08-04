@@ -10,7 +10,7 @@ LINEN BINS
 	icon = 'icons/obj/items.dmi'
 	icon_state = "sheet"
 	item_state = "sheet"
-	flags = NO_PIXEL_RANDOM_DROP
+	item_flags = NO_PIXEL_RANDOM_DROP
 	layer = 4.0
 	throwforce = 1
 	throw_speed = 1
@@ -21,7 +21,7 @@ LINEN BINS
 	slot_flags = ITEM_SLOT_NECK
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
-
+	dying_key = DYE_REGISTRY_BEDSHEET
 	dog_fashion = /datum/dog_fashion/head/ghost
 	var/list/dream_messages = list("white")
 	var/list/nightmare_messages = list("black")

@@ -4,7 +4,7 @@
 	explaination_text = "Use mime energy to throw someone back."
 
 /datum/martial_combo/mimejutsu/silent_palm/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	if(!target.stat && !target.IsStunned() && !target.IsWeakened())
+	if(!target.stat && !HAS_TRAIT(target, TRAIT_INCAPACITATED))
 		var/atom/throw_target = get_edge_target_turf(target, get_dir(target, get_step_away(target, user)))
 		target.throw_at(throw_target, 4, 4, user)
 		target.SetWeakened(1 SECONDS)

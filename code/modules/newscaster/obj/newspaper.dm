@@ -169,8 +169,7 @@
 		if(scribble_page == curr_page)
 			to_chat(user, "<span class='notice'>There's already a scribble in this page... You wouldn't want to make things too cluttered, would you?</span>")
 		else
-			var/s = strip_html(input(user, "Write something", "Newspaper", ""))
-			s = sanitize(copytext(s, 1, MAX_MESSAGE_LEN))
+			var/s = tgui_input_text(user, "Write something", "Newspaper")
 			if(!s || !Adjacent(user))
 				return
 			scribble_page = curr_page
@@ -182,7 +181,7 @@
 	return ..()
 
 /obj/item/newspaper/AltClick(mob/user)
-	if(ishuman(user) && Adjacent(user) && !user.incapacitated())
+	if(ishuman(user) && Adjacent(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		rolled = !rolled
 		icon_state = "newspaper[rolled ? "_rolled" : ""]"
 		update_icon()

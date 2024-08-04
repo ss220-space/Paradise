@@ -4,7 +4,7 @@
 	desc = "The name isn't descriptive enough?"
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "grinder"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	var/operating = 0 //Is it on?
 	var/dirty = 0 // Does it need cleaning?
@@ -95,17 +95,16 @@
 	add_fingerprint(user)
 	startgibbing(user)
 
-/obj/machinery/gibber/attackby(obj/item/P, mob/user, params)
-	if(istype(P, /obj/item/grab))
-		var/obj/item/grab/G = P
-		if(G.state < 2)
-			to_chat(user, "<span class='danger'>You need a better grip to do that!</span>")
-			return
-		add_fingerprint(user)
-		move_into_gibber(user,G.affecting)
-		qdel(G)
-		return
 
+/obj/machinery/gibber/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE)
+		return .
+	add_fingerprint(grabber)
+	move_into_gibber(grabber, grabbed_thing)
+
+
+/obj/machinery/gibber/attackby(obj/item/P, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", P))
 		add_fingerprint(user)
 		return
@@ -120,8 +119,9 @@
 		return
 	return ..()
 
+
 /obj/machinery/gibber/MouseDrop_T(mob/target, mob/user, params)
-	if(user.incapacitated() || !ishuman(user))
+	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(!isliving(target))
@@ -154,7 +154,7 @@
 
 	user.visible_message("<span class='danger'>[user] starts to put [victim] into the [src]!</span>")
 	add_fingerprint(user)
-	if(do_after(user, 30, target = victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant)
+	if(do_after(user, 3 SECONDS, victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant)
 		user.visible_message("<span class='danger'>[user] stuffs [victim] into the [src]!</span>")
 
 		victim.forceMove(src)
@@ -168,7 +168,7 @@
 	set name = "Empty Gibber"
 	set src in oview(1)
 
-	if(usr.incapacitated())
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	go_out()

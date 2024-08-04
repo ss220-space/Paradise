@@ -133,7 +133,7 @@
 		attacker.visible_message("<span class='warning'>[attacker] starts pressing [src] to [living]'s brain, ripping through the surface</span>", \
 		"<span class='clock'>You start extracting [living]'s consciousness from [living.p_their()] brain.</span>")
 
-	if(do_after(attacker, time, target = crosshair))
+	if(do_after(attacker, time, crosshair))
 		if(brainmob.key)
 			to_chat(attacker, "<span class='clock'>\"This vessel is filled, friend. Provide it with a body.\"</span>")
 			return
@@ -171,7 +171,7 @@
 	if(istype(O, /obj/item/storage/bible) && !isclocker(user) && user.mind.isholy)
 		to_chat(user, "<span class='notice'>You begin to exorcise [src].</span>")
 		playsound(src, 'sound/hallucinations/veryfar_noise.ogg', 40, TRUE)
-		if(do_after(user, 4 SECONDS, target = src))
+		if(do_after(user, 4 SECONDS, src))
 			var/obj/item/mmi/robotic_brain/positronic/purified = new(get_turf(src))
 			if(brainmob.key)
 				SSticker.mode.remove_clocker(brainmob.mind)

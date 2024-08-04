@@ -32,6 +32,7 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	del_on_death = TRUE
 	dirslash_enabled = TRUE
+	slowed_by_pull_and_push = FALSE
 	var/vialspawned = FALSE
 	var/playstyle_string
 	var/datum/action/innate/demon/whisper/whisper_action
@@ -77,8 +78,8 @@
 	if(!choice)
 		return
 
-	var/msg = stripped_input(usr, "What do you wish to tell [choice]?", null, "")
-	if(!(msg))
+	var/msg = tgui_input_text(usr, "What do you wish to tell [choice]?", null, "")
+	if(!msg)
 		return
 
 	add_say_logs(usr, msg, choice, "SLAUGHTER")

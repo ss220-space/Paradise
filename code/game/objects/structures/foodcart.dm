@@ -4,8 +4,8 @@
 	icon = 'icons/obj/foodcart.dmi'
 	icon_state = "cart"
 	anchored = FALSE
-	density = 1
-	pull_push_speed_modifier = 1
+	density = TRUE
+	pull_push_slowdown = 1
 	//Food slots
 	var/list/food_slots[6]
 	//var/obj/item/reagent_containers/food/snacks/food1 = null
@@ -199,6 +199,6 @@
 	updateUsrDialog()
 
 /obj/structure/foodcart/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc, 4)
 	qdel(src)

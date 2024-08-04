@@ -28,7 +28,7 @@
 			to_chat(user, "<span class='warning'>You need one plasteel sheet to do this!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
-		if(do_after(user, 50, target = src) && P.use(1))
+		if(do_after(user, 5 SECONDS, src) && P.use(1))
 			make_new_table(/obj/structure/table/reinforced)
 
 	else if(istype(I, /obj/item/stack/sheet/metal))
@@ -37,7 +37,7 @@
 			to_chat(user, "<span class='warning'>You need one metal sheet to do this!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start adding [M] to [src]...</span>")
-		if(do_after(user, 20, target = src) && M.use(1))
+		if(do_after(user, 2 SECONDS, src) && M.use(1))
 			make_new_table(/obj/structure/table)
 
 	else if(istype(I, /obj/item/stack/sheet/glass))
@@ -46,7 +46,7 @@
 			to_chat(user, "<span class='warning'>You need one glass sheet to do this!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start adding [G] to [src]...</span>")
-		if(do_after(user, 20, target = src) && G.use(1))
+		if(do_after(user, 2 SECONDS, src) && G.use(1))
 			make_new_table(/obj/structure/table/glass)
 
 	else if(istype(I, /obj/item/stack/tile/carpet))
@@ -55,7 +55,7 @@
 			to_chat(user, "<span class='warning'>You need one [C.name] sheet to do this!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start adding [C] to [src]...</span>")
-		if(do_after(user, 20, target = src) && C.use(1))
+		if(do_after(user, 2 SECONDS, src) && C.use(1))
 			make_new_table(C.fancy_table_type)
 
 	else
@@ -111,7 +111,7 @@
 			to_chat(user, "<span class='warning'>You need one wood sheet to do this!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start adding [W] to [src]...</span>")
-		if(do_after(user, 20, target = src) && W.use(1))
+		if(do_after(user, 2 SECONDS, src) && W.use(1))
 			make_new_table(/obj/structure/table/wood)
 		return
 	else if(istype(I, /obj/item/stack/tile/carpet))
@@ -120,7 +120,7 @@
 			to_chat(user, "<span class='warning'>You need one carpet sheet to do this!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start adding [C] to [src]...</span>")
-		if(do_after(user, 20, target = src) && C.use(1))
+		if(do_after(user, 2 SECONDS, src) && C.use(1))
 			make_new_table(/obj/structure/table/wood/poker)
 	else
 		return ..()
@@ -140,7 +140,7 @@
 			to_chat(user, "<span class='warning'>You need one brass sheet to do this!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start adding [W] to [src]...</span>")
-		if(do_after(user, 20, target = src) && W.use(1))
+		if(do_after(user, 2 SECONDS, src) && W.use(1))
 			make_new_table(/obj/structure/table/reinforced/brass)
 	else
 		return ..()
@@ -167,7 +167,7 @@
 			to_chat(user, "<span class='warning'>You need one brass sheet to do this!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start adding [W] to [src]...</span>")
-		if(do_after(user, 20, target = src) && W.use(1))
+		if(do_after(user, 2 SECONDS, src) && W.use(1))
 			make_new_table(/obj/structure/table/reinforced/brass/fake)
 	else
 		return ..()

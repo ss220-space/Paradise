@@ -15,7 +15,6 @@
 	overlay = null
 	action_icon_state = "bloodcrawl"
 	action_background_icon_state = "bg_demon"
-	panel = "Demon"
 	var/allowed_type = /obj/effect/decal/cleanable
 	var/phased = FALSE
 
@@ -57,7 +56,7 @@
 	name = "blood crawl"
 	desc = "You are unable to hold anything while in this form."
 	icon = 'icons/effects/blood.dmi'
-	flags = ABSTRACT
+	item_flags = ABSTRACT
 
 
 /obj/item/bloodcrawl/Initialize(mapload)
@@ -137,10 +136,9 @@
 		user.stop_pulling()
 		return
 
-	victim.forceMove(holder)
 	victim.emote("scream")
+	victim.forceMove(holder)
 	enter_point.visible_message(span_warning("<b>[user] drags [victim] into [enter_point]!</b>"))
-	user.stop_pulling()
 	to_chat(user, "<b>You begin to feast on [victim]. You can not move while you are doing this.</b>")
 	enter_point.visible_message(span_warning("<B>Loud eating sounds come from the blood...</b>"))
 	var/sound
@@ -160,14 +158,10 @@
 
 	if(ishuman(victim) || isrobot(victim))
 		to_chat(user, span_warning("You devour [victim]. Your health is fully restored."))
-		user.adjustBruteLoss(-1000)
-		user.adjustFireLoss(-1000)
-		user.adjustOxyLoss(-1000)
-		user.adjustToxLoss(-1000)
+		user.heal_damages(brute = 1000, burn = 1000, tox = 1000, oxy = 1000)
 	else
 		to_chat(user, span_warning("You devour [victim], but this measly meal barely sates your appetite!"))
-		user.adjustBruteLoss(-25)
-		user.adjustFireLoss(-25)
+		user.heal_damages(brute = 25, burn = 25)
 
 	if(isslaughterdemon(user))
 		var/mob/living/simple_animal/demon/slaughter/demon = user
@@ -192,7 +186,7 @@
 
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/post_phase_in(mob/living/user, obj/effect/dummy/slaughter/holder)
-	user.notransform = FALSE
+	REMOVE_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/phaseout(obj/effect/decal/cleanable/enter_point, mob/living/carbon/user)
@@ -200,7 +194,7 @@
 	if(istype(user) && !block_hands(user))
 		return FALSE
 
-	user.notransform = TRUE
+	ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	INVOKE_ASYNC(src, PROC_REF(async_phase), enter_point, user)
 	return TRUE
 
@@ -209,9 +203,10 @@
 	var/turf/mobloc = get_turf(user)
 	sink_animation(enter_point, user)
 	var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(mobloc)
+	var/victim = user.pulling
 	user.forceMove(holder)
 	user.ExtinguishMob()
-	handle_consumption(user, user.pulling, enter_point, holder)
+	handle_consumption(user, victim, enter_point, holder)
 	post_phase_in(user, holder)
 
 
@@ -244,12 +239,13 @@
 
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/phasein(atom/enter_point, mob/living/user)
-
-	if(user.notransform)
+	if(HAS_TRAIT_NOT_FROM(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src)))
+		return FALSE
+	if(HAS_TRAIT_FROM(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src)))
 		to_chat(user, span_warning("Finish eating first!"))
 		return FALSE
 	rise_message(enter_point)
-	if(!do_after(user, 2 SECONDS, target = enter_point))
+	if(!do_after(user, 2 SECONDS, enter_point))
 		return FALSE
 	if(!enter_point)
 		return FALSE

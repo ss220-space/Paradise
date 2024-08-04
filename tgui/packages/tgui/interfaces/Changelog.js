@@ -1,11 +1,19 @@
 import { classes } from 'common/react';
 import { useBackend } from '../backend';
 import { Component, Fragment } from 'inferno';
-import { Box, Button, Dropdown, Icon, Section, Stack, Table } from '../components';
+import {
+  Box,
+  Button,
+  Dropdown,
+  Icon,
+  Section,
+  Stack,
+  Table,
+} from '../components';
 import { Window } from '../layouts';
+import { resolveAsset } from '../assets';
 import dateformat from 'dateformat';
 import yaml from 'js-yaml';
-import fetch from 'unfetch';
 
 const icons = {
   add: { icon: 'check-circle', color: 'green' },
@@ -58,7 +66,7 @@ export class Changelog extends Component {
     this.setState({ selectedIndex });
   }
 
-  getData(date, attemptNumber = 1) {
+  getData = (date, attemptNumber = 1) => {
     const { act } = useBackend(this.context);
     const self = this;
     const maxAttempts = 6;
@@ -71,7 +79,7 @@ export class Changelog extends Component {
 
     act('get_month', { date });
 
-    fetch(date + '.yml').then(async changelogData => {
+    fetch(resolveAsset(date + '.yml')).then(async (changelogData) => {
       const result = await changelogData.text();
       const errorRegex = /^Cannot find/;
 
@@ -86,7 +94,7 @@ export class Changelog extends Component {
         self.setData(yaml.load(result, { schema: yaml.CORE_SCHEMA }));
       }
     });
-  }
+  };
 
   componentDidMount() {
     const {
@@ -94,7 +102,7 @@ export class Changelog extends Component {
     } = useBackend(this.context);
 
     if (dates) {
-      dates.forEach(date =>
+      dates.forEach((date) =>
         this.dateChoices.push(dateformat(date, 'mmmm yyyy', true))
       );
       this.setSelectedDate(this.dateChoices[0]);
@@ -124,8 +132,8 @@ export class Changelog extends Component {
               this.setSelectedDate(dateChoices[index]);
               window.scrollTo(
                 0,
-                document.body.scrollHeight
-                || document.documentElement.scrollHeight
+                document.body.scrollHeight ||
+                  document.documentElement.scrollHeight
               );
               return this.getData(dates[index]);
             }}
@@ -135,7 +143,7 @@ export class Changelog extends Component {
           <Dropdown
             displayText={selectedDate}
             options={dateChoices}
-            onSelected={value => {
+            onSelected={(value) => {
               const index = dateChoices.indexOf(value);
 
               this.setData('Loading changelog data...');
@@ -143,8 +151,8 @@ export class Changelog extends Component {
               this.setSelectedDate(value);
               window.scrollTo(
                 0,
-                document.body.scrollHeight
-                || document.documentElement.scrollHeight
+                document.body.scrollHeight ||
+                  document.documentElement.scrollHeight
               );
               return this.getData(dates[index]);
             }}
@@ -165,8 +173,8 @@ export class Changelog extends Component {
               this.setSelectedDate(dateChoices[index]);
               window.scrollTo(
                 0,
-                document.body.scrollHeight
-                || document.documentElement.scrollHeight
+                document.body.scrollHeight ||
+                  document.documentElement.scrollHeight
               );
               return this.getData(dates[index]);
             }}
@@ -180,8 +188,11 @@ export class Changelog extends Component {
         <h1>Paradise Station</h1>
         <p>
           <b>Thanks to: </b>
-          Baystation 12, /tg/station, /vg/station, NTstation, CDK Station devs, FacepunchStation, GoonStation devs, the original SpaceStation developers and Radithor for the title image.
-          Also a thanks to anybody who has contributed who is not listed here :( Ask to be added here on irc.
+          Baystation 12, /tg/station, /vg/station, NTstation, CDK Station devs,
+          FacepunchStation, GoonStation devs, the original SpaceStation
+          developers and Radithor for the title image. Also a thanks to anybody
+          who has contributed who is not listed here :( Ask to be added here on
+          irc.
         </p>
         <p>
           {'Recent GitHub contributors can be found '}
@@ -213,7 +224,7 @@ export class Changelog extends Component {
           Traditional Games Space Station 13 is thankful to the GoonStation 13
           Development Team for its work on the game up to the
           {' r4407 release. The changelog for changes up to r4407 can be seen '}
-          <a href="https://wiki.ss13.co/Changelog#April_2010">here</a>.
+          <a href="https://wiki.ss13.co/Pre-2016_Changelog#April_2010">here</a>.
         </p>
         <p>
           {'Except where otherwise noted, Goon Station 13 is licensed under a '}
@@ -226,71 +237,90 @@ export class Changelog extends Component {
         </p>
         <h3>Traditional Games Space Station 13 License</h3>
         <p>
-          Some icons by <a href="http://p.yusukekamiyamane.com/">Yusuke Kamiyamane</a>. All rights reserved. Licensed under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 License</a>.
+          Some icons by{' '}
+          <a href="http://p.yusukekamiyamane.com/">Yusuke Kamiyamane</a>. All
+          rights reserved. Licensed under a{' '}
+          <a href="http://creativecommons.org/licenses/by/3.0/">
+            Creative Commons Attribution 3.0 License
+          </a>
+          .
         </p>
       </Section>
     );
     const prNumberMatcher = /#\d+/;
-    const changes = typeof data === 'object'
-    && Object.keys(data).length > 0
-    && Object.entries(data)
-      .reverse()
-      .map(([date, authors]) => (
-        <Section key={date} title={dateformat(date, 'd mmmm yyyy', true)}>
-          <Box ml={3}>
-            {Object.entries(authors).map(([name, changes]) => (
-              <Fragment key={name}>
-                <h4>{name} changed:</h4>
-                <Box ml={3}>
-                  <Table>
-                    {changes.map(c => {
-                      const changeType = Object.keys(c)[0];
-                      const change = c[changeType];
-                      const prMatch = change.match(prNumberMatcher);
-                      const icon = (
-                        <Table.Cell
-                          className={classes([
-                            'Changelog__Cell',
-                            'Changelog__Cell--Icon',
-                          ])}>
-                          <Icon
-                            color={
-                              icons[changeType]
-                                ? icons[changeType].color
-                                : icons['unknown'].color
-                            }
-                            name={
-                              icons[changeType]
-                                ? icons[changeType].icon
-                                : icons['unknown'].icon
-                            }
-                          />
-                        </Table.Cell>
-                      );
+    const changes =
+      typeof data === 'object' &&
+      Object.keys(data).length > 0 &&
+      Object.entries(data)
+        .reverse()
+        .map(([date, authors]) => (
+          <Section key={date} title={dateformat(date, 'd mmmm yyyy', true)}>
+            <Box ml={3}>
+              {Object.entries(authors).map(([name, changes]) => (
+                <Fragment key={name}>
+                  <h4>{name} changed:</h4>
+                  <Box ml={3}>
+                    <Table>
+                      {changes.map((c) => {
+                        const changeType = Object.keys(c)[0];
+                        const change = c[changeType];
+                        const prMatch = change.match(prNumberMatcher);
+                        const icon = (
+                          <Table.Cell
+                            className={classes([
+                              'Changelog__Cell',
+                              'Changelog__Cell--Icon',
+                            ])}
+                          >
+                            <Icon
+                              color={
+                                icons[changeType]
+                                  ? icons[changeType].color
+                                  : icons['unknown'].color
+                              }
+                              name={
+                                icons[changeType]
+                                  ? icons[changeType].icon
+                                  : icons['unknown'].icon
+                              }
+                            />
+                          </Table.Cell>
+                        );
 
-                      return prMatch !== null && (
-                        <Table.Row key={changeType + change}>
-                          {icon}
-                          <Table.Cell className="Changelog__Cell">
-                            <a href={"https://github.com/ss220-space/Paradise/pull/" + prMatch[0].substring(1)}> {change.charAt(0).toUpperCase() + change.slice(1)} </a>
-                          </Table.Cell>
-                        </Table.Row>
-                      ) || (
-                        <Table.Row key={changeType + change}>
-                          {icon}
-                          <Table.Cell className="Changelog__Cell">
-                            {change}
-                          </Table.Cell>
-                        </Table.Row>
-                      );
-                    })}
-                  </Table>
-                </Box>
-              </Fragment>
-            ))}
-          </Box>
-        </Section>
-      ));
+                        return (
+                          (prMatch !== null && (
+                            <Table.Row key={changeType + change}>
+                              {icon}
+                              <Table.Cell className="Changelog__Cell">
+                                <a
+                                  href={
+                                    'https://github.com/ss220-space/Paradise/pull/' +
+                                    prMatch[0].substring(1)
+                                  }
+                                >
+                                  {' '}
+                                  {change.charAt(0).toUpperCase() +
+                                    change.slice(1)}{' '}
+                                </a>
+                              </Table.Cell>
+                            </Table.Row>
+                          )) || (
+                            <Table.Row key={changeType + change}>
+                              {icon}
+                              <Table.Cell className="Changelog__Cell">
+                                {change}
+                              </Table.Cell>
+                            </Table.Row>
+                          )
+                        );
+                      })}
+                    </Table>
+                  </Box>
+                </Fragment>
+              ))}
+            </Box>
+          </Section>
+        ));
 
     return (
       <Window title="Changelog" width={675} height={650}>

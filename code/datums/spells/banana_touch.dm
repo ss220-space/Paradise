@@ -22,7 +22,7 @@
 
 
 /obj/item/melee/touch_attack/banana/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || user.incapacitated())
+	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/datum/effect_system/smoke_spread/smoke = new
@@ -57,10 +57,9 @@
 		equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown/nodrop, ITEM_SLOT_CLOTH_INNER)
 		equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes/nodrop, ITEM_SLOT_FEET)
 		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat/nodrop, ITEM_SLOT_MASK)
-	dna.SetSEState(GLOB.clumsyblock, TRUE, TRUE)
-	dna.SetSEState(GLOB.comicblock, TRUE, TRUE)
-	genemutcheck(src, GLOB.clumsyblock, null, MUTCHK_FORCED)
-	genemutcheck(src, GLOB.comicblock, null, MUTCHK_FORCED)
+	force_gene_block(GLOB.clumsyblock, TRUE)
+	force_gene_block(GLOB.comicblock, TRUE)
 	if(!(iswizard(src) || (mind && mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE))) //Mutations are permanent on non-wizards. Can still be removed by genetics fuckery but not mutadone.
-		dna.default_blocks.Add(GLOB.clumsyblock)
-		dna.default_blocks.Add(GLOB.comicblock)
+		LAZYOR(dna.default_blocks, GLOB.clumsyblock)
+		LAZYOR(dna.default_blocks, GLOB.comicblock)
+

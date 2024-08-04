@@ -23,7 +23,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	drink_icon = "glass_clear"
 	drink_name = "Glass of Water"
 	drink_desc = "The father of all refreshments."
-	var/water_temperature = 283.15 // As reagents don't have a temperature value, we'll just use 10 celsius.
+	var/water_temperature = COLD_WATER_TEMPERATURE	// As reagents don't have a temperature value, we'll just use 10 celsius.
 
 /datum/reagent/water/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	M.water_act(volume, water_temperature, src, method)
@@ -48,7 +48,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 
 /datum/reagent/lube/reaction_turf(turf/simulated/T, volume)
 	if(volume >= 1 && istype(T))
-		T.MakeSlippery(TURF_WET_LUBE)
+		T.MakeSlippery(TURF_WET_LUBE, 120 SECONDS)
 
 
 /datum/reagent/space_cleaner
@@ -551,7 +551,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	taste_description = "dry mouth"
 
 /datum/reagent/drying_agent/reaction_turf(turf/simulated/T, volume)
-	if(istype(T) && T.wet)
+	if(istype(T))
 		T.MakeDry(TURF_WET_WATER)
 
 /datum/reagent/drying_agent/reaction_obj(obj/O, volume)

@@ -53,6 +53,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	//ATTACK
 	melee_damage_lower = 15
 	melee_damage_upper = 20
+	AI_delay_max = 0 SECONDS
 
 	//MOVEMENT
 	pass_flags = PASSTABLE
@@ -61,11 +62,12 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	speed = 0
 	// AI spider speed at chasing down targets. Higher numbers mean slower speed. Divide 20 (server tick rate / second) by this to get tiles/sec.
 
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
+
 	//SPECIAL
 	var/list/special_abillity = list()  //has spider unique abillities?
 	var/can_wrap = TRUE   //can spider wrap corpses and objects?
 	var/web_type = /obj/structure/spider/terrorweb
-	ventcrawler = 1 // allows player ventcrawling, set 0 to disallow
 	var/delay_web = 25 // delay between starting to spin web, and finishing
 	faction = list("terrorspiders")
 	var/spider_opens_doors = 1 // all spiders can open firedoors (they have no security). 1 = can open depowered doors. 2 = can open powered doors
@@ -336,16 +338,16 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/spider_special_action()
 	return
 
-/mob/living/simple_animal/hostile/poison/terror_spider/ObjBump(obj/O)
-	if(istype(O, /obj/machinery/door/airlock))
-		var/obj/machinery/door/airlock/L = O
-		if(L.density) // must check density here, to avoid rapid bumping of an airlock that is in the process of opening, instantly forcing it closed
-			return try_open_airlock(L)
-	if(istype(O, /obj/machinery/door/firedoor))
-		var/obj/machinery/door/firedoor/F = O
-		if(F.density && !F.welded)
-			F.open()
-			return 1
+/mob/living/simple_animal/hostile/poison/terror_spider/ObjBump(obj/object)
+	if(istype(object, /obj/machinery/door/airlock))
+		var/obj/machinery/door/airlock/airlock = object
+		if(airlock.density) // must check density here, to avoid rapid bumping of an airlock that is in the process of opening, instantly forcing it closed
+			return try_open_airlock(airlock)
+	if(istype(object, /obj/machinery/door/firedoor))
+		var/obj/machinery/door/firedoor/firedoor = object
+		if(firedoor.density && !firedoor.welded)
+			firedoor.open()
+			return TRUE
 	. = ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/msg_terrorspiders(msgtext)
@@ -387,21 +389,20 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		return TRUE
 
 
-/mob/living/simple_animal/hostile/poison/terror_spider/get_spacemove_backup()
+/mob/living/simple_animal/hostile/poison/terror_spider/get_spacemove_backup(moving_direction, continuous_move)
 	. = ..()
 	// If we don't find any normal thing to use, attempt to use any nearby spider structure instead.
 	if(!.)
-		for(var/obj/structure/spider/S in range(1, get_turf(src)))
-			return S
+		for(var/obj/structure/spider/spider_thing in range(1, get_turf(src)))
+			return spider_thing
 
-/mob/living/simple_animal/hostile/poison/terror_spider/Stat()
-	..()
-	// Determines what shows in the "Status" tab for player-controlled spiders. Used to help players understand spider health regeneration mechanics.
-	// Uses <font color='#X'> because the status panel does NOT accept <span class='X'>.
-	if(statpanel("Status") && ckey && stat == CONSCIOUS)
+
+/mob/living/simple_animal/hostile/poison/terror_spider/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	if(ckey && stat == CONSCIOUS)
 		if(degenerate)
-			stat(null, "<font color='#eb4034'>Hivemind Connection Severed! Dying...</font>") // color=red
-			return
+			status_tab_data[++status_tab_data.len] = list("Link:", "<font color='#eb4034'>Hivemind Connection Severed! Dying...</font>") // color=red
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoRemoteView()
 	if(!isturf(loc))

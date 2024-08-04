@@ -335,3 +335,59 @@
   - refactor: Nodrop Trait (#4920)
   - bugfix: Midnight Rollover Fix (#4942)
   - tweak: Thunk Checks For Incorporeal Move (#4914)
+'2024-04-23':
+  Mr-Vivor:
+  - add: T4 donor CE speechbubble (#4949)
+  Rerik007:
+  - add: added cursed katana from TG (restored version) (#4660)
+  Zwei:
+  - tweak: Throwing Additional Check (#4924)
+'2024-04-24':
+  Daeberdir:
+  - add: Cerestation virology lab space optimization and small map tweaks. (#4933)
+  Honker9999999:
+  - tweak: blind with another effect (#4915)
+  Ksaikok46:
+  - tweak: Nanocalcium fixes bones and bleedings faster (#4950)
+  Zwei:
+  - bugfix: Flags Inv Fixes (#4954)
+  aeternaclose:
+  - bugfix: SpaceRuins fixes (#4951)
+  - bugfix: SpaceBattle awaystart landmark & turf fix (#4957)
+'2024-04-25':
+  Daeberdir:
+  - bugfix: Surgically precise operations for cyborg-surgeons. (#4967)
+  Den109G:
+  - bugfix: Icons for bola and shadowlings (#4963)
+'2024-04-27':
+  Den109G:
+  - bugfix: Brig doors now use a proper font (#4971)
+  Ksaikok46:
+  - bugfix: correct flags check for items in safe (#4972)
+  MstrKabach:
+  - add: adrenalin and freedom implants prototypes (#4974)
+  pilygun:
+  - tweak: buckhelm and makeshift armor update (#4973)
+  - balance: Cargo quests, garbage disposal and price balance (#4968)
+  - tweak: '[Перевод] Cargo translation of receipts into Russian (#4962)'
+  - tweak: '[Перевод] Update quest workers (#4959)'
+'2024-04-28':
+  Antoonij:
+  - add: Borer sneak mode (#4982)
+  Den109G:
+  - bugfix: Beaker now look if you can drink (#4983)
+  Zwei:
+  - bugfix: Changeling Armor Ignores Restrictions (#4970)
+  - qol: PDA Shows Sent Messages (#4964)
+  - bugfix: Progress Bar Runtime Fixed (#4966)
+  - bugfix: Correct Ore Overlays Update (#4960)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4965)
+'2024-04-30':
+  Den109G:
+  - bugfix: Now jumpsuits rolldowns works fine. (#4985)
+  Ksaikok46:
+  - bugfix: Flags_inv fix for some hoods (#4990)
+  - bugfix: EngiVend&CritterCare panel overlays (#4987)
+  pilygun:
+  - tweak: actual Stechkin name in the uplink (#4958)

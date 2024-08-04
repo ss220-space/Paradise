@@ -37,12 +37,15 @@
 	if(ishuman(user))	//eating holder
 		if(target == user)
 			for(var/mob/M in src.contents)
-				return devoured(M, user)
+				. = M.devoured(user)
+				if(.)
+					qdel(src)
+				return .
 	. = ..()
 
-/obj/item/holder/proc/show_message(var/message, var/m_type)
+/obj/item/holder/proc/show_message(message, m_type, chat_message_type)
 	for(var/mob/living/M in contents)
-		M.show_message(message,m_type)
+		M.show_message(message, m_type, chat_message_type)
 
 /obj/item/holder/emp_act(var/intensity)
 	for(var/mob/living/M in contents)
@@ -62,7 +65,6 @@
 	else if(isitem(loc))
 		to_chat(L, "Вы выбираетесь из [loc].")
 		forceMove(get_turf(src))
-	L.resting = FALSE
 
 	if(istype(M))
 		for(var/atom/A in M.contents)
@@ -70,7 +72,6 @@
 				return
 		M.status_flags &= ~PASSEMOTES
 
-	return
 
 //Mob procs and vars for scooping up
 /mob/living
@@ -78,7 +79,7 @@
 
 /mob/living/simple_animal/MouseDrop(atom/over_object)
 	var/mob/living/carbon/human/human_to_ask = over_object //changed to human to avoid stupid issues like xenos holding animals.
-	if(!istype(human_to_ask) || !Adjacent(human_to_ask) || !holder_type)
+	if(!istype(human_to_ask) || human_to_ask.incapacitated() || HAS_TRAIT(human_to_ask, TRAIT_HANDS_BLOCKED) || !Adjacent(human_to_ask) || !holder_type)
 		return ..()
 	if(usr == src)
 		switch(alert(human_to_ask, "[src] wants you to pick [p_them()] up. Do it?",,"Yes","No"))

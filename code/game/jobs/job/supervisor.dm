@@ -41,21 +41,19 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	pda = /obj/item/pda/captain
 	backpack_contents = list(
 		/obj/item/storage/box/ids = 1,
-		/obj/item/melee/classic_baton/telescopic = 1
+		/obj/item/melee/baton/telescopic = 1
 	)
 	implants = list(/obj/item/implant/mindshield/ert)
 	backpack = /obj/item/storage/backpack/captain
 	satchel = /obj/item/storage/backpack/satchel_cap
 	dufflebag = /obj/item/storage/backpack/duffel/captain
 
+
 /datum/outfit/job/captain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
-	if(H && H.w_uniform)
-		var/obj/item/clothing/under/U = H.w_uniform
-		var/obj/item/clothing/accessory/medal/gold/captain/M = new /obj/item/clothing/accessory/medal/gold/captain(U)
-		U.accessories += M
-		M.on_attached(U)
-
+	if(H?.w_uniform)
+		var/obj/item/clothing/accessory/medal/gold/captain/medal = new(H.w_uniform)
+		medal.on_attached(H.w_uniform)
 
 
 /datum/job/hop
@@ -102,7 +100,7 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	pda = /obj/item/pda/heads/hop
 	backpack_contents = list(
 		/obj/item/storage/box/ids = 1,
-		/obj/item/melee/classic_baton/telescopic = 1
+		/obj/item/melee/baton/telescopic = 1
 	)
 
 	implants = list()
@@ -153,9 +151,9 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	l_pocket = /obj/item/lighter/zippo/nt_rep
 	pda = /obj/item/pda/heads/ntrep
 	backpack_contents = list(
-		/obj/item/melee/classic_baton/ntcane = 1
+		/obj/item/melee/baton/ntcane = 1
 	)
-	implants = list(/obj/item/implant/mindshield)
+	implants = list(/obj/item/implant/mindshield/ert)
 
 
 
@@ -255,9 +253,9 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	r_pocket = /obj/item/clothing/accessory/head_strip/lawyers_badge
 	pda = /obj/item/pda/heads/magistrate
 	backpack_contents = list(
-		/obj/item/melee/classic_baton/telescopic = 1
+		/obj/item/melee/baton/telescopic = 1
 	)
-	implants = list(/obj/item/implant/mindshield)
+	implants = list(/obj/item/implant/mindshield/ert)
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
 	box = /obj/item/storage/box/survival_laws/magisraka

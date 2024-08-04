@@ -71,7 +71,7 @@
 	const_holder.construct = new /datum/construction/reversible/mecha/ripley(const_holder)
 	const_holder.icon = 'icons/obj/mecha/mech_construction.dmi'
 	const_holder.icon_state = "ripley0"
-	const_holder.density = 1
+	const_holder.set_density(TRUE)
 	const_holder.overlays = null
 	qdel(src)
 	return
@@ -273,7 +273,7 @@
 	const_holder.construct = new /datum/construction/reversible/mecha/gygax(const_holder)
 	const_holder.icon = 'icons/obj/mecha/mech_construction.dmi'
 	const_holder.icon_state = "gygax0"
-	const_holder.density = 1
+	const_holder.set_density(TRUE)
 	qdel(src)
 	return
 
@@ -546,7 +546,7 @@
 	const_holder.construct = new /datum/construction/reversible/mecha/firefighter(const_holder)
 	const_holder.icon = 'icons/obj/mecha/mech_construction.dmi'
 	const_holder.icon_state = "fireripley0"
-	const_holder.density = 1
+	const_holder.set_density(TRUE)
 	qdel(src)
 	return
 
@@ -759,7 +759,7 @@
 	..("Honker")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/reversible/mecha/honker(const_holder)
-	const_holder.density = 1
+	const_holder.set_density(TRUE)
 	qdel(src)
 	return
 
@@ -831,7 +831,7 @@
 	..("Reticence")
 	var/obj/item/mecha_parts/chassis/const_holder = holder
 	const_holder.construct = new /datum/construction/reversible/mecha/reticence(const_holder)
-	const_holder.density = 1
+	const_holder.set_density(TRUE)
 	qdel(src)
 	return
 
@@ -907,7 +907,7 @@
 	const_holder.construct = new /datum/construction/reversible/mecha/durand(const_holder)
 	const_holder.icon = 'icons/obj/mecha/mech_construction.dmi'
 	const_holder.icon_state = "durand0"
-	const_holder.density = 1
+	const_holder.set_density(TRUE)
 	qdel(src)
 	return
 
@@ -1183,7 +1183,7 @@
 	const_holder.construct = new /datum/construction/reversible/mecha/phazon(const_holder)
 	const_holder.icon = 'icons/obj/mecha/mech_construction.dmi'
 	const_holder.icon_state = "phazon0"
-	const_holder.density = 1
+	const_holder.set_density(TRUE)
 	qdel(src)
 	return
 
@@ -1500,7 +1500,7 @@
 	const_holder.construct = new /datum/construction/reversible/mecha/odysseus(const_holder)
 	const_holder.icon = 'icons/obj/mecha/mech_construction.dmi'
 	const_holder.icon_state = "odysseus0"
-	const_holder.density = 1
+	const_holder.set_density(TRUE)
 	qdel(src)
 	return
 
@@ -1705,7 +1705,7 @@
 	const_holder.construct = new /datum/construction/reversible/mecha/clarke(const_holder)
 	const_holder.icon = 'icons/obj/mecha/mech_construction.dmi'
 	const_holder.icon_state = "clarke0"
-	const_holder.density = 1
+	const_holder.set_density(TRUE)
 	qdel(src)
 	return
 
@@ -1908,7 +1908,7 @@
 	const_holder.construct = new /datum/construction/reversible/mecha/rover(const_holder)
 	const_holder.icon = 'icons/obj/mecha/mech_construction.dmi'
 	const_holder.icon_state = "rover0"
-	const_holder.density = 1
+	const_holder.set_density(TRUE)
 	qdel(src)
 	return
 
@@ -2182,7 +2182,7 @@
 	const_holder.construct = new /datum/construction/reversible/mecha/darkgygax(const_holder)
 	const_holder.icon = 'icons/obj/mecha/mech_construction.dmi'
 	const_holder.icon_state = "darkgygax0"
-	const_holder.density = 1
+	const_holder.set_density(TRUE)
 	qdel(src)
 	return
 

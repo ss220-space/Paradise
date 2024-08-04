@@ -14,11 +14,14 @@
 	return new /datum/spell_targeting/self
 
 
-/obj/effect/proc_holder/spell/touch/Click(mob/user = usr)
-	if(attached_hand)
-		discharge_hand(user, TRUE)
+/obj/effect/proc_holder/spell/touch/Click()
+	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		to_chat(usr, span_warning("You can't control your hands!!"))
 		return FALSE
-	charge_hand(user)
+	if(attached_hand)
+		discharge_hand(usr, TRUE)
+		return FALSE
+	charge_hand(usr)
 
 
 /obj/effect/proc_holder/spell/touch/proc/charge_hand(mob/living/carbon/user)

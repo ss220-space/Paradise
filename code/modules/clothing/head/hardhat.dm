@@ -11,7 +11,6 @@
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	item_color = "yellow" //Determines used sprites: hardhat[on]_[color] and hardhat[on]_[color]2 (lying down sprite)
 	armor = list("melee" = 15, "bullet" = 5, "laser" = 20, "energy" = 10, "bomb" = 20, "bio" = 10, "rad" = 20, "fire" = 100, "acid" = 50)
-	flags_inv = NONE
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	resistance_flags = FIRE_PROOF
 	dog_fashion = /datum/dog_fashion/head/hardhat
@@ -40,7 +39,7 @@
 /obj/item/clothing/head/hardhat/update_icon_state()
 	icon_state = "hardhat[on]_[item_color]"
 	item_state = "hardhat[on]_[item_color]"
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/clothing/head/hardhat/proc/turn_on()
@@ -72,7 +71,7 @@
 	item_color = "red"
 	dog_fashion = null
 	name = "firefighter helmet"
-	flags = STOPSPRESSUREDMAGE
+	clothing_flags = STOPSPRESSUREDMAGE
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	cold_protection = HEAD
@@ -82,7 +81,7 @@
 	icon_state = "hardhat0_white"
 	item_state = "hardhat0_white"
 	item_color = "white"
-	flags = STOPSPRESSUREDMAGE
+	clothing_flags = STOPSPRESSUREDMAGE
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	cold_protection = HEAD
@@ -101,7 +100,7 @@
 	item_color = "atmos"
 	name = "atmospheric technician's firefighting helmet"
 	desc = "A firefighter's helmet, able to keep the user cool in any situation."
-	flags = STOPSPRESSUREDMAGE
+	clothing_flags = STOPSPRESSUREDMAGE
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
 	heat_protection = HEAD

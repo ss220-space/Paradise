@@ -45,6 +45,9 @@
 /obj/structure/alien/weeds/node,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/xenonest)
+"m" = (
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "o" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
@@ -84,13 +87,13 @@
 /obj/structure/alien/resin/wall,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/xenonest)
-"z" = (
+"A" = (
 /obj/structure/alien/weeds,
 /obj/structure/bed/nest,
 /obj/effect/decal/cleanable/blood/gibs,
 /obj/item/clothing/under/rank/security,
 /obj/item/clothing/suit/armor/vest,
-/obj/item/melee/baton/loaded,
+/obj/item/melee/baton/security/loaded,
 /obj/item/clothing/head/helmet,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/xenonest)
@@ -123,9 +126,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/xenonest)
-"G" = (
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "H" = (
 /obj/structure/alien/weeds,
 /obj/effect/decal/cleanable/blood,
@@ -175,16 +175,16 @@
 a
 a
 a
-G
-G
-G
-G
-G
-G
-G
-G
-G
-G
+m
+m
+m
+m
+m
+m
+m
+m
+m
+m
 a
 a
 a
@@ -207,7 +207,7 @@ a
 a
 a
 a
-G
+m
 b
 b
 b
@@ -216,8 +216,8 @@ b
 b
 b
 b
-G
-G
+m
+m
 a
 a
 a
@@ -238,8 +238,8 @@ a
 (3,1,1) = {"
 a
 a
-G
-G
+m
+m
 b
 g
 e
@@ -249,7 +249,7 @@ g
 g
 b
 b
-G
+m
 a
 a
 a
@@ -270,7 +270,7 @@ a
 (4,1,1) = {"
 a
 a
-G
+m
 b
 b
 g
@@ -281,7 +281,7 @@ E
 g
 e
 b
-G
+m
 a
 a
 a
@@ -302,7 +302,7 @@ a
 (5,1,1) = {"
 a
 a
-G
+m
 b
 g
 g
@@ -313,7 +313,7 @@ b
 y
 b
 b
-G
+m
 a
 a
 a
@@ -334,7 +334,7 @@ a
 (6,1,1) = {"
 a
 a
-G
+m
 b
 g
 g
@@ -345,7 +345,7 @@ u
 I
 b
 b
-G
+m
 a
 a
 a
@@ -366,7 +366,7 @@ a
 (7,1,1) = {"
 a
 a
-G
+m
 b
 e
 t
@@ -377,7 +377,7 @@ H
 u
 g
 b
-G
+m
 a
 a
 a
@@ -398,7 +398,7 @@ a
 (8,1,1) = {"
 a
 a
-G
+m
 b
 i
 u
@@ -409,7 +409,7 @@ g
 t
 e
 b
-G
+m
 a
 a
 a
@@ -430,7 +430,7 @@ a
 (9,1,1) = {"
 a
 a
-G
+m
 b
 o
 v
@@ -441,7 +441,7 @@ g
 e
 b
 b
-G
+m
 a
 a
 a
@@ -462,7 +462,7 @@ a
 (10,1,1) = {"
 a
 a
-G
+m
 b
 g
 u
@@ -473,7 +473,7 @@ g
 y
 e
 b
-G
+m
 a
 a
 a
@@ -494,7 +494,7 @@ a
 (11,1,1) = {"
 a
 a
-G
+m
 b
 b
 g
@@ -505,7 +505,7 @@ t
 g
 g
 b
-G
+m
 a
 a
 a
@@ -526,8 +526,8 @@ a
 (12,1,1) = {"
 a
 a
-G
-G
+m
+m
 b
 e
 g
@@ -537,7 +537,7 @@ g
 g
 g
 b
-G
+m
 a
 a
 a
@@ -559,7 +559,7 @@ b
 a
 a
 a
-G
+m
 b
 b
 g
@@ -569,7 +569,7 @@ g
 g
 b
 b
-G
+m
 a
 a
 a
@@ -591,8 +591,8 @@ b
 a
 a
 a
-G
-G
+m
+m
 b
 b
 g
@@ -600,8 +600,8 @@ g
 g
 b
 b
-G
-G
+m
+m
 a
 a
 a
@@ -624,15 +624,15 @@ a
 a
 a
 a
-G
-G
+m
+m
 b
 b
 b
 b
 b
-G
-G
+m
+m
 a
 a
 a
@@ -657,13 +657,13 @@ a
 a
 a
 a
-G
+m
 b
 l
 l
 b
-G
-G
+m
+m
 a
 a
 a
@@ -695,7 +695,7 @@ E
 g
 b
 b
-G
+m
 b
 b
 b
@@ -1074,7 +1074,7 @@ a
 a
 a
 b
-z
+A
 C
 j
 g

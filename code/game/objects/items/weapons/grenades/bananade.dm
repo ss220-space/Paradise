@@ -15,7 +15,7 @@
 	if(spawner_type && deliveryamt)
 		// Make a quick flash
 		var/turf/T = get_turf(src)
-		playsound(T, 'sound/items/bikehorn.ogg', 100, 1)
+		playsound(T, 'sound/items/bikehorn.ogg', 100, TRUE)
 		for(var/mob/living/carbon/C in viewers(T, null))
 			C.flash_eyes()
 		for(var/i=1, i<=deliveryamt, i++)
@@ -23,7 +23,7 @@
 			x.loc = T
 			if(prob(50))
 				for(var/j = 1, j <= rand(1, 3), j++)
-					step(x, pick(NORTH,SOUTH,EAST,WEST))
+					step(x, pick(NORTH, SOUTH, EAST, WEST))
 
 
 

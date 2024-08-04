@@ -20,7 +20,7 @@
 
 
 /obj/item/clipboard/AltClick(mob/user)
-	if(Adjacent(user) && !user.incapacitated())
+	if(Adjacent(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		if(is_pen(user.get_active_hand()))
 			penPlacement(user, user.get_active_hand(), TRUE)
 		else
@@ -29,12 +29,12 @@
 	. = ..()
 
 
-/obj/item/clipboard/verb/removePen(mob/user)
+/obj/item/clipboard/verb/removePen()
 	set category = "Object"
 	set name = "Remove clipboard pen"
-	if(!ishuman(user) || user.incapacitated())
+	if(!ishuman(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
-	penPlacement(user, containedpen, FALSE)
+	penPlacement(usr, containedpen, FALSE)
 
 /obj/item/clipboard/proc/isPaperwork(obj/item/W) //This could probably do with being somewhere else but for now it's fine here.
 	if(istype(W, /obj/item/paper) || istype(W, /obj/item/paper_bundle))

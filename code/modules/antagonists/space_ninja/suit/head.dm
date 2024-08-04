@@ -9,7 +9,6 @@
 /obj/item/clothing/head/helmet/space/space_ninja
 	name = "ninja hood"
 	desc = "What may appear to be a simple black garment is in fact a highly sophisticated nano-weave helmet. Standard issue ninja gear."
-	flags = STOPSPRESSUREDMAGE|THICKMATERIAL
 	flags_inv = HIDEHEADSETS|HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES	//We don't need to cover mouth
 	icon = 'icons/obj/ninjaobjects.dmi'

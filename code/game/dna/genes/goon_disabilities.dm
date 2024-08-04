@@ -20,12 +20,12 @@
 	block = GLOB.muteblock
 
 
-/datum/dna/gene/disability/mute/activate(mob/living/mutant, connected, flags)
+/datum/dna/gene/disability/mute/activate(mob/living/mutant, flags)
 	. = ..()
 	ADD_TRAIT(mutant, TRAIT_MUTE, DNA_TRAIT)
 
 
-/datum/dna/gene/disability/mute/deactivate(mob/living/mutant, connected, flags)
+/datum/dna/gene/disability/mute/deactivate(mob/living/mutant, flags)
 	. = ..()
 	REMOVE_TRAIT(mutant, TRAIT_MUTE, DNA_TRAIT)
 
@@ -312,7 +312,6 @@
 /obj/effect/proc_holder/spell/immolate
 	name = "Incendiary Mitochondria"
 	desc = "The subject becomes able to convert excess cellular energy into thermal energy."
-	panel = "Abilities"
 	base_cooldown = 60 SECONDS
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
