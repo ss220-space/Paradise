@@ -404,9 +404,15 @@ Difficulty: Medium
 		return
 	..()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/adjustHealth(amount, updating_health = TRUE)
+/mob/living/simple_animal/hostile/megafauna/dragon/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
 	if(swooping & SWOOP_INVULNERABLE)
-		return FALSE
+		return STATUS_UPDATE_NONE
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type)

@@ -337,8 +337,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			var/burndamage = convertee.getFireLoss()
 			if(brutedamage || burndamage) // If the convertee is injured
 				// Heal 90% of all damage, including robotic limbs
-				H.adjustBruteLoss(-(brutedamage * 0.9), robotic = TRUE)
-				H.adjustFireLoss(-(burndamage * 0.9), robotic = TRUE)
+				H.heal_overall_damage(brutedamage * 0.9, burndamage * 0.9, affect_robotic = TRUE)
 				if(ismachineperson(H))
 					H.visible_message("<span class='warning'>A dark force repairs [convertee]!</span>",
 					"<span class='cultitalic'>Your damage has been repaired. Now spread the blood to others.</span>")

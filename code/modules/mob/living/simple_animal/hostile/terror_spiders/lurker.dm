@@ -63,7 +63,7 @@
 		return FALSE
 
 	if(W)	//apply debuffs if failed to block
-		L.adjustStaminaLoss(45)
+		L.apply_damage(45, STAMINA)
 		L.AdjustSilence(10 SECONDS)
 	return TRUE
 

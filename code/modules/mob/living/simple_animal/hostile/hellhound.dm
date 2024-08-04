@@ -81,8 +81,7 @@
 		if(life_regen_cycles >= life_regen_cycle_trigger)
 			life_regen_cycles = 0
 			to_chat(src, "<span class='notice'>You lick your wounds, helping them close.</span>")
-			adjustBruteLoss(life_regen_amount)
-			adjustFireLoss(life_regen_amount)
+			heal_overall_damage(life_regen_amount, life_regen_amount)
 		else
 			life_regen_cycles++
 

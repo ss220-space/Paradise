@@ -134,20 +134,30 @@
 		if(hud_used)
 			hud_used.guardianhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#efeeef'>[resulthealth]%</font></div>"
 
-/mob/living/simple_animal/hostile/guardian/adjustHealth(amount, updating_health = TRUE) //The spirit is invincible, but passes on damage to the summoner
-	var/damage = amount * damage_transfer
-	if(summoner)
-		if(loc == summoner)
-			return
-		summoner.adjustBruteLoss(damage)
-		if(damage <= 0)
-			return
-		if(damage > 0)
-			to_chat(summoner, span_danger("Ваш [name] под атакой! Вы получаете урон!"))
-			summoner.visible_message(span_danger("Кровь хлещет из [summoner] ибо [src] получает урон!"))
-		if(summoner.stat == UNCONSCIOUS)
-			to_chat(summoner, span_danger("Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!"))
-			summoner.adjustCloneLoss(damage/2)
+
+/mob/living/simple_animal/hostile/guardian/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
+	. = STATUS_UPDATE_NONE
+	//The spirit is invincible, but passes on damage to the summoner
+	if(!summoner || loc == summoner)
+		return .
+
+	amount *= damage_transfer
+	summoner.adjustBruteLoss(amount)
+	if(amount <= 0)
+		return .
+
+	to_chat(summoner, span_danger("Ваш [name] под атакой! Вы получаете урон!"))
+	summoner.visible_message(span_danger("Кровь хлещет из [summoner] ибо [src] получает урон!"))
+	if(summoner.stat == UNCONSCIOUS)
+		to_chat(summoner, span_danger("Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!"))
+		summoner.adjustCloneLoss(amount / 2)
+
 
 /mob/living/simple_animal/hostile/guardian/ex_act(severity, target)
 	switch(severity)

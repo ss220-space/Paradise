@@ -133,11 +133,13 @@
 	if(!isalien(owner))
 		heal_amt *= 0.2
 
+	var/update = NONE
+	update |= owner.heal_overall_damage(heal_amt, heal_amt, updating_health = FALSE)
+	update |= owner.heal_damages(oxy = heal_amt, clone = heal_amt, updating_health = FALSE)
+	if(update)
+		owner.updatehealth()
+
 	owner.adjust_alien_plasma(plasma_amt)
-	owner.adjustBruteLoss(-heal_amt)
-	owner.adjustFireLoss(-heal_amt)
-	owner.adjustOxyLoss(-heal_amt)
-	owner.adjustCloneLoss(-heal_amt)
 	update_hud()
 
 

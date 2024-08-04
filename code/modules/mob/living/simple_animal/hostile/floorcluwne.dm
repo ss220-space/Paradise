@@ -377,8 +377,7 @@
 		if(prob(50) || smiting)
 			H.makeCluwne()
 
-		H.adjustBruteLoss(30)
-		H.adjustBrainLoss(100)
+		H.apply_damages(brute = 30, brain = 100, spread_damage = TRUE)
 		var/obj/item/organ/external/chest = H.get_organ(BODY_ZONE_CHEST)
 		chest?.drop_organs()
 
