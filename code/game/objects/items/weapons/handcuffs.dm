@@ -181,7 +181,7 @@
 	icon_state = "pinkcuffs"
 	item_state = "pinkcuff"
 
-/obj/item/restraints/handcuffs/cable/attackby(var/obj/item/I, mob/user as mob, params)
+/obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user, params)
 	..()
 	if(istype(I, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = I
@@ -201,7 +201,7 @@
 			return
 
 		to_chat(user, "<span class='notice'>You begin to apply [I] to [src]...</span>")
-		if(do_after(user, 3.5 SECONDS * M.toolspeed * gettoolspeedmod(user), src) && M.use(6))
+		if(do_after(user, 3.5 SECONDS * M.toolspeed, src, category = DA_CAT_TOOL) && M.use(6))
 			var/obj/item/restraints/legcuffs/bola/S = new /obj/item/restraints/legcuffs/bola(drop_location())
 			user.put_in_hands(S, ignore_anim = FALSE)
 			to_chat(user, span_notice("You make some weights out of [I] and tie them to [src]."))

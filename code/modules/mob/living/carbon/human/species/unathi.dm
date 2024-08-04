@@ -118,7 +118,7 @@
 	)
 
 /datum/species/unathi/ashwalker/on_species_gain(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	var/datum/action/innate/ignite_unathi/fire = locate() in H.actions
 	if(!fire)
 		fire = new
@@ -156,38 +156,39 @@
 	punchdamagelow = 4
 	punchdamagehigh = 7
 	punchstunthreshold = 7 //still can stun people pretty often
-	toolspeedmod = 0.9 //they're smart and efficient unlike other lizards
+	toolspeedmod = -0.1 //they're smart and efficient unlike other lizards
+	surgeryspeedmod = -0.1	//shaman is slightly better at surgeries
 	var/obj/effect/proc_holder/spell/touch/healtouch/goodtouch
 
-//gives the heal spell
-/datum/species/unathi/ashwalker/shaman/on_species_gain(mob/living/carbon/C, datum/species/old_species)
-	..()
+
+/datum/species/unathi/ashwalker/shaman/on_species_gain(mob/living/carbon/human/owner)
+	. = ..()
 	goodtouch = new /obj/effect/proc_holder/spell/touch/healtouch
-	C.AddSpell(goodtouch)
-	var/datum/action/innate/anvil_finder/finder = locate() in C.actions
+	owner.AddSpell(goodtouch)
+	var/datum/action/innate/anvil_finder/finder = locate() in owner.actions
 	if(!finder)
 		finder = new
-		finder.Grant(C)
-	var/datum/action/innate/ignite_unathi/fire = locate() in C.actions
+		finder.Grant(owner)
+	var/datum/action/innate/ignite_unathi/fire = locate() in owner.actions
 	if(!fire)
 		fire = new
-		fire.Grant(C)
+		fire.Grant(owner)
 
 
-//removes the heal spell
-/datum/species/unathi/ashwalker/shaman/on_species_loss(mob/living/carbon/C)
+/datum/species/unathi/ashwalker/shaman/on_species_loss(mob/living/carbon/human/owner)
 	. = ..()
 	if(goodtouch)
-		C.RemoveSpell(goodtouch)
-	var/datum/action/innate/anvil_finder/finder = locate() in C.actions
+		owner.RemoveSpell(goodtouch)
+	var/datum/action/innate/anvil_finder/finder = locate() in owner.actions
 	if(finder)
-		finder.Remove(C)
-	var/datum/action/innate/ignite_unathi/fire = locate() in C.actions
+		finder.Remove(owner)
+	var/datum/action/innate/ignite_unathi/fire = locate() in owner.actions
 	if(fire)
-		fire.Remove(C)
+		fire.Remove(owner)
+
 
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	add_verb(H, list(
 		/mob/living/carbon/human/proc/emote_wag,
 		/mob/living/carbon/human/proc/emote_swag,
@@ -203,7 +204,7 @@
 		lash.Grant(H)
 
 /datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	remove_verb(H, list(
 		/mob/living/carbon/human/proc/emote_wag,
 		/mob/living/carbon/human/proc/emote_swag,

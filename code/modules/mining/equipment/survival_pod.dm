@@ -257,16 +257,21 @@
 	density = TRUE
 	pixel_y = -32
 
-/obj/item/gps/computer/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_WRENCH)
-		playsound(loc, W.usesound, 50, 1)
-		user.visible_message("<span class='warning'>[user] disassembles the gps.</span>", \
-						"<span class='notice'>You start to disassemble the gps...</span>", "You hear clanking and banging noises.")
-		if(do_after(user, 2 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
-			var/obj/item/gps/gps = new(loc)
-			gps.add_fingerprint(user)
-			qdel(src)
-			return ..()
+
+/obj/item/gps/computer/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	user.visible_message(
+		span_warning("[user] disassembles [src]."),
+		span_notice("You start to disassemble [src]..."),
+		span_italics("You hear clanking and banging noises."),
+	)
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+		return .
+	var/obj/item/gps/gps = new(loc)
+	transfer_prints_to(gps)
+	gps.add_fingerprint(user)
+	qdel(src)
+
 
 /obj/item/gps/computer/ui_state(mob/user)
 	return GLOB.default_state
@@ -353,14 +358,18 @@
 			new buildstacktype(loc, buildstackamount)
 	qdel(src)
 
-/obj/structure/fans/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_WRENCH)
-		playsound(loc, W.usesound, 50, 1)
-		user.visible_message("<span class='warning'>[user] disassembles the fan.</span>", \
-							 "<span class='notice'>You start to disassemble the fan...</span>", "You hear clanking and banging noises.")
-		if(do_after(user, 2 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
-			deconstruct()
-			return ..()
+
+/obj/structure/fans/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	user.visible_message(
+		span_warning("[user] disassembles [src]."),
+		span_notice("You start to disassemble [src]..."),
+		span_italics("You hear clanking and banging noises."),
+	)
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+		return .
+	deconstruct()
+
 
 /obj/structure/fans/tiny
 	name = "tiny fan"
@@ -396,16 +405,21 @@
 	layer = MOB_LAYER - 0.2
 	density = FALSE
 
-/obj/structure/tubes/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_WRENCH)
-		playsound(loc, W.usesound, 50, 1)
-		user.visible_message("<span class='warning'>[user] disassembles [src].</span>", \
-							 "<span class='notice'>You start to disassemble [src]...</span>", "You hear clanking and banging noises.")
-		if(do_after(user, 2 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
-			var/obj/item/stack/rods/rods = new(loc)
-			rods.add_fingerprint(user)
-			qdel(src)
-			return ..()
+
+/obj/structure/tubes/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	user.visible_message(
+		span_warning("[user] disassembles [src]."),
+		span_notice("You start to disassemble [src]..."),
+		span_italics("You hear clanking and banging noises."),
+	)
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+		return .
+	var/obj/item/stack/rods/rods = new(loc)
+	transfer_prints_to(rods)
+	rods.add_fingerprint(user)
+	qdel(src)
+
 
 /obj/item/fakeartefact
 	name = "expensive forgery"

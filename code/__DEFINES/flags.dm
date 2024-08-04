@@ -214,6 +214,8 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define DA_IGNORE_HELD_ITEM (1<<7)
 /// If actively held item is cyborg gripper we will not check whether its empty during the process.
 #define DA_IGNORE_EMPTY_GRIPPER (1<<8)
+/// Used to prevent important slowdowns to be modified by mob's actions slowdown
+#define DA_IGNORE_SLOWDOWNS (1<<9)
 
 /// All ignore flags considered as default old do_after behavior.
 #define DEFAULT_DOAFTER_IGNORE (DA_IGNORE_LYING|DA_IGNORE_RESTRAINED)
