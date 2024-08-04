@@ -629,7 +629,9 @@
 	},
 /area/maintenance/asmaint4)
 "agN" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "Escape Pod Airlock"
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/eastarrival)
 "agT" = (
@@ -776,10 +778,6 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/secondary/entry/additional)
-"aii" = (
-/obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plating,
-/area/hallway/secondary/entry/westarrival)
 "aim" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/rodent,
@@ -822,10 +820,6 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/lab)
-"aiL" = (
-/obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plating,
-/area/hallway/secondary/entry/eastarrival)
 "aiT" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -883,12 +877,16 @@
 	},
 /area/toxins/explab)
 "ajz" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/belt/utility,
+/obj/item/multitool,
+/obj/item/clothing/glasses/meson,
+/obj/machinery/light{
+	dir = 8
+	},
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = -26
-	},
-/obj/machinery/light{
-	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/mechanic_workshop/expedition)
@@ -979,6 +977,9 @@
 "akl" = (
 /obj/structure/sign/poster/official/work_for_a_future{
 	pixel_x = 32
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/mechanic_workshop/expedition)
@@ -1243,7 +1244,6 @@
 	network = list("SS13","Security");
 	pixel_x = -9
 	},
-/obj/machinery/light,
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/adv,
 /obj/item/storage/firstaid/o2{
@@ -1922,16 +1922,11 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/bar)
 "arT" = (
-/obj/machinery/light{
-	dir = 1
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "neutral"
 	},
-/obj/structure/table/reinforced,
-/obj/machinery/cell_charger{
-	pixel_x = -1;
-	pixel_y = 2
-	},
-/obj/item/stock_parts/cell/high,
-/turf/simulated/floor/plasteel,
 /area/engine/mechanic_workshop/expedition)
 "arX" = (
 /obj/effect/decal/warning_stripes/southwest,
@@ -2034,9 +2029,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
 "atq" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/plasteel,
 /area/engine/mechanic_workshop/expedition)
@@ -2059,13 +2051,15 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/westarrival)
 "atR" = (
+/obj/structure/table/reinforced,
+/obj/machinery/cell_charger{
+	pixel_x = -1;
+	pixel_y = 2
+	},
+/obj/item/stock_parts/cell/high,
 /obj/machinery/light_switch{
 	pixel_x = -24
 	},
-/obj/structure/table/reinforced,
-/obj/item/storage/belt/utility,
-/obj/item/multitool,
-/obj/item/clothing/glasses/meson,
 /turf/simulated/floor/plasteel,
 /area/engine/mechanic_workshop/expedition)
 "atV" = (
@@ -7523,9 +7517,6 @@
 	icon_state = "darkyellow"
 	},
 /area/engine/mechanic_workshop/hangar)
-"bdu" = (
-/turf/simulated/floor/plating,
-/area/construction/hallway)
 "bdz" = (
 /obj/structure/table/reinforced,
 /obj/machinery/chem_dispenser/soda{
@@ -38787,9 +38778,6 @@
 /area/library/game_zone)
 "dRW" = (
 /obj/effect/landmark/start/captain,
-/obj/machinery/light{
-	dir = 1
-	},
 /turf/simulated/floor/carpet/royalblue,
 /area/crew_quarters/captain/bedroom)
 "dRX" = (
@@ -40800,7 +40788,9 @@
 	},
 /area/library)
 "dZo" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "Escape Pod Airlock"
+	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/westarrival)
@@ -50847,9 +50837,9 @@
 /area/security/processing)
 "gto" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/table/holotable,
 /obj/item/wrench,
 /obj/item/crowbar,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -54055,7 +54045,9 @@
 	},
 /area/tcommsat/chamber)
 "heT" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "Escape Pod Airlock"
+	},
 /turf/simulated/floor/plating,
 /area/construction/hallway)
 "heZ" = (
@@ -69214,10 +69206,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/medical/research/nhallway)
-"kXR" = (
-/obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plating,
-/area/maintenance/starboard)
 "kXY" = (
 /obj/structure/lattice,
 /obj/structure/transit_tube/curved{
@@ -70250,10 +70238,6 @@
 	icon_state = "dark"
 	},
 /area/chapel/main)
-"llL" = (
-/obj/structure/extinguisher_cabinet/empty,
-/turf/space,
-/area/space)
 "llN" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
@@ -91827,7 +91811,9 @@
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
 "qjy" = (
-/obj/machinery/door/airlock/external,
+/obj/machinery/door/airlock/external{
+	name = "Escape Pod Airlock"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "qjE" = (
@@ -105497,11 +105483,11 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 28
 	},
-/obj/structure/table/holotable,
 /obj/item/reagent_containers/food/snacks/beans,
 /obj/item/kitchen/utensil/pspoon{
 	pixel_x = 10
 	},
+/obj/structure/table,
 /turf/simulated/floor/plating,
 /area/maintenance/consarea_virology)
 "twQ" = (
@@ -130039,9 +130025,9 @@ aaq
 aaq
 aaq
 aaq
-yhg
-yhg
-yhg
+aaq
+aaq
+aaq
 aaq
 aaq
 aaq
@@ -130295,11 +130281,11 @@ aaq
 aaq
 aaq
 aaq
+aaq
 yhg
 yhg
 yhg
-yhg
-yhg
+aaq
 aaq
 aaq
 aaq
@@ -131323,11 +131309,11 @@ aaq
 aaq
 aaq
 aaq
-aaq
 yhg
-vAm
 yhg
-aaq
+yhg
+yhg
+yhg
 aaq
 aaq
 aaq
@@ -131580,11 +131566,11 @@ aaq
 aaq
 aaq
 aaq
-aaq
-tOj
-bdu
-tOj
-aaq
+coE
+yhg
+vAm
+yhg
+coE
 aaq
 aaq
 aaq
@@ -158142,7 +158128,7 @@ cth
 tSH
 pwN
 dIx
-llL
+aaq
 coE
 coE
 bqc
@@ -161044,12 +161030,12 @@ aaq
 aaq
 aaq
 aaq
-yhg
-yhg
-yhg
-yhg
 aaq
-aaq
+yhg
+yhg
+yhg
+yhg
+agp
 agp
 agp
 ahS
@@ -161300,13 +161286,13 @@ aaq
 aaq
 aaq
 aaq
+aaq
 yhg
 yhg
 yhg
 yhg
 yhg
 yhg
-ahS
 ahS
 alv
 axa
@@ -161557,13 +161543,13 @@ aaq
 aaq
 aaq
 aaq
+aaq
 yhg
 yhg
 yhg
 yhg
 yhg
 ahe
-aii
 dZo
 ayB
 amj
@@ -161814,13 +161800,13 @@ aaq
 aaq
 aaq
 aaq
+aaq
 yhg
 yhg
 yhg
 yhg
 yhg
 yhg
-ahS
 ahS
 ahr
 aah
@@ -162072,12 +162058,12 @@ aaq
 aaq
 aaq
 aaq
-yhg
-yhg
-yhg
-yhg
 aaq
-aaq
+yhg
+yhg
+yhg
+yhg
+agp
 agp
 agp
 ahS
@@ -165670,12 +165656,12 @@ aaq
 aaq
 aaq
 aaq
-yhg
-yhg
-yhg
-yhg
 aaq
-aaq
+yhg
+yhg
+yhg
+yhg
+aiE
 aiE
 ajN
 ala
@@ -165926,13 +165912,13 @@ aaq
 aaq
 aaq
 aaq
+aaq
 yhg
 yhg
 yhg
 yhg
 yhg
 yhg
-ala
 ala
 alw
 awV
@@ -166183,13 +166169,13 @@ aaq
 aaq
 aaq
 aaq
+aaq
 yhg
 yhg
 yhg
 yhg
 yhg
 ahf
-aiL
 agN
 ahs
 aml
@@ -166440,13 +166426,13 @@ aaq
 aaq
 aaq
 aaq
+aaq
 yhg
 yhg
 yhg
 yhg
 yhg
 yhg
-ala
 ala
 ahv
 aNA
@@ -166698,11 +166684,11 @@ aaq
 aaq
 aaq
 aaq
-yhg
-yhg
-yhg
-yhg
 aaq
+yhg
+yhg
+yhg
+yhg
 irJ
 irJ
 irJ
@@ -179682,7 +179668,7 @@ qEC
 oum
 yfp
 yfp
-xZu
+yfp
 vzF
 rsJ
 rsJ
@@ -179940,8 +179926,8 @@ xZu
 xZu
 qjy
 xZu
-hvU
-hvU
+vzF
+vzF
 vkX
 tff
 jpm
@@ -180193,12 +180179,12 @@ tOb
 xyi
 pVa
 qEC
-aaq
-xZu
-kXR
-xZu
+coE
+yhg
+mrO
+yhg
+coE
 vzF
-hvU
 hvU
 vYH
 eUo
@@ -180450,11 +180436,11 @@ pVa
 pVa
 rHr
 qEC
-aaq
 yhg
-mrO
 yhg
-vzF
+yhg
+yhg
+yhg
 vzF
 vkX
 lTr
@@ -181478,11 +181464,11 @@ coE
 coE
 coE
 coE
+aaq
 yhg
 yhg
 yhg
-yhg
-yhg
+aaq
 vzF
 vkX
 vEp
@@ -181736,9 +181722,9 @@ aaq
 aaq
 aaq
 aaq
-yhg
-yhg
-yhg
+aaq
+aaq
+aaq
 aaq
 usN
 vJb

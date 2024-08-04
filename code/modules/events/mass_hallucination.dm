@@ -9,7 +9,7 @@
 		var/turf/T = get_turf(H)
 		if(!T || !is_station_level(T.z))
 			continue
-		var/armor = H.getarmor(type = "rad")
+		var/armor = H.getarmor(attack_flag = RAD)
 		if((RADIMMUNE in H.dna.species.species_traits) || armor >= 75) // Leave radiation-immune species/rad armored players completely unaffected
 			continue
 		H.AdjustHallucinate(rand(100 SECONDS, 200 SECONDS))

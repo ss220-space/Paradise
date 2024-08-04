@@ -1366,13 +1366,13 @@
 			if("brute")
 				if(ishuman(L))
 					var/mob/living/carbon/human/H = L
-					H.adjustBruteLoss(amount, robotic = TRUE)
+					H.adjustBruteLoss(amount, affect_robotic = TRUE)
 				else
 					L.adjustBruteLoss(amount)
 			if("fire")
 				if(ishuman(L))
 					var/mob/living/carbon/human/H = L
-					H.adjustFireLoss(amount, robotic = TRUE)
+					H.adjustFireLoss(amount, affect_robotic = TRUE)
 				else
 					L.adjustFireLoss(amount)
 			if("toxin")

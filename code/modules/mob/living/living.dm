@@ -556,7 +556,7 @@
 		for(var/i = 1 to 5)
 			if(health < HEALTH_THRESHOLD_DEAD)
 				break
-			take_overall_damage(max(5, health - HEALTH_THRESHOLD_DEAD), 0)
+			take_overall_damage(max(5, health - HEALTH_THRESHOLD_DEAD))
 		death()
 		to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
 
@@ -591,13 +591,21 @@
 	if(should_log)
 		log_debug("[src] update_stat([reason][status_flags & GODMODE ? ", GODMODE" : ""])")
 
+
+///Sets the current mob's health value. Do not call directly if you don't know what you are doing, use the damage procs, instead.
+/mob/living/proc/set_health(new_value)
+	. = health
+	health = new_value
+
+
 /mob/living/proc/updatehealth(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
-		health = maxHealth
+		set_health(maxHealth)
 		update_stat("updatehealth([reason])", should_log)
 		return
-	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
+	set_health(maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss())
 	update_stat("updatehealth([reason])", should_log)
+
 
 //This proc is used for mobs which are affected by pressure to calculate the amount of pressure that actually
 //affects them once clothing is factored in. ~Errorage
@@ -1034,8 +1042,9 @@
 				var/martial_override = grabber.mind?.martial_art?.get_resist_chance(GRAB_KILL)
 				. = isnull(martial_override) ? GRAB_RESIST_CHANCE_KILL : martial_override
 	if(. > 0)
-		if(dna?.species.strength_modifier)
-			. *= dna.species.strength_modifier
+		if(ishuman(src))
+			var/mob/living/carbon/human/human = src
+			. *= human.physiology.grab_resist_mod
 		. = round(. * (1 - (clamp(getStaminaLoss(), 0, maxHealth) / maxHealth)))
 	else if(. < 0)
 		. = 0

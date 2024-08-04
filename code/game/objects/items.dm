@@ -364,9 +364,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 				to_chat(user, span_notice("You put out the fire on [src]."))
 			else
 				to_chat(user, span_warning("You burn your hand on [src]!"))
-				var/obj/item/organ/external/affecting = H.get_organ(H.hand ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM)
-				if(affecting && affecting.receive_damage(0, 5))		// 5 burn damage
-					H.UpdateDamageIcon()
+				H.apply_damage(5, BURN, def_zone = H.hand ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM)	// 5 burn damage
 				return
 		else
 			extinguish()
@@ -376,9 +374,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(istype(H))
 			if(!H.gloves || (!(H.gloves.resistance_flags & (UNACIDABLE|ACID_PROOF))))
 				to_chat(user, span_warning("The acid on [src] burns your hand!"))
-				var/obj/item/organ/external/affecting = H.get_organ(H.hand ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM)
-				if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
-					H.UpdateDamageIcon()
+				H.apply_damage(5, BURN, def_zone = H.hand ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM)	// 5 burn damage
 
 	if(throwing)
 		throwing.finalize()
@@ -861,10 +857,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(istype(H))
 		var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
 		if(!eyes) // should still get stabbed in the head
-			var/obj/item/organ/external/head/head = H.bodyparts_by_name[BODY_ZONE_HEAD]
-			head?.receive_damage(rand(10,14), 1)
+			H.apply_damage(rand(10,14), def_zone = BODY_ZONE_HEAD)
 			return
-		eyes.receive_damage(rand(3,4), 1)
+		eyes.internal_receive_damage(rand(3,4), silent = TRUE)
 		if(eyes.damage >= eyes.min_bruised_damage)
 			if(M.stat != 2)
 				if(!eyes.is_robotic())  //robot eyes bleeding might be a bit silly
@@ -879,9 +874,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			if(eyes.damage >= eyes.min_broken_damage)
 				if(M.stat != 2)
 					to_chat(M, "<span class='danger'>You go blind!</span>")
-		var/obj/item/organ/external/affecting = H.get_organ(BODY_ZONE_HEAD)
-		if(affecting.receive_damage(7))
-			H.UpdateDamageIcon()
+		H.apply_damage(7, def_zone = BODY_ZONE_HEAD)
 	else
 		M.take_organ_damage(7)
 	M.AdjustEyeBlurry(rand(6 SECONDS, 8 SECONDS))

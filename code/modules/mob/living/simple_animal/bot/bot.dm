@@ -318,10 +318,16 @@
 		. += span_notice("[src] is in pristine condition.")
 
 
-/mob/living/simple_animal/bot/adjustHealth(amount, updating_health = TRUE)
-	if(amount > 0 && prob(10))
-		new /obj/effect/decal/cleanable/blood/oil(loc)
+/mob/living/simple_animal/bot/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
 	. = ..()
+	if(. && amount > 0 && prob(10))
+		new /obj/effect/decal/cleanable/blood/oil(loc)
 
 
 /mob/living/simple_animal/bot/handle_automated_action()
@@ -443,7 +449,7 @@
 			to_chat(user, span_warning("Close the access panel before manipulating the personality slot!"))
 		else
 			to_chat(user, span_notice("You attempt to pull [paicard] free..."))
-			if(do_after(user, 3 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
+			if(do_after(user, 3 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
 				if(paicard)
 					user.visible_message(span_notice("[user] uses [W] to pull [paicard] out of [bot_name]!"),
 										span_notice("You pull [paicard] out of [bot_name] with [W]."))

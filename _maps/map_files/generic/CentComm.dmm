@@ -804,7 +804,7 @@
 	},
 /area/centcom/specops)
 "aqo" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/clothing/gloves/boxing/hologlove{
 	icon_state = "boxinggreen";
 	item_state = "boxinggreen"
@@ -5281,7 +5281,7 @@
 	},
 /area/centcom/evac)
 "ctz" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/beach_ball,
 /obj/item/beach_ball/holoball,
 /turf/simulated/floor/plasteel{
@@ -7142,7 +7142,6 @@
 	icon_screen = "seclaptop";
 	icon_state = "laptop"
 	},
-/obj/structure/table/wood,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = 26;
 	pixel_y = 26
@@ -7154,6 +7153,7 @@
 	pixel_x = -2;
 	pixel_y = 11
 	},
+/obj/structure/table/holotable/wood,
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "dnJ" = (
@@ -7682,7 +7682,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/reagent_containers/glass/beaker/waterbottle,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
@@ -7877,7 +7877,7 @@
 /turf/simulated/floor/glass/reinforced,
 /area/centcom/zone1)
 "dDF" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9928,7 +9928,7 @@
 /obj/structure/window/reinforced{
 	layer = 2.9
 	},
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/paper_bin/nanotrasen{
 	pixel_x = 3;
 	pixel_y = 12
@@ -10862,10 +10862,10 @@
 /obj/item/pen/fancy{
 	pixel_x = 8
 	},
-/obj/structure/table/wood,
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
+/obj/structure/table/holotable/wood,
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "fdP" = (
@@ -10963,8 +10963,8 @@
 /turf/simulated/floor/carpet,
 /area/centcom/evac)
 "fgt" = (
-/obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/officetoys,
+/obj/structure/table/holotable/wood,
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "fgu" = (
@@ -14109,7 +14109,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/machinery/computer/library/public{
 	pixel_y = 4;
 	pixel_x = 1
@@ -15690,7 +15690,7 @@
 	department = "Central Command";
 	icon_state = "bigscanner"
 	},
-/obj/structure/table/wood,
+/obj/structure/table/holotable/wood,
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "hsk" = (
@@ -18520,7 +18520,7 @@
 	},
 /area/ninja/outpost)
 "iMk" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/paper,
 /obj/machinery/door/window/brigdoor{
 	dir = 8
@@ -20963,7 +20963,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/paper_bin/nanotrasen{
 	pixel_x = 3;
 	pixel_y = 12
@@ -21535,7 +21535,7 @@
 	dir = 1;
 	layer = 2.9
 	},
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/pen/multi/fountain,
 /obj/item/paper_bin/nanotrasen{
 	pixel_x = 3;
@@ -22397,8 +22397,8 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "kDd" = (
-/obj/structure/table/holotable/wood,
 /obj/item/paper_bin/nanotrasen,
+/obj/structure/table/wood,
 /turf/simulated/floor/plating,
 /area/centcom/zone2)
 "kDg" = (
@@ -22885,7 +22885,7 @@
 	},
 /area/centcom/zone2)
 "kNq" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/machinery/computer/library/public,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
@@ -25777,7 +25777,7 @@
 /area/ninja/outside)
 "mfd" = (
 /obj/machinery/photocopier,
-/obj/structure/table/holotable/wood,
+/obj/structure/table/wood,
 /turf/simulated/floor/plating,
 /area/centcom/zone2)
 "mfn" = (
@@ -25929,11 +25929,11 @@
 	},
 /area/centcom/zone1)
 "mjU" = (
-/obj/structure/table/holotable/wood,
 /obj/machinery/light_construct/small{
 	dir = 4
 	},
 /obj/machinery/computer/library/public,
+/obj/structure/table/wood,
 /turf/simulated/floor/plating,
 /area/centcom/zone2)
 "mkb" = (
@@ -27293,7 +27293,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/reagent_containers/food/drinks/coffee,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
@@ -28119,7 +28119,7 @@
 	},
 /area/shuttle/gamma)
 "neo" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -29451,7 +29451,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/table/holotable,
+/obj/structure/table,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
 "nFC" = (
@@ -30344,7 +30344,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/machinery/computer/library/public,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
@@ -32774,7 +32774,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom/evac)
 "pfP" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -34694,7 +34694,7 @@
 /obj/structure/window/reinforced{
 	layer = 2.9
 	},
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/reagent_containers/glass/beaker/waterbottle,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
@@ -37734,7 +37734,7 @@
 	},
 /area/syndicate_mothership)
 "rtr" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/gift,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
@@ -38446,7 +38446,7 @@
 	},
 /area/syndicate_mothership/infteam)
 "rIS" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -41504,7 +41504,7 @@
 	},
 /area/syndicate_mothership/jail)
 "teo" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/pen/multi/fountain,
 /obj/item/paper_bin/nanotrasen{
 	pixel_x = 3;
@@ -41892,7 +41892,7 @@
 /area/centcom/specops)
 "tpf" = (
 /obj/structure/window/reinforced,
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -43666,7 +43666,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/paper_bin/nanotrasen{
 	pixel_x = 3;
 	pixel_y = 12
@@ -43720,7 +43720,7 @@
 /obj/structure/window/reinforced{
 	layer = 2.9
 	},
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/paper_bin/nanotrasen{
 	pixel_x = 3;
 	pixel_y = 12
@@ -44461,7 +44461,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
 "uuD" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/paper_bin/nanotrasen{
 	pixel_x = 3;
 	pixel_y = 12
@@ -46993,7 +46993,7 @@
 	dir = 1;
 	layer = 2.9
 	},
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/machinery/computer/library/public,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)

@@ -1,0 +1,44 @@
+'2024-08-01':
+  Aziz Chynaliev:
+  - server: auto reconnect on round restart after 10s (#5633)
+  - add: increase auto reconnection delay and add random delay
+  Zwei:
+  - tweak: Grab Tweaks N1 (#5635)
+'2024-08-02':
+  Aziz Chynaliev:
+  - tweak: reconnection timings
+  - add: duplicate Fit Viewport button to left help menu
+  - server: experiment with autoreconnection
+  Den109G:
+  - tweak: BIG error message for TGUI chat (#5637)
+  - tweak: Add fullscrean button (#5638)
+  PiotrTheTchaikowsky:
+  - qol: Plushie qol add sprites and mechanics (#5628)
+  Valtor:
+  - bugfix: diona "Evacuation" evacuate right into nullspace (#5626)
+'2024-08-03':
+  Aziz Chynaliev:
+  - server: increase connection lost threshold
+  Den109G:
+  - bugfix: Fix polarized fulltile windows' IDs (#5642)
+  FanTik-Ratge:
+  - imageadd: fix-offhand-sprite, add 24 new inhand sprites (#5639)
+  Quinalion:
+  - add: Abductor Silencer to Grey Uplink (#5643)
+  Vladisvell:
+  - bugfix: tables now do not become invisible (#5640)
+  Zwei:
+  - bugfix: Sybil-Dominator Interaction Fix (#5641)
+'2024-08-04':
+  FanTik-Ratge:
+  - imageadd: 'inhand fix #666 (#5648)'
+  - imageadd: fix fridge overlay (#5647)
+  NightDawnFox:
+  - tweak: more balloons for lava stuff + knockdown for mining charges (#5524)
+  Quinalion:
+  - imageadd: mender, kits, gauze, splint inhand sprite (#5645)
+  Valtor:
+  - add: Diona passive blood regen (#4945)
+  Zwei:
+  - unknown: Physiology Implementation (#5529)
+  - unknown: Basic Actions Modifiers (#5636)

@@ -55,7 +55,7 @@
 	if(emp_proof)
 		return
 	..()
-	receive_damage(30)
+	internal_receive_damage(30)
 	if(!iscarbon(owner))
 		return
 	var/mob/living/carbon/C = owner

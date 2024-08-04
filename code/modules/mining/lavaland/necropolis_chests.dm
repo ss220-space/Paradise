@@ -350,7 +350,7 @@
 	item_flags = NO_PIXEL_RANDOM_DROP
 	contents = newlist(/obj/item/cursed_katana)
 
-/obj/item/organ/internal/cyberimp/arm/katana/prepare_eat() 
+/obj/item/organ/internal/cyberimp/arm/katana/prepare_eat()
 	return
 
 /obj/item/organ/internal/cyberimp/arm/katana/attack_self(mob/living/carbon/user, modifiers)
@@ -553,7 +553,7 @@
 	to_chat(target, span_userdanger("[user] shatters [src] over you!"))
 	target.apply_damage((ishostile(target) ? 75 : 35), BRUTE, BODY_ZONE_CHEST, TRUE)
 	target.Weaken(3 SECONDS)
-	target.adjustStaminaLoss(60) //Takes 4 hits to do, breaks your weapon. Perfectly fine.
+	target.apply_damage(60, STAMINA) //Takes 4 hits to do, breaks your weapon. Perfectly fine.
 	user.do_attack_animation(target, ATTACK_EFFECT_SMASH)
 	playsound(src, 'sound/effects/glassbr3.ogg', 100, TRUE)
 	if(ishuman(user))

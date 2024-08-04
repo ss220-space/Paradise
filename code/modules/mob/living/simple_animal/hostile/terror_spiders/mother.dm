@@ -55,8 +55,8 @@
 				new /obj/effect/temp_visual/heal(get_turf(S), "#8c00ff")
 	for(var/mob/living/carbon/human/L in view(7, src))  //deadly toxic aura
 		if(L.stat != DEAD)
-			L.adjustToxLoss(3)
-			L.adjustStaminaLoss(3)
+			L.apply_damages(tox = 3, stamina = 3)
+
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/consume_jelly(obj/structure/spider/royaljelly/J)
 	to_chat(src, "<span class='warning'>Mothers cannot consume royal jelly.</span>")

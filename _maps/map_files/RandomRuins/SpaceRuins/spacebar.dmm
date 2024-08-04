@@ -76,7 +76,7 @@
 /turf/simulated/floor/shuttle,
 /area/ruin/powered)
 "aD" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/clothing/accessory/holster,
 /turf/simulated/floor/wood,
 /area/ruin/powered/space_bar)
@@ -107,7 +107,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/space_bar)
 "aM" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/clothing/glasses/sunglasses,
 /obj/item/clothing/head/beret/black,
 /turf/simulated/floor/wood,
@@ -270,9 +270,9 @@
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/powered/space_bar)
 "fb" = (
-/obj/structure/table/holotable/wood,
 /obj/item/newspaper,
 /obj/item/card/id/prisoner,
+/obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/ruin/powered/space_bar)
 "fi" = (
@@ -702,7 +702,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/powered/space_bar)
 "Nn" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/clipboard,
 /obj/item/paper,
 /obj/item/reagent_containers/food/snacks/donut/sprinkles,
@@ -715,7 +715,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/space_bar)
 "Pa" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/machinery/chem_dispenser/soda,
 /turf/simulated/floor/wood,
 /area/ruin/powered/space_bar)
@@ -770,7 +770,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/powered/space_bar)
 "TB" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/reagent_containers/food/drinks/cans/beer,
 /obj/item/book/manual/barman_recipes,
 /obj/item/reagent_containers/food/drinks/shaker,

@@ -170,11 +170,7 @@
 	if(disease)
 		var/datum/disease/D = new disease
 		D.Contract(M)
-	M.adjustOxyLoss(oxy_damage)
-	if(brute_damage)
-		M.apply_damage(brute_damage, BRUTE)
-	if(burn_damage)
-		M.apply_damage(burn_damage, BURN)
+	M.apply_damages(brute_damage, burn_damage, oxy_damage, forced = TRUE)
 	if(death)
 		M.death() //Kills the new mob
 	M.color = mob_color

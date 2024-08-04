@@ -163,7 +163,7 @@
 		var/mob/living/burn_living = burn_target
 		burn_living.adjust_fire_stacks(lava_firestacks)
 		burn_living.IgniteMob()
-		burn_living.adjustFireLoss(lava_damage)
+		burn_living.apply_damage(lava_damage, BURN, spread_damage = TRUE)
 		return TRUE
 
 	return FALSE
@@ -271,19 +271,19 @@
 		return TRUE
 
 	if(isliving(burn_target))
+		var/burn_damage = lava_damage
+		var/tox_damage = 0
 		var/mob/living/burn_living = burn_target
 		burn_living.adjust_fire_stacks(lava_firestacks)
 		burn_living.IgniteMob()
-		burn_living.adjustFireLoss(lava_damage)
 		burn_living.adjust_bodytemperature(-rand(50, 65)) //its cold, man
-		if(!ishuman(burn_living) || prob(65))
-			return TRUE
-		var/mob/living/carbon/human/burn_human = burn_living
-		var/datum/species/burn_species = burn_human.dna.species.name
-		if(burn_species == SPECIES_PLASMAMAN || burn_species == SPECIES_MACNINEPERSON) //ignore plasmamen/robotic species.
-			return TRUE
-		burn_human.adjustToxLoss(human_tox_fire_damage) //Cold mutagen is bad for you, more at 11.
-		burn_human.adjustFireLoss(human_tox_fire_damage)
+		if(ishuman(burn_living) && prob(65))
+			var/mob/living/carbon/human/burn_human = burn_living
+			var/datum/species/burn_species = burn_human.dna.species.name
+			if(burn_species != SPECIES_PLASMAMAN && burn_species != SPECIES_MACNINEPERSON) //ignore plasmamen/robotic species.
+				burn_damage += human_tox_fire_damage
+				tox_damage += human_tox_fire_damage
+		burn_living.apply_damages(burn = burn_damage, tox = tox_damage, spread_damage = TRUE)	//Cold mutagen is bad for you, more at 11.
 		return TRUE
 
 	return FALSE
