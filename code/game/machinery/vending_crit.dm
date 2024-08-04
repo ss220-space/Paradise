@@ -31,9 +31,9 @@
 	var/obj/item/organ/external/leg/right = victim.get_organ(BODY_ZONE_R_LEG)
 	var/obj/item/organ/external/leg/left = victim.get_organ(BODY_ZONE_L_LEG)
 	if(istype(left))
-		left.receive_damage(200)
+		left.external_receive_damage(200)
 	if(istype(right))
-		right.receive_damage(200)
+		right.external_receive_damage(200)
 
 	if(left || right)
 		victim.visible_message(
