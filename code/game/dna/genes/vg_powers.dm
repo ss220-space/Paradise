@@ -198,17 +198,13 @@
 
 /datum/dna/gene/basic/grant_spell/remotetalk/activate(mob/living/mutant, flags)
 	. = ..()
-	var/datum/atom_hud/thoughts/hud = GLOB.huds[THOUGHTS_HUD]
 	mutant.AddSpell(new /obj/effect/proc_holder/spell/mindscan(null))
-	hud.manage_hud(mutant, THOUGHTS_HUD_PRECISE)
 
 
 /datum/dna/gene/basic/grant_spell/remotetalk/deactivate(mob/living/mutant, flags)
 	. = ..()
-	var/datum/atom_hud/thoughts/hud = GLOB.huds[THOUGHTS_HUD]
 	for(var/obj/effect/proc_holder/spell/mindscan/spell in mutant.mob_spell_list)
 		mutant.RemoveSpell(spell)
-	hud.manage_hud(mutant, THOUGHTS_HUD_DISPERSE)
 
 
 /obj/effect/proc_holder/spell/remotetalk
@@ -232,19 +228,10 @@
 		to_chat(user,"<span class='warning'>You can't communicate without breaking your vow of silence.</span>")
 		return
 	for(var/mob/living/target in targets)
-		var/datum/atom_hud/thoughts/hud = GLOB.huds[THOUGHTS_HUD]
-		hud.manage_hud(target, THOUGHTS_HUD_PRECISE)
-		user.hud_typing = TRUE
-		user.thoughts_hud_set(TRUE)
 		var/say = tgui_input_text(user, "What do you wish to say?", "Project Mind")
-		user.hud_typing = FALSE
-		user.typing = FALSE
 		if(!say || usr.stat)
-			hud.manage_hud(target, THOUGHTS_HUD_DISPERSE)
-			user.thoughts_hud_set(FALSE)
 			return
-		user.thoughts_hud_set(TRUE, say_test(say))
-		addtimer(CALLBACK(hud, TYPE_PROC_REF(/datum/atom_hud/thoughts/, manage_hud), target, THOUGHTS_HUD_DISPERSE), 3 SECONDS)
+		target.throw_alert("remote_talk", /atom/movable/screen/alert/remote_talk)
 		say = strip_html(say)
 		say = pencode_to_html(say, usr, format = 0, fields = 0)
 		log_say("(TPATH to [key_name(target)]) [say]", user)
@@ -256,7 +243,11 @@
 		user.show_message("<span class='abductor'>You project your mind into [(target in user.get_visible_mobs()) ? target.name : "the unknown entity"]: [say]</span>")
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			G.show_message("<i>Telepathic message from <b>[user]</b> ([ghost_follow_link(user, ghost=G)]) to <b>[target]</b> ([ghost_follow_link(target, ghost=G)]): [say]</i>")
+		sleep(30)
+		target.clear_alert("remote_talk")
 
+/obj/effect/proc_holder/spell/remotetalk/cast_check(charge_check, start_recharge, mob/user, break_remoteview)
+	return ..(TRUE, TRUE, user, FALSE)
 
 /obj/effect/proc_holder/spell/mindscan
 	name = "Scan Mind"
@@ -276,22 +267,21 @@
 	if(!ishuman(user))
 		return
 	for(var/mob/living/target in targets)
-		var/datum/atom_hud/thoughts/hud = GLOB.huds[THOUGHTS_HUD]
 		var/message = "You feel your mind expand briefly... (Click to send a message.)"
 		if(target.dna?.GetSEState(GLOB.remotetalkblock))
 			message = "You feel [user.real_name] request a response from you... (Click here to project mind.)"
 		user.show_message("<span class='abductor'>You offer your mind to [(target in user.get_visible_mobs()) ? target.name : "the unknown entity"].</span>")
 		target.show_message("<span class='abductor'><A href='?src=[UID()];target=[target.UID()];user=[user.UID()]'>[message]</a></span>")
 		available_targets += target
-		hud.manage_hud(target, THOUGHTS_HUD_PRECISE)
 		addtimer(CALLBACK(src, PROC_REF(removeAvailability), target), 45 SECONDS)
+		target.throw_alert("remote_talk", /atom/movable/screen/alert/remote_talk)
+		sleep(30)
+		target.clear_alert("remote_talk")
 
 
 /obj/effect/proc_holder/spell/mindscan/proc/removeAvailability(mob/living/target)
 	if(target in available_targets)
-		var/datum/atom_hud/thoughts/hud = GLOB.huds[THOUGHTS_HUD]
 		available_targets -= target
-		hud.manage_hud(target, THOUGHTS_HUD_DISPERSE)
 		target.show_message("<span class='abductor'>You feel the sensation fade...</span>")
 
 
@@ -305,15 +295,10 @@
 		var/mob/living/target = locateUID(href_list["target"])
 		if(!(target in available_targets))
 			return
-		target.hud_typing = TRUE
-		target.thoughts_hud_set(TRUE)
 		var/say = tgui_input_text(user, "What do you wish to say?", "Scan Mind")
-		target.hud_typing = FALSE
-		target.typing = FALSE
 		if(!say || target.stat)
-			target.thoughts_hud_set(FALSE)
 			return
-		target.thoughts_hud_set(TRUE, say_test(say))
+		user.throw_alert("remote_talk", /atom/movable/screen/alert/remote_talk)
 		say = strip_html(say)
 		say = pencode_to_html(say, target, format = 0, fields = 0)
 		user.create_log(SAY_LOG, "Telepathically responded '[say]' using [src]", target)
@@ -325,6 +310,8 @@
 		user.show_message("<span class='abductor'>You hear [target.name]'s voice: [say]</span>")
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			G.show_message("<i>Telepathic response from <b>[target]</b> ([ghost_follow_link(target, ghost=G)]) to <b>[user]</b> ([ghost_follow_link(user, ghost=G)]): [say]</i>")
+		sleep(30)
+		user.clear_alert("remote_talk")
 
 
 /obj/effect/proc_holder/spell/mindscan/Destroy()
@@ -332,6 +319,8 @@
 		removeAvailability(target)
 	return ..()
 
+/obj/effect/proc_holder/spell/mindscan/cast_check(charge_check, start_recharge, mob/user, break_remoteview)
+	return ..(TRUE, TRUE, user, FALSE)
 
 /datum/dna/gene/basic/grant_spell/remoteview
 	name = "Remote Viewing"

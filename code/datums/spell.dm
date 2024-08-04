@@ -215,13 +215,13 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
  * start_recharge - If the proc should set the cooldown
  * user - The caster of the spell
  */
-/obj/effect/proc_holder/spell/proc/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/user = usr) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
+/obj/effect/proc_holder/spell/proc/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/user = usr, break_remoteview = TRUE) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
 	if(!can_cast(user, charge_check, TRUE))
 		return FALSE
 
 	user.changeNext_click(CLICK_CD_CLICK_ABILITY)
 
-	if(ishuman(user))
+	if(break_remoteview && ishuman(user))
 		var/mob/living/carbon/human/caster = user
 		if(caster.remoteview_target)
 			caster.remoteview_target = null
