@@ -131,6 +131,18 @@
 	HUDType = DATA_HUD_SECURITY_ADVANCED
 	examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
 
+	/obj/item/organ/internal/cyberimp/eyes/hud/science
+	name = "Science implant"
+	desc = "These cybernetic eye implants with an analyzer for scanning items and reagents."
+	//icon_state = null
+	//item_state = null
+	eye_colour = "#880862"
+	implant_color = "#880862"
+	origin_tech = "materials=4;engineering=4;biotech=4;magnets=4"
+	aug_message = "You see the technological nature of things around you."
+	examine_extensions = EXAMINE_HUD_SCIENCE
+	actions_types = list(/datum/action/item_action/toggle_research_scanner)
+
 // Welding shield implant
 /obj/item/organ/internal/cyberimp/eyes/shield
 	name = "welding shield implant"

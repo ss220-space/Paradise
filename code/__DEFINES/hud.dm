@@ -78,6 +78,7 @@
 #define EXAMINE_HUD_MEDICAL					(1<<2)	//"medical"
 #define EXAMINE_HUD_SKILLS					(1<<3)	//"skills"
 #define EXAMINE_HUD_BOTANY					(1<<4)	//"botany"
+#define EXAMINE_HUD_SCIENCE					(1<<5)  //"science"
 
 
 // Consider these images/atoms as part of the UI/HUD (apart of the appearance_flags)
