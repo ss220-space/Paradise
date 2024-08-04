@@ -204,7 +204,7 @@
 				if(M.health < M.maxHealth)
 					M.adjustHealth(-8)
 
-			if(ishuman(L) && L.blood_volume < BLOOD_VOLUME_NORMAL)
+			if(ishuman(L) && L.blood_volume < BLOOD_VOLUME_NORMAL && !isdiona(L))
 				L.blood_volume += 1
 
 /obj/structure/clockwork/functional/beacon/Destroy()
