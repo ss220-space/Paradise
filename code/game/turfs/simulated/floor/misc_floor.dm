@@ -78,7 +78,7 @@
 		to_chat(user, span_notice("You start digging..."))
 
 		playsound(src, I.usesound, 50, TRUE)
-		if(do_after(user, 4 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, 4 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
 			if(!can_dig(user))
 				return TRUE
 			to_chat(user, span_notice("You dig a hole."))

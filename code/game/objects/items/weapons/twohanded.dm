@@ -946,11 +946,11 @@
 	else
 		. += "<span class='warning'>It is missing a pyroclastic anomaly core.</span>"
 
-/obj/item/clothing/gloves/color/black/pyro_claws/item_action_slot_check(slot)
+/obj/item/clothing/gloves/color/black/pyro_claws/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_GLOVES)
 		return TRUE
 
-/obj/item/clothing/gloves/color/black/pyro_claws/ui_action_click(mob/user)
+/obj/item/clothing/gloves/color/black/pyro_claws/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(!core)
 		to_chat(user, "<span class='notice'>[src] has no core to power it!</span>")
 		return

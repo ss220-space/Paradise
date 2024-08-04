@@ -1,0 +1,257 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	tag = "icon-propulsion (EAST)"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/transport)
+"b" = (
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 2;
+	height = 12;
+	id = "ferry";
+	name = "ferry shuttle";
+	roundstart_move = "ferry_away";
+	timid = 1;
+	width = 5
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/shuttle{
+	id_tag = "s_docking_airlock";
+	req_access = list(104,106,63,19)
+	},
+/turf/simulated/floor/shuttle,
+/area/shuttle/transport)
+"e" = (
+/obj/structure/window/plasmareinforced{
+	dir = 8;
+	layer = 2.9
+	},
+/turf/simulated/floor/shuttle/objective_check,
+/area/shuttle/transport)
+"f" = (
+/obj/structure/table/reinforced,
+/obj/machinery/light/spot{
+	dir = 8;
+	tag = "icon-tube1 (WEST)"
+	},
+/obj/machinery/recharger,
+/obj/structure/reagent_dispensers/peppertank{
+	pixel_y = 28
+	},
+/turf/simulated/floor/noslip{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor"
+	},
+/area/shuttle/transport)
+"h" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/floor/noslip{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor"
+	},
+/area/shuttle/transport)
+"i" = (
+/obj/structure/bed,
+/turf/simulated/floor/shuttle/objective_check,
+/area/shuttle/transport)
+"j" = (
+/obj/machinery/door/airlock/shuttle{
+	id_tag = "s_docking_airlock";
+	req_access = list(104,106,63,19)
+	},
+/turf/simulated/floor/shuttle/objective_check,
+/area/shuttle/transport)
+"k" = (
+/obj/machinery/computer/shuttle/ferry/request,
+/turf/simulated/floor/noslip{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor"
+	},
+/area/shuttle/transport)
+"n" = (
+/obj/machinery/vending/security,
+/turf/simulated/floor/noslip{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor"
+	},
+/area/shuttle/transport)
+"p" = (
+/obj/structure/window/full/shuttle,
+/obj/structure/grille,
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/transport)
+"q" = (
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/floor/noslip{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor"
+	},
+/area/shuttle/transport)
+"t" = (
+/obj/machinery/light/spot{
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
+	},
+/obj/structure/table/reinforced,
+/obj/machinery/recharger,
+/turf/simulated/floor/noslip{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor"
+	},
+/area/shuttle/transport)
+"u" = (
+/obj/machinery/light/spot,
+/obj/structure/table/reinforced,
+/obj/machinery/recharger,
+/turf/simulated/floor/noslip{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor"
+	},
+/area/shuttle/transport)
+"y" = (
+/obj/structure/table/reinforced,
+/obj/machinery/light/spot{
+	dir = 8;
+	tag = "icon-tube1 (WEST)"
+	},
+/obj/machinery/recharger,
+/turf/simulated/floor/noslip{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor"
+	},
+/area/shuttle/transport)
+"z" = (
+/obj/structure/dresser,
+/obj/structure/mirror{
+	pixel_y = -32
+	},
+/turf/simulated/floor/shuttle/objective_check,
+/area/shuttle/transport)
+"B" = (
+/turf/simulated/floor/noslip{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor"
+	},
+/area/shuttle/transport)
+"E" = (
+/obj/structure/closet,
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/orange,
+/obj/structure/window/plasmareinforced{
+	dir = 8;
+	layer = 2.9
+	},
+/turf/simulated/floor/shuttle/objective_check,
+/area/shuttle/transport)
+"G" = (
+/turf/simulated/wall/shuttle{
+	tag = "icon-swall2"
+	},
+/area/shuttle/transport)
+"H" = (
+/turf/simulated/floor/shuttle/objective_check,
+/area/shuttle/transport)
+"O" = (
+/obj/structure/toilet,
+/turf/simulated/floor/shuttle/objective_check,
+/area/shuttle/transport)
+"U" = (
+/turf/simulated/wall/shuttle,
+/area/shuttle/transport)
+"W" = (
+/turf/simulated/wall/shuttle{
+	dir = 3
+	},
+/area/shuttle/transport)
+
+(1,1,1) = {"
+a
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+U
+E
+e
+e
+U
+"}
+(3,1,1) = {"
+U
+H
+H
+i
+U
+"}
+(4,1,1) = {"
+U
+O
+H
+H
+U
+"}
+(5,1,1) = {"
+U
+H
+H
+z
+U
+"}
+(6,1,1) = {"
+U
+W
+j
+G
+U
+"}
+(7,1,1) = {"
+U
+f
+B
+y
+U
+"}
+(8,1,1) = {"
+U
+q
+B
+h
+U
+"}
+(9,1,1) = {"
+p
+k
+B
+n
+p
+"}
+(10,1,1) = {"
+U
+q
+B
+h
+U
+"}
+(11,1,1) = {"
+U
+t
+B
+u
+U
+"}
+(12,1,1) = {"
+U
+p
+b
+p
+U
+"}

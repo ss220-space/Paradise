@@ -58,8 +58,8 @@
 			return
 
 	// Rate limiting
-	var/mtl = 150 // 150 topics per minute
-	if(!holder) // Admins are allowed to spam click, deal with it.
+	var/mtl = CONFIG_GET(number/minute_topic_limit)
+	if(!holder && (href_list["window_id"] != "statbrowser") && mtl) // Admins are allowed to spam click, deal with it.
 		var/minute = round(world.time, 600)
 		if (!topiclimiter)
 			topiclimiter = new(LIMITER_SIZE)
@@ -78,8 +78,8 @@
 			to_chat(src, "<span class='danger'>[msg]</span>")
 			return
 
-	var/stl = 10 // 10 topics a second
-	if (!holder) // Admins are allowed to spam click, deal with it.
+	var/stl = CONFIG_GET(number/second_topic_limit)
+	if(!holder && stl) // Admins are allowed to spam click, deal with it.
 		var/second = round(world.time, 10)
 		if (!topiclimiter)
 			topiclimiter = new(LIMITER_SIZE)
@@ -150,6 +150,9 @@
 	// Tgui Topic middleware
 	if(tgui_Topic(href_list))
 		return
+
+	if(href_list["reload_statbrowser"])
+		stat_panel.reinitialize()
 
 	if(href_list["reload_tguipanel"])
 		nuke_chat()
@@ -233,6 +236,9 @@
 	var/tdata = TopicData //save this for later use
 	TopicData = null							//Prevent calls to client.Topic from connect
 
+	stat_panel = new(src, "statbrowser")
+	stat_panel.subscribe(src, PROC_REF(on_stat_panel_message))
+
 	tgui_panel = new(src, "chat_panel")
 
 	if(connection != "seeker")					//Invalid connection type.
@@ -266,10 +272,12 @@
 	prefs = GLOB.preferences_datums[ckey]
 	if(!prefs)
 		prefs = new /datum/preferences(src)
-		set_macros()
 		GLOB.preferences_datums[ckey] = prefs
 	else
 		prefs.parent = src
+
+	if(SSinput.initialized)
+		set_macros()
 
 	// Setup widescreen
 	view = prefs.viewrange
@@ -324,6 +332,13 @@
 
 	// Initialize tgui panel
 	tgui_panel.initialize()
+	// Initialize stat panel
+	stat_panel.initialize(
+		inline_html = file2text('html/statbrowser.html'),
+		inline_js = file2text('html/statbrowser.js'),
+		inline_css = file2text('html/statbrowser.css'),
+	)
+	addtimer(CALLBACK(src, PROC_REF(check_panel_loaded)), 30 SECONDS)
 
 	donator_check()
 	check_ip_intel()
@@ -401,17 +416,22 @@
 /client/Destroy()
 	SSdebugview.stop_processing(src)
 	mob?.become_uncliented()
+
 	if(holder)
 		holder.owner = null
 		GLOB.admins -= src
 
 	GLOB.directory -= ckey
 	GLOB.clients -= src
+
 	if(movingmob)
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
+
+	if(obj_window)
+		QDEL_NULL(obj_window)
+
 	SSambience.remove_ambience_client(src)
-	SSinput.processing -= src
 	SSping.currentrun -= src
 	QDEL_LIST(parallax_layers_cached)
 	QDEL_NULL(void)
@@ -791,7 +811,7 @@
 			cidcheck[ckey] = computer_id
 
 			// Disable the reconnect button to force a CID change
-			winset(src, "reconnectbutton", "is-disable=true")
+			winset(src, "reconnectbutton", "is-disabled=true")
 
 			tokens[ckey] = cid_check_reconnect()
 			sleep(10) // Since browse is non-instant, and kinda async
@@ -915,6 +935,16 @@
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/client, preload_vox)), 1 MINUTES)
 		#endif
 
+
+#if (PRELOAD_RSC == 0)
+/client/proc/preload_vox()
+	for (var/name in GLOB.vox_sounds)
+		var/file = GLOB.vox_sounds[name]
+		Export("##action=load_rsc", file)
+		stoplag()
+#endif
+
+
 //For debugging purposes
 /client/proc/list_all_languages()
 	for(var/L in GLOB.all_languages)
@@ -930,6 +960,69 @@
 
 /client/proc/on_varedit()
 	datum_flags |= DF_VAR_EDITED
+
+
+/client/Click(atom/object, atom/location, control, params)
+	if(click_intercept_time)
+		if(click_intercept_time >= world.time)
+			click_intercept_time = 0 //Reset and return. Next click should work, but not this one.
+			return
+		click_intercept_time = 0 //Just reset. Let's not keep re-checking forever.
+
+	var/list/modifiers = params2list(params)
+
+	var/button_clicked = LAZYACCESS(modifiers, "button")
+
+	var/dragged = LAZYACCESS(modifiers, "drag")
+	if(dragged && button_clicked != dragged)
+		return
+
+	var/mcl = CONFIG_GET(number/minute_click_limit)
+	if(!holder && mcl)
+		var/minute = round(world.time, 600)
+
+		if(!clicklimiter)
+			clicklimiter = new(LIMITER_SIZE)
+
+		if(minute != clicklimiter[CURRENT_MINUTE])
+			clicklimiter[CURRENT_MINUTE] = minute
+			clicklimiter[MINUTE_COUNT] = 0
+
+		clicklimiter[MINUTE_COUNT] += 1
+
+		if(clicklimiter[MINUTE_COUNT] > mcl)
+			var/msg = "Your previous click was ignored because you've done too many in a minute."
+			if(minute != clicklimiter[ADMINSWARNED_AT]) //only one admin message per-minute. (if they spam the admins can just boot/ban them)
+				clicklimiter[ADMINSWARNED_AT] = minute
+				msg += " Administrators have been informed."
+				add_game_logs("hit the per-minute click limit of [mcl] clicks in a given game minute", src)
+				message_admins("[ADMIN_LOOKUPFLW(usr)] Has hit the per-minute click limit of [mcl] clicks in a given game minute")
+			to_chat(src, span_danger("[msg]"))
+			return
+
+	var/scl = CONFIG_GET(number/second_click_limit)
+	if(!holder && scl)
+		var/second = round(world.time, 10)
+		if(!clicklimiter)
+			clicklimiter = new(LIMITER_SIZE)
+
+		if(second != clicklimiter[CURRENT_SECOND])
+			clicklimiter[CURRENT_SECOND] = second
+			clicklimiter[SECOND_COUNT] = 0
+
+		clicklimiter[SECOND_COUNT] += 1
+
+		if(clicklimiter[SECOND_COUNT] > scl)
+			to_chat(src, span_danger("Your previous click was ignored because you've done too many in a second"))
+			return
+
+	//check if the server is overloaded and if it is then queue up the click for next tick
+	//yes having it call a wrapping proc on the subsystem is fucking stupid glad we agree unfortunately byond insists its reasonable
+	if(!QDELETED(object) && TRY_QUEUE_VERB(VERB_CALLBACK(object, TYPE_PROC_REF(/atom, _Click), location, control, params), VERB_HIGH_PRIORITY_QUEUE_THRESHOLD, SSinput, control))
+		return
+
+	..()
+
 
 /client/proc/generate_clickcatcher()
 	if(!void)
@@ -989,11 +1082,22 @@
 	fit_viewport()
 
 
+/**
+ * Manually clears any held keys, in case due to lag or other undefined behavior a key gets stuck.
+ *
+ * Hardcoded to the ESC key.
+ */
+/client/verb/reset_held_keys()
+	set name = "Reset Held Keys"
+	set hidden = TRUE
+	client_reset_held_keys()
+
+
 // Ported from /tg/, full credit to SpaceManiac and Timberpoes.
 /client/verb/fit_viewport()
 	set name = "Fit Viewport"
 	set desc = "Fit the size of the map window to match the viewport."
-	set category = "OOC"
+	set category = "Special Verbs"
 
 	// Fetch aspect ratio
 	var/list/view_size = getviewsize(view)
@@ -1051,6 +1155,11 @@
 	pct += delta
 	winset(src, "mainwindow.mainvsplit", "splitter=[pct]")
 
+/client/verb/fix_stat_panel()
+	set name = "Fix Stat Panel"
+	set hidden = TRUE
+
+	init_verbs()
 
 /client/verb/fitviewport() // wrapper for mainwindow
 	set hidden = 1
@@ -1289,6 +1398,78 @@
 	var/list/screensize = getviewsize(view)
 	return round(max(screensize[1], screensize[2]) / 2)
 
+/// Compiles a full list of verbs and sends it to the browser
+/client/proc/init_verbs()
+	if(IsAdminAdvancedProcCall())
+		return
+	var/list/verblist = list()
+	var/list/verbstoprocess = verbs.Copy()
+	if(mob)
+		verbstoprocess += mob.verbs
+		for(var/AM in mob.contents)
+			var/atom/movable/thing = AM
+			verbstoprocess += thing.verbs
+	panel_tabs.Cut() // panel_tabs get reset in init_verbs on JS side anyway
+	for(var/thing in verbstoprocess)
+		var/procpath/verb_to_init = thing
+		if(!verb_to_init)
+			continue
+		if(verb_to_init.hidden)
+			continue
+		if(!istext(verb_to_init.category))
+			continue
+		panel_tabs |= verb_to_init.category
+		verblist[++verblist.len] = list(verb_to_init.category, verb_to_init.name)
+	src.stat_panel.send_message("init_verbs", list(panel_tabs = panel_tabs, verblist = verblist))
+
+/client/proc/check_panel_loaded()
+	if(stat_panel.is_ready())
+		return
+	to_chat(src, "<span class='userdanger'>Statpanel failed to load, click <a href='byond://?src=[UID()];reload_statbrowser=1'>here</a> to reload the panel </span>")
+
+/**
+ * Handles incoming messages from the stat-panel TGUI.
+ */
+/client/proc/on_stat_panel_message(type, payload)
+	switch(type)
+		if("Update-Verbs")
+			init_verbs()
+		if("Remove-Tabs")
+			panel_tabs -= payload["tab"]
+		if("Send-Tabs")
+			panel_tabs |= payload["tab"]
+		if("Reset-Tabs")
+			panel_tabs = list()
+		if("Set-Tab")
+			stat_tab = payload["tab"]
+			SSstatpanels.immediate_send_stat_data(src)
+		if("Listedturf-Scroll")
+			if(payload["min"] == payload["max"])
+				// Not properly loaded yet, send the default set.
+				SSstatpanels.refresh_client_obj_view(src)
+			else
+				SSstatpanels.refresh_client_obj_view(src, payload["min"], payload["max"])
+		// Uncomment to enable log_debug in stat panel code.
+		// Disabled normally due to HREF exploit concerns.
+		//if("Statpanel-Debug")
+		//	log_debug(payload)
+		if("Resend-Asset")
+			SSassets.transport.send_assets(src, list(payload))
+		if("Debug-Stat-Entry")
+			var/stat_item = locateUID(payload["stat_item_uid"])
+			if(!check_rights(R_DEBUG | R_VIEWRUNTIMES) || !stat_item)
+				return
+			var/class
+			if(istype(stat_item, /datum/controller/subsystem))
+				class = "subsystem"
+			else if(istype(stat_item, /datum/controller))
+				class = "controller"
+			else if(istype(stat_item, /datum))
+				class = "datum"
+			else
+				class = "unknown"
+			debug_variables(stat_item)
+			message_admins("Admin [key_name_admin(usr)] is debugging the [stat_item] [class].")
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

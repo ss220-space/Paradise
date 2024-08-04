@@ -34,6 +34,7 @@
 	var/self_sufficiency_req = 20 //Required total dose to make a self-sufficient hydro tray. 1:1 with earthsblood.
 	var/self_sufficiency_progress = 0
 	var/self_sustaining = FALSE //If the tray generates nutrients and water on its own
+	var/weed_pulling = FALSE
 	hud_possible = list (PLANT_NUTRIENT_HUD, PLANT_WATER_HUD, PLANT_STATUS_HUD, PLANT_HEALTH_HUD, PLANT_TOXIN_HUD, PLANT_PEST_HUD, PLANT_WEED_HUD)
 
 /obj/machinery/hydroponics/New()
@@ -848,29 +849,31 @@
 
 	else if(istype(O, /obj/item/plant_analyzer))
 		add_fingerprint(user)
-		if(myseed)
-			to_chat(user, "*** <B>[myseed.plantname]</B> ***") //Carn: now reports the plants growing, not the seeds.
-			to_chat(user, "- Plant Age: <span class='notice'>[age]</span>")
-			var/list/text_string = myseed.get_analyzer_text()
-			if(text_string)
-				to_chat(user, text_string)
-		else
-			to_chat(user, "<B>No plant found.</B>")
-		to_chat(user, "- Weed level: <span class='notice'>[weedlevel] / 10</span>")
-		to_chat(user, "- Pest level: <span class='notice'>[pestlevel] / 10</span>")
-		to_chat(user, "- Toxicity level: <span class='notice'>[toxic] / 100</span>")
-		to_chat(user, "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>")
-		to_chat(user, "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>")
-		to_chat(user, "")
+		send_plant_details(user)
 
 	else if(istype(O, /obj/item/cultivator))
+		if(weed_pulling)
+			to_chat(user, span_warning("[src] is busy."))
+			return TRUE
 		if(weedlevel > 0)
 			add_fingerprint(user)
-			user.visible_message("[user] uproots the weeds.", "<span class='notice'>You remove the weeds from [src].</span>")
-			adjustWeeds(-10)
+			weed_pulling = TRUE
+			user.visible_message(span_notice("[user] uproots the weeds from [src]."), span_notice("You remove the weeds from [src]."))
+			while(weedlevel > 0)
+				if(do_after(user, 2 SECONDS * O.toolspeed, src, category = DA_CAT_TOOL))
+					if(!istype(src, /obj/machinery/hydroponics))
+						return TRUE
+					adjustWeeds(-2)
+				else
+					break
+			if(weedlevel > 0)
+				to_chat(user, span_warning("You have stopped pulling weeds."))
+			else
+				to_chat(user, span_notice("You have finished pulling weeds."))
+			weed_pulling = FALSE
 			update_state()
 		else
-			to_chat(user, "<span class='warning'>This plot is completely devoid of weeds! It doesn't need uprooting.</span>")
+			to_chat(user, span_warning("This plot is completely devoid of weeds! It doesn't need uprooting."))
 
 	else if(istype(O, /obj/item/storage/bag/plants))
 		attempt_harvest(user)
@@ -886,7 +889,7 @@
 			return
 		user.visible_message("<span class='notice'>[user] starts digging out [src]'s plants...</span>", "<span class='notice'>You start digging out [src]'s plants...</span>")
 		playsound(src, O.usesound, 50, 1)
-		if(!do_after(user, 2.5 SECONDS * O.toolspeed * gettoolspeedmod(user), src) || (!myseed && !weedlevel))
+		if(!do_after(user, 2.5 SECONDS * O.toolspeed, src, category = DA_CAT_TOOL) || (!myseed && !weedlevel))
 			return
 		add_fingerprint(user)
 		user.visible_message("<span class='notice'>[user] digs out the plants in [src]!</span>", "<span class='notice'>You dig out all of [src]'s plants!</span>")
@@ -1066,3 +1069,26 @@
 
 #undef PLANT_LAYER
 #undef LID_LAYER
+
+/obj/machinery/hydroponics/proc/send_plant_details(mob/user)
+	var/list/msg = list()
+	if(myseed)
+		msg += "*** <B>[myseed.plantname]</B> ***" //Carn: now reports the plants growing, not the seeds.
+		msg += "- Plant Age: <span class='notice'>[age]</span>"
+		var/list/text_string = myseed.get_analyzer_text()
+		if(text_string)
+			msg += text_string
+	else
+		msg += "<B>No plant found.</B>"
+	msg += "- Weed level: <span class='notice'>[weedlevel] / 10</span>"
+	msg += "- Pest level: <span class='notice'>[pestlevel] / 10</span>"
+	msg += "- Toxicity level: <span class='notice'>[toxic] / 100</span>"
+	msg += "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>"
+	msg += "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>"
+	to_chat(user, msg.Join("\n"))
+
+/obj/machinery/hydroponics/attack_ghost(mob/dead/observer/user)
+	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.
+		return
+	if(user.plant_analyzer)
+		send_plant_details(user)

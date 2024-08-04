@@ -196,7 +196,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "aF" = (
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/under/suit_jacket/female,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
@@ -411,7 +411,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "bh" = (
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "bi" = (
@@ -732,7 +732,7 @@
 /area/awaymission/UO71/plaza)
 "ci" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/under/pj/blue,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
@@ -4550,10 +4550,7 @@
 	pixel_x = -2;
 	pixel_y = -1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "warndark"
-	},
+/turf/simulated/floor/plasteel,
 /area/awaymission/UO71/gateway)
 "ly" = (
 /obj/structure/cable{
@@ -4947,10 +4944,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "warndark"
-	},
+/turf/simulated/floor/plasteel,
 /area/awaymission/UO71/gateway)
 "ml" = (
 /obj/effect/decal/cleanable/dirt,
@@ -5107,7 +5101,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
 "mF" = (
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/under/pj/red,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
@@ -5406,7 +5400,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
 "nj" = (
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/under/suit_jacket/navy,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
@@ -10307,7 +10301,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/mining)
 "xj" = (
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/mining)
 "xk" = (
@@ -10605,7 +10599,7 @@
 	dir = 4;
 	on = 1
 	},
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/mining)
 "xQ" = (
@@ -11193,7 +11187,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/queen)
 "zn" = (
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/loot)
 "zo" = (
@@ -11299,7 +11293,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/UO71/queen)
 "zU" = (
-/obj/structure/table/holotable/wood,
+/obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/cans/beer,
 /obj/machinery/light{
 	dir = 1
@@ -11324,7 +11318,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/UO71/queen)
 "zY" = (
-/obj/structure/table/holotable/wood,
+/obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/awaymission/UO71/queen)
 "zZ" = (
@@ -11364,7 +11358,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/UO71/queen)
 "Af" = (
-/obj/structure/table/holotable/wood,
+/obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/cans/beer,
 /turf/simulated/floor/wood,
 /area/awaymission/UO71/queen)

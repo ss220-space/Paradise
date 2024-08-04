@@ -21,7 +21,7 @@
 	even the simplest concepts of other minds. Their alien physiology allows them survive happily off a diet of nothing but light, \
 	water and other radiation."
 
-	species_traits = list(IS_PLANT, NO_GERMS, NO_DECAY, NO_DNA)
+	species_traits = list(IS_PLANT, NO_GERMS, NO_DECAY, NO_DNA, NO_ROBOPARTS, ONLY_SPECIES_LIMBS, NO_BIOCHIPS, NO_CYBERIMPS)
 	clothing_flags = HAS_SOCKS
 	default_hair_colour = "#000000"
 	has_gender = FALSE
@@ -78,11 +78,11 @@
 /datum/species/diona/on_species_gain(mob/living/carbon/human/H)
 	..()
 	H.gender = NEUTER
-	H.verbs |= /mob/living/carbon/human/proc/emote_creak
+	add_verb(H, /mob/living/carbon/human/proc/emote_creak)
 
 /datum/species/diona/on_species_loss(mob/living/carbon/human/H)
 	..()
-	H.verbs -= /mob/living/carbon/human/proc/emote_creak
+	remove_verb(H, /mob/living/carbon/human/proc/emote_creak)
 
 /datum/species/diona/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
@@ -113,10 +113,11 @@
 		if(light_amount > 0.2 && !H.suiciding) //if there's enough light, heal
 			if(!pod && H.health <= 0)
 				return
-			H.adjustBruteLoss(-1)
-			H.adjustFireLoss(-1)
-			H.adjustToxLoss(-1)
-			H.adjustOxyLoss(-1)
+			var/update = NONE
+			update |= H.heal_overall_damage(1, 1, updating_health = FALSE)
+			update |= H.heal_damages(tox = 1, oxy = 1, updating_health = FALSE)
+			if(update)
+				H.updatehealth()
 
 	if(!is_vamp && H.nutrition < NUTRITION_LEVEL_STARVING + 50)
 		H.adjustBruteLoss(2)

@@ -169,7 +169,7 @@
 					to_chat(user, "<span class='warning'>You need one length of cable to wire the ED-209!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start to wire [src]...</span>")
-				if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
+				if(do_after(user, 4 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
 					if(coil.get_amount() >= 1 && build_step == 6)
 						coil.use(1)
 						build_step = 7
@@ -216,14 +216,14 @@
 
 /obj/item/ed209_assembly/screwdriver_act(mob/living/user, obj/item/I)
 	if(build_step != 8)
-		return
-	I.play_tool_sound(src)
-	to_chat(user, "<span class='notice'>You start attaching the gun to the frame...</span>")
-	if(do_after(user, 4 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
-		build_step++
-		update_appearance(UPDATE_NAME)
-		to_chat(user, "<span class='notice'>You attach the gun to the frame.</span>")
-	return TRUE
+		return FALSE
+	. = TRUE
+	to_chat(user, span_notice("You start attaching the gun to the frame..."))
+	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume) || build_step != 8)
+		return .
+	build_step++
+	update_appearance(UPDATE_NAME)
+	to_chat(user, span_notice("You attach the gun to the frame."))
 
 
 //Floorbot assemblies

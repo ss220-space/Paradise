@@ -44,7 +44,7 @@
 				H.vomit()
 
 			if(prob(5))
-				A.receive_damage(1, silent = prob(65))
+				A.internal_receive_damage(1, silent = prob(65))
 
 		if(3)
 			if(A.germ_level < INFECTION_LEVEL_ONE)
@@ -52,7 +52,7 @@
 			A.germ_level += rand(2, 6) * H.dna.species.germs_growth_rate
 
 			if(prob(10))
-				A.receive_damage(1, silent = prob(45))
+				A.internal_receive_damage(1, silent = prob(45))
 
 			if(prob(3))
 				H.vomit()
@@ -73,7 +73,7 @@
 			A.germ_level += rand(4, 10) * H.dna.species.germs_growth_rate
 
 			if(prob(10))
-				A.receive_damage(2, silent = 0)
+				A.internal_receive_damage(2)
 
 			if(prob(3))
 				H.vomit()
@@ -101,7 +101,7 @@
 			H.damageoverlaytemp = 30
 
 			if(prob(20))
-				A.receive_damage(3, silent = 0)
+				A.internal_receive_damage(3)
 
 			if(prob(5))
 				H.vomit()
@@ -122,13 +122,13 @@
 
 	var/obj/item/organ/external/parent = H.get_organ(check_zone(A.parent_organ_zone))
 	if(istype(parent))
-		parent.receive_damage(25, used_weapon = "appendix rupture")
+		H.apply_damage(25, def_zone = parent, used_weapon = "appendix rupture")
 		if(parent.germ_level < INFECTION_LEVEL_TWO)
 			parent.germ_level = INFECTION_LEVEL_TWO
 		for(var/obj/item/organ/internal/organ as anything in parent.internal_organs)
 			if(organ.germ_level < INFECTION_LEVEL_TWO)
 				organ.germ_level = INFECTION_LEVEL_TWO
-			organ.receive_damage(10)
+			organ.internal_receive_damage(10)
 
 	to_chat(H, span_userdanger("You feel a hellish pain in your abdomen, as if something is torn!"))
 	H.Stun(20 SECONDS)

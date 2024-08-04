@@ -27,16 +27,16 @@
 		forceMove(get_turf(summoner))
 		cooldown = world.time + 20
 
-/mob/living/simple_animal/hostile/guardian/assassin/Stat()
-	..()
-	if(statpanel("Status"))
-		if(stealthcooldown >= world.time)
-			stat(null, "Время до невидимости: [max(round((stealthcooldown - world.time)*0.1, 0.1), 0)] секунд")
+/mob/living/simple_animal/hostile/guardian/assassin/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	if(stealthcooldown >= world.time)
+		status_tab_data[++status_tab_data.len] = list("Время до невидимости:", "[max(round((stealthcooldown - world.time) * 0.1, 0.1), 0)] секунд")
 
 /mob/living/simple_animal/hostile/guardian/assassin/AttackingTarget()
 	var/mob/living/L = target
 	if(istype(L))
-		L.adjustToxLoss(tox_damage)
+		L.apply_damage(tox_damage, TOX)
 	. = ..()
 	if(toggle && (ishuman(target)))
 		if(prob(25))
@@ -47,10 +47,17 @@
 	ToggleMode(1)
 
 
-/mob/living/simple_animal/hostile/guardian/assassin/adjustHealth(amount, updating_health = TRUE)
+/mob/living/simple_animal/hostile/guardian/assassin/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
 	. = ..()
-	if(. > 0 && toggle)
-		ToggleMode(1)
+	if(. && amount > 0 && toggle)
+		ToggleMode(forced = TRUE)
+
 
 /mob/living/simple_animal/hostile/guardian/assassin/ToggleMode(forced = 0)
 	if(toggle)

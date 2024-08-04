@@ -5,7 +5,7 @@
 
 /datum/martial_combo/cqc/pressure/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	target.visible_message("<span class='warning'>[user] forces their arm on [target]'s neck!</span>")
-	target.adjustStaminaLoss(60)
+	target.apply_damage(60, STAMINA)
 	playsound(get_turf(user), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
 	add_attack_logs(user, target, "Melee attacked with martial-art [src] : Pressure", ATKLOG_ALL)
 	return MARTIAL_COMBO_DONE

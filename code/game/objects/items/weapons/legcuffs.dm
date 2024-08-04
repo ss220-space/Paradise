@@ -190,6 +190,8 @@
 	var/reusable = TRUE
 	/// Duration of the weakening in seconds
 	var/weaken_amt = 0
+	/// Duration of the knockdown in seconds
+	var/knockdown_amt = 0
 	/// Cyclic bola spin sound.
 	var/spin_sound = 'sound/items/bola_spin.ogg'
 
@@ -300,6 +302,8 @@
 	target.apply_restraints(src, ITEM_SLOT_LEGCUFFED)
 	if(weaken_amt)
 		target.Weaken(weaken_amt)
+	if(knockdown_amt)
+		target.Knockdown(knockdown_amt)
 	playsound(loc, hitsound, 50, TRUE)
 	SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 	if(!reusable)

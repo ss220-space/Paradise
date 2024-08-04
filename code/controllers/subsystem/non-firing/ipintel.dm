@@ -12,4 +12,4 @@ SUBSYSTEM_DEF(ipintel)
 
 /datum/controller/subsystem/ipintel/Initialize()
 	enabled = 1
-
+	return SS_INIT_SUCCESS

@@ -9,6 +9,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/change
 	icon_state = "staffofchange"
 	item_state = "staffofchange"
+	recharge_rate = 12
 	fire_sound = 'sound/magic/Staff_Change.ogg'
 
 /obj/item/gun/magic/staff/animate

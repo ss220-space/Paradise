@@ -1,0 +1,205 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	tag = "icon-propulsion (EAST)"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/transport)
+"e" = (
+/obj/structure/window/full/shuttle,
+/obj/structure/grille,
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/transport)
+"h" = (
+/obj/machinery/computer/shuttle/ferry/request{
+	dir = 1
+	},
+/turf/simulated/floor/noslip,
+/area/shuttle/transport)
+"m" = (
+/obj/machinery/vending/autodrobe,
+/obj/machinery/light/spot,
+/turf/simulated/floor/noslip,
+/area/shuttle/transport)
+"t" = (
+/obj/item/toy/snappop,
+/turf/simulated/floor/noslip,
+/area/shuttle/transport)
+"w" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/grenade/bananade,
+/obj/item/grenade/bananade,
+/obj/item/grown/bananapeel,
+/obj/item/grown/bananapeel,
+/obj/item/grown/bananapeel,
+/obj/item/grown/bananapeel,
+/obj/item/grown/bananapeel,
+/obj/item/grown/bananapeel,
+/obj/item/grown/bananapeel,
+/obj/item/grown/bananapeel,
+/obj/item/grown/bananapeel,
+/obj/item/grown/bananapeel,
+/obj/item/grown/bananapeel,
+/obj/item/grown/bananapeel,
+/obj/item/grown/bananapeel,
+/obj/item/grown/bananapeel,
+/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/reagent_containers/food/snacks/grown/banana,
+/turf/simulated/floor/noslip,
+/area/shuttle/transport)
+"x" = (
+/obj/item/grown/bananapeel,
+/turf/simulated/floor/mineral/bananium,
+/area/shuttle/transport)
+"z" = (
+/obj/structure/computerframe/HONKputer,
+/turf/simulated/floor/noslip,
+/area/shuttle/transport)
+"C" = (
+/obj/structure/window/plasmareinforced{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/structure/shuttle/engine/heater{
+	dir = 4
+	},
+/obj/item/stack/sheet/mineral/bananium,
+/obj/item/bikehorn/rubberducky,
+/obj/structure/window/plasmareinforced{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/transport)
+"J" = (
+/turf/simulated/wall/shuttle,
+/area/shuttle/transport)
+"L" = (
+/obj/structure/bed,
+/obj/item/bedsheet/rainbow,
+/turf/simulated/floor/noslip,
+/area/shuttle/transport)
+"M" = (
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 2;
+	height = 12;
+	id = "ferry";
+	name = "ferry shuttle";
+	roundstart_move = "ferry_away";
+	timid = 1;
+	width = 5
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/bananium/glass{
+	req_access = list(46)
+	},
+/turf/simulated/wall/mineral/bananium,
+/area/shuttle/transport)
+"Q" = (
+/turf/simulated/floor/mineral/bananium,
+/area/shuttle/transport)
+"T" = (
+/obj/machinery/vending/autodrobe,
+/turf/simulated/floor/noslip,
+/area/shuttle/transport)
+"Z" = (
+/obj/item/grenade/bananade,
+/turf/simulated/floor/mineral/bananium,
+/area/shuttle/transport)
+
+(1,1,1) = {"
+a
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+J
+C
+C
+C
+J
+"}
+(3,1,1) = {"
+e
+L
+Q
+h
+J
+"}
+(4,1,1) = {"
+J
+t
+Z
+L
+e
+"}
+(5,1,1) = {"
+e
+L
+Q
+m
+J
+"}
+(6,1,1) = {"
+J
+T
+Q
+L
+e
+"}
+(7,1,1) = {"
+e
+L
+Z
+w
+J
+"}
+(8,1,1) = {"
+J
+T
+x
+L
+e
+"}
+(9,1,1) = {"
+e
+L
+Q
+m
+J
+"}
+(10,1,1) = {"
+J
+t
+Z
+L
+e
+"}
+(11,1,1) = {"
+e
+L
+Q
+z
+J
+"}
+(12,1,1) = {"
+J
+e
+M
+e
+J
+"}
