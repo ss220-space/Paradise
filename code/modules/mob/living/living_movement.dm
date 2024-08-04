@@ -134,9 +134,7 @@
 			if(MOVE_INTENT_WALK)
 				m_intent = MOVE_INTENT_RUN
 
-	if(hud_used?.move_intent && hud_used.static_inventory)
-		for(var/atom/movable/screen/mov_intent/selector in hud_used.static_inventory)
-			selector.update_icon(UPDATE_ICON_STATE)
+	hud_used?.move_intent?.update_icon(UPDATE_ICON_STATE)
 
 	update_move_intent_slowdown()
 	SEND_SIGNAL(src, COMSIG_MOB_MOVE_INTENT_TOGGLED)
