@@ -6,7 +6,7 @@
 	item_state = "toolbox_red"
 	flags = CONDUCT
 	force = 10.0
-	throwforce = 10.0
+	throwforce = 15.0
 	throw_speed = 2
 	throw_range = 7
 	w_class = WEIGHT_CLASS_BULKY
@@ -140,7 +140,7 @@
 	new /obj/item/crowbar/power(src)
 	new /obj/item/multitool/cyborg(src)
 	new /obj/item/stack/cable_coil(src, MAXCOIL)
-	new /obj/item/clothing/gloves/combat(src)
+	new /obj/item/clothing/gloves/combat/swat/syndicate(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
 
 /obj/item/storage/toolbox/fakesyndi

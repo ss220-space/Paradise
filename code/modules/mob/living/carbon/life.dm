@@ -112,7 +112,7 @@
 	//CRIT
 	if(!breath || (breath.total_moles() == 0) || !lungs)
 		adjustOxyLoss(1)
-		throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
+		throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 		return FALSE
 
 	var/safe_oxy_min = 16
@@ -138,7 +138,7 @@
 			oxygen_used = breath.oxygen*ratio
 		else
 			adjustOxyLoss(3)
-		throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
+		throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 
 	else //Enough oxygen
 		adjustOxyLoss(-5)
@@ -154,9 +154,10 @@
 			co2overloadtime = world.time
 		else if(world.time - co2overloadtime > 120)
 			Paralyse(6 SECONDS)
-			adjustOxyLoss(3)
+			var/oxy = 3
 			if(world.time - co2overloadtime > 300)
-				adjustOxyLoss(8)
+				oxy += 8
+			adjustOxyLoss(oxy)
 		if(prob(20))
 			emote("cough")
 
@@ -167,7 +168,7 @@
 	if(Toxins_partialpressure > safe_tox_max)
 		var/ratio = (breath.toxins/safe_tox_max) * 10
 		adjustToxLoss(clamp(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
-		throw_alert("too_much_tox", /obj/screen/alert/too_much_tox)
+		throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_tox)
 	else
 		clear_alert("too_much_tox")
 
@@ -222,20 +223,17 @@
 			if(0 to 50)
 				radiation--
 				if(prob(25))
-					adjustToxLoss(1)
-					updatehealth("handle mutations and radiation(0-50)")
+					apply_damage(1, TOX, spread_damage = TRUE)
 
 			if(50 to 75)
 				radiation -= 2
-				adjustToxLoss(1)
+				apply_damage(1, TOX, spread_damage = TRUE)
 				if(prob(5))
 					radiation -= 5
-				updatehealth("handle mutations and radiation(50-75)")
 
 			if(75 to 100)
 				radiation -= 3
-				adjustToxLoss(3)
-				updatehealth("handle mutations and radiation(75-100)")
+				apply_damage(3, TOX, spread_damage = TRUE)
 
 		radiation = clamp(radiation, 0, 100)
 
@@ -269,9 +267,7 @@
 /mob/living/carbon/handle_status_effects()
 	..()
 	if(!isnull(stam_regen_start_time) && stam_regen_start_time <= world.time)
-		setStaminaLoss(0, FALSE)
-		update_stamina()
-		update_stamina_hud()
+		setStaminaLoss(0)
 		stam_regen_start_time = null
 
 	// Keep SSD people asleep
@@ -335,7 +331,7 @@
 					severity = 9
 				if(-INFINITY to -95)
 					severity = 10
-			overlay_fullscreen("crit", /obj/screen/fullscreen/crit, severity)
+			overlay_fullscreen("crit", /atom/movable/screen/fullscreen/crit, severity)
 	else if(stat == CONSCIOUS)
 		if(check_death_method())
 			clear_fullscreen("crit")
@@ -356,7 +352,7 @@
 						severity = 6
 					if(45 to INFINITY)
 						severity = 7
-				overlay_fullscreen("oxy", /obj/screen/fullscreen/oxy, severity)
+				overlay_fullscreen("oxy", /atom/movable/screen/fullscreen/oxy, severity)
 			else
 				clear_fullscreen("oxy")
 
@@ -372,7 +368,7 @@
 				if(45 to 70) severity = 4
 				if(70 to 85) severity = 5
 				if(85 to INFINITY) severity = 6
-			overlay_fullscreen("brute", /obj/screen/fullscreen/brute, severity)
+			overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
 		else
 			clear_fullscreen("brute")
 

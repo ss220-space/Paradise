@@ -7,13 +7,18 @@
 	dir = 8;
 	pixel_x = -32
 	},
+/obj/structure/dresser,
 /turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "c" = (
 /turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "d" = (
-/obj/structure/dresser,
+/obj/structure/bed,
+/obj/item/bedsheet,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "e" = (
@@ -29,28 +34,24 @@
 /turf/simulated/floor/indestructible/carpet,
 /area/template_noop)
 "g" = (
-/obj/effect/decal/snow/sand/edge,
-/obj/effect/view_portal{
-	id = "snowland_room"
+/obj/effect/visual_portal{
+	id = "snowland_room";
+	frustrum = 1
 	},
-/turf/simulated/floor/indestructible/carpet,
-/area/template_noop)
-"h" = (
-/obj/structure/bed,
-/obj/item/bedsheet,
-/turf/simulated/floor/indestructible/carpet,
-/area/template_noop)
-"k" = (
-/obj/effect/view_portal/visual{
-	dist = 6;
-	frustrum = 1;
-	id = "snowland";
-	radius = 2
+/obj/effect/decal/snow/sand/surround{
+	dir = 1
 	},
 /turf/simulated/floor/indestructible/snow,
 /area/template_noop)
+"h" = (
+/obj/effect/decal/snow/sand/edge,
+/turf/simulated/floor/indestructible/carpet,
+/area/template_noop)
 "l" = (
 /turf/simulated/wall/indestructible/fakeglass,
+/area/template_noop)
+"J" = (
+/turf/simulated/floor/indestructible/view_portal/dense,
 /area/template_noop)
 "U" = (
 /turf/simulated/wall/indestructible/invisible/view_portal,
@@ -69,8 +70,8 @@ a
 a
 b
 e
-c
 l
+U
 U
 a
 "}
@@ -78,17 +79,17 @@ a
 a
 c
 c
-c
 l
+J
 U
 a
 "}
 (4,1,1) = {"
 a
 c
-c
+h
 g
-k
+J
 U
 a
 "}
@@ -96,17 +97,17 @@ a
 a
 c
 c
-c
 l
+J
 U
 a
 "}
 (6,1,1) = {"
 a
-d
 f
-h
+d
 l
+U
 U
 a
 "}

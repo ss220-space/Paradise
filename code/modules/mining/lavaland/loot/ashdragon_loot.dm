@@ -120,29 +120,28 @@
 	icon_state = "vial"
 
 /obj/item/dragons_blood/attack_self(mob/living/carbon/human/user)
-	if(!istype(user))
+	if(!ishuman(user))
 		return
 
-	var/mob/living/carbon/human/H = user
 	var/random = rand(1,3)
 
 	switch(random)
 		if(1)
-			to_chat(user, "<span class='danger'>Your flesh begins to melt! Miraculously, you seem fine otherwise.</span>")
-			H.set_species(/datum/species/skeleton)
+			to_chat(user, span_danger("Your flesh begins to melt! Miraculously, you seem fine otherwise."))
+			user.set_species(/datum/species/skeleton)
 		if(2)
 			if(user.mind)
 				if(locate(/obj/effect/proc_holder/spell/shapeshift/dragon) in user.mind.spell_list)
-					to_chat(user, "<span class='danger'>Familiar power courses through you! But you already can shift into dragons...")
+					to_chat(user, span_danger("Familiar power courses through you! But you already can shift into dragons..."))
 				else
-					to_chat(user, "<span class='danger'>Power courses through you! You can now shift your form at will.")
-					var/obj/effect/proc_holder/spell/shapeshift/dragon/D = new
-					user.mind.AddSpell(D)
+					to_chat(user, span_danger("Power courses through you! You can now shift your form at will."))
+					var/obj/effect/proc_holder/spell/shapeshift/dragon/shapeshift = new
+					user.mind.AddSpell(shapeshift)
 		if(3)
-			to_chat(user, "<span class='danger'>You feel like you could walk straight through lava now.</span>")
-			H.weather_immunities |= "lava"
+			to_chat(user, span_danger("You feel like you could walk straight through lava now."))
+			ADD_TRAIT(user, TRAIT_LAVA_IMMUNE, name)
 
-	playsound(user.loc,'sound/items/drink.ogg', rand(10,50), 1)
+	playsound(user.loc,'sound/items/drink.ogg', rand(10,50), TRUE)
 	qdel(src)
 
 /obj/item/dragons_blood/refined
@@ -191,7 +190,7 @@
 	hitsound = 'sound/weapons/sear.ogg'
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	needs_permit = TRUE
-	var/turf_type = /turf/simulated/floor/plating/lava/smooth
+	var/turf_type = /turf/simulated/floor/lava
 	var/transform_string = "lava"
 	var/reset_turf_type = /turf/simulated/floor/plating/asteroid/basalt
 	var/reset_string = "basalt"

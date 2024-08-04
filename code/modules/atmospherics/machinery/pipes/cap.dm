@@ -110,7 +110,7 @@
 	level = 1
 	icon_state = "cap"
 	alpha = 128
-	plane = FLOOR_PLANE
+	plane = GAME_PLANE
 	layer = GAS_PIPE_HIDDEN_LAYER
 
 /obj/machinery/atmospherics/pipe/cap/hidden/scrubbers

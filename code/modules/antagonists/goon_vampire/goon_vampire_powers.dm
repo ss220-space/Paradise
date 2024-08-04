@@ -76,7 +76,6 @@
 /obj/effect/proc_holder/spell/goon_vampire
 	name = "Report Me"
 	desc = "You shouldn't see this!"
-	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire_old"
 	human_req = TRUE
@@ -153,12 +152,12 @@
 /obj/effect/proc_holder/spell/goon_vampire/self/rejuvenate/cast(list/targets, mob/living/carbon/human/user = usr)
 	user.SetWeakened(0)
 	user.SetStunned(0)
+	user.SetKnockdown(0)
 	user.SetParalysis(0)
 	user.SetSleeping(0)
 	user.adjustStaminaLoss(-60)
-	user.lying_angle = 0
-	user.resting = FALSE
-	user.update_canmove()
+	user.set_resting(FALSE, instant = TRUE)
+	user.get_up(instant = TRUE)
 	to_chat(user, span_notice("Ваше тело наполняется чистой кровью, снимая все ошеломляющие эффекты."))
 	var/datum/antagonist/goon_vampire/vampire = user.mind.has_antag_datum(/datum/antagonist/goon_vampire)
 	if(vampire?.get_ability(/datum/goon_vampire_passive/regen))
@@ -173,11 +172,11 @@
 		return
 
 	counter++
-	user.adjustBruteLoss(-2)
-	user.adjustOxyLoss(-5)
-	user.adjustToxLoss(-2)
-	user.adjustFireLoss(-2)
-	user.adjustStaminaLoss(-10)
+	var/update = NONE
+	update |= user.heal_overall_damage(2, 2, updating_health = FALSE, affect_robotic = TRUE)
+	update |= user.heal_damages(tox = 2, oxy = 5, stamina = 10, updating_health = FALSE)
+	if(update)
+		user.updatehealth()
 
 
 /obj/effect/proc_holder/spell/goon_vampire/targetted/hypnotise
@@ -334,7 +333,7 @@
 		target.Deaf(40 SECONDS)
 		target.Stuttering(40 SECONDS)
 		target.Jitter(300 SECONDS)
-		target.adjustStaminaLoss(60)
+		target.apply_damage(60, STAMINA)
 
 	for(var/obj/structure/window/window in view(4))
 		window.deconstruct(FALSE)
@@ -539,7 +538,7 @@
 		animation.loc = mobloc
 		steam.location = mobloc
 		steam.start()
-		user.canmove = FALSE
+		ADD_TRAIT(user, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
 
 		sleep(2 SECONDS)
 		if(QDELETED(user))
@@ -551,12 +550,14 @@
 		if(QDELETED(user))
 			return
 
+		REMOVE_TRAIT(user, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
+
 		if(!user.Move(mobloc))
 			for(var/direction in list(1,2,4,8,5,6,9,10))
 				var/turf/check = get_step(mobloc, direction)
 				if(check && user.Move(check))
 					break
-		user.canmove = TRUE
+
 		user.client.eye = user
 		qdel(animation)
 		qdel(holder)

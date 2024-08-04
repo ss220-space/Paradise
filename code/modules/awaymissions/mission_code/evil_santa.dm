@@ -82,7 +82,9 @@
 	name = "Evil santa lounge"
 	icon_state = "awaycontent12"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 
 /area/vision_change_area/awaymission/evil_santa/end/hall
 	name = "Evil santa hall"
@@ -156,7 +158,7 @@
 	else
 		UnlockBlastDoors()
 
-/area/vision_change_area/awaymission/evil_santa/end/santa/Entered(mob/living/carbon/naughty)
+/area/vision_change_area/awaymission/evil_santa/end/santa/Entered(mob/living/carbon/naughty, area/old_area)
 	. = ..()
 	if(ismecha(naughty))
 		var/obj/mecha/robot = naughty

@@ -8,10 +8,10 @@
 
 /datum/martial_art/mr_chang/attack_reaction(var/mob/living/carbon/human/defender, var/mob/living/carbon/human/attacker, var/obj/item/I)
 	//Stunning discounts!
-	if(can_use(defender) && defender.in_throw_mode && !defender.incapacitated(FALSE, TRUE) && defender.a_intent == INTENT_DISARM && !stun_on_cooldown)
+	if(can_use(defender) && defender.in_throw_mode && !defender.incapacitated(INC_IGNORE_GRABBED) && defender.a_intent == INTENT_DISARM && !stun_on_cooldown)
 		defender.visible_message("<span class='warning'>[defender] intercept attack of [attacker]!</span>")
 		attacker.forceMove(defender.loc)
-		attacker.adjustStaminaLoss(200)
+		attacker.apply_damage(200, STAMINA)
 		stun_on_cooldown = TRUE
 		defender.SpinAnimation(10,1)
 		attacker.SpinAnimation(10,1)

@@ -19,24 +19,11 @@
 				to_chat(src, span_warning("Эта вентиляция ни к чему не подключена!"))
 			return FALSE
 
-	if(incapacitated())
+	if(incapacitated() || HAS_TRAIT(src, TRAIT_IMMOBILIZED) || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		if(provide_feedback)
 			to_chat(src, span_warning("Вы не можете ползать по вентиляции в текущем состоянии!"))
 		return FALSE
-	/*
-	if(stat)
-		if(provide_feedback)
-			to_chat(src, span_warning("You must be conscious to do this!"))
-		return
-	if(HAS_TRAIT(src, TRAIT_IMMOBILIZED))
-		if(provide_feedback)
-			to_chat(src, span_warning("You currently can't move into the vent!"))
-		return
-	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
-		if(provide_feedback)
-			to_chat(src, span_warning("You need to be able to use your hands to ventcrawl!"))
-		return
-	*/
+
 	if(has_buckled_mobs())
 		if(provide_feedback)
 			to_chat(src, span_warning("Вы не можете ползать по вентиляции, пока на вас находятся другие существа!"))
@@ -59,7 +46,7 @@
 
 	if(HAS_TRAIT(src, TRAIT_VENTCRAWLER_ITEM_BASED))
 		var/item_allowed = FALSE
-		for(var/obj/item/item as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		for(var/obj/item/item as anything in get_equipped_items(include_pockets = TRUE))
 			if(item.used_for_ventcrawling(src, provide_feedback))
 				item_allowed = TRUE
 				break
@@ -77,20 +64,19 @@
 	//Handle the exit here
 	if(HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) && is_ventcrawling(src) && (movement_type & VENTCRAWLING))
 		if(!can_ventcrawl(ventcrawl_target))
-			return
+			return FALSE
 		to_chat(src, span_notice("Вы начинаете вылезать из вентиляции..."))
 		if(!do_after(src, 1 SECONDS, target = ventcrawl_target))
-			return
+			return FALSE
 		if(has_client && isnull(client))
-			return
+			return FALSE
 		if(!can_ventcrawl(ventcrawl_target))
-			return
-		stop_ventcrawling()
-		return VENTCRAWL_OUT_SUCCESS
+			return FALSE
+		return stop_ventcrawling(ventcrawl_target)
 
 	//Entrance here
 	if(!can_ventcrawl(ventcrawl_target, entering = TRUE))
-		return
+		return FALSE
 
 	var/crawl_overlay = image('icons/effects/vent_indicator.dmi', "arrow", ABOVE_MOB_LAYER, dir = get_dir(src.loc, ventcrawl_target.loc))
 	//ventcrawl_target.flick_overlay_static(image('icons/effects/vent_indicator.dmi', "arrow", ABOVE_MOB_LAYER, dir = get_dir(src.loc, ventcrawl_target.loc)), 2 SECONDS)
@@ -101,15 +87,14 @@
 	)
 	if(!do_after(src, 4.5 SECONDS, target = ventcrawl_target))
 		ventcrawl_target?.cut_overlay(crawl_overlay)
-		return
+		return FALSE
 	ventcrawl_target?.cut_overlay(crawl_overlay)
 	if(has_client && isnull(client))
-		return
+		return FALSE
 	if(!can_ventcrawl(ventcrawl_target, entering = TRUE))
-		return
+		return FALSE
 	ventcrawl_target.flick_overlay_static(image('icons/effects/vent_indicator.dmi', "insert", ABOVE_MOB_LAYER), 1 SECONDS)
-	move_into_vent(ventcrawl_target)
-	return VENTCRAWL_IN_SUCCESS
+	return move_into_vent(ventcrawl_target)
 
 
 /**
@@ -117,31 +102,43 @@
  *
  * Arguments:
  * * ventcrawl_target - The vent into which we are moving the mob
+ * * message - if TRUE shows visible message to everyone
+ *
+ * Returns `TRUE` on success.
  */
 /mob/living/proc/move_into_vent(obj/machinery/atmospherics/ventcrawl_target, message = TRUE)
+	SHOULD_CALL_PARENT(TRUE)
+
 	if(message)
 		visible_message(
 		span_notice("[name] залез[genderize_ru(gender, "", "ла", "ло", "ли")] в вентиляцию!"),
 		span_notice("Вы залезли в вентиляцию."),
 	)
-	//forceMove(ventcrawl_target)
-	loc = ventcrawl_target
+	abstract_move(ventcrawl_target)
 	ADD_TRAIT(src, TRAIT_MOVE_VENTCRAWLING, VENTCRAWLING_TRAIT)
 	update_pipe_vision()
+	return TRUE
 
 
 /**
  * Moves living mob to the turf contents and cleanse ventcrawling stuff
  *
  * Arguments:
+ * * ventcrawl_target - The vent from which we are moved from
  * * message - if TRUE shows visible message to everyone
+ *
+ * Returns `TRUE` on success.
  */
-/mob/living/proc/stop_ventcrawling(message = TRUE)
+/mob/living/proc/stop_ventcrawling(obj/machinery/atmospherics/ventcrawl_target, message = TRUE)
+	SHOULD_CALL_PARENT(TRUE)
+
 	if(!is_ventcrawling(src))
 		return FALSE
-	forceMove(get_turf(src))
+	var/turf/new_turf = get_turf(src)
+	forceMove(new_turf)
 	REMOVE_TRAIT(src, TRAIT_MOVE_VENTCRAWLING, VENTCRAWLING_TRAIT)
 	update_pipe_vision()
+	SET_PLANE(src, PLANE_TO_TRUE(src.plane), new_turf)
 	if(message)
 		visible_message(
 			span_notice("[name] вылез[genderize_ru(gender, "", "ла", "ло", "ли")] из вентиляции!"),
@@ -157,7 +154,7 @@
  * We move first and then call update. Dont flip this around
  */
 /mob/living/proc/update_pipe_vision()
-	if(isnull(client))
+	if(isnull(client)) // we don't care about pipe vision if we have no client
 		return
 
 	if(LAZYLEN(pipes_shown))
@@ -166,6 +163,8 @@
 		LAZYNULL(pipes_shown)
 
 	if(!HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) || !is_ventcrawling(src) || !(movement_type & VENTCRAWLING))
+		for(var/atom/movable/screen/plane_master/pipecrawl in hud_used.get_true_plane_masters(PIPECRAWL_IMAGES_PLANE))
+			pipecrawl.hide_plane(src)
 		return
 
 	var/list/total_members = list()
@@ -176,6 +175,9 @@
 
 	if(!length(total_members))
 		return
+
+	for(var/atom/movable/screen/plane_master/pipecrawl in hud_used.get_true_plane_masters(PIPECRAWL_IMAGES_PLANE))
+		pipecrawl.unhide_plane(src)
 
 	for(var/obj/machinery/atmospherics/pipenet_part as anything in total_members)
 		if(!(pipenet_part.vent_movement & VENTCRAWL_CAN_SEE))

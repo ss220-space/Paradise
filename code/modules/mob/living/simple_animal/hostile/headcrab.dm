@@ -12,6 +12,7 @@
 	ranged = 1
 	ranged_message = "leaps"
 	ranged_cooldown_time = 40
+	AI_delay_max = 0.5 SECONDS
 	var/jumpdistance = 4
 	var/jumpspeed = 1
 	attacktext = "грызёт"
@@ -169,7 +170,6 @@
 	if(iscarbon(target) && target.reagents)
 		var/inject_target = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 		var/mob/living/carbon/C = target
-		if(C.IsStunned() || C.can_inject(null, FALSE, inject_target, FALSE))
-			if(C.AmountEyeBlurry() < 120 SECONDS)
-				C.AdjustEyeBlurry(20 SECONDS)
-				visible_message("<span class='danger'>[src] buries its fangs deep into the [inject_target] of [target]!</span>")
+		if(C.AmountEyeBlurry() < 120 SECONDS && (HAS_TRAIT(C, TRAIT_INCAPACITATED) || C.can_inject(null, FALSE, inject_target, FALSE)))
+			C.AdjustEyeBlurry(20 SECONDS)
+			visible_message("<span class='danger'>[src] buries its fangs deep into the [inject_target] of [target]!</span>")

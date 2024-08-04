@@ -1,25 +1,25 @@
-/obj/screen/alien
+/atom/movable/screen/alien
 	icon = 'icons/mob/screen_alien.dmi'
 
-/obj/screen/alien/leap
+/atom/movable/screen/alien/leap
 	name = "toggle leap"
 	icon_state = "leap_off"
 
-/obj/screen/alien/leap/Click()
+/atom/movable/screen/alien/leap/Click()
 	if(isalienhunter(usr))
 		var/mob/living/carbon/alien/humanoid/hunter/AH = usr
 		AH.toggle_leap()
 
-/obj/screen/alien/nightvision
+/atom/movable/screen/alien/nightvision
 	name = "toggle night-vision"
 	icon_state = "nightvision1"
 
-/obj/screen/alien/nightvision/Click()
+/atom/movable/screen/alien/nightvision/Click()
 	var/mob/living/carbon/alien/humanoid/A = usr
 	A.nightvisiontoggle()
 
 
-/obj/screen/alien/plasma_display
+/atom/movable/screen/alien/plasma_display
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "power_display2"
 	name = "plasma stored"
@@ -33,20 +33,20 @@
 /datum/hud/alien/New(mob/living/carbon/alien/humanoid/owner)
 	..()
 
-	var/obj/screen/using
-	var/obj/screen/inventory/inv_box
+	var/atom/movable/screen/using
+	var/atom/movable/screen/inventory/inv_box
 
-	using = new /obj/screen/language_menu
+	using = new /atom/movable/screen/language_menu(null, src)
 	using.screen_loc = ui_alien_language_menu
 	static_inventory += using
 
-	using = new /obj/screen/act_intent/alien()
+	using = new /atom/movable/screen/act_intent/alien(null, src)
 	using.icon_state = (mymob.a_intent == "hurt" ? INTENT_HARM : mymob.a_intent)
 	using.screen_loc = ui_acti
 	static_inventory += using
 	action_intent = using
 
-	using = new /obj/screen/mov_intent()
+	using = new /atom/movable/screen/mov_intent(null, src)
 	using.icon = 'icons/mob/screen_alien.dmi'
 	using.icon_state = (mymob.m_intent == MOVE_INTENT_RUN ? "running" : "walking")
 	using.screen_loc = ui_movi
@@ -54,13 +54,13 @@
 	move_intent = using
 
 	if(isalienhunter(mymob))
-		mymob.leap_icon = new /obj/screen/alien/leap()
+		mymob.leap_icon = new /atom/movable/screen/alien/leap(null, src)
 		mymob.leap_icon.icon = 'icons/mob/screen_alien.dmi'
 		mymob.leap_icon.screen_loc = ui_alien_leap
 		static_inventory += mymob.leap_icon
 
 //equippable shit
-	inv_box = new /obj/screen/inventory/hand()
+	inv_box = new /atom/movable/screen/inventory/hand(null, src)
 	inv_box.name = "r_hand"
 	inv_box.icon = 'icons/mob/screen_alien.dmi'
 	inv_box.icon_state = "hand_r"
@@ -69,7 +69,7 @@
 	static_inventory += inv_box
 	hand_slots += inv_box
 
-	inv_box = new /obj/screen/inventory/hand()
+	inv_box = new /atom/movable/screen/inventory/hand(null, src)
 	inv_box.name = "l_hand"
 	inv_box.icon = 'icons/mob/screen_alien.dmi'
 	inv_box.icon_state = "hand_l"
@@ -78,21 +78,21 @@
 	static_inventory += inv_box
 	hand_slots += inv_box
 
-	using = new /obj/screen/swap_hand()
+	using = new /atom/movable/screen/swap_hand(null, src)
 	using.name = "hand"
 	using.icon = 'icons/mob/screen_alien.dmi'
 	using.icon_state = "hand1"
 	using.screen_loc = ui_swaphand1
 	static_inventory += using
 
-	using = new /obj/screen/swap_hand()
+	using = new /atom/movable/screen/swap_hand(null, src)
 	using.name = "hand"
 	using.icon = 'icons/mob/screen_alien.dmi'
 	using.icon_state = "hand2"
 	using.screen_loc = ui_swaphand2
 	static_inventory += using
 
-	inv_box = new /obj/screen/inventory()
+	inv_box = new /atom/movable/screen/inventory(null, src)
 	inv_box.name = "storage1"
 	inv_box.icon = 'icons/mob/screen_alien.dmi'
 	inv_box.icon_state = "pocket"
@@ -100,7 +100,7 @@
 	inv_box.slot_id = ITEM_SLOT_POCKET_LEFT
 	static_inventory += inv_box
 
-	inv_box = new /obj/screen/inventory()
+	inv_box = new /atom/movable/screen/inventory(null, src)
 	inv_box.name = "storage2"
 	inv_box.icon = 'icons/mob/screen_alien.dmi'
 	inv_box.icon_state = "pocket"
@@ -110,47 +110,45 @@
 
 //end of equippable shit
 
-	using = new /obj/screen/resist()
+	using = new /atom/movable/screen/resist(null, src)
 	using.name = "resist"
 	using.icon = 'icons/mob/screen_alien.dmi'
 	using.icon_state = "act_resist"
 	using.screen_loc = ui_pull_resist
 	static_inventory += using
 
-	using = new /obj/screen/drop()
+	using = new /atom/movable/screen/drop(null, src)
 	using.name = "drop"
 	using.icon = 'icons/mob/screen_alien.dmi'
 	using.icon_state = "act_drop"
 	using.screen_loc = ui_drop_throw
 	static_inventory += using
 
-	mymob.throw_icon = new /obj/screen/throw_catch()
+	mymob.throw_icon = new /atom/movable/screen/throw_catch(null, src)
 	mymob.throw_icon.icon = 'icons/mob/screen_alien.dmi'
 	mymob.throw_icon.screen_loc = ui_drop_throw
 	static_inventory += mymob.throw_icon
 
-	mymob.healths = new /obj/screen/healths/alien()
+	mymob.healths = new /atom/movable/screen/healths/alien(null, src)
 	infodisplay += mymob.healths
 
-	nightvisionicon = new /obj/screen/alien/nightvision()
+	nightvisionicon = new /atom/movable/screen/alien/nightvision(null, src)
 	infodisplay += nightvisionicon
 
-	mymob.pullin = new /obj/screen/pull()
-	mymob.pullin.hud = src
+	mymob.pullin = new /atom/movable/screen/pull(null, src)
 	mymob.pullin.icon = 'icons/mob/screen_alien.dmi'
 	mymob.pullin.update_icon(UPDATE_ICON_STATE)
 	mymob.pullin.screen_loc = ui_pull_resist
 	hotkeybuttons += mymob.pullin
 
-	alien_plasma_display = new /obj/screen/alien/plasma_display()
+	alien_plasma_display = new /atom/movable/screen/alien/plasma_display(null, src)
 	infodisplay += alien_plasma_display
 
-	zone_select = new /obj/screen/zone_sel/alien(null, src)
+	zone_select = new /atom/movable/screen/zone_sel/alien(null, src)
 	static_inventory += zone_select
 
-	for(var/obj/screen/inventory/inv in (static_inventory + toggleable_inventory))
+	for(var/atom/movable/screen/inventory/inv in (static_inventory + toggleable_inventory))
 		if(inv.slot_id)
-			inv.hud = src
 			inv_slots[TOBITSHIFT(inv.slot_id) + 1] = inv
 			inv.update_appearance()
 

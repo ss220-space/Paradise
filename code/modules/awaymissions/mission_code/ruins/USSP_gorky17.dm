@@ -96,7 +96,9 @@
 	icon_state = "away"
 	requires_power = FALSE
 	outdoors = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
+	static_lighting = FALSE
+	base_lighting_alpha = 255
+	base_lighting_color = COLOR_WHITE
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_SPACE
 	has_gravity = FALSE
@@ -220,12 +222,12 @@
 	requires_power = FALSE
 	fire = FALSE
 	outdoors = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_SPACE
 	has_gravity = FALSE
-
-
+	static_lighting = FALSE
+	base_lighting_color = COLOR_WHITE
+	base_lighting_alpha = 255
 
 /////////////// Safe with secret documets
 /obj/effect/spawner/lootdrop/randomsafe
@@ -393,18 +395,18 @@
 	Ставка Главного Командования поручает Вам собрать боевую группу и уничтожить позицию врага, сохранив возможность последующего использования на благо СССП.\
 	<br> Время отведенное на выполнение задачи <b>72 часа</b> с момента получения директивы. <br><br><i>	Оперативный штаб специальных операций</i>"
 
+
 /obj/item/paper/gorky17/orders/Initialize()
-	var/obj/item/stamp/ussp/stamp = new
-	src.stamp(stamp)
-	qdel(stamp)
-	..()
+	. = ..()
+	stamp(/obj/item/stamp/ussp)
+
 
 /obj/item/paper/gorky17/report
 	name = "Доклад Центральному Комитету СССП"
 	header = "<font face=\"Verdana\" color=black><center>&ZeroWidthSpace;<img src = ussplogo.png></center>"
 	info = "<font face=\"Verdana\" color=black><BR><center><B>Доклад Центральному Комитету СССП</B></center><BR>Я <B><span class=\"paper_field\"></span></B>, в звании <B><span class=\"paper_field\"></span></B> и должности <B><span class=\"paper_field\"></span></B>, докладываю: <span class=\"paper_field\"></span> <BR><BR><BR><font size = \"1\"> Подпись: <span class=\"paper_field\"></span></font><BR><font size = \"1\"> Дата: <span class=\"paper_field\"></span></font><BR><HR><font size = \"1\">*Данный факс, обязательно должен подтверждаться печатью ответственного лица. В случае наличия опечаток и отсутствия подписей или печатей, факс считается скомпрометированным.<BR>*Нарушение субординации и уставных отношений повлечет наказание.</font></font>"
 
-/obj/item/paper/gorky17/report/New()
+/obj/item/paper/gorky17/report/Initialize(mapload)
 	. = ..()
 	populatefields()
 
@@ -588,7 +590,7 @@
 	playsound(src, 'sound/effects/empulse.ogg', 80)
 	qdel(C)
 
-/area/ruin/space/USSP_gorky17/collapsed/vault/Entered(mob/living/bourgeois)
+/area/ruin/space/USSP_gorky17/collapsed/vault/Entered(mob/living/bourgeois, area/old_area)
 	. = ..()
 	if(!communism_has_fallen && istype(bourgeois) && !faction_check(bourgeois.faction, safe_faction))
 		var/obj/machinery/syndicatebomb/gorky17/bomb = locate(/obj/machinery/syndicatebomb/gorky17) in src

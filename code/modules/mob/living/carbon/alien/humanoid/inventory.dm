@@ -13,7 +13,6 @@
 		if(!QDELETED(src))
 			update_inv_pockets()
 
-
 /mob/living/carbon/alien/humanoid/equip_to_slot(obj/item/I, slot, initial)
 	if(!slot)
 		return
@@ -35,7 +34,7 @@
 	I.screen_loc = null
 	I.forceMove(src)
 	I.layer = ABOVE_HUD_LAYER
-	I.plane = ABOVE_HUD_PLANE
+	SET_PLANE_EXPLICIT(I, ABOVE_HUD_PLANE, src)
 
 	switch(slot)
 		if(ITEM_SLOT_HAND_LEFT)
@@ -56,7 +55,6 @@
 
 		if(ITEM_SLOT_HANDCUFFED)
 			set_handcuffed(I)
-			update_handcuffed_status()
 
 		if(ITEM_SLOT_LEGCUFFED)
 			set_legcuffed(I)
@@ -158,7 +156,7 @@
 		return ITEM_SLOT_HANDCUFFED
 	if(item == legcuffed)
 		return ITEM_SLOT_LEGCUFFED
-	return null
+	return NONE
 
 
 /mob/living/carbon/alien/humanoid/has_organ_for_slot(slot_flag)

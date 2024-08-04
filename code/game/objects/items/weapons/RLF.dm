@@ -8,9 +8,6 @@ RLF
 	desc = "A device used to rapidly deploy lollipop."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rlf"
-	opacity = 0
-	density = FALSE
-	anchored = FALSE
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	w_class = WEIGHT_CLASS_NORMAL
 
@@ -32,12 +29,12 @@ RLF
 		to_chat(user, "<span class='warning'>You offer lollipop to [receiver], but they don't seem to respond...</span>")
 		return
 	var/obj/item/I = new /obj/item/reagent_containers/food/snacks/candy/sucker/lollipop
-	receiver.throw_alert("take item [I.UID()]", /obj/screen/alert/take_item/RLF, alert_args = list(user, receiver, I))
+	receiver.throw_alert("take item [I.UID()]", /atom/movable/screen/alert/take_item/RLF, alert_args = list(user, receiver, I))
 	to_chat(user, "<span class='info'>You offer lollipop to [receiver].</span>")
 
-/obj/screen/alert/take_item/RLF
+/atom/movable/screen/alert/take_item/RLF
 
-/obj/screen/alert/take_item/RLF/Click(location, control, params)
+/atom/movable/screen/alert/take_item/RLF/Click(location, control, params)
 	var/mob/living/receiver = locateUID(receiver_UID)
 	if(receiver.stat != CONSCIOUS)
 		return

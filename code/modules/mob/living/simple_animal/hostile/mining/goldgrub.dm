@@ -41,8 +41,8 @@
 		i--
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/GiveTarget(new_target)
-	target = new_target
-	if(target != null)
+	add_target(new_target)
+	if(!QDELETED(target))
 		if(wanted_objects[target.type] && loot.len < max_loot)
 			visible_message("<span class='notice'>\The [name] looks at [target.name] with hungry eyes.</span>")
 		else if(iscarbon(target) || issilicon(target))
@@ -79,6 +79,15 @@
 /mob/living/simple_animal/hostile/asteroid/goldgrub/bullet_act(obj/item/projectile/P)
 	visible_message("<span class='danger'>[P.name] was repelled by \the [name]'s blubberous girth!</span>")
 
-/mob/living/simple_animal/hostile/asteroid/goldgrub/adjustHealth(amount, updating_health = TRUE)
-	vision_range = 9
+
+/mob/living/simple_animal/hostile/asteroid/goldgrub/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
 	. = ..()
+	if(. && amount > 0)
+		vision_range = 9
+

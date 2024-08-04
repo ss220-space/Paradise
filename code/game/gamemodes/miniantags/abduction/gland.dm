@@ -113,10 +113,11 @@
 
 /obj/item/organ/internal/heart/gland/heals/activate()
 	to_chat(owner, "<span class='notice'>You feel curiously revitalized.</span>")
-	owner.adjustToxLoss(-20)
-	owner.adjustBruteLoss(-20)
-	owner.adjustOxyLoss(-20)
-	owner.adjustFireLoss(-20)
+	var/update = NONE
+	update |= owner.heal_overall_damage(20, 20, updating_health = FALSE)
+	update |= owner.heal_damages(tox = 20, oxy = 20, updating_health = FALSE)
+	if(update)
+		owner.updatehealth()
 
 /obj/item/organ/internal/heart/gland/slime
 	cooldown_low = 600
@@ -162,7 +163,7 @@
 			if(2)
 				to_chat(H, "<span class='warning'>You hear an annoying buzz in your head.</span>")
 				H.AdjustConfused(30 SECONDS)
-				H.adjustBrainLoss(rand(5, 15))
+				H.apply_damage(rand(5, 15), BRAIN)
 			if(3)
 				H.AdjustHallucinate(60 SECONDS)
 

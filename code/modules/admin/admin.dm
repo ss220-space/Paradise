@@ -7,14 +7,14 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	for(var/client/C in GLOB.admins)
 		if(R_ADMIN & C.holder.rights)
 			if(C.prefs && !(C.prefs.toggles & PREFTOGGLE_CHAT_NO_ADMINLOGS))
-				to_chat(C, msg)
+				to_chat(C, msg, MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 
 /proc/msg_admin_attack(var/text, var/loglevel)
 	if(!GLOB.nologevent)
 		var/rendered = "<span class=\"admin\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
 		for(var/client/C in GLOB.admins)
 			if((C.holder.rights & R_ADMIN) && (C.prefs?.atklog <= loglevel))
-				to_chat(C, rendered)
+				to_chat(C, rendered, MESSAGE_TYPE_ATTACKLOG, confidential = TRUE)
 
 /**
  * Sends a message to the staff able to see admin tickets
@@ -27,7 +27,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	for(var/client/C in GLOB.admins)
 		if(R_ADMIN & C.holder.rights)
 			if(important || (C.prefs && !(C.prefs.toggles & PREFTOGGLE_CHAT_NO_TICKETLOGS)))
-				to_chat(C, msg)
+				to_chat(C, msg, MESSAGE_TYPE_ADMINPM, confidential = TRUE)
 			if(important)
 				if(C.prefs?.sound & SOUND_ADMINHELP)
 					SEND_SOUND(C, 'sound/effects/adminhelp.ogg')
@@ -44,7 +44,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_ADMIN | R_MENTOR | R_MOD, 0, C.mob))
 			if(important || (C.prefs && !(C.prefs.toggles & PREFTOGGLE_CHAT_NO_TICKETLOGS)))
-				to_chat(C, msg)
+				to_chat(C, msg, MESSAGE_TYPE_MENTORCHAT, confidential = TRUE)
 			if(important)
 				if(C.prefs?.sound & SOUND_MENTORHELP)
 					SEND_SOUND(C, 'sound/effects/adminhelp.ogg')
@@ -56,18 +56,17 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			for(var/mob/O in GLOB.mob_list)
 				if(O.ckey && O.ckey == ckey_to_find)
 					if(admin_to_notify)
-						to_chat(admin_to_notify, "<span class='warning'>admin_ban_mobsearch: Player [ckey_to_find] is now in mob [O]. Pulling data from new mob.</span>")
+						to_chat(admin_to_notify, span_warning("admin_ban_mobsearch: Player [ckey_to_find] is now in mob [O]. Pulling data from new mob."), MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 						return O
 			if(admin_to_notify)
-				to_chat(admin_to_notify, "<span class='warning'>admin_ban_mobsearch: Player [ckey_to_find] does not seem to have any mob, anywhere. This is probably an error.</span>")
+				to_chat(admin_to_notify, span_warning("admin_ban_mobsearch: Player [ckey_to_find] does not seem to have any mob, anywhere. This is probably an error."), MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 		else if(admin_to_notify)
-			to_chat(admin_to_notify, "<span class='warning'>admin_ban_mobsearch: No mob or ckey detected.</span>")
+			to_chat(admin_to_notify, span_warning("admin_ban_mobsearch: No mob or ckey detected."), MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 	return M
 
 ///////////////////////////////////////////////////////////////////////////////////////////////Panels
 
 /datum/admins/proc/show_player_panel(var/mob/M in GLOB.mob_list)
-	set category = null
 	set name = "\[Admin\] Show Player Panel"
 	set desc="Edit player (respawn, ban, heal, etc)"
 
@@ -201,7 +200,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			body += "<br>"
 
 			//Monkey
-			if(issmall(M))
+			if(is_monkeybasic(M))
 				body += "<B>Monkeyized</B> | "
 			else
 				body += "<A href='?_src_=holder;monkeyone=[M.UID()]'>Monkeyize</A> | "
@@ -240,19 +239,18 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			if(M.dna && iscarbon(M))
 				body += "<br><br>"
 				body += "<b>DNA Blocks:</b><br><table border='0'><tr><th>&nbsp;</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th>"
-				var/bname
-				for(var/block=1;block<=DNA_SE_LENGTH;block++)
-					if(((block-1)%5)==0)
-						body += "</tr><tr><th>[block-1]</th>"
-					bname = GLOB.assigned_blocks[block]
+				for(var/block in 1 to DNA_SE_LENGTH)
+					if(!((block - 1) % 5))
+						body += "</tr><tr><th>[block - 1]</th>"
+
 					body += "<td>"
-					if(bname)
-						var/bstate=M.dna.GetSEState(block)
-						var/bcolor="[(bstate)?"#006600":"#ff0000"]"
-						body += "<A href='?_src_=holder;togmutate=[M.UID()];block=[block]' style='color:[bcolor];'>[bname]</A><sub>[block]</sub>"
+					var/gene_name = GLOB.assigned_blocks[block]
+					if(gene_name)
+						var/text_color = "[M.dna.GetSEState(block) ? "#006600" : "#ff0000"]"
+						body += "<A href='?_src_=holder;togmutate=[M.UID()];block=[block]' style='color:[text_color];'>[gene_name]</A><sub>[block]</sub>"
 					else
 						body += "[block]"
-					body+="</td>"
+					body += "</td>"
 				body += "</tr></table>"
 
 			body += {"<br><br>
@@ -804,7 +802,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		T.ChangeTurf(chosen)
 	else
 		var/atom/A = new chosen(usr.loc)
-		A.admin_spawned = TRUE
+		A.flags |= ADMIN_SPAWNED
 
 	log_and_message_admins("spawned [chosen] at [COORD(usr)]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Atom") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!

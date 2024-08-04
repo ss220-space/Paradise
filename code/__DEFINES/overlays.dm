@@ -26,3 +26,12 @@
 		} \
 	}
 */
+
+
+// Float layers for closets
+#define CLOSET_OLAY_LAYER_CONTENTS -5
+#define CLOSET_OLAY_LAYER_DOOR -4
+#define CLOSET_OLAY_LAYER_LOCK_FRAME -3
+#define CLOSET_OLAY_LAYER_LOCK_INDICATOR -2
+#define CLOSET_OLAY_LAYER_WELDED -1
+

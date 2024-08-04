@@ -10,7 +10,7 @@
 
 // /datum/element flags
 /// Causes the detach proc to be called when the host object is being deleted
-#define ELEMENT_DETACH		(1 << 0)
+#define ELEMENT_DETACH_ON_HOST_DESTROY		(1 << 0)
 /**
   * Only elements created with the same arguments given after `id_arg_index` share an element instance
   * The arguments are the same when the text and number values are the same and all other values have the same ref
@@ -25,9 +25,9 @@
 /// new component is deleted
 #define COMPONENT_DUPE_UNIQUE			2
 /// old component is given the initialization args of the new
-#define COMPONENT_DUPE_UNIQUE_PASSARGS	4
+#define COMPONENT_DUPE_UNIQUE_PASSARGS	3
 /// each component of the same type is consulted as to whether the duplicate should be allowed
-#define COMPONENT_DUPE_SELECTIVE		5
+#define COMPONENT_DUPE_SELECTIVE		4
 
 //Redirection component init flags
 #define REDIRECT_TRANSFER_WITH_TURF 1
@@ -40,3 +40,4 @@
 #define CALTROP_BYPASS_SHOES (1<<0)
 #define CALTROP_BYPASS_WALKERS (1<<1)
 #define CALTROP_BYPASS_ROBOTIC_FOOTS (1<<2)
+#define CALTROP_BYPASS_CRAWLING (1<<3)

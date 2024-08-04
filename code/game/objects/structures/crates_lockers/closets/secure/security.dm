@@ -211,39 +211,25 @@
 	new /obj/item/encryptionkey/headset_med(src)
 
 
-/obj/structure/closet/secure_closet/detective
+/obj/structure/closet/secure_closet/cabinet/detective
 	name = "detective's cabinet"
-	req_access = list(ACCESS_FORENSICS_LOCKERS)
 	icon_state = "cabinetdetective"
-	overlay_unlocked = "c_unlocked"
-	overlay_locked = "c_locked"
-	overlay_locker = "c_locker"
-	resistance_flags = FLAMMABLE
-	max_integrity = 70
-	open_sound = 'sound/machines/wooden_closet_open.ogg'
-	close_sound = 'sound/machines/wooden_closet_close.ogg'
+	overlay_locker = "cd_locker"
+	req_access = list(ACCESS_FORENSICS_LOCKERS)
 
-/obj/structure/closet/secure_closet/detective/populate_contents()
+
+/obj/structure/closet/secure_closet/cabinet/detective/populate_contents()
 	new /obj/item/storage/backpack/satchel_detective(src)
 	new /obj/item/storage/backpack/detective(src)
 	new /obj/item/storage/backpack/duffel/detective(src)
 	new /obj/item/clothing/gloves/color/black/forensics(src)
-	new /obj/item/storage/box/evidence(src)
-	new /obj/item/clipboard(src)
 	new /obj/item/radio/headset/headset_sec/alt(src)
 	new /obj/item/detective_scanner(src)
-	new /obj/item/ammo_box/speedloader/c38(src)
-	new /obj/item/ammo_box/speedloader/c38(src)
-	new /obj/item/gun/projectile/revolver/detective(src)
-	new /obj/item/clothing/accessory/holster/armpit(src)
 	new /obj/item/clothing/glasses/sunglasses/yeah(src)
-	new /obj/item/flashlight/seclite(src)
-	new /obj/item/holosign_creator/security(src)
-	new /obj/item/taperecorder(src)
-	new /obj/item/storage/box/tapes(src)
 	new /obj/item/storage/belt/security/detective(src)
 	new /obj/item/clothing/accessory/holobadge/detective(src)
 	new /obj/item/storage/garmentbag/detective(src)
+	new /obj/item/storage/box/revolver_kit(src)
 
 /obj/structure/closet/secure_closet/injection
 	name = "lethal injections locker"

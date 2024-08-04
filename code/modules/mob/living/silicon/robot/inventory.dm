@@ -11,6 +11,17 @@
 /mob/living/silicon/robot/get_all_slots()
 	return list(module_state_1, module_state_2, module_state_3)
 
+
+/mob/living/silicon/robot/get_equipped_items(include_pockets = FALSE, include_hands = FALSE)
+	. = list()
+	if(module_state_1)
+		. += module_state_1
+	if(module_state_2)
+		. += module_state_2
+	if(module_state_3)
+		. += module_state_3
+
+
 /*-------TODOOOOOOOOOO--------*/
 /mob/living/silicon/robot/proc/uneq_module(obj/item/O)
 	if(!O)
@@ -61,7 +72,7 @@
 		O.mouse_opacity = initial(O.mouse_opacity)
 		module_state_1 = O
 		O.layer = ABOVE_HUD_LAYER
-		O.plane = ABOVE_HUD_PLANE
+		SET_PLANE_EXPLICIT(O, ABOVE_HUD_PLANE, src)
 		O.screen_loc = inv1.screen_loc
 		contents += O
 		set_actions(O)
@@ -69,7 +80,7 @@
 		O.mouse_opacity = initial(O.mouse_opacity)
 		module_state_2 = O
 		O.layer = ABOVE_HUD_LAYER
-		O.plane = ABOVE_HUD_PLANE
+		SET_PLANE_EXPLICIT(O, ABOVE_HUD_PLANE, src)
 		O.screen_loc = inv2.screen_loc
 		contents += O
 		set_actions(O)
@@ -77,7 +88,7 @@
 		O.mouse_opacity = initial(O.mouse_opacity)
 		module_state_3 = O
 		O.layer = ABOVE_HUD_LAYER
-		O.plane = ABOVE_HUD_PLANE
+		SET_PLANE_EXPLICIT(O, ABOVE_HUD_PLANE, src)
 		O.screen_loc = inv3.screen_loc
 		contents += O
 		set_actions(O)

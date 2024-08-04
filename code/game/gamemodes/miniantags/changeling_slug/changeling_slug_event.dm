@@ -34,7 +34,7 @@
 		var/obj/vent = pick_n_take(vents)
 		var/mob/C = pick_n_take(candidates)
 		if(C)
-			GLOB.respawnable_list -= C.client
+			GLOB.respawnable_list -= C
 			var/mob/living/simple_animal/hostile/headslug/evented/new_slug = new(vent.loc)
 			new_slug.key = C.key
 			new_slug.make_slug_antag() //give objective and plays coolsound

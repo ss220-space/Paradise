@@ -45,8 +45,8 @@
 
 /obj/item/gun/projectile/update_overlays()
 	. = ..()
-	if(bayonet && knife_overlay)
-		. += knife_overlay
+	if(bayonet && bayonet_overlay)
+		. += bayonet_overlay
 
 
 /obj/item/gun/proc/update_weight()
@@ -101,20 +101,20 @@
 		if(istype(AM, mag_type))
 			if(can_reload())
 				reload(AM, user)
-				to_chat(user, span_notice("You load a new magazine into \the [src]."))
+				balloon_alert(user, "заряжено")
 				return TRUE
 			else if(!can_tactical)
-				to_chat(user, span_notice("There's already a magazine in \the [src]."))
+				balloon_alert(user, "уже заряжено!")
 				return TRUE
 			else
-				to_chat(user, span_notice("You perform a tactical reload on \the [src], replacing the magazine."))
+				balloon_alert(user, "заряжено")
 				magazine.loc = get_turf(loc)
-				magazine.update_icon()
+				magazine.update_appearance(UPDATE_ICON | UPDATE_DESC)
 				magazine = null
 				reload(AM, user)
 				return TRUE
 		else
-			to_chat(user, span_notice("You can't put this type of ammo in \the [src]."))
+			balloon_alert(user, "не совместимо!")
 			return TRUE
 	if(istype(A, /obj/item/suppressor))
 		var/obj/item/suppressor/S = A
@@ -122,7 +122,7 @@
 			if(!suppressed)
 				if(!user.drop_transfer_item_to_loc(A, src))
 					return
-				to_chat(user, span_notice("You screw [S] onto [src]."))
+				balloon_alert(user, "установлено")
 				playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 				suppressed = A
 				S.oldsound = fire_sound
@@ -132,10 +132,10 @@
 				update_icon()
 				return
 			else
-				to_chat(user, span_warning("[src] already has a suppressor."))
+				balloon_alert(user, "уже установлено!")
 				return
 		else
-			to_chat(user, span_warning("You can't seem to figure out how to fit [S] on [src]."))
+			balloon_alert(user, "не совместимо!")
 			return
 	else
 		return ..()
@@ -147,7 +147,8 @@
 			if(user.l_hand != src && user.r_hand != src)
 				..()
 				return
-			to_chat(user, span_notice("You unscrew [suppressed] from [src]."))
+
+			balloon_alert(user, "глушитель снят!")
 			playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 			user.put_in_hands(suppressed)
 			fire_sound = S.oldsound
@@ -162,19 +163,19 @@
 	if(magazine)
 		magazine.loc = get_turf(loc)
 		user.put_in_hands(magazine)
-		magazine.update_icon()
+		magazine.update_appearance(UPDATE_ICON | UPDATE_DESC)
 		magazine = null
 		update_weight()
-		to_chat(user, span_notice("You pull the magazine out of \the [src]!"))
+		balloon_alert(user, "магазин извлечён")
 		playsound(src, magout_sound, 50, 1)
 	else if(chambered)
 		AC.loc = get_turf(src)
 		AC.SpinAnimation(10, 1)
 		chambered = null
-		to_chat(user, span_notice("You unload the round from \the [src]'s chamber."))
+		balloon_alert(user, "патрон извлечён")
 		playsound(src, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, 1)
 	else
-		to_chat(user, span_notice("There's no magazine in \the [src]."))
+		balloon_alert(user, "уже разряжено!")
 	update_icon()
 	return
 
@@ -208,10 +209,10 @@
 
 /obj/item/gun/projectile/proc/sawoff(mob/user)
 	if(sawn_state == SAWN_OFF)
-		to_chat(user, span_warning("\The [src] is already shortened!"))
+		balloon_alert(user, "уже укорочено!")
 		return
 	if(bayonet)
-		to_chat(user, span_warning("You cannot saw-off [src] with [bayonet] attached!"))
+		balloon_alert(user, "мешает штык-нож!")
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.visible_message("[user] begins to shorten \the [src].", span_notice("You begin to shorten \the [src]..."))

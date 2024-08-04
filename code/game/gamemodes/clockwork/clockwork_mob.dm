@@ -50,7 +50,7 @@
 	if(a_intent == INTENT_DISARM && isliving(target) && !isclocker(target))
 		var/mob/living/L = target
 		playsound(loc, 'sound/weapons/clash.ogg', 50, TRUE)
-		L.adjustStaminaLoss(25)
+		L.apply_damage(25, STAMINA)
 		src.do_attack_animation(target)
 		target.visible_message("<span class='danger'>[src] hits [target] with flat of the sword!</span>", \
 						"<span class='userdanger'>[src] hits you with flat of the sword!</span>")
@@ -58,21 +58,12 @@
 	else
 		..()
 
-/mob/living/simple_animal/hostile/clockwork/marauder/FindTarget(list/possible_targets, HasTargetsList)
-	. = list()
-	if(!HasTargetsList)
-		possible_targets = ListTargets()
-	for(var/pos_targ in possible_targets)
-		var/atom/A = pos_targ
-		if(Found(A))
-			. = list(A)
-			break
-		if(CanAttack(A) && !isclocker(A))//Can we attack it? And no biting our friends!!
-			. += A
-			continue
-	var/Target = PickTarget(.)
-	GiveTarget(Target)
-	return Target
+
+/mob/living/simple_animal/hostile/clockwork/marauder/CanAttack(atom/the_target)
+	if(isclocker(the_target))
+		return FALSE
+	return ..()
+
 
 /mob/living/simple_animal/hostile/clockwork/marauder/bullet_act(obj/item/projectile/P)
 	if(deflect_projectile(P))
@@ -131,8 +122,11 @@
 	name = "moaus"
 	real_name = "moaus"
 	desc = "A fancy clocked mouse. And it still squeeks!"
+	icon_state = "mouse_clockwork"
+	icon_living = "mouse_clockwork"
+	icon_dead = "mouse_clockwork_dead"
+	icon_resting = "mouse_clockwork_sleep"
 	icon = 'icons/mob/clockwork_mobs.dmi'
-	mouse_color = "clock" // Check mouse/New()
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	pressure_resistance = 100

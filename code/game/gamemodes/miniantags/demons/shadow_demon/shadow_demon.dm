@@ -27,7 +27,7 @@
 		crawl.phased = TRUE
 		RegisterSignal(loc, COMSIG_MOVABLE_MOVED, TYPE_PROC_REF(/mob/living/simple_animal/demon/shadow, check_darkness))
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(check_darkness))
-	add_overlay(emissive_appearance(icon, "shadow_demon_eye_glow_overlay"))
+	add_overlay(emissive_appearance(icon, "shadow_demon_eye_glow_overlay", src))
 
 
 /mob/living/simple_animal/demon/shadow/Life(seconds, times_fired)
@@ -48,7 +48,7 @@
 	if(lum_count > 0.2)
 		if(!thrown_alert)
 			thrown_alert = TRUE
-			throw_alert("light", /obj/screen/alert/lightexposure)
+			throw_alert("light", /atom/movable/screen/alert/lightexposure)
 		animate(src, alpha = 255, time = 0.5 SECONDS)
 		set_varspeed(initial(speed))
 	else
@@ -82,7 +82,7 @@
 
 	visible_message(span_danger("[src] begins wrapping [h_target] in shadowy threads."))
 	wrapping = TRUE
-	if(!do_after(src, 4 SECONDS, h_target, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
+	if(!do_after(src, 4 SECONDS, h_target, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 		wrapping = FALSE
 		return
 
@@ -173,7 +173,6 @@
 /obj/effect/proc_holder/spell/fireball/shadow_grapple
 	name = "Shadow Grapple"
 	desc = "Fire one of your hands, if it hits a person it pulls them in. If you hit a structure you get pulled to the structure."
-	panel = "Demon"
 	action_background_icon_state = "shadow_demon_bg"
 	action_icon_state = "shadow_grapple"
 	invocation_type = "none"
@@ -201,7 +200,7 @@
 
 /obj/item/projectile/magic/shadow_hand/fire(setAngle)
 	if(firer)
-		firer.Beam(src, icon_state = "grabber_beam", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1, beam_type = /obj/effect/ebeam/floor)
+		firer.Beam(src, icon_state = "grabber_beam", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1, beam_type = /obj/effect/ebeam/floor, beam_layer = BELOW_MOB_LAYER)
 	return ..()
 
 
@@ -219,10 +218,6 @@
 		l_target.throw_at(get_step(firer, get_dir(firer, target)), 50, 10)
 	else
 		firer.throw_at(get_step(target, get_dir(target, firer)), 50, 10)
-
-
-/obj/effect/ebeam/floor
-	plane = FLOOR_PLANE
 
 
 /obj/item/organ/internal/heart/demon/shadow

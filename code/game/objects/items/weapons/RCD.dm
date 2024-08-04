@@ -244,10 +244,13 @@
 /obj/item/rcd/attack_self_tk(mob/user)
 	radial_menu(user)
 
-/obj/item/rcd/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/rcd/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/rcd/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "RCD", "Rapid Construction Device", 471, 673, master_ui, state)
+		ui = new(user, src, "RCD", "Rapid Construction Device")
 		ui.open()
 
 /obj/item/rcd/ui_data(mob/user)
@@ -455,9 +458,6 @@
 	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "rcd"
 	item_state = "rcdammo"
-	opacity = FALSE
-	density = FALSE
-	anchored = FALSE
 	origin_tech = "materials=3"
 	materials = list(MAT_METAL=16000, MAT_GLASS=8000)
 	var/ammoamt = 20

@@ -61,7 +61,7 @@
 	else
 		if(affected_mob.IsSleeping())
 			return TRUE
-		if(affected_mob.lying_angle)
+		if(affected_mob.body_position == LYING_DOWN)
 			return prob(33)
 		return FALSE
 

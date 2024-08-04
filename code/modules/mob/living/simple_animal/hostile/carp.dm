@@ -35,6 +35,7 @@
 	faction = list("carp")
 	pressure_resistance = 200
 	gold_core_spawnable = HOSTILE_SPAWN
+	AI_delay_max = 0.5 SECONDS
 
 	var/carp_stamina_damage = 8
 
@@ -95,14 +96,14 @@
 	base_dead_overlay.appearance_flags = RESET_COLOR
 	add_overlay(base_dead_overlay)
 
-/mob/living/simple_animal/hostile/carp/Process_Spacemove(movement_dir = NONE)
+/mob/living/simple_animal/hostile/carp/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE	//No drifting in space for space carp!	//original comments do not steal
 
 /mob/living/simple_animal/hostile/carp/AttackingTarget()
 	. = ..()
 	if(. && ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.adjustStaminaLoss(carp_stamina_damage)
+		H.apply_damage(carp_stamina_damage, STAMINA)
 
 /mob/living/simple_animal/hostile/carp/death(gibbed)
 	. = ..()
@@ -156,10 +157,18 @@
 	melee_damage_upper += rand(10, 20)
 	maxHealth += rand(60, 90)
 
-/mob/living/simple_animal/hostile/carp/megacarp/adjustHealth(amount, updating_health = TRUE)
+
+/mob/living/simple_animal/hostile/carp/megacarp/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
 	. = ..()
-	if(.)
+	if(. && amount > 0)
 		regen_cooldown = world.time + REGENERATION_DELAY
+
 
 /mob/living/simple_animal/hostile/carp/megacarp/Life()
 	..()

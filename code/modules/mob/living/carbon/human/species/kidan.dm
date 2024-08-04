@@ -12,7 +12,7 @@
 	brute_mod = 0.8
 	tox_mod = 1.7
 
-	species_traits = list(IS_WHITELISTED, HAVE_REGENERATION)
+	species_traits = list(HAVE_REGENERATION)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS
 	fingers_count = 6
@@ -99,22 +99,23 @@
 
 /datum/species/kidan/on_species_gain(mob/living/carbon/human/H)
 	..()
-	H.verbs |= /mob/living/carbon/human/proc/emote_click
-	H.verbs |= /mob/living/carbon/human/proc/emote_clack
-	H.verbs |= /mob/living/carbon/human/proc/emote_wiggle
-	H.verbs |= /mob/living/carbon/human/proc/emote_wave_k
-	H.verbs -= /mob/living/carbon/human/verb/emote_pale
-	H.verbs -= /mob/living/carbon/human/verb/emote_blink
-	H.verbs -= /mob/living/carbon/human/verb/emote_blink_r
-	H.verbs -= /mob/living/carbon/human/verb/emote_blush
-	H.verbs -= /mob/living/carbon/human/verb/emote_wink
-	H.verbs -= /mob/living/carbon/human/verb/emote_smile
-	H.verbs -= /mob/living/carbon/human/verb/emote_snuffle
-	H.verbs -= /mob/living/carbon/human/verb/emote_grin
-	H.verbs -= /mob/living/carbon/human/verb/emote_eyebrow
-	H.verbs -= /mob/living/carbon/human/verb/emote_frown
-	H.verbs -= /mob/living/carbon/human/verb/emote_sniff
-	H.verbs -= /mob/living/carbon/human/verb/emote_glare
+	add_verb(H, list(/mob/living/carbon/human/proc/emote_click,
+					/mob/living/carbon/human/proc/emote_clack,
+			   		/mob/living/carbon/human/proc/emote_wiggle,
+			   		/mob/living/carbon/human/proc/emote_wave_k))
+	remove_verb(H, list(
+		/mob/living/carbon/human/verb/emote_pale,
+		/mob/living/carbon/human/verb/emote_blink,
+		/mob/living/carbon/human/verb/emote_blink_r,
+		/mob/living/carbon/human/verb/emote_blush,
+		/mob/living/carbon/human/verb/emote_wink,
+		/mob/living/carbon/human/verb/emote_smile,
+		/mob/living/carbon/human/verb/emote_snuffle,
+		/mob/living/carbon/human/verb/emote_grin,
+		/mob/living/carbon/human/verb/emote_eyebrow,
+		/mob/living/carbon/human/verb/emote_frown,
+		/mob/living/carbon/human/verb/emote_sniff,
+		/mob/living/carbon/human/verb/emote_glare))
 	// HUD for detecting pheromones
 	var/datum/atom_hud/kidan_hud = GLOB.huds[DATA_HUD_KIDAN_PHEROMONES]
 	kidan_hud.add_hud_to(H)
@@ -125,22 +126,24 @@
 
 /datum/species/kidan/on_species_loss(mob/living/carbon/human/H)
 	..()
-	H.verbs -= /mob/living/carbon/human/proc/emote_click
-	H.verbs -= /mob/living/carbon/human/proc/emote_clack
-	H.verbs -= /mob/living/carbon/human/proc/emote_wiggle
-	H.verbs -= /mob/living/carbon/human/proc/emote_wave_k
-	H.verbs |= /mob/living/carbon/human/verb/emote_pale
-	H.verbs |= /mob/living/carbon/human/verb/emote_blink
-	H.verbs |= /mob/living/carbon/human/verb/emote_blink_r
-	H.verbs |= /mob/living/carbon/human/verb/emote_blush
-	H.verbs |= /mob/living/carbon/human/verb/emote_wink
-	H.verbs |= /mob/living/carbon/human/verb/emote_smile
-	H.verbs |= /mob/living/carbon/human/verb/emote_snuffle
-	H.verbs |= /mob/living/carbon/human/verb/emote_grin
-	H.verbs |= /mob/living/carbon/human/verb/emote_eyebrow
-	H.verbs |= /mob/living/carbon/human/verb/emote_frown
-	H.verbs |= /mob/living/carbon/human/verb/emote_sniff
-	H.verbs |= /mob/living/carbon/human/verb/emote_glare
+	remove_verb(H, list(
+		/mob/living/carbon/human/proc/emote_click,
+		/mob/living/carbon/human/proc/emote_clack,
+		/mob/living/carbon/human/proc/emote_wiggle,
+		/mob/living/carbon/human/proc/emote_wave_k))
+	add_verb(H, list(
+		/mob/living/carbon/human/verb/emote_pale,
+		/mob/living/carbon/human/verb/emote_blink,
+		/mob/living/carbon/human/verb/emote_blink_r,
+		/mob/living/carbon/human/verb/emote_blush,
+		/mob/living/carbon/human/verb/emote_wink,
+		/mob/living/carbon/human/verb/emote_smile,
+		/mob/living/carbon/human/verb/emote_snuffle,
+		/mob/living/carbon/human/verb/emote_grin,
+		/mob/living/carbon/human/verb/emote_eyebrow,
+		/mob/living/carbon/human/verb/emote_frown,
+		/mob/living/carbon/human/verb/emote_sniff,
+		/mob/living/carbon/human/verb/emote_glare))
 
 	// Removing the HUD for detecting pheromones
 	var/datum/atom_hud/kidan_hud = GLOB.huds[DATA_HUD_KIDAN_PHEROMONES]
@@ -199,7 +202,7 @@
 // Innate action for creating pheromones and destroying current ones, owned by all kida
 /datum/action/innate/produce_pheromones
 	name = "Produce Pheromones"
-	check_flags = AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "kidan_pheromones_static"
 
@@ -229,7 +232,7 @@
 				to_chat(H, "<span class='warning'>These pheromones were created by someone else, you are unable to dissipate them.</span>")
 				return
 			// These are ours and we now destroy them
-			if(do_after(H, 3 SECONDS, pheromones_to_destroy, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
+			if(do_after(H, 3 SECONDS, pheromones_to_destroy, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 				// Log the action
 				H.create_log(MISC_LOG, "destroyed pheromones that had the message of \"[pheromones_to_destroy.encoded_message]\"")
 
@@ -261,14 +264,14 @@
 				return
 
 			// Create the pheromones
-			if(do_after(H, 3 SECONDS, H, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
+			if(do_after(H, 3 SECONDS, H, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 				to_chat(H, "<span class='notice'>You produce new pheromones with the message of \"[message_to_encode]\".</span>")
 				var/obj/effect/kidan_pheromones/pheromones_to_create = new get_turf(H)
 				pheromones_to_create.encoded_message = message_to_encode
 				LAZYADD(active_pheromones_current, pheromones_to_create)
 
 				// Add a signal to the new pheromones so it clears its own references when it gets destroyed
-				RegisterSignal(pheromones_to_create, COMSIG_PARENT_QDELETING, PROC_REF(remove_pheromones_from_list))
+				RegisterSignal(pheromones_to_create, COMSIG_QDELETING, PROC_REF(remove_pheromones_from_list))
 
 				// Log the action
 				H.create_log(MISC_LOG, "produced pheromones with the message of \"[message_to_encode]\"")
@@ -279,7 +282,7 @@
 /datum/action/innate/produce_pheromones/proc/remove_pheromones_from_list(obj/effect/kidan_pheromones/pheromones)
 	SIGNAL_HANDLER
 
-	UnregisterSignal(pheromones, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(pheromones, COMSIG_QDELETING)
 	LAZYREMOVE(active_pheromones_current, pheromones)
 
 // Clear references if the holder gets destroyed

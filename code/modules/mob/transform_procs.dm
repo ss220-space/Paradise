@@ -22,7 +22,6 @@
 	for(var/obj/item/check as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 		drop_item_ground(check, force = TRUE)
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
-	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 	return ..()
@@ -69,7 +68,6 @@
 		drop_item_ground(check, force = TRUE)
 
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
-	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 
@@ -131,7 +129,6 @@
 	for(var/obj/item/check as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 		drop_item_ground(check, force = TRUE)
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
-	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 	for(var/t in bodyparts)	//this really should not be necessary
@@ -154,7 +151,6 @@
 		drop_item_ground(check, force = TRUE)
 
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
-	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 
@@ -189,7 +185,6 @@
 	for(var/obj/item/check as anything in get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
 		drop_item_ground(check, force = TRUE)
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
-	canmove = FALSE
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
 	var/obj/item/paicard/card

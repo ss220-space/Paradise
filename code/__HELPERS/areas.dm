@@ -81,7 +81,7 @@
 	var/area/newA
 	var/area/oldA = get_area(get_turf(creator))
 	if(!isarea(area_choice))
-		var/str = stripped_input(creator, "New area name:", "Blueprint Editing", "", MAX_NAME_LEN)
+		var/str = tgui_input_text(usr, "New area name:", "Blueprint Editing", max_length = MAX_NAME_LEN, encode = FALSE)
 		if(!str)
 			return
 		newA = new area_choice
@@ -92,7 +92,6 @@
 		newA.always_unpowered = FALSE
 		newA.valid_territory = FALSE
 		newA.has_gravity = oldA.has_gravity
-		newA.set_dynamic_lighting()
 	else
 		newA = area_choice
 

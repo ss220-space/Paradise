@@ -24,6 +24,7 @@ SUBSYSTEM_DEF(jobs)
 
 /datum/controller/subsystem/jobs/Initialize()
 	SetupOccupations()
+	return SS_INIT_SUCCESS
 
 
 // Only fires every 5 minutes
@@ -92,8 +93,6 @@ SUBSYSTEM_DEF(jobs)
 		if(job.barred_by_disability(player.client))
 			return 0
 		if(!job.character_old_enough(player.client))
-			return 0
-		if(!is_job_whitelisted(player, rank))
 			return 0
 
 		var/position_limit = job.total_positions
@@ -380,10 +379,6 @@ SUBSYSTEM_DEF(jobs)
 
 				if(player.mind && (job.title in player.mind.restricted_roles))
 					Debug("DO incompatible with antagonist role, Player: [player], Job:[job.title]")
-					continue
-
-				if(!is_job_whitelisted(player, job.title))
-					Debug("DO player not whitelisted, Player: [player], Job:[job.title]")
 					continue
 
 				// If the player wants that job on this level, then try give it to him.

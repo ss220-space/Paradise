@@ -180,9 +180,16 @@
 	item_color = "officer"
 	displays_id = 0
 
-/obj/item/clothing/under/rank/centcom/representative/New()
-	..()
+
+/obj/item/clothing/under/rank/centcom/representative/Initialize(mapload)
+	. = ..()
+	update_appearance(UPDATE_DESC)
+
+
+/obj/item/clothing/under/rank/centcom/representative/update_desc(updates = ALL)
+	. = ..()
 	desc = "Gold trim on space-black cloth, this uniform bears [station_name()] on the left shoulder."
+
 
 /obj/item/clothing/under/rank/centcom/magistrate
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrate\" and bears \"N.S.S. Cyberiad\" on the left shoulder."
@@ -192,9 +199,16 @@
 	item_color = "officer"
 	displays_id = 0
 
-/obj/item/clothing/under/rank/centcom/magistrate/New()
-	..()
+
+/obj/item/clothing/under/rank/centcom/magistrate/Initialize(mapload)
+	. = ..()
+	update_appearance(UPDATE_DESC)
+
+
+/obj/item/clothing/under/rank/centcom/magistrate/update_desc(updates = ALL)
+	. = ..()
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrate\" and bears [station_name()] on the left shoulder."
+
 
 /obj/item/clothing/under/rank/centcom/diplomatic
 	desc = "A very gaudy and official looking uniform of the Nanotrasen Diplomatic Corps."
@@ -265,6 +279,7 @@
 	icon_state = "rainbow"
 	item_state = "rainbow"
 	item_color = "rainbow"
+	dying_key = DYE_REGISTRY_UNDER
 
 /obj/item/clothing/under/cloud
 	name = "cloud"
@@ -425,6 +440,7 @@
 	icon_state = "redcoat"
 	item_state = "redcoat"
 	item_color = "redcoat"
+	dying_key = DYE_REGISTRY_UNDER
 
 /obj/item/clothing/under/kilt
 	name = "kilt"
@@ -867,17 +883,17 @@
 	clothing_traits = list(TRAIT_VENTCRAWLER_ITEM_BASED)
 
 
+/// Allowed to wear: glasses, shoes, gloves, mask, ears, pockets, id, pda and jumpsuit (obviously)
+#define CONTORTIONIST_ALLOWED_SLOTS (ITEM_SLOT_CLOTH_INNER|ITEM_SLOT_ID|ITEM_SLOT_PDA|ITEM_SLOT_GLOVES|ITEM_SLOT_FEET|ITEM_SLOT_MASK|ITEM_SLOT_EYES|ITEM_SLOT_EARS|ITEM_SLOT_POCKETS)
+
 /obj/item/clothing/under/contortionist/used_for_ventcrawling(mob/living/user, provide_feedback = TRUE)
-	// Allowed to wear: glasses, shoes, gloves, pockets, mask, and jumpsuit (obviously)
-	var/slots_must_be_empty = ITEM_SLOT_BACK|ITEM_SLOT_BELT|ITEM_SLOT_HEAD|ITEM_SLOT_CLOTH_OUTER|ITEM_SLOT_HANDS|ITEM_SLOT_HANDCUFFED|ITEM_SLOT_LEGCUFFED
-
-	for(var/obj/item/item as anything in user.get_equipped_items(include_hands = TRUE))
-		if(item.slot_flags & slots_must_be_empty)
-			if(provide_feedback)
-				to_chat(user, span_warning("Вы не можете ползать по вентиляции с [item.name]."))
-			return FALSE
-
+	if(user.get_equipped_slots(include_hands = TRUE) & ~CONTORTIONIST_ALLOWED_SLOTS)
+		if(provide_feedback)
+			to_chat(user, span_warning("Вы можете ползать по вентиляции только с перчатками, обувью, маской, очками, наушниками, а также комбинезоном с ID-картой и PDA."))
+		return FALSE
 	return TRUE
+
+#undef CONTORTIONIST_ALLOWED_SLOTS
 
 
 /obj/item/clothing/under/cursedclown
@@ -1040,7 +1056,6 @@
 	icon_state = "colorize_skirt"
 	item_state = "colorize_skirt"
 	item_color = "colorize_skirt"
-	var/colour = null
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
@@ -1053,28 +1068,10 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
 		)
 
+
 /obj/item/clothing/under/colour/skirt/Initialize(mapload)
 	. = ..()
-	add_atom_colour(colour, FIXED_COLOUR_PRIORITY)
-	update_icon()
-
-/obj/item/clothing/under/colour/skirt/attack_self(mob/user)
-	if(icon_state == initial(icon_state))
-		icon_state = icon_state + "_t"
-		item_state = icon_state + "_t"
-	else
-		icon_state = initial(icon_state)
-		item_state = initial(item_state)
-	user.update_inv_wear_suit()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
-
-/obj/item/clothing/under/colour/skirt/New()
-	..()
 	AddComponent(/datum/component/spraycan_paintable)
-	START_PROCESSING(SSobj, src)
-	update_icon()
 
 
 /obj/item/clothing/under/ussptracksuit_red
@@ -1136,3 +1133,63 @@
 	icon_state = "night_dress_white"
 	item_state = "night_dress_white"
 	item_color = "night_dress_white"
+
+/obj/item/clothing/under/steampunkdress
+	name = "victorian blue-white dress"
+	desc = "Изящное бело-кремовое платье с синим жакетом. Платье повторяет одежду викторианской эпохи, но с небольшими современными идеями. На лацкане жакета нацеплена брош символизирующая превосходство."
+	over_shoes = TRUE
+	icon_state = "steampunkdress"
+	item_state = "steampunkdress"
+	item_color = "steampunkdress"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		)
+
+/obj/item/clothing/under/dress50s
+	name = "old Soviet dress"
+	desc = "Платье в горошек на манер старой моды. Кажется, такое носят женщины из СССП."
+	over_shoes = TRUE
+	icon_state = "dress50s"
+	item_state = "dress50s"
+	item_color = "dress50s"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		)
+
+/obj/item/clothing/under/maid
+	name = "short maid costume"
+	desc = "Костюм для косплея горничной."
+	over_shoes = TRUE
+	icon_state = "maid"
+	item_state = "maid"
+	item_color = "maid"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		)
+

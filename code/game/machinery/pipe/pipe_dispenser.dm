@@ -95,7 +95,7 @@
 		new /obj/item/pipe_gsensor(loc)
 	return TRUE
 
-/obj/machinery/pipedispenser/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
+/obj/machinery/pipedispenser/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(usr)
 	if(istype(W, /obj/item/pipe) || istype(W, /obj/item/pipe_meter) || istype(W, /obj/item/pipe_gsensor))
 		to_chat(usr, span_notice("You put [W] back to [src]."))
@@ -106,7 +106,7 @@
 		if(unwrenched==0)
 			playsound(loc, W.usesound, 50, 1)
 			to_chat(user, span_notice("You begin to unfasten \the [src] from the floor..."))
-			if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
+			if(do_after(user, 4 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
 				user.visible_message( \
 					"[user] unfastens \the [src].", \
 					span_notice("You have unfastened \the [src]. Now it can be pulled somewhere else."), \
@@ -119,7 +119,7 @@
 		else /*if(unwrenched==1)*/
 			playsound(loc, W.usesound, 50, 1)
 			to_chat(user, span_notice("You begin to fasten \the [src] to the floor..."))
-			if(do_after(user, 2 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
+			if(do_after(user, 2 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
 				user.visible_message( \
 					"[user] fastens \the [src].", \
 					span_notice("You have fastened \the [src]. Now it can dispense pipes."), \
@@ -170,17 +170,20 @@
 <A href='?src=[UID()];dmake=106'>Bin</A><BR>
 <A href='?src=[UID()];dmake=107'>Outlet</A><BR>
 <A href='?src=[UID()];dmake=108'>Chute</A><BR>
+<A href='?src=[UID()];dmake=113'>Rotator</A><BR>
+<A href='?src=[UID()];dmake=111'>Multi-Z Up</A><BR>
+<A href='?src=[UID()];dmake=112'>Multi-Z Down</A><BR>
 "}
 
 	var/datum/browser/popup = new(user, "pipedispenser", name, 400, 400)
 	popup.set_content(dat)
 	popup.open()
 
+
 /obj/machinery/pipedispenser/disposal/Topic(href, href_list)
 	if(!..())
 		return
 	if(href_list["dmake"])
-		var/p_type = text2num(href_list["dmake"])
-		var/obj/structure/disposalconstruct/C = new(loc, p_type)
-		if(p_type in list(PIPE_DISPOSALS_BIN, PIPE_DISPOSALS_OUTLET, PIPE_DISPOSALS_CHUTE))
-			C.set_density(TRUE)
+		var/obj/structure/disposalconstruct/construct = new(loc, text2num(href_list["dmake"]))
+		to_chat(usr, span_notice("[src] dispenses the [construct.pipename]!"))
+

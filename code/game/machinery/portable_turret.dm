@@ -13,6 +13,7 @@
 	idle_power_usage = 50		//when inactive, this turret takes up constant 50 Equipment power
 	active_power_usage = 300	//when active, this turret takes up constant 300 Equipment power
 	power_channel = EQUIP	//drains power from the EQUIPMENT channel
+	can_astar_pass = CANASTARPASS_ALWAYS_PROC
 	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 0, rad = 0, fire = 90, acid = 90)
 
 	req_access = list(ACCESS_SECURITY, ACCESS_HEADS)
@@ -91,7 +92,7 @@
 /obj/machinery/porta_turret/proc/handleInterloper(atom/movable/entity)
 	//message_admins("[entity] is in target range of [src]")
 
-	if(entity.invisibility > SEE_INVISIBLE_LIVING) //Let's not do typechecks and stuff on invisible things
+	if(entity.invisibility > SEE_INVISIBLE_LIVING || entity.alpha == NINJA_ALPHA_INVISIBILITY) //Let's not do typechecks and stuff on invisible things
 		return
 
 	var/static/valid_targets = typecacheof(list(/obj/mecha, /obj/spacepod, /obj/vehicle, /mob/living))
@@ -154,6 +155,10 @@
 			eshot_sound = 'sound/weapons/pulse.ogg'
 
 
+/obj/machinery/porta_turret/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	return (stat & BROKEN) || !pass_info.is_living
+
+
 GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret/update_icon_state()
@@ -214,16 +219,16 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/porta_turret/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/porta_turret/ui_interact(mob/user, datum/tgui/ui = null)
 	if(HasController())
 		to_chat(user, span_notice("[src] can only be controlled using the assigned turret controller."))
 		return
 	if(!anchored)
 		to_chat(user, span_notice("[src] has to be secured first!"))
 		return
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "PortableTurret", name, 500, access_is_configurable() ? 800 : 400)
+		ui = new(user, src, "PortableTurret", name)
 		ui.open()
 
 /obj/machinery/porta_turret/ui_data(mob/user)
@@ -318,7 +323,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			//If the turret is destroyed, you can remove it with a crowbar to
 			//try and salvage its components
 			to_chat(user, span_notice("You begin prying the metal coverings off."))
-			if(do_after(user, 2 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
+			if(do_after(user, 2 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
 				if(prob(70))
 					to_chat(user, span_notice("You remove the turret and salvage some components."))
 					if(installation)
@@ -350,7 +355,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			)
 
 		wrenching = TRUE
-		if(do_after(user, 5 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, 5 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
 			//This code handles moving the turret around. After all, it's a portable turret!
 			add_fingerprint(user)
 			playsound(loc, I.usesound, 100, TRUE)
@@ -588,14 +593,14 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return TURRET_NOT_TARGET
 
 	if(check_synth)	//If it's set to attack all non-silicons, target them!
-		if(L.lying_angle)
+		if(L.body_position == LYING_DOWN)
 			return lethal ? TURRET_SECONDARY_TARGET : TURRET_NOT_TARGET
 		return TURRET_PRIORITY_TARGET
 
 	if(iscuffed(L)) // If the target is handcuffed, leave it alone
 		return TURRET_NOT_TARGET
 
-	if(isanimal(L) || issmall(L)) // Animals are not so dangerous
+	if(isanimal(L) || is_monkeybasic(L)) // Animals are not so dangerous
 		return check_anomalies ? TURRET_SECONDARY_TARGET : TURRET_NOT_TARGET
 
 	if(isalien(L)) // Xenos are dangerous
@@ -605,7 +610,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(assess_perp(L, check_access, check_weapons, check_records, check_arrest) < 4)
 			return TURRET_NOT_TARGET	//if threat level < 4, keep going
 
-	if(L.lying_angle)		//if the perp is lying down, it's still a target but a less-important target
+	if(L.body_position == LYING_DOWN)		//if the perp is lying down, it's still a target but a less-important target
 		return lethal ? TURRET_SECONDARY_TARGET : TURRET_NOT_TARGET
 
 	return TURRET_PRIORITY_TARGET	//if the perp has passed all previous tests, congrats, it is now a "shoot-me!" nominee
@@ -680,6 +685,9 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/proc/target(mob/living/target)
 	if(disabled)
 		return
+	for(var/obj/machinery/door/poddoor/D in get_turf(src))
+		if(D.icon_state == "closed")
+			return
 	if(target)
 		last_target = target
 		if(has_cover)
@@ -1038,9 +1046,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	. = ..()
 	if(istype(depotarea))
 		depotarea.turret_died()
-
-/obj/machinery/porta_turret/syndicate/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
-	return ((stat & BROKEN) || !isliving(caller))
 
 /obj/machinery/porta_turret/syndicate/shootAt(mob/living/target)
 	if(istype(depotarea))

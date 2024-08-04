@@ -65,7 +65,7 @@
 	if(!user.mind)
 		return
 
-	if(user.incapacitated(TRUE, TRUE, TRUE))
+	if(user.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
 		if(show_message)
 			to_chat(user, span_warning("You can't use this ability right now!"))
 		return FALSE
@@ -116,9 +116,9 @@
 
 	original_body = user
 	ADD_TRAIT(original_body, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+	ADD_TRAIT(slimeme, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	slimeme.status_flags |= GODMODE
 	user.status_flags |= GODMODE
-	slimeme.canmove = FALSE
 	user.mind.transfer_to(slimeme)
 	slimeme.update_sight()
 	user.move_to_null_space()
@@ -134,8 +134,8 @@
 	if(QDELETED(src) || QDELETED(slimeme))
 		return
 
+	REMOVE_TRAIT(slimeme, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	slimeme.status_flags &= ~GODMODE
-	slimeme.canmove = TRUE
 	is_transformed = TRUE
 
 
@@ -149,7 +149,6 @@
 	user.set_density(FALSE)
 	original_body.dir = SOUTH
 	original_body.forceMove(get_turf(user))
-	original_body.canmove = FALSE
 	user.mind.transfer_to(original_body)
 
 	var/matrix/animation_matrix1 = new(user.transform)
@@ -170,7 +169,6 @@
 
 	REMOVE_TRAIT(original_body, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	original_body.status_flags &= ~GODMODE
-	original_body.canmove = TRUE
 	is_transformed = FALSE
 	original_body = null
 
@@ -198,7 +196,7 @@
 	if(!user.mind)
 		return
 
-	if(user.incapacitated(TRUE, TRUE, TRUE))
+	if(user.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
 		if(show_message)
 			to_chat(user, span_warning("You can't use this ability right now!"))
 		return FALSE

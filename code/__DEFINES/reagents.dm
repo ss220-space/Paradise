@@ -4,6 +4,8 @@
 
 #define REAGENT_OVERDOSE_EFFECT 1
 #define REAGENT_OVERDOSE_FLAGS 2
+#define REAGENT_EVAPARATION_RATIO 0.3
+
 // container_type defines
 #define INJECTABLE		(1<<0)	// Makes it possible to add reagents through droppers and syringes.
 #define DRAWABLE		(1<<1)	// Makes it possible to remove reagents through syringes.

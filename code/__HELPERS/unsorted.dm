@@ -121,7 +121,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 			var/turf/center = locate((destination.x+xoffset),(destination.y+yoffset),location.z)//So now, find the new center.
 
 			//Now to find a box from center location and make that our destination.
-			for(var/turf/T in block(locate(center.x+b1xerror,center.y+b1yerror,location.z), locate(center.x+b2xerror,center.y+b2yerror,location.z) ))
+			for(var/turf/T in block(center.x+b1xerror,center.y+b1yerror,location.z, center.x+b2xerror,center.y+b2yerror,location.z) )
 				if(density&&T.density)	continue//If density was specified.
 				if(T.x>world.maxx || T.x<1)	continue//Don't want them to teleport off the map.
 				if(T.y>world.maxy || T.y<1)	continue
@@ -344,6 +344,8 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		moblist.Add(M)
 	for(var/mob/living/simple_animal/M in sortmob)
 		moblist.Add(M)
+	for(var/mob/camera/blob/M in sortmob)
+		moblist.Add(M)
 	return moblist
 
 // Format a power value in W, kW, MW, or GW.
@@ -382,13 +384,29 @@ Turf and target are seperate in case you want to teleport some distance from a t
 			if(GLOB.stealthminID[P] == txt)
 				return P
 
-// Returns the atom sitting on the turf.
-// For example, using this on a disk, which is in a bag, on a mob, will return the mob because it's on the turf.
-/proc/get_atom_on_turf(var/atom/movable/M)
-	var/atom/loc = M
-	while(loc && loc.loc && !istype(loc.loc, /turf/))
-		loc = loc.loc
-	return loc
+
+/**
+ * Returns the top-most atom sitting on the turf.
+ * For example, using this on a disk, which is in a bag, on a mob,
+ * will return the mob because it's on the turf.
+ *
+ * Arguments
+ * * something_in_turf - a movable within the turf, somewhere.
+ * * stop_type - optional - stops looking if stop_type is found in the turf, returning that type (if found).
+ **/
+/proc/get_atom_on_turf(atom/movable/something_in_turf, stop_type)
+	if(!istype(something_in_turf))
+		CRASH("get_atom_on_turf was not passed an /atom/movable! Got [isnull(something_in_turf) ? "null":"type: [something_in_turf.type]"]")
+
+	var/atom/movable/topmost_thing = something_in_turf
+
+	while(topmost_thing?.loc && !isturf(topmost_thing.loc))
+		topmost_thing = topmost_thing.loc
+		if(stop_type && istype(topmost_thing, stop_type))
+			break
+
+	return topmost_thing
+
 
 /*
 Returns 1 if the chain up to the area contains the given typepath
@@ -490,27 +508,28 @@ Returns 1 if the chain up to the area contains the given typepath
 		weight += I.w_class
 	return weight
 
-//Step-towards method of determining whether one atom can see another. Similar to viewers()
-/proc/can_see(var/atom/source, var/atom/target, var/length=5) // I couldnt be arsed to do actual raycasting :I This is horribly inaccurate.
-	var/turf/current = get_turf(source)
+
+///Step-towards method of determining whether one atom can see another. Similar to viewers()
+///note: this is a line of sight algorithm, view() does not do any sort of raycasting and cannot be emulated by it accurately
+/proc/can_see(atom/source, atom/target, length = 5) // I couldnt be arsed to do actual raycasting :I This is horribly inaccurate.
+	var/turf/current_turf = get_turf(source)
 	var/turf/target_turf = get_turf(target)
+	if(!current_turf || !target_turf)	// nullspace
+		return FALSE
+	if(get_dist(current_turf, target_turf) > length)
+		return FALSE
+	if(current_turf == target_turf)//they are on the same turf, source can see the target
+		return TRUE
 	var/steps = 1
-
-	if(current != target_turf)
-		current = get_step_towards(current, target_turf)
-		while(current != target_turf)
-			if(steps > length)
-				return 0
-			if(current.opacity)
-				return 0
-			for(var/thing in current)
-				var/atom/A = thing
-				if(A.opacity)
-					return 0
-			current = get_step_towards(current, target_turf)
-			steps++
-
-	return 1
+	current_turf = get_step_towards(current_turf, target_turf)
+	while(current_turf != target_turf)
+		if(steps > length)
+			return FALSE
+		if(IS_OPAQUE_TURF(current_turf))
+			return FALSE
+		current_turf = get_step_towards(current_turf, target_turf)
+		steps++
+	return TRUE
 
 
 //Returns: all the areas in the world
@@ -674,7 +693,7 @@ Returns 1 if the chain up to the area contains the given typepath
 							continue
 						if(!isobj(O)) continue
 						O.loc.Exited(O)
-						O.setLoc(X,teleported=1)
+						O.setLoc(X, TRUE)
 						O.loc.Entered(O)
 					for(var/mob/M in T)
 						if(!M.move_on_shuttle)
@@ -1196,7 +1215,7 @@ Standard way to write links -Sayu
 	/*This can be used to add additional effects on interactions between mobs depending on how the mobs are facing each other, such as adding a crit damage to blows to the back of a guy's head.
 	Given how click code currently works (Nov '13), the initiating mob will be facing the target mob most of the time
 	That said, this proc should not be used if the change facing proc of the click code is overriden at the same time*/
-	if(!ismob(target) || target.lying_angle)
+	if(!ismob(target) || target.body_position == LYING_DOWN)
 	//Make sure we are not doing this for things that can't have a logical direction to the players given that the target would be on their side
 		return FACING_FAILED
 	if(initator.dir == target.dir) //mobs are facing the same direction
@@ -1242,7 +1261,7 @@ Standard way to write links -Sayu
 		colour = pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))
 	else
 		for(var/i=1;i<=3;i++)
-			var/temp_col = "[num2hex(rand(lower,upper))]"
+			var/temp_col = "[num2hex(rand(lower, upper), 2)]"
 			if(length(temp_col )<2)
 				temp_col  = "0[temp_col]"
 			colour += temp_col
@@ -1275,7 +1294,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	GLOB.dview_mob.loc = center
 
-	GLOB.dview_mob.see_invisible = invis_flags
+	GLOB.dview_mob.set_invis_see(invis_flags)
 
 	. = view(range, GLOB.dview_mob)
 	GLOB.dview_mob.loc = null
@@ -1287,7 +1306,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	pull_force = 0
 	move_resist = INFINITY
 	simulated = 0
-	canmove = FALSE
+
 
 /mob/dview/New() //For whatever reason, if this isn't called, then BYOND will throw a type mismatch runtime when attempting to add this to the mobs list. -Fox
 	SHOULD_CALL_PARENT(FALSE)
@@ -1366,7 +1385,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		return 0
 	if(isliving(A))
 		var/mob/living/LA = A
-		if(LA.lying_angle)
+		if(LA.body_position == LYING_DOWN)
 			return 0
 	var/goal_dir = angle2dir(dir2angle(get_dir(B, A)+180))
 	var/clockwise_A_dir = get_clockwise_dir(A.dir)
@@ -1421,7 +1440,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 	while(orbiting && orbiting == A && A.loc)
 		var/targetloc = get_turf(A)
-		if(!lockinorbit && loc != lastloc && loc != targetloc)
+		if(!targetloc || (!lockinorbit && loc != lastloc && loc != targetloc))
 			break
 		if(forceMove)
 			forceMove(targetloc)
@@ -1458,7 +1477,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 //The y dimension of the icon file used in the image
 // eg: center_image(I, 32,32)
 // eg2: center_image(I, 96,96)
-/proc/center_image(var/image/I, x_dimension = 0, y_dimension = 0)
+/proc/center_image(image/I, x_dimension = 0, y_dimension = 0)
 	if(!I)
 		return
 
@@ -1562,11 +1581,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		if(areas)
 			. |= T.loc
 
-/proc/turf_clear(turf/T)
-	for(var/atom/A in T)
-		if(A.simulated)
-			return FALSE
-	return TRUE
 
 /proc/screen_loc2turf(scr_loc, turf/origin)
 	var/tX = splittext(scr_loc, ",")
@@ -1755,7 +1769,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 //returns the number of ticks slept
 /proc/stoplag(initial_delay)
-	if(!Master || !(Master.current_runlevel & RUNLEVELS_DEFAULT))
+	if (!Master || Master.init_stage_completed < INITSTAGE_MAX)
 		sleep(world.tick_lag)
 		return 1
 	if(!initial_delay)
@@ -1902,13 +1916,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			continue
 		. += A
 
-//gives us the stack trace from CRASH() without ending the current proc.
-/proc/stack_trace(msg)
-	CRASH(msg)
-
-/datum/proc/stack_trace(msg)
-	CRASH(msg)
-
 /proc/pass()
 	return
 
@@ -1988,17 +1995,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	)
 	return _list
 
-/// Waits at a line of code until X is true
-#define UNTIL(X) while(!(X)) stoplag()
-
-// Check if the source atom contains another atom
-/atom/proc/contains(atom/location)
-	if(!location)
-		return FALSE
-	if(location == src)
-		return TRUE
-
-	return contains(location.loc)
 
 /**
   * Returns the clean name of an audio channel.
@@ -2145,3 +2141,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return ITEM_SLOT_LEGCUFFED_STRING
 		if(ITEM_SLOT_ACCESSORY)
 			return ITEM_SLOT_ACCESSORY_STRING
+
+
+/proc/return_typenames(type)
+	return splittext("[type]", "/")
+

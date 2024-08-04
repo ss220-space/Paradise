@@ -56,7 +56,7 @@
 
 
 /mob/proc/say_dead(message)
-	message = handleDiscordEmojis(message)
+	message = handleDiscordEmojis(say_emphasis(message))
 	if(client)
 		if(!check_rights(R_ADMIN, FALSE) && !CONFIG_GET(flag/dsay_allowed))
 			to_chat(src, span_danger("Deadchat is globally muted."))
@@ -133,6 +133,19 @@
 			verb = "asks"
 	return verb
 
+/// Transforms the speech emphasis mods from [/atom/movable/proc/say_emphasis] into the appropriate HTML tags
+#define ENCODE_HTML_EMPHASIS(input, char, html, varname) \
+	var/static/regex/##varname = regex("[char](.+?)[char]", "g");\
+	input = varname.Replace_char(input, "<[html]>$1</[html]>")
+
+/// Scans the input sentence for speech emphasis modifiers, notably |italics|, +bold+, and _underline_ -mothblocks
+/mob/proc/say_emphasis(input)
+	ENCODE_HTML_EMPHASIS(input, "\\|", "i", italics)
+	ENCODE_HTML_EMPHASIS(input, "\\%", "b", bold)
+	ENCODE_HTML_EMPHASIS(input, "_", "u", underline)
+	return input
+
+#undef ENCODE_HTML_EMPHASIS
 
 /mob/proc/get_ear()
 	// returns an atom representing a location on the map from which this

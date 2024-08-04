@@ -196,7 +196,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "aF" = (
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/under/suit_jacket/female,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
@@ -411,7 +411,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "bh" = (
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "bi" = (
@@ -732,7 +732,7 @@
 /area/awaymission/UO71/plaza)
 "ci" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/under/pj/blue,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
@@ -956,8 +956,7 @@
 	icon_state = "2-8"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
@@ -967,8 +966,7 @@
 /area/awaymission/UO71/plaza)
 "cV" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -1087,8 +1085,7 @@
 /area/awaymission/UO71/plaza)
 "dk" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/decal/cleanable/dirt,
@@ -1128,9 +1125,8 @@
 	},
 /area/awaymission/UO71/plaza)
 "dn" = (
-/obj/structure/disposalpipe/junction{
-	dir = 4;
-	icon_state = "pipe-j2"
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1159,8 +1155,7 @@
 /area/awaymission/UO71/plaza)
 "dq" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/structure/sink{
 	pixel_y = 25
@@ -1288,8 +1283,7 @@
 /area/awaymission/UO71/plaza)
 "dE" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/plaza)
@@ -1312,8 +1306,7 @@
 /area/awaymission/UO71/plaza)
 "dH" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/plaza)
@@ -1789,8 +1782,7 @@
 /area/awaymission/UO71/plaza)
 "eO" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1832,8 +1824,7 @@
 	icon_state = "1-4"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
@@ -1924,8 +1915,7 @@
 /area/awaymission/UO71/centralhall)
 "ff" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/structure/sign/poster/contraband/eat{
 	pixel_x = 32
@@ -1938,8 +1928,7 @@
 /area/awaymission/UO71/plaza)
 "fg" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/plaza)
@@ -2171,8 +2160,7 @@
 	icon_state = "2-8"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -2778,8 +2766,7 @@
 "hl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -2813,8 +2800,7 @@
 /area/awaymission/UO71/centralhall)
 "ho" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -3225,8 +3211,7 @@
 	on = 1
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -3235,8 +3220,7 @@
 /area/awaymission/UO71/centralhall)
 "iq" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -3420,7 +3404,9 @@
 /area/awaymission/UO71/centralhall)
 "iV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/junction,
+/obj/structure/disposalpipe/junction{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -3817,9 +3803,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 2;
-	icon_state = "pipe-j2"
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 2
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -3883,8 +3868,7 @@
 	icon_state = "1-8"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/tiles/damageturf,
@@ -3917,8 +3901,7 @@
 	icon_state = "1-8"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -4519,8 +4502,7 @@
 /area/awaymission/UO71/eng)
 "lu" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -4534,7 +4516,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/junction,
+/obj/structure/disposalpipe/junction{
+	dir = 2
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -4566,10 +4550,7 @@
 	pixel_x = -2;
 	pixel_y = -1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "warndark"
-	},
+/turf/simulated/floor/plasteel,
 /area/awaymission/UO71/gateway)
 "ly" = (
 /obj/structure/cable{
@@ -4755,8 +4736,7 @@
 	icon_state = "2-8"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
@@ -4809,8 +4789,7 @@
 /area/awaymission/UO71/science)
 "lS" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
@@ -4965,10 +4944,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "warndark"
-	},
+/turf/simulated/floor/plasteel,
 /area/awaymission/UO71/gateway)
 "ml" = (
 /obj/effect/decal/cleanable/dirt,
@@ -5125,7 +5101,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
 "mF" = (
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/under/pj/red,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
@@ -5318,8 +5294,7 @@
 /area/awaymission/UO71/science)
 "mY" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -5329,8 +5304,7 @@
 /area/awaymission/UO71/science)
 "mZ" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -5426,7 +5400,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
 "nj" = (
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/under/suit_jacket/navy,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
@@ -5627,8 +5601,7 @@
 	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -5684,8 +5657,7 @@
 	icon_state = "2-8"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -6045,8 +6017,7 @@
 	icon_state = "1-4"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -6299,9 +6270,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 2;
-	icon_state = "pipe-y"
+/obj/structure/disposalpipe/junction/yjunction{
+	dir = 2
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -6332,9 +6302,8 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 8;
-	icon_state = "pipe-y"
+/obj/structure/disposalpipe/junction/yjunction{
+	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
@@ -6728,8 +6697,7 @@
 	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -6759,8 +6727,7 @@
 /area/awaymission/UO71/science)
 "pF" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -7967,8 +7934,7 @@
 	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -8173,8 +8139,7 @@
 	icon_state = "2-8"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -8941,8 +8906,7 @@
 	icon_state = "1-4"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -9106,8 +9070,7 @@
 	icon_state = "1-8"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/item/stack/rods,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -9832,8 +9795,7 @@
 /area/awaymission/UO71/centralhall)
 "wc" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/centralhall)
@@ -9880,8 +9842,7 @@
 	icon_state = "1-4"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
@@ -9904,8 +9865,7 @@
 	icon_state = "2-4"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
@@ -10341,7 +10301,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/mining)
 "xj" = (
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/mining)
 "xk" = (
@@ -10436,8 +10396,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -10640,7 +10599,7 @@
 	dir = 4;
 	on = 1
 	},
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/mining)
 "xQ" = (
@@ -11228,7 +11187,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/queen)
 "zn" = (
-/obj/structure/closet/secure_closet/civillian,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/loot)
 "zo" = (
@@ -11334,7 +11293,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/UO71/queen)
 "zU" = (
-/obj/structure/table/holotable/wood,
+/obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/cans/beer,
 /obj/machinery/light{
 	dir = 1
@@ -11359,7 +11318,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/UO71/queen)
 "zY" = (
-/obj/structure/table/holotable/wood,
+/obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/awaymission/UO71/queen)
 "zZ" = (
@@ -11399,7 +11358,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/UO71/queen)
 "Af" = (
-/obj/structure/table/holotable/wood,
+/obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/cans/beer,
 /turf/simulated/floor/wood,
 /area/awaymission/UO71/queen)

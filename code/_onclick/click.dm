@@ -74,7 +74,7 @@
 	if(dragged && !modifiers[dragged])
 		return
 	if(IsFrozen(A) && !is_admin(usr))
-		to_chat(usr, "<span class='boldannounce'>Interacting with admin-frozen players is not permitted.</span>")
+		to_chat(usr, span_boldannounceooc("Interacting with admin-frozen players is not permitted."))
 		return
 	if(modifiers["middle"] && modifiers["shift"] && modifiers["ctrl"])
 		MiddleShiftControlClickOn(A)
@@ -101,7 +101,7 @@
 		CtrlClickOn(A)
 		return
 
-	if(incapacitated(ignore_restraints = 1, ignore_grab = 1, ignore_lying = 1))
+	if(incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
 		return
 
 	if(is_ventcrawling(usr) && isitem(A)) // stops inventory actions in vents
@@ -328,6 +328,21 @@
 	if(istype(ML))
 		ML.pulled(src)
 
+
+/mob/living/CtrlClick(mob/living/user)
+	if(!isliving(user) || !user.Adjacent(src) || user.incapacitated())
+		return ..()
+
+	if(world.time < user.next_move)
+		return FALSE
+
+	if(user.grab(src))
+		user.changeNext_move(CLICK_CD_MELEE)
+		return TRUE
+
+	return ..()
+
+
 /*
 	Alt click
 	Unused except for AI
@@ -347,21 +362,12 @@
 /atom/proc/AltClickNoInteract(mob/user, atom/A)
 	var/turf/T = get_turf(A)
 	if(T && user.TurfAdjacent(T))
-		user.listed_turf = T
-		user.client.statpanel = T.name
+		user.set_listed_turf(T)
 
 /atom/proc/AltClick(mob/user)
-	turf_examine(user)
-
-/atom/proc/turf_examine(mob/user)
 	var/turf/T = get_turf(src)
-	if(T)
-		if(user.TurfAdjacent(T) && !HAS_TRAIT(user, TRAIT_MOVE_VENTCRAWLING))
-			user.listed_turf = T
-			user.client.statpanel = T.name
-			// If we had a method to force a `Stat` update, it would go here
-		else
-			user.listed_turf = null
+	if(T && (isturf(loc) || isturf(src)) && user.TurfAdjacent(T) && !HAS_TRAIT(user, TRAIT_MOVE_VENTCRAWLING))
+		user.set_listed_turf(T)
 
 
 /mob/proc/TurfAdjacent(var/turf/T)
@@ -414,25 +420,31 @@
 	LE.fire()
 
 // Simple helper to face what you clicked on, in case it should be needed in more than one place
-/mob/proc/face_atom(var/atom/A)
-	if( stat || buckled || !A || !x || !y || !A.x || !A.y ) return
+/mob/proc/face_atom(atom/A)
+	if(stat || buckled || !A || !x || !y || !A.x || !A.y )
+		return FALSE
 	var/dx = A.x - x
 	var/dy = A.y - y
-	if(!dx && !dy) return
+	if(!dx && !dy)
+		return FALSE
 
 	var/direction
 	if(abs(dx) < abs(dy))
-		if(dy > 0)	direction = NORTH
-		else		direction = SOUTH
+		if(dy > 0)
+			direction = NORTH
+		else
+			direction = SOUTH
 	else
-		if(dx > 0)	direction = EAST
-		else		direction = WEST
+		if(dx > 0)
+			direction = EAST
+		else
+			direction = WEST
 
-	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, direction)
-	dir = direction
+	setDir(direction)
+	return TRUE
 
 
-/obj/screen/click_catcher
+/atom/movable/screen/click_catcher
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "catcher"
 	plane = CLICKCATCHER_PLANE
@@ -442,7 +454,7 @@
 #define MAX_SAFE_BYOND_ICON_SCALE_TILES (MAX_SAFE_BYOND_ICON_SCALE_PX / world.icon_size)
 #define MAX_SAFE_BYOND_ICON_SCALE_PX (33 * 32)			//Not using world.icon_size on purpose.
 
-/obj/screen/click_catcher/proc/UpdateGreed(view_size_x = 15, view_size_y = 15)
+/atom/movable/screen/click_catcher/proc/UpdateGreed(view_size_x = 15, view_size_y = 15)
 	var/icon/newicon = icon('icons/mob/screen_gen.dmi', "catcher")
 	var/ox = min(MAX_SAFE_BYOND_ICON_SCALE_TILES, view_size_x)
 	var/oy = min(MAX_SAFE_BYOND_ICON_SCALE_TILES, view_size_y)
@@ -457,13 +469,23 @@
 	M.Scale(px/sx, py/sy)
 	transform = M
 
-/obj/screen/click_catcher/Click(location, control, params)
+/atom/movable/screen/click_catcher/Initialize(mapload, datum/hud/hud_owner)
+	. = ..()
+	RegisterSignal(SSmapping, COMSIG_PLANE_OFFSET_INCREASE, PROC_REF(offset_increased))
+	offset_increased(SSmapping, 0, SSmapping.max_plane_offset)
+
+// Draw to the lowest plane level offered
+/atom/movable/screen/click_catcher/proc/offset_increased(datum/source, old_offset, new_offset)
+	SIGNAL_HANDLER
+	SET_PLANE_W_SCALAR(src, initial(plane), new_offset)
+
+/atom/movable/screen/click_catcher/Click(location, control, params)
 	var/list/modifiers = params2list(params)
 	if(modifiers["middle"] && iscarbon(usr))
 		var/mob/living/carbon/C = usr
 		C.swap_hand()
 	else
-		var/turf/T = params2turf(modifiers["screen-loc"], get_turf(usr))
+		var/turf/T = params2turf(modifiers["screen-loc"], get_turf(usr), usr.client)
 		params += "&catcher=1"
 		if(T)
 			T.Click(location, control, params)

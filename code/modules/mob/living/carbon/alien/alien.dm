@@ -52,8 +52,7 @@
 /mob/living/carbon/alien/New()
 	..()
 	create_reagents(1000)
-	verbs += /mob/living/verb/mob_sleep
-	verbs += /mob/living/verb/lay_down
+	add_verb(src, /mob/living/verb/mob_sleep)
 	night_vision_action = new
 	night_vision_action.Grant(src)
 
@@ -82,10 +81,14 @@
 		/obj/item/organ/internal/ears
 	)
 
-/mob/living/carbon/alien/Stat()
-	..()
+
+/mob/living/carbon/alien/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Intent:", "[a_intent]")
+	status_tab_data[++status_tab_data.len] = list("Move Mode:", "[m_intent]")
 	if(can_evolve)
-		stat(null, "Evolution progress: [evolution_points]/[max_evolution_points]")
+		status_tab_data[++status_tab_data.len] = list("Evolution progress: [evolution_points]/[max_evolution_points]")
 
 
 /mob/living/carbon/alien/get_default_language()
@@ -107,24 +110,34 @@
 	return verb
 
 
-/mob/living/carbon/alien/adjustToxLoss(amount, updating_health)
+/mob/living/carbon/alien/adjustToxLoss(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	forced = FALSE,
+	used_weapon = null,
+)
 	return STATUS_UPDATE_NONE
 
-/mob/living/carbon/alien/adjustFireLoss(amount, updating_health) // Weak to Fire
-	if(amount > 0)
-		return ..(amount * ALIEN_BURN_MOD)
-	else
-		return ..(amount)
 
-/mob/living/carbon/alien/adjustBruteLoss(amount, updating_health = TRUE)
-	if(amount > 0)
-		return ..(amount * ALIEN_BRUTE_MOD, updating_health)
-	else
-		return ..(amount, updating_health)
+/mob/living/carbon/alien/get_incoming_damage_modifier(
+	damage = 0,
+	damagetype = BRUTE,
+	def_zone = null,
+	sharp = FALSE,
+	used_weapon = null,
+)
+	. = ..()
+
+	switch(damagetype)
+		if(BRUTE)
+			. *= ALIEN_BRUTE_MOD
+		if(BURN)
+			. *= ALIEN_BURN_MOD
 
 
 /mob/living/carbon/alien/check_eye_prot()
-	return 2
+	return FLASH_PROTECTION_WELDER
 
 /mob/living/carbon/alien/handle_environment(var/datum/gas_mixture/environment)
 
@@ -151,7 +164,7 @@
 	// +/- 50 degrees from 310.15K is the 'safe' zone, where no damage is dealt.
 	if(bodytemperature > 360.15)
 		//Body temperature is too hot.
-		throw_alert("alien_fire", /obj/screen/alert/alien_fire)
+		throw_alert("alien_fire", /atom/movable/screen/alert/alien_fire)
 		switch(bodytemperature)
 			if(360 to 400)
 				apply_damage(HEAT_DAMAGE_LEVEL_1, BURN)
@@ -169,24 +182,42 @@
 /mob/living/carbon/alien/IsAdvancedToolUser()
 	return has_fine_manipulation
 
-/mob/living/carbon/alien/Stat()
-	..()
-	statpanel("Status")
-	stat(null, "Intent: [a_intent]")
-	stat(null, "Move Mode: [m_intent]")
-	show_stat_emergency_shuttle_eta()
 
 /mob/living/carbon/alien/Weaken(amount, ignore_canweaken)
-	..()
-	if(!(status_flags & CANWEAKEN) && amount && !large)
+	. = ..()
+	if(. && check_incapacitating_immunity(CANWEAKEN, ignore_canweaken) && amount && !large)
 		// add some movement delay
 		move_delay_add = min(move_delay_add + round(amount / 5), 10)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/alien_stun_delay, multiplicative_slowdown = move_delay_add)
+
 
 /mob/living/carbon/alien/SetWeakened(amount, ignore_canweaken)
-	..()
-	if(!(status_flags & CANWEAKEN) && amount && !large)
+	. = ..()
+	if(. && check_incapacitating_immunity(CANWEAKEN, ignore_canweaken) && amount && !large)
 		// add some movement delay
 		move_delay_add = min(move_delay_add + round(amount / 5), 10)
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/alien_stun_delay, multiplicative_slowdown = move_delay_add)
+	else if(amount == 0)
+		move_delay_add = 0
+		remove_movespeed_modifier(/datum/movespeed_modifier/alien_stun_delay)
+
+
+/mob/living/carbon/alien/update_stamina()
+	return
+
+
+/mob/living/carbon/alien/lying_angle_on_movement(direct)
+	return
+
+
+/mob/living/carbon/alien/on_lying_down(new_lying_angle)
+	. = ..()
+	update_icons()
+
+
+/mob/living/carbon/alien/on_standing_up()
+	. = ..()
+	update_icons()
 
 
 /mob/living/carbon/alien/proc/update_alien_speed()
@@ -318,8 +349,6 @@ Des: Removes all infected images from the alien.
 /mob/living/carbon/alien/larva/update_plasma_display(mob/owner, update_buttons = FALSE)
 	return
 
-/mob/living/carbon/alien/can_use_vents()
-	return
 
 /mob/living/carbon/alien/getTrail()
 	if(getBruteLoss() < 200)
@@ -334,8 +363,8 @@ Des: Removes all infected images from the alien.
 		grant_death_vision()
 		return
 
-	see_invisible = initial(see_invisible)
-	sight = SEE_MOBS
+	set_invis_see(initial(see_invisible))
+	set_sight(SEE_MOBS)
 	if(nightvision_enabled)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	else
@@ -347,11 +376,11 @@ Des: Removes all infected images from the alien.
 			return
 
 	for(var/obj/item/organ/internal/cyberimp/eyes/cyber_eyes in internal_organs)
-		sight |= cyber_eyes.vision_flags
+		add_sight(cyber_eyes.vision_flags)
 		if(cyber_eyes.see_in_dark)
 			nightvision = max(nightvision, cyber_eyes.see_in_dark)
 		if(cyber_eyes.see_invisible)
-			see_invisible = min(see_invisible, cyber_eyes.see_invisible)
+			set_invis_see(min(see_invisible, cyber_eyes.see_invisible))
 		if(!isnull(cyber_eyes.lighting_alpha))
 			lighting_alpha = min(lighting_alpha, cyber_eyes.lighting_alpha)
 

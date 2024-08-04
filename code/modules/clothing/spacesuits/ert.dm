@@ -7,7 +7,7 @@
 	item_color = "ert_commander"
 	armor = list(melee = 45, bullet = 40, laser = 40, energy = 40, bomb = 25, bio = 100, rad = 100, fire = 100, acid = 80)
 	resistance_flags = FIRE_PROOF
-	var/obj/machinery/camera/camera
+	var/obj/machinery/camera/portable/camera
 	var/has_camera = TRUE
 	strip_delay = 130
 
@@ -33,10 +33,8 @@
 /obj/item/clothing/head/helmet/space/hardsuit/ert/proc/register_camera(mob/wearer)
 	if(camera || !has_camera)
 		return
-	camera = new /obj/machinery/camera(src)
-	camera.network = list("ERT")
+	camera = new(src, list("ERT"), wearer.name)
 	GLOB.cameranet.removeCamera(camera)
-	camera.c_tag = wearer.name
 	to_chat(wearer, "<span class='notice'>User scanned as [camera.c_tag]. Camera activated.</span>")
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/examine(mob/user)
@@ -54,12 +52,11 @@
 	icon_state = "ert_commander"
 	item_state = "suit-command"
 	w_class = WEIGHT_CLASS_NORMAL
-	allowed = list(/obj/item/gun,/obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	armor = list(melee = 45, bullet = 40, laser = 40, energy = 40, bomb = 25, bio = 100, rad = 100, fire = 100, acid = 80)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/t_scanner, /obj/item/rcd, /obj/item/crowbar, \
 	/obj/item/screwdriver, /obj/item/weldingtool, /obj/item/wirecutters, /obj/item/wrench, /obj/item/multitool, \
 	/obj/item/radio, /obj/item/analyzer, /obj/item/gun, /obj/item/melee/baton, /obj/item/reagent_containers/spray/pepper, \
-	/obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/restraints/handcuffs)
+	/obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/restraints/handcuffs, /obj/item/melee/energy/sword/saber)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert
 	jetpack = /obj/item/tank/jetpack/suit
 	strip_delay = 130
@@ -238,8 +235,8 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
-	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore, /obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/melee/classic_baton/telescopic,/obj/item/kitchen/knife/combat)
-	hide_tail_by_species = list("Unathi, Ash Walker, Ash Walker Shaman, Draconid, Tajaran, Vox, Vulpkanin")
+	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/belt/claymore, /obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/kitchen/knife/combat)
+	hide_tail_by_species = list(SPECIES_TAJARAN, SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID, SPECIES_VOX, SPECIES_VULPKANIN)
 
 /obj/item/clothing/suit/space/hardsuit/ert/paranormal/Initialize(mapload)
 	. = ..()
@@ -371,8 +368,8 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES
 	armor = list(melee = 20, bullet = 20, laser = 20, energy = 15, bomb = 10, bio = 100, rad = 20, fire = 50, acid = 65)
-	flash_protect = 0
-	var/obj/machinery/camera/camera
+	flash_protect = FLASH_PROTECTION_NONE
+	var/obj/machinery/camera/portable/camera
 	var/has_camera = TRUE
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form", SPECIES_VOX)
 
@@ -392,10 +389,8 @@
 /obj/item/clothing/head/helmet/space/ert_eva_amber/proc/register_camera(mob/wearer)
 	if(camera || !has_camera)
 		return
-	camera = new /obj/machinery/camera(src)
-	camera.network = list("ERT")
+	camera = new(src, list("ERT"), wearer.name)
 	GLOB.cameranet.removeCamera(camera)
-	camera.c_tag = wearer.name
 	to_chat(wearer, "<span class='notice'>User scanned as [camera.c_tag]. Camera activated.</span>")
 
 /obj/item/clothing/head/helmet/space/ert_eva_amber/examine(mob/user)

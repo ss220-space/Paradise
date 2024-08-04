@@ -116,9 +116,9 @@ GLOBAL_LIST_EMPTY(holopads)
 
 	var/total_users = LAZYLEN(masters) + LAZYLEN(holo_calls)
 	if(ringing)
-		underlays += emissive_appearance(icon, "holopad_ringing_lightmask")
+		underlays += emissive_appearance(icon, "holopad_ringing_lightmask", src)
 	else if(total_users)
-		underlays += emissive_appearance(icon, "holopad1_lightmask")
+		underlays += emissive_appearance(icon, "holopad1_lightmask", src)
 
 
 /obj/machinery/hologram/holopad/obj_break()
@@ -210,7 +210,6 @@ GLOBAL_LIST_EMPTY(holopads)
 	var/area/area = get_area(src)
 	var/datum/browser/popup = new(user, "holopad", "[area] holopad", 400, 300)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
 
 /obj/machinery/hologram/holopad/Topic(href, href_list)
@@ -398,6 +397,7 @@ GLOBAL_LIST_EMPTY(holopads)
 
 		hologram.mouse_opacity = MOUSE_OPACITY_TRANSPARENT//So you can't click on it.
 		hologram.layer = FLY_LAYER//Above all the other objects/mobs. Or the vast majority of them.
+		SET_PLANE_EXPLICIT(hologram, ABOVE_GAME_PLANE, src)
 		hologram.set_anchored(TRUE)	//So space wind cannot drag it.
 		hologram.name = "[user.name] (hologram)"//If someone decides to right click.
 		hologram.set_light(2)	//hologram lighting
@@ -503,7 +503,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	return ..()
 
 
-/obj/effect/overlay/holo_pad_hologram/Process_Spacemove(movement_dir = NONE)
+/obj/effect/overlay/holo_pad_hologram/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
 

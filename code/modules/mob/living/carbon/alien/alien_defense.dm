@@ -10,11 +10,13 @@
 /mob/living/carbon/alien/attack_alien(mob/living/carbon/alien/M)
 	switch(M.a_intent)
 		if(INTENT_HELP)
-			AdjustSleeping(-10 SECONDS)
-			StopResting()
-			AdjustParalysis(-6 SECONDS)
-			AdjustStunned(-6 SECONDS)
-			AdjustWeakened(-6 SECONDS)
+			if(M != src)
+				AdjustSleeping(-10 SECONDS)
+				AdjustParalysis(-6 SECONDS)
+				AdjustStunned(-6 SECONDS)
+				AdjustWeakened(-6 SECONDS)
+				set_resting(FALSE, instant = TRUE)
+
 			if(on_fire)
 				M.visible_message(span_warning("[M] trying to extinguish [src.name]!"), span_warning("You trying to extinguish [src.name]!"))
 				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
@@ -59,23 +61,13 @@
 			return 1
 	return 0
 
+
 /mob/living/carbon/alien/attack_animal(mob/living/simple_animal/M)
 	. = ..()
 	if(.)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-		switch(M.melee_damage_type)
-			if(BRUTE)
-				adjustBruteLoss(damage)
-			if(BURN)
-				adjustFireLoss(damage)
-			if(TOX)
-				adjustToxLoss(damage)
-			if(OXY)
-				adjustOxyLoss(damage)
-			if(CLONE)
-				adjustCloneLoss(damage)
-			if(STAMINA)
-				adjustStaminaLoss(damage)
+		apply_damage(damage, M.melee_damage_type)
+
 
 /mob/living/carbon/alien/acid_act(acidpwr, acid_volume)
 	return 0 //aliens are immune to acid.
@@ -87,4 +79,4 @@
 			damage = rand(10 + M.age_state.damage, 40 + M.age_state.damage)
 		adjustBruteLoss(damage)
 		add_attack_logs(M, src, "Slime'd for [damage] damage")
-		updatehealth("slime attack")
+

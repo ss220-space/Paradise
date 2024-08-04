@@ -239,7 +239,7 @@
 	if(!istype(T) || !is_station_level(T.z))
 		to_chat(owner, "<span class='warning'>You cannot activate the doomsday device while off-station!</span>")
 		return
-	if(alert(owner, "Send arming signal? (true = arm, false = cancel)", "purge_all_life()", "confirm = TRUE;", "confirm = FALSE;") != "confirm = TRUE;")
+	if(tgui_alert(owner, "Send arming signal? (true = arm, false = cancel)", "purge_all_life()", list("confirm = TRUE;", "confirm = FALSE;")) != "confirm = TRUE;")
 		return
 	if(active)
 		return //prevent the AI from activating an already active doomsday
@@ -595,7 +595,7 @@
 	if(!owner_AI.can_place_transformer(src))
 		return
 	active = TRUE
-	if(alert(owner, "Are you sure you want to place the machine here?", "Are you sure?", "Yes", "No") == "No")
+	if(tgui_alert(owner, "Are you sure you want to place the machine here?", "Are you sure?", list("Yes", "No")) != "Yes")
 		active = FALSE
 		return
 	if(!owner_AI.can_place_transformer(src))
@@ -733,23 +733,20 @@
 	AI.update_sight()
 	var/upgraded_cameras = 0
 
-	for(var/V in GLOB.cameranet.cameras)
-		var/obj/machinery/camera/C = V
-		if(C.assembly)
-			var/upgraded = FALSE
+	for(var/obj/machinery/camera/camera_target as anything in GLOB.cameranet.cameras)
+		var/list/obj/item/upgrade_check
 
-			if(!C.isXRay())
-				C.upgradeXRay()
-				//Update what it can see.
-				GLOB.cameranet.updateVisibility(C, 0)
-				upgraded = TRUE
+		if(!camera_target.isXRay())
+			LAZYADD(upgrade_check, new /obj/item/analyzer(camera_target.assembly))
 
-			if(!C.isEmpProof())
-				C.upgradeEmpProof()
-				upgraded = TRUE
+		if(!camera_target.isEmpProof())
+			LAZYADD(upgrade_check, new /obj/item/stack/sheet/mineral/plasma(camera_target.assembly))
 
-			if(upgraded)
-				upgraded_cameras++
+		if(LAZYLEN(upgrade_check))
+			for(var/obj/item/upgrade as anything in upgrade_check)
+				camera_target.assembly.upgrades.Add(upgrade)
+				upgrade.camera_upgrade(camera_target)
+			upgraded_cameras++
 
 	unlock_text = replacetext(unlock_text, "CAMSUPGRADED", "<b>[upgraded_cameras]</b>") //This works, since unlock text is called after upgrade()
 

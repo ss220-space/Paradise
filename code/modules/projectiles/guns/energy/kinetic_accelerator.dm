@@ -20,8 +20,8 @@
 	flight_x_offset = 15
 	flight_y_offset = 9
 	can_bayonet = TRUE
-	knife_x_offset = 20
-	knife_y_offset = 12
+	bayonet_x_offset = 20
+	bayonet_y_offset = 12
 	/// Lazylist of installed modkits.
 	var/list/obj/item/borg/upgrade/modkit/modkits
 	/// Bitflags. Used to determine which modkits fit into the KA.
@@ -73,15 +73,15 @@
 /obj/item/gun/energy/kinetic_accelerator/proc/deattach_modkits(mob/user)
 	var/notification
 	if(!LAZYLEN(modkits))
-		notification = span_notice("There are no modifications currently installed.")
+		notification = "модификации отсутствуют!"
 	else
 		for(var/obj/item/borg/upgrade/modkit/MK in modkits)
 			modkit_predeattach(MK, loc)	// God bless anyone who have time for turning modkits back to `/obj/item/modkit`.
 			MK.uninstall(src)
-		notification = span_notice("You pry the modifications out.")
+		notification = "модификации сняты"
 
 	if(user)
-		to_chat(user, notification)
+		balloon_alert(user, notification)
 
 
 /obj/item/gun/energy/kinetic_accelerator/proc/modkit_predeattach(obj/item/borg/upgrade/modkit/MK, atom/location)
@@ -124,7 +124,7 @@
 /obj/item/gun/energy/kinetic_accelerator/cyborg/modkit_predeattach(obj/item/borg/upgrade/modkit/MK, mob/living/silicon/robot/owner)
 	if(istype(owner))
 		owner.upgrades -= MK
-		owner.UnregisterSignal(MK, COMSIG_PARENT_QDELETING)
+		owner.UnregisterSignal(MK, COMSIG_QDELETING)
 
 
 /obj/item/gun/energy/kinetic_accelerator/minebot
@@ -202,7 +202,7 @@
 	if(!suppressed)
 		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, TRUE)
 	else if(isliving(loc))
-		to_chat(loc, span_warning("[src] silently charges up."))
+		balloon_alert(loc, "арбалет заряжен")
 	update_icon()
 	overheat = FALSE
 
@@ -398,7 +398,7 @@
 				break
 	if(KA.get_remaining_mod_capacity() >= cost)
 		if(.)
-			to_chat(user, span_notice("You install the modkit."))
+			balloon_alert(user, "модификация установлена!")
 			playsound(loc, usesound, 100, TRUE)
 			user.drop_transfer_item_to_loc(src, KA)
 			LAZYADD(KA.modkits, src)
@@ -670,16 +670,14 @@
 	var/list/bounties_reaped
 
 
-/obj/item/borg/upgrade/modkit/bounty/projectile_prehit(obj/item/projectile/kinetic/K, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+/obj/item/borg/upgrade/modkit/bounty/projectile_prehit(obj/item/projectile/kinetic/K, mob/living/target, obj/item/gun/energy/kinetic_accelerator/KA)
 	if(isliving(target))
-		var/mob/living/L = target
-		var/list/existing_marks = L.has_status_effect_list(STATUS_EFFECT_SYPHONMARK)
-		for(var/i in existing_marks)
-			var/datum/status_effect/syphon_mark/SM = i
-			if(SM.reward_target == src) // We want to allow multiple people with bounty modkits to use them, but we need to replace our own marks so we don't multi-reward.
-				SM.reward_target = null
-				qdel(SM)
-		L.apply_status_effect(STATUS_EFFECT_SYPHONMARK, src)
+		for(var/datum/status_effect/syphon_mark/syphon_mark_effect as anything in target.get_all_status_effect_of_id(STATUS_EFFECT_SYPHONMARK))
+			// We want to allow multiple people with bounty modkits to use them, but we need to replace our own marks so we don't multi-reward.
+			if(syphon_mark_effect.reward_target == src)
+				syphon_mark_effect.reward_target = null
+				qdel(syphon_mark_effect)
+		target.apply_status_effect(STATUS_EFFECT_SYPHONMARK, src)
 
 
 /obj/item/borg/upgrade/modkit/bounty/projectile_strike(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)

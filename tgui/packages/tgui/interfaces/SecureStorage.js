@@ -4,13 +4,7 @@ import { Window } from '../layouts';
 
 export const SecureStorage = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    emagged,
-    locked,
-    l_set,
-    l_setshort,
-    current_code,
-  } = data;
+  const { emagged, locked, l_set, l_setshort, current_code } = data;
 
   const SafeButton = ({ buttonValue, color }) => {
     if (!color) {
@@ -18,39 +12,41 @@ export const SecureStorage = (props, context) => {
     }
 
     return (
-      <Button disabled={emagged || l_setshort} type="button" color={color} onClick={() => act('setnumber', { buttonValue })}>
+      <Button
+        disabled={emagged || l_setshort}
+        type="button"
+        color={color}
+        onClick={() => act('setnumber', { buttonValue })}
+      >
         {buttonValue}
       </Button>
     );
   };
 
   return (
-    <Window>
+    <Window width={520} height={200}>
       <Flex spacing="1">
-        <Flex.Item
-          width={16}
-          shrink={0}
-          textAlign="center">
+        <Flex.Item width={16} shrink={0} textAlign="center">
           <Section title="Code Panel">
             <Flex.Item>
-              <SafeButton buttonValue={"1"} />
-              <SafeButton buttonValue={"2"} />
-              <SafeButton buttonValue={"3"} />
+              <SafeButton buttonValue={'1'} />
+              <SafeButton buttonValue={'2'} />
+              <SafeButton buttonValue={'3'} />
             </Flex.Item>
             <Flex.Item>
-              <SafeButton buttonValue={"4"} />
-              <SafeButton buttonValue={"5"} />
-              <SafeButton buttonValue={"6"} />
+              <SafeButton buttonValue={'4'} />
+              <SafeButton buttonValue={'5'} />
+              <SafeButton buttonValue={'6'} />
             </Flex.Item>
             <Flex.Item>
-              <SafeButton buttonValue={"7"} />
-              <SafeButton buttonValue={"8"} />
-              <SafeButton buttonValue={"9"} />
+              <SafeButton buttonValue={'7'} />
+              <SafeButton buttonValue={'8'} />
+              <SafeButton buttonValue={'9'} />
             </Flex.Item>
             <Flex.Item>
-              <SafeButton buttonValue={"R"} color={"red"} />
-              <SafeButton buttonValue={"0"} />
-              <SafeButton buttonValue={"E"} color={"green"} />
+              <SafeButton buttonValue={'R'} color={'red'} />
+              <SafeButton buttonValue={'0'} />
+              <SafeButton buttonValue={'E'} color={'green'} />
             </Flex.Item>
           </Section>
         </Flex.Item>
@@ -59,35 +55,33 @@ export const SecureStorage = (props, context) => {
             <LabeledList>
               <LabeledList.Item label="Lock Status">
                 <Box color="red">
-                  {emagged ? "LOCKING SYSTEM ERROR - 1701" : "ALERT: MEMORY SYSTEM ERROR - 6040 201"}
+                  {emagged
+                    ? 'LOCKING SYSTEM ERROR - 1701'
+                    : 'ALERT: MEMORY SYSTEM ERROR - 6040 201'}
                 </Box>
               </LabeledList.Item>
               {emagged ? (
                 <LabeledList.Item label="Input Code">
-                  <Box color="red">
-                    NEW INPUT, ASSHOLE
-                  </Box>
+                  <Box color="red">NEW INPUT, ASSHOLE</Box>
                 </LabeledList.Item>
               ) : (
-                ""
+                ''
               )}
             </LabeledList>
           ) : (
             <LabeledList>
               <LabeledList.Item label="Secure Code">
-                <Box color={l_set ? "red": "green"}>
-                  {l_set ? "*****" : "NOT SET. ENTER NEW."}
+                <Box color={l_set ? 'red' : 'green'}>
+                  {l_set ? '*****' : 'NOT SET. ENTER NEW.'}
                 </Box>
               </LabeledList.Item>
               <LabeledList.Item label="Lock Status">
-                <Box color={locked ? "red": "green"}>
-                  {locked ? "Locked" : "Unlocked"}
+                <Box color={locked ? 'red' : 'green'}>
+                  {locked ? 'Locked' : 'Unlocked'}
                 </Box>
               </LabeledList.Item>
               <LabeledList.Item label="Input Code">
-                <Box>
-                  {current_code ? current_code : "Waiting for input"}
-                </Box>
+                <Box>{current_code ? current_code : 'Waiting for input'}</Box>
               </LabeledList.Item>
               <Button
                 top=".35em"
@@ -96,7 +90,8 @@ export const SecureStorage = (props, context) => {
                 color="red"
                 content="Lock"
                 icon="lock"
-                onClick={() => act('close')} />
+                onClick={() => act('close')}
+              />
             </LabeledList>
           )}
         </Section>

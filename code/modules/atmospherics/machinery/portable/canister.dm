@@ -322,10 +322,13 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	add_fingerprint(user)
 	return ui_interact(user)
 
-/obj/machinery/portable_atmospherics/canister/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/portable_atmospherics/canister/ui_state(mob/user)
+	return GLOB.physical_state
+
+/obj/machinery/portable_atmospherics/canister/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Canister", name, 600, 350, master_ui, state)
+		ui = new(user, src, "Canister", name)
 		ui.open()
 
 /obj/machinery/portable_atmospherics/canister/ui_data()
@@ -355,7 +358,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	switch(action)
 		if("relabel")
 			if(can_label)
-				var/T = sanitize(copytext_char(input("Choose canister label", "Name", name) as text|null, 1, MAX_NAME_LEN))
+				var/T = tgui_input_text(usr, "Choose canister label", "Name", name, max_length = MAX_NAME_LEN)
 				if(can_label) //Exploit prevention
 					if(T)
 						name = T

@@ -58,8 +58,9 @@
 	var/baton_delayed = FALSE
 	var/speak_cooldown = FALSE
 
-/mob/living/simple_animal/bot/ed209/New(loc, created_name, created_lasercolor)
-	..()
+
+/mob/living/simple_animal/bot/ed209/Initialize(mapload, created_name, created_lasercolor)
+	. = ..()
 	if(created_name)
 		name = created_name
 	if(created_lasercolor)
@@ -111,7 +112,7 @@
 	target = null
 	oldtarget_name = null
 	set_anchored(FALSE)
-	walk_to(src,0)
+	SSmove_manager.stop_looping(src)
 	set_path(null)
 	last_found = world.time
 	set_weapon()
@@ -127,10 +128,10 @@
 	ui_interact(M)
 
 
-/mob/living/simple_animal/bot/ed209/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/mob/living/simple_animal/bot/ed209/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BotSecurity", name, 500, 500)
+		ui = new(user, src, "BotSecurity", name)
 		ui.open()
 
 
@@ -259,7 +260,7 @@
 	var/list/targets = list()
 	for(var/mob/living/carbon/C in view(7, src)) //Let's find us a target
 		var/threatlevel = 0
-		if(C.stat || C.lying_angle)
+		if(C.stat || C.body_position == LYING_DOWN)
 			continue
 		threatlevel = C.assess_threat(src, lasercolor)
 		//speak(C.real_name + text(": threat: []", threatlevel))
@@ -273,13 +274,13 @@
 		targets += C
 	if(length(targets))
 		var/mob/living/carbon/t = pick(targets)
-		if(t.stat != DEAD && !t.lying_angle && !t.handcuffed) //we don't shoot people who are dead, cuffed or lying down.
+		if(t.stat != DEAD && t.body_position != LYING_DOWN && !t.handcuffed) //we don't shoot people who are dead, cuffed or lying down.
 			shootAt(t)
 
 	switch(mode)
 
 		if(BOT_IDLE)		// idle
-			walk_to(src,0)
+			SSmove_manager.stop_looping(src)
 			set_path(null)
 			if(!lasercolor) //lasertag bots don't want to arrest anyone
 				look_for_perp()	// see if any criminals are in range
@@ -289,7 +290,7 @@
 		if(BOT_HUNT)		// hunting for perp
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 8)
-				walk_to(src,0)
+				SSmove_manager.stop_looping(src)
 				set_path(null)
 				back_to_idle()
 
@@ -309,8 +310,7 @@
 
 				else if(!disabled) // not next to perp
 					var/turf/olddist = get_dist(src, target)
-					glide_for(BOT_STEP_DELAY)
-					walk_to(src, target,1,4)
+					SSmove_manager.move_to(src, target, 1, BOT_STEP_DELAY)
 					if((get_dist(src, target)) >= (olddist))
 						frustration++
 					else
@@ -420,7 +420,7 @@
 
 
 /mob/living/simple_animal/bot/ed209/explode()
-	walk_to(src,0)
+	SSmove_manager.stop_looping(src)
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 
@@ -563,7 +563,7 @@
 		if(lasertag_check)
 			icon_state = "[lasercolor]ed2090"
 			disabled = TRUE
-			walk_to(src, 0)
+			SSmove_manager.stop_looping(src)
 			target = null
 			addtimer(CALLBACK(src, PROC_REF(unset_disabled)), 10 SECONDS)
 			return TRUE
@@ -623,7 +623,7 @@
 	var/threat = C.assess_threat(src)
 	C.SetStuttering(10 SECONDS)
 	C.Weaken(4 SECONDS)
-	C.adjustStaminaLoss(45)
+	C.apply_damage(45, STAMINA)
 	baton_delayed = TRUE
 	addtimer(VARSET_CALLBACK(src, baton_delayed, FALSE), BATON_COOLDOWN)
 	add_attack_logs(src, C, "stunned")

@@ -221,12 +221,6 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/item/clothing/under/syndicate/tacticool
 	cost = 90
 
-/datum/prize_item/nanomob_booster
-	name = "Nano-Mob Hunter Trading Card Booster Pack"
-	desc = "Contains 6 random Nano-Mob Hunter Trading Cards. May contain a holographic card!"
-	typepath = /obj/item/storage/box/nanomob_booster_pack
-	cost = 100
-
 /datum/prize_item/fakespell
 	name = "Fake Spellbook"
 	desc = "Perform magic! Astound your friends! Get mistaken for an enemy of the corporation!"
@@ -344,5 +338,5 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 /datum/prize_item/bike
 	name = "Awesome Bike!"
 	desc = "WOAH."
-	typepath = /obj/structure/chair/wheelchair/bike
+	typepath = /obj/vehicle/motorcycle
 	cost = 10000	//max stack + 1 tickets.

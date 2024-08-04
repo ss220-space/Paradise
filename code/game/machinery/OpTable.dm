@@ -10,7 +10,6 @@
 	active_power_usage = 5
 	var/mob/living/carbon/patient
 	var/obj/machinery/computer/operating/computer
-	buckle_lying = NO_BUCKLE_LYING
 	var/no_icon_updates = FALSE //set this to TRUE if you don't want the icons ever changing
 	var/list/injected_reagents = list()
 	var/reagent_target_amount = 1
@@ -50,7 +49,7 @@
   */
 /obj/machinery/optable/proc/update_patient()
 	var/mob/living/carbon/patient_carbon = locate(/mob/living/carbon, loc)
-	if(patient_carbon && patient_carbon.lying_angle)
+	if(patient_carbon && patient_carbon.body_position == LYING_DOWN)
 		patient = patient_carbon
 	else
 		patient = null
@@ -61,11 +60,6 @@
 /obj/machinery/optable/update_icon_state()
 	icon_state = "table2-[(patient && patient.pulse) ? "active" : "idle"]"
 
-
-/obj/machinery/optable/Crossed(atom/movable/AM, oldloc)
-	. = ..()
-	if(iscarbon(AM) && LAZYLEN(injected_reagents))
-		to_chat(AM, span_danger("You feel a series of tiny pricks!"))
 
 /obj/machinery/optable/process()
 	update_patient()
@@ -84,47 +78,36 @@
 		user.visible_message("[user] climbs on the operating table.","You climb on the operating table.")
 	else
 		visible_message(span_alert("[new_patient] has been laid on the operating table by [user]."))
-	new_patient.resting = TRUE
-	new_patient.update_canmove()
-	new_patient.forceMove(loc)
 	if(user.pulling == new_patient)
 		user.stop_pulling()
+	new_patient.forceMove(loc)
+	new_patient.set_resting(TRUE, instant = TRUE)
 	if(new_patient.s_active) //Close the container opened
 		new_patient.s_active.close(new_patient)
 	add_fingerprint(user)
 	update_patient()
 
-/obj/machinery/optable/verb/climb_on()
-	set name = "Climb On Table"
-	set category = "Object"
-	set src in oview(1)
-	if(!iscarbon(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !check_table())
-		return
-	take_patient(usr, usr)
+/obj/machinery/optable/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(!iscarbon(grabbed_thing))
+		return .
+	add_fingerprint(grabber)
+	take_patient(grabbed_thing, grabber)
 
-/obj/machinery/optable/attackby(obj/item/I, mob/living/carbon/user, params)
-	if(istype(I, /obj/item/grab))
-		var/obj/item/grab/G = I
-		if(iscarbon(G.affecting))
-			add_fingerprint(user)
-			take_patient(G.affecting, user)
-			qdel(G)
-	else
-		return ..()
 
 /obj/machinery/optable/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_start_check(src, user, 0))
 		return
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
-		to_chat(user, span_notice("You deconstruct the table."))
+		user.balloon_alert(user, "разобрано")
 		new /obj/item/stack/sheet/plasteel(loc, 5)
 		qdel(src)
 
 /obj/machinery/optable/proc/check_table()
 	update_patient()
 	if(patient != null)
-		to_chat(usr, span_notice("The table is already occupied!"))
+		balloon_alert(usr, span_notice("уже занято!"))
 		return FALSE
 	else
 		return TRUE

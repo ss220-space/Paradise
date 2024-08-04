@@ -119,9 +119,9 @@
 						if (istype(P.loc, /obj/structure/closet))
 							P.custom_emote(message = "<span class='danger'>да[pluralize_ru(H.gender,"ет","ют")] [P] пощечину!</span>")
 						playsound(loc, 'sound/effects/snap.ogg', 50, 1, -1)
-						var/obj/item/organ/external/head/O = P.get_organ(BODY_ZONE_HEAD)
-						if(O.brute_dam < 5)
-							O.receive_damage(1)
+						var/obj/item/organ/external/head/head = P.get_organ(BODY_ZONE_HEAD)
+						if(head?.brute_dam < 5)
+							P.apply_damage(1, def_zone = head)
 						H.do_attack_animation(P)
 
 					if(BODY_ZONE_PRECISE_GROIN)
@@ -129,9 +129,9 @@
 						if (istype(P.loc, /obj/structure/closet))
 							P.custom_emote(message = "<span class='danger'>шлёпа[pluralize_ru(H.gender,"ет","ют")] [P] по заднице!</span>")
 						playsound(loc, 'sound/effects/snap.ogg', 50, 1, -1)
-						var/obj/item/organ/external/groin/G = P.get_organ(BODY_ZONE_PRECISE_GROIN)
-						if(G.brute_dam < 5)
-							G.receive_damage(1)
+						var/obj/item/organ/external/groin/groin = P.get_organ(BODY_ZONE_PRECISE_GROIN)
+						if(groin?.brute_dam < 5)
+							P.apply_damage(1, def_zone = groin)
 						H.do_attack_animation(P)
 
 					if(BODY_ZONE_PRECISE_MOUTH)
@@ -153,9 +153,9 @@
 				if (istype(P.loc, /obj/structure/closet))
 					P.custom_emote(message = "<span class='danger'>да[pluralize_ru(H.gender,"ет","ют")] [P] подзатыльник!</span>")
 				playsound(loc, 'sound/weapons/throwtap.ogg', 50, 1, -1)
-				var/obj/item/organ/external/head/O = P.get_organ(BODY_ZONE_HEAD)
-				if(O.brute_dam < 3)
-					O.receive_damage(1)
+				var/obj/item/organ/external/head/head = P.get_organ(BODY_ZONE_HEAD)
+				if(head?.brute_dam < 3)
+					P.apply_damage(1, def_zone = head)
 				H.do_attack_animation(P)
 
 		else if (href_list["interaction"] == "spit")
@@ -197,7 +197,7 @@
 					if (istype(P.loc, /obj/structure/closet))
 						P.custom_emote(message = "<span class='danger'>дёрга[pluralize_ru(H.gender,"ет","ют")] [P] за крылья!</span>")
 					if(wing.brute_dam < 10)
-						wing.receive_damage(1)
+						P.apply_damage(1, def_zone = wing)
 				else
 					H.custom_emote(message = "пыта[pluralize_ru(H.gender,"ет","ют")]ся поймать [P] за крылья!")
 					if (istype(P.loc, /obj/structure/closet))
@@ -213,12 +213,12 @@
 
 				var/obj/item/organ/internal/cyberimp/tail/blade/implant = P.get_organ_slot(INTERNAL_ORGAN_TAIL_DEVICE)
 				if(istype(implant) && implant.activated)  // KEEP YOUR HANDS AWAY FROM ME!
-					H.custom_emote(message = span_danger("пыта[pluralize_ru(H.gender,"ет","ют")]ся дёрнуть [P] за хвост, но неожиданно одёргива[pluralize_ru(H.gender,"ет","ют")] руки!"))
-					H.emote("scream")
+					H.custom_emote(message = span_danger("пыта[pluralize_ru(H.gender,"ет","ют")]ся дёрнуть [P] за хвост, но резко одёргива[pluralize_ru(H.gender,"ет","ют")] руки!"))
+					if(H.has_pain())
+						H.emote("scream")
 					H.apply_damage(5, implant.damage_type, BODY_ZONE_PRECISE_R_HAND)
 					H.apply_damage(5, implant.damage_type, BODY_ZONE_PRECISE_L_HAND)
 					return
-
 
 				if (prob(30))
 					var/obj/item/organ/external/tail/tail = P.get_organ(BODY_ZONE_TAIL)
@@ -232,7 +232,7 @@
 					if (istype(P.loc, /obj/structure/closet))
 						P.custom_emote(message = "<span class='danger'>дёрга[pluralize_ru(H.gender,"ет","ют")] [P] за хвост!</span>")
 					if(tail.brute_dam < 10)
-						tail.receive_damage(1)
+						P.apply_damage(1, def_zone = tail)
 				else
 					H.custom_emote(message = "пыта[pluralize_ru(H.gender,"ет","ют")]ся поймать [P] за хвост!")
 					if (istype(P.loc, /obj/structure/closet))

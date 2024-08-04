@@ -216,6 +216,8 @@
 			holder.icon_state = "huddead"
 	else if(HAS_TRAIT(src, TRAIT_XENO_HOST))
 		holder.icon_state = "hudxeno"
+	else if(HAS_TRAIT(src, TRAIT_LEGION_TUMOUR))
+		holder.icon_state = "hudtumour"
 	else if(B && B.controlling && !B.sneaking)
 		holder.icon_state = "hudbrainworm"
 	else if(is_in_crit())
@@ -261,7 +263,7 @@
 
 /mob/living/carbon/human/proc/sec_hud_set_security_status()
 	var/image/holder = hud_list[WANTED_HUD]
-	var/perpname = get_visible_name(TRUE) //gets the name of the perp, works if they have an id or if their face is uncovered
+	var/perpname = get_visible_name(add_id_name = FALSE) //gets the name of the perp, works if they have an id or if their face is uncovered
 	if(!SSticker) return //wait till the game starts or the monkeys runtime....
 	if(perpname)
 		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
@@ -528,7 +530,7 @@
 
 /// Helper function to add a "comment" to a data record. Used for medical or security records.
 /mob/living/carbon/human/proc/add_comment(mob/commenter, comment_kind, comment_text)
-	var/perpname = get_visible_name(TRUE) //gets the name of the perp, works if they have an id or if their face is uncovered
+	var/perpname = get_visible_name(add_id_name = FALSE) //gets the name of the perp, works if they have an id or if their face is uncovered
 	if(!perpname)
 		return
 	var/datum/data/record/R

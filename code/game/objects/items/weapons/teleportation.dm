@@ -57,7 +57,7 @@
 		return
 	var/turf/T = L[t1]
 	user.show_message(span_notice("Locked In."), 2)
-	var/obj/effect/portal/hand_tele/P = new(get_turf(src), T, src, creation_mob = user)
+	var/obj/effect/portal/hand_tele/P = new(get_turf(src), T, src, 30 SECONDS, user)
 	investigate_log("was used by [key_name_log(user)] to create a portal with destination to [COORD(T)].", INVESTIGATE_TELEPORTATION)
 	try_move_adjacent(P)
 	active_portals++

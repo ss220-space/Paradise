@@ -175,6 +175,11 @@
 	build_path = /obj/machinery/computer/teleporter
 	origin_tech = "programming=3;bluespace=3;plasmatech=3"
 
+/obj/item/circuitboard/teleporter/robotics
+	board_name = "Robotics Teleporter Console"
+	build_path = /obj/machinery/computer/teleporter/robotics
+	origin_tech = "programming=2;bluespace=3;plasmatech=2"
+
 /obj/item/circuitboard/secure_data
 	board_name = "Security Records"
 	build_path = /obj/machinery/computer/secure_data
@@ -416,6 +421,10 @@
 	board_name = "Syndicate Drop Pod"
 	build_path = /obj/machinery/computer/shuttle/syndicate/drop_pod
 
+/obj/item/circuitboard/shuttle/nt/drop_pod
+	board_name = "Nanotrasen Drop Pod"
+	build_path = /obj/machinery/computer/shuttle/nt/drop_pod
+
 /obj/item/circuitboard/shuttle/golem_ship
 	board_name = "Golem Ship"
 	build_path = /obj/machinery/computer/shuttle/golem_ship
@@ -472,8 +481,8 @@
 		catastasis = "STANDARD"
 		opposite_catastasis = "BROAD"
 
-	var/choice = alert("Current receiver spectrum is set to: [catastasis]", "Multitool-Circuitboard interface", "Switch to [opposite_catastasis]", "Cancel")
-	if(choice == "Cancel")
+	var/choice = tgui_alert(user, "Current receiver spectrum is set to: [catastasis]", "Multitool-Circuitboard interface", list("Switch to [opposite_catastasis]", "Cancel"))
+	if(!choice || choice == "Cancel")
 		return
 
 	contraband_enabled = !contraband_enabled
@@ -700,7 +709,7 @@
 
 			C.play_tool_sound(src)
 			to_chat(user, span_notice("You start to add cables to the frame."))
-			if(!do_after(user, 2 SECONDS * C.toolspeed * gettoolspeedmod(user), src))
+			if(!do_after(user, 2 SECONDS * C.toolspeed, src, category = DA_CAT_TOOL))
 				return
 			if(C.get_amount() < 5 || !C.use(5))
 				to_chat(user, span_warning("At some point during construction you lost some cable. Make sure you have five lengths before trying again."))
@@ -722,7 +731,7 @@
 
 			G.play_tool_sound(src)
 			to_chat(user, span_notice("You start to add the glass panel to the frame."))
-			if(!do_after(user, 2 SECONDS * G.toolspeed * gettoolspeedmod(user), src))
+			if(!do_after(user, 2 SECONDS * G.toolspeed, src, category = DA_CAT_TOOL))
 				return
 			if(G.get_amount() < 2 || !G.use(2))
 				to_chat(user, span_warning("At some point during construction you lost some glass. Make sure you have two sheets before trying again."))

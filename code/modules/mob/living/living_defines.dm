@@ -6,12 +6,12 @@
 	move_resist = null
 	move_force = null
 	pull_force = null
-	pull_push_speed_modifier = 1
 
 	//Health and life related vars
 	var/maxHealth = 100 //Maximum health that should be possible.
 	var/health = 100 	//A mob's health
 
+	var/datum/middleClickOverride/middleClickOverride
 
 	//Damage related vars, NOTE: THESE SHOULD ONLY BE MODIFIED BY PROCS
 	var/bruteloss = 0	//Brutal damage caused by brute force (punching, being clubbed by a toolbox ect... this also accounts for pressure damage)
@@ -27,7 +27,11 @@
 	//Allows mobs to move through dense areas without restriction. For instance, in space or out of holder objects.
 	var/incorporeal_move = INCORPOREAL_NONE
 
-	var/now_pushing = null
+	/// Currently pushed movable
+	var/atom/movable/now_pushing
+	COOLDOWN_DECLARE(pushing_delay)
+
+	COOLDOWN_DECLARE(grab_resist_delay)
 
 	var/atom/movable/cameraFollow = null
 
@@ -54,15 +58,13 @@
 
 	var/list/butcher_results = null
 
-	var/list/weather_immunities = list()
+	/// List of weather immunity traits that are then added on Initialize(), see traits.dm.
+	var/list/weather_immunities
 
 	var/list/surgeries = list()	//a list of surgery datums. generally empty, they're added when the player wants them.
 
 	var/gene_stability = DEFAULT_GENE_STABILITY
 	var/ignore_gene_stability = 0
-
-
-	var/tesla_ignore = FALSE
 
 	/// A log of what we've said, plain text, no spans or junk, essentially just each individual "message"
 	var/list/say_log
@@ -76,16 +78,13 @@
 
 	var/deathgasp_on_death = FALSE
 
-	var/status_effect_absorption = null //converted to a list of status effect absorption sources this mob has when one is added
 	var/stam_regen_start_time = 0 //used to halt stamina regen temporarily
 	var/stam_regen_start_modifier = 1 //Modifier of time until regeneration starts
-	var/stam_paralyzed = FALSE //knocks you down
 
 	///if this exists AND the normal sprite is bigger than 32x32, this is the replacement icon state (because health doll size limitations). the icon will always be screen_gen.dmi
 	var/health_doll_icon
 	///If mob can attack by choosing direction
 	var/dirslash_enabled = FALSE
-	var/bump_priority = BUMP_PRIORITY_NORMAL
 
 	///what multiplicative slowdown we get from turfs currently.
 	var/current_turf_slowdown = 0
@@ -112,4 +111,31 @@
 
 	/// Is this mob allowed to be buckled/unbuckled to/from things?
 	var/can_buckle_to = TRUE
+
+	/// The x amount a mob's sprite should be offset due to the current position they're in
+	var/body_position_pixel_x_offset = 0
+	/// The y amount a mob's sprite should be offset due to the current position they're in or size (e.g. lying down moves your sprite down)
+	var/body_position_pixel_y_offset = 0
+	/// The height offset of a mob's maptext due to their current size.
+	var/body_maptext_height_offset = 0
+
+	/// Tracks the current size of the mob in relation to its original size. Use update_transform(resize) to change it.
+	var/current_size = RESIZE_DEFAULT_SIZE
+
+	/// Whether the mob is slowed down when pulling/pushing other mobs and objects
+	var/slowed_by_pull_and_push = TRUE
+
+	/// Hand currently used for pulling/grabing
+	var/pull_hand = PULL_WITHOUT_HANDS
+
+	//Did the blob infected mob burst.
+	var/was_bursted = FALSE
+	//Was death by turning to dust.
+	var/dusted = FALSE
+
+	// True devil variables
+	/// Soullinks we are the owner of
+	var/list/ownedSoullinks
+	/// Soullinks we are a/the sharer of
+	var/list/sharedSoullinks
 

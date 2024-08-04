@@ -58,13 +58,13 @@
 /obj/item/gripper/proc/try_shake_up(mob/living/user, atom/target)
 	if(!gripped_item && Adjacent(user, target) && target && ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if(H.lying_angle)
+		if(H.body_position == LYING_DOWN)
 			H.AdjustSleeping(-10 SECONDS)
-			if(!H.IsSleeping())
-				H.StopResting()
 			H.AdjustParalysis(-6 SECONDS)
 			H.AdjustStunned(-6 SECONDS)
 			H.AdjustWeakened(-6 SECONDS)
+			if(!H.IsSleeping())
+				H.set_resting(FALSE, instant = TRUE)
 			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			user.visible_message( \
 				span_notice("[user] shakes [H] trying to wake [H.p_them()] up!"),\
@@ -204,7 +204,7 @@
 			gripped_item = I
 			I.update_icon(UPDATE_OVERLAYS) //Some items change their appearance upon being pulled (IV drip as an example)
 			update_icon(UPDATE_OVERLAYS)
-			RegisterSignal(I, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING), PROC_REF(handle_item_moving))
+			RegisterSignal(I, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING), PROC_REF(handle_item_moving))
 			RegisterSignal(I, list(COMSIG_ATOM_UPDATED_ICON), PROC_REF(handle_item_icon_update))
 		else
 			to_chat(user, span_warning("Your gripper cannot hold [target]."))
@@ -216,7 +216,7 @@
 
 /obj/item/gripper/proc/handle_item_moving()
 	SIGNAL_HANDLER
-	UnregisterSignal(gripped_item, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING, COMSIG_ATOM_UPDATED_ICON))
+	UnregisterSignal(gripped_item, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING, COMSIG_ATOM_UPDATED_ICON))
 	gripped_item.update_icon(UPDATE_OVERLAYS)
 	gripped_item = null
 	update_icon(UPDATE_OVERLAYS)

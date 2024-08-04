@@ -29,7 +29,7 @@
 	response_harm = "punches their fist through"
 	deathmessage = "fizzles out into faint sparks, leaving only a slight trail of smoke..."
 	level = 1
-	plane = FLOOR_PLANE
+	plane = FLOOR_PLANE // I hate this
 	layer = ABOVE_PLATING_LAYER
 
 	maxHealth = 50
@@ -134,11 +134,14 @@
 	// flags_2 |= RAD_NO_CONTAMINATE_2
 
 	// don't step on me
-	RegisterSignal(src, COMSIG_CROSSED_MOVABLE, PROC_REF(try_cross_shock))
-	RegisterSignal(src, COMSIG_MOVABLE_CROSSED, PROC_REF(try_cross_shock))
+	RegisterSignal(src, COMSIG_ATOM_ENTERING, PROC_REF(on_entering))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 	// drop demon onto ground if its loc is a non-turf and gets deleted
-	RegisterSignal(src, COMSIG_PARENT_PREQDELETED, PROC_REF(deleted_handler))
+	RegisterSignal(src, COMSIG_PREQDELETED, PROC_REF(deleted_handler))
 
 	RegisterSignal(SSdcs, COMSIG_GLOB_CABLE_UPDATED, PROC_REF(cable_updated_handler))
 
@@ -179,7 +182,7 @@
 
 	for(var/obj/structure/cable/C in T)
 		var/image/cable_image = image(C, C, layer = ABOVE_LIGHTING_LAYER, dir = C.dir)
-		cable_image.plane = ABOVE_LIGHTING_PLANE
+		SET_PLANE_EXPLICIT(cable_image, PIPECRAWL_IMAGES_PLANE, C)
 		cable_images[T] += cable_image
 		client?.images += cable_image
 
@@ -213,15 +216,22 @@
 	mind.special_role = SPECIAL_ROLE_DEMON
 	give_objectives()
 
+
 /mob/living/simple_animal/demon/pulse_demon/vv_edit_var(var_name, var_value)
-	switch(var_name)
-		if("glow_color")
-			update_glow()
-		if("charge")
-			// automatically adjusts maxcharge to allow the new value
-			adjust_charge(var_value - charge, TRUE)
-			return TRUE
-	return ..()
+	if(var_name == NAMEOF(src, charge))
+		// automatically adjusts maxcharge to allow the new value
+		adjust_charge(var_value - charge, TRUE)
+		. = TRUE
+
+	if(!isnull(.))
+		datum_flags |= DF_VAR_EDITED
+		return .
+
+	. = ..()
+
+	if(var_name == NAMEOF(src, glow_color))
+		update_glow()
+
 
 /mob/living/simple_animal/demon/pulse_demon/forceMove(atom/destination)
 	var/old_location = loc
@@ -275,15 +285,15 @@
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/remotedrain)
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/open_upgrades)
 
-/mob/living/simple_animal/demon/pulse_demon/Stat()
-	. = ..()
-	if(statpanel("Status"))
-		stat(null, "Charge: [format_si_suffix(charge)]W")
-		stat(null, "Maximum Charge: [format_si_suffix(maxcharge)]W")
-		stat(null, "Drained Charge: [format_si_suffix(charge_drained)]W")
-		stat(null, "Hijacked APCs: [length(hijacked_apcs)]")
-		stat(null, "Drain Rate: [format_si_suffix(power_drain_rate)]W")
-		stat(null, "Hijack Time: [hijack_time / 10] seconds")
+/mob/living/simple_animal/demon/pulse_demon/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Charge:", "[format_si_suffix(charge)]W")
+	status_tab_data[++status_tab_data.len] = list("Maximum Charge:", "[format_si_suffix(maxcharge)]W")
+	status_tab_data[++status_tab_data.len] = list("Drained Charge:", "[format_si_suffix(charge_drained)]W")
+	status_tab_data[++status_tab_data.len] = list("Hijacked APCs:", "[length(hijacked_apcs)]")
+	status_tab_data[++status_tab_data.len] = list("Drain Rate:", "[format_si_suffix(power_drain_rate)]W")
+	status_tab_data[++status_tab_data.len] = list("Hijack Time:", "[hijack_time / 10] seconds")
 
 /mob/living/simple_animal/demon/pulse_demon/dust()
 	return death()
@@ -338,7 +348,7 @@
 /mob/living/simple_animal/demon/pulse_demon/proc/is_valid_apc(obj/machinery/power/apc/A)
 	return istype(A) && !(A.stat & BROKEN) && !A.shorted
 
-/mob/living/simple_animal/demon/pulse_demon/Move(newloc)
+/mob/living/simple_animal/demon/pulse_demon/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/obj/machinery/power/new_power = locate(/obj/machinery/power) in newloc
 	var/obj/structure/cable/new_cable = locate(/obj/structure/cable) in newloc
 
@@ -541,7 +551,7 @@
 			// 2 * initial_rate - upgrade_level
 			rate += initial(health_loss_rate)
 		adjustHealth(rate)
-		throw_alert(ALERT_CATEGORY_NOPOWER, /obj/screen/alert/pulse_nopower)
+		throw_alert(ALERT_CATEGORY_NOPOWER, /atom/movable/screen/alert/pulse_nopower)
 
 	if(regen_lock > 0)
 		if(--regen_lock == 0)
@@ -620,7 +630,7 @@
 	emote("me", message = "[pick(emote_hear)]")
 	return TRUE
 
-/mob/living/simple_animal/demon/pulse_demon/visible_message(message, self_message, blind_message)
+/mob/living/simple_animal/demon/pulse_demon/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type)
 	// overriden because pulse demon is quite often in non-turf locs, and /mob/visible_message acts differently there
 	for(var/mob/M in get_mobs_in_view(7, src))
 		if(M.see_invisible < invisibility)
@@ -628,7 +638,7 @@
 		var/msg = message
 		if(self_message && M == src)
 			msg = self_message
-		M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
+		M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 /mob/living/simple_animal/demon/pulse_demon/proc/try_hijack_apc(obj/machinery/power/apc/A, remote = FALSE)
 	// one APC per pulse demon, one pulse demon per APC, no duplicate APCs
@@ -657,23 +667,36 @@
 
 /mob/living/simple_animal/demon/pulse_demon/proc/finish_hijack_apc(obj/machinery/power/apc/A, remote = FALSE)
 	var/image/apc_image = image('icons/obj/engines_and_power/power.dmi', A, "apcemag", ABOVE_LIGHTING_LAYER, A.dir)
-	apc_image.plane = ABOVE_LIGHTING_PLANE
+	SET_PLANE_EXPLICIT(apc_image, PIPECRAWL_IMAGES_PLANE, A)
 	LAZYADD(apc_images[get_turf(A)], apc_image)
 	client.images += apc_image
 
 	hijacked_apcs += A
-	RegisterSignal(A, COMSIG_PARENT_QDELETING, PROC_REF(apc_deleted_handler))
+	RegisterSignal(A, COMSIG_QDELETING, PROC_REF(apc_deleted_handler))
 	if(!remote)
 		update_controlling_area()
 	maxcharge = calc_maxcharge(length(hijacked_apcs)) + (maxcharge - calc_maxcharge(length(hijacked_apcs) - 1))
 	to_chat(src, span_notice("Hijacking complete! You now control [length(hijacked_apcs)] APCs."))
 
-/mob/living/simple_animal/demon/pulse_demon/proc/try_cross_shock(src, atom/A)
+
+/mob/living/simple_animal/demon/pulse_demon/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
-	if(!isliving(A) || is_under_tile())
+
+	if(!isliving(arrived) || is_under_tile())
 		return
-	var/mob/living/L = A
-	try_shock_mob(L)
+
+	try_shock_mob(arrived)
+
+
+/mob/living/simple_animal/demon/pulse_demon/proc/on_entering(datum/source, atom/destination, atom/oldloc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(!isturf(destination) || is_under_tile())
+		return
+
+	for(var/mob/living/mob in (destination.contents - src))
+		try_shock_mob(mob)
+
 
 /mob/living/simple_animal/demon/pulse_demon/proc/try_shock_mob(mob/living/L, siemens_coeff = 1)
 	var/dealt = 0
@@ -681,7 +704,7 @@
 		// returns used energy, not damage dealt, but ez conversion with /20
 		dealt = electrocute_mob(L, current_cable.powernet, src, siemens_coeff) / 20
 	else if(charge >= 1000)
-		dealt = L.electrocute_act(30, src, siemens_coeff)
+		dealt = L.electrocute_act(30, "пульс-демона", siemens_coeff)
 		adjust_charge(-1000)
 	if(dealt > 0)
 		do_sparks(rand(2, 4), FALSE, src)
@@ -712,7 +735,7 @@
 
 			var/image/cable_image = image(C, C, layer = ABOVE_LIGHTING_LAYER, dir = C.dir)
 			// good visibility here
-			cable_image.plane = ABOVE_LIGHTING_PLANE
+			SET_PLANE_EXPLICIT(cable_image, PIPECRAWL_IMAGES_PLANE, C)
 			LAZYADD(cable_images[cable_turf], cable_image)
 			client.images += cable_image
 
@@ -724,7 +747,7 @@
 			continue
 		// parent of image is the APC, not the turf because of how clicking on images works
 		var/image/apc_image = image('icons/obj/engines_and_power/power.dmi', A, "apcemag", ABOVE_LIGHTING_LAYER, A.dir)
-		apc_image.plane = ABOVE_LIGHTING_PLANE
+		SET_PLANE_EXPLICIT(apc_image, PIPECRAWL_IMAGES_PLANE, A)
 		LAZYADD(apc_images[apc_turf], apc_image)
 		client.images += apc_image
 
@@ -735,7 +758,7 @@
 	. = ..()
 	visible_message(span_danger(">[src] [pick("fizzles", "wails", "flails")] in anguish!"))
 	playsound(get_turf(src), pick(hurt_sounds), 30, TRUE)
-	throw_alert(ALERT_CATEGORY_NOREGEN, /obj/screen/alert/pulse_noregen)
+	throw_alert(ALERT_CATEGORY_NOREGEN, /atom/movable/screen/alert/pulse_noregen)
 	switch(severity)
 		if(EMP_LIGHT)
 			adjustHealth(round(max(initial(health) / 4, round(maxHealth / 8))))
@@ -805,8 +828,8 @@
 		return ..()
 	visible_message(span_warning("[proj] goes right through [src]!"))
 
-/mob/living/simple_animal/demon/pulse_demon/electrocute_act(shock_damage, source, siemens_coeff, safety, override, tesla_shock, illusion, stun)
-	return
+/mob/living/simple_animal/demon/pulse_demon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+	return FALSE
 
 /mob/living/simple_animal/demon/pulse_demon/blob_act(obj/structure/blob/B)
 	return // will likely end up dying if the blob cuts its wires anyway
@@ -820,7 +843,7 @@
 /mob/living/simple_animal/demon/pulse_demon/IsAdvancedToolUser()
 	return TRUE // interacting with machines
 
-/mob/living/simple_animal/demon/pulse_demon/can_be_pulled()
+/mob/living/simple_animal/demon/pulse_demon/can_be_pulled(atom/movable/puller, grab_state, force, supress_message)
 	return FALSE
 
 /mob/living/simple_animal/demon/pulse_demon/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
@@ -846,8 +869,8 @@
 
 /obj/item/organ/internal/heart/demon/pulse/attack_self(mob/living/user)
 	. = ..()
-	user.drop_from_active_hand()
-	insert(user)
+	if(user.temporarily_remove_item_from_inventory(src))
+		insert(user)
 
 /obj/item/organ/internal/heart/demon/pulse/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
@@ -872,12 +895,12 @@
 				cell_location.update_icon() //update power meters and such
 			cell_to_charge.update_icon()
 
-/obj/screen/alert/pulse_nopower
+/atom/movable/screen/alert/pulse_nopower
 	name = "No Power"
 	desc = "You are not connected to a cable or machine and are losing health!"
 	icon_state = "pd_nopower"
 
-/obj/screen/alert/pulse_noregen
+/atom/movable/screen/alert/pulse_noregen
 	name = "Regeneration Stalled"
 	desc = "You've been EMP'd and cannot regenerate health!"
 	icon_state = "pd_noregen"

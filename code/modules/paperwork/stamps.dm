@@ -26,26 +26,31 @@
 	name = "Quartermaster's rubber stamp"
 	icon_state = "stamp-qm"
 	item_color = "qm"
+	dye_color = DYE_QM
 
 /obj/item/stamp/law
 	name = "Law office's rubber stamp"
 	icon_state = "stamp-law"
 	item_color = "cargo"
+	dye_color = DYE_LAW
 
 /obj/item/stamp/captain
 	name = "captain's rubber stamp"
 	icon_state = "stamp-cap"
 	item_color = "captain"
+	dye_color = DYE_CAPTAIN
 
 /obj/item/stamp/hop
 	name = "head of personnel's rubber stamp"
 	icon_state = "stamp-hop"
 	item_color = "hop"
+	dye_color = DYE_HOP
 
 /obj/item/stamp/hos
 	name = "head of security's rubber stamp"
 	icon_state = "stamp-hos"
 	item_color = "hosred"
+	dye_color = DYE_HOS
 
 /obj/item/stamp/warden
 	name = "warden's rubber stamp"
@@ -56,16 +61,19 @@
 	name = "chief engineer's rubber stamp"
 	icon_state = "stamp-ce"
 	item_color = "chief"
+	dye_color = DYE_CE
 
 /obj/item/stamp/rd
 	name = "research director's rubber stamp"
 	icon_state = "stamp-rd"
 	item_color = "director"
+	dye_color = DYE_RD
 
 /obj/item/stamp/cmo
 	name = "chief medical officer's rubber stamp"
 	icon_state = "stamp-cmo"
 	item_color = "medical"
+	dye_color = DYE_CMO
 
 /obj/item/stamp/granted
 	name = "\improper GRANTED rubber stamp"
@@ -76,11 +84,13 @@
 	name = "\improper DENIED rubber stamp"
 	icon_state = "stamp-deny"
 	item_color = "redcoat"
+	dye_color = DYE_REDCOAT
 
 /obj/item/stamp/clown
 	name = "clown's rubber stamp"
 	icon_state = "stamp-clown"
 	item_color = "clown"
+	dye_color = DYE_CLOWN
 
 /obj/item/stamp/rep
 	name = "Nanotrasen Representative's rubber stamp"
@@ -91,11 +101,13 @@
 	name = "Magistrate's rubber stamp"
 	icon_state = "stamp-magistrate"
 	item_color = "rep"
+	dye_color = DYE_LAW
 
 /obj/item/stamp/centcom
 	name = "Central Command rubber stamp"
 	icon_state = "stamp-cent"
 	item_color = "centcom"
+	dye_color = DYE_CENTCOM
 
 /obj/item/stamp/ploho
 	name = "'Very Bad, Redo' rubber stamp"
@@ -106,31 +118,37 @@
 	name = "BIG DENY rubber stamp"
 	icon_state = "stamp-BIGdeny"
 	item_color = "redcoat"
+	dye_color = DYE_REDCOAT
 
 /obj/item/stamp/navcom
 	name = "Nanotrasen Naval Command rubber stamp"
 	icon_state = "stamp-navcom"
 	item_color = "captain"
+	dye_color = DYE_CENTCOM
 
 /obj/item/stamp/syndicate
 	name = "suspicious rubber stamp"
 	icon_state = "stamp-syndicate"
 	item_color = "syndicate"
+	dye_color = DYE_SYNDICATE
 
 /obj/item/stamp/syndicate/taipan
 	name = "taipan rubber stamp"
 	icon_state = "stamp-taipan"
 	item_color = "syndicate"
+	dye_color = DYE_SYNDICATE
 
 /obj/item/stamp/mime
 	name = "mime's rubber stamp"
 	icon_state = "stamp-mime"
 	item_color = "mime"
+	dye_color = DYE_MIME
 
 /obj/item/stamp/ussp
 	name = "Old USSP rubber stamp"
 	icon_state = "stamp-ussp"
 	item_color = "redcoat"
+	dye_color = DYE_REDCOAT
 
 /obj/item/stamp/solgov
 	name = "Solar Federation rubber stamp"

@@ -16,6 +16,5 @@
 	. = ..()
 	name = "Mr. Teeny"
 	real_name = name
-	resize = 0.8
-	update_transform()
+	update_transform(0.8)
 	tts_seed = "Chen"

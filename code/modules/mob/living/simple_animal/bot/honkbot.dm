@@ -35,13 +35,18 @@
 	req_access = list(ACCESS_CLOWN, ACCESS_ROBOTICS, ACCESS_MIME)
 
 
-/mob/living/simple_animal/bot/honkbot/New()
-	..()
+/mob/living/simple_animal/bot/honkbot/Initialize(mapload)
+	. = ..()
 	update_icon()
 	auto_patrol = TRUE
 	var/datum/job/clown/J = new /datum/job/clown()
 	access_card.access += J.get_access()
 	prev_access = access_card.access
+
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 
 /mob/living/simple_animal/bot/honkbot/proc/sensor_blink()
@@ -67,7 +72,7 @@
 	target = null
 	oldtarget_name = null
 	set_anchored(FALSE)
-	walk_to(src, 0)
+	SSmove_manager.stop_looping(src)
 	last_found = world.time
 	spam_flag = FALSE
 
@@ -188,7 +193,7 @@
 			C.AdjustDeaf(10 SECONDS) //far less damage than the H.O.N.K.
 			var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
 			if(istype(ears))
-				ears.receive_damage(5)
+				ears.internal_receive_damage(5)
 			C.Jitter(100 SECONDS)
 			C.Weaken(10 SECONDS)
 			if(client) //prevent spam from players..
@@ -214,14 +219,14 @@
 
 	switch(mode)
 		if(BOT_IDLE)		// idle
-			walk_to(src, 0)
+			SSmove_manager.stop_looping(src)
 			look_for_perp()
 			if(!mode && auto_patrol)
 				mode = BOT_START_PATROL
 		if(BOT_HUNT)
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 5) //gives up easier than beepsky
-				walk_to(src, 0)
+				SSmove_manager.stop_looping(src)
 				playsound(loc, 'sound/misc/sadtrombone.ogg', 25, TRUE, -1)
 				back_to_idle()
 				return
@@ -239,8 +244,7 @@
 					return
 				else	// not next to perp
 					var/turf/olddist = get_dist(src, target)
-					glide_for(BOT_STEP_DELAY)
-					walk_to(src, target, 1, 4)
+					SSmove_manager.move_to(src, target, 1, BOT_STEP_DELAY)
 					if((get_dist(src, target)) >= (olddist))
 						frustration++
 					else
@@ -304,8 +308,8 @@
 
 
 /mob/living/simple_animal/bot/honkbot/explode()	//doesn't drop cardboard nor its assembly, since its a very frail material.
-	walk_to(src, 0)
-	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
+	SSmove_manager.stop_looping(src)
+	visible_message(span_boldannounceic("[src] blows apart!"))
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/bikehorn(Tsec)
 	new /obj/item/assembly/prox_sensor(Tsec)
@@ -318,30 +322,28 @@
 	..()
 
 
-/mob/living/simple_animal/bot/honkbot/attack_alien(var/mob/living/carbon/alien/user as mob)
+/mob/living/simple_animal/bot/honkbot/attack_alien(mob/living/carbon/alien/user)
 	..()
 	if(!isalien(target))
 		target = user
 		mode = BOT_HUNT
 
 
-/mob/living/simple_animal/bot/honkbot/Crossed(atom/movable/AM, oldloc)
-	if(ismob(AM) && on) //only if its online
-		if(prob(30)) //you're far more likely to trip on a honkbot
-			var/mob/living/carbon/C = AM
-			if(!istype(C) || !C || in_range(src, target))
-				return
-			C.visible_message("<span class='warning'>[pick( \
-						  	"[C] dives out of [src]'s way!", \
-						  	"[C] stumbles over [src]!", \
-						  	"[C] jumps out of [src]'s path!", \
-						  	"[C] trips over [src] and falls!", \
-						  	"[C] topples over [src]!", \
-						  	"[C] leaps out of [src]'s way!")]</span>")
-			C.Weaken(10 SECONDS)
-			playsound(loc, 'sound/misc/sadtrombone.ogg', 50, 1, -1)
-			if(!client)
-				speak("Honk!")
-			sensor_blink()
-			return
-	..()
+/mob/living/simple_animal/bot/honkbot/proc/on_entered(datum/source, mob/living/carbon/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(!on || !iscarbon(arrived) || arrived != target || in_range(src, target))
+		return
+
+	arrived.visible_message(span_warning("[pick( \
+						  "[arrived] dives out of [src]'s way!", \
+						  "[arrived] stumbles over [src]!", \
+						  "[arrived] jumps out of [src]'s path!", \
+						  "[arrived] trips over [src] and falls!", \
+						  "[arrived] topples over [src]!", \
+						  "[arrived] leaps out of [src]'s way!")]"))
+	arrived.Weaken(10 SECONDS)
+	if(!client)
+		INVOKE_ASYNC(src, PROC_REF(speak), "honk")
+	sensor_blink()
+

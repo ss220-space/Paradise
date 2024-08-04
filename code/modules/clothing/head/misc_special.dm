@@ -16,10 +16,11 @@
 	name = "welding helmet"
 	desc = "A head-mounted face cover designed to protect the wearer completely from space-arc eye."
 	icon_state = "welding"
+	base_icon_state = "welding"
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	item_state = "welding"
 	materials = list(MAT_METAL=1750, MAT_GLASS=400)
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2
 	can_toggle = TRUE
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 60)
@@ -27,6 +28,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	visor_flags_inv = HIDEMASK|HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	resistance_flags = FIRE_PROOF
+	/// Name icon_state, which is used for painting
 	var/paint = null
 
 	sprite_sheets = list(
@@ -37,7 +39,7 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/helmet.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
@@ -60,41 +62,49 @@
 	desc = "A white welding helmet with a character written across it."
 	icon_state = "welding_white"
 
+/obj/item/clothing/head/welding/bigbrother
+	name = "big brother decal welding helmet"
+	desc = "A welding helmet with lines and red protective glass."
+	icon_state = "welding_bigbrother"
+
+/obj/item/clothing/head/welding/slavic
+	name = "slavic decal welding helmet"
+	desc = "A welding helmet with lines and yellow protective glass."
+	icon_state = "welding_slavic"
+
 /obj/item/clothing/head/welding/attack_self(mob/user)
 	weldingvisortoggle(user)
 
 /obj/item/clothing/head/welding/attackby(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/toy/crayon/spraycan))
-		if(icon_state != "welding")
-			to_chat(user, "<span class = 'warning'>Похоже, тут уже есть слой краски!</span>")
-			return
-		var/obj/item/toy/crayon/spraycan/C = I
-		if(C.capped)
-			to_chat(user, "<span class = 'warning'>Вы не можете раскрасить [src], если крышка на банке закрыта!</span>")
-			return
-		var/list/weld_icons = list("Flame" = image(icon = src.icon, icon_state = "welding_redflame"),
-									"Blue Flame" = image(icon = src.icon, icon_state = "welding_blueflame"),
-									"White Flame" = image(icon = src.icon, icon_state = "welding_white"))
-		var/list/weld = list("Flame" = "welding_redflame",
-							"Blue Flame" = "welding_blueflame",
-							"White Flame" = "welding_white")
-		var/choice = show_radial_menu(user, src, weld_icons)
-		if(!choice || I.loc != user || !Adjacent(user))
-			return
-		if(C.uses <= 0)
-			to_chat(user, "<span class = 'warning'>Не похоже что бы осталось достаточно краски.</span>")
-			return
-		icon_state = weld[choice]
-		paint = weld[choice]
-		C.uses--
-		update_icon()
-	if(istype(I, /obj/item/soap) && (icon_state != initial(icon_state)))
-		icon_state = initial(icon_state)
-		paint = null
-		update_icon()
-	else
-		return ..()
+		adjust_paint(user, I)
+	else if(istype(I, /obj/item/soap) && paint)
+		adjust_paint()
+	else return ..()
 
+/obj/item/clothing/head/welding/update_icon_state()
+	icon_state = paint ? paint : base_icon_state
+	return ..()
+
+/obj/item/clothing/head/welding/proc/adjust_paint(mob/living/user = null, obj/item/toy/crayon/spraycan/spray = null)
+	if(spray && user)
+		if(paint)
+			to_chat(user, span_warning("Похоже, тут уже есть слой краски!"))
+			return
+		if(!spray.can_paint(src, user))
+			return
+		var/list/weld_icons = null
+		for(var/weld_icon in spray.weld_icons)
+			weld_icons += list("[weld_icon]" = image(icon = src.icon, icon_state = spray.weld_icons[weld_icon]))
+		var/choice = show_radial_menu(user, src, weld_icons)
+		if(!choice || spray.loc != user)
+			return
+		spray.draw_paint(user)
+		paint = spray.weld_icons[choice]
+	else
+		paint = null
+	update_icon(UPDATE_ICON_STATE)
+	update_equipped_item(update_speedmods = FALSE)
 
 /*
  * Cakehat

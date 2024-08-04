@@ -53,8 +53,6 @@
 
 	if(player_ghosted > 0 && stat == CONSCIOUS && job && !HAS_TRAIT(src, TRAIT_RESTRAINED))
 		handle_ghosted()
-	if(player_logged > 0 && stat != DEAD && job)
-		handle_ssd()
 
 	if(stat != DEAD)
 		return TRUE
@@ -67,18 +65,24 @@
 		if(player_ghosted % 150 == 0)
 			force_cryo_human(src)
 
-/mob/living/carbon/human/proc/handle_ssd()
-	player_logged++
-	if(istype(loc, /obj/machinery/cryopod))
-		return
-	if(CONFIG_GET(number/auto_cryo_ssd_mins) && (player_logged >= (CONFIG_GET(number/auto_cryo_ssd_mins) * 30)) && player_logged % 30 == 0)
-		var/turf/T = get_turf(src)
-		if(!is_station_level(T.z))
-			return
-		var/area/A = get_area(src)
-		cryo_ssd(src)
-		if(A.fast_despawn)
-			force_cryo_human(src)
+
+/mob/living/carbon/human/handle_SSD(seconds_per_tick)
+	. = ..()
+	if(!. || !job || istype(loc, /obj/machinery/cryopod) || !CONFIG_GET(number/auto_cryo_ssd_mins))
+		return .
+
+	if(player_logged < (CONFIG_GET(number/auto_cryo_ssd_mins) MINUTES))
+		return .
+
+	var/turf/our_turf = get_turf(src)
+	if(!our_turf || !is_station_level(our_turf.z))
+		return .
+
+	cryo_ssd(src)
+	var/area/our_area = get_area(src)
+	if(our_area.fast_despawn)
+		force_cryo_human(src)
+
 
 /mob/living/carbon/human/calculate_affecting_pressure(pressure)
 	var/pressure_difference = abs( pressure - ONE_ATMOSPHERE )
@@ -163,9 +167,7 @@
 					emote("drool")
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
-	for(var/datum/dna/gene/gene in GLOB.dna_genes)
-		if(!gene.block)
-			continue
+	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
 		if(gene.is_active(src))
 			gene.OnMobLife(src)
 	if(!ignore_gene_stability && gene_stability < GENETIC_DAMAGE_STAGE_1)
@@ -206,14 +208,12 @@
 				if(1 to 49)
 					radiation = max(radiation-1, 0)
 					if(prob(25))
-						adjustToxLoss(1)
-						adjustFireLoss(1)
+						apply_damages(burn = 1, tox = 1, spread_damage = TRUE)
 						autopsy_damage = 2
 
 				if(50 to 74)
 					radiation = max(radiation-2, 0)
-					adjustToxLoss(1)
-					adjustFireLoss(1)
+					apply_damages(burn = 1, tox = 1, spread_damage = TRUE)
 					autopsy_damage = 2
 					if(prob(5))
 						radiation = max(radiation-5, 0)
@@ -223,8 +223,7 @@
 
 				if(75 to 100)
 					radiation = max(radiation-2, 0)
-					adjustToxLoss(2)
-					adjustFireLoss(2)
+					apply_damages(burn = 2, tox = 2, spread_damage = TRUE)
 					autopsy_damage = 4
 					if(prob(2))
 						to_chat(src, "<span class='danger'>You mutate!</span>")
@@ -233,8 +232,7 @@
 
 				if(101 to 150)
 					radiation = max(radiation-3, 0)
-					adjustToxLoss(2)
-					adjustFireLoss(3)
+					apply_damages(burn = 3, tox = 2, spread_damage = TRUE)
 					autopsy_damage = 5
 					if(prob(4))
 						to_chat(src, "<span class='danger'>You mutate!</span>")
@@ -243,8 +241,7 @@
 
 				if(151 to INFINITY)
 					radiation = max(radiation-3, 0)
-					adjustToxLoss(2)
-					adjustFireLoss(3)
+					apply_damages(burn = 3, tox = 2, spread_damage = TRUE)
 					autopsy_damage = 5
 					if(prob(6))
 						to_chat(src, "<span class='danger'>You mutate!</span>")
@@ -275,13 +272,13 @@
 			var/datum/species/species = dna.species
 
 			if(species.breathid == "o2")
-				throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
+				throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
 			else if(species.breathid == "tox")
-				throw_alert("not_enough_tox", /obj/screen/alert/not_enough_tox)
+				throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_tox)
 			else if(species.breathid == "co2")
-				throw_alert("not_enough_co2", /obj/screen/alert/not_enough_co2)
+				throw_alert("not_enough_co2", /atom/movable/screen/alert/not_enough_co2)
 			else if(species.breathid == "n2")
-				throw_alert("not_enough_nitro", /obj/screen/alert/not_enough_nitro)
+				throw_alert("not_enough_nitro", /atom/movable/screen/alert/not_enough_nitro)
 
 		return FALSE
 	else if(istype(lungs, /obj/item/organ/internal/lungs))
@@ -324,21 +321,22 @@
 	// +/- 50 degrees from 310.15K is the 'safe' zone, where no damage is dealt.
 	if(bodytemperature > dna.species.heat_level_1)
 		//Body temperature is too hot.
-		if(status_flags & GODMODE)	return 1	//godmode
-		var/mult = dna.species.heatmod
+		if(status_flags & GODMODE)
+			return TRUE	//godmode
+		var/mult = dna.species.heatmod * physiology.heat_mod
 		if(mult>0)
 			if(bodytemperature >= dna.species.heat_level_1 && bodytemperature <= dna.species.heat_level_2)
-				throw_alert("temp", /obj/screen/alert/hot, 1)
-				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_1, updating_health = TRUE, used_weapon = "High Body Temperature")
+				throw_alert("temp", /atom/movable/screen/alert/hot, 1)
+				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_1, used_weapon = "High Body Temperature")
 			if(bodytemperature > dna.species.heat_level_2 && bodytemperature <= dna.species.heat_level_3)
-				throw_alert("temp", /obj/screen/alert/hot, 2)
-				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, updating_health = TRUE, used_weapon = "High Body Temperature")
+				throw_alert("temp", /atom/movable/screen/alert/hot, 2)
+				take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
 			if(bodytemperature > dna.species.heat_level_3 && bodytemperature < INFINITY)
-				throw_alert("temp", /obj/screen/alert/hot, 3)
+				throw_alert("temp", /atom/movable/screen/alert/hot, 3)
 				if(on_fire)
-					take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_3, updating_health = TRUE, used_weapon = "Fire")
+					take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_3, used_weapon = "Fire")
 				else
-					take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, updating_health = TRUE, used_weapon = "High Body Temperature")
+					take_overall_damage(burn=mult*HEAT_DAMAGE_LEVEL_2, used_weapon = "High Body Temperature")
 		else
 			mult = abs(mult)
 			if(bodytemperature >= dna.species.heat_level_1 && bodytemperature <= dna.species.heat_level_2)
@@ -350,25 +348,25 @@
 
 	else if(bodytemperature < dna.species.cold_level_1)
 		if(status_flags & GODMODE)
-			return 1
+			return TRUE
 		if(stat == DEAD)
-			return 1
+			return TRUE
 
 		if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
-			var/mult = dna.species.coldmod
+			var/mult = dna.species.coldmod * physiology.cold_mod
 			if(mult>0)
 				add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/cold, multiplicative_slowdown = ((dna.species.cold_level_1 - bodytemperature) / COLD_SLOWDOWN_FACTOR))
 				if(bodytemperature < dna.species.cold_level_2 && prob(0.3))
 					var/datum/disease/virus/cold/D = new
 					D.Contract(src)
 				if(bodytemperature >= dna.species.cold_level_2 && bodytemperature <= dna.species.cold_level_1)
-					throw_alert("temp", /obj/screen/alert/cold, 1)
+					throw_alert("temp", /atom/movable/screen/alert/cold, 1)
 					take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_1, used_weapon = "Low Body Temperature")
 				if(bodytemperature >= dna.species.cold_level_3 && bodytemperature < dna.species.cold_level_2)
-					throw_alert("temp", /obj/screen/alert/cold, 2)
+					throw_alert("temp", /atom/movable/screen/alert/cold, 2)
 					take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_2, used_weapon = "Low Body Temperature")
 				if(bodytemperature > -INFINITY && bodytemperature < dna.species.cold_level_3)
-					throw_alert("temp", /obj/screen/alert/cold, 3)
+					throw_alert("temp", /atom/movable/screen/alert/cold, 3)
 					take_overall_damage(burn=mult*COLD_DAMAGE_LEVEL_3, used_weapon = "Low Body Temperature")
 				else
 					clear_alert("temp")
@@ -391,27 +389,29 @@
 
 	var/pressure = environment.return_pressure()
 	var/adjusted_pressure = calculate_affecting_pressure(pressure) //Returns how much pressure actually affects the mob.
-	if(status_flags & GODMODE)	return 1	//godmode
+	if(status_flags & GODMODE)
+		return TRUE	//godmode
 
 	if(adjusted_pressure >= dna.species.hazard_high_pressure)
 		if(!(HEATRES in mutations))
-			var/pressure_damage = min( ( (adjusted_pressure / dna.species.hazard_high_pressure) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE)
-			take_overall_damage(brute=pressure_damage, updating_health = TRUE, used_weapon = "High Pressure")
-			throw_alert("pressure", /obj/screen/alert/highpressure, 2)
+			var/pressure_damage = min( ( (adjusted_pressure / dna.species.hazard_high_pressure) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE) * physiology.pressure_mod * physiology.brute_mod
+			take_overall_damage(brute = pressure_damage, used_weapon = "High Pressure")
+			throw_alert("pressure", /atom/movable/screen/alert/highpressure, 2)
 		else
 			clear_alert("pressure")
 	else if(adjusted_pressure >= dna.species.warning_high_pressure)
-		throw_alert("pressure", /obj/screen/alert/highpressure, 1)
+		throw_alert("pressure", /atom/movable/screen/alert/highpressure, 1)
 	else if(adjusted_pressure >= dna.species.warning_low_pressure)
 		clear_alert("pressure")
 	else if(adjusted_pressure >= dna.species.hazard_low_pressure)
-		throw_alert("pressure", /obj/screen/alert/lowpressure, 1)
+		throw_alert("pressure", /atom/movable/screen/alert/lowpressure, 1)
 	else
 		if(COLDRES in mutations)
 			clear_alert("pressure")
 		else
-			take_overall_damage(brute=LOW_PRESSURE_DAMAGE, updating_health = TRUE, used_weapon = "Low Pressure")
-			throw_alert("pressure", /obj/screen/alert/lowpressure, 2)
+			var/pressure_damage = LOW_PRESSURE_DAMAGE * physiology.pressure_mod * physiology.brute_mod
+			take_overall_damage(brute = pressure_damage, used_weapon = "Low Pressure")
+			throw_alert("pressure", /atom/movable/screen/alert/lowpressure, 2)
 
 
 ///FIRE CODE
@@ -641,14 +641,14 @@
 		if(nutrition >= 0 && stat != DEAD)
 			handle_nutrition_alerts()
 			// THEY HUNGER
-			var/hunger_rate = is_vamp ? HUNGER_FACTOR_VAMPIRE : hunger_drain
+			var/hunger_rate = is_vamp ? HUNGER_FACTOR_VAMPIRE : HUNGER_FACTOR * dna.species.hunger_drain_mod * physiology.hunger_mod
 			if(satiety > 0)
 				satiety--
 			if(satiety < 0)
 				satiety++
 				if(prob(round(-satiety/40)))
 					Jitter(10 SECONDS)
-				hunger_rate = 3 * hunger_drain
+				hunger_rate *= 3
 			adjust_nutrition(-hunger_rate)
 
 		if(nutrition > NUTRITION_LEVEL_FULL)
@@ -828,7 +828,7 @@
 
 
 /mob/living/carbon/human/proc/handle_nutrition_alerts() //This is a terrible abuse of the alert system; something like this should be a HUD element
-	if(NO_HUNGER in dna.species.species_traits)
+	if((NO_HUNGER in dna.species.species_traits) && !isvampire(src))
 		return
 
 	var/new_hunger
@@ -851,7 +851,7 @@
 
 	if(dna.species.hunger_level != new_hunger)
 		dna.species.hunger_level = new_hunger
-		throw_alert("nutrition", "/obj/screen/alert/hunger/[new_hunger]", icon_override = dna.species.hunger_icon)
+		throw_alert(ALERT_NUTRITION, text2path("/atom/movable/screen/alert/hunger/[new_hunger]"), icon_override = dna.species.hunger_icon)
 		med_hud_set_status()
 
 
@@ -870,12 +870,12 @@
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		for(var/obj/item/thing in bodypart.embedded_objects)
 			if(prob(thing.embedded_pain_chance))
-				bodypart.receive_damage(thing.w_class * thing.embedded_pain_multiplier)
+				apply_damage(thing.w_class * thing.embedded_pain_multiplier, def_zone = bodypart)
 				to_chat(src, span_userdanger("[thing] embedded in your [bodypart.name] hurts!"))
 
 			if(prob(thing.embedded_fall_chance))
 				bodypart.remove_embedded_object(thing)
-				bodypart.receive_damage(thing.w_class * thing.embedded_fall_pain_multiplier)
+				apply_damage(thing.w_class * thing.embedded_fall_pain_multiplier, def_zone = bodypart)
 				visible_message(
 					span_danger("[thing] falls out of [name]'s [bodypart.name]!"),
 					span_userdanger("[thing] falls out of your [bodypart.name]!"),
@@ -1040,6 +1040,7 @@
 		return FALSE
 
 	heart.beating = !status
+	return TRUE
 
 /mob/living/carbon/human/handle_heartattack()
 	if(!can_heartattack() || !undergoing_cardiac_arrest() || reagents.has_reagent("corazone"))

@@ -114,7 +114,7 @@
 
 	if(!connected)
 		. += "morgue_[status]"
-		underlays += emissive_appearance(icon, "morgue_[status]")
+		underlays += emissive_appearance(icon, "morgue_[status]", src)
 
 	if(name != initial(name))
 		. += "morgue_label"
@@ -221,7 +221,7 @@
 
 /obj/structure/morgue/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
-		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 2)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
 
 
 /obj/structure/morgue/ex_act(severity)
@@ -278,15 +278,16 @@
 	morgue?.tray_toggle(user)
 
 
+/obj/structure/m_tray/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing))
+		return .
+	var/mob/living/target = grabbed_thing
+	target.forceMove(loc)
+	target.set_resting(TRUE, instant = TRUE)
+
+
 /obj/structure/m_tray/attackby(obj/item/I, mob/user, params)
-	var/obj/item/grab/grab = I
-	if(istype(grab))
-		var/mob/living/target = grab.affecting
-		qdel(grab)
-		target.pulledby?.stop_pulling()
-		target.StartResting()
-		target.forceMove(loc)
-		return
 	user.drop_transfer_item_to_loc(I, loc)
 
 
@@ -302,7 +303,7 @@
 
 	if(isliving(dropping))
 		var/mob/living/target = dropping
-		target.StartResting()
+		target.set_resting(TRUE, instant = TRUE)
 
 	dropping.forceMove(loc)
 
@@ -311,7 +312,7 @@
 	return TRUE
 
 
-/obj/structure/tray/m_tray/CanAllowThrough(atom/movable/mover, border_dir)
+/obj/structure/m_tray/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(.)
 		return TRUE
@@ -319,10 +320,12 @@
 		return TRUE
 
 
-/obj/structure/m_tray/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
-	. = !density
-	if(checkpass(caller, PASSTABLE))
-		. = TRUE
+/obj/structure/m_tray/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(!density)
+		return TRUE
+	if(pass_info.pass_flags == PASSEVERYTHING || (pass_info.pass_flags & PASSTABLE))
+		return TRUE
+	return FALSE
 
 
 /mob/proc/update_morgue()
@@ -404,7 +407,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 	if(cremating)
 		. += "crema_active"
-		underlays += emissive_appearance(icon, "crema_active_lightmask")
+		underlays += emissive_appearance(icon, "crema_active_lightmask", src)
 		return
 
 	if(length(contents))
@@ -514,7 +517,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 
 /obj/machinery/crematorium/container_resist(mob/living/carbon/user)
-	if(cremating || !iscarbon(user) || user.incapacitated(ignore_lying = TRUE) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(cremating || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	to_chat(user, span_alert("You attempt to slide yourself out of [src]..."))
 	tray_toggle(user)
@@ -522,19 +525,18 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 /obj/machinery/crematorium/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
-		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 2)
+		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
 
 
 /obj/machinery/crematorium/verb/cremate_verb()
 	set name = "Cremate"
-	set category = null
 	set src in oview(1)
 
 	try_cremate(usr)
 
 
 /obj/machinery/crematorium/proc/try_cremate(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated() || !isAI(user) && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(stat & NOPOWER)
@@ -690,19 +692,28 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	return ..()
 
 
+/obj/structure/c_tray/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(!density)
+		return TRUE
+	if(pass_info.pass_flags == PASSEVERYTHING || (pass_info.pass_flags & PASSTABLE))
+		return TRUE
+	return FALSE
+
+
 /obj/structure/c_tray/attack_hand(mob/user)
 	crematorium?.tray_toggle(user)
 
 
+/obj/structure/c_tray/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing))
+		return .
+	var/mob/living/target = grabbed_thing
+	target.forceMove(loc)
+	target.set_resting(TRUE, instant = TRUE)
+
+
 /obj/structure/c_tray/attackby(obj/item/I, mob/user, params)
-	var/obj/item/grab/grab = I
-	if(istype(grab))
-		var/mob/living/target = grab.affecting
-		qdel(grab)
-		target.pulledby?.stop_pulling()
-		target.StartResting()
-		target.forceMove(loc)
-		return
 	user.drop_transfer_item_to_loc(I, loc)
 
 
@@ -718,7 +729,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 	if(isliving(dropping))
 		var/mob/living/target = dropping
-		target.StartResting()
+		target.set_resting(TRUE, instant = TRUE)
 
 	dropping.forceMove(loc)
 
@@ -727,7 +738,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	return TRUE
 
 
-/obj/structure/c_tray/Process_Spacemove(movement_dir = NONE)
+/obj/structure/c_tray/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
 

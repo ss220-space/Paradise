@@ -71,7 +71,7 @@
 
 	if(stat & NOPOWER)
 		return
-	underlays += emissive_appearance(icon, "light_lightmask")
+	underlays += emissive_appearance(icon, "light_lightmask", src)
 
 
 /obj/machinery/light_switch/examine(mob/user)

@@ -28,7 +28,7 @@
 			return
 		if(!s_busy)
 			s_busy = TRUE
-			if(!do_after(ninja, 2 SECONDS, ninja, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
+			if(!do_after(ninja, 2 SECONDS, ninja, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 				to_chat(ninja, span_warning("Вы прервали невидимость!"))
 				s_busy = FALSE
 				return

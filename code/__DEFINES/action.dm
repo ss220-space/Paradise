@@ -7,7 +7,7 @@
 #define AB_CHECK_LYING (1<<2)
 ///Action button checks if user is conscious
 #define AB_CHECK_CONSCIOUS (1<<3)
-///Action button checks if user is incapacitated
+///Action button checks if user is incapacitated (weakened/stunned/stamcrited/paralyzed/sleeping)
 #define AB_CHECK_INCAPACITATED (1<<4)
 ///Action button checks if user is currently in turf contents
 #define AB_CHECK_TURF (1<<5)

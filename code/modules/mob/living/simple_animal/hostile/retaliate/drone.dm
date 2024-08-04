@@ -30,18 +30,22 @@
 	deathmessage = "suddenly breaks apart."
 	del_on_death = 1
 	var/passive_mode = TRUE // if true, don't target anything.
+	var/datum/effect_system/trail_follow/ion/ion_trail
+
 
 /mob/living/simple_animal/hostile/malf_drone/Initialize(mapload)
 	. = ..()
-	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(create_trail))
-	update_icons()
+	ion_trail = new
+	ion_trail.set_up(src)
+	ion_trail.start()
 
-/mob/living/simple_animal/hostile/malf_drone/proc/create_trail(datum/source, atom/oldloc, _dir, forced)
-	var/turf/T = get_turf(oldloc)
-	if(!T.has_gravity())
-		new /obj/effect/particle_effect/ion_trails(T, _dir)
 
-/mob/living/simple_animal/hostile/malf_drone/Process_Spacemove(movement_dir = NONE)
+/mob/living/simple_animal/hostile/malf_drone/Destroy()
+	QDEL_NULL(ion_trail)
+	return ..()
+
+
+/mob/living/simple_animal/hostile/malf_drone/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/hostile/malf_drone/ListTargets()
@@ -64,11 +68,20 @@
 	else
 		icon_state = "drone0"
 
-/mob/living/simple_animal/hostile/malf_drone/adjustHealth(damage, updating_health)
-	do_sparks(3, 1, src)
-	passive_mode = FALSE
-	update_icons()
-	. = ..() // this will handle finding a target if there is a valid one nearby
+
+/mob/living/simple_animal/hostile/malf_drone/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
+	. = ..()
+	if(. && amount > 0)
+		do_sparks(3, 1, src)
+		passive_mode = FALSE
+		update_icons()
+
 
 /mob/living/simple_animal/hostile/malf_drone/Life(seconds, times_fired)
 	. = ..()

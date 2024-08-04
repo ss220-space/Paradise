@@ -9,7 +9,7 @@
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "mining_drone"
 	icon_living = "mining_drone"
-	status_flags = CANSTUN|CANWEAKEN|CANPUSH
+	status_flags = CANSTUN|CANWEAKEN|CANKNOCKDOWN|CANPUSH
 	mouse_opacity = MOUSE_OPACITY_ICON
 	faction = list("neutral")
 	a_intent = INTENT_HARM
@@ -207,10 +207,18 @@
 	for(var/obj/item/stack/ore/O in contents)
 		O.forceMove(drop_location())
 
-/mob/living/simple_animal/hostile/mining_drone/adjustHealth(amount, updating_health = TRUE)
-	if(mode != MINEDRONE_ATTACK && amount > 0)
-		SetOffenseBehavior()
+
+/mob/living/simple_animal/hostile/mining_drone/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
 	. = ..()
+	if(. && amount > 0 && mode != MINEDRONE_ATTACK)
+		SetOffenseBehavior()
+
 
 /mob/living/simple_animal/hostile/mining_drone/proc/toggle_mode()
 	switch(mode)
@@ -222,7 +230,7 @@
 //Actions for sentient minebots
 
 /datum/action/innate/minedrone
-	check_flags = AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	background_icon_state = "bg_default"
 
 /datum/action/innate/minedrone/toggle_light
@@ -255,7 +263,7 @@
 	to_chat(user, "<span class='notice'>You toggle your meson vision [!is_active ? "on" : "off"].</span>")
 
 /datum/action/innate/minedrone/toggle_meson_vision/proc/update_user_sight(mob/living/user)
-	user.sight |= sight_flags
+	user.add_sight(sight_flags)
 	if(!isnull(lighting_alpha))
 		user.lighting_alpha = min(user.lighting_alpha, lighting_alpha)
 

@@ -105,6 +105,13 @@
 
 	map_name = name // Save the initial (the name set in the map) name of the area.
 
+	if(use_starlight && CONFIG_GET(flag/starlight))
+		// Areas lit by starlight are not supposed to be fullbright 4head
+		base_lighting_alpha = 0
+		base_lighting_color = null
+		static_lighting = TRUE
+
+
 	if(requires_power)
 		luminosity = 0
 	else
@@ -112,22 +119,17 @@
 		power_equip = TRUE
 		power_environ = TRUE
 
-		if(dynamic_lighting == DYNAMIC_LIGHTING_FORCED)
-			dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
+		if(static_lighting)
 			luminosity = 0
-		else if(dynamic_lighting != DYNAMIC_LIGHTING_IFSTARLIGHT)
-			dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
-	if(dynamic_lighting == DYNAMIC_LIGHTING_IFSTARLIGHT)
-		dynamic_lighting = CONFIG_GET(flag/starlight) ? DYNAMIC_LIGHTING_ENABLED : DYNAMIC_LIGHTING_DISABLED
 
 	. = ..()
 
-	blend_mode = BLEND_MULTIPLY // Putting this in the constructor so that it stops the icons being screwed up in the map editor.
-
-	if(!IS_DYNAMIC_LIGHTING(src))
-		add_overlay(/obj/effect/fullbright)
+	if(!static_lighting)
+		blend_mode = BLEND_MULTIPLY
 
 	reg_in_areas_in_z()
+
+	update_base_lighting()
 
 	return INITIALIZE_HINT_LATELOAD
 
@@ -519,49 +521,19 @@
 			used_environ += amount
 
 
-/area/Entered(atom/movable/arrived)
+/area/Entered(atom/movable/arrived, area/old_area)
 
-	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, arrived)
-	SEND_SIGNAL(arrived, COMSIG_ATOM_ENTERED_AREA, src)
-
-	var/area/newarea
-	var/area/oldarea
+	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, arrived, old_area)
+	SEND_SIGNAL(arrived, COMSIG_ATOM_ENTERED_AREA, src, old_area)
 
 	if(ismob(arrived))
 		var/mob/arrived_mob = arrived
+		if(!arrived_mob.lastarea || old_area != src)
+			arrived_mob.lastarea = src
 
-		if(!arrived_mob.lastarea)
-			arrived_mob.lastarea = get_area(arrived_mob)
-		newarea = get_area(arrived_mob)
-		oldarea = arrived_mob.lastarea
-
-		if(newarea == oldarea)
-			return
-
-		arrived_mob.lastarea = src
-
-	if(!isliving(arrived))
-		return
-
-	var/mob/living/arrived_living = arrived
-	if(!arrived_living.client)
-		return
-
-	var/client/our_client = arrived_living.client
-
-	//Ship ambience just loops if turned on.
-	if(!our_client.ambience_playing && (our_client.prefs.sound & SOUND_BUZZ))
-		our_client.ambience_playing = TRUE
-		var/amb_volume = 35 * our_client.prefs.get_channel_volume(CHANNEL_BUZZ)
-		SEND_SOUND(arrived_living, sound('sound/ambience/shipambience.ogg', repeat = TRUE, wait = FALSE, volume = amb_volume, channel = CHANNEL_BUZZ))
-
-	else if(!(our_client.prefs.sound & SOUND_BUZZ))
-		our_client.ambience_playing = FALSE
-
-/area/Exited(atom/movable/departed)
-	SEND_SIGNAL(src, COMSIG_AREA_EXITED, departed)
-	SEND_SIGNAL(departed, COMSIG_ATOM_EXITED_AREA, src)
-
+/area/Exited(atom/movable/departed, area/new_area)
+	SEND_SIGNAL(src, COMSIG_AREA_EXITED, departed, new_area)
+	SEND_SIGNAL(departed, COMSIG_ATOM_EXITED_AREA, src, new_area)
 
 /area/proc/gravitychange()
 	for(var/mob/living/carbon/human/user in src)
@@ -569,7 +541,6 @@
 		user.refresh_gravity()
 		if(!prev_gravity && user.gravity_state)
 			user.thunk()
-
 
 /area/proc/prison_break()
 	for(var/obj/machinery/power/apc/temp_apc in machinery_cache)

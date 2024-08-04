@@ -135,7 +135,7 @@
 		player_client << 'sound/misc/announce_dig.ogg'
 		window_flash(player_client)
 
-		var/obj/screen/alert/notify_soulstone/A = player_mob.throw_alert("\ref[src]_soulstone_thingy", /obj/screen/alert/notify_soulstone)
+		var/atom/movable/screen/alert/notify_soulstone/A = player_mob.throw_alert("\ref[src]_soulstone_thingy", /atom/movable/screen/alert/notify_soulstone)
 		if(player_client.prefs && player_client.prefs.UI_style)
 			A.icon = ui_style2icon(player_client.prefs.UI_style)
 
@@ -366,7 +366,6 @@
 					to_chat(user, "<span class='danger'>Capture failed!</span>: The soul stone is full! Use or free an existing soul to make room.")
 				else
 					T.forceMove(src) // Put the shade into the stone.
-					T.canmove = FALSE
 					T.health = T.maxHealth
 					update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 					to_chat(T, "<span class='notice'>Your soul has been recaptured by the soul stone, its arcane energies are reknitting your ethereal form</span>")
@@ -460,7 +459,6 @@
 /obj/item/soulstone/proc/init_shade(mob/living/M, mob/user, forced = FALSE)
 	var/type = get_shade_type()
 	var/mob/living/simple_animal/shade/S = new type(src)
-	S.canmove = FALSE // Can't move out of the soul stone
 	S.name = "Shade of [M.real_name]"
 	S.real_name = "Shade of [M.real_name]"
 	S.key = M.key

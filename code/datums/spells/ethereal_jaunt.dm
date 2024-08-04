@@ -52,7 +52,7 @@
 	if(jaunt_water_effect)
 		jaunt_steam(mobloc)
 
-	target.canmove = FALSE
+	ADD_TRAIT(target, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
 	holder.reappearing = TRUE
 	playsound(mobloc, sound_out, 50, TRUE, -1)
 
@@ -75,12 +75,12 @@
 				continue
 			if(target.Move(T))
 				target.remove_CC()
-				target.canmove = TRUE
+				REMOVE_TRAIT(target, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
 				return
 		for(var/turf/space/space_turf in orange(7))
 			if(target.Move(space_turf))
 				break
-	target.canmove = TRUE
+	REMOVE_TRAIT(target, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
 	target.remove_CC()
 
 

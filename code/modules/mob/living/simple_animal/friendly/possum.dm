@@ -24,6 +24,7 @@
 	mob_size = MOB_SIZE_SMALL
 	pass_flags = PASSTABLE
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	blood_volume = BLOOD_VOLUME_NORMAL
 	melee_damage_type = STAMINA
 	melee_damage_lower = 3

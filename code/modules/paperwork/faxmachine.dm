@@ -117,10 +117,10 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		return TRUE
 	return FALSE
 
-/obj/machinery/photocopier/faxmachine/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/photocopier/faxmachine/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "FaxMachine",  name, 540, 300, master_ui, state)
+		ui = new(user, src, "FaxMachine", name)
 		ui.open()
 
 /obj/machinery/photocopier/faxmachine/ui_data(mob/user)
@@ -199,7 +199,9 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 					. = FALSE
 		if("rename") // rename the item that is currently in the fax machine
 			if(copyitem)
-				var/n_name = sanitize(copytext(input(usr, "What would you like to label the fax?", "Fax Labelling", copyitem.name)  as text, 1, MAX_MESSAGE_LEN))
+				var/n_name = tgui_input_text(usr, "What would you like to label the fax?", "Fax Labelling", copyitem.name)
+				if(!n_name)
+					return
 				if((copyitem && copyitem.loc == src && usr.stat == 0))
 					if(istype(copyitem, /obj/item/paper))
 						copyitem.name = "[(n_name ? text("[n_name]") : initial(copyitem.name))]"
@@ -286,7 +288,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	SStgui.update_uis(src)
 
 /obj/machinery/photocopier/faxmachine/verb/eject_id()
-	set category = null
 	set name = "Eject ID Card"
 	set src in oview(1)
 
@@ -337,7 +338,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	sleep(20)
 
 	if(istype(incoming, /obj/item/paper))
-		copy(incoming)
+		papercopy(incoming)
 	else if(istype(incoming, /obj/item/photo))
 		photocopy(incoming)
 	else if(istype(incoming, /obj/item/paper_bundle))
@@ -454,14 +455,13 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	text = replacetext(text, "<img src = syndielogo.png>", "` SYNDIE LOGO `\n")
 	text = replacetextEx(text, "<img src = syndielogo.png>", "` SYNDIE LOGO `\n")
 	var/textstamps = paper.stamps
-	for(var/type in paper.stamped)
-		var/obj/item/stamp/stamp = new type()
-		if(istype(stamp, /obj/item/stamp/chameleon))
+	for(var/obj/item/stamp/stamp_path as anything in paper.stamped)
+		if(ispath(stamp_path, /obj/item/stamp/chameleon))
 			var/text_stamp = replacetext(textstamps, regex(".*?<img src=large_stamp-(.*?).png>.*"), "$1") // pops from textstamps.
 			textstamps = replacetext(textstamps, regex("<img src=large_stamp-.*?.png>"), "")
 			text += "` [text_stamp] (CHAMELEON) stamp `"
 		else
-			text += "` [replacetext(replacetext(stamp.name, "rubber", ""), "'s", "")] `"
+			text += "` [replacetext(replacetext(initial(stamp_path.name), "rubber", ""), "'s", "")] `"
 
 	return strip_html_properly(text, MAX_PAPER_MESSAGE_LEN, TRUE) //So satisfying that max paper length equals max description disorcd
 

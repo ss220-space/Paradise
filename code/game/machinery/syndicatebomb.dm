@@ -253,7 +253,7 @@
 	if(can_interact(user)) //No running off and setting bombs from across the station
 		timer_set = clamp(new_timer, minimum_timer, maximum_timer)
 		loc.visible_message(span_notice("[bicon(src)] timer set for [timer_set] seconds."))
-	if(alert(user,"Would you like to start the countdown now?",,"Yes","No") == "Yes" && can_interact(user))
+	if(tgui_alert(user, "Would you like to start the countdown now?", "Countdown", list("Yes", "No")) == "Yes" && can_interact(user))
 		if(defused || active)
 			if(defused)
 				loc.visible_message(span_notice("[bicon(src)] Device error: User intervention required."))
@@ -423,7 +423,7 @@
 	var/obj/machinery/syndicatebomb/B = src.loc
 	for(var/i = 0; i < amt_summon; i++)
 		var/atom/movable/X = new summon_path
-		X.admin_spawned = TRUE
+		X.flags |= ADMIN_SPAWNED
 		X.loc = get_turf(src)
 		if(prob(50))
 			for(var/j = 1, j <= rand(1, 3), j++)

@@ -80,10 +80,10 @@
 	if(!(A in summon_areas))
 		to_chat(user, "<span class='cultlarge'>[SSticker.cultdat.entity_name] can only be summoned where the veil is weak - in [english_list(summon_areas)]!</span>")
 		return FALSE
-	var/confirm_final = alert(user, "This is the FINAL step to summon your deities power, it is a long, painful ritual and the crew will be alerted to your presence AND your location!",
-	"Are you prepared for the final battle?", "My life for [SSticker.cultdat.entity_name]!", "No")
+	var/confirm_final = tgui_alert(user, "This is the FINAL step to summon your deities power, it is a long, painful ritual and the crew will be alerted to your presence AND your location!",
+	"Are you prepared for the final battle?", list("My life for [SSticker.cultdat.entity_name]!", "No"))
 	if(user)
-		if(confirm_final == "No" || confirm_final == null)
+		if(confirm_final != "My life for [SSticker.cultdat.entity_name]!")
 			to_chat(user, "<span class='cultitalic'><b>You decide to prepare further before scribing the rune.</b></span>")
 			return FALSE
 		else
@@ -101,6 +101,9 @@
 		return FALSE
 	if((locate(/obj/effect/rune) in T) || (locate(/obj/effect/rune/narsie) in range(1, T)))
 		to_chat(user, "<span class='warning'>There's already a rune here!</span>")
+		return FALSE
+	if(drawing_rune)
+		to_chat(user, "<span class='warning'>You can't draw multiple runes at the same time!</span>")
 		return FALSE
 	return TRUE
 
@@ -130,7 +133,7 @@
 	if(rune == /obj/effect/rune/narsie)
 		narsie_rune = TRUE
 	if(initial(rune.req_keyword))
-		keyword = stripped_input(user, "Please enter a keyword for the rune.", "Enter Keyword")
+		keyword = tgui_input_text(user, "Please enter a keyword for the rune.", "Enter Keyword")
 		if(!keyword)
 			return
 
@@ -166,6 +169,7 @@
 
 	// Draw the rune
 	var/mob/living/carbon/human/H = user
+	drawing_rune = TRUE
 	H.cult_self_harm(initial(rune.scribe_damage))
 	var/others_message
 	if(!narsie_rune)
@@ -182,12 +186,14 @@
 			qdel(S)
 	user.color = old_color
 	if(!scribe_successful)
+		drawing_rune = FALSE
 		return
 
 	user.visible_message("<span class='warning'>[user] creates a strange circle in [user.p_their()] own blood.</span>",
 						 "<span class='cultitalic'>You finish drawing the arcane markings of [SSticker.cultdat.entity_title3].</span>")
 
 	var/obj/effect/rune/R = new rune(runeturf, keyword)
+	drawing_rune = FALSE
 	if(narsie_rune)
 		for(var/obj/effect/rune/I in orange(1, R))
 			qdel(I)

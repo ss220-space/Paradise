@@ -3,7 +3,7 @@
 #define COCOON_HARM_AMOUNT 50
 #define COCOON_NUTRITION_REQUIREMENT 201
 #define COCOON_NUTRITION_AMOUNT -200
-#define FLYSWATTER_DAMAGE_MULTIPLIER 9
+#define FLYSWATTER_DAMAGE_MULTIPLIER 10
 
 /datum/species/moth
 	name = SPECIES_MOTH
@@ -83,9 +83,9 @@
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)
 	..()
 	H.add_movespeed_mod_immunities(type, /datum/movespeed_modifier/limbless)
-	H.verbs |= /mob/living/carbon/human/proc/emote_flap
-	H.verbs |= /mob/living/carbon/human/proc/emote_aflap
-	H.verbs |= /mob/living/carbon/human/proc/emote_flutter
+	add_verb(H, /mob/living/carbon/human/proc/emote_flap)
+	add_verb(H, /mob/living/carbon/human/proc/emote_aflap)
+	add_verb(H, /mob/living/carbon/human/proc/emote_flutter)
 	var/datum/action/innate/cocoon/cocoon = locate() in H.actions
 	if(!cocoon)
 		cocoon = new
@@ -94,13 +94,14 @@
 	RegisterSignal(H, COMSIG_LIVING_AHEAL, PROC_REF(on_aheal))
 	RegisterSignal(H, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY, PROC_REF(on_change_body_accessory))
 	RegisterSignal(H, COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY, PROC_REF(on_change_head_accessory))
+	RegisterSignal(H, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, PROC_REF(damage_weakness))
 
 /datum/species/moth/on_species_loss(mob/living/carbon/human/H)
 	..()
 	H.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/limbless)
-	H.verbs -= /mob/living/carbon/human/proc/emote_flap
-	H.verbs -= /mob/living/carbon/human/proc/emote_aflap
-	H.verbs -= /mob/living/carbon/human/proc/emote_flutter
+	remove_verb(H, /mob/living/carbon/human/proc/emote_flap)
+	remove_verb(H, /mob/living/carbon/human/proc/emote_aflap)
+	remove_verb(H, /mob/living/carbon/human/proc/emote_flutter)
 	var/datum/action/innate/cocoon/cocoon = locate() in H.actions
 	if(cocoon)
 		cocoon.Remove(H)
@@ -108,6 +109,7 @@
 	UnregisterSignal(H, COMSIG_LIVING_AHEAL)
 	UnregisterSignal(H, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY)
 	UnregisterSignal(H, COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY)
+	UnregisterSignal(H, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS)
 	H.remove_status_effect(STATUS_EFFECT_BURNT_WINGS)
 
 /datum/species/moth/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
@@ -121,12 +123,15 @@
 /datum/species/moth/get_species_runechat_color(mob/living/carbon/human/H)
 	return H.m_colours["body"]
 
-/datum/species/moth/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
-	if(istype(I, /obj/item/melee/flyswatter) && I.force)
-		apply_damage(I.force * FLYSWATTER_DAMAGE_MULTIPLIER, I.damtype, affecting, FALSE, H) //making flyswatters do 10x damage to moff
+
+/datum/species/moth/proc/damage_weakness(datum/source, list/damage_mods, damage_amount, damagetype, def_zone, sharp, obj/item/used_weapon)
+	SIGNAL_HANDLER
+
+	if(istype(used_weapon, /obj/item/melee/flyswatter))
+		damage_mods += FLYSWATTER_DAMAGE_MULTIPLIER // Yes, a 10x damage modifier
 
 
-/datum/species/moth/spec_Process_Spacemove(mob/living/carbon/human/user, movement_dir)
+/datum/species/moth/spec_Process_Spacemove(mob/living/carbon/human/user, movement_dir, continuous_move = FALSE)
 	. = FALSE
 	var/turf/user_turf = get_turf(user)
 	if(!user_turf)
@@ -145,9 +150,6 @@
 	if(!H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
 		return TRUE
 
-/datum/species/moth/spec_WakeUp(mob/living/carbon/human/H)
-	if(H.has_status_effect(STATUS_EFFECT_COCOONED))
-		return TRUE //Cocooned mobs dont get to wake up
 
 /datum/species/moth/proc/check_burn_wings(mob/living/carbon/human/H) //do not go into the extremely hot light. you will not survive
 	SIGNAL_HANDLER
@@ -172,7 +174,7 @@
 /datum/action/innate/cocoon
 	name = "Cocoon"
 	desc = "Restore your wings and antennae, and heal some damage. If your cocoon is broken externally you will take heavy damage!"
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS|AB_CHECK_TURF
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED|AB_CHECK_TURF
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "cocoon1"
 
@@ -182,17 +184,15 @@
 		to_chat(H, "<span class='warning'>You are too hungry to cocoon!</span>")
 		return
 	H.visible_message("<span class='notice'>[H] begins to hold still and concentrate on weaving a cocoon...</span>", "<span class='notice'>You begin to focus on weaving a cocoon... (This will take [COCOON_WEAVE_DELAY / 10] seconds, and you must hold still.)</span>")
-	if(do_after(H, COCOON_WEAVE_DELAY, H, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
+	if(do_after(H, COCOON_WEAVE_DELAY, H, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 		if(H.incapacitated())
 			to_chat(H, "<span class='warning'>You cannot weave a cocoon in your current state.</span>")
 			return
 		H.visible_message("<span class='notice'>[H] finishes weaving a cocoon!</span>", "<span class='notice'>You finish weaving your cocoon.</span>")
 		add_game_logs("weaved [src] at [AREACOORD(H)].", H)
 		var/obj/structure/moth/cocoon/C = new(get_turf(H))
+		ADD_TRAIT(H, TRAIT_KNOCKEDOUT, COCOONED_TRAIT)
 		H.forceMove(C)
-		C.preparing_to_emerge = TRUE
-		H.apply_status_effect(STATUS_EFFECT_COCOONED)
-		H.KnockOut()
 		addtimer(CALLBACK(src, PROC_REF(emerge), C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
 	else
 		to_chat(H, "<span class='warning'>You need to hold still in order to weave a cocoon!</span>")
@@ -201,9 +201,6 @@
  * Removes moth from cocoon, restores burnt wings */
 
 /datum/action/innate/cocoon/proc/emerge(obj/structure/moth/cocoon/C)
-	for(var/mob/living/carbon/human/H in C.contents)
-		H.remove_status_effect(STATUS_EFFECT_COCOONED)
-		H.remove_status_effect(STATUS_EFFECT_BURNT_WINGS)
 	C.preparing_to_emerge = FALSE
 	qdel(C)
 
@@ -214,27 +211,28 @@
 	icon_state = "cocoon1"
 	color = COLOR_PALE_YELLOW //So tiders (hopefully) don't decide to immediately bust them open
 	max_integrity = 60
-	var/preparing_to_emerge
+	var/preparing_to_emerge = TRUE
 
 /obj/structure/moth/cocoon/Initialize(mapload)
 	. = ..()
 	icon_state = pick("cocoon1", "cocoon2", "cocoon3")
 
 /obj/structure/moth/cocoon/Destroy()
-	if(!preparing_to_emerge)
-		visible_message("<span class='danger'>[src] splits open from within!</span>")
-	else
+	if(preparing_to_emerge)
 		visible_message("<span class='danger'>[src] is smashed open, harming the Nian within!</span>")
 		for(var/mob/living/carbon/human/H in contents)
-			H.adjustBruteLoss(COCOON_HARM_AMOUNT)
-			H.adjustFireLoss(COCOON_HARM_AMOUNT)
+			H.forceMove(loc)
+			REMOVE_TRAIT(H, TRAIT_KNOCKEDOUT, COCOONED_TRAIT)
+			H.heal_overall_damage(COCOON_HARM_AMOUNT, COCOON_HARM_AMOUNT)
 			H.AdjustWeakened(10 SECONDS)
+		return ..()
 
+	visible_message("<span class='danger'>[src] splits open from within!</span>")
 	for(var/mob/living/carbon/human/H in contents)
-		H.remove_status_effect(STATUS_EFFECT_COCOONED)
-		H.adjust_nutrition(COCOON_NUTRITION_AMOUNT)
-		H.WakeUp()
 		H.forceMove(loc)
+		H.adjust_nutrition(COCOON_NUTRITION_AMOUNT)
+		H.remove_status_effect(STATUS_EFFECT_BURNT_WINGS)
+		REMOVE_TRAIT(H, TRAIT_KNOCKEDOUT, COCOONED_TRAIT)
 	return ..()
 
 /datum/status_effect/burnt_wings
@@ -252,9 +250,6 @@
 	owner.UpdateAppearance()
 	return ..()
 
-/datum/status_effect/cocooned
-	id = "cocooned"
-	alert_type = null
 
 #undef COCOON_WEAVE_DELAY
 #undef COCOON_EMERGE_DELAY

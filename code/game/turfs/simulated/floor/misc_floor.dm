@@ -1,12 +1,12 @@
 /turf/simulated/floor/vault
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "rockvault"
-	smooth = SMOOTH_FALSE
+	smooth = NONE
 
 /turf/simulated/wall/vault
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "rockvault"
-	smooth = SMOOTH_FALSE
+	smooth = NONE
 
 /turf/simulated/floor/bluegrid
 	icon = 'icons/turf/floors.dmi'
@@ -78,7 +78,7 @@
 		to_chat(user, span_notice("You start digging..."))
 
 		playsound(src, I.usesound, 50, TRUE)
-		if(do_after(user, 4 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, 4 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
 			if(!can_dig(user))
 				return TRUE
 			to_chat(user, span_notice("You dig a hole."))
@@ -133,22 +133,20 @@
 	add_overlay(overlay_image)
 
 
-/turf/simulated/floor/beach/water/Entered(atom/movable/AM, atom/OldLoc)
+/turf/simulated/floor/beach/water/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
-	if(!linkedcontroller)
-		return
-	if(ismob(AM))
-		if(isliving(AM))
-			var/mob/living/creature = AM
-			creature.ExtinguishMob()
-		linkedcontroller.mobinpool += AM
+	if(!linkedcontroller || !ismob(arrived))
+		return .
+	if(isliving(arrived))
+		var/mob/living/creature = arrived
+		creature.ExtinguishMob()
+	linkedcontroller.mobinpool += arrived
 
-/turf/simulated/floor/beach/water/Exited(atom/movable/AM, atom/newloc)
+/turf/simulated/floor/beach/water/Exited(atom/movable/departed, atom/newLoc)
 	. = ..()
-	if(!linkedcontroller)
-		return
-	if(ismob(AM))
-		linkedcontroller.mobinpool -= AM
+	if(!linkedcontroller || !ismob(departed))
+		return .
+	linkedcontroller.mobinpool -= departed
 
 /turf/simulated/floor/beach/water/InitializedOn(atom/A)
 	if(!linkedcontroller)
@@ -189,7 +187,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		to_chat(H, span_warning("You lose your footing trying to pry off the tile!"))
-		H.slip(10 SECONDS, src, TURF_WET_LUBE, tilesSlipped = 4)
+		H.slip(10 SECONDS, src, TURF_WET_LUBE)
 	return
 
 //Clockwork floor: Slowly heals toxin damage on nearby servants.

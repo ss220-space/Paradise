@@ -22,7 +22,7 @@
 		return .
 	if(!user.in_throw_mode)
 		return .
-	if(!user.canmove)
+	if(!(user.mobility_flags & MOBILITY_MOVE))
 		return .
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return .
@@ -58,7 +58,7 @@
 		if(V.spread_flags & CONTACT)
 			V.Contract(src, act_type = CONTACT, need_protection_check = TRUE, zone = user.zone_selected)
 
-	if(lying_angle && surgeries.len)
+	if(body_position == LYING_DOWN && surgeries.len)
 		if(user.a_intent == INTENT_HELP)
 			for(var/datum/surgery/S in surgeries)
 				if(S.next_step(user, src))
@@ -80,9 +80,8 @@
 				var/power = (M.powerlevel + rand(0,3)) STATUS_EFFECT_CONSTANT
 				Stun(power)
 				Stuttering(power)
-				if (prob(stunprob) && M.powerlevel >= 8)
+				if(prob(stunprob) && M.powerlevel >= 8)
 					adjustFireLoss(M.powerlevel * rand(6, 6 + M.age_state.damage))
-					updatehealth("slime attack")
 		return 1
 
 /mob/living/carbon/is_mouth_covered(head_only = FALSE, mask_only = FALSE)

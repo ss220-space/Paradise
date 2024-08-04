@@ -60,7 +60,7 @@
 
 	if(anchored)
 		. += "[base_icon_state]-s"
-		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask")
+		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
 
 
 //Let the AI trigger them directly.
@@ -90,7 +90,7 @@
 		if(get_dist(src, L) > range)
 			continue
 
-		if(L.flash_eyes(affect_silicon = 1))
+		if(L.flash_eyes(affect_silicon = TRUE))
 			L.Weaken(strength)
 			if(L.weakeyes)
 				L.Weaken(strength * 1.5)

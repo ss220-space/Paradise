@@ -20,7 +20,6 @@
 
 	ADD_TRAIT(user, TRAIT_FAKEDEATH, CHANGELING_TRAIT)		//play dead
 	user.updatehealth("fakedeath sting")
-	user.update_canmove()
 	cling.regenerating = TRUE
 
 	var/stasis_delay = LING_FAKEDEATH_TIME + cling.fakedeath_delay
@@ -47,7 +46,7 @@
 		return FALSE
 
 	if(!user.stat)//Confirmation for living changelings if they want to fake their death
-		switch(alert("Are we sure we wish to fake our death?",, "Yes", "No"))
+		switch(tgui_alert(user, "Are we sure we wish to fake our death?", "Fake Death", list("Yes", "No")))
 			if("No")
 				return FALSE
 

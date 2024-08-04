@@ -23,7 +23,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	drink_icon = "glass_clear"
 	drink_name = "Glass of Water"
 	drink_desc = "The father of all refreshments."
-	var/water_temperature = 283.15 // As reagents don't have a temperature value, we'll just use 10 celsius.
+	var/water_temperature = COLD_WATER_TEMPERATURE	// As reagents don't have a temperature value, we'll just use 10 celsius.
 
 /datum/reagent/water/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	M.water_act(volume, water_temperature, src, method)

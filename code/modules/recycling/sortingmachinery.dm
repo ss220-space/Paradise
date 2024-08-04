@@ -12,11 +12,25 @@
 	var/sortTag = 0
 	var/cc_tag
 
+
+/obj/structure/bigDelivery/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
+
+
 /obj/structure/bigDelivery/Destroy()
 	var/turf/T = get_turf(src)
 	for(var/atom/movable/AM in contents)
 		AM.forceMove(T)
 	return ..()
+
+
+/obj/structure/bigDelivery/proc/disposal_handling(disposal_source, obj/structure/disposalholder/disposal_holder, obj/machinery/disposal/disposal_machine, hasmob)
+	SIGNAL_HANDLER
+
+	if(!hasmob && sortTag)
+		disposal_holder.destinationTag = sortTag
+
 
 /obj/structure/bigDelivery/ex_act(severity)
 	for(var/atom/movable/AM in contents)
@@ -111,6 +125,19 @@
 	var/obj/item/wrapped = null
 	var/giftwrapped = 0
 	var/sortTag = 0
+
+
+/obj/item/smallDelivery/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
+
+
+/obj/item/smallDelivery/proc/disposal_handling(disposal_source, obj/structure/disposalholder/disposal_holder, obj/machinery/disposal/disposal_machine, hasmob)
+	SIGNAL_HANDLER
+
+	if(!hasmob && sortTag)
+		disposal_holder.destinationTag = sortTag
+
 
 /obj/item/smallDelivery/ex_act(severity)
 	for(var/atom/movable/AM in contents)
@@ -312,10 +339,10 @@
 /obj/item/destTagger/attack_self(mob/user)
 	ui_interact(user)
 
-/obj/item/destTagger/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/destTagger/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "DestinationTagger", name, 395, 350, master_ui, state)
+		ui = new(user, src, "DestinationTagger", name)
 		ui.open()
 
 /obj/item/destTagger/ui_data(mob/user)
@@ -378,10 +405,23 @@
 	var/sortTag = 0
 	var/sealed = 0
 
+
+/obj/item/shippingPackage/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
+
+
+/obj/item/shippingPackage/proc/disposal_handling(disposal_source, obj/structure/disposalholder/disposal_holder, obj/machinery/disposal/disposal_machine, hasmob)
+	SIGNAL_HANDLER
+
+	if(!hasmob && sortTag && sealed)
+		disposal_holder.destinationTag = sortTag
+
+
 /obj/item/shippingPackage/attackby(obj/item/O, mob/user, params)
 	if(sealed)
 		if(is_pen(O))
-			var/str = copytext(sanitize(input(user,"Intended recipient?","Address","")),1,MAX_NAME_LEN)
+			var/str = tgui_input_text(user, "Intended recipient?", "Address", max_length = MAX_NAME_LEN)
 			if(!str || !length(str))
 				to_chat(user, "<span class='notice'>Invalid text.</span>")
 				return
@@ -413,7 +453,7 @@
 		wrapped = null
 		qdel(src)
 	else if(wrapped)
-		switch(alert("Select an action:",, "Remove Object", "Seal Package", "Cancel"))
+		switch(tgui_alert(user, "Select an action:", "Shipping", list("Remove Object", "Seal Package", "Cancel")))
 			if("Remove Object")
 				to_chat(user, "<span class='notice'>You shake out [src]'s contents onto the floor.</span>")
 				wrapped.forceMove(get_turf(user))
@@ -424,7 +464,7 @@
 				sealed = 1
 				update_appearance(UPDATE_DESC)
 	else
-		if(alert("Do you want to tear up the package?",, "Yes", "No") == "Yes")
+		if(tgui_alert(user, "Do you want to tear up the package?", "Shipping", list("Yes", "No")) == "Yes")
 			to_chat(user, "<span class='notice'>You shred [src].</span>")
 			playsound(loc, 'sound/items/poster_ripped.ogg', 50, 1)
 			user.temporarily_remove_item_from_inventory(src)

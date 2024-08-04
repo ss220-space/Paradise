@@ -21,7 +21,7 @@
 /obj/structure/pit/attackby(obj/item/W, mob/user)
 	if(istype(W,/obj/item/shovel))
 		visible_message("<span class='notice'>\The [user] starts [open ? "filling" : "digging open"] \the [src]</span>")
-		if(do_after(user, 5 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, 5 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
 			visible_message("<span class='notice'>\The [user] [open ? "fills" : "digs open"] \the [src]!</span>")
 			if(open)
 				close(user)
@@ -35,7 +35,7 @@
 			to_chat(user, "<span class='notice'>There's already a grave marker here.</span>")
 		else
 			visible_message("<span class='notice'>\The [user] starts making a grave marker on top of \the [src]</span>")
-			if(do_after(user, 5 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
+			if(do_after(user, 5 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
 				visible_message("<span class='notice'>\The [user] finishes the grave marker</span>")
 				var/obj/item/stack/sheet/wood/plank = W
 				plank.use(2)
@@ -107,10 +107,10 @@
 			A.forceMove(src)
 			if(iscarbon(A))
 				var/mob/living/carbon/M = A
-				M.overlay_fullscreen("tint", /obj/screen/fullscreen/blind)
+				M.overlay_fullscreen("tint", /atom/movable/screen/fullscreen/blind)
 			if(istype(A, /obj/structure/closet))
 				for(var/mob/living/carbon/M in A.contents)
-					M.overlay_fullscreen("tint", /obj/screen/fullscreen/blind)
+					M.overlay_fullscreen("tint", /atom/movable/screen/fullscreen/blind)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/pit/remove_air(amount)
@@ -182,7 +182,7 @@
 	desc = "You're not the first."
 	icon = 'icons/obj/pit.dmi'
 	icon_state = "wood"
-	layer = BELOW_OBJ_LAYER + 0.01
+	layer = BUTTONS_LAYER
 	pixel_x = 5
 	pixel_y = 8
 	anchored = TRUE

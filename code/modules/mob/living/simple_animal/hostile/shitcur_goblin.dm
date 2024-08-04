@@ -16,6 +16,7 @@
 	ranged_cooldown_time = 3 SECONDS
 	projectiletype = /obj/item/projectile/energy/electrode
 	projectilesound = 'sound/weapons/taser.ogg'
+	AI_delay_max = 0 SECONDS
 
 /mob/living/simple_animal/hostile/shitcur_goblin/Initialize()
 	. = ..()

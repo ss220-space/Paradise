@@ -25,7 +25,7 @@
 	/// The button controls things that have matching id tag. Can be a list to control multiple ids.
 	var/id = null
 	/// Should it only work on the same z-level
-	var/safety_z_check = TRUE
+	var/safety_z_check = FALSE
 	/// FALSE- poddoor control, TRUE- airlock control
 	var/normaldoorcontrol = FALSE
 	/// FALSE is closed, TRUE is open.
@@ -292,7 +292,7 @@
 	if(open || (stat & NOPOWER))
 		return
 
-	underlays += emissive_appearance(icon, "[base_icon_state]_lightmask")
+	underlays += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
 
 
 /obj/machinery/door_control/secure //Use icon_state = "altdoorctrl" if you just want cool icon for your button on map. This button is created for Admin-zones.

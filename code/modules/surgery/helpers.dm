@@ -40,11 +40,11 @@
 
 //check if mob is lying down on something we can operate on.
 /proc/on_operable_surface(mob/living/carbon/target)
-	if(locate(/obj/machinery/optable, target.loc) && (target.lying_angle || target.resting || target.stat))
+	if(locate(/obj/machinery/optable, target.loc) && target.body_position == LYING_DOWN)
 		return TRUE
-	if(locate(/obj/structure/bed, target.loc) && (target.buckled || target.lying_angle || target.IsWeakened() || target.IsStunned() || target.IsParalyzed() || target.IsSleeping() || target.stat))
+	if(locate(/obj/structure/bed, target.loc) && target.body_position == LYING_DOWN)
 		return TRUE
-	if(locate(/obj/structure/table, target.loc) && (target.lying_angle || target.IsWeakened() || target.IsStunned() || target.IsParalyzed() || target.IsSleeping() || target.stat))
+	if(locate(/obj/structure/table, target.loc) && target.body_position == LYING_DOWN)
 		return TRUE
 	return FALSE
 
@@ -55,7 +55,7 @@
  * * parent - bodypart in which our src object is placed.
  * * target - future owner of the limb.
  */
-/atom/movable/proc/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target)
+/atom/movable/proc/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	return FALSE
 
 /// Check to see if a surgical operation proposed on ourselves is valid or not. We are the target of the surgery
@@ -73,7 +73,7 @@
 			return
 	else if(surgery.requires_bodypart) //mob with no limb in surgery zone when we need a limb
 		return
-	if(surgery.lying_required && !(lying_angle || resting || stat))
+	if(surgery.lying_required && body_position != LYING_DOWN)
 		return
 	if(!surgery.self_operable && src == surgeon)
 		return

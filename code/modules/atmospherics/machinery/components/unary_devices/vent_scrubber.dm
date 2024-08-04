@@ -97,7 +97,7 @@
 
 /obj/machinery/atmospherics/unary/vent_scrubber/update_overlays()
 	. = ..()
-	plane = FLOOR_PLANE
+	SET_PLANE_IMPLICIT(src, FLOOR_PLANE)
 	if(!check_icon_cache())
 		return
 

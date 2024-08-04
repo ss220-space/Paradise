@@ -2,7 +2,7 @@
 	name = "ambulance"
 	desc = "This is what the paramedic uses to run over people they need to take to medbay."
 	icon_state = "docwagon2"
-	vehicle_move_delay = 1.5
+	vehicle_move_delay = 0.3 SECONDS
 	key_type = /obj/item/key/ambulance
 	var/obj/structure/bed/amb_trolley/bed = null
 	var/datum/action/ambulance_alarm/AA
@@ -13,16 +13,25 @@
 	light_power = 3
 	light_color = "#F70027"
 
+
 /obj/vehicle/ambulance/Initialize(mapload)
 	. = ..()
 	AA = new(src)
 	soundloop = new(list(src), FALSE)
 
+
+/obj/vehicle/ambulance/Destroy()
+	QDEL_NULL(soundloop)
+	QDEL_NULL(AA)
+	bed = null
+	return ..()
+
+
 /datum/action/ambulance_alarm
 	name = "Toggle Sirens"
 	icon_icon = 'icons/obj/vehicles/vehicles.dmi'
 	button_icon_state = "docwagon2"
-	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	var/toggle_cooldown = 40
 	var/cooldown = 0
 
@@ -73,44 +82,43 @@
 
 
 /obj/vehicle/ambulance/handle_vehicle_offsets()
-	..()
-	if(has_buckled_mobs())
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
-			switch(buckled_mob.dir)
-				if(SOUTH)
-					buckled_mob.pixel_x = 0
-					buckled_mob.pixel_y = 7
-				if(WEST)
-					buckled_mob.pixel_x = 13
-					buckled_mob.pixel_y = 7
-				if(NORTH)
-					buckled_mob.pixel_x = 0
-					buckled_mob.pixel_y = 4
-				if(EAST)
-					buckled_mob.pixel_x = -13
-					buckled_mob.pixel_y = 7
+	if(!has_buckled_mobs())
+		return
+	for(var/mob/living/buckled_mob as anything in buckled_mobs)
+		buckled_mob.setDir(dir)
+		switch(dir)
+			if(SOUTH)
+				buckled_mob.pixel_x = 0
+				buckled_mob.pixel_y = 7
+			if(WEST)
+				buckled_mob.pixel_x = 13
+				buckled_mob.pixel_y = 7
+			if(NORTH)
+				buckled_mob.pixel_x = 0
+				buckled_mob.pixel_y = 4
+			if(EAST)
+				buckled_mob.pixel_x = -13
+				buckled_mob.pixel_y = 7
 
-/obj/vehicle/ambulance/Move(newloc, Dir, movetime)
+
+/obj/vehicle/ambulance/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/oldloc = loc
 	if(bed && !Adjacent(bed))
 		bed = null
 	. = ..()
-	if(bed && get_dist(oldloc, loc) <= 2)
-		bed.glide_size = glide_size
-		bed.Move(oldloc, get_dir(bed, oldloc))
-		bed.dir = Dir
+	if(. && bed && get_dist(oldloc, loc) <= 2)
+		bed.Move(oldloc, get_dir(bed, oldloc), glide_size)
 		if(bed.has_buckled_mobs())
-			for(var/m in bed.buckled_mobs)
-				var/mob/living/buckled_mob = m
-				buckled_mob.setDir(Dir)
+			for(var/mob/living/buckled_mob as anything in bed.buckled_mobs)
+				buckled_mob.setDir(direct)
+
 
 /obj/structure/bed/amb_trolley
 	name = "ambulance train trolley"
 	icon = 'icons/obj/vehicles/CargoTrain.dmi'
 	icon_state = "ambulance"
 	anchored = FALSE
-	pull_push_speed_modifier = 1
+
 
 /obj/structure/bed/amb_trolley/examine(mob/user)
 	. = ..()
@@ -124,7 +132,7 @@
 	var/obj/vehicle/ambulance/amb = over_object
 	if(amb.bed)
 		amb.bed = null
-		to_chat(usr, "You unhook the bed to the ambulance.")
+		balloon_alert(usr, "прицеплено к машине")
 	else
 		amb.bed = src
-		to_chat(usr, "You hook the bed to the ambulance.")
+		balloon_alert(usr, "отцеплено от машины")

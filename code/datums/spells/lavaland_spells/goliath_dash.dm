@@ -23,11 +23,12 @@
 
 	user.layer = LOW_LANDMARK_LAYER
 
+	ADD_TRAIT(user, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
+
 	for(var/i in 1 to 7)
 		if(QDELETED(user))
 			return
 
-		user.canmove = FALSE
 		var/direction = get_dir(user, target)
 		var/turf/next_step = get_step(user, direction)
 		user.face_atom(target)
@@ -43,7 +44,7 @@
 		return
 
 	user.layer = initial(user.layer)
-	user.canmove = TRUE
+	REMOVE_TRAIT(user, TRAIT_IMMOBILIZED, UNIQUE_TRAIT_SOURCE(src))
 	visible_message(span_warning("[user] unleashes tentacles from the ground around it!"))
 
 	for(var/d in GLOB.alldirs)

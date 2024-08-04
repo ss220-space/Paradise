@@ -186,7 +186,7 @@
 
 	if(isliving(mover))
 		var/mob/living/living_mover = mover
-		if(living_mover.lying_angle)
+		if(living_mover.body_position == LYING_DOWN)
 			return TRUE
 
 		if(prob(80))
@@ -253,7 +253,7 @@
 		visible_message("<span class='notice'>[src] begins to secrete a sticky substance around [cocoon_target].</span>")
 		playsound(src.loc, 'sound/creatures/terrorspiders/wrap.ogg', 120, 1)
 		stop_automated_movement = 1
-		walk(src,0)
+		SSmove_manager.stop_looping(src)
 		if(do_after(src, 4 SECONDS, cocoon_target.loc))
 			if(busy == SPINNING_COCOON)
 				if(cocoon_target && isturf(cocoon_target.loc) && get_dist(src,cocoon_target) <= 1)

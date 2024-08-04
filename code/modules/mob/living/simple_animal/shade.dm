@@ -48,7 +48,7 @@
 	icon_state = holy ? "shade_angelic" : "shade"
 
 
-/mob/living/simple_animal/shade/Process_Spacemove(movement_dir = NONE)
+/mob/living/simple_animal/shade/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
 

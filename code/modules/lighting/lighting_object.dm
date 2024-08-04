@@ -9,6 +9,8 @@
 	layer = LIGHTING_LAYER
 	invisibility = INVISIBILITY_LIGHTING
 	simulated = FALSE
+	light_system = NO_LIGHT_SUPPORT
+	light_range = 0
 
 	var/turf/myturf
 
@@ -30,6 +32,9 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 		stack_trace("a lighting object was assigned to [source], a non turf! ")
 		return
 	. = ..()
+
+	var/mutable_appearance/light_appearance = new(GLOB.default_lighting_underlays_by_z[source.z])
+	appearance = light_appearance
 
 	affected_turf = source
 	if (affected_turf.lighting_object)
@@ -122,21 +127,15 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 /atom/movable/lighting_object/blob_act(obj/structure/blob/B)
 	return
 
-/atom/movable/lighting_object/onTransitZ()
-	return
+/atom/movable/lighting_object/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer)
+	return ..()
 
 // Override here to prevent things accidentally moving around overlays.
 /atom/movable/lighting_object/forceMove(atom/destination, no_tp = FALSE, harderforce = FALSE)
 	if(harderforce)
 		. = ..()
 
-/atom/movable/lighting_object/Crossed(atom/movable/AM, oldloc)
-	return
-
-/atom/movable/lighting_object/Uncrossed(atom/movable/AM)
-	return
-
-/atom/movable/lighting_object/Bump(atom/A, yes)
+/atom/movable/lighting_object/Bump(atom/bumped_atom)
 	return
 
 /atom/movable/lighting_object/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)

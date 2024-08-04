@@ -13,22 +13,21 @@
 	if(!..())
 		return FALSE
 
-	var/obj/item/grab/grab = user.get_active_hand()
-	if(!istype(grab) || (grab.state < GRAB_AGGRESSIVE))
+	if(!user.pulling || user.pull_hand != user.hand || user.grab_state < GRAB_AGGRESSIVE)
 		to_chat(user, span_warning("We must have an aggressive grab on creature in our active hand to do this!"))
 		return FALSE
 
-	var/mob/living/carbon/human/target = grab.affecting
-	if((NOCLONE || SKELETON || HUSK) in target.mutations)
-		to_chat(user, span_warning("DNA of [target] is ruined beyond usability!"))
-		return
-
-	if(!istype(target) || !target.mind || issmall(target) || has_no_DNA(target))
+	var/mob/living/carbon/human/target = user.pulling
+	if(!ishuman(target) || !target.mind || is_monkeybasic(target) || has_no_DNA(target))
 		to_chat(user, span_warning("[target] is not compatible with this ability."))
 		return FALSE
 
+	if((NOCLONE || SKELETON || HUSK) in target.mutations)
+		to_chat(user, span_warning("DNA of [target] is ruined beyond usability!"))
+		return FALSE
+
 	if(ischangeling(target))
-		to_chat(user, span_warning(">We are unable to swap forms with another changeling!"))
+		to_chat(user, span_warning("We are unable to swap forms with another changeling!"))
 		return FALSE
 
 	if(target.has_brain_worms() || user.has_brain_worms())
@@ -39,8 +38,7 @@
 
 
 /datum/action/changeling/swap_form/sting_action(mob/living/carbon/user)
-	var/obj/item/grab/grab = user.get_active_hand()
-	var/mob/living/carbon/human/target = grab.affecting
+	var/mob/living/carbon/human/target = user.pulling
 
 	to_chat(user, span_notice("We tighten our grip. We must hold still..."))
 	target.do_jitter_animation(500, 30)
@@ -63,9 +61,13 @@
 		cling.absorb_dna(target)
 	cling.trim_dna()
 
-	var/mob/dead/observer/ghost = target.ghostize(FALSE)
+	var/mob/dead/observer/ghost = target.mind?.get_ghost(TRUE)
+	if(!ghost)
+		ghost = target.ghostize(FALSE)
+
 	user.mind.transfer_to(target)
 	user.update_action_buttons(TRUE)
+
 	if(ghost?.mind)
 		ghost.mind.transfer_to(user)
 		GLOB.non_respawnable_keys -= ghost.ckey //they have a new body, let them be able to re-enter their corpse if they die

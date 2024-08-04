@@ -19,6 +19,9 @@
 #define EAR_DAMAGE "ear_damage"
 #define EYE_DAMAGE "eye_damage"
 
+/// Trait sorce for "was recently shocked by something"
+#define WAS_SHOCKED "was_shocked"
+
 /// cannot be removed without admin intervention
 #define ROUNDSTART_TRAIT "roundstart"
 
@@ -52,6 +55,7 @@
 #define SUPERHERO_TRAIT "super-hero"
 #define AUGMENT_TRAIT "augment"
 #define ANTIDROP_TRAIT "antidrop"
+#define HOLO_CIGAR_TRAIT "holo_cigar"
 
 /// A trait given by any status effect
 #define STATUS_EFFECT_TRAIT "status-effect"
@@ -82,6 +86,8 @@
 #define HANDCUFFED_TRAIT "handcuffed_trait"
 /// trait associated to not having fine manipulation appendages such as hands
 #define LACKING_MANIPULATION_APPENDAGES_TRAIT "lacking-manipulation-appengades"
+/// trait associated to not having locomotion appendages nor the ability to fly or float
+#define LACKING_LOCOMOTION_APPENDAGES_TRAIT "lacking-locomotion-appengades"
 /// Trait associated to wearing a suit
 #define SUIT_TRAIT "suit_trait"
 /// Trait associated to lying down (having a [lying_angle] of a different value than zero).
@@ -95,6 +101,20 @@
 
 /// trait associated to being buckled
 #define BUCKLED_TRAIT "buckled"
+
+#define STAMINA_TRAIT "stamina"
+
+/// trait associated to resting
+#define RESTING_TRAIT "resting"
+/// trait associated to a stat value or range of
+#define STAT_TRAIT "stat"
+/// trait associated to being held in a chokehold
+#define CHOKEHOLD_TRAIT "chokehold"
+
+#define COCOONED_TRAIT "cocooned_stat"
+#define LOCKED_BORG_TRAIT "locked-borg"
+#define CAT_TRAIT "kitty-kat"
+#define SLIME_TRAIT "slime"
 
 #define FULTON_TRAIT "fulton"
 
@@ -116,4 +136,7 @@
 #define IMPLANT_JUMP_BOOTS_TRAIT "implant_jump_boots_trait"
 #define SPELL_LEAP_TRAIT "spell_leap_trait"
 #define SPELL_LUNGE_TRAIT "spell_lunge_trait"
+
+// item trait sources
+#define BROODMOTHER_TONGUE_TRAIT "broodmother_tongue"
 

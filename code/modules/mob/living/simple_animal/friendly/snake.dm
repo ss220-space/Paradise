@@ -86,18 +86,22 @@
 	tts_seed = "Ladyvashj"
 	health = 20
 	maxHealth = 20
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	attacktext = "кусает"
 	melee_damage_lower = 5
 	melee_damage_upper = 6
 	response_help  = "pets"
-	var/rest = FALSE
 	response_disarm = "shoos"
 	response_harm   = "steps on"
 	var/obj/item/inventory_head
+	var/list/strippable_inventory_slots = list()
 	faction = list("neutral", "syndicate")
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 	can_hide = 1
+
+/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/add_strippable_element()
+	AddElement(/datum/element/strippable, length(strippable_inventory_slots) ? create_strippable_list(strippable_inventory_slots) : GLOB.strippable_snake_items)
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/verb/chasetail()
 	set name = "Chase your tail"
@@ -115,27 +119,18 @@
 		if(INTENT_HARM)
 			shh(-1, M)
 
-/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/StartResting(updating = 1)
-	..()
-	if(icon_resting && stat != DEAD)
-		icon_state = icon_resting
-		rest = TRUE
-		if(collar_type)
-			collar_type = "[initial(collar_type)]_rest"
-			regenerate_icons()
-		if(inventory_head)
-			regenerate_icons()
 
-/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/StopResting(updating = 1)
-	..()
-	if(icon_resting && stat != DEAD)
-		icon_state = icon_living
-		rest = FALSE
-		if(collar_type)
-			collar_type = "[initial(collar_type)]"
-			regenerate_icons()
-		if(inventory_head)
-			regenerate_icons()
+/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/post_lying_on_rest()
+	. = ..()
+	if(inventory_head)
+		regenerate_icons()
+
+
+/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/post_get_up()
+	. = ..()
+	if(inventory_head)
+		regenerate_icons()
+
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/proc/shh(change, mob/M)
 	if(!M || stat)
@@ -168,77 +163,13 @@
 	..(gibbed)
 	regenerate_icons()
 
-/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/show_inv(mob/user)
-	if(user.incapacitated() || !Adjacent(user))
-		return
-	user.set_machine(src)
-
-	var/dat = 	{"<meta charset="UTF-8"><div align='center'><b>Inventory of [name]</b></div><p>"}
-	dat += "<br><B>Head:</B> <A href='?src=[UID()];[inventory_head ? "remove_inv=head'>[inventory_head]" : "add_inv=head'>Nothing"]</A>"
-	dat += "<br><B>Collar:</B> <A href='?src=[UID()];[pcollar ? "remove_inv=collar'>[pcollar]" : "add_inv=collar'>Nothing"]</A>"
-
-	var/datum/browser/popup = new(user, "mob[UID()]", "[src]", 440, 250)
-	popup.set_content(dat)
-	popup.open()
-
-/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/getarmor(def_zone, type)
-	var/armorval = inventory_head?.armor.getRating(type)
+/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/getarmor(def_zone, attack_flag)
+	var/armorval = inventory_head?.armor.getRating(attack_flag)
 	if(!def_zone)
 		armorval *= 0.5
 	else if(def_zone != BODY_ZONE_HEAD)
 		armorval = 0
 	return armorval
-
-/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/Topic(href, href_list)
-	if(!(iscarbon(usr) || isrobot(usr)) || usr.incapacitated() || !Adjacent(usr))
-		usr << browse(null, "window=mob[UID()]")
-		usr.unset_machine()
-		return
-
-	//Removing from inventory
-	if(href_list["remove_inv"])
-		var/remove_from = href_list["remove_inv"]
-		switch(remove_from)
-			if("head")
-				if(inventory_head)
-					if(HAS_TRAIT(inventory_head, TRAIT_NODROP))
-						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
-						return
-					drop_item_ground(inventory_head)
-					usr.put_in_hands(inventory_head, ignore_anim = FALSE)
-					inventory_head = null
-					update_snek_fluff()
-					regenerate_icons()
-				else
-					to_chat(usr, "<span class='danger'>There is nothing to remove from its [remove_from].</span>")
-					return
-			if("collar")
-				if(pcollar)
-					var/the_collar = pcollar
-					drop_item_ground(pcollar)
-					usr.put_in_hands(the_collar, ignore_anim = FALSE)
-					pcollar = null
-					update_snek_fluff()
-					regenerate_icons()
-
-		show_inv(usr)
-
-	//Adding things to inventory
-	else if(href_list["add_inv"])
-		var/add_to = href_list["add_inv"]
-
-		switch(add_to)
-			if("collar")
-				add_collar(usr.get_active_hand(), usr)
-				update_snek_fluff()
-
-			if("head")
-				place_on_head(usr.get_active_hand(),usr)
-
-		show_inv(usr)
-	else
-		return ..()
-
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/proc/place_on_head(obj/item/item_to_add, mob/user)
 
@@ -315,14 +246,14 @@
 
 		if(!SF.obj_icon_state)
 			SF.obj_icon_state = inventory_head.icon_state
-			if(src.rest || stat == DEAD)
+			if(resting || stat == DEAD)
 				SF.obj_icon_state += "_rest"
 		if(!SF.obj_alpha)
 			SF.obj_alpha = inventory_head.alpha
 		if(!SF.obj_color)
 			SF.obj_color = inventory_head.color
 
-		if(stat || src.rest) //без сознания или отдыхает
+		if(stat || resting) //без сознания или отдыхает
 			head_icon = SF.get_overlay()
 			if(stat)
 				head_icon.pixel_y = -2

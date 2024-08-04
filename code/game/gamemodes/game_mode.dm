@@ -266,7 +266,7 @@
 	if(escaped_on_pod_5)
 		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_5, list("escapees", "on_pod_5"))
 
-	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "A round of [name] has ended - [surviving_total] survivors, [ghosts] ghosts.")
+	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "A round of [name] has ended - [surviving_total] survivors, [ghosts] ghosts. Round ID - [GLOB.round_id]. Duration - [ROUND_TIME_TEXT()]")
 	return FALSE
 
 
@@ -326,10 +326,7 @@
 		if(!player.client \
 			|| jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, role) \
 			|| !player_old_enough_antag(player.client, role, req_job_rank) || player.client.prefs?.skip_antag \
-			|| !(role in player.client.prefs.be_special))
-			continue
-
-		if(player.mind.has_antag_datum(/datum/antagonist) || player.mind.offstation_role || player.mind.special_role)
+			|| !(role in player.client.prefs.be_special) || !is_player_station_relevant(player))
 			continue
 
 		players += player
@@ -356,34 +353,67 @@
 
 	return candidates
 
+
+/datum/game_mode/proc/get_alive_AIs_for_role(role)
+	. = list()
+	for(var/mob/living/silicon/ai/AI in GLOB.alive_mob_list)
+		if(!AI.client || !AI.mind \
+			|| jobban_isbanned(AI, "Syndicate") || jobban_isbanned(AI, role) \
+			|| !player_old_enough_antag(AI.client, role, JOB_TITLE_AI) || AI.client.prefs?.skip_antag \
+			|| !(role in AI.client.prefs.be_special) || AI.stat == DEAD || AI.control_disabled \
+			|| AI.mind.offstation_role || AI.mind.special_role)
+			continue
+		. += AI.mind
+
+
+/// All the checks required to find baseline human being
+/proc/is_player_station_relevant(mob/living/carbon/human/player)
+	if(QDELING(player))
+		return FALSE
+	if(!player.client)
+		return FALSE
+	if(!player.mind)
+		return FALSE
+	if(player.mind.special_role)	// already "special"
+		return FALSE
+	if(player.mind.offstation_role)	// spawned mobs
+		return FALSE
+	if(player.stat == DEAD)	// no zombies
+		return FALSE
+	var/turf/player_turf = get_turf(player)
+	if(!player_turf)	// nullspace, eh?
+		return FALSE
+	if(!is_level_reachable(player_turf.z) && !is_away_level(player_turf.z))	// taipan is not available, mkay?
+		return FALSE
+	if(is_monkeybasic(player))	// no monkas
+		return FALSE
+	if(isgolem(player))	// get out of here
+		return FALSE
+	if(is_evolvedslime(player))	// no evolved slimes please
+		return FALSE
+	return TRUE	// congratulations, you are normal!
+
+
 /datum/game_mode/proc/latespawn(mob/player)
 
 
 /datum/game_mode/proc/num_players()
 	. = 0
-
 	for(var/mob/new_player/player in GLOB.player_list)
-
 		if(player.client && player.ready)
 			.++
+
 
 /proc/num_station_players()
 	. = 0
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
-		if(!player)
-			continue
-
-		if(player.client && player.mind && !player.mind.offstation_role && !player.mind.special_role)
+		if(is_player_station_relevant(player))
 			.++
 
 
 /datum/game_mode/proc/num_players_started()
 	. = 0
-
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
-		if(!player)
-			continue
-
 		if(player.client)
 			.++
 
@@ -690,9 +720,9 @@
 
 /datum/game_mode/proc/apocalypse()
 	set_security_level(SEC_LEVEL_DELTA)
-	GLOB.priority_announcement.Announce("Обнаружена угроза класса 'Разрушитель миров'. Самостоятельное решение задачи маловероятно. Моделирование пути решения начато, ожидайте.", "Департамент по делам высших измерений", 'sound/AI/commandreport.ogg')
+	GLOB.priority_announcement.Announce("Обнаружена угроза класса 'Разрушитель миров'. Самостоятельное решение задачи маловероятно. Моделирование пути решения начато, ожидайте.", "Отдел Центрального Командования по делам высших измерений", 'sound/AI/commandreport.ogg')
 	sleep(50 SECONDS)
-	GLOB.priority_announcement.Announce("Моделирование завершено. Меры будут приняты в ближайшем времени. Всему живому персоналу: не допустите усиления угрозы любой ценой.", "Департамент по делам высших измерений", 'sound/AI/commandreport.ogg')
+	GLOB.priority_announcement.Announce("Моделирование завершено. Меры будут приняты в ближайшем времени. Всему живому персоналу: не допустите усиления угрозы любой ценой.", "Отдел Центрального Командования по делам высших измерений", 'sound/AI/commandreport.ogg')
 	sleep(30 SECONDS)
 	var/obj/singularity/narsie/N = locate(/obj/singularity/narsie) in GLOB.poi_list
 	var/obj/singularity/ratvar/R = locate(/obj/singularity/ratvar) in GLOB.poi_list

@@ -1,5 +1,5 @@
 //Cardboard cutouts! They're man-shaped and can be colored with a crayon to look like a human in a certain outfit, although it's limited, discolored, and obvious to more than a cursory glance.
-/obj/item/cardboard_cutout
+/obj/item/twohanded/cardboard_cutout
 	name = "cardboard cutout"
 	desc = "A vaguely humanoid cardboard cutout. It's completely blank."
 	icon = 'icons/obj/cardboard_cutout.dmi'
@@ -8,21 +8,21 @@
 	resistance_flags = FLAMMABLE
 	w_class = WEIGHT_CLASS_BULKY
 	var/list/possible_appearances = list("Assistant", "Clown", "Mime",
-		"Traitor", "Nuke Op", "Cultist", "Revolutionary", "Wizard", "Shadowling", "Xenomorph", "Swarmer",
+		"Traitor", "Nuke Op", "Cultist", "Clockwork Cultist", "Revolutionary", "Wizard", "Shadowling", "Xenomorph", "Swarmer",
 		"Deathsquad Officer", "Ian", "Slaughter Demon",
 		"Laughter Demon", "Xenomorph Maid", "Security Officer", "Terror Spider")
 	var/pushed_over = FALSE //If the cutout is pushed over and has to be righted
 	var/deceptive = FALSE //If the cutout actually appears as what it portray and not a discolored version
 	var/lastattacker = null
 
-/obj/item/cardboard_cutout/attack_hand(mob/living/user)
+/obj/item/twohanded/cardboard_cutout/attack_hand(mob/living/user)
 	if(user.a_intent == INTENT_HELP || pushed_over)
 		return ..()
-	user.visible_message("<span class='warning'>[user] pushes over [src]!</span>", "<span class='danger'>You push over [src]!</span>")
+	user.visible_message("<span class='warning'>[user] толка[pluralize_ru(user.gender,"ет","ют")] [src]!</span>", "<span class='danger'>[pluralize_ru(user.gender,"Ты толкаешь","Вы толкаете")] [src]!</span>")
 	playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 	push_over()
 
-/obj/item/cardboard_cutout/proc/push_over()
+/obj/item/twohanded/cardboard_cutout/proc/push_over()
 	name = initial(name)
 	desc = "[initial(desc)] It's been pushed over."
 	icon = initial(icon)
@@ -31,16 +31,28 @@
 	alpha = initial(alpha)
 	pushed_over = TRUE
 
-/obj/item/cardboard_cutout/attack_self(mob/living/user)
-	if(!pushed_over)
+/obj/item/twohanded/cardboard_cutout/attack_self(mob/living/user)
+	. = ..()
+	if(HAS_TRAIT(src, TRAIT_WIELDED))
+		if(pushed_over)
+			to_chat(user, "<span class='notice'>[pluralize_ru(user.gender,"Ты поднимаешь","Вы поднимаете")] [src].</span>")
+			desc = initial(desc)
+			icon = initial(icon)
+			icon_state = initial(icon_state) //This resets a cutout to its blank state - this is intentional to allow for resetting
+			pushed_over = FALSE
+		
+		var/image/I = image(icon = src.icon , icon_state = src.icon_state, loc = user)
+		I.override = 1
+		I.color = color
+		user.add_alt_appearance("sneaking_mission", I, GLOB.player_list)
 		return
-	to_chat(user, "<span class='notice'>You right [src].</span>")
-	desc = initial(desc)
-	icon = initial(icon)
-	icon_state = initial(icon_state) //This resets a cutout to its blank state - this is intentional to allow for resetting
-	pushed_over = FALSE
+	user.remove_alt_appearance("sneaking_mission")
 
-/obj/item/cardboard_cutout/attackby(obj/item/I, mob/living/user, params)
+/obj/item/twohanded/cardboard_cutout/dropped(mob/living/user)
+	. = ..()
+	user.remove_alt_appearance("sneaking_mission")
+
+/obj/item/twohanded/cardboard_cutout/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/toy/crayon))
 		change_appearance(I, user)
 		return
@@ -63,13 +75,13 @@
 		if(prob(I.force))
 			push_over()
 
-/obj/item/cardboard_cutout/bullet_act(obj/item/projectile/P)
+/obj/item/twohanded/cardboard_cutout/bullet_act(obj/item/projectile/P)
 	visible_message("<span class='danger'>[src] is hit by [P]!</span>")
 	playsound(src, 'sound/weapons/slice.ogg', 50, 1)
 	if(prob(P.damage))
 		push_over()
 
-/obj/item/cardboard_cutout/proc/change_appearance(obj/item/toy/crayon/crayon, mob/living/user)
+/obj/item/twohanded/cardboard_cutout/proc/change_appearance(obj/item/toy/crayon/crayon, mob/living/user)
 	if(!crayon || !user)
 		return
 	if(istype(crayon, /obj/item/toy/crayon/spraycan))
@@ -89,7 +101,7 @@
 		return
 	if(!new_appearance || !crayon)
 		return
-	if(!do_after(user, 1 SECONDS, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
+	if(!do_after(user, 1 SECONDS, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 		return
 	user.visible_message("<span class='notice'>[user] gives [src] a new look.</span>", "<span class='notice'>Voila! You give [src] a new look.</span>")
 	alpha = 255
@@ -121,10 +133,10 @@
 			name = "Unknown"
 			desc = "A cardboard cutout of a cultist."
 			icon_state = "cutout_cultist"
-		//if("Clockwork Cultist")
-		//	name = "[random_name(pick(MALE,FEMALE))]"
-		//	desc = "A cardboard cutout of a servant of Ratvar."
-		//	icon_state = "cutout_servant"
+		if("Clockwork Cultist")
+			name = "Unknown"
+			desc = "A cardboard cutout of a servant of Ratvar."
+			icon_state = "cutout_servant"
 		if("Revolutionary")
 			name = "Unknown"
 			desc = "A cardboard cutout of a revolutionary."
@@ -162,15 +174,11 @@
 		if("Slaughter Demon")
 			name = "slaughter demon"
 			desc = "A cardboard cutout of a slaughter demon."
-			icon = 'icons/mob/mob.dmi'
-			icon_state = "daemon"
-			dir = "SOUTH"
+			icon_state = "cutout_demon"
 		if("Laughter Demon")
 			name = "laughter demon"
 			desc = "A cardboard cutout of a laughter demon."
-			icon = 'icons/mob/mob.dmi'
-			icon_state = "bowmon"
-			dir = "SOUTH"
+			icon_state = "cutout_bowmon"
 		if("Xenomorph Maid")
 			name = "lusty xenomorph maid ([rand(1, 999)])"
 			desc = "A cardboard cutout of a xenomorph maid."
@@ -182,14 +190,14 @@
 		if("Terror Spider")
 			name = "Gray Terror Spider"
 			desc = "A cardboard cutout of a terror spider."
-			icon = 'icons/mob/terrorspider.dmi'
-			icon_state = "terror_gray"
-			dir = "SOUTH"
+			icon_state = "cutout_terror"
 
 	return 1
 
-/obj/item/cardboard_cutout/setDir()
-	dir = SOUTH
 
-/obj/item/cardboard_cutout/adaptive //Purchased by Syndicate agents, these cutouts are indistinguishable from normal cutouts but aren't discolored when their appearance is changed
+/obj/item/twohanded/cardboard_cutout/setDir(newdir)
+	return ..(SOUTH)
+
+
+/obj/item/twohanded/cardboard_cutout/adaptive //Purchased by Syndicate agents, these cutouts are indistinguishable from normal cutouts but aren't discolored when their appearance is changed
 	deceptive = TRUE

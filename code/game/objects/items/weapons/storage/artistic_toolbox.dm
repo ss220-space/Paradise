@@ -17,11 +17,11 @@
 	blurry_chance = 8
 	var/list/servantlinks = list()
 	var/hunger = 0
-	var/hunger_message_level = 0
+	var/hunger_level = 0
 	var/mob/living/carbon/human/original_owner = null
 	var/activated = FALSE
 
-/obj/item/storage/toolbox/green/memetic/ui_action_click(mob/user)
+/obj/item/storage/toolbox/green/memetic/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(user.HasDisease(/datum/disease/memetic_madness))
 		var/obj/item/storage/toolbox/green/memetic/M = user.get_active_hand()
 		if(istype(M))
@@ -74,40 +74,37 @@
 		return TRUE
 	return FALSE
 
-/obj/item/storage/toolbox/green/memetic/attackby(obj/item/I, mob/user)
-	if(activated)
-		if(istype(I, /obj/item/grab))
-			var/obj/item/grab/G = I
-			var/mob/living/victim = G.affecting
-			if(!user.HasDisease(/datum/disease/memetic_madness))
-				to_chat(user, "<span class='warning'>You can't seem to find the latch to open this.</span>")
-				return
-			if(!victim)
-				return
-			if(!victim.stat && !HAS_TRAIT(victim, TRAIT_RESTRAINED) && !victim.IsWeakened())
-				to_chat(user, "<span class='warning'>They're moving too much to feed to His Grace!</span>")
-				return
-			user.visible_message("<span class='userdanger'>[user] is trying to feed [victim] to [src]!</span>")
-			if(!do_after(user, 3 SECONDS, victim, NONE))
-				return
 
-			user.visible_message("<span class='userdanger'>[user] has fed [victim] to [src]!</span>")
+/obj/item/storage/toolbox/green/memetic/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !activated || !isliving(grabbed_thing))
+		return .
+	var/mob/living/victim = grabbed_thing
+	if(!grabber.HasDisease(/datum/disease/memetic_madness))
+		to_chat(grabber, span_warning("You can't seem to find the latch to open this."))
+		return .
+	if(!victim.stat && !HAS_TRAIT(victim, TRAIT_RESTRAINED) && !HAS_TRAIT(victim, TRAIT_INCAPACITATED))
+		to_chat(grabber, span_warning("They're moving too much to feed to His Grace!"))
+		return .
+	grabber.visible_message(span_userdanger("[grabber] is trying to feed [victim] to [src]!"))
+	if(!do_after(grabber, 3 SECONDS, victim, NONE))
+		return .
+	if(!grabber.HasDisease(/datum/disease/memetic_madness) || !grabber || !victim || grabber.pulling != victim)
+		return .
+	if(!victim.stat && !HAS_TRAIT(victim, TRAIT_RESTRAINED) && !HAS_TRAIT(victim, TRAIT_INCAPACITATED))
+		return .
+	grabber.visible_message(span_userdanger("[grabber] has fed [victim] to [src]!"))
+	to_chat(grabber, "<i><b><font face = Tempus Sans ITC>You have done well...</font></b></i>")
+	consume(victim)
+	force += 5
+	throwforce += 5
 
-			consume(victim)
-			qdel(G)
-
-			to_chat(user, "<i><b><font face = Tempus Sans ITC>You have done well...</font></b></i>")
-			force += 5
-			throwforce += 5
-			return
-
-	return ..()
 
 /obj/item/storage/toolbox/green/memetic/proc/consume(mob/living/L)
 	if(!L)
 		return
 	hunger = 0
-	hunger_message_level = 0
+	set_hunger_level(new_hunger_level = 0)
 	playsound(loc, 'sound/goonstation/misc/burp_alien.ogg', 50, 0)
 
 	if(L != original_owner)
@@ -148,6 +145,16 @@
 	playsound(loc, 'sound/goonstation/effects/screech.ogg', 100, 1)
 	return ..()
 
+
+/obj/item/storage/toolbox/green/memetic/proc/set_hunger_level(new_hunger_level)
+	if(hunger_level == new_hunger_level)
+		return FALSE
+
+	hunger_level = new_hunger_level
+	update_icon(UPDATE_ICON_STATE)
+	return TRUE
+
+
 /datum/disease/memetic_madness
 	name = "Memetic Kill Agent"
 	max_stages = 4
@@ -158,14 +165,18 @@
 	can_immunity = FALSE
 	virus_heal_resistant = TRUE
 	var/obj/item/storage/toolbox/green/memetic/progenitor = null
+	var/absorption_applied = FALSE
 
 /datum/disease/memetic_madness/Destroy()
 	if(progenitor)
 		progenitor.servantlinks.Remove(src)
 	progenitor = null
-	if(affected_mob)
-		affected_mob.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
+	if(absorption_applied && affected_mob)
+		affected_mob.remove_status_effect_absorption(source = name, effect_type = list(STUN, WEAKEN, STAMCRIT, KNOCKDOWN, PARALYZE))
 	return ..()
+
+/obj/item/storage/toolbox/green/memetic/update_icon_state()
+	icon_state = "green[hunger_level <= 2 ? "" : hunger_level]"
 
 /datum/disease/memetic_madness/stage_act()
 	..()
@@ -173,35 +184,38 @@
 		cure()
 		return
 	if(progenitor in affected_mob.contents)
-		affected_mob.adjustOxyLoss(-5)
-		affected_mob.adjustBruteLoss(-12)
-		affected_mob.adjustFireLoss(-12)
-		affected_mob.adjustToxLoss(-5)
-		affected_mob.setStaminaLoss(0)
-		var/status = CANSTUN | CANWEAKEN | CANPARALYSE
-		affected_mob.status_flags &= ~status
+		var/update = NONE
+		update |= affected_mob.heal_overall_damage(12, 12, updating_health = FALSE, affect_robotic = TRUE)
+		update |= affected_mob.heal_damages(tox = 5, oxy = 5, updating_health = FALSE)
+		update |= affected_mob.setStaminaLoss(0, FALSE)
+		if(update)
+			affected_mob.updatehealth()
 		affected_mob.AdjustDizzy(-20 SECONDS)
 		affected_mob.AdjustDrowsy(-20 SECONDS)
 		affected_mob.SetSleeping(0)
 		affected_mob.SetSlowed(0)
 		affected_mob.SetConfused(0)
+		if(!absorption_applied)
+			absorption_applied = TRUE
+			affected_mob.add_status_effect_absorption(
+				source = name,
+				effect_type = list(STUN, WEAKEN, STAMCRIT, KNOCKDOWN, PARALYZE),
+				priority = 3,
+				self_message = span_boldwarning("His Grace protects you!"),
+			)
 		stage = 1
 		switch(progenitor.hunger)
 			if(10 to 60)
-				if(progenitor.hunger_message_level < 1)
-					progenitor.hunger_message_level = 1
+				if(progenitor.set_hunger_level(new_hunger_level = 1))
 					to_chat(affected_mob, "<i><b><font face = Tempus Sans ITC>Feed Me the unclean ones...They will be purified...</font></b></i>")
 			if(61 to 120)
-				if(progenitor.hunger_message_level < 2)
-					progenitor.hunger_message_level = 2
+				if(progenitor.set_hunger_level(new_hunger_level = 2))
 					to_chat(affected_mob, "<i><b><font face = Tempus Sans ITC>I hunger for the flesh of the impure...</font></b></i>")
 			if(121 to 210)
-				if(prob(10) && progenitor.hunger_message_level < 3)
-					progenitor.hunger_message_level = 3
+				if(progenitor.set_hunger_level(new_hunger_level = 3))
 					to_chat(affected_mob, "<i><b><font face = Tempus Sans ITC>The hunger of your Master grows with every passing moment.  Feed Me at once.</font></b></i>")
 			if(211 to 399)
-				if(progenitor.hunger_message_level < 4)
-					progenitor.hunger_message_level = 4
+				if(progenitor.set_hunger_level(new_hunger_level = 4))
 					to_chat(affected_mob, "<i><b><font face = Tempus Sans ITC>His Grace starves in your hands.  Feed Me the unclean or suffer.</font></b></i>")
 			if(400 to INFINITY)
 				affected_mob.visible_message("<span class='userdanger'>[progenitor] consumes [affected_mob] whole!</span>")
@@ -211,7 +225,9 @@
 		progenitor.hunger += min(max((progenitor.force / 10), 1), 10)
 
 	else
-		affected_mob.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE
+		if(absorption_applied)
+			absorption_applied = FALSE
+			affected_mob.remove_status_effect_absorption(source = name, effect_type = list(STUN, WEAKEN, STAMCRIT, KNOCKDOWN, PARALYZE))
 
 	if(stage == 4)
 		if(get_dist(get_turf(progenitor), get_turf(affected_mob)) <= 7)

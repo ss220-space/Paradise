@@ -109,11 +109,7 @@
 			active_conversation = null
 
 /datum/data/pda/app/messenger/proc/create_message(var/mob/living/U, var/obj/item/pda/P)
-	var/t = input(U, "Please enter message", name, null) as text|null
-	if(!t)
-		return
-	t = sanitize(copytext_char(t, 1, MAX_MESSAGE_LEN))
-	t = readd_quotes(t)
+	var/t = tgui_input_text(U, "Please enter your message", name)
 	if(!t || !istype(P))
 		return
 	if(!in_range(pda, U) && pda.loc != U)
@@ -127,7 +123,7 @@
 	if(last_text && world.time < last_text + 5)
 		return
 
-	if(!pda.can_use())
+	if(!pda.can_use(U))
 		return
 
 	last_text = world.time
@@ -233,7 +229,7 @@
 
 // Handler for the in-chat reply button
 /datum/data/pda/app/messenger/Topic(href, href_list)
-	if(!pda.can_use())
+	if(!pda.can_use(usr))
 		return
 	unnotify()
 	switch(href_list["choice"])

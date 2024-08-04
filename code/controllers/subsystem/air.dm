@@ -11,7 +11,7 @@ SUBSYSTEM_DEF(air)
 	name = "Atmospherics"
 	init_order = INIT_ORDER_AIR
 	priority = FIRE_PRIORITY_AIR
-	wait = 4
+	wait = 0.5 SECONDS
 	flags = SS_BACKGROUND
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	offline_implications = "Turfs will no longer process atmos, and all atmospheric machines (including cryotubes) will no longer function. Shuttle call recommended."
@@ -78,7 +78,7 @@ SUBSYSTEM_DEF(air)
 	setup_pipenets(GLOB.machines)
 	for(var/obj/machinery/atmospherics/A in machinery_to_construct)
 		A.initialize_atmos_network()
-
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/air/Recover()
 	excited_groups = SSair.excited_groups
@@ -203,7 +203,6 @@ SUBSYSTEM_DEF(air)
 
 
 /datum/controller/subsystem/air/proc/process_atmos_machinery(resumed = 0)
-	var/seconds = wait * 0.1
 	if(!resumed)
 		src.currentrun = atmos_machinery.Copy()
 	//cache for sanic speed (lists are references anyways)
@@ -211,7 +210,7 @@ SUBSYSTEM_DEF(air)
 	while(currentrun.len)
 		var/obj/machinery/atmospherics/M = currentrun[currentrun.len]
 		currentrun.len--
-		if(!M || (M.process_atmos(seconds) == PROCESS_KILL))
+		if(!M || (M.process_atmos() == PROCESS_KILL))
 			atmos_machinery.Remove(M)
 		if(MC_TICK_CHECK)
 			return
@@ -323,7 +322,7 @@ SUBSYSTEM_DEF(air)
 
 
 /datum/controller/subsystem/air/proc/setup_allturfs()
-	var/list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz))
+	var/list/turfs_to_init = block(1, 1, 1, world.maxx, world.maxy, world.maxz)
 	// Clear active turfs - faster than removing every single turf in the world
 	// one-by-one, and Initialize_Atmos only ever adds `src` back in.
 	active_turfs.Cut()
@@ -403,20 +402,25 @@ SUBSYSTEM_DEF(air)
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	anchored = TRUE  // should only appear in vis_contents, but to be safe
 	layer = FLY_LAYER
+	plane = ABOVE_GAME_PLANE
 	appearance_flags = TILE_BOUND | RESET_TRANSFORM | RESET_COLOR
 	vis_flags = NONE // Resets vision flags inherited from parent objects
 
 /obj/effect/overlay/turf/plasma
 	icon_state = "plasma"
 
-
 /obj/effect/overlay/turf/sleeping_agent
 	icon_state = "sleeping_agent"
 
 
 /datum/controller/subsystem/air/proc/setup_overlays()
-	GLOB.plmaster = new /obj/effect/overlay/turf/plasma
-	GLOB.slmaster = new /obj/effect/overlay/turf/sleeping_agent
+	for(var/i in 0 to SSmapping.max_plane_offset)
+		var/obj/effect/overlay/turf/plasma/plasma = new
+		SET_PLANE_W_SCALAR(plasma, plasma.plane, i)
+		GLOB.plmaster["[i]"] += plasma
+		var/obj/effect/overlay/turf/sleeping_agent/sleeping_agent = new
+		SET_PLANE_W_SCALAR(sleeping_agent, sleeping_agent.plane, i)
+		GLOB.slmaster["[i]"] += sleeping_agent
 
 /datum/controller/subsystem/air/proc/throw_error_on_active_roundstart_turfs()
 	// Can't properly test lavaland due to Init order issues and EVERYTHING being surrounded by rocks, as such we just ignore any turfs on that level

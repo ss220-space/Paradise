@@ -30,10 +30,10 @@
 	reagents = new()
 	holder_type = /obj/item/holder/snail
 
-/mob/living/simple_animal/snail/Process_Spacemove(movement_dir = NONE)
-	return TRUE
+/mob/living/simple_animal/snail/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
+	return TRUE	// why???
 
-/mob/living/simple_animal/snail/Move(atom/newloc, direct, movetime)
+/mob/living/simple_animal/snail/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/oldLoc = src.loc
 	. = ..()
 	if(.)
@@ -77,6 +77,7 @@
 	response_disarm = "shoos"
 	response_harm   = "stomps on"
 	density = TRUE
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	pass_flags = PASSTABLE | PASSGRILLE
 	status_flags = CANPARALYSE | CANPUSH
 	mob_size = MOB_SIZE_SMALL

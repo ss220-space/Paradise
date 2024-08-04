@@ -40,7 +40,7 @@
 	add_fingerprint(user)
 	if(istype(W, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
-		if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, 4 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
 			if(!src)
 				return
 			playsound(loc, W.usesound, 100, 1)
@@ -171,7 +171,7 @@
 					to_chat(user, "<span class='warning'>You need two planks of wood to finish a wall!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start adding plating...</span>")
-				if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
+				if(do_after(user, 4 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
 					if(!src || !S || S.get_amount() < 2)
 						return
 					S.use(2)
@@ -203,7 +203,7 @@
 					to_chat(user, "<span class='warning'>You need two sheets of metal to finish a wall!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start adding plating...</span>")
-				if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
+				if(do_after(user, 4 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
 					if(!src || !S || S.get_amount() < 2)
 						return
 					S.use(2)
@@ -408,10 +408,12 @@
 		return prob(girderpasschance)
 
 
-/obj/structure/girder/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
-	. = !density
-	if(checkpass(caller, PASSGRILLE))
-		. = TRUE
+/obj/structure/girder/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(!density)
+		return TRUE
+	if(pass_info.pass_flags == PASSEVERYTHING || (pass_info.pass_flags & PASSGRILLE))
+		return TRUE
+	return FALSE
 
 
 /obj/structure/girder/deconstruct(disassembled = TRUE)
@@ -478,7 +480,7 @@
 		qdel(src)
 	else if(istype(W, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
-		if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, 4 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
 			playsound(loc, W.usesound, 100, 1)
 			to_chat(user, "<span class='notice'>You slice apart the girder.</span>")
 			var/obj/item/stack/sheet/runed_metal/R = new(get_turf(src), 1)
@@ -517,7 +519,7 @@
 		qdel(src)
 	else if(istype(W, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
-		if(do_after(user, 4 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, 4 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
 			playsound(loc, W.usesound, 100, 1)
 			to_chat(user, "<span class='notice'>You slice apart the girder.</span>")
 			var/obj/item/stack/sheet/runed_metal_fake/R = new(get_turf(src), 1)

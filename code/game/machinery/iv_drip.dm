@@ -34,7 +34,7 @@
 	if(!bag)
 		to_chat(usr, span_warning("There's no IV bag connected to [src]!"))
 		return FALSE
-	bag.afterattack(over_object, usr, TRUE)
+	bag.attack(over_object, usr)
 	START_PROCESSING(SSmachines, src)
 
 
@@ -78,7 +78,7 @@
 	if(bag)
 		. += bag.examine(user)
 
-/obj/machinery/iv_drip/Move(NewLoc, direct)
+/obj/machinery/iv_drip/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(!.) // ..() will return 0 if we didn't actually move anywhere.
 		return .

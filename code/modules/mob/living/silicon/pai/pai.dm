@@ -3,12 +3,13 @@
 	icon = 'icons/mob/pai.dmi'
 	icon_state = "repairbot"
 
-	emote_type = 2		// pAIs emotes are heard, not seen, so they can be seen through a container (eg. person)
+	emote_type = EMOTE_AUDIBLE		// pAIs emotes are heard, not seen, so they can be seen through a container (eg. person)
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE
 	density = FALSE
 	holder_type = /obj/item/holder/pai
 	can_buckle_to = FALSE
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 
 	var/ram = 100	// Used as currency to purchase different abilities
 	var/userDNA		// The DNA string of our assigned user
@@ -129,9 +130,9 @@
 	add_language(LANGUAGE_TRINARY, 1)
 
 	//Verbs for pAI mobile form, chassis and Say flavor text
-	verbs += /mob/living/silicon/pai/proc/choose_chassis
-	verbs += /mob/living/silicon/pai/proc/choose_verbs
-	verbs += /mob/living/silicon/pai/proc/pai_change_voice
+	add_verb(src, /mob/living/silicon/pai/proc/choose_chassis)
+	add_verb(src, /mob/living/silicon/pai/proc/choose_verbs)
+	add_verb(src, /mob/living/silicon/pai/proc/pai_change_voice)
 
 	var/datum/action/innate/pai_soft/P = new
 	P.Grant(src)
@@ -182,14 +183,13 @@
 /mob/living/silicon/pai/proc/show_silenced()
 	if(silence_time)
 		var/timeleft = round((silence_time - world.timeofday)/10 ,1)
-		stat(null, "Communications system reboot in -[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
+		return list("Communications system reboot in:", "-[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
 
 
-/mob/living/silicon/pai/Stat()
-	..()
-	statpanel("Status")
-	if(client.statpanel == "Status")
-		show_silenced()
+/mob/living/silicon/pai/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = show_silenced()
 
 
 /mob/living/silicon/pai/blob_act()
@@ -238,13 +238,11 @@
 
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
-			adjustBruteLoss(100)
-			adjustFireLoss(100)
+			apply_damages(100, 100)
 		if(EXPLODE_HEAVY)
-			adjustBruteLoss(60)
-			adjustFireLoss(60)
+			apply_damages(60, 60)
 		if(EXPLODE_LIGHT)
-			adjustBruteLoss(30)
+			apply_damage(30)
 
 
 // See software.dm for ui_act()
@@ -264,7 +262,7 @@
 	set category = "pAI Commands"
 	set name = "Unfold Chassis"
 
-	if(stat || IsSleeping() || IsParalyzed() || IsWeakened())
+	if(stat || HAS_TRAIT(src, TRAIT_INCAPACITATED))
 		return
 
 	if(loc != card)
@@ -299,7 +297,7 @@
 	set category = "pAI Commands"
 	set name = "Collapse Chassis"
 
-	if(stat || IsSleeping() || IsParalyzed() || IsWeakened())
+	if(stat || HAS_TRAIT(src, TRAIT_INCAPACITATED))
 		return
 
 	if(loc == card)
@@ -362,7 +360,7 @@
 		finalized = alert("Look at your sprite. Is this what you wish to use?",,"No","Yes")
 
 	chassis = my_choices[choice]
-	verbs -= /mob/living/silicon/pai/proc/choose_chassis
+	remove_verb(src, /mob/living/silicon/pai/proc/choose_chassis)
 
 /mob/living/silicon/pai/proc/choose_verbs()
 	set category = "pAI Commands"
@@ -376,7 +374,7 @@
 	speak_exclamation = sayverbs[(sayverbs.len>1 ? 2 : sayverbs.len)]
 	speak_query = sayverbs[(sayverbs.len>2 ? 3 : sayverbs.len)]
 
-	verbs -= /mob/living/silicon/pai/proc/choose_verbs
+	remove_verb(src, /mob/living/silicon/pai/proc/choose_verbs)
 
 /mob/living/silicon/pai/proc/pai_change_voice()
 	set name = "Change Voice"
@@ -384,19 +382,18 @@
 	set category = "pAI Commands"
 	change_voice()
 
-/mob/living/silicon/pai/lay_down()
-	set name = "Rest"
-	set category = "IC"
 
-	// Pass lying down or getting up to our pet human, if we're in a rig.
-	if(stat == CONSCIOUS && istype(loc,/obj/item/paicard))
-		resting = 0
-	else
-		resting = !resting
-		to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"]</span>")
-
+/mob/living/silicon/pai/post_lying_on_rest()
+	if(stat == DEAD)
+		return
+	ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
 	update_icons()
-	update_canmove()
+
+
+/mob/living/silicon/pai/post_get_up()
+	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
+	update_icons()
+
 
 /mob/living/silicon/pai/verb/pAI_suicide()
 	set category = "pAI Commands"
@@ -417,9 +414,9 @@
 		grant_death_vision()
 		return
 
-	see_invisible = initial(see_invisible)
+	set_invis_see(initial(see_invisible))
 	nightvision = initial(nightvision)
-	sight = initial(sight)
+	set_sight(initial(sight))
 	lighting_alpha = initial(lighting_alpha)
 
 	if(client.eye != src)
@@ -428,23 +425,22 @@
 			return
 
 	if(sight_mode & SILICONMESON)
-		sight |= SEE_TURFS
+		add_sight(SEE_TURFS)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 	if(sight_mode & SILICONTHERM)
-		sight |= SEE_MOBS
+		add_sight(SEE_MOBS)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 	if(sight_mode & SILICONNIGHTVISION)
 		nightvision = 8
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
-	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
-	sync_lighting_plane_alpha()
+	..()
 
 
 //Overriding this will stop a number of headaches down the track.
-/mob/living/silicon/pai/attackby(obj/item/W as obj, mob/user as mob, params)
+/mob/living/silicon/pai/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/nanopaste))
 		var/obj/item/stack/nanopaste/N = W
 		if(stat == DEAD)
@@ -468,7 +464,7 @@
 	else
 		visible_message("<span class='warning'>[user.name] bonks [src] harmlessly with [W].</span>")
 	spawn(1)
-		if(stat != 2)
+		if(stat != DEAD)
 			close_up()
 	return
 
@@ -490,7 +486,8 @@
 /mob/living/silicon/pai/proc/close_up()
 
 	last_special = world.time + 200
-	resting = 0
+	set_resting(FALSE, instant = TRUE)
+
 	if(loc == card)
 		return
 
@@ -516,18 +513,11 @@
 	card.forceMove(card.loc)
 	icon_state = "[chassis]"
 
-/mob/living/silicon/pai/Bump()
+/mob/living/silicon/pai/Bump(atom/bumped_atom)
 	return
 
-/mob/living/silicon/pai/Bumped(atom/movable/moving_atom)
-	return ..()
-
-/mob/living/silicon/pai/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
+/mob/living/silicon/pai/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
 	return FALSE
-
-/mob/living/silicon/pai/update_canmove(delay_action_updates = 0)
-	. = ..()
-	set_density(FALSE) //this is reset every canmove update otherwise
 
 /mob/living/silicon/pai/examine(mob/user)
 	. = ..()
@@ -594,7 +584,7 @@
 	if(!ishuman(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return ..()
 	if(usr == src)
-		switch(alert(user, "[src] wants you to pick [p_them()] up. Do it?",,"Yes","No"))
+		switch(tgui_alert(user, "[src] wants you to pick [p_them()] up. Do it?", "Pick up", list("Yes", "No")))
 			if("Yes")
 				if(Adjacent(user))
 					get_scooped(user)

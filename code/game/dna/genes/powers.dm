@@ -26,9 +26,10 @@
 	..()
 	block = GLOB.regenerateblock
 
+
 /datum/dna/gene/basic/regenerate/OnMobLife(mob/living/carbon/human/H)
-	H.adjustBruteLoss(-0.1, FALSE)
-	H.adjustFireLoss(-0.1)
+	H.heal_overall_damage(0.1, 0.1)
+
 
 /datum/dna/gene/basic/increaserun
 	name = "Super Speed"
@@ -124,15 +125,13 @@
 /datum/dna/gene/basic/midget/activate(mob/living/mutant, flags)
 	. = ..()
 	mutant.pass_flags |= PASSTABLE
-	mutant.resize = 0.8
-	mutant.update_transform()
+	mutant.update_transform(0.8)
 
 
 /datum/dna/gene/basic/midget/deactivate(mob/living/mutant, flags)
 	. = ..()
 	mutant.pass_flags &= ~PASSTABLE
-	mutant.resize = 1.25
-	mutant.update_transform()
+	mutant.update_transform(1.25)
 
 
 // OLD HULK BEHAVIOR

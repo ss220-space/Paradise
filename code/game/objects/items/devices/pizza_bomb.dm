@@ -52,14 +52,16 @@
 
 	if(!timer_set)
 		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
-		timer = (input(user, "Set a timer, from one second to ten seconds.", "Timer", "[timer]") as num) * 10
+		var/new_timer = tgui_input_number(user, "Set a timer, from one second to ten seconds.", "Timer", timer / 10, 10, 1)
+		if(!new_timer)
+			return
 		if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 			timer_set = 0
 			name = "pizza box"
 			desc = "A box suited for pizzas."
 			icon_state = "pizzabox1"
 			return
-		timer = clamp(timer, 10, 100)
+		timer = new_timer SECONDS
 		timer_set = TRUE
 		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 		to_chat(user, "<span class='notice'>You set the timer to [timer / 10] before activating the payload and closing \the [src].")
@@ -113,7 +115,7 @@
 			to_chat(user, "<span class='warning'>You can't see the box well enough to cut the wires out.</span>")
 			return
 		user.visible_message("<span class='notice'>[user] starts removing the payload and wires from \the [src].</span>")
-		if(do_after(user, 4 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, 4 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
 			playsound(src, I.usesound, 50, 1, 1)
 			user.drop_item_ground(src)
 			user.visible_message("<span class='notice'>[user] removes the insides of \the [src]!</span>")

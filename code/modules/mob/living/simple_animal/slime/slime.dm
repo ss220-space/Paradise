@@ -10,6 +10,8 @@
 	var/datum/slime_age/age_state = new /datum/slime_age/baby
 	var/docile = 0
 	faction = list("slime", "neutral")
+	allows_unconscious = TRUE
+	AI_delay_max = 0.5 SECONDS
 
 	harm_intent_damage = 3
 	icon_living = "grey baby slime"
@@ -93,7 +95,7 @@
 		E.Grant(src)
 
 	age_state = age_state_new
-	health = age_state.health
+	set_health(age_state.health)
 	update_state()
 
 	create_reagents(100)
@@ -210,53 +212,68 @@
 					healths.icon_state = "slime_health7"
 					severity = 6
 			if(severity > 0)
-				overlay_fullscreen("brute", /obj/screen/fullscreen/brute, severity)
+				overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
 			else
 				clear_fullscreen("brute")
 
-/mob/living/simple_animal/slime/ObjBump(obj/O)
-	if(!client && powerlevel > 0)
-		var/probab = 10
-		switch(powerlevel)
-			if(1 to 2)
-				probab = 20
-			if(3 to 4)
-				probab = 30
-			if(5 to 6)
-				probab = 40
-			if(7 to 8)
-				probab = 60
-			if(9)
-				probab = 70
-			if(10)
-				probab = 95
-		if(prob(probab))
-			if(istype(O, /obj/structure/window) || istype(O, /obj/structure/grille))
-				if(nutrition <= get_hunger_nutrition() && !Atkcool)
-					if (age_state.age != SLIME_BABY || prob(5))
-						O.attack_slime(src)
-						Atkcool = TRUE
-						addtimer(VARSET_CALLBACK(src, Atkcool, FALSE), 4.5 SECONDS)
 
-/mob/living/simple_animal/slime/Process_Spacemove(movement_dir = NONE)
+/mob/living/simple_animal/slime/ObjBump(obj/object)
+	if(client || Atkcool || powerlevel <= 0 || age_state.age == SLIME_BABY || nutrition > get_hunger_nutrition() || (istype(object, /obj/structure/window) && !istype(object, /obj/structure/grille)))
+		return
+
+	var/probab = 10
+	switch(powerlevel)
+		if(1 to 2)
+			probab = 20
+		if(3 to 4)
+			probab = 30
+		if(5 to 6)
+			probab = 40
+		if(7 to 8)
+			probab = 60
+		if(9)
+			probab = 70
+		if(10)
+			probab = 95
+
+	if(!prob(probab))
+		return
+
+	object.attack_slime(src)
+	Atkcool = TRUE
+	addtimer(VARSET_CALLBACK(src, Atkcool, FALSE), 4.5 SECONDS)
+
+
+/mob/living/simple_animal/slime/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
-/mob/living/simple_animal/slime/Stat()
-	if(..())
+/mob/living/simple_animal/slime/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
 
-		if(!docile)
-			stat(null, "Nutrition: [nutrition]/[get_max_nutrition()]")
+	if(!docile)
+		status_tab_data[++status_tab_data.len] = list("Nutrition:", "[nutrition]/[get_max_nutrition()]")
 
-		if(amount_grown >= age_state.amount_grown_for_split)
-			stat(null, "You can [age_state.stat_text][amount_grown >= age_state.amount_grown ? " [age_state.stat_text_evolve]" : ""]!")
+	if(amount_grown >= age_state.amount_grown_for_split)
+		status_tab_data[++status_tab_data.len] = list("You can:", "[age_state.stat_text][amount_grown >= age_state.amount_grown ? " [age_state.stat_text_evolve]" : ""]!")
 
-		if(stat == UNCONSCIOUS)
-			stat(null,"You are knocked out by high levels of BZ!")
-		else
-			stat(null,"Power Level: [powerlevel]")
+	if(stat == UNCONSCIOUS)
+		status_tab_data[++status_tab_data.len] = list("Power Level:", "You are knocked out by high levels of BZ!")
+	else
+		status_tab_data[++status_tab_data.len] = list("Power Level:", "[powerlevel]")
 
 
-/mob/living/simple_animal/slime/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/slime/adjustFireLoss(
+	amount = 0,
+	updating_health = TRUE,
+	def_zone = null,
+	blocked = 0,
+	forced = FALSE,
+	used_weapon = null,
+	sharp = FALSE,
+	silent = FALSE,
+	affect_robotic = TRUE,
+)
 	if(!forced)
 		amount = -abs(amount)
 	return ..() //Heals them
@@ -287,7 +304,7 @@
 	return
 
 
-/mob/living/simple_animal/slime/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
+/mob/living/simple_animal/slime/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
 	return FALSE
 
 
@@ -309,7 +326,7 @@
 			M.add_nutrition(50 + M.age_state.nutrition_steal)
 		if(health > 0)
 			M.adjustBruteLoss(-10 + (-M.age_state.damage * 2))
-			M.updatehealth()
+
 
 /mob/living/simple_animal/slime/attack_animal(mob/living/simple_animal/M)
 	. = ..()
@@ -374,7 +391,7 @@
 			++Friends[user]
 		else
 			Friends[user] = 1
-			RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(clear_friend))
+			RegisterSignal(user, COMSIG_QDELETING, PROC_REF(clear_friend))
 		to_chat(user, "<span class='notice'>You feed the slime the plasma. It chirps happily.</span>")
 		var/obj/item/stack/sheet/mineral/plasma/S = I
 		S.use(1)
@@ -397,7 +414,7 @@
 	..()
 
 /mob/living/simple_animal/slime/proc/clear_friend(mob/living/friend)
-	UnregisterSignal(friend, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(friend, COMSIG_QDELETING)
 	Friends -= friend
 
 /mob/living/simple_animal/slime/water_act(volume, temperature, source, method = REAGENT_TOUCH)
@@ -458,13 +475,13 @@
 
 	SStun = world.time + rand(20,60)
 	spawn(0)
-		canmove = FALSE
+		ADD_TRAIT(src, TRAIT_IMMOBILIZED, SLIME_TRAIT)
 		if(user)
 			step_away(src,user,15)
 		sleep(3)
 		if(user)
 			step_away(src,user,15)
-		update_canmove()
+		REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, SLIME_TRAIT)
 
 /mob/living/simple_animal/slime/pet
 	docile = TRUE
@@ -523,8 +540,8 @@
 		sman = slimeman
 	if(slime_spell)
 		parent_spell = slime_spell
-	verbs -= /mob/living/simple_animal/slime/verb/Evolve
-	verbs -= /mob/living/simple_animal/slime/verb/Reproduce
+	remove_verb(src, /mob/living/simple_animal/slime/verb/Evolve)
+	remove_verb(src, /mob/living/simple_animal/slime/verb/Reproduce)
 
 /mob/living/simple_animal/slime/invalid/Destroy()
 	parent_spell = null

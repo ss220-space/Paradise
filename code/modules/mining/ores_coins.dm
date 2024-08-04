@@ -57,40 +57,27 @@
 /obj/item/stack/ore/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!refined_type)
-		to_chat(user, "<span class='notice'>You can't smelt [src] into anything useful!</span>")
+		balloon_alert(usr, "нельзя расплавить!")
 		return
 	if(!I.use_tool(src, user, 0, 15, volume = I.tool_volume))
 		return
 	new refined_type(drop_location(), amount)
-	to_chat(user, "<span class='notice'>You smelt [src] into its refined form!</span>")
+	balloon_alert(usr, "переплавлено!")
 	qdel(src)
 
-/obj/item/stack/ore/Crossed(atom/movable/AM, oldloc)
-	var/obj/item/storage/bag/ore/OB
-	var/turf/simulated/floor/F = get_turf(src)
-	if(loc != F)
+
+/obj/item/stack/ore/on_movable_entered_occupied_turf(atom/movable/arrived)
+	if(!istype(loc, /turf/simulated/floor/plating/asteroid) || (!ishuman(arrived) && !isrobot(arrived)))
 		return ..()
-	if(ishuman(AM))
-		var/mob/living/carbon/human/H = AM
-		for(var/thing in H.get_body_slots())
-			if(istype(thing, /obj/item/storage/bag/ore))
-				OB = thing
-				break
-	else if(isrobot(AM))
-		var/mob/living/silicon/robot/R = AM
-		for(var/thing in R.get_all_slots())
-			if(istype(thing, /obj/item/storage/bag/ore))
-				OB = thing
-				break
-	if(OB && istype(F, /turf/simulated/floor/plating/asteroid))
-		F.attackby(OB, AM)
-		// Then, if the user is dragging an ore box, empty the satchel
-		// into the box.
-		var/mob/living/L = AM
-		if(istype(L.pulling, /obj/structure/ore_box))
-			var/obj/structure/ore_box/box = L.pulling
-			box.attackby(OB, AM)
-	return ..()
+
+	var/mob/arrived_mob = arrived
+	for(var/obj/item/storage/bag/ore/bag in arrived_mob.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		loc.attackby(bag, arrived)
+		// Then, if the user is dragging an ore box, empty the satchel into the box.
+		if(istype(arrived_mob.pulling, /obj/structure/ore_box))
+			arrived_mob.pulling.attackby(bag, arrived)
+		break
+
 
 /obj/item/stack/ore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	. = ..()
@@ -155,7 +142,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		visible_message("<span class='danger'>[C]'s glasses block the sand!</span>")
 		return
 	C.EyeBlurry(12 SECONDS)
-	C.adjustStaminaLoss(15)//the pain from your eyes burning does stamina damage
+	C.apply_damage(15, STAMINA)//the pain from your eyes burning does stamina damage
 	C.AdjustConfused(10 SECONDS)
 	to_chat(C, "<span class='userdanger'>[src] gets into your eyes! The pain, it burns!</span>")
 	qdel(src)
@@ -266,9 +253,9 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		QDEL_NULL(wires)
 	return ..()
 
-/obj/item/twohanded/required/gibtonite/can_be_pulled(atom/movable/user, force, show_message = FALSE)
-	if(show_message)
-		to_chat(user, span_warning("It's too heavy to be pulled!"))
+/obj/item/twohanded/required/gibtonite/can_be_pulled(atom/movable/puller, grab_state, force, supress_message)
+	if(!supress_message && ismob(puller))
+		balloon_alert(puller, "слишком тяжело!")
 	return FALSE // must be carried in two hands or be picked up with ripley
 
 /obj/item/twohanded/required/gibtonite/attackby(obj/item/I, mob/user, params)
@@ -473,15 +460,15 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/CC = W
 		if(string_attached)
-			to_chat(user, "<span class='notice'>There already is a string attached to this coin.</span>")
+			balloon_alert(user, "уже прикреплено!")
 			return
 
 		if(CC.use(1))
 			add_overlay(image('icons/obj/economy.dmi',"coin_string_overlay"))
 			string_attached = 1
-			to_chat(user, "<span class='notice'>You attach a string to the coin.</span>")
+			balloon_alert(user, "прикреплено!")
 		else
-			to_chat(user, "<span class='warning'>You need one length of cable to attach a string to the coin.</span>")
+			balloon_alert(user, "недостаточно кабеля") //how the f could you take less than one lenght of cable
 			return
 
 	else if(istype(W,/obj/item/wirecutters))
@@ -493,7 +480,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		CC.update_icon()
 		overlays = list()
 		string_attached = null
-		to_chat(user, "<span class='notice'>You detach the string from the coin.</span>")
+		balloon_alert(user, "кабель срезан")
 	else ..()
 
 /obj/item/coin/welder_act(mob/user, obj/item/I)

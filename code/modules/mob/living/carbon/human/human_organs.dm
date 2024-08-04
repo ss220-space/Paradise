@@ -23,31 +23,14 @@
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		bodypart.process()
 
-		if(!lying_angle && world.time - l_move_time < 15)	//Moving around with fractured ribs won't do you any good
+		if(body_position != LYING_DOWN && world.time - l_move_time < 15)	//Moving around with fractured ribs won't do you any good
 			if(bodypart.is_traumatized() && prob(15))
 				if(LAZYLEN(bodypart.internal_organs))
 					var/obj/item/organ/internal/organ = pick(bodypart.internal_organs)
-					organ.receive_damage(rand(3,5))
+					organ.internal_receive_damage(rand(3,5))
 				custom_pain("Вы чувствуете как в вашей [bodypart.declent_ru(PREPOSITIONAL)] двигаются сломанные кости!")
 
 	handle_grasp()
-	handle_stance()
-
-
-// temporary solution till traits system are fully implemented
-/mob/living/carbon/human/proc/handle_stance()
-	set waitfor = FALSE
-
-	if(usable_legs || buckled || !isturf(loc) || lying_angle || resting)
-		return
-
-	if(!(life_tick % (4 + usable_hands)))
-		return
-
-	if(has_pain())
-		emote("scream")
-
-	emote("collapses", ignore_cooldowns = TRUE)
 
 
 /mob/living/carbon/human/proc/handle_grasp()
@@ -204,16 +187,20 @@
 		var/mob/living/holder = thing.loc
 		holder.drop_item_ground(thing)
 
-	if(embedded_zone && !get_organ(embedded_zone))
-		embedded_zone = BODY_ZONE_CHEST
+	var/obj/item/organ/external/bodypart
+	if(embedded_zone)
+		bodypart = get_organ(embedded_zone)
+		if(!bodypart)
+			bodypart = get_organ(BODY_ZONE_CHEST)
+	else
+		bodypart = safepick(bodyparts)
 
-	var/obj/item/organ/external/bodypart = embedded_zone ? embedded_zone : safepick(bodyparts)
 	if(!bodypart)
 		return FALSE
 
 	bodypart.add_embedded_object(thing)
 	thing.add_mob_blood(src)	// it embedded itself in you, of course it's bloody!
-	bodypart.receive_damage(thing.w_class * thing.embedded_impact_pain_multiplier, silent = silent)
+	apply_damage(thing.w_class * thing.embedded_impact_pain_multiplier, def_zone = bodypart, silent = silent)
 	if(!silent)
 		visible_message(
 			span_danger("[thing] embeds itself in [src]'s [bodypart.name]!"),
@@ -233,7 +220,7 @@
 	var/counter = 0
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		counter += bodypart.remove_all_embedded_objects(drop_loc, clear_alert = FALSE)
-	clear_alert("embeddedobject")
+	clear_alert(ALERT_EMBEDDED)
 	return counter
 
 
@@ -258,4 +245,5 @@
 		for(var/obj/item/thing as anything in bodypart.embedded_objects)
 			embedded_items += thing
 	return embedded_items
+
 

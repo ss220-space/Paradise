@@ -136,6 +136,14 @@
 	var/can_assembly = TRUE
 
 
+/obj/item/reagent_containers/glass/beaker/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
 /obj/item/reagent_containers/glass/beaker/examine(mob/user)
 	. = ..()
 	if(assembly)
@@ -174,7 +182,7 @@
 	if(!is_open_container())
 		. += "lid_[initial(icon_state)]"
 		if(blocks_emissive == FALSE)
-			. += emissive_blocker(icon, "lid_[initial(icon_state)]")
+			. += emissive_blocker(icon, "lid_[initial(icon_state)]", src)
 
 	if(assembly)
 		. += "assembly"
@@ -220,9 +228,13 @@
 	if(assembly)
 		assembly.HasProximity(AM)
 
-/obj/item/reagent_containers/glass/beaker/Crossed(atom/movable/AM, oldloc)
+
+/obj/item/reagent_containers/glass/beaker/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
 	if(assembly)
-		assembly.Crossed(AM, oldloc)
+		assembly.assembly_crossed(arrived, old_loc)
+
 
 /obj/item/reagent_containers/glass/beaker/on_found(mob/finder) //for mousetraps
 	if(assembly)

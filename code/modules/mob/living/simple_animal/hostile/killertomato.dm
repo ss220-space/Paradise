@@ -24,3 +24,4 @@
 	minbodytemp = 150
 	maxbodytemp = 500
 	gold_core_spawnable = HOSTILE_SPAWN
+	AI_delay_max = 0 SECONDS

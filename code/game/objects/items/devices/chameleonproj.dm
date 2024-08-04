@@ -12,11 +12,12 @@
 	origin_tech = "syndicate=1;magnets=4"
 	var/can_use = TRUE
 	var/obj/effect/dummy/chameleon/active_dummy = null
-	var/saved_item = /obj/item/cigbutt
-	var/saved_icon = 'icons/obj/clothing/masks.dmi'
-	var/saved_icon_state = "cigbutt"
-	var/saved_overlays = null
-	var/saved_underlays = null
+	var/saved_appearance = null
+
+/obj/item/chameleon/Initialize(mapload)
+	. = ..()
+	var/obj/item/cigbutt/butt = /obj/item/cigbutt
+	saved_appearance = initial(butt.appearance)
 
 /obj/item/chameleon/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
@@ -26,8 +27,8 @@
 	. = ..()
 	disrupt()
 
-/obj/item/chameleon/attack_self()
-	toggle()
+/obj/item/chameleon/attack_self(mob/user)
+	toggle(user)
 
 /obj/item/chameleon/afterattack(atom/target, mob/user , proximity)
 	if(!proximity)
@@ -42,43 +43,32 @@
 		if(isitem(target) && !istype(target, /obj/item/disk/nuclear))
 			playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, 1, -6)
 			to_chat(user, "<span class='notice'>Scanned [target].</span>")
-			saved_item = target.type
-			saved_icon = target.icon
-			saved_icon_state = target.icon_state
-			saved_overlays = target.overlays
-			saved_underlays = target.underlays
+			var/obj/temp = new /obj()
+			temp.appearance = target.appearance
+			temp.layer = initial(target.layer)
+			SET_PLANE_EXPLICIT(temp, initial(plane), src)
+			saved_appearance = temp.appearance
 
 /obj/item/chameleon/proc/check_sprite(atom/target)
-	if(target.icon_state in icon_states(target.icon))
+	if(icon_exists(target.icon, target.icon_state))
 		return TRUE
 	return FALSE
 
-/obj/item/chameleon/proc/toggle()
-	if(!can_use || !saved_item)
+/obj/item/chameleon/proc/toggle(mob/user)
+	if(!can_use || !saved_appearance)
 		return
 	if(active_dummy)
 		eject_all()
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
 		QDEL_NULL(active_dummy)
-		to_chat(usr, "<span class='notice'>You deactivate [src].</span>")
-		var/obj/effect/overlay/T = new/obj/effect/overlay(get_turf(src))
-		T.icon = 'icons/effects/effects.dmi'
-		flick("emppulse",T)
-		spawn(8)
-			qdel(T)
+		to_chat(user, "<span class='notice'>You deactivate [src].</span>")
+		new /obj/effect/temp_visual/emp/pulse(get_turf(src))
 	else
 		playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
-		var/obj/O = new saved_item(src)
-		if(!O) return
-		var/obj/effect/dummy/chameleon/C = new/obj/effect/dummy/chameleon(usr.loc)
-		C.activate(O, usr, saved_icon, saved_icon_state, saved_overlays, saved_underlays, src)
-		qdel(O)
-		to_chat(usr, "<span class='notice'>You activate [src].</span>")
-		var/obj/effect/overlay/T = new/obj/effect/overlay(get_turf(src))
-		T.icon = 'icons/effects/effects.dmi'
-		flick("emppulse",T)
-		spawn(8)
-			qdel(T)
+		var/obj/effect/dummy/chameleon/C = new/obj/effect/dummy/chameleon(get_turf(user))
+		C.activate(user, saved_appearance, src)
+		to_chat(user, "<span class='notice'>You activate [src].</span>")
+		new /obj/effect/temp_visual/emp/pulse(get_turf(src))
 
 /obj/item/chameleon/proc/disrupt(delete_dummy = 1)
 	if(active_dummy)
@@ -102,14 +92,11 @@
 	var/can_move = TRUE
 	var/obj/item/chameleon/master = null
 
-/obj/effect/dummy/chameleon/proc/activate(obj/O, mob/M, new_icon, new_iconstate, new_overlays, new_underlays, obj/item/chameleon/C)
-	name = O.name
-	desc = O.desc
-	icon = new_icon
-	icon_state = new_iconstate
-	overlays = new_overlays
-	underlays = new_underlays
-	dir = O.dir
+/obj/effect/dummy/chameleon/proc/activate(mob/M, saved_appearance, obj/item/chameleon/C)
+	appearance = saved_appearance
+	if(istype(M.buckled, /obj/vehicle))
+		var/obj/vehicle/V = M.buckled
+		V.unbuckle_mob(M, TRUE)
 	M.forceMove(src)
 	master = C
 	master.active_dummy = src

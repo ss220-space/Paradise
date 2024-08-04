@@ -210,7 +210,7 @@
 		to_chat(user, "<span class='notice'>You begin to dismantle the power terminal...</span>")
 		playsound(src.loc, I.usesound, 50, 1)
 
-		if(do_after(user, 5 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, 5 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
 			if(terminal && panel_open)
 				if(prob(50) && electrocute_mob(usr, terminal.powernet, terminal, 1, TRUE)) //animate the electrocution if uncautious and unlucky
 					do_sparks(5, 1, src)
@@ -358,12 +358,12 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/power/smes/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/power/smes/ui_interact(mob/user, datum/tgui/ui = null)
 	if(stat & BROKEN)
 		return
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Smes",  name, 340, 350, master_ui, state)
+		ui = new(user, src, "Smes", name)
 		ui.open()
 
 /obj/machinery/power/smes/ui_data(mob/user)

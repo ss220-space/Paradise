@@ -30,7 +30,7 @@
 			else
 				// Target prioritization by spider type. BRUTE spiders prioritize lower armor values, POISON spiders prioritize poisonable targets
 				if(ai_target_method == TS_DAMAGE_BRUTE)
-					var/theirarmor = C.getarmor(type = "melee")
+					var/theirarmor = C.getarmor(attack_flag = MELEE)
 					// Example values: Civilian: 2, Engineer w/ Hardsuit: 10, Sec Officer with armor: 19, HoS: 48, Deathsquad: 80
 					if(theirarmor < 10)
 						targets1 += C
@@ -129,7 +129,7 @@
 				else
 					spider_steps_taken++
 					CreatePath(entry_vent)
-					step_to(src,entry_vent)
+					step_with_glide(entry_vent)
 					if(spider_debug)
 						visible_message("<span class='notice'>[src] moves towards the vent [entry_vent].</span>")
 			else
@@ -138,7 +138,7 @@
 			last_break_light = world.time
 			for(var/obj/machinery/light/L in range(1, src))
 				if(!L.status)
-					step_to(src,L)
+					step_with_glide(L)
 					L.on = 1
 					L.break_light_tube()
 					do_attack_animation(L)
@@ -166,13 +166,38 @@
 			spider_special_action()
 		..()
 
-/mob/living/simple_animal/hostile/poison/terror_spider/adjustBruteLoss(amount, updating_health = TRUE)
-	. = ..()
-	Retaliate()
 
-/mob/living/simple_animal/hostile/poison/terror_spider/adjustFireLoss(amount, updating_health)
+/mob/living/simple_animal/hostile/poison/terror_spider/adjustBruteLoss(
+	amount = 0,
+	updating_health = TRUE,
+	def_zone = null,
+	blocked = 0,
+	forced = FALSE,
+	used_weapon = null,
+	sharp = FALSE,
+	silent = FALSE,
+	affect_robotic = FALSE,
+)
 	. = ..()
-	Retaliate()
+	if(. && amount > 0)
+		Retaliate()
+
+
+/mob/living/simple_animal/hostile/poison/terror_spider/adjustFireLoss(
+	amount = 0,
+	updating_health = TRUE,
+	def_zone = null,
+	blocked = 0,
+	forced = FALSE,
+	used_weapon = null,
+	sharp = FALSE,
+	silent = FALSE,
+	affect_robotic = TRUE,
+)
+	. = ..()
+	if(. && amount > 0)
+		Retaliate()
+
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Retaliate()
 	var/list/around = oview(src, 7)

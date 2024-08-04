@@ -12,22 +12,21 @@
 
 /datum/action/changeling/epinephrine/sting_action(mob/living/user)
 
-	if(user.lying_angle)
+	if(user.body_position == LYING_DOWN)
 		to_chat(user, span_notice("We arise."))
 	else
 		to_chat(user, span_notice("Adrenaline rushes through us."))
 
 	user.SetSleeping(0)
-	user.WakeUp()
 	user.SetParalysis(0)
 	user.SetStunned(0)
 	user.SetWeakened(0)
-	user.lying_angle = 0
-	user.resting = FALSE
-	user.update_canmove()
+	user.SetKnockdown(0)
+	user.adjustStaminaLoss(-95)
+	user.set_resting(FALSE, instant = TRUE)
+	user.get_up(instant = TRUE)
 	user.reagents.add_reagent("synaptizine", 20)
 	user.reagents.add_reagent("adrenaline", 2)
-	user.adjustStaminaLoss(-95)
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE

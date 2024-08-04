@@ -111,11 +111,17 @@
 	EB.orbit(src, orbitsize, pick(FALSE, TRUE), rand(10, 25), pick(3, 4, 5, 6, 36))
 
 
-/obj/singularity/energy_ball/Bump(atom/A)
-	dust_mobs(A)
+/obj/singularity/energy_ball/Bump(atom/bumped_atom, effect_applied = TRUE)
+	. = ..()
+	if(.)
+		return .
+	dust_mobs(bumped_atom)
 
-/obj/singularity/energy_ball/Bumped(atom/movable/moving_atom)
+
+/obj/singularity/energy_ball/Bumped(atom/movable/moving_atom, effect_applied = TRUE)
+	. = ..()
 	dust_mobs(moving_atom)
+
 
 /obj/singularity/energy_ball/attack_tk(mob/user)
 	if(iscarbon(user))
@@ -219,7 +225,7 @@
 		else if(isliving(A))
 			var/dist = get_dist(source, A)
 			var/mob/living/L = A
-			if(dist <= zap_range && (dist < closest_dist || !closest_mob) && L.stat != DEAD && !L.tesla_ignore)
+			if(dist <= zap_range && (dist < closest_dist || !closest_mob) && L.stat != DEAD && !HAS_TRAIT(L, TRAIT_TESLA_SHOCKIMMUNE) && !HAS_TRAIT(L, TRAIT_BEING_SHOCKED))
 				closest_mob = L
 				closest_atom = A
 				closest_dist = dist
@@ -273,8 +279,10 @@
 		closest_grounding_rod.tesla_act(power, explosive)
 
 	else if(closest_mob)
+		ADD_TRAIT(closest_mob, TRAIT_BEING_SHOCKED, WAS_SHOCKED)
+		addtimer(TRAIT_CALLBACK_REMOVE(closest_mob, TRAIT_BEING_SHOCKED, WAS_SHOCKED), 1 SECONDS)
 		var/shock_damage = clamp(round(power/400), 10, 90) + rand(-5, 5)
-		closest_mob.electrocute_act(shock_damage, source, 1, tesla_shock = TRUE)
+		closest_mob.electrocute_act(shock_damage, "шара тесла", flags = SHOCK_TESLA | (stun_mobs ? NONE : SHOCK_NOSTUN))
 		if(issilicon(closest_mob))
 			var/mob/living/silicon/S = closest_mob
 			if(stun_mobs)

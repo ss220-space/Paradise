@@ -10,6 +10,7 @@
 	health = 25
 	density = FALSE
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
+	rotate_on_lying = FALSE
 
 	tts_seed = "Templar"
 
@@ -70,10 +71,8 @@
 				Paralyse(2 SECONDS)
 			AdjustDeaf(60 SECONDS)
 
-	adjustBruteLoss(b_loss)
-	adjustFireLoss(f_loss)
+	take_overall_damage(b_loss, f_loss)
 
-	updatehealth()
 
 //can't equip anything
 /mob/living/carbon/alien/larva/attack_ui(slot_id)
@@ -86,13 +85,17 @@
 // now constructs damage icon for each organ from mask * damage field
 
 
-/mob/living/carbon/alien/larva/show_inv(mob/user)
-	return
-
-/mob/living/carbon/alien/larva/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
+/mob/living/carbon/alien/larva/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
 	return FALSE
 
 
 /mob/living/carbon/alien/larva/can_unarmed_attack() //We bite stuff, and our head is always free.
 	return TRUE
+
+
+/mob/living/carbon/alien/larva/update_layer()
+	..()
+	if(pulledby && loc == pulledby.loc)
+		return
+	hide_action?.update_layer()
 

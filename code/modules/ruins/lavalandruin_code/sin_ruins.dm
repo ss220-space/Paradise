@@ -112,29 +112,28 @@
 	desc = "Pride cometh before the..."
 	icon_state = "magic_mirror"
 
-/obj/structure/mirror/magic/pride/curse(mob/user)
-	user.visible_message("<span class='danger'><B>The ground splits beneath [user] as [user.p_their()] hand leaves the mirror!</B></span>", \
-	"<span class='notice'>Perfect. Much better! Now <i>nobody</i> will be able to resist yo-</span>")
 
-	var/turf/T = get_turf(user)
+/obj/structure/mirror/magic/pride/curse(mob/user)
+	user.visible_message(
+		span_bolddanger("The ground splits beneath [user] as [user.p_their()] hand leaves the mirror!"),
+		span_notice("Perfect. Much better! Now <i>nobody</i> will be able to resist yo-"),
+	)
+
+	var/turf/user_turf = get_turf(user)
 	var/list/levels = GLOB.space_manager.z_list.Copy()
 	for(var/level in levels)
-		if(!is_teleport_allowed(level))
+		if(!is_teleport_allowed(level) || is_taipan(level) || text2num(level) == user_turf.z)
 			levels -= level
-			continue
-		if(is_taipan(level))
-			levels -= level
-			continue
-		if(text2num(level) == T.z)
-			levels -= level
-			continue
 
-	T.ChangeTurf(/turf/simulated/floor/chasm)
-	var/turf/simulated/floor/chasm/C = T
-	C.drop_x = T.x
-	C.drop_y = T.y
-	C.drop_z = text2num(pick(levels))
-	C.drop(user)
+	var/turf/dest
+	if(length(levels))
+		dest = locate(user_turf.x, user_turf.y, pick(levels))
+
+	user_turf.ChangeTurf(/turf/simulated/floor/chasm)
+	var/turf/simulated/floor/chasm/new_chasm = user_turf
+	new_chasm.set_target(dest)
+	new_chasm.drop(user)
+
 
 // Envy
 /obj/item/kitchen/knife/envy //Envy's knife: Found in the Envy ruin. Attackers take on the appearance of whoever they strike.
@@ -160,7 +159,7 @@
 			user.real_name = H.dna.real_name
 			H.dna.transfer_identity(user)
 			user.visible_message("<span class='warning'>[user]'s appearance shifts into [H]'s!</span>", \
-			"<span class='boldannounce'>[H.p_they(TRUE)] think[H.p_s()] [H.p_theyre()] <i>sooo</i> much better than you. Not anymore, [H.p_they()] won't.</span>")
+			span_boldannounceic("[H.p_they(TRUE)] think[H.p_s()] [H.p_theyre()] <i>sooo</i> much better than you. Not anymore, [H.p_they()] won't."))
 
 // Sloth
 /obj/item/paper/fluff/stations/lavaland/sloth/note

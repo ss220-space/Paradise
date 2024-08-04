@@ -28,6 +28,8 @@
 	var/icon_wielded = FALSE
 	/// Reference to the offhand created for the item
 	var/obj/item/twohanded/offhand/offhand_item = null
+	/// The amount of increase recived from sharpening the item
+	var/sharpened_increase = 0
 	/// A callback on the parent to be called when the item is wielded
 	var/datum/callback/wield_callback
 	/// A callback on the parent to be called when the item is unwielded
@@ -109,16 +111,20 @@
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(on_attack))
 	RegisterSignal(parent, COMSIG_ATOM_UPDATE_ICON, PROC_REF(on_update_icon))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
+	RegisterSignal(parent, COMSIG_ITEM_SHARPEN_ACT, PROC_REF(on_sharpen))
 
 
 // Remove all siginals registered to the parent item
 /datum/component/two_handed/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_ITEM_EQUIPPED,
-								COMSIG_ITEM_DROPPED,
-								COMSIG_ITEM_ATTACK_SELF,
-								COMSIG_ITEM_ATTACK,
-								COMSIG_ATOM_UPDATE_ICON,
-								COMSIG_MOVABLE_MOVED))
+	UnregisterSignal(parent, list(
+		COMSIG_ITEM_EQUIPPED,
+		COMSIG_ITEM_DROPPED,
+		COMSIG_ITEM_ATTACK_SELF,
+		COMSIG_ITEM_ATTACK,
+		COMSIG_ATOM_UPDATE_ICON,
+		COMSIG_MOVABLE_MOVED,
+		COMSIG_ITEM_SHARPEN_ACT,
+	))
 
 
 /// Triggered on equip of the item containing the component
@@ -176,28 +182,36 @@
 	if(wielded)
 		return
 
-	if(issmall(user))
+	if(is_monkeybasic(user))
 		if(require_twohands)
 			if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 				antispam_timer = world.time
-				to_chat(user, span_warning("[parent] слишком тяжел и громоздок для Вас!"))
+				user.balloon_alert(user, "слишком тяжело!")
 			user.drop_item_ground(parent, force = TRUE)
 		else
 			if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 				antispam_timer = world.time
-				to_chat(user, span_warning("Ваши руки для этого не приспособлены."))
+				user.balloon_alert(user, "вы недостаточно ловки!")
+		return
+
+	if(user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)
+		if(require_twohands)
+			user.drop_item_ground(parent, force = TRUE)
+		if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
+			antispam_timer = world.time
+			to_chat(user, span_warning("Обе руки должны быть свободны!"))
 		return
 
 	if(user.get_inactive_hand())
 		if(require_twohands)
 			if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 				antispam_timer = world.time
-				to_chat(user, span_warning("[parent] слишком громоздок, чтобы носить в одной руке!"))
+				user.balloon_alert(user, "нужны обе руки!")
 			user.drop_item_ground(parent, force = TRUE)
 		else
 			if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 				antispam_timer = world.time
-				to_chat(user, span_warning("Вторая рука должна быть свободна!"))
+				user.balloon_alert(user, "освободите вторую руку!")
 		return
 
 	if(user.l_arm_broken() || user.r_arm_broken())
@@ -205,7 +219,7 @@
 			user.drop_item_ground(parent, force = TRUE)
 		if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 			antispam_timer = world.time
-			to_chat(user, span_warning("Вы чувствуете как двигаются кости, когда пытаетесь взять [parent] в обе руки."))
+			user.balloon_alert(user, "руки травмированы!")
 		return
 
 	if(!user.has_left_hand() || !user.has_right_hand())
@@ -213,7 +227,7 @@
 			user.drop_item_ground(parent, force = TRUE)
 		if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 			antispam_timer = world.time
-			to_chat(user, span_warning("У Вас отсутствует вторая рука!"))
+			user.balloon_alert(user, "одна из конечностей отсутствует!")
 		return
 
 	// wield update status
@@ -237,9 +251,9 @@
 		parent_item.force *= force_multiplier
 	else if(force_wielded)
 		parent_item.force = force_wielded
-	var/datum/component/sharpening/sharpening = item.GetComponent(/datum/component/sharpening)
-	if(sharpening)
-		parent_item.force += sharpening.damage_increase
+	if(sharpened_increase)
+		parent_item.force += sharpened_increase
+		parent_item.throwforce += sharpened_increase
 	if(sharp_when_wielded)
 		parent_item.set_sharpness(TRUE)
 
@@ -268,7 +282,7 @@
 	offhand_item.desc = "Your second grip on [original_name]."
 	offhand_item.wielded = TRUE
 	RegisterSignal(offhand_item, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
-	RegisterSignal(offhand_item, COMSIG_PARENT_QDELETING, PROC_REF(on_destroy))
+	RegisterSignal(offhand_item, COMSIG_QDELETING, PROC_REF(on_destroy))
 	user.put_in_inactive_hand(offhand_item)
 
 
@@ -300,12 +314,12 @@
 
 	// update item stats
 	var/obj/item/parent_item = parent
-	var/datum/component/sharpening/sharpening = item.GetComponent(/datum/component/sharpening)
-	if(sharpening)
-		parent_item.force -= sharpening.damage_increase
+	if(sharpened_increase)
+		parent_item.force -= sharpened_increase
+		parent_item.throwforce -= sharpened_increase
 	if(force_multiplier)
 		parent_item.force /= force_multiplier
-	else
+	else if(force_unwielded)
 		parent_item.force = force_unwielded
 	if(sharp_when_wielded)
 		parent_item.set_sharpness(FALSE)
@@ -352,7 +366,7 @@
 
 	// Remove the object in the offhand
 	if(offhand_item)
-		UnregisterSignal(offhand_item, list(COMSIG_ITEM_DROPPED, COMSIG_PARENT_QDELETING))
+		UnregisterSignal(offhand_item, list(COMSIG_ITEM_DROPPED, COMSIG_QDELETING))
 		qdel(offhand_item)
 	// Clear any old refrence to an item that should be gone now
 	offhand_item = null
@@ -404,6 +418,31 @@
 		return
 	if(held_item == parent)
 		return COMPONENT_BLOCK_SWAP
+
+
+/**
+ * on_sharpen Triggers on usage of a sharpening stone on the item
+ */
+/datum/component/two_handed/proc/on_sharpen(obj/item/item, amount, max_amount)
+	SIGNAL_HANDLER
+
+	if(!item)
+		return COMPONENT_BLOCK_SHARPEN_BLOCKED
+	if(sharpened_increase)
+		return COMPONENT_BLOCK_SHARPEN_ALREADY
+	var/wielded_val = 0
+	if(force_multiplier)
+		var/obj/item/parent_item = parent
+		if(wielded)
+			wielded_val = parent_item.force
+		else
+			wielded_val = parent_item.force * force_multiplier
+	else
+		wielded_val = force_wielded
+	if(wielded_val > max_amount)
+		return COMPONENT_BLOCK_SHARPEN_MAXED
+	sharpened_increase = min(amount, (max_amount - wielded_val))
+	return COMPONENT_BLOCK_SHARPEN_APPLIED
 
 
 /**

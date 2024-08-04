@@ -32,6 +32,10 @@
 	if(payload_name)
 		payload_name += " " // formatting, ignore me
 	update_icon()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 
 /obj/item/grenade/chem_grenade/Destroy()
@@ -242,7 +246,7 @@
 	if(nadeassembly)
 		nadeassembly.HasProximity(AM)
 
-/obj/item/grenade/chem_grenade/Move() // prox sensors and infrared care about this
+/obj/item/grenade/chem_grenade/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE) // prox sensors and infrared care about this
 	. = ..()
 	if(nadeassembly)
 		nadeassembly.process_movement()
@@ -252,9 +256,13 @@
 	if(nadeassembly)
 		nadeassembly.process_movement()
 
-/obj/item/grenade/chem_grenade/Crossed(atom/movable/AM, oldloc)
+
+/obj/item/grenade/chem_grenade/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
 	if(nadeassembly)
-		nadeassembly.Crossed(AM, oldloc)
+		nadeassembly.assembly_crossed(arrived, old_loc)
+
 
 /obj/item/grenade/chem_grenade/on_found(mob/finder)
 	if(nadeassembly)
@@ -268,10 +276,11 @@
 	if(nadeassembly)
 		nadeassembly.hear_message(M, msg)
 
-/obj/item/grenade/chem_grenade/Bump()
-	..()
-	if(nadeassembly)
-		nadeassembly.process_movement()
+/obj/item/grenade/chem_grenade/Bump(atom/bumped_atom)
+	. = ..()
+	if(!nadeassembly)
+		return .
+	nadeassembly.process_movement()
 
 /obj/item/grenade/chem_grenade/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // called when a throw stops
 	..()
@@ -283,15 +292,21 @@
 	if(stage != READY)
 		return
 
-	var/list/datum/reagents/reactants = list()
-	for(var/obj/item/reagent_containers/glass/G in beakers)
-		reactants += G.reagents
+	var/turf/source_turf = get_turf(src)
+	if(!source_turf)
+		return
 
-	if(!chem_splash(get_turf(src), affected_area, reactants, ignition_temp, threatscale) && !no_splash)
-		playsound(loc, 'sound/items/screwdriver2.ogg', 50, 1)
-		if(beakers.len)
-			for(var/obj/O in beakers)
-				O.forceMove(get_turf(src))
+	update_mob()
+
+	var/list/datum/reagents/reactants = list()
+	for(var/obj/item/reagent_containers/container as anything in beakers)
+		reactants += container.reagents
+
+	if(!chem_splash(source_turf, affected_area, reactants, ignition_temp, threatscale) && !no_splash)
+		playsound(loc, 'sound/items/screwdriver2.ogg', 50, TRUE)
+		if(length(beakers))
+			for(var/obj/item/reagent_containers/container as anything in beakers)
+				container.forceMove(source_turf)
 			beakers = list()
 		stage = EMPTY
 		update_icon(UPDATE_ICON_STATE)
@@ -302,8 +317,6 @@
 		var/mob/last = get_mob_by_ckey(nadeassembly.fingerprintslast)
 		message_admins("grenade primed by an assembly, [user ? "triggered by [key_name_admin(user)] and" : ""] attached by [key_name_admin(M)] [last ? "and last touched by [key_name_admin(last)]" : ""] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [ADMIN_VERBOSEJMP(src)]. [contained]")
 		add_game_logs("grenade primed by an assembly, [user ? "triggered by [key_name_log(user)] and" : ""] attached by [key_name_log(M)] [last ? "and last touched by [key_name_log(last)]" : ""] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [AREACOORD(src)]. [contained]", user)
-
-	update_mob()
 
 	qdel(src)
 
@@ -461,6 +474,8 @@
 /obj/item/grenade/chem_grenade/firefighting
 	payload_name = "fire fighting grenade"
 	desc = "Can help to put out dangerous fires from a distance."
+	icon = 'icons/obj/weapons/grenade.dmi'
+	icon_state = "firefighting"
 	stage = READY
 
 /obj/item/grenade/chem_grenade/firefighting/Initialize(mapload)
@@ -500,6 +515,8 @@
 /obj/item/grenade/chem_grenade/antiweed
 	payload_name = "weed killer"
 	desc = "Used for purging large areas of invasive plant species. Contents under pressure. Do not directly inhale contents."
+	icon = 'icons/obj/weapons/grenade.dmi'
+	icon_state = "antiweed"	
 	stage = READY
 
 /obj/item/grenade/chem_grenade/antiweed/Initialize(mapload)
@@ -522,6 +539,8 @@
 /obj/item/grenade/chem_grenade/cleaner
 	payload_name = "cleaner"
 	desc = "BLAM!-brand foaming space cleaner. In a special applicator for rapid cleaning of wide areas."
+	icon = 'icons/obj/weapons/grenade.dmi'
+	icon_state = "cleaner"
 	stage = READY
 
 /obj/item/grenade/chem_grenade/cleaner/Initialize(mapload)
@@ -542,6 +561,8 @@
 /obj/item/grenade/chem_grenade/teargas
 	payload_name = "teargas"
 	desc = "Used for nonlethal riot control. Contents under pressure. Do not directly inhale contents."
+	icon = 'icons/obj/weapons/grenade.dmi'
+	icon_state = "teargas"
 	stage = READY
 
 /obj/item/grenade/chem_grenade/teargas/Initialize(mapload)

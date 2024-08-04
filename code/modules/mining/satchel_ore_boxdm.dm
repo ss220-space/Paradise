@@ -25,7 +25,7 @@
 	else if(W.tool_behaviour == TOOL_CROWBAR)
 		playsound(src, W.usesound, 50, 1)
 		var/obj/item/crowbar/C = W
-		if(do_after(user, 5 SECONDS * C.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, 5 SECONDS * C.toolspeed, src, category = DA_CAT_TOOL))
 			user.visible_message("<span class='notice'>[user] pries [src] apart.</span>", "<span class='notice'>You pry apart [src].</span>", "<span class='italics'>You hear splitting wood.</span>")
 			deconstruct(TRUE, user)
 	else
@@ -61,7 +61,7 @@
 	add_fingerprint(usr)
 	if(href_list["removeall"])
 		dump_box_contents()
-		to_chat(usr, "<span class='notice'>You empty the box.</span>")
+		balloon_alert(usr, "разгружено")
 	updateUsrDialog()
 
 /obj/structure/ore_box/deconstruct(disassembled = TRUE, mob/user)
@@ -80,8 +80,8 @@
 		O.forceMove(loc)
 		CHECK_TICK
 
-/obj/structure/ore_box/onTransitZ()
-	return
+/obj/structure/ore_box/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = FALSE)
+	return ..()
 
 /obj/structure/ore_box/verb/empty_box()
 	set name = "Empty Ore Box"
@@ -92,14 +92,14 @@
 		return
 
 	if(!Adjacent(usr))
-		to_chat(usr, "You cannot reach the ore box.")
+		balloon_alert(usr, "слишком далеко!")
 		return
 
 	add_fingerprint(usr)
 
 	if(contents.len < 1)
-		to_chat(usr, "<span class='warning'>The ore box is empty.</span>")
+		balloon_alert(usr, "груз отсутствует")
 		return
 
 	dump_box_contents()
-	to_chat(usr, "<span class='notice'>You empty the ore box.</span>")
+	balloon_alert(usr, "разгружено")

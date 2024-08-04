@@ -133,18 +133,17 @@
 	damage_type = BRUTE
 	nodamage = TRUE
 	flag = "bullet"
+	hitsound = 'sound/effects/meteorimpact.ogg'
 
-/obj/item/projectile/meteor/Bump(atom/A, yes)
-	if(yes)
-		return
-	if(A == firer)
-		loc = A.loc
-		return
-	playsound(loc, 'sound/effects/meteorimpact.ogg', 40, 1)
-	for(var/mob/M in urange(10, src))
-		if(!M.stat)
-			shake_camera(M, 3, 1)
-	qdel(src)
+
+/obj/item/projectile/meteor/on_hit(atom/target, blocked, hit_zone)
+	. = ..()
+	if(blocked >= 100)
+		return FALSE
+	for(var/mob/mob in urange(10, src))
+		if(!mob.stat)
+			shake_camera(mob, 3, 1)
+
 
 /obj/item/projectile/energy/floramut
 	name = "alpha somatoray"
@@ -208,7 +207,7 @@
 	. = ..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/M = target
-		M.adjustBrainLoss(20)
+		M.apply_damage(20, BRAIN)
 		M.AdjustHallucinate(20 SECONDS)
 		M.last_hallucinator_log = name
 
@@ -216,13 +215,20 @@
 	name = "snap-pop"
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "snappop"
+	nodamage = TRUE
+	damage = 0
 
-/obj/item/projectile/clown/Bump(atom/A as mob|obj|turf|area)
-	do_sparks(3, 1, src)
-	new /obj/effect/decal/cleanable/ash(loc)
-	visible_message("<span class='warning'>The [name] explodes!</span>","<span class='warning'>You hear a snap!</span>")
-	playsound(src, 'sound/effects/snap.ogg', 50, 1)
-	qdel(src)
+
+/obj/item/projectile/clown/on_hit(atom/target, blocked, hit_zone)
+	. = ..()
+	if(blocked >= 100)
+		return .
+	do_sparks(3, 1, target)
+	target.visible_message(span_warning("The [name] explodes!"))
+	playsound(target, 'sound/effects/snap.ogg', 50, TRUE)
+	if(isturf(target.loc) && !target.loc.density)
+		new /obj/effect/decal/cleanable/ash(target.loc)
+
 
 /obj/item/projectile/beam/wormhole
 	name = "bluespace beam"
@@ -393,7 +399,7 @@
 	G.forceMove(T)
 	var/mob/living/simple_animal/hostile/mimic/copy/ranged/R = new /mob/living/simple_animal/hostile/mimic/copy/ranged(T, G, firer)
 	if(ismob(target))
-		R.target = target
+		R.GiveTarget(target)
 
 /obj/item/projectile/bullet/a84mm_hedp
 	name ="\improper HEDP rocket"
@@ -430,7 +436,7 @@
 
 /obj/item/projectile/bullet/a84mm_hedp/proc/embed_shrapnel(mob/living/carbon/human/H, amount)
 	for(var/i = 0, i < amount, i++)
-		if(prob(embed_prob - H.getarmor(null, "bomb")))
+		if(prob(embed_prob - H.getarmor(attack_flag = BOMB)))
 			var/obj/item/embedded/S = new embedded_type(src)
 			H.hitby(S, skipcatch = 1)
 			S.throwforce = 1

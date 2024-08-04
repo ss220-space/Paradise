@@ -2,7 +2,6 @@
 
 #define PI 3.1415
 #define INFINITY 1e31 //closer than enough
-#define SQRT_2 1.41421356237
 
 #define SHORT_REAL_LIMIT 16777216
 

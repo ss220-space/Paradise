@@ -135,6 +135,7 @@
 	singular_name = "gauze length"
 	desc = "Some sterile gauze to wrap around bloody stumps."
 	icon_state = "gauze"
+	item_state = "gauze"
 	origin_tech = "biotech=2"
 	heal_brute = 10
 	stop_bleeding = 1800
@@ -185,6 +186,7 @@
 	singular_name = "advanced trauma kit"
 	desc = "An advanced trauma kit for severe injuries."
 	icon_state = "traumakit"
+	item_state = "traumakit"
 	belt_icon = "advanced_trauma_kit"
 	heal_brute = 25
 	stop_bleeding = 0
@@ -237,6 +239,7 @@
 	singular_name = "advanced burn kit"
 	desc = "An advanced treatment kit for severe burns."
 	icon_state = "burnkit"
+	item_state = "burnkit"
 	belt_icon = "advanced_burn_kit"
 	heal_burn = 25
 
@@ -279,6 +282,7 @@
 	name = "medical splints"
 	singular_name = "medical splint"
 	icon_state = "splint"
+	item_state = "splint"
 	unique_handling = TRUE
 	self_delay = 10 SECONDS
 	var/other_delay = 0
@@ -318,7 +322,7 @@
 
 	if(bodypart.is_splinted())
 		to_chat(user, span_danger("[target]'s [bodypart_name] is already splinted!"))
-		if(alert(user, "Would you like to remove the splint from [target]'s [bodypart_name]?", "Splint removal.", "Yes", "No") == "Yes")
+		if(tgui_alert(user, "Would you like to remove the splint from [target]'s [bodypart_name]?", "Splint removal", list("Yes", "No")) == "Yes")
 			bodypart.remove_splint()
 			to_chat(user, span_notice("You remove the splint from [target]'s [bodypart_name]."))
 		return TRUE

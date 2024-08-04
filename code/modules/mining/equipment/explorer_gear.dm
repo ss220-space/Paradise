@@ -190,7 +190,7 @@
 	icon_state = "darktemplar-follower0"
 	item_color = "darktemplar-follower0"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/champion/templar
-	species_restricted = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_NUCLEATION, SPECIES_MACNINEPERSON, SPECIES_PLASMAMAN, SPECIES_DIONA, SPECIES_KIDAN, "Shadow") // only humanoids. And we don't have animal sprites.
+	species_restricted = list(SPECIES_HUMAN, SPECIES_SLIMEPERSON, SPECIES_SKELETON, SPECIES_NUCLEATION, SPECIES_MACNINEPERSON, SPECIES_PLASMAMAN, SPECIES_DIONA, SPECIES_KIDAN, SPECIES_SHADOW_BASIC) // only humanoids. And we don't have animal sprites.
 
 /obj/item/clothing/head/helmet/space/hardsuit/champion/templar/premium
 	name = "high dark templar's helmet"
@@ -204,6 +204,18 @@
 	icon_state = "darktemplar-chaplain0"
 	item_color = "darktemplar-chaplain0"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/champion/templar/premium
+
+/obj/item/clothing/head/helmet/space/hardsuit/champion/inquisitor
+	name = "inquisitor's helmet"
+	desc = "A helmet worn by those who deal with paranormal threats for a living."
+	icon_state = "hardsuit0-inquisitor"
+	item_color = "inquisitor"
+
+/obj/item/clothing/suit/space/hardsuit/champion/inquisitor
+	name = "inquisitor's hardsuit"
+	desc = "Powerful wards are built into this hardsuit, protecting the user from all manner of paranormal threats."
+	icon_state = "hardsuit-inquisitor"
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/champion/inquisitor
 
 /obj/item/clothing/suit/hooded/pathfinder
 	name = "pathfinder cloak"

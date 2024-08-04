@@ -26,10 +26,6 @@
 
 #define SPLINT_LIFE 2000 //number of steps splints stay on
 
-//BONE DEFINE
-
-#define FRAGILITY(A) (ishuman(A) ? A.dna.species.bonefragility : 1)
-
 
 //Pulse levels, very simplified
 #define PULSE_NONE		0	//so !M.pulse checks would be possible
@@ -132,12 +128,15 @@
 #define SLIME_FRIENDSHIP_STAY				3 //Min friendship to order it to stay
 #define SLIME_FRIENDSHIP_ATTACK				8 //Min friendship to order it to attack
 
+//Hostile simple animals
 //If you add a new status, be sure to add a list for it to the simple_animals global in _globalvars/lists/mobs.dm
-//Hostile Mob AI Status
-#define AI_ON       1
-#define AI_IDLE     2
-#define AI_OFF      3
-#define AI_Z_OFF    4
+#define AI_ON 1
+#define AI_IDLE 2
+#define AI_OFF 3
+#define AI_Z_OFF 4
+
+//The range at which a mob should wake up if you spawn into the z level near it
+#define MAX_SIMPLEMOB_WAKEUP_RANGE 5
 
 // Intents
 #define INTENT_HELP		"help"
@@ -163,10 +162,10 @@
 #define ENVIRONMENT_SMASH_WALLS 2   //walls
 #define ENVIRONMENT_SMASH_RWALLS 4  //rwalls
 
-#define POCKET_STRIP_DELAY			40	//time taken (in deciseconds) to search somebody's pockets
+#define POCKET_STRIP_DELAY			4 SECONDS	//time taken to search somebody's pockets
 
-#define DEFAULT_ITEM_STRIP_DELAY		40  //time taken (in deciseconds) to strip somebody
-#define DEFAULT_ITEM_PUTON_DELAY		20  //time taken (in deciseconsd) to reverse-strip somebody
+#define DEFAULT_ITEM_STRIP_DELAY		4 SECONDS  //time taken to strip somebody
+#define DEFAULT_ITEM_PUTON_DELAY		2 SECONDS  //time taken to reverse-strip somebody
 
 #define IGNORE_ACCESS -1
 
@@ -202,7 +201,6 @@
 #define isshadowlinglesser(A) (is_species(A, /datum/species/shadow/ling/lesser))
 #define isabductor(A) (is_species(A, /datum/species/abductor))
 #define isgolem(A) (is_species(A, /datum/species/golem))
-#define ismonkeybasic(A) (is_species(A, /datum/species/monkey))
 #define isfarwa(A) (is_species(A, /datum/species/monkey/tajaran))
 #define iswolpin(A) (is_species(A, /datum/species/monkey/vulpkanin))
 #define isneara(A) (is_species(A, /datum/species/monkey/skrell))
@@ -307,10 +305,6 @@
 #define isdrone(A)		(istype((A), /mob/living/silicon/robot/drone))
 #define iscogscarab(A)	(istype((A), /mob/living/silicon/robot/cogscarab))
 
-// For tools
-
-#define gettoolspeedmod(A) (ishuman(A) ? A.dna.species.toolspeedmod : 1)
-
 // For the tcomms monitor
 #define ispathhuman(A)		(ispath(A, /mob/living/carbon/human))
 #define ispathbrain(A)		(ispath(A, /mob/living/carbon/brain))
@@ -337,7 +331,24 @@
 
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
 
-#define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
+#define SLEEP_CHECK_DEATH(A, X) \
+	sleep(X); \
+	if(QDELETED(A)) return; \
+	if(ismob(A)) { \
+		var/mob/sleep_check_death_mob = A; \
+		if(sleep_check_death_mob.stat == DEAD) return; \
+	}
+
+/// Until a condition is true, sleep. If target is qdeleted or dead, return.
+#define UNTIL_DEATH_CHECK(target, expression) \
+	while(!(expression)) { \
+		stoplag(); \
+		if(QDELETED(target)) return; \
+		if(ismob(target)) { \
+			var/mob/sleep_check_death_mob = target; \
+			if(sleep_check_death_mob.stat == DEAD) return; \
+		}; \
+	};
 
 // Locations
 #define is_ventcrawling(A)  (istype(A.loc, /obj/machinery/atmospherics))
@@ -358,7 +369,7 @@
 #define MAX_EYE_BLURRY_FILTER_SIZE 5
 #define EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER 0.1
 
-#define FIRE_DMI (issmall(src) ? 'icons/mob/clothing/species/monkey/OnFire.dmi' : 'icons/mob/OnFire.dmi')
+#define FIRE_DMI(target) (is_monkeybasic(target) ? 'icons/mob/clothing/species/monkey/OnFire.dmi' : 'icons/mob/OnFire.dmi')
 
 ///Define for spawning megafauna instead of a mob for cave gen
 #define SPAWN_MEGAFAUNA "bluh bluh huge boss"
@@ -383,13 +394,49 @@
 /// [TRAIT_NO_SLIP_WATER] does not work on this slip. ONLY [TRAIT_NO_SLIP_ALL] will
 #define SLIP_IGNORE_NO_SLIP_WATER (1<<3)
 /// Slip works even if you're already on the ground
-///#define SLIP_WHEN_CRAWLING (1<<4)
+#define SLIP_WHEN_LYING (1<<4)
 /// the mob won't slip if the turf has the TRAIT_TURF_IGNORE_SLIPPERY trait.
-#define SLIPPERY_TURF (1<<4)
+#define SLIPPERY_TURF (1<<5)
 
 /// Possible value of [/atom/movable/buckle_lying]. If set to a different (positive-or-zero) value than this, the buckling thing will force a lying angle on the buckled.
 #define NO_BUCKLE_LYING -1
 
-// Return values for [/mob/living/proc/handle_ventcrawl()]
-#define VENTCRAWL_IN_SUCCESS 1
-#define VENTCRAWL_OUT_SUCCESS 2
+#define GRAB_PIXEL_SHIFT_PASSIVE 6
+#define GRAB_PIXEL_SHIFT_AGGRESSIVE 12
+#define GRAB_PIXEL_SHIFT_NECK 10
+#define GRAB_PIXEL_SHIFT_KILL 16
+
+#define PULL_LYING_MOB_SLOWDOWN 1.3
+#define PUSH_STANDING_MOB_SLOWDOWN 1.3
+
+#define ACTIVE_HAND_RIGHT 0
+#define ACTIVE_HAND_LEFT 1
+
+#define PULL_WITHOUT_HANDS "pull_without_hands"
+#define PULL_HAND_RIGHT 0
+#define PULL_HAND_LEFT 1
+
+/// Times it takes for a mob to be eaten by default.
+#define DEVOUR_TIME_DEFAULT (10 SECONDS)
+/// Time it takes for a simple mob to be eaten.
+#define DEVOUR_TIME_ANIMAL (3 SECONDS)
+
+
+//Flags used by the flags parameter of electrocute act.
+///Makes it so that the shock doesn't take gloves into account.
+#define SHOCK_NOGLOVES (1<<0)
+///Used when the shock is from a tesla bolt.
+#define SHOCK_TESLA (1<<1)
+///Used when an illusion shocks something. Makes the shock deal stamina damage and not trigger certain secondary effects.
+#define SHOCK_ILLUSION (1<<2)
+///The shock doesn't stun.
+#define SHOCK_NOSTUN (1<<3)
+/// No default message is sent from the shock
+#define SHOCK_SUPPRESS_MESSAGE (1<<4)
+/// Ignores TRAIT_SHOCKIMMUNE / TRAIT_TESLA_SHOCKIMMUNE
+#define SHOCK_IGNORE_IMMUNITY (1<<5)
+/// Prevents the immediate stun, instead only gives the delay
+#define SHOCK_DELAY_STUN (1<<6)
+/// Makes the weaken into a knockdown
+#define SHOCK_KNOCKDOWN (1<<7)
+

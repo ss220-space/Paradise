@@ -14,11 +14,12 @@
 	to_chat(imp_in, span_notice("You feel a sudden surge of energy!"))
 	imp_in.SetStunned(0)
 	imp_in.SetWeakened(0)
+	imp_in.SetKnockdown(0)
 	imp_in.SetImmobilized(0)
 	imp_in.SetParalysis(0)
 	imp_in.adjustStaminaLoss(-100)
-	imp_in.lying_angle = 0
-	imp_in.update_canmove()
+	imp_in.set_resting(FALSE, instant = TRUE)
+	imp_in.get_up(instant = TRUE)
 
 	imp_in.reagents.add_reagent("synaptizine", 10)
 	imp_in.reagents.add_reagent("omnizine", 10)

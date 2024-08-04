@@ -35,7 +35,7 @@
 			inuse = 0
 			return
 
-		if(user != H && H.a_intent != INTENT_HELP && !H.lying_angle)
+		if(user != H && H.a_intent != INTENT_HELP && H.body_position != LYING_DOWN)
 			user.visible_message("<span class='danger'>\The [user] tries to take a swab sample from \the [H], but they move away.</span>")
 			inuse = 0
 			return

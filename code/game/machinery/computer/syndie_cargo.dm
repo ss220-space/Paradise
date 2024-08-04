@@ -374,7 +374,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 
 					if(find_slip && istype(thing,/obj/item/paper/manifest))
 						var/obj/item/paper/manifest/slip = thing
-						var/slip_stamped_len = length(slip.stamped)
+						var/slip_stamped_len = LAZYLEN(slip.stamped)
 						if(slip_stamped_len) //yes, the clown stamp will work. clown is the highest authority on the station, it makes sense
 							// Did they mark it as erroneous?
 							var/denied = 0
@@ -538,10 +538,10 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 		return 1
 	return ..()
 
-/obj/machinery/computer/syndie_supplycomp/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/syndie_supplycomp/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "SyndieCargoConsole", name, 900, 800, master_ui, state)
+		ui = new(user, src, "SyndieCargoConsole", name)
 		ui.open()
 
 /obj/machinery/computer/syndie_supplycomp/ui_data(mob/user)
@@ -595,7 +595,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 
 	return FALSE
 
-/obj/machinery/computer/syndie_supplycomp/ui_act(action, list/params)
+/obj/machinery/computer/syndie_supplycomp/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 
@@ -635,18 +635,16 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 		if("order")
 			var/amount = 1
 			if(params["multiple"] == "1") // 1 is a string here. DO NOT MAKE THIS A BOOLEAN YOU DORK
-				var/num_input = input(usr, "Amount", "How many crates? (20 Max)") as null|num
+				var/num_input = tgui_input_number(ui.user, "Amount", "How many crates?", max_value = 20)
 				if(!num_input || (!is_public && !is_authorized(usr)) || ..()) // Make sure they dont walk away
 					return
-				amount = clamp(round(num_input), 1, 20)
 
 			var/datum/syndie_supply_packs/SP = locateUID(params["crate"])
 			if(!istype(SP))
 				return
 
-			var/timeout = world.time + 600 // If you dont type the reason within a minute, theres bigger problems here
-			var/reason = input(usr, "Reason", "Why do you require this item?","") as null|text
-			if(world.time > timeout || !reason || (!is_public && !is_authorized(usr)) || ..())
+			var/reason = tgui_input_text(ui.user, "Reason", "Why do you require this item?", encode = FALSE, timeout = 60 SECONDS)
+			if(!reason || (!is_public && !is_authorized(usr)) || ..())
 				// Cancel if they take too long, they dont give a reason, they aint authed, or if they walked away
 				return
 			reason = sanitize(copytext_char(reason, 1, MAX_MESSAGE_LEN))

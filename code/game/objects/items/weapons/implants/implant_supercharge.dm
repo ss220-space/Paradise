@@ -14,11 +14,12 @@
 	to_chat(imp_in, span_notice("You feel an electric sensation as your components enter overdrive!"))
 	imp_in.SetStunned(0)
 	imp_in.SetWeakened(0)
+	imp_in.SetKnockdown(0)
 	imp_in.SetImmobilized(0)
 	imp_in.SetParalysis(0)
 	imp_in.adjustStaminaLoss(-100)
-	imp_in.lying_angle = 0
-	imp_in.update_canmove()
+	imp_in.set_resting(FALSE, instant = TRUE)
+	imp_in.get_up(instant = TRUE)
 
 	imp_in.reagents.add_reagent("surge_plus", 10)
 	imp_in.reagents.add_reagent("liquid_solder", 10)

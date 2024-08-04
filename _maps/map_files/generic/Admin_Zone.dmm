@@ -606,7 +606,7 @@
 /area/admin)
 "fI" = (
 /obj/structure/table/wood,
-/obj/item/abductor_baton,
+/obj/item/melee/baton/abductor,
 /obj/item/abductor/silencer,
 /obj/item/abductor/mind_device,
 /obj/item/abductor/gizmo,
@@ -862,8 +862,7 @@
 	},
 /area/tdome/arena_source)
 "iD" = (
-/obj/structure/closet{
-	icon_state = "cabinet";
+/obj/structure/closet/secure_closet/cabinet{
 	req_access = list(114)
 	},
 /turf/simulated/floor/wood,
@@ -1192,7 +1191,7 @@
 	icon_state = "nazi";
 	name = "Officer's Uniform"
 	},
-/obj/item/clothing/suit/blacktrenchcoat{
+/obj/item/clothing/suit/storage/blacktrenchcoat{
 	icon_state = "nazi"
 	},
 /obj/item/clothing/shoes/black,
@@ -3373,8 +3372,7 @@
 	},
 /area/tdome/arena)
 "Oe" = (
-/obj/structure/closet{
-	icon_state = "cabinet";
+/obj/structure/closet/secure_closet/cabinet{
 	req_access = list(114)
 	},
 /obj/machinery/light/small{
@@ -3852,6 +3850,7 @@
 "UO" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer,
+/obj/item/gun/projectile/automatic/toy/pistol/enforcer/riot,
 /turf/simulated/floor/carpet/arcade,
 /area/admin)
 "UR" = (

@@ -90,7 +90,7 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 	if(picture_state)
 		. += picture_state
 
-	underlays += emissive_appearance(icon, "lightmask")
+	underlays += emissive_appearance(icon, "lightmask", src)
 
 
 /obj/machinery/status_display/power_change(forced = FALSE)
@@ -390,5 +390,5 @@ GLOBAL_LIST_EMPTY(ai_displays)
 			new_display = "ai_bsod"
 
 	. += new_display
-	underlays += emissive_appearance(icon, "lightmask")
+	underlays += emissive_appearance(icon, "lightmask", src)
 

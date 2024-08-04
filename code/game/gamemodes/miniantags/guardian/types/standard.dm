@@ -16,7 +16,7 @@
 	set name = "Боевой клич"
 	set category = "Guardian"
 	set desc = "Выбери крик при ударе"
-	var/input = stripped_input(src,"Какой ты хочешь боевой клич при ударе? максимум 8 символов.", ,"", 8)
+	var/input = tgui_input_text(src, "Какой боевой клич вы бы хотели? Максимальная длина 8 символов.", "Change Battlecry", battlecry, 8)
 	if(input)
 		battlecry = input
 
@@ -53,4 +53,5 @@
 	playstyle_string = "URK URK!"
 	environment_smash = 2
 	battlecry = "URK"
-	admin_spawned = TRUE
+	flags = ADMIN_SPAWNED
+

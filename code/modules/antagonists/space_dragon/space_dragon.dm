@@ -95,7 +95,7 @@
 	RegisterSignal(small_sprite, COMSIG_ACTION_TRIGGER, PROC_REF(add_dragon_overlay))
 
 
-/mob/living/simple_animal/hostile/space_dragon/Process_Spacemove(movement_dir = NONE)
+/mob/living/simple_animal/hostile/space_dragon/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
 
@@ -191,7 +191,7 @@
 	useGust(0)
 
 
-/mob/living/simple_animal/hostile/space_dragon/Move()
+/mob/living/simple_animal/hostile/space_dragon/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(!using_special)
 		. = ..()
 

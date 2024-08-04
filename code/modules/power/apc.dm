@@ -447,7 +447,7 @@
 	underlays.Cut()
 
 	if(update_state & UPSTATE_BLUESCREEN)
-		underlays += emissive_appearance(icon, "emit_apcemag")
+		underlays += emissive_appearance(icon, "emit_apcemag", src)
 		return
 
 	if((stat & (BROKEN|MAINT)) || !(update_state & UPSTATE_ALLGOOD))
@@ -457,8 +457,8 @@
 	var/image/statover_charg = status_overlays_charging[charging + 1]
 	. += statover_lock
 	. += statover_charg
-	underlays += emissive_appearance(icon, statover_lock.icon_state)
-	underlays += emissive_appearance(icon, statover_charg.icon_state)
+	underlays += emissive_appearance(icon, statover_lock.icon_state, src)
+	underlays += emissive_appearance(icon, statover_charg.icon_state, src)
 
 	if(!operating)
 		return
@@ -469,9 +469,9 @@
 	. += statover_equip
 	. += statover_light
 	. += statover_envir
-	underlays += emissive_appearance(icon, statover_equip.icon_state)
-	underlays += emissive_appearance(icon, statover_light.icon_state)
-	underlays += emissive_appearance(icon, statover_envir.icon_state)
+	underlays += emissive_appearance(icon, statover_equip.icon_state, src)
+	underlays += emissive_appearance(icon, statover_light.icon_state, src)
+	underlays += emissive_appearance(icon, statover_envir.icon_state, src)
 
 
 /obj/machinery/power/apc/proc/check_updates()
@@ -822,7 +822,7 @@
 			update_icon()
 	else if(stat & BROKEN)
 		if(!opened)
-			if(do_after(user, gettoolspeedmod(user) * (3 SECONDS) * I.toolspeed, src, DEFAULT_DOAFTER_IGNORE|IGNORE_HELD_ITEM))
+			if(do_after(user, 3 SECONDS * I.toolspeed, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, category = DA_CAT_TOOL))
 				to_chat(user, span_notice("You pry out broken frame."))
 				opened = APC_COVER_OFF
 				update_icon()
@@ -1012,10 +1012,10 @@
 	else
 		return APC_MALF_NOT_HACKED
 
-/obj/machinery/power/apc/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/power/apc/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "APC", name, 510, 460, master_ui, state)
+		ui = new(user, src, "APC", name)
 		ui.open()
 
 /obj/machinery/power/apc/ui_data(mob/user)
@@ -1074,7 +1074,7 @@
 /obj/machinery/power/apc/ui_status(mob/user, datum/ui_state/state)
 	if(aidisabled && (isAI(user) || isrobot(user)))
 		to_chat(user, "<span class='warning'>AI control for \the [src] interface has been disabled.</span>")
-		return STATUS_CLOSE
+		return UI_CLOSE
 	. = ..()
 
 /obj/machinery/power/apc/proc/report()
@@ -1237,8 +1237,8 @@
 	to_chat(malf, "Beginning override of APC systems. This takes some time, and you cannot perform other actions during the process.")
 	malf.malfhack = src
 	malf.malfhacking = addtimer(CALLBACK(malf, TYPE_PROC_REF(/mob/living/silicon/ai, malfhacked), src), 600, TIMER_STOPPABLE)
-	var/obj/screen/alert/hackingapc/A
-	A = malf.throw_alert("hackingapc", /obj/screen/alert/hackingapc)
+	var/atom/movable/screen/alert/hackingapc/A
+	A = malf.throw_alert("hackingapc", /atom/movable/screen/alert/hackingapc)
 	A.target = src
 
 /obj/machinery/power/apc/proc/malfoccupy(mob/living/silicon/ai/malf)
@@ -1512,7 +1512,7 @@
 			shock_mobs += victim
 		var/mob/living/victim = safepick(shock_mobs)	//We only want to shock a single random mob in range, not every one.
 		if(victim)
-			victim.electrocute_act(rand(5, 25), "electrical arc")
+			victim.electrocute_act(rand(5, 25), "электрической дуги")
 			playsound(get_turf(victim), 'sound/effects/eleczap.ogg', 75, TRUE)
 			Beam(victim, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5)
 

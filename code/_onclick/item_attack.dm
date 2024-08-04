@@ -43,7 +43,7 @@
 		return TRUE
 	return I.attack(src, user)
 
-/obj/item/proc/attack(mob/living/target, mob/living/user, def_zone, add_melee_cooldown = TRUE)
+/obj/item/proc/attack(mob/living/target, mob/living/user, def_zone, add_melee_cooldown = TRUE, skip_attack_anim = FALSE)
 	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, target, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, target, user)
@@ -70,7 +70,8 @@
 
 	if(add_melee_cooldown)
 		user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(target)
+	if(!skip_attack_anim)
+		user.do_attack_animation(target)
 	. = target.attacked_by(src, user, def_zone)
 
 	add_fingerprint(user)
@@ -97,8 +98,8 @@
 /mob/living/attacked_by(obj/item/I, mob/living/user, def_zone)
 	send_item_attack_message(I, user)
 	if(I.force)
-		apply_damage(I.force, I.damtype, def_zone)
-		if(I.damtype == BRUTE)
+		var/success = apply_damage(I.force, I.damtype, def_zone, sharp = is_sharp(I), used_weapon = I)
+		if(success && I.damtype == BRUTE)
 			if(prob(33))
 				I.add_mob_blood(src)
 				var/turf/location = get_turf(src)

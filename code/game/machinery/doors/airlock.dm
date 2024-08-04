@@ -58,6 +58,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	explosion_block = 1
 	assemblytype = /obj/structure/door_assembly
 	siemens_strength = 1
+	smoothing_groups = SMOOTH_GROUP_AIRLOCK
+
 	var/security_level = 0 //How much are wires secured
 	var/aiControlDisabled = AICONTROLDISABLED_OFF
 	var/hackProof = FALSE // if TRUE, this door can't be hacked by the AI
@@ -127,7 +129,7 @@ About the new airlock wires panel:
  */
 /obj/machinery/door/airlock/flicker()
 	if(density && !operating && arePowerSystemsOn())
-		do_animate("deny")
+		INVOKE_ASYNC(src, PROC_REF(do_animate), "deny")
 		return TRUE
 	return FALSE
 
@@ -187,21 +189,19 @@ About the new airlock wires panel:
 		note = null
 		update_icon()
 
+
 /obj/machinery/door/airlock/bumpopen(mob/living/user) //Airlocks now zap you when you 'bump' them open when they're electrified. --NeoFite
-	if(!issilicon(usr))
+	if(!issilicon(user))
 		if(isElectrified())
-			if(!justzap)
-				if(shock(user, 100))
-					justzap = TRUE
-					spawn (10)
-						justzap = FALSE
-					return
-			else
+			if(justzap)
 				return
-		else if(user.AmountHallucinate() > 50 SECONDS && prob(10) && !operating)
-			if(user.electrocute_act(50, src, 1, illusion = TRUE)) // We'll just go with a flat 50 damage, instead of doing powernet checks
+			if(shock(user, 100))
+				justzap = TRUE
+				addtimer(VARSET_CALLBACK(src, justzap, FALSE), 1 SECONDS)
 				return
-	..(user)
+		else if(!operating && user.AmountHallucinate() > 50 SECONDS && prob(10) && user.electrocute_act(50, "шлюза", flags = SHOCK_ILLUSION))
+			return
+	return ..()
 
 
 /obj/machinery/door/airlock/proc/isElectrified()
@@ -356,7 +356,7 @@ About the new airlock wires panel:
 	switch(state)
 		if(AIRLOCK_CLOSED)
 			frame_overlay = get_airlock_overlay("closed", icon)
-			buttons_underlay = get_airlock_emissive_underlay("closed_lightmask", overlays_file)
+			buttons_underlay = get_airlock_emissive_underlay("closed_lightmask", overlays_file, src)
 			if(airlock_material)
 				filling_overlay = get_airlock_overlay("[airlock_material]_closed", overlays_file)
 			else
@@ -371,17 +371,17 @@ About the new airlock wires panel:
 				weld_overlay = get_airlock_overlay("welded", overlays_file)
 			if(obj_integrity <integrity_failure)
 				damag_overlay = get_airlock_overlay("sparks_broken", overlays_file)
-				damag_underlay = get_airlock_emissive_underlay( "sparks_broken_lightmask", overlays_file)
+				damag_underlay = get_airlock_emissive_underlay( "sparks_broken_lightmask", overlays_file, src)
 			else if(obj_integrity < (0.75 * max_integrity))
 				damag_overlay = get_airlock_overlay("sparks_damaged", overlays_file)
-				damag_underlay = get_airlock_emissive_underlay("sparks_damaged_lightmask", overlays_file)
+				damag_underlay = get_airlock_emissive_underlay("sparks_damaged_lightmask", overlays_file, src)
 			if(lights && arePowerSystemsOn())
 				if(locked)
 					lights_overlay = get_airlock_overlay("lights_bolts", overlays_file)
-					lights_underlay = get_airlock_emissive_underlay("lights_bolts_lightmask", overlays_file)
+					lights_underlay = get_airlock_emissive_underlay("lights_bolts_lightmask", overlays_file, src)
 				else if(emergency)
 					lights_overlay = get_airlock_overlay("lights_emergency", overlays_file)
-					lights_underlay = get_airlock_emissive_underlay("lights_emergency_lightmask", overlays_file)
+					lights_underlay = get_airlock_emissive_underlay("lights_emergency_lightmask", overlays_file, src)
 			if(note)
 				note_overlay = get_airlock_overlay(notetype, note_overlay_file)
 				note_overlay.layer = layer + 0.1
@@ -402,22 +402,22 @@ About the new airlock wires panel:
 					panel_overlay = get_airlock_overlay("panel_closed", overlays_file)
 			if(obj_integrity <integrity_failure)
 				damag_overlay = get_airlock_overlay("sparks_broken", overlays_file)
-				damag_underlay = get_airlock_emissive_underlay( "sparks_broken_lightmask", overlays_file)
+				damag_underlay = get_airlock_emissive_underlay( "sparks_broken_lightmask", overlays_file, src)
 			else if(obj_integrity < (0.75 * max_integrity))
 				damag_overlay = get_airlock_overlay("sparks_damaged", overlays_file)
-				damag_underlay = get_airlock_emissive_underlay("sparks_damaged_lightmask", overlays_file)
+				damag_underlay = get_airlock_emissive_underlay("sparks_damaged_lightmask", overlays_file, src)
 			if(welded)
 				weld_overlay = get_airlock_overlay("welded", overlays_file)
 			lights_overlay = get_airlock_overlay("lights_denied", overlays_file)
-			lights_underlay = get_airlock_emissive_underlay("lights_denied_lightmask", overlays_file)
+			lights_underlay = get_airlock_emissive_underlay("lights_denied_lightmask", overlays_file, src)
 			if(note)
 				note_overlay = get_airlock_overlay(notetype, note_overlay_file)
 
 		if(AIRLOCK_EMAG)
 			frame_overlay = get_airlock_overlay("closed", icon)
-			buttons_underlay = get_airlock_emissive_underlay("closed_lightmask", overlays_file)
+			buttons_underlay = get_airlock_emissive_underlay("closed_lightmask", overlays_file, src)
 			sparks_overlay = get_airlock_overlay("sparks", overlays_file)
-			sparks_underlay = get_airlock_emissive_underlay("sparks_lightmask", overlays_file)
+			sparks_underlay = get_airlock_emissive_underlay("sparks_lightmask", overlays_file, src)
 			if(airlock_material)
 				filling_overlay = get_airlock_overlay("[airlock_material]_closed", overlays_file)
 			else
@@ -430,10 +430,10 @@ About the new airlock wires panel:
 					panel_overlay = get_airlock_overlay("panel_closed", overlays_file)
 			if(obj_integrity <integrity_failure)
 				damag_overlay = get_airlock_overlay("sparks_broken", overlays_file)
-				damag_underlay = get_airlock_emissive_underlay( "sparks_broken_lightmask", overlays_file)
+				damag_underlay = get_airlock_emissive_underlay( "sparks_broken_lightmask", overlays_file, src)
 			else if(obj_integrity < (0.75 * max_integrity))
 				damag_overlay = get_airlock_overlay("sparks_damaged", overlays_file)
-				damag_underlay = get_airlock_emissive_underlay("sparks_damaged_lightmask", overlays_file)
+				damag_underlay = get_airlock_emissive_underlay("sparks_damaged_lightmask", overlays_file, src)
 			if(welded)
 				weld_overlay = get_airlock_overlay("welded", overlays_file)
 			if(note)
@@ -441,14 +441,14 @@ About the new airlock wires panel:
 
 		if(AIRLOCK_CLOSING)
 			frame_overlay = get_airlock_overlay("closing", icon)
-			buttons_underlay = get_airlock_emissive_underlay("closing_lightmask", overlays_file)
+			buttons_underlay = get_airlock_emissive_underlay("closing_lightmask", overlays_file, src)
 			if(airlock_material)
 				filling_overlay = get_airlock_overlay("[airlock_material]_closing", overlays_file)
 			else
 				filling_overlay = get_airlock_overlay("fill_closing", icon)
 			if(lights && arePowerSystemsOn())
 				lights_overlay = get_airlock_overlay("lights_closing", overlays_file)
-				lights_underlay = get_airlock_emissive_underlay("lights_closing_lightmask", overlays_file)
+				lights_underlay = get_airlock_emissive_underlay("lights_closing_lightmask", overlays_file, src)
 			if(panel_open)
 				buttons_underlay = null
 				if(security_level)
@@ -471,20 +471,20 @@ About the new airlock wires panel:
 					panel_overlay = get_airlock_overlay("panel_open", overlays_file)
 			if(obj_integrity < (0.75 * max_integrity))
 				damag_overlay = get_airlock_overlay("sparks_open", overlays_file)
-				damag_underlay = get_airlock_emissive_underlay("sparks_open_lightmask", overlays_file)
+				damag_underlay = get_airlock_emissive_underlay("sparks_open_lightmask", overlays_file, src)
 			if(note)
 				note_overlay = get_airlock_overlay("[notetype]_open", note_overlay_file)
 
 		if(AIRLOCK_OPENING)
 			frame_overlay = get_airlock_overlay("opening", icon)
-			buttons_underlay = get_airlock_emissive_underlay("opening_lightmask", overlays_file)
+			buttons_underlay = get_airlock_emissive_underlay("opening_lightmask", overlays_file, src)
 			if(airlock_material)
 				filling_overlay = get_airlock_overlay("[airlock_material]_opening", overlays_file)
 			else
 				filling_overlay = get_airlock_overlay("fill_opening", icon)
 			if(lights && arePowerSystemsOn())
 				lights_overlay = get_airlock_overlay("lights_opening", overlays_file)
-				lights_underlay = get_airlock_emissive_underlay("lights_opening_lightmask", overlays_file)
+				lights_underlay = get_airlock_emissive_underlay("lights_opening_lightmask", overlays_file, src)
 			if(panel_open)
 				buttons_underlay = null
 				if(security_level)
@@ -536,11 +536,12 @@ About the new airlock wires panel:
 	return GLOB.airlock_overlays[iconkey]
 
 
-/proc/get_airlock_emissive_underlay(icon_state, icon_file)
-	var/iconkey = "[icon_state][icon_file]"
+/proc/get_airlock_emissive_underlay(icon_state, icon_file, atom/offset_spokesman)
+	var/turf/our_turf = get_turf(offset_spokesman)
+	var/iconkey = "[icon_state][icon_file][GET_TURF_PLANE_OFFSET(our_turf)]"
 	if(GLOB.airlock_emissive_underlays[iconkey])
 		return GLOB.airlock_emissive_underlays[iconkey]
-	GLOB.airlock_emissive_underlays[iconkey] = emissive_appearance(icon_file, icon_state)
+	GLOB.airlock_emissive_underlays[iconkey] = emissive_appearance(icon_file, icon_state, offset_spokesman = offset_spokesman)
 	return GLOB.airlock_emissive_underlays[iconkey]
 
 
@@ -551,9 +552,9 @@ About the new airlock wires panel:
 		if("closing")
 			update_icon(AIRLOCK_CLOSING)
 		if("deny")
-			if(!stat)
+			if(arePowerSystemsOn())
 				update_icon(AIRLOCK_DENY)
-				playsound(src,doorDeni,50,0,3)
+				playsound(src, doorDeni, 50, FALSE, 3)
 				sleep(6)
 				update_icon(AIRLOCK_CLOSED)
 
@@ -635,10 +636,10 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/attack_ai(mob/user)
 	ui_interact(user)
 
-/obj/machinery/door/airlock/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/door/airlock/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AiAirlock", name, 600, 400, master_ui, state)
+		ui = new(user, src, "AiAirlock", name)
 		ui.open()
 
 
@@ -686,7 +687,7 @@ About the new airlock wires panel:
 		to_chat(user, span_warning("AI control for \the [src] interface has been disabled."))
 		if(!canAIControl() && canAIHack())
 			hack(user)
-		return STATUS_CLOSE
+		return UI_CLOSE
 	. = ..()
 
 /obj/machinery/door/airlock/proc/hack(mob/user)
@@ -788,7 +789,7 @@ About the new airlock wires panel:
 		var/mob/living/simple_animal/hulk/H = user
 		H.attack_hulk(src)
 
-/obj/machinery/door/airlock/attack_hand(mob/user)
+/obj/machinery/door/airlock/attack_hand(mob/living/carbon/human/user)
 	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user)
 	if(shock_user(user, 100))
 		add_fingerprint(user)
@@ -797,10 +798,10 @@ About the new airlock wires panel:
 	if(headbutt_airlock(user))
 		add_fingerprint(user)
 		return // Smack that head against that airlock
-	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+	if(user.a_intent == INTENT_HARM && ishuman(user) && (user.dna.species.obj_damage + user.physiology.punch_obj_damage > 0))
 		add_fingerprint(user)
 		user.changeNext_move(CLICK_CD_MELEE)
-		attack_generic(user, user.dna.species.obj_damage)
+		attack_generic(user, user.dna.species.obj_damage + user.physiology.punch_obj_damage)
 		return
 	if(remove_airlock_note(user, FALSE))
 		add_fingerprint(user)
@@ -823,10 +824,8 @@ About the new airlock wires panel:
 			playsound(loc, 'sound/effects/bang.ogg', 25, 1)
 			if(!istype(H.head, /obj/item/clothing/head/helmet))
 				visible_message(span_warning("[user] headbutts the airlock."))
-				var/obj/item/organ/external/affecting = H.get_organ(BODY_ZONE_HEAD)
 				H.Weaken(10 SECONDS)
-				if(affecting.receive_damage(10, 0))
-					H.UpdateDamageIcon()
+				H.apply_damage(10, def_zone = BODY_ZONE_HEAD)
 			else
 				visible_message(span_warning("[user] headbutts the airlock. Good thing [user.p_theyre()] wearing a helmet."))
 			return TRUE
@@ -1148,7 +1147,7 @@ About the new airlock wires panel:
 		switch(security_level)
 			if(AIRLOCK_SECURITY_METAL)
 				to_chat(user, span_notice("You begin cutting the panel's shielding..."))
-				if(!I.use_tool(src, user, 4 SECONDS * gettoolspeedmod(user), volume = I.tool_volume))
+				if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
 					return
 				visible_message(span_notice("[user] cuts through \the [src]'s shielding."),
 					span_notice("You cut through \the [src]'s shielding."),
@@ -1157,7 +1156,7 @@ About the new airlock wires panel:
 				spawn_atom_to_turf(/obj/item/stack/sheet/metal, user.loc, 2)
 			if(AIRLOCK_SECURITY_PLASTEEL_O)
 				to_chat(user, span_notice("You begin cutting the outer layer of shielding..."))
-				if(!I.use_tool(src, user, 4 SECONDS * gettoolspeedmod(user), volume = I.tool_volume))
+				if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
 					return
 				visible_message(span_notice("[user] cuts through \the [src]'s shielding."),
 					span_notice("You cut through \the [src]'s shielding."),
@@ -1165,7 +1164,7 @@ About the new airlock wires panel:
 				security_level = AIRLOCK_SECURITY_PLASTEEL_O_S
 			if(AIRLOCK_SECURITY_PLASTEEL_I)
 				to_chat(user, span_notice("You begin cutting the inner layer of shielding..."))
-				if(!I.use_tool(src, user, 4 SECONDS * gettoolspeedmod(user), volume = I.tool_volume))
+				if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
 					return
 				user.visible_message(span_notice("[user] cuts through \the [src]'s shielding."),
 					span_notice("You cut through \the [src]'s shielding."),
@@ -1177,7 +1176,7 @@ About the new airlock wires panel:
 				span_notice("You begin [welded ? "unwelding":"welding"] the airlock..."), \
 				span_italics("You hear welding."))
 
-			if(I.use_tool(src, user, 4 SECONDS * gettoolspeedmod(user), volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(weld_checks), I, user)))
+			if(I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(weld_checks), I, user)))
 				if(!density && !welded)
 					return
 				welded = !welded
@@ -1188,7 +1187,7 @@ About the new airlock wires panel:
 			user.visible_message(span_notice("[user] is welding the airlock."), \
 				span_notice("You begin repairing the airlock..."), \
 				span_italics("You hear welding."))
-			if(I.use_tool(src, user, 4 SECONDS * gettoolspeedmod(user), volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(weld_checks), I, user)))
+			if(I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(weld_checks), I, user)))
 				obj_integrity = max_integrity
 				stat &= ~BROKEN
 				user.visible_message(span_notice("[user.name] has repaired [src]."), \
@@ -1215,7 +1214,7 @@ About the new airlock wires panel:
 	if(I.tool_behaviour == TOOL_CROWBAR && I.tool_use_check(user, 0) && panel_open && (emagged || (density && welded && !operating && !arePowerSystemsOn() && !locked)))
 		user.visible_message("[user] removes the electronics from the airlock assembly.", \
 							 span_notice("You start to remove electronics from the airlock assembly..."))
-		if(I.use_tool(src, user, 4 SECONDS * gettoolspeedmod(user), volume = I.tool_volume))
+		if(I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
 			deconstruct(TRUE, user)
 		return
 
@@ -1244,13 +1243,13 @@ About the new airlock wires panel:
 			to_chat(user, span_warning("You need to be wielding the fire axe to do that!"))
 			return
 		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
-		if(do_after(user, 5 SECONDS * gettoolspeedmod(user), src, max_interact_count = 1) && !open(TRUE) && density)
+		if(do_after(user, 5 SECONDS, src, max_interact_count = 1, category = DA_CAT_TOOL) && !open(TRUE) && density)
 			to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
 		return
 
 	if(istype(I, /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw))
 		playsound(src, 'sound/machines/airlock_force_open.ogg', 100, 1) //scary
-		if(do_after(user, 4 SECONDS * gettoolspeedmod(user), src, max_interact_count = 1) && !open(TRUE) && density) // faster because of ITS A MECH
+		if(do_after(user, 4 SECONDS, src, max_interact_count = 1, category = DA_CAT_TOOL) && !open(TRUE) && density) // faster because of ITS A MECH
 			to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
 		return
 
@@ -1263,11 +1262,13 @@ About the new airlock wires panel:
 		return
 
 	playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
-	if(do_after(user, 5 SECONDS * gettoolspeedmod(user), src, max_interact_count = 1) && !open(TRUE) && density)
+	if(do_after(user, 5 SECONDS, src, max_interact_count = 1, category = DA_CAT_TOOL) && !open(TRUE) && density)
 		to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
 
 
 /obj/machinery/door/airlock/open(forced = 0)
+	set waitfor = FALSE
+
 	if(operating || welded || locked || emagged)
 		return FALSE
 	if(!forced && (!arePowerSystemsOn() || wires.is_cut(WIRE_OPEN_DOOR)))
@@ -1302,6 +1303,8 @@ About the new airlock wires panel:
 
 
 /obj/machinery/door/airlock/close(forced = 0, override = FALSE)
+	set waitfor = FALSE
+
 	if((operating && !override) || welded || locked || emagged)
 		return FALSE
 	if(density)
@@ -1374,9 +1377,9 @@ About the new airlock wires panel:
 	return TRUE
 
 
-/obj/machinery/door/airlock/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
-	//Airlock is passable if it is open (!density), bot has access, and is not bolted or welded shut)
-	return !density || (check_access(ID) && !locked && !welded && arePowerSystemsOn() && !no_id)
+/obj/machinery/door/airlock/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	//Airlock is passable if it is open (!density), bot has access, and is not bolted shut or powered off)
+	return !density || (check_access_list(pass_info.access) && !locked && arePowerSystemsOn() && !pass_info.no_id)
 
 
 /obj/machinery/door/airlock/emag_act(mob/user)
@@ -1399,6 +1402,7 @@ About the new airlock wires panel:
 
 
 /obj/machinery/door/airlock/cmag_act(mob/user)
+	set waitfor = FALSE
 	if(operating || HAS_TRAIT(src, TRAIT_CMAGGED) || !density || !arePowerSystemsOn() || emagged)
 		return
 	operating = DOOR_MALF
@@ -1629,7 +1633,7 @@ About the new airlock wires panel:
 	if(our_rcd.checkResource(20, user))
 		to_chat(user, "Deconstructing airlock...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-		if(do_after(user, 5 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, 5 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
 			if(!our_rcd.useResource(20, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)

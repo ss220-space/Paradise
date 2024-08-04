@@ -33,6 +33,7 @@
 	stat_attack = UNCONSCIOUS // Sleeping won't save you
 	a_intent = INTENT_HARM // Angrilla
 	tts_seed = "Mannoroth"
+	AI_delay_max = 0.5 SECONDS
 	/// Is the gorilla stood up or not?
 	var/is_bipedal = FALSE
 	/// The max number of crates we can carry
@@ -89,7 +90,7 @@
 	desc = "Toggles between crawling and standing up. Use <b>Alt+Click</b> on self."
 	icon_icon = 'icons/mob/actions/actions_animal.dmi'
 	button_icon_state = "gorilla_toggle"
-	check_flags = AB_CHECK_CONSCIOUS
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 
 
 /datum/action/innate/gorilla/gorilla_toggle/Activate()
@@ -213,7 +214,7 @@
 
 /mob/living/simple_animal/hostile/gorilla/CanAttack(atom/the_target)
 	var/list/parts = get_target_bodyparts(target)
-	return ..() && !ismonkeybasic(the_target) && (!parts || length(parts) > 3)
+	return ..() && !is_monkeybasic(the_target) && (!parts || length(parts) > 3)
 
 
 /mob/living/simple_animal/hostile/gorilla/CanSmashTurfs(turf/T)
@@ -384,7 +385,7 @@
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic
 	name = "каргорилла"
 	icon = 'icons/mob/cargorillia.dmi'
-	desc = "Ручной самец гориллы, приписанный к департаменту грузоперевозок. Похоже у него набито тату \"Я люблю Маму\"."
+	desc = "Ручной самец гориллы, приписанный к отделу грузоперевозок. Похоже у него набито тату \"Я люблю Маму\"."
 	faction = list("neutral", "monkey", "jungle")
 	gold_core_spawnable = NO_SPAWN
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
@@ -409,7 +410,7 @@
 
 /mob/living/simple_animal/hostile/gorilla/cargo_domestic/Login()
 	. = ..()
-	to_chat(src, span_boldnotice("Вы \"[name]\" - одомашненная горилла и питомец департамента карго. Вы преданная и трудолюбивая горилла и любите свою работу. Вы хорошая горилла, и карго любит Вас."))
+	to_chat(src, span_boldnotice("Вы \"[name]\" - одомашненная горилла и питомец отдела грузоперевозок. Вы преданная и трудолюбивая горилла и любите свою работу. Вы хорошая горилла, и карго любит Вас."))
 	to_chat(src, span_boldnotice("В интенте \"HELP\" Вы можете подбирать ящики, щёлкнув по ним, и бросить их, щелкнув по открытому полу. Вы можете переносить [crate_limit] [declension_ru(crate_limit, "ящик", "ящика", "ящиков")] единовременно. В интенте \"HARM\" Вы можете толкать ящики, но не ломать их. Также Вы можете закрывать или открывать ящики используя Alt+Click."))
 	to_chat(src, span_boldnotice("Легенды гласят, что бананы заключают в себе просвещение..."))
 

@@ -8,7 +8,7 @@
 	invisibility = INVISIBILITY_OBSERVER
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
-
+	see_invisible = SEE_INVISIBLE_LIVING
 	pass_flags = PASSBLOB
 	faction = list(ROLE_BLOB)
 
@@ -27,14 +27,6 @@
 	name = new_name
 	real_name = new_name
 	last_attack = world.time
-	var/list/possible_reagents = list()
-	for(var/type in subtypesof(/datum/reagent/blob))
-		possible_reagents.Add(new type)
-	blob_reagent_datum = pick(possible_reagents)
-	if(blob_core)
-		blob_core.adjustcolors(blob_reagent_datum.color)
-
-	color = blob_reagent_datum.complementary_color
 	..()
 	START_PROCESSING(SSobj, src)
 
@@ -49,7 +41,6 @@
 /mob/camera/blob/Login()
 	..()
 	sync_mind()
-	blob_help()
 	update_health_hud()
 	sync_lighting_plane_alpha()
 
@@ -63,6 +54,10 @@
 		if(hud_used)
 			hud_used.blobpwrdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#82ed00'>[round(src.blob_points)]</font></div>"
 
+
+/mob/camera/blob/memory()
+	SSticker.mode.update_blob_objective()
+	..()
 
 /mob/camera/blob/say(message)
 	if(!message)
@@ -90,32 +85,50 @@
 		return
 
 	var/rendered = "<i><span class='blob[blob_reagent_datum.id]'>Blob Telepathy,</span> <span class='name'>[name](<span class='blob[blob_reagent_datum.id]'>[blob_reagent_datum.name]</span>)</span> states, <span class='blob[blob_reagent_datum.id]'>\"[message]\"</span></i>"
-
 	for(var/mob/M in GLOB.mob_list)
-		if(isovermind(M) || isobserver(M) || istype((M), /mob/living/simple_animal/hostile/blob/blobbernaut))
+		if(isovermind(M) || isblobbernaut(M) || isblobinfected(M.mind))
 			M.show_message(rendered, 2)
+		else if(isobserver(M) && !isnewplayer(M))
+			var/rendered_ghost = "<i><span class='blob[blob_reagent_datum.id]'>Blob Telepathy,</span> \
+			<span class='name'>[name](<span class='blob[blob_reagent_datum.id]'>[blob_reagent_datum.name]</span>)</span> \
+			<a href='?src=[M.UID()];follow=[UID()]'>(F)</a> states, <span class='blob[blob_reagent_datum.id]'>\"[message]\"</span></i>"
+			M.show_message(rendered_ghost, 2)
 
 
 /mob/camera/blob/blob_act(obj/structure/blob/B)
 	return
 
-/mob/camera/blob/Stat()
-	..()
-	if(statpanel("Status"))
-		if(blob_core)
-			stat(null, "Core Health: [blob_core.obj_integrity]")
-		stat(null, "Power Stored: [blob_points]/[max_blob_points]")
+/mob/camera/blob/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	if(blob_core)
+		status_tab_data[++status_tab_data.len] = list("Core Health:", "[blob_core.obj_integrity]")
+		status_tab_data[++status_tab_data.len] = list("Power Stored:", "[blob_points]/[max_blob_points]")
 
-/mob/camera/blob/Move(var/NewLoc, var/Dir = 0)
+/mob/camera/blob/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(world.time < last_movement)
 		return
 	last_movement = world.time + 0.5 // cap to 20fps
 
-	var/obj/structure/blob/B = locate() in range("3x3", NewLoc)
+	var/obj/structure/blob/B = locate() in range("3x3", newloc)
 	if(B)
-		loc = NewLoc
+		loc = newloc
 	else
 		return 0
 
 /mob/camera/blob/proc/can_attack()
 	return (world.time > (last_attack + CLICK_CD_RANGE))
+
+/mob/camera/blob/proc/select_reagent()
+	var/list/possible_reagents = list()
+	var/datum/antagonist/blob_overmind/overmind_datum = mind?.has_antag_datum(/datum/antagonist/blob_overmind)
+	if(!overmind_datum)
+		for(var/type in subtypesof(/datum/reagent/blob))
+			possible_reagents.Add(new type)
+		blob_reagent_datum = pick(possible_reagents)
+	else
+		blob_reagent_datum = overmind_datum.reagent
+	if(blob_core)
+		blob_core.adjustcolors(blob_reagent_datum.color)
+
+	color = blob_reagent_datum.complementary_color

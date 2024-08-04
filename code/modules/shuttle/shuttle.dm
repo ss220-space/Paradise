@@ -83,9 +83,7 @@
 //returns turfs within our projected rectangle in no particular order
 /obj/docking_port/proc/return_turfs()
 	var/list/L = return_coords()
-	var/turf/T0 = locate(L[1], L[2], z)
-	var/turf/T1 = locate(L[3], L[4], z)
-	return block(T0, T1)
+	return block(L[1], L[2], z, L[3], L[4], z)
 
 //returns turfs within our projected rectangle in a specific order.
 //this ensures that turfs are copied over in the same order, regardless of any rotation
@@ -131,10 +129,9 @@
 #ifdef DOCKING_PORT_HIGHLIGHT
 //Debug proc used to highlight bounding area
 /obj/docking_port/proc/highlight(_color)
+	SET_PLANE_IMPLICIT(src, GHOST_PLANE)
 	var/list/L = return_coords()
-	var/turf/T0 = locate(L[1],L[2],z)
-	var/turf/T1 = locate(L[3],L[4],z)
-	for(var/turf/T in block(T0,T1))
+	for(var/turf/T in block(L[1], L[2], z, L[3], L[4], z))
 		T.color = _color
 		T.maptext = null
 	if(_color)
@@ -781,10 +778,10 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/computer/shuttle/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/shuttle/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ShuttleConsole", name, 350, 240, master_ui, state)
+		ui = new(user, src, "ShuttleConsole", name)
 		ui.open()
 
 /obj/machinery/computer/shuttle/ui_data(mob/user)
@@ -844,7 +841,7 @@
 	if(action == "move")
 		var/destination = params["shuttle_id"]
 		if(!options.Find(destination))//figure out if this translation works
-			message_admins("<span class='boldannounce'>EXPLOIT:</span> [ADMIN_LOOKUPFLW(usr)] attempted to move [src] to an invalid location! [ADMIN_COORDJMP(src)]")
+			message_admins("[span_boldannounceooc("EXPLOIT:")] [ADMIN_LOOKUPFLW(usr)] attempted to move [src] to an invalid location! [ADMIN_COORDJMP(src)]")
 			return
 		switch(SSshuttle.moveShuttle(shuttleId, destination, TRUE, usr))
 			if(SHUTTLE_CONSOLE_RECHARGING)
