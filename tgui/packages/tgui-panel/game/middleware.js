@@ -13,6 +13,7 @@ import {
 } from './actions';
 import { selectGame } from './selectors';
 import { CONNECTION_LOST_AFTER, AUTO_RECONNECT_AFTER } from './constants';
+import { url } from '../reconnect';
 
 const withTimestamp = (action) => ({
   ...action,
@@ -56,7 +57,16 @@ export const gameMiddleware = (store) => {
     }
     if (type === autoReconnect.type) {
       Byond.command('.reconnect');
-      return;
+
+      // const link = document.createElement('a');
+      // link.id = 'reconnectLink';
+      // link.href = `byond://${url}`;
+      // link.textContent = 'reconnectLink';
+      // document.body.appendChild(link);
+      // document.getElementById('reconnectLink')?.click();
+      // Byond.command('.quit');
+
+      return next(action);
     }
 
     return next(action);

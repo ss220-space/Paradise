@@ -860,11 +860,12 @@
 			weed_pulling = TRUE
 			user.visible_message(span_notice("[user] uproots the weeds from [src]."), span_notice("You remove the weeds from [src]."))
 			while(weedlevel > 0)
-				if(do_after(user, 2 SECONDS * O.toolspeed * gettoolspeedmod(user), src))
+				if(do_after(user, 2 SECONDS * O.toolspeed, src, category = DA_CAT_TOOL))
 					if(!istype(src, /obj/machinery/hydroponics))
 						return TRUE
 					adjustWeeds(-2)
-				else break
+				else
+					break
 			if(weedlevel > 0)
 				to_chat(user, span_warning("You have stopped pulling weeds."))
 			else
@@ -888,7 +889,7 @@
 			return
 		user.visible_message("<span class='notice'>[user] starts digging out [src]'s plants...</span>", "<span class='notice'>You start digging out [src]'s plants...</span>")
 		playsound(src, O.usesound, 50, 1)
-		if(!do_after(user, 2.5 SECONDS * O.toolspeed * gettoolspeedmod(user), src) || (!myseed && !weedlevel))
+		if(!do_after(user, 2.5 SECONDS * O.toolspeed, src, category = DA_CAT_TOOL) || (!myseed && !weedlevel))
 			return
 		add_fingerprint(user)
 		user.visible_message("<span class='notice'>[user] digs out the plants in [src]!</span>", "<span class='notice'>You dig out all of [src]'s plants!</span>")

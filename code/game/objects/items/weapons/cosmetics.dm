@@ -113,7 +113,7 @@
 	usesound = 'sound/items/welder2.ogg'
 	toolspeed = 1
 
-/obj/item/razor/attack(mob/living/carbon/M as mob, mob/user as mob)
+/obj/item/razor/attack(mob/living/carbon/M, mob/user)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/head/C = H.get_organ(BODY_ZONE_HEAD)
@@ -131,7 +131,7 @@
 			if(H == user) //shaving yourself
 				user.visible_message("<span class='notice'>[user] starts to shave [user.p_their()] facial hair with [src].</span>", \
 				"<span class='notice'>You take a moment shave your facial hair with \the [src].</span>")
-				if(do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), H))
+				if(do_after(user, 5 SECONDS * toolspeed, H, category = DA_CAT_TOOL))
 					user.visible_message("<span class='notice'>[user] shaves [user.p_their()] facial hair clean with [src].</span>", \
 					"<span class='notice'>You finish shaving with [src]. Fast and clean!</span>")
 					C.f_style = "Shaved"
@@ -142,7 +142,7 @@
 				var/turf/H_loc = H.loc
 				user.visible_message("<span class='danger'>[user] tries to shave [H]'s facial hair with \the [src].</span>", \
 				"<span class='warning'>You start shaving [H]'s facial hair.</span>")
-				if(do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), H))
+				if(do_after(user, 5 SECONDS * toolspeed, H, category = DA_CAT_TOOL))
 					if(user_loc == user.loc && H_loc == H.loc)
 						user.visible_message("<span class='danger'>[user] shaves off [H]'s facial hair with \the [src].</span>", \
 						"<span class='notice'>You shave [H]'s facial hair clean off.</span>")
@@ -165,7 +165,7 @@
 			if(H == user) //shaving yourself
 				user.visible_message("<span class='warning'>[user] starts to shave [user.p_their()] head with [src].</span>", \
 				"<span class='warning'>You start to shave your head with \the [src].</span>")
-				if(do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), H))
+				if(do_after(user, 5 SECONDS * toolspeed, H, category = DA_CAT_TOOL))
 					user.visible_message("<span class='notice'>[user] shaves [user.p_their()] head with [src].</span>", \
 					"<span class='notice'>You finish shaving with \the [src].</span>")
 					C.h_style = "Skinhead"
@@ -176,7 +176,7 @@
 				var/turf/H_loc = H.loc
 				user.visible_message("<span class='danger'>[user] tries to shave [H]'s head with \the [src]!</span>", \
 				"<span class='warning'>You start shaving [H]'s head.</span>")
-				if(do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), H))
+				if(do_after(user, 5 SECONDS * toolspeed, H, category = DA_CAT_TOOL))
 					if(user_loc == user.loc && H_loc == H.loc)
 						user.visible_message("<span class='danger'>[user] shaves [H]'s head bald with \the [src]!</span>", \
 						"<span class='warning'>You shave [H]'s head bald.</span>")

@@ -234,27 +234,6 @@
 
 	return 2
 
-/mob/living/silicon/apply_effect(var/effect = 0,var/effecttype = STUN, var/blocked = 0, var/negate_armor = 0)
-	return 0//The only effect that can hit them atm is flashes and they still directly edit so this works for now
-/*
-	if(!effect || (blocked >= 2))	return 0
-	switch(effecttype)
-		if(STUN)
-			Stun(effect / (blocked + 1))
-		if(WEAKEN)
-			Weaken(effect / (blocked + 1))
-		if(PARALYZE)
-			Paralyse(effect / (blocked + 1))
-		if(IRRADIATE)
-			radiation += min((effect - (effect*getarmor(null, "rad"))), 0)//Rads auto check armor
-		if(STUTTER)
-			stuttering = max(stuttering,(effect/(blocked+1)))
-		if(EYE_BLUR)
-			eye_blurry = max(eye_blurry,(effect/(blocked+1)))
-		if(DROWSY)
-			drowsyness = max(drowsyness,(effect/(blocked+1)))
-	updatehealth()
-	return 1*/
 
 /proc/islinked(mob/living/silicon/robot/bot, mob/living/silicon/ai/ai)
 	if(!istype(bot) || !istype(ai))
@@ -378,8 +357,15 @@
 			to_chat(src, "Sensor augmentations disabled.")
 
 
-/mob/living/silicon/adjustToxLoss(amount, updating_health)
+/mob/living/silicon/adjustToxLoss(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	forced = FALSE,
+	used_weapon = null,
+)
 	return STATUS_UPDATE_NONE
+
 
 /mob/living/silicon/get_access()
 	return IGNORE_ACCESS //silicons always have access

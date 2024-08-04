@@ -49,7 +49,7 @@
 		span_warning("Your hand slips, slicing open [target]'s [affected.name] in a wrong spot with \the [tool]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	affected.receive_damage(10)
+	target.apply_damage(10, def_zone = affected)
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/generic/clamp_bleeders
@@ -93,7 +93,7 @@
 		span_warning("Your hand slips, tearing blood vessels and causing massive bleeding in [target]'s [affected.name] with \the [tool]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	affected.receive_damage(10)
+	target.apply_damage(10, def_zone = affected)
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/generic/retract_skin
@@ -244,7 +244,7 @@
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
-	affected.receive_damage(15)
+	target.apply_damage(15, def_zone = affected)
 	return SURGERY_STEP_RETRY
 
 
@@ -297,6 +297,6 @@
 		span_warning("Your hand slips, sawing through the bone in [target]'s [affected.name] with \the [tool]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	affected.receive_damage(30)
+	target.apply_damage(30, def_zone = affected)
 	affected.fracture()
 	return SURGERY_STEP_RETRY

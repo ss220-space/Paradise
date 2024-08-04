@@ -106,7 +106,7 @@
 		return
 	to_chat(user, "<span class='notice'>You start planting [src].[isnull(nadeassembly) ? " The timer is set to [det_time/10]..." : ""]</span>")
 
-	if(!do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), AM))
+	if(!do_after(user, 5 SECONDS * toolspeed, AM, category = DA_CAT_TOOL))
 		return
 
 	if(!user.drop_item_ground(src))

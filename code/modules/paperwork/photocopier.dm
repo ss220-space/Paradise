@@ -187,10 +187,9 @@
 
 	if(emagged)
 		if(ishuman(copymob))
-			var/mob/living/carbon/human/H = copymob
-			var/obj/item/organ/external/G = H.get_organ("groin")
-			G.receive_damage(0, 30)
-			H.emote("scream")
+			copymob.apply_damage(30, BURN, BODY_ZONE_PRECISE_GROIN)
+			if(copymob.has_pain())
+				copymob.emote("scream")
 		else
 			copymob.apply_damage(30, BURN)
 		to_chat(copymob, "<span class='notice'>Something smells toasty...</span>")

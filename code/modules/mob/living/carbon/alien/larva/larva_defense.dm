@@ -10,7 +10,6 @@
 				Paralyse(rand(10 SECONDS, 20 SECONDS))
 
 			adjustBruteLoss(damage)
-			updatehealth()
 		else
 			playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 			visible_message("<span class='danger'>[M] has attempted to kick [src]!</span>", \

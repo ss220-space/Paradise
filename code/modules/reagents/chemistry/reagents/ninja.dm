@@ -82,7 +82,7 @@
 				for(var/obj/item/organ/internal/internal_organ as anything in mob_human.internal_organs)
 					if(prob(20))
 						internal_organ.rejuvenate()
-						internal_organ.receive_damage(-5, FALSE)
+						internal_organ.internal_receive_damage(-5)
 				// Bones
 				for(var/obj/item/organ/external/external_organ as anything in mob_human.bodyparts)
 					if(prob(20))

@@ -10,7 +10,7 @@
 	1 - halfblock
 	2 - fullblock
 */
-/mob/living/proc/run_armor_check(var/def_zone = null, var/attack_flag = "melee", var/absorb_text = null, var/soften_text = null, armour_penetration, penetrated_text)
+/mob/living/proc/run_armor_check(def_zone, attack_flag = MELEE, absorb_text, soften_text, armour_penetration, penetrated_text)
 	var/armor = getarmor(def_zone, attack_flag)
 
 	//the if "armor" check is because this is used for everything on /living, including humans
@@ -34,7 +34,7 @@
 	return armor
 
 //if null is passed for def_zone, then this should return something appropriate for all zones (e.g. area effect damage)
-/mob/living/proc/getarmor(var/def_zone, var/type)
+/mob/living/proc/getarmor(def_zone, attack_flag)
 	return 0
 
 /mob/living/proc/is_mouth_covered(head_only = FALSE, mask_only = FALSE)
@@ -63,13 +63,6 @@
 	if(status_flags & GODMODE)	//godmode
 		return FALSE
 	shock_damage *= siemens_coeff
-
-
-	// until physiology
-	if(reagents?.has_reagent("teslium"))
-		shock_damage *= 1.5
-
-
 	if(!(flags & SHOCK_IGNORE_IMMUNITY))
 		if((flags & SHOCK_TESLA) && HAS_TRAIT(src, TRAIT_TESLA_SHOCKIMMUNE))
 			return FALSE
@@ -78,12 +71,12 @@
 	if(shock_damage < 1)
 		return FALSE
 	if(!(flags & SHOCK_ILLUSION))
-		adjustFireLoss(shock_damage)
+		apply_damage(shock_damage, BURN, spread_damage = TRUE)
 		if(shock_damage > 200)
 			playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
 			explosion(loc, -1, 0, 2, 2, cause = "[source] over electrocuted [name]")
 	else
-		adjustStaminaLoss(shock_damage)
+		apply_damage(shock_damage, STAMINA)
 	if(!(flags & SHOCK_SUPPRESS_MESSAGE))
 		visible_message(
 			span_danger("[name] получа[pluralize_ru(gender,"ет","ют")] удар током от [source]!"),
@@ -175,7 +168,6 @@
 				M.mech_toxin_damage(src)
 			else
 				return
-		updatehealth("mech melee attack")
 		M.occupant_message("<span class='danger'>[pluralize_ru(M.occupant.gender,"Ты","Вы")] ударяе[pluralize_ru(M.occupant.gender,"шь","те")] [src.declent_ru(ACCUSATIVE)].</span>")
 		visible_message("<span class='danger'>[M.declent_ru(NOMINATIVE)] ударя[pluralize_ru(M.gender,"ет","ют")] [src.declent_ru(ACCUSATIVE)]!</span>", "<span class='userdanger'>[M.declent_ru(NOMINATIVE)] ударя[pluralize_ru(M.gender,"ет","ют")] [pluralize_ru(src.gender,"тебя","вас")]!</span>")
 		add_attack_logs(M.occupant, src, "Mecha-meleed with [M]")

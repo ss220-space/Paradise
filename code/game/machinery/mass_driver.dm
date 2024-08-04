@@ -19,17 +19,19 @@
 	. = TRUE
 	multitool_menu_interact(user, I)
 
+
 /obj/machinery/mass_driver/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	to_chat(user, "You begin to unscrew the bolts off [src]...")
-	playsound(get_turf(src), I.usesound, 50, 1)
-	if(do_after(user, 3 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
-		var/obj/machinery/mass_driver_frame/F = new(get_turf(src))
-		F.dir = dir
-		F.set_anchored(TRUE)
-		F.build = 4
-		F.update_icon()
-		qdel(src)
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
+		return .
+	var/obj/machinery/mass_driver_frame/frame = new(loc)
+	frame.setDir(dir)
+	frame.set_anchored(TRUE)
+	frame.build = 4
+	frame.update_icon()
+	qdel(src)
+
 
 /obj/machinery/mass_driver/proc/drive(amount)
 	if(stat & (BROKEN|NOPOWER))
@@ -91,13 +93,13 @@
 	anchored = FALSE
 	var/build = 0
 
-/obj/machinery/mass_driver_frame/attackby(var/obj/item/W as obj, var/mob/user as mob)
+/obj/machinery/mass_driver_frame/attackby(obj/item/W, mob/user)
 	switch(build)
 		if(0) // Loose frame
 			if(W.tool_behaviour == TOOL_WRENCH)
 				to_chat(user, "You begin to anchor \the [src] on the floor.")
 				playsound(get_turf(src), W.usesound, 50, 1)
-				if(do_after(user, 1 SECONDS * W.toolspeed * gettoolspeedmod(user), src) && (build == 0))
+				if(do_after(user, 1 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL) && (build == 0))
 					add_fingerprint(user)
 					to_chat(user, span_notice("You anchor \the [src]!"))
 					set_anchored(TRUE)
@@ -108,7 +110,7 @@
 			if(W.tool_behaviour == TOOL_WRENCH)
 				to_chat(user, "You begin to de-anchor \the [src] from the floor.")
 				playsound(get_turf(src), W.usesound, 50, 1)
-				if(do_after(user, 1 SECONDS * W.toolspeed * gettoolspeedmod(user), src) && (build == 1))
+				if(do_after(user, 1 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL) && (build == 1))
 					add_fingerprint(user)
 					build--
 					set_anchored(FALSE)
@@ -119,7 +121,7 @@
 				var/obj/item/stack/cable_coil/C = W
 				to_chat(user, "You start adding cables to \the [src]...")
 				playsound(get_turf(src), C.usesound, 50, 1)
-				if(do_after(user, 2 SECONDS * C.toolspeed * gettoolspeedmod(user), src) && (C.get_amount() >= 2) && (build == 2))
+				if(do_after(user, 2 SECONDS * C.toolspeed, src, category = DA_CAT_TOOL) && (C.get_amount() >= 2) && (build == 2))
 					add_fingerprint(user)
 					C.use(2)
 					to_chat(user, span_notice("You've added cables to \the [src]."))
@@ -128,7 +130,7 @@
 		if(3) // Wired
 			if(W.tool_behaviour == TOOL_WIRECUTTER)
 				to_chat(user, "You begin to remove the wiring from \the [src].")
-				if(do_after(user, 1 SECONDS * W.toolspeed * gettoolspeedmod(user), src) && (build == 3))
+				if(do_after(user, 1 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL) && (build == 3))
 					add_fingerprint(user)
 					new /obj/item/stack/cable_coil(loc,2)
 					playsound(get_turf(src), W.usesound, 50, 1)
@@ -139,7 +141,7 @@
 				var/obj/item/stack/rods/R = W
 				to_chat(user, "You begin to complete \the [src]...")
 				playsound(get_turf(src), R.usesound, 50, 1)
-				if(do_after(user, 2 SECONDS * R.toolspeed * gettoolspeedmod(user), src) && (R.get_amount() >= 2) && (build == 3))
+				if(do_after(user, 2 SECONDS * R.toolspeed, src, category = DA_CAT_TOOL) && (R.get_amount() >= 2) && (build == 3))
 					add_fingerprint(user)
 					R.use(2)
 					to_chat(user, span_notice("You've added the grille to \the [src]."))
@@ -150,7 +152,7 @@
 			if(W.tool_behaviour == TOOL_CROWBAR)
 				to_chat(user, "You begin to pry off the grille from \the [src]...")
 				playsound(get_turf(src), W.usesound, 50, 1)
-				if(do_after(user, 3 SECONDS * W.toolspeed * gettoolspeedmod(user), src) && (build == 4))
+				if(do_after(user, 3 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL) && (build == 4))
 					add_fingerprint(user)
 					new /obj/item/stack/rods(loc,2)
 					build--
@@ -159,8 +161,8 @@
 				add_fingerprint(user)
 				to_chat(user, "You finalize the Mass Driver...")
 				playsound(get_turf(src), W.usesound, 50, 1)
-				var/obj/machinery/mass_driver/M = new(get_turf(src))
-				M.dir = src.dir
+				var/obj/machinery/mass_driver/driver = new(loc)
+				driver.setDir(dir)
 				qdel(src)
 				return 1
 			return
@@ -197,5 +199,5 @@
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || HAS_TRAIT(usr, TRAIT_FAKEDEATH))
 		return
 
-	src.dir = turn(src.dir, -90)
+	setDir(turn(dir, -90))
 

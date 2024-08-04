@@ -502,3 +502,6 @@
   - tweak: add contractor items to admin uplink (#5624)
   github-actions[bot]:
   - server: Automatic NanoMap Update (#5619)
+'2024-07-31':
+  Vladisvell:
+  - bugfix: Now you can have lighting in custom areas and spawned maps (#5630)

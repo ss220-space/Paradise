@@ -45,10 +45,13 @@
 /obj/structure/closet/statue/process()
 	timer--
 	for(var/mob/living/M in src) //Go-go gadget stasis field
-		M.setToxLoss(intialTox)
-		M.adjustFireLoss(intialFire - M.getFireLoss())
-		M.adjustBruteLoss(intialBrute - M.getBruteLoss())
-		M.setOxyLoss(intialOxy)
+		var/update = NONE
+		update |= M.adjustFireLoss(intialFire - M.getFireLoss(), FALSE)
+		update |= M.adjustBruteLoss(intialBrute - M.getBruteLoss(), FALSE)
+		update |= M.setToxLoss(intialTox, FALSE)
+		update |= M.setOxyLoss(intialOxy, FALSE)
+		if(update)
+			M.updatehealth()
 	if(timer <= 0)
 		dump_contents()
 		STOP_PROCESSING(SSobj, src)
@@ -68,7 +71,7 @@
 	for(var/mob/living/M in src)
 		M.forceMove(loc)
 		REMOVE_TRAIT(M, TRAIT_MUTE, "statue")
-		M.take_overall_damage((M.health - obj_integrity - 100),0) //any new damage the statue incurred is transfered to the mob
+		M.take_overall_damage((M.health - obj_integrity - 100)) //any new damage the statue incurred is transfered to the mob
 
 	..()
 

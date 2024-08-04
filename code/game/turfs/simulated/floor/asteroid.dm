@@ -95,7 +95,7 @@
 		to_chat(user, span_notice("You start digging..."))
 
 		playsound(src, I.usesound, 50, TRUE)
-		if(do_after(user, 4 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, 4 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
 			if(!istype(src, /turf/simulated/floor/plating/asteroid))
 				return TRUE //Turf has been changed in process, prevents can_dig() runtime
 			if(!can_dig(user))
