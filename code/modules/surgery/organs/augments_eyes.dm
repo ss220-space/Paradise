@@ -131,7 +131,7 @@
 	HUDType = DATA_HUD_SECURITY_ADVANCED
 	examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
 
-	/obj/item/organ/internal/cyberimp/eyes/hud/science
+/obj/item/organ/internal/cyberimp/eyes/hud/science
 	name = "Science implant"
 	desc = "These cybernetic eye implants with an analyzer for scanning items and reagents."
 	//icon_state = null
