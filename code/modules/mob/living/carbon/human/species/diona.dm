@@ -126,14 +126,14 @@
 		if(light_amount > 0.2 && !H.suiciding) //if there's enough light, heal
 			if(!pod && H.health <= 0)
 				return
-		  var/update = NONE
+			var/update = NONE
 			update |= H.heal_overall_damage(1, 1, updating_health = FALSE)
 			update |= H.heal_damages(tox = 1, oxy = 1, updating_health = FALSE)
 			if(update)
 				H.updatehealth()
 			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
 				H.blood_volume += 0.4
-		 else if(light_amount < 0.2)
+		else if(light_amount < 0.2)
 			H.blood_volume -= 0.1
 
 	if(!is_vamp && H.nutrition < NUTRITION_LEVEL_STARVING + 50)
