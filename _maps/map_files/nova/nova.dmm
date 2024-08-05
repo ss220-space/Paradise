@@ -8,6 +8,10 @@
 "aad" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/item/radio/intercom{
+	dir = 4;
+	pixel_x = -28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "blue"
@@ -20263,6 +20267,11 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/radio/intercom{
+	name = "east station intercom (General)";
+	pixel_x = 28;
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -21414,6 +21423,10 @@
 	c_tag = "Engine Room West";
 	network = list("Engineering","SS13");
 	dir = 4
+	},
+/obj/item/radio/intercom{
+	dir = 4;
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -40154,6 +40167,10 @@
 	c_tag = "Kitchen South";
 	dir = 10
 	},
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -44167,6 +44184,23 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
+"gAN" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/chair/sofa/left{
+	dir = 4
+	},
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_regular_floor = "yellowsiding";
+	icon_state = "tranquillite"
+	},
+/area/crew_quarters/kitchen)
 "gAY" = (
 /obj/structure/spacepoddoor{
 	dir = 4;
@@ -79473,6 +79507,16 @@
 	icon_state = "green"
 	},
 /area/hallway/secondary/exit)
+"mdj" = (
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkyellow"
+	},
+/area/engine/mechanic_workshop/hangar)
 "mdt" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -83612,6 +83656,16 @@
 	icon_state = "darkpurple"
 	},
 /area/medical/genetics)
+"mLk" = (
+/obj/item/radio/intercom{
+	dir = 4;
+	pixel_x = -28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "yellow"
+	},
+/area/engine/break_room)
 "mLs" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -121656,6 +121710,16 @@
 	icon_state = "white"
 	},
 /area/medical/research)
+"suv" = (
+/obj/item/radio/intercom{
+	name = "west station intercom (General)";
+	pixel_x = -28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
+/area/security/securehallway)
 "suw" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/cable{
@@ -133680,6 +133744,15 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/medbay)
+"ufQ" = (
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "purple"
+	},
+/area/hallway/primary/central/north)
 "ufU" = (
 /obj/machinery/light{
 	dir = 8
@@ -145140,6 +145213,10 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/item/radio/intercom{
+	pixel_x = 28;
+	pixel_y = -2
+	},
 /turf/simulated/floor/glass/reinforced,
 /area/quartermaster/qm)
 "vWC" = (
@@ -150083,6 +150160,10 @@
 /obj/effect/turf_decal/number/number_1{
 	dir = 1;
 	pixel_y = 0
+	},
+/obj/item/radio/intercom{
+	name = "west station intercom (General)";
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -155184,6 +155265,9 @@
 /obj/effect/turf_decal/number/number_1{
 	dir = 1;
 	pixel_y = 0
+	},
+/obj/item/radio/intercom{
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -188447,7 +188531,7 @@ xFC
 wmY
 vRz
 fDY
-wrb
+gAN
 bGa
 rOY
 pDE
@@ -192475,7 +192559,7 @@ imV
 sSC
 nkz
 qiK
-ffw
+mdj
 qhK
 ndp
 jpO
@@ -194582,7 +194666,7 @@ sBe
 xyX
 ggn
 gsD
-qAg
+ufQ
 iZj
 tkq
 tkq
@@ -210523,7 +210607,7 @@ ffg
 hXP
 iIV
 iIV
-iIV
+mLk
 jvW
 ivl
 kcL
@@ -245249,7 +245333,7 @@ kya
 gFc
 kya
 gFc
-kya
+suv
 gFc
 kya
 til
@@ -257544,9 +257628,9 @@ iLA
 kue
 tkR
 tkR
-tkR
-tkR
 tyy
+tkR
+tkR
 qME
 kXm
 ycw
