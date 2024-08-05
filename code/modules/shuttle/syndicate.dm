@@ -41,6 +41,28 @@
 			return FALSE
 	return ..()
 
+/obj/machinery/computer/shuttle/nt/drop_pod
+	name = "nanotrasen emergency pod control"
+	icon = 'icons/obj/machines/terminals.dmi'
+	icon_state = "dorm_available"
+	req_access = list(109)
+	circuit = /obj/item/circuitboard/shuttle/nt/drop_pod
+	shuttleId = "shit_rain"
+	possible_destinations = null
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+
+/obj/machinery/computer/shuttle/nt/drop_pod/recall
+	name = "nanotrasen emergency pod recall"
+	shuttleId = "shit_rain"
+	possible_destinations = "pod_recall"
+
+/obj/machinery/computer/shuttle/syndicate/drop_pod/can_call_shuttle(user, action)
+	if(action == "move")
+		if(z != level_name_to_num(CENTCOMM))
+			to_chat(user, "<span class='warning'>Pods are one way!</span>")
+			return FALSE
+	return ..()
+
 /obj/machinery/computer/shuttle/sst
 	name = "Syndicate Strike Team Shuttle Console"
 	desc = "Used to call and send the SST shuttle."
