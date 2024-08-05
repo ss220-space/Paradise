@@ -102,7 +102,13 @@
 	var/remburn = max(0, heal_burn - affecting.burn_dam) // And deduct it from their health (aka deal damage)
 	var/nrembrute = rembrute
 	var/nremburn = remburn
-	affecting.heal_damage(heal_brute, heal_burn)
+	var/should_update_health = FALSE
+	var/update_damage_icon = NONE
+	var/affecting_brute_was = affecting.brute_dam
+	var/affecting_burn_was = affecting.burn_dam
+	update_damage_icon |= affecting.heal_damage(heal_brute, heal_burn, updating_health = FALSE)
+	if(affecting.brute_dam != affecting_brute_was || affecting.burn_dam != affecting_burn_was)
+		should_update_health = TRUE
 	var/list/achildlist
 	if(LAZYLEN(affecting.children))
 		achildlist = affecting.children.Copy()
@@ -122,11 +128,20 @@
 			continue
 		nrembrute = max(0, rembrute - E.brute_dam) // Deduct the healed damage from the remain
 		nremburn = max(0, remburn - E.burn_dam)
-		E.heal_damage(rembrute, remburn)
+		var/brute_was = E.brute_dam
+		var/burn_was = E.burn_dam
+		update_damage_icon |= E.heal_damage(rembrute, remburn, updating_health = FALSE)
+		if(E.brute_dam != brute_was || E.burn_dam != burn_was)
+			should_update_health = TRUE
 		rembrute = nrembrute
 		remburn = nremburn
 		user.visible_message("<span class='green'>[user] [healverb]s the wounds on [H]'s [E.name] with the remaining medication.</span>", \
 							 "<span class='green'>You [healverb] the wounds on [H]'s [E.name] with the remaining medication.</span>" )
+	if(should_update_health)
+		H.updatehealth("[name] heal")
+	if(update_damage_icon)
+		H.UpdateDamageIcon()
+
 
 //Bruise Packs//
 

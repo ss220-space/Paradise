@@ -14,14 +14,14 @@
 /obj/item/stack/nanopaste/cyborg
 	is_cyborg = 1
 
-/obj/item/stack/nanopaste/cyborg/attack(mob/living/M as mob, mob/user as mob)
+/obj/item/stack/nanopaste/cyborg/attack(mob/living/M, mob/user)
 	if(!get_amount())
 		to_chat(user, "<span class='danger'>Not enough nanopaste!</span>")
 		return
 	else
 		. = ..()
 
-/obj/item/stack/nanopaste/attack(mob/living/M as mob, mob/user as mob)
+/obj/item/stack/nanopaste/attack(mob/living/M, mob/user)
 	if(!istype(M) || !istype(user))
 		return 0
 	if(istype(M,/mob/living/silicon/robot))	//Repairing cyborgs
@@ -49,11 +49,12 @@
 				use(1)
 				var/remheal = 15
 				var/nremheal = 0
-				S.heal_damage(robo_repair = TRUE) //should in, theory, heal the robotic organs in just the targeted area with it being S instead of E
 				var/childlist
 				if(LAZYLEN(S.children))
 					childlist = S.children.Copy()
 				var/parenthealed = FALSE
+				var/should_update_health = FALSE
+				var/update_damage_icon = NONE
 				while(remheal > 0)
 					var/obj/item/organ/external/E
 					if(S.get_damage())
@@ -70,11 +71,17 @@
 					else
 						break
 					nremheal = max(remheal - E.get_damage(), 0)
-					E.heal_damage(remheal, 0, FALSE, TRUE) //Healing Brute
-					E.heal_damage(0, remheal, FALSE, TRUE) //Healing Burn
+					var/brute_was = E.brute_dam
+					var/burn_was = E.burn_dam
+					update_damage_icon |= E.heal_damage(remheal, remheal, FALSE, TRUE, FALSE)
+					if(E.brute_dam != brute_was || E.burn_dam != burn_was)
+						should_update_health = TRUE
 					remheal = nremheal
-					H.UpdateDamageIcon()
 					user.visible_message("<span class='notice'>\The [user] applies some nanite paste at \the [M]'s [E.name] with \the [src].</span>")
+				if(should_update_health)
+					H.updatehealth("nanopaste repair")
+				if(update_damage_icon)
+					H.UpdateDamageIcon()
 				if(H.bleed_rate && ismachineperson(H))
 					H.bleed_rate = 0
 			else
