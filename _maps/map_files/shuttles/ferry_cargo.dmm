@@ -1,0 +1,328 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	tag = "icon-propulsion (EAST)"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/transport)
+"b" = (
+/obj/effect/decal/warning_stripes/white/hollow,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance{
+	lootcount = 4;
+	name = "4maintenance loot spawner"
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 8;
+	layer = 2.9
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkbrown"
+	},
+/area/shuttle/transport)
+"e" = (
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkbrown";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/shuttle/transport)
+"i" = (
+/obj/effect/decal/warning_stripes/white/hollow,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/trade_sol/civ,
+/obj/structure/window/plasmareinforced{
+	dir = 8;
+	layer = 2.9
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkbrown"
+	},
+/area/shuttle/transport)
+"k" = (
+/obj/effect/decal/warning_stripes/white/hollow,
+/obj/structure/closet/crate/secure/gear,
+/obj/effect/spawner/lootdrop/trade_sol/sec,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkbrown"
+	},
+/area/shuttle/transport)
+"l" = (
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whiteyellow"
+	},
+/area/shuttle/transport)
+"m" = (
+/obj/machinery/door/airlock/shuttle{
+	id_tag = "s_docking_airlock"
+	},
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 2;
+	height = 12;
+	id = "ferry";
+	name = "ferry shuttle";
+	roundstart_move = "ferry_away";
+	timid = 1;
+	width = 5
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/shuttle,
+/area/shuttle/transport)
+"o" = (
+/turf/simulated/wall/shuttle{
+	dir = 3
+	},
+/area/shuttle/transport)
+"p" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/brigdoor{
+	req_access = list(31,105,63)
+	},
+/obj/structure/window/reinforced{
+	pixel_y = -4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteyellow";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/shuttle/transport)
+"s" = (
+/obj/effect/decal/warning_stripes/white/hollow,
+/obj/structure/closet/crate/engineering,
+/obj/effect/spawner/lootdrop/trade_sol/eng,
+/obj/machinery/light/spot{
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkbrown"
+	},
+/area/shuttle/transport)
+"u" = (
+/turf/simulated/floor/shuttle,
+/area/shuttle/transport)
+"v" = (
+/obj/machinery/door/window/brigdoor,
+/obj/machinery/door/window/brigdoor{
+	dir = 8;
+	req_access = list(31,105,63)
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "whiteyellow";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/shuttle/transport)
+"x" = (
+/obj/effect/decal/warning_stripes/white/hollow,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbrown"
+	},
+/area/shuttle/transport)
+"z" = (
+/turf/simulated/wall/shuttle,
+/area/shuttle/transport)
+"B" = (
+/obj/effect/decal/warning_stripes/white/hollow,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/trade_sol/donksoft,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbrown"
+	},
+/area/shuttle/transport)
+"D" = (
+/obj/structure/plasticflaps{
+	opacity = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/shuttle/transport)
+"E" = (
+/obj/machinery/computer/shuttle/ferry/request,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkbrown"
+	},
+/area/shuttle/transport)
+"F" = (
+/obj/effect/decal/warning_stripes/white/hollow,
+/obj/structure/closet/crate/sci,
+/obj/effect/spawner/lootdrop/trade_sol/sci,
+/obj/machinery/light/spot,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbrown"
+	},
+/area/shuttle/transport)
+"K" = (
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "whiteyellow"
+	},
+/area/shuttle/transport)
+"L" = (
+/obj/effect/decal/warning_stripes/white/hollow,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkbrown"
+	},
+/area/shuttle/transport)
+"P" = (
+/obj/item/phone{
+	attack_verb = list("bounced a check off","checked-out","tipped");
+	desc = "Also known as a cash register, or, more commonly, \"robbery magnet\". It's old and rusty, clearly non-functional and decorative only.";
+	icon = 'icons/obj/machines/pos.dmi';
+	icon_state = "pos";
+	name = "point of sale"
+	},
+/obj/structure/table/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/light/spot{
+	dir = 1;
+	tag = "icon-tube1 (NORTH)"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whiteyellow"
+	},
+/area/shuttle/transport)
+"Q" = (
+/obj/machinery/door/airlock/shuttle{
+	id_tag = "s_docking_airlock";
+	req_access = list(31,105,63)
+	},
+/turf/simulated/floor{
+	icon_state = "dark"
+	},
+/area/shuttle/transport)
+"S" = (
+/obj/structure/window/full/shuttle,
+/obj/structure/grille,
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/transport)
+"T" = (
+/obj/machinery/door/airlock/shuttle{
+	id_tag = "s_docking_airlock";
+	req_access = list(31,105,63)
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor{
+	icon_state = "dark"
+	},
+/area/shuttle/transport)
+"U" = (
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "whiteyellow"
+	},
+/area/shuttle/transport)
+"Y" = (
+/turf/simulated/floor{
+	icon_state = "dark"
+	},
+/area/shuttle/transport)
+"Z" = (
+/obj/effect/decal/warning_stripes/white/hollow,
+/obj/structure/closet/crate/medical,
+/obj/effect/spawner/lootdrop/trade_sol/med,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkbrown"
+	},
+/area/shuttle/transport)
+
+(1,1,1) = {"
+a
+a
+T
+a
+a
+"}
+(2,1,1) = {"
+z
+i
+Y
+b
+z
+"}
+(3,1,1) = {"
+z
+Z
+Y
+B
+z
+"}
+(4,1,1) = {"
+z
+s
+Y
+F
+z
+"}
+(5,1,1) = {"
+z
+k
+Y
+x
+z
+"}
+(6,1,1) = {"
+z
+L
+Y
+x
+z
+"}
+(7,1,1) = {"
+S
+E
+Y
+e
+S
+"}
+(8,1,1) = {"
+z
+o
+Q
+D
+z
+"}
+(9,1,1) = {"
+S
+K
+l
+U
+S
+"}
+(10,1,1) = {"
+z
+P
+p
+v
+z
+"}
+(11,1,1) = {"
+z
+u
+u
+u
+z
+"}
+(12,1,1) = {"
+z
+S
+m
+S
+z
+"}
