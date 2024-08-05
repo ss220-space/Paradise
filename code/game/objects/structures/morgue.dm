@@ -278,15 +278,16 @@
 	morgue?.tray_toggle(user)
 
 
+/obj/structure/m_tray/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing))
+		return .
+	var/mob/living/target = grabbed_thing
+	target.forceMove(loc)
+	target.set_resting(TRUE, instant = TRUE)
+
+
 /obj/structure/m_tray/attackby(obj/item/I, mob/user, params)
-	var/obj/item/grab/grab = I
-	if(istype(grab))
-		var/mob/living/target = grab.affecting
-		qdel(grab)
-		target.pulledby?.stop_pulling()
-		target.set_resting(TRUE, instant = TRUE)
-		target.forceMove(loc)
-		return
 	user.drop_transfer_item_to_loc(I, loc)
 
 
@@ -311,7 +312,7 @@
 	return TRUE
 
 
-/obj/structure/tray/m_tray/CanAllowThrough(atom/movable/mover, border_dir)
+/obj/structure/m_tray/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(.)
 		return TRUE
@@ -319,10 +320,12 @@
 		return TRUE
 
 
-/obj/structure/m_tray/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
-	. = !density
-	if(checkpass(caller, PASSTABLE))
-		. = TRUE
+/obj/structure/m_tray/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(!density)
+		return TRUE
+	if(pass_info.pass_flags == PASSEVERYTHING || (pass_info.pass_flags & PASSTABLE))
+		return TRUE
+	return FALSE
 
 
 /mob/proc/update_morgue()
@@ -527,14 +530,13 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 /obj/machinery/crematorium/verb/cremate_verb()
 	set name = "Cremate"
-	set category = null
 	set src in oview(1)
 
 	try_cremate(usr)
 
 
 /obj/machinery/crematorium/proc/try_cremate(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated() || !isAI(user) && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(stat & NOPOWER)
@@ -690,19 +692,28 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	return ..()
 
 
+/obj/structure/c_tray/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(!density)
+		return TRUE
+	if(pass_info.pass_flags == PASSEVERYTHING || (pass_info.pass_flags & PASSTABLE))
+		return TRUE
+	return FALSE
+
+
 /obj/structure/c_tray/attack_hand(mob/user)
 	crematorium?.tray_toggle(user)
 
 
+/obj/structure/c_tray/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing))
+		return .
+	var/mob/living/target = grabbed_thing
+	target.forceMove(loc)
+	target.set_resting(TRUE, instant = TRUE)
+
+
 /obj/structure/c_tray/attackby(obj/item/I, mob/user, params)
-	var/obj/item/grab/grab = I
-	if(istype(grab))
-		var/mob/living/target = grab.affecting
-		qdel(grab)
-		target.pulledby?.stop_pulling()
-		target.set_resting(TRUE, instant = TRUE)
-		target.forceMove(loc)
-		return
 	user.drop_transfer_item_to_loc(I, loc)
 
 

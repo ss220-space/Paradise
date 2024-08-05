@@ -53,6 +53,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	//ATTACK
 	melee_damage_lower = 15
 	melee_damage_upper = 20
+	AI_delay_max = 0 SECONDS
 
 	//MOVEMENT
 	pass_flags = PASSTABLE
@@ -337,16 +338,16 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/spider_special_action()
 	return
 
-/mob/living/simple_animal/hostile/poison/terror_spider/ObjBump(obj/O)
-	if(istype(O, /obj/machinery/door/airlock))
-		var/obj/machinery/door/airlock/L = O
-		if(L.density) // must check density here, to avoid rapid bumping of an airlock that is in the process of opening, instantly forcing it closed
-			return try_open_airlock(L)
-	if(istype(O, /obj/machinery/door/firedoor))
-		var/obj/machinery/door/firedoor/F = O
-		if(F.density && !F.welded)
-			F.open()
-			return 1
+/mob/living/simple_animal/hostile/poison/terror_spider/ObjBump(obj/object)
+	if(istype(object, /obj/machinery/door/airlock))
+		var/obj/machinery/door/airlock/airlock = object
+		if(airlock.density) // must check density here, to avoid rapid bumping of an airlock that is in the process of opening, instantly forcing it closed
+			return try_open_airlock(airlock)
+	if(istype(object, /obj/machinery/door/firedoor))
+		var/obj/machinery/door/firedoor/firedoor = object
+		if(firedoor.density && !firedoor.welded)
+			firedoor.open()
+			return TRUE
 	. = ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/msg_terrorspiders(msgtext)
@@ -396,14 +397,12 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 			return spider_thing
 
 
-/mob/living/simple_animal/hostile/poison/terror_spider/Stat()
-	..()
-	// Determines what shows in the "Status" tab for player-controlled spiders. Used to help players understand spider health regeneration mechanics.
-	// Uses <font color='#X'> because the status panel does NOT accept <span class='X'>.
-	if(statpanel("Status") && ckey && stat == CONSCIOUS)
+/mob/living/simple_animal/hostile/poison/terror_spider/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	if(ckey && stat == CONSCIOUS)
 		if(degenerate)
-			stat(null, "<font color='#eb4034'>Hivemind Connection Severed! Dying...</font>") // color=red
-			return
+			status_tab_data[++status_tab_data.len] = list("Link:", "<font color='#eb4034'>Hivemind Connection Severed! Dying...</font>") // color=red
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoRemoteView()
 	if(!isturf(loc))

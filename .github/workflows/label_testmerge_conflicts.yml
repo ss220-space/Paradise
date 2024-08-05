@@ -1,0 +1,46 @@
+name: 'Testmerge Conflict Detection'
+
+on:
+  push:
+    branches:
+      - testmerge
+  pull_request_target:
+    types: [ready_for_review, opened, synchronize, reopened]
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+          ref: testmerge
+      - name: Check for testmerge conflicts
+        id: check
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "Testmerge Conflict Detection"
+          git fetch origin pull/${{ github.event.number }}/head:PR${{ github.event.number }}
+          git merge --no-commit --no-ff PR${{ github.event.number }} || true
+          CONFLICTS=$(git ls-files -u | wc -l)
+          if [ "$CONFLICTS" -gt 0 ] ; then
+            echo "There is a merge conflict. Aborting"
+            git merge --abort
+            echo "success=0" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          echo "success=1" >> $GITHUB_OUTPUT
+      - name: Label PR
+        uses: jburgess/AddRemovePrLabels@v1.0.4
+        if: steps.check.outputs.success == 0
+        with:
+          githubToken: '${{ secrets.GITHUB_TOKEN }}'
+          labelsToAdd: 'Testmerge Conflict'
+      - name: Unlabel PR
+        uses: jburgess/AddRemovePrLabels@v1.0.4
+        if: steps.check.outputs.success == 1
+        with:
+          githubToken: '${{ secrets.GITHUB_TOKEN }}'
+          labelsToRemove: 'Testmerge Conflict'

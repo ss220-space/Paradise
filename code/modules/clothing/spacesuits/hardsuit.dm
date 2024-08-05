@@ -14,7 +14,6 @@
 	light_range = 4
 	light_on = FALSE
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
-	var/obj/item/clothing/suit/space/hardsuit/suit
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 
 	//Species-specific stuff.
@@ -35,59 +34,12 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/Initialize(mapload, obj/item/clothing/suit/space/hardsuit/parent)
 	. = ..()
-	if(istype(parent))
-		suit = parent
-	else
+	if(!istype(parent))
 		stack_trace("Investigate hardsuit helmet ([type]). Initialized without proper suit.")
-
-
-/obj/item/clothing/head/helmet/space/hardsuit/Destroy()
-	if(suit)
-		suit.RemoveHelmet(loc)
-		suit.helmet = null
-		suit = null
-	return ..()
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/update_icon_state()
 	icon_state = "[base_icon_state][light_on]-[item_color]"
-
-
-/obj/item/clothing/head/helmet/space/hardsuit/attack_hand(mob/user, pickupfireoverride = FALSE)
-	if(suit)
-		suit.RemoveHelmet(user)
-	else
-		qdel(src)
-		stack_trace("Investigate hardsuit helmet attackhand of type: [type]")
-
-
-/obj/item/clothing/head/helmet/space/hardsuit/equipped(mob/living/carbon/user, slot, initial = FALSE)
-	. = ..(user, slot, TRUE)
-	if(!suit || slot != ITEM_SLOT_HEAD || user.wear_suit != suit)
-		if(!QDELING(src))
-			qdel(src)
-		stack_trace("Investigate hardsuit helmet equip of type: [type]")
-		return FALSE
-
-
-/obj/item/clothing/head/helmet/space/hardsuit/dropped(mob/living/carbon/user, slot, silent = FALSE)
-	. = ..(user, slot, TRUE)
-	if(!suit || slot != ITEM_SLOT_HEAD || user.wear_suit != suit)
-		if(!QDELING(src))
-			qdel(src)
-		stack_trace("Investigate hardsuit helmet drop of type: [type]")
-		return FALSE
-	suit.RemoveHelmet(user)
-
-
-/obj/item/clothing/head/helmet/space/hardsuit/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
-	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-	if(suit)
-		suit.RemoveHelmet(usr)
-	else
-		qdel(src)
-		stack_trace("Investigate hardsuit helmet mousedrop of type: [type]")
 
 
 /obj/item/clothing/head/helmet/space/hardsuit/attack_self(mob/user)
@@ -100,7 +52,7 @@
 	update_equipped_item(update_buttons)
 
 
-/obj/item/clothing/head/helmet/space/hardsuit/item_action_slot_check(slot)
+/obj/item/clothing/head/helmet/space/hardsuit/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_HEAD)
 		return TRUE
 
@@ -157,8 +109,8 @@
 
 
 /obj/item/clothing/suit/space/hardsuit/Destroy()
-	QDEL_NULL(helmet)
-	QDEL_NULL(jetpack)
+	unequip_helmet()
+	helmet = null
 	return ..()
 
 
@@ -166,33 +118,49 @@
 	if(!helmettype || helmet)
 		return
 
-	var/obj/item/clothing/head/helmet/space/hardsuit/new_helmet = new helmettype(src, src)
-	helmet = new_helmet
+	helmet = new helmettype(src, src)
 	helmet.update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
+	RegisterSignal(helmet, COMSIG_ITEM_DROPPED, PROC_REF(on_helmet_dropped))
+	RegisterSignal(helmet, COMSIG_ITEM_EQUIPPED, PROC_REF(on_helmet_equipped))
+	RegisterSignal(helmet, COMSIG_QDELETING, PROC_REF(on_helmet_destroyed))
+
+
+/obj/item/clothing/suit/space/hardsuit/proc/on_helmet_dropped()
+	SIGNAL_HANDLER
+
+	RemoveHelmet()
+
+
+/obj/item/clothing/suit/space/hardsuit/proc/on_helmet_equipped(datum/source, mob/user, slot)
+	SIGNAL_HANDLER
+
+	if(slot & ITEM_SLOT_HEAD)
+		return
+	RemoveHelmet()
+
+
+/obj/item/clothing/suit/space/hardsuit/proc/on_helmet_destroyed()
+	SIGNAL_HANDLER
+
+	RemoveHelmet()
+	helmet = null
 
 
 /obj/item/clothing/suit/space/hardsuit/equipped(mob/user, slot, initial)
 	. = ..()
-	RemoveHelmet(user)
+	RemoveHelmet()
 
 
 /obj/item/clothing/suit/space/hardsuit/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	RemoveHelmet(user)
+	RemoveHelmet()
 
 
-/obj/item/clothing/suit/space/hardsuit/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
-	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-	RemoveHelmet(usr)
-	. = ..()
+/obj/item/clothing/suit/space/hardsuit/ui_action_click(mob/user, datum/action/action, leftclick)
+	ToggleHelmet()
 
 
-/obj/item/clothing/suit/space/hardsuit/ui_action_click(mob/user)
-	ToggleHelmet(user)
-
-
-/obj/item/clothing/suit/space/hardsuit/item_action_slot_check(slot)
+/obj/item/clothing/suit/space/hardsuit/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_CLOTH_OUTER) //we only give the mob the ability to toggle the helmet if he's wearing the hardsuit.
 		return TRUE
 
@@ -202,60 +170,64 @@
 	..()
 
 
-/obj/item/clothing/suit/space/hardsuit/proc/ToggleHelmet(mob/living/carbon/human/user)
-	if(!ishuman(user))
-		return
-	if(!helmet)
-		to_chat(user, span_warning("[src] has no helmet anymore!"))
-		return
-	if(taser_proof?.ert_mindshield_locked)
-		if(isertmindshielded(user))
-			to_chat(user, span_notice("Access granted, identity verified..."))
-		else
-			to_chat(user, span_warning("Access denied. The user is not identified!"))
-			return
+/obj/item/clothing/suit/space/hardsuit/proc/ToggleHelmet()
 	if(suit_adjusted)
-		RemoveHelmet(user)
-		return
-	if(user.wear_suit != src)
-		to_chat(user, span_warning("You must be wearing [src] to engage the helmet!"))
-		return
-	EngageHelmet(user)
+		return RemoveHelmet()
+	return EngageHelmet()
 
 
-/obj/item/clothing/suit/space/hardsuit/proc/EngageHelmet(mob/living/carbon/human/user)
-	if(!helmet || suit_adjusted)
+/obj/item/clothing/suit/space/hardsuit/proc/EngageHelmet()
+	var/mob/living/carbon/human/wearer = loc
+	if(suit_adjusted || !ishuman(wearer))
 		return FALSE
-	if(user.head)
-		to_chat(user, span_warning("You're already wearing something on your head!"))
+	if(wearer.wear_suit != src)
+		to_chat(wearer, span_warning("You must be wearing [src] to engage the helmet!"))
 		return FALSE
-	if(!user.equip_to_slot(helmet, ITEM_SLOT_HEAD))
+	if(!helmet)
+		to_chat(wearer, span_warning("[src] has no helmet anymore!"))
+		return FALSE
+	if(wearer.head)
+		to_chat(wearer, span_warning("You're already wearing something on your head!"))
+		return FALSE
+	if(taser_proof?.ert_mindshield_locked)
+		if(isertmindshielded(wearer))
+			to_chat(wearer, span_notice("Access granted, identity verified..."))
+		else
+			to_chat(wearer, span_warning("Access denied. The user is not identified!"))
+			return FALSE
+	if(!wearer.equip_to_slot_if_possible(helmet, ITEM_SLOT_HEAD, initial = TRUE))
 		return FALSE
 	. = TRUE
 	suit_adjusted = TRUE
-	to_chat(user, span_notice("You engage the helmet on the hardsuit."))
-	user.update_head(helmet, TRUE)
-	user.update_inv_wear_suit()
-	playsound(user, 'sound/items/rig_deploy.ogg', 110, TRUE)
+	playsound(wearer, 'sound/items/rig_deploy.ogg', 110, TRUE)
+	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
+	to_chat(wearer, span_notice("You engage the helmet on [src]."))
+	wearer.update_inv_wear_suit()
+	for(var/datum/action/action as anything in actions)
+		action.UpdateButtonIcon()
 
 
-/obj/item/clothing/suit/space/hardsuit/proc/RemoveHelmet(mob/living/carbon/human/user)
-	if(!helmet)
-		return FALSE
+/obj/item/clothing/suit/space/hardsuit/proc/RemoveHelmet()
+	unequip_helmet()
 	if(!suit_adjusted)
 		return FALSE
 	. = TRUE
 	suit_adjusted = FALSE
-	if(helmet.light_on)
-		helmet.toggle_light(update_buttons = FALSE)
-	if(ishuman(user))
-		user.temporarily_remove_item_from_inventory(helmet, force = TRUE)
-		user.update_inv_wear_suit()
-		to_chat(user, span_notice("The helmet on the hardsuit disengages."))
-	helmet.forceMove(src)
-	playsound(user, 'sound/items/rig_retract.ogg', 110, TRUE)
+	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
+	playsound(loc, 'sound/items/rig_retract.ogg', 110, TRUE)
 	for(var/datum/action/action as anything in actions)
 		action.UpdateButtonIcon()
+
+
+/obj/item/clothing/suit/space/hardsuit/proc/unequip_helmet()
+	if(!helmet || helmet.loc == src)
+		return
+	var/mob/living/carbon/human/wearer = helmet.loc
+	if(!ishuman(wearer))
+		helmet.forceMove(src)
+		return
+	wearer.transfer_item_to_loc(helmet, src, force = TRUE, silent = TRUE)
+	wearer.update_inv_wear_suit()
 
 
 //Engineering hardsuit
@@ -480,7 +452,7 @@
 	desc = "[initial(desc)][on ? "" : alt_desc]"
 
 
-/obj/item/clothing/suit/space/hardsuit/syndi/EngageHelmet(mob/living/carbon/human/user)
+/obj/item/clothing/suit/space/hardsuit/syndi/EngageHelmet()
 	. = ..()
 	if(. && on && !light_on)
 		helmet.toggle_light()
@@ -613,8 +585,8 @@
 	item_state = "medical_helm"
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 5, "bomb" = 10, "bio" = 100, "rad" = 60, "fire" = 60, "acid" = 75)
 	item_color = "medical"
-	flash_protect = 0
-	scan_reagents = 1 //Generally worn by the CMO, so they'd get utility off of seeing reagents
+	flash_protect = FLASH_PROTECTION_NONE
+	scan_reagents = TRUE //Generally worn by the CMO, so they'd get utility off of seeing reagents
 
 /obj/item/clothing/suit/space/hardsuit/medical
 	name = "medical hardsuit"
@@ -679,8 +651,8 @@
 	icon_state = "hardsuit0-brigmed"
 	armor = list("melee" = 30, "bullet" = 10, "laser" = 20, "energy" = 15, "bomb" = 10, "bio" = 100, "rad" = 60, "fire" = 60, "acid" = 75)
 	item_color = "brigmed"
-	flash_protect = 0
-	scan_reagents = 1
+	flash_protect = FLASH_PROTECTION_NONE
+	scan_reagents = TRUE
 
 /obj/item/clothing/suit/space/hardsuit/security/brigmed
 	name = "brig physician's hardsuit"

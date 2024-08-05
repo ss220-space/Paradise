@@ -1,5 +1,6 @@
-/mob/living/Moved(atom/OldLoc, Dir, Forced = FALSE)
+/mob/living/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
+	step_count++
 	update_turf_movespeed(loc)
 	if(HAS_TRAIT(src, TRAIT_NEGATES_GRAVITY))
 		if(!isgroundlessturf(loc))
@@ -7,7 +8,7 @@
 		else
 			REMOVE_TRAIT(src, TRAIT_IGNORING_GRAVITY, IGNORING_GRAVITY_NEGATION)
 
-	var/turf/old_turf = get_turf(OldLoc)
+	var/turf/old_turf = get_turf(old_loc)
 	var/turf/new_turf = get_turf(src)
 	// If we're moving to/from nullspace, refresh
 	// Easier then adding nullchecks to all this shit, and technically right since a null turf means nograv
@@ -18,7 +19,7 @@
 
 	// We are moved to/from atom contents, this atom was not a turf
 	// forceMove cases mostly
-	if(loc != OldLoc && (!isturf(loc) || !isturf(OldLoc)))
+	if(loc != old_loc && (!isturf(loc) || !isturf(old_loc)))
 		refresh_gravity()
 		return
 
@@ -53,22 +54,87 @@
 		current_turf_slowdown = 0
 
 
-/mob/living/toggle_move_intent()
-	if(SEND_SIGNAL(src, COMSIG_MOB_MOVE_INTENT_TOGGLE, m_intent) & COMPONENT_BLOCK_INTENT_TOGGLE)
+/mob/living/proc/update_pull_movespeed()
+	SEND_SIGNAL(src, COMSIG_LIVING_UPDATING_PULL_MOVESPEED)
+
+	if(!pulling)
+		remove_movespeed_modifier(/datum/movespeed_modifier/bulky_drag)
 		return
 
-	var/icon_toggle
-	if(m_intent == MOVE_INTENT_RUN)
-		m_intent = MOVE_INTENT_WALK
-		icon_toggle = "walking"
-	else
-		m_intent = MOVE_INTENT_RUN
-		icon_toggle = "running"
+	if(isliving(pulling))
+		var/mob/living/pulling_mob = pulling
+		if(!slowed_by_pull_and_push || pulling_mob.body_position == STANDING_UP || grab_state > GRAB_PASSIVE)
+			remove_movespeed_modifier(/datum/movespeed_modifier/bulky_drag)
+			return
+		if(!pulling_mob.buckled)
+			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_drag, multiplicative_slowdown = PULL_LYING_MOB_SLOWDOWN)
+			return
+		var/slowdown_value = 0
+		if(isobj(pulling_mob.buckled))
+			var/obj/pulling_buckled_obj = pulling_mob.buckled
+			if(pulling_buckled_obj.pull_push_slowdown)
+				slowdown_value = pulling_buckled_obj.pull_push_slowdown
+		else if(isliving(pulling_mob.buckled))
+			var/mob/living/pulling_buckled_mob = pulling_mob.buckled
+			if(pulling_buckled_mob.body_position == LYING_DOWN)
+				slowdown_value = PULL_LYING_MOB_SLOWDOWN
+		if(slowdown_value)
+			add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_drag, multiplicative_slowdown = slowdown_value)
+		else
+			remove_movespeed_modifier(/datum/movespeed_modifier/bulky_drag)
 
-	if(hud_used && hud_used.move_intent && hud_used.static_inventory)
-		hud_used.move_intent.icon_state = icon_toggle
-		for(var/atom/movable/screen/mov_intent/selector in hud_used.static_inventory)
-			selector.update_icon()
+	else if(isobj(pulling))
+		var/obj/pulling_obj = pulling
+		if(!slowed_by_pull_and_push || !pulling_obj.pull_push_slowdown)
+			remove_movespeed_modifier(/datum/movespeed_modifier/bulky_drag)
+			return
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_drag, multiplicative_slowdown = pulling_obj.pull_push_slowdown)
+
+
+/mob/living/proc/update_push_movespeed()
+	if(!now_pushing && COOLDOWN_FINISHED(src, pushing_delay))
+		remove_movespeed_modifier(/datum/movespeed_modifier/bulky_push)
+		return
+
+	COOLDOWN_START(src, pushing_delay, 0.1 SECONDS)	// we need this timestamp to add move delay on the next client move
+
+	if(isliving(now_pushing))
+		var/mob/living/pushing_mob = now_pushing
+		if(!slowed_by_pull_and_push || pushing_mob.body_position == LYING_DOWN)
+			remove_movespeed_modifier(/datum/movespeed_modifier/bulky_push)
+			return
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_push, multiplicative_slowdown = PUSH_STANDING_MOB_SLOWDOWN)
+
+	else if(isobj(now_pushing))
+		var/obj/pushing_obj = now_pushing
+		if(!slowed_by_pull_and_push || !pushing_obj.pull_push_slowdown)
+			remove_movespeed_modifier(/datum/movespeed_modifier/bulky_push)
+			return
+		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_push, multiplicative_slowdown = pushing_obj.pull_push_slowdown)
+
+
+/mob/living/proc/can_change_move_intent(silent = FALSE)
+	return TRUE
+
+
+/mob/living/toggle_move_intent(new_move_intent)
+	if(new_move_intent && m_intent == new_move_intent)
+		return
+	if(SEND_SIGNAL(src, COMSIG_MOB_MOVE_INTENT_TOGGLE, m_intent) & COMPONENT_BLOCK_INTENT_TOGGLE)
+		return
+	if(!can_change_move_intent())
+		return
+
+	if(new_move_intent)
+		m_intent = new_move_intent
+	else
+		switch(m_intent)
+			if(MOVE_INTENT_RUN)
+				m_intent = MOVE_INTENT_WALK
+			if(MOVE_INTENT_WALK)
+				m_intent = MOVE_INTENT_RUN
+
+	hud_used?.move_intent?.update_icon(UPDATE_ICON_STATE)
 
 	update_move_intent_slowdown()
 	SEND_SIGNAL(src, COMSIG_MOB_MOVE_INTENT_TOGGLED)
@@ -106,8 +172,8 @@
 	if(has_buckled_mobs())
 		for(var/buckled_mob in buckled_mobs)
 			addtimer(CALLBACK(buckled_mob, PROC_REF(check_buckled)), 1, TIMER_UNIQUE)
-	if(pulling && !currently_z_moving)
-		addtimer(CALLBACK(src, PROC_REF(check_pull)), 1, TIMER_UNIQUE)
+	if(!currently_z_moving)
+		stop_pulling()
 
 /*
 	if(!currently_z_moving)
@@ -286,3 +352,10 @@
 		end_look_down()
 	else
 		look_down()
+
+
+/mob/living/keybind_face_direction(direction)
+	if(stat > CONSCIOUS)
+		return
+	return ..()
+

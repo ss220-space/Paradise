@@ -1,9 +1,3 @@
-/**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
-
 // UI states, which are mirrored from the BYOND code.
 export const UI_INTERACTIVE = 2;
 export const UI_UPDATE = 1;
@@ -15,7 +9,6 @@ export const COLORS = {
   // Department colors
   department: {
     command: '#526aff',
-    procedure: '#e3027a',
     security: '#CF0000',
     medical: '#009190',
     science: '#993399',
@@ -23,6 +16,7 @@ export const COLORS = {
     supply: '#9F8545',
     service: '#80A000',
     centcom: '#78789B',
+    procedure: '#E3027A',
     other: '#C38312',
   },
   // Damage type colors
@@ -66,21 +60,6 @@ export const RADIO_CHANNELS = [
     name: 'SyndTeam',
     freq: 1244,
     color: '#a52a2a',
-  },
-  {
-    name: 'Soviet',
-    freq: 1217,
-    color: '#f7941d',
-  },
-  {
-    name: 'SyndTaipan',
-    freq: 1227,
-    color: '#ffec8b',
-  },
-  {
-    name: 'Spider Clan',
-    freq: 1265,
-    color: '#3cfd1e',
   },
   {
     name: 'Red Team',
@@ -163,6 +142,21 @@ export const RADIO_CHANNELS = [
     color: '#1ecc43',
   },
   {
+    name: 'SyndTaipan',
+    freq: 1227,
+    color: '#ffec8b',
+  },
+  {
+    name: 'Soviet',
+    freq: 1217,
+    color: '#ffec8b',
+  },
+  {
+    name: 'Spider Clan',
+    freq: 1265,
+    color: '#1ecc43',
+  },
+  {
     name: 'Alpha wave',
     freq: 1522,
     color: '#88910f',
@@ -176,6 +170,11 @@ export const RADIO_CHANNELS = [
     name: 'Gamma wave',
     freq: 1542,
     color: '#d46549',
+  },
+  {
+    name: 'Spy Spider',
+    freq: 1251,
+    color: '#776f96',
   },
 ];
 
@@ -264,27 +263,35 @@ const GASES = [
     'label': 'H₂',
     'color': 'white',
   },
+  {
+    'id': 'ab',
+    'name': 'Agent B',
+    'label': 'Agent B',
+    'color': 'purple',
+  },
 ];
 
 export const getGasLabel = (gasId, fallbackValue) => {
   const gasSearchString = String(gasId).toLowerCase();
-  const gas = GASES.find(gas => gas.id === gasSearchString
-    || gas.name.toLowerCase() === gasSearchString);
-  return gas && gas.label
-    || fallbackValue
-    || gasId;
+  const gas = GASES.find(
+    (gas) =>
+      gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString
+  );
+  return (gas && gas.label) || fallbackValue || gasId;
 };
 
-export const getGasColor = gasId => {
+export const getGasColor = (gasId) => {
   const gasSearchString = String(gasId).toLowerCase();
-  const gas = GASES.find(gas => gas.id === gasSearchString
-    || gas.name.toLowerCase() === gasSearchString);
+  const gas = GASES.find(
+    (gas) =>
+      gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString
+  );
   return gas && gas.color;
 };
 
 export const timeAgo = (ref_time, now_time) => {
   if (ref_time > now_time) {
-    return "in the future";
+    return 'in the future';
   }
 
   // deciseconds -> seconds
@@ -294,14 +301,14 @@ export const timeAgo = (ref_time, now_time) => {
   const diff = now_time - ref_time;
   if (diff > 3600) {
     const hours = Math.round(diff / 3600);
-    return hours + " hour" + (hours === 1 ? "" : "s") + " ago";
+    return hours + ' hour' + (hours === 1 ? '' : 's') + ' ago';
   } else if (diff > 60) {
     const mins = Math.round(diff / 60);
-    return mins + " minute" + (mins === 1 ? "" : "s") + " ago";
+    return mins + ' minute' + (mins === 1 ? '' : 's') + ' ago';
   } else {
     const secs = Math.round(diff);
-    return secs + " second" + (secs === 1 ? "" : "s") + " ago";
+    return secs + ' second' + (secs === 1 ? '' : 's') + ' ago';
   }
 
-  return "just now";
+  return 'just now';
 };

@@ -64,7 +64,7 @@
 
 
 /obj/effect/proc_holder/spell/charge_up/proc/stopped_casting()
-	return start_time == 0
+	return start_time != 0
 
 
 /obj/effect/proc_holder/spell/charge_up/proc/Reset(mob/user)

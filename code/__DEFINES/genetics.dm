@@ -133,7 +133,6 @@
 
 //Species traits.
 
-#define IS_WHITELISTED 	"whitelisted"
 #define LIPS			"lips"
 #define NO_BLOOD		"no_blood"
 #define NO_BREATHE 		"no_breathe"
@@ -162,3 +161,7 @@
 #define RUNIC_MIND		"runic_mind"
 #define REPEATSURGERY	"repeat_syrgery"
 #define HAVE_REGENERATION "have_regeneration"
+#define NO_ROBOPARTS 	"no_roboparts" // запрещает ставить робо-конечности, киберорганы(лёгкие, сердце, etc), аугменты
+#define ONLY_SPECIES_LIMBS "only_species_limbs" // запрещает ставить органические части тела, не относящиеся к виду(species) пациента
+#define NO_BIOCHIPS "no_biochips"  // запрещает ставить био-чипы(adrenaline, storage), не затрагивает "mindshield", "traitor" в угоду балансу
+#define NO_CYBERIMPS "no_cyberimps" // запрещает ставить киберимпланты(toolset, CNS Rebooter, etc), но не киберорганы

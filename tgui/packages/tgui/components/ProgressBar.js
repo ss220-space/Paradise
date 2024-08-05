@@ -4,12 +4,12 @@
  * @license MIT
  */
 
-import { clamp01, keyOfMatchingRange, scale, toFixed } from 'common/math';
+import { clamp01, scale, keyOfMatchingRange, toFixed } from 'common/math';
 import { classes, pureComponentHooks } from 'common/react';
-import { Component } from 'inferno';
 import { computeBoxClassName, computeBoxProps } from './Box';
+import { Component } from 'inferno';
 
-export const ProgressBar = props => {
+export const ProgressBar = (props) => {
   const {
     className,
     value,
@@ -23,9 +23,8 @@ export const ProgressBar = props => {
   } = props;
   const scaledValue = scale(value, minValue, maxValue);
   const hasContent = children !== undefined;
-  const effectiveColor = color
-    || keyOfMatchingRange(value, ranges)
-    || 'default';
+  const effectiveColor =
+    color || keyOfMatchingRange(value, ranges) || 'default';
   return (
     <div
       className={classes([
@@ -34,12 +33,14 @@ export const ProgressBar = props => {
         className,
         computeBoxClassName(rest),
       ])}
-      {...computeBoxProps(rest)}>
+      {...computeBoxProps(rest)}
+    >
       <div
         className="ProgressBar__fill ProgressBar__fill--animated"
         style={{
           width: clamp01(scaledValue) * 100 + '%',
-        }} />
+        }}
+      />
       <div className="ProgressBar__content">
         {hasContent
           ? children
@@ -65,7 +66,7 @@ export class ProgressBarCountdown extends Component {
     if (newValue <= 0) {
       clearInterval(this.timer);
     }
-    this.setState(prevState => {
+    this.setState((prevState) => {
       return {
         value: newValue,
       };
@@ -81,19 +82,9 @@ export class ProgressBarCountdown extends Component {
   }
 
   render() {
-    const {
-      start,
-      current,
-      end,
-      ...rest
-    } = this.props;
+    const { start, current, end, ...rest } = this.props;
     const frac = (this.state.value / 100 - start) / (end - start);
-    return (
-      <ProgressBar
-        value={frac}
-        {...rest}
-      />
-    );
+    return <ProgressBar value={frac} {...rest} />;
   }
 }
 

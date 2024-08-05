@@ -119,7 +119,7 @@
 		return TRUE
 
 	var/attempt_cancel_message = "<span class='warning'>Ты не успеваешь установить жучок.</span>"
-	if(!do_after(user, 3 SECONDS, src, max_interact_count = 1, cancel_message = attempt_cancel_message))
+	if(!do_after(user, 3 SECONDS, src, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = attempt_cancel_message))
 		return TRUE
 
 	user.temporarily_remove_item_from_inventory(spy_spider)

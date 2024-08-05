@@ -44,7 +44,7 @@
 	gloves = /obj/item/clothing/gloves/abductor_agent
 
 	backpack_contents = list(
-		/obj/item/abductor_baton = 1,
+		/obj/item/melee/baton/abductor = 1,
 		/obj/item/gun/energy/alien = 1,
 		/obj/item/abductor/silencer = 1
 		)

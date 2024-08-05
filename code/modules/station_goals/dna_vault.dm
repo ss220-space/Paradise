@@ -137,6 +137,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	density = TRUE
 	anchored = TRUE
 	invisibility = INVISIBILITY_ABSTRACT
+	smoothing_groups = SMOOTH_GROUP_FILLER
 	var/obj/machinery/parent
 
 /obj/structure/filler/Destroy()
@@ -219,11 +220,11 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 		return TRUE
 	ui_interact(user)
 
-/obj/machinery/dna_vault/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/dna_vault/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		roll_powers(user)
-		ui = new(user, src, ui_key, "DnaVault", name, 350, 400, master_ui, state)
+		ui = new(user, src, "DnaVault", name)
 		ui.open()
 
 /obj/machinery/dna_vault/proc/roll_powers(mob/user)
@@ -315,22 +316,22 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 			S.species_traits |= NO_BREATHE
 		if(VAULT_FIREPROOF)
 			to_chat(H, "<span class='notice'>You feel fireproof.</span>")
-			S.burn_mod *= 0.5
+			H.physiology.burn_mod *= 0.5
 			S.species_traits |= RESISTHOT
 		if(VAULT_STUNTIME)
 			to_chat(H, "<span class='notice'>Nothing can keep you down for long.</span>")
-			S.stun_mod *= 0.5
-			S.stamina_mod *= 0.5
+			H.physiology.stun_mod *= 0.5
+			H.physiology.stamina_mod *= 0.5
 			H.stam_regen_start_modifier *= 0.5
 		if(VAULT_ARMOUR)
 			to_chat(H, "<span class='notice'>You feel tough.</span>")
-			S.brute_mod *= 0.7
-			S.burn_mod *= 0.7
-			S.tox_mod *= 0.7
-			S.oxy_mod *= 0.7
-			S.clone_mod *= 0.7
-			S.brain_mod *= 0.7
-			S.stamina_mod *= 0.7
+			H.physiology.brute_mod *= 0.7
+			H.physiology.burn_mod *= 0.7
+			H.physiology.tox_mod *= 0.7
+			H.physiology.oxy_mod *= 0.7
+			H.physiology.clone_mod *= 0.7
+			H.physiology.brain_mod *= 0.7
+			H.physiology.stamina_mod *= 0.7
 			S.species_traits |= PIERCEIMMUNE
 		if(VAULT_SPEED)
 			to_chat(H, "<span class='notice'>You feel very fast and agile.</span>")

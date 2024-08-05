@@ -61,11 +61,11 @@
 
 /obj/effect/baseturf_helper/lava
 	name = "lava baseturf editor"
-	baseturf = /turf/simulated/floor/plating/lava/smooth
+	baseturf = /turf/simulated/floor/lava
 
 /obj/effect/baseturf_helper/lava_land/surface
 	name = "lavaland baseturf editor"
-	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
+	baseturf = /turf/simulated/floor/lava/mapping_lava
 
 /obj/effect/baseturf_helper/lava_land/surface/basalt
 	name = "lavaland basalt baseturf editor"
@@ -136,4 +136,4 @@
 	. = ..()
 	var/msg = "HEY, LISTEN!!! Merge Conflict Marker detected at [AREACOORD(src)]! Please manually address all potential merge conflicts!!!"
 	warning(msg)
-	to_chat(world, "<span class='boldannounce'>[msg]</span>")
+	to_chat(world, span_boldannounceooc("[msg]"))

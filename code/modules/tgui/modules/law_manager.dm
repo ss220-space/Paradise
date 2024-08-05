@@ -73,29 +73,29 @@
 				SSticker?.score?.save_silicon_laws(owner, usr, "admin/malf used law manager, new supplied law was added '[supplied_law]'")
 
 		if("change_zeroth_law")
-			var/new_law = sanitize(input("Enter new law Zero. Leaving the field blank will cancel the edit.", "Edit Law", zeroth_law))
+			var/new_law = tgui_input_text(usr, "Enter new law Zero. Leaving the field blank will cancel the edit.", "Edit Law", zeroth_law)
 			if(new_law && new_law != zeroth_law && (!..()))
 				zeroth_law = new_law
 
 		if("change_ion_law")
-			var/new_law = sanitize(input("Enter new ion law. Leaving the field blank will cancel the edit.", "Edit Law", ion_law))
+			var/new_law = tgui_input_text(usr, "Enter new ion law. Leaving the field blank will cancel the edit.", "Edit Law", ion_law)
 			if(new_law && new_law != ion_law && (!..()))
 				ion_law = new_law
 
 		if("change_inherent_law")
-			var/new_law = sanitize(input("Enter new inherent law. Leaving the field blank will cancel the edit.", "Edit Law", inherent_law))
+			var/new_law = tgui_input_text(usr, "Enter new inherent law. Leaving the field blank will cancel the edit.", "Edit Law", inherent_law)
 			if(new_law && new_law != inherent_law && (!..()))
 				inherent_law = new_law
 
 		if("change_supplied_law")
-			var/new_law = sanitize(input("Enter new supplied law. Leaving the field blank will cancel the edit.", "Edit Law", supplied_law))
+			var/new_law = tgui_input_text(usr, "Enter new supplied law. Leaving the field blank will cancel the edit.", "Edit Law", supplied_law)
 			if(new_law && new_law != supplied_law && (!..()))
 				supplied_law = new_law
 
 		if("change_supplied_law_position")
-			var/new_position = input(usr, "Enter new supplied law position between 1 and [MAX_SUPPLIED_LAW_NUMBER], inclusive. Inherent laws at the same index as a supplied law will not be stated.", "Law Position", supplied_law_position) as num|null
+			var/new_position = tgui_input_number(usr, "Enter new supplied law position between 1 and [MAX_SUPPLIED_LAW_NUMBER], inclusive. Inherent laws at the same index as a supplied law will not be stated.", "Law Position", supplied_law_position, MAX_SUPPLIED_LAW_NUMBER, 1)
 			if(isnum(new_position) && (!..()))
-				supplied_law_position = clamp(new_position, 1, MAX_SUPPLIED_LAW_NUMBER)
+				supplied_law_position = new_position
 
 		if("edit_law")
 			if(is_malf(usr))
@@ -105,7 +105,7 @@
 					to_chat(usr, "<span class='warning'>You cant edit that law.</span>")
 					return
 				if(AL)
-					var/new_law = sanitize(input(usr, "Enter new law. Leaving the field blank will cancel the edit.", "Edit Law", AL.law))
+					var/new_law = tgui_input_text(usr, "Enter new law. Leaving the field blank will cancel the edit.", "Edit Law", AL.law)
 					if(new_law && new_law != AL.law && is_malf(usr) && (!..()))
 						log_and_message_admins("has changed a law of [owner] from '[AL.law]' to '[new_law]'")
 						var/old_law = AL.law
@@ -152,11 +152,17 @@
 			if(usr != owner)
 				to_chat(usr, "<span class='notice'>Laws displayed.</span>")
 
+/datum/ui_module/law_manager/ui_state(mob/user)
+	if(check_rights(R_ADMIN, FALSE))
+		return GLOB.admin_state
+	if(issilicon(user))
+		return GLOB.conscious_state
+	return GLOB.default_state
 
-/datum/ui_module/law_manager/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/ui_module/law_manager/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "LawManager", sanitize("[src] - [owner.name]"), 800, is_malf(user) ? 600 : 400, master_ui, state)
+		ui = new(user, src, "LawManager", sanitize("[src] - [owner.name]"))
 		ui.open()
 
 /datum/ui_module/law_manager/ui_data(mob/user)

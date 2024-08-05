@@ -10,7 +10,7 @@
 /area/space/nearstation)
 "ac" = (
 /turf/space,
-/area/template_noop)
+/area/space)
 "ad" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel,
@@ -40,25 +40,12 @@
 /obj/effect/mob_spawn/mousedead,
 /turf/simulated/floor/plasteel,
 /area/derelict/dock)
-"ai" = (
-/obj/item/shard{
-	icon_state = "medium"
-	},
-/turf/space,
-/area/space/nearstation)
 "aj" = (
 /obj/item/shard,
 /turf/space,
-/area/space/nearstation)
-"ak" = (
-/obj/item/stack/rods,
-/turf/space,
-/area/space/nearstation)
+/area/space)
 "al" = (
 /turf/simulated/wall/mineral/titanium,
-/area/derelict/bridge)
-"am" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/derelict/bridge)
 "an" = (
 /obj/structure/grille,
@@ -73,12 +60,12 @@
 /area/derelict/bridge)
 "ao" = (
 /obj/effect/landmark/tiles/damageturf,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/bridge)
 "ap" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/effect/landmark/tiles/burnturf,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/bridge)
 "aq" = (
 /obj/effect/landmark/tiles/burnturf,
@@ -203,7 +190,7 @@
 /area/derelict/bridge)
 "aE" = (
 /obj/structure/sign/nuke,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/bridge)
 "aF" = (
 /obj/structure/displaycase/boat{
@@ -455,13 +442,6 @@
 	icon_state = "darkblue"
 	},
 /area/derelict/bridge)
-"bi" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
-	},
-/area/derelict/bridge)
 "bj" = (
 /obj/item/paper/djstation{
 	desc = "Записка испачкана чернильными пятнами, сильный и дрожащий почерк, нацарапанный по ней, едва различим.";
@@ -508,12 +488,6 @@
 	icon_state = "darkblue"
 	},
 /area/derelict/bridge)
-"bm" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/crew_quarters)
-"bn" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/arrival)
 "bo" = (
 /obj/effect/spawner/lootdrop/spentcasing/pistol,
 /turf/simulated/floor/plasteel,
@@ -602,17 +576,13 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/derelict/bridge)
 "bA" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/derelict/bridge)
 "bB" = (
@@ -626,9 +596,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/derelict/bridge)
 "bD" = (
@@ -664,7 +632,7 @@
 /area/derelict/security)
 "bG" = (
 /obj/structure/rack,
-/obj/item/melee/classic_baton{
+/obj/item/melee/baton{
 	desc = "A wooden truncheon for beating capitalist scum."
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -821,8 +789,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "cb" = (
@@ -1095,11 +1062,11 @@
 /area/derelict/crew_quarters)
 "cL" = (
 /obj/structure/sign/mech,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/security)
 "cM" = (
 /obj/structure/sign/securearea,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/security)
 "cO" = (
 /obj/structure/curtain/open/shower,
@@ -1130,12 +1097,6 @@
 	icon_state = "wood"
 	},
 /area/derelict/bridge)
-"cR" = (
-/obj/item/shard{
-	icon_state = "small"
-	},
-/turf/space,
-/area/space/nearstation)
 "cS" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -1292,7 +1253,7 @@
 /area/derelict/crew_quarters)
 "dl" = (
 /obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/crew_quarters)
 "dn" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1378,14 +1339,12 @@
 "dw" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/derelict/crew_quarters)
 "dx" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/derelict/crew_quarters)
@@ -1534,7 +1493,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/security)
 "dQ" = (
 /obj/machinery/recharger,
@@ -1591,7 +1550,7 @@
 /area/derelict/annex)
 "dX" = (
 /obj/structure/sign/securearea,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/engineer_area)
 "dY" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1647,9 +1606,6 @@
 	icon_state = "darkred"
 	},
 /area/derelict/security)
-"eg" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/annex)
 "eh" = (
 /obj/machinery/light/spot{
 	dir = 1;
@@ -1767,7 +1723,7 @@
 /area/derelict/rnd)
 "et" = (
 /obj/structure/sign/science,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/rnd)
 "eu" = (
 /obj/structure/window/reinforced{
@@ -1780,15 +1736,13 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/engineer_area)
 "ew" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/engineer_area)
 "ex" = (
@@ -1823,7 +1777,7 @@
 	info = "<B>Введение в локальную сеть дополнительных камер</B><br><br>После монтажа камеры - используй параметр <B>USSP</B> для введения камеры в местную сеть видеонаблюдения.<br><br><B>Настройка коммуникационного реле</B><br><br>Для введения реле в общую сеть настрой передатчик на частоту <B>USSP-CORE</B>";
 	name = "Информация по настройки внутренней сети"
 	},
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/engineer_area)
 "eA" = (
 /obj/machinery/atmospherics/unary/passive_vent,
@@ -1890,7 +1844,7 @@
 "eI" = (
 /obj/structure/sign/securearea,
 /obj/effect/decal/cleanable/blood/splatter,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/security)
 "eJ" = (
 /obj/machinery/door/poddoor/impassable{
@@ -2376,7 +2330,7 @@
 /area/derelict/rnd)
 "fL" = (
 /obj/structure/sign/nosmoking_1,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/rnd)
 "fM" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2534,7 +2488,7 @@
 /area/derelict/rnd)
 "ge" = (
 /obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/rnd)
 "gf" = (
 /obj/structure/chair/wood{
@@ -2585,7 +2539,7 @@
 /area/derelict/security)
 "gk" = (
 /obj/structure/sign/poster/contraband/random,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/engineer_area)
 "gl" = (
 /obj/structure/chair/wood,
@@ -2681,10 +2635,6 @@
 	icon_state = "showroomfloor"
 	},
 /area/derelict/rnd)
-"gy" = (
-/obj/effect/landmark/tiles/burnturf,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/engineer_area)
 "gz" = (
 /obj/structure/computerframe{
 	desc = "This computer is a husk of what it once was. Time and decay has worn its cheap circuitry to dust.";
@@ -2759,7 +2709,7 @@
 /area/derelict/crew_quarters)
 "gJ" = (
 /obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/security)
 "gK" = (
 /obj/structure/chair{
@@ -2818,7 +2768,7 @@
 "gR" = (
 /mob/living/simple_animal/hostile/carp,
 /turf/space,
-/area/space/nearstation)
+/area/space)
 "gT" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2872,12 +2822,12 @@
 	icon_state = "small"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "gZ" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/dining)
 "ha" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -2983,10 +2933,6 @@
 	icon_state = "grimy"
 	},
 /area/derelict/crew_quarters)
-"hq" = (
-/obj/item/stack/ore/uranium,
-/turf/space,
-/area/space/nearstation)
 "hr" = (
 /obj/machinery/power/solar{
 	id = "russolar"
@@ -3012,7 +2958,7 @@
 	dir = 1;
 	pixel_y = 7
 	},
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/security)
 "hu" = (
 /obj/machinery/door/airlock/security/glass{
@@ -3020,8 +2966,7 @@
 	req_access = list(128,129,130,131)
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "ramptop";
-	tag = "icon-stage_stairs"
+	icon_state = "ramptop"
 	},
 /area/derelict/security)
 "hv" = (
@@ -3033,8 +2978,7 @@
 	req_access = list(128,129,130,131)
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "ramptop";
-	tag = "icon-stage_stairs"
+	icon_state = "ramptop"
 	},
 /area/derelict/security)
 "hw" = (
@@ -3059,7 +3003,7 @@
 /area/derelict/rnd)
 "hz" = (
 /obj/effect/landmark/tiles/damageturf,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/engineer_area)
 "hA" = (
 /obj/structure/table/reinforced,
@@ -3104,8 +3048,7 @@
 	req_access = list(128,129,130,131)
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "stage_stairs";
-	tag = "icon-stage_stairs"
+	icon_state = "stage_stairs"
 	},
 /area/derelict/church)
 "hF" = (
@@ -3118,8 +3061,7 @@
 	req_access = list(128,129,130,131)
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "stage_stairs";
-	tag = "icon-stage_stairs"
+	icon_state = "stage_stairs"
 	},
 /area/derelict/church)
 "hI" = (
@@ -3414,10 +3356,6 @@
 /obj/structure/flora/rock/pile,
 /turf/simulated/floor/plating/airless,
 /area/derelict/annex)
-"ih" = (
-/obj/item/stack/ore/iron,
-/turf/space,
-/area/space/nearstation)
 "ii" = (
 /turf/space,
 /area/derelict/annex)
@@ -3447,18 +3385,14 @@
 /area/derelict/engineer_area)
 "il" = (
 /obj/structure/sign/poster/contraband/communist_state,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/church)
 "im" = (
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/vacuum,
 /area/derelict/annex)
 "in" = (
 /obj/structure/cable{
@@ -3486,10 +3420,6 @@
 	icon_state = "chapel"
 	},
 /area/derelict/church)
-"iq" = (
-/obj/item/stack/tile,
-/turf/space,
-/area/space/nearstation)
 "is" = (
 /obj/machinery/camera{
 	c_tag = "Лобби 2";
@@ -3572,11 +3502,7 @@
 	},
 /area/derelict/rnd)
 "iE" = (
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/vacuum,
 /area/derelict/annex)
 "iG" = (
 /obj/item/shard{
@@ -3788,7 +3714,7 @@
 "jh" = (
 /obj/item/stack/sheet/mineral/titanium,
 /turf/space,
-/area/template_noop)
+/area/space)
 "jj" = (
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
@@ -3850,8 +3776,7 @@
 /obj/item/spentcasing,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/rnd)
 "ju" = (
@@ -3964,7 +3889,7 @@
 	amount = 2
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "jK" = (
 /obj/structure/lattice/catwalk,
 /turf/space,
@@ -4135,8 +4060,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/rnd)
 "kj" = (
@@ -4398,7 +4322,7 @@
 	icon_state = "1-2"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "kK" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -4411,7 +4335,7 @@
 	icon_state = "1-2"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "kL" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "derelict1"
@@ -4475,8 +4399,7 @@
 "kV" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/rnd)
 "kW" = (
@@ -4534,11 +4457,7 @@
 /area/derelict/annex)
 "ld" = (
 /obj/structure/flora/rock,
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/vacuum,
 /area/derelict/annex)
 "le" = (
 /obj/structure/sign/securearea{
@@ -4674,7 +4593,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "lu" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "kc13_ussp";
@@ -4705,7 +4624,7 @@
 /area/derelict/dock)
 "lz" = (
 /obj/structure/sign/botany,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/garden)
 "lA" = (
 /obj/machinery/door/airlock/glass{
@@ -4741,14 +4660,10 @@
 	icon_state = "2-4"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "lD" = (
 /obj/effect/landmark/tiles/damageturf,
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/vacuum,
 /area/derelict/annex)
 "lE" = (
 /obj/structure/spider/stickyweb,
@@ -4955,7 +4870,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/template_noop)
+/area/space)
 "me" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/drip,
@@ -5127,17 +5042,14 @@
 	amount = 1
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "mF" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/template_noop)
-"mG" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/med)
+/area/space)
 "mH" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Medical Wing";
@@ -5146,8 +5058,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/med)
 "mI" = (
@@ -5165,13 +5076,12 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/med)
 "mK" = (
 /obj/structure/sign/directions/medical,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/med)
 "mL" = (
 /obj/effect/landmark/tiles/damageturf,
@@ -5216,8 +5126,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/church)
 "mR" = (
@@ -5559,9 +5468,6 @@
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plating/airless,
 /area/derelict/med)
-"nL" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/security)
 "nM" = (
 /obj/item/stack/tile,
 /turf/simulated/floor/plating/airless,
@@ -5938,7 +5844,6 @@
 	welded = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "green"
 	},
 /area/derelict/garden)
@@ -6007,8 +5912,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/dining)
 "oW" = (
@@ -6017,15 +5921,13 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/dining)
 "oX" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/dining)
 "oY" = (
@@ -6076,7 +5978,7 @@
 	name = "Near USSP"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "pe" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel,
@@ -6137,7 +6039,7 @@
 /area/derelict/dining)
 "pm" = (
 /obj/structure/sign/poster/contraband/random,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/common)
 "pn" = (
 /obj/machinery/door/airlock/hatch{
@@ -6178,8 +6080,7 @@
 /obj/structure/closet/jcloset,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark";
-	tag = "icon-dark"
+	icon_state = "dark"
 	},
 /area/derelict/common)
 "pu" = (
@@ -6253,8 +6154,7 @@
 /area/derelict/arrival)
 "pC" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "dark";
-	tag = "icon-dark"
+	icon_state = "dark"
 	},
 /area/derelict/common)
 "pD" = (
@@ -6299,7 +6199,7 @@
 /area/derelict/crew_quarters)
 "pJ" = (
 /obj/effect/landmark/tiles/damageturf,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/med)
 "pK" = (
 /obj/structure/janitorialcart,
@@ -6312,13 +6212,12 @@
 /obj/item/storage/secure/safe/ussp_blueprints{
 	pixel_x = 4
 	},
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/bridge)
 "pM" = (
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark";
-	tag = "icon-dark"
+	icon_state = "dark"
 	},
 /area/derelict/common)
 "pN" = (
@@ -6328,8 +6227,7 @@
 	},
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark";
-	tag = "icon-dark"
+	icon_state = "dark"
 	},
 /area/derelict/common)
 "pO" = (
@@ -6348,7 +6246,7 @@
 "pQ" = (
 /obj/item/stack/sheet/metal,
 /turf/space,
-/area/template_noop)
+/area/space)
 "pR" = (
 /obj/item/shard,
 /turf/space,
@@ -6425,15 +6323,13 @@
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/common)
 "pZ" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/common)
 "qa" = (
@@ -6489,46 +6385,41 @@
 /area/derelict/med)
 "qh" = (
 /obj/structure/sign/examroom,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/med)
 "qi" = (
 /obj/machinery/computer/arcade,
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "qj" = (
 /obj/structure/chair/stool,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "qk" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/arrival)
 "ql" = (
 /obj/machinery/vending/cigarette/free{
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "qm" = (
 /obj/machinery/vending/sovietsoda,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "qn" = (
@@ -6554,7 +6445,7 @@
 /area/derelict/common)
 "qp" = (
 /obj/effect/landmark/tiles/burnturf,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/med)
 "qr" = (
 /obj/structure/cable{
@@ -6565,7 +6456,7 @@
 /area/derelict/med)
 "qs" = (
 /obj/structure/sign/nosmoking_2,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/med)
 "qt" = (
 /turf/simulated/floor/plasteel{
@@ -6587,8 +6478,7 @@
 "qw" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "qx" = (
@@ -6604,8 +6494,7 @@
 /area/derelict/arrival)
 "qy" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "qz" = (
@@ -6671,8 +6560,7 @@
 "qG" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "qH" = (
@@ -6680,8 +6568,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "qI" = (
@@ -6695,8 +6582,7 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "qJ" = (
@@ -6739,8 +6625,7 @@
 	},
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "qO" = (
@@ -6890,8 +6775,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "rh" = (
@@ -6950,11 +6834,11 @@
 /area/derelict/common)
 "rn" = (
 /obj/structure/closet/medical_wall,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/med)
 "ro" = (
 /obj/structure/sign/greencross,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/med)
 "rp" = (
 /obj/structure/table,
@@ -7020,16 +6904,14 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "rw" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "rx" = (
@@ -7102,8 +6984,7 @@
 	on = 0
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "rE" = (
@@ -7124,16 +7005,14 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "rH" = (
 /obj/structure/table/wood/poker,
 /obj/item/deck/cards,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "rI" = (
@@ -7141,8 +7020,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "rJ" = (
@@ -7156,8 +7034,7 @@
 	},
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "rK" = (
@@ -7202,8 +7079,7 @@
 	},
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "rO" = (
@@ -7257,8 +7133,7 @@
 	},
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "rU" = (
@@ -7297,8 +7172,7 @@
 /obj/structure/table,
 /obj/machinery/computer/library/public,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "rY" = (
@@ -7307,7 +7181,7 @@
 /area/derelict/med)
 "rZ" = (
 /obj/structure/sign/vacuum,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/arrival)
 "sb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -7367,7 +7241,7 @@
 	amount = 1
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "sh" = (
 /turf/simulated/wall/mineral/titanium,
 /area/ruin/unpowered/no_grav)
@@ -7378,11 +7252,7 @@
 "sj" = (
 /obj/item/stack/ore/iron,
 /turf/space,
-/area/template_noop)
-"sk" = (
-/obj/item/shard,
-/turf/space,
-/area/template_noop)
+/area/space)
 "sl" = (
 /obj/item/stack/tile,
 /obj/effect/decal/cleanable/blood/gibs/cleangibs,
@@ -7396,18 +7266,18 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/rnd)
 "so" = (
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "sp" = (
 /obj/item/stack/rods,
 /turf/space,
-/area/template_noop)
+/area/space)
 "sq" = (
 /obj/item/shard{
 	icon_state = "medium"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "sr" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -7423,7 +7293,7 @@
 "ss" = (
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/template_noop)
+/area/space)
 "st" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -7433,7 +7303,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/template_noop)
+/area/space)
 "su" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -7446,12 +7316,12 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/template_noop)
+/area/space)
 "sv" = (
 /obj/item/gps/ruin{
 	gpstag = "Russian Distress Signal"
 	},
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/arrival)
 "sK" = (
 /obj/item/stack/rods,
@@ -7482,7 +7352,7 @@
 /obj/machinery/light/small/built{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "te" = (
 /obj/structure/cable{
@@ -7527,9 +7397,7 @@
 /obj/effect/decal/cleanable/blood/oil,
 /obj/effect/decal/remains/robot,
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/derelict/security)
 "tI" = (
@@ -7601,12 +7469,12 @@
 /area/derelict/crew_quarters)
 "ui" = (
 /obj/effect/landmark/tiles/burnturf,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/bridge)
 "ul" = (
 /obj/effect/decal/cleanable/blood/gibs,
 /turf/space,
-/area/template_noop)
+/area/space)
 "uK" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -7770,7 +7638,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/space/nearstation)
 "xe" = (
 /obj/structure/cable{
@@ -7860,13 +7728,13 @@
 	tag = ""
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "xT" = (
 /obj/structure/computerframe{
 	desc = "This computer is a husk of what it once was. Time and decay has worn its cheap circuitry to dust.";
 	name = "decrepit computer"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "xZ" = (
 /obj/effect/decal/cleanable/ash,
@@ -7906,7 +7774,7 @@
 "yF" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "yG" = (
 /obj/effect/decal/cleanable/dust,
@@ -7925,7 +7793,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/space/nearstation)
 "yY" = (
 /obj/machinery/door/airlock/public/glass{
@@ -7938,8 +7806,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/church)
 "za" = (
@@ -8036,12 +7903,11 @@
 	width = 20
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "Ad" = (
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "Ah" = (
@@ -8075,7 +7941,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/template_noop)
+/area/space)
 "Aq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/r_n_d/destructive_analyzer,
@@ -8135,9 +8001,6 @@
 /obj/item/shard,
 /turf/space,
 /area/derelict/garden)
-"AO" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/church)
 "Bb" = (
 /obj/structure/window/full/shuttle,
 /obj/structure/grille,
@@ -8209,7 +8072,7 @@
 	tag = ""
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "BZ" = (
 /obj/machinery/door/airlock/mining,
 /turf/simulated/floor/plating/airless,
@@ -8235,7 +8098,7 @@
 /obj/structure/lattice,
 /obj/effect/decal/cleanable/ash,
 /turf/space,
-/area/template_noop)
+/area/space)
 "Ci" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
@@ -8286,7 +8149,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "CU" = (
 /obj/effect/decal/cleanable/dirt,
@@ -8449,9 +8312,8 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/common)
 "DQ" = (
-/obj/item/mounted/frame/light_fixture,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "DX" = (
 /obj/structure/cable{
@@ -8464,7 +8326,7 @@
 "Ea" = (
 /obj/structure/lattice,
 /turf/space,
-/area/template_noop)
+/area/space)
 "Ec" = (
 /mob/living/simple_animal/cockroach,
 /obj/structure/cable{
@@ -8492,13 +8354,12 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "Ek" = (
 /obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/common)
 "Em" = (
 /obj/item/clothing/head/soviethelmet,
@@ -8576,7 +8437,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/template_noop)
+/area/space)
 "ET" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/cable_coil/cut{
@@ -8590,8 +8451,7 @@
 /obj/effect/decal/cleanable/dust,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "EW" = (
@@ -8599,7 +8459,7 @@
 /obj/machinery/light/built{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "EY" = (
 /obj/item/clothing/head/helmet/space/syndicate/orange{
@@ -8627,7 +8487,7 @@
 	speed = -0.1
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "Fi" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
@@ -8646,9 +8506,6 @@
 	icon_state = "dark"
 	},
 /area/derelict/security)
-"Fl" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/engineer_area)
 "Fz" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel,
@@ -8675,9 +8532,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/derelict/dock)
-"Gi" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/dock)
 "Gk" = (
 /obj/effect/decal/cleanable/dust,
 /obj/item/spentcasing,
@@ -8694,7 +8548,7 @@
 /area/derelict/arrival)
 "Gs" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/church)
 "Gt" = (
 /obj/effect/decal/cleanable/dirt,
@@ -8723,7 +8577,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "GJ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -8778,7 +8632,7 @@
 	icon_state = "1-8"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "Hi" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -8825,12 +8679,9 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel,
 /area/derelict/engineer_area)
-"HD" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/common)
 "HF" = (
 /obj/effect/landmark/tiles/burnturf,
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/mineral/titanium,
 /area/derelict/garden)
 "HJ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -8850,7 +8701,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "HR" = (
 /obj/structure/cable{
@@ -8951,7 +8802,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "IR" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -8964,15 +8815,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/template_noop)
-"IV" = (
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
-	},
-/area/derelict/bridge)
+/area/space)
 "Jd" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -9052,24 +8895,19 @@
 	req_access = list(130)
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "JR" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/common)
 "JS" = (
 /obj/item/stack/sheet/mineral/uranium{
 	amount = 5
 	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/vacuum,
 /area/derelict/annex)
 "Ke" = (
 /obj/structure/grille,
@@ -9082,7 +8920,7 @@
 /area/derelict/garden)
 "Km" = (
 /obj/structure/table,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "Kw" = (
 /obj/structure/cable{
@@ -9123,7 +8961,7 @@
 /area/derelict/dining)
 "KK" = (
 /obj/structure/table_frame,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "KM" = (
 /obj/structure/grille,
@@ -9150,10 +8988,10 @@
 	icon_state = "1-4"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "KZ" = (
 /obj/structure/computerframe,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "La" = (
 /obj/structure/cable{
@@ -9167,7 +9005,7 @@
 	icon_state = "1-8"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "Li" = (
 /obj/effect/decal/cleanable/dust,
 /mob/living/simple_animal/cockroach,
@@ -9233,7 +9071,7 @@
 "Ml" = (
 /obj/item/stack/ore/uranium,
 /turf/space,
-/area/template_noop)
+/area/space)
 "Mn" = (
 /obj/structure/closet/crate/secure/loot,
 /obj/effect/landmark/tiles/damageturf,
@@ -9261,7 +9099,7 @@
 /area/derelict/security)
 "MA" = (
 /obj/item/clothing/mask/breath/medical,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "MF" = (
 /obj/effect/decal/cleanable/dirt,
@@ -9301,7 +9139,7 @@
 "Na" = (
 /obj/structure/door_assembly/door_assembly_ext,
 /turf/space,
-/area/template_noop)
+/area/space)
 "Nd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/ash,
@@ -9323,7 +9161,7 @@
 	icon_state = "4-8"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "ND" = (
 /obj/machinery/camera{
 	c_tag = "Отдых";
@@ -9352,8 +9190,7 @@
 "NK" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "NP" = (
@@ -9416,7 +9253,7 @@
 	icon_state = "1-2"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "Ov" = (
 /obj/structure/door_assembly/door_assembly_shuttle,
 /turf/simulated/floor/plating/airless,
@@ -9438,9 +9275,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/dock)
-"OK" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/garden)
 "OL" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -9511,9 +9345,7 @@
 	pixel_y = 10
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/derelict/bridge)
 "Ps" = (
@@ -9572,7 +9404,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/template_noop)
+/area/space)
 "PL" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -9585,7 +9417,7 @@
 "PM" = (
 /obj/structure/chair/comfy/shuttle,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "PR" = (
 /obj/structure/cable{
@@ -9621,7 +9453,7 @@
 	tag = ""
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "Qx" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -9635,7 +9467,7 @@
 /area/derelict/annex)
 "QH" = (
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "QO" = (
 /obj/structure/shuttle/engine/heater{
@@ -9646,7 +9478,7 @@
 "QW" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "Rc" = (
 /obj/effect/decal/cleanable/dirt,
@@ -9659,9 +9491,7 @@
 /area/space/nearstation)
 "Ri" = (
 /obj/structure/grille,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "Rj" = (
 /obj/effect/landmark/tiles/damageturf,
@@ -9753,7 +9583,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/template_noop)
+/area/space)
 "Sm" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
@@ -9784,7 +9614,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/template_noop)
+/area/space)
 "Su" = (
 /turf/simulated/floor/plating/airless,
 /area/derelict/garden)
@@ -9813,8 +9643,8 @@
 	},
 /area/derelict/security)
 "SJ" = (
-/obj/structure/closet/secure_closet/bar{
-	req_access = list()
+/obj/structure/closet/secure_closet/cabinet/bar{
+	req_access = null
 	},
 /obj/item/reagent_containers/food/drinks/bottle/vodka,
 /obj/item/reagent_containers/food/drinks/bottle/vodka,
@@ -9833,8 +9663,7 @@
 "SL" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark";
-	tag = "icon-dark"
+	icon_state = "dark"
 	},
 /area/derelict/common)
 "Ta" = (
@@ -9844,9 +9673,6 @@
 	icon_state = "brown"
 	},
 /area/derelict/dock)
-"Tf" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/rnd)
 "Tr" = (
 /obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel/airless{
@@ -9876,7 +9702,7 @@
 "TT" = (
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "TV" = (
 /obj/structure/cable{
@@ -9899,9 +9725,6 @@
 	icon_state = "bar"
 	},
 /area/derelict/dining)
-"Ue" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/ruin/unpowered/no_grav)
 "Ug" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/cable{
@@ -9937,7 +9760,7 @@
 "Ur" = (
 /obj/item/circuitboard/pacman/super,
 /turf/space,
-/area/template_noop)
+/area/space)
 "Uw" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -9955,10 +9778,6 @@
 	icon_state = "bar"
 	},
 /area/derelict/dining)
-"UF" = (
-/mob/living/simple_animal/hostile/carp,
-/turf/space,
-/area/template_noop)
 "UI" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -10000,13 +9819,13 @@
 	width = 8
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "Vf" = (
 /obj/item/shard{
 	icon_state = "small"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "Vm" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -10214,8 +10033,7 @@
 /obj/effect/decal/cleanable/spiderling_remains,
 /mob/living/simple_animal/hostile/poison/giant_spider,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "Yg" = (
@@ -10227,14 +10045,10 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/template_noop)
-"Yk" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
-/area/derelict/dining)
+/area/space)
 "Yn" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/engineer_area)
 "Yq" = (
@@ -10294,7 +10108,7 @@
 	icon_state = "2-4"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "Zb" = (
 /obj/item/flag/ussp,
 /turf/simulated/floor/plasteel{
@@ -10321,15 +10135,11 @@
 	amount = 1
 	},
 /turf/space,
-/area/template_noop)
-"Zk" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered/no_grav)
+/area/space)
 "Zq" = (
 /obj/item/stack/tile,
 /turf/space,
-/area/template_noop)
+/area/space)
 "Zy" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -14581,7 +14391,7 @@ ac
 ac
 ac
 ac
-sk
+aj
 ac
 ac
 ac
@@ -14798,12 +14608,12 @@ ac
 ac
 ac
 fr
-Gi
+fr
 jm
-Gi
-Gi
+fr
+fr
 lu
-Gi
+fr
 fr
 ac
 ac
@@ -14919,14 +14729,14 @@ ac
 ac
 ac
 ac
-Gi
+fr
 iS
 UI
 NJ
 kL
 Oy
 lK
-Gi
+fr
 ac
 ac
 ac
@@ -15039,17 +14849,17 @@ ac
 ac
 ac
 cq
-Gi
-Gi
-Gi
+fr
+fr
+fr
 iT
 bo
 jT
 kM
 lx
 lL
-Gi
-Gi
+fr
+fr
 tk
 ac
 ac
@@ -15157,10 +14967,10 @@ ac
 ac
 ac
 cq
-nL
+cq
 gJ
-nL
-nL
+cq
+cq
 hI
 hX
 iv
@@ -15172,10 +14982,10 @@ NI
 vU
 me
 mu
-mG
-mG
-mG
-mG
+tk
+tk
+tk
+tk
 tk
 ac
 ac
@@ -15276,9 +15086,9 @@ ac
 ac
 ac
 cq
-nL
-nL
-nL
+cq
+cq
+cq
 gj
 gK
 ha
@@ -15294,14 +15104,14 @@ lw
 vU
 mf
 mv
-mG
+tk
 mR
 ni
 nw
-mG
-mG
-mG
-mG
+tk
+tk
+tk
+tk
 ac
 sq
 ac
@@ -15397,7 +15207,7 @@ ac
 ac
 ac
 cq
-nL
+cq
 ff
 fA
 dL
@@ -15517,16 +15327,16 @@ ac
 ac
 ac
 cq
-nL
-nL
-nL
+cq
+cq
+cq
 de
 do
 do
 do
 dn
 hb
-nL
+cq
 Ta
 vU
 ix
@@ -15770,7 +15580,7 @@ do
 Ci
 gM
 hc
-nL
+cq
 hM
 ia
 iz
@@ -15880,7 +15690,7 @@ ac
 ac
 ac
 cq
-nL
+cq
 Du
 dV
 At
@@ -15892,19 +15702,19 @@ fY
 dn
 gN
 hd
-nL
-Gi
-Gi
-Gi
-Gi
+cq
+fr
+fr
+fr
+fr
 jr
 zG
 kT
 ly
-Gi
-Gi
-Gi
-mG
+fr
+fr
+fr
+tk
 mV
 nm
 mS
@@ -16000,9 +15810,9 @@ ac
 ac
 ac
 cq
-nL
-nL
-nL
+cq
+cq
+cq
 dQ
 dn
 do
@@ -16012,23 +15822,23 @@ de
 fE
 fZ
 gs
-nL
-nL
+cq
+cq
 cq
 ac
 ac
 ac
 fr
-Gi
+fr
 kb
-Gi
-Gi
+fr
+fr
 fr
 ac
 ac
 tk
-mG
-mG
+tk
+tk
 ny
 nK
 ob
@@ -16121,7 +15931,7 @@ ac
 ac
 ac
 cq
-nL
+cq
 Yr
 dA
 Mx
@@ -16129,10 +15939,10 @@ do
 Ci
 do
 eo
-nL
+cq
 fh
 fF
-nL
+cq
 OL
 cq
 ac
@@ -16164,7 +15974,7 @@ oc
 oI
 oc
 oD
-oc
+ac
 ac
 ac
 ac
@@ -16242,7 +16052,7 @@ ac
 ac
 ac
 cq
-nL
+cq
 dd
 dn
 do
@@ -16251,8 +16061,8 @@ Ci
 do
 ee
 ep
-nL
-nL
+cq
+cq
 OL
 cq
 ac
@@ -16363,7 +16173,7 @@ ac
 ac
 ac
 cq
-nL
+cq
 cL
 de
 do
@@ -16373,7 +16183,7 @@ do
 do
 ef
 eq
-nL
+cq
 cq
 ac
 ac
@@ -16394,7 +16204,7 @@ ac
 ac
 ac
 ac
-ak
+sp
 ac
 ac
 oc
@@ -16484,16 +16294,16 @@ ac
 ac
 ac
 cq
-nL
-nL
-nL
+cq
+cq
+cq
 df
 dp
 dB
 do
 Ci
 SE
-nL
+cq
 dF
 cq
 ac
@@ -16531,7 +16341,7 @@ mS
 oc
 oS
 qg
-mG
+tk
 tk
 ac
 ac
@@ -16605,16 +16415,16 @@ ac
 ac
 ac
 ac
-nL
+cq
 cl
 cz
-nL
+cq
 de
 dq
 dC
 dn
 dR
-nL
+cq
 dS
 ac
 ac
@@ -16625,7 +16435,7 @@ ac
 ac
 ac
 ac
-UF
+gR
 ac
 ac
 ac
@@ -16640,7 +16450,7 @@ ac
 ac
 ac
 ac
-ih
+sj
 ac
 ac
 oc
@@ -16727,7 +16537,7 @@ ac
 ac
 ac
 cq
-nL
+cq
 Em
 EY
 cM
@@ -16735,7 +16545,7 @@ cA
 do
 dD
 dM
-nL
+cq
 dS
 ac
 ac
@@ -16767,7 +16577,7 @@ ac
 ac
 ac
 ac
-oc
+ac
 oc
 pr
 mU
@@ -16835,7 +16645,7 @@ ac
 ac
 ac
 ac
-sk
+aj
 ac
 ac
 ac
@@ -16848,7 +16658,7 @@ ac
 sp
 ac
 cq
-nL
+cq
 bS
 cn
 Im
@@ -16856,7 +16666,7 @@ Fj
 cB
 dr
 dE
-nL
+cq
 dS
 ac
 ac
@@ -16873,9 +16683,9 @@ ac
 ac
 ac
 Md
-Tf
+Md
 kg
-Tf
+Md
 AE
 ac
 ac
@@ -16885,11 +16695,11 @@ ac
 ac
 ac
 ac
-hq
+Ml
 ac
 ac
 ac
-ai
+sq
 ac
 tk
 tk
@@ -16969,7 +16779,7 @@ mE
 ac
 jK
 jK
-nL
+cq
 bF
 bT
 tE
@@ -16977,13 +16787,13 @@ Hr
 cM
 dg
 ds
-nL
+cq
 cq
 ac
 ac
 ac
 ac
-ag
+Ea
 ac
 ac
 ac
@@ -16992,15 +16802,15 @@ ac
 ac
 ac
 Md
-Tf
-Tf
-Tf
+Md
+Md
+Md
 js
 kh
 kU
-OK
-OK
-OK
+AE
+AE
+AE
 AE
 ac
 ac
@@ -17023,7 +16833,7 @@ mS
 qC
 mU
 qY
-mG
+tk
 ac
 ac
 ac
@@ -17091,12 +16901,12 @@ ag
 jK
 jK
 cq
-nL
+cq
 bG
 bU
 zw
 cC
-nL
+cq
 dh
 dt
 dF
@@ -17112,8 +16922,8 @@ ac
 ac
 ac
 Md
-Tf
-Tf
+Md
+Md
 ib
 iA
 et
@@ -17123,21 +16933,21 @@ kV
 lz
 lM
 mg
-OK
+AE
 HF
 EN
-cR
+Vf
 ac
 ag
 ac
 ac
 ac
-iq
+Zq
 ac
 ac
 ac
 ag
-mG
+tk
 pT
 Jw
 vS
@@ -17212,15 +17022,15 @@ ac
 ac
 ac
 al
-am
-am
-am
-am
-am
-am
-am
-am
-am
+al
+al
+al
+al
+al
+al
+al
+al
+al
 al
 ag
 ac
@@ -17233,7 +17043,7 @@ ac
 ac
 Md
 eL
-Tf
+Md
 hw
 hN
 eP
@@ -17260,15 +17070,15 @@ aj
 ac
 ag
 tk
-mG
-mG
+tk
+tk
 qh
 qs
 qD
 qL
-mG
+tk
 ro
-mG
+tk
 tk
 ac
 ac
@@ -17338,22 +17148,22 @@ aX
 Uo
 xN
 TR
-am
+al
 cD
 cO
-am
+al
 al
 ag
 ag
 ag
-UF
+gR
 ac
 ac
 ac
 ac
 ac
 Md
-Tf
+Md
 gO
 he
 Ng
@@ -17375,7 +17185,7 @@ Ox
 ac
 ac
 ac
-ak
+sp
 ac
 ac
 ac
@@ -17383,7 +17193,7 @@ ag
 ag
 ag
 aW
-bn
+aW
 qi
 MX
 ka
@@ -17391,7 +17201,7 @@ hY
 ra
 NK
 rw
-bn
+aW
 ac
 ac
 ac
@@ -17463,7 +17273,7 @@ bV
 OP
 Hk
 cP
-am
+al
 ag
 ag
 ag
@@ -17474,7 +17284,7 @@ ac
 ac
 ac
 Md
-Tf
+Md
 Pe
 gP
 te
@@ -17482,11 +17292,11 @@ ad
 eP
 ic
 iB
-Tf
+Md
 is
 te
 kY
-OK
+AE
 lP
 mj
 mz
@@ -17513,7 +17323,7 @@ iy
 rb
 qM
 zx
-bn
+aW
 aW
 ac
 ac
@@ -17582,10 +17392,10 @@ aZ
 bq
 bJ
 ba
-am
+al
 cE
 ba
-am
+al
 ac
 ac
 ac
@@ -17595,7 +17405,7 @@ ac
 ac
 ag
 Md
-Tf
+Md
 ga
 gu
 gQ
@@ -17604,11 +17414,11 @@ eP
 ad
 id
 iC
-Tf
+Md
 jw
 kk
 kZ
-OK
+AE
 lQ
 Su
 lO
@@ -17628,7 +17438,7 @@ ac
 ac
 ac
 aW
-bn
+aW
 yH
 hY
 qM
@@ -17642,7 +17452,7 @@ ac
 ac
 ac
 ac
-Ue
+sh
 QO
 QO
 QO
@@ -17705,18 +17515,18 @@ br
 bK
 ba
 pL
-am
-am
+al
+al
 al
 ac
 ac
 ac
 ac
-ag
+Ea
 ac
 ag
 Md
-Tf
+Md
 fH
 gb
 gv
@@ -17725,13 +17535,13 @@ fJ
 eP
 fK
 ie
-Tf
-Tf
-Tf
+Md
+Md
+Md
 kl
-Tf
-OK
-OK
+Md
+AE
+AE
 mk
 mA
 va
@@ -17764,11 +17574,11 @@ ac
 ac
 ac
 sh
-Ue
+sh
 LC
 LC
 Ri
-Ue
+sh
 Ri
 ti
 ag
@@ -17845,7 +17655,7 @@ fj
 fJ
 fR
 hx
-Tf
+Md
 eL
 Md
 ac
@@ -17853,7 +17663,7 @@ jy
 lT
 lb
 ac
-OK
+AE
 ml
 Ox
 Ox
@@ -17873,24 +17683,24 @@ ac
 ac
 ac
 aW
-bn
+aW
 qF
 hY
 re
 wd
 hY
 qw
-bn
+aW
 aW
 ac
 ac
 ac
-Ue
+sh
 LD
 CA
 zk
 GJ
-Ue
+sh
 si
 ac
 ag
@@ -17959,7 +17769,7 @@ ac
 ac
 ac
 Md
-Tf
+Md
 YD
 eP
 fj
@@ -18003,11 +17813,11 @@ hY
 yG
 qy
 rJ
-bn
+aW
 ac
 ac
 ac
-Ue
+sh
 Ow
 si
 lH
@@ -18064,13 +17874,13 @@ ac
 ac
 ss
 al
-am
-am
-am
+al
+al
+al
 Jd
-am
-am
-am
+al
+al
+al
 al
 ac
 ac
@@ -18080,7 +17890,7 @@ ac
 ac
 ac
 ac
-Tf
+Md
 Ep
 eP
 fj
@@ -18088,7 +17898,7 @@ fJ
 ad
 GD
 gt
-Tf
+Md
 Md
 ac
 ac
@@ -18108,7 +17918,7 @@ nN
 Su
 or
 oK
-OK
+AE
 ag
 ac
 ac
@@ -18118,7 +17928,7 @@ ac
 ac
 ac
 aW
-bn
+aW
 Yb
 rf
 hY
@@ -18129,7 +17939,7 @@ fG
 ac
 ac
 ac
-Ue
+sh
 OU
 si
 Os
@@ -18185,7 +17995,7 @@ ac
 sp
 ac
 ac
-am
+al
 at
 aI
 Zb
@@ -18195,14 +18005,14 @@ bW
 as
 ac
 ac
-cR
+Vf
 ac
 ac
 jh
 ac
 ac
 Md
-Tf
+Md
 eO
 fj
 fJ
@@ -18230,7 +18040,7 @@ Su
 mh
 tD
 oL
-OK
+AE
 AE
 ac
 ac
@@ -18251,11 +18061,11 @@ fG
 ac
 ac
 ac
-Ue
-Ue
-Ue
+sh
+sh
+sh
 BZ
-Ue
+sh
 lH
 ac
 ag
@@ -18323,7 +18133,7 @@ ac
 ac
 ac
 ac
-Tf
+Md
 er
 eP
 sm
@@ -18337,7 +18147,7 @@ ac
 ac
 ac
 dW
-eg
+dW
 xF
 dW
 ii
@@ -18353,7 +18163,7 @@ lO
 os
 mh
 oT
-OK
+AE
 ac
 ac
 ac
@@ -18373,10 +18183,10 @@ fG
 ac
 ac
 ac
-Ue
+sh
 PM
 so
-Zk
+DQ
 so
 CA
 ac
@@ -18440,26 +18250,26 @@ as
 ac
 ac
 ac
-ai
+sq
 ac
 sp
 ac
 ac
-Tf
+Md
 es
 eP
 te
 hs
 gd
-Tf
+Md
 Md
 ac
 ac
 ag
 ac
 dW
-eg
-eg
+dW
+dW
 im
 ii
 ii
@@ -18469,13 +18279,13 @@ mX
 ac
 ac
 AE
-OK
+AE
 nO
 lN
 OR
 lN
 oU
-OK
+AE
 ac
 ac
 ac
@@ -18491,16 +18301,16 @@ hY
 hY
 th
 rN
-bn
+aW
 ac
 ac
 ac
-Ue
+sh
 HN
 TT
 GG
 GG
-Zk
+DQ
 ac
 Il
 ac
@@ -18558,8 +18368,8 @@ be
 bw
 aJ
 xs
-am
-am
+al
+al
 ac
 sp
 ac
@@ -18567,20 +18377,20 @@ ac
 ac
 ac
 Md
-Tf
+Md
 et
 eQ
 fl
 fL
 ge
-Tf
+Md
 ac
 ac
 ac
 ag
 dW
-eg
-eg
+dW
+dW
 iE
 ko
 ii
@@ -18591,13 +18401,13 @@ ac
 Zq
 ac
 ac
-OK
-OK
-OK
+AE
+AE
+AE
 ot
 oM
 lz
-OK
+AE
 AE
 ac
 ac
@@ -18614,16 +18424,16 @@ rq
 hY
 rO
 rZ
-bn
-bn
-bn
+aW
+aW
+aW
 AA
 QH
 so
 GG
 ag
 ag
-UF
+gR
 Rh
 ag
 ac
@@ -18681,7 +18491,7 @@ bw
 aJ
 Ih
 ct
-am
+al
 Wa
 di
 du
@@ -18695,13 +18505,13 @@ eR
 fm
 fM
 gf
-Fl
+Vq
 ac
 jh
 ac
 ac
-eg
-eg
+dW
+dW
 iE
 QD
 ja
@@ -18713,21 +18523,21 @@ ac
 ac
 ac
 ac
-Yk
+Oo
 nP
 of
 ov
 of
 oV
 pe
-Yk
+Oo
 fG
 fG
 fG
 fG
 fG
 fG
-bn
+aW
 Ad
 qR
 ri
@@ -18741,7 +18551,7 @@ sf
 jx
 Lr
 QW
-Zk
+DQ
 si
 ac
 ac
@@ -18819,7 +18629,7 @@ fN
 AF
 wo
 ac
-UF
+gR
 ac
 vr
 if
@@ -18832,7 +18642,7 @@ lD
 iE
 if
 ac
-UF
+gR
 ac
 ac
 Hi
@@ -18857,9 +18667,9 @@ rs
 rz
 Jf
 Ps
-bn
-bn
-bn
+aW
+aW
+aW
 NP
 AA
 RN
@@ -18925,7 +18735,7 @@ aJ
 Ih
 aJ
 cv
-am
+al
 Bb
 cS
 cS
@@ -18939,7 +18749,7 @@ eT
 fo
 fO
 gh
-Fl
+Vq
 ac
 ac
 Vf
@@ -18951,27 +18761,27 @@ xZ
 ja
 ld
 iE
-eg
-eg
+dW
+dW
 ac
 ac
 ac
 ac
-Yk
+Oo
 nR
 og
 ov
 of
 oX
 Fz
-Yk
+Oo
 fG
 fG
 fG
 fG
 fG
 fG
-bn
+aW
 qw
 qS
 ri
@@ -19046,8 +18856,8 @@ bg
 aJ
 aJ
 bZ
-am
-am
+al
+al
 ac
 ac
 ac
@@ -19055,13 +18865,13 @@ ac
 ac
 ac
 Vq
-Fl
-Fl
+Vq
+Vq
 eU
 fp
-Fl
-Fl
-Fl
+Vq
+Vq
+Vq
 ac
 ac
 ac
@@ -19072,20 +18882,20 @@ ii
 iE
 kp
 JS
-eg
-eg
+dW
+dW
 dW
 ac
 ac
 ac
 ac
-Yk
-Yk
-Yk
+Oo
+Oo
+Oo
 ow
 oO
-Yk
-Yk
+Oo
+Oo
 Oo
 ac
 ac
@@ -19094,7 +18904,7 @@ ac
 ac
 ac
 aW
-bn
+aW
 ML
 gT
 Bj
@@ -19102,9 +18912,9 @@ ru
 hY
 rS
 rZ
-bn
-bn
-bn
+aW
+aW
+aW
 AA
 CA
 ag
@@ -19177,13 +18987,13 @@ ac
 ac
 ac
 ac
-Fl
+Vq
 ex
 eV
 Hl
 fP
 gi
-gy
+aa
 Vq
 ac
 sq
@@ -19193,21 +19003,21 @@ iY
 iZ
 dW
 iE
-eg
-eg
+dW
+dW
 dW
 ac
 ac
 ac
 ac
 Oo
-Yk
+Oo
 xw
 jj
 UE
 jj
 oY
-Yk
+Oo
 ac
 ac
 ac
@@ -19223,11 +19033,11 @@ hY
 hY
 rk
 rT
-bn
+aW
 ac
 ac
 ac
-Ue
+sh
 sl
 VO
 lH
@@ -19299,7 +19109,7 @@ ac
 ac
 ac
 ac
-Fl
+Vq
 ey
 eW
 IB
@@ -19313,9 +19123,9 @@ ac
 sp
 ac
 dW
-eg
+dW
 kn
-eg
+dW
 dW
 ac
 ag
@@ -19329,7 +19139,7 @@ lU
 ox
 lU
 oZ
-Yk
+Oo
 ac
 ac
 ac
@@ -19349,10 +19159,10 @@ fG
 ac
 ac
 ac
-Ue
-Ue
-Ue
-Ue
+sh
+sh
+sh
+sh
 LS
 ac
 ag
@@ -19405,7 +19215,7 @@ ac
 ac
 ac
 ac
-am
+al
 aD
 aR
 NS
@@ -19450,7 +19260,7 @@ lU
 mZ
 ox
 lS
-Yk
+Oo
 Oo
 ac
 ac
@@ -19471,9 +19281,9 @@ fG
 ac
 ac
 ac
-Ue
+sh
 sW
-Zk
+DQ
 so
 si
 ac
@@ -19528,13 +19338,13 @@ ac
 ac
 ac
 al
-am
-am
-am
+al
+al
+al
 KE
-am
-am
-am
+al
+al
+al
 al
 ac
 ac
@@ -19544,7 +19354,7 @@ ac
 ac
 ac
 ag
-Fl
+Vq
 eY
 wz
 fs
@@ -19564,7 +19374,7 @@ ac
 ac
 ac
 Oo
-Yk
+Oo
 mY
 jj
 vx
@@ -19572,7 +19382,7 @@ DX
 oh
 oy
 oP
-Yk
+Oo
 ag
 ac
 ac
@@ -19582,7 +19392,7 @@ ac
 ac
 ac
 aW
-bn
+aW
 qN
 jv
 hY
@@ -19593,7 +19403,7 @@ fG
 ac
 ac
 ac
-Ue
+sh
 xT
 QH
 lH
@@ -19653,11 +19463,11 @@ ss
 as
 aS
 bc
-bi
+aJ
 wu
 ce
 cw
-am
+al
 ac
 ac
 ac
@@ -19667,7 +19477,7 @@ ac
 ac
 ag
 Vq
-Fl
+Vq
 Sz
 VA
 CI
@@ -19711,17 +19521,17 @@ ZY
 hY
 qy
 rX
-bn
+aW
 ac
 ac
 ac
 sh
-Ue
+sh
 Km
 so
-Zk
+DQ
 so
-Zk
+DQ
 so
 KK
 ag
@@ -19774,18 +19584,18 @@ ac
 Nt
 as
 aT
-bi
+aJ
 bz
 bz
 bz
 cx
-am
+al
 al
 ac
 ac
 ac
 ac
-UF
+gR
 ac
 ag
 eA
@@ -19824,28 +19634,28 @@ ac
 ac
 sp
 ac
-bn
-bn
+aW
+aW
 yp
 wv
 ka
 hY
 hY
 rG
-bn
+aW
 aW
 ac
 ac
 ac
 ac
 sh
-Ue
+sh
 EW
 so
 yF
 CT
 DQ
-Ue
+sh
 sh
 ac
 ac
@@ -19896,13 +19706,13 @@ ac
 Nt
 as
 aU
-IV
+Ih
 bA
 bO
 cf
-bi
+aJ
 cG
-am
+al
 al
 ac
 ac
@@ -19912,7 +19722,7 @@ ag
 ag
 ag
 Vq
-Fl
+Vq
 fS
 xe
 ps
@@ -19921,13 +19731,13 @@ fk
 VU
 hP
 ij
-Fl
-Fl
-Fl
+Vq
+Vq
+Vq
 kt
-Fl
-Yk
-Yk
+Vq
+Oo
+Oo
 ww
 jj
 RR
@@ -19936,7 +19746,7 @@ no
 np
 Li
 oj
-Yk
+Oo
 Oo
 ag
 ag
@@ -19964,7 +19774,7 @@ ac
 LC
 xT
 xT
-Ue
+sh
 xT
 KZ
 LC
@@ -20017,13 +19827,13 @@ ac
 ac
 Nt
 al
-am
+al
 bj
 Pq
 bP
 cg
-IV
-bi
+Ih
+aJ
 cU
 as
 ac
@@ -20035,8 +19845,8 @@ ag
 ag
 ag
 Vq
-Fl
-Fl
+Vq
+Vq
 ft
 fs
 Yv
@@ -20044,11 +19854,11 @@ hk
 HA
 VU
 zS
-Fl
+Vq
 jC
 ku
 le
-Yk
+Oo
 lR
 mo
 lU
@@ -20067,8 +19877,8 @@ ag
 ac
 ac
 ac
-bn
-bn
+aW
+aW
 qt
 yG
 wv
@@ -20086,7 +19896,7 @@ ac
 LC
 LC
 LC
-Ue
+sh
 LC
 LC
 LC
@@ -20144,8 +19954,8 @@ bk
 bC
 bC
 bC
-bi
-bi
+aJ
+aJ
 cV
 as
 ag
@@ -20166,11 +19976,11 @@ VA
 fk
 VA
 gA
-Fl
+Vq
 ax
 VA
 lf
-Yk
+Oo
 EM
 DX
 oh
@@ -20269,7 +20079,7 @@ ch
 bh
 cH
 cW
-am
+al
 al
 ag
 ag
@@ -20281,7 +20091,7 @@ ac
 ac
 ac
 Vq
-Fl
+Vq
 gU
 hl
 hC
@@ -20299,7 +20109,7 @@ mn
 mo
 nc
 nr
-Yk
+Oo
 Oo
 ac
 ac
@@ -20311,7 +20121,7 @@ ac
 ag
 ag
 aW
-bn
+aW
 qm
 qz
 CU
@@ -20319,7 +20129,7 @@ yw
 rl
 rv
 rD
-bn
+aW
 ac
 ac
 ac
@@ -20384,15 +20194,15 @@ ac
 ac
 ss
 aV
-bm
-bm
-bm
-bm
-bm
-bm
-bm
-bm
-bm
+aV
+aV
+aV
+aV
+aV
+aV
+aV
+aV
+aV
 aV
 ag
 ac
@@ -20405,7 +20215,7 @@ ac
 ac
 Vq
 wo
-Fl
+Vq
 hD
 hR
 VU
@@ -20432,15 +20242,15 @@ ac
 ac
 ag
 yg
-HD
-HD
-HD
-HD
+yg
+yg
+yg
+yg
 qJ
 qW
-HD
-HD
-HD
+yg
+yg
+yg
 yg
 ac
 ac
@@ -20507,11 +20317,11 @@ Ot
 ss
 ss
 aV
-bm
+aV
 bR
 ci
 cy
-bm
+aV
 cX
 dk
 dv
@@ -20528,20 +20338,20 @@ ac
 ac
 ac
 Vq
-Fl
-Fl
+Vq
+Vq
 ik
 iI
-Fl
+Vq
 jG
 kw
 li
-Yk
+Oo
 lV
 mq
-Yk
-Yk
-Yk
+Oo
+Oo
+Oo
 ac
 ac
 ac
@@ -20553,7 +20363,7 @@ ac
 sp
 ac
 ag
-HD
+yg
 pU
 qc
 qn
@@ -20561,7 +20371,7 @@ dY
 ZZ
 pw
 rm
-HD
+yg
 yg
 ac
 ac
@@ -20629,7 +20439,7 @@ ac
 ac
 ss
 ss
-bm
+aV
 bR
 cj
 Gt
@@ -20637,7 +20447,7 @@ cI
 cY
 oG
 dw
-bm
+aV
 aV
 ac
 ac
@@ -20652,15 +20462,15 @@ ac
 ac
 ac
 Vq
-Fl
-Fl
-Fl
+Vq
+Vq
+Vq
 jH
 Sf
 lj
-Yk
-Yk
-Yk
+Oo
+Oo
+Oo
 Oo
 ac
 ac
@@ -20675,7 +20485,7 @@ ac
 ac
 ac
 yg
-HD
+yg
 pV
 Sm
 pZ
@@ -20683,7 +20493,7 @@ sL
 Fd
 pw
 rm
-HD
+yg
 ac
 ac
 ac
@@ -20752,14 +20562,14 @@ ac
 ac
 ss
 aV
-bm
+aV
 Sq
 ck
-bm
+aV
 cZ
 db
 dx
-bm
+aV
 aV
 aV
 ac
@@ -20777,9 +20587,9 @@ ac
 ac
 ac
 Vq
-Fl
+Vq
 kx
-Fl
+Vq
 Oo
 ac
 ac
@@ -20804,7 +20614,7 @@ JR
 Ht
 mO
 qX
-HD
+yg
 yg
 ac
 ac
@@ -20875,9 +20685,9 @@ ac
 ss
 ss
 aV
-bm
-bm
-bm
+aV
+aV
+aV
 da
 db
 db
@@ -20898,7 +20708,7 @@ ac
 ac
 ac
 ac
-UF
+gR
 pk
 Kw
 pk
@@ -20925,7 +20735,7 @@ qe
 qo
 Ht
 Dk
-HD
+yg
 yg
 ac
 ac
@@ -20997,7 +20807,7 @@ ac
 ac
 ss
 ss
-bm
+aV
 aV
 cJ
 oG
@@ -21125,11 +20935,11 @@ cK
 tQ
 tZ
 Qf
-bm
+aV
 db
 dJ
 dZ
-bm
+aV
 dH
 aV
 ac
@@ -21159,8 +20969,8 @@ ac
 ac
 yg
 YH
-HD
-HD
+yg
+yg
 pu
 pD
 pN
@@ -21243,15 +21053,15 @@ ac
 ac
 ac
 aV
-bm
-bm
-bm
-bm
-bm
+aV
+aV
+aV
+aV
+aV
 tP
 db
 ea
-bm
+aV
 eB
 aV
 aV
@@ -21282,7 +21092,7 @@ yg
 yg
 pa
 pf
-HD
+yg
 pv
 pE
 pO
@@ -21366,14 +21176,14 @@ ac
 ac
 ac
 aV
-bm
+aV
 dl
 dz
 dJ
 oG
 db
 eb
-bm
+aV
 eC
 PB
 aV
@@ -21489,7 +21299,7 @@ ac
 ac
 ac
 aV
-bm
+aV
 dz
 db
 db
@@ -21500,7 +21310,7 @@ eD
 fb
 eD
 fT
-bm
+aV
 dH
 aV
 ac
@@ -21520,7 +21330,7 @@ ac
 ac
 yg
 YH
-HD
+yg
 jk
 bB
 ng
@@ -21612,35 +21422,35 @@ ac
 ac
 ac
 aV
-bm
+aV
 dK
 oG
 dJ
 ec
-bm
+aV
 eE
 fc
 fv
 fb
 gl
 gE
-bm
-bm
+aV
+aV
 aV
 ac
 ac
 ac
 SK
-AO
+SK
 kz
-AO
+SK
 SK
 ac
 ac
 ac
 yg
-HD
-HD
+yg
+yg
 nD
 ND
 ok
@@ -21648,7 +21458,7 @@ oB
 Po
 pb
 pg
-HD
+yg
 py
 sL
 DD
@@ -21738,8 +21548,8 @@ aV
 aV
 dN
 dT
-bm
-bm
+aV
+aV
 eF
 WS
 fw
@@ -21748,19 +21558,19 @@ gm
 gF
 eD
 hm
-AO
-AO
+SK
+SK
 il
-AO
-AO
+SK
+SK
 Cq
 kA
 lk
-AO
-AO
-AO
-AO
-AO
+SK
+SK
+SK
+SK
+SK
 ne
 ns
 ng
@@ -21770,10 +21580,10 @@ Ht
 Ht
 mO
 oR
-HD
+yg
 pz
 pF
-HD
+yg
 yg
 ac
 ac
@@ -21858,9 +21668,9 @@ ac
 ac
 ac
 aV
-bm
-bm
-bm
+aV
+aV
+aV
 zn
 xn
 fd
@@ -21882,7 +21692,7 @@ Cq
 lW
 mr
 mD
-AO
+SK
 nf
 nt
 ng
@@ -21892,9 +21702,9 @@ Ht
 oR
 mO
 ph
-HD
+yg
 Ek
-HD
+yg
 yg
 ac
 ac
@@ -21982,7 +21792,7 @@ ac
 ac
 ac
 aV
-bm
+aV
 em
 eH
 PB
@@ -22014,7 +21824,7 @@ ks
 ks
 jd
 pi
-HD
+yg
 yg
 ac
 ac
@@ -22105,8 +21915,8 @@ ac
 ac
 ss
 aV
-bm
-bm
+aV
+aV
 fe
 fy
 fV
@@ -22126,7 +21936,7 @@ rE
 hU
 hU
 Wq
-AO
+SK
 FA
 nu
 ng
@@ -22135,7 +21945,7 @@ Fi
 ol
 Fi
 pc
-HD
+yg
 yg
 ac
 ac
@@ -22255,7 +22065,7 @@ bB
 nX
 om
 oC
-HD
+yg
 yg
 yg
 ac
@@ -22354,11 +22164,11 @@ ss
 aV
 dH
 dH
-bm
+aV
 SJ
 Dp
 ho
-AO
+SK
 hV
 io
 iM
@@ -22370,14 +22180,14 @@ AH
 lY
 mt
 Wq
-AO
+SK
 nh
 nv
 nE
-HD
+yg
 YH
 YH
-HD
+yg
 ac
 ac
 ac
@@ -22477,10 +22287,10 @@ ss
 ss
 ss
 aV
-bm
-bm
-bm
-AO
+aV
+aV
+aV
+SK
 hW
 ip
 Uw
@@ -22492,10 +22302,10 @@ lG
 lZ
 Uw
 Je
-AO
-HD
-HD
-HD
+SK
+yg
+yg
+yg
 yg
 ac
 ac
@@ -22604,15 +22414,15 @@ ss
 ss
 SK
 JD
-AO
-AO
-AO
-AO
+SK
+SK
+SK
+SK
 kG
-AO
-AO
+SK
+SK
 Gs
-AO
+SK
 JD
 SK
 Ea
@@ -22726,7 +22536,7 @@ ac
 ss
 ss
 ac
-AO
+SK
 vR
 tO
 jL
@@ -22848,15 +22658,15 @@ Iv
 ac
 ss
 ac
-AO
+SK
 Cq
 rE
 jO
 XF
 lq
-AO
-AO
-AO
+SK
+SK
+SK
 ac
 mb
 ac
@@ -23095,9 +22905,9 @@ ac
 SK
 JD
 JD
-AO
+SK
 uZ
-AO
+SK
 JD
 JD
 SK

@@ -96,8 +96,7 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 
 // Updates the chunks that the turf is located in. Use this when obstacles are destroyed or	when doors open.
 
-/datum/cameranet/proc/updateVisibility(atom/A, opacity_check = 1)
-
+/datum/cameranet/proc/updateVisibility(atom/A, opacity_check = TRUE)
 	if(!SSticker || (opacity_check && !A.opacity))
 		return
 	majorChunkChange(A, 2)
@@ -187,21 +186,3 @@ GLOBAL_DATUM_INIT(cameranet, /datum/cameranet, new())
 		if(chunk.visibleTurfs[position])
 			return TRUE
 	return FALSE
-
-/*
-/datum/cameranet/proc/stat_entry()
-	if(!statclick)
-		statclick = new/obj/effect/statclick/debug(null, "Initializing...", src)
-
-	stat(name, statclick.update("Cameras: [cameranet.cameras.len] | Chunks: [cameranet.chunks.len]"))
-*/
-
-// Debug verb for VVing the chunk that the turf is in.
-/*
-/turf/verb/view_chunk()
-	set src in world
-
-	if(cameranet.chunkGenerated(x, y, z))
-		var/datum/camerachunk/chunk = cameranet.getCameraChunk(x, y, z)
-		usr.client.debug_variables(chunk)
-*/

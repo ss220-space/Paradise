@@ -196,7 +196,7 @@
 				"needs_container" = length(D.make_reagents)
 			)
 
-	SStgui.update_uis(src, update_static_data = TRUE)
+	SStgui.update_uis(src)
 
 /obj/machinery/biogenerator/attack_hand(mob/user)
 	if(..())
@@ -206,10 +206,10 @@
 /obj/machinery/biogenerator/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/biogenerator/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/biogenerator/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Biogenerator", "Biogenerator", 390, 600, master_ui, state)
+		ui = new(user, src, "Biogenerator", "Biogenerator")
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -276,9 +276,9 @@
 	stored_plants.Cut()
 	playsound(loc, 'sound/machines/blender.ogg', 50, 1)
 	use_power(plants_processed * 150)
-	addtimer(CALLBACK(src, PROC_REF(end_processing)), (plants_processed * 5) / productivity)
+	addtimer(CALLBACK(src, PROC_REF(biogenerator_end_processing)), (plants_processed * 5) / productivity)
 
-/obj/machinery/biogenerator/proc/end_processing()
+/obj/machinery/biogenerator/proc/biogenerator_end_processing()
 	processing = FALSE
 	SStgui.update_uis(src)
 	update_icon(UPDATE_ICON_STATE)

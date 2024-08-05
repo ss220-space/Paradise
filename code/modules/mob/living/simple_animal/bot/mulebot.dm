@@ -64,8 +64,8 @@
 	var/currentDNA = null
 
 
-/mob/living/simple_animal/bot/mulebot/New()
-	..()
+/mob/living/simple_animal/bot/mulebot/Initialize(mapload)
+	. = ..()
 	wires = new /datum/wires/mulebot(src)
 	var/datum/job/cargo_tech/J = new/datum/job/cargo_tech
 	access_card.access = J.get_access()
@@ -74,7 +74,7 @@
 
 	mulebot_count++
 	set_suffix(suffix ? suffix : "#[mulebot_count]")
-	RegisterSignal(src, COMSIG_CROSSED_MOVABLE, PROC_REF(human_squish_check))
+	RegisterSignal(src, COMSIG_ATOM_ENTERING, PROC_REF(on_entering))
 
 
 /mob/living/simple_animal/bot/mulebot/Destroy()
@@ -87,10 +87,6 @@
 
 /mob/living/simple_animal/bot/mulebot/get_cell()
 	return cell
-
-
-/mob/living/simple_animal/bot/mulebot/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id)
-	return FALSE
 
 
 /mob/living/simple_animal/bot/mulebot/proc/set_suffix(_suffix)
@@ -125,7 +121,6 @@
 	else if(I.tool_behaviour == TOOL_WRENCH)
 		if(health < maxHealth)
 			adjustBruteLoss(-25)
-			updatehealth()
 			user.visible_message(span_notice("[user] repairs [src]!"),
 								span_notice("You repair [src]!"))
 		else
@@ -259,7 +254,7 @@
 			if(new_dest)
 				set_destination(new_dest)
 		if("setid")
-			var/new_id = stripped_input(usr, "Enter ID:", name, suffix, MAX_NAME_LEN)
+			var/new_id = tgui_input_text(usr, "Enter ID:", name, suffix, MAX_NAME_LEN)
 			if(new_id)
 				set_suffix(new_id)
 		if("sethome")
@@ -600,9 +595,9 @@
 /**
  * calculates a path to the current destination, given an optional turf to avoid.
  */
-/mob/living/simple_animal/bot/mulebot/calc_path(turf/avoid = null)
+/mob/living/simple_animal/bot/mulebot/calc_path(turf/avoid)
 	check_bot_access()
-	set_path(get_path_to(src, target, 250, id=access_card, exclude = avoid))
+	set_path(get_path_to(src, target, max_distance = 250, access = access_card.GetAccess(), exclude = avoid, diagonal_handling = DIAGONAL_REMOVE_ALL))
 
 
 /**
@@ -693,7 +688,7 @@
 			bot_reset()	// otherwise go idle
 
 
-/mob/living/simple_animal/bot/mulebot/Move(turf/simulated/next, direct = NONE, glide_size_override = 0)
+/mob/living/simple_animal/bot/mulebot/Move(turf/simulated/next, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 
 	if(. && istype(next))
@@ -721,9 +716,9 @@
 /**
  * Called when bot bumps into anything.
  */
-/mob/living/simple_animal/bot/mulebot/Bump(mob/living/bumped_living, custom_bump)
+/mob/living/simple_animal/bot/mulebot/Bump(mob/living/bumped_living)
 	. = ..()
-	if(isnull(.) || !wires.is_cut(WIRE_MOB_AVOIDANCE) || !isliving(bumped_living))
+	if(!wires.is_cut(WIRE_MOB_AVOIDANCE) || !isliving(bumped_living))
 		return .
 
 	// usually just bumps, but if avoidance disabled knock over mobs
@@ -929,10 +924,14 @@
 		..()
 
 
-/mob/living/simple_animal/bot/mulebot/proc/human_squish_check(src, atom/movable/AM)
-	if(!ishuman(AM))
+/mob/living/simple_animal/bot/mulebot/proc/on_entering(datum/source, atom/destination, atom/oldloc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(!isturf(destination))
 		return
-	RunOver(AM)
+
+	for(var/mob/living/carbon/human/mob in destination.contents)
+		RunOver(mob)
 
 
 #undef SIGH

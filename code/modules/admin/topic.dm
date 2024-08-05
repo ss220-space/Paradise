@@ -86,6 +86,10 @@
 				log_admin("[key_name(usr)] has spawned a thief.")
 				if(!makeThieves())
 					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
+			if("12")
+				log_admin("[key_name(usr)] has spawned a blob.")
+				if(!makeBlobs())
+					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>")
 
 	else if(href_list["dbsearchckey"] || href_list["dbsearchadmin"] || href_list["dbsearchip"] || href_list["dbsearchcid"] || href_list["dbsearchbantype"])
 		var/adminckey = href_list["dbsearchadmin"]
@@ -388,6 +392,28 @@
 		log_admin("[key_name(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds")
 		GLOB.minor_announcement.Announce("Эвакуационный шаттл достигнет места назначения через [time_to_destination] [declension_ru(time_to_destination,"минуту","минуты","минут")].")
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds</span>")
+		href_list["secrets"] = "check_antagonist"
+
+	else if(href_list["stop_lockdown"])
+		if(!check_rights(R_ADMIN))
+			return
+		if(!you_realy_want_do_this())
+			return
+
+		var message = (SSshuttle.emergency.mode == SHUTTLE_STRANDED)?"de-lockdowned and de-strandise the Emergency Shuttle":"de-lockdowned the Emergency Shuttle"
+		SSshuttle?.stop_lockdown()
+		log_and_message_admins(span_adminnotice("[key_name_admin(usr)] [message]"))
+		href_list["secrets"] = "check_antagonist"
+
+	else if(href_list["lockdown_shuttle"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		if(!you_realy_want_do_this())
+			return
+
+		SSshuttle?.lockdown_escape()
+		log_and_message_admins(span_adminnotice("[key_name_admin(usr)] lockdowned the Emergency Shuttle"))
 		href_list["secrets"] = "check_antagonist"
 
 	else if(href_list["delay_round_end"])
@@ -1932,6 +1958,61 @@
 			return
 		check_teams()
 
+	else if(href_list["edit_blob_win_count"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/blob_win_count = input(usr, "Ввидите новое число критической массы","Критическая масса:", SSticker.mode.blob_win_count) as num
+		if(!blob_win_count)
+			return
+
+		if(!SSticker || !SSticker.mode)
+			return
+
+		SSticker.mode.blob_win_count = blob_win_count
+		SSticker.mode.update_blob_objective()
+		log_admin("[key_name(usr)] has enter new blob win count: [blob_win_count]")
+		message_admins("[key_name_admin(usr)] enter new blob win count: [blob_win_count]")
+
+	else if(href_list["send_warning"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/message = stripped_input(usr, "Введите предупреждение", "Предупреждение")
+		if(alert(usr,"Вы действительно хотите отправить предупреждение всем блобам?", "", "Да", "Нет") == "Нет")
+			return
+
+		if(!SSticker || !SSticker.mode)
+			return
+
+		SSticker.mode.show_warning(message)
+		log_admin("[key_name(usr)] has send warning to all blobs: [message]")
+		message_admins("[key_name_admin(usr)] has send warning to all blobs: [message]")
+
+	else if(href_list["burst_all_blobs"])
+		if(!check_rights(R_ADMIN))
+			return
+		if(alert(usr,"Вы действительно хотите лопнуть всех блобов?", "", "Да", "Нет") == "Нет")
+			return
+
+		if(!SSticker || !SSticker.mode)
+			return
+
+		SSticker.mode.burst_blobs()
+		log_admin("[key_name(usr)] has burst all blobs")
+		message_admins("[key_name_admin(usr)] has burst all blobs")
+
+	else if(href_list["delay_blob_end"])
+		if(!check_rights(R_ADMIN) || !check_rights(R_EVENT))
+			return
+		if(alert(usr,"Вы действительно хотите преостановить конец раунда в случае победы блоба?", "", "Да", "Нет") == "Нет")
+			return
+
+		if(!SSticker || !SSticker.mode)
+			return
+
+		SSticker.mode.delay_blob_win()
+		log_admin("[key_name(usr)] has stopped delayed blob win")
+		message_admins("[key_name_admin(usr)] has stopped delayed blob win")
+
 	else if(href_list["team_command"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -2330,26 +2411,9 @@
 		P.mytarget = H
 		if(alert("Do you want the Evil Fax to activate automatically if [H] tries to ignore it?",,"Yes", "No") == "Yes")
 			P.activate_on_timeout = 1
-		P.x = rand(-2, 0)
-		P.y = rand(-1, 2)
-		P.offset_x += P.x
-		P.offset_y += P.y
-		P.update_icon()
-		var/stampvalue = "cent"
-		var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
-		stampoverlay.icon_state = "paper_stamp-[stampvalue]"
-		stampoverlay.pixel_x = P.x
-		stampoverlay.pixel_y = P.y
-		P.stamped = list()
-		P.stamped += /obj/item/stamp/centcom
-		if(!P.ico)
-			P.ico = new
-		P.ico += "paper_stamp-[stampvalue]"
-		LAZYADD(P.stamp_overlays, stampoverlay)
-		P.stamps += "<hr><img src=large_stamp-[stampvalue].png>"
-		P.update_icon()
+		P.stamp(/obj/item/stamp/centcom)
 		P.faxmachineid = fax.UID()
-		P.loc = fax.loc // Do not use fax.receivefax(P) here, as it won't preserve the type. Physically teleporting the fax paper is required.
+		P.forceMove(fax.loc)  // Do not use fax.receivefax(P) here, as it won't preserve the type. Physically teleporting the fax paper is required.
 		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
 			to_chat(H, "<span class='specialnoticebold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
 		to_chat(src.owner, "You sent a [eviltype] fax to [H]")
@@ -2425,24 +2489,7 @@
 			return
 		tmsg += "</font>"
 		P.info = tmsg
-		P.x = rand(-2, 0)
-		P.y = rand(-1, 2)
-		P.offset_x += P.x
-		P.offset_y += P.y
-		P.update_icon()
-		var/stampvalue = "cent"
-		var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
-		stampoverlay.icon_state = "paper_stamp-[stampvalue]"
-		stampoverlay.pixel_x = P.x
-		stampoverlay.pixel_y = P.y
-		P.stamped = list()
-		P.stamped += /obj/item/stamp/centcom
-		if(!P.ico)
-			P.ico = new
-		P.ico += "paper_stamp-[stampvalue]"
-		LAZYADD(P.stamp_overlays, stampoverlay)
-		P.stamps += "<hr><img src=large_stamp-[stampvalue].png>"
-		P.update_icon()
+		P.stamp(/obj/item/stamp/centcom)
 		fax.receivefax(P)
 		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
 			to_chat(H, "<span class='specialnoticebold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
@@ -2633,33 +2680,11 @@
 		else
 			P.name = "[customname]"
 		P.info = input
-		P.update_icon()
-		P.x = rand(-2, 0)
-		P.y = rand(-1, 2)
-		P.offset_x += P.x
-		P.offset_y += P.y
-		if(stamptype)
-			var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
-			stampoverlay.pixel_x = P.x
-			stampoverlay.pixel_y = P.y
-
-			if(!P.ico)
-				P.ico = new
-			P.ico += "paper_stamp-[stampvalue]"
-			stampoverlay.icon_state = "paper_stamp-[stampvalue]"
-
-			if(stamptype == "icon")
-				if(!P.stamped)
-					P.stamped = new
-				P.stamped += /obj/item/stamp/centcom
-				P.stamps += "<hr><img src=large_stamp-[stampvalue].png>"
-
-			else if(stamptype == "text")
-				if(!P.stamped)
-					P.stamped = new
-				P.stamped += /obj/item/stamp
-				P.stamps += "<hr><i>[stampvalue]</i>"
-			LAZYADD(P.stamp_overlays, stampoverlay)
+		P.update_icon(UPDATE_ICON_STATE)
+		if(stamptype == "icon")
+			P.stamp(/obj/item/stamp/centcom, special_stamped = "<img src=large_stamp-[stampvalue].png>", special_icon_state = "stamp-[stampvalue]")
+		else if(stamptype == "text")
+			P.stamp(/obj/item/stamp, special_stamped = "<i>[stampvalue]</i>", special_icon_state = "stamp-[stampvalue]")
 
 		if(destination != "All Departments")
 			if(!fax.receivefax(P))
@@ -2947,22 +2972,30 @@
 		var/ok = 0
 		switch(href_list["secretsfun"])
 			if("sec_clothes")
+				if(!you_realy_want_do_this())
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Remove 'internal' clothing")
 				for(var/obj/item/clothing/under/O in world)
 					qdel(O)
 				ok = 1
 			if("sec_all_clothes")
+				if(!you_realy_want_do_this())
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Remove ALL clothing")
 				for(var/obj/item/clothing/O in world)
 					qdel(O)
 				ok = 1
 			if("sec_classic1")
+				if(!you_realy_want_do_this())
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Remove firesuits, grilles, and pods")
 				for(var/obj/item/clothing/suit/fire/O in world)
 					qdel(O)
 				for(var/obj/structure/grille/O in world)
 					qdel(O)
 			if("monkey")
+				if(!you_realy_want_do_this())
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Monkeyize All Humans")
 				for(var/thing in GLOB.human_list)
 					var/mob/living/carbon/human/H = thing
@@ -2970,6 +3003,8 @@
 						H.monkeyize()
 				ok = 1
 			if("corgi")
+				if(!you_realy_want_do_this())
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Corgize All Humans")
 				for(var/thing in GLOB.human_list)
 					var/mob/living/carbon/human/H = thing
@@ -3029,14 +3064,20 @@
 					area.gravitychange()
 
 			if("power")
+				if(!you_realy_want_do_this())
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power All APCs")
 				log_and_message_admins("<span class='notice'>made all areas powered</span>")
 				power_restore()
 			if("unpower")
+				if(!you_realy_want_do_this())
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Depower All APCs")
 				log_and_message_admins("<span class='notice'>made all areas unpowered</span>")
 				power_failure()
 			if("quickpower")
+				if(!you_realy_want_do_this())
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Power All SMESs")
 				log_and_message_admins("<span class='notice'>made all SMESs powered</span>")
 				power_restore_quick()
@@ -3044,6 +3085,8 @@
 			if("prisonwarp")
 				if(!SSticker)
 					alert("The game hasn't started yet!", null, null, null, null, null)
+					return
+				if(!you_realy_want_do_this())
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Prison Warp")
 				log_and_message_admins("<span class='notice'>teleported all players to the prison station.</span>")
@@ -3081,6 +3124,8 @@
 				if(!SSticker)
 					alert("The game hasn't started yet!")
 					return
+				if(!you_realy_want_do_this())
+					return
 				var/objective = sanitize(copytext_char(input("Enter an objective"),1,MAX_MESSAGE_LEN))
 				if(!objective)
 					return
@@ -3098,6 +3143,8 @@
 				log_and_message_admins("<span class='notice'>used everyone is a traitor secret. Objective is [objective]</span>")
 
 			if("togglebombcap")
+				if(!you_realy_want_do_this())
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Bomb Cap")
 
 				var/newBombCap = input(usr,"What would you like the new bomb cap to be. (entered as the light damage range (the 3rd number in common (1,2,3) notation)) Must be between 4 and 128)", "New Bomb Cap", GLOB.max_ex_light_range) as num|null
@@ -3113,10 +3160,12 @@
 				GLOB.max_ex_flash_range = newBombCap
 				GLOB.max_ex_flame_range = newBombCap
 
-				message_admins("<span class='boldannounce'>[key_name_admin(usr)] changed the bomb cap to [GLOB.max_ex_devastation_range], [GLOB.max_ex_heavy_range], [GLOB.max_ex_light_range]</span>")
+				message_admins(span_boldannounceooc("[key_name_admin(usr)] changed the bomb cap to [GLOB.max_ex_devastation_range], [GLOB.max_ex_heavy_range], [GLOB.max_ex_light_range]"))
 				log_admin("[key_name(usr)] changed the bomb cap to [GLOB.max_ex_devastation_range], [GLOB.max_ex_heavy_range], [GLOB.max_ex_light_range]")
 
 			if("flicklights")
+				if(!you_realy_want_do_this())
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Flicker Lights")
 				while(!usr.stat)
 //knock yourself out to stop the ghosts
@@ -3147,52 +3196,56 @@
 					if(M.stat != 2)
 						M.show_message(text("<span class='notice'>The chilling wind suddenly stops...</span>"), 1)
 			if("lightout")
+				if(!you_realy_want_do_this())
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Lights Out")
 				log_and_message_admins("has broke a lot of lights")
 				var/datum/event/electrical_storm/E = new /datum/event/electrical_storm
 				E.lightsoutAmount = 2
 			if("blackout")
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
+				if(!you_realy_want_do_this())
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Black Out")
 				log_and_message_admins("broke all lights")
 				for(var/obj/machinery/light/L in GLOB.machines)
 					L.break_light_tube()
 			if("whiteout")
+				if(!you_realy_want_do_this())
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Fix All Lights")
 				log_and_message_admins("fixed all lights")
 				for(var/obj/machinery/light/L in GLOB.machines)
 					L.fix()
 					L.switchcount = 0
 			if("floorlava")
-				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Lava Floor")
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
+				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Lava Floor")
 				SSweather.run_weather(/datum/weather/floor_is_lava)
 				message_admins("[key_name_admin(usr)] made the floor lava")
 			if("fakelava")
-				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Lava Floor Fake")
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
+				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Lava Floor Fake")
 				SSweather.run_weather(/datum/weather/floor_is_lava/fake)
 				message_admins("[key_name_admin(usr)] made aesthetic lava on the floor")
 			if("weatherashstorm")
-				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Weather Ash Storm")
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
+				if(!you_realy_want_do_this())
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Weather Ash Storm")
 				SSweather.run_weather(/datum/weather/ash_storm)
 				message_admins("[key_name_admin(usr)] spawned an ash storm on the mining level")
 			if("stupify")
+				if(!you_realy_want_do_this())
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Mass Braindamage")
 				for(var/mob/living/carbon/human/H in GLOB.player_list)
 					to_chat(H, "<span class='danger'>You suddenly feel stupid.</span>")
 					H.setBrainLoss(60)
 				message_admins("[key_name_admin(usr)] made everybody stupid")
 			if("fakeguns")
+				if(!you_realy_want_do_this())
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Fake Guns")
 				for(var/obj/item/W in world)
 					if(isclothing(W) || istype(W, /obj/item/card/id) || istype(W, /obj/item/disk) || istype(W, /obj/item/tank))
@@ -3202,6 +3255,8 @@
 					W.item_state = "gun"
 				message_admins("[key_name_admin(usr)] made every item look like a gun")
 			if("schoolgirl") // nyaa~ How much are you paying attention in reviews?
+				if(!you_realy_want_do_this())
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Chinese Cartoons")
 				for(var/obj/item/clothing/under/W in world)
 					W.icon_state = "schoolgirl"
@@ -3209,7 +3264,9 @@
 					W.item_color = "schoolgirl"
 				message_admins("[key_name_admin(usr)] activated Japanese Animes mode")
 				world << sound('sound/AI/animes.ogg')
-			if("eagles")//SCRAW
+			if("eagles")//
+				if(!you_realy_want_do_this())
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Egalitarian Station")
 				for(var/obj/machinery/door/airlock/W in GLOB.airlocks)
 					if(is_station_level(W.z) && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
@@ -3217,13 +3274,19 @@
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
 				GLOB.event_announcement.Announce("Активирована блокировка управления шл+юзами. Пожалуйста, воспользуйтесь этим временем, чтобы познакомиться со своими коллегами.", new_sound = 'sound/AI/commandreport.ogg')
 			if("onlyone")
+				if(!you_realy_want_do_this())
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Only One")
 				usr.client.only_one()
 				log_and_message_admins("has triggered HIGHLANDER")
 			if("onlyme")
+				if(!you_realy_want_do_this())
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Only Me")
 				usr.client.only_me()
 			if("onlyoneteam")
+				if(!you_realy_want_do_this())
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Only One Team")
 				usr.client.only_one_team()
 //				message_admins("[key_name_admin(usr)] has triggered ")
@@ -3231,6 +3294,8 @@
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Roll The Dice")
 				usr.client.roll_dices()
 			if("guns")
+				if(!you_realy_want_do_this())
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Summon Guns")
 				var/survivor_probability = 0
 				switch(alert("Do you want this to create survivors antagonists?", , "No Antags", "Some Antags", "All Antags!"))
@@ -3241,6 +3306,8 @@
 
 				rightandwrong(SUMMON_GUNS, usr, survivor_probability)
 			if("magic")
+				if(!you_realy_want_do_this())
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Summon Magic")
 				var/survivor_probability = 0
 				switch(alert("Do you want this to create survivors antagonists?", , "No Antags", "Some Antags", "All Antags!"))
@@ -3345,42 +3412,62 @@
 				else
 					log_and_message_admins("<span class='adminnotice'>tried starting a Thunderdome match, but no ghosts signed up.</span>")
 			if("securitylevel0")
-				set_security_level(0)
+				if(!you_realy_want_do_this())
+					return
+				set_security_level(SEC_LEVEL_GREEN)
 				log_and_message_admins("<span class='notice'>change security level to Green.</span>")
 			if("securitylevel1")
-				set_security_level(1)
+				if(!you_realy_want_do_this())
+					return
+				set_security_level(SEC_LEVEL_BLUE)
 				log_and_message_admins("<span class='notice'>change security level to Blue.</span>")
 			if("securitylevel2")
-				set_security_level(2)
+				if(!you_realy_want_do_this())
+					return
+				set_security_level(SEC_LEVEL_RED)
 				log_and_message_admins("<span class='notice'>change security level to Red.</span>")
 			if("securitylevel3")
-				set_security_level(3)
+				if(!you_realy_want_do_this())
+					return
+				set_security_level(SEC_LEVEL_GAMMA)
 				log_and_message_admins("<span class='notice'>change security level to Gamma.</span>")
 			if("securitylevel4")
-				set_security_level(4)
+				if(!you_realy_want_do_this())
+					return
+				set_security_level(SEC_LEVEL_EPSILON)
 				log_and_message_admins("<span class='notice'>change security level to Epsilon.</span>")
 			if("securitylevel5")
-				set_security_level(5)
+				if(!you_realy_want_do_this())
+					return
+				set_security_level(SEC_LEVEL_DELTA)
 				log_and_message_admins("<span class='notice'>change security level to Delta.</span>")
 			if("moveminingshuttle")
+				if(!you_realy_want_do_this())
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Mining Shuttle")
 				if(!SSshuttle.toggleShuttle("mining","mining_home","mining_away"))
 					message_admins("[key_name_admin(usr)] moved mining shuttle")
 					log_admin("[key_name(usr)] moved the mining shuttle")
 
 			if("movelaborshuttle")
+				if(!you_realy_want_do_this())
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Labor Shuttle")
 				if(!SSshuttle.toggleShuttle("laborcamp","laborcamp_home","laborcamp_away"))
 					message_admins("[key_name_admin(usr)] moved labor shuttle")
 					log_admin("[key_name(usr)] moved the labor shuttle")
 
 			if("moveferry")
+				if(!you_realy_want_do_this())
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send CentComm Ferry")
 				if(!SSshuttle.toggleShuttle("ferry","ferry_home","ferry_away"))
 					message_admins("[key_name_admin(usr)] moved the centcom ferry")
 					log_admin("[key_name(usr)] moved the centcom ferry")
 
 			if("gammashuttle")
+				if(!you_realy_want_do_this())
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Gamma Armory")
 				if(!SSshuttle.toggleShuttle("gamma_shuttle","gamma_home","gamma_away"))
 					message_admins("[key_name_admin(usr)] moved the gamma armory")
@@ -3497,17 +3584,23 @@
 					dat += "No-one has done anything this round!"
 				usr << browse(dat, "window=admin_log")
 			if("maint_ACCESS_BRIG")
+				if(!you_realy_want_do_this())
+					return
 				for(var/obj/machinery/door/airlock/maintenance/M in GLOB.airlocks)
 					if(ACCESS_MAINT_TUNNELS in M.req_access)
 						M.req_access = list(ACCESS_BRIG)
 				message_admins("[key_name_admin(usr)] made all maint doors brig access-only.")
 			if("maint_access_engiebrig")
+				if(!you_realy_want_do_this())
+					return
 				for(var/obj/machinery/door/airlock/maintenance/M in GLOB.airlocks)
 					if(ACCESS_MAINT_TUNNELS in M.req_access)
 						M.req_access = list()
 						M.req_access = list(ACCESS_BRIG,ACCESS_ENGINE)
 				message_admins("[key_name_admin(usr)] made all maint doors engineering and brig access-only.")
 			if("infinite_sec")
+				if(!you_realy_want_do_this())
+					return
 				var/datum/job/J = SSjobs.GetJob(JOB_TITLE_OFFICER)
 				if(!J) return
 				J.total_positions = -1
@@ -3521,20 +3614,21 @@
 				return 1
 
 	else if(href_list["viewruntime"])
-		var/datum/ErrorViewer/error_viewer = locateUID(href_list["viewruntime"])
+		var/datum/error_viewer/error_viewer = locate(href_list["viewruntime"])
 		if(!istype(error_viewer))
-			to_chat(usr, "<span class='warning'>That runtime viewer no longer exists.</span>")
+			to_chat(usr, span_warning("That runtime viewer no longer exists."))
 			return
+
 		if(href_list["viewruntime_backto"])
-			error_viewer.showTo(usr, locateUID(href_list["viewruntime_backto"]), href_list["viewruntime_linear"])
+			error_viewer.show_to(usr, locateUID(href_list["viewruntime_backto"]), href_list["viewruntime_linear"])
 		else
-			error_viewer.showTo(usr, null, href_list["viewruntime_linear"])
+			error_viewer.show_to(usr, null, href_list["viewruntime_linear"])
 
 	else if(href_list["add_station_goal"])
 		if(!check_rights(R_EVENT))
 			return
 		var/list/type_choices = typesof(/datum/station_goal)
-		var/picked = input("Choose goal type") in type_choices|null
+		var/picked = input("Choose goal type") as null|anything in type_choices
 		if(!picked)
 			return
 		var/datum/station_goal/G = new picked()
@@ -3543,7 +3637,7 @@
 			if(!newname)
 				return
 			G.name = newname
-			var/description = input("Enter [command_name()] message contents:") as message|null
+			var/description = input("Enter [command_name()] message contents:") as null|message
 			if(!description)
 				return
 			G.report_message = description
@@ -3736,3 +3830,7 @@
 		var/mob/dead/observer/O = target
 		if(O.mind && O.mind.current)
 			. += "|[ADMIN_FLW(O.mind.current,"BDY")]"
+
+/proc/you_realy_want_do_this()
+	var/sure = tgui_alert(usr, "Вы действительно хотите сделать это?", "Подтверждение", list("Да", "Нет"))
+	return sure == "Да"

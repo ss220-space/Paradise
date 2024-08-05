@@ -141,10 +141,10 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	underlays += emissive_appearance(icon, "req_comp_lightmask", src)
 
 
-/obj/machinery/requests_console/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/requests_console/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "RequestConsole", "[department] Request Console", 520, 410, master_ui, state)
+		ui = new(user, src, "RequestConsole", "[department] Request Console")
 		ui.open()
 
 /obj/machinery/requests_console/ui_data(mob/user)
@@ -186,26 +186,25 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			if(reject_bad_text(params["write"]))
 				recipient = params["write"] //write contains the string of the receiving department's name
 
-				var/new_message = sanitize(input("Write your message:", "Awaiting Input", ""))
-				if(new_message)
-					message = new_message
-					screen = RCS_MESSAUTH
-					switch(params["priority"])
-						if("1")
-							priority = RQ_NORMALPRIORITY
-						if("2")
-							priority = RQ_HIGHPRIORITY
-						else
-							priority = RQ_NONEW_MESSAGES
-				else
-					reset_message(TRUE)
+				var/new_message = tgui_input_text(usr, "Write your message:", "Awaiting Input", encode = FALSE)
+				if(isnull(new_message))
+					reset_message(FALSE)
+					return
+				message = new_message
+				screen = RCS_MESSAUTH
+				switch(params["priority"])
+					if("1")
+						priority = RQ_NORMALPRIORITY
+					if("2")
+						priority = RQ_HIGHPRIORITY
+					else
+						priority = RQ_NONEW_MESSAGES
 
 		if("writeAnnouncement")
-			var/new_message = sanitize(input("Write your message:", "Awaiting Input", "") as message|null)
-			if(new_message)
-				message = new_message
-			else
-				reset_message(TRUE)
+			var/new_message = tgui_input_text(usr, "Write your message:", "Awaiting Input", encode = FALSE)
+			if(isnull(new_message))
+				return
+			message = new_message
 
 		if("sendAnnouncement")
 			if(!announcementConsole)

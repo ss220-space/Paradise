@@ -2,7 +2,7 @@
 	name = "window spawner"
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "window_spawner"
-	var/useFull = 0
+	var/useFull = 1
 	var/useGrille = 1
 	var/window_to_spawn_regular = /obj/structure/window/basic
 	var/window_to_spawn_full = /obj/structure/window/full/basic
@@ -27,6 +27,7 @@
 			WI.dir = cdir
 	else
 		var/obj/structure/window/W = new window_to_spawn_full(get_turf(src))
+		sync_id(W)
 		W.dir = FULLTILE_WINDOW_DIR // THIS IS DUMB
 
 	if(useGrille)
@@ -58,7 +59,8 @@
 	name = "polarized reinforced window spawner"
 	icon_state = "ewindow_spawner"
 	window_to_spawn_regular = /obj/structure/window/reinforced/polarized
-	window_to_spawn_full = /obj/structure/window/full/reinforced/tinted // Not polarized one
+	//window_to_spawn_full = /obj/structure/window/full/reinforced/tinted // Not polarized one // Why?
+	window_to_spawn_full = /obj/structure/window/full/reinforced/polarized
 	/// Used to link electrochromic windows to buttons
 	var/id
 

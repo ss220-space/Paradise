@@ -213,19 +213,18 @@ SUBSYSTEM_DEF(throwing)
 		var/turf/T = get_turf(thrownthing)
 		T?.zFall(thrownthing)
 
-	SEND_SIGNAL(thrownthing, COMSIG_MOVABLE_THROW_LANDED, src)
-	thrownthing.end_throw()
-	if(QDELETED(thrownthing))
-		return
+	if(thrownthing)
+		SEND_SIGNAL(thrownthing, COMSIG_MOVABLE_THROW_LANDED, src)
+		thrownthing?.end_throw()
 
-	thrownthing.newtonian_move(REVERSE_DIR(init_dir))
+	thrownthing.newtonian_move(init_dir)
 
 	qdel(src)
 
 
 /datum/thrownthing/proc/hitcheck()
 	for(var/atom/movable/obstacle as anything in get_turf(thrownthing))
-		if(obstacle == thrownthing || (obstacle == thrower && !ismob(thrownthing)))
+		if(obstacle == thrownthing || obstacle == thrower)
 			continue
 		if(ismob(obstacle) && (thrownthing.pass_flags & PASSMOB))
 			continue

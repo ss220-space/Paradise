@@ -1,5 +1,5 @@
 /obj/item/clothing/gloves/color
-	dyeable = TRUE
+	dying_key = DYE_REGISTRY_GLOVES
 
 /obj/item/clothing/gloves/color/yellow
 	desc = "These gloves will protect the wearer from electric shock."
@@ -106,7 +106,7 @@
 /obj/item/clothing/gloves/color/black/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WIRECUTTER)
 		if(can_be_cut && icon_state == initial(icon_state))//only if not dyed
-			var/confirm = alert("Do you want to cut off the gloves fingertips? Warning: It might destroy their functionality.","Cut tips?","Yes","No")
+			var/confirm = tgui_alert(user, "Do you want to cut off the gloves fingertips? Warning: It might destroy their functionality.", "Cut tips?", list("Yes","No"))
 			if(get_dist(user, src) > 1)
 				to_chat(user, "You have moved too far away.")
 				return

@@ -10,7 +10,7 @@
 	1 - halfblock
 	2 - fullblock
 */
-/mob/living/proc/run_armor_check(var/def_zone = null, var/attack_flag = "melee", var/absorb_text = null, var/soften_text = null, armour_penetration, penetrated_text)
+/mob/living/proc/run_armor_check(def_zone, attack_flag = MELEE, absorb_text, soften_text, armour_penetration, penetrated_text)
 	var/armor = getarmor(def_zone, attack_flag)
 
 	//the if "armor" check is because this is used for everything on /living, including humans
@@ -34,7 +34,7 @@
 	return armor
 
 //if null is passed for def_zone, then this should return something appropriate for all zones (e.g. area effect damage)
-/mob/living/proc/getarmor(var/def_zone, var/type)
+/mob/living/proc/getarmor(def_zone, attack_flag)
 	return 0
 
 /mob/living/proc/is_mouth_covered(head_only = FALSE, mask_only = FALSE)
@@ -55,22 +55,36 @@
 /mob/living/proc/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
 	return 0
 
-/mob/living/proc/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
-	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage)
+
+///As the name suggests, this should be called to apply electric shocks.
+/mob/living/proc/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+	if(SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage, source, siemens_coeff, flags) & COMPONENT_LIVING_BLOCK_SHOCK)
+		return FALSE
 	if(status_flags & GODMODE)	//godmode
 		return FALSE
-	if(HAS_TRAIT(src, TRAIT_SHOCKIMMUNE)) //shockproof
+	shock_damage *= siemens_coeff
+	if(!(flags & SHOCK_IGNORE_IMMUNITY))
+		if((flags & SHOCK_TESLA) && HAS_TRAIT(src, TRAIT_TESLA_SHOCKIMMUNE))
+			return FALSE
+		if(HAS_TRAIT(src, TRAIT_SHOCKIMMUNE))
+			return FALSE
+	if(shock_damage < 1)
 		return FALSE
-	if(tesla_shock && tesla_ignore)
-		return FALSE
-	if(shock_damage > 0)
-		if(!illusion)
-			adjustFireLoss(shock_damage)
+	if(!(flags & SHOCK_ILLUSION))
+		apply_damage(shock_damage, BURN, spread_damage = TRUE)
+		if(shock_damage > 200)
+			playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
+			explosion(loc, -1, 0, 2, 2, cause = "[source] over electrocuted [name]")
+	else
+		apply_damage(shock_damage, STAMINA)
+	if(!(flags & SHOCK_SUPPRESS_MESSAGE))
 		visible_message(
-			"<span class='danger'>[src.name] получа[pluralize_ru(src.gender,"ет","ют")] разряд током [source]!</span>",
-			"<span class='userdanger'>[pluralize_ru(src.gender,"Ты","Вы")] чувствуе[pluralize_ru(src.gender,"шь","те")] как через [pluralize_ru(src.gender,"твоё","ваше")] тело проходит электрический разряд!</span>",
-			"<span class='italics'>[pluralize_ru(src.gender,"Ты","Вы")] слыши[pluralize_ru(src.gender,"шь","те")] громкий электрический треск.</span>")
-		return shock_damage
+			span_danger("[name] получа[pluralize_ru(gender,"ет","ют")] удар током от [source]!"),
+			span_userdanger("Вы чувствуете как через Ваше тело проходит электрический разряд!"),
+			span_hear("Вы слышите громкий электрический треск."),
+		)
+	return shock_damage
+
 
 /mob/living/emp_act(severity)
 	..()
@@ -154,7 +168,6 @@
 				M.mech_toxin_damage(src)
 			else
 				return
-		updatehealth("mech melee attack")
 		M.occupant_message("<span class='danger'>[pluralize_ru(M.occupant.gender,"Ты","Вы")] ударяе[pluralize_ru(M.occupant.gender,"шь","те")] [src.declent_ru(ACCUSATIVE)].</span>")
 		visible_message("<span class='danger'>[M.declent_ru(NOMINATIVE)] ударя[pluralize_ru(M.gender,"ет","ют")] [src.declent_ru(ACCUSATIVE)]!</span>", "<span class='userdanger'>[M.declent_ru(NOMINATIVE)] ударя[pluralize_ru(M.gender,"ет","ют")] [pluralize_ru(src.gender,"тебя","вас")]!</span>")
 		add_attack_logs(M.occupant, src, "Mecha-meleed with [M]")
@@ -249,8 +262,6 @@
 		fire_stacks += L.fire_stacks
 		IgniteMob()
 
-/mob/living/can_be_pulled(atom/movable/user, force, show_message = FALSE)
-	return ..() && !(buckled && buckled.buckle_prevents_pull)
 
 /mob/living/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
@@ -274,42 +285,148 @@
 
 	return 0
 
-// End BS12 momentum-transfer code.
 
-/mob/living/proc/grabbedby(mob/living/carbon/user, supress_message = FALSE)
-	if(user == src || anchored || user.body_position == LYING_DOWN)
-		return 0
-	if(!(status_flags & CANPUSH))
-		return 0
+/**
+ * Called when a mob is grabbing another mob.
+ */
+/mob/living/proc/grab(mob/living/target)
+	if(!istype(target))
+		return FALSE
+	if(SEND_SIGNAL(src, COMSIG_LIVING_GRAB, target) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return FALSE
+	//if(target.check_block(src, 0, "[src]'s grab"))
+	//	return FALSE
+	target.grabbedby(src)
+	return TRUE
 
-	for(var/obj/item/grab/G in grabbed_by)
-		if(G.assailant == user)
-			if(holder_type)
-				get_scooped(user)
-			else
-				to_chat(user, "<span class='notice'>[pluralize_ru(user.gender,"Ты","Вы")] уже схватил[genderize_ru(user.gender,"","а","о","и")] [src.declent_ru(ACCUSATIVE)].</span>")
-			return
 
-	add_attack_logs(user, src, "Grabbed passively", ATKLOG_ALL)
+/**
+ * Called when this mob is grabbed by another mob.
+ */
+/mob/living/proc/grabbedby(mob/living/grabber, supress_message = FALSE)
+	if(grabber == src || anchored || !isturf(grabber.loc) || !(grabber.mobility_flags & MOBILITY_PULL))
+		return FALSE
 
-	var/obj/item/grab/G = new /obj/item/grab(user, src)
-	if(!G)	//the grab will delete itself in New if src is anchored
-		return 0
-	user.put_in_active_hand(G)
-	G.synch()
-	LAssailant = user
+	if(!grabber.pulling || grabber.pulling != src)
+		return grabber.start_pulling(src, supress_message = supress_message)
 
-	playsound(src.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-	/*if(user.dir == src.dir)
-		G.state = GRAB_AGGRESSIVE
-		G.last_upgrade = world.time
+	if(!isnull(grabber.pull_hand) && grabber.pull_hand != PULL_WITHOUT_HANDS && grabber.pull_hand != grabber.hand)
+		var/previous_grab_state = grabber.grab_state
+		. = grabber.start_pulling(src, supress_message = previous_grab_state)
+		if(. && previous_grab_state)	// swapping hand with grab results in the same grab state for another hand
+			return grippedby(grabber, grab_state_override = previous_grab_state)
+		return .
+
+	if(!(status_flags & CANPUSH) || HAS_TRAIT(src, TRAIT_PUSHIMMUNE))
 		if(!supress_message)
-			visible_message("<span class='warning'>[user] has grabbed [src] from behind!</span>")
-	else*///This is an example of how you can make special types of grabs simply based on direction.
-	if(!supress_message)
-		visible_message("<span class='warning'>[user.declent_ru(NOMINATIVE)] хвата[pluralize_ru(user.gender,"ет","ют")] [src.declent_ru(ACCUSATIVE)]!</span>")
+			to_chat(grabber, span_warning("Вы не можете усилить хватку над [name]!"))
+		return FALSE
 
-	return G
+	if(grabber.grab_state >= GRAB_AGGRESSIVE && (HAS_TRAIT(grabber, TRAIT_PACIFISM) || GLOB.pacifism_after_gt))
+		if(!supress_message)
+			to_chat(grabber, span_warning("Вы не хотите навредить [name]!"))
+		return FALSE
+
+	return grippedby(grabber)
+
+
+/// Proc to upgrade a simple pull into a more aggressive grab.
+/mob/living/proc/grippedby(mob/living/grabber, grab_state_override)
+	if(isnull(grab_state_override) && grabber.grab_state >= grabber.max_grab)
+		return FALSE
+	if(!isnull(grab_state_override) && grab_state_override > grabber.max_grab)
+		return FALSE
+	grabber.changeNext_move(CLICK_CD_GRABBING)
+	var/sound_to_play = 'sound/weapons/thudswoosh.ogg'
+	//if(ishuman(grabber))
+	//	var/mob/living/carbon/human/human_grabber = grabber
+	//	if(grabber.dna.species.grab_sound)
+	//		sound_to_play = grabber.dna.species.grab_sound
+	playsound(loc, sound_to_play, 50, TRUE, -1)
+
+	if(isnull(grab_state_override) && grabber.grab_state) //only the first upgrade is instantaneous
+		var/old_grab_state = grabber.grab_state
+		visible_message(
+			span_danger("[grabber.name] начина[pluralize_ru(grabber.gender,"ет","ют")] усиливать хватку над [name]!"),
+			span_userdanger("[grabber.name] начина[pluralize_ru(grabber.gender,"ет","ют")] усиливать хватку над Вами!"),
+			span_italics("Вы слышите агрессивную возню!"),
+			ignored_mobs = grabber,
+		)
+		to_chat(grabber, span_danger("Вы усиливаете хватку над [name]!"))
+		switch(grabber.grab_state)
+			if(GRAB_AGGRESSIVE)
+				add_attack_logs(grabber, src, "attempted to neck grab", ATKLOG_ALL)
+			if(GRAB_NECK)
+				add_attack_logs(grabber, src, "attempted to strangle", ATKLOG_ALL)
+		if(!do_after(grabber, get_grab_upgrade_time(grabber), src, DA_IGNORE_USER_LOC_CHANGE|DA_IGNORE_TARGET_LOC_CHANGE|DA_IGNORE_HELD_ITEM, extra_checks = CALLBACK(src, PROC_REF(grab_checks_callback), grabber, old_grab_state), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_notice("Вы перестали усиливать захват.")))
+			return FALSE
+		if(!grab_checks_callback(grabber, old_grab_state))
+			return FALSE
+
+	grabber.setGrabState(isnull(grab_state_override) ? grabber.grab_state + 1 : grab_state_override)
+
+	switch(grabber.grab_state)
+		if(GRAB_AGGRESSIVE)
+			var/add_log = ""
+			if(HAS_TRAIT(grabber, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
+				visible_message(
+					span_danger("[grabber.name] крепко сжима[pluralize_ru(grabber.gender,"ет","ют")] [name]!"),
+					span_danger("[grabber.name] крепко сжима[pluralize_ru(grabber.gender,"ет","ют")] Вас!"),
+					span_italics("Вы слышите агрессивную возню!"),
+					ignored_mobs = grabber,
+				)
+				to_chat(grabber, span_danger("Вы крепко сжимаете [name]!"))
+				add_log = " (pacifist)"
+			else
+				visible_message(
+					span_danger("[grabber.name] агрессивно хвата[pluralize_ru(grabber.gender,"ет","ют")] [name]!"),
+					span_danger("[grabber.name] агрессивно хвата[pluralize_ru(grabber.gender,"ет","ют")] Вас!"),
+					span_italics("Вы слышите агрессивную возню!"),
+					ignored_mobs = grabber,
+				)
+				to_chat(grabber, span_danger("Вы агрессивно хватаете [name]!"))
+			add_attack_logs(grabber, src, "grabbed aggressively[add_log]", ATKLOG_ALL)
+		if(GRAB_NECK)
+			add_attack_logs(grabber, src, "grabbed (neck grab)", ATKLOG_ALL)
+			visible_message(
+				span_danger("[grabber.name] хвата[pluralize_ru(grabber.gender,"ет","ют")] [name] за шею!"),
+				span_userdanger("[grabber.name] хвата[pluralize_ru(grabber.gender,"ет","ют")] Вас за шею!"),
+				span_italics("Вы слышите агрессивную возню!"),
+				ignored_mobs = grabber,
+			)
+			to_chat(grabber, span_danger("Вы хватаете [name] за шею!"))
+			if(!buckled)
+				Move(grabber.loc)
+		if(GRAB_KILL)
+			add_attack_logs(grabber, src, "strangled (kill grab)", ATKLOG_ALL)
+			visible_message(
+				span_danger("[grabber.name] душ[pluralize_ru(grabber.gender,"ит","ат")] [name]!"),
+				span_userdanger("[grabber.name] душ[pluralize_ru(grabber.gender,"ит","ат")] Вас!"),
+				span_italics("Вы слышите агрессивную возню!"),
+				ignored_mobs = grabber,
+			)
+			to_chat(grabber, span_danger("Вы душите [name]!"))
+			if(!buckled)
+				Move(grabber.loc)
+	grabber.set_pull_offsets(src, grabber.grab_state)
+	return TRUE
+
+
+/// Addtitional checks for do_after.
+/mob/living/proc/grab_checks_callback(mob/living/grabber, old_grab_state)
+	return grabber.pulling && grabber.pulling == src && grabber.grab_state == old_grab_state && isturf(grabber.loc) && isturf(loc)
+
+
+/// Used to override grab upgrade speed.
+/mob/living/proc/get_grab_upgrade_time(mob/living/grabber)
+	if(!grabber.mind)
+		return GRAB_UPGRADE_TIME
+	var/datum/antagonist/vampire/vampire = grabber.mind.has_antag_datum(/datum/antagonist/vampire)
+	var/datum/vampire_passive/upgraded_grab/vampire_grab = vampire?.get_ability(/datum/vampire_passive/upgraded_grab)
+	if(vampire_grab)
+		return vampire_grab.grab_speed
+	return isnull(grabber.mind?.martial_art?.grab_speed) ? GRAB_UPGRADE_TIME : grabber.mind.martial_art.grab_speed
+
 
 /mob/living/attack_slime(mob/living/simple_animal/slime/M)
 	if(!SSticker)
@@ -406,3 +523,13 @@
 				changeNext_move(CLICK_CD_MELEE)
 				return UnarmedAttack(target, TRUE)
 	return ..()
+
+/mob/living/shove_impact(mob/living/target, mob/living/attacker)
+	if(body_position == LYING_DOWN)
+		return FALSE
+	add_attack_logs(attacker, target, "pushed into [src]", ATKLOG_ALL)
+	playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
+	target.Knockdown(1 SECONDS) // knock them both down
+	Knockdown(1 SECONDS)
+	return TRUE
+

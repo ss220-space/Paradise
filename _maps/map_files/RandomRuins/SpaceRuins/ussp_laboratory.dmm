@@ -498,8 +498,7 @@
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/decal/cleanable/blood/xeno,
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -943,8 +942,7 @@
 	pixel_y = 12
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/decal/cleanable/dirt,
@@ -1009,8 +1007,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/disposalpipe/junction{
-	dir = 8;
-	tag = "icon-pipe-j1 (EAST)"
+	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -1591,8 +1588,7 @@
 /area/ruin/ussp_xeno/medbay)
 "wG" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1963,6 +1959,7 @@
 	},
 /mob/living/simple_animal/hostile/alien/drone{
 	dir = 8;
+	
 	},
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2359,10 +2356,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 4;
-	icon_state = "pipe-j2";
-	tag = "icon-pipe-j2 (EAST)"
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 4
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2519,8 +2514,7 @@
 	dir = 6
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -2614,10 +2608,8 @@
 /area/ruin/ussp_xeno/out)
 "KA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/junction{
-	dir = 2;
-	icon_state = "pipe-j2";
-	tag = "icon-pipe-j2"
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 2
 	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
@@ -2635,8 +2627,7 @@
 /area/ruin/ussp_xeno/entrance)
 "KM" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -2673,7 +2664,7 @@
 	},
 /area/ruin/ussp_xeno/gym_ussp)
 "KR" = (
-/mob/living/simple_animal/mouse/white,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -2725,8 +2716,7 @@
 /area/ruin/ussp_xeno/out)
 "LM" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/decal/warning_stripes/north,
@@ -2919,6 +2909,7 @@
 	},
 /mob/living/simple_animal/hostile/alien/drone{
 	dir = 8;
+	
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2965,8 +2956,7 @@
 	dir = 9
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm{
@@ -3703,12 +3693,12 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/effect/decal/cleanable/cobweb,
 /mob/living/simple_animal/hostile/alien/drone{
 	dir = 8;
+	
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3719,8 +3709,7 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{

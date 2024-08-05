@@ -1,7 +1,5 @@
 //Damage things	//TODO: merge these down to reduce on defines
 //Way to waste perfectly good damagetype names (BRUTE) on this... If you were really worried about case sensitivity, you could have just used lowertext(damagetype) in the proc...
-#define CUT 		"cut"
-#define BRUISE		"bruise"
 #define BRUTE		"brute"
 #define BURN		"fire"
 #define TOX			"tox"
@@ -20,7 +18,10 @@
 #define RAD 		"rad"
 #define FIRE 		"fire"
 #define ACID 		"acid"
-//#define MAGIC		"magic"
+#define MAGIC		"magic"
+
+/// All armors
+#define ARMOR_LIST_ALL(...) list(ACID, BIO, BOMB, BULLET, ENERGY, FIRE, LASER, MAGIC, MELEE, RAD)
 
 #define STUN		"stun"
 #define WEAKEN		"weaken"
@@ -60,12 +61,25 @@
 #define HEALTH_THRESHOLD_CRIT 0
 #define HEALTH_THRESHOLD_DEAD -100
 
+/// Maximum amount of staminaloss, living mob can have.
+#define MAX_STAMINA_LOSS 120
+
 //Grab levels
-#define GRAB_PASSIVE  1
-#define GRAB_AGGRESSIVE  2
-#define GRAB_NECK    3
-#define GRAB_UPGRADING  4
-#define GRAB_KILL    5
+#define GRAB_PASSIVE 0
+#define GRAB_AGGRESSIVE 1
+#define GRAB_NECK 2
+#define GRAB_KILL 3
+
+#define MARTIAL_GRAB_AGGRESSIVE "martial_grab_aggressive"
+#define MARTIAL_GRAB_NECK "martial_grab_neck"
+#define MARTIAL_GRAB_KILL "martial_grab_kill"
+
+//Grab breakout odds
+#define GRAB_RESIST_CHANCE_AGGRESSIVE 60
+#define GRAB_RESIST_CHANCE_NECK 20
+#define GRAB_RESIST_CHANCE_KILL 5
+///Time to upgrade aggressive/neck grab to the next level.
+#define GRAB_UPGRADE_TIME (4 SECONDS)
 
 //Attack types for checking shields/hit reactions
 
@@ -139,6 +153,14 @@
 
 #define EMP_HEAVY 1
 #define EMP_LIGHT 2
+
+// Return values used in item/melee/baton/baton_attack.
+/// Does a normal item attack.
+#define BATON_DO_NORMAL_ATTACK 1
+/// The attack has been stopped. Either because the user was clumsy or the attack was blocked.
+#define BATON_ATTACK_DONE 2
+/// The baton attack is still going. baton_effect() is called.
+#define BATON_ATTACKING 3
 
 /*
 * converts life cycle values into deciseconds. try and avoid usage of this.

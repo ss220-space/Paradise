@@ -19,7 +19,7 @@
 
 /obj/item/clothing/accessory/Initialize(mapload)
 	. = ..()
-	if(icon_state in icon_states('icons/obj/clothing/ties_overlay.dmi'))
+	if(icon_exists('icons/obj/clothing/ties_overlay.dmi', icon_state))
 		acc_overlay = mutable_appearance('icons/obj/clothing/ties_overlay.dmi', icon_state)
 
 

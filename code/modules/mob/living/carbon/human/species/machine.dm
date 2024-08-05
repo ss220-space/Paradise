@@ -22,7 +22,7 @@
 	death_message = "изда%(ёт,ют)% резкие пронзительные звуки и, конвульсивно подёргивая шасси, окончательно отключа%(ет,ют)%ся."
 	death_sounds = list('sound/voice/borg_deathsound.ogg') //I've made this a list in the event we add more sounds for dead robots.
 
-	species_traits = list(IS_WHITELISTED, NO_BREATHE, NO_BLOOD, NO_SCAN, NO_INTORGANS, NO_PAIN, NO_DNA, RADIMMUNE, VIRUSIMMUNE, NO_GERMS, NO_DECAY, NOTRANSSTING) //Computers that don't decay? What a lie!
+	species_traits = list(NO_BREATHE, NO_BLOOD, NO_SCAN, NO_INTORGANS, NO_PAIN, NO_DNA, RADIMMUNE, VIRUSIMMUNE, NO_GERMS, NO_DECAY, NOTRANSSTING) //Computers that don't decay? What a lie!
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
@@ -92,12 +92,13 @@
 	monitor.Grant(H)
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.remove_from_hud(H)
-	H.verbs |= /mob/living/carbon/human/proc/emote_ping
-	H.verbs |= /mob/living/carbon/human/proc/emote_beep
-	H.verbs |= /mob/living/carbon/human/proc/emote_buzz
-	H.verbs |= /mob/living/carbon/human/proc/emote_buzz2
-	H.verbs |= /mob/living/carbon/human/proc/emote_yes
-	H.verbs |= /mob/living/carbon/human/proc/emote_no
+	add_verb(H, list(
+		/mob/living/carbon/human/proc/emote_ping,
+		/mob/living/carbon/human/proc/emote_beep,
+		/mob/living/carbon/human/proc/emote_buzz,
+		/mob/living/carbon/human/proc/emote_buzz2,
+		/mob/living/carbon/human/proc/emote_yes,
+		/mob/living/carbon/human/proc/emote_no))
 
 /datum/species/machine/on_species_loss(mob/living/carbon/human/H)
 	..()
@@ -105,12 +106,13 @@
 		monitor.Remove(H)
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_to_hud(H)
-	H.verbs -= /mob/living/carbon/human/proc/emote_ping
-	H.verbs -= /mob/living/carbon/human/proc/emote_beep
-	H.verbs -= /mob/living/carbon/human/proc/emote_buzz
-	H.verbs -= /mob/living/carbon/human/proc/emote_buzz2
-	H.verbs -= /mob/living/carbon/human/proc/emote_yes
-	H.verbs -= /mob/living/carbon/human/proc/emote_no
+	remove_verb(H, list(
+		/mob/living/carbon/human/proc/emote_ping,
+		/mob/living/carbon/human/proc/emote_beep,
+		/mob/living/carbon/human/proc/emote_buzz,
+		/mob/living/carbon/human/proc/emote_buzz2,
+		/mob/living/carbon/human/proc/emote_yes,
+		/mob/living/carbon/human/proc/emote_no))
 
 // Allows IPC's to change their monitor display
 /datum/action/innate/change_monitor

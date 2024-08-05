@@ -318,7 +318,7 @@
 
 /datum/spellbook_entry/healtouch
 	name = "Healing Touch"
-	spell_type = /obj/effect/proc_holder/spell/touch/healtouch
+	spell_type = /obj/effect/proc_holder/spell/touch/healtouch/advanced
 	category = "Assistance"
 	cost = 1
 
@@ -706,14 +706,14 @@
 
 /datum/spellbook_entry/loadout/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(destroy_spellbook)
-		var/response = alert(user, "The [src] loadout cannot be refunded once bought. Are you sure this is what you want?", "No refunds!", "No", "Yes")
-		if(response == "No")
+		var/response = tgui_alert(user, "The [src] loadout cannot be refunded once bought. Are you sure this is what you want?", "No refunds!", list("No", "Yes"))
+		if(response != "Yes")
 			return FALSE
 		to_chat(user, "<span class='notice'>[book] crumbles to ashes as you acquire its knowledge.</span>")
 		qdel(book)
 	else if(items_path.len)
-		var/response = alert(user, "The [src] loadout contains items that will not be refundable if bought. Are you sure this is what you want?", "No refunds!", "No", "Yes")
-		if(response == "No")
+		var/response = tgui_alert(user, "The [src] loadout contains items that will not be refundable if bought. Are you sure this is what you want?", "No refunds!", list("No", "Yes"))
+		if(response != "Yes")
 			return FALSE
 	if(items_path.len)
 		var/obj/item/storage/box/wizard/B = new(src)
@@ -1199,7 +1199,7 @@
 
 /obj/item/spellbook/oneuse/random/Initialize()
 	. = ..()
-	var/static/banned_spells = list(/obj/item/spellbook/oneuse/mime, /obj/item/spellbook/oneuse/mime/fingergun, /obj/item/spellbook/oneuse/mime/fingergun/fake, /obj/item/spellbook/oneuse/mime/greaterwall, /obj/item/spellbook/oneuse/fake_gib)
+	var/static/banned_spells = list(/obj/item/spellbook/oneuse/mime, /obj/item/spellbook/oneuse/mime/fingergun, /obj/item/spellbook/oneuse/mime/fingergun/fake, /obj/item/spellbook/oneuse/mime/greaterwall, /obj/item/spellbook/oneuse/fake_gib, /obj/item/spellbook/oneuse/emp/used)
 	var/real_type = pick(subtypesof(/obj/item/spellbook/oneuse) - banned_spells)
 	new real_type(loc)
 	qdel(src)

@@ -1,6 +1,6 @@
-/mob/living/carbon/human/Moved(atom/OldLoc, Dir, Forced = FALSE)
+/mob/living/carbon/human/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
-	if(!Forced && (!OldLoc || !OldLoc.has_gravity()) && has_gravity())
+	if(!forced && (!old_loc || !old_loc.has_gravity()) && has_gravity())
 		thunk()
 
 
@@ -24,13 +24,14 @@
 	return ..()
 
 
-/mob/living/carbon/human/Move(atom/newloc, direct = NONE, glide_size_override = 0)
+/mob/living/carbon/human/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(.) // did we actually move?
 		if(body_position != LYING_DOWN && !buckled && !throwing)
 			update_splints()
-		if(dna.species.fragile_bones_chance > 0 && (m_intent != MOVE_INTENT_WALK || pulling))
-			if(prob(dna.species.fragile_bones_chance))
+		var/break_bones_chance = get_bones_symptom_prob()
+		if(break_bones_chance && (m_intent == MOVE_INTENT_RUN || pulling))
+			if(prob(break_bones_chance))
 				for(var/zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
 					var/obj/item/organ/external/leg = get_organ(zone)
 					if(leg.has_fracture())
@@ -38,12 +39,17 @@
 					else
 						leg.fracture()
 						break
-			else
-				if(dna.species.fragile_bones_chance && prob(30))
-					playsound(src, "bonebreak", 10, TRUE)
+			else if(prob(30))
+				playsound(src, "bonebreak", 10, TRUE)
 
 	if(!has_gravity())
-		return
+		return .
+
+	if(nutrition && stat != DEAD && !isvampire(src))
+		var/hunger = HUNGER_FACTOR * 0.1 * dna.species.hunger_drain_mod * physiology.hunger_mod
+		if(m_intent == MOVE_INTENT_RUN)
+			hunger *= 2
+		adjust_nutrition(-hunger)
 
 	var/obj/item/clothing/shoes/S = shoes
 
@@ -99,7 +105,7 @@
 	update_fractures_slowdown()
 
 
-/mob/living/carbon/human/set_usable_hands(new_value, special = ORGAN_MANIPULATION_DEFAULT)
+/mob/living/carbon/human/set_usable_hands(new_value, special = ORGAN_MANIPULATION_DEFAULT, hand_index)
 	. = ..()
 	if(isnull(.) || special != ORGAN_MANIPULATION_DEFAULT)
 		return .
@@ -113,7 +119,7 @@
 		if(!usable_legs && !(movement_type & (FLYING|FLOATING)))
 			ADD_TRAIT(src, TRAIT_IMMOBILIZED, LACKING_LOCOMOTION_APPENDAGES_TRAIT)
 
-	update_hud_hands()
+	update_hands_HUD()
 
 
 /mob/living/carbon/human/on_movement_type_flag_enabled(datum/source, flag, old_movement_type)
@@ -167,7 +173,7 @@
 
 	update_limbless_slowdown()
 	update_fractures_slowdown()
-	update_hud_hands()
+	update_hands_HUD()
 
 
 /// Proc used to inflict stamina damage when user is moving from no gravity to positive gravity.
@@ -182,7 +188,7 @@
 		return
 
 	to_chat(src, span_userdanger("Gravity exhausts you!"))
-	adjustStaminaLoss(35)
+	apply_damage(35, STAMINA)
 
 
 /mob/living/carbon/human/slip(weaken, obj/slipped_on, lube_flags, tilesSlipped)

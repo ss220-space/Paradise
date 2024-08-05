@@ -34,9 +34,6 @@
 	var/language = LANGUAGE_GALACTIC_COMMON //The language of paper. For now using only in case of Thetta
 	var/list/stamped
 	var/list/stamp_overlays
-	var/ico[0]      //Icons and
-	var/offset_x[0] //offsets stored for later
-	var/offset_y[0] //usage by the photocopier
 	var/rigged = 0
 	var/spam_flag = 0
 	var/contact_poison // Reagent ID to transfer on contact
@@ -54,10 +51,12 @@
 
 //lipstick wiping is in code/game/objects/items/weapons/cosmetics.dm!
 
-/obj/item/paper/New()
-	..()
+/obj/item/paper/Initialize(mapload)
+	. = ..()
 	pixel_y = rand(-8, 8)
 	pixel_x = rand(-9, 9)
+	base_pixel_x = pixel_x
+	base_pixel_y = pixel_y
 
 	spawn(2)
 		update_icon()
@@ -65,14 +64,11 @@
 
 
 /obj/item/paper/update_icon_state()
-	if(info)
-		icon_state = "paper_words"
-		return
-	icon_state = "paper"
+	icon_state = "paper[info ? "_words" : ""]"
 
 
 /obj/item/paper/update_overlays()
-	return LAZYLEN(stamp_overlays) ? stamp_overlays : list()
+	return LAZYCOPY(stamp_overlays)
 
 
 /obj/item/paper/examine(mob/user)
@@ -105,7 +101,7 @@
 			paper_width = paper_width_big
 			paper_height = paper_height_big
 		var/datum/browser/popup = new(user, "Paper[UID()]", , paper_width, paper_height)
-		popup.stylesheets = list()
+		popup.include_default_stylesheet = FALSE
 		popup.set_content(data)
 		if(!stars)
 			popup.add_script("marked.js", 'html/browser/marked.js')
@@ -291,8 +287,8 @@
 /obj/item/paper/proc/clearpaper()
 	info = null
 	stamps = null
-	stamped = list()
-	stamp_overlays = null
+	LAZYNULL(stamped)
+	LAZYNULL(stamp_overlays)
 	updateinfolinks()
 	update_icon()
 
@@ -431,7 +427,7 @@
 
 	if(href_list["write"] )
 		var/id = href_list["write"]
-		var/input_element =  input("Enter what you want to write:", "Write", null, null)  as message
+		var/input_element = input("Enter what you want to write:", "Write") as message
 
 		topic_href_write(id, input_element)
 
@@ -544,31 +540,38 @@
 		info = "<i>Heat-curled corners and sooty words offer little insight. Whatever was once written on this page has been rendered illegible through fire.</i>"
 
 
-/obj/item/paper/proc/stamp(obj/item/stamp/S)
-	stamps += (!stamps || stamps == "" ? "<HR>" : "") + "<img src=large_[S.icon_state].png>"
-
-	var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
-	var/x
-	var/y
-	if(istype(S, /obj/item/stamp/captain) || istype(S, /obj/item/stamp/centcom))
-		x = rand(-2, 0)
-		y = rand(-1, 2)
+/obj/item/paper/proc/stamp(obj/item/stamp/stamp, no_pixel_shift = FALSE, special_stamped, special_icon_state)
+	var/obj/item/stamp/stamp_path
+	if(!ispath(stamp, /obj/item/stamp))
+		if(istype(stamp, /obj/item/stamp))
+			stamp_path = stamp.type
+		else
+			CRASH("Wrong argument passed as a stamp value ([stamp]).")
 	else
-		x = rand(-2, 2)
-		y = rand(-3, 2)
-	offset_x += x
-	offset_y += y
-	stampoverlay.pixel_x = x
-	stampoverlay.pixel_y = y
+		stamp_path = stamp
 
-	if(!ico)
-		ico = new
-	ico += "paper_[S.icon_state]"
-	stampoverlay.icon_state = "paper_[S.icon_state]"
+	LAZYADD(stamped, stamp_path)
 
-	if(!stamped)
-		stamped = new
-	stamped += S.type
+	var/new_icon_state = istype(stamp, /obj/item/stamp/chameleon) ? stamp.icon_state : special_icon_state ? special_icon_state : initial(stamp_path.icon_state)
+
+	if(!stamps)
+		stamps = "<HR>"
+	stamps += special_stamped ? special_stamped : "<img src=large_[new_icon_state].png>"
+
+	var/mutable_appearance/stampoverlay = mutable_appearance('icons/obj/bureaucracy.dmi', "paper_[new_icon_state]")
+	var/stamp_offset_w
+	var/stamp_offset_z
+	if(no_pixel_shift)
+		stamp_offset_w = 0
+		stamp_offset_z = 0
+	else if(ispath(stamp_path, /obj/item/stamp/captain) || ispath(stamp_path, /obj/item/stamp/centcom))
+		stamp_offset_w = rand(-2, 0)
+		stamp_offset_z = rand(-1, 2)
+	else
+		stamp_offset_w = rand(-2, 2)
+		stamp_offset_z = rand(-3, 2)
+	stampoverlay.pixel_w = stamp_offset_w
+	stampoverlay.pixel_z = stamp_offset_z
 	LAZYADD(stamp_overlays, stampoverlay)
 	update_icon(UPDATE_OVERLAYS)
 
@@ -631,8 +634,8 @@
 	icon_state = "slip"
 	paper_height = 150
 
-/obj/item/paper/fortune/New()
-	..()
+/obj/item/paper/fortune/Initialize(mapload)
+	. = ..()
 	var/fortunemessage = pick(GLOB.fortune_cookie_messages)
 	info = "<p style='text-align:center;font-family:[deffont];font-size:120%;font-weight:bold;'>[fortunemessage]</p>"
 	info += "<p style='text-align:center;'><strong>Lucky numbers</strong>: [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)], [rand(1,49)]</p>"
@@ -756,13 +759,19 @@
 	info = ""
 
 /obj/item/paper/central_command/Initialize(mapload)
+	. = ..()
 	time = "Время: [station_time_timestamp()]"
 	if(!(GLOB.genname))
 		GLOB.genname = "[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]"
 	header ="<font face=\"Verdana\" color=black><table></td><tr><td><img src = ntlogo.png><td><table></td><tr><td><font size = \"1\">Форма NT-CC-DRV</font></td><tr><td><font size=\"1\">[command_name()]</font></td><tr><td><font size=\"1\">[time]</font></td><tr><td></td><tr><td></td><tr><td><B>Директива Центрального Командования</B></td></tr></table></td></tr></table><BR><HR><BR></font>"
 	footer = "<br /><br /><font face=\"Verdana\" size = \"1\"><i>Подпись&#58;</font> <font face=\"[signfont]\" size = \"1\">[GLOB.genname]</font></i><font face=\"Verdana\" size = \"1\">, в должности <i>Nanotrasen Navy Officer</i></font><hr /><p style='font-family:Verdana;'><font size = \"1\"><em>*Содержимое данного документа следует считать конфиденциальным. Если не указано иное, распространение содержащейся в данном документе информации среди третьих лиц и сторонних организаций строго запрещено. </em> <br /> <em>*Невыполнение директив, содержащихся в данном документе, считается нарушением политики корпорации и может привести к наложению различных дисциплинарных взысканий. </em> <br /> <em> *Данный документ считается действительным только при наличии подписи и печати офицера Центрального Командования.</em></font></p>"
 	populatefields()
-	return ..()
+
+
+/obj/item/paper/central_command/archive/station_reports
+	info = "<font face=\"Verdana\" color=black><center><B>Приветствую Центральное командование</B></center><BR>Сообщает вам ██████████ █████████, в должности капитан </span>.<BR><BR>В данный момент на станции код: Зеленый </span><BR>Активные угрозы для станции: <B>Отсуствуют </span></B><BR>Потери среди экипажа: Отсуствуют </span><BR>Повреждения на станции: Отсуствуют</span><BR>Общее состояние станции: Удовлетворительное </span><BR>Дополнительная информация: Отсутствует<BR><HR><BR><center><font size=\"4\"><B>Подписи и штампы</B></font></center><BR>Подпись:  ██████████ █████████ <HR><font size = \"1\">*В данном документе описывается полное состояние станции, необходимо перечислить всю доступную информацию. <BR>*Информацию, которую вы считаете нужной, необходимо сообщить в разделе – дополнительная информация. <BR>*<B>Данный документ считается официальным только после подписи уполномоченного лица и наличии на документе его печати.</B> </font></font>"
+
+/obj/item/paper/central_command/archive/memes
 
 /obj/item/paper/thief
 	name = "Инструкции"
@@ -844,8 +853,8 @@
 			evilpaper_selfdestruct()
 
 
-/obj/item/paper/evilfax/New()
-	..()
+/obj/item/paper/evilfax/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 
@@ -956,8 +965,8 @@
 	info = "<b>The notes appear gibberish to you. Perhaps a destructive analyzer in R&D could make sense of them.</b>"
 	origin_tech = "combat=4;materials=4;engineering=4;biotech=4"
 
-/obj/item/paper/researchnotes/New()
-	..()
+/obj/item/paper/researchnotes/Initialize(mapload)
+	. = ..()
 	var/list/possible_techs = list("materials", "engineering", "plasmatech", "powerstorage", "bluespace", "biotech", "combat", "magnets", "programming", "syndicate")
 	var/mytech = pick(possible_techs)
 	var/mylevel = rand(7, 9)
@@ -980,12 +989,14 @@
 	var/const/footer_confidential = "<BR><font face=\"Verdana\" color=black><HR><center><font size = \"1\">Данный документ является недействительным при отсутствии печати.<BR>Отказ от ответственности: Данный факс является конфиденциальным и не может быть прочтен сотрудниками не имеющего доступа. Если вы получили данный факс по ошибке, просим вас сообщить отправителю и удалить его из вашего почтового ящика или любого другого носителя. И Nanotrasen, и любой её агент не несёт ответственность за любые сделанные заявления, они являются исключительно заявлениями отправителя, за исключением если отправителем является Nanotrasen или один из её агентов. Отмечаем, что ни Nanotrasen, ни один из агентов корпорации не несёт ответственности за наличие вирусов, который могут содержаться в данном факсе или его приложения, и это только ваша прерогатива просканировать факс и приложения на них. Никакие контракты не могут быть заключены посредством факсимильной связи.</font></center></font>"
 	footer = footer_signstampfax
 
-/obj/item/paper/form/New()
+
+/obj/item/paper/form/Initialize(mapload)
+	. = ..()
 	from = "Научная станция Nanotrasen &#34;[SSmapping.map_datum.station_name]&#34;"
 	if(is_header_needed)
 		header = "<font face=\"Verdana\" color=black><table></td><tr><td><img src = ntlogo.png><td><table></td><tr><td><font size = \"1\">[name][confidential ? " \[КОНФИДЕНЦИАЛЬНО\]" : ""]</font></td><tr><td></td><tr><td><B><font size=\"4\">[altername]</font></B></td><tr><td><table></td><tr><td>[from]<td>[category]</td></tr></table></td></tr></table></td></tr></table><center><font size = \"1\">[notice]</font></center><BR><HR><BR></font>"
 	populatefields()
-	return ..()
+
 
 //главы станции
 /obj/item/paper/form/NT_COM_ORDER
@@ -1506,7 +1517,7 @@
 									</font></I>"
 	footer = footer_to_taipan
 
-/obj/item/paper/form/syndieform/New()
+/obj/item/paper/form/syndieform/Initialize(mapload)
 	. = ..()
 	if(is_header_needed)
 		header = "	<font face=\"Verdana\" color=black>\

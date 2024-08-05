@@ -13,7 +13,7 @@
 	var/deflection_chance = 0
 	/// Can it reflect projectiles in a random direction?
 	var/reroute_deflection = FALSE
-	///Chance to block melee attacks using items while on throw mode.
+	///Chance to block melee attacks using items
 	var/block_chance = 0
 	//Chance to reflect projectiles but NINJA!
 	var/reflection_chance = 0
@@ -41,6 +41,12 @@
 	var/in_stance = FALSE
 	/// The priority of which martial art is picked from all the ones someone knows, the higher the number, the higher the priority.
 	var/weight = 0
+	/// If provided, this overrides default time (in deciseconds) required to reinforce aggressive/neck grab to the next state.
+	var/grab_speed
+	/// If provided, this list will override victim's default resist chances for any grab state.
+	/// Examples: list(MARTIAL_GRAB_AGGRESSIVE = 60, MARTIAL_GRAB_NECK = 40, MARTIAL_GRAB_KILL = 5) or list(MARTIAL_GRAB_NECK = 5)
+	var/list/grab_resist_chances
+
 
 /datum/martial_art/New()
 	. = ..()
@@ -120,7 +126,7 @@
 
 /datum/martial_art/proc/basic_hit(mob/living/carbon/human/A, mob/living/carbon/human/D)
 
-	var/damage = rand(A.dna.species.punchdamagelow, A.dna.species.punchdamagehigh)
+	var/damage = rand(A.dna.species.punchdamagelow + A.physiology.punch_damage_low, A.dna.species.punchdamagehigh + A.physiology.punch_damage_high)
 	var/datum/unarmed_attack/attack = A.dna.species.unarmed
 
 	var/atk_verb = "[pick(attack.attack_verb)]"
@@ -150,7 +156,7 @@
 
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", (damage > 0) ? null : ATKLOG_ALL)
 
-	if((D.stat != DEAD) && damage >= A.dna.species.punchstunthreshold)
+	if((D.stat != DEAD) && damage >= (A.dna.species.punchstunthreshold + A.physiology.punch_stun_threshold))
 		D.visible_message("<span class='danger'>[A] has weakened [D]!!</span>", \
 								"<span class='userdanger'>[A] has weakened [D]!</span>")
 		D.apply_effect(4 SECONDS, WEAKEN, armor_block)
@@ -185,9 +191,9 @@
 		if(istype(MA, src))
 			return FALSE
 	if(has_explaination_verb)
-		H.verbs |= /mob/living/carbon/human/proc/martial_arts_help
+		add_verb(H, /mob/living/carbon/human/proc/martial_arts_help)
 	if(has_dirslash)
-		H.verbs |= /mob/living/carbon/human/proc/dirslash_enabling
+		add_verb(H, /mob/living/carbon/human/proc/dirslash_enabling)
 		H.dirslash_enabled = TRUE
 	temporary = make_temporary
 	H.mind.known_martial_arts.Add(src)
@@ -202,12 +208,12 @@
 	deltimer(combo_timer)
 	H.mind.known_martial_arts.Remove(MA)
 	H.mind.martial_art = get_highest_weight(H)
-	remove_verbs(H)
+	remove_martial_art_verbs(H)
 	return TRUE
 
-/datum/martial_art/proc/remove_verbs(mob/living/carbon/human/old_human)
-	old_human.verbs -= /mob/living/carbon/human/proc/martial_arts_help
-	old_human.verbs -= /mob/living/carbon/human/proc/dirslash_enabling
+/datum/martial_art/proc/remove_martial_art_verbs(mob/living/carbon/human/old_human)
+	remove_verb(old_human, /mob/living/carbon/human/proc/martial_arts_help)
+	remove_verb(old_human, /mob/living/carbon/human/proc/dirslash_enabling)
 	old_human.dirslash_enabled = initial(old_human.dirslash_enabled)
 	return TRUE
 
@@ -258,11 +264,11 @@
 /datum/martial_art/proc/explaination_footer(user)
 	return
 
-/datum/martial_art/proc/explaination_notice(user)
-	return to_chat(user, "<b><i>Combo steps can be provided only with empty hand!</b></i>")
-
 /datum/martial_art/proc/try_deflect(mob/user)
 	return prob(deflection_chance)
+
+/datum/martial_art/proc/explaination_notice(user)
+	return to_chat(user, "<b><i>Combo steps can be provided only with empty hand!</b></i>")
 
 /datum/martial_art/proc/intent_to_streak(intent)
 	switch(intent)
@@ -274,6 +280,23 @@
 			return "G"
 		if(MARTIAL_COMBO_STEP_HELP)
 			return "H"
+
+
+/// Returns martial art grab resist chance for passed grab state.
+/datum/martial_art/proc/get_resist_chance(grab_state)
+	if(!grab_resist_chances)
+		return null
+	switch(grab_state)
+		if(GRAB_AGGRESSIVE)
+			if(!isnull(grab_resist_chances[MARTIAL_GRAB_AGGRESSIVE]))	// can be 0 its a vaild number
+				return grab_resist_chances[MARTIAL_GRAB_AGGRESSIVE]
+		if(GRAB_NECK)
+			if(!isnull(grab_resist_chances[MARTIAL_GRAB_NECK]))
+				return grab_resist_chances[MARTIAL_GRAB_NECK]
+		if(GRAB_KILL)
+			if(!isnull(grab_resist_chances[MARTIAL_GRAB_KILL]))
+				return grab_resist_chances[MARTIAL_GRAB_KILL]
+
 
 //ITEMS
 
@@ -353,7 +376,7 @@
 		var/mob/living/carbon/human/H = user
 		var/datum/martial_art/plasma_fist/F = new/datum/martial_art/plasma_fist(null)
 		F.teach(H)
-		to_chat(H, "<span class='boldannounce'>You have learned the ancient martial art of Plasma Fist.</span>")
+		to_chat(H, span_boldannounceic("You have learned the ancient martial art of Plasma Fist."))
 		used = TRUE
 		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 
@@ -378,6 +401,12 @@
 	if(istype(user.mind.martial_art, /datum/martial_art/the_sleeping_carp))
 		to_chat(user, span_warning("You realise, that you have learned everything from Carp Teachings and decided to not read the scroll."))
 		return
+
+	to_chat(user, "<span class='sciradio'>You have learned the ancient martial art of the Sleeping Carp! \
+					Your hand-to-hand combat has become much more effective, and you are now able to deflect any projectiles directed toward you. \
+					However, you are also unable to use any ranged weaponry. \
+					You can learn more about your newfound art by using the Recall Teachings verb in the Sleeping Carp tab.</span>")
+
 
 	var/datum/martial_art/the_sleeping_carp/theSleepingCarp = new(null)
 	theSleepingCarp.teach(user)
@@ -407,7 +436,7 @@
 			to_chat(user, "<span class='warning'>The mere thought of combat, let alone CQC, makes your head spin!</span>")
 			return
 
-	to_chat(user, "<span class='boldannounce'>You remember the basics of CQC.</span>")
+	to_chat(user, span_boldannounceic("You remember the basics of CQC."))
 
 	var/datum/martial_art/cqc/CQC = new(null)
 	CQC.teach(user)
@@ -427,7 +456,7 @@
 	if(!istype(user))
 		return
 	if(user.mind && user.mind.assigned_role == JOB_TITLE_CHEF)
-		to_chat(user, "<span class='boldannounce'>You completely memorise the basics of CQC.</span>")
+		to_chat(user, span_boldannounceic(">You completely memorise the basics of CQC."))
 		var/datum/martial_art/cqc/CQC = new(null)
 		CQC.teach(user)
 		user.temporarily_remove_item_from_inventory(src)
@@ -438,8 +467,7 @@
 		to_chat(user, "<span class='notice'>You implant yourself, but nanobots can't find their target. You feel sharp pain in head!</span>")
 		if(isliving(user))
 			var/mob/living/L = user
-			L.adjustBrainLoss(20)
-			L.adjustFireLoss(20)
+			L.apply_damages(burn = 20, brain = 20, spread_damage = TRUE)
 		user.temporarily_remove_item_from_inventory(src)
 		visible_message("<span class='warning'>[src] beeps ominously, and a moment later it blow up!</span>")
 		playsound(get_turf(src),'sound/effects/explosion2.ogg', 100, 1)
@@ -455,7 +483,7 @@
 /obj/item/mr_chang_technique/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
 		return
-	to_chat(user, "<span class='boldannounce'>You remember the basics of Aggressive Marketing Technique.</span>")
+	to_chat(user, span_boldannounceic("You remember the basics of Aggressive Marketing Technique."))
 
 	var/datum/martial_art/mr_chang/mr_chang = new(null)
 	mr_chang.teach(user)
@@ -473,7 +501,7 @@
 /obj/item/throwing_manual/attack_self(mob/living/carbon/human/user)
 	if(!istype(user) || !user)
 		return
-	to_chat(user, "<span class='boldannounce'>You remember the basics of knife throwing.</span>")
+	to_chat(user, span_boldannounceic("You remember the basics of knife throwing."))
 
 	var/datum/martial_art/throwing/MA = new
 	MA.teach(user)
@@ -539,7 +567,7 @@
 			H.visible_message("<span class='warning'>[pick(fluffmessages)]</span>", \
 								   "<span class='userdanger'>[pick(fluffmessages)]</span>")
 			playsound(get_turf(user), 'sound/effects/woodhit.ogg', 75, 1, -1)
-			H.adjustStaminaLoss(rand(13,20))
+			H.apply_damage(rand(13,20), STAMINA)
 			if(prob(10))
 				H.visible_message("<span class='warning'>[H] collapses!</span>", \
 									   "<span class='userdanger'>Your legs give out!</span>")
@@ -550,7 +578,7 @@
 					H.visible_message("<span class='warning'>[user] delivers a heavy hit to [H]'s head, knocking [H.p_them()] out cold!</span>", \
 										   "<span class='userdanger'>[user] knocks you unconscious!</span>")
 					H.SetSleeping(60 SECONDS)
-					H.adjustBrainLoss(25)
+					H.apply_damage(25, BRAIN)
 			return
 		else
 			return ..()

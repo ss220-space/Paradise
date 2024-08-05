@@ -100,11 +100,10 @@
 		can_reproduce = FALSE
 		RemoveSpell(/obj/effect/proc_holder/spell/morph_spell/reproduce)
 
-/mob/living/simple_animal/hostile/morph/Stat(Name, Value)
-	..()
-	if(statpanel("Status"))
-		stat(null, "Food Stored: [gathered_food]")
-		return TRUE
+/mob/living/simple_animal/hostile/morph/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Food Stored:", "[gathered_food]")
 
 /mob/living/simple_animal/hostile/morph/wizard
 	name = "magical morph"
@@ -244,8 +243,7 @@
 		return TRUE
 	else if (!morphed)
 		to_chat(attacker, "<span class='warning'>Touching [src] with your hands hurts you!</span>")
-		var/obj/item/organ/external/affecting = attacker.get_organ(attacker.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-		affecting.receive_damage(20)
+		attacker.apply_damage(20, def_zone = attacker.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 		add_food(5)
 
 	restore_form()

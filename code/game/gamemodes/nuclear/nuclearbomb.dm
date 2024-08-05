@@ -312,10 +312,10 @@ GLOBAL_VAR(bomb_set)
 		"<span class='notice'>You cut apart the anchoring system's sealant.</span></span>")
 		removal_stage = NUKE_SEALANT_OPEN
 
-/obj/machinery/nuclearbomb/attack_ghost(mob/user as mob)
+/obj/machinery/nuclearbomb/attack_ghost(mob/user)
 	attack_hand(user)
 
-/obj/machinery/nuclearbomb/attack_hand(mob/user as mob)
+/obj/machinery/nuclearbomb/attack_hand(mob/user)
 	if(..())
 		return TRUE
 	add_fingerprint(user)
@@ -332,10 +332,13 @@ GLOBAL_VAR(bomb_set)
 		core.forceMove(loc)
 		core = null
 
-/obj/machinery/nuclearbomb/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/nuclearbomb/ui_state(mob/user)
+	return GLOB.physical_state
+
+/obj/machinery/nuclearbomb/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "NuclearBomb", name, 450, 300, master_ui, state)
+		ui = new(user, src, "NuclearBomb", name)
 		ui.open()
 
 /obj/machinery/nuclearbomb/ui_data(mob/user)
@@ -361,7 +364,7 @@ GLOBAL_VAR(bomb_set)
 		data["codemsg"] = "-----"
 	return data
 
-/obj/machinery/nuclearbomb/proc/is_auth(var/mob/user)
+/obj/machinery/nuclearbomb/proc/is_auth(mob/user)
 	if(auth)
 		return TRUE
 	else if(user.can_admin_interact())
@@ -374,6 +377,9 @@ GLOBAL_VAR(bomb_set)
 		return
 	. = TRUE
 	if(exploded)
+		return
+	if(SSticker?.mode?.blob_stage == BLOB_STAGE_STORM)
+		to_chat(usr, span_notice("Плотное облако спор не дает вам разглядеть кнопки на боеглоловке и что-либо с ней сделать."))
 		return
 	switch(action)
 		if("deploy")
@@ -410,14 +416,15 @@ GLOBAL_VAR(bomb_set)
 				yes_code = FALSE
 				return
 			// If no code set, enter new one
-			var/tempcode = input(usr, "Code", "Input Code", null) as num|null
-			if(tempcode)
-				code = min(max(round(tempcode), 0), 999999)
-				if(code == r_code)
-					yes_code = TRUE
-					code = null
-				else
-					code = "ERROR"
+			var/tempcode = tgui_input_number(usr, "Code", "Input Code", max_value = 999999)
+			if(isnull(tempcode))
+				return
+			code = tempcode
+			if(code == r_code)
+				yes_code = TRUE
+				code = null
+			else
+				code = "ERROR"
 			return
 
 	if(!yes_code) // All requests below here require both NAD inserted AND code correct
@@ -439,9 +446,10 @@ GLOBAL_VAR(bomb_set)
 					visible_message("<span class='warning'>The anchoring bolts slide back into the depths of [src].</span>")
 			return
 		if("set_time")
-			var/time = input(usr, "Detonation time (seconds, min 120, max 600)", "Input Time", 120) as num|null
-			if(time)
-				timeleft = min(max(round(time), 120), 600)
+			var/time = tgui_input_number(usr, "Detonation time (seconds, min 120, max 600)", "Input Time", 120, 600, 120)
+			if(isnull(time))
+				return
+			timeleft = time
 		if("toggle_safety")
 			safety = !(safety)
 			if(safety)
@@ -456,6 +464,9 @@ GLOBAL_VAR(bomb_set)
 				return
 			if(!core)
 				to_chat(usr, "<span class='danger'>[src]'s screen blinks red! There is no plutonium core in [src]!</span>")
+				return
+			if(isblobinfected(usr.mind))
+				to_chat(usr, span_notice("Что-то внутри вас не дает вам это сделать."))
 				return
 			timing = !(timing)
 			update_icon()

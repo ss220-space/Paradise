@@ -23,11 +23,11 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(V.iscloaking)
-			H.dna.species.burn_mod *= 1.3
+			H.physiology.burn_mod *= 1.3
 			user.RegisterSignal(user, COMSIG_LIVING_IGNITED, TYPE_PROC_REF(/mob/living, update_vampire_cloak))
 		else
 			user.UnregisterSignal(user, COMSIG_LIVING_IGNITED)
-			H.dna.species.burn_mod /= 1.3
+			H.physiology.burn_mod /= 1.3
 
 	update_vampire_spell_name(user)
 	to_chat(user, span_notice("You will now be <b>[V.iscloaking ? "hidden" : "seen"]</b> in darkness."))
@@ -92,25 +92,28 @@
 		qdel(src)
 
 
-/obj/item/restraints/legcuffs/beartrap/shadow_snare/Crossed(AM, oldloc)
-	if(!iscarbon(AM) || !armed)
+/obj/item/restraints/legcuffs/beartrap/shadow_snare/triggered(mob/living/carbon/victim)
+	if(!armed || !iscarbon(victim))
 		return
 
-	var/mob/living/carbon/C = AM
-	if(!C.affects_vampire()) // no parameter here so holy always protects
+	if(!victim.affects_vampire()) // no parameter here so holy always protects
 		return
 
-	C.extinguish_light()
-	C.EyeBlind(20 SECONDS)
+	if(victim.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
+		return
+
+	victim.extinguish_light()
+	victim.EyeBlind(20 SECONDS)
 	STOP_PROCESSING(SSobj, src) // won't wither away once you are trapped
-	..()
 
-	if(!iscarbon(loc)) // if it fails to latch onto someone for whatever reason, delete itself, we don't want unarmed ones lying around.
+	. = ..()
+
+	if(loc != victim && !QDELETED(src)) // if it fails to latch onto someone for whatever reason, delete itself, we don't want unarmed ones lying around.
 		qdel(src)
 
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/attack_hand(mob/user)
-	Crossed(user)
+	triggered(user)
 
 
 /obj/item/restraints/legcuffs/beartrap/shadow_snare/attack_tk(mob/user)

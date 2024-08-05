@@ -34,15 +34,19 @@ SUBSYSTEM_DEF(events)
 
 /datum/controller/subsystem/events/Initialize()
 	allEvents = subtypesof(/datum/event)
-
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/events/fire()
-	for(var/datum/event/E in active_events)
+	for(var/datum/event/E as anything in active_events)
 		E.process()
+		if(MC_TICK_CHECK)
+			return
 
 	for(var/i = EVENT_LEVEL_MUNDANE to EVENT_LEVEL_MAJOR)
 		var/datum/event_container/EC = event_containers[i]
 		EC.process()
+		if(MC_TICK_CHECK)
+			return
 
 /datum/controller/subsystem/events/proc/event_complete(datum/event/E)
 	if(!E.event_meta)	// datum/event is used here and there for random reasons, maintaining "backwards compatibility"

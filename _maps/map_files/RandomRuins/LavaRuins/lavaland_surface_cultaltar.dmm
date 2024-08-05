@@ -2,16 +2,6 @@
 "a" = (
 /turf/template_noop,
 /area/template_noop)
-"b" = (
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
-/area/ruin/unpowered/misc_lavaruin)
-"c" = (
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
 "d" = (
 /turf/simulated/wall/cult,
 /area/ruin/unpowered/misc_lavaruin)
@@ -23,55 +13,64 @@
 /obj/structure/cult/pylon,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/misc_lavaruin)
-"g" = (
-/obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
-/area/ruin/unpowered/misc_lavaruin)
 "h" = (
 /obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/wall/cult,
 /area/ruin/unpowered/misc_lavaruin)
-"i" = (
-/obj/effect/decal/remains/human,
-/obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
-/area/ruin/unpowered/misc_lavaruin)
-"k" = (
-/obj/effect/decal/remains/human,
-/obj/item/melee/cultblade,
-/turf/simulated/floor/engine/cult{
-	oxygen = 24;
-	nitrogen = 23;
-	temperature = 300
-	},
-/area/ruin/unpowered/misc_lavaruin)
-"l" = (
+"n" = (
 /obj/effect/decal/remains/human,
 /obj/item/clothing/shoes/cult,
 /obj/item/clothing/suit/hooded/cultrobes,
 /turf/simulated/floor/engine/cult{
-	oxygen = 24;
+	oxygen = 14;
 	nitrogen = 23;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
-"m" = (
+"s" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/misc_lavaruin)
+"w" = (
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/engine/cult{
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"y" = (
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/engine/cult{
-	oxygen = 24;
+	oxygen = 14;
 	nitrogen = 23;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
-"o" = (
+"B" = (
+/turf/simulated/floor/lava/lava_land_surface,
+/area/ruin/unpowered/misc_lavaruin)
+"F" = (
+/obj/effect/decal/remains/human,
+/obj/item/clothing/shoes/cult,
+/obj/item/clothing/suit/hooded/cultrobes,
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/engine/cult{
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"G" = (
+/obj/effect/decal/remains/human,
+/obj/item/melee/cultblade,
+/turf/simulated/floor/engine/cult{
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"H" = (
 /obj/effect/rune/narsie{
 	color = "#ff0000";
 	used = 1
@@ -90,24 +89,25 @@
 	name = "ohfuck"
 	},
 /turf/simulated/floor/engine/cult{
-	oxygen = 24;
+	oxygen = 14;
 	nitrogen = 23;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
-"q" = (
-/obj/effect/decal/remains/human,
-/obj/item/clothing/shoes/cult,
-/obj/item/clothing/suit/hooded/cultrobes,
+"K" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/engine/cult{
-	oxygen = 24;
+	oxygen = 14;
 	nitrogen = 23;
 	temperature = 300
 	},
 /area/ruin/unpowered/misc_lavaruin)
-"s" = (
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+"L" = (
+/turf/simulated/floor/engine/cult{
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
+	},
 /area/ruin/unpowered/misc_lavaruin)
 
 (1,1,1) = {"
@@ -117,9 +117,9 @@ a
 a
 a
 a
-b
-c
-b
+L
+B
+L
 a
 a
 a
@@ -131,15 +131,15 @@ a
 a
 d
 e
-c
+B
 s
-c
-b
-b
-b
-c
+B
+L
+L
+L
+B
 s
-c
+B
 s
 d
 a
@@ -150,11 +150,11 @@ e
 f
 s
 d
-c
-c
-g
-c
-c
+B
+B
+K
+B
+B
 d
 e
 f
@@ -163,155 +163,155 @@ a
 "}
 (4,1,1) = {"
 a
-c
+B
 s
-c
-c
-c
-c
-b
-c
-c
-c
-c
+B
+B
+B
+B
+L
+B
+B
+B
+B
 e
-c
+B
 a
 "}
 (5,1,1) = {"
 a
 s
 d
-c
-c
-b
-b
-b
-b
-b
-c
-c
+B
+B
+L
+L
+L
+L
+L
+B
+B
 d
 s
 a
 "}
 (6,1,1) = {"
 a
-c
-c
-c
-b
-b
-l
+B
+B
+B
+L
+L
+n
 d
-k
-b
-b
-c
-c
-c
+G
+L
+L
+B
+B
+B
 a
 "}
 (7,1,1) = {"
-b
-b
-c
-c
-g
-i
-b
-b
-b
-l
-b
-c
-c
-b
-b
+L
+L
+B
+B
+K
+w
+L
+L
+L
+n
+L
+B
+B
+L
+L
 "}
 (8,1,1) = {"
-c
-b
-g
-b
-b
+B
+L
+K
+L
+L
 d
-b
-o
-b
+L
+H
+L
 d
-b
-b
-g
-b
-c
+L
+L
+K
+L
+B
 "}
 (9,1,1) = {"
-b
-b
-c
-c
-b
-k
-b
-b
-b
-m
-b
-c
-c
-b
-b
+L
+L
+B
+B
+L
+G
+L
+L
+L
+y
+L
+B
+B
+L
+L
 "}
 (10,1,1) = {"
 a
-c
-c
-c
-g
-b
-m
+B
+B
+B
+K
+L
+y
 h
-q
-b
-b
-c
-c
-c
+F
+L
+L
+B
+B
+B
 a
 "}
 (11,1,1) = {"
 a
 s
 d
-c
-c
-b
-b
-b
-b
-b
-c
-c
+B
+B
+L
+L
+L
+L
+L
+B
+B
 d
 s
 a
 "}
 (12,1,1) = {"
 a
-c
+B
 s
-c
-c
-c
-c
-b
-c
-c
-c
-c
+B
+B
+B
+B
+L
+B
+B
+B
+B
 e
-c
+B
 a
 "}
 (13,1,1) = {"
@@ -320,11 +320,11 @@ e
 f
 s
 d
-c
-c
-g
-c
-c
+B
+B
+K
+B
+B
 d
 e
 f
@@ -335,15 +335,15 @@ a
 a
 d
 e
-c
+B
 s
-c
-b
-b
-b
-c
+B
+L
+L
+L
+B
 s
-c
+B
 s
 d
 a
@@ -355,9 +355,9 @@ a
 a
 a
 a
-b
-c
-b
+L
+B
+L
 a
 a
 a

@@ -5,7 +5,7 @@
 	icon_state = "wheelchair"
 	item_chair = null
 	movable = TRUE
-	pull_push_speed_modifier = 1
+	pull_push_slowdown = 1
 	/// Overlay used to overlap buckled mob.
 	var/mutable_appearance/chair_overlay
 	/// If set we cannot go lower than this delay.
@@ -102,9 +102,9 @@
 		buckled_mob.setDir(direction)
 
 
-/obj/structure/chair/wheelchair/Bump(atom/bumped_atom, custom_bump)
+/obj/structure/chair/wheelchair/Bump(atom/bumped_atom)
 	. = ..()
-	if(isnull(.) || !has_buckled_mobs())
+	if(!has_buckled_mobs())
 		return .
 
 	var/mob/living/buckled_mob = buckled_mobs[1]

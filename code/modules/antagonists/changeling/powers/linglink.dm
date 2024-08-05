@@ -16,16 +16,15 @@
 		to_chat(user, span_warning("We have already formed a link with the victim!"))
 		return FALSE
 
-	var/obj/item/grab/grab = user.get_active_hand()
-	if(!istype(grab))
+	if(!user.pulling || user.pull_hand != user.hand)
 		to_chat(user, span_warning("We must be tightly grabbing a creature in our active hand to link with them!"))
 		return FALSE
 
-	if(grab.state <= GRAB_AGGRESSIVE)
+	if(user.grab_state < GRAB_NECK)
 		to_chat(user, span_warning("We must have a tighter grip to link with this creature!"))
 		return FALSE
 
-	var/mob/living/carbon/target = grab.affecting
+	var/mob/living/carbon/human/target = user.pulling
 	if(!ishuman(target))
 		return FALSE
 
@@ -49,8 +48,7 @@
 
 
 /datum/action/changeling/linglink/sting_action(mob/user)
-	var/obj/item/grab/grab = user.get_active_hand()
-	var/mob/living/carbon/human/target = grab.affecting
+	var/mob/living/carbon/human/target = user.pulling
 	cling.is_linking = TRUE
 
 	var/time = input(user, "На сколько минут вы хотите предоставить жертве связь? Учтите, что связь не продержится больше двух часов.", "Hivemind", FALSE) as num|null
@@ -81,7 +79,7 @@
 
 	user.visible_message(span_danger("[user] stabs [target] with the proboscis!"), \
 						span_notice("You mold the [target]'s mind like clay, [target.p_they()] can now speak in the hivemind!"))
-	to_chat(target, "<font color=#800040>[span_boldannounce("You can now communicate in the changeling hivemind, say '[get_language_prefix(LANGUAGE_HIVE_CHANGELING)]' to communicate!")]")
+	to_chat(target, "<font color=#800040>[span_boldannounceic("You can now communicate in the changeling hivemind, say '[get_language_prefix(LANGUAGE_HIVE_CHANGELING)]' to communicate!")]")
 
 	for(var/mob/ling in GLOB.mob_list)
 		if(LAZYIN(ling.languages, GLOB.all_languages[LANGUAGE_HIVE_CHANGELING]))

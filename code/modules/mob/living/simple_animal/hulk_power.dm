@@ -3,7 +3,6 @@
 /obj/effect/proc_holder/spell/hulk_transform
 	name = "Transform"
 	desc = "Превращение в халка."
-	panel = "Hulk"
 	action_icon_state = "transformarion_hulk"
 	action_background_icon_state = "bg_hulk"
 	base_cooldown = 10 SECONDS
@@ -52,7 +51,6 @@
 /obj/effect/proc_holder/spell/hulk_dash
 	name = "Dash"
 	desc = "Разбег. Чем он дольше, тем больнее будет, тем кто встанет у вас на пути."
-	panel = "Hulk"
 	action_icon_state = "charge_hulk"
 	action_background_icon_state = "bg_hulk"
 	base_cooldown = 13 SECONDS
@@ -218,7 +216,6 @@
 /obj/effect/proc_holder/spell/hulk_jump
 	name = "Leap"
 	desc = "Прыжок. Можно легко сломать кому-то кость при столкновении."
-	panel = "Hulk"
 	action_icon_state = "jump_hulk"
 	action_background_icon_state = "bg_hulk"
 	base_cooldown = 13 SECONDS
@@ -335,7 +332,6 @@
 /obj/effect/proc_holder/spell/hulk_honk
 	name = "HulkHONK"
 	desc = "Ваш хонк заставляет ваших врагов пасть на пол и налить под себя смазку (от страха). На ваших братьях-клоунах работает как лечение."
-	panel = "Hulk"
 	action_icon_state = "honk_hulk"
 	action_background_icon_state = "bg_hulk"
 	base_cooldown = 25 SECONDS
@@ -354,9 +350,11 @@
 	playsound(user, 'sound/items/airhorn.ogg', CHANNEL_BUZZ)
 	for(var/mob/living/carbon/M in ohearers(2))
 		if(CLUMSY in M.mutations)
-			M.adjustBruteLoss(-10)
-			M.adjustToxLoss(-10)
-			M.adjustOxyLoss(-10)
+			var/update = NONE
+			update |= M.heal_overall_damage(10, 10, updating_health = FALSE)
+			update |= M.heal_damage_type(10, OXY, updating_health = FALSE)
+			if(update)
+				M.updatehealth()
 			M.AdjustWeakened(-2 SECONDS)
 			M.AdjustStunned(-2 SECONDS)
 		else
@@ -372,10 +370,9 @@
 
 
 //Hulk Joke
-/obj/effect/proc_holder/spell/hulk_joke/create_new_targeting()
+/obj/effect/proc_holder/spell/hulk_joke
 	name = "Joke"
 	desc = "Пускает большое облако дыма, а так-же лечит вас. Хорошее решение если вам нужно отступить."
-	panel = "Hulk"
 	action_icon_state = "joke_hulk"
 	action_background_icon_state = "bg_hulk"
 	base_cooldown = 35 SECONDS
@@ -393,9 +390,7 @@
 		return
 
 	var/mob/living/simple_animal/hulk/clown_hulk = user
-	clown_hulk.adjustBruteLoss(-50)
-	clown_hulk.adjustToxLoss(-10)
-	clown_hulk.adjustOxyLoss(-10)
+	clown_hulk.heal_damages(brute = 50, tox = 10, oxy = 10)
 	clown_hulk.AdjustWeakened(-2 SECONDS)
 	clown_hulk.AdjustStunned(-2 SECONDS)
 
@@ -411,7 +406,6 @@
 /obj/effect/proc_holder/spell/hulk_mill
 	name = "Windmill"
 	desc = "Вы начинаете крутить хвостом во все стороны и наносить им урон. Хорошим выбором будет использовать это в узких помещаниях."
-	panel = "Hulk"
 	action_icon_state = "mill_hulk"
 	action_background_icon_state = "bg_hulk"
 	base_cooldown = 20 SECONDS
@@ -470,7 +464,6 @@
 /obj/effect/proc_holder/spell/fireball/hulk_spit
 	name = "Fire Spit"
 	desc = "Вы харкаете во врага зеленой соплей и поджигаете его."
-	panel = "Hulk"
 	invocation_type = "none"
 	action_icon_state = "harchok_hulk"
 	action_background_icon_state = "bg_hulk"

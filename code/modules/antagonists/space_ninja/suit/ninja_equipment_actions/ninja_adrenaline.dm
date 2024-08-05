@@ -27,6 +27,7 @@
 	var/mob/living/carbon/human/ninja = affecting
 	ninja.SetStunned(0)
 	ninja.SetWeakened(0)
+	ninja.SetKnockdown(0)
 	ninja.SetParalysis(0)
 	ninja.SetSleeping(0)
 	ninja.adjustStaminaLoss(-75)

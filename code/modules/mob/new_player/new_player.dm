@@ -19,7 +19,7 @@
 	GLOB.mob_list += src
 	return INITIALIZE_HINT_NORMAL
 
-/mob/new_player/verb/new_player_panel()
+/mob/new_player/proc/new_player_panel()
 	set src = usr
 
 	if(client.tos_consent)
@@ -84,36 +84,24 @@
 	popup.open(0)
 	return
 
-/mob/new_player/Stat()
-	statpanel("Status")
-
-	..()
-
-	statpanel("Lobby")
-	if(client.statpanel=="Lobby" && SSticker)
-		if(SSticker.hide_mode)
-			stat("Game Mode:", "Secret")
+/mob/new_player/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	if(SSticker)
+		if(!SSticker.hide_mode)
+			status_tab_data[++status_tab_data.len] = list("Game Mode:", "[GLOB.master_mode]")
 		else
-			if(SSticker.hide_mode == 0)
-				stat("Game Mode:", "[GLOB.master_mode]") // Old setting for showing the game mode
-			else
-				stat("Game Mode: ", "Secret")
-
-		if((SSticker.current_state == GAME_STATE_PREGAME) && SSticker.ticker_going)
-			stat("Time To Start:", round(SSticker.pregame_timeleft/10))
-		if((SSticker.current_state == GAME_STATE_PREGAME) && !SSticker.ticker_going)
-			stat("Time To Start:", "DELAYED")
+			status_tab_data[++status_tab_data.len] = list("Game Mode:", "Secret")
 
 		if(SSticker.current_state == GAME_STATE_PREGAME)
-			stat("Players:", "[totalPlayers]")
-			//if(check_rights(R_ADMIN, 0, src))
-			stat("Players Ready:", "[totalPlayersReady]")
-			totalPlayers = 0
+			status_tab_data[++status_tab_data.len] = list("Time To Start:", SSticker.ticker_going ? deciseconds_to_time_stamp(SSticker.pregame_timeleft) : "DELAYED")
+
+		if(SSticker.current_state == GAME_STATE_PREGAME)
+			status_tab_data[++status_tab_data.len] = list("Players Ready:", "[totalPlayersReady]")
 			totalPlayersReady = 0
 			for(var/mob/new_player/player in GLOB.player_list)
 				if(check_rights(R_ADMIN, 0, src))
-					stat("[player.key]", (player.ready)?("(Playing)"):(null))
-				totalPlayers++
+					status_tab_data[++status_tab_data.len] = list("[player.key]", player.ready ? "(Ready)" : "(Not ready)")
 				if(player.ready)
 					totalPlayersReady++
 
@@ -130,10 +118,9 @@
 		query.warn_execute()
 		qdel(query)
 		src << browse(null, "window=privacy_consent")
-		client.tos_consent = TRUE
-		// Now they have accepted TOS, we can log data
-		client.chatOutput.sendClientData()
-		new_player_panel_proc()
+		if(client)
+			client.tos_consent = TRUE
+			new_player_panel_proc()
 	if(href_list["consent_rejected"])
 		client.tos_consent = FALSE
 		to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
@@ -202,7 +189,7 @@
 			to_chat(usr, "<span class='warning'>You must wait for the server to finish starting before you can join!</span>")
 			return FALSE
 
-		if(alert(src,"Are you sure you wish to observe?[(CONFIG_GET(flag/respawn_observer) ? "" : " You cannot normally join the round after doing this!")]","Player Setup","Yes","No") == "Yes")
+		if(tgui_alert(src,"Are you sure you wish to observe?[(CONFIG_GET(flag/respawn_observer) ? "" : " You cannot normally join the round after doing this!")]","Player Setup", list("Yes","No")) == "Yes")
 			if(!client)
 				return 1
 			var/mob/dead/observer/observer = new()
@@ -215,7 +202,7 @@
 			close_spawn_windows()
 			var/obj/O = locate("landmark*Observer-Start")
 			to_chat(src, "<span class='notice'>Now teleporting.</span>")
-			observer.forceMove(O.loc)
+			observer.abstract_move(get_turf(O))
 			observer.timeofdeath = world.time // Set the time of death so that the respawn timer works correctly.
 			client.prefs.update_preview_icon(1)
 			observer.icon = client.prefs.preview_icon
@@ -253,10 +240,6 @@
 		if(!is_used_species_available(client.prefs.species))
 			to_chat(usr, "<span class='warning'>Выбранная раса персонажа недоступна для игры в данный момент! Выберите другого персонажа.</span>")
 			return
-		if(client.prefs.species in GLOB.whitelisted_species)
-			if(!is_alien_whitelisted(src, client.prefs.species) && CONFIG_GET(flag/usealienwhitelist))
-				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
-				return FALSE
 		if(CONFIG_GET(flag/tts_enabled))
 			if(!client.prefs.tts_seed)
 				to_chat(usr, "<span class='danger'>Вам необходимо настроить голос персонажа! Не забудьте сохранить настройки.</span>")
@@ -289,11 +272,6 @@
 			to_chat(usr, "<span class='warning'>Выбранная раса персонажа недоступна для игры в данный момент! Выберите другого персонажа.</span>")
 			return
 
-		if(client.prefs.species in GLOB.whitelisted_species)
-			if(!is_alien_whitelisted(src, client.prefs.species) && CONFIG_GET(flag/usealienwhitelist))
-				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
-				return FALSE
-
 		//Prevents people rejoining as same character.
 		if(!is_admin(usr)) //Админам можно всё
 			for(var/C in GLOB.human_names_list)
@@ -309,14 +287,14 @@
 		if(client)
 			client.prefs.process_link(src, href_list)
 	else if(!href_list["late_join"])
-		new_player_panel()
+		if(client)
+			new_player_panel()
 
 /mob/new_player/proc/IsJobAvailable(rank)
 	var/datum/job/job = SSjobs.GetJob(rank)
 	if(!job)	return 0
 	if(!job.is_position_available()) return 0
 	if(jobban_isbanned(src,rank))	return 0
-	if(!is_job_whitelisted(src, rank))	 return 0
 	if(!job.player_old_enough(client))	return 0
 	if(job.admin_only && !(check_rights(R_ADMIN, 0))) return 0
 	if(job.available_in_playtime(client))
@@ -345,8 +323,10 @@
 		return 0
 
 /mob/new_player/proc/is_used_species_available(species)
-	var/list/available_species = list(SPECIES_HUMAN, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_UNATHI, SPECIES_DIONA, SPECIES_VULPKANIN, SPECIES_MOTH)
-	available_species += GLOB.whitelisted_species
+	if(has_admin_rights())
+		return TRUE
+	var/list/available_species = list(SPECIES_HUMAN)
+	available_species += CONFIG_GET(str_list/playable_species)
 	if(species in available_species)
 		return TRUE
 	else
@@ -465,7 +445,8 @@
 	SSticker.mode.latespawn(character)
 
 	if(character.mind.assigned_role == JOB_TITLE_CYBORG)
-		AnnounceCyborg(character, rank, join_message)
+		var/mob/living/silicon/robot/R = character
+		AnnounceCyborg(character, R.mind.role_alt_title ? R.mind.role_alt_title : JOB_TITLE_CYBORG, join_message)
 	else
 		SSticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
 		if(!IsAdminJob(rank))
@@ -672,7 +653,7 @@
 	var/datum/species/chosen_species
 	if(client.prefs.species)
 		chosen_species = GLOB.all_species[client.prefs.species]
-	if(!(chosen_species && (is_species_whitelisted(chosen_species) || has_admin_rights())))
+	if(!chosen_species)
 		// Have to recheck admin due to no usr at roundstart. Latejoins are fine though.
 		log_runtime(EXCEPTION("[src] had species [client.prefs.species], though they weren't supposed to. Setting to Human."), src)
 		client.prefs.species = SPECIES_HUMAN
@@ -685,10 +666,11 @@
 		client.prefs.language = LANGUAGE_NONE
 
 /mob/new_player/proc/ViewManifest()
-	GLOB.generic_crew_manifest.ui_interact(usr, state = GLOB.always_state)
+	GLOB.generic_crew_manifest.ui_interact(usr)
 
-/mob/new_player/Move()
-	return 0
+
+/mob/new_player/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
+	return FALSE
 
 
 /mob/new_player/proc/close_spawn_windows()
@@ -701,10 +683,6 @@
 
 /mob/new_player/proc/has_admin_rights()
 	return check_rights(R_ADMIN, 0, src)
-
-/mob/new_player/proc/is_species_whitelisted(datum/species/S)
-	if(!S) return 1
-	return is_alien_whitelisted(src, S.name) || !CONFIG_GET(flag/usealienwhitelist) || !(IS_WHITELISTED in S.species_traits)
 
 /mob/new_player/get_gender()
 	if(!client || !client.prefs) ..()

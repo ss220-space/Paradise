@@ -67,14 +67,11 @@
 
 
 /obj/item/borg/upgrade/rename/attack_self(mob/user)
-	var/new_heldname = stripped_input(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
+	var/new_heldname = tgui_input_text(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
 	new_heldname = reject_bad_name(new_heldname, TRUE, MAX_NAME_LEN)
 	if(!new_heldname)
-		to_chat(user, span_warning("Prohibited sequence detected. Entered configuration has been cancelled."))
-	else
-		heldname = new_heldname
-	return
-
+		return
+	heldname = new_heldname
 
 /obj/item/borg/upgrade/rename/action(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
@@ -99,8 +96,10 @@
 
 /mob/living/silicon/robot/proc/shouldRename(newname)
 	if(src.stat == CONSCIOUS)
-		var/choice = alert(src, "Активирован протокол переименования. Предложенное имя: [newname]. Продолжить операцию?","Внимание!","Да","Нет")
+		var/choice = tgui_alert(src, "Активирован протокол переименования. Предложенное имя: [newname]. Продолжить операцию?", "Внимание!", list("Да", "Нет"))
 		if(src.stat == CONSCIOUS) //no abuse by using window in unconscious state
+			if(isnull("choice"))
+				return FALSE
 			switch(choice)
 				if("Да")
 					return TRUE
@@ -518,7 +517,7 @@
 	if(!..())
 		return FALSE
 
-	robot.weather_immunities += "lava"	// not |= in case we have other sources
+	ADD_TRAIT(robot, TRAIT_LAVA_IMMUNE, ROBOT_TRAIT)
 	return TRUE
 
 
@@ -526,7 +525,7 @@
 	if(!..())
 		return FALSE
 
-	robot.weather_immunities -= "lava"
+	REMOVE_TRAIT(robot, TRAIT_LAVA_IMMUNE, ROBOT_TRAIT)
 	return TRUE
 
 
@@ -573,7 +572,7 @@
 	return ..()
 
 
-/obj/item/borg/upgrade/selfrepair/ui_action_click()
+/obj/item/borg/upgrade/selfrepair/ui_action_click(mob/user, datum/action/action, leftclick)
 	on = !on
 	if(on)
 		to_chat(cyborg, span_notice("You activate the self-repair module."))

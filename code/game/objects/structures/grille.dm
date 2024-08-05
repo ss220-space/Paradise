@@ -66,7 +66,7 @@
 		return RCD_ACT_FAILED
 	to_chat(user, "Deconstructing window...")
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-	if(!do_after(user, 2 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
+	if(!do_after(user, 2 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
 		to_chat(user, span_warning("ERROR! Deconstruction interrupted!"))
 		return RCD_ACT_FAILED
 	if(!our_rcd.useResource(2, user))
@@ -114,7 +114,7 @@
 	if(. && !QDELETED(src) && !shock(user, 70))
 		take_damage(rand(5,10), BRUTE, "melee", 1)
 
-/obj/structure/grille/attack_hand(mob/living/user)
+/obj/structure/grille/attack_hand(mob/living/carbon/human/user)
 	. = ..()
 	if(.)
 		return
@@ -123,9 +123,9 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.visible_message(span_warning("[user] hits [src]."))
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
-	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+	if(user.a_intent == INTENT_HARM && ishuman(user) && (user.dna.species.obj_damage + user.physiology.punch_obj_damage > 0))
 		user.changeNext_move(CLICK_CD_MELEE)
-		attack_generic(user, user.dna.species.obj_damage)
+		attack_generic(user, user.dna.species.obj_damage + user.physiology.punch_obj_damage)
 		return
 	take_damage(rand(5,10), BRUTE, "melee", 1)
 
@@ -145,10 +145,12 @@
 		return prob(30)
 
 
-/obj/structure/grille/CanPathfindPass(obj/item/card/id/ID, dir, caller, no_id = FALSE)
-	. = !density
-	if(checkpass(caller, PASSGRILLE))
-		. = TRUE
+/obj/structure/grille/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(!density)
+		return TRUE
+	if(pass_info.pass_flags == PASSEVERYTHING || (pass_info.pass_flags & PASSGRILLE))
+		return TRUE
+	return FALSE
 
 
 /obj/structure/grille/attackby(obj/item/W, mob/user, params)

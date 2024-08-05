@@ -26,8 +26,8 @@
 	user.visible_message("<span class='suicide'>[user] is jamming the [name] up [user.p_their()] nose and into [user.p_their()] brain. It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return BRUTELOSS|OXYLOSS
 
-/obj/item/toy/crayon/New()
-	..()
+/obj/item/toy/crayon/Initialize(mapload)
+	. = ..()
 	drawtype = pick(pick(graffiti), pick(letters), "rune[rand(1, 8)]")
 
 /obj/item/toy/crayon/attack_self(mob/living/user as mob)
@@ -56,7 +56,6 @@
 	dat += "<hr>"
 	var/datum/browser/popup = new(user, "crayon", name, 300, 500)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
 	dat = {"<meta charset="UTF-8">"}
 
@@ -89,7 +88,7 @@
 			temp = "graffiti"
 		to_chat(user, "<span class='info'>You start drawing a [temp] on the [target.name].</span>")
 		busy = TRUE
-		if(instant || do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), target))
+		if(instant || do_after(user, 5 SECONDS * toolspeed, target, category = DA_CAT_TOOL))
 			var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target,colour,drawtype,temp)
 			C.add_hiddenprint(user)
 			to_chat(user, "<span class='info'>You finish drawing [temp].</span>")
@@ -127,36 +126,42 @@
 	icon_state = "crayonred"
 	colour = COLOR_RED
 	colourName = "red"
+	dye_color = DYE_RED
 
 /obj/item/toy/crayon/orange
 	name = "orange crayon"
 	icon_state = "crayonorange"
 	colour = COLOR_ORANGE
 	colourName = "orange"
+	dye_color = DYE_ORANGE
 
 /obj/item/toy/crayon/yellow
 	name = "yellow crayon"
 	icon_state = "crayonyellow"
 	colour = COLOR_YELLOW
 	colourName = "yellow"
+	dye_color = DYE_YELLOW
 
 /obj/item/toy/crayon/green
 	name = "green crayon"
 	icon_state = "crayongreen"
 	colour = COLOR_GREEN
 	colourName = "green"
+	dye_color = DYE_GREEN
 
 /obj/item/toy/crayon/blue
 	name = "blue crayon"
 	icon_state = "crayonblue"
 	colour = COLOR_BLUE
 	colourName = "blue"
+	dye_color = DYE_BLUE
 
 /obj/item/toy/crayon/purple
 	name = "purple crayon"
 	icon_state = "crayonpurple"
 	colour = COLOR_PURPLE
 	colourName = "purple"
+	dye_color = DYE_PURPLE
 
 /obj/item/toy/crayon/random/New()
 	icon_state = pick(list("crayonred", "crayonorange", "crayonyellow", "crayongreen", "crayonblue", "crayonpurple"))
@@ -165,26 +170,32 @@
 			name = "red crayon"
 			colour = COLOR_RED
 			colourName = "red"
+			dye_color = DYE_RED
 		if("crayonorange")
 			name = "orange crayon"
 			colour = COLOR_ORANGE
 			colourName = "orange"
+			dye_color = DYE_ORANGE
 		if("crayonyellow")
 			name = "yellow crayon"
 			colour = COLOR_YELLOW
 			colourName = "yellow"
+			dye_color = DYE_YELLOW
 		if("crayongreen")
 			name = "green crayon"
 			colour =COLOR_GREEN
 			colourName = "green"
+			dye_color = DYE_GREEN
 		if("crayonblue")
 			name = "blue crayon"
 			colour = COLOR_BLUE
 			colourName = "blue"
+			dye_color = DYE_BLUE
 		if("crayonpurple")
 			name = "purple crayon"
 			colour = COLOR_PURPLE
 			colourName = "purple"
+			dye_color = DYE_PURPLE
 	..()
 
 /obj/item/toy/crayon/black
@@ -192,12 +203,14 @@
 	icon_state = "crayonblack"
 	colour = "#000000"
 	colourName = "black"
+	dye_color = DYE_BLACK
 
 /obj/item/toy/crayon/white
 	name = "white crayon"
 	icon_state = "crayonwhite"
 	colour = "#FFFFFF"
 	colourName = "white"
+	dye_color = DYE_WHITE
 
 /obj/item/toy/crayon/mime
 	name = "mime crayon"
@@ -206,6 +219,7 @@
 	colour = "#FFFFFF"
 	colourName = "mime"
 	uses = 0
+	dye_color = DYE_MIME
 
 /obj/item/toy/crayon/mime/attack_self(mob/living/user as mob)
 	update_window(user)
@@ -232,6 +246,7 @@
 	colour = "#FFF000"
 	colourName = "rainbow"
 	uses = 0
+	dye_color = DYE_RAINBOW
 
 /obj/item/toy/crayon/rainbow/attack_self(mob/living/user as mob)
 	update_window(user)
@@ -254,16 +269,20 @@
 //Spraycan stuff
 
 /obj/item/toy/crayon/spraycan
-	name = "spraycan"
-	icon_state = "spraycan_cap"
+	name = "Nanotrasen-brand Rapid Paint Applicator"
+	icon_state = "spraycan"
 	desc = "A metallic container containing tasty paint."
+	/// Current state of the cap
 	var/capped = 1
+	/// List of icon_state and names for paint welding mask
+	var/list/weld_icons = list("Flame" = "welding_redflame",
+					"Blue Flame" = "welding_blueflame",
+					"White Flame" = "welding_white")
 	instant = 1
 	validSurfaces = list(/turf/simulated/floor,/turf/simulated/wall)
 
-/obj/item/toy/crayon/spraycan/New()
-	..()
-	name = "Nanotrasen-brand Rapid Paint Applicator"
+/obj/item/toy/crayon/spraycan/Initialize(mapload)
+	. = ..()
 	update_icon()
 
 /obj/item/toy/crayon/spraycan/attack_self(mob/living/user as mob)
@@ -293,7 +312,7 @@
 				if(C.client)
 					C.EyeBlurry(6 SECONDS)
 					C.EyeBlind(2 SECONDS)
-					if(C.check_eye_prot() <= 0) // no eye protection? ARGH IT BURNS.
+					if(C.check_eye_prot() <= FLASH_PROTECTION_NONE) // no eye protection? ARGH IT BURNS.
 						C.Confused(6 SECONDS)
 						C.Weaken(6 SECONDS)
 				C.lip_style = "spray_face"
@@ -303,13 +322,46 @@
 			playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
 		..()
 
-
-/obj/item/toy/crayon/spraycan/update_icon_state()
-	icon_state = "spraycan[capped ? "_cap" : ""]"
-
-
 /obj/item/toy/crayon/spraycan/update_overlays()
 	. = ..()
 	var/image/I = image('icons/obj/crayons.dmi', icon_state = "[capped ? "spraycan_cap_colors" : "spraycan_colors"]")
 	I.color = colour
 	. += I
+
+/obj/item/toy/crayon/spraycan/proc/draw_paint(mob/living/user)
+	uses--
+	if(!uses)
+		to_chat(user, span_warning("Вы израсходовали [name]!"))
+		playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
+		qdel(src)
+
+/obj/item/toy/crayon/spraycan/proc/can_paint(obj/object, mob/living/user)
+	if(capped)
+		to_chat(user, span_warning("Вы не можете раскрасить [object], если крышка баллона краски закрыта!"))
+		return FALSE
+	if(!uses)
+		to_chat(user, span_warning("Не похоже, что бы осталось достаточно краски"))
+		return FALSE
+	return TRUE
+
+/obj/item/toy/crayon/spraycan/paintkit
+	colour = "#ffffff"
+	uses = 1
+	validSurfaces = null
+
+/obj/item/toy/crayon/spraycan/paintkit/attack_self(mob/living/user as mob)
+	to_chat(user, span_notice("Вы [capped ? "сняли" : "вернули"] колпачок [name]"))
+	capped = !capped
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/toy/crayon/spraycan/paintkit/bigbrother
+	name = "Paintkit «Big Brother»"
+	desc = "Баллончик с черно-золотым корпусом. В комплекте идет одноразовый трафарет для покраски сварочного шлема. К нему прикреплена записка, на которой написано: «Eyes everywhere»."
+	icon_state = "spraycan_bigbrother"
+	weld_icons = list("Big Brother" = "welding_bigbrother")
+
+/obj/item/toy/crayon/spraycan/paintkit/slavic
+	name = "Paintkit «Slavic»"
+	desc = "Баллончик с корпусом цвета хаки. В комплекте идет одноразовый трафарет для покраски сварочного шлема. К нему прикреплена записка, на которой написано: «Head, eyes, blyad»."
+	icon_state = "spraycan_slavic"
+	weld_icons = list("Slavic" = "welding_slavic")

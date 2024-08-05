@@ -447,6 +447,7 @@
 	description = "Jestosterone is an odd chemical compound that induces a variety of annoying side-effects in the average person. It also causes mild intoxication, and is toxic to mimes."
 	color = "#ff00ff" //Fuchsia, pity we can't do rainbow here
 	taste_description = "a funny flavour"
+	var/datum/component/squeak
 
 /datum/reagent/jestosterone/on_new()
 	..()
@@ -463,7 +464,7 @@
 			to_chat(C, "<span class='warning'>Something doesn't feel right...</span>")
 			C.AdjustDizzy(volume STATUS_EFFECT_CONSTANT)
 	ADD_TRAIT(C, TRAIT_JESTER, id)
-	C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE, falloff_exponent = 20)
+	squeak = C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE, falloff_exponent = 20)
 	C.AddElement(/datum/element/waddling)
 
 /datum/reagent/jestosterone/on_mob_life(mob/living/carbon/M)
@@ -499,8 +500,8 @@
 /datum/reagent/jestosterone/on_mob_delete(mob/living/M)
 	..()
 	REMOVE_TRAIT(M, TRAIT_JESTER, id)
-	qdel(M.GetComponent(/datum/component/squeak))
 	M.RemoveElement(/datum/element/waddling)
+	QDEL_NULL(squeak)
 
 /datum/reagent/royal_bee_jelly
 	name = "royal bee jelly"

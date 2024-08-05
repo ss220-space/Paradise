@@ -41,21 +41,35 @@ Bonus
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 
-		var/list/parts = H.get_damaged_organs(TRUE, TRUE, AFFECT_ORGANIC_ORGAN) //1,1 because it needs inputs.
+		var/list/parts = H.get_damaged_organs(1, 1, AFFECT_ORGANIC_ORGAN) //1,1 because it needs inputs.
 
-		if(!parts.len)
+		if(!length(parts))
 			return
 		var/healed = 0
-		for(var/obj/item/organ/external/E as anything in parts)
-			healed += min(E.brute_dam, get_damage) + min(E.burn_dam, get_damage)
-			E.heal_damage(get_damage, get_damage, updating_health = TRUE)
-		M.adjustToxLoss(healed)
+		var/update_health = STATUS_UPDATE_NONE
+		var/update_damage_icon = NONE
+		for(var/obj/item/organ/external/bodypart as anything in parts)
+			var/brute_was = bodypart.brute_dam
+			var/burn_was = bodypart.burn_dam
+			update_damage_icon |= bodypart.heal_damage(get_damage, get_damage, updating_health = FALSE)
+			if(bodypart.brute_dam != brute_was || bodypart.burn_dam != burn_was)
+				update_health |= STATUS_UPDATE_HEALTH
+				healed += max(((bodypart.brute_dam - brute_was) + (bodypart.burn_dam - burn_was)), get_damage)
+
+		if(healed)
+			update_health |= H.apply_damage(healed, TOX)
+		if(update_health)
+			H.updatehealth("[name]")
+		if(update_damage_icon)
+			H.UpdateDamageIcon()
 
 	else
 		if(M.getFireLoss() > 0 || M.getBruteLoss() > 0)
-			M.adjustFireLoss(-get_damage)
-			M.adjustBruteLoss(-get_damage)
-			M.adjustToxLoss(get_damage)
+			var/update = NONE
+			update |= M.heal_overall_damage(get_damage, get_damage, FALSE)
+			update |= M.heal_damage_type(get_damage, TOX, FALSE)
+			if(update)
+				M.updatehealth("damage converter symptom")
 		else
 			return
 

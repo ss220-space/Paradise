@@ -14,7 +14,7 @@
 	blood_color = "#ada776"
 	burn_mod = 4 // holy shite, poor guys wont survive half a second cooking smores
 	brute_mod = 2 // damn, double wham, double dam
-	species_traits = list(LIPS, IS_WHITELISTED, NO_BREATHE, NO_BLOOD, NO_PAIN, NO_PAIN_FEEL, NO_SCAN, RADIMMUNE, VIRUSIMMUNE, NO_GERMS)
+	species_traits = list(LIPS, NO_BREATHE, NO_BLOOD, NO_PAIN, NO_PAIN_FEEL, NO_SCAN, RADIMMUNE, VIRUSIMMUNE, NO_GERMS)
 	dies_at_threshold = TRUE
 	var/touched_supermatter = FALSE
 
@@ -56,8 +56,7 @@
 /datum/species/nucleation/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "radium")
 		if(R.volume >= 1)
-			H.adjustBruteLoss(-3)
-			H.adjustFireLoss(-3)
+			H.heal_overall_damage(3, 3)
 			H.reagents.remove_reagent(R.id, 1)
 			if(H.radiation < 80)
 				H.apply_effect(4, IRRADIATE, negate_armor = 1)

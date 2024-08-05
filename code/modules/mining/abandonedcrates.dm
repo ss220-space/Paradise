@@ -48,7 +48,7 @@
 		if(31 to 35)
 			new /obj/item/seeds/firelemon(src)
 		if(36 to 40)
-			new /obj/item/melee/baton(src)
+			new /obj/item/melee/baton/security(src)
 		if(41 to 45)
 			new /obj/item/clothing/under/shorts/red(src)
 			new /obj/item/clothing/under/shorts/blue(src)
@@ -57,7 +57,7 @@
 			for(var/i in 1 to 7)
 				new /obj/item/clothing/accessory/horrible(src)
 		if(51 to 52) // 2% chance
-			new /obj/item/melee/classic_baton(src)
+			new /obj/item/melee/baton(src)
 		if(53 to 54)
 			new /obj/item/toy/balloon(src)
 		if(55 to 56)
@@ -214,7 +214,9 @@
 		add_attack_logs(user, src, "emag-bombed")
 		boom(user)
 
-/obj/structure/closet/crate/secure/loot/togglelock(mob/user)
+/obj/structure/closet/crate/secure/loot/togglelock(mob/living/user)
+	if(!istype(user))
+		return
 	if(locked)
 		boom(user)
 	else

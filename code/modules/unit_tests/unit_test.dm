@@ -6,6 +6,18 @@ You may use /New() and /Destroy() for setup/teardown respectively
 You can use the run_loc_bottom_left and run_loc_top_right to get turfs for testing
 */
 
+/// A list of every test that is currently focused.
+/// Use the PERFORM_ALL_TESTS macro instead.
+GLOBAL_VAR_INIT(focused_tests, focused_tests())
+
+/proc/focused_tests()
+	var/list/focused_tests = list()
+	for (var/datum/unit_test/unit_test as anything in subtypesof(/datum/unit_test))
+		if (initial(unit_test.focus))
+			focused_tests += unit_test
+
+	return focused_tests.len > 0 ? focused_tests : null
+
 /datum/unit_test
 	//Bit of metadata for the future maybe
 	var/list/procs_tested
@@ -16,6 +28,7 @@ You can use the run_loc_bottom_left and run_loc_top_right to get turfs for testi
 
 	//internal shit
 	var/succeeded = TRUE
+	var/focus = FALSE
 	var/list/fail_reasons
 
 /datum/unit_test/New()

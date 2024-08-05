@@ -11,6 +11,7 @@ GLOBAL_LIST_EMPTY(closets)
 	integrity_failure = 50
 	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 60)
 	pass_flags_self = PASSSTRUCTURE|LETPASSCLICKS
+	pull_push_slowdown = 1.3 // Same as a prone mob
 
 	/// Special marker for the closet to use default icon_closed/icon_opened states, skipping everything else.
 	var/no_overlays = FALSE
@@ -21,7 +22,7 @@ GLOBAL_LIST_EMPTY(closets)
 	var/overlay_sparking = "sparking"
 	var/overlay_unlocked = "unlocked"
 	var/overlay_locked = "locked"
-	var/overlay_locker = "locker"
+	var/overlay_locker = null // TODO: 'locker'less closet sprites.
 	var/custom_door_overlay = null //handles overlay of door looking into screen
 	var/custom_open_overlay = null //handles overlay of opened door (its inner side)
 
@@ -42,6 +43,7 @@ GLOBAL_LIST_EMPTY(closets)
 	)
 	var/open_sound_volume = 35
 	var/close_sound_volume = 50
+	var/sparking_duration = 1 SECONDS
 	var/storage_capacity = 30 //This is so that someone can't pack hundreds of items in a locker/crate then open it in a populated area to crash clients.
 	var/material_drop = /obj/item/stack/sheet/metal
 	var/material_drop_amount = 2
@@ -196,6 +198,12 @@ GLOBAL_LIST_EMPTY(closets)
 	if(!broken && !(obj_flags & NODECONSTRUCT))
 		bust_open()
 
+
+/obj/structure/closet/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	MouseDrop_T(grabbed_thing, grabber)	//act like they were dragged onto the closet
+
+
 /obj/structure/closet/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/rcs) && !opened)
 		var/obj/item/rcs/E = W
@@ -204,12 +212,6 @@ GLOBAL_LIST_EMPTY(closets)
 		return
 
 	if(opened)
-		if(istype(W, /obj/item/grab))
-			var/obj/item/grab/G = W
-			if(large)
-				MouseDrop_T(G.affecting, user)      //act like they were dragged onto the closet
-			else
-				to_chat(user, "<span class='notice'>[src] is too small to stuff [G.affecting] into!</span>")
 		if(istype(W, /obj/item/tk_grab))
 			return FALSE
 		if(user.a_intent != INTENT_HELP) // Stops you from putting your baton in the closet on accident
@@ -279,6 +281,8 @@ GLOBAL_LIST_EMPTY(closets)
 		return
 	if(istype(O, /obj/structure/closet))
 		return
+	if(user.pulling == O)
+		user.stop_pulling()
 	step_towards(O, loc)
 	if(user != O)
 		user.visible_message("<span class='danger'>[user] stuffs [O] into [src]!</span>", "<span class='danger'>You stuff [O] into [src]!</span>")
@@ -317,7 +321,6 @@ GLOBAL_LIST_EMPTY(closets)
 
 /obj/structure/closet/verb/verb_toggleopen()
 	set src in oview(1)
-	set category = null
 	set name = "Toggle Open"
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -372,9 +375,9 @@ GLOBAL_LIST_EMPTY(closets)
 // Objects that try to exit a locker by stepping were doing so successfully,
 // and due to an oversight in turf/Enter() were going through walls.  That
 // should be independently resolved, but this is also an interesting twist.
-/obj/structure/closet/Exit(atom/movable/AM)
+/obj/structure/closet/Exit(atom/movable/leaving, atom/newLoc)
 	open()
-	if(AM.loc == src)
+	if(leaving.loc == src)
 		return FALSE
 	return TRUE
 
@@ -464,14 +467,25 @@ GLOBAL_LIST_EMPTY(closets)
 	density = FALSE
 	icon_state = "bluespace"
 	storage_capacity = 60
+	ignore_density_closed = TRUE
+	pass_flags = PASSDOOR|PASSTABLE|PASSGRILLE|PASSBLOB|PASSMOB|PASSMACHINE|PASSSTRUCTURE|PASSFLAPS|PASSFENCE|PASSVEHICLE|PASSITEM
 	var/materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
 	var/transparent = FALSE
 
 
-/obj/structure/closet/bluespace/proc/UpdateTransparency(atom/movable/AM, atom/location)
+/obj/structure/closet/bluespace/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXITED = PROC_REF(on_exited),
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
+/obj/structure/closet/bluespace/proc/UpdateTransparency()
 	var/transparency = FALSE
-	for(var/atom/A in location)
-		if(A.density && A != src && A != AM)
+	for(var/atom/check as anything in loc)
+		if(check.density && check != src)
 			transparency = TRUE
 			break
 	transparent = transparency
@@ -498,29 +512,22 @@ GLOBAL_LIST_EMPTY(closets)
 			. += mutable_appearance(icon, "[initial(icon_state)]_open", CLOSET_OLAY_LAYER_DOOR)
 
 
-/obj/structure/closet/bluespace/Crossed(atom/movable/AM, oldloc)
-	. = ..()
-	if(AM.density)
+/obj/structure/closet/bluespace/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(!transparent && arrived.density && arrived != src)
 		transparent = TRUE
 		update_icon()
 
 
-/obj/structure/closet/bluespace/Uncrossed(atom/movable/mover)
+/obj/structure/closet/bluespace/proc/on_exited(datum/source, atom/movable/departed, atom/newLoc)
+	SIGNAL_HANDLER
+
+	UpdateTransparency()
+
+
+/obj/structure/closet/bluespace/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
-	UpdateTransparency(mover, loc)
+	if(loc)
+		UpdateTransparency()
 
-
-/obj/structure/closet/bluespace/Move(atom/newloc, direct = NONE, glide_size_override = 0) // Allows for "phasing" throug objects but doesn't allow you to stuff your EOC homebois in one of these and push them through walls.
-	var/turf/T = get_turf(newloc)
-	if(T.density)
-		return
-	for(var/atom/A in T.contents)
-		if(A.density && istype(A, /obj/machinery/door))
-			return
-	UpdateTransparency(src, newloc)
-	forceMove(newloc)
-
-/obj/structure/closet/bluespace/close()
-	. = ..()
-	if(.)
-		set_density(FALSE)

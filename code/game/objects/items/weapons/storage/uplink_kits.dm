@@ -27,7 +27,7 @@
 
 /obj/item/storage/box/syndie_kit/space
 	name = "Boxed Space Suit and Helmet"
-	can_hold = list(/obj/item/clothing/suit/space/syndicate/black/red, /obj/item/clothing/head/helmet/space/syndicate/black/red, /obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate)
+	can_hold = list(/obj/item/clothing/suit/space/syndicate/black/red, /obj/item/clothing/head/helmet/space/syndicate/black/red, /obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate, /obj/item/tank/jetpack/oxygen/harness)
 	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/box/syndie_kit/space/populate_contents()
@@ -35,6 +35,7 @@
 	new /obj/item/clothing/head/helmet/space/syndicate/black/red(src)
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
+	new /obj/item/tank/jetpack/oxygen/harness(src)
 
 /obj/item/storage/box/syndie_kit/hardsuit
 	name = "Boxed Blood Red Suit and Helmet"
@@ -191,7 +192,7 @@
 
 /obj/item/storage/box/syndie_kit/cutouts/populate_contents()
 	for(var/i in 1 to 3)
-		new/obj/item/cardboard_cutout/adaptive(src)
+		new/obj/item/twohanded/cardboard_cutout/adaptive(src)
 	new/obj/item/toy/crayon/spraycan(src)
 
 /obj/item/storage/box/syndie_kit/bonerepair

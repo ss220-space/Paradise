@@ -48,7 +48,7 @@
 	if(stat & BROKEN || panel_open)
 		return
 	if(!tokens && !freeplay)
-		to_chat(user, "\The [src.name] doesn't have enough credits to play! Pay first!")
+		balloon_alert(user, "недостаточно кредитов!")
 		return
 	if(!in_use && (tokens || freeplay))
 		in_use = 1
@@ -56,7 +56,7 @@
 		return
 	if(in_use)
 		if(src != user.machine)
-			to_chat(user, "Someone else is already playing this machine, please wait your turn!")
+			balloon_alert(user, "автомат занят!")
 		return
 
 /obj/machinery/arcade/attackby(obj/item/I, mob/user, params)

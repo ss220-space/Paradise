@@ -34,8 +34,7 @@
 	tag = "icon-survival (EAST)"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /turf/simulated/wall/mineral/titanium/survival,
 /area/survivalpod)
@@ -53,6 +52,13 @@
 "h" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/matches,
+/turf/simulated/floor/pod,
+/area/survivalpod)
+"i" = (
+/obj/structure/closet/secure_closet/cabinet/bar,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/pod,
 /area/survivalpod)
 "j" = (
@@ -74,13 +80,6 @@
 /obj/item/lighter/zippo{
 	pixel_x = 8;
 	pixel_y = 1
-	},
-/turf/simulated/floor/pod,
-/area/survivalpod)
-"m" = (
-/obj/structure/closet/secure_closet/bar,
-/obj/machinery/light{
-	dir = 1
 	},
 /turf/simulated/floor/pod,
 /area/survivalpod)
@@ -111,6 +110,7 @@
 /obj/structure/sign/mining/survival{
 	dir = 1;
 	icon_state = "survival";
+	
 	},
 /turf/simulated/wall/mineral/titanium/survival,
 /area/survivalpod)
@@ -354,7 +354,7 @@ u
 "}
 (9,1,1) = {"
 a
-m
+i
 H
 F
 L

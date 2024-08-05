@@ -6,7 +6,7 @@
 	dangerous_existence = TRUE //So so much
 	//language = "Clatter"
 
-	species_traits = list(IS_WHITELISTED, RADIMMUNE, NO_BLOOD, NO_HUNGER, NOTRANSSTING, NO_PAIN, VIRUSIMMUNE, NO_GERMS, NO_DECAY, NOCLONE)
+	species_traits = list(RADIMMUNE, NO_BLOOD, NO_HUNGER, NOTRANSSTING, NO_PAIN, VIRUSIMMUNE, NO_GERMS, NO_DECAY, NOCLONE)
 	forced_heartattack = TRUE // Plasmamen have no blood, but they should still get heart-attacks
 	skinned_type = /obj/item/stack/sheet/mineral/plasma // We're low on plasma, R&D! *eyes plasmaman co-worker intently*
 	reagent_tag = PROCESS_ORG
@@ -55,13 +55,14 @@
 
 /datum/species/plasmaman/on_species_gain(mob/living/carbon/human/H)
 	..()
-	H.verbs |= /mob/living/carbon/human/proc/emote_rattle
+	add_verb(H, /mob/living/carbon/human/proc/emote_rattle)
+	RegisterSignal(H, COMSIG_CARBON_RECEIVE_FRACTURE, PROC_REF(on_fracture))
 
 
 /datum/species/plasmaman/on_species_loss(mob/living/carbon/human/H)
 	..()
-	H.verbs -= /mob/living/carbon/human/proc/emote_rattle
-
+	remove_verb(H, /mob/living/carbon/human/proc/emote_rattle)
+	UnregisterSignal(H, COMSIG_CARBON_RECEIVE_FRACTURE)
 
 //внёс перевод акцента речи, шипящий звук. Но я не смог осилить и он почему-то по прежнему не работает, похоже не тут настраивается -- ПУПС
 /datum/species/plasmaman/say_filter(mob/M, message, datum/language/speaking)
@@ -217,12 +218,26 @@
 	if(H.reagents.get_reagent_amount("pure_plasma") < 5) //increasing chock_reduction by 20
 		H.reagents.add_reagent("pure_plasma", 5)
 
-/datum/species/plasmaman/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == "plasma" || R.id == "plasma_dust")
-		H.adjustBruteLoss(-0.25)
-		H.adjustFireLoss(-0.25)
-		H.adjust_alien_plasma(20)
-		H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
-		return FALSE //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmaman
+/datum/species/plasmaman/proc/on_fracture(mob/living/carbon/human/H)
+	SIGNAL_HANDLER
+	H.reagents.add_reagent("plasma_dust", 15)
 
+/datum/species/plasmaman/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	switch(R.id)
+		if("plasma")
+			H.heal_overall_damage(0.25, 0.25)
+			H.adjust_alien_plasma(20)
+			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
+			return FALSE //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmaman
+		if("plasma_dust")
+			H.heal_overall_damage(0.25, 0.25)
+			H.adjust_alien_plasma(20)
+			if(prob(1))
+				var/list/fractured_organs = H.check_fractures()
+				shuffle(fractured_organs)
+				for(var/obj/item/organ/external/bodypart as anything in fractured_organs)
+					if(bodypart.mend_fracture())
+						break
+			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
+			return FALSE
 	return ..()

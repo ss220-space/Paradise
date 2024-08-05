@@ -95,7 +95,8 @@
 		action.Remove(organ_owner)
 
 	if(send_signal)
-		SEND_SIGNAL(src, COMSIG_CARBON_LOSE_ORGAN)
+		SEND_SIGNAL(organ_owner, COMSIG_CARBON_LOSE_ORGAN, src)
+		SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, organ_owner)
 
 	owner = null
 	START_PROCESSING(SSobj, src)
@@ -107,17 +108,17 @@
 		return
 	switch(severity)
 		if(1)
-			receive_damage(20, 1)
+			internal_receive_damage(20, silent = TRUE)
 		if(2)
-			receive_damage(7, 1)
+			internal_receive_damage(7, silent = TRUE)
 
 
 /obj/item/organ/internal/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
     insert(target)
 
 
-/obj/item/organ/internal/item_action_slot_check(slot, mob/user)
-	return
+/obj/item/organ/internal/item_action_slot_check(slot, mob/user, datum/action/action)
+	return FALSE
 
 
 /obj/item/organ/internal/proc/on_find(mob/living/finder)
@@ -287,7 +288,7 @@
 	M.force_gene_block(GLOB.comicblock, TRUE)
 	organhonked = world.time
 	M.AddElement(/datum/element/waddling)
-	squeak = M.AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg' = 1), 50, falloff_exponent = 20)
+	squeak = M.AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg'), 50, falloff_exponent = 20)
 
 
 /obj/item/organ/internal/honktumor/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
@@ -330,7 +331,7 @@
 
 /obj/item/organ/internal/honktumor/cursed/on_life() //No matter what you do, no matter who you are, no matter where you go, you're always going to be a fat, stuttering dimwit.
 	..()
-	owner.setBrainLoss(80, use_brain_mod = FALSE)
+	owner.setBrainLoss(80)
 	owner.set_nutrition(9000)
 	owner.overeatduration = 9000
 
@@ -347,7 +348,7 @@
 
 
 /obj/item/organ/internal/honkbladder/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
-	squeak = M.AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg'=1,'sound/effects/clownstep2.ogg'=1), 50, falloff_exponent = 20)
+	squeak = M.AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg','sound/effects/clownstep2.ogg'), 50, falloff_exponent = 20)
 
 
 /obj/item/organ/internal/honkbladder/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
@@ -388,22 +389,12 @@
 			H.update_fhair()
 
 
-/obj/item/organ/internal/emp_act(severity)
-	if(!is_robotic() || emp_proof)
-		return
-	switch(severity)
-		if(1)
-			receive_damage(20, 1)
-		if(2)
-			receive_damage(7, 1)
-
-
 /obj/item/organ/internal/handle_germs()
 	..()
 	if(germ_level >= INFECTION_LEVEL_TWO)
 		if(prob(3 * owner.dna.species.germs_growth_rate))
 			// big message from every 1 damage is not good. If germs growth rate is big, it will spam the chat.
-			receive_damage(1, silent = prob(30*owner.dna.species.germs_growth_rate))
+			internal_receive_damage(1, silent = prob(30*owner.dna.species.germs_growth_rate))
 
 
 /mob/living/carbon/human/proc/check_infections()

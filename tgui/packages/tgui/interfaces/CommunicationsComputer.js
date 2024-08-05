@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { Button, LabeledList, Box, Section } from '../components';
 import { Window } from '../layouts';
@@ -8,34 +7,35 @@ export const CommunicationsComputer = (props, context) => {
 
   let authReadable;
   if (!data.authenticated) {
-    authReadable = "Not Logged In";
+    authReadable = 'Not Logged In';
   } else if (data.is_ai) {
-    authReadable = "AI";
+    authReadable = 'AI';
   } else if (data.authenticated === 1) {
-    authReadable = "Command";
+    authReadable = 'Command';
   } else if (data.authenticated === 2) {
-    authReadable = "Captain";
+    authReadable = 'Captain';
   } else {
-    authReadable = "ERROR: Report This Bug!";
+    authReadable = 'ERROR: Report This Bug!';
   }
-  let reportText = "View (" + data.messages.length + ")";
+  let reportText = 'View (' + data.messages.length + ')';
   let authBlock = (
-    <Fragment>
+    <>
       <Section title="Authentication">
         <LabeledList>
-          {data.is_ai && (
-            <LabeledList.Item label="Access Level">
-              AI
-            </LabeledList.Item>
-          ) || (
+          {(data.is_ai && (
+            <LabeledList.Item label="Access Level">AI</LabeledList.Item>
+          )) || (
             <LabeledList.Item label="Actions">
               <Button
                 icon={data.authenticated ? 'sign-out-alt' : 'id-card'}
                 selected={data.authenticated}
-                content={data.authenticated
-                  ? "Log Out (" + authReadable + ")"
-                  : 'Log In'}
-                onClick={() => act("auth")} />
+                content={
+                  data.authenticated
+                    ? 'Log Out (' + authReadable + ')'
+                    : 'Log In'
+                }
+                onClick={() => act('auth')}
+              />
             </LabeledList.Item>
           )}
         </LabeledList>
@@ -54,7 +54,8 @@ export const CommunicationsComputer = (props, context) => {
                   icon="rocket"
                   content="Call Shuttle"
                   disabled={!data.authenticated}
-                  onClick={() => act('callshuttle')} />
+                  onClick={() => act('callshuttle')}
+                />
               </LabeledList.Item>
             )}
             {!!data.esc_recallable && (
@@ -63,7 +64,8 @@ export const CommunicationsComputer = (props, context) => {
                   icon="times"
                   content="Recall Shuttle"
                   disabled={!data.authenticated || data.is_ai}
-                  onClick={() => act('cancelshuttle')} />
+                  onClick={() => act('cancelshuttle')}
+                />
               </LabeledList.Item>
             )}
             {!!data.lastCallLoc && (
@@ -74,94 +76,102 @@ export const CommunicationsComputer = (props, context) => {
           </LabeledList>
         </Section>
       )}
-    </Fragment>
+    </>
   );
-  let announceText = "Make Priority Announcement";
+  let announceText = 'Make Priority Announcement';
   if (data.msg_cooldown > 0) {
-    announceText += " (" + data.msg_cooldown + "s)";
+    announceText += ' (' + data.msg_cooldown + 's)';
   }
-  let ccMessageText = data.emagged ? "Message [UNKNOWN]" : "Message CentComm";
-  let nukeRequestText = "Request Authentication Codes";
+  let ccMessageText = data.emagged ? 'Message [UNKNOWN]' : 'Message CentComm';
+  let nukeRequestText = 'Request Authentication Codes';
   if (data.cc_cooldown > 0) {
-    ccMessageText += " (" + data.cc_cooldown + "s)";
-    nukeRequestText += " (" + data.cc_cooldown + "s)";
+    ccMessageText += ' (' + data.cc_cooldown + 's)';
+    nukeRequestText += ' (' + data.cc_cooldown + 's)';
   }
   let alertLevelText = data.str_security_level;
-  let alertLevelButtons = data.levels.map(slevel => {
+  let alertLevelButtons = data.levels.map((slevel) => {
     return (
       <Button
         key={slevel.name}
         icon={slevel.icon}
         content={slevel.name}
-        disabled={!data.authmax
-          || slevel.id === data.security_level}
-        onClick={() => act('newalertlevel', { level: slevel.id })} />
+        disabled={!data.authmax || slevel.id === data.security_level}
+        onClick={() => act('newalertlevel', { level: slevel.id })}
+      />
     );
   });
-  let presetButtons = data.stat_display["presets"].map(pb => {
+  let presetButtons = data.stat_display['presets'].map((pb) => {
     return (
       <Button
         key={pb.name}
         content={pb.label}
         selected={pb.name === data.stat_display.type}
         disabled={!data.authenticated}
-        onClick={() => act('setstat', { statdisp: pb.name })} />
+        onClick={() => act('setstat', { statdisp: pb.name })}
+      />
     );
   });
-  let iconButtons = data.stat_display["alerts"].map(ib => {
+  let iconButtons = data.stat_display['alerts'].map((ib) => {
     return (
       <Button
         key={ib.alert}
         content={ib.label}
         selected={ib.alert === data.stat_display.icon}
         disabled={!data.authenticated}
-        onClick={() => act('setstat',
-          { statdisp: "alert", alert: ib.alert })} />
+        onClick={() => act('setstat', { statdisp: 'alert', alert: ib.alert })}
+      />
     );
   });
   let messageView;
   if (data.current_message_title) {
     messageView = (
-      <Section title={data.current_message_title} buttons={
-        <Button
-          icon="times"
-          content="Return To Message List"
-          disabled={!data.authenticated}
-          onClick={() => act('messagelist')} />
-      }>
-        <Box>
-          {data.current_message}
-        </Box>
+      <Section
+        title={data.current_message_title}
+        buttons={
+          <Button
+            icon="times"
+            content="Return To Message List"
+            disabled={!data.authenticated}
+            onClick={() => act('messagelist')}
+          />
+        }
+      >
+        <Box>{data.current_message}</Box>
       </Section>
     );
   } else {
-    let messageRows = data.messages.map(m => {
+    let messageRows = data.messages.map((m) => {
       return (
         <LabeledList.Item key={m.id} label={m.title}>
           <Button
             icon="eye"
             content="View"
-            disabled={!data.authenticated
-              || data.current_message_title === m.title}
-            onClick={() => act('messagelist', { msgid: m.id })} />
+            disabled={
+              !data.authenticated || data.current_message_title === m.title
+            }
+            onClick={() => act('messagelist', { msgid: m.id })}
+          />
           <Button
             icon="times"
             content="Delete"
             disabled={!data.authenticated}
-            onClick={() => act('delmessage', { msgid: m.id })} />
+            onClick={() => act('delmessage', { msgid: m.id })}
+          />
         </LabeledList.Item>
       );
     });
     messageView = (
-      <Section title="Messages Received" buttons={
-        <Button
-          icon="arrow-circle-left"
-          content="Back To Main Menu"
-          onClick={() => act('main')} />
-      }>
-        <LabeledList>
-          {messageRows}
-        </LabeledList>
+      <Section
+        title="Messages Received"
+        buttons={
+          <Button
+            icon="arrow-circle-left"
+            content="Back To Main Menu"
+            onClick={() => act('main')}
+          />
+        }
+      >
+        <LabeledList>{messageRows}</LabeledList>
       </Section>
     );
   }
@@ -169,13 +179,15 @@ export const CommunicationsComputer = (props, context) => {
     // 1 = main screen
     case 1:
       return (
-        <Window resizable>
+        <Window width={500} height={600}>
           <Window.Content scrollable>
             {authBlock}
             <Section title="Captain-Only Actions">
               <LabeledList>
-                <LabeledList.Item label="Current Alert"
-                  color={data.security_level_color}>
+                <LabeledList.Item
+                  label="Current Alert"
+                  color={data.security_level_color}
+                >
                   {alertLevelText}
                 </LabeledList.Item>
                 <LabeledList.Item label="Change Alert">
@@ -186,29 +198,33 @@ export const CommunicationsComputer = (props, context) => {
                     icon="bullhorn"
                     content={announceText}
                     disabled={!data.authmax || data.msg_cooldown > 0}
-                    onClick={() => act('announce')} />
+                    onClick={() => act('announce')}
+                  />
                 </LabeledList.Item>
-                {!!data.emagged && (
+                {(!!data.emagged && (
                   <LabeledList.Item label="Transmit">
                     <Button
                       icon="broadcast-tower"
                       color="red"
                       content={ccMessageText}
                       disabled={!data.authmax || data.cc_cooldown > 0}
-                      onClick={() => act('MessageSyndicate')} />
+                      onClick={() => act('MessageSyndicate')}
+                    />
                     <Button
                       icon="sync-alt"
                       content="Reset Relays"
                       disabled={!data.authmax}
-                      onClick={() => act('RestoreBackup')} />
+                      onClick={() => act('RestoreBackup')}
+                    />
                   </LabeledList.Item>
-                ) || (
+                )) || (
                   <LabeledList.Item label="Transmit">
                     <Button
                       icon="broadcast-tower"
                       content={ccMessageText}
                       disabled={!data.authmax || data.cc_cooldown > 0}
-                      onClick={() => act('MessageCentcomm')} />
+                      onClick={() => act('MessageCentcomm')}
+                    />
                   </LabeledList.Item>
                 )}
                 <LabeledList.Item label="Nuclear Device">
@@ -216,7 +232,8 @@ export const CommunicationsComputer = (props, context) => {
                     icon="bomb"
                     content={nukeRequestText}
                     disabled={!data.authmax || data.cc_cooldown > 0}
-                    onClick={() => act('nukerequest')} />
+                    onClick={() => act('nukerequest')}
+                  />
                 </LabeledList.Item>
               </LabeledList>
             </Section>
@@ -227,21 +244,16 @@ export const CommunicationsComputer = (props, context) => {
                     icon="tv"
                     content="Change Status Displays"
                     disabled={!data.authenticated}
-                    onClick={() => act('status')} />
+                    onClick={() => act('status')}
+                  />
                 </LabeledList.Item>
                 <LabeledList.Item label="Incoming Messages">
                   <Button
                     icon="folder-open"
                     content={reportText}
                     disabled={!data.authenticated}
-                    onClick={() => act('messagelist')} />
-                </LabeledList.Item>
-                <LabeledList.Item label="Misc">
-                  <Button
-                    icon="sync-alt"
-                    content="Restart Nano-Mob Hunter GO! Server"
-                    disabled={!data.authenticated}
-                    onClick={() => act('RestartNanoMob')} />
+                    onClick={() => act('messagelist')}
+                  />
                 </LabeledList.Item>
               </LabeledList>
             </Section>
@@ -251,17 +263,20 @@ export const CommunicationsComputer = (props, context) => {
 
     // 2 = status screen
     case 2:
-
       return (
-        <Window>
+        <Window width={500} height={600}>
           <Window.Content>
             {authBlock}
-            <Section title="Modify Status Screens" buttons={
-              <Button
-                icon="arrow-circle-left"
-                content="Back To Main Menu"
-                onClick={() => act('main')} />
-            }>
+            <Section
+              title="Modify Status Screens"
+              buttons={
+                <Button
+                  icon="arrow-circle-left"
+                  content="Back To Main Menu"
+                  onClick={() => act('main')}
+                />
+              }
+            >
               <LabeledList>
                 <LabeledList.Item label="Presets">
                   {presetButtons}
@@ -274,14 +289,16 @@ export const CommunicationsComputer = (props, context) => {
                     icon="pencil-alt"
                     content={data.stat_display.line_1}
                     disabled={!data.authenticated}
-                    onClick={() => act('setmsg1')} />
+                    onClick={() => act('setmsg1')}
+                  />
                 </LabeledList.Item>
                 <LabeledList.Item label="Message Line 2">
                   <Button
                     icon="pencil-alt"
                     content={data.stat_display.line_2}
                     disabled={!data.authenticated}
-                    onClick={() => act('setmsg2')} />
+                    onClick={() => act('setmsg2')}
+                  />
                 </LabeledList.Item>
               </LabeledList>
             </Section>
@@ -289,11 +306,10 @@ export const CommunicationsComputer = (props, context) => {
         </Window>
       );
 
-
     // 3 = messages screen
     case 3:
       return (
-        <Window>
+        <Window width={500} height={600}>
           <Window.Content>
             {authBlock}
             {messageView}
@@ -303,7 +319,7 @@ export const CommunicationsComputer = (props, context) => {
 
     default:
       return (
-        <Window>
+        <Window width={500} height={600}>
           <Window.Content>
             {authBlock}
             ERRROR. Unknown menu_state: {data.menu_state}
@@ -311,7 +327,5 @@ export const CommunicationsComputer = (props, context) => {
           </Window.Content>
         </Window>
       );
-
   }
-
 };

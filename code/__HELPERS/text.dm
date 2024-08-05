@@ -49,6 +49,15 @@
 
 	return text
 
+/proc/readd_quote(var/t)
+	var/list/repl_chars = list("&#39;" = "'")
+	for(var/char in repl_chars)
+		var/index = findtext(t, char)
+		while(index)
+			t = copytext(t, 1, index) + repl_chars[char] + copytext(t, index+5)
+			index = findtext(t, char)
+	return t
+
 /proc/readd_quotes(var/t)
 	var/list/repl_chars = list("&#34;" = "\"")
 	for(var/char in repl_chars)

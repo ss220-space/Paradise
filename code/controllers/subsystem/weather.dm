@@ -20,13 +20,12 @@ SUBSYSTEM_DEF(weather)
 /datum/controller/subsystem/weather/fire()
 	// process active weather
 	for(var/V in processing)
-		var/datum/weather/W = V
-		if(W.aesthetic || W.stage != MAIN_STAGE)
+		var/datum/weather/our_event = V
+		if(our_event.aesthetic || our_event.stage != MAIN_STAGE)
 			continue
-		for(var/i in GLOB.mob_living_list)
-			var/mob/living/L = i
-			if(W.can_weather_act(L))
-				W.weather_act(L)
+		for(var/mob/living/act_on as anything in GLOB.mob_living_list)
+			if(our_event.can_weather_act(act_on))
+				our_event.weather_act(act_on)
 
 	// start random weather on relevant levels
 	for(var/z in eligible_zlevels)
@@ -50,6 +49,7 @@ SUBSYSTEM_DEF(weather)
 			for(var/z in levels_by_trait(target_trait))
 				LAZYINITLIST(eligible_zlevels["[z]"])
 				eligible_zlevels["[z]"][W] = probability
+	return SS_INIT_SUCCESS
 
 
 /datum/controller/subsystem/weather/proc/run_weather(datum/weather/weather_datum_type, z_levels)
@@ -78,11 +78,11 @@ SUBSYSTEM_DEF(weather)
 	next_hit_by_zlevel["[z]"] = null
 
 
-/datum/controller/subsystem/weather/proc/get_weather(z, area/active_area)
+/datum/controller/subsystem/weather/proc/get_weather(z, area_path)
 	var/datum/weather/A
 	for(var/V in processing)
 		var/datum/weather/W = V
-		if((z in W.impacted_z_levels) && W.area_type == active_area)
+		if((z in W.impacted_z_levels) && W.area_type == area_path)
 			A = W
 			break
 	return A

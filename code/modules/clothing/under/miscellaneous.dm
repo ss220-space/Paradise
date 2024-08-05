@@ -180,9 +180,16 @@
 	item_color = "officer"
 	displays_id = 0
 
-/obj/item/clothing/under/rank/centcom/representative/New()
-	..()
+
+/obj/item/clothing/under/rank/centcom/representative/Initialize(mapload)
+	. = ..()
+	update_appearance(UPDATE_DESC)
+
+
+/obj/item/clothing/under/rank/centcom/representative/update_desc(updates = ALL)
+	. = ..()
 	desc = "Gold trim on space-black cloth, this uniform bears [station_name()] on the left shoulder."
+
 
 /obj/item/clothing/under/rank/centcom/magistrate
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrate\" and bears \"N.S.S. Cyberiad\" on the left shoulder."
@@ -192,9 +199,16 @@
 	item_color = "officer"
 	displays_id = 0
 
-/obj/item/clothing/under/rank/centcom/magistrate/New()
-	..()
+
+/obj/item/clothing/under/rank/centcom/magistrate/Initialize(mapload)
+	. = ..()
+	update_appearance(UPDATE_DESC)
+
+
+/obj/item/clothing/under/rank/centcom/magistrate/update_desc(updates = ALL)
+	. = ..()
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrate\" and bears [station_name()] on the left shoulder."
+
 
 /obj/item/clothing/under/rank/centcom/diplomatic
 	desc = "A very gaudy and official looking uniform of the Nanotrasen Diplomatic Corps."
@@ -265,6 +279,7 @@
 	icon_state = "rainbow"
 	item_state = "rainbow"
 	item_color = "rainbow"
+	dying_key = DYE_REGISTRY_UNDER
 
 /obj/item/clothing/under/cloud
 	name = "cloud"
@@ -425,6 +440,7 @@
 	icon_state = "redcoat"
 	item_state = "redcoat"
 	item_color = "redcoat"
+	dying_key = DYE_REGISTRY_UNDER
 
 /obj/item/clothing/under/kilt
 	name = "kilt"
@@ -1040,7 +1056,6 @@
 	icon_state = "colorize_skirt"
 	item_state = "colorize_skirt"
 	item_color = "colorize_skirt"
-	var/colour = null
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
@@ -1053,28 +1068,10 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
 		)
 
+
 /obj/item/clothing/under/colour/skirt/Initialize(mapload)
 	. = ..()
-	add_atom_colour(colour, FIXED_COLOUR_PRIORITY)
-	update_icon()
-
-/obj/item/clothing/under/colour/skirt/attack_self(mob/user)
-	if(icon_state == initial(icon_state))
-		icon_state = icon_state + "_t"
-		item_state = icon_state + "_t"
-	else
-		icon_state = initial(icon_state)
-		item_state = initial(item_state)
-	user.update_inv_wear_suit()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
-
-/obj/item/clothing/under/colour/skirt/New()
-	..()
 	AddComponent(/datum/component/spraycan_paintable)
-	START_PROCESSING(SSobj, src)
-	update_icon()
 
 
 /obj/item/clothing/under/ussptracksuit_red
@@ -1159,7 +1156,6 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
 		)
 
-
 /obj/item/clothing/under/dress50s
 	name = "old Soviet dress"
 	desc = "Платье в горошек на манер старой моды. Кажется, такое носят женщины из СССП."
@@ -1178,3 +1174,22 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
 		)
+
+/obj/item/clothing/under/maid
+	name = "short maid costume"
+	desc = "Костюм для косплея горничной."
+	over_shoes = TRUE
+	icon_state = "maid"
+	item_state = "maid"
+	item_color = "maid"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		)
+

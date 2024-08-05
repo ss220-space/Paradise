@@ -84,7 +84,7 @@
 				if(C.holder.big_brother && !check_rights(R_PERMISSIONS, 0))		// normal admins can't see BB
 					continue
 
-				msg += "\[[C.holder.rank]\]  \t[C]"
+				msg += "\[[C.holder.rank]\]  [C]"
 
 				if(C.holder.fakekey)
 					msg += " <i>(как [C.holder.fakekey])</i>"
@@ -103,7 +103,7 @@
 				num_admins_online++
 
 			else if(check_rights(R_MENTOR|R_MOD, 0, C.mob))
-				modmsg += "\[[C.holder.rank]\]  \t[C]"
+				modmsg += "\[[C.holder.rank]\]  [C]"
 
 				if(isobserver(C.mob))
 					modmsg += " - Наблюдает"
@@ -121,10 +121,10 @@
 
 			if(check_rights(R_ADMIN, 0, C.mob))
 				if(!C.holder.fakekey)
-					msg += "\[[C.holder.rank]\]  \t[C]\n"
+					msg += "\[[C.holder.rank]\]  [C]\n"
 					num_admins_online++
 			else if(check_rights(R_MOD|R_MENTOR, 0, C.mob) && !check_rights(R_ADMIN, 0, C.mob))
-				modmsg += "\[[C.holder.rank]\]  \t[C]\n"
+				modmsg += "\[[C.holder.rank]\]  [C]\n"
 				num_mods_online++
 
 	var/noadmins_info = "\n<span class='notice'><small>Если никого из админсостава нет онлайн, все равно создавайте тикеты. Админхэлпы и менторхэлпы будут перенаправлены в дискорд!<small></span>"

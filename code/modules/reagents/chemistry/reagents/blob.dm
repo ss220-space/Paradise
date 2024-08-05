@@ -3,7 +3,7 @@
 /datum/reagent/blob
 	description = ""
 	var/complementary_color = "#000000"
-	var/message = "The blob strikes you" //message sent to any mob hit by the blob
+	var/message = "Блоб наносит вам удар" //message sent to any mob hit by the blob
 	var/message_living = null //extension to first mob sent to only living mobs i.e. silicons have no skin to be burnt
 	can_synth = FALSE
 
@@ -14,12 +14,12 @@
 	return damage
 
 /datum/reagent/blob/ripping_tendrils //does brute and a little stamina damage
-	name = "Ripping Tendrils"
-	description = "Deals High Brute damage, as well as Stamina damage."
+	name = "Разрывающие щупальца"
+	description = "Наносит высокий урон <span class='red'>травмами</span>, а также урон <span style='color:#0000FF'>выносливости</span>."
 	id = "ripping_tendrils"
 	color = "#7F0000"
 	complementary_color = "#a15656"
-	message_living = ", and you feel your skin ripping and tearing off"
+	message_living = ", и вы чувствуете, как ваша кожа рвется и слезает."
 
 /datum/reagent/blob/ripping_tendrils/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
@@ -30,13 +30,13 @@
 			M.emote("scream")
 
 /datum/reagent/blob/boiling_oil //sets you on fire, does burn damage
-	name = "Boiling Oil"
-	description = "Deals High Burn damage, and sets the victim aflame."
+	name = "Кипящее масло"
+	description = "Наносит высокий урон <span style='color:#B68D00'>ожогами</span> и <span style='color:#FF4500'>поджигает</span> жертву."
 	id = "boiling_oil"
 	color = "#B68D00"
 	complementary_color = "#c0a856"
-	message = "The blob splashes you with burning oil"
-	message_living = ", and you feel your skin char and melt"
+	message = "Блоб обдает вас горящим маслом"
+	message_living = ", и вы чувствуете, как ваша кожа обугливается и плавится"
 
 /datum/reagent/blob/boiling_oil/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
@@ -47,12 +47,12 @@
 		M.emote("scream")
 
 /datum/reagent/blob/envenomed_filaments //toxin, hallucination, and some bonus spore toxin
-	name = "Envenomed Filaments"
-	description = "Deals High Toxin damage, causes Hallucinations, and injects Spores into the bloodstream."
+	name = "Ядовитые нити"
+	description = "Наносит высокий урон <span style='color:#9ACD32'>токсинами</span>, вызывает галлюцинации и вводит споры в кровоток."
 	id = "envenomed_filaments"
 	color = "#9ACD32"
 	complementary_color = "#b0cd73"
-	message_living = ", and you feel sick and nauseated"
+	message_living = ", и вы чувствуете себя плохо. Вас тошнит"
 
 /datum/reagent/blob/envenomed_filaments/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
@@ -63,12 +63,12 @@
 			M.reagents.add_reagent("spore", 0.4*volume)
 
 /datum/reagent/blob/lexorin_jelly //does tons of oxygen damage and a little brute
-	name = "Lexorin Jelly"
-	description = "Deals Medium Brute damage, but massive amounts of Respiration Damage."
+	name = "Лексориновое желе"
+	description = "Наносит средний урон <span class='red'>травмами</span>, но огромный урон <span style='color:#00FFFF'>гипоксией</span>."
 	id = "lexorin_jelly"
 	color = "#00FFC5"
 	complementary_color = "#56ebc9"
-	message_living = ", and your lungs feel heavy and weak"
+	message_living = ", и ваши легкие кажутся тяжелыми и слабыми"
 
 /datum/reagent/blob/lexorin_jelly/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
@@ -79,12 +79,12 @@
 
 
 /datum/reagent/blob/kinetic //does semi-random brute damage
-	name = "Kinetic Gelatin"
-	description = "Deals Randomized damage, between 0.33 to 2.33 times the standard amount."
+	name = "Кинетический желатин"
+	description = "Наносит случайный урон <span class='red'>травмами</span>, в 0,33–2,33 раза превышающий стандартное количество."
 	id = "kinetic"
 	color = "#FFA500"
 	complementary_color = "#ebb756"
-	message = "The blob pummels you"
+	message = "Блоб избивает вас"
 
 /datum/reagent/blob/kinetic/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
@@ -93,13 +93,13 @@
 		M.apply_damage(damage*volume, BRUTE)
 
 /datum/reagent/blob/cryogenic_liquid //does low burn damage and stamina damage and cools targets down
-	name = "Cryogenic Liquid"
-	description = "Deals Medium Brute damage, Stamina Damage, and injects Frost Oil into its victims, freezing them to death."
+	name = "Криогенная жидкость"
+	description = "Наносит средний урон <span class='red'>травмами</span>, урон <span style='color:#0000FF'>выносливости</span> и вводит в жертв <span style='color:#8BA6E9'>ледяное масло</span>, замораживая их до смерти."
 	id = "cryogenic_liquid"
 	color = "#8BA6E9"
 	complementary_color = "#a8b7df"
-	message = "The blob splashes you with an icy liquid"
-	message_living = ", and you feel cold and tired"
+	message = "Блоб обливает вас ледяной жидкостью"
+	message_living = ", и вы чувствуете себя холодным и усталым"
 
 /datum/reagent/blob/cryogenic_liquid/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
@@ -110,12 +110,12 @@
 			M.reagents.add_reagent("frostoil", 0.4*volume)
 
 /datum/reagent/blob/b_sorium
-	name = "Sorium"
-	description = "Deals High Brute damage, and sends people flying away."
+	name = "Сорий"
+	description = "Наносит высокий урон <span class='red'>травмами</span> и <span style='color:#808000'>отбрасывает</span> людей в стороны."
 	id = "b_sorium"
 	color = "#808000"
 	complementary_color = "#a2a256"
-	message = "The blob slams into you, and sends you flying"
+	message = "Блоб врезается в вас и отбрасывает в сторону."
 
 /datum/reagent/blob/b_sorium/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
@@ -153,12 +153,12 @@
 								break
 
 /datum/reagent/blob/radioactive_gel
-	name = "Radioactive gel"
-	description = "Deals medium toxin damage and a little brute damage, but irradiates those struck."
+	name = "Радиоактивный гель"
+	description = "Наносит средний урон <span style='color:#9ACD32'>токсинами</span> и небольшой урон <span class='red'>травмами</span>, но <span style='color:#4B0082'>облучает</span> тех, кого задевает."
 	id = "radioactive_gel"
 	color = "#2476f0"
 	complementary_color = "#24f0f0"
-	message_living = ", and you feel a strange warmth from within"
+	message_living = ", и вы чувствуете странное тепло изнутри"
 
 /datum/reagent/blob/radioactive_gel/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
@@ -169,12 +169,12 @@
 			M.reagents.add_reagent("uranium", 0.3 * volume)
 
 /datum/reagent/blob/teslium_paste
-	name = "Teslium paste"
-	description = "Deals medium burn damage, and shocks those struck over time"
+	name = "Теслиевая паста"
+	description = "Наносит средний урон <span style='color:#B68D00'>ожогами</span> и вызывает <span style='color:#FFFFE0'>удары током</span> у тех, кого задевает, со временем."
 	id = "teslium_paste"
 	color = "#20324D"
 	complementary_color = "#412968"
-	message_living = ", and you feel a static shock"
+	message_living = ", и вы чувствуете удар статическим электричеством"
 
 /datum/reagent/blob/teslium_paste/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
@@ -182,7 +182,7 @@
 		M.apply_damage(0.4 * volume, BURN)
 		if(M.reagents)
 			if(M.reagents.has_reagent("teslium") && prob(0.6 * volume))
-				M.electrocute_act((0.5 * volume), "the blob's electrical discharge", 1, TRUE)
+				M.electrocute_act((0.5 * volume), "разряда блоба", flags = SHOCK_NOGLOVES)
 				M.reagents.del_reagent("teslium")
 				return //don't add more teslium after you shock it out of someone.
 			M.reagents.add_reagent("teslium", 0.125 * volume)  // a little goes a long way

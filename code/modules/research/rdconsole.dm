@@ -84,7 +84,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/syndicate = 0 //добавленный для синдибазы флаг
 
 	var/id = 0			//ID of the computer (for server restrictions).
-	var/sync = 1		//If sync = 0, it doesn't show up on Server Control Console
+	var/sync = TRUE		//If sync if FALSE, it doesn't show up on Server Control Console
+	///Range to search for rnd devices in proximity to console
+	var/range = 3
 
 	req_access = list(ACCESS_TOX)	//Data and setting manipulation requires scientist access.
 
@@ -99,58 +101,41 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(initial(tt.id) == ID)
 			return initial(tt.name)
 
-/proc/CallMaterialName(ID)
-	if(copytext(ID, 1, 2) == "$")
-		var/return_name = copytext(ID, 2)
-		switch(return_name)
-			if("metal")
-				return_name = "Metal"
-			if("glass")
-				return_name = "Glass"
-			if("gold")
-				return_name = "Gold"
-			if("silver")
-				return_name = "Silver"
-			if("plasma")
-				return_name = "Solid Plasma"
-			if("uranium")
-				return_name = "Uranium"
-			if("diamond")
-				return_name = "Diamond"
-			if("clown")
-				return_name = "Bananium"
-			if("mime")
-				return_name = "Tranquillite"
-			if("titanium")
-				return_name = "Titanium"
-			if("bluespace")
-				return_name = "Bluespace Mesh"
-			if("plastic")
-				return_name = "Plastic"
-		return return_name
-	else
-		for(var/R in subtypesof(/datum/reagent))
-			var/datum/reagent/rt = R
-			if(initial(rt.id) == ID)
-				return initial(rt.name)
+/proc/CallMaterialName(return_name)
+	switch(return_name)
+		if("plasma")
+			return_name = "Solid Plasma"
+		if("clown")
+			return_name = "Bananium"
+		if("mime")
+			return_name = "Tranquillite"
+		if("bluespace")
+			return_name = "Bluespace Mesh"
+		else
+			var/datum/reagent/our_reagent = GLOB.chemical_reagents_list[return_name]
+			if(our_reagent && initial(our_reagent.id) == return_name)
+				return_name = initial(our_reagent.name)
+	return capitalize(return_name)
 
 /obj/machinery/computer/rdconsole/proc/SyncRDevices() //Makes sure it is properly sync'ed up with the devices attached to it (if any).
-	for(var/obj/machinery/r_n_d/D in range(3,src))
-		if(!isnull(D.linked_console) || D.disabled || D.panel_open)
+	for(var/obj/machinery/r_n_d/D in range(range, src))
+		if(!isnull(D.linked_console) || D.panel_open)
 			continue
+
 		if(istype(D, /obj/machinery/r_n_d/destructive_analyzer))
 			if(linked_destroy == null)
 				linked_destroy = D
 				D.linked_console = src
+
 		else if(istype(D, /obj/machinery/r_n_d/protolathe))
 			if(linked_lathe == null)
 				linked_lathe = D
 				D.linked_console = src
+
 		else if(istype(D, /obj/machinery/r_n_d/circuit_imprinter))
 			if(linked_imprinter == null)
 				linked_imprinter = D
 				D.linked_console = src
-	return
 
 //Have it automatically push research to the centcom server so wild griffins can't fuck up R&D's work --NEO
 /obj/machinery/computer/rdconsole/proc/griefProtection()
@@ -183,11 +168,25 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			S.initialize_serv()
 			break
 
-/obj/machinery/computer/rdconsole/Initialize()
+/obj/machinery/computer/rdconsole/Initialize(mapload)
 	..()
 	SyncRDevices()
 
 /obj/machinery/computer/rdconsole/Destroy()
+	QDEL_NULL(files)
+	QDEL_NULL(t_disk)
+	QDEL_NULL(d_disk)
+	matching_designs.Cut()
+	if(linked_destroy)
+		linked_destroy.linked_console = null
+		linked_destroy = null
+	if(linked_lathe)
+		linked_lathe.linked_console = null
+		linked_lathe = null
+	if(linked_imprinter)
+		linked_imprinter.linked_console = null
+		linked_imprinter = null
+
 	if(wait_message_timer)
 		deltimer(wait_message_timer)
 		wait_message_timer = 0
@@ -308,11 +307,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return
 
 	if(linked_destroy.busy)
-		to_chat(usr, "<span class='danger'>[linked_destroy] is busy at the moment.</span>")
+		to_chat(user, "<span class='danger'>[linked_destroy] is busy at the moment.</span>")
 		return
 
 	if(!linked_destroy.loaded_item)
-		to_chat(usr, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
+		to_chat(user, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
 		return
 
 	var/list/temp_tech = linked_destroy.ConvertReqString2List(linked_destroy.loaded_item.origin_tech)
@@ -363,8 +362,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					tech_log += "[T] [new_level], "
 			if(tech_log)
 				investigate_log("[user] increased tech deconstructing [linked_destroy.loaded_item]: [tech_log]. ", INVESTIGATE_RESEARCH)
-			send_mats()
-			linked_destroy.loaded_item = null
+		send_mats()
+		linked_destroy.loaded_item = null
+
 
 	for(var/obj/I in linked_destroy.contents)
 		for(var/mob/M in I.contents)
@@ -617,7 +617,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("maxresearch")
 			if(!check_rights(R_ADMIN))
 				return
-			if(alert("Are you sure you want to maximize research levels?","Confirmation","Yes","No")=="No")
+			if(tgui_alert(usr, "Are you sure you want to maximize research levels?", "Confirmation", list("Yes", "No"))=="No")
 				return
 			log_admin("[key_name(usr)] has maximized the research levels.")
 			message_admins("[key_name_admin(usr)] has maximized the research levels.")
@@ -687,7 +687,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("reset") //Reset the R&D console's database.
 			griefProtection()
-			var/choice = alert("Are you sure you want to reset the R&D console's database? Data lost cannot be recovered.", "R&D Console Database Reset", "Continue", "Cancel")
+			var/choice = tgui_alert(usr, "Are you sure you want to reset the R&D console's database? Data lost cannot be recovered.", "R&D Console Database Reset", list("Continue", "Cancel"))
 			if(choice == "Continue")
 				add_wait_message("Resetting Database...", RESET_RESEARCH_DELAY)
 				addtimer(CALLBACK(src, PROC_REF(reset_research)), RESET_RESEARCH_DELAY)
@@ -728,10 +728,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return TRUE
 	ui_interact(user)
 
-/obj/machinery/computer/rdconsole/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/rdconsole/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "RndConsole", name, 800, 550, master_ui, state)
+		ui = new(user, src, "RndConsole", name)
 		ui.open()
 
 /obj/machinery/computer/rdconsole/proc/ui_machine_data(obj/machinery/r_n_d/machine, list/data)
@@ -982,6 +982,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	name = "\improper E.X.P.E.R.I-MENTOR R&D console"
 	desc = "A console used to interface with R&D tools."
 	id = 3
+	range = 5
 	circuit = /obj/item/circuitboard/rdconsole/experiment
 
 /obj/machinery/computer/rdconsole/mechanics

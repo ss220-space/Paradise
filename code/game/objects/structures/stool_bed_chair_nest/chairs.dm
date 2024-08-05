@@ -3,12 +3,13 @@
 	desc = "You sit in this. Either by will or force."
 	icon = 'icons/obj/chairs.dmi'
 	icon_state = "chair"
-	layer = OBJ_LAYER
+	layer = BELOW_OBJ_LAYER
 	can_buckle = TRUE
 	buckle_lying = 0 // you sit in a chair, not lay
 	resistance_flags = NONE
 	max_integrity = 250
 	integrity_failure = 25
+	pull_push_slowdown = 0.5
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 1
 	var/item_chair = /obj/item/chair // if null it can't be picked up
@@ -27,7 +28,7 @@
 	B.setDir(dir)
 	qdel(src)
 
-/obj/structure/chair/Move(atom/newloc, direct = NONE, glide_size_override = 0)
+/obj/structure/chair/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	handle_rotation()
 
@@ -99,14 +100,14 @@
 	handle_layer()
 	if(has_buckled_mobs())
 		for(var/mob/living/buckled_mob as anything in buckled_mobs)
-			buckled_mob.setDir(direction)
+			buckled_mob.setDir(dir)
 
 
 /obj/structure/chair/proc/handle_layer()
 	if(has_buckled_mobs() && dir == NORTH)
 		layer = ABOVE_MOB_LAYER
 	else
-		layer = OBJ_LAYER
+		layer = initial(layer)
 
 
 /obj/structure/chair/post_buckle_mob(mob/living/target)
@@ -119,7 +120,7 @@
 
 /obj/structure/chair/setDir(newdir)
 	. = ..()
-	handle_rotation(newdir)
+	handle_rotation()
 
 
 /obj/structure/chair/examine(mob/user)
@@ -142,14 +143,6 @@
 
 /obj/structure/chair/AltClick(mob/living/user)
 	rotate(user)
-
-
-/obj/structure/chair/verb/rotate_chair()
-	set name = "Rotate Chair"
-	set category = "Object"
-	set src in oview(1)
-
-	rotate(usr)
 
 
 // CHAIR TYPES
@@ -258,12 +251,11 @@
 	movable = TRUE
 	item_chair = null
 	buildstackamount = 5
-	pull_push_speed_modifier = 1
 
 
-/obj/structure/chair/office/Bump(atom/bumped_atom, custom_bump)
+/obj/structure/chair/office/Bump(atom/bumped_atom)
 	. = ..()
-	if(isnull(.) || !has_buckled_mobs() || !propelled)
+	if(!propelled || !has_buckled_mobs())
 		return .
 	for(var/m in buckled_mobs)
 		var/mob/living/buckled_mob = m

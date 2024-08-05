@@ -12,7 +12,6 @@
 
 /client/proc/resolveAllMentorTickets()
 	set name = "Resolve All Open Mentor Tickets"
-	set category = null
 
 	if(!check_rights(R_ADMIN))
 		return

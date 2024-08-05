@@ -62,7 +62,6 @@
 
 /obj/machinery/door/firedoor/closed
 	icon_state = "door_closed"
-	opacity = TRUE
 	density = TRUE
 
 //see also turf/AfterChange for adjacency shennanigans
@@ -76,6 +75,12 @@
 /obj/machinery/door/firedoor/Destroy()
 	remove_from_areas()
 	affecting_areas.Cut()
+	return ..()
+
+
+/obj/machinery/door/firedoor/crush()
+	if(!can_crush)
+		return
 	return ..()
 
 
@@ -108,11 +113,11 @@
 	update_icon()
 
 
-/obj/machinery/door/firedoor/attack_hand(mob/user)
-	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+/obj/machinery/door/firedoor/attack_hand(mob/living/carbon/human/user)
+	if(user.a_intent == INTENT_HARM && ishuman(user) && (user.dna.species.obj_damage + user.physiology.punch_obj_damage > 0))
 		add_fingerprint(user)
 		user.changeNext_move(CLICK_CD_MELEE)
-		attack_generic(user, user.dna.species.obj_damage)
+		attack_generic(user, user.dna.species.obj_damage + user.physiology.punch_obj_damage)
 		return
 	if(operating || !density)
 		return
@@ -300,14 +305,22 @@
 
 /obj/machinery/door/firedoor/border_only
 	icon = 'icons/obj/doors/edge_doorfire.dmi'
+	pass_flags_self = PASSGLASS
 	flags = ON_BORDER
 	can_crush = FALSE
 
+
+/obj/machinery/door/firedoor/border_only/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
 /obj/machinery/door/firedoor/border_only/closed
 	icon_state = "door_closed"
-	opacity = TRUE
 	density = TRUE
-	pass_flags_self = PASSGLASS
 
 
 /obj/machinery/door/firedoor/border_only/CanAllowThrough(atom/movable/mover, border_dir)
@@ -316,24 +329,39 @@
 		return TRUE
 
 
-/obj/machinery/door/firedoor/border_only/CanExit(atom/movable/mover, moving_direction)
-	. = ..()
-	if(dir == moving_direction)
-		return !density || checkpass(mover, PASSGLASS)
+/obj/machinery/door/firedoor/border_only/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	return !density || (dir != to_dir)
+
+
+/obj/machinery/door/firedoor/border_only/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
+	SIGNAL_HANDLER
+
+	if(leaving.movement_type & PHASING)
+		return
+
+	if(leaving == src)
+		return // Let's not block ourselves.
+
+	if(leaving.pass_flags == PASSEVERYTHING || (pass_flags_self & leaving.pass_flags) || ((pass_flags_self & LETPASSTHROW) && leaving.throwing))
+		return
+
+	if(density && dir == get_dir(leaving, newLoc))
+		leaving.Bump(src)
+		return COMPONENT_ATOM_BLOCK_EXIT
 
 
 /obj/machinery/door/firedoor/border_only/CanAtmosPass(turf/T, vertical)
 	if(get_dir(loc, T) == dir)
 		return !density
-	else
-		return 1
+	return TRUE
+
 
 /obj/machinery/door/firedoor/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
 	. = ..()
 	if(our_rcd.checkResource(16, user))
 		to_chat(user, "Deconstructing firelock...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-		if(do_after(user, 5 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, 5 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
 			if(!our_rcd.useResource(16, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
@@ -350,7 +378,7 @@
 	name = "heavy firelock"
 	icon = 'icons/obj/doors/doorfire.dmi'
 	glass = FALSE
-	opacity = 1
+	opacity = TRUE
 	explosion_block = 2
 	assemblytype = /obj/structure/firelock_frame/heavy
 	max_integrity = 550
@@ -407,7 +435,7 @@
 				user.visible_message(span_notice("[user] begins reinforcing [src]..."), \
 									 span_notice("You begin reinforcing [src]..."))
 				playsound(get_turf(src), C.usesound, 50, 1)
-				if(do_after(user, 6 SECONDS * C.toolspeed * gettoolspeedmod(user), src))
+				if(do_after(user, 6 SECONDS * C.toolspeed, src, category = DA_CAT_TOOL))
 					if(constructionStep != CONSTRUCTION_PANEL_OPEN || reinforced || P.get_amount() < 2 || !P)
 						return
 					add_fingerprint(user)
@@ -426,7 +454,7 @@
 				user.visible_message(span_notice("[user] begins wiring [src]..."), \
 									 span_notice("You begin adding wires to [src]..."))
 				playsound(get_turf(src), B.usesound, 50, 1)
-				if(do_after(user, 6 SECONDS * B.toolspeed * gettoolspeedmod(user), src))
+				if(do_after(user, 6 SECONDS * B.toolspeed, src, category = DA_CAT_TOOL))
 					if(constructionStep != CONSTRUCTION_GUTTED || B.get_amount() < 5 || !B)
 						return
 					add_fingerprint(user)
@@ -442,7 +470,7 @@
 				user.visible_message(span_notice("[user] starts adding [C] to [src]..."), \
 									 span_notice("You begin adding a circuit board to [src]..."))
 				playsound(get_turf(src), C.usesound, 50, 1)
-				if(!do_after(user, 4 SECONDS * C.toolspeed * gettoolspeedmod(user), src))
+				if(!do_after(user, 4 SECONDS * C.toolspeed, src, category = DA_CAT_TOOL))
 					return
 				if(constructionStep != CONSTRUCTION_NOCIRCUIT)
 					return

@@ -12,7 +12,6 @@
 
 /client/proc/resolveAllAdminTickets()
 	set name = "Resolve All Open Admin Tickets"
-	set category = null
 
 	if(!check_rights(R_ADMIN))
 		return

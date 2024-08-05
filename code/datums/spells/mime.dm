@@ -2,7 +2,6 @@
 	name = "Invisible Wall"
 	desc = "The mime's performance transmutates into physical reality."
 	school = "mime"
-	panel = "Mime"
 	summon_type = list(/obj/effect/forcefield/mime)
 	invocation_type = "emote"
 	invocation_emote_self = "<span class='notice'>You form a wall in front of yourself.</span>"
@@ -35,7 +34,6 @@
 	name = "Speech"
 	desc = "Make or break a vow of silence."
 	school = "mime"
-	panel = "Mime"
 	clothes_req = FALSE
 	base_cooldown = 5 MINUTES
 	human_req = TRUE
@@ -86,7 +84,6 @@
 	name = "Invisible Greater Wall"
 	desc = "Form an invisible three tile wide blockade."
 	school = "mime"
-	panel = "Mime"
 	wall_type = /obj/effect/forcefield/mime/advanced
 	invocation_type = "emote"
 	invocation_emote_self = "<span class='notice'>You form a blockade in front of yourself.</span>"
@@ -114,7 +111,6 @@
 	name = "Finger Gun"
 	desc = "Shoot lethal, silencing bullets out of your fingers! 3 bullets available per cast. Use your fingers to holster them manually."
 	school = "mime"
-	panel = "Mime"
 	clothes_req = FALSE
 	base_cooldown = 1 MINUTES
 	human_req = TRUE

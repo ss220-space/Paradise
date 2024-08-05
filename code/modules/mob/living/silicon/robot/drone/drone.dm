@@ -85,7 +85,7 @@
 		var/datum/robot_component/C = components[V]
 		C.max_damage = 10
 
-	verbs -= /mob/living/silicon/robot/verb/Namepick
+	remove_verb(src, /mob/living/silicon/robot/verb/Namepick)
 	module = new /obj/item/robot_module/drone(src)
 
 	//Allows Drones to hear the Engineering channel.
@@ -105,10 +105,13 @@
 	scanner.Grant(src)
 	update_icons()
 
+/mob/living/silicon/robot/drone/add_strippable_element()
+	return
 
 /mob/living/silicon/robot/drone/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
+	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
 
 
 /mob/living/silicon/robot/drone/Destroy()
@@ -120,12 +123,20 @@
 
 /mob/living/silicon/robot/drone/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/drone()
-	connected_ai = null
+	set_connected_ai(null)
 
 	aiCamera = new/obj/item/camera/siliconcam/drone_camera(src)
 	additional_law_channels["Drone"] = get_language_prefix(LANGUAGE_DRONE_BINARY)
 
 	playsound(src.loc, 'sound/machines/twobeep.ogg', 50, 0)
+
+
+/mob/living/silicon/robot/drone/proc/disposal_handling(disposal_source, obj/structure/disposalholder/disposal_holder, obj/machinery/disposal/disposal_machine, hasmob)
+	SIGNAL_HANDLER
+
+	if(mail_destination)
+		disposal_holder.destinationTag = mail_destination
+
 
 //Redefining some robot procs...
 /mob/living/silicon/robot/drone/rename_character(oldname, newname)
@@ -200,7 +211,7 @@
 			return
 
 		else
-			var/confirm = alert("Using your ID on a Maintenance Drone will shut it down, are you sure you want to do this?", "Disable Drone", "Yes", "No")
+			var/confirm = tgui_alert(user, "Using your ID on a Maintenance Drone will shut it down, are you sure you want to do this?", "Disable Drone", list("Yes", "No"))
 			if(confirm == ("Yes") && (user in range(3, src)))
 				user.visible_message("<span class='warning'>\the [user] swipes [user.p_their()] ID card through [src], attempting to shut it down.</span>", "<span class='warning'>You swipe your ID card through \the [src], attempting to shut it down.</span>")
 
@@ -251,7 +262,7 @@
 	holder_type = /obj/item/holder/drone/emagged
 	update_icons()
 	lawupdate = 0
-	connected_ai = null
+	set_connected_ai(null)
 	clear_supplied_laws()
 	clear_inherent_laws()
 	laws = new /datum/ai_laws/syndicate_override
@@ -280,8 +291,9 @@
 /mob/living/silicon/robot/drone/updatehealth(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
 		return ..()
-	health = maxHealth - (getBruteLoss() + getFireLoss() + (suiciding ? getOxyLoss() : 0))
+	set_health(maxHealth - (getBruteLoss() + getFireLoss() + (suiciding ? getOxyLoss() : 0)))
 	update_stat("updatehealth([reason])", should_log)
+
 
 /mob/living/silicon/robot/drone/death(gibbed)
 	. = ..(gibbed)
@@ -330,7 +342,7 @@
 /mob/living/silicon/robot/drone/proc/question(var/client/C,var/mob/M)
 	spawn(0)
 		if(!C || !M || jobban_isbanned(M,"nonhumandept") || jobban_isbanned(M,"Drone"))	return
-		var/response = alert(C, "Someone is attempting to reboot a maintenance drone. Would you like to play as one?", "Maintenance drone reboot", "Yes", "No")
+		var/response = tgui_alert(C, "Someone is attempting to reboot a maintenance drone. Would you like to play as one?", "Maintenance drone reboot", list("Yes", "No"))
 		if(!C || ckey)
 			return
 		if(response == "Yes")
@@ -359,34 +371,35 @@
 	to_chat(src, "<b>Make sure crew members do not notice you.</b>.")
 
 
-/mob/living/silicon/robot/drone/Bump(atom/bumped_atom, custom_bump)
-	if(custom_bump && is_type_in_list(bumped_atom, allowed_bumpable_objects))
+/mob/living/silicon/robot/drone/Bump(atom/bumped_atom)
+	if(is_type_in_list(bumped_atom, allowed_bumpable_objects))
 		return ..()
 
-/mob/living/silicon/robot/drone/start_pulling(atom/movable/AM, force = pull_force, show_message = FALSE)
 
-	if(is_type_in_list(AM, pullable_drone_items))
-		..(AM, force = INFINITY) // Drone power! Makes them able to drag pipes and such
+/mob/living/silicon/robot/drone/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
+	if(is_type_in_list(pulled_atom, pullable_drone_items))
+		force = INFINITY	// Drone power! Makes them able to drag pipes and such
+		return ..()
 
-	else if(isitem(AM))
-		var/obj/item/O = AM
-		if(O.w_class > WEIGHT_CLASS_SMALL)
-			if(show_message)
+	if(isitem(pulled_atom))
+		var/obj/item/pulled_item = pulled_atom
+		if(pulled_item.w_class > WEIGHT_CLASS_SMALL)
+			if(!supress_message)
 				to_chat(src, span_warning("You are too small to pull that."))
-			return
-		else
-			..()
-	else
-		if(show_message)
-			to_chat(src, span_warning("You are too small to pull that."))
+			return FALSE
+		return ..()
+
+	if(!supress_message)
+		to_chat(src, span_warning("You are too small to pull that."))
+	return FALSE
 
 /mob/living/silicon/robot/drone/add_robot_verbs()
-	src.verbs |= silicon_subsystems
+	add_verb(src, silicon_subsystems)
 
 /mob/living/silicon/robot/drone/remove_robot_verbs()
-	src.verbs -= silicon_subsystems
+	remove_verb(src, silicon_subsystems)
 
-/mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
+/mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash/noise)
 	if(affect_silicon)
 		return ..()
 

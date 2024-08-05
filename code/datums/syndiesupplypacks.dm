@@ -1784,8 +1784,8 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 
 /datum/syndie_supply_packs/misc/mafia
 	name = "Mafia Supply Crate"
-	contains = list(/obj/item/clothing/suit/browntrenchcoat,
-					/obj/item/clothing/suit/blacktrenchcoat,
+	contains = list(/obj/item/clothing/suit/storage/browntrenchcoat,
+					/obj/item/clothing/suit/storage/blacktrenchcoat,
 					/obj/item/clothing/head/fedora/whitefedora,
 					/obj/item/clothing/head/fedora/brownfedora,
 					/obj/item/clothing/head/fedora,
@@ -2384,6 +2384,28 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 					/obj/item/flash, // 0 TC
 					/obj/item/implanter/mindshield, //0 TC
 					/obj/item/clothing/suit/armor/vest/security
+					)
+	cost = 30000
+	containertype = /obj/structure/closet/crate/secure/syndicate
+	containername = "crate"
+
+/datum/syndie_supply_packs/syndicate_special/ocelot
+	name = "Syndicate 'Ocelot' Bundle"
+	contains = list(/obj/item/kitchen/knife/combat,											// 0 TK
+					/obj/item/gun/projectile/revolver,                                      // 50 TK
+					/obj/item/gun/projectile/revolver,                                      // 50 TK
+					/obj/item/ammo_box/a357,												// 0 TK
+					/obj/item/ammo_box/a357,												// 0 TK
+					/obj/item/ammo_box/speedloader/a357,                                    // 5 TK
+					/obj/item/ammo_box/speedloader/a357,                                    // 5 TK
+					/obj/item/clothing/under/syndicate/tacticool,                           // 0 TK
+					/obj/item/clothing/gloves/combat,                                       // 0 TK
+					/obj/item/clothing/shoes/combat,                                        // 0 TK
+					/obj/item/clothing/accessory/holster,                                   // 5 TK
+					/obj/item/clothing/head/beret,                                          // 0 TK
+					/obj/item/clothing/accessory/scarf/red,                                	// 0 TK
+					/obj/item/encryptionkey/syndicate,										// 0-2 TK
+					/obj/item/clothing/mask/holo_cigar,                                     // 10 TK
 					)
 	cost = 30000
 	containertype = /obj/structure/closet/crate/secure/syndicate

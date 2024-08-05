@@ -148,10 +148,10 @@ log transactions
 /obj/machinery/atm/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/atm/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/atm/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if (!ui)
-		ui = new(user, src, ui_key, "ATM", name, 550, 650)
+		ui = new(user, src, "ATM", name)
 		ui.open()
 
 /obj/machinery/atm/ui_data(mob/user)
@@ -213,7 +213,7 @@ log transactions
 
 		if("change_security_level")
 			if(authenticated_account)
-				var/new_sec_level = max(min(text2num(params["new_security_level"]), 2), 0)
+				var/new_sec_level = max(min(params["new_security_level"], 2), 0)
 				authenticated_account.security_level = new_sec_level
 
 		if("attempt_auth")
@@ -301,13 +301,7 @@ log transactions
 					<i>Service terminal ID:</i> [machine_id]<br>"}
 
 				//stamp the paper
-				var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
-				stampoverlay.icon_state = "paper_stamp-cent"
-				if(!R.stamped)
-					R.stamped = new()
-				R.stamped += /obj/item/stamp
-				LAZYADD(R.stamp_overlays, stampoverlay)
-				R.stamps += "<HR><i>This paper has been stamped by the Automatic Teller Machine.</i>"
+				R.stamp(/obj/item/stamp, TRUE, "<i>This paper has been stamped by the Automatic Teller Machine.</i>", "stamp-cent")
 
 			playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)
 

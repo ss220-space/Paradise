@@ -38,10 +38,10 @@
 	return song.ui_data(user)
 
 
-/obj/item/thermal_drill/ui_interact(mob/user)
+/obj/item/thermal_drill/ui_interact(mob/user, datum/tgui/ui = null)
 	if(!payback)
 		return
-	song.ui_interact(user)
+	song.ui_interact(user, ui)
 
 
 /obj/item/thermal_drill/ui_act(action, params)

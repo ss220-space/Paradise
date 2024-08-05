@@ -383,12 +383,9 @@
 			if(disguise_active) // If chameleon is active.
 				used_power += s_acost
 			if(spirited) // If spirit form is active.
-				if(istype(ninja.r_hand, /obj/item/grab))
-					ninja.drop_item_ground(ninja.r_hand, force = TRUE)
+				if(ninja.pulling && ninja.grab_state > GRAB_PASSIVE)
 					to_chat(ninja, span_warning("You can't hold anyone that tight, when \"Spirit Form\" is active!"))
-				if(istype(ninja.l_hand, /obj/item/grab))
-					ninja.drop_item_ground(ninja.l_hand, force = TRUE)
-					to_chat(ninja, span_warning("You can't hold anyone that tight, when \"Spirit Form\" is active!"))
+					ninja.stop_pulling()
 				used_power += cell.maxcharge * s_spirit_form__percent_cost //that shit is NOT cheap
 			if(cell.charge < used_power) // Проверка на случай когда он не может отнять энергию до нуля и в итоге вечно торчит в инвизе/форме духа/хамелионе
 				cell.charge = 0
@@ -404,7 +401,7 @@
 
 	ninja.adjust_bodytemperature(BODYTEMP_NORMAL - ninja.bodytemperature)
 
-/obj/item/clothing/suit/space/space_ninja/ui_action_click(mob/ninja, datum/action/action)
+/obj/item/clothing/suit/space/space_ninja/ui_action_click(mob/ninja, datum/action/action, leftclick)
 	if(!isninja(ninja) && !anyone)
 		to_chat(ninja, span_danger("<B>fÄTaL ÈÈRRoR</B>: 382200-*#00CÖDE <B>RED</B>\nUNAUHORIZED USÈ DETÈCeD\nCoMMÈNCING SUB-R0UIN3 13...\nTÈRMInATING U-U-USÈR..."))
 		ninja.dust()

@@ -77,14 +77,16 @@
 	if(times_repeated >= max_times_to_check)
 		user.visible_message(
 				span_notice("[user] seems to have had enough and stops checking inside [target]."),
-				span_notice("There doesn't seem to be anything inside, you've checked enough times.")
+				span_notice("There doesn't seem to be anything inside, you've checked enough times."),
+				chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 		return SURGERY_BEGINSTEP_SKIP
 
 	I = locate(/obj/item/implant) in target
 	user.visible_message(
 		"[user] starts poking around inside [target]'s [affected.name] with \the [tool].",
-		"You start poking around inside [target]'s [affected.name] with \the [tool]."
+		"You start poking around inside [target]'s [affected.name] with \the [tool].",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.custom_pain("The pain in your [affected.name] is living hell!")
 	return ..()
@@ -95,9 +97,10 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
 		span_warning("[user] grips onto [target]'s [affected.name] by mistake, tearing it!"),
-		span_warning("You think you've found something, but you've grabbed onto [target]'s [affected.name] instead, damaging it!")
+		span_warning("You think you've found something, but you've grabbed onto [target]'s [affected.name] instead, damaging it!"),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	affected.receive_damage(20)
+	target.apply_damage(20, def_zone = affected)
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/extract_implant/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -106,7 +109,8 @@
 	if(I && prob(80)) //implant removal only works on the chest.
 		user.visible_message(
 			span_notice("[user] takes something out of [target]'s [affected.name] with \the [tool]."),
-			span_notice("You take \an [I] out of [target]'s [affected.name]s with \the [tool].")
+			span_notice("You take \an [I] out of [target]'s [affected.name]s with \the [tool]."),
+			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 
 		I.removed(target)
@@ -130,6 +134,7 @@
 	else
 		user.visible_message(
 			span_notice("[user] could not find anything inside [target]'s [affected.name], and pulls \the [tool] out."),
-			span_notice("You could not find anything inside [target]'s [affected.name].")
+			span_notice("You could not find anything inside [target]'s [affected.name]."),
+			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 	return SURGERY_STEP_CONTINUE

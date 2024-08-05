@@ -47,6 +47,8 @@ SUBSYSTEM_DEF(cargo_quests)
 			easy_mode_difficulties += quest_difficulty
 			easy_mode_difficulties[quest_difficulty] = quest_difficulty.weight
 
+	return SS_INIT_SUCCESS
+
 
 /datum/controller/subsystem/cargo_quests/proc/roll_start_quests()
 	for(var/I = 1 to NUMBER_OF_CC_QUEST)

@@ -21,7 +21,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 	//Main variables
 	var/owner = null
-	var/default_cartridge = 0 // Access level defined by cartridge
+	var/default_cartridge = null // Access level defined by cartridge
+	var/special_pen = null //special variable for nonstandart pens in new PDAs
 	var/obj/item/cartridge/cartridge = null //current cartridge
 	var/datum/data/pda/app/current_app = null
 	var/datum/data/pda/app/lastapp = null
@@ -35,15 +36,17 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/mimeamt = 0 //How many silence left when infected with mime.exe
 	var/detonate = 1 // Can the PDA be blown up?
 	var/ttone = "beep" //The ringtone!
-	var/list/ttone_sound = list("beep" = 'sound/machines/twobeep.ogg',
-								"boom" = 'sound/effects/explosionfar.ogg',
-								"slip" = 'sound/misc/slip.ogg',
-								"honk" = 'sound/items/bikehorn.ogg',
-								"SKREE" = 'sound/voice/shriek1.ogg',
-								"holy" = 'sound/items/PDA/ambicha4-short.ogg',
-								"xeno" = 'sound/voice/hiss1.ogg',
-								"stalk" = 'sound/items/PDA/stalk1.ogg',
-								"stalk2" = 'sound/items/PDA/stalk2.ogg')
+	var/list/ttone_sound = list(
+		"beep" = 'sound/machines/twobeep.ogg',
+		"boom" = 'sound/effects/explosionfar.ogg',
+		"slip" = 'sound/misc/slip.ogg',
+		"honk" = 'sound/items/bikehorn.ogg',
+		"SKREE" = 'sound/voice/shriek1.ogg',
+		"holy" = 'sound/items/PDA/ambicha4-short.ogg',
+		"xeno" = 'sound/voice/hiss1.ogg',
+		"stalk" = 'sound/items/PDA/stalk1.ogg',
+		"stalk2" = 'sound/items/PDA/stalk2.ogg',
+	)
 
 	var/list/programs = list(
 		new/datum/data/pda/app/main_menu,
@@ -62,7 +65,20 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 	var/obj/item/paicard/pai = null	// A slot for a personal AI device
 	var/retro_mode = 0
-	var/iconImage
+
+	/// Used for chameleon PDA interactions.
+	var/obj/item/pda/chameleon_skin
+	/// Custom job name used in chameleon PDA.
+	var/fakejob
+	/// Our icon saved in the text format for TGUI usage
+	var/base64icon
+	/// Custom PDA name used in update_name()
+	var/custom_name
+	/// Current PDA case
+	var/obj/item/pda_case/current_case
+	/// Current PDA painting applied by /obj/machinery/pdapainter.
+	/// Saved in and associatove list format: "icon" -> icon_state/item_state, "base64" - > base64icon, "desc" -> desc
+	var/list/current_painting
 
 
 /*
@@ -73,22 +89,40 @@ GLOBAL_LIST_EMPTY(PDAs)
 	GLOB.PDAs += src
 	GLOB.PDAs = sortAtom(GLOB.PDAs)
 
-	// Generate image for the pda for TGUI.
-	iconImage = "[icon2base64(icon(icon, icon_state, frame = 1))]"
+	base64icon = "[icon2base64(icon(icon, icon_state, frame = 1))]"
 
 	update_programs()
 	if(default_cartridge)
 		cartridge = new default_cartridge(src)
 		cartridge.update_programs(src)
-	new /obj/item/pen(src)
+	if(special_pen)
+		new special_pen(src)
+	else
+		new /obj/item/pen(src)
 	start_program(find_program(/datum/data/pda/app/main_menu))
+
+
+/obj/item/pda/Destroy()
+	GLOB.PDAs -= src
+	var/T = get_turf(loc)
+	if(id)
+		id.forceMove(T)
+	if(pai)
+		pai.forceMove(T)
+	current_app = null
+	scanmode = null
+	QDEL_LIST(programs)
+	QDEL_NULL(cartridge)
+	QDEL_NULL(current_case)
+	current_painting?.Cut()
+	return ..()
 
 
 /obj/item/pda/proc/can_use(mob/user)
 	if(loc != user)
 		return FALSE
 
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated() || !isAI(user) && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
 	return TRUE
@@ -159,7 +193,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(can_use(usr))
 		start_program(find_program(/datum/data/pda/app/main_menu))
 		notifying_programs.Cut()
-		cut_overlay(image('icons/obj/pda.dmi', "pda-r"))
+		update_icon(UPDATE_OVERLAYS)
 		to_chat(usr, "<span class='notice'>You press the reset button on \the [src].</span>")
 		SStgui.update_uis(src)
 	else
@@ -183,17 +217,19 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(can_use(user))
 		remove_pen(user)
 
+
 /obj/item/pda/proc/remove_id(mob/user)
-	if(id)
-		if(ismob(loc))
-			var/mob/M = loc
-			M.put_in_hands(id)
-			to_chat(user, "<span class='notice'>You remove the ID from the [name].</span>")
-			SStgui.update_uis(src)
-		else
-			id.forceMove(get_turf(src))
-		cut_overlay(image('icons/goonstation/objects/pda_overlay.dmi', id.icon_state))
-		id = null
+	if(!id)
+		return
+	id.forceMove_turf()
+	if(ismob(loc))
+		var/mob/M = loc
+		M.put_in_hands(id)
+		to_chat(user, "<span class='notice'>You remove the ID from the [name].</span>")
+		SStgui.update_uis(src)
+	id = null
+	update_icon(UPDATE_OVERLAYS)
+
 
 /obj/item/pda/verb/verb_remove_id()
 	set category = "Object"
@@ -237,30 +273,121 @@ GLOBAL_LIST_EMPTY(PDAs)
 	else
 		to_chat(user, "<span class='notice'>You cannot do this while restrained.</span>")
 
-/obj/item/pda/proc/id_check(mob/user as mob, choice as num)//To check for IDs; 1 for in-pda use, 2 for out of pda use.
-	if(choice == 1)
+
+/obj/item/pda/proc/id_check(mob/user, in_pda_usage)
+	if(in_pda_usage)
 		if(id)
 			remove_id(user)
 		else
 			var/obj/item/I = user.get_active_hand()
-			if(istype(I, /obj/item/card/id))
-				user.drop_transfer_item_to_loc(I, src)
+			if(istype(I, /obj/item/card/id) && user.drop_transfer_item_to_loc(I, src))
 				id = I
+				update_icon(UPDATE_OVERLAYS)
 	else
 		var/obj/item/card/I = user.get_active_hand()
-		if(istype(I, /obj/item/card/id) && I:registered_name)
-			var/obj/old_id = id
-			user.drop_from_active_hand()
-			I.forceMove(src)
+		if(istype(I, /obj/item/card/id) && I:registered_name && user.drop_transfer_item_to_loc(I, src))
+			if(id)
+				id.forceMove_turf()
+				user.put_in_hands(id)
 			id = I
-			user.put_in_hands(old_id)
-	return
+			update_icon(UPDATE_OVERLAYS)
 
-/obj/item/pda/attackby(obj/item/C as obj, mob/user as mob, params)
-	..()
-	if(istype(C, /obj/item/cartridge) && !cartridge)
+
+/obj/item/pda/update_name(updates = ALL)
+	. = ..()
+	if((ownjob || fakejob) && custom_name)
+		name = "[custom_name] ([fakejob ? fakejob : ownjob])"
+	else if(chameleon_skin)
+		name = initial(chameleon_skin.name)
+	else if(ownjob && owner)
+		name = "PDA-[owner] ([ownjob])"
+	else
+		name = initial(name)
+
+
+/obj/item/pda/update_desc(updates = ALL)
+	. = ..()
+	if(chameleon_skin)
+		desc = initial(chameleon_skin.desc)
+	else if(current_case?.new_desc)
+		desc = current_case.new_desc
+	else if(current_painting)
+		desc = current_painting["desc"]
+	else
+		desc = initial(desc)
+
+
+/obj/item/pda/update_icon(updates = ALL)
+	. = ..()
+	update_equipped_item(update_speedmods = FALSE)
+
+
+/obj/item/pda/update_icon_state()
+	if(chameleon_skin)
+		icon_state = initial(chameleon_skin.icon_state)
+		base64icon = "[icon2base64(icon(icon, icon_state, frame = 1))]"
+	else if(current_case?.new_icon_state)
+		icon_state = current_case.new_icon_state
+		base64icon = "[icon2base64(icon(icon, icon_state, frame = 1))]"
+	else if(current_painting)
+		icon_state = current_painting["icon"]
+		base64icon = current_painting["base64"]
+	else
+		icon_state = initial(icon_state)
+		base64icon = "[icon2base64(icon(icon, icon_state, frame = 1))]"
+
+	if(chameleon_skin)
+		item_state = initial(chameleon_skin.item_state)
+	else if(current_case?.new_item_state)
+		item_state = current_case.new_item_state
+	else if(current_painting)
+		item_state = current_painting["icon"]
+	else
+		item_state = initial(item_state)
+
+
+/obj/item/pda/update_overlays()
+	. = ..()
+
+	var/static/list/id_icon_states = icon_states('icons/goonstation/objects/pda_overlay.dmi')
+	var/static/list/id_cards_cache = list()
+	var/static/pda_blink_overlay
+	var/static/pda_light_overlay
+
+	if(!pda_blink_overlay)
+		pda_blink_overlay = iconstate2appearance(icon, "pda-r")
+		pda_light_overlay = iconstate2appearance(icon, "pda-light")
+
+	if(id && (id.icon_state in id_icon_states))
+		if(!id_cards_cache[id.icon_state])
+			id_cards_cache[id.icon_state] = iconstate2appearance('icons/goonstation/objects/pda_overlay.dmi', id.icon_state)
+		. += id_cards_cache[id.icon_state]
+
+	if(length(notifying_programs))
+		. += pda_blink_overlay
+
+	var/datum/data/pda/utility/flashlight/flight = locate() in programs
+	if(flight?.fon)
+		. += pda_light_overlay
+
+
+/obj/item/pda/attackby(obj/item/C, mob/user, params)
+	if(istype(C, /obj/item/pda_case))
+		if(current_case)
+			if(alert("There is already [current_case.name] installed, [C.name] will replace it.", "Are you sure?", "Yes", "No") != "Yes")
+				return
+			remove_pda_case()
+
+		if(!user.drop_transfer_item_to_loc(C, src))
+			return
+
+		apply_pda_case(C)
+		to_chat(user, "<span class='notice'>You put [C] on [src].</span>")
+
+	else if(istype(C, /obj/item/cartridge) && !cartridge)
+		if(!user.drop_transfer_item_to_loc(C, src))
+			return
 		cartridge = C
-		user.drop_transfer_item_to_loc(C, src)
 		cartridge.update_programs(src)
 		update_shortcuts()
 		to_chat(user, "<span class='notice'>You insert [cartridge] into [src].</span>")
@@ -277,16 +404,15 @@ GLOBAL_LIST_EMPTY(PDAs)
 			owner = idcard.registered_name
 			ownjob = idcard.assignment
 			ownrank = idcard.rank
-			name = "PDA-[owner] ([ownjob])"
+			update_appearance(UPDATE_NAME)
 			to_chat(user, "<span class='notice'>Card scanned.</span>")
 			SStgui.update_uis(src)
 		else
 			//Basic safety check. If either both objects are held by user or PDA is on ground and card is in hand.
 			if(((src in user.contents) && (C in user.contents)) || (istype(loc, /turf) && in_range(src, user) && (C in user.contents)) )
 				if( can_use(user) )//If they can still act.
-					id_check(user, 2)
+					id_check(user, in_pda_usage = FALSE)
 					to_chat(user, "<span class='notice'>You put the ID into \the [src]'s slot.<br>You can remove it with ALT click.</span>")
-					add_overlay(image('icons/goonstation/objects/pda_overlay.dmi', C.icon_state))
 					SStgui.update_uis(src)
 
 	else if(istype(C, /obj/item/paicard) && !src.pai)
@@ -301,9 +427,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 		else
 			user.drop_transfer_item_to_loc(C, src)
 			to_chat(user, "<span class='notice'>You slide \the [C] into \the [src].</span>")
-	else if(istype(C, /obj/item/nanomob_card))
-		if(cartridge && istype(cartridge, /obj/item/cartridge/mob_hunt_game))
-			cartridge.attackby(C, user, params)
+	else
+		return ..()
 
 /obj/item/pda/attack(mob/living/C as mob, mob/living/user as mob)
 	if(iscarbon(C) && scanmode)
@@ -332,18 +457,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	qdel(src)
 	return
 
-/obj/item/pda/Destroy()
-	GLOB.PDAs -= src
-	var/T = get_turf(loc)
-	if(id)
-		id.forceMove(T)
-	if(pai)
-		pai.forceMove(T)
-	current_app = null
-	scanmode = null
-	QDEL_LIST(programs)
-	QDEL_NULL(cartridge)
-	return ..()
+
 
 // Pass along the pulse to atoms in contents, largely added so pAIs are vulnerable to EMP
 /obj/item/pda/emp_act(severity)
@@ -361,16 +475,15 @@ GLOBAL_LIST_EMPTY(PDAs)
 	for(var/mob/O in hearers(3, loc))
 		O.show_message(text("[bicon(src)] *[ttone]*"))
 
-/obj/item/pda/proc/set_ringtone()
-	var/t = input("Please enter new ringtone", name, ttone) as text
+/obj/item/pda/proc/set_ringtone(mob/user)
+	var/new_tone = tgui_input_text(user, "Please enter new ringtone", name, ttone, max_length = 20, encode = FALSE)
 	if(in_range(src, usr) && loc == usr)
-		if(t)
-			if(hidden_uplink && hidden_uplink.check_trigger(usr, trim(lowertext(t)), lowertext(lock_code)))
+		if(new_tone)
+			if(hidden_uplink && hidden_uplink.check_trigger(usr, trim(lowertext(new_tone)), lowertext(lock_code)))
 				to_chat(usr, "The PDA softly beeps.")
 				close(usr)
 			else
-				t = sanitize(copytext_char(t, 1, 20))
-				ttone = t
+				ttone = new_tone
 			return 1
 	else
 		close(usr)

@@ -258,8 +258,10 @@
 				var/datum/excited_group/EG = new
 				EG.add_turf(src)
 				our_excited_group = excited_group
-			air.share(G, 0)
+			air.share(G, adjacent_turfs_length)
 			LAST_SHARE_CHECK
+		else
+			air = G //Gas difference is so small, so there is no need to process it further.
 
 	air.react()
 

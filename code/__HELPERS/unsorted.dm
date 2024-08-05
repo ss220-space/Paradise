@@ -344,6 +344,8 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		moblist.Add(M)
 	for(var/mob/living/simple_animal/M in sortmob)
 		moblist.Add(M)
+	for(var/mob/camera/blob/M in sortmob)
+		moblist.Add(M)
 	return moblist
 
 // Format a power value in W, kW, MW, or GW.
@@ -506,27 +508,28 @@ Returns 1 if the chain up to the area contains the given typepath
 		weight += I.w_class
 	return weight
 
-//Step-towards method of determining whether one atom can see another. Similar to viewers()
-/proc/can_see(var/atom/source, var/atom/target, var/length=5) // I couldnt be arsed to do actual raycasting :I This is horribly inaccurate.
-	var/turf/current = get_turf(source)
+
+///Step-towards method of determining whether one atom can see another. Similar to viewers()
+///note: this is a line of sight algorithm, view() does not do any sort of raycasting and cannot be emulated by it accurately
+/proc/can_see(atom/source, atom/target, length = 5) // I couldnt be arsed to do actual raycasting :I This is horribly inaccurate.
+	var/turf/current_turf = get_turf(source)
 	var/turf/target_turf = get_turf(target)
+	if(!current_turf || !target_turf)	// nullspace
+		return FALSE
+	if(get_dist(current_turf, target_turf) > length)
+		return FALSE
+	if(current_turf == target_turf)//they are on the same turf, source can see the target
+		return TRUE
 	var/steps = 1
-
-	if(current != target_turf)
-		current = get_step_towards(current, target_turf)
-		while(current != target_turf)
-			if(steps > length)
-				return 0
-			if(current.opacity)
-				return 0
-			for(var/thing in current)
-				var/atom/A = thing
-				if(A.opacity)
-					return 0
-			current = get_step_towards(current, target_turf)
-			steps++
-
-	return 1
+	current_turf = get_step_towards(current_turf, target_turf)
+	while(current_turf != target_turf)
+		if(steps > length)
+			return FALSE
+		if(IS_OPAQUE_TURF(current_turf))
+			return FALSE
+		current_turf = get_step_towards(current_turf, target_turf)
+		steps++
+	return TRUE
 
 
 //Returns: all the areas in the world
@@ -690,7 +693,7 @@ Returns 1 if the chain up to the area contains the given typepath
 							continue
 						if(!isobj(O)) continue
 						O.loc.Exited(O)
-						O.setLoc(X,teleported=1)
+						O.setLoc(X, TRUE)
 						O.loc.Entered(O)
 					for(var/mob/M in T)
 						if(!M.move_on_shuttle)
@@ -1578,11 +1581,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		if(areas)
 			. |= T.loc
 
-/proc/turf_clear(turf/T)
-	for(var/atom/A in T)
-		if(A.simulated)
-			return FALSE
-	return TRUE
 
 /proc/screen_loc2turf(scr_loc, turf/origin)
 	var/tX = splittext(scr_loc, ",")
@@ -1771,7 +1769,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 //returns the number of ticks slept
 /proc/stoplag(initial_delay)
-	if(!Master || !(Master.current_runlevel & RUNLEVELS_DEFAULT))
+	if (!Master || Master.init_stage_completed < INITSTAGE_MAX)
 		sleep(world.tick_lag)
 		return 1
 	if(!initial_delay)
@@ -1918,13 +1916,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			continue
 		. += A
 
-//gives us the stack trace from CRASH() without ending the current proc.
-/proc/stack_trace(msg)
-	CRASH(msg)
-
-/datum/proc/stack_trace(msg)
-	CRASH(msg)
-
 /proc/pass()
 	return
 
@@ -2004,14 +1995,6 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	)
 	return _list
 
-// Check if the source atom contains another atom
-/atom/proc/contains(atom/location)
-	if(!location)
-		return FALSE
-	if(location == src)
-		return TRUE
-
-	return contains(location.loc)
 
 /**
   * Returns the clean name of an audio channel.

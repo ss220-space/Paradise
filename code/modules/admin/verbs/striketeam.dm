@@ -5,23 +5,23 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 
 /client/proc/strike_team()
 	if(!SSticker)
-		to_chat(usr, "<span class='userdanger'>The game hasn't started yet!</span>")
+		to_chat(src, span_userdanger("Игра еще не началась!"))
 		return
 	if(GLOB.sent_strike_team)
-		to_chat(usr, "<span class='userdanger'>CentComm is already sending a team.</span>")
-		if(alert("Do you want to send another one??",,"Yes","No")!="Yes")
+		to_chat(src, span_userdanger("Центральное Командование уже отправило один отряд."))
+		if(tgui_alert(src, "Вы хотите послать еще один?","Подтверждение", list("Да","Нет")) != "Да")
 			return
-	else if(alert("Do you want to send in the CentComm death squad?",,"Yes","No")!="Yes")
+	else if(tgui_alert(src, "Вы хотите отправить отряд смерти Центрального Коммандования? После согласия это необратимо.", "Подтверждение", list("Да","Нет")) != "Да")
 		return
-	alert("This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle when appropriate. Spawned commandos have internals cameras which are viewable through a monitor inside the Spec. Ops. Office. The first one selected/spawned will be the team leader.")
+	tgui_alert(src, "Этот «режим» будет продолжаться до тех пор, пока все не умрут или станция не будет уничтожена. Также, при необходимости, можно вызвать эвакуационный шаттл через админские кнопки. Появившиеся коммандос имеют внутренние камеры, которые можно просматривать через монитор внутри Офиса Спецопераций. Руководить командой рекомендуется оттуда. Первый выбранный/появившийся будет лидером команды.")
 
-	message_admins("<span class='notice'>[key_name_admin(usr)] has started to spawn a CentComm DeathSquad.</span>")
+	message_admins(span_notice("[key_name_admin(usr)] has started to spawn a CentComm DeathSquad."))
 
 	var/input = null
 	while(!input)
-		input = sanitize(copytext_char(input(src, "Please specify which mission the death commando squad shall undertake.", "Specify Mission", ""),1,MAX_MESSAGE_LEN))
+		input = tgui_input_text(src, "Пожалуйста, уточните, какую миссию будет выполнять Отряд Смерти.", "Укажите миссию", "", max_length=MAX_MESSAGE_LEN)
 		if(!input)
-			if(alert("Error, no mission set. Do you want to exit the setup process?",,"Yes","No")=="Yes")
+			if(tgui_alert(src, "Ошибка, миссия не задана. Вы хотите приостановить процесс? ", "Подтверждение", list("Да","Нет")) == "Да")
 				return
 
 	// Find the nuclear auth code
@@ -35,9 +35,9 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 
 	// Find ghosts willing to be DS
 	var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_deathsquad")
-	var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, COMMANDOS_POSSIBLE, "Join the DeathSquad?",, 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = source)
+	var/list/commando_ghosts = pick_candidates_all_types(src, COMMANDOS_POSSIBLE, "Присоединиться к Отряду Смерти?", , 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source, "Отряд Смерти", input)
 	if(!commando_ghosts.len)
-		to_chat(usr, "<span class='userdanger'>Nobody volunteered to join the DeathSquad.</span>")
+		to_chat(src, span_userdanger("Никто не вызвался присоединиться к Отряду Смерти."))
 		return
 
 	GLOB.sent_strike_team = TRUE
@@ -46,9 +46,7 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 	var/commando_number = COMMANDOS_POSSIBLE //for selecting a leader
 	var/is_leader = TRUE // set to FALSE after leader is spawned
 
-	for(var/thing in GLOB.landmarks_list)
-		var/obj/effect/landmark/L = thing
-
+	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 		if(commando_number <= 0)
 			break
 
@@ -64,8 +62,8 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 				continue
 
 			if(!is_leader)
-				var/new_dstype = alert(ghost_mob.client, "Select Deathsquad Type.", "DS Character Generation", "Organic", "Cyborg")
-				if(new_dstype == "Cyborg")
+				var/new_dstype = tgui_alert(ghost_mob.client, "Выберете тип члена Отряда Смерти.", "Создание персонажа.",list("Органик", "Борг"))
+				if(new_dstype == "Борг")
 					use_ds_borg = TRUE
 
 			if(!ghost_mob || !ghost_mob.key || !ghost_mob.client) // Have to re-check this due to the above alert() call
@@ -90,9 +88,9 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 				SSticker.mode.traitors += R.mind
 				R.key = ghost_mob.key
 				if(nuke_code)
-					R.mind.store_memory("<B>Nuke Code:</B> <span class='warning'>[nuke_code].</span>")
-				R.mind.store_memory("<B>Mission:</B> <span class='warning'>[input].</span>")
-				to_chat(R, "<span class='userdanger'>You are a Special Operations cyborg, in the service of Central Command. \nYour current mission is: <span class='danger'>[input]</span></span>")
+					R.mind.store_memory("<B>Коды от боеголовки:</B> <span class='warning'>[nuke_code].</span>")
+				R.mind.store_memory("<B>Миссия:</B> <span class='warning'>[input].</span>")
+				to_chat(R, span_userdanger("Вы борг отдела Специальных Операций, подчиняющийся Центральному Командованию. \nВаша миссия: <span class='danger'>[input]</span>"))
 			else
 				var/mob/living/carbon/human/new_commando = create_death_commando(L, is_leader)
 				new_commando.mind.key = ghost_mob.key
@@ -101,32 +99,63 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 				new_commando.update_action_buttons_icon()
 				new_commando.change_voice()
 				if(nuke_code)
-					new_commando.mind.store_memory("<B>Nuke Code:</B> <span class='warning'>[nuke_code].</span>")
-				new_commando.mind.store_memory("<B>Mission:</B> <span class='warning'>[input].</span>")
-				to_chat(new_commando, "<span class='userdanger'>You are a Special Ops [is_leader ? "<B>TEAM LEADER</B>" : "commando"] in the service of Central Command. Check the table ahead for detailed instructions.\nYour current mission is: <span class='danger'>[input]</span></span>")
+					new_commando.mind.store_memory("<B>Коды от боеголовки:</B> <span class='warning'>[nuke_code].</span>")
+				new_commando.mind.store_memory("<B>Миссия:</B> <span class='warning'>[input].</span>")
+				to_chat(new_commando, span_userdanger("Вы [is_leader ? "<B>КОМАНДИР</B>" : "боец"] отряда Специальных Операций, подчиняющийся Центральному Командованию. \nВаша миссия: <span class='danger'>[input]</span>"))
 
 			is_leader = FALSE
 			commando_number--
 
 	//Spawns the rest of the commando gear.
-	for(var/thing in GLOB.landmarks_list)
-		var/obj/effect/landmark/L = thing
+	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
+
 		if(L.name == "Commando_Manual")
 			//new /obj/item/gun/energy/pulse_rifle(L.loc)
 			var/obj/item/paper/pamphletdeathsquad/P = new(L.loc)
-			P.info = "<p><b>Good morning soldier!</b>. This compact guide will familiarize you with standard operating procedure. There are three basic rules to follow:<br>#1 Work as a team.<br>#2 Accomplish your objective at all costs.<br>#3 Leave no witnesses.<br>You are fully equipped and stocked for your mission--before departing on the Spec. Ops. Shuttle due South, make sure that all operatives are ready. Actual mission objective will be relayed to you by Central Command through your headsets.<br>If deemed appropriate, Central Command will also allow members of your team to equip assault power-armor for the mission. You will find the armor storage due West of your position. Once you are ready to leave, utilize the Special Operations shuttle console and toggle the hull doors via the other console.</p><p>In the event that the team does not accomplish their assigned objective in a timely manner, or finds no other way to do so, attached below are instructions on how to operate a Nanotrasen Nuclear Device. Your operations <b>LEADER</b> is provided with a nuclear authentication disk and a pin-pointer for this reason. You may easily recognize them by their rank: Lieutenant, Captain, or Major. The nuclear device itself will be present somewhere on your destination.</p><p>Hello and thank you for choosing Nanotrasen for your nuclear information needs. Today's crash course will deal with the operation of a Fission Class Nanotrasen made Nuclear Device.<br>First and foremost, <b>DO NOT TOUCH ANYTHING UNTIL THE BOMB IS IN PLACE.</b> Pressing any button on the compacted bomb will cause it to extend and bolt itself into place. If this is done to unbolt it one must completely log in which at this time may not be possible.<br>To make the device functional:<br>#1 Place bomb in designated detonation zone<br> #2 Extend and anchor bomb (attack with hand).<br>#3 Insert Nuclear Auth. Disk into slot.<br>#4 Type numeric code into keypad ([nuke_code]).<br>Note: If you make a mistake press R to reset the device.<br>#5 Press the E button to log onto the device.<br>You now have activated the device. To deactivate the buttons at anytime, for example when you have already prepped the bomb for detonation, remove the authentication disk OR press the R on the keypad. Now the bomb CAN ONLY be detonated using the timer. A manual detonation is not an option.<br>Note: Toggle off the <b>SAFETY</b>.<br>Use the - - and + + to set a detonation time between 5 seconds and 10 minutes. Then press the timer toggle button to start the countdown. Now remove the authentication disk so that the buttons deactivate.<br>Note: <b>THE BOMB IS STILL SET AND WILL DETONATE</b><br>Now before you remove the disk if you need to move the bomb you can: Toggle off the anchor, move it, and re-anchor.</p><p>The nuclear authorization code is: <b>[nuke_code ? nuke_code : "None provided"]</b></p><p><b>Good luck, soldier!</b></p>"
-			P.name = "Spec. Ops Manual"
-			var/obj/item/stamp/centcom/stamp = new
-			P.stamp(stamp)
-			qdel(stamp)
+			P.info = "<p><b>Доброе утро, солдат!</b>. \
+			Это компактное руководство познакомит тебя со стандартной процедурой операции. \
+			Есть три основных правила, которым нужно следовать:<br>\
+			#1 Работай в команде.<br>\
+			#2 Достигай своей цели любой ценой.<br>\
+			#3 Не оставляй свидетелей.<br>\
+			Ты полностью экипирован и подготовлен к миссии — перед отправкой на шаттле Специальных операций\
+			севернее, убедись, что все бойцы готовы.\
+			Фактическая цель миссии будет передана тебе Центральным Командованием через гарнитуру.<br>\
+			Если это будет сочтено уместным, Центральное Командование также позволит членам твоей команды экипироваться штурмовыми мехами для миссии. \
+			Ты найдешь оружейную с ними на западе от твоей позиции.  \
+			Когда будешь готов к отправке, используй консоль специального оперативного шаттла и переключи двери корпуса через другую консоль.</p>\
+			<p>В случае, если команда не выполнит поставленную задачу вовремя или не найдет другого способа её выполнить, ниже приведены инструкции по эксплуатации ядерного устройства Nanotrasen. \
+			Твой <b>КОМАНДИР</b> обеспечен диском аутентификации и пинпоинтером для этой цели. \
+			Ты легко узнаешь его по рангу: Лейтенант, Капитан или Майор \
+			Сама ядерная боеголовка будет находиться где-то в пункте назначения.</p>\
+			<p>Здравствуйте и спасибо, что выбрали Nanotrasen для получения информации о ядерных устройствах. \
+			Сегодняшний экспресс-курс будет посвящен эксплуатации ядерного устройства термоядерного класса производства Nanotrasen.<br>\
+			Прежде всего, <b>НЕ ТРОГАЙ НИЧЕГО, ПОКА БОМБА НЕ УСТАНОВЛЕНА.</b> \
+			Нажатие любой кнопки на сложенной бомбе заставит её развернуться и закрепиться на месте. \
+			Если это произойдет, для разблокировки необходимо будет полностью авторизоваться, что в данный момент может быть невозможно.<br>\
+			Чтобы сделать устройство функциональным:<br>\
+			#1 Помести бомбу в обозначенную зону детонации<br> \
+			#2 Разверни и закрепи бомбу (ударь её рукой).<br>\
+			#3 Вставь диск аутентификации в слот.<br>\
+			#4 Введи цифровой код ([nuke_code]) на клавиатуре.<br>\
+			Примечание: Если сделаешь ошибку, нажми R для сброса устройства.<br>\
+			#5 Нажми кнопку E, чтобы авторизоваться в устройстве<br>Вы успешно активировали боеголовку. \
+			Чтобы деактивировать кнопки в любое время, например, когда ты уже подготовил бомбу к детонации, удали диск аутентификации ИЛИ нажми R на клавиатуре. \
+			Теперь бомба МОЖЕТ БЫТЬ взорвана только с помощью таймера. Ручная детонация невозможна.<br>Примечание: Отключи <b>ПРЕДОХРАНИТЕЛЬ</b>.<br>\
+			Используй - - и + + для установки времени детонации от 5 секунд до 10 минут. Затем нажми кнопку таймера для запуска обратного отсчета. \
+			Теперь удали диск аутентификации, чтобы кнопки деактивировались.<br>Примечание: <b>БОМБА ВСЕ ЕЩЕ УСТАНОВЛЕНА И ВЗОРВЕТСЯ</b><br>\
+			Теперь, прежде чем удалить диск, если нужно переместить бомбу, можешь: открепить её, переместить и снова закрепить.</p><p>\
+			Код ядерной аутентификации: <b>[nuke_code ? nuke_code : "Не предоставлен"]</b></p>\
+			<p><b>Удачи, солдат!</b></p>"
+			P.name = "Руководство по Специальным Операциям"
+			P.stamp(/obj/item/stamp/centcom)
 
-	for(var/thing in GLOB.landmarks_list)
-		var/obj/effect/landmark/L = thing
+	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 		if(L.name == "Commando-Bomb")
 			new /obj/effect/spawner/newbomb/timer/syndicate(L.loc)
 			qdel(L)
 
-	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned a CentComm DeathSquad.</span>")
+	message_admins(span_notice("[key_name_admin(usr)] has spawned a CentComm DeathSquad."))
 	log_admin("[key_name(usr)] used Spawn Death Squad.")
 	return 1
 

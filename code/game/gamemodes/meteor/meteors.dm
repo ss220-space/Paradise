@@ -158,12 +158,12 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	return ..()
 
 
-/obj/effect/meteor/Moved(atom/OldLoc, Dir, Forced = FALSE, momentum_change = TRUE)
+/obj/effect/meteor/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(QDELETED(src))
 		return
 
-	if(OldLoc != loc)//If did move, ram the turf we get in
+	if(old_loc != loc)//If did move, ram the turf we get in
 		var/turf/ram_turf = get_turf(loc)
 		ram_turf(ram_turf)
 
@@ -178,11 +178,10 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	return TRUE //Keeps us from drifting for no reason
 
 
-/obj/effect/meteor/Bump(atom/bumped_atom, custom_bump)
-	. = ..()
-	if(. || isnull(.))
+/obj/effect/meteor/Bump(atom/bumped_atom)
+	. = ..()	// What could go wrong
+	if(. || !bumped_atom)
 		return .
-
 	ram_turf(get_turf(bumped_atom))
 	playsound(loc, meteorsound, 40, TRUE)
 	get_hit()
@@ -366,9 +365,9 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	explosion(loc, 5, 10, 15, 20, adminlog = FALSE, cause = src)
 
 
-/obj/effect/meteor/tunguska/Bump(atom/bumped_atom, custom_bump)
+/obj/effect/meteor/tunguska/Bump(atom/bumped_atom)
 	. = ..()
-	if(. || isnull(.) || !prob(20))
+	if(. || !prob(20))
 		return .
 	explosion(loc, 2, 4, 6, 8, cause = src)
 
@@ -396,9 +395,9 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 		new /obj/effect/decal/cleanable/blood(target_turf)
 
 
-/obj/effect/meteor/gore/Bump(atom/bumped_atom, custom_bump)
+/obj/effect/meteor/gore/Bump(atom/bumped_atom)
 	. = ..()
-	if(. || isnull(.) || QDELETED(bumped_atom))
+	if(. || QDELETED(bumped_atom))
 		return .
 	bumped_atom.ex_act(hitpwr)
 	get_hit()

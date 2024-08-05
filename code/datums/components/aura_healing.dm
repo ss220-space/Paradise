@@ -153,8 +153,8 @@
 		if(iscarbon(candidate)) //another if, because porotic parts
 			if(ishuman(candidate)) //humans, tajarans...
 				var/mob/living/carbon/human/healing = candidate
-				healing.adjustBruteLoss(-brute_heal * seconds_per_tick, updating_health = FALSE, robotic = robot_heal)
-				healing.adjustFireLoss(-burn_heal * seconds_per_tick, updating_health = FALSE, robotic = robot_heal)
+				healing.adjustBruteLoss(-brute_heal * seconds_per_tick, updating_health = FALSE, affect_robotic = robot_heal)
+				healing.adjustFireLoss(-burn_heal * seconds_per_tick, updating_health = FALSE, affect_robotic = robot_heal)
 			else
 				candidate.adjustBruteLoss(-brute_heal * seconds_per_tick, updating_health = FALSE) //aliens, brains...
 				candidate.adjustFireLoss(-burn_heal * seconds_per_tick, updating_health = FALSE)
@@ -174,7 +174,7 @@
 			var/mob/living/simple_animal/animal_candidate = candidate
 			animal_candidate.adjustHealth(-simple_heal * seconds_per_tick, updating_health = FALSE)
 
-		if(candidate.blood_volume < BLOOD_VOLUME_NORMAL)
+		if(candidate.blood_volume < BLOOD_VOLUME_NORMAL && !isdiona(candidate))
 			candidate.blood_volume += blood_heal * seconds_per_tick
 
 		var/external_organ_heal_done = FALSE
