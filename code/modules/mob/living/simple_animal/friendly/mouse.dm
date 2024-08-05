@@ -61,6 +61,15 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
+/mob/living/simple_animal/mouse/add_strippable_element()
+	AddElement(/datum/element/strippable, GLOB.strippable_mouse_items)
+
+/mob/living/simple_animal/mouse/death(gibbed)
+	if(jetpack)
+		remove_from_back(null)
+	. = ..()
+
+
 /mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability) && isturf(loc))
 		var/turf/simulated/floor/F = get_turf(src)
@@ -113,10 +122,10 @@
 	pixel_y = rand(0, 10)
 
 	if(is_available_for_anim())
-		verbs += /mob/living/simple_animal/mouse/proc/sniff
-		verbs += /mob/living/simple_animal/mouse/proc/shake
-		verbs += /mob/living/simple_animal/mouse/proc/scratch
-		verbs += /mob/living/simple_animal/mouse/proc/washup
+		add_verb(src, /mob/living/simple_animal/mouse/proc/sniff)
+		add_verb(src, /mob/living/simple_animal/mouse/proc/shake)
+		add_verb(src, /mob/living/simple_animal/mouse/proc/scratch)
+		add_verb(src, /mob/living/simple_animal/mouse/proc/washup)
 
 
 /mob/living/simple_animal/mouse/update_icons()
@@ -141,65 +150,11 @@
 		return ..()
 
 
-/mob/living/simple_animal/mouse/show_inv(mob/user)
-	if(user.incapacitated() || !Adjacent(user))
-		return
-	user.set_machine(src)
-
-	var/dat = 	{"<meta charset="UTF-8"><div align='center'><b>Inventory of [name]</b></div><p>"}
-	dat += "<br><B>Back:</B> <A href='?src=[UID()];[jetpack ? "remove_inv=back'>[jetpack]" : "add_inv=back'>Nothing"]</A>"
-	dat += "<br><B>Collar:</B> <A href='?src=[UID()];[pcollar ? "remove_inv=collar'>[pcollar]" : "add_inv=collar'>Nothing"]</A>"
-
-	var/datum/browser/popup = new(user, "mob[UID()]", "[src]", 440, 250)
-	popup.set_content(dat)
-	popup.open()
-
-
-/mob/living/simple_animal/mouse/Topic(href, href_list)
-	if(..())
-		return TRUE
-
-	if(!(iscarbon(usr) || usr.incapacitated() || !Adjacent(usr)))
-		usr << browse(null, "window=mob[UID()]")
-		usr.unset_machine()
-		return
-
-	if(stat == DEAD)
-		return FALSE
-
-	if(href_list["remove_inv"])
-		var/remove_from = href_list["remove_inv"]
-		switch(remove_from)
-			if("back")
-				remove_from_back(usr)
-			if("collar")
-				if(pcollar)
-					drop_item_ground(pcollar)
-					usr.put_in_hands(pcollar, ignore_anim = FALSE)
-					pcollar = null
-		show_inv(usr)
-
-	else if(href_list["add_inv"])
-		var/add_to = href_list["add_inv"]
-		switch(add_to)
-			if("back")
-				place_on_back(usr.get_active_hand(), usr)
-			if("collar")
-				add_collar(usr.get_active_hand(), usr)
-		show_inv(usr)
-
-	if(usr != src)
-		return TRUE
-
-
 /mob/living/simple_animal/mouse/proc/place_on_back(obj/item/item_to_add, mob/living/user)
-	if(!istype(item_to_add, /obj/item/mouse_jetpack) || !is_available_for_anim())
-		to_chat(user, span_warning("You can't figure out how to do something with \the [item_to_add] and [src]."))
-		return FALSE
 	if(jetpack)
 		to_chat(user, span_warning("[src] already have jetpack!"))
 		return FALSE
-	if(!mind)
+	if(!mind || !is_available_for_anim())
 		to_chat(user, span_warning("[src] doesn't seem interested in that."))
 		return FALSE
 	if(!user.drop_transfer_item_to_loc(item_to_add, src))
