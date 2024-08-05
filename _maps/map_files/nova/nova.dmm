@@ -352,7 +352,8 @@
 "acY" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Checkpoint";
-	req_access = list(63)
+	req_access = list(63);
+	security_level = 1
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -831,6 +832,19 @@
 	icon_state = "neutralfull"
 	},
 /area/quartermaster/delivery)
+"agm" = (
+/obj/machinery/status_display{
+	pixel_y = 32
+	},
+/obj/machinery/camera{
+	c_tag = "Arrivals West Hallway 2";
+	dir = 2
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "arrival"
+	},
+/area/hallway/secondary/entry)
 "ags" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp{
@@ -1350,7 +1364,8 @@
 /obj/machinery/door/airlock/command{
 	id_tag = "captainofficedoor";
 	name = "Captain's Office";
-	req_access = list(20)
+	req_access = list(20);
+	security_level = 6
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -2110,7 +2125,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/command/glass{
 	name = "Customs Desk";
-	req_access = list(19)
+	req_access = list(19);
+	security_level = 1
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -3462,7 +3478,8 @@
 "aBQ" = (
 /obj/machinery/door/airlock/medical{
 	name = "Brig Medical Bay";
-	req_access = list(63)
+	req_access = list(63);
+	security_level = 1
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -3850,7 +3867,8 @@
 "aEb" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Exile Processing";
-	req_access = list(3)
+	req_access = list(3);
+	security_level = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -4277,6 +4295,16 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/captain/bedroom)
+"aHc" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 2
+	},
+/obj/item/radio/intercom{
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry/commercial)
 "aHe" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
@@ -4767,7 +4795,8 @@
 "aKy" = (
 /obj/machinery/door/airlock/command{
 	name = "Teleport Access";
-	req_access = list(17)
+	req_access = list(17);
+	security_level = 6
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
@@ -4919,10 +4948,6 @@
 /turf/simulated/wall,
 /area/maintenance/fore)
 "aKZ" = (
-/obj/machinery/door/airlock/highsecurity{
-	name = "Gravity Generator Foyer";
-	req_access = list(10)
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -4933,6 +4958,11 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/highsecurity{
+	name = "Gravity Generator Foyer";
+	req_access = list(10);
+	security_level = 6
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
 "aLb" = (
@@ -7140,7 +7170,8 @@
 "bck" = (
 /obj/machinery/door/airlock/hatch{
 	name = "MiniSat Teleporter Room";
-	req_access = list(17,75)
+	req_access = list(17,75);
+	security_level = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -7646,7 +7677,8 @@
 "bgg" = (
 /obj/machinery/door/airlock/command{
 	name = "Blueshield's Office";
-	req_access = list(67)
+	req_access = list(67);
+	security_level = 1
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -8548,6 +8580,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
+/obj/item/radio/intercom{
+	pixel_x = -27
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -9289,7 +9324,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/command{
 	name = "Chief Medical Officer Office";
-	req_access = list(40)
+	req_access = list(40);
+	security_level = 1
 	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -9384,6 +9420,19 @@
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating,
 /area/maintenance/starboardsolar)
+"btd" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/item/radio/intercom{
+	pixel_x = 28;
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
+/area/hallway/secondary/exit)
 "btg" = (
 /obj/item/radio/intercom{
 	name = "east station intercom (General)";
@@ -9769,6 +9818,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/permabrig)
+"bvl" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/camera{
+	c_tag = "Central Bridge Hallway West 2";
+	dir = 2
+	},
+/turf/simulated/floor/engine,
+/area/hallway/primary/central)
 "bvn" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -9917,6 +9976,10 @@
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -26
+	},
+/obj/machinery/camera{
+	c_tag = "West Command Zone Hallway";
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -10226,7 +10289,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/atmos/glass{
 	name = "Supermatter Chamber";
-	req_access = list(24)
+	req_access = list(24);
+	security_level = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -11111,7 +11175,8 @@
 "bFe" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Warden's Office";
-	req_access = list(3)
+	req_access = list(3);
+	security_level = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -13913,7 +13978,8 @@
 "bZH" = (
 /obj/machinery/door/airlock/hatch{
 	name = "AI Satellite Secondary Antechamber";
-	req_access = list(75)
+	req_access = list(75);
+	security_level = 6
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -14386,6 +14452,10 @@
 	pixel_y = 6;
 	tag = "icon-shower (EAST)"
 	},
+/obj/item/radio/intercom{
+	pixel_x = -28;
+	pixel_y = -8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -14660,6 +14730,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/sorting)
+"cfz" = (
+/obj/item/radio/intercom{
+	pixel_y = 23
+	},
+/obj/machinery/portable_atmospherics/canister,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/atmos)
 "cfF" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -15738,6 +15817,9 @@
 	dir = 1;
 	network = list("Medical","SS13")
 	},
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -16741,9 +16823,6 @@
 /area/maintenance/fsmaint3)
 "cvg" = (
 /obj/machinery/light,
-/obj/machinery/camera/autoname{
-	dir = 1
-	},
 /obj/machinery/status_display{
 	pixel_y = -32
 	},
@@ -16820,6 +16899,18 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint3)
+"cwl" = (
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Engineering Storage";
+	req_access = list(32);
+	security_level = 1
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/engine/hardsuitstorage)
 "cwm" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -17749,6 +17840,16 @@
 /obj/effect/landmark/start/civilian,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/commercial)
+"cEu" = (
+/obj/machinery/camera{
+	c_tag = "South-East Command Zone Hallway";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluealt"
+	},
+/area/hallway/primary/command/east)
 "cEz" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -17950,8 +18051,9 @@
 /turf/simulated/floor/wood,
 /area/maintenance/backstage)
 "cFI" = (
-/obj/machinery/camera/autoname{
-	dir = 1
+/obj/machinery/camera{
+	c_tag = "Center-East Command Zone Hallway";
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluealt"
@@ -18138,6 +18240,16 @@
 	},
 /turf/simulated/floor/wood,
 /area/security/permabrig)
+"cGX" = (
+/obj/machinery/light,
+/obj/machinery/camera{
+	c_tag = "Second Floor Central Lobby South";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/hallway/primary/central/second/south)
 "cGY" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/decal/cleanable/dirt,
@@ -20640,6 +20752,15 @@
 /obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint3)
+"daJ" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_y = -32;
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry/additional)
 "daQ" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/double,
@@ -20937,7 +21058,7 @@
 /area/maintenance/secpost)
 "ddX" = (
 /obj/machinery/camera{
-	c_tag = "Mining East";
+	c_tag = "Mining Shuttle East";
 	dir = 8
 	},
 /obj/machinery/vending/wallmed{
@@ -21364,6 +21485,12 @@
 	pixel_y = -32
 	},
 /obj/machinery/light,
+/obj/machinery/camera{
+	c_tag = "AI Sattelit Hallway Main Acces South";
+	dir = 10;
+	network = list("Engineering","SS13");
+	pixel_y = 0
+	},
 /turf/simulated/floor/redgrid,
 /area/construction/hallway{
 	name = "\improper AI Satellit Hallway"
@@ -21612,7 +21739,8 @@
 "djL" = (
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel Bedroom";
-	req_access = list(57)
+	req_access = list(57);
+	security_level = 1
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
@@ -23649,7 +23777,8 @@
 "dzG" = (
 /obj/machinery/door/airlock/command{
 	name = "Chief Medical Officer Bedroom";
-	req_access = list(40)
+	req_access = list(40);
+	security_level = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
@@ -23721,6 +23850,10 @@
 	dir = 6;
 	pixel_y = -32
 	},
+/obj/machinery/camera{
+	c_tag = "Cargo Office South";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -23751,6 +23884,9 @@
 /obj/machinery/camera{
 	c_tag = "Second Floor Departure Lounge North";
 	dir = 6
+	},
+/obj/item/radio/intercom{
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -23844,7 +23980,8 @@
 /obj/structure/sign/cargo{
 	pixel_x = 32
 	},
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
+	c_tag = "Second Floor Central Ring East Hallway 1";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -24052,7 +24189,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/quartermaster/storage)
+/area/quartermaster/delivery)
 "dCz" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -24935,6 +25072,9 @@
 	c_tag = "Service Hallway South";
 	dir = 8
 	},
+/obj/item/radio/intercom{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -25393,6 +25533,15 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/fitness)
+"dNQ" = (
+/obj/item/radio/intercom{
+	pixel_x = 28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkbluealt"
+	},
+/area/hallway/primary/command/east)
 "dNY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -25856,7 +26005,8 @@
 	},
 /obj/machinery/door/airlock/medical{
 	name = "Brig Medical Bay";
-	req_access = list(63)
+	req_access = list(63);
+	security_level = 1
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -26365,6 +26515,13 @@
 	},
 /obj/item/pen,
 /turf/simulated/floor/plating,
+/area/security/permabrig)
+"dVm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/radio/intercom{
+	pixel_x = -28
+	},
+/turf/simulated/floor/plasteel,
 /area/security/permabrig)
 "dVq" = (
 /obj/structure/railing{
@@ -27005,6 +27162,10 @@
 "eaq" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
+	},
+/obj/machinery/camera{
+	c_tag = "Arrivals West Longue Hallway";
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -28208,6 +28369,9 @@
 	c_tag = "Service Hallway North-East";
 	dir = 4
 	},
+/obj/item/radio/intercom{
+	pixel_x = -27
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -28999,6 +29163,10 @@
 	pixel_y = -32
 	},
 /obj/machinery/light,
+/obj/machinery/camera{
+	c_tag = "Vacant Office";
+	dir = 10
+	},
 /turf/simulated/floor/wood,
 /area/civilian/vacantoffice)
 "eoC" = (
@@ -30001,6 +30169,10 @@
 	in_use = 1
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/radio/intercom{
+	pixel_y = 23;
+	pixel_x = -28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -30151,7 +30323,8 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Space Expedition Storage";
-	req_access = list(18,48,70)
+	req_access = list(18,48,70);
+	security_level = 1
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
@@ -30188,6 +30361,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/launch)
+"eyc" = (
+/obj/structure/chair/comfy/black,
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/item/radio/intercom{
+	pixel_y = 24
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/hallway/secondary/exit)
 "eyd" = (
 /obj/structure/table,
 /obj/item/reagent_containers/glass/beaker/waterbottle,
@@ -30281,6 +30465,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/item/radio/intercom{
+	pixel_x = 28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "green"
@@ -30361,6 +30548,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/launch)
+"ezr" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/item/radio/intercom{
+	pixel_y = -30
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry/commercial)
 "ezs" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -30948,7 +31142,8 @@
 "eDu" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Customs";
-	req_access = list(63)
+	req_access = list(63);
+	security_level = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -30984,6 +31179,10 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/item/radio/intercom{
+	pixel_x = -30;
+	pixel_y = -4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -31519,7 +31718,8 @@
 "eIu" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Storage";
-	req_access = list(63)
+	req_access = list(63);
+	security_level = 1
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -31873,7 +32073,8 @@
 /obj/machinery/door/airlock/command{
 	id_tag = "captainofficedoor";
 	name = "Captain's Bedroom";
-	req_access = list(20)
+	req_access = list(20);
+	security_level = 6
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -32628,6 +32829,10 @@
 	dir = 8;
 	tag = "icon-shower (WEST)"
 	},
+/obj/item/radio/intercom{
+	pixel_x = 32;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -33002,6 +33207,17 @@
 	},
 /turf/simulated/floor/wood,
 /area/maintenance/backstage)
+"eUC" = (
+/obj/machinery/light,
+/obj/machinery/camera{
+	c_tag = "Command Zone Main Hallway South 1";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "rampbottom"
+	},
+/area/hallway/primary/central/second/north)
 "eUH" = (
 /obj/machinery/alarm{
 	dir = 1;
@@ -33061,6 +33277,9 @@
 /obj/item/seeds/tobacco,
 /obj/item/storage/box/matches,
 /obj/item/storage/fancy/rollingpapers,
+/obj/item/radio/intercom{
+	pixel_x = -28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -33401,6 +33620,9 @@
 	c_tag = "Prisoner Processing South";
 	dir = 10;
 	network = list("SS13","Security")
+	},
+/obj/item/radio/intercom{
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -34726,7 +34948,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/camera{
-	c_tag = "Cargo Lobby West";
+	c_tag = "Mining Lobby West";
 	dir = 2
 	},
 /turf/simulated/floor/plasteel{
@@ -35792,6 +36014,9 @@
 "fpt" = (
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/item/radio/intercom{
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -36989,6 +37214,10 @@
 "fyx" = (
 /obj/structure/chair/office,
 /obj/effect/landmark/start/civilian,
+/obj/item/radio/intercom{
+	dir = 8;
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/spacebridge/comcar)
 "fyy" = (
@@ -37684,6 +37913,20 @@
 /obj/item/shard,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"fDQ" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/radio/intercom{
+	pixel_x = 28;
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
+/area/hallway/secondary/exit)
 "fDT" = (
 /obj/machinery/driver_button{
 	id_tag = "chapelgun";
@@ -37968,6 +38211,10 @@
 	},
 /area/security/prisonlockers)
 "fFy" = (
+/obj/machinery/camera{
+	c_tag = "Arrivals North Longue Hallway";
+	dir = 9
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -38195,6 +38442,18 @@
 	},
 /turf/simulated/floor/carpet/purple,
 /area/janitor)
+"fIe" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/item/radio/intercom{
+	pixel_x = -27
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluealt"
+	},
+/area/hallway/primary/command/east)
 "fIf" = (
 /obj/structure/rack,
 /obj/item/weldingtool,
@@ -38327,6 +38586,17 @@
 	icon_state = "dark"
 	},
 /area/turret_protected/aisat)
+"fJl" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/hallway/secondary/exit)
 "fJm" = (
 /obj/machinery/light{
 	dir = 4
@@ -38552,6 +38822,16 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/sorting)
+"fKV" = (
+/obj/item/radio/intercom{
+	dir = 8;
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "red"
+	},
+/area/security/processing)
 "fLk" = (
 /obj/structure/table/wood,
 /obj/item/toy/figure/clown{
@@ -38838,6 +39118,7 @@
 /area/toxins/mixing)
 "fNy" = (
 /obj/effect/decal/warning_stripes/northwestcorner,
+/obj/machinery/portable_atmospherics/canister,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -38848,7 +39129,8 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Gateway Access";
-	req_access = list(62)
+	req_access = list(62);
+	security_level = 1
 	},
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -40320,6 +40602,15 @@
 	icon_state = "darkgreenfull"
 	},
 /area/hydroponics)
+"fYJ" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_y = -32;
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry/additional)
 "fYQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -40709,10 +41000,6 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/obj/machinery/door/airlock/highsecurity{
-	name = "Gravity Generator Room";
-	req_access = list(19,23)
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -40720,6 +41007,11 @@
 	icon_state = "1-4"
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/highsecurity{
+	name = "Gravity Generator Foyer";
+	req_access = list(10);
+	security_level = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -40755,7 +41047,8 @@
 	},
 /obj/machinery/door/airlock/engineering{
 	name = "Tech Storage";
-	req_access = list(23)
+	req_access = list(23);
+	security_level = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -40970,7 +41263,7 @@
 	pixel_y = 28
 	},
 /obj/machinery/camera{
-	c_tag = "Cargo Lobby East";
+	c_tag = "Mining Lobby East";
 	dir = 2
 	},
 /turf/simulated/floor/plasteel{
@@ -44076,7 +44369,8 @@
 "gCW" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "E.V.A.";
-	req_access = list(18)
+	req_access = list(18);
+	security_level = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
@@ -44905,10 +45199,6 @@
 	},
 /area/bridge/checkpoint/north)
 "gJg" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	dir = 1;
-	name = "Restaurant"
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -44917,6 +45207,18 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Engineering Storage";
+	req_access = list(32);
+	security_level = 1
+	},
+/obj/machinery/door/firedoor,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/hardsuitstorage)
@@ -45247,7 +45549,8 @@
 "gMK" = (
 /obj/machinery/door/airlock/command{
 	name = "Head of Security Bedroom";
-	req_access = list(58)
+	req_access = list(58);
+	security_level = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -46988,6 +47291,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/podbay)
+"gZS" = (
+/obj/machinery/light,
+/obj/machinery/camera{
+	c_tag = "Command Zone Main Hallway South 3";
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "ramptop"
+	},
+/area/hallway/primary/central/second/north)
 "gZU" = (
 /obj/structure/cable/multiz{
 	color = "#dd1010"
@@ -49092,6 +49406,20 @@
 "hqS" = (
 /turf/simulated/wall,
 /area/medical/cloning)
+"hre" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/camera{
+	c_tag = "Central Bridge Hallway East 1";
+	dir = 2
+	},
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_y = 28
+	},
+/turf/simulated/floor/engine,
+/area/hallway/primary/central)
 "hrn" = (
 /obj/structure/chair/stool,
 /obj/effect/landmark/start/civilian,
@@ -49105,10 +49433,6 @@
 /area/crew_quarters/arcade)
 "hrs" = (
 /obj/structure/chair,
-/obj/item/radio/intercom{
-	pixel_x = 28;
-	pixel_y = -2
-	},
 /obj/effect/landmark/start/civilian,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/commercial)
@@ -49457,7 +49781,8 @@
 "huj" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Chief Medical Officer Office";
-	req_access = list(40)
+	req_access = list(40);
+	security_level = 1
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -49505,7 +49830,8 @@
 "huv" = (
 /obj/machinery/door/airlock/atmos/glass{
 	name = "Supermatter Chamber";
-	req_access = list(24)
+	req_access = list(24);
+	security_level = 1
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/atmospherics/pipe/simple/visible,
@@ -50371,6 +50697,10 @@
 	network = list("SS13","Security");
 	dir = 9
 	},
+/obj/item/radio/intercom{
+	pixel_x = 28;
+	pixel_y = 26
+	},
 /turf/simulated/floor/carpet/red,
 /area/security/hos)
 "hCC" = (
@@ -50668,12 +50998,13 @@
 /area/atmos)
 "hFh" = (
 /obj/structure/table,
-/obj/machinery/camera/autoname{
-	dir = 2
-	},
 /obj/machinery/light{
 	dir = 1;
 	in_use = 1
+	},
+/obj/machinery/camera{
+	c_tag = "Second Floor Central Ring North Hallway 1";
+	dir = 2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -50999,7 +51330,8 @@
 "hIB" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Security Maintenance";
-	req_access = list(1)
+	req_access = list(1);
+	security_level = 1
 	},
 /turf/simulated/floor/plating,
 /area/security/checkpoint)
@@ -51054,6 +51386,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
+"hJe" = (
+/obj/structure/chair/comfy/black{
+	dir = 1
+	},
+/obj/structure/window/reinforced,
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
+/turf/simulated/floor/carpet/royalblack,
+/area/hallway/secondary/exit)
 "hJq" = (
 /obj/machinery/door/airlock/mining/glass{
 	name = "Processing Area";
@@ -51733,10 +52075,6 @@
 /turf/simulated/floor/carpet/green,
 /area/library/game_zone)
 "hPZ" = (
-/obj/machinery/door/airlock{
-	name = "Procedure Office";
-	req_access = list(38)
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -51752,6 +52090,11 @@
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
+	},
+/obj/machinery/door/airlock{
+	name = "Procedure Office";
+	req_access = list(38);
+	security_level = 1
 	},
 /turf/simulated/floor/carpet/black,
 /area/lawoffice)
@@ -51929,6 +52272,18 @@
 /obj/effect/turf_decal/siding/white,
 /turf/simulated/floor/glass,
 /area/crew_quarters/chief)
+"hRo" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "AI Sattelit Hallway Main Acces North";
+	dir = 8;
+	network = list("Engineering","SS13");
+	pixel_y = 0
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/maintenance/starboardaux)
 "hRu" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8;
@@ -52575,9 +52930,6 @@
 	pixel_y = -32
 	},
 /obj/effect/decal/warning_stripes/south,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/commercial)
@@ -53770,13 +54122,14 @@
 /area/maintenance/gambling_den)
 "ieG" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/command/glass{
-	name = "Bridge";
-	req_access = list(19)
-	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "BridgeLockdown";
 	name = "Bridge Lockdown"
+	},
+/obj/machinery/door/airlock/command/glass{
+	name = "Bridge";
+	req_access = list(19);
+	security_level = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -54408,7 +54761,8 @@
 "ijy" = (
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel Bedroom";
-	req_access = list(57)
+	req_access = list(57);
+	security_level = 1
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
@@ -55068,6 +55422,16 @@
 	icon_state = "red"
 	},
 /area/maintenance/secpost)
+"inN" = (
+/obj/machinery/camera{
+	c_tag = "Arrivals East Hallway 1";
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "arrival"
+	},
+/area/hallway/secondary/entry)
 "inP" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -55742,6 +56106,10 @@
 /area/hallway/primary/central/second/east)
 "itn" = (
 /obj/machinery/vending/cigarette,
+/obj/item/radio/intercom{
+	pixel_x = 32;
+	pixel_y = -30
+	},
 /turf/simulated/floor/wood/fancy/light{
 	color = "gray"
 	},
@@ -56306,8 +56674,15 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "ixu" = (
-/turf/simulated/wall/r_wall,
-/area/hallway/secondary/entry/commercial)
+/obj/machinery/camera{
+	c_tag = "East Command Zone Hallway";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkbluealt"
+	},
+/area/hallway/primary/command/east)
 "ixA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -56348,8 +56723,22 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/item/radio/intercom{
+	pixel_x = 28;
+	pixel_y = -2
+	},
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/heads/hop)
+"ixS" = (
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "arrival"
+	},
+/area/hallway/secondary/entry)
 "ixT" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -58613,6 +59002,10 @@
 	dir = 1;
 	in_use = 1
 	},
+/obj/item/radio/intercom{
+	pixel_x = 28;
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "neutral"
@@ -60060,6 +60453,16 @@
 /obj/structure/flora/grass/jungle/b,
 /turf/simulated/floor/grass,
 /area/security/permabrig)
+"jdP" = (
+/obj/machinery/camera{
+	c_tag = "Second Floor Central Ring South Hallway 4";
+	dir = 2
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/hallway/primary/central/second/east)
 "jdQ" = (
 /obj/item/radio/intercom{
 	pixel_y = -28
@@ -60854,6 +61257,9 @@
 	pixel_y = 3
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "neutral"
@@ -61003,6 +61409,15 @@
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"jkm" = (
+/obj/item/radio/intercom{
+	pixel_x = 28;
+	pixel_y = -2
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "redcorner"
+	},
+/area/security/prison/cell_block/A)
 "jkt" = (
 /turf/simulated/floor/plasteel/dark,
 /area/maintenance/starboardaux)
@@ -61046,6 +61461,16 @@
 	icon_state = "tranquillite"
 	},
 /area/security/permabrig)
+"jkY" = (
+/obj/machinery/camera{
+	c_tag = "Arrivals South Longue Hallway";
+	dir = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "blue";
+	dir = 8
+	},
+/area/hallway/primary/fore)
 "jlb" = (
 /turf/simulated/wall/r_wall,
 /area/toxins/lab)
@@ -63934,7 +64359,8 @@
 "jIr" = (
 /obj/machinery/door/airlock/command{
 	name = "NT Representative's Private Office";
-	req_access = list(73)
+	req_access = list(73);
+	security_level = 1
 	},
 /obj/effect/turf_decal/siding/wood,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -64418,7 +64844,7 @@
 /area/maintenance/casino)
 "jLw" = (
 /obj/machinery/camera{
-	c_tag = "Central Bridge Hallway West";
+	c_tag = "Central Bridge Hallway West 1";
 	dir = 10
 	},
 /obj/structure/disposalpipe/segment{
@@ -64898,6 +65324,10 @@
 /obj/effect/decal/warning_stripes/southeast,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/item/radio/intercom{
+	pixel_x = 32;
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel,
 /area/medical/research/nhallway)
@@ -65428,6 +65858,15 @@
 	icon_state = "dark"
 	},
 /area/hallway/primary/port/south)
+"jTE" = (
+/obj/machinery/camera{
+	c_tag = "Center-West Command Zone Hallway";
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbluealt"
+	},
+/area/hallway/primary/command)
 "jTO" = (
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced,
@@ -66680,6 +67119,9 @@
 	c_tag = "Service Hallway North-West";
 	dir = 8
 	},
+/obj/item/radio/intercom{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -67090,7 +67532,8 @@
 "kiz" = (
 /obj/machinery/door/airlock/research{
 	name = "Toxins Storage";
-	req_access = list(8)
+	req_access = list(8);
+	security_level = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -67504,7 +67947,8 @@
 "klG" = (
 /obj/machinery/door/airlock/command{
 	name = "Chief Engineer";
-	req_access = list(56)
+	req_access = list(56);
+	security_level = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -68664,6 +69108,16 @@
 	dir = 1
 	},
 /area/maintenance/trading)
+"kvq" = (
+/obj/machinery/camera{
+	c_tag = "South-West Command Zone Hallway";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkbluealt"
+	},
+/area/hallway/primary/command/west)
 "kvw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -68728,7 +69182,8 @@
 "kvH" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Customs";
-	req_access = list(63)
+	req_access = list(63);
+	security_level = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -68883,6 +69338,13 @@
 	icon_state = "neutral"
 	},
 /area/crew_quarters/fitness)
+"kwY" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry/commercial)
 "kxc" = (
 /obj/structure/urinal{
 	pixel_y = 32
@@ -68990,7 +69452,8 @@
 /area/engine/mechanic_workshop/hangar)
 "kxH" = (
 /obj/machinery/light,
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
+	c_tag = "Second Floor Central Ring South Hallway 2";
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -69490,7 +69953,8 @@
 	id_tag = "magistrateoffice";
 	name = "Magistrate's Office";
 	req_access = list(74);
-	id = "tintmagistrateoffice"
+	id = "tintmagistrateoffice";
+	security_level = 1
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -70068,7 +70532,8 @@
 	},
 /obj/machinery/door/airlock/highsecurity{
 	name = "Secure Tech Storage";
-	req_access = list(19,23)
+	req_access = list(19,23);
+	security_level = 6
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
@@ -70715,6 +71180,18 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/assembly/chargebay)
+"kNt" = (
+/obj/structure/railing,
+/obj/machinery/light{
+	dir = 1;
+	in_use = 1
+	},
+/obj/machinery/camera{
+	c_tag = "Hangar Second Floor North";
+	dir = 6
+	},
+/turf/simulated/floor/glass/reinforced,
+/area/engine/mechanic_workshop/hangar)
 "kNC" = (
 /obj/structure/cable,
 /obj/machinery/door/poddoor{
@@ -72285,6 +72762,19 @@
 	tag = "icon-vault (NORTHEAST)"
 	},
 /area/maintenance/secpost)
+"kZB" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/item/radio/intercom{
+	pixel_x = 28;
+	pixel_y = -2
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkbluealt"
+	},
+/area/hallway/primary/command/west)
 "kZE" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -72856,6 +73346,15 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/locker)
+"lej" = (
+/obj/machinery/camera{
+	c_tag = "East-East Command Zone Hallway";
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbluealt"
+	},
+/area/hallway/primary/command/east)
 "lem" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -72949,6 +73448,10 @@
 /obj/structure/closet/secure_closet/cargotech,
 /obj/item/stamp/granted,
 /obj/item/stamp/denied,
+/obj/machinery/camera{
+	c_tag = "Cargo Office East";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -73612,7 +74115,8 @@
 /obj/machinery/door/airlock/mining/glass{
 	id = "qm";
 	name = "Quartermaster's Bedroom";
-	req_access = list(41)
+	req_access = list(41);
+	security_level = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -73831,9 +74335,6 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/maintenance/fsmaint2)
 "lmE" = (
-/obj/machinery/camera/autoname{
-	dir = 2
-	},
 /obj/machinery/light{
 	dir = 1;
 	in_use = 1
@@ -74040,7 +74541,8 @@
 "loV" = (
 /obj/item/radio/intercom{
 	dir = 4;
-	pixel_x = 28
+	pixel_x = 32;
+	pixel_y = 4
 	},
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel{
@@ -75969,6 +76471,10 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/machinery/camera{
+	c_tag = "Arrivals East Hallway 2";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/eastarrival)
 "lFl" = (
@@ -76503,17 +77009,14 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "lKi" = (
-/obj/machinery/camera/autoname{
-	dir = 1
-	},
-/obj/structure/sign/directions/floor/alt{
-	dir = 6;
-	pixel_y = -32
+/obj/machinery/camera{
+	c_tag = "Arrivals East Longue Hallway";
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkbluealt"
+	icon_state = "purple"
 	},
-/area/hallway/primary/central/second/north)
+/area/hallway/secondary/entry/lounge)
 "lKn" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Chemistry Lab";
@@ -76646,13 +77149,11 @@
 	},
 /area/security/prison/cell_block/A)
 "lLG" = (
-/obj/item/radio/intercom{
-	pixel_y = -32
-	},
+/obj/machinery/portable_atmospherics/canister,
 /turf/simulated/floor/plasteel{
-	icon_state = "yellowcorner"
+	icon_state = "dark"
 	},
-/area/hallway/primary/starboard)
+/area/atmos)
 "lLK" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -77594,6 +78095,10 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = 0;
 	pixel_x = 32
+	},
+/obj/machinery/camera{
+	c_tag = "North-East Command Zone Hallway";
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -78596,6 +79101,13 @@
 	icon_state = "darkblue"
 	},
 /area/medical/surgery/south)
+"mbt" = (
+/obj/structure/chair/comfy/brown,
+/obj/item/radio/intercom{
+	pixel_x = -28
+	},
+/turf/simulated/floor/wood,
+/area/library)
 "mbz" = (
 /obj/structure/disposalpipe/trunk/multiz/down{
 	dir = 8
@@ -78639,6 +79151,10 @@
 	dir = 8
 	},
 /obj/machinery/recharger,
+/obj/item/radio/intercom{
+	pixel_x = -28;
+	pixel_y = -8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue";
@@ -78832,6 +79348,10 @@
 /obj/item/tank/internals/emergency_oxygen/empty,
 /obj/item/clothing/mask/breath,
 /obj/item/radio,
+/obj/machinery/camera{
+	c_tag = "Hangar North";
+	dir = 6
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkyellow"
@@ -79346,8 +79866,11 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/camera/autoname{
-	dir = 8
+/obj/machinery/camera{
+	c_tag = "AI Sattelit Hallway North";
+	dir = 8;
+	network = list("Engineering","SS13");
+	pixel_y = 0
 	},
 /turf/simulated/floor/engine,
 /area/engine/aienter)
@@ -80174,6 +80697,10 @@
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -80510,7 +81037,8 @@
 "moO" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "E.V.A.";
-	req_access = list(18)
+	req_access = list(18);
+	security_level = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -80659,6 +81187,10 @@
 /obj/machinery/newscaster{
 	pixel_y = 32
 	},
+/obj/machinery/camera{
+	c_tag = "Arrivals West Hallway 1";
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "arrival"
@@ -80775,9 +81307,6 @@
 /area/security/podbay)
 "mrC" = (
 /obj/machinery/light,
-/obj/machinery/camera/autoname{
-	dir = 1
-	},
 /obj/machinery/status_display{
 	pixel_y = -32
 	},
@@ -80874,7 +81403,7 @@
 	dir = 8
 	},
 /obj/machinery/camera{
-	c_tag = "Mining West";
+	c_tag = "Mining Shuttle West";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -81004,7 +81533,8 @@
 "mum" = (
 /obj/machinery/door/airlock/hatch{
 	name = "MiniSat Chamber Hallway";
-	req_access = list(75)
+	req_access = list(75);
+	security_level = 1
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
@@ -81300,6 +81830,9 @@
 	},
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -81881,14 +82414,22 @@
 	},
 /area/civilian/barber)
 "mBI" = (
-/obj/machinery/camera/autoname{
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkbluealt"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/area/hallway/primary/command/west)
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "arrival"
+	},
+/area/hallway/secondary/entry)
 "mBN" = (
 /obj/structure/chair/comfy/teal,
 /obj/machinery/light{
@@ -82237,6 +82778,10 @@
 	},
 /obj/item/paper_bin,
 /obj/item/pen,
+/obj/machinery/camera{
+	c_tag = "Cargo Office West";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -82458,7 +83003,8 @@
 "mGB" = (
 /obj/machinery/door/airlock{
 	name = "Procedure Office";
-	req_access = list(38)
+	req_access = list(38);
+	security_level = 1
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment{
@@ -82787,7 +83333,8 @@
 	name = "west fire alarm";
 	pixel_x = -24
 	},
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
+	c_tag = "Second Floor Central Ring East Hallway 2";
 	dir = 5
 	},
 /turf/simulated/floor/plasteel{
@@ -82801,6 +83348,10 @@
 	},
 /obj/machinery/light{
 	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Hangar Second Floor East";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -82830,6 +83381,10 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/genericbush,
+/obj/machinery/camera{
+	c_tag = "Second Floor Departure Lounge North Bridge";
+	dir = 1
+	},
 /turf/simulated/floor/grass,
 /area/hallway/secondary/exit)
 "mJS" = (
@@ -84128,7 +84683,8 @@
 /obj/machinery/door/airlock/command{
 	id_tag = "captainofficedoor";
 	name = "Captain's Office";
-	req_access = list(20)
+	req_access = list(20);
+	security_level = 6
 	},
 /obj/effect/turf_decal/siding/wood{
 	do_not_delete_me = 1
@@ -84230,7 +84786,8 @@
 	},
 /area/security/main)
 "mST" = (
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
+	c_tag = "North-West Command Zone Hallway";
 	dir = 5
 	},
 /turf/simulated/floor/plasteel{
@@ -84244,7 +84801,8 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
+	c_tag = "Arrivals Lobby West Hallway";
 	dir = 5
 	},
 /turf/simulated/floor/plasteel{
@@ -84936,6 +85494,24 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/permabrig)
+"mYS" = (
+/obj/machinery/door/airlock/highsecurity{
+	name = "Gravity Generator Foyer";
+	req_access = list(10);
+	security_level = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel,
+/area/engine/gravitygenerator)
 "mYV" = (
 /obj/effect/decal/warning_stripes/west{
 	icon = 'icons/turf/floors.dmi';
@@ -87001,7 +87577,8 @@
 "nnt" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Checkpoint Maintenance";
-	req_access = list(19)
+	req_access = list(19);
+	security_level = 1
 	},
 /turf/simulated/floor/plating,
 /area/bridge/checkpoint/north)
@@ -87311,8 +87888,14 @@
 /turf/simulated/floor/plasteel,
 /area/gateway)
 "nqP" = (
-/turf/simulated/wall/r_wall,
-/area/hallway/secondary/entry)
+/obj/item/radio/intercom{
+	pixel_x = -28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluealt"
+	},
+/area/hallway/primary/command/west)
 "nqS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
@@ -88153,7 +88736,8 @@
 "nyl" = (
 /obj/machinery/door/airlock/command{
 	name = "Blueshield's Office";
-	req_access = list(67)
+	req_access = list(67);
+	security_level = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -88867,6 +89451,13 @@
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/carpet/red,
 /area/crew_quarters/cabin4)
+"nCU" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plating/airless,
+/area/engine/hardsuitstorage)
 "nCX" = (
 /obj/structure/railing{
 	dir = 8
@@ -89067,7 +89658,8 @@
 /area/quartermaster/office)
 "nEP" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
+	c_tag = "Second Floor Central Ring West Hallway 1";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -89661,6 +90253,10 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/camera{
+	c_tag = "Hangar Second Floor West";
+	dir = 5
+	},
 /turf/simulated/floor/glass/reinforced,
 /area/engine/mechanic_workshop/hangar)
 "nKm" = (
@@ -90058,6 +90654,10 @@
 /obj/structure/sign/poster/official/dig{
 	pixel_x = 32
 	},
+/obj/item/radio/intercom{
+	pixel_x = 28;
+	pixel_y = 22
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -90119,7 +90719,7 @@
 /area/engine/break_room)
 "nNo" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -91171,7 +91771,8 @@
 "nVS" = (
 /obj/machinery/door/airlock/command{
 	name = "Blueshield's Bedroom";
-	req_access = list(67)
+	req_access = list(67);
+	security_level = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -91238,7 +91839,8 @@
 /obj/machinery/door/airlock/mining/glass{
 	id = "qm";
 	name = "Quartermaster";
-	req_access = list(41)
+	req_access = list(41);
+	security_level = 1
 	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -92097,12 +92699,13 @@
 	pixel_y = 32
 	},
 /obj/effect/decal/warning_stripes/north,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 2
-	},
 /obj/machinery/light{
 	dir = 1;
 	in_use = 1
+	},
+/obj/machinery/camera{
+	c_tag = "Arrivals Shattle South";
+	dir = 2
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/commercial)
@@ -92606,7 +93209,8 @@
 "ohJ" = (
 /obj/machinery/door/airlock/command{
 	name = "Head of Security";
-	req_access = list(58)
+	req_access = list(58);
+	security_level = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -94187,11 +94791,11 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/theatre)
 "ouW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -95696,8 +96300,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "oHk" = (
-/obj/machinery/camera/autoname{
-	dir = 4
+/obj/item/radio/intercom{
+	pixel_x = -27
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -96004,7 +96608,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command{
 	name = "Research Director's Quarters";
-	req_access = list(30)
+	req_access = list(30);
+	security_level = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -97966,9 +98571,6 @@
 /area/maintenance/library)
 "oXZ" = (
 /obj/structure/table,
-/obj/machinery/camera/autoname{
-	dir = 2
-	},
 /obj/machinery/light{
 	dir = 1;
 	in_use = 1
@@ -98061,7 +98663,8 @@
 "oYP" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Warden's Office";
-	req_access = list(3)
+	req_access = list(3);
+	security_level = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -98312,7 +98915,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access = list(19)
+	req_access = list(19);
+	security_level = 1
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "BridgeLockdown";
@@ -100054,14 +100658,14 @@
 	},
 /area/blueshield)
 "pnD" = (
-/obj/machinery/light{
-	dir = 8
+/obj/item/radio/intercom{
+	pixel_x = 28
 	},
-/obj/machinery/camera/autoname{
-	dir = 4
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutral"
 	},
-/turf/simulated/floor/engine,
-/area/engine/aienter)
+/area/hallway/primary/central/second/east)
 "pnF" = (
 /obj/machinery/alarm{
 	pixel_y = 24
@@ -100860,7 +101464,7 @@
 "puS" = (
 /obj/structure/disposalpipe/trunk/multiz/down,
 /obj/machinery/camera{
-	c_tag = "Cargo Office";
+	c_tag = "Cargo Office Lobby";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -101738,10 +102342,6 @@
 "pAW" = (
 /obj/structure/table/reinforced,
 /obj/item/destTagger,
-/obj/machinery/camera{
-	c_tag = "Cargo Office east";
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -101834,7 +102434,8 @@
 /area/security/processing)
 "pBB" = (
 /obj/structure/chair,
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
+	c_tag = "Command Zone Main Hallway West";
 	dir = 6
 	},
 /turf/simulated/floor/plasteel{
@@ -102204,6 +102805,10 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/item/radio/intercom{
+	pixel_x = -28;
+	pixel_y = -8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -102460,7 +103065,8 @@
 /area/security/main)
 "pGm" = (
 /obj/machinery/light,
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
+	c_tag = "Second Floor Central Ring South Hallway 3";
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -104765,7 +105371,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/hatch{
 	name = "AI Satellite Secondary Antechamber";
-	req_access = list(75)
+	req_access = list(75);
+	security_level = 1
 	},
 /turf/simulated/floor/redgrid,
 /area/turret_protected/aisat_interior/secondary)
@@ -104806,7 +105413,8 @@
 "pXG" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Supermatter Chamber";
-	req_access = list(10)
+	req_access = list(10);
+	security_level = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -105196,6 +105804,9 @@
 /obj/machinery/camera{
 	c_tag = "Service Hallway West";
 	dir = 5
+	},
+/obj/item/radio/intercom{
+	pixel_x = -27
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -105987,7 +106598,8 @@
 "qgL" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Customs Desk";
-	req_access = list(19)
+	req_access = list(19);
+	security_level = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1
@@ -106950,7 +107562,8 @@
 "qqg" = (
 /obj/machinery/door/airlock/hatch{
 	name = "Telecommunications Access";
-	req_access = list(61)
+	req_access = list(61);
+	security_level = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -108038,7 +108651,8 @@
 /obj/machinery/door/airlock/command{
 	id_tag = "hopofficedoor";
 	name = "Head of Personnel";
-	req_access = list(57)
+	req_access = list(57);
+	security_level = 1
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
@@ -108378,7 +108992,8 @@
 /obj/machinery/door/airlock/command/glass{
 	id = "ntrepprivate";
 	name = "NT Representative's Private Office";
-	req_access = list(73)
+	req_access = list(73);
+	security_level = 1
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
@@ -109487,6 +110102,9 @@
 	c_tag = "East Primary Hallway 2";
 	dir = 1
 	},
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
 	},
@@ -109760,14 +110378,15 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/cabin3)
 "qME" = (
-/obj/machinery/camera/autoname{
-	dir = 8
+/obj/machinery/camera{
+	c_tag = "Command Zone Main Hallway South 2";
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkbluealt"
 	},
-/area/hallway/primary/command/east)
+/area/hallway/primary/central/second/north)
 "qMF" = (
 /obj/machinery/camera{
 	c_tag = "Xeno Containment 1";
@@ -110674,7 +111293,8 @@
 /obj/machinery/door/airlock/command/glass{
 	name = "Chief Engineer";
 	req_access = list(56);
-	id = "ceprivacytint"
+	id = "ceprivacytint";
+	security_level = 1
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -111085,6 +111705,15 @@
 	},
 /turf/simulated/floor/wood,
 /area/quartermaster/qm)
+"qVZ" = (
+/obj/machinery/camera{
+	c_tag = "Bridge North";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbluealt"
+	},
+/area/bridge)
 "qWf" = (
 /obj/machinery/vending/boozeomat,
 /turf/simulated/floor/plasteel{
@@ -112653,18 +113282,27 @@
 /obj/structure/sign/comand{
 	pixel_y = 32
 	},
-/obj/machinery/camera/autoname{
-	dir = 6
-	},
 /obj/machinery/light{
 	dir = 1;
 	in_use = 1
+	},
+/obj/machinery/camera{
+	c_tag = "Command Zone Main Hallway";
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkbluealt"
 	},
 /area/hallway/primary/central/second/north)
+"rjI" = (
+/obj/structure/chair/office,
+/obj/item/radio/intercom{
+	dir = 8;
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/spacebridge/somsec)
 "rjY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -114210,10 +114848,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock/highsecurity{
-	name = "Gravity Generator Foyer";
-	req_access = list(10)
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -114221,6 +114855,11 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/highsecurity{
+	name = "Gravity Generator Foyer";
+	req_access = list(10);
+	security_level = 6
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
 "rwn" = (
@@ -115869,6 +116508,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "rHL" = (
+/obj/item/radio/intercom{
+	pixel_x = -28;
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "greencorner"
@@ -116126,10 +116769,6 @@
 /area/civilian/barber)
 "rJR" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/command/glass{
-	name = "Bridge";
-	req_access = list(19)
-	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "BridgeLockdown";
 	name = "Bridge Lockdown"
@@ -116142,6 +116781,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/machinery/door/airlock/command/glass{
+	name = "Bridge";
+	req_access = list(19);
+	security_level = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -116259,6 +116903,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
+"rKY" = (
+/obj/item/radio/intercom/private{
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/chapel/office)
 "rLc" = (
 /obj/effect/decal/warning_stripes/northwest,
 /obj/machinery/atmospherics/unary/cold_sink/freezer{
@@ -116526,6 +117178,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
+"rNa" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/machinery/camera{
+	c_tag = "Arrivals West PortBay";
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry/additional)
 "rNc" = (
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -116537,7 +117197,7 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Armory";
 	req_access = list(1);
-	security_level = 1
+	security_level = 6
 	},
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -117810,6 +118470,16 @@
 	icon_state = "red"
 	},
 /area/hallway/primary/central/second/west)
+"rWq" = (
+/obj/item/radio/intercom{
+	dir = 8;
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "red"
+	},
+/area/hallway/primary/central/second/west)
 "rWu" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/warning_stripes/yellow,
@@ -117990,6 +118660,11 @@
 /obj/effect/decal/warning_stripes/northwestcorner,
 /obj/structure/cable{
 	icon_state = "1-8"
+	},
+/obj/machinery/camera{
+	c_tag = "Minisat Maintenance Room";
+	dir = 8;
+	network = list("Minisat","SS13")
 	},
 /turf/simulated/floor/plating,
 /area/aisat/maintenance)
@@ -118530,10 +119205,6 @@
 	},
 /area/crew_quarters/kitchen)
 "sbD" = (
-/obj/machinery/door/airlock/highsecurity{
-	name = "Gravity Generator Foyer";
-	req_access = list(10)
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -118544,6 +119215,11 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/highsecurity{
+	name = "Gravity Generator Foyer";
+	req_access = list(10);
+	security_level = 6
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
 "sbO" = (
@@ -118581,6 +119257,10 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/grassybush/hell,
+/obj/machinery/camera{
+	c_tag = "Second Floor Departure Lounge South Bridge";
+	dir = 6
+	},
 /turf/simulated/floor/grass,
 /area/hallway/secondary/exit)
 "sbU" = (
@@ -118621,7 +119301,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/hatch{
 	name = "MiniSat Chamber Hallway";
-	req_access = list(75)
+	req_access = list(75);
+	security_level = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -120039,6 +120720,10 @@
 "snw" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
+	},
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -122935,6 +123620,16 @@
 	icon_state = "tranquillite"
 	},
 /area/mimeoffice)
+"sJJ" = (
+/obj/machinery/camera{
+	c_tag = "Second Floor Central Ring West Hallway 2";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
+/area/hallway/primary/central/second/west)
 "sJK" = (
 /obj/machinery/light_switch{
 	pixel_x = 24
@@ -123206,7 +123901,7 @@
 /area/medical/virology/lab)
 "sMu" = (
 /obj/machinery/camera{
-	c_tag = "Second Floor Central North";
+	c_tag = "Second Floor Central Lobby North";
 	dir = 2
 	},
 /turf/simulated/floor/plasteel{
@@ -123312,6 +124007,11 @@
 /area/maintenance/medroom)
 "sNc" = (
 /obj/machinery/teleport/station,
+/obj/machinery/camera/motion{
+	c_tag = "Minisat Teleporter Room";
+	network = list("Minisat","SS13");
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -123991,6 +124691,18 @@
 	icon_state = "red"
 	},
 /area/gateway)
+"sSz" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "AI Sattelit Hallway Soth";
+	dir = 8;
+	network = list("Engineering","SS13");
+	pixel_y = 0
+	},
+/turf/simulated/floor/engine,
+/area/engine/aienter)
 "sSC" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -125470,7 +126182,7 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Armory";
 	req_access = list(3);
-	security_level = 1
+	security_level = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -125886,6 +126598,10 @@
 /area/maintenance/xenozoo)
 "tfq" = (
 /obj/structure/chair,
+/obj/machinery/camera{
+	c_tag = "Second Floor Central Ring North Hallway 2";
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -126039,6 +126755,11 @@
 	dir = 4
 	},
 /obj/structure/closet/walllocker/emerglocker/east,
+/obj/machinery/camera{
+	c_tag = "Pod East";
+	dir = 8;
+	network = list("SS13","Security")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkyellow"
@@ -126392,7 +127113,8 @@
 /obj/machinery/door/airlock/command{
 	id_tag = "blueshieldofficedoor";
 	name = "Blueshield's Office";
-	req_access = list(67)
+	req_access = list(67);
+	security_level = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -127538,7 +128260,8 @@
 "tsB" = (
 /obj/machinery/door/airlock/hatch{
 	name = "MiniSat Service Bay";
-	req_access = list(75)
+	req_access = list(75);
+	security_level = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -127612,6 +128335,27 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/secondary/entry/additional)
+"tth" = (
+/obj/item/radio/intercom{
+	dir = 8;
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/hallway/primary/central/second/east)
+"tti" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/machinery/light,
+/obj/machinery/camera{
+	c_tag = "Hangar Second Floor South";
+	dir = 1
+	},
+/turf/simulated/floor/glass/reinforced,
+/area/engine/mechanic_workshop/hangar)
 "ttj" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -128023,6 +128767,10 @@
 	name = "west fire alarm";
 	pixel_x = -24
 	},
+/obj/machinery/camera{
+	c_tag = "Bar Lobby West";
+	dir = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -128283,7 +129031,8 @@
 "txc" = (
 /obj/machinery/door/airlock/atmos/glass{
 	name = "Atmospherics Desc";
-	req_access = list(10,24)
+	req_access = list(10,24);
+	security_level = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -128472,6 +129221,15 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint6)
+"tyy" = (
+/obj/item/radio/intercom{
+	pixel_x = 28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkbluealt"
+	},
+/area/hallway/primary/central/second/north)
 "tyD" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	name = "standard air scrubber";
@@ -129990,6 +130748,9 @@
 	name = "Труба фильтрации"
 	},
 /obj/machinery/portable_atmospherics/canister,
+/obj/item/radio/intercom{
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -130467,6 +131228,11 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/item/radio/intercom{
+	dir = 1;
+	name = "Station Intercom (General)";
+	pixel_y = -29
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
@@ -132011,6 +132777,10 @@
 /obj/item/radio/intercom{
 	pixel_x = -28
 	},
+/obj/machinery/camera{
+	c_tag = "Hangar West";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellow"
@@ -132885,6 +133655,11 @@
 	pixel_y = 0
 	},
 /obj/machinery/light,
+/obj/machinery/camera/motion{
+	c_tag = "Minisat Telecommunications";
+	dir = 1;
+	network = list("Minisat","SS13")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -133774,7 +134549,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research{
 	name = "Chemical Toxins";
-	req_access = list(47)
+	req_access = list(47);
+	security_level = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -134752,7 +135528,8 @@
 /obj/machinery/door/airlock/mining/glass{
 	id = "qm";
 	name = "Quartermaster";
-	req_access = list(41)
+	req_access = list(41);
+	security_level = 1
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/siding/wood{
@@ -134826,6 +135603,10 @@
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
+	},
+/obj/item/radio/intercom{
+	pixel_x = -28;
+	pixel_y = -8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "blue";
@@ -135468,6 +136249,10 @@
 "uBO" = (
 /obj/machinery/vending/cigarette,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_y = 22
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple";
@@ -135543,7 +136328,8 @@
 /obj/machinery/door/airlock/command{
 	id_tag = "hopofficedoor";
 	name = "Head of Personnel";
-	req_access = list(57)
+	req_access = list(57);
+	security_level = 1
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
@@ -135735,6 +136521,9 @@
 /obj/machinery/camera{
 	c_tag = "Service Hallway East";
 	dir = 8
+	},
+/obj/item/radio/intercom{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -136067,6 +136856,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/portable_atmospherics/canister,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -136547,10 +137337,6 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/camera{
-	c_tag = "Cargo Office south";
-	dir = 1
-	},
 /obj/machinery/light,
 /obj/structure/sign/directions/floor/alt{
 	dir = 6;
@@ -136997,6 +137783,16 @@
 	tag = "icon-redfull (NORTHWEST)"
 	},
 /area/security/range)
+"uOr" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_y = 28
+	},
+/turf/simulated/floor/engine,
+/area/hallway/primary/central)
 "uOv" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -137548,7 +138344,12 @@
 /area/library)
 "uTj" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/machinery/camera/autoname,
+/obj/machinery/camera{
+	c_tag = "AI Sattelit Access Point";
+	dir = 2;
+	network = list("Engineering","SS13");
+	pixel_y = 0
+	},
 /turf/simulated/floor/engine,
 /area/engine/aienter)
 "uTt" = (
@@ -138532,11 +139333,24 @@
 	},
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/maintenance/double,
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_y = 28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkyellow"
 	},
 /area/engine/mechanic_workshop/hangar)
+"vat" = (
+/obj/structure/disposalpipe/segment,
+/obj/item/radio/intercom{
+	pixel_x = -28
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/bridge/meeting_room)
 "vay" = (
 /obj/structure/urinal{
 	pixel_y = 28
@@ -138623,7 +139437,12 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/camera/autoname,
+/obj/machinery/camera{
+	c_tag = "AI Sattelit Hallway North-West";
+	dir = 2;
+	network = list("Engineering","SS13");
+	pixel_y = 0
+	},
 /turf/simulated/floor/engine,
 /area/engine/aienter)
 "vbj" = (
@@ -139024,6 +139843,7 @@
 /area/toxins/xenobiology)
 "vdG" = (
 /obj/effect/spawner/window/reinforced,
+/obj/structure/cable,
 /turf/simulated/floor/plating/airless,
 /area/engine/hardsuitstorage)
 "vdL" = (
@@ -139891,6 +140711,14 @@
 	icon_state = "dark"
 	},
 /area/engine/hardsuitstorage)
+"vlr" = (
+/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/camera{
+	c_tag = "Arrivals Shattle East";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry/commercial)
 "vls" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
@@ -141269,7 +142097,7 @@
 	dir = 1
 	},
 /obj/machinery/camera{
-	c_tag = "Bar counter";
+	c_tag = "Bar Lobby East";
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/light{
@@ -141383,8 +142211,9 @@
 	},
 /area/crew_quarters/bar)
 "vyr" = (
-/obj/machinery/camera/autoname{
-	dir = 1
+/obj/machinery/camera{
+	c_tag = "West-West Command Zone Hallway";
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluealt"
@@ -142204,7 +143033,7 @@
 /area/turret_protected/aisat_interior)
 "vFN" = (
 /obj/machinery/camera{
-	c_tag = "Central Bridge Hallway East";
+	c_tag = "Central Bridge Hallway East 2";
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -142936,10 +143765,6 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/obj/item/radio/intercom{
-	pixel_x = 28;
-	pixel_y = -2
-	},
 /obj/effect/landmark/start/civilian,
 /obj/structure/chair{
 	dir = 1
@@ -143142,6 +143967,10 @@
 /obj/machinery/light{
 	dir = 1;
 	in_use = 1
+	},
+/obj/machinery/camera{
+	c_tag = "Mining Shuttle North";
+	dir = 2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -144069,8 +144898,8 @@
 	dir = 4
 	},
 /obj/item/radio/intercom{
-	pixel_x = -28;
-	pixel_y = -2
+	pixel_x = -32;
+	pixel_y = -10
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue";
@@ -144348,6 +145177,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
+"vWI" = (
+/obj/item/radio/intercom{
+	pixel_x = 28;
+	pixel_y = -2
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "brown"
+	},
+/area/hallway/primary/central/second/east)
 "vWL" = (
 /obj/structure/table/wood,
 /obj/item/folder{
@@ -144488,10 +145327,6 @@
 /area/maintenance/trading)
 "vXB" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/radio/intercom{
-	dir = 1;
-	pixel_y = 25
-	},
 /obj/machinery/light{
 	dir = 1;
 	in_use = 1
@@ -144987,6 +145822,16 @@
 	},
 /turf/simulated/floor/glass/reinforced,
 /area/engine/controlroom)
+"wbN" = (
+/obj/machinery/camera{
+	c_tag = "Second Floor Central Ring West Hallway 3";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
+/area/hallway/primary/central/second/west)
 "wbQ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -145035,6 +145880,10 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
+	},
+/obj/item/radio/intercom{
+	pixel_x = 32;
+	pixel_y = 26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -145257,6 +146106,17 @@
 	icon_state = "whitehall"
 	},
 /area/maintenance/fsmaint3)
+"weo" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/status_display{
+	pixel_y = 32
+	},
+/obj/machinery/camera{
+	c_tag = "Arrivals Shattle North";
+	dir = 2
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry/commercial)
 "weq" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/decal/warning_stripes/yellow,
@@ -145374,7 +146234,8 @@
 "wfo" = (
 /obj/machinery/door/airlock/security{
 	name = "Evidence Storage";
-	req_access = list(63)
+	req_access = list(63);
+	security_level = 1
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -145553,7 +146414,8 @@
 /obj/machinery/door/airlock/command{
 	id_tag = "rdofficedoor";
 	name = "Research Director's Office";
-	req_access = list(30)
+	req_access = list(30);
+	security_level = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -145813,6 +146675,15 @@
 	icon_state = "darkgrey"
 	},
 /area/engine/mechanic_workshop/hangar)
+"wjs" = (
+/obj/item/radio/intercom{
+	name = "west station intercom (General)";
+	pixel_x = -28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/crew_quarters/theatre)
 "wjw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -146330,7 +147201,8 @@
 "wmO" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Prisoner Lockers";
-	req_access = list(63)
+	req_access = list(63);
+	security_level = 1
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -146967,7 +147839,8 @@
 /area/engine/controlroom)
 "wqO" = (
 /obj/structure/chair,
-/obj/machinery/camera/autoname{
+/obj/machinery/camera{
+	c_tag = "Command Zone Main Hallway East";
 	dir = 2
 	},
 /turf/simulated/floor/plasteel{
@@ -148082,6 +148955,13 @@
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 1
 	},
+/obj/machinery/camera{
+	c_tag = "Mining Shuttle South";
+	dir = 1
+	},
+/obj/item/radio/intercom{
+	pixel_y = -26
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
@@ -148260,6 +149140,9 @@
 	dir = 4
 	},
 /obj/machinery/light,
+/obj/item/radio/intercom/private{
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/heads/hop)
 "wAN" = (
@@ -149069,6 +149952,19 @@
 	icon_state = "barber"
 	},
 /area/security/permabrig)
+"wIT" = (
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
+/obj/machinery/camera{
+	c_tag = "Second Floor Central Ring South Hallway 1";
+	dir = 2
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "red"
+	},
+/area/hallway/primary/central/second/west)
 "wIY" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/structure/cable,
@@ -149261,7 +150157,8 @@
 "wKE" = (
 /obj/machinery/door/airlock/command{
 	name = "NT Representative's Bedroom";
-	req_access = list(73)
+	req_access = list(73);
+	security_level = 1
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -149523,7 +150420,8 @@
 "wLT" = (
 /obj/machinery/door/airlock/medical{
 	name = "Brig Physician's Quarters";
-	req_access = list(5)
+	req_access = list(5);
+	security_level = 1
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -150318,6 +151216,9 @@
 	scrub_N2O = 1;
 	scrub_Toxins = 1
 	},
+/obj/item/radio/intercom{
+	pixel_x = -28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -150459,6 +151360,11 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_x = -32
 	},
+/obj/machinery/camera{
+	c_tag = "Paramedic's Office";
+	dir = 5;
+	network = list("Medical","SS13")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -150492,10 +151398,6 @@
 /area/atmos)
 "wTH" = (
 /obj/machinery/vending/cigarette,
-/obj/machinery/camera{
-	c_tag = "Second Floor Central South";
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -150586,6 +151488,14 @@
 	tag = "icon-whitehall (WEST)"
 	},
 /area/medical/ward)
+"wUn" = (
+/obj/item/radio/intercom{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/starboard)
 "wUw" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -150757,6 +151667,9 @@
 	c_tag = "Departure Lounge Security Checkpoint West";
 	network = list("SS13","Security");
 	dir = 4
+	},
+/obj/item/radio/intercom{
+	pixel_x = -26
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -151397,6 +152310,10 @@
 /area/maintenance/casino)
 "xaH" = (
 /obj/machinery/light,
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -151483,7 +152400,8 @@
 "xbz" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Brig Customs";
-	req_access = list(63)
+	req_access = list(63);
+	security_level = 1
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -151648,14 +152566,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 4
+	},
 /obj/machinery/door/airlock/glass{
 	id_tag = "magistrateoffice";
 	name = "Magistrate's Office";
 	req_access = list(74);
-	id = "tintmagistrateoffice"
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
+	id = "tintmagistrateoffice";
+	security_level = 1
 	},
 /turf/simulated/floor/carpet/black,
 /area/magistrateoffice)
@@ -152452,6 +153371,10 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/item/radio/intercom{
+	dir = 1;
+	pixel_y = -28
+	},
 /turf/simulated/floor/engine,
 /area/hallway/primary/central)
 "xjx" = (
@@ -152625,7 +153548,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Checkpoint";
-	req_access = list(1)
+	req_access = list(1);
+	security_level = 1
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -154332,7 +155256,7 @@
 /obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/quartermaster/storage)
+/area/quartermaster/delivery)
 "xzq" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
@@ -154882,6 +155806,16 @@
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
+"xDD" = (
+/obj/machinery/camera{
+	c_tag = "Arrivals West Hallway 3";
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "arrival"
+	},
+/area/hallway/secondary/entry)
 "xDL" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
@@ -155392,6 +156326,11 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/light/small,
+/obj/item/radio/intercom{
+	dir = 1;
+	name = "Station Intercom (General)";
+	pixel_y = -29
+	},
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
 "xHU" = (
@@ -155454,7 +156393,8 @@
 /obj/machinery/door/airlock/maintenance_hatch{
 	locked = 1;
 	name = "MiniSat Maintenance";
-	req_access = list(75)
+	req_access = list(75);
+	security_level = 6
 	},
 /turf/simulated/floor/plating,
 /area/turret_protected/ai)
@@ -156620,7 +157560,8 @@
 	id = "ntr";
 	id_tag = "ntrepofficedoor";
 	name = "NT Representative's Office";
-	req_access = list(73)
+	req_access = list(73);
+	security_level = 1
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -156737,6 +157678,14 @@
 	icon_state = "white"
 	},
 /area/medical/cmostore)
+"xRI" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/item/radio/intercom{
+	pixel_y = 0;
+	pixel_x = 30
+	},
+/turf/simulated/floor/plasteel,
+/area/hallway/secondary/entry/commercial)
 "xRN" = (
 /obj/structure/window/reinforced{
 	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
@@ -157485,6 +158434,11 @@
 /obj/effect/decal/warning_stripes/yellow/partial,
 /obj/effect/decal/warning_stripes/arrow,
 /obj/effect/landmark/start/shaft_miner,
+/obj/item/radio/intercom{
+	dir = 4;
+	pixel_x = -32;
+	pixel_y = -8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -157658,8 +158612,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/camera/autoname{
-	dir = 9
+/obj/machinery/camera{
+	c_tag = "Arrivals Lobby East Hallway";
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -157816,7 +158771,8 @@
 /obj/machinery/door/airlock/command{
 	id_tag = "captainofficedoor";
 	name = "Captain's Bedroom";
-	req_access = list(20)
+	req_access = list(20);
+	security_level = 6
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 8;
@@ -158919,6 +159875,15 @@
 	icon_state = "darkred"
 	},
 /area/security/interrogation)
+"ygH" = (
+/obj/item/radio/intercom/private{
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "vault"
+	},
+/area/chapel/main)
 "ygI" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
@@ -173833,7 +174798,7 @@ eIe
 tkq
 uYD
 tkE
-rnQ
+dVm
 rnQ
 eln
 rnQ
@@ -178640,7 +179605,7 @@ tkq
 tkq
 lGf
 lGf
-oxH
+aHc
 nNo
 hWg
 lGf
@@ -178915,7 +179880,7 @@ lGf
 xcO
 fts
 eVL
-bRL
+ezr
 lGf
 tkq
 tkq
@@ -179154,7 +180119,7 @@ tkq
 tkq
 tkq
 lGf
-fAY
+weo
 tEQ
 bRL
 qwQ
@@ -179499,7 +180464,7 @@ tlO
 nmA
 lxm
 jOC
-oPu
+mbt
 nLx
 pSU
 jOC
@@ -179943,7 +180908,7 @@ lGf
 lGf
 odd
 ouW
-bRL
+kwY
 rmv
 tkq
 tkq
@@ -181744,7 +182709,7 @@ hsG
 xUN
 hsG
 hsG
-hsG
+xRI
 huJ
 xrv
 jYV
@@ -181992,7 +182957,7 @@ gSE
 cEt
 oHy
 oHy
-jBN
+vlr
 rmv
 lGf
 lGf
@@ -182245,7 +183210,7 @@ eIe
 tkq
 tkq
 rmv
-ixu
+lGf
 rmv
 rmv
 rmv
@@ -182259,7 +183224,7 @@ tkq
 eIe
 tkq
 tkq
-nqP
+sbq
 mqd
 xRx
 sbq
@@ -184311,7 +185276,7 @@ eKj
 guJ
 kxM
 eIY
-rtN
+daJ
 wEv
 xnD
 tkq
@@ -184830,7 +185795,7 @@ fZk
 tkq
 tkq
 sbq
-fcl
+agm
 ivi
 rNN
 cmA
@@ -185850,7 +186815,7 @@ tiU
 nYn
 nYn
 hwA
-nYn
+rNa
 nYn
 akX
 nYn
@@ -186881,7 +187846,7 @@ kXK
 guJ
 kxM
 eIY
-rtN
+fYJ
 wEv
 xnD
 tkq
@@ -187718,7 +188683,7 @@ tkq
 tkq
 tkq
 bje
-whu
+uOr
 vOe
 aoP
 fYe
@@ -187914,7 +188879,7 @@ fZk
 fZk
 eIe
 sbq
-ndp
+ixS
 vFz
 jeK
 dYQ
@@ -188428,7 +189393,7 @@ fZk
 tkq
 tkq
 sbq
-ndp
+xDD
 cmc
 ucR
 ucR
@@ -188746,7 +189711,7 @@ tkq
 tkq
 tkq
 bje
-whu
+bvl
 pDK
 cLi
 lCA
@@ -190363,7 +191328,7 @@ qZn
 mdA
 ceC
 bKY
-duu
+eyc
 vuq
 qnc
 xJd
@@ -190375,7 +191340,7 @@ tSx
 oUI
 bqZ
 erM
-fRv
+hJe
 dgs
 cZt
 xrz
@@ -190505,7 +191470,7 @@ qmd
 oOs
 fjY
 qmd
-qmd
+jkY
 iaY
 qmd
 qmd
@@ -191155,7 +192120,7 @@ kLA
 nhd
 thz
 fkO
-sLX
+fJl
 jfI
 eIe
 rSe
@@ -192283,7 +193248,7 @@ fFd
 djy
 pVm
 pJc
-ndp
+inN
 jpO
 awz
 awz
@@ -192810,7 +193775,7 @@ txE
 csx
 kwg
 oEE
-czM
+lKi
 csx
 nRM
 gXe
@@ -193844,10 +194809,10 @@ hIY
 giO
 gSU
 ozY
-btg
+oBy
 sWV
 wSb
-oBy
+btg
 aTF
 oBy
 dPO
@@ -193886,7 +194851,7 @@ tkq
 tkq
 tkq
 bje
-whu
+hre
 pav
 hux
 ahn
@@ -195625,7 +196590,7 @@ tHW
 mOd
 pAn
 ndp
-taH
+mBI
 qje
 qje
 pRn
@@ -200058,7 +201023,7 @@ dHK
 aAg
 qgK
 bib
-hGX
+wUn
 cbh
 ulh
 ulh
@@ -201600,7 +202565,7 @@ wEQ
 dVE
 pWT
 bib
-lLG
+rDT
 cbh
 xJi
 xQi
@@ -204687,7 +205652,7 @@ tMI
 uYQ
 rPA
 syE
-opy
+lLG
 uGK
 nwt
 hQV
@@ -204944,7 +205909,7 @@ wOl
 bIm
 wtw
 syE
-opy
+cfz
 jpx
 dsE
 abn
@@ -212114,8 +213079,8 @@ qvR
 yiU
 aww
 aww
-vdG
-lkX
+nCU
+cwl
 gJg
 vdG
 aww
@@ -217023,7 +217988,7 @@ dfy
 dfy
 dfy
 gJO
-pnD
+gbT
 gJO
 dfy
 dfy
@@ -217537,7 +218502,7 @@ cPP
 cPP
 cPP
 gNK
-mae
+sSz
 gNK
 cPP
 cPP
@@ -243230,7 +244195,7 @@ xey
 viK
 fJx
 sVG
-uZW
+fKV
 tka
 kWp
 oQu
@@ -247598,7 +248563,7 @@ vTl
 idP
 hqo
 eqG
-hqo
+jkm
 hqo
 wqf
 hqo
@@ -248115,7 +249080,7 @@ vBG
 mvk
 mvk
 mvk
-mvk
+sJJ
 mvk
 mvk
 oHk
@@ -248125,7 +249090,7 @@ vBG
 mvk
 mvk
 mvk
-mvk
+wbN
 uGl
 mvk
 jaa
@@ -250440,7 +251405,7 @@ bkc
 bkc
 bkc
 gAz
-hdp
+wIT
 aop
 fnc
 lpF
@@ -251405,7 +252370,7 @@ nxY
 kCp
 hKA
 sST
-bMU
+nqP
 wyJ
 mST
 bMU
@@ -251422,7 +252387,7 @@ bMU
 bwh
 bMU
 bMU
-mBI
+bMU
 bMU
 bMU
 bMU
@@ -251931,7 +252896,7 @@ iQA
 phg
 vHU
 bnd
-lTR
+kZB
 xMb
 eSb
 ykT
@@ -251942,7 +252907,7 @@ fwH
 ykT
 wel
 jAn
-xMb
+kvq
 lTR
 xMb
 elE
@@ -252455,7 +253420,7 @@ qiS
 xKp
 eML
 nJq
-kaY
+bGE
 aKV
 vfj
 rPv
@@ -252753,7 +253718,7 @@ gkj
 tuW
 bkc
 gAz
-mHk
+rWq
 aop
 fnc
 lpF
@@ -253004,7 +253969,7 @@ gkj
 tuW
 tuW
 tuW
-vPZ
+rjI
 knY
 tqz
 tuW
@@ -254015,7 +254980,7 @@ cOE
 cOE
 sjZ
 ogE
-nCQ
+eUC
 tuW
 tuW
 eGq
@@ -254067,7 +255032,7 @@ gVY
 gVY
 tHI
 awY
-gBd
+wjs
 hiX
 gBd
 qxA
@@ -254511,7 +255476,7 @@ iri
 vvB
 qPT
 nJq
-kaY
+jTE
 aKV
 jPg
 soS
@@ -254768,7 +255733,7 @@ eBx
 eBx
 pNa
 nJq
-cFI
+kaY
 aKV
 mPi
 sEb
@@ -255005,7 +255970,7 @@ kCp
 uMw
 ppW
 kOb
-kOb
+vat
 gZq
 kPy
 aRY
@@ -256518,7 +257483,7 @@ bkc
 bkc
 efn
 qhK
-kew
+kNt
 sDV
 sDV
 cpv
@@ -256531,7 +257496,7 @@ sDV
 sDV
 sDV
 sDV
-lbR
+tti
 qhK
 fvL
 kdb
@@ -256581,8 +257546,8 @@ tkR
 tkR
 tkR
 tkR
-tkR
-tkR
+tyy
+qME
 kXm
 ycw
 hSz
@@ -256842,7 +257807,7 @@ cOE
 cOE
 qbI
 ycw
-lKi
+xlh
 cOE
 bkc
 eGq
@@ -256875,7 +257840,7 @@ hwN
 cwB
 faj
 fEw
-kbw
+cGX
 lkY
 uiV
 isz
@@ -257071,7 +258036,7 @@ lPM
 pmD
 ihk
 wRT
-nFa
+qVZ
 eBx
 flV
 tqu
@@ -258641,12 +259606,12 @@ cOE
 cOE
 uHb
 oZS
-nno
+gZS
 fkl
 fkl
 eGq
 dZB
-sbD
+mYS
 dZB
 eGq
 fkl
@@ -259949,7 +260914,7 @@ ljt
 fkl
 bkc
 uMt
-ajv
+tth
 xqA
 fEy
 jKC
@@ -260012,7 +260977,7 @@ bkc
 bkc
 bkc
 rGI
-ebw
+fDQ
 plr
 nSU
 rGI
@@ -260020,7 +260985,7 @@ bkc
 bkc
 bkc
 rGI
-wZT
+btd
 hvv
 wvN
 rGI
@@ -260165,7 +261130,7 @@ qiS
 xKp
 eML
 nJq
-kaY
+bGE
 hAa
 aKD
 fRS
@@ -260669,7 +261634,7 @@ cgv
 cgv
 mHR
 cgv
-iRx
+fIe
 cgv
 rmt
 vQc
@@ -260680,7 +261645,7 @@ dZz
 vQc
 lSe
 jIz
-cgv
+cEu
 iRx
 cgv
 aDr
@@ -261173,9 +262138,9 @@ hKA
 uLw
 pIv
 dhc
-pIv
+dNQ
 lTQ
-qME
+pIv
 jTU
 pIv
 pIv
@@ -261186,12 +262151,12 @@ pIv
 pIv
 pIv
 pIv
-pIv
+ixu
 pIv
 fOk
 pIv
 iOi
-qME
+pIv
 iwO
 pIv
 pIv
@@ -262723,7 +263688,7 @@ nOX
 pTU
 hFa
 ekT
-cUU
+lej
 lcY
 tRC
 oRV
@@ -263547,7 +264512,7 @@ bkc
 bkc
 bkc
 uMt
-ajv
+jdP
 xqA
 fEy
 jKC
@@ -264552,7 +265517,7 @@ iiT
 pTU
 aCb
 vJt
-vrB
+pnD
 mZq
 vrB
 iks
@@ -264573,7 +265538,7 @@ aBZ
 dMD
 dMD
 dMD
-dMD
+vWI
 rDj
 dMD
 dMD
@@ -268405,7 +269370,7 @@ eVD
 spd
 rki
 jYz
-rki
+rKY
 xxH
 uFB
 qjM
@@ -269685,7 +270650,7 @@ niE
 caz
 hxi
 eIO
-mhJ
+ygH
 eVD
 xxH
 xxH
@@ -283090,7 +284055,7 @@ irM
 irM
 raq
 lBx
-dof
+hRo
 qzn
 qvc
 qvc
