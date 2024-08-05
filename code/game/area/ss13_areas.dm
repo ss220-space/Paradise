@@ -258,10 +258,6 @@ This applies to all STANDARD station areas
 	name = "Steel Rain"
 	icon_state = "shuttle"
 
-/area/shuttle/nt_droppod
-	name = "Shit rain"
-	icon_state = "shuttle"
-
 /area/shuttle/administration
 	name = "Nanotrasen Vessel"
 	icon_state = "shuttlered"

@@ -118,13 +118,12 @@
 	var/teleport_x = 0	// teleportation coordinates (if one is null, then no teleport!)
 	var/teleport_y = 0
 	var/teleport_z = 0
-	density = 0
-	opacity = 0
 
 /obj/effect/step_trigger/teleporter/Trigger(atom/movable/A)
 	if(teleport_x && teleport_y && teleport_z)
 
-		A.loc = locate(teleport_x, teleport_y, teleport_z)
+		var/turf/T = locate(teleport_x, teleport_y, teleport_z)
+		A.forceMove(T)
 
 /* Random teleporter, teleports atoms to locations ranging from teleport_x - teleport_x_offset, etc */
 
