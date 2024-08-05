@@ -57,12 +57,12 @@
 /obj/item/stack/ore/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!refined_type)
-		to_chat(user, "<span class='notice'>You can't smelt [src] into anything useful!</span>")
+		balloon_alert(usr, "нельзя расплавить!")
 		return
 	if(!I.use_tool(src, user, 0, 15, volume = I.tool_volume))
 		return
 	new refined_type(drop_location(), amount)
-	to_chat(user, "<span class='notice'>You smelt [src] into its refined form!</span>")
+	balloon_alert(usr, "переплавлено!")
 	qdel(src)
 
 
@@ -142,7 +142,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		visible_message("<span class='danger'>[C]'s glasses block the sand!</span>")
 		return
 	C.EyeBlurry(12 SECONDS)
-	C.adjustStaminaLoss(15)//the pain from your eyes burning does stamina damage
+	C.apply_damage(15, STAMINA)//the pain from your eyes burning does stamina damage
 	C.AdjustConfused(10 SECONDS)
 	to_chat(C, "<span class='userdanger'>[src] gets into your eyes! The pain, it burns!</span>")
 	qdel(src)
@@ -255,7 +255,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/twohanded/required/gibtonite/can_be_pulled(atom/movable/puller, grab_state, force, supress_message)
 	if(!supress_message && ismob(puller))
-		to_chat(puller, span_warning("It's too heavy to be pulled!"))
+		balloon_alert(puller, "слишком тяжело!")
 	return FALSE // must be carried in two hands or be picked up with ripley
 
 /obj/item/twohanded/required/gibtonite/attackby(obj/item/I, mob/user, params)
@@ -460,15 +460,15 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/CC = W
 		if(string_attached)
-			to_chat(user, "<span class='notice'>There already is a string attached to this coin.</span>")
+			balloon_alert(user, "уже прикреплено!")
 			return
 
 		if(CC.use(1))
 			add_overlay(image('icons/obj/economy.dmi',"coin_string_overlay"))
 			string_attached = 1
-			to_chat(user, "<span class='notice'>You attach a string to the coin.</span>")
+			balloon_alert(user, "прикреплено!")
 		else
-			to_chat(user, "<span class='warning'>You need one length of cable to attach a string to the coin.</span>")
+			balloon_alert(user, "недостаточно кабеля") //how the f could you take less than one lenght of cable
 			return
 
 	else if(istype(W,/obj/item/wirecutters))
@@ -480,7 +480,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		CC.update_icon()
 		overlays = list()
 		string_attached = null
-		to_chat(user, "<span class='notice'>You detach the string from the coin.</span>")
+		balloon_alert(user, "кабель срезан")
 	else ..()
 
 /obj/item/coin/welder_act(mob/user, obj/item/I)

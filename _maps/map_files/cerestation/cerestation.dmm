@@ -21665,7 +21665,7 @@
 /area/mimeoffice)
 "cOo" = (
 /obj/machinery/door/airlock/external{
-	name = "Emergency Shuttle Airlock"
+	name = "Escape Pod Airlock"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
@@ -31446,10 +31446,6 @@
 /obj/effect/landmark/join_late,
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
-"fdm" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/plating,
-/area/hallway/primary/aft/west)
 "fdB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -42054,7 +42050,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal/north)
 "imm" = (
-/obj/structure/table/holotable/wood,
+/obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -82534,7 +82530,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/mechanic_workshop/expedition)
 "tIP" = (
-/obj/structure/table/holotable/wood,
+/obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "blue"
@@ -89171,6 +89167,12 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/crew_quarters/locker/locker_toilet)
+"vMq" = (
+/obj/machinery/door/airlock/external{
+	name = "Escape Pod Airlock"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/disposal/north)
 "vMA" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -110359,10 +110361,10 @@ ccW
 rWw
 rWw
 rNK
-rNK
-rNK
-rNK
-cdb
+biI
+bnQ
+bnQ
+eVf
 djt
 cni
 vsg
@@ -110616,10 +110618,10 @@ ccW
 ccW
 rWw
 cdb
-biI
-bnQ
+biK
 bnQ
 eVf
+dcG
 djt
 mQb
 pop
@@ -110873,9 +110875,9 @@ vtY
 ccW
 rWw
 cdb
-biK
+biI
 bnQ
-eVf
+cJu
 dcG
 djt
 sxb
@@ -111130,9 +111132,9 @@ vtY
 ccW
 rWw
 cdb
-biI
+biK
 bnQ
-cJu
+eVf
 dcG
 djt
 hXm
@@ -111387,9 +111389,9 @@ vtY
 ccW
 rWw
 cdb
-biK
+biI
 bnQ
-eVf
+cJu
 dcG
 djt
 sxb
@@ -111644,9 +111646,9 @@ vtY
 ccW
 rWw
 cdb
-biI
+biK
 bnQ
-cJu
+eVf
 dcG
 uCu
 owN
@@ -111900,10 +111902,10 @@ uCK
 vtY
 vtY
 rWw
-rWw
-biK
+cdb
+biI
 bnQ
-eVf
+cJu
 biK
 rlT
 bSE
@@ -112156,11 +112158,11 @@ uCK
 gur
 lOG
 vtY
-ccW
-jqn
-jqn
-jqn
+rWw
+rNK
 biK
+bnQ
+bnQ
 bnQ
 cjL
 jgl
@@ -112413,11 +112415,11 @@ vtY
 jUn
 ylJ
 vtY
+rWw
 jqn
 jqn
 jqn
-jqn
-jqn
+rNK
 cxg
 cxg
 cxg
@@ -113441,11 +113443,11 @@ chQ
 chQ
 tuK
 qWp
-vkl
 jqn
-lsT
 jqn
-qWp
+jqn
+jqn
+jqn
 cxg
 rQf
 rQf
@@ -113699,9 +113701,9 @@ nNd
 mKt
 pGq
 wsm
-vkl
-fdm
-vkl
+jqn
+lsT
+jqn
 qWp
 cxg
 eHc
@@ -125380,7 +125382,7 @@ jqn
 jqn
 jqn
 ajP
-akA
+vMq
 cAD
 akA
 akA

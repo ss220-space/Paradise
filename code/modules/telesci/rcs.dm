@@ -138,7 +138,7 @@
 	to_chat(user, "<span class='notice'>Teleporting [C]...</span>")
 	playsound(src, usesound, 50, TRUE)
 	teleporting = TRUE
-	if(!do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), C))
+	if(!do_after(user, 5 SECONDS * toolspeed, C, category = DA_CAT_TOOL))
 		teleporting = FALSE
 		return
 

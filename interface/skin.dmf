@@ -131,6 +131,10 @@ menu "menu"
 		command = "adminhelp"
 		category = "&Help"
 	elem
+		name = "&Fit Viewport"
+		command = "Fit-Viewport"
+		category = "&Help"
+	elem
 		name = "&Refresh TGUI"
 		command = "Refresh-TGUI"
 		category = "&Help"

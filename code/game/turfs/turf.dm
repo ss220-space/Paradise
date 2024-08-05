@@ -370,6 +370,12 @@
 		if(lighting_object && !lighting_object.needs_update)
 			lighting_object.update()
 
+		if(old_always_lit != always_lit)
+			if(!always_lit)
+				lighting_build_overlay()
+			else
+				lighting_clear_overlay()
+
 		for(var/turf/space/S in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
 			S.update_starlight()
 

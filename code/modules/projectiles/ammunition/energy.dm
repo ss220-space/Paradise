@@ -449,6 +449,7 @@
 	delay = 25
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	select_name  = "emitter"
+
 /obj/item/ammo_casing/energy/emittergunborg
 	projectile_type = /obj/item/projectile/beam/emitter
 	fire_sound = 'sound/weapons/emitter.ogg'

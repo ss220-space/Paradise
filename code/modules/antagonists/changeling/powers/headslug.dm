@@ -25,7 +25,7 @@
 		victim.EyeBlurry(40 SECONDS)
 		var/obj/item/organ/internal/eyes/eyes = victim.get_int_organ(/obj/item/organ/internal/eyes)
 		if(istype(eyes))
-			eyes.receive_damage(5, 1)
+			eyes.internal_receive_damage(5, silent = TRUE)
 		victim.AdjustConfused(6 SECONDS)
 
 	for(var/mob/living/silicon/silicon in range(2, user))

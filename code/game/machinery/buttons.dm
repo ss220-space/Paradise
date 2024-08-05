@@ -68,13 +68,15 @@
 	. = TRUE
 	multitool_menu_interact(user, I)
 
+
 /obj/machinery/driver_button/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	playsound(get_turf(src), I.usesound, 50, 1)
-	if(do_after(user, 3 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
-		to_chat(user, span_notice("You detach [src] from the wall."))
-		new/obj/item/mounted/frame/driver_button(get_turf(src))
-		qdel(src)
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
+		return .
+	to_chat(user, span_notice("You detach [src] from the wall."))
+	new /obj/item/mounted/frame/driver_button(loc)
+	qdel(src)
+
 
 /obj/machinery/driver_button/attackby(obj/item/W, mob/user as mob, params)
 

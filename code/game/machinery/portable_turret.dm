@@ -323,7 +323,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			//If the turret is destroyed, you can remove it with a crowbar to
 			//try and salvage its components
 			to_chat(user, span_notice("You begin prying the metal coverings off."))
-			if(do_after(user, 2 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
+			if(do_after(user, 2 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
 				if(prob(70))
 					to_chat(user, span_notice("You remove the turret and salvage some components."))
 					if(installation)
@@ -355,7 +355,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			)
 
 		wrenching = TRUE
-		if(do_after(user, 5 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, 5 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
 			//This code handles moving the turret around. After all, it's a portable turret!
 			add_fingerprint(user)
 			playsound(loc, I.usesound, 100, TRUE)

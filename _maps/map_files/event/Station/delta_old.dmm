@@ -420,10 +420,6 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/secondary/entry/additional)
-"aii" = (
-/obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plating,
-/area/hallway/secondary/entry/westarrival)
 "aip" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -457,10 +453,6 @@
 	icon_state = "white"
 	},
 /area/toxins/lab)
-"aiL" = (
-/obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plating,
-/area/hallway/secondary/entry/eastarrival)
 "aiT" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -6900,9 +6892,6 @@
 	icon_state = "darkyellow"
 	},
 /area/engine/mechanic_workshop/hangar)
-"bdu" = (
-/turf/simulated/floor/plating,
-/area/construction/hallway)
 "bdz" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/radio/intercom{
@@ -119417,9 +119406,9 @@ aaa
 aaa
 aaa
 aaa
-gXq
-gXq
-gXq
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa
@@ -119673,11 +119662,11 @@ aaa
 aaa
 aaa
 aaa
+aaa
 gXq
 gXq
 gXq
-gXq
-gXq
+aaa
 aaa
 aaa
 aaa
@@ -120701,11 +120690,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
 gXq
-vAm
 gXq
-aaa
+gXq
+gXq
+gXq
 aaa
 aaa
 aaa
@@ -120959,9 +120948,9 @@ aaa
 aaa
 aaa
 aaa
-tOj
-bdu
-tOj
+gXq
+vAm
+gXq
 aaa
 aaa
 aaa
@@ -151450,11 +151439,11 @@ aaa
 aaa
 aaa
 aaa
-gXq
-gXq
-gXq
-gXq
 aaa
+gXq
+gXq
+gXq
+gXq
 aaa
 agp
 agp
@@ -151706,13 +151695,13 @@ aaa
 aaa
 aaa
 aaa
+aaa
 gXq
 gXq
 gXq
 gXq
 gXq
 gXq
-ahS
 ahS
 alv
 axa
@@ -151963,13 +151952,13 @@ aaa
 aaa
 aaa
 aaa
+aaa
 gXq
 gXq
 gXq
 gXq
 gXq
 ahe
-aii
 dZo
 ayB
 amj
@@ -152220,13 +152209,13 @@ aaa
 aaa
 aaa
 aaa
+aaa
 gXq
 gXq
 gXq
 gXq
 gXq
 gXq
-ahS
 ahS
 ahr
 aud
@@ -152478,11 +152467,11 @@ aaa
 aaa
 aaa
 aaa
-gXq
-gXq
-gXq
-gXq
 aaa
+gXq
+gXq
+gXq
+gXq
 iGw
 agp
 agp
@@ -156076,12 +156065,12 @@ aaa
 aaa
 aaa
 aaa
+aaa
 gXq
 gXq
 gXq
 gXq
 aaa
-iGw
 aiE
 ajN
 ala
@@ -156332,13 +156321,13 @@ aaa
 aaa
 aaa
 aaa
+aaa
 gXq
 gXq
 gXq
 gXq
 gXq
 gXq
-ala
 ala
 alw
 awV
@@ -156589,13 +156578,13 @@ aaa
 aaa
 aaa
 aaa
+aaa
 gXq
 gXq
 gXq
 gXq
 gXq
 ahf
-aiL
 agN
 ahs
 aml
@@ -156846,13 +156835,13 @@ aaa
 aaa
 aaa
 aaa
+aaa
 gXq
 gXq
 gXq
 gXq
 gXq
 gXq
-ala
 ala
 ahv
 aNA
@@ -157104,11 +157093,11 @@ aaa
 aaa
 aaa
 aaa
-gXq
-gXq
-gXq
-gXq
 aaa
+gXq
+gXq
+gXq
+gXq
 arA
 arA
 arA
@@ -168546,9 +168535,9 @@ qEC
 iGw
 aaa
 aaa
-hLL
-lsh
-hLL
+gXq
+qGq
+gXq
 aaa
 aaa
 iGw
@@ -168802,11 +168791,11 @@ kud
 qEC
 iGw
 iGw
-iGw
 gXq
-qGq
 gXq
-iGw
+gXq
+gXq
+gXq
 iGw
 iGw
 hLL
@@ -169830,11 +169819,11 @@ nop
 csj
 iGw
 aaa
+aaa
 gXq
 gXq
 gXq
-gXq
-gXq
+aaa
 aaa
 bCI
 aaa
@@ -170088,9 +170077,9 @@ csj
 iGw
 aaa
 aaa
-gXq
-gXq
-gXq
+aaa
+aaa
+aaa
 aaa
 aaa
 aaa

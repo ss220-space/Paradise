@@ -68,11 +68,20 @@
 	else
 		icon_state = "drone0"
 
-/mob/living/simple_animal/hostile/malf_drone/adjustHealth(damage, updating_health)
-	do_sparks(3, 1, src)
-	passive_mode = FALSE
-	update_icons()
-	. = ..() // this will handle finding a target if there is a valid one nearby
+
+/mob/living/simple_animal/hostile/malf_drone/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
+	. = ..()
+	if(. && amount > 0)
+		do_sparks(3, 1, src)
+		passive_mode = FALSE
+		update_icons()
+
 
 /mob/living/simple_animal/hostile/malf_drone/Life(seconds, times_fired)
 	. = ..()

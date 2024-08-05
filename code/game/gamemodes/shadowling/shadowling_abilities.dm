@@ -70,7 +70,7 @@
 
 		target.Weaken(4 SECONDS)
 		target.AdjustSilence(20 SECONDS)
-		target.adjustStaminaLoss(20)
+		target.apply_damage(20, STAMINA)
 		target.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 
 	else //Distant glare
@@ -520,7 +520,7 @@
 			M.Stun(4 SECONDS)
 	else
 		to_chat(M, "<span class='notice'><b>You breathe in the black smoke, and you feel revitalized!</b></span>")
-		M.heal_organ_damage(10, 10, updating_health = FALSE)
+		update_flags |= M.heal_organ_damage(10, 10, updating_health = FALSE)
 		update_flags |= M.adjustOxyLoss(-10, FALSE)
 		update_flags |= M.adjustToxLoss(-10, FALSE)
 	return ..() | update_flags

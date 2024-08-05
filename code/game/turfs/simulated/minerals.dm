@@ -70,26 +70,26 @@
 	if(istype(I, /obj/item/pickaxe))
 		var/obj/item/pickaxe/P = I
 
-		if(last_act + (mine_time* P.toolspeed * gettoolspeedmod(user)) > world.time) // Prevents message spam
+		if(last_act + (mine_time * P.toolspeed * user.get_actionspeed_by_category(DA_CAT_TOOL)) > world.time) // Prevents message spam
 			return
 		last_act = world.time
 		to_chat(user, span_notice("You start picking..."))
 		P.playDigSound()
 
-		if(do_after(user, mine_time* P.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, mine_time * P.toolspeed, src, category = DA_CAT_TOOL))
 			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
 				to_chat(user, span_notice("You finish cutting into the rock."))
 				attempt_drill(user)
 				SSblackbox.record_feedback("tally", "pick_used_mining", 1, P.name)
 	else if(istype(I, /obj/item/pen/survival))
 		var/obj/item/pen/survival/P = I
-		if(last_act + (mine_time* P.toolspeed * gettoolspeedmod(user)) > world.time) // Prevents message spam
+		if(last_act + (mine_time * P.toolspeed * user.get_actionspeed_by_category(DA_CAT_TOOL)) > world.time) // Prevents message spam
 			return
 		last_act = world.time
 		to_chat(user, span_notice("You start picking with your pen..."))
 		playsound(user, 'sound/effects/picaxe1.ogg', 20, TRUE)
 
-		if(do_after(user, mine_time* P.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, mine_time * P.toolspeed, src, category = DA_CAT_TOOL))
 			if(ismineralturf(src)) //sanity check against turf being deleted during digspeed delay
 				to_chat(user, span_notice("You finish cutting into the rock."))
 				attempt_drill(user)

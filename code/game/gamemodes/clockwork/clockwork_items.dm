@@ -139,7 +139,7 @@
 				deplete_spell()
 				return
 			living.Knockdown(3 SECONDS)
-			living.adjustStaminaLoss(30)
+			living.apply_damage(30, STAMINA)
 			living.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 			living.flash_eyes(1, TRUE)
 			if(isrobot(living))
@@ -199,13 +199,14 @@
 				return
 			var/mob/living/living = target
 			if(ishuman(living))
-				living.heal_overall_damage(30, 30, TRUE, FALSE, TRUE)
+				living.heal_overall_damage(30, 30, affect_robotic = TRUE)
 			else if(isanimal(living))
 				var/mob/living/simple_animal/M = living
 				if(M.health < M.maxHealth)
 					M.adjustHealth(-50)
 			add_attack_logs(user, target, "clockslab healed", ATKLOG_ALL)
 			deplete_spell()
+
 
 /obj/item/clockwork
 	name = "clockwork item name"
@@ -1441,7 +1442,7 @@
 			living.ratvar_act(TRUE)
 			if(!isclocker(living) && !ishuman(living))
 				continue
-			living.heal_overall_damage(60, 60, TRUE, FALSE, TRUE)
+			living.heal_overall_damage(60, 60, affect_robotic = TRUE)
 			living.reagents?.add_reagent("epinephrine", 5)
 			var/mob/living/carbon/human/H = living
 			for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
