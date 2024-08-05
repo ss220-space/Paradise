@@ -42,7 +42,7 @@
 	
 /datum/objective/sintouched/wrath/on_apply(mob/living/carbon/human/human)
 	..()
-	var/datum/symptom/aggression/disease = new
+	var/datum/disease/virus/advance/preset/aggression/disease = new
 	human.physiology.punch_damage_low += 5
 	human.physiology.punch_damage_high += 10
 	disease.Contract(human)
