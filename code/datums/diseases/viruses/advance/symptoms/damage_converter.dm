@@ -51,7 +51,7 @@ Bonus
 		for(var/obj/item/organ/external/bodypart as anything in parts)
 			var/brute_was = bodypart.brute_dam
 			var/burn_was = bodypart.burn_dam
-			update_damage_icon |= bodypart.heal_damage(get_damage, get_damage, updating_health = TRUE)
+			update_damage_icon |= bodypart.heal_damage(get_damage, get_damage, updating_health = FALSE)
 			if(bodypart.brute_dam != brute_was || bodypart.burn_dam != burn_was)
 				update_health |= STATUS_UPDATE_HEALTH
 				healed += max(((bodypart.brute_dam - brute_was) + (bodypart.burn_dam - burn_was)), get_damage)
