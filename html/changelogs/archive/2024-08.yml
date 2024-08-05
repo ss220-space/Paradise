@@ -30,6 +30,8 @@
   Zwei:
   - bugfix: Sybil-Dominator Interaction Fix (#5641)
 '2024-08-04':
+  Aziz Chynaliev:
+  - unknown: update admin_ranks.txt example
   FanTik-Ratge:
   - imageadd: 'inhand fix #666 (#5648)'
   - imageadd: fix fridge overlay (#5647)
@@ -39,6 +41,21 @@
   - imageadd: mender, kits, gauze, splint inhand sprite (#5645)
   Valtor:
   - add: Diona passive blood regen (#4945)
+  WolfLox:
+  - bugfix: deleted extra lamp in the captain's office (#5650)
   Zwei:
   - unknown: Physiology Implementation (#5529)
   - unknown: Basic Actions Modifiers (#5636)
+'2024-08-05':
+  Aziz Chynaliev:
+  - server: bump rustg version 3.1.0-ss220 -> 3.3.0-ss220
+  FanTik-Ratge:
+  - imageadd: and another inhand-fix (#5663)
+  Sheya:
+  - bugfix: RCD windows (#5652)
+  Vladisvell:
+  - bugfix: Cargo advanced defibrillator now has infinite power cell (#5654)
+  Zwei:
+  - bugfix: Correct Health Updates (#5657)
+  - bugfix: Update Health Typo Fix (#5658)
+  - bugfix: Robots Move Intent UI Fix (#5655)
