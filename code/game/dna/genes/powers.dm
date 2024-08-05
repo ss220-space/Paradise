@@ -203,3 +203,22 @@
 
 /datum/dna/gene/basic/tk/OnDrawUnderlays(mob/M, g)
 	return "telekinesishead_s"
+
+/datum/dna/gene/basic/farvision
+	name = "Far vision"
+	activation_messages = list("Вы можете видеть дальше чем раньше.")
+	deactivation_messages = list("Дальность вашего взора вернулась к нормальному состоянию")
+	instability = GENE_INSTABILITY_MODERATE
+	mutation = FARVISION
+
+/datum/dna/gene/basic/farvision/New()
+	..()
+	block = GLOB.farvisionblock
+
+/datum/dna/gene/basic/farvision/activate(mob/living/mutant, flags)
+	. = ..()
+	mutant.AddSpell(new /obj/effect/proc_holder/spell/view_range/genetic)
+
+/datum/dna/gene/basic/farvision/deactivate(mob/living/mutant, flags)
+	. = ..()
+	mutant.RemoveSpell(/obj/effect/proc_holder/spell/view_range/genetic)

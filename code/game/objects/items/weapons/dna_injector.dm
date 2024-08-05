@@ -219,6 +219,28 @@
 	block = GLOB.xrayblock
 	..()
 
+/obj/item/dnainjector/farvisionmut
+	name = "DNA-Injector (Far vision)"
+	desc = "This will make you far-sighted."
+	datatype = DNA2_BUF_SE
+	value = 0xFFF
+	forcedmutation = TRUE
+
+/obj/item/dnainjector/farvisionmut/Initialize()
+	block = GLOB.farvisionblock
+	..()
+
+/obj/item/dnainjector/antifarvision
+	name = "DNA-Injector (Anti-Far vision)"
+	desc = "This will make you normal-sighted."
+	datatype = DNA2_BUF_SE
+	value = 0x001
+	forcedmutation = TRUE
+
+/obj/item/dnainjector/antifarvision/Initialize()
+	block = GLOB.farvisionblock
+	..()
+
 /obj/item/dnainjector/firemut
 	name = "DNA-Injector (Fire)"
 	desc = "Gives you fire."
