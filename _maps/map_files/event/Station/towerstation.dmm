@@ -12311,6 +12311,10 @@
 	icon = 'icons/turf/floors.dmi'
 	},
 /area/medical/psych)
+"hTK" = (
+/obj/structure/closet/secure_closet/pilot_sniper,
+/turf/space,
+/area/space)
 "hTR" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
@@ -23597,6 +23601,11 @@
 	icon_state = "dark"
 	},
 /area/turret_protected/aisat_interior)
+"plq" = (
+/obj/structure/closet/secure_closet/pilot_sniper,
+/obj/structure/closet/secure_closet/pilot_sniper,
+/turf/space,
+/area/space)
 "plI" = (
 /obj/machinery/light,
 /obj/machinery/firealarm{
@@ -42914,7 +42923,7 @@ wkW
 wkW
 wkW
 wkW
-wkW
+hTK
 wkW
 wkW
 wkW
@@ -43170,8 +43179,8 @@ wkW
 wkW
 wkW
 wkW
-wkW
-wkW
+hTK
+hTK
 wkW
 wkW
 wkW
@@ -43427,7 +43436,7 @@ wkW
 wkW
 wkW
 wkW
-wkW
+hTK
 wkW
 wkW
 wkW
@@ -44451,7 +44460,7 @@ wkW
 wkW
 wkW
 wkW
-wkW
+hTK
 wkW
 wkW
 wkW
@@ -44707,8 +44716,8 @@ wkW
 wkW
 wkW
 wkW
-wkW
-wkW
+hTK
+hTK
 wkW
 wkW
 wkW
@@ -44964,7 +44973,7 @@ wkW
 wkW
 wkW
 wkW
-wkW
+hTK
 wkW
 wkW
 wkW
@@ -45988,8 +45997,8 @@ wkW
 wkW
 wkW
 wkW
-wkW
-wkW
+hTK
+hTK
 wkW
 wkW
 wkW
@@ -46245,7 +46254,7 @@ wkW
 wkW
 wkW
 wkW
-wkW
+hTK
 wkW
 wkW
 wkW
@@ -46501,7 +46510,7 @@ wkW
 wkW
 wkW
 wkW
-wkW
+hTK
 wkW
 wkW
 wkW
@@ -47526,7 +47535,7 @@ wkW
 wkW
 wkW
 wkW
-wkW
+hTK
 wkW
 wkW
 wkW
@@ -49320,7 +49329,7 @@ wkW
 wkW
 wkW
 wkW
-wkW
+hTK
 wkW
 wkW
 wkW
@@ -50089,7 +50098,7 @@ wkW
 wkW
 wkW
 wkW
-wkW
+hTK
 wkW
 wkW
 wkW
@@ -50601,7 +50610,7 @@ wkW
 wkW
 wkW
 wkW
-wkW
+hTK
 wkW
 wkW
 wkW
@@ -51113,7 +51122,7 @@ wkW
 wkW
 wkW
 wkW
-wkW
+plq
 wkW
 wkW
 wkW
@@ -51369,7 +51378,7 @@ wkW
 wkW
 wkW
 wkW
-wkW
+plq
 wkW
 wkW
 wkW

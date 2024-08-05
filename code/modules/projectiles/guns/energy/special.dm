@@ -352,6 +352,25 @@
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	shaded_charge = TRUE
 
+/obj/item/gun/energy/sniperrifle/pod_pilot
+	name = "LSR-39 Queen blade"
+	desc = "test"
+	icon_state = "LSR-39"
+	ammo_type = list(
+		/obj/item/ammo_casing/energy/podsniper/disabler,
+		/obj/item/ammo_casing/energy/podsniper/laser
+	)
+	item_state = null
+	weapon_weight = WEAPON_HEAVY
+	slot_flags = ITEM_SLOT_BACK
+	w_class = WEIGHT_CLASS_BULKY
+	charge_sections = 3
+	can_holster = FALSE
+	zoomable = TRUE
+	zoom_amt = 7
+	shaded_charge = TRUE
+	modifystate = TRUE
+
 /obj/item/gun/energy/bsg
 	name = "\improper Б.С.П"
 	desc = "Большая С*** Пушка. Использует ядро аномалии потока и кристалл блюспейса для производства разрушительных взрывов энергии, вдохновленный дивизионом БСА Нанотрейзен."

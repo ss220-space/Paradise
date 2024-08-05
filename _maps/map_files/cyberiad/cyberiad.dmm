@@ -5136,15 +5136,11 @@
 /turf/simulated/floor/wood,
 /area/security/hos)
 "asd" = (
-/obj/structure/table/reinforced,
-/obj/item/flashlight,
-/obj/item/radio{
-	pixel_y = 6
-	},
 /obj/machinery/alarm{
 	dir = 1;
 	pixel_y = -24
 	},
+/obj/structure/closet/secure_closet/pilot_sniper,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -13425,6 +13421,10 @@
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
+	},
+/obj/item/flashlight,
+/obj/item/radio{
+	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
