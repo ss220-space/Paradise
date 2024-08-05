@@ -384,6 +384,19 @@
 		return FALSE
 	I.block = id
 	I.buf = buffer
+	if (id == GLOB.hulkblock)
+		I.origin_tech = "combat=6"
+	if (id == GLOB.xrayblock)
+		I.origin_tech = "biotech=6"
+	if (id == GLOB.teleblock)
+		I.origin_tech = "magnets=5"
+	if (id == GLOB.breathlessblock)
+		I.origin_tech = "biotech=5"
+	if (id == GLOB.shadowblock)
+		I.origin_tech = "biotech=6"
+	if (id == GLOB.chameleonblock)
+		I.origin_tech = "biotech=6"
+
 	return TRUE
 
 /obj/machinery/computer/scan_consolenew/attack_ai(mob/user)
