@@ -662,15 +662,13 @@
 
 	return objective_parts.Join("<br>")
 
-
 /datum/game_mode/proc/generate_station_goals()
-	var/list/possible = list()
-
+    var/list/possible = list()
+    var/playerC = num_players()
 	for(var/T in subtypesof(/datum/station_goal))
 		var/datum/station_goal/goal = new T
-		if(config_tag in goal.gamemode_blacklist)
+		if(!goal.can_start(playerC))
 			continue
-
 		possible += goal
 
 	var/goal_weights = 0
@@ -681,7 +679,6 @@
 
 	if(length(station_goals))
 		send_station_goals_message()
-
 
 /datum/game_mode/proc/send_station_goals_message()
 
