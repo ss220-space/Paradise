@@ -34,8 +34,9 @@
 	
 /datum/objective/sintouched/sloth/on_apply(mob/living/carbon/human/human)
 	..()
-	human.dna.species.toolspeedmod += 1
-	human.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = -0.5)
+	human.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod, multiplicative_slowdown = human.dna.species.toolspeedmod + 1)
+	human.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_surgery_mod, multiplicative_slowdown = human.dna.species.surgeryspeedmod + 1)
+	human.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = human.dna.species.speed_mod - 0.5)
 	
 /datum/objective/sintouched/wrath
 	explanation_text = "What have your coworkers ever done for you? Don't offer to help them in any matter, and refuse if asked."
