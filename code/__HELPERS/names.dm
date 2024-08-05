@@ -170,25 +170,60 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 				switch(rand(1, 2)) // Mainly to add more options later.
 					if(1)
 						if(length(names))
-							. += pick(names)
+							var/temp_word = pick(names)
+							if(temp_word)
+								. += temp_word
+							else
+								log_debug("Найдено пустое кодовое слово в names, сообщите разработчику")
+								. += "Акакий Акакиевич"
 					if(2)
-						. += pick(GLOB.jobs)//Returns a job.
+						var/temp_word = pick(GLOB.jobs)//Returns a job.
+						if(temp_word)
+							. += temp_word
+						else
+							log_debug("Найдено пустое кодовое слово в jobs, сообщите разработчику")
+							. += "Гражданский"
 				safety -= 1
 			if(2)
 				switch(rand(1, 2))//Places or things.
 					if(1)
-						. += pick(GLOB.cocktails)
+						var/temp_word = pick(GLOB.cocktails)
+						if(temp_word)
+							. += temp_word
+						else
+							log_debug("Найдено пустое кодовое слово в cocktails, сообщите разработчику")
+							. += "Бахус"
 					if(2)
-						. += pick(GLOB.locations)
+						var/temp_word = pick(GLOB.locations)
+						if(temp_word)
+							. += temp_word
+						else
+							log_debug("Найдено пустое кодовое слово в locations, сообщите разработчику")
+							. += "Прибытие"
 				safety -= 2
 			if(3)
 				switch(rand(1, 3))//Nouns, adjectives, verbs. Can be selected more than once.
 					if(1)
-						. += pick(GLOB.nouns)
+						var/temp_word = pick(GLOB.nouns)
+						if(temp_word)
+							. += temp_word
+						else
+							log_debug("Найдено пустое кодовое слово в nouns, сообщите разработчику")
+							. += "Дом"
 					if(2)
-						. += pick(GLOB.adjectives)
+						var/temp_word = pick(GLOB.adjectives)
+						if(temp_word)
+							. += temp_word
+						else
+							log_debug("Найдено пустое кодовое слово в adjectives, сообщите разработчику")
+							. += "Красивый"
 					if(3)
-						. += pick(GLOB.verbs)
+						var/temp_word = pick(GLOB.verbs)
+						if(temp_word)
+							. += temp_word
+						else
+							log_debug("Найдено пустое кодовое слово в verbs, сообщите разработчику")
+							. += "Строить"
 		if(!return_list)
 			if(words == 1)
 				. += "."
