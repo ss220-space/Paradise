@@ -798,6 +798,12 @@ so as to remain in compliance with the most up-to-date laws."
 	if(L.last_special <= world.time)
 		return L.resist_buckle()
 
+/atom/movable/screen/alert/remote_talk
+	name = "Remote talk"
+	desc = "Кто-то пытается поговорить с вами телепатически."
+	icon = 'icons/mob/actions/actions.dmi' // Yes, I took the icon from the actions. I'm not ashamed.
+	icon_state = "commune"
+
 // PRIVATE = only edit, use, or override these if you're editing the system as a whole
 
 // Re-render all alerts - also called in /datum/hud/show_hud() because it's needed there
