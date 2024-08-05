@@ -141,6 +141,9 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 	. = ..()
 	recipes = GLOB.sandstone_recipes
 
+/obj/item/stack/sheet/mineral/sandstone/fifty
+	amount = 50
+
 /*
  * Sandbags
  */
@@ -219,6 +222,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	. = ..()
 	recipes = GLOB.uranium_recipes
 
+/obj/item/stack/sheet/mineral/uranium/fifty
+	amount = 50
+
 /obj/item/stack/sheet/mineral/plasma
 	name = "solid plasma"
 	icon_state = "sheet-plasma"
@@ -277,6 +283,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	. = ..()
 	recipes = GLOB.gold_recipes
 
+/obj/item/stack/sheet/mineral/gold/fifty
+	amount = 50
+
 /obj/item/stack/sheet/mineral/silver
 	name = "silver"
 	icon_state = "sheet-silver"
@@ -291,6 +300,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 /obj/item/stack/sheet/mineral/silver/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
 	recipes = GLOB.silver_recipes
+
+/obj/item/stack/sheet/mineral/silver/fifty
+	amount = 50
 
 /obj/item/stack/sheet/mineral/bananium
 	name = "bananium"
