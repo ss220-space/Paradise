@@ -486,8 +486,6 @@
 
 
 /obj/effect/proc_holder/spell/aoe/revenant/blight/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
-	if(!attempt_cast(user))
-		return
 	for(var/mob/living/carbon/human/human as anything in targets)
 		if(!human.mind)
 			continue
