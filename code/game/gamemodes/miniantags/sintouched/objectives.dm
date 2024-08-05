@@ -22,9 +22,9 @@
 
 /datum/objective/sintouched/gluttony/on_apply(mob/living/carbon/human/human)
 	..()
-	human.dna.species.hunger_drain_mod += 3
+	human.physiology.hunger_mod += 3
 	human.dna.species.species_traits |= NO_OBESITY
-	human.mind?.AddSpell(new /obj/effect/proc_holder/spell/eat)
+	human.mutations |= EATER
 	
 /datum/objective/sintouched/greed
 	explanation_text = "You want MORE, more money, more wealth, more riches.  Go get it, but don't hurt people for it."
@@ -42,9 +42,9 @@
 	
 /datum/objective/sintouched/wrath/on_apply(mob/living/carbon/human/human)
 	..()
-	var/datum/disease/berserker/disease = new
-	human.dna.species.punchdamagelow += 5
-	human.dna.species.punchdamagehigh += 10
+	var/datum/symptom/aggression/disease = new
+	human.physiology.punch_damage_low += 5
+	human.physiology.punch_damage_high += 10
 	disease.Contract(human)
 
 /datum/objective/sintouched/envy
@@ -59,11 +59,11 @@
 	
 /datum/objective/sintouched/pride/on_apply(mob/living/carbon/human/human)
 	..()
-	human.dna.species.brute_mod = max(0.1, human.dna.species.brute_mod - 0.1)
-	human.dna.species.tox_mod = max(0.1, human.dna.species.tox_mod - 0.1)
-	human.dna.species.stamina_mod = max(0.1, human.dna.species.stamina_mod - 0.1)
-	human.dna.species.oxy_mod = max(0.1, human.dna.species.oxy_mod - 0.1)
-	human.dna.species.burn_mod = max(0.1, human.dna.species.burn_mod - 0.1)
+	human.physiology.brute_mod = max(0.1, human.physiology.brute_mod - 0.1)
+	human.physiology.tox_mod = max(0.1, human.physiology.tox_mod - 0.1)
+	human.physiology.stamina_mod = max(0.1, human.physiology.stamina_mod - 0.1)
+	human.physiology.oxy_mod = max(0.1, human.physiology.oxy_mod - 0.1)
+	human.physiology.burn_mod = max(0.1, human.physiology.burn_mod - 0.1)
 
 /datum/objective/sintouched/acedia
 	explanation_text = "Angels, devils, good, evil... who cares?  Just ignore any hellish threats and do your job."
