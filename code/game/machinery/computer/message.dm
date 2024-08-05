@@ -29,13 +29,6 @@
 
 	light_color = LIGHT_COLOR_DARKGREEN
 
-/obj/machinery/computer/message_monitor/laptop
-	name = "message monitor laptop"
-	icon_state = "laptop"
-	icon_keyboard = "seclaptop_key"
-	icon_screen = "seclaptop"
-	normal_icon = "seclaptop"
-	density = FALSE
 
 /obj/machinery/computer/message_monitor/screwdriver_act(mob/user, obj/item/I)
 	if(emag) //Stops people from just unscrewing the monitor and putting it back to get the console working again.
