@@ -132,12 +132,11 @@
 	examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
 
 /obj/item/organ/internal/cyberimp/eyes/hud/science
-	name = "Science implant"
+	name = "Science HUD implant"
 	desc = "These cybernetic eye implants with an analyzer for scanning items and reagents."
-	//icon_state = null
-	//item_state = null
-	eye_colour = "#880862"
-	implant_color = "#880862"
+	icon_state = "sciencehud_implant"
+	item_state = "sciencehud_implant"
+	eye_colour = "#923DAC"
 	origin_tech = "materials=4;engineering=4;biotech=4;magnets=4"
 	aug_message = "You see the technological nature of things around you."
 	examine_extensions = EXAMINE_HUD_SCIENCE
