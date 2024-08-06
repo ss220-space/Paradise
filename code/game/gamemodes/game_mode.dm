@@ -663,8 +663,8 @@
 	return objective_parts.Join("<br>")
 
 /datum/game_mode/proc/generate_station_goals()
-    var/list/possible = list()
-    var/playerC = num_players()
+	var/list/possible = list()
+	var/playerC = num_players()
 	for(var/T in subtypesof(/datum/station_goal))
 		var/datum/station_goal/goal = new T
 		if(!goal.can_start(playerC))
