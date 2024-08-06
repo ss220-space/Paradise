@@ -1773,7 +1773,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		curse_high_rp()
 
 /mob/living/carbon/human/proc/influenceSin()
-	if(!src.mind)
+	if(!mind)
 		return
 	var/datum/objective/sintouched/sin_objective
 	switch(rand(1,7))//traditional seven deadly sins... except lust.
@@ -1805,11 +1805,11 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			add_game_logs("[src] was influenced by the sin of pride.", src)
 			sin_objective = new /datum/objective/sintouched/pride
 			sin_objective.on_apply(src)
-	SSticker.mode.sintouched += src.mind
-	src.mind.objectives += sin_objective
+	SSticker.mode.sintouched += mind
+	mind.objectives += sin_objective
 	var/obj_count = 1
 	to_chat(src, "<span class='notice'> Your current objectives:")
-	for(var/datum/objective/objective in src.mind.objectives)
+	for(var/datum/objective/objective in mind.objectives)
 		to_chat(src, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
 		obj_count++
 
