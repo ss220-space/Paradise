@@ -16,6 +16,7 @@
 	name = "wax"
 	desc = "Looks like some kind of thick wax."
 	icon = 'icons/obj/smooth_structures/wryn/wall.dmi'
+	icon_state = "wall"
 	base_icon_state = "wall"
 	density = TRUE
 	opacity = TRUE
@@ -56,6 +57,7 @@
 	desc = "Wax just thin enough to let light pass through."
 	icon = 'icons/obj/smooth_structures/wryn/window.dmi'
 	base_icon_state = "window"
+	icon_state = "window-0"
 	smoothing_groups = SMOOTH_GROUP_WRYN_WAX_WALL + SMOOTH_GROUP_WRYN_WAX_WINDOW
 	opacity = FALSE
 	max_integrity = 20
