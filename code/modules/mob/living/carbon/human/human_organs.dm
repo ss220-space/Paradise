@@ -27,7 +27,7 @@
 			if(bodypart.is_traumatized() && prob(15))
 				if(LAZYLEN(bodypart.internal_organs))
 					var/obj/item/organ/internal/organ = pick(bodypart.internal_organs)
-					organ.receive_damage(rand(3,5))
+					organ.internal_receive_damage(rand(3,5))
 				custom_pain("Вы чувствуете как в вашей [bodypart.declent_ru(PREPOSITIONAL)] двигаются сломанные кости!")
 
 	handle_grasp()
@@ -200,7 +200,7 @@
 
 	bodypart.add_embedded_object(thing)
 	thing.add_mob_blood(src)	// it embedded itself in you, of course it's bloody!
-	bodypart.receive_damage(thing.w_class * thing.embedded_impact_pain_multiplier, silent = silent)
+	apply_damage(thing.w_class * thing.embedded_impact_pain_multiplier, def_zone = bodypart, silent = silent)
 	if(!silent)
 		visible_message(
 			span_danger("[thing] embeds itself in [src]'s [bodypart.name]!"),

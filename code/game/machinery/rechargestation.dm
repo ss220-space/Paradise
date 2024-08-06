@@ -166,7 +166,7 @@
 			if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
 				H.set_nutrition(min(H.nutrition + recharge_speed_nutrition, 450))
 			if(repairs)
-				H.heal_overall_damage(repairs, repairs, TRUE, 0, 1)
+				H.heal_overall_damage(repairs, repairs, affect_robotic = TRUE)
 
 /obj/machinery/recharge_station/proc/go_out(mob/user = usr)
 	if(!occupant)

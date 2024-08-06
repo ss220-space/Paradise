@@ -24016,7 +24016,6 @@
 /obj/structure/bed,
 /obj/item/bedsheet,
 /mob/living/carbon/human{
-	hunger_drain = 0;
 	name = "Николай Степанченко"
 	},
 /turf/simulated/floor/indestructible{

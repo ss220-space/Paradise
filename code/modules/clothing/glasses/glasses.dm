@@ -561,7 +561,7 @@
 			H.flash_eyes(3, visual = TRUE)
 			H.EyeBlind(6 SECONDS)
 			H.EyeBlurry(10 SECONDS)
-			eyes.receive_damage(5)
+			eyes.internal_receive_damage(5)
 	..()
 
 /obj/item/clothing/glasses/thermal/sunglasses

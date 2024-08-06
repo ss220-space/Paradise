@@ -63,11 +63,13 @@
 
 
 /mob/living/simple_animal/slime/do_suicide()
-	setOxyLoss(100, FALSE)
-	adjustBruteLoss(100 - getBruteLoss(), FALSE)
-	setToxLoss(100, FALSE)
-	setCloneLoss(100, FALSE)
-	updatehealth()
+	var/update = NONE
+	update |= setOxyLoss(100, FALSE)
+	update |= adjustBruteLoss(100 - getBruteLoss(), FALSE)
+	update |= setToxLoss(100, FALSE)
+	update |= setCloneLoss(100, FALSE)
+	if(update)
+		updatehealth()
 
 
 /mob/living/silicon/do_suicide()

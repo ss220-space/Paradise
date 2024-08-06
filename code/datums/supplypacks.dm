@@ -299,7 +299,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/emergency/highrisk/cmo_defib
 	name = "Advanced Defibrillator Crate"
 	access = ACCESS_CMO
-	contains = list(/obj/item/defibrillator/compact/advanced)
+	contains = list(/obj/item/defibrillator/compact/advanced/loaded)
 	required_tech = list("biotech" = 7, "powerstorage" = 8)
 
 /datum/supply_packs/emergency/highrisk/cmo_hypospray

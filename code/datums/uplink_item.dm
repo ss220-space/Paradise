@@ -672,6 +672,13 @@
 	cost = 16
 	race = list(SPECIES_GREY)
 
+/datum/uplink_item/racial/silencer
+	name = "Abductor Silencer"
+	desc = "A compact device used to shut down communications equipment."
+	item = /obj/item/abductor/silencer
+	cost = 12
+	race = list(SPECIES_GREY)
+
 
 // DANGEROUS WEAPONS
 

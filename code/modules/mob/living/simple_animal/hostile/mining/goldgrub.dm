@@ -79,6 +79,15 @@
 /mob/living/simple_animal/hostile/asteroid/goldgrub/bullet_act(obj/item/projectile/P)
 	visible_message("<span class='danger'>[P.name] was repelled by \the [name]'s blubberous girth!</span>")
 
-/mob/living/simple_animal/hostile/asteroid/goldgrub/adjustHealth(amount, updating_health = TRUE)
-	vision_range = 9
+
+/mob/living/simple_animal/hostile/asteroid/goldgrub/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
 	. = ..()
+	if(. && amount > 0)
+		vision_range = 9
+
