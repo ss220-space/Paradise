@@ -88,7 +88,7 @@
 	slot = INTERNAL_ORGAN_EYE_HUD_DEVICE
 	var/HUDType = 0
 	/// A list of extension kinds added to the examine text. Things like medical or security records.
-	var/examine_extensions = 0
+	var/examine_extensions = EXAMINE_HUD_NONE
 
 /obj/item/organ/internal/cyberimp/eyes/hud/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()

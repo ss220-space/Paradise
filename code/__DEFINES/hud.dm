@@ -73,6 +73,7 @@
 
 // The kind of things granted by HUD items in game, that do not manifest as
 // on-screen icons, but rather go to examine text.
+#define EXAMINE_HUD_NONE 					0		//"none"
 #define EXAMINE_HUD_SECURITY_READ			(1<<0)	//"security_read"
 #define EXAMINE_HUD_SECURITY_WRITE			(1<<1)	//"security_write"
 #define EXAMINE_HUD_MEDICAL					(1<<2)	//"medical"
