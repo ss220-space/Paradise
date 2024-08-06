@@ -3,6 +3,8 @@
 /datum/station_goal/bfl
 	name = "BFL Mining laser"
 	gamemode_blacklist = list("extended")
+    min_players = 40
+    max_players = INFINITY
 
 /datum/station_goal/bfl/get_report()
 	return {"<b>Mining laser construcion</b><br>
