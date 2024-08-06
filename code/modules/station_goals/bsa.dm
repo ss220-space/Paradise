@@ -5,6 +5,8 @@
 
 /datum/station_goal/bluespace_cannon
 	name = "Bluespace Artillery"
+    min_players = 30
+    max_players = INFINITY
 
 /datum/station_goal/bluespace_cannon/get_report()
 	return {"<b>Bluespace Artillery position construction</b><br>
