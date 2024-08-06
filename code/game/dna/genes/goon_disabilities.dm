@@ -9,9 +9,9 @@
 // WAS: /datum/bioEffect/mute
 /datum/dna/gene/disability/mute
 	name = "Mute"
-	desc = "Completely shuts down the speech center of the subject's brain."
-	activation_message   = "You feel unable to express yourself at all."
-	deactivation_message = "You feel able to speak freely again."
+	desc = "Полностью отключает речевой центр мозга субъекта."
+	activation_message   = "Вы чувствуете, что вообще не можете выражать свои мысли."
+	deactivation_message = "Вы снова чувствуете, что можете говорить свободно."
 	instability = -GENE_INSTABILITY_MODERATE
 	mutation = MUTE
 
@@ -39,9 +39,9 @@
 
 /datum/dna/gene/disability/radioactive
 	name = "Radioactive"
-	desc = "The subject suffers from constant radiation sickness and causes the same on nearby organics."
-	activation_message = "You feel a strange sickness permeate your whole body."
-	deactivation_message = "You no longer feel awful and sick all over."
+	desc = "Субъект страдает от постоянной лучевой болезни и облучает близлежащую органику."
+	activation_message = "Вы чувствуете, как странная болезнь пронизывает все ваше тело."
+	deactivation_message = "Вы больше не чувствуете себя ужасно и плохо."
 	instability = -GENE_INSTABILITY_MAJOR
 	mutation = RADIOACTIVE
 
@@ -75,8 +75,8 @@
 // WAS: /datum/bioEffect/fat
 /datum/dna/gene/disability/fat
 	name = "Obesity"
-	desc = "Greatly slows the subject's metabolism, enabling greater buildup of lipid tissue."
-	activation_message = "You feel blubbery and lethargic!"
+	desc = "Значительно замедляет метаболизм субъекта, что приводит к большему накоплению липидной ткани."
+	activation_message = "Вы чувствуете себя раздутым и вялым!"
 	deactivation_message = "You feel fit!"
 	instability = -GENE_INSTABILITY_MINOR
 	mutation = OBESITY
@@ -242,9 +242,9 @@
 // WAS: /datum/bioEffect/unintelligable
 /datum/dna/gene/disability/unintelligable
 	name = "Unintelligable"
-	desc = "Heavily corrupts the part of the brain responsible for forming spoken sentences."
-	activation_message = "You can't seem to form any coherent thoughts!"
-	deactivation_message = "Your mind feels more clear."
+	desc = "Сильно повреждает часть мозга, отвечающую за формирование устных предложений."
+	activation_message = "Вы не кажется связных, мыслей можете сформировать!"
+	deactivation_message = "Ваш разум становится более ясным."
 	instability = -GENE_INSTABILITY_MINOR
 	mutation = SCRAMBLED
 
@@ -282,9 +282,9 @@
 // WAS: /datum/bioEffect/horns
 /datum/dna/gene/disability/horns
 	name = "Horns"
-	desc = "Enables the growth of a compacted keratin formation on the subject's head."
-	activation_message = "A pair of horns erupt from your head."
-	deactivation_message = "Your horns crumble away into nothing."
+	desc = "Обеспечивает рост уплотненного кератинового образования на голове субъекта."
+	activation_message = "Из твоей головы вырывается пара рогов."
+	deactivation_message = "Твои рога рассыпаются в прах."
 	mutation = HORNS
 
 /datum/dna/gene/disability/horns/New()
@@ -298,9 +298,9 @@
 // WAS: /datum/bioEffect/immolate
 /datum/dna/gene/basic/grant_spell/immolate
 	name = "Incendiary Mitochondria"
-	desc = "The subject becomes able to convert excess cellular energy into thermal energy."
-	activation_messages = list("You suddenly feel rather hot.")
-	deactivation_messages = list("You no longer feel uncomfortably hot.")
+	desc = "Субъект обретает способность преобразовывать избыточную клеточную энергию в тепло."
+	activation_messages = list("Вам внезапно становится жарко.")
+	deactivation_messages = list("Вы больше не чувствуете себя некомфортно жарко.")
 	mutation = IMMOLATE
 
 	spelltype = /obj/effect/proc_holder/spell/immolate
@@ -311,7 +311,7 @@
 
 /obj/effect/proc_holder/spell/immolate
 	name = "Incendiary Mitochondria"
-	desc = "The subject becomes able to convert excess cellular energy into thermal energy."
+	desc = "Субъект обретает способность преобразовывать избыточную клеточную энергию в тепло."
 	base_cooldown = 60 SECONDS
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS

@@ -4,8 +4,8 @@
 
 /datum/dna/gene/basic/nobreath
 	name = "No Breathing"
-	activation_messages = list("You feel no need to breathe.")
-	deactivation_messages = list("You feel the need to breathe, once more.")
+	activation_messages = list("Вы не чувствуете необходимости дышать.")
+	deactivation_messages = list("Вы снова чувствуете необходимость дышать.")
 	instability = GENE_INSTABILITY_MODERATE
 	mutation = BREATHLESS
 	activation_prob = 25
@@ -17,8 +17,8 @@
 
 /datum/dna/gene/basic/regenerate
 	name = "Regenerate"
-	activation_messages = list("Your wounds start healing.")
-	deactivation_messages = list("Your regenerative powers feel like they've vanished.")
+	activation_messages = list("Ваши раны начинают заживать.")
+	deactivation_messages = list("Кажется, что ваши регенеративные способности исчезли.")
 	instability = GENE_INSTABILITY_MINOR
 	mutation = REGEN
 
@@ -33,8 +33,8 @@
 
 /datum/dna/gene/basic/increaserun
 	name = "Super Speed"
-	activation_messages = list("You feel swift and unencumbered.")
-	deactivation_messages = list("You feel slow.")
+	activation_messages = list("Вы чувствуете себя быстрым и незамедлимым.")
+	deactivation_messages = list("Вы чувствуете себя медленным.")
 	instability = GENE_INSTABILITY_MINOR
 	mutation = RUN
 
@@ -61,8 +61,8 @@
 
 /datum/dna/gene/basic/heat_resist
 	name = "Heat Resistance"
-	activation_messages = list("Your skin is icy to the touch.")
-	deactivation_messages = list("Your skin no longer feels icy to the touch.")
+	activation_messages = list("Ваша кожа ледяная на ощупь.")
+	deactivation_messages = list("Ваша кожа больше не ледяная на ощупь.")
 	instability = GENE_INSTABILITY_MODERATE
 	mutation = HEATRES
 
@@ -75,8 +75,8 @@
 
 /datum/dna/gene/basic/cold_resist
 	name = "Cold Resistance"
-	activation_messages = list("Your body is filled with warmth.")
-	deactivation_messages = list("Your body is no longer filled with warmth.")
+	activation_messages = list("Ваше тело наполняется теплом.")
+	deactivation_messages = list("Ваше тело больше не наполненно теплом.")
 	instability = GENE_INSTABILITY_MODERATE
 	mutation = COLDRES
 
@@ -89,8 +89,8 @@
 
 /datum/dna/gene/basic/noprints
 	name = "No Prints"
-	activation_messages = list("Your fingers feel numb.")
-	deactivation_messages = list("your fingers no longer feel numb.")
+	activation_messages = list("Ваши пальцы немеют.")
+	deactivation_messages = list("Ваши пальцы больше не чувствуются онемевшими.")
 	instability = GENE_INSTABILITY_MINOR
 	mutation = FINGERPRINTS
 
@@ -100,8 +100,8 @@
 
 /datum/dna/gene/basic/noshock
 	name = "Shock Immunity"
-	activation_messages = list("Your skin feels dry and unreactive.")
-	deactivation_messages = list("Your skin no longer feels dry and unreactive.")
+	activation_messages = list("Ваша кожа становится сухой и инертной.")
+	deactivation_messages = list("Ваша кожа больше не чувствует себя сухой и инертной.")
 	instability = GENE_INSTABILITY_MODERATE
 	mutation = NO_SHOCK
 	traits_to_add = list(TRAIT_SHOCKIMMUNE)
@@ -112,8 +112,8 @@
 
 /datum/dna/gene/basic/midget
 	name = "Midget"
-	activation_messages = list("Everything around you seems bigger now...")
-	deactivation_messages = list("Everything around you seems to shrink...")
+	activation_messages = list("Теперь все вокруг вас кажется больше...")
+	deactivation_messages = list("Кажется, что все вокруг вас сжимается...")
 	instability = GENE_INSTABILITY_MINOR
 	mutation = DWARF
 
@@ -137,8 +137,8 @@
 // OLD HULK BEHAVIOR
 /datum/dna/gene/basic/hulk
 	name = "Hulk"
-	activation_messages = list("Your muscles hurt.")
-	deactivation_messages = list("Your muscles shrink.")
+	activation_messages = list("Ваши мышци болят.")
+	deactivation_messages = list("Ваши мышцы сжимаются.")
 	instability = GENE_INSTABILITY_MAJOR
 	mutation = HULK
 	activation_prob = 15
@@ -166,8 +166,8 @@
 
 /datum/dna/gene/basic/xray
 	name = "X-Ray Vision"
-	activation_messages = list("The walls suddenly disappear.")
-	deactivation_messages = list("the walls around you re-appear.")
+	activation_messages = list("Стены внезапно исчезли.")
+	deactivation_messages = list("Стены вокруг вас снова появляются.")
 	instability = GENE_INSTABILITY_MAJOR
 	mutation = XRAY
 	activation_prob = 15
@@ -191,8 +191,8 @@
 
 /datum/dna/gene/basic/tk
 	name = "Telekenesis"
-	activation_messages = list("You feel smarter.")
-	deactivation_messages = list("You feel dumber.")
+	activation_messages = list("Вы чувствуете себя умнее.")
+	deactivation_messages = list("Вы чувствуете себя глупее.")
 	instability = GENE_INSTABILITY_MAJOR
 	mutation = TK
 	activation_prob = 15

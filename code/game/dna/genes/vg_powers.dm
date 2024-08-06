@@ -2,10 +2,10 @@
 
 /datum/dna/gene/basic/grant_spell/morph
 	name = "Morphism"
-	desc = "Enables the subject to reconfigure their appearance to that of any human."
+	desc = "Позволяет субъекту изменить свою внешность на внешность любого человека."
 	spelltype = /obj/effect/proc_holder/spell/morph
-	activation_messages = list("Your body feels if can alter its appearance.")
-	deactivation_messages = list("Your body doesn't feel capable of altering its appearance.")
+	activation_messages = list("Ваше тело чувствуется, как если бы вы могли менять свой внешний вид.")
+	deactivation_messages = list("Ваше тело не чувствуется, как если бы вы могли менять свой внешний вид.")
 	instability = GENE_INSTABILITY_MINOR
 	mutation = MORPH
 
@@ -15,7 +15,7 @@
 
 /obj/effect/proc_holder/spell/morph
 	name = "Morph"
-	desc = "Mimic the appearance of your choice!"
+	desc = "Меняйте внешний вид по вашему выбору!"
 	base_cooldown = 3 MINUTES
 
 	clothes_req = FALSE
@@ -33,13 +33,13 @@
 		return
 
 	if(ismob(user.loc))
-		to_chat(user, "<span class='warning'>You can't change your appearance right now!</span>")
+		to_chat(user, "<span class='warning'>Вы не можете изменить свою внешность!</span>")
 		return
 	var/mob/living/carbon/human/M = user
 	var/obj/item/organ/external/head/head_organ = M.get_organ(BODY_ZONE_HEAD)
 	var/obj/item/organ/internal/eyes/eyes_organ = M.get_int_organ(/obj/item/organ/internal/eyes)
 
-	var/new_gender = tgui_alert(user, "Please select gender.", "Character Generation", list("Male", "Female"))
+	var/new_gender = tgui_alert(user, "Пожалуйста, выберите пол.", "Character Generation", list("Male", "Female"))
 	if(new_gender)
 		if(new_gender == "Male")
 			M.change_gender(MALE)
@@ -47,7 +47,7 @@
 			M.change_gender(FEMALE)
 
 	if(eyes_organ)
-		var/new_eyes = input("Please select eye color.", "Character Generation", eyes_organ.eye_colour) as null|color
+		var/new_eyes = input("Пожалуйста, выберите цвет глаз.", "Character Generation", eyes_organ.eye_colour) as null|color
 		if(new_eyes)
 			M.change_eye_color(new_eyes)
 
@@ -55,42 +55,42 @@
 		//Alt heads.
 		if(head_organ.dna.species.bodyflags & HAS_ALT_HEADS)
 			var/list/valid_alt_heads = M.generate_valid_alt_heads()
-			var/new_alt_head = input("Please select alternate head", "Character Generation", head_organ.alt_head) as null|anything in valid_alt_heads
+			var/new_alt_head = input("Пожалуйста, выберите альтернативную форму головы.", "Character Generation", head_organ.alt_head) as null|anything in valid_alt_heads
 			if(new_alt_head)
 				M.change_alt_head(new_alt_head)
 
 		// hair
 		var/list/valid_hairstyles = M.generate_valid_hairstyles()
-		var/new_style = input("Please select hair style", "Character Generation", head_organ.h_style) as null|anything in valid_hairstyles
+		var/new_style = input("Пожалуйста, выберите прическу.", "Character Generation", head_organ.h_style) as null|anything in valid_hairstyles
 
 		// if new style selected (not cancel)
 		if(new_style)
 			M.change_hair(new_style)
 
-		var/new_hair = input("Please select hair color.", "Character Generation", head_organ.hair_colour) as null|color
+		var/new_hair = input("Пожалуйста, выберите цвет волос.", "Character Generation", head_organ.hair_colour) as null|color
 		if(new_hair)
 			M.change_hair_color(new_hair)
 
 		var/datum/sprite_accessory/hair_style = GLOB.hair_styles_public_list[head_organ.h_style]
 		if(hair_style.secondary_theme && !hair_style.no_sec_colour)
-			new_hair = input("Please select secondary hair color.", "Character Generation", head_organ.sec_hair_colour) as null|color
+			new_hair = input("Пожалуйста, выберите дополнительный цвет волос.", "Character Generation", head_organ.sec_hair_colour) as null|color
 			if(new_hair)
 				M.change_hair_color(new_hair, TRUE)
 
 		// facial hair
 		var/list/valid_facial_hairstyles = M.generate_valid_facial_hairstyles()
-		new_style = input("Please select facial style", "Character Generation", head_organ.f_style) as null|anything in valid_facial_hairstyles
+		new_style = input("Пожалуйста, выберите стиль лицевой ростительности.", "Character Generation", head_organ.f_style) as null|anything in valid_facial_hairstyles
 
 		if(new_style)
 			M.change_facial_hair(new_style)
 
-		var/new_facial = input("Please select facial hair color.", "Character Generation", head_organ.facial_colour) as null|color
+		var/new_facial = input("Пожалуйста, выберите цвет лицевой ростительности.", "Character Generation", head_organ.facial_colour) as null|color
 		if(new_facial)
 			M.change_facial_hair_color(new_facial)
 
 		var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[head_organ.f_style]
 		if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
-			new_facial = input("Please select secondary facial hair color.", "Character Generation", head_organ.sec_facial_colour) as null|color
+			new_facial = input("Пожалуйста, выберите дополнительный цвет лицевой ростительности.", "Character Generation", head_organ.sec_facial_colour) as null|color
 			if(new_facial)
 				M.change_facial_hair_color(new_facial, TRUE)
 
@@ -148,7 +148,7 @@
 
 	//Skin tone.
 	if(M.dna.species.bodyflags & HAS_SKIN_TONE)
-		var/new_tone = input("Please select skin tone level: 1-220 (1=albino, 35=caucasian, 150=black, 220='very' black)", "Character Generation", M.s_tone) as null|text
+		var/new_tone = input("Пожалуйста, выберите оттенок кожи: 1-220 (1=альбинос, 35=кавказский, 150=черный, 220='очень темный)", "Character Generation", M.s_tone) as null|text
 		if(!new_tone)
 			new_tone = 35
 		else
@@ -156,7 +156,7 @@
 			M.change_skin_tone(new_tone)
 
 	if(M.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
-		var/prompt = "Please select skin tone: 1-[M.dna.species.icon_skin_tones.len] ("
+		var/prompt = "Пожалуйста, выберите тон кожи: 1-[M.dna.species.icon_skin_tones.len] ("
 		for(var/i = 1 to M.dna.species.icon_skin_tones.len)
 			prompt += "[i] = [M.dna.species.icon_skin_tones[i]]"
 			if(i != M.dna.species.icon_skin_tones.len)
@@ -172,7 +172,7 @@
 
 	//Skin colour.
 	if(M.dna.species.bodyflags & HAS_SKIN_COLOR)
-		var/new_body_colour = input("Please select body colour.", "Character Generation", M.skin_colour) as null|color
+		var/new_body_colour = input("Пожалуйста, выберите цвет тела.", "Character Generation", M.skin_colour) as null|color
 		if(new_body_colour)
 			M.change_skin_color(new_body_colour)
 
@@ -183,8 +183,8 @@
 
 /datum/dna/gene/basic/grant_spell/remotetalk
 	name = "Telepathy"
-	activation_messages = list("You feel you can project your thoughts.")
-	deactivation_messages = list("You no longer feel you can project your thoughts.")
+	activation_messages = list("Вы чувствуете, что можете проецировать свои мысли.")
+	deactivation_messages = list("Вы больше не чувствуете, что можете проецировать свои мысли.")
 	instability = GENE_INSTABILITY_MINOR
 	mutation = REMOTE_TALK
 
@@ -229,14 +229,14 @@
 	if(!ishuman(user))
 		return
 	if(user.mind?.miming) // Dont let mimes telepathically talk
-		to_chat(user,"<span class='warning'>You can't communicate without breaking your vow of silence.</span>")
+		to_chat(user,"<span class='warning'>Вы не можете общаться, не нарушив обета молчания.</span>")
 		return
 	for(var/mob/living/target in targets)
 		var/datum/atom_hud/thoughts/hud = GLOB.huds[THOUGHTS_HUD]
 		hud.manage_hud(target, THOUGHTS_HUD_PRECISE)
 		user.hud_typing = TRUE
 		user.thoughts_hud_set(TRUE)
-		var/say = tgui_input_text(user, "What do you wish to say?", "Project Mind")
+		var/say = tgui_input_text(user, "Что вы хотите сказать?", "Project Mind")
 		user.hud_typing = FALSE
 		user.typing = FALSE
 		if(!say || usr.stat)
@@ -260,7 +260,7 @@
 
 /obj/effect/proc_holder/spell/mindscan
 	name = "Scan Mind"
-	desc = "Offer people a chance to share their thoughts!"
+	desc = "Предложите людям поделиться их мыслями!"
 	base_cooldown = 45 SECONDS
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
@@ -277,7 +277,7 @@
 		return
 	for(var/mob/living/target in targets)
 		var/datum/atom_hud/thoughts/hud = GLOB.huds[THOUGHTS_HUD]
-		var/message = "You feel your mind expand briefly... (Click to send a message.)"
+		var/message = "Вы чувствуете, как ваш разум ненадолго расширяется... (Нажмите, чтобы отправить сообщение.)"
 		if(target.dna?.GetSEState(GLOB.remotetalkblock))
 			message = "You feel [user.real_name] request a response from you... (Click here to project mind.)"
 		user.show_message("<span class='abductor'>You offer your mind to [(target in user.get_visible_mobs()) ? target.name : "the unknown entity"].</span>")
@@ -292,7 +292,7 @@
 		var/datum/atom_hud/thoughts/hud = GLOB.huds[THOUGHTS_HUD]
 		available_targets -= target
 		hud.manage_hud(target, THOUGHTS_HUD_DISPERSE)
-		target.show_message("<span class='abductor'>You feel the sensation fade...</span>")
+		target.show_message("<span class='abductor'>Вы чувствуете, как расширение разума угасает...</span>")
 
 
 /obj/effect/proc_holder/spell/mindscan/Topic(href, href_list)
@@ -307,7 +307,7 @@
 			return
 		target.hud_typing = TRUE
 		target.thoughts_hud_set(TRUE)
-		var/say = tgui_input_text(user, "What do you wish to say?", "Scan Mind")
+		var/say = tgui_input_text(user, "Что вы хотите сказать?", "Scan Mind")
 		target.hud_typing = FALSE
 		target.typing = FALSE
 		if(!say || target.stat)
@@ -321,7 +321,7 @@
 		if(target.dna?.GetSEState(GLOB.remotetalkblock))
 			target.show_message("<span class='abductor'>You project your mind into [user.name]: [say]</span>")
 		else
-			target.show_message("<span class='abductor'>You fill the space in your thoughts: [say]</span>")
+			target.show_message("<span class='abductor'>Вы заполняете пространство в своих мыслях: [say]</span>")
 		user.show_message("<span class='abductor'>You hear [target.name]'s voice: [say]</span>")
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			G.show_message("<i>Telepathic response from <b>[target]</b> ([ghost_follow_link(target, ghost=G)]) to <b>[user]</b> ([ghost_follow_link(user, ghost=G)]): [say]</i>")
@@ -335,8 +335,8 @@
 
 /datum/dna/gene/basic/grant_spell/remoteview
 	name = "Remote Viewing"
-	activation_messages = list("Your mind can see things from afar.")
-	deactivation_messages = list("Your mind can no longer can see things from afar.")
+	activation_messages = list("Ваш разум может видеть вещи издалека.")
+	deactivation_messages = list("Ваш разум больше не может видеть вещи издалека.")
 	instability = GENE_INSTABILITY_MINOR
 	mutation = REMOTE_VIEW
 
@@ -350,7 +350,7 @@
 
 /obj/effect/proc_holder/spell/remoteview
 	name = "Remote View"
-	desc = "Spy on people from any range!"
+	desc = "Шпионьте за людьми с любого расстояния!"
 	base_cooldown = 10 SECONDS
 
 	clothes_req = FALSE
@@ -373,7 +373,7 @@
 	var/mob/target
 
 	if(istype(H.l_hand, /obj/item/tk_grab) || istype(H.r_hand, /obj/item/tk_grab))
-		to_chat(H, "<span class='warning'>Your mind is too busy with that telekinetic grab.</span>")
+		to_chat(H, "<span class='warning'>Твой разум слишком занят этим телекинетическим захватом.</span>")
 		H.remoteview_target = null
 		H.reset_perspective()
 		return

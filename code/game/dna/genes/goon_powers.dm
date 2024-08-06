@@ -3,8 +3,8 @@
 // WAS: /datum/bioEffect/alcres
 /datum/dna/gene/basic/sober
 	name = "Sober"
-	activation_messages = list("You feel unusually sober.")
-	deactivation_messages = list("You feel like you could use a stiff drink.")
+	activation_messages = list("Вы чувствуете себя необычайно трезвым.")
+	deactivation_messages = list("Вы чувствуете, что вам не помешает выпить чего-нибудь покрепче.")
 
 	mutation = SOBER
 
@@ -15,9 +15,9 @@
 //WAS: /datum/bioEffect/psychic_resist
 /datum/dna/gene/basic/psychic_resist
 	name = "Psy-Resist"
-	desc = "Boosts efficiency in sectors of the brain commonly associated with meta-mental energies."
-	activation_messages = list("Your mind feels closed.")
-	deactivation_messages = list("You feel oddly exposed.")
+	desc = "Повышает эффективность в секторах мозга, обычно связанных с метаментальными энергиями."
+	activation_messages = list("Ваш разум кажется закрытым.")
+	deactivation_messages = list("Вы чувствуете себя странно незащищенным.")
 
 	mutation = PSY_RESIST
 
@@ -41,9 +41,9 @@
 // WAS: /datum/bioEffect/darkcloak
 /datum/dna/gene/basic/stealth/darkcloak
 	name = "Cloak of Darkness"
-	desc = "Enables the subject to bend low levels of light around themselves, creating a cloaking effect."
-	activation_messages = list("You begin to fade into the shadows.")
-	deactivation_messages = list("You become fully visible.")
+	desc = "Позволяет объекту преломлять слабый свет вокруг себя, создавая эффект маскировки."
+	activation_messages = list("Вы начинаете растворяться в тенях.")
+	deactivation_messages = list("Вы становитесь полностью видимым.")
 	activation_prob = 25
 	mutation = CLOAK
 
@@ -64,9 +64,9 @@
 //WAS: /datum/bioEffect/chameleon
 /datum/dna/gene/basic/stealth/chameleon
 	name = "Chameleon"
-	desc = "The subject becomes able to subtly alter light patterns to become invisible, as long as they remain still."
-	activation_messages = list("You feel one with your surroundings.")
-	deactivation_messages = list("You feel oddly visible.")
+	desc = "Субъект получает возможность незаметно изменять световые паттерны, чтобы становиться невидимым, пока он не двигается."
+	activation_messages = list("Вы чувствуете себя единым целым со своим окружением.")
+	deactivation_messages = list("Вы становитесь полностью видимым.")
 	activation_prob = 25
 	mutation = CHAMELEON
 
@@ -115,9 +115,9 @@
 // WAS: /datum/bioEffect/cryokinesis
 /datum/dna/gene/basic/grant_spell/cryo
 	name = "Cryokinesis"
-	desc = "Allows the subject to lower the body temperature of others."
-	activation_messages = list("You notice a strange cold tingle in your fingertips.")
-	deactivation_messages = list("Your fingers feel warmer.")
+	desc = "Позволяет субъекту понижать температуру тела других."
+	activation_messages = list("Вы замечаете странное холодное покалывание в кончиках пальцев.")
+	deactivation_messages = list("Ваши пальцы теплеют.")
 	instability = GENE_INSTABILITY_MODERATE
 	mutation = CRYO
 
@@ -129,13 +129,13 @@
 
 /obj/effect/proc_holder/spell/cryokinesis
 	name = "Cryokinesis"
-	desc = "Drops the bodytemperature of another person."
+	desc = "Понижает температуру тела другого человека."
 	base_cooldown = 120 SECONDS
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
 
-	selection_activated_message		= "<span class='notice'>Your mind grow cold. Click on a target to cast the spell.</span>"
-	selection_deactivated_message	= "<span class='notice'>Your mind returns to normal.</span>"
+	selection_activated_message		= "<span class='notice'>Холод ростет в вашем разуме. Нажмите на цель, чтобы применить заклинание.</span>"
+	selection_deactivated_message	= "<span class='notice'>Ваш разум возвращается в нормальное состояние.</span>"
 
 	var/list/compatible_mobs = list(/mob/living/carbon/human)
 
@@ -201,9 +201,9 @@
 // WAS: /datum/bioEffect/mattereater
 /datum/dna/gene/basic/grant_spell/mattereater
 	name = "Matter Eater"
-	desc = "Allows the subject to eat just about anything without harm."
-	activation_messages = list("You feel hungry.")
-	deactivation_messages = list("You don't feel quite so hungry anymore.")
+	desc = "Позволяет субъекту есть почти что угодно без вреда."
+	activation_messages = list("Вы чувствуете голод.")
+	deactivation_messages = list("Вы больше не чувствуете себя настолько голодным.")
 	instability = GENE_INSTABILITY_MINOR
 	mutation = EATER
 
@@ -239,7 +239,7 @@
 		var/mob/living/carbon/C = user
 		if((C.head && (C.head.flags_cover & HEADCOVERSMOUTH)) || (C.wear_mask && (C.wear_mask.flags_cover & MASKCOVERSMOUTH) && !C.wear_mask.up))
 			if(show_message)
-				to_chat(C, "<span class='warning'>Your mouth is covered, preventing you from eating!</span>")
+				to_chat(C, "<span class='warning'>Ваш рот закрыт, и вы не можете есть!</span>")
 			can_eat = FALSE
 	return can_eat
 
@@ -268,7 +268,7 @@
 
 /obj/effect/proc_holder/spell/eat/cast(list/targets, mob/user = usr)
 	if(!targets.len)
-		to_chat(user, "<span class='notice'>No target found in range.</span>")
+		to_chat(user, "<span class='notice'>Ни одна цель не найдена в радиусе действия.</span>")
 		return
 
 	var/atom/movable/the_item = targets[1]
@@ -276,7 +276,7 @@
 		var/mob/living/carbon/human/H = the_item
 		var/obj/item/organ/external/limb = H.get_organ(user.zone_selected)
 		if(!istype(limb))
-			to_chat(user, "<span class='warning'>You can't eat this part of them!</span>")
+			to_chat(user, "<span class='warning'>Вы не можете съесть эту их часть!</span>")
 			revert_cast()
 			return FALSE
 
@@ -318,10 +318,10 @@
 //WAS: /datum/bioEffect/jumpy
 /datum/dna/gene/basic/grant_spell/jumpy
 	name = "Jumpy"
-	desc = "Allows the subject to leap great distances."
+	desc = "Позволяет объекту прыгать на большие расстояния."
 	//cooldown = 30
-	activation_messages = list("Your leg muscles feel taut and strong.")
-	deactivation_messages = list("Your leg muscles shrink back to normal.")
+	activation_messages = list("Мышцы ног кажутся напряженными и сильными.")
+	deactivation_messages = list("Мышцы ног возвращаются к нормальному состоянию.")
 	instability = GENE_INSTABILITY_MINOR
 	mutation = JUMPY
 
@@ -333,7 +333,7 @@
 
 /obj/effect/proc_holder/spell/leap
 	name = "Jump"
-	desc = "Leap great distances!"
+	desc = "Прыгайте на большие расстояния!"
 
 	base_cooldown = 6 SECONDS
 
@@ -350,11 +350,11 @@
 /obj/effect/proc_holder/spell/leap/cast(list/targets, mob/living/user = usr)
 	var/failure = FALSE
 	if(ismob(user.loc) || user.incapacitated(INC_IGNORE_RESTRAINED) || user.buckled)
-		to_chat(user, "<span class='warning'>You can't jump right now!</span>")
+		to_chat(user, "<span class='warning'>Вы не можете прыгать прямо сейчас!</span>")
 		return
 	var/turf/turf_to_check = get_turf(user)
 	if(user.can_z_move(DOWN, turf_to_check))
-		to_chat(user, span_warning("You need a ground to jump from!"))
+		to_chat(user, span_warning("Вам нужна площадка, с которой можно прыгнуть!"))
 		return
 
 	if(isturf(user.loc))
@@ -418,12 +418,12 @@
 
 /datum/dna/gene/basic/grant_spell/polymorph
 	name = "Polymorphism"
-	desc = "Enables the subject to reconfigure their appearance to mimic that of others."
+	desc = "Позволяет субъекту изменять свою внешность, чтобы имитировать внешний вид других."
 
 	spelltype = /obj/effect/proc_holder/spell/polymorph
 	//cooldown = 1800
-	activation_messages = list("You don't feel entirely like yourself somehow.")
-	deactivation_messages = list("You feel secure in your identity.")
+	activation_messages = list("Вы не чувствуете себя собой.")
+	deactivation_messages = list("Вы чувствуете себя в безопасности в своей личности.")
 	instability = GENE_INSTABILITY_MODERATE
 	mutation = POLYMORPH
 
@@ -433,14 +433,14 @@
 
 /obj/effect/proc_holder/spell/polymorph
 	name = "Polymorph"
-	desc = "Mimic the appearance of others!"
+	desc = "Подражайте внешности других!"
 	base_cooldown = 3 MINUTES
 
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
 
-	selection_activated_message		= "<span class='notice'>You body becomes unstable. Click on a target to cast transform into them.</span>"
-	selection_deactivated_message	= "<span class='notice'>Your body calms down again.</span>"
+	selection_activated_message		= "<span class='notice'>Ваше тело становится нестабильным. Нажмите на цель, чтобы трансформироваться в нее.</span>"
+	selection_deactivated_message	= "<span class='notice'>Ваше тело снова успокаивается.</span>"
 
 	action_icon_state = "genetic_poly"
 	need_active_overlay = TRUE
@@ -473,11 +473,11 @@
 // WAS: /datum/bioEffect/empath
 /datum/dna/gene/basic/grant_spell/empath
 	name = "Empathic Thought"
-	desc = "The subject becomes able to read the minds of others for certain information."
+	desc = "Субъект становится способным читать мысли других для получения определенной информации."
 
 	spelltype = /obj/effect/proc_holder/spell/empath
-	activation_messages = list("You suddenly notice more about others than you did before.")
-	deactivation_messages = list("You no longer feel able to sense intentions.")
+	activation_messages = list("Вы внезапно замечаете больше о других, чем раньше.")
+	deactivation_messages = list("Вы больше не чувствуете способности чувствовать намерения.")
 	instability = GENE_INSTABILITY_MINOR
 	mutation = EMPATH
 
@@ -487,7 +487,7 @@
 
 /obj/effect/proc_holder/spell/empath
 	name = "Read Mind"
-	desc = "Read the minds of others for information."
+	desc = "Читайте мысли других для получения информации."
 	base_cooldown = 18 SECONDS
 	clothes_req = FALSE
 	human_req = TRUE
@@ -506,7 +506,7 @@
 /obj/effect/proc_holder/spell/empath/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/M in targets)
 		if(!iscarbon(M))
-			to_chat(user, "<span class='warning'>You may only use this on other organic beings.</span>")
+			to_chat(user, "<span class='warning'>Вы можете использовать это только на других органических существах.</span>")
 			return
 
 		if(M.dna?.GetSEState(GLOB.psyresistblock))
@@ -579,16 +579,16 @@
 		if(M.dna?.GetSEState(GLOB.empathblock))
 			to_chat(M, "<span class='warning'>You sense [user.name] reading your mind.</span>")
 		else if(prob(5) || M.mind?.assigned_role == JOB_TITLE_CHAPLAIN)
-			to_chat(M, "<span class='warning'>You sense someone intruding upon your thoughts...</span>")
+			to_chat(M, "<span class='warning'>Вы чувствуете, что кто-то вторгается в ваши мысли...</span>")
 
 ////////////////////////////////////////////////////////////////////////
 
 // WAS: /datum/bioEffect/strong
 /datum/dna/gene/basic/strong
 	name = "Strong"
-	desc = "Enhances the subject's ability to build and retain heavy muscles."
-	activation_messages = list("You feel buff!")
-	deactivation_messages = list("You feel wimpy and weak.")
+	desc = "Усиливает способность субъекта наращивать и сохранять тяжелые мышцы."
+	activation_messages = list("Вы чувствуете силу!")
+	deactivation_messages = list("Вы чувствуете себя слабым.") // wimpy ~= weak
 	instability = GENE_INSTABILITY_MAJOR
 	mutation = STRONG
 
