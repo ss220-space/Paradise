@@ -233,7 +233,7 @@
 
 /obj/item/clothing/suit/space/hardsuit/ancient/equipped(mob/user, slot, initial)
 	. = ..()
-	RegisterSignal(user, COMSIG_MOB_CLIENT_MOVED, PROC_REF(on_mob_move))
+	RegisterSignal(user, COMSIG_MOB_CLIENT_MOVED, PROC_REF(on_mob_move), override = TRUE)
 
 /obj/item/clothing/suit/space/hardsuit/ancient/dropped(mob/user, slot, silent)
 	. = ..()
