@@ -667,7 +667,7 @@
 	var/playerC = num_players()
 	for(var/T in subtypesof(/datum/station_goal))
 		var/datum/station_goal/goal = new T
-		if(!goal.can_start(playerC))
+		if(!goal.can_start(playerC, config_tag))
 			continue
 		possible += goal
 
