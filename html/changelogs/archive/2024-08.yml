@@ -59,3 +59,21 @@
   - bugfix: Correct Health Updates (#5657)
   - bugfix: Update Health Typo Fix (#5658)
   - bugfix: Robots Move Intent UI Fix (#5655)
+'2024-08-06':
+  Aziz Chynaliev:
+  - tweak: admin ranks color
+  - server: at trimming for file2list
+  - server: debug generate_code_phrase
+  BoshyG:
+  - bugfix: Various Shotgun Shells Crate (#5664)
+  Valtor:
+  - bugfix: cybernetic organs can't be set in setup (#5667)
+'2024-08-07':
+  Valtor:
+  - add: Cows Can Be Fed + Localization (#5634)
+  Zwei:
+  - tweak: Initialize Flag (#5665)
+  - bugfix: Signal Overrides (#5670)
+  - add: JPS Move (#5673)
+  endipe:
+  - bugfix: balloon_alert on vehicle (#5671)
