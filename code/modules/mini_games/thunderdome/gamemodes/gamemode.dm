@@ -52,7 +52,8 @@
 		/obj/item/storage/box/syndie_kit/commando_kit = 1,
 		/obj/item/storage/belt/grenade/frag = 1,
 		/obj/item/storage/box/syndie_kit/dangertray = 1,
-		
+		/obj/item/gun/magic/hook = 1,
+		/obj/item/organ/internal/cyberimp/arm/katana = 1,
 		)
 
 
@@ -173,4 +174,6 @@
 		/obj/item/spellbook/oneuse/watchers_look = 1,
 		/obj/item/spellbook/oneuse/fireball = 1,
 		/obj/item/gun/energy/emittergun = 1,
+		/obj/item/gun/magic/hook = 1,
+		/obj/item/organ/internal/cyberimp/arm/katana = 1,
 		)
