@@ -11,8 +11,8 @@ GLOBAL_LIST_EMPTY(bluespace_rifts_scanner_list)
 	var/target_research_points = 25000
 	var/reward_given = FALSE
 	var/datum/bluespace_rift/rift
-    min_players = 30
-    max_players = INFINITY
+	min_players = 30
+	max_players = INFINITY
 
 /datum/station_goal/bluespace_rift/Destroy()
 

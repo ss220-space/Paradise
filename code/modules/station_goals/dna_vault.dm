@@ -17,8 +17,8 @@
 	var/animal_count
 	var/human_count
 	var/plant_count
-    min_players = 30
-    max_players = INFINITY
+	min_players = 30
+	max_players = INFINITY
 
 /datum/station_goal/dna_vault/New()
 	..()
