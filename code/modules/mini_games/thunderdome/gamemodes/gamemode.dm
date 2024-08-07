@@ -47,6 +47,12 @@
 		/obj/item/pen/edagger = 1,
 		/obj/item/melee/baseball_bat = 1,
 		/obj/item/clothing/gloves/knuckles = 1,
+		/obj/item/storage/box/syndie_kit/combat_baking = 1,
+		/obj/item/twohanded/fireaxe/energized = 1,
+		/obj/item/storage/box/syndie_kit/commando_kit = 1,
+		/obj/item/storage/belt/grenade/frag = 1,
+		/obj/item/storage/box/syndie_kit/dangertray = 1,
+		
 		)
 
 
@@ -90,6 +96,11 @@
 		/obj/item/gun/projectile/automatic/sniper_rifle/syndicate = 1,
 		/obj/item/gun/energy/xray = 1,
 		/obj/item/gun/energy/lasercannon = 1,
+		/obj/item/clothing/mask/holo_cigar = 1,
+		/obj/item/storage/belt/grenade/frag = 1,
+		/obj/item/spellbook/oneuse/watchers_look = 1,
+		/obj/item/spellbook/oneuse/fireball = 1,
+		/obj/item/gun/energy/emittergun = 1,
 		)
 
 /datum/thunderdome_gamemode/mixed
@@ -154,4 +165,12 @@
 		/obj/item/gun/projectile/automatic/sniper_rifle/syndicate = 1,
 		/obj/item/gun/energy/xray = 1,
 		/obj/item/gun/energy/lasercannon = 1,
+		/obj/item/storage/box/syndie_kit/combat_baking = 1,
+		/obj/item/twohanded/fireaxe/energized = 1,
+		/obj/item/storage/box/syndie_kit/commando_kit = 1,
+		/obj/item/storage/belt/grenade/frag = 1,
+		/obj/item/storage/box/syndie_kit/dangertray = 1,
+		/obj/item/spellbook/oneuse/watchers_look = 1,
+		/obj/item/spellbook/oneuse/fireball = 1,
+		/obj/item/gun/energy/emittergun = 1,
 		)
