@@ -1519,11 +1519,11 @@
 				to_chat(src, span_notice("Вы cхватили [grabbed_human.name][grabbed_by_hands ? " за руки" : ""]!"))
 			else
 				pulled_mob.visible_message(
-					span_warning("[name] схватил[genderize_ru(gender,"","а","о","и")] [pulled_mob.name]!"),
+					span_warning("[name] схватил[genderize_ru(gender,"","а","о","и")] [pulled_mob.declent_ru(ACCUSATIVE)]!"),
 					span_warning("[name] схватил[genderize_ru(gender,"","а","о","и")] Вас!"),
 					ignored_mobs = src,
 				)
-				to_chat(src, span_notice("Вы схватили [pulled_mob.name]!"))
+				to_chat(src, span_notice("Вы схватили [pulled_mob.declent_ru(ACCUSATIVE)]!"))
 
 		if(isliving(pulled_mob))
 			var/mob/living/pulled_living = pulled_mob
