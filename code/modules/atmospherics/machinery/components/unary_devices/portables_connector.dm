@@ -5,7 +5,7 @@
 	name = "connector port"
 	desc = "For connecting portables devices related to atmospherics control."
 
-	can_unwrench = 1
+	can_unwrench = TRUE
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_FILTER_OFFSET
 	layer_offset = GAS_FILTER_OFFSET
 
@@ -37,12 +37,13 @@
 	if(parent)
 		parent.update = 1
 
-/obj/machinery/atmospherics/unary/portables_connector/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	if(W.tool_behaviour == TOOL_WRENCH)
-		if(connected_device)
-			to_chat(user, span_danger("You cannot unwrench this [src], detach [connected_device] first."))
-			return 1
+
+/obj/machinery/atmospherics/unary/portables_connector/wrench_act(mob/living/user, obj/item/I)
+	if(connected_device)
+		to_chat(user, span_warning("You cannot unwrench [src], detach [connected_device] first."))
+		return TRUE
 	return ..()
+
 
 /obj/machinery/atmospherics/unary/portables_connector/portableConnectorReturnAir()
 	return connected_device.portableConnectorReturnAir()

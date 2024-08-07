@@ -39,62 +39,66 @@
 		if(RWALL_SHEATH)
 			. += span_notice("The support rods have been <i>sliced through</i>, and the outer sheath is <b>connected loosely</b> to the girder.")
 
-/turf/simulated/wall/r_wall/attackby(obj/item/I, mob/user, params)
-	if(d_state == RWALL_COVER && istype(I, /obj/item/gun/energy/plasmacutter))
-		to_chat(user, span_notice("You begin slicing through the metal cover..."))
-		if(I.use_tool(src, user, 40, volume = I.tool_volume) && d_state == RWALL_COVER)
-			d_state = RWALL_CUT_COVER
-			update_icon()
-			to_chat(user, span_notice("You press firmly on the cover, dislodging it."))
-		return
-	else if(d_state == RWALL_SUPPORT_RODS && istype(I, /obj/item/gun/energy/plasmacutter))
-		to_chat(user, span_notice("You begin slicing through the support rods..."))
-		if(I.use_tool(src, user, 70, volume = I.tool_volume) && d_state == RWALL_SUPPORT_RODS)
-			d_state = RWALL_SHEATH
-			update_icon()
-		return
-	else if(d_state == RWALL_SUPPORT_LINES && istype(I, /obj/item/stack/rods))
-		var/obj/item/stack/S = I
-		if(S.use(1))
-			d_state = RWALL_INTACT
-			update_icon()
-			to_chat(user, span_notice("You replace the outer grille."))
-		else
-			to_chat(user, span_warning("You don't have enough rods for that!"))
-		return
-	else if(d_state)
-		// Repairing
-		if(istype(I, /obj/item/stack/sheet/metal))
-			var/obj/item/stack/sheet/metal/MS = I
-			to_chat(user, span_notice("You begin patching-up the wall with [MS]..."))
-			if(do_after(user, max(2 SECONDS * d_state, 10 SECONDS) * MS.toolspeed, src, category = DA_CAT_TOOL) && d_state)
-				if(!MS.use(1))
-					to_chat(user, span_warning("You don't have enough [MS.name] for that!"))
-					return
-				d_state = RWALL_INTACT
-				update_icon()
-				queue_smooth_neighbors(src)
-				to_chat(user, span_notice("You repair the last of the damage."))
-			return
 
-	else if(istype(I, /obj/item/stack/sheet/plasteel))
-		var/obj/item/stack/sheet/plasteel/PS = I
+/turf/simulated/wall/r_wall/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
+
+	add_fingerprint(user)
+
+	if(d_state == RWALL_SUPPORT_LINES)
+		if(!istype(I, /obj/item/stack/rods))
+			to_chat(user, span_warning("You need one rod to replace the outer grille."))
+			return .
+		var/obj/item/stack/rods/rods = I
+		if(!rods.use(1))
+			to_chat(user, span_warning("You need at least one rod to replace the outer grille."))
+			return .
+		d_state = RWALL_INTACT
+		update_icon()
+		to_chat(user, span_notice("You replace the outer grille."))
+		return .|ATTACK_CHAIN_SUCCESS
+
+	if(d_state != RWALL_INTACT)
+		if(!istype(I, /obj/item/stack/sheet/metal))
+			to_chat(user, span_warning("You need metal sheets to repair the damage."))
+			return .
+		var/obj/item/stack/sheet/metal/metal = I
+		if(metal.get_amount() < d_state)
+			to_chat(user, span_warning("You need at least [d_state] sheets of metal repair the damage."))
+			return .
+		to_chat(user, span_notice("You begin patching-up the wall with [metal]..."))
+		if(!do_after(user, max(2 SECONDS * d_state, 10 SECONDS) * metal.toolspeed, src, category = DA_CAT_TOOL) || d_state == RWALL_INTACT || QDELETED(metal))
+			return .
+		if(!metal.use(d_state))
+			to_chat(user, span_warning("At some point during the repair process you lost some metal or the wall state has changed. Make sure you have [d_state] sheets of metal before trying again."))
+			return .
+		d_state = RWALL_INTACT
+		update_icon()
+		queue_smooth_neighbors(src)
+		to_chat(user, span_notice("You repair the last of the damage."))
+		return .|ATTACK_CHAIN_SUCCESS
+
+	if(istype(I, /obj/item/stack/sheet/plasteel))
+		var/obj/item/stack/sheet/plasteel/plasteel = I
 		if(!can_be_reinforced)
 			to_chat(user, span_notice("The wall is already coated!"))
-			return
-		to_chat(user, span_notice("You begin adding an additional layer of coating to the wall with [PS]..."))
-		if(do_after(user, 4 SECONDS * PS.toolspeed, src, category = DA_CAT_TOOL) && !d_state)
-			if(!PS.use(2))
-				to_chat(user, span_warning("You don't have enough [PS.name] for that!"))
-				return
-			to_chat(user, span_notice("You add an additional layer of coating to the wall."))
-			ChangeTurf(/turf/simulated/wall/r_wall/coated)
-			update_icon()
-			queue_smooth_neighbors(src)
-			can_be_reinforced = FALSE
-		return
-	else
-		return ..()
+			return .
+		to_chat(user, span_notice("You begin adding an additional layer of coating to the wall with [plasteel]..."))
+		if(!do_after(user, 4 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || d_state != RWALL_INTACT || QDELETED(plasteel))
+			return .
+		if(!plasteel.use(2))
+			to_chat(user, span_warning("You don't have enough [plasteel.name] for that!"))
+			return .
+		to_chat(user, span_notice("You add an additional layer of coating to the wall."))
+		ChangeTurf(/turf/simulated/wall/r_wall/coated)
+		update_icon()
+		queue_smooth_neighbors(src)
+		can_be_reinforced = FALSE
+		return .|ATTACK_CHAIN_BLOCKED_ALL
+
 
 /turf/simulated/wall/r_wall/welder_act(mob/user, obj/item/I)
 	if(reagents?.get_reagent_amount("thermite") && I.use_tool(src, user, volume = I.tool_volume))
@@ -203,8 +207,25 @@
 		to_chat(user, span_notice("You tighten the bolts anchoring the support rods."))
 	update_icon()
 
-/turf/simulated/wall/r_wall/try_decon(obj/item/I, mob/user, params) //Plasma cutter only works in the deconstruction steps!
-	return FALSE
+
+/turf/simulated/wall/r_wall/try_decon(obj/item/I, mob/user, params)
+	if(d_state != RWALL_COVER && d_state != RWALL_SUPPORT_RODS)	//Plasma cutter only works in the deconstruction steps!
+		return FALSE
+	if(d_state == RWALL_COVER)
+		to_chat(user, span_notice("You begin slicing through the metal cover..."))
+		if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume) || d_state != RWALL_COVER)
+			return FALSE
+		d_state = RWALL_CUT_COVER
+		update_icon()
+		to_chat(user, span_notice("You press firmly on the cover, dislodging it."))
+		return TRUE
+	to_chat(user, span_notice("You begin slicing through the support rods..."))
+	if(!I.use_tool(src, user, 7 SECONDS, volume = I.tool_volume) || d_state != RWALL_SUPPORT_RODS)
+		return FALSE
+	d_state = RWALL_SHEATH
+	update_icon()
+	return TRUE
+
 
 /turf/simulated/wall/r_wall/try_destroy(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pickaxe/drill/diamonddrill))

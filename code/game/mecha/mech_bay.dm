@@ -67,10 +67,14 @@
 		MC += C.rating
 	max_charge = MC * 50
 
+
 /obj/machinery/mech_bay_recharge_port/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 	if(exchange_parts(user, I))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
+
 
 /obj/machinery/mech_bay_recharge_port/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "recharge_port-o", "recharge_port", I))

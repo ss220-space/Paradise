@@ -40,17 +40,25 @@
 /obj/item/photo/attack_self(mob/user)
 	user.examinate(src)
 
-/obj/item/photo/attackby(obj/item/P, mob/user, params)
-	if(is_pen(P) || istype(P, /obj/item/toy/crayon))
+
+/obj/item/photo/attackby(obj/item/I, mob/user, params)
+	if(is_pen(I) || istype(I, /obj/item/toy/crayon))
+		add_fingerprint(user)
+		if(!user.is_literate())
+			to_chat(user, span_warning("You don't know how to write!"))
+			return ATTACK_CHAIN_PROCEED
 		var/txt = tgui_input_text(user, "What would you like to write on the back?", "Photo Writing")
-		if(!txt)
-			return
-		txt = copytext(txt, 1, 128)
-		if(loc == user && user.stat == 0)
-			scribble = txt
-	else if(istype(P, /obj/item/lighter))
-		burnphoto(P, user)
-	..()
+		if(!txt || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+			return ATTACK_CHAIN_PROCEED
+		scribble = txt
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/lighter))
+		burnphoto(I, user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/photo/proc/burnphoto(obj/item/lighter/P, mob/user)
 	var/class = "<span class='warning'>"
@@ -204,8 +212,10 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		size = nsize
 		to_chat(usr, "<span class='notice'>Camera will now take [size]x[size] photos.</span>")
 
-/obj/item/camera/attack(mob/living/carbon/human/M, mob/user)
-	return
+
+/obj/item/camera/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	return ATTACK_CHAIN_PROCEED
+
 
 /obj/item/camera/attack_self(mob/user)
 	on = !on
@@ -217,17 +227,21 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	icon_state = on ? icon_on : icon_off
 	item_state = on ? item_on : item_off
 
+
 /obj/item/camera/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/camera_film))
+		add_fingerprint(user)
 		if(pictures_left)
-			to_chat(user, "<span class='notice'>[src] still has some film in it!</span>")
-			return
-		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
-		user.drop_transfer_item_to_loc(I, src)
-		qdel(I)
+			to_chat(user, span_warning("The [name] still has some film in it."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("You have fully refilled [src]'s film amount."))
 		pictures_left = pictures_max
-		return
-	..()
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/item/camera/examine(mob/user)
@@ -376,7 +390,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 				mob_detail += "Also [A.client ? "[A.client.ckey]/" : "nockey"]([A]) on the photo[A:health < 75 ? " hurt":""].[holding ? " [holding]":"."]."
 	return mob_detail
 
-/obj/item/camera/afterattack(atom/target, mob/user, flag)
+/obj/item/camera/afterattack(atom/target, mob/user, flag, params)
 	if(!on || !pictures_left || ismob(target.loc))
 		return
 	captureimage(target, user, flag)
@@ -539,7 +553,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	var/max_storage = 10
 
 
-/obj/item/camera/digital/afterattack(atom/target, mob/user, flag)
+/obj/item/camera/digital/afterattack(atom/target, mob/user, flag, params)
 	if(!on || !pictures_left || ismob(target.loc)) return
 	captureimage(target, user, flag)
 

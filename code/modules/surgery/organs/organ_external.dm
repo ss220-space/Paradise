@@ -779,21 +779,27 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 /obj/item/organ/external/attackby(obj/item/I, mob/user, params)
-	if(I.sharp)
+	if(is_sharp(I))
 		add_fingerprint(user)
 		if(!length(contents))
 			user.balloon_alert(user, "внутри ничего нет!")
-			return
-
+			return ATTACK_CHAIN_PROCEED
 		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
 		user.visible_message(
-			span_warning("[user] begins to cut open [src]."),
-			span_notice("You begin to cut open [src]..."),
+			span_warning("[user] starts to rip the internals from [src]."),
+			span_notice("You start to rip the internals from [src]..."),
 		)
-		if(do_after(user, 5 SECONDS, src) && length(contents) && !QDELETED(src) && !QDELETED(user))
-			drop_organs()
-	else
-		return ..()
+		if(!do_after(user, 5 SECONDS, src, category = DA_CAT_SURGERY) || !length(contents))
+			return ATTACK_CHAIN_PROCEED
+		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
+		user.visible_message(
+			span_warning("[user] has ripped off all the internals from [src]."),
+			span_notice("You have ripped off all the internals from [src]."),
+		)
+		drop_organs()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
 
 
 /**

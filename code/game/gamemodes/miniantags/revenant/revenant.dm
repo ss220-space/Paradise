@@ -250,16 +250,17 @@
 	qdel(src)
 
 
-/mob/living/simple_animal/revenant/attackby(obj/item/W, mob/living/user, params)
-	if(istype(W, /obj/item/nullrod))
-		visible_message("<span class='warning'>[src] violently flinches!</span>", \
-						"<span class='revendanger'>As \the [W] passes through you, you feel your essence draining away!</span>")
-		adjustBruteLoss(25) //hella effective
-		inhibited = 1
-		spawn(30)
-			inhibited = 0
+/mob/living/simple_animal/revenant/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/nullrod))
+		visible_message(
+			span_warning("[src] violently flinches!"),
+			span_revendanger("As [I.name] passes through you, you feel your essence draining away!"),
+		)
+		apply_damage(25) //hella effective
+		inhibited = TRUE
+		addtimer(VARSET_CALLBACK(src, inhibited, FALSE), 3 SECONDS)
+	return ..()
 
-	..()
 
 /mob/living/simple_animal/revenant/proc/castcheck(essence_cost)
 	if(!src)

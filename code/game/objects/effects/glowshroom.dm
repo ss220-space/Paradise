@@ -243,7 +243,8 @@
 	object.desc = "Looks like this was \an [src] some time ago."
 	qdel(src)
 
-/obj/structure/glowshroom/attacked_by(obj/item/tool, mob/living/user)
+
+/obj/structure/glowshroom/proceed_attack_results(obj/item/tool, mob/living/user, params, def_zone)
 	var/damage_dealt = tool.force
 	if(istype(tool, /obj/item/scythe))
 		var/obj/item/scythe/weapon = tool
@@ -251,20 +252,24 @@
 		if(weapon.extend)
 			damage_dealt *= 10
 			for(var/obj/structure/glowshroom/shroom in view(1, src))
-				shroom.take_damage(damage_dealt, tool.damtype, "melee", 1)
+				shroom.take_damage(damage_dealt, tool.damtype, MELEE)
 			return
 
 	if(is_sharp(tool) || tool.damtype == BURN)
 		damage_dealt *= 4
 
-	take_damage(damage_dealt, tool.damtype, "melee", 1)
+	take_damage(damage_dealt, tool.damtype, MELEE, 1)
+
 
 //Way to check glowshroom stats using plant analyzer
-/obj/structure/glowshroom/attackby(obj/item/plant_analyzer/plant_analyzer, mob/living/user, params)
-	if(istype(plant_analyzer))
+/obj/structure/glowshroom/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/plant_analyzer))
 		// Hacky I guess
-		return myseed.attackby(plant_analyzer, user, params)
+		I.melee_attack_chain(user, myseed, params)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 #undef SPREAD_DELAY
 #undef DECAY_DELAY

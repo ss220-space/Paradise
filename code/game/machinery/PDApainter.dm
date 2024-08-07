@@ -84,25 +84,29 @@
 		storedpda = null
 		update_icon()
 
+
+/obj/machinery/pdapainter/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	default_unfasten_wrench(user, I)
+
+
 /obj/machinery/pdapainter/attackby(obj/item/I, mob/user, params)
-	if(default_unfasten_wrench(user, I))
-		add_fingerprint(user)
-		power_change()
-		return
-	if(is_pda(I))
-		if(storedpda)
-			to_chat(user, "В аппарате уже есть PDA.")
-			return
-		else
-			var/obj/item/pda/P = user.get_active_hand()
-			if(istype(P))
-				if(user.drop_transfer_item_to_loc(P, src))
-					add_fingerprint(user)
-					storedpda = P
-					P.add_fingerprint(user)
-					update_icon()
-	else
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(is_pda(I))
+		add_fingerprint(user)
+		if(storedpda)
+			to_chat(user, span_warning("В аппарате уже есть PDA."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		storedpda = I
+		update_icon()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/machinery/pdapainter/welder_act(mob/user, obj/item/I)
 	. = TRUE

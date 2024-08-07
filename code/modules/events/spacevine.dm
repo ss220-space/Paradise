@@ -114,8 +114,10 @@
 
 //All of this shit is useless for vines
 
-/turf/simulated/floor/vines/attackby()
-	return
+
+/turf/simulated/floor/vines/attackby(obj/item/I, mob/user, params)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
 
 /turf/simulated/floor/vines/burn_tile()
 	return
@@ -496,26 +498,34 @@
 			eater.say("Nom")
 		wither()
 
-/obj/structure/spacevine/attacked_by(obj/item/I, mob/living/user)
+
+/obj/structure/spacevine/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
 	var/damage_dealt = I.force
 	if(istype(I, /obj/item/scythe))
-		var/obj/item/scythe/S = I
-		if(S.extend)	//so folded telescythes won't get damage boosts / insta-clears (they instead will instead be treated like non-scythes)
+		var/obj/item/scythe/scythe = I
+		//so folded telescythes won't get damage boosts / insta-clears (they instead will instead be treated like non-scythes)
+		if(scythe.extend)
 			damage_dealt *= 4
-			for(var/obj/structure/spacevine/B in range(1,src))
-				if(B.obj_integrity > damage_dealt)	//this only is going to occur for woodening mutation vines (increased health) or if we nerf scythe damage/multiplier
-					B.take_damage(damage_dealt, I.damtype, "melee", 1)
+			for(var/obj/structure/spacevine/spacevine in range(1,src))
+				//this only is going to occur for woodening mutation vines (increased health) or if we nerf scythe damage/multiplier
+				if(spacevine.obj_integrity > damage_dealt)
+					spacevine.take_damage(damage_dealt, I.damtype, MELEE, TRUE)
 				else
-					B.wither()
+					spacevine.wither()
 			return
+
 	if(is_sharp(I))
 		damage_dealt *= 4
+
 	if(I.damtype == BURN)
 		damage_dealt *= 4
 
-	for(var/datum/spacevine_mutation/SM in mutations)
-		damage_dealt = SM.on_hit(src, user, I, damage_dealt) //on_hit now takes override damage as arg and returns new value for other mutations to permutate further
-	take_damage(damage_dealt, I.damtype, "melee", 1)
+	for(var/datum/spacevine_mutation/mutation as anything in mutations)
+		//on_hit now takes override damage as arg and returns new value for other mutations to permutate further
+		damage_dealt = mutation.on_hit(src, user, I, damage_dealt)
+
+	take_damage(damage_dealt, I.damtype, MELEE, TRUE)
+
 
 /obj/structure/spacevine/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

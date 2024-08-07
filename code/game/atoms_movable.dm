@@ -1171,18 +1171,21 @@
 	anchored = TRUE
 	simulated = FALSE
 
-/atom/movable/overlay/New()
+
+/atom/movable/overlay/Initialize(mapload, ...)
 	. = ..()
 	verbs.Cut()
-	return
 
-/atom/movable/overlay/attackby(a, b, c)
-	if(master)
-		return master.attackby(a, b, c)
 
-/atom/movable/overlay/attack_hand(a, b, c)
+/atom/movable/overlay/attackby(obj/item/I, mob/user, params)
 	if(master)
-		return master.attack_hand(a, b, c)
+		I.melee_attack_chain(user, master, params)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
+
+/atom/movable/overlay/attack_hand(mob/user)
+	if(master)
+		return master.attack_hand(user)
 
 
 /atom/movable/proc/handle_buckled_mob_movement(newloc, direct, glide_size_override)

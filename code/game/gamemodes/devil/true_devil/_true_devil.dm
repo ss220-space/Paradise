@@ -99,24 +99,26 @@
 		return ..() //flashes don't stop devils UNLESS it's their bane.
 
 
-/mob/living/carbon/true_devil/attacked_by(obj/item/I, mob/living/user, def_zone)
+/mob/living/carbon/true_devil/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
+	if(!I.force)
+		return
+
 	var/weakness = check_weakness(I, user)
-	apply_damage(I.force * weakness, I.damtype, def_zone)
-	var/message_verb = ""
-	if(I.attack_verb && I.attack_verb.len)
+	var/message_verb = "attacked"
+	if(length(I.attack_verb))
 		message_verb = "[pick(I.attack_verb)]"
-	else if(I.force)
-		message_verb = "attacked"
 
 	var/attack_message = "[src] has been [message_verb] with [I]."
-	if(user)
-		user.do_attack_animation(src)
-		if(user in viewers(src, null))
-			attack_message = "[user] has [message_verb] [src] with [I]!"
-	if(message_verb)
-		visible_message("<span class='danger'>[attack_message]</span>",
-		"<span class='userdanger'>[attack_message]</span>")
-	return TRUE
+	if(user in viewers(src))
+		attack_message = "[user] has [message_verb] [src] with [I]!"
+
+	visible_message(
+		span_danger("[attack_message]"),
+		span_userdanger("[attack_message]"),
+	)
+
+	apply_damage(I.force * weakness, I.damtype, def_zone)
+
 
 /mob/living/carbon/true_devil/UnarmedAttack(atom/A, proximity)
 	if(!can_unarmed_attack())

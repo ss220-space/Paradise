@@ -11,80 +11,103 @@
 	max_amount = 6
 	toolspeed = 1
 
+
 /obj/item/stack/nanopaste/cyborg
-	is_cyborg = 1
+	is_cyborg = TRUE
 
-/obj/item/stack/nanopaste/cyborg/attack(mob/living/M, mob/user)
+
+/obj/item/stack/nanopaste/cyborg/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!get_amount())
-		to_chat(user, "<span class='danger'>Not enough nanopaste!</span>")
-		return
-	else
-		. = ..()
+		to_chat(user, span_danger("Not enough nanopaste!"))
+		return ATTACK_CHAIN_PROCEED
+	return ..()
 
-/obj/item/stack/nanopaste/attack(mob/living/M, mob/user)
-	if(!istype(M) || !istype(user))
-		return 0
-	if(istype(M,/mob/living/silicon/robot))	//Repairing cyborgs
-		var/mob/living/silicon/robot/R = M
-		if(R.getBruteLoss() || R.getFireLoss() || LAZYLEN(R.diseases))
-			R.heal_overall_damage(15, 15)
-			R.CureAllDiseases(FALSE)
-			use(1)
-			user.visible_message("<span class='notice'>\The [user] applied some [src] at [R]'s damaged areas.</span>",\
-				"<span class='notice'>You apply some [src] at [R]'s damaged areas.</span>")
+
+/obj/item/stack/nanopaste/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
+
+	if(isrobot(target))	//Repairing cyborgs
+		var/mob/living/silicon/robot/robot = target
+		if(!robot.getBruteLoss() && !robot.getFireLoss() && !LAZYLEN(robot.diseases))
+			to_chat(user, span_notice("All [robot]'s systems are nominal."))
+			return .
+		if(!use(1))
+			return .
+		robot.heal_overall_damage(15, 15)
+		robot.CureAllDiseases(FALSE)
+		user.visible_message(
+			span_notice("[user] applied some [src] at [robot]'s damaged areas."),
+			span_notice("You apply some [src] at [robot]'s damaged areas."),
+		)
+		return .|ATTACK_CHAIN_SUCCESS
+
+	if(ismachineperson(target) && LAZYLEN(target.diseases) && use(1))
+		target.CureAllDiseases()
+		user.visible_message(
+			span_notice("[user] applies some nanite paste at [target]."),
+			span_notice("You have applied some nanite paste at [target].")
+		)
+		return .|ATTACK_CHAIN_SUCCESS
+
+	if(!ishuman(target)) //Repairing robotic limbs and IPCs
+		return .
+
+	var/mob/living/carbon/human/human_target = target
+	var/obj/item/organ/external/bodypart = human_target.get_organ(user.zone_selected)
+	if(!bodypart || !bodypart.is_robotic())
+		to_chat(user, span_notice("The [name] won't work on that."))
+		return .
+
+	if(!bodypart.get_damage())
+		to_chat(user, span_notice("Nothing to fix here."))
+		return .
+
+	if(!use(1))
+		return .
+
+	. |= ATTACK_CHAIN_SUCCESS
+
+	var/remheal = 15
+	var/nremheal = 0
+	var/list/childlist
+	if(LAZYLEN(bodypart.children))
+		childlist = bodypart.children.Copy()
+	var/parenthealed = FALSE
+	var/should_update_health = FALSE
+	var/update_damage_icon = NONE
+	while(remheal > 0)
+		var/obj/item/organ/external/current_bodypart
+		if(bodypart.get_damage())
+			current_bodypart = bodypart
+		else if(LAZYLEN(childlist))
+			current_bodypart = pick_n_take(childlist)
+			if(!current_bodypart.get_damage() || !current_bodypart.is_robotic())
+				continue
+		else if(bodypart.parent && !parenthealed)
+			current_bodypart = bodypart.parent
+			parenthealed = TRUE
+			if(!current_bodypart.get_damage() || !current_bodypart.is_robotic())
+				break
 		else
-			to_chat(user, "<span class='notice'>All [R]'s systems are nominal.</span>")
+			break
+		nremheal = max(remheal - current_bodypart.get_damage(), 0)
+		var/brute_was = current_bodypart.brute_dam
+		var/burn_was = current_bodypart.burn_dam
+		update_damage_icon |= current_bodypart.heal_damage(remheal, remheal, FALSE, TRUE, FALSE)
+		if(current_bodypart.brute_dam != brute_was || current_bodypart.burn_dam != burn_was)
+			should_update_health = TRUE
+		remheal = nremheal
 
-	if(ishuman(M)) //Repairing robotic limbs and IPCs
-		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/S = H.get_organ(user.zone_selected)
+	if(should_update_health)
+		human_target.updatehealth("nanopaste repair")
+	if(update_damage_icon)
+		human_target.UpdateDamageIcon()
 
-		if(S && S.is_robotic())
-			if(ismachineperson(M) && M.diseases?.len)
-				use(1)
-				M.CureAllDiseases()
-				user.visible_message("<span class='notice'>\The [user] applies some nanite paste at \the [M] to fix problems.</span>")
-				return
-			if(S.get_damage())
-				use(1)
-				var/remheal = 15
-				var/nremheal = 0
-				var/childlist
-				if(LAZYLEN(S.children))
-					childlist = S.children.Copy()
-				var/parenthealed = FALSE
-				var/should_update_health = FALSE
-				var/update_damage_icon = NONE
-				while(remheal > 0)
-					var/obj/item/organ/external/E
-					if(S.get_damage())
-						E = S
-					else if(LAZYLEN(childlist))
-						E = pick_n_take(childlist)
-						if(!E.get_damage() || !E.is_robotic())
-							continue
-					else if(S.parent && !parenthealed)
-						E = S.parent
-						parenthealed = TRUE
-						if(!E.get_damage() || !E.is_robotic())
-							break
-					else
-						break
-					nremheal = max(remheal - E.get_damage(), 0)
-					var/brute_was = E.brute_dam
-					var/burn_was = E.burn_dam
-					update_damage_icon |= E.heal_damage(remheal, remheal, FALSE, TRUE, FALSE)
-					if(E.brute_dam != brute_was || E.burn_dam != burn_was)
-						should_update_health = TRUE
-					remheal = nremheal
-					user.visible_message("<span class='notice'>\The [user] applies some nanite paste at \the [M]'s [E.name] with \the [src].</span>")
-				if(should_update_health)
-					H.updatehealth("nanopaste repair")
-				if(update_damage_icon)
-					H.UpdateDamageIcon()
-				if(H.bleed_rate && ismachineperson(H))
-					H.bleed_rate = 0
-			else
-				to_chat(user, "<span class='notice'>Nothing to fix here.</span>")
-		else
-			to_chat(user, "<span class='notice'>[src] won't work on that.</span>")
+	user.visible_message(
+		span_notice("[user] applies some nanite paste at [human_target]."),
+		span_notice("You have applied some nanite paste at [human_target].")
+	)
+
+	if(human_target.bleed_rate && ismachineperson(human_target))
+		human_target.bleed_rate = 0
+

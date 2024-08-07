@@ -143,9 +143,9 @@
 	return ..(newloc, direction, move_to_delay)
 
 
-/mob/living/simple_animal/hostile/attacked_by(obj/item/I, mob/living/user)
+/mob/living/simple_animal/hostile/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
 	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client && user)
-		FindTarget(list(user))
+		FindTarget(list(user), TRUE)
 	return ..()
 
 

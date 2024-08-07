@@ -272,21 +272,21 @@
 
 
 /obj/structure/table/attackby(obj/item/I, mob/user, params)
-	if(user.a_intent != INTENT_HARM && !(I.item_flags & ABSTRACT) && !HAS_TRAIT(I, TRAIT_NODROP))
-		if(user.transfer_item_to_loc(I, loc))
-			add_fingerprint(user)
-			var/list/click_params = params2list(params)
-			//Center the icon where the user clicked.
-			if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
-				return
-			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
-			I.pixel_x = clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
-			I.pixel_y = clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
-			item_placed(I)
-	else
-		if(isrobot(user))
-			return
+	if(user.a_intent == INTENT_HARM || (I.item_flags & ABSTRACT) || I.is_robot_module())
 		return ..()
+	if(!user.transfer_item_to_loc(I, loc))
+		return ..()
+	. = ATTACK_CHAIN_BLOCKED_ALL
+	add_fingerprint(user)
+	var/list/click_params = params2list(params)
+	//Center the icon where the user clicked.
+	if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
+		return .
+	//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
+	I.pixel_x = clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
+	I.pixel_y = clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
+	item_placed(I)
+
 
 /obj/structure/table/shove_impact(mob/living/target, mob/living/attacker)
 	if(locate(/obj/structure/table) in get_turf(target))
@@ -886,12 +886,12 @@
 
 
 /obj/structure/rack/attackby(obj/item/I, mob/user, params)
-	if(isrobot(user))
-		return
-	if(user.a_intent == INTENT_HARM)
+	if(user.a_intent == INTENT_HARM || (I.item_flags & ABSTRACT) || I.is_robot_module())
 		return ..()
-	if(!(I.item_flags & ABSTRACT) && user.transfer_item_to_loc(I, loc))
-		add_fingerprint(user)
+	if(!user.transfer_item_to_loc(I, loc))
+		return ..()
+	add_fingerprint(user)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 
 /obj/structure/rack/wrench_act(mob/user, obj/item/I)
@@ -961,7 +961,7 @@
 		var/list/click_params = params2list(params)
 		//Center the icon where the user clicked.
 		if(!click_params || !click_params["icon-x"] || !click_params["icon-y"])
-			return  .
+			return TRUE
 		//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
 		our_gun.pixel_x = clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
 		our_gun.pixel_y = 0
@@ -973,11 +973,11 @@
 
 
 /obj/structure/rack/gunrack/attackby(obj/item/I, mob/user, params)
-	if(!ishuman(user))
-		return
 	if(user.a_intent == INTENT_HARM)
 		return ..()
+	add_fingerprint(user)
 	place_gun(I, user, params)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 
 /obj/structure/rack/gunrack/wrench_act(mob/user, obj/item/I)

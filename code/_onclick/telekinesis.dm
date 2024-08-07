@@ -103,7 +103,7 @@
 	afterattack(target, user)
 	return TRUE
 
-/obj/item/tk_grab/afterattack(atom/target , mob/living/user, proximity, params)//TODO: go over this
+/obj/item/tk_grab/afterattack(atom/target, mob/living/user, proximity, params)//TODO: go over this
 	if(!target || !user)
 		return
 	if(last_throw+3 > world.time)
@@ -132,21 +132,21 @@
 		target.attack_self_tk(user)
 		return // todo: something like attack_self not laden with assumptions inherent to attack_self
 
-
 	if(isitem(focus) && target.Adjacent(focus) && !user.in_throw_mode)
 		var/obj/item/I = focus
-		var/resolved = target.attackby(I, user, params)
-		if(!resolved && target && I)
-			I.afterattack(target,user,1) // for splashing with beakers
-
+		var/attackby_result = target.attackby(I, user, params)
+		if(!(attackby_result & ATTACK_CHAIN_NO_AFTERATTACK) && !QDELETED(I) && !QDELETED(target) && !QDELETED(user))
+			I.afterattack(target, user, TRUE, params) // for splashing with beakers
 
 	else
 		apply_focus_overlay()
 		focus.throw_at(target, 10, 1, user)
 		last_throw = world.time
 
-/obj/item/tk_grab/attack(mob/living/M, mob/living/user, def_zone)
-	return
+
+/obj/item/tk_grab/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
 
 /obj/item/tk_grab/is_equivalent(obj/item/I)
 	. = ..()

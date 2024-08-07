@@ -99,23 +99,30 @@
 /obj/item/eftpos/attack_self(mob/user)
 	ui_interact(user)
 
+
 /obj/item/eftpos/attackby(obj/item/I, mob/user, params)
-	if(I.GetID())
-		var/obj/item/card/id/id_card = I.GetID()
+	var/obj/item/card/id/id_card = I.GetID()
+	if(id_card)
+		add_fingerprint(user)
 		scan_card(id_card, user)
 		SStgui.update_uis(src)
-	else
-		return ..()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-/obj/item/card/attack(mob/living/carbon/human/target, mob/user)
+	return ..()
+
+
+/obj/item/card/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
 	var/obj/item/active_hand = user.get_active_hand()
-	var/obj/item/card/id/id_card = active_hand.GetID()
+	var/obj/item/card/id/id_card = active_hand?.GetID()
 	if(!istype(id_card))
-		return
+		return .
 	if(!target.is_type_in_hands(/obj/item/eftpos))
-		return
+		return .
+	. |= ATTACK_CHAIN_SUCCESS
 	var/obj/item/eftpos/device = target.is_type_in_hands(/obj/item/eftpos)
-	device.scan_card(id_card, user)
+	device?.scan_card(id_card, user)
+
 
 /obj/item/eftpos/emag_act(mob/user)
 	emagged = TRUE

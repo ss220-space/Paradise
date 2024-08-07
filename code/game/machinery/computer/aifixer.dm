@@ -10,22 +10,18 @@
 
 	light_color = LIGHT_COLOR_PURPLE
 
-/obj/machinery/computer/aifixer/attackby(I as obj, user as mob, params)
-	if(occupant && istype(I, /obj/item/screwdriver))
-		if(stat & BROKEN)
-			..()
-		add_fingerprint(user)
-		if(stat & NOPOWER)
-			to_chat(user, span_warning("The screws on [name]'s screen won't budge."))
-		else
-			to_chat(user, span_warning("The screws on [name]'s screen won't budge and it emits a warning beep!."))
-	else
-		return ..()
 
-/obj/machinery/computer/aifixer/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/aifixer/screwdriver_act(mob/user, obj/item/I)
+	if(occupant)
+		to_chat(user, span_warning("The screws on [name]'s screen won't budge and it emits a warning beep!."))
+		return TRUE
+	return ..()
+
+
+/obj/machinery/computer/aifixer/attack_ai(mob/user)
 	ui_interact(user)
 
-/obj/machinery/computer/aifixer/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/aifixer/attack_hand(mob/user)
 	if(..())
 		return TRUE
 	ui_interact(user)

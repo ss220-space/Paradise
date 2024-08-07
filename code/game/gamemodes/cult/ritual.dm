@@ -42,20 +42,22 @@
 		. += "<span class='cultitalic'>Striking another cultist with it will purge holy water from them.</span>"
 		. += "<span class='cultitalic'>Striking a noncultist will tear their flesh.</span>"
 
-/obj/item/melee/cultblade/dagger/attack(mob/living/M, mob/living/user)
-	if(iscultist(M))
-		if(M.reagents && M.reagents.has_reagent("holywater")) //allows cultists to be rescued from the clutches of ordained religion
-			if(M == user) // Targeting yourself
-				to_chat(user, "<span class='warning'>You can't remove holy water from yourself!</span>")
+
+/obj/item/melee/cultblade/dagger/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(iscultist(target))
+		if(target.reagents?.has_reagent("holywater")) //allows cultists to be rescued from the clutches of ordained religion
+			if(target == user) // Targeting yourself
+				to_chat(user, span_warning("You can't remove holy water from yourself!"))
 			else // Targeting someone else
-				to_chat(user, "<span class='cult'>You remove the taint from [M].</span>")
-				to_chat(M, "<span class='cult'>[user] removes the taint from your body.</span>")
-				var/amount = M.reagents.get_reagent_amount("holywater")
-				M.reagents.del_reagent("holywater")
-				M.reagents.add_reagent("unholywater", amount)
-				add_attack_logs(user, M, "Hit with [src], removing the holy water from them")
-		return FALSE
-	. = ..()
+				to_chat(user, span_cult("You remove the taint from [target]."))
+				to_chat(target, span_cult("[user] removes the taint from your body."))
+				var/amount = target.reagents.get_reagent_amount("holywater")
+				target.reagents.del_reagent("holywater")
+				target.reagents.add_reagent("unholywater", amount)
+				add_attack_logs(user, target, "Hit with [src], removing the holy water from them")
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 /obj/item/melee/cultblade/dagger/attack_self(mob/user)
 	if(!iscultist(user))

@@ -435,22 +435,21 @@ emp_act
 		w_uniform?.add_fingerprint(grabber)
 
 
-//Returns TRUE if the attack hit, FALSE if it missed.
-/mob/living/carbon/human/attacked_by(obj/item/I, mob/living/user, def_zone)
-	if(!I || !user)
-		return FALSE
+/mob/living/carbon/human/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
+	if(QDELETED(I) || QDELETED(user))
+		return
 
 	if((istype(I, /obj/item/kitchen/knife/butcher/meatcleaver) || istype(I, /obj/item/twohanded/chainsaw)) && stat == DEAD && user.a_intent == INTENT_HARM)
 		new dna.species.meat_type(get_turf(loc), src)
 		add_mob_blood(src)
-		--meatleft
+		meatleft--
 		to_chat(user, span_warning("You hack off a chunk of meat from [name]."))
 		if(!meatleft)
 			add_attack_logs(user, src, "Chopped up into meat")
 			qdel(src)
-			return FALSE
+			return
 
-	var/attack_zone = ran_zone(user.zone_selected)
+	var/attack_zone = ran_zone(def_zone)
 	var/obj/item/organ/external/affecting = get_organ(attack_zone)
 	// if the targeted limb doesn't exist, pick its parent or torso
 	if(!affecting)
@@ -460,33 +459,32 @@ emp_act
 		if(!affecting)
 			CRASH("Human somehow has no chest bodypart.")
 
-	var/hit_area = parse_zone(affecting.limb_zone)
-
-	if(user != src)
-		user.do_attack_animation(src)
-		if(check_shields(I, I.force, "the [I.name]", MELEE_ATTACK, I.armour_penetration))
-			return FALSE
+	if(user != src && check_shields(I, I.force, "the [I.name]", MELEE_ATTACK, I.armour_penetration))
+		return
 
 	if(check_martial_art_defense(src, user, I, span_warning("[src] blocks [I]!")))
-		return FALSE
+		return
 
-	if(istype(I,/obj/item/card/emag))
-		emag_act(user, affecting)
+	if(istype(I, /obj/item/card/emag) && emag_act(user, affecting))
+		return
 
-	send_item_attack_message(I, user, hit_area)
+	send_item_attack_message(I, user, affecting.limb_zone)
 
 	var/weakness = check_weakness(I, user)
 
 	if(!I.force)
-		return FALSE //item force is zero
+		return
+
+	var/hit_area = parse_zone(affecting.limb_zone)
 
 	var/armor = run_armor_check(affecting, MELEE, span_warning("Your armour has protected your [hit_area]."), span_warning("Your armour has softened hit to your [hit_area]."), armour_penetration = I.armour_penetration)
 	if(armor >= 100)
 		return FALSE
-
 	var/weapon_sharp = is_sharp(I)
 	if(weapon_sharp && prob(getarmor(user.zone_selected, MELEE)))
 		weapon_sharp = FALSE
+	if(armor >= 100)
+		return
 
 	// to avoid runtimes on the forcesay checks at the bottom.
 	// some items might delete themselves if you drop them. (stunning yourself, ninja swords)
@@ -510,17 +508,19 @@ emp_act
 			if(issimulatedturf(location))
 				add_splatter_floor(location)
 			if(ishuman(user))
-				var/mob/living/carbon/human/H = user
-				if(get_dist(H, src) <= 1) //people with TK won't get smeared with blood
-					H.add_mob_blood(src)
+				var/mob/living/carbon/human/human_user = user
+				if(get_dist(human_user, src) <= 1) //people with TK won't get smeared with blood
+					human_user.add_mob_blood(src)
 
 		if(!stat)
 			switch(hit_area)
 				if(BODY_ZONE_HEAD)//Harder to score a stun but if you do it lasts a bit longer
 					if(stat == CONSCIOUS && armor < 50)
 						if(prob(cached_force))
-							visible_message(span_combatdanger("[src] has been knocked down!"), \
-											span_combatuserdanger("[src] has been knocked down!"))
+							visible_message(
+								span_combatdanger("[src] has been knocked down!"),
+								span_combatuserdanger("[src] has been knocked down!"),
+							)
 							apply_effect(4 SECONDS, KNOCKDOWN, armor)
 							AdjustConfused(30 SECONDS)
 						if(mind && mind.special_role == SPECIAL_ROLE_REV && prob(cached_force + ((100 - health)/2)) && src != user && cached_dam_type == BRUTE)
@@ -540,8 +540,10 @@ emp_act
 
 				if(BODY_ZONE_CHEST)//Easier to score a stun but lasts less time
 					if(stat == CONSCIOUS && cached_force && prob(cached_force + 10))
-						visible_message(span_combatdanger("[src] has been knocked down!"), \
-										span_combatuserdanger("[src] has been knocked down!"))
+						visible_message(
+							span_combatdanger("[src] has been knocked down!"),
+							span_combatuserdanger("[src] has been knocked down!"),
+						)
 						apply_effect(4 SECONDS, KNOCKDOWN, armor)
 
 					if(bloody)
@@ -555,7 +557,7 @@ emp_act
 	if(cached_force > 10 || (cached_force >= 5 && prob(33)))
 		forcesay(GLOB.hit_appends)	//forcesay checks stat already
 
-	dna.species.spec_attacked_by(I, user, affecting, user.a_intent, src)
+	dna.species.spec_proceed_attack_results(I, src, user, affecting)
 
 
 /**

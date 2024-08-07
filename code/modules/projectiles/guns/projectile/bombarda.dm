@@ -9,36 +9,39 @@
 	can_holster = FALSE
 	w_class = WEIGHT_CLASS_BULKY
 	weapon_weight = WEAPON_HEAVY
-	var/pump_sound_cooldown = 1 SECONDS
-	var/last_pump = 0
+	var/pump_cooldown = 1 SECONDS
+	COOLDOWN_DECLARE(last_pump)
 
-/obj/item/gun/projectile/bombarda/attackby(obj/item/A, mob/user, params)
-	. = ..()
-	if(.)
-		return
-	if(chambered)
-		return
-	var/num_loaded = magazine.attackby(A, user, params, 1)
-	if(num_loaded)
-		balloon_alert(user, "заряжено")
-		A.update_icon()
-		update_icon()
+
+/obj/item/gun/projectile/bombarda/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/ammo_box) || istype(I, /obj/item/ammo_casing))
+		add_fingerprint(user)
+		if(chambered)
+			balloon_alert(user, "уже заряжено!")
+			return ATTACK_CHAIN_PROCEED
+		var/loaded = magazine.reload(I, user, silent = TRUE)
+		if(loaded)
+			chambered = magazine.get_round()
+			balloon_alert(user, "заряжено")
+			update_icon()
+			return ATTACK_CHAIN_BLOCKED_ALL
+		balloon_alert(user, "не удалось!")
+		return ATTACK_CHAIN_PROCEED
+
+	return ..()
 
 
 /obj/item/gun/projectile/bombarda/update_icon_state()
 	icon_state = "bombarda[chambered ? "" : "_open"]"
 
 
-/obj/item/gun/projectile/bombarda/process_chamber(eject_casing, empty_chamber)
-	var/obj/item/ammo_casing/AC = chambered
-	..(TRUE, TRUE)
-	if(!chambered)
-		AC.pixel_x = rand(-10.0, 10)
-		AC.pixel_y = rand(-10.0, 10)
-		AC.dir = pick(GLOB.alldirs)
+/obj/item/gun/projectile/bombarda/process_chamber(eject_casing = FALSE, empty_chamber = FALSE)
+	. = ..()
+
 
 /obj/item/gun/projectile/bombarda/chamber_round()
 	return
+
 
 /obj/item/gun/projectile/bombarda/can_shoot(mob/user)
 	if(!chambered)
@@ -47,29 +50,34 @@
 
 
 /obj/item/gun/projectile/bombarda/attack_self(mob/living/user)
-	if(world.time < last_pump + pump_sound_cooldown)
+	if(!COOLDOWN_FINISHED(src, last_pump))
 		return
+	COOLDOWN_START(src, last_pump, pump_cooldown)
 	pump(user)
-	last_pump = world.time
-	return
 
-/obj/item/gun/projectile/bombarda/proc/pump(mob/M)
-	playsound(M, 'sound/weapons/bombarda/pump.ogg', 60, 1)
+
+/obj/item/gun/projectile/bombarda/proc/pump(mob/user)
+	add_fingerprint(user)
+	var/was_chambered = FALSE
 	if(chambered)
-		chambered.loc = get_turf(src)
+		was_chambered = TRUE
+		chambered.forceMove(drop_location())
 		chambered.SpinAnimation(5, 1)
-		chambered.pixel_x = rand(-10.0, 10)
-		chambered.pixel_y = rand(-10.0, 10)
-		chambered.dir = pick(GLOB.alldirs)
-		playsound(src, chambered.drop_sound, 60, 1)
+		chambered.pixel_x = rand(-10, 10)
+		chambered.pixel_y = rand(-10, 10)
+		chambered.setDir(pick(GLOB.alldirs))
+		playsound(chambered.loc, chambered.casing_drop_sound, 60, TRUE)
 		chambered = null
-		update_icon()
 	if(!magazine.ammo_count())
+		if(was_chambered)
+			playsound(loc, 'sound/weapons/bombarda/pump.ogg', 60, TRUE)
+			update_icon()
 		return FALSE
-	var/obj/item/ammo_casing/AC = magazine.get_round()
-	chambered = AC
+	playsound(loc, 'sound/weapons/bombarda/pump.ogg', 60, TRUE)
+	chambered = magazine.get_round()
 	update_icon()
 	return TRUE
+
 
 /obj/item/ammo_box/magazine/internal/bombarda
 	name = "bombarda internal magazine"
@@ -79,20 +87,15 @@
 	insert_sound = 'sound/weapons/bombarda/load.ogg'
 	remove_sound = 'sound/weapons/bombarda/open.ogg'
 	load_sound = 'sound/weapons/bombarda/load.ogg'
+	start_empty = TRUE
 
-/obj/item/ammo_box/magazine/internal/bombarda/Initialize(mapload)
-	. = ..()
-	QDEL_LIST(stored_ammo)	//not supposed to have initial ammo.
 
 /obj/item/ammo_box/magazine/internal/bombarda/ammo_count(countempties = TRUE)
-	if(!countempties)
-		var/boolets = 0
-		for(var/obj/item/ammo_casing/bullet in stored_ammo)
-			if(bullet.BB)
-				boolets++
-		return boolets
-	else
-		return ..()
+	. = 0
+	for(var/obj/item/ammo_casing/bullet in stored_ammo)
+		if(bullet.BB || countempties)
+			.++
+
 
 /obj/item/ammo_casing/grenade/improvised
 	name = "Improvised shell"
@@ -102,6 +105,7 @@
 	item_state = "exp_shell"
 	caliber = "40mm"
 	drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
+	casing_drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
 
 /obj/item/ammo_casing/grenade/improvised/exp_shell
 	name = "Improvised explosive shell"

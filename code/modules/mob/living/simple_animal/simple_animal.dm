@@ -177,20 +177,6 @@
 
 	return ..()
 
-/mob/living/simple_animal/attackby(obj/item/O, mob/user, params)
-	if(!is_type_in_list(O, food_type))
-		..()
-		return
-	else
-		user.visible_message("<span class='notice'>[user] hand-feeds [O] to [src].</span>", "<span class='notice'>You hand-feed [O] to [src].</span>")
-		qdel(O)
-		if(tame)
-			return
-		if(prob(tame_chance)) //note: lack of feedback message is deliberate, keep them guessing!
-			tame = TRUE
-			tamed(user)
-		else
-			tame_chance += bonus_tame_chance
 
 ///Extra effects to add when the mob is tamed, such as adding a riding or whatever.
 /mob/living/simple_animal/proc/tamed(whomst)
@@ -725,10 +711,10 @@
 		playsound(src, pick(talk_sound), 75, TRUE)
 
 
-/mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user)
+/mob/living/simple_animal/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
 	. = ..()
-	if(. && length(src.damaged_sound))
-		playsound(src, pick(src.damaged_sound), 40, 1)
+	if(. && length(damaged_sound))
+		playsound(src, pick(damaged_sound), 40, TRUE)
 
 /mob/living/simple_animal/attack_hand(mob/living/carbon/human/M)
 	. = ..()

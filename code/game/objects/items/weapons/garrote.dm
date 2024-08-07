@@ -52,43 +52,47 @@
 		STOP_PROCESSING(SSobj, src)
 
 
-/obj/item/twohanded/garrote/attack(mob/living/carbon/human/target, mob/living/carbon/human/user)
+/obj/item/twohanded/garrote/attack(mob/living/carbon/human/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
+
 	if(!COOLDOWN_FINISHED(src, garrote_cooldown) || !ishuman(user))
-		return
+		return .
 
 	if(!ishuman(target))
 		user.balloon_alert(user, "неподходящая цель!")
-		return
+		return .
 
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
 		user.balloon_alert(user, "нужны обе руки!")
-		return
+		return .
 
 	if(user == target)
 		user.suicide() // This will display a prompt for confirmation first.
-		return
+		return .|ATTACK_CHAIN_SUCCESS
 
 	if(user.dir != target.dir)
 		user.balloon_alert(user, "используйте сзади!")
-		return
+		return .
 
 	if(improvised && ((target.head && (target.head.flags_cover & HEADCOVERSMOUTH)) || (target.wear_mask && (target.wear_mask.flags_cover & MASKCOVERSMOUTH)))) // Improvised garrotes are blocked by mouth-covering items.
 		user.balloon_alert(user, "мешает одежда!")
-		return
+		return .
 
 	if(strangling)
 		user.balloon_alert(user, "уже используется!")
-		return
+		return .
 
 	user.stop_pulling()
 	user.mode()
 	if(!user.swap_hand())
-		return
+		return .
 	var/grabbed = target.grabbedby(user, supress_message = TRUE)
 	user.swap_hand()
 
 	if(!grabbed)
-		return
+		return .
+
+	. |= ATTACK_CHAIN_SUCCESS
 
 	if(improvised) // Not a trash anymore:|
 		target.grippedby(user)
@@ -98,6 +102,7 @@
 
 	COOLDOWN_START(src, garrote_cooldown, 1 SECONDS)
 	START_PROCESSING(SSobj, src)
+	strangling = target
 	strangling = target
 	update_icon(UPDATE_ICON_STATE)
 

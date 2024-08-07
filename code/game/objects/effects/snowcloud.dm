@@ -101,17 +101,26 @@
 	user.put_in_hands(SB)
 	to_chat(user, "<span class='notice'>You scoop up some snow and make \a [SB]!</span>")
 
-/obj/effect/snow/attackby(obj/item/I, mob/user)
+
+/obj/effect/snow/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/shovel))
-		var/obj/item/shovel/S = I
-		user.visible_message("<span class='notice'>[user] is clearing away [src]...</span>", "<span class='notice'>You begin clearing away [src]...</span>", "<span class='warning'>You hear a wettish digging sound.</span>")
-		playsound(loc, S.usesound, 50, TRUE)
-		if(!do_after(user, 5 SECONDS * S.toolspeed, src, category = DA_CAT_TOOL))
-			return
-		user.visible_message("<span class='notice'>[user] clears away [src]!</span>", "<span class='notice'>You clear away [src]!</span>")
+		user.visible_message(
+			span_notice("[user] starts clearing [name] away..."),
+			span_notice("You start clearing [name] away..."),
+			span_italics("You hear a wettish digging sound."),
+		)
+		playsound(loc, I.usesound, 50, TRUE)
+		if(!do_after(user, 5 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] clears away [src]!"),
+			span_notice("You clear away [src]!"),
+		)
 		qdel(src)
-	else
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/effect/snow/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()

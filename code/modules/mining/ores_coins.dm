@@ -76,7 +76,6 @@
 		// Then, if the user is dragging an ore box, empty the satchel into the box.
 		if(istype(arrived_mob.pulling, /obj/structure/ore_box))
 			arrived_mob.pulling.attackby(bag, arrived)
-		break
 
 
 /obj/item/stack/ore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
