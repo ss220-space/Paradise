@@ -727,7 +727,7 @@
 ///Returns a number between -1 to 2
 /mob/living/carbon/human/check_eye_prot()
 	var/eye_prot = ..()
-	var/check = sight & SEE_MOBS && SEE_OBJS && SEE_TURFS
+	var/check = SEE_MOBS|SEE_OBJS|SEE_TURFS
 	if(istype(head, /obj/item/clothing/head))			//are they wearing something on their head
 		var/obj/item/clothing/head/HFP = head			//if yes gets the flash protection value from that item
 		if(!check || HFP.flash_protect < 0)
