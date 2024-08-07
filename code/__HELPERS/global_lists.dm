@@ -59,9 +59,6 @@
 		S.race_key = ++rkey //Used in mob icon caching.
 		GLOB.all_species[S.name] = S
 
-		if(IS_WHITELISTED in S.species_traits)
-			GLOB.whitelisted_species += S.name
-
 	init_subtypes(/datum/crafting_recipe, GLOB.crafting_recipes)
 
 	//Pipe list building
@@ -137,12 +134,15 @@
 
 	GLOB.emote_list = init_emote_list()
 	GLOB.uplink_items = init_uplink_items_list()
+	GLOB.mining_vendor_items = init_mining_vendor_items_list()
 
-	// Keybindings
-	for(var/path in subtypesof(/datum/keybinding))
-		var/datum/keybinding/D = path
-		if(initial(D.name))
-			GLOB.keybindings += new path()
+	init_keybindings()
+
+	// Preference toggles
+	for(var/path in subtypesof(/datum/preference_toggle))
+		var/datum/preference_toggle/pref_toggle = path
+		if(initial(pref_toggle.name))
+			GLOB.preference_toggles += new path()
 
 	// Init chemical reagents
 	init_datum_subtypes(/datum/reagent, GLOB.chemical_reagents_list, null, "id")
@@ -230,6 +230,135 @@
 			continue
 		var/datum/uplink_item/item = new item_path
 		. += item
+
+// Use this define to register something as a purchasable!
+// * n — The proper name of the purchasable
+// * o — The object type path of the purchasable to spawn
+// * p — The price of the purchasable in mining points
+#define EQUIPMENT(n, o, p) n = new /datum/data/mining_equipment(n, o, p)
+
+/proc/init_mining_vendor_items_list()
+	var/prize_list = list()
+	prize_list["Gear"] = list(
+		EQUIPMENT("Automatic Scanner",				/obj/item/t_scanner/adv_mining_scanner/lesser, 						800),
+		EQUIPMENT("Advanced Scanner",				/obj/item/t_scanner/adv_mining_scanner, 							3000),
+		EQUIPMENT("Explorer's Webbing",				/obj/item/storage/belt/mining, 										700),
+		EQUIPMENT("Mining Weather Radio",			/obj/item/radio/weather_monitor,									700),
+		EQUIPMENT("Fulton Beacon",					/obj/item/fulton_core, 												500),
+		EQUIPMENT("Mining Conscription Kit",		/obj/item/storage/backpack/duffel/mining_conscript, 				2000),
+		EQUIPMENT("Jump Boots",						/obj/item/clothing/shoes/bhop, 										3000),
+		EQUIPMENT("Jump Boots Implants",			/obj/item/storage/box/jumpbootimplant, 								7000),
+		EQUIPMENT("Lazarus Capsule",				/obj/item/mobcapsule, 												300),
+		EQUIPMENT("Lazarus Capsule belt",			/obj/item/storage/belt/lazarus, 									400),
+		EQUIPMENT("Mining Hardsuit",				/obj/item/clothing/suit/space/hardsuit/mining, 						2500),
+		EQUIPMENT("Tracking Implant Kit",			/obj/item/storage/box/minertracker, 								800),
+		EQUIPMENT("Industrial Mining Satchel",		/obj/item/storage/bag/ore/bigger,									500),
+		EQUIPMENT("Meson Health Scanner HUD",		/obj/item/clothing/glasses/hud/health/meson,						1500),
+		EQUIPMENT("Mining Charge Detonator",		/obj/item/detonator,												150),
+	)
+	prize_list["Consumables"] = list(
+		EQUIPMENT("Marker Beacons (10)", 			/obj/item/stack/marker_beacon/ten, 									100),
+		EQUIPMENT("Marker Beacons (30)",			/obj/item/stack/marker_beacon/thirty,								300),
+		EQUIPMENT("Pocket Fire Extinguisher",		/obj/item/extinguisher/mini,										400),
+		EQUIPMENT("Brute First-Aid Kit", 			/obj/item/storage/firstaid/brute,									800),
+		EQUIPMENT("Fire First-Aid Kit",				/obj/item/storage/firstaid/fire,									800),
+		EQUIPMENT("Emergency Charcoal Injector",	/obj/item/reagent_containers/hypospray/autoinjector/charcoal,		400),
+		EQUIPMENT("Mining Charge",					/obj/item/grenade/plastic/miningcharge/lesser,						150),
+		EQUIPMENT("Industrial Mining Charge",		/obj/item/grenade/plastic/miningcharge,								500),
+		EQUIPMENT("Whetstone",						/obj/item/whetstone,												500),
+		EQUIPMENT("Fulton Pack", 					/obj/item/extraction_pack, 											1500),
+		EQUIPMENT("Jaunter", 						/obj/item/wormhole_jaunter, 										900),
+		EQUIPMENT("Chasm Jaunter Recovery Grenade",	/obj/item/grenade/jaunter_grenade,									3000), //fishing rod supremacy
+		EQUIPMENT("Lazarus Injector", 				/obj/item/lazarus_injector, 										600),
+		EQUIPMENT("Point Transfer Card (500)", 		/obj/item/card/mining_point_card, 									500),
+		EQUIPMENT("Point Transfer Card (1000)", 	/obj/item/card/mining_point_card/thousand, 							1000),
+		EQUIPMENT("Point Transfer Card (5000)", 	/obj/item/card/mining_point_card/fivethousand, 						5000),
+		EQUIPMENT("Shelter Capsule", 				/obj/item/survivalcapsule, 											700),
+		EQUIPMENT("Stabilizing Serum", 				/obj/item/hivelordstabilizer, 										600),
+		EQUIPMENT("Survival Medipen", 				/obj/item/reagent_containers/hypospray/autoinjector/survival, 		800),
+		EQUIPMENT("Luxury Medipen",					/obj/item/reagent_containers/hypospray/autoinjector/survival/luxury,1500),
+	)
+	prize_list["Kinetic Accelerator"] = list(
+		EQUIPMENT("Kinetic Accelerator", 			/obj/item/gun/energy/kinetic_accelerator, 							1000),
+		EQUIPMENT("KA Adjustable Tracer Rounds",	/obj/item/borg/upgrade/modkit/tracer/adjustable, 					200),
+		EQUIPMENT("KA AoE Damage", 					/obj/item/borg/upgrade/modkit/aoe/mobs, 							2500),
+		EQUIPMENT("KA Cooldown Decrease", 			/obj/item/borg/upgrade/modkit/cooldown/haste, 						1500),
+		EQUIPMENT("KA Damage Increase", 			/obj/item/borg/upgrade/modkit/damage, 								1500),
+		EQUIPMENT("KA Range Increase", 				/obj/item/borg/upgrade/modkit/range, 								1500),
+		EQUIPMENT("KA Hardness Increase",			/obj/item/borg/upgrade/modkit/hardness,								2500),
+		EQUIPMENT("KA Offensive Mining Explosion",	/obj/item/borg/upgrade/modkit/aoe/turfs/andmobs,					3000),
+		EQUIPMENT("KA Rapid Repeater",				/obj/item/borg/upgrade/modkit/cooldown/repeater,					2000),
+		EQUIPMENT("KA Resonator Blast",				/obj/item/borg/upgrade/modkit/resonator_blasts,						2000),
+		EQUIPMENT("KA Minebot Passthrough", 		/obj/item/borg/upgrade/modkit/minebot_passthrough, 					300),
+		EQUIPMENT("KA Super Chassis", 				/obj/item/borg/upgrade/modkit/chassis_mod, 							300),
+		EQUIPMENT("KA Hyper Chassis", 				/obj/item/borg/upgrade/modkit/chassis_mod/orange, 					500),
+		EQUIPMENT("KA White Tracer Rounds", 		/obj/item/borg/upgrade/modkit/tracer, 								250),
+	)
+	prize_list["Digging Tools"] = list(
+		EQUIPMENT("Diamond Pickaxe", 				/obj/item/pickaxe/diamond, 											1500),
+		EQUIPMENT("Kinetic Accelerator", 			/obj/item/gun/energy/kinetic_accelerator, 							1000),
+		EQUIPMENT("Kinetic Crusher", 				/obj/item/twohanded/kinetic_crusher, 								1000),
+		EQUIPMENT("Resonator", 						/obj/item/resonator, 												400),
+		EQUIPMENT("Silver Pickaxe", 				/obj/item/pickaxe/silver, 											800),
+		EQUIPMENT("Super Resonator", 				/obj/item/resonator/upgraded, 										1200),
+		EQUIPMENT("Plasma Cutter",					/obj/item/gun/energy/plasmacutter,									1500),
+	)
+	prize_list["Minebot"] = list(
+		EQUIPMENT("Nanotrasen Minebot", 			/obj/item/mining_drone_cube, 										800),
+		EQUIPMENT("Minebot AI Upgrade", 			/obj/item/slimepotion/sentience/mining, 							1000),
+		EQUIPMENT("Minebot Armor Upgrade", 			/obj/item/mine_bot_upgrade/health, 									400),
+		EQUIPMENT("Minebot Cooldown Upgrade", 		/obj/item/borg/upgrade/modkit/cooldown/haste/minebot,				600),
+		EQUIPMENT("Minebot Melee Upgrade", 			/obj/item/mine_bot_upgrade, 										400),
+	)
+	prize_list["Miscellaneous"] = list(
+		EQUIPMENT("Absinthe", 						/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium, 	500),
+		EQUIPMENT("Alien Toy", 						/obj/item/clothing/mask/facehugger/toy, 							300),
+		EQUIPMENT("Cigar", 							/obj/item/clothing/mask/cigarette/cigar/havana, 					300),
+		EQUIPMENT("GAR Meson Scanners", 			/obj/item/clothing/glasses/meson/gar, 								800),
+		EQUIPMENT("GPS upgrade", 					/obj/item/gpsupgrade, 												1500),
+		EQUIPMENT("Laser Pointer", 					/obj/item/laser_pointer, 											500),
+		EQUIPMENT("Luxury Shelter Capsule", 		/obj/item/survivalcapsule/luxury, 									5000),
+		EQUIPMENT("Luxury Elite Bar Capsule",		/obj/item/survivalcapsule/luxuryelite,								10000),
+		EQUIPMENT("Soap", 							/obj/item/soap/nanotrasen, 											400),
+		EQUIPMENT("Space Cash", 					/obj/item/stack/spacecash/c1000, 									2500),
+		EQUIPMENT("Whiskey", 						/obj/item/reagent_containers/food/drinks/bottle/whiskey, 			500),
+		EQUIPMENT("HRD-MDE Project Box",			/obj/item/storage/box/hardmode_box,									2500),
+	)
+	prize_list["Extra"] = list(
+		EQUIPMENT("Extra ID", 						/obj/item/card/id/golem, 								250),
+		EQUIPMENT("Science Backpack", 				/obj/item/storage/backpack/science, 					250),
+		EQUIPMENT("Full Toolbelt", 					/obj/item/storage/belt/utility/full/multitool, 			250),
+		EQUIPMENT("Monkey Cube", 					/obj/item/reagent_containers/food/snacks/monkeycube,	250),
+		EQUIPMENT("Royal Cape of the Liberator",	/obj/item/bedsheet/rd/royal_cape, 						500),
+		EQUIPMENT("Grey Slime Extract", 			/obj/item/slime_extract/grey, 							1000),
+		EQUIPMENT("KA Trigger Modification Kit",	/obj/item/borg/upgrade/modkit/trigger_guard, 			1000),
+		EQUIPMENT("Shuttle Console Board", 			/obj/item/circuitboard/shuttle/golem_ship, 				2000),
+		EQUIPMENT("The Liberator's Legacy", 		/obj/item/storage/box/rndboards, 						2000),
+	)
+	prize_list["Scum"] = list(
+		EQUIPMENT("Trauma Kit", 					/obj/item/stack/medical/bruise_pack/advanced, 						150),
+		EQUIPMENT("Whisky", 						/obj/item/reagent_containers/food/drinks/bottle/whiskey, 			100),
+		EQUIPMENT("Beer", 							/obj/item/reagent_containers/food/drinks/cans/beer, 				50),
+		EQUIPMENT("Absinthe", 						/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium, 	250),
+		EQUIPMENT("Cigarettes", 					/obj/item/storage/fancy/cigarettes, 		 						100),
+		EQUIPMENT("Medical Marijuana", 				/obj/item/storage/fancy/cigarettes/cigpack_med,						250),
+		EQUIPMENT("Cigar", 							/obj/item/clothing/mask/cigarette/cigar/havana, 					150),
+		EQUIPMENT("Box of matches", 				/obj/item/storage/box/matches, 										50),
+		EQUIPMENT("Cheeseburger", 					/obj/item/reagent_containers/food/snacks/cheeseburger, 				150),
+		EQUIPMENT("Big Burger", 					/obj/item/reagent_containers/food/snacks/bigbiteburger, 			250),
+		EQUIPMENT("Recycled Prisoner",	 			/obj/item/reagent_containers/food/snacks/soylentgreen, 				500),
+		EQUIPMENT("Crayons", 						/obj/item/storage/fancy/crayons, 									350),
+		EQUIPMENT("Plushie", 						/obj/random/plushie, 												750),
+		EQUIPMENT("Dnd set", 						/obj/item/storage/box/characters, 									500),
+		EQUIPMENT("Dice set", 						/obj/item/storage/box/dice, 										250),
+		EQUIPMENT("Cards", 							/obj/item/deck/cards, 												150),
+		EQUIPMENT("Guitar", 						/obj/item/instrument/guitar, 										750),
+		EQUIPMENT("Synthesizer", 					/obj/item/instrument/piano_synth, 									1500),
+		EQUIPMENT("Diamond Pickaxe", 				/obj/item/pickaxe/diamond, 											2000)
+	)
+	return prize_list
+
+#undef EQUIPMENT
 
 
 /proc/update_config_movespeed_type_lookup(update_mobs = TRUE)

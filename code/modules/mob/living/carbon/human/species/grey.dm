@@ -24,11 +24,12 @@
 	oxy_mod = 1.2  //greys are fragile
 	stamina_mod = 1.2
 
-	toolspeedmod = 0.8 //25% faster
+	toolspeedmod = -0.2 //20% faster
+	surgeryspeedmod = -0.2
 
 	default_genes = list(/datum/dna/gene/basic/grant_spell/remotetalk)
 
-	species_traits = list(LIPS, IS_WHITELISTED, CAN_WINGDINGS, HAVE_REGENERATION)
+	species_traits = list(LIPS, CAN_WINGDINGS, HAVE_REGENERATION)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags =  HAS_BODY_MARKINGS
 	has_gender = FALSE

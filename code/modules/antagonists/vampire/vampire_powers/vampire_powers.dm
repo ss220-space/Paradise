@@ -48,7 +48,6 @@
 
 
 /obj/effect/proc_holder/spell/vampire
-	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
 	human_req = TRUE
@@ -98,6 +97,7 @@
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate/cast(list/targets, mob/living/user = usr)
 	user.SetWeakened(0)
 	user.SetStunned(0)
+	user.SetKnockdown(0)
 	user.SetParalysis(0)
 	user.SetSleeping(0)
 	user.SetConfused(0)
@@ -113,10 +113,11 @@
 
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate/proc/heal(mob/living/user, rejuv_bonus)
 	for(var/i in 1 to 5)
-		user.adjustBruteLoss(-2 * rejuv_bonus)
-		user.adjustOxyLoss(-5 * rejuv_bonus)
-		user.adjustToxLoss(-2 * rejuv_bonus)
-		user.adjustFireLoss(-2 * rejuv_bonus)
+		var/update = NONE
+		update |= user.heal_overall_damage(2 * rejuv_bonus, 2 * rejuv_bonus, updating_health = FALSE, affect_robotic = TRUE)
+		update |= user.heal_damages(tox = 2 * rejuv_bonus, oxy = 5 * rejuv_bonus, updating_health = FALSE)
+		if(update)
+			user.updatehealth()
 		for(var/datum/reagent/R in user.reagents.reagent_list)
 			if(!R.harmless)
 				user.reagents.remove_reagent(R.id, 2 * rejuv_bonus)
@@ -146,11 +147,13 @@
 /obj/effect/proc_holder/spell/vampire/self/specialize/cast(mob/user)
 	ui_interact(user)
 
+/obj/effect/proc_holder/spell/vampire/self/specialize/ui_state(mob/user)
+	return GLOB.always_state
 
-/obj/effect/proc_holder/spell/vampire/self/specialize/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/effect/proc_holder/spell/vampire/self/specialize/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "VampireSpecMenu", "Specialisation Menu", 1500, 820, master_ui, state)
+		ui = new(user, src, "VampireSpecMenu", "Specialisation Menu")
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -257,16 +260,16 @@
 
 		if(deviation == DEVIATION_FULL)
 			target.Confused(6 SECONDS)
-			target.adjustStaminaLoss(30)
+			target.apply_damage(30, STAMINA)
 
 		else if(deviation == DEVIATION_PARTIAL)
 			target.Weaken(4 SECONDS)
 			target.Confused(10 SECONDS)
-			target.adjustStaminaLoss(40)
+			target.apply_damage(40, STAMINA)
 
 		else
 			target.Confused(10 SECONDS)
-			target.adjustStaminaLoss(30)
+			target.apply_damage(30, STAMINA)
 			target.Weaken(2 SECONDS)
 			target.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 			target.AdjustSilence(8 SECONDS)
@@ -353,8 +356,7 @@
 		return
 	if(H.mind.has_antag_datum(/datum/antagonist/vampire) || H.mind.special_role == SPECIAL_ROLE_VAMPIRE || H.mind.special_role == SPECIAL_ROLE_VAMPIRE_THRALL)
 		visible_message(span_notice("[H] looks refreshed!"))
-		H.adjustBruteLoss(-60)
-		H.adjustFireLoss(-60)
+		H.heal_overall_damage(60, 60, affect_robotic = TRUE)
 		for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
 			if(prob(25))
 				bodypart.mend_fracture()
@@ -364,7 +366,7 @@
 	if(H.stat != DEAD)
 		if(H.IsWeakened())
 			visible_message(span_warning("[H] looks to be in pain!"))
-			H.adjustBrainLoss(60)
+			H.apply_damage(60, BRAIN)
 		else
 			visible_message(span_warning("[H] looks to be stunned by the energy!"))
 			H.Weaken(40 SECONDS)

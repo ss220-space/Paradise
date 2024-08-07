@@ -40,6 +40,8 @@
 
 	faction = list("russian")
 	gold_core_spawnable = HOSTILE_SPAWN
+	weather_immunities = list(TRAIT_SNOWSTORM_IMMUNE)
+
 
 /mob/living/simple_animal/hostile/bear/handle_automated_movement()
 	if(..())
@@ -55,7 +57,7 @@
 	var/unbearable_pun = pick("He's unbearably cute.", "It looks like he is a bearer of bad news.", "Sadly, he is bearly able to comprehend puns.")
 	desc = "That's Hudson. " +  unbearable_pun// I am not sorry for this.
 
-/mob/living/simple_animal/hostile/bear/Move()
+/mob/living/simple_animal/hostile/bear/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(stat != DEAD)
 		if(loc && isspaceturf(loc))

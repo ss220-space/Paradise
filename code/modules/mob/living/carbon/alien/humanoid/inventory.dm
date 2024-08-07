@@ -13,7 +13,6 @@
 		if(!QDELETED(src))
 			update_inv_pockets()
 
-
 /mob/living/carbon/alien/humanoid/equip_to_slot(obj/item/I, slot, initial)
 	if(!slot)
 		return
@@ -56,7 +55,6 @@
 
 		if(ITEM_SLOT_HANDCUFFED)
 			set_handcuffed(I)
-			update_handcuffed_status()
 
 		if(ITEM_SLOT_LEGCUFFED)
 			set_legcuffed(I)

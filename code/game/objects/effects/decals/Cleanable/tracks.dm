@@ -29,59 +29,48 @@ GLOBAL_LIST_EMPTY(fluidtrack_cache)
 	blood_state = BLOOD_STATE_HUMAN //the icon state to load images from
 
 
-/obj/effect/decal/cleanable/blood/footprints/Crossed(atom/movable/O, oldloc)
-	..()
-	if(ishuman(O))
-		var/mob/living/carbon/human/H = O
-		var/obj/item/clothing/shoes/S = H.shoes
-		var/obj/item/organ/external/l_foot = H.get_organ(BODY_ZONE_PRECISE_L_FOOT)
-		var/obj/item/organ/external/r_foot = H.get_organ(BODY_ZONE_PRECISE_R_FOOT)
-		var/hasfeet = TRUE
-		if(!l_foot && !r_foot)
-			hasfeet = FALSE
-		if(S && S.bloody_shoes[blood_state] && S.blood_color == basecolor)
-			S.bloody_shoes[blood_state] = max(S.bloody_shoes[blood_state] - BLOOD_LOSS_PER_STEP, 0)
-			if(!S.blood_DNA)
-				S.blood_DNA = list()
-			S.blood_DNA |= blood_DNA.Copy()
-			if(!(entered_dirs & H.dir))
-				entered_dirs |= H.dir
-				update_icon()
-		else if(hasfeet && H.bloody_feet[blood_state] && H.feet_blood_color == basecolor)//Or feet //This will need to be changed.
-			H.bloody_feet[blood_state] = max(H.bloody_feet[blood_state] - BLOOD_LOSS_PER_STEP, 0)
-			if(!H.feet_blood_DNA)
-				H.feet_blood_DNA = list()
-			H.feet_blood_DNA |= blood_DNA.Copy()
-			if(!(entered_dirs & H.dir))
-				entered_dirs |= H.dir
-				update_icon()
+/obj/effect/decal/cleanable/blood/footprints/blood_decal_crossed(mob/living/carbon/human/arrived)
+	. = ..()
+	var/obj/item/clothing/shoes/shoes = arrived.shoes
+	if(istype(shoes) && shoes.bloody_shoes[blood_state] && shoes.blood_color == basecolor)
+		shoes.bloody_shoes[blood_state] = max(shoes.bloody_shoes[blood_state] - BLOOD_LOSS_PER_STEP, 0)
+		if(!shoes.blood_DNA)
+			shoes.blood_DNA = list()
+		shoes.blood_DNA |= blood_DNA.Copy()
+		if(!(entered_dirs & arrived.dir))
+			entered_dirs |= arrived.dir
+			update_icon()
 
-/obj/effect/decal/cleanable/blood/footprints/Uncrossed(atom/movable/O)
-	..()
-	if(ishuman(O))
-		var/mob/living/carbon/human/H = O
-		var/obj/item/clothing/shoes/S = H.shoes
-		var/obj/item/organ/external/l_foot = H.get_organ(BODY_ZONE_PRECISE_L_FOOT)
-		var/obj/item/organ/external/r_foot = H.get_organ(BODY_ZONE_PRECISE_R_FOOT)
-		var/hasfeet = TRUE
-		if(!l_foot && !r_foot)
-			hasfeet = FALSE
-		if(S && S.bloody_shoes[blood_state] && S.blood_color == basecolor)
-			S.bloody_shoes[blood_state] = max(S.bloody_shoes[blood_state] - BLOOD_LOSS_PER_STEP, 0)
-			if(!S.blood_DNA)
-				S.blood_DNA = list()
-			S.blood_DNA |= blood_DNA.Copy()
-			if(!(exited_dirs & H.dir))
-				exited_dirs |= H.dir
-				update_icon()
-		else if(hasfeet && H.bloody_feet[blood_state] && H.feet_blood_color == basecolor)//Or feet
-			H.bloody_feet[blood_state] = max(H.bloody_feet[blood_state] - BLOOD_LOSS_PER_STEP, 0)
-			if(!H.feet_blood_DNA)
-				H.feet_blood_DNA = list()
-			H.feet_blood_DNA |= blood_DNA.Copy()
-			if(!(exited_dirs & H.dir))
-				exited_dirs |= H.dir
-				update_icon()
+	else if(!arrived.shoes && arrived.num_legs > 0 && arrived.bloody_feet[blood_state] && arrived.feet_blood_color == basecolor)
+		arrived.bloody_feet[blood_state] = max(arrived.bloody_feet[blood_state] - BLOOD_LOSS_PER_STEP, 0)
+		if(!arrived.feet_blood_DNA)
+			arrived.feet_blood_DNA = list()
+		arrived.feet_blood_DNA |= blood_DNA.Copy()
+		if(!(entered_dirs & arrived.dir))
+			entered_dirs |= arrived.dir
+			update_icon()
+
+
+/obj/effect/decal/cleanable/blood/footprints/blood_decal_uncrossed(mob/living/carbon/human/departed)
+	. = ..()
+	var/obj/item/clothing/shoes/shoes = departed.shoes
+	if(istype(shoes) && shoes.bloody_shoes[blood_state] && shoes.blood_color == basecolor)
+		shoes.bloody_shoes[blood_state] = max(shoes.bloody_shoes[blood_state] - BLOOD_LOSS_PER_STEP, 0)
+		if(!shoes.blood_DNA)
+			shoes.blood_DNA = list()
+		shoes.blood_DNA |= blood_DNA.Copy()
+		if(!(exited_dirs & departed.dir))
+			exited_dirs |= departed.dir
+			update_icon()
+
+	else if(!departed.shoes && departed.num_legs > 0 && departed.bloody_feet[blood_state] && departed.feet_blood_color == basecolor)
+		departed.bloody_feet[blood_state] = max(departed.bloody_feet[blood_state] - BLOOD_LOSS_PER_STEP, 0)
+		if(!departed.feet_blood_DNA)
+			departed.feet_blood_DNA = list()
+		departed.feet_blood_DNA |= blood_DNA.Copy()
+		if(!(exited_dirs & departed.dir))
+			exited_dirs |= departed.dir
+			update_icon()
 
 
 /obj/effect/decal/cleanable/blood/footprints/update_overlays()

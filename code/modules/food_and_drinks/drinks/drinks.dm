@@ -93,7 +93,7 @@
 			"<span class='notice'>You start chugging [src].</span>",
 			"<span class='notice'>You hear what sounds like gulping.</span>")
 		chugging = TRUE
-		while(do_after(chugger, 4 SECONDS, chugger, progress = FALSE, max_interact_count = 1, cancel_message = span_warning("You stop chugging [src].")))
+		while(do_after(chugger, 4 SECONDS, chugger, progress = FALSE, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("You stop chugging [src].")))
 			chugger.eat(src, chugger, 25) //Half of a glass, quarter of a bottle.
 			if(!reagents.total_volume) //Finish in style.
 				chugger.emote("gasp")

@@ -1,3 +1,5 @@
+#define UPLINK_DISCOUNTS 4
+
 /**
  * Proc that generates a list of items, available for certain uplink.
  *
@@ -24,15 +26,13 @@
 			sales_items += uplink_item
 
 	if(generate_discounts)
-		for(var/i in 1 to 3)
+		for(var/i in 1 to UPLINK_DISCOUNTS)
 			var/datum/uplink_item/discount_origin = pick_n_take(sales_items)
-			discount_origin.refundable = FALSE
 
 			var/datum/uplink_item/discount_item = new discount_origin.type
 			var/discount = 0.5
 			var/init_cost = initial(discount_item.cost)
 			discount_item.limited_stock = 1
-			discount_item.refundable = FALSE
 			if(discount_item.cost >= 100)
 				discount *= 0.5 // If the item costs 100TC or more, it's only 25% off.
 			discount_item.cost = max(round(discount_item.cost * (1 - discount)), 1)
@@ -78,8 +78,8 @@
 	var/refundable = FALSE
 	/// Alternative path for refunds, in case the item purchased isn't what is actually refunded (ie: holoparasites).
 	var/refund_path
-	/// Specified refund amount in case there needs to be a TC penalty for refunds.
-	var/refund_amount
+	/// Associative list UID - refund cost
+	var/static/list/item_to_refund_cost
 
 
 /datum/uplink_item/Destroy(force)
@@ -131,7 +131,7 @@
  * * target_uplink - uplink we are buying from.
  * * buyer - mob who performs the transaction.
  */
-/datum/uplink_item/proc/buy(obj/item/uplink/hidden/target_uplink, mob/living/carbon/human/buyer)
+/datum/uplink_item/proc/buy(obj/item/uplink/hidden/target_uplink, mob/living/carbon/human/buyer, put_in_hands = TRUE)
 
 	if(!istype(target_uplink))
 		return FALSE
@@ -158,7 +158,23 @@
 	if(!spawned)
 		return .
 
+	if(category == "Discounted Gear" && refundable)
+		var/obj/item/refund_item
+		if(istype(spawned, refund_path))
+			refund_item = spawned
+		else
+			refund_item = locate(refund_path) in spawned
+
+		if(!item_to_refund_cost)
+			item_to_refund_cost = list()
+
+		if(refund_item)
+			item_to_refund_cost[refund_item.UID()] = cost
+		else
+			stack_trace("Can not find [refund_path] in [src]")
+
 	if(limited_stock > 0)
+		limited_stock--
 		add_game_logs("purchased [name]. [name] was discounted to [cost].", buyer)
 		if(!buyer.mind.special_role)
 			message_admins("[key_name_admin(buyer)] purchased [name] (discounted to [cost]), as a non antagonist.")
@@ -166,7 +182,9 @@
 		add_game_logs("purchased [name].", buyer)
 		if(!buyer.mind.special_role)
 			message_admins("[key_name_admin(buyer)] purchased [name], as a non antagonist.")
-	buyer.put_in_any_hand_if_possible(spawned)
+
+	if(put_in_hands)
+		buyer.put_in_any_hand_if_possible(spawned)
 
 	if(istype(spawned, /obj/item/storage/box) && length(spawned.contents))
 		for(var/atom/box_item in spawned)
@@ -174,6 +192,7 @@
 	else
 		target_uplink.purchase_log += "<BIG>[bicon(spawned)]</BIG>"
 
+	return spawned
 
 /*
 //
@@ -384,7 +403,7 @@
 	name = "Genetic Superiority Injector"
 	desc = "Experimental DNA injector which will give you one advanced gene modification and increase your gene stability."
 	item = /obj/item/dna_upgrader
-	cost = 75
+	cost = 55
 	job = list(JOB_TITLE_CMO, JOB_TITLE_GENETICIST)
 	surplus = 0
 
@@ -644,6 +663,22 @@
 	cost = 10
 	race = list(SPECIES_HUMAN)
 
+//Grey
+
+/datum/uplink_item/racial/agent_belt
+	name = "Agent Belt"
+	desc = "A military toolbelt used by abductor agents. Contains a full set of alien tools."
+	item = /obj/item/storage/belt/military/abductor/full
+	cost = 16
+	race = list(SPECIES_GREY)
+
+/datum/uplink_item/racial/silencer
+	name = "Abductor Silencer"
+	desc = "A compact device used to shut down communications equipment."
+	item = /obj/item/abductor/silencer
+	cost = 12
+	race = list(SPECIES_GREY)
+
 
 // DANGEROUS WEAPONS
 
@@ -862,7 +897,7 @@
 	cost = 69
 	refund_path = /obj/item/guardiancreator/tech/choose
 	refundable = TRUE
-	can_discount = FALSE
+	can_discount = TRUE
 
 // Ammunition
 
@@ -1129,10 +1164,10 @@
 /datum/uplink_item/stealthy_weapons/martialarts
 	name = "Martial Arts Scroll"
 	desc = "This scroll contains the secrets of an ancient martial arts technique. You will master unarmed combat, \
-			deflecting ranged weapon fire when you are in a defensive stance (throw mode). Learning this art means you will also refuse to use dishonorable ranged weaponry.\
+			deflecting all ranged weapon fire, but you also refuse to use dishonorable ranged weaponry. Learning this art means you will also refuse to use dishonorable ranged weaponry. \
 			Unable to be understood by vampire and changeling agents."
 	item = /obj/item/sleeping_carp_scroll
-	cost = 65
+	cost = 80
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 	refundable = TRUE
@@ -1803,6 +1838,17 @@
 	hijack_only = TRUE //This is an item only useful for a hijack traitor, as such, it should only be available in those scenarios.
 	can_discount = FALSE
 
+/datum/uplink_item/device_tools/ion_caller
+	name = "Low Orbit Ion Cannon Remote"
+	desc = "The Syndicate has recently installed a remote satellite nearby capable of generating a localized ion storm every 15 minutes. \
+			However, your local authorities will be informed of your general location when it is activated."
+	item = /obj/item/ion_caller
+	limited_stock = 1	// Might be too annoying if someone had multiple.
+	cost = 30
+	surplus = 10
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+
 /datum/uplink_item/device_tools/syndicate_detonator
 	name = "Syndicate Detonator"
 	desc = "The Syndicate Detonator is a companion device to the Syndicate Bomb. Simply press the included button and an encrypted radio frequency will instruct all live syndicate bombs to detonate. \
@@ -2044,6 +2090,12 @@
 	cost = 100
 	can_discount = FALSE
 
+/datum/uplink_item/badass/unocard
+	name = "Syndicate Reverse Card"
+	desc = "Hidden in an ordinary-looking playing card, this device will teleport an opponent's gun to your hand when they fire at you. Just make sure to hold this in your hand!"
+	item = /obj/item/syndicate_reverse_card
+	cost = 10
+
 /datum/uplink_item/implants/macrobomb
 	name = "Macrobomb Implant"
 	desc = "An implant injected into the body, and later activated either manually or automatically upon death. Upon death, releases a massive explosion that will wipe out everything nearby."
@@ -2179,3 +2231,93 @@
 	item = /obj/item/stack/telecrystal/twohundred_fifty
 	cost = 250
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/contractor
+	category = "Contractor"
+	uplinktypes = list(UPLINK_TYPE_ADMIN)
+	surplus = 0
+	can_discount = FALSE
+
+/datum/uplink_item/contractor/balloon
+	name = "Contractor Balloon"
+	desc = "An unique black and gold balloon with no purpose other than showing off. All contracts must be completed in the hardest location to unlock this."
+	item = /obj/item/toy/syndicateballoon/contractor
+	cost = 240
+
+/datum/uplink_item/contractor/baton
+	name = "Contractor Baton"
+	desc = "A compact, specialised baton issued to Syndicate contractors. Applies light electrical shocks to targets. Never know when you will get disarmed."
+	item = /obj/item/melee/baton/telescopic/contractor
+	cost = 40
+
+/datum/uplink_item/contractor/baton_cuffup
+	name = "Baton Cuff Upgrade"
+	desc = "Using technology reverse-engineered from some alien batons we had lying around, you can now cuff people using your baton. Due to technical limitations, only cable cuffs work, and they need to be loaded into the baton manually."
+	item = /obj/item/baton_upgrade/cuff
+	cost = 40
+
+/datum/uplink_item/contractor/baton_muteup
+	name = "Baton Mute Upgrade"
+	desc = "A relatively new advancement in completely proprietary baton technology, this baton upgrade will mute anyone hit for about five seconds."
+	item = /obj/item/baton_upgrade/mute
+	cost = 40
+
+/datum/uplink_item/contractor/baton_focusup
+	name = "Baton Focus Upgrade"
+	desc = "When applied to a baton, it will exhaust the target even more, should they be the target of your current contract."
+	item = /obj/item/baton_upgrade/focus
+	cost = 40
+
+/datum/uplink_item/contractor/baton_antidropup
+	name = "Baton Antidrop Upgrade"
+	desc = "An experimental and extremely undertested technology that activates a system of spikes that burrow into the skin when user extends baton, preventing the user to drop it. That will hurt.."
+	item = /obj/item/baton_upgrade/antidrop
+	cost = 40
+
+/datum/uplink_item/contractor/fulton
+	name = "Fulton Extraction Kit"
+	desc = "For getting your target across the station to those difficult dropoffs. Place the beacon somewhere secure, and link the pack. Activating the pack on your target will send them over to the beacon - make sure they're not just going to run away though!"
+	item = /obj/item/storage/box/contractor/fulton_kit
+	cost = 20
+
+/datum/uplink_item/contractor/contractor_hardsuit
+	name = "Contractor Hardsuit"
+	desc = "A top-tier Hardsuit developed with cooperation of Cybersun Industries and the Gorlex Marauders, a favorite of Syndicate Contractors. \
+	In addition, it has an in-built chameleon system, allowing you to disguise your hardsuit to the most common variations on your mission area."
+	item = /obj/item/storage/box/contractor/hardsuit
+	cost = 80
+
+/datum/uplink_item/contractor/pinpointer
+	name = "Contractor Pinpointer"
+	desc = "A low accuracy pinpointer that can track anyone in the sector without the need for suit sensors. Can only be used by the first person to activate it."
+	item = /obj/item/pinpointer/crew/contractor
+	cost = 20
+
+/datum/uplink_item/contractor/contractor_partner
+	name = "Reinforcements"
+	desc = "Upon purchase we'll give you a device, that contact available units in the area. Should there be an agent free, we'll send them down to assist you immediately. If no units are free, we give a full refund."
+	item = /obj/item/antag_spawner/contractor_partner
+	cost = 40
+	refundable = TRUE
+
+/datum/uplink_item/contractor/spai_kit
+	name = "SPAI Kit"
+	desc = "A kit with your personal assistant. It comes with an increased amount of memory and special programs."
+	item = /obj/item/storage/box/contractor/spai_kit
+	cost = 40
+	refundable = TRUE
+	refund_path = /obj/item/paicard_upgrade/unused
+
+/datum/uplink_item/contractor/zippo
+	name = "Contractor Zippo Lighter"
+	desc = "A kit with your personal assistant. It comes with an increased amount of memory and special programs."
+	item = /obj/item/storage/box/contractor/spai_kit
+	cost = 120
+
+/datum/uplink_item/contractor/loadout_box
+	name = "Contractor standard loadout box"
+	desc = "A standard issue box included in a contractor kit."
+	item = /obj/item/storage/box/syndie_kit/contractor_loadout
+	cost = 40
+
+#undef UPLINK_DISCOUNTS

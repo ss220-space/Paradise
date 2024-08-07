@@ -33,13 +33,13 @@
 	var/list/dissected_humans = list()
 	/// Associated list of all damage modifiers human vampire has.
 	var/list/damage_modifiers = list(
-		BRUTE = 0,
-		BURN = 0,
-		TOX = 0,
-		OXY = 0,
-		CLONE = 0,
-		BRAIN = 0,
-		STAMINA = 0
+		BRUTE = 1,
+		BURN = 1,
+		TOX = 1,
+		OXY = 1,
+		CLONE = 1,
+		BRAIN = 1,
+		STAMINA = 1,
 	)
 
 
@@ -218,10 +218,8 @@
 		target.LAssailant = owner.current
 
 	var/is_target_grabbed = FALSE
-	for(var/obj/item/grab/grab in target.grabbed_by)
-		var/mob/living/carbon/grabber = grab.assailant
-		if(owner.current == grabber)
-			is_target_grabbed = TRUE
+	if(target.pulledby == owner.current && owner.current.grab_state > GRAB_PASSIVE)
+		is_target_grabbed = TRUE
 
 	if(!is_target_grabbed || vampire_dir == NORTHEAST || vampire_dir == NORTHWEST || \
 		vampire_dir ==  SOUTHEAST || vampire_dir ==  SOUTHWEST)
@@ -232,7 +230,7 @@
 		cycle_counter = STATE_GRABBING
 		time_per_action = suck_rate_final*BITE_TIME_MOD
 
-	while(do_after(owner.current, time_per_action, target, NONE))
+	while(do_after(owner.current, time_per_action, target, NONE, interaction_key = DOAFTER_SOURCE_VAMPIRE_SUCKING, max_interact_count = 1))
 		cycle_counter++
 		owner.current.face_atom(target)
 
@@ -344,8 +342,8 @@
 	if(draining)
 		to_chat(owner.current, span_notice("You stop draining [draining.name] of blood."))
 		draining = null
-		owner.current.pixel_x = 0
-		owner.current.pixel_y = 0
+		owner.current.pixel_x = owner.current.base_pixel_x + owner.current.body_position_pixel_x_offset
+		owner.current.pixel_y = owner.current.base_pixel_y + owner.current.body_position_pixel_y_offset
 		owner.current.layer = initial(owner.current.layer)
 
 #undef BLOOD_GAINED_MODIFIER

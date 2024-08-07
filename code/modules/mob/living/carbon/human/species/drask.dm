@@ -22,7 +22,8 @@
 	oxy_mod = 2
 	exotic_blood = "cryoxadone"
 	body_temperature = 273
-	toolspeedmod = 1.2 //20% slower
+	toolspeedmod = 0.2 //20% slower
+	surgeryspeedmod = 0.2
 	bonefragility = 0.8
 	punchdamagelow = 5
 	punchdamagehigh = 12
@@ -42,7 +43,7 @@
 		"втягивает теплый воздух!",
 		"задерживает дыхание!")
 
-	species_traits = list(LIPS, IS_WHITELISTED, EXOTIC_COLOR)
+	species_traits = list(LIPS, EXOTIC_COLOR)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
 	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS
 	has_gender = FALSE
@@ -84,11 +85,11 @@
 
 /datum/species/drask/on_species_gain(mob/living/carbon/human/H)
 	..()
-	H.verbs |= /mob/living/carbon/human/proc/emote_hum
+	add_verb(H, /mob/living/carbon/human/proc/emote_hum)
 
 /datum/species/drask/on_species_loss(mob/living/carbon/human/H)
 	..()
-	H.verbs -= /mob/living/carbon/human/proc/emote_hum
+	remove_verb(H, /mob/living/carbon/human/proc/emote_hum)
 
 /datum/species/drask/handle_life(mob/living/carbon/human/H)
 	..()
@@ -98,19 +99,24 @@
 	if(environment && H.bodytemperature > DRASK_COOLINGSTARTTEMP && environment.temperature <= ENVIRONMENT_COOLINGSTOPTEMP)
 		H.adjust_bodytemperature(-5)
 	if(H.bodytemperature < TCRYO)
-		H.adjustCloneLoss(-1, FALSE)
-		H.adjustOxyLoss(-2, FALSE)
-		H.adjustToxLoss(-0.5, FALSE)
-		H.adjustBruteLoss(-2, FALSE)
-		H.adjustFireLoss(-4)
+		var/update = NONE
+		update |= H.heal_overall_damage(2, 4, updating_health = FALSE)
+		update |= H.heal_damages(tox = 0.5, oxy = 2, clone = 1, updating_health = FALSE)
+		if(update)
+			H.updatehealth()
 		var/obj/item/organ/external/head/head = H.get_organ(BODY_ZONE_HEAD)
 		head?.undisfigure()
 
 /datum/species/drask/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == "iron")
-		return TRUE
-	if(R.id == "salglu_solution")
-		return TRUE
+	switch(R.id)
+		if("iron")
+			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM * H.metabolism_efficiency * H.digestion_ratio)
+			return FALSE
+		if("salglu_solution")
+			if(prob(33))
+				H.heal_overall_damage(1, 1, updating_health = FALSE)
+			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM * H.metabolism_efficiency * H.digestion_ratio)
+			return FALSE
 	return ..()
 
 #undef DRASK_COOLINGSTARTTEMP

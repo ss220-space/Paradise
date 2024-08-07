@@ -1,6 +1,5 @@
 /proc/possess(obj/O as obj in world)
 	set name = "\[Admin\] Possess Obj"
-	set category = null
 
 	if(!check_rights(R_POSSESS))
 		return
@@ -31,7 +30,6 @@
 
 /proc/release(obj/O as obj in world)
 	set name = "\[Admin\] Release Obj"
-	set category = null
 	//usr.loc = get_turf(usr)
 
 	if(!check_rights(R_POSSESS))

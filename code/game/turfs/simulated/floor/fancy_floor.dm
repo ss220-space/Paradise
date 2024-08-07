@@ -126,7 +126,7 @@
 			return FALSE
 
 		if(user.a_intent == INTENT_DISARM)
-			if(do_after(user, 4 SECONDS * C.toolspeed * gettoolspeedmod(user), src))
+			if(do_after(user, 4 SECONDS * C.toolspeed, src, category = DA_CAT_TOOL))
 				playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 				new /obj/structure/pit(src)
 				return TRUE
@@ -141,10 +141,12 @@
 /turf/simulated/floor/carpet
 	name = "carpet"
 	icon = 'icons/turf/floors/carpet.dmi'
-	icon_state = "carpet"
+	icon_state = "carpet-0"
+	smooth = SMOOTH_BITMASK
+	base_icon_state = "carpet"
+	canSmoothWith = SMOOTH_GROUP_CARPET
+	smoothing_groups = SMOOTH_GROUP_CARPET
 	floor_tile = /obj/item/stack/tile/carpet
-	smooth = SMOOTH_TRUE
-	canSmoothWith = null
 	footstep = FOOTSTEP_CARPET
 	barefootstep = FOOTSTEP_CARPET_BAREFOOT
 	clawfootstep = FOOTSTEP_CARPET_BAREFOOT
@@ -188,47 +190,74 @@
 /turf/simulated/floor/carpet/black
 	icon = 'icons/turf/floors/carpet_black.dmi'
 	floor_tile = /obj/item/stack/tile/carpet/black
-	canSmoothWith = list(/turf/simulated/floor/carpet/black)
+	base_icon_state = "carpet_black"
+	icon_state = "carpet_black-0"
+	canSmoothWith = SMOOTH_GROUP_CARPET_BLACK
+	smoothing_groups = SMOOTH_GROUP_CARPET_BLACK
 
 /turf/simulated/floor/carpet/blue
 	icon = 'icons/turf/floors/carpet_blue.dmi'
 	floor_tile = /obj/item/stack/tile/carpet/blue
-	canSmoothWith = list(/turf/simulated/floor/carpet/blue)
+	base_icon_state = "carpet_blue"
+	icon_state = "carpet_blue-0"
+	canSmoothWith = SMOOTH_GROUP_CARPET_BLUE
+	smoothing_groups = SMOOTH_GROUP_CARPET_BLUE
 
 /turf/simulated/floor/carpet/cyan
 	icon = 'icons/turf/floors/carpet_cyan.dmi'
 	floor_tile = /obj/item/stack/tile/carpet/cyan
-	canSmoothWith = list(/turf/simulated/floor/carpet/cyan)
+	base_icon_state = "carpet_cyan"
+	icon_state = "carpet_cyan-0"
+	canSmoothWith = SMOOTH_GROUP_CARPET_CYAN
+	smoothing_groups = SMOOTH_GROUP_CARPET_CYAN
 
 /turf/simulated/floor/carpet/green
 	icon = 'icons/turf/floors/carpet_green.dmi'
 	floor_tile = /obj/item/stack/tile/carpet/green
-	canSmoothWith = list(/turf/simulated/floor/carpet/green)
+	base_icon_state = "carpet_green"
+	icon_state = "carpet_green-0"
+	canSmoothWith = SMOOTH_GROUP_CARPET_GREEN
+	smoothing_groups = SMOOTH_GROUP_CARPET_GREEN
 
 /turf/simulated/floor/carpet/orange
 	icon = 'icons/turf/floors/carpet_orange.dmi'
 	floor_tile = /obj/item/stack/tile/carpet/orange
-	canSmoothWith = list(/turf/simulated/floor/carpet/orange)
+	base_icon_state = "carpet_orange"
+	icon_state = "carpet_orange-0"
+	canSmoothWith = SMOOTH_GROUP_CARPET_ORANGE
+	smoothing_groups = SMOOTH_GROUP_CARPET_ORANGE
 
 /turf/simulated/floor/carpet/purple
 	icon = 'icons/turf/floors/carpet_purple.dmi'
 	floor_tile = /obj/item/stack/tile/carpet/purple
-	canSmoothWith = list(/turf/simulated/floor/carpet/purple)
+	base_icon_state = "carpet_purple"
+	icon_state = "carpet_purple-0"
+	canSmoothWith = SMOOTH_GROUP_CARPET_PURPLE
+	smoothing_groups = SMOOTH_GROUP_CARPET_PURPLE
 
 /turf/simulated/floor/carpet/red
 	icon = 'icons/turf/floors/carpet_red.dmi'
 	floor_tile = /obj/item/stack/tile/carpet/red
-	canSmoothWith = list(/turf/simulated/floor/carpet/red)
+	base_icon_state = "carpet_red"
+	icon_state = "carpet_red-0"
+	canSmoothWith = SMOOTH_GROUP_CARPET_RED
+	smoothing_groups = SMOOTH_GROUP_CARPET_RED
 
 /turf/simulated/floor/carpet/royalblack
 	icon = 'icons/turf/floors/carpet_royalblack.dmi'
 	floor_tile = /obj/item/stack/tile/carpet/royalblack
-	canSmoothWith = list(/turf/simulated/floor/carpet/royalblack)
+	base_icon_state = "carpet_royalblack"
+	icon_state = "carpet_royalblack-0"
+	canSmoothWith = SMOOTH_GROUP_CARPET_ROYAL_BLACK
+	smoothing_groups = SMOOTH_GROUP_CARPET_ROYAL_BLACK
 
 /turf/simulated/floor/carpet/royalblue
 	icon = 'icons/turf/floors/carpet_royalblue.dmi'
 	floor_tile = /obj/item/stack/tile/carpet/royalblue
-	canSmoothWith = list(/turf/simulated/floor/carpet/royalblue)
+	base_icon_state = "carpet_royalblue"
+	icon_state = "carpet_royalblue-0"
+	canSmoothWith = SMOOTH_GROUP_CARPET_ROYAL_BLUE
+	smoothing_groups = SMOOTH_GROUP_CARPET_ROYAL_BLUE
 
 // FAKESPACE
 /turf/simulated/floor/fakespace
@@ -254,4 +283,4 @@
 	icon = 'icons/goonstation/turf/floor.dmi'
 	icon_state = "arcade"
 	floor_tile = /obj/item/stack/tile/arcade_carpet
-	smooth = SMOOTH_FALSE
+	smooth = NONE

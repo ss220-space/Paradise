@@ -69,7 +69,7 @@
 	return TRUE
 
 
-/obj/item/clothing/glasses/visor_toggling()
+/obj/item/clothing/glasses/visor_toggling(mob/user)
 	. = ..()
 	if(!.)
 		return .
@@ -108,7 +108,7 @@
 	desc = "An Optical Meson Scanner that protects your eyes"
 	icon_state = "sunmeson"
 	item_state = "sunmeson"
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
 
 /obj/item/clothing/glasses/meson/night
@@ -172,7 +172,7 @@
 		)
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 
-/obj/item/clothing/glasses/science/item_action_slot_check(slot)
+/obj/item/clothing/glasses/science/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_EYES)
 		return TRUE
 
@@ -364,7 +364,7 @@
 	icon_state = "sun"
 	item_state = "sunglasses"
 	see_in_dark = 1
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
 	prescription_upgradable = TRUE
 	dog_fashion = /datum/dog_fashion/head
@@ -413,7 +413,7 @@
 /obj/item/clothing/glasses/sunglasses/noir/attack_self(mob/user)
 	toggle_noir(user)
 
-/obj/item/clothing/glasses/sunglasses/noir/item_action_slot_check(slot)
+/obj/item/clothing/glasses/sunglasses/noir/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_EYES)
 		return TRUE
 
@@ -453,7 +453,7 @@
 	icon_state = "sun"
 	item_state = "sunglasses"
 	see_in_dark = 1
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
 
 	sprite_sheets = list(
@@ -489,7 +489,7 @@
 	icon_state = "welding-g"
 	item_state = "welding-g"
 	actions_types = list(/datum/action/item_action/toggle)
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2
 	can_toggle = TRUE
 	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
@@ -519,7 +519,7 @@
 	desc = "Covers the eyes, preventing sight."
 	icon_state = "blindfold"
 	item_state = "blindfold"
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 3				//to make them blind
 	prescription_upgradable = FALSE
 
@@ -539,7 +539,7 @@
 	origin_tech = "magnets=3"
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	flash_protect = -1
+	flash_protect = FLASH_PROTECTION_SENSITIVE
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -558,10 +558,10 @@
 		var/obj/item/organ/internal/eyes/eyes = H.get_organ_slot(INTERNAL_ORGAN_EYES)
 		if(eyes && H.glasses == src)
 			to_chat(H, span_warning("[src] overloads and blinds you!"))
-			H.flash_eyes(visual = TRUE)
+			H.flash_eyes(3, visual = TRUE)
 			H.EyeBlind(6 SECONDS)
 			H.EyeBlurry(10 SECONDS)
-			eyes.receive_damage(5)
+			eyes.internal_receive_damage(5)
 	..()
 
 /obj/item/clothing/glasses/thermal/sunglasses
@@ -569,7 +569,7 @@
 	desc = "How does it even works?.."
 	icon_state = "sunthermal"
 	item_state = "sunthermal"
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
 
 /obj/item/clothing/glasses/thermal/monocle
@@ -685,12 +685,12 @@
 	item_state = "tajblind_engi"
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	flash_protect = 2
-	var/flash_protect_up = 0
+	flash_protect = FLASH_PROTECTION_WELDER
+	var/flash_protect_up = FLASH_PROTECTION_NONE
 
 
 /obj/item/clothing/glasses/tajblind/eng/sunglasses
-	flash_protect_up = 1
+	flash_protect_up = FLASH_PROTECTION_FLASH
 	tint_up = 1
 
 
@@ -709,7 +709,7 @@
 	actions_types = list(/datum/action/item_action/toggle_research_scanner,/datum/action/item_action/toggle)
 
 /obj/item/clothing/glasses/tajblind/sci/sunglasses
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint_up = 1
 
 /obj/item/clothing/glasses/tajblind/cargo
@@ -722,7 +722,7 @@
 	prescription_upgradable = TRUE
 
 /obj/item/clothing/glasses/tajblind/cargo/sunglasses
-	flash_protect = 1
+	flash_protect = FLASH_PROTECTION_FLASH
 	tint_up = 1
 
 

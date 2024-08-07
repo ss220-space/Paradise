@@ -246,7 +246,51 @@
   github-actions[bot]:
   - server: Automatic NanoMap Update (#5213)
 '2024-06-26':
+  Den109G:
+  - bugfix: Clean up after rock resprite (#5284)
+  - bugfix: Ambient Occlusion updates real time (#5288)
   PiotrTheTchaikowsky:
   - imageadd: New bags sprites (#5248)
   SAAD:
   - add: New map "Celestation" (#5175)
+  Vladisvell:
+  - add: Added Celestation to nanomap rendering sequence (#5291)
+  - tweak: Added initial celestation nanomap files (#5292)
+  - bugfix: Fixed death nettle and attack checks (#5294)
+  Zwei:
+  - bugfix: Runechat MultiZ Fix (#5290)
+'2024-06-27':
+  FanTik-Ratge:
+  - add: new Donor clothes (#5272)
+  Helmsman:
+  - tweak: Shooting in the mouth more deadly (#5109)
+  MstrKabach:
+  - tweak: jetpack in syndie/contractor box (#5280)
+  NightDawnFox:
+  - tweak: legion tumour tweaks (#5159)
+  PiotrTheTchaikowsky:
+  - imageadd: Resprite of smashed drink cans (#5286)
+  ROdenFL:
+  - add: holocigar (#5133)
+  SHODAN:
+  - imageadd: update_pda (#5232)
+  endipe:
+  - tweak: new hairstyles for dions and nucleations | by vadim722 (#5256)
+  pilygun:
+  - bugfix: healtouch MAGEEEE Slomalsa pizdec (#5296)
+  - imageadd: New sprites of energy crossbows (#5125)
+  - bugfix: Disable Tech Opat slomalsa syka (#5300)
+'2024-06-28':
+  Den109G:
+  - bugfix: Vampires has hungriness (#5297)
+'2024-06-29':
+  Den109G:
+  - bugfix: Change flash's null center to get_turf (#5306)
+'2024-06-30':
+  ROdenFL:
+  - tweak: emoji additions (#5225)
+  SAAD:
+  - bugfix: Celestation patch (#5310)
+  Zwei:
+  - unknown: Grab And Pull Rework (#5245)
+  - bugfix: Multitile Objects Move Fix (#5314)

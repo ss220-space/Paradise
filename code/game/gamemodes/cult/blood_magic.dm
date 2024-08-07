@@ -426,20 +426,20 @@
 	var/mob/living/L = target
 	if(iscultist(target))
 		return
-	user.visible_message("<span class='warning'>[user] holds up [user.p_their()] hand, which explodes in a flash of red light!</span>", \
-							"<span class='cultitalic'>You attempt to stun [L] with the spell!</span>")
+	user.visible_message(	span_warning("[user] holds up [user.p_their()] hand, which explodes in a flash of red light!"), \
+							span_cultitalic("You attempt to stun [L] with the spell!"))
 
 	user.mob_light(LIGHT_COLOR_BLOOD_MAGIC, 3, _duration = 2)
 
 	var/obj/item/nullrod/N = locate() in target
 	if(N)
-		target.visible_message("<span class='warning'>[target]'s holy weapon absorbs the red light!</span>", \
-							   "<span class='userdanger'>Your holy weapon absorbs the blinding light!</span>")
+		target.visible_message(	span_warning("[target]'s holy weapon absorbs the red light!"), \
+								span_userdanger("Your holy weapon absorbs the blinding light!"))
 	else
-		to_chat(user, "<span class='cultitalic'>In a brilliant flash of red, [L] falls to the ground!</span>")
+		to_chat(user, span_cultitalic("In a brilliant flash of red, [L] falls to the ground!"))
 		// These are in life cycles, so double the time that's stated.
-		L.Weaken(4 SECONDS)
-		L.adjustStaminaLoss(30)
+		L.Knockdown(3 SECONDS)
+		L.apply_damage(30, STAMINA)
 		L.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 		L.flash_eyes(1, TRUE)
 		if(issilicon(target))
@@ -716,7 +716,7 @@
 					return
 
 				//Blood restoration
-				if(H.dna && !(NO_BLOOD in H.dna.species.species_traits) && H.dna.species.exotic_blood == null)
+				if(H.dna && !(NO_BLOOD in H.dna.species.species_traits) && H.dna.species.exotic_blood == null  && !isdiona(H))
 					if(H.blood_volume < BLOOD_VOLUME_SAFE)
 						var/restore_blood = BLOOD_VOLUME_SAFE - H.blood_volume
 						if(uses * 2 < restore_blood)
@@ -750,11 +750,11 @@
 						"<span class='cultitalic'>You are partially healed by [H == user ? "your" : "[user]'s"] blood magic.</span>")
 						uses = 0
 					ratio *= -1
-					H.adjustOxyLoss((overall_damage * ratio) * (H.getOxyLoss() / overall_damage), FALSE, null, TRUE)
-					H.adjustToxLoss((overall_damage * ratio) * (H.getToxLoss() / overall_damage), FALSE, null, TRUE)
-					H.adjustFireLoss((overall_damage * ratio) * (H.getFireLoss() / overall_damage), FALSE, null, TRUE)
-					H.adjustBruteLoss((overall_damage * ratio) * (H.getBruteLoss() / overall_damage), FALSE, null, TRUE)
-					H.updatehealth()
+					var/update = NONE
+					update |= H.heal_overall_damage((overall_damage * ratio) * (H.getBruteLoss() / overall_damage), (overall_damage * ratio) * (H.getFireLoss() / overall_damage), updating_health = FALSE, affect_robotic = TRUE)
+					update |= H.heal_damages(tox = (overall_damage * ratio) * (H.getToxLoss() / overall_damage), oxy = (overall_damage * ratio) * (H.getOxyLoss() / overall_damage), updating_health = FALSE)
+					if(update)
+						H.updatehealth("Blood Rite")
 					playsound(get_turf(H), 'sound/magic/staff_healing.ogg', 25)
 					new /obj/effect/temp_visual/cult/sparks(get_turf(H))
 					user.Beam(H, icon_state="sendbeam", time = 15)

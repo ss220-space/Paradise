@@ -80,6 +80,9 @@
 /mob/living/simple_animal/bot/medbot/machine
 	skin = "machine"
 
+/mob/living/simple_animal/bot/medbot/paramed
+	skin = "paramed"
+
 /mob/living/simple_animal/bot/medbot/mysterious
 	name = "\improper Mysterious Medibot"
 	desc = "International Medibot of mystery."
@@ -105,8 +108,8 @@
 	radio_config = list("Common" = 1, "Medical" = 1, "Syndicate" = 1)
 
 
-/mob/living/simple_animal/bot/medbot/syndicate/New()
-	..()
+/mob/living/simple_animal/bot/medbot/syndicate/Initialize(mapload, new_skin)
+	. = ..()
 	Radio.syndiekey = new /obj/item/encryptionkey/syndicate
 
 
@@ -135,7 +138,7 @@
 		. += "medskin_[skin]"
 
 
-/mob/living/simple_animal/bot/medbot/New(loc, new_skin)
+/mob/living/simple_animal/bot/medbot/Initialize(mapload, new_skin)
 	..()
 	var/datum/job/doctor/J = new /datum/job/doctor
 	access_card.access += J.get_access()
@@ -363,10 +366,10 @@
 		return
 
 	if(patient && !length(path) && (get_dist(src,patient) > 1))
-		path = get_path_to(src, patient, 30, id = access_card)
+		path = get_path_to(src, patient, max_distance = 30, access = access_card.GetAccess())
 		mode = BOT_MOVING
 		if(!length(path)) //try to get closer if you can't reach the patient directly
-			path = get_path_to(src, patient, 30, 1, id = access_card)
+			path = get_path_to(src, patient, max_distance = 30, mintargetdist = 1, access = access_card.GetAccess())
 			if(!length(path)) //Do not chase a patient we cannot reach.
 				soft_reset()
 
@@ -582,6 +585,8 @@
 				new /obj/item/storage/firstaid/aquatic_kit(Tsec)
 			if("machine")
 				new /obj/item/storage/firstaid/machine/empty(Tsec)
+			if("paramed")
+				new /obj/item/storage/firstaid/paramed/empty(Tsec)
 			else
 				new /obj/item/storage/firstaid(Tsec)
 

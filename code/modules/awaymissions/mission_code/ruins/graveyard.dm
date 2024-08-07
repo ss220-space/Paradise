@@ -166,13 +166,12 @@
 	anchored = TRUE
 	layer = TABLE_LAYER
 	pass_flags = LETPASSTHROW
+	can_be_flipped = FALSE
 	climbable = FALSE
 	max_integrity = 100
 	integrity_failure = 30
-	smooth = SMOOTH_FALSE
+	smooth = NONE
 
-/obj/structure/table/socle/flip()
-	return
 
 /obj/effect/spawner/graveyard_statues
 	name = "Statues"

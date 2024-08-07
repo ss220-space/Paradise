@@ -36,16 +36,16 @@
 /turf/simulated/proc/MakeDry(wet_setting = TURF_WET_WATER, immediate = FALSE, amount = INFINITY)
 	SEND_SIGNAL(src, COMSIG_TURF_MAKE_DRY, wet_setting, immediate, amount)
 
-/turf/simulated/Entered(atom/A, atom/OL, ignoreRest = 0)
-	..()
-	var/mob/living/simple_animal/Hulk = A
-	if(istype(A, /mob/living/simple_animal/hulk))
+/turf/simulated/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	var/mob/living/simple_animal/Hulk = arrived
+	if(istype(arrived, /mob/living/simple_animal/hulk))
 		if(Hulk.body_position != LYING_DOWN)
 			playsound(src,'sound/effects/hulk_step.ogg', CHANNEL_BUZZ)
-		if(istype(A, /mob/living/simple_animal/hulk/clown_hulk))
+		if(istype(arrived, /mob/living/simple_animal/hulk/clown_hulk))
 			if(Hulk.body_position != LYING_DOWN)
 				playsound(src, "clownstep", CHANNEL_BUZZ)
-	if(istype(A, /mob/living/simple_animal/hostile/shitcur_goblin))
+	if(istype(arrived, /mob/living/simple_animal/hostile/shitcur_goblin))
 		playsound(src, "clownstep", CHANNEL_BUZZ)
 
 
@@ -86,23 +86,28 @@
 			turf_count++//Considered a valid turf for air calcs
 			continue
 		else if(isfloorturf(T))
-			var/turf/simulated/S = T
-			if(S.air)//Add the air's contents to the holders
-				aoxy += S.air.oxygen
-				anitro += S.air.nitrogen
-				aco += S.air.carbon_dioxide
-				atox += S.air.toxins
-				asleep += S.air.sleeping_agent
-				ab += S.air.agent_b
-				atemp += S.air.temperature
+			var/datum/gas_mixture/turf_air = T.return_air()
+			aoxy += turf_air.oxygen
+			anitro += turf_air.nitrogen
+			aco += turf_air.carbon_dioxide
+			atox += turf_air.toxins
+			asleep += turf_air.sleeping_agent
+			ab += turf_air.agent_b
+			atemp += turf_air.temperature
 			turf_count++
-	air.oxygen = (aoxy / max(turf_count, 1)) //Averages contents of the turfs, ignoring walls and the like
-	air.nitrogen = (anitro / max(turf_count, 1))
-	air.carbon_dioxide = (aco / max(turf_count, 1))
-	air.toxins = (atox / max(turf_count, 1))
-	air.sleeping_agent = (asleep / max(turf_count, 1))
-	air.agent_b = (ab / max(turf_count, 1))
-	air.temperature = (atemp / max(turf_count, 1))
+
+	var/datum/gas_mixture/new_air = new
+
+	new_air.oxygen = (aoxy / max(turf_count, 1)) //Averages contents of the turfs, ignoring walls and the like
+	new_air.nitrogen = (anitro / max(turf_count, 1))
+	new_air.carbon_dioxide = (aco / max(turf_count, 1))
+	new_air.toxins = (atox / max(turf_count, 1))
+	new_air.sleeping_agent = (asleep / max(turf_count, 1))
+	new_air.agent_b = (ab / max(turf_count, 1))
+	new_air.temperature = (atemp / max(turf_count, 1))
+
+	air = new_air
+
 	if(SSair)
 		SSair.add_to_active(src)
 
@@ -142,23 +147,23 @@
 	if(!slipper.has_gravity(src))
 		return FALSE
 
-	var/slide_distance = tilesSlipped
+	var/slide_distance = isnull(tilesSlipped) ? 4 : tilesSlipped
 	if(lube_flags & SLIDE_ICE)
 		// Ice slides only go 1 tile, this is so you will slip across ice until you reach a non-slip tile
 		slide_distance = 1
-	else if(lube_flags & SLIDE)
-		slide_distance = 4
 	else if(HAS_TRAIT(slipper, TRAIT_NO_SLIP_SLIDE))
 		// Stops sliding
 		slide_distance = 0
 
 	var/obj/buckled_obj
 	if(slipper.buckled)
-		if(!(lube_flags & SLIP_IGNORE_NO_SLIP_WATER)) //can't slip while buckled unless it's lube.
+		//can't slip while buckled unless it's lube.
+		if(!(lube_flags & SLIP_IGNORE_NO_SLIP_WATER))
 			return FALSE
 		buckled_obj = slipper.buckled
 	else
-		if(!(lube_flags & SLIP_WHEN_LYING) && (slipper.body_position == LYING_DOWN || !(slipper.status_flags & CANKNOCKDOWN))) // can't slip unbuckled mob if they're lying or can't fall.
+		// can't slip unbuckled mob if they're lying or can't fall.
+		if(!(lube_flags & SLIP_WHEN_LYING) && (slipper.body_position == LYING_DOWN || !(slipper.status_flags & CANKNOCKDOWN)))
 			return FALSE
 		if(slipper.m_intent == MOVE_INTENT_WALK && (lube_flags & NO_SLIP_WHEN_WALKING))
 			return FALSE
@@ -171,7 +176,8 @@
 	SEND_SIGNAL(slipper, COMSIG_ON_CARBON_SLIP)
 
 	var/old_dir = slipper.dir
-	slipper.moving_diagonally = NONE // If this was part of diagonal move slipping will stop it.
+	// If this was part of diagonal move slipping will stop it.
+	slipper.moving_diagonally = NONE
 	if(lube_flags & SLIDE_ICE)
 		// They need to be kept upright to maintain the combo effect (So don't weaken)
 		slipper.Immobilize(1 SECONDS)
@@ -190,7 +196,8 @@
 		if(lube_flags & SLIDE)
 			slipper.AddComponent(/datum/component/force_move, target, TRUE)
 		else if(lube_flags & SLIDE_ICE)
-			slipper.AddComponent(/datum/component/force_move, target, FALSE)	// spinning would be bad for ice, fucks up the next dir
+			// spinning would be bad for ice, fucks up the next dir
+			slipper.AddComponent(/datum/component/force_move, target, FALSE)
 
 	return TRUE
 

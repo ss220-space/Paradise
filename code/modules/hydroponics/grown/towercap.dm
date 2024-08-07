@@ -144,7 +144,7 @@
 
 /obj/structure/punji_sticks/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/caltrop, 20, 30, 100, CALTROP_BYPASS_SHOES)
+	AddComponent(/datum/component/caltrop, 20, 30, 100, 6 SECONDS, CALTROP_BYPASS_SHOES)
 
 /////////BONFIRES//////////
 
@@ -163,6 +163,14 @@
 
 /obj/structure/bonfire/dense
 	density = TRUE
+
+
+/obj/structure/bonfire/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 
 /obj/structure/bonfire/update_icon_state()
@@ -218,12 +226,18 @@
 	..()
 	StartBurning()
 
-/obj/structure/bonfire/Crossed(atom/movable/AM, oldloc)
-	if(burning)
-		Burn()
-		if(ishuman(AM))
-			var/mob/living/carbon/human/H = AM
-			add_attack_logs(src, H, "Burned by a bonfire (Lit by [lighter])", ATKLOG_ALMOSTALL)
+
+/obj/structure/bonfire/proc/on_entered(datum/source, mob/living/carbon/human/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(!burning)
+		return
+
+	Burn()
+
+	if(ishuman(arrived) && arrived.mind)
+		add_attack_logs(src, arrived, "Burned by a bonfire (Lit by [lighter ? lighter : "Unknown"])", ATKLOG_ALMOSTALL)
+
 
 /obj/structure/bonfire/proc/Burn()
 	var/turf/current_location = get_turf(src)

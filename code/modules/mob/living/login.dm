@@ -12,7 +12,7 @@
 		update_z(T.z)
 
 	//If they're SSD, remove it so they can wake back up.
-	player_logged = 0
+	set_SSD(FALSE)
 	//Vents
 	if(is_ventcrawler(src))
 		to_chat(src, span_notice("You can ventcrawl! Use <b>Alt+Click</b> on vents to quickly travel about the station."))

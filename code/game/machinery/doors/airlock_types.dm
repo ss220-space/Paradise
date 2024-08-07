@@ -312,9 +312,9 @@
 	security_level = 6
 	hackable = FALSE
 
-/obj/machinery/door/airlock/centcom/attack_hand(mob/user)
+/obj/machinery/door/airlock/centcom/attack_hand(mob/living/carbon/human/user)
 	. = ..()
-	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+	if(user.a_intent == INTENT_HARM && ishuman(user) && (user.dna.species.obj_damage + user.physiology.punch_obj_damage > 0))
 		return
 
 /////////////////////////////////
@@ -485,6 +485,7 @@
 	overlays_file = 'icons/obj/doors/airlocks/shuttle/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_shuttle
 	paintable = FALSE
+	smoothing_groups = SMOOTH_GROUP_AIRLOCK
 
 /obj/machinery/door/airlock/shuttle/glass
 	opacity = FALSE
@@ -856,9 +857,9 @@
 	glass = TRUE
 	normal_integrity = 300
 
-/obj/machinery/door/airlock/syndicate/extmai/glass/attack_hand(mob/user)
+/obj/machinery/door/airlock/syndicate/extmai/glass/attack_hand(mob/living/carbon/human/user)
 	. = ..()
-	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+	if(user.a_intent == INTENT_HARM && ishuman(user) && (user.dna.species.obj_damage + user.physiology.punch_obj_damage > 0))
 		return
 
 /*
@@ -876,12 +877,6 @@
 	assemblytype = /obj/structure/door_assembly/multi_tile
 	paintable = FALSE
 
-// Добавлено потому, что с помощью флагов не пройти через двойные двери
-/obj/machinery/door/airlock/multi_tile/Cross(atom/movable/mover)
-	if(!CanPass(mover, get_dir(src, mover)))
-		mover.Bump(src, TRUE)
-		return FALSE
-	return TRUE
 
 /obj/machinery/door/airlock/multi_tile/narsie_act()
 	return

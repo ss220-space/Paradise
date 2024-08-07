@@ -112,8 +112,8 @@
 	weaponscheck = TRUE
 
 
-/mob/living/simple_animal/bot/secbot/New()
-	..()
+/mob/living/simple_animal/bot/secbot/Initialize(mapload)
+	. = ..()
 	icon_state = "[base_icon][on]"
 	var/datum/job/detective/J = new/datum/job/detective
 	access_card.access += J.get_access()
@@ -124,6 +124,11 @@
 	//SECHUD
 	var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
 	secsensor.add_hud_to(src)
+
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 
 /mob/living/simple_animal/bot/secbot/turn_on()
@@ -156,10 +161,10 @@
 	ui_interact(M)
 
 
-/mob/living/simple_animal/bot/secbot/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/mob/living/simple_animal/bot/secbot/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BotSecurity", name, 500, 500)
+		ui = new(user, src, "BotSecurity", name)
 		ui.open()
 
 
@@ -217,6 +222,8 @@
 		if("ejectpai")
 			ejectpai()
 
+/mob/living/simple_animal/bot/secbot/update_icon_state()
+	icon_state = "[base_icon][on]"
 
 /mob/living/simple_animal/bot/secbot/proc/retaliate(mob/living/carbon/human/H)
 	threatlevel = H.assess_threat(src)
@@ -314,7 +321,7 @@
 		C.apply_damage(10, BRUTE)
 	C.SetStuttering(10 SECONDS)
 	C.Weaken(4 SECONDS)
-	C.adjustStaminaLoss(45)
+	C.apply_damage(45, STAMINA)
 	baton_delayed = TRUE
 	addtimer(VARSET_CALLBACK(src, baton_delayed, FALSE), BATON_COOLDOWN)
 	add_attack_logs(src, C, "stunned")
@@ -501,7 +508,7 @@
 	Sa.add_overlay("hs_hole")
 	Sa.created_name = name
 	new /obj/item/assembly/prox_sensor(Tsec)
-	new /obj/item/melee/baton(Tsec)
+	new /obj/item/melee/baton/security(Tsec)
 	if(prob(50))
 		drop_part(robot_arm, Tsec)
 	do_sparks(3, TRUE, src)
@@ -516,21 +523,25 @@
 		mode = BOT_HUNT
 
 
-/mob/living/simple_animal/bot/secbot/Crossed(atom/movable/AM, oldloc)
-	if(ismob(AM) && target)
-		var/mob/living/carbon/C = AM
-		if(!istype(C) || !C || in_range(src, target))
-			return
-		C.visible_message("<span class='warning'>[pick( \
-						  "[C] dives out of [src]'s way!", \
-						  "[C] stumbles over [src]!", \
-						  "[C] jumps out of [src]'s path!", \
-						  "[C] trips over [src] and falls!", \
-						  "[C] topples over [src]!", \
-						  "[C] leaps out of [src]'s way!")]</span>")
-		C.Weaken(4 SECONDS)
+/mob/living/simple_animal/bot/secbot/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	secbot_crossed(arrived)
+
+
+/mob/living/simple_animal/bot/secbot/proc/secbot_crossed(mob/living/carbon/arrived)
+	if(!iscarbon(arrived) || arrived != target || in_range(src, arrived))
 		return
-	..()
+
+	arrived.visible_message(span_warning("[pick( \
+						  "[arrived] dives out of [src]'s way!", \
+						  "[arrived] stumbles over [src]!", \
+						  "[arrived] jumps out of [src]'s path!", \
+						  "[arrived] trips over [src] and falls!", \
+						  "[arrived] topples over [src]!", \
+						  "[arrived] leaps out of [src]'s way!")]"))
+	arrived.Weaken(4 SECONDS)
+
 
 /obj/machinery/bot_core/secbot
 	req_access = list(ACCESS_SECURITY)

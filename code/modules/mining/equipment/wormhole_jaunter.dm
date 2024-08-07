@@ -13,59 +13,73 @@
 	slot_flags = ITEM_SLOT_BELT
 	var/emagged = FALSE
 
+
 /obj/item/wormhole_jaunter/attack_self(mob/user)
-	user.visible_message("<span class='notice'>[user.name] activates the [name]!</span>")
+	user.visible_message(span_notice("[user.name] activates the [name]!"))
+	SSblackbox.record_feedback("tally", "jaunter", 1, "User") // user activated
 	activate(user, TRUE)
 
+
 /obj/item/wormhole_jaunter/proc/turf_check(mob/user)
-	var/turf/device_turf = get_turf(user)
+	var/turf/device_turf = get_turf(src)
 	if(!device_turf || !is_teleport_allowed(device_turf.z))
-		to_chat(user, "<span class='notice'>You're having difficulties getting the [name] to work.</span>")
+		if(user)
+			to_chat(user, span_notice("You're having difficulties getting [src] to work."))
 		return FALSE
 	return TRUE
 
-/obj/item/wormhole_jaunter/proc/get_destinations(mob/user)
-	var/list/destinations = list()
 
-	for(var/obj/item/radio/beacon/B in GLOB.global_radios)
-		var/turf/T = get_turf(B)
-		if(is_station_level(T.z))
-			destinations += B
+/obj/item/wormhole_jaunter/proc/get_destinations()
+	. = list()
+	for(var/obj/item/radio/beacon/beacon in GLOB.global_radios)
+		var/turf/beacon_turf = get_turf(beacon)
+		if(is_station_level(beacon_turf.z))
+			. += beacon
 
-	return destinations
 
-/obj/item/wormhole_jaunter/proc/activate(mob/user, adjacent)
+/obj/item/wormhole_jaunter/proc/activate(mob/user, adjacent, teleport)
 	if(!turf_check(user))
-		return
+		return FALSE
 
-	var/list/L = get_destinations(user)
-	if(!L.len)
-		to_chat(user, "<span class='notice'>The [name] found no beacons in the world to anchor a wormhole to.</span>")
-		return
-	var/chosen_beacon = pick(L)
-	var/obj/effect/portal/jaunt_tunnel/J = new(get_turf(src), get_turf(chosen_beacon), src, 100, user)
-	J.emagged = emagged
-	if(adjacent)
-		try_move_adjacent(J)
-	else
-		J.teleport(user)
-	playsound(src,'sound/effects/sparks4.ogg',50,1)
+	var/list/destinations = get_destinations()
+	if(!length(destinations))
+		if(user)
+			balloon_alert(user, "нет доступных маяков!")
+		else
+			visible_message(span_notice("\The [src] found no beacons in the world to anchor a wormhole to!"))
+		return TRUE // used for chasm code
+
+	var/chosen_beacon = pick(destinations)
+
+	var/obj/effect/portal/jaunt_tunnel/tunnel = new(get_turf(src), get_turf(chosen_beacon), src, 100, user)
+	tunnel.emagged = emagged
+	if(teleport)
+		tunnel.teleport(user)
+	else if(adjacent)
+		try_move_adjacent(tunnel)
+
 	qdel(src)
+	return FALSE // used for chasm code
+
 
 /obj/item/wormhole_jaunter/proc/chasm_react(mob/user)
-	to_chat(user, "Your [name] activates, saving you from the chasm!</span>")
-	SSblackbox.record_feedback("tally", "jaunter", 1, "Chasm") // chasm automatic activation
-	activate(user, FALSE)
+	. = activate(user, FALSE, TRUE)
+
+	if(!.)
+		to_chat(user, span_notice("Your [name] activates, saving you from the chasm!"))
+		SSblackbox.record_feedback("tally", "jaunter", 1, "Chasm") // chasm automatic activation
+
 
 /obj/item/wormhole_jaunter/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
 		if(user)
-			to_chat(user, "<span class='notice'>You emag [src].</span>")
+			balloon_alert(user, "протоколы защиты сняты!")
 		var/turf/T = get_turf(src)
 		do_sparks(5, 0, T)
 		playsound(T, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+
 
 /obj/effect/portal/jaunt_tunnel
 	name = "jaunt tunnel"
@@ -80,7 +94,7 @@
 	. = list()	// we need no mask here
 
 
-/obj/effect/portal/jaunt_tunnel/can_teleport(atom/movable/M)
+/obj/effect/portal/jaunt_tunnel/can_teleport(atom/movable/M, silent = FALSE)
 	if(!emagged && ismegafauna(M))
 		return FALSE
 	return ..()
@@ -104,42 +118,58 @@
 	/// Mob that threw the grenade.
 	var/mob/living/thrower
 
+
 /obj/item/grenade/jaunter_grenade/Destroy()
 	thrower = null
 	return ..()
+
 
 /obj/item/grenade/jaunter_grenade/attack_self(mob/user)
 	. = ..()
 	thrower = user
 
+
 /obj/item/grenade/jaunter_grenade/prime()
 	update_mob()
+
 	var/list/destinations = list()
-	for(var/obj/item/radio/beacon/B in GLOB.global_radios)
-		var/turf/BT = get_turf(B)
-		if(is_station_level(BT.z))
-			destinations += BT
-	var/turf/T = get_turf(src)
-	if(istype(T, /turf/simulated/floor/chasm/straight_down/lava_land_surface))
-		for(var/turf/simulated/floor/chasm/straight_down/lava_land_surface/chasm_turfs in range(5, T))
-			for(var/obj/effect/abstract/chasm_storage/C in chasm_turfs)
-				var/found_mob = FALSE
-				for(var/mob/M in C)
-					found_mob = TRUE
-					do_teleport(M, pick(destinations))
-				if(found_mob)
-					new /obj/effect/temp_visual/thunderbolt(chasm_turfs) //Visual feedback it worked.
-					playsound(src, 'sound/magic/lightningbolt.ogg', 100, TRUE)
+	for(var/obj/item/radio/beacon/beacon in GLOB.global_radios)
+		var/turf/beacon_turf = get_turf(beacon)
+		if(is_station_level(beacon_turf.z))
+			destinations += beacon_turf
+	if(!length(destinations))
+		return
+
+	var/turf/our_turf = get_turf(src)
+	if(!our_turf)
+		return
+
+	if(ischasm(our_turf))
+		for(var/turf/simulated/floor/chasm/chasm in RANGE_TURFS(5, our_turf))
+			var/obj/effect/abstract/chasm_storage/pool = locate() in chasm.contents
+			if(!pool)
+				continue
+			var/found_mob = FALSE
+			for(var/mob/fish in pool.contents)
+				found_mob = TRUE
+				pool.get_fish(fish)
+				do_teleport(fish, pick(destinations))
+			if(found_mob)
+				new /obj/effect/temp_visual/thunderbolt(chasm) // visual feedback if it worked.
+				playsound(src, 'sound/magic/lightningbolt.ogg', 100, TRUE)
 		qdel(src)
-	else
-		var/list/portal_turfs = list()
-		for(var/turf/PT in circleviewturfs(T, 3))
-			if(!PT.density)
-				portal_turfs += PT
-		playsound(src, 'sound/magic/lightningbolt.ogg', 100, TRUE)
-		for(var/turf/drunk_dial in shuffle(destinations))
-			var/drunken_opening = pick_n_take(portal_turfs)
-			new /obj/effect/portal/jaunt_tunnel(drunken_opening, drunk_dial, src, 100, thrower)
-			new /obj/effect/temp_visual/thunderbolt(drunken_opening)
-		qdel(src)
+		return
+
+	var/list/portal_turfs = list()
+	for(var/turf/turf as anything in circleviewturfs(our_turf, 3))
+		if(!turf.density)
+			portal_turfs += turf
+	playsound(our_turf, 'sound/magic/lightningbolt.ogg', 100, TRUE)
+	for(var/turf/drunk_dial as anything in shuffle(destinations))
+		if(!length(portal_turfs))
+			break
+		var/drunken_opening = pick_n_take(portal_turfs)
+		new /obj/effect/portal/jaunt_tunnel(drunken_opening, drunk_dial, src, 10 SECONDS, thrower)
+		new /obj/effect/temp_visual/thunderbolt(drunken_opening)
+	qdel(src)
 

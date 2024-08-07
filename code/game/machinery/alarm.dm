@@ -733,7 +733,7 @@
 			if(!vent_data)
 				continue
 			vent_info["id_tag"] = id_tag
-			vent_info["name"] = sanitize(long_name)
+			vent_info["name"] = readd_quote(sanitize(long_name))
 			vent_info += vent_data
 			vents += list(vent_info)
 	data["vents"] = vents
@@ -746,18 +746,18 @@
 			if(!scrubber_data)
 				continue
 			scrubber_data["id_tag"] = id_tag
-			scrubber_data["name"] = sanitize(long_name)
+			scrubber_data["name"] = readd_quote(sanitize(long_name))
 			scrubbers += list(scrubber_data)
 	data["scrubbers"] = scrubbers
 	return data
 
 /obj/machinery/alarm/proc/get_console_data(mob/user)
 	var/list/data = list()
-	data["name"] = sanitize(name)
+	data["name"] = readd_quote(sanitize(name))
 	data["ref"] = "\ref[src]"
 	data["danger"] = max(danger_level, alarm_area.atmosalm)
 	var/area/A = get_area(src)
-	data["area"] = sanitize(A.name)
+	data["area"] = readd_quote(sanitize(A.name))
 	var/turf/T = get_turf(src)
 	data["x"] = T.x
 	data["y"] = T.y
@@ -798,16 +798,16 @@
 
 	return thresholds
 
-/obj/machinery/alarm/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/alarm/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AirAlarm", name, 570, 410, master_ui, state)
+		ui = new(user, src, "AirAlarm", name)
 		ui.open()
 
 /obj/machinery/alarm/proc/is_authenticated(mob/user, datum/tgui/ui=null)
 	// Return true if they are connecting with a remote console
-	// DO NOT CHANGE THIS TO USE ISTYPE, IT WILL NOT WORK
-	if(ui?.master_ui?.src_object.type == /datum/ui_module/atmos_control)
+	// lol this is a wank hack, please don't shoot me
+	for(var/obj/machinery/computer/atmoscontrol/control in orange(1, user))
 		return TRUE
 	if(user.can_admin_interact())
 		return TRUE
@@ -818,13 +818,13 @@
 
 /obj/machinery/alarm/ui_status(mob/user, datum/ui_state/state)
 	if(buildstage != AIR_ALARM_READY)
-		return STATUS_CLOSE
+		return UI_CLOSE
 
 	if(aidisabled && (isAI(user) || isrobot(user)))
 		to_chat(user, span_warning("AI control for \the [src] interface has been disabled."))
-		return STATUS_CLOSE
+		return UI_CLOSE
 
-	. = shorted ? STATUS_DISABLED : STATUS_INTERACTIVE
+	. = shorted ? UI_DISABLED : UI_INTERACTIVE
 
 	return min(..(), .)
 
@@ -842,7 +842,7 @@
 
 	switch(action)
 		if("set_rcon")
-			var/attempted_rcon_setting = text2num(params["rcon"])
+			var/attempted_rcon_setting = params["rcon"]
 			switch(attempted_rcon_setting)
 				if(RCON_NO)
 					rcon_setting = RCON_NO
@@ -871,17 +871,12 @@
 					"scrubbing",
 					"direction")
 					var/val
-					if(params["val"])
-						val=text2num(params["val"])
+					if(!isnull(params["val"]))
+						val=params["val"]
 					else
-						var/newval = input("Enter new value") as num|null
+						var/newval = tgui_input_number(usr, "Enter new value", "New Value", ONE_ATMOSPHERE, 1000 + ONE_ATMOSPHERE, 0, round_value = FALSE)
 						if(isnull(newval))
 							return
-						if(params["cmd"] == "set_external_pressure")
-							if(newval > 1000 + ONE_ATMOSPHERE)
-								newval = 1000 + ONE_ATMOSPHERE
-							if(newval < 0)
-								newval = 0
 						val = newval
 
 					// For those who read this: This radio BS is what makes air alarms take 10 years to update in the UI
@@ -892,7 +887,7 @@
 					var/env = params["env"]
 					var/varname = params["var"]
 					var/datum/tlv/tlv = TLV[env]
-					var/newval = input("Enter [varname] for [env]", "Alarm triggers", tlv.vars[varname]) as num|null
+					var/newval = tgui_input_number(usr, "Enter [varname] for [env]", "Alarm triggers", tlv.vars[varname], round_value = FALSE)
 
 					if(isnull(newval) || ..()) // No setting if you walked away
 						return
@@ -924,7 +919,7 @@
 			if(!is_authenticated(usr, active_ui))
 				return
 
-			mode = text2num(params["mode"])
+			mode = params["mode"]
 			apply_mode()
 
 
@@ -932,7 +927,7 @@
 			if(!is_authenticated(usr, active_ui))
 				return
 
-			preset = text2num(params["preset"])
+			preset = params["preset"]
 			apply_preset()
 
 
@@ -942,7 +937,7 @@
 			var/min_temperature = max(selected.min1, MIN_TEMPERATURE)
 			var/max_temperature_c = max_temperature - T0C
 			var/min_temperature_c = min_temperature - T0C
-			var/input_temperature = input("What temperature would you like the system to maintain? (Capped between [min_temperature_c]C and [max_temperature_c]C)", "Thermostat Controls") as num|null
+			var/input_temperature = tgui_input_number(usr, "What temperature would you like the system to maintain? (Capped between [min_temperature_c]C and [max_temperature_c]C)", "Thermostat Controls", target_temperature - T0C, max_temperature_c, min_temperature_c)
 			if(isnull(input_temperature) || ..()) // No temp setting if you walked away
 				return
 			input_temperature = input_temperature + T0C
@@ -954,6 +949,24 @@
 		if("thermostat_state")
 			thermostat_state = !thermostat_state
 
+
+/obj/machinery/alarm/ui_state(mob/user)
+	if(issilicon(user))
+		if(isAI(user))
+			var/mob/living/silicon/ai/AI = user
+			if(!AI.lacks_power() || AI.apc_override)
+				return GLOB.always_state
+		if(isrobot(user))
+			return GLOB.always_state
+
+	else if(ishuman(user))
+		for(var/obj/machinery/computer/atmoscontrol/AC in range(1, user))
+			if(!AC.stat)
+				return GLOB.always_state
+
+	return GLOB.default_state
+
+
 /obj/machinery/alarm/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
@@ -962,8 +975,8 @@
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		return
 
-/obj/machinery/alarm/attackby(obj/item/I, mob/user, params)
 
+/obj/machinery/alarm/attackby(obj/item/I, mob/user, params)
 	switch(buildstage)
 		if(AIR_ALARM_READY)
 			if(I.GetID() || is_pda(I)) // trying to unlock the interface

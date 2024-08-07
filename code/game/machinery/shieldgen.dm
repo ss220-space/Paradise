@@ -26,7 +26,7 @@
 /obj/machinery/shield/has_prints()
 	return FALSE
 
-/obj/machinery/shield/Move()
+/obj/machinery/shield/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
 	. = ..()
 	move_update_air(T)
@@ -56,7 +56,8 @@
 				qdel(src)
 
 /obj/machinery/shield/blob_act()
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)
 
 /obj/machinery/shield/cult
 	name = "cult barrier"
@@ -245,7 +246,7 @@
 	else if(istype(I, /obj/item/stack/cable_coil) && malfunction && is_open)
 		var/obj/item/stack/cable_coil/coil = I
 		to_chat(user, span_notice("You begin to replace the wires."))
-		if(do_after(user, 3 SECONDS * coil.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, 3 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL))
 			if(!src || !coil)
 				return
 			add_fingerprint(user)
@@ -643,12 +644,10 @@
 		return FALSE
 
 
-/obj/machinery/shieldwall/syndicate/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
-	if(isliving(caller))
-		var/mob/living/M = caller
-		if("syndicate" in M.faction)
-			return TRUE
-	return ..(ID, to_dir, caller)
+/obj/machinery/shieldwall/syndicate/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(pass_info.faction && ("syndicate" in pass_info.faction))
+		return TRUE
+	return ..()
 
 
 /obj/machinery/shieldwall/syndicate/proc/phaseout()

@@ -5,7 +5,7 @@
 	icon_state = "plasmaman-helm"
 	item_state = "plasmaman-helm"
 	strip_delay = 200
-	flash_protect = 2
+	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2
 	HUDType = 0
 	var/examine_extensions = 0
@@ -42,7 +42,7 @@
 		weldingvisortoggle(user)
 
 
-/obj/item/clothing/head/helmet/space/plasmaman/ui_action_click(mob/user, action, leftclick)
+/obj/item/clothing/head/helmet/space/plasmaman/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_helmet_light))
 		toggle_light(user)
 	else if(istype(action, /datum/action/item_action/toggle_welding_screen/plasmaman))

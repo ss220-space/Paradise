@@ -5,11 +5,13 @@
 	item_state = "fingerless"
 	item_color = null	//So they don't wash.
 	transfer_prints = TRUE
+	clothing_flags = NONE
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	strip_delay = 40
 	put_on_delay = 20
 	clipped = 1
+	undyeable = TRUE
 
 /obj/item/clothing/gloves/fingerless/weaver
 	name = "weaver chitin gloves"
@@ -131,7 +133,7 @@
 				add_attack_logs(H, C, "Touched with stun gloves")
 				C.Weaken(stun_strength)
 				C.Stuttering(stun_strength)
-				C.adjustStaminaLoss(20)
+				C.apply_damage(20, STAMINA)
 			else
 				to_chat(H, "<span class='notice'>Not enough charge!</span>")
 			return TRUE
@@ -187,11 +189,11 @@
 	owner = user
 	if(istype(owner) && slot == ITEM_SLOT_GLOVES)
 		owner.dirslash_enabled = TRUE
-		owner.verbs += /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling
+		add_verb(owner, /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling)
 	. = ..()
 
 /obj/item/clothing/gloves/fingerless/rapid/dropped(mob/user, slot, silent = FALSE)
-	owner.verbs -= /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling
+	remove_verb(owner, /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling)
 	owner.dirslash_enabled = initial(owner.dirslash_enabled)
 	. = ..()
 
@@ -324,9 +326,9 @@
 	if(!(user.a_intent == INTENT_HARM) || !proximity || isturf(A))
 		return FALSE
 
-	var/damage = knuckle_damage + rand(user.dna.species.punchdamagelow,user.dna.species.punchdamagehigh)
+	var/damage = knuckle_damage + rand(user.dna.species.punchdamagelow + user.physiology.punch_damage_low, user.dna.species.punchdamagehigh + user.physiology.punch_damage_high)
 	var/staminadamage = rand(knock_damage_low, knock_damage_high)
-	var/knobj_damage = knuckle_damage + user.dna.species.obj_damage
+	var/knobj_damage = knuckle_damage + user.dna.species.obj_damage + user.physiology.punch_obj_damage
 	if(ishuman(A))
 		user.do_attack_animation(A, "kick")
 		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
@@ -377,3 +379,27 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/gloves.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi'
 		)
+
+/obj/item/clothing/gloves/combat/swat
+	desc = "A pair of gloves made of the best reinforced materials. Protects against the effects of electricity, as well as partially acid and fire. Such gloves cost a fortune, you can say that wearing them, you literally have golden hands!"
+	name = "SWAT gloves"
+	icon_state = "swat_gloves"
+	item_state = "nt_swat_gl"
+	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 50)
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/gloves.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi'
+		)
+
+
+/obj/item/clothing/gloves/combat/swat/syndicate
+	desc = "A pair of gloves made of the best reinforced materials. Protects against the effects of electricity, as well as partially acid and fire. Show these NT pigs on your fingers who's the boss here!"
+	name = "syndicate armored gloves"
+	icon_state = "syndicate_swat"
+	item_state = "syndicate_swat_gl"

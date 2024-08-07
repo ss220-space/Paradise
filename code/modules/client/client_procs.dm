@@ -10,7 +10,6 @@
 									//I would just like the code ready should it ever need to be used.
 #define SUGGESTED_CLIENT_VERSION	515		// only integers (e.g: 513, 514) are useful here. This is the part BEFORE the ".", IE 513 out of 513.1536
 #define SUGGESTED_CLIENT_BUILD	1633		// only integers (e.g: 1536, 1539) are useful here. This is the part AFTER the ".", IE 1536 out of 513.1536
-#define MINIMUM_FPS_VERSION 511 // used as check, if you can update fps or not
 
 #define SSD_WARNING_TIMER 30 // cycles, not seconds, so 30=60s
 
@@ -48,30 +47,26 @@
 			hsrc = locate(href_list["src"])
 			if(hsrc)
 				var/hsrc_info = datum_info_line(hsrc) || "[hsrc]"
-				log_runtime(EXCEPTION("Got \\ref-based src in topic from [src] for [hsrc_info], should be UID: [href]"))
+				stack_trace("Got \\ref-based src in topic from [src] for [hsrc_info], should be UID: [href]")
 
-	#if defined(TOPIC_DEBUGGING)
-	to_chat(world, "[src]'s Topic: [href] destined for [hsrc].")
-	#endif
 
+	// asset_cache
+	var/asset_cache_job
 	if(href_list["asset_cache_confirm_arrival"])
-//		to_chat(src, "ASSET JOB [href_list["asset_cache_confirm_arrival"]] ARRIVED.")
-		var/job = text2num(href_list["asset_cache_confirm_arrival"])
-		completed_asset_jobs += job
-		return
-
-	if(href_list["_src_"] == "chat")
-		return chatOutput.Topic(href, href_list)
+		asset_cache_job = asset_cache_confirm_arrival(href_list["asset_cache_confirm_arrival"])
+		if(!asset_cache_job)
+			return
 
 	// Rate limiting
-	var/mtl = 100 // 100 topics per minute
-	if (!holder) // Admins are allowed to spam click, deal with it.
+	var/mtl = CONFIG_GET(number/minute_topic_limit)
+	if(!holder && (href_list["window_id"] != "statbrowser") && mtl) // Admins are allowed to spam click, deal with it.
 		var/minute = round(world.time, 600)
 		if (!topiclimiter)
 			topiclimiter = new(LIMITER_SIZE)
 		if (minute != topiclimiter[CURRENT_MINUTE])
 			topiclimiter[CURRENT_MINUTE] = minute
 			topiclimiter[MINUTE_COUNT] = 0
+
 		topiclimiter[MINUTE_COUNT] += 1
 		if (topiclimiter[MINUTE_COUNT] > mtl)
 			var/msg = "Your previous action was ignored because you've done too many in a minute."
@@ -83,14 +78,15 @@
 			to_chat(src, "<span class='danger'>[msg]</span>")
 			return
 
-	var/stl = 10 // 10 topics a second
-	if (!holder) // Admins are allowed to spam click, deal with it.
+	var/stl = CONFIG_GET(number/second_topic_limit)
+	if(!holder && stl) // Admins are allowed to spam click, deal with it.
 		var/second = round(world.time, 10)
 		if (!topiclimiter)
 			topiclimiter = new(LIMITER_SIZE)
 		if (second != topiclimiter[CURRENT_SECOND])
 			topiclimiter[CURRENT_SECOND] = second
 			topiclimiter[SECOND_COUNT] = 0
+
 		topiclimiter[SECOND_COUNT] += 1
 		if (topiclimiter[SECOND_COUNT] > stl)
 			to_chat(src, "<span class='danger'>Your previous action was ignored because you've done too many in a second</span>")
@@ -99,7 +95,7 @@
 	//search the href for script injection
 	if( findtext(href,"<script",1,0) )
 		log_world("Attempted use of scripts within a topic call, by [src]")
-		log_runtime(EXCEPTION("Attempted use of scripts within a topic call, by [src]"), src)
+		stack_trace("Attempted use of scripts within a topic call, by [src]")
 		message_admins("Attempted use of scripts within a topic call, by [src]")
 		return
 
@@ -125,65 +121,6 @@
 	if(config && CONFIG_GET(flag/log_hrefs))
 		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
 
-	if(href_list["karmashop"])
-		if(CONFIG_GET(flag/disable_karma))
-			return
-
-		switch(href_list["karmashop"])
-			if("tab")
-				karma_tab = text2num(href_list["tab"])
-				karmashopmenu()
-				return
-			if("shop")
-				if(href_list["KarmaBuy"])
-					var/karma=verify_karma()
-					if(isnull(karma)) //Doesn't display anything if karma database is down.
-						return
-					switch(href_list["KarmaBuy"])
-						if("1")
-							karma_purchase(karma,5,"job", JOB_TITLE_BARBER)
-						if("2")
-							karma_purchase(karma,5,"job", JOB_TITLE_BRIGDOC)
-						if("3")
-							karma_purchase(karma,30,"job", JOB_TITLE_REPRESENTATIVE)
-						if("5")
-							karma_purchase(karma,30,"job", JOB_TITLE_BLUESHIELD)
-						if("6")
-							karma_purchase(karma,30,"job", JOB_TITLE_MECHANIC)
-						if("7")
-							karma_purchase(karma,45,"job", JOB_TITLE_JUDGE)
-						if("9")
-							karma_purchase(karma,30,"job", JOB_TITLE_PILOT)
-					return
-				if(href_list["KarmaBuy2"])
-					var/karma=verify_karma()
-					if(isnull(karma)) //Doesn't display anything if karma database is down.
-						return
-					switch(href_list["KarmaBuy2"])
-						if("1")
-							karma_purchase(karma,15,"species","Machine People",SPECIES_MACNINEPERSON)
-						if("2")
-							karma_purchase(karma,30,"species",SPECIES_KIDAN)
-						if("3")
-							karma_purchase(karma,30,"species",SPECIES_GREY)
-						if("4")
-							karma_purchase(karma,45,"species",SPECIES_VOX)
-						if("5")
-							karma_purchase(karma,45,"species",SPECIES_SLIMEPERSON)
-						if("6")
-							karma_purchase(karma,45,"species",SPECIES_PLASMAMAN)
-						if("7")
-							karma_purchase(karma,30,"species",SPECIES_DRASK)
-						if("8")
-							karma_purchase(karma,30,"species",SPECIES_MOTH)
-					return
-				if(href_list["KarmaRefund"])
-					var/type = href_list["KarmaRefundType"]
-					var/job = href_list["KarmaRefund"]
-					var/cost = href_list["KarmaRefundCost"]
-					karmarefund(type,job,cost)
-					return
-
 	switch(href_list["_src_"])
 		if("holder")	hsrc = holder
 		if("usr")		hsrc = mob
@@ -208,6 +145,26 @@
 		var/keycode = href_list["__keyup"]
 		if(keycode)
 			KeyUp(keycode)
+		return
+
+	// Tgui Topic middleware
+	if(tgui_Topic(href_list))
+		return
+
+	if(href_list["reload_statbrowser"])
+		stat_panel.reinitialize()
+
+	if(href_list["reload_tguipanel"])
+		nuke_chat()
+
+	//byond bug ID:2256651
+	if(asset_cache_job && (asset_cache_job in completed_asset_jobs))
+		to_chat(src, "<span class='danger'> An error has been detected in how your client is receiving resources. Attempting to correct.... (If you keep seeing these messages you might want to close byond and reconnect)</span>")
+		src << browse("...", "window=asset_cache_browser")
+		return
+
+	if(href_list["asset_cache_preload_data"])
+		asset_cache_preload_data(href_list["asset_cache_preload_data"])
 		return
 
 	switch(href_list["action"])
@@ -236,7 +193,7 @@
 /client/proc/setDir(newdir)
 	dir = newdir
 
-/client/proc/handle_spam_prevention(var/message, var/mute_type, var/throttle = 0)
+/client/proc/handle_spam_prevention(message, mute_type, throttle = 0)
 	if(throttle)
 		if((last_message_time + throttle > world.time) && !check_rights(R_ADMIN, 0))
 			var/wait_time = round(((last_message_time + throttle) - world.time) / 10, 1)
@@ -277,8 +234,12 @@
 	///////////
 /client/New(TopicData)
 	var/tdata = TopicData //save this for later use
-	chatOutput = new /datum/chatOutput(src) // Right off the bat.
 	TopicData = null							//Prevent calls to client.Topic from connect
+
+	stat_panel = new(src, "statbrowser")
+	stat_panel.subscribe(src, PROC_REF(on_stat_panel_message))
+
+	tgui_panel = new(src, "chat_panel")
 
 	if(connection != "seeker")					//Invalid connection type.
 		return null
@@ -311,10 +272,12 @@
 	prefs = GLOB.preferences_datums[ckey]
 	if(!prefs)
 		prefs = new /datum/preferences(src)
-		set_macros()
 		GLOB.preferences_datums[ckey] = prefs
 	else
 		prefs.parent = src
+
+	if(SSinput.initialized)
+		set_macros()
 
 	// Setup widescreen
 	view = prefs.viewrange
@@ -322,10 +285,9 @@
 	prefs.init_keybindings(prefs.keybindings_overrides) //The earliest sane place to do it where prefs are not null, if they are null you can't do crap at lobby
 	prefs.last_ip = address				//these are gonna be used for banning
 	prefs.last_id = computer_id			//these are gonna be used for banning
-	if(world.byond_version >= MINIMUM_FPS_VERSION && byond_version >= MINIMUM_FPS_VERSION && prefs.clientfps)
+	if(prefs.clientfps)
 		fps = prefs.clientfps
-
-	if(world.byond_version >= MINIMUM_FPS_VERSION && byond_version >= MINIMUM_FPS_VERSION && !prefs.clientfps)
+	else
 		fps = CONFIG_GET(number/clientfps)
 
 	// Check if the client has or has not accepted TOS
@@ -337,25 +299,17 @@
 	// YOU WILL BREAK STUFF. SERIOUSLY. -aa07
 	GLOB.clients += src
 
-	spawn() // Goonchat does some non-instant checks in start()
-		chatOutput.start()
-
 	if( (world.address == address || !address) && !GLOB.host )
 		GLOB.host = key
 		world.update_status()
 
 	if(holder)
-		on_holder_add()
 		add_admin_verbs()
 		// Must be async because any sleeps (happen in sql queries) will break connectings clients
 		INVOKE_ASYNC(src, PROC_REF(admin_memo_output), "Show", FALSE, TRUE)
 
 	// Forcibly enable hardware-accelerated graphics, as we need them for the lighting overlays.
-	// (but turn them off first, since sometimes BYOND doesn't turn them on properly otherwise)
-	spawn(5) // And wait a half-second, since it sounds like you can do this too fast.
-		if(src)
-			winset(src, null, "command=\".configure graphics-hwmode off\"")
-			winset(src, null, "command=\".configure graphics-hwmode on\"")
+	winset(src, null, "command=\".configure graphics-hwmode on\"")
 
 	// Try doing this before mob login
 	generate_clickcatcher()
@@ -376,12 +330,19 @@
 	if(SSinput.initialized)
 		set_macros()
 
+	// Initialize tgui panel
+	tgui_panel.initialize()
+	// Initialize stat panel
+	stat_panel.initialize(
+		inline_html = file2text('html/statbrowser.html'),
+		inline_js = file2text('html/statbrowser.js'),
+		inline_css = file2text('html/statbrowser.css'),
+	)
+	addtimer(CALLBACK(src, PROC_REF(check_panel_loaded)), 30 SECONDS)
+
 	donator_check()
 	check_ip_intel()
 	send_resources()
-
-	if(prefs.toggles & PREFTOGGLE_UI_DARKMODE) // activates dark mode if its flagged. -AA07
-		activate_darkmode()
 
 	if(GLOB.changelog_hash && prefs.lastchangelog != GLOB.changelog_hash) //bolds the changelog button on the interface so we know there are updates.
 		to_chat(src, span_info("You have unread updates in the changelog."))
@@ -455,19 +416,28 @@
 /client/Destroy()
 	SSdebugview.stop_processing(src)
 	mob?.become_uncliented()
+
 	if(holder)
 		holder.owner = null
 		GLOB.admins -= src
+
 	GLOB.directory -= ckey
 	GLOB.clients -= src
+
 	if(movingmob)
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
-	SSambience.ambience_listening_clients -= src
-	SSinput.processing -= src
+
+	if(obj_window)
+		QDEL_NULL(obj_window)
+
+	SSambience.remove_ambience_client(src)
 	SSping.currentrun -= src
-	Master.UpdateTickRate()
+	QDEL_LIST(parallax_layers_cached)
+	QDEL_NULL(void)
+	parallax_layers = null
 	seen_messages = null
+	Master.UpdateTickRate()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
 
@@ -841,7 +811,7 @@
 			cidcheck[ckey] = computer_id
 
 			// Disable the reconnect button to force a CID change
-			winset(src, "reconnectbutton", "is-disable=true")
+			winset(src, "reconnectbutton", "is-disabled=true")
 
 			tokens[ckey] = cid_check_reconnect()
 			sleep(10) // Since browse is non-instant, and kinda async
@@ -926,7 +896,7 @@
 	log_adminwarn("Failed Login: [key] [computer_id] [address] - CID randomizer check")
 	var/url = winget(src, null, "url")
 	//special javascript to make them reconnect under a new window.
-	src << browse("<a id='link' href='byond://[url]?token=[token]'>\
+	src << browse("<!DOCTYPE html><a id='link' href='byond://[url]?token=[token]'>\
 		byond://[url]?token=[token]\
 	</a>\
 	<script type='text/javascript'>\
@@ -936,27 +906,44 @@
 	"border=0;titlebar=0;size=1x1")
 	to_chat(src, "<a href='byond://[url]?token=[token]'>You will be automatically taken to the game, if not, click here to be taken manually</a>. Except you can't, since the chat window doesn't exist yet.")
 
-//checks if a client is afk
-//3000 frames = 5 minutes
-/client/proc/is_afk(duration=3000)
-	if(inactivity > duration)	return inactivity
+/client/proc/is_afk(duration = 5 MINUTES)
+	if(inactivity > duration)
+		return inactivity
 	return 0
 
-//Send resources to the client.
+/// Send resources to the client.
+/// Sends both game resources and browser assets.
 /client/proc/send_resources()
-	// Change the way they should download resources.
-	if(CONFIG_GET(str_list/resource_urls))
-		preload_rsc = pick(CONFIG_GET(str_list/resource_urls))
-	else
-		preload_rsc = 1 // If CONFIG_GET(str_list/resource_urls) is not set, preload like normal.
-	// Most assets are now handled through global_cache.dm
-	getFiles(
-		'html/search.js', // Used in various non-TGUI HTML windows for search functionality
-		'html/panels.css' // Used for styling certain panels, such as in the new player panel
-	)
-	spawn (10) //removing this spawn causes all clients to not get verbs.
+#if (PRELOAD_RSC == 0)
+	var/static/next_external_rsc = 0
+	var/list/external_rsc_urls = CONFIG_GET(keyed_list/external_rsc_urls)
+	if(length(external_rsc_urls))
+		next_external_rsc = WRAP(next_external_rsc+1, 1, external_rsc_urls.len+1)
+		preload_rsc = external_rsc_urls[next_external_rsc]
+#endif
+
+	spawn (10) //removing this spawn causes all clients to not get verbs. (this can't be addtimer because these assets may be needed before the mc inits)
+
+		//load info on what assets the client has
+		src << browse('code/modules/asset_cache/validate_assets.html', "window=asset_cache_browser")
+
 		//Precache the client with all other assets slowly, so as to not block other browse() calls
-		getFilesSlow(src, SSassets.preload, register_asset = FALSE)
+		if (CONFIG_GET(flag/asset_simple_preload))
+			addtimer(CALLBACK(SSassets.transport, TYPE_PROC_REF(/datum/asset_transport, send_assets_slow), src, SSassets.transport.preload), 5 SECONDS)
+
+		#if (PRELOAD_RSC == 0)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/client, preload_vox)), 1 MINUTES)
+		#endif
+
+
+#if (PRELOAD_RSC == 0)
+/client/proc/preload_vox()
+	for (var/name in GLOB.vox_sounds)
+		var/file = GLOB.vox_sounds[name]
+		Export("##action=load_rsc", file)
+		stoplag()
+#endif
+
 
 //For debugging purposes
 /client/proc/list_all_languages()
@@ -975,89 +962,67 @@
 	datum_flags |= DF_VAR_EDITED
 
 
-/////////////////
-// DARKMODE UI //
-/////////////////
-// IF YOU CHANGE ANYTHING IN ACTIVATE, MAKE SURE IT HAS A DEACTIVATE METHOD, -AA07
-/client/proc/activate_darkmode()
-	///// BUTTONS /////
-	/* Rpane */
-	winset(src, "rpane.fullscreenb", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.textb", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.infob", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.wikib", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.rulesb", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.githubb", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.webmap", "background-color=#494949;text-color=#a4bad6")
-	/* Outputwindow */
-	winset(src, "outputwindow.saybutton", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "outputwindow.mebutton", "background-color=#494949;text-color=#a4bad6")
+/client/Click(atom/object, atom/location, control, params)
+	if(click_intercept_time)
+		if(click_intercept_time >= world.time)
+			click_intercept_time = 0 //Reset and return. Next click should work, but not this one.
+			return
+		click_intercept_time = 0 //Just reset. Let's not keep re-checking forever.
 
-	///// UI ELEMENTS /////
-	/* Mainwindow */
-	winset(src, "mainwindow", "background-color=#171717")
-	winset(src, "mainwindow.mainvsplit", "background-color=#202020")
-	winset(src, "mainwindow.tooltip", "background-color=#171717")
-	/* Outputwindow */
-	winset(src, "outputwindow", "background-color=#202020")
-	winset(src, "outputwindow.input", "text-color=#a4bad6;background-color=#202020")
-	winset(src, "outputwindow.browseroutput", "background-color=#202020")
-	/* Rpane */
-	winset(src, "rpane", "background-color=#202020")
-	winset(src, "rpane.rpanewindow", "background-color=#202020")
-	/* Browserwindow */
+	var/list/modifiers = params2list(params)
 
-	//winset(src, "browserwindow", "background-color=#272727")
-	//winset(src, "browserwindow.browser", "background-color=#272727")
-	/* Infowindow */
-	winset(src, "infowindow", "background-color=#202020;text-color=#a4bad6")
-	winset(src, "infowindow.info", "background-color=#171717;text-color=#a4bad6;highlight-color=#009900;tab-text-color=#a4bad6;tab-background-color=#202020")
-	//Macros
-	winset(src, "default-Tab", "parent=default;name=Tab;command=\".winset \\\"mainwindow.macro=legacy input.focus=true input.background-color=[COLOR_DARK_INPUT_ENABLED]\\\"\"")
-	winset(src, "legacy-Tab", "parent=legacy;name=Tab;command=\".winset \\\"mainwindow.macro=default map.focus=true input.background-color=[COLOR_DARK_INPUT_DISABLED]\\\"\"")
+	var/button_clicked = LAZYACCESS(modifiers, "button")
 
-	// NOTIFY USER
-	to_chat(src, "<span class='notice'>Darkmode Enabled</span>")
+	var/dragged = LAZYACCESS(modifiers, "drag")
+	if(dragged && button_clicked != dragged)
+		return
 
-/client/proc/deactivate_darkmode()
-	///// BUTTONS /////
-	/* Rpane */
-	winset(src, "rpane.fullscreenb", "background-color=none;text-color=#000000")
-	winset(src, "rpane.textb", "background-color=none;text-color=#000000")
-	winset(src, "rpane.infob", "background-color=none;text-color=#000000")
-	winset(src, "rpane.wikib", "background-color=none;text-color=#000000")
-	//winset(src, "rpane.forumb", "background-color=none;text-color=#000000")
-	winset(src, "rpane.rulesb", "background-color=none;text-color=#000000")
-	winset(src, "rpane.githubb", "background-color=none;text-color=#000000")
-	winset(src, "rpane.webmap", "background-color=none;text-color=#000000")
-	/* Outputwindow */
-	winset(src, "outputwindow.saybutton", "background-color=none;text-color=#000000")
-	winset(src, "outputwindow.mebutton", "background-color=none;text-color=#000000")
+	var/mcl = CONFIG_GET(number/minute_click_limit)
+	if(!holder && mcl)
+		var/minute = round(world.time, 600)
 
-	///// UI ELEMENTS /////
-	/* Mainwindow */
-	winset(src, "mainwindow", "background-color=none")
-	winset(src, "mainwindow.mainvsplit", "background-color=none")
-	winset(src, "mainwindow.tooltip", "background-color=none")
-	/* Outputwindow */
-	winset(src, "outputwindow", "background-color=none")
-	winset(src, "outputwindow.input", "text-color=none; background-color=#F0F0F0")
-	winset(src, "outputwindow.browseroutput", "background-color=none")
-	/* Rpane */
-	winset(src, "rpane", "background-color=none")
-	winset(src, "rpane.rpanewindow", "background-color=none")
-	/* Browserwindow */
-	//winset(src, "browserwindow", "background-color=none")
-	//winset(src, "browserwindow.browser", "background-color=none")
-	/* Infowindow */
-	winset(src, "infowindow", "background-color=none;text-color=#000000")
-	winset(src, "infowindow.info", "background-color=none;text-color=#000000;highlight-color=#007700;tab-text-color=#000000;tab-background-color=none")
-	//Macros
-	winset(src, "default-Tab", "parent=default;name=Tab;command=\".winset \\\"mainwindow.macro=legacy input.focus=true input.background-color=[COLOR_INPUT_ENABLED]\\\"\"")
-	winset(src, "legacy-Tab", "parent=legacy;name=Tab;command=\".winset \\\"mainwindow.macro=default map.focus=true input.background-color=[COLOR_INPUT_DISABLED]\\\"\"")
+		if(!clicklimiter)
+			clicklimiter = new(LIMITER_SIZE)
 
-	///// NOTIFY USER /////
-	to_chat(src, "<span class='notice'>Darkmode Disabled</span>") // what a sick fuck
+		if(minute != clicklimiter[CURRENT_MINUTE])
+			clicklimiter[CURRENT_MINUTE] = minute
+			clicklimiter[MINUTE_COUNT] = 0
+
+		clicklimiter[MINUTE_COUNT] += 1
+
+		if(clicklimiter[MINUTE_COUNT] > mcl)
+			var/msg = "Your previous click was ignored because you've done too many in a minute."
+			if(minute != clicklimiter[ADMINSWARNED_AT]) //only one admin message per-minute. (if they spam the admins can just boot/ban them)
+				clicklimiter[ADMINSWARNED_AT] = minute
+				msg += " Administrators have been informed."
+				add_game_logs("hit the per-minute click limit of [mcl] clicks in a given game minute", src)
+				message_admins("[ADMIN_LOOKUPFLW(usr)] Has hit the per-minute click limit of [mcl] clicks in a given game minute")
+			to_chat(src, span_danger("[msg]"))
+			return
+
+	var/scl = CONFIG_GET(number/second_click_limit)
+	if(!holder && scl)
+		var/second = round(world.time, 10)
+		if(!clicklimiter)
+			clicklimiter = new(LIMITER_SIZE)
+
+		if(second != clicklimiter[CURRENT_SECOND])
+			clicklimiter[CURRENT_SECOND] = second
+			clicklimiter[SECOND_COUNT] = 0
+
+		clicklimiter[SECOND_COUNT] += 1
+
+		if(clicklimiter[SECOND_COUNT] > scl)
+			to_chat(src, span_danger("Your previous click was ignored because you've done too many in a second"))
+			return
+
+	//check if the server is overloaded and if it is then queue up the click for next tick
+	//yes having it call a wrapping proc on the subsystem is fucking stupid glad we agree unfortunately byond insists its reasonable
+	if(!QDELETED(object) && TRY_QUEUE_VERB(VERB_CALLBACK(object, TYPE_PROC_REF(/atom, _Click), location, control, params), VERB_HIGH_PRIORITY_QUEUE_THRESHOLD, SSinput, control))
+		return
+
+	..()
+
 
 /client/proc/generate_clickcatcher()
 	if(!void)
@@ -1117,11 +1082,22 @@
 	fit_viewport()
 
 
+/**
+ * Manually clears any held keys, in case due to lag or other undefined behavior a key gets stuck.
+ *
+ * Hardcoded to the ESC key.
+ */
+/client/verb/reset_held_keys()
+	set name = "Reset Held Keys"
+	set hidden = TRUE
+	client_reset_held_keys()
+
+
 // Ported from /tg/, full credit to SpaceManiac and Timberpoes.
 /client/verb/fit_viewport()
 	set name = "Fit Viewport"
 	set desc = "Fit the size of the map window to match the viewport."
-	set category = "OOC"
+	set category = "Special Verbs"
 
 	// Fetch aspect ratio
 	var/list/view_size = getviewsize(view)
@@ -1179,6 +1155,11 @@
 	pct += delta
 	winset(src, "mainwindow.mainvsplit", "splitter=[pct]")
 
+/client/verb/fix_stat_panel()
+	set name = "Fix Stat Panel"
+	set hidden = TRUE
+
+	init_verbs()
 
 /client/verb/fitviewport() // wrapper for mainwindow
 	set hidden = 1
@@ -1197,7 +1178,7 @@
 	if(prefs)
 		prefs.load_preferences(usr)
 	if(prefs && prefs.discord_id && length(prefs.discord_id) < 32)
-		to_chat(usr, chat_box_red("<span class='darkmblue'>Аккаунт Discord уже привязан!<br>Чтобы отвязать используйте команду <span class='boldannounce'>!отвязать_аккаунт</span><br>В канале <b>#дом-бота</b> в Discord-сообществе!</span>"))
+		to_chat(usr, chat_box_red("<span class='darkmblue'>Аккаунт Discord уже привязан!<br>Чтобы отвязать используйте команду [span_boldannounceooc("!отвязать_аккаунт")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!</span>"))
 		return
 	var/token = md5("[world.time+rand(1000,1000000)]")
 	if(SSdbcore.IsConnected())
@@ -1208,40 +1189,9 @@
 			qdel(query_update_token)
 			return
 		qdel(query_update_token)
-		to_chat(usr, chat_box_notice("<span class='darkmblue'>Для завершения привязки используйте команду<br><span class='boldannounce'>!привязать_аккаунт [token]</span><br>В канале <b>#дом-бота</b> в Discord-сообществе!</span>"))
+		to_chat(usr, chat_box_notice("<span class='darkmblue'>Для завершения привязки используйте команду<br>[span_boldannounceooc("!привязать_аккаунт [token]")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!</span>"))
 		if(prefs)
 			prefs.load_preferences(usr)
-
-/client/verb/resend_ui_resources()
-	set name = "Reload UI Resources"
-	set desc = "Reload your UI assets if they are not working"
-	set category = "Special Verbs"
-
-	if(last_ui_resource_send > world.time)
-		to_chat(usr, "<span class='warning'>You requested your UI resource files too quickly. Please try again in [(last_ui_resource_send - world.time)/10] seconds.</span>")
-		return
-
-	var/choice = alert(usr, "This will reload your TGUI resources. If you have any open UIs this may break them. Are you sure?", "Resource Reloading", "Yes", "No")
-	if(choice == "Yes")
-		// 600 deciseconds = 1 minute
-		last_ui_resource_send = world.time + 60 SECONDS
-
-		// Close their open UIs
-		SStgui.close_user_uis(usr)
-
-		// Resend the resources
-
-		var/datum/asset/tgui_assets = get_asset_datum(/datum/asset/simple/tgui)
-		tgui_assets.register()
-
-		var/datum/asset/nanomaps = get_asset_datum(/datum/asset/simple/nanomaps)
-		nanomaps.register()
-
-		// Clear the user's cache so they get resent.
-		// This is not fully clearing their BYOND cache, just their assets sent from the server this round
-		cache = list()
-
-		to_chat(usr, "<span class='notice'>UI resource files resent successfully. If you are still having issues, please try manually clearing your BYOND cache. <b>This can be achieved by opening your BYOND launcher, pressing the cog in the top right, selecting preferences, going to the Games tab, and pressing 'Clear Cache'.</b></span>")
 
 /client/proc/check_say_flood(rate = 5)
 	client_keysend_amount += rate
@@ -1448,6 +1398,78 @@
 	var/list/screensize = getviewsize(view)
 	return round(max(screensize[1], screensize[2]) / 2)
 
+/// Compiles a full list of verbs and sends it to the browser
+/client/proc/init_verbs()
+	if(IsAdminAdvancedProcCall())
+		return
+	var/list/verblist = list()
+	var/list/verbstoprocess = verbs.Copy()
+	if(mob)
+		verbstoprocess += mob.verbs
+		for(var/AM in mob.contents)
+			var/atom/movable/thing = AM
+			verbstoprocess += thing.verbs
+	panel_tabs.Cut() // panel_tabs get reset in init_verbs on JS side anyway
+	for(var/thing in verbstoprocess)
+		var/procpath/verb_to_init = thing
+		if(!verb_to_init)
+			continue
+		if(verb_to_init.hidden)
+			continue
+		if(!istext(verb_to_init.category))
+			continue
+		panel_tabs |= verb_to_init.category
+		verblist[++verblist.len] = list(verb_to_init.category, verb_to_init.name)
+	src.stat_panel.send_message("init_verbs", list(panel_tabs = panel_tabs, verblist = verblist))
+
+/client/proc/check_panel_loaded()
+	if(stat_panel.is_ready())
+		return
+	to_chat(src, "<span class='userdanger'>Statpanel failed to load, click <a href='byond://?src=[UID()];reload_statbrowser=1'>here</a> to reload the panel </span>")
+
+/**
+ * Handles incoming messages from the stat-panel TGUI.
+ */
+/client/proc/on_stat_panel_message(type, payload)
+	switch(type)
+		if("Update-Verbs")
+			init_verbs()
+		if("Remove-Tabs")
+			panel_tabs -= payload["tab"]
+		if("Send-Tabs")
+			panel_tabs |= payload["tab"]
+		if("Reset-Tabs")
+			panel_tabs = list()
+		if("Set-Tab")
+			stat_tab = payload["tab"]
+			SSstatpanels.immediate_send_stat_data(src)
+		if("Listedturf-Scroll")
+			if(payload["min"] == payload["max"])
+				// Not properly loaded yet, send the default set.
+				SSstatpanels.refresh_client_obj_view(src)
+			else
+				SSstatpanels.refresh_client_obj_view(src, payload["min"], payload["max"])
+		// Uncomment to enable log_debug in stat panel code.
+		// Disabled normally due to HREF exploit concerns.
+		//if("Statpanel-Debug")
+		//	log_debug(payload)
+		if("Resend-Asset")
+			SSassets.transport.send_assets(src, list(payload))
+		if("Debug-Stat-Entry")
+			var/stat_item = locateUID(payload["stat_item_uid"])
+			if(!check_rights(R_DEBUG | R_VIEWRUNTIMES) || !stat_item)
+				return
+			var/class
+			if(istype(stat_item, /datum/controller/subsystem))
+				class = "subsystem"
+			else if(istype(stat_item, /datum/controller))
+				class = "controller"
+			else if(istype(stat_item, /datum))
+				class = "datum"
+			else
+				class = "unknown"
+			debug_variables(stat_item)
+			message_admins("Admin [key_name_admin(usr)] is debugging the [stat_item] [class].")
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND
@@ -1455,3 +1477,6 @@
 #undef CURRENT_MINUTE
 #undef MINUTE_COUNT
 #undef ADMINSWARNED_AT
+
+#undef SUGGESTED_CLIENT_VERSION
+#undef SUGGESTED_CLIENT_BUILD

@@ -293,19 +293,21 @@
 		if(pre_antags[antag] == ROLE_NINJA)
 			var/datum/antagonist/ninja/ninja_datum = new
 			ninja_datum.antag_paradise_mode_chosen = TRUE
+			ninja_datum.change_species(antag.current)
 			antag.add_antag_datum(ninja_datum)
 
-	addtimer(CALLBACK(src, PROC_REF(initiate_antags)), rand(1 SECONDS, 10 SECONDS))
+	addtimer(CALLBACK(src, PROC_REF(initiate_antags), TRUE), rand(1 SECONDS, 10 SECONDS))
 	COOLDOWN_START(src, antag_making_cooldown, AUTOTRAITOR_LOW_BOUND)	// first auto-traitor tick checks all players in 5 minutes
 	..()
 
 
-/datum/game_mode/antag_paradise/proc/initiate_antags()
+/datum/game_mode/antag_paradise/proc/initiate_antags(roundstart = FALSE)
 	for(var/datum/mind/antag as anything in pre_antags)
 		switch(pre_antags[antag])
 			if(ROLE_HIJACKER)
 				var/datum/antagonist/traitor/hijacker_datum = new
 				hijacker_datum.is_hijacker = TRUE
+				hijacker_datum.is_contractor = roundstart
 				antag.add_antag_datum(hijacker_datum)
 
 			if(ROLE_MALF_AI)
@@ -320,6 +322,8 @@
 				antag.add_antag_datum(/datum/antagonist/changeling)
 			if(ROLE_TRAITOR)
 				antag.add_antag_datum(/datum/antagonist/traitor)
+				if(roundstart)
+					antag.add_antag_datum(/datum/antagonist/contractor)
 			if(ROLE_THIEF)
 				antag.add_antag_datum(/datum/antagonist/thief)
 

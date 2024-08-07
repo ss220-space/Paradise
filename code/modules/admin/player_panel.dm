@@ -364,7 +364,15 @@
 				dat += "<a href='?_src_=holder;call_shuttle=2'>Send Back</a><br>"
 			else
 				dat += "ETA: <a href='?_src_=holder;edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]</a><BR>"
-
+		if(!SSshuttle.emergencyNoEscape)
+			dat += "<a href='?src=[UID()];lockdown_shuttle=1'>Lockdown Shuttle</a><br>"
+		else
+			if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
+				dat += span_danger("<B>Emergency shuttle stranded</B>")
+				dat += "<BR><a href='?src=[UID()];stop_lockdown=1'>Stop lockdown and De-Strandise</a><br>"
+			else
+				dat += span_danger("<B>Emergency shuttle lockdowned</B>")
+				dat += "<BR><a href='?src=[UID()];stop_lockdown=1'>Stop lockdown</a><br>"
 		dat += "<a href='?src=[UID()];delay_round_end=1'>[SSticker.delay_end ? "End Round Normally" : "Delay Round End"]</a><br>"
 		dat += "<br><b>Antagonist Teams</b><br>"
 		dat += "<a href='?src=[UID()];check_teams=1'>View Teams</a><br>"
@@ -413,13 +421,19 @@
 				else
 					dat += "<tr><td><i>Head not found!</i></td></tr>"
 			dat += "</table>"
-
-		if(GAMEMODE_IS_BLOB)
-			var/datum/game_mode/blob/mode = SSticker.mode
+		var/list/blob_infected = SSticker?.mode?.blobs["infected"]
+		if(blob_infected && blob_infected.len)
+			var/datum/game_mode/mode = SSticker.mode
 			dat += "<br><table cellspacing=5><tr><td><B>Blob</B></td><td></td><td></td></tr>"
-			dat += "<tr><td><i>Progress: [GLOB.blobs.len]/[mode.blobwincount]</i></td></tr>"
-
-			for(var/datum/mind/blob in mode.infected_crew)
+			dat += "<tr><td><i>Progress: [GLOB.blobs.len]/[mode.blob_win_count]</i></td></tr>"
+			dat += "<tr><td><a href='?src=[UID()];edit_blob_win_count=1'>Edit Win Count</a><br></tr>"
+			dat += "<tr><td><a href='?src=[UID()];send_warning=1'>Send warning to all living blobs</a><br></td></tr>"
+			dat += "<tr><td><a href='?src=[UID()];burst_all_blobs=1'>Burst all blobs</a><br></td></tr>"
+			if(check_rights(R_EVENT))
+				dat += "<tr><td><a href='?src=[UID()];delay_blob_end=1'>Delay blob end</a><br></td></tr>"
+			dat += "</table>"
+			dat += "<br><table cellspacing=5><tr><td><B>Blobs</B></td><td></td></tr>"
+			for(var/datum/mind/blob in mode.blobs["infected"])
 				var/mob/M = blob.current
 				if(M)
 					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
@@ -427,9 +441,27 @@
 				else
 					dat += "<tr><td><i>Blob not found!</i></td></tr>"
 			dat += "</table>"
+			dat += "<br><table cellspacing=5><tr><td><B>Offsprings</B></td><td></td></tr>"
+			for(var/datum/mind/blob in mode.blobs["offsprings"])
+				var/mob/M = blob.current
+				if(M)
+					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
+					dat += "<td><A href='?priv_msg=[M.client?.ckey]'>PM</A></td>"
+				else
+					dat += "<tr><td><i>Offspring not found!</i></td></tr>"
 
-		if(SSticker.mode.blob_overminds.len)
-			dat += check_role_table("Blob Overminds", SSticker.mode.blob_overminds)
+			dat += "</table>"
+
+			dat += "<br><table cellspacing=5><tr><td><B>Blobernauts</B></td><td></td></tr>"
+			for(var/datum/mind/blob in mode.blobs["blobernauts"])
+				var/mob/M = blob.current
+				if(M)
+					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
+					dat += "<td><A href='?priv_msg=[M.client?.ckey]'>PM</A></td>"
+				else
+					dat += "<tr><td><i>Blobernauts not found!</i></td></tr>"
+
+			dat += "</table>"
 
 		if(SSticker.mode.changelings.len)
 			dat += check_role_table("Changelings", SSticker.mode.changelings)

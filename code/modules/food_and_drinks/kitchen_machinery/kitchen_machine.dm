@@ -87,13 +87,13 @@
 	if(broken > 0)
 		if(broken == 2 && O.tool_behaviour == TOOL_SCREWDRIVER) // If it's broken and they're using a screwdriver
 			user.visible_message("<span class='notice'>[user] starts to fix part of [src].</span>", "<span class='notice'>You start to fix part of [src].</span>")
-			if(do_after(user, 2 SECONDS * O.toolspeed * gettoolspeedmod(user), src))
+			if(do_after(user, 2 SECONDS * O.toolspeed, src, category = DA_CAT_TOOL))
 				add_fingerprint(user)
 				user.visible_message("<span class='notice'>[user] fixes part of [src].</span>", "<span class='notice'>You have fixed part of \the [src].</span>")
 				broken = 1 // Fix it a bit
 		else if(broken == 1 && O.tool_behaviour == TOOL_WRENCH) // If it's broken and they're doing the wrench
 			user.visible_message("<span class='notice'>[user] starts to fix part of [src].</span>", "<span class='notice'>You start to fix part of [src].</span>")
-			if(do_after(user, 2 SECONDS * O.toolspeed * gettoolspeedmod(user), src))
+			if(do_after(user, 2 SECONDS * O.toolspeed, src, category = DA_CAT_TOOL))
 				add_fingerprint(user)
 				user.visible_message("<span class='notice'>[user] fixes [src].</span>", "<span class='notice'>You have fixed [src].</span>")
 				broken = 0 // Fix it!
@@ -106,7 +106,7 @@
 	else if(dirty == MAX_DIRT) // The machine is all dirty so can't be used!
 		if(istype(O, /obj/item/reagent_containers/spray/cleaner) || istype(O, /obj/item/soap)) // If they're trying to clean it then let them
 			user.visible_message("<span class='notice'>[user] starts to clean [src].</span>", "<span class='notice'>You start to clean [src].</span>")
-			if(do_after(user, 2 SECONDS * O.toolspeed * gettoolspeedmod(user), src))
+			if(do_after(user, 2 SECONDS * O.toolspeed, src, category = DA_CAT_TOOL))
 				add_fingerprint(user)
 				user.visible_message("<span class='notice'>[user] has cleaned [src].</span>", "<span class='notice'>You have cleaned [src].</span>")
 				dirty = NO_DIRT // It's clean!
@@ -140,12 +140,22 @@
 				to_chat(user, "<span class='alert'>Your [O] contains components unsuitable for cookery.</span>")
 				return 1
 		//G.reagents.trans_to(src,G.amount_per_transfer_from_this)
-	else if(istype(O,/obj/item/grab))
-		return special_attack(O, user)
 	else
 		to_chat(user, "<span class='alert'>You have no idea what you can cook with this [O].</span>")
 		return 1
 	updateUsrDialog()
+
+
+/obj/machinery/kitchen_machine/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE)
+		return .
+	special_grab_attack(grabbed_thing, grabber)
+
+
+/obj/machinery/kitchen_machine/proc/special_grab_attack(atom/movable/grabbed_thing, mob/living/grabber)
+	to_chat(grabber, span_warning("This is ridiculous. You can not fit [grabbed_thing] in [src]."))
+
 
 /obj/machinery/kitchen_machine/proc/add_item(obj/item/I, mob/user)
 	if(!user.drop_transfer_item_to_loc(I, src))
@@ -163,9 +173,6 @@
 	user.set_machine(src)
 	interact(user)
 
-/obj/machinery/kitchen_machine/proc/special_attack(obj/item/grab/G, mob/user)
-	to_chat(user, "<span class='alert'>This is ridiculous. You can not fit [G.affecting] in this [src].</span>")
-	return 0
 
 /obj/machinery/kitchen_machine/on_deconstruction()
 	dropContents()

@@ -104,12 +104,12 @@
 
 /datum/dna/gene/basic/grant_verb/activate(mob/living/mutant, flags)
 	. = ..()
-	mutant.verbs |= verbtype
+	add_verb(mutant, verbtype)
 
 
 /datum/dna/gene/basic/grant_verb/deactivate(mob/living/mutant, flags)
 	. = ..()
-	mutant.verbs -= verbtype
+	remove_verb(mutant, verbtype)
 
 
 // WAS: /datum/bioEffect/cryokinesis
@@ -130,7 +130,6 @@
 /obj/effect/proc_holder/spell/cryokinesis
 	name = "Cryokinesis"
 	desc = "Drops the bodytemperature of another person."
-	panel = "Abilities"
 	base_cooldown = 120 SECONDS
 	clothes_req = FALSE
 	stat_allowed = CONSCIOUS
@@ -218,7 +217,6 @@
 /obj/effect/proc_holder/spell/eat
 	name = "Eat"
 	desc = "Eat just about anything!"
-	panel = "Abilities"
 
 	base_cooldown = 30 SECONDS
 
@@ -249,6 +247,8 @@
 /obj/effect/proc_holder/spell/eat/proc/doHeal(mob/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
+		var/should_update_health = FALSE
+		var/update_damage_icon = NONE
 		for(var/name in H.bodyparts_by_name)
 			var/obj/item/organ/external/affecting = null
 			if(!H.bodyparts_by_name[name])
@@ -256,9 +256,14 @@
 			affecting = H.bodyparts_by_name[name]
 			if(!isexternalorgan(affecting))
 				continue
-			affecting.heal_damage(4, 0, updating_health = FALSE)
-		H.UpdateDamageIcon()
-		H.updatehealth()
+			var/brute_was = affecting.brute_dam
+			update_damage_icon |= affecting.heal_damage(4, updating_health = FALSE)
+			if(affecting.brute_dam != brute_was)
+				should_update_health = TRUE
+		if(should_update_health)
+			H.updatehealth("[name] heal")
+		if(update_damage_icon)
+			H.UpdateDamageIcon()
 
 
 /obj/effect/proc_holder/spell/eat/cast(list/targets, mob/user = usr)
@@ -329,7 +334,6 @@
 /obj/effect/proc_holder/spell/leap
 	name = "Jump"
 	desc = "Leap great distances!"
-	panel = "Abilities"
 
 	base_cooldown = 6 SECONDS
 
@@ -430,7 +434,6 @@
 /obj/effect/proc_holder/spell/polymorph
 	name = "Polymorph"
 	desc = "Mimic the appearance of others!"
-	panel = "Abilities"
 	base_cooldown = 3 MINUTES
 
 	clothes_req = FALSE
@@ -589,43 +592,70 @@
 	instability = GENE_INSTABILITY_MAJOR
 	mutation = STRONG
 
+
 /datum/dna/gene/basic/strong/New()
 	..()
 	block = GLOB.strongblock
 
 
 /datum/dna/gene/basic/strong/can_activate(mob/living/mutant, flags)
-	if(WEAK in mutant.mutations)
+	if(!ishuman(mutant) || (WEAK in mutant.mutations))
 		return FALSE
 	return ..()
 
 
-/datum/dna/gene/basic/strong/activate(mob/living/mutant, flags)
+/datum/dna/gene/basic/strong/activate(mob/living/carbon/human/mutant, flags)
 	. = ..()
-	change_strength(mutant, 1)
+	RegisterSignal(mutant, COMSIG_HUMAN_SPECIES_CHANGED, PROC_REF(on_species_change))
+	add_strong_modifiers(mutant)
 
 
-/datum/dna/gene/basic/strong/deactivate(mob/living/mutant, flags)
+/datum/dna/gene/basic/strong/deactivate(mob/living/carbon/human/mutant, flags)
 	. = ..()
-	change_strength(mutant, -1)
+	UnregisterSignal(mutant, COMSIG_HUMAN_SPECIES_CHANGED)
+	remove_strong_modifiers(mutant)
 
 
-/datum/dna/gene/basic/strong/proc/change_strength(mob/living/M, modifier)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(isvulpkanin(H) || isdrask(H) || isunathi(H))
-			H.dna.species.punchdamagelow += (1 * modifier)
-			H.dna.species.punchdamagehigh += (2 * modifier)
-			H.dna.species.strength_modifier += (0.1 * modifier)
-			if(isunathi(H))
-				var/datum/species/unathi/U = H.dna.species
-				U.tail_strength += (0.25 * modifier)
-			return
-		if(ishumanbasic(H))
-			H.dna.species.punchdamagelow += (3 * modifier)
-			H.dna.species.punchdamagehigh += (4 * modifier)
-			H.dna.species.strength_modifier += (0.25 * modifier)
+/datum/dna/gene/basic/strong/proc/on_species_change(mob/living/carbon/human/mutant, datum/species/old_species)
+	SIGNAL_HANDLER
+
+	if(old_species.name != mutant.dna.species.name)
+		remove_strong_modifiers(mutant, old_species)
+		add_strong_modifiers(mutant)
+
+
+/datum/dna/gene/basic/strong/proc/add_strong_modifiers(mob/living/carbon/human/mutant)
+	mutant.physiology.tail_strength_mod *= 1.25
+	switch(mutant.dna.species.name)
+		if(SPECIES_VULPKANIN, SPECIES_DRASK, SPECIES_UNATHI)
+			mutant.physiology.grab_resist_mod *= 1.1
+			mutant.physiology.punch_damage_low += 1
+			mutant.physiology.punch_damage_high += 2
+		if(SPECIES_HUMAN)
+			mutant.physiology.grab_resist_mod *= 1.25
+			mutant.physiology.punch_damage_low += 3
+			mutant.physiology.punch_damage_high += 4
 		else
-			H.dna.species.punchdamagelow += (2 * modifier)
-			H.dna.species.punchdamagehigh += (3 * modifier)
-			H.dna.species.strength_modifier += (0.15 * modifier)
+			mutant.physiology.grab_resist_mod *= 1.15
+			mutant.physiology.punch_damage_low += 2
+			mutant.physiology.punch_damage_high += 3
+
+
+/datum/dna/gene/basic/strong/proc/remove_strong_modifiers(mob/living/carbon/human/mutant, datum/species/species)
+	if(!species)
+		species = mutant.dna.species
+	mutant.physiology.tail_strength_mod /= 1.25
+	switch(species.name)
+		if(SPECIES_VULPKANIN, SPECIES_DRASK, SPECIES_UNATHI)
+			mutant.physiology.grab_resist_mod /= 1.1
+			mutant.physiology.punch_damage_low -= 1
+			mutant.physiology.punch_damage_high -= 2
+		if(SPECIES_HUMAN)
+			mutant.physiology.grab_resist_mod /= 1.25
+			mutant.physiology.punch_damage_low -= 3
+			mutant.physiology.punch_damage_high -= 4
+		else
+			mutant.physiology.grab_resist_mod /= 1.15
+			mutant.physiology.punch_damage_low -= 2
+			mutant.physiology.punch_damage_high -= 3
+

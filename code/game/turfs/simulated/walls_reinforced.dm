@@ -2,7 +2,8 @@
 	name = "reinforced wall"
 	desc = "A huge chunk of reinforced metal used to separate rooms."
 	icon = 'icons/turf/walls/reinforced_wall.dmi'
-	icon_state = "r_wall"
+	icon_state = "r_wall-0"
+	base_icon_state = "r_wall"
 	opacity = TRUE
 	density = TRUE
 	explosion_block = 2
@@ -14,7 +15,9 @@
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/reinforced
 	can_dismantle_with_welder = FALSE
-
+	smooth = SMOOTH_BITMASK
+	smoothing_groups = SMOOTH_GROUP_WALLS
+	canSmoothWith = SMOOTH_GROUP_WALLS
 	var/d_state = RWALL_INTACT
 	var/can_be_reinforced = 1
 
@@ -64,7 +67,7 @@
 		if(istype(I, /obj/item/stack/sheet/metal))
 			var/obj/item/stack/sheet/metal/MS = I
 			to_chat(user, span_notice("You begin patching-up the wall with [MS]..."))
-			if(do_after(user, max(2 SECONDS * d_state, 10 SECONDS) * MS.toolspeed * gettoolspeedmod(user), src) && d_state)
+			if(do_after(user, max(2 SECONDS * d_state, 10 SECONDS) * MS.toolspeed, src, category = DA_CAT_TOOL) && d_state)
 				if(!MS.use(1))
 					to_chat(user, span_warning("You don't have enough [MS.name] for that!"))
 					return
@@ -80,7 +83,7 @@
 			to_chat(user, span_notice("The wall is already coated!"))
 			return
 		to_chat(user, span_notice("You begin adding an additional layer of coating to the wall with [PS]..."))
-		if(do_after(user, 4 SECONDS * PS.toolspeed * gettoolspeedmod(user), src) && !d_state)
+		if(do_after(user, 4 SECONDS * PS.toolspeed, src, category = DA_CAT_TOOL) && !d_state)
 			if(!PS.use(2))
 				to_chat(user, span_warning("You don't have enough [PS.name] for that!"))
 				return
@@ -207,7 +210,7 @@
 	if(istype(I, /obj/item/pickaxe/drill/diamonddrill))
 		to_chat(user, span_notice("You begin to drill though the wall..."))
 
-		if(do_after(user, 80 SECONDS * I.toolspeed * gettoolspeedmod(user), src)) // Diamond drill has 0.25 toolspeed, so 200
+		if(do_after(user, 80 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL)) // Diamond drill has 0.25 toolspeed, so 200
 			to_chat(user, span_notice("Your drill tears through the last of the reinforced plating."))
 			dismantle_wall()
 		return TRUE
@@ -215,14 +218,14 @@
 	if(istype(I, /obj/item/pickaxe/drill/jackhammer))
 		to_chat(user, span_notice("You begin to disintegrate the wall..."))
 		var/obj/item/pickaxe/drill/jackhammer/jh = I
-		if(do_after(user, 100 SECONDS * jh.wall_toolspeed * gettoolspeedmod(user), src)) // Jackhammer has 0.1 toolspeed, so 100
+		if(do_after(user, 100 SECONDS * jh.wall_toolspeed, src, category = DA_CAT_TOOL)) // Jackhammer has 0.1 toolspeed, so 100
 			to_chat(user, span_notice("Your sonic jackhammer disintegrates the reinforced plating."))
 			dismantle_wall()
 		return TRUE
 
 	if(istype(I, /obj/item/twohanded/required/pyro_claws))
 		to_chat(user, span_notice("You begin to melt the wall..."))
-		if(do_after(user, 15 SECONDS * I.toolspeed, src)) // claws has 0.5 toolspeed, so 7.5 seconds
+		if(do_after(user, 15 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL)) // claws has 0.5 toolspeed, so 7.5 seconds
 			to_chat(user, span_notice("Your [I] melt the reinforced plating."))
 			dismantle_wall()
 		return TRUE
@@ -236,12 +239,12 @@
 
 /turf/simulated/wall/r_wall/update_icon_state()
 	if(d_state)
-		icon_state = "r_wall-[d_state]"
-		smooth = SMOOTH_FALSE
+		icon_state = "r_wall-d-[d_state]"
+		smooth = NONE
 		clear_smooth_overlays()
 	else
-		smooth = SMOOTH_TRUE
-		icon_state = ""
+		smooth = SMOOTH_BITMASK
+		queue_smooth(src)
 
 
 /turf/simulated/wall/r_wall/devastate_wall()

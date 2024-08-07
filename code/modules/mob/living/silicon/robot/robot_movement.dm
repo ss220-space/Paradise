@@ -11,13 +11,6 @@
 	if(!HAS_TRAIT(src, TRAIT_NEGATES_GRAVITY))
 		return ..()
 
-/mob/living/silicon/robot/get_pull_push_speed_modifier(current_delay)
-	if(mobility_flags & MOBILITY_MOVE)
-		for(var/obj/item/borg/upgrade/u in upgrades)
-			if(istype(u, /obj/item/borg/upgrade/vtec/))
-				return pull_push_speed_modifier
-	return pull_push_speed_modifier * 1.2
-
 
 /mob/living/silicon/robot/on_movement_type_flag_enabled(datum/source, flag, old_movement_type)
 	. = ..()

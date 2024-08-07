@@ -52,7 +52,7 @@
 			emag_act(user, W)
 
 		if(W.tool_behaviour == TOOL_SCREWDRIVER)
-			if(do_after(user, 2 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
+			if(do_after(user, 2 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
 				open = !open
 				user.show_message("<span class='notice'>You [open ? "open" : "close"] the service panel.</span>", 1)
 			return
@@ -60,7 +60,7 @@
 		if((W.tool_behaviour = TOOL_MULTITOOL) && (open) && (!l_hacking))
 			user.show_message("<span class='danger'>Now attempting to reset internal memory, please hold.</span>", 1)
 			l_hacking = TRUE
-			if(do_after(user, 10 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
+			if(do_after(user, 10 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
 				if(prob(40))
 					l_setshort = TRUE
 					l_set = FALSE
@@ -125,10 +125,13 @@
 	user.set_machine(src)
 	ui_interact(user)
 
-/obj/item/storage/secure/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/storage/secure/ui_state(mob/user)
+	return GLOB.physical_state
+
+/obj/item/storage/secure/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "SecureStorage", name, 520, 200)
+		ui = new(user, src, "SecureStorage", name)
 		ui.open()
 
 /obj/item/storage/secure/ui_data(mob/user)

@@ -4,6 +4,8 @@
 	icon = 'icons/obj/paintkit.dmi'
 	icon_state = "paintkit" //What sprite will your paintkit use?
 
+	/// if there it is, instead of replacing initial_icon, will just add this before icon_state
+	var/new_prefix = FALSE
 	var/new_name = "mech"    //What is the variant called?
 	var/new_desc = "A mech." //How is the new mech described?
 	var/new_icon = "ripley"  //What base icon will the new mech use?
@@ -345,3 +347,12 @@
 	new_name = "NT Special Phazon"
 	new_icon = "ntphazon"
 	allowed_types = list("phazon")
+
+/obj/item/paintkit/ashed
+	name = "Ashed customisation kit"
+	icon_state = "paintkit_ash"
+	desc = "Набор, позволяющий вам переделать многие экзокостюмы в их более шахтерский аналог! По крайней мере, расцветкой."
+
+	new_name = "Ashed Mech"
+	new_prefix = "ashed"
+	allowed_types = list("durand", "ripley", "gygax", "phazon", "lockermech")

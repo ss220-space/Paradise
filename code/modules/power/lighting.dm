@@ -134,7 +134,7 @@
 
 
 /obj/machinery/light_construct/blob_act(obj/structure/blob/B)
-	if(B && B.loc == loc)
+	if(B && B.loc == loc && !QDELETED(src))
 		qdel(src)
 
 
@@ -685,11 +685,7 @@
 		else
 			if(user.a_intent == INTENT_DISARM || user.a_intent == INTENT_GRAB)
 				to_chat(user, "<span class='warning'>You try to remove the light [fitting], but you burn your hand on it!</span>")
-
-				var/obj/item/organ/external/affecting = H.get_organ(user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-				if(affecting.receive_damage(0, 5)) // 5 burn damage
-					H.UpdateDamageIcon()
-				H.updatehealth()
+				H.apply_damage(5, BURN, def_zone = H.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 				return
 			else
 				to_chat(user, "<span class='notice'>You try to remove the light [fitting], but it's too hot to touch!</span>")
@@ -818,18 +814,26 @@
 	/// Light colour
 	var/brightness_color = null
 
-/obj/item/light/ComponentInitialize()
+
+/obj/item/light/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/caltrop, force)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/item/light/Crossed(mob/living/L, oldloc)
-	if(istype(L) && L.has_gravity())
-		if(L.incorporeal_move || (L.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
-			return
-		playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
-		if(status == LIGHT_BURNED || status == LIGHT_OK)
-			shatter()
-	return ..()
+
+/obj/item/light/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(!isliving(arrived) || arrived.incorporeal_move || (arrived.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
+		return
+
+	playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
+	if(status == LIGHT_BURNED || status == LIGHT_OK)
+		shatter()
+
 
 /obj/item/light/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	C.stored_comms["glass"] += 1

@@ -29,6 +29,7 @@
 	universal_speak = TRUE
 	sentience_type = SENTIENCE_BOSS
 	response_help = "pets"
+	AI_delay_max = 0 SECONDS
 	var/scale_with_time = TRUE
 	var/reviver = null
 	var/dif_mult = 1 // Scales with number of enemies
@@ -62,8 +63,8 @@
 	if(istype(target, /obj/structure/elite_tumor))
 		var/obj/structure/elite_tumor/T = target
 		if(T.mychild == src && T.activity == TUMOR_PASSIVE)
-			var/response = alert(src, "Re-enter the tumor?","Despawn yourself?", "Yes", "No")
-			if(response == "No" || QDELETED(src) || !Adjacent(T))
+			var/response = tgui_alert(src, "Re-enter the tumor?", "Despawn yourself?", list("Yes", "No"))
+			if(response != "Yes" || QDELETED(src) || !Adjacent(T))
 				return
 			T.clear_activator(src)
 			T.mychild = null
@@ -96,10 +97,18 @@
 		return REVIVE_COOLDOWN_MULT_ANTAG
 	return 1
 
-/mob/living/simple_animal/hostile/asteroid/elite/adjustHealth(damage, updating_health)
+
+/mob/living/simple_animal/hostile/asteroid/elite/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
 	. = ..()
-	if(del_on_death)
-		maxHealth -= damage * antag_revived_heal_mod
+	if(. && del_on_death)
+		setMaxHealth(max(maxHealth - (amount * antag_revived_heal_mod), 0))
+
 
 /mob/living/simple_animal/hostile/asteroid/elite/ex_act(severity, origin) //No surrounding the tumor with gibtonite and one shotting them.
 	switch(severity)
@@ -117,8 +126,8 @@
 	dif_mult_dmg = (dif_mult + 1) * 0.5
 	if(scale_with_time && world.time > STRENGHT_INCREASE_TIME)
 		dif_mult *= 1.4
-	maxHealth = initial(maxHealth) * dif_mult
-	health = initial(health) * dif_mult
+	setMaxHealth(initial(maxHealth) * dif_mult)
+	setHealth(initial(health) * dif_mult)
 	melee_damage_lower = initial(melee_damage_lower) * dif_mult_dmg
 	melee_damage_upper = initial(melee_damage_upper) * dif_mult_dmg
 
@@ -297,8 +306,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 	mychild.revive()
 	if(boosted)
-		mychild.maxHealth = mychild.maxHealth * 2.5
-		mychild.health = mychild.maxHealth
+		mychild.setMaxHealth(mychild.maxHealth * 2.5)
+		mychild.setHealth(mychild.maxHealth)
 		mychild.grab_ghost()
 		notify_ghosts("\A [mychild] has been challenged in \the [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 	INVOKE_ASYNC(src, PROC_REF(arena_checks))
@@ -474,12 +483,12 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		to_chat(E, "<span class='big bold'>Помните, что вы разделяете интересы [user].  От вас ожидается не мешать союзникам хозяина, пока вам не прикажут!</span>")
 		E.mind.store_memory("Я теперь разделяю интересы [user].  От меня ожидается не мешать союзникам хозяина, пока вам не прикажут!")
 		if(user.mind.special_role)
-			E.maxHealth = initial(E.maxHealth) * REVIVE_HEALTH_MULT_ANTAG
-			E.health = initial(E.health) * REVIVE_HEALTH_MULT_ANTAG
+			E.setMaxHealth(initial(E.maxHealth) * REVIVE_HEALTH_MULT_ANTAG)
+			E.setHealth(initial(E.health) * REVIVE_HEALTH_MULT_ANTAG)
 			E.del_on_death = TRUE
 		else
-			E.maxHealth = initial(E.maxHealth) * REVIVE_HEALTH_MULT
-			E.health = initial(E.health) * REVIVE_HEALTH_MULT
+			E.setMaxHealth(initial(E.maxHealth) * REVIVE_HEALTH_MULT)
+			E.setHealth(initial(E.health) * REVIVE_HEALTH_MULT)
 			E.revive_cooldown = TRUE
 		E.sentience_type = SENTIENCE_ORGANIC
 		qdel(src)
@@ -490,13 +499,16 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	name = "magic wall"
 	icon = 'icons/turf/walls/hierophant_wall_temp.dmi'
 	icon_state = "wall"
+	base_icon_state = "hierophant_wall_temp"
 	duration = 50
 	layer = BELOW_MOB_LAYER
 	plane = GAME_PLANE
 	color = rgb(255,0,0)
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	light_color = LIGHT_COLOR_PURE_RED
-	smooth = SMOOTH_TRUE
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_HIERO_VORTEX
+	smoothing_groups = SMOOTH_GROUP_HIERO_VORTEX
 
 /obj/effect/temp_visual/elite_tumor_wall/Initialize(mapload, new_caster)
 	. = ..()

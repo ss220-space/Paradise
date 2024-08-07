@@ -24,6 +24,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	body_parts_covered = null
 	attack_verb = null
 	container_type = INJECTABLE
+	undyeable = TRUE
 	var/lit = FALSE
 	var/icon_on = "cigon"  //Note - these are in masks.dmi not in cigarette.dmi
 	var/icon_off = "cigoff"

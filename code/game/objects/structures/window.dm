@@ -33,6 +33,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	flags = ON_BORDER
 	obj_flags = BLOCKS_CONSTRUCTION_DIR
 	can_be_unanchored = TRUE
+	set_dir_on_move = FALSE
 	max_integrity = 25
 	resistance_flags = ACID_PROOF
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
@@ -52,24 +53,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	var/breaksound = "shatter"
 	var/hitsound = 'sound/effects/glasshit.ogg'
 
-/obj/structure/window/examine(mob/user)
-	. = ..()
-	if(reinf)
-		if(anchored && state == WINDOW_SCREWED_TO_FRAME)
-			. += "<span class='notice'>The window is <b>screwed</b> to the frame.</span>"
-		else if(anchored && state == WINDOW_IN_FRAME)
-			. += "<span class='notice'>The window is <i>unscrewed</i> but <b>pried</b> into the frame.</span>"
-		else if(anchored && state == WINDOW_OUT_OF_FRAME)
-			. += "<span class='notice'>The window is out of the frame, but could be <i>pried</i> in. It is <b>screwed</b> to the floor.</span>"
-		else if(!anchored)
-			. += "<span class='notice'>The window is <i>unscrewed</i> from the floor, and could be deconstructed by <b>wrenching</b>.</span>"
-	else
-		if(anchored)
-			. += "<span class='notice'>The window is <b>screwed</b> to the floor.</span>"
-		else
-			. += "<span class='notice'>The window is <i>unscrewed</i> from the floor, and could be deconstructed by <b>wrenching</b>.</span>"
-	if(!anchored && !fulltile)
-		. += "<span class='notice'>Alt-click to rotate it.</span>"
 
 /obj/structure/window/Initialize(mapload, direct)
 	. = ..()
@@ -111,6 +94,39 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	explosion_block = EXPLOSION_BLOCK_PROC
 
 	air_update_turf(TRUE)
+
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
+/obj/structure/window/Destroy()
+	set_density(FALSE)
+	air_update_turf(1)
+	update_nearby_icons()
+	return ..()
+
+
+/obj/structure/window/examine(mob/user)
+	. = ..()
+	if(reinf)
+		if(anchored && state == WINDOW_SCREWED_TO_FRAME)
+			. += "<span class='notice'>The window is <b>screwed</b> to the frame.</span>"
+		else if(anchored && state == WINDOW_IN_FRAME)
+			. += "<span class='notice'>The window is <i>unscrewed</i> but <b>pried</b> into the frame.</span>"
+		else if(anchored && state == WINDOW_OUT_OF_FRAME)
+			. += "<span class='notice'>The window is out of the frame, but could be <i>pried</i> in. It is <b>screwed</b> to the floor.</span>"
+		else if(!anchored)
+			. += "<span class='notice'>The window is <i>unscrewed</i> from the floor, and could be deconstructed by <b>wrenching</b>.</span>"
+	else
+		if(anchored)
+			. += "<span class='notice'>The window is <b>screwed</b> to the floor.</span>"
+		else
+			. += "<span class='notice'>The window is <i>unscrewed</i> from the floor, and could be deconstructed by <b>wrenching</b>.</span>"
+	if(!anchored && !fulltile)
+		. += "<span class='notice'>Alt-click to rotate it.</span>"
+
 
 /obj/structure/window/narsie_act()
 	color = NARSIE_WINDOW_COLOUR
@@ -156,16 +172,30 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	return TRUE
 
 
-/obj/structure/window/CanExit(atom/movable/mover, moving_direction)
-	. = ..()
-	if(dir == moving_direction)
-		return !density || checkpass(mover, PASSGLASS)
+/obj/structure/window/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
+	SIGNAL_HANDLER
+
+	if(leaving.movement_type & PHASING)
+		return
+
+	if(leaving == src)
+		return // Let's not block ourselves.
+
+	if(pass_flags_self & leaving.pass_flags)
+		return
+
+	if(fulltile || dir == FULLTILE_WINDOW_DIR)
+		return
+
+	if(density && dir == get_dir(leaving, newLoc))
+		leaving.Bump(src)
+		return COMPONENT_ATOM_BLOCK_EXIT
 
 
-/obj/structure/window/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+/obj/structure/window/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	if(!density)
 		return TRUE
-	if((dir == FULLTILE_WINDOW_DIR) || (dir == to_dir) || fulltile)
+	if(fulltile || (dir == FULLTILE_WINDOW_DIR) || (dir == to_dir))
 		return FALSE
 	return TRUE
 
@@ -176,13 +206,13 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	add_fingerprint(user)
 	playsound(src, 'sound/effects/glassknock.ogg', 50, 1)
 
-/obj/structure/window/attack_hand(mob/user)
+/obj/structure/window/attack_hand(mob/living/carbon/human/user)
 	if(!can_be_reached(user))
 		return
 	if(user.a_intent == INTENT_HARM)
 		user.changeNext_move(CLICK_CD_MELEE)
-		if(ishuman(user) && user.dna.species.obj_damage)
-			attack_generic(user, user.dna.species.obj_damage)
+		if(ishuman(user) && (user.dna.species.obj_damage + user.physiology.punch_obj_damage > 0))
+			attack_generic(user, user.dna.species.obj_damage + user.physiology.punch_obj_damage)
 		else
 			playsound(src, 'sound/effects/glassknock.ogg', 80, 1)
 			user.visible_message("<span class='warning'>[user] bangs against [src]!</span>", \
@@ -202,39 +232,45 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		return
 	..()
 
+
+/obj/structure/window/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE || !isliving(grabbed_thing) || !can_be_reached(grabber) || !Adjacent(grabbed_thing))
+		return .
+	var/mob/living/victim = grabbed_thing
+	add_fingerprint(grabber)
+	playsound(loc, 'sound/effects/glasshit.ogg', 150, TRUE)
+	switch(grabber.grab_state)
+		if(GRAB_AGGRESSIVE)
+			victim.visible_message(
+				span_warning("[grabber] slams [victim] against [src]!"),
+				span_warning("[grabber] slams you against [src]!"),
+			)
+			if(prob(25))
+				victim.Knockdown(2 SECONDS)
+			victim.apply_damage(7)
+			take_damage(10)
+		if(GRAB_NECK)
+			victim.visible_message(
+				span_warning("[grabber] bashes [victim] against [src]!"),
+				span_warning("[grabber] bashes you against [src]!"),
+			)
+			victim.Knockdown(4 SECONDS)
+			victim.apply_damage(10)
+			take_damage(25)
+		if(GRAB_KILL)
+			victim.visible_message(
+				span_warning("[grabber] crushes [victim] against [src]!"),
+				span_warning("[grabber] crushes you against [src]!"),
+			)
+			victim.Knockdown(6 SECONDS)
+			victim.apply_damage(20)
+			take_damage(50)
+
+
 /obj/structure/window/attackby(obj/item/I, mob/living/user, params)
 	if(!can_be_reached(user))
 		return 1 //skip the afterattack
-
-	if(istype(I, /obj/item/grab) && get_dist(src, user) < 2)
-		var/obj/item/grab/G = I
-		if(isliving(G.affecting))
-			var/mob/living/M = G.affecting
-			var/state = G.state
-			qdel(I)	//gotta delete it here because if window breaks, it won't get deleted
-			add_fingerprint(user)
-			switch(state)
-				if(1)
-					M.visible_message("<span class='warning'>[user] slams [M] against \the [src]!</span>")
-					M.apply_damage(7)
-					take_damage(10)
-				if(2)
-					M.visible_message("<span class='danger'>[user] bashes [M] against \the [src]!</span>")
-					if(prob(50))
-						M.Weaken(2 SECONDS)
-					M.apply_damage(10)
-					take_damage(25)
-				if(3)
-					M.visible_message("<span class='danger'><big>[user] crushes [M] against \the [src]!</big></span>")
-					M.Weaken(10 SECONDS)
-					M.apply_damage(20)
-					take_damage(50)
-				if(4)
-					M.visible_message("<span class='danger'><big>[user] smashes [M] against \the [src]!</big></span>")
-					M.Weaken(10 SECONDS)
-					M.apply_damage(30)
-					take_damage(75)
-			return
 	return ..()
 
 
@@ -326,12 +362,10 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/window/proc/check_state(checked_state)
-	if(state == checked_state)
-		return TRUE
+	return state == checked_state
 
 /obj/structure/window/proc/check_anchored(checked_anchored)
-	if(anchored == checked_anchored)
-		return TRUE
+	return anchored == checked_anchored
 
 /obj/structure/window/proc/check_state_and_anchored(checked_state, checked_anchored)
 	return check_state(checked_state) && check_anchored(checked_anchored)
@@ -391,51 +425,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	else
 		return RCD_ACT_FAILED
 
-/obj/structure/window/verb/rotate()
-	set name = "Rotate Window Counter-Clockwise"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-
-	if(anchored)
-		to_chat(usr, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
-		return FALSE
-
-	var/target_dir = turn(dir, 90)
-	if(!valid_build_direction(loc, target_dir, is_fulltile = fulltile))
-		to_chat(usr, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
-		return FALSE
-
-	setDir(target_dir)
-	air_update_turf(1)
-	ini_dir = dir
-	add_fingerprint(usr)
-	return TRUE
-
-/obj/structure/window/verb/revrotate()
-	set name = "Rotate Window Clockwise"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		return
-
-	if(anchored)
-		to_chat(usr, "<span class='warning'>[src] cannot be rotated while it is fastened to the floor!</span>")
-		return FALSE
-
-	var/target_dir = turn(dir, 270)
-
-	if(!valid_build_direction(loc, target_dir, fulltile))
-		to_chat(usr, "<span class='warning'>[src] cannot be rotated in that direction!</span>")
-		return FALSE
-
-	setDir(target_dir)
-	ini_dir = dir
-	add_fingerprint(usr)
-	return TRUE
 
 /obj/structure/window/AltClick(mob/user)
 
@@ -462,16 +451,10 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	add_fingerprint(user)
 	return TRUE
 
-/obj/structure/window/Destroy()
-	set_density(FALSE)
-	air_update_turf(1)
-	update_nearby_icons()
-	return ..()
 
-/obj/structure/window/Move()
+/obj/structure/window/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
 	. = ..()
-	setDir(ini_dir)
 	move_update_air(T)
 
 /obj/structure/window/CanAtmosPass(turf/T, vertical)
@@ -607,6 +590,10 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		if(window.id == id || !window.id)
 			INVOKE_ASYNC(window, TYPE_PROC_REF(/obj/structure/window/reinforced/polarized, toggle))
 
+	for(var/obj/structure/window/full/reinforced/polarized/window in range(src,range))
+		if(window.id == id || !window.id)
+			INVOKE_ASYNC(window, TYPE_PROC_REF(/obj/structure/window/full/reinforced/polarized, toggle))
+
 	for(var/obj/machinery/door/airlock/airlock in range(src,range))
 		if(airlock.id == id)
 			INVOKE_ASYNC(src, PROC_REF(async_update), airlock)
@@ -700,22 +687,26 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it."
 	icon = 'icons/obj/smooth_structures/window.dmi'
 	icon_state = "window"
+	base_icon_state = "window"
 	max_integrity = 50
-	smooth = SMOOTH_TRUE
+	smooth = SMOOTH_BITMASK
 	cancolor = TRUE
-	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced)
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE
+	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
 
 /obj/structure/window/full/plasmabasic
 	name = "plasma window"
 	desc = "A plasma-glass alloy window. It looks insanely tough to break. It appears it's also insanely tough to burn through."
 	icon = 'icons/obj/smooth_structures/plasma_window.dmi'
-	icon_state = "plasmawindow"
+	icon_state = "plasma_window-0"
+	base_icon_state = "plasma_window"
 	shardtype = /obj/item/shard/plasma
 	glass_type = /obj/item/stack/sheet/plasmaglass
 	heat_resistance = 32000
 	max_integrity = 300
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced)
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE
+	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
 	explosion_block = 1
 	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
 
@@ -723,20 +714,25 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	name = "Paperframe Window"
 	desc = "Just looking at it's clean and simple design makes you at piece with your demons"
 	icon = 'icons/obj/smooth_structures/paperframe.dmi'
-	icon_state = "paperframe"
+	icon_state = "paperframe-0"
+	base_icon_state = "paperframe"
 	max_integrity = 50
-	smooth = SMOOTH_TRUE
+	smooth = SMOOTH_BITMASK
+	smoothing_groups = SMOOTH_GROUP_PAPERFRAME
+	canSmoothWith = SMOOTH_GROUP_PAPERFRAME
 	cancolor = FALSE
-	canSmoothWith = list(/obj/structure/window/full/paperframe)
 
 /obj/structure/window/full/plasmareinforced
 	name = "reinforced plasma window"
 	desc = "A plasma-glass alloy window, with rods supporting it. It looks hopelessly tough to break. It also looks completely fireproof, considering how basic plasma windows are insanely fireproof."
 	icon = 'icons/obj/smooth_structures/rplasma_window.dmi'
-	icon_state = "rplasmawindow"
+	icon_state = "rplasma_window-0"
+	base_icon_state = "rplasma_window"
 	shardtype = /obj/item/shard/plasma
 	glass_type = /obj/item/stack/sheet/plasmarglass
-	smooth = SMOOTH_TRUE
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE
+	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
 	reinf = TRUE
 	max_integrity = 1000
 	explosion_block = 2
@@ -745,13 +741,18 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 /obj/structure/window/full/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return
 
+/obj/structure/window/full/plasmareinforced/BlockSuperconductivity()
+	return TRUE
+
 /obj/structure/window/full/reinforced
 	name = "reinforced window"
 	desc = "It looks rather strong. Might take a few good hits to shatter it."
 	icon = 'icons/obj/smooth_structures/reinforced_window.dmi'
-	icon_state = "r_window"
-	smooth = SMOOTH_TRUE
-	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced)
+	icon_state = "reinforced_window-0"
+	base_icon_state = "reinforced_window"
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE
+	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
 	max_integrity = 100
 	reinf = TRUE
 	heat_resistance = 1600
@@ -764,12 +765,32 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	name = "tinted window"
 	desc = "It looks rather strong and opaque. Might take a few good hits to shatter it."
 	icon = 'icons/obj/smooth_structures/tinted_window.dmi'
-	icon_state = "tinted_window"
+	icon_state = "tinted_window-0"
+	base_icon_state = "tinted_window"
 	opacity = TRUE
+
+/obj/structure/window/full/reinforced/polarized
+	name = "electrochromic window"
+	desc = "Adjusts its tint with voltage. Might take a few good hits to shatter it."
+	var/id
+	var/original_color
+	var/ispolzovano
+
+/obj/structure/window/full/reinforced/polarized/proc/toggle()
+	if(!ispolzovano)
+		ispolzovano++
+		original_color = color
+	if(opacity)
+		animate(src, color="[original_color]", time=5)
+		set_opacity(FALSE)
+	else
+		animate(src, color="#222222", time=5)
+		set_opacity(TRUE)
 
 /obj/structure/window/full/reinforced/ice
 	icon = 'icons/obj/smooth_structures/rice_window.dmi'
 	icon_state = "ice_window"
+	base_icon_state = "rice_window"
 	max_integrity = 150
 	cancolor = FALSE
 
@@ -778,14 +799,16 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	desc = "A alien alloy window. Looks like it regenerate all damage."
 	icon = 'icons/obj/smooth_structures/alien_window.dmi'
 	icon_state = "al_window"
+	base_icon_state = "alien_window"
 	shardtype = /obj/item/shard
 	glass_type = /obj/item/stack/sheet/abductorglass
 	heat_resistance = 1600
 	max_integrity = 300
-	smooth = SMOOTH_TRUE
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE
+	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
 	explosion_block = 1
 	armor = list("melee" = 75, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
-	canSmoothWith = list(/obj/structure/window/full/abductor)
 
 /obj/structure/window/full/abductor/Initialize(mapload, direct)
 	..()
@@ -795,14 +818,16 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	name = "shuttle window"
 	desc = "A reinforced, air-locked pod window."
 	icon = 'icons/obj/smooth_structures/shuttle_window.dmi'
-	icon_state = "shuttle_window"
+	icon_state = "shuttle_window-0"
+	base_icon_state = "shuttle_window"
 	max_integrity = 100
 	reinf = TRUE
 	heat_resistance = 1600
 	explosion_block = 3
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
-	smooth = SMOOTH_TRUE
-	canSmoothWith = null
+	smooth = SMOOTH_BITMASK
+	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE //+ SMOOTH_GROUP_SHUTTLE_PARTS
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE
 	glass_type = /obj/item/stack/sheet/titaniumglass
 
 /obj/structure/window/full/shuttle/narsie_act()
@@ -816,6 +841,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	desc = "A reinforced, air-locked shuttle window."
 	icon = 'icons/obj/smooth_structures/shuttle_window_gray.dmi'
 	icon_state = "shuttle_window_gray"
+	base_icon_state = "shuttle_window_gray"
 
 /obj/structure/window/full/shuttle/gray/tinted
 	opacity = TRUE
@@ -824,7 +850,8 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	name = "High-Tech shuttle window"
 	desc = "A reinforced, air-locked shuttle window."
 	icon = 'icons/obj/smooth_structures/shuttle_window_ninja.dmi'
-	icon_state = "shuttle_window_ninja"
+	icon_state = "shuttle_window_ninja-0"
+	base_icon_state = "shuttle_window_ninja"
 	armor = list("melee" = 50, "bullet" = 30, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 
 /obj/structure/window/full/shuttle/ninja/tinted
@@ -835,6 +862,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	desc = "An evil looking window of plasma and titanium."
 	icon = 'icons/obj/smooth_structures/plastitanium_window.dmi'
 	icon_state = "plastitanium_window"
+	base_icon_state = "plastitanium_window"
 	dir = FULLTILE_WINDOW_DIR
 	max_integrity = 100
 	fulltile = TRUE
@@ -842,8 +870,9 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	reinf = TRUE
 	heat_resistance = 1600
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
-	smooth = SMOOTH_TRUE
-	canSmoothWith = null
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM
+	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE_PLASTITANIUM
 	explosion_block = 3
 	level = 3
 	glass_type = /obj/item/stack/sheet/plastitaniumglass
@@ -926,8 +955,10 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 /obj/structure/window/reinforced/clockwork/fulltile
 	icon_state = "clockwork_window"
-	smooth = SMOOTH_TRUE
-	canSmoothWith = null
+	base_icon_state = "clockwork_window"
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE_BRONZE
+	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE_BRONZE
 	fulltile = TRUE
 	flags = PREVENT_CLICK_UNDER
 	dir = FULLTILE_WINDOW_DIR
@@ -937,8 +968,10 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 /obj/structure/window/reinforced/clockworkfake/fulltile
 	icon_state = "clockwork_window"
-	smooth = SMOOTH_TRUE
-	canSmoothWith = null
+	base_icon_state = "clockwork_window"
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_WINDOW_FULLTILE_BRONZE
+	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE_BRONZE
 	fulltile = TRUE
 	flags = PREVENT_CLICK_UNDER
 	dir = FULLTILE_WINDOW_DIR

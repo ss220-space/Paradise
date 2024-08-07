@@ -6,6 +6,8 @@
 		////////////////
 		//ADMIN THINGS//
 		////////////////
+	/// hides the byond verb panel as we use our own custom version
+	show_verb_panel = FALSE
 	var/datum/admins/holder = null
 
 	var/last_message	= "" //contains the last message sent by this client - used to protect against copy-paste spamming.
@@ -33,7 +35,8 @@
 		///////////////
 		//SOUND STUFF//
 		///////////////
-	var/ambience_playing = FALSE
+
+	var/white_noise_playing = FALSE
 
 		////////////
 		//SECURITY//
@@ -41,6 +44,8 @@
 
 	///Used for limiting the rate of topic sends by the client to avoid abuse
 	var/list/topiclimiter
+	///Used for limiting the rate of clicks sends by the client to avoid abuse
+	var/list/clicklimiter
 
 	// comment out the line below when debugging locally to enable the options & messages menu
 	control_freak = CONTROL_FREAK_ALL
@@ -54,7 +59,7 @@
 	var/list/related_accounts_ip = list()	//So admins know why it isn't working - Used to determine what other accounts previously logged in from this ip
 	var/list/related_accounts_cid = list()	//So admins know why it isn't working - Used to determine what other accounts previously logged in from this computer id
 
-	preload_rsc = 0 // This is 0 so we can set it to an URL once the player logs in and have them download the resources from a different server.
+	preload_rsc = PRELOAD_RSC
 
 	/**
 	 * Assoc list with all the active maps - when a screen obj is added to
@@ -86,10 +91,6 @@
 	//datum that controls the displaying and hiding of tooltips
 	var/datum/tooltip/tooltips
 
-	// Their chat window, sort of important.
-	// See /goon/code/datums/browserOutput.dm
-	var/datum/chatOutput/chatOutput
-
 	// Donator stuff.
 	var/donator_level = 0
 
@@ -103,6 +104,15 @@
 
 	/// Messages currently seen by this client
 	var/list/seen_messages
+
+	/// list of tabs containing spells and abilities
+	var/list/spell_tabs = list()
+
+	/// our current tab
+	var/stat_tab
+
+	/// list of all tabs
+	var/list/panel_tabs = list()
 
 	var/fullscreen = FALSE
 
@@ -140,12 +150,28 @@
 
 	var/url
 
-	/// Input datum, what the client is pressing.
-	var/datum/input_data/input_data = new()
 	/// The client's active keybindings, depending on their active mob.
-	var/list/active_keybindings = list()
-	/// The client's movement keybindings to directions, which work regardless of modifiers.
-	var/list/movement_kb_dirs = list()
+	var/list/active_keybindings = list()	// will be removed later
+
+	/// A buffer of currently held keys.
+	var/list/keys_held = list()
+	/// A buffer for combinations such of modifiers + keys (ex: CtrlD, AltE, ShiftT). Format: `"key"` -> `"combo"` (ex: `"D"` -> `"CtrlD"`)
+	var/list/key_combos_held = list()
+	///custom movement keys for this client
+	var/list/movement_keys = list()
+	/// The direction we WANT to move, based off our keybinds
+	/// Will be udpated to be the actual direction later on
+	var/intended_direction = NONE
+	///Are we locking our movement input?
+	var/movement_locked = FALSE
+	/*
+	** These next two vars are to apply movement for keypresses and releases made while move delayed.
+	** Because discarding that input makes the game less responsive.
+	*/
+	/// On next move, add this dir to the move that would otherwise be done
+	var/next_move_dir_add
+	/// On next move, subtract this dir from the move that would otherwise be done
+	var/next_move_dir_sub
 
 	///used to make a special mouse cursor, this one for mouse up icon
 	var/mouse_up_icon = null
@@ -167,6 +193,21 @@
 	//The params we were passed at the start of the drag, in list form
 	var/list/drag_details
 
+	/// List of all asset filenames sent to this client by the asset cache, along with their assoicated md5s
+	var/list/sent_assets = list()
+	/// List of all completed blocking send jobs awaiting acknowledgement by send_asset
+	var/list/completed_asset_jobs = list()
+
+	/*
+	ASSET SENDING
+	*/
+	/// The ID of the last asset job
+	var/last_asset_job = 0
+	/// The ID of the last asset job that was properly finished
+	var/last_completed_asset_job = 0
+
+	/// Our object window datum. It stores info about and handles behavior for the object tab
+	var/datum/object_window_info/obj_window
 
 /client/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, tos_consent))

@@ -31,7 +31,8 @@
 
 	user.visible_message(
 		span_notice("[user] has cut [target]'s [affected.encased] open with \the [tool]."),
-		span_notice("You have cut [target]'s [affected.encased] open with \the [tool].")
+		span_notice("You have cut [target]'s [affected.encased] open with \the [tool]."),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	affected.open = ORGAN_ORGANIC_ENCASED_OPEN
 	affected.fracture(silent = TRUE)
@@ -42,10 +43,11 @@
 
 	user.visible_message(
 		span_warning("[user]'s hand slips, cracking [target]'s [affected.encased] with \the [tool]!"),
-		span_warning("Your hand slips, cracking [target]'s [affected.encased] with \the [tool]!")
+		span_warning("Your hand slips, cracking [target]'s [affected.encased] with \the [tool]!"),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
-	affected.receive_damage(20)
+	target.apply_damage(20, def_zone = affected)
 	affected.fracture()
 
 	return SURGERY_STEP_RETRY
@@ -66,7 +68,8 @@
 
 	user.visible_message(
 		"[user] starts to force open the [affected.encased] in [target]'s [affected.name] with \the [tool].",
-		"You start to force open the [affected.encased] in [target]'s [affected.name] with \the [tool]."
+		"You start to force open the [affected.encased] in [target]'s [affected.name] with \the [tool].",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.custom_pain("Something hurts horribly in your [affected.name]!")
 	return ..()
@@ -77,7 +80,8 @@
 
 	user.visible_message(
 		span_notice("[user] forces open [target]'s [affected.encased] with \the [tool]."),
-		span_notice("You force open [target]'s [affected.encased] with \the [tool].")
+		span_notice("You force open [target]'s [affected.encased] with \the [tool]."),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
 	affected.open = ORGAN_ORGANIC_ENCASED_OPEN
@@ -89,10 +93,11 @@
 
 	user.visible_message(
 		span_warning("[user]'s hand slips, cracking [target]'s [affected.encased]!"),
-		span_warning("Your hand slips, cracking [target]'s  [affected.encased]!")
+		span_warning("Your hand slips, cracking [target]'s  [affected.encased]!"),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
-	affected.receive_damage(20)
+	target.apply_damage(20, def_zone = affected)
 	affected.fracture()
 
 	return SURGERY_STEP_RETRY
@@ -112,7 +117,8 @@
 
 	user.visible_message(
 		"[user] starts bending [target]'s [affected.encased] back into place with \the [tool].",
-		"You start bending [target]'s [affected.encased] back into place with \the [tool]."
+		"You start bending [target]'s [affected.encased] back into place with \the [tool].",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.custom_pain("Something hurts horribly in your [affected.name]!")
 	return ..()
@@ -122,7 +128,8 @@
 
 	user.visible_message(
 		span_notice("[user] bends [target]'s [affected.encased] back into place with \the [tool]."),
-		span_notice("You bend [target]'s [affected.encased] back into place with \the [tool].")
+		span_notice("You bend [target]'s [affected.encased] back into place with \the [tool]."),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
 	return SURGERY_STEP_CONTINUE
@@ -132,10 +139,11 @@
 
 	user.visible_message(
 		span_warning("[user]'s hand slips, bending [target]'s [affected.encased] the wrong way!"),
-		span_warning("Your hand slips, bending [target]'s [affected.encased] the wrong way!")
+		span_warning("Your hand slips, bending [target]'s [affected.encased] the wrong way!"),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
-	affected.receive_damage(20)
+	target.apply_damage(20, def_zone = affected)
 	affected.fracture()
 
 	return SURGERY_STEP_RETRY
@@ -154,7 +162,8 @@
 
 	user.visible_message(
 		"[user] starts applying \the [tool] to [target]'s [affected.encased].",
-		"You start applying \the [tool] to [target]'s [affected.encased]."
+		"You start applying \the [tool] to [target]'s [affected.encased].",
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.custom_pain("Something hurts horribly in your [affected.name]!")
 	return ..()
@@ -164,7 +173,8 @@
 
 	user.visible_message(
 		span_notice("[user] applied \the [tool] to [target]'s [affected.encased]."),
-		span_notice("You applied \the [tool] to [target]'s [affected.encased].")
+		span_notice("You applied \the [tool] to [target]'s [affected.encased]."),
+		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
 	affected.mend_fracture()

@@ -1,12 +1,17 @@
 /*
 	Humans:
-	Adds an exception for gloves, to allow special glove types like the ninja ones.
+	Adds an exception for pull/grab handling and gloves, to allow special glove types like the ninja ones.
 
 	Otherwise pretty standard.
 */
 /mob/living/carbon/human/UnarmedAttack(atom/A, proximity_flag)
 	if(!can_unarmed_attack())
 		return
+
+	if(proximity_flag && pulling && (!isnull(pull_hand) && (pull_hand == PULL_WITHOUT_HANDS || pull_hand == hand)))
+		if(A.grab_attack(src, pulling))
+			changeNext_move(grab_state > GRAB_PASSIVE ? CLICK_CD_GRABBING : CLICK_CD_PULLING)
+			return
 
 	// Special glove functions:
 	// If the gloves do anything, have them return 1 to stop
@@ -25,12 +30,11 @@
 
 
 /mob/living/carbon/human/beforeAdjacentClick(atom/A, params)
-	if(prob(dna.species.fragile_bones_chance * 3))
-		var/zone = "[hand ? "l" : "r"]_[pick("hand", "arm")]"
-		var/obj/item/organ/external/active_hand = get_organ(zone)
+	if(prob(get_bones_symptom_prob() * 3))
+		var/obj/item/organ/external/active_hand = get_organ(hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 		if(!active_hand.has_fracture())
 			var/used_item_name = get_active_hand()
-			to_chat(src, span_danger("[used_item_name? "You try to use [used_item_name], but y": "Y"]our [active_hand] don't withstand the load!"))
+			to_chat(src, span_danger("[used_item_name ? "You try to use [used_item_name], but y": "Y"]our [active_hand] don't withstand the load!"))
 			active_hand.fracture()
 
 
@@ -77,18 +81,18 @@
 /mob/living/carbon/human/can_unarmed_attack()
 	. = ..()
 	if(!.)
-		return FALSE
+		return .
 
-	if(!get_active_hand()) //can't attack without a hand.
+	if(!get_active_hand()) // we can pull if no hands are required, but otherwise attack without a hand is impossible.
+		if(a_intent == INTENT_GRAB && pull_hand == PULL_WITHOUT_HANDS)
+			return .
 		var/obj/item/organ/external/limb = get_organ(hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 		if(!limb)
-			to_chat(src, span_warning("You look at your arm and sigh."))
+			to_chat(src, span_warning("Вы смотрите на то, что осталось от Вашей [hand ? "левой руки" : "правой руки"] и тяжко вздыхаете..."))
 			return FALSE
 		if(!limb.is_usable())
-			to_chat(src, span_warning("Your [limb.name] is in no condition to be used."))
+			to_chat(src, span_warning("Ваша [hand ? "левая рука" : "правая рука"] слишком травмирована."))
 			return FALSE
-
-	return TRUE
 
 
 /*
@@ -97,12 +101,20 @@
 /mob/living/UnarmedAttack(atom/A, proximity_flag)
 	if(!can_unarmed_attack())
 		return
+	if(proximity_flag && pulling && !isnull(pull_hand) && pull_hand != PULL_WITHOUT_HANDS && pull_hand == hand)
+		if(A.grab_attack(src, pulling))
+			changeNext_move(grab_state > GRAB_PASSIVE ? CLICK_CD_GRABBING : CLICK_CD_PULLING)
+			return
 	A.attack_animal(src)
 
 /mob/living/simple_animal/hostile/UnarmedAttack(atom/A, proximity_flag)
 	if(!can_unarmed_attack())
 		return
-	target = A
+	if(proximity_flag && pulling && !isnull(pull_hand) && pull_hand != PULL_WITHOUT_HANDS && pull_hand == hand)
+		if(A.grab_attack(src, pulling))
+			changeNext_move(grab_state > GRAB_PASSIVE ? CLICK_CD_GRABBING : CLICK_CD_PULLING)
+			return
+	GiveTarget(A)
 	AttackingTarget()
 
 /atom/proc/attack_animal(mob/user)
@@ -118,6 +130,10 @@
 /mob/living/carbon/alien/UnarmedAttack(atom/A, proximity_flag)
 	if(!can_unarmed_attack())
 		return
+	if(proximity_flag && pulling && (!isnull(pull_hand) && (pull_hand == PULL_WITHOUT_HANDS || pull_hand == hand)))
+		if(A.grab_attack(src, pulling))
+			changeNext_move(grab_state > GRAB_PASSIVE ? CLICK_CD_GRABBING : CLICK_CD_PULLING)
+			return
 	A.attack_alien(src)
 
 /atom/proc/attack_alien(mob/living/carbon/alien/user)

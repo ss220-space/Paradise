@@ -61,20 +61,32 @@
 	playsound(HS_C.loc, 'sound/machines/chime.ogg', 20, 1)
 	qdel(src)
 
+
 /obj/structure/holosign/wetsign/mine
 	desc = "The words flicker as if they mean something."
 
-/obj/structure/holosign/wetsign/mine/Crossed(atom/movable/AM, oldloc)
+
+/obj/structure/holosign/wetsign/mine/Initialize(mapload, source_projector)
 	. = ..()
-	if(!isliving(AM))
-		return
-	triggermine(AM)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
+/obj/structure/holosign/wetsign/mine/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(isliving(arrived))
+		INVOKE_ASYNC(src, PROC_REF(triggermine), arrived)
+
 
 /obj/structure/holosign/wetsign/mine/proc/triggermine(mob/living/victim)
 	empulse(src, 1, 1, TRUE, "[victim] triggered holosign")
 	if(ishuman(victim))
-		victim.adjustStaminaLoss(100)
+		victim.apply_damage(100, STAMINA)
 	qdel(src)
+
 
 /obj/structure/holosign/barrier
 	name = "holo barrier"
@@ -154,7 +166,7 @@
 	. = ..()
 	if(. || !COOLDOWN_FINISHED(src, shock_cooldown) || !isliving(user))
 		return
-	user.electrocute_act(15, "Energy Barrier", safety = TRUE)
+	user.electrocute_act(15, "энергетического барьера", flags = SHOCK_NOGLOVES)
 	COOLDOWN_START(src, shock_cooldown, 0.5 SECONDS)
 
 
@@ -162,6 +174,6 @@
 	. = ..()
 	if(!COOLDOWN_FINISHED(src, shock_cooldown) || !isliving(moving_living))
 		return .
-	moving_living.electrocute_act(15, "Energy Barrier", safety = TRUE)
+	moving_living.electrocute_act(15, "энергетического барьера", flags = SHOCK_NOGLOVES)
 	COOLDOWN_START(src, shock_cooldown, 0.5 SECONDS)
 

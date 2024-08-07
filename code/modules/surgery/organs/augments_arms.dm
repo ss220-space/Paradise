@@ -145,7 +145,7 @@
 		span_italics("You hear a short mechanical noise."))
 	playsound(get_turf(owner), src.sound_on, 50, 1)
 
-/obj/item/organ/internal/cyberimp/arm/ui_action_click()
+/obj/item/organ/internal/cyberimp/arm/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(crit_fail || (!active_item && !contents.len))
 		to_chat(owner, span_warning("The implant doesn't respond. It seems to be broken..."))
 		return
@@ -452,7 +452,7 @@
 		if(A.emagged || A.stat & BROKEN)
 			do_sparks(3, 1, A)
 			to_chat(H, span_warning("The APC power currents surge erratically, damaging your chassis!"))
-			H.adjustFireLoss(10,0)
+			H.adjustFireLoss(10)
 		else if(A.cell && A.cell.charge > 0)
 			if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
 				to_chat(user, span_warning("You are already fully charged!"))
@@ -493,7 +493,7 @@
 	name = "telebaton implant"
 	desc = "Telescopic baton implant. Does what it says on the tin" // A better description
 
-	contents = newlist(/obj/item/melee/classic_baton)
+	contents = newlist(/obj/item/melee/baton)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/items.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "baton")
 

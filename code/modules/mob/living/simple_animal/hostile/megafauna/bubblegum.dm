@@ -52,6 +52,7 @@ Difficulty: Hard
 	melee_queue_distance = 20 // as far as possible really, need this because of blood warp
 	ranged = TRUE
 	pixel_x = -32
+	base_pixel_x = -32
 	del_on_death = TRUE
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/bubblegum/crusher)
 	loot = list(/obj/structure/closet/crate/necropolis/bubblegum)
@@ -133,7 +134,7 @@ Difficulty: Hard
 	RegisterSignal(src, COMSIG_HOSTILE_FOUND_TARGET, PROC_REF(i_see_you))
 	for(var/mob/living/carbon/human/H in range(18)) //suprise motherfucker bubblegum wakes up fast
 		to_chat(H, "<span class='colossus'><b>You DARE to insult my body with these constructs? I curse you as you curse ME!</b></span>")
-		FindTarget(list(H), 1) //From down town with the pile driver
+		FindTarget(list(H)) //From down town with the pile driver
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/unrage()
 	return //They are pissed. Also whoever enraged them is stuck fighting them so, kinda a M.A.D situation.
@@ -233,7 +234,7 @@ Difficulty: Hard
 	SetRecoveryTime(20)
 
 
-#define BUBLEGUM_CHARGE_SPEED 0.7
+#define BUBLEGUM_CHARGE_SPEED 0.4
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/charge(atom/chargeat = target, delay = 5, chargepast = 2)
 	if(!chargeat)
@@ -515,14 +516,25 @@ Difficulty: Hard
 		INVOKE_ASYNC(src, PROC_REF(charge), chargeat, delay, chargepast)
 
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/adjustBruteLoss(amount, updating_health = TRUE)
+/mob/living/simple_animal/hostile/megafauna/bubblegum/adjustBruteLoss(
+	amount = 0,
+	updating_health = TRUE,
+	def_zone = null,
+	blocked = 0,
+	forced = FALSE,
+	used_weapon = null,
+	sharp = FALSE,
+	silent = FALSE,
+	affect_robotic = TRUE,
+)
 	. = ..()
-	if(. > 0 && prob(25))
+	if(. && prob(25))
 		var/obj/effect/decal/cleanable/blood/gibs/bubblegum/B = new /obj/effect/decal/cleanable/blood/gibs/bubblegum(loc)
 		if(prob(40))
 			step(B, pick(GLOB.cardinal))
 		else
 			B.setDir(pick(GLOB.cardinal))
+
 
 /obj/effect/decal/cleanable/blood/gibs/bubblegum
 	name = "thick blood"
@@ -573,17 +585,17 @@ Difficulty: Hard
 		return ..()
 
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/Moved(atom/OldLoc, Dir, Forced = FALSE)
+/mob/living/simple_animal/hostile/megafauna/bubblegum/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	update_approach()
-	if(Dir)
+	if(movement_dir)
 		new /obj/effect/decal/cleanable/blood/bubblegum(loc)
 	playsound(src, 'sound/effects/meteorimpact.ogg', 200, TRUE, 2, TRUE)
 	return ..()
 
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/Bump(atom/bumped_atom, custom_bump)
+/mob/living/simple_animal/hostile/megafauna/bubblegum/Bump(atom/bumped_atom)
 	. = ..()
-	if(isnull(.) || !charging)
+	if(!charging)
 		return .
 	if(isturf(bumped_atom) || (isobj(bumped_atom) && bumped_atom.density))
 		bumped_atom.ex_act(EXPLODE_HEAVY)
@@ -655,7 +667,8 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/charge_end(datum/source)
 	. = ..()
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)
 
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Destroy()
@@ -666,8 +679,20 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Life()
 	return
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/adjustBruteLoss(amount, updating_health = TRUE)
-	return
+
+/mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/adjustBruteLoss(
+	amount = 0,
+	updating_health = TRUE,
+	def_zone = null,
+	blocked = 0,
+	forced = FALSE,
+	used_weapon = null,
+	sharp = FALSE,
+	silent = FALSE,
+	affect_robotic = TRUE,
+)
+	return STATUS_UPDATE_NONE
+
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/OpenFire()
 	return
@@ -702,4 +727,4 @@ Difficulty: Hard
 	RegisterSignal(src, COMSIG_HOSTILE_FOUND_TARGET, PROC_REF(i_see_you))
 	for(var/mob/living/carbon/human/H in range(20))
 		to_chat(H, "<span class='colossus'><b>MY HANDS WILL RELISH ENDING YOU... HERE AND NOW!</b></span>")
-		FindTarget(list(H), 1)
+		FindTarget(list(H))

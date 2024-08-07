@@ -15,18 +15,18 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	if(!mob)
 		return
 	if(IsGuestKey(key))
-		to_chat(src, "<span class='danger'>Guests may not use OOC.</span>")
+		to_chat(src, span_danger("Guests may not use OOC."), MESSAGE_TYPE_WARNING, confidential = TRUE)
 		return
 
-	if(!check_rights(R_ADMIN|R_MOD, 0))
+	if(!check_rights(R_ADMIN|R_MOD,0))
 		if(!CONFIG_GET(flag/ooc_allowed))
-			to_chat(src, "<span class='danger'>OOC is globally muted.</span>")
+			to_chat(src, span_danger("OOC is globally muted."), MESSAGE_TYPE_WARNING, confidential = TRUE)
 			return
 		if(!CONFIG_GET(flag/dooc_allowed) && (mob.stat == DEAD))
-			to_chat(usr, "<span class='danger'>OOC for dead mobs has been turned off.</span>")
+			to_chat(usr, span_danger("OOC for dead mobs has been turned off."), MESSAGE_TYPE_WARNING, confidential = TRUE)
 			return
 		if(prefs.muted & MUTE_OOC)
-			to_chat(src, "<span class='danger'>You cannot use OOC (muted).</span>")
+			to_chat(src, span_danger("You cannot use OOC (muted)."), MESSAGE_TYPE_WARNING, confidential = TRUE)
 			return
 
 	if(!msg)
@@ -120,61 +120,6 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	if(CONFIG_GET(flag/auto_toggle_ooc_during_round) && CONFIG_GET(flag/ooc_allowed) != on)
 		toggle_ooc()
 
-/client/proc/set_ooc(newColor as color)
-	set name = "Set Player OOC Colour"
-	set desc = "Modifies the default player OOC color."
-	set category = "Server"
-
-	if(!check_rights(R_SERVER))	return
-
-	GLOB.normal_ooc_colour = newColor
-	message_admins("[key_name_admin(usr)] has set the default player OOC color to [newColor]")
-	log_admin("[key_name_log(usr)] has set the default player OOC color to [newColor]")
-
-
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Player OOC")
-
-/client/proc/reset_ooc()
-	set name = "Reset Player OOC Color"
-	set desc = "Returns the default player OOC color to default."
-	set category = "Server"
-
-	if(!check_rights(R_SERVER))	return
-
-	GLOB.normal_ooc_colour = initial(GLOB.normal_ooc_colour)
-	message_admins("[key_name_admin(usr)] has reset the default player OOC color")
-	log_admin("[key_name_log(usr)] has reset the default player OOC color")
-
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Reset Player OOC")
-
-/client/proc/colorooc()
-	set name = "Set Your OOC Color"
-	set desc = "Allows you to pick a custom OOC color."
-	set category = "Preferences"
-
-	if(!check_rights(R_ADMIN)) return
-
-	var/new_ooccolor = input(src, "Please select your OOC color.", "OOC color", prefs.ooccolor) as color|null
-	if(new_ooccolor)
-		prefs.ooccolor = new_ooccolor
-		prefs.save_preferences(src)
-		to_chat(usr, "Your OOC color has been set to [new_ooccolor].")
-
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Set Own OOC") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
-
-/client/proc/resetcolorooc()
-	set name = "Reset Your OOC Color"
-	set desc = "Returns your OOC color to default."
-	set category = "Preferences"
-
-	if(!check_rights(R_ADMIN)) return
-
-	prefs.ooccolor = initial(prefs.ooccolor)
-	prefs.save_preferences(src)
-	to_chat(usr, "Your OOC color has been reset.")
-
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Reset Own OOC") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
-
 /client/verb/looc(msg = "" as text)
 	set name = "LOOC"
 	set desc = "Local OOC, seen only by those in view."
@@ -183,18 +128,18 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	if(!mob)
 		return
 	if(IsGuestKey(key))
-		to_chat(src, "<span class='danger'>Guests may not use OOC.</span>")
+		to_chat(src, span_danger("Guests may not use LOOC."), MESSAGE_TYPE_WARNING, confidential = TRUE)
 		return
 
 	if(!check_rights(R_ADMIN|R_MOD,0))
 		if(!CONFIG_GET(flag/looc_allowed))
-			to_chat(src, "<span class='danger'>LOOC is globally muted.</span>")
+			to_chat(src, span_danger("LOOC is globally muted."), MESSAGE_TYPE_WARNING, confidential = TRUE)
 			return
 		if(!CONFIG_GET(flag/dooc_allowed) && (mob.stat == DEAD))
-			to_chat(usr, "<span class='danger'>LOOC for dead mobs has been turned off.</span>")
+			to_chat(usr, span_danger("LOOC for dead mobs has been turned off."), MESSAGE_TYPE_WARNING, confidential = TRUE)
 			return
 		if(prefs.muted & MUTE_OOC)
-			to_chat(src, "<span class='danger'>You cannot use LOOC (muted).</span>")
+			to_chat(src, span_danger("You cannot use LOOC (muted)."), MESSAGE_TYPE_WARNING, confidential = TRUE)
 			return
 
 	if(!msg)

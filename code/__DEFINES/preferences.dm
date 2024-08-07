@@ -30,7 +30,7 @@
 #define PREFTOGGLE_CHAT_NO_ADMINLOGS 		(1<<14)
 #define PREFTOGGLE_DONATOR_PUBLIC			(1<<15)
 #define PREFTOGGLE_CHAT_NO_TICKETLOGS 		(1<<16)
-#define PREFTOGGLE_UI_DARKMODE 				(1<<17)
+//#define PREFTOGGLE_UI_DARKMODE 				(1<<17) //not used since tgchat
 #define PREFTOGGLE_DISABLE_KARMA 			(1<<18)
 #define PREFTOGGLE_CHAT_NO_MENTORTICKETLOGS (1<<19)
 #define PREFTOGGLE_TYPING_ONCE 				(1<<20)
@@ -40,7 +40,7 @@
 
 #define TOGGLES_TOTAL 						16777215 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
-#define TOGGLES_DEFAULT (PREFTOGGLE_CHAT_OOC|PREFTOGGLE_CHAT_DEAD|PREFTOGGLE_CHAT_GHOSTEARS|PREFTOGGLE_CHAT_GHOSTSIGHT|PREFTOGGLE_CHAT_PRAYER|PREFTOGGLE_CHAT_RADIO|PREFTOGGLE_CHAT_LOOC|PREFTOGGLE_MEMBER_PUBLIC|PREFTOGGLE_DONATOR_PUBLIC|PREFTOGGLE_UI_DARKMODE|PREFTOGGLE_AMBIENT_OCCLUSION|PREFTOGGLE_CHAT_GHOSTPDA|PREFTOGGLE_NUMPAD_TARGET)
+#define TOGGLES_DEFAULT (PREFTOGGLE_CHAT_OOC|PREFTOGGLE_CHAT_DEAD|PREFTOGGLE_CHAT_GHOSTEARS|PREFTOGGLE_CHAT_GHOSTSIGHT|PREFTOGGLE_CHAT_PRAYER|PREFTOGGLE_CHAT_RADIO|PREFTOGGLE_CHAT_LOOC|PREFTOGGLE_MEMBER_PUBLIC|PREFTOGGLE_DONATOR_PUBLIC|PREFTOGGLE_AMBIENT_OCCLUSION|PREFTOGGLE_CHAT_GHOSTPDA|PREFTOGGLE_NUMPAD_TARGET)
 
 // toggles_2 variables. These MUST be prefixed with PREFTOGGLE_2
 #define PREFTOGGLE_2_RANDOMSLOT				(1<<0) // 1
@@ -55,14 +55,17 @@
 #define PREFTOGGLE_2_SEE_ITEM_OUTLINES		(1<<9) // 512
 // Yes I know this being an "enable to disable" is misleading, but it avoids having to tweak all existing pref entries
 #define PREFTOGGLE_2_REVERB_DISABLE			(1<<10) // 1024
-#define PREFTOGGLE_2_MC_TABS				(1<<11) // 2048
-#define PREFTOGGLE_2_DISABLE_TGUI_LISTS		(1<<12) // 4096
+#define PREFTOGGLE_2_MC_TAB					(1<<11) // 2048
+#define PREFTOGGLE_2_DISABLE_TGUI_INPUT		(1<<12) // 4096
 #define PREFTOGGLE_2_PARALLAX_MULTIZ		(1<<13) // 8192
 #define PREFTOGGLE_2_DISABLE_VOTE_POPUPS	(1<<14)	// 16384
+#define PREFTOGGLE_2_SWAP_INPUT_BUTTONS		(1<<15) // 32768
+#define PREFTOGGLE_2_LARGE_INPUT_BUTTONS	(1<<16) // 65536
+#define PREFTOGGLE_2_BIG_STRIP_MENU			(1<<17) // 131072
 
-#define TOGGLES_2_TOTAL						32767 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define TOGGLES_2_TOTAL						262143 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
-#define TOGGLES_2_DEFAULT (PREFTOGGLE_2_FANCYUI|PREFTOGGLE_2_ITEMATTACK|PREFTOGGLE_2_WINDOWFLASHING|PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_2_DEATHMESSAGE|PREFTOGGLE_2_SEE_ITEM_OUTLINES|PREFTOGGLE_2_PARALLAX_MULTIZ)
+#define TOGGLES_2_DEFAULT (PREFTOGGLE_2_FANCYUI|PREFTOGGLE_2_ITEMATTACK|PREFTOGGLE_2_WINDOWFLASHING|PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_2_DEATHMESSAGE|PREFTOGGLE_2_SEE_ITEM_OUTLINES|PREFTOGGLE_2_PARALLAX_MULTIZ|PREFTOGGLE_2_SWAP_INPUT_BUTTONS|PREFTOGGLE_2_LARGE_INPUT_BUTTONS)
 
 // Sanity checks
 #if TOGGLES_TOTAL > 16777215
@@ -73,6 +76,23 @@
 #error toggles_2 bitflag over 16777215. Please make an issue report and postpone the feature you are working on.
 #endif
 
+// This is a list index. Required to start at 1 instead of 0 so it's properly placed in the list
+#define PREFTOGGLE_CATEGORY_GENERAL		1
+#define PREFTOGGLE_CATEGORY_LIVING		2
+#define PREFTOGGLE_CATEGORY_GHOST		3
+#define PREFTOGGLE_CATEGORY_ADMIN		4
+
+// Preftoggle type defines
+/// Special toggles, stuff that just overrides set_toggles entirely
+#define PREFTOGGLE_SPECIAL		0
+/// Interacts with the sound bitflag
+#define PREFTOGGLE_SOUND		1
+/// Interacts with the light bitflag
+#define PREFTOGGLE_LIGHT		2
+/// Interacts with the toggles bitflag
+#define PREFTOGGLE_TOGGLE1		3
+/// Interacts with the toggles2 bitflag
+#define PREFTOGGLE_TOGGLE2		4
 
 
 // Admin attack logs filter system, see /proc/add_attack_logs

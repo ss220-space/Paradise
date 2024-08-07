@@ -51,6 +51,7 @@ Difficulty: Medium
 	move_to_delay = 5
 	ranged = TRUE
 	pixel_x = -16
+	base_pixel_x = -16
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/dragon/crusher)
 	loot = list(/obj/structure/closet/crate/necropolis/dragon)
 	butcher_results = list(/obj/item/stack/ore/diamond = 5, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/animalhide/ashdrake = 10, /obj/item/stack/sheet/bone = 30)
@@ -403,12 +404,18 @@ Difficulty: Medium
 		return
 	..()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/adjustHealth(amount, updating_health = TRUE)
+/mob/living/simple_animal/hostile/megafauna/dragon/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
 	if(swooping & SWOOP_INVULNERABLE)
-		return FALSE
+		return STATUS_UPDATE_NONE
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/visible_message(message, self_message, blind_message, list/ignored_mobs)
+/mob/living/simple_animal/hostile/megafauna/dragon/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type)
 	if(swooping & SWOOP_INVULNERABLE) //to suppress attack messages without overriding every single proc that could send a message saying we got hit
 		return
 	return ..()
@@ -421,7 +428,7 @@ Difficulty: Medium
 	if(!swooping)
 		..()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/Move()
+/mob/living/simple_animal/hostile/megafauna/dragon/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(!swooping)
 		. = ..()
 
@@ -465,7 +472,7 @@ Difficulty: Medium
 
 	// changes turf to lava temporarily
 	if(!T.density && !islava(T))
-		var/lava_turf = /turf/simulated/floor/plating/lava/smooth
+		var/lava_turf = /turf/simulated/floor/lava
 		var/reset_turf = T.type
 		T.ChangeTurf(lava_turf)
 		sleep(reset_time)

@@ -117,7 +117,7 @@
 	if((!istype(src, /obj/item/storage/lockbox) && (istype(over_object, /obj/structure/table) || isfloorturf(over_object)) \
 		&& length(contents) && loc == user && !user.incapacitated() && user.Adjacent(over_object)))
 
-		if(alert(user, "Empty [src] onto [over_object]?", "Confirm", "Yes", "No") != "Yes")
+		if(tgui_alert(user, "Empty [src] onto [over_object]?", "Confirm", list("Yes", "No")) != "Yes")
 			return FALSE
 
 		if(!user || !over_object || user.incapacitated() || loc != user || !user.Adjacent(over_object))
@@ -386,7 +386,7 @@
 			span_notice("[usr] начинает снимать [W.name]..."),
 			span_notice("Вы начинаете снимать [W.name]..."),
 		)
-		if(!do_after(usr, W.equip_delay_self, usr, max_interact_count = 1, cancel_message = span_warning("Снятие [W.name] было прервано!")))
+		if(!do_after(usr, W.equip_delay_self, usr, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Снятие [W.name] было прервано!")))
 			return FALSE
 
 		if(!usr.drop_item_ground(W))
@@ -485,9 +485,9 @@
 	update_icon()
 	return TRUE
 
-/obj/item/storage/Exited(atom/movable/AM, atom/newLoc)
-	remove_from_storage(AM, newLoc) //worry not, comrade; this only gets called once
-	..()
+/obj/item/storage/Exited(atom/movable/departed, atom/newLoc)
+	remove_from_storage(departed, newLoc) //worry not, comrade; this only gets called once
+	. = ..()
 
 /obj/item/storage/deconstruct(disassembled = TRUE)
 	var/drop_loc = loc

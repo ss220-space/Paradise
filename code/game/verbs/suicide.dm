@@ -28,7 +28,7 @@
 			// killing themselves as soon as they're in cuffs
 			to_chat(src, span_warning("We refuse to take the coward's way out."))
 			return
-		confirm = alert("Are you sure you want to commit suicide?", "Confirm Suicide", "Yes", "No")
+		confirm = tgui_alert(src, "Are you sure you want to commit suicide?", "Confirm Suicide", list("Yes", "No"))
 
 	if(stat == DEAD || suiciding) //We check again, because alerts sleep until a choice is made
 		to_chat(src, "You're already dead!")
@@ -36,7 +36,7 @@
 
 	if(forced || (confirm == "Yes"))
 		if(!forced && isAntag(src))
-			confirm = alert("Are you absolutely sure? If you do this after you got converted/joined as an antagonist, you could face a jobban!", "Confirm Suicide", "Yes", "No")
+			confirm = tgui_alert(src, "Are you absolutely sure? If you do this after you got converted/joined as an antagonist, you could face a jobban!", "Confirm Suicide", list("Yes", "No"))
 			if(confirm == "Yes")
 				suiciding = TRUE
 				do_suicide()
@@ -63,11 +63,13 @@
 
 
 /mob/living/simple_animal/slime/do_suicide()
-	setOxyLoss(100, FALSE)
-	adjustBruteLoss(100 - getBruteLoss(), FALSE)
-	setToxLoss(100, FALSE)
-	setCloneLoss(100, FALSE)
-	updatehealth()
+	var/update = NONE
+	update |= setOxyLoss(100, FALSE)
+	update |= adjustBruteLoss(100 - getBruteLoss(), FALSE)
+	update |= setToxLoss(100, FALSE)
+	update |= setCloneLoss(100, FALSE)
+	if(update)
+		updatehealth()
 
 
 /mob/living/silicon/do_suicide()

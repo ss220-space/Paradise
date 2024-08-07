@@ -106,7 +106,7 @@ $text-color: base.$color-fg !default;
 .RequestManager__filterPanel {
   margin: 0.5rem;
   padding: 0.5rem;
-  color: $text-color
+  color: $text-color;
 }
 
 .RequestManager__filterPanel tr:not(:last-of-type) {

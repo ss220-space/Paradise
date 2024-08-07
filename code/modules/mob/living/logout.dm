@@ -6,9 +6,9 @@
 	..()
 	if(mind)
 		if(!key) //key and mind have become seperated. I believe this is for when a staff member aghosts.
-			mind.active = 0	//This is to stop say, a mind.transfer_to call on a corpse causing a ghost to re-enter its body.
-		//This causes instant sleep and tags a player as SSD. See life.dm for furthering SSD.
+			mind.active = FALSE	//This is to stop say, a mind.transfer_to call on a corpse causing a ghost to re-enter its body.
 		if(mind.active)
-			Sleeping(4 SECONDS)
-			player_logged = 1
 			last_logout = world.time
+
+	set_SSD(TRUE)
+

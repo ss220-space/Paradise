@@ -101,15 +101,13 @@
 				buckled_mob.pixel_y = 7
 
 
-/obj/vehicle/ambulance/Move(atom/newloc, direct = NONE, glide_size_override = 0)
+/obj/vehicle/ambulance/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/oldloc = loc
 	if(bed && !Adjacent(bed))
 		bed = null
 	. = ..()
 	if(. && bed && get_dist(oldloc, loc) <= 2)
-		bed.Move(oldloc, get_dir(bed, oldloc))
-		bed.set_glide_size(glide_size)
-		bed.setDir(direct)
+		bed.Move(oldloc, get_dir(bed, oldloc), glide_size)
 		if(bed.has_buckled_mobs())
 			for(var/mob/living/buckled_mob as anything in bed.buckled_mobs)
 				buckled_mob.setDir(direct)
@@ -120,7 +118,7 @@
 	icon = 'icons/obj/vehicles/CargoTrain.dmi'
 	icon_state = "ambulance"
 	anchored = FALSE
-	pull_push_speed_modifier = 1
+
 
 /obj/structure/bed/amb_trolley/examine(mob/user)
 	. = ..()
@@ -134,7 +132,7 @@
 	var/obj/vehicle/ambulance/amb = over_object
 	if(amb.bed)
 		amb.bed = null
-		balloon_alert(usr, "прицеплено к машине")
+		balloon_alert(usr, "отцеплено от машины")
 	else
 		amb.bed = src
-		balloon_alert(usr, "отцеплено от машины")
+		balloon_alert(usr, "прицеплено к машине")

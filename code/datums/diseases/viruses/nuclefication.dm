@@ -87,12 +87,12 @@
 /datum/disease/virus/nuclefication/proc/radiate(mob/living/carbon/H, rad_ammount = 2, rad_threshold = 47)
 	if(H.radiation < rad_threshold)
 		H.apply_effect(rad_ammount, IRRADIATE, negate_armor = TRUE)
-	if(H.getarmor(null, RAD) >= 100)
+	if(H.getarmor(attack_flag = RAD) >= 100)
 		return
 	for(var/mob/living/carbon/L in range(1, H))
 		if(L == H)
 			continue
-		var/rad_block = L.getarmor(null, RAD)
+		var/rad_block = L.getarmor(attack_flag = RAD)
 		if(rad_block >= 100)
 			continue
 		if(!rad_block)
@@ -104,9 +104,10 @@
 	switch(destiny)
 		if(1)
 			var/obj/item/organ/external/limb = check_available_limbs(H, FALSE)
-			limb?.receive_damage(50, silent = silenced)
-			if(!silenced)
-				to_chat(H, span_danger("You feel like you're being torn apart from the inside!"))
+			if(limb)
+				H.apply_damage(50, def_zone = limb, silent = silenced)
+				if(!silenced)
+					to_chat(H, span_danger("You feel like you're being torn apart from the inside!"))
 		if(2)
 			var/obj/item/organ/external/limb = check_available_limbs(H)
 			limb?.fracture()

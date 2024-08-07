@@ -625,17 +625,43 @@ so as to remain in compliance with the most up-to-date laws."
 	infected_user.ghostize(TRUE)
 
 
+#define FLOAT_LAYER_TIME -1
+#define FLOAT_LAYER_STACKS -2
+#define FLOAT_LAYER_SELECTOR -3
+
 /atom/movable/screen/alert/notify_action
 	name = "Body created"
 	desc = "A body was created. You can enter it."
 	icon_state = "template"
-	timeout = 300
-	var/atom/target = null
+	timeout = 30 SECONDS
+	/// Target atom of this alert
+	var/atom/target
+	/// Action type we got from clicking on this alert
 	var/action = NOTIFY_JUMP
-	var/show_time_left = FALSE // If true you need to call START_PROCESSING manually
-	var/image/time_left_overlay // The last image showing the time left
-	var/image/signed_up_overlay // image showing that you're signed up
-	var/datum/candidate_poll/poll // If set, on Click() it'll register the player as a candidate
+	/// If true you need to call START_PROCESSING manually
+	var/show_time_left = FALSE
+	/// MA for maptext showing time left for poll
+	var/mutable_appearance/time_left_overlay
+	/// MA for overlay showing that you're signed up to poll
+	var/mutable_appearance/signed_up_overlay
+	/// MA for maptext overlay showing how many polls are stacked together
+	var/mutable_appearance/stacks_overlay
+	/// If set, on Click() it'll register the player as a candidate
+	var/datum/candidate_poll/poll
+
+
+/atom/movable/screen/alert/notify_action/Initialize(mapload)
+	. = ..()
+	signed_up_overlay = mutable_appearance('icons/mob/screen_gen.dmi', "selector", FLOAT_LAYER_SELECTOR)
+
+
+/atom/movable/screen/alert/notify_action/Destroy()
+	target = null
+	QDEL_NULL(time_left_overlay)
+	QDEL_NULL(signed_up_overlay)
+	QDEL_NULL(stacks_overlay)
+	poll = null
+	return ..()
 
 
 /atom/movable/screen/alert/notify_action/process()
@@ -643,104 +669,77 @@ so as to remain in compliance with the most up-to-date laws."
 		var/timeleft = timeout - world.time
 		if(timeleft <= 0)
 			return PROCESS_KILL
-
-		if(time_left_overlay)
-			cut_overlay(time_left_overlay)
-
-		var/obj/O = new
-		O.maptext = "<span style='font-family: \"Small Fonts\"; font-weight: bold; font-size: 32px; color: [(timeleft <= 10 SECONDS) ? "red" : "white"];'>[CEILING(timeleft / 10, 1)]</span>"
-		O.maptext_width = O.maptext_height = 128
-		var/matrix/M = new
-		M.Translate(4, 16)
-		O.transform = M
-
-		var/image/I = image(O)
-		I.layer = FLOAT_LAYER
-		I.plane = FLOAT_PLANE + 1
-		add_overlay(I)
-
-		time_left_overlay = I
-		qdel(O)
-	..()
-
-
-/atom/movable/screen/alert/notify_action/Destroy()
-	target = null
-	if(signed_up_overlay)
-		cut_overlay(signed_up_overlay)
-		qdel(signed_up_overlay)
-	return ..()
+		cut_overlay(time_left_overlay)
+		time_left_overlay = new
+		time_left_overlay.maptext = MAPTEXT("<span style='font-family: \"Small Fonts\"; font-weight: bold; font-size: 32px; color: [(timeleft <= 10 SECONDS) ? "red" : "white"];'>[CEILING(timeleft / 10, 1)]</span>")
+		time_left_overlay.transform = time_left_overlay.transform.Translate(4, 16)
+		time_left_overlay.layer = FLOAT_LAYER_TIME
+		add_overlay(time_left_overlay)
 
 
 /atom/movable/screen/alert/notify_action/Click()
 	if(!usr || !usr.client)
 		return
-	var/mob/dead/observer/G = usr
-	if(!istype(G))
+	var/mob/dead/observer/observer = usr
+	if(!istype(observer))
 		return
 
 	if(poll)
-		var/success
-		if(G in poll.signed_up)
-			success = poll.remove_candidate(G)
+		var/success = FALSE
+		if(observer in poll.signed_up)
+			success = poll.remove_candidate(observer)
 		else
-			success = poll.sign_up(G)
+			success = poll.sign_up(observer)
 		if(success)
 			// Add a small overlay to indicate we've signed up
-			update_signed_up_alert()
+			update_signed_up_alert(observer)
+
 	else if(target)
 		switch(action)
 			if(NOTIFY_ATTACK)
-				target.attack_ghost(G)
+				target.attack_ghost(observer)
 			if(NOTIFY_JUMP)
-				var/turf/T = get_turf(target)
-				if(T && isturf(T))
-					G.forceMove(T)
+				var/turf/target_turf = get_turf(target)
+				if(target_turf)
+					observer.abstract_move(target_turf)
 			if(NOTIFY_FOLLOW)
-				G.ManualFollow(target)
+				observer.ManualFollow(target)
 
 
 /atom/movable/screen/alert/notify_action/Topic(href, href_list)
-	if(!href_list["signup"])
+	var/mob/dead/observer/observer = usr
+	if(!href_list["signup"] || !poll || !istype(observer))
 		return
-	if(!poll)
-		return
-	var/mob/dead/observer/G = usr
-	if(G in poll.signed_up)
-		poll.remove_candidate(G)
+	var/success = FALSE
+	if(observer in poll.signed_up)
+		success = poll.remove_candidate(observer)
 	else
-		poll.sign_up(G)
-	update_signed_up_alert()
+		success = poll.sign_up(observer)
+	if(success)
+		update_signed_up_alert(observer)
 
 
-/atom/movable/screen/alert/notify_action/proc/update_signed_up_alert()
-	if(!signed_up_overlay)
-		signed_up_overlay = image('icons/mob/screen_gen.dmi', icon_state = "selector")
-		signed_up_overlay.layer = FLOAT_LAYER
-		signed_up_overlay.plane = FLOAT_PLANE + 2
-	if(usr in poll.signed_up)
+/atom/movable/screen/alert/notify_action/proc/update_signed_up_alert(mob/user)
+	if(user in poll.signed_up)
 		add_overlay(signed_up_overlay)
 	else
 		cut_overlay(signed_up_overlay)
 
 
 /atom/movable/screen/alert/notify_action/proc/display_stacks(stacks = 1)
+	cut_overlay(stacks_overlay)
 	if(stacks <= 1)
 		return
+	stacks_overlay = new
+	stacks_overlay.maptext = MAPTEXT("<span style='font-family: \"Small Fonts\"; font-size: 32px; color: yellow;'>[stacks]x</span>")
+	stacks_overlay.transform = stacks_overlay.transform.Translate(4, 2)
+	stacks_overlay.layer = FLOAT_LAYER_STACKS
+	add_overlay(stacks_overlay)
 
-	var/obj/O = new
-	O.maptext = "<span style='font-family: \"Small Fonts\"; font-size: 32px; color: yellow;'>[stacks]x</span>"
-	O.maptext_width = O.maptext_height = 128
-	var/matrix/M = new
-	M.Translate(4, 2)
-	O.transform = M
+#undef FLOAT_LAYER_TIME
+#undef FLOAT_LAYER_STACKS
+#undef FLOAT_LAYER_SELECTOR
 
-	var/image/I = image(O)
-	I.layer = FLOAT_LAYER
-	I.plane = FLOAT_PLANE + 1
-	add_overlay(I)
-
-	qdel(O)
 
 /atom/movable/screen/alert/notify_soulstone
 	name = "Soul Stone"
@@ -754,8 +753,8 @@ so as to remain in compliance with the most up-to-date laws."
 	if(!usr || !usr.client)
 		return
 	if(stone)
-		if(alert(usr, "Do you want to be captured by [stoner]'s soul stone? This will destroy your corpse and make it \
-		impossible for you to get back into the game as your regular character.",, "No", "Yes") ==  "Yes")
+		if(tgui_alert(usr, "Do you want to be captured by [stoner]'s soul stone? This will destroy your corpse and make it \
+		impossible for you to get back into the game as your regular character.", "Respawn", list("No", "Yes")) ==  "Yes")
 			stone?.opt_in = TRUE
 
 /atom/movable/screen/alert/notify_soulstone/Destroy()

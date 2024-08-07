@@ -30,14 +30,18 @@
 	var/list/friend2bananas
 	/// Notify player about new powers.
 	var/enlighten_message_done = FALSE
+	/// Original target atom gorrilla's master pointed at.
+	var/atom/point_target
+	/// Turf adjacent to point_target, used in point movement manipulations.
+	var/turf/target_turf
 	/// Cooldown stamp used for various gorilla actions.
 	COOLDOWN_DECLARE(gorilla_actions_cooldown)
 
 
-/mob/living/simple_animal/hostile/gorilla/Stat()
-	. = ..()
-	if(statpanel("Status"))
-		stat(null, "Бананов съедено: [bananas_eaten]/[BANANAS_TO_ENLIGHTEN]")
+/mob/living/simple_animal/hostile/gorilla/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Бананов съедено:", "[bananas_eaten]/[BANANAS_TO_ENLIGHTEN]")
 
 
 /mob/living/simple_animal/hostile/gorilla/attackby(obj/item/I, mob/user, params)
@@ -54,16 +58,16 @@
 
 	if(client)
 		if(is_on_cooldown())
-			to_chat(user, span_warning("[user == src ? "Вы не можете" : "[capitalize(name)] не мож[pluralize_ru(src, "ет", "гут")]"] настолько быстро поедать бананы!"))
+			to_chat(user, span_warning("[user == src ? "Вы не можете" : "[capitalize(name)] не мож[pluralize_ru(gender, "ет", "гут")]"] настолько быстро поедать бананы!"))
 			return ..()
 		start_action_cooldown()
 		eat_banana(I)
-		to_chat(user, span_notice("Вы замечаете искру разума в глазах [name], но [genderize_ru(src, "он", "она", "оно", "они")] не мо[pluralize_ru(src, "жет", "гут")] устоять перед искушением!"))
-		to_chat(src, span_notice("[user] покорм[genderize_ru(user, "ил", "ила", "ило", "или")] Вас, возможно стоит [genderize_ru(user, "его", "её", "его", "их")] отблагодарить..."))
+		to_chat(user, span_notice("Вы замечаете искру разума в глазах [name], но [genderize_ru(gender, "он", "она", "оно", "они")] не мо[pluralize_ru(gender, "жет", "гут")] устоять перед искушением!"))
+		to_chat(src, span_notice("[user] покорм[genderize_ru(user.gender, "ил", "ила", "ило", "или")] Вас, возможно стоит [genderize_ru(user.gender, "его", "её", "его", "их")] отблагодарить..."))
 		return
 
 	if(is_on_cooldown())
-		to_chat(user, span_warning("[capitalize(name)] сейчас занят[genderize_ru(src, "", "а", "о", "ы")]."))
+		to_chat(user, span_warning("[capitalize(name)] сейчас занят[genderize_ru(gender, "", "а", "о", "ы")]."))
 		return ..()
 
 	start_action_cooldown()
@@ -109,7 +113,7 @@
 			custom_emote(EMOTE_VISIBLE, "рассерженно смотр%(ит,ят)% на [speaker].", intentional = TRUE)
 
 		else if(find_phrase(full_message, attention_phrases))
-			if(can_pass_adjacent(speaker, types_to_exclude = list(/mob, /obj/structure/table)) || length(get_path_to(src, get_turf(speaker), max_distance = 30, simulated_only = FALSE, no_id = TRUE)))
+			if(can_pass_adjacent(speaker, types_to_exclude = list(/mob, /obj/structure/table)) || length(get_path_to(src, get_turf(speaker), mintargetdist = 1)))
 				check_buckled_gorilla()
 				face_atom(speaker)
 				oogaooga(100)
@@ -276,11 +280,11 @@
 		return
 
 	if(is_on_cooldown())
-		to_chat(master, span_warning("[capitalize(name)] сейчас занят[genderize_ru(src, "", "а", "о", "ы")]."))
+		to_chat(master, span_warning("[capitalize(name)] сейчас занят[genderize_ru(gender, "", "а", "о", "ы")]."))
 		return
 
 	if(incapacitated())
-		custom_emote(EMOTE_VISIBLE, "жалобно мыч%(ит,ат)% в сторону [master].", TRUE)
+		custom_emote(EMOTE_VISIBLE, "жалобно мыч%(ит,ат)% в сторону [master].", intentional = TRUE)
 		return
 
 	check_buckled_gorilla()
@@ -305,45 +309,59 @@
 
 	var/turf/pointed_turf = get_turf(pointed_at)
 	var/pointed_at_check_type = pointed_at_crate || pointed_at_banana
-	var/is_in_range = in_range(src, pointed_turf)
+	var/in_range = in_range(src, pointed_turf)
 
-	if(pointed_at_check_type && !is_in_range)
-		var/obj/dummy = new(pointed_turf)
-		dummy.pass_flags = pass_flags
-		for(var/check_dir in GLOB.cardinal)
-			var/turf/check_turf = get_step(pointed_turf, check_dir)
-			if(check_turf.density)
-				continue
-			var/safe_dir = TRUE
-			for(var/atom/thing in check_turf)
-				if(thing.density || !thing.CanPass(dummy, pointed_turf, 1))
-					safe_dir = FALSE
-					break
-			if(safe_dir)
-				pointed_turf = check_turf
-				break
-		qdel(dummy)
+	if(in_range && can_pass_adjacent(pointed_turf, types_to_exclude = list(/mob, /obj/structure/closet, /obj/structure/bigDelivery, /obj/structure/table)))
+		if(pointed_at_check_type)
+			delayed_manipulation(pointed_at)
+		else
+			delayed_move_drop(pointed_at, move = !LAZYLEN(crates_in_hand))
+		return
 
-	if(pointed_at_check_type && is_in_range)
-		is_in_range = can_pass_adjacent(pointed_turf, types_to_exclude = list(/mob, /obj/structure/closet, /obj/structure/bigDelivery, /obj/structure/table))
+	if(in_range)
+		face_atom(master)
+		oogaooga(50)
+		custom_emote(EMOTE_VISIBLE, "чеш%(ет,ут)% затылок, смотря на [master].", intentional = TRUE)
+		return
 
-	var/path_length = is_in_range ? 1 : length(get_path_to(src, pointed_turf, max_distance = 30, simulated_only = FALSE, no_id = TRUE))
-
+	var/list/path = get_path_to(src, pointed_turf, mintargetdist = (pointed_at_check_type || LAZYLEN(crates_in_hand)) ? 1 : null)
+	var/path_length = length(path)
 	if(!path_length)
 		face_atom(master)
 		oogaooga(50)
-		custom_emote(EMOTE_VISIBLE, "чеш%(ет,ут)% затылок, смотря на [master].", TRUE)
+		custom_emote(EMOTE_VISIBLE, "чеш%(ет,ут)% затылок, смотря на [master].", intentional = TRUE)
 		return
 
-	var/time_to_travel = (path_length * move_to_delay)
+	point_target = pointed_at
+	target_turf = path[path_length]
+	var/datum/move_loop/new_loop = Goto(target_turf, move_to_delay, timeout = 4 SECONDS)
+	RegisterSignal(new_loop, COMSIG_MOVELOOP_POSTPROCESS, PROC_REF(move_postprocess))
+	RegisterSignal(new_loop, COMSIG_QDELETING, PROC_REF(move_end))
 
-	if(pointed_at_check_type)
-		Goto(pointed_at, move_to_delay, 1)
-		addtimer(CALLBACK(src, PROC_REF(delayed_manipulation), pointed_at), time_to_travel)
+
+/mob/living/simple_animal/hostile/gorilla/proc/move_postprocess(datum/source)
+	SIGNAL_HANDLER
+
+	if(QDELETED(point_target) || QDELETED(target_turf))
+		follow_master()
 		return
 
-	Goto(pointed_at, move_to_delay, 0)
-	addtimer(CALLBACK(src, PROC_REF(delayed_move_drop), pointed_at), time_to_travel)
+	if(target_turf != loc)
+		return
+
+	if(istype(point_target, /obj/structure/closet) || istype(point_target, /obj/structure/bigDelivery) || istype(point_target, /obj/item/reagent_containers/food/snacks/grown/banana))
+		delayed_manipulation(point_target, 0.3 SECONDS)
+	else
+		delayed_move_drop(point_target, 0.3 SECONDS)
+
+	point_target = null
+	target_turf = null
+
+
+/mob/living/simple_animal/hostile/gorilla/proc/move_end(datum/source)
+	SIGNAL_HANDLER
+
+	follow_master()
 
 
 /**
@@ -352,7 +370,10 @@
  * Arguments:
  * * pointed_at - original atom master pointed at.
  */
-/mob/living/simple_animal/hostile/gorilla/proc/delayed_manipulation(atom/pointed_at)
+/mob/living/simple_animal/hostile/gorilla/proc/delayed_manipulation(atom/pointed_at, delay)
+	set waitfor = FALSE
+	if(isnum(delay))
+		SLEEP_CHECK_DEATH(src, delay)
 	start_action_cooldown()
 	if(!QDELETED(pointed_at) && can_pass_adjacent(pointed_at, types_to_exclude = list(/mob, /obj/structure/closet, /obj/structure/bigDelivery, /obj/structure/table)))
 		if(istype(pointed_at, /obj/structure/closet) || istype(pointed_at, /obj/structure/bigDelivery))
@@ -372,12 +393,19 @@
  * Arguments:
  * * pointed_at - original atom, master pointed at.
  */
-/mob/living/simple_animal/hostile/gorilla/proc/delayed_move_drop(atom/pointed_at)
+/mob/living/simple_animal/hostile/gorilla/proc/delayed_move_drop(atom/pointed_at, delay, move = FALSE)
+	set waitfor = FALSE
+	if(isnum(delay))
+		SLEEP_CHECK_DEATH(src, delay)
 	start_action_cooldown()
-	var/pointed_turf = get_turf(pointed_at)
-	if(can_pass_adjacent(pointed_turf, types_to_exclude = list(/mob)) && LAZYLEN(crates_in_hand))
+	var/turf/pointed_turf = get_turf(pointed_at)
+	var/turf_exist = !QDELETED(pointed_turf)
+	if(turf_exist && can_pass_adjacent(pointed_turf, types_to_exclude = list(/mob, /obj/structure/table)) && LAZYLEN(crates_in_hand))
+		face_atom(pointed_turf)
 		drop_random_crate(pointed_turf)
 	else
+		if(turf_exist && move && loc != pointed_turf)
+			Move(pointed_turf)
 		face_atom(master)
 		oogaooga(50)
 		custom_emote(EMOTE_VISIBLE, "чеш%(ет,ут)% затылок, смотря на [master].", intentional = TRUE)
@@ -518,6 +546,8 @@
 	if(master)
 		UnregisterSignal(master, list(COMSIG_MOB_POINTED, COMSIG_MOB_DEATH))
 		master = null
+		point_target = null
+		target_turf = null
 	if(LAZYLEN(crates_in_hand))
 		drop_all_crates(drop_location())
 	if(is_bipedal)

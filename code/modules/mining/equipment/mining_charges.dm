@@ -7,18 +7,21 @@
 	item_state = "charge_indust"
 	det_time = 5 SECONDS
 	notify_admins = FALSE // no need to make adminlogs on lavaland, while they are "safe" to use
+	/// When TRUE, charges won't detonate on it's own. Used for mining detonator
 	var/timer_off = FALSE
+	/// list of sizes for explosion. Third number is used for actual rock explosion size, second number is radius for Weaken() effects, first is used for hacked charges
+	var/boom_sizes = list(2,3,5)
+
+	var/hacked = FALSE
 	var/installed = FALSE
 	var/smoke_amount = 3
-	var/boom_sizes = list(2,3,5)
-	var/hacked = FALSE
 
 /obj/item/grenade/plastic/miningcharge/examine(mob/user)
 	. = ..()
 	if(hacked)
-		. += "Its wiring is haphazardly changed."
+		. += span_warning("Its wiring is haphazardly changed.")
 	if(timer_off)
-		. += "<span class='notice'>The mining charge is connected to a detonator.</span>"
+		. += span_notice("The mining charge is connected to a detonator.")
 
 /obj/item/grenade/plastic/miningcharge/Initialize()
 	. = ..()
@@ -38,8 +41,8 @@
 				return
 			if(iscarbon(AM))
 				return
-			to_chat(user, "<span class='notice'>You start planting the [src].</span>")
-			if(do_after(user, 2.5 SECONDS * toolspeed * gettoolspeedmod(user), AM))
+			balloon_alert(user, "установка взрывчатки...")
+			if(do_after(user, 2.5 SECONDS * toolspeed, AM, category = DA_CAT_TOOL))
 				if(!user.drop_item_ground(src))
 					return
 				src.target = AM
@@ -58,10 +61,10 @@
 		if(!(src in detonator.bombs) && !timer_off)
 			detonator.bombs += src
 			timer_off = TRUE
-			to_chat(user, span_notice("You synchronized [src] to a detonator."))
+			balloon_alert(user, "синхронизировано")
 			playsound(src, 'sound/machines/twobeep.ogg', 50)
 		else
-			to_chat(user, span_warning("[src] was already synchronized to a existing detonator!"))
+			balloon_alert(user, "уже синхронизировано!")
 		detonator.update_icon()
 	..()
 
@@ -78,7 +81,7 @@
 	S.start()
 	//location.attempt_drill(null,TRUE,3) //orange says it doesnt include the actual middle
 	for(var/turf/simulated/mineral/rock in circlerangeturfs(location, boom_sizes[3]))
-		var/distance = get_dist_euclidian(location,rock)
+		var/distance = get_dist_euclidean(location, rock)
 		if(distance <= boom_sizes[1])
 			rock.attempt_drill(null,TRUE,3)
 		else if (distance <= boom_sizes[2])
@@ -88,13 +91,13 @@
 
 	for(var/mob/living/carbon/C in circlerange(location,boom_sizes[3]))
 		if(ishuman(C)) //working on everyone
-			var/distance = get_dist_euclidian(location,C)
+			var/distance = get_dist_euclidean(location, C)
 			C.flash_eyes()
-			C.Weaken((boom_sizes[2] - distance) * 1 SECONDS) //1 second for how close you are to center if you're in range
+			C.Knockdown((boom_sizes[2] - distance) * 1 SECONDS) //1 second for how close you are to center if you're in range
 			C.AdjustDeaf((boom_sizes[3] - distance) * 10 SECONDS)
 			var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
 			if(istype(ears))
-				ears.receive_damage((boom_sizes[3] - distance) * 2) //something like that i guess. Mega charge makes 12 damage to ears if nearby
+				ears.internal_receive_damage((boom_sizes[3] - distance) * 2) //something like that i guess. Mega charge makes 12 damage to ears if nearby
 			to_chat(C, span_warning("<font size='2'><b>You are knocked down by the power of the mining charge!</font></b>"))
 	qdel(src)
 
@@ -162,10 +165,10 @@
 	if(istype(target,/obj/item/grenade/plastic/miningcharge))
 		var/obj/item/grenade/plastic/miningcharge/charge = target
 		if(charge.hacked)
-			to_chat(user, span_notice("[src] is already overridden!"))
+			balloon_alert(user, "уже взломано!")
 			return
 		if(charges <= 0)
-			to_chat(user, span_notice("Its overriding function is depleted."))
+			balloon_alert(user, "заряды закончились!")
 			return
 		charge.override_safety()
 		visible_message(span_warning("Sparks fly out of [src]!"), span_notice("You override [src], disabling its safeties."))
@@ -182,6 +185,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "Detonator-0"
+	/// list of all bombs connected to a detonator for a moment
 	var/list/bombs = list()
 
 /obj/item/detonator/examine(mob/user)
@@ -202,7 +206,7 @@
 /obj/item/detonator/attack_self(mob/user)
 	playsound(src, 'sound/items/detonator.ogg', 40)
 	if(bombs.len)
-		to_chat(user, span_notice("Activating explosives..."))
+		balloon_alert(user, "активация взрывчатки...")
 		for(var/obj/item/grenade/plastic/miningcharge/charge in bombs)
 			if(QDELETED(charge))
 				to_chat(user, span_notice("Can't reach [charge]. Deleting from the list..."))
@@ -212,6 +216,6 @@
 				bombs -= charge
 				charge.detonate()
 	else
-		to_chat(user, span_warning("There is no charges linked to a detonator!"))
+		balloon_alert(user, "нет привязанной взрывчатки!")
 	update_icon(UPDATE_ICON_STATE)
 	. = ..()

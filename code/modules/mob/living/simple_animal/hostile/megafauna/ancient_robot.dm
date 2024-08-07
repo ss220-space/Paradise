@@ -289,9 +289,9 @@ Difficulty: Very Hard
 	return ..()
 
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/Bump(mob/living/bumped_living, custom_bump)
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/Bump(mob/living/bumped_living)
 	. = ..()
-	if(isnull(.) || !charging || istype(bumped_living, /mob/living/simple_animal/hostile/ancient_robot_leg) || !isliving(bumped_living))
+	if(!charging || istype(bumped_living, /mob/living/simple_animal/hostile/ancient_robot_leg) || !isliving(bumped_living))
 		return .
 	var/turf/living_turf = get_turf(bumped_living)
 	bumped_living.visible_message("<span class='danger'>[src] slams into [bumped_living]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
@@ -563,9 +563,9 @@ Difficulty: Very Hard
 		return ..()
 	return
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/Moved(atom/OldLoc, Dir, Forced = FALSE)
-	if(Dir)
-		leg_walking_controler(Dir)
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
+	if(movement_dir)
+		leg_walking_controler(movement_dir)
 		if(charging)
 			if(mode == PYRO)
 				var/turf/C = get_turf(src)
@@ -586,8 +586,8 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/mob_negates_gravity() //No more being thrown around like a spastic child by grav anomalies
 	return TRUE
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
-	return
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+	return FALSE
 
 /mob/living/simple_animal/hostile/ancient_robot_leg
 	name = "leg"
@@ -597,7 +597,7 @@ Difficulty: Very Hard
 	maxHealth = INFINITY //it's fine trust me
 	health = INFINITY
 	faction = list("mining", "boss") // No attacking your leg
-	weather_immunities = list("lava","ash")
+	weather_immunities = list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE)
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	check_friendly_fire = 1
@@ -653,7 +653,7 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/ancient_robot_leg/bullet_act(obj/item/projectile/P)
 	if(core.stat == CONSCIOUS && !core.target && core.AIStatus != AI_OFF && !core.client)
 		if(P.firer && get_dist(core, P.firer) <= core.aggro_vision_range)
-			core.FindTarget(list(P.firer), 1)
+			core.FindTarget(list(P.firer))
 		core.Goto(P.starting, core.move_to_delay, 3)
 	..()
 
@@ -669,16 +669,25 @@ Difficulty: Very Hard
 		QDEL_NULL(leg_part)
 	addtimer(CALLBACK(src, PROC_REF(beam_setup)), 1 SECONDS)
 
-/mob/living/simple_animal/hostile/ancient_robot_leg/adjustHealth(amount, updating_health = TRUE)
-	var/damage = amount * transfer_rate
-	core.adjustBruteLoss(damage)
-	fake_hp = clamp(fake_hp - damage, 0, fake_max_hp)
-	if(damage && ranged && fake_hp <= 200)
+
+/mob/living/simple_animal/hostile/ancient_robot_leg/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
+	. = STATUS_UPDATE_NONE
+	amount *= transfer_rate
+	core.adjustBruteLoss(amount)
+	fake_hp = clamp(fake_hp - amount, 0, fake_max_hp)
+	if(amount && ranged && fake_hp <= 200)
 		ranged = FALSE
 		visible_message("<span class='danger'>[src]'s turret breaks and pulls back into the leg!</span>")
-	if(damage && transfer_rate <= 0.25) //warn that you are not doing much damage
+	if(amount && transfer_rate <= 0.25) //warn that you are not doing much damage
 		visible_message("<span class='danger'>[src] looks too damaged to hurt it much more!</span>")
 	health_and_snap_check(FALSE)
+
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/proc/health_and_snap_check(regen = FALSE)
 	if(regen)
@@ -697,9 +706,9 @@ Difficulty: Very Hard
 	SSmove_manager.move_towards_legacy(src, T, movespeed, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
 
 
-/mob/living/simple_animal/hostile/ancient_robot_leg/Bump(mob/living/bumped_living, custom_bump)
+/mob/living/simple_animal/hostile/ancient_robot_leg/Bump(mob/living/bumped_living)
 	. = ..()
-	if(isnull(.) || !core.charging || istype(bumped_living, /mob/living/simple_animal/hostile/megafauna/ancient_robot) || !isliving(bumped_living))
+	if(!core.charging || istype(bumped_living, /mob/living/simple_animal/hostile/megafauna/ancient_robot) || !isliving(bumped_living))
 		return .
 	var/turf/living_turf = get_turf(bumped_living)
 	bumped_living.visible_message("<span class='danger'>[src] slams into [bumped_living]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
@@ -737,15 +746,15 @@ Difficulty: Very Hard
 	ranged_cooldown_time = (rand(30, 60)) // keeps them not running on the same time
 	..()
 
-/mob/living/simple_animal/hostile/ancient_robot_leg/Moved(atom/OldLoc, Dir, Forced = FALSE)
+/mob/living/simple_animal/hostile/ancient_robot_leg/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	SHOULD_CALL_PARENT(FALSE)	// I'm sorry
 	playsound(src, 'sound/effects/meteorimpact.ogg', 60, TRUE, 2, TRUE) //turned way down from bubblegum levels due to 4 legs
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/mob_negates_gravity()
 	return TRUE
 
-/mob/living/simple_animal/hostile/ancient_robot_leg/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
-	return
+/mob/living/simple_animal/hostile/ancient_robot_leg/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+	return FALSE
 
 /obj/item/projectile/bullet/ancient_robot_bullet
 	damage = 8

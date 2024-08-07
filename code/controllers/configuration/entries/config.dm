@@ -209,8 +209,6 @@
 /// above this player count threshold, never-before-seen players are blocked from connecting
 /datum/config_entry/number/panic_bunker_threshold
 
-/datum/config_entry/flag/usewhitelist
-
 /datum/config_entry/flag/usewhitelist_database
 
 /datum/config_entry/flag/usewhitelist_nojobbanned
@@ -268,7 +266,24 @@
 /datum/config_entry/number/drone_build_time //A drone will become available every X ticks since last drone spawn. Default is 2 minutes.
 	default = 1200
 
-/datum/config_entry/flag/usealienwhitelist
+/datum/config_entry/str_list/playable_species
+	default = list(
+		SPECIES_TAJARAN,
+		SPECIES_SKRELL,
+		SPECIES_UNATHI,
+		SPECIES_DIONA,
+		SPECIES_VULPKANIN,
+		SPECIES_MOTH,
+		SPECIES_DRASK,
+		SPECIES_GREY,
+		SPECIES_KIDAN,
+		SPECIES_MACNINEPERSON,
+		SPECIES_NUCLEATION,
+		SPECIES_PLASMAMAN,
+		SPECIES_SLIMEPERSON,
+		SPECIES_VOX,
+		SPECIES_WRYN,
+	)
 
 /datum/config_entry/number/alien_player_ratio
 	integer = FALSE
@@ -579,10 +594,9 @@
 
 /datum/config_entry/flag/shutdown_on_reboot
 
-/datum/config_entry/flag/disable_karma
+/datum/config_entry/flag/autoreconnect
 
-/datum/config_entry/number/tick_limit_mc_init
-	default = TICK_LIMIT_MC_INIT_DEFAULT
+/datum/config_entry/flag/disable_karma
 
 /datum/config_entry/number/base_mc_tick_rate
 	integer = FALSE
@@ -756,3 +770,53 @@
 
 /datum/config_entry/number/jobs_high_pop_mode_amount
 	default = 80
+
+
+/datum/config_entry/number/hard_deletes_overrun_threshold
+	integer = FALSE
+	min_val = 0
+	default = 0.5
+
+/datum/config_entry/number/hard_deletes_overrun_limit
+	default = 0
+	min_val = 0
+
+/datum/config_entry/number/error_cooldown // The "cooldown" time for each occurrence of a unique error
+	default = 600
+	integer = FALSE
+	min_val = 0
+
+
+/datum/config_entry/number/error_limit // How many occurrences before the next will silence them
+	default = 50
+
+
+/datum/config_entry/number/error_silence_time // How long a unique error will be silenced for
+	default = 6000
+	integer = FALSE
+
+
+/datum/config_entry/number/error_msg_delay // How long to wait between messaging admins about occurrences of a unique error
+	default = 50
+	integer = FALSE
+
+
+/datum/config_entry/number/second_topic_limit
+	default = 10
+	min_val = 0
+
+
+/datum/config_entry/number/minute_topic_limit
+	default = 150
+	min_val = 0
+
+
+/datum/config_entry/number/second_click_limit
+	default = 15
+	min_val = 0
+
+
+/datum/config_entry/number/minute_click_limit
+	default = 400
+	min_val = 0
+

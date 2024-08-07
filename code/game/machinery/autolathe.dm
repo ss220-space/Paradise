@@ -82,10 +82,10 @@
 	else if(!disabled)
 		ui_interact(user)
 
-/obj/machinery/autolathe/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/autolathe/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Autolathe", name, 750, 700, master_ui, state)
+		ui = new(user, src, "Autolathe", name)
 		ui.open()
 
 
@@ -175,10 +175,10 @@
 				return
 			var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 			var/coeff = get_coeff(design_last_ordered)
-			if(design_last_ordered.materials["$metal"] / coeff > materials.amount(MAT_METAL))
+			if(design_last_ordered.materials[MAT_METAL] / coeff > materials.amount(MAT_METAL))
 				to_chat(usr, span_warning("Invalid design (not enough metal)"))
 				return
-			if(design_last_ordered.materials["$glass"] / coeff > materials.amount(MAT_GLASS))
+			if(design_last_ordered.materials[MAT_GLASS] / coeff > materials.amount(MAT_GLASS))
 				to_chat(usr, span_warning("Invalid design (not enough glass)"))
 				return
 			if(!hacked && ("hacked" in design_last_ordered.category))
@@ -204,7 +204,7 @@
 				busy = FALSE
 
 /obj/machinery/autolathe/ui_status(mob/user, datum/ui_state/state)
-	. = disabled ? STATUS_DISABLED : STATUS_INTERACTIVE
+	. = disabled ? UI_DISABLED : UI_INTERACTIVE
 
 	return min(..(), .)
 

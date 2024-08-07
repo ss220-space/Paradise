@@ -9,6 +9,7 @@
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPMINDSHIELD_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,GLAND_HUD,THOUGHT_HUD,DIAG_STAT_HUD,DIAG_HUD)
 	pressure_resistance = 25
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
+	max_grab = GRAB_KILL
 	num_legs = 0 //Populated on init through list/bodyparts
 	usable_legs = 0 //Populated on init through list/bodyparts
 	num_hands = 0 //Populated on init through list/bodyparts
@@ -83,3 +84,7 @@
 	/// Lazy list of all limbs we know are splinted.
 	var/list/splinted_limbs
 	var/original_eye_color = "#000000"
+
+	/// Holder for the phisiology datum
+	var/datum/physiology/physiology
+

@@ -30,10 +30,10 @@
 		return TRUE
 	ui_interact(user)
 
-/obj/machinery/computer/aifixer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/aifixer/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AIFixer", name, 550, 500, master_ui, state)
+		ui = new(user, src, "AIFixer", name)
 		ui.open()
 
 /obj/machinery/computer/aifixer/ui_data(mob/user)
@@ -82,13 +82,10 @@
 	update_icon()
 	return TRUE
 
+
 /obj/machinery/computer/aifixer/proc/fix_ai() // Can we fix it? Probrably.
 	while(occupant.health < 100)
-		occupant.adjustOxyLoss(-1, FALSE)
-		occupant.adjustFireLoss(-1, FALSE)
-		occupant.adjustToxLoss(-1, FALSE)
-		occupant.adjustBruteLoss(-1, FALSE)
-		occupant.updatehealth()
+		occupant.heal_damages(brute = 1, burn = 1, tox = 1, oxy = 1)
 		if(occupant.health >= 0 && occupant.stat == DEAD)
 			occupant.update_revive()
 			update_icon()
@@ -137,9 +134,9 @@
 			occupant = null
 			update_icon()
 		else if(active)
-			to_chat(user, span_boldannounce("ERROR: ") + "Reconstruction in progress.")
+			to_chat(user, span_boldannounceic("ERROR: ") + "Reconstruction in progress.")
 		else if(!occupant)
-			to_chat(user, span_boldannounce("ERROR: ") + "Unable to locate artificial intelligence.")
+			to_chat(user, span_boldannounceic("ERROR: ") + "Unable to locate artificial intelligence.")
 
 /obj/machinery/computer/aifixer/Destroy()
 	if(occupant)

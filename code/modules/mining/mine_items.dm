@@ -3,14 +3,13 @@
 //this item is intended to give the effect of entering the mine, so that light gradually fades
 /obj/effect/light_emitter
 	name = "Light emitter"
+	icon_state = "at_shield1"
 	anchored = TRUE
 	invisibility = INVISIBILITY_ABSTRACT
-	var/set_luminosity = 8
-	var/set_cap = 0
 
 /obj/effect/light_emitter/Initialize(mapload)
 	. = ..()
-	set_light(set_luminosity, set_cap)
+	icon_state = null
 
 /obj/effect/light_emitter/singularity_pull()
 	return

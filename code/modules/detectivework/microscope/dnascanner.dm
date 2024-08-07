@@ -54,8 +54,7 @@
 
 	to_chat(user, "<span class='notice'>Печать отчета...</span>")
 	var/obj/item/paper/report = new(get_turf(src))
-	report.stamped = list(/obj/item/stamp)
-	LAZYADD(report.stamp_overlays, "paper_stamped")
+	report.stamp(/obj/item/stamp)
 	report_num++
 
 	if(swab)

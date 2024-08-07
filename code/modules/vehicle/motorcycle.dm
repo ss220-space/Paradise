@@ -6,7 +6,6 @@
 	generic_pixel_x = 0
 	generic_pixel_y = 4
 	vehicle_move_delay = 0.25 SECONDS
-	pull_push_speed_modifier = 1
 	var/mutable_appearance/bikecover
 
 

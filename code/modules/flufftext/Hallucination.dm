@@ -84,7 +84,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	py = new_py
 	Show()
 
-/obj/effect/hallucination/simple/Move()
+/obj/effect/hallucination/simple/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	Show()
 
@@ -296,7 +296,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 		if(bubblegum.Adjacent(target) && !charged)
 			charged = TRUE
 			target.Weaken(8 SECONDS)
-			target.adjustStaminaLoss(40)
+			target.apply_damage(40, STAMINA)
 			step_away(target, bubblegum)
 			shake_camera(target, 4, 3)
 			target.visible_message("<span class='warning'>[target] jumps backwards, falling on the ground!</span>", "<span class='userdanger'>[bubblegum] slams into you!</span>")
@@ -614,8 +614,21 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 
 	var/health = 100
 
+
+/obj/effect/fake_attacker/Initialize(mapload, mob/living/carbon/my_target)
+	. = ..()
+	src.my_target = my_target
+	QDEL_IN(src, 30 SECONDS)
+	step_away(src, my_target, 2)
+	INVOKE_ASYNC(src, PROC_REF(attack_loop))
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+
 /obj/effect/fake_attacker/attackby(obj/item/P, mob/living/user, params)
-	step_away(src,my_target,2)
+	step_away(src, my_target, 2)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
 	my_target.playsound_local(src, P.hitsound, 1)
@@ -623,21 +636,18 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 							"<span class='danger'>[my_target] has attacked [src]!</span>")
 
 	health -= P.force
-	return
 
-/obj/effect/fake_attacker/Crossed(mob/M, oldloc)
-	if(M == my_target)
-		step_away(src,my_target,2)
-		if(prob(30))
-			for(var/mob/O in oviewers(world.view , my_target))
-				to_chat(O, "<span class='danger'>[my_target] stumbles around.</span>")
 
-/obj/effect/fake_attacker/New(loc, mob/living/carbon/T)
-	..()
-	my_target = T
-	addtimer(CALLBACK(GLOBAL_PROC, /proc/qdel, src), 300)
-	step_away(src,my_target,2)
-	INVOKE_ASYNC(src, PROC_REF(attack_loop))
+/obj/effect/fake_attacker/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(!my_target || arrived != my_target)
+		return
+
+	step_away(src, my_target, 2)
+	if(prob(30))
+		my_target.visible_message(span_danger("[my_target] stumbles around."))
+
 
 /obj/effect/fake_attacker/proc/updateimage()
 //	qdel(src.currentimage)
@@ -673,7 +683,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 				if(weapon_name)
 					my_target.playsound_local(my_target, weap.hitsound, 1)
 					my_target.show_message("<span class='danger'>[src.name] has attacked [my_target] with [weapon_name]!</span>", 1)
-					my_target.adjustStaminaLoss(30)
+					my_target.apply_damage(30, STAMINA)
 					if(prob(20))
 						my_target.AdjustEyeBlurry(6 SECONDS)
 					if(prob(33))
@@ -682,7 +692,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 				else
 					my_target.playsound_local(my_target, pick('sound/weapons/punch1.ogg','sound/weapons/punch2.ogg','sound/weapons/punch3.ogg','sound/weapons/punch4.ogg'), 25, 1, -1)
 					my_target.show_message("<span class='userdanger'>[src.name] has punched [my_target]!</span>", 1)
-					my_target.adjustStaminaLoss(30)
+					my_target.apply_damage(30, STAMINA)
 					if(prob(33))
 						if(!locate(/obj/effect/overlay) in my_target.loc)
 							fake_blood(my_target)

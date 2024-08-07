@@ -59,66 +59,103 @@
 /turf/simulated/floor/shuttle,
 /area/ruin/powered)
 "o" = (
-/turf/simulated/wall/shuttle{
-	dir = 1;
-	icon_state = "white_walls"
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3";
+	nitrogen = 0;
+	oxygen = 0;
+	temperature = 2.7
 	},
 /area/ruin/powered)
 "p" = (
-/obj/machinery/door/airlock/hatch,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor3";
-	tag = "icon-floor3"
-	},
-/area/ruin/powered)
+/obj/structure/lattice,
+/turf/space,
+/area/space/nearstation)
 "r" = (
+/obj/structure/mecha_wreckage/ripley,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/shuttle{
-	icon_state = "floor3";
-	tag = "icon-floor3"
+	icon_state = "floor2";
+	oxygen = 0;
+	nitrogen = 0;
+	temperature = 2.7
 	},
 /area/ruin/powered)
 "s" = (
-/obj/structure/mecha_wreckage/phazon,
+/obj/structure/mecha_wreckage/ripley/firefighter,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor2";
-	tag = "icon-floor2"
+	oxygen = 0;
+	nitrogen = 0;
+	temperature = 2.7
 	},
 /area/ruin/powered)
 "t" = (
 /turf/simulated/floor/shuttle{
 	icon_state = "floor2";
-	tag = "icon-floor2"
+	oxygen = 0;
+	nitrogen = 0;
+	temperature = 2.7
 	},
 /area/ruin/powered)
 "u" = (
-/obj/structure/mecha_wreckage/ripley/firefighter,
+/obj/effect/decal/cleanable/blood/gibs/robot/up,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor2";
-	tag = "icon-floor2"
+	oxygen = 0;
+	nitrogen = 0;
+	temperature = 2.7
 	},
 /area/ruin/powered)
 "v" = (
-/obj/structure/mecha_wreckage/ripley,
+/obj/effect/decal/cleanable/blood/gibs/robot,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor2";
-	tag = "icon-floor2"
+	oxygen = 0;
+	nitrogen = 0;
+	temperature = 2.7
 	},
 /area/ruin/powered)
 "w" = (
-/obj/effect/decal/cleanable/blood/oil,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor2";
-	tag = "icon-floor2"
-	},
+/turf/simulated/wall/shuttle/nodiagonal,
 /area/ruin/powered)
 "x" = (
-/obj/effect/decal/cleanable/blood/gibs/robot/up,
+/obj/structure/mecha_wreckage/durand,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor2";
-	tag = "icon-floor2"
+	oxygen = 0;
+	nitrogen = 0;
+	temperature = 2.7
 	},
 /area/ruin/powered)
 "y" = (
+/obj/effect/decal/cleanable/blood/oil,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor2";
+	oxygen = 0;
+	nitrogen = 0;
+	temperature = 2.7
+	},
+/area/ruin/powered)
+"z" = (
+/obj/item/stack/tile/plasteel{
+	pixel_x = 7;
+	pixel_y = 8
+	},
+/obj/effect/decal/cleanable/blood/gibs/robot,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor2";
+	oxygen = 0;
+	nitrogen = 0;
+	temperature = 2.7
+	},
+/area/ruin/powered)
+"A" = (
 /obj/machinery/door/poddoor{
 	id_tag = "mecha cargo";
 	name = "Cargo Bay Door";
@@ -126,21 +163,9 @@
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3";
-	tag = "icon-floor3"
-	},
-/area/ruin/powered)
-"z" = (
-/obj/effect/decal/cleanable/blood/gibs/robot,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor2";
-	tag = "icon-floor2"
-	},
-/area/ruin/powered)
-"A" = (
-/obj/structure/mecha_wreckage/durand,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor2";
-	tag = "icon-floor2"
+	nitrogen = 0;
+	oxygen = 0;
+	temperature = 2.7
 	},
 /area/ruin/powered)
 "B" = (
@@ -154,9 +179,9 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "D" = (
-/obj/structure/lattice,
-/turf/template_noop,
-/area/space/nearstation)
+/obj/item/stack/rods,
+/turf/space,
+/area/space)
 "E" = (
 /obj/item/stack/rods,
 /turf/simulated/floor/plating/airless,
@@ -166,14 +191,13 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "G" = (
-/obj/item/stack/tile/plasteel{
-	pixel_x = 7;
-	pixel_y = 8
-	},
-/obj/effect/decal/cleanable/blood/gibs/robot,
+/obj/structure/mecha_wreckage/odysseus,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor2";
-	tag = "icon-floor2"
+	oxygen = 0;
+	nitrogen = 0;
+	temperature = 2.7
 	},
 /area/ruin/powered)
 "H" = (
@@ -186,21 +210,19 @@
 	},
 /area/ruin/powered)
 "J" = (
-/obj/structure/mecha_wreckage/odysseus,
-/turf/simulated/floor/shuttle{
-	icon_state = "floor2";
-	tag = "icon-floor2"
-	},
-/area/ruin/powered)
-"K" = (
 /obj/item/stack/sheet/metal,
-/turf/template_noop,
-/area/space/nearstation)
+/turf/space,
+/area/space)
+"K" = (
+/turf/space,
+/area/space)
 "L" = (
 /obj/structure/mecha_wreckage/gygax,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3";
-	tag = "icon-floor3"
+	nitrogen = 0;
+	oxygen = 0;
+	temperature = 2.7
 	},
 /area/ruin/powered)
 "M" = (
@@ -212,22 +234,27 @@
 	},
 /area/ruin/powered)
 "O" = (
-/turf/simulated/wall/shuttle{
-	dir = 8;
-	icon_state = "white_walls"
-	},
+/obj/structure/shuttle/engine/heater,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "P" = (
-/obj/item/stack/rods,
-/turf/template_noop,
-/area/space/nearstation)
+/obj/structure/mecha_wreckage/phazon,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor2";
+	oxygen = 0;
+	nitrogen = 0;
+	temperature = 2.7
+	},
+/area/ruin/powered)
 "Q" = (
-/obj/structure/shuttle/engine/heater,
-/turf/simulated/floor/shuttle/plating,
+/obj/structure/shuttle/engine/propulsion,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "R" = (
-/obj/structure/shuttle/engine/propulsion,
-/turf/simulated/floor/shuttle/plating,
+/obj/machinery/door/airlock/hatch,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/shuttle,
 /area/ruin/powered)
 "U" = (
 /obj/item/gps/ruin,
@@ -247,157 +274,231 @@
 	icon_state = "white_walls_directions"
 	},
 /area/ruin/powered)
+"Y" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor2";
+	oxygen = 0;
+	nitrogen = 0;
+	temperature = 2.7
+	},
+/area/ruin/powered)
+"Z" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor3";
+	nitrogen = 0;
+	oxygen = 0;
+	temperature = 2.7
+	},
+/area/ruin/powered)
 
 (1,1,1) = {"
 a
 a
 a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+K
+K
+K
 W
 e
 e
 e
 e
 B
-D
+p
 H
+J
 K
-a
-a
-a
-"}
-(2,1,1) = {"
-d
-e
-e
-o
-r
-s
-w
-z
-C
-E
-C
-D
-M
-P
+K
+K
 a
 "}
 (3,1,1) = {"
-c
-f
-j
-p
-r
-t
-t
-A
-t
-C
-H
-D
-D
 a
+d
+e
+e
+w
+o
+P
+y
+v
+C
+E
+C
+p
+M
+D
+K
 a
 "}
 (4,1,1) = {"
+a
+c
+f
+j
+R
+Z
+Y
+Y
+x
+Y
+C
+H
+p
+p
+K
+K
+a
+"}
+(5,1,1) = {"
+a
 c
 f
 k
 N
-r
-t
-x
+Z
+Y
+u
 B
-A
-t
+x
+Y
 B
 C
+J
+K
 K
 a
-a
 "}
-(5,1,1) = {"
+(6,1,1) = {"
+a
 c
 g
 l
 U
-r
-u
-t
-t
-t
+o
+s
+Y
+Y
+Y
 F
-J
-r
+G
+Z
 E
-D
+p
+K
 a
 "}
-(6,1,1) = {"
+(7,1,1) = {"
+a
 c
 h
 m
 N
+o
+Y
 r
-t
-v
-t
+Y
 C
+z
 G
-J
 C
 C
-a
+K
+K
 a
 "}
-(7,1,1) = {"
+(8,1,1) = {"
+a
 c
 i
 n
 N
-r
-v
-t
-t
-t
-t
-t
-L
-N
-Q
-R
-"}
-(8,1,1) = {"
-d
-e
-e
 o
 r
-t
-t
-t
-t
-w
-t
-r
+Y
+Y
+Y
+Y
+Y
+L
 N
+O
 Q
-R
+a
 "}
 (9,1,1) = {"
 a
+d
+e
+e
+w
+o
+t
+Y
+Y
+Y
+y
+Y
+o
+N
+O
+Q
 a
+"}
+(10,1,1) = {"
 a
+K
+K
+K
 X
 e
 I
-y
-y
-y
-y
-y
+A
+A
+A
+A
+A
 d
-O
+N
 e
 I
+a
+"}
+(11,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
 "}

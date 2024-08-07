@@ -4,7 +4,7 @@
 	icon = 'icons/obj/vehicles/sportscar.dmi'
 	icon_state = "sportscar"
 	vehicle_move_delay = 0.25 SECONDS
-	pull_push_speed_modifier = 1
+	pull_push_slowdown = 2
 
 
 #define CAR_COVER_NORTH 1

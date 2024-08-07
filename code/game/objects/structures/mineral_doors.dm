@@ -32,7 +32,7 @@
 	air_update_turf(1)
 	return ..()
 
-/obj/structure/mineral_door/Move()
+/obj/structure/mineral_door/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
 	. = ..()
 	move_update_air(T)
@@ -140,7 +140,7 @@
 	if(istype(W, /obj/item/pickaxe))
 		var/obj/item/pickaxe/digTool = W
 		to_chat(user, "<span class='notice'>You start digging \the [src].</span>")
-		if(do_after(user, 4 SECONDS * digTool.toolspeed * gettoolspeedmod(user) * hardness, src) && src)
+		if(do_after(user, 4 SECONDS * digTool.toolspeed * hardness, src, category = DA_CAT_TOOL) && src)
 			to_chat(user, "<span class='notice'>You finished digging.</span>")
 			deconstruct(TRUE)
 	else if(user.a_intent != INTENT_HARM)

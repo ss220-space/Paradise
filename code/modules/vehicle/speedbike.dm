@@ -3,7 +3,6 @@
 	icon = 'icons/obj/vehicles/bike.dmi'
 	icon_state = "speedbike_blue"
 	vehicle_move_delay = 0.15 SECONDS
-	pull_push_speed_modifier = 1
 	var/overlay_state = "cover_blue"
 	var/mutable_appearance/cover_overlay
 
@@ -29,7 +28,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 
-/obj/vehicle/space/speedbike/Move(atom/newloc, direct = NONE, glide_size_override = 0)
+/obj/vehicle/space/speedbike/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(has_buckled_mobs())
 		new /obj/effect/temp_visual/dir_setting/speedbike_trail(loc, direct)
 	return ..()

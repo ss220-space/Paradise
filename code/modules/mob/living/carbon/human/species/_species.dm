@@ -37,16 +37,14 @@
 	var/cold_level_1 = 260  // Cold damage level 1 below this point.
 	var/cold_level_2 = 200  // Cold damage level 2 below this point.
 	var/cold_level_3 = 120  // Cold damage level 3 below this point.
-	var/coldmod = 1 // Damage multiplier for being in a cold environment
 
 	var/heat_level_1 = 360  // Heat damage level 1 above this point.
 	var/heat_level_2 = 400  // Heat damage level 2 above this point.
 	var/heat_level_3 = 460 // Heat damage level 3 above this point; used for body temperature
-	var/heatmod = 1 // Damage multiplier for being in a hot environment
 
 	var/body_temperature = BODYTEMP_NORMAL	//non-IS_SYNTHETIC species will try to stabilize at this temperature. (also affects temperature processing)
 	var/reagent_tag                 //Used for metabolizing reagents.
-	var/hunger_drain = HUNGER_FACTOR
+
 	var/digestion_ratio = 1 //How quickly the species digests/absorbs reagents.
 	var/taste_sensitivity = TASTE_SENSITIVITY_NORMAL //the most widely used factor; humans use a different one
 	var/germs_growth_rate = 1 //How quickly germs are growing.
@@ -62,26 +60,54 @@
 	var/warning_low_pressure = WARNING_LOW_PRESSURE   // Low pressure warning.
 	var/hazard_low_pressure = HAZARD_LOW_PRESSURE     // Dangerously low pressure.
 
-	var/brute_mod = 1    // Physical damage reduction/amplification
-	var/burn_mod = 1     // Burn damage reduction/amplification
-	var/tox_mod = 1      // Toxin damage reduction/amplification
-	var/oxy_mod = 1		 // Oxy damage reduction/amplification
-	var/clone_mod = 1	 // Clone damage reduction/amplification
-	var/brain_mod = 1    // Brain damage damage reduction/amplification
-	var/stamina_mod = 1
-	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
-	var/speed_mod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
-	var/bonefragility = 1 // higher numbers - higher chances to break bones
-	var/fragile_bones_chance = 0	//chance to break bones while walking, pulling and beating
-	var/blood_damage_type = OXY //What type of damage does this species take if it's low on blood?
-	var/total_health = 100
-	var/punchdamagelow = 0       //lowest possible punch damage
-	var/punchdamagehigh = 9      //highest possible punch damage
-	var/punchstunthreshold = 9	 //damage at which punches from this race will stun //yes it should be to the attacked race but it's not useful that way even if it's logical
-	var/strength_modifier = 1	 //for now only used in resist/grab chances. Maybe sometime it will become more usefull
-	var/obj_damage = 0
-	var/list/default_genes
+	// DO NOT CHANGE THESE VARS OUTSIDE OF OVERRIDING BY OTHER SPECIES, USE PHYSIOLOGY DATUM, OR I WILL FIND YOU .\_/.
+	// [/code/mob/living/carbon/human/physiology.dm]
 
+	/// Flat modifier on all damage taken from any source.
+	/// IE: 10 = 10% less damage taken.
+	var/damage_resistance = 0
+	/// Physical damage reduction/amplification
+	var/brute_mod = 1
+	/// Burn damage reduction/amplification
+	var/burn_mod = 1
+	/// Toxin damage reduction/amplification
+	var/tox_mod = 1
+	/// Oxy damage reduction/amplification
+	var/oxy_mod = 1
+	/// Clone damage reduction/amplification
+	var/clone_mod = 1
+	/// Brain damage reduction/amplification
+	var/brain_mod = 1
+	/// Stamina damage reduction/amplification
+	var/stamina_mod = 1
+	/// If a species is more/less impacated by incapacitated effects (stun/weaken/knockdown/paralysis/sleeping)
+	var/stun_mod = 1
+	/// Hunder drain reduction/amplification
+	var/hunger_drain_mod = 1
+	/// Lowest possible punch damage
+	var/punchdamagelow = 0
+	/// Highest possible punch damage
+	var/punchdamagehigh = 9
+	/// Damage at which punches from this race will stun
+	var/punchstunthreshold = 9
+	/// Damage for punching objects
+	var/obj_damage = 0
+	/// Fractures chance reduction/amplification
+	var/bonefragility = 1
+	/// Damage multiplier for being in a hot environment
+	var/heatmod = 1
+	/// Damage multiplier for being in a cold environment
+	var/coldmod = 1
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	/// Maximum health of this species
+	var/total_health = 100
+	/// What type of damage does this species take if it's low on blood?
+	var/blood_damage_type = OXY
+	/// Species default genes
+	var/list/default_genes
+	/// Species movement speed. Positive numbers make it move slower, negative numbers make it move faster
+	var/speed_mod = 0
 	/// Allows species to have ventcrawl trait defined here.
 	/// Values are: TRAIT_VENTCRAWLER_ALWAYS / TRAIT_VENTCRAWLER_NUDE
 	var/ventcrawler_trait
@@ -216,7 +242,12 @@
 	/// Whether the presence of a body accessory on this species is optional or not.
 	var/optional_body_accessory = TRUE
 
-	var/toolspeedmod = 1
+	/// Flat bonus to various tool handling
+	/// Value of 0.1 adds 10% time delay to all performed actions in tool's category, -0.1 vice versa
+	/// READ ONLY!
+	var/toolspeedmod = 0
+	/// Same as above, used for surgery modifiers
+	var/surgeryspeedmod = 0
 
 	var/toxic_food = TOXIC
 	var/disliked_food = GROSS
@@ -297,6 +328,12 @@
 	if(speed_mod)
 		H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = speed_mod)
 
+	if(toolspeedmod)
+		H.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod, multiplicative_slowdown = toolspeedmod)
+
+	if(surgeryspeedmod)
+		H.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_surgery_mod, multiplicative_slowdown = surgeryspeedmod)
+
 	if(ventcrawler_trait)
 		var/static/list/ventcrawler_sanity = list(
 			TRAIT_VENTCRAWLER_ALWAYS,
@@ -310,6 +347,11 @@
 	if(inherent_factions)
 		for(var/i in inherent_factions)
 			H.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
+
+	if((VIRUSIMMUNE in species_traits) && (LAZYLEN(H.diseases)))
+		for(var/datum/disease/D in H.diseases)
+			if(!D.ignore_immunity)
+				D.cure()
 
 	for(var/obj/item/item as anything in H.get_equipped_items())
 		if(QDELETED(item) || item.loc != H)	// wad deleted or dropped already
@@ -358,6 +400,12 @@
 	if(speed_mod)
 		H.remove_movespeed_modifier(/datum/movespeed_modifier/species_speedmod)
 
+	if(toolspeedmod)
+		H.remove_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod)
+
+	if(surgeryspeedmod)
+		H.remove_actionspeed_modifier(/datum/actionspeed_modifier/species_surgery_mod)
+
 	H.meatleft = initial(H.meatleft)
 
 	REMOVE_TRAIT(H, ventcrawler_trait, SPECIES_TRAIT)
@@ -385,15 +433,15 @@
 // For special snowflake species effects
 // (Slime People changing color based on the reagents they consume)
 /datum/species/proc/handle_life(mob/living/carbon/human/H)
-	if((H.blood_volume > BLOOD_VOLUME_REGENERATION) && (HAVE_REGENERATION in species_traits) && (H.getBruteLoss() || H.getFireLoss()))
-		H.adjustBruteLoss(-0.1, FALSE)
-		H.adjustFireLoss(-0.1)
-
+	var/regenerate = TRUE
 	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
 		var/takes_crit_damage = (!(NOCRITDAMAGE in species_traits))
 		if((H.health <= HEALTH_THRESHOLD_CRIT) && takes_crit_damage)
+			regenerate = FALSE
 			H.adjustBruteLoss(1)
-	return
+
+	if(regenerate && (H.blood_volume > BLOOD_VOLUME_REGENERATION) && (HAVE_REGENERATION in species_traits) && (H.getBruteLoss() || H.getFireLoss()))
+		H.heal_overall_damage(0.1, 0.1)
 
 /**
  * Handles DNA mutations, as that doesn't work at init.
@@ -404,51 +452,17 @@
 /datum/species/proc/handle_death(gibbed, mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).
 	return
 
-/datum/species/proc/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, mob/living/carbon/human/H, sharp = 0, obj/used_weapon = null)
-	blocked = (100 - blocked) / 100
-	if(blocked <= 0)
-		return 0
 
-	var/obj/item/organ/external/organ = null
-	if(isexternalorgan(def_zone))
-		organ = def_zone
-	else
-		if(!def_zone)
-			def_zone = ran_zone(def_zone)
-		organ = H.get_organ(check_zone(def_zone))
-	if(!organ)
-		return 0
+/datum/species/proc/spec_stun(mob/living/carbon/human/user, duration)
+	. = duration
+	if(!user.frozen) //admin freeze has no breaks
+		. = duration * stun_mod * user.physiology.stun_mod
 
-	damage = damage * blocked
 
-	switch(damagetype)
-		if(BRUTE)
-			damage = damage * (brute_mod + H.get_vampire_bonus(BRUTE))
-			if(damage)
-				H.damageoverlaytemp = 20
 
-			if(organ.receive_damage(damage, 0, sharp, used_weapon))
-				H.UpdateDamageIcon()
-
-		if(BURN)
-			damage = damage * (burn_mod + H.get_vampire_bonus(BURN))
-			if(damage)
-				H.damageoverlaytemp = 20
-
-			if(organ.receive_damage(0, damage, sharp, used_weapon))
-				H.UpdateDamageIcon()
-
-	// Will set our damageoverlay icon to the next level, which will then be set back to the normal level the next mob.Life().
-	H.updatehealth("apply damage")
-	return 1
-
-/datum/species/proc/spec_stun(mob/living/carbon/human/H, amount)
-	. = amount
-	if(!H.frozen) //admin freeze has no breaks
-		. = stun_mod * amount
-
-/datum/species/proc/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+/datum/species/proc/spec_electrocute_act(mob/living/carbon/human/affected, shock_damage, source, siemens_coeff, flags, jitter_time, stutter_time, stun_duration)
 	return
+
 
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style && attacker_style.help_act(user, target) == TRUE)//adminfu only...
@@ -545,7 +559,7 @@
 		target.lastattackerckey = user.ckey
 
 		var/damage_type = BRUTE
-		var/damage = rand(user.dna.species.punchdamagelow, user.dna.species.punchdamagehigh)
+		var/damage = rand(user.dna.species.punchdamagelow + user.physiology.punch_damage_low, user.dna.species.punchdamagehigh + user.physiology.punch_damage_high)
 		damage += attack.damage
 		if(!damage)
 			playsound(target.loc, attack.miss_sound, 25, 1, -1)
@@ -585,7 +599,7 @@
 					objective.take_damage(damage, damage_type)
 
 		target.apply_damage(damage, damage_type, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
-		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
+		if((target.stat != DEAD) && damage >= (user.dna.species.punchstunthreshold + user.physiology.punch_stun_threshold))
 			target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] ослабля[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>", \
 							"<span class='userdanger'>[user.declent_ru(NOMINATIVE)] ослабля[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>")
 			target.apply_effect(4 SECONDS, WEAKEN, armor_block)
@@ -595,6 +609,8 @@
 		SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(user == target)
+		return FALSE
 	var/message = "<span class='warning'>[target.declent_ru(NOMINATIVE)] блокиру[pluralize_ru(target.gender,"ет","ют")] попытку обезоруживания [user.declent_ru(GENITIVE)]!</span>"
 	if(target.check_martial_art_defense(target, user, null, message))
 		return FALSE
@@ -623,41 +639,72 @@
 				target.LAssailant = user
 			return
 
-		var/talked = 0	// BubbleWrap
+		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
+		if(target.move_resist > user.pull_force)
+			return FALSE
+		if(!(target.status_flags & CANPUSH))
+			return FALSE
+		if(target.anchored)
+			return FALSE
+		if(target.buckled)
+			target.buckled.unbuckle_mob(target)
 
-		if(randn <= 60)
-			//BubbleWrap: Disarming breaks a pull
-			if(target.pulling)
-				target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] разрыва[pluralize_ru(user.gender,"ет","ют")] хватку [target.declent_ru(GENITIVE)] на [target.pulling.declent_ru(PREPOSITIONAL)]!</span>")
-				talked = 1
-				target.stop_pulling()
+	var/shove_dir = get_dir(user.loc, target.loc)
+	var/turf/shove_to = get_step(target.loc, shove_dir)
+	playsound(shove_to, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
-			//BubbleWrap: Disarming also breaks a grab - this will also stop someone being choked, won't it?
-			if(istype(target.l_hand, /obj/item/grab))
-				var/obj/item/grab/lgrab = target.l_hand
-				if(lgrab.affecting)
-					target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] разрыва[pluralize_ru(user.gender,"ет","ют")] хватку [target.declent_ru(GENITIVE)] на [lgrab.affecting.declent_ru(PREPOSITIONAL)]!</span>")
-					talked = 1
-				spawn(1)
-					qdel(lgrab)
-			if(istype(target.r_hand, /obj/item/grab))
-				var/obj/item/grab/rgrab = target.r_hand
-				if(rgrab.affecting)
-					target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] разрыва[pluralize_ru(user.gender,"ет","ют")] хватку [target.declent_ru(GENITIVE)] на [rgrab.affecting.declent_ru(PREPOSITIONAL)]!</span>")
-					talked = 1
-				spawn(1)
-					qdel(rgrab)
-			//End BubbleWrap
+	if(shove_to == user.loc)
+		return FALSE
 
-			if(!talked)	//BubbleWrap
-				if(target.drop_from_active_hand())
-					target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] обезоружива[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>")
-			playsound(target.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-			return
+	//Directional checks to make sure that we're not shoving through a windoor or something like that
+	var/directional_blocked = FALSE
+	var/target_turf = get_turf(target)
+	if(shove_dir in list(NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST)) // if we are moving diagonially, we need to check if there are dense walls either side of us
+		var/turf/T = get_step(target.loc, turn(shove_dir, 45)) // check to the left for a dense turf
+		if(T.density)
+			directional_blocked = TRUE
+		else
+			T = get_step(target.loc, turn(shove_dir, -45)) // check to the right for a dense turf
+			if(T.density)
+				directional_blocked = TRUE
 
+	if(!directional_blocked)
+		for(var/obj/obj_content in target_turf) // check the tile we are on for border
+			if(obj_content.flags & ON_BORDER && obj_content.dir & shove_dir && obj_content.density)
+				directional_blocked = TRUE
+				break
+	if(!directional_blocked)
+		for(var/obj/obj_content in shove_to) // check tile we are moving to for borders
+			if(obj_content.flags & ON_BORDER && obj_content.dir & turn(shove_dir, 180) && obj_content.density)
+				directional_blocked = TRUE
+				break
 
-	playsound(target.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-	target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] пыта[pluralize_ru(user.gender,"ется","ются")] обезоружить [target.declent_ru(ACCUSATIVE)]!</span>")
+	if(!directional_blocked)
+		for(var/atom/movable/AM in shove_to)
+			if(AM.shove_impact(target, user)) // check for special interactions EG. tabling someone
+				return TRUE
+
+	var/moved = target.Move(shove_to, shove_dir)
+	if(!moved) //they got pushed into a dense object
+		add_attack_logs(user, target, "Disarmed into a dense object", ATKLOG_ALL)
+		target.visible_message(span_warning("[user] slams [target]"), \
+								span_userdanger("You get slammed into the obstacle by [user]!"), \
+								"You hear a loud thud.")
+		if(!HAS_TRAIT(target, TRAIT_FLOORED))
+			target.Knockdown(3 SECONDS)
+			addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon, SetKnockdown), 0), 3 SECONDS) // so you cannot chain stun someone
+		else if(!user.IsStunned())
+			target.Stun(0.5 SECONDS)
+	else
+		var/obj/item/I = target.get_active_hand()
+		if(I && prob(60))
+			target.drop_from_active_hand()
+			add_attack_logs(user, target, "Disarmed object out of hand", ATKLOG_ALL)
+		else
+			if(I)
+				to_chat(target, span_warning("Your grip on [I] loosens!"))
+			add_attack_logs(user, target, "Disarmed, shoved back", ATKLOG_ALL)
+	target.stop_pulling()
 
 /datum/species/proc/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style) //Handles any species-specific attackhand events.
 	if(!istype(M))
@@ -1168,3 +1215,4 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	else
 		var/obj/item/organ/external/head/HD = H.get_organ(BODY_ZONE_HEAD)
 		return HD.hair_colour
+
