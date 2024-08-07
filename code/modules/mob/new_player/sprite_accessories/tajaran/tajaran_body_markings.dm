@@ -10,20 +10,18 @@
 	name = "Tajaran Points"
 	icon_state = "points"
 
-/datum/sprite_accessory/body_markings/tajara/belly_man_taj
-	name = "Tajaran Male Belly"
+/datum/sprite_accessory/body_markings/tajara/belly_taj
+	name = "Tajaran Belly"
 	icon_state = "fullbelly_man"
 
-/datum/sprite_accessory/body_markings/tajara/patchy_man_taj
-	name = "Tajaran Male Patches"
+/datum/sprite_accessory/body_markings/tajara/belly_taj/woman
+	icon_state = "fullbelly_woman"
+	unsuitable_gender = MALE
+
+/datum/sprite_accessory/body_markings/tajara/patchy_taj
+	name = "Tajaran Patches"
 	icon_state = "patch_man"
 
-/datum/sprite_accessory/body_markings/tajara/belly_woman_taj
-	name = "Tajaran Female Belly"
-	icon_state = "fullbelly_woman"
-	gender = FEMALE
-
-/datum/sprite_accessory/body_markings/tajara/patchy_woman_taj
-	name = "Tajaran Female Patches"
+/datum/sprite_accessory/body_markings/tajara/patchy_taj/woman
 	icon_state = "patch_woman"
-	gender = FEMALE
+	unsuitable_gender = MALE

@@ -82,12 +82,6 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list())
 	return ..()
 
 //Tajaran
-/datum/body_accessory/tail/wingler_tail // Jay wingler fluff tail
-	name = "Striped Tail"
-	icon_state = "winglertail"
-	animated_icon_state = "winglertail_a"
-	allowed_species = list(SPECIES_TAJARAN)
-
 /datum/body_accessory/tail/leopard_tail
 	name = "Leopard Tail"
 	icon_state = "leopard"
@@ -105,6 +99,14 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list())
 	icon_state = "short"
 	animated_icon_state = "short_a"
 	allowed_species = list(SPECIES_VULPKANIN, SPECIES_TAJARAN)
+
+//	TODO: Remove outdated sprite tail option.
+//	The standard tail has an identical `markings` option, but colorable.
+/datum/body_accessory/tail/wingler_tail // Jay wingler fluff tail
+	name = "Striped Tail"
+	icon_state = "winglertail"
+	animated_icon_state = "winglertail_a"
+	allowed_species = list(SPECIES_TAJARAN)
 
 //Vulpkanin
 /datum/body_accessory/tail/bushy
