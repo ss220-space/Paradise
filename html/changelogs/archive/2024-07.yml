@@ -470,11 +470,38 @@
   - add: more buttons in top-left menu (#5602)
   - admin: bold banned message (#5607)
   - add: clown mimic voice menu[bounty] (#5512)
+  - bugfix: holster abuz and deadmin hide stealth (#5612)
+  - tweak: antagonists -> special roles (#5611)
+  - bugfix: verbs |= -> add_verb (#5618)
   SAAD:
   - tweak: July delta general cleanup + Z1 shuttles air leaks fix (#5474)
   - add: Event map "delta dlya oldov" (#5467)
+  - tweak: change "Point to" category (#5613)
+  - bugfix: replace holotabes at any not-holodeck place (#5615)
+  - tweak: pods placement (#5614)
+  Vladisvell:
+  - bugfix: Fixed mob deleting with martial arts (#5616)
   Zwei:
   - bugfix: Vampire Sucking Unique DoAfter Source (#5609)
   - bugfix: Unconscious/Dead Facing Fix (#5610)
   github-actions[bot]:
   - server: Automatic NanoMap Update (#5606)
+'2024-07-30':
+  Aziz Chynaliev:
+  - bugfix: TTS with old Cyrillic and Norway characters
+  - server: add example resources.txt config and local asset hosting server script
+  Dimach:
+  - refactor: update vox_preload code (#5623)
+  ROdenFL:
+  - bugfix: null icon_states fix (#5620)
+  - tweak: remove fullscreen button, hide karma verbs (#5621)
+  Vladisvell:
+  - add: Now you can make photos without flashing lights, also fixes photography (#5625)
+  dageavtobusnick:
+  - unknown: admin buttons fixes and tweaks (#5528)
+  - tweak: add contractor items to admin uplink (#5624)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#5619)
+'2024-07-31':
+  Vladisvell:
+  - bugfix: Now you can have lighting in custom areas and spawned maps (#5630)

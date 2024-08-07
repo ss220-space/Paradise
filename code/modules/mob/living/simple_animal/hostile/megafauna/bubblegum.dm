@@ -516,14 +516,25 @@ Difficulty: Hard
 		INVOKE_ASYNC(src, PROC_REF(charge), chargeat, delay, chargepast)
 
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/adjustBruteLoss(amount, updating_health = TRUE)
+/mob/living/simple_animal/hostile/megafauna/bubblegum/adjustBruteLoss(
+	amount = 0,
+	updating_health = TRUE,
+	def_zone = null,
+	blocked = 0,
+	forced = FALSE,
+	used_weapon = null,
+	sharp = FALSE,
+	silent = FALSE,
+	affect_robotic = TRUE,
+)
 	. = ..()
-	if(. > 0 && prob(25))
+	if(. && prob(25))
 		var/obj/effect/decal/cleanable/blood/gibs/bubblegum/B = new /obj/effect/decal/cleanable/blood/gibs/bubblegum(loc)
 		if(prob(40))
 			step(B, pick(GLOB.cardinal))
 		else
 			B.setDir(pick(GLOB.cardinal))
+
 
 /obj/effect/decal/cleanable/blood/gibs/bubblegum
 	name = "thick blood"
@@ -668,8 +679,20 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Life()
 	return
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/adjustBruteLoss(amount, updating_health = TRUE)
-	return
+
+/mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/adjustBruteLoss(
+	amount = 0,
+	updating_health = TRUE,
+	def_zone = null,
+	blocked = 0,
+	forced = FALSE,
+	used_weapon = null,
+	sharp = FALSE,
+	silent = FALSE,
+	affect_robotic = TRUE,
+)
+	return STATUS_UPDATE_NONE
+
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/OpenFire()
 	return

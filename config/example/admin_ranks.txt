@@ -8,37 +8,36 @@
 # Ranks with no keywords will just be given the most basic verbs and abilities  	   #
 ########################################################################################
 # KEYWORDS:
-# +MENTOR = Access only to the Question's Ahelp and has little way of metagaming the game.
+# +BUILDMODE (or +BUILD) = the ability to use buildmode
 # +ADMIN = general admin tools, verbs etc
-# +FUN = events, other event-orientated actions. Access to the fun secrets in the secrets panel.
 # +BAN = the ability to ban, jobban and fullban
-# +STEALTH = the ability to stealthmin (make yourself appear with a fake name to everyone but other admins
-# +POSSESS = the ability to possess objects
-# +REJUV (or +REJUVINATE) = the ability to heal, respawn, modify damage and use godmode
-# +BUILD (or +BUILDMODE) = the ability to use buildmode
+# +EVENT = events, other event-orientated actions.
 # +SERVER = higher-risk admin verbs and abilities, such as those which affect the server configuration.
 # +DEBUG = debug tools used for diagnosing and fixing problems. It's useful to give this to coders so they can investigate problems on a live server.
+# +POSSESS = the ability to possess objects
+# +PERMISSIONS (or +RIGHTS) = allows you to promote and/or demote people.
+# +STEALTH = the ability to stealthmin (make yourself appear with a fake name to everyone but other admins
+# +REJUVINATE (or +REJUV) = the ability to heal, respawn, modify damage and use godmode
 # +VAREDIT = everyone may view viewvars/debugvars/whatever you call it. This keyword allows you to actually EDIT those variables.
-# +RIGHTS (or +PERMISSIONS) = allows you to promote and/or demote people.
 # +SOUND (or +SOUNDS) = allows you to upload and play sounds
-# +SPAWN (or +CREATE) = mob transformations, spawning of most atoms including mobs (high-risk atoms, e.g. blackholes, will require the +FUN flag too)
-# +EVERYTHING (or +HOST or +ALL) = Simply gives you everything without having to type every flag
+# +SPAWN (or +CREATE) = mob transformations, spawning of most atoms including mobs (high-risk atoms, e.g.
+# +PROCCALL = allows you to call procs
+# +MODERATOR = the ability to view notes and bans, and regulate the game.
+# +MENTOR = Access only to the Question's Ahelp and has little way of metagaming the game.
 # +VIEWRUNTIMES = Allows a player to view the runtimes of the server, but not use other debug verbs
+# +EVERYTHING (or +HOST or +ALL) = Simply gives you everything without having to type every flag
 
 # Admin Ranks
-Admin Observer
-Mentor					+MENTOR
-Moderator               +MOD
-Trial Admin             +ADMIN +BAN +DEBUG +REJUVINATE
-Game Admin              +ADMIN +BAN +DEBUG +REJUVINATE +BUILDMODE +EVENT +SERVER +POSSESS +STEALTH +VAREDIT +SOUND +SPAWN
-Senior Admin			+ADMIN +BAN +DEBUG +REJUVINATE +BUILDMODE +EVENT +SERVER +POSSESS +STEALTH +VAREDIT +SOUND +SPAWN
-Retired Admin  			+ADMIN +BAN +STEALTH +VAREDIT +SPAWN
-Head of Staff           +EVERYTHING
+Ментор                           +MENTOR
+Модератор                        +MODERATOR +MENTOR
+Триал Админ                      +ADMIN +BAN +MODERATOR +MENTOR
+Админ                            +BUILDMODE +ADMIN +BAN +EVENT +SERVER +DEBUG +POSSESS +STEALTH +REJUVINATE +VAREDIT +SPAWN +PROCCALL +MODERATOR +MENTOR +VIEWRUNTIMES
+Старший Админ                    +EVERYTHING
+Главный Администратор Проекта    +EVERYTHING
 
-Hosting Provider        +EVERYTHING
+Хост                             +EVERYTHING
 
 # Coder Ranks
-Trial Coder				+ADMIN +VAREDIT +REJUVINATE +DEBUG
-Coders                  +ADMIN +VAREDIT +REJUVINATE +DEBUG +BUILDMODE +EVENT +SERVER +POSSESS +STEALTH +SOUND +SPAWN
-Retired Coder			+ADMIN +VAREDIT +REJUVINATE +DEBUG +BUILDMODE +EVENT +SERVER +POSSESS +STEALTH +SOUND +SPAWN +BAN
-Maintainers             +EVERYTHING
+Разработчик                      +VIEWRUNTIMES
+Контрибьютор                     +REJUVINATE +VAREDIT +DEBUG +SPAWN + PROCCALL +VIEWRUNTIMES
+Ведущий Разработчик              +BUILDMODE +ADMIN +BAN +EVENT +SERVER +DEBUG +POSSESS +STEALTH +REJUVINATE +VAREDIT +SOUND +SPAWN +PROCCALL +MODERATOR +MENTOR +VIEWRUNTIMES

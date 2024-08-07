@@ -113,11 +113,11 @@
 	update_icon()
 
 
-/obj/machinery/door/firedoor/attack_hand(mob/user)
-	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+/obj/machinery/door/firedoor/attack_hand(mob/living/carbon/human/user)
+	if(user.a_intent == INTENT_HARM && ishuman(user) && (user.dna.species.obj_damage + user.physiology.punch_obj_damage > 0))
 		add_fingerprint(user)
 		user.changeNext_move(CLICK_CD_MELEE)
-		attack_generic(user, user.dna.species.obj_damage)
+		attack_generic(user, user.dna.species.obj_damage + user.physiology.punch_obj_damage)
 		return
 	if(operating || !density)
 		return
@@ -361,7 +361,7 @@
 	if(our_rcd.checkResource(16, user))
 		to_chat(user, "Deconstructing firelock...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-		if(do_after(user, 5 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, 5 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
 			if(!our_rcd.useResource(16, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
@@ -435,7 +435,7 @@
 				user.visible_message(span_notice("[user] begins reinforcing [src]..."), \
 									 span_notice("You begin reinforcing [src]..."))
 				playsound(get_turf(src), C.usesound, 50, 1)
-				if(do_after(user, 6 SECONDS * C.toolspeed * gettoolspeedmod(user), src))
+				if(do_after(user, 6 SECONDS * C.toolspeed, src, category = DA_CAT_TOOL))
 					if(constructionStep != CONSTRUCTION_PANEL_OPEN || reinforced || P.get_amount() < 2 || !P)
 						return
 					add_fingerprint(user)
@@ -454,7 +454,7 @@
 				user.visible_message(span_notice("[user] begins wiring [src]..."), \
 									 span_notice("You begin adding wires to [src]..."))
 				playsound(get_turf(src), B.usesound, 50, 1)
-				if(do_after(user, 6 SECONDS * B.toolspeed * gettoolspeedmod(user), src))
+				if(do_after(user, 6 SECONDS * B.toolspeed, src, category = DA_CAT_TOOL))
 					if(constructionStep != CONSTRUCTION_GUTTED || B.get_amount() < 5 || !B)
 						return
 					add_fingerprint(user)
@@ -470,7 +470,7 @@
 				user.visible_message(span_notice("[user] starts adding [C] to [src]..."), \
 									 span_notice("You begin adding a circuit board to [src]..."))
 				playsound(get_turf(src), C.usesound, 50, 1)
-				if(!do_after(user, 4 SECONDS * C.toolspeed * gettoolspeedmod(user), src))
+				if(!do_after(user, 4 SECONDS * C.toolspeed, src, category = DA_CAT_TOOL))
 					return
 				if(constructionStep != CONSTRUCTION_NOCIRCUIT)
 					return

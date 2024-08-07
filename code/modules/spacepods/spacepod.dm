@@ -395,7 +395,7 @@
 		if(L.on && equipment_system.lock_system)
 			user.visible_message(user, "<span class='warning'>[user] is drilling through the [src]'s lock!</span>",
 				"<span class='notice'>You start drilling through the [src]'s lock!</span>")
-			if(do_after(user, 10 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
+			if(do_after(user, 10 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
 				QDEL_NULL(equipment_system.lock_system)
 				unlocked = TRUE
 				user.visible_message(user, "<span class='warning'>[user] has destroyed the [src]'s lock!</span>",

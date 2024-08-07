@@ -38778,9 +38778,6 @@
 /area/library/game_zone)
 "dRW" = (
 /obj/effect/landmark/start/captain,
-/obj/machinery/light{
-	dir = 1
-	},
 /turf/simulated/floor/carpet/royalblue,
 /area/crew_quarters/captain/bedroom)
 "dRX" = (
@@ -39492,8 +39489,7 @@
 "dUJ" = (
 /obj/structure/window/full/reinforced,
 /obj/structure/marker_beacon{
-	icon_state = "markerteal-on";
-	initialized = 1
+	icon_state = "markerteal-on"
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
@@ -46981,8 +46977,7 @@
 "fvt" = (
 /obj/structure/window/full/reinforced,
 /obj/structure/marker_beacon{
-	icon_state = "markerburgundy-on";
-	initialized = 1
+	icon_state = "markerburgundy-on"
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
@@ -84965,8 +84960,7 @@
 /area/space)
 "oJy" = (
 /obj/structure/marker_beacon{
-	icon_state = "markerlime-on";
-	initialized = 1
+	icon_state = "markerlime-on"
 	},
 /obj/structure/window/full/reinforced,
 /turf/simulated/floor/plating,

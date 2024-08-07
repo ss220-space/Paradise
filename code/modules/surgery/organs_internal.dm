@@ -374,12 +374,11 @@
 
 	else if(istype(tool, /obj/item/stack/medical/bruise_pack) || istype(tool, /obj/item/stack/nanopaste))
 		dam_amt = 5
-		target.adjustToxLoss(10)
-		affected?.receive_damage(5)
+		target.apply_damages(brute = 5, tox = 10, def_zone = affected)
 
 	for(var/obj/item/organ/internal/organ as anything in get_organ_list(target_zone, target, affected))
 		if(organ.damage && !(organ.tough))
-			organ.receive_damage(dam_amt,0)
+			organ.internal_receive_damage(dam_amt)
 
 	return SURGERY_STEP_RETRY
 
@@ -477,7 +476,7 @@
 				span_warning("[user]'s hand slips, damaging [target]'s [affected.name] with [tool]!"),
 				span_warning("Your hand slips, damaging [target]'s [affected.name] with [tool]!")
 			)
-			affected.receive_damage(20)
+			target.apply_damage(20, def_zone = affected)
 		else
 			user.visible_message(
 				span_warning("[user]'s hand slips, damaging [target]'s [parse_zone(target_zone)] with [tool]!"),
@@ -577,7 +576,7 @@
 	)
 	var/obj/item/organ/internal/I = tool
 	if(istype(I) && !I.tough)
-		I.receive_damage(rand(3,5),0)
+		I.internal_receive_damage(rand(3,5))
 
 	return SURGERY_STEP_RETRY
 
@@ -717,7 +716,7 @@
 
 	for(var/obj/item/organ/internal/organ as anything in target.get_organs_zone(target_zone))
 		organ.germ_level = max(organ.germ_level-ethanol, 0)
-		organ.receive_damage(rand(4, 8), 0)
+		organ.internal_receive_damage(rand(4, 8))
 
 	R.trans_to(target, GHETTO_DISINFECT_AMOUNT * 10)
 	R.reaction(target, REAGENT_INGEST)
@@ -781,8 +780,7 @@
 	else
 		msg = span_warning("[user]'s hand slips, tearing the skin!")
 		self_msg = span_warning("Your hand slips, tearing skin!")
-	if(affected)
-		affected.receive_damage(20)
+	target.apply_damage(20, def_zone = affected)
 	user.visible_message(msg, self_msg)
 	return SURGERY_STEP_RETRY
 

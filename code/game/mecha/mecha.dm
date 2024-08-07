@@ -1267,7 +1267,7 @@
 
 
 /obj/mecha/proc/put_in(mob/user)
-	if(do_after(user, mech_enter_time * gettoolspeedmod(user), src))
+	if(do_after(user, mech_enter_time, src, category = DA_CAT_TOOL))
 		if(obj_integrity <= 0)
 			to_chat(user, span_warning("You cannot get in the [name], it has been destroyed!"))
 		else if(occupant)

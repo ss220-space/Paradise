@@ -129,22 +129,22 @@
 	..(gibbed)
 	regenerate_icons()
 
-/mob/living/simple_animal/pet/dog/corgi/getarmor(def_zone, type)
+/mob/living/simple_animal/pet/dog/corgi/getarmor(def_zone, attack_flag)
 	var/armorval = 0
 
 	if(def_zone)
 		if(def_zone == BODY_ZONE_HEAD)
 			if(inventory_head)
-				armorval = inventory_head.armor.getRating(type)
+				armorval = inventory_head.armor.getRating(attack_flag)
 		else
 			if(inventory_back)
-				armorval = inventory_back.armor.getRating(type)
+				armorval = inventory_back.armor.getRating(attack_flag)
 		return armorval
 	else
 		if(inventory_head)
-			armorval += inventory_head.armor.getRating(type)
+			armorval += inventory_head.armor.getRating(attack_flag)
 		if(inventory_back)
-			armorval += inventory_back.armor.getRating(type)
+			armorval += inventory_back.armor.getRating(attack_flag)
 	return armorval * 0.5
 
 /mob/living/simple_animal/pet/dog/corgi/attackby(obj/item/O, mob/user, params)

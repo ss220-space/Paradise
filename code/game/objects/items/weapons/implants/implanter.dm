@@ -48,7 +48,7 @@
 			target.visible_message(span_warning("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся имплантировать био-чип в [target]."))
 
 		var/turf/target_turf = get_turf(target)
-		if(target_turf && (target == user || do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), target)))
+		if(target_turf && (target == user || do_after(user, 5 SECONDS * toolspeed, target, category = DA_CAT_TOOL)))
 			if(!QDELETED(user) && !QDELETED(target) && !QDELETED(src) && !QDELETED(imp) && get_turf(target) == target_turf && imp.implant(target, user))
 				if(user == target)
 					to_chat(user, span_notice("Вы имплантировали био-чип в себя."))

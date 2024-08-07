@@ -685,11 +685,7 @@
 		else
 			if(user.a_intent == INTENT_DISARM || user.a_intent == INTENT_GRAB)
 				to_chat(user, "<span class='warning'>You try to remove the light [fitting], but you burn your hand on it!</span>")
-
-				var/obj/item/organ/external/affecting = H.get_organ(user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-				if(affecting.receive_damage(0, 5)) // 5 burn damage
-					H.UpdateDamageIcon()
-				H.updatehealth()
+				H.apply_damage(5, BURN, def_zone = H.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 				return
 			else
 				to_chat(user, "<span class='notice'>You try to remove the light [fitting], but it's too hot to touch!</span>")

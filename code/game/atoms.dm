@@ -57,8 +57,6 @@
 
 	var/allow_spin = TRUE //Set this to 1 for a _target_ that is being thrown at; if an atom has this set to 1 then atoms thrown AT it will not spin; currently used for the singularity. -Fox
 
-	var/initialized = FALSE
-
 	///overlays managed by [update_overlays][/atom/proc/update_overlays] to prevent removing overlays that weren't added by the same proc. Single items are stored on their own, not in a list.
 	var/list/managed_overlays
 
@@ -141,9 +139,11 @@
 
 /atom/proc/Initialize(mapload, ...)
 	SHOULD_CALL_PARENT(TRUE)
-	if(initialized)
+	if(flags & INITIALIZED)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
-	initialized = TRUE
+	flags |= INITIALIZED
+
+	SET_PLANE_IMPLICIT(src, plane)
 
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
@@ -155,8 +155,6 @@
 		loc.InitializedOn(src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
 
 	SETUP_SMOOTHING()
-
-	SET_PLANE_IMPLICIT(src, plane)
 
 	ComponentInitialize()
 

@@ -420,8 +420,14 @@
 ///from base of /obj/item/attack(): (mob/M, mob/user)
 #define COMSIG_MOB_ITEM_ATTACK "mob_item_attack"
 	#define COMPONENT_ITEM_NO_ATTACK (1<<0)
-///from base of /mob/living/proc/apply_damage(): (damage, damagetype, def_zone)
+
+///from base of /mob/living/proc/get_incoming_damage_modifier(): (list/damage_mods, damage, damagetype, def_zone, sharp, used_weapon)
+#define COMSIG_MOB_APPLY_DAMAGE_MODIFIERS "mob_apply_damage_modifiers"
+///from base of /mob/living/proc/get_blocking_resistance(): (list/damage_resistances, damage, damagetype, def_zone, sharp, used_weapon)
+#define COMSIG_MOB_APPLY_BLOCKING_RESISTANCES "mob_apply_blocking_resistances"
+///from base of /mob/living/proc/apply_damage(): (damage, damagetype, def_zone, blocked, sharp, used_weapon, spread_damage, forced)
 #define COMSIG_MOB_APPLY_DAMAGE	"mob_apply_damage"
+
 ///from base of obj/item/afterattack(): (atom/target, mob/user, proximity_flag, click_parameters)
 #define COMSIG_MOB_ITEM_AFTERATTACK "mob_item_afterattack"
 	/// Flag for when /afterattack potentially acts on an item.
@@ -756,6 +762,8 @@
 #define COMSIG_ITEM_DISABLE_EMBED "item_disable_embed"
 ///from [/obj/effect/mine/proc/triggermine]:
 #define COMSIG_MINE_TRIGGERED "minegoboom"
+///from [/obj/item/organ/internal/remove]:
+#define COMSIG_ORGAN_REMOVED "organ_removed"
 
 /// Defib-specific signals
 
@@ -886,6 +894,8 @@
 #define COMSIG_HUMAN_SUICIDE_ACT "human_suicide_act"
 ///From mob/living/carbon/human/regenerate_icons()
 #define COMSIG_HUMAN_REGENERATE_ICONS "human_regenerate_icons"
+///From /mob/living/carbon/human/proc/set_species(): (datum/species/old_species)
+#define COMSIG_HUMAN_SPECIES_CHANGED "human_species_changed"
 
 
 ///from /mob/living/carbon/human/proc/check_shields(): (atom/hit_by, damage, attack_text, attack_type, armour_penetration, damage_type)
@@ -1143,6 +1153,8 @@
 #define COMSIG_MOVELOOP_POSTPROCESS "moveloop_postprocess"
 //from [/datum/move_loop/has_target/jps/recalculate_path] ():
 #define COMSIG_MOVELOOP_JPS_REPATH "moveloop_jps_repath"
+///from [/datum/move_loop/has_target/jps/on_finish_pathing]
+#define COMSIG_MOVELOOP_JPS_FINISHED_PATHING "moveloop_jps_finished_pathing"
 
 ///from of mob/MouseDrop(): (/atom/over, /mob/user)
 #define COMSIG_DO_MOB_STRIP "do_mob_strip"
