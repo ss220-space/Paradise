@@ -92,7 +92,6 @@
 		/obj/item/gun/energy/kinetic_accelerator/crossbow/large = 1,
 		/obj/item/storage/box/thunderdome/laser_eyes = 1,
 		/obj/item/implanter/adrenalin = 1,
-		/obj/item/clothing/gloves/fingerless/rapid = 1,
 		/obj/item/implanter/adrenalin = 1,
 		/obj/item/gun/projectile/automatic/sniper_rifle/syndicate = 1,
 		/obj/item/gun/energy/xray = 1,
