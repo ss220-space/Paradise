@@ -52,6 +52,43 @@
 		final_block_chance = 0 //Don't bring a sword to a gunfight
 	return ..()
 
+/obj/item/melee/syndie_rapier
+	name = "plastitanium rapier"
+	desc = "A thin blade made of plastitanium with a diamond tip. It appears to be coated in a persistent layer of an unknown substance."
+	icon_state = "syndie_rapier"
+	item_state = "syndie_rapier"
+	flags = CONDUCT
+	force = 15
+	throwforce = 10
+	w_class = WEIGHT_CLASS_BULKY
+	block_chance = 50
+	armour_penetration = 75
+	sharp = TRUE
+	origin_tech = "combat=5;biotech=5;syndicate=4"
+	attack_verb = list("lunged at", "stabbed")
+	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
+	drop_sound = 'sound/items/handling/knife_drop.ogg'
+	hitsound = 'sound/weapons/rapierhit.ogg'
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	/// How much stamina damage we deal on a successful hit against a living, non-cyborg mob.
+	var/stamina_damage = 30
+
+/obj/item/melee/syndie_rapier/attack(mob/living/target, mob/living/user, def_zone, add_melee_cooldown = TRUE, skip_attack_anim = TRUE)
+	add_fingerprint(user)
+	syndie_rapier_effect(target, user)
+	return ..()
+
+/obj/item/melee/syndie_rapier/proc/syndie_rapier_effect(mob/living/target, mob/living/user)
+	if(target.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
+		target.visible_message(
+			span_danger("[user] puts [target] to sleep with [src]!"),
+			span_userdanger("You suddenly feel very drowsy!"),
+		)
+		target.Sleeping(10 SECONDS)
+		add_attack_logs(user, target, "put to sleep with [src]")
+	target.apply_damage(stamina_damage, STAMINA)
+	return TRUE
+
 /obj/item/melee/mantisblade
 	name = "Gorlex mantis blade"
 	desc = "A blade designed to be hidden just beneath the skin. The brain is directly linked to this bad boy, allowing it to spring into action."
