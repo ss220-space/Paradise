@@ -27,7 +27,9 @@
 		to_chat(user, span_warning("[src] attempts to teleport you, but abruptly shuts off."))
 		return FALSE
 	if (world.time < last_use + cooldown)
-		to_chat(user, span_warning("Wait " + str((world.time - last_use)/20) + " seconds.")
+		var/T = (last_use + cooldown - world.time)/10
+		var/msg = "Wait <b>[T]</b> seconds."
+		to_chat(user, span_warning(msg))
 		return FALSE
 	last_use = world.time
 

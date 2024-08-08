@@ -9,7 +9,7 @@
 
 /obj/item/gun/syringe/rapidsyringe/experemental/Initialize() {
 	..()
-	redy_reagents.reagents.total_volume = 100
+	redy_reagents.volume = 100
 	START_PROCESSING(SSobj, src)
 }
 
@@ -31,7 +31,7 @@
 			balloon_alert(user, "недостаточно места!")
 	else if(istype(A, /obj/item/reagent_containers/glass))
 		var/obj/item/reagent_containers/glass/RC = A;
-		if (!RC.list_reagents)
+		if (!RC.reagents.reagent_list)
 			return  ..()
 		redy_reagents.reagents.clear_reagents()
 		RC.reagents.trans_to(redy_reagents, 100)
@@ -48,7 +48,7 @@
 	for (var/obj/item/reagent_containers/syringe/S in syringes)
 		redy_reagents.reagents.trans_to(S, min(redy_reagents.reagents.total_volume, S.volume - S.reagents.total_volume))
 	for (var/datum/reagent/R in processed_reagents.reagents.reagent_list)
-		redy_reagents.reagents.add_reagent(R)
+		redy_reagents.reagents.add_reagent(R.id, R.volume)
 
 /datum/crafting_recipe/rapidsyringe_experemental
 	name = "Experemental syringe gun"
