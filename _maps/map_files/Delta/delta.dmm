@@ -8010,7 +8010,6 @@
 	},
 /area/hallway/secondary/entry)
 "bgT" = (
-/obj/structure/table,
 /obj/item/folder/yellow{
 	pixel_y = 1
 	},
@@ -8025,6 +8024,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
