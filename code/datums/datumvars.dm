@@ -505,7 +505,7 @@
 /client/proc/view_var_Topic(href, href_list, hsrc)
 	//This should all be moved over to datum/admins/Topic() or something ~Carn
 	if(!check_rights(R_VAREDIT, FALSE) && !((href_list["datumrefresh"] || href_list["Vars"] || href_list["VarsList"])))
-		return // clients with R_VIEWRUNTIMES can still refresh the window/view references/view lists. they cannot edit anything else however.
+		return
 
 	if(view_var_Topic_list(href, href_list, hsrc))  // done because you can't use UIDs with lists and I don't want to snowflake into the below check to supress warnings
 		return
@@ -617,7 +617,7 @@
 		href_list["datumrefresh"] = href_list["give_spell"]
 
 	else if(href_list["givemartialart"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_ADMIN|R_EVENT))	return
 
 		var/mob/living/carbon/C = locateUID(href_list["givemartialart"])
 		if(!istype(C))
@@ -645,7 +645,7 @@
 		href_list["datumrefresh"] = href_list["givemartialart"]
 
 	else if(href_list["give_disease"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_ADMIN|R_EVENT))	return
 
 		var/mob/M = locateUID(href_list["give_disease"])
 		if(!istype(M))
