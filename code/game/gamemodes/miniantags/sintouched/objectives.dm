@@ -13,8 +13,12 @@
 	else
 		explanation_text = "Go get married, then immediately cheat on your new spouse." */
 
-/datum/objective/sintouched/proc/on_apply(mob/living/carbon/human/human) // separated from New for better call
-		
+/datum/objective/sintouched/proc/on_apply(mob/living/carbon/human/human)
+
+datum/objective/sintouched/New(text, datum/team/team_to_join, mob/living/carbon/human/human = usr)
+	..()
+	on_apply(human)
+	
 /datum/objective/sintouched/gluttony
 	explanation_text = "Еда очень вкусная, настолько вкусная, что вы не можете позволить еде попасть к другим людям, ведь она и была создана лишь для вас."
 
