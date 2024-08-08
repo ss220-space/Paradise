@@ -15,7 +15,7 @@
 
 /datum/objective/sintouched/proc/on_apply(mob/living/carbon/human/human)
 
-datum/objective/sintouched/New(text, datum/team/team_to_join, mob/living/carbon/human/human = usr)
+/datum/objective/sintouched/New(text, datum/team/team_to_join, mob/living/carbon/human/human = usr)
 	..()
 	on_apply(human)
 	
