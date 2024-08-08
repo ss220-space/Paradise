@@ -49,7 +49,7 @@
 		return FALSE
 
 	L.AdjustSilence(20 SECONDS)
-	L.adjustStaminaLoss(39)
+	L.apply_damage(39, STAMINA)
 	if(!poisonable)
 		return TRUE
 	var/inject_target = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD)

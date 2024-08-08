@@ -26,7 +26,6 @@
 /obj/structure/blob/Initialize(mapload)
 	. = ..()
 	GLOB.blobs += src
-	SSticker.mode.update_blob_objective()
 	setDir(pick(GLOB.cardinal))
 	check_integrity()
 	if(atmosblock)
@@ -43,7 +42,6 @@
 		atmosblock = FALSE
 		air_update_turf(1)
 	GLOB.blobs -= src
-	SSticker.mode.update_blob_objective()
 	if(isturf(loc)) //Necessary because Expand() is screwed up and spawns a blob and then deletes it
 		playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
 	return ..()

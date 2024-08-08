@@ -45,7 +45,7 @@
 			var/mob/living/grabber = src
 			if(!isnull(grabber.pull_hand) && grabber.pull_hand != PULL_WITHOUT_HANDS)
 				if(next_move <= world.time && grabber.hand == grabber.pull_hand && grabber.on_grab_quick_equip(pulling, grabber.pull_hand))
-					grabber.changeNext_move(CLICK_CD_GRABBING)
+					grabber.changeNext_move(grabber.grab_state > GRAB_PASSIVE ? CLICK_CD_GRABBING : CLICK_CD_PULLING)
 				return
 		to_chat(src, span_warning("Вы ничего не держите в руке!"))
 		return
@@ -577,6 +577,7 @@
 				I.forceMove(newloc)
 		I.dropped(src, slot, silent)
 
+	SEND_SIGNAL(I, COMSIG_ITEM_POST_UNEQUIP, force, newloc, no_move, invdrop, silent)
 	return TRUE
 
 

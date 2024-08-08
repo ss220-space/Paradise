@@ -175,7 +175,7 @@
 		for(var/datum/martial_art/MA in known_martial_arts)
 			MA.remove(current)
 			if(old_current)
-				MA.remove_verbs(old_current)
+				MA.remove_martial_art_verbs(old_current)
 			if(!MA.temporary)
 				MA.teach(current)
 
@@ -2090,9 +2090,9 @@
 			if("contractor")
 				if(has_antag_datum(/datum/antagonist/contractor))
 					return
-
-				add_antag_datum(/datum/antagonist/contractor)
-
+				var/datum/antagonist/contractor/contractor_datum = new()
+				contractor_datum.is_admin_forced = TRUE
+				add_antag_datum(contractor_datum)
 				// Notify
 				log_admin("[key_name(usr)] has contractored [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has contractored [key_name_admin(current)]")
@@ -2391,7 +2391,7 @@
 					return
 
 				var/mob/living/carbon/human/H = current
-				var/gear = alert("Agent or Scientist Gear","Gear","Agent","Scientist")
+				var/gear = alert("Agent or Scientist Gear", "Gear", "Agent", "Scientist")
 				if(gear)
 					if(gear=="Agent")
 						H.equipOutfit(/datum/outfit/abductor/agent)
@@ -2778,6 +2778,8 @@
 		return
 
 	contractor_datum.silent = TRUE
+	if(contractor_datum.contractor_uplink && !contractor_datum.is_admin_forced)
+		SSticker?.mode?.contractor_accepted--
 	remove_antag_datum(/datum/antagonist/contractor)
 
 
@@ -2988,9 +2990,9 @@
 		add_antag_datum(/datum/antagonist/thief)
 
 /datum/mind/proc/make_Abductor()
-	var/role = alert("Abductor Role ?","Role","Agent","Scientist")
-	var/team = input("Abductor Team ?","Team ?") in list(1,2,3,4)
-	var/teleport = alert("Teleport to ship ?","Teleport","Yes","No")
+	var/role = alert("Abductor Role?", "Role", "Agent", "Scientist")
+	var/team = input("Abductor Team?", "Team?") in list(1,2,3,4)
+	var/teleport = alert("Teleport to ship?", "Teleport", "Yes", "No")
 
 	if(!role || !team || !teleport)
 		return

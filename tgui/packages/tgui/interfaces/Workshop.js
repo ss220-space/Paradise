@@ -5,11 +5,11 @@ import {
   Button,
   Collapsible,
   Dropdown,
-  Flex,
   Input,
   LabeledList,
   ProgressBar,
   Section,
+  Stack,
 } from '../components';
 import { Countdown } from '../components/Countdown';
 import { Window } from '../layouts';
@@ -56,48 +56,53 @@ export const Workshop = (_properties, context) => {
 
   return (
     <Window width={400} height={500} theme="clockwork">
-      <Window.Content className="Layout__content--flexColumn">
-        <Box>
-          <WorkshopSearch />
-          <Section title="Materials">
-            <LabeledList>
-              <LabeledList.Item label="Brass">
-                {brassReadable}
-                <Button
-                  icon={'arrow-down'}
-                  height="19px"
-                  tooltip={'Dispense Brass'}
-                  tooltipPosition="bottom-start"
-                  ml="0.5rem"
-                  onClick={() => act('dispense')}
-                />
-              </LabeledList.Item>
-              <LabeledList.Item label="Power">{powerReadable}</LabeledList.Item>
-            </LabeledList>
-          </Section>
-        </Box>
-        <Section flexGrow="1">
-          <WorkshopItems />
-        </Section>
-        <Flex mb="0.5rem">
-          {building && (
-            <ProgressBar.Countdown
-              start={buildStart}
-              current={worldTime}
-              end={buildEnd}
-              bold
-            >
-              Building {building}
-              &nbsp;(
-              <Countdown
-                current={worldTime}
-                timeLeft={buildEnd - worldTime}
-                format={(v, f) => f.substr(3)}
-              />
-              )
-            </ProgressBar.Countdown>
-          )}
-        </Flex>
+      <Window.Content>
+        <Stack fill vertical>
+          <Stack.Item>
+            <WorkshopSearch />
+            <Section title="Materials">
+              <LabeledList>
+                <LabeledList.Item label="Brass">
+                  {brassReadable}
+                  <Button
+                    icon={'arrow-down'}
+                    height="19px"
+                    tooltip={'Dispense Brass'}
+                    tooltipPosition="bottom-start"
+                    ml="0.5rem"
+                    onClick={() => act('dispense')}
+                  />
+                </LabeledList.Item>
+                <LabeledList.Item label="Power">
+                  {powerReadable}
+                </LabeledList.Item>
+              </LabeledList>
+              {building && (
+                <ProgressBar.Countdown
+                  mt={2}
+                  start={buildStart}
+                  current={worldTime}
+                  end={buildEnd}
+                  bold
+                >
+                  Building {building}
+                  &nbsp;(
+                  <Countdown
+                    current={worldTime}
+                    timeLeft={buildEnd - worldTime}
+                    format={(v, f) => f.substr(3)}
+                  />
+                  )
+                </ProgressBar.Countdown>
+              )}
+            </Section>
+          </Stack.Item>
+          <Stack.Item grow>
+            <Section fill scrollable>
+              <WorkshopItems />
+            </Section>
+          </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -113,15 +118,15 @@ const WorkshopSearch = (_properties, context) => {
   );
   return (
     <Box mb="0.5rem">
-      <Flex width="100%">
-        <Flex.Item grow="1" mr="0.5rem">
+      <Stack width="100%">
+        <Stack.Item grow="1" mr="0.5rem">
           <Input
             placeholder="Search by item name.."
             width="100%"
             onInput={(_e, value) => setSearchText(value)}
           />
-        </Flex.Item>
-        <Flex.Item>
+        </Stack.Item>
+        <Stack.Item>
           <Button
             icon={descending ? 'arrow-down' : 'arrow-up'}
             height="19px"
@@ -130,8 +135,8 @@ const WorkshopSearch = (_properties, context) => {
             ml="0.5rem"
             onClick={() => setDescending(!descending)}
           />
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Box>
   );
 };
@@ -181,7 +186,7 @@ const WorkshopItems = (_properties, context) => {
     );
   });
   return (
-    <Flex.Item grow="1" overflow="auto">
+    <Stack.Item grow="1">
       <Section>
         {has_contents ? (
           contents
@@ -189,7 +194,7 @@ const WorkshopItems = (_properties, context) => {
           <Box color="label">No items matching your criteria was found!</Box>
         )}
       </Section>
-    </Flex.Item>
+    </Stack.Item>
   );
 };
 

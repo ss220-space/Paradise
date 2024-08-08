@@ -199,7 +199,7 @@ About the new airlock wires panel:
 				justzap = TRUE
 				addtimer(VARSET_CALLBACK(src, justzap, FALSE), 1 SECONDS)
 				return
-		else if(!operating && user.AmountHallucinate() > 50 SECONDS && prob(10) && user.electrocute_act(50, src, 1, illusion = TRUE))
+		else if(!operating && user.AmountHallucinate() > 50 SECONDS && prob(10) && user.electrocute_act(50, "шлюза", flags = SHOCK_ILLUSION))
 			return
 	return ..()
 
@@ -789,7 +789,7 @@ About the new airlock wires panel:
 		var/mob/living/simple_animal/hulk/H = user
 		H.attack_hulk(src)
 
-/obj/machinery/door/airlock/attack_hand(mob/user)
+/obj/machinery/door/airlock/attack_hand(mob/living/carbon/human/user)
 	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user)
 	if(shock_user(user, 100))
 		add_fingerprint(user)
@@ -798,10 +798,10 @@ About the new airlock wires panel:
 	if(headbutt_airlock(user))
 		add_fingerprint(user)
 		return // Smack that head against that airlock
-	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+	if(user.a_intent == INTENT_HARM && ishuman(user) && (user.dna.species.obj_damage + user.physiology.punch_obj_damage > 0))
 		add_fingerprint(user)
 		user.changeNext_move(CLICK_CD_MELEE)
-		attack_generic(user, user.dna.species.obj_damage)
+		attack_generic(user, user.dna.species.obj_damage + user.physiology.punch_obj_damage)
 		return
 	if(remove_airlock_note(user, FALSE))
 		add_fingerprint(user)
@@ -824,10 +824,8 @@ About the new airlock wires panel:
 			playsound(loc, 'sound/effects/bang.ogg', 25, 1)
 			if(!istype(H.head, /obj/item/clothing/head/helmet))
 				visible_message(span_warning("[user] headbutts the airlock."))
-				var/obj/item/organ/external/affecting = H.get_organ(BODY_ZONE_HEAD)
 				H.Weaken(10 SECONDS)
-				if(affecting.receive_damage(10, 0))
-					H.UpdateDamageIcon()
+				H.apply_damage(10, def_zone = BODY_ZONE_HEAD)
 			else
 				visible_message(span_warning("[user] headbutts the airlock. Good thing [user.p_theyre()] wearing a helmet."))
 			return TRUE
@@ -1149,7 +1147,7 @@ About the new airlock wires panel:
 		switch(security_level)
 			if(AIRLOCK_SECURITY_METAL)
 				to_chat(user, span_notice("You begin cutting the panel's shielding..."))
-				if(!I.use_tool(src, user, 4 SECONDS * gettoolspeedmod(user), volume = I.tool_volume))
+				if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
 					return
 				visible_message(span_notice("[user] cuts through \the [src]'s shielding."),
 					span_notice("You cut through \the [src]'s shielding."),
@@ -1158,7 +1156,7 @@ About the new airlock wires panel:
 				spawn_atom_to_turf(/obj/item/stack/sheet/metal, user.loc, 2)
 			if(AIRLOCK_SECURITY_PLASTEEL_O)
 				to_chat(user, span_notice("You begin cutting the outer layer of shielding..."))
-				if(!I.use_tool(src, user, 4 SECONDS * gettoolspeedmod(user), volume = I.tool_volume))
+				if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
 					return
 				visible_message(span_notice("[user] cuts through \the [src]'s shielding."),
 					span_notice("You cut through \the [src]'s shielding."),
@@ -1166,7 +1164,7 @@ About the new airlock wires panel:
 				security_level = AIRLOCK_SECURITY_PLASTEEL_O_S
 			if(AIRLOCK_SECURITY_PLASTEEL_I)
 				to_chat(user, span_notice("You begin cutting the inner layer of shielding..."))
-				if(!I.use_tool(src, user, 4 SECONDS * gettoolspeedmod(user), volume = I.tool_volume))
+				if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
 					return
 				user.visible_message(span_notice("[user] cuts through \the [src]'s shielding."),
 					span_notice("You cut through \the [src]'s shielding."),
@@ -1178,7 +1176,7 @@ About the new airlock wires panel:
 				span_notice("You begin [welded ? "unwelding":"welding"] the airlock..."), \
 				span_italics("You hear welding."))
 
-			if(I.use_tool(src, user, 4 SECONDS * gettoolspeedmod(user), volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(weld_checks), I, user)))
+			if(I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(weld_checks), I, user)))
 				if(!density && !welded)
 					return
 				welded = !welded
@@ -1189,7 +1187,7 @@ About the new airlock wires panel:
 			user.visible_message(span_notice("[user] is welding the airlock."), \
 				span_notice("You begin repairing the airlock..."), \
 				span_italics("You hear welding."))
-			if(I.use_tool(src, user, 4 SECONDS * gettoolspeedmod(user), volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(weld_checks), I, user)))
+			if(I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(weld_checks), I, user)))
 				obj_integrity = max_integrity
 				stat &= ~BROKEN
 				user.visible_message(span_notice("[user.name] has repaired [src]."), \
@@ -1216,7 +1214,7 @@ About the new airlock wires panel:
 	if(I.tool_behaviour == TOOL_CROWBAR && I.tool_use_check(user, 0) && panel_open && (emagged || (density && welded && !operating && !arePowerSystemsOn() && !locked)))
 		user.visible_message("[user] removes the electronics from the airlock assembly.", \
 							 span_notice("You start to remove electronics from the airlock assembly..."))
-		if(I.use_tool(src, user, 4 SECONDS * gettoolspeedmod(user), volume = I.tool_volume))
+		if(I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
 			deconstruct(TRUE, user)
 		return
 
@@ -1245,13 +1243,13 @@ About the new airlock wires panel:
 			to_chat(user, span_warning("You need to be wielding the fire axe to do that!"))
 			return
 		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
-		if(do_after(user, 5 SECONDS * gettoolspeedmod(user), src, max_interact_count = 1) && !open(TRUE) && density)
+		if(do_after(user, 5 SECONDS, src, max_interact_count = 1, category = DA_CAT_TOOL) && !open(TRUE) && density)
 			to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
 		return
 
 	if(istype(I, /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw))
 		playsound(src, 'sound/machines/airlock_force_open.ogg', 100, 1) //scary
-		if(do_after(user, 4 SECONDS * gettoolspeedmod(user), src, max_interact_count = 1) && !open(TRUE) && density) // faster because of ITS A MECH
+		if(do_after(user, 4 SECONDS, src, max_interact_count = 1, category = DA_CAT_TOOL) && !open(TRUE) && density) // faster because of ITS A MECH
 			to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
 		return
 
@@ -1264,7 +1262,7 @@ About the new airlock wires panel:
 		return
 
 	playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
-	if(do_after(user, 5 SECONDS * gettoolspeedmod(user), src, max_interact_count = 1) && !open(TRUE) && density)
+	if(do_after(user, 5 SECONDS, src, max_interact_count = 1, category = DA_CAT_TOOL) && !open(TRUE) && density)
 		to_chat(user, span_warning("Despite your attempts, [src] refuses to open."))
 
 
@@ -1635,7 +1633,7 @@ About the new airlock wires panel:
 	if(our_rcd.checkResource(20, user))
 		to_chat(user, "Deconstructing airlock...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-		if(do_after(user, 5 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, 5 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
 			if(!our_rcd.useResource(20, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)

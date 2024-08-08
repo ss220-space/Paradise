@@ -1,3 +1,29 @@
+// Exist only for sdql2, deleted by official paradise
+/obj/effect/statclick
+	name = "Initializing..."
+	var/target
+
+INITIALIZE_IMMEDIATE(/obj/effect/statclick)
+
+/obj/effect/statclick/Initialize(mapload, text, target)
+	. = ..()
+	name = text
+	src.target = target
+	if(isdatum(target)) //Harddel man bad
+		RegisterSignal(target, COMSIG_QDELETING, PROC_REF(cleanup))
+
+/obj/effect/statclick/Destroy()
+	target = null
+	return ..()
+
+/obj/effect/statclick/proc/cleanup()
+	SIGNAL_HANDLER
+	qdel(src)
+
+/obj/effect/statclick/proc/update(text)
+	name = text
+	return src
+
 //SDQL2 datumized, /tg/station special!
 
 /*
@@ -195,12 +221,18 @@
 		CRASH("SDQL2 fatal error");};
 
 /client/proc/SDQL2_query()
+	set name = "SDQL2 Query"
+	set desc = "Run a SDQL2 query."
 	set category = "Debug"
 
 	if(!check_rights(R_PROCCALL))  //Shouldn't happen... but just to be safe.
 		message_admins("<span class='danger'>ERROR: Non-admin [key_name_admin(usr)] attempted to execute a SDQL query!</span>")
 		log_admin("Non-admin [key_name(usr)] attempted to execute a SDQL query!")
 		return FALSE
+
+	var/prompt = alert(usr, "Run SDQL2 Query?", "SDQL2", "Yes", "Cancel")
+	if (prompt != "Yes")
+		return
 
 	var/query_text = input("SDQL2 query") as message
 
@@ -307,6 +339,7 @@
 GLOBAL_LIST_INIT(sdql2_queries, GLOB.sdql2_queries || list())
 GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null, "VIEW VARIABLES (all)", null))
 
+
 /datum/sdql2_query
 	var/list/query_tree
 	var/state = SDQL2_STATE_IDLE
@@ -337,6 +370,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 	//Statclick
 	var/obj/effect/statclick/SDQL2_delete/delete_click
 	var/obj/effect/statclick/SDQL2_action/action_click
+
 
 /datum/sdql2_query/New(list/tree, SU = FALSE, admin_interact = TRUE, _options = SDQL2_OPTIONS_DEFAULT, finished_qdel = FALSE)
 	if(IsAdminAdvancedProcCall() || !LAZYLEN(tree))
@@ -426,11 +460,13 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 		delete_click = new(null, "INITIALIZING", src)
 	if(!action_click)
 		action_click = new(null, "INITIALIZNG", src)
-	stat("[id]		", delete_click.update("DELETE QUERY | STATE : [text_state()] | ALL/ELIG/FIN \
+	var/list/L = list()
+	L[++L.len] = list("[id] ", "[delete_click.update("DELETE QUERY | STATE : [text_state()] | ALL/ELIG/FIN \
 	[islist(obj_count_all)? length(obj_count_all) : (isnull(obj_count_all)? "0" : obj_count_all)]/\
 	[islist(obj_count_eligible)? length(obj_count_eligible) : (isnull(obj_count_eligible)? "0" : obj_count_eligible)]/\
-	[islist(obj_count_finished)? length(obj_count_finished) : (isnull(obj_count_finished)? "0" : obj_count_finished)] - [get_query_text()]"))
-	stat("			", action_click.update("[SDQL2_IS_RUNNING? "HALT" : "RUN"]"))
+	[islist(obj_count_finished)? length(obj_count_finished) : (isnull(obj_count_finished)? "0" : obj_count_finished)] - [get_query_text()]")]", delete_click.UID())
+	L[++L.len] = list(" ", "[action_click.update("[SDQL2_IS_RUNNING? "HALT" : "RUN"]")]", action_click.UID())
+	return L
 
 /datum/sdql2_query/proc/delete_click()
 	admin_del(usr)

@@ -76,7 +76,6 @@
 /obj/effect/proc_holder/spell/goon_vampire
 	name = "Report Me"
 	desc = "You shouldn't see this!"
-	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire_old"
 	human_req = TRUE
@@ -173,11 +172,11 @@
 		return
 
 	counter++
-	user.adjustBruteLoss(-2)
-	user.adjustOxyLoss(-5)
-	user.adjustToxLoss(-2)
-	user.adjustFireLoss(-2)
-	user.adjustStaminaLoss(-10)
+	var/update = NONE
+	update |= user.heal_overall_damage(2, 2, updating_health = FALSE, affect_robotic = TRUE)
+	update |= user.heal_damages(tox = 2, oxy = 5, stamina = 10, updating_health = FALSE)
+	if(update)
+		user.updatehealth()
 
 
 /obj/effect/proc_holder/spell/goon_vampire/targetted/hypnotise
@@ -334,7 +333,7 @@
 		target.Deaf(40 SECONDS)
 		target.Stuttering(40 SECONDS)
 		target.Jitter(300 SECONDS)
-		target.adjustStaminaLoss(60)
+		target.apply_damage(60, STAMINA)
 
 	for(var/obj/structure/window/window in view(4))
 		window.deconstruct(FALSE)

@@ -40,9 +40,8 @@
 	if(world.time < move_delay)	//do not move anything ahead of this check please
 		return FALSE
 
-	input_data.desired_move_dir_add = NONE
-	input_data.desired_move_dir_sub = NONE
-
+	next_move_dir_add = NONE
+	next_move_dir_sub = NONE
 	var/old_move_delay = move_delay
 	move_delay = world.time + world.tick_lag //this is here because Move() can now be called multiple times per tick
 
@@ -462,13 +461,6 @@
 	var/atom/movable/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(next_in_line)
 
-/client/verb/toggle_walk_run()
-	set name = "toggle-walk-run"
-	set hidden = TRUE
-	set instant = TRUE
-	if(mob)
-		mob.toggle_move_intent()
-
 
 /client/verb/toggle_throw_mode()
 	set hidden = 1
@@ -479,7 +471,7 @@
 		to_chat(usr, "<span class='danger'>Это существо не может бросать предметы.</span>")
 
 
-/mob/proc/toggle_move_intent()
+/mob/proc/toggle_move_intent(new_move_intent)
 	return
 
 /mob/verb/move_up()

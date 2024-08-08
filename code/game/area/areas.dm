@@ -531,24 +531,6 @@
 		if(!arrived_mob.lastarea || old_area != src)
 			arrived_mob.lastarea = src
 
-	if(!isliving(arrived))
-		return
-
-	var/mob/living/arrived_living = arrived
-	if(!arrived_living.client)
-		return
-
-	var/client/our_client = arrived_living.client
-
-	//Ship ambience just loops if turned on.
-	if(!our_client.ambience_playing && (our_client.prefs.sound & SOUND_BUZZ))
-		our_client.ambience_playing = TRUE
-		var/amb_volume = 35 * our_client.prefs.get_channel_volume(CHANNEL_BUZZ)
-		SEND_SOUND(arrived_living, sound('sound/ambience/shipambience.ogg', repeat = TRUE, wait = FALSE, volume = amb_volume, channel = CHANNEL_BUZZ))
-
-	else if(!(our_client.prefs.sound & SOUND_BUZZ))
-		our_client.ambience_playing = FALSE
-
 /area/Exited(atom/movable/departed, area/new_area)
 	SEND_SIGNAL(src, COMSIG_AREA_EXITED, departed, new_area)
 	SEND_SIGNAL(departed, COMSIG_ATOM_EXITED_AREA, src, new_area)

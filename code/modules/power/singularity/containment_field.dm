@@ -122,13 +122,13 @@
 /obj/machinery/field/proc/shock_field(mob/living/user)
 	if(isliving(user))
 		var/shock_damage = min(rand(30,40),rand(30,40))
-
-		if(isliving(user) && !issilicon(user))
+		var/is_silicon = issilicon(user)
+		if(isliving(user) && !is_silicon)
 			var/stun = (min(shock_damage, 15)) STATUS_EFFECT_CONSTANT
 			user.Weaken(stun)
-			user.electrocute_act(shock_damage, src, 1)
+			user.electrocute_act(shock_damage, "сдерживающего барьера")
 
-		else if(issilicon(user))
+		else if(is_silicon)
 			if(prob(20))
 				user.Stun(4 SECONDS)
 			user.take_overall_damage(0, shock_damage)
@@ -136,7 +136,6 @@
 			"<span class='userdanger'>Energy pulse detected, system damaged!</span>", \
 			"<span class='italics'>You hear an electrical crack.</span>")
 
-		user.updatehealth()
 		bump_field(user)
 
 /obj/machinery/field/proc/bump_field(atom/movable/AM)

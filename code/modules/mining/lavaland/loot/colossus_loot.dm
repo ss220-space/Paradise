@@ -234,8 +234,8 @@
 /obj/machinery/anomalous_crystal/helpers/attack_ghost(mob/dead/observer/user)
 	..()
 	if(ready_to_deploy)
-		var/be_helper = alert("Become a Lightgeist? (Warning, You can no longer be cloned!)",,"Yes","No")
-		if(be_helper == "No")
+		var/be_helper = tgui_alert(user, "Become a Lightgeist? (Warning, You can no longer be cloned!)", "Respawn", list("Yes","No"))
+		if(be_helper != "Yes")
 			return
 		var/mob/living/simple_animal/hostile/lightgeist/W = new /mob/living/simple_animal/hostile/lightgeist(get_turf(loc))
 		W.key = user.key
@@ -285,7 +285,7 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
 	AddElement(/datum/element/simple_flying)
-	verbs -= /mob/verb/me_verb
+	remove_verb(src, /mob/verb/me_verb)
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medsensor.add_hud_to(src)
 

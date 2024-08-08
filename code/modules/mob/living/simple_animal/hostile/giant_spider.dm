@@ -42,6 +42,7 @@
 	var/venom_per_bite = 0 // While the /poison/ type path remains as-is for consistency reasons, we're really talking about venom, not poison.
 	var/busy = 0
 	footstep_type = FOOTSTEP_MOB_CLAW
+	AI_delay_max = 0.5 SECONDS
 
 /mob/living/simple_animal/hostile/poison/giant_spider/AttackingTarget()
 	// This is placed here, NOT on /poison, because the other subtypes of /poison/ already override AttackingTarget() completely, and as such it would do nothing but confuse people there.

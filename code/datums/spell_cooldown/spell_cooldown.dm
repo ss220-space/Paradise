@@ -84,7 +84,7 @@
 	recharge_time = world.time
 
 
-/datum/spell_cooldown/proc/statpanel_info()
+/datum/spell_cooldown/proc/cooldown_info()
 	var/dat = round(get_availability_percentage(), 0.01) * 100
 	return dat != 100 ? "[dat]%" : null
 
