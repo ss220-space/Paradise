@@ -356,6 +356,9 @@
 	icon_state ="shifter"
 	var/uses = 4
 
+/obj/item/cult_shift/attack_self_tk(mob/user)
+	return
+
 /obj/item/cult_shift/examine(mob/user)
 	. = ..()
 	if(uses)

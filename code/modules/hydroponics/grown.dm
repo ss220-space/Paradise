@@ -113,7 +113,7 @@
 				squash(hit_atom, thrower)
 
 /obj/item/reagent_containers/food/snacks/grown/proc/squash(atom/target, mob/thrower)
-	var/turf/T = get_turf(target)
+	var/turf/T = get_turf(src)
 	if(ispath(splat_type, /obj/effect/decal/cleanable/plant_smudge))
 		if(filling_color)
 			var/obj/O = new splat_type(T)
