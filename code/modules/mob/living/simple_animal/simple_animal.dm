@@ -140,6 +140,7 @@
 	var/Discipline = 0 // if a slime has been hit with a freeze gun, or wrestled/attacked off a human, they become disciplined and don't attack anymore for a while
 	var/SStun = 0 // stun variable
 
+	var/list/low_priority_targets = list()
 
 /mob/living/simple_animal/Initialize(mapload)
 	. = ..()

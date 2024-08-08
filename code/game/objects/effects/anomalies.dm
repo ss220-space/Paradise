@@ -22,6 +22,7 @@
 
 	/// Do we drop a core when we're neutralized?
 	var/drops_core = TRUE
+	var/list/contacted_items= list()
 
 /obj/effect/anomaly/Initialize(mapload, new_lifespan, _drops_core = TRUE)
 	. = ..()
@@ -59,6 +60,21 @@
 	return ..()
 
 /obj/effect/anomaly/process()
+	for(var/obj/item/I in get_turf(src))
+		if(I.origin_tech || (I.UID() in contacted_items))
+			contacted_items.Add(I.UID())
+			if (istype(I, /obj/item/relict_priduction/rapid_dupe))
+				var/amount = rand(1, 3)
+				for (var/i; i <= amount; i++)
+					new /obj/item/relic(get_turf(I))
+					var/datum/effect_system/smoke_spread/smoke = new
+					smoke.set_up(5, get_turf(I))
+					smoke.start()
+				qdel(I)
+				continue
+			if (prob(2))
+				new /obj/item/relic(get_turf(I))
+				qdel(I)
 	anomalyEffect()
 	if(death_time < world.time)
 		if(loc)
