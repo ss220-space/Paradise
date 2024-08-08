@@ -333,7 +333,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	set category = "Admin"
 	set name = "Aghost"
 
-	if(!check_rights(R_ADMIN|R_MOD))
+	if(!check_rights(R_ADMIN|R_MOD|R_POSSESS))
 		return
 
 	if(istype(mob,/mob/dead/observer))
