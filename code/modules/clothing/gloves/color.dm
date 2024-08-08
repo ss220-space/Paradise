@@ -63,14 +63,20 @@
 	name = "budget insulated gloves"
 	icon_state = "yellow"
 	item_state = "ygloves"
-	siemens_coefficient = 1			//Set to a default of 1, gets overridden in New()
+	siemens_coefficient = 0			//Set to a default of 1, gets overridden in New()
 	permeability_coefficient = 0.05
 	item_color="yellow"
 	resistance_flags = NONE
 
-/obj/item/clothing/gloves/color/fyellow/New()
-	..()
-	siemens_coefficient = pick(0,0.5,0.5,0.5,0.5,0.75,1.5)
+/obj/item/clothing/gloves/color/fyellow/equipped(mob/living/carbon/human/user, slot)
+	ADD_TRAIT(user, TRAIT_CHUNKYFINGERS, null)
+	user.dna.species.toolspeedmod += (user.dna.species.toolspeedmod/5)
+	.=..()
+
+/obj/item/clothing/gloves/color/fyellow/dropped(mob/living/carbon/human/user, slot)
+	REMOVE_TRAIT(user, TRAIT_CHUNKYFINGERS, null)
+	user.dna.species.toolspeedmod -= (user.dna.species.toolspeedmod/5)
+	.=..()
 
 /obj/item/clothing/gloves/color/fyellow/old
 	desc = "Old and worn out insulated gloves, hopefully they still work."
