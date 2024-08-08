@@ -720,6 +720,17 @@
 		item_state = "[item_state]-rapier"
 	update_equipped_item(update_speedmods = FALSE)
 
+/obj/item/storage/belt/rapier/syndie
+	name = "suspicious rapier sheath"
+	desc = "A sinister, thin sheath, suitable for a rapier."
+	icon_state = "syndie_sheath"
+	item_state = "syndie_sheath"
+	can_hold = list(/obj/item/melee/syndie_rapier)
+
+/obj/item/storage/belt/rapier/syndie/populate_contents()
+	new /obj/item/melee/syndie_rapier(src)
+	update_icon()
+
 
 // -------------------------------------
 //     Bluespace Belt
