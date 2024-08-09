@@ -16970,10 +16970,6 @@
 	},
 /area/crew_quarters/captain)
 "bYp" = (
-/obj/machinery/door/airlock/command{
-	name = "Head of Personnel";
-	req_access = list(57)
-	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -16981,7 +16977,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/wood,
+/obj/machinery/door/airlock/command{
+	name = "Head of Personnel";
+	req_access = list(57)
+	},
+/turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/heads/hop)
 "bYq" = (
 /obj/structure/table/reinforced,
@@ -32436,7 +32436,7 @@
 	name = "NT Representative's Office";
 	req_access = list(73)
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/light,
 /area/ntrep)
 "dpv" = (
 /obj/structure/railing,
@@ -51363,11 +51363,6 @@
 	},
 /area/teleporter/abandoned)
 "gAS" = (
-/obj/machinery/door/airlock/command{
-	id_tag = "captainofficedoor";
-	name = "Captain's Office";
-	req_access = list(20)
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -51381,7 +51376,12 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/wood,
+/obj/machinery/door/airlock/command{
+	id_tag = "captainofficedoor";
+	name = "Captain's Office";
+	req_access = list(20)
+	},
+/turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/captain)
 "gAU" = (
 /obj/structure/rack,
@@ -90395,11 +90395,6 @@
 	},
 /area/maintenance/asmaint)
 "pUz" = (
-/obj/machinery/door/airlock/command{
-	id_tag = "hopofficedoor";
-	name = "Head of Personnel";
-	req_access = list(57)
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -90410,7 +90405,12 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/wood,
+/obj/machinery/door/airlock/command{
+	id_tag = "hopofficedoor";
+	name = "Head of Personnel";
+	req_access = list(57)
+	},
+/turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/heads/hop)
 "pUJ" = (
 /obj/structure/window/reinforced{
@@ -101426,18 +101426,18 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
 "sxk" = (
-/obj/machinery/door/airlock/command{
-	id_tag = "captainofficedoor";
-	name = "Captain's Office";
-	req_access = list(20)
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/wood,
+/obj/machinery/door/airlock/command{
+	id_tag = "captainofficedoor";
+	name = "Captain's Office";
+	req_access = list(20)
+	},
+/turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/captain/bedroom)
 "sxp" = (
 /turf/simulated/floor/plasteel{
