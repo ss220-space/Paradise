@@ -250,6 +250,14 @@
 	transfer_prints = FALSE
 	item_color = "medical"
 
+/obj/item/clothing/gloves/color/latex/modified
+	name = "modified medical gloves"
+	desc = "Pricy sterile gloves that are stronger than latex."
+	icon_state = "medical_gloves"
+	item_state = "modified"
+	item_color = "modified"
+	surgeryspeedmod = -0.3
+
 /obj/item/clothing/gloves/color/white
 	name = "white gloves"
 	desc = "These look pretty fancy."
