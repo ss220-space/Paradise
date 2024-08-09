@@ -17,7 +17,6 @@
 	var/create_effect = FALSE
 	var/mob/living/carbon/human/human = affected_mob
 	var/turf/turf = get_turf(human)
-	var/effect = /obj/effect/temp_visual/revenant
 	switch(stage)
 		if(3)
 			if(prob(10))
@@ -57,4 +56,4 @@
 					to_chat(human, span_revenbignotice("You suddenly feel your soul become corrupted."))
 					cure()
 	if(turf && create_effect)
-		new effect(turf)
+		new /obj/effect/temp_visual/revenant(turf)
