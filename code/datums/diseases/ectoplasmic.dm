@@ -18,7 +18,7 @@
 	var/mob/living/carbon/human/human = affected_mob
 	var/turf/turf = get_turf(human)
 	var/effect = /obj/effect/temp_visual/revenant
-	if(create_effect)
+	if(turf && create_effect)
 		new effect(turf)
 	switch(stage)
 		if(3)
