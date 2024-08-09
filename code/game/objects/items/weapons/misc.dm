@@ -182,13 +182,13 @@
 	if(!user.temporarily_remove_item_from_inventory(src) || !user.put_in_inactive_hand(src))
 		user.drop_item_ground(src)
 		to_chat(user, span_warning("Вы ударили себя-же! Нужно иметь возможность перекинуть нунчаки в вторую руку."))
-		user.adjustStaminaLoss(30)
+		user.apply_damage(30, STAMINA)
 		return
 	if(user.a_intent == INTENT_HARM)
 		target.apply_damage(10, BRUTE, def_zone)
-		target.adjustStaminaLoss(10)
+		target.apply_damage(10, STAMINA)
 	else
-		target.adjustStaminaLoss(15)
+		target.apply_damage(15, STAMINA)
 	user.changeNext_move(4)
 	active = TRUE // it set in dropped() to false every time. Not best way for sure
 	update_icon(UPDATE_ICON_STATE)

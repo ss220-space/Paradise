@@ -66,7 +66,7 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/clothing/suit/armor/abductor/vest/item_action_slot_check(slot, mob/user)
+/obj/item/clothing/suit/armor/abductor/vest/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_CLOTH_OUTER) //we only give the mob the ability to activate the vest if he's actually wearing it.
 		return TRUE
 
@@ -104,7 +104,7 @@
 	DeactivateStealth()
 	return 0
 
-/obj/item/clothing/suit/armor/abductor/vest/ui_action_click()
+/obj/item/clothing/suit/armor/abductor/vest/ui_action_click(mob/user, datum/action/action, leftclick)
 	switch(mode)
 		if(VEST_COMBAT)
 			Adrenaline()
@@ -348,7 +348,7 @@
 			to_chat(user, "<span class='warning'>Your target is already under a mind-controlling influence!</span>")
 			return
 
-		var/command = stripped_input(user, "Enter the command for your target to follow. Uses Left: [G.mind_control_uses], Duration: [DisplayTimeText(G.mind_control_duration)]", "Enter command")
+		var/command = tgui_input_text(user, "Enter the command for your target to follow. Uses Left: [G.mind_control_uses], Duration: [DisplayTimeText(G.mind_control_duration)]", "Enter command")
 
 		if(!command)
 			return
@@ -368,7 +368,7 @@
 		if(L.stat == DEAD)
 			to_chat(user, "<span class='warning'>Your target is dead!</span>")
 			return
-		var/message = stripped_input(user, "Write a message to send to your target's brain.", "Enter message")
+		var/message = tgui_input_text(user, "Write a message to send to your target's brain.", "Enter message")
 		if(!message)
 			return
 		if(QDELETED(L) || L.stat == DEAD)
@@ -783,6 +783,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "Advanced flat surface technology at work!"
 	icon = 'icons/obj/smooth_structures/alien_table.dmi'
 	icon_state = "alien_table"
+	can_be_flipped = FALSE
 	buildstack = /obj/item/stack/sheet/mineral/abductor
 	framestack = /obj/item/stack/sheet/mineral/abductor
 	buildstackamount = 1
@@ -790,8 +791,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	base_icon_state = "alien_table"
 	smoothing_groups = SMOOTH_GROUP_ABDUCTOR_TABLES
 	canSmoothWith = SMOOTH_GROUP_ABDUCTOR_TABLES
-	can_be_flipped = FALSE
 	frame = /obj/structure/table_frame/abductor
+
 
 /obj/machinery/optable/abductor
 	icon = 'icons/obj/abductor.dmi'

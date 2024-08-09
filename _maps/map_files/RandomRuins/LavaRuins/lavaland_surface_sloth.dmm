@@ -2,50 +2,81 @@
 "a" = (
 /turf/template_noop,
 /area/template_noop)
-"b" = (
-/obj/structure/bed,
-/obj/item/bedsheet/centcom,
-/turf/simulated/floor/wood/cold,
+"d" = (
+/obj/structure/chair/wood,
+/turf/simulated/floor/wood{
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
+	},
 /area/ruin/unpowered/misc_lavaruin)
-"g" = (
-/turf/simulated/floor/wood/cold,
+"e" = (
+/turf/simulated/floor/lava/lava_land_surface,
+/area/ruin/unpowered/misc_lavaruin)
+"f" = (
+/obj/structure/chair/comfy/beige{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/ruin/unpowered/misc_lavaruin)
+"h" = (
+/turf/simulated/floor/wood,
+/area/ruin/unpowered/misc_lavaruin)
+"i" = (
+/obj/machinery/computer/security/wooden_tv{
+	network = list("SS13","Research Outpost","Mining Outpost")
+	},
+/turf/simulated/floor/wood,
 /area/ruin/unpowered/misc_lavaruin)
 "k" = (
 /turf/simulated/wall/indestructible,
 /area/ruin/unpowered/misc_lavaruin)
-"l" = (
-/obj/structure/table/wood,
-/obj/item/paper/fluff/stations/lavaland/sloth/note,
-/obj/item/flashlight/lamp,
-/turf/simulated/floor/wood/cold,
+"m" = (
+/turf/simulated/floor/wood{
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
+	},
 /area/ruin/unpowered/misc_lavaruin)
-"v" = (
-/obj/structure/chair/wood,
-/turf/simulated/floor/wood/cold,
+"p" = (
+/obj/machinery/door/airlock/wood/glass,
+/turf/simulated/floor/wood{
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
+	},
 /area/ruin/unpowered/misc_lavaruin)
-"w" = (
+"q" = (
+/obj/machinery/door/airlock/wood/glass,
+/turf/simulated/floor/wood,
+/area/ruin/unpowered/misc_lavaruin)
+"t" = (
+/obj/machinery/vending/cola/free,
+/turf/simulated/floor/wood{
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"y" = (
 /obj/effect/spawner/random_spawners/dirt_50,
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood,
 /area/ruin/unpowered/misc_lavaruin)
 "z" = (
 /turf/simulated/floor/sepia{
 	slowdown = 10
 	},
 /area/ruin/unpowered/misc_lavaruin)
-"A" = (
+"E" = (
 /obj/machinery/door/airlock/wood/glass,
-/turf/simulated/floor/wood/cold,
-/area/ruin/unpowered/misc_lavaruin)
-"C" = (
-/obj/machinery/computer/security/wooden_tv{
-	network = list("SS13","Research Outpost","Mining Outpost")
+/obj/structure/fans/tiny,
+/turf/simulated/floor/wood{
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
 	},
-/turf/simulated/floor/wood/cold,
 /area/ruin/unpowered/misc_lavaruin)
-"D" = (
-/turf/simulated/floor/carpet/green,
-/area/ruin/unpowered/misc_lavaruin)
-"F" = (
+"I" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/cans/beer{
 	pixel_x = -9;
@@ -55,44 +86,54 @@
 	pixel_x = 10;
 	pixel_y = -1
 	},
-/turf/simulated/floor/wood/cold,
-/area/ruin/unpowered/misc_lavaruin)
-"G" = (
-/obj/structure/table/wood,
-/obj/item/flashlight/lamp,
-/obj/item/reagent_containers/food/snacks/grown/citrus/orange,
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood{
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
+	},
 /area/ruin/unpowered/misc_lavaruin)
 "J" = (
 /obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/carpet/green,
 /area/ruin/unpowered/misc_lavaruin)
-"M" = (
-/obj/machinery/vending/cola/free,
-/turf/simulated/floor/wood/cold,
+"L" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp,
+/obj/item/reagent_containers/food/snacks/grown/citrus/orange,
+/turf/simulated/floor/wood,
 /area/ruin/unpowered/misc_lavaruin)
-"O" = (
-/obj/structure/chair/comfy/beige{
-	dir = 1
-	},
-/turf/simulated/floor/wood/cold,
+"N" = (
+/obj/structure/bed,
+/obj/item/bedsheet/centcom,
+/turf/simulated/floor/wood,
 /area/ruin/unpowered/misc_lavaruin)
 "P" = (
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"T" = (
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/ruin/unpowered/misc_lavaruin)
-"W" = (
-/obj/machinery/vending/snack/free,
-/turf/simulated/floor/wood/cold,
-/area/ruin/unpowered/misc_lavaruin)
-"X" = (
+"Q" = (
 /obj/structure/chair/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood/cold,
+/turf/simulated/floor/wood{
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Y" = (
+/obj/structure/table/wood,
+/obj/item/paper/fluff/stations/lavaland/sloth/note,
+/obj/item/flashlight/lamp,
+/turf/simulated/floor/wood{
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
+	},
+/area/ruin/unpowered/misc_lavaruin)
+"Z" = (
+/obj/machinery/vending/snack/free,
+/turf/simulated/floor/wood,
 /area/ruin/unpowered/misc_lavaruin)
 
 (1,1,1) = {"
@@ -128,38 +169,38 @@ a
 "}
 (2,1,1) = {"
 a
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
 a
 "}
 (3,1,1) = {"
 a
-T
+e
 k
 k
 k
@@ -185,12 +226,12 @@ k
 k
 k
 k
-T
+e
 a
 "}
 (4,1,1) = {"
 a
-T
+e
 k
 z
 z
@@ -212,16 +253,16 @@ z
 z
 z
 k
-M
-g
-l
+t
+m
+Y
 k
-T
+e
 P
 "}
 (5,1,1) = {"
 a
-T
+e
 k
 z
 k
@@ -242,17 +283,17 @@ k
 k
 k
 z
-A
-g
-g
+E
+m
+m
 J
-A
+p
 P
 P
 "}
 (6,1,1) = {"
 a
-T
+e
 k
 z
 k
@@ -274,16 +315,16 @@ z
 k
 z
 k
-v
-F
-X
+d
+I
+Q
 k
-T
+e
 P
 "}
 (7,1,1) = {"
 a
-T
+e
 k
 z
 k
@@ -309,12 +350,12 @@ k
 k
 k
 k
-T
+e
 a
 "}
 (8,1,1) = {"
 a
-T
+e
 k
 z
 k
@@ -336,16 +377,16 @@ z
 k
 z
 k
-T
-T
-T
-T
-T
+e
+e
+e
+e
+e
 a
 "}
 (9,1,1) = {"
 a
-T
+e
 k
 z
 k
@@ -367,7 +408,7 @@ z
 z
 z
 k
-T
+e
 a
 a
 a
@@ -376,7 +417,7 @@ a
 "}
 (10,1,1) = {"
 a
-T
+e
 k
 z
 k
@@ -398,7 +439,7 @@ z
 k
 z
 k
-T
+e
 a
 a
 a
@@ -407,7 +448,7 @@ a
 "}
 (11,1,1) = {"
 a
-T
+e
 k
 z
 k
@@ -429,7 +470,7 @@ k
 k
 z
 k
-T
+e
 a
 a
 a
@@ -438,7 +479,7 @@ a
 "}
 (12,1,1) = {"
 a
-T
+e
 k
 z
 z
@@ -448,9 +489,9 @@ z
 k
 z
 k
-C
-g
-O
+i
+h
+f
 k
 z
 z
@@ -460,7 +501,7 @@ z
 k
 z
 k
-T
+e
 a
 a
 a
@@ -469,7 +510,7 @@ a
 "}
 (13,1,1) = {"
 a
-T
+e
 k
 z
 k
@@ -478,10 +519,10 @@ k
 z
 k
 z
-A
-D
-w
-G
+q
+h
+y
+L
 k
 z
 k
@@ -491,7 +532,7 @@ z
 k
 z
 k
-T
+e
 a
 a
 a
@@ -500,7 +541,7 @@ a
 "}
 (14,1,1) = {"
 a
-T
+e
 k
 k
 k
@@ -510,9 +551,9 @@ z
 k
 k
 k
-W
-g
-b
+Z
+h
+N
 k
 z
 k
@@ -522,7 +563,7 @@ z
 k
 z
 k
-T
+e
 a
 a
 a
@@ -531,7 +572,7 @@ a
 "}
 (15,1,1) = {"
 a
-T
+e
 k
 z
 z
@@ -553,7 +594,7 @@ z
 k
 z
 k
-T
+e
 a
 a
 a
@@ -562,7 +603,7 @@ a
 "}
 (16,1,1) = {"
 a
-T
+e
 k
 z
 k
@@ -584,7 +625,7 @@ z
 k
 z
 k
-T
+e
 a
 a
 a
@@ -593,7 +634,7 @@ a
 "}
 (17,1,1) = {"
 a
-T
+e
 k
 z
 k
@@ -615,7 +656,7 @@ z
 k
 z
 k
-T
+e
 a
 a
 a
@@ -624,7 +665,7 @@ a
 "}
 (18,1,1) = {"
 a
-T
+e
 k
 z
 k
@@ -646,7 +687,7 @@ z
 k
 z
 k
-T
+e
 a
 a
 a
@@ -655,7 +696,7 @@ a
 "}
 (19,1,1) = {"
 a
-T
+e
 k
 z
 k
@@ -677,7 +718,7 @@ z
 k
 z
 k
-T
+e
 a
 a
 a
@@ -686,7 +727,7 @@ a
 "}
 (20,1,1) = {"
 a
-T
+e
 k
 z
 k
@@ -708,7 +749,7 @@ z
 k
 z
 k
-T
+e
 a
 a
 a
@@ -717,7 +758,7 @@ a
 "}
 (21,1,1) = {"
 a
-T
+e
 k
 z
 k
@@ -739,7 +780,7 @@ k
 k
 z
 k
-T
+e
 a
 a
 a
@@ -748,7 +789,7 @@ a
 "}
 (22,1,1) = {"
 a
-T
+e
 k
 z
 z
@@ -770,7 +811,7 @@ z
 z
 z
 k
-T
+e
 a
 a
 a
@@ -779,7 +820,7 @@ a
 "}
 (23,1,1) = {"
 a
-T
+e
 k
 k
 k
@@ -801,7 +842,7 @@ k
 k
 k
 k
-T
+e
 a
 a
 a
@@ -810,29 +851,29 @@ a
 "}
 (24,1,1) = {"
 a
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
-T
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
+e
 a
 a
 a

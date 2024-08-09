@@ -59,7 +59,7 @@
 			var/obj/item/organ/external/NB = pick(L.bodyparts)
 			visible_message(span_warning("[src] Tears appart the [NB.name] of [L] with his razor sharp jaws!"))
 			NB.droplimb()  //dismemberment
-			L.adjustStaminaLoss(35)
+			L.apply_damage(35, STAMINA)
 	else
 		. = ..()
 

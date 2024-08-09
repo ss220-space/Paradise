@@ -167,8 +167,9 @@
 /mob/living/carbon/human/do_unEquip(obj/item/I, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
 	. = ..() //See mob.dm for an explanation on this and some rage about people copypasting instead of calling ..() like they should.
 	if(!. || !I)
-		return
-
+		return .
+	//if we actually unequipped an item, this is because we dont want to run this proc twice, once for carbons and once for humans
+	var/not_handled = FALSE
 	if(I == wear_suit)
 		if(s_store && invdrop)
 			drop_item_ground(s_store, force = TRUE) //It makes no sense for your suit storage to stay on you if you drop your suit.
@@ -283,6 +284,11 @@
 		l_hand = null
 		if(!QDELETED(src))
 			update_inv_l_hand()
+	else
+		not_handled = TRUE
+
+	if(not_handled)
+		return .
 
 	update_equipment_speed_mods()
 
@@ -564,30 +570,6 @@
 		)
 
 
-/**
- * Humans have their pickpocket gloves, so they get no message when stealing things
- */
-/mob/living/carbon/human/stripPanelUnequip(obj/item/what, mob/who, where)
-	var/is_silent = FALSE
-	var/obj/item/clothing/gloves/G = gloves
-	if(istype(G))
-		is_silent = G.pickpocket
-
-	..(what, who, where, silent = is_silent)
-
-
-/**
- * Humans have their pickpocket gloves, so they get no message when stealing things
- */
-/mob/living/carbon/human/stripPanelEquip(obj/item/what, mob/who, where)
-	var/is_silent = FALSE
-	var/obj/item/clothing/gloves/G = gloves
-	if(istype(G))
-		is_silent = G.pickpocket
-
-	..(what, who, where, silent = is_silent)
-
-
 /mob/living/carbon/human/proc/equipOutfit(outfit, visualsOnly = FALSE)
 	var/datum/outfit/O = null
 
@@ -677,4 +659,9 @@
 	for(var/obj/item/thing as anything in get_equipped_items())
 		if(!(thing.item_flags & IGNORE_SLOWDOWN))
 			. += thing.slowdown
+
+
+/// Returns if the carbon is wearing shock proof gloves
+/mob/living/carbon/human/proc/wearing_shock_proof_gloves()
+	return gloves?.siemens_coefficient == 0
 

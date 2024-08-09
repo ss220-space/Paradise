@@ -92,12 +92,13 @@
 	monitor.Grant(H)
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.remove_from_hud(H)
-	H.verbs |= /mob/living/carbon/human/proc/emote_ping
-	H.verbs |= /mob/living/carbon/human/proc/emote_beep
-	H.verbs |= /mob/living/carbon/human/proc/emote_buzz
-	H.verbs |= /mob/living/carbon/human/proc/emote_buzz2
-	H.verbs |= /mob/living/carbon/human/proc/emote_yes
-	H.verbs |= /mob/living/carbon/human/proc/emote_no
+	add_verb(H, list(
+		/mob/living/carbon/human/proc/emote_ping,
+		/mob/living/carbon/human/proc/emote_beep,
+		/mob/living/carbon/human/proc/emote_buzz,
+		/mob/living/carbon/human/proc/emote_buzz2,
+		/mob/living/carbon/human/proc/emote_yes,
+		/mob/living/carbon/human/proc/emote_no))
 
 /datum/species/machine/on_species_loss(mob/living/carbon/human/H)
 	..()
@@ -105,12 +106,13 @@
 		monitor.Remove(H)
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_to_hud(H)
-	H.verbs -= /mob/living/carbon/human/proc/emote_ping
-	H.verbs -= /mob/living/carbon/human/proc/emote_beep
-	H.verbs -= /mob/living/carbon/human/proc/emote_buzz
-	H.verbs -= /mob/living/carbon/human/proc/emote_buzz2
-	H.verbs -= /mob/living/carbon/human/proc/emote_yes
-	H.verbs -= /mob/living/carbon/human/proc/emote_no
+	remove_verb(H, list(
+		/mob/living/carbon/human/proc/emote_ping,
+		/mob/living/carbon/human/proc/emote_beep,
+		/mob/living/carbon/human/proc/emote_buzz,
+		/mob/living/carbon/human/proc/emote_buzz2,
+		/mob/living/carbon/human/proc/emote_yes,
+		/mob/living/carbon/human/proc/emote_no))
 
 // Allows IPC's to change their monitor display
 /datum/action/innate/change_monitor

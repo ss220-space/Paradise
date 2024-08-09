@@ -204,7 +204,7 @@
 
 /obj/effect/ebeam/vetus/Destroy()
 	for(var/mob/living/mob in get_turf(src))
-		mob.electrocute_act(20, "the giant arc", safety = TRUE)
+		mob.electrocute_act(20, "электрической дуги", flags = SHOCK_NOGLOVES)
 	return ..()
 
 

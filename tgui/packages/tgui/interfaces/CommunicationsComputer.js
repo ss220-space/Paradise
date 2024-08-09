@@ -255,14 +255,6 @@ export const CommunicationsComputer = (props, context) => {
                     onClick={() => act('messagelist')}
                   />
                 </LabeledList.Item>
-                <LabeledList.Item label="Misc">
-                  <Button
-                    icon="sync-alt"
-                    content="Restart Nano-Mob Hunter GO! Server"
-                    disabled={!data.authenticated}
-                    onClick={() => act('RestartNanoMob')}
-                  />
-                </LabeledList.Item>
               </LabeledList>
             </Section>
           </Window.Content>

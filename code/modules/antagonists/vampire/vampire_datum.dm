@@ -33,13 +33,13 @@
 	var/list/dissected_humans = list()
 	/// Associated list of all damage modifiers human vampire has.
 	var/list/damage_modifiers = list(
-		BRUTE = 0,
-		BURN = 0,
-		TOX = 0,
-		OXY = 0,
-		CLONE = 0,
-		BRAIN = 0,
-		STAMINA = 0
+		BRUTE = 1,
+		BURN = 1,
+		TOX = 1,
+		OXY = 1,
+		CLONE = 1,
+		BRAIN = 1,
+		STAMINA = 1,
 	)
 
 
@@ -230,7 +230,7 @@
 		cycle_counter = STATE_GRABBING
 		time_per_action = suck_rate_final*BITE_TIME_MOD
 
-	while(do_after(owner.current, time_per_action, target, NONE))
+	while(do_after(owner.current, time_per_action, target, NONE, interaction_key = DOAFTER_SOURCE_VAMPIRE_SUCKING, max_interact_count = 1))
 		cycle_counter++
 		owner.current.face_atom(target)
 

@@ -312,9 +312,9 @@
 	security_level = 6
 	hackable = FALSE
 
-/obj/machinery/door/airlock/centcom/attack_hand(mob/user)
+/obj/machinery/door/airlock/centcom/attack_hand(mob/living/carbon/human/user)
 	. = ..()
-	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+	if(user.a_intent == INTENT_HARM && ishuman(user) && (user.dna.species.obj_damage + user.physiology.punch_obj_damage > 0))
 		return
 
 /////////////////////////////////
@@ -857,9 +857,9 @@
 	glass = TRUE
 	normal_integrity = 300
 
-/obj/machinery/door/airlock/syndicate/extmai/glass/attack_hand(mob/user)
+/obj/machinery/door/airlock/syndicate/extmai/glass/attack_hand(mob/living/carbon/human/user)
 	. = ..()
-	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+	if(user.a_intent == INTENT_HARM && ishuman(user) && (user.dna.species.obj_damage + user.physiology.punch_obj_damage > 0))
 		return
 
 /*

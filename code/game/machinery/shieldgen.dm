@@ -246,7 +246,7 @@
 	else if(istype(I, /obj/item/stack/cable_coil) && malfunction && is_open)
 		var/obj/item/stack/cable_coil/coil = I
 		to_chat(user, span_notice("You begin to replace the wires."))
-		if(do_after(user, 3 SECONDS * coil.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, 3 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL))
 			if(!src || !coil)
 				return
 			add_fingerprint(user)

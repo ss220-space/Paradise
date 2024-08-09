@@ -287,6 +287,7 @@ BLIND     // can't see anything
 	gender = PLURAL //Carn: for grammarically correct text-parsing
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/clothing/gloves.dmi'
+	belt_icon = "bgloves"
 	siemens_coefficient = 0.50
 	body_parts_covered = HANDS
 	slot_flags = ITEM_SLOT_GLOVES
@@ -788,7 +789,7 @@ BLIND     // can't see anything
 				flags_inv &= ~HIDETAIL
 				user.update_tail_layer()
 
-/obj/item/clothing/suit/ui_action_click(mob/user) //This is what happens when you click the HUD action button to adjust your suit.
+/obj/item/clothing/suit/ui_action_click(mob/user, datum/action/action, leftclick) //This is what happens when you click the HUD action button to adjust your suit.
 	if(!ignore_suitadjust)
 		adjustsuit(user)
 	else
@@ -855,6 +856,11 @@ BLIND     // can't see anything
 	if(jetpack && ispath(jetpack))
 		jetpack = new jetpack(src)
 		jetpack.our_suit = src
+
+
+/obj/item/clothing/suit/space/Destroy()
+	QDEL_NULL(jetpack)
+	return ..()
 
 
 /obj/item/clothing/suit/space/screwdriver_act(mob/user, obj/item/I)

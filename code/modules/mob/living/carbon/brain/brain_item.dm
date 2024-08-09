@@ -123,9 +123,8 @@
 	..(target, special)
 
 
-/obj/item/organ/internal/brain/receive_damage(amount, silent = FALSE) //brains are special; if they receive damage by other means, we really just want the damage to be passed ot the owner and back onto the brain.
-	if(owner)
-		owner.adjustBrainLoss(amount)
+/obj/item/organ/internal/brain/internal_receive_damage(amount = 0, silent = FALSE) //brains are special; if they receive damage by other means, we really just want the damage to be passed ot the owner and back onto the brain.
+	owner?.apply_damage(amount, BRAIN)
 
 
 /obj/item/organ/internal/brain/necrotize(silent = FALSE) //Brain also has special handling for when it necrotizes

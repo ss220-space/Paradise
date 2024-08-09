@@ -28,7 +28,7 @@ SUBSYSTEM_DEF(sounds)
 
 /datum/controller/subsystem/sounds/Initialize()
 	setup_available_channels()
-
+	return SS_INIT_SUCCESS
 
 /**
   * Sets up all available sound channels

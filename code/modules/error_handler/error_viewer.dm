@@ -86,7 +86,7 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 		var/datum/error_viewer/error_source/error_source
 		for(var/erroruid in error_sources)
 			error_source = error_sources[erroruid]
-			html += "[error_source.make_link(null, src)]<br>"
+			html += "([length(error_source.errors)]) [error_source.make_link(null, src)]<br>"
 	else
 		html += "[make_link("organized", null)] | linear<hr>"
 		for(var/datum/error_viewer/error_entry/error_entry in errors)

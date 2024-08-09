@@ -71,10 +71,8 @@
 				Paralyse(2 SECONDS)
 			AdjustDeaf(60 SECONDS)
 
-	adjustBruteLoss(b_loss)
-	adjustFireLoss(f_loss)
+	take_overall_damage(b_loss, f_loss)
 
-	updatehealth()
 
 //can't equip anything
 /mob/living/carbon/alien/larva/attack_ui(slot_id)
@@ -86,9 +84,6 @@
 // new damage icon system
 // now constructs damage icon for each organ from mask * damage field
 
-
-/mob/living/carbon/alien/larva/show_inv(mob/user)
-	return
 
 /mob/living/carbon/alien/larva/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
 	return FALSE

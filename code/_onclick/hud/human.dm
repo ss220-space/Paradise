@@ -110,7 +110,7 @@
 
 	using = new /atom/movable/screen/mov_intent(null, src)
 	using.icon = ui_style
-	using.icon_state = (mymob.m_intent == MOVE_INTENT_RUN ? "running" : "walking")
+	using.update_icon(UPDATE_ICON_STATE)
 	using.screen_loc = ui_movi
 	using.color = ui_color
 	using.alpha = ui_alpha
@@ -525,15 +525,3 @@
 		if(H.l_hand)
 			H.l_hand.screen_loc = null
 
-
-/mob/living/carbon/human/verb/toggle_hotkey_verbs()
-	set category = "OOC"
-	set name = "Toggle Hotkey Buttons"
-	set desc = "This disables or enables the user interface buttons which can be used with hotkeys."
-
-	if(hud_used.hotkey_ui_hidden)
-		client.screen += hud_used.hotkeybuttons
-		hud_used.hotkey_ui_hidden = FALSE
-	else
-		client.screen -= hud_used.hotkeybuttons
-		hud_used.hotkey_ui_hidden = TRUE

@@ -46,7 +46,7 @@ SUBSYSTEM_DEF(tickets)
 	close_messages = list("<font color='red' size='4'><b>- [ticket_name] Отклонено! -</b></font>",
 				"<span class='boldmessage'>Пожалуйста, постарайтесь в тикетах вести себя спокойно, излагать проблему ясно и описательно. Не предполагайте что администратор видел какие-либо связанные события, и чётко укажите имена тех, о ком вы сообщаете. Если вы задали вопрос, то убедитесь, что из него понятно, о чём именно вы спрашиваете.</span>",
 				"<span class='[span_class]'>Ваш [ticket_name] теперь закрыт.</span>")
-
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/tickets/fire()
 	var/stales = checkStaleness()

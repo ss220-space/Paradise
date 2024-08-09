@@ -178,7 +178,7 @@
 	if(baseturf)
 		my_port.turf_type = baseturf
 	else if(is_mining_level(my_port.z))
-		my_port.turf_type = SSmapping.lavaland_theme?.primary_turf_type ? SSmapping.lavaland_theme.primary_turf_type : /turf/simulated/floor/plating/lava/smooth/lava_land_surface
+		my_port.turf_type = SSmapping.lavaland_theme?.primary_turf_type ? SSmapping.lavaland_theme.primary_turf_type : /turf/simulated/floor/lava/lava_land_surface
 	else
 		my_port.turf_type = /turf/space
 	if(current_user.client)

@@ -207,10 +207,18 @@
 	for(var/obj/item/stack/ore/O in contents)
 		O.forceMove(drop_location())
 
-/mob/living/simple_animal/hostile/mining_drone/adjustHealth(amount, updating_health = TRUE)
-	if(mode != MINEDRONE_ATTACK && amount > 0)
-		SetOffenseBehavior()
+
+/mob/living/simple_animal/hostile/mining_drone/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
 	. = ..()
+	if(. && amount > 0 && mode != MINEDRONE_ATTACK)
+		SetOffenseBehavior()
+
 
 /mob/living/simple_animal/hostile/mining_drone/proc/toggle_mode()
 	switch(mode)

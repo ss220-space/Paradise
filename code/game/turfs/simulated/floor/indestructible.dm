@@ -92,9 +92,9 @@
 	planetary_atmos = TRUE
 
 /turf/simulated/floor/indestructible/boss/indoors //used for ashwalkers village
-	oxygen = /turf/simulated/floor/plating/lava/smooth::oxygen //lava near tendril
-	nitrogen = /turf/simulated/floor/plating/lava/smooth::nitrogen
-	temperature = /turf/simulated/floor/plating/lava/smooth::temperature
+	oxygen = /turf/simulated/floor/lava::oxygen //lava near tendril
+	nitrogen = /turf/simulated/floor/lava::nitrogen
+	temperature = /turf/simulated/floor/lava::temperature
 
 /turf/simulated/floor/indestructible/boss/air
 	oxygen = MOLES_O2STANDARD

@@ -440,6 +440,7 @@
 	can_holster = FALSE
 	unique_rename = TRUE
 	unique_reskin = TRUE
+	pb_knockback = 3
 
 
 /obj/item/gun/projectile/revolver/doublebarrel/update_gun_skins()
@@ -500,6 +501,7 @@
 	unique_rename = FALSE
 	unique_reskin = FALSE
 	var/slung = FALSE
+	pb_knockback = 0
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/stack/cable_coil) && !sawn_state)

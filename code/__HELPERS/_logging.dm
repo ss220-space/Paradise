@@ -185,6 +185,15 @@ GLOBAL_PROTECT(log_end)
 	messages.Add("[GLOB.log_end]")
 	WRITE_LOG(GLOB.tgui_log, messages.Join())
 
+#ifdef REFERENCE_TRACKING
+/proc/log_gc(text)
+	rustg_log_write(GLOB.gc_log, "[text][GLOB.log_end]", "true")
+	for(var/client/C in GLOB.admins)
+		if(check_rights(R_DEBUG | R_VIEWRUNTIMES, FALSE, C.mob) && (C.prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS))
+			to_chat(C, "GC DEBUG: [text]")
+#endif
+
+
 /proc/log_sql(text)
 	WRITE_LOG(GLOB.sql_log, "[text][GLOB.log_end]")
 	SEND_TEXT(world.log, text) // Redirect it to DD too

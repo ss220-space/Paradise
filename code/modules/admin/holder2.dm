@@ -1,12 +1,23 @@
 GLOBAL_LIST_EMPTY(admin_datums)
 GLOBAL_PROTECT(admin_datums) // This is protected because we dont want people making their own admin ranks, for obvious reasons
 
+GLOBAL_VAR_INIT(href_token, GenerateToken())
+GLOBAL_PROTECT(href_token)
+
+/proc/GenerateToken()
+	. = ""
+	for(var/I in 1 to 32)
+		. += "[rand(10)]"
+
 /datum/admins
 	var/rank			= "Temporary Admin"
 	var/client/owner	= null
 	var/rights = 0
 	var/fakekey			= null
 	var/big_brother		= 0
+
+	/// Unique-to-session randomly generated token given to each admin to help add detail to logs on admin interactions with hrefs
+	var/href_token
 
 	var/datum/marked_datum
 
@@ -27,6 +38,7 @@ GLOBAL_PROTECT(admin_datums) // This is protected because we dont want people ma
 	admincaster_signature = "Nanotrasen Officer #[rand(0,9)][rand(0,9)][rand(0,9)]"
 	rank = initial_rank
 	rights = initial_rights
+	href_token = GenerateToken()
 	GLOB.admin_datums[ckey] = src
 
 /datum/admins/Destroy()
@@ -46,7 +58,8 @@ GLOBAL_PROTECT(admin_datums) // This is protected because we dont want people ma
 		owner = C
 		owner.holder = src
 		owner.add_admin_verbs()	//TODO
-		owner.verbs -= /client/proc/readmin
+		remove_verb(owner, /client/proc/readmin)
+		owner.init_verbs() //re-initialize the verb list
 		GLOB.admins |= C
 
 /datum/admins/proc/disassociate()
@@ -56,7 +69,8 @@ GLOBAL_PROTECT(admin_datums) // This is protected because we dont want people ma
 		return
 	if(owner)
 		GLOB.admins -= owner
-		owner.remove_admin_verbs()
+		owner.hide_verbs()
+		owner.init_verbs()
 		owner.holder = null
 		owner = null
 

@@ -161,7 +161,7 @@
 	to_chat(M, "<span class='warning'>You absorb the potion and feel your intense desire to feed melt away.</span>")
 	to_chat(user, "<span class='notice'>You feed the slime the potion, removing its hunger and calming it.</span>")
 	being_used = TRUE
-	var/newname = sanitize(copytext_char(input(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime") as null|text,1,MAX_NAME_LEN))
+	var/newname = tgui_input_text(user, "Would you like to give the slime a name?", "Name your new pet", "pet slime", MAX_NAME_LEN, 1)
 
 	if(!newname)
 		newname = "pet slime"
@@ -219,7 +219,7 @@
 			SM.universal_speak = TRUE
 			SM.faction = user.faction
 			SM.master_commander = user
-			SM.can_collar = TRUE
+			SM.set_can_collar(TRUE)
 			to_chat(SM, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
 			to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
 			if(SM.flags & HOLOGRAM) //Check to see if it's a holodeck creature
@@ -249,7 +249,9 @@
 			to_chat(user, "<span class='warning'>[src] won't work on [SM].</span>")
 			return ..()
 
-		var/reason_text = input(user, "Enter reason for giving sentience", "Reason for sentience potion", "") as null|text
+		var/reason_text = tgui_input_text(user, "Enter reason for giving sentience", "Reason for sentience potion")
+		if(!reason_text)
+			return
 
 		to_chat(user, "<span class='notice'>You offer [src.name] to [SM]...</span>")
 		being_used = TRUE
@@ -267,7 +269,7 @@
 			SM.faction = user.faction
 			SM.master_commander = user
 			SM.sentience_act()
-			SM.can_collar = TRUE
+			SM.set_can_collar(TRUE)
 			to_chat(SM, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
 			to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
 			if(SM.flags & HOLOGRAM) //Check to see if it's a holodeck creature
@@ -302,7 +304,9 @@
 			to_chat(user, "<span class='warning'>[LF] совершенно безразлично смотрит на [src.name] в ваших руках.</span>")
 			return ..()
 
-		var/reason_text = input(user, "Enter reason for giving sentience", "Reason for sentience potion", "") as null|text
+		var/reason_text = tgui_input_text(user, "Enter reason for giving sentience", "Reason for sentience potion")
+		if(!reason_text)
+			return
 
 		to_chat(user, "<span class='notice'>Вы предлагаете [src] [LF]... Он[genderize_ru(LF.gender, "", "а", "о", "и")] осторожно осматрива[pluralize_ru(LF.gender,"ет","ют")] его</span>")
 		being_used = TRUE
@@ -372,7 +376,7 @@
 		return
 
 	prompted = TRUE
-	if(alert("This will permanently transfer your consciousness to [SM]. Are you sure you want to do this?",,"Yes","No")=="No")
+	if(tgui_alert(user, "This will permanently transfer your consciousness to [SM]. Are you sure you want to do this?", "Consciousness Transfer", list("Yes", "No")) != "Yes")
 		prompted = FALSE
 		return
 
@@ -382,7 +386,7 @@
 	SM.universal_speak = TRUE
 	SM.faction = user.faction
 	SM.sentience_act() //Same deal here as with sentience
-	SM.can_collar = TRUE
+	SM.set_can_collar(TRUE)
 	user.death()
 	to_chat(SM, "<span class='notice'>In a quick flash, you feel your consciousness flow into [SM]!</span>")
 	to_chat(SM, "<span class='warning'>You are now [SM]. Your allegiances, alliances, and roles are still the same as they were prior to consciousness transfer!</span>")

@@ -124,7 +124,7 @@
 		return
 	if(user.throwing)//You cannot use jet if you thrown
 		return
-	if(user.client.input_data.desired_move_dir)//You use jet when press keys. yes.
+	if(user.client.intended_direction)//You use jet when press keys. yes.
 		thrust()
 
 

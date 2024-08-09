@@ -14,6 +14,8 @@ GLOBAL_LIST_EMPTY(stealthminID)						//reference list with IDs that store ckeys,
 //This is for procs to replace all the goddamn 'in world's that are chilling around the code
 
 GLOBAL_LIST_EMPTY(player_list)				//List of all mobs **with clients attached**. Excludes /mob/new_player
+GLOBAL_LIST_EMPTY(new_player_mobs)			//List of all new player mobs in the lobby
+GLOBAL_LIST_EMPTY(keyloop_list) //as above but can be limited to boost performance
 GLOBAL_LIST_EMPTY(mob_list)					//List of all mobs, including clientless
 GLOBAL_LIST_EMPTY(silicon_mob_list)			//List of all silicon mobs, including clientless
 GLOBAL_LIST_EMPTY(mob_living_list)			//all instances of /mob/living and subtypes
@@ -24,7 +26,8 @@ GLOBAL_LIST_EMPTY(alive_mob_list)			//List of all alive mobs, including clientle
 GLOBAL_LIST_EMPTY(dead_mob_list)				//List of all dead mobs, including clientless. Excludes /mob/new_player
 GLOBAL_LIST_EMPTY(respawnable_list)			//List of all mobs, dead or in mindless creatures that still be respawned.
 GLOBAL_LIST_EMPTY(non_respawnable_keys)	//List of ckeys that are excluded from respawning for remainder of round.
-GLOBAL_LIST_INIT(simple_animals, list(list(), list(), list(), list()))			//One for each AI_* status define, List of all simple animals, including clientless
+/// One for each AI_* status define, List of all simple animals, including clientless
+GLOBAL_LIST_INIT(simple_animals, list(list(), list(), list(), list()))
 GLOBAL_LIST_EMPTY(bots_list) 					//List of all bots(beepsky, medibots,etc)
 GLOBAL_LIST_EMPTY(morphs_alive_list)
 
