@@ -69,6 +69,9 @@
   Valtor:
   - bugfix: cybernetic organs can't be set in setup (#5667)
 '2024-08-07':
+  Aziz Chynaliev:
+  - bugfix: rank name loading
+  - bugfix: trim rank name at creation
   Valtor:
   - add: Cows Can Be Fed + Localization (#5634)
   Zwei:
@@ -77,3 +80,21 @@
   - add: JPS Move (#5673)
   endipe:
   - bugfix: balloon_alert on vehicle (#5671)
+'2024-08-08':
+  MstrKabach:
+  - add: gloves can be stored in belt (#5679)
+  Valtor:
+  - bugfix: xenos invisible windows + smoothing (#5674)
+'2024-08-09':
+  FanTik-Ratge:
+  - imageadd: new_inhand sprites by-kisik (#5682)
+  TomYoungers:
+  - bugfix: QM Table Fix (#5686)
+  - bugfix: tube change (#5684)
+  - bugfix: FloorsChangeInHeadRooms (#5680)
+  Valtor:
+  - bugfix: wryn invisible windows + smoothing (#5668)
+  mrWhiteFox365:
+  - unknown: QM fax fix (#5688)
+  pilygun:
+  - balance: Thunderdome... (#5675)
