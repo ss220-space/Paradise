@@ -70248,7 +70248,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/structure/disposalpipe/rotator/reversed,
+/obj/structure/disposalpipe/rotator,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
