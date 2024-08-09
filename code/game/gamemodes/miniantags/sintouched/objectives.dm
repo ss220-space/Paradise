@@ -85,11 +85,11 @@
 
 /datum/objective/sintouched/pride/Destroy(force)
 	var/mob/living/carbon/human/human = owner.current
-	human.physiology.brute_mod *= 1.1
-	human.physiology.tox_mod *=  1.1
-	human.physiology.stamina_mod *= 1.1
-	human.physiology.oxy_mod *= 1.1
-	human.physiology.burn_mod *= 1.1
+	human.physiology.brute_mod /= 0.9
+	human.physiology.tox_mod /=  0.9
+	human.physiology.stamina_mod /= 0.9
+	human.physiology.oxy_mod /= 0.9
+	human.physiology.burn_mod /= 0.9
 	return ..()
 
 /datum/objective/sintouched/acedia
