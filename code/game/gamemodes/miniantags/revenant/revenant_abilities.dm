@@ -484,13 +484,14 @@
 	target.allowed_type = /mob/living/carbon/human
 	return target
 
+/obj/effect/proc_holder/spell/aoe/revenant/blight/valid_target(mob/living/carbon/human/target, mob/living/simple_animal/revenant/user = usr)
+	if(!target.mind)
+		return
+	if(target.mind in SSticker.mode.sintouched)
+		return
 
 /obj/effect/proc_holder/spell/aoe/revenant/blight/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	for(var/mob/living/carbon/human/human as anything in targets)
-		if(!human.mind)
-			continue
-		if(human.mind in SSticker.mode.sintouched)
-			continue
 		var/datum/disease/ectoplasmic/disease = new
 		disease.Contract(human)
 		new /obj/effect/temp_visual/revenant(get_turf(human))
