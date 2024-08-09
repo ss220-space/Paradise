@@ -370,7 +370,7 @@
 /datum/barsign/vacation
 	name = "Digital Vacation"
 	icon = "vacation"
-	desc = "Relax in the world of information!."
+	desc = "Отдохните в мире, полном информации!."
 
 /datum/barsign/hiddensigns
 	hidden = 1
