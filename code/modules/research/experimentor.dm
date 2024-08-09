@@ -757,7 +757,7 @@
 
 /obj/item/relict_priduction/perfect_mix/New()
 	. = ..()
-	R = pick(/datum/reagent/uranium, /datum/reagent/plasma, /datum/reagent/consumable/capsaicin, /datum/reagent/consumable/frostoil, /datum/reagent/space_cleaner, /datum/reagent/consumable/drink/coffee)
+	R = pick(/datum/reagent/uranium, /datum/reagent/plasma, /datum/reagent/consumable/capsaicin, /datum/reagent/consumable/frostoil, /datum/reagent/space_cleaner, /datum/reagent/consumable/drink/coffee, pick(/datum/reagent/consumable/drink/non_alcoholic_beer, /datum/reagent/consumable/ethanol/beer, /datum/reagent/beer2))
 
 /obj/item/relict_priduction/perfect_mix/afterattack(atom/target, mob/user, proximity)
 	if(istype(target, /obj/item/reagent_containers/glass))
