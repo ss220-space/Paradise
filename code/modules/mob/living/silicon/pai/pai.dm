@@ -130,9 +130,9 @@
 	add_language(LANGUAGE_TRINARY, 1)
 
 	//Verbs for pAI mobile form, chassis and Say flavor text
-	verbs += /mob/living/silicon/pai/proc/choose_chassis
-	verbs += /mob/living/silicon/pai/proc/choose_verbs
-	verbs += /mob/living/silicon/pai/proc/pai_change_voice
+	add_verb(src, /mob/living/silicon/pai/proc/choose_chassis)
+	add_verb(src, /mob/living/silicon/pai/proc/choose_verbs)
+	add_verb(src, /mob/living/silicon/pai/proc/pai_change_voice)
 
 	var/datum/action/innate/pai_soft/P = new
 	P.Grant(src)
@@ -183,14 +183,13 @@
 /mob/living/silicon/pai/proc/show_silenced()
 	if(silence_time)
 		var/timeleft = round((silence_time - world.timeofday)/10 ,1)
-		stat(null, "Communications system reboot in -[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
+		return list("Communications system reboot in:", "-[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
 
 
-/mob/living/silicon/pai/Stat()
-	..()
-	statpanel("Status")
-	if(client.statpanel == "Status")
-		show_silenced()
+/mob/living/silicon/pai/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = show_silenced()
 
 
 /mob/living/silicon/pai/blob_act()
@@ -239,13 +238,11 @@
 
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
-			adjustBruteLoss(100)
-			adjustFireLoss(100)
+			apply_damages(100, 100)
 		if(EXPLODE_HEAVY)
-			adjustBruteLoss(60)
-			adjustFireLoss(60)
+			apply_damages(60, 60)
 		if(EXPLODE_LIGHT)
-			adjustBruteLoss(30)
+			apply_damage(30)
 
 
 // See software.dm for ui_act()
@@ -363,7 +360,7 @@
 		finalized = alert("Look at your sprite. Is this what you wish to use?",,"No","Yes")
 
 	chassis = my_choices[choice]
-	verbs -= /mob/living/silicon/pai/proc/choose_chassis
+	remove_verb(src, /mob/living/silicon/pai/proc/choose_chassis)
 
 /mob/living/silicon/pai/proc/choose_verbs()
 	set category = "pAI Commands"
@@ -377,7 +374,7 @@
 	speak_exclamation = sayverbs[(sayverbs.len>1 ? 2 : sayverbs.len)]
 	speak_query = sayverbs[(sayverbs.len>2 ? 3 : sayverbs.len)]
 
-	verbs -= /mob/living/silicon/pai/proc/choose_verbs
+	remove_verb(src, /mob/living/silicon/pai/proc/choose_verbs)
 
 /mob/living/silicon/pai/proc/pai_change_voice()
 	set name = "Change Voice"
@@ -587,7 +584,7 @@
 	if(!ishuman(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return ..()
 	if(usr == src)
-		switch(alert(user, "[src] wants you to pick [p_them()] up. Do it?",,"Yes","No"))
+		switch(tgui_alert(user, "[src] wants you to pick [p_them()] up. Do it?", "Pick up", list("Yes", "No")))
 			if("Yes")
 				if(Adjacent(user))
 					get_scooped(user)

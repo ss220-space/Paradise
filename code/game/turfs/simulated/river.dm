@@ -21,7 +21,7 @@
 	/// The amount reduced from spread_prob on every spread iteration to cause falloff.
 	var/spread_prob_loss
 	/// The base type that makes up the river.
-	var/river_turf_type = /turf/simulated/floor/plating/lava/smooth/mapping_lava
+	var/river_turf_type = /turf/simulated/floor/lava/mapping_lava
 	/// The area that the spawner is allowed to spread or detour to.
 	var/whitelist_area_type = /area/lavaland/surface/outdoors
 	/// The type that the spawner is allowed to spread or detour to.

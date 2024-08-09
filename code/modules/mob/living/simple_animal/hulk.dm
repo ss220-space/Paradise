@@ -30,7 +30,7 @@
 	minbodytemp = 0
 	var/hulk_powers = list()
 	var/mob/living/original_body
-	var/health_regen = 1.5
+	var/health_regen = 6
 
 /mob/living/simple_animal/hulk/human
 	hulk_powers = list(/obj/effect/proc_holder/spell/hulk_jump,
@@ -91,9 +91,6 @@
 		to_chat(src, "<span class='warning'>You don't want to harm other living beings, your angry is loss! You unmutate!</span>")
 		unmutate()
 		return
-	if(health < 1)
-		death()
-		return
 
 	var/matrix/Mx = matrix()
 	if(health < maxHealth * 0.2)
@@ -113,32 +110,33 @@
 		Mx.Translate(0,0)
 	transform = Mx
 
-	var/datum/gas_mixture/environment = loc.return_air()
-	if(environment)
-		var/pressure = environment.return_pressure()
-		if(pressure > 110)
-			health -= 7
-		else if(pressure <= 5)
-			health -= 12
-		else if(pressure <= 25)
-			health -= 8
-		else if(pressure <= 45)
-			health -= 5
-		else if(pressure <= 55)
-			health -= 3
+	var/datum/gas_mixture/environment = loc?.return_air()
+	var/modifier = 0
+	var/pressure = environment?.return_pressure()
+	switch(pressure)
+		if(-INFINITY to 5)
+			modifier = 12
+		if(6 to 25)
+			modifier = 8
+		if(26 to 45)
+			modifier = 5
+		if(46 to 55)
+			modifier = 3
+		if(110 to INFINITY)
+			modifier = 7
 
-		if(pressure <= 75)
-			if(prob(15))
-				emote("me",1,"gasps!")
+	if(pressure <= 75 && prob(15))
+		custom_emote(EMOTE_AUDIBLE, "задыха%(ет,ют)%ся")
 
 	SetWeakened(0)
-	if(health > 0)
-		health = min(health + health_regen, maxHealth)
-		adjustBruteLoss(-health_regen)
-		adjustToxLoss(-health_regen)
-		adjustOxyLoss(-health_regen)
-		adjustFireLoss(-health_regen)
+	adjustBruteLoss(modifier - health_regen)
+
+	if(health < 1)
+		death()
+		return
+
 	..()
+
 
 /mob/living/simple_animal/hulk/death(gibbed)
 	unmutate()

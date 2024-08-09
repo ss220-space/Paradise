@@ -21,7 +21,7 @@
 	else
 		return
 	to_chat(src, span_danger("You feel funny."))
-	setBrainLoss(80, use_brain_mod = FALSE)
+	setBrainLoss(80)
 	set_nutrition(9000)
 	overeatduration = 9000
 	Confused(60 SECONDS)
@@ -42,7 +42,7 @@
 	equip_to_slot_or_del(new /obj/item/clothing/gloves/cursedclown, ITEM_SLOT_GLOVES)
 	equip_to_slot_or_del(new /obj/item/clothing/mask/cursedclown, ITEM_SLOT_MASK)
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/cursedclown, ITEM_SLOT_FEET)
-
+	grant_mimicking()
 
 /mob/living/carbon/human/proc/makeAntiCluwne()
 	to_chat(src, "<span class='danger'>You don't feel very funny.</span>")

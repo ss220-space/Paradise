@@ -102,15 +102,15 @@
 
 /datum/species/vox/on_species_gain(mob/living/carbon/human/H)
 	..()
-	H.verbs |= /mob/living/carbon/human/proc/emote_wag
-	H.verbs |= /mob/living/carbon/human/proc/emote_swag
-	H.verbs |= /mob/living/carbon/human/proc/emote_quill
+	add_verb(H, /mob/living/carbon/human/proc/emote_wag)
+	add_verb(H, /mob/living/carbon/human/proc/emote_swag)
+	add_verb(H, /mob/living/carbon/human/proc/emote_quill)
 
 /datum/species/vox/on_species_loss(mob/living/carbon/human/H)
 	..()
-	H.verbs -= /mob/living/carbon/human/proc/emote_wag
-	H.verbs -= /mob/living/carbon/human/proc/emote_swag
-	H.verbs -= /mob/living/carbon/human/proc/emote_quill
+	remove_verb(H, /mob/living/carbon/human/proc/emote_wag)
+	remove_verb(H, /mob/living/carbon/human/proc/emote_swag)
+	remove_verb(H, /mob/living/carbon/human/proc/emote_quill)
 
 /datum/species/vox/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	if(!H.mind || !H.mind.assigned_role || H.mind.assigned_role != JOB_TITLE_CLOWN && H.mind.assigned_role != JOB_TITLE_MIME)
@@ -236,11 +236,11 @@
 /datum/species/vox/armalis/on_species_gain(mob/living/carbon/human/H)
 	..()
 	if(/mob/living/carbon/human/proc/emote_wag in H.verbs)
-		H.verbs -= /mob/living/carbon/human/proc/emote_wag
+		remove_verb(H, /mob/living/carbon/human/proc/emote_wag)
 	if(/mob/living/carbon/human/proc/emote_swag in H.verbs)
-		H.verbs -= /mob/living/carbon/human/proc/emote_swag
+		remove_verb(H, /mob/living/carbon/human/proc/emote_swag)
 
 /datum/species/vox/armalis/on_species_loss(mob/living/carbon/human/H)
 	..()
 	if(/mob/living/carbon/human/proc/emote_quill in H.verbs)
-		H.verbs -= /mob/living/carbon/human/proc/emote_quill
+		remove_verb(H, /mob/living/carbon/human/proc/emote_quill)

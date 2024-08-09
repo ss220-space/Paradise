@@ -85,7 +85,7 @@
 	name = "Optical Meson Scanner"
 	desc = "Used for seeing walls, floors, and stuff through anything."
 	icon_state = "meson"
-	item_state = "glasses"
+	item_state = "meson"
 	origin_tech = "magnets=1;engineering=2"
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
@@ -115,7 +115,7 @@
 	name = "Night Vision Optical Meson Scanner"
 	desc = "An Optical Meson Scanner fitted with an amplified visible light spectrum overlay, providing greater visual clarity in darkness."
 	icon_state = "nvgmeson"
-	item_state = "glasses"
+	item_state = "nvgmeson"
 	origin_tech = "magnets=4;engineering=5;plasmatech=4"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
@@ -154,7 +154,7 @@
 	name = "science goggles"
 	desc = "A pair of snazzy goggles used to protect against chemical spills. Fitted with an analyzer for scanning items and reagents."
 	icon_state = "purple"
-	item_state = "glasses"
+	item_state = "purple"
 	origin_tech = "magnets=2;engineering=1"
 	prescription_upgradable = FALSE
 	scan_reagents = TRUE //You can see reagents while wearing science goggles
@@ -172,7 +172,7 @@
 		)
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 
-/obj/item/clothing/glasses/science/item_action_slot_check(slot)
+/obj/item/clothing/glasses/science/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_EYES)
 		return TRUE
 
@@ -180,7 +180,7 @@
 	name = "Night Vision Science Goggle"
 	desc = "Now you can science in darkness."
 	icon_state = "nvpurple"
-	item_state = "glasses"
+	item_state = "purple"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
@@ -188,7 +188,7 @@
 	name = "Janitorial Goggles"
 	desc = "These'll keep the soap out of your eyes."
 	icon_state = "purple"
-	item_state = "glasses"
+	item_state = "purple"
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -413,7 +413,7 @@
 /obj/item/clothing/glasses/sunglasses/noir/attack_self(mob/user)
 	toggle_noir(user)
 
-/obj/item/clothing/glasses/sunglasses/noir/item_action_slot_check(slot)
+/obj/item/clothing/glasses/sunglasses/noir/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_EYES)
 		return TRUE
 
@@ -535,7 +535,7 @@
 	name = "Optical Thermal Scanner"
 	desc = "Thermals in the shape of glasses."
 	icon_state = "thermal"
-	item_state = "glasses"
+	item_state = "thermal"
 	origin_tech = "magnets=3"
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
@@ -561,7 +561,7 @@
 			H.flash_eyes(3, visual = TRUE)
 			H.EyeBlind(6 SECONDS)
 			H.EyeBlurry(10 SECONDS)
-			eyes.receive_damage(5)
+			eyes.internal_receive_damage(5)
 	..()
 
 /obj/item/clothing/glasses/thermal/sunglasses

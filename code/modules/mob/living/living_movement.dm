@@ -113,22 +113,28 @@
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/bulky_push, multiplicative_slowdown = pushing_obj.pull_push_slowdown)
 
 
-/mob/living/toggle_move_intent()
+/mob/living/proc/can_change_move_intent(silent = FALSE)
+	return TRUE
+
+
+/mob/living/toggle_move_intent(new_move_intent)
+	if(new_move_intent && m_intent == new_move_intent)
+		return
 	if(SEND_SIGNAL(src, COMSIG_MOB_MOVE_INTENT_TOGGLE, m_intent) & COMPONENT_BLOCK_INTENT_TOGGLE)
 		return
+	if(!can_change_move_intent())
+		return
 
-	var/icon_toggle
-	if(m_intent == MOVE_INTENT_RUN)
-		m_intent = MOVE_INTENT_WALK
-		icon_toggle = "walking"
+	if(new_move_intent)
+		m_intent = new_move_intent
 	else
-		m_intent = MOVE_INTENT_RUN
-		icon_toggle = "running"
+		switch(m_intent)
+			if(MOVE_INTENT_RUN)
+				m_intent = MOVE_INTENT_WALK
+			if(MOVE_INTENT_WALK)
+				m_intent = MOVE_INTENT_RUN
 
-	if(hud_used && hud_used.move_intent && hud_used.static_inventory)
-		hud_used.move_intent.icon_state = icon_toggle
-		for(var/atom/movable/screen/mov_intent/selector in hud_used.static_inventory)
-			selector.update_icon()
+	hud_used?.move_intent?.update_icon(UPDATE_ICON_STATE)
 
 	update_move_intent_slowdown()
 	SEND_SIGNAL(src, COMSIG_MOB_MOVE_INTENT_TOGGLED)
@@ -346,3 +352,10 @@
 		end_look_down()
 	else
 		look_down()
+
+
+/mob/living/keybind_face_direction(direction)
+	if(stat > CONSCIOUS)
+		return
+	return ..()
+

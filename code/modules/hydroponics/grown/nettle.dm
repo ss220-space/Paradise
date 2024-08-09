@@ -57,11 +57,7 @@
 		return TRUE
 	if(PIERCEIMMUNE in H.dna.species.species_traits)
 		return TRUE
-	var/organ = ((H.hand ? "l_":"r_") + "arm")
-	var/obj/item/organ/external/affecting = H.get_organ(organ)
-	if(affecting)
-		if(affecting.receive_damage(0, force))
-			H.UpdateDamageIcon()
+	H.apply_damage(force, BURN, def_zone = H.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 	to_chat(H, "<span class='userdanger'>The nettle burns your bare hand!</span>")
 	return TRUE
 

@@ -66,9 +66,6 @@
 	var/gene_stability = DEFAULT_GENE_STABILITY
 	var/ignore_gene_stability = 0
 
-
-	var/tesla_ignore = FALSE
-
 	/// A log of what we've said, plain text, no spans or junk, essentially just each individual "message"
 	var/list/say_log
 

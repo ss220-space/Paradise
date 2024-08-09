@@ -59,9 +59,6 @@
 "n" = (
 /turf/simulated/floor/plating/asteroid/airless,
 /area/space/nearstation)
-"o" = (
-/turf/simulated/floor/plating/asteroid/airless,
-/area/space/nearstation)
 "p" = (
 /obj/item/shard{
 	icon_state = "small"
@@ -79,9 +76,6 @@
 /obj/item/stack/ore/tranquillite,
 /turf/simulated/floor/plasteel/airless,
 /area/space/nearstation)
-"r" = (
-/turf/template_noop,
-/area/template_noop)
 "s" = (
 /obj/item/shard,
 /turf/simulated/floor/plating/asteroid/airless,
@@ -472,8 +466,8 @@ a
 (9,1,1) = {"
 a
 a
-r
-o
+a
+n
 m
 m
 m
@@ -604,8 +598,8 @@ a
 (15,1,1) = {"
 a
 a
-r
-r
+a
+a
 m
 m
 m

@@ -822,7 +822,7 @@
 			update_icon()
 	else if(stat & BROKEN)
 		if(!opened)
-			if(do_after(user, gettoolspeedmod(user) * (3 SECONDS) * I.toolspeed, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
+			if(do_after(user, 3 SECONDS * I.toolspeed, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, category = DA_CAT_TOOL))
 				to_chat(user, span_notice("You pry out broken frame."))
 				opened = APC_COVER_OFF
 				update_icon()
@@ -1512,7 +1512,7 @@
 			shock_mobs += victim
 		var/mob/living/victim = safepick(shock_mobs)	//We only want to shock a single random mob in range, not every one.
 		if(victim)
-			victim.electrocute_act(rand(5, 25), "electrical arc")
+			victim.electrocute_act(rand(5, 25), "электрической дуги")
 			playsound(get_turf(victim), 'sound/effects/eleczap.ogg', 75, TRUE)
 			Beam(victim, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5)
 

@@ -139,14 +139,14 @@
 	R.add_language(LANGUAGE_MOTH, 0)
 
 /obj/item/robot_module/proc/add_subsystems_and_actions(mob/living/silicon/robot/R)
-	R.verbs |= subsystems
+	add_verb(R, subsystems)
 	for(var/A in module_actions)
 		var/datum/action/act = new A()
 		act.Grant(R)
 		R.module_actions += act
 
 /obj/item/robot_module/proc/remove_subsystems_and_actions(mob/living/silicon/robot/R)
-	R.verbs -= subsystems
+	remove_verb(R, subsystems)
 	for(var/datum/action/A in R.module_actions)
 		A.Remove(R)
 		qdel(A)

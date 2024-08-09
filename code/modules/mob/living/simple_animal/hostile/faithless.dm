@@ -28,6 +28,7 @@
 
 	faction = list("faithless")
 	gold_core_spawnable = HOSTILE_SPAWN
+	AI_delay_max = 0 SECONDS
 
 /mob/living/simple_animal/hostile/faithless/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE

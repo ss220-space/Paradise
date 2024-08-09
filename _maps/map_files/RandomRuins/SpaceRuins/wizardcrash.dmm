@@ -163,9 +163,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/unpowered)
 "aD" = (
-/obj/structure/closet{
-	icon_state = "cabinet"
-	},
+/obj/structure/closet/cabinet,
 /obj/item/storage/backpack/satchel,
 /obj/item/lighter/zippo,
 /turf/simulated/floor/carpet,
@@ -482,11 +480,11 @@
 	dir = 1;
 	layer = 2.9
 	},
-/turf/simulated/floor/mineral/plasma,
+/turf/space,
 /area/ruin/unpowered)
 "bG" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/floor/shuttle/plating,
+/turf/space,
 /area/ruin/unpowered)
 "bH" = (
 /turf/simulated/wall/mineral/titanium,

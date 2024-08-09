@@ -16,14 +16,44 @@
 	return ..()
 
 /datum/status_effect/shadow_mend/tick(seconds_between_ticks)
-	owner.adjustBruteLoss(-15)
-	owner.adjustFireLoss(-15)
+	owner.heal_overall_damage(15, 15)
 
 /datum/status_effect/shadow_mend/on_remove()
 	owner.visible_message("<span class='warning'>The violet light around [owner] glows black!</span>", "<span class='warning'>The tendrils around you cinch tightly and reap their toll...</span>")
 	playsound(owner, 'sound/magic/teleport_diss.ogg', 50, 1)
 	owner.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
 
+/datum/status_effect/shadow_empower
+	id = "shadow_empower"
+	alert_type = /atom/movable/screen/alert/status_effect/shadow_empower
+
+/atom/movable/screen/alert/status_effect/shadow_empower
+	name = "Darkness empower"
+	desc = "Your body is enhanced with darkness and heals much stronger."
+	icon_state = "glare"
+
+/datum/status_effect/shadow_empower/on_apply()
+	to_chat(owner, span_revenbignotice("You feel empowered with darkness!"))
+	playsound(owner, 'sound/magic/teleport_app.ogg', 50, 1)
+	return TRUE
+
+/datum/status_effect/shadow_empower/tick(seconds_between_ticks)
+	if(ishuman(owner) && owner.stat != DEAD)
+		var/mob/living/carbon/human/human = owner
+		human.heal_overall_damage(1,1)
+		human.adjustToxLoss(-0.5)
+		human.adjustBrainLoss(-1)
+		human.adjustCloneLoss(-0.5)
+		human.SetKnockdown(0)
+		if(prob(15))
+			var/obj/item/organ/external/bodypart = safepick(human.check_fractures())
+			bodypart?.mend_fracture()
+		if(prob(1))
+			human.check_and_regenerate_organs()
+
+/datum/status_effect/shadow_empower/on_remove()
+	to_chat(owner, span_revenbignotice("You feel exhausted! Darkness no longer supports you!"))
+	playsound(owner, 'sound/magic/teleport_diss.ogg', 50, 1)
 
 /datum/status_effect/void_price
 	id = "void_price"
@@ -57,34 +87,32 @@
 	desc = "You are drunk on blood! Your pulse thunders in your ears! Nothing can harm you!" //not true, and the item description mentions its actual effect
 	icon_state = "blooddrunk"
 
+
 /datum/status_effect/blooddrunk/on_apply()
-	. = ..()
-	if(.)
-		if(ishuman(owner))
-			owner.ignore_slowdown(TRAIT_STATUS_EFFECT(id))
-			var/mob/living/carbon/human/H = owner
-			for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
-				bodypart.brute_mod *= 0.1
-				bodypart.burn_mod *= 0.1
-			H.dna.species.tox_mod *= 0.1
-			H.dna.species.oxy_mod *= 0.1
-			H.dna.species.clone_mod *= 0.1
-			H.dna.species.stamina_mod *= 0.1
-		add_attack_logs(owner, owner, "gained blood-drunk stun immunity", ATKLOG_ALL)
-		owner.add_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, KNOCKDOWN), priority = 4)
-		owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, TRUE, use_reverb = FALSE)
+	if(ishuman(owner))
+		var/mob/living/carbon/human/human_owner = owner
+		human_owner.physiology.brute_mod *= 0.1
+		human_owner.physiology.burn_mod *= 0.1
+		human_owner.physiology.tox_mod *= 0.1
+		human_owner.physiology.oxy_mod *= 0.1
+		human_owner.physiology.clone_mod *= 0.1
+		human_owner.physiology.stamina_mod *= 0.1
+	add_attack_logs(owner, owner, "gained blood-drunk stun immunity", ATKLOG_ALL)
+	owner.ignore_slowdown(TRAIT_STATUS_EFFECT(id))
+	owner.add_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, KNOCKDOWN), priority = 4)
+	owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, TRUE, use_reverb = FALSE)
+	return TRUE
 
 
 /datum/status_effect/blooddrunk/on_remove()
 	if(ishuman(owner))
-		var/mob/living/carbon/human/H = owner
-		for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
-			bodypart.brute_mod *= 10
-			bodypart.burn_mod *= 10
-		H.dna.species.tox_mod *= 10
-		H.dna.species.oxy_mod *= 10
-		H.dna.species.clone_mod *= 10
-		H.dna.species.stamina_mod *= 10
+		var/mob/living/carbon/human/human_owner = owner
+		human_owner.physiology.brute_mod *= 10
+		human_owner.physiology.burn_mod *= 10
+		human_owner.physiology.tox_mod *= 10
+		human_owner.physiology.oxy_mod *= 10
+		human_owner.physiology.clone_mod *= 10
+		human_owner.physiology.stamina_mod *= 10
 	add_attack_logs(owner, owner, "lost blood-drunk stun immunity", ATKLOG_ALL)
 	owner.unignore_slowdown(TRAIT_STATUS_EFFECT(id))
 	owner.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, KNOCKDOWN))
@@ -146,11 +174,13 @@
 		var/heal_amount = (active_instances_length / tolerance) * basic_heal_amt
 		if(isanimal(owner))
 			var/mob/living/simple_animal/s_owner = owner
-			s_owner.adjustHealth(-heal_amount, updating_health = FALSE)
+			s_owner.adjustHealth(-heal_amount)
 		else
-			owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
-			owner.adjustOxyLoss(-heal_amount, updating_health = FALSE)
-		owner.updatehealth()
+			var/update = NONE
+			update |= owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
+			update |= owner.heal_damage_type(heal_amount, OXY, FALSE)
+			if(update)
+				owner.updatehealth("banana_power")
 		var/list/expired_instances = list()
 		for(var/i in 1 to active_instances_length)
 			active_instances[i]--
@@ -263,13 +293,12 @@
 			//Because a servant of medicines stops at nothing to help others, lets keep them on their toes and give them an additional boost.
 			if(itemUser.health < itemUser.maxHealth)
 				new /obj/effect/temp_visual/heal(get_turf(itemUser), "#375637")
-			itemUser.adjustBruteLoss(-1.5)
-			itemUser.adjustFireLoss(-1.5)
-			itemUser.adjustToxLoss(-1.5)
-			itemUser.adjustOxyLoss(-1.5)
-			itemUser.adjustStaminaLoss(-1.5)
-			itemUser.adjustBrainLoss(-1.5)
-			itemUser.adjustCloneLoss(-0.5) //Becasue apparently clone damage is the bastion of all health
+			var/update = NONE
+			update |= itemUser.heal_overall_damage(1.5, 1.5, updating_health = FALSE)
+			update |= itemUser.heal_damages(tox = 1.5, oxy = 1.5, clone = 0.5, stamina = 1.5, brain = 1.5, updating_health = FALSE)
+			if(update)
+				owner.updatehealth("Hippocratic Oath")
+
 
 /atom/movable/screen/alert/status_effect/regenerative_core
 	name = "Reinforcing Tendrils"
@@ -286,8 +315,7 @@
 
 /datum/status_effect/regenerative_core/on_apply()
 	owner.ignore_slowdown(TRAIT_STATUS_EFFECT(id))
-	owner.adjustBruteLoss(-25)
-	owner.adjustFireLoss(-25)
+	owner.heal_overall_damage(25, 25, affect_robotic = TRUE)
 	owner.remove_CC()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
@@ -346,10 +374,12 @@
 	if(length(active_instances) >= 1)
 		var/heal_amount = (length(active_instances) / tolerance) * (freezing ? 2 : 10)
 		var/blood_restore = 30 * length(active_instances)
-		owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
-		owner.adjustOxyLoss(-heal_amount, FALSE)
+		var/update = NONE
+		update |= owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
+		update |= owner.heal_damage_type(heal_amount, OXY, FALSE)
+		if(update)
+			owner.updatehealth("fleshmend")
 		owner.blood_volume = min(owner.blood_volume + blood_restore, BLOOD_VOLUME_NORMAL)
-		owner.updatehealth()
 		var/list/expired_instances = list()
 		for(var/i in 1 to length(active_instances))
 			active_instances[i]--
@@ -421,9 +451,8 @@
 
 
 /datum/status_effect/panacea/tick(seconds_between_ticks)
-	owner.adjustToxLoss(-5) //Has the same healing as 20 charcoal, but happens faster
+	owner.heal_damages(tox = 5, brain = 5)	//Has the same healing as 20 charcoal, but happens faster
 	owner.radiation = max(0, owner.radiation - 70) //Same radiation healing as pentetic
-	owner.adjustBrainLoss(-5)
 	owner.AdjustDrunk(-12 SECONDS) //50% stronger than antihol
 	owner.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 10)
 	for(var/datum/reagent/reagent in owner.reagents.reagent_list)
@@ -469,9 +498,11 @@
 			hope_message()
 		return
 	var/heal_multiplier = min(3, ((50 - owner.health) / 50 + 1)) // 1 hp at 50 health, 2 at 0, 3 at -50
-	owner.adjustBruteLoss(-heal_multiplier * 0.5)
-	owner.adjustFireLoss(-heal_multiplier * 0.5)
-	owner.adjustOxyLoss(-heal_multiplier)
+	var/update = NONE
+	update |= owner.heal_overall_damage(heal_multiplier * 0.5, heal_multiplier * 0.5, updating_health = FALSE)
+	update |= owner.heal_damage_type(heal_multiplier, OXY, FALSE)
+	if(update)
+		owner.updatehealth("hope")
 	if(prob(heal_multiplier * 2))
 		hope_message()
 
@@ -582,37 +613,41 @@
 	if(!. || !ishuman(owner))
 		return FALSE
 
-	ADD_TRAIT(owner, TRAIT_CHUNKYFINGERS, VAMPIRE_TRAIT)
-	var/mob/living/carbon/human/H = owner
-	H.dna.species.brute_mod *= 0.3
-	H.dna.species.burn_mod *= 0.6
-	H.dna.species.stamina_mod *= 0.3
-	H.dna.species.stun_mod *= 0.3
+	var/mob/living/carbon/human/human_owner = owner
 
-	var/datum/antagonist/vampire/V = owner.mind.has_antag_datum(/datum/antagonist/vampire)
+	ADD_TRAIT(human_owner, TRAIT_CHUNKYFINGERS, VAMPIRE_TRAIT)
+
+	human_owner.physiology.brute_mod *= 0.3
+	human_owner.physiology.burn_mod *= 0.6
+	human_owner.physiology.stamina_mod *= 0.3
+	human_owner.physiology.stun_mod *= 0.3
+
+	var/datum/antagonist/vampire/V = human_owner.mind.has_antag_datum(/datum/antagonist/vampire)
 	if(V.get_ability(/datum/vampire_passive/blood_swell_upgrade))
 		bonus_damage_applied = TRUE
-		H.dna.species.punchdamagelow += 14
-		H.dna.species.punchdamagehigh += 14
-		H.dna.species.punchstunthreshold += 10 //higher chance to stun but not 100%
+		human_owner.physiology.punch_damage_low += 14
+		human_owner.physiology.punch_damage_high += 14
+		human_owner.physiology.punch_stun_threshold += 10	//higher chance to stun but not 100%
 
 
 /datum/status_effect/bloodswell/on_remove()
 	if(!ishuman(owner))
 		return
 
-	REMOVE_TRAIT(owner, TRAIT_CHUNKYFINGERS, VAMPIRE_TRAIT)
-	var/mob/living/carbon/human/H = owner
-	H.dna.species.brute_mod /= 0.3
-	H.dna.species.burn_mod /= 0.6
-	H.dna.species.stamina_mod /= 0.3
-	H.dna.species.stun_mod /= 0.3
+	var/mob/living/carbon/human/human_owner = owner
+
+	REMOVE_TRAIT(human_owner, TRAIT_CHUNKYFINGERS, VAMPIRE_TRAIT)
+
+	human_owner.physiology.brute_mod /= 0.3
+	human_owner.physiology.burn_mod /= 0.6
+	human_owner.physiology.stamina_mod /= 0.3
+	human_owner.physiology.stun_mod /= 0.3
 
 	if(bonus_damage_applied)
 		bonus_damage_applied = FALSE
-		H.dna.species.punchdamagelow -= 14
-		H.dna.species.punchdamagehigh -= 14
-		H.dna.species.punchstunthreshold -= 10
+		human_owner.physiology.punch_damage_low -= 14
+		human_owner.physiology.punch_damage_high -= 14
+		human_owner.physiology.punch_stun_threshold -= 10
 
 
 /datum/status_effect/blood_rush
@@ -651,9 +686,11 @@
 			war_message()
 		return
 	var/heal_multiplier = min(3, ((40 - owner.health) / 50 + 1)) // 1 hp at 40 health, 2 at -10, 3 at -60
-	owner.adjustBruteLoss(-heal_multiplier * 0.5)
-	owner.adjustFireLoss(-heal_multiplier * 0.5)
-	owner.adjustOxyLoss(-heal_multiplier)
+	var/update = NONE
+	update |= owner.heal_overall_damage(heal_multiplier * 0.5, heal_multiplier * 0.5, updating_health = FALSE)
+	update |= owner.heal_damage_type(heal_multiplier, OXY, FALSE)
+	if(update)
+		owner.updatehealth("dragon strength")
 	if(prob(5))
 		hope_message()
 
@@ -723,9 +760,12 @@
 			owner.remove_status_effect(STATUS_EFFECT_DRILL_PAYBACK)
 			return
 	if(owner.stat != DEAD)
-		owner.adjustBruteLoss(-3)
-		owner.adjustFireLoss(-3)
-		owner.adjustStaminaLoss(-25)
+		var/update = NONE
+		update |= owner.heal_overall_damage(3, 3, updating_health = FALSE)
+		update |= owner.heal_damage_type(25, STAMINA, FALSE)
+		if(update)
+			owner.updatehealth("drill_payback")
+
 
 /datum/status_effect/drill_payback/on_remove()
 	..()

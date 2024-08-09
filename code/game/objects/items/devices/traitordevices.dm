@@ -42,11 +42,10 @@ effective or pretty fucking useless.
 		to_chat(user, span_danger("The mind batterer is out of charge!"))
 		return
 
-
 	for(var/mob/living/carbon/human/M in orange (10, user))
 		if(prob(50))
 			M.Weaken(rand(2,6) SECONDS)
-			M.adjustStaminaLoss(rand(35, 60))
+			M.apply_damage(rand(35, 60), STAMINA)
 			add_attack_logs(user, M, "Stunned with [src]")
 			to_chat(M, span_danger("You feel a tremendous, paralyzing wave flood your mind."))
 		else
@@ -439,3 +438,126 @@ effective or pretty fucking useless.
 	max_charges = 8
 	flawless = TRUE
 
+
+#define ION_CALLER_AI_TARGETING		"AI targeting"
+#define ION_CALLER_COMMS_TARGETING	"Telecomms targeting"
+
+/obj/item/ion_caller
+	name = "low-orbit ion cannon remote"
+	desc = "A remote control capable of sending a signal to the Syndicate's nearest satellites that have an ion cannon."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "ISD"
+	w_class = WEIGHT_CLASS_SMALL
+	var/recharge_time = 15 MINUTES
+	var/static/next_comms_strike = -1
+	COOLDOWN_DECLARE(ioncaller_ai_cooldown)
+
+
+/obj/item/ion_caller/Initialize(mapload)
+	. = ..()
+	update_icon(UPDATE_OVERLAYS)
+	GLOB.ioncallers_list += src
+
+
+/obj/item/ion_caller/Destroy()
+	GLOB.ioncallers_list -= src
+	. = ..()
+
+
+/obj/item/ion_caller/update_overlays()
+	. = ..()
+
+	if(COOLDOWN_FINISHED(src, ioncaller_ai_cooldown))
+		. += "[initial(icon_state)]_ai"
+
+	if(next_comms_strike <= world.time)
+		. += "[initial(icon_state)]_tele"
+
+
+/obj/item/ion_caller/examine(mob/user)
+	. = ..()
+	if(COOLDOWN_FINISHED(src, ioncaller_ai_cooldown))
+		. += "<b>[span_darkmblue("\"AI Buster\"")]</b> satellite is ready to fire."
+	else
+		. += "<b>[span_darkmblue("\"AI Buster\"")]</b> satellite will be ready to fire in [DisplayTimeText(COOLDOWN_TIMELEFT(src, ioncaller_ai_cooldown))]."
+	if(next_comms_strike <= world.time)
+		. += "<b>[span_green("\"Telecomm Suppresser\"")]</b> satellite is ready to fire."
+	else
+		. += "<b>[span_green("\"Telecomm Suppresser\"")]</b> satellite will be ready to fire in [DisplayTimeText(next_comms_strike - world.time)]."
+
+
+/obj/item/ion_caller/proc/options_visual_update()
+	update_icon(UPDATE_OVERLAYS)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), UPDATE_OVERLAYS), recharge_time)
+
+
+/obj/item/ion_caller/proc/usability_check(mob/user, area_check = TRUE, satellite_check = NONE, silent)
+	if(area_check && !is_type_in_list(get_area(src), SSmapping.existing_station_areas))
+		if(!silent)
+			to_chat(user, span_notice("The remote can't establish a connection. You need to be on the station."))
+		return FALSE
+
+	switch(satellite_check)
+		if(ION_CALLER_AI_TARGETING)
+			if(COOLDOWN_FINISHED(src, ioncaller_ai_cooldown))
+				return TRUE
+			if(!silent)
+				to_chat(user, span_notice("It is not ready to be used yet."))
+			return FALSE
+
+		if(ION_CALLER_COMMS_TARGETING)
+			if(next_comms_strike <= world.time)
+				return TRUE
+			if(!silent)
+				to_chat(user, span_notice("It is not ready to be used yet."))
+			return FALSE
+
+	return TRUE
+
+
+/obj/item/ion_caller/attack_self(mob/user)
+	if(!usability_check(user))
+		return
+
+	var/list/choices = list("Cancel" = mutable_appearance(icon = 'icons/mob/screen_gen.dmi', icon_state = "x"))
+
+	if(usability_check(area_check = FALSE, satellite_check = ION_CALLER_AI_TARGETING, silent = TRUE))
+		choices[ION_CALLER_AI_TARGETING] = mutable_appearance(icon = src.icon, icon_state = "ISD_ai_prev")
+
+	if(usability_check(area_check = FALSE, satellite_check = ION_CALLER_COMMS_TARGETING, silent = TRUE))
+		choices[ION_CALLER_COMMS_TARGETING] = mutable_appearance(icon = src.icon, icon_state = "ISD_tele_prev")
+
+	if(choices.len <= 1)
+		to_chat(user, span_notice("It is not ready to be used yet."))
+		return
+
+	var/choice = show_radial_menu(user, src, choices, src, require_near = TRUE)
+	if(choice == "Cancel")
+		return
+
+	if(!usability_check(user, area_check = TRUE, satellite_check = choice))
+		return
+
+	switch(choice)
+		if(ION_CALLER_AI_TARGETING)
+			COOLDOWN_START(src, ioncaller_ai_cooldown, recharge_time)
+			to_chat(user, span_notice("[src]'s screen flashes <b>[span_darkmblue("blue")]</b> for a moment."))
+			options_visual_update()
+
+			var/datum/event_meta/meta_info = new(EVENT_LEVEL_MAJOR, "([key_name(src)]) generated an ion law using a LOIC remote.", /datum/event/ion_storm)
+			var/datum/event/ion_storm/ion = new(EM = meta_info, botEmagChance = 0, announceEvent = 2)
+			ion.location_name = get_area_name(src, TRUE)
+			log_and_message_admins("generated an ion law using a LOIC remote.")
+
+		if(ION_CALLER_COMMS_TARGETING)
+			next_comms_strike = world.time + recharge_time
+			to_chat(user, span_notice("[src]'s screen flashes <b>[span_green("green")]</b> for a moment."))
+			for(var/obj/item/ion_caller/device as anything in GLOB.ioncallers_list)
+				device.options_visual_update()
+
+			var/datum/event_meta/meta_info = new(EVENT_LEVEL_MAJOR, "([key_name(src)]) muted telecomms using a LOIC remote.", /datum/event/communications_blackout/syndicate)
+			new /datum/event/communications_blackout/syndicate(EM = meta_info)
+			log_and_message_admins("muted telecomms using a LOIC remote.")
+
+#undef ION_CALLER_AI_TARGETING
+#undef ION_CALLER_COMMS_TARGETING

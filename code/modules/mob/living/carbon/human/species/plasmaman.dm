@@ -55,13 +55,13 @@
 
 /datum/species/plasmaman/on_species_gain(mob/living/carbon/human/H)
 	..()
-	H.verbs |= /mob/living/carbon/human/proc/emote_rattle
+	add_verb(H, /mob/living/carbon/human/proc/emote_rattle)
 	RegisterSignal(H, COMSIG_CARBON_RECEIVE_FRACTURE, PROC_REF(on_fracture))
 
 
 /datum/species/plasmaman/on_species_loss(mob/living/carbon/human/H)
 	..()
-	H.verbs -= /mob/living/carbon/human/proc/emote_rattle
+	remove_verb(H, /mob/living/carbon/human/proc/emote_rattle)
 	UnregisterSignal(H, COMSIG_CARBON_RECEIVE_FRACTURE)
 
 //внёс перевод акцента речи, шипящий звук. Но я не смог осилить и он почему-то по прежнему не работает, похоже не тут настраивается -- ПУПС
@@ -225,14 +225,12 @@
 /datum/species/plasmaman/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	switch(R.id)
 		if("plasma")
-			H.adjustBruteLoss(-0.25)
-			H.adjustFireLoss(-0.25)
+			H.heal_overall_damage(0.25, 0.25)
 			H.adjust_alien_plasma(20)
 			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
 			return FALSE //Handling reagent removal on our own. Prevents plasma from dealing toxin damage to Plasmaman
 		if("plasma_dust")
-			H.adjustBruteLoss(-0.25)
-			H.adjustFireLoss(-0.25)
+			H.heal_overall_damage(0.25, 0.25)
 			H.adjust_alien_plasma(20)
 			if(prob(1))
 				var/list/fractured_organs = H.check_fractures()

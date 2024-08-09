@@ -214,7 +214,9 @@
 		add_attack_logs(user, src, "emag-bombed")
 		boom(user)
 
-/obj/structure/closet/crate/secure/loot/togglelock(mob/user)
+/obj/structure/closet/crate/secure/loot/togglelock(mob/living/user)
+	if(!istype(user))
+		return
 	if(locked)
 		boom(user)
 	else
