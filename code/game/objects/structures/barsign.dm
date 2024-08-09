@@ -367,6 +367,11 @@
 	icon = "shitcur"
 	desc = "Innocence proves nothing."
 
+/datum/barsign/vacation
+	name = "Digital Vacation"
+	icon = "vacation"
+	desc = "Relax in the world of information!."
+
 /datum/barsign/hiddensigns
 	hidden = 1
 
