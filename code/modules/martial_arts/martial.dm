@@ -13,7 +13,7 @@
 	var/deflection_chance = 0
 	/// Can it reflect projectiles in a random direction?
 	var/reroute_deflection = FALSE
-	///Chance to block melee attacks using items while on throw mode.
+	///Chance to block melee attacks using items
 	var/block_chance = 0
 	//Chance to reflect projectiles but NINJA!
 	var/reflection_chance = 0
@@ -126,7 +126,7 @@
 
 /datum/martial_art/proc/basic_hit(mob/living/carbon/human/A, mob/living/carbon/human/D)
 
-	var/damage = rand(A.dna.species.punchdamagelow, A.dna.species.punchdamagehigh)
+	var/damage = rand(A.dna.species.punchdamagelow + A.physiology.punch_damage_low, A.dna.species.punchdamagehigh + A.physiology.punch_damage_high)
 	var/datum/unarmed_attack/attack = A.dna.species.unarmed
 
 	var/atk_verb = "[pick(attack.attack_verb)]"
@@ -156,7 +156,7 @@
 
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", (damage > 0) ? null : ATKLOG_ALL)
 
-	if((D.stat != DEAD) && damage >= A.dna.species.punchstunthreshold)
+	if((D.stat != DEAD) && damage >= (A.dna.species.punchstunthreshold + A.physiology.punch_stun_threshold))
 		D.visible_message("<span class='danger'>[A] has weakened [D]!!</span>", \
 								"<span class='userdanger'>[A] has weakened [D]!</span>")
 		D.apply_effect(4 SECONDS, WEAKEN, armor_block)
@@ -191,9 +191,9 @@
 		if(istype(MA, src))
 			return FALSE
 	if(has_explaination_verb)
-		H.verbs |= /mob/living/carbon/human/proc/martial_arts_help
+		add_verb(H, /mob/living/carbon/human/proc/martial_arts_help)
 	if(has_dirslash)
-		H.verbs |= /mob/living/carbon/human/proc/dirslash_enabling
+		add_verb(H, /mob/living/carbon/human/proc/dirslash_enabling)
 		H.dirslash_enabled = TRUE
 	temporary = make_temporary
 	H.mind.known_martial_arts.Add(src)
@@ -208,12 +208,12 @@
 	deltimer(combo_timer)
 	H.mind.known_martial_arts.Remove(MA)
 	H.mind.martial_art = get_highest_weight(H)
-	remove_verbs(H)
+	remove_martial_art_verbs(H)
 	return TRUE
 
-/datum/martial_art/proc/remove_verbs(mob/living/carbon/human/old_human)
-	old_human.verbs -= /mob/living/carbon/human/proc/martial_arts_help
-	old_human.verbs -= /mob/living/carbon/human/proc/dirslash_enabling
+/datum/martial_art/proc/remove_martial_art_verbs(mob/living/carbon/human/old_human)
+	remove_verb(old_human, /mob/living/carbon/human/proc/martial_arts_help)
+	remove_verb(old_human, /mob/living/carbon/human/proc/dirslash_enabling)
 	old_human.dirslash_enabled = initial(old_human.dirslash_enabled)
 	return TRUE
 
@@ -264,11 +264,11 @@
 /datum/martial_art/proc/explaination_footer(user)
 	return
 
-/datum/martial_art/proc/explaination_notice(user)
-	return to_chat(user, "<b><i>Combo steps can be provided only with empty hand!</b></i>")
-
 /datum/martial_art/proc/try_deflect(mob/user)
 	return prob(deflection_chance)
+
+/datum/martial_art/proc/explaination_notice(user)
+	return to_chat(user, "<b><i>Combo steps can be provided only with empty hand!</b></i>")
 
 /datum/martial_art/proc/intent_to_streak(intent)
 	switch(intent)
@@ -402,6 +402,12 @@
 		to_chat(user, span_warning("You realise, that you have learned everything from Carp Teachings and decided to not read the scroll."))
 		return
 
+	to_chat(user, "<span class='sciradio'>You have learned the ancient martial art of the Sleeping Carp! \
+					Your hand-to-hand combat has become much more effective, and you are now able to deflect any projectiles directed toward you. \
+					However, you are also unable to use any ranged weaponry. \
+					You can learn more about your newfound art by using the Recall Teachings verb in the Sleeping Carp tab.</span>")
+
+
 	var/datum/martial_art/the_sleeping_carp/theSleepingCarp = new(null)
 	theSleepingCarp.teach(user)
 	user.temporarily_remove_item_from_inventory(src)
@@ -461,8 +467,7 @@
 		to_chat(user, "<span class='notice'>You implant yourself, but nanobots can't find their target. You feel sharp pain in head!</span>")
 		if(isliving(user))
 			var/mob/living/L = user
-			L.adjustBrainLoss(20)
-			L.adjustFireLoss(20)
+			L.apply_damages(burn = 20, brain = 20, spread_damage = TRUE)
 		user.temporarily_remove_item_from_inventory(src)
 		visible_message("<span class='warning'>[src] beeps ominously, and a moment later it blow up!</span>")
 		playsound(get_turf(src),'sound/effects/explosion2.ogg', 100, 1)
@@ -562,7 +567,7 @@
 			H.visible_message("<span class='warning'>[pick(fluffmessages)]</span>", \
 								   "<span class='userdanger'>[pick(fluffmessages)]</span>")
 			playsound(get_turf(user), 'sound/effects/woodhit.ogg', 75, 1, -1)
-			H.adjustStaminaLoss(rand(13,20))
+			H.apply_damage(rand(13,20), STAMINA)
 			if(prob(10))
 				H.visible_message("<span class='warning'>[H] collapses!</span>", \
 									   "<span class='userdanger'>Your legs give out!</span>")
@@ -573,7 +578,7 @@
 					H.visible_message("<span class='warning'>[user] delivers a heavy hit to [H]'s head, knocking [H.p_them()] out cold!</span>", \
 										   "<span class='userdanger'>[user] knocks you unconscious!</span>")
 					H.SetSleeping(60 SECONDS)
-					H.adjustBrainLoss(25)
+					H.apply_damage(25, BRAIN)
 			return
 		else
 			return ..()

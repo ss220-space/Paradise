@@ -2,12 +2,13 @@ SUBSYSTEM_DEF(title)
 	name = "Title Screen"
 	flags = SS_NO_FIRE
 	init_order = INIT_ORDER_TITLE
+	init_stage = INITSTAGE_EARLY
 	ss_id = "title_screen"
 
 
 /datum/controller/subsystem/title/Initialize()
 	create_title_screen()
-
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/title/proc/create_title_screen(mob/user)
 	. = FALSE

@@ -1959,6 +1959,7 @@
 	},
 /mob/living/simple_animal/hostile/alien/drone{
 	dir = 8;
+	
 	},
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2663,7 +2664,7 @@
 	},
 /area/ruin/ussp_xeno/gym_ussp)
 "KR" = (
-/mob/living/simple_animal/mouse/white,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -2908,6 +2909,7 @@
 	},
 /mob/living/simple_animal/hostile/alien/drone{
 	dir = 8;
+	
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3696,6 +3698,7 @@
 /obj/effect/decal/cleanable/cobweb,
 /mob/living/simple_animal/hostile/alien/drone{
 	dir = 8;
+	
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

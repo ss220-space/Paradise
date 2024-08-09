@@ -278,7 +278,7 @@
 		H.LAssailant = null
 	else
 		H.LAssailant = owner.current
-	while(do_after(owner.current, 5 SECONDS, H, NONE))
+	while(do_after(owner.current, 5 SECONDS, H, NONE, interaction_key = DOAFTER_SOURCE_VAMPIRE_SUCKING, max_interact_count = 1))
 		if(!isvampire(owner))
 			to_chat(owner.current, span_userdanger("Ваши клыки исчезают!"))
 			return

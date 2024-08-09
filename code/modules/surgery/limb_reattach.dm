@@ -145,6 +145,12 @@
 		BODY_ZONE_WING,
 	)
 
+/datum/surgery/attach_robotic_limb/can_start(mob/user, mob/living/carbon/target)
+	. = ..()
+	if(!.)
+		return FALSE
+	if(NO_ROBOPARTS in target.dna.species.species_traits)
+		return FALSE
 
 /datum/surgery_step/limb
 	can_infect = FALSE
@@ -177,7 +183,10 @@
 	if(isnull(organ_data))
 		to_chat(user, span_warning("[target.dna.species] don't have the anatomy for [E.name]!"))
 		return SURGERY_BEGINSTEP_ABORT
-
+	if(ONLY_SPECIES_LIMBS in target.dna.species.species_traits)
+		if(!istype(E, organ_data["path"]))
+			to_chat(user, span_warning("Тело существа неспособно принять конечности от другого вида!"))
+			return SURGERY_BEGINSTEP_ABORT
 	user.visible_message(
 		"[user] starts attaching [E.name] to [target]'s [E.amputation_point].",
 		"You start attaching [E.name] to [target]'s [E.amputation_point].",

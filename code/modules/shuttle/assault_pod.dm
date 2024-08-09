@@ -5,6 +5,10 @@
 	width = 7
 	height = 7
 
+/obj/docking_port/mobile/assault_pod/nt
+	name = "Emergency Droppod"
+	id = "shit_rain"
+
 /obj/docking_port/mobile/assault_pod/request()
 	if(z == initial(src.z)) //No launching pods that have already launched
 		return ..()
@@ -14,8 +18,6 @@
 	..()
 	if(!istype(S1, /obj/docking_port/stationary/transit))
 		playsound(get_turf(src.loc), 'sound/effects/explosion1.ogg',50,1)
-
-
 
 /obj/item/assault_pod
 	name = "Assault Pod Targetting Device"
@@ -30,6 +32,9 @@
 	var/height = 7
 	var/lz_dir = 1
 
+/obj/item/assault_pod/nt
+	name = "Emergency Droppod Targeting Devise"
+	shuttle_id = "shit_rain"
 
 /obj/item/assault_pod/attack_self(mob/living/user)
 	var/target_area

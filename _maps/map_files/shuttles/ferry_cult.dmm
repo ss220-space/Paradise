@@ -1,0 +1,216 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	tag = "icon-propulsion (EAST)"
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/transport)
+"c" = (
+/obj/item/candle/eternal{
+	pixel_x = 7;
+	pixel_y = 14
+	},
+/turf/simulated/floor/engine/cult,
+/area/shuttle/transport)
+"d" = (
+/obj/effect/rune/narsie{
+	req_access = list(666)
+	},
+/turf/simulated/floor/engine/cult,
+/area/shuttle/transport)
+"g" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	tag = "icon-propulsion (EAST)"
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 4
+	},
+/turf/simulated/floor/shuttle/plating,
+/area/shuttle/transport)
+"j" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/engine/cult,
+/area/shuttle/transport)
+"m" = (
+/obj/effect/spawner/window/reinforced{
+	color = "red"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/transport)
+"n" = (
+/obj/structure/cult/altar,
+/turf/simulated/floor/engine/cult,
+/area/shuttle/transport)
+"o" = (
+/obj/structure/cult/archives,
+/turf/simulated/floor/engine/cult,
+/area/shuttle/transport)
+"p" = (
+/obj/structure/cult/forge,
+/turf/simulated/floor/engine/cult,
+/area/shuttle/transport)
+"r" = (
+/turf/space,
+/area/shuttle/transport)
+"u" = (
+/obj/machinery/computer/shuttle/ferry/request{
+	dir = 8
+	},
+/turf/simulated/floor/engine/cult,
+/area/shuttle/transport)
+"x" = (
+/turf/simulated/floor/engine/cult,
+/area/shuttle/transport)
+"D" = (
+/obj/effect/spawner/random_spawners/blood_20,
+/turf/simulated/floor/engine/cult,
+/area/shuttle/transport)
+"E" = (
+/obj/structure/cult/pylon,
+/obj/item/flag/cult,
+/turf/simulated/floor/engine/cult,
+/area/shuttle/transport)
+"I" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/shuttle{
+	icon = 'icons/obj/doors/airlocks/cult/runed/cult.dmi';
+	id_tag = "s_docking_airlock"
+	},
+/turf/simulated/floor/engine/cult,
+/area/shuttle/transport)
+"L" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/shuttle{
+	icon = 'icons/obj/doors/airlocks/cult/runed/cult.dmi';
+	id_tag = "s_docking_airlock"
+	},
+/obj/docking_port/mobile{
+	dir = 8;
+	dwidth = 2;
+	height = 12;
+	id = "ferry";
+	name = "ferry shuttle";
+	roundstart_move = "ferry_away";
+	timid = 1;
+	width = 5
+	},
+/turf/simulated/floor/engine/cult,
+/area/shuttle/transport)
+"M" = (
+/turf/simulated/wall/cult,
+/area/shuttle/transport)
+"S" = (
+/obj/item/candle/eternal{
+	pixel_x = -5;
+	pixel_y = -7
+	},
+/turf/simulated/floor/engine/cult,
+/area/shuttle/transport)
+"U" = (
+/obj/item/candle/eternal{
+	pixel_x = -8;
+	pixel_y = -3
+	},
+/turf/simulated/floor/engine/cult,
+/area/shuttle/transport)
+"X" = (
+/obj/item/candle/eternal{
+	pixel_x = 10;
+	pixel_y = 9
+	},
+/turf/simulated/floor/engine/cult,
+/area/shuttle/transport)
+"Y" = (
+/obj/item/candle/eternal,
+/turf/simulated/floor/engine/cult,
+/area/shuttle/transport)
+
+(1,1,1) = {"
+a
+g
+I
+g
+a
+"}
+(2,1,1) = {"
+M
+o
+D
+x
+M
+"}
+(3,1,1) = {"
+M
+x
+j
+D
+M
+"}
+(4,1,1) = {"
+m
+D
+u
+x
+m
+"}
+(5,1,1) = {"
+M
+X
+U
+x
+M
+"}
+(6,1,1) = {"
+M
+x
+d
+S
+M
+"}
+(7,1,1) = {"
+M
+Y
+x
+c
+M
+"}
+(8,1,1) = {"
+m
+x
+D
+p
+m
+"}
+(9,1,1) = {"
+M
+n
+x
+D
+M
+"}
+(10,1,1) = {"
+M
+E
+x
+E
+M
+"}
+(11,1,1) = {"
+M
+M
+x
+M
+M
+"}
+(12,1,1) = {"
+r
+M
+L
+M
+r
+"}

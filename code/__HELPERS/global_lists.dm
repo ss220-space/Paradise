@@ -136,11 +136,13 @@
 	GLOB.uplink_items = init_uplink_items_list()
 	GLOB.mining_vendor_items = init_mining_vendor_items_list()
 
-	// Keybindings
-	for(var/path in subtypesof(/datum/keybinding))
-		var/datum/keybinding/D = path
-		if(initial(D.name))
-			GLOB.keybindings += new path()
+	init_keybindings()
+
+	// Preference toggles
+	for(var/path in subtypesof(/datum/preference_toggle))
+		var/datum/preference_toggle/pref_toggle = path
+		if(initial(pref_toggle.name))
+			GLOB.preference_toggles += new path()
 
 	// Init chemical reagents
 	init_datum_subtypes(/datum/reagent, GLOB.chemical_reagents_list, null, "id")
@@ -274,6 +276,7 @@
 		EQUIPMENT("Shelter Capsule", 				/obj/item/survivalcapsule, 											700),
 		EQUIPMENT("Stabilizing Serum", 				/obj/item/hivelordstabilizer, 										600),
 		EQUIPMENT("Survival Medipen", 				/obj/item/reagent_containers/hypospray/autoinjector/survival, 		800),
+		EQUIPMENT("Luxury Medipen",					/obj/item/reagent_containers/hypospray/autoinjector/survival/luxury,1500),
 	)
 	prize_list["Kinetic Accelerator"] = list(
 		EQUIPMENT("Kinetic Accelerator", 			/obj/item/gun/energy/kinetic_accelerator, 							1000),

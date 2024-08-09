@@ -217,11 +217,11 @@
 		return
 	if(prob(severity) && istype(crosser) && !isvineimmune(crosser))
 		to_chat(crosser, "<span class='alert'>You accidently touch the vine and feel a strange sensation.</span>")
-		crosser.adjustToxLoss(5)
+		crosser.apply_damage(5, TOX)
 
 /datum/spacevine_mutation/toxicity/on_eat(obj/structure/spacevine/holder, mob/living/eater)
 	if(!isvineimmune(eater))
-		eater.adjustToxLoss(5)
+		eater.apply_damage(5, TOX)
 
 /datum/spacevine_mutation/explosive  //OH SHIT IT CAN CHAINREACT RUN!!!
 	name = "explosive"

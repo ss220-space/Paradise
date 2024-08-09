@@ -103,7 +103,7 @@ const ChangeSecurityLevel = (props, context) => {
             icon="unlock"
             selected={security_level === 0}
             onClick={() =>
-              act('change_security_level', { new_security_level: 1 })
+              act('change_security_level', { new_security_level: 0 })
             }
           />
         </LabeledList.Item>
@@ -116,6 +116,21 @@ const ChangeSecurityLevel = (props, context) => {
           <Button
             content="Account Pin"
             icon="unlock"
+            selected={security_level === 1}
+            onClick={() =>
+              act('change_security_level', { new_security_level: 1 })
+            }
+          />
+        </LabeledList.Item>
+        <LabeledList.Item label="Description">
+          An account number and pin must be manually entered to access this
+          account and process transactions.
+        </LabeledList.Item>
+        <Divider />
+        <LabeledList.Item label="Level">
+          <Button
+            content="Card and Account Pin"
+            icon="unlock"
             selected={security_level === 2}
             onClick={() =>
               act('change_security_level', { new_security_level: 2 })
@@ -123,8 +138,8 @@ const ChangeSecurityLevel = (props, context) => {
           />
         </LabeledList.Item>
         <LabeledList.Item label="Description">
-          An account number and pin must be manually entered to access this
-          account and process transactions.
+          An account number, pin and card are required to access this account
+          and process transactions.
         </LabeledList.Item>
       </LabeledList>
       <Divider />

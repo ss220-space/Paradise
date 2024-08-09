@@ -62,16 +62,26 @@
 	new /obj/item/stack/spacecash(src)
 	new /obj/item/stack/spacecash(src)
 
+
 //BS12 EDIT
  // All cult functionality moved to Null Rod
 /obj/item/storage/bible/proc/bless(mob/living/carbon/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/heal_amt = 10
+		var/should_update_health = FALSE
+		var/update_damage_icon = NONE
 		for(var/obj/item/organ/external/affecting as anything in H.bodyparts)
-			if(affecting.heal_damage(heal_amt, heal_amt))
-				H.UpdateDamageIcon()
-	return
+			var/brute_was = affecting.brute_dam
+			var/burn_was = affecting.burn_dam
+			update_damage_icon |= affecting.heal_damage(heal_amt, heal_amt, updating_health = FALSE)
+			if(affecting.brute_dam != brute_was || affecting.burn_dam != burn_was)
+				should_update_health = TRUE
+		if(should_update_health)
+			M.updatehealth("bless heal")
+		if(update_damage_icon)
+			M.UpdateDamageIcon()
+
 
 /obj/item/storage/bible/proc/god_forgive()
 	god_punishment = max(0, god_punishment - round((world.time - last_used) / (30 SECONDS))) //forgive 1 sin every 30 seconds
@@ -109,7 +119,7 @@
 			playsound(loc, "punch", 25, 1, -1)
 		else
 			if(!istype(H.head, /obj/item/clothing/head/helmet))
-				M.adjustBrainLoss(10)
+				M.apply_damage(10, BRAIN)
 				to_chat(M, "<span class='warning'>You feel dumber.</span>")
 			H.visible_message("<span class='danger'>[user] beats [H == user ? "[user.p_them()]self" : "[H]"] over the head with [src]!</span>")
 			playsound(src.loc, "punch", 25, 1, -1)
@@ -119,7 +129,7 @@
 		if(god_punishment == 5)
 			to_chat(chaplain, "<h1><span class='danger'>Вы злоупотребляете покровительством бога [deity_name], остановитесь и подумайте.</span></h1>")
 		else if(god_punishment > 5) //lets apply punishment AFTER heal
-			chaplain.electrocute_act(5, "Lightning Bolt", safety = TRUE, override = TRUE)
+			chaplain.electrocute_act(5, "молнии", flags = SHOCK_NOGLOVES)
 			playsound(get_turf(chaplain), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 			chaplain.adjustFireLoss(65)
 			chaplain.Weaken(10 SECONDS)

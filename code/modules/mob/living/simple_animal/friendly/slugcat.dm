@@ -34,6 +34,7 @@
 	//Шляпы для слизнекота!
 	var/obj/item/inventory_head
 	var/obj/item/inventory_hand
+	var/list/strippable_inventory_slots = list()
 
 	var/hat_offset_y = -8
 	var/hat_offset_y_rest = -19
@@ -44,6 +45,9 @@
 
 	var/is_pacifist = FALSE
 	var/is_reduce_damage = TRUE
+
+/mob/living/simple_animal/pet/slugcat/add_strippable_element()
+	AddElement(/datum/element/strippable, length(strippable_inventory_slots) ? create_strippable_list(strippable_inventory_slots) : GLOB.strippable_slugcat_items)
 
 /mob/living/simple_animal/pet/slugcat/monk
 	name = "слизнекот-монах"
@@ -100,48 +104,6 @@
 	drop_hat()
 	drop_hand()
 	. = ..()
-
-/mob/living/simple_animal/pet/slugcat/Topic(href, href_list)
-	if(..())
-		return TRUE
-
-	if(!(iscarbon(usr) || usr.incapacitated() || !Adjacent(usr)))
-		usr << browse(null, "window=mob[UID()]")
-		usr.unset_machine()
-		return
-
-	if(stat == DEAD)
-		return FALSE
-
-	if(href_list["remove_inv"])
-		var/remove_from = href_list["remove_inv"]
-		switch(remove_from)
-			if("head")
-				remove_from_head(usr)
-			if("hand")
-				remove_from_hand(usr)
-			if("collar")
-				if(pcollar)
-					var/the_collar = pcollar
-					drop_item_ground(pcollar)
-					usr.put_in_hands(the_collar, ignore_anim = FALSE)
-					pcollar = null
-		show_inv(usr)
-
-	else if(href_list["add_inv"])
-		var/add_to = href_list["add_inv"]
-		switch(add_to)
-			if("head")
-				place_on_head(usr.get_active_hand(), usr)
-			if("hand")
-				place_to_hand(usr.get_active_hand(), usr)
-			if("collar")
-				add_collar(usr.get_active_hand(), usr)
-		show_inv(usr)
-
-	if(usr != src)
-		return TRUE
-
 
 /mob/living/simple_animal/pet/slugcat/regenerate_icons()
 	cut_overlays()
@@ -215,19 +177,6 @@
 		slugI.pixel_y = hat_offset_y
 		//slugI.transform = matrix(1, 0, 1, 0, 1, 0)
 		return slugI
-
-/mob/living/simple_animal/pet/slugcat/show_inv(mob/user)
-	if(user.incapacitated() || !Adjacent(user))
-		return
-	user.set_machine(src)
-
-	var/dat = 	{"<meta charset="UTF-8"><div align='center'><b>Inventory of [name]</b></div><p>"}
-	dat += "<br><B>Head:</B> <A href='?src=[UID()];[inventory_head ? "remove_inv=head'>[inventory_head]" : "add_inv=head'>Nothing"]</A>"
-	dat += "<br><B>Hand:</B> <A href='?src=[UID()];[inventory_hand ? "remove_inv=hand'>[inventory_hand]" : "add_inv=hand'>Nothing"]</A>"
-	dat += "<br><B>Collar:</B> <A href='?src=[UID()];[pcollar ? "remove_inv=collar'>[pcollar]" : "add_inv=collar'>Nothing"]</A>"
-	var/datum/browser/popup = new(user, "mob[UID()]", "[src]", 440, 250)
-	popup.set_content(dat)
-	popup.open()
 
 /mob/living/simple_animal/pet/slugcat/proc/place_on_head(obj/item/item_to_add, mob/user)
 	if(!item_to_add)

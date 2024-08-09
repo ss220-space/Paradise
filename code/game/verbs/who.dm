@@ -84,7 +84,7 @@
 				if(C.holder.big_brother && !check_rights(R_PERMISSIONS, 0))		// normal admins can't see BB
 					continue
 
-				msg += "\[[C.holder.rank]\]  \t[C]"
+				msg += "\[[C.holder.rank]\]  [C]"
 
 				if(C.holder.fakekey)
 					msg += " <i>(как [C.holder.fakekey])</i>"
@@ -103,7 +103,7 @@
 				num_admins_online++
 
 			else if(check_rights(R_MENTOR|R_MOD, 0, C.mob))
-				modmsg += "\[[C.holder.rank]\]  \t[C]"
+				modmsg += "\[[C.holder.rank]\]  [C]"
 
 				if(isobserver(C.mob))
 					modmsg += " - Наблюдает"
@@ -121,18 +121,22 @@
 
 			if(check_rights(R_ADMIN, 0, C.mob))
 				if(!C.holder.fakekey)
-					msg += "\[[C.holder.rank]\]  \t[C]\n"
+					msg += "\[[C.holder.rank]\]  [C]\n"
 					num_admins_online++
 			else if(check_rights(R_MOD|R_MENTOR, 0, C.mob) && !check_rights(R_ADMIN, 0, C.mob))
-				modmsg += "\[[C.holder.rank]\]  \t[C]\n"
+				modmsg += "\[[C.holder.rank]\]  [C]\n"
 				num_mods_online++
 
 	var/noadmins_info = "\n<span class='notice'><small>Если никого из админсостава нет онлайн, все равно создавайте тикеты. Админхэлпы и менторхэлпы будут перенаправлены в дискорд!<small></span>"
 	msg = "<b>Онлайн Админов ([num_admins_online]):</b>\n" + msg + "\n<b>Онлайн Менторов/Модераторов ([num_mods_online]):</b>\n" + modmsg + noadmins_info
 	msg = replacetext(msg, "\[Хост\]",	"\[<font color='#1ABC9C'>Хост</font>\]")
 	msg = replacetext(msg, "\[Старший Админ\]",	"\[<font color='#f02f2f'>Старший Админ</font>\]")
+	msg = replacetext(msg, "\[Главный Администратор Проекта\]",	"\[<font color='#f02f2f'>Главный Администратор Проекта</font>\]")
 	msg = replacetext(msg, "\[Админ\]",	"\[<font color='#ee8f29'>Админ</font>\]")
 	msg = replacetext(msg, "\[Триал Админ\]",	"\[<font color='#cfc000'>Триал Админ</font>\]")
 	msg = replacetext(msg, "\[Модератор\]",	"\[<font color='#9db430'>Модератор</font>\]")
 	msg = replacetext(msg, "\[Ментор\]",	"\[<font color='#67761e'>Ментор</font>\]")
+	msg = replacetext(msg, "\[Разработчик\]",	"\[<font color='#2ecc71'>Разработчик</font>\]")
+	msg = replacetext(msg, "\[Контрибьютор\]",	"\[<font color='#2ecc71'>Контрибьютор</font>\]")
+	msg = replacetext(msg, "\[Ведущий Разработчик\]",	"\[<font color='#2ecc71'>Ведущий Разработчик</font>\]")
 	to_chat(src, msg)

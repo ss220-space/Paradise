@@ -530,14 +530,13 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 /obj/machinery/crematorium/verb/cremate_verb()
 	set name = "Cremate"
-	set category = null
 	set src in oview(1)
 
 	try_cremate(usr)
 
 
 /obj/machinery/crematorium/proc/try_cremate(mob/user)
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	if(user.incapacitated() || !isAI(user) && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(stat & NOPOWER)

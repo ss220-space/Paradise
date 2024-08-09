@@ -91,8 +91,16 @@
 	name = "fast/slow toggle"
 	icon_state = "running"
 
+
 /atom/movable/screen/robot/mov_intent/Click()
 	usr.toggle_move_intent()
+
+
+/atom/movable/screen/robot/mov_intent/update_icon_state()
+	if(hud?.mymob)
+		icon_state = (hud.mymob.m_intent == MOVE_INTENT_RUN) ? "running" : "walking"
+	else
+		icon_state = initial(icon_state)
 
 
 /mob/living/silicon/robot/create_mob_hud()
@@ -147,7 +155,7 @@
 
 // Movement intent
 	using = new /atom/movable/screen/robot/mov_intent(null, src)
-	using.icon_state = (mymob.m_intent == MOVE_INTENT_RUN ? "running" : "walking")
+	using.update_icon(UPDATE_ICON_STATE)
 	static_inventory += using
 	using.screen_loc = ui_movi
 	move_intent = using

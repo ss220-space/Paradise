@@ -60,11 +60,6 @@
 
 	return data
 
-/obj/item/pda/ui_assets(mob/user)
-	return list(
-		get_asset_datum(/datum/asset/simple/mob_hunt)
-	)
-
 // Yes the stupid amount of args here is important, see L102
 /obj/item/pda/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
@@ -104,7 +99,7 @@
 		if("Authenticate")//Checks for ID
 			id_check(usr, in_pda_usage = TRUE)
 		if("Ringtone")
-			return set_ringtone()
+			return set_ringtone(ui.user)
 		else
 			if(current_app)
 				. = current_app.ui_act(action, params, ui, state) // It needs proxying through down here so apps actually have their interacts called

@@ -39,16 +39,22 @@
 	if(!iscarbon(target))
 		return
 	if(user && imp)
+		if(NO_BIOCHIPS in target.dna.species.species_traits)
+			var/static/list/whitelisted_implants = list(/obj/item/implant/traitor, /obj/item/implant/mindshield, /obj/item/implant/mindshield/ert) // paradise balance moment
+			if(!(imp.type in whitelisted_implants))
+				to_chat(user, span_warning("Био-чип не приживётся в этом теле."))
+				return
 		if(target != user)
-			target.visible_message(span_warning("[user] is attempting to bio-chip [target]."))
+			target.visible_message(span_warning("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся имплантировать био-чип в [target]."))
 
 		var/turf/target_turf = get_turf(target)
-		if(target_turf && (target == user || do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), target)))
+		if(target_turf && (target == user || do_after(user, 5 SECONDS * toolspeed, target, category = DA_CAT_TOOL)))
 			if(!QDELETED(user) && !QDELETED(target) && !QDELETED(src) && !QDELETED(imp) && get_turf(target) == target_turf && imp.implant(target, user))
 				if(user == target)
-					to_chat(user, span_notice("You bio-chip yourself."))
+					to_chat(user, span_notice("Вы имплантировали био-чип в себя."))
 				else
-					target.visible_message("[user] has implanted [target].", span_notice("[user] bio-chips you."))
+					target.visible_message("[user] имплантирова[genderize_ru(user.gender, "л", "ла", "ло", "ли")] био-чип в [target].", \
+					 span_notice("[user] имплантирова[genderize_ru(user.gender, "л", "ла", "ло", "ли")] вам био-чип."))
 				imp = null
 				update_state()
 

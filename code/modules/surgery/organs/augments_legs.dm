@@ -23,7 +23,7 @@
 	if(!E)	//how did you get an implant in a limb you don't have?
 		return
 
-	E.receive_damage(5,0,10)	//always take a least a little bit of damage to the leg
+	owner.apply_damage(5, def_zone = E)	//always take a least a little bit of damage to the leg
 
 	if(prob(50))	//you're forced to use two of these for them to work so let's give em a chance to not get completely fucked
 		if(COOLDOWN_FINISHED(src, emp_notice))
@@ -33,7 +33,7 @@
 
 	if(severity & EMP_HEAVY && prob(25) )	//put probabilities into a calculator before you try fucking with this
 		to_chat(owner, span_warning("The EMP causes your [src] to thrash [E] around wildly, breaking it!"))
-		E.receive_damage(40)
+		owner.apply_damage(40, def_zone = E)
 	else if(COOLDOWN_FINISHED(src, emp_notice))
 		to_chat(owner, span_warning("The EMP causes your [src] to seize up, preventing [E] from moving!"))
 		COOLDOWN_START(src, emp_notice, 30 SECONDS)

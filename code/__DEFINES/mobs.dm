@@ -26,10 +26,6 @@
 
 #define SPLINT_LIFE 2000 //number of steps splints stay on
 
-//BONE DEFINE
-
-#define FRAGILITY(A) (ishuman(A) ? A.dna.species.bonefragility : 1)
-
 
 //Pulse levels, very simplified
 #define PULSE_NONE		0	//so !M.pulse checks would be possible
@@ -132,12 +128,15 @@
 #define SLIME_FRIENDSHIP_STAY				3 //Min friendship to order it to stay
 #define SLIME_FRIENDSHIP_ATTACK				8 //Min friendship to order it to attack
 
+//Hostile simple animals
 //If you add a new status, be sure to add a list for it to the simple_animals global in _globalvars/lists/mobs.dm
-//Hostile Mob AI Status
-#define AI_ON       1
-#define AI_IDLE     2
-#define AI_OFF      3
-#define AI_Z_OFF    4
+#define AI_ON 1
+#define AI_IDLE 2
+#define AI_OFF 3
+#define AI_Z_OFF 4
+
+//The range at which a mob should wake up if you spawn into the z level near it
+#define MAX_SIMPLEMOB_WAKEUP_RANGE 5
 
 // Intents
 #define INTENT_HELP		"help"
@@ -163,10 +162,10 @@
 #define ENVIRONMENT_SMASH_WALLS 2   //walls
 #define ENVIRONMENT_SMASH_RWALLS 4  //rwalls
 
-#define POCKET_STRIP_DELAY			40	//time taken (in deciseconds) to search somebody's pockets
+#define POCKET_STRIP_DELAY			4 SECONDS	//time taken to search somebody's pockets
 
-#define DEFAULT_ITEM_STRIP_DELAY		40  //time taken (in deciseconds) to strip somebody
-#define DEFAULT_ITEM_PUTON_DELAY		20  //time taken (in deciseconsd) to reverse-strip somebody
+#define DEFAULT_ITEM_STRIP_DELAY		4 SECONDS  //time taken to strip somebody
+#define DEFAULT_ITEM_PUTON_DELAY		2 SECONDS  //time taken to reverse-strip somebody
 
 #define IGNORE_ACCESS -1
 
@@ -306,10 +305,6 @@
 #define isdrone(A)		(istype((A), /mob/living/silicon/robot/drone))
 #define iscogscarab(A)	(istype((A), /mob/living/silicon/robot/cogscarab))
 
-// For tools
-
-#define gettoolspeedmod(A) (ishuman(A) ? A.dna.species.toolspeedmod : 1)
-
 // For the tcomms monitor
 #define ispathhuman(A)		(ispath(A, /mob/living/carbon/human))
 #define ispathbrain(A)		(ispath(A, /mob/living/carbon/brain))
@@ -425,4 +420,23 @@
 #define DEVOUR_TIME_DEFAULT (10 SECONDS)
 /// Time it takes for a simple mob to be eaten.
 #define DEVOUR_TIME_ANIMAL (3 SECONDS)
+
+
+//Flags used by the flags parameter of electrocute act.
+///Makes it so that the shock doesn't take gloves into account.
+#define SHOCK_NOGLOVES (1<<0)
+///Used when the shock is from a tesla bolt.
+#define SHOCK_TESLA (1<<1)
+///Used when an illusion shocks something. Makes the shock deal stamina damage and not trigger certain secondary effects.
+#define SHOCK_ILLUSION (1<<2)
+///The shock doesn't stun.
+#define SHOCK_NOSTUN (1<<3)
+/// No default message is sent from the shock
+#define SHOCK_SUPPRESS_MESSAGE (1<<4)
+/// Ignores TRAIT_SHOCKIMMUNE / TRAIT_TESLA_SHOCKIMMUNE
+#define SHOCK_IGNORE_IMMUNITY (1<<5)
+/// Prevents the immediate stun, instead only gives the delay
+#define SHOCK_DELAY_STUN (1<<6)
+/// Makes the weaken into a knockdown
+#define SHOCK_KNOCKDOWN (1<<7)
 

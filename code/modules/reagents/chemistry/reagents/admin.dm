@@ -19,7 +19,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		for(var/obj/item/organ/internal/organ as anything in H.internal_organs)
-			organ.receive_damage(-5, FALSE)
+			organ.internal_receive_damage(-5)
 		for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
 			bodypart.mend_fracture()
 			bodypart.stop_internal_bleeding()

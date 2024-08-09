@@ -1,5 +1,4 @@
 /client/proc/cmd_admin_say(msg as text)
-	set category = "Admin"
 	set name = "Asay" //Gave this shit a shorter name so you only have to time out "asay" rather than "admin say" to use it --NeoFite
 	set hidden = 1
 	if(!check_rights(R_ADMIN))	return
@@ -36,7 +35,6 @@
 		cmd_mentor_say(msg)
 
 /client/proc/cmd_mentor_say(msg as text)
-	set category = "Admin"
 	set name = "Msay"
 	set hidden = 1
 
@@ -93,10 +91,10 @@
 		if(!check_rights(R_MENTOR, 0, C.mob))
 			continue
 		if(enabling)
-			C.verbs += msay
+			add_verb(C, msay)
 			to_chat(C, "<b>Mentor chat has been enabled.</b> Use 'msay' to speak in it.")
 		else
-			C.verbs -= msay
+			remove_verb(C, msay)
 			to_chat(C, "<b>Mentor chat has been disabled.</b>")
 
 	log_and_message_admins("toggled mentor chat [enabling ? "on" : "off"].")

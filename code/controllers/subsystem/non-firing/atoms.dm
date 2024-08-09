@@ -20,6 +20,7 @@ SUBSYSTEM_DEF(atoms)
 	setupgenetics()
 	initialized = INITIALIZATION_INNEW_MAPLOAD
 	InitializeAtoms()
+	return SS_INIT_SUCCESS
 
 
 /datum/controller/subsystem/atoms/proc/InitializeAtoms(list/atoms, noisy = TRUE)
@@ -39,15 +40,15 @@ SUBSYSTEM_DEF(atoms)
 	var/list/mapload_arg = list(TRUE)
 	if(atoms)
 		count = atoms.len
-		for(var/I in atoms)
-			var/atom/A = I
-			if(A && !A.initialized)
-				InitAtom(I, mapload_arg)
+		for(var/I in 1 to atoms.len)
+			var/atom/A = atoms[I]
+			if(!(A.flags & INITIALIZED))
+				InitAtom(A, mapload_arg)
 				CHECK_TICK
 	else
 		count = 0
-		for(var/atom/A in world)
-			if(!A.initialized)
+		for(var/atom/A as anything in world)
+			if(!(A.flags & INITIALIZED))
 				InitAtom(A, mapload_arg)
 				++count
 				CHECK_TICK
@@ -66,8 +67,10 @@ SUBSYSTEM_DEF(atoms)
 			log_startup_progress("Late-initializing atoms...")
 		else
 			log_debug("Late-initializing atoms...")
-		for(var/I in late_loaders)
-			var/atom/A = I
+		for(var/I in 1 to late_loaders.len)
+			var/atom/A = late_loaders[I]
+			if(QDELETED(A))	// hate this, but qdel check is a must
+				continue
 			A.LateInitialize()
 			CHECK_TICK
 		if(noisy)
@@ -92,22 +95,23 @@ SUBSYSTEM_DEF(atoms)
 
 	var/qdeleted = FALSE
 
-	if(result != INITIALIZE_HINT_NORMAL)
-		switch(result)
-			if(INITIALIZE_HINT_LATELOAD)
-				if(arguments[1])	//mapload
-					late_loaders += A
-				else
-					A.LateInitialize()
-			if(INITIALIZE_HINT_QDEL)
-				qdel(A)
-				qdeleted = TRUE
+	switch(result)
+		if(INITIALIZE_HINT_NORMAL)
+			EMPTY_BLOCK_GUARD // Pass
+		if(INITIALIZE_HINT_LATELOAD)
+			if(arguments[1])	//mapload
+				late_loaders += A
 			else
-				BadInitializeCalls[the_type] |= BAD_INIT_NO_HINT
+				A.LateInitialize()
+		if(INITIALIZE_HINT_QDEL)
+			qdel(A)
+			qdeleted = TRUE
+		else
+			BadInitializeCalls[the_type] |= BAD_INIT_NO_HINT
 
 	if(!A)	//possible harddel
 		qdeleted = TRUE
-	else if(!A.initialized)
+	else if(!(A.flags & INITIALIZED))
 		BadInitializeCalls[the_type] |= BAD_INIT_DIDNT_INIT
 	else
 		SEND_SIGNAL(A, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE)
@@ -135,3 +139,25 @@ SUBSYSTEM_DEF(atoms)
 		InitializeAtoms()
 	old_initialized = SSatoms.old_initialized
 	BadInitializeCalls = SSatoms.BadInitializeCalls
+
+
+/client/proc/debug_atom_init()
+	set name = "Atom Init Log"
+	set category = "Debug"
+	set desc = "Shows what failed to init this round"
+
+	if(!check_rights(R_DEBUG|R_VIEWRUNTIMES))
+		return
+
+	var/list/html_data = list()
+	html_data += "<h1>Bad Initialize() Calls</h1><table border='1'><tr><th scope='col'>Type</th><th scope='col'>Qdeleted before init</th><th scope='col'>Did not init</th><th scope='col'>Slept during init</th><th scope='col'>No init hint</th></tr>"
+
+	for(var/typepath in SSatoms.BadInitializeCalls)
+		var/val = SSatoms.BadInitializeCalls[typepath]
+
+		html_data += "<tr><td>[typepath]</td><td>[val & BAD_INIT_QDEL_BEFORE ? "X" : "&nbsp;"]</td><td>[val & BAD_INIT_DIDNT_INIT ? "X" : "&nbsp;"]</td><td>[val & BAD_INIT_SLEPT ? "X" : "&nbsp;"]</td><td>[val & BAD_INIT_NO_HINT ? "X" : "&nbsp;"]</td></tr>"
+
+	html_data += "</table>"
+
+	usr << browse(html_data.Join(), "window=initdebug")
+

@@ -216,7 +216,7 @@ Difficulty: Hard
 		if(L.client)
 			enrage()
 			arena_trap(L, TRUE)
-			FindTarget(list(L), 1)
+			FindTarget(list(L))
 			for(var/mob/living/simple_animal/hostile/megafauna/colossus/C in GLOB.mob_list)
 				UnregisterSignal(C, COMSIG_MOB_APPLY_DAMAGE)
 			break
@@ -486,9 +486,15 @@ Difficulty: Hard
 		if(spawned_beacon && loc == spawned_beacon.loc && did_reset)
 			arena_trap(src)
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/adjustHealth(amount, updating_health = TRUE)
+/mob/living/simple_animal/hostile/megafauna/hierophant/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
 	. = ..()
-	if(src && . && !blinking)
+	if(. && amount > 0 && !blinking && !QDELETED(src))
 		wander = TRUE
 		did_reset = FALSE
 
@@ -755,7 +761,7 @@ Difficulty: Hard
 			if(H.stat == CONSCIOUS && !H.target && H.AIStatus != AI_OFF && !H.client)
 				if(!QDELETED(caster))
 					if(get_dist(H, caster) <= H.aggro_vision_range)
-						H.FindTarget(list(caster), 1)
+						H.FindTarget(list(caster))
 					else
 						H.Goto(get_turf(caster), H.move_to_delay, 3)
 		if(monster_damage_boost && (ismegafauna(L) || istype(L, /mob/living/simple_animal/hostile/asteroid)))

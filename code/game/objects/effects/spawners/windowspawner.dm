@@ -27,6 +27,7 @@
 			WI.dir = cdir
 	else
 		var/obj/structure/window/W = new window_to_spawn_full(get_turf(src))
+		sync_id(W)
 		W.dir = FULLTILE_WINDOW_DIR // THIS IS DUMB
 
 	if(useGrille)

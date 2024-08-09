@@ -28,6 +28,7 @@
 	del_on_death = 1
 	sentience_type = SENTIENCE_OTHER
 	footstep_type = FOOTSTEP_MOB_SHOE
+	AI_delay_max = 0 SECONDS
 
 /mob/living/simple_animal/hostile/russian/ranged
 	icon_state = "russianranged"

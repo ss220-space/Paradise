@@ -84,3 +84,7 @@
 	/// Lazy list of all limbs we know are splinted.
 	var/list/splinted_limbs
 	var/original_eye_color = "#000000"
+
+	/// Holder for the phisiology datum
+	var/datum/physiology/physiology
+

@@ -96,12 +96,20 @@
 /mob/living/simple_animal/revenant/ratvar_act()
 	return
 
-/mob/living/simple_animal/revenant/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+/mob/living/simple_animal/revenant/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	return FALSE //You are a ghost, atmos and grill makes sparks, and you make your own shocks with lights.
 
-/mob/living/simple_animal/revenant/adjustHealth(amount, updating_health = TRUE)
+
+/mob/living/simple_animal/revenant/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
+	. = STATUS_UPDATE_NONE
 	if(!revealed)
-		return
+		return .
 	essence = max(0, essence-amount)
 	if(essence == 0)
 		to_chat(src, "<span class='revendanger'>You feel your essence fraying!</span>")
@@ -122,12 +130,12 @@
 			to_chat(M, rendered)
 
 
-/mob/living/simple_animal/revenant/Stat()
-	..()
-	if(statpanel("Status"))
-		stat(null, "Current essence: [essence]/[essence_regen_cap]E")
-		stat(null, "Stolen essence: [essence_accumulated]E")
-		stat(null, "Stolen perfect souls: [perfectsouls]")
+/mob/living/simple_animal/revenant/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Current essence:", "[essence]/[essence_regen_cap]E")
+	status_tab_data[++status_tab_data.len] = list("Stolen essence:", "[essence_accumulated]E")
+	status_tab_data[++status_tab_data.len] = list("Stolen perfect souls:", "[perfectsouls]")
 
 /mob/living/simple_animal/revenant/New()
 	..()

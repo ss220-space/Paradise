@@ -106,7 +106,7 @@
 		var/obj/item/shovel/S = I
 		user.visible_message("<span class='notice'>[user] is clearing away [src]...</span>", "<span class='notice'>You begin clearing away [src]...</span>", "<span class='warning'>You hear a wettish digging sound.</span>")
 		playsound(loc, S.usesound, 50, TRUE)
-		if(!do_after(user, 5 SECONDS * S.toolspeed * gettoolspeedmod(user), src))
+		if(!do_after(user, 5 SECONDS * S.toolspeed, src, category = DA_CAT_TOOL))
 			return
 		user.visible_message("<span class='notice'>[user] clears away [src]!</span>", "<span class='notice'>You clear away [src]!</span>")
 		qdel(src)
@@ -133,7 +133,7 @@
 	. = ..()
 	if(!. && isliving(target))
 		var/mob/living/M = target
-		M.adjustStaminaLoss(stamina_damage)
+		M.apply_damage(stamina_damage, STAMINA)
 		playsound(target, 'sound/weapons/tap.ogg', 50, TRUE)
 	qdel(src)
 

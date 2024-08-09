@@ -35,6 +35,10 @@
 #define BLOB_BASE_TARGET_POINT 350
 #define BLOB_TARGET_POINT_PER_CORE 350
 #define BLOB_PLAYERS_PER_CORE 30
+#define BLOB_DEATH_REPORT_FIRST 0
+#define BLOB_DEATH_REPORT_SECOND 1
+#define BLOB_DEATH_REPORT_THIRD 2
+#define BLOB_DEATH_REPORT_FOURTH 3
 #define AWAY_STATION_WARN span_userdanger("Вы готовы лопнуть, но это не подходящее место! Вы должны вернуться на станцию!")
 #define FIRST_STAGE_WARN span_userdanger("Вы чувствуете усталость и раздутость.")
 #define SECOND_STAGE_WARN span_userdanger("Вы чувствуете, что вот-вот лопнете.")

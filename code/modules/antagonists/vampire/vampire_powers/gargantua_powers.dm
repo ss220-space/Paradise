@@ -29,7 +29,7 @@
 
 
 /obj/effect/proc_holder/spell/vampire/self/stomp/can_cast(mob/living/carbon/user, charge_check, show_message)
-	if(user.legcuffed)
+	if(iscarbon(user) && user.legcuffed)
 		return FALSE
 	return ..()
 
@@ -137,7 +137,6 @@
 
 	action_icon_state = "demonic_grasp"
 
-	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
 	invocation_type = "none"

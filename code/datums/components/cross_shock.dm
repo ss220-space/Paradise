@@ -74,10 +74,10 @@
 	var/atom/atom_parent = parent
 	if(requires_cable)
 		var/obj/structure/cable/our_cable =	locate() in atom_parent.loc
-		victim.electrocute_act(shock_damage, atom_parent)
+		victim.electrocute_act(shock_damage, atom_parent.name)
 		our_cable.add_load(energy_cost)
 	else
-		victim.electrocute_act(shock_damage, atom_parent)
+		victim.electrocute_act(shock_damage, atom_parent.name)
 	playsound(victim, 'sound/effects/eleczap.ogg', 30, TRUE)
 	COOLDOWN_START(src, last_shock, delay_between_shocks)
 

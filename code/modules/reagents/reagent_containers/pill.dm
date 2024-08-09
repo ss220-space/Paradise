@@ -5,7 +5,7 @@
 	name = "pill"
 	desc = "a pill."
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = null
+	icon_state = "pill"
 	item_state = "pill"
 	possible_transfer_amounts = null
 	volume = 100
@@ -16,7 +16,7 @@
 	drop_sound = 'sound/items/handling/generic_small_drop.ogg'
 
 /obj/item/reagent_containers/food/pill/Initialize(mapload)
-	if(!icon_state)
+	if(icon_state == "pill")
 		icon_state = "pill[rand(1,20)]"
 	. = ..()
 

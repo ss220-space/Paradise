@@ -48,7 +48,7 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/USSP_SpaceBanya)
 "cb" = (
-/obj/structure/closet/secure_closet/bar,
+/obj/structure/closet/secure_closet/cabinet/bar,
 /obj/item/storage/fancy/cigcase,
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
@@ -116,7 +116,7 @@
 /obj/machinery/door/airlock/external{
 	name = "Arrival USSP Hatch"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
 "eu" = (
 /turf/simulated/floor/wood{
@@ -544,7 +544,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
 "vI" = (
-/mob/living/simple_animal/mouse/brown,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -763,10 +763,6 @@
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
 "EO" = (
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -25
-	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken7";
@@ -822,8 +818,7 @@
 	id = "Bar";
 	name = "Bar Privacy Shutters Control";
 	pixel_x = 25;
-	pixel_y = -6;
-	req_access = list(28)
+	pixel_y = -6
 	},
 /obj/machinery/light_switch{
 	pixel_x = -4;
@@ -893,14 +888,8 @@
 /turf/space,
 /area/space)
 "Nj" = (
-/obj/machinery/alarm{
-	pixel_y = 23
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/wood,
-/area/ruin/USSP_SpaceBanya)
+/turf/template_noop,
+/area/template_noop)
 "Nr" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
@@ -949,7 +938,7 @@
 	name = "Arrival USSP Hatch"
 	},
 /obj/structure/fans/tiny/invisible,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/USSP_SpaceBanya)
 "QL" = (
 /obj/structure/table/reinforced,
@@ -979,7 +968,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/USSP_SpaceBanya)
 "RV" = (
 /obj/effect/decal/cleanable/flour,
@@ -1008,7 +997,7 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/USSP_SpaceBanya)
 "TI" = (
-/mob/living/simple_animal/mouse/brown,
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/wood/oak,
 /area/ruin/USSP_SpaceBanya)
 "Ud" = (
@@ -1227,31 +1216,32 @@
 /area/ruin/USSP_SpaceBanya)
 
 (1,1,1) = {"
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
 "}
 (2,1,1) = {"
+Nj
 Nd
 Nd
 Nd
@@ -1273,10 +1263,10 @@ Nd
 Nd
 Nd
 Nd
-Nd
-Nd
+Nj
 "}
 (3,1,1) = {"
+Nj
 Nd
 Nd
 Nd
@@ -1298,11 +1288,10 @@ Nd
 Nd
 Nd
 Nd
-Nd
-Nd
+Nj
 "}
 (4,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 Nd
@@ -1324,10 +1313,10 @@ Nd
 Nd
 Nd
 Nd
-Nd
+Nj
 "}
 (5,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 Nd
@@ -1349,10 +1338,10 @@ Nd
 Nd
 Nd
 Nd
-Nd
+Nj
 "}
 (6,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 Nd
@@ -1374,10 +1363,10 @@ dr
 Nd
 Nd
 Nd
-Nd
+Nj
 "}
 (7,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 Nd
@@ -1399,10 +1388,10 @@ nD
 Nd
 Nd
 Nd
-Nd
+Nj
 "}
 (8,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 Nd
@@ -1424,10 +1413,10 @@ nD
 Nd
 Nd
 Nd
-Nd
+Nj
 "}
 (9,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 Nd
@@ -1449,10 +1438,10 @@ dr
 dr
 Nd
 Nd
-Nd
+Nj
 "}
 (10,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 Nd
@@ -1474,10 +1463,10 @@ dr
 Nd
 Nd
 Nd
-Nd
+Nj
 "}
 (11,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 Nd
@@ -1499,10 +1488,10 @@ Nd
 Nd
 Nd
 Nd
-Nd
+Nj
 "}
 (12,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 dr
@@ -1524,10 +1513,10 @@ Nd
 Nd
 Nd
 Nd
-Nd
+Nj
 "}
 (13,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 dr
@@ -1549,10 +1538,10 @@ Nd
 Nd
 Nd
 Nd
-Nd
+Nj
 "}
 (14,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 Nd
@@ -1574,10 +1563,10 @@ Sa
 Nd
 Nd
 Nd
-Nd
+Nj
 "}
 (15,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 Nd
@@ -1599,10 +1588,10 @@ nD
 Nd
 Nd
 Nd
-Nd
+Nj
 "}
 (16,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 Nd
@@ -1612,11 +1601,11 @@ Dd
 uN
 mL
 DE
-DE
+wR
 zo
 Dd
 Dd
-Nj
+Ep
 Re
 Dd
 nD
@@ -1624,10 +1613,10 @@ dr
 Nd
 Nd
 Nd
-Nd
+Nj
 "}
 (17,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 Nd
@@ -1649,10 +1638,10 @@ Nd
 Nd
 Nd
 Nd
-Nd
+Nj
 "}
 (18,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 Nd
@@ -1674,10 +1663,10 @@ Nd
 Nd
 Nd
 Nd
-Nd
+Nj
 "}
 (19,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 Nd
@@ -1699,10 +1688,10 @@ Nd
 Nd
 Nd
 Nd
-Nd
+Nj
 "}
 (20,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 Nd
@@ -1724,10 +1713,10 @@ dr
 Nd
 Nd
 Nd
-Nd
+Nj
 "}
 (21,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 Dd
@@ -1749,10 +1738,10 @@ dr
 Nd
 Nd
 Nd
-Nd
+Nj
 "}
 (22,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 Qo
@@ -1774,10 +1763,10 @@ nD
 dr
 Nd
 Nd
-Nd
+Nj
 "}
 (23,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 Dd
@@ -1799,10 +1788,10 @@ nD
 dr
 Nd
 Nd
-Nd
+Nj
 "}
 (24,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 dr
@@ -1824,10 +1813,10 @@ nD
 dr
 Nd
 Nd
-Nd
+Nj
 "}
 (25,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 dr
@@ -1849,10 +1838,10 @@ nD
 Nd
 Nd
 Nd
-Nd
+Nj
 "}
 (26,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 Nd
@@ -1874,10 +1863,10 @@ dr
 Nd
 Nd
 Nd
-Nd
+Nj
 "}
 (27,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 Nd
@@ -1899,10 +1888,10 @@ dr
 dr
 Nd
 Nd
-Nd
+Nj
 "}
 (28,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 Nd
@@ -1924,10 +1913,10 @@ nD
 dr
 Nd
 Nd
-Nd
+Nj
 "}
 (29,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 dr
@@ -1949,10 +1938,10 @@ nD
 dr
 Nd
 Nd
-Nd
+Nj
 "}
 (30,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 dr
@@ -1974,10 +1963,10 @@ nD
 Nd
 Nd
 Nd
-Nd
+Nj
 "}
 (31,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 Nd
@@ -1999,10 +1988,10 @@ nD
 Nd
 Nd
 Nd
-Nd
+Nj
 "}
 (32,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 Nd
@@ -2024,10 +2013,10 @@ nD
 Nd
 Nd
 Nd
-Nd
+Nj
 "}
 (33,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 dr
@@ -2049,10 +2038,10 @@ dr
 Nd
 Nd
 Nd
-Nd
+Nj
 "}
 (34,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 Nd
@@ -2074,10 +2063,10 @@ Nd
 Nd
 Nd
 Nd
-Nd
+Nj
 "}
 (35,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 Nd
@@ -2099,10 +2088,10 @@ Nd
 Nd
 Nd
 Nd
-Nd
+Nj
 "}
 (36,1,1) = {"
-Nd
+Nj
 Nd
 Nd
 Nd
@@ -2124,9 +2113,10 @@ Nd
 Nd
 Nd
 Nd
-Nd
+Nj
 "}
 (37,1,1) = {"
+Nj
 Nd
 Nd
 Nd
@@ -2148,11 +2138,10 @@ Nd
 Nd
 Nd
 Nd
-Nd
-Nd
+Nj
 "}
 (38,1,1) = {"
-Nd
+Nj
 Nd
 Sa
 Nd
@@ -2174,9 +2163,10 @@ Nd
 Nd
 Nd
 Nd
-Nd
+Nj
 "}
 (39,1,1) = {"
+Nj
 Nd
 Nd
 Nd
@@ -2198,31 +2188,30 @@ Nd
 Nd
 Nd
 Nd
-Nd
-Nd
+Nj
 "}
 (40,1,1) = {"
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
-Nd
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
+Nj
 "}
