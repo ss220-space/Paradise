@@ -10,16 +10,17 @@
 	can_immunity = FALSE
 	ignore_immunity = TRUE
 	visibility_flags = HIDDEN_PANDEMIC
+	var/create_effect = FALSE
 
 /datum/disease/ectoplasmic/stage_act()
 	if(!..())
 		return FALSE
-	var/create_effect = FALSE
 	var/mob/living/carbon/human/human = affected_mob
 	var/turf/turf = get_turf(human)
 	var/effect = /obj/effect/temp_visual/revenant
 	if(turf && create_effect)
 		new effect(turf)
+		create_effect = FALSE
 	switch(stage)
 		if(3)
 			if(prob(10))
