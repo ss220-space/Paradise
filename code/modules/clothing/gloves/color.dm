@@ -252,7 +252,7 @@
 
 /obj/item/clothing/gloves/color/latex/modified
 	name = "modified medical gloves"
-	desc = "Pricy sterile gloves that are stronger than latex."
+	desc = "They are very soft and light to the touch and do not hinder movement at all."
 	icon_state = "medical_gloves"
 	item_state = "modified"
 	item_color = "modified"
