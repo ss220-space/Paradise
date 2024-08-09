@@ -57,11 +57,11 @@
 	explanation_text = "Вы - лучшее, что есть на станции. Убедитесь, что все это знают."
 	
 /datum/objective/sintouched/pride/on_apply(mob/living/carbon/human/human)
-	human.physiology.brute_mod -= 0.1
-	human.physiology.tox_mod -= 0.1
-	human.physiology.stamina_mod -= 0.1
-	human.physiology.oxy_mod -= 0.1
-	human.physiology.burn_mod -= 0.1
+	human.physiology.brute_mod *= 0.9
+	human.physiology.tox_mod *= 0.9
+	human.physiology.stamina_mod *= 0.9
+	human.physiology.oxy_mod *= 0.9
+	human.physiology.burn_mod *= 0.9
 
 /datum/objective/sintouched/acedia
 	explanation_text = "Ангелы, дьяволы, добро, зло... кого это вообще беспокоит? Игнорируйте все адские угрозы и просто занимайтесь своей работой."
