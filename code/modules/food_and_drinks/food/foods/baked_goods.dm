@@ -331,9 +331,9 @@
 
 /obj/item/reagent_containers/food/snacks/cocochips
 	name = "Coconut cookie"
-	desk = "Coconut cookies look strange"
+	desc = "Coconut cookies look strange"
 	icon_state = "coconut_cookies"
-	list_reagents = ("nutrient" = 1, "sugar" = 2, "shradded_coconut" = 2)
+	list_reagents = list("nutriment" = 1, "sugar" = 2, "shredded_coconut" = 1)
 	tastes = list("sweetness" = 1)
 	foodtype = SUGAR | GRAIN
 

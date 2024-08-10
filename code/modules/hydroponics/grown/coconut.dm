@@ -5,6 +5,8 @@
 	desc = "The young coconut is still green"
 	icon_state = "coconut"
 	var/coco_name = "piece coconut"
+	force = 10
+    throwforce = 10
 
 /obj/item/seeds/coconut
 	name = "pack of coconut seeds"
