@@ -165,7 +165,6 @@
 	eyeblur = 0
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_CYAN
-	forcedodge = 2
 
 /obj/item/projectile/beam/podsniper/laser
 	name = "sniper laser beam"
