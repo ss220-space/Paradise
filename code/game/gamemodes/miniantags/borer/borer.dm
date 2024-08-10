@@ -107,6 +107,8 @@
 	var/leaving = FALSE
 	var/sneaking = FALSE
 	var/hiding = FALSE
+	var/age = 0 // counts while in host, used to upgrade rank
+	var/datum/borer_datum/processing/borer_rank/borer_rank
 	var/datum/action/innate/borer/talk_to_host/talk_to_host_action = new
 	var/datum/action/innate/borer/toggle_hide/toggle_hide_action = new
 	var/datum/action/innate/borer/talk_to_borer/talk_to_borer_action = new
@@ -120,6 +122,7 @@
 	var/datum/action/innate/borer/sneak_mode/sneak_mode_action = new
 
 /mob/living/simple_animal/borer/New(atom/newloc, var/gen=1)
+	update_rank()
 	..(newloc)
 	remove_from_all_data_huds()
 	generation = gen
@@ -155,6 +158,7 @@
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 	status_tab_data[++status_tab_data.len] = list("Chemicals", chemicals)
+	status_tab_data[++status_tab_data.len] = list("Rank", borer_rank.rankname)
 
 
 /mob/living/simple_animal/borer/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
@@ -265,6 +269,8 @@
 	if(host)
 
 		if(!stat && host.stat != DEAD)
+			if(!istype(borer_rank, /datum/borer_datum/processing/borer_rank/elder))
+				age++
 
 			if(host.reagents.has_reagent("sugar"))
 
@@ -285,6 +291,12 @@
 
 			if(chemicals < max_chems && !sneaking)
 				chemicals++
+
+			if(!istype(borer_rank, /datum/borer_datum/processing/borer_rank/elder) && age >= borer_rank.grow_time)
+				if(update_rank(borer_rank.type))
+					age = initial(age) // custom age.
+					to_chat(src, span_notice("Вы стали древнее. Ваш текущий ранг - [borer_rank.rankname]."))
+
 			if(controlling)
 
 				if(docile)
@@ -310,6 +322,20 @@
 	if(istype(M))
 		to_chat(src, span_notice("Вы анализируете жизненные показатели [M]."))
 		healthscan(src, M, 1, TRUE)
+
+/mob/living/simple_animal/borer/proc/update_rank(typepath)
+	if(!typepath)
+		return borer_rank = new /datum/borer_datum/processing/borer_rank/young(src)
+	qdel(borer_rank)
+	switch(typepath)
+		if(/datum/borer_datum/processing/borer_rank/young)
+			return borer_rank = new /datum/borer_datum/processing/borer_rank/mature(src)
+			
+		if(/datum/borer_datum/processing/borer_rank/mature)
+			return borer_rank = new /datum/borer_datum/processing/borer_rank/adult(src)
+			
+		if(/datum/borer_datum/processing/borer_rank/adult)
+			return borer_rank = new /datum/borer_datum/processing/borer_rank/elder(src)
 
 /obj/effect/proc_holder/spell/borer_infest
 	name = "Infest"
