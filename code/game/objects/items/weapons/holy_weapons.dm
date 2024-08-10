@@ -480,6 +480,7 @@
 
 /obj/item/nullrod/tribal_knife/Destroy()
 	STOP_PROCESSING(SSobj, src)
+	wielder = null
 	return ..()
 
 /obj/item/nullrod/tribal_knife/process()
@@ -489,7 +490,7 @@
 		if(wielder.is_in_hands(src))
 			wielder.update_equipment_speed_mods()
 
-/obj/item/nullrod/tribal_knife/dropped(mob/user)
+/obj/item/nullrod/tribal_knife/dropped(mob/user, slot, silent = FALSE)
 	slowdown = 0
 	user.update_equipment_speed_mods()
 	. = ..()
