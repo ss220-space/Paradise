@@ -786,7 +786,7 @@
 #include "code\game\gamemodes\miniantags\abduction\machinery\experiment.dm"
 #include "code\game\gamemodes\miniantags\abduction\machinery\pad.dm"
 #include "code\game\gamemodes\miniantags\borer\borer.dm"
-#include "code\game\gamemodes\miniantags\borer\borer_chemicals.dm"
+#include "code\game\gamemodes\miniantags\borer\borer_datum.dm"
 #include "code\game\gamemodes\miniantags\borer\borer_event.dm"
 #include "code\game\gamemodes\miniantags\borer\borer_html.dm"
 #include "code\game\gamemodes\miniantags\bot_swarm\swarmer.dm"

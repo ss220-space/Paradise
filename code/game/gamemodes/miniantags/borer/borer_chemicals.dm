@@ -141,7 +141,7 @@
 /datum/borer_datum/processing/borer_rank/elder/process()
 	user.adjustHealth(-0.3)
 	if(host?.stat != DEAD)
-		host.heal_overall_damage(0.4,0.4)
+		host.heal_overall_damage(0.4, 0.4)
 		if(!user.sneaking)
 			user.chemicals += 0.3
 
