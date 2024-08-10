@@ -161,7 +161,7 @@
 	damage = 40
 	damage_type = STAMINA
 	hitsound = 'sound/weapons/resonator_blast.ogg'
-	flag = "ENERGY"
+	flag = ENERGY
 	eyeblur = 0
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_CYAN
@@ -172,7 +172,7 @@
 	damage = 45
 	damage_type = BURN
 	hitsound = 'sound/weapons/resonator_blast.ogg'
-	flag = "LASER"
+	flag = LASER
 	eyeblur = 4 SECONDS
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	light_color = LIGHT_COLOR_DARKRED
