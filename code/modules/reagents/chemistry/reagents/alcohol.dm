@@ -1798,6 +1798,16 @@
 	drink_desc = "When a man cannot choose he ceases to be a man."
 	taste_description = "loss of human"
 
+/datum/reagent/consumable/ethanol/pinacolada
+	name = "Pinacolada"
+	id = "pinacolada"
+	description = "This is a glass glass of a bizarre shape, with a drink. There is also a tube and a piece of pineapple on the edge."
+	drink_icon = "pinacolada"
+	drink_name = "Pinacolada"
+	drink_desc = "This is a glass glass of a bizarre shape, with a drink. There is also a tube and a piece of pineapple on the edge."
+	alcohol_perc = 0.2
+	taste_description = "Bright tropical taste with juicy notes of coconut and pineapple.)"
+
 /datum/reagent/consumable/ethanol/teslasingylo
 	name = "God Of Power"
 	id = "teslasingylo"

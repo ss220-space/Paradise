@@ -1484,3 +1484,27 @@
 	required_reagents = list("zaza" = 1, "sodawater" = 1)
 	result_amount = 2
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/coconut_drink
+	name = "Coconut drink"
+	id = "coconut_drink"
+	result = "coconut_drink"
+	required_reagents = list("coconut_water" = 2, "ice" = 1)
+	result_amount = 3
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/coconut_milk
+	name = "Coconut milk"
+	id = "coconut_milk"
+	result = "coconut_milk"
+	required_reagents = list("coconut_water" = 2, "milk" = 1)
+	result_amount = 3
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/pinacolada
+	name = "Pinacolada"
+	id = "pinacolada"
+	result = "pinacolada"
+	required_reagents = list("coconut_water" = 1, "pineapplejuice" = 1, "ice" = 1, "rum" = 2)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'

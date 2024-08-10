@@ -329,6 +329,14 @@
 	tastes = list("sweetness" = 1)
 	foodtype = SUGAR | GRAIN
 
+/obj/item/reagent_containers/food/snacks/cocochips
+	name = "Coconut cookie"
+	desk = "Coconut cookies look strange"
+	icon_state = "coconut_cookies"
+	list_reagents = ("nutrient" = 1, "sugar" = 2, "shradded_coconut" = 2)
+	tastes = list("sweetness" = 1)
+	foodtype = SUGAR | GRAIN
+
 /obj/item/reagent_containers/food/snacks/gingercookie
 	name = "ginger cookie"
 	desc = "Just like your granny used to make."
