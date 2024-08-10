@@ -292,7 +292,7 @@
 	name = "leather satchel"
 	desc = "An NT Deluxe satchel, with the finest quality leather and the company logo in a thin gold stitch"
 	icon_state = "nt_deluxe"
-
+	item_state = "nt_deluxe"
 /obj/item/storage/backpack/satchel_lizard
 	name = "lizard skin handbag"
 	desc = "A handbag made out of what appears to be supple green Unathi skin. A face can be vaguely seen on the front."
@@ -383,6 +383,7 @@
 	name = "leather satchel"
 	desc = "It's a very fancy satchel made with fine leather."
 	icon_state = "satchel"
+	item_state = "leather_satchel"
 	resistance_flags = FIRE_PROOF
 	var/strap_side_straight = FALSE
 
