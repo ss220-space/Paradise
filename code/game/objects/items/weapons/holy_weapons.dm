@@ -481,12 +481,17 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/nullrod/tribal_knife/process()
+/obj/item/nullrod/tribal_knife/process(mob/living/carbon/wielder)
 	slowdown = rand(-2, 2)
 	if(iscarbon(loc))
-		var/mob/living/carbon/wielder = loc
+		wielder = loc
 		if(wielder.is_in_hands(src))
 			wielder.update_equipment_speed_mods()
+
+/obj/item/nullrod/tribal_knife/dropped(mob/user)
+	. = ..()
+	slowdown = 0
+	user.update_equipment_speed_mods()
 
 /obj/item/nullrod/pitchfork
 	name = "unholy pitchfork"
