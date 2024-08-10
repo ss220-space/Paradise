@@ -472,6 +472,7 @@
 	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
 	drop_sound = 'sound/items/handling/knife_drop.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	var/mob/living/carbon/wielder
 
 /obj/item/nullrod/tribal_knife/New()
 	..()
@@ -481,7 +482,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/nullrod/tribal_knife/process(mob/living/carbon/wielder)
+/obj/item/nullrod/tribal_knife/process()
 	slowdown = rand(-2, 2)
 	if(iscarbon(loc))
 		wielder = loc
@@ -489,9 +490,9 @@
 			wielder.update_equipment_speed_mods()
 
 /obj/item/nullrod/tribal_knife/dropped(mob/user)
-	. = ..()
 	slowdown = 0
 	user.update_equipment_speed_mods()
+	. = ..()
 
 /obj/item/nullrod/pitchfork
 	name = "unholy pitchfork"
