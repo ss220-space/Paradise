@@ -396,6 +396,7 @@
 	user.GrantInfestActions()
 
 	to_chat(user, span_boldnotice("Вы можете анализировать здоровье носителя при помощи Left-click."))
+	SEND_SIGNAL(src, COMSIG_BORER_ENTERED_HOST)
 
 /mob/living/simple_animal/borer/verb/secrete_chemicals()
 	set category = "Borer"
@@ -599,6 +600,7 @@
 	talk_to_borer_action.Remove(host)
 	H.status_flags &= ~PASSEMOTES
 	host = null
+	SEND_SIGNAL(src, COMSIG_BORER_LEFT_HOST)
 	return
 
 /mob/living/simple_animal/borer/verb/bond_brain()

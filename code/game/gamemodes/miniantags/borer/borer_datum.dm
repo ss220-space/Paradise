@@ -11,19 +11,29 @@
 	if(!istype(borer))
 		qdel(src)
 	user = borer
-	if(user.host)
-		host = user.host
+	host = borer.host
 	if(process)
 		START_PROCESSING(SSprocessing, src)
 		RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_mob_death)) // to stop our processing after death
 		RegisterSignal(user, COMSIG_LIVING_REVIVE, PROC_REF(on_mob_revive)) // to start our processing after revive
+		RegisterSignal(user, COMSIG_BORER_ENTERED_HOST, PROC_REF(check_host)) // important to check host.
+		RegisterSignal(user, COMSIG_BORER_LEFT_HOST, PROC_REF(check_host)) 
 	on_apply()
+
+/datum/borer_datum/proc/check_host()
+	SIGNAL_HANDLER
+	. = user.host
+	if(.)
+		return host = .
+	return host = null
 	
 /datum/borer_datum/Destroy(force)
 	if(process)
 		STOP_PROCESSING(SSprocessing, src)
 		UnregisterSignal(user, COMSIG_MOB_DEATH)
 		UnregisterSignal(user, COMSIG_LIVING_REVIVE)
+		UnregisterSignal(user, COMSIG_BORER_ENTERED_HOST)
+		UnregisterSignal(user, COMSIG_BORER_LEFT_HOST)
 	user = null
 	host = null
 	return ..()
