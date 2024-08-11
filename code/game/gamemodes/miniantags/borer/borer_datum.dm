@@ -28,12 +28,12 @@
 	return host = null
 	
 /datum/borer_datum/Destroy(force)
+	UnregisterSignal(user, COMSIG_BORER_ENTERED_HOST)
+	UnregisterSignal(user, COMSIG_BORER_LEFT_HOST)
 	if(process)
 		STOP_PROCESSING(SSprocessing, src)
 		UnregisterSignal(user, COMSIG_MOB_DEATH)
 		UnregisterSignal(user, COMSIG_LIVING_REVIVE)
-		UnregisterSignal(user, COMSIG_BORER_ENTERED_HOST)
-		UnregisterSignal(user, COMSIG_BORER_LEFT_HOST)
 	user = null
 	host = null
 	return ..()
