@@ -137,7 +137,7 @@
 	icon_state = "sciencehud_implant"
 	item_state = "sciencehud_implant"
 	eye_colour = "#923DAC"
-	origin_tech = "materials=4;engineering=4;biotech=4;magnets=4"
+	origin_tech = "materials=4;programming=4;biotech=4"
 	aug_message = "You see the technological nature of things around you."
 	examine_extensions = EXAMINE_HUD_SCIENCE
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
