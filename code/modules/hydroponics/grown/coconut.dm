@@ -47,11 +47,13 @@
 	name = "Piece coconut"
 	desc = "Slice of old coconut has pulp"
 	icon_state = "piece_coconut"
-	list reagents = list("shradded_coconut" = 1)
+	list reagents = list("shradded_coconut" = 10)
+	bitesize = 1
 
 /obj/item/reagent_containers/food/snacks/dry_coco
 	name = "Dried coconut"
 	desc = "test"
 	icon_state = "dried_coconut"
 	var/coco_name = "piece coconut"
-	list_reagents = list("shradded_coconut" = 3)
+	list_reagents = list("shradded_coconut" = 25)
+	bitesize = 2

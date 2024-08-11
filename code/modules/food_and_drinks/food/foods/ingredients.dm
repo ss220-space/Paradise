@@ -247,7 +247,7 @@
 		return ..()
 
 /obj/item/reagent_containers/food/snacks/rawcookies/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /datum/reagent/consumable/shradded_coconut))
+	if(istype(I, /obj/item/reagent_containers/food/snacks/piece_coconut))
 		if(isturf(loc))
 			new /obj/item/reagent_containers/food/snacks/rawcookies/cocochips(loc)
 			to_chat(user, "<span class='notice'>You sprinkle [I] all over the cookies.</span>")

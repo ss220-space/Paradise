@@ -54,6 +54,7 @@
 
 
 			//All types that you can put into the grinder to transfer the reagents to the beaker. !Put all recipes above this.!
+			/obj/item/grown/coconut = list("coconut_water" = 40, "shradded_coconut" = 15),
 			/obj/item/slime_extract = list(),
 			/obj/item/reagent_containers/food = list(),
 			/obj/item/reagent_containers/honeycomb = list()
@@ -511,6 +512,19 @@
 				if (O.Uses > 0)
 						beaker.reagents.add_reagent("slimejelly",min(20*efficiency, space))
 				remove_object(O)
+
+				//Slime Extractis
+		for (var/obj/item/grown/coconut/C in holdingitems)
+				if (beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
+						break
+				var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
+				if (C.reagents != null)
+						var/amount = C.reagents.total_volume
+						C.reagents.trans_to(beaker, min(amount, space))
+				if (C.Uses > 0)
+						beaker.reagents.add_reagent("coconut_water",min(20*efficiency, space))
+						beaker.reagents.add_reagent("shradded_coconut",min(20*efficiency, space))
+				remove_object(C)
 
 		//Everything else - Transfers reagents from it into beaker
 		for (var/obj/item/reagent_containers/O in holdingitems)
