@@ -1,20 +1,26 @@
 #define TICKS_TO_MATURE 300
 #define TICKS_TO_ADULT 420
 #define TICKS_TO_ELDER 600
+#define FLAG_PROCESS (1<<0) // processing datum
+#define FLAG_HOST_REQUIRED (1<<1) // essential if we handle host
+#define FLAG_HAS_HOST_EFFECT (1<<2) // if we applying something to host and want to transfer these buffs between hosts. We'll need that in future.
 
 /datum/borer_datum
 	var/mob/living/simple_animal/borer/user // our borer
 	var/mob/living/carbon/human/host // our host
-	var/process = FALSE 
+	var/flags = NONE
 
 /datum/borer_datum/New(mob/living/simple_animal/borer/borer)
 	if(!borer)
 		qdel(src)
 	user = borer
 	host = borer.host
-	RegisterSignal(user, COMSIG_BORER_ENTERED_HOST, PROC_REF(check_host)) // important to check host.
-	RegisterSignal(user, COMSIG_BORER_LEFT_HOST, PROC_REF(check_host)) 
-	if(process)
+	if(flags & FLAG_HOST_REQUIRED | FLAG_HAS_HOST_EFFECT)
+		RegisterSignal(user, COMSIG_BORER_ENTERED_HOST, PROC_REF(check_host)) // important to check host.
+		RegisterSignal(user, COMSIG_BORER_LEFT_HOST, PROC_REF(check_host)) 
+	if(flags & FLAG_HAS_HOST_EFFECT)
+		host_handle_buff()
+	if(flags & FLAG_PROCESS)
 		RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_mob_death)) // to stop our processing after death
 		RegisterSignal(user, COMSIG_LIVING_REVIVE, PROC_REF(on_mob_revive)) // to start our processing after revive
 		START_PROCESSING(SSprocessing, src)
@@ -22,15 +28,27 @@
 
 /datum/borer_datum/proc/check_host()
 	SIGNAL_HANDLER
-	return host = user.host
-	
+	host = user.host
+	if(flags & FLAG_HAS_HOST_EFFECT)
+		switch(host) 
+			if(TRUE)
+				host_handle_buff()
+			if(FALSE)
+				host_handle_buff(FALSE)
+
+/datum/borer_datum/proc/host_handle_buff(var/grant = TRUE)
+	return
+
 /datum/borer_datum/Destroy(force)
-	UnregisterSignal(user, COMSIG_BORER_ENTERED_HOST)
-	UnregisterSignal(user, COMSIG_BORER_LEFT_HOST)
-	if(process)
-		STOP_PROCESSING(SSprocessing, src)
+	if(flags & FLAG_HOST_REQUIRED | FLAG_HAS_HOST_EFFECT)
+		UnregisterSignal(user, COMSIG_BORER_ENTERED_HOST)
+		UnregisterSignal(user, COMSIG_BORER_LEFT_HOST)
+	if(flags & FLAG_HAS_HOST_EFFECT)
+		host_handle_buff(FALSE)
+	if(flags & FLAG_PROCESSING)
 		UnregisterSignal(user, COMSIG_MOB_DEATH)
 		UnregisterSignal(user, COMSIG_LIVING_REVIVE)
+		STOP_PROCESSING(SSprocessing, src)
 	user = null
 	host = null
 	return ..()
@@ -49,7 +67,7 @@
 /datum/borer_datum/borer_rank
 	var/rankname = "Error"
 	var/grow_time = 0 // how many time we need to gain new rank
-	process = TRUE
+	flags = FLAG_PROCESS
 	
 /datum/borer_datum/borer_rank/young
 	rankname = "Young"
@@ -62,9 +80,11 @@
 /datum/borer_datum/borer_rank/adult
 	rankname = "Adult"
 	grow_time = TICKS_TO_ELDER 
+	flags = FLAG_PROCESS, FLAG_HOST_REQUIRED
 
 /datum/borer_datum/borer_rank/elder
 	rankname = "Elder"
+	flags = FLAG_PROCESS, FLAG_HOST_REQUIRED
 
 /datum/borer_datum/borer_rank/young/on_apply()
 	user.update_transform(0.5)
@@ -151,3 +171,6 @@
 #undef TICKS_TO_MATURE
 #undef TICKS_TO_ADULT
 #undef TICKS_TO_ELDER
+#undef FLAG_PROCESS
+#undef FLAG_HOST_REQUIRED 
+#undef FLAG_HAS_HOST_EFFECT 
