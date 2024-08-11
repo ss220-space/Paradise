@@ -55,5 +55,5 @@
 					create_effect = TRUE
 					to_chat(human, span_revenbignotice("You suddenly feel your soul become corrupted."))
 					cure()
-	if(turf && create_effect)
+	if(create_effect && turf)
 		new /obj/effect/temp_visual/revenant(turf)

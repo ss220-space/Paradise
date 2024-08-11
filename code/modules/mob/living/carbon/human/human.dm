@@ -1779,25 +1779,25 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	switch(rand(1,7))//traditional seven deadly sins... except lust.
 		if(1) // acedia
 			add_game_logs("[src] was influenced by the sin of Acedia.", src)
-			sin_objective = new /datum/objective/sintouched/acedia
+			sin_objective = new /datum/objective/sintouched/acedia(src)
 		if(2) // Gluttony
 			add_game_logs("[src] was influenced by the sin of gluttony.", src)
-			sin_objective = new /datum/objective/sintouched/gluttony
+			sin_objective = new /datum/objective/sintouched/gluttony(src)
 		if(3) // Greed
 			add_game_logs("[src] was influenced by the sin of greed.", src)
-			sin_objective = new /datum/objective/sintouched/greed
+			sin_objective = new /datum/objective/sintouched/greed(src)
 		if(4) // sloth
 			add_game_logs("[src] was influenced by the sin of sloth.", src)
-			sin_objective = new /datum/objective/sintouched/sloth
+			sin_objective = new /datum/objective/sintouched/sloth(src)
 		if(5) // Wrath
 			add_game_logs("[src] was influenced by the sin of wrath.", src)
-			sin_objective = new /datum/objective/sintouched/wrath
+			sin_objective = new /datum/objective/sintouched/wrath(src)
 		if(6) // Envy
 			add_game_logs("[src] was influenced by the sin of envy.", src)
-			sin_objective = new /datum/objective/sintouched/envy
+			sin_objective = new /datum/objective/sintouched/envy(src)
 		if(7) // Pride
 			add_game_logs("[src] was influenced by the sin of pride.", src)
-			sin_objective = new /datum/objective/sintouched/pride
+			sin_objective = new /datum/objective/sintouched/pride(src)
 	SSticker.mode.sintouched += mind
 	mind.objectives += sin_objective
 	var/obj_count = 1
