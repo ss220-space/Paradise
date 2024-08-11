@@ -80,9 +80,8 @@
 				var/power = (M.powerlevel + rand(0,3)) STATUS_EFFECT_CONSTANT
 				Stun(power)
 				Stuttering(power)
-				if (prob(stunprob) && M.powerlevel >= 8)
+				if(prob(stunprob) && M.powerlevel >= 8)
 					adjustFireLoss(M.powerlevel * rand(6, 6 + M.age_state.damage))
-					updatehealth("slime attack")
 		return 1
 
 /mob/living/carbon/is_mouth_covered(head_only = FALSE, mask_only = FALSE)

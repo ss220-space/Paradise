@@ -42,11 +42,10 @@ effective or pretty fucking useless.
 		to_chat(user, span_danger("The mind batterer is out of charge!"))
 		return
 
-
 	for(var/mob/living/carbon/human/M in orange (10, user))
 		if(prob(50))
 			M.Weaken(rand(2,6) SECONDS)
-			M.adjustStaminaLoss(rand(35, 60))
+			M.apply_damage(rand(35, 60), STAMINA)
 			add_attack_logs(user, M, "Stunned with [src]")
 			to_chat(M, span_danger("You feel a tremendous, paralyzing wave flood your mind."))
 		else

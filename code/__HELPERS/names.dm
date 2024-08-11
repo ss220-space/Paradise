@@ -154,6 +154,12 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 
 	var/names[] = list()
 	for(var/datum/data/record/t in GLOB.data_core.general)//Picks from crew manifest.
+		if (!t)
+			stack_trace("Null record: [t]")
+			continue
+		if (!t.fields["name"])
+			stack_trace("Nameless record: [t.fields]")
+			continue
 		names += t.fields["name"]
 
 	var/maxwords = words//Extra var to check for duplicates.

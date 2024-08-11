@@ -594,6 +594,8 @@
 
 /datum/config_entry/flag/shutdown_on_reboot
 
+/datum/config_entry/flag/autoreconnect
+
 /datum/config_entry/flag/disable_karma
 
 /datum/config_entry/number/base_mc_tick_rate

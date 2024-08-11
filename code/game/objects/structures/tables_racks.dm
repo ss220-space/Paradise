@@ -73,9 +73,6 @@
 
 
 /obj/structure/table/update_icon_state()
-	if(smooth && !flipped)
-		icon_state = ""
-
 	if(flipped)
 		var/type = 0
 		var/subtype = null
@@ -86,7 +83,7 @@
 				if(type == 1)
 					subtype = direction == turn(dir, 90) ? "-" : "+"
 
-		icon_state = "[initial(icon_state)][type][type == 1 ? subtype : ""]"
+		icon_state = "[initial(icon_state)]["flip"][type][type == 1 ? subtype : ""]"
 
 
 /obj/structure/table/proc/update_smoothing()
@@ -447,6 +444,7 @@
 		var/obj/structure/table/other_table = locate(/obj/structure/table, get_step(src, check_dir))
 		if(other_table)
 			other_table.unflip()
+
 	dir = initial(dir)
 	update_icon(UPDATE_ICON_STATE)
 	queue_smooth(src)

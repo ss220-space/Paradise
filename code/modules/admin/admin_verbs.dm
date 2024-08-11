@@ -8,6 +8,7 @@ GLOBAL_LIST_INIT(admin_verbs_default, list(
 GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/check_antagonists,		/*shows all antags*/
 	/datum/admins/proc/show_player_panel,
+	/client/proc/fax_panel,
 	/client/proc/player_panel_new,		/*shows an interface for all players, with links to various panels*/
 	/client/proc/invisimin,				/*allows our mob to go invisible/visible*/
 	/datum/admins/proc/announce,		/*priority announce something to all clients.*/
@@ -54,7 +55,6 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/empty_ai_core_toggle_latejoin,
 	/client/proc/aooc,
 	/client/proc/freeze,
-	/client/proc/secrets,
 	/client/proc/debug_variables,
 	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
 	/client/proc/toggle_mentor_chat,
@@ -80,6 +80,7 @@ GLOBAL_LIST_INIT(admin_verbs_sounds, list(
 	/client/proc/stop_global_admin_sounds
 	))
 GLOBAL_LIST_INIT(admin_verbs_event, list(
+	/client/proc/secrets,
 	/client/proc/object_talk,
 	/client/proc/cmd_admin_dress,
 	/client/proc/cmd_admin_gib_self,
@@ -98,7 +99,6 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/cmd_admin_world_narrate,	/*sends text to all players with no padding*/
 	/client/proc/response_team, // Response Teams admin verb
 	/client/proc/cmd_admin_create_centcom_report,
-	/client/proc/fax_panel,
 	/client/proc/event_manager_panel,
 	/client/proc/modify_goals,
 	/client/proc/outfit_manager,
@@ -333,7 +333,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	set category = "Admin"
 	set name = "Aghost"
 
-	if(!check_rights(R_ADMIN|R_MOD))
+	if(!check_rights(R_ADMIN|R_MOD|R_POSSESS))
 		return
 
 	if(istype(mob,/mob/dead/observer))
@@ -384,7 +384,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	set name = "Player Panel"
 	set category = "Admin"
 
-	if(!check_rights(R_ADMIN|R_MOD))
+	if(!check_rights(R_ADMIN | R_MOD))
 		return
 
 	holder.player_panel_new()
@@ -419,9 +419,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/game_panel()
 	set name = "Game Panel"
-	set category = "Admin"
+	set category = "Event"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN | R_EVENT))
 		return
 
 	holder.Game()
@@ -430,9 +430,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 /client/proc/secrets()
 	set name = "Secrets"
-	set category = "Admin"
+	set category = "Event"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN | R_EVENT))
 		return
 
 	holder.Secrets()
@@ -461,7 +461,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		return
 
 	if(holder)
-		holder.big_brother = 0
+		holder.big_brother = FALSE
 		if(holder.fakekey)
 			holder.fakekey = null
 		else
@@ -484,7 +484,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(holder)
 		if(holder.fakekey)
 			holder.fakekey = null
-			holder.big_brother = 0
+			holder.big_brother = FALSE
 		else
 			var/new_key = ckeyEx(clean_input("Enter your desired display name. Unlike normal stealth mode, this will not appear in Who at all, except for other heads.", "Fake Key", key))
 			if(!new_key)
@@ -492,7 +492,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			if(length(new_key) >= 26)
 				new_key = copytext(new_key, 1, 26)
 			holder.fakekey = new_key
-			holder.big_brother = 1
+			holder.big_brother = TRUE
 			createStealthKey()
 		log_admin("[key_name(usr)] has turned BB mode [holder.fakekey ? "ON" : "OFF"]")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Big Brother Mode")
@@ -577,10 +577,11 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			to_chat(M, "<span class='userdanger'>You are abruptly pulled through space!</span>")
 			logmsg = "a teleport to arrivals."
 		if("Moderate Heal")
-			M.adjustBruteLoss(-25)
-			M.adjustFireLoss(-25)
-			M.adjustToxLoss(-25)
-			M.adjustOxyLoss(-25)
+			var/update = NONE
+			update |= M.heal_overall_damage(25, 25, updating_health = FALSE, affect_robotic = TRUE)
+			update |= M.heal_damages(tox = 25, oxy = 25, updating_health = FALSE)
+			if(update)
+				M.updatehealth()
 			to_chat(M,"<span class='userdanger'>You feel invigorated!</span>")
 			logmsg = "a moderate heal."
 		if("Heal Over Time")
@@ -879,7 +880,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	set name = "\[Admin\] Make Sound"
 	set desc = "Display a message to everyone who can hear the target"
 
-	if(!check_rights(R_EVENT))
+	if(!check_rights(R_SOUNDS))
 		return
 
 	if(O)
@@ -1050,7 +1051,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	set name = "Select next map"
 	set category = "Server"
 
-	if(!check_rights(R_SERVER))
+	if(!check_rights(R_SERVER | R_EVENT))
 		return
 
 	var/list/all_maps = subtypesof(/datum/map)

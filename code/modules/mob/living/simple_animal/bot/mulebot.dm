@@ -121,7 +121,6 @@
 	else if(I.tool_behaviour == TOOL_WRENCH)
 		if(health < maxHealth)
 			adjustBruteLoss(-25)
-			updatehealth()
 			user.visible_message(span_notice("[user] repairs [src]!"),
 								span_notice("You repair [src]!"))
 		else

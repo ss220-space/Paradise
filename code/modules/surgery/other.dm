@@ -208,8 +208,7 @@
 		span_warning("Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	affected.receive_damage(5, 0)
-
+	target.apply_damage(5, def_zone = affected)
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/fix_dead_tissue		//Debridement
@@ -253,8 +252,7 @@
 		span_warning("Your hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	affected.receive_damage(20)
-
+	target.apply_damage(20, def_zone = affected)
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/treat_necrosis

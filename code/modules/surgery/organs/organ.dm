@@ -294,11 +294,26 @@
 	weapon_data.time_inflicted = world.time
 
 
-//Note: external organs have their own version of this proc
-/obj/item/organ/proc/receive_damage(amount, silent = FALSE)
+/**
+ * Adjusts internal organ damage value.
+ *
+ * Arguments:
+ * * amount - Amount of damage.
+ * * silent - Stops custom pain messaged for organ owner.
+ *
+ * Returns `TRUE` on success
+ */
+/obj/item/organ/proc/internal_receive_damage(amount = 0, silent = FALSE)
+	. = FALSE
+	if(isexternalorgan(src))
+		CRASH("internal_receive_damage() is called for external organ. Use external_receive_damage()")
+
 	if(tough)
-		return
-	damage = between(0, damage + amount, max_damage)
+		return .
+
+	. = TRUE
+
+	damage = clamp(round(damage + amount, DAMAGE_PRECISION), 0, max_damage)
 
 	//only show this if the organ is not robotic
 	if(owner && parent_organ_zone && amount > 0)
@@ -306,9 +321,9 @@
 		if(parent && !silent)
 			owner.custom_pain("Something inside your [parent.name] hurts a lot.")
 
-		//check if we've hit max_damage
+	//check if we've hit max_damage
 	if(damage >= max_damage)
-		necrotize()
+		necrotize(silent)
 
 
 /obj/item/organ/proc/heal_internal_damage(amount, robo_repair = FALSE)
@@ -331,6 +346,7 @@
 		return
 
 	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN, src)
+	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, owner)
 	owner.internal_organs -= src
 
 	var/obj/item/organ/external/affected = owner.get_organ(parent_organ_zone)

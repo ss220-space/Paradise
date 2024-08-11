@@ -25,7 +25,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 			possible_beacons += EP
 
 	if(!possible_beacons.len)
-		to_chat(user, "There are no extraction beacons in existence!")
+		balloon_alert(user, "маяки не найдены!")
 		return
 
 	else
@@ -36,7 +36,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		if(!A)
 			return
 		beacon = A
-		to_chat(user, "You link the extraction pack to the beacon system.")
+		balloon_alert(user, "синхронизация завершена")
 
 /obj/item/extraction_pack/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(!..())
@@ -52,12 +52,12 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 /obj/item/extraction_pack/afterattack(atom/movable/A, mob/living/carbon/human/user, flag, params)
 	. = ..()
 	if(!beacon)
-		to_chat(user, "<span class='warning'>[src] is not linked to a beacon, and cannot be used!</span>")
+		balloon_alert(user, "синхронизируйте с маяком!")
 		return
 	if(!can_use_indoors)
 		var/area/area = get_area(A)
 		if(!area.outdoors)
-			to_chat(user, "<span class='warning'>[src] can only be used on things that are outdoors!</span>")
+			balloon_alert(user, "используйте снаружи!")
 			return
 	if(!flag)
 		return
@@ -71,9 +71,9 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 			return
 		if(A.anchored || (A.move_resist > max_force_fulton))
 			return
-		to_chat(user, "<span class='notice'>You start attaching the pack to [A]...</span>")
+		balloon_alert(user, "подготовка эвакуации...")
 		if(do_after(user, 5 SECONDS, A))
-			to_chat(user, "<span class='notice'>You attach the pack to [A] and activate it.</span>")
+			balloon_alert(user, "эвакуация завершена")
 			if(loc == user && istype(user.back, /obj/item/storage/backpack))
 				var/obj/item/storage/backpack/B = user.back
 				if(B.can_be_inserted(src, stop_messages = TRUE))

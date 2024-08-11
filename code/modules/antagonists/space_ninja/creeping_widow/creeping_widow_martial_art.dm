@@ -94,7 +94,7 @@
 			defender.visible_message("<span class='warning'>[attacker] comes from behind, punches the [defender] in their neck and puts [defender] in a [hold_name]!</span>", \
 							"<span class='userdanger'>[attacker]\ punches you in the neck and puts you in a [hold_name]! You are unable to speak!</span>")
 			defender.AdjustSilence(40 SECONDS)
-			defender.adjustOxyLoss(20)
+			defender.apply_damage(20, OXY)
 			defender.apply_damage(5, BRUTE, pick(BODY_ZONE_HEAD, BODY_ZONE_PRECISE_MOUTH))
 			addtimer(CALLBACK(src, PROC_REF(regain_focus), attacker), 300)
 	return TRUE

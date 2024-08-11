@@ -56,7 +56,7 @@
 
 	// This does more damage the more levels the falling object has fallen
 	if(!crushes_people && target_head)
-		poor_target.apply_damage(fall_damage * levels, def_zone = BODY_ZONE_HEAD)
+		poor_target.apply_damage(fall_damage * levels, def_zone = target_head)
 	else
 		poor_target.apply_damage(fall_damage * levels)
 

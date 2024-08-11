@@ -1,0 +1,111 @@
+'2024-08-01':
+  Aziz Chynaliev:
+  - server: auto reconnect on round restart after 10s (#5633)
+  - add: increase auto reconnection delay and add random delay
+  Zwei:
+  - tweak: Grab Tweaks N1 (#5635)
+'2024-08-02':
+  Aziz Chynaliev:
+  - tweak: reconnection timings
+  - add: duplicate Fit Viewport button to left help menu
+  - server: experiment with autoreconnection
+  Den109G:
+  - tweak: BIG error message for TGUI chat (#5637)
+  - tweak: Add fullscrean button (#5638)
+  PiotrTheTchaikowsky:
+  - qol: Plushie qol add sprites and mechanics (#5628)
+  Valtor:
+  - bugfix: diona "Evacuation" evacuate right into nullspace (#5626)
+'2024-08-03':
+  Aziz Chynaliev:
+  - server: increase connection lost threshold
+  Den109G:
+  - bugfix: Fix polarized fulltile windows' IDs (#5642)
+  FanTik-Ratge:
+  - imageadd: fix-offhand-sprite, add 24 new inhand sprites (#5639)
+  Quinalion:
+  - add: Abductor Silencer to Grey Uplink (#5643)
+  Vladisvell:
+  - bugfix: tables now do not become invisible (#5640)
+  Zwei:
+  - bugfix: Sybil-Dominator Interaction Fix (#5641)
+'2024-08-04':
+  Aziz Chynaliev:
+  - unknown: update admin_ranks.txt example
+  FanTik-Ratge:
+  - imageadd: 'inhand fix #666 (#5648)'
+  - imageadd: fix fridge overlay (#5647)
+  NightDawnFox:
+  - tweak: more balloons for lava stuff + knockdown for mining charges (#5524)
+  Quinalion:
+  - imageadd: mender, kits, gauze, splint inhand sprite (#5645)
+  Valtor:
+  - add: Diona passive blood regen (#4945)
+  WolfLox:
+  - bugfix: deleted extra lamp in the captain's office (#5650)
+  Zwei:
+  - unknown: Physiology Implementation (#5529)
+  - unknown: Basic Actions Modifiers (#5636)
+'2024-08-05':
+  Aziz Chynaliev:
+  - server: bump rustg version 3.1.0-ss220 -> 3.3.0-ss220
+  FanTik-Ratge:
+  - imageadd: and another inhand-fix (#5663)
+  Sheya:
+  - bugfix: RCD windows (#5652)
+  Vladisvell:
+  - bugfix: Cargo advanced defibrillator now has infinite power cell (#5654)
+  Zwei:
+  - bugfix: Correct Health Updates (#5657)
+  - bugfix: Update Health Typo Fix (#5658)
+  - bugfix: Robots Move Intent UI Fix (#5655)
+'2024-08-06':
+  Aziz Chynaliev:
+  - tweak: admin ranks color
+  - server: at trimming for file2list
+  - server: debug generate_code_phrase
+  BoshyG:
+  - bugfix: Various Shotgun Shells Crate (#5664)
+  Valtor:
+  - bugfix: cybernetic organs can't be set in setup (#5667)
+'2024-08-07':
+  Aziz Chynaliev:
+  - bugfix: rank name loading
+  - bugfix: trim rank name at creation
+  Valtor:
+  - add: Cows Can Be Fed + Localization (#5634)
+  Zwei:
+  - tweak: Initialize Flag (#5665)
+  - bugfix: Signal Overrides (#5670)
+  - add: JPS Move (#5673)
+  endipe:
+  - bugfix: balloon_alert on vehicle (#5671)
+'2024-08-08':
+  MstrKabach:
+  - add: gloves can be stored in belt (#5679)
+  Valtor:
+  - bugfix: xenos invisible windows + smoothing (#5674)
+'2024-08-09':
+  FanTik-Ratge:
+  - imageadd: new_inhand sprites by-kisik (#5682)
+  - imageadd: new_inhand sprites by-kisik 2 (#5690)
+  TomYoungers:
+  - bugfix: QM Table Fix (#5686)
+  - bugfix: tube change (#5684)
+  - bugfix: FloorsChangeInHeadRooms (#5680)
+  Valtor:
+  - bugfix: wryn invisible windows + smoothing (#5668)
+  mrWhiteFox365:
+  - unknown: QM fax fix (#5688)
+  pilygun:
+  - balance: Thunderdome... (#5675)
+'2024-08-10':
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#5694)
+'2024-08-11':
+  Antoonij:
+  - bugfix: capsule expand on station Z level (#5687)
+  MstrKabach:
+  - tweak: A new hint (#5691)
+  SAAD:
+  - tweak: T-Admin/Mods gets more in-game rights (#5677)

@@ -36,14 +36,14 @@
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 				if(prob(5))
 					to_chat(src, span_warning("You feel [word]."))
-				apply_damage_type(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.014, 1), dna.species.blood_damage_type)
+				apply_damage(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.014, 1), dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)
 			if(BLOOD_VOLUME_BAD to BLOOD_VOLUME_OKAY)
-				apply_damage_type(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.028, 1), dna.species.blood_damage_type)
+				apply_damage(round((BLOOD_VOLUME_NORMAL - blood_volume) * 0.028, 1), dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)
 				if(prob(5))
 					EyeBlurry(12 SECONDS)
 					to_chat(src, span_warning("You feel very [word]."))
 			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
-				apply_damage_type(5, dna.species.blood_damage_type)
+				apply_damage(5, dna.species.blood_damage_type, spread_damage = TRUE, forced = TRUE)
 				if(prob(15))
 					Paralyse(rand(2 SECONDS, 6 SECONDS))
 					to_chat(src, span_warning("You feel extremely [word]."))
@@ -82,49 +82,66 @@
 		if(bleed_rate && !bleedsuppress && !HAS_TRAIT(src, TRAIT_FAKEDEATH))
 			bleed(bleed_rate + additional_bleed)
 
-//Makes a blood drop, leaking amt units of blood from the mob
+
+/// Makes a blood drop, leaking amt units of blood from the mob
 /mob/living/carbon/proc/bleed(amt)
-	if(blood_volume)
-		blood_volume = max(blood_volume - amt, 0)
-		if(isturf(loc)) //Blood loss still happens in locker, floor stays clean
-			if(amt >= 10)
-				add_splatter_floor(loc)
-			else
-				add_splatter_floor(loc, 1)
+	if(!blood_volume)
+		return FALSE
+	. = TRUE
+	blood_volume = max(blood_volume - amt, 0)
+	if(!isturf(loc)) //Blood loss still happens in locker, floor stays clean
+		return .
+	if(amt >= 10)
+		add_splatter_floor(loc)
+	else
+		add_splatter_floor(loc, small_drip = TRUE)
+
 
 /mob/living/carbon/human/bleed(amt)
-	if(!(NO_BLOOD in dna.species.species_traits))
-		..()
-		if(dna.species.exotic_blood)
-			var/datum/reagent/R = GLOB.chemical_reagents_list[get_blood_id()]
-			if(istype(R) && isturf(loc))
-				if(EXOTIC_COLOR in dna.species.species_traits)
-					R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER, dna.species.blood_color)
-				else
-					R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER)
+	if(NO_BLOOD in dna.species.species_traits)
+		return FALSE
+	amt *= physiology.bleed_mod
+	. = ..()
+	if(!. || !dna.species.exotic_blood)
+		return .
+	var/datum/reagent/R = GLOB.chemical_reagents_list[get_blood_id()]
+	if(!istype(R) || !isturf(loc))
+		return .
+	if(EXOTIC_COLOR in dna.species.species_traits)
+		R.reaction_turf(loc, amt * EXOTIC_BLEED_MULTIPLIER, dna.species.blood_color)
+	else
+		R.reaction_turf(loc, amt * EXOTIC_BLEED_MULTIPLIER)
 
-/mob/living/carbon/proc/bleed_internal(amt) // Return 1 if we've coughed blood up, 2 if we're vomited it.
-	if(blood_volume)
-		blood_volume = max(blood_volume - amt, 0)
-		if(prob(10 * amt)) // +5% chance per internal bleeding site that we'll cough up blood on a given tick.
-			custom_emote(EMOTE_AUDIBLE, "кашля%(ет,ют)% кровью!")
-			add_splatter_floor(loc, 1)
-			return 1
-		else if(amt >= 1 && prob(5 * amt)) // +2.5% chance per internal bleeding site that we'll cough up blood on a given tick. Must be bleeding internally in more than one place to have a chance at this.
-			vomit(0, 1)
-			return 2
-	return 0
+
+/mob/living/carbon/proc/bleed_internal(amt)
+	if(!blood_volume)
+		return FALSE
+	. = TRUE
+	blood_volume = max(blood_volume - amt, 0)
+	if(prob(10 * amt)) // +5% chance per internal bleeding site that we'll cough up blood on a given tick.
+		custom_emote(EMOTE_AUDIBLE, "кашля%(ет,ют)% кровью!")
+		add_splatter_floor(loc, small_drip = TRUE)
+		return .
+	// +2.5% chance per internal bleeding site that we'll cough up blood on a given tick.
+	// Must be bleeding internally in more than one place to have a chance at this.
+	if(amt >= 1 && prob(5 * amt))
+		vomit(lost_nutrition = 10, blood = TRUE)
+
 
 /mob/living/carbon/human/bleed_internal(amt)
-	if(!(NO_BLOOD in dna.species.species_traits))
-		.=..()
-		if(dna.species.exotic_blood && .) // Do we have exotic blood, and have we left any on the ground?
-			var/datum/reagent/R = GLOB.chemical_reagents_list[get_blood_id()]
-			if(istype(R) && isturf(loc))
-				if(EXOTIC_COLOR in dna.species.species_traits)
-					R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER, dna.species.blood_color)
-				else
-					R.reaction_turf(get_turf(src), amt * EXOTIC_BLEED_MULTIPLIER)
+	if(NO_BLOOD in dna.species.species_traits)
+		return FALSE
+	amt *= physiology.bleed_mod
+	. = ..()
+	if(!. || !dna.species.exotic_blood) // Do we have exotic blood, and have we left any on the ground?
+		return .
+	var/datum/reagent/R = GLOB.chemical_reagents_list[get_blood_id()]
+	if(!istype(R) || !isturf(loc))
+		return .
+	if(EXOTIC_COLOR in dna.species.species_traits)
+		R.reaction_turf(loc, amt * EXOTIC_BLEED_MULTIPLIER, dna.species.blood_color)
+	else
+		R.reaction_turf(loc, amt * EXOTIC_BLEED_MULTIPLIER)
 
 
 /mob/living/proc/restore_blood()

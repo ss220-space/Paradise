@@ -122,19 +122,21 @@
 /datum/species/skrell/water_act(mob/living/carbon/human/M, volume, temperature, source, method)
 	. = ..()
 	if(method == REAGENT_TOUCH)
+		var/update = NONE
 		if(M.getFireLoss() < 25 && M.getBruteLoss() < 25 && M.health != 100)
-			M.adjustBruteLoss(-4)
-			M.adjustFireLoss(-4)
+			update |= M.heal_overall_damage(4, 4, updating_health = FALSE)
 			to_chat(M, "<span class='notice'>Освежающая вода закрывает ваши мелкие раны!</span>")
-		M.adjustOxyLoss(-5)
+		update |= M.heal_damage_type(5, OXY, updating_health = FALSE)
+		if(update)
+			M.updatehealth()
+
 
 /datum/species/skrell/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "water")
-		H.adjustToxLoss(-1)
-
+		var/update = NONE
 		if(H.getFireLoss() < 25 && H.getBruteLoss() < 25)
-			H.adjustBruteLoss(-1)
-			H.adjustFireLoss(-1)
+			update |= H.heal_overall_damage(1, 1, updating_health = FALSE)
+		update |= H.heal_damage_type(1, TOX, updating_health = FALSE)
 		return TRUE
 	return ..()
 
