@@ -45,7 +45,7 @@
 		UnregisterSignal(user, COMSIG_BORER_LEFT_HOST)
 	if(flags & FLAG_HAS_HOST_EFFECT)
 		host_handle_buff(FALSE)
-	if(flags & FLAG_PROCESSING)
+	if(flags & FLAG_PROCESS)
 		UnregisterSignal(user, COMSIG_MOB_DEATH)
 		UnregisterSignal(user, COMSIG_LIVING_REVIVE)
 		STOP_PROCESSING(SSprocessing, src)
