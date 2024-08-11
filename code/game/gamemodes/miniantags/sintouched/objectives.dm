@@ -16,7 +16,7 @@
 
 /datum/objective/sintouched/proc/on_apply()
 	return
-	
+
 /datum/objective/sintouched/New(mob/living/carbon/human/human)
 	..()
 	user = human // Currently not to mind
@@ -61,6 +61,7 @@
 	explanation_text = "Что ваши коллеги когда-либо делали для вас? Не предлагайте им помощь ни в каких делах и отказывайте, если попросят."
 	
 /datum/objective/sintouched/wrath/on_apply()
+	var/datum/disease/virus/advance/preset/aggression/disease = new
 	user.physiology.punch_damage_low += 5
 	user.physiology.punch_damage_high += 10
 	disease.Contract(user)
