@@ -136,6 +136,7 @@
 	desc = "These cybernetic eye implants with an analyzer for scanning items and reagents."
 	icon_state = "sciencehud_implant"
 	item_state = "sciencehud_implant"
+	implant_overlay = null
 	eye_colour = "#923DAC"
 	origin_tech = "materials=4;programming=4;biotech=4"
 	aug_message = "You see the technological nature of things around you."
