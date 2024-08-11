@@ -1540,8 +1540,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	return md5(dna.uni_identity)
 
 /mob/living/carbon/human/can_see_reagents()
-	if(hasHUD(src, EXAMINE_HUD_SCIENCE))
-		return TRUE
+	return hasHUD(src, EXAMINE_HUD_SCIENCE)
 
 /mob/living/carbon/human/can_see_food()
 	for(var/obj/item/organ/internal/organ as anything in internal_organs)
