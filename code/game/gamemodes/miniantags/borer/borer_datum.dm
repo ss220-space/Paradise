@@ -80,11 +80,11 @@
 /datum/borer_datum/borer_rank/adult
 	rankname = "Adult"
 	grow_time = TICKS_TO_ELDER 
-	flags = FLAG_PROCESS, FLAG_HOST_REQUIRED
+	flags = FLAG_PROCESS|FLAG_HOST_REQUIRED
 
 /datum/borer_datum/borer_rank/elder
 	rankname = "Elder"
-	flags = FLAG_PROCESS, FLAG_HOST_REQUIRED
+	flags = FLAG_PROCESS|FLAG_HOST_REQUIRED
 
 /datum/borer_datum/borer_rank/young/on_apply()
 	user.update_transform(0.5)
