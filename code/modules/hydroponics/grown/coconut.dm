@@ -4,9 +4,10 @@
 	name = "Coconut"
 	desc = "The young coconut is still green"
 	icon_state = "coconut"
-	var/coco_name = "piece coconut"
 	force = 10
-    throwforce = 10
+	throwforce = 10
+	throw_speed = 2
+	throw_range = 3
 
 /obj/item/seeds/coconut
 	name = "pack of coconut seeds"
@@ -29,7 +30,7 @@
 	genes = list(/datum/plant_gene/trait/maxchem , /datum/plant_gene/trait/repeated_harvest)
 	reagents_add = list("coconut_water" = 0.45, "shradded_coconut" = 0.15)
 
-/obj/item/grown/coconut/attackby(obj/item/W, mob/user, params)
+/obj/item/reagent_containers/food/snacks/dry_coco/attackby(obj/item/W, mob/user, params)
 	if(is_sharp(W))
 		if(isturf(loc))
 			user.show_message(span_notice("You make [coco_name] out of \the [src]!"), 1)
@@ -46,4 +47,11 @@
 	name = "Piece coconut"
 	desc = "Slice of old coconut has pulp"
 	icon_state = "piece_coconut"
-	list reagents = list("shradded_coconut" = 3)
+	list reagents = list("shradded_coconut" = 1)
+
+/obj/item/reagent_containers/food/snacks/dry_coco
+	name = "Dried coconut"
+	desc = "test"
+	icon_state = "dried_coconut"
+	var/coco_name = "piece coconut"
+	list_reagents = list("shradded_coconut" = 3)
