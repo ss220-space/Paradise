@@ -198,7 +198,7 @@
 	item_state = "scientist_envirohelm"
 	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
-	examine_extensions = EXAMINE_HUD_SCIENCE
+	examine_extensions = EXAMINE_HUD_NONE
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
 
 /obj/item/clothing/head/helmet/space/plasmaman/rd
