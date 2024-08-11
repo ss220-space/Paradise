@@ -8,7 +8,7 @@
 	var/process = FALSE 
 
 /datum/borer_datum/New(mob/living/simple_animal/borer/borer)
-	if(!istype(borer))
+	if(!borer)
 		qdel(src)
 	user = borer
 	host = borer.host
@@ -22,10 +22,7 @@
 
 /datum/borer_datum/proc/check_host()
 	SIGNAL_HANDLER
-	. = user.host
-	if(.)
-		return host = .
-	return host = null
+	return host = user.host
 	
 /datum/borer_datum/Destroy(force)
 	UnregisterSignal(user, COMSIG_BORER_ENTERED_HOST)
