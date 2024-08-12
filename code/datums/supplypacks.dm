@@ -299,7 +299,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/emergency/highrisk/cmo_defib
 	name = "Advanced Defibrillator Crate"
 	access = ACCESS_CMO
-	contains = list(/obj/item/defibrillator/compact/advanced)
+	contains = list(/obj/item/defibrillator/compact/advanced/loaded)
 	required_tech = list("biotech" = 7, "powerstorage" = 8)
 
 /datum/supply_packs/emergency/highrisk/cmo_hypospray
@@ -758,12 +758,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containername = "various shotgun shells crate"
 	cost = 250
 	contains = list(
-		/obj/item/ammo_casing/shotgun/stunslug,
-		/obj/item/ammo_casing/shotgun/pulseslug,
-		/obj/item/ammo_casing/shotgun/incendiary/dragonsbreath,
-		/obj/item/ammo_casing/shotgun/frag12,
-		/obj/item/ammo_casing/shotgun/ion,
-		/obj/item/ammo_casing/shotgun/laserslug,
+		/obj/item/ammo_box/shotgun/stunslug,
+		/obj/item/ammo_box/shotgun/pulseslug,
+		/obj/item/ammo_box/shotgun/dragonsbreath,
+		/obj/item/ammo_box/shotgun/frag12,
+		/obj/item/ammo_box/shotgun/ion,
+		/obj/item/ammo_box/shotgun/laserslug,
 	)
 	required_tech = list("powerstorage" = 4, "combat" = 4, "magnets" = 4, "materials" = 4)
 
