@@ -106,7 +106,7 @@
 
 /obj/item/twohanded/rcl/equipped(mob/user, slot, initial)
 	. = ..()
-	RegisterSignal(user, COMSIG_MOB_CLIENT_MOVED, PROC_REF(on_mob_move))
+	RegisterSignal(user, COMSIG_MOB_CLIENT_MOVED, PROC_REF(on_mob_move), override = TRUE)
 
 /obj/item/twohanded/rcl/dropped(mob/user, slot, silent = FALSE)
 	. = ..()

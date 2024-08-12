@@ -35,11 +35,13 @@
 	SHOULD_CALL_PARENT(FALSE)
 	if(!istype(src, /turf/space/transit) && !istype(src, /turf/space/openspace))
 		icon_state = SPACE_ICON_STATE
-	vis_contents.Cut() //removes inherited overlays
 
-	if(initialized)
+	if(length(vis_contents))
+		vis_contents.Cut() //removes inherited overlays
+
+	if(flags & INITIALIZED)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
-	initialized = TRUE
+	flags |= INITIALIZED
 
 	// We make the assumption that the space plane will never be blacklisted, as an optimization
 	if(SSmapping.max_plane_offset)
