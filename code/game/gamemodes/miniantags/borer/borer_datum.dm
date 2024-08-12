@@ -10,6 +10,7 @@
 /datum/borer_datum
 	var/mob/living/simple_animal/borer/user // our borer
 	var/mob/living/carbon/human/host // our host
+	var/mob/living/carbon/human/previous_host // previous host, used to del transferable effects from previous host.
 	var/flags = NONE
 	var/processing_flags = NONE
 
@@ -21,6 +22,7 @@
 /datum/borer_datum/proc/Grant(mob/living/simple_animal/borer/borer)
 	user = borer
 	host = borer.host
+	previous_host = borer.host
 	if(QDELETED(user) || !on_apply())
 		qdel(src)
 		return FALSE
@@ -45,12 +47,13 @@
 	if(flags & FLAG_HAS_HOST_EFFECT)
 		switch(host) 
 			if(TRUE)
-				host_handle_buff()
+				host_handle_buff() // use host.
 			if(FALSE)
-				host_handle_buff(FALSE)
+				if(host_handle_buff(FALSE)) // use previous_host to delete buff from previous host.
+					previous_host = host
 
 /datum/borer_datum/proc/host_handle_buff(var/grant = TRUE) // if we want transferable effects between hosts.
-	return
+	return TRUE
 
 /datum/borer_datum/Destroy(force)
 	if((flags & FLAG_HOST_REQUIRED) || (flags & FLAG_HAS_HOST_EFFECT))
@@ -65,6 +68,7 @@
 		STOP_PROCESSING(SSprocessing, src)
 	user = null
 	host = null
+	previous_host = null
 	return ..()
 	
 /datum/borer_datum/proc/on_apply() // Apply something to BORER or untransferable effect to host.
