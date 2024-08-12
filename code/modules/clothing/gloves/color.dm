@@ -239,6 +239,7 @@
 	item_color="white"
 	transfer_prints = TRUE
 	resistance_flags = NONE
+	clothing_traits = list(TRAIT_QUICK_CARRY)
 
 /obj/item/clothing/gloves/color/latex/nitrile
 	name = "nitrile gloves"
@@ -247,6 +248,7 @@
 	item_state = "nitrilegloves"
 	transfer_prints = FALSE
 	item_color = "medical"
+	clothing_traits = list(TRAIT_QUICKER_CARRY)
 
 /obj/item/clothing/gloves/color/white
 	name = "white gloves"

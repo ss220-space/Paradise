@@ -140,3 +140,5 @@
 // item trait sources
 #define BROODMOTHER_TONGUE_TRAIT "broodmother_tongue"
 
+/// inherited from riding vehicles
+#define VEHICLE_TRAIT "vehicle"
