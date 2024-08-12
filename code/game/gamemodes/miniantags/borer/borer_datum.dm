@@ -29,16 +29,16 @@
 		previous_host = borer.host
 		RegisterSignal(user, COMSIG_BORER_ENTERED_HOST, PROC_REF(check_host))
 		RegisterSignal(user, COMSIG_BORER_LEFT_HOST, PROC_REF(check_host)) 
-	if(flags & FLAG_HAS_HOST_EFFECT)
+	if((flags & FLAG_HAS_HOST_EFFECT) && (host)) 
 		host_handle_buff()
 	if(flags & FLAG_PROCESS)
-		if(processing_flags & SHOULD_PROCESS_AFTER_DEATH)
-			START_PROCESSING(SSprocessing, src)
-		else
+		if(!(processing_flags & SHOULD_PROCESS_AFTER_DEATH))
 			RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_mob_death)) 
 			RegisterSignal(user, COMSIG_LIVING_REVIVE, PROC_REF(on_mob_revive))
 			if(user.stat != DEAD)
 				START_PROCESSING(SSprocessing, src)
+			return TRUE
+		START_PROCESSING(SSprocessing, src)
 	return TRUE
 
 /datum/borer_datum/proc/check_host()
@@ -59,7 +59,7 @@
 	if((flags & FLAG_HOST_REQUIRED) || (flags & FLAG_HAS_HOST_EFFECT))
 		UnregisterSignal(user, COMSIG_BORER_ENTERED_HOST)
 		UnregisterSignal(user, COMSIG_BORER_LEFT_HOST)
-	if(flags & FLAG_HAS_HOST_EFFECT)
+	if((flags & FLAG_HAS_HOST_EFFECT) && (previous_host))
 		host_handle_buff(FALSE)
 	if(flags & FLAG_PROCESS)
 		if(!(processing_flags & SHOULD_PROCESS_AFTER_DEATH))
