@@ -22,11 +22,11 @@
 /datum/borer_datum/proc/Grant(mob/living/simple_animal/borer/borer)
 	user = borer
 	host = borer.host
-	previous_host = borer.host
 	if(QDELETED(user) || !on_apply())
 		qdel(src)
 		return FALSE
 	if((flags & FLAG_HOST_REQUIRED) || (flags & FLAG_HAS_HOST_EFFECT)) // important to change host value.
+		previous_host = borer.host
 		RegisterSignal(user, COMSIG_BORER_ENTERED_HOST, PROC_REF(check_host))
 		RegisterSignal(user, COMSIG_BORER_LEFT_HOST, PROC_REF(check_host)) 
 	if(flags & FLAG_HAS_HOST_EFFECT)
@@ -48,10 +48,9 @@
 		switch(host) 
 			if(TRUE)
 				host_handle_buff() // use host.
-				previous_host = host
 			if(FALSE)
-				if(host_handle_buff(FALSE)) // use previous_host to delete buff from previous host.
-					previous_host = host
+				host_handle_buff(FALSE) // use previous_host to delete buff from previous host.
+	previous_host = host
 
 /datum/borer_datum/proc/host_handle_buff(var/grant = TRUE) // if we want transferable effects between hosts.
 	return TRUE
