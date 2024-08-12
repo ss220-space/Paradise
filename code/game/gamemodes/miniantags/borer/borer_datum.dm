@@ -48,6 +48,7 @@
 		switch(host) 
 			if(TRUE)
 				host_handle_buff() // use host.
+				previous_host = host
 			if(FALSE)
 				if(host_handle_buff(FALSE)) // use previous_host to delete buff from previous host.
 					previous_host = host
