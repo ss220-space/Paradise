@@ -21,6 +21,8 @@
 #define HOLOGRAM (1<<5)
 /// Was this spawned by an admin? used for stat tracking stuff.
 #define ADMIN_SPAWNED (1<<6)
+/// Whether /atom/Initialize() has already run for the object
+#define INITIALIZED (1<<7)
 
 
 // Update flags for [/atom/proc/update_appearance]

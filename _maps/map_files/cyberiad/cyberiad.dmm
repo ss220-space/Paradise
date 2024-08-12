@@ -6484,8 +6484,7 @@
 	},
 /obj/effect/decal/warning_stripes/southeast,
 /obj/structure/marker_beacon{
-	icon_state = "markerburgundy-on";
-	initialized = 1
+	icon_state = "markerburgundy-on"
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -8220,8 +8219,7 @@
 	},
 /obj/effect/decal/warning_stripes/northeast,
 /obj/structure/marker_beacon{
-	icon_state = "markerburgundy-on";
-	initialized = 1
+	icon_state = "markerburgundy-on"
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -9241,8 +9239,7 @@
 	},
 /obj/effect/decal/warning_stripes/southeast,
 /obj/structure/marker_beacon{
-	icon_state = "markercerulean-on";
-	initialized = 1
+	icon_state = "markercerulean-on"
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -10217,8 +10214,7 @@
 	},
 /obj/effect/decal/warning_stripes/northeast,
 /obj/structure/marker_beacon{
-	icon_state = "markercerulean-on";
-	initialized = 1
+	icon_state = "markercerulean-on"
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -11942,8 +11938,7 @@
 "aMq" = (
 /obj/effect/decal/cleanable/crayon{
 	color = "#66171a";
-	icon_state = "security";
-	initialized = 1
+	icon_state = "security"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/livingcomplex)
@@ -12281,7 +12276,6 @@
 	},
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "yip";
-	initialized = 1;
 	pixel_x = 14;
 	pixel_y = 32
 	},
@@ -72816,7 +72810,6 @@
 	},
 /obj/structure/closet/secure_closet/security{
 	broken = 1;
-	initialized = 1;
 	locked = 0
 	},
 /turf/simulated/floor/plating,

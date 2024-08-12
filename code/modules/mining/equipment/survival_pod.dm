@@ -65,6 +65,10 @@
 	if(QDELETED(src))
 		return
 	var/turf/deploy_location = get_turf(src)
+	if((check_level_trait(deploy_location.z, STATION_LEVEL)) && !emagged)
+		to_chat(triggerer, span_notice("Error. Expanding was attempted on the station sector. Expanding aborted."))
+		playsound(triggerer, 'sound/machines/buzz-sigh.ogg', 15, TRUE)
+		return
 	var/status = template.check_deploy(deploy_location)
 	switch(status)
 		if(SHELTER_DEPLOY_BAD_AREA)
