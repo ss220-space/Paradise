@@ -57,11 +57,11 @@
 	desc = "A blade designed to be hidden just beneath the skin. The brain is directly linked to this bad boy, allowing it to spring into action."
 	icon_state = "syndie_mantis"
 	item_state = "syndie_mantis"
-	force = 20
+	force = 25
 	throwforce = 20
 	w_class = WEIGHT_CLASS_NORMAL
-	block_chance = 30
-	armour_penetration = 30
+	block_chance = 35
+	armour_penetration = 40
 	sharp = TRUE
 	item_flags = NOSHARPENING
 	origin_tech = "combat=5"
@@ -88,6 +88,30 @@
 	var/obj/item/melee/mantisblade/secondsword = user.get_inactive_hand()
 	secondsword.attack(M, user, TRUE)
 	user.changeNext_move(CLICK_CD_MELEE)
+
+
+/obj/item/melee/mantisblade/afterattack(atom/target, mob/user, proximity)
+    if(!proximity)
+        return
+    if(prob(25))
+        do_sparks(rand(1,6), 1, loc)
+    if(istype(target, /obj/machinery/door/airlock))
+        var/obj/machinery/door/airlock/A = target
+
+        if(!A.requiresID() || A.allowed(user))
+            return
+
+        if(A.locked)
+            to_chat(user, "<span class='notice'>The airlock's bolts prevent it from being forced.</span>")
+            return
+
+        if(A.arePowerSystemsOn())
+            user.visible_message("<span class='warning'>[user] jams [user.p_their()] [name] into the airlock and starts prying it open!</span>", "<span class='warning'>You start forcing the airlock open.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
+            playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
+            if(!do_after(user, 2.5 SECONDS, A))
+                return
+        user.visible_message("<span class='warning'>[user] forces the airlock open with [user.p_their()] [name]!</span>", "<span class='warning'>You force open the airlock.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
+        A.open(2)
 
 /obj/item/melee/mantisblade/shellguard
 	name = "Shellguard mantis blade"
