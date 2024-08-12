@@ -33,6 +33,7 @@
 	GLOB.teleblock				= getAssignedBlock("TELE", numsToAssign,			DNA_HARD_BOUNDS,		good = TRUE)
 	GLOB.fireblock				= getAssignedBlock("FIRE", numsToAssign,			DNA_HARDER_BOUNDS,		good = TRUE)
 	GLOB.xrayblock				= getAssignedBlock("XRAY", numsToAssign,			DNA_HARDER_BOUNDS,		good = TRUE)
+	GLOB.farvisionblock			= getAssignedBlock("FARVISION", numsToAssign,		DNA_HARD_BOUNDS,		good = TRUE)
 	GLOB.clumsyblock			= getAssignedBlock("CLUMSY", numsToAssign)
 	GLOB.coughblock				= getAssignedBlock("COUGH", numsToAssign)
 	GLOB.glassesblock			= getAssignedBlock("GLASSES", numsToAssign)
@@ -40,7 +41,6 @@
 	GLOB.twitchblock			= getAssignedBlock("TWITCH", numsToAssign)
 	GLOB.nervousblock			= getAssignedBlock("NERVOUS", numsToAssign)
 	GLOB.wingdingsblock			= getAssignedBlock("WINGDINGS", numsToAssign)
-	GLOB.farvisionblock			= getAssignedBlock("FARVISION", numsToAssign)
 
 	// fake empty genes
 	GLOB.fakeblock1				= getAssignedBlock("", numsToAssign)
