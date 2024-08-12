@@ -3,7 +3,7 @@
 #define TICKS_TO_ELDER 600
 #define FLAG_PROCESS (1<<0) // processing datum
 #define FLAG_HOST_REQUIRED (1<<1) // essential if we handle host
-#define FLAG_HAS_HOST_EFFECT (1<<2) // if we applying something to host and want to transfer these buffs between hosts. We'll need that in future.
+#define FLAG_HAS_HOST_EFFECT (1<<2) // if we applying something to host and want to transfer these effects between hosts. We'll need that in future.
 /// processing flags
 #define SHOULD_PROCESS_AFTER_DEATH (1<<0) // Doesn't register signals, process even borer is dead.
 
@@ -16,8 +16,14 @@
 /datum/borer_datum/New(mob/living/simple_animal/borer/borer)
 	if(!borer)
 		qdel(src)
+	grant(borer)
+
+/datum/borer_datum/proc/Grant(mob/living/simple_animal/borer/borer)
 	user = borer
 	host = borer.host
+	if(QDELETED(user) || !on_apply())
+		qdel(src)
+		return FALSE
 	if((flags & FLAG_HOST_REQUIRED) || (flags & FLAG_HAS_HOST_EFFECT)) // important to change host value.
 		RegisterSignal(user, COMSIG_BORER_ENTERED_HOST, PROC_REF(check_host))
 		RegisterSignal(user, COMSIG_BORER_LEFT_HOST, PROC_REF(check_host)) 
@@ -31,7 +37,7 @@
 			RegisterSignal(user, COMSIG_LIVING_REVIVE, PROC_REF(on_mob_revive))
 			if(user.stat != DEAD)
 				START_PROCESSING(SSprocessing, src)
-	on_apply()
+	return TRUE
 
 /datum/borer_datum/proc/check_host()
 	SIGNAL_HANDLER
@@ -43,7 +49,7 @@
 			if(FALSE)
 				host_handle_buff(FALSE)
 
-/datum/borer_datum/proc/host_handle_buff(var/grant = TRUE)
+/datum/borer_datum/proc/host_handle_buff(var/grant = TRUE) // if we want transferable effects between hosts.
 	return
 
 /datum/borer_datum/Destroy(force)
@@ -61,8 +67,8 @@
 	host = null
 	return ..()
 	
-/datum/borer_datum/proc/on_apply()
-	return
+/datum/borer_datum/proc/on_apply() // Apply something to BORER or untransferable effect to host.
+	return TRUE
 
 /datum/borer_datum/proc/on_mob_death()
 	SIGNAL_HANDLER
@@ -96,16 +102,20 @@
 
 /datum/borer_datum/borer_rank/young/on_apply()
 	user.update_transform(0.5)
+	return TRUE
 
 /datum/borer_datum/borer_rank/mature/on_apply()
 	user.update_transform(2)
 	user.maxHealth += 5
+	return TRUE
 
 /datum/borer_datum/borer_rank/adult/on_apply()
 	user.maxHealth += 5
+	return TRUE
 
 /datum/borer_datum/borer_rank/elder/on_apply()
 	user.maxHealth += 10
+	return TRUE
 
 /datum/borer_datum/borer_rank/young/process()
 	user.adjustHealth(-0.1)
