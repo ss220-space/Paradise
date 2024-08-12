@@ -4,26 +4,33 @@
 #define FLAG_PROCESS (1<<0) // processing datum
 #define FLAG_HOST_REQUIRED (1<<1) // essential if we handle host
 #define FLAG_HAS_HOST_EFFECT (1<<2) // if we applying something to host and want to transfer these buffs between hosts. We'll need that in future.
+/// processing flags
+#define SHOULD_PROCESS_AFTER_DEATH (1<<0) // Doesn't register signals, process even borer is dead.
 
 /datum/borer_datum
 	var/mob/living/simple_animal/borer/user // our borer
 	var/mob/living/carbon/human/host // our host
 	var/flags = NONE
+	var/processing_flags = NONE
 
 /datum/borer_datum/New(mob/living/simple_animal/borer/borer)
 	if(!borer)
 		qdel(src)
 	user = borer
 	host = borer.host
-	if(flags & FLAG_HOST_REQUIRED | FLAG_HAS_HOST_EFFECT)
-		RegisterSignal(user, COMSIG_BORER_ENTERED_HOST, PROC_REF(check_host)) // important to check host.
+	if((flags & FLAG_HOST_REQUIRED) || (flags & FLAG_HAS_HOST_EFFECT)) // important to change host value.
+		RegisterSignal(user, COMSIG_BORER_ENTERED_HOST, PROC_REF(check_host))
 		RegisterSignal(user, COMSIG_BORER_LEFT_HOST, PROC_REF(check_host)) 
 	if(flags & FLAG_HAS_HOST_EFFECT)
 		host_handle_buff()
 	if(flags & FLAG_PROCESS)
-		RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_mob_death)) // to stop our processing after death
-		RegisterSignal(user, COMSIG_LIVING_REVIVE, PROC_REF(on_mob_revive)) // to start our processing after revive
-		START_PROCESSING(SSprocessing, src)
+		if(processing_flags & SHOULD_PROCESS_AFTER_DEATH)
+			START_PROCESSING(SSprocessing, src)
+		else
+			RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_mob_death)) 
+			RegisterSignal(user, COMSIG_LIVING_REVIVE, PROC_REF(on_mob_revive))
+			if(user.stat != DEAD)
+				START_PROCESSING(SSprocessing, src)
 	on_apply()
 
 /datum/borer_datum/proc/check_host()
@@ -46,8 +53,9 @@
 	if(flags & FLAG_HAS_HOST_EFFECT)
 		host_handle_buff(FALSE)
 	if(flags & FLAG_PROCESS)
-		UnregisterSignal(user, COMSIG_MOB_DEATH)
-		UnregisterSignal(user, COMSIG_LIVING_REVIVE)
+		if(!(processing_flags & SHOULD_PROCESS_AFTER_DEATH))
+			UnregisterSignal(user, COMSIG_MOB_DEATH)
+			UnregisterSignal(user, COMSIG_LIVING_REVIVE)
 		STOP_PROCESSING(SSprocessing, src)
 	user = null
 	host = null
@@ -174,3 +182,4 @@
 #undef FLAG_PROCESS
 #undef FLAG_HOST_REQUIRED 
 #undef FLAG_HAS_HOST_EFFECT 
+#undef SHOULD_PROCESS_AFTER_DEATH
