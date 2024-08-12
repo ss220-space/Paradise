@@ -47,7 +47,7 @@
 	return
 
 /datum/borer_datum/Destroy(force)
-	if(flags & FLAG_HOST_REQUIRED | FLAG_HAS_HOST_EFFECT)
+	if((flags & FLAG_HOST_REQUIRED) || (flags & FLAG_HAS_HOST_EFFECT))
 		UnregisterSignal(user, COMSIG_BORER_ENTERED_HOST)
 		UnregisterSignal(user, COMSIG_BORER_LEFT_HOST)
 	if(flags & FLAG_HAS_HOST_EFFECT)
