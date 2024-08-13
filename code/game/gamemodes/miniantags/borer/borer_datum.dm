@@ -143,7 +143,7 @@
 		user.chemicals += 0.3
 
 /datum/borer_datum/focus
-	var/bodypartname 
+	var/bodypartname = "Focus"
 	var/cost = 250
 	flags = FLAG_HAS_HOST_EFFECT
 	
@@ -180,7 +180,7 @@
 		if(TRUE)
 			host?.physiology.brute_mod *= 0.8
 		if(FALSE)
-			previous_host?.physiology.brute_mod *= 0.8
+			previous_host?.physiology.brute_mod /= 0.8
 	return TRUE
 
 /datum/borer_datum/focus/torso/process()
