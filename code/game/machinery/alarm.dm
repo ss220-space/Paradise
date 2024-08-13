@@ -979,19 +979,8 @@
 /obj/machinery/alarm/attackby(obj/item/I, mob/user, params)
 	switch(buildstage)
 		if(AIR_ALARM_READY)
-			if(I.GetID() || is_pda(I)) // trying to unlock the interface
-				if(stat & (NOPOWER|BROKEN))
-					to_chat(user, span_warning("It does nothing!"))
-					return
-
-				if(allowed(user) && !wires.is_cut(WIRE_IDSCAN))
-					add_fingerprint(user)
-					locked = !locked
-					to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] the Air Alarm interface."))
-					SStgui.update_uis(src)
-				else
-					to_chat(user, span_warning("Access denied."))
-				return
+			if(I.GetID() || is_pda(I))
+				unlocking(user)
 
 		if(AIR_ALARM_BUILDING)
 			if(iscoil(I))
@@ -1020,6 +1009,26 @@
 				update_icon(UPDATE_ICON_STATE)
 				return
 	return ..()
+
+/obj/machinery/alarm/AltClick(mob/user)
+	if(isliving(user) && buildstage == AIR_ALARM_READY)
+		if(Adjacent(user, src))
+			unlocking(user)
+	else
+		. = ..()
+
+/obj/machinery/alarm/proc/unlocking(mob/user)
+	if(HAS_TRAIT(user, TRAIT_INCAPACITATED) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+	if(allowed(usr) && !wires.is_cut(WIRE_IDSCAN))
+		locked = !locked
+		to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the APC interface.</span>")
+		update_icon()
+		SStgui.update_uis(src)
+	else
+		to_chat(user, "<span class='warning'>Access denied.</span>")
+		return
+
 
 /obj/machinery/alarm/crowbar_act(mob/user, obj/item/I)
 	if(buildstage != AIR_ALARM_BUILDING)
