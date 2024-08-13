@@ -115,7 +115,8 @@
 		GLOB._preloader.load(src)
 	. = ..()
 	attempt_init(arglist(args))
-	SSdemo.mark_new(src)
+	if(SSdemo?.initialized)
+		SSdemo.mark_new(src)
 
 // This is distinct from /tg/ because of our space management system
 // This is overriden in /atom/movable and the parent isn't called if the SMS wants to deal with it's init
