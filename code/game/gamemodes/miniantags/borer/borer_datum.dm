@@ -165,11 +165,11 @@
 /datum/borer_datum/focus/head/host_handle_buff(grant = TRUE)
 	switch(grant)
 		if(TRUE)
-			host?.dna.species.brain_mod *= 0.7
-			host?.dna.species.hunger_drain *= 0.3
+			host?.physiology.brain_mod *= 0.7
+			host?.physiology.hunger_mod *= 0.3
 		if(FALSE)
-			previous_host?.dna.species.brain_mod /= 0.7
-			previous_host?.dna.species.hunger_drain /= 0.3
+			previous_host?.physiology.brain_mod /= 0.7
+			previous_host?.physiology.hunger_mod /= 0.3
 	return TRUE
 			
 /datum/borer_datum/focus/head/process()
@@ -205,9 +205,9 @@
 /datum/borer_datum/focus/legs/host_handle_buff(grant = TRUE)
 	switch(grant)
 		if(TRUE)
-			host?.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = host.physiology.speed_mod - 0.5)
+			host?.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = host.dna.species.speed_mod - 0.5)
 		if(FALSE)
-			previous_host?.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = previous_host.physiology.speed_mod + 0.5)
+			previous_host?.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = previous_host.dna.species.speed_mod + 0.5)
 	return TRUE
 
 /datum/borer_chem
