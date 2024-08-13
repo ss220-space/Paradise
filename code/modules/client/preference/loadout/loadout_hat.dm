@@ -135,6 +135,11 @@
 	path = /obj/item/clothing/head/beret/sci
 	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT, JOB_TITLE_ROBOTICIST, JOB_TITLE_GENETICIST)
 
+datum/gear/hat/paramedic
+	display_name = "paramedic cap"
+	path = /obj/item/clothing/head/soft/paramedic
+	allowed_roles = list(JOB_TITLE_PARAMEDIC)
+
 /datum/gear/hat/beret_job/med
 	display_name = "medical beret"
 	path = /obj/item/clothing/head/beret/med

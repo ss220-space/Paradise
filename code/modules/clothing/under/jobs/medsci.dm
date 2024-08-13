@@ -218,6 +218,13 @@
 	permeability_coefficient = 0.50
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 10, "fire" = 0, "acid" = 0)
 
+/obj/item/clothing/under/rank/medical/paramedic/skirt
+	desc = "It's made of a special fiber that provides minor protection against biohazards and radiation blue jumpskirt. It has a cross on the chest denoting that the wearer is trained medical personnel."
+	name = "paramedic's jumpskirt"
+	icon_state = "paramedicf"
+	item_state = "paramedicf"
+	item_color = "paramedicf"
+
 /obj/item/clothing/under/rank/psych
 	desc = "A basic white jumpsuit. It has turqouise markings that denote the wearer as a psychiatrist."
 	name = "psychiatrist's jumpsuit"
