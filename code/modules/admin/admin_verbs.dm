@@ -3,8 +3,8 @@ GLOBAL_LIST_INIT(admin_verbs_default, list(
 	/client/proc/deadmin_self,			/*destroys our own admin datum so we can play as a regular player*/
 	/client/proc/hide_verbs,			/*hides all our adminverbs*/
 	/client/proc/cmd_mentor_check_new_players,
-	/client/proc/cmd_mentor_check_player_exp /* shows players by playtime */
-	))
+	/client/proc/cmd_mentor_check_player_exp, /* shows players by playtime */
+))
 GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/check_antagonists,		/*shows all antags*/
 	/datum/admins/proc/show_player_panel,
@@ -65,20 +65,24 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/toggle_pacifism_gt,
 	/client/proc/toogle_ghost_vision,
 	/datum/admins/proc/changetitlescreen,
-	/client/proc/debugstatpanel
+	/client/proc/debugstatpanel,
+	/client/proc/openAdminTicketUI,
+	/client/proc/openMentorTicketUI,
+	/client/proc/resolveAllAdminTickets,
+	/client/proc/resolveAllMentorTickets,
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
 	/client/proc/stickybanpanel,
-	/datum/admins/proc/vpn_whitelist
-	))
+	/datum/admins/proc/vpn_whitelist,
+))
 GLOBAL_LIST_INIT(admin_verbs_sounds, list(
 	/client/proc/play_local_sound,
 	/client/proc/play_sound,
 	/client/proc/play_server_sound,
 	/client/proc/play_intercomm_sound,
-	/client/proc/stop_global_admin_sounds
-	))
+	/client/proc/stop_global_admin_sounds,
+))
 GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/secrets,
 	/client/proc/object_talk,
@@ -104,14 +108,13 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/outfit_manager,
 	/client/proc/cmd_admin_headset_message,
 	/client/proc/force_hijack,
-	/client/proc/requests
-	))
-
+	/client/proc/requests,
+))
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(
 	/datum/admins/proc/spawn_atom,		/*allows us to spawn instances*/
 	/client/proc/respawn_character,
-	/client/proc/admin_deserialize
-	))
+	/client/proc/admin_deserialize,
+))
 GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/client/proc/reload_admins,
 	/client/proc/Set_Holiday,
@@ -133,8 +136,8 @@ GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/client/proc/view_flagged_books,
 	/client/proc/view_asays,
 	/client/proc/toggle_antagHUD_use,
-	/client/proc/toggle_antagHUD_restrictions
-	))
+	/client/proc/toggle_antagHUD_restrictions,
+))
 GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/cmd_admin_list_open_jobs,
 	/client/proc/Debug2,
@@ -176,20 +179,20 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/toggle_Idlenpcpool_suspension,
 	/client/proc/toggle_npcpool_suspension,
 	/client/proc/debug_atom_init,
-	/client/proc/debugstatpanel
-	))
+	/client/proc/debugstatpanel,
+))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
-	/proc/release
-	))
+	/proc/release,
+))
 GLOBAL_LIST_INIT(admin_verbs_permissions, list(
 	/client/proc/edit_admin_permissions,
-	/client/proc/big_brother
-	))
+	/client/proc/big_brother,
+))
 GLOBAL_LIST_INIT(admin_verbs_rejuv, list(
 	/client/proc/respawn_character,
-	/client/proc/cmd_admin_rejuvenate
-	))
+	/client/proc/cmd_admin_rejuvenate,
+))
 GLOBAL_LIST_INIT(admin_verbs_mod, list(
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
@@ -202,32 +205,26 @@ GLOBAL_LIST_INIT(admin_verbs_mod, list(
 	/client/proc/dsay,
 	/datum/admins/proc/show_player_panel,
 	/client/proc/ban_panel,
-	/client/proc/debug_variables		/*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
+	/client/proc/debug_variables,		/*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
+	/client/proc/openAdminTicketUI,
 ))
 GLOBAL_LIST_INIT(admin_verbs_mentor, list(
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
 	/client/proc/openMentorTicketUI,
-	/client/proc/cmd_mentor_say	/* mentor say*/
+	/client/proc/cmd_mentor_say,	/* mentor say*/
 	// cmd_mentor_say is added/removed by the toggle_mentor_chat verb
 ))
 GLOBAL_LIST_INIT(admin_verbs_proccall, list(
 	/client/proc/callproc,
 	/client/proc/callproc_datum,
-	/client/proc/SDQL2_query
+	/client/proc/SDQL2_query,
 ))
-GLOBAL_LIST_INIT(admin_verbs_ticket, list(
-	/client/proc/openAdminTicketUI,
-	/client/proc/openMentorTicketUI,
-	/client/proc/resolveAllAdminTickets,
-	/client/proc/resolveAllMentorTickets
-))
-
 GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/view_runtimes,
 	/client/proc/ss_breakdown,
-	/client/proc/debug_variables
+	/client/proc/debug_variables,
 ))
 
 /client/proc/add_admin_verbs()
@@ -239,7 +236,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			add_verb(src, /client/proc/togglebuildmodeself)
 		if(holder.rights & R_ADMIN)
 			add_verb(src, GLOB.admin_verbs_admin)
-			add_verb(src, GLOB.admin_verbs_ticket)
 			spawn(1)
 				control_freak = 0
 		if(holder.rights & R_BAN)
@@ -307,9 +303,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		GLOB.admin_verbs_mentor,
 		GLOB.admin_verbs_proccall,
 		GLOB.admin_verbs_show_debug_verbs,
-		GLOB.admin_verbs_ticket,
-		/client/proc/stealth
-		))
+		/client/proc/stealth,
+	))
 	add_verb(src, /client/proc/show_verbs)
 
 	to_chat(src, "<span class='interface'>Almost all of your adminverbs have been hidden.</span>")
