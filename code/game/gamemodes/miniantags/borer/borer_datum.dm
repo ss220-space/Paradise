@@ -280,9 +280,9 @@
 	chemname = "spaceacillin"
 	chemdesc = "Slows progression of diseases and fights infections."
 
-#undef REPRODUCTIONS_TO_MATURE 3
-#undef REPRODUCTIONS_TO_ADULT 6
-#undef REPRODUCTIONS_TO_ELDER 10
+#undef REPRODUCTIONS_TO_MATURE
+#undef REPRODUCTIONS_TO_ADULT
+#undef REPRODUCTIONS_TO_ELDER
 #undef FLAG_PROCESS
 #undef FLAG_HOST_REQUIRED 
 #undef FLAG_HAS_HOST_EFFECT 
