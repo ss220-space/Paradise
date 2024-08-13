@@ -489,7 +489,7 @@
 	
 	for(var/datum in subtypesof(/datum/borer_datum/focus))
 		var/datum/borer_datum/focus/borer_datum = datum
-		if((borer_datum) && (!(borer_datum.type in learned_focuses)))
+		if(!LAZYIN(borer_datum, learned_focuses))
 			content += borer_datum.bodypartname
 			
 	if(!LAZYLEN(content))
@@ -508,7 +508,7 @@
 /mob/living/simple_animal/borer/proc/process_focus_choice(datum/borer_datum/focus/focus)
 	if(!src || !host || stat || docile)
 		return
-	if(focus in learned_focuses)
+	if(LAZYIN(focus, learned_focuses))
 		to_chat(src, span_notice("Вы не можете изучить уже изученный фокус."))
 	if(chemicals >= focus.cost)
 		chemicals -= focus.cost
