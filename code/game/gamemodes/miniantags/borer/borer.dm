@@ -519,8 +519,7 @@
 		chemicals -= focus.cost
 		to_chat(src, span_notice("Вы успешно приобрели [focus.bodypartname]"))
 		new focus
-		if(focus.Grant(src))
-			return learned_focuses += focus
+		return learned_focuses += focus
 	to_chat(src, span_notice("Вам требуется еще [focus.cost - chemicals] химикатов для получения [focus.bodypartname]."))
 
 	return 
