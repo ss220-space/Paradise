@@ -185,7 +185,9 @@
 
 /datum/borer_datum/focus/torso/process()
 	if(host?.stat != DEAD)
-		host?.set_heartattack(FALSE)
+		var/obj/item/organ/internal/heart/heart = host?.get_int_organ(/obj/item/organ/internal/heart)
+		if(heart)
+			host?.set_heartattack(FALSE)
 		
 /datum/borer_datum/focus/hands/host_handle_buff(grant = TRUE)
 	switch(grant)
