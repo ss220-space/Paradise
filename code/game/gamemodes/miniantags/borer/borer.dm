@@ -823,9 +823,9 @@
 		turf.add_vomit_floor()
 		new /mob/living/simple_animal/borer(turf, borer.generation + 1)
 		borer.reproductions += 1
-		if(borer_rank && borer_rank.required_reproductions && borer.reproductions >= borer_rank.required_reproductions)
-			borer.reproductions -= borer_rank.required_reproductions
-			if(update_rank(borer_rank))
+		if(borer.borer_rank && borer.borer_rank.required_reproductions && borer.reproductions >= borer.borer_rank.required_reproductions)
+			borer.reproductions -= borer.borer_rank.required_reproductions
+			if(borer.update_rank(borer.borer_rank))
 				to_chat(src, span_notice("Вы стали древнее. Ваш текущий ранг - [borer_rank.rankname]."))
 	else
 		to_chat(src, "Вам требуется 100 химикатов для размножения!")
