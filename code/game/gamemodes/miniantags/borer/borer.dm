@@ -91,6 +91,7 @@
 	minbodytemp = 0
 	maxbodytemp = 1500
 	var/generation = 1
+	var/list/learned_focuses = list() // exclude learned focuses from focus menu.
 	var/static/list/borer_names = list(
 			"Primary", "Secondary", "Tertiary", "Quaternary", "Quinary", "Senary",
 			"Septenary", "Octonary", "Novenary", "Decenary", "Undenary", "Duodenary",
@@ -120,6 +121,7 @@
 	var/datum/action/innate/borer/make_larvae/make_larvae_action = new
 	var/datum/action/innate/borer/torment/torment_action = new
 	var/datum/action/innate/borer/sneak_mode/sneak_mode_action = new
+	var/datum/action/innate/borer/focus_menu/focus_menu_action = new
 
 /mob/living/simple_animal/borer/New(atom/newloc, var/gen=1)
 	update_rank()
@@ -470,6 +472,55 @@
 		// instead of a table or something. Thus, when we instance it, we can safely delete it
 		qdel(C)
 	..()
+
+/mob/living/simple_animal/borer/verb/focus_menu()
+	set category = "Borer"
+	set name = "Focus menu"
+	set desc = "Reinforce your host."
+
+	if(!host)
+		to_chat(src, "Вы не находитесь в теле носителя.")
+		return
+
+	if(stat)
+		to_chat(src, "Вы не можете производить химикаты в вашем нынешнем состоянии.")
+		return
+
+	if(docile)
+		to_chat(src, "<font color='blue'>Вы слишком обессилели для этого.</font>")
+		return
+		
+	var/content = list()
+	
+	for(var/datum in subtypesof(/datum/borer_datum/focus))
+		var/datum/borer_datum/focus/borer_datum = datum
+		if((borer_datum) && (!(borer_datum.type in learned_focuses)))
+			content += borer_datum.bodypartname
+			
+	if(!LAZYLEN(content))
+		to_chat(src, span_notice("Вы приобрели все доступные фокусы."))
+		return
+		
+	var/tgui_menu = tgui_input_list(src, "Choose focus", "Focus Menu", content)
+	if(tgui_menu)
+		for(var/datum in subtypesof(/datum/borer_datum/focus))
+			var/datum/borer_datum/focus/borer_datum = datum
+			if(tgui_menu == borer_datum.bodypartname)
+				process_focus_choice(borer_datum)
+
+	return
+
+/mob/living/simple_animal/borer/proc/process_focus_choice(datum/borer_datum/focus/focus)
+	if(!src || !host || stat || docile)
+		return
+	if(chemicals >= focus.cost)
+		chemicals -= focus.cost
+		to_chat(src, span_notice("Вы успешно приобрели [focus.bodypartname]"))
+		if(new focus(src))
+			return learned_focuses += focus
+	to_chat(src, span_notice("Вам требуется еще [focus.cost - chemicals] химикатов для получения [focus.bodypartname]."))
+
+	return 
 
 /mob/living/simple_animal/borer/verb/hide_borer()
 	set category = "Borer"
@@ -909,12 +960,14 @@
 	leave_body_action.Grant(src)
 	take_control_action.Grant(src)
 	make_chems_action.Grant(src)
+	focus_menu_action.Grant(src)
 
 /mob/living/simple_animal/borer/proc/RemoveInfestActions()
 	talk_to_host_action.Remove(src)
 	take_control_action.Remove(src)
 	leave_body_action.Remove(src)
 	make_chems_action.Remove(src)
+	focus_menu_action.Remove(src)
 
 /mob/living/simple_animal/borer/proc/GrantControlActions()
 	talk_to_brain_action.Grant(host)
@@ -1009,6 +1062,15 @@
 /datum/action/innate/borer/make_chems/Activate()
 	var/mob/living/simple_animal/borer/B = owner
 	B.secrete_chemicals()
+
+/datum/action/innate/borer/focus_menu
+	name = "Focus menu"
+	desc = "Reinforce your host."
+	button_icon_state = "human_form"
+
+/datum/action/innate/borer/focus_menu/Activate()
+	var/mob/living/simple_animal/borer/borer = owner
+	borer.focus_menu()
 
 /datum/action/innate/borer/make_larvae
 	name = "Reproduce"
