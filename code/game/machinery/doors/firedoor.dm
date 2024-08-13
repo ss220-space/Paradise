@@ -233,7 +233,7 @@
 
 /obj/machinery/door/firedoor/update_icon_state()
 	icon_state = "door_[density ? "closed" : "open"]"
-
+	SSdemo.mark_dirty(src)
 
 /obj/machinery/door/firedoor/update_overlays()
 	. = ..()
@@ -243,6 +243,7 @@
 		if(light_on)
 			. += emissive_appearance('icons/obj/doors/doorfire.dmi', "alarmlights_lightmask", src)
 		. += image('icons/obj/doors/doorfire.dmi', "alarmlights")
+	SSdemo.mark_dirty(src)
 
 
 /obj/machinery/door/firedoor/proc/activate_alarm()

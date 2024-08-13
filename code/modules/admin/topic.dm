@@ -2069,7 +2069,7 @@
 		//exists?
 		if( !M )	return
 		if(!istype(M))
-			to_chat(usr, "This can only be used on instances of type /mob")
+			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 		if(isobserver(M))
 			to_chat(usr, "This can only be used on living")

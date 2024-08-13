@@ -271,6 +271,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	GLOB.world_qdel_log = "[GLOB.log_directory]/qdel.log"
 	GLOB.world_asset_log = "[GLOB.log_directory]/asset.log"
 	GLOB.tgui_log = "[GLOB.log_directory]/tgui.log"
+	GLOB.demo_log = "[GLOB.log_directory]/demo.txt"
 	GLOB.http_log = "[GLOB.log_directory]/http.log"
 	GLOB.sql_log = "[GLOB.log_directory]/sql.log"
 	start_log(GLOB.world_game_log)

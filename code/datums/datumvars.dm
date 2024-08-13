@@ -531,16 +531,16 @@
 
 	//~CARN: for renaming mobs (updates their name, real_name, mind.name, their ID/PDA and datacore records).
 	else if(href_list["rename"])
-		if(!check_rights(R_ADMIN))	
+		if(!check_rights(R_ADMIN))
 			return
 
 		var/mob/M = locateUID(href_list["rename"])
 		if(!istype(M))
-			to_chat(usr, "This can only be used on instances of type /mob")
+			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
 		var/new_name = reject_bad_name(sanitize(copytext_char(input(usr, "What would you like to name this mob?", "Input a name", M.real_name) as text|null, 1, MAX_NAME_LEN)), allow_numbers = TRUE)
-		if( !new_name || !M )	
+		if( !new_name || !M )
 			return
 
 		message_admins("Admin [key_name_admin(usr)] renamed [key_name_admin(M)] to [new_name].")
@@ -548,7 +548,7 @@
 		href_list["datumrefresh"] = href_list["rename"]
 
 	else if(href_list["varnameedit"] && href_list["datumedit"])
-		if(!check_rights(R_VAREDIT))	
+		if(!check_rights(R_VAREDIT))
 			return
 
 		var/D = locateUID(href_list["datumedit"])
@@ -599,7 +599,7 @@
 
 		var/mob/M = locateUID(href_list["mob_player_panel"])
 		if(!istype(M))
-			to_chat(usr, "This can only be used on instances of type /mob")
+			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
 		src.holder.show_player_panel(M)
@@ -610,7 +610,7 @@
 
 		var/mob/M = locateUID(href_list["give_spell"])
 		if(!istype(M))
-			to_chat(usr, "This can only be used on instances of type /mob")
+			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
 		src.give_spell(M)
@@ -649,7 +649,7 @@
 
 		var/mob/M = locateUID(href_list["give_disease"])
 		if(!istype(M))
-			to_chat(usr, "This can only be used on instances of type /mob")
+			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
 		src.give_disease(M)
@@ -676,7 +676,7 @@
 
 		var/mob/M = locateUID(href_list["godmode"])
 		if(!istype(M))
-			to_chat(usr, "This can only be used on instances of type /mob")
+			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
 		src.cmd_admin_godmode(M)
@@ -687,7 +687,7 @@
 
 		var/mob/M = locateUID(href_list["gib"])
 		if(!istype(M))
-			to_chat(usr, "This can only be used on instances of type /mob")
+			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
 		src.cmd_admin_gib(M)
@@ -697,7 +697,7 @@
 
 		var/mob/M = locateUID(href_list["build_mode"])
 		if(!istype(M))
-			to_chat(usr, "This can only be used on instances of type /mob")
+			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
 		togglebuildmode(M)
@@ -708,7 +708,7 @@
 
 		var/mob/M = locateUID(href_list["drop_everything"])
 		if(!istype(M))
-			to_chat(usr, "This can only be used on instances of type /mob")
+			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
 		if(usr.client)
@@ -719,7 +719,7 @@
 
 		var/mob/M = locateUID(href_list["direct_control"])
 		if(!istype(M))
-			to_chat(usr, "This can only be used on instances of type /mob")
+			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
 		if(usr.client)
@@ -746,7 +746,7 @@
 
 		var/mob/M = locateUID(href_list["offer_control"])
 		if(!istype(M))
-			to_chat(usr, "This can only be used on instances of type /mob")
+			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 		offer_control(M)
 

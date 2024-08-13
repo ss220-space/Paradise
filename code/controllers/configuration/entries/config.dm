@@ -700,6 +700,9 @@
 
 /datum/config_entry/flag/config_errors_runtime
 
+/// Whether demos are written, if not set demo SS never initializes
+/datum/config_entry/flag/demos_enabled
+
 //Needs proper testing
 /datum/config_entry/keyed_list/probability
 	key_mode = KEY_MODE_TEXT

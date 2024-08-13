@@ -5,6 +5,12 @@
 		if(!resolved && target && !QDELETED(src))
 			afterattack(target, user, 1, params) // 1: clicking something Adjacent
 
+	SSdemo.mark_dirty(src)
+	if(isturf(target))
+		SSdemo.mark_turf(target)
+	else
+		SSdemo.mark_dirty(target)
+
 //Checks if the item can work as a tool, calling the appropriate tool behavior on the target
 //Note that if tool_act returns TRUE, then the tool won't call attack_by.
 /obj/item/proc/tool_attack_chain(mob/user, atom/target)
@@ -19,6 +25,7 @@
 		return
 	if(signal_ret & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
+	SSdemo.mark_dirty(src)
 
 /obj/item/proc/pre_attackby(atom/A, mob/living/user, params) //do stuff before attackby!
 	if(SEND_SIGNAL(src, COMSIG_ITEM_PRE_ATTACKBY, A, user, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
