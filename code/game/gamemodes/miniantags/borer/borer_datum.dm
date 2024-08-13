@@ -94,7 +94,7 @@
 
 /datum/borer_datum/miscellaneous/change_host_and_scale/host_handle_buff(grant = TRUE)
 	if(grant && host?.ckey && !locate(host?.ckey) in used_ckeys)
-		user.max_chemicals += 10
+		user.max_chems += 10
 		used_ckeys += host.ckey
 
 	return TRUE
