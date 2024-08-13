@@ -826,7 +826,7 @@
 		if(borer.borer_rank && borer.borer_rank.required_reproductions && borer.reproductions >= borer.borer_rank.required_reproductions)
 			borer.reproductions -= borer.borer_rank.required_reproductions
 			if(borer.update_rank(borer.borer_rank))
-				to_chat(src, span_notice("Вы стали древнее. Ваш текущий ранг - [borer_rank.rankname]."))
+				to_chat(src, span_notice("Вы стали древнее. Ваш текущий ранг - [borer.borer_rank.rankname]."))
 	else
 		to_chat(src, "Вам требуется 100 химикатов для размножения!")
 		return

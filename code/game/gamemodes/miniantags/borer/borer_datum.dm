@@ -92,9 +92,8 @@
 	var/list/used_ckeys = list()
 	flags = FLAG_HAS_HOST_EFFECT
 
-/datum/borer_datum/miscellaneous/change_host_and_scale/New(mob/living/simple_animal/borer/borer)
-	if(!borer)
-		qdel(src)
+/datum/borer_datum/miscellaneous/change_host_and_scale/New()
+	return
 
 /datum/borer_datum/miscellaneous/change_host_and_scale/host_handle_buff(grant = TRUE)
 	if(grant && host?.ckey && !locate(host?.ckey) in used_ckeys)
