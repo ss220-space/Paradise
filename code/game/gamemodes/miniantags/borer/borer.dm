@@ -513,10 +513,13 @@
 /mob/living/simple_animal/borer/proc/process_focus_choice(datum/borer_datum/focus/focus)
 	if(!src || !host || stat || docile)
 		return
+	if(focus in learned_focuses)
+		to_chat(src, span_notice("Вы не можете изучить уже изученный фокус."))
 	if(chemicals >= focus.cost)
 		chemicals -= focus.cost
 		to_chat(src, span_notice("Вы успешно приобрели [focus.bodypartname]"))
-		if(new focus(src))
+		new focus
+		if(focus.Grant(src))
 			return learned_focuses += focus
 	to_chat(src, span_notice("Вам требуется еще [focus.cost - chemicals] химикатов для получения [focus.bodypartname]."))
 

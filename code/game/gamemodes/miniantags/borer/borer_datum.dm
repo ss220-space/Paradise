@@ -17,8 +17,7 @@
 /datum/borer_datum/New(mob/living/simple_animal/borer/borer)
 	if(!borer)
 		qdel(src)
-	if(Grant(borer))
-		return TRUE
+	Grant(borer)
 
 /datum/borer_datum/proc/Grant(mob/living/simple_animal/borer/borer)
 	user = borer
