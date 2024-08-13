@@ -483,11 +483,11 @@
 		return
 
 	if(stat)
-		to_chat(src, "Вы не можете производить химикаты в вашем нынешнем состоянии.")
+		to_chat(src, "Вы не можете приобрести фокус в вашем текущем состоянии.")
 		return
 
 	if(docile)
-		to_chat(src, "<font color='blue'>Вы слишком обессилели для этого.</font>")
+		to_chat(src, "Вы слишком обессилели для этого.")
 		return
 		
 	var/content = list()
