@@ -108,8 +108,9 @@
 	var/leaving = FALSE
 	var/sneaking = FALSE
 	var/hiding = FALSE
-	var/age = 0 // counts while in host, used to upgrade rank
+	var/reproductions = 0 // used to upgrade rank
 	var/datum/borer_datum/borer_rank/borer_rank
+	var/datum/borer_datum/miscellaneous/change_host_and_scale = new(src)
 	var/datum/action/innate/borer/talk_to_host/talk_to_host_action = new
 	var/datum/action/innate/borer/toggle_hide/toggle_hide_action = new
 	var/datum/action/innate/borer/talk_to_borer/talk_to_borer_action = new
@@ -271,8 +272,6 @@
 	if(host)
 
 		if(!stat && host.stat != DEAD)
-			if(!istype(borer_rank, /datum/borer_datum/borer_rank/elder))
-				age++
 
 			if(host.reagents.has_reagent("sugar"))
 
@@ -293,11 +292,6 @@
 
 			if(chemicals < max_chems && !sneaking)
 				chemicals++
-
-			if(!istype(borer_rank, /datum/borer_datum/borer_rank/elder) && age >= borer_rank.grow_time)
-				if(update_rank(borer_rank.type))
-					age = initial(age) // custom age.
-					to_chat(src, span_notice("Вы стали древнее. Ваш текущий ранг - [borer_rank.rankname]."))
 
 			if(controlling)
 
@@ -815,19 +809,23 @@
 	set name = "Reproduce"
 	set desc = "Spawn several young."
 
-	var/mob/living/simple_animal/borer/B = has_brain_worms()
+	var/mob/living/simple_animal/borer/borer = has_brain_worms()
 
-	if(!B)
+	if(!borer)
 		return
 
-	if(B.chemicals >= 100)
+	if(borer.chemicals >= 100)
 		to_chat(src, span_danger("Ваш хозяин дёргается и вздрагивает, когда вы быстро выводите личинку из своего слизнеподобного тела."))
 		visible_message(span_danger("[src] яростно блюёт, изрыгая рвотные массы вместе с извивающимся, похожим на слизня существом!"))
-		B.chemicals -= 100
-		var/turf/T = get_turf(src)
-		T.add_vomit_floor()
+		borer.chemicals -= 100
+		var/turf/turf = get_turf(src)
+		turf.add_vomit_floor()
 		new /mob/living/simple_animal/borer(T, B.generation + 1)
-
+		borer.reproductions += 1
+		if(borer_rank && required_reproductions && borer.reproductions >= borer_rank.required_reproductions)
+			borer.reproductions -= borer_rank.required_reproductions
+			if(update_rank(borer_rank))
+				to_chat(src, span_notice("Вы стали древнее. Ваш текущий ранг - [borer_rank.rankname]."))
 	else
 		to_chat(src, "Вам требуется 100 химикатов для размножения!")
 		return

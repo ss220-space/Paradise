@@ -1,9 +1,9 @@
-#define TICKS_TO_MATURE 300
-#define TICKS_TO_ADULT 420
-#define TICKS_TO_ELDER 600
+#define REPRODUCTIONS_TO_MATURE 3
+#define REPRODUCTIONS_TO_ADULT 6
+#define REPRODUCTIONS_TO_ELDER 10
 #define FLAG_PROCESS (1<<0) // processing datum
 #define FLAG_HOST_REQUIRED (1<<1) // essential if we handle host
-#define FLAG_HAS_HOST_EFFECT (1<<2) // if we applying something to host and want to transfer these effects between hosts. We'll need that in future.
+#define FLAG_HAS_HOST_EFFECT (1<<2) // if we applying something to host and want to transfer these effects between hosts.
 /// processing flags
 #define SHOULD_PROCESS_AFTER_DEATH (1<<0) // Doesn't register signals, process even borer is dead.
 
@@ -56,7 +56,7 @@
 		if(update_previous_host)
 			previous_host = host
 
-/datum/borer_datum/proc/host_handle_buff(var/grant = TRUE) // if we want transferable effects between hosts.
+/datum/borer_datum/proc/host_handle_buff(grant = TRUE) // if we want transferable effects between hosts.
 	return TRUE
 
 /datum/borer_datum/Destroy(force)
@@ -86,22 +86,39 @@
 	SIGNAL_HANDLER
 	START_PROCESSING(SSprocessing, src)
 
+/datum/borer_datum/miscellaneous // category for small datums.
+
+/datum/borer_datum/miscellaneous/change_host_and_scale
+	var/list/used_ckeys = list()
+	flags = FLAG_HAS_HOST_EFFECT
+
+/datum/borer_datum/miscellaneous/change_host_and_scale/host_handle_buff(grant = TRUE)
+	if(grant && host?.ckey && !locate(host?.ckey) in used_ckeys)
+		user.max_chemicals += 10
+		used_ckeys += host.ckey
+
+	return TRUE
+
+/datum/borer_datum/miscellaneous/change_host_and_scale/Destroy(force)
+	LAZYNULL(used_ckeys)
+	return ..()
+
 /datum/borer_datum/borer_rank
 	var/rankname = "Error"
-	var/grow_time = 0 // how many time we need to gain new rank
+	var/required_reproductions = null // how many reproductions we need to gain new rank
 	flags = FLAG_PROCESS
 	
 /datum/borer_datum/borer_rank/young
 	rankname = "Young"
-	grow_time = TICKS_TO_MATURE 
+	required_reproductions = REPRODUCTIONS_TO_MATURE 
 
 /datum/borer_datum/borer_rank/mature
 	rankname = "Mature"
-	grow_time = TICKS_TO_ADULT 
+	required_reproductions = REPRODUCTIONS_TO_ADULT 
 
 /datum/borer_datum/borer_rank/adult
 	rankname = "Adult"
-	grow_time = TICKS_TO_ELDER 
+	required_reproductions = REPRODUCTIONS_TO_ELDER
 	flags = FLAG_PROCESS|FLAG_HOST_REQUIRED
 
 /datum/borer_datum/borer_rank/elder
@@ -263,9 +280,9 @@
 	chemname = "spaceacillin"
 	chemdesc = "Slows progression of diseases and fights infections."
 
-#undef TICKS_TO_MATURE
-#undef TICKS_TO_ADULT
-#undef TICKS_TO_ELDER
+#undef REPRODUCTIONS_TO_MATURE 3
+#undef REPRODUCTIONS_TO_ADULT 6
+#undef REPRODUCTIONS_TO_ELDER 10
 #undef FLAG_PROCESS
 #undef FLAG_HOST_REQUIRED 
 #undef FLAG_HAS_HOST_EFFECT 
