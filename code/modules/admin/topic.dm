@@ -29,7 +29,7 @@
 	if(href_list["openticket"])
 		var/ticketID = text2num(href_list["openticket"])
 		if(!href_list["is_mhelp"])
-			if(!check_rights(R_ADMIN))
+			if(!check_rights(SStickets.rights_needed))
 				return
 			SStickets.showDetailUI(usr, ticketID)
 		else
