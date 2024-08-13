@@ -110,7 +110,7 @@
 	var/hiding = FALSE
 	var/reproductions = 0 // used to upgrade rank
 	var/datum/borer_datum/borer_rank/borer_rank
-	var/datum/borer_datum/miscellaneous/change_host_and_scale = new(src)
+	var/datum/borer_datum/miscellaneous/change_host_and_scale/scaling = new
 	var/datum/action/innate/borer/talk_to_host/talk_to_host_action = new
 	var/datum/action/innate/borer/toggle_hide/toggle_hide_action = new
 	var/datum/action/innate/borer/talk_to_borer/talk_to_borer_action = new
@@ -126,6 +126,7 @@
 
 /mob/living/simple_animal/borer/New(atom/newloc, var/gen=1)
 	update_rank()
+	scaling.Grant(src)
 	..(newloc)
 	remove_from_all_data_huds()
 	generation = gen
@@ -820,9 +821,9 @@
 		borer.chemicals -= 100
 		var/turf/turf = get_turf(src)
 		turf.add_vomit_floor()
-		new /mob/living/simple_animal/borer(T, B.generation + 1)
+		new /mob/living/simple_animal/borer(turf, borer.generation + 1)
 		borer.reproductions += 1
-		if(borer_rank && required_reproductions && borer.reproductions >= borer_rank.required_reproductions)
+		if(borer_rank && borer_rank.required_reproductions && borer.reproductions >= borer_rank.required_reproductions)
 			borer.reproductions -= borer_rank.required_reproductions
 			if(update_rank(borer_rank))
 				to_chat(src, span_notice("Вы стали древнее. Ваш текущий ранг - [borer_rank.rankname]."))
