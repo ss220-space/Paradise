@@ -1,6 +1,12 @@
 #define REPRODUCTIONS_TO_MATURE 3
 #define REPRODUCTIONS_TO_ADULT 6
 #define REPRODUCTIONS_TO_ELDER 10
+#define HEAD_FOCUS_COST 9
+#define TORSO_FOCUS_COST 15
+#define HANDS_FOCUS_COST 5
+#define LEGS_FOCUS_COST 10
+#define SCALING_MAX_CHEM 355
+#define SCALING_CHEM_GAIN 15
 #define FLAG_PROCESS (1<<0) // processing datum
 #define FLAG_HOST_REQUIRED (1<<1) // essential if we handle host
 #define FLAG_HAS_HOST_EFFECT (1<<2) // if we applying something to host and want to transfer these effects between hosts.
@@ -22,7 +28,7 @@
 /datum/borer_datum/proc/Grant(mob/living/simple_animal/borer/borer)
 	user = borer
 	host = borer.host
-	if(QDELETED(user) || !on_apply())
+	if(QDELETED(user))
 		qdel(src)
 		return FALSE
 	if((flags & FLAG_HOST_REQUIRED) || (flags & FLAG_HAS_HOST_EFFECT)) // important to change host value.
@@ -30,7 +36,7 @@
 		RegisterSignal(user, COMSIG_BORER_LEFT_HOST, PROC_REF(left_host)) 
 	if((flags & FLAG_HAS_HOST_EFFECT) && (host)) 
 		previous_host = host
-		host_handle_buff()
+		grant_movable_effect()
 	if(flags & FLAG_PROCESS)
 		if(!(processing_flags & SHOULD_PROCESS_AFTER_DEATH))
 			RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_mob_death)) 
@@ -39,29 +45,37 @@
 				START_PROCESSING(SSprocessing, src)
 			return TRUE
 		START_PROCESSING(SSprocessing, src)
+	on_apply()
 	return TRUE
 
 /datum/borer_datum/proc/entered_host()
 	SIGNAL_HANDLER
 	host = user.host
-	if((flags & FLAG_HAS_HOST_EFFECT) && (host_handle_buff()))
+	if((flags & FLAG_HAS_HOST_EFFECT) && (grant_movable_effect()))
 		previous_host = host
 			
 /datum/borer_datum/proc/left_host()
 	SIGNAL_HANDLER
 	host = null
-	if((flags & FLAG_HAS_HOST_EFFECT) && (host_handle_buff(FALSE)))
+	if((flags & FLAG_HAS_HOST_EFFECT) && (remove_movable_effect()))
 		previous_host = host
 
-/datum/borer_datum/proc/host_handle_buff(grant = TRUE) // if we want transferable effects between hosts.
-	return TRUE
+/datum/borer_datum/proc/grant_movable_effect()
+	SHOULD_CALL_PARENT(TRUE)
+	if(QDELETED(user) || QDELETED(host))
+		return
+
+/datum/borer_datum/proc/remove_movable_effect()
+	SHOULD_CALL_PARENT(TRUE)
+	if(QDELETED(user) || QDELETED(previous_host))
+		return
 
 /datum/borer_datum/Destroy(force)
 	if((flags & FLAG_HOST_REQUIRED) || (flags & FLAG_HAS_HOST_EFFECT))
 		UnregisterSignal(user, COMSIG_BORER_ENTERED_HOST)
 		UnregisterSignal(user, COMSIG_BORER_LEFT_HOST)
 	if((flags & FLAG_HAS_HOST_EFFECT) && (previous_host))
-		host_handle_buff(FALSE)
+		remove_movable_effect()
 	if(flags & FLAG_PROCESS)
 		if(!(processing_flags & SHOULD_PROCESS_AFTER_DEATH))
 			UnregisterSignal(user, COMSIG_MOB_DEATH)
@@ -92,14 +106,18 @@
 /datum/borer_datum/miscellaneous/change_host_and_scale/New()
 	return
 
-/datum/borer_datum/miscellaneous/change_host_and_scale/host_handle_buff(grant = TRUE)
-	if(user.max_chems >= 350)
+/datum/borer_datum/miscellaneous/change_host_and_scale/grant_movable_effect()
+	if(user.max_chems >= SCALING_MAX_CHEM)
 		qdel(src)
+		return
 
-	if(grant && host?.ckey && !LAZYIN(host?.UID(), used_UIDs))
-		user.max_chems += 15
+	if(host.ckey && !LAZYIN(host?.UID(), used_UIDs))
+		user.max_chems += SCALING_CHEM_GAIN
 		used_UIDs += host.UID()
 
+	return TRUE
+
+/datum/borer_datum/miscellaneous/change_host_and_scale/remove_movable_effect()
 	return TRUE
 
 /datum/borer_datum/miscellaneous/change_host_and_scale/Destroy(force)
@@ -164,71 +182,84 @@
 
 /datum/borer_datum/focus
 	var/bodypartname = "Focus"
-	var/cost = 250
+	var/cost = 0
 	flags = FLAG_HAS_HOST_EFFECT
 	
 /datum/borer_datum/focus/head
 	bodypartname = "Head focus"
+	cost = HEAD_FOCUS_COST
 	flags = FLAG_HAS_HOST_EFFECT|FLAG_PROCESS
 	
 /datum/borer_datum/focus/torso
 	bodypartname = "Body focus"
+	cost = TORSO_FOCUS_COST
 	flags = FLAG_HAS_HOST_EFFECT|FLAG_PROCESS
+	var/obj/item/organ/internal/heart/linked_organ
 	
 /datum/borer_datum/focus/hands
 	bodypartname = "Hands focus"
+	cost = HANDS_FOCUS_COST
 	
 /datum/borer_datum/focus/legs
 	bodypartname = "Legs focus"
+	cost = LEGS_FOCUS_COST
 	
-/datum/borer_datum/focus/head/host_handle_buff(grant = TRUE)
-	switch(grant)
-		if(TRUE)
-			host?.physiology.brain_mod *= 0.7
-			host?.physiology.hunger_mod *= 0.3
-		if(FALSE)
-			previous_host?.physiology.brain_mod /= 0.7
-			previous_host?.physiology.hunger_mod /= 0.3
+/datum/borer_datum/focus/head/grant_movable_effect()
+	host.physiology.brain_mod *= 0.7
+	host.physiology.hunger_mod *= 0.3
+	host.stam_regen_start_modifier *= 0.75
 	return TRUE
-			
+
+/datum/borer_datum/focus/head/remove_movable_effect()
+	previous_host.physiology.brain_mod /= 0.7
+	previous_host.physiology.hunger_mod /= 0.3
+	previous_host.stam_regen_start_modifier /= 0.75
+	return TRUE
+
 /datum/borer_datum/focus/head/process()
 	if(!user.controlling && host?.stat != DEAD)
 		host?.adjustBrainLoss(-1)
 			
-/datum/borer_datum/focus/torso/host_handle_buff(grant = TRUE)
-	switch(grant)
-		if(TRUE)
-			host?.physiology.brute_mod *= 0.8
-		if(FALSE)
-			previous_host?.physiology.brute_mod /= 0.8
+/datum/borer_datum/focus/torso/grant_movable_effect()
+	host.physiology.brute_mod *= 0.8
+	return TRUE
+
+/datum/borer_datum/focus/torso/remove_movable_effect()
+	previous_host.physiology.brute_mod /= 0.8
 	return TRUE
 
 /datum/borer_datum/focus/torso/process()
 	if(host?.stat != DEAD)
-		var/obj/item/organ/internal/heart/heart = host?.get_int_organ(/obj/item/organ/internal/heart)
-		if(heart)
+		linked_organ = host?.get_int_organ(/obj/item/organ/internal/heart)
+		if(linked_organ)
 			host?.set_heartattack(FALSE)
+
+/datum/borer_datum/focus/torso/Destroy(force)
+	linked_organ = null
+	return ..()
 		
-/datum/borer_datum/focus/hands/host_handle_buff(grant = TRUE)
-	switch(grant)
-		if(TRUE)
-			host?.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod, multiplicative_slowdown = host.dna.species.toolspeedmod * 0.5)
-			host?.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_surgery_mod, multiplicative_slowdown = host.dna.species.surgeryspeedmod * 0.5)
-			host?.physiology.punch_damage_low += 7
-			host?.physiology.punch_damage_high += 5
-		if(FALSE)
-			previous_host?.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod, multiplicative_slowdown = previous_host.dna.species.toolspeedmod * 0.5)
-			previous_host?.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_surgery_mod, multiplicative_slowdown = previous_host.dna.species.surgeryspeedmod * 0.5)
-			previous_host?.physiology.punch_damage_low -= 7
-			previous_host?.physiology.punch_damage_high -= 5
+/datum/borer_datum/focus/hands/grant_movable_effect()
+	host.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod, multiplicative_slowdown = host.dna.species.toolspeedmod * 0.5)
+	host.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_surgery_mod, multiplicative_slowdown = host.dna.species.surgeryspeedmod * 0.5)
+	host.physiology.punch_damage_low += 7
+	host.physiology.punch_damage_high += 5
+	host.next_move_modifier *= 0.75
+	return TRUE
+
+/datum/borer_datum/focus/hands/remove_movable_effect()
+	previous_host.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod, multiplicative_slowdown = previous_host.dna.species.toolspeedmod * 0.5)
+	previous_host.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_surgery_mod, multiplicative_slowdown = previous_host.dna.species.surgeryspeedmod * 0.5)
+	previous_host.physiology.punch_damage_low -= 7
+	previous_host.physiology.punch_damage_high -= 5	
+	previous_host.next_move_modifier /= 0.75
 	return TRUE
 	
-/datum/borer_datum/focus/legs/host_handle_buff(grant = TRUE)
-	switch(grant)
-		if(TRUE)
-			host?.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = host.dna.species.speed_mod - 0.5)
-		if(FALSE)
-			previous_host?.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = previous_host.dna.species.speed_mod + 0.5)
+/datum/borer_datum/focus/legs/grant_movable_effect()
+	host.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = host.dna.species.speed_mod - 0.5)
+	return TRUE
+
+/datum/borer_datum/focus/legs/remove_movable_effect()
+	previous_host.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = previous_host.dna.species.speed_mod + 0.5)
 	return TRUE
 
 /datum/borer_chem
@@ -286,6 +317,12 @@
 #undef REPRODUCTIONS_TO_MATURE
 #undef REPRODUCTIONS_TO_ADULT
 #undef REPRODUCTIONS_TO_ELDER
+#undef HEAD_FOCUS_COST
+#undef TORSO_FOCUS_COST
+#undef HANDS_FOCUS_COST
+#undef LEGS_FOCUS_COST
+#undef SCALING_MAX_CHEM
+#undef SCALING_CHEM_GAIN
 #undef FLAG_PROCESS
 #undef FLAG_HOST_REQUIRED 
 #undef FLAG_HAS_HOST_EFFECT 

@@ -109,6 +109,7 @@
 	var/sneaking = FALSE
 	var/hiding = FALSE
 	var/reproductions = 0 // used to upgrade rank
+	var/evo_points = 0 // used for borer shopping, gained by reproductions
 	var/datum/borer_datum/borer_rank/borer_rank
 	var/datum/borer_datum/miscellaneous/change_host_and_scale/scaling = new
 	var/datum/action/innate/borer/talk_to_host/talk_to_host_action = new
@@ -163,6 +164,7 @@
 	. = status_tab_data
 	status_tab_data[++status_tab_data.len] = list("Chemicals", chemicals)
 	status_tab_data[++status_tab_data.len] = list("Rank", borer_rank.rankname)
+	status_tab_data[++status_tab_data.len] = list("Evolution points", evo_points)
 
 
 /mob/living/simple_animal/borer/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
@@ -510,13 +512,12 @@
 		return
 	if(LAZYIN(focus.type, learned_focuses))
 		to_chat(src, span_notice("Вы не можете изучить уже изученный фокус."))
-	if(chemicals >= focus.cost)
-		chemicals -= focus.cost
+	if(evo_points >= focus.cost)
+		evo_points -= focus.cost
 		to_chat(src, span_notice("Вы успешно приобрели [focus.bodypartname]"))
 		new focus(src)
 		return learned_focuses += focus.type
-	to_chat(src, span_notice("Вам требуется еще [focus.cost - chemicals] химикатов для получения [focus.bodypartname]."))
-
+	to_chat(src, span_notice("Вам требуется еще [focus.cost - evo_points] химикатов для получения [focus.bodypartname]."))
 	return 
 
 /mob/living/simple_animal/borer/verb/hide_borer()
@@ -823,6 +824,7 @@
 		turf.add_vomit_floor()
 		new /mob/living/simple_animal/borer(turf, borer.generation + 1)
 		borer.reproductions += 1
+		borer.evo_points += 1
 		if(borer.borer_rank && borer.borer_rank.required_reproductions && borer.reproductions >= borer.borer_rank.required_reproductions)
 			borer.reproductions -= borer.borer_rank.required_reproductions
 			if(borer.update_rank(borer.borer_rank))
