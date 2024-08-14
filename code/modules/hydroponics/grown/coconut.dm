@@ -4,10 +4,12 @@
 	name = "Coconut"
 	desc = "The young coconut is still green"
 	icon_state = "coconut"
+	item_state = "coconut"
 	force = 10
 	throwforce = 10
 	throw_speed = 2
 	throw_range = 3
+	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/seeds/coconut
 	name = "pack of coconut seeds"
@@ -47,6 +49,7 @@
 	name = "Piece coconut"
 	desc = "Slice of old coconut has pulp"
 	icon_state = "piece_coconut"
+	item_state = "piece_coconut"
 	list reagents = list("shradded_coconut" = 10)
 	bitesize = 1
 
@@ -54,6 +57,11 @@
 	name = "Dried coconut"
 	desc = "test"
 	icon_state = "dried_coconut"
+	item_state = "dried_coconut"
 	var/coco_name = "piece coconut"
 	list_reagents = list("shradded_coconut" = 25)
 	bitesize = 2
+
+/obj/item/grown/coconut/add_juice()
+	..()
+	force = round((5 + seed.potency / 2.5), 1)

@@ -271,6 +271,7 @@
 	desc = "A tray with raw coconut cookies"
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "unbaked_coconut_cookies"
+	item_state = "unbaked_coconut_cookies"
 	list_reagents = list("nutriment" = 5, "sugar" = 5, "shradded_coconut" = 5)
 	tastes = list("dough" = 1, "sugar" = 1, "shradded_coconut" = 1)
 

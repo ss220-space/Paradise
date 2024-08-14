@@ -333,6 +333,7 @@
 	name = "Coconut cookie"
 	desc = "Coconut cookies look strange"
 	icon_state = "coconut_cookies"
+	item_state = "coconut_cookies"
 	list_reagents = list("nutriment" = 1, "sugar" = 2, "shredded_coconut" = 1)
 	tastes = list("sweetness" = 1)
 	foodtype = SUGAR | GRAIN
