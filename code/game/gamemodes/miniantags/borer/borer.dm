@@ -127,7 +127,6 @@
 
 /mob/living/simple_animal/borer/New(atom/newloc, var/gen=1)
 	update_rank()
-	scaling.Grant(src)
 	..(newloc)
 	remove_from_all_data_huds()
 	generation = gen
@@ -136,6 +135,7 @@
 	real_name = "Cortical Borer [rand(1000,9999)]"
 	truename = "[borer_names[min(generation, borer_names.len)]] [rand(1000,9999)]"
 	GrantBorerActions()
+	scaling.Grant(src)
 
 /mob/living/simple_animal/borer/attack_ghost(mob/user)
 	if(cannotPossess(user))
@@ -517,7 +517,7 @@
 		to_chat(src, span_notice("Вы успешно приобрели [focus.bodypartname]"))
 		new focus(src)
 		return learned_focuses += focus.type
-	to_chat(src, span_notice("Вам требуется еще [focus.cost - evo_points] химикатов для получения [focus.bodypartname]."))
+	to_chat(src, span_notice("Вам требуется еще [focus.cost - evo_points] очков эволюции для получения [focus.bodypartname]."))
 	return 
 
 /mob/living/simple_animal/borer/verb/hide_borer()
