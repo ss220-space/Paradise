@@ -89,21 +89,24 @@
 /datum/borer_datum/miscellaneous // category for small datums.
 
 /datum/borer_datum/miscellaneous/change_host_and_scale
-	var/list/used_ckeys = list()
+	var/list/used_UIDs = list()
 	flags = FLAG_HAS_HOST_EFFECT
 
 /datum/borer_datum/miscellaneous/change_host_and_scale/New()
 	return
 
 /datum/borer_datum/miscellaneous/change_host_and_scale/host_handle_buff(grant = TRUE)
-	if(grant && host?.ckey && !locate(host?.ckey) in used_ckeys)
-		user.max_chems += 10
-		used_ckeys += host.ckey
+	if(user.max_chems >= 350)
+		qdel(src)
+
+	if(grant && host?.ckey && !LAZYIN(host?.UID, used_UIDs))
+		user.max_chems += 15
+		used_UIDs += host.UID
 
 	return TRUE
 
 /datum/borer_datum/miscellaneous/change_host_and_scale/Destroy(force)
-	LAZYNULL(used_ckeys)
+	LAZYNULL(used_UIDs)
 	return ..()
 
 /datum/borer_datum/borer_rank
