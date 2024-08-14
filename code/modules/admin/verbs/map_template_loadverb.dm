@@ -1,8 +1,8 @@
 /client/proc/map_template_load()
-	set category = "Debug"
+	set category = "Event"
 	set name = "Map template - Place"
 
-	if(!check_rights(R_DEBUG))
+	if(!check_rights(R_DEBUG | R_EVENT))
 		return
 
 	var/datum/map_template/template
@@ -36,10 +36,10 @@
 	usr.client.images -= preview
 
 /client/proc/map_template_upload()
-	set category = "Debug"
+	set category = "Event"
 	set name = "Map Template - Upload"
 
-	if(!check_rights(R_DEBUG))
+	if(!check_rights(R_DEBUG | R_EVENT))
 		return
 
 	var/map = input(usr, "Choose a Map Template to upload to template storage","Upload Map Template") as null|file

@@ -151,7 +151,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	playsound(get_turf(owner), 'sound/magic/invoke_general.ogg', 300, 1, 5)
 
 	var/list/mob/living/listeners = list()
-	for(var/mob/living/L in get_mobs_in_view(8, owner, TRUE))
+	for(var/mob/living/L in get_mobs_in_view(8, owner, TRUE, FALSE))
 		if(L.can_hear() && !L.null_rod_check() && L != owner && L.stat != DEAD)
 			if(ishuman(L))
 				var/mob/living/carbon/human/H = L
@@ -331,22 +331,14 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 
 	//WALK
 	else if((findtext(message, GLOB.walk_words)))
-		for(var/V in listeners)
-			var/mob/living/L = V
-			if(L.m_intent != MOVE_INTENT_WALK)
-				L.m_intent = MOVE_INTENT_WALK
-				if(L.hud_used)
-					L.hud_used.move_intent.icon_state = "walking"
+		for(var/mob/living/listener as anything in listeners)
+			listener.toggle_move_intent(MOVE_INTENT_WALK)
 		next_command = world.time + cooldown_meme
 
 	//RUN
 	else if((findtext(message, GLOB.run_words)))
-		for(var/V in listeners)
-			var/mob/living/L = V
-			if(L.m_intent != MOVE_INTENT_RUN)
-				L.m_intent = MOVE_INTENT_RUN
-				if(L.hud_used)
-					L.hud_used.move_intent.icon_state = "running"
+		for(var/mob/living/listener as anything in listeners)
+			listener.toggle_move_intent(MOVE_INTENT_RUN)
 		next_command = world.time + cooldown_meme
 
 	//HELP INTENT

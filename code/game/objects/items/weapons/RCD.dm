@@ -64,8 +64,8 @@
 	var/region_min = REGION_GENERAL
 	var/region_max = REGION_COMMAND
 
-	var/fulltile_window = FALSE // Do we place fulltile windows?
-	var/window_type = /obj/structure/window/reinforced
+	var/fulltile_window = TRUE // Do we place fulltile windows?
+	var/window_type = /obj/structure/window/full/reinforced
 	var/floor_type = /turf/simulated/floor/plating
 	var/wall_type = /turf/simulated/wall
 	var/firelock_type = /obj/machinery/door/firedoor

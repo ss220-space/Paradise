@@ -17,7 +17,7 @@
 	var/emagged = FALSE
 	var/applied_amount = 8 // How much it applies
 	var/applying = FALSE // So it can't be spammed.
-	var/measured_health = 0 // Used for measuring health; we don't want this to stop applying once the person's health isn't changing.
+
 
 /obj/item/reagent_containers/applicator/emag_act(mob/user)
 	if(!emagged)
@@ -86,6 +86,7 @@
 			apply_to(M, user, 0.2) // We apply a very weak application up front, then loop.
 			add_attack_logs(user, M, "Started mending with [src] containing ([reagents.log_list()])", (emagged && !(reagents.harmless_helper())) ? null : ATKLOG_ALMOSTALL)
 			var/cycle_count = 0
+			var/measured_health = 0
 			while(do_after(user, 1 SECONDS, M))
 				measured_health = M.health
 				apply_to(M, user, 1, FALSE)

@@ -426,7 +426,7 @@
 						isDamaged = TRUE
 						if(H.has_pain())
 							H.emote("scream")
-					bodypart.receive_damage(0, clamp((volume - 5) * 3, 8, 75) * damage_coef / length(H.bodyparts))
+					H.apply_damage(clamp((volume - 5) * 3, 8, 75) * damage_coef / length(H.bodyparts), BURN, def_zone = bodypart)
 
 			if(volume > 9 && (H.wear_mask || H.head))
 				if(H.wear_mask && !(H.wear_mask.resistance_flags & ACID_PROOF))
@@ -462,15 +462,14 @@
 				var/obj/item/organ/external/affecting = H.get_organ(BODY_ZONE_HEAD)
 				if(affecting)
 					affecting.disfigure()
-				H.adjustBruteLoss(5)
-				H.adjustFireLoss(15)
+				H.take_overall_damage(5, 15)
 				H.emote("scream")
 			else
 				H.adjustBruteLoss(min(5, volume * 0.25))
 		else
 			to_chat(H, "<span class='warning'>The transparent acidic substance stings[volume < 25 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
 			if(volume >= 25)
-				H.adjustBruteLoss(2)
+				H.take_overall_damage(2)
 				H.emote("scream")
 
 
@@ -1312,7 +1311,7 @@
 		playsound(affected_mob, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	return ..()
 
-/*
+
 /datum/reagent/teslium/on_mob_add(mob/living/carbon/human/affected_mob)
 	. = ..()
 	if(!ishuman(affected_mob))
@@ -1325,7 +1324,7 @@
 	if(!ishuman(affected_mob))
 		return .
 	affected_mob.physiology.siemens_coeff *= 0.5
-*/
+
 
 /datum/reagent/gluttonytoxin
 	name = "Gluttony's Blessing"
@@ -1410,6 +1409,6 @@
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		for(var/obj/item/organ/internal/organ in C.get_organs_zone(BODY_ZONE_PRECISE_GROIN))
-			organ.receive_damage(rand(5, 10))
+			organ.internal_receive_damage(rand(5, 10))
 
 	return ..()

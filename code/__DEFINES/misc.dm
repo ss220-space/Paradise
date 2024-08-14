@@ -14,20 +14,21 @@
 #define SIBYL_LETHAL 2
 #define SIBYL_DESTRUCTIVE 3
 
-//Click cooldowns, in tenths of a second
-#define CLICK_CD_MELEE 8
-#define CLICK_CD_RANGE 4
-#define CLICK_CD_HANDCUFFED 10
-#define CLICK_CD_TKSTRANGLE 10
-#define CLICK_CD_POINT 10
-#define CLICK_CD_RESIST 20
-#define CLICK_CD_GRABBING 10
-#define CLICK_CD_CLICK_ABILITY 6
-#define CLICK_CD_RAPID 2
-#define CLICK_CD_LOOK_UP_DOWN 5
+//Click cooldowns
+#define CLICK_CD_MELEE (0.8 SECONDS)
+#define CLICK_CD_RANGE (0.4 SECONDS)
+#define CLICK_CD_HANDCUFFED (1 SECONDS)
+#define CLICK_CD_TKSTRANGLE (1 SECONDS)
+#define CLICK_CD_POINT (1 SECONDS)
+#define CLICK_CD_RESIST (2 SECONDS)
+#define CLICK_CD_PULLING (0.2 SECONDS)
+#define CLICK_CD_GRABBING (1 SECONDS)
+#define CLICK_CD_CLICK_ABILITY (0.6 SECONDS)
+#define CLICK_CD_RAPID (0.2 SECONDS)
+#define CLICK_CD_LOOK_UP_DOWN (0.5 SECONDS)
 
-///
-#define ROUNDSTART_LOGOUT_REPORT_TIME 6000 //Amount of time (in deciseconds) after the rounds starts, that the player disconnect report is issued.
+/// Amount of time after the rounds starts, that the player disconnect report is issued.
+#define ROUNDSTART_LOGOUT_REPORT_TIME (10 MINUTES)
 
 // DOOR CRUSHING DAMAGE!
 #define DOOR_CRUSH_DAMAGE 10

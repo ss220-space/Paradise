@@ -209,9 +209,10 @@
 	if(IsSleeping())
 		. += "<span class='notice'>Upon closer examination, [p_they()] appear[p_s()] to be asleep.</span>"
 
+
 /mob/living/simple_animal/updatehealth(reason = "none given", should_log = FALSE)
-	..()
-	health = clamp(health, 0, maxHealth)
+	. = ..()
+	set_health(clamp(health, 0, maxHealth))
 	med_hud_set_health()
 
 
@@ -447,7 +448,7 @@
 		ghostize()
 		qdel(src)
 	else
-		health = 0
+		set_health(0)
 		update_icons()
 		if(flip_on_death)
 			transform = transform.Turn(180)

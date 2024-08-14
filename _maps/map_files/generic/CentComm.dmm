@@ -804,7 +804,7 @@
 	},
 /area/centcom/specops)
 "aqo" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/clothing/gloves/boxing/hologlove{
 	icon_state = "boxinggreen";
 	item_state = "boxinggreen"
@@ -2630,8 +2630,7 @@
 "bhM" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 4;
-	pixel_x = -14;
-	initialized = 1
+	pixel_x = -14
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2929,8 +2928,7 @@
 "bnd" = (
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 8;
-	pixel_y = -16;
-	initialized = 1
+	pixel_y = -16
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -4269,8 +4267,7 @@
 /obj/structure/closet/cardboard{
 	icon_state = "cardboard_librarian";
 	icon_closed = "cardboard_librarian";
-	icon_opened = "cardboard_librarian_open";
-	initialized = 1
+	icon_opened = "cardboard_librarian_open"
 	},
 /obj/item/paper/central_command/archive/memes{
 	info = "<center><img src=\"https://cdn.discordapp.com/attachments/961279768249118750/1046826506741104830/unknown.png?width=604&height=604\"></center>";
@@ -5145,8 +5142,7 @@
 "cqx" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 4;
-	pixel_x = -14;
-	initialized = 1
+	pixel_x = -14
 	},
 /obj/effect/turf_decal/siding{
 	color = "#444444";
@@ -5281,7 +5277,7 @@
 	},
 /area/centcom/evac)
 "ctz" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/beach_ball,
 /obj/item/beach_ball/holoball,
 /turf/simulated/floor/plasteel{
@@ -7142,7 +7138,6 @@
 	icon_screen = "seclaptop";
 	icon_state = "laptop"
 	},
-/obj/structure/table/wood,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = 26;
 	pixel_y = 26
@@ -7154,6 +7149,7 @@
 	pixel_x = -2;
 	pixel_y = 11
 	},
+/obj/structure/table/holotable/wood,
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "dnJ" = (
@@ -7682,7 +7678,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/reagent_containers/glass/beaker/waterbottle,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
@@ -7877,7 +7873,7 @@
 /turf/simulated/floor/glass/reinforced,
 /area/centcom/zone1)
 "dDF" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9928,7 +9924,7 @@
 /obj/structure/window/reinforced{
 	layer = 2.9
 	},
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/paper_bin/nanotrasen{
 	pixel_x = 3;
 	pixel_y = 12
@@ -10862,10 +10858,10 @@
 /obj/item/pen/fancy{
 	pixel_x = 8
 	},
-/obj/structure/table/wood,
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
+/obj/structure/table/holotable/wood,
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "fdP" = (
@@ -10963,8 +10959,8 @@
 /turf/simulated/floor/carpet,
 /area/centcom/evac)
 "fgt" = (
-/obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/officetoys,
+/obj/structure/table/holotable/wood,
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "fgu" = (
@@ -14109,7 +14105,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/machinery/computer/library/public{
 	pixel_y = 4;
 	pixel_x = 1
@@ -14288,8 +14284,7 @@
 	color = "black";
 	icon_state = "tile_full";
 	layer = 9;
-	opacity = 1;
-	initialized = 1
+	opacity = 1
 	},
 /turf/simulated/floor/plating,
 /area/centcom/supply)
@@ -15690,7 +15685,7 @@
 	department = "Central Command";
 	icon_state = "bigscanner"
 	},
-/obj/structure/table/wood,
+/obj/structure/table/holotable/wood,
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "hsk" = (
@@ -17241,8 +17236,7 @@
 "ihi" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 1;
-	pixel_y = 3;
-	initialized = 1
+	pixel_y = 3
 	},
 /obj/effect/turf_decal/siding/white{
 	dir = 8
@@ -17271,21 +17265,18 @@
 /obj/effect/decal/cleanable/crayon{
 	color = "yellow";
 	icon_state = "guy";
-	initialized = 1;
 	layer = 5;
 	pixel_y = -30
 	},
 /obj/effect/decal/cleanable/crayon{
 	color = "yellow";
 	icon_state = "face";
-	initialized = 1;
 	pixel_x = -32;
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/crayon{
 	color = "yellow";
 	icon_state = "shitcurity";
-	initialized = 1;
 	pixel_x = 32;
 	pixel_y = 32
 	},
@@ -17913,8 +17904,7 @@
 	color = "black";
 	icon_state = "tile_full";
 	layer = 9;
-	opacity = 1;
-	initialized = 1
+	opacity = 1
 	},
 /turf/simulated/floor/plating,
 /area/centcom/supply)
@@ -18520,7 +18510,7 @@
 	},
 /area/ninja/outpost)
 "iMk" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/paper,
 /obj/machinery/door/window/brigdoor{
 	dir = 8
@@ -20162,8 +20152,7 @@
 /area/syndicate_mothership/cargo)
 "jAZ" = (
 /obj/effect/turf_decal/box/white{
-	pixel_y = 16;
-	initialized = 1
+	pixel_y = 16
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -20963,7 +20952,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/paper_bin/nanotrasen{
 	pixel_x = 3;
 	pixel_y = 12
@@ -21535,7 +21524,7 @@
 	dir = 1;
 	layer = 2.9
 	},
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/pen/multi/fountain,
 /obj/item/paper_bin/nanotrasen{
 	pixel_x = 3;
@@ -22073,7 +22062,6 @@
 "ktw" = (
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "bodys";
-	initialized = 1;
 	pixel_x = 14;
 	pixel_y = 32
 	},
@@ -22397,8 +22385,8 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "kDd" = (
-/obj/structure/table/holotable/wood,
 /obj/item/paper_bin/nanotrasen,
+/obj/structure/table/wood,
 /turf/simulated/floor/plating,
 /area/centcom/zone2)
 "kDg" = (
@@ -22885,7 +22873,7 @@
 	},
 /area/centcom/zone2)
 "kNq" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/machinery/computer/library/public,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
@@ -25777,7 +25765,7 @@
 /area/ninja/outside)
 "mfd" = (
 /obj/machinery/photocopier,
-/obj/structure/table/holotable/wood,
+/obj/structure/table/wood,
 /turf/simulated/floor/plating,
 /area/centcom/zone2)
 "mfn" = (
@@ -25929,11 +25917,11 @@
 	},
 /area/centcom/zone1)
 "mjU" = (
-/obj/structure/table/holotable/wood,
 /obj/machinery/light_construct/small{
 	dir = 4
 	},
 /obj/machinery/computer/library/public,
+/obj/structure/table/wood,
 /turf/simulated/floor/plating,
 /area/centcom/zone2)
 "mkb" = (
@@ -27293,7 +27281,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/reagent_containers/food/drinks/coffee,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
@@ -28119,7 +28107,7 @@
 	},
 /area/shuttle/gamma)
 "neo" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -29451,7 +29439,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/table/holotable,
+/obj/structure/table,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
 "nFC" = (
@@ -30344,7 +30332,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/machinery/computer/library/public,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
@@ -32774,7 +32762,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom/evac)
 "pfP" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/structure/window/reinforced{
 	dir = 1
 	},
@@ -34694,7 +34682,7 @@
 /obj/structure/window/reinforced{
 	layer = 2.9
 	},
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/reagent_containers/glass/beaker/waterbottle,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
@@ -35329,8 +35317,7 @@
 "qpR" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 1;
-	pixel_y = 3;
-	initialized = 1
+	pixel_y = 3
 	},
 /obj/effect/turf_decal/siding/white{
 	dir = 4
@@ -36546,8 +36533,7 @@
 "qTA" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 1;
-	pixel_y = 3;
-	initialized = 1
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -37734,7 +37720,7 @@
 	},
 /area/syndicate_mothership)
 "rtr" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/gift,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
@@ -38446,7 +38432,7 @@
 	},
 /area/syndicate_mothership/infteam)
 "rIS" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -38802,8 +38788,7 @@
 	color = "black";
 	icon_state = "tile_full";
 	layer = 9;
-	opacity = 1;
-	initialized = 1
+	opacity = 1
 	},
 /turf/simulated/floor/plating,
 /area/centcom/supply)
@@ -41504,7 +41489,7 @@
 	},
 /area/syndicate_mothership/jail)
 "teo" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/pen/multi/fountain,
 /obj/item/paper_bin/nanotrasen{
 	pixel_x = 3;
@@ -41892,7 +41877,7 @@
 /area/centcom/specops)
 "tpf" = (
 /obj/structure/window/reinforced,
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -43666,7 +43651,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/paper_bin/nanotrasen{
 	pixel_x = 3;
 	pixel_y = 12
@@ -43720,7 +43705,7 @@
 /obj/structure/window/reinforced{
 	layer = 2.9
 	},
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/paper_bin/nanotrasen{
 	pixel_x = 3;
 	pixel_y = 12
@@ -44461,7 +44446,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
 "uuD" = (
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/item/paper_bin/nanotrasen{
 	pixel_x = 3;
 	pixel_y = 12
@@ -46993,7 +46978,7 @@
 	dir = 1;
 	layer = 2.9
 	},
-/obj/structure/table/holotable,
+/obj/structure/table,
 /obj/machinery/computer/library/public,
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
@@ -47114,8 +47099,7 @@
 /area/syndicate_mothership)
 "vGJ" = (
 /obj/structure/marker_beacon{
-	icon_state = "markerburgundy-on";
-	initialized = 1
+	icon_state = "markerburgundy-on"
 	},
 /turf/simulated/floor/plating/airless,
 /area/space)
@@ -47935,8 +47919,7 @@
 /obj/structure/closet/cardboard{
 	icon_state = "cardboard_cargo";
 	icon_closed = "cardboard_cargo";
-	icon_opened = "cardboard_cargo_open";
-	initialized = 1
+	icon_opened = "cardboard_cargo_open"
 	},
 /mob/living/simple_animal/hostile/mimic{
 	faction = list("neutral");

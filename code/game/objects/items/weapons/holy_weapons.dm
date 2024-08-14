@@ -57,8 +57,7 @@
 
 /obj/item/nullrod/pickup(mob/living/user)
 	if(sanctify_force && !user.mind?.isholy)
-		user.adjustBruteLoss(force)
-		user.adjustFireLoss(sanctify_force)
+		user.take_overall_damage(force, sanctify_force)
 		user.Weaken(10 SECONDS)
 		user.drop_item_ground(src, force = TRUE)
 		user.visible_message(span_warning("[src] slips out of the grip of [user] as they try to pick it up, bouncing upwards and smacking [user.p_them()] in the face!"), \
@@ -473,6 +472,7 @@
 	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
 	drop_sound = 'sound/items/handling/knife_drop.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	var/mob/living/carbon/wielder
 
 /obj/item/nullrod/tribal_knife/New()
 	..()
@@ -480,14 +480,20 @@
 
 /obj/item/nullrod/tribal_knife/Destroy()
 	STOP_PROCESSING(SSobj, src)
+	wielder = null
 	return ..()
 
 /obj/item/nullrod/tribal_knife/process()
 	slowdown = rand(-2, 2)
 	if(iscarbon(loc))
-		var/mob/living/carbon/wielder = loc
+		wielder = loc
 		if(wielder.is_in_hands(src))
 			wielder.update_equipment_speed_mods()
+
+/obj/item/nullrod/tribal_knife/dropped(mob/user, slot, silent = FALSE)
+	slowdown = 0
+	user.update_equipment_speed_mods()
+	. = ..()
 
 /obj/item/nullrod/pitchfork
 	name = "unholy pitchfork"
@@ -562,10 +568,11 @@
 
 			if(prob(25))
 				to_chat(target, "<span class='notice'>[user]'s prayer to [SSticker.Bible_deity_name] has eased your pain!</span>")
-				target.adjustToxLoss(-5)
-				target.adjustOxyLoss(-5)
-				target.adjustBruteLoss(-5)
-				target.adjustFireLoss(-5)
+				var/update = NONE
+				update |= target.heal_overall_damage(5, 5, updating_health = FALSE)
+				update |= target.heal_damages(tox = 5, oxy = 5, updating_health = FALSE)
+				if(update)
+					target.updatehealth()
 
 			praying = FALSE
 

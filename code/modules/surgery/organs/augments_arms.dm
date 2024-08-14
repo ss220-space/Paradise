@@ -452,7 +452,7 @@
 		if(A.emagged || A.stat & BROKEN)
 			do_sparks(3, 1, A)
 			to_chat(H, span_warning("The APC power currents surge erratically, damaging your chassis!"))
-			H.adjustFireLoss(10,0)
+			H.adjustFireLoss(10)
 		else if(A.cell && A.cell.charge > 0)
 			if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
 				to_chat(user, span_warning("You are already fully charged!"))

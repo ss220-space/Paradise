@@ -6484,8 +6484,7 @@
 	},
 /obj/effect/decal/warning_stripes/southeast,
 /obj/structure/marker_beacon{
-	icon_state = "markerburgundy-on";
-	initialized = 1
+	icon_state = "markerburgundy-on"
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -8220,8 +8219,7 @@
 	},
 /obj/effect/decal/warning_stripes/northeast,
 /obj/structure/marker_beacon{
-	icon_state = "markerburgundy-on";
-	initialized = 1
+	icon_state = "markerburgundy-on"
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -9241,8 +9239,7 @@
 	},
 /obj/effect/decal/warning_stripes/southeast,
 /obj/structure/marker_beacon{
-	icon_state = "markercerulean-on";
-	initialized = 1
+	icon_state = "markercerulean-on"
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -10217,8 +10214,7 @@
 	},
 /obj/effect/decal/warning_stripes/northeast,
 /obj/structure/marker_beacon{
-	icon_state = "markercerulean-on";
-	initialized = 1
+	icon_state = "markercerulean-on"
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -11942,8 +11938,7 @@
 "aMq" = (
 /obj/effect/decal/cleanable/crayon{
 	color = "#66171a";
-	icon_state = "security";
-	initialized = 1
+	icon_state = "security"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/livingcomplex)
@@ -12281,7 +12276,6 @@
 	},
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "yip";
-	initialized = 1;
 	pixel_x = 14;
 	pixel_y = 32
 	},
@@ -72095,6 +72089,12 @@
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/grass,
 /area/hallway/secondary/exit)
+"nXN" = (
+/obj/machinery/door/airlock/external{
+	name = "Escape Pod Airlock"
+	},
+/turf/simulated/floor/plating,
+/area/hallway/secondary/entry)
 "nYy" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp,
@@ -72810,7 +72810,6 @@
 	},
 /obj/structure/closet/secure_closet/security{
 	broken = 1;
-	initialized = 1;
 	locked = 0
 	},
 /turf/simulated/floor/plating,
@@ -81974,6 +81973,12 @@
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"uzE" = (
+/obj/machinery/door/airlock/external{
+	name = "Escape Pod Airlock"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/atmospherics)
 "uBA" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -85404,6 +85409,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/toxins/storage)
+"wHa" = (
+/obj/machinery/door/airlock/external{
+	name = "Escape Pod Airlock"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/fsmaint)
 "wHj" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -95791,7 +95802,7 @@ ylx
 ylx
 ylx
 bQl
-bWz
+nXN
 bWz
 bZc
 jGQ
@@ -97333,7 +97344,7 @@ ylx
 ylx
 ylx
 bQn
-bWz
+nXN
 bWz
 bZc
 cdW
@@ -119286,7 +119297,7 @@ dcq
 dcq
 dcq
 dcq
-dhv
+uzE
 dcq
 dcq
 uTI
@@ -126358,7 +126369,7 @@ aWw
 atG
 atG
 atG
-avq
+wHa
 atG
 atG
 atG
@@ -126617,7 +126628,7 @@ uTI
 ylx
 avb
 ylx
-atG
+uTI
 uTI
 uTI
 uTI

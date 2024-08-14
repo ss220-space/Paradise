@@ -46,7 +46,7 @@
 			M.take_overall_damage(dam_force)
 			if(!M)
 				return FALSE
-			M.adjustOxyLoss(round(dam_force/2))
+			M.apply_damage(round(dam_force/2), OXY)
 			target.visible_message(span_danger("[chassis] squeezes [target]."), \
 								span_userdanger("[chassis] squeezes [target]."),\
 								span_italics("You hear something crack."))

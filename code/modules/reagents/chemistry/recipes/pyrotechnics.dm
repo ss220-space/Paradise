@@ -105,11 +105,9 @@
 
 /datum/chemical_reaction/sorium_explosion/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
-	if(ismob(holder.my_atom))
-		var/mob/living/carbon/victim = holder.my_atom
-		victim.adjustBruteLoss(created_volume)
-		victim.adjustStaminaLoss(created_volume)
-		victim.adjustToxLoss(created_volume)
+	if(isliving(holder.my_atom))
+		var/mob/living/victim = holder.my_atom
+		victim.apply_damages(brute = created_volume, tox = created_volume, stamina = created_volume, spread_damage = TRUE)
 		to_chat(victim, span_danger("You feel like you are being torn apart!"))
 
 	if(!T)
