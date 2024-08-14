@@ -99,9 +99,9 @@
 	if(user.max_chems >= 350)
 		qdel(src)
 
-	if(grant && host?.ckey && !LAZYIN(host?.UID, used_UIDs))
+	if(grant && host?.ckey && !LAZYIN(host?.UID(), used_UIDs))
 		user.max_chems += 15
-		used_UIDs += host.UID
+		used_UIDs += host.UID()
 
 	return TRUE
 
