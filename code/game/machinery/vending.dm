@@ -2542,13 +2542,13 @@
 	req_access = list(ACCESS_MEDICAL)
 	products = list(
 		/obj/item/clothing/head/beret/med  			= 10,
+		/obj/item/clothing/head/soft/paramedic		= 5,
 		/obj/item/clothing/head/surgery/purple 		= 10,
 		/obj/item/clothing/head/surgery/blue 		= 10,
 		/obj/item/clothing/head/surgery/green 		= 10,
 		/obj/item/clothing/head/surgery/lightgreen 	= 10,
 		/obj/item/clothing/head/surgery/black 		= 10,
 		/obj/item/clothing/head/headmirror 			= 10,
-		/obj/item/clothing/head/soft/paramedic		= 5,
 
 		/obj/item/clothing/under/rank/medical 				= 10,
 		/obj/item/clothing/under/rank/medical/skirt 		= 10,
@@ -2564,6 +2564,7 @@
 		/obj/item/clothing/under/rank/nursesuit				= 10,
 		/obj/item/clothing/under/rank/nurse					= 10,
 		/obj/item/clothing/under/rank/orderly				= 10,
+		/obj/item/clothing/under/rank/medical/paramedic		= 5,
 		/obj/item/clothing/under/rank/medical/paramedic/skirt			= 5,
 
 		/obj/item/clothing/suit/storage/labcoat 	= 10,
