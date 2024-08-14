@@ -32,6 +32,7 @@
 	if(QDELETED(user))
 		qdel(src)
 		return FALSE
+	on_apply()
 	if((flags & FLAG_HOST_REQUIRED) || (flags & FLAG_HAS_HOST_EFFECT)) // important to change host value.
 		RegisterSignal(user, COMSIG_BORER_ENTERED_HOST, PROC_REF(entered_host))
 		RegisterSignal(user, COMSIG_BORER_LEFT_HOST, PROC_REF(left_host)) 
@@ -50,7 +51,6 @@
 				START_PROCESSING(SSprocessing, src)
 			return TRUE
 		START_PROCESSING(SSprocessing, src)
-	on_apply()
 	return TRUE
 
 /datum/borer_datum/proc/entered_host()
@@ -84,6 +84,9 @@
 
 /datum/borer_datum/proc/remove_movable_effect()
 	return TRUE
+
+/datum/borer_datum/proc/tick(seconds_between_ticks)
+	return
 
 /datum/borer_datum/Destroy(force)
 	if((flags & FLAG_HOST_REQUIRED) || (flags & FLAG_HAS_HOST_EFFECT))
