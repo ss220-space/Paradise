@@ -19,6 +19,7 @@
 	var/mob/living/carbon/human/previous_host // previous host, used to del transferable effects from previous host.
 	var/flags = NONE
 	var/processing_flags = NONE
+	var/tick_interval = 1 SECONDS
 
 /datum/borer_datum/New(mob/living/simple_animal/borer/borer)
 	if(!borer)
@@ -36,8 +37,12 @@
 		RegisterSignal(user, COMSIG_BORER_LEFT_HOST, PROC_REF(left_host)) 
 	if((flags & FLAG_HAS_HOST_EFFECT) && (host)) 
 		previous_host = host
-		grant_movable_effect()
+		pre_grant_movable_effect()
 	if(flags & FLAG_PROCESS)
+		if(tick_interval != -1)
+			tick_interval = world.time + tick_interval
+		if(!(tick_interval > world.time))
+			return FALSE
 		if(!(processing_flags & SHOULD_PROCESS_AFTER_DEATH))
 			RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_mob_death)) 
 			RegisterSignal(user, COMSIG_LIVING_REVIVE, PROC_REF(on_mob_revive))
@@ -51,31 +56,41 @@
 /datum/borer_datum/proc/entered_host()
 	SIGNAL_HANDLER
 	host = user.host
-	if((flags & FLAG_HAS_HOST_EFFECT) && (grant_movable_effect()))
+	if((flags & FLAG_HAS_HOST_EFFECT) && (pre_grant_movable_effect()))
 		previous_host = host
 			
 /datum/borer_datum/proc/left_host()
 	SIGNAL_HANDLER
 	host = null
-	if((flags & FLAG_HAS_HOST_EFFECT) && (remove_movable_effect()))
+	if((flags & FLAG_HAS_HOST_EFFECT) && (pre_remove_movable_effect()))
 		previous_host = host
 
-/datum/borer_datum/proc/grant_movable_effect()
-	SHOULD_CALL_PARENT(TRUE)
+/datum/borer_datum/proc/pre_grant_movable_effect()
 	if(QDELETED(user) || QDELETED(host))
 		return
 
-/datum/borer_datum/proc/remove_movable_effect()
-	SHOULD_CALL_PARENT(TRUE)
+	if(grant_movable_effect())
+		return
+
+/datum/borer_datum/proc/pre_remove_movable_effect()
 	if(QDELETED(user) || QDELETED(previous_host))
 		return
+
+	if(remove_movable_effect())
+		return
+
+/datum/borer_datum/proc/grant_movable_effect()
+	return TRUE
+
+/datum/borer_datum/proc/remove_movable_effect()
+	return TRUE
 
 /datum/borer_datum/Destroy(force)
 	if((flags & FLAG_HOST_REQUIRED) || (flags & FLAG_HAS_HOST_EFFECT))
 		UnregisterSignal(user, COMSIG_BORER_ENTERED_HOST)
 		UnregisterSignal(user, COMSIG_BORER_LEFT_HOST)
 	if((flags & FLAG_HAS_HOST_EFFECT) && (previous_host))
-		remove_movable_effect()
+		pre_remove_movable_effect()
 	if(flags & FLAG_PROCESS)
 		if(!(processing_flags & SHOULD_PROCESS_AFTER_DEATH))
 			UnregisterSignal(user, COMSIG_MOB_DEATH)
@@ -95,7 +110,20 @@
 
 /datum/borer_datum/proc/on_mob_revive()
 	SIGNAL_HANDLER
-	START_PROCESSING(SSprocessing, src)
+	if(tick_interval > world.time)
+		START_PROCESSING(SSprocessing, src)
+
+/datum/borer_datum/process(seconds_per_tick)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	if(QDELETED(user))
+		qdel(src)
+		return
+	if(tick_interval != -1 && tick_interval <= world.time)
+		var/tick_length = initial(tick_interval)
+		tick(tick_length / (1 SECONDS))
+		tick_interval = world.time + tick_length
+		if(QDELING(src))
+			return
 
 /datum/borer_datum/miscellaneous // category for small datums.
 
@@ -163,18 +191,18 @@
 	user.maxHealth += 10
 	return TRUE
 
-/datum/borer_datum/borer_rank/young/process()
+/datum/borer_datum/borer_rank/young/tick(seconds_between_ticks)
 	user.adjustHealth(-0.1)
 
-/datum/borer_datum/borer_rank/mature/process()
+/datum/borer_datum/borer_rank/mature/tick(seconds_between_ticks)
 	user.adjustHealth(-0.15)
 
-/datum/borer_datum/borer_rank/adult/process()
+/datum/borer_datum/borer_rank/adult/tick(seconds_between_ticks)
 	user.adjustHealth(-0.2)
 	if(host?.stat != DEAD && !user.sneaking)
 		user.chemicals += 0.2
 
-/datum/borer_datum/borer_rank/elder/process()
+/datum/borer_datum/borer_rank/elder/tick(seconds_between_ticks)
 	user.adjustHealth(-0.3)
 	if(host?.stat != DEAD)
 		host?.heal_overall_damage(0.4, 0.4)
@@ -216,7 +244,7 @@
 	previous_host.stam_regen_start_modifier /= 0.75
 	return TRUE
 
-/datum/borer_datum/focus/head/process()
+/datum/borer_datum/focus/head/tick(seconds_between_ticks)
 	if(!user.controlling && host?.stat != DEAD)
 		host?.adjustBrainLoss(-1)
 			
@@ -228,7 +256,7 @@
 	previous_host.physiology.brute_mod /= 0.8
 	return TRUE
 
-/datum/borer_datum/focus/torso/process()
+/datum/borer_datum/focus/torso/tick(seconds_between_ticks)
 	if(host?.stat != DEAD)
 		linked_organ = host?.get_int_organ(/obj/item/organ/internal/heart)
 		if(linked_organ)
