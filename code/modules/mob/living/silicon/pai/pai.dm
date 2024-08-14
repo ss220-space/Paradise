@@ -247,7 +247,7 @@
 
 	switch(severity)
 		if(EXPLODE_DEVASTATE)
-			apply_damages(100, 100))
+			apply_damages(100, 100)
 		if(EXPLODE_HEAVY)
 			apply_damages(60, 60)
 		if(EXPLODE_LIGHT)
