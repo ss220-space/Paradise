@@ -5809,11 +5809,6 @@
 /obj/machinery/atmospherics/air_sensor{
 	id_tag = "air_sensor"
 	},
-/obj/machinery/atmospherics/air_sensor{
-	frequency = 1443;
-	id_tag = "air_sensor";
-	output = 7
-	},
 /turf/simulated/floor/engine/air,
 /area/atmos)
 "aSO" = (
