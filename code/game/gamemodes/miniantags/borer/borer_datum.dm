@@ -26,10 +26,10 @@
 		qdel(src)
 		return FALSE
 	if((flags & FLAG_HOST_REQUIRED) || (flags & FLAG_HAS_HOST_EFFECT)) // important to change host value.
-		RegisterSignal(user, COMSIG_BORER_ENTERED_HOST, PROC_REF(check_host))
-		RegisterSignal(user, COMSIG_BORER_LEFT_HOST, PROC_REF(check_host)) 
+		RegisterSignal(user, COMSIG_BORER_ENTERED_HOST, PROC_REF(entered_host))
+		RegisterSignal(user, COMSIG_BORER_LEFT_HOST, PROC_REF(left_host)) 
 	if((flags & FLAG_HAS_HOST_EFFECT) && (host)) 
-		previous_host = borer.host
+		previous_host = host
 		host_handle_buff()
 	if(flags & FLAG_PROCESS)
 		if(!(processing_flags & SHOULD_PROCESS_AFTER_DEATH))
@@ -41,20 +41,17 @@
 		START_PROCESSING(SSprocessing, src)
 	return TRUE
 
-/datum/borer_datum/proc/check_host()
+/datum/borer_datum/proc/entered_host()
 	SIGNAL_HANDLER
 	host = user.host
-	if(flags & FLAG_HAS_HOST_EFFECT)
-		var/update_previous_host = FALSE
-		switch(host) 
-			if(TRUE)
-				if(host_handle_buff()) // use host.
-					update_previous_host = TRUE
-			if(FALSE)
-				if(host_handle_buff(FALSE)) // use previous_host to delete buff from previous host.
-					update_previous_host = TRUE
-		if(update_previous_host)
-			previous_host = host
+	if((flags & FLAG_HAS_HOST_EFFECT) && (host_handle_buff()))
+		previous_host = host
+			
+/datum/borer_datum/proc/left_host()
+	SIGNAL_HANDLER
+	host = null
+	if((flags & FLAG_HAS_HOST_EFFECT) && (host_handle_buff(FALSE)))
+		previous_host = host
 
 /datum/borer_datum/proc/host_handle_buff(grant = TRUE) // if we want transferable effects between hosts.
 	return TRUE
