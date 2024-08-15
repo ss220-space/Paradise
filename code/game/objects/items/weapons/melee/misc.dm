@@ -1,4 +1,3 @@
-
 /obj/item/melee
 	needs_permit = 1
 
