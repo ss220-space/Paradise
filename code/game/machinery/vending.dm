@@ -507,7 +507,7 @@
 		if(COOLDOWN_FINISHED(src, last_hit_time))
 			visible_message(span_warning("[src] seems to sway a bit!"))
 			to_chat(user, span_userdanger("You might want to think twice about doing that again, [src] looks like it could come crashing down!"))
-			COOLDDOWN_START(src, last_hit_time, hit_warning_cooldown_length)
+			COOLDOWN_START(src, last_hit_time, hit_warning_cooldown_length)
 			return
 
 		switch(rand(1, 100))
