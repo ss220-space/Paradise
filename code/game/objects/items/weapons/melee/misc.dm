@@ -1,4 +1,3 @@
-#define SURPRESS_VALUE 2
 
 /obj/item/melee
 	needs_permit = 1
@@ -113,7 +112,7 @@
             if(!do_after(user, 2.5 SECONDS, A))
                 return
         user.visible_message("<span class='warning'>[user] forces the airlock open with [user.p_their()] [name]!</span>", "<span class='warning'>You force open the airlock.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
-        A.open(SURPRESS_VALUE)
+        A.open(TRUE)
 
 /obj/item/melee/mantisblade/shellguard
 	name = "Shellguard mantis blade"
