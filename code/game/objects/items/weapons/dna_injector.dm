@@ -239,7 +239,7 @@
 
 /obj/item/dnainjector/antifarvision/Initialize()
 	block = GLOB.farvisionblock
-	..()
+	return ..()
 
 /obj/item/dnainjector/firemut
 	name = "DNA-Injector (Fire)"
