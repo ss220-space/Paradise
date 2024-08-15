@@ -549,7 +549,7 @@
 /mob/living/verb/succumb()
 	set hidden = 1
 	if(InCritical())
-		add_misc_logs(src, "has succumbed to death with [round(health, 0.1)] points of health")
+		add_attack_logs(src, src, "has succumbed to death with [round(health, 0.1)] points of health")
 		adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
 		// super check for weird mobs, including ones that adjust hp
 		// we don't want to go overboard and gib them, though
