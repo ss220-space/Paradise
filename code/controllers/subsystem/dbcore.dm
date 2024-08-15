@@ -500,7 +500,7 @@ SUBSYSTEM_DEF(dbcore)
 		return
 
 	if(SSdbcore.IsConnected())
-		if(!check_rights(R_DEBUG, FALSE))
+		if(!check_rights(R_ADMIN, FALSE) || !check_rights(R_DEBUG, FALSE)) //we dont want coders to deal with db
 			to_chat(usr, "<span class='warning'>The database is already connected! (Only those with +DEBUG can force a reconnection)</span>")
 			return
 

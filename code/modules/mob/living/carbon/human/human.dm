@@ -1138,13 +1138,18 @@
 		dna.species.create_organs(src, missing_bodyparts, additional_organs)
 
 		//Apply relevant damages and variables to the new organs.
+		var/should_update_health = FALSE
 		for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 			for(var/stats in bodypart_damages)
 				if(bodypart.limb_zone == stats["zone"])
 					var/brute_dmg = stats["brute"]
 					var/burn_dmg = stats["burn"]
 					if(brute_dmg || burn_dmg)
-						bodypart.external_receive_damage(brute_dmg, burn_dmg, forced = TRUE, silent = TRUE)
+						var/brute_was = bodypart.brute_dam
+						var/burn_was = bodypart.burn_dam
+						bodypart.external_receive_damage(brute_dmg, burn_dmg, forced = TRUE, updating_health = FALSE, silent = TRUE)
+						if(bodypart.brute_dam != brute_was || bodypart.burn_dam != burn_was)
+							should_update_health = TRUE
 					var/status = stats["status"]
 					if(status & ORGAN_INT_BLEED)
 						bodypart.internal_bleeding(silent = TRUE)
@@ -1157,6 +1162,9 @@
 					if(status & ORGAN_MUTATED)
 						bodypart.mutate(silent = TRUE)
 					break
+
+		if(should_update_health)
+			updatehealth("set_species damage retain")
 
 		for(var/obj/item/organ/internal/organ as anything in internal_organs)
 			for(var/stats in internal_damages)
