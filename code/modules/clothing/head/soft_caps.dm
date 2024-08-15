@@ -113,7 +113,7 @@
 
 /obj/item/clothing/head/soft/paramedic
 	name = "paramedic`s cap"
-	desc = "A soft cap worn by a paramedic"
+	desc = "A soft cap worn by a paramedic."
 	icon_state = "paramedicsoft"
 	item_state = "paramedicsoft"
 	item_color = "paramedic"
@@ -121,7 +121,7 @@
 
 /obj/item/clothing/head/soft/brigphys
 	name = "brigphysic`s cap"
-	desc = "A soft cap worn by a brig physician"
+	desc = "A soft cap worn by a brig physician."
 	icon_state = "brigphyssoft"
 	item_state = "brigphyssoft"
 	item_color = "brigphys"
