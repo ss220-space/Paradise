@@ -224,9 +224,11 @@
 			status_tab_data[++status_tab_data.len] = list("Distribution Pressure:", "[internal.distribute_pressure]")
 
 	// I REALLY need to split up status panel things into datums
-	var/mob/living/simple_animal/borer/B = has_brain_worms()
-	if(B && B.controlling)
-		status_tab_data[++status_tab_data.len] = list("Chemicals", B.chemicals)
+	var/mob/living/simple_animal/borer/borer = has_brain_worms()
+	if(borer?.controlling)
+		status_tab_data[++status_tab_data.len] = list("Chemicals", borer.chemicals)
+		status_tab_data[++status_tab_data.len] = list("Rank", borer.borer_rank?.rankname)
+		status_tab_data[++status_tab_data.len] = list("Evolution points", borer.evo_points)
 
 	if(mind)
 		var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)

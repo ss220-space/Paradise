@@ -91,7 +91,6 @@
 	minbodytemp = 0
 	maxbodytemp = 1500
 	var/generation = 1
-	var/list/learned_focuses = list() // exclude learned focuses from focus menu.
 	var/static/list/borer_names = list(
 			"Primary", "Secondary", "Tertiary", "Quaternary", "Quinary", "Senary",
 			"Septenary", "Octonary", "Novenary", "Decenary", "Undenary", "Duodenary",
@@ -111,6 +110,7 @@
 	var/reproductions = 0 // used to upgrade rank
 	var/evo_points = 0 // used for borer shopping, gained by reproductions
 	var/datum/borer_datum/borer_rank/borer_rank
+	var/list/datum/borer_datum/focus/learned_focuses = list()
 	var/datum/borer_datum/miscellaneous/change_host_and_scale/scaling = new
 	var/datum/action/innate/borer/talk_to_host/talk_to_host_action = new
 	var/datum/action/innate/borer/toggle_hide/toggle_hide_action = new
@@ -322,11 +322,10 @@
 		to_chat(src, span_notice("Вы анализируете жизненные показатели [M]."))
 		healthscan(src, M, 1, TRUE)
 
-/mob/living/simple_animal/borer/proc/update_rank(typepath)
-	if(!typepath)
+/mob/living/simple_animal/borer/proc/update_rank()
+	if(!borer_rank)
 		return borer_rank = new /datum/borer_datum/borer_rank/young(src)
-	qdel(borer_rank)
-	switch(typepath)
+	switch(borer_rank)
 		if(/datum/borer_datum/borer_rank/young)
 			return borer_rank = new /datum/borer_datum/borer_rank/mature(src)
 
@@ -491,7 +490,7 @@
 	
 	for(var/datum in subtypesof(/datum/borer_datum/focus))
 		var/datum/borer_datum/focus/borer_datum = datum
-		if(!LAZYIN(borer_datum.type, learned_focuses))
+		if(!locate(borer_datum) in learned_focuses)
 			content += borer_datum.bodypartname
 			
 	if(!LAZYLEN(content))
@@ -504,19 +503,20 @@
 			var/datum/borer_datum/focus/borer_datum = datum
 			if(tgui_menu == borer_datum.bodypartname)
 				process_focus_choice(borer_datum)
+				break
 
 	return
 
 /mob/living/simple_animal/borer/proc/process_focus_choice(datum/borer_datum/focus/focus)
 	if(!src || !host || stat || docile)
 		return
-	if(LAZYIN(focus.type, learned_focuses))
+	if(locate(focus) in learned_focuses)
 		to_chat(src, span_notice("Вы не можете изучить уже изученный фокус."))
+		return
 	if(evo_points >= focus.cost)
 		evo_points -= focus.cost
 		to_chat(src, span_notice("Вы успешно приобрели [focus.bodypartname]"))
-		new focus(src)
-		return learned_focuses += focus.type
+		return learned_focuses = new focus(src)
 	to_chat(src, span_notice("Вам требуется еще [focus.cost - evo_points] очков эволюции для получения [focus.bodypartname]."))
 	return 
 
@@ -825,9 +825,9 @@
 		new /mob/living/simple_animal/borer(turf, borer.generation + 1)
 		borer.reproductions += 1
 		borer.evo_points += 1
-		if(borer.borer_rank && borer.borer_rank.required_reproductions && borer.reproductions >= borer.borer_rank.required_reproductions)
+		if(borer.borer_rank?.required_reproductions && borer.reproductions >= borer.borer_rank.required_reproductions)
 			borer.reproductions -= borer.borer_rank.required_reproductions
-			if(borer.update_rank(borer.borer_rank))
+			if(borer.update_rank())
 				to_chat(src, span_notice("Вы стали древнее. Ваш текущий ранг - [borer.borer_rank.rankname]."))
 	else
 		to_chat(src, "Вам требуется 100 химикатов для размножения!")
