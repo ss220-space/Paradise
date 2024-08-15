@@ -127,7 +127,7 @@
 	if(tick_interval != -1 && tick_interval <= world.time)
 		var/tick_length = initial(tick_interval)
 		tick(tick_length / (1 SECONDS))
-		if((flags &  FLAG_HOST_REQUIRED) && (!QDELETED(host))
+		if((flags &  FLAG_HOST_REQUIRED) && (!QDELETED(host)))
 			host_tick(tick_length / (1 SECONDS))
 		tick_interval = world.time + tick_length
 		if(QDELING(src))
