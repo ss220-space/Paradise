@@ -168,10 +168,10 @@
 	)
 	/// number of shards to apply when a crit embeds
 	var/num_shards = 4
-	/// Last time the machine was punched
-	var/last_hit_time = 0
 	/// How long to wait before resetting the warning cooldown
 	var/hit_warning_cooldown_length = 10 SECONDS
+	/// Cooldown for warning cooldowns
+	COOLDOWN_DECLARE(last_hit_time)
 	/// If the vendor should tip on anyone who walks by. Mainly used for brand intelligence
 	var/aggressive = FALSE
 
@@ -504,11 +504,10 @@
 		if(resistance_flags & INDESTRUCTIBLE)
 			// no goodies, but also no tilts
 			return
-		var/should_warn = world.time > last_hit_time + hit_warning_cooldown_length
-		last_hit_time = world.time
-		if(should_warn)
+		if(COOLDOWN_FINISHED(src, last_hit_time))
 			visible_message(span_warning("[src] seems to sway a bit!"))
 			to_chat(user, span_userdanger("You might want to think twice about doing that again, [src] looks like it could come crashing down!"))
+			COOLDDOWN_START(src, last_hit_time, hit_warning_cooldown_length)
 			return
 
 		switch(rand(1, 100))
@@ -1089,7 +1088,7 @@
 /obj/machinery/vending/shove_impact(mob/living/target, mob/living/attacker)
 	if(HAS_TRAIT(target, TRAIT_FLATTENED))
 		return
-	if(!HAS_TRAIT(attacker, TRAIT_PACIFISM))
+	if(!HAS_TRAIT(attacker, TRAIT_PACIFISM) || !GLOB.pacifism_after_gt)
 		add_attack_logs(attacker, target, "shoved into a vending machine ([src])")
 		tilt(target, from_combat = TRUE)
 		target.visible_message(
@@ -1143,7 +1142,7 @@
 	// 30% chance to spread damage across the entire body, 70% chance to target two limbs in particular
 	damage_to_deal = max(damage_to_deal - crit_rebate, 0)
 	if(prob(30))
-		victim.apply_damage(damage_to_deal, BRUTE)
+		victim.apply_damage(damage_to_deal, BRUTE, spread_damage = TRUE)
 	else
 		var/picked_zone
 		var/num_parts_to_pick = 2
@@ -1161,27 +1160,27 @@
  * Tilts the machine onto the atom passed in.
  *
  * Arguments:
- * * victim - The thing the machine is falling on top of
+ * * target_atom - The thing the machine is falling on top of
  * * crit - if true, some special damage effects might happen.
  * * from_combat - If true, hold off on some of the additional damage and extra effects.
  */
 
-/obj/machinery/vending/proc/tilt(atom/victim, crit = FALSE, from_combat = FALSE)
+/obj/machinery/vending/proc/tilt(atom/target_atom, crit = FALSE, from_combat = FALSE)
 	if(QDELETED(src) || !has_gravity(src) || !tiltable || tilted)
 		return
 
 	tilted = TRUE
-	anchored = FALSE
+	set_anchored(FALSE)
 	layer = ABOVE_MOB_LAYER
 
 	var/should_throw_at_target = TRUE
 
 	. = FALSE
 
-	if(!victim || !in_range(victim, src))
+	if(!target_atom || !in_range(target_atom, src))
 		tilt_over()
 		return
-	for(var/mob/living/L in get_turf(victim))
+	for(var/mob/living/victim in get_turf(target_atom))
 		// Damage to deal outright
 		var/damage_to_deal = squish_damage
 		if(!from_combat)
@@ -1191,8 +1190,8 @@
 			else
 				damage_to_deal *= self_knockover_factor
 
-		if(iscarbon(L))
-			var/throw_spec = handle_squish_carbon(victim, damage_to_deal, crit, from_combat)
+		if(iscarbon(victim))
+			var/throw_spec = handle_squish_carbon(target_atom, damage_to_deal, crit, from_combat)
 			switch(throw_spec)
 				if(VENDOR_CRUSH_HANDLED)
 					return TRUE
@@ -1201,22 +1200,22 @@
 				if(VENDOR_TIP_IN_PLACE)
 					should_throw_at_target = FALSE
 		else
-			L.visible_message(
-				span_danger("[L] is crushed by [src]!"),
+			victim.visible_message(
+				span_danger("[victim] is crushed by [src]!"),
 				span_userdanger("[src] falls on top of you, crushing you!"),
 				span_warning("You hear a loud crunch!")
 			)
-			L.apply_damage(damage_to_deal, BRUTE)
-			add_attack_logs(null, L, "crushed by [src]")
+			victim.apply_damage(damage_to_deal, BRUTE)
+			add_attack_logs(null, victim, "crushed by [src]")
 
 		. = TRUE
-		L.Weaken(4 SECONDS)
-		L.Knockdown(8 SECONDS)
+		victim.Weaken(4 SECONDS)
+		victim.Knockdown(8 SECONDS)
 
-		playsound(L, "sound/effects/blobattack.ogg", 40, TRUE)
-		playsound(L, "sound/effects/splat.ogg", 50, TRUE)
+		playsound(victim, "sound/effects/blobattack.ogg", 40, TRUE)
+		playsound(victim, "sound/effects/splat.ogg", 50, TRUE)
 
-		tilt_over(should_throw_at_target ? victim : null)
+		tilt_over(should_throw_at_target ? target_atom : null)
 
 /obj/machinery/vending/proc/tilt_over(mob/victim)
 	visible_message( span_danger("[src] tips over!"))
