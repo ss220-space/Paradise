@@ -279,7 +279,7 @@
 		return
 
 	if(world.time <= last_special)
-		balloon_alert(src, "<span class='warning'>Вы должны подождать, прежде чем снова встать на шасси!</span>")
+		balloon_alert(src, "<span class='warning'>Необходимо подождать!</span>")
 		return
 
 	last_special = world.time + 200
@@ -310,11 +310,11 @@
 		return
 
 	if(loc == card)
-		balloon_alert(src, "<span class='warning'>Вы уже перешли в компактную форму!</span>")
+		balloon_alert(src, "<span class='warning'>Вы уже в компактной форме!</span>")
 		return
 
 	if(world.time <= last_special)
-		balloon_alert(src, "<span class='warning'>Вы должны подождать, прежде чем вернуться в компактную форму!</span>")
+		balloon_alert(src, "<span class='warning'>Необходимо подождать</span>")
 		return
 
 	close_up()
@@ -355,7 +355,7 @@
 			my_choices["Custom"] = "[ckey]-pai"
 
 	if(loc == card)		//don't let them continue in card form, since they won't be able to actually see their new mobile form sprite.
-		balloon_alert(src, "<span class='warning'>Вы должны быть в своей мобильной форме.</span>")
+		balloon_alert(src, "<span class='warning'>Вы должны быть в мобильной форме.</span>")
 		return
 
 	while(finalized == "No" && client)
