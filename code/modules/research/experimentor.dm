@@ -415,8 +415,7 @@
 			playsound(src.loc, 'sound/effects/supermatter.ogg', 50, 3, -1)
 			ejectItem()
 			throwSmoke(get_turf(exp_on))
-			var/obj/item/relict_priduction/perfect_mix/R = new /obj/item/relict_priduction/perfect_mix(get_turf(exp_on))
-			R.icon_state = exp_on.icon_state
+			new /obj/item/relict_priduction/perfect_mix(get_turf(exp_on))
 			qdel(exp_on)
 		else
 			exp = FAIL
@@ -749,8 +748,8 @@
 /obj/item/relict_priduction/perfect_mix
 	name = "perfect mix"
 	desc = "Странный объект из которого можно бесконечно заполнять емкости какой-то жидкостью."
-	icon_state = "infra-igniter-tank0"
-	icon = 'icons/obj/assemblies.dmi'
+	icon_state = "beaker"
+	icon = 'icons/obj/weapons/techrelic.dmi'
 	origin_tech = "materials=4"
 	var/datum/reagent/R
 	var/transfer = 10
@@ -806,7 +805,7 @@
 	visible_message(message)
 	to_chat(user, message)
 	var/amount = rand(1,3)
-	var/list/A = pick(/mob/living/simple_animal/hostile/bear,/mob/living/simple_animal/hostile/poison/bees,/mob/living/simple_animal/hostile/carp,/mob/living/simple_animal/hostile/alien,/mob/living/simple_animal/butterfly,/mob/living/simple_animal/pet/dog/corgi)
+	var/A = pick(/mob/living/simple_animal/hostile/bear,/mob/living/simple_animal/hostile/poison/bees,/mob/living/simple_animal/hostile/carp,/mob/living/simple_animal/hostile/alien,/mob/living/simple_animal/butterfly,/mob/living/simple_animal/pet/dog/corgi)
 
 	for(var/i in 1 to amount)
 		var/mob/living/simple_animal/S

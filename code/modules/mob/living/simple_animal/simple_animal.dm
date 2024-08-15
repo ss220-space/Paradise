@@ -142,6 +142,9 @@
 
 	var/list/low_priority_targets = list()
 
+	var/atom/anchor // autodust on a big distance
+	var/anchor_radius = 10
+
 /mob/living/simple_animal/Initialize(mapload)
 	. = ..()
 	GLOB.simple_animals[AIStatus] += src
@@ -321,6 +324,12 @@
 
 
 /mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
+	if (anchor)
+		var/dist = get_dist(src, anchor)
+		if (dist > anchor_radius)
+			src.dust()
+			return
+
 	var/atmos_suitable = TRUE
 
 	var/areatemp = get_temperature(environment)
@@ -810,3 +819,7 @@
 	if(!can_collar)
 		return
 	AddElement(/datum/element/strippable, create_strippable_list(list(/datum/strippable_item/pet_collar)))
+
+/mob/living/simple_animal/proc/set_anchor(atom/A, radius)
+	anchor = A
+	anchor_radius = radius

@@ -2,6 +2,8 @@
 	name = "experimental syringe gun"
 	desc = "Эксперементальный шприцемет с 6 слотами для шприцев, встроенным, самовосполняющимся хранилищем химикатов и новейшей системой автозаправки шприцев."
 	origin_tech = "combat=3;biotech=4,bluespace=5"
+	icon = 'icons/obj/weapons/techrelic.dmi'
+	icon_state = "strynggun"
 	materials = list(MAT_METAL=2000, MAT_GLASS=2000, MAT_BLUESPACE=400)
 	var/obj/item/reagent_containers/glass/beaker/large/ready_reagents = new
 	var/obj/item/reagent_containers/glass/beaker/large/processed_reagents = new
@@ -45,7 +47,8 @@
 	for (var/obj/item/reagent_containers/syringe/S in syringes)
 		ready_reagents.reagents.trans_to(S, ready_reagents.reagents.total_volume)
 	for (var/datum/reagent/R in processed_reagents.reagents.reagent_list)
-		ready_reagents.reagents.add_reagent(R.id, R.volume)
+		if (R.can_synth)
+			ready_reagents.reagents.add_reagent(R.id, R.volume)
 
 /datum/crafting_recipe/rapidsyringe_experimental
 	name = "Experemintal syringe gun"

@@ -1,8 +1,8 @@
 /obj/item/tuned_anomalous_teleporter
 	name = "tuned anomalous teleporter"
 	desc = "A portable item using blue-space technology."
-	icon = 'icons/obj/device.dmi'
-	icon_state = "hand_tele"
+	icon = 'icons/obj/weapons/techrelic.dmi'
+	icon_state = "teleport"
 	base_icon_state = "hand_tele"
 	item_state = "electronic"
 	throwforce = 0
