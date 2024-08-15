@@ -207,6 +207,16 @@
 		add_verb(host, /mob/living/proc/borer_comm)
 		talk_to_borer_action.Grant(host)
 
+/mob/living/simple_animal/borer/proc/post_reproduce()
+	reproductions += 1
+	evo_points += 1
+	if(borer_rank?.required_reproductions && reproductions >= borer_rank.required_reproductions)
+		reproductions -= borer_rank.required_reproductions
+		if(update_rank())
+			to_chat(host, span_notice("Вы стали древнее. Ваш текущий ранг - [borer_rank.rankname]."))
+
+	return
+
 /mob/living/simple_animal/borer/verb/toggle_silence_inside_host()
 	set name = "Toggle speech inside Host"
 	set category = "Borer"
@@ -823,12 +833,7 @@
 		var/turf/turf = get_turf(src)
 		turf.add_vomit_floor()
 		new /mob/living/simple_animal/borer(turf, borer.generation + 1)
-		borer.reproductions += 1
-		borer.evo_points += 1
-		if(borer.borer_rank?.required_reproductions && borer.reproductions >= borer.borer_rank.required_reproductions)
-			borer.reproductions -= borer.borer_rank.required_reproductions
-			if(borer.update_rank())
-				to_chat(src, span_notice("Вы стали древнее. Ваш текущий ранг - [borer.borer_rank.rankname]."))
+		borer.post_reproduce()
 	else
 		to_chat(src, "Вам требуется 100 химикатов для размножения!")
 		return
