@@ -8,8 +8,8 @@
 #define SCALING_MAX_CHEM 355
 #define SCALING_CHEM_GAIN 15
 #define FLAG_PROCESS (1<<0) // processing datum
-#define FLAG_HOST_REQUIRED (1<<1) // essential if we handle host
-#define FLAG_HAS_HOST_EFFECT (1<<2) // if we applying something to host and want to transfer these effects between hosts.
+#define FLAG_HOST_REQUIRED (1<<1) // essential if we handle host, especially in processing.
+#define FLAG_HAS_MOVABLE_EFFECT (1<<2) // Movable, nonstatic effects.
 /// processing flags
 #define SHOULD_PROCESS_AFTER_DEATH (1<<0) // Doesn't register signals, process even borer is dead.
 
@@ -33,10 +33,10 @@
 		qdel(src)
 		return FALSE
 	on_apply()
-	if((flags & FLAG_HOST_REQUIRED) || (flags & FLAG_HAS_HOST_EFFECT)) // important to change host value.
+	if((flags & FLAG_HOST_REQUIRED) || (flags & FLAG_HAS_MOVABLE_EFFECT)) // important to change host value.
 		RegisterSignal(user, COMSIG_BORER_ENTERED_HOST, PROC_REF(entered_host))
 		RegisterSignal(user, COMSIG_BORER_LEFT_HOST, PROC_REF(left_host)) 
-	if((flags & FLAG_HAS_HOST_EFFECT) && (host)) 
+	if((flags & FLAG_HAS_MOVABLE_EFFECT) && (host)) 
 		previous_host = host
 		pre_grant_movable_effect()
 	if(flags & FLAG_PROCESS)
@@ -56,13 +56,13 @@
 /datum/borer_datum/proc/entered_host()
 	SIGNAL_HANDLER
 	host = user.host
-	if((flags & FLAG_HAS_HOST_EFFECT) && (pre_grant_movable_effect()))
+	if((flags & FLAG_HAS_MOVABLE_EFFECT) && (pre_grant_movable_effect()))
 		previous_host = host
 			
 /datum/borer_datum/proc/left_host()
 	SIGNAL_HANDLER
 	host = null
-	if((flags & FLAG_HAS_HOST_EFFECT) && (pre_remove_movable_effect()))
+	if((flags & FLAG_HAS_MOVABLE_EFFECT) && (pre_remove_movable_effect()))
 		previous_host = host
 
 /datum/borer_datum/proc/pre_grant_movable_effect()
@@ -88,11 +88,14 @@
 /datum/borer_datum/proc/tick(seconds_between_ticks)
 	return
 
+/datum/borer_datum/proc/host_tick(seconds_between_ticks)
+	return
+
 /datum/borer_datum/Destroy(force)
-	if((flags & FLAG_HOST_REQUIRED) || (flags & FLAG_HAS_HOST_EFFECT))
+	if((flags & FLAG_HOST_REQUIRED) || (flags & FLAG_HAS_MOVABLE_EFFECT))
 		UnregisterSignal(user, COMSIG_BORER_ENTERED_HOST)
 		UnregisterSignal(user, COMSIG_BORER_LEFT_HOST)
-	if((flags & FLAG_HAS_HOST_EFFECT) && (previous_host))
+	if((flags & FLAG_HAS_MOVABLE_EFFECT) && (previous_host))
 		pre_remove_movable_effect()
 	if(flags & FLAG_PROCESS)
 		if(!(processing_flags & SHOULD_PROCESS_AFTER_DEATH))
@@ -124,6 +127,8 @@
 	if(tick_interval != -1 && tick_interval <= world.time)
 		var/tick_length = initial(tick_interval)
 		tick(tick_length / (1 SECONDS))
+		if((flags &  FLAG_HOST_REQUIRED) && (!QDELETED(host))
+			host_tick(tick_length / (1 SECONDS))
 		tick_interval = world.time + tick_length
 		if(QDELING(src))
 			return
@@ -132,7 +137,7 @@
 
 /datum/borer_datum/miscellaneous/change_host_and_scale
 	var/list/used_UIDs = list()
-	flags = FLAG_HAS_HOST_EFFECT
+	flags = FLAG_HAS_MOVABLE_EFFECT
 
 /datum/borer_datum/miscellaneous/change_host_and_scale/New()
 	return
@@ -202,29 +207,33 @@
 
 /datum/borer_datum/borer_rank/adult/tick(seconds_between_ticks)
 	user.adjustHealth(-0.2)
-	if(host?.stat != DEAD && !user.sneaking)
+
+/datum/borer_datum/borer_rank/adult/host_tick(seconds_between_ticks)
+	if(host.stat != DEAD && !user.sneaking)
 		user.chemicals += 0.2
 
 /datum/borer_datum/borer_rank/elder/tick(seconds_between_ticks)
 	user.adjustHealth(-0.3)
-	if(host?.stat != DEAD)
-		host?.heal_overall_damage(0.4, 0.4)
+
+/datum/borer_datum/borer_rank/elder/host_tick(seconds_between_ticks)
+	if(host.stat != DEAD)
+		host.heal_overall_damage(0.4, 0.4)
 		user.chemicals += 0.3
 
 /datum/borer_datum/focus
 	var/bodypartname = "Focus"
 	var/cost = 0
-	flags = FLAG_HAS_HOST_EFFECT
+	flags = FLAG_HAS_MOVABLE_EFFECT
 	
 /datum/borer_datum/focus/head
 	bodypartname = "Head focus"
 	cost = HEAD_FOCUS_COST
-	flags = FLAG_HAS_HOST_EFFECT|FLAG_PROCESS
+	flags = FLAG_HAS_MOVABLE_EFFECT|FLAG_PROCESS|FLAG_HOST_REQUIRED
 	
 /datum/borer_datum/focus/torso
 	bodypartname = "Body focus"
 	cost = TORSO_FOCUS_COST
-	flags = FLAG_HAS_HOST_EFFECT|FLAG_PROCESS
+	flags = FLAG_HAS_MOVABLE_EFFECT|FLAG_PROCESS|FLAG_HOST_REQUIRED
 	var/obj/item/organ/internal/heart/linked_organ
 	
 /datum/borer_datum/focus/hands
@@ -247,9 +256,9 @@
 	previous_host.stam_regen_start_modifier /= 0.75
 	return TRUE
 
-/datum/borer_datum/focus/head/tick(seconds_between_ticks)
-	if(!user.controlling && host?.stat != DEAD)
-		host?.adjustBrainLoss(-1)
+/datum/borer_datum/focus/head/host_tick(seconds_between_ticks)
+	if(!user.controlling && host.stat != DEAD)
+		host.adjustBrainLoss(-1)
 			
 /datum/borer_datum/focus/torso/grant_movable_effect()
 	host.physiology.brute_mod *= 0.8
@@ -259,27 +268,27 @@
 	previous_host.physiology.brute_mod /= 0.8
 	return TRUE
 
-/datum/borer_datum/focus/torso/tick(seconds_between_ticks)
-	if(host?.stat != DEAD)
-		linked_organ = host?.get_int_organ(/obj/item/organ/internal/heart)
+/datum/borer_datum/focus/torso/host_tick(seconds_between_ticks)
+	if(host.stat != DEAD)
+		linked_organ = host.get_int_organ(/obj/item/organ/internal/heart)
 		if(linked_organ)
-			host?.set_heartattack(FALSE)
+			host.set_heartattack(FALSE)
 
 /datum/borer_datum/focus/torso/Destroy(force)
 	linked_organ = null
 	return ..()
 		
 /datum/borer_datum/focus/hands/grant_movable_effect()
-	host.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod, multiplicative_slowdown = host.dna.species.toolspeedmod * 0.5)
-	host.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_surgery_mod, multiplicative_slowdown = host.dna.species.surgeryspeedmod * 0.5)
+	host.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod, multiplicative_slowdown = -0.5)
+	host.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_surgery_mod, multiplicative_slowdown = -0.5)
 	host.physiology.punch_damage_low += 7
 	host.physiology.punch_damage_high += 5
 	host.next_move_modifier *= 0.75
 	return TRUE
 
 /datum/borer_datum/focus/hands/remove_movable_effect()
-	previous_host.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod, multiplicative_slowdown = previous_host.dna.species.toolspeedmod * 0.5)
-	previous_host.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_surgery_mod, multiplicative_slowdown = previous_host.dna.species.surgeryspeedmod * 0.5)
+	previous_host.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod, multiplicative_slowdown = 0.5)
+	previous_host.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_surgery_mod, multiplicative_slowdown = 0.5)
 	previous_host.physiology.punch_damage_low -= 7
 	previous_host.physiology.punch_damage_high -= 5	
 	previous_host.next_move_modifier /= 0.75
@@ -356,5 +365,5 @@
 #undef SCALING_CHEM_GAIN
 #undef FLAG_PROCESS
 #undef FLAG_HOST_REQUIRED 
-#undef FLAG_HAS_HOST_EFFECT 
+#undef FLAG_HAS_MOVABLE_EFFECT 
 #undef SHOULD_PROCESS_AFTER_DEATH
