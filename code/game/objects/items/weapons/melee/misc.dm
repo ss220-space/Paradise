@@ -74,9 +74,10 @@
 	var/stamina_damage = 30
 
 /obj/item/melee/syndie_rapier/attack(mob/living/target, mob/living/user, def_zone, add_melee_cooldown = TRUE, skip_attack_anim = TRUE)
-	add_fingerprint(user)
+	. = . ()
+	if(!.)
+		return
 	syndie_rapier_effect(target, user)
-	return ..()
 
 /obj/item/melee/syndie_rapier/proc/syndie_rapier_effect(mob/living/target, mob/living/user)
 	if(target.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
