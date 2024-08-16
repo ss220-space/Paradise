@@ -16,6 +16,13 @@ GLOBAL_LIST_INIT(standard_chemicals, list("slimejelly","blood","water","lube","c
 								"fluorosurfactant","ethanol","ammonia","diethylamine","antihol","pancuronium",
 								"lipolicide","condensedcapsaicin","frostoil","amanitin","psilocybin",
 								"enzyme","nothing","salglu_solution","antifreeze","neurotoxin", "jestosterone"))
+
+// which chemicals can be acquired by borer
+GLOBAL_LIST_INIT(borer_acq_reagents, list("morphine", "syntmorphine", "mutadone", "iron",
+								"teporone", "perfluorodecalin", "potass_iodide", "jestosterone",
+								"oculine", "cryoxadone", "lsd", "space_drugs",
+								"ethanol", "antihol", "lipolicide", "psilocybin", "nothing"))
+
 // Rare chemicals
 GLOBAL_LIST_INIT(rare_chemicals, list("minttoxin","syndicate_nanites", "xenomicrobes"))
 // Standard medicines

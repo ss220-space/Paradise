@@ -147,7 +147,7 @@
 		qdel(src)
 		return
 
-	if(host.ckey && !LAZYIN(host?.UID(), used_UIDs))
+	if(host.ckey && !LAZYIN(host.UID(), used_UIDs))
 		user.max_chems += SCALING_CHEM_GAIN
 		used_UIDs += host.UID()
 
@@ -270,7 +270,7 @@
 
 /datum/borer_datum/focus/torso/host_tick(seconds_between_ticks)
 	if(host.stat != DEAD)
-		linked_organ = host.get_int_organ(/obj/item/organ/internal/heart)
+		linked_organ = host.get_int_organ(linked_organ)
 		if(linked_organ)
 			host.set_heartattack(FALSE)
 
@@ -302,57 +302,46 @@
 	previous_host.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = 0.25)
 	return TRUE
 
-/datum/borer_chem
-	var/chemname
-	var/chemdesc = "This is a chemical"
+/datum/reagent
+	var/borer_acquired = FALSE
 	var/chemuse = 30
 	var/quantity = 10
+	var/evo_cost = 1
 
-/datum/borer_chem/capulettium_plus
-	chemname = "capulettium_plus"
-	chemdesc = "Silences and masks pulse."
-
-/datum/borer_chem/charcoal
-	chemname = "charcoal"
-	chemdesc = "Slowly heals toxin damage, also slowly removes other chemicals."
-
-/datum/borer_chem/epinephrine
-	chemname = "epinephrine"
-	chemdesc = "Stabilizes critical condition and slowly heals suffocation damage."
-
-/datum/borer_chem/fliptonium
-	chemname = "fliptonium"
-	chemdesc = "Causes uncontrollable flipping."
+/datum/reagent/capulettium_plus
+	borer_acquired = TRUE
+	
+/datum/reagent/medicine/charcoal
+	borer_acquired = TRUE
+	
+/datum/reagent/medicine/epinephrine
+	borer_acquired = TRUE
+	
+/datum/reagent/fliptonium
 	chemuse = 50
-
-/datum/borer_chem/hydrocodone
-	chemname = "hydrocodone"
-	chemdesc = "An extremely strong painkiller."
-
-/datum/borer_chem/mannitol
-	chemname = "mannitol"
-	chemdesc = "Heals brain damage."
-
-/datum/borer_chem/methamphetamine
-	chemname = "methamphetamine"
-	chemdesc = "Reduces stun times and increases stamina. Deals small amounts of brain damage."
+	borer_acquired = TRUE
+	
+/datum/reagent/medicine/hydrocodone
+	borer_acquired = TRUE
+	
+/datum/reagent/medicine/mannitol
+	borer_acquired = TRUE
+	
+/datum/reagent/methamphetamine
 	chemuse = 50
-
-/datum/borer_chem/mitocholide
-	chemname = "mitocholide"
-	chemdesc = "Heals internal organ damage."
-
-/datum/borer_chem/salbutamol
-	chemname = "salbutamol"
-	chemdesc = "Heals suffocation damage."
-
-/datum/borer_chem/salglu_solution
-	chemname = "salglu_solution"
-	chemdesc = "Slowly heals brute and burn damage, also slowly restores blood."
-
-/datum/borer_chem/spaceacillin
-	chemname = "spaceacillin"
-	chemdesc = "Slows progression of diseases and fights infections."
+	borer_acquired = TRUE
+	
+/datum/reagent/medicine/mitocholide
+	borer_acquired = TRUE
+	
+/datum/reagent/medicine/salbutamol
+	borer_acquired = TRUE
+	
+/datum/reagent/medicine/salglu_solution
+	borer_acquired = TRUE
+	
+/datum/reagent/medicine/spaceacillin
+	borer_acquired = TRUE
 
 #undef REPRODUCTIONS_TO_MATURE
 #undef REPRODUCTIONS_TO_ADULT

@@ -124,6 +124,7 @@
 	var/datum/action/innate/borer/torment/torment_action = new
 	var/datum/action/innate/borer/sneak_mode/sneak_mode_action = new
 	var/datum/action/innate/borer/focus_menu/focus_menu_action = new
+	var/datum/action/innate/borer/learn_chem/learn_chem_action = new
 
 /mob/living/simple_animal/borer/New(atom/newloc, var/gen=1)
 	update_rank()
@@ -426,12 +427,10 @@
 
 	content += "<table>"
 
-	for(var/datum in typesof(/datum/borer_chem))
-		var/datum/borer_chem/C = datum
-		var/cname = initial(C.chemname)
-		var/datum/reagent/R = GLOB.chemical_reagents_list[cname]
-		if(cname)
-			content += "<tr><td><a class='chem-select' href='?_src_=[UID()];src=[UID()];borer_use_chem=[cname]'>[R.name] ([initial(C.chemuse)])</a><p>[initial(C.chemdesc)]</p></td></tr>"
+	for(var/datum in subtypesof(/datum/reagent))
+		var/datum/reagent/reagent = datum
+		if(reagent.borer_acquired && reagent.name)
+			content += "<tr><td><a class='chem-select' href='?_src_=[UID()];src=[UID()];borer_use_chem=[reagent]'>[reagent.name] ([initial(reagent.chemuse)])</a><p>[initial(reagent.description)]</p></td></tr>"
 
 	content += "</table>"
 
@@ -452,30 +451,24 @@
 		if(!istype(src, /mob/living/simple_animal/borer))
 			return
 
-		var/topic_chem = href_list["borer_use_chem"]
-		var/datum/borer_chem/C = null
+		var/datum/reagent/reagent = href_list["borer_use_chem"]
+		reagent = new reagent()
 
-		for(var/datum in typesof(/datum/borer_chem))
-			var/datum/borer_chem/test = datum
-			if(initial(test.chemname) == topic_chem)
-				C = new test()
-				break
-
-		if(!C || !host || controlling || !src || stat)
-			return
-		var/datum/reagent/R = GLOB.chemical_reagents_list[C.chemname]
-		if(chemicals < C.chemuse)
-			to_chat(src, span_boldnotice("Вам нужно [C.chemuse] химикатов для выделения [R.name]!"))
+		if(!reagent || !host || controlling || !src || stat)
 			return
 
-		to_chat(src, span_userdanger("Вы впрыскиваете [R.name] из своих резервуаров в кровь [host]."))
-		host.reagents.add_reagent(C.chemname, C.quantity)
-		chemicals -= C.chemuse
-		add_attack_logs(src, host, "injected [R.name]")
+		if(chemicals < reagent.chemuse)
+			to_chat(src, span_boldnotice("Вам нужно [reagent.chemuse] химикатов для выделения [reagent.name]!"))
+			return
+
+		to_chat(src, span_userdanger("Вы впрыскиваете [reagent.name] из своих резервуаров в кровь [host]."))
+		host.reagents.add_reagent(reagent.id, reagent.quantity)
+		chemicals -= reagent.chemuse
+		add_attack_logs(src, host, "injected [reagent.name]")
 
 		// This is used because we use a static set of datums to determine what chems are available,
 		// instead of a table or something. Thus, when we instance it, we can safely delete it
-		qdel(C)
+		qdel(reagent)
 	..()
 
 /mob/living/simple_animal/borer/verb/focus_menu()
@@ -495,7 +488,7 @@
 		to_chat(src, "Вы слишком обессилели для этого.")
 		return
 		
-	var/content = list()
+	var/list/content = list()
 	
 	for(var/datum in subtypesof(/datum/borer_datum/focus))
 		var/datum/borer_datum/focus/borer_datum = datum
@@ -527,6 +520,66 @@
 		to_chat(src, span_notice("Вы успешно приобрели [focus.bodypartname]"))
 		return learned_focuses = new focus(src)
 	to_chat(src, span_notice("Вам требуется еще [focus.cost - evo_points] очков эволюции для получения [focus.bodypartname]."))
+	return 
+
+/mob/living/simple_animal/borer/verb/learn_chem()
+	set category = "Borer"
+	set name = "Chemical laboratory"
+	set desc = "Learn new chemical from host blood."
+
+	if(!host)
+		to_chat(src, "Вы не находитесь в теле носителя.")
+		return
+
+	if(stat)
+		to_chat(src, "Вы не можете изучить химикаты в вашем текущем состоянии.")
+		return
+
+	if(docile)
+		to_chat(src, "Вы слишком обессилели для этого.")
+		return
+		
+	var/list/content = list()
+
+	if(!LAZYLEN(host.reagents.reagent_list))
+		to_chat(src, span_notice("В хозяине не обнаружено реагентов."))
+		return
+
+	for(var/datum/reagent/reagent in host.reagents.reagent_list)
+		if(!LAZYIN(reagent.id, GLOB.borer_acq_reagents) && !reagent.borer_acquired)
+			content += reagent.name
+			
+	if(!LAZYLEN(content))
+		to_chat(src, span_notice("В хозяине не найдено доступных реагентов для изучения."))
+		return
+		
+	var/tgui_menu = tgui_input_list(src, "выберите химикат", "Химическая лаборатория", content)
+	if(tgui_menu)
+		for(var/datum in subtypesof(/datum/reagent))
+			var/datum/reagent/reagent = datum
+			if(tgui_menu == reagent.name)
+				process_chemical_choice(reagent)
+				break
+	return
+
+/mob/living/simple_animal/borer/proc/process_chemical_choice(datum/reagent/reagent)
+	if(!src || !host || stat || docile)
+		return
+	if(reagent.borer_acquired)
+		to_chat(src, span_notice("Вы не можете изучить уже изученный реагент."))
+		return
+	if(evo_points >= reagent.evo_cost)
+		evo_points -= reagent.evo_cost
+		to_chat(src, span_notice("Вы успешно изучили [reagent.name]!"))
+		update_chem_cost()
+		return reagent.borer_acquired = TRUE
+	to_chat(src, span_notice("Вам требуется еще [reagent.evo_cost - evo_points] очков эволюции для получения [focus.bodypartname]."))
+	return 
+
+/mob/living/simple_animal/borer/proc/update_chem_cost()
+	for(var/datum/reagent in subtypesof(/datum/reagent))
+		evo_cost += 1
+
 	return 
 
 /mob/living/simple_animal/borer/verb/hide_borer()
@@ -968,6 +1021,7 @@
 	take_control_action.Grant(src)
 	make_chems_action.Grant(src)
 	focus_menu_action.Grant(src)
+	learn_chem_action.Grant(src)
 
 /mob/living/simple_animal/borer/proc/RemoveInfestActions()
 	talk_to_host_action.Remove(src)
@@ -975,6 +1029,7 @@
 	leave_body_action.Remove(src)
 	make_chems_action.Remove(src)
 	focus_menu_action.Remove(src)
+	learn_chem_action.Remove(src)
 
 /mob/living/simple_animal/borer/proc/GrantControlActions()
 	talk_to_brain_action.Grant(host)
@@ -1078,6 +1133,15 @@
 /datum/action/innate/borer/focus_menu/Activate()
 	var/mob/living/simple_animal/borer/borer = owner
 	borer.focus_menu()
+
+/datum/action/innate/borer/learn_chem
+	name = "Chemical laboratory"
+	desc = "Learn chemical from host blood."
+	button_icon_state = "human_form"
+
+/datum/action/innate/borer/learn_chem/Activate()
+	var/mob/living/simple_animal/borer/borer = owner
+	borer.learn_chem()
 
 /datum/action/innate/borer/make_larvae
 	name = "Reproduce"
