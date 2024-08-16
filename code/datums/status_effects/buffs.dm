@@ -335,12 +335,17 @@
 	owner.unignore_slowdown(TRAIT_STATUS_EFFECT(id))
 
 
+/atom/movable/screen/alert/status_effect/fleshmend
+	name = "Fleshmend"
+	desc = "Our wounds are rapidly healing"
+	icon_state = "fleshmend"
+
 /datum/status_effect/fleshmend
 	id = "fleshmend"
 	duration = -1
 	status_type = STATUS_EFFECT_REFRESH
 	tick_interval = 1 SECONDS
-	alert_type = null
+	alert_type = /atom/movable/screen/alert/status_effect/fleshmend
 	/// This diminishes the healing of fleshmend the higher it is.
 	var/tolerance = 1
 	/// This diminishes the healing of fleshmend if the user is cold when it is activated
