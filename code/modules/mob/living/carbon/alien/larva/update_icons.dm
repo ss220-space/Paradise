@@ -6,10 +6,13 @@
 
 /mob/living/carbon/alien/larva/update_icons()
 	var/state = 0
-	if(evolution_points > 150)
-		state = 2
-	else if(evolution_points > 50)
-		state = 1
+	switch(evolution_points)
+		if(-INFINITY to 50)
+			state = 0
+		if(51 to 150)
+			state = 1
+		if(151 to INFINITY)
+			state = 2
 
 	var/incapacitated = HAS_TRAIT(src, TRAIT_INCAPACITATED)
 	if(stat == DEAD)

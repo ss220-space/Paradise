@@ -165,7 +165,6 @@
 						"<span class='userdanger'>[M] has punched [src]!</span>")
 				adjustBruteLoss(damage)
 				add_attack_logs(M, src, "attacked")
-				updatehealth()
 			if(INTENT_DISARM)
 				if(body_position == STANDING_UP && !ascended) //No stealing the arch devil's pitchfork.
 					if(prob(5))

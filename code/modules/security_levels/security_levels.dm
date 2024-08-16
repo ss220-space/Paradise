@@ -95,7 +95,7 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 		SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
 
 		if(GLOB.sibsys_automode && !isnull(GLOB.sybsis_registry))
-			for(var/obj/item/sibyl_system_mod/mod in GLOB.sybsis_registry)
+			for(var/obj/item/sibyl_system_mod/mod as anything in GLOB.sybsis_registry)
 				mod.sync_limit()
 
 

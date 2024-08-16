@@ -939,6 +939,16 @@
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/client, preload_vox)), 1 MINUTES)
 		#endif
 
+
+#if (PRELOAD_RSC == 0)
+/client/proc/preload_vox()
+	for (var/name in GLOB.vox_sounds)
+		var/file = GLOB.vox_sounds[name]
+		Export("##action=load_rsc", file)
+		stoplag()
+#endif
+
+
 //For debugging purposes
 /client/proc/list_all_languages()
 	for(var/L in GLOB.all_languages)

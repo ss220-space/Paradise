@@ -297,10 +297,23 @@
  * * max_interact_count - The maximum amount of interactions allowed.
  * * cancel_on_max - If `TRUE` this proc will fail after reaching max_interact_count.
  * * cancel_message - Message shown to the user if cancel_on_max is set to `TRUE` and they exceeds max interaction count. Use empty string ("") to skip default cancel message.
+ * * category - Used to apply proper action speed modifier to passed delay.
  *
  * Returns `TRUE` on success, `FALSE` on failure.
  */
-/proc/do_after(mob/user, delay, atom/target, timed_action_flags = DEFAULT_DOAFTER_IGNORE, progress = TRUE, datum/callback/extra_checks, interaction_key, max_interact_count = INFINITY, cancel_on_max = FALSE, cancel_message = span_warning("Attempt cancelled."))
+/proc/do_after(
+	mob/user,
+	delay,
+	atom/target,
+	timed_action_flags = DEFAULT_DOAFTER_IGNORE,
+	progress = TRUE,
+	datum/callback/extra_checks,
+	interaction_key,
+	max_interact_count = INFINITY,
+	cancel_on_max = FALSE,
+	cancel_message = span_warning("Attempt cancelled."),
+	category = DA_CAT_ALL,
+)
 	if(!user)
 		return FALSE
 
@@ -329,6 +342,9 @@
 	var/gripper_check = FALSE
 	if(!(timed_action_flags & DA_IGNORE_EMPTY_GRIPPER) && istype(gripper) && !gripper.isEmpty())
 		gripper_check = TRUE
+
+	if(!(timed_action_flags & DA_IGNORE_SLOWDOWNS))
+		delay *= user.get_actionspeed_by_category(category)
 
 	var/datum/progressbar/progbar
 	var/endtime = world.time + delay

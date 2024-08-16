@@ -59,7 +59,7 @@
 	var/list/related_accounts_ip = list()	//So admins know why it isn't working - Used to determine what other accounts previously logged in from this ip
 	var/list/related_accounts_cid = list()	//So admins know why it isn't working - Used to determine what other accounts previously logged in from this computer id
 
-	preload_rsc = 0 // This is 0 so we can set it to an URL once the player logs in and have them download the resources from a different server.
+	preload_rsc = PRELOAD_RSC
 
 	/**
 	 * Assoc list with all the active maps - when a screen obj is added to

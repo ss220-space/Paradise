@@ -105,7 +105,6 @@
 	var/bodytemperature = BODYTEMP_NORMAL	//98.7 F
 	var/nutrition = NUTRITION_LEVEL_FED + 50 //Carbon
 	var/satiety = 0 //Carbon
-	var/hunger_drain = HUNGER_FACTOR // how quickly the mob gets hungry; largely utilized by species.
 
 	var/overeatduration = 0		// How long this guy is overeating //Carbon
 	var/intent = null //Living
@@ -263,4 +262,10 @@
 	var/list/movespeed_mod_immunities //Lazy list, see mob_movespeed.dm
 	/// The calculated mob speed slowdown based on the modifiers list
 	var/cached_multiplicative_slowdown
+	/// List of action speed modifiers applying to this mob
+	var/list/actionspeed_modification
+	/// List of action speed modifiers ignored by this mob. List -> List (id) -> List (sources)
+	var/list/actionspeed_mod_immunities
+	/// The calculated mob action speed slowdown based on the modifiers list, sorted by category in associvative list
+	var/list/cached_multiplicative_actions_slowdown
 

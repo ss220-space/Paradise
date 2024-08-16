@@ -141,7 +141,7 @@
 	. = ..()
 	if((blocked != 100) && iscarbon(target))
 		var/mob/living/carbon/C = target
-		C.adjustToxLoss(9)
+		C.apply_damage(9, TOX)
 
 /obj/item/projectile/bullet/pellet/flechette
 	name = "flechette"

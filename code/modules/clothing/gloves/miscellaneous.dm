@@ -133,7 +133,7 @@
 				add_attack_logs(H, C, "Touched with stun gloves")
 				C.Weaken(stun_strength)
 				C.Stuttering(stun_strength)
-				C.adjustStaminaLoss(20)
+				C.apply_damage(20, STAMINA)
 			else
 				to_chat(H, "<span class='notice'>Not enough charge!</span>")
 			return TRUE
@@ -326,9 +326,9 @@
 	if(!(user.a_intent == INTENT_HARM) || !proximity || isturf(A))
 		return FALSE
 
-	var/damage = knuckle_damage + rand(user.dna.species.punchdamagelow,user.dna.species.punchdamagehigh)
+	var/damage = knuckle_damage + rand(user.dna.species.punchdamagelow + user.physiology.punch_damage_low, user.dna.species.punchdamagehigh + user.physiology.punch_damage_high)
 	var/staminadamage = rand(knock_damage_low, knock_damage_high)
-	var/knobj_damage = knuckle_damage + user.dna.species.obj_damage
+	var/knobj_damage = knuckle_damage + user.dna.species.obj_damage + user.physiology.punch_obj_damage
 	if(ishuman(A))
 		user.do_attack_animation(A, "kick")
 		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)

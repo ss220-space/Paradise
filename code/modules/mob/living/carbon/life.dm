@@ -154,9 +154,10 @@
 			co2overloadtime = world.time
 		else if(world.time - co2overloadtime > 120)
 			Paralyse(6 SECONDS)
-			adjustOxyLoss(3)
+			var/oxy = 3
 			if(world.time - co2overloadtime > 300)
-				adjustOxyLoss(8)
+				oxy += 8
+			adjustOxyLoss(oxy)
 		if(prob(20))
 			emote("cough")
 
@@ -222,20 +223,17 @@
 			if(0 to 50)
 				radiation--
 				if(prob(25))
-					adjustToxLoss(1)
-					updatehealth("handle mutations and radiation(0-50)")
+					apply_damage(1, TOX, spread_damage = TRUE)
 
 			if(50 to 75)
 				radiation -= 2
-				adjustToxLoss(1)
+				apply_damage(1, TOX, spread_damage = TRUE)
 				if(prob(5))
 					radiation -= 5
-				updatehealth("handle mutations and radiation(50-75)")
 
 			if(75 to 100)
 				radiation -= 3
-				adjustToxLoss(3)
-				updatehealth("handle mutations and radiation(75-100)")
+				apply_damage(3, TOX, spread_damage = TRUE)
 
 		radiation = clamp(radiation, 0, 100)
 

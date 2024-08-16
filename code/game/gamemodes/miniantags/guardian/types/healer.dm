@@ -52,17 +52,16 @@
 			to_chat(src, "<span class='danger'>Нужно явить себя для лечения!</span>")
 			return
 		if(iscarbon(target))
+			var/mob/living/carbon/c_target = target
 			changeNext_move(CLICK_CD_MELEE)
 			if(heal_cooldown <= world.time && !stat)
-				var/mob/living/carbon/human/C = target
-				C.adjustBruteLoss(-5, robotic=3)
-				C.adjustFireLoss(-5, robotic=3)
-				C.adjustOxyLoss(-5)
-				C.adjustToxLoss(-5)
-				C.adjustCloneLoss(-5)
-				C.adjustBrainLoss(-5)
+				var/update = NONE
+				update |= c_target.heal_overall_damage(5, 5, updating_health = FALSE, affect_robotic = TRUE)
+				update |= c_target.heal_damages(tox = 5, oxy = 5, clone = 5, brain = 5, updating_health = FALSE)
+				if(update)
+					c_target.updatehealth()
 				heal_cooldown = world.time + 20
-				if(C == summoner)
+				if(c_target == summoner)
 					med_hud_set_health()
 					med_hud_set_status()
 	else

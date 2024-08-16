@@ -51,7 +51,7 @@
 	if(!.)
 		return FALSE
 
-	L.adjustStaminaLoss(15)
+	L.apply_damage(15, STAMINA)
 	if(prob(20))
 		visible_message("<span class='danger'>[src] rams into [L], knocking [L.p_them()] to the floor!</span>")
 		L.adjustBruteLoss(20)

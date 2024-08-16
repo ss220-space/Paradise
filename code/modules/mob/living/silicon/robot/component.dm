@@ -35,33 +35,55 @@
 	installed = -1
 	uninstall()
 
+
 /datum/robot_component/proc/take_damage(brute, electronics, sharp, updating_health = TRUE)
 	if(installed != 1)
-		return
+		return STATUS_UPDATE_NONE
 
-	if(owner && updating_health)
-		owner.updatehealth("component '[src]' take damage")
+	var/old_brute = brute_damage
+	var/old_electronics = electronics_damage
 
-	brute_damage += brute
-	electronics_damage += electronics
+	if((brute_damage + electronics_damage + brute + electronics) < max_damage)
+		brute_damage = round(brute_damage + brute, DAMAGE_PRECISION)
+		electronics_damage = round(electronics_damage + electronics, DAMAGE_PRECISION)
+	else
+		var/remaining_health = max_damage - (brute_damage + electronics_damage)
+		if(brute > 0)
+			brute_damage = round(min(brute_damage + brute, brute_damage + remaining_health), DAMAGE_PRECISION)
+			remaining_health = max(0, remaining_health - brute)
+		if(electronics > 0 && remaining_health)
+			electronics_damage = round(min(electronics_damage + electronics, electronics_damage + remaining_health), DAMAGE_PRECISION)
+		// we will not spread leftover damage for borgs, i'm sorry
+
+	if(old_brute != brute_damage || old_electronics != electronics_damage)
+		. = STATUS_UPDATE_HEALTH
+		if(owner && updating_health)
+			owner.updatehealth("component '[src]' take damage")
 
 	if(brute_damage + electronics_damage >= max_damage)
 		destroy()
 
 	SStgui.update_uis(owner.self_diagnosis)
 
+
 /datum/robot_component/proc/heal_damage(brute, electronics, updating_health = TRUE)
 	if(installed != 1)
 		// If it's not installed, can't repair it.
-		return 0
+		return STATUS_UPDATE_NONE
 
-	if(owner && updating_health)
-		owner.updatehealth("component '[src]' heal damage")
+	var/old_brute = brute_damage
+	var/old_electronics = electronics_damage
 
-	brute_damage = max(0, brute_damage - brute)
-	electronics_damage = max(0, electronics_damage - electronics)
+	brute_damage = round(max(brute_damage - brute, 0), DAMAGE_PRECISION)
+	electronics_damage  = round(max(electronics_damage - electronics, 0), DAMAGE_PRECISION)
+
+	if(old_brute != brute_damage || old_electronics != electronics_damage)
+		. = STATUS_UPDATE_HEALTH
+		if(owner && updating_health)
+			owner.updatehealth("component '[src]' heal damage")
 
 	SStgui.update_uis(owner.self_diagnosis)
+
 
 /datum/robot_component/proc/is_powered()
 	return (installed == 1) && (brute_damage + electronics_damage < max_damage) && (powered)

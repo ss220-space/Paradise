@@ -344,7 +344,7 @@
 		return FALSE
 	if(ismob(src))
 		var/mob/mob = src
-		mob.changeNext_move(CLICK_CD_GRABBING)
+		mob.changeNext_move(CLICK_CD_PULLING)
 	return pulling.Move(pull_turf, move_dir, glide_size)
 
 
@@ -1427,8 +1427,6 @@
 * A wrapper for setDir that should only be able to fail by living mobs.
 *
 * Called from [/atom/movable/proc/keyLoop], this exists to be overwritten by living mobs with a check to see if we're actually alive enough to change directions
-*
-* Not implemented currently.
 */
 /atom/movable/proc/keybind_face_direction(direction)
 	setDir(direction)

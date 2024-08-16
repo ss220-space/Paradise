@@ -39,3 +39,16 @@
 	company_short = "NT"
 	starsys_name  = "Epsilon Eridani"
 	admin_only = TRUE
+
+/datum/map/delta_old
+	name = "Delta Legacy"
+	map_path = "_maps/map_files/event/Station/delta_old.dmm"
+	lavaland_path = "_maps/map_files/Delta/Lavaland.dmm"
+
+	station_name  = "NSS Kerberos"
+	station_short = "Kerberos"
+	dock_name     = "NAV Trurl"
+	company_name  = "Nanotrasen"
+	company_short = "NT"
+	starsys_name  = "Epsilon Eridani"
+	admin_only = TRUE

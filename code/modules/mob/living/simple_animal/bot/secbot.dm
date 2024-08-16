@@ -321,7 +321,7 @@
 		C.apply_damage(10, BRUTE)
 	C.SetStuttering(10 SECONDS)
 	C.Weaken(4 SECONDS)
-	C.adjustStaminaLoss(45)
+	C.apply_damage(45, STAMINA)
 	baton_delayed = TRUE
 	addtimer(VARSET_CALLBACK(src, baton_delayed, FALSE), BATON_COOLDOWN)
 	add_attack_logs(src, C, "stunned")

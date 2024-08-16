@@ -357,22 +357,20 @@
 	. = TRUE
 	multitool_menu_interact(user, I)
 
+
 /obj/machinery/atmospherics/unary/vent_pump/screwdriver_act(mob/user, obj/item/I)
 	if(welded)
 		return FALSE
 	. = TRUE
-	if(open)
-		to_chat(user, span_notice("Now closing the vent."))
-		if(do_after(user, 2 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
-			playsound(loc, I.usesound, 100, 1)
-			open = 0
-			user.visible_message("[user] screwdrivers the vent shut.", "You screwdriver the vent shut.", "You hear a screwdriver.")
-	else
-		to_chat(user, span_notice("Now opening the vent."))
-		if(do_after(user, 2 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
-			playsound(loc, I.usesound, 100, 1)
-			open = 1
-			user.visible_message("[user] screwdrivers the vent open.", "You screwdriver the vent open.", "You hear a screwdriver.")
+	to_chat(user, span_notice("Now [open ? "closing" : "opening"] the vent."))
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+		return .
+	open = !open
+	user.visible_message(
+		"[user] screwdrivers the vent [open ? "open" : "shut"].",
+		"You screwdriver the vent [open ? "open" : "shut"].",
+		"You hear a screwdriver.",
+	)
 
 
 /obj/machinery/atmospherics/unary/vent_pump/welder_act(mob/user, obj/item/I)
