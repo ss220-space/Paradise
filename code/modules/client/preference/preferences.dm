@@ -2333,7 +2333,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						if("Kidneys")
 							organ = INTERNAL_ORGAN_KIDNEYS
 
-					var/list/allowed_organs_type = (NO_ROBOPARTS in S.species_traits ? list("Normal") : list("Normal", "Cybernetic"))
+					var/list/allowed_organs_type = list("Normal", "Cybernetic")
+					if(NO_ROBOPARTS in S.species_traits)
+						allowed_organs_type -= "Cybernetic"
 					var/new_state = tgui_input_list(user, "What state do you wish the organ to be in?", "[organ_name]", allowed_organs_type)
 					if(!new_state) return
 

@@ -42,19 +42,25 @@
 		if(BRUTE)
 			if(isexternalorgan(def_zone))
 				var/obj/item/organ/external/bodypart = def_zone
-				if(bodypart.external_receive_damage(damage, 0, blocked, sharp, used_weapon, forced = forced, updating_health = updating_health, silent = silent))
-					if(update_damage_icon)
-						UpdateDamageIcon()
+				var/brute_was = bodypart.brute_dam
+				if(bodypart.external_receive_damage(damage, 0, blocked, sharp, used_weapon, forced = forced, updating_health = FALSE, silent = silent) && update_damage_icon)
+					UpdateDamageIcon()
+				if(QDELETED(bodypart) || bodypart.loc != src || bodypart.brute_dam != brute_was)
 					. |= STATUS_UPDATE_HEALTH
+					if(updating_health)
+						updatehealth("apply damage")
 			else
 				. |= adjustBruteLoss(damage, updating_health, def_zone, blocked, forced, used_weapon, sharp, silent)
 		if(BURN)
 			if(isexternalorgan(def_zone))
 				var/obj/item/organ/external/bodypart = def_zone
-				if(bodypart.external_receive_damage(0, damage, blocked, sharp, used_weapon, forced = forced, updating_health = updating_health, silent = silent))
-					if(update_damage_icon)
-						UpdateDamageIcon()
+				var/burn_was = bodypart.burn_dam
+				if(bodypart.external_receive_damage(0, damage, blocked, sharp, used_weapon, forced = forced, updating_health = FALSE, silent = silent) && update_damage_icon)
+					UpdateDamageIcon()
+				if(QDELETED(bodypart) || bodypart.loc != src || bodypart.burn_dam != burn_was)
 					. |= STATUS_UPDATE_HEALTH
+					if(updating_health)
+						updatehealth("apply damage")
 			else
 				. |= adjustFireLoss(damage, updating_health, def_zone, blocked, forced, used_weapon, sharp, silent)
 		if(TOX)

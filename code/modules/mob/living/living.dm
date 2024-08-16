@@ -549,7 +549,7 @@
 /mob/living/verb/succumb()
 	set hidden = 1
 	if(InCritical())
-		add_misc_logs(src, "has succumbed to death with [round(health, 0.1)] points of health")
+		add_attack_logs(src, src, "has succumbed to death with [round(health, 0.1)] points of health")
 		adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
 		// super check for weird mobs, including ones that adjust hp
 		// we don't want to go overboard and gib them, though
@@ -1519,11 +1519,11 @@
 				to_chat(src, span_notice("Вы cхватили [grabbed_human.name][grabbed_by_hands ? " за руки" : ""]!"))
 			else
 				pulled_mob.visible_message(
-					span_warning("[name] схватил[genderize_ru(gender,"","а","о","и")] [pulled_mob.name]!"),
+					span_warning("[name] схватил[genderize_ru(gender,"","а","о","и")] [pulled_mob.declent_ru(ACCUSATIVE)]!"),
 					span_warning("[name] схватил[genderize_ru(gender,"","а","о","и")] Вас!"),
 					ignored_mobs = src,
 				)
-				to_chat(src, span_notice("Вы схватили [pulled_mob.name]!"))
+				to_chat(src, span_notice("Вы схватили [pulled_mob.declent_ru(ACCUSATIVE)]!"))
 
 		if(isliving(pulled_mob))
 			var/mob/living/pulled_living = pulled_mob
