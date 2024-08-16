@@ -20,7 +20,7 @@ GLOBAL_LIST_INIT(standard_chemicals, list("slimejelly","blood","water","lube","c
 // which chemicals can be acquired by borer
 GLOBAL_LIST_INIT(borer_acq_reagents, list("morphine", "syntmorphine", "mutadone", "iron",
 								"teporone", "perfluorodecalin", "potass_iodide", "jestosterone",
-								"oculine", "cryoxadone", "lsd", "space_drugs",
+								"oculine", "cryoxadone", "lsd", "space_drugs", "rezadone",
 								"ethanol", "antihol", "lipolicide", "psilocybin", "nothing"))
 
 // Rare chemicals

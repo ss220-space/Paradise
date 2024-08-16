@@ -417,14 +417,14 @@
 	var/evo_cost = 0.4
 
 /obj/effect/proc_holder/spell/borer_force_say/create_new_targeting()
-	return datum/spell_targeting/self
+	return /datum/spell_targeting/self
 
 /obj/effect/proc_holder/spell/borer_force_say/can_cast(mob/living/simple_animal/borer/user, charge_check = TRUE, show_message = FALSE)
-	if (!user.host || !src || user.stat || host.stat)
+	if (!src || user.stat || user.host?.stat)
 		return FALSE
 	if(user.evo_points <= evo_cost)
 		to_chat(user, "Вам требуется еще [evo_cost - user.evo_points] очков эволюции для подчинения голосовых связок хозяина.")
-		return
+		return FALSE
 	. = ..()
 
 /obj/effect/proc_holder/spell/borer_force_say/cast(list/targets, mob/living/simple_animal/borer/user)
@@ -433,10 +433,11 @@
 	if(!force_say_content)
 		return
 
-	if(!user.controlling && !user.stat && !host?.stat && user.evo_points >= evo_cost) // we really need that double check
-		host.say(force_say_content)
+	if(!user.controlling && !user.stat && !user.host?.stat && user.evo_points >= evo_cost) // we really need that double check
+		user.host.say(force_say_content)
+		evo_points -= evo_cost
 		add_attack_logs(user, user.host, "Forcesaid: [force_say_content]")
-	
+
 /mob/living/simple_animal/borer/verb/secrete_chemicals()
 	set category = "Borer"
 	set name = "Secrete Chemicals"
