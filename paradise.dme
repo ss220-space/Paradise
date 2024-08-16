@@ -3059,6 +3059,7 @@
 #include "code\modules\text_to_speech\seeds\silero.dm"
 #include "code\modules\tgs\includes.dm"
 #include "code\modules\tgui\external.dm"
+#include "code\modules\tgui\gps.dm"
 #include "code\modules\tgui\states.dm"
 #include "code\modules\tgui\tgui_datum.dm"
 #include "code\modules\tgui\tgui_window.dm"
