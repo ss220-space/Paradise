@@ -435,7 +435,7 @@
 
 	if(!user.controlling && !user.stat && !user.host?.stat && user.evo_points >= evo_cost) // we really need that double check
 		user.host.say(force_say_content)
-		evo_points -= evo_cost
+		user.evo_points -= evo_cost
 		add_attack_logs(user, user.host, "Forcesaid: [force_say_content]")
 
 /mob/living/simple_animal/borer/verb/secrete_chemicals()
