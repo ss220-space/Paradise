@@ -1129,7 +1129,6 @@
 	broken = 1;
 	density = 0;
 	icon_state = "eng";
-	initialized = 1;
 	locked = 0;
 	opened = 1
 	},
@@ -4575,7 +4574,6 @@
 	broken = 1;
 	density = 0;
 	icon_state = "eng";
-	initialized = 1;
 	locked = 0;
 	opened = 1
 	},
@@ -6151,7 +6149,6 @@
 /obj/structure/closet{
 	custom_door_overlay = "yellow";
 	density = 0;
-	initialized = 1;
 	name = "Engineering gear";
 	opened = 1
 	},
@@ -6781,7 +6778,6 @@
 	broken = 1;
 	density = 0;
 	icon_state = "eng";
-	initialized = 1;
 	locked = 0;
 	opened = 1
 	},
@@ -8389,7 +8385,6 @@
 /obj/structure/closet{
 	custom_door_overlay = "yellow";
 	density = 0;
-	initialized = 1;
 	name = "Engineering gear";
 	opened = 1
 	},
@@ -8677,7 +8672,6 @@
 	broken = 1;
 	density = 0;
 	icon_state = "eng";
-	initialized = 1;
 	locked = 0;
 	opened = 1
 	},
@@ -10361,7 +10355,6 @@
 	broken = 1;
 	density = 0;
 	icon_state = "eng";
-	initialized = 1;
 	locked = 0;
 	opened = 1
 	},
@@ -17889,7 +17882,6 @@
 /obj/structure/closet{
 	custom_door_overlay = "yellow";
 	density = 0;
-	initialized = 1;
 	name = "Engineering gear";
 	opened = 1
 	},

@@ -68,7 +68,7 @@
  */
 /datum/tgui_panel/proc/on_initialize_timed_out()
 	// Currently does nothing but sending a message to old chat.
-	SEND_TEXT(client, "<span class=\"userdanger\">Failed to load fancy chat, click <a href='byond://?src=[UID()];reload_tguipanel=1'>HERE</a> to attempt to reload it.</span>")
+	SEND_TEXT(client, span_userdanger("<h1>Failed to load fancy chat, click <a href='byond://?src=[UID()];reload_tguipanel=1'>HERE</a> to attempt to reload it.</h1>"))// users often miss this text, thinking it is wiki-page, so this text should be BIG
 
 /**
  * private
@@ -104,5 +104,8 @@
  *
  * Sends a round restart notification.
  */
-/datum/tgui_panel/proc/send_roundrestart()
-	window.send_message("roundrestart")
+/datum/tgui_panel/proc/send_roundrestart(position)
+	window.send_message("roundrestart", list(
+		"autoreconnect" = CONFIG_GET(flag/autoreconnect) && CONFIG_GET(flag/shutdown_on_reboot) && !CONFIG_GET(string/server),
+		"position" = position,
+	))

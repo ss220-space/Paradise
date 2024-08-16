@@ -74,7 +74,7 @@
 					h_target.Stun(6 SECONDS)
 
 		if(affecting)
-			affecting.receive_damage(1, 0)
+			h_target.apply_damage(1, def_zone = affecting)
 
 	else if(ismouse(target) && target.stat != DEAD)
 		var/mob/living/simple_animal/mouse/mouse = target

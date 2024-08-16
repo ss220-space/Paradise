@@ -273,10 +273,10 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 
 //Step one - dehairing.
 
-/obj/item/stack/sheet/animalhide/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/item/stack/sheet/animalhide/attackby(obj/item/W, mob/user, params)
 	if(W.sharp)
 		user.visible_message("[user] starts cutting hair off \the [src].", "<span class='notice'>You start cutting the hair off \the [src]...</span>", "<span class='italics'>You hear the sound of a knife rubbing against flesh.</span>")
-		if(do_after(user, 5 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, 5 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
 			to_chat(user, "<span class='notice'>You cut the hair from this [src.singular_name].</span>")
 			//Try locating an exisitng stack on the tile and add to there if possible
 			for(var/obj/item/stack/sheet/hairlesshide/HS in usr.loc)

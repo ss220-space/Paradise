@@ -95,7 +95,7 @@
 		E.Grant(src)
 
 	age_state = age_state_new
-	health = age_state.health
+	set_health(age_state.health)
 	update_state()
 
 	create_reagents(100)
@@ -263,7 +263,17 @@
 		status_tab_data[++status_tab_data.len] = list("Power Level:", "[powerlevel]")
 
 
-/mob/living/simple_animal/slime/adjustFireLoss(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/slime/adjustFireLoss(
+	amount = 0,
+	updating_health = TRUE,
+	def_zone = null,
+	blocked = 0,
+	forced = FALSE,
+	used_weapon = null,
+	sharp = FALSE,
+	silent = FALSE,
+	affect_robotic = TRUE,
+)
 	if(!forced)
 		amount = -abs(amount)
 	return ..() //Heals them
@@ -316,7 +326,7 @@
 			M.add_nutrition(50 + M.age_state.nutrition_steal)
 		if(health > 0)
 			M.adjustBruteLoss(-10 + (-M.age_state.damage * 2))
-			M.updatehealth()
+
 
 /mob/living/simple_animal/slime/attack_animal(mob/living/simple_animal/M)
 	. = ..()

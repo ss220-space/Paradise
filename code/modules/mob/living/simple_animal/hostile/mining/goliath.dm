@@ -188,10 +188,17 @@
 	COOLDOWN_START(src, post_charge_delay, 2 SECONDS)
 
 
-/mob/living/simple_animal/hostile/asteroid/goliath/adjustHealth(amount, updating_health = TRUE)
-	ranged_cooldown -= 10
-	handle_preattack()
-	. = ..()
+/mob/living/simple_animal/hostile/asteroid/goliath/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
+	if(amount > 0)
+		ranged_cooldown -= 10
+		handle_preattack()
+	return ..()
 
 /mob/living/simple_animal/hostile/asteroid/goliath/Aggro()
 	vision_range = aggro_vision_range

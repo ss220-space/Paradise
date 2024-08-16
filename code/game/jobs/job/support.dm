@@ -322,7 +322,7 @@
 	if(!(locate(/datum/action/innate/mimicking) in actions))
 		var/datum/action/innate/mimicking/mimicking = new
 		mimicking.Grant(src)
-	verbs |= /mob/living/carbon/human/proc/mimicking
+	add_verb(src, /mob/living/carbon/human/proc/mimicking)
 
 /datum/action/innate/mimicking
 	name = "Mimicking"

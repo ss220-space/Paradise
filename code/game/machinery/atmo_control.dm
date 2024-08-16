@@ -58,17 +58,19 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	. = TRUE
 	multitool_menu_interact(user, I)
 
+
 /obj/machinery/atmospherics/air_sensor/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(bolts)
 		to_chat(user, "[src] is bolted to the floor! You can't detach it like this.")
-		return
-	playsound(loc, I.usesound, 50, 1)
+		return .
 	to_chat(user, span_notice("You begin to unfasten [src]..."))
-	if(do_after(user, 4 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
-		user.visible_message("[user] unfastens [src].", span_notice("You have unfastened [src]."), "You hear ratchet.")
-		new /obj/item/pipe_gsensor(loc)
-		qdel(src)
+	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume) || bolts)
+		return .
+	user.visible_message("[user] unfastens [src].", span_notice("You have unfastened [src]."), "You hear ratchet.")
+	new /obj/item/pipe_gsensor(loc)
+	qdel(src)
+
 
 /obj/machinery/atmospherics/air_sensor/process_atmos()
 	if(on)

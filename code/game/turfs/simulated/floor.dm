@@ -288,7 +288,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	if(our_rcd.checkResource(5, user))
 		to_chat(user, "Deconstructing floor...")
 		playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-		if(do_after(user, 5 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, 5 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
 			if(!our_rcd.useResource(5, user))
 				return RCD_ACT_FAILED
 			playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
@@ -311,7 +311,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 			if(our_rcd.checkResource(3, user))
 				to_chat(user, "Building Wall...")
 				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-				if(do_after(user, 2 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
+				if(do_after(user, 2 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
 					if(!our_rcd.useResource(3, user))
 						return RCD_ACT_FAILED
 					playsound(get_turf(our_rcd), our_rcd.usesound, 50, 1)
@@ -327,7 +327,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 			if(our_rcd.checkResource(10, user))
 				to_chat(user, "Building Airlock...")
 				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-				if(do_after(user, 5 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
+				if(do_after(user, 5 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
 					if(locate(/obj/machinery/door/airlock) in src.contents)
 						return RCD_NO_ACT
 					if(!our_rcd.useResource(10, user))
@@ -354,7 +354,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 				return RCD_ACT_FAILED
 			to_chat(user, "Constructing window...")
 			playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-			if(!do_after(user, 2 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
+			if(!do_after(user, 2 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
 				to_chat(user, span_warning("ERROR! Construction interrupted!"))
 				return RCD_ACT_FAILED
 			if(locate(/obj/structure/grille) in src)
@@ -384,7 +384,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 			if(our_rcd.checkResource(8, user))
 				to_chat(user, "Building Firelock...")
 				playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-				if(do_after(user, 5 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
+				if(do_after(user, 5 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
 					if(locate(/obj/machinery/door/firedoor) in src)
 						return RCD_NO_ACT
 					if(!our_rcd.useResource(8, user))

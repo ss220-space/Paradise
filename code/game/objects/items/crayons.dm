@@ -88,7 +88,7 @@
 			temp = "graffiti"
 		to_chat(user, "<span class='info'>You start drawing a [temp] on the [target.name].</span>")
 		busy = TRUE
-		if(instant || do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), target))
+		if(instant || do_after(user, 5 SECONDS * toolspeed, target, category = DA_CAT_TOOL))
 			var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target,colour,drawtype,temp)
 			C.add_hiddenprint(user)
 			to_chat(user, "<span class='info'>You finish drawing [temp].</span>")

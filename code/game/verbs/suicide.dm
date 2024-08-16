@@ -40,13 +40,13 @@
 			if(confirm == "Yes")
 				suiciding = TRUE
 				do_suicide()
-				create_log(ATTACK_LOG, "Attempted suicide as special role")
+				add_attack_logs(src, src, "Attempted suicide as special role")
 				message_admins("[src] with a special role attempted suicide at [ADMIN_JMP(src)]")
 				return
 			return
 		suiciding = TRUE
 		do_suicide()
-		create_log(ATTACK_LOG, "Attempted suicide")
+		add_attack_logs(src, src, "Attempted suicide")
 
 
 /mob/living/proc/do_suicide()
@@ -63,11 +63,13 @@
 
 
 /mob/living/simple_animal/slime/do_suicide()
-	setOxyLoss(100, FALSE)
-	adjustBruteLoss(100 - getBruteLoss(), FALSE)
-	setToxLoss(100, FALSE)
-	setCloneLoss(100, FALSE)
-	updatehealth()
+	var/update = NONE
+	update |= setOxyLoss(100, FALSE)
+	update |= adjustBruteLoss(100 - getBruteLoss(), FALSE)
+	update |= setToxLoss(100, FALSE)
+	update |= setCloneLoss(100, FALSE)
+	if(update)
+		updatehealth()
 
 
 /mob/living/silicon/do_suicide()
