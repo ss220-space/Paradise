@@ -332,7 +332,7 @@
 	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
 	path = /obj/item/paintkit/phazon_nt
 
-/datum/design/paint_ashed
+/datum/roboshop_item/paint_ashed
 	name = "Ashed \"Mechs\""
 	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 6)
 	path = /obj/item/paintkit/ashed
