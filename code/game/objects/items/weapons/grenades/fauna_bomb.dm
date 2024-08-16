@@ -5,9 +5,8 @@
 	name = "fauna bomb"
 	desc = "Эксперементальная, многоразовая граната, создающая фауну агрессивную ко всем, кроме активировавшего гранату."
 	w_class = WEIGHT_CLASS_SMALL
-	icon = 'icons/obj/weapons/grenade.dmi'
-	icon_state = "banana"
-	item_state = "flashbang"
+	icon = 'icons/obj/weapons/techrelic.dmi'
+	icon_state = "bomb"
 	var/deliveryamt = 8
 	var/amount = 3
 	var/last_use = 0
