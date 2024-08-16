@@ -13,26 +13,25 @@ GLOBAL_LIST_EMPTY(thinking_indicator)
 		var/image/I = GLOB.typing_indicator[bubble_icon]
 		I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 
-	if(ishuman(src))
-		if(HAS_TRAIT(src, TRAIT_MUTE))
-			cut_overlay(GLOB.typing_indicator[bubble_icon])
-			typing = FALSE
-			return FALSE
+	if(ishuman(src) && HAS_TRAIT(src, TRAIT_MUTE))
+		cut_overlay(GLOB.typing_indicator[bubble_icon])
+		typing = FALSE
+		return FALSE
 
 	if(!client)
 		return FALSE
 
 	if(stat != CONSCIOUS || is_muzzled() || (client.prefs.toggles & PREFTOGGLE_SHOW_TYPING))
-		overlays -= GLOB.typing_indicator[bubble_icon]
+		cut_overlay(GLOB.typing_indicator[bubble_icon])
 		typing = FALSE
 		return FALSE
 
 	if(state && !typing)
-		overlays += GLOB.typing_indicator[bubble_icon]
+		add_overlay(GLOB.typing_indicator[bubble_icon])
 		typing = TRUE
 
 	if(!state && typing)
-		overlays -= GLOB.typing_indicator[bubble_icon]
+		cut_overlay(GLOB.typing_indicator[bubble_icon])
 		typing = FALSE
 
 	return state
@@ -53,21 +52,21 @@ GLOBAL_LIST_EMPTY(thinking_indicator)
 		return FALSE
 
 	if(stat != CONSCIOUS || (client.prefs.toggles & PREFTOGGLE_SHOW_TYPING))
-		overlays -= GLOB.thinking_indicator[bubble_icon]
+		cut_overlay(GLOB.thinking_indicator[bubble_icon])
 		thinking = FALSE
 		return FALSE
 
 	if(!state && thinking)
-		overlays -= GLOB.thinking_indicator[bubble_icon]
+		cut_overlay(GLOB.thinking_indicator[bubble_icon])
 		thinking = FALSE
 
 	if(state && !thinking)
-		overlays += GLOB.thinking_indicator[bubble_icon]
+		add_overlay(GLOB.thinking_indicator[bubble_icon])
 		thinking = TRUE
 
 	return state
 
-// /mob/proc/set_typing_emote_indicator(state) SORRY
+// /mob/proc/set_typing_emote_indicator(state) MAYBE TEMPORARY REMOVED
 // 	if(!GLOB.typing_indicator[bubble_emote_icon])
 // 		GLOB.typing_indicator[bubble_emote_icon] = mutable_appearance('icons/mob/talk.dmi', "[bubble_emote_icon]typing", ABOVE_HUD_LAYER, src, GAME_PLANE)
 // 		var/image/I = GLOB.typing_indicator[bubble_emote_icon]
