@@ -163,7 +163,7 @@
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 	status_tab_data[++status_tab_data.len] = list("Chemicals", chemicals)
-	status_tab_data[++status_tab_data.len] = list("Rank", borer_rank.rankname)
+	status_tab_data[++status_tab_data.len] = list("Rank", borer_rank?.rankname)
 	status_tab_data[++status_tab_data.len] = list("Evolution points", evo_points)
 
 
@@ -212,9 +212,8 @@
 	evo_points += 1
 	if(borer_rank?.required_reproductions && reproductions >= borer_rank.required_reproductions)
 		reproductions -= borer_rank.required_reproductions
-		if(update_rank())
+		if(host && update_rank())
 			to_chat(host, span_notice("Вы стали древнее. Ваш текущий ранг - [borer_rank.rankname]."))
-
 	return
 
 /mob/living/simple_animal/borer/verb/toggle_silence_inside_host()

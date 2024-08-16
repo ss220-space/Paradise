@@ -153,7 +153,7 @@
 
 	return TRUE
 
-/datum/borer_datum/miscellaneous/change_host_and_scale/remove_movable_effect()
+/datum/borer_datum/miscellaneous/change_host_and_scale/pre_remove_movable_effect()
 	return TRUE
 
 /datum/borer_datum/miscellaneous/change_host_and_scale/Destroy(force)
