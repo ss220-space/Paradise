@@ -52,7 +52,7 @@
 	name = "Meson scanner implant"
 	desc = "These cybernetic eyes will allow you to see the structural layout of the station, and, well, everything else."
 	eye_colour = "#199900"
-	implant_color = "#AEFF00"
+	icon_state = "mesonhud_implant"
 	origin_tech = "materials=4;engineering=4;biotech=4;magnets=4"
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
@@ -70,8 +70,8 @@
 /obj/item/organ/internal/cyberimp/eyes/thermals
 	name = "Thermals implant"
 	desc = "These cybernetic eye implants will give you Thermal vision. Vertical slit pupil included."
+	icon_state = "thermal_implant"
 	eye_colour = "#FFCC00"
-	implant_color = "#FFCC00"
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	flash_protect = FLASH_PROTECTION_SENSITIVE
@@ -105,8 +105,8 @@
 /obj/item/organ/internal/cyberimp/eyes/hud/medical
 	name = "Medical HUD implant"
 	desc = "These cybernetic eye implants will display a medical HUD over everything you see."
+	icon_state = "medhud_implant"
 	eye_colour = "#0000D0"
-	implant_color = "#00FFFF"
 	origin_tech = "materials=4;programming=4;biotech=4"
 	aug_message = "You suddenly see health bars floating above people's heads..."
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
@@ -115,8 +115,8 @@
 /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic
 	name = "Diagnostic HUD implant"
 	desc = "These cybernetic eye implants will display a diagnostic HUD over everything you see."
+	icon_state = "diagnosticalhud_implant"
 	eye_colour = "#723E02"
-	implant_color = "#ff9000"
 	origin_tech = "materials=4;engineering=4;biotech=4"
 	aug_message = "You see the diagnostic information of the synthetics around you..."
 	HUDType = DATA_HUD_DIAGNOSTIC
@@ -124,8 +124,8 @@
 /obj/item/organ/internal/cyberimp/eyes/hud/security
 	name = "Security HUD implant"
 	desc = "These cybernetic eye implants will display a security HUD over everything you see."
+	icon_state = "sechud_implant"
 	eye_colour = "#D00000"
-	implant_color = "#CC0000"
 	origin_tech = "materials=4;programming=4;biotech=3;combat=3"
 	aug_message = "Job indicator icons pop up in your vision. That is not a certified surgeon..."
 	HUDType = DATA_HUD_SECURITY_ADVANCED
@@ -147,9 +147,9 @@
 /obj/item/organ/internal/cyberimp/eyes/shield
 	name = "welding shield implant"
 	desc = "These reactive micro-shields will protect you from welders and flashes without obscuring your vision."
+	icon_state = "welding_implant"
 	slot = INTERNAL_ORGAN_EYE_SHIELD_DEVICE
 	origin_tech = "materials=4;biotech=3;engineering=4;plasmatech=3"
-	implant_color = "#101010"
 	flash_protect = FLASH_PROTECTION_WELDER
 	// Welding with thermals will still hurt your eyes a bit.
 
