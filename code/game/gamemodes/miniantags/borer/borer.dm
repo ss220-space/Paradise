@@ -577,9 +577,8 @@
 	return 
 
 /mob/living/simple_animal/borer/proc/update_chem_cost()
-	for(var/datum/reagent in subtypesof(/datum/reagent))
+	for(var/datum/reagent/reagent in subtypesof(/datum/reagent))
 		reagent.evo_cost += 1
-
 	return 
 
 /mob/living/simple_animal/borer/verb/hide_borer()
