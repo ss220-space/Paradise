@@ -527,10 +527,6 @@ EXTRA_SPACE_RUIN_LEVELS_MAX 8
 ## Uncomment this to disable karma and unlock all karma purchases for players by default
 #DISABLE_KARMA
 
-## Defines the ticklimit for subsystem initialization (In percents of a byond tick). Lower makes world start smoother. Higher makes it faster.
-##This is currently a testing optimized setting. A good value for production would be 98.
-TICK_LIMIT_MC_INIT 500
-
 ###Master Controller High Pop Mode###
 
 ##The Master Controller(MC) is the primary system controlling timed tasks and events in SS13 (lobby timer, game checks, lighting updates, atmos, etc)
@@ -697,3 +693,19 @@ JOBS_HIGH_POP_MODE_AMOUNT 80
 ##How long to wait between messaging admins about occurences of a unique error
 #ERROR_MSG_DELAY 50
 
+## TOPIC RATE LIMITING
+## This allows you to limit how many topic calls (clicking on an interface window) the client can do in any given game second and/or game minute.
+## Admins are exempt from these limits.
+## Hitting the minute limit notifies admins.
+## Set to 0 or comment out to disable.
+SECOND_TOPIC_LIMIT 10
+MINUTE_TOPIC_LIMIT 150
+
+## CLICK RATE LIMITING
+## Same as above, but applies to clicking on objects in the game window.
+## This should be a higher then the interface limit to allow for the spam clickly nature of most battles.
+## Admins are exempt from these limits.
+## Hitting the minute limit notifies admins.
+## Set to 0 to disable.
+SECOND_CLICK_LIMIT 15
+MINUTE_CLICK_LIMIT 400

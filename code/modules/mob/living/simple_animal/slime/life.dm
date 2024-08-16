@@ -104,6 +104,7 @@
 
 	AIproc = 0
 
+
 /mob/living/simple_animal/slime/handle_environment(datum/gas_mixture/environment)
 	if(!environment)
 		return
@@ -127,10 +128,6 @@
 	else
 		Tempstun = 0
 
-	updatehealth("handle environment")
-
-
-	return //TODO: DEFERRED
 
 /mob/living/simple_animal/slime/proc/adjust_body_temperature(current, loc_temp, boost)
 	var/temperature = current
@@ -185,11 +182,11 @@
 		var/mob/living/carbon/C = M
 
 		var/feed_mod = round(age_state.feed/3)
-		if((C.dna.species.clone_mod + C.get_vampire_bonus(CLONE)) > 0)
-			C.adjustCloneLoss(rand(2, 4) + feed_mod)
-			C.adjustToxLoss(rand(1, 2) + feed_mod)
+		if(C.dna.species.clone_mod > 0)
+			C.apply_damage(rand(2, 4) + feed_mod, CLONE)
+			C.apply_damage(rand(1, 2) + feed_mod, TOX)
 		else
-			C.adjustFireLoss(rand(2, 5) + feed_mod)
+			C.apply_damage(rand(1, 2) + feed_mod, BURN, spread_damage = TRUE)
 
 		if(prob(10) && C.client)
 			to_chat(C, "<span class='userdanger'>[pick("You can feel your body becoming weak!", \
@@ -204,8 +201,8 @@
 		var/mob/living/simple_animal/SA = M
 
 		var/totaldamage = 0 //total damage done to this unfortunate animal
-		totaldamage += SA.adjustCloneLoss(rand(2, 4 + round(age_state.feed/3)))
-		totaldamage += SA.adjustToxLoss(rand(1, 2 + round(age_state.feed/3)))
+		totaldamage += SA.apply_damage(rand(2, 4 + round(age_state.feed/3)), CLONE)
+		totaldamage += SA.apply_damage(rand(1, 2 + round(age_state.feed/3)), TOX)
 
 		if(totaldamage <= 0) //if we did no(or negative!) damage to it, stop
 			Feedstop(0, 0)
@@ -221,7 +218,8 @@
 	M.adjust_nutrition(round(nutrition_rand / 4))
 
 	//Heal yourself.
-	adjustBruteLoss(-(3 + round(nutrition_rand / 4)))
+	heal_damage_type(3 + round(nutrition_rand / 4))
+
 
 /mob/living/simple_animal/slime/proc/handle_nutrition()
 

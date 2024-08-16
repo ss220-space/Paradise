@@ -19,7 +19,7 @@
 			stack_trace("Mob [type] has improper ventcrawler_trait value.")
 
 	if(mobility_flags & MOBILITY_REST)
-		verbs += /mob/living/proc/toggle_resting
+		add_verb(src, /mob/living/proc/toggle_resting)
 		if(!density)	// we want undense mobs to stay undense when they stop resting
 			ADD_TRAIT(src, TRAIT_UNDENSE, INNATE_TRAIT)
 
@@ -549,14 +549,14 @@
 /mob/living/verb/succumb()
 	set hidden = 1
 	if(InCritical())
-		add_misc_logs(src, "has succumbed to death with [round(health, 0.1)] points of health")
+		add_attack_logs(src, src, "has succumbed to death with [round(health, 0.1)] points of health")
 		adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
 		// super check for weird mobs, including ones that adjust hp
 		// we don't want to go overboard and gib them, though
 		for(var/i = 1 to 5)
 			if(health < HEALTH_THRESHOLD_DEAD)
 				break
-			take_overall_damage(max(5, health - HEALTH_THRESHOLD_DEAD), 0)
+			take_overall_damage(max(5, health - HEALTH_THRESHOLD_DEAD))
 		death()
 		to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
 
@@ -591,13 +591,21 @@
 	if(should_log)
 		log_debug("[src] update_stat([reason][status_flags & GODMODE ? ", GODMODE" : ""])")
 
+
+///Sets the current mob's health value. Do not call directly if you don't know what you are doing, use the damage procs, instead.
+/mob/living/proc/set_health(new_value)
+	. = health
+	health = new_value
+
+
 /mob/living/proc/updatehealth(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
-		health = maxHealth
+		set_health(maxHealth)
 		update_stat("updatehealth([reason])", should_log)
 		return
-	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
+	set_health(maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss())
 	update_stat("updatehealth([reason])", should_log)
+
 
 //This proc is used for mobs which are affected by pressure to calculate the amount of pressure that actually
 //affects them once clothing is factored in. ~Errorage
@@ -1034,8 +1042,9 @@
 				var/martial_override = grabber.mind?.martial_art?.get_resist_chance(GRAB_KILL)
 				. = isnull(martial_override) ? GRAB_RESIST_CHANCE_KILL : martial_override
 	if(. > 0)
-		if(dna?.species.strength_modifier)
-			. *= dna.species.strength_modifier
+		if(ishuman(src))
+			var/mob/living/carbon/human/human = src
+			. *= human.physiology.grab_resist_mod
 		. = round(. * (1 - (clamp(getStaminaLoss(), 0, maxHealth) / maxHealth)))
 	else if(. < 0)
 		. = 0
@@ -1278,43 +1287,6 @@
 	return HEARING_PROTECTION_NONE
 
 
-// The src mob is trying to strip an item from someone
-// Override if a certain type of mob should be behave differently when stripping items (can't, for example)
-/mob/living/stripPanelUnequip(obj/item/what, mob/who, where, silent = FALSE)
-	if(HAS_TRAIT(what, TRAIT_NODROP))
-		to_chat(src, "<span class='warning'>You can't remove \the [what.name], it appears to be stuck!</span>")
-		return
-	if(!silent)
-		who.visible_message("<span class='danger'>[src] tries to remove [who]'s [what.name].</span>", \
-						"<span class='userdanger'>[src] tries to remove [who]'s [what.name].</span>")
-	what.add_fingerprint(src)
-	if(do_after(src, what.strip_delay, who, NONE))
-		if(what && what == who.get_item_by_slot(where) && Adjacent(who))
-			if(!who.drop_item_ground(what, silent = silent))
-				return
-			if(silent && !QDELETED(what) && isturf(what.loc))
-				put_in_hands(what, silent = TRUE)
-			add_attack_logs(src, who, "Stripped of [what]")
-
-// The src mob is trying to place an item on someone
-// Override if a certain mob should be behave differently when placing items (can't, for example)
-/mob/living/stripPanelEquip(obj/item/what, mob/who, where, silent = FALSE)
-	what = get_active_hand()
-	if(what && HAS_TRAIT(what, TRAIT_NODROP))
-		to_chat(src, "<span class='warning'>You can't put \the [what.name] on [who], it's stuck to your hand!</span>")
-		return
-	if(what)
-		if(!what.mob_can_equip(who, where, TRUE, TRUE))
-			to_chat(src, "<span class='warning'>\The [what.name] doesn't fit in that place!</span>")
-			return
-		if(!silent)
-			visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>")
-		if(do_after(src, what.put_on_delay, who, NONE))
-			if(what && Adjacent(who) && !HAS_TRAIT(what, TRAIT_NODROP))
-				drop_item_ground(what, silent = silent)
-				who.equip_to_slot_if_possible(what, where, disable_warning = TRUE, initial = silent)
-				add_attack_logs(src, who, "Equipped [what]")
-
 /mob/living/singularity_act()
 	investigate_log("([key_name_log(src)]) has been consumed by the singularity.", INVESTIGATE_ENGINE) //Oh that's where the clown ended up!
 	gib()
@@ -1547,11 +1519,11 @@
 				to_chat(src, span_notice("Вы cхватили [grabbed_human.name][grabbed_by_hands ? " за руки" : ""]!"))
 			else
 				pulled_mob.visible_message(
-					span_warning("[name] схватил[genderize_ru(gender,"","а","о","и")] [pulled_mob.name]!"),
+					span_warning("[name] схватил[genderize_ru(gender,"","а","о","и")] [pulled_mob.declent_ru(ACCUSATIVE)]!"),
 					span_warning("[name] схватил[genderize_ru(gender,"","а","о","и")] Вас!"),
 					ignored_mobs = src,
 				)
-				to_chat(src, span_notice("Вы схватили [pulled_mob.name]!"))
+				to_chat(src, span_notice("Вы схватили [pulled_mob.declent_ru(ACCUSATIVE)]!"))
 
 		if(isliving(pulled_mob))
 			var/mob/living/pulled_living = pulled_mob
@@ -1676,15 +1648,26 @@
 	if(isnull(client))
 		registered_z = null
 		return
-	if(new_z)
-		SSmobs.clients_by_zlevel[new_z] += src
-		for (var/I in length(SSidlenpcpool.idle_mobs_by_zlevel[new_z]) to 1 step -1) //Backwards loop because we're removing (guarantees optimal rather than worst-case performance), it's fine to use .len here but doesn't compile on 511
-			var/mob/living/simple_animal/SA = SSidlenpcpool.idle_mobs_by_zlevel[new_z][I]
-			if (SA)
-				SA.toggle_ai(AI_ON) // Guarantees responsiveness for when appearing right next to mobs
-			else
-				SSidlenpcpool.idle_mobs_by_zlevel[new_z] -= SA
+	if(!new_z)
+		registered_z = new_z
+		return
+	//Figure out how many clients were here before
+	var/oldlen = SSmobs.clients_by_zlevel[new_z].len
+	SSmobs.clients_by_zlevel[new_z] += src
+	for(var/index in length(SSidlenpcpool.idle_mobs_by_zlevel[new_z]) to 1 step -1) //Backwards loop because we're removing (guarantees optimal rather than worst-case performance), it's fine to use .len here but doesn't compile on 511
+		var/mob/living/simple_animal/animal = SSidlenpcpool.idle_mobs_by_zlevel[new_z][index]
+		if(animal)
+			if(!oldlen)
+				//Start AI idle if nobody else was on this z level before (mobs will switch off when this is the case)
+				animal.toggle_ai(AI_IDLE)
+			//If they are also within a close distance ask the AI if it wants to wake up
+			if(get_dist(get_turf(src), get_turf(animal)) < MAX_SIMPLEMOB_WAKEUP_RANGE)
+				animal.consider_wakeup() // Ask the mob if it wants to turn on it's AI
+		//They should clean up in destroy, but often don't so we get them here
+		else
+			SSidlenpcpool.idle_mobs_by_zlevel[new_z] -= animal
 	registered_z = new_z
+
 
 /mob/living/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = TRUE)
 	..()
@@ -1726,10 +1709,8 @@
 	return
 
 /mob/living/extinguish_light(force = FALSE)
-	for(var/atom/A in src)
-		if(A.light_range > 0)
-			A.extinguish_light(force)
-
+	for(var/obj/item/item as anything in get_equipped_items(TRUE, TRUE))
+		item.extinguish_light(force)
 
 /mob/living/vv_edit_var(var_name, var_value)
 	switch(var_name)

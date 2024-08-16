@@ -23,7 +23,9 @@ GLOBAL_LIST_EMPTY(adminfaxes)
 // Fax panel - lets admins check all faxes sent during the round
 /client/proc/fax_panel()
 	set name = "Fax Panel"
-	set category = "Event"
+	set category = "Admin"
+	if(!check_rights(R_ADMIN))
+		return
 	if(holder)
 		holder.fax_panel(usr)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Fax Panel") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!

@@ -78,9 +78,9 @@
 
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
-	if(initialized)
+	if(flags & INITIALIZED)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
-	initialized = TRUE
+	flags |= INITIALIZED
 
 	if(layer == MAP_EDITOR_TURF_LAYER)
 		layer = real_layer
@@ -107,8 +107,8 @@
 	if(smooth)
 		queue_smooth(src)
 
-	for(var/atom/movable/AM in src)
-		Entered(AM)
+	for(var/atom/movable/content as anything in src)
+		Entered(content)
 
 	if(always_lit)
 		var/mutable_appearance/overlay = GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
@@ -148,7 +148,7 @@
 		SSair.add_to_active(T)
 	SSair.remove_from_active(src)
 	QDEL_LIST(blueprint_data)
-	initialized = FALSE
+	flags &= ~INITIALIZED
 	..()
 
 	if(length(vis_contents))
@@ -254,21 +254,21 @@
 
 
 /turf/proc/levelupdate()
-	for(var/obj/O in src)
-		if(O.level == 1 && O.initialized) // Only do this if the object has initialized
-			O.hide(src.intact)
+	for(var/obj/object in src)
+		if(object.level == 1 && (object.flags & INITIALIZED)) // Only do this if the object has initialized
+			object.hide(intact)
 
 // override for space turfs, since they should never hide anything
 /turf/space/levelupdate()
-	for(var/obj/O in src)
-		if(O.level == 1 && O.initialized)
-			O.hide(FALSE)
+	for(var/obj/object in src)
+		if(object.level == 1 && (object.flags & INITIALIZED))
+			object.hide(FALSE)
 
 // Removes all signs of lattice on the pos of the turf -Donkieyo
 /turf/proc/RemoveLattice()
-	var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
-	if(L && L.initialized)
-		qdel(L)
+	var/obj/structure/lattice/lattice = locate() in src
+	if(lattice && (lattice.flags & INITIALIZED))
+		qdel(lattice)
 
 /turf/proc/dismantle_wall(devastated = FALSE, explode = FALSE)
 	return
@@ -369,6 +369,12 @@
 
 		if(lighting_object && !lighting_object.needs_update)
 			lighting_object.update()
+
+		if(old_always_lit != always_lit)
+			if(!always_lit)
+				lighting_build_overlay()
+			else
+				lighting_clear_overlay()
 
 		for(var/turf/space/S in RANGE_TURFS(1, src)) //RANGE_TURFS is in code\__HELPERS\game.dm
 			S.update_starlight()

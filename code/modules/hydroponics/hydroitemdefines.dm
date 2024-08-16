@@ -63,6 +63,7 @@
 	flags = CONDUCT
 	force = 5
 	throwforce = 7
+	toolspeed = 0.5
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50)
 	attack_verb = list("slashed", "sliced", "cut", "clawed")
@@ -71,6 +72,7 @@
 /obj/item/cultivator/rake
 	name = "rake"
 	icon_state = "rake"
+	toolspeed = 1
 	belt_icon = null
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("slashed", "sliced", "bashed", "clawed")

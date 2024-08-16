@@ -207,7 +207,7 @@
 	. = ..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/M = target
-		M.adjustBrainLoss(20)
+		M.apply_damage(20, BRAIN)
 		M.AdjustHallucinate(20 SECONDS)
 		M.last_hallucinator_log = name
 
@@ -399,7 +399,7 @@
 	G.forceMove(T)
 	var/mob/living/simple_animal/hostile/mimic/copy/ranged/R = new /mob/living/simple_animal/hostile/mimic/copy/ranged(T, G, firer)
 	if(ismob(target))
-		R.target = target
+		R.GiveTarget(target)
 
 /obj/item/projectile/bullet/a84mm_hedp
 	name ="\improper HEDP rocket"
@@ -436,7 +436,7 @@
 
 /obj/item/projectile/bullet/a84mm_hedp/proc/embed_shrapnel(mob/living/carbon/human/H, amount)
 	for(var/i = 0, i < amount, i++)
-		if(prob(embed_prob - H.getarmor(null, "bomb")))
+		if(prob(embed_prob - H.getarmor(attack_flag = BOMB)))
 			var/obj/item/embedded/S = new embedded_type(src)
 			H.hitby(S, skipcatch = 1)
 			S.throwforce = 1

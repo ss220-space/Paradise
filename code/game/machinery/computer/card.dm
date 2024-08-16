@@ -127,7 +127,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	return formatted
 
 /obj/machinery/computer/card/verb/eject_id()
-	set category = null
 	set name = "Eject ID Card"
 	set src in oview(1)
 
@@ -664,8 +663,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			regenerate_id_name()
 			return
 		if("account") // card account number
-			var/account_num = input(usr, "Account Number", "Input Number", null) as num|null
-			if(!scan || !modify)
+			var/account_num = tgui_input_number(usr, "Account Number", "Input Number", modify.associated_account_number, 999999, 100000)
+			if(isnull(account_num) || !scan || !modify)
 				return FALSE
 			modify.associated_account_number = clamp(round(account_num), 0, 999999)
 			return

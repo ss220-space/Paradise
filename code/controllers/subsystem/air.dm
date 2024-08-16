@@ -78,7 +78,7 @@ SUBSYSTEM_DEF(air)
 	setup_pipenets(GLOB.machines)
 	for(var/obj/machinery/atmospherics/A in machinery_to_construct)
 		A.initialize_atmos_network()
-
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/air/Recover()
 	excited_groups = SSair.excited_groups

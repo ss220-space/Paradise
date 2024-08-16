@@ -49,12 +49,12 @@
 
 /datum/species/skeleton/on_species_gain(mob/living/carbon/human/H)
 	..()
-	H.verbs |= /mob/living/carbon/human/proc/emote_rattle
+	add_verb(H, /mob/living/carbon/human/proc/emote_rattle)
 
 
 /datum/species/skeleton/on_species_loss(mob/living/carbon/human/H)
 	..()
-	H.verbs -= /mob/living/carbon/human/proc/emote_rattle
+	remove_verb(H, /mob/living/carbon/human/proc/emote_rattle)
 
 
 /datum/species/skeleton/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)

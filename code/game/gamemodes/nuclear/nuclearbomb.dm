@@ -416,14 +416,15 @@ GLOBAL_VAR(bomb_set)
 				yes_code = FALSE
 				return
 			// If no code set, enter new one
-			var/tempcode = input(usr, "Code", "Input Code", null) as num|null
-			if(tempcode)
-				code = min(max(round(tempcode), 0), 999999)
-				if(code == r_code)
-					yes_code = TRUE
-					code = null
-				else
-					code = "ERROR"
+			var/tempcode = tgui_input_number(usr, "Code", "Input Code", max_value = 999999)
+			if(isnull(tempcode))
+				return
+			code = tempcode
+			if(code == r_code)
+				yes_code = TRUE
+				code = null
+			else
+				code = "ERROR"
 			return
 
 	if(!yes_code) // All requests below here require both NAD inserted AND code correct
@@ -445,9 +446,10 @@ GLOBAL_VAR(bomb_set)
 					visible_message("<span class='warning'>The anchoring bolts slide back into the depths of [src].</span>")
 			return
 		if("set_time")
-			var/time = input(usr, "Detonation time (seconds, min 120, max 600)", "Input Time", 120) as num|null
-			if(time)
-				timeleft = min(max(round(time), 120), 600)
+			var/time = tgui_input_number(usr, "Detonation time (seconds, min 120, max 600)", "Input Time", 120, 600, 120)
+			if(isnull(time))
+				return
+			timeleft = time
 		if("toggle_safety")
 			safety = !(safety)
 			if(safety)

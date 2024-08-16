@@ -145,7 +145,7 @@
 			mobtarget.emp_act(1)
 			spark_system.start()
 			if(cell.charge >= 15000)
-				mobtarget.electrocute_act(cell.charge/1250, src, 1)
+				mobtarget.electrocute_act(cell.charge/1250, "силового кулака")
 			cell.use(cell.maxcharge)
 			to_chat(user, "[src] sparkles violently")
 	else

@@ -62,12 +62,12 @@
 		return FALSE
 
 
-/obj/structure/barricade/attack_hand(mob/user)
-	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+/obj/structure/barricade/attack_hand(mob/living/carbon/human/user)
+	if(user.a_intent == INTENT_HARM && ishuman(user) && (user.dna.species.obj_damage + user.physiology.punch_obj_damage > 0))
 		SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user)
 		add_fingerprint(user)
 		user.changeNext_move(CLICK_CD_MELEE)
-		attack_generic(user, user.dna.species.obj_damage)
+		attack_generic(user, user.dna.species.obj_damage + user.physiology.punch_obj_damage)
 		return
 	else
 		..()
@@ -161,7 +161,7 @@
 	name = "barrier grenade"
 	desc = "Instant cover."
 	icon = 'icons/obj/weapons/grenade.dmi'
-	icon_state = "flashbang"
+	icon_state = "barrier"
 	item_state = "flashbang"
 	actions_types = list(/datum/action/item_action/toggle_barrier_spread)
 	var/mode = SINGLE
@@ -207,7 +207,7 @@
 				new /obj/structure/barricade/security(target_turf2)
 	qdel(src)
 
-/obj/item/grenade/barrier/ui_action_click(mob/user)
+/obj/item/grenade/barrier/ui_action_click(mob/user, datum/action/action, leftclick)
 	toggle_mode(user)
 
 

@@ -67,7 +67,7 @@
 
 /obj/item/storage/backpack/holding/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/storage/backpack/holding))
-		var/response = alert(user, "This creates a singularity, destroying you and much of the station. Are you SURE?","IMMINENT DEATH!", "Yes", "No")
+		var/response = tgui_alert(user, "This creates a singularity, destroying you and much of the station. Are you SURE?", "IMMINENT DEATH!", list("No", "Yes"))
 		if(response == "Yes")
 			user.visible_message("<span class='warning'>[user] grins as [user.p_they()] begin[user.p_s()] to put a Bag of Holding into a Bag of Holding!</span>", "<span class='warning'>You begin to put the Bag of Holding into the Bag of Holding!</span>")
 			var/list/play_records = params2list(user.client.prefs.exp)
@@ -652,6 +652,60 @@
 	icon_state = "duffel-security"
 	item_state = "duffel-security"
 
+/obj/item/storage/backpack/duffel/security/blob
+	name = "Level 5 Biohazard Emergency kit"
+
+/obj/item/storage/backpack/duffel/security/blob/populate_contents()
+	new /obj/item/gun/energy/xray (src)
+	new /obj/item/weldingtool/largetank (src)
+	new /obj/item/clothing/glasses/sunglasses (src)
+	new /obj/item/clothing/ears/earmuffs (src)
+	new /obj/item/storage/box/flashbangs (src)
+
+/obj/item/storage/backpack/duffel/security/spiders
+	name = "Level 3 Biohazard Emergency kit"
+
+/obj/item/storage/backpack/duffel/security/spiders/populate_contents()
+	new /obj/item/gun/projectile/shotgun/automatic/combat (src)
+	new /obj/item/ammo_box/shotgun/dragonsbreath (src)
+	new /obj/item/ammo_box/shotgun/dragonsbreath (src)
+	new /obj/item/clothing/mask/gas/sechailer/swat (src)
+	new /obj/item/clothing/suit/armor/heavy (src)
+	new /obj/item/clothing/gloves/combat (src)
+	new /obj/item/clothing/shoes/combat/swat (src)
+	new /obj/item/grenade/gas/plasma (src)
+	new /obj/item/grenade/gas/plasma (src)
+	new /obj/item/grenade/gas/plasma (src)
+
+/obj/item/storage/backpack/duffel/security/riot
+	name = "Riot Supply Kit"
+
+/obj/item/storage/backpack/duffel/security/riot/populate_contents()
+	new /obj/item/clothing/head/helmet/riot (src)
+	new /obj/item/clothing/suit/armor/riot (src)
+	new /obj/item/clothing/gloves/combat (src)
+	new /obj/item/clothing/shoes/combat/swat (src)
+	new /obj/item/melee/baton (src)
+	new /obj/item/shield/riot/tele (src)
+	new /obj/item/gun/energy/gun/pdw9 (src)
+	new /obj/item/grenade/flashbang (src)
+	new /obj/item/grenade/flashbang (src)
+	new /obj/item/storage/box/zipties (src)
+	new /obj/item/storage/box/bola (src)
+
+/obj/item/storage/backpack/duffel/security/war
+	name = "Wartime Emergency Kit"
+
+/obj/item/storage/backpack/duffel/security/war/populate_contents()
+	new /obj/item/gun/projectile/automatic/ar (src)
+	new /obj/item/ammo_box/magazine/m556 (src)
+	new /obj/item/ammo_box/magazine/m556 (src)
+	new /obj/item/clothing/mask/gas/sechailer/swat (src)
+	new /obj/item/clothing/suit/armor/heavy (src)
+	new /obj/item/clothing/gloves/combat (src)
+	new /obj/item/clothing/shoes/combat/swat (src)
+	new /obj/item/grenade/frag (src)
+
 /obj/item/storage/backpack/duffel/virology
 	name = "virology duffelbag"
 	desc = "A white duffelbag designed to contain biohazards."
@@ -689,6 +743,17 @@
 	item_state = "duffel-eng"
 	resistance_flags = FIRE_PROOF
 
+/obj/item/storage/backpack/duffel/engineering/building_event
+	name = "Event Building kit"
+
+/obj/item/storage/backpack/duffel/engineering/building_event/populate_contents()
+	new /obj/item/clothing/glasses/meson/sunglasses (src)
+	new /obj/item/clothing/gloves/color/yellow (src)
+	new /obj/item/storage/belt/utility/chief/full (src)
+	new /obj/item/rcd/preloaded (src)
+	new /obj/item/rcd_ammo/large (src)
+	new /obj/item/rcd_ammo/large (src)
+
 /obj/item/storage/backpack/duffel/atmos
 	name = "atmospherics duffelbag"
 	desc = "A duffelbag designed to hold tools. This one is specially designed for atmospherics."
@@ -701,6 +766,16 @@
 	desc = "A duffelbag designed to hold seeds and fauna."
 	icon_state = "duffel-hydro"
 	item_state = "duffel-hydro"
+
+/obj/item/storage/backpack/duffel/hydro/weed
+	name = "Space Weed Emergency kit"
+
+/obj/item/storage/backpack/duffel/hydro/weed/populate_contents()
+	new /obj/item/clothing/mask/gas (src)
+	new /obj/item/scythe/tele (src)
+	new /obj/item/grenade/chem_grenade/antiweed (src)
+	new /obj/item/grenade/chem_grenade/antiweed (src)
+	new /obj/item/grenade/chem_grenade/antiweed (src)
 
 /obj/item/storage/backpack/duffel/clown
 	name = "smiles von wiggleton"

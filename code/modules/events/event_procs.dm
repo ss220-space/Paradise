@@ -1,11 +1,11 @@
 
-/client/proc/forceEvent(var/type in SSevents.allEvents)
+/client/proc/forceEvent()
 	set name = "Trigger Event"
-	set category = "Debug"
+	set category = "Event"
 
 	if(!check_rights(R_EVENT))
 		return
-
+	var/type = tgui_input_list(src, "Выберите событие для запуска", "Выбор события", SSevents.allEvents)
 	if(ispath(type))
 		new type(new /datum/event_meta(EVENT_LEVEL_MAJOR))
 		message_admins("[key_name_admin(usr)] has triggered an event. ([type])")

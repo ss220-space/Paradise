@@ -76,7 +76,6 @@
 
 	set name = "Climb structure"
 	set desc = "Climbs onto a structure."
-	set category = null
 	set src in oview(1)
 
 	do_climb(usr)
@@ -208,8 +207,8 @@
 
 			if(affecting)
 				to_chat(M, "<span class='warning'>You land heavily on your [affecting.name]!</span>")
-				affecting.receive_damage(damage, 0)
-				if(affecting.parent)
+				H.apply_damage(damage, def_zone = affecting)
+				if(affecting?.parent)
 					affecting.parent.add_autopsy_data("Misadventure", damage)
 			else
 				to_chat(H, "<span class='warning'>You land heavily!</span>")

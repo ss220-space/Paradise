@@ -8,6 +8,7 @@ SUBSYSTEM_DEF(medals)
 /datum/controller/subsystem/medals/Initialize()
 	if(CONFIG_GET(string/medal_hub_address) && CONFIG_GET(string/medal_hub_password))
 		hub_enabled = TRUE
+	return SS_INIT_SUCCESS
 
 
 /datum/controller/subsystem/medals/proc/UnlockMedal(medal, client/player)

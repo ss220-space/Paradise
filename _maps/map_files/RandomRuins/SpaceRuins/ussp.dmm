@@ -10,7 +10,7 @@
 /area/space/nearstation)
 "ac" = (
 /turf/space,
-/area/template_noop)
+/area/space)
 "ad" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel,
@@ -40,20 +40,10 @@
 /obj/effect/mob_spawn/mousedead,
 /turf/simulated/floor/plasteel,
 /area/derelict/dock)
-"ai" = (
-/obj/item/shard{
-	icon_state = "medium"
-	},
-/turf/space,
-/area/space/nearstation)
 "aj" = (
 /obj/item/shard,
 /turf/space,
-/area/space/nearstation)
-"ak" = (
-/obj/item/stack/rods,
-/turf/space,
-/area/space/nearstation)
+/area/space)
 "al" = (
 /turf/simulated/wall/mineral/titanium,
 /area/derelict/bridge)
@@ -452,13 +442,6 @@
 	icon_state = "darkblue"
 	},
 /area/derelict/bridge)
-"bi" = (
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
-	},
-/area/derelict/bridge)
 "bj" = (
 /obj/item/paper/djstation{
 	desc = "Записка испачкана чернильными пятнами, сильный и дрожащий почерк, нацарапанный по ней, едва различим.";
@@ -593,17 +576,13 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/derelict/bridge)
 "bA" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/derelict/bridge)
 "bB" = (
@@ -617,9 +596,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/derelict/bridge)
 "bD" = (
@@ -812,8 +789,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "cb" = (
@@ -1121,12 +1097,6 @@
 	icon_state = "wood"
 	},
 /area/derelict/bridge)
-"cR" = (
-/obj/item/shard{
-	icon_state = "small"
-	},
-/turf/space,
-/area/space/nearstation)
 "cS" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -1369,14 +1339,12 @@
 "dw" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/derelict/crew_quarters)
 "dx" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/derelict/crew_quarters)
@@ -1768,15 +1736,13 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/engineer_area)
 "ew" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/engineer_area)
 "ex" = (
@@ -2802,7 +2768,7 @@
 "gR" = (
 /mob/living/simple_animal/hostile/carp,
 /turf/space,
-/area/space/nearstation)
+/area/space)
 "gT" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2856,7 +2822,7 @@
 	icon_state = "small"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "gZ" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -2967,10 +2933,6 @@
 	icon_state = "grimy"
 	},
 /area/derelict/crew_quarters)
-"hq" = (
-/obj/item/stack/ore/uranium,
-/turf/space,
-/area/space/nearstation)
 "hr" = (
 /obj/machinery/power/solar{
 	id = "russolar"
@@ -3004,8 +2966,7 @@
 	req_access = list(128,129,130,131)
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "ramptop";
-	tag = "icon-stage_stairs"
+	icon_state = "ramptop"
 	},
 /area/derelict/security)
 "hv" = (
@@ -3017,8 +2978,7 @@
 	req_access = list(128,129,130,131)
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "ramptop";
-	tag = "icon-stage_stairs"
+	icon_state = "ramptop"
 	},
 /area/derelict/security)
 "hw" = (
@@ -3088,8 +3048,7 @@
 	req_access = list(128,129,130,131)
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "stage_stairs";
-	tag = "icon-stage_stairs"
+	icon_state = "stage_stairs"
 	},
 /area/derelict/church)
 "hF" = (
@@ -3102,8 +3061,7 @@
 	req_access = list(128,129,130,131)
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "stage_stairs";
-	tag = "icon-stage_stairs"
+	icon_state = "stage_stairs"
 	},
 /area/derelict/church)
 "hI" = (
@@ -3398,10 +3356,6 @@
 /obj/structure/flora/rock/pile,
 /turf/simulated/floor/plating/airless,
 /area/derelict/annex)
-"ih" = (
-/obj/item/stack/ore/iron,
-/turf/space,
-/area/space/nearstation)
 "ii" = (
 /turf/space,
 /area/derelict/annex)
@@ -3438,11 +3392,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/vacuum,
 /area/derelict/annex)
 "in" = (
 /obj/structure/cable{
@@ -3470,10 +3420,6 @@
 	icon_state = "chapel"
 	},
 /area/derelict/church)
-"iq" = (
-/obj/item/stack/tile,
-/turf/space,
-/area/space/nearstation)
 "is" = (
 /obj/machinery/camera{
 	c_tag = "Лобби 2";
@@ -3556,11 +3502,7 @@
 	},
 /area/derelict/rnd)
 "iE" = (
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/vacuum,
 /area/derelict/annex)
 "iG" = (
 /obj/item/shard{
@@ -3772,7 +3714,7 @@
 "jh" = (
 /obj/item/stack/sheet/mineral/titanium,
 /turf/space,
-/area/template_noop)
+/area/space)
 "jj" = (
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
@@ -3834,8 +3776,7 @@
 /obj/item/spentcasing,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/rnd)
 "ju" = (
@@ -3948,7 +3889,7 @@
 	amount = 2
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "jK" = (
 /obj/structure/lattice/catwalk,
 /turf/space,
@@ -4119,8 +4060,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/rnd)
 "kj" = (
@@ -4382,7 +4322,7 @@
 	icon_state = "1-2"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "kK" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -4395,7 +4335,7 @@
 	icon_state = "1-2"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "kL" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "derelict1"
@@ -4459,8 +4399,7 @@
 "kV" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/rnd)
 "kW" = (
@@ -4518,11 +4457,7 @@
 /area/derelict/annex)
 "ld" = (
 /obj/structure/flora/rock,
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/vacuum,
 /area/derelict/annex)
 "le" = (
 /obj/structure/sign/securearea{
@@ -4658,7 +4593,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "lu" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "kc13_ussp";
@@ -4725,14 +4660,10 @@
 	icon_state = "2-4"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "lD" = (
 /obj/effect/landmark/tiles/damageturf,
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/vacuum,
 /area/derelict/annex)
 "lE" = (
 /obj/structure/spider/stickyweb,
@@ -4939,7 +4870,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/template_noop)
+/area/space)
 "me" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/drip,
@@ -5111,14 +5042,14 @@
 	amount = 1
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "mF" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/template_noop)
+/area/space)
 "mH" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Medical Wing";
@@ -5127,8 +5058,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/med)
 "mI" = (
@@ -5146,8 +5076,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/med)
 "mK" = (
@@ -5197,8 +5126,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/church)
 "mR" = (
@@ -5916,7 +5844,6 @@
 	welded = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "green"
 	},
 /area/derelict/garden)
@@ -5985,8 +5912,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/dining)
 "oW" = (
@@ -5995,15 +5921,13 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/dining)
 "oX" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/dining)
 "oY" = (
@@ -6054,7 +5978,7 @@
 	name = "Near USSP"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "pe" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel,
@@ -6156,8 +6080,7 @@
 /obj/structure/closet/jcloset,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark";
-	tag = "icon-dark"
+	icon_state = "dark"
 	},
 /area/derelict/common)
 "pu" = (
@@ -6231,8 +6154,7 @@
 /area/derelict/arrival)
 "pC" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "dark";
-	tag = "icon-dark"
+	icon_state = "dark"
 	},
 /area/derelict/common)
 "pD" = (
@@ -6295,8 +6217,7 @@
 "pM" = (
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark";
-	tag = "icon-dark"
+	icon_state = "dark"
 	},
 /area/derelict/common)
 "pN" = (
@@ -6306,8 +6227,7 @@
 	},
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark";
-	tag = "icon-dark"
+	icon_state = "dark"
 	},
 /area/derelict/common)
 "pO" = (
@@ -6326,7 +6246,7 @@
 "pQ" = (
 /obj/item/stack/sheet/metal,
 /turf/space,
-/area/template_noop)
+/area/space)
 "pR" = (
 /obj/item/shard,
 /turf/space,
@@ -6403,15 +6323,13 @@
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/common)
 "pZ" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/common)
 "qa" = (
@@ -6474,22 +6392,19 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "qj" = (
 /obj/structure/chair/stool,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "qk" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /turf/simulated/wall/mineral/titanium,
 /area/derelict/arrival)
@@ -6498,15 +6413,13 @@
 	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "qm" = (
 /obj/machinery/vending/sovietsoda,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "qn" = (
@@ -6565,8 +6478,7 @@
 "qw" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "qx" = (
@@ -6582,8 +6494,7 @@
 /area/derelict/arrival)
 "qy" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "qz" = (
@@ -6649,8 +6560,7 @@
 "qG" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "qH" = (
@@ -6658,8 +6568,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "qI" = (
@@ -6673,8 +6582,7 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "qJ" = (
@@ -6717,8 +6625,7 @@
 	},
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "qO" = (
@@ -6868,8 +6775,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "rh" = (
@@ -6998,16 +6904,14 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "rw" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "rx" = (
@@ -7080,8 +6984,7 @@
 	on = 0
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "rE" = (
@@ -7102,16 +7005,14 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "rH" = (
 /obj/structure/table/wood/poker,
 /obj/item/deck/cards,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "rI" = (
@@ -7119,8 +7020,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "rJ" = (
@@ -7134,8 +7034,7 @@
 	},
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "rK" = (
@@ -7180,8 +7079,7 @@
 	},
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "rO" = (
@@ -7235,8 +7133,7 @@
 	},
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "rU" = (
@@ -7275,8 +7172,7 @@
 /obj/structure/table,
 /obj/machinery/computer/library/public,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "rY" = (
@@ -7345,7 +7241,7 @@
 	amount = 1
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "sh" = (
 /turf/simulated/wall/mineral/titanium,
 /area/ruin/unpowered/no_grav)
@@ -7356,11 +7252,7 @@
 "sj" = (
 /obj/item/stack/ore/iron,
 /turf/space,
-/area/template_noop)
-"sk" = (
-/obj/item/shard,
-/turf/space,
-/area/template_noop)
+/area/space)
 "sl" = (
 /obj/item/stack/tile,
 /obj/effect/decal/cleanable/blood/gibs/cleangibs,
@@ -7374,18 +7266,18 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/rnd)
 "so" = (
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "sp" = (
 /obj/item/stack/rods,
 /turf/space,
-/area/template_noop)
+/area/space)
 "sq" = (
 /obj/item/shard{
 	icon_state = "medium"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "sr" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -7401,7 +7293,7 @@
 "ss" = (
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/template_noop)
+/area/space)
 "st" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -7411,7 +7303,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/template_noop)
+/area/space)
 "su" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -7424,7 +7316,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/template_noop)
+/area/space)
 "sv" = (
 /obj/item/gps/ruin{
 	gpstag = "Russian Distress Signal"
@@ -7460,7 +7352,7 @@
 /obj/machinery/light/small/built{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "te" = (
 /obj/structure/cable{
@@ -7505,9 +7397,7 @@
 /obj/effect/decal/cleanable/blood/oil,
 /obj/effect/decal/remains/robot,
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/derelict/security)
 "tI" = (
@@ -7584,7 +7474,7 @@
 "ul" = (
 /obj/effect/decal/cleanable/blood/gibs,
 /turf/space,
-/area/template_noop)
+/area/space)
 "uK" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -7748,7 +7638,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/space/nearstation)
 "xe" = (
 /obj/structure/cable{
@@ -7838,13 +7728,13 @@
 	tag = ""
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "xT" = (
 /obj/structure/computerframe{
 	desc = "This computer is a husk of what it once was. Time and decay has worn its cheap circuitry to dust.";
 	name = "decrepit computer"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "xZ" = (
 /obj/effect/decal/cleanable/ash,
@@ -7884,7 +7774,7 @@
 "yF" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "yG" = (
 /obj/effect/decal/cleanable/dust,
@@ -7903,7 +7793,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/space/nearstation)
 "yY" = (
 /obj/machinery/door/airlock/public/glass{
@@ -7916,8 +7806,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/church)
 "za" = (
@@ -8014,12 +7903,11 @@
 	width = 20
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "Ad" = (
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "Ah" = (
@@ -8053,7 +7941,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/template_noop)
+/area/space)
 "Aq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/r_n_d/destructive_analyzer,
@@ -8184,7 +8072,7 @@
 	tag = ""
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "BZ" = (
 /obj/machinery/door/airlock/mining,
 /turf/simulated/floor/plating/airless,
@@ -8210,7 +8098,7 @@
 /obj/structure/lattice,
 /obj/effect/decal/cleanable/ash,
 /turf/space,
-/area/template_noop)
+/area/space)
 "Ci" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
@@ -8261,7 +8149,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "CU" = (
 /obj/effect/decal/cleanable/dirt,
@@ -8424,9 +8312,8 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/common)
 "DQ" = (
-/obj/item/mounted/frame/light_fixture,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "DX" = (
 /obj/structure/cable{
@@ -8439,7 +8326,7 @@
 "Ea" = (
 /obj/structure/lattice,
 /turf/space,
-/area/template_noop)
+/area/space)
 "Ec" = (
 /mob/living/simple_animal/cockroach,
 /obj/structure/cable{
@@ -8467,8 +8354,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "Ek" = (
@@ -8551,7 +8437,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/template_noop)
+/area/space)
 "ET" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/item/stack/cable_coil/cut{
@@ -8565,8 +8451,7 @@
 /obj/effect/decal/cleanable/dust,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "EW" = (
@@ -8574,7 +8459,7 @@
 /obj/machinery/light/built{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "EY" = (
 /obj/item/clothing/head/helmet/space/syndicate/orange{
@@ -8602,7 +8487,7 @@
 	speed = -0.1
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "Fi" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
@@ -8692,7 +8577,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "GJ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -8747,7 +8632,7 @@
 	icon_state = "1-8"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "Hi" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -8816,7 +8701,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "HR" = (
 /obj/structure/cable{
@@ -8917,7 +8802,7 @@
 	icon_state = "2-8"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "IR" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -8930,15 +8815,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/template_noop)
-"IV" = (
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
-	},
-/area/derelict/bridge)
+/area/space)
 "Jd" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -9018,24 +8895,19 @@
 	req_access = list(130)
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "JR" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/common)
 "JS" = (
 /obj/item/stack/sheet/mineral/uranium{
 	amount = 5
 	},
-/turf/simulated/floor/engine{
-	name = "vacuum floor";
-	nitrogen = 0.01;
-	oxygen = 0.01
-	},
+/turf/simulated/floor/engine/vacuum,
 /area/derelict/annex)
 "Ke" = (
 /obj/structure/grille,
@@ -9048,7 +8920,7 @@
 /area/derelict/garden)
 "Km" = (
 /obj/structure/table,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "Kw" = (
 /obj/structure/cable{
@@ -9089,7 +8961,7 @@
 /area/derelict/dining)
 "KK" = (
 /obj/structure/table_frame,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "KM" = (
 /obj/structure/grille,
@@ -9116,10 +8988,10 @@
 	icon_state = "1-4"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "KZ" = (
 /obj/structure/computerframe,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "La" = (
 /obj/structure/cable{
@@ -9133,7 +9005,7 @@
 	icon_state = "1-8"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "Li" = (
 /obj/effect/decal/cleanable/dust,
 /mob/living/simple_animal/cockroach,
@@ -9199,7 +9071,7 @@
 "Ml" = (
 /obj/item/stack/ore/uranium,
 /turf/space,
-/area/template_noop)
+/area/space)
 "Mn" = (
 /obj/structure/closet/crate/secure/loot,
 /obj/effect/landmark/tiles/damageturf,
@@ -9227,7 +9099,7 @@
 /area/derelict/security)
 "MA" = (
 /obj/item/clothing/mask/breath/medical,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "MF" = (
 /obj/effect/decal/cleanable/dirt,
@@ -9267,7 +9139,7 @@
 "Na" = (
 /obj/structure/door_assembly/door_assembly_ext,
 /turf/space,
-/area/template_noop)
+/area/space)
 "Nd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/ash,
@@ -9289,7 +9161,7 @@
 	icon_state = "4-8"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "ND" = (
 /obj/machinery/camera{
 	c_tag = "Отдых";
@@ -9318,8 +9190,7 @@
 "NK" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "NP" = (
@@ -9382,7 +9253,7 @@
 	icon_state = "1-2"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "Ov" = (
 /obj/structure/door_assembly/door_assembly_shuttle,
 /turf/simulated/floor/plating/airless,
@@ -9474,9 +9345,7 @@
 	pixel_y = 10
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "dark";
-	tag = "icon-vault (NORTHEAST)"
+	icon_state = "dark"
 	},
 /area/derelict/bridge)
 "Ps" = (
@@ -9535,7 +9404,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/template_noop)
+/area/space)
 "PL" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -9548,7 +9417,7 @@
 "PM" = (
 /obj/structure/chair/comfy/shuttle,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "PR" = (
 /obj/structure/cable{
@@ -9584,7 +9453,7 @@
 	tag = ""
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "Qx" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -9598,7 +9467,7 @@
 /area/derelict/annex)
 "QH" = (
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "QO" = (
 /obj/structure/shuttle/engine/heater{
@@ -9609,7 +9478,7 @@
 "QW" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "Rc" = (
 /obj/effect/decal/cleanable/dirt,
@@ -9622,9 +9491,7 @@
 /area/space/nearstation)
 "Ri" = (
 /obj/structure/grille,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "Rj" = (
 /obj/effect/landmark/tiles/damageturf,
@@ -9716,7 +9583,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/template_noop)
+/area/space)
 "Sm" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
@@ -9747,7 +9614,7 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/template_noop)
+/area/space)
 "Su" = (
 /turf/simulated/floor/plating/airless,
 /area/derelict/garden)
@@ -9776,8 +9643,8 @@
 	},
 /area/derelict/security)
 "SJ" = (
-/obj/structure/closet/secure_closet/bar{
-	req_access = list()
+/obj/structure/closet/secure_closet/cabinet/bar{
+	req_access = null
 	},
 /obj/item/reagent_containers/food/drinks/bottle/vodka,
 /obj/item/reagent_containers/food/drinks/bottle/vodka,
@@ -9796,8 +9663,7 @@
 "SL" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark";
-	tag = "icon-dark"
+	icon_state = "dark"
 	},
 /area/derelict/common)
 "Ta" = (
@@ -9836,7 +9702,7 @@
 "TT" = (
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
 "TV" = (
 /obj/structure/cable{
@@ -9894,7 +9760,7 @@
 "Ur" = (
 /obj/item/circuitboard/pacman/super,
 /turf/space,
-/area/template_noop)
+/area/space)
 "Uw" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -9912,10 +9778,6 @@
 	icon_state = "bar"
 	},
 /area/derelict/dining)
-"UF" = (
-/mob/living/simple_animal/hostile/carp,
-/turf/space,
-/area/template_noop)
 "UI" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -9957,13 +9819,13 @@
 	width = 8
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "Vf" = (
 /obj/item/shard{
 	icon_state = "small"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "Vm" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -10171,8 +10033,7 @@
 /obj/effect/decal/cleanable/spiderling_remains,
 /mob/living/simple_animal/hostile/poison/giant_spider,
 /turf/simulated/floor/plasteel{
-	icon_state = "redfull";
-	tag = "icon-redfull (NORTHWEST)"
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "Yg" = (
@@ -10184,11 +10045,10 @@
 	},
 /obj/structure/lattice/catwalk,
 /turf/space,
-/area/template_noop)
+/area/space)
 "Yn" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "rampbottom";
-	tag = "icon-stage_stairs"
+	icon_state = "rampbottom"
 	},
 /area/derelict/engineer_area)
 "Yq" = (
@@ -10248,7 +10108,7 @@
 	icon_state = "2-4"
 	},
 /turf/space,
-/area/template_noop)
+/area/space)
 "Zb" = (
 /obj/item/flag/ussp,
 /turf/simulated/floor/plasteel{
@@ -10275,15 +10135,11 @@
 	amount = 1
 	},
 /turf/space,
-/area/template_noop)
-"Zk" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered/no_grav)
+/area/space)
 "Zq" = (
 /obj/item/stack/tile,
 /turf/space,
-/area/template_noop)
+/area/space)
 "Zy" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle,
@@ -14535,7 +14391,7 @@ ac
 ac
 ac
 ac
-sk
+aj
 ac
 ac
 ac
@@ -16118,7 +15974,7 @@ oc
 oI
 oc
 oD
-oc
+ac
 ac
 ac
 ac
@@ -16348,7 +16204,7 @@ ac
 ac
 ac
 ac
-ak
+sp
 ac
 ac
 oc
@@ -16579,7 +16435,7 @@ ac
 ac
 ac
 ac
-UF
+gR
 ac
 ac
 ac
@@ -16594,7 +16450,7 @@ ac
 ac
 ac
 ac
-ih
+sj
 ac
 ac
 oc
@@ -16721,7 +16577,7 @@ ac
 ac
 ac
 ac
-oc
+ac
 oc
 pr
 mU
@@ -16789,7 +16645,7 @@ ac
 ac
 ac
 ac
-sk
+aj
 ac
 ac
 ac
@@ -16839,11 +16695,11 @@ ac
 ac
 ac
 ac
-hq
+Ml
 ac
 ac
 ac
-ai
+sq
 ac
 tk
 tk
@@ -16937,7 +16793,7 @@ ac
 ac
 ac
 ac
-ag
+Ea
 ac
 ac
 ac
@@ -17080,13 +16936,13 @@ mg
 AE
 HF
 EN
-cR
+Vf
 ac
 ag
 ac
 ac
 ac
-iq
+Zq
 ac
 ac
 ac
@@ -17300,7 +17156,7 @@ al
 ag
 ag
 ag
-UF
+gR
 ac
 ac
 ac
@@ -17329,7 +17185,7 @@ Ox
 ac
 ac
 ac
-ak
+sp
 ac
 ac
 ac
@@ -17666,7 +17522,7 @@ ac
 ac
 ac
 ac
-ag
+Ea
 ac
 ag
 Md
@@ -18149,7 +18005,7 @@ bW
 as
 ac
 ac
-cR
+Vf
 ac
 ac
 jh
@@ -18330,7 +18186,7 @@ ac
 sh
 PM
 so
-Zk
+DQ
 so
 CA
 ac
@@ -18394,7 +18250,7 @@ as
 ac
 ac
 ac
-ai
+sq
 ac
 sp
 ac
@@ -18454,7 +18310,7 @@ HN
 TT
 GG
 GG
-Zk
+DQ
 ac
 Il
 ac
@@ -18577,7 +18433,7 @@ so
 GG
 ag
 ag
-UF
+gR
 Rh
 ag
 ac
@@ -18695,7 +18551,7 @@ sf
 jx
 Lr
 QW
-Zk
+DQ
 si
 ac
 ac
@@ -18773,7 +18629,7 @@ fN
 AF
 wo
 ac
-UF
+gR
 ac
 vr
 if
@@ -18786,7 +18642,7 @@ lD
 iE
 if
 ac
-UF
+gR
 ac
 ac
 Hi
@@ -19427,7 +19283,7 @@ ac
 ac
 sh
 sW
-Zk
+DQ
 so
 si
 ac
@@ -19607,7 +19463,7 @@ ss
 as
 aS
 bc
-bi
+aJ
 wu
 ce
 cw
@@ -19673,9 +19529,9 @@ sh
 sh
 Km
 so
-Zk
+DQ
 so
-Zk
+DQ
 so
 KK
 ag
@@ -19728,7 +19584,7 @@ ac
 Nt
 as
 aT
-bi
+aJ
 bz
 bz
 bz
@@ -19739,7 +19595,7 @@ ac
 ac
 ac
 ac
-UF
+gR
 ac
 ag
 eA
@@ -19850,11 +19706,11 @@ ac
 Nt
 as
 aU
-IV
+Ih
 bA
 bO
 cf
-bi
+aJ
 cG
 al
 al
@@ -19976,8 +19832,8 @@ bj
 Pq
 bP
 cg
-IV
-bi
+Ih
+aJ
 cU
 as
 ac
@@ -20098,8 +19954,8 @@ bk
 bC
 bC
 bC
-bi
-bi
+aJ
+aJ
 cV
 as
 ag
@@ -20852,7 +20708,7 @@ ac
 ac
 ac
 ac
-UF
+gR
 pk
 Kw
 pk

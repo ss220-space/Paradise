@@ -48,7 +48,7 @@
 
 	using = new /atom/movable/screen/mov_intent(null, src)
 	using.icon = 'icons/mob/screen_alien.dmi'
-	using.icon_state = (mymob.m_intent == MOVE_INTENT_RUN ? "running" : "walking")
+	using.update_icon(UPDATE_ICON_STATE)
 	using.screen_loc = ui_movi
 	static_inventory += using
 	move_intent = using

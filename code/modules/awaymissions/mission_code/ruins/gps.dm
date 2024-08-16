@@ -9,5 +9,8 @@
 	local = TRUE
 	gpstag = "Unknown Signal"
 
+/obj/item/gps/ruin/ui_state(mob/user)
+	return GLOB.default_state
+
 /obj/item/gps/ruin/attack_hand(mob/user)
 	attack_self(user)

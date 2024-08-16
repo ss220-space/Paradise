@@ -50,7 +50,7 @@
 
 /obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
 	if(!iscultist(user))
-		user.Weaken(10 SECONDS)
+		user.Knockdown(10 SECONDS)
 		user.drop_item_ground(src, force = TRUE)
 		user.visible_message("<span class='warning'>A powerful force shoves [user] away from [target]!</span>",
 							 "<span class='cultlarge'>\"You shouldn't play with sharp things. You'll poke someone's eye out.\"</span>")
@@ -82,7 +82,7 @@
 	icon_state = "bola_cult"
 	item_state = "bola_cult"
 	breakouttime = 45
-	weaken_amt = 2 SECONDS
+	knockdown_amt = 2 SECONDS
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(iscultist(hit_atom))
@@ -192,7 +192,7 @@
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.drop_item_ground(src, force = TRUE)
 		user.Confused(20 SECONDS)
-		user.Weaken(10 SECONDS)
+		user.Knockdown(10 SECONDS)
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/setup_shielding()
 	AddComponent(/datum/component/shielded, recharge_start_delay = 0 SECONDS, shield_icon_file = 'icons/effects/cult_effects.dmi', shield_icon = "shield-cult", run_hit_callback = CALLBACK(src, PROC_REF(shield_damaged)))
@@ -232,7 +232,7 @@
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.drop_item_ground(src, force = TRUE)
 		user.Confused(20 SECONDS)
-		user.Weaken(10 SECONDS)
+		user.Knockdown(10 SECONDS)
 	else if(slot == ITEM_SLOT_CLOTH_OUTER)
 		user.add_movespeed_modifier(/datum/movespeed_modifier/cult_robe)
 
@@ -314,7 +314,7 @@
 		to_chat(user, "<span class='cultlarge'>\"You want to be blind, do you?\"</span>")
 		user.drop_item_ground(src, force = TRUE)
 		user.Confused(60 SECONDS)
-		user.Weaken(10 SECONDS)
+		user.Knockdown(10 SECONDS)
 		user.EyeBlind(60 SECONDS)
 
 /obj/item/shuttle_curse
@@ -327,7 +327,7 @@
 /obj/item/shuttle_curse/attack_self(mob/living/user)
 	if(!iscultist(user))
 		user.drop_item_ground(src, force = TRUE)
-		user.Weaken(10 SECONDS)
+		user.Knockdown(10 SECONDS)
 		to_chat(user, "<span class='warning'>A powerful force shoves you away from [src]!</span>")
 		return
 	if(curselimit > 1)

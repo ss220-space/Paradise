@@ -140,7 +140,7 @@
 	new /obj/item/crowbar/power(src)
 	new /obj/item/multitool/cyborg(src)
 	new /obj/item/stack/cable_coil(src, MAXCOIL)
-	new /obj/item/clothing/gloves/combat(src)
+	new /obj/item/clothing/gloves/combat/swat/syndicate(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
 
 /obj/item/storage/toolbox/fakesyndi

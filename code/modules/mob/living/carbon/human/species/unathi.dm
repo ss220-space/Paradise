@@ -14,8 +14,7 @@
 	brute_mod = 0.9
 	heatmod = 0.8
 	coldmod = 1.2
-	hunger_drain = 0.16
-	var/tail_strength = 1
+	hunger_drain_mod = 1.6
 
 	blurb = "A heavily reptillian species, Unathi (or 'Sinta as they call themselves) hail from the \
 	Uuosa-Eso system, which roughly translates to 'burning mother'.<br/><br/>Coming from a harsh, radioactive \
@@ -119,13 +118,14 @@
 	)
 
 /datum/species/unathi/ashwalker/on_species_gain(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	var/datum/action/innate/ignite_unathi/fire = locate() in H.actions
 	if(!fire)
 		fire = new
 		fire.Grant(H)
 	RegisterSignal(H, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(speedylegs))
 	speedylegs(H)
+	ADD_TRAIT(H,TRAIT_HEALS_FROM_ASH_TENDRIL, SPECIES_TRAIT)
 
 
 /datum/species/unathi/ashwalker/on_species_loss(mob/living/carbon/human/H)
@@ -134,6 +134,7 @@
 	if(fire)
 		fire.Remove(H)
 	UnregisterSignal(H, COMSIG_MOVABLE_Z_CHANGED)
+	REMOVE_TRAIT(H, TRAIT_HEALS_FROM_ASH_TENDRIL, SPECIES_TRAIT)
 
 
 /datum/species/unathi/ashwalker/proc/speedylegs(mob/living/carbon/human/H)
@@ -155,61 +156,64 @@
 	punchdamagelow = 4
 	punchdamagehigh = 7
 	punchstunthreshold = 7 //still can stun people pretty often
-	toolspeedmod = 0.9 //they're smart and efficient unlike other lizards
+	toolspeedmod = -0.1 //they're smart and efficient unlike other lizards
+	surgeryspeedmod = -0.1	//shaman is slightly better at surgeries
 	var/obj/effect/proc_holder/spell/touch/healtouch/goodtouch
 
-//gives the heal spell
-/datum/species/unathi/ashwalker/shaman/on_species_gain(mob/living/carbon/C, datum/species/old_species)
-	..()
+
+/datum/species/unathi/ashwalker/shaman/on_species_gain(mob/living/carbon/human/owner)
+	. = ..()
 	goodtouch = new /obj/effect/proc_holder/spell/touch/healtouch
-	C.AddSpell(goodtouch)
-	var/datum/action/innate/anvil_finder/finder = locate() in C.actions
+	owner.AddSpell(goodtouch)
+	var/datum/action/innate/anvil_finder/finder = locate() in owner.actions
 	if(!finder)
 		finder = new
-		finder.Grant(C)
-	var/datum/action/innate/ignite_unathi/fire = locate() in C.actions
+		finder.Grant(owner)
+	var/datum/action/innate/ignite_unathi/fire = locate() in owner.actions
 	if(!fire)
 		fire = new
-		fire.Grant(C)
+		fire.Grant(owner)
 
-//removes the heal spell
-/datum/species/unathi/ashwalker/shaman/on_species_loss(mob/living/carbon/C)
+
+/datum/species/unathi/ashwalker/shaman/on_species_loss(mob/living/carbon/human/owner)
 	. = ..()
 	if(goodtouch)
-		C.RemoveSpell(goodtouch)
-	var/datum/action/innate/anvil_finder/finder = locate() in C.actions
+		owner.RemoveSpell(goodtouch)
+	var/datum/action/innate/anvil_finder/finder = locate() in owner.actions
 	if(finder)
-		finder.Remove(C)
-	var/datum/action/innate/ignite_unathi/fire = locate() in C.actions
+		finder.Remove(owner)
+	var/datum/action/innate/ignite_unathi/fire = locate() in owner.actions
 	if(fire)
-		fire.Remove(C)
+		fire.Remove(owner)
+
 
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
-	..()
-	H.verbs |= /mob/living/carbon/human/proc/emote_wag
-	H.verbs |= /mob/living/carbon/human/proc/emote_swag
-	H.verbs |= /mob/living/carbon/human/proc/emote_hiss_unathi
-	H.verbs |= /mob/living/carbon/human/proc/emote_roar
-	H.verbs |= /mob/living/carbon/human/proc/emote_threat
-	H.verbs |= /mob/living/carbon/human/proc/emote_whip
-	H.verbs |= /mob/living/carbon/human/proc/emote_whip_l
-	H.verbs |= /mob/living/carbon/human/proc/emote_rumble
+	. = ..()
+	add_verb(H, list(
+		/mob/living/carbon/human/proc/emote_wag,
+		/mob/living/carbon/human/proc/emote_swag,
+		/mob/living/carbon/human/proc/emote_hiss_unathi,
+		/mob/living/carbon/human/proc/emote_roar,
+		/mob/living/carbon/human/proc/emote_threat,
+		/mob/living/carbon/human/proc/emote_whip,
+		/mob/living/carbon/human/proc/emote_whip_l,
+		/mob/living/carbon/human/proc/emote_rumble))
 	var/datum/action/innate/tail_cut/lash = locate() in H.actions
 	if(!lash)
 		lash = new
 		lash.Grant(H)
 
 /datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
-	..()
-	H.verbs -= /mob/living/carbon/human/proc/emote_wag
-	H.verbs -= /mob/living/carbon/human/proc/emote_swag
-	H.verbs -= /mob/living/carbon/human/proc/emote_hiss_unathi
-	H.verbs -= /mob/living/carbon/human/proc/emote_roar
-	H.verbs -= /mob/living/carbon/human/proc/emote_threat
-	H.verbs -= /mob/living/carbon/human/proc/emote_whip
-	H.verbs -= /mob/living/carbon/human/proc/emote_whip_l
-	H.verbs -= /mob/living/carbon/human/proc/emote_rumble
-
+	. = ..()
+	remove_verb(H, list(
+		/mob/living/carbon/human/proc/emote_wag,
+		/mob/living/carbon/human/proc/emote_swag,
+		/mob/living/carbon/human/proc/emote_hiss_unathi,
+		/mob/living/carbon/human/proc/emote_roar,
+		/mob/living/carbon/human/proc/emote_threat,
+		/mob/living/carbon/human/proc/emote_whip,
+		/mob/living/carbon/human/proc/emote_whip_l,
+		/mob/living/carbon/human/proc/emote_rumble))
 	var/datum/action/innate/tail_cut/lash = locate() in H.actions
 	if(lash)
 		lash.Remove(H)

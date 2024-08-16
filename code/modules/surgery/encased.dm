@@ -47,7 +47,7 @@
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
-	affected.receive_damage(20)
+	target.apply_damage(20, def_zone = affected)
 	affected.fracture()
 
 	return SURGERY_STEP_RETRY
@@ -97,7 +97,7 @@
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
-	affected.receive_damage(20)
+	target.apply_damage(20, def_zone = affected)
 	affected.fracture()
 
 	return SURGERY_STEP_RETRY
@@ -143,7 +143,7 @@
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
-	affected.receive_damage(20)
+	target.apply_damage(20, def_zone = affected)
 	affected.fracture()
 
 	return SURGERY_STEP_RETRY

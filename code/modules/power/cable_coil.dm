@@ -175,6 +175,8 @@
 	var/cable_used = 0
 	var/list/childlist = LAZYLEN(target_organ.children) ? target_organ.children.Copy() : null
 	var/parenthealed = FALSE
+	var/should_update_health = FALSE
+	var/update_damage_icon = NONE
 	while(cable_used <= MAXCABLEPERHEAL && amount)
 		var/obj/item/organ/external/current_organ
 		if(target_organ.burn_dam)
@@ -190,13 +192,18 @@
 				break
 		else
 			break
+		var/burn_was = current_organ.burn_dam
 		while(cable_used <= MAXCABLEPERHEAL && current_organ.burn_dam && amount)
 			use(1)
 			cable_used++
-			current_organ.heal_damage(0, HEALPERCABLE, FALSE, TRUE, FALSE)
-		target.updatehealth("cable repair")
-		target.UpdateDamageIcon()
+			update_damage_icon |= current_organ.heal_damage(0, HEALPERCABLE, FALSE, TRUE, FALSE)
+		if(current_organ.burn_dam != burn_was)
+			should_update_health = TRUE
 		user.visible_message(span_alert("[user] repairs some burn damage on [target]'s [current_organ.name] with [src]."))
+	if(should_update_health)
+		target.updatehealth("cable repair")
+	if(update_damage_icon)
+		target.UpdateDamageIcon()
 	return TRUE
 
 

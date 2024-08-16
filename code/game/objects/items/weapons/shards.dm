@@ -59,11 +59,11 @@
 		var/mob/living/carbon/human/H = user
 		if(!H.gloves && !(PIERCEIMMUNE in H.dna.species.species_traits))
 			var/obj/item/organ/external/affecting = H.get_organ(H.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-			if(affecting.is_robotic())
+			if(!affecting || affecting.is_robotic())
 				return
 			to_chat(H, "<span class='warning'>[src] cuts into your hand!</span>")
-			if(affecting.receive_damage(force * 0.5))
-				H.UpdateDamageIcon()
+			H.apply_damage(force * 0.5, def_zone = affecting)
+
 
 /obj/item/shard/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/lightreplacer))

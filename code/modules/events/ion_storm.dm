@@ -1,13 +1,17 @@
 #define ION_NOANNOUNCEMENT -1
 #define ION_RANDOM 0
 #define ION_ANNOUNCE 1
+#define ION_SYNDICATE 2
+
 
 /datum/event/ion_storm
 	var/botEmagChance = 10
 	var/announceEvent = ION_NOANNOUNCEMENT // -1 means don't announce, 0 means have it randomly announce, 1 means
 	var/ionMessage = null
 	var/ionAnnounceChance = 33
+	var/location_name = null
 	announceWhen	= 1
+
 
 /datum/event/ion_storm/New(datum/event_meta/EM, skeleton = FALSE, botEmagChance = 10, announceEvent = ION_NOANNOUNCEMENT, ionMessage = null, ionAnnounceChance = 33)
 	src.botEmagChance = botEmagChance
@@ -16,9 +20,17 @@
 	src.ionAnnounceChance = ionAnnounceChance
 	..()
 
+
 /datum/event/ion_storm/announce(false_alarm)
-	if(announceEvent == ION_ANNOUNCE || (announceEvent == ION_RANDOM && prob(ionAnnounceChance)) || false_alarm)
+	if(announceEvent == ION_SYNDICATE)
+		GLOB.event_announcement.Announce("Неестественная ионная активность была замечена на станции. Пожалуйста, проверьте всё оборудование, управляемое ИИ, на наличие ошибок. Дополнительная информация была загружена и распечатана на всех консолях связи.", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.", 'sound/AI/ionstorm.ogg')
+		var/message = "Malicious Interference with standard AI-Subsystems detected. Investigation recommended.<br><br>"
+		message += (location_name ? "Signal traced to <B>[location_name]</B>.<br>" : "Signal untracable.<br>")
+		print_command_report(message, "Classified [command_name()] Update", FALSE)
+
+	else if(false_alarm || announceEvent == ION_ANNOUNCE || (announceEvent == ION_RANDOM && prob(ionAnnounceChance)))
 		GLOB.event_announcement.Announce("Вблизи станции обнаружена ионная буря. Пожалуйста, проверьте всё оборудование, управляемое ИИ, на наличие ошибок.", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.", 'sound/AI/ionstorm.ogg')
+
 
 /datum/event/ion_storm/start()
 	//AI laws
@@ -36,8 +48,10 @@
 
 	if(botEmagChance)
 		for(var/mob/living/simple_animal/bot/bot as anything in GLOB.bots_list)
-			if(prob(botEmagChance))
-				bot.emag_act()
+			if(!prob(botEmagChance))
+				continue
+			bot.emag_act()
+
 
 /proc/generate_ion_law(ionMessage)
 	if(ionMessage)
@@ -46,6 +60,7 @@
 	var/message = ""
 	message = uppertext(generate_static_ion_law())
 	return message
+
 
 /proc/generate_static_ion_law()
 	var/iondepartment = pick_list("ion_laws.json", "отделы")
@@ -181,6 +196,8 @@
 						)
 	return pick(laws)
 
+
 #undef ION_NOANNOUNCEMENT
 #undef ION_RANDOM
 #undef ION_ANNOUNCE
+#undef ION_SYNDICATE
