@@ -573,12 +573,12 @@
 		to_chat(src, span_notice("Вы успешно изучили [reagent.name]!"))
 		update_chem_cost()
 		return reagent.borer_acquired = TRUE
-	to_chat(src, span_notice("Вам требуется еще [reagent.evo_cost - evo_points] очков эволюции для получения [focus.bodypartname]."))
+	to_chat(src, span_notice("Вам требуется еще [reagent.evo_cost - evo_points] очков эволюции для изучения [reagent.name]."))
 	return 
 
 /mob/living/simple_animal/borer/proc/update_chem_cost()
 	for(var/datum/reagent in subtypesof(/datum/reagent))
-		evo_cost += 1
+		reagent.evo_cost += 1
 
 	return 
 
