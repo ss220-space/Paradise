@@ -406,6 +406,37 @@
 	to_chat(user, span_boldnotice("Вы можете анализировать здоровье носителя при помощи Left-click."))
 	SEND_SIGNAL(user, COMSIG_BORER_ENTERED_HOST)
 
+/obj/effect/proc_holder/spell/borer_force_say
+	name = "Speak as host"
+	desc = "Force your host to say something."
+	base_cooldown = 30
+	clothes_req = FALSE
+	action_icon_state = "god_transmit"
+	need_active_overlay = TRUE
+	human_req = FALSE
+	var/evo_cost = 0.4
+
+/obj/effect/proc_holder/spell/borer_force_say/create_new_targeting()
+	return datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/borer_force_say/can_cast(mob/living/simple_animal/borer/user, charge_check = TRUE, show_message = FALSE)
+	if (!user.host || !src || user.stat || host.stat)
+		return FALSE
+	if(user.evo_points <= evo_cost)
+		to_chat(user, "Вам требуется еще [evo_cost - user.evo_points] очков эволюции для подчинения голосовых связок хозяина.")
+		return
+	. = ..()
+
+/obj/effect/proc_holder/spell/borer_force_say/cast(list/targets, mob/living/simple_animal/borer/user)
+	var/force_say_content = tgui_input_text(user, "Content:", "Host forcesay")
+
+	if(!force_say_content)
+		return
+
+	if(!user.controlling && !user.stat && !host?.stat && user.evo_points >= evo_cost) // we really need that double check
+		host.say(force_say_content)
+		add_attack_logs(user, user.host, "Forcesaid: [force_say_content]")
+	
 /mob/living/simple_animal/borer/verb/secrete_chemicals()
 	set category = "Borer"
 	set name = "Secrete Chemicals"
@@ -1021,6 +1052,7 @@
 	make_chems_action.Grant(src)
 	focus_menu_action.Grant(src)
 	learn_chem_action.Grant(src)
+	mind?.AddSpell(new /obj/effect/proc_holder/spell/borer_force_say)
 
 /mob/living/simple_animal/borer/proc/RemoveInfestActions()
 	talk_to_host_action.Remove(src)
@@ -1029,6 +1061,7 @@
 	make_chems_action.Remove(src)
 	focus_menu_action.Remove(src)
 	learn_chem_action.Remove(src)
+	mind?.RemoveSpell(/obj/effect/proc_holder/spell/borer_force_say)
 
 /mob/living/simple_animal/borer/proc/GrantControlActions()
 	talk_to_brain_action.Grant(host)
@@ -1135,8 +1168,8 @@
 
 /datum/action/innate/borer/learn_chem
 	name = "Chemical laboratory"
-	desc = "Learn chemical from host blood."
-	button_icon_state = "human_form"
+	desc = "Learn new chemical from host blood."
+	button_icon_state = "heal"
 
 /datum/action/innate/borer/learn_chem/Activate()
 	var/mob/living/simple_animal/borer/borer = owner
