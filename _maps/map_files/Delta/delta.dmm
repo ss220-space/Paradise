@@ -130,6 +130,10 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
+/mob/living/simple_animal/bot/secbot/pingsky{
+	desc = "Worse than nothing";
+	name = "AI Defender"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"

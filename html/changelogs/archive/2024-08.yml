@@ -102,3 +102,10 @@
 '2024-08-10':
   github-actions[bot]:
   - server: Automatic NanoMap Update (#5694)
+'2024-08-11':
+  Antoonij:
+  - bugfix: capsule expand on station Z level (#5687)
+  MstrKabach:
+  - tweak: A new hint (#5691)
+  SAAD:
+  - tweak: T-Admin/Mods gets more in-game rights (#5677)
