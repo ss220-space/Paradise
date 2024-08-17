@@ -9,7 +9,7 @@
 #define SCALING_CHEM_GAIN 15
 #define FLAG_PROCESS (1<<0) // processing datum
 #define FLAG_HOST_REQUIRED (1<<1) // essential if we handle host, especially in processing.
-#define FLAG_HAS_MOVABLE_EFFECT (1<<2) // Movable, nonstatic effects.
+#define FLAG_HAS_MOVABLE_EFFECT (1<<2) // Infesting/leaving host will affect host/previous host.
 /// processing flags
 #define SHOULD_PROCESS_AFTER_DEATH (1<<0) // Doesn't register signals, process even borer is dead.
 
@@ -107,7 +107,7 @@
 	previous_host = null
 	return ..()
 	
-/datum/borer_datum/proc/on_apply() // Apply something to BORER or untransferable effect to host.
+/datum/borer_datum/proc/on_apply()
 	return TRUE
 
 /datum/borer_datum/proc/on_mob_death()
@@ -279,16 +279,14 @@
 	return ..()
 		
 /datum/borer_datum/focus/hands/grant_movable_effect()
-	host.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod, multiplicative_slowdown = -0.5)
-	host.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_surgery_mod, multiplicative_slowdown = -0.5)
+	host.add_actionspeed_modifier(/datum/actionspeed_modifier/borer_arm_focus)
 	host.physiology.punch_damage_low += 7
 	host.physiology.punch_damage_high += 5
 	host.next_move_modifier *= 0.75
 	return TRUE
 
 /datum/borer_datum/focus/hands/remove_movable_effect()
-	previous_host.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod, multiplicative_slowdown = 0.5)
-	previous_host.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_surgery_mod, multiplicative_slowdown = 0.5)
+	previous_host.remove_actionspeed_modifier(/datum/actionspeed_modifier/borer_arm_focus)
 	previous_host.physiology.punch_damage_low -= 7
 	previous_host.physiology.punch_damage_high -= 5	
 	previous_host.next_move_modifier /= 0.75
