@@ -1,6 +1,9 @@
 /obj/item/assembly/anomaly_beacon
 	icon = 'icons/obj/weapons/techrelic.dmi'
 	icon_state = "beacon"
+	item_state = "beacon"
+	lefthand_file = 'icons/mob/inhands/relics_production/inhandl.dmi'
+	righthand_file = 'icons/mob/inhands/relics_production/inhandr.dmi'
 	name = "anomaly beacon"
 	desc = "A device that draws power from bluespace and creates a permanent tracking beacon."
 

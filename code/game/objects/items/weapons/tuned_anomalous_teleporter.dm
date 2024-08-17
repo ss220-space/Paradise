@@ -3,8 +3,9 @@
 	desc = "A portable item using blue-space technology."
 	icon = 'icons/obj/weapons/techrelic.dmi'
 	icon_state = "teleport"
-	base_icon_state = "hand_tele"
-	item_state = "electronic"
+	lefthand_file = 'icons/mob/inhands/relics_production/inhandl.dmi'
+	righthand_file = 'icons/mob/inhands/relics_production/inhandr.dmi'
+	item_state = "teleport"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3

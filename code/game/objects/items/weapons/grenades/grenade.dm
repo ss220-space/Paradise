@@ -54,11 +54,12 @@
 			. += span_warning("[src] is set for instant detonation.")
 
 
-/obj/item/grenade/attack_self(mob/user)
+/obj/item/grenade/attack_self(mob/user, should_update_icon = TRUE)
 	if(!active && clown_check(user))
 		to_chat(user, "<span class='warning'>You prime the [name]! [det_time/10] seconds!</span>")
 		active = TRUE
-		update_icon(UPDATE_ICON_STATE)
+		if (should_update_icon)
+			update_icon(UPDATE_ICON_STATE)
 		add_fingerprint(user)
 		var/turf/bombturf = get_turf(src)
 		message_admins("[key_name_admin(usr)] has primed a [name] for detonation at [ADMIN_COORDJMP(bombturf)]")

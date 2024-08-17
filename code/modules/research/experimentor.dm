@@ -749,7 +749,10 @@
 	name = "perfect mix"
 	desc = "Странный объект из которого можно бесконечно заполнять емкости какой-то жидкостью."
 	icon_state = "beaker"
+	item_state = "beaker"
 	icon = 'icons/obj/weapons/techrelic.dmi'
+	lefthand_file = 'icons/mob/inhands/relics_production/inhandl.dmi'
+	righthand_file = 'icons/mob/inhands/relics_production/inhandr.dmi'
 	origin_tech = "materials=4"
 	var/datum/reagent/R
 	var/transfer = 10

@@ -7,6 +7,9 @@
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/weapons/techrelic.dmi'
 	icon_state = "bomb"
+	item_state = "bomb"
+	lefthand_file = 'icons/mob/inhands/relics_production/inhandl.dmi'
+	righthand_file = 'icons/mob/inhands/relics_production/inhandr.dmi'
 	var/deliveryamt = 8
 	var/amount = 3
 	var/last_use = 0
@@ -20,7 +23,7 @@
 
 	last_use = world.time
 	activator = user
-	return ..()
+	return ..(user, FALSE)
 
 /obj/item/grenade/fauna_bomb/prime()
 	active = FALSE
