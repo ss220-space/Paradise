@@ -115,6 +115,7 @@
 #include "code\__DEFINES\role_preferences.dm"
 #include "code\__DEFINES\rolebans.dm"
 #include "code\__DEFINES\rust_g.dm"
+#include "code\__DEFINES\secret_documents.dm"
 #include "code\__DEFINES\rust_g_overrides.dm"
 #include "code\__DEFINES\sensor_devices.dm"
 #include "code\__DEFINES\shuttle.dm"
