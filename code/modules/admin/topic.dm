@@ -29,7 +29,7 @@
 	if(href_list["openticket"])
 		var/ticketID = text2num(href_list["openticket"])
 		if(!href_list["is_mhelp"])
-			if(!check_rights(R_ADMIN))
+			if(!check_rights(SStickets.rights_needed))
 				return
 			SStickets.showDetailUI(usr, ticketID)
 		else
@@ -296,7 +296,7 @@
 		else if(task == "rank")
 			var/new_rank
 			if(length(GLOB.admin_ranks))
-				new_rank = input("Выберите стандартный ранг или создайте новый", "Выбор ранга", null, null) as null|anything in (GLOB.admin_ranks|"*Новый Ранг*")
+				new_rank = trim(input("Выберите стандартный ранг или создайте новый", "Выбор ранга", null, null) as null|anything in (GLOB.admin_ranks|"*Новый Ранг*"))
 			else
 				CRASH("GLOB.admin_ranks is empty, inform coders")
 
@@ -306,7 +306,7 @@
 			switch(new_rank)
 				if(null,"") return
 				if("*Новый Ранг*")
-					new_rank = input("Введите название нового ранга", "Новый Ранг", null, null) as null|text
+					new_rank = trim(input("Введите название нового ранга", "Новый Ранг", null, null) as null|text)
 					if(!new_rank)
 						to_chat(usr, "<font color='red'>Ошибка: Topic 'editrights': Неверный ранг</font>")
 						return

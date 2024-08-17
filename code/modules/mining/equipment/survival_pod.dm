@@ -65,6 +65,10 @@
 	if(QDELETED(src))
 		return
 	var/turf/deploy_location = get_turf(src)
+	if((check_level_trait(deploy_location.z, STATION_LEVEL)) && !emagged)
+		to_chat(triggerer, span_notice("Error. Expanding was attempted on the station sector. Expanding aborted."))
+		playsound(triggerer, 'sound/machines/buzz-sigh.ogg', 15, TRUE)
+		return
 	var/status = template.check_deploy(deploy_location)
 	switch(status)
 		if(SHELTER_DEPLOY_BAD_AREA)
@@ -226,9 +230,7 @@
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/sleeper/survival(null)
-	var/obj/item/stock_parts/matter_bin/B = new(null)
-	B.rating = initial_bin_rating
-	component_parts += B
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)

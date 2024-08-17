@@ -6,6 +6,7 @@
 	name = "insulated gloves"
 	icon_state = "yellow"
 	item_state = "ygloves"
+	belt_icon = "ygloves"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	item_color="yellow"
@@ -63,6 +64,7 @@
 	name = "budget insulated gloves"
 	icon_state = "yellow"
 	item_state = "ygloves"
+	belt_icon = "ygloves"
 	siemens_coefficient = 1			//Set to a default of 1, gets overridden in New()
 	permeability_coefficient = 0.05
 	item_color="yellow"
@@ -247,6 +249,14 @@
 	item_state = "nitrilegloves"
 	transfer_prints = FALSE
 	item_color = "medical"
+
+/obj/item/clothing/gloves/color/latex/modified
+	name = "modified medical gloves"
+	desc = "They are very soft and light to the touch and do not hinder movement at all."
+	icon_state = "modified"
+	item_state = "modified"
+	item_color = "modified"
+	surgeryspeedmod = -0.3
 
 /obj/item/clothing/gloves/color/white
 	name = "white gloves"

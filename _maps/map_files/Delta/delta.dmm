@@ -130,6 +130,10 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
+/mob/living/simple_animal/bot/secbot/pingsky{
+	desc = "Worse than nothing";
+	name = "AI Defender"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -3951,8 +3955,8 @@
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/machinery/conveyor{
-	id = "cargodelivery";
-	dir = 1
+	dir = 1;
+	id = "cargodelivery"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/delivery)
@@ -4548,8 +4552,8 @@
 /area/crew_quarters/courtroom)
 "aKF" = (
 /obj/machinery/conveyor{
-	id = "QMLoad2";
-	dir = 1
+	dir = 1;
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -5753,8 +5757,8 @@
 	},
 /obj/structure/window/reinforced,
 /obj/machinery/conveyor{
-	id = "garbage";
-	dir = 9
+	dir = 9;
+	id = "garbage"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -7432,8 +7436,8 @@
 	},
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/conveyor{
-	id = "cargodisposals";
-	dir = 8
+	dir = 8;
+	id = "cargodisposals"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/sorting)
@@ -8010,7 +8014,6 @@
 	},
 /area/hallway/secondary/entry)
 "bgT" = (
-/obj/structure/table,
 /obj/item/folder/yellow{
 	pixel_y = 1
 	},
@@ -8025,6 +8028,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -9778,8 +9782,8 @@
 /obj/structure/plasticflaps/mining,
 /obj/effect/spawner/lootdrop/maintenance/double,
 /obj/machinery/conveyor{
-	id = "QMLoad2";
-	dir = 8
+	dir = 8;
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
@@ -10064,8 +10068,8 @@
 /area/quartermaster/sorting)
 "bta" = (
 /obj/machinery/conveyor{
-	id = "QMLoad2";
-	dir = 9
+	dir = 9;
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -10822,9 +10826,9 @@
 	name = "Bridge Lockdown"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
 	id_tag = "BridgeShutters";
-	name = "Bridge Privacy Shutters";
-	dir = 1
+	name = "Bridge Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/bridge)
@@ -12349,8 +12353,8 @@
 	dir = 4
 	},
 /obj/machinery/conveyor{
-	id = "garbage";
-	dir = 8
+	dir = 8;
+	id = "garbage"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -14012,8 +14016,8 @@
 	dir = 8
 	},
 /obj/machinery/conveyor{
-	id = "garbage";
-	dir = 5
+	dir = 5;
+	id = "garbage"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -14028,8 +14032,8 @@
 "bKK" = (
 /obj/machinery/recycler,
 /obj/machinery/conveyor{
-	id = "garbage";
-	dir = 4
+	dir = 4;
+	id = "garbage"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -14231,9 +14235,9 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
 	id_tag = "ceprivacy";
-	name = "CE Privacy Shutters";
-	dir = 8
+	name = "CE Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/chief)
@@ -15673,9 +15677,9 @@
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
 	id_tag = "ceprivacy";
-	name = "CE Privacy Shutters";
-	dir = 8
+	name = "CE Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/chief)
@@ -16970,10 +16974,6 @@
 	},
 /area/crew_quarters/captain)
 "bYp" = (
-/obj/machinery/door/airlock/command{
-	name = "Head of Personnel";
-	req_access = list(57)
-	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -16981,7 +16981,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/wood,
+/obj/machinery/door/airlock/command{
+	name = "Head of Personnel";
+	req_access = list(57)
+	},
+/turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/heads/hop)
 "bYq" = (
 /obj/structure/table/reinforced,
@@ -18163,8 +18167,8 @@
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/conveyor{
-	id = "QMLoad2";
-	dir = 8
+	dir = 8;
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -18173,8 +18177,8 @@
 	dir = 4
 	},
 /obj/machinery/conveyor/inverted{
-	id = "QMLoad2";
-	dir = 6
+	dir = 6;
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -19670,8 +19674,8 @@
 "clQ" = (
 /obj/structure/plasticflaps/mining,
 /obj/machinery/conveyor{
-	id = "QMLoad2";
-	dir = 8
+	dir = 8;
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
@@ -20665,15 +20669,15 @@
 "cqZ" = (
 /obj/structure/plasticflaps,
 /obj/machinery/conveyor{
-	id = "cargodisposals";
-	dir = 8
+	dir = 8;
+	id = "cargodisposals"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/sorting)
 "crg" = (
 /obj/machinery/conveyor{
-	id = "cargodisposals";
-	dir = 8
+	dir = 8;
+	id = "cargodisposals"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/sorting)
@@ -20682,8 +20686,8 @@
 	c_tag = "Cargo Backroom"
 	},
 /obj/machinery/conveyor{
-	id = "cargodisposals";
-	dir = 8
+	dir = 8;
+	id = "cargodisposals"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/sorting)
@@ -20892,8 +20896,8 @@
 	dir = 1
 	},
 /obj/machinery/conveyor{
-	id = "cargodisposals";
-	dir = 8
+	dir = 8;
+	id = "cargodisposals"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/sorting)
@@ -20936,8 +20940,8 @@
 	},
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/conveyor{
-	id = "cargodisposals";
-	dir = 8
+	dir = 8;
+	id = "cargodisposals"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/sorting)
@@ -20959,8 +20963,8 @@
 /area/hallway/secondary/entry/commercial)
 "csF" = (
 /obj/machinery/conveyor/inverted{
-	id = "cargodelivery";
-	dir = 6
+	dir = 6;
+	id = "cargodelivery"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
@@ -22284,9 +22288,9 @@
 /area/crew_quarters/locker)
 "cyH" = (
 /obj/machinery/conveyor_switch/oneway{
+	dir = 8;
 	id = "cargodisposals";
-	name = "Cargo Disposals";
-	dir = 8
+	name = "Cargo Disposals"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -22896,8 +22900,8 @@
 	name = "supply dock loading door"
 	},
 /obj/machinery/conveyor{
-	id = "QMLoad";
-	dir = 4
+	dir = 4;
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
@@ -24163,8 +24167,8 @@
 /area/crew_quarters/serviceyard)
 "cGl" = (
 /obj/machinery/conveyor{
-	id = "QMLoad";
-	dir = 4
+	dir = 4;
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -25284,9 +25288,9 @@
 /area/quartermaster/sorting)
 "cLd" = (
 /obj/machinery/conveyor_switch/oneway{
+	dir = 8;
 	id = "QMLoad2";
-	name = "Download";
-	dir = 8
+	name = "Download"
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
@@ -26611,9 +26615,9 @@
 	icon_state = "2-8"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
 	id_tag = "researchdesk1";
-	name = "Research Desk Shutters";
-	dir = 1
+	name = "Research Desk Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/toxins/lab)
@@ -28362,9 +28366,9 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
 	id_tag = "researchdesk1";
-	name = "Research Desk Shutters";
-	dir = 1
+	name = "Research Desk Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/toxins/lab)
@@ -29249,8 +29253,8 @@
 /obj/structure/closet/crate/internals,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/machinery/conveyor{
-	id = "cargodelivery";
-	dir = 1
+	dir = 1;
+	id = "cargodelivery"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
@@ -29952,6 +29956,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/roboquest_pad,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "purple"
@@ -30203,9 +30208,9 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
 	id_tag = "researchdesk1";
-	name = "Research Desk Shutters";
-	dir = 1
+	name = "Research Desk Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/toxins/lab)
@@ -31118,8 +31123,8 @@
 /area/medical/research)
 "dko" = (
 /obj/machinery/conveyor{
-	id = "QMLoad";
-	dir = 5
+	dir = 5;
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -31159,8 +31164,8 @@
 "dkw" = (
 /obj/structure/plasticflaps/mining,
 /obj/machinery/conveyor{
-	id = "QMLoad";
-	dir = 4
+	dir = 4;
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
@@ -32436,7 +32441,7 @@
 	name = "NT Representative's Office";
 	req_access = list(73)
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/light,
 /area/ntrep)
 "dpv" = (
 /obj/structure/railing,
@@ -32624,8 +32629,8 @@
 /area/maintenance/starboard)
 "dqv" = (
 /obj/machinery/conveyor/inverted{
-	id = "cargodelivery";
-	dir = 10
+	dir = 10;
+	id = "cargodelivery"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/delivery)
@@ -34116,9 +34121,9 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
 	id_tag = "researchdesk1";
-	name = "Research Desk Shutters";
-	dir = 1
+	name = "Research Desk Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/toxins/lab)
@@ -37503,8 +37508,8 @@
 "dMs" = (
 /obj/structure/plasticflaps,
 /obj/machinery/conveyor{
-	id = "cargodelivery";
-	dir = 8
+	dir = 8;
+	id = "cargodelivery"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/delivery)
@@ -41562,8 +41567,8 @@
 "egs" = (
 /obj/machinery/light,
 /obj/machinery/conveyor{
-	id = "cargodelivery";
-	dir = 8
+	dir = 8;
+	id = "cargodelivery"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
@@ -42418,8 +42423,8 @@
 	name = "supply dock loading door"
 	},
 /obj/machinery/conveyor{
-	id = "QMLoad2";
-	dir = 8
+	dir = 8;
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
@@ -49399,8 +49404,8 @@
 "fZe" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/conveyor{
-	id = "QMLoad2";
-	dir = 8
+	dir = 8;
+	id = "QMLoad2"
 	},
 /obj/machinery/conveyor{
 	id = "QMLoad2";
@@ -51363,11 +51368,6 @@
 	},
 /area/teleporter/abandoned)
 "gAS" = (
-/obj/machinery/door/airlock/command{
-	id_tag = "captainofficedoor";
-	name = "Captain's Office";
-	req_access = list(20)
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -51381,7 +51381,12 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/wood,
+/obj/machinery/door/airlock/command{
+	id_tag = "captainofficedoor";
+	name = "Captain's Office";
+	req_access = list(20)
+	},
+/turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/captain)
 "gAU" = (
 /obj/structure/rack,
@@ -52770,9 +52775,9 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
 	id_tag = "researchdesk1";
-	name = "Research Desk Shutters";
-	dir = 1
+	name = "Research Desk Shutters"
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/lab)
@@ -59278,8 +59283,8 @@
 	dir = 1
 	},
 /obj/machinery/conveyor{
-	id = "garbage";
-	dir = 8
+	dir = 8;
+	id = "garbage"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -61244,9 +61249,9 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
 	id_tag = "researchdesk1";
-	name = "Research Desk Shutters";
-	dir = 1
+	name = "Research Desk Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/toxins/lab)
@@ -63666,8 +63671,8 @@
 	dir = 8
 	},
 /obj/machinery/conveyor{
-	id = "garbage";
-	dir = 1
+	dir = 1;
+	id = "garbage"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -65446,8 +65451,8 @@
 /obj/structure/plasticflaps,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/conveyor{
-	id = "cargodisposals";
-	dir = 1
+	dir = 1;
+	id = "cargodisposals"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
@@ -67542,8 +67547,8 @@
 /obj/structure/disposalpipe/segment,
 /obj/structure/window/reinforced,
 /obj/machinery/conveyor{
-	id = "garbage";
-	dir = 8
+	dir = 8;
+	id = "garbage"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -68405,8 +68410,8 @@
 	dir = 1
 	},
 /obj/machinery/conveyor{
-	id = "garbage";
-	dir = 8
+	dir = 8;
+	id = "garbage"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -70248,7 +70253,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/structure/disposalpipe/rotator/reversed,
+/obj/structure/disposalpipe/rotator,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -76015,8 +76020,8 @@
 "mEg" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/conveyor{
-	id = "QMLoad";
-	dir = 4
+	dir = 4;
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -76744,8 +76749,8 @@
 "mME" = (
 /obj/structure/plasticflaps,
 /obj/machinery/conveyor{
-	id = "cargodelivery";
-	dir = 4
+	dir = 4;
+	id = "cargodelivery"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/delivery)
@@ -81071,8 +81076,8 @@
 /area/security/permahallway)
 "nNc" = (
 /obj/machinery/conveyor{
-	id = "QMLoad";
-	dir = 1
+	dir = 1;
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -82722,8 +82727,8 @@
 /area/maintenance/library)
 "oht" = (
 /obj/machinery/conveyor{
-	id = "garbage";
-	dir = 4
+	dir = 4;
+	id = "garbage"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -84024,8 +84029,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/conveyor{
-	id = "QMLoad2";
-	dir = 8
+	dir = 8;
+	id = "QMLoad2"
 	},
 /obj/machinery/conveyor{
 	id = "QMLoad2";
@@ -88465,9 +88470,9 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
 	id_tag = "BridgeShutters";
-	name = "Bridge Privacy Shutters";
-	dir = 1
+	name = "Bridge Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/bridge)
@@ -88494,9 +88499,9 @@
 	name = "Bridge Lockdown"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
 	id_tag = "BridgeShutters";
-	name = "Bridge Privacy Shutters";
-	dir = 1
+	name = "Bridge Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/bridge)
@@ -88697,9 +88702,9 @@
 	name = "Bridge Lockdown"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
 	id_tag = "BridgeShutters";
-	name = "Bridge Privacy Shutters";
-	dir = 1
+	name = "Bridge Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/bridge)
@@ -88906,9 +88911,9 @@
 	name = "Bridge Lockdown"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
 	id_tag = "BridgeShutters";
-	name = "Bridge Privacy Shutters";
-	dir = 1
+	name = "Bridge Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/bridge)
@@ -88922,9 +88927,9 @@
 	name = "Bridge Lockdown"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
 	id_tag = "BridgeShutters";
-	name = "Bridge Privacy Shutters";
-	dir = 1
+	name = "Bridge Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/bridge)
@@ -89024,9 +89029,9 @@
 	name = "Bridge Lockdown"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
 	id_tag = "BridgeShutters";
-	name = "Bridge Privacy Shutters";
-	dir = 1
+	name = "Bridge Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/bridge)
@@ -89077,9 +89082,9 @@
 	name = "Bridge Lockdown"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
 	id_tag = "BridgeShutters";
-	name = "Bridge Privacy Shutters";
-	dir = 1
+	name = "Bridge Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/bridge)
@@ -89232,9 +89237,9 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
 	id_tag = "BridgeShutters";
-	name = "Bridge Privacy Shutters";
-	dir = 1
+	name = "Bridge Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/bridge)
@@ -90395,11 +90400,6 @@
 	},
 /area/maintenance/asmaint)
 "pUz" = (
-/obj/machinery/door/airlock/command{
-	id_tag = "hopofficedoor";
-	name = "Head of Personnel";
-	req_access = list(57)
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -90410,7 +90410,12 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/wood,
+/obj/machinery/door/airlock/command{
+	id_tag = "hopofficedoor";
+	name = "Head of Personnel";
+	req_access = list(57)
+	},
+/turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/heads/hop)
 "pUJ" = (
 /obj/structure/window/reinforced{
@@ -93047,9 +93052,9 @@
 	name = "Bridge Lockdown"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 1;
 	id_tag = "BridgeShutters";
-	name = "Bridge Privacy Shutters";
-	dir = 1
+	name = "Bridge Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/bridge)
@@ -94763,8 +94768,8 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/conveyor{
-	id = "QMLoad";
-	dir = 4
+	dir = 4;
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -101426,18 +101431,18 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
 "sxk" = (
-/obj/machinery/door/airlock/command{
-	id_tag = "captainofficedoor";
-	name = "Captain's Office";
-	req_access = list(20)
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/wood,
+/obj/machinery/door/airlock/command{
+	id_tag = "captainofficedoor";
+	name = "Captain's Office";
+	req_access = list(20)
+	},
+/turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/captain/bedroom)
 "sxp" = (
 /turf/simulated/floor/plasteel{
@@ -110218,8 +110223,8 @@
 /area/turret_protected/aisat)
 "uAf" = (
 /obj/machinery/conveyor{
-	id = "QMLoad2";
-	dir = 8
+	dir = 8;
+	id = "QMLoad2"
 	},
 /obj/machinery/conveyor{
 	id = "QMLoad2";
@@ -110924,6 +110929,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/light,
+/obj/machinery/computer/roboquest,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "purple"
@@ -115647,8 +115653,8 @@
 /area/medical/genetics)
 "vOC" = (
 /obj/machinery/conveyor/inverted{
-	id = "QMLoad";
-	dir = 10
+	dir = 10;
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -116534,8 +116540,8 @@
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/machinery/conveyor{
-	id = "cargodelivery";
-	dir = 8
+	dir = 8;
+	id = "cargodelivery"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
@@ -117349,8 +117355,8 @@
 "wjh" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/conveyor{
-	id = "QMLoad2";
-	dir = 8
+	dir = 8;
+	id = "QMLoad2"
 	},
 /obj/machinery/conveyor{
 	id = "QMLoad2";
@@ -125944,9 +125950,9 @@
 	},
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
 	id_tag = "BridgeShutters";
-	name = "Bridge Privacy Shutters";
-	dir = 8
+	name = "Bridge Privacy Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/bridge)

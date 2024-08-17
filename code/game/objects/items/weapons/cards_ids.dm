@@ -127,6 +127,10 @@
 	var/stamped = 0
 	var/registered = FALSE
 
+	/// RoboQuest shit
+	var/datum/roboquest/robo_bounty
+	var/bounty_penalty
+
 	var/obj/item/card/id/guest/guest_pass = null // Guest pass attached to the ID
 
 /obj/item/card/id/Initialize(mapload)
