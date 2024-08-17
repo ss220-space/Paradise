@@ -61,11 +61,13 @@
 		return
 
 	if(istype(T))
+		var/obj/effect/temp_visual/bubbles/E = new /obj/effect/temp_visual/bubbles(T, mopspeed)
 		user.visible_message("[user] begins to clean [T] with [src].", "<span class='notice'>You begin to clean [T] with [src]...</span>")
 
 		if(do_after(user, mopspeed, T))
 			to_chat(user, "<span class='notice'>You finish mopping.</span>")
 			clean(T)
+		qdel(E)
 
 /obj/effect/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/mop) || istype(I, /obj/item/soap))

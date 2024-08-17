@@ -202,7 +202,7 @@
 	smoothing_groups = SMOOTH_GROUP_ABDUCTOR_WALLS
 
 /turf/simulated/wall/mineral/abductor/Initialize(mapload)
-	..()
+	. = ..()
 	AddComponent(/datum/component/wall_regenerate)
 
 /turf/simulated/wall/mineral/gingerbread
