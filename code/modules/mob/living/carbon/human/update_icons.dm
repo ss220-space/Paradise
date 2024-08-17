@@ -154,7 +154,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(UNDERWEAR_LAYER)
 
 	var/husk = (HUSK in mutations)
-	var/hulk = (HULK in mutations)
+	// var/hulk = (HULK in mutations)
 	var/skeleton = (SKELETON in mutations)
 
 	if(dna.species && dna.species.bodyflags & HAS_ICON_SKIN_TONE)
