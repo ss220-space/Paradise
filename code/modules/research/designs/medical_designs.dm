@@ -431,6 +431,17 @@
 	build_path = /obj/item/organ/internal/cyberimp/eyes/hud/medical
 	category = list("Medical")
 
+/datum/design/cyberimp_science_hud
+	name = "Science HUD implant"
+	desc = "These cybernetic eye implants with an analyzer for scanning items and reagents."
+	id = "ci-scihud"
+	req_tech = list("materials" = 5, "programming" = 4, "biotech" = 4)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 50
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 500, MAT_GOLD = 500)
+	build_path = /obj/item/organ/internal/cyberimp/eyes/hud/science
+	category = list("Medical")
+
 /datum/design/cyberimp_security_hud
 	name = "Security HUD implant"
 	desc = "These cybernetic eyes will display a security HUD over everything you see. Wiggle eyes to control."
