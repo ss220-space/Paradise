@@ -72,9 +72,12 @@
 	. = ..()
 
 /obj/machinery/computer/roboquest/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/card/id))
-		currentID = O
+	if(istype(O, /obj/item/card))
 		user.drop_item_ground(O)
+		if(currentID)
+			currentID.forceMove(loc)
+			user.put_in_any_hand_if_possible(currentID)
+		currentID = O
 		O.forceMove(src)
 		SStgui.try_update_ui(user, src)
 	if(istype(O, /obj/item/multitool))
