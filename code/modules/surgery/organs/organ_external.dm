@@ -47,7 +47,7 @@
 	/// String code used to apply and check bodypart visual damage
 	var/damage_state = "00"
 	/// Default icon used by dismembered bodypart
-	var/icon/mob_icon
+	var/mutable_appearance/mob_icon
 	/// If set to `TRUE` bodypart will use genderized bodypart icon if available
 	var/gendered_icon = FALSE
 	/// Visual bodypart color tone
