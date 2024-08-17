@@ -82,7 +82,7 @@ SUBSYSTEM_DEF(demo)
 		marked_turfs.Cut()
 		return SS_INIT_SUCCESS
 
-	WRITE_LOG_NO_FORMAT(GLOB.demo_log, "demo version 1\n") // increment this if you change the format
+	WRITE_LOG_NO_FORMAT(GLOB.demo_log, "demo version 1.1\n") // increment this if you change the format
 	if(GLOB.revision_info)
 		var/repo = GLOB.revision_info.repo
 		var/commit = GLOB.revision_info.commit_hash || GLOB.revision_info.originmastercommit
