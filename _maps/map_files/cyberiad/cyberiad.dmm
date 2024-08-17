@@ -76220,6 +76220,7 @@
 /area/maintenance/engineering)
 "qKS" = (
 /obj/effect/decal/warning_stripes/east,
+/obj/machinery/computer/roboquest,
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "qKZ" = (
@@ -77758,7 +77759,7 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "rLu" = (
-/obj/structure/table,
+/obj/machinery/roboquest_pad,
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "rLP" = (
