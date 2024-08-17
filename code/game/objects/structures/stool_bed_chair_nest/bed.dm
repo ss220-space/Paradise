@@ -47,6 +47,12 @@
 	buildstacktype = /obj/item/stack/sheet/mineral/sandstone
 	buildstackamount = 15
 
+/obj/structure/bed/old
+	name = "old bed"
+	desc = "This is a very old spring bed, it looks extremely UNCOMFORTABLE, you would not lie on it for anything in your life."
+	icon_state = "catwalkcouch1"
+	comfort = 0
+
 /obj/structure/bed/proc/handle_rotation()
 	return
 
