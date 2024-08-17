@@ -44,7 +44,7 @@
 	var/list/destinations = get_destinations()
 	if(!length(destinations))
 		if(user)
-			to_chat(user, span_notice("\The [src] found no beacons in the world to anchor a wormhole to."))
+			balloon_alert(user, "нет доступных маяков!")
 		else
 			visible_message(span_notice("\The [src] found no beacons in the world to anchor a wormhole to!"))
 		return TRUE // used for chasm code
@@ -75,7 +75,7 @@
 		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
 		if(user)
-			to_chat(user, "<span class='notice'>You emag [src].</span>")
+			balloon_alert(user, "протоколы защиты сняты!")
 		var/turf/T = get_turf(src)
 		do_sparks(5, 0, T)
 		playsound(T, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)

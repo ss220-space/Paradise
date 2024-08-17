@@ -18,10 +18,11 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 		var/list/List = splittext(line,"+")
 		if(!List.len)					continue
 
-		var/rank = List[1]
+		var/rank = trim(List[1])
 		switch(rank)
 			if(null,"")		continue
 			if("Removed")	continue				//Reserved
+			if("Удален")	continue				//Reserved
 
 		var/rights = 0
 		for(var/i=2, i<=List.len, i++)

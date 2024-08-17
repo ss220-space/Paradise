@@ -4519,8 +4519,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
 "nN" = (
 /obj/structure/marker_beacon{
-	icon_state = "markerburgundy-on";
-	initialized = 1
+	icon_state = "markerburgundy-on"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/USSP_gorky17/collapsed/asteroids)
@@ -7333,8 +7332,7 @@
 	network = list("USSP_gorky17")
 	},
 /obj/structure/marker_beacon{
-	icon_state = "markerburgundy-on";
-	initialized = 1
+	icon_state = "markerburgundy-on"
 	},
 /obj/machinery/computer/old_frame/macintosh{
 	layer = 3.15;
@@ -11922,8 +11920,7 @@
 "IV" = (
 /obj/structure/lattice,
 /obj/structure/marker_beacon{
-	icon_state = "markerburgundy-on";
-	initialized = 1
+	icon_state = "markerburgundy-on"
 	},
 /turf/space,
 /area/template_noop)
@@ -14040,8 +14037,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/check1)
 "Pg" = (
 /obj/structure/marker_beacon{
-	icon_state = "markerburgundy-on";
-	initialized = 1
+	icon_state = "markerburgundy-on"
 	},
 /obj/structure/lattice,
 /turf/space,
@@ -14943,8 +14939,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "RP" = (
 /obj/structure/marker_beacon{
-	icon_state = "markerburgundy-on";
-	initialized = 1
+	icon_state = "markerburgundy-on"
 	},
 /turf/space,
 /area/template_noop)

@@ -25,7 +25,7 @@ SUBSYSTEM_DEF(tickets)
 	var/ticket_system_name = "Admin Tickets"
 	var/ticket_name = "Admin Ticket"
 	var/close_rights = R_ADMIN
-	var/rights_needed = R_ADMIN | R_MOD
+	var/rights_needed = R_ADMIN|R_MOD
 
 	/// Text that will be added to the anchor link
 	var/anchor_link_extra = ""

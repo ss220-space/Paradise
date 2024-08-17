@@ -238,18 +238,16 @@
 
 /datum/reagent/medicine/silver_sulfadiazine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustFireLoss(-1, FALSE)
+	update_flags |= M.heal_damage_type(1, BURN, updating_health = FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/silver_sulfadiazine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume, show_message = 1)
 	if(iscarbon(M))
 		if(method == REAGENT_TOUCH)
-			M.adjustFireLoss(-volume)
-			if(show_message)
+			if(M.heal_damage_type(volume, BURN) && show_message)
 				to_chat(M, "<span class='notice'>The silver sulfadiazine soothes your burns.</span>")
 		if(method == REAGENT_INGEST)
-			M.adjustToxLoss(0.5*volume)
-			if(show_message)
+			if(M.apply_damage(0.5 * volume, TOX) && show_message)
 				to_chat(M, "<span class='warning'>You feel sick...</span>")
 	..()
 
@@ -265,22 +263,16 @@
 
 /datum/reagent/medicine/styptic_powder/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustBruteLoss(-1, FALSE)
+	update_flags |= M.heal_damage_type(1, BRUTE, updating_health = FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/styptic_powder/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume, show_message = 1)
 	if(iscarbon(M))
 		if(method == REAGENT_TOUCH)
-			M.adjustBruteLoss(-volume)
-			var/has_pain = TRUE
-			if(ishuman(M))
-				var/mob/living/carbon/human/H = M
-				has_pain = H.has_pain()
-			if(show_message && has_pain)
+			if(M.heal_damage_type(volume, BRUTE) && show_message && M.has_pain())
 				to_chat(M, "<span class='notice'>The styptic powder stings like hell as it closes some of your wounds!</span>")
 		else if(method == REAGENT_INGEST)
-			M.adjustToxLoss(0.5*volume)
-			if(show_message)
+			if(M.apply_damage(0.5 * volume, TOX) && show_message)
 				to_chat(M, "<span class='warning'>You feel gross!</span>")
 	..()
 
@@ -1431,7 +1423,7 @@
 					var/mob/living/carbon/human/H = M
 					for(var/obj/item/organ/internal/I as anything in M.internal_organs) // 56 healing to all internal organs.
 						I.heal_internal_damage(8)
-					if(H.blood_volume < BLOOD_VOLUME_NORMAL * 0.9)// If below 90% blood, regenerate 210 units total
+					if(H.blood_volume < BLOOD_VOLUME_NORMAL * 0.9 && !isdiona(H))// If below 90% blood, regenerate 210 units total
 						H.blood_volume += 30
 					for(var/datum/disease/critical/heart_failure/HF in H.diseases)
 						HF.cure() //Won't fix a stopped heart, but it will sure fix a critical one. Shock is not fixed as healing will fix it

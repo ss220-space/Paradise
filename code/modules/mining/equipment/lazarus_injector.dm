@@ -26,7 +26,7 @@
 		if(isanimal(target))
 			var/mob/living/simple_animal/M = target
 			if(M.sentience_type != revive_type)
-				to_chat(user, "<span class='info'>[src] does not work on this sort of creature.</span>")
+				balloon_alert(user, "неподходящее животное!")
 				return
 			if(M.stat == DEAD)
 				M.faction = list("neutral")
@@ -48,10 +48,10 @@
 				update_icon(UPDATE_ICON_STATE)
 				return
 			else
-				to_chat(user, "<span class='info'>[src] is only effective on the dead.</span>")
+				balloon_alert(user, "нельзя использовать на мёртвых!")
 				return
 		else
-			to_chat(user, "<span class='info'>[src] is only effective on lesser beings.</span>")
+			balloon_alert(user, "оно слишком разумно!")
 			return
 
 /obj/item/lazarus_injector/emag_act(mob/user)
@@ -59,7 +59,7 @@
 		add_attack_logs(user, src, "emagged")
 		malfunctioning = 1
 		if(user)
-			to_chat(user, "<span class='notice'>You override [src]'s safety protocols.</span>")
+			balloon_alert(user, "протоколы защиты сняты!")
 
 /obj/item/lazarus_injector/emp_act()
 	if(!malfunctioning)

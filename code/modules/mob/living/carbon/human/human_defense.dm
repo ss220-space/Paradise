@@ -109,6 +109,8 @@ emp_act
 	if(LAZYLEN(S.children))
 		childlist = S.children.Copy()
 	var/parenthealed = FALSE
+	var/should_update_health = FALSE
+	var/update_damage_icon = NONE
 	while(rembrute > 0)
 		var/obj/item/organ/external/E
 		if(S.brute_dam)
@@ -125,10 +127,16 @@ emp_act
 		else
 			break
 		nrembrute = max(rembrute - E.brute_dam, 0)
-		E.heal_damage(rembrute, 0, FALSE, TRUE)
+		var/brute_was = E.brute_dam
+		update_damage_icon |= E.heal_damage(rembrute, 0, FALSE, TRUE, FALSE)
+		if(E.brute_dam != brute_was)
+			should_update_health = TRUE
 		rembrute = nrembrute
-		H.UpdateDamageIcon()
 		user.visible_message("<span class='alert'>[user] patches some dents on [src]'s [E.name] with [I].</span>")
+	if(should_update_health)
+		H.updatehealth("welder repair")
+	if(update_damage_icon)
+		H.UpdateDamageIcon()
 	if(bleed_rate && ismachineperson(src))
 		bleed_rate = 0
 		user.visible_message("<span class='alert'>[user] patches some leaks on [src] with [I].</span>")
@@ -362,20 +370,32 @@ emp_act
 				damaged += .
 
 	//DAMAGE//
-	var/update_damage = FALSE
+	var/should_update_health = FALSE
+	var/update_damage_icon = NONE
 	for(var/obj/item/organ/external/affecting as anything in damaged)
-		if(affecting.external_receive_damage(acidity, 2 * acidity))
-			update_damage = TRUE
+		var/brute_was = affecting.brute_dam
+		var/burn_was = affecting.burn_dam
+		update_damage_icon |= affecting.external_receive_damage(acidity, 2 * acidity, updating_health = FALSE)
+		if(QDELETED(affecting) || affecting.loc != src)
+			should_update_health = TRUE
+			continue
+		if(affecting.brute_dam != brute_was || affecting.burn_dam != burn_was)
+			should_update_health = TRUE
 		if(!istype(affecting, /obj/item/organ/external/head) || !prob(min(acidpwr * acid_volume / 10, 90)))	//Applies disfigurement
 			continue
 		var/obj/item/organ/external/head/head_organ = affecting
-		emote("scream")
+		if(has_pain())
+			emote("scream")
 		head_organ.h_style = "Bald"
 		head_organ.f_style = "Shaved"
 		update_hair()
 		update_fhair()
 		head_organ.disfigure()
-	if(update_damage)
+
+	if(should_update_health)
+		updatehealth("acid act")
+
+	if(update_damage_icon)
 		UpdateDamageIcon()
 
 	//MELTING INVENTORY ITEMS//
