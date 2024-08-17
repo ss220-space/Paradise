@@ -412,7 +412,7 @@
 
 /obj/structure/sign/poster/contraband/ninja
 	name = "Space Ninja"
-	desc = "This is a poster depicting the main character of the most popular animated series in the galaxy, “Space Ninja.” The inscription on it says that the new season will start soon."
+	desc = "This is a poster depicting the main character of the most popular animated series in the galaxy, \"Space Ninja\". The inscription on it says that the new season will start soon."
 	icon_state = "poster40"
 
 //official posters
