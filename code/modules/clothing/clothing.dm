@@ -4,7 +4,6 @@
 	integrity_failure = 80
 	resistance_flags = FLAMMABLE
 	var/list/species_restricted = null //Only these species can wear this kit.
-	var/scan_reagents = 0 //Can the wearer see reagents while it's equipped?
 	var/gunshot_residue //Used by forensics.
 	var/obj/item/slimepotion/clothing/applied_slime_potion = null
 	var/list/faction_restricted = null
@@ -224,6 +223,8 @@
 	var/invis_view = SEE_INVISIBLE_LIVING
 	var/invis_override = 0
 	var/lighting_alpha
+	/// List of things added to examine text, like security or medical records.
+	var/examine_extensions = EXAMINE_HUD_NONE
 
 	var/emagged = FALSE
 	var/list/color_view = null//overrides client.color while worn
@@ -242,6 +243,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
 		)
+
 /*
 SEE_SELF  // can see self, no matter what
 SEE_MOBS  // can see all mobs, no matter what
@@ -820,6 +822,8 @@ BLIND     // can't see anything
 	put_on_delay = 50
 	resistance_flags = NONE
 	dog_fashion = null
+	/// List of things added to examine text, like security or medical records.
+	var/examine_extensions = EXAMINE_HUD_NONE
 
 
 /obj/item/clothing/suit/space
