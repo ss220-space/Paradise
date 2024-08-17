@@ -170,3 +170,25 @@
 	display_name = "security lightweight helmet"
 	path = /obj/item/clothing/head/helmet/lightweighthelmet
 	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_OFFICER, JOB_TITLE_PILOT)
+
+/datum/gear/hat/beanie
+	display_name = "beanie, select"
+	path = /obj/item/clothing/head/beanie
+
+/datum/gear/hat/beanie/New()
+	..()
+	var/list/beanies = list(/obj/item/clothing/head/beanie,
+							/obj/item/clothing/head/beanie/black,
+							/obj/item/clothing/head/beanie/christmas,
+							/obj/item/clothing/head/beanie/cyan,
+							/obj/item/clothing/head/beanie/darkblue,
+							/obj/item/clothing/head/beanie/green,
+							/obj/item/clothing/head/beanie/orange,
+							/obj/item/clothing/head/beanie/purple,
+							/obj/item/clothing/head/beanie/red,
+							/obj/item/clothing/head/beanie/yellow,
+							/obj/item/clothing/head/beanie/striped,
+							/obj/item/clothing/head/beanie/stripedblue,
+							/obj/item/clothing/head/beanie/stripedgreen,
+							/obj/item/clothing/head/beanie/stripedred)
+	gear_tweaks += new /datum/gear_tweak/path(beanies, src, TRUE)

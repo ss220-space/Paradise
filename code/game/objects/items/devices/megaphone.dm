@@ -14,7 +14,7 @@
 	var/list/insultmsg = list("ИДИТЕ НАХУЙ!", "Я АГЕНТ СИНДИКАТА!", "СБ, ЗАСТРЕЛИТЕ МЕНЯ НЕМЕДЛЕННО!", "У МЕНЯ БОМБА!", "КАПИТАН ГАНДОН!", "ЗА СИНДИКАТ!")
 
 /obj/item/megaphone/attack_self(mob/living/user as mob)
-	if(user.client && (user.client.prefs.muted & MUTE_IC))
+	if(check_mute(user.ckey, MUTE_IC))
 		to_chat(src, "<span class='warning'>You cannot speak in IC (muted).</span>")
 		return
 	if(!ishuman(user))

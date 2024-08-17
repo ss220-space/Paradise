@@ -131,8 +131,12 @@
   - bugfix: improper adjacent turfs check at area creation/expanding (#5721)
   ROdenFL:
   - add: RoboQuest (#5185)
+  - refactor: prettier maptext fonts (#5724)
+  - unknown: tgui say (#5605)
   Valtor:
   - add: wryn hivemind and hair is now bound to hivenode (#4986)
   Vladisvell:
   - bugfix: fixes broken assets for safe and stamps (#5725)
   - bugfix: Fixes templar shields invisible states (#5716)
+  endipe:
+  - add: science HUD implant (#5653)
