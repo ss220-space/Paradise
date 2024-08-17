@@ -252,6 +252,16 @@
 	build_path = /obj/item/circuitboard/robotics
 	category = list("Computer Boards")
 
+/datum/design/roboquest
+	name = "Console Board (Robotics Request Console)"
+	desc = "Allows receiving requests for construction of exosuits."
+	id = "roboquest"
+	req_tech = list("programming" = 5)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/roboquest
+	category = list("Computer Boards")
+
 /datum/design/secdata
 	name = "Console Board (Security Records Console)"
 	desc = "Allows for the construction of circuit boards used to build a security records console."

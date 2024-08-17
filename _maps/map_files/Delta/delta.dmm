@@ -29956,6 +29956,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/roboquest_pad,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "purple"
@@ -110928,6 +110929,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/light,
+/obj/machinery/computer/roboquest,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "purple"

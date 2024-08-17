@@ -89,6 +89,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/list/materials = null
 	var/materials_coeff = 1
 	var/item_color = null
+
+	/// if you want to color icon in hands, but not a icon of item
+	var/item_state_color
+	var/item_state_alpha
+
 	var/body_parts_covered = 0 //see setup.dm for appropriate bit flags
 	//var/heat_transfer_coefficient = 1 //0 prevents all transfers, 1 is invisible
 	var/gas_transfer_coefficient = 1 // for leaking gas from turf to mask and vice-versa (for masks right now, but at some point, i'd like to include space helmets)
