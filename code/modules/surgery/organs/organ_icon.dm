@@ -57,7 +57,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 	if(eyes) eyes.update_colour()
 
 
-/obj/item/organ/external/proc/get_icon(skeletal)
+/obj/item/organ/external/proc/get_icon(skeletal, husk = FALSE)
 	// Kasparrov, you monster
 	if(force_icon)
 		mob_icon = new /icon(force_icon, "[icon_name]")
@@ -68,19 +68,28 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 		var/new_icons = get_icon_state(skeletal)
 		var/icon_file = new_icons[1]
 		var/new_icon_state = new_icons[2]
-		mob_icon = new /icon(icon_file, new_icon_state)
-		if(!skeletal && !is_robotic())
-			if(is_dead())
-				mob_icon.ColorTone(rgb(10,50,0))
-				mob_icon.SetIntensity(0.7)
+		var/new_husk_icon_state = new_icons[3]
+		mob_icon = mutable_appearance(icon_file, new_icon_state, -LIMBS_LAYER)
+		// if(!skeletal && !is_robotic())
+			// if(is_dead())
+			// 	mob_icon.ColorTone(rgb(10,50,0))
+			// 	mob_icon.SetIntensity(0.7)
 
-			if(!isnull(s_tone))
-				if(s_tone >= 0)
-					mob_icon.Blend(rgb(s_tone, s_tone, s_tone), ICON_ADD)
-				else
-					mob_icon.Blend(rgb(-s_tone,  -s_tone,  -s_tone), ICON_SUBTRACT)
-			else if(s_col)
-				mob_icon.Blend(s_col, ICON_ADD)
+			// if(!isnull(s_tone))
+			// 	if(s_tone >= 0)
+			// 		mob_icon.Blend(rgb(s_tone, s_tone, s_tone), ICON_ADD)
+			// 	else
+			// 		mob_icon.Blend(rgb(-s_tone,  -s_tone,  -s_tone), ICON_SUBTRACT)
+			// else if(s_col)
+			// 	mob_icon.Blend(s_col, ICON_ADD)
+		//Handle husk overlay.
+		if(husk)
+			var/icon/husk_icon = new(icon_file, new_icon_state)
+			husk_icon.ColorTone(rgb(96, 88, 80))
+			mob_icon.add_overlay(husk_icon)
+			if(icon_exists(icobase, new_husk_icon_state))
+				var/mutable_appearance/husk_over = mutable_appearance(icobase, new_husk_icon_state, -LIMBS_LAYER)
+				mob_icon.add_overlay(husk_over)
 
 	if(owner) //Maintains overlays on disembodied parts.
 		cut_overlays()
@@ -153,6 +162,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 	var/gender
 	var/icon_file
 	var/new_icon_state
+	var/new_husk_icon_state
 	if(!dna)
 		icon_file = 'icons/mob/human_races/r_human.dmi'
 		new_icon_state = "[icon_name][gendered_icon ? "_f" : ""]"
@@ -170,6 +180,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 			head_organ.handle_alt_icon()
 
 		new_icon_state = "[icon_name][gender ? "_[gender]" : ""]"
+		new_husk_icon_state = "[icon_name]_husk_overlay"
 
 		if(skeletal)
 			icon_file = 'icons/mob/human_races/r_skeleton.dmi'
@@ -181,7 +192,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 			else
 				// Congratulations, you are normal
 				icon_file = icobase
-	return list(icon_file, new_icon_state)
+	return list(icon_file, new_icon_state, new_husk_icon_state)
 
 // new damage icon system
 // adjusted to set damage_state to brute/burn code only (without r_name0 as before)

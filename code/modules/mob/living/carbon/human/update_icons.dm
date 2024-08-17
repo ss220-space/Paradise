@@ -153,7 +153,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(LIMBS_LAYER) // So we don't get the old species' sprite splatted on top of the new one's
 	remove_overlay(UNDERWEAR_LAYER)
 
-	var/husk_color_mod = rgb(96, 88, 80)
 	var/hulk_color_mod = rgb(48, 224, 40)
 
 	var/husk = (HUSK in mutations)
@@ -183,53 +182,25 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		//BEGIN CACHED ICON GENERATION.
 		var/obj/item/organ/external/chest = get_organ(BODY_ZONE_CHEST)
 		if(chest) //I hate it.
-			base_icon = chest.get_icon(skeleton)
+			base = chest.get_icon(skeleton, husk)
 
 		for(var/obj/item/organ/external/part as anything in bodyparts)
 			if(part.limb_zone == BODY_ZONE_TAIL || part.limb_zone == BODY_ZONE_WING)
 				continue
-			var/icon/temp = part.get_icon(skeleton)
-			//That part makes left and right legs drawn topmost and lowermost when human looks WEST or EAST
-			//And no change in rendering for other parts (they icon_position is 0, so goes to 'else' part)
-			if(part.icon_position & (LEFT | RIGHT))
-				var/icon/temp2 = new('icons/mob/human.dmi',"blank")
-				temp2.Insert(new/icon(temp,dir=NORTH),dir=NORTH)
-				temp2.Insert(new/icon(temp,dir=SOUTH),dir=SOUTH)
-				if(!(part.icon_position & LEFT))
-					temp2.Insert(new/icon(temp,dir=EAST),dir=EAST)
-				if(!(part.icon_position & RIGHT))
-					temp2.Insert(new/icon(temp,dir=WEST),dir=WEST)
-				base_icon.Blend(temp2, ICON_OVERLAY)
-				if(part.icon_position & LEFT)
-					temp2.Insert(new/icon(temp,dir=EAST),dir=EAST)
-				if(part.icon_position & RIGHT)
-					temp2.Insert(new/icon(temp,dir=WEST),dir=WEST)
-				base_icon.Blend(temp2, ICON_UNDERLAY)
-			else
-				base_icon.Blend(temp, ICON_OVERLAY)
+			var/mutable_appearance/temp = part.get_icon(skeleton, husk)
+			base.overlays += temp
 
 		if(!skeleton)
 			if(isgolem(src))
 				var/datum/species/golem/G = src.dna.species
 				if(G.golem_colour)
-					base_icon.ColorTone(G.golem_colour)
-			if(husk)
-				base_icon.ColorTone(husk_color_mod)
-			else if(hulk)
+					base.color = G.golem_colour
+			if(!husk && hulk)
 				var/list/tone = ReadRGB(hulk_color_mod)
 				base_icon.MapColors(rgb(tone[1],0,0),rgb(0,tone[2],0),rgb(0,0,tone[3]))
 
-		//Handle husk overlay.
-		if(husk && icon_exists(chest.icobase, "overlay_husk"))
-			var/icon/mask = new(base_icon)
-			var/icon/husk_over = new(chest.icobase,"overlay_husk")
-			mask.MapColors(0,0,0,1, 0,0,0,1, 0,0,0,1, 0,0,0,1, 0,0,0,0)
-			husk_over.Blend(mask, ICON_ADD)
-			base_icon.Blend(husk_over, ICON_OVERLAY)
-
-		var/mutable_appearance/new_base = mutable_appearance(base_icon, layer = -LIMBS_LAYER)
-		GLOB.human_icon_cache[icon_key] = new_base
-		standing += new_base
+		GLOB.human_icon_cache[icon_key] = base
+		standing += base
 
 		//END CACHED ICON GENERATION.
 
