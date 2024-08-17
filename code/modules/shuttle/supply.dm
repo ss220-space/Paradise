@@ -130,6 +130,7 @@
 	var/intel_count = 0
 	var/crate_count = 0
 	var/quest_reward
+	var/intel_reward
 
 	var/msg = "<center>---[station_time_timestamp()]---</center><br>"
 	var/pointsEarned
@@ -196,9 +197,12 @@
 						find_slip = FALSE
 					continue
 
-				// Sell syndicate intel
-				if(istype(thing, /obj/item/documents/syndicate))
-					++intel_count
+				// Sell intel
+				if(istype(thing, /obj/item/documents))
+					var/obj/item/documents/docs = thing
+					if((docs.sell_interest & INTEREST_NANOTRASEN) || (docs.sell_interest & INTEREST_ANYONE))
+						++intel_count
+						intel_reward += round(SSshuttle.points_per_intel * docs.sell_multiplier)
 
 				// Send tech levels
 				if(istype(thing, /obj/item/disk/tech_disk))
@@ -218,34 +222,13 @@
 								objective.unit_completed(round(cost / 3))
 						msg += "[tech.name] - new data.<br>"
 
-		if(istype(MA, /obj/structure/closet/critter/mecha))
-			var/obj/structure/closet/critter/mecha/crate = MA
-			if(crate.console && crate.quest)
-				for(var/category in crate.quest.reward)
-					crate.quest.reward[category] -= crate.penalty
-					if(crate.quest.reward[category] < 0)
-						crate.quest.reward[category] = 0
-					crate.console.points[category] += crate.quest.reward[category]
-				pointsEarned = crate.quest.reward["robo"] * 30
-				SSshuttle.points += pointsEarned
-				if(crate.quest.id)
-					var/datum/money_account/A = get_money_account(crate.quest.id.associated_account_number)
-					if(A)
-						A.money += crate.quest.maximum_cash - round(crate.quest.maximum_cash * crate.penalty / 4)
-				SSshuttle.cargo_money_account.money += crate.quest.maximum_cash - round(crate.quest.maximum_cash * crate.penalty / 4)
-				crate.console.on_quest_complete()
-				msg += "<span class='good'>+[pointsEarned]</span>: Received requested mecha: [crate.quest.name].<br>"
-				crate.quest.id.robo_bounty = null
-				crate.quest = null
-
 		qdel(MA, force = TRUE)
 		SSshuttle.sold_atoms += "."
 
 
 	if(intel_count > 0)
-		pointsEarned = round(intel_count * SSshuttle.points_per_intel)
-		msg += "<span class='good'>+[pointsEarned]</span>: Received [intel_count] article(s) of enemy intelligence.<br>"
-		SSshuttle.points += pointsEarned
+		msg += "<span class='good'>+[intel_reward]</span>: Received [intel_count] article(s) of enemy intelligence.<br>"
+		SSshuttle.points += intel_reward
 
 	if(quest_reward > 0)
 		msg += "<span class='good'>+[quest_reward]</span>: Received reward points for quests.<br>"
