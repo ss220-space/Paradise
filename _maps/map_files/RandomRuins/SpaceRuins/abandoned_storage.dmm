@@ -1,0 +1,6535 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ad" = (
+/mob/living/simple_animal/hostile/carp{
+	desc = "Very lonely and shy space carp.";
+	health = 70;
+	maxHealth = 70;
+	name = "Shy space carp"
+	},
+/turf/space,
+/area/space)
+"af" = (
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/head/sovietsidecap,
+/obj/item/clothing/under/soviet,
+/obj/item/clothing/suit/sovietcoat,
+/obj/item/clothing/head/ushanka,
+/obj/structure/closet/secure_closet/personal/cabinet{
+	req_access = list(128)
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"aD" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/pickles{
+	pixel_x = -7;
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/food/snacks/pickles{
+	pixel_x = 6;
+	pixel_y = 7
+	},
+/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = -8;
+	pixel_y = -6
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = 9;
+	pixel_y = 3
+	},
+/obj/structure/sign/poster/official/vodka{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"aO" = (
+/obj/item/chair/wood/wings{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"aQ" = (
+/obj/machinery/light/small/built{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"bj" = (
+/obj/machinery/light/small/built{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/giant_rat{
+	damage_coeff = list("brute" = 0.9, "fire" = 0.9, "tox" = 1, "clone" = 1, "stamina" = 0, "oxy" = 0.8);
+	health = 150;
+	maxHealth = 150;
+	mob_size = 4;
+	name = "Mutant Giant rat"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"bk" = (
+/obj/item/stack/sheet/wood{
+	amount = 5
+	},
+/obj/structure/lattice,
+/turf/space,
+/area/space)
+"bp" = (
+/obj/machinery/atmospherics/unary/vent_pump{
+	on = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"br" = (
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/ore/glass/basalt/ancient,
+/obj/structure/mirror{
+	pixel_x = -29
+	},
+/mob/living/simple_animal/mouse/rat{
+	faction = list("hostile")
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"bU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/ore/glass/basalt/ancient,
+/obj/item/stack/ore/glass/basalt/ancient{
+	pixel_x = 7;
+	pixel_y = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"bW" = (
+/obj/item/chair/wood/wings,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"ce" = (
+/obj/item/stack/sheet/cheese,
+/turf/simulated/floor/indestructible/asteroid,
+/area/ruin/space/abandoned_storage)
+"ch" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"co" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/filingcabinet/chestdrawer,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"cF" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"cH" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/item/reagent_containers/food/snacks/sliceable/cheesewheel,
+/mob/living/simple_animal/hostile/giant_rat{
+	damage_coeff = list("brute" = 0.9, "fire" = 0.9, "tox" = 1, "clone" = 1, "stamina" = 0, "oxy" = 0.8);
+	health = 150;
+	maxHealth = 150;
+	mob_size = 4;
+	name = "Mutant Giant rat"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"cX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"dd" = (
+/obj/structure/window/full/shuttle,
+/obj/structure/grille,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/abandoned_storage/abandoned_storage_shuttle)
+"df" = (
+/obj/effect/mob_spawn/human/corpse/usspconscript,
+/obj/structure/bed/old{
+	icon_state = "catwalkcouch3"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"dl" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor13";
+	name = "floor"
+	},
+/area/ruin/space/abandoned_storage/abandoned_storage_shuttle)
+"dv" = (
+/obj/structure/noticeboard,
+/turf/simulated/wall/r_wall/rust,
+/area/ruin/space/abandoned_storage)
+"dw" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"dA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/bed/old{
+	icon_state = "catwalkcouch3"
+	},
+/obj/structure/decorative_structures/corpse{
+	dir = 4;
+	icon_state = "corpse_soviet3"
+	},
+/obj/effect/decal/cleanable/blood/splatter,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"dW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/food/snacks/sliceable/cheesewheel,
+/mob/living/simple_animal/hostile/giant_rat{
+	damage_coeff = list("brute" = 0.9, "fire" = 0.9, "tox" = 1, "clone" = 1, "stamina" = 0, "oxy" = 0.8);
+	health = 150;
+	maxHealth = 150;
+	mob_size = 4;
+	name = "Mutant Giant rat"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"dX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"dZ" = (
+/obj/structure/largecrate,
+/obj/machinery/light/small{
+	dir = 4;
+	on = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"ed" = (
+/obj/effect/mob_spawn/human/corpse/usspconscript,
+/obj/structure/bed/old{
+	icon_state = "catwalkcouch3"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"eq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small/built{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"er" = (
+/obj/machinery/computer{
+	name = "Broken Shuttle Console"
+	},
+/turf/simulated/floor/plating/airless{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor13";
+	name = "floor"
+	},
+/area/ruin/space/abandoned_storage/abandoned_storage_shuttle)
+"eu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/wood/fancy/red,
+/obj/item/paper_bin/ussp{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/pen/multi/fountain{
+	pixel_x = 3;
+	pixel_y = 9
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"eH" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/mouse/rat{
+	faction = list("hostile")
+	},
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"eN" = (
+/obj/structure/table/reinforced,
+/turf/simulated/floor/plating/airless{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor13";
+	name = "floor"
+	},
+/area/ruin/space/abandoned_storage/abandoned_storage_shuttle)
+"eP" = (
+/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 1;
+	on = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"eR" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/rack,
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 5
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 30
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"fP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"fU" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"gj" = (
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 8;
+	on = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"gl" = (
+/obj/item/stack/rods{
+	amount = 2
+	},
+/turf/space,
+/area/space)
+"gn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/comfy/red,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"go" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/mob/living/simple_animal/mouse/rat{
+	faction = list("hostile")
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"gq" = (
+/obj/effect/decal/warning_stripes/red,
+/obj/structure/closet/crate,
+/obj/item/storage/belt/utility,
+/obj/item/storage/belt/utility,
+/obj/item/storage/belt/utility,
+/obj/item/storage/belt/utility,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"gw" = (
+/obj/machinery/door/airlock/mining{
+	name = "Quartermaster";
+	req_access = list(128,121)
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor13";
+	nitrogen = 0;
+	oxygen = 0
+	},
+/area/ruin/space/abandoned_storage/abandoned_storage_shuttle)
+"gx" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"gE" = (
+/obj/structure/lattice,
+/turf/space,
+/area/space)
+"gO" = (
+/obj/structure/chair/comfy/black{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"hg" = (
+/obj/item/pickaxe,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"hj" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"hm" = (
+/obj/machinery/computer/arcade/battle,
+/obj/structure/sign/poster/official/vodka{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"hp" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"hz" = (
+/obj/structure/statue/cheese/cheesus{
+	anchored = 1
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/ruin/space/abandoned_storage)
+"hI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 4;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/mob/living/simple_animal/mouse/rat{
+	faction = list("hostile")
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"hJ" = (
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/head/sovietsidecap,
+/obj/item/clothing/under/soviet,
+/obj/item/clothing/suit/sovietcoat,
+/obj/item/clothing/head/ushanka,
+/obj/structure/closet/secure_closet/personal/cabinet{
+	req_access = list(128)
+	},
+/obj/machinery/light/small/built{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"hM" = (
+/obj/machinery/light/small{
+	brightness_range = 2;
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"ia" = (
+/obj/structure/window/plasmareinforced{
+	dir = 1;
+	simulated = 0
+	},
+/obj/structure/shuttle/engine/heater,
+/turf/simulated/floor/plating{
+	nitrogen = 0;
+	oxygen = 0
+	},
+/area/ruin/space/abandoned_storage/abandoned_storage_shuttle)
+"ii" = (
+/obj/structure/closet/secure_closet/personal/cabinet{
+	req_access = list(128)
+	},
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/head/sovietsidecap,
+/obj/item/clothing/under/soviet,
+/obj/item/clothing/suit/sovietcoat,
+/obj/item/clothing/head/ushanka,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"iz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 4;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"iG" = (
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 8;
+	on = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"je" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/junction{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"js" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/wood/fancy/red,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"jv" = (
+/obj/structure/safe,
+/obj/item/stack/spacecash/ussp/c1000,
+/obj/item/stack/spacecash/ussp/c1000,
+/obj/item/stack/spacecash/ussp/c1000,
+/obj/item/stack/spacecash/ussp/c1000,
+/obj/item/stack/spacecash/ussp/c1000,
+/obj/item/stack/spacecash/ussp/c1000,
+/obj/item/stack/spacecash/ussp/c1000,
+/obj/item/stack/spacecash/ussp/c1000,
+/obj/item/stack/spacecash/ussp/c1000,
+/obj/item/stack/spacecash/ussp/c1000,
+/obj/item/megaphone,
+/obj/item/documents/ussp,
+/obj/item/toy/russian_revolver/trick_revolver,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"jA" = (
+/obj/structure/table/wood/fancy/red,
+/obj/item/clipboard,
+/obj/item/megaphone,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"jL" = (
+/obj/machinery/light/small/built,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"jO" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"kg" = (
+/turf/space,
+/area/space)
+"kj" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"kk" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/mob/living/simple_animal/mouse/rat{
+	faction = list("hostile")
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"kn" = (
+/obj/effect/decal/cleanable/fungus,
+/turf/simulated/wall/r_wall/rust,
+/area/ruin/space/abandoned_storage)
+"ku" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/item/stack/sheet/wood{
+	amount = 5
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"kx" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/snacks/beans{
+	pixel_x = -6
+	},
+/obj/machinery/light{
+	on = 1
+	},
+/obj/item/decorations/flag/soviet,
+/obj/structure/sign/poster/contraband/communist_state{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"ky" = (
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	dir = 1;
+	name = "Broken Supply Request Consoler"
+	},
+/turf/simulated/floor/plating/airless{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor13";
+	name = "floor"
+	},
+/area/ruin/space/abandoned_storage/abandoned_storage_shuttle)
+"kF" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/food/snacks/grown/potato{
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/food/snacks/grown/potato,
+/obj/item/reagent_containers/food/snacks/grown/potato{
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/snacks/grown/potato{
+	pixel_y = -4
+	},
+/obj/item/reagent_containers/food/snacks/grown/potato{
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/food/snacks/grown/potato{
+	pixel_x = 6
+	},
+/turf/simulated/floor/plating/airless{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor13";
+	name = "floor"
+	},
+/area/ruin/space/abandoned_storage/abandoned_storage_shuttle)
+"kH" = (
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	dir = 1;
+	name = "Broken Computer"
+	},
+/turf/simulated/floor/plating/airless{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor13";
+	name = "floor"
+	},
+/area/ruin/space/abandoned_storage/abandoned_storage_shuttle)
+"kL" = (
+/obj/effect/decal/warning_stripes/southwestcorner,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"kO" = (
+/obj/machinery/shower{
+	dir = 8;
+	tag = "icon-shower (WEST)"
+	},
+/obj/structure/curtain/open/shower,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"kR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/security{
+	name = "Barracks";
+	req_access = list(128,121)
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"kZ" = (
+/obj/structure/chair/wood{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"la" = (
+/obj/effect/decal/warning_stripes/northeastcorner,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/abandoned_storage)
+"ly" = (
+/obj/structure/bed/old,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"lA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"lE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/vomit,
+/obj/structure/toilet/cancollectmapitems,
+/obj/random/plushie,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"lZ" = (
+/obj/structure/rack,
+/obj/item/ammo_box/c9mm,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"me" = (
+/obj/structure/barricade/wooden,
+/obj/machinery/door/airlock/mining{
+	name = "Quartermaster";
+	req_access = list(128)
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"mj" = (
+/obj/structure/chair/wood,
+/obj/structure/sign/poster/official/vodka{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"mk" = (
+/obj/structure/closet/secure_closet{
+	name = "Quartermaster closet";
+	req_access = list(128)
+	},
+/obj/item/card/id/ussp_security{
+	access = list(128,121);
+	name = "USSP Quartermaster ID card";
+	rank = "Soviet Quartermaster";
+	registered_name = "unset"
+	},
+/obj/item/clothing/suit/sovietcoat/officer,
+/obj/item/clothing/head/sovietofficerhat,
+/obj/item/clothing/under/sovietofficer,
+/obj/item/clothing/gloves/combat,
+/obj/item/clothing/shoes/combat/commando,
+/obj/item/radio/headset/alt/soviet,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"mr" = (
+/obj/structure/rack,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"mt" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 8;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"mJ" = (
+/obj/structure/sign/poster/official/vodka{
+	pixel_x = -32
+	},
+/obj/structure/bed/old{
+	icon_state = "catwalkcouch2"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"mS" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/mob/living/simple_animal/mouse/rat{
+	faction = list("hostile")
+	},
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"mU" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"na" = (
+/obj/effect/decal/warning_stripes/southwestcorner,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"nf" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/decal/cleanable/blood{
+	layer = 2.5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"nm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_pump{
+	on = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"nq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/food/snacks/sliceable/cheesewheel,
+/obj/item/reagent_containers/food/snacks/sliceable/cheesewheel,
+/obj/item/reagent_containers/food/snacks/sliceable/cheesewheel,
+/obj/item/reagent_containers/food/snacks/sliceable/cheesewheel,
+/obj/item/reagent_containers/food/snacks/sliceable/cheesewheel,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"nD" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"nX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/ants,
+/obj/item/reagent_containers/food/snacks/sliceable/cheesewheel,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"nY" = (
+/obj/effect/decal/cleanable/vomit,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"ol" = (
+/obj/structure/table/wood/fancy/red,
+/obj/item/decorations/flag/soviet{
+	pixel_x = -4;
+	pixel_y = 20
+	},
+/obj/item/paper_bin/ussp{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/pen/multi/fountain{
+	pixel_x = 3;
+	pixel_y = 9
+	},
+/obj/machinery/light/built{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"op" = (
+/obj/structure/sign/poster/contraband/communist_state{
+	pixel_x = 32
+	},
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/pizzaparty,
+/obj/item/reagent_containers/food/snacks/beans,
+/obj/item/reagent_containers/food/snacks/beans,
+/obj/item/reagent_containers/food/snacks/beans,
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"oA" = (
+/obj/structure/chair/comfy/brown{
+	color = "#FF3300"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/contraband/communist_state{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"oG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/built,
+/obj/structure/table/wood,
+/obj/item/paper_bin{
+	pixel_x = -6;
+	pixel_y = 4
+	},
+/obj/item/paper_bin,
+/obj/item/pen{
+	pixel_x = 8;
+	pixel_y = 11
+	},
+/obj/item/pen{
+	pixel_x = -4;
+	pixel_y = 11
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"oU" = (
+/obj/structure/table/reinforced,
+/obj/item/kitchen/rollingpin,
+/obj/item/kitchen/knife,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"pe" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 4;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"ph" = (
+/obj/effect/decal/warning_stripes/west,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"pj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/sofa/left{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"po" = (
+/obj/machinery/power/port_gen/pacman,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"pt" = (
+/obj/structure/noticeboard{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plating/airless{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor13";
+	name = "floor"
+	},
+/area/ruin/space/abandoned_storage/abandoned_storage_shuttle)
+"pw" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/mob/living/simple_animal/mouse/rat{
+	faction = list("hostile")
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"pI" = (
+/obj/effect/decal/warning_stripes/northwestcorner,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"pY" = (
+/obj/effect/decal/warning_stripes/yellow,
+/mob/living/simple_animal/hostile/giant_rat{
+	damage_coeff = list("brute" = 0.9, "fire" = 0.9, "tox" = 1, "clone" = 1, "stamina" = 0, "oxy" = 0.8);
+	health = 150;
+	maxHealth = 150;
+	mob_size = 4;
+	name = "Mutant Giant rat"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"qd" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/universal{
+	dir = 4
+	},
+/obj/machinery/door/airlock/engineering{
+	name = "Engineering storage room";
+	req_access = list(128,121)
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"qH" = (
+/obj/structure/coatrack,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"rb" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/snacks/soup/beetsoup{
+	desc = "With the taste of execution";
+	name = "borsch"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"rj" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/apc{
+	dir = 1;
+	pixel_y = 32;
+	req_access = list(128,121)
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"rv" = (
+/turf/simulated/floor/plating/airless{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor13";
+	name = "floor"
+	},
+/area/ruin/space/abandoned_storage/abandoned_storage_shuttle)
+"rL" = (
+/obj/structure/largecrate,
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"rQ" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -30
+	},
+/obj/structure/largecrate,
+/obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"sb" = (
+/obj/machinery/light/small/built{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"sg" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"sl" = (
+/obj/structure/rack,
+/obj/item/pickaxe/gold,
+/obj/item/pickaxe/gold,
+/obj/item/pickaxe/gold,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"sq" = (
+/obj/structure/barricade/wooden,
+/obj/machinery/door/airlock{
+	name = "dining room";
+	req_access = list(128,121)
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"ss" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"sy" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/sofa/left{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"sA" = (
+/obj/effect/decal/warning_stripes/red,
+/obj/item/reagent_containers/food/snacks/boiledpelmeni,
+/obj/item/reagent_containers/food/snacks/boiledpelmeni,
+/obj/item/reagent_containers/food/snacks/boiledpelmeni,
+/obj/item/reagent_containers/food/snacks/boiledpelmeni,
+/obj/item/reagent_containers/food/snacks/boiledpelmeni,
+/obj/item/reagent_containers/food/snacks/boiledpelmeni,
+/obj/item/reagent_containers/food/snacks/boiledpelmeni,
+/obj/item/reagent_containers/food/snacks/boiledpelmeni,
+/obj/structure/closet/crate/freezer,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"sC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"sR" = (
+/obj/structure/table/wood,
+/obj/item/lighter/zippo{
+	pixel_x = 5;
+	pixel_y = 4
+	},
+/obj/item/flashlight/lamp,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"sT" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"sW" = (
+/obj/structure/table/wood/fancy/red,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/item/folder/ussp{
+	pixel_y = 4
+	},
+/obj/item/folder/ussp,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"sZ" = (
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/machinery/power/smes,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"ub" = (
+/obj/item/radio/phone/ussp{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/wood/fancy/red,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"ud" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"ui" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"uw" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/food/snacks/boiledpelmeni,
+/obj/item/reagent_containers/food/snacks/boiledpelmeni{
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/food/snacks/boiledpelmeni{
+	pixel_x = 8;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/food/snacks/boiledpelmeni{
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/food/snacks/boiledpelmeni,
+/obj/item/reagent_containers/food/snacks/boiledpelmeni{
+	pixel_x = 8;
+	pixel_y = 4
+	},
+/turf/simulated/floor/plating/airless{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor13";
+	name = "floor"
+	},
+/area/ruin/space/abandoned_storage/abandoned_storage_shuttle)
+"uF" = (
+/obj/structure/rack/holorack,
+/obj/item/pickaxe/silver,
+/obj/item/pickaxe/silver,
+/obj/item/pickaxe/silver,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"uI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/flag/ussp,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"uX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/wood,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"va" = (
+/obj/effect/decal/warning_stripes/southeast,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"vj" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"vv" = (
+/obj/machinery/vending/cigarette/free,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"vX" = (
+/obj/machinery/door/airlock{
+	id_tag = "toilet1";
+	name = "Toilet";
+	req_access = list(128,121)
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"wt" = (
+/obj/structure/chair/sofa/corner{
+	dir = 1
+	},
+/obj/structure/sign/poster/contraband/communist_state{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"wy" = (
+/turf/simulated/wall/shuttle,
+/area/ruin/space/abandoned_storage/abandoned_storage_shuttle)
+"wH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"wJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 4;
+	on = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"wL" = (
+/obj/machinery/light/small/built,
+/obj/item/stack/ore/glass/basalt/ancient,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"wN" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"wT" = (
+/obj/item/stack/ore/glass/basalt/ancient,
+/turf/simulated/floor/indestructible/asteroid,
+/area/ruin/space/abandoned_storage)
+"xc" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"xf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 8;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/mob/living/simple_animal/mouse/rat{
+	faction = list("hostile")
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"xw" = (
+/obj/structure/rack,
+/obj/item/clothing/gloves/combat,
+/obj/item/clothing/gloves/combat,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"xG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"xJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/snacks/soup/beetsoup{
+	desc = "With the taste of execution";
+	name = "borsch";
+	pixel_y = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"xQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/kitchen_machine/oven,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"xZ" = (
+/obj/machinery/computer/arcade,
+/obj/structure/sign/poster/official/vodka{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"ya" = (
+/obj/structure/table/reinforced,
+/obj/machinery/kitchen_machine/microwave{
+	pixel_x = -1;
+	pixel_y = 7
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"yp" = (
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/machinery/light/small/built{
+	dir = 1
+	},
+/obj/item/stack/sheet/wood{
+	amount = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"yq" = (
+/obj/item/flag/ussp,
+/obj/effect/decal/warning_stripes/west,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"yr" = (
+/obj/structure/chair/wood,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"yE" = (
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/structure/closet/crate,
+/obj/item/clothing/head/ushanka,
+/obj/item/clothing/head/ushanka,
+/obj/item/clothing/head/ushanka,
+/obj/item/clothing/head/ushanka,
+/obj/item/clothing/head/ushanka,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"yO" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 9
+	},
+/obj/item/stack/ore/glass/basalt/ancient{
+	pixel_x = 7;
+	pixel_y = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"yT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/kitchen_machine/grill,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"zd" = (
+/mob/living/simple_animal/mouse/rat{
+	faction = list("hostile")
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"zk" = (
+/obj/structure/largecrate/evil,
+/turf/simulated/floor/plating/airless{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor13";
+	name = "floor"
+	},
+/area/ruin/space/abandoned_storage/abandoned_storage_shuttle)
+"zl" = (
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"zt" = (
+/obj/structure/table/wood,
+/obj/item/deck/cards/syndicate/black{
+	pixel_x = 3;
+	pixel_y = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/item/reagent_containers/food/snacks/sliceable/cheesewheel,
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"zu" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Ap" = (
+/obj/machinery/floodlight,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Av" = (
+/obj/machinery/shower{
+	dir = 8;
+	tag = "icon-shower (WEST)"
+	},
+/obj/structure/curtain/open/shower,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"AJ" = (
+/obj/structure/barricade/wooden,
+/obj/machinery/door/airlock{
+	id_tag = "toilet1";
+	name = "Toilet";
+	req_access = list(128,121)
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"AL" = (
+/obj/effect/mine/dnascramble,
+/obj/structure/punji_sticks,
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 8
+	},
+/obj/structure/barricade/wooden,
+/obj/structure/falsewall/reinforced,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"AS" = (
+/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/structure/disposalpipe/junction{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"AZ" = (
+/obj/effect/decal/warning_stripes/south,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Bh" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Bu" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/wall/r_wall/rust,
+/area/ruin/space/abandoned_storage)
+"Bv" = (
+/obj/item/pickaxe,
+/obj/item/stack/ore/glass/basalt/ancient{
+	pixel_y = 4
+	},
+/obj/item/stack/ore/glass/basalt/ancient{
+	pixel_x = 7;
+	pixel_y = 4
+	},
+/obj/item/stack/ore/glass/basalt/ancient,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Bw" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/barricade/wooden,
+/obj/machinery/door/airlock/security{
+	name = "Barracks";
+	req_access = list(128,121)
+	},
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Bx" = (
+/obj/effect/decal/warning_stripes/southwest,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"By" = (
+/obj/item/trash/plate{
+	pixel_x = 3;
+	pixel_y = 9
+	},
+/obj/item/trash/plate{
+	pixel_x = -7;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/food/snacks/grown/potato{
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = -8;
+	pixel_y = -6
+	},
+/obj/effect/decal/ants,
+/obj/structure/table/wood,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"BJ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"BL" = (
+/obj/structure/sign/poster/contraband/communist_state{
+	pixel_y = 32
+	},
+/obj/structure/bed/old,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"BM" = (
+/obj/structure/closet/crate/secure/loot,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"BT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/obj/structure/disposalpipe/junction/yjunction,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Cf" = (
+/obj/effect/decal/ants,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Cn" = (
+/mob/living/simple_animal/hostile/giant_rat{
+	damage_coeff = list("brute" = 0.9, "fire" = 0.9, "tox" = 1, "clone" = 1, "stamina" = 0, "oxy" = 0.8);
+	health = 150;
+	maxHealth = 150;
+	mob_size = 4;
+	name = "Mutant Giant rat"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Cx" = (
+/obj/machinery/light/small/built{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"CA" = (
+/obj/structure/barricade/wooden,
+/obj/machinery/door/airlock/mining{
+	name = "Quartermaster";
+	req_access = list(128,121)
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"CD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"CE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"CF" = (
+/obj/machinery/porta_turret/syndicate/interior{
+	desc = "USSP interior defense turret chambered for .45 rounds. Designed to down intruders without damaging the hull.";
+	dir = 8;
+	faction = "hostile";
+	req_access = list(128)
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/abandoned_storage)
+"CG" = (
+/obj/structure/chair/wood,
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 8;
+	on = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"CS" = (
+/obj/structure/chair/wood,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Dl" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/wood,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"DB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/wood{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"DD" = (
+/obj/structure/chair/wood{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"DP" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/wood,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Ec" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor13";
+	name = "floor"
+	},
+/area/ruin/space/abandoned_storage/abandoned_storage_shuttle)
+"Ei" = (
+/obj/item/stack/sheet/wood{
+	amount = 5
+	},
+/turf/space,
+/area/space)
+"Ep" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/food/snacks/sliceable/cheesewheel,
+/obj/item/reagent_containers/food/snacks/sliceable/cheesewheel{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/food/snacks/sliceable/cheesewheel{
+	pixel_y = 5
+	},
+/obj/item/reagent_containers/food/snacks/sliceable/cheesewheel{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/turf/simulated/floor/plating/airless{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor13";
+	name = "floor"
+	},
+/area/ruin/space/abandoned_storage/abandoned_storage_shuttle)
+"EC" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/reagent_containers/food/snacks/oliviersalad{
+	pixel_x = 6;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/food/snacks/oliviersalad,
+/obj/item/reagent_containers/food/snacks/oliviersalad{
+	pixel_x = -8;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/food/snacks/oliviersalad{
+	pixel_x = -8;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/food/snacks/oliviersalad{
+	pixel_x = 6;
+	pixel_y = 8
+	},
+/obj/item/reagent_containers/food/snacks/oliviersalad{
+	pixel_y = 8
+	},
+/turf/simulated/floor/plating/airless{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor13";
+	name = "floor"
+	},
+/area/ruin/space/abandoned_storage/abandoned_storage_shuttle)
+"EO" = (
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 1;
+	on = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Fb" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Fu" = (
+/obj/machinery/light/small{
+	dir = 1;
+	on = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"FB" = (
+/mob/living/simple_animal/mouse/rat{
+	faction = list("hostile")
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"FD" = (
+/obj/item/stack/sheet/wood{
+	amount = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"FU" = (
+/obj/structure/falsewall/reinforced,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"FY" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/item/pickaxe,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"GH" = (
+/obj/item/stack/ore/glass/basalt/ancient{
+	pixel_x = -7;
+	pixel_y = 2
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/ruin/space/abandoned_storage)
+"GL" = (
+/obj/structure/lattice/catwalk,
+/turf/space,
+/area/ruin/space/abandoned_storage/abandoned_storage_shuttle)
+"GQ" = (
+/obj/structure/rack,
+/obj/item/clothing/shoes/combat,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"GS" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"GV" = (
+/obj/item/stack/ore/glass/basalt/ancient{
+	pixel_x = 7;
+	pixel_y = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Hj" = (
+/obj/structure/largecrate,
+/turf/simulated/floor/plating/airless{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor13";
+	name = "floor"
+	},
+/area/ruin/space/abandoned_storage/abandoned_storage_shuttle)
+"Hp" = (
+/obj/item/flag/ussp,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"HD" = (
+/obj/item/flag/ussp,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"HF" = (
+/obj/effect/decal/warning_stripes/red,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"HL" = (
+/turf/simulated/floor/indestructible/asteroid,
+/area/ruin/space/abandoned_storage)
+"HO" = (
+/obj/effect/decal/warning_stripes/northeastcorner,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Im" = (
+/obj/structure/largecrate,
+/obj/effect/decal/warning_stripes/arrow{
+	dir = 1
+	},
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"It" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Iy" = (
+/obj/structure/rack,
+/obj/effect/decal/warning_stripes/west,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"IH" = (
+/obj/effect/decal/warning_stripes/arrow{
+	dir = 4
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 4;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"IN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"IP" = (
+/obj/item/trash/plate{
+	pixel_x = -5;
+	pixel_y = -1
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -2;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/food/snacks/boiledpelmeni{
+	pixel_y = 10
+	},
+/obj/item/reagent_containers/food/drinks/bottle/vodka{
+	desc = "For the Cargonia!";
+	name = "Molotov cocktail"
+	},
+/obj/structure/table/wood,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"IT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"IW" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/mouse/rat{
+	faction = list("hostile")
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Jf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/food/snacks/grown/potato{
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = -5
+	},
+/obj/item/reagent_containers/food/snacks/oliviersalad,
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/sliceable/cheesewheel{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Jw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/trash/plate{
+	pixel_x = 3;
+	pixel_y = 9
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = 8
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = 11;
+	pixel_y = 13
+	},
+/obj/machinery/light/small{
+	dir = 4;
+	pixel_y = 8
+	},
+/obj/structure/table/wood,
+/obj/structure/sign/poster/official/vodka{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"JN" = (
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"JR" = (
+/obj/machinery/door/airlock/external{
+	req_access = list(128,121)
+	},
+/turf/simulated/floor/plating{
+	nitrogen = 0;
+	oxygen = 0
+	},
+/area/ruin/space/abandoned_storage/abandoned_storage_shuttle)
+"Kg" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/structure/largecrate,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Kp" = (
+/obj/machinery/door/airlock/external{
+	req_access = list(128,121)
+	},
+/obj/structure/barricade/wooden,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Ku" = (
+/obj/structure/rack,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/pickaxe/silver,
+/obj/item/pickaxe/silver,
+/obj/item/pickaxe/silver,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Kz" = (
+/obj/effect/decal/warning_stripes/arrow{
+	dir = 1
+	},
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"KA" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"KC" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"KE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/built{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"KN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 4;
+	on = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"KU" = (
+/obj/effect/decal/warning_stripes/arrow{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"KV" = (
+/obj/item/pickaxe,
+/obj/item/stack/ore/glass/basalt/ancient{
+	pixel_x = 6;
+	pixel_y = -5
+	},
+/obj/item/stack/ore/glass/basalt/ancient{
+	pixel_x = -7;
+	pixel_y = 2
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/ruin/space/abandoned_storage)
+"Lh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Lj" = (
+/obj/machinery/computer/arcade/orion_trail,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Lk" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Ll" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Lp" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/arrow{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Lz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"LA" = (
+/obj/structure/rack/holorack,
+/obj/item/ammo_box/magazine/pistolm9mm,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"LG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 1;
+	on = 1
+	},
+/obj/structure/sign/poster/contraband/communist_state{
+	pixel_y = 32
+	},
+/mob/living/simple_animal/hostile/giant_rat{
+	damage_coeff = list("brute" = 0.9, "fire" = 0.9, "tox" = 1, "clone" = 1, "stamina" = 0, "oxy" = 0.8);
+	health = 150;
+	maxHealth = 150;
+	mob_size = 4;
+	name = "Mutant Giant rat"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"LI" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/mouse/rat{
+	faction = list("hostile")
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"LY" = (
+/obj/structure/chair/wood{
+	dir = 1
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 8;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Me" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/wood{
+	dir = 1
+	},
+/mob/living/simple_animal/mouse/rat{
+	faction = list("hostile")
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Mg" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/mouse/rat{
+	faction = list("hostile")
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Mi" = (
+/obj/item/stack/sheet/wood{
+	amount = 5
+	},
+/turf/simulated/floor/plating/airless{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor13";
+	name = "floor"
+	},
+/area/ruin/space/abandoned_storage/abandoned_storage_shuttle)
+"Mo" = (
+/obj/structure/chair/wood{
+	dir = 1
+	},
+/obj/item/stack/ore/glass/basalt/ancient{
+	pixel_y = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Mq" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/universal{
+	dir = 4
+	},
+/obj/machinery/door/airlock/engineering{
+	name = "Engineering storage room";
+	req_access = list(128)
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Mu" = (
+/obj/item/flag/ussp,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"My" = (
+/obj/effect/decal/warning_stripes/southeast,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"MB" = (
+/obj/structure/barricade/wooden,
+/obj/machinery/door/airlock/external{
+	req_access = list(128,121)
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"MJ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/arrow{
+	dir = 4
+	},
+/obj/item/stack/ore/glass/basalt/ancient,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"MY" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Na" = (
+/obj/machinery/alarm{
+	pixel_y = 28;
+	req_access = list(128)
+	},
+/obj/structure/closet/crate,
+/obj/item/ammo_box/magazine/pistolm9mm,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Nx" = (
+/obj/machinery/light/small{
+	flickering = 1;
+	on = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"NP" = (
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/tripple,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"NT" = (
+/obj/machinery/light{
+	dir = 8;
+	on = 1;
+	pixel_y = 32
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"NX" = (
+/obj/item/stack/ore/glass/basalt/ancient{
+	pixel_x = 6;
+	pixel_y = -5
+	},
+/obj/item/stack/ore/glass/basalt/ancient{
+	pixel_x = -7;
+	pixel_y = 2
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/ruin/space/abandoned_storage)
+"Ok" = (
+/obj/machinery/disposal,
+/obj/structure/sign/poster/contraband/communist_state{
+	pixel_y = -32
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Op" = (
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Ov" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"OC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/decorative_structures/corpse{
+	dir = 8;
+	icon_state = "corpse_soviet_lying_half2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"OG" = (
+/obj/structure/rack/holorack,
+/obj/item/clothing/suit/armor/vest/old,
+/obj/item/clothing/suit/armor/vest/old,
+/obj/item/clothing/suit/armor/vest/old,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"OO" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/space/abandoned_storage)
+"OP" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"OR" = (
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/head/sovietsidecap,
+/obj/item/clothing/under/soviet,
+/obj/item/clothing/suit/sovietcoat,
+/obj/item/clothing/head/ushanka,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet/personal/cabinet{
+	req_access = list(128)
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Pk" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/wall/r_wall,
+/area/ruin/space/abandoned_storage)
+"Ps" = (
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Pt" = (
+/obj/structure/table/wood,
+/obj/structure/sign/poster/contraband/communist_state{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"PD" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/abandoned_storage_asteroid)
+"PE" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"PU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Qb" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/ants,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Qf" = (
+/obj/effect/decal/warning_stripes/arrow{
+	dir = 1
+	},
+/obj/effect/decal/warning_stripes/north,
+/mob/living/simple_animal/mouse/rat{
+	faction = list("hostile")
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Qg" = (
+/obj/structure/rack,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Qo" = (
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/structure/closet/crate/secure/loot,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Qu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Qz" = (
+/obj/item/stack/ore/glass/basalt/ancient,
+/obj/item/stack/ore/glass/basalt/ancient{
+	pixel_x = 7;
+	pixel_y = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"QA" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 4
+	},
+/turf/simulated/floor/plating/airless{
+	icon = 'icons/turf/shuttle/floors.dmi';
+	icon_state = "floor13";
+	name = "floor"
+	},
+/area/ruin/space/abandoned_storage/abandoned_storage_shuttle)
+"QN" = (
+/obj/structure/disposaloutlet{
+	dir = 4
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/abandoned_storage_asteroid)
+"QO" = (
+/mob/living/simple_animal/mouse/rat{
+	faction = list("hostile")
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/ruin/space/abandoned_storage)
+"QU" = (
+/obj/effect/decal/warning_stripes/red,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"QZ" = (
+/obj/item/pickaxe,
+/obj/item/stack/ore/glass/basalt/ancient,
+/obj/machinery/light/small/built,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Rk" = (
+/obj/structure/largecrate,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Rs" = (
+/obj/machinery/floodlight,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"RU" = (
+/obj/structure/table/wood,
+/obj/item/folder{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Sb" = (
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/item/stack/sheet/wood{
+	amount = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Sk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Sq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/wood,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Sw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/bed/old{
+	icon_state = "catwalkcouch2"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"SA" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/largecrate,
+/obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"SG" = (
+/obj/effect/decal/warning_stripes/red/hollow,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"SM" = (
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/abandoned_storage/abandoned_storage_shuttle)
+"Ta" = (
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/structure/largecrate,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Tb" = (
+/obj/effect/decal/warning_stripes/arrow{
+	pixel_y = 15
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Tg" = (
+/obj/structure/decorative_structures/corpse{
+	dir = 1;
+	icon_state = "corpse_soviet_half"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Tk" = (
+/obj/structure/barricade/wooden,
+/obj/machinery/door/airlock/engineering{
+	name = "Engineering storage room";
+	req_access = list(128,121)
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Tn" = (
+/obj/machinery/atmospherics/binary/pump{
+	dir = 8;
+	on = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/giant_rat{
+	damage_coeff = list("brute" = 0.9, "fire" = 0.9, "tox" = 1, "clone" = 1, "stamina" = 0, "oxy" = 0.8);
+	health = 150;
+	maxHealth = 150;
+	mob_size = 4;
+	name = "Mutant Giant rat"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Tr" = (
+/obj/effect/decal/cleanable/fungus,
+/obj/effect/decal/cleanable/fungus,
+/turf/simulated/wall/r_wall/rust,
+/area/ruin/space/abandoned_storage)
+"Ts" = (
+/obj/item/stack/ore/glass/basalt/ancient,
+/obj/item/stack/ore/glass/basalt/ancient,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Tx" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Tz" = (
+/obj/structure/rack,
+/obj/item/weldingtool/hugetank,
+/obj/item/weldingtool/hugetank,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"TB" = (
+/obj/machinery/light/small{
+	dir = 4;
+	on = 1
+	},
+/obj/effect/decal/warning_stripes/red/hollow,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"TC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/trash/plate{
+	pixel_x = 5;
+	pixel_y = -1
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = 5;
+	pixel_y = 13
+	},
+/obj/item/reagent_containers/food/drinks/bottle/vodka{
+	desc = "For the Cargonia!";
+	name = "Molotov cocktail"
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -3;
+	pixel_y = 11
+	},
+/obj/item/reagent_containers/food/snacks/oliviersalad{
+	pixel_y = 8
+	},
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/sliceable/cheesewheel,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"TD" = (
+/obj/structure/rack,
+/obj/item/kitchen/knife/combat,
+/obj/item/kitchen/knife/combat,
+/obj/item/kitchen/knife/combat,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"TL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/flag/ussp,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"TN" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/simulated/floor/plating{
+	nitrogen = 0;
+	oxygen = 0
+	},
+/area/ruin/space/abandoned_storage/abandoned_storage_shuttle)
+"TQ" = (
+/obj/effect/mine/sound/bwoink,
+/obj/structure/barricade/wooden,
+/obj/machinery/door/airlock/vault{
+	req_access = list(128)
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"TS" = (
+/obj/structure/safe/floor,
+/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
+/obj/item/stack/spacecash/ussp/c1000,
+/obj/item/stack/spacecash/ussp/c1000,
+/obj/item/stack/spacecash/ussp/c1000,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"TU" = (
+/turf/simulated/wall/r_wall/rust,
+/area/ruin/space/abandoned_storage)
+"Ub" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 30
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Us" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 10
+	},
+/obj/item/stack/sheet/cheese,
+/mob/living/simple_animal/hostile/giant_rat{
+	damage_coeff = list("brute" = 0.9, "fire" = 0.9, "tox" = 1, "clone" = 1, "stamina" = 0, "oxy" = 0.8);
+	health = 150;
+	maxHealth = 150;
+	mob_size = 4;
+	name = "Mutant Giant rat"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Ut" = (
+/obj/effect/decal/warning_stripes/east,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Uy" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 4;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/obj/effect/decal/cleanable/blood/old,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"UH" = (
+/obj/structure/decorative_structures/corpse{
+	dir = 8;
+	icon_state = "corpse_soviet_half"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"US" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"UV" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Va" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/arrow{
+	dir = 4
+	},
+/obj/structure/sign/poster/contraband/wanted{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"VA" = (
+/obj/machinery/suit_storage_unit{
+	req_access = list(128)
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"VP" = (
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/structure/largecrate/evil,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"VZ" = (
+/obj/structure/largecrate,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Wa" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32;
+	pixel_y = -32
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/item/reagent_containers/food/snacks/sliceable/cheesewheel,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Wb" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"We" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Wg" = (
+/obj/machinery/atmospherics/binary/pump{
+	dir = 4;
+	on = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Wh" = (
+/obj/effect/decal/cleanable/vomit,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Wj" = (
+/obj/machinery/disposal,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Wk" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Wt" = (
+/obj/item/trash/plate{
+	pixel_x = 3;
+	pixel_y = 9
+	},
+/obj/item/trash/plate{
+	pixel_x = -7;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = 9;
+	pixel_y = 3
+	},
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = 3;
+	pixel_y = 11
+	},
+/obj/item/reagent_containers/food/snacks/grown/potato{
+	pixel_y = -4
+	},
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/sliceable/cheesewheel{
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Wz" = (
+/obj/machinery/suit_storage_unit/standard_unit{
+	req_access = list(128)
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"WA" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"WI" = (
+/obj/effect/decal/warning_stripes/yellow,
+/obj/structure/closet/secure_closet{
+	req_access = list(128)
+	},
+/obj/item/gun/projectile/automatic/pistol/APS,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"WO" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"WT" = (
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"WU" = (
+/obj/structure/decorative_structures/corpse{
+	dir = 1;
+	icon_state = "corpse_soviet_lying_half2"
+	},
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 4;
+	on = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"Xb" = (
+/obj/machinery/atmospherics/unary/tank{
+	dir = 1
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/ruin/space/abandoned_storage)
+"Xd" = (
+/obj/structure/sign/poster/contraband/communist_state{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Xe" = (
+/obj/effect/mob_spawn/human/corpse/usspconscript,
+/obj/effect/decal/cleanable/blood{
+	layer = 2.5
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Xj" = (
+/obj/effect/decal/warning_stripes/southeastcorner,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Xk" = (
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/abandoned_storage_asteroid)
+"Xn" = (
+/obj/effect/decal/warning_stripes/south,
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 1;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"XC" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32;
+	pixel_y = -32
+	},
+/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"XG" = (
+/obj/item/flag/ussp,
+/obj/effect/decal/warning_stripes/north,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"XZ" = (
+/obj/effect/decal/cleanable/fungus,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/abandoned_storage)
+"Ya" = (
+/obj/effect/decal/warning_stripes/east,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Yc" = (
+/obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Yk" = (
+/obj/structure/closet/crate/secure/loot,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/abandoned_storage_asteroid)
+"Yl" = (
+/mob/living/simple_animal/hostile/carp{
+	desc = "Very lonely and shy space carp.";
+	health = 70;
+	maxHealth = 70;
+	name = "Shy space carp"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/abandoned_storage_asteroid)
+"Ym" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/flag/ussp,
+/obj/machinery/light/built{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"YJ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Za" = (
+/obj/structure/largecrate,
+/obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"Zx" = (
+/turf/simulated/mineral,
+/area/ruin/space/abandoned_storage_asteroid)
+"ZD" = (
+/obj/structure/rack/holorack,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/ammo_box/c9mm,
+/obj/item/ammo_box/c9mm,
+/obj/structure/sign/poster/contraband/communist_state{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"ZK" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/abandoned_storage)
+"ZP" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+"ZW" = (
+/obj/machinery/atmospherics/unary/tank/air/ninja,
+/turf/simulated/floor/plating,
+/area/ruin/space/abandoned_storage)
+
+(1,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(2,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+wy
+wy
+wy
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+wy
+wy
+wy
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(3,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+wy
+Hj
+Mi
+rv
+rv
+gE
+kg
+kg
+gl
+gE
+Mi
+rv
+wy
+ia
+TN
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(4,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+gl
+wy
+wy
+Mi
+rv
+rv
+gE
+gl
+kg
+kg
+kg
+kg
+gE
+rv
+wy
+ia
+TN
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(5,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+gl
+gE
+SM
+ky
+wy
+rv
+rv
+rv
+SM
+bk
+kg
+kg
+Ei
+gl
+gE
+Mi
+wy
+wy
+wy
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(6,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+ad
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+gE
+SM
+SM
+dl
+wy
+pt
+rv
+rv
+SM
+SM
+gE
+gE
+gE
+gE
+rv
+Hj
+wy
+ia
+TN
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(7,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+gE
+er
+Ec
+rv
+gw
+rv
+rv
+Mi
+rv
+rv
+SM
+SM
+rv
+rv
+Mi
+Hj
+wy
+ia
+TN
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+ad
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(8,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+dd
+eN
+rv
+QA
+wy
+rv
+rv
+rv
+rv
+rv
+rv
+rv
+rv
+rv
+rv
+Mi
+wy
+ia
+TN
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(9,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+dd
+dd
+eN
+kH
+wy
+kF
+uw
+rv
+rv
+Mi
+rv
+rv
+rv
+rv
+rv
+rv
+wy
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(10,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+dd
+wy
+wy
+wy
+Hj
+Hj
+zk
+rv
+Ep
+rv
+rv
+rv
+SM
+SM
+gE
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(11,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+wy
+Hj
+Hj
+Hj
+Hj
+EC
+rv
+rv
+rv
+gE
+gE
+gl
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(12,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+wy
+wy
+wy
+wy
+wy
+wy
+JR
+JR
+wy
+gl
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(13,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+gE
+GL
+GL
+gE
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(14,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+gE
+GL
+GL
+gE
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(15,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Zx
+Zx
+Zx
+kg
+gE
+GL
+GL
+gE
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(16,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+CF
+GL
+GL
+CF
+Zx
+Zx
+Zx
+Zx
+kg
+kg
+kg
+kg
+Xk
+Xk
+Xk
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+ad
+kg
+kg
+kg
+"}
+(17,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Kp
+MB
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+kg
+Xk
+Xk
+Xk
+Xk
+Xk
+kg
+kg
+ad
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(18,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Zx
+Zx
+Zx
+OO
+OO
+OO
+OO
+OO
+XZ
+Op
+Op
+OO
+OO
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Xk
+Xk
+Xk
+Xk
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(19,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+ad
+kg
+kg
+kg
+kg
+Zx
+Zx
+Zx
+Zx
+OO
+kO
+nY
+Av
+OO
+HD
+KU
+KU
+Hp
+kn
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Xk
+Xk
+Xk
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(20,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Zx
+Zx
+Zx
+OO
+OO
+OO
+vX
+OO
+TU
+Fu
+Op
+ZK
+WT
+TU
+OO
+OO
+TU
+OO
+OO
+Zx
+Zx
+Zx
+Zx
+Zx
+Xk
+Xk
+Xk
+Xk
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(21,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Zx
+Zx
+Zx
+Zx
+OO
+Op
+br
+Op
+AJ
+zd
+WT
+ZK
+ZK
+Rk
+OO
+LA
+ZD
+Cn
+OO
+OO
+Zx
+Zx
+Zx
+Zx
+Zx
+Xk
+Xk
+Xk
+Xk
+Xk
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(22,1,1) = {"
+kg
+kg
+ad
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Zx
+Zx
+Zx
+Zx
+OO
+lE
+bU
+wL
+OO
+Xd
+WT
+ZK
+ZK
+Ts
+OO
+ZK
+ZP
+ZP
+WO
+OO
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Xk
+Xk
+Xk
+Xk
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(23,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Zx
+Zx
+Zx
+TU
+XZ
+XZ
+TU
+OO
+OO
+TU
+Rk
+ZK
+ZK
+WT
+Rk
+OO
+nY
+ZP
+ZP
+HD
+TU
+TU
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Xk
+Xk
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(24,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Zx
+Zx
+Zx
+Zx
+TU
+hm
+DD
+hj
+pj
+wt
+TU
+Op
+WT
+WT
+Op
+QZ
+OO
+LG
+ZP
+hI
+Op
+VA
+TU
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(25,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Zx
+Zx
+Zx
+Zx
+OO
+hp
+eH
+mU
+zt
+sy
+Bu
+Cx
+Rk
+IH
+MJ
+ZP
+TU
+ZP
+bp
+Bh
+ZK
+BM
+TU
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(26,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Xk
+Zx
+Zx
+Zx
+Zx
+OO
+Lj
+kZ
+nm
+BT
+sC
+Bw
+zu
+zu
+KA
+ZK
+Rs
+kn
+LI
+WT
+IN
+ZP
+OG
+OO
+OO
+OO
+OO
+OO
+OO
+XZ
+XZ
+TU
+TU
+Zx
+Zx
+Zx
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(27,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Xk
+Zx
+Zx
+OO
+OO
+TU
+XZ
+OO
+TU
+XZ
+kR
+OO
+OO
+Op
+Op
+IT
+EO
+XZ
+XZ
+Wz
+VA
+UH
+sb
+uF
+OO
+bj
+GQ
+Tz
+sl
+mr
+Qg
+Mu
+NT
+TU
+Zx
+Zx
+Zx
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(28,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Xk
+Xk
+Zx
+Zx
+TU
+ly
+Op
+ZP
+mJ
+Op
+Op
+pw
+sT
+OO
+Op
+ZP
+fP
+WT
+XZ
+OO
+TU
+XZ
+AL
+dv
+TU
+OO
+ZK
+WT
+ZK
+wN
+ZP
+Xj
+Ya
+Ut
+la
+Zx
+Zx
+Zx
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(29,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Xk
+Xk
+Zx
+Zx
+TU
+hJ
+ZK
+WT
+ii
+ZK
+WT
+sg
+ui
+TU
+Ya
+HO
+kk
+Nx
+TU
+Ku
+BM
+VZ
+rL
+Op
+WO
+xw
+Op
+ZK
+WT
+WT
+Xj
+va
+xG
+Kg
+OO
+Zx
+Zx
+Zx
+Zx
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(30,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Xk
+Zx
+Zx
+Zx
+XZ
+ch
+OP
+cF
+GS
+GS
+nD
+Sq
+Pt
+OO
+SG
+Kz
+JN
+KC
+OO
+TD
+ZP
+pe
+Ps
+WT
+Op
+Op
+Op
+TS
+ZK
+KN
+AZ
+Yc
+WI
+rQ
+OO
+Zx
+Zx
+Zx
+Zx
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(31,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Xk
+Zx
+Zx
+Zx
+kn
+BL
+dw
+Wb
+ed
+Op
+iG
+mt
+oG
+TU
+SG
+Im
+JN
+ZP
+TU
+KE
+WT
+Fb
+OC
+Sk
+Sk
+Sk
+We
+We
+We
+It
+Xn
+nf
+pY
+Za
+OO
+Zx
+Zx
+Zx
+Zx
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(32,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Xk
+Zx
+Zx
+Zx
+TU
+af
+mt
+Wb
+af
+ZP
+FB
+ZP
+wH
+XZ
+yp
+Kz
+Lh
+ZP
+OO
+TL
+Xe
+UV
+eP
+Ut
+Ut
+HO
+ZK
+Qu
+Ub
+Op
+na
+Bx
+Yc
+SA
+TU
+Zx
+Zx
+Zx
+Zx
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(33,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Zx
+Zx
+Zx
+Zx
+TU
+hJ
+Mg
+gj
+OR
+ZP
+WT
+ss
+uX
+OO
+Ta
+Kz
+Lp
+Va
+OO
+OO
+HD
+vj
+AZ
+QU
+sA
+OO
+OO
+kn
+TU
+OO
+ZP
+kL
+ph
+Iy
+OO
+Zx
+Zx
+Zx
+Zx
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(34,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Zx
+Zx
+Zx
+Zx
+OO
+df
+Op
+ZP
+Sw
+lA
+mj
+sR
+RU
+kn
+Qo
+Qf
+Lz
+Sk
+Tb
+TQ
+WA
+Wk
+My
+HF
+yE
+OO
+sZ
+cX
+eR
+OO
+lZ
+Qg
+Ym
+ZP
+TU
+Zx
+Zx
+Zx
+Zx
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(35,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Zx
+Zx
+Zx
+Zx
+OO
+OO
+OO
+XZ
+OO
+TU
+TU
+OO
+OO
+OO
+yq
+pI
+fP
+Op
+WT
+TU
+HF
+HF
+HF
+gq
+Ta
+TU
+ku
+ZK
+po
+OO
+OO
+TU
+TU
+OO
+OO
+Zx
+Zx
+Zx
+Zx
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(36,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Zx
+Zx
+Zx
+Zx
+OO
+dA
+eq
+zd
+mk
+TU
+WT
+LI
+qH
+OO
+OO
+Fu
+fP
+VZ
+TU
+Tr
+Qo
+Ta
+SG
+Sb
+Ta
+TU
+rj
+ZP
+zd
+gO
+TU
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(37,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Zx
+Zx
+Zx
+Zx
+TU
+aO
+bp
+cH
+eu
+OO
+jv
+ZP
+wJ
+uI
+OO
+Bv
+fP
+FD
+TU
+OO
+OO
+TU
+TU
+OO
+OO
+TU
+nq
+wJ
+iz
+kx
+XZ
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+ad
+kg
+kg
+"}
+(38,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+ad
+kg
+kg
+kg
+Xk
+Zx
+Zx
+Zx
+TU
+aD
+ZK
+gn
+js
+OO
+ol
+sW
+xc
+BJ
+CA
+CD
+fU
+ZK
+Tg
+Uy
+WU
+aQ
+WT
+YJ
+zu
+Tk
+mS
+Wh
+Wa
+Wj
+XZ
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(39,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Zx
+Zx
+Zx
+OO
+bW
+dW
+go
+jA
+OO
+oA
+ub
+xf
+zl
+TU
+WT
+AS
+FY
+Tx
+US
+XC
+MY
+MY
+op
+dZ
+OO
+Wb
+nX
+dw
+OO
+OO
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(40,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Zx
+Zx
+Zx
+OO
+co
+dX
+gx
+jO
+me
+Sk
+ud
+Op
+vv
+OO
+Ap
+Lk
+NP
+TB
+VP
+XG
+TU
+TU
+OO
+OO
+OO
+Mq
+TU
+qd
+OO
+OO
+Zx
+Zx
+Zx
+Zx
+Zx
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(41,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Zx
+Zx
+Zx
+OO
+TU
+TU
+OO
+OO
+TU
+TU
+OO
+OO
+OO
+OO
+XZ
+sq
+XZ
+OO
+TU
+TU
+TU
+Zx
+Zx
+OO
+Na
+Tn
+Op
+Wg
+Op
+OO
+Zx
+Zx
+Zx
+Zx
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(42,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+TU
+oU
+Op
+hM
+je
+Ok
+OO
+Zx
+Zx
+Zx
+Zx
+Zx
+OO
+ZW
+Ov
+FB
+Us
+Xb
+Zx
+Zx
+Zx
+Zx
+Zx
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(43,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+TU
+TU
+Cf
+CE
+kj
+Ll
+IW
+OO
+Zx
+Zx
+Yk
+Zx
+Zx
+OO
+ZW
+yO
+ZP
+hz
+KV
+HL
+Zx
+Zx
+Zx
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(44,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+XZ
+xZ
+Op
+Dl
+Wt
+DB
+PE
+FU
+Xk
+Xk
+Xk
+Yl
+Zx
+Zx
+Rs
+hg
+wT
+GH
+ce
+QO
+Zx
+Zx
+Zx
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(45,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Xk
+Xk
+Xk
+Zx
+Zx
+Zx
+Zx
+Zx
+kn
+ya
+ZP
+CG
+TC
+LY
+jL
+OO
+Zx
+Yk
+Xk
+Xk
+Zx
+Zx
+Zx
+Zx
+HL
+NX
+HL
+GH
+Zx
+Zx
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(46,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Xk
+Xk
+Xk
+Zx
+Zx
+Zx
+Zx
+OO
+rb
+Op
+yr
+By
+DD
+PU
+TU
+Zx
+Xk
+Xk
+Xk
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+kg
+kg
+kg
+ad
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(47,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Xk
+Xk
+Xk
+Zx
+Zx
+Zx
+OO
+xJ
+LI
+CS
+IP
+Me
+Qb
+TU
+Zx
+Yl
+Xk
+Xk
+Xk
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(48,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Xk
+Xk
+Xk
+Zx
+Zx
+Zx
+TU
+xQ
+ZP
+CS
+Jf
+kZ
+Qz
+TU
+Zx
+Zx
+Zx
+Xk
+Xk
+Xk
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(49,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Xk
+Xk
+Zx
+Zx
+Zx
+TU
+yT
+Op
+DP
+Jw
+Mo
+GV
+OO
+Zx
+Zx
+Zx
+Zx
+Xk
+Xk
+Xk
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(50,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Xk
+Xk
+Zx
+Zx
+Zx
+OO
+OO
+TU
+TU
+OO
+OO
+Pk
+OO
+Zx
+Zx
+Zx
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(51,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Xk
+Xk
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+PD
+Zx
+Zx
+Zx
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(52,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Xk
+Xk
+Zx
+Zx
+Zx
+Zx
+Zx
+Zx
+Xk
+QN
+Zx
+Zx
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+ad
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(53,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Xk
+Xk
+Xk
+Xk
+Xk
+Xk
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(54,1,1) = {"
+kg
+ad
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+Xk
+Xk
+Xk
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(55,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+ad
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(56,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+ad
+kg
+kg
+"}
+(57,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
+(58,1,1) = {"
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+kg
+"}
