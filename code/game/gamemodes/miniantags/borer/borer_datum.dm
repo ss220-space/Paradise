@@ -295,11 +295,11 @@
 	return TRUE
 	
 /datum/borer_datum/focus/legs/grant_movable_effect()
-	host.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = -0.25)
+	host.add_movespeed_modifier(/datum/movespeed_modifier/borer_leg_focus)
 	return TRUE
 
 /datum/borer_datum/focus/legs/remove_movable_effect()
-	previous_host.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = 0.25)
+	previous_host.remove_movespeed_modifier(/datum/movespeed_modifier/borer_leg_focus)
 	return TRUE
 
 /datum/reagent
