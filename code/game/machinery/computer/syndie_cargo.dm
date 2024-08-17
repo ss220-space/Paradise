@@ -332,6 +332,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	var/crate_count = 0
 
 	var/msg = "<center>---[station_time_timestamp()]---</center><br>"
+	var/cash4Intel
 	var/cashEarned
 	var/list/sellArea = list()
 
@@ -418,9 +419,12 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 						var/obj/item/stack/sheet/mineral/plasma/P = thing
 						plasma_count += P.amount
 
-					// Sell nanotrasen intel
-					if(istype(thing, /obj/item/documents/nanotrasen))
-						++intel_count
+					// Sell intel
+					if(istype(thing, /obj/item/documents))
+						var/obj/item/documents/docs = thing
+						if((docs.sell_interest & INTEREST_SYNDICATE) || (docs.sell_interest & INTEREST_ANYONE))
+							++intel_count
+							cash4Intel = round(data_storage.cash_per_intel * docs.sell_multiplier)
 
 					// Sell tech levels
 					if(istype(thing, /obj/item/disk/tech_disk))
@@ -482,9 +486,8 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 		data_storage.cash += cashEarned
 
 	if(intel_count > 0)
-		cashEarned = round(intel_count * data_storage.cash_per_intel)
-		msg += "[span_good("+[cashEarned]")]: Received [intel_count] article(s) of enemy intelligence.<br>"
-		data_storage.cash += cashEarned
+		msg += "[span_good("+[cash4Intel]")]: Received [intel_count] article(s) of enemy intelligence.<br>"
+		data_storage.cash += cash4Intel
 
 	if(crate_count > 0)
 		cashEarned = round(crate_count * data_storage.cash_per_crate)
