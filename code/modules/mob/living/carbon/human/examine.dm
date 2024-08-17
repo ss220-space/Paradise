@@ -459,13 +459,13 @@
 		var/have_hud_exam = 0
 		var/mob/living/carbon/human/H = M
 
-		if(istype(H.glasses, /obj/item/clothing/glasses/hud))
-			var/obj/item/clothing/glasses/hud/hudglasses = H.glasses
-			if(hudglasses?.examine_extensions)
-				have_hud_exam |= hudglasses.examine_extensions
+		if(istype(H.glasses, /obj/item/clothing/glasses))
+			var/obj/item/clothing/glasses/glasses = H.glasses
+			if(glasses?.examine_extensions)
+				have_hud_exam |= glasses.examine_extensions
 
-		if(istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman))
-			var/obj/item/clothing/head/helmet/space/plasmaman/helmet = H.head
+		if(istype(H.head, /obj/item/clothing/head/helmet/space))
+			var/obj/item/clothing/head/helmet/space/helmet = H.head
 			if(helmet?.examine_extensions)
 				have_hud_exam |= helmet.examine_extensions
 

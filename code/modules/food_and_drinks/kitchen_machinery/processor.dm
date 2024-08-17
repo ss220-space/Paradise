@@ -12,8 +12,8 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 50
-	var/rating_speed = 1
-	var/rating_amount = 1
+	var/rating_speed = 0
+	var/rating_amount = 0
 
 /obj/machinery/processor/New()
 		..()
@@ -24,10 +24,12 @@
 		RefreshParts()
 
 /obj/machinery/processor/RefreshParts()
+	rating_speed = 0
+	rating_amount = 0
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		rating_amount = B.rating
+		rating_amount += B.rating
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		rating_speed = M.rating
+		rating_speed += M.rating
 
 /obj/machinery/processor/process()
 	if(processing)
@@ -56,7 +58,7 @@
 
 /datum/food_processor_process/proc/process_food(loc, what, obj/machinery/processor/processor)
 	if(output && loc && processor)
-		for(var/i = 0, i < processor.rating_amount, i++)
+		for(var/i in 1 to processor.rating_amount)
 			new output(loc)
 	if(what)
 		qdel(what)

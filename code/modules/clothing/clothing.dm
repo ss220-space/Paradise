@@ -4,7 +4,6 @@
 	integrity_failure = 80
 	resistance_flags = FLAMMABLE
 	var/list/species_restricted = null //Only these species can wear this kit.
-	var/scan_reagents = 0 //Can the wearer see reagents while it's equipped?
 	var/gunshot_residue //Used by forensics.
 	var/obj/item/slimepotion/clothing/applied_slime_potion = null
 	var/list/faction_restricted = null
@@ -224,6 +223,8 @@
 	var/invis_view = SEE_INVISIBLE_LIVING
 	var/invis_override = 0
 	var/lighting_alpha
+	/// List of things added to examine text, like security or medical records.
+	var/examine_extensions = EXAMINE_HUD_NONE
 
 	var/emagged = FALSE
 	var/list/color_view = null//overrides client.color while worn
@@ -242,6 +243,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
 		)
+
 /*
 SEE_SELF  // can see self, no matter what
 SEE_MOBS  // can see all mobs, no matter what
@@ -297,6 +299,12 @@ BLIND     // can't see anything
 	var/pickpocket = 0 //Master pickpocket?
 	var/clipped = 0
 	var/extra_knock_chance = 0 //extra chance to knock down target when disarming
+	/// Flat bonus to various tool handling
+	/// Value of 0.1 adds 10% time delay to all performed actions in tool's category, -0.1 vice versa
+	/// READ ONLY!
+	var/surgeryspeedmod = 0
+	/// Same as above, used for surgery modifiers
+	var/toolspeedmod = 0
 	strip_delay = 20
 	put_on_delay = 40
 
@@ -304,6 +312,22 @@ BLIND     // can't see anything
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi'
 		)
+
+/obj/item/clothing/gloves/equipped(mob/living/carbon/human/user, slot, initial)
+	. = ..()
+	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
+		return .
+	if(surgeryspeedmod)
+		user.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/surgical_gloves, multiplicative_slowdown = surgeryspeedmod)
+	if(toolspeedmod)
+		user.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/work_gloves, multiplicative_slowdown = toolspeedmod)
+
+/obj/item/clothing/gloves/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
+	. = ..()
+	if(surgeryspeedmod)
+		user.remove_actionspeed_modifier(/datum/actionspeed_modifier/surgical_gloves)
+	if(toolspeedmod)
+		user.remove_actionspeed_modifier(/datum/actionspeed_modifier/work_gloves)
 
 // Called just before an attack_hand(), in mob/UnarmedAttack()
 /obj/item/clothing/gloves/proc/Touch(atom/A, proximity)
@@ -820,6 +844,8 @@ BLIND     // can't see anything
 	put_on_delay = 50
 	resistance_flags = NONE
 	dog_fashion = null
+	/// List of things added to examine text, like security or medical records.
+	var/examine_extensions = EXAMINE_HUD_NONE
 
 
 /obj/item/clothing/suit/space
