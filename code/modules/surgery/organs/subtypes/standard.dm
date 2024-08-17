@@ -394,7 +394,7 @@
 	if(owner && special == ORGAN_MANIPULATION_DEFAULT)
 		if(!istype(dna))
 			dna = owner.dna.Clone()
-		get_icon()
+		get_image()
 		name = "[dna.real_name]'s head"
 		owner.drop_item_ground(owner.head, force = TRUE)
 		owner.drop_item_ground(owner.wear_mask, force = TRUE)

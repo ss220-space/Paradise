@@ -200,8 +200,8 @@
 	Fingerprint: [fingerprint_hash]</A><BR>
 	Blood Type: [blood_type]<BR>
 	DNA Hash: [dna_hash]<BR><BR>
-	<td align = center valign = top>Photo:<br><img src=[photo_front] height=80 width=80 border=4>
-	<img src=[photo_side] height=80 width=80 border=4></td></tr></table>"}
+	<td align = center valign = top>Photo:<br><img style='-ms-interpolation-mode:nearest-neighbor' src=[photo_front] height=80 width=80 border=4>
+	<img style='-ms-interpolation-mode:nearest-neighbor' src=[photo_side] height=80 width=80 border=4></td></tr></table>"}
 
 /obj/item/card/id/GetAccess()
 	if(!guest_pass)

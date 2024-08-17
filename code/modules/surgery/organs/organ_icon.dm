@@ -57,13 +57,13 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 	if(eyes) eyes.update_colour()
 
 
-/obj/item/organ/external/proc/get_icon(skeletal, mutate_color)
+/obj/item/organ/external/proc/get_image(skeletal, mutate_color)
 	// Kasparrov, you monster
 	if(force_icon)
-		mob_icon = new /icon(force_icon, "[icon_name]")
+		mob_icon = mutable_appearance(force_icon, "[icon_name]", -LIMBS_LAYER)
 		if(istype(dna.species, /datum/species/machine)) //snowflake for IPC's, sorry.
 			if(s_col)
-				mob_icon.Blend(s_col, ICON_ADD)
+				mob_icon.color = s_col
 	else
 		var/new_icons = get_icon_state(skeletal)
 		var/icon_file = new_icons[1]
@@ -103,7 +103,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 
 	return mob_icon
 
-/obj/item/organ/external/head/get_icon(skeletal, mutate_color)
+/obj/item/organ/external/head/get_image(skeletal, mutate_color)
 	..()
 	if(!owner)
 		return
@@ -111,22 +111,22 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 	if(dna.species.has_organ[INTERNAL_ORGAN_EYES])
 		var/icon/eyes_icon = owner.get_eyecon()
 		if(eyes_icon)
-			mob_icon.Blend(eyes_icon, ICON_OVERLAY) //This is required since update_icons.dm relies on this proc to render non-shining eyes.
+			mob_icon.add_overlay(eyes_icon) //This is required since update_icons.dm relies on this proc to render non-shining eyes.
 			add_overlay(eyes_icon)
 
 	if(owner.lip_style && (LIPS in dna.species.species_traits))
-		var/icon/lips_icon = new('icons/mob/human_face.dmi', "lips_[owner.lip_style]_s")
-		lips_icon.Blend(owner.lip_color, ICON_MULTIPLY)
-		mob_icon.Blend(lips_icon, ICON_OVERLAY)
+		var/mutable_appearance/lips_icon = mutable_appearance('icons/mob/human_face.dmi', "lips_[owner.lip_style]_s", -LIMBS_LAYER)
+		lips_icon.color = owner.lip_color
+		mob_icon.add_overlay(lips_icon)
 		add_overlay(lips_icon)
 
 	var/head_marking = owner.m_styles["head"]
 	if(head_marking)
 		var/datum/sprite_accessory/head_marking_style = GLOB.marking_styles_list[head_marking]
 		if(head_marking_style && head_marking_style.species_allowed && (dna.species.name in head_marking_style.species_allowed) && head_marking_style.marking_location == "head")
-			var/icon/h_marking_s = new /icon("icon" = head_marking_style.icon, "icon_state" = "[head_marking_style.icon_state]_s")
+			var/mutable_appearance/h_marking_s = mutable_appearance(head_marking_style.icon, "[head_marking_style.icon_state]_s", -LIMBS_LAYER)
 			if(head_marking_style.do_colouration)
-				h_marking_s.Blend(owner.m_colours["head"], ICON_ADD)
+				h_marking_s.color = owner.m_colours["head"]
 			add_overlay(h_marking_s)
 
 	if(!((owner.head && (owner.head.flags_inv & HIDEHAIR)) || (owner.wear_mask && (owner.wear_mask.flags_inv & HIDEHAIR)))) //Common restriction for all the below features.
@@ -161,6 +161,52 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 					add_overlay(hair_s)
 
 	return mob_icon //Don't need to blend the above into this as it's handled in human/update_icons(). The overlays are for rendering stuff on disembodied heads.
+
+/obj/item/organ/external/proc/get_icon(skeletal)
+	var/icon/return_icon
+	if(force_icon)
+		return_icon = new /icon(force_icon, "[icon_name]")
+		if(istype(dna.species, /datum/species/machine)) //snowflake for IPC's, sorry.
+			if(s_col)
+				return_icon.Blend(s_col, ICON_ADD)
+	else
+		var/new_icons = get_icon_state(skeletal)
+		var/icon_file = new_icons[1]
+		var/new_icon_state = new_icons[2]
+		return_icon = new /icon(icon_file, new_icon_state)
+		if(!skeletal && !is_robotic())
+			if(is_dead())
+				return_icon.ColorTone(rgb(10,50,0))
+				return_icon.SetIntensity(0.7)
+
+			if(!isnull(s_tone))
+				if(s_tone >= 0)
+					return_icon.Blend(rgb(s_tone, s_tone, s_tone), ICON_ADD)
+				else
+					return_icon.Blend(rgb(-s_tone,  -s_tone,  -s_tone), ICON_SUBTRACT)
+			else if(s_col)
+				return_icon.Blend(s_col, ICON_ADD)
+
+	return return_icon
+
+/obj/item/organ/external/head/get_icon()
+	var/icon/return_icon = ..()
+	if(!owner)
+		return
+
+	if(dna.species.has_organ[INTERNAL_ORGAN_EYES])
+		var/icon/eyes_icon = owner.get_eyecon()
+		if(eyes_icon)
+			return_icon.Blend(eyes_icon, ICON_OVERLAY) //This is required since update_icons.dm relies on this proc to render non-shining eyes.
+			add_overlay(eyes_icon)
+
+	if(owner.lip_style && (LIPS in dna.species.species_traits))
+		var/icon/lips_icon = new('icons/mob/human_face.dmi', "lips_[owner.lip_style]_s")
+		lips_icon.Blend(owner.lip_color, ICON_MULTIPLY)
+		return_icon.Blend(lips_icon, ICON_OVERLAY)
+		add_overlay(lips_icon)
+
+	return return_icon //Don't need to blend the above into this as it's handled in human/update_icons(). The overlays are for rendering stuff on disembodied heads.
 
 /obj/item/organ/external/proc/get_icon_state(skeletal)
 	var/gender

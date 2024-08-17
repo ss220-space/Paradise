@@ -189,13 +189,13 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			// 	mutate_color = COLOR_MUTATE_HULK
 		var/obj/item/organ/external/chest = get_organ(BODY_ZONE_CHEST)
 		if(chest) //I hate it.
-			base = chest.get_icon(skeleton, mutate_color)
+			base = chest.get_image(skeleton, mutate_color)
 
 		for(var/obj/item/organ/external/part as anything in bodyparts)
 			if(part.limb_zone == BODY_ZONE_TAIL || part.limb_zone == BODY_ZONE_WING)
 				continue
 
-			var/mutable_appearance/temp = part.get_icon(skeleton, mutate_color)
+			var/mutable_appearance/temp = part.get_image(skeleton, mutate_color)
 			base.overlays += temp
 
 		GLOB.human_icon_cache[icon_key] = base
@@ -950,7 +950,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		bodypart_wing.force_icon = accessory_s
 		bodypart_wing.icon_name = null
 
-	bodypart_wing.get_icon()
+	bodypart_wing.get_image()
 	apply_overlay(WING_UNDERLIMBS_LAYER)
 	apply_overlay(WING_LAYER)
 
@@ -1059,7 +1059,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			tail_s.Insert(tempicon,dir=SOUTH)
 			bodypart_tail.force_icon = tail_s
 			bodypart_tail.icon_name = null
-	bodypart_tail.get_icon()
+	bodypart_tail.get_image()
 	apply_overlay(TAIL_LAYER)
 	apply_overlay(TAIL_UNDERLIMBS_LAYER)
 

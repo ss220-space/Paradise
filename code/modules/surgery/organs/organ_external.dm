@@ -120,7 +120,7 @@
 		// These can just be slapped on.
 		properly_attached = TRUE
 
-	get_icon()
+	get_image()
 
 	// so you can just smack the limb onto a guy to start the "surgery"
 	var/application_surgery
@@ -1045,7 +1045,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		set_company(company)
 
 	cannot_break = TRUE
-	get_icon()
+	get_image()
 
 	for(var/obj/item/organ/external/bodypart as anything in children)
 		if(convert_all || (convertable_children && (bodypart.type in convertable_children)))
