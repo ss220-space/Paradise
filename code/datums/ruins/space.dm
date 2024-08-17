@@ -404,3 +404,9 @@
 	allow_duplicates = FALSE
 	cost = 2
 
+/datum/map_template/ruin/space/abandoned_storage
+	id = "abandoned_storage"
+	suffix = "abandoned_storage.dmm"
+	name = "abandoned Storage"
+	allow_duplicates = FALSE
+	cost = 2
