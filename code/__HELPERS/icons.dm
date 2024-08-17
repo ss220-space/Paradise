@@ -957,6 +957,28 @@ The _flatIcons list is a cache for generated icon files.
 		color = color+pick(colors)
 	return "#[color]"
 
+//Dwarf fortress style icons based on letters (defaults to the first letter of the Atom's name)
+//By vg's ComicIronic
+/proc/getLetterImage(atom/A, letter= "", uppercase = 0)
+	if(!A)
+		return
+
+	var/icon/atom_icon = new(A.icon, A.icon_state)
+
+	if(!letter)
+		letter = A.name[1]
+		if(uppercase == 1)
+			letter = uppertext(letter)
+		else if(uppercase == -1)
+			letter = lowertext(letter)
+
+	var/image/text_image = new(loc = A)
+	text_image.maptext = MAPTEXT("<span style='font-size: 24pt'>[letter]</span>")
+	text_image.pixel_x = 7
+	text_image.pixel_y = 5
+	qdel(atom_icon)
+	return text_image
+
 //Imagine removing pixels from the main icon that are covered by pixels from the mask icon.
 //Standard behaviour is to cut pixels from the main icon that are covered by pixels from the mask icon unless passed mask_ready, see below.
 /proc/get_icon_difference(var/icon/main, var/icon/mask, var/mask_ready)
