@@ -309,6 +309,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	name = "security shortwave radio"
 	desc = "A basic handheld radio that can communicate with local telecommunication networks. This model is painted in black colors."
 	icon_state = "walkietalkie_sec"
+	item_state = "walkietalkie_sec"
 	frequency = SEC_FREQ
 
 // Just a dummy mob used for making announcements, so we don't create AIs to do this
