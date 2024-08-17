@@ -1494,10 +1494,10 @@
 	req_access = list(ACCESS_SECURITY)
 	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
 					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
-					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4, /obj/item/storage/belt/security/webbing = 2,
+					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4, /obj/item/storage/belt/security/webbing = 2, /obj/item/grenade/smokebomb = 8,
 					)
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
-	prices = list(/obj/item/storage/belt/security/webbing = 2000,)
+	prices = list(/obj/item/storage/belt/security/webbing = 2000,/obj/item/grenade/smokebomb = 250)
 	refill_canister = /obj/item/vending_refill/security
 
 /obj/machinery/vending/security/training
@@ -2542,6 +2542,7 @@
 	req_access = list(ACCESS_MEDICAL)
 	products = list(
 		/obj/item/clothing/head/beret/med  			= 10,
+		/obj/item/clothing/head/soft/paramedic		= 5,
 		/obj/item/clothing/head/surgery/purple 		= 10,
 		/obj/item/clothing/head/surgery/blue 		= 10,
 		/obj/item/clothing/head/surgery/green 		= 10,
@@ -2563,6 +2564,8 @@
 		/obj/item/clothing/under/rank/nursesuit				= 10,
 		/obj/item/clothing/under/rank/nurse					= 10,
 		/obj/item/clothing/under/rank/orderly				= 10,
+		/obj/item/clothing/under/rank/medical/paramedic		= 5,
+		/obj/item/clothing/under/rank/medical/paramedic/skirt			= 5,
 
 		/obj/item/clothing/suit/storage/labcoat 	= 10,
 		/obj/item/clothing/suit/storage/suragi_jacket/medic = 10,

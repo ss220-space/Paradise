@@ -40,6 +40,8 @@
 			AC = new(src, user)
 			AC.name = "SalonPro Nano-Mirror"
 			AC.flags = APPEARANCE_ALL_BODY
+			if(iswryn(user))
+				AC.flags -= APPEARANCE_HAIR
 			ui_users[user] = AC
 		add_fingerprint(user)
 		AC.ui_interact(user)

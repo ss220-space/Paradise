@@ -88,8 +88,9 @@
 	))
 
 /obj/machinery/smartfridge/RefreshParts()
+	max_n_of_items = 0
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		max_n_of_items = 1500 * B.rating
+		max_n_of_items += 1500 * B.rating
 
 /obj/machinery/smartfridge/Destroy()
 	SStgui.close_uis(wires)
