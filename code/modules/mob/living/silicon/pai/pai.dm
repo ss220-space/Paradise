@@ -275,11 +275,11 @@
 		return
 
 	if(loc != card)
-		balloon_alert(src, "<span class='warning'>Вы уже встали на шасси!</span>")
+		balloon_alert(src, "<span class='warning'>вы уже встали на шасси!</span>")
 		return
 
 	if(world.time <= last_special)
-		balloon_alert(src, "<span class='warning'>Необходимо подождать!</span>")
+		balloon_alert(src, "<span class='warning'>необходимо подождать!</span>")
 		return
 
 	last_special = world.time + 200
@@ -310,11 +310,11 @@
 		return
 
 	if(loc == card)
-		balloon_alert(src, "<span class='warning'>Вы уже в компактной форме!</span>")
+		balloon_alert(src, "<span class='warning'>вы уже в компактной форме!</span>")
 		return
 
 	if(world.time <= last_special)
-		balloon_alert(src, "<span class='warning'>Необходимо подождать</span>")
+		balloon_alert(src, "<span class='warning'>необходимо подождать</span>")
 		return
 
 	close_up()
@@ -355,7 +355,7 @@
 			my_choices["Custom"] = "[ckey]-pai"
 
 	if(loc == card)		//don't let them continue in card form, since they won't be able to actually see their new mobile form sprite.
-		balloon_alert(src, "<span class='warning'>Вы должны быть в мобильной форме.</span>")
+		balloon_alert(src, "<span class='warning'>вы должны быть в мобильной форме.</span>")
 		return
 
 	while(finalized == "No" && client)
@@ -413,7 +413,7 @@
 		do_suicide()
 
 	else
-		balloon_alert(src, "Протокол самоуничтожения отменен.")
+		balloon_alert(src, "протокол самоуничтожения отменен.")
 
 /mob/living/silicon/pai/update_sight()
 	if(!client)
