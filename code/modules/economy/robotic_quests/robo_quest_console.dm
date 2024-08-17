@@ -190,6 +190,9 @@
 	)
 
 /obj/machinery/computer/roboquest/ui_act(action, list/params, datum/tgui/ui)
+	if(..())
+		return
+
 	switch(action)
 		if("RemoveID")
 			currentID.forceMove(get_turf(src))

@@ -1000,7 +1000,7 @@ to destroy them and players will be able to make replacements.
 	board_type = "machine"
 	origin_tech = "programming=3;engineering=3;plasmatech=3;bluespace=5"
 	req_components = list(
-							/obj/item/stack/telecrystal = 5,
+							/obj/item/stack/ore/bluespace_crystal = 5,
 							/obj/item/stack/cable_coil = 15)
 
 /obj/item/circuitboard/sleeper
