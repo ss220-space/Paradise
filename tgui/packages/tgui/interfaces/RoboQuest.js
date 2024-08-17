@@ -301,22 +301,6 @@ export const RoboQuest = (props, context) => {
                 {shopItems.robo.map(
                   (i) =>
                     (!i.emagOnly || style === 'syndicate') && (
-                      // <Section
-                      //   key={i.name}
-                      //   title={i.name}
-                      //   buttons={
-                      //     <Button
-                      //       content={'Buy (' + i.cost.robo + 'P)'}
-                      //       onClick={() =>
-                      //         act('buyItem', {
-                      //           item: i.path,
-                      //         })
-                      //       }
-                      //     />
-                      //   }
-                      // >
-                      //   <Box italic>{i.desc}</Box>
-                      // </Section>
                       <ImageButton
                         key={i.name}
                         asset
