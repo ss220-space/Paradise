@@ -72,7 +72,7 @@
 	. = ..()
 
 /obj/machinery/computer/roboquest/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/card))
+	if(istype(O, /obj/item/card/id))
 		user.drop_item_ground(O)
 		if(currentID)
 			currentID.forceMove(loc)
