@@ -74,7 +74,7 @@
 			var/list/newmodule = list()
 			var/obj/module = new i
 			newmodule["id"] = modules_amount
-			newmodule["icon"] = icon2base64(icon(module.icon, module.icon_state, SOUTH, 1))
+			newmodule["icon"] = path2assetID(i)
 			newmodule["name"] = capitalize(module.name)
 			questinfo["modules"] += list(newmodule)
 			qdel(module)
