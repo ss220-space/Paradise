@@ -88,6 +88,7 @@
 '2024-08-09':
   FanTik-Ratge:
   - imageadd: new_inhand sprites by-kisik (#5682)
+  - imageadd: new_inhand sprites by-kisik 2 (#5690)
   TomYoungers:
   - bugfix: QM Table Fix (#5686)
   - bugfix: tube change (#5684)
@@ -98,3 +99,13 @@
   - unknown: QM fax fix (#5688)
   pilygun:
   - balance: Thunderdome... (#5675)
+'2024-08-10':
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#5694)
+'2024-08-11':
+  Antoonij:
+  - bugfix: capsule expand on station Z level (#5687)
+  MstrKabach:
+  - tweak: A new hint (#5691)
+  SAAD:
+  - tweak: T-Admin/Mods gets more in-game rights (#5677)
