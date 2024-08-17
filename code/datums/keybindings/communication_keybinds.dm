@@ -71,4 +71,4 @@
 /datum/keybinding/client/communication/dsay
 	name = DSAY_CHANNEL
 	keys = list("F10")
-	required_rights = R_ADMIN
+	required_rights = R_ADMIN | R_MOD
