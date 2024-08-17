@@ -108,9 +108,10 @@
 	RefreshParts()
 
 /obj/machinery/r_n_d/experimentor/RefreshParts()
+	badThingCoeff = initial(badThingCoeff)
+	resetTime = initial(resetTime)
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		if(resetTime > 0 && (resetTime - M.rating) >= 1)
-			resetTime -= M.rating
+		resetTime -= M.rating
 	for(var/obj/item/stock_parts/scanning_module/M in component_parts)
 		badThingCoeff += M.rating*2
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)

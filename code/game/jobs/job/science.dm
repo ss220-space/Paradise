@@ -147,10 +147,6 @@
 	exp_requirements = 900
 	exp_type = EXP_TYPE_SCIENCE
 
-	required_objectives = list(
-		/datum/job_objective/make_cyborg,
-		/datum/job_objective/make_ripley
-	)
 	money_factor = 3
 	outfit = /datum/outfit/job/roboticist
 

@@ -21,7 +21,6 @@
 	/// Whether the machine is currently performing dialysis.
 	var/filtering = FALSE
 	var/max_chem
-	var/initial_bin_rating = 1
 	var/min_health = -25
 	var/controls_inside = FALSE
 	var/auto_eject_dead = FALSE
@@ -35,12 +34,7 @@
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/sleeper(null)
-
-	// Customizable bin rating, used by the labor camp to stop people filling themselves with chemicals and escaping.
-	var/obj/item/stock_parts/matter_bin/B = new(null)
-	B.rating = initial_bin_rating
-	component_parts += B
-
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
@@ -582,9 +576,7 @@
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/sleeper/syndicate(null)
-	var/obj/item/stock_parts/matter_bin/B = new(null)
-	B.rating = initial_bin_rating
-	component_parts += B
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)

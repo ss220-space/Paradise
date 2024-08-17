@@ -42582,6 +42582,7 @@
 /obj/structure/cable/orange{
 	icon_state = "0-2"
 	},
+/obj/machinery/roboquest_pad,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -66345,6 +66346,7 @@
 	name = "Robotics Requests Console";
 	pixel_y = 30
 	},
+/obj/machinery/computer/roboquest,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},

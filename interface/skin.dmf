@@ -185,12 +185,12 @@ window "mapwindow"
 		size = 640x480
 		anchor1 = 0,0
 		anchor2 = 100,100
-		font-family = "MS Serif"
-		font-size = 7
+		font-family = "Grand9K Pixel"
+		font-size = 6pt
 		text-color = none
 		is-default = true
 		saved-params = "icon-size;zoom-mode"
-		style = ".center { text-align: center; } .maptext { font-family: 'MS Serif'; font-size: 7px; -dm-text-outline: 1px black; color: white; line-height: 1.0; } .small { font-size: 6px; } .big { font-size: 8px; } .reallybig { font-size: 9px; } .extremelybig { font-size: 10px; } .clown { color: #FF69Bf;} .tajaran {color: #803B56;} .skrell {color: #00CED1;} .solcom {color: #22228B;} .com_srus {color: #7c4848;} .zombie	{color: #ff0000;} .soghun {color: #228B22;} .vox {color: #AA00AA;} .diona {color: #804000; font-weight: bold;} .trinary {color: #727272;} .kidan {color: #664205;} .slime {color: #0077AA;} .drask {color: #a3d4eb;} .moth {color: #869b29;} .vulpkanin {color: #B97A57;} .abductor {color: #800080; font-style: italic;} .his_grace { color: #15D512; } .hypnophrase { color: #0d0d0d; font-weight: bold; } .yell { font-weight: bold; } .italics { font-size: 6px; } .command_headset { font-weight: bold;	font-size: 8px; }"
+		style = ".center { text-align: center; } .maptext { font-family: 'Grand9K Pixel'; font-size: 6pt; -dm-text-outline: 1px black; color: white; line-height: 1.0; } .context { font-family: 'Pixellari'; font-size: 12pt; -dm-text-outline: 1px black; } .subcontext { font-family: 'TinyUnicode'; font-size: 12pt; line-height: 0.75; } .small { font-size: 6pt; } .big { font-family: 'Pixellari'; font-size: 12pt; } .reallybig { font-size: 12pt; } .extremelybig { font-size: 12pt; } .clown { color: #FF69Bf; font-weight: bold; } .tajaran {color: #803B56;} .skrell {color: #00CED1;} .solcom {color: #22228B;} .com_srus {color: #7c4848;} .zombie	{color: #ff0000;} .soghun {color: #228B22;} .vox {color: #AA00AA;} .diona {color: #804000; font-weight: bold;} .trinary {color: #727272;} .kidan {color: #664205;} .slime {color: #0077AA;} .drask {color: #a3d4eb;} .moth {color: #869b29;} .vulpkanin {color: #B97A57;} .abductor {color: #800080; font-style: italic;} .his_grace { color: #15D512; } .hypnophrase { color: #0d0d0d; font-weight: bold; } .yell { font-family: 'MS Serif'; font-size: 8px; font-weight: bold; } .italics { font-family: 'MS Serif'; font-size: 6px; } .command_headset { font-weight: bold;}"
 		on-show = ".winset \"menu.statusbar.is-checked=true?mapwindow.status_bar.is-visible=true:mapwindow.status_bar.is-visible=false\""
 	elem "status_bar"
 		type = LABEL
@@ -389,3 +389,22 @@ window "infowindow"
 		is-default = true
 		highlight-color = #00aa00
 		on-show = ".winset \"rpane.infob.is-checked=true?rpane.rpanewindow.top=infowindow:rpane.rpanewindow.top=\""
+
+window "tgui_say"
+	elem "tgui_say"
+		type = MAIN
+		pos = 848,500
+		size = 275x30
+		anchor1 = 50,50
+		anchor2 = 50,50
+		is-visible = false
+		saved-params = ""
+		statusbar = false
+		can-minimize = false
+	elem "browser"
+		type = BROWSER
+		pos = 0,0
+		size = 275x30
+		anchor1 = 0,0
+		anchor2 = 0,0
+		saved-params = ""
