@@ -198,7 +198,7 @@
 		if("GetTask")
 			var/list/mecha_types = list("Working Mech" = WORKING_CLASS, "Medical Mech" = MEDICAL_CLASS, "Combat Mech" = COMBAT_CLASS, "Random Mech" = RANDOM_CLASS)
 			var/mecha_type = tgui_input_list(usr, "Select event type.", "Select", mecha_types)
-			if(!mecha_type)
+			if(!mecha_type || !currentID || currentID.robo_bounty)
 				return
 			pick_mecha(mecha_types[mecha_type])
 		if("RemoveTask")
