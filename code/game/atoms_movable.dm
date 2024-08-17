@@ -243,6 +243,8 @@
 
 	return ..()
 
+/atom/movable/proc/moveToNullspace()
+	return doMove(null)
 
 /// Proc to hook user-enacted teleporting behavior and keep logging of the event.
 /atom/movable/proc/admin_teleport(atom/new_location)

@@ -306,6 +306,9 @@
 	board_name = "RD Console - Public"
 	build_path = /obj/machinery/computer/rdconsole/public
 
+/obj/item/circuitboard/roboquest
+	board_name = "Robotics Request Console"
+	build_path = /obj/machinery/computer/roboquest
 
 /obj/item/circuitboard/mecha_control
 	board_name = "Exosuit Control Console"
