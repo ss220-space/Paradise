@@ -153,8 +153,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(LIMBS_LAYER) // So we don't get the old species' sprite splatted on top of the new one's
 	remove_overlay(UNDERWEAR_LAYER)
 
-	var/hulk_color_mod = rgb(48, 224, 40)
-
 	var/husk = (HUSK in mutations)
 	var/hulk = (HULK in mutations)
 	var/skeleton = (SKELETON in mutations)
@@ -178,26 +176,27 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		base = GLOB.human_icon_cache[icon_key]
 		standing += base
 	else
-		var/icon/base_icon
 		//BEGIN CACHED ICON GENERATION.
-		var/obj/item/organ/external/chest = get_organ(BODY_ZONE_CHEST)
-		if(chest) //I hate it.
-			base = chest.get_icon(skeleton, husk)
-
-		for(var/obj/item/organ/external/part as anything in bodyparts)
-			if(part.limb_zone == BODY_ZONE_TAIL || part.limb_zone == BODY_ZONE_WING)
-				continue
-			var/mutable_appearance/temp = part.get_icon(skeleton, husk)
-			base.overlays += temp
-
+		var/mutate_color
 		if(!skeleton)
 			if(isgolem(src))
 				var/datum/species/golem/G = src.dna.species
 				if(G.golem_colour)
-					base.color = G.golem_colour
-			if(!husk && hulk)
-				var/list/tone = ReadRGB(hulk_color_mod)
-				base_icon.MapColors(rgb(tone[1],0,0),rgb(0,tone[2],0),rgb(0,0,tone[3]))
+					mutate_color = G.golem_colour
+			if(husk)
+				mutate_color = COLOR_MUTATE_HUSK
+			// else if(hulk) NOT USED SINCE MUTATION UNDERLAYS
+			// 	mutate_color = COLOR_MUTATE_HULK
+		var/obj/item/organ/external/chest = get_organ(BODY_ZONE_CHEST)
+		if(chest) //I hate it.
+			base = chest.get_icon(skeleton, mutate_color)
+
+		for(var/obj/item/organ/external/part as anything in bodyparts)
+			if(part.limb_zone == BODY_ZONE_TAIL || part.limb_zone == BODY_ZONE_WING)
+				continue
+
+			var/mutable_appearance/temp = part.get_icon(skeleton, mutate_color)
+			base.overlays += temp
 
 		GLOB.human_icon_cache[icon_key] = base
 		standing += base

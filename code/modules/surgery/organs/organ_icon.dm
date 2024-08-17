@@ -57,7 +57,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 	if(eyes) eyes.update_colour()
 
 
-/obj/item/organ/external/proc/get_icon(skeletal, husk = FALSE)
+/obj/item/organ/external/proc/get_icon(skeletal, mutate_color)
 	// Kasparrov, you monster
 	if(force_icon)
 		mob_icon = new /icon(force_icon, "[icon_name]")
@@ -70,26 +70,30 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 		var/new_icon_state = new_icons[2]
 		var/new_husk_icon_state = new_icons[3]
 		mob_icon = mutable_appearance(icon_file, new_icon_state, -LIMBS_LAYER)
-		// if(!skeletal && !is_robotic())
-			// if(is_dead())
-			// 	mob_icon.ColorTone(rgb(10,50,0))
-			// 	mob_icon.SetIntensity(0.7)
+		if(!skeletal)
+			//Handle abnormal recolor
+			var/icon/mask_icon = new(icon_file, new_icon_state)
+			if(mutate_color)
+				mask_icon.ColorTone(mutate_color)
+			else if(!is_robotic())
+				if(is_dead())
+					mask_icon.ColorTone(rgb(10,50,0))
+					mask_icon.SetIntensity(0.7)
 
-			// if(!isnull(s_tone))
-			// 	if(s_tone >= 0)
-			// 		mob_icon.Blend(rgb(s_tone, s_tone, s_tone), ICON_ADD)
-			// 	else
-			// 		mob_icon.Blend(rgb(-s_tone,  -s_tone,  -s_tone), ICON_SUBTRACT)
-			// else if(s_col)
-			// 	mob_icon.Blend(s_col, ICON_ADD)
+				if(!isnull(s_tone))
+					if(s_tone >= 0)
+						mask_icon.Blend(rgb(s_tone, s_tone, s_tone), ICON_ADD)
+					else
+						mask_icon.Blend(rgb(-s_tone,  -s_tone,  -s_tone), ICON_SUBTRACT)
+				else if(s_col)
+					mask_icon.Blend(s_col, ICON_ADD)
+			var/mutable_appearance/mask_mutable = mutable_appearance(mask_icon, layer=-LIMBS_LAYER)
+			mob_icon.add_overlay(mask_mutable)
+
 		//Handle husk overlay.
-		if(husk)
-			var/icon/husk_icon = new(icon_file, new_icon_state)
-			husk_icon.ColorTone(rgb(96, 88, 80))
-			mob_icon.add_overlay(husk_icon)
-			if(icon_exists(icobase, new_husk_icon_state))
-				var/mutable_appearance/husk_over = mutable_appearance(icobase, new_husk_icon_state, -LIMBS_LAYER)
-				mob_icon.add_overlay(husk_over)
+		if(mutate_color == COLOR_MUTATE_HUSK && icon_exists(icobase, new_husk_icon_state))
+			var/mutable_appearance/husk_over = mutable_appearance(icobase, new_husk_icon_state, -LIMBS_LAYER)
+			mob_icon.add_overlay(husk_over)
 
 	if(owner) //Maintains overlays on disembodied parts.
 		cut_overlays()
@@ -99,7 +103,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 
 	return mob_icon
 
-/obj/item/organ/external/head/get_icon()
+/obj/item/organ/external/head/get_icon(skeletal, mutate_color)
 	..()
 	if(!owner)
 		return
