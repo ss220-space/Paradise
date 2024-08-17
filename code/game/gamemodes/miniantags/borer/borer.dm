@@ -409,7 +409,7 @@
 /obj/effect/proc_holder/spell/borer_force_say
 	name = "Speak as host"
 	desc = "Force your host to say something."
-	base_cooldown = 30
+	base_cooldown = 15
 	clothes_req = FALSE
 	action_icon_state = "god_transmit"
 	need_active_overlay = TRUE
@@ -570,15 +570,15 @@
 	if(docile)
 		to_chat(src, "Вы слишком обессилели для этого.")
 		return
-		
-	var/list/content = list()
 
 	if(!LAZYLEN(host.reagents.reagent_list))
 		to_chat(src, span_notice("В хозяине не обнаружено реагентов."))
 		return
 
+	var/list/content = list()
+
 	for(var/datum/reagent/reagent in host.reagents.reagent_list)
-		if(!LAZYIN(reagent.id, GLOB.borer_acq_reagents) && !reagent.borer_acquired)
+		if(LAZYIN(reagent.id, GLOB.borer_acq_reagents) && !reagent.borer_acquired)
 			content += reagent.name
 			
 	if(!LAZYLEN(content))
