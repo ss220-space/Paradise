@@ -1468,6 +1468,7 @@
 #include "code\modules\actionspeed\modifiers\addiction.dm"
 #include "code\modules\actionspeed\modifiers\base.dm"
 #include "code\modules\actionspeed\modifiers\drugs.dm"
+#include "code\modules\actionspeed\modifiers\items.dm"
 #include "code\modules\actionspeed\modifiers\mobs.dm"
 #include "code\modules\actionspeed\modifiers\status_effects.dm"
 #include "code\modules\admin\admin.dm"

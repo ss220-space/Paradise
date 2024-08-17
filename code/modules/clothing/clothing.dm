@@ -299,6 +299,12 @@ BLIND     // can't see anything
 	var/pickpocket = 0 //Master pickpocket?
 	var/clipped = 0
 	var/extra_knock_chance = 0 //extra chance to knock down target when disarming
+	/// Flat bonus to various tool handling
+	/// Value of 0.1 adds 10% time delay to all performed actions in tool's category, -0.1 vice versa
+	/// READ ONLY!
+	var/surgeryspeedmod = 0
+	/// Same as above, used for surgery modifiers
+	var/toolspeedmod = 0
 	strip_delay = 20
 	put_on_delay = 40
 
@@ -306,6 +312,22 @@ BLIND     // can't see anything
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi'
 		)
+
+/obj/item/clothing/gloves/equipped(mob/living/carbon/human/user, slot, initial)
+	. = ..()
+	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
+		return .
+	if(surgeryspeedmod)
+		user.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/surgical_gloves, multiplicative_slowdown = surgeryspeedmod)
+	if(toolspeedmod)
+		user.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/work_gloves, multiplicative_slowdown = toolspeedmod)
+
+/obj/item/clothing/gloves/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
+	. = ..()
+	if(surgeryspeedmod)
+		user.remove_actionspeed_modifier(/datum/actionspeed_modifier/surgical_gloves)
+	if(toolspeedmod)
+		user.remove_actionspeed_modifier(/datum/actionspeed_modifier/work_gloves)
 
 // Called just before an attack_hand(), in mob/UnarmedAttack()
 /obj/item/clothing/gloves/proc/Touch(atom/A, proximity)
