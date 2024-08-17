@@ -87,7 +87,6 @@ SUBSYSTEM_DEF(demo)
 		var/repo = GLOB.revision_info.repo
 		var/commit = GLOB.revision_info.commit_hash || GLOB.revision_info.originmastercommit
 		if(GLOB.revision_info.repo)
-
 			WRITE_LOG_NO_FORMAT(GLOB.demo_log, "commit [repo]@[commit]\n")
 		else
 			WRITE_LOG_NO_FORMAT(GLOB.demo_log, "commit [commit]\n")
