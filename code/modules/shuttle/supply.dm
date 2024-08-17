@@ -216,6 +216,26 @@
 								objective.unit_completed(cost)
 						msg += "[tech.name] - new data.<br>"
 
+		if(istype(MA, /obj/structure/closet/critter/mecha))
+			var/obj/structure/closet/critter/mecha/crate = MA
+			if(crate.console && crate.quest)
+				for(var/category in crate.quest.reward)
+					crate.quest.reward[category] -= crate.penalty
+					if(crate.quest.reward[category] < 0)
+						crate.quest.reward[category] = 0
+					crate.console.points[category] += crate.quest.reward[category]
+				pointsEarned = crate.quest.reward["robo"] * 30
+				SSshuttle.points += pointsEarned
+				if(crate.quest.id)
+					var/datum/money_account/A = get_money_account(crate.quest.id.associated_account_number)
+					if(A)
+						A.money += crate.quest.maximum_cash - round(crate.quest.maximum_cash * crate.penalty / 4)
+				SSshuttle.cargo_money_account.money += crate.quest.maximum_cash - round(crate.quest.maximum_cash * crate.penalty / 4)
+				crate.console.on_quest_complete()
+				msg += "<span class='good'>+[pointsEarned]</span>: Received requested mecha: [crate.quest.name].<br>"
+				crate.quest.id.robo_bounty = null
+				crate.quest = null
+
 		qdel(MA, force = TRUE)
 		SSshuttle.sold_atoms += "."
 

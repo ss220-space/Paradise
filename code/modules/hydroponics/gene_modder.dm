@@ -53,12 +53,14 @@
 
 /obj/machinery/plantgenes/RefreshParts() // Comments represent the max you can set per tier, respectively. seeds.dm [219] clamps these for us but we don't want to mislead the viewer.
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		if(M.rating > 3)
+		if(M.rating > 4)
+			max_potency = 100
+		else if(M.rating > 3)
 			max_potency = 95
 		else
-			max_potency = initial(max_potency) + (M.rating**3) // 51,58,77,95 	 Clamps at 100
+			max_potency = initial(max_potency) + (M.rating**3) // 51,58,77,95,100 	 Clamps at 100
 
-		max_yield = initial(max_yield) + (M.rating*2) // 4,6,8,10 	Clamps at 10
+		max_yield = min(initial(max_yield) + (M.rating*2), 10) // 4,6,8,10 	Clamps at 10
 
 	for(var/obj/item/stock_parts/scanning_module/SM in component_parts)
 		if(SM.rating > 3) //If you create t5 parts I'm a step ahead mwahahaha!
@@ -70,9 +72,8 @@
 
 	for(var/obj/item/stock_parts/micro_laser/ML in component_parts)
 		var/weed_rate_mod = ML.rating * 2.5
-		min_weed_rate = FLOOR(10-weed_rate_mod, 1) // 7,5,2,0	Clamps at 0 and 10	You want this low
-		min_weed_chance = 67-(ML.rating*16) // 48,35,19,3 	Clamps at 0 and 67	You want this low
-
+		min_weed_rate = max(FLOOR(10-weed_rate_mod, 1), 0) // 7,5,2,0	Clamps at 0 and 10	You want this low
+		min_weed_chance = max(67-(ML.rating*16), 0)  // 48,35,19,3,0 	Clamps at 0 and 67	You want this low
 	for(var/obj/item/circuitboard/plantgenes/vaultcheck in component_parts)
 		if(istype(vaultcheck, /obj/item/circuitboard/plantgenes/vault)) // TRAIT_DUMB BOTANY TUTS
 			max_potency = 100

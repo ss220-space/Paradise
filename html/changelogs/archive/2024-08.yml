@@ -109,3 +109,45 @@
   - tweak: A new hint (#5691)
   SAAD:
   - tweak: T-Admin/Mods gets more in-game rights (#5677)
+  - bugfix: Mentors, Moders and A-Tickets (#5698)
+  - bugfix: returns ai sec bot (#5699)
+'2024-08-13':
+  Den109G:
+  - tweak: Change sucumb's and suicides' logs to attack logs (#5708)
+  Dimach:
+  - bugfix: proper admin tickets panel rights handling (#5707)
+  Vladisvell:
+  - bugfix: Makes stamp limit for paper (#5711)
+  endipe:
+  - bugfix: grey helmet sprite (#5706)
+  - bugfix: arrhythmic knife speed (#5695)
+'2024-08-15':
+  PiotrTheTchaikowsky:
+  - add: New sprites for paramedic new skirt and cap (#5709)
+'2024-08-17':
+  Aziz Chynaliev:
+  - add: override url_encode and url_decode procs with rust-g ones
+  BoshyG:
+  - imageadd: Storage resprite (#5697)
+  FlitchTime:
+  - qol: Alert for Fleshmend (#5723)
+  Kray1k:
+  - bugfix: improper adjacent turfs check at area creation/expanding (#5721)
+  Mahimka42:
+  - imageadd: new implant icons (#5718)
+  ROdenFL:
+  - add: RoboQuest (#5185)
+  - refactor: prettier maptext fonts (#5724)
+  - unknown: tgui say (#5605)
+  Sheya:
+  - add: beanies to loadout (#5719)
+  Valtor:
+  - add: wryn hivemind and hair is now bound to hivenode (#4986)
+  Vladisvell:
+  - bugfix: fixes broken assets for safe and stamps (#5725)
+  - bugfix: Fixes templar shields invisible states (#5716)
+  endipe:
+  - add: science HUD implant (#5653)
+  - add: modified medical gloves (#5693)
+  pilygun:
+  - add: smokebomb in Sec-vend (#5713)
