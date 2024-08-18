@@ -169,7 +169,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			break
 
 /obj/machinery/computer/rdconsole/Initialize(mapload)
-	..()
+	. = ..()
 	SyncRDevices()
 
 /obj/machinery/computer/rdconsole/Destroy()
