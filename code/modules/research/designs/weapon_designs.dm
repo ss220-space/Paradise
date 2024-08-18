@@ -201,7 +201,7 @@
 	id = "lmag"
 	build_type = PROTOLATHE
 	req_tech = list("combat" = 4, "powerstorage" = 4)
-	materials = list(MAT_METAL = 8000, MAT_GLASS = 2500, MAT_PLASMA = 3000)
+	materials = list(MAT_METAL = 8000, MAT_GLASS = 2500)
 	build_path = /obj/item/ammo_box/magazine/lr30mag
 	category = list("Weapons")
 
