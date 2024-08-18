@@ -8,6 +8,7 @@
 // END_FILE_DIR
 // BEGIN_PREFERENCES
 #define DEBUG
+#define MULTIINSTANCE
 // END_PREFERENCES
 // BEGIN_INCLUDE
 #include "_maps\__MAP_DEFINES.dm"
@@ -297,6 +298,7 @@
 #include "code\controllers\subsystem\icon_smooth.dm"
 #include "code\controllers\subsystem\idlenpcpool.dm"
 #include "code\controllers\subsystem\input.dm"
+#include "code\controllers\subsystem\instancing.dm"
 #include "code\controllers\subsystem\jobs.dm"
 #include "code\controllers\subsystem\lighting.dm"
 #include "code\controllers\subsystem\machinery.dm"
@@ -305,6 +307,7 @@
 #include "code\controllers\subsystem\npcpool.dm"
 #include "code\controllers\subsystem\parallax.dm"
 #include "code\controllers\subsystem\pathfinder.dm"
+#include "code\controllers\subsystem\redis.dm"
 #include "code\controllers\subsystem\runechat.dm"
 #include "code\controllers\subsystem\shuttles.dm"
 #include "code\controllers\subsystem\speech_controller.dm"
@@ -1455,6 +1458,7 @@
 #include "code\game\verbs\ooc.dm"
 #include "code\game\verbs\randomtip.dm"
 #include "code\game\verbs\suicide.dm"
+#include "code\game\verbs\switch_server.dm"
 #include "code\game\verbs\webmap.dm"
 #include "code\game\verbs\who.dm"
 #include "code\modules\actionspeed\_actionspeed_modifier.dm"
@@ -1531,6 +1535,7 @@
 #include "code\modules\admin\verbs\ticklag.dm"
 #include "code\modules\admin\verbs\toggledebugverbs.dm"
 #include "code\modules\admin\verbs\tripAI.dm"
+#include "code\modules\admin\verbs\view_instances.dm"
 #include "code\modules\admin\verbs\vox_raiders.dm"
 #include "code\modules\admin\verbs\SDQL2\SDQL_2.dm"
 #include "code\modules\admin\verbs\SDQL2\SDQL_2_parser.dm"
@@ -2887,6 +2892,11 @@
 #include "code\modules\recycling\disposal\outlet.dm"
 #include "code\modules\recycling\disposal\pipe.dm"
 #include "code\modules\recycling\disposal\pipe_sorting.dm"
+#include "code\modules\redis\redis_callback.dm"
+#include "code\modules\redis\redis_message.dm"
+#include "code\modules\redis\callbacks\asay_callback.dm"
+#include "code\modules\redis\callbacks\msay_callback.dm"
+#include "code\modules\redis\callbacks\server_messages_callback.dm"
 #include "code\modules\requests\request.dm"
 #include "code\modules\requests\request_manager.dm"
 #include "code\modules\research\circuitprinter.dm"
@@ -2942,6 +2952,8 @@
 #include "code\modules\ruins\objects_and_mobs\necropolis_gate.dm"
 #include "code\modules\security_levels\keycard_authentication.dm"
 #include "code\modules\security_levels\security_levels.dm"
+#include "code\modules\server_commands\servermsg.dm"
+#include "code\modules\server_commands\commands\newroundannounce.dm"
 #include "code\modules\shuttle\assault_pod.dm"
 #include "code\modules\shuttle\emergency.dm"
 #include "code\modules\shuttle\ert.dm"

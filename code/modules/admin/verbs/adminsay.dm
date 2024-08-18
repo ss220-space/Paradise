@@ -13,6 +13,14 @@
 	log_adminsay(msg, src)
 
 	if(check_rights(R_ADMIN,0))
+		// Do this up here before it gets sent to everyone & emoji'd
+		if(SSredis.connected)
+			var/list/data = list()
+			data["author"] = usr.ckey
+			data["source"] = CONFIG_GET(string/instance_id)
+			data["message"] = html_decode(msg)
+			SSredis.publish("byond.asay", json_encode(data))
+
 		for(var/client/C in GLOB.admins)
 			if(R_ADMIN & C.holder.rights)
 				// Lets see if this admin was pinged in the asay message
@@ -46,6 +54,14 @@
 
 	if(!msg)
 		return
+
+	// Do this up here before it gets sent to everyone & emoji'd
+	if(SSredis.connected)
+		var/list/data = list()
+		data["author"] = usr.ckey
+		data["source"] = CONFIG_GET(string/instance_id)
+		data["message"] = html_decode(msg)
+		SSredis.publish("byond.msay", json_encode(data))
 
 	msg = handleDiscordEmojis(msg)
 

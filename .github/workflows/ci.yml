@@ -2,16 +2,16 @@ name: CI
 on:
   push:
     branches:
-    - master220
-    - whitelist220
-    - testmerge
-    - tutorial
-    - dev
+      - master220
+      - whitelist220
+      - testmerge
+      - tutorial
+      - dev
   pull_request:
     branches:
-    - master220
-    - whitelist220
-    - tutorial
+      - master220
+      - whitelist220
+      - tutorial
   merge_group:
   workflow_call:
 
@@ -67,7 +67,7 @@ jobs:
           tools/ci/install_byond.sh
           source $HOME/BYOND/byond/bin/byondsetup
           tools/ci/generate_maplist.sh
-          tools/ci/dm.sh -Mci_map_testing paradise.dme
+          DreamMaker -DMULTIINSTANCE -Mci_map_testing paradise.dme
 
   unit_tests_and_sql:
     name: Unit Tests + SQL Validation
@@ -75,7 +75,13 @@ jobs:
     strategy:
       fail-fast: false # Let all map tests run to completion
       matrix:
-        maptype: ['/datum/map/cyberiad', '/datum/map/delta', '/datum/map/cerestation', '/datum/map/celestation']
+        maptype:
+          [
+            '/datum/map/cyberiad',
+            '/datum/map/delta',
+            '/datum/map/cerestation',
+            '/datum/map/celestation',
+          ]
         byondtype: ['STABLE']
     services:
       mariadb:
@@ -111,7 +117,6 @@ jobs:
         run: |
           tools/ci/install_byond.sh '${{ matrix.byondtype }}'
           source $HOME/BYOND/byond/bin/byondsetup
-          tools/ci/dm.sh -DCIBUILDING paradise.dme
+          DreamMaker -DMULTIINSTANCE -DCIBUILDING paradise.dme
           echo '${{ matrix.maptype }}' > data/next_map.txt
           tools/ci/run_server.sh
-

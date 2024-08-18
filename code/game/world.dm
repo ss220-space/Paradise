@@ -32,6 +32,9 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	// Right off the bat, load up the DB
 	SSdbcore.CheckSchemaVersion() // This doesnt just check the schema version, it also connects to the db! This needs to happen super early! I cannot stress this enough!
 	SSdbcore.SetRoundID() // Set the round ID here
+	#ifdef MULTIINSTANCE
+	SSinstancing.seed_data() // Set us up in the DB
+	#endif
 
 	// Setup all log paths and stamp them with startups, including round IDs
 	SetupLogs()
@@ -311,6 +314,8 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
 	if (debug_server)
 		CALL_EXT(debug_server, "auxtools_shutdown")()
+	if(SSredis.connected)
+		rustg_redis_disconnect() // Disconnects the redis connection. See above.
 	prof_stop()
 	..()
 
