@@ -76,4 +76,6 @@
 	else if((ismineralturf(north) || istype(north, /turf/simulated/floor/plating/asteroid)) && (ismineralturf(south) || istype(south, /turf/simulated/floor/plating/asteroid)) && !(ismineralturf(e1) || istype(e1, /turf/simulated/floor/plating/asteroid)) && !(ismineralturf(w1) || istype(w1, /turf/simulated/floor/plating/asteroid)))
 		template = GLOB.bridge_vertical_templates[pick("lavaland_bridge_vertical_1.dmm", "lavaland_bridge_vertical_2.dmm", "lavaland_bridge_vertical_3.dmm", "lavaland_bridge_vertical_4.dmm", "lavaland_bridge_vertical_5.dmm", "lavaland_bridge_vertical_6.dmm")]
 		template.load(loc, centered = TRUE)
+
+	//TODO: Remove this, move to generating bridges on late initializing by map loader
 	qdel(src) //Don't turn to hint qdel, it won't work well at all sadly.

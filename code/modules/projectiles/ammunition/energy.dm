@@ -338,6 +338,20 @@
 	fire_sound = 'sound/weapons/gunshots/1plasma.ogg'
 	select_name = "plasma dart"
 
+/obj/item/ammo_casing/energy/weak_plasma
+	projectile_type = /obj/item/projectile/energy/weak_plasma
+	e_cost = 60 // With no charging, 500 damage from 25 shots.
+	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
+	fire_sound = 'sound/weapons/gunshots/1plasma.ogg'
+	select_name = null //If the select name is null, it does not send a message of switching modes to the user, important on the pistol.
+
+/obj/item/ammo_casing/energy/charged_plasma
+	projectile_type = /obj/item/projectile/energy/charged_plasma
+	e_cost = 0 //Charge is used when you charge the gun. Prevents issues.
+	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
+	fire_sound = 'sound/weapons/marauder.ogg' //Should be different enough to get attention
+	select_name = null
+
 /obj/item/ammo_casing/energy/clown
 	projectile_type = /obj/item/projectile/clown
 	muzzle_flash_effect = null
