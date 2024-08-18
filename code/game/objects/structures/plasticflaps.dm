@@ -104,7 +104,7 @@
 
 /obj/structure/plasticflaps/mining/Initialize()
 	air_update_turf(TRUE)
-	..()
+	. = ..()
 
 /obj/structure/plasticflaps/mining/Destroy()
 	var/turf/T = get_turf(src)

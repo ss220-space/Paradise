@@ -102,7 +102,7 @@
 	/// Instructs forceMove to NOT reset our trajectory to the new location!
 	var/trajectory_ignore_forcemove = FALSE
 
-	/// Does this projectile do extra damage to / break shields? Not implemented currently.
+	/// Does this projectile do extra damage to / break shields?
 	var/shield_buster = FALSE
 	/// Does this projectile ignores def zone calculations. Used for sniper bullets.
 	var/forced_accuracy = FALSE

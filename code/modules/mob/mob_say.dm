@@ -62,7 +62,7 @@
 			to_chat(src, span_danger("Deadchat is globally muted."))
 			return
 
-		if(client.prefs.muted & MUTE_DEADCHAT)
+		if(check_mute(client.ckey, MUTE_DEADCHAT))
 			to_chat(src, span_warning("You cannot talk in deadchat (muted)."))
 			return
 
@@ -136,7 +136,7 @@
 /// Transforms the speech emphasis mods from [/atom/movable/proc/say_emphasis] into the appropriate HTML tags
 #define ENCODE_HTML_EMPHASIS(input, char, html, varname) \
 	var/static/regex/##varname = regex("[char](.+?)[char]", "g");\
-	input = varname.Replace_char(input, "<[html]>$1</[html]>")
+	input = varname.Replace_char(input, "<[html]>$1</[html]>&#8203;") //zero-width space to force maptext to respect closing tags.
 
 /// Scans the input sentence for speech emphasis modifiers, notably |italics|, +bold+, and _underline_ -mothblocks
 /mob/proc/say_emphasis(input)

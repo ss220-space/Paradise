@@ -6484,8 +6484,7 @@
 	},
 /obj/effect/decal/warning_stripes/southeast,
 /obj/structure/marker_beacon{
-	icon_state = "markerburgundy-on";
-	initialized = 1
+	icon_state = "markerburgundy-on"
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -8220,8 +8219,7 @@
 	},
 /obj/effect/decal/warning_stripes/northeast,
 /obj/structure/marker_beacon{
-	icon_state = "markerburgundy-on";
-	initialized = 1
+	icon_state = "markerburgundy-on"
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -9241,8 +9239,7 @@
 	},
 /obj/effect/decal/warning_stripes/southeast,
 /obj/structure/marker_beacon{
-	icon_state = "markercerulean-on";
-	initialized = 1
+	icon_state = "markercerulean-on"
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -9807,7 +9804,6 @@
 /area/security/detectives_office)
 "aFD" = (
 /obj/structure/closet/secure_closet/cabinet/detective,
-/obj/item/storage/lockbox/spy_kit,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -10217,8 +10213,7 @@
 	},
 /obj/effect/decal/warning_stripes/northeast,
 /obj/structure/marker_beacon{
-	icon_state = "markercerulean-on";
-	initialized = 1
+	icon_state = "markercerulean-on"
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -11942,8 +11937,7 @@
 "aMq" = (
 /obj/effect/decal/cleanable/crayon{
 	color = "#66171a";
-	icon_state = "security";
-	initialized = 1
+	icon_state = "security"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/livingcomplex)
@@ -12281,7 +12275,6 @@
 	},
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "yip";
-	initialized = 1;
 	pixel_x = 14;
 	pixel_y = 32
 	},
@@ -27887,8 +27880,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/conveyor{
-	id = "packageExternal";
-	dir = 4
+	dir = 4;
+	id = "packageExternal"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
@@ -56616,8 +56609,8 @@
 "dxS" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/conveyor{
-	id = "garbage";
-	dir = 10
+	dir = 10;
+	id = "garbage"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -58424,8 +58417,8 @@
 	dir = 1
 	},
 /obj/machinery/conveyor{
-	id = "garbage";
-	dir = 8
+	dir = 8;
+	id = "garbage"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -60663,8 +60656,8 @@
 /obj/machinery/recycler,
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/conveyor{
-	id = "garbage";
-	dir = 4
+	dir = 4;
+	id = "garbage"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -63174,8 +63167,8 @@
 /obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/conveyor{
-	id = "packageExternal";
-	dir = 4
+	dir = 4;
+	id = "packageExternal"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
@@ -63924,8 +63917,8 @@
 "ixb" = (
 /obj/effect/decal/warning_stripes/northeast,
 /obj/machinery/conveyor{
-	id = "garbage";
-	dir = 6
+	dir = 6;
+	id = "garbage"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -67889,8 +67882,8 @@
 "lps" = (
 /obj/structure/plasticflaps,
 /obj/machinery/conveyor{
-	id = "garbage";
-	dir = 8
+	dir = 8;
+	id = "garbage"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -68178,8 +68171,8 @@
 /area/medical/reception)
 "lyq" = (
 /obj/machinery/conveyor{
-	id = "garbage";
-	dir = 8
+	dir = 8;
+	id = "garbage"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -70158,8 +70151,8 @@
 	pixel_y = 32
 	},
 /obj/machinery/conveyor{
-	id = "garbage";
-	dir = 8
+	dir = 8;
+	id = "garbage"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -71888,8 +71881,8 @@
 	opacity = 0
 	},
 /obj/machinery/conveyor{
-	id = "garbage";
-	dir = 8
+	dir = 8;
+	id = "garbage"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -72816,7 +72809,6 @@
 	},
 /obj/structure/closet/secure_closet/security{
 	broken = 1;
-	initialized = 1;
 	locked = 0
 	},
 /turf/simulated/floor/plating,
@@ -75456,8 +75448,8 @@
 	},
 /obj/machinery/light/small,
 /obj/machinery/conveyor{
-	id = "garbage";
-	dir = 8
+	dir = 8;
+	id = "garbage"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
@@ -76227,6 +76219,7 @@
 /area/maintenance/engineering)
 "qKS" = (
 /obj/effect/decal/warning_stripes/east,
+/obj/machinery/computer/roboquest,
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "qKZ" = (
@@ -77765,7 +77758,7 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "rLu" = (
-/obj/structure/table,
+/obj/machinery/roboquest_pad,
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "rLP" = (
@@ -78358,8 +78351,8 @@
 "sfT" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/conveyor{
-	id = "QMLoad2";
-	dir = 4
+	dir = 4;
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/storage)
@@ -78897,8 +78890,8 @@
 /area/quartermaster/storage)
 "syQ" = (
 /obj/machinery/conveyor_switch/oneway{
-	id = "QMLoad";
-	dir = 8
+	dir = 8;
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -80637,8 +80630,8 @@
 "tFt" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/conveyor{
-	id = "garbage";
-	dir = 4
+	dir = 4;
+	id = "garbage"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)

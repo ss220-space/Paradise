@@ -33,6 +33,8 @@
 	var/fields = 0		//Amount of user created fields
 	var/language = LANGUAGE_GALACTIC_COMMON //The language of paper. For now using only in case of Thetta
 	var/list/stamped
+	///Prevents stamp overflow
+	var/stamp_limit = 20
 	var/list/stamp_overlays
 	var/rigged = 0
 	var/spam_flag = 0
@@ -549,6 +551,10 @@
 			CRASH("Wrong argument passed as a stamp value ([stamp]).")
 	else
 		stamp_path = stamp
+
+	var/stamp_count = LAZYLEN(stamped)
+	if(stamp_count >= stamp_limit)
+		return //can't fret over every stamp
 
 	LAZYADD(stamped, stamp_path)
 
