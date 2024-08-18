@@ -4,7 +4,7 @@
 	storage_slots = 10
 	icon = 'icons/obj/wallets.dmi'
 	icon_state = "brown_wallet"
-	item_state = "wallet"
+	item_state = "brown_wallet"
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
 	can_hold = list(
@@ -122,7 +122,6 @@
 	desc = "A cheap wallet from the arcade."
 	storage_slots = 5		//smaller storage than normal wallets
 	icon = 'icons/obj/wallets.dmi'
-	item_state = "wallet"
 
 
 /obj/item/storage/wallet/color/Initialize(mapload)

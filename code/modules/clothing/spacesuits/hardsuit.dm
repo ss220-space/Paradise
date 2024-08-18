@@ -586,7 +586,7 @@
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 5, "bomb" = 10, "bio" = 100, "rad" = 60, "fire" = 60, "acid" = 75)
 	item_color = "medical"
 	flash_protect = FLASH_PROTECTION_NONE
-	scan_reagents = TRUE //Generally worn by the CMO, so they'd get utility off of seeing reagents
+	examine_extensions = EXAMINE_HUD_SCIENCE
 
 /obj/item/clothing/suit/space/hardsuit/medical
 	name = "medical hardsuit"
@@ -652,7 +652,7 @@
 	armor = list("melee" = 30, "bullet" = 10, "laser" = 20, "energy" = 15, "bomb" = 10, "bio" = 100, "rad" = 60, "fire" = 60, "acid" = 75)
 	item_color = "brigmed"
 	flash_protect = FLASH_PROTECTION_NONE
-	scan_reagents = TRUE
+	examine_extensions = EXAMINE_HUD_SCIENCE
 
 /obj/item/clothing/suit/space/hardsuit/security/brigmed
 	name = "brig physician's hardsuit"
@@ -691,7 +691,7 @@
 	item_state = "rd"
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 5, "bomb" = 100, "bio" = 100, "rad" = 60, "fire" = 60, "acid" = 80)
 	item_color = "rd"
-	scan_reagents = TRUE
+	examine_extensions = EXAMINE_HUD_SCIENCE
 	var/explosion_detection_dist = 40
 
 

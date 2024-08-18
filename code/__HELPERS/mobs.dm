@@ -46,9 +46,18 @@
 
 	return pick(valid_picks)
 
-/proc/random_hair_style(var/gender, species = SPECIES_HUMAN, var/datum/robolimb/robohead)
+/proc/random_hair_style(var/gender, species = SPECIES_HUMAN, var/datum/robolimb/robohead, var/mob/living/carbon/human/H)
 	var/h_style = "Bald"
 	var/list/valid_hairstyles = list()
+
+	if(species == SPECIES_WRYN) // wryns antennaes now bound to hivenode, no need to change them
+		if(H)
+			var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
+			if(head_organ?.h_style)
+				return head_organ.h_style
+		else
+			return "Antennae"
+
 	for(var/hairstyle in GLOB.hair_styles_public_list)
 		var/datum/sprite_accessory/S = GLOB.hair_styles_public_list[hairstyle]
 
@@ -525,8 +534,6 @@
 
 	return locate(/mob) in A
 
-// Suppress the mouse macros
-/client/var/next_mouse_macro_warning
 /mob/proc/LogMouseMacro(verbused, params)
 	if(!client)
 		return

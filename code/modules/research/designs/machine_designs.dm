@@ -82,6 +82,16 @@
 	build_path = /obj/item/circuitboard/quantumpad
 	category = list ("Teleportation Machinery")
 
+/datum/design/robotic_pad
+	name = "Machine Board (Robotic Request Quantum Pad Board)"
+	desc = "The circuit board for a robotic requests quantum telepad."
+	id = "robo_quantumpad"
+	req_tech = list("programming" = 5, "bluespace" = 5, "plasmatech" = 4, "engineering" = 5)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/roboquest_pad
+	category = list ("Teleportation Machinery")
+
 /datum/design/teleport_hub
 	name = "Machine Board (Teleportation Hub)"
 	desc = "Allows for the construction of circuit boards used to build a Teleportation Hub."
