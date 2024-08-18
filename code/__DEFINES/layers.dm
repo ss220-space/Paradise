@@ -132,16 +132,16 @@
 /// Which layer turfs appear on by default in the map editor. Should be unique!
 #define MAP_EDITOR_TURF_LAYER 1.6999
 #define PLATING_LAYER 1.7
-#define LATTICE_LAYER 1.701
 #define DISPOSAL_PIPE_LAYER 1.71
 #define GAS_PIPE_HIDDEN_LAYER 1.72
-#define WIRE_LAYER 1.73
 #define WIRE_TERMINAL_LAYER 1.75
 #define ABOVE_PLATING_LAYER 1.76 // generic for /obj/hide
 #define TRAY_SCAN_LAYER_OFFSET 0.5 // place images above TURF_LAYER
 #define TRANSPARENT_PLATING_LAYER 1.98
 #define TRANSPARENT_GIRDER_LAYER 1.99 // for turf_transparency
 //#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define. Most floors (FLOOR_PLANE) and walls (WALL_PLANE) use this.
+#define LATTICE_LAYER 2	// For be visible if set on lava
+#define WIRE_LAYER 2.01	// Because lattice be upped
 #define ABOVE_TRANSPARENT_TURF_LAYER 2.01
 #define MID_TURF_LAYER 2.02
 #define HIGH_TURF_LAYER 2.03
