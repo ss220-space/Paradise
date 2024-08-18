@@ -127,6 +127,8 @@
 '2024-08-17':
   Aziz Chynaliev:
   - add: override url_encode and url_decode procs with rust-g ones
+  - bugfix: dsay for moderators
+  - bugfix: destory bubbles effect for mop via qdel instead of destroy proc
   BoshyG:
   - imageadd: Storage resprite (#5697)
   FlitchTime:
@@ -135,10 +137,18 @@
   - bugfix: improper adjacent turfs check at area creation/expanding (#5721)
   Mahimka42:
   - imageadd: new implant icons (#5718)
+  - add: new space ninja poster (#5720)
+  MstrKabach:
+  - add: New barsign (#5692)
+  NightDawnFox:
+  - bugfix: fixes some critical bugs in roboquests (#5728)
   ROdenFL:
   - add: RoboQuest (#5185)
   - refactor: prettier maptext fonts (#5724)
   - unknown: tgui say (#5605)
+  - bugfix: icons and runtime in roboquest + prettier store (#5729)
+  SHODAN:
+  - add: mopping_effect (#5309)
   Sheya:
   - add: beanies to loadout (#5719)
   Valtor:
@@ -151,3 +161,4 @@
   - add: modified medical gloves (#5693)
   pilygun:
   - add: smokebomb in Sec-vend (#5713)
+  - tweak: Delete spy_kit (#5714)

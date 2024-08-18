@@ -354,7 +354,7 @@
 	RefreshParts()
 
 /obj/machinery/teleport/hub/Initialize()
-	..()
+	. = ..()
 	link_power_station()
 	update_icon()
 

@@ -141,7 +141,7 @@
 	icon = 'icons/obj/items.dmi'
 	desc = "A polaroid camera. 10 photos left."
 	icon_state = "camera"
-	item_state = "electropack"
+	item_state = "camera"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_NECK
 	var/list/matter = list("metal" = 2000)
@@ -151,6 +151,8 @@
 	var/blueprints = 0
 	var/icon_on = "camera"
 	var/icon_off = "camera_off"
+	var/item_on = "camera"
+	var/item_off = "camera_off"
 	var/size = 3
 	var/see_ghosts = 0 //for the spoop of it
 	var/flashing_lights = TRUE
@@ -213,6 +215,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 /obj/item/camera/update_icon_state()
 	icon_state = on ? icon_on : icon_off
+	item_state = on ? item_on : item_off
 
 /obj/item/camera/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/camera_film))

@@ -67,7 +67,7 @@
 		if(do_after(user, mopspeed, T))
 			to_chat(user, "<span class='notice'>You finish mopping.</span>")
 			clean(T)
-		E.Destroy()
+		qdel(E)
 
 /obj/effect/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/mop) || istype(I, /obj/item/soap))
