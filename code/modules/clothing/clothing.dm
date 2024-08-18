@@ -324,6 +324,8 @@ BLIND     // can't see anything
 
 /obj/item/clothing/gloves/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
+	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
+		return .
 	if(surgeryspeedmod)
 		user.remove_actionspeed_modifier(/datum/actionspeed_modifier/surgical_gloves)
 	if(toolspeedmod)
