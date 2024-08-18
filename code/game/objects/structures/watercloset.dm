@@ -305,7 +305,7 @@
 
 
 /obj/machinery/shower/Initialize(mapload, newdir = SOUTH, building = FALSE)
-	..()
+	. = ..()
 	soundloop = new(list(src), FALSE)
 	if(building)
 		setDir(newdir)
