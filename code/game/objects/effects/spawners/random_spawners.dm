@@ -22,6 +22,10 @@
 		return
 	randspawn(T)
 
+/obj/effect/spawner/random_spawners/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_QDEL
+
 /obj/effect/spawner/random_spawners/proc/randspawn(turf/T)
 	var/thing_to_place = pickweight(result)
 	if(ispath(thing_to_place, /datum/nothing))
@@ -50,7 +54,6 @@
 					OM.active_power_usage = active_power_usage
 				if(idle_power_usage)
 					OM.idle_power_usage = idle_power_usage
-	qdel(src)
 
 /obj/effect/spawner/random_spawners/blood_5
 	name = "blood maybe"

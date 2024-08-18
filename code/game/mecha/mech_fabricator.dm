@@ -478,7 +478,6 @@
 /obj/machinery/mecha_part_fabricator/upgraded/New()
 	..()
 	// Upgraded components
-	QDEL_LIST(component_parts)
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/mechfab(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -500,7 +499,6 @@
 
 /obj/machinery/mecha_part_fabricator/spacepod/New()
 	..()
-	QDEL_LIST(component_parts)
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/podfab(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)

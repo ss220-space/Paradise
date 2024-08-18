@@ -11,7 +11,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 
 
 /obj/machinery/gateway/Initialize()
-	..()
+	. = ..()
 	update_icon(UPDATE_ICON_STATE)
 	update_density_from_dir()
 
@@ -178,7 +178,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 
 
 /obj/machinery/gateway/centeraway/Initialize()
-	..()
+	. = ..()
 	update_icon()
 	stationgate = locate(/obj/machinery/gateway/centerstation) in GLOB.machines
 

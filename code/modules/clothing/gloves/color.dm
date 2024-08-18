@@ -250,6 +250,14 @@
 	transfer_prints = FALSE
 	item_color = "medical"
 
+/obj/item/clothing/gloves/color/latex/modified
+	name = "modified medical gloves"
+	desc = "They are very soft and light to the touch and do not hinder movement at all."
+	icon_state = "modified"
+	item_state = "modified"
+	item_color = "modified"
+	surgeryspeedmod = -0.3
+
 /obj/item/clothing/gloves/color/white
 	name = "white gloves"
 	desc = "These look pretty fancy."

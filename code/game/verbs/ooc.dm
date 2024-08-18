@@ -4,10 +4,6 @@ GLOBAL_VAR_INIT(mentor_ooc_colour, "#00B0EB")
 GLOBAL_VAR_INIT(moderator_ooc_colour, "#184880")
 GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
-//Checks if the client already has a text input open
-/client/proc/checkTyping()
-	return (prefs.toggles & PREFTOGGLE_TYPING_ONCE && typing)
-
 /client/verb/ooc(msg = "" as text)
 	set name = "OOC"
 	set category = "OOC"
@@ -25,7 +21,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		if(!CONFIG_GET(flag/dooc_allowed) && (mob.stat == DEAD))
 			to_chat(usr, span_danger("OOC for dead mobs has been turned off."), MESSAGE_TYPE_WARNING, confidential = TRUE)
 			return
-		if(prefs.muted & MUTE_OOC)
+		if(check_mute(ckey, MUTE_OOC))
 			to_chat(src, span_danger("You cannot use OOC (muted)."), MESSAGE_TYPE_WARNING, confidential = TRUE)
 			return
 
@@ -138,7 +134,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		if(!CONFIG_GET(flag/dooc_allowed) && (mob.stat == DEAD))
 			to_chat(usr, span_danger("LOOC for dead mobs has been turned off."), MESSAGE_TYPE_WARNING, confidential = TRUE)
 			return
-		if(prefs.muted & MUTE_OOC)
+		if(check_mute(ckey, MUTE_OOC))
 			to_chat(src, span_danger("You cannot use LOOC (muted)."), MESSAGE_TYPE_WARNING, confidential = TRUE)
 			return
 
