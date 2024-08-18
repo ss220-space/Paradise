@@ -2849,6 +2849,7 @@
 		/obj/item/clothing/accessory/blue 		= 10,
 		/obj/item/clothing/accessory/red 		= 10,
 		/obj/item/clothing/accessory/black 		= 10,
+		/obj/item/clothing/accessory/waistcoat	= 5,
 
 		/obj/item/storage/backpack/satchel 	= 10,
 		/obj/item/storage/briefcase			= 5,
