@@ -31,6 +31,7 @@
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		power_multiplier += C.rating
 		zap_cooldown -= (C.rating * 20)
+	zap_cooldown = max(zap_cooldown, 10)
 	input_power_multiplier = power_multiplier
 
 /obj/machinery/power/tesla_coil/attackby(obj/item/W, mob/user, params)

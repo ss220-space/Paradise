@@ -47,13 +47,13 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 
 /obj/machinery/monkey_recycler/RefreshParts()
 	var/req_grind = 5
-	var/cubes_made = 1
+	var/cubes_made = 0
 	for(var/obj/item/stock_parts/manipulator/B in component_parts)
 		req_grind -= B.rating
 	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
-		cubes_made = M.rating
+		cubes_made += M.rating
 	cube_production = cubes_made
-	required_grind = req_grind
+	required_grind = max(req_grind, 1)
 
 /obj/machinery/monkey_recycler/attackby(obj/item/O, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", O))

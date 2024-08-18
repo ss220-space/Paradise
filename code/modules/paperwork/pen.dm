@@ -69,7 +69,7 @@
 	var/pen_color_shift = 3
 
 /obj/item/pen/multi/Initialize(mapload)
-	..()
+	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/pen/multi/proc/select_colour(mob/user)

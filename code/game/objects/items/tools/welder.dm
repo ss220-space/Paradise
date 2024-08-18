@@ -41,7 +41,7 @@
 	light_on = FALSE
 
 /obj/item/weldingtool/Initialize(mapload)
-	..()
+	. = ..()
 	create_reagents(maximum_fuel)
 	reagents.add_reagent("fuel", maximum_fuel)
 	update_icon()

@@ -25,7 +25,7 @@
 	var/intact = /obj/item/inflatable
 
 /obj/structure/inflatable/Initialize(location)
-	..()
+	. = ..()
 	air_update_turf(TRUE)
 
 /obj/structure/inflatable/Destroy()
