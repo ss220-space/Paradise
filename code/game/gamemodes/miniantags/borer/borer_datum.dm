@@ -341,6 +341,148 @@
 /datum/reagent/medicine/spaceacillin
 	borer_acquired = TRUE
 
+/datum/action/innate/borer
+	background_icon_state = "bg_alien"
+	var/mob/living/simple_animal/borer/borer
+	var/mob/living/carbon/human/host
+	
+/datum/action/innate/borer/Grant(mob/user)
+	. = ..()
+	if(ishuman(user))
+		host = user
+		borer = host.has_brain_worms()
+	if(isborer(user))
+		borer = user
+	
+/datum/action/innate/borer/Remove(mob/user)
+	. = ..()
+	borer = null
+	host = null
+	
+/datum/action/innate/borer/Destroy(force)
+	borer = null
+	host = null
+	return ..()	
+	
+/datum/action/innate/borer/talk_to_host
+	name = "Converse with Host"
+	desc = "Send a silent message to your host."
+	button_icon_state = "alien_whisper"
+
+/datum/action/innate/borer/talk_to_host/Activate()
+	borer = owner
+	borer.Communicate()
+
+/datum/action/innate/borer/toggle_hide
+	name = "Toggle Hide"
+	desc = "Become invisible to the common eye. Toggled on or off."
+	button_icon_state = "borer_hiding_false"
+
+/datum/action/innate/borer/toggle_hide/Activate()
+	borer = owner
+	borer.hide_borer()
+	button_icon_state = "borer_hiding_[borer.hiding ? "true" : "false"]"
+	UpdateButtonIcon()
+
+/datum/action/innate/borer/talk_to_borer
+	name = "Converse with Borer"
+	desc = "Communicate mentally with your borer."
+	button_icon_state = "alien_whisper"
+
+/datum/action/innate/borer/talk_to_borer/Activate()
+	borer.host = owner
+	borer.host.borer_comm()
+
+/datum/action/innate/borer/talk_to_brain
+	name = "Converse with Trapped Mind"
+	desc = "Communicate mentally with the trapped mind of your host."
+	button_icon_state = "alien_whisper"
+
+/datum/action/innate/borer/talk_to_brain/Activate()
+	borer.host = owner
+	borer.host.trapped_mind_comm()
+
+/datum/action/innate/borer/take_control
+	name = "Assume Control"
+	desc = "Fully connect to the brain of your host."
+	button_icon_state = "borer_brain"
+
+/datum/action/innate/borer/take_control/Activate()
+	borer = owner
+	borer.bond_brain()
+
+/datum/action/innate/borer/give_back_control
+	name = "Release Control"
+	desc = "Release control of your host's body."
+	button_icon_state = "borer_leave"
+
+/datum/action/innate/borer/give_back_control/Activate()
+	borer.host = owner
+	borer.host.release_control()
+
+/datum/action/innate/borer/leave_body
+	name = "Release Host"
+	desc = "Slither out of your host."
+	button_icon_state = "borer_leave"
+
+/datum/action/innate/borer/leave_body/Activate()
+	borer = owner
+	borer.release_host()
+
+/datum/action/innate/borer/make_chems
+	name = "Secrete Chemicals"
+	desc = "Push some chemicals into your host's bloodstream."
+	button_icon_state = "fleshmend"
+
+/datum/action/innate/borer/make_chems/Activate()
+	borer = owner
+	borer.secrete_chemicals()
+
+/datum/action/innate/borer/focus_menu
+	name = "Focus menu"
+	desc = "Reinforce your host."
+	button_icon_state = "human_form"
+
+/datum/action/innate/borer/focus_menu/Activate()
+	borer = owner
+	borer.focus_menu()
+
+/datum/action/innate/borer/learn_chem
+	name = "Chemical laboratory"
+	desc = "Learn new chemical from host blood."
+	button_icon_state = "heal"
+
+/datum/action/innate/borer/learn_chem/Activate()
+	borer = owner
+	borer.learn_chem()
+
+/datum/action/innate/borer/make_larvae
+	name = "Reproduce"
+	desc = "Spawn several young."
+	button_icon_state = "borer_reproduce"
+
+/datum/action/innate/borer/make_larvae/Activate()
+	borer.host = owner
+	borer.host.spawn_larvae()
+
+/datum/action/innate/borer/torment
+	name = "Torment Host"
+	desc = "Punish your host with agony."
+	button_icon_state = "blind"
+
+/datum/action/innate/borer/torment/Activate()
+	borer.host = owner
+	borer.host.punish_host()
+
+/datum/action/innate/borer/sneak_mode
+	name = "Sneak mode"
+	desc = "Hides your status from medical huds."
+	button_icon_state = "chameleon_skin"
+
+/datum/action/innate/borer/sneak_mode/Activate()
+	borer.host = owner
+	borer.host.sneak_mode()
+
 #undef REPRODUCTIONS_TO_MATURE
 #undef REPRODUCTIONS_TO_ADULT
 #undef REPRODUCTIONS_TO_ELDER
