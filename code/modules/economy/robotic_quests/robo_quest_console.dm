@@ -73,8 +73,11 @@
 
 /obj/machinery/computer/roboquest/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/card/id))
-		currentID = O
 		user.drop_item_ground(O)
+		if(currentID)
+			currentID.forceMove(loc)
+			user.put_in_any_hand_if_possible(currentID)
+		currentID = O
 		O.forceMove(src)
 		SStgui.try_update_ui(user, src)
 	if(istype(O, /obj/item/multitool))
@@ -190,6 +193,9 @@
 	)
 
 /obj/machinery/computer/roboquest/ui_act(action, list/params, datum/tgui/ui)
+	if(..())
+		return
+
 	switch(action)
 		if("RemoveID")
 			currentID.forceMove(get_turf(src))
@@ -198,7 +204,7 @@
 		if("GetTask")
 			var/list/mecha_types = list("Working Mech" = WORKING_CLASS, "Medical Mech" = MEDICAL_CLASS, "Combat Mech" = COMBAT_CLASS, "Random Mech" = RANDOM_CLASS)
 			var/mecha_type = tgui_input_list(usr, "Select event type.", "Select", mecha_types)
-			if(!mecha_type)
+			if(!mecha_type || !currentID || currentID.robo_bounty)
 				return
 			pick_mecha(mecha_types[mecha_type])
 		if("RemoveTask")

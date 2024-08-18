@@ -13,7 +13,7 @@
 	var/tag_secure = 0
 
 /obj/machinery/embedded_controller/radio/airlock/Initialize()
-	..()
+	. = ..()
 	program = new/datum/computer/file/embedded_program/airlock(src)
 
 //Airlock controller for airlock control - most airlocks on the station use this
@@ -34,7 +34,7 @@
 		tag_airpump = given_tag_airpump
 	if(given_tag_chamber_sensor)
 		tag_chamber_sensor = given_tag_chamber_sensor
-	..()
+	. = ..()
 
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
