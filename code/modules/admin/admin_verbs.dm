@@ -69,8 +69,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/openAdminTicketUI,
 	/client/proc/openMentorTicketUI,
 	/client/proc/resolveAllAdminTickets,
-	/client/proc/resolveAllMentorTickets,
-	/client/proc/view_instances
+	/client/proc/resolveAllMentorTickets
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
@@ -181,6 +180,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/toggle_npcpool_suspension,
 	/client/proc/debug_atom_init,
 	/client/proc/debugstatpanel,
+	/client/proc/view_instances
 ))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,

@@ -464,7 +464,7 @@
 	if(holder.rights & R_MENTOR)
 		if(SSredis.connected)
 			var/list/mentorcounter = staff_countup(R_MENTOR)
-			var/msg = "**[ckey]** logged in. **[mentorcounter[1]]** mentor[mentorcounter[1] == 1 ? "" : "s"] online."
+			var/msg = "**[ckey]** зашел на сервер. Менторов в сети: **[mentorcounter[1]]**."
 			var/list/data = list()
 			data["author"] = "alice"
 			data["source"] = CONFIG_GET(string/instance_id)
@@ -474,7 +474,7 @@
 	else if(holder.rights & R_BAN)
 		if(SSredis.connected)
 			var/list/admincounter = staff_countup(R_BAN)
-			var/msg = "**[ckey]** logged in. **[admincounter[1]]** admin[admincounter[1] == 1 ? "" : "s"] online."
+			var/msg = "**[ckey]** зашел на сервер. Админов в сети: **[admincounter[1]]**."
 			var/list/data = list()
 			data["author"] = "alice"
 			data["source"] = CONFIG_GET(string/instance_id)
@@ -491,7 +491,7 @@
 			var/mentor_count = mentorcounter[1]
 			if(!(holder.fakekey || is_afk()))
 				mentor_count-- // Exclude ourself
-			var/msg = "**[ckey]** logged out. **[mentor_count]** mentor[mentor_count == 1 ? "" : "s"] online."
+			var/msg = "**[ckey]** покинул сервер. Менторов в сети: **[mentor_count]**."
 			var/list/data = list()
 			data["author"] = "alice"
 			data["source"] = CONFIG_GET(string/instance_id)
@@ -504,7 +504,7 @@
 			var/admin_count = admincounter[1]
 			if(!(holder.fakekey || is_afk()))
 				admin_count-- // Exclude ourself
-			var/msg = "**[ckey]** logged out. **[admin_count]** admin[admin_count == 1 ? "" : "s"] online."
+			var/msg = "**[ckey]** покинул сервер. Админов в сети: **[admin_count]**."
 			var/list/data = list()
 			data["author"] = "alice"
 			data["source"] = CONFIG_GET(string/instance_id)

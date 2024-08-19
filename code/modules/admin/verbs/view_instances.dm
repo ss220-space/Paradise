@@ -1,9 +1,9 @@
 /client/proc/view_instances()
 	set name = "View Server Instances"
 	set desc = "View the running server instances"
-	set category = "Server"
+	set category = "Debug"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_DEBUG))
 		return
 
 	to_chat(usr, "<b>Server instances info</b>")
