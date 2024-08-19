@@ -1,34 +1,3 @@
-// There, now `stat` is a proper state-machine
-
-/mob/living/proc/KnockOut(updating = 1)
-	if(stat == DEAD)
-		log_runtime(EXCEPTION("KnockOut called on a dead mob."), src)
-		return 0
-	else if(stat == UNCONSCIOUS)
-		return 0
-	add_attack_logs(src, null, "Fallen unconscious", ATKLOG_ALL)
-	set_stat(UNCONSCIOUS)
-	if(updating)
-		update_sight()
-		update_blind_effects()
-		update_canmove()
-		set_typing_indicator(FALSE)
-	return 1
-
-/mob/living/proc/WakeUp(updating = 1)
-	if(stat == DEAD)
-		log_runtime(EXCEPTION("WakeUp called on a dead mob."), src)
-		return 0
-	else if(stat == CONSCIOUS)
-		return 0
-	add_attack_logs(src, null, "Woken up", ATKLOG_ALL)
-	set_stat(CONSCIOUS)
-	if(updating)
-		update_sight()
-		update_blind_effects()
-		update_canmove()
-	return 1
-
 /mob/living/proc/can_be_revived()
 	. = TRUE
 	// if(health <= min_health)
@@ -45,16 +14,10 @@
 		return FALSE
 	add_attack_logs(src, null, "Came back to life", ATKLOG_ALL)
 	set_stat(CONSCIOUS)
-	GLOB.dead_mob_list -= src
-	GLOB.alive_mob_list += src
 	if(mind)
 		GLOB.respawnable_list -= src
 	timeofdeath = null
 	if(updating)
-		update_canmove()
-		update_blind_effects()
-		update_blurry_effects()
-		update_sight()
 		updatehealth("update revive")
 		hud_used?.reload_fullscreen()
 

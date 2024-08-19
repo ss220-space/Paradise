@@ -10,7 +10,7 @@
 	var/datum/effect_system/reagents_explosion/e = new()
 	e.set_up(round (created_volume/10, 1), holder.my_atom, 0, 0)
 	e.start()
-	if(!istype(holder.my_atom, /mob/living/carbon))
+	if(!iscarbon(holder.my_atom))
 		holder.clear_reagents()
 
 /datum/chemical_reaction/emp_pulse
@@ -25,7 +25,7 @@
 	// 100 created volume = 4 heavy range & 7 light range. A few tiles smaller than traitor EMP grandes.
 	// 200 created volume = 8 heavy range & 14 light range. 4 tiles larger than traitor EMP grenades.
 	empulse(location, round(created_volume / 24), round(created_volume / 14), TRUE, "Chem Reaction")
-	if(!istype(holder.my_atom, /mob/living/carbon))
+	if(!iscarbon(holder.my_atom))
 		holder.clear_reagents()
 
 /datum/chemical_reaction/beesplosion
@@ -65,7 +65,7 @@
 	var/datum/effect_system/reagents_explosion/e = new()
 	e.set_up(round(created_volume/2, 1), holder.my_atom, 0, 0)
 	e.start()
-	if(!istype(holder.my_atom, /mob/living/carbon))
+	if(!iscarbon(holder.my_atom))
 		holder.clear_reagents()
 
 /datum/chemical_reaction/stabilizing_agent
@@ -105,6 +105,11 @@
 
 /datum/chemical_reaction/sorium_explosion/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
+	if(isliving(holder.my_atom))
+		var/mob/living/victim = holder.my_atom
+		victim.apply_damages(brute = created_volume, tox = created_volume, stamina = created_volume, spread_damage = TRUE)
+		to_chat(victim, span_danger("You feel like you are being torn apart!"))
+
 	if(!T)
 		return
 	goonchem_vortex(T, 0, created_volume)
@@ -380,7 +385,7 @@
 	var/turf/T = get_turf(holder.my_atom)
 	for(var/mob/living/L in view(min(8, round(created_volume * 2)), T))
 		L.Beam(T, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5) //What? Why are we beaming from the mob to the turf? Turf to mob generates really odd results.
-		L.electrocute_act(3.5, "electrical blast")
+		L.electrocute_act(3.5, "взрыва электричества")
 	holder.del_reagent("teslium") //Clear all remaining Teslium and Uranium, but leave all other reagents untouched.
 	holder.del_reagent("uranium")
 

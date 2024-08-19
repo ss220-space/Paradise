@@ -110,7 +110,7 @@
 	src.robot_heal = robot_heal
 
 
-/datum/component/aura_healing/Destroy(force, silent)
+/datum/component/aura_healing/Destroy(force)
 	STOP_PROCESSING(SSaura_healing, src)
 	var/alert_category = "aura_healing_[\ref(src)]"
 
@@ -140,7 +140,7 @@
 		remove_alerts_from -= candidate
 
 		if(!(candidate in current_alerts))
-			var/obj/screen/alert/aura_healing/alert = candidate.throw_alert(alert_category, /obj/screen/alert/aura_healing, new_master = parent)
+			var/atom/movable/screen/alert/aura_healing/alert = candidate.throw_alert(alert_category, /atom/movable/screen/alert/aura_healing, new_master = parent)
 			alert.desc = "You are being healed by [parent]."
 			current_alerts += candidate
 
@@ -153,8 +153,8 @@
 		if(iscarbon(candidate)) //another if, because porotic parts
 			if(ishuman(candidate)) //humans, tajarans...
 				var/mob/living/carbon/human/healing = candidate
-				healing.adjustBruteLoss(-brute_heal * seconds_per_tick, updating_health = FALSE, robotic = robot_heal)
-				healing.adjustFireLoss(-burn_heal * seconds_per_tick, updating_health = FALSE, robotic = robot_heal)
+				healing.adjustBruteLoss(-brute_heal * seconds_per_tick, updating_health = FALSE, affect_robotic = robot_heal)
+				healing.adjustFireLoss(-burn_heal * seconds_per_tick, updating_health = FALSE, affect_robotic = robot_heal)
 			else
 				candidate.adjustBruteLoss(-brute_heal * seconds_per_tick, updating_health = FALSE) //aliens, brains...
 				candidate.adjustFireLoss(-burn_heal * seconds_per_tick, updating_health = FALSE)
@@ -174,7 +174,7 @@
 			var/mob/living/simple_animal/animal_candidate = candidate
 			animal_candidate.adjustHealth(-simple_heal * seconds_per_tick, updating_health = FALSE)
 
-		if(candidate.blood_volume < BLOOD_VOLUME_NORMAL)
+		if(candidate.blood_volume < BLOOD_VOLUME_NORMAL && !isdiona(candidate))
 			candidate.blood_volume += blood_heal * seconds_per_tick
 
 		var/external_organ_heal_done = FALSE
@@ -239,7 +239,7 @@
 		current_alerts -= remove_alert_from
 
 
-/obj/screen/alert/aura_healing
+/atom/movable/screen/alert/aura_healing
 	name = "Aura Healing"
 	icon_state = "template"
 

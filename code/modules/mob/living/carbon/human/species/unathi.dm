@@ -14,8 +14,7 @@
 	brute_mod = 0.9
 	heatmod = 0.8
 	coldmod = 1.2
-	hunger_drain = 0.16
-	var/tail_strength = 1
+	hunger_drain_mod = 1.6
 
 	blurb = "A heavily reptillian species, Unathi (or 'Sinta as they call themselves) hail from the \
 	Uuosa-Eso system, which roughly translates to 'burning mother'.<br/><br/>Coming from a harsh, radioactive \
@@ -96,6 +95,7 @@
 /datum/species/unathi/ashwalker
 	name = SPECIES_ASHWALKER_BASIC
 	name_plural = "Ash Walkers"
+	inherent_factions = list("ashwalker")
 
 	blurb = "Пеплоходцы — рептильные гуманоиды, по-видимому, родственные унати. Но кажутся значительно менее развитыми. \
 	Они бродят по пустошам Лаваленда, поклоняются мёртвому городу и ловят ничего не подозревающих шахтёров."
@@ -118,13 +118,15 @@
 	)
 
 /datum/species/unathi/ashwalker/on_species_gain(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	var/datum/action/innate/ignite_unathi/fire = locate() in H.actions
 	if(!fire)
 		fire = new
 		fire.Grant(H)
 	RegisterSignal(H, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(speedylegs))
 	speedylegs(H)
+	ADD_TRAIT(H,TRAIT_HEALS_FROM_ASH_TENDRIL, SPECIES_TRAIT)
+
 
 /datum/species/unathi/ashwalker/on_species_loss(mob/living/carbon/human/H)
 	..()
@@ -132,17 +134,16 @@
 	if(fire)
 		fire.Remove(H)
 	UnregisterSignal(H, COMSIG_MOVABLE_Z_CHANGED)
-	speedylegs(H)
+	REMOVE_TRAIT(H, TRAIT_HEALS_FROM_ASH_TENDRIL, SPECIES_TRAIT)
 
 
 /datum/species/unathi/ashwalker/proc/speedylegs(mob/living/carbon/human/H)
 	SIGNAL_HANDLER
 
 	if(is_mining_level(H.z))
-		speed_mod = initial(speed_mod)
+		H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = speed_mod)
 	else
-		speed_mod = 0
-	H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = speed_mod)
+		H.remove_movespeed_modifier(/datum/movespeed_modifier/species_speedmod)
 
 
 //Ash walker shaman, worse defensive stats, but better at surgery and have a healing touch ability
@@ -155,61 +156,64 @@
 	punchdamagelow = 4
 	punchdamagehigh = 7
 	punchstunthreshold = 7 //still can stun people pretty often
-	toolspeedmod = 0.9 //they're smart and efficient unlike other lizards
+	toolspeedmod = -0.1 //they're smart and efficient unlike other lizards
+	surgeryspeedmod = -0.1	//shaman is slightly better at surgeries
 	var/obj/effect/proc_holder/spell/touch/healtouch/goodtouch
 
-//gives the heal spell
-/datum/species/unathi/ashwalker/shaman/on_species_gain(mob/living/carbon/C, datum/species/old_species)
-	..()
+
+/datum/species/unathi/ashwalker/shaman/on_species_gain(mob/living/carbon/human/owner)
+	. = ..()
 	goodtouch = new /obj/effect/proc_holder/spell/touch/healtouch
-	C.AddSpell(goodtouch)
-	var/datum/action/innate/anvil_finder/finder = locate() in C.actions
+	owner.AddSpell(goodtouch)
+	var/datum/action/innate/anvil_finder/finder = locate() in owner.actions
 	if(!finder)
 		finder = new
-		finder.Grant(C)
-	var/datum/action/innate/ignite_unathi/fire = locate() in C.actions
+		finder.Grant(owner)
+	var/datum/action/innate/ignite_unathi/fire = locate() in owner.actions
 	if(!fire)
 		fire = new
-		fire.Grant(C)
+		fire.Grant(owner)
 
-//removes the heal spell
-/datum/species/unathi/ashwalker/shaman/on_species_loss(mob/living/carbon/C)
+
+/datum/species/unathi/ashwalker/shaman/on_species_loss(mob/living/carbon/human/owner)
 	. = ..()
 	if(goodtouch)
-		C.RemoveSpell(goodtouch)
-	var/datum/action/innate/anvil_finder/finder = locate() in C.actions
+		owner.RemoveSpell(goodtouch)
+	var/datum/action/innate/anvil_finder/finder = locate() in owner.actions
 	if(finder)
-		finder.Remove(C)
-	var/datum/action/innate/ignite_unathi/fire = locate() in C.actions
+		finder.Remove(owner)
+	var/datum/action/innate/ignite_unathi/fire = locate() in owner.actions
 	if(fire)
-		fire.Remove(C)
+		fire.Remove(owner)
+
 
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
-	..()
-	H.verbs |= /mob/living/carbon/human/proc/emote_wag
-	H.verbs |= /mob/living/carbon/human/proc/emote_swag
-	H.verbs |= /mob/living/carbon/human/proc/emote_hiss_unathi
-	H.verbs |= /mob/living/carbon/human/proc/emote_roar
-	H.verbs |= /mob/living/carbon/human/proc/emote_threat
-	H.verbs |= /mob/living/carbon/human/proc/emote_whip
-	H.verbs |= /mob/living/carbon/human/proc/emote_whip_l
-	H.verbs |= /mob/living/carbon/human/proc/emote_rumble
+	. = ..()
+	add_verb(H, list(
+		/mob/living/carbon/human/proc/emote_wag,
+		/mob/living/carbon/human/proc/emote_swag,
+		/mob/living/carbon/human/proc/emote_hiss_unathi,
+		/mob/living/carbon/human/proc/emote_roar,
+		/mob/living/carbon/human/proc/emote_threat,
+		/mob/living/carbon/human/proc/emote_whip,
+		/mob/living/carbon/human/proc/emote_whip_l,
+		/mob/living/carbon/human/proc/emote_rumble))
 	var/datum/action/innate/tail_cut/lash = locate() in H.actions
 	if(!lash)
 		lash = new
 		lash.Grant(H)
 
 /datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
-	..()
-	H.verbs -= /mob/living/carbon/human/proc/emote_wag
-	H.verbs -= /mob/living/carbon/human/proc/emote_swag
-	H.verbs -= /mob/living/carbon/human/proc/emote_hiss_unathi
-	H.verbs -= /mob/living/carbon/human/proc/emote_roar
-	H.verbs -= /mob/living/carbon/human/proc/emote_threat
-	H.verbs -= /mob/living/carbon/human/proc/emote_whip
-	H.verbs -= /mob/living/carbon/human/proc/emote_whip_l
-	H.verbs -= /mob/living/carbon/human/proc/emote_rumble
-
+	. = ..()
+	remove_verb(H, list(
+		/mob/living/carbon/human/proc/emote_wag,
+		/mob/living/carbon/human/proc/emote_swag,
+		/mob/living/carbon/human/proc/emote_hiss_unathi,
+		/mob/living/carbon/human/proc/emote_roar,
+		/mob/living/carbon/human/proc/emote_threat,
+		/mob/living/carbon/human/proc/emote_whip,
+		/mob/living/carbon/human/proc/emote_whip_l,
+		/mob/living/carbon/human/proc/emote_rumble))
 	var/datum/action/innate/tail_cut/lash = locate() in H.actions
 	if(lash)
 		lash.Remove(H)
@@ -252,7 +256,7 @@ They're basically just lizards with all-around marginally better stats and fire 
 	punchdamagehigh = 18
 	punchstunthreshold = 18	//+8 claws of powergaming
 	species_traits = list(LIPS, PIERCEIMMUNE, RESISTHOT) //Dragons like fire
-	no_equip = list(SLOT_HUD_SHOES) //everyone have to pay for
+	no_equip = list(ITEM_SLOT_FEET) //everyone have to pay for
 	speed_mod = -0.25			//beeing slightly faster
 	has_organ = list(
 		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/unathi,
@@ -265,32 +269,29 @@ They're basically just lizards with all-around marginally better stats and fire 
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	) //no need to b-r-e-a-t-h
 
-/datum/species/unathi/draconid/on_species_gain(mob/living/carbon/human/C, datum/species/old_species)
+/datum/species/unathi/draconid/on_species_gain(mob/living/carbon/human/owner)
 	. = ..()
-	var/obj/shoes = C.get_item_by_slot(SLOT_HUD_SHOES)
-	if(shoes && C.can_unEquip(shoes))
-		C.drop_item_ground(shoes)
-	var/obj/item/organ/external/head/head_organ = C.get_organ(BODY_ZONE_HEAD)
+	var/obj/item/organ/external/head/head_organ = owner.get_organ(BODY_ZONE_HEAD)
 	head_organ?.ha_style = "Drake"
-	C.change_eye_color("#A02720")
-	C.update_dna()
-	C.update_inv_head()
-	C.update_inv_wear_suit() //update sprites for digi legs
-	C.weather_immunities |= "ash"
-	var/datum/action/innate/ignite_unathi/fire = locate() in C.actions
+	owner.change_eye_color("#A02720")
+	owner.update_dna()
+	owner.update_inv_head()
+	owner.update_inv_wear_suit() //update sprites for digi legs
+	ADD_TRAIT(owner, TRAIT_ASHSTORM_IMMUNE, name)
+	var/datum/action/innate/ignite_unathi/fire = locate() in owner.actions
 	if(!fire)
 		fire = new
-		fire.Remove(C)
+		fire.Grant(owner)
 
 
-/datum/species/unathi/draconid/on_species_loss(mob/living/carbon/C)
+/datum/species/unathi/draconid/on_species_loss(mob/living/carbon/owner)
 	. = ..()
-	C.update_inv_head()
-	C.update_inv_wear_suit()
-	C.weather_immunities -= "ash"
-	var/datum/action/innate/ignite_unathi/fire = locate() in C.actions
-	if(fire)
-		fire.Grant(C)
+	owner.update_inv_head()
+	owner.update_inv_wear_suit()
+	REMOVE_TRAIT(owner, TRAIT_ASHSTORM_IMMUNE, name)
+	var/datum/action/innate/ignite_unathi/fire = locate() in owner.actions
+	fire?.Remove(owner)
+
 
 //igniter. only for ashwalkers and drakonids because of """lore"""
 /datum/action/innate/ignite_unathi
@@ -300,7 +301,7 @@ They're basically just lizards with all-around marginally better stats and fire 
 	button_icon_state = "match_unathi"
 	var/cooldown = 0
 	var/cooldown_duration = 40 SECONDS
-	check_flags = AB_CHECK_HANDS_BLOCKED
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED
 
 /datum/action/innate/ignite_unathi/Activate()
 	var/mob/living/carbon/human/user = owner

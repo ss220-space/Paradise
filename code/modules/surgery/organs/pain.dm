@@ -1,21 +1,26 @@
 #define MIN_SHOCK_REDUCTION 50 //The minimum amount of shock reduction in reagents for absence of pain
 
-/mob/living/carbon/human
+/mob/living/carbon
 	var/last_pain_message = ""
 	var/next_pain_time = 0
 
 
+/**
+ * Whether or not a mob can feel pain.
+ *
+ * Returns TRUE if the mob can feel pain, FALSE otherwise
+ */
 /mob/proc/has_pain()
 	if(stat)
 		return FALSE
 	return TRUE
 
 
-/mob/living/carbon/human/has_pain()
+/mob/living/carbon/has_pain()
 	. = ..()
 	if(!.)
 		return FALSE
-	if(NO_PAIN in dna.species.species_traits)
+	if(dna?.species && (NO_PAIN in dna.species.species_traits))
 		return FALSE
 	if(shock_reduction() >= MIN_SHOCK_REDUCTION)
 		return FALSE
@@ -23,7 +28,7 @@
 
 // partname is the name of a body part
 // amount is a num from 1 to 100
-/mob/living/carbon/human/proc/pain(partname, amount)
+/mob/living/carbon/proc/pain(partname, amount)
 	if(reagents.has_reagent("sal_acid"))
 		return
 	if(!has_pain())
@@ -45,11 +50,11 @@
 
 
 // message is the custom message to be displayed
-/mob/living/carbon/human/proc/custom_pain(message)
+/mob/living/carbon/proc/custom_pain(message)
 	if(!has_pain())
 		return
 
-	var/msg = "<span class='userdanger'>[message]</span>"
+	var/msg = span_userdanger("[message]")
 
 	// Anti message spam checks
 	if(msg && ((msg != last_pain_message) || (world.time >= next_pain_time)))

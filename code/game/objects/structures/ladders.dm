@@ -79,7 +79,7 @@
 /obj/structure/ladder/proc/travel(going_up, mob/user, is_ghost, obj/structure/ladder/ladder)
 	if(!is_ghost)
 		ladder.add_fingerprint(user)
-		if(!do_after(user, travel_time, target = src))
+		if(!do_after(user, travel_time, src))
 			return
 		show_fluff_message(going_up, user)
 

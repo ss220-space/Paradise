@@ -3,12 +3,15 @@
 	desc = "The part of the gun that makes the laser go pew"
 	caliber = "energy"
 	projectile_type = /obj/item/projectile/energy
-	var/e_cost = 100 //The amount of energy a cell needs to expend to create this shot.
-	var/select_name = "energy"
-	var/alt_select_name = null
 	fire_sound = 'sound/weapons/gunshots/1laser10.ogg'
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
-	leaves_residue = 0
+	leaves_residue = FALSE
+	/// The amount of energy a cell needs to expend to create this shot.
+	var/e_cost = 100
+	/// Identifier for the firemode, mostly used in icon updates.
+	var/select_name = "energy"
+	/// Fluff fire mode name showed to the user.
+	var/fluff_select_name
 
 /obj/item/ammo_casing/energy/laser
 	projectile_type = /obj/item/projectile/beam/laser
@@ -130,7 +133,7 @@
 /obj/item/ammo_casing/energy/ion
 	projectile_type = /obj/item/projectile/ion
 	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
-	delay = 20
+	delay = 0.4 SECONDS
 	select_name = "ion"
 	fire_sound = 'sound/weapons/ionrifle.ogg'
 
@@ -335,6 +338,20 @@
 	fire_sound = 'sound/weapons/gunshots/1plasma.ogg'
 	select_name = "plasma dart"
 
+/obj/item/ammo_casing/energy/weak_plasma
+	projectile_type = /obj/item/projectile/energy/weak_plasma
+	e_cost = 60 // With no charging, 500 damage from 25 shots.
+	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
+	fire_sound = 'sound/weapons/gunshots/1plasma.ogg'
+	select_name = null //If the select name is null, it does not send a message of switching modes to the user, important on the pistol.
+
+/obj/item/ammo_casing/energy/charged_plasma
+	projectile_type = /obj/item/projectile/energy/charged_plasma
+	e_cost = 0 //Charge is used when you charge the gun. Prevents issues.
+	muzzle_flash_color = LIGHT_COLOR_FADEDPURPLE
+	fire_sound = 'sound/weapons/marauder.ogg' //Should be different enough to get attention
+	select_name = null
+
 /obj/item/ammo_casing/energy/clown
 	projectile_type = /obj/item/projectile/clown
 	muzzle_flash_effect = null
@@ -390,8 +407,8 @@
 /obj/item/ammo_casing/energy/dominator/stun
 	projectile_type = /obj/item/projectile/energy/electrode/dominator
 	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
-	select_name = "stun"
-	alt_select_name = "taser"
+	select_name = "taser"
+	fluff_select_name = "stun"
 	fire_sound = 'sound/weapons/gunshots/1taser.ogg'
 	e_cost = 250
 	delay = 15
@@ -400,8 +417,8 @@
 /obj/item/ammo_casing/energy/dominator/paralyzer
 	projectile_type = /obj/item/projectile/beam/dominator/paralyzer
 	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
-	select_name  = "non-lethal paralyzer"
-	alt_select_name = "disable"
+	select_name = "disable"
+	fluff_select_name  = "non-lethal paralyzer"
 	fire_sound = 'sound/weapons/plasma_cutter.ogg'
 	e_cost = 100
 	harmful = FALSE
@@ -409,16 +426,16 @@
 /obj/item/ammo_casing/energy/dominator/eliminator
 	projectile_type = /obj/item/projectile/beam/dominator/eliminator
 	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
-	select_name = "lethal-eliminator"
-	alt_select_name = "lethal"
+	select_name = "lethal"
+	fluff_select_name = "lethal-eliminator"
 	fire_sound = 'sound/weapons/gunshots/1laser10.ogg'
 	e_cost = 200
 
 /obj/item/ammo_casing/energy/dominator/slaughter
 	projectile_type = /obj/item/projectile/beam/dominator/slaughter
 	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
-	select_name  = "execution-slaughter"
-	alt_select_name = "destroy"
+	select_name = "destroy"
+	fluff_select_name  = "execution-slaughter"
 	fire_sound = 'sound/weapons/marauder.ogg'
 	e_cost = 250
 	delay = 30
@@ -430,6 +447,7 @@
 	delay = 25
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	select_name  = "emitter"
+
 /obj/item/ammo_casing/energy/emittergunborg
 	projectile_type = /obj/item/projectile/beam/emitter
 	fire_sound = 'sound/weapons/emitter.ogg'

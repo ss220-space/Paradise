@@ -7,7 +7,7 @@
 	icon_state = "telecrystal"
 	w_class = WEIGHT_CLASS_TINY
 	max_amount = 250
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	origin_tech = "materials=6"
 
 /obj/item/stack/telecrystal/attack(mob/target, mob/user)

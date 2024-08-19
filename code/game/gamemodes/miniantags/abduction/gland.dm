@@ -113,10 +113,11 @@
 
 /obj/item/organ/internal/heart/gland/heals/activate()
 	to_chat(owner, "<span class='notice'>You feel curiously revitalized.</span>")
-	owner.adjustToxLoss(-20)
-	owner.adjustBruteLoss(-20)
-	owner.adjustOxyLoss(-20)
-	owner.adjustFireLoss(-20)
+	var/update = NONE
+	update |= owner.heal_overall_damage(20, 20, updating_health = FALSE)
+	update |= owner.heal_damages(tox = 20, oxy = 20, updating_health = FALSE)
+	if(update)
+		owner.updatehealth()
 
 /obj/item/organ/internal/heart/gland/slime
 	cooldown_low = 600
@@ -162,7 +163,7 @@
 			if(2)
 				to_chat(H, "<span class='warning'>You hear an annoying buzz in your head.</span>")
 				H.AdjustConfused(30 SECONDS)
-				H.adjustBrainLoss(rand(5, 15))
+				H.apply_damage(rand(5, 15), BRAIN)
 			if(3)
 				H.AdjustHallucinate(60 SECONDS)
 
@@ -204,9 +205,10 @@
 	mind_control_uses = 4
 	mind_control_duration = 1800
 
+
 /obj/item/organ/internal/heart/gland/ventcrawling/activate()
 	to_chat(owner, "<span class='notice'>You feel very stretchy.</span>")
-	owner.ventcrawler = 2
+	ADD_TRAIT(owner, TRAIT_VENTCRAWLER_ALWAYS, type)
 
 
 /obj/item/organ/internal/heart/gland/viral
@@ -278,14 +280,12 @@
 	. = ..()
 	if(ishuman(owner))
 		owner.gene_stability += GENE_INSTABILITY_MODERATE // give them this gene for free
-		owner.dna.SetSEState(GLOB.shockimmunityblock, TRUE)
-		genemutcheck(owner, GLOB.shockimmunityblock,  null, MUTCHK_FORCED)
+		owner.force_gene_block(GLOB.shockimmunityblock, TRUE)
 
 /obj/item/organ/internal/heart/gland/electric/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	if(ishuman(owner))
 		owner.gene_stability -= GENE_INSTABILITY_MODERATE // but return it to normal once it's removed
-		owner.dna.SetSEState(GLOB.shockimmunityblock, FALSE)
-		genemutcheck(owner, GLOB.shockimmunityblock,  null, MUTCHK_FORCED)
+		owner.force_gene_block(GLOB.shockimmunityblock, FALSE)
 	return ..()
 
 /obj/item/organ/internal/heart/gland/electric/activate()

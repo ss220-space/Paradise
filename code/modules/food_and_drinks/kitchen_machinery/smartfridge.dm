@@ -88,8 +88,9 @@
 	))
 
 /obj/machinery/smartfridge/RefreshParts()
+	max_n_of_items = 0
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		max_n_of_items = 1500 * B.rating
+		max_n_of_items += 1500 * B.rating
 
 /obj/machinery/smartfridge/Destroy()
 	SStgui.close_uis(wires)
@@ -146,7 +147,7 @@
 	if(icon_addon)
 		. += "[icon_addon]"
 	if(icon_lightmask && light)
-		underlays += emissive_appearance(icon, "[icon_lightmask]_lightmask")
+		underlays += emissive_appearance(icon, "[icon_lightmask]_lightmask", src)
 
 
 /obj/machinery/smartfridge/proc/update_fridge_contents()
@@ -239,8 +240,10 @@
 
 //Drag pill bottle to fridge to empty it into the fridge
 /obj/machinery/smartfridge/MouseDrop_T(obj/over_object, mob/user, params)
+	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return TRUE
 	if(!istype(over_object, /obj/item/storage/pill_bottle)) //Only pill bottles, please
-		return
+		return TRUE
 	if(stat & (BROKEN|NOPOWER))
 		to_chat(user, "<span class='notice'>\The [src] is unpowered and useless.</span>")
 		return TRUE
@@ -264,12 +267,12 @@
 		to_chat(user, "<span class='notice'>[failed] item\s [failed == 1 ? "is" : "are"] refused.</span>")
 	return TRUE
 
-/obj/machinery/smartfridge/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/smartfridge/ui_interact(mob/user, datum/tgui/ui = null)
 	user.set_machine(src)
 
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Smartfridge", name, 500, 500)
+		ui = new(user, src, "Smartfridge", name)
 		ui.open()
 
 /obj/machinery/smartfridge/ui_data(mob/user)
@@ -354,7 +357,7 @@
 			to_chat(user, "<span class='notice'>\The [src] is full.</span>")
 			return FALSE
 		else
-			if(istype(I.loc, /obj/item/storage))
+			if(isstorage(I.loc))
 				var/obj/item/storage/S = I.loc
 				if(user)
 					S.remove_from_storage(I, user.drop_location())
@@ -478,10 +481,10 @@
 
 	if(stat & BROKEN)
 		. += "[base_icon_state]_broken"
-		underlays += emissive_appearance(icon, "[base_icon_state]_broken_lightmask")
+		underlays += emissive_appearance(icon, "[base_icon_state]_broken_lightmask", src)
 	else
 		. += base_icon_state
-		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask")
+		underlays += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
 
 
 /**
@@ -660,7 +663,7 @@
 		return
 	. += "[base_icon_state]"
 	if(icon_lightmask && light)
-		underlays += emissive_appearance(icon, "[icon_lightmask]_lightmask")
+		underlays += emissive_appearance(icon, "[icon_lightmask]_lightmask", src)
 
 
 /**

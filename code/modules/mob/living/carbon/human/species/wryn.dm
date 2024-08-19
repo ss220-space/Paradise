@@ -4,7 +4,6 @@
 	icobase = 'icons/mob/human_races/r_wryn.dmi'
 	deform = 'icons/mob/human_races/r_wryn.dmi'
 	blacklisted = TRUE
-	language = LANGUAGE_WRYN
 	tail = "wryntail"
 	punchdamagelow = 0
 	punchdamagehigh = 1
@@ -54,7 +53,7 @@
 		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/wryn),
 	)
 
-	species_traits = list(LIPS, IS_WHITELISTED, NO_BREATHE, NO_SCAN, HIVEMIND)
+	species_traits = list(LIPS, NO_BREATHE, NO_SCAN, HIVEMIND, HAVE_REGENERATION)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR
 
@@ -81,6 +80,17 @@
 	if(wryn_sting)
 		wryn_sting.Remove(H)
 
+/datum/species/wryn/after_equip_job(datum/job/J, mob/living/carbon/human/H)
+	var/comb_deafness = H.client.prefs.speciesprefs
+	if(comb_deafness)
+		var/obj/item/organ/internal/wryn/hivenode/node = H.get_int_organ(/obj/item/organ/internal/wryn/hivenode)
+		node.remove(H)
+		qdel(node)
+	else
+		var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
+		head_organ.h_style = "Antennae"
+		H.update_hair()
+
 /* Wryn Sting Action Begin */
 
 //Define the Sting Action
@@ -96,7 +106,7 @@
 	if(!..())
 		return
 	var/mob/living/carbon/user = owner
-	if((user.restrained() && user.pulledby) || user.buckled) //Is your Wryn restrained, pulled, or buckled? No stinging!
+	if((HAS_TRAIT(user, TRAIT_RESTRAINED) && user.pulledby) || user.buckled) //Is your Wryn restrained, pulled, or buckled? No stinging!
 		to_chat(user, "<span class='notice'>Вам нужна свобода передвижения, чтобы ужалить кого-то!</span>")
 		return
 	if(user.wear_suit)	//Is your Wryn wearing a Hardsuit or a Laboat that's blocking their Stinger?
@@ -156,7 +166,7 @@
 		target.apply_damage(dam, BRUTE, organ)
 		playsound(user.loc, 'sound/weapons/bladeslice.ogg', 50, 0)
 		add_attack_logs(user, target, "Stung by Wryn Stinger - [dam] Brute damage to [organ].")
-		if(target.restrained())			//Apply tiny BURN damage if target is restrained
+		if(HAS_TRAIT(target, TRAIT_RESTRAINED))			//Apply tiny BURN damage if target is restrained
 			if(prob(50))
 				user.apply_damage(2, BURN, target)
 				to_chat(target, "<span class='danger'>Вы ощущаете небольшое жжение! Ауч!</span>")
@@ -167,6 +177,9 @@
 /* Wryn Sting Action End */
 
 /datum/species/wryn/handle_death(gibbed, mob/living/carbon/human/H)
+	if(!(H.get_int_organ(/obj/item/organ/internal/wryn/hivenode)))
+		return
+
 	for(var/mob/living/carbon/C in GLOB.alive_mob_list)
 		if(C.get_int_organ(/obj/item/organ/internal/wryn/hivenode))
 			to_chat(C, "<span class='danger'><B>Ваши усики дрожат, когда вас одолевает боль...</B></span>")
@@ -179,16 +192,12 @@
 			if("Да")
 				user.visible_message("<span class='notice'>[user] начина[pluralize_ru(user.gender,"ет","ют")] яростно отрывать усики [target].</span>")
 				to_chat(target, "<span class='danger'><B>[user] схватил[genderize_ru(user.gender,"","а","о","и")] ваши усики и яростно тян[pluralize_ru(user.gender,"ет","ут")] их!<B></span>")
-				if(do_mob(user, target, 250))
-					target.remove_language(LANGUAGE_WRYN)
+				if(do_after(user, 25 SECONDS, target, NONE))
 					node.remove(target)
 					node.forceMove(get_turf(target))
 					to_chat(user, "<span class='notice'>Вы слышите громкий хруст, когда безжалостно отрываете усики [target].</span>")
 					to_chat(target, "<span class='danger'>Вы слышите невыносимый хруст, когда [user] вырыва[pluralize_ru(user.gender,"ет","ют")] усики из вашей головы.</span>")
 					to_chat(target, "<span class='danger'><B>Стало так тихо...</B></span>")
-					var/obj/item/organ/external/head/head_organ = target.get_organ(BODY_ZONE_HEAD)
-					head_organ.h_style = "Bald"
-					target.update_hair()
 
 					add_attack_logs(user, target, "Antennae removed")
 				return 0

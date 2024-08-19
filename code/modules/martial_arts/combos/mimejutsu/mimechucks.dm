@@ -4,7 +4,7 @@
 	explaination_text = "Hits the opponent with invisible nunchucks."
 
 /datum/martial_combo/mimejutsu/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	if(!target.stat && !target.IsStunned() && !target.IsWeakened())
+	if(!target.stat && !HAS_TRAIT(target, TRAIT_INCAPACITATED))
 		var/damage = 60
 
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))

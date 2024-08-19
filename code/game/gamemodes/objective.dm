@@ -50,7 +50,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		team = team_to_join
 
 
-/datum/objective/Destroy(force, ...)
+/datum/objective/Destroy(force)
 	for(var/datum/mind/user in get_owners())
 		user.remove_objective(src)
 	GLOB.all_objectives -= src
@@ -330,14 +330,15 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 
 /datum/objective/debrain/find_target(list/target_blacklist)
-	..()
-	if(target?.current)
-		explanation_text = "Steal the brain of [target.current.real_name] the [target.assigned_role]."
-		if(!(target in SSticker.mode.victims))
-			SSticker.mode.victims.Add(target)
-	else
-		explanation_text = "Free Objective"
-	return target
+    ..()
+    if(target?.current)
+        var/obj/item/organ/internal/brains = target.current.get_organ_slot(INTERNAL_ORGAN_BRAIN)
+        explanation_text = "Steal the [brains.name] of [target.current.real_name], the [target.assigned_role]."
+        if(!(target in SSticker.mode.victims))
+            SSticker.mode.victims.Add(target)
+    else
+        explanation_text = "Free Objective"
+    return target
 
 
 /datum/objective/debrain/check_completion()
@@ -677,7 +678,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	RegisterSignal(special_objective, COMSIG_OBJECTIVE_CHECK_VALID_TARGET, PROC_REF(special_objective_checking_target))
 
 
-/datum/objective/escape/escape_with_identity/Destroy(force, ...)
+/datum/objective/escape/escape_with_identity/Destroy(force)
 	special_objective = null
 	return ..()
 
@@ -891,11 +892,11 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/steal/proc/give_kit(obj/item/item_path)
 	var/item = new item_path
 	var/list/slots = list(
-		"backpack" = SLOT_HUD_IN_BACKPACK,
-		"left pocket" = SLOT_HUD_LEFT_STORE,
-		"right pocket" = SLOT_HUD_RIGHT_STORE,
-		"left hand" = SLOT_HUD_LEFT_HAND,
-		"right hand" = SLOT_HUD_RIGHT_HAND,
+		"backpack" = ITEM_SLOT_BACKPACK,
+		"left pocket" = ITEM_SLOT_POCKET_LEFT,
+		"right pocket" = ITEM_SLOT_POCKET_RIGHT,
+		"left hand" = ITEM_SLOT_HAND_LEFT,
+		"right hand" = ITEM_SLOT_HAND_RIGHT,
 	)
 
 	for(var/datum/mind/player in get_owners())
@@ -1449,7 +1450,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	var/mob/ninja = owner.current
 	var/obj/item/grenade/plastic/c4/ninja/bomb_item = new(ninja)
 	bomb_item.detonation_objective = src
-	ninja.equip_or_collect(bomb_item, SLOT_HUD_LEFT_STORE)
+	ninja.equip_or_collect(bomb_item, ITEM_SLOT_POCKET_LEFT)
 
 
 /datum/objective/get_money
@@ -1733,3 +1734,24 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	Подойдёт только консоль в этой зоне из-за уязвимости оставленной заранее для вируса. \
 	Учтите, что установка займёт время и ИИ скорее всего будет уведомлён о вашей попытке взлома!"
 
+
+/datum/objective/blob_critical_mass
+	needs_target = FALSE
+	//Total blob tiles count
+	var/critical_mass = -2
+	//Needed blob tiles count
+	var/needed_critical_mass = -1
+
+
+/datum/objective/blob_critical_mass/check_completion()
+	if(!completed)
+		completed = needed_critical_mass <= critical_mass && GLOB.security_level < SEC_LEVEL_DELTA
+	return ..()
+
+
+/datum/objective/blob_critical_mass/proc/set_target()
+	explanation_text = "Наберите критическую массу, распостраняясь по станции. Текущаяя масса [critical_mass]. Необходимо набрать [needed_critical_mass]. Масса может изменяться в зависимости от количества блобов."
+
+/datum/objective/blob_find_place_to_burst
+	needs_target = FALSE
+	explanation_text = "Найдите укромное место на станции, в котором вас не смогут найти после вылупления до тех пор, пока вы не наберетесь сил."

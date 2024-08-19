@@ -60,7 +60,7 @@
 	else if(istype(result, /obj/structure/window))
 		var/obj/structure/window/W = result
 		W.ini_dir = W.dir
-		W.anchored = FALSE
+		W.set_anchored(FALSE)
 		W.state = WINDOW_OUT_OF_FRAME
 
 /*

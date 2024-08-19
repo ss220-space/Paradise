@@ -16,8 +16,8 @@
 	icon = 'icons/obj/library.dmi'
 	icon_state = "book-0"
 	anchored = TRUE
-	density = 1
-	opacity = 1
+	density = TRUE
+	opacity = TRUE
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0)
@@ -31,7 +31,7 @@
 
 
 /obj/structure/bookcase/Initialize()
-	..()
+	. = ..()
 	for(var/obj/item/I in loc)
 		if(is_type_in_list(I, allowed_books))
 			I.forceMove(src)
@@ -63,7 +63,7 @@
 
 
 /obj/structure/bookcase/screwdriver_act(mob/user, obj/item/I)
-	if(flags & NODECONSTRUCT)
+	if(obj_flags & NODECONSTRUCT)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -214,30 +214,30 @@
 		else
 			to_chat(user, "<span class='notice'>There's already something in [title]!</span>")
 			return 1
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		if(unique)
 			to_chat(user, "These pages don't seem to take the ink well. Looks like you can't modify it.")
 			return 1
 		var/choice = tgui_input_list(user, "What would you like to change?", "Book Edit", list("Title", "Contents", "Author", "Cancel"))
 		switch(choice)
 			if("Title")
-				var/newtitle = reject_bad_text(stripped_input(usr, "Write a new title:"))
-				if(!newtitle)
+				var/newtitle = reject_bad_text(tgui_input_text(user, "Write a new title:", "Title", title))
+				if(isnull(newtitle))
 					to_chat(usr, "The title is invalid.")
 					return 1
 				else
 					src.name = newtitle
 					src.title = newtitle
 			if("Contents")
-				var/content = strip_html(input(usr, "Write your book's contents (HTML NOT allowed):") as message|null, MAX_BOOK_MESSAGE_LEN)
-				if(!content)
+				var/content = tgui_input_text(user, "Write your book's contents (HTML NOT allowed):", "Summary", max_length = MAX_BOOK_MESSAGE_LEN, multiline = TRUE)
+				if(isnull(content))
 					to_chat(usr, "The content is invalid.")
 					return 1
 				else
 					src.dat += content
 			if("Author")
-				var/newauthor = stripped_input(usr, "Write the author's name:")
-				if(!newauthor)
+				var/newauthor = tgui_input_text(user, "Write the author's name:", "Author", author, MAX_NAME_LEN)
+				if(isnull(newauthor))
 					to_chat(usr, "The name is invalid.")
 					return 1
 				else

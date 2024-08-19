@@ -90,7 +90,7 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 	if(picture_state)
 		. += picture_state
 
-	underlays += emissive_appearance(icon, "lightmask")
+	underlays += emissive_appearance(icon, "lightmask", src)
 
 
 /obj/machinery/status_display/power_change(forced = FALSE)
@@ -255,9 +255,8 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 
 
 /obj/machinery/status_display/proc/update_display_light()
-	if(light)
-		set_light_on(FALSE)
 	if(stat & (NOPOWER|BROKEN))
+		set_light_on(FALSE)
 		return
 
 	if(mode == STATUS_DISPLAY_ALERT)
@@ -269,7 +268,6 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 		if(index2)
 			lum += 0.4
 		set_light(1, lum, (SSshuttle.emergency && SSshuttle.emergency.timer) ? COLOR_SUN : COLOR_LIGHT_CYAN, l_on = TRUE)
-
 
 GLOBAL_LIST_EMPTY(ai_displays)
 
@@ -302,21 +300,16 @@ GLOBAL_LIST_EMPTY(ai_displays)
 
 
 /obj/machinery/ai_status_display/emp_act(severity)
-	if(stat & (BROKEN|NOPOWER))
-		..(severity)
-		return
-	mode = AI_DISPLAY_MODE_BSOD
-	update_icon()
+	if(!(stat & (BROKEN|NOPOWER)))
+		mode = AI_DISPLAY_MODE_BSOD
+	update_icon(UPDATE_OVERLAYS)
 	..(severity)
 
 
 /obj/machinery/ai_status_display/power_change(forced = FALSE)
-	if(!..())
-		return
-	if(stat & NOPOWER)
-		set_light_on(FALSE)
-	else
-		set_light(1, LIGHTING_MINIMUM_POWER, GLOB.statdisp_picture_colors[picture_state], l_on = TRUE)
+	. = ..()
+	if(.)
+		update_icon(UPDATE_OVERLAYS)
 
 
 /obj/machinery/ai_status_display/flicker()
@@ -324,7 +317,7 @@ GLOBAL_LIST_EMPTY(ai_displays)
 		return FALSE
 
 	emotion = "Tribunal Malf"
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	return TRUE
 
 
@@ -396,5 +389,5 @@ GLOBAL_LIST_EMPTY(ai_displays)
 			new_display = "ai_bsod"
 
 	. += new_display
-	underlays += emissive_appearance(icon, "lightmask")
+	underlays += emissive_appearance(icon, "lightmask", src)
 

@@ -222,7 +222,7 @@
 	materials = list(MAT_METAL = 4000)
 	casing_drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
 	caliber = ".12"
-	projectile_type = /obj/item/projectile/bullet
+	projectile_type = /obj/item/projectile/bullet/slug
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 
@@ -512,7 +512,7 @@
 		modified = TRUE
 		FD.damage_type = BRUTE
 		update_icon()
-	else if((istype(A, /obj/item/pen)) && modified && !FD.pen)
+	else if((is_pen(A)) && modified && !FD.pen)
 		if(!user.drop_transfer_item_to_loc(A, FD))
 			return
 		harmful = TRUE

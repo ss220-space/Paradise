@@ -63,9 +63,9 @@
 		return
 	if(user.a_intent != INTENT_HELP)
 		return
-	if(I.flags & ABSTRACT)
+	if(I.item_flags & ABSTRACT)
 		return
-	if((I.flags_2 & (HOLOGRAM_2 | NO_MAT_REDEMPTION_2)) || (tc && !is_type_in_typecache(I, tc)))
+	if((I.item_flags & NO_MAT_REDEMPTION) || (I.flags & HOLOGRAM) || (tc && !is_type_in_typecache(I, tc)))
 		to_chat(user, "<span class='warning'>[parent] won't accept [I]!</span>")
 		return
 	. = COMPONENT_NO_AFTERATTACK
@@ -84,10 +84,10 @@
 /datum/component/material_container/proc/user_insert(obj/item/I, mob/living/user)
 	set waitfor = FALSE
 	var/requested_amount
-	if(istype(I, /obj/item/stack) && precise_insertion)
+	if(isstack(I) && precise_insertion)
 		var/atom/current_parent = parent
 		var/obj/item/stack/S = I
-		requested_amount = input(user, "How much do you want to insert?", "Inserting [S.singular_name]s") as num|null
+		requested_amount = tgui_input_number(user, "How much do you want to insert?", "Inserting [S.singular_name]s", max_value = S.amount)
 		if(isnull(requested_amount) || (requested_amount <= 0))
 			return
 		if(QDELETED(I) || QDELETED(user) || QDELETED(src) || parent != current_parent || user.incapacitated() || !in_range(current_parent, user) || user.l_hand != I && user.r_hand != I)
@@ -97,7 +97,7 @@
 		return
 	var/inserted = insert_item(I, stack_amt = requested_amount)
 	if(inserted)
-		if(istype(I, /obj/item/stack))
+		if(isstack(I))
 			var/obj/item/stack/S = I
 			to_chat(user, "<span class='notice'>You insert [inserted] [S.singular_name][inserted>1 ? "s" : ""] into [parent].</span>")
 			if(!QDELETED(I) && !user.put_in_hands(I))
@@ -153,7 +153,7 @@
 /datum/component/material_container/proc/insert_item(obj/item/I, multiplier = 1, stack_amt)
 	if(!I)
 		return FALSE
-	if(istype(I, /obj/item/stack))
+	if(isstack(I))
 		return insert_stack(I, stack_amt, multiplier)
 	if(I.resistance_flags & INDESTRUCTIBLE)
 		return FALSE

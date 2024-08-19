@@ -21,7 +21,7 @@
 /**
  * The cinematic screen showed to everyone.
  */
-/obj/screen/cinematic
+/atom/movable/screen/cinematic
 	icon = 'icons/effects/station_explosion.dmi'
 	icon_state = "station_intact"
 	plane = SPLASHSCREEN_PLANE
@@ -36,12 +36,12 @@
 /datum/cinematic
 	/// A list of all clients watching the cinematic
 	var/list/client/watching = list()
-	/// A list of all mobs who have notransform set while watching the cinematic
+	/// A list of all mobs who have TRAIT_NO_TRANSFORM set, while watching the cinematic
 	var/list/datum/locked = list()
 	/// Whether the cinematic is a global cinematic or not
 	var/is_global = FALSE
 	/// Refernce to the cinematic screen shown to everyohne
-	var/obj/screen/cinematic/screen
+	var/atom/movable/screen/cinematic/screen
 	/// Callbacks passed that occur during the animation
 	var/datum/callback/special_callback
 	/// How long for the final screen remains shown
@@ -60,7 +60,7 @@
 
 /datum/cinematic/Destroy()
 	QDEL_NULL(screen)
-	QDEL_NULL(special_callback)
+	special_callback = null
 	watching.Cut()
 	locked.Cut()
 	return ..()
@@ -82,7 +82,7 @@
 		ooc_toggled = TRUE
 		toggle_ooc(FALSE)
 
-	// Place the /obj/screen/cinematic into everyone's screens, and prevent movement.
+	// Place the /atom/movable/screen/cinematic into everyone's screens, and prevent movement.
 	for(var/mob/watching_mob in watchers)
 		show_to(watching_mob, watching_mob.client)
 		RegisterSignal(watching_mob, COMSIG_MOB_CLIENT_LOGIN, PROC_REF(show_to))
@@ -126,11 +126,7 @@
 /datum/cinematic/proc/show_to(mob/watching_mob, client/watching_client)
 	SIGNAL_HANDLER
 
-	// We could technically rip people out of notransform who shouldn't be,
-	// so we'll only lock down all viewing mobs who don't have it already set.
-	// This does potentially mean some mobs could lose their notrasnform and
-	// not be locked down by cinematics, but that should be very unlikely.
-	if(!watching_mob.notransform)
+	if(!HAS_TRAIT_FROM(watching_mob, TRAIT_NO_TRANSFORM, CINEMATIC_TRAIT))
 		lock_mob(watching_mob)
 
 	// Only show the actual cinematic to cliented mobs.
@@ -138,9 +134,9 @@
 		return
 
 	watching += watching_client
-	watching_mob.overlay_fullscreen("cinematic", /obj/screen/fullscreen/cinematic_backdrop)
+	watching_mob.overlay_fullscreen("cinematic", /atom/movable/screen/fullscreen/cinematic_backdrop)
 	watching_client.screen += screen
-	RegisterSignal(watching_client, COMSIG_PARENT_QDELETING, PROC_REF(remove_watcher))
+	RegisterSignal(watching_client, COMSIG_QDELETING, PROC_REF(remove_watcher))
 
 
 /**
@@ -187,7 +183,7 @@
  */
 /datum/cinematic/proc/lock_mob(mob/to_lock)
 	locked += to_lock
-	to_lock.notransform = TRUE
+	ADD_TRAIT(to_lock, TRAIT_NO_TRANSFORM, CINEMATIC_TRAIT)
 
 
 /**
@@ -197,7 +193,7 @@
 	var/mob/locked_mob = mob_ref
 	if(isnull(locked_mob))
 		return
-	locked_mob.notransform = FALSE
+	REMOVE_TRAIT(locked_mob, TRAIT_NO_TRANSFORM, CINEMATIC_TRAIT)
 	UnregisterSignal(locked_mob, COMSIG_MOB_CLIENT_LOGIN)
 
 
@@ -210,9 +206,9 @@
 	if(!(no_longer_watching in watching))
 		CRASH("cinematic remove_watcher was passed a client which wasn't watching.")
 
-	UnregisterSignal(no_longer_watching, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(no_longer_watching, COMSIG_QDELETING)
 	// We'll clear the cinematic if they have a mob which has one,
-	// but we won't remove notransform. Wait for the cinematic end to do that.
+	// but we won't remove TRAIT_NO_TRANSFORM. Wait for the cinematic end to do that.
 	no_longer_watching.mob?.clear_fullscreen("cinematic")
 	no_longer_watching.screen -= screen
 

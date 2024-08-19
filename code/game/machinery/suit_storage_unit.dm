@@ -376,14 +376,14 @@
 	occupant = null
 
 /obj/machinery/suit_storage_unit/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		open_machine()
 		dump_contents()
 		new /obj/item/stack/sheet/metal (loc, 2)
 	qdel(src)
 
 /obj/machinery/suit_storage_unit/MouseDrop_T(atom/A, mob/user, params)
-	if(user.incapacitated() || !Adjacent(user) || !Adjacent(A) || !isliving(A))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !Adjacent(A) || !isliving(A))
 		return
 	. = TRUE
 	var/mob/living/target = A
@@ -402,7 +402,7 @@
 	else
 		target.visible_message(span_warning("[user] starts shoving [target] into [src]!"), span_userdanger("[user] starts shoving you into [src]!"))
 
-	if(!do_mob(user, target, 3 SECONDS))
+	if(!do_after(user, 3 SECONDS, target, NONE))
 		return
 
 	if(occupant || helmet || suit || storage)
@@ -474,7 +474,7 @@
 	user.visible_message(span_notice("You see [user] kicking against the doors of [src]!"), \
 		span_notice("You start kicking against the doors... (this will take about [DisplayTimeText(breakout_time)].)"), \
 		span_italics("You hear a thump from [src]."))
-	if(do_after(user,(breakout_time), target = src))
+	if(do_after(user,(breakout_time), src))
 		if(!user || user.stat != CONSCIOUS || user.loc != src )
 			return
 		user.visible_message(span_warning("[user] successfully broke out of [src]!"), \
@@ -510,9 +510,6 @@
 	var/turf/T = get_turf(src)
 	for(var/atom/movable/A in contents)
 		A.forceMove(T)
-		if(isliving(A))
-			var/mob/living/L = A
-			L.update_canmove()
 	occupant = null
 
 /obj/machinery/suit_storage_unit/proc/close_machine(atom/movable/target = null)
@@ -547,10 +544,10 @@
 		return
 	ui_interact(user)
 
-/obj/machinery/suit_storage_unit/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/suit_storage_unit/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "SuitStorage", name, 402, 268, master_ui, state)
+		ui = new(user, src, "SuitStorage", name)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -708,9 +705,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(usr.stat)
-		return
-	if(usr.incapacitated() || usr.buckled) //are you cuffed, dying, lying, stunned or other
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.buckled) //are you cuffed, dying, lying, stunned or other
 		return
 	if(!state_open)
 		to_chat(usr, span_warning("The unit's doors are shut."))
@@ -722,8 +717,7 @@
 		to_chat(usr, span_warning("It's too cluttered inside for you to fit in!"))
 		return
 	visible_message("[usr] starts squeezing into the suit storage unit!")
-	if(do_after(usr, 10, target = usr))
-		usr.stop_pulling()
+	if(do_after(usr, 1 SECONDS, usr))
 		usr.forceMove(src)
 		occupant = usr
 		state_open = FALSE //Close the thing after the guy gets inside

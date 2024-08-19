@@ -87,7 +87,7 @@
 		JOB_TITLE_MIME = "srvradio",
 	)
 	/// List of Command jobs
-	var/list/heads = list(JOB_TITLE_CAPTAIN, JOB_TITLE_HOP, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_BLUESHIELD, JOB_TITLE_CHIEF, JOB_TITLE_CMO, JOB_TITLE_RD, JOB_TITLE_HOS, JOB_TITLE_JUDGE, JOB_TITLE_AI, "Syndicate Research Director", "Syndicate Comms Officer")
+	var/list/heads = list(JOB_TITLE_CAPTAIN, JOB_TITLE_HOP, JOB_TITLE_QUARTERMASTER, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_BLUESHIELD, JOB_TITLE_CHIEF, JOB_TITLE_CMO, JOB_TITLE_RD, JOB_TITLE_HOS, JOB_TITLE_JUDGE, JOB_TITLE_AI, "Syndicate Research Director", "Syndicate Comms Officer")
 	/// List of ERT jobs
 	var/list/ert_jobs = list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Leader", "Emergency Response Team Member")
 	/// List of CentComm jobs

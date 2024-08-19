@@ -3,7 +3,7 @@
 	desc = "A combined label printer, applicator, and remover, all in a single portable device. Designed to be easy to operate and use."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "labeler0"
-	item_state = "flight"
+	item_state = "labeler0"
 	var/label = null
 	var/labels_left = 30
 	var/mode = FALSE
@@ -44,7 +44,7 @@
 	if(mode)
 		to_chat(user, "<span class='notice'>You turn on \the [src].</span>")
 		//Now let them chose the text.
-		var/str = copytext(reject_bad_text(input(user,"Label text?","Set label","")),1,MAX_NAME_LEN)
+		var/str = reject_bad_text(tgui_input_text(user,"Label text?", "Set label"))
 		if(!str || !length(str))
 			to_chat(user, "<span class='notice'>Invalid text.</span>")
 			return
@@ -67,5 +67,5 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	desc = "A roll of paper. Use it on a hand labeler to refill it."
 	icon_state = "labeler_refill"
-	item_state = "electropack"
+	item_state = "labeler_refill"
 	w_class = WEIGHT_CLASS_TINY

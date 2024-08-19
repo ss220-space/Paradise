@@ -11,15 +11,14 @@
 /obj/machinery/computer/arcade/proc/Reset()
 	return
 
-/obj/machinery/computer/arcade/New()
-	..()
+/obj/machinery/computer/arcade/Initialize(mapload)
+	. = ..()
 	if(!circuit)
 		var/choice = pick(/obj/machinery/computer/arcade/battle, /obj/machinery/computer/arcade/orion_trail)
 		new choice(loc)
-		qdel(src)
-		return
-	Reset()
+		return INITIALIZE_HINT_QDEL
 
+	Reset()
 
 /obj/machinery/computer/arcade/proc/prizevend(var/score)
 	if(!contents.len)
@@ -31,7 +30,7 @@
 		new prize(get_turf(src), prize_amount)
 	else
 		var/atom/movable/prize = pick(contents)
-		prize.loc = get_turf(src)
+		prize.forceMove(get_turf(src))
 
 /obj/machinery/computer/arcade/emp_act(severity)
 	..(severity)
@@ -100,7 +99,6 @@
 	//onclose(user, "arcade")
 	var/datum/browser/popup = new(user, "arcade", "Space Villian 2000", 420, 280, src)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
 	return
 
@@ -410,7 +408,6 @@
 		dat += "<P ALIGN=Right><a href='byond://?src=[UID()];close=1'>Close</a></P>"
 	var/datum/browser/popup = new(user, "arcade", "The Orion Trail", 420, 420, src)
 	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.open()
 	return
 
@@ -469,7 +466,7 @@
 						playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
 						M.adjust_nutrition(-50) //lose a lot of food
 						var/turf/location = usr.loc
-						if(istype(location, /turf/simulated))
+						if(issimulatedturf(location))
 							location.add_vomit_floor(TRUE)
 				if(ORION_TRAIL_FLUX)
 					if(prob(75))
@@ -641,7 +638,7 @@
 					atom_say("WEEWOO WEEWOO, Spaceport Security en route!")
 					for(var/i, i<=3, i++)
 						var/mob/living/simple_animal/hostile/syndicate/ranged/orion/O = new/mob/living/simple_animal/hostile/syndicate/ranged/orion(get_turf(src))
-						O.target = usr
+						O.GiveTarget(usr)
 
 
 		fuel += FU

@@ -5,7 +5,7 @@
 	throw_speed = 3
 	var/signed = FALSE
 	var/datum/mind/target
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 
 /obj/item/paper/contract/proc/update_text()
 	return
@@ -268,13 +268,9 @@
 /obj/item/paper/contract/infernal/power/FulfillContract(mob/living/carbon/human/user = target.current, blood = 0)
 	if(!user.dna)
 		return -1
-	user.dna.SetSEState(GLOB.hulkblock,1)
-	genemutcheck(user, GLOB.hulkblock,null,MUTCHK_FORCED)
+	user.force_gene_block(GLOB.hulkblock, TRUE)
 	// Demonic power gives you consequenceless hulk
 	user.gene_stability += GENE_INSTABILITY_MAJOR
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		H.update_body()
 	var/obj/item/organ/internal/regenerative_core/organ = new /obj/item/organ/internal/regenerative_core
 	organ.insert(user)
 	return ..()

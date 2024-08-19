@@ -10,11 +10,11 @@
 	var/bomb_cooldown = 0
 	var/default_bomb_cooldown = 10 SECONDS
 
-/mob/living/simple_animal/hostile/guardian/bomb/Stat()
-	..()
-	if(statpanel("Status"))
-		if(bomb_cooldown >= world.time)
-			stat(null, "Перезарядка до следующей бомбы: [max(round((bomb_cooldown - world.time)*0.1, 0.1), 0)] секунд.")
+/mob/living/simple_animal/hostile/guardian/bomb/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	if(bomb_cooldown >= world.time)
+		status_tab_data[++status_tab_data.len] = list("Перезарядка до следующей бомбы:", "[max(round((bomb_cooldown - world.time) * 0.1, 0.1), 0)]  секунд")
 
 /mob/living/simple_animal/hostile/guardian/bomb/AltClickOn(atom/movable/A)
 	if(!istype(A))
@@ -34,12 +34,12 @@
 			to_chat(src, span_danger("Ваши силы на перезарядке! Вы должны ждать ещё [max(round((bomb_cooldown - world.time)*0.1, 0.1), 0)] секунд до установки следующей бомбы."))
 
 /mob/living/simple_animal/hostile/guardian/bomb/proc/can_plant(atom/movable/A)
-	if(istype(A, /obj/mecha))
+	if(ismecha(A))
 		var/obj/mecha/target = A
 		if(target.occupant)
 			to_chat(src, span_warning("Пилотируемые мехи непригодны для минирования!"))
 			return FALSE
-	if(istype(A, /obj/spacepod))
+	if(isspacepod(A))
 		var/obj/spacepod/target = A
 		if(target.pilot)
 			to_chat(src, span_warning("Челноки не пригодны для минирования!"))

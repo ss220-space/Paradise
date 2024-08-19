@@ -65,7 +65,7 @@
 	explosion_block = 2
 	explosion_vertical_block = 1
 	point_return = 9
-	flags_2 = CHECK_RICOCHET_2
+	flags = CHECK_RICOCHET
 
 /obj/structure/blob/shield/reflective/handle_ricochet(obj/item/projectile/P)
 	var/turf/p_turf = get_turf(P)

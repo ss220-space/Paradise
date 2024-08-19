@@ -23,24 +23,24 @@
 	var/colour
 	var/glowing = 0
 
-/obj/item/organ/internal/lantern/ui_action_click()
+/obj/item/organ/internal/lantern/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(toggle_biolum())
 		if(glowing)
-			owner.visible_message("<span class='notice'>[owner] starts to glow!</span>", "<span class='notice'>You enable your bioluminescence.</span>")
+			owner.visible_message(span_notice("[owner] starts to glow!"), span_notice("You enable your bioluminescence."))
 		else
-			owner.visible_message("<span class='notice'>[owner] fades to dark.</span>", "<span class='notice'>You disable your bioluminescence.</span>")
+			owner.visible_message(span_notice("[owner] fades to dark."), span_notice("You disable your bioluminescence."))
 
 /obj/item/organ/internal/lantern/on_life()
 	..()
 	if(glowing)//i hate this but i couldnt figure out a better way
 		if(owner.nutrition < KIDAN_LANTERN_MINHUNGER)
 			toggle_biolum(1)
-			to_chat(owner, "<span class='warning'>You're too hungry to be bioluminescent!</span>")
+			owner.balloon_alert(owner, "слишком голодный, чтобы светиться!")
 			return
 
 		if(owner.stat)
 			toggle_biolum(1)
-			owner.visible_message("<span class='notice'>[owner] fades to dark.</span>")
+			owner.visible_message(span_notice("[owner] fades to dark."))
 			return
 
 		owner.set_nutrition(max(owner.nutrition - KIDAN_LANTERN_HUNGERCOST, KIDAN_LANTERN_HUNGERCOST))
@@ -63,11 +63,11 @@
 
 /obj/item/organ/internal/lantern/proc/toggle_biolum(statoverride)
 	if(!statoverride && owner.incapacitated())
-		to_chat(owner, "<span class='warning'>You cannot alter your bioluminescence in your current state.</span>")
+		owner.balloon_alert(owner, "не в текущем состоянии!")
 		return 0
 
 	if(!statoverride && owner.nutrition < KIDAN_LANTERN_MINHUNGER)
-		to_chat(owner, "<span class='warning'>You're too hungry to be bioluminescent!</span>")
+		owner.balloon_alert(owner, "слишком голодный, чтобы светиться!")
 		return 0
 
 	if(!colour)
@@ -163,7 +163,7 @@
 
 	. = ..()
 
-/obj/item/organ/external/head/kidan/replaced(mob/living/carbon/human/target)
+/obj/item/organ/external/head/kidan/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	if(iskidan(target))
 		target.adjustBrainLoss(30)

@@ -4,7 +4,7 @@
 	item_state = "buildpipe"
 	icon_state = "blank"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	var/list/part = null
 	var/sabotaged = 0 //Emagging limbs can have repercussions when installed as prosthetics.
 	var/model_info = "Unbranded"
@@ -18,10 +18,12 @@
 		if(R)
 			name = "[R.company] [initial(name)]"
 			desc = "[R.desc]"
-			if(icon_state in icon_states(R.icon))
+			if(icon_exists(R.icon, icon_state))
 				icon = R.icon
 	else
 		name = "robot [initial(name)]"
+
+	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = /datum/surgery/attach_robotic_limb)
 
 /obj/item/robot_parts/attack_self(mob/user)
 	var/choice = tgui_input_list(user, "Select the company appearance for this limb", "Limb Company Selection", GLOB.selectable_robolimbs)
@@ -338,14 +340,13 @@
 				SSticker.mode.add_clock_actions(O.mind)
 
 			if(!locomotion)
-				O.lockcharge = 1
-				O.update_canmove()
+				O.set_lockcharge(TRUE)
 				to_chat(O, "<span class='warning'>Error: Servo motors unresponsive.</span>")
 
 		else
 			to_chat(user, "<span class='warning'>The MMI must go in after everything else!</span>")
 
-	if(istype(W,/obj/item/pen))
+	if(is_pen(W))
 		to_chat(user, "<span class='warning'>You need to use a multitool to name [src]!</span>")
 	return
 

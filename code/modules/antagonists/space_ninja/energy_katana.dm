@@ -25,7 +25,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
-	slot_flags = SLOT_FLAG_BACK | SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK
 	sharp = TRUE
 	max_integrity = 200
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
@@ -61,6 +61,7 @@
 				to_chat(user, span_userdanger("That was a bad idea."))
 				H.emote("scream")
 
+
 /obj/item/melee/energy_katana/pickup(mob/living/user)
 	. = ..()
 	if(user && user.client)
@@ -70,12 +71,9 @@
 		user.update_icons()
 		playsound(get_turf(src), 'sound/items/unsheath.ogg', 25, TRUE, 5)
 	if(!isninja(user) && !isrobot(user))
-		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/external/affecting = H.get_organ(user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-		if(affecting.receive_damage(20))		//INFERNO
-			H.UpdateDamageIcon()
-			to_chat(user, span_userdanger("Oh fuck, it hurts!."))
-			playsound(src, 'sound/weapons/bladeslice.ogg', 100, 1)
+		user.apply_damage(20, def_zone = user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+		to_chat(user, span_userdanger("Oh fuck, it hurts!."))
+		playsound(user, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
 
 /obj/item/melee/energy_katana/dropped(mob/user, slot, silent = FALSE)
@@ -137,9 +135,9 @@
 
 	if(user.put_in_active_hand(src))
 		msg = "Your Energy Katana teleports into your hand!"
-	else if(user.equip_to_slot_if_possible(src, SLOT_HUD_BELT, disable_warning = TRUE))
+	else if(user.equip_to_slot_if_possible(src, ITEM_SLOT_BELT, disable_warning = TRUE))
 		msg = "Your Energy Katana teleports back to you, sheathing itself as it does so!</span>"
-	else if(user.equip_to_slot_if_possible(src, SLOT_HUD_BACK, disable_warning = TRUE))
+	else if(user.equip_to_slot_if_possible(src, ITEM_SLOT_BACK, disable_warning = TRUE))
 		msg = "Your Energy Katana teleports back to you, sheathing itself at your back as it does so!</span>"
 	else
 		msg = "Your Energy Katana teleports to your location!"

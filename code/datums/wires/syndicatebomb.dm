@@ -72,7 +72,7 @@
 			if(!mend && B.anchored)
 				holder.visible_message("<span class='notice'>[bicon(B)] The bolts lift out of the ground!</span>")
 				playsound(B, 'sound/effects/stealthoff.ogg', 30, 1)
-				B.anchored = FALSE
+				B.set_anchored(FALSE)
 		if(WIRE_BOMB_PROCEED)
 			if(!mend && B.active)
 				holder.visible_message("<span class='danger'>[bicon(B)] An alarm sounds! It's go-</span>")

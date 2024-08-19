@@ -47,7 +47,7 @@
 	var/number = rand(1,4)
 	for(var/i = 0, i < number, i++)
 		new /obj/item/storage/funeral_urn/random(src)
-	..()
+	. = ..()
 
 /obj/item/storage/funeral_urn
 	name = "Funeral urn"
@@ -107,7 +107,7 @@
 
 /obj/item/storage/funeral_urn/with_ash/Initialize(mapload)
 	new /obj/item/ash_holder(src)
-	..()
+	. = ..()
 
 /obj/item/storage/funeral_urn/random
 
@@ -136,7 +136,7 @@
 			if(2)
 				new /obj/item/coin/silver(src)
 				new /obj/item/coin/silver(src)
-	..()
+	. = ..()
 
 /obj/item/ash_holder
 	name = "ash"
@@ -166,13 +166,12 @@
 	anchored = TRUE
 	layer = TABLE_LAYER
 	pass_flags = LETPASSTHROW
+	can_be_flipped = FALSE
 	climbable = FALSE
 	max_integrity = 100
 	integrity_failure = 30
-	smooth = SMOOTH_FALSE
+	smooth = NONE
 
-/obj/structure/table/socle/flip()
-	return
 
 /obj/effect/spawner/graveyard_statues
 	name = "Statues"
@@ -197,9 +196,11 @@
 			offset = 16
 	var/obj/structure/statue/statue = new monument(get_turf(src))
 	statue.pixel_x = offset
-	qdel(src)
 	..()
 
+/obj/effect/spawner/graveyard_statues/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_QDEL
 
 /obj/item/book/philosophy_of_death
 	name = "Философия смерти"

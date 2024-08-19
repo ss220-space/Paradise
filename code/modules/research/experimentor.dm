@@ -19,7 +19,7 @@
 	name = "E.X.P.E.R.I-MENTOR"
 	icon = 'icons/obj/machines/heavy_lathe.dmi'
 	icon_state = "h_lathe"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	var/recentlyExperimented = FALSE
@@ -29,9 +29,22 @@
 	var/resetTime = 15
 	var/cloneMode = FALSE
 	var/cloneCount = 0
+	/// The distance to your rnd console. Useful for creative mapping.
+	var/console_dist = 3
 	var/list/item_reactions = list()
 	var/list/valid_items = list() //valid items for special reactions like transforming
 	var/list/critical_items = list() //items that can cause critical reactions
+
+
+/obj/machinery/r_n_d/experimentor/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+
+/obj/machinery/r_n_d/experimentor/LateInitialize()
+	. = ..()
+	console_connect()
+
 
 /obj/machinery/r_n_d/experimentor/proc/ConvertReqString2List(list/source_list)
 	var/list/temp_list = params2list(source_list)
@@ -95,9 +108,10 @@
 	RefreshParts()
 
 /obj/machinery/r_n_d/experimentor/RefreshParts()
+	badThingCoeff = initial(badThingCoeff)
+	resetTime = initial(resetTime)
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		if(resetTime > 0 && (resetTime - M.rating) >= 1)
-			resetTime -= M.rating
+		resetTime -= M.rating
 	for(var/obj/item/stock_parts/scanning_module/M in component_parts)
 		badThingCoeff += M.rating*2
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
@@ -147,7 +161,7 @@
 	if(loaded_item)
 		to_chat(user, "<span class='warning'>The [src] is already loaded.</span>")
 		return
-	if(istype(O, /obj/item))
+	if(isitem(O))
 		if(!O.origin_tech)
 			to_chat(user, "<span class='warning'>This doesn't seem to have a tech origin!</span>")
 			return
@@ -517,7 +531,7 @@
 			throwSmoke(src.loc)
 			if(trackedIan)
 				throwSmoke(trackedIan.loc)
-				trackedIan.loc = src.loc
+				trackedIan.forceMove(loc)
 				investigate_log("Experimentor has stolen Ian!", INVESTIGATE_EXPERIMENTOR) //...if anyone ever fixes it...
 			else
 				new /mob/living/simple_animal/pet/dog/corgi(src.loc)
@@ -547,6 +561,12 @@
 	update_icon(UPDATE_ICON_STATE)
 
 
+/obj/machinery/r_n_d/experimentor/proc/console_connect()
+	var/obj/machinery/computer/rdconsole/D = locate(/obj/machinery/computer/rdconsole) in oview(console_dist, src)
+	if(D)
+		linked_console = D
+
+
 /obj/machinery/r_n_d/experimentor/Topic(href, href_list)
 	if(..())
 		return
@@ -559,9 +579,7 @@
 		usr << browse(null, "window=experimentor")
 		return
 	else if(scantype == "search")
-		var/obj/machinery/computer/rdconsole/D = locate(/obj/machinery/computer/rdconsole) in oview(3,src)
-		if(D)
-			linked_console = D
+		console_connect()
 	else if(scantype == "eject")
 		ejectItem()
 	else if(scantype == "refresh")
@@ -625,6 +643,7 @@
 /obj/item/relic
 	name = "strange object"
 	desc = "What mysteries could this hold?"
+	icon_state = "shock_kit"
 	icon = 'icons/obj/assemblies.dmi'
 	origin_tech = "combat=1;plasmatech=1;powerstorage=1;materials=1"
 	var/realName = "defined object"

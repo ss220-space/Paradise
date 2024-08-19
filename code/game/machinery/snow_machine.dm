@@ -57,7 +57,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	anchored = !anchored
+	set_anchored(!anchored)
 	to_chat(user, span_notice("You [anchored ? "tighten" : "loosen"] [src]'s wheels."))
 	turn_on_or_off(FALSE)
 

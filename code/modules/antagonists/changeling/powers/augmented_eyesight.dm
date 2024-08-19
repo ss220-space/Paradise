@@ -96,12 +96,12 @@
 		var/mob/living/carbon/human/h_owner = owner
 		h_owner.weakeyes = TRUE
 		if(!h_owner.vision_type)
-			h_owner.set_sight(/datum/vision_override/nightvision)
+			h_owner.set_vision_override(/datum/vision_override/nightvision)
 
 
 /obj/item/organ/internal/cyberimp/eyes/thermals/ling/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	if(ishuman(owner))
 		var/mob/living/carbon/human/h_owner = owner
 		h_owner.weakeyes = FALSE
-		h_owner.set_sight(null)
+		h_owner.set_vision_override(null)
 	. = ..()

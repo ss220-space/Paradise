@@ -4,7 +4,7 @@
 	desc = "A machine which exchanges tickets for a variety of fabulous prizes!"
 	icon = 'icons/obj/machines/arcade.dmi'
 	icon_state = "prize_counter-on"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
@@ -196,8 +196,8 @@ th.cost.toomuch {background:maroon;}
 	if(href_list["buy"])
 		var/itemID = text2num(href_list["buy"])
 		var/datum/prize_item/item = GLOB.global_prizes.prizes[itemID]
-		var/sure = alert(usr,"Are you sure you wish to purchase [item.name] for [item.cost] tickets?","You sure?","Yes","No") in list("Yes","No")
-		if(sure=="No")
+		var/sure = tgui_alert(usr,"Are you sure you wish to purchase [item.name] for [item.cost] tickets?", "You sure?", list("Yes","No"))
+		if(sure != "Yes")
 			updateUsrDialog()
 			return
 		if(!GLOB.global_prizes.PlaceOrder(src, itemID))

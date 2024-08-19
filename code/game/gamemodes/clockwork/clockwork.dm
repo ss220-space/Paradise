@@ -162,9 +162,9 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 /datum/game_mode/proc/clock_give_item(obj/item/item_path, mob/living/carbon/human/H)
 	var/list/slots = list(
-		"backpack" = SLOT_HUD_IN_BACKPACK,
-		"left pocket" = SLOT_HUD_LEFT_STORE,
-		"right pocket" = SLOT_HUD_RIGHT_STORE)
+		"backpack" = ITEM_SLOT_BACKPACK,
+		"left pocket" = ITEM_SLOT_POCKET_LEFT,
+		"right pocket" = ITEM_SLOT_POCKET_RIGHT)
 	var/T = new item_path(H)
 	var/item_name = initial(item_path.name)
 	var/where = H.equip_in_one_of_slots(T, slots, qdel_on_fail = TRUE)

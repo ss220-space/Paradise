@@ -1,7 +1,7 @@
 // Uniform slot
 /datum/gear/uniform
 	subtype_path = /datum/gear/uniform
-	slot = SLOT_HUD_JUMPSUIT
+	slot = ITEM_SLOT_CLOTH_INNER
 	sort_category = "Uniforms and Casual Dress"
 
 /datum/gear/uniform/suit
@@ -54,6 +54,10 @@
 	display_name = "executive suit"
 	path = /obj/item/clothing/under/suit_jacket/really_black
 
+/datum/gear/uniform/suit/amish_suit
+	display_name = "amish suit"
+	path = /obj/item/clothing/under/sl_suit
+
 /datum/gear/uniform/chaps
 	display_name = "chaps, select"
 	path = /obj/item/clothing/under/red_chaps
@@ -72,6 +76,16 @@
 /datum/gear/uniform/skirt/syndi
 	display_name = "skirt, tactical"
 	path = /obj/item/clothing/under/syndicate/tacticool/skirt
+
+/datum/gear/uniform/skirt/dyeable
+	display_name = "dyeable skirt, color"
+	path = /obj/item/clothing/under/colour/skirt
+
+
+/datum/gear/uniform/skirt/dyeable/New()
+	..()
+	gear_tweaks += new /datum/gear_tweak/color(parent = src)
+
 
 /datum/gear/uniform/skirt/plaid
 	display_name = "plaid skirt, select"
@@ -120,6 +134,11 @@
 	display_name = "skirt, cmo"
 	path = /obj/item/clothing/under/rank/chief_medical_officer/skirt
 	allowed_roles = list(JOB_TITLE_CMO)
+
+/datum/gear/uniform/skirt/job/paramedic
+	display_name = "skirt, paramedic"
+	path = /obj/item/clothing/under/rank/medical/paramedic/skirt
+	allowed_roles = list(JOB_TITLE_PARAMEDIC)
 
 /datum/gear/uniform/skirt/job/chem
 	display_name = "skirt, chemist"
@@ -363,3 +382,14 @@
 	description = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
 	path = /obj/item/clothing/under/ussptracksuit_blue
 
+/datum/gear/uniform/dress50s
+	display_name = "old Soviet dress"
+	path = /obj/item/clothing/under/dress50s
+
+/datum/gear/uniform/galifepants
+	display_name = "check breeches"
+	path = /obj/item/clothing/under/pants/galifepants
+
+/datum/gear/uniform/sandpants
+	display_name = "long sand pants"
+	path = /obj/item/clothing/under/pants/sandpants

@@ -67,12 +67,6 @@
 	typepath = /obj/item/storage/fancy/candle_box/full
 	cost = 100
 
-/datum/storeitem/nanomob_booster
-	name = "Nano-Mob Hunter Trading Card Booster Pack"
-	desc = "Contains 6 random Nano-Mob Hunter Trading Cards. May contain a holographic card!"
-	typepath = /obj/item/storage/box/nanomob_booster_pack
-	cost = 125
-
 /datum/storeitem/crayons
 	name = "Crayons"
 	desc = "Let security know how they're doing by scrawling love notes all over their hallways."
@@ -215,6 +209,12 @@
 	name = "Nian Flag"
 	desc = "A flag proudly proclaiming the superior heritage of Nian."
 	typepath = /obj/item/flag/species/nian
+	cost = 500
+
+/datum/storeitem/flag_wryn
+	name = "Wryn flag"
+	desc = "A flag proudly proclaiming the superior heritage of Wryn."
+	typepath = /obj/item/flag/species/wryn
 	cost = 500
 
 /datum/storeitem/flag_ian

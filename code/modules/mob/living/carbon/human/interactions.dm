@@ -16,7 +16,7 @@
 	set name = "Interact"
 	set category = "IC"
 
-	if (istype(M, /mob/living/carbon/human) && usr != M && src != M)
+	if (ishuman(M) && usr != M && src != M)
 		partner = M
 		make_interaction(machine)
 

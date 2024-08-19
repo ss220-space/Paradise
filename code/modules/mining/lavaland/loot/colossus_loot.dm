@@ -26,7 +26,7 @@
 	icon_state = "anomaly_crystal"
 	light_range = 8
 	use_power = NO_POWER_USE
-	density = 1
+	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/activation_method = "touch"
 	var/activation_damage_type = null
@@ -71,7 +71,7 @@
 	return 1
 
 /obj/machinery/anomalous_crystal/Bumped(atom/movable/moving_atom)
-	..()
+	. = ..()
 	if(ismob(moving_atom))
 		ActivationReaction(moving_atom,"mob_bump")
 
@@ -234,8 +234,8 @@
 /obj/machinery/anomalous_crystal/helpers/attack_ghost(mob/dead/observer/user)
 	..()
 	if(ready_to_deploy)
-		var/be_helper = alert("Become a Lightgeist? (Warning, You can no longer be cloned!)",,"Yes","No")
-		if(be_helper == "No")
+		var/be_helper = tgui_alert(user, "Become a Lightgeist? (Warning, You can no longer be cloned!)", "Respawn", list("Yes","No"))
+		if(be_helper != "Yes")
 			return
 		var/mob/living/simple_animal/hostile/lightgeist/W = new /mob/living/simple_animal/hostile/lightgeist(get_turf(loc))
 		W.key = user.key
@@ -261,10 +261,10 @@
 	health = 2
 	harm_intent_damage = 1
 	friendly = "mends"
-	density = 0
+	density = FALSE
 	obj_damage = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
-	ventcrawler = 2
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	mob_size = MOB_SIZE_TINY
 	gold_core_spawnable = HOSTILE_SPAWN
 	speak_emote = list("warps")
@@ -285,8 +285,7 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
 	AddElement(/datum/element/simple_flying)
-	verbs -= /mob/living/verb/pulled
-	verbs -= /mob/verb/me_verb
+	remove_verb(src, /mob/verb/me_verb)
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medsensor.add_hud_to(src)
 
@@ -321,9 +320,9 @@
 		var/turf/T = get_step(src, dir)
 		new /obj/effect/temp_visual/emp/pulse(T)
 		for(var/i in T)
-			if(istype(i, /obj/item) && !is_type_in_typecache(i, banned_items_typecache))
+			if(isitem(i) && !is_type_in_typecache(i, banned_items_typecache))
 				var/obj/item/W = i
-				if(!W.admin_spawned && !(W.flags_2 & HOLOGRAM_2) && !(W.flags & ABSTRACT))
+				if(!(W.flags & (ADMIN_SPAWNED|HOLOGRAM)) && !(W.item_flags & ABSTRACT))
 					L += W
 		if(L.len)
 			var/obj/item/CHOSEN = pick(L)
@@ -351,7 +350,7 @@
 	name = "quantum entanglement stasis warp field"
 	desc = "You can hardly comprehend this thing... which is why you can't see it."
 	icon_state = null //This shouldn't even be visible, so if it DOES show up, at least nobody will notice
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
 	var/mob/living/simple_animal/holder_animal
@@ -369,24 +368,25 @@
 		holder_animal = loc
 	START_PROCESSING(SSobj, src)
 
-/obj/structure/closet/stasis/Entered(atom/A)
-	if(isliving(A) && holder_animal)
-		var/mob/living/L = A
-		L.notransform = 1
-		L.mutations |= MUTE
-		L.status_flags |= GODMODE
-		L.mind.transfer_to(holder_animal)
-		var/obj/effect/proc_holder/spell/exit_possession/P = new(null)
-		holder_animal.mind.AddSpell(P)
-		holder_animal.verbs -= /mob/living/verb/pulled
+
+/obj/structure/closet/stasis/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	if(isliving(arrived) && holder_animal)
+		var/mob/living/mob = arrived
+		ADD_TRAIT(mob, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+		mob.mutations |= MUTE
+		mob.status_flags |= GODMODE
+		mob.mind.transfer_to(holder_animal)
+		holder_animal.mind.AddSpell(new /obj/effect/proc_holder/spell/exit_possession)
+
 
 /obj/structure/closet/stasis/dump_contents(var/kill = 1)
 	STOP_PROCESSING(SSobj, src)
 	for(var/mob/living/L in src)
 		L.mutations -=MUTE
 		L.status_flags &= ~GODMODE
-		L.notransform = 0
-		if(holder_animal && !QDELETED(holder_animal))
+		REMOVE_TRAIT(L, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+		if(holder_animal)
 			holder_animal.mind.transfer_to(L)
 			L.mind.RemoveSpell(/obj/effect/proc_holder/spell/exit_possession)
 		if(kill || !isanimal(loc))

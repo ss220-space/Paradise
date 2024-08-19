@@ -170,8 +170,8 @@
 	desc = "It's a storage unit for fire-fighting supplies."
 	icon_state = "hydrant"
 	anchored = TRUE
-	density = 0
-	wall_mounted = 1
+	density = FALSE
+	wall_mounted = TRUE
 
 /obj/structure/closet/hydrant/populate_contents()
 	new /obj/item/clothing/suit/fire/firefighter(src)
@@ -189,6 +189,6 @@
 	desc = "It's wall-mounted storage unit for first aid supplies."
 	icon_state = "medical_wall"
 	anchored = TRUE
-	density = 0
-	wall_mounted = 1
+	density = FALSE
+	wall_mounted = TRUE
 

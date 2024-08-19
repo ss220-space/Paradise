@@ -72,7 +72,7 @@
 						span_notice("You start vomitting resin for future use."))
 
 	in_process = TRUE
-	if(!do_after(host, resin_params["Process Time"][choice], target = host))
+	if(!do_after(host, resin_params["Process Time"][choice], host))
 		in_process = FALSE
 		revert_cast(host)
 		return

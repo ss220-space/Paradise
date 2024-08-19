@@ -7,6 +7,8 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 
+	layer = BUTTONS_LAYER
+
 	var/on = 1
 
 /obj/machinery/embedded_controller/proc/post_signal(datum/signal/signal, comm_line)
@@ -42,7 +44,7 @@
 	icon = 'icons/obj/machines/airlock_machines.dmi'
 	icon_state = "airlock_control_standby"
 	power_channel = ENVIRON
-	density = 0
+	density = FALSE
 
 	var/id_tag
 	//var/radio_power_use = 50 //power used to xmit signals
@@ -52,7 +54,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/machinery/embedded_controller/radio/Initialize()
-	..()
+	. = ..()
 	set_frequency(frequency)
 
 /obj/machinery/embedded_controller/radio/Destroy()

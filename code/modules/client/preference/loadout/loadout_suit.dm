@@ -1,6 +1,6 @@
 /datum/gear/suit
 	subtype_path = /datum/gear/suit
-	slot = SLOT_HUD_OUTER_SUIT
+	slot = ITEM_SLOT_CLOTH_OUTER
 	sort_category = "External Wear"
 
 //WINTER COATS
@@ -107,11 +107,11 @@
 
 /datum/gear/suit/br_tcoat
 	display_name = "trenchcoat, brown"
-	path = /obj/item/clothing/suit/browntrenchcoat
+	path = /obj/item/clothing/suit/storage/browntrenchcoat
 
 /datum/gear/suit/bl_tcoat
 	display_name = "trenchcoat, black"
-	path = /obj/item/clothing/suit/blacktrenchcoat
+	path = /obj/item/clothing/suit/storage/blacktrenchcoat
 
 /datum/gear/suit/bomber_jacket
 	display_name = "bomber jacket"

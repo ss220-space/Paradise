@@ -37,24 +37,14 @@
 
 /obj/item/grown/attackby(obj/item/O, mob/user, params)
 	..()
-	if (istype(O, /obj/item/plant_analyzer))
-		var/msg = "<span class='info'>This is \a <span class='name'>[src]</span>\n"
-		if(seed)
-			msg += seed.get_analyzer_text()
-		msg += "</span>"
-		to_chat(usr, msg)
+	if(istype(O, /obj/item/plant_analyzer))
+		send_plant_details(user)
 		return
 
 /obj/item/grown/proc/add_juice()
 	if(reagents)
 		return 1
 	return 0
-
-/obj/item/grown/after_slip(mob/living/carbon/human/H)
-	if(!seed)
-		return
-	for(var/datum/plant_gene/trait/T in seed.genes)
-		T.on_slip(src, H)
 
 /obj/item/grown/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(!..()) //was it caught by a mob?
@@ -70,3 +60,16 @@
 		return
 	set_light_on(FALSE)
 
+/obj/item/grown/proc/send_plant_details(mob/user)
+	var/msg = span_info("This is \a </span><span class='name'>[src]\n")
+	if(seed)
+		msg += seed.get_analyzer_text()
+	msg += "</span>"
+	to_chat(user, msg)
+	return
+
+/obj/item/grown/attack_ghost(mob/dead/observer/user)
+	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.
+		return
+	if(user.plant_analyzer)
+		send_plant_details(user)

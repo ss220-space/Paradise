@@ -53,7 +53,7 @@ GLOBAL_LIST_INIT(default_map_traits, MAP_TRANSITION_CONFIG)
 		trait_list = S.flags
 	else
 		trait_list = GLOB.default_map_traits[z]
-		trait_list = trait_list["attributes"]
+		trait_list = trait_list["traits"]
 	return ((trait_list[trait]) || (trait in trait_list)) // Return set association to trait(TRAIT = num or string), or 1(as true)
 
 /proc/levels_by_trait(trait)

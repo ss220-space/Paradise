@@ -42,7 +42,9 @@
 
 
 /datum/game_mode/space_ninja/post_setup()
-	pre_ninja?.add_antag_datum(/datum/antagonist/ninja)
+	var/datum/antagonist/ninja/ninja_datum = new
+	ninja_datum.change_species(pre_ninja.current)
+	pre_ninja?.add_antag_datum(ninja_datum)
 	..()
 
 
@@ -51,7 +53,7 @@
 	var/ninjas_alive = 0
 
 	for(var/datum/mind/ninja in space_ninjas)
-		if(!istype(ninja.current, /mob/living/carbon))
+		if(!iscarbon(ninja.current))
 			continue
 		if(ninja.current.stat==DEAD)
 			continue

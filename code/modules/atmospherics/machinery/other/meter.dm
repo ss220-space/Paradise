@@ -129,19 +129,21 @@
 
 	return ..()
 
+
 /obj/machinery/atmospherics/meter/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	playsound(loc, I.usesound, 50, 1)
-	to_chat(user, span_notice("You begin to unfasten [src]..."))
-	if(do_after(user, 40 * I.toolspeed * gettoolspeedmod(user), target = src))
-		user.visible_message( \
-			"[user] unfastens [src].", \
-			span_notice("You have unfastened [src]."), \
-			"You hear ratchet.")
-		deconstruct(TRUE)
+	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
+		return .
+	user.visible_message(
+		"[user] unfastens [src].",
+		span_notice("You have unfastened [src]."),
+		"You hear ratchet.",
+	)
+	deconstruct(TRUE)
+
 
 /obj/machinery/atmospherics/meter/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/pipe_meter(loc)
 	qdel(src)
 

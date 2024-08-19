@@ -95,15 +95,15 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 		SSblackbox.record_feedback("tally", "security_level_changes", 1, level)
 
 		if(GLOB.sibsys_automode && !isnull(GLOB.sybsis_registry))
-			for(var/obj/item/sibyl_system_mod/mod in GLOB.sybsis_registry)
+			for(var/obj/item/sibyl_system_mod/mod as anything in GLOB.sybsis_registry)
 				mod.sync_limit()
 
 
 /proc/update_station_firealarms()
 	for(var/obj/machinery/firealarm/alarm as anything in GLOB.firealarms)
 		if(is_station_contact(alarm.z))
-			alarm.update_icon()
 			alarm.update_fire_light()
+			alarm.update_icon()
 
 
 /proc/get_security_level()

@@ -42,7 +42,7 @@
 
 /obj/item/storage/briefcase/false_bottomed/afterattack(atom/A, mob/user, flag, params)
 	..()
-	if(stored_item && istype(stored_item, /obj/item/gun) && !Adjacent(A))
+	if(stored_item && isgun(stored_item) && !Adjacent(A))
 		var/obj/item/gun/stored_gun = stored_item
 		stored_gun.afterattack(A, user, flag, params)
 
@@ -60,7 +60,7 @@
 
 		stored_item = I
 		max_w_class = WEIGHT_CLASS_NORMAL - stored_item.w_class
-		I.forceMove(null) //null space here we go - to stop it showing up in the briefcase
+		I.move_to_null_space() //null space here we go - to stop it showing up in the briefcase
 		to_chat(user, "You place the [I] into the false bottom of the briefcase.")
 	else
 		return ..()
@@ -74,7 +74,7 @@
 	if(!bottom_open)
 		to_chat(user, "You begin to hunt around the rim of the [src]...")
 		busy_hunting = TRUE
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 2 SECONDS, src))
 			if(user)
 				to_chat(user, "You pry open the false bottom!")
 			bottom_open = TRUE

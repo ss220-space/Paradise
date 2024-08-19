@@ -25,7 +25,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 			possible_beacons += EP
 
 	if(!possible_beacons.len)
-		to_chat(user, "There are no extraction beacons in existence!")
+		balloon_alert(user, "маяки не найдены!")
 		return
 
 	else
@@ -36,14 +36,14 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		if(!A)
 			return
 		beacon = A
-		to_chat(user, "You link the extraction pack to the beacon system.")
+		balloon_alert(user, "синхронизация завершена")
 
 /obj/item/extraction_pack/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(!..())
 		return FALSE
 	if(!(loc == usr && loc.Adjacent(over_object)))
 		return FALSE
-	if(!ishuman(usr) || usr.incapacitated())
+	if(!ishuman(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return FALSE
 	over_object.add_fingerprint(usr)
 	afterattack(over_object, usr, TRUE, params)
@@ -52,12 +52,12 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 /obj/item/extraction_pack/afterattack(atom/movable/A, mob/living/carbon/human/user, flag, params)
 	. = ..()
 	if(!beacon)
-		to_chat(user, "<span class='warning'>[src] is not linked to a beacon, and cannot be used!</span>")
+		balloon_alert(user, "синхронизируйте с маяком!")
 		return
 	if(!can_use_indoors)
 		var/area/area = get_area(A)
 		if(!area.outdoors)
-			to_chat(user, "<span class='warning'>[src] can only be used on things that are outdoors!</span>")
+			balloon_alert(user, "используйте снаружи!")
 			return
 	if(!flag)
 		return
@@ -71,9 +71,9 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 			return
 		if(A.anchored || (A.move_resist > max_force_fulton))
 			return
-		to_chat(user, "<span class='notice'>You start attaching the pack to [A]...</span>")
-		if(do_after(user, 50, target = A))
-			to_chat(user, "<span class='notice'>You attach the pack to [A] and activate it.</span>")
+		balloon_alert(user, "подготовка эвакуации...")
+		if(do_after(user, 5 SECONDS, A))
+			balloon_alert(user, "эвакуация завершена")
 			if(loc == user && istype(user.back, /obj/item/storage/backpack))
 				var/obj/item/storage/backpack/B = user.back
 				if(B.can_be_inserted(src, stop_messages = TRUE))
@@ -88,10 +88,10 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 			if(isliving(A))
 				var/mob/living/M = A
 				M.Weaken(32 SECONDS) // Keep them from moving during the duration of the extraction
-				M.buckled = 0 // Unbuckle them to prevent anchoring problems
+				M.buckled?.unbuckle_mob(force = TRUE) // Unbuckle them to prevent anchoring problems
 			else
-				A.anchored = TRUE
-				A.density = FALSE
+				A.set_anchored(TRUE)
+				ADD_TRAIT(A, TRAIT_UNDENSE, FULTON_TRAIT)
 			var/obj/effect/extraction_holder/holder_obj = new(A.loc)
 			holder_obj.appearance = A.appearance
 			A.forceMove(holder_obj)
@@ -146,8 +146,8 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 			holder_obj.add_overlay(balloon3)
 			sleep(4)
 			holder_obj.cut_overlay(balloon3)
-			A.anchored = FALSE // An item has to be unanchored to be extracted in the first place.
-			A.density = initial(A.density)
+			A.set_anchored(FALSE) // An item has to be unanchored to be extracted in the first place.
+			REMOVE_TRAIT(A, TRAIT_UNDENSE, FULTON_TRAIT)
 			animate(holder_obj, pixel_z = 0, time = 5)
 			sleep(5)
 			A.forceMove(holder_obj.loc)
@@ -163,7 +163,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	icon_state = "subspace_amplifier"
 
 /obj/item/fulton_core/attack_self(mob/user)
-	if(do_after(user, 15, target = user) && !QDELETED(src))
+	if(do_after(user, 1.5 SECONDS, user) && !QDELETED(src))
 		var/obj/structure/extraction_point/point = new(get_turf(user))
 		point.add_fingerprint(user)
 		qdel(src)

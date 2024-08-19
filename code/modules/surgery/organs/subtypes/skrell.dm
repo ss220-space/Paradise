@@ -12,7 +12,7 @@
 			owner.adjustToxLoss(0.1 * PROCESS_ACCURACY)
 		else if(is_traumatized())
 			owner.adjustToxLoss(5)
-		receive_damage(1)
+		internal_receive_damage(1)
 
 
 /obj/item/organ/internal/headpocket
@@ -42,11 +42,11 @@
 	..()
 	var/obj/item/organ/external/head/head = owner.get_organ(BODY_ZONE_HEAD)
 	if(pocket.contents.len && !findtextEx(head.h_style, "Tentacles"))
-		owner.visible_message("<span class='notice'>Something falls from [owner]'s head!</span>",
-													"<span class='notice'>Something falls from your head!</span>")
+		owner.visible_message(span_notice("Something falls from [owner]'s head!"),
+													span_notice("Something falls from your head!"))
 		empty_contents()
 
-/obj/item/organ/internal/headpocket/ui_action_click()
+/obj/item/organ/internal/headpocket/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(!loc)
 		loc = owner
 	pocket.MouseDrop(owner)

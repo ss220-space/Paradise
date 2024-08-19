@@ -170,7 +170,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	else if(target != world)
 		return call(target, procname)(arglist(arguments))
 	else
-		to_chat(usr, "<span class='boldannounce'>Call to world/proc/[procname] blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, span_boldannounceooc("Call to world/proc/[procname] blocked: Advanced ProcCall detected."))
 		message_admins("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]")
 		log_admin("[key_name(usr)] attempted to call world/proc/[procname] with arguments: [english_list(arguments)]l")
 
@@ -182,7 +182,6 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 #endif
 
 /client/proc/callproc_datum(atom/A as null|area|mob|obj|turf in view(maxview()))
-	set category = null
 	set name = "\[Admin\] Atom ProcCall"
 
 	if(!check_rights(R_PROCCALL))
@@ -307,7 +306,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!SSticker)
 		alert("Wait until the game starts")
 		return
-	if(istype(M, /mob/living/carbon/human))
+	if(ishuman(M))
 		var/mob/living/carbon/human/human = M
 		log_admin("[key_name(src)] has robotized [human.key].")
 		spawn(10)
@@ -431,7 +430,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!SSticker)
 		alert("Wait until the game starts")
 		return
-	if(istype(M, /mob/living/carbon/human))
+	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/card/id/id = null
 		if(H.wear_id)
@@ -446,7 +445,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			id.registered_name = H.real_name
 			id.assignment = JOB_TITLE_CAPTAIN
 			id.name = "[id.registered_name]'s ID Card ([id.assignment])"
-			H.equip_to_slot_or_del(id, SLOT_HUD_WEAR_ID)
+			H.equip_to_slot_or_del(id, ITEM_SLOT_ID)
 			H.update_inv_wear_id()
 	else
 		alert("Invalid mob")
@@ -592,7 +591,6 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		to_chat(world, "* [areatype]")
 
 /client/proc/cmd_admin_dress(mob/living/carbon/human/M in GLOB.human_list)
-	set category = "Event"
 	set name = "\[Admin\] Select equipment"
 
 	if(!check_rights(R_EVENT))
@@ -691,7 +689,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			F.active = 1
 			F.state = 2
 			F.power = 250
-			F.anchored = TRUE
+			F.set_anchored(TRUE)
 			F.warming_up = 3
 			F.start_fields()
 			F.update_icon()
@@ -807,21 +805,20 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	usr << browse(dat, "window=simpledellog")
 
-/client/proc/cmd_admin_toggle_block(var/mob/M,var/block)
+/client/proc/cmd_admin_toggle_block(mob/M, block)
 	if(!check_rights(R_SPAWN))
 		return
 
 	if(!SSticker)
 		alert("Wait until the game starts")
 		return
-	if(istype(M, /mob/living/carbon))
-		M.dna.SetSEState(block,!M.dna.GetSEState(block))
-		genemutcheck(M,block,null,MUTCHK_FORCED)
-		M.update_mutations()
-		var/state="[M.dna.GetSEState(block)?"on":"off"]"
-		var/blockname=GLOB.assigned_blocks[block]
-		message_admins("[key_name_admin(src)] has toggled [M.key]'s [blockname] block [state]!")
-		log_admin("[key_name(src)] has toggled [M.key]'s [blockname] block [state]!")
+	if(iscarbon(M))
+		var/state_value = M.dna.GetSEState(block)
+		M.force_gene_block(block, !state_value)
+		var/state_word = "[state_value?"on":"off"]"
+		var/blockname = GLOB.assigned_blocks[block]
+		message_admins("[key_name_admin(src)] has toggled [M.key]'s [blockname] block [state_word]!")
+		log_admin("[key_name(src)] has toggled [M.key]'s [blockname] block [state_word]!")
 	else
 		alert("Invalid mob")
 
@@ -833,7 +830,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(!check_rights(R_DEBUG|R_VIEWRUNTIMES))
 		return
 
-	GLOB.error_cache.showTo(usr)
+	GLOB.error_cache.show_to(usr)
 
 /client/proc/jump_to_ruin()
 	set category = "Debug"

@@ -83,7 +83,7 @@ GLOBAL_LIST_EMPTY(movespeed_modification_cache)
 			return TRUE
 		remove_movespeed_modifier(existing, update = FALSE)
 	if(length(movespeed_modification))
-		BINARY_INSERT_TG(type_or_datum.id, movespeed_modification, /datum/movespeed_modifier, type_or_datum, priority, COMPARE_VALUE)
+		BINARY_INSERT(type_or_datum.id, movespeed_modification, /datum/movespeed_modifier, type_or_datum, priority, COMPARE_VALUE)
 	LAZYSET(movespeed_modification, type_or_datum.id, type_or_datum)
 	if(update)
 		update_movespeed()

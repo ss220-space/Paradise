@@ -47,6 +47,10 @@
 	return
 
 
+/obj/item/assembly/proc/assembly_crossed(atom/movable/crossed, atom/old_loc)
+	return
+
+
 /// Called when attack_self is called
 /obj/item/assembly/interact(mob/user)
 	return

@@ -68,12 +68,12 @@
 
 	if(get_dist(get_turf(src), get_turf(injection_target)) > 1)
 		to_chat(injection_target, "<span class='userdanger'>The [src]'s' needle is ripped out of you!</span>")
-		injection_limb.receive_damage(3)
+		injection_target.apply_damage(3, def_zone = injection_limb)
 		end_processing()
 		return
 
-	// injection_limb.open = 2 after scalpel->hemostat->retractor
-	if((PIERCEIMMUNE in injection_target.dna.species.species_traits) && injection_limb.open < 2)
+	// injection_limb.open = ORGAN_ORGANIC_ENCASED_OPEN after scalpel->hemostat->retractor
+	if((PIERCEIMMUNE in injection_target.dna.species.species_traits) && injection_limb.open < ORGAN_ORGANIC_ENCASED_OPEN)
 		end_processing()
 		return
 
@@ -102,7 +102,7 @@
 		if(L != user)
 			L.visible_message("<span class='danger'>[user] is trying to remove [src]'s needle from [L]'s arm!</span>", \
 							"<span class='userdanger'>[user] is trying to remove [src]'s needle from [L]'s arm!</span>")
-			if(!do_mob(user, L))
+			if(!do_after(user, 3 SECONDS, L, NONE))
 				return
 		L.visible_message("<span class='danger'>[user] removes [src]'s needle from [L]'s arm!</span>", \
 							"<span class='userdanger'>[user] removes [src]'s needle from [L]'s arm!</span>")
@@ -116,7 +116,7 @@
 		if(L != user)
 			L.visible_message("<span class='danger'>[user] is trying to insert [src]'s needle into [L]'s arm!</span>", \
 								"<span class='userdanger'>[user] is trying to insert [src]'s needle into [L]'s arm!</span>")
-			if(!do_mob(user, L))
+			if(!do_after(user, 3 SECONDS, L, NONE))
 				return
 		L.visible_message("<span class='danger'>[user] inserts [src]'s needle into [L]'s arm!</span>", \
 								"<span class='userdanger'>[user] inserts [src]'s needle into [L]'s arm!</span>")

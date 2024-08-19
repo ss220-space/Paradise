@@ -157,3 +157,237 @@
   - balance: update for ballictic armor in security armory (#4810)
   aeternaclose:
   - add: Folder for event maps & event.dm  (#4833)
+'2024-04-10':
+  ArtemDerp:
+  - bugfix: cheese bage can be selected (#4849)
+  Vladisvell:
+  - add: Custom outfits are now correctly saved (#4835)
+  - add: Cyborg's gripper now acts more like hand (#4807)
+  Zwei:
+  - bugfix: Gravity Fixes (#4845)
+'2024-04-11':
+  Etrnlmelancholy:
+  - qol: new 4k sprites from Pyotr Tchaikovsky (#4851)
+  LiquidPotroh:
+  - add: new IPC health hud status icons (#4804)
+  Mr-Vivor:
+  - add: T2 donor clown speechbubble (#4838)
+  NightDawnFox:
+  - bugfix: critical syndie bundle bugfix (#4856)
+  NotSoWizard:
+  - add: Quartermaster as head of the department (#4817)
+  Rerik007:
+  - add: (added) pet bowl and feed (#4592)
+  - bugfix: fixes malfs that cannot be AIs (#4846)
+  Vladisvell:
+  - bugfix: Fixed cursed lavaland atmospheric vacuum anomaly (#4854)
+  Zwei:
+  - bugfix: Space Turfs Has No Gravity (#4848)
+  - refactor: Anchor Variable Setter (#4844)
+  - bugfix: Negate Gravity Fix (#4860)
+'2024-04-12':
+  BeebBeebBoob:
+  - bugfix: Multi-Z Patch(grav, cable, shuttle, tcomms) (#4862)
+  - bugfix: gravity negation on openspace (#4863)
+  Ksaikok46:
+  - bugfix: jetpack upgrade is no long attachable to regular space suits (#4859)
+  - imageadd: species sprites and fixes for H.E.C.K  (#4853)
+  Rerik007:
+  - bugfix: now we check if bundle has been deleted (#4858)
+  - refactor: surgery's code polishing, few fixes and tweaks (#4436)
+'2024-04-13':
+  NightDawnFox:
+  - balance: chasmland QoL features (#4712)
+  - add: digged basalt now refilling after ash storm (#4782)
+  Quinal:
+  - qol: add amish suit to loadout (#4855)
+  Rerik007:
+  - refactor: move shield code to component (#4479)
+  - bugfix: correct gravity calculation in disposal (#4847)
+  - bugfix: fix some small runtimes (#4841)
+  - bugfix: lighting bolt spell fix (#4866)
+  - bugfix: fixes incorrect dmi states for ushanka ian and species sprites (#4873)
+  Vladisvell:
+  - balance: Sorium explosions anti-meta bogaloo (#4869)
+  - bugfix: Baseturfs helpers now change baseturf only after everything was initialized
+      (#4867)
+  - add: get_edge_target_turf now works for all directions (#4872)
+  - add: Supermatter crystal now heats according to thermodynamic laws. (#4066)
+  aeternaclose:
+  - unknown: Delta tube fix and remove chemical spray (#4876)
+'2024-04-14':
+  BeebBeebBoob:
+  - add: 'Adds event-map: Turrim (#4874)'
+  WolfLox:
+  - bugfix: fix helmet name (#4879)
+'2024-04-15':
+  aeternaclose:
+  - bugfix: Lavaland ruins baseturf bugfix (#4870)
+'2024-04-16':
+  BeebBeebBoob:
+  - refactor: Refactored roundstart landmarks abit (#4887)
+  Den109G:
+  - unknown: Hoods are no longer nodrop (#4882)
+  Etrnlmelancholy:
+  - add: new haircuts for xenoraces and humans (#4875)
+  Rerik007:
+  - bugfix: surgery day one fixes (#4880)
+  Valtor:
+  - bugfix: beepskysmash permastun (#4889)
+  Vladisvell:
+  - bugfix: Borgs can now use plant dna manipulator (#4877)
+'2024-04-17':
+  Aziz Chynaliev:
+  - add: new TTS voice packs
+  aeternaclose:
+  - bugfix: Cere Qm unnecessary extinguisher_cabinet remove (#4900)
+'2024-04-18':
+  Epistaz:
+  - refactor: apply is_helpers to project (#4885)
+  Ksaikok46:
+  - tweak: dice of fate now gives syndie bundle beacon instead of empty box when roll
+      "17" (#4902)
+  MstrKabach:
+  - tweak: Reduced access tuner's hacking delay from 3 -> 1 second (#4884)
+  Rerik007:
+  - bugfix: rejuvenate organ now fix all wounds correctly (#4897)
+  - bugfix: few small runtimes fixes (pt) (#4878)
+  - bugfix: fixes duplicate arg name (#4894)
+  - add: portable orders monitor for cargotechs (#4898)
+  Valtor:
+  - bugfix: rus chars support to Wingdings disability (#4888)
+  Vladisvell:
+  - server: Changelogs now have capitalized descriptions (#4906)
+  - bugfix: Blood and cleanables are now rendered upon stone tiles (#4905)
+  Zwei:
+  - bugfix: Update Gravity On Turf Change (#4899)
+  - bugfix: Equipped Typo Fix (#4892)
+  - bugfix: Keep Items On Species Change (#4883)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4861)
+'2024-04-19':
+  Aziz Chynaliev:
+  - tweak: TTS - free weekend
+  NotSoWizard:
+  - tweak: new QM's sechud icon (#4916)
+  ROdenFL:
+  - add: mouse idle animation (#4097)
+  Zwei:
+  - bugfix: Access Tuner Icon Update Fix (#4908)
+'2024-04-20':
+  Den109G:
+  - bugfix: Make very clear, what tiles we DONT use (#4921)
+  Honker9999999:
+  - add: 0.4 delay for ion rifle (#4913)
+  ROdenFL:
+  - tweak: poncho loadout update (#4910)
+  Rerik007:
+  - bugfix: fix surgeryize organs (#4909)
+  Shakalchik:
+  - bugfix: Ninja gravity bug (#4918)
+  Valtor:
+  - qol: Brain name in "steal brain" goals (#4911)
+  Vladisvell:
+  - bugfix: bodybags can now be opened if got enough damage (#4923)
+  Zwei:
+  - refactor: All Inventory Slots Are Bitfields (#4893)
+'2024-04-21':
+  Den109G:
+  - refactor: DMI's for clothes is no longer hardcoded (#4907)
+  Ksaikok46:
+  - tweak: Changed BFL goal crate cost and its content, decreased BSH goal points
+      (#4931)
+  LiquidPotroh:
+  - bugfix: Syndicate bomb dont work in de-powered zones (#4928)
+  Rerik007:
+  - bugfix: added missing cuffs icons (#4932)
+  Vladisvell:
+  - bugfix: Item deletion now removes it from storage before being destroyed (#4925)
+  Zwei:
+  - bugfix: VTEC Ignores Speed Penalties (#4927)
+  - bugfix: Vampire Passives Removal Fix (#4919)
+  pilygun:
+  - balance: Changing the price of items in the uplink (#4903)
+'2024-04-22':
+  Aziz Chynaliev:
+  - del: TTS - free weekend"
+  Daeberdir:
+  - bugfix: event station lavaland path. (#4935)
+  Den109G:
+  - refactor: Getting rid of icon override var (#4930)
+  Helmsman:
+  - tweak: holos check before cult god summon (#4939)
+  Ksaikok46:
+  - tweak: Cryogenics reagents blacklist expansion (#4948)
+  Rerik007:
+  - bugfix: fix that you can start operate anywhere (#4934)
+  - bugfix: few health fixes (#4944)
+  - refactor: now using forcemove instead of loc= for mobs mostly (#4943)
+  Shakalchik:
+  - tweak: death implant for QM (#4941)
+  - add: gold Desert Eagle to badassery (#4917)
+  Valtor:
+  - add: Diona no_dna trait (#4947)
+  - qol: Fedora custom emote (#4946)
+  Vladisvell:
+  - add: Cyborg KA upgrades are brought back to exosuit fabricators. (#4904)
+  Zwei:
+  - refactor: Nodrop Trait (#4920)
+  - bugfix: Midnight Rollover Fix (#4942)
+  - tweak: Thunk Checks For Incorporeal Move (#4914)
+'2024-04-23':
+  Mr-Vivor:
+  - add: T4 donor CE speechbubble (#4949)
+  Rerik007:
+  - add: added cursed katana from TG (restored version) (#4660)
+  Zwei:
+  - tweak: Throwing Additional Check (#4924)
+'2024-04-24':
+  Daeberdir:
+  - add: Cerestation virology lab space optimization and small map tweaks. (#4933)
+  Honker9999999:
+  - tweak: blind with another effect (#4915)
+  Ksaikok46:
+  - tweak: Nanocalcium fixes bones and bleedings faster (#4950)
+  Zwei:
+  - bugfix: Flags Inv Fixes (#4954)
+  aeternaclose:
+  - bugfix: SpaceRuins fixes (#4951)
+  - bugfix: SpaceBattle awaystart landmark & turf fix (#4957)
+'2024-04-25':
+  Daeberdir:
+  - bugfix: Surgically precise operations for cyborg-surgeons. (#4967)
+  Den109G:
+  - bugfix: Icons for bola and shadowlings (#4963)
+'2024-04-27':
+  Den109G:
+  - bugfix: Brig doors now use a proper font (#4971)
+  Ksaikok46:
+  - bugfix: correct flags check for items in safe (#4972)
+  MstrKabach:
+  - add: adrenalin and freedom implants prototypes (#4974)
+  pilygun:
+  - tweak: buckhelm and makeshift armor update (#4973)
+  - balance: Cargo quests, garbage disposal and price balance (#4968)
+  - tweak: '[Перевод] Cargo translation of receipts into Russian (#4962)'
+  - tweak: '[Перевод] Update quest workers (#4959)'
+'2024-04-28':
+  Antoonij:
+  - add: Borer sneak mode (#4982)
+  Den109G:
+  - bugfix: Beaker now look if you can drink (#4983)
+  Zwei:
+  - bugfix: Changeling Armor Ignores Restrictions (#4970)
+  - qol: PDA Shows Sent Messages (#4964)
+  - bugfix: Progress Bar Runtime Fixed (#4966)
+  - bugfix: Correct Ore Overlays Update (#4960)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4965)
+'2024-04-30':
+  Den109G:
+  - bugfix: Now jumpsuits rolldowns works fine. (#4985)
+  Ksaikok46:
+  - bugfix: Flags_inv fix for some hoods (#4990)
+  - bugfix: EngiVend&CritterCare panel overlays (#4987)
+  pilygun:
+  - tweak: actual Stechkin name in the uplink (#4958)

@@ -37,7 +37,7 @@
 		/obj/item/stack/sheet/plastic				= /datum/species/golem/plastic,
 		/obj/item/stack/sheet/brass					= /datum/species/golem/clockwork)
 
-	if(istype(I, /obj/item/stack))
+	if(isstack(I))
 		var/obj/item/stack/O = I
 		var/species = golem_shell_species_types[O.merge_type]
 		if(species)
@@ -124,7 +124,7 @@
 	if(.)
 		return
 	if(isgolem(user) && can_transfer)
-		var/transfer_choice = alert("Transfer your soul to [src]? (Warning, your old body will die!)",,"Yes","No")
+		var/transfer_choice = tgui_alert(user, "Transfer your soul to [src]? (Warning, your old body will die!)", "Respawn", list("Yes","No"))
 		if(transfer_choice != "Yes")
 			return
 		if(QDELETED(src) || uses <= 0)

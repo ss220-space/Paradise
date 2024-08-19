@@ -20,7 +20,7 @@
 	can_wrap = FALSE
 	melee_damage_lower = 10
 	melee_damage_upper = 15
-	ventcrawler = 0
+	ventcrawler_trait = null
 	spider_tier = TS_TIER_3
 	spider_opens_doors = 2
 	special_abillity = list(/obj/effect/proc_holder/spell/aoe/conjure/build/terror_jelly,
@@ -55,8 +55,8 @@
 				new /obj/effect/temp_visual/heal(get_turf(S), "#8c00ff")
 	for(var/mob/living/carbon/human/L in view(7, src))  //deadly toxic aura
 		if(L.stat != DEAD)
-			L.adjustToxLoss(3)
-			L.adjustStaminaLoss(3)
+			L.apply_damages(tox = 3, stamina = 3)
+
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/consume_jelly(obj/structure/spider/royaljelly/J)
 	to_chat(src, "<span class='warning'>Mothers cannot consume royal jelly.</span>")

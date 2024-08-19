@@ -1,5 +1,5 @@
 /obj/structure/AIcore
-	density = 1
+	density = TRUE
 	anchored = FALSE
 	name = "AI core"
 	icon = 'icons/mob/ai.dmi'
@@ -35,7 +35,7 @@
 				if(C.get_amount() >= 5)
 					playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 					to_chat(user, span_notice("You start to add cables to the frame..."))
-					if(do_after(user, 20, target = src) && state == SCREWED_CORE && C.use(5))
+					if(do_after(user, 2 SECONDS, src) && state == SCREWED_CORE && C.use(5))
 						add_fingerprint(user)
 						to_chat(user, span_notice("You add cables to the frame."))
 						state = CABLED_CORE
@@ -49,7 +49,7 @@
 				if(G.get_amount() >= 2)
 					playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
 					to_chat(user, span_notice("You start to put in the glass panel..."))
-					if(do_after(user, 20, target = src) && state == CABLED_CORE && G.use(2))
+					if(do_after(user, 2 SECONDS, src) && state == CABLED_CORE && G.use(2))
 						add_fingerprint(user)
 						to_chat(user, span_notice("You put in the glass panel."))
 						state = GLASS_CORE
@@ -163,7 +163,7 @@
 			add_game_logs("has completed an AI core in [AREACOORD(src)].", usr)
 			to_chat(user, span_notice("You connect the monitor."))
 			if(!brain)
-				var/open_for_latejoin = alert(user, "Would you like this core to be open for latejoining AIs?", "Latejoin", "Yes", "Yes", "No") == "Yes"
+				var/open_for_latejoin = tgui_alert(user, "Would you like this core to be open for latejoining AIs?", "Latejoin", list("Yes", "No")) == "Yes"
 				var/obj/structure/AIcore/deactivated/D = new(loc)
 				if(open_for_latejoin)
 					GLOB.empty_playable_ai_cores += D
@@ -297,7 +297,7 @@ That prevents a few funky behaviors.
 /atom/proc/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(istype(card))
 		if(card.flush)
-			to_chat(user, span_boldannounce("ERROR:") + "AI flush is in progress, cannot execute transfer protocol.")
+			to_chat(user, span_boldannounceic("ERROR:") + "AI flush is in progress, cannot execute transfer protocol.")
 			return 0
 	return 1
 

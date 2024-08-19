@@ -14,7 +14,7 @@
 	desc = "A machine that combines ingredients and bottles the resulting beverages."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "bottler_off"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	var/list/slots[3]
 	var/list/datum/bottler_recipe/available_recipes
@@ -93,7 +93,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	anchored = !anchored
+	set_anchored(!anchored)
 	if(anchored)
 		WRENCH_ANCHOR_MESSAGE
 	else

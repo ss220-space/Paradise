@@ -75,3 +75,9 @@
 
 // Tesla coil
 #define WIRE_TESLACOIL_ZAP "Zap"
+
+
+// Washing Machine
+#define WIRE_WASHER_HACK "Hack"
+#define WIRE_WASHER_DISABLE "Disable"
+

@@ -5,11 +5,11 @@
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "teleconsole"
 	anchored = TRUE
-	density = 0
+	density = FALSE
 
 /obj/structure/ninjatele/attack_hand(mob/user as mob)
 	if(user.mind.special_role == SPECIAL_ROLE_SPACE_NINJA)
-		switch(alert("Phase Jaunt relay primed, target locked as [station_name()], initiate VOID-shift translocation?",,"Yes","No"))
+		switch(tgui_alert(user, "Phase Jaunt relay primed, target locked as [station_name()], initiate VOID-shift translocation? (Warning! Internals required!)", "Void Shift", list("Yes", "No")))
 			if("Yes")
 				if(user.z != src.z)
 					return

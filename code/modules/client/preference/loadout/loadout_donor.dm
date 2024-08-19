@@ -19,6 +19,12 @@
 	display_name = "Kitty ears"
 	path = /obj/item/clothing/head/kitty
 
+/datum/gear/donor/leather_trenchcoat
+	display_name = "Leather Trenchcoat"
+	path = /obj/item/clothing/suit/storage/leather_trenchcoat/runner
+	donator_tier = 2
+	cost = 1
+
 /datum/gear/donor/furgloves
 	display_name = "Fur Gloves"
 	path = /obj/item/clothing/gloves/furgloves
@@ -87,6 +93,14 @@
 	display_name = "Guy Fawkes mask"
 	path = /obj/item/clothing/mask/face/fawkes
 
+/datum/gear/donor/bigbrother
+	display_name = "Spraycan Big Brother"
+	path = /obj/item/toy/crayon/spraycan/paintkit/bigbrother
+
+/datum/gear/donor/slavic
+	display_name = "Spraycan Slavic"
+	path = /obj/item/toy/crayon/spraycan/paintkit/slavic
+
 /datum/gear/donor/id_decal_silver
 	display_name = "Silver ID Decal"
 	path = /obj/item/id_decal/silver
@@ -142,6 +156,13 @@
 	cost = 1
 	allowed_roles = list(JOB_TITLE_CHIEF)
 
+/datum/gear/donor/strip/t4ce
+	display_name = "strip, Grand Chief Engineer"
+	path = /obj/item/clothing/accessory/head_strip/t4ce
+	donator_tier = 4
+	cost = 1
+	allowed_roles = list(JOB_TITLE_CHIEF)
+
 /datum/gear/donor/strip/cmo
 	display_name = "strip, Chief Medical Officer"
 	path = /obj/item/clothing/accessory/head_strip/cmo
@@ -170,6 +191,13 @@
 	cost = 1
 	allowed_roles = list(JOB_TITLE_QUARTERMASTER)
 
+/datum/gear/donor/strip/clown
+	display_name = "strip, Clown"
+	path = /obj/item/clothing/accessory/head_strip/clown
+	donator_tier = 2
+	cost = 1
+	allowed_roles = list(JOB_TITLE_CLOWN)
+
 /datum/gear/donor/strip/bs
 	display_name = "strip, Blueshield"
 	path = /obj/item/clothing/accessory/head_strip/bs
@@ -189,7 +217,7 @@
 	path = /obj/item/clothing/glasses/heart
 	donator_tier = 3
 	cost = 1
-	slot = SLOT_HUD_GLASSES
+	slot = ITEM_SLOT_EYES
 
 /datum/gear/donor/heartglasses/New()
 	gear_tweaks += new /datum/gear_tweak/color(parent = src)
@@ -211,17 +239,17 @@
 	gear_tweaks += new /datum/gear_tweak/path(skirts, src)
 
 /datum/gear/donor/strip/cheese_badge
-	display_name = "great fellow's badge"
+	display_name = "strip, Great fellow"
 	path = /obj/item/clothing/accessory/head_strip/cheese_badge
 	donator_tier = 4
 	cost = 1
+	allowed_roles = list(JOB_TITLE_CAPTAIN, JOB_TITLE_QUARTERMASTER, JOB_TITLE_RD, JOB_TITLE_HOS, JOB_TITLE_HOP, JOB_TITLE_CMO, JOB_TITLE_CHIEF, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_JUDGE)
 
 /datum/gear/donor/smile_pin
 	display_name = "smiling pin"
 	path = /obj/item/clothing/accessory/medal/smile
 	donator_tier = 4
 	cost = 1
-	allowed_roles = list(JOB_TITLE_CAPTAIN, JOB_TITLE_QUARTERMASTER, JOB_TITLE_RD, JOB_TITLE_HOS, JOB_TITLE_HOP, JOB_TITLE_CMO, JOB_TITLE_CHIEF, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_JUDGE)
 
 /datum/gear/donor/backpack_hiking
 	donator_tier = 3
@@ -278,3 +306,65 @@
 	donator_tier = 3
 	cost = 1
 	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ATMOSTECH)
+
+/datum/gear/donor/beaver
+	display_name = "Beaver Plushie"
+	path = /obj/item/toy/plushie/beaver
+	donator_tier = 3
+	cost = 1
+
+/datum/gear/donor/hijab
+	donator_tier = 1
+	cost = 1
+	display_name = "hijab"
+	path = /obj/item/clothing/suit/hooded/hijab
+
+/datum/gear/donor/steampunkdress
+	donator_tier = 1
+	cost = 1
+	display_name = "victorian blue-white dress"
+	path = /obj/item/clothing/under/steampunkdress
+
+/datum/gear/donor/plaidhoodie_green
+	donator_tier = 1
+	cost = 1
+	display_name = "Plaid hoodie, green"
+	path = /obj/item/clothing/suit/hoodie/plaidhoodie_green
+
+/datum/gear/donor/plaidhoodie_white
+	donator_tier = 1
+	cost = 1
+	display_name = "Plaid hoodie, white"
+	path = /obj/item/clothing/suit/hoodie/plaidhoodie_white
+
+/datum/gear/donor/plaidhoodie_red
+	donator_tier = 1
+	cost = 1
+	display_name = "Plaid hoodie, red"
+	path = /obj/item/clothing/suit/hoodie/plaidhoodie_red
+
+/datum/gear/donor/plaidhoodie_yellow
+	donator_tier = 1
+	cost = 1
+	display_name = "Plaid hoodie, yellow"
+	path = /obj/item/clothing/suit/hoodie/plaidhoodie_yellow
+
+/datum/gear/donor/blackcoat
+	donator_tier = 2
+	cost = 2
+	display_name = "Black Coat"
+	path = /obj/item/clothing/suit/blackcoat
+
+/datum/gear/donor/pda_beer
+	display_name = "PDA case \"BEER\""
+	path = /obj/item/pda_case/beer
+	donator_tier = 1
+	cost = 1
+
+/datum/gear/donor/maid
+	donator_tier = 2
+	cost = 1
+	display_name = "Short maid costume"
+	path = /obj/item/clothing/under/maid
+
+

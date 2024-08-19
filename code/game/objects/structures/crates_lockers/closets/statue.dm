@@ -3,7 +3,7 @@
 	desc = "An incredibly lifelike marble carving"
 	icon = 'icons/obj/statue.dmi'
 	icon_state = "human_male"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	max_integrity = 0 //destroying the statue kills the mob within
 	no_overlays = TRUE
@@ -13,12 +13,10 @@
 	var/intialOxy = 0
 	var/timer = 240 //eventually the person will be freed
 
-/obj/structure/closet/statue/Initialize(mapload, var/mob/living/L)
+/obj/structure/closet/statue/Initialize(mapload, mob/living/L)
 	. = ..()
 	if(ishuman(L) || iscorgi(L))
-		if(L.buckled)
-			L.buckled = 0
-			L.anchored = FALSE
+		L.buckled?.unbuckle_mob(L, force = TRUE)
 		L.forceMove(src)
 		ADD_TRAIT(L, TRAIT_MUTE, "statue")
 		max_integrity = L.health + 100 //stoning damaged mobs will result in easier to shatter statues
@@ -26,7 +24,7 @@
 		intialFire = L.getFireLoss()
 		intialBrute = L.getBruteLoss()
 		intialOxy = L.getOxyLoss()
-		if(issmall(L))
+		if(is_monkeybasic(L))
 			name = "statue of a monkey"
 			icon_state = "monkey"
 		else if(ishuman(L))
@@ -47,10 +45,13 @@
 /obj/structure/closet/statue/process()
 	timer--
 	for(var/mob/living/M in src) //Go-go gadget stasis field
-		M.setToxLoss(intialTox)
-		M.adjustFireLoss(intialFire - M.getFireLoss())
-		M.adjustBruteLoss(intialBrute - M.getBruteLoss())
-		M.setOxyLoss(intialOxy)
+		var/update = NONE
+		update |= M.adjustFireLoss(intialFire - M.getFireLoss(), FALSE)
+		update |= M.adjustBruteLoss(intialBrute - M.getBruteLoss(), FALSE)
+		update |= M.setToxLoss(intialTox, FALSE)
+		update |= M.setOxyLoss(intialOxy, FALSE)
+		if(update)
+			M.updatehealth()
 	if(timer <= 0)
 		dump_contents()
 		STOP_PROCESSING(SSobj, src)
@@ -70,7 +71,7 @@
 	for(var/mob/living/M in src)
 		M.forceMove(loc)
 		REMOVE_TRAIT(M, TRAIT_MUTE, "statue")
-		M.take_overall_damage((M.health - obj_integrity - 100),0) //any new damage the statue incurred is transfered to the mob
+		M.take_overall_damage((M.health - obj_integrity - 100)) //any new damage the statue incurred is transfered to the mob
 
 	..()
 

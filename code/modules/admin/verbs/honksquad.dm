@@ -6,30 +6,30 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 
 /client/proc/honksquad()
 	if(!SSticker)
-		to_chat(usr, "<font color='red'>The game hasn't started yet!</font>")
+		to_chat(src, "<font color='red'>Игра еще не началась!</font>")
 		return
 	if(world.time < 6000)
-		to_chat(usr, "<font color='red'>There are [(6000-world.time)/10] seconds remaining before it may be called.</font>")
+		to_chat(src, "<font color='red'>Осталось [(6000-world.time)/10] секунд до того, как это может быть вызвано.</font>")
 		return
-	if(alert("Do you want to send in the HONKsquad? Once enabled, this is irreversible.",,"Yes","No")!="Yes")
+	if(tgui_alert(src, "Вы хотите отправить ХОНКсквад? После согласия это необратимо.", "Подтверждение", list("Да","Нет")) != "Да")
 		return
 	var/is_security_clowns = FALSE
-	if(alert("Какую группу вы хотите послать?",,"ХОНК-сквад","ХОНК-смотрители")=="ХОНК-смотрители")
+	if(tgui_alert(src, "Какую группу вы хотите послать?","Тип отряда", list("ХОНК-сквад", "ХОНК-смотрители")) == "ХОНК-смотрители")
 		is_security_clowns = TRUE
 		GLOB.sent_clownsequritysquad += 1
 	else
 		GLOB.sent_honksquad += 1
 
 	if(GLOB.sent_honksquad > 1 && !is_security_clowns || GLOB.sent_clownsequritysquad > 1 && is_security_clowns)
-		to_chat(usr, "<font color='red'>Clown Planet has already dispatched that HONKsquad.</font>")
+		to_chat(src, "<font color='red'>Планета Клоунов уже отправила ХОНКсквад.</font>")
 		return
-	alert("This 'mode' will go on until proper levels of HONK have been restored. You may also admin-call the evac shuttle when appropriate. Assigning the team's detailed task is recommended from there. While you will be able to manually pick the candidates from active ghosts, their assignment in the squad will be random.")
+	tgui_alert(src, "Этот 'режим' будет продолжаться до тех пор, пока не будут восстановлены надлежащий уровень ХОНКа. Также, при необходимости, можно вызвать эвакуационный шаттл через админские кнопки.")
 
 	var/input = null
 	while(!input)
-		input = sanitize(copytext_char(input(src, "Please specify which mission the HONKsquad shall undertake.", "Specify Mission", ""),1,MAX_MESSAGE_LEN))
+		input = tgui_input_text(src, "Пожалуйста, уточните, какую миссию будет выполнять ХОНКсквад.", "Укажите миссию", "", max_length=MAX_MESSAGE_LEN)
 		if(!input)
-			if(alert("Error, no mission set. Do you want to exit the setup process?",,"Yes","No")=="Yes")
+			if(tgui_alert(src, "Ошибка, миссия не задана. Вы хотите приостановить процесс?", "Подтверждение", list("Да","Нет")) == "Да")
 				return
 
 
@@ -38,36 +38,27 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 
 
 //Generates a list of HONKsquad from active ghosts. Then the user picks which characters to respawn as the commandos.
-	var/list/candidates = list()	//candidates for being a commando out of all the active ghosts in world.
-	var/list/commandos = list()			//actual commando ghosts as picked by the user.
-	for(var/mob/dead/observer/G	 in GLOB.player_list)
-		if(!G.client.holder && !G.client.is_afk())	//Whoever called/has the proc won't be added to the list.
-			if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
-				candidates += G.key
-	for(var/i=HONKSQUAD_POSSIBLE,(i>0&&candidates.len),i--)//Decrease with every commando selected.
-		var/candidate = input("Pick characters to spawn as the HONKsquad. This will go on until there either no more ghosts to pick from or the slots are full.", "Active Players") as null|anything in candidates	//It will auto-pick a person when there is only one candidate.
-		candidates -= candidate		//Subtract from candidates.
-		commandos += candidate//Add their ghost to commandos.
+	var/list/candidates = pick_candidates_all_types(src, HONKSQUAD_POSSIBLE, "Присоединиться к ХОНКскваду?", , 21, 30 SECONDS, FALSE, 60, TRUE, FALSE,, "ХОНКсквад", input)
 
 //Spawns HONKsquad and equips them.
-	for(var/thing in GLOB.landmarks_list)
-		var/obj/effect/landmark/L = thing
+	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 		if(honksquad_number<=0)	break
 		if(L.name == "HONKsquad")
 			honk_leader_selected = (honksquad_number == HONKSQUAD_POSSIBLE ? 1 : 0)
 
 			var/mob/living/carbon/human/new_honksquad = is_security_clowns ? create_honksquad_security(L, honk_leader_selected) : create_honksquad(L, honk_leader_selected)
 
-			if(commandos.len)
-				new_honksquad.key = pick(commandos)
-				commandos -= new_honksquad.key
+			if(candidates.len)
+				var/mob/mob = pick(candidates)
+				new_honksquad.key = mob.key
+				candidates -= new_honksquad.key
 				new_honksquad.internal = new_honksquad.s_store
 				new_honksquad.update_action_buttons_icon()
 
 			//So they don't forget their code or mission.
-			new_honksquad.mind.store_memory("<B>Mission:</B> <span class='warning'>[input].</span>")
+			new_honksquad.mind.store_memory("<B>Миссия:</B> <span class='warning'>[input].</span>")
 
-			to_chat(new_honksquad, "<span class='notice'>You are a HONKsquad. [!honk_leader_selected ? "commando" : "<B>LEADER</B>"] in the service of Clown Planet. You are called in cases of exteme low levels of HONK. You are NOT authorized to kill.\nYour current mission is: <span class='danger'>[input]</span></span>")
+			to_chat(new_honksquad, span_notice("Вы [!honk_leader_selected ? "член" : "<B>ЛИДЕР</B>"] ХОНКсквада в подчинении Планеты Клоунов. Вас вызывают в случае крайне низкого уровня ХОНКа на объекте. Вы НЕ имеете права убивать.\nВаша текущая миссия: <span class='danger'>[input]</span>"))
 
 			honksquad_number--
 
@@ -107,37 +98,38 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 
 	var/obj/item/radio/R = new /obj/item/radio/headset(src)
 	R.set_frequency(1442)
-	equip_to_slot_or_del(R, SLOT_HUD_LEFT_EAR)
-	equip_to_slot_or_del(new /obj/item/storage/backpack/clown(src), SLOT_HUD_BACK)
-	equip_to_slot_or_del(new /obj/item/storage/box/survival(src), SLOT_HUD_IN_BACKPACK)
+	equip_to_slot_or_del(R, ITEM_SLOT_EAR_LEFT)
+	equip_to_slot_or_del(new /obj/item/storage/backpack/clown(src), ITEM_SLOT_BACK)
+	equip_to_slot_or_del(new /obj/item/storage/box/survival(src), ITEM_SLOT_BACKPACK)
 	if(src.gender == FEMALE)
-		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat/sexy(src), SLOT_HUD_WEAR_MASK)
-		equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown/sexy(src), SLOT_HUD_JUMPSUIT)
+		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat/sexy(src), ITEM_SLOT_MASK)
+		equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown/sexy(src), ITEM_SLOT_CLOTH_INNER)
 	else
-		equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown(src), SLOT_HUD_JUMPSUIT)
-		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(src), SLOT_HUD_WEAR_MASK)
-	equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(src), SLOT_HUD_SHOES)
-	equip_to_slot_or_del(new /obj/item/pda/clown(src), SLOT_HUD_WEAR_PDA)
-	equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(src), SLOT_HUD_WEAR_MASK)
-	equip_to_slot_or_del(new /obj/item/reagent_containers/food/snacks/grown/banana(src), SLOT_HUD_IN_BACKPACK)
-	equip_to_slot_or_del(new /obj/item/bikehorn(src), SLOT_HUD_IN_BACKPACK)
-	equip_to_slot_or_del(new /obj/item/clown_recorder(src), SLOT_HUD_IN_BACKPACK)
-	equip_to_slot_or_del(new /obj/item/stamp/clown(src), SLOT_HUD_IN_BACKPACK)
-	equip_to_slot_or_del(new /obj/item/toy/crayon/rainbow(src), SLOT_HUD_IN_BACKPACK)
-	equip_to_slot_or_del(new /obj/item/reagent_containers/spray/waterflower(src), SLOT_HUD_IN_BACKPACK)
-	equip_to_slot_or_del(new /obj/item/reagent_containers/food/pill/patch/jestosterone(src), SLOT_HUD_RIGHT_STORE)
+		equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown(src), ITEM_SLOT_CLOTH_INNER)
+		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(src), ITEM_SLOT_MASK)
+	equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(src), ITEM_SLOT_FEET)
+	equip_to_slot_or_del(new /obj/item/pda/clown(src), ITEM_SLOT_PDA)
+	equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(src), ITEM_SLOT_MASK)
+	equip_to_slot_or_del(new /obj/item/reagent_containers/food/snacks/grown/banana(src), ITEM_SLOT_BACKPACK)
+	equip_to_slot_or_del(new /obj/item/bikehorn(src), ITEM_SLOT_BACKPACK)
+	equip_to_slot_or_del(new /obj/item/clown_recorder(src), ITEM_SLOT_BACKPACK)
+	equip_to_slot_or_del(new /obj/item/stamp/clown(src), ITEM_SLOT_BACKPACK)
+	equip_to_slot_or_del(new /obj/item/toy/crayon/rainbow(src), ITEM_SLOT_BACKPACK)
+	equip_to_slot_or_del(new /obj/item/reagent_containers/spray/waterflower(src), ITEM_SLOT_BACKPACK)
+	equip_to_slot_or_del(new /obj/item/reagent_containers/food/pill/patch/jestosterone(src), ITEM_SLOT_POCKET_RIGHT)
 	if(prob(50))
-		equip_to_slot_or_del(new /obj/item/gun/energy/clown(src), SLOT_HUD_IN_BACKPACK)
+		equip_to_slot_or_del(new /obj/item/gun/energy/clown(src), ITEM_SLOT_BACKPACK)
 	else
-		equip_to_slot_or_del(new /obj/item/gun/throw/piecannon(src), SLOT_HUD_IN_BACKPACK)
+		equip_to_slot_or_del(new /obj/item/gun/throw/piecannon(src), ITEM_SLOT_BACKPACK)
 	src.mutations.Add(CLUMSY)
+	grant_mimicking()
 	var/obj/item/implant/sad_trombone/S = new/obj/item/implant/sad_trombone(src)
 	S.implant(src)
 
 	var/obj/item/card/id/I = new(src)
 	apply_to_card(I, src, list(ACCESS_CLOWN), "HONKsquad", "clownsquad")
 	I.assignment = "[rankName] ХОНК-отряда"
-	equip_to_slot_or_del(I, SLOT_HUD_WEAR_ID)
+	equip_to_slot_or_del(I, ITEM_SLOT_ID)
 
 	return TRUE
 

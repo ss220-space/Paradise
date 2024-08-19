@@ -158,8 +158,8 @@
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
 "aB" = (
 /obj/structure/decorative_structures/corpse{
-	icon_state = "corpse_soviet3";
-	dir = 1
+	dir = 1;
+	icon_state = "corpse_soviet3"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/common)
@@ -420,8 +420,8 @@
 	tag = ""
 	},
 /obj/machinery/computer/old_frame/macintosh{
-	pixel_y = 8;
-	layer = 3.15
+	layer = 3.15;
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
@@ -958,8 +958,7 @@
 	dir = 8
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/structure/cable{
 	icon_state = "1-2";
@@ -2261,8 +2260,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/structure/cable{
 	icon_state = "1-8";
@@ -2387,8 +2385,8 @@
 "hp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/decorative_structures/corpse{
-	icon_state = "corpse_soviet3";
-	dir = 4
+	dir = 4;
+	icon_state = "corpse_soviet3"
 	},
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
@@ -2996,8 +2994,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/solmaintsouth)
 "jk" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/structure/cable{
 	icon_state = "1-2";
@@ -3515,7 +3512,7 @@
 /obj/item/stack/spacecash/ussp{
 	amount = 3500
 	},
-/obj/item/areaeditor/gorky17,
+/obj/item/areaeditor/create_area_only/gorky17,
 /obj/structure/safe/floor,
 /turf/simulated/floor/vault,
 /area/ruin/space/USSP_gorky17/collapsed/vault)
@@ -3555,7 +3552,7 @@
 	name = "Altyn"
 	},
 /obj/item/clothing/suit/armor/vest/combat,
-/obj/item/melee/classic_baton,
+/obj/item/melee/baton,
 /obj/machinery/camera/autoname{
 	dir = 1;
 	name = "Gorky17 security camera";
@@ -3996,8 +3993,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/decorative_structures/corpse{
-	icon_state = "corpse_soviet_half";
-	dir = 1
+	dir = 1;
+	icon_state = "corpse_soviet_half"
 	},
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 200;
@@ -4469,10 +4466,8 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 2;
-	icon_state = "pipe-j2";
-	tag = "icon-pipe-j2"
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 2
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -4524,8 +4519,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/arrival)
 "nN" = (
 /obj/structure/marker_beacon{
-	icon_state = "markerburgundy-on";
-	initialized = 1
+	icon_state = "markerburgundy-on"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/USSP_gorky17/collapsed/asteroids)
@@ -4881,10 +4875,8 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 2;
-	icon_state = "pipe-j2";
-	tag = "icon-pipe-j2"
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 2
 	},
 /obj/structure/cable{
 	icon_state = "1-2";
@@ -5015,8 +5007,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/structure/cable{
 	icon_state = "1-2";
@@ -5094,8 +5085,7 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -5914,8 +5904,7 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -6086,7 +6075,7 @@
 	name = "Altyn"
 	},
 /obj/item/clothing/suit/armor/vest/combat,
-/obj/item/melee/classic_baton,
+/obj/item/melee/baton,
 /obj/structure/closet/secure_closet{
 	color = "#ff9999";
 	name = "Gorky17 ammunition locker";
@@ -6161,8 +6150,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "sG" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/structure/cable{
 	icon_state = "1-2";
@@ -6565,8 +6553,7 @@
 	dir = 10
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -7050,7 +7037,9 @@
 /obj/machinery/atmospherics/binary/pump/on{
 	dir = 1
 	},
-/obj/item/stack/marker_beacon/thirty,
+/obj/item/stack/marker_beacon/thirty{
+	icon_state = "markerrandom"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
 "uY" = (
@@ -7145,8 +7134,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/decorative_structures/corpse{
-	icon_state = "corpse_soviet2";
-	dir = 4
+	dir = 4;
+	icon_state = "corpse_soviet2"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
@@ -7215,8 +7204,8 @@
 "vF" = (
 /obj/structure/table,
 /obj/machinery/computer/old_frame/macintosh{
-	pixel_y = 8;
-	layer = 3.15
+	layer = 3.15;
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -7343,12 +7332,11 @@
 	network = list("USSP_gorky17")
 	},
 /obj/structure/marker_beacon{
-	icon_state = "markerburgundy-on";
-	initialized = 1
+	icon_state = "markerburgundy-on"
 	},
 /obj/machinery/computer/old_frame/macintosh{
-	pixel_y = 8;
-	layer = 3.15
+	layer = 3.15;
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull"
@@ -7385,7 +7373,9 @@
 "we" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
-/obj/structure/disposalpipe/junction,
+/obj/structure/disposalpipe/junction{
+	dir = 2
+	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -7413,8 +7403,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/kitchen)
 "wh" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -7615,8 +7604,7 @@
 	dir = 5
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/structure/cable{
 	icon_state = "1-4";
@@ -8773,9 +8761,8 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 4;
-	icon_state = "pipe-y"
+/obj/structure/disposalpipe/junction/yjunction{
+	dir = 4
 	},
 /obj/structure/cable{
 	icon_state = "1-2";
@@ -9001,7 +8988,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/junction,
+/obj/structure/disposalpipe/junction{
+	dir = 2
+	},
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
@@ -9167,8 +9156,7 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/junction{
-	dir = 4;
-	tag = "icon-pipe-j1 (EAST)"
+	dir = 4
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -10480,8 +10468,7 @@
 	dir = 9
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -10721,8 +10708,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "Fq" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/structure/cable{
 	icon_state = "1-2";
@@ -11033,7 +11019,9 @@
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "Gi" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/stack/marker_beacon/thirty,
+/obj/item/stack/marker_beacon/thirty{
+	icon_state = "markerrandom"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
 "Gk" = (
@@ -11170,8 +11158,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "GC" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -11526,7 +11513,7 @@
 	name = "Altyn"
 	},
 /obj/item/clothing/suit/armor/vest/combat,
-/obj/item/melee/classic_baton,
+/obj/item/melee/baton,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -11634,8 +11621,8 @@
 	pixel_y = 3
 	},
 /obj/structure/decorative_structures/corpse{
-	icon_state = "corpse_soviet_lying_up";
 	dir = 4;
+	icon_state = "corpse_soviet_lying_up";
 	pixel_y = -4
 	},
 /turf/simulated/floor/plasteel{
@@ -11727,8 +11714,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/junction{
-	dir = 4;
-	tag = "icon-pipe-j1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -11934,8 +11920,7 @@
 "IV" = (
 /obj/structure/lattice,
 /obj/structure/marker_beacon{
-	icon_state = "markerburgundy-on";
-	initialized = 1
+	icon_state = "markerburgundy-on"
 	},
 /turf/space,
 /area/template_noop)
@@ -11985,8 +11970,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "Jg" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -12413,7 +12397,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/disposalpipe/junction,
+/obj/structure/disposalpipe/junction{
+	dir = 2
+	},
 /obj/structure/cable{
 	icon_state = "1-2";
 	tag = ""
@@ -12895,8 +12881,7 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/junction{
-	dir = 4;
-	tag = "icon-pipe-j1 (EAST)"
+	dir = 4
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -13004,8 +12989,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -13038,8 +13022,7 @@
 	dir = 8
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -13605,8 +13588,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
 "NX" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/item/shard{
 	icon_state = "medium"
@@ -13913,8 +13895,10 @@
 /area/ruin/space/USSP_gorky17/collapsed/dorms)
 "OP" = (
 /obj/structure/rack,
-/obj/item/stack/marker_beacon/thirty,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/item/stack/marker_beacon/thirty{
+	icon_state = "markerrandom"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
 "OQ" = (
@@ -14053,8 +14037,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/check1)
 "Pg" = (
 /obj/structure/marker_beacon{
-	icon_state = "markerburgundy-on";
-	initialized = 1
+	icon_state = "markerburgundy-on"
 	},
 /obj/structure/lattice,
 /turf/space,
@@ -14076,8 +14059,7 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -14418,8 +14400,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/gate)
 "Qr" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -14958,8 +14939,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "RP" = (
 /obj/structure/marker_beacon{
-	icon_state = "markerburgundy-on";
-	initialized = 1
+	icon_state = "markerburgundy-on"
 	},
 /turf/space,
 /area/template_noop)
@@ -15065,7 +15045,7 @@
 	name = "Altyn"
 	},
 /obj/item/clothing/suit/armor/vest/combat,
-/obj/item/melee/classic_baton,
+/obj/item/melee/baton,
 /obj/machinery/camera/autoname{
 	dir = 1;
 	name = "Gorky17 security camera";
@@ -15206,9 +15186,9 @@
 /obj/structure/table,
 /obj/machinery/computer/security/old_frame/macintosh{
 	layer = 3.1;
-	pixel_y = 8;
+	name = "Gorky17 security camera console";
 	network = list("USSP_gorky17");
-	name = "Gorky17 security camera console"
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkbluefull"
@@ -15550,7 +15530,9 @@
 	icon_state = "0-4"
 	},
 /obj/structure/rack,
-/obj/item/stack/marker_beacon/thirty,
+/obj/item/stack/marker_beacon/thirty{
+	icon_state = "markerrandom"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/solmaintnorth)
 "TN" = (
@@ -16160,9 +16142,9 @@
 /obj/structure/table/reinforced,
 /obj/machinery/computer/security/old_frame/macintosh{
 	layer = 3.1;
-	pixel_y = 8;
+	name = "Gorky17 security camera console";
 	network = list("USSP_gorky17");
-	name = "Gorky17 security camera console"
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -16393,10 +16375,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/collapsed/engineering)
 "Wu" = (
-/obj/structure/disposalpipe/junction{
-	dir = 4;
-	icon_state = "pipe-j2";
-	tag = "icon-pipe-j2 (EAST)"
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -16524,7 +16504,7 @@
 	name = "Altyn"
 	},
 /obj/item/clothing/suit/armor/vest/combat,
-/obj/item/melee/classic_baton,
+/obj/item/melee/baton,
 /obj/structure/closet/secure_closet{
 	color = "#ff9999";
 	name = "Gorky17 ammunition locker";
@@ -17131,8 +17111,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/structure/cable{
 	icon_state = "1-2";

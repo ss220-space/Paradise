@@ -1,11 +1,12 @@
 /obj/item/clothing/gloves/color
-	dyeable = TRUE
+	dying_key = DYE_REGISTRY_GLOVES
 
 /obj/item/clothing/gloves/color/yellow
 	desc = "These gloves will protect the wearer from electric shock."
 	name = "insulated gloves"
 	icon_state = "yellow"
 	item_state = "ygloves"
+	belt_icon = "ygloves"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	item_color="yellow"
@@ -23,7 +24,7 @@
 /obj/item/clothing/gloves/color/yellow/power/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
 
-	if(!ishuman(user) || slot != SLOT_HUD_GLOVES)
+	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
 		return .
 
 	if(user.middleClickOverride)
@@ -38,7 +39,7 @@
 /obj/item/clothing/gloves/color/yellow/power/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
 
-	if(!ishuman(user) || slot != SLOT_HUD_GLOVES || user.middleClickOverride != mclick_override)
+	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES || user.middleClickOverride != mclick_override)
 		return .
 
 	if(old_mclick_override)
@@ -63,6 +64,7 @@
 	name = "budget insulated gloves"
 	icon_state = "yellow"
 	item_state = "ygloves"
+	belt_icon = "ygloves"
 	siemens_coefficient = 1			//Set to a default of 1, gets overridden in New()
 	permeability_coefficient = 0.05
 	item_color="yellow"
@@ -106,7 +108,7 @@
 /obj/item/clothing/gloves/color/black/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WIRECUTTER)
 		if(can_be_cut && icon_state == initial(icon_state))//only if not dyed
-			var/confirm = alert("Do you want to cut off the gloves fingertips? Warning: It might destroy their functionality.","Cut tips?","Yes","No")
+			var/confirm = tgui_alert(user, "Do you want to cut off the gloves fingertips? Warning: It might destroy their functionality.", "Cut tips?", list("Yes","No"))
 			if(get_dist(user, src) > 1)
 				to_chat(user, "You have moved too far away.")
 				return
@@ -247,6 +249,14 @@
 	item_state = "nitrilegloves"
 	transfer_prints = FALSE
 	item_color = "medical"
+
+/obj/item/clothing/gloves/color/latex/modified
+	name = "modified medical gloves"
+	desc = "They are very soft and light to the touch and do not hinder movement at all."
+	icon_state = "modified"
+	item_state = "modified"
+	item_color = "modified"
+	surgeryspeedmod = -0.3
 
 /obj/item/clothing/gloves/color/white
 	name = "white gloves"

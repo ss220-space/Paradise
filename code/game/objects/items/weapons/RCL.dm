@@ -4,7 +4,6 @@
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rcl-0"
 	item_state = "rcl-0"
-	opacity = 0
 	force = 5 //Plastic is soft
 	throwforce = 5
 	throw_speed = 1
@@ -105,10 +104,15 @@
 		return 1
 	return 0
 
+/obj/item/twohanded/rcl/equipped(mob/user, slot, initial)
+	. = ..()
+	RegisterSignal(user, COMSIG_MOB_CLIENT_MOVED, PROC_REF(on_mob_move), override = TRUE)
+
 /obj/item/twohanded/rcl/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	active = 0
 	last = null
+	UnregisterSignal(user, COMSIG_MOB_CLIENT_MOVED)
 
 /obj/item/twohanded/rcl/attack_self(mob/user)
 	..()
@@ -121,7 +125,7 @@
 				last = C
 				break
 
-/obj/item/twohanded/rcl/on_mob_move(direct, mob/user)
+/obj/item/twohanded/rcl/on_mob_move(mob/user, dir)
 	if(active)
 		trigger(user)
 

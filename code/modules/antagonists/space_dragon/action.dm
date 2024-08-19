@@ -82,7 +82,7 @@
 		to_chat(owner, span_warning("Вы не можете открыть разлом здесь! Для него нужна поверхность!"))
 		return
 	to_chat(owner, span_notice("Вы начинаете открывать разлом..."))
-	if(!do_after(owner, 10 SECONDS, target = owner))
+	if(!do_after(owner, 10 SECONDS, owner))
 		return
 	if(locate(/obj/structure/carp_rift) in owner.loc)
 		return

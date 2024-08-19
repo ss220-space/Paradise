@@ -97,8 +97,8 @@
 	description = "The organic compound commonly known as table sugar and sometimes called saccharose. This white, odorless, crystalline powder has a pleasing, sweet taste."
 	reagent_state = SOLID
 	color = "#FFFFFF" // rgb: 255, 255, 255
-	nutriment_factor = 5 * REAGENTS_METABOLISM
-	overdose_threshold = 200 // Hyperglycaemic shock
+	nutriment_factor = 2.5 * REAGENTS_METABOLISM
+	overdose_threshold = 30
 	taste_description = "sweetness"
 	taste_mult = 1.5
 
@@ -115,18 +115,39 @@
 		M.reagents.add_reagent("epinephrine", 1.2)
 	return ..() | update_flags
 
-/datum/reagent/consumable/sugar/overdose_start(mob/living/M)
-	to_chat(M, "<span class='danger'>You pass out from hyperglycemic shock!</span>")
-	M.emote("collapse")
+/datum/reagent/consumable/sugar/overdose_start(mob/living/carbon/human/affected)
+	to_chat(affected, "<span class='danger'>Вы теряете сознание от гипергликемического шока!</span>")
+	affected.overlay_fullscreen("hyperglycemia", /atom/movable/screen/fullscreen/impaired, 1)
+	affected.emote("faint")
+	if(ishuman(affected))
+		affected.physiology.hunger_mod *= 2
 	..()
 
 /datum/reagent/consumable/sugar/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.Paralyse(6 SECONDS * severity)
-	M.Weaken(8 SECONDS * severity)
-	if(prob(8))
-		update_flags |= M.adjustToxLoss(severity, FALSE)
-	return list(0, update_flags)
+	M.AdjustJitter(5 SECONDS)
+	if(prob(10))
+		to_chat(M, "<span class='danger'>У вас болит голова.</span>")
+	if(prob(5))
+		to_chat(M, "<span class='danger'>Вы чувствуете, как силы покидают вас.</span>")
+	if(volume >= 60)
+		M.AdjustKnockdown(5 SECONDS)
+		M.adjustToxLoss(1)
+		if(prob(3))
+			M.emote("collapse")
+		if(prob(3))
+			if(ishuman(M))
+				var/mob/living/carbon/human/H = M
+				H.vomit()
+	return ..() | update_flags
+
+
+/datum/reagent/consumable/sugar/overdose_end(mob/living/carbon/human/affected)
+	affected.clear_fullscreen("hyperglycemia")
+	if(ishuman(affected))
+		affected.physiology.hunger_mod *= 0.5
+	..()
+
 
 /datum/reagent/consumable/soysauce
 	name = "Soysauce"
@@ -256,17 +277,19 @@
 			var/mouth_covered = FALSE
 			var/eyes_covered = FALSE
 			var/obj/item/safe_thing = null
-			if( victim.wear_mask )
+			if(victim.wear_mask)
 				if(victim.wear_mask.flags_cover & MASKCOVERSEYES)
 					eyes_covered = TRUE
 					safe_thing = victim.wear_mask
 				if(victim.wear_mask.flags_cover & MASKCOVERSMOUTH)
 					mouth_covered = TRUE
 					safe_thing = victim.wear_mask
-				if(victim.wear_mask.flags & BLOCK_CAPSAICIN)
-					mouth_covered = TRUE
-					eyes_covered = TRUE
-					safe_thing = victim.wear_mask
+				if(isclothing(victim.wear_mask))
+					var/obj/item/clothing/cloth = victim.wear_mask
+					if(cloth.clothing_flags & BLOCK_CAPSAICIN)
+						mouth_covered = TRUE
+						eyes_covered = TRUE
+						safe_thing = victim.wear_mask
 			if(victim.head)
 				if(victim.head.flags_cover & MASKCOVERSEYES)
 					eyes_covered = TRUE
@@ -274,10 +297,12 @@
 				if(victim.head.flags_cover & MASKCOVERSMOUTH)
 					mouth_covered = TRUE
 					safe_thing = victim.head
-				if(victim.head.flags & BLOCK_CAPSAICIN)
-					mouth_covered = TRUE
-					eyes_covered = TRUE
-					safe_thing = victim.head
+				if(isclothing(victim.head))
+					var/obj/item/clothing/cloth = victim.head
+					if(cloth.clothing_flags & BLOCK_CAPSAICIN)
+						mouth_covered = TRUE
+						eyes_covered = TRUE
+						safe_thing = victim.head
 			if(victim.glasses)
 				eyes_covered = TRUE
 				if(!safe_thing)
@@ -439,7 +464,7 @@
 	taste_description = "chocolate"
 
 /datum/reagent/consumable/hot_coco/on_mob_life(mob/living/M)
-	if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
+	if(M.bodytemperature < BODYTEMP_NORMAL)
 		M.adjust_bodytemperature(5 * TEMPERATURE_DAMAGE_COEFFICIENT)
 	return ..()
 
@@ -496,7 +521,7 @@
 	if(!istype(T))
 		return
 	if(volume >= 3)
-		T.MakeSlippery()
+		T.MakeSlippery(TURF_WET_WATER, 80 SECONDS)
 	var/hotspot = (locate(/obj/effect/hotspot) in T)
 	if(hotspot)
 		var/datum/gas_mixture/lowertemp = T.remove_air( T.air.total_moles())
@@ -540,7 +565,7 @@
 	taste_description = "cheap ramen and memories"
 
 /datum/reagent/consumable/hot_ramen/on_mob_life(mob/living/M)
-	if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
+	if(M.bodytemperature < BODYTEMP_NORMAL)
 		M.adjust_bodytemperature(10 * TEMPERATURE_DAMAGE_COEFFICIENT)
 	return ..()
 
@@ -918,7 +943,6 @@
 	if(istype(H) && method == REAGENT_INGEST)
 		if(H.dna.species.taste_sensitivity < TASTE_SENSITIVITY_NO_TASTE) // If you can taste it, then you know how awful it is.
 			H.Weaken(4 SECONDS)
-			H.update_canmove()
 			to_chat(H, "<span class='danger'>Ugh! Eating that was a terrible idea!</span>")
 		if(NO_HUNGER in H.dna.species.species_traits) //If you don't eat, then you can't get food poisoning
 			return
@@ -1094,10 +1118,10 @@
 /datum/reagent/consumable/tinlux/proc/add_reagent_light(mob/living/living_holder)
 	var/obj/effect/dummy/lighting_obj/moblight/mob_light_obj = living_holder.mob_light(2)
 	LAZYSET(mobs_affected, living_holder, mob_light_obj)
-	RegisterSignal(living_holder, COMSIG_PARENT_QDELETING, PROC_REF(on_living_holder_deletion))
+	RegisterSignal(living_holder, COMSIG_QDELETING, PROC_REF(on_living_holder_deletion))
 
 /datum/reagent/consumable/tinlux/proc/remove_reagent_light(mob/living/living_holder)
-	UnregisterSignal(living_holder, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(living_holder, COMSIG_QDELETING)
 	var/obj/effect/dummy/lighting_obj/moblight/mob_light_obj = LAZYACCESS(mobs_affected, living_holder)
 	LAZYREMOVE(mobs_affected, living_holder)
 	if(mob_light_obj)
@@ -1118,5 +1142,24 @@
 		update_flags |= M.adjustFireLoss(-0.5, FALSE)
 	return ..() | update_flags
 
+/datum/reagent/consumable/animal_feed
+	name = "Animal Feed"
+	id = "afeed"
+	description = "Food that pets are fed."
+	color = "#ac3308"
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	taste_description = "animal feed"
 
-
+/datum/reagent/consumable/animal_feed/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(isvulpkanin(M) || istajaran(M))
+		update_flags |= M.adjustBruteLoss(-0.25, FALSE)
+		update_flags |= M.adjustFireLoss(-0.25, FALSE)
+		M.AdjustDisgust(-5 SECONDS)
+		if(prob(2))
+			to_chat(M, span_notice("You feel delicious yummy snack taste!"))
+	else
+		M.AdjustDisgust(5 SECONDS)
+		if(prob(2))
+			to_chat(M, span_warning("Yuack! What a terrible taste!"))
+	return ..() | update_flags

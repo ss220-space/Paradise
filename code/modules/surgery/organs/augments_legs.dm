@@ -23,7 +23,7 @@
 	if(!E)	//how did you get an implant in a limb you don't have?
 		return
 
-	E.receive_damage(5,0,10)	//always take a least a little bit of damage to the leg
+	owner.apply_damage(5, def_zone = E)	//always take a least a little bit of damage to the leg
 
 	if(prob(50))	//you're forced to use two of these for them to work so let's give em a chance to not get completely fucked
 		if(COOLDOWN_FINISHED(src, emp_notice))
@@ -33,7 +33,7 @@
 
 	if(severity & EMP_HEAVY && prob(25) )	//put probabilities into a calculator before you try fucking with this
 		to_chat(owner, span_warning("The EMP causes your [src] to thrash [E] around wildly, breaking it!"))
-		E.receive_damage(40)
+		owner.apply_damage(40, def_zone = E)
 	else if(COOLDOWN_FINISHED(src, emp_notice))
 		to_chat(owner, span_warning("The EMP causes your [src] to seize up, preventing [E] from moving!"))
 		COOLDOWN_START(src, emp_notice, 30 SECONDS)
@@ -56,7 +56,7 @@
 		parent_organ_zone = BODY_ZONE_R_LEG
 		transform = null
 	SetSlot()
-	to_chat(user, "<span class='notice'>You modify [src] to be installed on the [parent_organ_zone == BODY_ZONE_R_LEG ? "right" : "left"] leg.</span>")
+	to_chat(user, span_notice("You modify [src] to be installed on the [parent_organ_zone == BODY_ZONE_R_LEG ? "right" : "left"] leg."))
 
 
 /obj/item/organ/internal/cyberimp/leg/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
@@ -111,7 +111,7 @@
 
 /obj/item/organ/internal/cyberimp/leg/jumpboots/RemoveEffect()
 	var/obj/item/organ/internal/cyberimp/leg/jumpboots/left = owner.get_organ_slot(INTERNAL_ORGAN_R_LEG_DEVICE)
-	if(left.implant_ability)
+	if(left?.implant_ability)
 		left.implant_ability.Remove(owner)
 		left.implant_ability = null
 
@@ -125,14 +125,23 @@
 	var/recharging_rate = 60 //default 6 seconds between each dash
 	var/recharging_time = 0 //time until next dash
 	var/datum/callback/last_jump = null
-	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED //lying jumps is real
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED|AB_CHECK_IMMOBILE //lying jumps is real
 
 
 /datum/action/bhop/Trigger(left_click = TRUE)
 	if(!IsAvailable())
 		return
+
 	if(recharging_time > world.time)
-		to_chat(owner, "<span class='warning'>The boot's internal propulsion needs to recharge still!</span>")
+		to_chat(owner, span_warning("The boot's internal propulsion needs to recharge still!"))
+		return
+
+	if(!owner.has_gravity())
+		to_chat(owner, span_warning("You can't jump without gravity!"))
+		return
+
+	if(owner.throwing)
+		to_chat(owner, span_warning("You can't jump in the middle of another jump!"))
 		return
 
 	var/atom/target = get_edge_target_turf(owner, owner.dir) //gets the user's direction
@@ -144,10 +153,10 @@
 	if(owner.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = after_jump_callback))
 		last_jump = after_jump_callback
 		playsound(owner.loc, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
-		owner.visible_message("<span class='warning'>[usr] dashes forward into the air!</span>")
+		owner.visible_message(span_warning("[owner] dashes forward into the air!"))
 		recharging_time = world.time + recharging_rate
 	else
-		to_chat(owner, "<span class='warning'>Something prevents you from dashing forward!</span>")
+		to_chat(owner, span_warning("Something prevents you from dashing forward!"))
 		after_jump(owner)
 
 

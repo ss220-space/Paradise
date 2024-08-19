@@ -8,10 +8,16 @@
 
 /obj/effect/baseturf_helper/Initialize(mapload)
 	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/effect/baseturf_helper/LateInitialize()
+	initialize_replacements()
+
+/obj/effect/baseturf_helper/proc/initialize_replacements()
 	var/area/thearea = get_area(src)
 	for(var/turf/T in get_area_turfs(thearea, z))
 		replace_baseturf(T)
-	return INITIALIZE_HINT_QDEL
+	qdel(src)
 
 /obj/effect/baseturf_helper/proc/replace_baseturf(turf/thing)
 	if(thing.baseturf != thing.type)
@@ -55,11 +61,11 @@
 
 /obj/effect/baseturf_helper/lava
 	name = "lava baseturf editor"
-	baseturf = /turf/simulated/floor/plating/lava/smooth
+	baseturf = /turf/simulated/floor/lava
 
 /obj/effect/baseturf_helper/lava_land/surface
 	name = "lavaland baseturf editor"
-	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
+	baseturf = /turf/simulated/floor/lava/mapping_lava
 
 /obj/effect/baseturf_helper/lava_land/surface/basalt
 	name = "lavaland basalt baseturf editor"
@@ -72,8 +78,8 @@
 	var/late = FALSE
 
 /obj/effect/mapping_helpers/Initialize(mapload)
-	..()
-	return late ? INITIALIZE_HINT_LATELOAD : qdel(src) // INITIALIZE_HINT_QDEL <-- Doesn't work
+	. = ..()
+	return late ? INITIALIZE_HINT_LATELOAD : INITIALIZE_HINT_QDEL
 
 /obj/effect/mapping_helpers/airlock
 	layer = DOOR_HELPER_LAYER
@@ -91,7 +97,7 @@
 		airlock.unres_sides ^= dir
 	else
 		log_world("### MAP WARNING, [src] failed to find an airlock at [AREACOORD(src)]")
-	..()
+	. =..()
 
 /obj/effect/mapping_helpers/no_lava
 	icon_state = "no_lava"
@@ -130,4 +136,4 @@
 	. = ..()
 	var/msg = "HEY, LISTEN!!! Merge Conflict Marker detected at [AREACOORD(src)]! Please manually address all potential merge conflicts!!!"
 	warning(msg)
-	to_chat(world, "<span class='boldannounce'>[msg]</span>")
+	to_chat(world, span_boldannounceooc("[msg]"))

@@ -4,7 +4,7 @@
 	shuttleId = "skipjack"
 	possible_destinations = "skipjack_away;skipjack_ne;skipjack_nw;skipjack_se;skipjack_sw;skipjack_z5;skipjack_custom"
 	resistance_flags = INDESTRUCTIBLE
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/vox
 	name = "skipjack navigation computer"
@@ -17,7 +17,7 @@
 	x_offset = -10
 	y_offset = -10
 	resistance_flags = INDESTRUCTIBLE
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 	access_station = TRUE 		//can we park near station?
 	access_admin_zone = FALSE	//can we park on Admin z_lvls?
 	access_mining = FALSE		//can we park on Lavaland z_lvl?

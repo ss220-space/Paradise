@@ -338,7 +338,7 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 
 /obj/item/seeds/proc/variant_prompt(mob/user, obj/item/container = null)
 	var/prev = variant
-	var/V = input(user, "Choose variant name:", "Plant Variant Naming", variant) as text|null
+	var/V = tgui_input_text(user, "Choose variant name:", "Plant Variant Naming", variant, encode = FALSE)
 	if(isnull(V)) // Did the user cancel?
 		return
 	if(container && (loc != container)) // Was the seed removed from the container, if there is a container?
@@ -438,3 +438,9 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 	add_random_reagents(1,2)
 	add_random_traits(1,2)
 	return
+
+/obj/item/seeds/attack_ghost(mob/dead/observer/user)
+	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.
+		return
+	if(user.plant_analyzer)
+		to_chat(user, get_analyzer_text())

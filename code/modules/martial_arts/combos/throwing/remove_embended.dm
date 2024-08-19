@@ -17,11 +17,11 @@
 		user.visible_message(span_warning("[user] attempts to remove [I] from [H]'s [limb.name]."),
 							span_notice("You attempt to remove [I] from [H]'s [limb.name]... (It will take [time_taken/10] seconds.)"))
 
-		if(do_after(user, time_taken, needhand = 1, target = H))
+		if(do_after(user, time_taken, H))
 			if(QDELETED(I) || QDELETED(limb) || I.loc != limb || !LAZYIN(limb.embedded_objects, I))
 				return MARTIAL_COMBO_FAIL
 			limb.remove_embedded_object(I)
-			limb.receive_damage(I.embedded_unsafe_removal_pain_multiplier * I.w_class)
+			H.apply_damage(I.embedded_unsafe_removal_pain_multiplier * I.w_class, def_zone = limb)
 			user.put_in_hands(I)
 			if(H.has_pain())
 				H.emote("scream")

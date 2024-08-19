@@ -15,7 +15,7 @@
  * Proc intended to be used when someone wants the src datum to be qdeled when a certain signal is sent to them.
  *
  * Example usage:
- * RegisterSignal(item, COMSIG_PARENT_QDELETING, /datum/proc/signal_qdel)
+ * RegisterSignal(item, COMSIG_QDELETING, /datum/proc/signal_qdel)
  */
 /datum/proc/signal_qdel()
 	SIGNAL_HANDLER

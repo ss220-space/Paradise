@@ -19,7 +19,7 @@
 
 /obj/item/integrated_radio/Initialize(mapload)
 	. = ..()
-	if(istype(loc.loc, /obj/item/pda))
+	if(is_pda(loc.loc))
 		hostpda = loc.loc
 	if(bot_filter)
 		add_to_radio(bot_filter)

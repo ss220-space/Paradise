@@ -140,7 +140,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 /datum/game_mode/proc/is_raider_crew_alive()
 	for(var/datum/mind/raider in raiders)
 		if(raider.current)
-			if(istype(raider.current,/mob/living/carbon/human) && raider.current.stat != DEAD)
+			if(ishuman(raider.current) && raider.current.stat != DEAD)
 				return 1
 	return 0
 

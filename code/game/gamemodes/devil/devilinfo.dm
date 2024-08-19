@@ -152,7 +152,7 @@ GLOBAL_LIST_INIT(lawlorify, list (
 	return pick(BANISH_WATER, BANISH_COFFIN, BANISH_FORMALDYHIDE, BANISH_RUNES, BANISH_CANDLES, BANISH_DESTRUCTION, BANISH_FUNERAL_GARB)
 
 /datum/devilinfo/proc/link_with_mob(mob/living/L)
-	if(istype(L, /mob/living/carbon/human))
+	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
 		humanform = H.dna.Clone()
 	owner = L.mind
@@ -201,7 +201,7 @@ GLOBAL_LIST_INIT(lawlorify, list (
 
 /datum/devilinfo/proc/regress_humanoid()
 	to_chat(owner.current, "<span class='warning'>Your powers weaken, have more contracts be signed to regain power.</span>")
-	if(istype(owner.current, /mob/living/carbon/human))
+	if(ishuman(owner.current))
 		var/mob/living/carbon/human/H = owner.current
 		if(humanform)
 			H.set_species(humanform.species)
@@ -499,7 +499,7 @@ GLOBAL_LIST_INIT(lawlorify, list (
 		throw EXCEPTION("Unable to find a blobstart landmark for hellish resurrection")
 
 /datum/devilinfo/proc/update_hud()
-	if(istype(owner.current, /mob/living/carbon))
+	if(iscarbon(owner.current))
 		var/mob/living/C = owner.current
 		if(C.hud_used && C.hud_used.devilsouldisplay)
 			C.hud_used.devilsouldisplay.update_counter(SOULVALUE)

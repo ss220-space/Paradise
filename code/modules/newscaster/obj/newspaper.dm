@@ -36,9 +36,9 @@
 	. = ..()
 	if(!news_content)
 		news_content = list()
-		
+
 /obj/item/newspaper/examine(mob/user)
-	. = ..()	
+	. = ..()
 	if(rolled)
 		. += "<span class='notice'>You have to unroll it if you want to read it.</span>"
 	else
@@ -162,15 +162,14 @@
 		attack_self(usr)
 
 /obj/item/newspaper/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pen))
+	if(is_pen(W))
 		if(rolled)
 			to_chat(user, "<span class='warning'>Unroll it first!</span>")
 			return
 		if(scribble_page == curr_page)
 			to_chat(user, "<span class='notice'>There's already a scribble in this page... You wouldn't want to make things too cluttered, would you?</span>")
 		else
-			var/s = strip_html(input(user, "Write something", "Newspaper", ""))
-			s = sanitize(copytext(s, 1, MAX_MESSAGE_LEN))
+			var/s = tgui_input_text(user, "Write something", "Newspaper")
 			if(!s || !Adjacent(user))
 				return
 			scribble_page = curr_page
@@ -182,7 +181,7 @@
 	return ..()
 
 /obj/item/newspaper/AltClick(mob/user)
-	if(ishuman(user) && Adjacent(user) && !user.incapacitated())
+	if(ishuman(user) && Adjacent(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		rolled = !rolled
 		icon_state = "newspaper[rolled ? "_rolled" : ""]"
 		update_icon()

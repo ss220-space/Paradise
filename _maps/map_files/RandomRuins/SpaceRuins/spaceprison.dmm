@@ -22,7 +22,6 @@
 "af" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -74,7 +73,6 @@
 	name = "South-East Solar Panel"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/airless{
@@ -235,7 +233,6 @@
 "aE" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
@@ -384,7 +381,6 @@
 "bb" = (
 /obj/machinery/power/port_gen/pacman,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-2"
 	},
 /obj/effect/decal/cleanable/dust,
@@ -404,7 +400,6 @@
 /obj/machinery/power/smes,
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -532,7 +527,6 @@
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -546,7 +540,6 @@
 /area/space/nearstation)
 "bx" = (
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-8"
 	},
 /obj/machinery/power/solar_control{
@@ -883,7 +876,6 @@
 "cq" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
@@ -918,14 +910,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
-"cv" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-2"
-	},
-/turf/simulated/floor,
 /area/ruin/spaceprison)
 "cB" = (
 /obj/machinery/light/small,
@@ -1128,7 +1112,7 @@
 /obj/machinery/door/poddoor/multi_tile/two_tile_ver{
 	id_tag = "spaceprisonpod"
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/spaceprison)
 "eG" = (
 /turf/simulated/floor/plasteel{
@@ -1287,7 +1271,7 @@
 /area/ruin/spaceprison)
 "gD" = (
 /obj/structure/door_assembly/door_assembly_ext,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/spaceprison)
 "gE" = (
 /obj/structure/table/reinforced,
@@ -1356,7 +1340,6 @@
 "iS" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-8"
 	},
 /obj/structure/cable{
@@ -1459,10 +1442,9 @@
 	pixel_y = 0
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-2"
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/spaceprison)
 "kP" = (
 /obj/structure/window/reinforced{
@@ -1539,14 +1521,13 @@
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/spaceprison)
 "np" = (
 /obj/machinery/door/airlock/external,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/spaceprison)
 "nS" = (
 /obj/machinery/suit_storage_unit/security,
@@ -1572,7 +1553,6 @@
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -1643,7 +1623,7 @@
 	amount = 2
 	},
 /obj/structure/cable,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/spaceprison)
 "pW" = (
 /obj/machinery/teleport/station,
@@ -1682,10 +1662,9 @@
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-2"
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/spaceprison)
 "rh" = (
 /obj/structure/window/reinforced{
@@ -1784,7 +1763,6 @@
 "tJ" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
@@ -1814,20 +1792,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/spaceprison)
-"va" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/turf/simulated/floor,
 /area/ruin/spaceprison)
 "vk" = (
 /obj/structure/table/reinforced,
@@ -1864,7 +1828,6 @@
 "vE" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating/airless,
@@ -2030,7 +1993,7 @@
 	pixel_y = 0
 	},
 /obj/structure/cable,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/spaceprison)
 "zr" = (
 /obj/machinery/door/window/brigdoor{
@@ -2077,7 +2040,7 @@
 	icon_state = "1-4"
 	},
 /obj/structure/cable,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/spaceprison)
 "An" = (
 /obj/effect/landmark/tiles/damageturf,
@@ -2280,10 +2243,12 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/door_timer/cell_6,
 /obj/structure/cable{
 	icon_state = "1-2";
 	pixel_y = 0
+	},
+/obj/machinery/door_timer/cell_6{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plating,
 /area/ruin/spaceprison)
@@ -2304,7 +2269,6 @@
 "Fh" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
@@ -2340,7 +2304,7 @@
 "GQ" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/spaceprison)
 "GZ" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
@@ -2480,14 +2444,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating/airless,
 /area/ruin/spaceprison)
-"Kh" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor,
-/area/ruin/spaceprison)
 "Ko" = (
 /obj/structure/window/reinforced,
 /obj/item/shard{
@@ -2514,10 +2470,9 @@
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-8"
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/spaceprison)
 "KD" = (
 /turf/simulated/floor/plasteel{
@@ -2542,9 +2497,6 @@
 	},
 /obj/effect/landmark/tiles/damageturf,
 /turf/simulated/floor/plating,
-/area/ruin/spaceprison)
-"Lr" = (
-/turf/simulated/floor/plating/airless,
 /area/ruin/spaceprison)
 "Me" = (
 /obj/structure/cable{
@@ -2590,10 +2542,9 @@
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-8"
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/spaceprison)
 "MG" = (
 /obj/effect/decal/warning_stripes/west,
@@ -2931,7 +2882,6 @@
 "Uv" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
@@ -2953,13 +2903,9 @@
 "Vs" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d2 = 4;
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/ruin/spaceprison)
-"Vt" = (
-/turf/simulated/floor,
 /area/ruin/spaceprison)
 "VC" = (
 /obj/structure/window/reinforced{
@@ -2997,7 +2943,7 @@
 "WF" = (
 /obj/effect/landmark/tiles/damageturf,
 /obj/structure/inflatable,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/spaceprison)
 "Xe" = (
 /obj/machinery/light{
@@ -3019,7 +2965,7 @@
 /area/ruin/spaceprison)
 "Xy" = (
 /obj/structure/spacepoddoor,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/spaceprison)
 "XX" = (
 /obj/structure/chair/office/light{
@@ -4529,7 +4475,7 @@ Gu
 ES
 qR
 kH
-va
+ni
 zk
 Ai
 ac
@@ -4643,17 +4589,17 @@ ab
 hf
 oq
 ES
-Kh
+tJ
 kh
 QJ
 qp
-Kh
+tJ
 ac
 cQ
-Lr
+ac
 ac
 ai
-Vt
+sE
 ai
 ab
 ab
@@ -4818,7 +4764,7 @@ iz
 BT
 iz
 ai
-cv
+Uv
 Ky
 GQ
 ai
@@ -4933,7 +4879,7 @@ cb
 gm
 iz
 sE
-cv
+Uv
 ea
 KP
 Ji

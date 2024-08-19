@@ -13,12 +13,15 @@
 
 /obj/structure/cable/multiz/Initialize(mapload)
 	. = ..()
+	d1 = 0
+	if(mapload)
+		return
 	mergeConnectedNetworksOnTurf(get_turf(src))
 
 /obj/structure/cable/multiz/deconstruct(disassembled = TRUE)
 	if(usr)
 		investigate_log("deconstructed by [key_name_log(usr)]", INVESTIGATE_WIRES)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new/obj/item/stack/cable_coil(get_turf(src), 10, TRUE, color)
 	qdel(src)
 
@@ -55,7 +58,7 @@
 		var/datum/powernet/newPN = new()
 		newPN.add_cable(src)
 
-	//connect to cables that points to center (d1 or d2 to 0)
+	//connect to cables that points to center (d1 to 0)
 	for(var/obj/structure/cable/C in loc)
 		if(C.d1 == 0)
 			if(C.powernet == powernet)
@@ -104,8 +107,12 @@
 		return
 
 	var/obj/structure/cable/multiz/above = locate(/obj/structure/cable/multiz) in (GET_TURF_ABOVE(our_turf))
+	if(above)
+		P_list += above	// get that which were connected above
 	var/obj/structure/cable/multiz/below = locate(/obj/structure/cable/multiz) in (GET_TURF_BELOW(our_turf))
-	P_list += power_list(loc, src, 0, 0, cable_only = 1)//... and on turf
+	if(below)
+		P_list += below	// and below...
+	P_list += power_list(loc, src, 0, 0, cable_only = 1)//... and on turf ourselves
 
 	if(P_list.len == 0 && !above && !below)//If we so happened to be alone cable, not connected to anything, including above and below.
 		powernet.remove_cable(src) // So we gonna just delete ourself
@@ -118,7 +125,3 @@
 
 	// queue it to rebuild
 	SSmachines.deferred_powernet_rebuilds += O
-	if(above)
-		SSmachines.deferred_powernet_rebuilds += above[1]
-	if(below)
-		SSmachines.deferred_powernet_rebuilds += below[1]

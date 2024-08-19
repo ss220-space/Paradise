@@ -1,17 +1,3 @@
-/proc/issmall(A)
-	if(A && istype(A, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = A
-		if(H.dna.species && H.dna.species.is_small)
-			return 1
- 	return 0
-
-/proc/ispet(A)
-	if(istype(A, /mob/living/simple_animal))
-		var/mob/living/simple_animal/SA = A
-		if(SA.can_collar)
-			return 1
-	return 0
-
 /mob/proc/get_screen_colour()
 
 /mob/proc/update_client_colour(var/time = 10) //Update the mob's client.color with an animation the specified time in length.
@@ -45,7 +31,7 @@
 
 
 /proc/isLivingSSD(mob/M)
-	return istype(M) && M.player_logged && M.stat != DEAD
+	return istype(M) && !isnull(M.player_logged) && M.stat != DEAD
 
 /proc/isAntag(A)
 	if(isliving(A))
@@ -87,7 +73,7 @@
 
 
 /proc/iscuffed(A)
-	if(istype(A, /mob/living/carbon))
+	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if(C.handcuffed)
 			return 1
@@ -358,14 +344,14 @@
 	return 0
 
 
-/mob/proc/abiotic(var/full_body = 0)
-	if(full_body && ((l_hand && !(l_hand.flags & ABSTRACT)) || (r_hand && !(r_hand.flags & ABSTRACT)) || (back || wear_mask)))
-		return 1
+/mob/proc/abiotic(full_body = FALSE)
+	if(full_body && ((l_hand && !(l_hand.item_flags & ABSTRACT)) || (r_hand && !(r_hand.item_flags & ABSTRACT)) || (back || wear_mask)))
+		return TRUE
 
-	if((l_hand && !(l_hand.flags & ABSTRACT)) || (r_hand && !(r_hand.flags & ABSTRACT)))
-		return 1
+	if((l_hand && !(l_hand.item_flags & ABSTRACT)) || (r_hand && !(r_hand.item_flags & ABSTRACT)))
+		return TRUE
 
-	return 0
+	return FALSE
 
 //converts intent-strings into numbers and back
 GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM))
@@ -423,20 +409,9 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		to_chat(src, "<span class='notice'>Вы уже спите.</span>")
 		return
 	else
-		if(alert(src, "You sure you want to sleep for a while?", "Sleep", "Yes", "No") == "Yes")
+		if(tgui_alert(src, "You sure you want to sleep for a while?", "Sleep", list("Yes", "No")) == "Yes")
 			SetSleeping(40 SECONDS) //Short nap
 
-/mob/living/verb/lay_down()
-	set name = "Rest"
-	set category = "IC"
-
-	if(!resting)
-		client.move_delay = world.time + 20
-		to_chat(src, "<span class='notice'>Вы отдыхаете.</span>")
-		StartResting()
-	else if(resting)
-		to_chat(src, "<span class='notice'>Вы встаёте.</span>")
-		StopResting()
 
 /proc/get_multitool(mob/user as mob)
 	// Get tool
@@ -509,7 +484,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			if(flashwindow)
 				window_flash(O.client)
 			if(source)
-				var/obj/screen/alert/notify_action/A = O.throw_alert("\ref[source]_notify_action", /obj/screen/alert/notify_action)
+				var/atom/movable/screen/alert/notify_action/A = O.throw_alert("\ref[source]_notify_action", /atom/movable/screen/alert/notify_action)
 				if(A)
 					if(O.client.prefs && O.client.prefs.UI_style)
 						A.icon = ui_style2icon(O.client.prefs.UI_style)
@@ -584,7 +559,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 					if(!search_pda)	break
 					search_id = 0
 
-			else if( search_pda && istype(A,/obj/item/pda) )
+			else if( search_pda && is_pda(A) )
 				var/obj/item/pda/PDA = A
 				if(PDA.owner == oldname)
 					PDA.owner = newname
@@ -612,11 +587,11 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 
 		for(var/i=1,i<=3,i++)	//we get 3 attempts to pick a suitable name.
 			if(force)
-				newname = clean_input("Выберите новое имя.", "Смена имени", oldname, src)
+				newname = tgui_input_text(src, "Выберите новое имя.", "Смена имени", oldname)
 			else
-				newname = clean_input("Вы [role]. Не хотите поменять своё имя на другое? У вас есть 3 минуты для выбора нового имени.", "Смена имени", oldname, src)
+				newname = tgui_input_text(src, "Вы [role]. Не хотите поменять своё имя на другое? У вас есть 3 минуты для выбора нового имени.", "Смена имени", oldname, timeout = 3 MINUTES)
 			if(((world.time - time_passed) > 1800) && !force)
-				alert(src, "К сожалению, время для выбора имени кончилось. Если вы киборг, используйте команду «Namepick»; иначе — «Adminhelp».", "Смена имени")
+				tgui_alert(src, "К сожалению, время для выбора имени кончилось. Если вы киборг, используйте команду «Namepick»; иначе — «Adminhelp».", "Смена имени")
 				return	//took too long
 			newname = reject_bad_name(newname,allow_numbers)	//returns null if the name doesn't meet some basic requirements. Tidies up a few other things like bad-characters.
 
@@ -860,16 +835,17 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		adjacent = get_turf(adjacent)
 		if(!adjacent)
 			return FALSE
-	if(adjacent.density)
+	if(loc == adjacent)
+		return TRUE
+	if(!in_range(src, adjacent))
 		return FALSE
-	if(!in_range(loc, adjacent))
+	var/border_dir = get_dir(adjacent, src)
+	if(!is_type_in_list(adjacent, types_to_exclude) && !adjacent.CanPass(src, border_dir))
 		return FALSE
-	for(var/atom/check_atom in adjacent)
-		if(islist(types_to_exclude) && is_type_in_list(check_atom, types_to_exclude))
+	for(var/atom/check_atom as anything in adjacent)
+		if(is_type_in_list(check_atom, types_to_exclude))
 			continue
-		if(check_atom.density)
-			return FALSE
-		if(!check_atom.CanPass(src, loc))
+		if(!check_atom.CanPass(src, border_dir))
 			return FALSE
 	return TRUE
 

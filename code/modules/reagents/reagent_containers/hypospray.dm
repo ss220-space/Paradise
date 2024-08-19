@@ -14,7 +14,7 @@
 	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
 	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	var/ignore_flags = FALSE
 	var/emagged = FALSE
 	var/safety_hypo = FALSE
@@ -220,7 +220,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/attackby(obj/item/W, mob/user)
 	if(reskin_allowed)
-		if(istype(W, /obj/item/pen))
+		if(is_pen(W))
 			var/t = clean_input("Введите желаемое название для инжектора.", "Переименовывание", "")
 			if(!t)
 				return
@@ -322,13 +322,33 @@
 	amount_per_transfer_from_this = 42
 	list_reagents = list("salbutamol" = 10, "teporone" = 15, "epinephrine" = 10, "lavaland_extract" = 2, "weak_omnizine" = 5) //Short burst of healing, followed by minor healing from the saline
 
+/obj/item/reagent_containers/hypospray/autoinjector/survival/luxury
+	name = "luxury medipen"
+	desc = "Cutting edge bluespace technology allowed Nanotrasen to compact 40 of volume into a single medipen. Contains rare and powerful chemicals used to aid in exploration of very hard enviroments.  <br><span class='boldwarning'>WARNING: more than one pen injection in quick succession WILL result in quick death.</span>"
+	icon_state = "redinjector"
+	volume = 40
+	amount_per_transfer_from_this = 40
+	list_reagents = list("salbutamol" = 10, "adv_lava_extract" = 10, "teporone" = 10, "hydrocodone" = 10)
+
+/obj/item/reagent_containers/hypospray/autoinjector/survival/luxury/attack(mob/living/M, mob/user)
+	if(lavaland_equipment_pressure_check(get_turf(user)))
+		amount_per_transfer_from_this = initial(amount_per_transfer_from_this)
+		return ..()
+
+	to_chat(user,span_notice("You start manually releasing the low-pressure gauge..."))
+	if(!do_after(user, 5 SECONDS, target = M)) //5 seconds release and...
+		return
+
+	amount_per_transfer_from_this = initial(amount_per_transfer_from_this) * 0.3 //1/3 of the reagents
+	return ..()
+
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium
 	name = "protoype nanite autoinjector"
 	desc = "After a short period of time the nanites will slow the body's systems and assist with body repair. Nanomachines son."
 	icon_state = "bonepen"
-	amount_per_transfer_from_this = 30
-	volume = 30
-	list_reagents = list("nanocalcium" = 30)
+	amount_per_transfer_from_this = 15
+	volume = 15
+	list_reagents = list("nanocalcium" = 15)
 
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/attack(mob/living/M, mob/user)
 	if(..())
@@ -355,6 +375,12 @@
 	amount_per_transfer_from_this = 20
 	volume = 20
 	list_reagents = list("salbutamol" = 20)
+
+/obj/item/reagent_containers/hypospray/autoinjector/radium
+	name = "Radium autoinjector"
+	desc = "A small medipen used for basic nucleation treatment."
+	icon_state = "ablueinjector"
+	list_reagents = list("radium" = 10)
 
 /obj/item/reagent_containers/hypospray/autoinjector/charcoal
 	name = "Charcoal autoinjector"

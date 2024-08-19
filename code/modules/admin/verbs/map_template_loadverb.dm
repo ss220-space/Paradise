@@ -1,8 +1,8 @@
 /client/proc/map_template_load()
-	set category = "Debug"
+	set category = "Event"
 	set name = "Map template - Place"
 
-	if(!check_rights(R_DEBUG))
+	if(!check_rights(R_DEBUG | R_EVENT))
 		return
 
 	var/datum/map_template/template
@@ -21,8 +21,10 @@
 		return
 
 	var/list/preview = list()
-	for(var/S in template.get_affected_turfs(T,centered = TRUE))
-		preview += image('icons/turf/overlays.dmi',S,"greenOverlay")
+	for(var/turf/place_on as anything in template.get_affected_turfs(T,centered = TRUE))
+		var/image/I = image('icons/turf/overlays.dmi', place_on, "greenOverlay")
+		SET_PLANE(I, ABOVE_LIGHTING_PLANE, place_on)
+		preview += I
 	usr.client.images += preview
 	if(alert(usr,"Confirm location.","Template Confirm","Yes","No") == "Yes")
 		var/timer = start_watch()
@@ -34,10 +36,10 @@
 	usr.client.images -= preview
 
 /client/proc/map_template_upload()
-	set category = "Debug"
+	set category = "Event"
 	set name = "Map Template - Upload"
 
-	if(!check_rights(R_DEBUG))
+	if(!check_rights(R_DEBUG | R_EVENT))
 		return
 
 	var/map = input(usr, "Choose a Map Template to upload to template storage","Upload Map Template") as null|file

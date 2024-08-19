@@ -82,7 +82,7 @@
 				for(var/obj/item/organ/internal/internal_organ as anything in mob_human.internal_organs)
 					if(prob(20))
 						internal_organ.rejuvenate()
-						internal_organ.receive_damage(-5, FALSE)
+						internal_organ.internal_receive_damage(-5)
 				// Bones
 				for(var/obj/item/organ/external/external_organ as anything in mob_human.bodyparts)
 					if(prob(20))
@@ -104,13 +104,9 @@
 				var/needs_update = mob_human.mutations.len > 0
 				if(needs_update)
 					for(var/block = 1; block<=DNA_SE_LENGTH; block++)
-						if(!(block in mob_human.dna.default_blocks))
-							mob_human.dna.SetSEState(block, FALSE, TRUE)
-							genemutcheck(mob_human, block, null, MUTCHK_FORCED)
-					mob_human.dna.UpdateSE()
+						if(!LAZYIN(mob_human.dna.default_blocks, block))
+							mob_human.force_gene_block(block, FALSE)
 					mob_human.dna.struc_enzymes = mob_human.dna.struc_enzymes_original
-					// Might need to update appearance for hulk etc.
-					mob_human.update_mutations()
 		if(40 to INFINITY)
 			if(ishuman(our_mob))
 				var/mob/living/carbon/human/mob_human = our_mob

@@ -71,7 +71,7 @@
 					to_chat(src, "Emergency control system online. Verifying connection to power network.")
 					sleep(50)
 					T = get_turf(src)
-					if(istype(T, /turf/space))
+					if(isspaceturf(T))
 						to_chat(src, "Unable to verify! No power connection detected!")
 						aiRestorePowerRoutine = 2
 						return
@@ -131,13 +131,13 @@
 /mob/living/silicon/ai/updatehealth(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
 		return ..()
-	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss()
+	set_health(maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss())
 	update_stat("updatehealth([reason])", should_log)
 
 /mob/living/silicon/ai/proc/lacks_power()
 	var/turf/T = get_turf(src)
 	var/area/A = get_area(src)
-	return ((!A.power_equip) && A.requires_power == 1 || istype(T, /turf/space)) && !istype(src.loc,/obj/item)
+	return ((!A.power_equip) && A.requires_power == 1 || isspaceturf(T)) && !isitem(src.loc)
 
 /mob/living/silicon/ai/rejuvenate()
 	..()

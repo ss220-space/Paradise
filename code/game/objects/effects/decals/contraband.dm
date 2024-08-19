@@ -177,7 +177,7 @@
 	qdel(P)	//delete it now to cut down on sanity checks afterwards. Agouri's code supports rerolling it anyway
 	playsound(D.loc, 'sound/items/poster_being_created.ogg', 100, 1)
 
-	if(do_after(user, PLACE_SPEED, target = src))
+	if(do_after(user, PLACE_SPEED, src))
 		if(!D || QDELETED(D))
 			return
 
@@ -399,6 +399,21 @@
 	name = "Commandos"
 	desc = "You see a muscular man in combat gear. Just the sight of this poster brings the scent of true masculinity."
 	icon_state = "poster37"
+
+/obj/structure/sign/poster/contraband/lostcat
+	name = "Lost Cat"
+	desc = "Kisik got lost. Armed and dangerous."
+	icon_state = "poster38"
+
+/obj/structure/sign/poster/contraband/bad_guy
+	name = "Bad Guy"
+	desc = "Smoking time. On a poster you can see grub with cigarette that promote people to have a cig and smoke on work."
+	icon_state = "poster39"
+
+/obj/structure/sign/poster/contraband/ninja
+	name = "Space Ninja"
+	desc = "This is a poster depicting the main character of the most popular animated series in the galaxy, \"Space Ninja\". The inscription on it says that the new season will start soon."
+	icon_state = "poster40"
 
 //official posters
 /obj/structure/sign/poster/official

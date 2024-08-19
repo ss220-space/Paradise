@@ -6,6 +6,7 @@ GLOBAL_LIST_INIT(command_positions, list(
 	JOB_TITLE_CAPTAIN,
 	JOB_TITLE_HOP,
 	JOB_TITLE_HOS,
+	JOB_TITLE_QUARTERMASTER,
 	JOB_TITLE_CHIEF,
 	JOB_TITLE_RD,
 	JOB_TITLE_CMO,
@@ -83,13 +84,12 @@ GLOBAL_LIST_INIT(support_positions, list(
 ))
 
 GLOBAL_LIST_INIT(supply_positions, list(
-	JOB_TITLE_HOP,
 	JOB_TITLE_QUARTERMASTER,
 	JOB_TITLE_CARGOTECH,
 	JOB_TITLE_MINER
 ))
 
-GLOBAL_LIST_INIT(service_positions, (list(JOB_TITLE_HOP) + (support_positions - supply_positions)))
+GLOBAL_LIST_INIT(service_positions, (support_positions - supply_positions))
 
 GLOBAL_LIST_INIT(civilian_positions, list(
 	JOB_TITLE_CIVILIAN

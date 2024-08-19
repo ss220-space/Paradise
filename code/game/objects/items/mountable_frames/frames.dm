@@ -17,7 +17,7 @@
 	if(..()) //if we pass the parent tests
 		var/turf/turf_loc = get_turf(user)
 
-		if(src.mount_reqs.Find("simfloor") && !istype(turf_loc, /turf/simulated/floor))
+		if(src.mount_reqs.Find("simfloor") && !isfloorturf(turf_loc))
 			to_chat(user, "<span class='warning'>[src] cannot be placed on this spot.</span>")
 			return
 		if(src.mount_reqs.Find("nospace"))

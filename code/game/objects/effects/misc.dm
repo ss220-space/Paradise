@@ -22,7 +22,7 @@
 	desc = "It's a ... present?"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "strangepresent"
-	density = 1
+	density = TRUE
 	anchored = FALSE
 
 /obj/effect/mark
@@ -68,7 +68,7 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "showcase_1"
 	desc = "A stand with the empty body of a cyborg bolted to it."
-	density = 1
+	density = TRUE
 	anchored = TRUE
 
 /obj/effect/spawner
@@ -137,8 +137,6 @@
 /obj/effect/frosty_breath/Initialize(mapload, mob/living/carbon/C)
 	. = ..()
 	dir = C.dir
-	if(C.buckled)
-		pixel_y = (C.buckled.buckle_offset + 10)
 	if(dir == NORTH)
 		layer = BELOW_MOB_LAYER
 	flick("breath_[C.lying_prev]", src)

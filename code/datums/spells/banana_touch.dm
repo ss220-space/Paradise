@@ -22,7 +22,7 @@
 
 
 /obj/item/melee/touch_attack/banana/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || user.incapacitated())
+	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	var/datum/effect_system/smoke_spread/smoke = new
@@ -46,21 +46,20 @@
 		drop_item_ground(wear_mask, force = TRUE)
 		drop_item_ground(head, force = TRUE)
 		drop_item_ground(wear_suit, force = TRUE)
-		equip_to_slot_or_del(new /obj/item/clothing/head/wizard/clown, SLOT_HUD_HEAD)
-		equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/clown, SLOT_HUD_OUTER_SUIT)
+		equip_to_slot_or_del(new /obj/item/clothing/head/wizard/clown, ITEM_SLOT_HEAD)
+		equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/clown, ITEM_SLOT_CLOTH_OUTER)
 		equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes/magical)
-		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clownwiz, SLOT_HUD_WEAR_MASK)
+		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clownwiz, ITEM_SLOT_MASK)
 	else
 		qdel(shoes)
 		qdel(wear_mask)
 		qdel(w_uniform)
-		equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown/nodrop, SLOT_HUD_JUMPSUIT)
-		equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes/nodrop, SLOT_HUD_SHOES)
-		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat/nodrop, SLOT_HUD_WEAR_MASK)
-	dna.SetSEState(GLOB.clumsyblock, TRUE, TRUE)
-	dna.SetSEState(GLOB.comicblock, TRUE, TRUE)
-	genemutcheck(src, GLOB.clumsyblock, null, MUTCHK_FORCED)
-	genemutcheck(src, GLOB.comicblock, null, MUTCHK_FORCED)
+		equip_to_slot_or_del(new /obj/item/clothing/under/rank/clown/nodrop, ITEM_SLOT_CLOTH_INNER)
+		equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes/nodrop, ITEM_SLOT_FEET)
+		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat/nodrop, ITEM_SLOT_MASK)
+	force_gene_block(GLOB.clumsyblock, TRUE)
+	force_gene_block(GLOB.comicblock, TRUE)
 	if(!(iswizard(src) || (mind && mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE))) //Mutations are permanent on non-wizards. Can still be removed by genetics fuckery but not mutadone.
-		dna.default_blocks.Add(GLOB.clumsyblock)
-		dna.default_blocks.Add(GLOB.comicblock)
+		LAZYOR(dna.default_blocks, GLOB.clumsyblock)
+		LAZYOR(dna.default_blocks, GLOB.comicblock)
+

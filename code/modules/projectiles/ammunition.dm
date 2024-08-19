@@ -4,7 +4,7 @@
 	icon = 'icons/obj/weapons/ammo.dmi'
 	icon_state = "s-casing"
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 1
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(MAT_METAL = 1000)
@@ -85,7 +85,9 @@
 			if(BB)
 				if(initial(BB.name) == "bullet")
 					var/tmp_label = ""
-					var/label_text = sanitize(input(user, "Inscribe some text into \the [initial(BB.name)]","Inscription",tmp_label))
+					var/label_text = tgui_input_text(user, "Inscribe some text into \the [initial(BB.name)]", "Inscription", tmp_label)
+					if(!label_text)
+						return
 					if(length(label_text) > 20)
 						to_chat(user, span_warning("The inscription can be at most 20 characters long."))
 					else
@@ -118,7 +120,7 @@
 	icon_state = "357"
 	icon = 'icons/obj/weapons/ammo.dmi'
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	item_state = "syringe_kit"
 	materials = list(MAT_METAL = 500)
 	throwforce = 2

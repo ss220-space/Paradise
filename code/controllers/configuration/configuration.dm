@@ -52,7 +52,7 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 	InitEntries()
 
 	//Note: `$include`s are supported. Feel free to use them.
-	var/list/configs = list("game_options.txt", "dbconfig.txt", "config.txt", "emojis.txt")
+	var/list/configs = list("game_options.txt", "dbconfig.txt", "config.txt", "emojis.txt", "resources.txt")
 	for(var/I in configs)
 		if(fexists("[directory]/[I]"))
 			for(var/J in configs)
@@ -60,10 +60,6 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 			break
 
 	LoadModes()
-
-	if(CONFIG_GET(flag/usewhitelist))
-		load_whitelist()
-
 
 	load_overflow_whitelist()
 
@@ -241,7 +237,7 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 
 /datum/controller/configuration/stat_entry(msg)
 	msg = "Edit"
-	return msg
+	return ..()
 
 /datum/controller/configuration/proc/Get(entry_type)
 	var/datum/config_entry/E = entry_type
@@ -251,7 +247,7 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 	E = entries_by_type[entry_type]
 	if(!E)
 		CRASH("Missing config entry for [entry_type]!")
-	if((E.protection & CONFIG_ENTRY_HIDDEN) && IsAdminAdvancedProcCall() && GLOB.LastAdminCalledProc == "Get" && GLOB.LastAdminCalledTargetUID == "[UID(src)]")
+	if((E.protection & CONFIG_ENTRY_HIDDEN) && IsAdminAdvancedProcCall() && GLOB.LastAdminCalledProc == "Get" && GLOB.LastAdminCalledTargetUID == "[UID()]")
 		log_admin_private("Config access of [entry_type] attempted by [key_name(usr)]")
 		return
 	return E.config_entry_value
@@ -264,7 +260,7 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 	E = entries_by_type[entry_type]
 	if(!E)
 		CRASH("Missing config entry for [entry_type]!")
-	if((E.protection & CONFIG_ENTRY_LOCKED) && IsAdminAdvancedProcCall() && GLOB.LastAdminCalledProc == "Set" && GLOB.LastAdminCalledTargetUID == "[UID(src)]")
+	if((E.protection & CONFIG_ENTRY_LOCKED) && IsAdminAdvancedProcCall() && GLOB.LastAdminCalledProc == "Set" && GLOB.LastAdminCalledTargetUID == "[UID()]")
 		log_admin_private("Config rewrite of [entry_type] to [new_val] attempted by [key_name(usr)]")
 		return
 	return E.ValidateAndSet("[new_val]")

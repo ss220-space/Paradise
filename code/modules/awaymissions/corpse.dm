@@ -81,8 +81,8 @@
 		if(user.client.get_exp_type_num(exp_type) < min_hours * 60 && !check_rights(R_ADMIN|R_MOD, 0, usr))
 			to_chat(user, "<span class='warning'>У вас недостаточно часов для игры на этой роли. Требуется набрать [min_hours] часов типа [exp_type] для доступа к ней.</span>")
 			return
-	var/ghost_role = alert("Become [mob_name]? (Warning, You can no longer be cloned!)",,"Yes","No")
-	if(ghost_role == "No")
+	var/ghost_role = tgui_alert(user, "Become [mob_name]? (Warning, You can no longer be cloned!)", "Respawn", list("Yes","No"))
+	if(ghost_role != "Yes")
 		return
 	var/mob_use_prefs = FALSE
 	var/_mob_species = FALSE
@@ -170,9 +170,7 @@
 	if(disease)
 		var/datum/disease/D = new disease
 		D.Contract(M)
-	M.adjustOxyLoss(oxy_damage)
-	M.adjustBruteLoss(brute_damage)
-	M.adjustFireLoss(burn_damage)
+	M.apply_damages(brute_damage, burn_damage, oxy_damage, forced = TRUE)
 	if(death)
 		M.death() //Kills the new mob
 	M.color = mob_color
@@ -399,7 +397,7 @@
 	if(!(NO_DNA in H.dna.species.species_traits))
 		H.dna.blood_type = pick("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-") //Чтобы им всем подряд не требовалась кровь одного типа
 		var/datum/dna/D = H.dna
-		if(!D.species.is_small)
+		if(!D.species.is_monkeybasic)
 			H.change_dna(D, TRUE, TRUE)
 
 //Instant version - use when spawning corpses during runtime

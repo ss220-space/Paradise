@@ -57,7 +57,7 @@
 			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/structure/displaycase/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		dump()
 		if(!disassembled)
 			new /obj/item/shard(loc)
@@ -65,8 +65,8 @@
 	qdel(src)
 
 /obj/structure/displaycase/obj_break(damage_flag)
-	if(!broken && !(flags & NODECONSTRUCT))
-		density = FALSE
+	if(!broken && !(obj_flags & NODECONSTRUCT))
+		set_density(FALSE)
 		broken = 1
 		new /obj/item/shard( src.loc )
 		playsound(src, "shatter", 70, TRUE)
@@ -106,7 +106,7 @@
 			toggle_lock(user)
 		else
 			to_chat(user,  "<span class='warning'>Access denied.</span>")
-	else if(open && !showpiece && !(I.flags & ABSTRACT))
+	else if(open && !showpiece && !(I.item_flags & ABSTRACT))
 		if(user.drop_transfer_item_to_loc(I, src))
 			add_fingerprint(user)
 			showpiece = I
@@ -118,7 +118,7 @@
 			to_chat(user, "<span class='warning'>You need two glass sheets to fix the case!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start fixing [src]...</span>")
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 2 SECONDS, src))
 			add_fingerprint(user)
 			G.use(2)
 			broken = 0
@@ -190,7 +190,7 @@
 			return
 		to_chat(user, "<span class='notice'>You start installing the electronics into [src]...</span>")
 		playsound(src.loc, I.usesound, 50, TRUE)
-		if(do_after(user, 3 SECONDS, target = src))
+		if(do_after(user, 3 SECONDS, src))
 			if(electronics)
 				return
 			if(user.drop_transfer_item_to_loc(I, src))
@@ -204,7 +204,7 @@
 			to_chat(user, "<span class='warning'>You need ten glass sheets to do this!</span>")
 			return
 		to_chat(user, "<span class='notice'>You start adding [G] to [src]...</span>")
-		if(do_after(user, 20, target = src))
+		if(do_after(user, 2 SECONDS, src))
 			G.use(10)
 			var/obj/structure/displaycase/display = new(src.loc)
 			display.add_fingerprint(user)

@@ -5,7 +5,7 @@
 	item_state = "electropack"
 	frequency = AIRLOCK_FREQ
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_HUGE
 	materials = list(MAT_METAL=10000, MAT_GLASS=2500)
 	var/code = 2
@@ -48,8 +48,9 @@
 
 		user.put_in_hands(A, ignore_anim = FALSE)
 		A.add_fingerprint(user)
-		if(flags & NODROP)
-			A.flags |= NODROP
+		if(HAS_TRAIT(src, TRAIT_NODROP))
+			ADD_TRAIT(A, TRAIT_NODROP, type)
+
 
 /obj/item/radio/electropack/receive_signal(datum/signal/signal)
 	if(!signal || signal.encryption != code)
@@ -73,10 +74,13 @@
 /obj/item/radio/electropack/proc/intensify()
 	intensivity = TRUE
 
-/obj/item/radio/electropack/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/radio/electropack/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/radio/electropack/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Electropack", name, 360, 150, master_ui, state)
+		ui = new(user, src, "Electropack", name)
 		ui.open()
 
 /obj/item/radio/electropack/ui_data(mob/user)

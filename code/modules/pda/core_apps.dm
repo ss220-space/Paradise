@@ -27,7 +27,7 @@
 		if("UpdateInfo")
 			pda.ownjob = pda.id.assignment
 			pda.ownrank = pda.id.rank
-			pda.name = "PDA-[pda.owner] ([pda.ownjob])"
+			pda.update_appearance(UPDATE_NAME)
 		if("pai")
 			if(pda.pai)
 				if(pda.pai.loc != pda)
@@ -65,12 +65,11 @@
 
 	switch(action)
 		if("Edit")
-			var/n = input("Please enter message", name, note) as message
+			var/n = tgui_input_text(usr, "Please enter message", name, note, multiline = TRUE, encode = FALSE)
+			if(isnull(n))
+				return
 			if(pda.loc == usr)
-				// TGUI will auto-reject supplied HTML
-				// However, the admin var-edit window will not
-				// SANITISATION IS IMPORTANT. DO NOT NEGLECT.
-				note = adminscrub(n)
+				note = n
 			else
 				pda.close(usr)
 

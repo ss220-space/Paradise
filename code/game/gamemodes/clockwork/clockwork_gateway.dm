@@ -108,7 +108,7 @@
 	for(var/turf/simulated/wall/W in RANGE_TURFS(2, src))
 		W.dismantle_wall()
 	for(var/obj/O in orange(1, src))
-		if(!O.pulledby && !istype(O, /obj/effect) && O.density)
+		if(!O.pulledby && !iseffect(O) && O.density)
 			if(!step_away(O, src, 2) || get_dist(O, src) < 2)
 				O.take_damage(50, BURN, "bomb")
 			O.update_icon()

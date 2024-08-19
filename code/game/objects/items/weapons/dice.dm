@@ -274,7 +274,7 @@
 	smoke.set_up(amount, 0, drop_location())
 	smoke.start()
 
-/obj/item/dice/d20/fate/proc/effect(var/mob/living/carbon/human/user, roll)
+/obj/item/dice/d20/fate/proc/effect(mob/living/carbon/human/user, roll)
 	var/turf/T = get_turf(src)
 	switch(roll)
 		if(1)
@@ -384,9 +384,9 @@
 			user.mind.AddSpell(S)
 
 		if(17)
-			//Tator Kit
-			T.visible_message("<span class='userdanger'>A suspicious box appears!</span>")
-			new /obj/item/storage/box/syndicate(drop_location())
+			//Choose from 1 of 3 random syndie bundles
+			T.visible_message("<span class='userdanger'>A suspicious radio beacon appears!</span>")
+			new /obj/item/radio/beacon/syndicate/bundle/magical(drop_location())
 			create_smoke(2)
 		if(18)
 			//Captain ID
@@ -396,9 +396,8 @@
 		if(19)
 			//Instrinct Resistance
 			T.visible_message("<span class='userdanger'>[user] looks very robust!</span>")
-			var/datum/species/S = user.dna.species
-			S.brute_mod *= 0.5
-			S.burn_mod *= 0.5
+			user.physiology.brute_mod *= 0.5
+			user.physiology.burn_mod *= 0.5
 
 		if(20)
 			//Free wizard!

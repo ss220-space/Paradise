@@ -40,7 +40,7 @@
 		injected(user, user)
 	else
 		user.visible_message("<span class='danger'>[user] is trying to inject [M] with [src]!</span>")
-		if(do_mob(user,M,30))
+		if(do_after(user, 3 SECONDS, M, NONE))
 			user.visible_message("<span class='danger'>[user] injects [M] with [src].</span>")
 			injected(M, user)
 		else

@@ -5,8 +5,9 @@
 	layer_offset = GAS_SCRUBBER_OFFSET
 	name = "passive vent"
 	desc = "A large air vent"
+	vent_movement = VENTCRAWL_ALLOWED|VENTCRAWL_CAN_SEE|VENTCRAWL_ENTRANCE_ALLOWED
 
-	can_unwrench = 1
+	can_unwrench = TRUE
 
 	var/volume = 250
 

@@ -30,7 +30,7 @@
 			to_chat(user, "Уровень доступа карты [id.registered_name] недостаточно высок. ")
 			return 0
 
-		var/choice = alert(user, text("Вы хотите (де)авторизовать досрочный запуск? [] Авторизация(-и) всё ещё необходима. Используйте команду 'Abort', чтобы отозвать все авторизации", src.auth_need - src.authorized.len), "Shuttle Launch", "Authorize", "Repeal", "Abort")
+		var/choice = tgui_alert(user, "Вы хотите (де)авторизовать досрочный запуск? [auth_need - length(authorized)] авторизация(-и) всё ещё необходима. Используйте команду 'Abort', чтобы отозвать все авторизации.", "Shuttle Launch", list("Authorize", "Repeal", "Abort"))
 		if(SSshuttle.emergency.mode != SHUTTLE_DOCKED || user.get_active_hand() != W)
 			return 0
 
@@ -296,7 +296,7 @@
 /*
 	for(var/obj/machinery/door/poddoor/shuttledock/D in airlocks)
 		var/turf/T = get_step(D, D.checkdir)
-		if(!istype(T,/turf/space))
+		if(!isspaceturf(T))
 			spawn(0)
 				D.open()
 */ //Leaving this here incase someone decides to port -tg-'s escape shuttle stuff:
@@ -332,7 +332,7 @@
 	possible_destinations = "pod_asteroid"
 	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "dorm_available"
-	density = 0
+	density = FALSE
 
 
 /obj/machinery/computer/shuttle/pod/update_icon_state()

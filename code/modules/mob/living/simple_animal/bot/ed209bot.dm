@@ -58,8 +58,9 @@
 	var/baton_delayed = FALSE
 	var/speak_cooldown = FALSE
 
-/mob/living/simple_animal/bot/ed209/New(loc, created_name, created_lasercolor)
-	..()
+
+/mob/living/simple_animal/bot/ed209/Initialize(mapload, created_name, created_lasercolor)
+	. = ..()
 	if(created_name)
 		name = created_name
 	if(created_lasercolor)
@@ -110,8 +111,8 @@
 	..()
 	target = null
 	oldtarget_name = null
-	anchored = FALSE
-	walk_to(src,0)
+	set_anchored(FALSE)
+	SSmove_manager.stop_looping(src)
 	set_path(null)
 	last_found = world.time
 	set_weapon()
@@ -127,10 +128,10 @@
 	ui_interact(M)
 
 
-/mob/living/simple_animal/bot/ed209/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/mob/living/simple_animal/bot/ed209/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BotSecurity", name, 500, 500)
+		ui = new(user, src, "BotSecurity", name)
 		ui.open()
 
 
@@ -259,7 +260,7 @@
 	var/list/targets = list()
 	for(var/mob/living/carbon/C in view(7, src)) //Let's find us a target
 		var/threatlevel = 0
-		if(C.stat || C.lying_angle)
+		if(C.stat || C.body_position == LYING_DOWN)
 			continue
 		threatlevel = C.assess_threat(src, lasercolor)
 		//speak(C.real_name + text(": threat: []", threatlevel))
@@ -273,13 +274,13 @@
 		targets += C
 	if(length(targets))
 		var/mob/living/carbon/t = pick(targets)
-		if(t.stat != DEAD && !t.lying_angle && !t.handcuffed) //we don't shoot people who are dead, cuffed or lying down.
+		if(t.stat != DEAD && t.body_position != LYING_DOWN && !t.handcuffed) //we don't shoot people who are dead, cuffed or lying down.
 			shootAt(t)
 
 	switch(mode)
 
 		if(BOT_IDLE)		// idle
-			walk_to(src,0)
+			SSmove_manager.stop_looping(src)
 			set_path(null)
 			if(!lasercolor) //lasertag bots don't want to arrest anyone
 				look_for_perp()	// see if any criminals are in range
@@ -289,7 +290,7 @@
 		if(BOT_HUNT)		// hunting for perp
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 8)
-				walk_to(src,0)
+				SSmove_manager.stop_looping(src)
 				set_path(null)
 				back_to_idle()
 
@@ -298,7 +299,7 @@
 					stun_attack(target)
 					if(!lasercolor)
 						mode = BOT_PREP_ARREST
-						anchored = TRUE
+						set_anchored(TRUE)
 						target_lastloc = target.loc
 						return
 					else
@@ -309,8 +310,7 @@
 
 				else if(!disabled) // not next to perp
 					var/turf/olddist = get_dist(src, target)
-					glide_for(BOT_STEP_DELAY)
-					walk_to(src, target,1,4)
+					SSmove_manager.move_to(src, target, 1, BOT_STEP_DELAY)
 					if((get_dist(src, target)) >= (olddist))
 						frustration++
 					else
@@ -325,7 +325,7 @@
 				back_to_hunt()
 				return
 
-			if(iscarbon(target) && target.canBeHandcuffed())
+			if(iscarbon(target) && target.has_organ_for_slot(ITEM_SLOT_HANDCUFFED))
 				if(!arrest_type)
 					if(!target.handcuffed)  //he's not cuffed? Try to cuff him!
 						start_cuffing(target)
@@ -338,7 +338,7 @@
 
 		if(BOT_ARREST)
 			if(!target)
-				anchored = FALSE
+				set_anchored(FALSE)
 				mode = BOT_IDLE
 				last_found = world.time
 				frustration = 0
@@ -353,7 +353,7 @@
 				return
 			else
 				mode = BOT_PREP_ARREST
-				anchored = FALSE
+				set_anchored(FALSE)
 
 		if(BOT_START_PATROL)
 			look_for_perp()
@@ -365,7 +365,7 @@
 
 
 /mob/living/simple_animal/bot/ed209/proc/back_to_idle()
-	anchored = FALSE
+	set_anchored(FALSE)
 	mode = BOT_IDLE
 	target = null
 	last_found = world.time
@@ -374,7 +374,7 @@
 
 
 /mob/living/simple_animal/bot/ed209/proc/back_to_hunt()
-	anchored = FALSE
+	set_anchored(FALSE)
 	frustration = 0
 	mode = BOT_HUNT
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
@@ -386,7 +386,7 @@
 /mob/living/simple_animal/bot/ed209/proc/look_for_perp()
 	if(disabled)
 		return
-	anchored = FALSE
+	set_anchored(FALSE)
 	threatlevel = 0
 	for(var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
 		if((C.stat) || (C.handcuffed))
@@ -420,7 +420,7 @@
 
 
 /mob/living/simple_animal/bot/ed209/explode()
-	walk_to(src,0)
+	SSmove_manager.stop_looping(src)
 	visible_message("<span class='userdanger'>[src] blows apart!</span>")
 	var/turf/Tsec = get_turf(src)
 
@@ -520,7 +520,7 @@
 		pulse2.icon = 'icons/effects/effects.dmi'
 		pulse2.icon_state = "empdisable"
 		pulse2.name = "emp sparks"
-		pulse2.anchored = TRUE
+		pulse2.set_anchored(TRUE)
 		pulse2.dir = pick(GLOB.cardinal)
 		QDEL_IN(pulse2, 1 SECONDS)
 		var/list/mob/living/carbon/targets = new
@@ -563,7 +563,7 @@
 		if(lasertag_check)
 			icon_state = "[lasercolor]ed2090"
 			disabled = TRUE
-			walk_to(src, 0)
+			SSmove_manager.stop_looping(src)
 			target = null
 			addtimer(CALLBACK(src, PROC_REF(unset_disabled)), 10 SECONDS)
 			return TRUE
@@ -589,13 +589,13 @@
 
 
 /mob/living/simple_animal/bot/ed209/UnarmedAttack(atom/A)
-	if(!on)
+	if(!on || !can_unarmed_attack())
 		return
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if(C.staminaloss < 110 || arrest_type && !baton_delayed)
 			stun_attack(A)
-		else if(C.canBeHandcuffed() && !C.handcuffed)
+		else if(C.has_organ_for_slot(ITEM_SLOT_HANDCUFFED) && !C.handcuffed)
 			start_cuffing(A)
 	else
 		..()
@@ -617,13 +617,13 @@
 
 
 /mob/living/simple_animal/bot/ed209/proc/stun_attack(mob/living/carbon/C)
-	playsound(loc, 'sound/weapons/Egloves.ogg', 50, TRUE, -1)
+	playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	icon_state = "[lasercolor]ed209-c"
 	addtimer(VARSET_CALLBACK(src, icon_state, "[lasercolor]ed209[on]"), 0.2 SECONDS)
 	var/threat = C.assess_threat(src)
 	C.SetStuttering(10 SECONDS)
 	C.Weaken(4 SECONDS)
-	C.adjustStaminaLoss(45)
+	C.apply_damage(45, STAMINA)
 	baton_delayed = TRUE
 	addtimer(VARSET_CALLBACK(src, baton_delayed, FALSE), BATON_COOLDOWN)
 	add_attack_logs(src, C, "stunned")
@@ -653,7 +653,7 @@
 	if(!Adjacent(C) || !isturf(C.loc) || C.handcuffed)
 		return
 
-	C.set_handcuffed(new /obj/item/restraints/handcuffs/cable/zipties/used(C))
+	C.apply_restraints(new /obj/item/restraints/handcuffs/cable/zipties/used(null), ITEM_SLOT_HANDCUFFED, TRUE)
 	back_to_idle()
 
 

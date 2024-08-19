@@ -1,5 +1,30 @@
+/datum/strippable_item/borg_head
+	key = STRIPPABLE_ITEM_HEAD
+
+/datum/strippable_item/borg_head/get_item(atom/source)
+	var/mob/living/silicon/borg_source = source
+	if(!istype(borg_source))
+		return
+
+	return borg_source.inventory_head
+
+/datum/strippable_item/borg_head/finish_equip(atom/source, obj/item/equipping, mob/user)
+	var/mob/living/silicon/borg_source = source
+	if(!istype(borg_source))
+		return
+
+	borg_source.place_on_head(equipping, user)
+
+/datum/strippable_item/borg_head/finish_unequip(atom/source, mob/user)
+	var/mob/living/silicon/borg_source = source
+	if(!istype(borg_source))
+		return
+
+	borg_source.remove_from_head(user)
+
 /mob/living/silicon
 	var/obj/item/inventory_head
+	var/list/strippable_inventory_slots = list()
 
 	var/hat_offset_y = -3
 	var/isCentered = FALSE //центрирован ли синтетик. Если нет, то шляпа будет растянута
@@ -23,7 +48,7 @@
 		/obj/item/clothing/head/cardborg
 	)
 
-	var/hat_icon_file = 'icons/mob/clothing/head.dmi'
+	var/hat_icon_file
 	var/hat_icon_state
 	var/hat_alpha
 	var/hat_color
@@ -127,37 +152,6 @@
 		return
 	. = ..()
 
-
-/mob/living/silicon/Topic(href, href_list)
-	if(..())
-		return 1
-
-	if(!(iscarbon(usr) || usr.incapacitated() || !Adjacent(usr)))
-		usr << browse(null, "window=mob[UID()]")
-		usr.unset_machine()
-		return
-
-	if (!canBeHatted)
-		return 0
-
-	if(href_list["remove_inv"])
-		var/remove_from = href_list["remove_inv"]
-		switch(remove_from)
-			if("head")
-				remove_from_head(usr)
-		show_inv(usr)
-
-	else if(href_list["add_inv"])
-		var/add_to = href_list["add_inv"]
-		switch(add_to)
-			if("head")
-				place_on_head(usr.get_active_hand(), usr)
-		show_inv(usr)
-
-	if(usr != src)
-		return 1
-
-
 /mob/living/silicon/proc/get_hat_overlay()
 	if(hat_icon_file && hat_icon_state)
 		var/image/borgI = image(hat_icon_file, hat_icon_state)
@@ -168,22 +162,10 @@
 			borgI.transform = matrix(1.125, 0, 0.5, 0, 1, 0)
 		return borgI
 
-/mob/living/silicon/show_inv(mob/user)
-	if(user.incapacitated() || !Adjacent(user))
-		return
-	user.set_machine(src)
-
-	var/dat = 	{"<meta charset="UTF-8"><div align='center'><b>Inventory of [name]</b></div><p>"}
-	dat += "<br><B>Head:</B> <A href='?src=[UID()];[inventory_head ? "remove_inv=head'>[inventory_head]" : "add_inv=head'>Nothing"]</A>"
-
-	var/datum/browser/popup = new(user, "mob[UID()]", "[src]", 440, 250)
-	popup.set_content(dat)
-	popup.open()
-
 /mob/living/silicon/proc/place_on_head(obj/item/item_to_add, mob/user)
 	if(!item_to_add)
 		user.visible_message("<span class='notice'>[user] похлопывает по голове [src].</span>", "<span class='notice'>Вы положили руку на голову [src].</span>")
-		if(flags_2 & HOLOGRAM_2)
+		if(flags & HOLOGRAM)
 			return 0
 		return 0
 
@@ -219,7 +201,7 @@
 
 /mob/living/silicon/proc/remove_from_head(mob/user)
 	if(inventory_head)
-		if(inventory_head.flags & NODROP)
+		if(HAS_TRAIT(inventory_head, TRAIT_NODROP))
 			to_chat(user, "<span class='warning'>[inventory_head.name] застрял на голове [src]! Его невозможно снять!</span>")
 			return TRUE
 
@@ -235,15 +217,20 @@
 
 	return TRUE
 
-/mob/living/silicon/proc/drop_hat()
+
+/mob/living/silicon/proc/drop_hat(drop_on_turf = FALSE)
 	if(inventory_head)
-		drop_item_ground(inventory_head)
+		if(drop_on_turf)
+			transfer_item_to_loc(inventory_head, get_turf(src))
+		else
+			drop_item_ground(inventory_head)
 		null_hat()
 		regenerate_icons()
 
 
 /mob/living/silicon/proc/null_hat()
 	inventory_head = null
+	hat_icon_file = null
 	hat_icon_state = null
 	hat_alpha = null
 	hat_color = null

@@ -43,7 +43,7 @@
 
 
 /obj/item/gun/throw/attackby(obj/item/I, mob/user, params)
-	if(istype(I, valid_projectile_type) && !(I.flags & NODROP))
+	if(istype(I, valid_projectile_type) && !HAS_TRAIT(I, TRAIT_NODROP))
 		if(get_ammocount() < max_capacity)
 			user.drop_transfer_item_to_loc(I, src)
 			loaded_projectiles += I
@@ -62,10 +62,9 @@
 		loaded_projectiles -= to_launch
 	return
 
-/obj/item/gun/throw/can_shoot()
-	if(to_launch)
-		return 1
-	return 0
+/obj/item/gun/throw/can_shoot(mob/user)
+	return to_launch
+
 
 /obj/item/gun/throw/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
 	add_fingerprint(user)

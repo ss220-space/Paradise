@@ -21,7 +21,6 @@ SUBSYSTEM_DEF(icon_smooth)
 	if(!smooth_queue.len)
 		can_fire = 0
 
-
 /datum/controller/subsystem/icon_smooth/Initialize()
 	log_startup_progress("Smoothing atoms...")
 	// Smooth EVERYTHING in the world
@@ -44,3 +43,4 @@ SUBSYSTEM_DEF(icon_smooth)
 		smooth_icon(A)
 		CHECK_TICK
 
+	return SS_INIT_SUCCESS

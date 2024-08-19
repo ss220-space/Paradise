@@ -32,8 +32,19 @@
 	owner.som.masters += owner
 	return ..()
 
+/datum/antagonist/traitor/apply_innate_effects(mob/living/mob_override)
+	. = ..()
+	var/mob/living/datum_owner = mob_override || owner.current
+	datum_owner.AddComponent(/datum/component/codeword_hearing, GLOB.syndicate_code_phrase_regex, "codephrases", src)
+	datum_owner.AddComponent(/datum/component/codeword_hearing, GLOB.syndicate_code_response_regex, "coderesponses", src)
 
-/datum/antagonist/traitor/Destroy(force, ...)
+/datum/antagonist/traitor/remove_innate_effects(mob/living/mob_override)
+	. = ..()
+	var/mob/living/datum_owner = mob_override || owner.current
+	for(var/datum/component/codeword_hearing/component in datum_owner.GetComponents(/datum/component/codeword_hearing))
+		component.delete_if_from_source(src)
+
+/datum/antagonist/traitor/Destroy(force)
 	// Remove contractor if present
 	var/datum/antagonist/contractor/contractor_datum = owner?.has_antag_datum(/datum/antagonist/contractor)
 	if(contractor_datum)
@@ -47,8 +58,6 @@
 		slaved.serv -= owner
 		slaved.leave_serv_hud(owner)
 		owner.som = null
-
-	owner.current.client?.chatOutput?.clear_syndicate_codes()
 
 	if(hidden_uplink)
 		var/obj/item/uplink_holder = hidden_uplink.loc
@@ -160,11 +169,11 @@
 		folder = new/obj/item/folder/syndicate/blue(mob.locs)
 
 	var/list/slots = list (
-		"backpack" = SLOT_HUD_IN_BACKPACK,
-		"left pocket" = SLOT_HUD_LEFT_STORE,
-		"right pocket" = SLOT_HUD_RIGHT_STORE,
-		"left hand" = SLOT_HUD_LEFT_HAND,
-		"right hand" = SLOT_HUD_RIGHT_HAND,
+		"backpack" = ITEM_SLOT_BACKPACK,
+		"left pocket" = ITEM_SLOT_POCKET_LEFT,
+		"right pocket" = ITEM_SLOT_POCKET_RIGHT,
+		"left hand" = ITEM_SLOT_HAND_LEFT,
+		"right hand" = ITEM_SLOT_HAND_RIGHT,
 	)
 
 	var/where = "At your feet"
@@ -226,14 +235,11 @@
 	if(!owner.current)
 		return
 
-	var/mob/traitor_mob = owner.current
-
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 
 	antag_memory += "<b>Code Phrase</b>: <span class='red'>[phrases]</span><br>"
 	antag_memory += "<b>Code Response</b>: <span class='red'>[responses]</span><br>"
-	traitor_mob.client.chatOutput?.notify_syndicate_codes()
 
 	var/list/messages = list()
 	if(!silent)
@@ -292,7 +298,7 @@
 		antag_memory += ("<B>Radio Freq:</B> [format_frequency(freq)] ([target_radio.name]).")
 		return TRUE
 
-	if(ispda(uplink_holder))
+	if(is_pda(uplink_holder))
 		// generate a passcode if the uplink is hidden in a PDA
 		var/obj/item/pda/target_pda = uplink_holder
 		var/obj/item/uplink/hidden/new_uplink = new(target_pda)
@@ -325,7 +331,7 @@
 
 	var/obj/item/uplink_holder = hidden_uplink.loc
 
-	if(ispda(uplink_holder))
+	if(is_pda(uplink_holder))
 		var/obj/item/pda/pda_uplink = uplink_holder
 		to_chat(owner.current, "The Syndicate have cunningly disguised a Syndicate Uplink as your [uplink_holder.name]. Simply enter the code \"[pda_uplink.lock_code]\" into the ringtone select to unlock its hidden features.")
 

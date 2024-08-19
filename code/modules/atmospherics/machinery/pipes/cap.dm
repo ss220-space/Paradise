@@ -17,7 +17,7 @@
 	initialize_directions = dir
 
 /obj/machinery/atmospherics/pipe/cap/hide(i)
-	if(level == 1 && istype(loc, /turf/simulated))
+	if(level == 1 && issimulatedturf(loc))
 		invisibility = i ? INVISIBILITY_MAXIMUM : 0
 	update_icon()
 
@@ -110,7 +110,7 @@
 	level = 1
 	icon_state = "cap"
 	alpha = 128
-	plane = FLOOR_PLANE
+	plane = GAME_PLANE
 	layer = GAS_PIPE_HIDDEN_LAYER
 
 /obj/machinery/atmospherics/pipe/cap/hidden/scrubbers

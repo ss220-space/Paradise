@@ -7,7 +7,7 @@
 	item_state = "analyzer"
 	belt_icon = "plant_analyzer"
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "magnets=2;biotech=2"
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
 
@@ -23,7 +23,7 @@
 	item_state = "plantbgone"
 	volume = 100
 	container_type = OPENCONTAINER
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
@@ -42,7 +42,7 @@
 	item_state = "plantbgone"
 	volume = 100
 	container_type = OPENCONTAINER
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
@@ -63,6 +63,7 @@
 	flags = CONDUCT
 	force = 5
 	throwforce = 7
+	toolspeed = 0.5
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50)
 	attack_verb = list("slashed", "sliced", "cut", "clawed")
@@ -71,6 +72,7 @@
 /obj/item/cultivator/rake
 	name = "rake"
 	icon_state = "rake"
+	toolspeed = 1
 	belt_icon = null
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("slashed", "sliced", "bashed", "clawed")
@@ -131,7 +133,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	flags = CONDUCT
 	armour_penetration = 20
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	origin_tech = "materials=3;combat=2"
 	attack_verb = list("chopped", "sliced", "cut", "reaped")
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -175,7 +177,7 @@
 	sharp = 0
 	w_class = WEIGHT_CLASS_SMALL
 	extend = 0
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "materials=3;combat=3"
 	attack_verb = list("hit", "poked")
 	hitsound = "swing_hit"
@@ -184,7 +186,7 @@
 	extend = !extend
 	if(extend)
 		to_chat(user, "<span class='warning'>With a flick of your wrist, you extend the scythe. It's reaping time!</span>")
-		slot_flags = SLOT_FLAG_BACK	//won't fit on belt, but can be worn on belt when extended
+		slot_flags = ITEM_SLOT_BACK	//won't fit on belt, but can be worn on belt when extended
 		w_class = WEIGHT_CLASS_BULKY		//won't fit in backpacks while extended
 		force = 15		//slightly better than normal scythe damage
 		attack_verb = list("chopped", "sliced", "cut", "reaped")
@@ -193,16 +195,16 @@
 		playsound(src.loc, 'sound/weapons/blade_unsheath.ogg', 50, 1)	//Sound credit to Qat of Freesound.org
 	else
 		to_chat(user, "<span class='notice'>You collapse the scythe, folding it away for easy storage.</span>")
-		slot_flags = SLOT_FLAG_BELT	//can be worn on belt again, but no longer makes sense to wear on the back
+		slot_flags = ITEM_SLOT_BELT	//can be worn on belt again, but no longer makes sense to wear on the back
 		w_class = WEIGHT_CLASS_SMALL
 		force = 3
 		attack_verb = list("hit", "poked")
 		hitsound = "swing_hit"
 		//Collapse sound (blade sheath)
 		playsound(src.loc, 'sound/weapons/blade_sheath.ogg', 50, 1)		//Sound credit to Q.K. of Freesound.org
-	sharp = extend
+	set_sharpness(extend)
 	update_icon(UPDATE_ICON_STATE)
-	update_equipped_item()
+	update_equipped_item(update_speedmods = FALSE)
 	add_fingerprint(user)
 
 

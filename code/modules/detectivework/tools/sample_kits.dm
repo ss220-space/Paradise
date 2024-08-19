@@ -99,7 +99,7 @@
 		to_chat(user, "<span class='warning'>\The [H] is wearing gloves.</span>")
 		return 1
 
-	if(user != H && H.a_intent != INTENT_HELP && !H.lying_angle)
+	if(user != H && H.a_intent != INTENT_HELP && H.body_position != LYING_DOWN)
 		user.visible_message("<span class='danger'>\The [user] tries to take prints from \the [H], but they move away.</span>")
 		return 1
 
@@ -148,7 +148,7 @@
 	to_chat(user, "<span class='notice'>You transfer [S.evidence.len] [S.evidence.len > 1 ? "[evidence_type]s" : "[evidence_type]"] to \the [S].</span>")
 
 /obj/item/forensics/sample_kit/afterattack(atom/A, mob/user, proximity)
-	if(!proximity)
+	if(!proximity || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(can_take_sample(user, A))
 		take_sample(user,A)
@@ -164,10 +164,10 @@
 		return FALSE
 
 	var/mob/user = usr
-	if(istype(over_object, /obj/screen))
+	if(is_screen_atom(over_object))
 		return FALSE
 
-	if(loc != user || user.incapacitated() || !ishuman(user))
+	if(loc != user || !ishuman(user))
 		return FALSE
 
 	afterattack(over_object, user, TRUE)

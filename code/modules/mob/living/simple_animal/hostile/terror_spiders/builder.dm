@@ -48,7 +48,7 @@
 	if(L.reagents.has_reagent("frostoil", 100))
 		return TRUE
 	var/inject_target = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
-	if(L.IsStunned() || L.can_inject(null, FALSE, inject_target, FALSE))
+	if(HAS_TRAIT(L, TRAIT_INCAPACITATED) || L.can_inject(null, FALSE, inject_target, FALSE))
 		L.reagents.add_reagent("frostoil", 20)
 		visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [target]!</span>")
 	else
@@ -56,7 +56,7 @@
 		visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [target]!</span>")
 	return TRUE
 
-/mob/living/simple_animal/hostile/poison/terror_spider/builder/Move(atom/newloc, dir, step_x, step_y)  //moves slow while not in web, but fast while in. does not regenerate if not in web
+/mob/living/simple_animal/hostile/poison/terror_spider/builder/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)  //moves slow while not in web, but fast while in. does not regenerate if not in web
 	. = ..()
 	var/obj/structure/spider/terrorweb/W = locate() in get_turf(src)
 	if(W)
@@ -69,7 +69,7 @@
 
 /obj/structure/spider/terrorweb/queen/builder
 	max_integrity = 35
-	opacity = 1
+	opacity = TRUE
 	name = "drone web"
 	desc = "Extremely thick web."
 

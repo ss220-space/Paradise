@@ -579,7 +579,7 @@
 		L.step_in = locker_step_in
 
 /obj/item/mecha_parts/mecha_equipment/improved_exosuit_control_system/detach_act()
-	if(istype(loc, /obj/mecha))
+	if(ismecha(loc))
 		var/obj/mecha/O = loc
 		O.step_in = initial(O.step_in)
 	if(istype(loc, /obj/mecha/working))

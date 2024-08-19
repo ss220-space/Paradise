@@ -28,6 +28,7 @@
 	del_on_death = 1
 	sentience_type = SENTIENCE_OTHER
 	footstep_type = FOOTSTEP_MOB_SHOE
+	AI_delay_max = 0 SECONDS
 
 ///////////////Sword and shield////////////
 
@@ -136,9 +137,9 @@
 					depotarea.saw_double_agent(M)
 			depotarea.declare_started()
 		seen_enemy_name = target.name
-		if(istype(target, /obj/mecha))
+		if(ismecha(target))
 			depotarea.saw_mech(target)
-		if(istype(target, /obj/spacepod))
+		if(isspacepod(target))
 			depotarea.saw_pod(target)
 		if(depotarea.list_includes(target, depotarea.dead_list))
 			seen_revived_enemy = TRUE
@@ -186,11 +187,11 @@
 	else
 		scan_cycles++
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/AIShouldSleep(var/list/possible_targets)
-	FindTarget(possible_targets, 1)
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/AIShouldSleep(list/possible_targets)
+	FindTarget(possible_targets)
 	return FALSE
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/proc/raise_alert(var/reason)
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/proc/raise_alert(reason)
 	if(istype(depotarea) && (!raised_alert || seen_revived_enemy) && !depotarea.used_self_destruct)
 		raised_alert = TRUE
 		say("Intruder!")
@@ -300,9 +301,9 @@
 	wander = 0
 	alert_on_spacing = FALSE
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/Process_Spacemove(var/movement_dir = 0)
-	return TRUE
 
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
+	return TRUE
 
 
 /mob/living/simple_animal/hostile/syndicate/melee/space
@@ -314,7 +315,7 @@
 	speed = 1
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy/syndie)
 
-/mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(var/movement_dir = 0)
+/mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/hostile/syndicate/ranged
@@ -337,7 +338,7 @@
 	speed = 1
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/gun/projectile/automatic/c20r)
 
-/mob/living/simple_animal/hostile/syndicate/ranged/space/Process_Spacemove(var/movement_dir = 0)
+/mob/living/simple_animal/hostile/syndicate/ranged/space/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib
@@ -366,6 +367,7 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 	del_on_death = 1
 	deathmessage = "is smashed into pieces!"
+	AI_delay_max = 0 SECONDS
 
 /mob/living/simple_animal/hostile/viscerator/Initialize(mapload)
 	. = ..()

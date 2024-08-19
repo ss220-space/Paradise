@@ -460,7 +460,7 @@
 
 /datum/emote/living/carbon/human/highfive/can_run_emote(mob/living/carbon/user, status_check, intentional)
 	. = ..()
-	if(!. || user.restrained())
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
 

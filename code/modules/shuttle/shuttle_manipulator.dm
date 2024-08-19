@@ -60,16 +60,23 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/shuttle_manipulator/vv_edit_var(var_name, var_value)
-	switch(var_name)
-		if("shuttle_and_preview_cooldown")
-			log_and_message_admins("has attempted to change the [var_name] variable. Please do not do this, this can cause entire Z levels to freeze if spammed too quickly.")
-			return FALSE // Extremely important that this doesn't get varedited by mistake, otherwise horrible, horrible things can happen to the server.
 
-/obj/machinery/shuttle_manipulator/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/shuttle_manipulator/vv_edit_var(var_name, var_value)
+	// Extremely important that this doesn't get varedited by mistake, otherwise horrible,
+	// horrible things can happen to the server.
+	if(var_name == NAMEOF(src, shuttle_and_preview_cooldown))
+		log_and_message_admins("has attempted to change the [var_name] variable. Please do not do this, this can cause entire Z levels to freeze if spammed too quickly.")
+		return FALSE
+	return ..()
+
+
+/obj/machinery/shuttle_manipulator/ui_state(mob/user)
+	return GLOB.admin_state
+
+/obj/machinery/shuttle_manipulator/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ShuttleManipulator", name, 650, 700, master_ui, state)
+		ui = new(user, src, "ShuttleManipulator", name)
 		ui.open()
 
 /obj/machinery/shuttle_manipulator/ui_data(mob/user)

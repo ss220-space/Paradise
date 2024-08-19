@@ -19,7 +19,7 @@
 	throw_range = 5
 	materials = list(MAT_METAL=10, MAT_GLASS=5)
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	item_state = "coil"
 	attack_verb = list("whipped", "lashed", "disciplined", "flogged")
 	usesound = 'sound/items/deconstruct.ogg'
@@ -135,7 +135,7 @@
 			if(get_amount() < 10)
 				to_chat(user, span_warning("You don't have enough [src] to make cable restraints!</span>"))
 				return
-			if(do_after(user, 2 SECONDS, target = user))
+			if(do_after(user, 2 SECONDS, user))
 				if(!use(10))
 					to_chat(user, span_warning("You don't have enough [src] to make cable restraints!</span>"))
 					return
@@ -157,7 +157,7 @@
 		return ..()
 
 	var/obj/item/organ/external/target_organ = target.get_organ(check_zone(user.zone_selected))
-	if(!target_organ || !target_organ.is_robotic() || user.a_intent != INTENT_HELP || target_organ.open == 2)
+	if(!target_organ || !target_organ.is_robotic() || user.a_intent != INTENT_HELP || target_organ.open == ORGAN_SYNTHETIC_OPEN)
 		return ..()
 
 	if(target_organ.burn_dam > ROBOLIMB_SELF_REPAIR_CAP)
@@ -169,12 +169,14 @@
 		return FALSE
 
 	if(target == user)
-		if(!do_mob(user, target, 1 SECONDS))
+		if(!do_after(user, 1 SECONDS, target, NONE))
 			return FALSE
 
 	var/cable_used = 0
 	var/list/childlist = LAZYLEN(target_organ.children) ? target_organ.children.Copy() : null
 	var/parenthealed = FALSE
+	var/should_update_health = FALSE
+	var/update_damage_icon = NONE
 	while(cable_used <= MAXCABLEPERHEAL && amount)
 		var/obj/item/organ/external/current_organ
 		if(target_organ.burn_dam)
@@ -190,13 +192,18 @@
 				break
 		else
 			break
+		var/burn_was = current_organ.burn_dam
 		while(cable_used <= MAXCABLEPERHEAL && current_organ.burn_dam && amount)
 			use(1)
 			cable_used++
-			current_organ.heal_damage(0, HEALPERCABLE, FALSE, TRUE, FALSE)
-		target.updatehealth("cable repair")
-		target.UpdateDamageIcon()
+			update_damage_icon |= current_organ.heal_damage(0, HEALPERCABLE, FALSE, TRUE, FALSE)
+		if(current_organ.burn_dam != burn_was)
+			should_update_health = TRUE
 		user.visible_message(span_alert("[user] repairs some burn damage on [target]'s [current_organ.name] with [src]."))
+	if(should_update_health)
+		target.updatehealth("cable repair")
+	if(update_damage_icon)
+		target.UpdateDamageIcon()
 	return TRUE
 
 

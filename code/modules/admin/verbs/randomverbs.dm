@@ -1,5 +1,4 @@
 /client/proc/cmd_admin_drop_everything(mob/M as mob in GLOB.mob_list)
-	set category = null
 	set name = "Drop Everything"
 
 	if(!check_rights(R_DEBUG|R_ADMIN))
@@ -34,18 +33,17 @@
 			var/mob/living/L = M
 			L.Paralyse(10 SECONDS)
 		sleep(5)	//so they black out before warping
-		M.loc = pick(GLOB.prisonwarp)
-		if(istype(M, /mob/living/carbon/human))
+		M.forceMove(pick(GLOB.prisonwarp))
+		if(ishuman(M))
 			var/mob/living/carbon/human/prisoner = M
-			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), SLOT_HUD_JUMPSUIT)
-			prisoner.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(prisoner), SLOT_HUD_SHOES)
+			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), ITEM_SLOT_CLOTH_INNER)
+			prisoner.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(prisoner), ITEM_SLOT_FEET)
 		spawn(50)
 			to_chat(M, "<span class='warning'>You have been sent to the prison station!</span>")
 		log_and_message_admins("<span class='notice'>sent [key_name_admin(M)] to the prison station.</span>")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Prison") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/cmd_admin_subtle_message(mob/M as mob in GLOB.mob_list)
-	set category = "Event"
 	set name = "\[Admin\] Subtle Message"
 
 	if(!ismob(M))
@@ -159,7 +157,6 @@
 
 
 /client/proc/cmd_admin_headset_message(mob/M in GLOB.mob_list)
-	set category = "Event"
 	set name = "\[Admin\] Headset Message"
 
 	admin_headset_message(M)
@@ -249,19 +246,19 @@
 
 	if(automute)
 		muteunmute = "auto-muted"
-		M.client.prefs.muted |= mute_type
+		force_add_mute(M.client.ckey, mute_type)
 		log_admin("SPAM AUTOMUTE: [muteunmute] [key_name(M)] from [mute_string]")
 		message_admins("SPAM AUTOMUTE: [muteunmute] [key_name_admin(M)] from [mute_string].")
 		to_chat(M, "You have been [muteunmute] from [mute_string] by the SPAM AUTOMUTE system. Contact an admin.")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Automute") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 		return
 
-	if(M.client.prefs.muted & mute_type)
-		muteunmute = "unmuted"
-		M.client.prefs.muted &= ~mute_type
-	else
+	toggle_mute(M.client.ckey, mute_type)
+
+	if(check_mute(M.client.ckey, mute_type))
 		muteunmute = "muted"
-		M.client.prefs.muted |= mute_type
+	else
+		muteunmute = "unmuted"
 
 	log_and_message_admins("has [muteunmute] [key_name_admin(M)] from [mute_string].")
 	to_chat(M, "You have been [muteunmute] from [mute_string].")
@@ -462,13 +459,13 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			else
 				new_character.mind.add_antag_datum(/datum/antagonist/traitor)
 		if("Wizard")
-			new_character.loc = pick(GLOB.wizardstart)
+			new_character.forceMove(pick(GLOB.wizardstart))
 			//ticker.mode.learn_basic_spells(new_character)
 			SSticker.mode.equip_wizard(new_character)
 		if("Syndicate")
 			var/obj/effect/landmark/synd_spawn = locate("landmark*Syndicate-Spawn")
 			if(synd_spawn)
-				new_character.loc = get_turf(synd_spawn)
+				new_character.forceMove(get_turf(synd_spawn))
 			call(/datum/game_mode/proc/equip_syndicate)(new_character)
 
 		if("Death Commando")//Leaves them at late-join spawn.
@@ -590,7 +587,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Add Custom AI Law") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/cmd_admin_rejuvenate(mob/living/M as mob in GLOB.mob_list)
-	set category = null
 	set name = "\[Admin\] Rejuvenate"
 
 	if(!check_rights(R_REJUVINATE))
@@ -607,7 +603,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Rejuvenate") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/cmd_admin_offer_control(mob/M as mob in GLOB.mob_list)
-	set category = null
 	set name = "\[Admin\] Offer control to ghosts"
 
 	if(!check_rights(R_ADMIN))
@@ -670,7 +665,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 
 /client/proc/cmd_admin_delete(atom/A as obj|mob|turf in view(maxview()))
-	set category = null
 	set name = "\[Admin\] Delete"
 
 	if(!check_rights(R_ADMIN))
@@ -805,7 +799,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 /client/proc/cmd_admin_check_contents(mob/living/M as mob in GLOB.mob_list)
 	set name = "\[Admin\] Check Contents"
-	set category = null
 
 	if(!check_rights(R_ADMIN))
 		return

@@ -4,7 +4,7 @@
 	icon_state = "pai"
 	item_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "programming=2"
 	var/request_cooldown = 5 // five seconds
 	var/last_request
@@ -253,7 +253,7 @@
 		if(pai.master_dna)
 			return
 		var/mob/M = usr
-		if(!istype(M, /mob/living/carbon))
+		if(!iscarbon(M))
 			to_chat(usr, "<font color=blue>You don't have any DNA, or your DNA is incompatible with this device.</font>")
 		else
 			var/datum/dna/dna = usr.dna
@@ -270,7 +270,7 @@
 		looking_for_personality = 1
 		GLOB.paiController.findPAI(src, usr)
 	if(href_list["wipe"])
-		var/confirm = input("Are you CERTAIN you wish to delete the current personality? This action cannot be undone.", "Personality Wipe") in list("Yes", "No")
+		var/confirm = tgui_alert(usr, "Are you certain you wish to delete the current personality? This action cannot be undone.", "Personality Wipe", list("No", "Yes"))
 		if(confirm == "Yes")
 			for(var/mob/M in src)
 				to_chat(M, "<font color = #ff0000><h2>You feel yourself slipping away from reality.</h2></font>")
@@ -279,7 +279,7 @@
 				to_chat(M, "<font color = #ffc4c4><h5>oblivion... </h5></font>")
 				var/mob/living/silicon/pai/P = M
 				if(istype(P))
-					if(P.resting || P.canmove)
+					if(P.body_position == LYING_DOWN)
 						P.close_up()
 				M.death(0, 1)
 			removePersonality()
@@ -291,7 +291,7 @@
 			if(2)
 				radio.ToggleReception()
 	if(href_list["setlaws"])
-		var/newlaws = sanitize(copytext_char(input("Enter any additional directives you would like your pAI personality to follow. Note that these directives will not override the personality's allegiance to its imprinted master. Conflicting directives will be ignored.", "pAI Directive Configuration", pai.pai_laws) as message,1,MAX_MESSAGE_LEN))
+		var/newlaws = tgui_input_text(usr, "Enter any additional directives you would like your pAI personality to follow. Note that these directives will not override the personality's allegiance to its imprinted master. Conflicting directives will be ignored.", "pAI Directive Configuration", pai.pai_laws)
 		if(newlaws)
 			pai.pai_laws = newlaws
 			to_chat(pai, "Your supplemental directives have been updated. Your new directives are:")

@@ -21,7 +21,7 @@
 	/// The amount reduced from spread_prob on every spread iteration to cause falloff.
 	var/spread_prob_loss
 	/// The base type that makes up the river.
-	var/river_turf_type = /turf/simulated/floor/plating/lava/smooth/mapping_lava
+	var/river_turf_type = /turf/simulated/floor/lava/mapping_lava
 	/// The area that the spawner is allowed to spread or detour to.
 	var/whitelist_area_type = /area/lavaland/surface/outdoors
 	/// The type that the spawner is allowed to spread or detour to.
@@ -44,7 +44,7 @@
 /datum/river_spawner/proc/generate(nodes = 4, min_x = RIVER_MIN_X, min_y = RIVER_MIN_Y, max_x = RIVER_MAX_X, max_y = RIVER_MAX_Y)
 	var/list/river_nodes = list()
 	var/num_spawned = 0
-	var/list/possible_locs = block(locate(min_x, min_y, target_z), locate(max_x, max_y, target_z))
+	var/list/possible_locs = block(min_x, min_y, target_z, max_x, max_y, target_z)
 	while(num_spawned < nodes && possible_locs.len)
 		var/turf/T = pick(possible_locs)
 		var/area/A = get_area(T)

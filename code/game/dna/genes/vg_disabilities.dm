@@ -37,6 +37,7 @@
 	if(DIZZY in M.mutations)
 		M.Dizzy(600 SECONDS)
 
-/datum/dna/gene/disability/dizzy/deactivate(mob/living/M, connected, flags)
-	..()
-	M.SetDizzy(0)
+
+/datum/dna/gene/disability/dizzy/deactivate(mob/living/mutant, flags)
+	. = ..()
+	mutant.SetDizzy(0)

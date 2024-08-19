@@ -34,7 +34,7 @@
 			no_den_usage = 0
 	..()
 
-/obj/item/gun/magic/can_shoot()
+/obj/item/gun/magic/can_shoot(mob/user)
 	return charges
 
 /obj/item/gun/magic/newshot(params)

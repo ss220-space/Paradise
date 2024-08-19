@@ -41,8 +41,10 @@
 	user.examinate(src)
 
 /obj/item/photo/attackby(obj/item/P, mob/user, params)
-	if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
-		var/txt = sanitize(input(user, "What would you like to write on the back?", "Photo Writing", null)  as text)
+	if(is_pen(P) || istype(P, /obj/item/toy/crayon))
+		var/txt = tgui_input_text(user, "What would you like to write on the back?", "Photo Writing")
+		if(!txt)
+			return
 		txt = copytext(txt, 1, 128)
 		if(loc == user && user.stat == 0)
 			scribble = txt
@@ -53,7 +55,7 @@
 /obj/item/photo/proc/burnphoto(obj/item/lighter/P, mob/user)
 	var/class = "<span class='warning'>"
 
-	if(P.lit && !user.restrained())
+	if(P.lit && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		if(istype(P, /obj/item/lighter/zippo))
 			class = "<span class='rose'>"
 
@@ -105,12 +107,16 @@
 	set category = "Object"
 	set src in usr
 
-	var/n_name = sanitize(copytext_char(input(usr, "What would you like to label the photo?", "Photo Labelling", name) as text, 1, MAX_NAME_LEN))
+	if(usr.incapacitated() || !isAI(usr) && HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return
+
+	var/n_name = tgui_input_text(usr, "What would you like to label the photo?", "Photo Labelling", name)
+	if(!n_name)
+		return
 	//loc.loc check is for making possible renaming photos in clipboards
-	if(( (loc == usr || (loc.loc && loc.loc == usr)) && usr.stat == 0))
+	if((loc == usr || (loc.loc && loc.loc == usr)) && !usr.incapacitated() && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		name = "[(n_name ? text("[n_name]") : "photo")]"
-	add_fingerprint(usr)
-	return
+		add_fingerprint(usr)
 
 
 /**************
@@ -135,9 +141,9 @@
 	icon = 'icons/obj/items.dmi'
 	desc = "A polaroid camera. 10 photos left."
 	icon_state = "camera"
-	item_state = "electropack"
+	item_state = "camera"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_NECK
 	var/list/matter = list("metal" = 2000)
 	var/pictures_max = 10
 	var/pictures_left = 10
@@ -145,8 +151,20 @@
 	var/blueprints = 0
 	var/icon_on = "camera"
 	var/icon_off = "camera_off"
+	var/item_on = "camera"
+	var/item_off = "camera_off"
 	var/size = 3
 	var/see_ghosts = 0 //for the spoop of it
+	var/flashing_lights = TRUE
+
+	sprite_sheets = list(
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/neck.dmi',
+		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/neck.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/neck.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/neck.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/neck.dmi',
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/neck.dmi'
+		)
 
 
 /obj/item/camera/spooky/CheckParts(list/parts_list)
@@ -166,9 +184,21 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	desc = "A polaroid camera, some say it can see ghosts!"
 	see_ghosts = 1
 
+/obj/item/camera/AltShiftClick(mob/user)
+	if(!issilicon(usr) && (usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED)))
+		return
+
+	flashing_lights = !flashing_lights
+
+	to_chat(usr, span_notice("You turned [src] flashing lights [flashing_lights ? "on" : "off"], making natural light [flashing_lights ? "invisible" : "visible"]"))
+
 /obj/item/camera/verb/change_size()
 	set name = "Set Photo Focus"
 	set category = "Object"
+
+	if(!issilicon(usr) && (usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED)))
+		return
+
 	var/nsize = tgui_input_list(usr, "Photo Size", "Pick a size of resulting photo.", list(1,3,5,7))
 	if(nsize)
 		size = nsize
@@ -185,6 +215,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 /obj/item/camera/update_icon_state()
 	icon_state = on ? icon_on : icon_off
+	item_state = on ? item_on : item_off
 
 /obj/item/camera/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/camera_film))
@@ -198,6 +229,10 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		return
 	..()
 
+
+/obj/item/camera/examine(mob/user)
+	. = ..()
+	. += span_notice("Press Alt + Shift + Left Click on [src] to toggle camera flashing")
 
 /obj/item/camera/proc/get_icon(list/turfs, turf/center, mob/user)
 
@@ -213,7 +248,12 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		// Add ourselves to the list of stuff to draw
 		atoms.Add(the_turf)
 		// As well as anything that isn't invisible.
+
 		for(var/atom/A in the_turf)
+			if(istype(A, /atom/movable/lighting_object))
+				if(flashing_lights)
+					continue //Do not apply lighting, making whole image full bright.
+
 			if(A.invisibility)
 				if(see_ghosts && istype(A,/mob/dead/observer))
 					var/mob/dead/observer/O = A
@@ -243,6 +283,8 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	var/center_offset = (size-1)/2 * 32 + 1
 	for(var/i; i <= sorted.len; i++)
 		var/atom/A = sorted[i]
+		if(istype(A, /atom/movable/lighting_object))
+			continue //Lighting objects render last, need to be above all atoms and turfs displayed
 		if(A)
 			var/icon/img = getFlatIcon(A)//build_composite_icon(A)
 			if(istype(A, /obj/item/areaeditor/blueprints/ce))
@@ -251,23 +293,34 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 			// If what we got back is actually a picture, draw it.
 			if(isicon(img))
 				// Check if we're looking at a mob that's lying down
-				if(isliving(A) && A:lying_angle)
-					// If they are, apply that effect to their picture.
-					img.BecomeLying()
+				if(isliving(A))
+					var/mob/living/living = A
+					if(living.body_position == LYING_DOWN)
+						// If they are, apply that effect to their picture.
+						img.BecomeLying()
+
 				// Calculate where we are relative to the center of the photo
 				var/xoff = (A.x - center.x) * 32 + center_offset
 				var/yoff = (A.y - center.y) * 32 + center_offset
 				if(ismovable(A))
 					xoff+=A:step_x
 					yoff+=A:step_y
+
 				res.Blend(img, blendMode2iconMode(A.blend_mode),  A.pixel_x + xoff, A.pixel_y + yoff)
 
-	// Lastly, render any contained effects on top.
+	// Render any contained effects on top.
 	for(var/turf/the_turf in turfs)
 		// Calculate where we are relative to the center of the photo
 		var/xoff = (the_turf.x - center.x) * 32 + center_offset
 		var/yoff = (the_turf.y - center.y) * 32 + center_offset
 		res.Blend(getFlatIcon(the_turf.loc), blendMode2iconMode(the_turf.blend_mode),xoff,yoff)
+
+	// Render lighting objects to make picture look nice
+	for(var/atom/movable/lighting_object/light in sorted)
+		var/xoff = (light.x - center.x) * 32 + center_offset
+		var/yoff = (light.y - center.y) * 32 + center_offset
+		res.Blend(getFlatIcon(light), blendMode2iconMode(BLEND_MULTIPLY),  light.pixel_x + xoff, light.pixel_y + yoff)
+
 	return res
 
 
@@ -288,7 +341,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 		var/holding = null
 
-		if(istype(M, /mob/living/carbon))
+		if(iscarbon(M))
 			var/mob/living/carbon/A = M
 			if(A.l_hand || A.r_hand)
 				if(A.l_hand) holding = "They are holding \a [A.l_hand]"
@@ -308,7 +361,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	var/mob_detail
 	for(var/mob/M in the_turf)
 		var/holding = null
-		if(istype(M, /mob/living/carbon))
+		if(iscarbon(M))
 			var/mob/living/carbon/A = M
 			if(A.l_hand || A.r_hand)
 				if(A.l_hand) holding = "holding [A.l_hand]"
@@ -329,8 +382,9 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	captureimage(target, user, flag)
 
 	playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, 1, -3)
-	set_light(3, 2, LIGHT_COLOR_TUNGSTEN, l_on = TRUE)
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 2)
+	if(flashing_lights)
+		set_light(3, 2, LIGHT_COLOR_TUNGSTEN, l_on = TRUE)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), 0), 2)
 	pictures_left--
 	desc = "A polaroid camera. It has [pictures_left] photos left."
 	to_chat(user, "<span class='notice'>[pictures_left] photos left.</span>")
@@ -392,7 +446,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 	var/datum/picture/P = new()
 	if(istype(src,/obj/item/camera/digital))
-		P.fields["name"] = input(user,"Name photo:","photo")
+		P.fields["name"] = tgui_input_text(user, "Name photo:", "Photo", encode = FALSE)
 		P.name = P.fields["name"]//So the name is displayed on the print/delete list.
 	else
 		P.fields["name"] = "photo"
@@ -557,6 +611,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 *video camera *
 ***************/
 #define CAMERA_STATE_COOLDOWN 2 SECONDS
+GLOBAL_LIST_EMPTY(active_video_cameras)
 
 /obj/item/videocam
 	name = "video camera"
@@ -565,17 +620,17 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	icon_state = "videocam"
 	item_state = "videocam"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=2000)
 	var/on = FALSE
 	var/video_cooldown = 0
-	var/obj/machinery/camera/camera
+	var/obj/machinery/camera/portable/camera
 	var/canhear_range = 7
 
 
 /obj/item/videocam/Destroy()
 	if(on)
-		update_feeds()
+		camera_state()
 	return ..()
 
 
@@ -584,11 +639,12 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 
 
 /obj/item/videocam/proc/update_feeds()
+	if(on)
+		GLOB.active_video_cameras |= src
+	else
+		GLOB.active_video_cameras -= src
+
 	for(var/obj/machinery/computer/security/telescreen/entertainment/TV in GLOB.machines)
-		if(on)
-			TV.feeds_on++
-		else
-			TV.feeds_on--
 		TV.update_icon(UPDATE_OVERLAYS)
 
 
@@ -597,9 +653,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		camera.c_tag = null
 		QDEL_NULL(camera)
 	else
-		camera = new /obj/machinery/camera(src)
-		camera.network = list("news")
-		camera.c_tag = user.name
+		camera = new(src, list("news"), user.name)
 	on = !on
 	update_icon(UPDATE_ICON_STATE)
 	visible_message(span_notice("The video camera has been turned [on ? "on" : "off"]."))
@@ -645,5 +699,5 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/videocam/advanced
 	name = "advanced video camera"
 	desc = "This video camera allows you to send live feeds even when attached to a belt."
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 

@@ -68,6 +68,13 @@
 	new /obj/item/stack/cable_coil/random(src)
 	new /obj/item/flashlight/flare/glowstick/blue(src)
 
+/obj/item/storage/box/survival_nucleation
+	icon_state = "box_nucleation"
+
+/obj/item/storage/box/survival_nucleation/populate_contents()
+	new /obj/item/storage/firstaid/crew/nucleation(src)
+	new /obj/item/flashlight/flare/glowstick/blue(src)
+
 /obj/item/storage/box/survival_plasmaman
 	icon_state = "box_plasma"
 
@@ -91,7 +98,7 @@
 	icon_state = "box_min"
 
 /obj/item/storage/box/survival_mining/populate_contents()
-	new /obj/item/clothing/mask/gas/explorer(src)
+	new /obj/item/clothing/mask/gas/explorer/folded(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/crowbar/red(src)
 	new /obj/item/storage/firstaid/crew(src)
@@ -105,7 +112,7 @@
 	new /obj/item/storage/firstaid/crew(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
 	new /obj/item/crowbar/red/sec(src)
-	new /obj/item/clothing/mask/gas/sechailer(src)
+	new /obj/item/clothing/mask/gas/sechailer/folded(src)
 	new /obj/item/radio/sec(src)
 
 /obj/item/storage/box/survival_security/hos
@@ -308,9 +315,10 @@
 	name = "death alarm implant kit"
 	desc = "Box of life sign monitoring implants."
 	icon_state = "implant"
+	storage_slots = 8
 
 /obj/item/storage/box/deathimp/populate_contents()
-	for(var/I in 1 to 6)
+	for(var/I in 1 to 7)
 		new /obj/item/implantcase/death_alarm(src)
 	new /obj/item/implanter(src)
 
@@ -660,7 +668,7 @@
 	storage_slots = 10
 	w_class = WEIGHT_CLASS_TINY
 	max_w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	drop_sound = 'sound/items/handling/matchbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/matchbox_pickup.ogg'
 	can_hold = list(/obj/item/match)
@@ -846,7 +854,7 @@
 	max_combined_w_class = 20
 
 /obj/item/storage/box/centcomofficer/populate_contents()
-	new /obj/item/clothing/mask/gas/sechailer(src)
+	new /obj/item/clothing/mask/gas/sechailer/folded(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/kitchen/knife/combat(src)
@@ -864,13 +872,360 @@
 	icon_state = "box_ert"
 
 /obj/item/storage/box/responseteam/populate_contents()
-	new /obj/item/clothing/mask/gas/sechailer(src)
+	new /obj/item/clothing/mask/gas/sechailer/folded(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/crowbar/red(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/radio/centcom(src)
 	new /obj/item/storage/firstaid/crew(src)
+
+// ERT set for trial admins
+/obj/item/storage/box/responseteam/amber/commander
+	name = "ERT Amber Commander kit"
+
+/obj/item/storage/box/responseteam/amber/commander/populate_contents()
+	new /obj/item/clothing/under/rank/centcom_officer/sensor (src)
+	new /obj/item/radio/headset/ert/alt/commander (src)
+	new /obj/item/card/id/ert/registration/commander (src)
+	new /obj/item/pinpointer (src)
+	new /obj/item/melee/baton/telescopic (src)
+	new /obj/item/clothing/shoes/combat (src)
+	new /obj/item/clothing/gloves/combat (src)
+	new /obj/item/clothing/suit/armor/vest/ert/command (src)
+	new /obj/item/clothing/glasses/hud/skills/sunglasses (src)
+	new /obj/item/clothing/mask/gas/sechailer/swat (src)
+	new /obj/item/gun/energy/gun/pdw9/ert (src)
+	new /obj/item/clothing/head/helmet/ert/command (src)
+	new /obj/item/storage/backpack/ert/commander/prespawn (src)
+
+/obj/item/storage/backpack/ert/commander/prespawn/populate_contents()
+	new /obj/item/storage/box/responseteam (src)
+	new /obj/item/restraints/handcuffs (src)
+	new /obj/item/storage/lockbox/mindshield (src)
+	new /obj/item/flashlight/seclite (src)
+
+/obj/item/storage/box/responseteam/amber/security
+	name = "ERT Amber Security kit"
+
+/obj/item/storage/box/responseteam/amber/security/populate_contents()
+	new /obj/item/storage/box/responseteam (src)
+	new /obj/item/clothing/under/rank/security/sensor (src)
+	new /obj/item/storage/belt/security/response_team (src)
+	new /obj/item/pda/heads/ert/security (src)
+	new /obj/item/card/id/ert/registration/security (src)
+	new /obj/item/clothing/shoes/combat (src)
+	new /obj/item/clothing/gloves/combat (src)
+	new /obj/item/clothing/suit/armor/vest/ert/security (src)
+	new /obj/item/gun/energy/gun/advtaser/sibyl (src)
+	new /obj/item/clothing/glasses/hud/security/sunglasses (src)
+	new /obj/item/clothing/mask/gas/sechailer/swat (src)
+	new /obj/item/clothing/head/helmet/ert/security (src)
+	new /obj/item/storage/backpack/ert/security/trialmoment/prespawn (src)
+
+/obj/item/storage/backpack/ert/security/trialmoment/prespawn/populate_contents()
+	new /obj/item/storage/box/responseteam (src)
+	new /obj/item/storage/box/zipties (src)
+	new /obj/item/storage/box/teargas (src)
+	new /obj/item/flashlight/seclite (src)
+	new /obj/item/gun/energy/laser/sibyl (src)
+
+/obj/item/storage/box/responseteam/amber/medic
+	name = "ERT Amber Medic kit"
+
+/obj/item/storage/box/responseteam/amber/medic/populate_contents()
+	new /obj/item/clothing/under/rank/medical (src)
+	new /obj/item/pda/heads/ert/medical (src)
+	new /obj/item/card/id/ert/registration/medic (src)
+	new /obj/item/clothing/shoes/white (src)
+	new /obj/item/clothing/gloves/combat (src)
+	new /obj/item/clothing/suit/armor/vest/ert/medical (src)
+	new /obj/item/gun/energy/gun/pdw9/ert (src)
+	new /obj/item/clothing/glasses/hud/health/sunglasses (src)
+	new /obj/item/clothing/head/helmet/ert/medical (src)
+	new /obj/item/clothing/mask/surgical (src)
+	new /obj/item/storage/belt/medical/surgery/loaded (src)
+	new /obj/item/reagent_containers/hypospray/safety/ert (src)
+	new /obj/item/melee/baton/telescopic (src)
+	new /obj/item/defibrillator/loaded (src)
+	new /obj/item/storage/backpack/ert/medical/trialmoment/prespawn (src)
+	new /obj/item/storage/firstaid/adv (src)
+	new /obj/item/storage/firstaid/regular (src)
+	new /obj/item/storage/pill_bottle/ert (src)
+	new /obj/item/flashlight/seclite (src)
+
+/obj/item/storage/backpack/ert/engineer/trialmoment/prespawn/populate_contents()
+	new /obj/item/storage/firstaid/adv (src)
+	new /obj/item/storage/firstaid/regular (src)
+	new /obj/item/storage/box/autoinjectors (src)
+	new /obj/item/roller/holo (src)
+	new /obj/item/storage/pill_bottle/ert (src)
+	new /obj/item/flashlight/seclite (src)
+	new /obj/item/healthanalyzer/advanced (src)
+	new /obj/item/handheld_defibrillator (src)
+
+/obj/item/storage/box/responseteam/amber/engineer
+	name = "ERT Amber Engineer kit"
+
+/obj/item/storage/box/responseteam/amber/engineer/populate_contents()
+	new /obj/item/clothing/under/rank/engineer (src)
+	new /obj/item/storage/belt/utility/full/multitool (src)
+	new /obj/item/pda/heads/ert/engineering (src)
+	new /obj/item/card/id/ert/registration/engineering (src)
+	new /obj/item/clothing/shoes/magboots (src)
+	new /obj/item/clothing/gloves/combat (src)
+	new /obj/item/clothing/suit/space/hardsuit/ert/engineer (src)
+	new /obj/item/tank/internals/emergency_oxygen/engi (src)
+	new /obj/item/clothing/glasses/meson/night (src)
+	new /obj/item/clothing/mask/gas (src)
+	new /obj/item/melee/baton/telescopic (src)
+	new /obj/item/storage/backpack/ert/engineer/trialmoment/prespawn (src)
+
+/obj/item/storage/backpack/ert/engineer/prespawn/trialmoment/populate_contents()
+	new /obj/item/storage/box/responseteam (src)
+	new /obj/item/gun/energy/gun/pdw9/ert (src)
+	new /obj/item/t_scanner (src)
+	new /obj/item/stack/sheet/glass/fifty (src)
+	new /obj/item/stack/sheet/metal/fifty (src)
+	new /obj/item/rpd (src)
+	new /obj/item/flashlight (src)
+
+/obj/item/storage/box/responseteam/amber/janitor
+	name = "ERT Amber Janitor kit"
+
+/obj/item/storage/box/responseteam/amber/janitor/populate_contents()
+	new /obj/item/clothing/under/color/purple/sensor (src)
+	new /obj/item/storage/belt/janitor/ert (src)
+	new /obj/item/clothing/gloves/combat (src)
+	new /obj/item/clothing/shoes/galoshes (src)
+	new /obj/item/radio/headset/ert/alt (src)
+	new /obj/item/card/id/ert/registration/janitor (src)
+	new /obj/item/pda/centcom (src)
+	new /obj/item/melee/baton/telescopic (src)
+	new /obj/item/clothing/suit/armor/vest/ert/janitor (src)
+	new /obj/item/clothing/head/helmet/ert/janitor (src)
+	new /obj/item/clothing/glasses/sunglasses (src)
+	new /obj/item/storage/backpack/ert/janitor/trialmoment/prespawn (src)
+
+/obj/item/storage/backpack/ert/janitor/trialmoment/prespawn/populate_contents()
+	new /obj/item/storage/box/responseteam (src)
+	new /obj/item/gun/energy/gun/pdw9/ert (src)
+	new /obj/item/grenade/chem_grenade/antiweed (src)
+	new /obj/item/grenade/chem_grenade/antiweed (src)
+	new /obj/item/reagent_containers/spray/cleaner (src)
+	new /obj/item/storage/bag/trash (src)
+	new /obj/item/storage/box/lights/mixed (src)
+	new /obj/item/holosign_creator/janitor (src)
+	new /obj/item/flashlight (src)
+	new /obj/item/melee/flyswatter (src)
+
+/obj/item/storage/box/responseteam/red/commander
+	name = "ERT Red Commander kit"
+
+/obj/item/storage/box/responseteam/red/commander/populate_contents()
+	new /obj/item/clothing/under/rank/centcom_officer/sensor (src)
+	new /obj/item/radio/headset/ert/alt/commander (src)
+	new /obj/item/card/id/ert/registration/commander (src)
+	new /obj/item/pinpointer (src)
+	new /obj/item/melee/baton/telescopic (src)
+	new /obj/item/clothing/shoes/combat (src)
+	new /obj/item/clothing/gloves/combat (src)
+	new /obj/item/clothing/suit/space/hardsuit/ert/commander (src)
+	new /obj/item/clothing/glasses/sunglasses (src)
+	new /obj/item/clothing/mask/gas/sechailer/swat (src)
+	new /obj/item/gun/energy/gun/pdw9/ert (src)
+	new /obj/item/gun/projectile/automatic/pistol/sp8/sp8t (src)
+	new /obj/item/storage/backpack/ert/commander/trialmoment/prespawn (src)
+
+/obj/item/storage/backpack/ert/commander/trialmoment/prespawn/populate_contents()
+	new /obj/item/storage/box/responseteam (src)
+	new /obj/item/ammo_box/magazine/sp8 (src)
+	new /obj/item/ammo_box/magazine/sp8 (src)
+	new /obj/item/camera_bug/ert (src)
+	new /obj/item/door_remote/omni (src)
+	new /obj/item/restraints/handcuffs (src)
+	new /obj/item/clothing/shoes/magboots (src)
+	new /obj/item/storage/lockbox/mindshield (src)
+	new/obj/item/implanter/mindshield/ert (src)
+	new/obj/item/implanter/death_alarm (src)
+
+/obj/item/storage/box/responseteam/red/security
+	name = "ERT Red Security kit"
+
+/obj/item/storage/box/responseteam/red/security/populate_contents()
+	new /obj/item/clothing/under/rank/security/sensor (src)
+	new /obj/item/storage/belt/security/response_team (src)
+	new /obj/item/pda/heads/ert/security (src)
+	new /obj/item/card/id/ert/registration/security (src)
+	new /obj/item/clothing/shoes/combat (src)
+	new /obj/item/clothing/gloves/combat (src)
+	new /obj/item/clothing/suit/space/hardsuit/ert/security (src)
+	new /obj/item/gun/projectile/automatic/lasercarbine (src)
+	new /obj/item/clothing/glasses/night (src)
+	new /obj/item/clothing/mask/gas/sechailer/swat (src)
+	new /obj/item/storage/backpack/ert/security/trialmoment/prespawn (src)
+
+/obj/item/storage/backpack/ert/security/trialmoment/prespawn/populate_contents()
+	new /obj/item/storage/box/responseteam (src)
+	new	/obj/item/gun/projectile/automatic/pistol/sp8/sp8t (src)
+	new /obj/item/ammo_box/magazine/sp8 (src)
+	new /obj/item/ammo_box/magazine/sp8 (src)
+	new /obj/item/ammo_box/magazine/sp8 (src)
+	new /obj/item/clothing/shoes/magboots (src)
+	new /obj/item/storage/box/handcuffs (src)
+	new /obj/item/grenade/flashbang (src)
+	new /obj/item/grenade/flashbang (src)
+	new/obj/item/ammo_box/magazine/laser (src)
+	new/obj/item/ammo_box/magazine/laser (src)
+	new /obj/item/gun/energy/gun/pdw9/ert (src)
+	new /obj/item/implanter/mindshield/ert (src)
+	new /obj/item/implanter/death_alarm (src)
+
+/obj/item/storage/box/responseteam/red/engineer
+	name = "ERT Red Engineer kit"
+
+/obj/item/storage/box/responseteam/red/engineer/populate_contents()
+	new /obj/item/clothing/under/rank/engineer (src)
+	new /obj/item/pda/heads/ert/engineering (src)
+	new /obj/item/card/id/ert/registration/engineering (src)
+	new /obj/item/clothing/shoes/magboots/advance (src)
+	new /obj/item/clothing/gloves/combat (src)
+	new /obj/item/storage/belt/utility/chief/full (src)
+	new /obj/item/clothing/suit/space/hardsuit/ert/engineer (src)
+	new /obj/item/tank/internals/emergency_oxygen/engi (src)
+	new /obj/item/clothing/glasses/meson/night (src)
+	new /obj/item/clothing/mask/gas (src)
+	new /obj/item/t_scanner/extended_range (src)
+	new /obj/item/melee/baton/telescopic (src)
+	new /obj/item/storage/backpack/ert/engineer/trialmoment/prespawn (src)
+
+/obj/item/storage/backpack/ert/engineer/trialmoment/prespawn/populate_contents()
+	new /obj/item/storage/box/responseteam (src)
+	new /obj/item/gun/projectile/automatic/pistol/sp8/sp8t (src)
+	new /obj/item/ammo_box/magazine/sp8 (src)
+	new /obj/item/ammo_box/magazine/sp8 (src)
+	new /obj/item/rcd/preloaded (src)
+	new /obj/item/rcd_ammo (src)
+	new /obj/item/rcd_ammo (src)
+	new /obj/item/rcd_ammo (src)
+	new /obj/item/rpd (src)
+	new /obj/item/gun/energy/gun/sibyl (src)
+	new /obj/item/implanter/mindshield/ert (src)
+	new /obj/item/implanter/death_alarm (src)
+
+/obj/item/storage/box/responseteam/red/medic
+	name = "ERT Red Medic kit"
+
+/obj/item/storage/box/responseteam/red/medic/populate_contents()
+	new /obj/item/clothing/under/rank/medical (src)
+	new /obj/item/pda/heads/ert/medical (src)
+	new /obj/item/card/id/ert/registration/medic (src)
+	new /obj/item/clothing/shoes/white (src)
+	new /obj/item/clothing/gloves/combat (src)
+	new /obj/item/clothing/suit/space/hardsuit/ert/medical (src)
+	new /obj/item/clothing/glasses/hud/health/sunglasses (src)
+	new /obj/item/gun/energy/gun/sibyl (src)
+	new /obj/item/defibrillator/compact/loaded (src)
+	new /obj/item/reagent_containers/hypospray/safety/ert (src)
+	new /obj/item/melee/baton/telescopic (src)
+	new /obj/item/storage/backpack/ert/medical/trialmoment/prespawn (src)
+
+/obj/item/storage/backpack/ert/medical/trialmoment/prespawn/populate_contents()
+	new /obj/item/storage/box/responseteam (src)
+	new /obj/item/gun/projectile/automatic/pistol/sp8/sp8t (src)
+	new /obj/item/ammo_box/magazine/sp8 (src)
+	new /obj/item/ammo_box/magazine/sp8 (src)
+	new /obj/item/storage/firstaid/ertm (src)
+	new /obj/item/clothing/mask/surgical (src)
+	new /obj/item/storage/firstaid/toxin (src)
+	new /obj/item/storage/firstaid/brute (src)
+	new /obj/item/storage/firstaid/fire (src)
+	new /obj/item/storage/box/autoinjectors (src)
+	new /obj/item/roller/holo (src)
+	new /obj/item/clothing/shoes/magboots (src)
+	new /obj/item/bodyanalyzer (src)
+	new /obj/item/healthanalyzer/advanced (src)
+	new /obj/item/handheld_defibrillator (src)
+	new /obj/item/implanter/mindshield/ert (src)
+	new /obj/item/implanter/death_alarm (src)
+
+/obj/item/storage/box/responseteam/red/janitor
+	name = "ERT red Janitor kit"
+
+/obj/item/storage/box/responseteam/red/janitor/populate_contents()
+	new	/obj/item/clothing/under/color/purple/sensor (src)
+	new /obj/item/storage/belt/janitor/ert (src)
+	new /obj/item/clothing/gloves/combat (src)
+	new /obj/item/clothing/shoes/galoshes (src)
+	new /obj/item/radio/headset/ert/alt (src)
+	new /obj/item/card/id/ert/registration/janitor (src)
+	new /obj/item/pda/centcom (src)
+	new /obj/item/melee/baton/telescopic (src)
+	new /obj/item/clothing/suit/space/hardsuit/ert/janitor
+	new /obj/item/clothing/glasses/hud/security/sunglasses
+	new /obj/item/scythe/tele
+	new /obj/item/storage/backpack/ert/janitor/trialmoment/prespawn(src)
+
+/obj/item/storage/backpack/ert/janitor/trialmoment/prespawn/populate_contents()
+	new /obj/item/storage/box/responseteam (src)
+	new /obj/item/gun/energy/gun/pdw9/ert (src)
+	new /obj/item/grenade/chem_grenade/antiweed (src)
+	new /obj/item/grenade/chem_grenade/antiweed (src)
+	new /obj/item/reagent_containers/spray/cleaner (src)
+	new /obj/item/storage/bag/trash (src)
+	new /obj/item/storage/box/lights/mixed (src)
+	new /obj/item/holosign_creator/janitor (src)
+	new /obj/item/flashlight (src)
+	new /obj/item/melee/flyswatter (src)
+	new /obj/item/gun/projectile/automatic/pistol/sp8/sp8t (src)
+	new /obj/item/ammo_box/magazine/sp8 (src)
+	new /obj/item/ammo_box/magazine/sp8 (src)
+	new /obj/item/implanter/mindshield/ert (src)
+	new /obj/item/implanter/death_alarm (src)
+
+/obj/item/storage/box/hardsuit
+	icon_state = "box_ert"
+	storage_slots = 3
+
+/obj/item/storage/box/hardsuit/engineering/response_team
+	name = "Boxed engineer response team hardsuit kit"
+
+/obj/item/storage/box/hardsuit/engineering/response_team/populate_contents()
+	new /obj/item/clothing/mask/breath (src)
+	new /obj/item/clothing/suit/space/hardsuit/ert/engineer (src)
+	new /obj/item/tank/internals/emergency_oxygen (src)
+
+/obj/item/storage/box/hardsuit/engineering
+	name = "Boxed engineering hardsuit kit"
+
+/obj/item/storage/box/hardsuit/engineering/populate_contents()
+	new /obj/item/clothing/mask/breath (src)
+	new /obj/item/clothing/suit/space/hardsuit/engine (src)
+	new /obj/item/tank/internals/emergency_oxygen (src)
+
+/obj/item/storage/box/hardsuit/medical/responseteam
+	name = "Boxed medical response team hardsuit kit"
+
+/obj/item/storage/box/hardsuit/medical/populate_contents()
+	new /obj/item/clothing/mask/breath (src)
+	new /obj/item/clothing/suit/space/hardsuit/ert/medical (src)
+	new /obj/item/tank/internals/emergency_oxygen (src)
+
+/obj/item/storage/box/hardsuit/medical
+	name = "Boxed medical hardsuit kit"
+
+/obj/item/storage/box/medical/populate_contents()
+	new /obj/item/clothing/mask/breath (src)
+	new /obj/item/clothing/suit/space/hardsuit/medical (src)
+	new /obj/item/tank/internals/emergency_oxygen (src)
+
+/obj/item/storage/box/hardsuit/janitor/response_team
+	name = "Boxed janitor response team hardsuit kit"
+
+/obj/item/storage/box/hardsuit/janitor/response_team/populate_contents()
+	new /obj/item/clothing/mask/breath (src)
+	new /obj/item/clothing/suit/space/hardsuit/ert/janitor (src)
+	new /obj/item/tank/internals/emergency_oxygen (src)
 
 /obj/item/storage/box/soviet
 	name = "boxed survival kit"
@@ -925,6 +1280,7 @@
 /obj/item/storage/box/stockparts/deluxe
 	name = "box of deluxe stock parts"
 	desc = "Contains a variety of deluxe stock parts."
+	icon_state = "stock_box_t4"
 
 /obj/item/storage/box/stockparts/deluxe/populate_contents()
 	for(var/i in 1 to 3)
@@ -933,6 +1289,18 @@
 		new /obj/item/stock_parts/manipulator/femto(src)
 		new /obj/item/stock_parts/micro_laser/quadultra(src)
 		new /obj/item/stock_parts/matter_bin/bluespace(src)
+
+/obj/item/storage/box/stockparts/experimental_parts
+	name = "box of experimental stock parts"
+	desc = "Contains some strange looking parts. Looks like it has some bluespace matter and something red."
+	icon_state = "stock_box_t5"
+
+/obj/item/storage/box/stockparts/experimental_parts/populate_contents()
+	new /obj/item/stock_parts/capacitor/purple(src)
+	new /obj/item/stock_parts/scanning_module/purple(src)
+	new /obj/item/stock_parts/manipulator/purple(src)
+	new /obj/item/stock_parts/micro_laser/purple(src)
+	new /obj/item/stock_parts/matter_bin/purple(src)
 
 /obj/item/storage/box/flare
 	name = "Flare box"
@@ -989,6 +1357,15 @@
 	for(var/I in 1 to 3)
 		new /obj/item/wizard_armour_charge(src)
 
+/obj/item/storage/box/wizard/kit_spell_book
+	name = "набор волшебных книг"
+	desc = "Набор волшебных книг, купленных в волшебной книге, для волшебников, чтобы делать волшебство! ЗВУЧИТ ПРОСТО ВОЛШЕБНО!"
+	icon_state = "box_wizard"
+
+/obj/item/storage/box/wizard/kit_spell_book/populate_contents()
+		for(var/i = 1 to 4)
+				new /obj/item/spellbook/oneuse/random(src)
+
 /obj/item/storage/box/candythief
 	name = "набор радужных конфет"
 	desc = "Набор для самых маленьких и не уверенных в себе работников, обожающих простые пути, смешивая всевозможные в один. Поставляется с сосательной конфетой. Удобный набор если нужно где-то засесть и не выходить. Производитель не отвечает за возникающие акне и галлюцинации от вашего времяпровождения."
@@ -1009,7 +1386,7 @@
     item_state = "pouch"
     storage_slots = 2
     w_class = WEIGHT_CLASS_TINY
-    slot_flags = SLOT_FLAG_BELT
+    slot_flags = ITEM_SLOT_BELT
     can_hold = list(/obj/item/ammo_box/magazine)
 
 /obj/item/storage/pouch/fast
@@ -1029,7 +1406,7 @@
             gun.attackby(MA, user)
             if(magazine)
                 magazine.loc = src
-                magazine.update_icon()
+                magazine.update_appearance(UPDATE_ICON | UPDATE_DESC)
             return
 
 /obj/item/storage/box/sec
@@ -1066,6 +1443,16 @@
 	new /obj/item/ammo_box/magazine/enforcer(src)
 	new /obj/item/ammo_box/magazine/enforcer(src)
 	new /obj/item/clothing/accessory/holster(src)
+
+/obj/item/storage/box/revolver_kit
+	name = "Revolver kit"
+	icon_state = "box_revolver"
+
+/obj/item/storage/box/revolver_kit/populate_contents()
+	new /obj/item/ammo_box/speedloader/c38(src)
+	new /obj/item/ammo_box/speedloader/c38(src)
+	new /obj/item/gun/projectile/revolver/detective(src)
+	new /obj/item/clothing/accessory/holster/armpit(src)
 
 /obj/item/storage/box/hardmode_box
 	name = "box of HRD-MDE project box"
@@ -1130,6 +1517,19 @@
 	new /obj/item/clothing/suit/mr_chang_coat(src)
 	new /obj/item/clothing/shoes/mr_chang_sandals(src)
 	new /obj/item/clothing/head/mr_chang_band(src)
+
+
+/*
+ *  Plant DNA Disks Box
+ */
+/obj/item/storage/box/disks_plantgene
+	name = "plant data disks box"
+	icon_state = "disk_kit"
+
+/obj/item/storage/box/disks_plantgene/New()
+	..()
+	for(var/i in 1 to 7)
+		new /obj/item/disk/plantgene(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

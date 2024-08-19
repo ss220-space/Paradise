@@ -8,7 +8,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 4
 	flags = CONDUCT
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	attack_verb = null
 	resistance_flags = FIRE_PROOF
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
@@ -52,13 +52,12 @@
 
 /obj/item/lighter/proc/attempt_light(mob/living/user)
 	if(prob(75) || issilicon(user)) // Robots can never burn themselves trying to light it.
-		to_chat(user, "<span class='notice'>You light [src].</span>")
+		to_chat(user, span_notice("You light [src]."))
+	else if(HAS_TRAIT(user, TRAIT_BADASS))
+		to_chat(user, span_notice("[src]'s flames lick your hand as you light it, but you don't flinch."))
 	else
-		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/external/affecting = H.get_organ(user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-		if(affecting.receive_damage( 0, 5 ))		//INFERNO
-			H.UpdateDamageIcon()
-		to_chat(user,"<span class='notice'>You light [src], but you burn your hand in the process.</span>")
+		user.apply_damage(5, BURN, def_zone = user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)	//INFERNO
+		to_chat(user, span_notice("You light [src], but you burn your hand in the process."))
 	if(world.time > next_on_message)
 		playsound(src, 'sound/items/lighter/plastic_strike.ogg', 25, TRUE)
 		next_on_message = world.time + 5 SECONDS
@@ -369,9 +368,7 @@
 					matchburnout()
 				else
 					cig.light("<span class='rose'>[user] spits fire at [M], burning [user.p_their()] face and lighting [cig] in the process.</span>")
-					var/obj/item/organ/external/head/affecting = M.get_organ("head")
-					affecting.receive_damage(0, 5)
-					M.UpdateDamageIcon()
+					M.apply_damage(5, BURN, def_zone = BODY_ZONE_HEAD)
 				playsound(user.loc, 'sound/effects/unathiignite.ogg', 40, FALSE)
 			else
 				cig.light("<span class='notice'>[user] holds [src] out for [M], and lights [cig].</span>")
@@ -389,7 +386,7 @@
 
 
 /obj/item/proc/help_light_cig(mob/living/M)
-	var/mask_item = M.get_item_by_slot(SLOT_HUD_WEAR_MASK)
+	var/mask_item = M.get_item_by_slot(ITEM_SLOT_MASK)
 	if(istype(mask_item, /obj/item/clothing/mask/cigarette))
 		return mask_item
 
@@ -411,7 +408,7 @@
 	icon_state = "match_unathi"
 	attack_verb = null
 	force = 0
-	flags = DROPDEL | ABSTRACT
+	item_flags = DROPDEL|ABSTRACT
 	origin_tech = null
 	lit = TRUE
 	w_class = WEIGHT_CLASS_BULKY //to prevent it going to pockets

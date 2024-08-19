@@ -24,7 +24,7 @@
 
 	to_chat(ninja, span_notice("Данные об исследованиях обнаружены. Установка вируса..."))
 	AI_notify_hack()
-	if(do_after(ninja, 60 SECONDS, target = src))
+	if(do_after(ninja, 1 MINUTES, src))
 		if(stat & NOPOWER)
 			to_chat(usr, "The server has no power!")
 			return

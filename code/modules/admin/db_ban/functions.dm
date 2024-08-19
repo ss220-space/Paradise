@@ -5,7 +5,7 @@
 	if(!check_rights(R_BAN))	return
 
 	if(!SSdbcore.IsConnected())
-		to_chat(usr, "<span class='boldannounce'>Database connection failure when attempting to make DB ban. Please freeze them and write their ckey in notepad, so they can be banned when the DB returns.</span>")
+		to_chat(usr, span_boldannounceooc("Database connection failure when attempting to make DB ban. Please freeze them and write their ckey in notepad, so they can be banned when the DB returns."))
 		return
 
 	var/serverip = "[world.internet_address]:[world.port]"
@@ -106,7 +106,7 @@
 	var/a_computerid
 	var/a_ip
 
-	if(src.owner && istype(src.owner, /client))
+	if(src.owner && isclient(src.owner))
 		a_ckey = src.owner:ckey
 		a_computerid = src.owner:computer_id
 		a_ip = src.owner:address
@@ -190,7 +190,7 @@
 	if(!check_rights(R_BAN))	return
 
 	if(!SSdbcore.IsConnected())
-		to_chat(usr, "<span class='boldannounce'>Database connection failure when attempting to remove DB ban. Please remember to unban them at a later date!.</span>")
+		to_chat(usr, span_boldannounceooc("Database connection failure when attempting to remove DB ban. Please remember to unban them at a later date!."))
 		return
 
 	var/bantype_str
@@ -366,7 +366,7 @@
 		return
 
 	if(!SSdbcore.IsConnected())
-		to_chat(usr, "<span class='boldannounce'>Database connection failure when attempting to remove DB ban. Please remember to unban them at a later date!.</span>")
+		to_chat(usr, span_boldannounceooc("Database connection failure when attempting to remove DB ban. Please remember to unban them at a later date!"))
 		return
 
 	var/ban_number = 0 //failsafe
@@ -392,7 +392,7 @@
 		to_chat(usr, "<span class='warning'>Database update failed due to multiple bans having the same ID. Contact the database admin.</span>")
 		return
 
-	if(!src.owner || !istype(src.owner, /client))
+	if(!src.owner || !isclient(src.owner))
 		return
 
 	var/unban_ckey = src.owner:ckey

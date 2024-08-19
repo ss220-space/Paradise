@@ -4,7 +4,7 @@
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "emitter"
 	anchored = FALSE
-	density = 1
+	density = TRUE
 	req_access = list(ACCESS_ENGINE_EQUIP)
 
 	use_power = NO_POWER_USE
@@ -59,20 +59,23 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(src.anchored || usr:stat)
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		to_chat(usr, "<span class='warning'>You can't do that right now!</span>")
+		return FALSE
+
+	if(anchored)
 		to_chat(usr, "It is fastened to the floor!")
-		return 0
+		return FALSE
+
 	add_fingerprint(usr)
-	src.dir = turn(src.dir, 90)
-	return 1
+	dir = turn(dir, 90)
+	return TRUE
+
 
 /obj/machinery/power/emitter/AltClick(mob/user)
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(!Adjacent(user))
-		return
-	rotate()
+	if(Adjacent(user))
+		rotate()
+
 
 /obj/machinery/power/emitter/Destroy()
 	message_admins("Emitter deleted at [ADMIN_COORDJMP(src)] [usr ? "Broken by [ADMIN_LOOKUPFLW(usr)]" : ""]")
@@ -130,7 +133,7 @@
 /obj/machinery/power/emitter/attack_animal(mob/living/simple_animal/M)
 	if(ismegafauna(M) && anchored)
 		state = 0
-		anchored = FALSE
+		set_anchored(FALSE)
 		M.visible_message("<span class='warning'>[M] rips [src] free from its moorings!</span>")
 	else
 		..()
@@ -214,7 +217,7 @@
 
 /obj/machinery/power/emitter/attackby(obj/item/W, mob/user, params)
 
-	if(W.GetID() || ispda(W))
+	if(W.GetID() || is_pda(W))
 		if(emagged)
 			to_chat(user, "<span class='warning'>The lock seems to be broken</span>")
 			return
@@ -262,14 +265,14 @@
 			user.visible_message("[user.name] secures [name] to the floor.", \
 				"You secure the external reinforcing bolts to the floor.", \
 				"You hear a ratchet")
-			src.anchored = TRUE
+			set_anchored(TRUE)
 		if(1)
 			state = 0
 			playsound(loc, I.usesound, 75, 1)
 			user.visible_message("[user.name] unsecures [name] reinforcing bolts from the floor.", \
 				"You undo the external reinforcing bolts.", \
 				"You hear a ratchet")
-			src.anchored = FALSE
+			set_anchored(FALSE)
 		if(2)
 			to_chat(user, "<span class='warning'>The [name] needs to be unwelded from the floor.</span>")
 

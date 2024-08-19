@@ -144,7 +144,7 @@
 
 /obj/structure/punji_sticks/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/caltrop, 20, 30, 100, CALTROP_BYPASS_SHOES)
+	AddComponent(/datum/component/caltrop, 20, 30, 100, 6 SECONDS, CALTROP_BYPASS_SHOES)
 
 /////////BONFIRES//////////
 
@@ -155,7 +155,7 @@
 	icon_state = "bonfire"
 	density = FALSE
 	anchored = TRUE
-	buckle_lying = FALSE
+	buckle_lying = 0
 	pass_flags_self = PASSTABLE|LETPASSTHROW
 	var/burning = FALSE
 	var/lighter // Who lit the fucking thing
@@ -163,6 +163,14 @@
 
 /obj/structure/bonfire/dense
 	density = TRUE
+
+
+/obj/structure/bonfire/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 
 /obj/structure/bonfire/update_icon_state()
@@ -190,7 +198,7 @@
 	if(burning)
 		to_chat(user, "<span class='warning'>You need to extinguish [src] before removing the logs!")
 		return
-	if(!has_buckled_mobs() && do_after(user, 50, target = src))
+	if(!has_buckled_mobs() && do_after(user, 5 SECONDS, src))
 		for(var/I in 1 to 5)
 			var/obj/item/grown/log/L = new /obj/item/grown/log(loc)
 			L.pixel_x += rand(1,4)
@@ -218,12 +226,18 @@
 	..()
 	StartBurning()
 
-/obj/structure/bonfire/Crossed(atom/movable/AM, oldloc)
-	if(burning)
-		Burn()
-		if(ishuman(AM))
-			var/mob/living/carbon/human/H = AM
-			add_attack_logs(src, H, "Burned by a bonfire (Lit by [lighter])", ATKLOG_ALMOSTALL)
+
+/obj/structure/bonfire/proc/on_entered(datum/source, mob/living/carbon/human/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(!burning)
+		return
+
+	Burn()
+
+	if(ishuman(arrived) && arrived.mind)
+		add_attack_logs(src, arrived, "Burned by a bonfire (Lit by [lighter ? lighter : "Unknown"])", ATKLOG_ALMOSTALL)
+
 
 /obj/structure/bonfire/proc/Burn()
 	var/turf/current_location = get_turf(src)
@@ -252,10 +266,11 @@
 		set_light_on(FALSE)
 		STOP_PROCESSING(SSobj, src)
 
-/obj/structure/bonfire/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
-	if(..())
-		M.pixel_y += 13
 
-/obj/structure/bonfire/unbuckle_mob(mob/living/buckled_mob, force = FALSE, can_fall = TRUE)
-	if(..())
-		buckled_mob.pixel_y -= 13
+/obj/structure/bonfire/post_buckle_mob(mob/living/target)
+	target.pixel_y += 13
+
+
+/obj/structure/bonfire/post_unbuckle_mob(mob/living/target)
+	target.pixel_y -= 13
+

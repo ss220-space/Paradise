@@ -26,7 +26,6 @@
 	armour_penetration = 20
 	obj_damage = 100
 	environment_smash = ENVIRONMENT_SMASH_WALLS
-	ventcrawler = 1
 	ai_break_lights = FALSE
 	ai_spins_webs = FALSE
 	ai_ventcrawls = FALSE
@@ -238,7 +237,7 @@
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/NestPrompt()
-	var/confirm = alert(src, "Are you sure you want to nest? You will be able to lay eggs, and smash walls, but not ventcrawl.","Nest?","Yes","No")
+	var/confirm = tgui_alert(src, "Are you sure you want to nest? You will be able to lay eggs, and smash walls, but not ventcrawl.", "Nest?", list("Yes","No"))
 	if(confirm == "Yes")
 		NestMode()
 
@@ -250,7 +249,7 @@
 	queensense_action.Grant(src)
 	queennest_action.Remove(src)
 	hasnested = TRUE
-	ventcrawler = 0
+	REMOVE_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 	set_varspeed(0.5)
 	ai_ventcrawls = FALSE
 	environment_smash = ENVIRONMENT_SMASH_RWALLS

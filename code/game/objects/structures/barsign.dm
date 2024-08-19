@@ -36,7 +36,7 @@
 		desc = "It displays \"[name]\"."
 
 /obj/structure/sign/barsign/obj_break(damage_flag)
-	if(!broken && !(flags & NODECONSTRUCT))
+	if(!broken && !(obj_flags & NODECONSTRUCT))
 		broken = TRUE
 
 /obj/structure/sign/barsign/deconstruct(disassembled = TRUE)
@@ -366,6 +366,11 @@
 	name = "SS1984 Shitcur"
 	icon = "shitcur"
 	desc = "Innocence proves nothing."
+
+/datum/barsign/vacation
+	name = "Digital Vacation"
+	icon = "vacation"
+	desc = "Отдохните от мира информации, преисполнившись свободой не выбирать!"
 
 /datum/barsign/hiddensigns
 	hidden = 1

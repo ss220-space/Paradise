@@ -11,6 +11,10 @@
 	. = ..()
 	if(.)
 		var/damage_type = BRUTE
+		if(istype(hitby, /obj/item/projectile))
+			var/obj/item/projectile/P = hitby
+			if(P.shield_buster)
+				take_damage(180, damage_type, sound_effect = FALSE) //2 shots for tele, 3 for riot
 		if(isobj(hitby))
 			var/obj/hitby_obj = hitby
 			damage_type = hitby_obj.damtype
@@ -24,7 +28,7 @@
 	name = "riot shield"
 	desc = "A shield adept at blocking blunt objects from connecting with the torso of the shield wielder."
 	icon_state = "riot"
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	force = 10
 	throwforce = 5
 	throw_speed = 2
@@ -97,13 +101,21 @@
 	var/active = 0
 
 /obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(istype(hitby, /obj/item/projectile))
+		var/obj/item/projectile/P = hitby
+		if(P.shield_buster && active)
+			toggle(owner, TRUE)
+			to_chat(owner, "<span class='warning'>[hitby] overloaded your [src]!</span>")
 	return FALSE
 
 /obj/item/shield/energy/IsReflect()
 	return (active)
 
 /obj/item/shield/energy/attack_self(mob/living/carbon/human/user)
-	if((CLUMSY in user.mutations) && prob(50))
+	toggle(user, FALSE)
+
+/obj/item/shield/energy/proc/toggle(mob/living/carbon/human/user, forced)
+	if((CLUMSY in user.mutations) && prob(50) && !forced)
 		to_chat(user, "<span class='warning'>You beat yourself in the head with [src].</span>")
 		user.take_organ_damage(5)
 	active = !active
@@ -123,11 +135,12 @@
 		w_class = WEIGHT_CLASS_TINY
 		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
-	if(istype(user,/mob/living/carbon/human))
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
-	add_fingerprint(user)
+	if(!forced)
+		add_fingerprint(user)
 	return
 
 /obj/item/shield/energy/update_icon_state()
@@ -175,14 +188,14 @@
 		throwforce = 5
 		throw_speed = 2
 		w_class = WEIGHT_CLASS_BULKY
-		slot_flags = SLOT_FLAG_BACK
+		slot_flags = ITEM_SLOT_BACK
 		to_chat(user, "<span class='notice'>You extend \the [src].</span>")
 	else
 		force = 3
 		throwforce = 3
 		throw_speed = 3
 		w_class = WEIGHT_CLASS_NORMAL
-		slot_flags = null
+		slot_flags = NONE
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
 	update_equipped_item()
 	add_fingerprint(user)

@@ -3,18 +3,18 @@
 	desc = "This shouldnt exist, if it does, tell a coder"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "signmaker"
-	item_state = "electronic"
+	item_state = "signmaker"
 	force = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 0
 	throw_speed = 3
 	throw_range = 7
 	origin_tech = "magnets=1;programming=3"
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	var/list/signs = list()
 	var/max_signs = 10
 	var/creation_time = 0 //time to create a holosign in deciseconds.
-	var/holosign_type = null
+	var/holosign_type = /obj/structure/holosign/wetsign // because runtime if type == null
 	var/holocreator_busy = FALSE //to prevent placing multiple holo barriers at once
 
 /obj/item/holosign_creator/Initialize(mapload)
@@ -39,7 +39,7 @@
 					playsound(src.loc, 'sound/machines/click.ogg', 20, 1)
 					if(creation_time)
 						holocreator_busy = TRUE
-						if(!do_after(user, creation_time, target = target))
+						if(!do_after(user, creation_time, target))
 							holocreator_busy = FALSE
 							return
 						holocreator_busy = FALSE
@@ -73,7 +73,9 @@
 	var/wet_enabled = TRUE
 
 /obj/item/holosign_creator/janitor/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
+	if(!istype(user) || !Adjacent(user))
+		return
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
 	wet_enabled = !wet_enabled
@@ -102,6 +104,7 @@
 	name = "security holobarrier projector"
 	desc = "A holographic projector that creates holographic security barriers."
 	icon_state = "signmaker_sec"
+	item_state = "signmaker_sec"
 	belt_icon = "security_sign_projector"
 	holosign_type = /obj/structure/holosign/barrier
 	creation_time = 30
@@ -111,6 +114,7 @@
 	name = "engineering holobarrier projector"
 	desc = "A holographic projector that creates holographic engineering barriers."
 	icon_state = "signmaker_engi"
+	item_state = "signmaker_engi"
 	holosign_type = /obj/structure/holosign/barrier/engineering
 	creation_time = 30
 	max_signs = 6
@@ -119,6 +123,7 @@
 	name = "ATMOS holofan projector"
 	desc = "A holographic projector that creates holographic barriers that prevent changes in atmosphere conditions."
 	icon_state = "signmaker_engi"
+	item_state = "signmaker_engi"
 	holosign_type = /obj/structure/holosign/barrier/atmos
 	creation_time = 0
 	max_signs = 3

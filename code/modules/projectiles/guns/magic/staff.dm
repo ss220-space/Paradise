@@ -1,7 +1,7 @@
 /obj/item/gun/magic/staff
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	ammo_type = /obj/item/ammo_casing/magic
-	flags_2 = NO_MAT_REDEMPTION_2
+	item_flags = NO_MAT_REDEMPTION
 
 /obj/item/gun/magic/staff/change
 	name = "staff of change"
@@ -9,6 +9,7 @@
 	ammo_type = /obj/item/ammo_casing/magic/change
 	icon_state = "staffofchange"
 	item_state = "staffofchange"
+	recharge_rate = 12
 	fire_sound = 'sound/magic/Staff_Change.ogg'
 
 /obj/item/gun/magic/staff/animate

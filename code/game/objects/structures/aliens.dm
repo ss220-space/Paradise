@@ -49,17 +49,18 @@
 	desc = "Looks like some kind of thick resin."
 	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi'
 	icon_state = "resin"
+	base_icon_state = "resin_wall"
 	density = TRUE
 	opacity = TRUE
 	anchored = TRUE
-	canSmoothWith = list(/obj/structure/alien/resin)
+	canSmoothWith = SMOOTH_GROUP_ALIEN_WALLS
+	smoothing_groups = SMOOTH_GROUP_ALIEN_WALLS
 	max_integrity = 200
-	smooth = SMOOTH_TRUE
-	var/resintype = null
+	smooth = SMOOTH_BITMASK
 
 /obj/structure/alien/resin/Initialize()
 	air_update_turf(1)
-	..()
+	. = ..()
 
 /obj/structure/alien/resin/Destroy()
 	var/turf/T = get_turf(src)
@@ -67,7 +68,7 @@
 	. = ..()
 	T.air_update_turf(TRUE)
 
-/obj/structure/alien/resin/Move()
+/obj/structure/alien/resin/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
 	. = ..()
 	move_update_air(T)
@@ -79,9 +80,8 @@
 	name = "resin wall"
 	desc = "Thick resin solidified into a wall."
 	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi'
-	icon_state = "resin"
-	resintype = "wall"
-	canSmoothWith = list(/obj/structure/alien/resin/wall, /obj/structure/alien/resin/membrane)
+	icon_state = "resin_wall-0"
+	base_icon_state = "resin_wall"
 
 /obj/structure/alien/resin/wall/BlockSuperconductivity()
 	return 1
@@ -95,12 +95,11 @@
 	name = "resin membrane"
 	desc = "Resin just thin enough to let light pass through."
 	icon = 'icons/obj/smooth_structures/alien/resin_membrane.dmi'
-	icon_state = "membrane0"
-	opacity = 0
+	icon_state = "resin_membrane-0"
+	opacity = FALSE
 	max_integrity = 160
-	resintype = "membrane"
+	base_icon_state = "resin_membrane"
 	pass_flags_self = PASSGLASS
-	canSmoothWith = list(/obj/structure/alien/resin/wall, /obj/structure/alien/resin/membrane)
 
 
 /obj/structure/alien/resin/attack_alien(mob/living/carbon/alien/humanoid/A)
@@ -127,9 +126,8 @@
 	icon = 'icons/obj/smooth_structures/alien/resin_door.dmi'
 	icon_state = "resin_door_closed"
 	max_integrity = 160
-	resintype = "door"
 	canSmoothWith = null
-	smooth = SMOOTH_FALSE
+	smooth = NONE
 	pass_flags_self = PASSDOOR
 	var/state = RESIN_DOOR_CLOSED
 	var/operating = FALSE
@@ -143,7 +141,7 @@
 
 
 /obj/structure/alien/resin/door/Destroy()
-	density = FALSE
+	set_density(FALSE)
 	update_freelook_sight()
 	return ..()
 
@@ -181,10 +179,10 @@
 
 
 /obj/structure/alien/resin/door/Bumped(atom/movable/moving_atom)
-	..()
+	. = ..()
 
 	if(operating)
-		return
+		return .
 
 	if(isliving(moving_atom))
 		var/mob/living/living = moving_atom
@@ -236,7 +234,7 @@
 	update_freelook_sight()
 
 	sleep(0.4 SECONDS)
-	density = FALSE
+	set_density(FALSE)
 	air_update_turf(TRUE)
 
 	sleep(0.1 SECONDS)
@@ -262,7 +260,7 @@
 	operating = TRUE
 
 	sleep(0.1 SECONDS)
-	density = TRUE
+	set_density(TRUE)
 	air_update_turf(TRUE)
 
 	sleep(0.4 SECONDS)
@@ -293,7 +291,7 @@
 
 /obj/structure/alien/resin/door/proc/update_freelook_sight()
 	if(GLOB.cameranet)
-		GLOB.cameranet.updateVisibility(src, FALSE)
+		GLOB.cameranet.updateVisibility(src, opacity_check = FALSE)
 
 
 #undef RESIN_DOOR_CLOSED
@@ -325,7 +323,7 @@
 	. = ..()
 	linked_node = node
 	if(!forbidden_turf_types)
-		forbidden_turf_types = typecacheof(list(/turf/space, /turf/simulated/floor/chasm, /turf/simulated/floor/plating/lava))
+		forbidden_turf_types = typecacheof(list(/turf/space, /turf/simulated/floor/chasm, /turf/simulated/floor/lava))
 
 	if(is_type_in_typecache(loc, forbidden_turf_types))
 		qdel(src)
@@ -385,16 +383,16 @@
 	var/turf/E = get_step(src, EAST)
 	var/turf/W = get_step(src, WEST)
 	if(!locate(/obj/structure/alien) in N.contents)
-		if(istype(N, /turf/simulated/floor))
+		if(isfloorturf(N))
 			add_overlay(weedImageCache[WEED_SOUTH_EDGING])
 	if(!locate(/obj/structure/alien) in S.contents)
-		if(istype(S, /turf/simulated/floor))
+		if(isfloorturf(S))
 			add_overlay(weedImageCache[WEED_NORTH_EDGING])
 	if(!locate(/obj/structure/alien) in E.contents)
-		if(istype(E, /turf/simulated/floor))
+		if(isfloorturf(E))
 			add_overlay(weedImageCache[WEED_WEST_EDGING])
 	if(!locate(/obj/structure/alien) in W.contents)
-		if(istype(W, /turf/simulated/floor))
+		if(isfloorturf(W))
 			add_overlay(weedImageCache[WEED_EAST_EDGING])
 
 
@@ -540,7 +538,7 @@
 
 
 /obj/structure/alien/egg/obj_break(damage_flag)
-	if(!(flags & NODECONSTRUCT) && status != BURST)
+	if(!(obj_flags & NODECONSTRUCT) && status != BURST)
 		Burst(kill = TRUE)
 
 

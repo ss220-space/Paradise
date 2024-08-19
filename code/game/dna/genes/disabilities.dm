@@ -23,7 +23,7 @@
 	return TRUE // Always set!
 
 
-/datum/dna/gene/disability/activate(mob/living/mutant, connected, flags)
+/datum/dna/gene/disability/activate(mob/living/mutant, flags)
 	. = ..()
 	mutant.mutations |= mutation
 	if(activation_message)
@@ -32,7 +32,7 @@
 		testing("[name] has no activation message.")
 
 
-/datum/dna/gene/disability/deactivate(mob/living/mutant, connected, flags)
+/datum/dna/gene/disability/deactivate(mob/living/mutant, flags)
 	. = ..()
 	mutant.mutations -= mutation
 	if(deactivation_message)
@@ -153,12 +153,12 @@
 	block = GLOB.blindblock
 
 
-/datum/dna/gene/disability/blindness/activate(mob/living/mutant, connected, flags)
+/datum/dna/gene/disability/blindness/activate(mob/living/mutant, flags)
 	. = ..()
 	mutant.update_blind_effects()
 
 
-/datum/dna/gene/disability/blindness/deactivate(mob/living/mutant, connected, flags)
+/datum/dna/gene/disability/blindness/deactivate(mob/living/mutant, flags)
 	. = ..()
 	mutant.update_blind_effects()
 
@@ -175,13 +175,13 @@
 	block = GLOB.colourblindblock
 
 
-/datum/dna/gene/disability/colourblindness/activate(mob/living/mutant, connected, flags)
+/datum/dna/gene/disability/colourblindness/activate(mob/living/mutant, flags)
 	. = ..()
 	mutant.update_client_colour() //Handle the activation of the colourblindness on the mob.
 	mutant.update_icons() //Apply eyeshine as needed.
 
 
-/datum/dna/gene/disability/colourblindness/deactivate(mob/living/mutant, connected, flags)
+/datum/dna/gene/disability/colourblindness/deactivate(mob/living/mutant, flags)
 	. = ..()
 	mutant.update_client_colour() //Handle the deactivation of the colourblindness on the mob.
 	mutant.update_icons() //Remove eyeshine as needed.
@@ -199,12 +199,12 @@
 	block = GLOB.deafblock
 
 
-/datum/dna/gene/disability/deaf/activate(mob/mutant, connected, flags)
+/datum/dna/gene/disability/deaf/activate(mob/living/mutant, flags)
 	. = ..()
 	ADD_TRAIT(mutant, TRAIT_DEAF, DNA_TRAIT)
 
 
-/datum/dna/gene/disability/deaf/deactivate(mob/mutant, connected, flags)
+/datum/dna/gene/disability/deaf/deactivate(mob/living/mutant, flags)
 	. = ..()
 	REMOVE_TRAIT(mutant, TRAIT_DEAF, DNA_TRAIT)
 
@@ -221,12 +221,12 @@
 	block = GLOB.glassesblock
 
 
-/datum/dna/gene/disability/nearsighted/activate(mob/living/mutant, connected, flags)
+/datum/dna/gene/disability/nearsighted/activate(mob/living/mutant, flags)
 	. = ..()
 	mutant.update_nearsighted_effects()
 
 
-/datum/dna/gene/disability/nearsighted/deactivate(mob/living/mutant, connected, flags)
+/datum/dna/gene/disability/nearsighted/deactivate(mob/living/mutant, flags)
 	. = ..()
 	mutant.update_nearsighted_effects()
 
@@ -270,15 +270,26 @@
 
 /datum/dna/gene/disability/wingdings/OnSay(mob/M, message)
 	var/garbled_message = ""
-	for(var/i in 1 to length(message))
-		if(message[i] in GLOB.alphabet_uppercase)
-			garbled_message += pick(GLOB.alphabet_uppercase)
-		else if(message[i] in GLOB.alphabet)
-			garbled_message += pick(GLOB.alphabet)
+	var/i = 1
+	while(i <= length(message))
+		var/char = lowertext(message[i])
+		if(char in GLOB.alphabet)
+			if(prob(50)) // upper and lowercase chars have different symbols, we encrypt the word and mix them up
+				garbled_message += pick(GLOB.alphabet_uppercase)
+			else
+				garbled_message += pick(GLOB.alphabet)
+		else if(char in GLOB.alphabet_cyrillic)
+			if(prob(50))
+				garbled_message += pick(GLOB.alphabet_uppercase)
+			else
+				garbled_message += pick(GLOB.alphabet)
+			i++ // rus chars coded by 2 bytes, so we need to skip one byte when encrypting them
 		else
 			garbled_message += message[i]
+		i++
 	message = garbled_message
 	return message
+
 
 /datum/dna/gene/disability/weak
 	name = "Weak"
@@ -287,42 +298,70 @@
 	deactivation_message = "Похоже, ваши мышцы снова в норме."
 	instability = -GENE_INSTABILITY_MODERATE
 
+
 /datum/dna/gene/disability/weak/New()
 	..()
 	block = GLOB.weakblock
 
-/datum/dna/gene/disability/weak/can_activate(mob/M, flags)
-	if(STRONG in M.mutations)
+
+/datum/dna/gene/disability/weak/can_activate(mob/living/mutant, flags)
+	if(!ishuman(mutant) || (STRONG in mutant.mutations))
 		return FALSE
 	return ..()
 
 
-/datum/dna/gene/disability/weak/activate(mob/living/mutant, connected, flags)
+/datum/dna/gene/disability/weak/activate(mob/living/carbon/human/mutant, flags)
 	. = ..()
-	change_strength(mutant, 1)
+	RegisterSignal(mutant, COMSIG_HUMAN_SPECIES_CHANGED, PROC_REF(on_species_change))
+	add_weak_modifiers(mutant)
 
 
-/datum/dna/gene/disability/weak/deactivate(mob/living/mutant, connected, flags)
+/datum/dna/gene/disability/weak/deactivate(mob/living/carbon/human/mutant, flags)
 	. = ..()
-	change_strength(mutant, -1)
+	UnregisterSignal(mutant, COMSIG_HUMAN_SPECIES_CHANGED)
+	remove_weak_modifiers(mutant)
 
 
-/datum/dna/gene/disability/weak/proc/change_strength(mob/living/M, modifier)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(isvulpkanin(H) || isdrask(H) || isunathi(H))
-			H.dna.species.punchdamagelow -= (3 * modifier)
-			H.dna.species.punchdamagehigh -= (4 * modifier)
-			H.dna.species.strength_modifier -= (0.25 * modifier)
-			if(isunathi(H))
-				var/datum/species/unathi/U = H.dna.species
-				U.tail_strength -= (0.25 * modifier)
-			return
-		if(ishumanbasic(H))
-			H.dna.species.punchdamagelow -= (1 * modifier)
-			H.dna.species.punchdamagehigh -= (2 * modifier)
-			H.dna.species.strength_modifier -= (0.1 * modifier)
+/datum/dna/gene/disability/weak/proc/on_species_change(mob/living/carbon/human/mutant, datum/species/old_species)
+	SIGNAL_HANDLER
+
+	if(old_species.name != mutant.dna.species.name)
+		remove_weak_modifiers(mutant, old_species)
+		add_weak_modifiers(mutant)
+
+
+/datum/dna/gene/disability/weak/proc/add_weak_modifiers(mob/living/carbon/human/mutant)
+	mutant.physiology.tail_strength_mod *= 0.75
+	switch(mutant.dna.species.name)
+		if(SPECIES_VULPKANIN, SPECIES_DRASK, SPECIES_UNATHI)
+			mutant.physiology.grab_resist_mod *= 0.75
+			mutant.physiology.punch_damage_low -= 3
+			mutant.physiology.punch_damage_high -= 4
+		if(SPECIES_HUMAN)
+			mutant.physiology.grab_resist_mod *= 0.9
+			mutant.physiology.punch_damage_low -= 1
+			mutant.physiology.punch_damage_high -= 2
 		else
-			H.dna.species.punchdamagelow -= (2 * modifier)
-			H.dna.species.punchdamagehigh -= (3 * modifier)
-			H.dna.species.strength_modifier -= (0.15 * modifier)
+			mutant.physiology.grab_resist_mod *= 0.85
+			mutant.physiology.punch_damage_low -= 2
+			mutant.physiology.punch_damage_high -= 3
+
+
+/datum/dna/gene/disability/weak/proc/remove_weak_modifiers(mob/living/carbon/human/mutant, datum/species/species)
+	if(!species)
+		species = mutant.dna.species
+	mutant.physiology.tail_strength_mod /= 0.75
+	switch(species.name)
+		if(SPECIES_VULPKANIN, SPECIES_DRASK, SPECIES_UNATHI)
+			mutant.physiology.grab_resist_mod /= 0.75
+			mutant.physiology.punch_damage_low += 3
+			mutant.physiology.punch_damage_high += 4
+		if(SPECIES_HUMAN)
+			mutant.physiology.grab_resist_mod /= 0.9
+			mutant.physiology.punch_damage_low += 1
+			mutant.physiology.punch_damage_high += 2
+		else
+			mutant.physiology.grab_resist_mod /= 0.85
+			mutant.physiology.punch_damage_low += 2
+			mutant.physiology.punch_damage_high += 3
+

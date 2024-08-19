@@ -23,7 +23,7 @@
 
 	eyes = "vox_eyes_s"
 
-	species_traits = list(NO_SCAN, NO_GERMS, NO_DECAY, IS_WHITELISTED, NOTRANSSTING)
+	species_traits = list(NO_SCAN, NO_GERMS, NO_DECAY, NOTRANSSTING)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS //Species-fitted 'em all.
 	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS | HAS_SKIN_COLOR
 
@@ -102,21 +102,21 @@
 
 /datum/species/vox/on_species_gain(mob/living/carbon/human/H)
 	..()
-	H.verbs |= /mob/living/carbon/human/proc/emote_wag
-	H.verbs |= /mob/living/carbon/human/proc/emote_swag
-	H.verbs |= /mob/living/carbon/human/proc/emote_quill
+	add_verb(H, /mob/living/carbon/human/proc/emote_wag)
+	add_verb(H, /mob/living/carbon/human/proc/emote_swag)
+	add_verb(H, /mob/living/carbon/human/proc/emote_quill)
 
 /datum/species/vox/on_species_loss(mob/living/carbon/human/H)
 	..()
-	H.verbs -= /mob/living/carbon/human/proc/emote_wag
-	H.verbs -= /mob/living/carbon/human/proc/emote_swag
-	H.verbs -= /mob/living/carbon/human/proc/emote_quill
+	remove_verb(H, /mob/living/carbon/human/proc/emote_wag)
+	remove_verb(H, /mob/living/carbon/human/proc/emote_swag)
+	remove_verb(H, /mob/living/carbon/human/proc/emote_quill)
 
 /datum/species/vox/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	if(!H.mind || !H.mind.assigned_role || H.mind.assigned_role != JOB_TITLE_CLOWN && H.mind.assigned_role != JOB_TITLE_MIME)
 		H.drop_item_ground(H.wear_mask)
 
-	H.equip_or_collect(new /obj/item/clothing/mask/breath/vox(H), SLOT_HUD_WEAR_MASK)
+	H.equip_or_collect(new /obj/item/clothing/mask/breath/vox(H), ITEM_SLOT_MASK)
 	var/tank_pref = H.client && H.client.prefs ? H.client.prefs.speciesprefs : null
 	var/obj/item/tank/internals/internal_tank
 	if(tank_pref)//Diseasel, here you go
@@ -126,8 +126,8 @@
 	if(!H.equip_to_appropriate_slot(internal_tank, silent = TRUE))
 		if(!H.put_in_any_hand_if_possible(internal_tank))
 			H.drop_item_ground(H.l_hand)
-			H.equip_or_collect(internal_tank, SLOT_HUD_LEFT_HAND)
-			to_chat(H, "<span class='boldannounce'>Could not find an empty slot for internals! Please report this as a bug</span>")
+			H.equip_or_collect(internal_tank, ITEM_SLOT_HAND_LEFT)
+			to_chat(H, span_boldannounceooc("Could not find an empty slot for internals! Please report this as a bug!"))
 	H.internal = internal_tank
 	to_chat(H, "<span class='notice'>Теперь вы живете на азоте из [internal_tank]. Кислород токсичен для вашего вида, поэтому вы должны дышать только азотом.</span>")
 	H.update_action_buttons_icon()
@@ -200,7 +200,7 @@
 
 	eyes = "blank_eyes"
 
-	species_traits = list(NO_SCAN, NO_GERMS, NO_DECAY, NO_BLOOD, NO_PAIN)
+	species_traits = list(NO_SCAN, NO_GERMS, NO_DECAY, NO_BLOOD, NO_PAIN, HAVE_REGENERATION)
 	clothing_flags = 0 //IDK if you've ever seen underwear on an Armalis, but it ain't pretty.
 	bodyflags = HAS_TAIL
 	dies_at_threshold = TRUE
@@ -236,11 +236,11 @@
 /datum/species/vox/armalis/on_species_gain(mob/living/carbon/human/H)
 	..()
 	if(/mob/living/carbon/human/proc/emote_wag in H.verbs)
-		H.verbs -= /mob/living/carbon/human/proc/emote_wag
+		remove_verb(H, /mob/living/carbon/human/proc/emote_wag)
 	if(/mob/living/carbon/human/proc/emote_swag in H.verbs)
-		H.verbs -= /mob/living/carbon/human/proc/emote_swag
+		remove_verb(H, /mob/living/carbon/human/proc/emote_swag)
 
 /datum/species/vox/armalis/on_species_loss(mob/living/carbon/human/H)
 	..()
 	if(/mob/living/carbon/human/proc/emote_quill in H.verbs)
-		H.verbs -= /mob/living/carbon/human/proc/emote_quill
+		remove_verb(H, /mob/living/carbon/human/proc/emote_quill)

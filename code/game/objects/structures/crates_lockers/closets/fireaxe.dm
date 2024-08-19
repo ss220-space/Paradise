@@ -49,7 +49,7 @@
 		if(ismultitool(I))
 			to_chat(user, span_warning("Resetting circuitry..."))
 			playsound(user, 'sound/machines/lockreset.ogg', 50, TRUE)
-			if(!do_after_once(user, 2 SECONDS * I.toolspeed, target = src))
+			if(!do_after(user, 2 SECONDS * I.toolspeed, src, max_interact_count = 1))
 				return
 
 			locked = FALSE
@@ -108,7 +108,7 @@
 
 		to_chat(user, span_warning("Resetting circuitry..."))
 		playsound(user, 'sound/machines/lockenable.ogg', 50, TRUE)
-		if(!do_after_once(user, 2 SECONDS * I.toolspeed, target = src))
+		if(!do_after(user, 2 SECONDS * I.toolspeed, src, max_interact_count = 1))
 			return
 
 		locked = TRUE

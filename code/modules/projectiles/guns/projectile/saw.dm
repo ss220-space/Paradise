@@ -13,24 +13,29 @@
 	magout_sound = 'sound/weapons/gun_interactions/lmg_magout.ogg'
 	var/cover_open = 0
 	can_suppress = 0
-	burst_size = 3
 	fire_delay = 1
+	burst_size = 1
+	actions_types = null
+
+/obj/item/gun/projectile/automatic/l6_saw/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/automatic_fire, 0.2 SECONDS)
 
 /obj/item/gun/projectile/automatic/l6_saw/attack_self(mob/user)
 	cover_open = !cover_open
-	to_chat(user, "<span class='notice'>You [cover_open ? "open" : "close"] [src]'s cover.</span>")
+	balloon_alert(user, "крышка [cover_open ? "от" : "за"]крыта")
 	playsound(src, cover_open ? 'sound/weapons/gun_interactions/sawopen.ogg' : 'sound/weapons/gun_interactions/sawclose.ogg', 50, 1)
 	update_icon()
 
 
 /obj/item/gun/projectile/automatic/l6_saw/update_icon_state()
-	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? CEILING(get_ammo(FALSE)/12.5, 1)*25 : "-empty"][suppressed ? "-suppressed" : ""]"
+	icon_state = "l6[cover_open ? "open" : "closed"][magazine ? CEILING(get_ammo(FALSE)/25, 1)*25 : "-empty"][suppressed ? "-suppressed" : ""]"
 	item_state = "l6[cover_open ? "openmag" : "closedmag"]"
 
 
 /obj/item/gun/projectile/automatic/l6_saw/afterattack(atom/target as mob|obj|turf, mob/living/user as mob|obj, flag, params) //what I tried to do here is just add a check to see if the cover is open or not and add an icon_state change because I can't figure out how c-20rs do it with overlays
 	if(cover_open)
-		to_chat(user, "<span class='notice'>[src]'s cover is open! Close it before firing!</span>")
+		balloon_alert(user, "крышка не закрыта!")
 	else
 		..()
 		update_icon()
@@ -43,13 +48,13 @@
 		..()
 	else if(cover_open && magazine)
 		//drop the mag
-		magazine.update_icon()
+		magazine.update_appearance(UPDATE_ICON | UPDATE_DESC)
 		magazine.loc = get_turf(loc)
 		user.put_in_hands(magazine)
 		magazine = null
 		playsound(src, magout_sound, 50, 1)
 		update_icon()
-		to_chat(user, "<span class='notice'>You remove the magazine from [src].</span>")
+		balloon_alert(user, "магазин вынут")
 
 
 /obj/item/gun/projectile/automatic/l6_saw/attackby(obj/item/A, mob/user, params)
@@ -57,7 +62,7 @@
 		var/obj/item/ammo_box/magazine/AM = A
 		if(istype(AM, mag_type))
 			if(!cover_open)
-				to_chat(user, "<span class='warning'>[src]'s cover is closed! You can't insert a new mag.</span>")
+				balloon_alert(user, "крышка закрыта!")
 				return
 	return ..()
 
@@ -66,6 +71,9 @@
 /obj/item/projectile/bullet/saw
 	damage = 45
 	armour_penetration = 5
+
+/obj/item/projectile/bullet/saw/weak
+	damage = 30
 
 /obj/item/projectile/bullet/saw/bleeding
 	damage = 20
@@ -89,7 +97,7 @@
 	damage = 7
 	armour_penetration = 0
 
-/obj/item/projectile/bullet/saw/incen/Move()
+/obj/item/projectile/bullet/saw/incen/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	var/turf/location = get_turf(src)
 	if(location)
@@ -107,11 +115,11 @@
 
 /obj/item/ammo_box/magazine/mm556x45
 	name = "box magazine (5.56x45mm)"
-	icon_state = "a762-50"
+	icon_state = "a762-200"
 	origin_tech = "combat=2"
-	ammo_type = /obj/item/ammo_casing/mm556x45
+	ammo_type = /obj/item/ammo_casing/mm556x45/weak
 	caliber = "mm55645"
-	max_ammo = 50
+	max_ammo = 100
 
 /obj/item/ammo_box/magazine/mm556x45/bleeding
 	name = "box magazine (Bleeding 5.56x45mm)"
@@ -134,7 +142,7 @@
 	ammo_type = /obj/item/ammo_casing/mm556x45/incen
 
 /obj/item/ammo_box/magazine/mm556x45/update_icon_state()
-	icon_state = "a762-[round(ammo_count(),10)]"
+	icon_state = "a762-[round(ammo_count(), 20)]"
 
 //casings//
 
@@ -145,6 +153,9 @@
 	projectile_type = /obj/item/projectile/bullet/saw
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
+
+/obj/item/ammo_casing/mm556x45/weak
+	projectile_type = /obj/item/projectile/bullet/saw/weak
 
 /obj/item/ammo_casing/mm556x45/bleeding
 	desc = "A 556x45mm bullet casing with specialized inner-casing, that when it makes contact with a target, release tiny shrapnel to induce internal bleeding."

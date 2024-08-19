@@ -183,22 +183,22 @@
 		if(isvox(wizard_mob))
 			wizard_mob.internal = wizard_mob.r_hand
 			wizard_mob.update_action_buttons_icon()
-		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(wizard_mob), SLOT_HUD_JUMPSUIT)
-		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(wizard_mob), SLOT_HUD_HEAD)
+		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(wizard_mob), ITEM_SLOT_CLOTH_INNER)
+		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(wizard_mob), ITEM_SLOT_HEAD)
 		wizard_mob.dna.species.after_equip_job(null, wizard_mob)
 	wizard_mob.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc while round setups
-	wizard_mob.equip_to_slot_or_del(new /obj/item/radio/headset(wizard_mob), SLOT_HUD_LEFT_EAR)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(wizard_mob), SLOT_HUD_SHOES)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(wizard_mob), SLOT_HUD_OUTER_SUIT)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/storage/backpack/satchel(wizard_mob), SLOT_HUD_BACK)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/radio/headset(wizard_mob), ITEM_SLOT_EAR_LEFT)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(wizard_mob), ITEM_SLOT_FEET)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(wizard_mob), ITEM_SLOT_CLOTH_OUTER)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/storage/backpack/satchel(wizard_mob), ITEM_SLOT_BACK)
 	if(wizard_mob.dna.species.speciesbox)
-		wizard_mob.equip_to_slot_or_del(new wizard_mob.dna.species.speciesbox(wizard_mob), SLOT_HUD_IN_BACKPACK)
+		wizard_mob.equip_to_slot_or_del(new wizard_mob.dna.species.speciesbox(wizard_mob), ITEM_SLOT_BACKPACK)
 	else
-		wizard_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival(wizard_mob), SLOT_HUD_IN_BACKPACK)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/teleportation_scroll(wizard_mob), SLOT_HUD_RIGHT_STORE)
+		wizard_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival(wizard_mob), ITEM_SLOT_BACKPACK)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/teleportation_scroll(wizard_mob), ITEM_SLOT_POCKET_RIGHT)
 	var/obj/item/spellbook/spellbook = new /obj/item/spellbook(wizard_mob)
 	spellbook.owner = wizard_mob
-	wizard_mob.equip_to_slot_or_del(spellbook, SLOT_HUD_LEFT_HAND)
+	wizard_mob.equip_to_slot_or_del(spellbook, ITEM_SLOT_HAND_LEFT)
 
 	wizard_mob.faction = list("wizard")
 
@@ -232,23 +232,23 @@
 		if(isvox(wizard_mob))
 			wizard_mob.internal = wizard_mob.r_hand
 			wizard_mob.update_action_buttons_icon()
-		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(wizard_mob), SLOT_HUD_JUMPSUIT)
-		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/red(wizard_mob), SLOT_HUD_HEAD)
+		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(wizard_mob), ITEM_SLOT_CLOTH_INNER)
+		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/red(wizard_mob), ITEM_SLOT_HEAD)
 		wizard_mob.dna.species.after_equip_job(null, wizard_mob)
 	wizard_mob.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc while round setups
-	wizard_mob.equip_to_slot_or_del(new /obj/item/radio/headset(wizard_mob), SLOT_HUD_LEFT_EAR)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(wizard_mob), SLOT_HUD_SHOES)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/red(wizard_mob), SLOT_HUD_OUTER_SUIT)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/storage/backpack/satchel(wizard_mob), SLOT_HUD_BACK)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/radio/headset(wizard_mob), ITEM_SLOT_EAR_LEFT)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(wizard_mob), ITEM_SLOT_FEET)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/red(wizard_mob), ITEM_SLOT_CLOTH_OUTER)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/storage/backpack/satchel(wizard_mob), ITEM_SLOT_BACK)
 	if(wizard_mob.dna.species.speciesbox)
-		wizard_mob.equip_to_slot_or_del(new wizard_mob.dna.species.speciesbox(wizard_mob), SLOT_HUD_IN_BACKPACK)
+		wizard_mob.equip_to_slot_or_del(new wizard_mob.dna.species.speciesbox(wizard_mob), ITEM_SLOT_BACKPACK)
 	else
-		wizard_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival(wizard_mob), SLOT_HUD_IN_BACKPACK)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/mugwort, SLOT_HUD_IN_BACKPACK)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/teleportation_scroll(wizard_mob), SLOT_HUD_RIGHT_STORE)
+		wizard_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival(wizard_mob), ITEM_SLOT_BACKPACK)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/mugwort, ITEM_SLOT_BACKPACK)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/teleportation_scroll(wizard_mob), ITEM_SLOT_POCKET_RIGHT)
 	var/obj/item/contract/apprentice_choose_book/apprentice_book = new /obj/item/contract/apprentice_choose_book(wizard_mob)
 	apprentice_book.owner = wizard_mob
-	wizard_mob.equip_to_slot_or_del(apprentice_book, SLOT_HUD_LEFT_HAND)
+	wizard_mob.equip_to_slot_or_del(apprentice_book, ITEM_SLOT_HAND_LEFT)
 
 	wizard_mob.faction = list("wizard")
 
@@ -270,7 +270,7 @@
 
 	// Wizards
 	for(var/datum/mind/wizard in wizards)
-		if(!istype(wizard.current,/mob/living/carbon))
+		if(!iscarbon(wizard.current))
 			continue
 		if(wizard.current.stat==DEAD)
 			continue
@@ -281,7 +281,7 @@
 	// Apprentices
 	if(!wizards_alive)
 		for(var/datum/mind/apprentice in apprentices)
-			if(!istype(apprentice.current,/mob/living/carbon))
+			if(!iscarbon(apprentice.current))
 				continue
 			if(apprentice.current.stat==DEAD)
 				continue

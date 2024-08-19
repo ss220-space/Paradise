@@ -20,6 +20,7 @@
 	icon_state = "captain"
 	item_state = "caparmor"
 	item_color = "captain"
+	dying_key = DYE_REGISTRY_UNDER
 
 /obj/item/clothing/under/rank/cargo
 	name = "quartermaster's jumpsuit"
@@ -103,7 +104,7 @@
 
 /obj/item/clothing/under/rank/clown/Initialize()
 	. = ..()
-	AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg' = 1), 50, falloff_exponent = 20) //die off quick please
+	AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg'), 50, falloff_exponent = 20) //die off quick please
 
 /obj/item/clothing/under/rank/clown/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(ishuman(loc))
@@ -127,7 +128,13 @@
 	item_color = "clussy_clown"
 
 /obj/item/clothing/under/rank/clown/nodrop
-	flags = NODROP
+
+
+/obj/item/clothing/under/rank/clown/nodrop/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
+
 
 /obj/item/clothing/under/rank/head_of_personnel
 	desc = "It's a jumpsuit worn by someone who works in the position of \"Head of Personnel\"."
@@ -261,6 +268,7 @@
 	icon_state = "oldman"
 	item_state = "oldman"
 	item_color = "oldman"
+	dying_key = DYE_REGISTRY_UNDER
 
 
 /obj/item/clothing/under/librarian
@@ -276,9 +284,15 @@
 	icon_state = "mime"
 	item_state = "mime"
 	item_color = "mime"
+	dying_key = DYE_REGISTRY_UNDER
 
 /obj/item/clothing/under/mime/nodrop
-	flags = NODROP
+
+
+/obj/item/clothing/under/mime/nodrop/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
+
 
 /obj/item/clothing/under/rank/miner
 	desc = "It's a snappy jumpsuit with a sturdy set of overalls. It is very dirty."

@@ -10,7 +10,7 @@
 	plane = PLANE_SPACE
 	layer = SPACE_LAYER
 	light_power = 0.25
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	always_lit = TRUE
 	intact = FALSE
 	// We do NOT want atmos adjacent turfs
 	init_air = FALSE
@@ -35,21 +35,30 @@
 	SHOULD_CALL_PARENT(FALSE)
 	if(!istype(src, /turf/space/transit) && !istype(src, /turf/space/openspace))
 		icon_state = SPACE_ICON_STATE
-	vis_contents.Cut() //removes inherited overlays
 
-	if(initialized)
+	if(length(vis_contents))
+		vis_contents.Cut() //removes inherited overlays
+
+	if(flags & INITIALIZED)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
-	initialized = TRUE
+	flags |= INITIALIZED
 
-	var/area/A = loc
-	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
-		add_overlay(/obj/effect/fullbright)
+	// We make the assumption that the space plane will never be blacklisted, as an optimization
+	if(SSmapping.max_plane_offset)
+		plane = PLANE_SPACE - (PLANE_RANGE * SSmapping.z_level_to_plane_offset[z])
+
+	var/area/our_area = loc
+	if(!our_area.area_has_base_lighting && always_lit) //Only provide your own lighting if the area doesn't for you
+		// Intentionally not add_overlay for performance reasons.
+		// add_overlay does a bunch of generic stuff, like creating a new list for overlays,
+		// queueing compile, cloning appearance, etc etc etc that is not necessary here.
+		overlays += GLOB.fullbright_overlays[GET_TURF_PLANE_OFFSET(src) + 1]
 
 	if (light_power && light_range)
 		update_light()
 
-	if (opacity)
-		has_opaque_atom = TRUE
+	if(opacity)
+		directional_opacity = ALL_CARDINALS
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -137,41 +146,42 @@
 				to_chat(user, span_notice("Вы установили мостик."))
 				new /obj/structure/lattice/catwalk/fireproof(src)
 
-/turf/space/Entered(atom/movable/A as mob|obj, atom/OL, ignoreRest = 0)
-	..()
-	if((!(A) || !(src in A.locs)))
-		return
+
+/turf/space/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	if(!arrived || !(src in arrived.locs))
+		return .
 
 	if(destination_z && destination_x && destination_y)
-		destination_z = check_taipan_availability(A, destination_z)
-		A.zMove(null, locate(destination_x, destination_y, destination_z), ZMOVE_ALLOW_BUCKLED)
+		destination_z = check_taipan_availability(arrived, destination_z)
+		arrived.zMove(null, locate(destination_x, destination_y, destination_z), ZMOVE_ALLOW_BUCKLED)
 
-		if(isliving(A))
-			var/mob/living/L = A
-			if(L.pulling)
-				var/turf/T = get_step(L.loc,turn(A.dir, 180))
-				L.pulling.zMove(null, T, ZMOVE_ALLOW_BUCKLED)
+		var/atom/movable/current_pull = arrived.pulling
+		while(current_pull)
+			var/turf/target_turf = get_step(current_pull.pulledby.loc, REVERSE_DIR(current_pull.pulledby.dir)) || current_pull.pulledby.loc
+			current_pull.zMove(null, target_turf, ZMOVE_ALLOW_BUCKLED)
+			current_pull = current_pull.pulling
 
-		//now we're on the new z_level, proceed the space drifting
-		spawn(0)//Let a diagonal move finish, if necessary
-			A.newtonian_move(A.inertia_dir)
 
-/turf/space/proc/check_taipan_availability(atom/movable/A as mob|obj, destination_z)
-	var/mob/living/check_mob = A
-	// if we are from taipan's crew, then we can easily access it.
-	if(istype(check_mob) && is_taipan(destination_z))
-		if(check_mob.mind in GLOB.taipan_players_active)
-			to_chat(A, span_info("Вы вернулись в ваш родной скрытый от чужих глаз сектор..."))
-			return destination_z
+/turf/space/proc/check_taipan_availability(atom/movable/arrived, destination_z)
+	if(!is_taipan(destination_z))
+		return destination_z
+	var/arrived_is_mob = isliving(arrived)
+	var/mob/living/arrived_mob = arrived
+	if(arrived_is_mob && (arrived_mob.mind in GLOB.taipan_players_active))
+		to_chat(arrived_mob, span_info("Вы вернулись в ваш родной скрытый от чужих глаз сектор..."))
+		return destination_z
 	// if we are not from taipan's crew, then we cannot get there until there is enought players on Taipan
-	if(is_taipan(destination_z) && length(GLOB.taipan_players_active) < TAIPAN_PLAYER_LIMIT)
+	if(length(GLOB.taipan_players_active) < TAIPAN_PLAYER_LIMIT)
 		var/datum/space_level/taipan_zlvl
 		var/datum/space_level/direct
 		for(var/list_parser in GLOB.space_manager.z_list)
 			var/datum/space_level/lvl = GLOB.space_manager.z_list[list_parser]
 			if(TAIPAN in lvl.flags)
 				taipan_zlvl = lvl
-		switch(A.dir)
+		if(!arrived.dir)
+			arrived.dir = SOUTH
+		switch(arrived.dir)
 			if(NORTH)
 				direct = taipan_zlvl.get_connection(Z_LEVEL_NORTH)
 			if(SOUTH)
@@ -180,14 +190,15 @@
 				direct = taipan_zlvl.get_connection(Z_LEVEL_EAST)
 			if(WEST)
 				direct = taipan_zlvl.get_connection(Z_LEVEL_WEST)
-		destination_z = direct.zpos
+		destination_z = direct?.zpos
 		// if we are still going to get to taipan after all the checks... Then get random available z_lvl instead
-		if(is_taipan(destination_z))
+		if(!destination_z || is_taipan(destination_z))
 			destination_z = pick(get_all_linked_levels_zpos())
-	//notification if we do get to taipan
-	if(istype(check_mob) && is_taipan(destination_z))
-		to_chat(check_mob, span_warning("Вы попадаете в загадочный сектор полный астероидов... Тут стоит быть осторожнее..."))
+		return destination_z
+	if(arrived_is_mob)
+		to_chat(arrived_mob, span_warning("Вы попадаете в загадочный сектор полный астероидов... Тут стоит быть осторожнее..."))
 	return destination_z
+
 
 /turf/space/proc/Sandbox_Spacemove(atom/movable/A as mob|obj)
 	var/cur_x
@@ -198,7 +209,7 @@
 	var/list/y_arr
 
 	if(src.x <= 1)
-		if(istype(A, /obj/effect/meteor)||istype(A, /obj/effect/space_dust))
+		if(istype(A, /obj/effect/meteor))
 			qdel(A)
 			return
 
@@ -273,7 +284,7 @@
 					A.loc.Entered(A)
 
 	else if(src.y >= world.maxy)
-		if(istype(A, /obj/effect/meteor)||istype(A, /obj/effect/space_dust))
+		if(istype(A, /obj/effect/meteor))
 			qdel(A)
 			return
 		var/list/cur_pos = src.get_global_map_pos()
@@ -352,9 +363,7 @@
 	return RCD_ACT_FAILED
 
 /turf/space/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
-	underlay_appearance.icon = 'icons/turf/space.dmi'
-	underlay_appearance.icon_state = SPACE_ICON_STATE
-	underlay_appearance.plane = PLANE_SPACE
+	generate_space_underlay(underlay_appearance, asking_turf)
 	return TRUE
 
 // the space turf SHOULD be on first z level. meaning we have invisible floor but only for movable atoms.

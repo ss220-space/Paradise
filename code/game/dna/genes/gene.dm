@@ -18,13 +18,20 @@
 
 	// Set in initialize()!
 	//  What gene activates this?
-	var/block = 0
+	var/block
 
 	// Any of a number of GENE_ flags.
-	var/flags = 0
+	var/flags = NONE
 
 	// Chance of the gene to cause adverse effects when active
 	var/instability = 0
+
+
+/datum/dna/gene/Destroy(force)
+	if(force)
+		return ..()
+	// put your hands off the gene GC!
+	return QDEL_HINT_LETMELIVE
 
 
 /*
@@ -45,22 +52,22 @@
 
 
 /// Called when the gene activates.  Do your magic here.
-/datum/dna/gene/proc/activate(mob/living/mutant, connected, flags)
-	set waitfor = FALSE
+/datum/dna/gene/proc/activate(mob/living/mutant, flags)
 	SHOULD_CALL_PARENT(TRUE)
 	LAZYOR(mutant.active_genes, type)
 	mutant.gene_stability -= instability
+	mutant.update_mutations()
 
 
 /**
 * Called when the gene deactivates.  Undo your magic here.
 * Only called when the block is deactivated.
 */
-/datum/dna/gene/proc/deactivate(mob/living/mutant, connected, flags)
-	set waitfor = FALSE
+/datum/dna/gene/proc/deactivate(mob/living/mutant, flags)
 	SHOULD_CALL_PARENT(TRUE)
 	LAZYREMOVE(mutant.active_genes, type)
 	mutant.gene_stability += instability
+	mutant.update_mutations()
 
 
 // This section inspired by goone's bioEffects.
@@ -90,7 +97,7 @@
 * @params g Gender (m or f)
 */
 /datum/dna/gene/proc/OnDrawUnderlays(mob/M, g)
-	return FALSE
+	return
 
 
 /////////////////////
@@ -131,7 +138,7 @@
 	return prob(activation_prob)
 
 
-/datum/dna/gene/basic/activate(mob/living/mutant, connected, flags)
+/datum/dna/gene/basic/activate(mob/living/mutant, flags)
 	. = ..()
 	mutant.mutations |= mutation
 	for(var/trait in traits_to_add)
@@ -141,7 +148,7 @@
 		to_chat(mutant, span_notice("[msg]"))
 
 
-/datum/dna/gene/basic/deactivate(mob/living/mutant, connected, flags)
+/datum/dna/gene/basic/deactivate(mob/living/mutant, flags)
 	. = ..()
 	mutant.mutations -= mutation
 	for(var/trait in traits_to_add)
@@ -149,4 +156,42 @@
 	if(length(deactivation_messages))
 		var/msg = pick(deactivation_messages)
 		to_chat(mutant, span_warning("[msg]"))
+
+
+// placeholders for empty FAKE genes
+// you can remake these into your own powers
+
+/datum/dna/gene/basic/fake
+	name = "Ordinary Gene"
+	desc = "Just another link in the DNA strand."
+
+
+/datum/dna/gene/basic/fake/fake1/New()
+	..()
+	block = GLOB.fakeblock1
+
+
+/datum/dna/gene/basic/fake/fake2/New()
+	..()
+	block = GLOB.fakeblock2
+
+
+/datum/dna/gene/basic/fake/fake3/New()
+	..()
+	block = GLOB.fakeblock3
+
+
+/datum/dna/gene/basic/fake/fake4/New()
+	..()
+	block = GLOB.fakeblock4
+
+
+/datum/dna/gene/basic/fake/fake5/New()
+	..()
+	block = GLOB.fakeblock5
+
+
+/datum/dna/gene/basic/fake/fake6/New()
+	..()
+	block = GLOB.fakeblock6
 

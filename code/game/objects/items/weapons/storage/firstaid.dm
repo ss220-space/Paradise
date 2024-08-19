@@ -87,7 +87,7 @@
 
 /obj/item/storage/firstaid/toxin/Initialize(mapload)
 	. = ..()
-	icon_state = pick("antitoxin", "antitoxfirstaid", "antitoxfirstaid2", "antitoxfirstaid3")
+	icon_state = pick("antitoxin", "antitoxfirstaid")
 
 /obj/item/storage/firstaid/toxin/populate_contents()
 	new /obj/item/reagent_containers/syringe/charcoal(src)
@@ -156,6 +156,25 @@
 	new /obj/item/healthanalyzer(src)
 
 /obj/item/storage/firstaid/adv/empty/populate_contents()
+	return
+
+/obj/item/storage/firstaid/paramed
+	name = "paramed first-aid kit"
+	desc = "A medical kit that contains several medical patches and injectors for the treatment of various diseases."
+	icon_state = "firstaid_paramed"
+	item_state = "firstaid_paramed"
+	med_bot_skin = "paramed"
+
+/obj/item/storage/firstaid/paramed/populate_contents()
+	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/salbutamol(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/charcoal(src)
+	new /obj/item/reagent_containers/food/pill/patch/styptic(src)
+	new	/obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
+	new /obj/item/stack/medical/bruise_pack(src)
+	new /obj/item/stack/medical/ointment(src)
+
+/obj/item/storage/firstaid/paramed/empty/populate_contents()
 	return
 
 /obj/item/storage/firstaid/machine
@@ -281,6 +300,19 @@
 	new /obj/item/stack/medical/bruise_pack(src)
 	new /obj/item/stack/medical/ointment(src)
 
+/obj/item/storage/firstaid/crew/nucleation
+	name = "nucleation first aid kit"
+	desc = "A standart issued first aid kit for 'SMDS' affected crewmembers. NanoTrasen appreciates you!"
+
+/obj/item/storage/firstaid/crew/nucleation/populate_contents()
+	new /obj/item/reagent_containers/hypospray/autoinjector/radium(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/charcoal(src)
+	new /obj/item/reagent_containers/food/pill/patch/styptic(src)
+	new	/obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
+	new /obj/item/stack/medical/bruise_pack(src)
+	new /obj/item/stack/medical/ointment(src)
+
 /*
  * Pill Bottles
  */
@@ -357,13 +389,13 @@
 
 
 /obj/item/storage/pill_bottle/MouseDrop(mob/living/carbon/user, src_location, over_location, src_control, over_control, params) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
-	if(iscarbon(user) && src == user.get_active_hand())
+	if(iscarbon(user) && src == user.get_active_hand() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		if(!length(contents))
 			to_chat(user, span_notice("There is nothing in [src]!"))
 			return FALSE
 
 		user.visible_message(span_danger("[user] [rapid_intake_message]"))
-		if(!do_mob(user, user, 10 SECONDS) || src != user.get_active_hand())
+		if(!do_after(user, 10 SECONDS, user, NONE) || src != user.get_active_hand())
 			return FALSE
 
 		for(var/obj/item/reagent_containers/food/pill/pill in src)
@@ -375,7 +407,7 @@
 
 
 /obj/item/storage/pill_bottle/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pen) || istype(I, /obj/item/flashlight/pen))
+	if(is_pen(I) || istype(I, /obj/item/flashlight/pen))
 		rename_interactive(user, I)
 	else
 		return ..()

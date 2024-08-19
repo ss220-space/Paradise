@@ -56,7 +56,7 @@
 
 	if(stage == 5 && prob(50))
 		for(var/datum/surgery/S in owner.surgeries)
-			if(S.location == BODY_ZONE_CHEST && istype(S.get_surgery_step(), /datum/surgery_step/internal/manipulate_organs))
+			if(S.location == BODY_ZONE_CHEST && S.organ_to_manipulate.open >= ORGAN_ORGANIC_OPEN)
 				AttemptGrow(FALSE)
 				return
 		AttemptGrow()

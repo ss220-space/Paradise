@@ -18,7 +18,7 @@
 	status_flags = CANPUSH
 	pass_flags = PASSTABLE
 	move_resist = MOVE_FORCE_STRONG // Fat being
-	ventcrawler = 2
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	tts_seed = "Treant"
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -72,6 +72,7 @@
 		GLOB.morphs_announced = TRUE
 		SSshuttle.emergency.cancel()
 
+
 /mob/living/simple_animal/hostile/morph/Initialize(mapload)
 	. = ..()
 	mimic_spell = new
@@ -83,6 +84,7 @@
 	AddSpell(pass_airlock_spell)
 	GLOB.morphs_alive_list += src
 	check_morphs()
+
 
 /**
  * This proc enables or disables morph reproducing ability
@@ -98,11 +100,10 @@
 		can_reproduce = FALSE
 		RemoveSpell(/obj/effect/proc_holder/spell/morph_spell/reproduce)
 
-/mob/living/simple_animal/hostile/morph/Stat(Name, Value)
-	..()
-	if(statpanel("Status"))
-		stat(null, "Food Stored: [gathered_food]")
-		return TRUE
+/mob/living/simple_animal/hostile/morph/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Food Stored:", "[gathered_food]")
 
 /mob/living/simple_animal/hostile/morph/wizard
 	name = "magical morph"
@@ -130,7 +131,7 @@
 	else
 		eat_self_message = "<span class='notice'>You start eating [item].</span>"
 	visible_message("<span class='warning'>[src] starts eating [target]!</span>", eat_self_message, "You hear loud crunching!")
-	if(do_after(src, 3 SECONDS, target = item))
+	if(do_after(src, 3 SECONDS, item))
 		if(food_value + gathered_food < 0)
 			to_chat(src, "<span class='warning'>You can't force yourself to eat more disgusting items. Eat some living things first.</span>")
 			return
@@ -154,7 +155,7 @@
 	if(!istype(living))
 		return -ITEM_EAT_COST // Anything other than a tasty mob will make me sad ;(
 	var/gained_food = max(5, 10 * living.mob_size) // Tiny things are worth less
-	if(ishuman(living) && !ismonkeybasic(living))
+	if(ishuman(living) && !is_monkeybasic(living))
 		gained_food += 10 // Humans are extra tasty
 
 	return gained_food
@@ -242,8 +243,7 @@
 		return TRUE
 	else if (!morphed)
 		to_chat(attacker, "<span class='warning'>Touching [src] with your hands hurts you!</span>")
-		var/obj/item/organ/external/affecting = attacker.get_organ(attacker.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-		affecting.receive_damage(20)
+		attacker.apply_damage(20, def_zone = attacker.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 		add_food(5)
 
 	restore_form()
@@ -323,7 +323,7 @@
 	vision_range = initial(vision_range)
 
 /mob/living/simple_animal/hostile/morph/proc/allowed(atom/movable/item)
-	var/list/not_allowed = list(/obj/screen, /obj/singularity, /mob/living/simple_animal/hostile/morph)
+	var/list/not_allowed = list(/atom/movable/screen, /obj/singularity, /mob/living/simple_animal/hostile/morph)
 	return !is_type_in_list(item, not_allowed)
 
 /mob/living/simple_animal/hostile/morph/AIShouldSleep(list/possible_targets)
@@ -331,7 +331,7 @@
 	if(. && !morphed)
 		var/list/things = list()
 		for(var/atom/movable/item_in_view in view(src))
-			if(istype(item_in_view, /obj) && allowed(item_in_view))
+			if(isobj(item_in_view) && allowed(item_in_view))
 				things += item_in_view
 		var/atom/movable/picked_thing = pick(things)
 		if (picked_thing)
@@ -347,7 +347,7 @@
 		if(ambush_prepared)
 			ambush_attack(living)
 			return TRUE // No double attack
-	else if(istype(target,/obj/item)) // Eat items just to be annoying
+	else if(isitem(target)) // Eat items just to be annoying
 		var/obj/item/item = target
 		if(!item.anchored)
 			try_eat(item)

@@ -5,7 +5,7 @@
 	icon_state = "scanner"
 	item_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "programming=3;materials=3;magnets=3"
 	var/datum/ui_module/crew_monitor/crew_monitor
 
@@ -27,7 +27,7 @@
 		return FALSE
 
 	var/mob/user = usr
-	if(user.incapacitated() || !ishuman(user))
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !ishuman(user))
 		return FALSE
 
 	if(over_object == user)
@@ -37,8 +37,8 @@
 	return FALSE
 
 
-/obj/item/sensor_device/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	crew_monitor.ui_interact(user, ui_key, ui, force_open)
+/obj/item/sensor_device/ui_interact(mob/user, datum/tgui/ui = null)
+	crew_monitor.ui_interact(user, ui)
 
 /obj/item/sensor_device/advanced
 

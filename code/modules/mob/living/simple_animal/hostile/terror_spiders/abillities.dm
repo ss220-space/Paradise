@@ -347,7 +347,7 @@
 	for(var/mob/living/target in targets)
 		if(iscarbon(target))
 			to_chat(target, "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>")
-			target.adjustStaminaLoss(30)
+			target.apply_damage(30, STAMINA)
 			target.Slowed(10 SECONDS)
 			target.Jitter(20 SECONDS)
 
@@ -386,7 +386,7 @@
 			target.adjustBruteLoss(20)
 			target.Slowed(8 SECONDS)
 
-		if(istype(target_turf, /turf/simulated/floor))
+		if(isfloorturf(target_turf))
 			var/turf/simulated/floor/floor_tile = target_turf
 			floor_tile.break_tile()
 
@@ -445,7 +445,7 @@
 			if(iscarbon(target))
 				to_chat(target, "<span class='danger'><b>A spike of pain drives into your head and scrambles your thoughts!</b></span>")
 				target.AdjustWeakened(2 SECONDS)
-				target.adjustStaminaLoss(50)
+				target.apply_damage(50, STAMINA)
 				target.Jitter(40 SECONDS)
 				target.Slowed(14 SECONDS)
 

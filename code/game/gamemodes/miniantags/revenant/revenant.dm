@@ -33,7 +33,7 @@
 	friendly = "touches"
 	status_flags = 0
 	wander = 0
-	density = 0
+	density = FALSE
 	move_resist = INFINITY
 	mob_size = MOB_SIZE_TINY
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
@@ -77,7 +77,7 @@
 		to_chat(src, "<span class='revenboldnotice'>You are once more concealed.</span>")
 	if(unstun_time && world.time >= unstun_time)
 		unstun_time = 0
-		notransform = 0
+		REMOVE_TRAIT(src, TRAIT_NO_TRANSFORM, REVENANT_TRAIT)
 		to_chat(src, "<span class='revenboldnotice'>You can move again!</span>")
 	update_icon(UPDATE_ICON_STATE)
 
@@ -96,12 +96,20 @@
 /mob/living/simple_animal/revenant/ratvar_act()
 	return
 
-/mob/living/simple_animal/revenant/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+/mob/living/simple_animal/revenant/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	return FALSE //You are a ghost, atmos and grill makes sparks, and you make your own shocks with lights.
 
-/mob/living/simple_animal/revenant/adjustHealth(amount, updating_health = TRUE)
+
+/mob/living/simple_animal/revenant/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
+	. = STATUS_UPDATE_NONE
 	if(!revealed)
-		return
+		return .
 	essence = max(0, essence-amount)
 	if(essence == 0)
 		to_chat(src, "<span class='revendanger'>You feel your essence fraying!</span>")
@@ -122,12 +130,12 @@
 			to_chat(M, rendered)
 
 
-/mob/living/simple_animal/revenant/Stat()
-	..()
-	if(statpanel("Status"))
-		stat(null, "Current essence: [essence]/[essence_regen_cap]E")
-		stat(null, "Stolen essence: [essence_accumulated]E")
-		stat(null, "Stolen perfect souls: [perfectsouls]")
+/mob/living/simple_animal/revenant/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Current essence:", "[essence]/[essence_regen_cap]E")
+	status_tab_data[++status_tab_data.len] = list("Stolen essence:", "[essence_accumulated]E")
+	status_tab_data[++status_tab_data.len] = list("Stolen perfect souls:", "[perfectsouls]")
 
 /mob/living/simple_animal/revenant/New()
 	..()
@@ -217,15 +225,21 @@
 		return FALSE
 
 	to_chat(src, "<span class='revendanger'>NO! No... it's too late, you can feel your essence breaking apart...</span>")
-	notransform = 1
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, REVENANT_TRAIT)
 	revealed = 1
 	invisibility = 0
 	playsound(src, 'sound/effects/screech.ogg', 100, 1)
 	visible_message("<span class='warning'>[src] lets out a waning screech as violet mist swirls around its dissolving body!</span>")
 	update_icon(UPDATE_ICON_STATE)
-	for(var/i = alpha, i > 0, i -= 10)
-		sleep(0.1)
-		alpha = i
+	delayed_death()
+
+
+/mob/living/simple_animal/revenant/proc/delayed_death()
+	set waitfor = FALSE
+	animate(src, alpha = 0, time = 2.5 SECONDS)
+	sleep(2.5 SECONDS)
+	if(QDELETED(src))
+		return
 	visible_message("<span class='danger'>[src]'s body breaks apart into a fine pile of blue dust.</span>")
 	var/obj/item/ectoplasm/revenant/R = new (get_turf(src))
 	var/reforming_essence = essence_regen_cap //retain the gained essence capacity
@@ -234,6 +248,7 @@
 	R.reforming = TRUE
 	ghostize()
 	qdel(src)
+
 
 /mob/living/simple_animal/revenant/attackby(obj/item/W, mob/living/user, params)
 	if(istype(W, /obj/item/nullrod))
@@ -250,7 +265,7 @@
 	if(!src)
 		return
 	var/turf/T = get_turf(src)
-	if(istype(T, /turf/simulated/wall))
+	if(iswallturf(T))
 		to_chat(src, "<span class='revenwarning'>You cannot use abilities from inside of a wall.</span>")
 		return 0
 	if(src.inhibited)
@@ -297,7 +312,7 @@
 		return
 	if(time <= 0)
 		return
-	notransform = 1
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, REVENANT_TRAIT)
 	if(!unstun_time)
 		to_chat(src, "<span class='revendanger'>You cannot move!</span>")
 		unstun_time = world.time + time
@@ -308,7 +323,7 @@
 
 /mob/living/simple_animal/revenant/update_icon_state()
 	if(revealed)
-		if(notransform)
+		if(HAS_TRAIT_FROM(src, TRAIT_NO_TRANSFORM, REVENANT_TRAIT))
 			if(draining)
 				icon_state = icon_drain
 			else
@@ -433,7 +448,7 @@
 
 	var/key_of_revenant
 	message_admins("Revenant ectoplasm was left undestroyed for [reform_time/10] seconds and is reforming into a new revenant.")
-	loc = get_turf(src) //In case it's in a backpack or someone's hand
+	forceMove_turf() //In case it's in a backpack or someone's hand
 	var/mob/living/simple_animal/revenant/new_revenant = new(get_turf(src))
 
 	if(client_to_revive)

@@ -18,15 +18,15 @@
 	..()
 
 /obj/machinery/shield/Destroy()
-	opacity = FALSE
-	density = 0
+	set_opacity(FALSE)
+	set_density(FALSE)
 	air_update_turf(1)
 	return ..()
 
 /obj/machinery/shield/has_prints()
 	return FALSE
 
-/obj/machinery/shield/Move()
+/obj/machinery/shield/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
 	. = ..()
 	move_update_air(T)
@@ -56,7 +56,8 @@
 				qdel(src)
 
 /obj/machinery/shield/blob_act()
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)
 
 /obj/machinery/shield/cult
 	name = "cult barrier"
@@ -112,11 +113,11 @@
 /obj/machinery/shield/cult/barrier/proc/Toggle()
 	var/visible
 	if(!density) // Currently invisible
-		density = TRUE // Turn visible
+		set_density(TRUE) // Turn visible
 		invisibility = initial(invisibility)
 		visible = TRUE
 	else // Currently visible
-		density = FALSE // Turn invisible
+		set_density(FALSE) // Turn invisible
 		invisibility = INVISIBILITY_ABSTRACT
 		visible = FALSE
 
@@ -128,7 +129,7 @@
 	desc = "Used to seal minor hull breaches."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "shieldoff"
-	density = 1
+	density = TRUE
 	opacity = FALSE
 	anchored = FALSE
 	pressure_resistance = 2*ONE_ATMOSPHERE
@@ -152,11 +153,11 @@
 		return //If it's already turned on, how did this get called?
 
 	active = 1
-	anchored = TRUE
+	set_anchored(TRUE)
 	update_icon(UPDATE_ICON_STATE)
 
 	for(var/turf/target_tile in range(2, src))
-		if(istype(target_tile,/turf/space) && !(locate(/obj/machinery/shield) in target_tile))
+		if(isspaceturf(target_tile) && !(locate(/obj/machinery/shield) in target_tile))
 			if(malfunction && prob(33) || !malfunction)
 				deployed_shields += new /obj/machinery/shield(target_tile)
 
@@ -245,7 +246,7 @@
 	else if(istype(I, /obj/item/stack/cable_coil) && malfunction && is_open)
 		var/obj/item/stack/cable_coil/coil = I
 		to_chat(user, span_notice("You begin to replace the wires."))
-		if(do_after(user, 30 * coil.toolspeed * gettoolspeedmod(user), target = src))
+		if(do_after(user, 3 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL))
 			if(!src || !coil)
 				return
 			add_fingerprint(user)
@@ -289,12 +290,12 @@
 		if(active)
 			visible_message(span_warning("[src] shuts off!"))
 			shields_down()
-		anchored = FALSE
+		set_anchored(FALSE)
 	else
 		if(istype(get_turf(src), /turf/space))
 			return //No wrenching these in space!
 		WRENCH_ANCHOR_MESSAGE
-		anchored = TRUE
+		set_anchored(TRUE)
 
 
 /obj/machinery/shieldgen/update_icon_state()
@@ -475,7 +476,7 @@
 			state = 1
 			playsound(loc, I.usesound, 75, 1)
 			to_chat(user, "You secure the external reinforcing bolts to the floor.")
-			anchored = TRUE
+			set_anchored(TRUE)
 			return
 
 		else if(state == 1)
@@ -483,10 +484,10 @@
 			state = 0
 			playsound(loc, I.usesound, 75, 1)
 			to_chat(user, "You undo the external reinforcing bolts.")
-			anchored = FALSE
+			set_anchored(FALSE)
 			return
 
-	if(I.GetID() || ispda(I))
+	if(I.GetID() || is_pda(I))
 		if(allowed(user))
 			add_fingerprint(user)
 			locked = !locked
@@ -536,7 +537,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "shieldwall"
 	anchored = TRUE
-	density = 1
+	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	light_range = 3
 	var/needs_power = 0
@@ -643,12 +644,10 @@
 		return FALSE
 
 
-/obj/machinery/shieldwall/syndicate/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
-	if(isliving(caller))
-		var/mob/living/M = caller
-		if("syndicate" in M.faction)
-			return TRUE
-	return ..(ID, to_dir, caller)
+/obj/machinery/shieldwall/syndicate/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(pass_info.faction && ("syndicate" in pass_info.faction))
+		return TRUE
+	return ..()
 
 
 /obj/machinery/shieldwall/syndicate/proc/phaseout()

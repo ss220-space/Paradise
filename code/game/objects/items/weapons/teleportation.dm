@@ -50,14 +50,14 @@
 	if(length(turfs))
 		L["None (Dangerous)"] = pick(turfs)
 	var/t1 = tgui_input_list(user, "Please select a teleporter to lock in on.", "Hand Teleporter", L)
-	if(!t1 || (!user.is_in_active_hand(src) || user.stat || user.restrained()))
+	if(!t1 || !user.is_in_active_hand(src) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(active_portals >= 3)
 		user.show_message(span_notice("[src] is recharging!"))
 		return
 	var/turf/T = L[t1]
 	user.show_message(span_notice("Locked In."), 2)
-	var/obj/effect/portal/hand_tele/P = new(get_turf(src), T, src, creation_mob = user)
+	var/obj/effect/portal/hand_tele/P = new(get_turf(src), T, src, 30 SECONDS, user)
 	investigate_log("was used by [key_name_log(user)] to create a portal with destination to [COORD(T)].", INVESTIGATE_TELEPORTATION)
 	try_move_adjacent(P)
 	active_portals++

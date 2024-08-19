@@ -138,9 +138,11 @@
 	name = "synthesized banana peel"
 	desc = "A synthetic banana peel."
 
-/obj/item/grown/bananapeel/specialpeel/ComponentInitialize()
-	AddComponent(/datum/component/slippery, src, 4 SECONDS, 100, 0, FALSE)
-
-/obj/item/grown/bananapeel/specialpeel/after_slip(mob/living/carbon/human/H)
+/obj/item/grown/bananapeel/specialpeel/New()
 	. = ..()
+	// The reason this AddComponent is here and not in ComponentInitialize() is because if it's put there, it will be ran before the parent New proc for /grown types.
+	// And then be overriden by the generic component placed onto it by the `/datum/plant_gene/trait/slip`
+	AddComponent(/datum/component/slippery, 4 SECONDS, 0, NONE, CALLBACK(src, PROC_REF(after_slip)))
+
+/obj/item/grown/bananapeel/specialpeel/proc/after_slip()
 	qdel(src)

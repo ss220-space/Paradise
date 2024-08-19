@@ -28,7 +28,7 @@
 
 
 /obj/item/assembly/voice/proc/hear_input(mob/living/M, msg, type)
-	if(!istype(M,/mob/living))
+	if(!isliving(M))
 		return
 	if(listening)
 		if(findtext(msg, "</span>"))

@@ -3,7 +3,7 @@
 	desc = "A large automated factory for producing maintenance drones."
 	icon = 'icons/obj/machines/drone_fab.dmi'
 	icon_state = "drone_fab_idle"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
@@ -149,7 +149,7 @@
 		to_chat(usr, "<span class='warning'>You must wait [CONFIG_GET(number/respawn_delay_drone)] minutes to respawn as a drone!</span>")
 		return
 
-	if(alert("Are you sure you want to respawn as a drone?", "Are you sure?", "Yes", "No") != "Yes")
+	if(tgui_alert(usr, "Are you sure you want to respawn as a drone?", "Are you sure?", list("Yes", "No")) != "Yes")
 		return
 
 	for(var/obj/machinery/drone_fabricator/DF in GLOB.machines)

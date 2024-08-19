@@ -65,7 +65,7 @@
 	if(!user.mind)
 		return
 
-	if(user.incapacitated(TRUE, TRUE, TRUE))
+	if(user.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
 		if(show_message)
 			to_chat(user, span_warning("You can't use this ability right now!"))
 		return FALSE
@@ -100,9 +100,8 @@
 
 
 /obj/effect/proc_holder/spell/slime_degradation/proc/slime_transform(mob/living/carbon/human/user)
-	for(var/obj/item/I in user)
-		if(!istype(I, /obj/item/implant))
-			user.drop_item_ground(I, force = TRUE)
+	for(var/obj/item/check as anything in user.get_equipped_items(include_pockets = TRUE, include_hands = TRUE))
+		user.drop_item_ground(check, force = TRUE)
 
 	user.underwear = "Nude"
 	user.undershirt = "Nude"
@@ -116,13 +115,13 @@
 						span_notice("You hear something squishing..."))
 
 	original_body = user
-	user.notransform = TRUE
+	ADD_TRAIT(original_body, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+	ADD_TRAIT(slimeme, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	slimeme.status_flags |= GODMODE
 	user.status_flags |= GODMODE
-	slimeme.canmove = FALSE
 	user.mind.transfer_to(slimeme)
 	slimeme.update_sight()
-	user.forceMove(null)
+	user.move_to_null_space()
 
 	new /obj/effect/temp_visual/wizard(get_turf(slimeme))
 
@@ -135,8 +134,8 @@
 	if(QDELETED(src) || QDELETED(slimeme))
 		return
 
+	REMOVE_TRAIT(slimeme, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	slimeme.status_flags &= ~GODMODE
-	slimeme.canmove = TRUE
 	is_transformed = TRUE
 
 
@@ -147,11 +146,9 @@
 		cooldown_handler.recharge_duration = COOLDOWN_TO_SLIME_MOB
 		cooldown_handler.start_recharge()
 		playsound(get_turf(usr), sound, 50, TRUE)
-	user.density = FALSE
-	original_body.notransform = TRUE
+	user.set_density(FALSE)
 	original_body.dir = SOUTH
 	original_body.forceMove(get_turf(user))
-	original_body.canmove = FALSE
 	user.mind.transfer_to(original_body)
 
 	var/matrix/animation_matrix1 = new(user.transform)
@@ -170,9 +167,8 @@
 		stack_trace("Spell or original_body was qdeled during the [src] work.")
 		return
 
-	original_body.notransform = FALSE
+	REMOVE_TRAIT(original_body, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	original_body.status_flags &= ~GODMODE
-	original_body.canmove = TRUE
 	is_transformed = FALSE
 	original_body = null
 
@@ -200,7 +196,7 @@
 	if(!user.mind)
 		return
 
-	if(user.incapacitated(TRUE, TRUE, TRUE))
+	if(user.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
 		if(show_message)
 			to_chat(user, span_warning("You can't use this ability right now!"))
 		return FALSE

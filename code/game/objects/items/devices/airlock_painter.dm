@@ -6,10 +6,11 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "airlock_painter"
 	item_state = "airlock_painter"
-	flags = CONDUCT | NOBLUDGEON
+	flags = CONDUCT
+	item_flags = NOBLUDGEON
 	usesound = 'sound/effects/spray2.ogg'
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000)
 	var/paint_setting
 

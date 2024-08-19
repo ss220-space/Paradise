@@ -21,16 +21,16 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 	else if(ismob(var_value))
 		. = VV_MOB_REFERENCE
 
-	else if(isloc(var_value))
+	else if(isatom(var_value))
 		. = VV_ATOM_REFERENCE
 
 	else if(istype(var_value, /matrix))
 		. = VV_MATRIX
 
-	else if(istype(var_value,/client))
+	else if(isclient(var_value))
 		. = VV_CLIENT
 
-	else if(istype(var_value, /datum))
+	else if(isdatum(var_value))
 		. = VV_DATUM_REFERENCE
 
 	else if(ispath(var_value))

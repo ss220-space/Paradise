@@ -57,8 +57,7 @@
 
 /obj/item/nullrod/pickup(mob/living/user)
 	if(sanctify_force && !user.mind?.isholy)
-		user.adjustBruteLoss(force)
-		user.adjustFireLoss(sanctify_force)
+		user.take_overall_damage(force, sanctify_force)
 		user.Weaken(10 SECONDS)
 		user.drop_item_ground(src, force = TRUE)
 		user.visible_message(span_warning("[src] slips out of the grip of [user] as they try to pick it up, bouncing upwards and smacking [user.p_them()] in the face!"), \
@@ -125,8 +124,10 @@
 
 /obj/item/nullrod/afterattack(atom/movable/AM, mob/user, proximity)
 	. = ..()
-	if(!sanctify_force)
+
+	if(!proximity || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !sanctify_force)
 		return
+
 	if(isliving(AM))
 		var/mob/living/L = AM
 		L.adjustFireLoss(sanctify_force) // Bonus fire damage for sanctified (ERT) versions of nullrod
@@ -144,11 +145,17 @@
 	icon_state = "disintegrate"
 	item_state = "disintegrate"
 	desc = "This hand of yours glows with an awesome power!"
-	flags = ABSTRACT | NODROP| DROPDEL
+	item_flags = ABSTRACT|DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	hitsound = 'sound/weapons/sear.ogg'
 	damtype = BURN
 	attack_verb = list("punched", "cross countered", "pummeled")
+
+
+/obj/item/nullrod/godhand/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
+
 
 /obj/item/nullrod/staff
 	name = "red holy staff"
@@ -157,7 +164,7 @@
 	desc = "It has a mysterious, protective aura."
 	w_class = WEIGHT_CLASS_HUGE
 	force = 5
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	block_chance = 50
 
 /obj/item/nullrod/staff/blue
@@ -171,7 +178,7 @@
 	item_state = "claymore"
 	desc = "A weapon fit for a crusade!"
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_FLAG_BACK|SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK
 	block_chance = 30
 	sharp = TRUE
 	embed_chance = 20
@@ -189,7 +196,7 @@
 	icon_state = "cultblade"
 	item_state = "cultblade"
 	desc = "Spread the glory of the dark gods!"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	hitsound = 'sound/hallucinations/growl1.ogg'
 
 /obj/item/shield/riot/templar
@@ -201,7 +208,7 @@
 	icon_state = "chainswordon"
 	item_state = "chainswordon"
 	desc = "Suffer not a heretic to live."
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
 	hitsound = 'sound/weapons/chainsaw.ogg'
 
@@ -210,21 +217,21 @@
 	icon_state = "swordon"
 	item_state = "swordon"
 	desc = "The blade glows with the power of faith. Or possibly a battery."
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/nullrod/claymore/katana
 	name = "hanzo steel"
 	desc = "Capable of cutting clean through a holy claymore."
 	icon_state = "katana"
 	item_state = "katana"
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK
 
 /obj/item/nullrod/claymore/multiverse
 	name = "extradimensional blade"
 	desc = "Once the harbringer of a interdimensional war, now a dormant souvenir. Still sharp though."
 	icon_state = "multiverse"
 	item_state = "multiverse"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/nullrod/claymore/saber
 	name = "light energy blade"
@@ -232,7 +239,7 @@
 	icon_state = "swordblue"
 	item_state = "swordblue"
 	desc = "If you strike me down, I shall become more robust than you can possibly imagine."
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 
 /obj/item/nullrod/claymore/saber/red
 	name = "dark energy blade"
@@ -251,7 +258,7 @@
 	desc = "This thing is so unspeakably HOLY you are having a hard time even holding it."
 	icon_state = "sord"
 	item_state = "sord"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 4.13
 	throwforce = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -264,7 +271,7 @@
 	desc = "Ask not for whom the bell tolls..."
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration = 35
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	sharp = TRUE
 	embed_chance = 20
 	embedded_ignore_throwspeed_threshold = TRUE
@@ -312,7 +319,7 @@
 		S.real_name = name
 		S.name = name
 		S.ckey = theghost.ckey
-		var/input = stripped_input(S, "What are you named?", null, "", MAX_NAME_LEN)
+		var/input = tgui_input_text(S, "What are you named?", "Change Name", max_length = MAX_NAME_LEN)
 
 		if(src && input)
 			name = input
@@ -336,7 +343,7 @@
 	icon_state = "hammeron"
 	item_state = "hammeron"
 	desc = "This war hammer cost the chaplain fourty thousand space dollars."
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_HUGE
 	attack_verb = list("smashed", "bashed", "hammered", "crunched")
 
@@ -346,10 +353,15 @@
 	icon_state = "chainsaw1"
 	item_state = "mounted_chainsaw"
 	w_class = WEIGHT_CLASS_HUGE
-	flags = NODROP | ABSTRACT
+	item_flags = ABSTRACT
 	sharp = TRUE
 	attack_verb = list("sawed", "torn", "cut", "chopped", "diced")
 	hitsound = 'sound/weapons/chainsaw.ogg'
+
+
+/obj/item/nullrod/chainsaw/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 /obj/item/nullrod/clown
 	name = "clown dagger"
@@ -368,7 +380,7 @@
 	desc = "A whip, blessed with the power to banish evil shadowy creatures. What a terrible night to be in spess."
 	icon_state = "chain"
 	item_state = "chain"
-	slot_flags = SLOT_FLAG_BELT
+	slot_flags = ITEM_SLOT_BELT
 	attack_verb = list("whipped", "lashed")
 	hitsound = 'sound/weapons/slash.ogg'
 
@@ -391,7 +403,7 @@
 	desc = "The brim of the hat is as sharp as the division between 0 and 1. It makes a mighty throwing weapon."
 	icon_state = "fedora"
 	item_state = "fedora"
-	slot_flags = SLOT_FLAG_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	icon = 'icons/obj/clothing/hats.dmi'
 	force = 0
 	throw_speed = 4
@@ -403,9 +415,15 @@
 	desc = "Particularly twisted deities grant gifts of dubious value."
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
-	flags = ABSTRACT | NODROP
+	item_flags = ABSTRACT
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = TRUE
+
+
+/obj/item/nullrod/armblade/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
+
 
 /obj/item/nullrod/carp
 	name = "carp-sie plushie"
@@ -432,7 +450,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 13
 	block_chance = 40
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	sharp = FALSE
 	hitsound = "swing_hit"
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
@@ -448,12 +466,13 @@
 	sharp = TRUE
 	embed_chance = 45
 	embedded_ignore_throwspeed_threshold = TRUE
-	slot_flags = null
-	flags = HANDSLOW
+	slot_flags = NONE
+	item_flags = SLOWS_WHILE_IN_HAND
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
 	drop_sound = 'sound/items/handling/knife_drop.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	var/mob/living/carbon/wielder
 
 /obj/item/nullrod/tribal_knife/New()
 	..()
@@ -461,14 +480,20 @@
 
 /obj/item/nullrod/tribal_knife/Destroy()
 	STOP_PROCESSING(SSobj, src)
+	wielder = null
 	return ..()
 
 /obj/item/nullrod/tribal_knife/process()
 	slowdown = rand(-2, 2)
 	if(iscarbon(loc))
-		var/mob/living/carbon/wielder = loc
+		wielder = loc
 		if(wielder.is_in_hands(src))
 			wielder.update_equipment_speed_mods()
+
+/obj/item/nullrod/tribal_knife/dropped(mob/user, slot, silent = FALSE)
+	slowdown = 0
+	user.update_equipment_speed_mods()
+	. = ..()
 
 /obj/item/nullrod/pitchfork
 	name = "unholy pitchfork"
@@ -513,7 +538,7 @@
 		"<span class='info'>You kneel[M == user ? null : " next to [M]"] and begin a prayer to [SSticker.Bible_deity_name].</span>")
 
 	praying = TRUE
-	if(do_after(user, 15 SECONDS, target = M))
+	if(do_after(user, 15 SECONDS, M))
 		if(ishuman(M))
 			var/mob/living/carbon/human/target = M
 
@@ -543,10 +568,11 @@
 
 			if(prob(25))
 				to_chat(target, "<span class='notice'>[user]'s prayer to [SSticker.Bible_deity_name] has eased your pain!</span>")
-				target.adjustToxLoss(-5)
-				target.adjustOxyLoss(-5)
-				target.adjustBruteLoss(-5)
-				target.adjustFireLoss(-5)
+				var/update = NONE
+				update |= target.heal_overall_damage(5, 5, updating_health = FALSE)
+				update |= target.heal_damages(tox = 5, oxy = 5, updating_health = FALSE)
+				if(update)
+					target.updatehealth()
 
 			praying = FALSE
 
@@ -625,7 +651,7 @@
 	item_state = "godstaff-red"
 	w_class = WEIGHT_CLASS_HUGE
 	force = 5
-	slot_flags = SLOT_FLAG_BACK
+	slot_flags = ITEM_SLOT_BACK
 	block_chance = 50
 
 	var/team_color = "red"
@@ -683,7 +709,7 @@
 		to_chat(missionary, "<span class='warning'>You halt the conversion as you realize [target] is mindless! Best to save your faith for someone more worthwhile.</span>")
 		return
 	to_chat(target, "<span class='userdanger'>Your mind seems foggy. For a moment, all you can think about is serving the greater good... the greater good...</span>")
-	if(do_after(missionary, 80))	//8 seconds to temporarily convert, roughly 3 seconds slower than a vamp's enthrall, but its a ranged thing
+	if(do_after(missionary, 8 SECONDS))	//8 seconds to temporarily convert, roughly 3 seconds slower than a vamp's enthrall, but its a ranged thing
 		if(faith < 100)		//to stop people from trying to exploit the do_after system to multi-convert, we check again if you have enough faith when it completes
 			to_chat(missionary, "<span class='warning'>You don't have enough faith to complete the conversion on [target]!</span>")
 			return

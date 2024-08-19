@@ -5,7 +5,7 @@
 	icon_state = "away"
 	has_gravity = STANDARD_GRAVITY
 	there_can_be_many = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = TRUE
 	ambientsounds = RUINS_SOUNDS
 	sound_environment = SOUND_ENVIRONMENT_STONEROOM
 

@@ -32,7 +32,7 @@
 
 
 /obj/structure/filingcabinet/Initialize(mapload)
-	..()
+	. = ..()
 	for(var/obj/item/I in loc)
 		if(istype(I, /obj/item/paper) || istype(I, /obj/item/folder) || istype(I, /obj/item/photo))
 			I.loc = src
@@ -63,7 +63,7 @@
 	default_unfasten_wrench(user, I)
 
 /obj/structure/filingcabinet/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc, 2)
 		for(var/obj/item/I in src)
 			I.forceMove(loc)

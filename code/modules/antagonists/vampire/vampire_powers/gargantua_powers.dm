@@ -29,7 +29,7 @@
 
 
 /obj/effect/proc_holder/spell/vampire/self/stomp/can_cast(mob/living/carbon/user, charge_check, show_message)
-	if(user.legcuffed)
+	if(iscarbon(user) && user.legcuffed)
 		return FALSE
 	return ..()
 
@@ -137,7 +137,6 @@
 
 	action_icon_state = "demonic_grasp"
 
-	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
 	invocation_type = "none"
@@ -224,9 +223,8 @@
 	return new /datum/spell_targeting/clicked_atom
 
 
-/obj/effect/proc_holder/spell/vampire/charge/can_cast(mob/user, charge_check, show_message)
-	var/mob/living/L = user
-	if(L.lying_angle || L.resting)
+/obj/effect/proc_holder/spell/vampire/charge/can_cast(mob/living/user, charge_check, show_message)
+	if(user.body_position == LYING_DOWN)
 		return FALSE
 	return ..()
 

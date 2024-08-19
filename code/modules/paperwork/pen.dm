@@ -15,7 +15,7 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "pen"
 	item_state = "pen"
-	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_EARS
+	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_EARS
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
@@ -69,7 +69,7 @@
 	var/pen_color_shift = 3
 
 /obj/item/pen/multi/Initialize(mapload)
-	..()
+	. = ..()
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/pen/multi/proc/select_colour(mob/user)
@@ -217,12 +217,12 @@
 
 /obj/item/pen/edagger/attack(mob/living/M, mob/living/user, def_zone)
 	var/extra_force_applied = FALSE
-	if(on && user.dir == M.dir && !M.incapacitated(TRUE) && user != M && backstab_cooldown <= world.time)
+	if(on && user.dir == M.dir && !M.incapacitated(INC_IGNORE_RESTRAINED) && user != M && backstab_cooldown <= world.time)
 		backstab_cooldown = (world.time + 10 SECONDS)
 		force += backstab_damage
 		extra_force_applied = TRUE
 		M.Weaken(2 SECONDS)
-		M.adjustStaminaLoss(40)
+		M.apply_damage(40, STAMINA)
 		add_attack_logs(user, M, "Backstabbed with [src]", ATKLOG_ALL)
 		M.visible_message(span_warning("[user] stabs [M] in the back!"), span_userdanger("[user] stabs you in the back! The energy blade makes you collapse in pain!"))
 		playsound(loc, backstab_sound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)
@@ -239,7 +239,6 @@
 	if(on)
 		on = FALSE
 		force = initial(force)
-		sharp = FALSE
 		w_class = initial(w_class)
 		name = initial(name)
 		attack_verb = list()
@@ -252,7 +251,6 @@
 	else
 		on = TRUE
 		force = 18
-		sharp = TRUE
 		w_class = WEIGHT_CLASS_NORMAL
 		name = "energy dagger"
 		attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
@@ -262,6 +260,7 @@
 		playsound(user, 'sound/weapons/saberon.ogg', 3, TRUE)
 		to_chat(user, span_warning("[src] is now active."))
 		set_light_on(TRUE)
+	set_sharpness(on)
 	update_icon(UPDATE_ICON_STATE)
 
 
@@ -303,3 +302,12 @@
 /obj/item/pen/fakesign
 	fake_signing = TRUE
 	//desc = "It's a normal black ink pen with constantly moving tip. Wait what?" //documented bcs its should be stealthy item, like edagger and poison
+
+/obj/item/pen/survival
+	name = "survival pen"
+	desc = "The latest in portable survival technology, this pen was designed as a miniature diamond pickaxe."
+	icon = 'icons/obj/bureaucracy.dmi'
+	icon_state = "digging_pen"
+	toolspeed = 10 //You will never willingly choose to use one of these over a shovel.
+	colour = COLOR_BLUE
+

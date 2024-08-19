@@ -4,7 +4,7 @@
 	desc = "One of the most generic arcade games ever."
 	icon = 'icons/obj/machines/arcade.dmi'
 	icon_state = "clawmachine_on"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
@@ -14,12 +14,12 @@
 	var/last_winner = null			//for letting people who to hunt down and steal prizes from
 	var/window_name = "arcade"		//in case you want to change the window name for certain machines
 
-/obj/machinery/arcade/New()
-	..()
+/obj/machinery/arcade/Initialize(mapload)
+	. = ..()
 	if(type == /obj/machinery/arcade)		//if you spawn the base-type, it will replace itself with a random subtype for randomness
 		var/choice = pick(subtypesof(/obj/machinery/arcade))
 		new choice(loc)
-		qdel(src)
+		return INITIALIZE_HINT_QDEL
 
 /obj/machinery/arcade/examine(mob/user)
 	. = ..()
@@ -48,7 +48,7 @@
 	if(stat & BROKEN || panel_open)
 		return
 	if(!tokens && !freeplay)
-		to_chat(user, "\The [src.name] doesn't have enough credits to play! Pay first!")
+		balloon_alert(user, "недостаточно кредитов!")
 		return
 	if(!in_use && (tokens || freeplay))
 		in_use = 1
@@ -56,7 +56,7 @@
 		return
 	if(in_use)
 		if(src != user.machine)
-			to_chat(user, "Someone else is already playing this machine, please wait your turn!")
+			balloon_alert(user, "автомат занят!")
 		return
 
 /obj/machinery/arcade/attackby(obj/item/I, mob/user, params)

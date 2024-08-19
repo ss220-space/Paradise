@@ -81,8 +81,6 @@
 	/// Whether this bodypart can be used for grasping
 	var/can_grasp = FALSE
 
-	/// If `TRUE` you cannot be identified by examine (used for head bodypart only)
-	var/disfigured = FALSE
 	/// Whether prosthetic bodypart is emagged, it will detonate when it fails
 	var/sabotaged = FALSE
 	/// Time when this organ was last splinted
@@ -91,7 +89,7 @@
 	var/list/embedded_objects
 
 	/// Whether bodypart has an open incision from surgery
-	var/open = 0
+	var/open = ORGAN_CLOSED
 	/// Whether bodypart needs to be opened with a saw to access the internal organs. Can be a string with encasing description
 	var/encased = FALSE
 	/// Reference to item hidden in this bodypart after cavity surgery
@@ -100,21 +98,38 @@
 	var/broken_description
 	/// Descriptive string used in amputation
 	var/amputation_point
+	/// If the organ has been properly attached or not. Limbs on mobs and robotic ones
+	var/properly_attached = FALSE
 
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
 
 
-/obj/item/organ/external/New(mob/living/carbon/holder)
+/obj/item/organ/external/New(mob/living/carbon/holder, special = ORGAN_MANIPULATION_NOEFFECT)
 	..()
 
 	if(dna?.species)
 		icobase = dna.species.icobase
 		deform = dna.species.deform
 	if(ishuman(holder))
-		replaced(holder)
+		replaced(holder, special)
 		sync_colour_to_human(holder)
+		properly_attached = TRUE
+
+	if(is_robotic())
+		// These can just be slapped on.
+		properly_attached = TRUE
+
 	get_icon()
+
+	// so you can just smack the limb onto a guy to start the "surgery"
+	var/application_surgery
+	if(!is_robotic())
+		application_surgery = /datum/surgery/reattach
+	else
+		application_surgery = /datum/surgery/reattach_synth
+
+	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = application_surgery)
 
 
 /obj/item/organ/external/Destroy()
@@ -147,18 +162,20 @@
 	QDEL_NULL(hidden)
 
 	if(owner && !owner.has_embedded_objects())
-		owner.clear_alert("embeddedobject")
+		owner.clear_alert(ALERT_EMBEDDED)
 
 	return ..()
 
 
-/obj/item/organ/external/replaced(mob/living/carbon/human/target)
+/obj/item/organ/external/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	owner = target
 
 	forceMove(owner)
+	if(iscarbon(owner))
+		SEND_SIGNAL(owner, COMSIG_CARBON_GAIN_ORGAN, src)
 
 	if(LAZYLEN(embedded_objects))
-		owner.throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
+		owner.throw_alert(ALERT_EMBEDDED, /atom/movable/screen/alert/embeddedobject)
 
 	if(!ishuman(owner))
 		return
@@ -170,7 +187,7 @@
 	owner.bodyparts |= src
 
 	for(var/atom/movable/thing in src)
-		thing.attempt_become_organ(src, owner)
+		thing.attempt_become_organ(src, owner, special)
 
 	if(parent_organ_zone)
 		parent = owner.bodyparts_by_name[parent_organ_zone]
@@ -219,10 +236,10 @@
 		qdel(src)
 
 
-/obj/item/organ/external/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target)
+/obj/item/organ/external/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	if(parent_organ_zone != parent.limb_zone)
 		return FALSE
-	replaced(target)
+	replaced(target, special)
 	return TRUE
 
 
@@ -234,32 +251,75 @@
 			   DAMAGE PROCS
 ****************************************************/
 
-/obj/item/organ/external/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE, silent = FALSE)
+
+/**
+ * Applies damage to external organs.
+ *
+ * Arguments:
+ * * brute - Amount of brute damage to apply.
+ * * burn - Amount of burn damage to apply.
+ * * blocked - Percent modifier to damage. 100 = 100% less damage dealt, 50% = 50% less damage dealt.
+ * * sharp - Sharpness of the weapon.
+ * * used_weapon - Item that is attacking [src].
+ * * forbidden_limbs - Mostly for local usage, required to properly spread incoming damage. Proc will ignore any owner's bodyparts in this list.
+ * * forced - "Force" exactly the damage dealt. This means it skips any damage modifiers. Also will not apply fractures or internal bleedings.
+ * * updating_health - If TRUE calls update health on success.
+ * * silent - If TRUE will not spam red messages in chat.
+ *
+ * Returns `TRUE` if bodypart damage state was changed, `FALSE` otherwise
+ */
+/obj/item/organ/external/proc/external_receive_damage(
+	brute = 0,
+	burn = 0,
+	blocked = 0,
+	sharp = FALSE,
+	used_weapon = null,
+	list/forbidden_limbs = null,
+	forced = FALSE,
+	updating_health = TRUE,
+	silent = FALSE,
+)
 	if(owner?.status_flags & GODMODE)
 		return FALSE
 
-	if(tough && !ignore_resists)
-		brute = max(0, brute - 5)
-		burn = max(0, burn - 4)
+	var/brute_was = brute_dam
+	var/burn_was = burn_dam
 
+	if(!forced)
+		if(tough)
+			brute = max(0, brute - 5)
+			burn = max(0, burn - 4)
+
+		if(brute <= 0 && burn <= 0)
+			return FALSE
+
+		brute *= brute_mod
+		burn *= burn_mod
+		brute *= ((100 - clamp(blocked + (owner?.get_blocking_resistance(brute, BRUTE, src, sharp, used_weapon) || 0), 0, 100)) / 100)
+		burn *= ((100 - clamp(blocked + (owner?.get_blocking_resistance(burn, BURN, src, sharp, used_weapon) || 0), 0, 100)) / 100)
+		if(owner)
+			brute *= owner.get_incoming_damage_modifier(brute, BRUTE, limb_zone, sharp, used_weapon)
+			burn *= owner.get_incoming_damage_modifier(burn, BURN, limb_zone, sharp, used_weapon)
+
+		// High brute damage or sharp objects may damage internal organs; distributed damage doesn't inflict it
+		if(LAZYLEN(internal_organs) && (brute_dam >= max_damage || (((sharp && brute >= LIMB_SHARP_THRESH_INT_DMG) || brute >= LIMB_THRESH_INT_DMG) && prob(LIMB_DMG_PROB))))
+			var/obj/item/organ/internal/internal_organ = pick(internal_organs)
+			// Pass full damage if an internal organ is dead
+			var/internal_damage = min(internal_organ.max_damage - internal_organ.damage, brute * 0.5)
+			if(internal_damage)
+				internal_organ.internal_receive_damage(internal_damage)
+				brute -= internal_damage
+
+	brute = round(brute, DAMAGE_PRECISION)
+	burn = round(burn, DAMAGE_PRECISION)
 	if(brute <= 0 && burn <= 0)
 		return FALSE
 
-	if(!ignore_resists)
-		brute *= brute_mod
-		burn *= burn_mod
-
-	// High brute damage or sharp objects may damage internal organs; distributed damage doesn't inflict it
-	if(!ignore_resists && LAZYLEN(internal_organs) && (brute_dam >= max_damage || (((sharp && brute >= LIMB_SHARP_THRESH_INT_DMG) || brute >= LIMB_THRESH_INT_DMG) && prob(LIMB_DMG_PROB))))
-		var/obj/item/organ/internal/internal_organ = pick(internal_organs)
-		// Pass full damage if an internal organ is dead
-		var/internal_damage = min(internal_organ.max_damage - internal_organ.damage, brute * 0.5)
-		if(internal_damage)
-			internal_organ.receive_damage(internal_damage)
-			brute -= internal_damage
+	var/original_brute = brute
+	var/original_burn = burn
 
 	if(!silent && brute && has_fracture() && owner?.has_pain() && prob(40))
-		owner.emote("scream")	// Getting hit on broken hand hurts
+		INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")	// Getting hit on broken hand hurts
 	else if(brute && prob((brute + burn) * 4))
 		remove_splint(splint_break = TRUE, silent = silent)	// Taking damage to splinted limbs removes the splints
 
@@ -268,7 +328,7 @@
 	else
 		add_autopsy_data(null, brute + burn)
 
-	if(!ignore_resists)
+	if(!forced && owner)
 		// See if internal bleeding/fracture has place; distributed damage doesn't inflict it
 		try_internal_bleeding(brute, silent)
 		try_fracture(brute, silent)
@@ -278,8 +338,8 @@
 
 	// Make sure we don't exceed the maximum damage a limb can take before dismembering
 	if((brute_dam + burn_dam + brute + burn) < max_damage)
-		brute_dam += brute
-		burn_dam += burn
+		brute_dam = round(brute_dam + brute, DAMAGE_PRECISION)
+		burn_dam = round(burn_dam + burn, DAMAGE_PRECISION)
 	else
 		// If we can't inflict the full amount of damage, spread the damage in other ways
 		// How much damage can we actually cause?
@@ -287,7 +347,7 @@
 		if(remaining_health)
 			if(brute > 0)
 				// Inflict all brute damage we can
-				brute_dam = min(brute_dam + brute, brute_dam + remaining_health)
+				brute_dam = round(min(brute_dam + brute, brute_dam + remaining_health), DAMAGE_PRECISION)
 				var/temp = remaining_health
 				// How much more damage can we inflict
 				remaining_health = max(0, remaining_health - brute)
@@ -296,7 +356,7 @@
 
 			if(burn > 0 && remaining_health)
 				// Inflict all burn damage we can
-				burn_dam = min(burn_dam + burn, burn_dam + remaining_health)
+				burn_dam = round(min(burn_dam + burn, burn_dam + remaining_health), DAMAGE_PRECISION)
 				// How much burn damage is left to inflict
 				burn = max(0, burn - remaining_health)
 
@@ -310,20 +370,20 @@
 			if(LAZYLEN(children))
 				var/all_children_forbidden = TRUE
 				for(var/obj/item/organ/external/childpart as anything in children)
-					if(!(childpart in forbidden_limbs))
+					if(!LAZYIN(forbidden_limbs, childpart))
 						all_children_forbidden = FALSE
 						possible_points += childpart
 				if(all_children_forbidden)
-					forbidden_limbs |= src
+					LAZYOR(forbidden_limbs, src)
 			else
-				forbidden_limbs |= src
+				LAZYOR(forbidden_limbs, src)
 
-			if(length(forbidden_limbs))
+			if(LAZYLEN(forbidden_limbs))
 				possible_points -= forbidden_limbs
 
 			// If everything is damaged, no damage
 			var/can_distribute = TRUE
-			if(owner && length(forbidden_limbs) == length(owner.bodyparts_by_name))
+			if(owner && LAZYLEN(forbidden_limbs) == length(owner.bodyparts_by_name))
 				can_distribute = FALSE
 
 			// Return damage to upper body if nothing is available
@@ -334,7 +394,7 @@
 				// And pass the pain around
 				var/obj/item/organ/external/picked_part = pick(possible_points)
 				// If the damage was reduced before, don't reduce it again
-				picked_part.receive_damage(brute, burn, sharp, used_weapon, forbidden_limbs, ignore_resists = TRUE, updating_health = FALSE, silent = silent)
+				picked_part.external_receive_damage(brute, burn, blocked, sharp, used_weapon, forbidden_limbs, TRUE, FALSE, silent)
 
 			// We've ensured all damage to the mob is retained, now let's drop it, if necessary
 			var/limb_dropped = FALSE
@@ -344,10 +404,14 @@
 				limb_dropped = TRUE
 
 			// If limb took enough damage, try to cut or tear it off.
-			if(!limb_dropped && sharp && owner && loc == owner && !cannot_amputate && prob(brute / 2))
-				droplimb(silent = silent)
+			if(!limb_dropped && sharp && owner && loc == owner && !cannot_amputate)
+				if(original_brute && prob(original_brute / 2))
+					droplimb(clean = FALSE, disintegrate = DROPLIMB_SHARP, silent = silent)
+					limb_dropped = TRUE
+				if(!limb_dropped && original_burn && prob(original_burn / 2))
+					droplimb(clean = FALSE, disintegrate = DROPLIMB_BURN, silent = silent)
 
-	if(updating_health)
+	if(updating_health && (QDELETED(src) || loc != organ_owner || brute_dam != brute_was || burn_dam != burn_was))
 		organ_owner?.updatehealth("limb receive damage")
 
 	return update_state()
@@ -355,14 +419,18 @@
 
 /obj/item/organ/external/proc/heal_damage(brute, burn, internal = FALSE, robo_repair = FALSE, updating_health = TRUE)
 	if(is_robotic() && !robo_repair)
-		return
+		return FALSE
 
-	brute_dam = max(brute_dam - brute, 0)
-	burn_dam  = max(burn_dam - burn, 0)
+	var/brute_was = brute_dam
+	var/burn_was = burn_dam
+	brute_dam = max(round(brute_dam - brute, DAMAGE_PRECISION), 0)
+	burn_dam  = max(round(burn_dam - burn, DAMAGE_PRECISION), 0)
+	if(brute_dam == brute_was && burn_dam == burn_was)
+		updating_health = FALSE
 
 	if(internal)
-		status &= ~ORGAN_BROKEN
-		perma_injury = 0
+		mend_fracture()
+		stop_internal_bleeding()
 
 	if(updating_health)
 		owner.updatehealth("limb heal damage")
@@ -377,24 +445,42 @@
 		switch(severity)
 			if(1)
 				// 44 total burn damage with 11 augmented limbs
-				receive_damage(0, 8)
+				if(owner)
+					owner.apply_damage(8, BURN, def_zone = src)
+				else
+					external_receive_damage(0, 8)
 			if(2)
 				// 22 total burn damage with 11 augmented limbs
-				receive_damage(0, 6)
+				if(owner)
+					owner.apply_damage(6, BURN, def_zone = src)
+				else
+					external_receive_damage(0, 6)
 	else if(emp_resistant) // IPC limbs
 		switch(severity)
 			if(1)
 				// 5.28 (9 * 0.66 burn_mod) burn damage, 65.34 damage with 11 limbs.
-				receive_damage(0, 9)
+				if(owner)
+					owner.apply_damage(9, BURN, def_zone = src)
+				else
+					external_receive_damage(0, 9)
 			if(2)
 				// 3.63 (5 * 0.66 burn_mod) burn damage, 39.93 damage with 11 limbs.
-				receive_damage(0, 5.5)
+				if(owner)
+					owner.apply_damage(5.5, BURN, def_zone = src)
+				else
+					external_receive_damage(0, 5.5)
 	else // Basic prosthetic limbs
 		switch(severity)
 			if(1)
-				receive_damage(0, 20)
+				if(owner)
+					owner.apply_damage(20, BURN, def_zone = src)
+				else
+					external_receive_damage(0, 20)
 			if(2)
-				receive_damage(0, 7)
+				if(owner)
+					owner.apply_damage(7, BURN, def_zone = src)
+				else
+					external_receive_damage(0, 7)
 
 
 /*
@@ -403,16 +489,12 @@ This function completely restores a damaged organ to perfect condition.
 /obj/item/organ/external/rejuvenate()
 	damage_state = "00"
 	surgeryize()
-	if(is_robotic())	//Robotic organs stay robotic.
-		status = ORGAN_ROBOT
-	else
-		status = NONE
+	heal_status_wounds(ALL)
 	germ_level = 0
 	perma_injury = 0
 	brute_dam = 0
 	burn_dam = 0
-	open = 0 //Closing all wounds.
-	disfigured = FALSE
+	open = ORGAN_CLOSED //Closing all wounds.
 
 	// handle internal organs
 	for(var/obj/item/organ/internal/organ as anything in internal_organs)
@@ -426,6 +508,21 @@ This function completely restores a damaged organ to perfect condition.
 	update_state()
 	if(!owner)
 		START_PROCESSING(SSobj, src)
+
+/obj/item/organ/external/proc/heal_status_wounds(flags_to_heal = ALL)
+	if(is_robotic())
+		status = ORGAN_ROBOT
+		return
+	if(flags_to_heal & ORGAN_MUTATED)
+		unmutate()
+	if(flags_to_heal & ORGAN_DEAD)
+		unnecrotize()
+	if(flags_to_heal & ORGAN_BROKEN)
+		mend_fracture()
+	if(flags_to_heal & ORGAN_INT_BLEED)
+		stop_internal_bleeding()
+	if(flags_to_heal & ORGAN_DISFIGURED)
+		undisfigure()
 
 
 /****************************************************
@@ -514,7 +611,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		return FALSE
 	if(brute_dam + burn_dam + inflicted_damage <= min_broken_damage)
 		return FALSE
-	if(!prob(inflicted_damage * FRAGILITY(owner)))
+	if(!prob(inflicted_damage * owner.dna.species.bonefragility * owner.physiology.bone_fragility))
 		return FALSE
 	if(fracture(silent))
 		add_attack_logs(owner, null, "Suffered fracture to [src](Damage: [inflicted_damage], Organ HP: [max_damage - (brute_dam + burn_dam) ])")
@@ -609,13 +706,12 @@ Note that amputating the affected organ does in fact remove the infection from t
 			for(var/obj/item/organ/external/childpart as anything in children) //Factor in the children's brute and burn into how much will transfer
 				total_brute += childpart.brute_dam
 				total_burn += childpart.burn_dam
-			parent.receive_damage(total_brute, total_burn, ignore_resists = TRUE, silent = silent) //Transfer the full damage to the parent, bypass limb damage reduction.
+			parent.external_receive_damage(total_brute, total_burn, forced = TRUE, updating_health = FALSE, silent = silent) //Transfer the full damage to the parent, bypass limb damage reduction.
 		parent = null
-		dir = SOUTH
+		setDir(SOUTH)
 
 	if(victim)
 		victim.updatehealth("droplimb")
-		victim.UpdateDamageIcon()
 		victim.regenerate_icons()
 
 	switch(disintegrate)
@@ -670,6 +766,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(organ_spilled && !silent)
 		organ_owner.visible_message(span_danger("[organ_owner]'s internal organs spill out onto the floor!"))
 
+	open = ORGAN_ORGANIC_OPEN
 	return TRUE
 
 
@@ -685,7 +782,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(I.sharp)
 		add_fingerprint(user)
 		if(!length(contents))
-			to_chat(user, span_warning("There is nothing left inside [src]!"))
+			user.balloon_alert(user, "внутри ничего нет!")
 			return
 
 		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
@@ -693,7 +790,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			span_warning("[user] begins to cut open [src]."),
 			span_notice("You begin to cut open [src]..."),
 		)
-		if(do_after(user, 5 SECONDS, target = src) && length(contents) && !QDELETED(src) && !QDELETED(user))
+		if(do_after(user, 5 SECONDS, src) && length(contents) && !QDELETED(src) && !QDELETED(user))
 			drop_organs()
 	else
 		return ..()
@@ -820,7 +917,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	return TRUE
 
-
 /obj/item/organ/external/proc/fracture(silent = FALSE)
 	if(!CONFIG_GET(flag/bones_can_break))
 		return FALSE
@@ -841,7 +937,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		playsound(owner, "bonebreak", 150, TRUE)
 
 		if(owner.has_pain())
-			owner.emote("scream")
+			INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 
 	status |= ORGAN_BROKEN
 	broken_description = pick("broken", "fracture", "hairline fracture")
@@ -851,6 +947,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(prob(25))
 		release_restraints(silent = silent)
 
+	SEND_SIGNAL(owner, COMSIG_CARBON_RECEIVE_FRACTURE)
 	return TRUE
 
 
@@ -900,7 +997,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if(splint_break)
 			owner.Stun(4 SECONDS)
 			if(owner.has_pain() && !silent)
-				owner.emote("scream")
+				INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, emote), "scream")
 				owner.visible_message(
 					span_danger("[owner] screams in pain as [owner.p_their()] splint pops off their [name]!"),
 					span_userdanger("You scream in pain as your splint pops off your [name]!"),
@@ -940,6 +1037,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 	// Robot parts also lack bones
 	// This is so surgery isn't kaput, let's see how this does
 	encased = null
+
+	// override the existing initiator
+	AddComponent(/datum/component/surgery_initiator/limb, forced_surgery = /datum/surgery/reattach_synth)
 
 	if(istext(company))
 		set_company(company)
@@ -1029,7 +1129,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 /obj/item/organ/external/proc/disfigure(silent = FALSE)
-	if(is_disfigured())
+	if(is_disfigured() || is_robotic())
 		return FALSE
 
 	if(owner)
@@ -1043,19 +1143,22 @@ Note that amputating the affected organ does in fact remove the infection from t
 				span_italics("You hear a sickening sound.")
 			)
 
-	disfigured = TRUE
+	status |= ORGAN_DISFIGURED
 	return TRUE
 
 
 /obj/item/organ/external/proc/is_disfigured()
-	return disfigured
+	return (status & ORGAN_DISFIGURED)
 
 
 /obj/item/organ/external/proc/undisfigure()
+	if(is_robotic())
+		return FALSE
+
 	if(!is_disfigured())
 		return FALSE
 
-	disfigured = FALSE
+	status &= ~ORGAN_DISFIGURED
 
 	return TRUE
 
@@ -1112,7 +1215,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		thing.forceMove(drop_loc)
 		.++
 	if(clear_alert && owner && !owner.has_embedded_objects())
-		owner.clear_alert("embeddedobject")
+		owner.clear_alert(ALERT_EMBEDDED)
 	return .
 
 
@@ -1122,7 +1225,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	LAZYREMOVE(embedded_objects, thing)
 	thing.forceMove(drop_loc ? drop_loc : drop_location())
 	if(clear_alert && owner && !owner.has_embedded_objects())
-		owner.clear_alert("embeddedobject")
+		owner.clear_alert(ALERT_EMBEDDED)
 	return TRUE
 
 
@@ -1130,7 +1233,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	LAZYOR(embedded_objects, thing)
 	thing.forceMove(src)
 	if(throw_alert)
-		owner?.throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
+		owner?.throw_alert(ALERT_EMBEDDED, /atom/movable/screen/alert/embeddedobject)
 
 
 #undef LIMB_SHARP_THRESH_INT_DMG

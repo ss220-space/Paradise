@@ -4,7 +4,7 @@
 	icon = 'icons/obj/engines_and_power/tesla/tesla_coil.dmi'
 	icon_state = "coil0"
 	anchored = FALSE
-	density = 1
+	density = TRUE
 
 	var/power_loss = 2
 	var/input_power_multiplier = 1
@@ -31,13 +31,14 @@
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		power_multiplier += C.rating
 		zap_cooldown -= (C.rating * 20)
+	zap_cooldown = max(zap_cooldown, 10)
 	input_power_multiplier = power_multiplier
 
 /obj/machinery/power/tesla_coil/attackby(obj/item/W, mob/user, params)
 	if(exchange_parts(user, W))
 		return
 
-	else if(istype(W, /obj/item/assembly/signaler) && panel_open)
+	else if(issignaler(W) && panel_open)
 		add_fingerprint(user)
 		wires.Interact(user)
 
@@ -109,7 +110,7 @@
 	icon = 'icons/obj/engines_and_power/tesla/tesla_coil.dmi'
 	icon_state = "grounding_rod0"
 	anchored = FALSE
-	density = 1
+	density = TRUE
 
 /obj/machinery/power/grounding_rod/Initialize(mapload)
 	. = ..()
