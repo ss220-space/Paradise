@@ -124,3 +124,28 @@
 	. = ..()
 	if(opened)
 		. += span_warning("Яркий свет не позволяет вам увидеть содержимое кейса.")
+
+/obj/item/case_with_bipki_false
+	name = "Кейс с бипками?"
+	desc = "Легендарнейший кейс с бипками! Интересно что это такое?"
+	icon = 'icons/obj/beebki.dmi'
+	icon_state = "briefcase_bipki"
+	item_state = "briefcase"
+	force = 8
+	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	can_be_hit = FALSE
+	w_class = WEIGHT_CLASS_BULKY
+	var/opened = FALSE
+
+/obj/item/case_with_bipki_false/attack_self(mob/user)
+	. = ..()
+	opened = TRUE
+	update_icon(UPDATE_ICON_STATE)
+	to_chat(user, span_dangerbigger("Вы видите ПРОТИВОПЕХОТНУЮ МИНУ"))
+	sleep(1)
+	explosion(src.loc,1,4,5,flame_range = 2)
+	qdel(src)
+
+/obj/item/case_with_bipki_false/update_icon_state()
+	icon_state = "briefcase_bipki[opened ? "_o" : ""]"
