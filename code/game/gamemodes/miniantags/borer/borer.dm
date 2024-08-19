@@ -178,10 +178,6 @@
 
 
 /mob/living/simple_animal/borer/proc/Communicate(var/sended_message)
-	if(!host)
-		to_chat(src, "У вас нет носителя!")
-		return
-		
 	if(stat)
 		to_chat(src, "Сейчас вы не в состоянии этого сделать.")
 		return
@@ -252,7 +248,7 @@
 		return
 
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
-	if(!B || !B.host_brain)
+	if(!B.host_brain)
 		return
 	var/mob/living/captive_brain/CB = B.host_brain
 	var/input = stripped_input(src, "Введите сообщение для пленённого разума.", "Сообщение", "")

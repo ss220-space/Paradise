@@ -348,6 +348,7 @@
 	background_icon_state = "bg_alien"
 	var/mob/living/simple_animal/borer/borer
 	var/mob/living/carbon/human/host
+	var/host_req = FALSE
 	
 /datum/action/innate/borer/Grant(mob/user)
 	. = ..()
@@ -359,6 +360,8 @@
 
 /datum/action/innate/borer/IsAvailable()
 	if(!borer)
+		return FALSE
+	if(host_req && !borer.host)
 		return FALSE
 	. = ..()
 
@@ -376,6 +379,7 @@
 	name = "Converse with Host"
 	desc = "Send a silent message to your host."
 	button_icon_state = "alien_whisper"
+	host_req = TRUE
 
 /datum/action/innate/borer/talk_to_host/Activate()
 	borer = owner
@@ -414,6 +418,7 @@
 	name = "Assume Control"
 	desc = "Fully connect to the brain of your host."
 	button_icon_state = "borer_brain"
+	host_req = TRUE
 
 /datum/action/innate/borer/take_control/Activate()
 	borer = owner
@@ -432,6 +437,7 @@
 	name = "Release Host"
 	desc = "Slither out of your host."
 	button_icon_state = "borer_leave"
+	host_req = TRUE
 
 /datum/action/innate/borer/leave_body/Activate()
 	borer = owner
@@ -441,6 +447,7 @@
 	name = "Secrete Chemicals"
 	desc = "Push some chemicals into your host's bloodstream."
 	button_icon_state = "fleshmend"
+	host_req = TRUE
 
 /datum/action/innate/borer/make_chems/Activate()
 	borer = owner
@@ -450,6 +457,7 @@
 	name = "Focus menu"
 	desc = "Reinforce your host."
 	button_icon_state = "human_form"
+	host_req = TRUE
 
 /datum/action/innate/borer/focus_menu/Activate()
 	borer = owner
@@ -459,6 +467,7 @@
 	name = "Chemical laboratory"
 	desc = "Learn new chemical from host blood."
 	button_icon_state = "heal"
+	host_req = TRUE
 
 /datum/action/innate/borer/learn_chem/Activate()
 	borer = owner
