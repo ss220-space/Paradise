@@ -396,7 +396,7 @@
 #define EXPLOSION_BLOCK_PROC -1
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 33
+#define SQL_VERSION 34
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -523,3 +523,4 @@
 /// Disposal: How frequently disposals can make sounds, to prevent huge sound stacking
 #define DISPOSAL_SOUND_COOLDOWN (0.1 SECONDS)
 
+#define SERVER_MESSAGES_REDIS_CHANNEL "byond.servermessages"

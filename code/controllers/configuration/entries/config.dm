@@ -820,3 +820,18 @@
 	default = 400
 	min_val = 0
 
+/datum/config_entry/flag/enable_redis
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
+
+/datum/config_entry/string/redis_connstring
+	default = "redis://127.0.0.1/"
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
+
+/datum/config_entry/flag/enable_multi_instance
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
+
+/datum/config_entry/string/instance_id
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
+
+/datum/config_entry/string/internal_ip
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
