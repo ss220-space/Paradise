@@ -71,8 +71,8 @@
 		tmp_capacity += M.rating
 	for (var/obj/item/stock_parts/manipulator/M in component_parts)
 		rating = M.rating
-	maxwater = tmp_capacity * 50 // Up to 300
-	maxnutri = tmp_capacity * 5 // Up to 30
+	maxwater = tmp_capacity * 50 // Up to 500
+	maxnutri = tmp_capacity * 5 // Up to 50
 	waterlevel = maxwater
 	nutrilevel = 3
 	plant_hud_set_nutrient()

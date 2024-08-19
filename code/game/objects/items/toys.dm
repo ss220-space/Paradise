@@ -2131,7 +2131,7 @@
 	var/datum/looping_sound/newtonballs/soundloop
 
 /obj/item/toy/desk/newtoncradle/Initialize()
-	..()
+	. =..()
 	soundloop = new(list(src), FALSE)
 
 /obj/item/toy/desk/newtoncradle/attack_self(mob/user)
@@ -2149,7 +2149,7 @@
 	var/datum/looping_sound/fanblow/soundloop
 
 /obj/item/toy/desk/fan/Initialize()
-	..()
+	. = ..()
 	soundloop = new(list(src), FALSE)
 
 /obj/item/toy/desk/fan/attack_self(mob/user)

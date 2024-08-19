@@ -6,7 +6,10 @@
 	var/static/banned_books = list(/obj/item/book/manual/random, /obj/item/book/manual/nuclear)
 	var/newtype = pick(subtypesof(/obj/item/book/manual) - banned_books)
 	new newtype(loc)
-	qdel(src)
+
+/obj/item/book/manual/random/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_QDEL
 
 /obj/item/book/random
 	icon_state = "random_book"
@@ -14,9 +17,9 @@
 	var/category = null
 
 /obj/item/book/random/Initialize()
-	..()
+	. = ..()
 	create_random_books(amount, src.loc, TRUE, category)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/item/book/random/triple
 	amount = 3

@@ -103,7 +103,7 @@
 	var/underlay_floor_dir = 2
 
 /turf/simulated/wall/shuttle/nosmooth/interior/Initialize()
-	..()
+	. = ..()
 	if(underlay_floor_icon && underlay_floor_icon_state)
 		var/image/floor_underlay = image(underlay_floor_icon,,underlay_floor_icon_state,,underlay_floor_dir)
 		underlays.Cut()
@@ -171,7 +171,7 @@
 	smoothing_groups = SMOOTH_GROUP_TRANSPARENT_FLOOR
 
 /turf/simulated/floor/shuttle/transparent_floor/Initialize()
-	..()
+	. = ..()
 	var/obj/O
 	O = new()
 	O.underlays.Add(src)

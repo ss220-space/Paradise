@@ -34,26 +34,6 @@
 	return TRUE
 
 
-/datum/keybinding/living/whisper
-	name = "Шептать"
-	keys = list("ShiftT")
-
-
-/datum/keybinding/living/whisper/down(client/user)
-	. = ..()
-	if(.)
-		return .
-	var/mob/living/living_mob = user.mob
-	living_mob.set_typing_indicator(TRUE)
-	living_mob.hud_typing = TRUE
-	var/message = typing_input(living_mob, "", "Whisper (text)")
-	living_mob.hud_typing = FALSE
-	living_mob.set_typing_indicator(FALSE)
-	if(message)
-		living_mob.whisper(message)
-	return TRUE
-
-
 /datum/keybinding/living/look_up
 	name = "Взглянуть вверх"
 	keys = list("Northwest") // Home

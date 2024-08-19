@@ -509,6 +509,10 @@
 		// dunno how you got here but okay
 		return SURGERY_BEGINSTEP_SKIP
 
+	if(istype(organ, /obj/item/organ/internal/wryn/hivenode) && !iswryn(target)) // If they make more "unique" organs, I'll make some vars and a separate proc, but now..
+		to_chat(user, span_warning("Данное существо не способно принять этот орган!"))
+		return SURGERY_BEGINSTEP_SKIP
+
 	if(target_zone != organ.parent_organ_zone || target.get_organ_slot(organ.slot))
 		to_chat(user, span_notice("There is no room for [organ] in [target]'s [parse_zone(target_zone)]!"))
 		return SURGERY_BEGINSTEP_SKIP

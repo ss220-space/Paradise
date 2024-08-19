@@ -375,7 +375,7 @@
 
 
 /obj/machinery/computer/turbine_computer/Initialize()
-	..()
+	. = ..()
 	spawn(10)
 		locate_machinery()
 

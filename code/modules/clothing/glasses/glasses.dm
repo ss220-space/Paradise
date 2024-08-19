@@ -157,7 +157,7 @@
 	item_state = "purple"
 	origin_tech = "magnets=2;engineering=1"
 	prescription_upgradable = FALSE
-	scan_reagents = TRUE //You can see reagents while wearing science goggles
+	examine_extensions = EXAMINE_HUD_SCIENCE
 	resistance_flags = ACID_PROOF
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
 	sprite_sheets = list(
@@ -445,7 +445,7 @@
 /obj/item/clothing/glasses/sunglasses/reagent
 	name = "sunscanners"
 	desc = "Strangely ancient technology used to help provide rudimentary eye color. Outfitted with apparatus to scan individual reagents."
-	scan_reagents = TRUE
+	examine_extensions = EXAMINE_HUD_SCIENCE
 
 /obj/item/clothing/glasses/virussunglasses
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Enhanced shielding blocks many flashes."
@@ -609,7 +609,7 @@
 	item_state = "godeye"
 	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	see_in_dark = 8
-	scan_reagents = TRUE
+	examine_extensions = EXAMINE_HUD_SCIENCE
 	flags_cover = null
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
@@ -705,7 +705,7 @@
 	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This ones are with reagent and research scanners."
 	icon_state = "tajblind_sci"
 	item_state = "tajblind_sci"
-	scan_reagents = TRUE
+	examine_extensions = EXAMINE_HUD_SCIENCE
 	actions_types = list(/datum/action/item_action/toggle_research_scanner,/datum/action/item_action/toggle)
 
 /obj/item/clothing/glasses/tajblind/sci/sunglasses

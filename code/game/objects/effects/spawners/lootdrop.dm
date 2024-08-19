@@ -16,7 +16,10 @@
 
 			if(lootspawn)
 				new lootspawn(loc)
-	qdel(src)
+
+/obj/effect/spawner/lootdrop/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/lootdrop/armory_contraband
 	name = "armory contraband gun spawner"
