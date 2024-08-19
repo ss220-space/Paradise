@@ -39,7 +39,7 @@
 	for(var/atom/movable/I in contents)
 		if(!is_type_in_list(I, GLOB.ungibbable_items_types))
 			if(length(I.contents))
-				I.drop_ungibbable_items(new_loc)
+				. += I.drop_ungibbable_items(new_loc)
 			continue
 
 		. += I
