@@ -28,7 +28,7 @@
 
 
 /datum/dna/gene/basic/regenerate/OnMobLife(mob/living/carbon/human/H)
-H.heal_overall_damage(2.5, 2.5)
+	H.heal_overall_damage(2.5, 2.5)
 
 /datum/dna/gene/basic/increaserun
 	name = "Super Speed"
