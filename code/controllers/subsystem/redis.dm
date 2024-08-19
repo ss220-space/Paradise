@@ -21,44 +21,47 @@ SUBSYSTEM_DEF(redis)
 	// Connect to cappuccino
 	connect()
 
-	if(connected)
-		// Loop efficiency doesnt matter here. It runs once and likely wont have any events in
-		for(var/datum/redis_message/RM in queue)
-			publish(RM.channel, RM.message)
+	if(!connected)
+		return SS_INIT_NO_NEED
+	// Loop efficiency doesnt matter here. It runs once and likely wont have any events in
+	for(var/datum/redis_message/RM in queue)
+		publish(RM.channel, RM.message)
 
-		// Setup all callbacks
-		for(var/cb in subtypesof(/datum/redis_callback))
-			var/datum/redis_callback/RCB = new cb()
-			if(isnull(RCB.channel))
-				stack_trace("[RCB.type] has no channel set!")
-				continue
+	// Setup all callbacks
+	for(var/cb in subtypesof(/datum/redis_callback))
+		var/datum/redis_callback/RCB = new cb()
+		if(isnull(RCB.channel))
+			stack_trace("[RCB.type] has no channel set!")
+			continue
 
-			if(RCB.channel in subbed_channels)
-				stack_trace("Attempted to subscribe to the channel '[RCB.channel]' from [RCB.type] twice!")
+		if(RCB.channel in subbed_channels)
+			stack_trace("Attempted to subscribe to the channel '[RCB.channel]' from [RCB.type] twice!")
 
-			rustg_redis_subscribe(RCB.channel)
-			subbed_channels[RCB.channel] = RCB
+		rustg_redis_subscribe(RCB.channel)
+		subbed_channels[RCB.channel] = RCB
 
-		// Send our presence to required channels
-		var/list/presence_data = list()
-		presence_data["author"] = "system"
-		presence_data["source"] = CONFIG_GET(string/instance_id)
-		presence_data["message"] = "Connected at `[SQLtime()]` during round [GLOB.round_id]"
+	// Send our presence to required channels
+	var/list/presence_data = list()
+	presence_data["author"] = "system"
+	presence_data["source"] = CONFIG_GET(string/instance_id)
+	presence_data["message"] = "Connected at `[SQLtime()]` during round [GLOB.round_id]"
 
-		var/presence_text = json_encode(presence_data)
+	var/presence_text = json_encode(presence_data)
 
-		for(var/channel in list("byond.asay", "byond.msay")) // Channels to announce to
-			publish(channel, presence_text)
+	for(var/channel in list("byond.asay", "byond.msay")) // Channels to announce to
+		publish(channel, presence_text)
 
-		// Report detailed presence info to system
-		var/list/presence_data_2 = list()
-		presence_data_2["source"] = CONFIG_GET(string/instance_id)
-		presence_data_2["round_id"] = GLOB.round_id
-		presence_data_2["event"] = "server_restart"
-		publish("byond.system", json_encode(presence_data_2))
+	// Report detailed presence info to system
+	var/list/presence_data_2 = list()
+	presence_data_2["source"] = CONFIG_GET(string/instance_id)
+	presence_data_2["round_id"] = GLOB.round_id
+	presence_data_2["event"] = "server_restart"
+	publish("byond.system", json_encode(presence_data_2))
 
-		var/amount_registered = length(subbed_channels)
-		log_startup_progress("Registered [amount_registered] callback[amount_registered == 1 ? "" : "s"].")
+	var/amount_registered = length(subbed_channels)
+	log_startup_progress("Registered [amount_registered] callback[amount_registered == 1 ? "" : "s"].")
+	return SS_INIT_SUCCESS
+
 
 /datum/controller/subsystem/redis/fire()
 	check_messages()
@@ -72,7 +75,8 @@ SUBSYSTEM_DEF(redis)
 			stack_trace("SSredis has known to be very buggy when running on Linux with random dropouts ocurring due to interrupted syscalls. You have been warned!")
 		#endif
 
-		var/conn_failed = rustg_redis_connect(CONFIG_GET(string/redis_connstring))
+		var/conn = CONFIG_GET(string/redis_connstring)
+		var/conn_failed = rustg_redis_connect(conn)
 		if(conn_failed)
 			log_startup_progress("Failed to connect to redis. Please inform the server host.")
 			SEND_TEXT(world.log, "Redis connection failure: [conn_failed]")
