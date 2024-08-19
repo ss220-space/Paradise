@@ -19,7 +19,7 @@
 	name = "Regenerate"
 	activation_messages = list("Your wounds start healing.")
 	deactivation_messages = list("Your regenerative powers feel like they've vanished.")
-	instability = GENE_INSTABILITY_MINOR
+	instability = GENE_INSTABILITY_MODERATE
 	mutation = REGEN
 
 /datum/dna/gene/basic/regenerate/New()
@@ -27,8 +27,8 @@
 	block = GLOB.regenerateblock
 
 /datum/dna/gene/basic/regenerate/OnMobLife(mob/living/carbon/human/H)
-	H.adjustBruteLoss(-0.1, FALSE)
-	H.adjustFireLoss(-0.1)
+	H.adjustBruteLoss(-2.5, FALSE)
+	H.adjustFireLoss(-2.5)
 
 /datum/dna/gene/basic/increaserun
 	name = "Super Speed"
