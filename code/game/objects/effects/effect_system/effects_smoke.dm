@@ -141,10 +141,10 @@
 
 /datum/effect_system/smoke_spread/solid
 	effect_type = /obj/effect/particle_effect/smoke/solid
-	custom_lifetime = 10
+	custom_lifetime = 9
 	var/effect_range
 
-/datum/effect_system/smoke_spread/solid/set_up(n = 5, c = 0, loca, direct, range)
+/datum/effect_system/smoke_spread/solid/set_up(n = 5, c = 0, loca, direct, range = 0)
 	..()
 	effect_range = range
 
@@ -160,7 +160,7 @@
 			location = get_turf(T)
 			var/obj/effect/particle_effect/smoke/S = new effect_type(location)
 			if(custom_lifetime)
-				S.lifetime = rand(custom_lifetime, custom_lifetime + 3)
+				S.lifetime = rand(custom_lifetime - 3, custom_lifetime)
 			if(color)
 				S.color = color
 			if(!direction)
@@ -170,7 +170,7 @@
 					S.direction = pick(GLOB.alldirs)
 			else
 				S.direction = direction
-			S.steps = pick(0,1,1,1,2,2,2,3)
+			S.steps = pick(0,1,1,1,2,2,2,3,3)
 			S.process()
 
 /////////////////////////////////////////////
