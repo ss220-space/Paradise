@@ -11,6 +11,10 @@
 	. = ..()
 	if(.)
 		var/damage_type = BRUTE
+		if(istype(hitby, /obj/item/projectile))
+			var/obj/item/projectile/P = hitby
+			if(P.shield_buster)
+				take_damage(180, damage_type, sound_effect = FALSE) //2 shots for tele, 3 for riot
 		if(isobj(hitby))
 			var/obj/hitby_obj = hitby
 			damage_type = hitby_obj.damtype
@@ -97,13 +101,21 @@
 	var/active = 0
 
 /obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(istype(hitby, /obj/item/projectile))
+		var/obj/item/projectile/P = hitby
+		if(P.shield_buster && active)
+			toggle(owner, TRUE)
+			to_chat(owner, "<span class='warning'>[hitby] overloaded your [src]!</span>")
 	return FALSE
 
 /obj/item/shield/energy/IsReflect()
 	return (active)
 
 /obj/item/shield/energy/attack_self(mob/living/carbon/human/user)
-	if((CLUMSY in user.mutations) && prob(50))
+	toggle(user, FALSE)
+
+/obj/item/shield/energy/proc/toggle(mob/living/carbon/human/user, forced)
+	if((CLUMSY in user.mutations) && prob(50) && !forced)
 		to_chat(user, "<span class='warning'>You beat yourself in the head with [src].</span>")
 		user.take_organ_damage(5)
 	active = !active
@@ -127,7 +139,8 @@
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
-	add_fingerprint(user)
+	if(!forced)
+		add_fingerprint(user)
 	return
 
 /obj/item/shield/energy/update_icon_state()
