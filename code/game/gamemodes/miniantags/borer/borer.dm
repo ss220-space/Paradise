@@ -178,6 +178,10 @@
 
 
 /mob/living/simple_animal/borer/proc/Communicate(var/sended_message)
+	if(!host)
+		to_chat(src, "У вас нет носителя!")
+		return
+		
 	if(stat)
 		to_chat(src, "Сейчас вы не в состоянии этого сделать.")
 		return

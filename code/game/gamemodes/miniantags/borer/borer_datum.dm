@@ -356,7 +356,12 @@
 		borer = host.has_brain_worms()
 	if(isborer(user))
 		borer = user
-	
+
+/datum/action/innate/borer/IsAvailable()
+	if(!borer)
+		return FALSE
+	. = ..()
+
 /datum/action/innate/borer/Remove(mob/user)
 	. = ..()
 	borer = null
