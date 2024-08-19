@@ -154,7 +154,6 @@
 	INVOKE_ASYNC(src, PROC_REF(SmokeEm))
 
 /datum/effect_system/smoke_spread/solid/proc/SmokeEm()
-	// var/list/V = view(effect_range, get_turf(location)) // get_turf(location)
 	for(var/turf/T in view(effect_range, get_turf(location)))
 		for(var/i = 0, i < number, i++)
 			location = get_turf(T)
@@ -170,7 +169,7 @@
 					S.direction = pick(GLOB.alldirs)
 			else
 				S.direction = direction
-			S.steps = pick(0,1,1,1,2,2,2,3,3)
+			S.steps = pickweight(list(0 = 1, 1 = 3, 2 = 3, 3 = 2))
 			S.process()
 
 /////////////////////////////////////////////
