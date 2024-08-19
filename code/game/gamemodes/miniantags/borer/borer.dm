@@ -420,7 +420,7 @@
 	if(!force_say_content)
 		return
 
-	if(!user.controlling && !user.stat && !user.host?.stat && user.evo_points >= evo_cost) // we really need that double check
+	if(!user.controlling && !user.stat && user.host && !user.host.stat && user.evo_points >= evo_cost) // we really need that double check
 		user.host.say(force_say_content)
 		user.evo_points -= evo_cost
 		add_attack_logs(user, user.host, "Forcesaid: [force_say_content]")
@@ -463,11 +463,11 @@
 			return
 
 		var/datum/reagent/reagent = href_list["borer_use_chem"]
-		reagent = new reagent()
 
 		if(!reagent || !host || controlling || !src || stat)
 			return
 
+		reagent = new reagent()
 		if(chemicals < reagent.chemuse)
 			to_chat(src, span_boldnotice("Вам нужно [reagent.chemuse] химикатов для выделения [reagent.name]!"))
 			return
