@@ -2,6 +2,8 @@
 	command_name = "new_round_announce"
 
 /datum/server_command/new_round_announce/execute(source, command_args)
+	if(!CONFIG_GET(flag/enable_instance_announce))
+		return
 	var/server_name = command_args["sname"]
 	var/map_name = command_args["mname"]
 	var/map_fluff = command_args["mfluff"]

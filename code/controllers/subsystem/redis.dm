@@ -40,16 +40,17 @@ SUBSYSTEM_DEF(redis)
 		rustg_redis_subscribe(RCB.channel)
 		subbed_channels[RCB.channel] = RCB
 
-	// Send our presence to required channels
-	var/list/presence_data = list()
-	presence_data["author"] = "system"
-	presence_data["source"] = CONFIG_GET(string/instance_id)
-	presence_data["message"] = "Connected at `[SQLtime()]` during round [GLOB.round_id]"
+	if(CONFIG_GET(flag/enable_instance_announce))
+		// Send our presence to required channels
+		var/list/presence_data = list()
+		presence_data["author"] = "system"
+		presence_data["source"] = CONFIG_GET(string/instance_id)
+		presence_data["message"] = "Connected at `[SQLtime()]` during round [GLOB.round_id]"
 
-	var/presence_text = json_encode(presence_data)
+		var/presence_text = json_encode(presence_data)
 
-	for(var/channel in list("byond.asay", "byond.msay")) // Channels to announce to
-		publish(channel, presence_text)
+		for(var/channel in list("byond.asay", "byond.msay")) // Channels to announce to
+			publish(channel, presence_text)
 
 	// Report detailed presence info to system
 	var/list/presence_data_2 = list()

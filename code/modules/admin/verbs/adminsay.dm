@@ -6,8 +6,6 @@
 	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
 	if(!msg)	return
 
-	msg = handleDiscordEmojis(msg)
-
 	var/datum/asays/asay = new(usr.ckey, usr.client.holder.rank, msg, world.timeofday)
 	GLOB.asays += asay
 	log_adminsay(msg, src)
@@ -21,6 +19,8 @@
 			data["message"] = html_decode(msg)
 			SSredis.publish("byond.asay", json_encode(data))
 
+		msg = handleDiscordEmojis(msg)
+
 		for(var/client/C in GLOB.admins)
 			if(R_ADMIN & C.holder.rights)
 				// Lets see if this admin was pinged in the asay message
@@ -30,6 +30,7 @@
 					msg = replacetext(msg, "@[C.key]", "<font color='red'>@[C.key]</font>") // Same applies here. key and ckey.
 
 				msg = "<span class='emoji_enabled'>[msg]</span>"
+
 				to_chat(C, "<span class='admin_channel'>ADMIN: <span class='name'>[key_name(usr, 1)]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_ADMINCHAT, confidential = TRUE)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Asay") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!

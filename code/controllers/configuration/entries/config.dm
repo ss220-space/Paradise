@@ -830,6 +830,8 @@
 /datum/config_entry/flag/enable_multi_instance
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
 
+/datum/config_entry/flag/enable_instance_announce
+
 /datum/config_entry/string/instance_id
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
 
