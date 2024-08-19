@@ -18,7 +18,7 @@ SUBSYSTEM_DEF(instancing)
 	// Dont even bother if we arent connected to redis or the DB
 	if(!SSdbcore.IsConnected() || !SSredis.connected || !CONFIG_GET(flag/enable_multi_instance))
 		flags |= SS_NO_FIRE
-		return
+		return SS_INIT_NO_NEED
 
 	// Setup our commands
 	for(var/sct in subtypesof(/datum/server_command))
@@ -38,6 +38,7 @@ SUBSYSTEM_DEF(instancing)
 	// Announce startup to peers
 	var/datum/server_command/new_round_announce/NRA = registered_commands["new_round_announce"]
 	NRA.custom_dispatch(CONFIG_GET(string/servername), SSmapping.map_datum.station_short, SSmapping.map_datum.name)
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/instancing/fire(resumed)
 	update_heartbeat()

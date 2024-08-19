@@ -207,7 +207,7 @@ CREATE TABLE `ban` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `bantime` datetime NOT NULL,
   `serverip` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `server_id` VARCHAR(50) NULL DEFAULT NULL COLLATE utf8mb4_general_ci,
+  `server_id` VARCHAR(50) NULL DEFAULT NULL COLLATE utf8mb4_unicode_ci,
   `bantype` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `reason` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `job` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -663,9 +663,9 @@ CREATE TABLE `budget`
 -- Table structure for table `instance_data_cache`
 --
 CREATE TABLE `instance_data_cache` (
-	`server_id` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
-	`key_name` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
-	`key_value` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`server_id` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_unicode_ci',
+	`key_name` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_unicode_ci',
+	`key_value` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_unicode_ci',
 	`last_updated` TIMESTAMP NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
 	PRIMARY KEY (`server_id`, `key_name`) USING HASH
-) COLLATE='utf8mb4_general_ci' ENGINE=MEMORY;
+) COLLATE='utf8mb4_unicode_ci' ENGINE=MEMORY;

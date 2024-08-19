@@ -712,11 +712,11 @@ MINUTE_CLICK_LIMIT 400
 
 ## INSTANCE
 ENABLE_MULTI_INSTANCE
-INSTANCE_ID "paradise_main"
-internal_ip "127.0.0.1"
+INSTANCE_ID paradise_main
+internal_ip 127.0.0.1
 
 ## REDIS
 ## Enable redis subsystem
 #ENABLE_REDIS
 ## Redis connection string
-#REDIS_CONNSTRING "redis://127.0.0.1/"
+#REDIS_CONNSTRING redis://127.0.0.1/
