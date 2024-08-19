@@ -91,7 +91,7 @@
 	max_ammo = 4
 
 /obj/item/ammo_box/magazine/internal/cylinder/improvised/Initialize(mapload)
-	..()
+	. = ..()
 	if(!ammo_type)
 		stored_ammo = new(max_ammo)
 

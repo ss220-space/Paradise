@@ -64,7 +64,7 @@
 		return
 
 	if(client)
-		if(client.prefs.muted & MUTE_IC)
+		if(check_mute(client.ckey, MUTE_IC))
 			to_chat(src, "You cannot send IC messages (muted).")
 			return
 		if(client.handle_spam_prevention(message, MUTE_IC))

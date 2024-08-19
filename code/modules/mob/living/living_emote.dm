@@ -543,7 +543,7 @@
 
 	if(QDELETED(user))
 		return FALSE
-	else if(user.client?.prefs.muted & MUTE_IC)
+	else if(user.client && check_mute(user.client.ckey, MUTE_IC))
 		to_chat(user, span_boldwarning("You cannot send IC messages (muted)."))
 		return FALSE
 	else if(!params)

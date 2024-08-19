@@ -123,6 +123,8 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/New()
 	..()
 	wires = new(src)
+	if(SSradio)
+		set_frequency(frequency)
 
 /*
  * reimp, imitate an access denied event.
@@ -131,25 +133,34 @@ About the new airlock wires panel:
 	if(density && !operating && arePowerSystemsOn())
 		INVOKE_ASYNC(src, PROC_REF(do_animate), "deny")
 		return TRUE
+
 	return FALSE
 
 /obj/machinery/door/airlock/Initialize(mapload)
 	. = ..()
+	if(frequency)
+		set_frequency(frequency)
+
 	if(mapload && id_tag && !(id_tag in GLOB.restricted_door_tags))
 		// Players won't be allowed to create new buttons that open roundstart doors
 		GLOB.restricted_door_tags += id_tag
+
 	if(closeOtherId)
 		addtimer(CALLBACK(src, PROC_REF(update_other_id)), 0.5 SECONDS)
+
 	if(glass)
 		airlock_material = "glass"
+
 	if(security_level > AIRLOCK_SECURITY_METAL)
 		obj_integrity = normal_integrity * AIRLOCK_INTEGRITY_MULTIPLIER
 		max_integrity = normal_integrity * AIRLOCK_INTEGRITY_MULTIPLIER
 	else
 		obj_integrity = normal_integrity
 		max_integrity = normal_integrity
+
 	if(damage_deflection == AIRLOCK_DAMAGE_DEFLECTION_N && security_level > AIRLOCK_SECURITY_METAL)
 		damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_R
+
 	update_icon()
 
 // Remove shielding to prevent metal/plasteel duplication

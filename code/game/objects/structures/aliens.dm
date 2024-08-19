@@ -60,7 +60,7 @@
 
 /obj/structure/alien/resin/Initialize()
 	air_update_turf(1)
-	..()
+	. = ..()
 
 /obj/structure/alien/resin/Destroy()
 	var/turf/T = get_turf(src)

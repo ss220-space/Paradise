@@ -1160,8 +1160,10 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	return TRUE
 
 /datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
+	return
 
 /datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
+	return
 
 /proc/get_random_species(species_name = FALSE)	// Returns a random non black-listed or hazardous species, either as a string or datum
 	var/static/list/random_species = list()

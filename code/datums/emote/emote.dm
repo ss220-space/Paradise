@@ -483,7 +483,7 @@
 
 	if(intentional && only_unintentional)
 		return FALSE
-	if(user.client?.prefs.muted & MUTE_EMOTE)
+	if(user.client && check_mute(user.client.ckey, MUTE_EMOTE))
 		to_chat(user, span_warning("You cannot send emotes (muted)."))
 		return FALSE
 
@@ -512,7 +512,7 @@
 			return FALSE
 	else
 		// deadchat handling
-		if(user.client?.prefs.muted & MUTE_DEADCHAT)
+		if(user.client && check_mute(user.client.ckey, MUTE_DEADCHAT))
 			to_chat(user, span_warning("You cannot send deadchat emotes (muted)."))
 			return FALSE
 		if(!(user.client?.prefs.toggles & PREFTOGGLE_CHAT_DEAD))
