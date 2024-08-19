@@ -1513,6 +1513,9 @@ This applies to all STANDARD station areas
 /area/holodeck/source_basketball
 	name = "Holodeck - Basketball Court"
 
+/area/holodeck/source_football
+	name = "Holodeck - Football Court"
+
 /area/holodeck/source_thunderdomecourt
 	name = "Holodeck - Thunderdome Court"
 
