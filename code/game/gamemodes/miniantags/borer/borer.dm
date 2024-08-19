@@ -178,10 +178,6 @@
 
 
 /mob/living/simple_animal/borer/proc/Communicate(var/sended_message)
-	if(!host)
-		to_chat(src, "У вас нет носителя!")
-		return
-
 	if(stat)
 		to_chat(src, "Сейчас вы не в состоянии этого сделать.")
 		return
@@ -216,7 +212,11 @@
 			to_chat(host, span_notice("Вы стали древнее. Ваш текущий ранг - [borer_rank.rankname]."))
 	return
 
-/mob/living/simple_animal/borer/proc/toggle_silence_inside_host()
+/mob/living/simple_animal/borer/verb/toggle_silence_inside_host()
+	set name = "Toggle speech inside Host"
+	set category = "Borer"
+	set desc = "Toggle whether you will be able to say audible messages while inside your host."
+
 	if(talk_inside_host)
 		to_chat(src, span_notice("Теперь вы будете говорить в сознание носителя."))
 		return talk_inside_host = FALSE
@@ -426,10 +426,6 @@
 		add_attack_logs(user, user.host, "Forcesaid: [force_say_content]")
 
 /mob/living/simple_animal/borer/proc/secrete_chemicals()
-	if(!host)
-		to_chat(src, "Вы не находитесь в теле носителя.")
-		return
-
 	if(stat)
 		to_chat(src, "Вы не можете производить химикаты в вашем нынешнем состоянии.")
 		return
@@ -487,10 +483,6 @@
 	..()
 
 /mob/living/simple_animal/borer/proc/focus_menu()
-	if(!host)
-		to_chat(src, "Вы не находитесь в теле носителя.")
-		return
-
 	if(stat)
 		to_chat(src, "Вы не можете приобрести фокус в вашем текущем состоянии.")
 		return
@@ -534,10 +526,6 @@
 	return 
 
 /mob/living/simple_animal/borer/proc/learn_chem()
-	if(!host)
-		to_chat(src, "Вы не находитесь в теле носителя.")
-		return
-
 	if(stat)
 		to_chat(src, "Вы не можете изучить химикаты в вашем текущем состоянии.")
 		return
@@ -644,10 +632,6 @@
 	target.Weaken(6 SECONDS)
 
 /mob/living/simple_animal/borer/proc/release_host()
-	if(!host)
-		to_chat(src, "Вы не находитесь в теле носителя.")
-		return
-
 	if(stat)
 		to_chat(src, "Вы не можете покинуть носителя в вашем текущем состоянии.")
 		return
@@ -711,10 +695,6 @@
 	return
 
 /mob/living/simple_animal/borer/proc/bond_brain()
-	if(!host)
-		to_chat(src, "Вы не находитесь в теле носителя.")
-		return
-
 	if(host.stat == DEAD)
 		to_chat(src, "Носитель не может быть взят под контроль в его текущем состоянии.")
 		return

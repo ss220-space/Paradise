@@ -341,6 +341,9 @@
 /datum/reagent/medicine/spaceacillin
 	borer_acquired = TRUE
 
+/datum/reagent/medicine/perfluorodecalin
+	quantity = 3
+
 /datum/action/innate/borer
 	background_icon_state = "bg_alien"
 	var/mob/living/simple_animal/borer/borer
