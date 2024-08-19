@@ -107,6 +107,10 @@ AI MODULES
 	if(!new_targetName)
 		return
 	targetName = new_targetName
+	update_appearance(UPDATE_DESC)
+
+/obj/item/aiModule/safeguard/update_desc(updates = ALL)
+	. = ..()
 	desc = text("A 'safeguard' AI module: 'Safeguard []. Individuals that threaten [] are not crew and must be eliminated.'", targetName, targetName)
 
 /obj/item/aiModule/safeguard/install(var/obj/machinery/computer/C)
@@ -136,6 +140,10 @@ AI MODULES
 	if(!new_targetName)
 		return
 	targetName = new_targetName
+	update_appearance(UPDATE_DESC)
+
+/obj/item/aiModule/oneCrewMember/update_desc(updates = ALL)
+	. = ..()
 	desc = text("A 'one human' AI module: 'Only [] is crew.'", targetName)
 
 /obj/item/aiModule/oneCrewMember/install(var/obj/machinery/computer/C)
@@ -208,6 +216,10 @@ AI MODULES
 	if(!new_targetName)
 		return
 	newFreeFormLaw = new_targetName
+	update_appearance(UPDATE_DESC)
+
+/obj/item/aiModule/freeform/update_desc(updates = ALL)
+	. = ..()
 	desc = "A 'freeform' AI module: ([lawpos]) '[newFreeFormLaw]'"
 
 /obj/item/aiModule/freeform/addAdditionalLaws(var/mob/living/silicon/ai/target, var/mob/sender)
@@ -384,6 +396,10 @@ AI MODULES
 	if(!new_targetName)
 		return
 	newFreeFormLaw = new_targetName
+	update_appearance(UPDATE_DESC)
+
+/obj/item/aiModule/freeformcore/update_desc(updates = ALL)
+	. = ..()
 	desc = "A 'freeform' Core AI module: '[newFreeFormLaw]'"
 
 /obj/item/aiModule/freeformcore/addAdditionalLaws(var/mob/living/silicon/ai/target, var/mob/sender)
@@ -412,6 +428,10 @@ AI MODULES
 	if(isnull(new_targetName))
 		return
 	newFreeFormLaw = new_targetName
+	update_appearance(UPDATE_DESC)
+
+/obj/item/aiModule/syndicate/update_desc(updates = ALL)
+	. = ..()
 	desc = "A hacked AI law module: '[newFreeFormLaw]'"
 
 /obj/item/aiModule/syndicate/transmitInstructions(var/mob/living/silicon/ai/target, var/mob/sender)
