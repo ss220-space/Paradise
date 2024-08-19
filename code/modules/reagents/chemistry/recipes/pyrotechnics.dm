@@ -293,6 +293,29 @@
 	forbidden_reagents = list("stimulants")
 	mix_sound = null
 
+/datum/chemical_reaction/smoke_solid
+	name = "smoke"
+	id = "smoke_solid"
+	result = null
+	required_reagents = list("potassium" = 1, "aluminum" = 1, "phosphorus" = 1, "chlorine" = 1)
+	result_amount = 1
+	mix_message = "The mixture quickly turns into a thick cloud of smoke!"
+
+/datum/chemical_reaction/smoke_solid/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	var/datum/effect_system/smoke_spread/solid/S = new
+	playsound(location, 'sound/effects/smoke.ogg', 50, 1, -3)
+	if(S)
+		S.set_up(5, 0, location)
+		if(created_volume < 15)
+			S.start(0)
+		if(created_volume >= 15 && created_volume < 30)
+			S.start("2x2")
+		if(created_volume >= 30 && created_volume < 48)
+			S.start(1)
+		if(created_volume >= 48)
+			S.start(2)
+
 /datum/chemical_reaction/sonic_powder
 	name = "sonic_powder"
 	id = "sonic_powder"
