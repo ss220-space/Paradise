@@ -578,8 +578,7 @@
 		else if(prob(EFFECT_PROB_LOW))
 			visible_message("<span class='warning'>[src]'s crushing mechanism slowly and smoothly descends, flattening the [exp_on]!</span>")
 			badThingCoeff++
-			var/list/obj/item/stack/sheet/mineral/minreals = list(/obj/item/stack/sheet/mineral/diamond, /obj/item/stack/sheet/mineral/gold, /obj/item/stack/sheet/glass,/obj/item/stack/sheet/metal,/obj/item/stack/sheet/mineral/plasma,/obj/item/stack/sheet/mineral/silver,/obj/item/stack/sheet/mineral/titanium,/obj/item/stack/sheet/mineral/uranium,/obj/item/stack/sheet/mineral/tranquillite,/obj/item/stack/sheet/mineral/bananium,/obj/item/stack/sheet/mineral/mythril)
-			// The technical specification was "Random processed ore". Mithril fits this description. :jokerge:
+			var/list/obj/item/stack/sheet/mineral/minreals = list(/obj/item/stack/sheet/mineral/diamond, /obj/item/stack/sheet/mineral/gold, /obj/item/stack/sheet/glass,/obj/item/stack/sheet/metal,/obj/item/stack/sheet/mineral/plasma,/obj/item/stack/sheet/mineral/silver,/obj/item/stack/sheet/mineral/titanium,/obj/item/stack/sheet/mineral/uranium,/obj/item/stack/sheet/mineral/tranquillite,/obj/item/stack/sheet/mineral/bananium)
 			// Plastinium and abductor alloy are alloys, not processed ores.
 			for (var/i = 1; i <= 3; ++i)
 				var/obj/item/stack/sheet/mineral/m0 = pick(minreals)
