@@ -20,7 +20,7 @@
 	var/mob/living/simple_animal/borer/user // our borer
 	var/mob/living/carbon/human/host // our host
 	var/mob/living/carbon/human/previous_host // previous host, used to del transferable effects from previous host.
-	var/datum/borer_rank // Borer rank.
+	var/datum/borer_rank/borer_rank // Borer rank.
 	var/flags = NONE
 	var/processing_flags = NONE
 	var/tick_interval = 1 SECONDS
