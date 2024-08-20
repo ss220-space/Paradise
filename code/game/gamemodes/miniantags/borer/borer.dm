@@ -135,7 +135,6 @@
 	real_name = "Cortical Borer [rand(1000,9999)]"
 	truename = "[borer_names[min(generation, borer_names.len)]] [rand(1000,9999)]"
 	GrantBorerActions()
-	scaling.Grant(src)
 
 /mob/living/simple_animal/borer/attack_ghost(mob/user)
 	if(cannotPossess(user))
@@ -920,7 +919,7 @@
 		mind.transfer_to(src)
 		candidate.mob = src
 		ckey = candidate.ckey
-		mind.add_antag_datum(datum/antagonist/borer)
+		mind.add_antag_datum(/datum/antagonist/borer)
 		GrantBorerSpells()
 		hide_borer()
 

@@ -159,9 +159,6 @@
 	var/list/used_UIDs = list()
 	flags = FLAG_HAS_MOVABLE_EFFECT
 
-/datum/antagonist/borer/miscellaneous/change_host_and_scale/New()
-	return
-
 /datum/antagonist/borer/miscellaneous/change_host_and_scale/grant_movable_effect()
 	if(user.max_chems >= SCALING_MAX_CHEM)
 		qdel(src)
