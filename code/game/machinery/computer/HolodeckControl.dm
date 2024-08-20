@@ -29,6 +29,7 @@
 	dat += "<A href='?src=[UID()];emptycourt=1'>((Empty Court)</font>)</A><BR>"
 	dat += "<A href='?src=[UID()];boxingcourt=1'>((Boxing Court)</font>)</A><BR>"
 	dat += "<A href='?src=[UID()];basketball=1'>((Basketball Court)</font>)</A><BR>"
+	dat += "<A href='?src=[UID()];football=1'>((Football Court)</font>)</A><BR>"
 	dat += "<A href='?src=[UID()];thunderdomecourt=1'>((Thunderdome Court)</font>)</A><BR>"
 	dat += "<A href='?src=[UID()];beach=1'>((Beach)</font>)</A><BR>"
 	dat += "<A href='?src=[UID()];desert=1'>((Desert)</font>)</A><BR>"
@@ -80,6 +81,11 @@
 
 	else if(href_list["basketball"])
 		target = locate(/area/holodeck/source_basketball)
+		if(target)
+			loadProgram(target)
+
+	else if(href_list["football"])
+		target = locate(/area/holodeck/source_football)
 		if(target)
 			loadProgram(target)
 

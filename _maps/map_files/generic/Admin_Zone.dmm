@@ -111,6 +111,14 @@
 	icon_state = "hierophant1"
 	},
 /area/admin)
+"aV" = (
+/obj/effect/decal/football/wide_long{
+	pixel_y = -16
+	},
+/turf/simulated/floor/holofloor{
+	icon_state = "floor"
+	},
+/area/holodeck/source_football)
 "aZ" = (
 /obj/structure/chair/stool/holostool,
 /turf/simulated/floor/holofloor{
@@ -517,6 +525,16 @@
 	tag = "icon-carpet8-0 (EAST)"
 	},
 /area/holodeck/source_meetinghall)
+"fb" = (
+/obj/effect/decal/football/wide_long{
+	pixel_y = -16;
+	pixel_x = -4
+	},
+/obj/effect/decal/football/straight_E,
+/turf/simulated/floor/holofloor{
+	icon_state = "floor"
+	},
+/area/holodeck/source_football)
 "fc" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/grenadelauncher,
@@ -571,6 +589,12 @@
 	icon_state = "darkgrey"
 	},
 /area/tdome/arena_source)
+"fn" = (
+/obj/effect/decal/football/turn_SE,
+/turf/simulated/floor/holofloor{
+	icon_state = "floor"
+	},
+/area/holodeck/source_football)
 "fp" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/kinetic_accelerator/minebot,
@@ -1096,6 +1120,12 @@
 /obj/item/pen,
 /turf/simulated/floor/wood,
 /area/admin)
+"kh" = (
+/obj/effect/decal/football/gates_2_S,
+/turf/simulated/floor/holofloor{
+	icon_state = "floor"
+	},
+/area/holodeck/source_football)
 "kl" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/ionrifle/carbine,
@@ -1505,6 +1535,11 @@
 /obj/item/gun/energy/gun/advtaser,
 /turf/simulated/floor/wood,
 /area/admin)
+"py" = (
+/turf/simulated/floor/holofloor{
+	icon_state = "floor"
+	},
+/area/holodeck/source_football)
 "pA" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/wand/polymorph,
@@ -1671,6 +1706,18 @@
 	icon_state = "vault"
 	},
 /area/tdome/arena)
+"sU" = (
+/obj/effect/decal/football/straight_E,
+/turf/simulated/floor/holofloor{
+	icon_state = "floor"
+	},
+/area/holodeck/source_football)
+"sX" = (
+/obj/effect/decal/football/turn_NE,
+/turf/simulated/floor/holofloor{
+	icon_state = "floor"
+	},
+/area/holodeck/source_football)
 "sZ" = (
 /obj/structure/table/wood,
 /obj/item/twohanded/fireaxe,
@@ -1787,6 +1834,16 @@
 	icon_state = "grimy"
 	},
 /area/admin)
+"ux" = (
+/obj/effect/decal/football/wide_long{
+	pixel_y = -16;
+	pixel_x = 4
+	},
+/obj/effect/decal/football/straight_W,
+/turf/simulated/floor/holofloor{
+	icon_state = "floor"
+	},
+/area/holodeck/source_football)
 "uC" = (
 /obj/structure/flora/tree/dead,
 /turf/simulated/floor/holofloor{
@@ -1935,6 +1992,12 @@
 /obj/effect/landmark/tdome/tdome_observer,
 /turf/simulated/floor/carpet/black,
 /area/tdome/tdomeobserve)
+"wa" = (
+/obj/effect/decal/football/turn_WN,
+/turf/simulated/floor/holofloor{
+	icon_state = "floor"
+	},
+/area/holodeck/source_football)
 "wc" = (
 /obj/structure/table/holotable,
 /turf/simulated/floor/holofloor{
@@ -1953,6 +2016,13 @@
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate,
 /turf/simulated/floor/wood,
 /area/admin)
+"wr" = (
+/obj/effect/decal/football/straight_N,
+/obj/effect/decal/football/straight_S,
+/turf/simulated/floor/holofloor{
+	icon_state = "floor"
+	},
+/area/holodeck/source_football)
 "ws" = (
 /obj/structure/rack,
 /obj/item/clothing/shoes/brown,
@@ -2218,6 +2288,12 @@
 	icon_state = "vault"
 	},
 /area/tdome/arena)
+"ze" = (
+/obj/effect/decal/football/straight_W,
+/turf/simulated/floor/holofloor{
+	icon_state = "floor"
+	},
+/area/holodeck/source_football)
 "zh" = (
 /obj/structure/table/wood,
 /obj/item/gun/throw/piecannon,
@@ -2615,6 +2691,12 @@
 "DM" = (
 /turf/simulated/wall/indestructible/fakeglass,
 /area/space)
+"DN" = (
+/obj/effect/decal/football/center_half_S,
+/turf/simulated/floor/holofloor{
+	icon_state = "floor"
+	},
+/area/holodeck/source_football)
 "DU" = (
 /obj/structure/chair/stool/holostool,
 /turf/simulated/floor/holofloor{
@@ -2743,6 +2825,15 @@
 	icon_state = "red"
 	},
 /area/holodeck/source_boxingcourt)
+"FD" = (
+/obj/effect/decal/football/center_half_N,
+/obj/item/beach_ball/football{
+	pixel_y = 16
+	},
+/turf/simulated/floor/holofloor{
+	icon_state = "floor"
+	},
+/area/holodeck/source_football)
 "FF" = (
 /turf/simulated/floor/holofloor{
 	dir = 8;
@@ -2952,6 +3043,12 @@
 /obj/item/gun/energy/alien,
 /turf/simulated/floor/wood,
 /area/admin)
+"Ii" = (
+/obj/effect/decal/football/gates_2_N,
+/turf/simulated/floor/holofloor{
+	icon_state = "floor"
+	},
+/area/holodeck/source_football)
 "Iq" = (
 /obj/effect/turf_decal/mech,
 /turf/simulated/floor/wood,
@@ -3430,6 +3527,12 @@
 	icon_state = "darkgrey"
 	},
 /area/admin)
+"ON" = (
+/obj/effect/decal/football/gates_1_S,
+/turf/simulated/floor/holofloor{
+	icon_state = "floor"
+	},
+/area/holodeck/source_football)
 "OT" = (
 /turf/simulated/floor/beach/sand{
 	icon = 'icons/turf/floors.dmi';
@@ -4191,6 +4294,12 @@
 "Yq" = (
 /turf/space,
 /area/space)
+"Yu" = (
+/obj/effect/decal/football/turn_WS,
+/turf/simulated/floor/holofloor{
+	icon_state = "floor"
+	},
+/area/holodeck/source_football)
 "Yz" = (
 /turf/simulated/wall/indestructible,
 /area/tdome/newtdome)
@@ -4263,6 +4372,12 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/admin)
+"Zk" = (
+/obj/effect/decal/football/gates_1_N,
+/turf/simulated/floor/holofloor{
+	icon_state = "floor"
+	},
+/area/holodeck/source_football)
 "Zo" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -37738,18 +37853,18 @@ Yq
 Yq
 "}
 (131,1,1) = {"
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
+DM
+wa
+ze
+ze
+ze
+ux
+ze
+ze
+ze
+ze
+Yu
+DM
 Yq
 Yq
 Yq
@@ -37995,18 +38110,18 @@ Yq
 Yq
 "}
 (132,1,1) = {"
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
+DM
+Zk
+py
+py
+py
+aV
+py
+py
+py
+py
+ON
+DM
 Yq
 Yq
 Yq
@@ -38252,18 +38367,18 @@ Yq
 Yq
 "}
 (133,1,1) = {"
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
+DM
+wr
+py
+py
+py
+DN
+FD
+py
+py
+py
+wr
+DM
 Yq
 Yq
 Yq
@@ -38509,18 +38624,18 @@ Yq
 Yq
 "}
 (134,1,1) = {"
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
+DM
+Ii
+py
+py
+py
+aV
+py
+py
+py
+py
+kh
+DM
 Yq
 Yq
 Yq
@@ -38766,18 +38881,18 @@ Yq
 Yq
 "}
 (135,1,1) = {"
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
+DM
+sX
+sU
+sU
+sU
+fb
+sU
+sU
+sU
+sU
+fn
+DM
 Yq
 Yq
 Yq
@@ -39023,18 +39138,18 @@ Yq
 Yq
 "}
 (136,1,1) = {"
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
-Yq
+QQ
+DM
+DM
+DM
+DM
+DM
+DM
+DM
+DM
+DM
+DM
+QQ
 Yq
 Yq
 Yq

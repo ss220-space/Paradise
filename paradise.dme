@@ -2083,6 +2083,7 @@
 #include "code\modules\food_and_drinks\recipes\recipes_oven.dm"
 #include "code\modules\food_and_drinks\recipes\tablecraft\recipes_table.dm"
 #include "code\modules\games\52card.dm"
+#include "code\modules\games\ball.dm"
 #include "code\modules\games\cards.dm"
 #include "code\modules\games\tarot.dm"
 #include "code\modules\games\unum.dm"
