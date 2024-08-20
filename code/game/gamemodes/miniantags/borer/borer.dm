@@ -325,7 +325,7 @@
 			return borer_rank = new /datum/borer_rank/mature(src)
 
 		if(/datum/borer_rank/mature)
-			return borer_rank = new datum/borer_rank/adult(src)
+			return borer_rank = new /datum/borer_rank/adult(src)
 
 		if(/datum/borer_rank/adult)
 			return borer_rank = new /datum/borer_rank/elder(src)
