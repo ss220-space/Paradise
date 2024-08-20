@@ -16,6 +16,7 @@
 /datum/antagonist/borer
 	name = "Cortical borer"
 	show_in_roundend = FALSE
+	special_role = SPECIAL_ROLE_BORER
 	var/mob/living/simple_animal/borer/user // our borer
 	var/mob/living/carbon/human/host // our host
 	var/mob/living/carbon/human/previous_host // previous host, used to del transferable effects from previous host.
@@ -25,20 +26,15 @@
 
 /datum/antagonist/borer/greet()
 	var/list/messages = list()
+	var/mob/living/simple_animal/borer/borer = owner.current
 	messages.Add(span_notice("Вы - Мозговой Червь!"))
 	messages.Add("Забирайтесь в голову своей жертвы, используйте скрытность, убеждение и свои способности к управлению разумом, чтобы сохранить себя, своё потомство и своего носителя в безопасности и тепле.")
 	messages.Add("Сахар сводит на нет ваши способности, избегайте его любой ценой!")
 	messages.Add("Вы можете разговаривать со своими коллегами-борерами, используя '[get_language_prefix(LANGUAGE_HIVE_BORER)]'.")
 	messages.Add("Воспроизведение себе подобных увеличивает количество эволюционных очков и позволяет перейти на следующий ранг.")
-	messages.Add("Ваш текущий ранг - [user.borer_rank?.rankname].")
-	to_chat(user, chat_box_purple(messages.Join("<br>")))
+	messages.Add("Ваш текущий ранг - [borer.borer_rank?.rankname].")
+	to_chat(borer, chat_box_purple(messages.Join("<br>")))
 	return messages
-
-/datum/antagonist/borer/on_gain()
-	. = ..()
-	if(!.)
-		return 
-	user = owner.current
 	
 /datum/antagonist/borer/New(mob/living/simple_animal/borer/borer) //we really need to modify this, cause many features are linked to borer and doesn't require mind
 	if(!borer)
