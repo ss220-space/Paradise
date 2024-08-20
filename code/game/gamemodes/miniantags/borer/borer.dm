@@ -109,9 +109,8 @@
 	var/hiding = FALSE
 	var/reproductions = 0 // used to upgrade rank
 	var/evo_points = 0 // used for borer shopping, gained by reproductions
-	var/datum/borer_datum/borer_rank/borer_rank
-	var/list/datum/borer_datum/focus/learned_focuses = list()
-	var/datum/borer_datum/miscellaneous/change_host_and_scale/scaling = new
+	var/datum/antagonist/borer/borer_rank/borer_rank
+	var/list/datum/antagonist/borer/focus/learned_focuses = list()
 	var/datum/action/innate/borer/talk_to_host/talk_to_host_action = new
 	var/datum/action/innate/borer/toggle_hide/toggle_hide_action = new
 	var/datum/action/innate/borer/talk_to_borer/talk_to_borer_action = new
@@ -319,16 +318,16 @@
 
 /mob/living/simple_animal/borer/proc/update_rank()
 	if(!borer_rank)
-		return borer_rank = new /datum/borer_datum/borer_rank/young(src)
+		return borer_rank = new /datum/antagonist/borer/borer_rank/young(src)
 	switch(borer_rank)
-		if(/datum/borer_datum/borer_rank/young)
-			return borer_rank = new /datum/borer_datum/borer_rank/mature(src)
+		if(/datum/antagonist/borer/borer_rank/young)
+			return borer_rank = new /datum/antagonist/borer/borer_rank/mature(src)
 
-		if(/datum/borer_datum/borer_rank/mature)
-			return borer_rank = new /datum/borer_datum/borer_rank/adult(src)
+		if(/datum/antagonist/borer/borer_rank/mature)
+			return borer_rank = new /datum/antagonist/borer/borer_rank/adult(src)
 
-		if(/datum/borer_datum/borer_rank/adult)
-			return borer_rank = new /datum/borer_datum/borer_rank/elder(src)
+		if(/datum/antagonist/borer/borer_rank/adult)
+			return borer_rank = new /datum/antagonist/borer/borer_rank/elder(src)
 
 /obj/effect/proc_holder/spell/borer_infest
 	name = "Infest"
@@ -493,8 +492,8 @@
 		
 	var/list/content = list()
 	
-	for(var/datum in subtypesof(/datum/borer_datum/focus))
-		var/datum/borer_datum/focus/borer_datum = datum
+	for(var/datum in subtypesof(/datum/antagonist/borer/focus))
+		var/datum/antagonist/borer/focus/borer_datum = datum
 		if(!locate(borer_datum) in learned_focuses)
 			content += borer_datum.bodypartname
 			
@@ -504,15 +503,15 @@
 		
 	var/tgui_menu = tgui_input_list(src, "Choose focus", "Focus Menu", content)
 	if(tgui_menu)
-		for(var/datum in subtypesof(/datum/borer_datum/focus))
-			var/datum/borer_datum/focus/borer_datum = datum
+		for(var/datum in subtypesof(/datum/antagonist/borer/focus))
+			var/datum/antagonist/borer/focus/borer_datum = datum
 			if(tgui_menu == borer_datum.bodypartname)
 				process_focus_choice(borer_datum)
 				break
 
 	return
 
-/mob/living/simple_animal/borer/proc/process_focus_choice(datum/borer_datum/focus/focus)
+/mob/living/simple_animal/borer/proc/process_focus_choice(datum/antagonist/borer/focus/focus)
 	if(!src || !host || stat || docile)
 		return
 	if(locate(focus) in learned_focuses)
@@ -917,18 +916,11 @@
 		return
 
 	if(!QDELETED(candidate) || !QDELETED(candidate.mob))
-		var/datum/mind/M = create_borer_mind(candidate.ckey)
-		M.transfer_to(src)
+		var/datum/mind/mind = create_borer_mind(candidate.ckey)
+		mind.transfer_to(src)
 		candidate.mob = src
 		ckey = candidate.ckey
-		var/list/messages = list()
-		messages.Add(span_notice("Вы - Мозговой Червь!"))
-		messages.Add("Забирайтесь в голову своей жертвы, используйте скрытность, убеждение и свои способности к управлению разумом, чтобы сохранить себя, своё потомство и своего носителя в безопасности и тепле.")
-		messages.Add("Сахар сводит на нет ваши способности, избегайте его любой ценой!")
-		messages.Add("Вы можете разговаривать со своими коллегами-борерами, используя '[get_language_prefix(LANGUAGE_HIVE_BORER)]'.")
-		messages.Add("Воспроизведение себе подобных увеличивает количество эволюционных очков и позволяет перейти на следующий ранг.")
-		messages.Add("Ваш текущий ранг - [borer_rank?.rankname].")
-		to_chat(src, chat_box_purple(messages.Join("<br>")))
+		mind.add_antag_datum(datum/antagonist/borer)
 		GrantBorerSpells()
 		hide_borer()
 

@@ -13,7 +13,9 @@
 /// processing flags
 #define SHOULD_PROCESS_AFTER_DEATH (1<<0) // Doesn't register signals, process even borer is dead.
 
-/datum/borer_datum
+/datum/antagonist/borer
+	name = "Cortical borer"
+	show_in_roundend = FALSE
 	var/mob/living/simple_animal/borer/user // our borer
 	var/mob/living/carbon/human/host // our host
 	var/mob/living/carbon/human/previous_host // previous host, used to del transferable effects from previous host.
@@ -21,12 +23,30 @@
 	var/processing_flags = NONE
 	var/tick_interval = 1 SECONDS
 
-/datum/borer_datum/New(mob/living/simple_animal/borer/borer)
-	if(!borer)
-		qdel(src)
-	Grant(borer)
+/datum/antagonist/borer/greet()
+	var/list/messages = list()
+	messages.Add(span_notice("Вы - Мозговой Червь!"))
+	messages.Add("Забирайтесь в голову своей жертвы, используйте скрытность, убеждение и свои способности к управлению разумом, чтобы сохранить себя, своё потомство и своего носителя в безопасности и тепле.")
+	messages.Add("Сахар сводит на нет ваши способности, избегайте его любой ценой!")
+	messages.Add("Вы можете разговаривать со своими коллегами-борерами, используя '[get_language_prefix(LANGUAGE_HIVE_BORER)]'.")
+	messages.Add("Воспроизведение себе подобных увеличивает количество эволюционных очков и позволяет перейти на следующий ранг.")
+	messages.Add("Ваш текущий ранг - [user.borer_rank?.rankname].")
+	to_chat(user, chat_box_purple(messages.Join("<br>")))
+	return messages
 
-/datum/borer_datum/proc/Grant(mob/living/simple_animal/borer/borer)
+/datum/antagonist/borer/on_gain()
+	. = ..()
+	if(!.)
+		return 
+	user = owner.current
+	var/datum/antagonist/borer/miscellaneous/change_host_and_scale/scaling = new(user)
+	
+/datum/antagonist/borer/New(mob/living/simple_animal/borer/borer) //we really need to modify this, cause many features are linked to borer and doesn't require mind
+	if(!borer)
+		return ..() // if add_antag_datum
+	Grant(borer)
+		
+/datum/antagonist/borer/proc/Grant(mob/living/simple_animal/borer/borer)
 	user = borer
 	host = borer.host
 	if(QDELETED(user))
@@ -53,45 +73,45 @@
 		START_PROCESSING(SSprocessing, src)
 	return TRUE
 
-/datum/borer_datum/proc/entered_host()
+/datum/antagonist/borer/proc/entered_host()
 	SIGNAL_HANDLER
 	host = user.host
 	if((flags & FLAG_HAS_MOVABLE_EFFECT) && (pre_grant_movable_effect()))
 		previous_host = host
 			
-/datum/borer_datum/proc/left_host()
+/datum/antagonist/borer/proc/left_host()
 	SIGNAL_HANDLER
 	host = null
 	if((flags & FLAG_HAS_MOVABLE_EFFECT) && (pre_remove_movable_effect()))
 		previous_host = host
 
-/datum/borer_datum/proc/pre_grant_movable_effect()
+/datum/antagonist/borer/proc/pre_grant_movable_effect()
 	if(QDELETED(user) || QDELETED(host))
 		return
 
 	if(grant_movable_effect())
 		return
 
-/datum/borer_datum/proc/pre_remove_movable_effect()
+/datum/antagonist/borer/proc/pre_remove_movable_effect()
 	if(QDELETED(user) || QDELETED(previous_host))
 		return
 
 	if(remove_movable_effect())
 		return
 
-/datum/borer_datum/proc/grant_movable_effect()
+/datum/antagonist/borer/proc/grant_movable_effect()
 	return TRUE
 
-/datum/borer_datum/proc/remove_movable_effect()
+/datum/antagonist/borer/proc/remove_movable_effect()
 	return TRUE
 
-/datum/borer_datum/proc/tick(seconds_between_ticks)
+/datum/antagonist/borer/proc/tick(seconds_between_ticks)
 	return
 
-/datum/borer_datum/proc/host_tick(seconds_between_ticks)
+/datum/antagonist/borer/proc/host_tick(seconds_between_ticks)
 	return
 
-/datum/borer_datum/Destroy(force)
+/datum/antagonist/borer/Destroy(force)
 	if((flags & FLAG_HOST_REQUIRED) || (flags & FLAG_HAS_MOVABLE_EFFECT))
 		UnregisterSignal(user, COMSIG_BORER_ENTERED_HOST)
 		UnregisterSignal(user, COMSIG_BORER_LEFT_HOST)
@@ -107,19 +127,19 @@
 	previous_host = null
 	return ..()
 	
-/datum/borer_datum/proc/on_apply()
+/datum/antagonist/borer/proc/on_apply()
 	return TRUE
 
-/datum/borer_datum/proc/on_mob_death()
+/datum/antagonist/borer/proc/on_mob_death()
 	SIGNAL_HANDLER
 	STOP_PROCESSING(SSprocessing, src)
 
-/datum/borer_datum/proc/on_mob_revive()
+/datum/antagonist/borer/proc/on_mob_revive()
 	SIGNAL_HANDLER
 	if(tick_interval > world.time)
 		START_PROCESSING(SSprocessing, src)
 
-/datum/borer_datum/process(seconds_per_tick)
+/datum/antagonist/borer/process(seconds_per_tick)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	if(QDELETED(user))
 		qdel(src)
@@ -133,16 +153,16 @@
 		if(QDELING(src))
 			return
 
-/datum/borer_datum/miscellaneous // category for small datums.
+/datum/antagonist/borer/miscellaneous // category for small datums.
 
-/datum/borer_datum/miscellaneous/change_host_and_scale
+/datum/antagonist/borer/miscellaneous/change_host_and_scale
 	var/list/used_UIDs = list()
 	flags = FLAG_HAS_MOVABLE_EFFECT
 
-/datum/borer_datum/miscellaneous/change_host_and_scale/New()
+/datum/antagonist/borer/miscellaneous/change_host_and_scale/New()
 	return
 
-/datum/borer_datum/miscellaneous/change_host_and_scale/grant_movable_effect()
+/datum/antagonist/borer/miscellaneous/change_host_and_scale/grant_movable_effect()
 	if(user.max_chems >= SCALING_MAX_CHEM)
 		qdel(src)
 		return
@@ -153,150 +173,150 @@
 
 	return TRUE
 
-/datum/borer_datum/miscellaneous/change_host_and_scale/pre_remove_movable_effect()
+/datum/antagonist/borer/miscellaneous/change_host_and_scale/pre_remove_movable_effect()
 	return TRUE
 
-/datum/borer_datum/miscellaneous/change_host_and_scale/Destroy(force)
+/datum/antagonist/borer/miscellaneous/change_host_and_scale/Destroy(force)
 	LAZYNULL(used_UIDs)
 	return ..()
 
-/datum/borer_datum/borer_rank
+/datum/antagonist/borer/borer_rank
 	var/rankname = "Error"
 	var/required_reproductions = null // how many reproductions we need to gain new rank
 	flags = FLAG_PROCESS
 	
-/datum/borer_datum/borer_rank/young
+/datum/antagonist/borer/borer_rank/young
 	rankname = "Young"
 	required_reproductions = REPRODUCTIONS_TO_MATURE 
 
-/datum/borer_datum/borer_rank/mature
+/datum/antagonist/borer/borer_rank/mature
 	rankname = "Mature"
 	required_reproductions = REPRODUCTIONS_TO_ADULT 
 
-/datum/borer_datum/borer_rank/adult
+/datum/antagonist/borer/borer_rank/adult
 	rankname = "Adult"
 	required_reproductions = REPRODUCTIONS_TO_ELDER
 	flags = FLAG_PROCESS|FLAG_HOST_REQUIRED
 
-/datum/borer_datum/borer_rank/elder
+/datum/antagonist/borer/borer_rank/elder
 	rankname = "Elder"
 	flags = FLAG_PROCESS|FLAG_HOST_REQUIRED
 
-/datum/borer_datum/borer_rank/young/on_apply()
+/datum/antagonist/borer/borer_rank/young/on_apply()
 	user.update_transform(0.5)
 	return TRUE
 
-/datum/borer_datum/borer_rank/mature/on_apply()
+/datum/antagonist/borer/borer_rank/mature/on_apply()
 	user.update_transform(2)
 	user.maxHealth += 5
 	return TRUE
 
-/datum/borer_datum/borer_rank/adult/on_apply()
+/datum/antagonist/borer/borer_rank/adult/on_apply()
 	user.maxHealth += 5
 	return TRUE
 
-/datum/borer_datum/borer_rank/elder/on_apply()
+/datum/antagonist/borer/borer_rank/elder/on_apply()
 	user.maxHealth += 10
 	return TRUE
 
-/datum/borer_datum/borer_rank/young/tick(seconds_between_ticks)
+/datum/antagonist/borer/borer_rank/young/tick(seconds_between_ticks)
 	user.adjustHealth(-0.1)
 
-/datum/borer_datum/borer_rank/mature/tick(seconds_between_ticks)
+/datum/antagonist/borer/borer_rank/mature/tick(seconds_between_ticks)
 	user.adjustHealth(-0.15)
 
-/datum/borer_datum/borer_rank/adult/tick(seconds_between_ticks)
+/datum/antagonist/borer/borer_rank/adult/tick(seconds_between_ticks)
 	user.adjustHealth(-0.2)
 
-/datum/borer_datum/borer_rank/adult/host_tick(seconds_between_ticks)
+/datum/antagonist/borer/borer_rank/adult/host_tick(seconds_between_ticks)
 	if(host.stat != DEAD && !user.sneaking)
 		user.chemicals += 0.2
 
-/datum/borer_datum/borer_rank/elder/tick(seconds_between_ticks)
+/datum/antagonist/borer/borer_rank/elder/tick(seconds_between_ticks)
 	user.adjustHealth(-0.3)
 
-/datum/borer_datum/borer_rank/elder/host_tick(seconds_between_ticks)
+/datum/antagonist/borer/borer_rank/elder/host_tick(seconds_between_ticks)
 	if(host.stat != DEAD)
 		host.heal_overall_damage(0.4, 0.4)
 		user.chemicals += 0.3
 
-/datum/borer_datum/focus
+/datum/antagonist/borer/focus
 	var/bodypartname = "Focus"
 	var/cost = 0
 	flags = FLAG_HAS_MOVABLE_EFFECT
 	
-/datum/borer_datum/focus/head
+/datum/antagonist/borer/focus/head
 	bodypartname = "Head focus"
 	cost = HEAD_FOCUS_COST
 	flags = FLAG_HAS_MOVABLE_EFFECT|FLAG_PROCESS|FLAG_HOST_REQUIRED
 	
-/datum/borer_datum/focus/torso
+/datum/antagonist/borer/focus/torso
 	bodypartname = "Body focus"
 	cost = TORSO_FOCUS_COST
 	flags = FLAG_HAS_MOVABLE_EFFECT|FLAG_PROCESS|FLAG_HOST_REQUIRED
 	var/obj/item/organ/internal/heart/linked_organ
 	
-/datum/borer_datum/focus/hands
+/datum/antagonist/borer/focus/hands
 	bodypartname = "Hands focus"
 	cost = HANDS_FOCUS_COST
 	
-/datum/borer_datum/focus/legs
+/datum/antagonist/borer/focus/legs
 	bodypartname = "Legs focus"
 	cost = LEGS_FOCUS_COST
 	
-/datum/borer_datum/focus/head/grant_movable_effect()
+/datum/antagonist/borer/focus/head/grant_movable_effect()
 	host.physiology.brain_mod *= 0.7
 	host.physiology.hunger_mod *= 0.3
 	host.stam_regen_start_modifier *= 0.75
 	return TRUE
 
-/datum/borer_datum/focus/head/remove_movable_effect()
+/datum/antagonist/borer/focus/head/remove_movable_effect()
 	previous_host.physiology.brain_mod /= 0.7
 	previous_host.physiology.hunger_mod /= 0.3
 	previous_host.stam_regen_start_modifier /= 0.75
 	return TRUE
 
-/datum/borer_datum/focus/head/host_tick(seconds_between_ticks)
+/datum/antagonist/borer/focus/head/host_tick(seconds_between_ticks)
 	if(!user.controlling && host.stat != DEAD)
 		host.adjustBrainLoss(-1)
 			
-/datum/borer_datum/focus/torso/grant_movable_effect()
+/datum/antagonist/borer/focus/torso/grant_movable_effect()
 	host.physiology.brute_mod *= 0.8
 	return TRUE
 
-/datum/borer_datum/focus/torso/remove_movable_effect()
+/datum/antagonist/borer/focus/torso/remove_movable_effect()
 	previous_host.physiology.brute_mod /= 0.8
 	return TRUE
 
-/datum/borer_datum/focus/torso/host_tick(seconds_between_ticks)
+/datum/antagonist/borer/focus/torso/host_tick(seconds_between_ticks)
 	if(host.stat != DEAD)
 		linked_organ = host.get_int_organ(linked_organ)
 		if(linked_organ)
 			host.set_heartattack(FALSE)
 
-/datum/borer_datum/focus/torso/Destroy(force)
+/datum/antagonist/borer/focus/torso/Destroy(force)
 	linked_organ = null
 	return ..()
 		
-/datum/borer_datum/focus/hands/grant_movable_effect()
+/datum/antagonist/borer/focus/hands/grant_movable_effect()
 	host.add_actionspeed_modifier(/datum/actionspeed_modifier/borer_arm_focus)
 	host.physiology.punch_damage_low += 7
 	host.physiology.punch_damage_high += 5
 	host.next_move_modifier *= 0.75
 	return TRUE
 
-/datum/borer_datum/focus/hands/remove_movable_effect()
+/datum/antagonist/borer/focus/hands/remove_movable_effect()
 	previous_host.remove_actionspeed_modifier(/datum/actionspeed_modifier/borer_arm_focus)
 	previous_host.physiology.punch_damage_low -= 7
 	previous_host.physiology.punch_damage_high -= 5	
 	previous_host.next_move_modifier /= 0.75
 	return TRUE
 	
-/datum/borer_datum/focus/legs/grant_movable_effect()
+/datum/antagonist/borer/focus/legs/grant_movable_effect()
 	host.add_movespeed_modifier(/datum/movespeed_modifier/borer_leg_focus)
 	return TRUE
 
-/datum/borer_datum/focus/legs/remove_movable_effect()
+/datum/antagonist/borer/focus/legs/remove_movable_effect()
 	previous_host.remove_movespeed_modifier(/datum/movespeed_modifier/borer_leg_focus)
 	return TRUE
 
