@@ -40,8 +40,8 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		add_fingerprint(user)
-		var/obj/item/stack/tickets/tickets = I
-		tickets += tickets.amount
+		var/obj/item/stack/tickets/new_tickets = I
+		tickets += new_tickets.amount
 		qdel(tickets)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
