@@ -43,6 +43,9 @@
 		playsound(loc, 'sound/weapons/thudswoosh.ogg', 20, 1)	// Play the whoosh sound in local area
 	return ..()
 
+/obj/item/clockwork/clockslab/attack_self_tk(mob/user)
+	return
+
 /obj/item/clockwork/clockslab/attack_self(mob/user)
 	. = ..()
 	if(plushy)

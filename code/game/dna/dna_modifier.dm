@@ -384,6 +384,8 @@
 		return FALSE
 	I.block = id
 	I.buf = buffer
+	I.origin_tech = GetInjectorTechs(I)
+
 	return TRUE
 
 /obj/machinery/computer/scan_consolenew/attack_ai(mob/user)

@@ -375,6 +375,22 @@
 	delay = 50
 	select_name = "snipe"
 
+/obj/item/ammo_casing/energy/podsniper/disabler
+	projectile_type = /obj/item/projectile/beam/podsniper/disabler
+	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE
+	fire_sound = 'sound/weapons/LSR-39_disabler.ogg'
+	delay = 3 SECONDS
+	e_cost = 100
+	select_name = "disable"
+
+/obj/item/ammo_casing/energy/podsniper/laser
+	projectile_type = /obj/item/projectile/beam/podsniper/laser
+	muzzle_flash_color = LIGHT_COLOR_DARKRED
+	fire_sound = 'sound/weapons/LSR-39_kill.ogg'
+	delay = 3 SECONDS
+	e_cost = 150
+	select_name = "kill"
+
 /obj/item/ammo_casing/energy/teleport
 	projectile_type = /obj/item/projectile/energy/teleport
 	muzzle_flash_color = LIGHT_COLOR_LIGHTBLUE

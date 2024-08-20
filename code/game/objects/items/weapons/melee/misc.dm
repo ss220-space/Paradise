@@ -52,16 +52,54 @@
 		final_block_chance = 0 //Don't bring a sword to a gunfight
 	return ..()
 
+/obj/item/melee/syndie_rapier
+	name = "plastitanium rapier"
+	desc = "A thin blade made of plastitanium with a diamond tip. It appears to be coated in a persistent layer of an unknown substance."
+	icon_state = "syndie_rapier"
+	item_state = "syndie_rapier"
+	flags = CONDUCT
+	force = 15
+	throwforce = 10
+	w_class = WEIGHT_CLASS_BULKY
+	block_chance = 50
+	armour_penetration = 75
+	sharp = TRUE
+	origin_tech = "combat=5;biotech=5;syndicate=4"
+	attack_verb = list("lunged at", "stabbed")
+	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
+	drop_sound = 'sound/items/handling/knife_drop.ogg'
+	hitsound = 'sound/weapons/rapierhit.ogg'
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	/// How much stamina damage we deal on a successful hit against a living, non-cyborg mob.
+	var/stamina_damage = 30
+
+/obj/item/melee/syndie_rapier/attack(mob/living/target, mob/living/user, def_zone, add_melee_cooldown = TRUE, skip_attack_anim = TRUE)
+	. = . ()
+	if(!.)
+		return
+	syndie_rapier_effect(target, user)
+
+/obj/item/melee/syndie_rapier/proc/syndie_rapier_effect(mob/living/target, mob/living/user)
+	if(target.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
+		target.visible_message(
+			span_danger("[user] puts [target] to sleep with [src]!"),
+			span_userdanger("You suddenly feel very drowsy!"),
+		)
+		target.Sleeping(10 SECONDS)
+		add_attack_logs(user, target, "put to sleep with [src]")
+	target.apply_damage(stamina_damage, STAMINA)
+	return TRUE
+
 /obj/item/melee/mantisblade
 	name = "Gorlex mantis blade"
 	desc = "A blade designed to be hidden just beneath the skin. The brain is directly linked to this bad boy, allowing it to spring into action."
 	icon_state = "syndie_mantis"
 	item_state = "syndie_mantis"
-	force = 20
+	force = 25
 	throwforce = 20
 	w_class = WEIGHT_CLASS_NORMAL
-	block_chance = 30
-	armour_penetration = 30
+	block_chance = 35
+	armour_penetration = 40
 	sharp = TRUE
 	item_flags = NOSHARPENING
 	origin_tech = "combat=5"
@@ -88,6 +126,30 @@
 	var/obj/item/melee/mantisblade/secondsword = user.get_inactive_hand()
 	secondsword.attack(M, user, TRUE)
 	user.changeNext_move(CLICK_CD_MELEE)
+
+
+/obj/item/melee/mantisblade/afterattack(atom/target, mob/user, proximity)
+    if(!proximity)
+        return
+    if(prob(25))
+        do_sparks(rand(1,6), 1, loc)
+    if(istype(target, /obj/machinery/door/airlock))
+        var/obj/machinery/door/airlock/A = target
+
+        if(!A.requiresID() || A.allowed(user))
+            return
+
+        if(A.locked)
+            to_chat(user, "<span class='notice'>The airlock's bolts prevent it from being forced.</span>")
+            return
+
+        if(A.arePowerSystemsOn())
+            user.visible_message(span_warning("[user] jams [user.p_their()] [name] into the airlock and starts prying it open!"), span_warning("You start forcing the airlock open."), span_warning("You hear a metal screeching sound."))
+            playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
+            if(!do_after(user, 2.5 SECONDS, A))
+                return
+        user.visible_message("<span class='warning'>[user] forces the airlock open with [user.p_their()] [name]!</span>", "<span class='warning'>You force open the airlock.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
+        A.open(TRUE)
 
 /obj/item/melee/mantisblade/shellguard
 	name = "Shellguard mantis blade"

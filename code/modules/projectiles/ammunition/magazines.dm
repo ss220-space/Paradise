@@ -643,7 +643,7 @@
 	ammo_type = /obj/item/ammo_casing/laser
 	origin_tech = "combat=3"
 	caliber = "laser"
-	max_ammo = 12
+	max_ammo = 20
 
 /obj/item/ammo_box/magazine/lr30mag/update_icon_state()
 	icon_state = "lmag-[round(ammo_count(),3)]"
