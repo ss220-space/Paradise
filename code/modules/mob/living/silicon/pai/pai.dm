@@ -136,7 +136,16 @@
 
 	var/datum/action/innate/pai_soft/P = new
 	P.Grant(src)
-
+	var/datum/action/innate/pai_soft/pai_choose_chassis/pai_choose_chassis_action = new
+	pai_choose_chassis_action.Grant(src)
+	var/datum/action/innate/pai_soft/pai_fold_out/pai_fold_out_action = new
+	pai_fold_out_action.Grant(src)
+	var/datum/action/innate/pai_soft/pai_fold_up/pai_fold_up_action = new
+	pai_fold_up_action.Grant(src)
+	var/datum/action/innate/pai_soft/pai_change_voice/pai_change_voice_action = new
+	pai_change_voice_action.Grant(src)
+	var/datum/action/innate/pai/pai_suicide/pai_suicide_action = new
+	pai_suicide_action.Grant(src)
 	//PDA
 	pda = new(src)
 	pda.ownjob = "Personal Assistant"
@@ -266,11 +275,11 @@
 		return
 
 	if(loc != card)
-		to_chat(src, "<span class='warning'>You are already in your mobile form!</span>")
+		balloon_alert(src, "<span class='warning'>вы уже встали на шасси!</span>")
 		return
 
 	if(world.time <= last_special)
-		to_chat(src, "<span class='warning'>You must wait before folding your chassis out again!</span>")
+		balloon_alert(src, "<span class='warning'>необходимо подождать!</span>")
 		return
 
 	last_special = world.time + 200
@@ -301,11 +310,11 @@
 		return
 
 	if(loc == card)
-		to_chat(src, "<span class='warning'>You are already in your card form!</span>")
+		balloon_alert(src, "<span class='warning'>вы уже в компактной форме!</span>")
 		return
 
 	if(world.time <= last_special)
-		to_chat(src, "<span class='warning'>You must wait before returning to your card form!</span>")
+		balloon_alert(src, "<span class='warning'>необходимо подождать</span>")
 		return
 
 	close_up()
@@ -346,7 +355,7 @@
 			my_choices["Custom"] = "[ckey]-pai"
 
 	if(loc == card)		//don't let them continue in card form, since they won't be able to actually see their new mobile form sprite.
-		to_chat(src, "<span class='warning'>You must be in your mobile form to reconfigure your chassis.</span>")
+		balloon_alert(src, "<span class='warning'>вы должны быть в мобильной форме.</span>")
 		return
 
 	while(finalized == "No" && client)
@@ -400,11 +409,11 @@
 	set name = "pAI Suicide"
 	set desc = "Kill yourself and become a ghost (You will recieve a confirmation prompt.)"
 
-	if(alert("REALLY kill yourself? This action can't be undone.", "Suicide", "No", "Suicide") == "Suicide")
+	if(alert("ДЕЙСТВИТЕЛЬНО хочешь убить себя? Это действие нельзя отменить.", "Suicide", "No", "Suicide") == "Suicide")
 		do_suicide()
 
 	else
-		to_chat(src, "Aborting suicide attempt.")
+		balloon_alert(src, "протокол самоуничтожения отменен.")
 
 /mob/living/silicon/pai/update_sight()
 	if(!client)
@@ -612,7 +621,7 @@
 
 /datum/action/innate/pai_soft
 	name = "Pai Sowtware"
-	desc = "Activation of your internal application interface."
+	desc = "Активация вашего внутреннего интерфейса для выбора программ."
 	icon_icon = 'icons/obj/aicards.dmi'
 	button_icon_state = "pai-action"
 	check_flags = AB_CHECK_CONSCIOUS
@@ -620,3 +629,50 @@
 /datum/action/innate/pai_soft/Activate()
 	var/mob/living/silicon/pai/P = owner
 	P.ui_interact(P)
+
+/datum/action/innate/pai_soft/pai_choose_chassis
+	name = "Choose chassis"
+	desc = "Выбор внешности голографического каркаса"
+	button_icon_state = "pai-action3"
+	check_flags = AB_CHECK_CONSCIOUS
+
+/datum/action/innate/pai_soft/pai_choose_chassis/Activate()
+	var/mob/living/silicon/pai/pai = owner
+	pai.choose_chassis()
+
+/datum/action/innate/pai_soft/pai_fold_out
+	name = "Unfold Chassis"
+	desc = "Смена мобильной формы на форму голографического каркаса"
+	button_icon_state = "pai-action2"
+
+/datum/action/innate/pai_soft/pai_fold_out/Activate()
+	var/mob/living/silicon/pai/pai = owner
+	pai.fold_out()
+
+/datum/action/innate/pai_soft/pai_fold_up
+	name = "Collapse Chassis"
+	desc = "Возврат в мобильную форму с каркаса"
+	button_icon_state = "pai-action5"
+
+/datum/action/innate/pai_soft/pai_fold_up/Activate()
+	var/mob/living/silicon/pai/pai = owner
+	pai.fold_up()
+
+/datum/action/innate/pai_soft/pai_change_voice
+	name = "Collapse Chassis"
+	desc = "Изменение звука голосового модуля"
+	button_icon_state = "pai-action4"
+
+/datum/action/innate/pai_soft/pai_change_voice/Activate()
+	var/mob/living/silicon/pai/pai = owner
+	pai.pai_change_voice()
+
+/datum/action/innate/pai/pai_suicide
+	name = "Pai suicide"
+	desc = "Активация протокола самоуничтожения"
+	button_icon_state = "pai-action6"
+	check_flags = AB_CHECK_CONSCIOUS
+
+/datum/action/innate/pai/pai_suicide/Activate()
+	var/mob/living/silicon/pai/pai = owner
+	pai.pAI_suicide()
