@@ -73,22 +73,20 @@
 	/// How much stamina damage we deal on a successful hit against a living, non-cyborg mob.
 	var/stamina_damage = 30
 
-/obj/item/melee/syndie_rapier/attack(mob/living/target, mob/living/user, def_zone, add_melee_cooldown = TRUE, skip_attack_anim = TRUE)
-	. = . ()
-	if(!.)
+/obj/item/melee/syndie_rapier/afterattack(atom/target, mob/user, proximity, params)
+	if(!proximity || !isliving(target))
 		return
-	syndie_rapier_effect(target, user)
+	var/mob/living/L = target
 
-/obj/item/melee/syndie_rapier/proc/syndie_rapier_effect(mob/living/target, mob/living/user)
-	if(target.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
+	if(L.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
 		target.visible_message(
 			span_danger("[user] puts [target] to sleep with [src]!"),
 			span_userdanger("You suddenly feel very drowsy!"),
 		)
-		target.Sleeping(10 SECONDS)
+		L.Sleeping(10 SECONDS)
 		add_attack_logs(user, target, "put to sleep with [src]")
-	target.apply_damage(stamina_damage, STAMINA)
-	return TRUE
+	L.apply_damage(stamina_damage, STAMINA)
+	return
 
 /obj/item/melee/mantisblade
 	name = "Gorlex mantis blade"
