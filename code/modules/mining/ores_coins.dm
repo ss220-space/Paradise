@@ -292,7 +292,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		attacher = key_name(user)
 		update_icon(UPDATE_OVERLAYS)
 		qdel(I)
-		return ATTACK_CHAIN_PROCEED_SUCCESS
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(primed)
 		var/static/list/prime_stoppers = typecacheof(list(
