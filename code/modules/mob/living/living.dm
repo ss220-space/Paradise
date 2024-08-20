@@ -846,7 +846,7 @@
 		if(!buckled.anchored)
 			buckled.moving_from_pull = moving_from_pull
 			. = buckled.Move(newloc, direct)
-			buckled.moving_from_pull = null
+			buckled?.moving_from_pull = null
 		return .
 
 	if(pulling)
