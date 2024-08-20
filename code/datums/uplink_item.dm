@@ -407,6 +407,14 @@
 	job = list(JOB_TITLE_CMO, JOB_TITLE_GENETICIST)
 	surplus = 0
 
+/datum/uplink_item/jobspecific/laser_eyes_injector
+	name = "Laser Eyes Injector"
+	desc = "Эксперементальный ДНК инжектор, который навсегда даст вам способность стрелять лазерами из глаз."
+	item = /obj/item/laser_eyes_injector
+	cost = 37
+	job = list(JOB_TITLE_GENETICIST)
+	surplus = 0
+
 //Virology
 /datum/uplink_item/jobspecific/viral_injector
 	name = "Viral Injector"
