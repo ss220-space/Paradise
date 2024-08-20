@@ -10,6 +10,8 @@
 	desc = "Just your average condiment container."
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "emptycondiment"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	container_type = OPENCONTAINER
 	possible_transfer_amounts = list(1, 5)
 	visible_transfer_rate = TRUE
