@@ -229,6 +229,8 @@ effective or pretty fucking useless.
 /obj/item/teleporter/attack_self(mob/user)
 	attempt_teleport(user, FALSE)
 
+/obj/item/teleporter/attack_self_tk(mob/user)
+	return
 
 /obj/item/teleporter/process()
 	if(charges >= max_charges)
