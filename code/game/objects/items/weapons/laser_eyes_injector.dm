@@ -26,6 +26,10 @@
 		to_chat(user, span_warning("Неподходящий геном."))
 		return .
 
+	if(locate(/obj/effect/proc_holder/spell/lasereyes, target.mob_spell_list))
+		to_chat(user, span_warning("Вы уже обладаете данным геномом."))
+		return .
+
 	if(used)
 		to_chat(user, span_warning("Этот инжектор уже исспользован."))
 		return .
