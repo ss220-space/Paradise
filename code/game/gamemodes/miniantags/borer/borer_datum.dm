@@ -39,7 +39,7 @@
 	if(!.)
 		return 
 	user = owner.current
-	var/datum/antagonist/borer/miscellaneous/change_host_and_scale = new(user)
+	new datum/antagonist/borer/miscellaneous/change_host_and_scale(user)
 	
 /datum/antagonist/borer/New(mob/living/simple_animal/borer/borer) //we really need to modify this, cause many features are linked to borer and doesn't require mind
 	if(!borer)
