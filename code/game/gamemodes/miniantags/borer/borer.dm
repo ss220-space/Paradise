@@ -111,6 +111,7 @@
 	var/evo_points = 0 // used for borer shopping, gained by reproductions
 	var/datum/antagonist/borer/borer_rank/borer_rank
 	var/list/datum/antagonist/borer/focus/learned_focuses = list()
+	var/datum/antagonist/borer/miscellaneous/change_host_and_scale/scaling = new
 	var/datum/action/innate/borer/talk_to_host/talk_to_host_action = new
 	var/datum/action/innate/borer/toggle_hide/toggle_hide_action = new
 	var/datum/action/innate/borer/talk_to_borer/talk_to_borer_action = new
@@ -135,6 +136,7 @@
 	real_name = "Cortical Borer [rand(1000,9999)]"
 	truename = "[borer_names[min(generation, borer_names.len)]] [rand(1000,9999)]"
 	GrantBorerActions()
+	scaling.Grant()
 
 /mob/living/simple_animal/borer/attack_ghost(mob/user)
 	if(cannotPossess(user))

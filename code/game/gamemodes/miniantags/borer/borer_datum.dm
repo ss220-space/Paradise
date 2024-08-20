@@ -39,7 +39,6 @@
 	if(!.)
 		return 
 	user = owner.current
-	new datum/antagonist/borer/miscellaneous/change_host_and_scale(user)
 	
 /datum/antagonist/borer/New(mob/living/simple_animal/borer/borer) //we really need to modify this, cause many features are linked to borer and doesn't require mind
 	if(!borer)
@@ -154,6 +153,9 @@
 			return
 
 /datum/antagonist/borer/miscellaneous // category for small datums.
+
+/datum/antagonist/borer/miscellaneous/change_host_and_scale/New()
+	return
 
 /datum/antagonist/borer/miscellaneous/change_host_and_scale
 	var/list/used_UIDs = list()
