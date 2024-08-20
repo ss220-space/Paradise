@@ -243,7 +243,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 
 /datum/theft_objective/highrisk/reflector
 	id = "reflector_armor"
-	name = "an reflector coat"
+	name = "a reflector coat"
 	typepath = /obj/item/clothing/suit/armor/reflector
 	protected_jobs = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN)
 
