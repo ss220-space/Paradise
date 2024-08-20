@@ -191,7 +191,7 @@
 
 /datum/borer_rank/New(mob/living/simple_animal/borer)
 	user = borer
-	host = borer.host
+	host = user.host
 	on_apply()
 
 /datum/borer_rank/Destroy(force)
