@@ -251,7 +251,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/proc/ai_alerts()
 	var/list/dat = list("<HEAD><TITLE>Current Station Alerts</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n")
-	dat += "<A HREF='?src=[UID()];mach_close=aialerts'>Close</A><BR><BR>"
+	dat += "<a href='byond://?src=[UID()];mach_close=aialerts'>Close</A><BR><BR>"
 	var/list/list/temp_alarm_list = SSalarm.alarms.Copy()
 	for(var/cat in temp_alarm_list)
 		if(!(cat in alarms_listend_for))

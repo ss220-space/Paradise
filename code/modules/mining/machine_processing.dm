@@ -43,7 +43,7 @@
 	if(!machine)
 		return
 
-	var/dat = {"<meta charset="UTF-8">"} + machine.get_machine_data()
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"} + machine.get_machine_data()
 
 	var/datum/browser/popup = new(user, "processing", "Smelting Console", 300, 500)
 	popup.set_content(dat)
@@ -138,7 +138,7 @@
 		if(selected_material == mat_id)
 			dat += " <i>Smelting</i>"
 		else
-			dat += " <A href='?src=[CONSOLE.UID()];material=[mat_id]'><b>Not Smelting</b></A> "
+			dat += " <a href='byond://?src=[CONSOLE.UID()];material=[mat_id]'><b>Not Smelting</b></A> "
 		dat += "<br>"
 
 	dat += "<br><br>"
@@ -150,16 +150,16 @@
 		if(selected_alloy == D.id)
 			dat += " <i>Smelting</i>"
 		else
-			dat += " <A href='?src=[CONSOLE.UID()];alloy=[D.id]'><b>Not Smelting</b></A> "
+			dat += " <a href='byond://?src=[CONSOLE.UID()];alloy=[D.id]'><b>Not Smelting</b></A> "
 		dat += "<br>"
 
 	dat += "<br><br>"
 	//On or off
 	dat += "Machine is currently "
 	if(on)
-		dat += "<A href='?src=[CONSOLE.UID()];set_on=off'>On</A> "
+		dat += "<a href='byond://?src=[CONSOLE.UID()];set_on=off'>On</A> "
 	else
-		dat += "<A href='?src=[CONSOLE.UID()];set_on=on'>Off</A> "
+		dat += "<a href='byond://?src=[CONSOLE.UID()];set_on=on'>Off</A> "
 
 	return dat
 

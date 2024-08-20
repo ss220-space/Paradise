@@ -1207,7 +1207,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(!module)
 		pick_module()
 		return
-	var/dat = {"<meta charset="UTF-8"><A HREF='?src=[UID()];mach_close=robotmod'>Close</A>
+	var/dat = {"<meta charset="UTF-8"><a href='byond://?src=[UID()];mach_close=robotmod'>Close</A>
 	<BR>
 	<BR>
 	<B>Activated Modules</B>

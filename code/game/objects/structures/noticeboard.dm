@@ -46,7 +46,7 @@
 	dat += "<B>Noticeboard</B><BR>"
 	var/uid = UID()
 	for(var/obj/item/paper/P in src)
-		dat += "<A href='?src=[uid];read=[P.UID()]'>[P.name]</A> <A href='?src=[uid];write=[P.UID()]'>Write</A> <A href='?src=[uid];remove=[P.UID()]'>Remove</A><BR>"
+		dat += "<a href='byond://?src=[uid];read=[P.UID()]'>[P.name]</A> <a href='byond://?src=[uid];write=[P.UID()]'>Write</A> <a href='byond://?src=[uid];remove=[P.UID()]'>Remove</A><BR>"
 	user << browse(dat.Join(""),"window=noticeboard")
 	onclose(user, "noticeboard")
 

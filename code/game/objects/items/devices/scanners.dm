@@ -373,7 +373,7 @@ REAGENT SCANNER
 	popup.open(no_focus = 1)
 
 /obj/item/healthanalyzer/proc/get_header(mob/user)
-	return "<a href='?src=[src.UID()];user=[user.UID()];clear=1'>Очистить</a><a href='?src=[src.UID()];user=[user.UID()];mode=1'>Локализация</a>[advanced ? "<a href='?src=[src.UID()];user=[user.UID()];print=1'>Печать отчета</a>" : ""]"
+	return "<a href='byond://?src=[src.UID()];user=[user.UID()];clear=1'>Очистить</a><a href='byond://?src=[src.UID()];user=[user.UID()];mode=1'>Локализация</a>[advanced ? "<a href='byond://?src=[src.UID()];user=[user.UID()];print=1'>Печать отчета</a>" : ""]"
 
 /obj/item/healthanalyzer/examine(mob/user)
 	. = ..()

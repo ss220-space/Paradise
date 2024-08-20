@@ -432,12 +432,12 @@
 	//Detailed description
 	var/descriptions
 	if(get_description_info())
-		descriptions += "<a href='?src=[UID()];description_info=`'>\[Справка\]</a> "
+		descriptions += "<a href='byond://?src=[UID()];description_info=`'>\[Справка\]</a> "
 	if(get_description_antag())
 		if(isAntag(user) || isobserver(user))
-			descriptions += "<a href='?src=[UID()];description_antag=`'>\[Антагонист\]</a> "
+			descriptions += "<a href='byond://?src=[UID()];description_antag=`'>\[Антагонист\]</a> "
 	if(get_description_fluff())
-		descriptions += "<a href='?src=[UID()];description_fluff=`'>\[Забавная информация\]</a>"
+		descriptions += "<a href='byond://?src=[UID()];description_fluff=`'>\[Забавная информация\]</a>"
 
 	if(descriptions)
 		. += descriptions
