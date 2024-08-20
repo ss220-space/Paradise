@@ -109,7 +109,7 @@
 	var/hiding = FALSE
 	var/reproductions = 0 // used to upgrade rank
 	var/evo_points = 0 // used for borer shopping, gained by reproductions
-	var/datum/antagonist/borer/borer_rank/borer_rank
+	var/datum/borer_rank/borer_rank
 	var/list/datum/antagonist/borer/focus/learned_focuses = list()
 	var/datum/antagonist/borer/miscellaneous/change_host_and_scale/scaling = new
 	var/datum/action/innate/borer/talk_to_host/talk_to_host_action = new
@@ -319,16 +319,16 @@
 
 /mob/living/simple_animal/borer/proc/update_rank()
 	if(!borer_rank)
-		return borer_rank = new /datum/antagonist/borer/borer_rank/young(src)
+		return borer_rank = new /datum/borer_rank/young(src)
 	switch(borer_rank)
-		if(/datum/antagonist/borer/borer_rank/young)
-			return borer_rank = new /datum/antagonist/borer/borer_rank/mature(src)
+		if(/datum/borer_rank/young)
+			return borer_rank = new /datum/borer_rank/mature(src)
 
-		if(/datum/antagonist/borer/borer_rank/mature)
-			return borer_rank = new /datum/antagonist/borer/borer_rank/adult(src)
+		if(/datum/borer_rank/mature)
+			return borer_rank = new borer_rank/adult(src)
 
-		if(/datum/antagonist/borer/borer_rank/adult)
-			return borer_rank = new /datum/antagonist/borer/borer_rank/elder(src)
+		if(/datum/borer_rank/adult)
+			return borer_rank = new /datum/borer_rank/elder(src)
 
 /obj/effect/proc_holder/spell/borer_infest
 	name = "Infest"

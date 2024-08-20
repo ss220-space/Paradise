@@ -20,6 +20,7 @@
 	var/mob/living/simple_animal/borer/user // our borer
 	var/mob/living/carbon/human/host // our host
 	var/mob/living/carbon/human/previous_host // previous host, used to del transferable effects from previous host.
+	var/datum/borer_rank // Borer rank.
 	var/flags = NONE
 	var/processing_flags = NONE
 	var/tick_interval = 1 SECONDS
@@ -44,6 +45,7 @@
 /datum/antagonist/borer/proc/Grant(mob/living/simple_animal/borer/borer)
 	user = borer
 	host = borer.host
+	borer_rank = borer.borer_rank
 	if(QDELETED(user))
 		qdel(src)
 		return FALSE
@@ -54,7 +56,7 @@
 	if((flags & FLAG_HAS_MOVABLE_EFFECT) && (host)) 
 		previous_host = host
 		pre_grant_movable_effect()
-	if(flags & FLAG_PROCESS)
+	if((flags & FLAG_PROCESS) || (borer_rank.flags & FLAG_PROCESS))
 		if(tick_interval != -1)
 			tick_interval = world.time + tick_interval
 		if(!(tick_interval > world.time))
@@ -112,7 +114,7 @@
 		UnregisterSignal(user, COMSIG_BORER_LEFT_HOST)
 	if((flags & FLAG_HAS_MOVABLE_EFFECT) && (previous_host))
 		pre_remove_movable_effect()
-	if(flags & FLAG_PROCESS)
+	if((flags & FLAG_PROCESS) || (borer_rank.flags & FLAG_PROCESS))
 		if(!(processing_flags & SHOULD_PROCESS_AFTER_DEATH))
 			UnregisterSignal(user, COMSIG_MOB_DEATH)
 			UnregisterSignal(user, COMSIG_LIVING_REVIVE)
@@ -120,6 +122,7 @@
 	user = null
 	host = null
 	previous_host = null
+	borer_rank = null
 	return ..()
 	
 /datum/antagonist/borer/proc/on_apply()
@@ -142,7 +145,9 @@
 	if(tick_interval != -1 && tick_interval <= world.time)
 		var/tick_length = initial(tick_interval)
 		tick(tick_length / (1 SECONDS))
+		borer_rank.tick(tick_length / (1 SECONDS))
 		if((flags &  FLAG_HOST_REQUIRED) && (!QDELETED(host)))
+			borer_rank.host_tick(tick_length / (1 SECONDS))
 			host_tick(tick_length / (1 SECONDS))
 		tick_interval = world.time + tick_length
 		if(QDELING(src))
@@ -175,62 +180,80 @@
 	LAZYNULL(used_UIDs)
 	return ..()
 
-/datum/antagonist/borer/borer_rank
+/datum/borer_rank
 	var/rankname = "Error"
 	var/required_reproductions = null // how many reproductions we need to gain new rank
-	flags = FLAG_PROCESS
-	
-/datum/antagonist/borer/borer_rank/young
-	rankname = "Young"
-	required_reproductions = REPRODUCTIONS_TO_MATURE 
+	var/flags = FLAG_PROCESS
+	var/mob/living/simple_animal/borer/user // rank owner.
 
-/datum/antagonist/borer/borer_rank/mature
+/datum/borer_rank/New(mob/living/simple_animal/borer/borer)
+	user = borer
+	on_apply()
+
+/datum/borer_rank/Destroy(force)
+	user = null
+	return ..()
+
+/datum/borer_rank/proc/on_apply()
+	return
+
+/datum/borer_rank/proc/host_tick(seconds_between_ticks)
+	return
+
+/datum/borer_rank/proc/tick(seconds_between_ticks)
+	return
+
+/datum/borer_rank/young
+	rankname = "Young"
+	required_reproductions = REPRODUCTIONS_TO_MATURE
+
+/datum/borer_rank/mature
 	rankname = "Mature"
 	required_reproductions = REPRODUCTIONS_TO_ADULT 
 
-/datum/antagonist/borer/borer_rank/adult
+/datum/borer_rank/adult
 	rankname = "Adult"
 	required_reproductions = REPRODUCTIONS_TO_ELDER
-	flags = FLAG_PROCESS|FLAG_HOST_REQUIRED
+	flags = FLAG_HOST_REQUIRED|FLAG_PROCESS
 
-/datum/antagonist/borer/borer_rank/elder
+/datum/borer_rank/elder
 	rankname = "Elder"
-	flags = FLAG_PROCESS|FLAG_HOST_REQUIRED
+	flags = FLAG_HOST_REQUIRED
 
-/datum/antagonist/borer/borer_rank/young/on_apply()
+/datum/borer_rank/young/on_apply()
 	user.update_transform(0.5)
 	return TRUE
 
-/datum/antagonist/borer/borer_rank/mature/on_apply()
+/datum/borer_rank/mature/on_apply()
 	user.update_transform(2)
 	user.maxHealth += 5
 	return TRUE
 
-/datum/antagonist/borer/borer_rank/adult/on_apply()
+/datum/borer_rank/adult/on_apply()
 	user.maxHealth += 5
 	return TRUE
 
-/datum/antagonist/borer/borer_rank/elder/on_apply()
+/datum/borer_rank/elder/on_apply()
 	user.maxHealth += 10
 	return TRUE
 
-/datum/antagonist/borer/borer_rank/young/tick(seconds_between_ticks)
+/datum/borer_rank/young/tick(seconds_between_ticks)
 	user.adjustHealth(-0.1)
 
-/datum/antagonist/borer/borer_rank/mature/tick(seconds_between_ticks)
+/datum/borer_rank/mature/tick(seconds_between_ticks)
 	user.adjustHealth(-0.15)
 
-/datum/antagonist/borer/borer_rank/adult/tick(seconds_between_ticks)
+/datum/borer_rank/adult/tick(seconds_between_ticks)
 	user.adjustHealth(-0.2)
 
-/datum/antagonist/borer/borer_rank/adult/host_tick(seconds_between_ticks)
+/datum/borer_rank/adult/host_tick(seconds_between_ticks)
 	if(host.stat != DEAD && !user.sneaking)
 		user.chemicals += 0.2
 
-/datum/antagonist/borer/borer_rank/elder/tick(seconds_between_ticks)
+/datum/borer_rank/elder/tick(seconds_between_ticks)
 	user.adjustHealth(-0.3)
 
-/datum/antagonist/borer/borer_rank/elder/host_tick(seconds_between_ticks)
+/datum/borer_rank/elder/host_tick(seconds_between_ticks)
 	if(host.stat != DEAD)
 		host.heal_overall_damage(0.4, 0.4)
 		user.chemicals += 0.3
