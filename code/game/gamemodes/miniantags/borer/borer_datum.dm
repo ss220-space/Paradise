@@ -50,7 +50,7 @@
 		qdel(src)
 		return FALSE
 	on_apply()
-	if((flags & FLAG_HOST_REQUIRED) || (flags & FLAG_HAS_MOVABLE_EFFECT)) // important to change host value.
+	if((flags & FLAG_HOST_REQUIRED) || ((flags & FLAG_HAS_MOVABLE_EFFECT)) || ((borer_rank.flags & FLAG_HOST_REQUIRED)) || (borer_rank.flags & FLAG_HAS_MOVABLE_EFFECT)) // important to change host value.
 		RegisterSignal(user, COMSIG_BORER_ENTERED_HOST, PROC_REF(entered_host))
 		RegisterSignal(user, COMSIG_BORER_LEFT_HOST, PROC_REF(left_host)) 
 	if((flags & FLAG_HAS_MOVABLE_EFFECT) && (host)) 
@@ -73,12 +73,14 @@
 /datum/antagonist/borer/proc/entered_host()
 	SIGNAL_HANDLER
 	host = user.host
+	borer_rank.host = user.host
 	if((flags & FLAG_HAS_MOVABLE_EFFECT) && (pre_grant_movable_effect()))
 		previous_host = host
 			
 /datum/antagonist/borer/proc/left_host()
 	SIGNAL_HANDLER
 	host = null
+	borer_rank.host = null
 	if((flags & FLAG_HAS_MOVABLE_EFFECT) && (pre_remove_movable_effect()))
 		previous_host = host
 
@@ -109,7 +111,7 @@
 	return
 
 /datum/antagonist/borer/Destroy(force)
-	if((flags & FLAG_HOST_REQUIRED) || (flags & FLAG_HAS_MOVABLE_EFFECT))
+	if((flags & FLAG_HOST_REQUIRED) || ((flags & FLAG_HAS_MOVABLE_EFFECT)) || ((borer_rank.flags & FLAG_HOST_REQUIRED)) || (borer_rank.flags & FLAG_HAS_MOVABLE_EFFECT))
 		UnregisterSignal(user, COMSIG_BORER_ENTERED_HOST)
 		UnregisterSignal(user, COMSIG_BORER_LEFT_HOST)
 	if((flags & FLAG_HAS_MOVABLE_EFFECT) && (previous_host))
@@ -185,13 +187,16 @@
 	var/required_reproductions = null // how many reproductions we need to gain new rank
 	var/flags = FLAG_PROCESS
 	var/mob/living/simple_animal/borer/user // rank owner.
+	var/mob/living/carbon/human/host // host for borer
 
-/datum/borer_rank/New(mob/living/simple_animal/borer/borer)
+/datum/borer_rank/New(mob/living/simple_animal/borer)
 	user = borer
+	host = borer.host
 	on_apply()
 
 /datum/borer_rank/Destroy(force)
 	user = null
+	host = null
 	return ..()
 
 /datum/borer_rank/proc/on_apply()
