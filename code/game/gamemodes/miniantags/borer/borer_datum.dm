@@ -189,9 +189,9 @@
 	var/mob/living/simple_animal/borer/user // rank owner.
 	var/mob/living/carbon/human/host // host for borer
 
-/datum/borer_rank/New(mob/living/simple_animal/borer)
+/datum/borer_rank/New(mob/living/simple_animal/borer/borer)
 	user = borer
-	host = user.host
+	host = borer.host
 	on_apply()
 
 /datum/borer_rank/Destroy(force)
