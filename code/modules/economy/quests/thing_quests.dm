@@ -508,6 +508,7 @@
 		"BREATHLESS" = 250,
 		"COLD" = 200,
 		"HALLUCINATION" = 200,
+		"FARVISION" = 200,
 	)
 	very_hard_items = list(
 		"NOPRINTS" = 250,
