@@ -586,7 +586,7 @@
 	if(!isnull(medicine_name) && length(medicine_name) <= 0)
 		medicine_name = get_base_placeholder_name(reagents, amount_per_item)
 
-	var/data = list()
+	var/data = list("count" = count)
 	for(var/i in 1 to count)
 		if(reagents.total_volume <= 0)
 			to_chat(user, span_warning("Not enough reagents to create these items!"))
@@ -626,14 +626,9 @@
 	sprite_mask = "bandaid"
 	sprites_amount = MAX_PATCH_SPRITE
 
-	var/static/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone", "silver_sulfadiazine", "salbutamol",
-									"omnizine", "stimulants", "synaptizine", "potass_iodide", "oculine", "mannitol", "styptic_powder",
-									"spaceacillin", "salglu_solution", "sal_acid", "cryoxadone", "blood", "synthflesh", "hydrocodone",
-									"mitocholide", "rezadone", "menthol", "diphenhydramine", "ephedrine", "iron", "sanguine_reagent")
-
 /datum/chemical_production_mode/patches/proc/SafetyCheck(datum/reagents/R)
 	for(var/datum/reagent/A in R.reagent_list)
-		if(!safe_chem_list.Find(A.id))
+		if(!GLOB.safe_chem_list.Find(A.id))
 			return FALSE
 	return TRUE
 
@@ -645,7 +640,7 @@
 		chemicals_is_safe = SafetyCheck(R)
 		data["chemicals_is_safe"] = chemicals_is_safe
 
-	if(chemicals_is_safe)
+	if(chemicals_is_safe && data["count"] == 1)
 		P.instant_application = TRUE
 
 /datum/chemical_production_mode/bottles

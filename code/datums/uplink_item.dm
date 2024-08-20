@@ -407,6 +407,14 @@
 	job = list(JOB_TITLE_CMO, JOB_TITLE_GENETICIST)
 	surplus = 0
 
+/datum/uplink_item/jobspecific/laser_eyes_injector
+	name = "Laser Eyes Injector"
+	desc = "Эксперементальный ДНК инжектор, который навсегда даст вам способность стрелять лазерами из глаз."
+	item = /obj/item/laser_eyes_injector
+	cost = 37
+	job = list(JOB_TITLE_GENETICIST)
+	surplus = 0
+
 //Virology
 /datum/uplink_item/jobspecific/viral_injector
 	name = "Viral Injector"
@@ -804,6 +812,12 @@
 	desc = "A high powered chainsaw for cutting up ...you know...."
 	item = /obj/item/twohanded/chainsaw
 	cost = 60
+
+/datum/uplink_item/dangerous/rapier
+	name = "Syndicate rapier"
+	desc = "An elegant plastitanium rapier with a diamond tip and coated in a specialized knockout poison. The rapier comes with its own sheath, and is capable of puncturing through almost any defense. However, due to the size of the blade and obvious nature of the sheath, the weapon stands out as being obviously nefarious."
+	item = /obj/item/storage/belt/rapier/syndie
+	cost = 40
 
 /datum/uplink_item/dangerous/commando_kit
 	name = "Commandos knife operation kit"

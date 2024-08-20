@@ -13,6 +13,9 @@
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
+/obj/item/stack/ore/bluespace_crystal/attack_self_tk(mob/user)
+	return
+
 /obj/item/stack/ore/bluespace_crystal/New(loc, new_amount, merge = TRUE)
 	..()
 	pixel_x = rand(-5, 5)
