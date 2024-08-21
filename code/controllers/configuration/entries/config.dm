@@ -820,7 +820,7 @@
 	default = 400
 	min_val = 0
 
-/datum/config_entry/flag/lobby_ss13_music
+/datum/config_entry/flag/lobby_ss13_classic_music
 
 /datum/config_entry/string/invoke_youtubedl
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN

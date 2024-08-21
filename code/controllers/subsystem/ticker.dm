@@ -394,7 +394,7 @@ SUBSYSTEM_DEF(ticker)
 	//Add a comment after the song link in the format [Artist - Name]
 
 	var/list/songs
-	if(CONFIG_GET(flag/lobby_ss13_music))
+	if(CONFIG_GET(flag/lobby_ss13_classic_music))
 		songs = list(
 			"https://www.youtube.com/watch?v=Ae2N5310MXE",						// Space Station 13 Music - Endless Space
 			"https://www.youtube.com/watch?v=UaD4AiqYDyA",						// Space Station 13 Music - Title1 (Flip-Flap)
