@@ -404,7 +404,7 @@
 			dispensable_reagents -= hackedupgrade_reagents
 
 	else if(update_type == UPDATE_TYPE_COMPONENTS && hackedcheck)
-		dispensable_reagents += hackedupgrade_reagents
+		dispensable_reagents |= hackedupgrade_reagents
 	..()
 
 
