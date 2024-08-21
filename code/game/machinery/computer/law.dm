@@ -10,22 +10,25 @@
 	light_range_on = 2
 
 
-/obj/machinery/computer/aiupload/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/aiModule))
-		if(!current)//no AI selected
+/obj/machinery/computer/aiupload/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/aiModule))
+		add_fingerprint(user)
+		if(!current)	//no AI selected
 			to_chat(user, span_danger("No AI selected. Please chose a target before proceeding with upload."))
-			return
-		var/turf/T = get_turf(current)
-		if(!atoms_share_level(T, src))
+			return ATTACK_CHAIN_PROCEED
+		if(!atoms_share_level(current, src))
 			to_chat(user, span_danger("Unable to establish a connection") + ": You're too far away from the target silicon!")
-			return
+			return ATTACK_CHAIN_PROCEED
 		if(current.on_the_card)
 			to_chat(user, span_danger("Unable to establish a connection") + ": Target silicon is on an inteliCard or undergoing a repair procedure!")
-			return
-		add_fingerprint(user)
-		var/obj/item/aiModule/M = O
-		M.install(src)
-		return
+			return ATTACK_CHAIN_PROCEED
+		var/obj/item/aiModule/aiModule = I
+		aiModule.install(src)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
 
 
@@ -63,17 +66,18 @@
 	var/mob/living/silicon/robot/current = null
 
 
-/obj/machinery/computer/borgupload/attackby(obj/item/aiModule/module, mob/user, params)
-	if(istype(module, /obj/item/aiModule))
-		if(!current)//no borg selected
+/obj/machinery/computer/borgupload/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/aiModule))
+		if(!current)	//no borg selected
 			to_chat(user, span_danger("No borg selected. Please chose a target before proceeding with upload."))
-			return
-		var/turf/T = get_turf(current)
-		if(!atoms_share_level(T, src))
+			return ATTACK_CHAIN_PROCEED
+		if(!atoms_share_level(current, src))
 			to_chat(user, span_danger("Unable to establish a connection") + ": You're too far away from the target silicon!")
-			return
-		module.install(src)
-		return
+			return ATTACK_CHAIN_PROCEED
+		var/obj/item/aiModule/aiModule = I
+		aiModule.install(src)
+		return ATTACK_CHAIN_PROCEED
+
 	return ..()
 
 

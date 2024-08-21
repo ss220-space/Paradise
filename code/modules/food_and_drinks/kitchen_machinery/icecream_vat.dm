@@ -24,34 +24,40 @@
 	return cone_name
 
 
-/obj/machinery/icemachine/New()
-	..()
+/obj/machinery/icemachine/Initialize(mapload)
+	. = ..()
 	create_reagents(500)
 
+
 /obj/machinery/icemachine/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(istype(I, /obj/item/reagent_containers/glass))
-		if(beaker)
-			to_chat(user, "<span class='notice'>A container is already inside [src].</span>")
-			return
-		if(!user.drop_transfer_item_to_loc(I, src))
-			to_chat(user, "<span class='warning'>\The [I] is stuck to you!</span>")
-			return
 		add_fingerprint(user)
+		if(beaker)
+			to_chat(user, span_warning("The [beaker.name] is already inside [src]."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
 		beaker = I
-		to_chat(user, "<span class='notice'>You add [I] to [src]</span>")
+		to_chat(user, span_notice("You have inserted [I] into [src]."))
 		updateUsrDialog()
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	if(istype(I, /obj/item/reagent_containers/food/snacks/icecream))
-		if(!I.reagents.has_reagent("sprinkles"))
-			add_fingerprint(user)
-			if(I.reagents.total_volume > 29)
-				I.reagents.remove_any(1)
-			I.reagents.add_reagent("sprinkles", 1)
-			I.name += " with sprinkles"
-			I.desc += ". This also has sprinkles."
-		else
-			to_chat(user, "<span class='notice'>This [I] already has sprinkles.</span>")
-		return
+		add_fingerprint(user)
+		if(I.reagents.has_reagent("sprinkles"))
+			to_chat(user, span_warning("The [I.name] already has some sprinkles."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You have added sprinkles to [I]."))
+		if(I.reagents.total_volume > 29)
+			I.reagents.remove_any(1)
+		I.reagents.add_reagent("sprinkles", 1)
+		I.name += " with sprinkles"
+		I.desc += " Flavored with sprinkles."
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
 
 

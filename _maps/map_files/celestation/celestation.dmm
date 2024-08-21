@@ -38776,10 +38776,7 @@
 /turf/simulated/floor/glass,
 /area/hallway/primary/central)
 "fYK" = (
-/obj/structure/table,
-/obj/item/clipboard,
-/obj/item/paper_bin,
-/obj/item/pen,
+/obj/structure/closet/secure_closet/pilot_sniper,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -78887,6 +78884,8 @@
 /obj/machinery/newscaster/security_unit{
 	pixel_y = -32
 	},
+/obj/item/clipboard,
+/obj/item/paper_bin,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},

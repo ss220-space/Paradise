@@ -200,22 +200,27 @@
 
 
 /obj/machinery/dna_scannernew/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(exchange_parts(user, I))
-		return
-	else if(istype(I, /obj/item/reagent_containers/glass))
-		if(beaker)
-			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
-			return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-		if(!user.drop_transfer_item_to_loc(I, src))
-			to_chat(user, "<span class='warning'>\The [I] is stuck to you!</span>")
-			return
-
+	if(istype(I, /obj/item/reagent_containers/glass))
 		add_fingerprint(user)
+		if(beaker)
+			to_chat(user, span_warning("A beaker is already loaded into the machine."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
 		beaker = I
 		SStgui.update_uis(src)
-		user.visible_message("[user] adds \a [I] to \the [src]!", "You add \a [I] to \the [src]!")
-		return
+		user.visible_message(
+			span_notice("[user] inserts [I] into [src]!"),
+			span_notice("You insert [I] to [src]!"),
+		)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
 
 
@@ -344,18 +349,24 @@
 	idle_power_usage = 10
 	active_power_usage = 400
 
+
 /obj/machinery/computer/scan_consolenew/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/disk/data)) //INSERT SOME diskS
-		if(!disk)
-			add_fingerprint(user)
-			user.drop_from_active_hand()
-			I.forceMove(src)
-			disk = I
-			to_chat(user, "You insert [I].")
-			SStgui.update_uis(src)
-			return
-	else
-		return ..()
+		add_fingerprint(user)
+		if(disk)
+			to_chat(user, "There is already [disk] inserted.")
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		disk = I
+		user.visible_message(
+			span_notice("[user] inserts [I.name] into [src]."),
+			span_notice("You insert [I.name] into [src]."),
+		)
+		SStgui.update_uis(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 /obj/machinery/computer/scan_consolenew/New()
 	..()
@@ -384,6 +395,8 @@
 		return FALSE
 	I.block = id
 	I.buf = buffer
+	I.origin_tech = GetInjectorTechs(I)
+
 	return TRUE
 
 /obj/machinery/computer/scan_consolenew/attack_ai(mob/user)

@@ -152,7 +152,8 @@
 
 /obj/machinery/computer/camera_advanced/xenobio/proc/insert_potion(obj/item/slimepotion/slime/potion)
 	clear_potion()
-	potion.forceMove(src)
+	if(potion.loc != src)
+		potion.forceMove(src)
 	current_potion = potion
 	RegisterSignal(current_potion, COMSIG_QDELETING, PROC_REF(clear_potion))
 
@@ -182,34 +183,45 @@
 		return
 	return ..()
 
-/obj/machinery/computer/camera_advanced/xenobio/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/reagent_containers/food/snacks/monkeycube))
-		if(user.drop_transfer_item_to_loc(O, src))
-			add_fingerprint(user)
-			monkeys++
-			to_chat(user, "<span class='notice'>You feed [O] to [src]. It now has [monkeys] monkey cubes stored.</span>")
-			qdel(O)
-		return
-	if(istype(O, /obj/item/slimepotion/slime))
-		if(!user.drop_item_ground(O))
-			return
+
+/obj/machinery/computer/camera_advanced/xenobio/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/reagent_containers/food/snacks/monkeycube))
 		add_fingerprint(user)
-		to_chat(user, span_notice("You load [O] in the console's potion slot[current_potion ? ", replacing the one that was there before" : ""]."))
-		insert_potion(O, user)
-		return
-	if(istype(O, /obj/item/storage/bag/bio) || istype(O, /obj/item/storage/box/monkeycubes))
-		var/obj/item/storage/P = O
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		monkeys++
+		to_chat(user, span_notice("You have loaded [I] into the food compartment. It now contains <b>[monkeys]</b> monkey cubes stored."))
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/slimepotion/slime))
+		add_fingerprint(user)
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("You have loaded [I] into the potion slot[current_potion ? ", replacing the one that was there before" : ""]."))
+		insert_potion(I, user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/storage/bag/bio) || istype(I, /obj/item/storage/box/monkeycubes))
+		add_fingerprint(user)
+		var/obj/item/storage/storage = I
 		var/loaded = 0
-		for(var/obj/item/reagent_containers/food/snacks/monkeycube/MC in P.contents)
-			loaded = 1
+		for(var/obj/item/reagent_containers/food/snacks/monkeycube/monkeycube in storage.contents)
+			loaded++
 			monkeys++
-			P.remove_from_storage(MC)
-			qdel(MC)
-		if(loaded)
-			add_fingerprint(user)
-			to_chat(user, "<span class='notice'>You fill [src] with the monkey cubes stored in [O]. [src] now has [monkeys] monkey cubes stored.</span>")
-		return
+			storage.remove_from_storage(monkeycube)
+			qdel(monkeycube)
+		if(!loaded)
+			to_chat(user, span_warning("The [storage.name] has no monkey cubes stored."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You have loaded <b>[loaded]</b> monkey cubes into the food compartment. It now contains <b>[monkeys]</b> monkey cubes stored."))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
+
 
 /obj/machinery/computer/camera_advanced/xenobio/multitool_act(mob/user, obj/item/I)
 	. = TRUE

@@ -33,6 +33,7 @@
 ///////////////////////////////////////
 
 // Generic mutations:
+#define	FARVISION		"far_vision"
 #define	TK				"telekenesis"
 #define COLDRES			"cold_resistance"
 #define XRAY			"xray"

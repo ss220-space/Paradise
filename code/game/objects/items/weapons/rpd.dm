@@ -274,7 +274,7 @@
 				return //Either nothing was selected, or an invalid mode was selected
 		to_chat(user, "<span class='notice'>You set [src]'s mode.</span>")
 
-/obj/item/rpd/afterattack(atom/target, mob/user, proximity)
+/obj/item/rpd/afterattack(atom/target, mob/user, proximity, params)
 	..()
 	if(loc != user)
 		return

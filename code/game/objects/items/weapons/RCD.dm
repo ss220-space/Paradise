@@ -167,10 +167,14 @@
 		return FALSE
 	return TRUE
 
-/obj/item/rcd/attackby(obj/item/W, mob/user, params)
-	if(!istype(W, /obj/item/rcd_ammo))
+
+/obj/item/rcd/attackby(obj/item/I, mob/user, params)
+	if(!istype(I, /obj/item/rcd_ammo))
 		return ..()
-	rcd_reload(W, user)
+	add_fingerprint(user)
+	rcd_reload(I, user)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
 
 /obj/item/rcd/proc/rcd_reload(obj/item/rcd_ammo/rcd_ammo, mob/user)
 	if(matter >= max_matter)
@@ -364,7 +368,7 @@
 			return FALSE
 
 
-/obj/item/rcd/afterattack(atom/target, mob/user, proximity)
+/obj/item/rcd/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(istype(target, /obj/item/rcd_ammo))

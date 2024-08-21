@@ -40843,6 +40843,14 @@
 /obj/item/radio/intercom{
 	pixel_y = 28
 	},
+/obj/item/storage/belt/utility,
+/obj/item/extinguisher,
+/obj/item/secbot_assembly{
+	created_name = "Officer Podsky";
+	desc = "Ты не узнаешь ценность чего-либо, пока не потеряешь это...";
+	name = "Обломки офицера Подски";
+	pixel_y = 21
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -74604,15 +74612,8 @@
 	},
 /area/engine/break_room)
 "mop" = (
-/obj/structure/table,
-/obj/item/storage/belt/utility,
-/obj/item/extinguisher,
-/obj/item/secbot_assembly{
-	created_name = "Officer Podsky";
-	desc = "Ты не узнаешь ценность чего-либо, пока не потеряешь это...";
-	name = "Обломки офицера Подски";
-	pixel_y = 21
-	},
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/structure/closet/secure_closet/pilot_sniper,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -112821,6 +112822,10 @@
 	icon_state = "grimy"
 	},
 /area/crew_quarters/chief)
+"vgo" = (
+/obj/structure/closet/secure_closet/pilot_sniper,
+/turf/space,
+/area/space)
 "vgq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -129632,7 +129637,7 @@ aaq
 aaq
 aaq
 aaq
-aaq
+vgo
 aaq
 aaq
 aaq

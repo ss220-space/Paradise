@@ -48,19 +48,18 @@
 		item_state = initial(item_state)
 
 
-/obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
+/obj/item/melee/cultblade/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscultist(user))
 		user.Knockdown(10 SECONDS)
 		user.drop_item_ground(src, force = TRUE)
-		user.visible_message("<span class='warning'>A powerful force shoves [user] away from [target]!</span>",
-							 "<span class='cultlarge'>\"You shouldn't play with sharp things. You'll poke someone's eye out.\"</span>")
-		if(ishuman(user))
-			var/mob/living/carbon/human/H = user
-			H.apply_damage(rand(force/2, force), BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
-		else
-			user.adjustBruteLoss(rand(force/2, force))
-		return
-	..()
+		user.visible_message(
+			span_warning("A powerful force shoves [user] away from [target]!"),
+			span_cultlarge("\"You shouldn't play with sharp things. You'll poke someone's eye out.\""),
+		)
+		user.apply_damage(rand(force/2, force), BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 /obj/item/melee/cultblade/pickup(mob/living/user)
 	if(HULK in user.mutations)
@@ -277,9 +276,11 @@
 
 /obj/item/whetstone/cult/attackby(obj/item/I, mob/user, params)
 	. = ..()
-	if(!uses)
-		to_chat(user, span_notice("[src] crumbles to ashes."))
-		qdel(src)
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || uses)
+		return .
+	. |= ATTACK_CHAIN_BLOCKED_ALL
+	to_chat(user, span_notice("[src] crumbles to ashes."))
+	qdel(src)
 
 
 /obj/item/whetstone/cult/attack_self(mob/user)
@@ -355,6 +356,9 @@
 	icon = 'icons/obj/cult.dmi'
 	icon_state ="shifter"
 	var/uses = 4
+
+/obj/item/cult_shift/attack_self_tk(mob/user)
+	return
 
 /obj/item/cult_shift/examine(mob/user)
 	. = ..()

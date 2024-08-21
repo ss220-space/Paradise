@@ -627,15 +627,19 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 
-/obj/effect/fake_attacker/attackby(obj/item/P, mob/living/user, params)
-	step_away(src, my_target, 2)
-	user.changeNext_move(CLICK_CD_MELEE)
+/obj/effect/fake_attacker/attackby(obj/item/I, mob/user, params)
+	. = ATTACK_CHAIN_PROCEED
+	if(!my_target)
+		return .
+	. |= ATTACK_CHAIN_SUCCESS
 	user.do_attack_animation(src)
-	my_target.playsound_local(src, P.hitsound, 1)
-	my_target.visible_message("<span class='danger'>[my_target] flails around wildly.</span>", \
-							"<span class='danger'>[my_target] has attacked [src]!</span>")
-
-	health -= P.force
+	step_away(src, my_target, 2)
+	my_target.playsound_local(src, I.hitsound, 1)
+	my_target.visible_message(
+		span_danger("[my_target] flails around wildly."),
+		span_danger("[my_target] has attacked [src]!"),
+	)
+	health -= I.force
 
 
 /obj/effect/fake_attacker/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)

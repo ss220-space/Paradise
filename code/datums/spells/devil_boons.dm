@@ -48,6 +48,8 @@
 			continue
 		C.client.view = input("Select view range:", "Range", 4) in ranges
 
+/obj/effect/proc_holder/spell/view_range/genetic
+	desc = "Allows you to choose how far you can see."
 
 /obj/effect/proc_holder/spell/summon_friend
 	name = "Summon Friend"

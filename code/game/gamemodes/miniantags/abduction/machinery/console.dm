@@ -205,15 +205,29 @@
 	vest = V
 	return TRUE
 
-/obj/machinery/abductor/console/attackby(obj/O, mob/user, params)
-	if(istype(O, /obj/item/abductor/gizmo) && AddGizmo(O))
-		add_fingerprint(user)
-		to_chat(user, "<span class='notice'>You link the tool to the console.</span>")
-	else if(istype(O, /obj/item/clothing/suit/armor/abductor/vest) && AddVest(O))
-		add_fingerprint(user)
-		to_chat(user, "<span class='notice'>You link the vest to the console.</span>")
-	else
+
+/obj/machinery/abductor/console/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(istype(I, /obj/item/abductor/gizmo))
+		add_fingerprint(user)
+		if(!AddGizmo(I))
+			to_chat(user, span_warning("[I] is already linked!"))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You link the tool to the console."))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/clothing/suit/armor/abductor/vest))
+		add_fingerprint(user)
+		if(!AddVest(I))
+			to_chat(user, span_warning("[I] is already linked!"))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You link the vest to the console."))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/machinery/abductor/console/proc/Dispense(item,cost=1)
 	if(experiment && experiment.credits >= cost)

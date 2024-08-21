@@ -76,7 +76,6 @@
 		// Then, if the user is dragging an ore box, empty the satchel into the box.
 		if(istype(arrived_mob.pulling, /obj/structure/ore_box))
 			arrived_mob.pulling.attackby(bag, arrived)
-		break
 
 
 /obj/item/stack/ore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
@@ -241,11 +240,12 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	item_state = "Gibtonite ore"
 	w_class = WEIGHT_CLASS_BULKY
 	throw_range = 0
-	var/primed = 0
-	var/det_time = 100
+	var/primed = FALSE
+	var/det_time = 10 SECONDS
 	var/quality = GIBTONITE_QUALITY_LOW //How pure this gibtonite is, determines the explosion produced by it and is derived from the det_time of the rock wall it was taken from, higher value = better
 	var/attacher = "UNKNOWN"
 	var/datum/wires/explosive/gibtonite/wires
+
 
 /obj/item/twohanded/required/gibtonite/Destroy()
 	if(wires)
@@ -253,36 +253,103 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		QDEL_NULL(wires)
 	return ..()
 
+
 /obj/item/twohanded/required/gibtonite/can_be_pulled(atom/movable/puller, grab_state, force, supress_message)
 	if(!supress_message && ismob(puller))
 		balloon_alert(puller, "слишком тяжело!")
 	return FALSE // must be carried in two hands or be picked up with ripley
 
+
+/obj/item/twohanded/required/gibtonite/update_icon_state()
+	switch(quality)
+		if(GIBTONITE_QUALITY_LOW)
+			icon_state = "Gibtonite ore"
+		if(GIBTONITE_QUALITY_MEDIUM)
+			icon_state = "Gibtonite ore 2"
+		if(GIBTONITE_QUALITY_HIGH)
+			icon_state = "Gibtonite ore 3"
+
+
+/obj/item/twohanded/required/gibtonite/update_overlays()
+	. = ..()
+	if(wires)
+		. += "Gibtonite_igniter"
+
+
 /obj/item/twohanded/required/gibtonite/attackby(obj/item/I, mob/user, params)
-	if(!wires && isigniter(I))
-		user.visible_message("[user] attaches [I] to [src].", "<span class='notice'>You attach [I] to [src].</span>")
+	if(isigniter(I))
+		add_fingerprint(user)
+		if(wires)
+			to_chat(user, span_warning("Already installed."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		user.visible_message(
+			span_warning("[user] has attached [I] to [src]."),
+			span_notice("You have attached [I] to [src]."),
+		)
 		wires = new(src)
 		attacher = key_name(user)
+		update_icon(UPDATE_OVERLAYS)
 		qdel(I)
-		add_overlay("Gibtonite_igniter")
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(wires && !primed)
-		if(I.tool_behaviour == TOOL_WIRECUTTER || I.tool_behaviour == TOOL_MULTITOOL || issignaler(I))
-			wires.Interact(user)
-			return
-
-	if(istype(I, /obj/item/pickaxe) || istype(I, /obj/item/resonator) || I.force >= 10)
-		GibtoniteReaction(user)
-		return
 	if(primed)
-		if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner) || I.tool_behaviour == TOOL_MULTITOOL || istype(I, /obj/item/mecha_parts/mecha_equipment/mining_scanner))
-			primed = 0
-			user.visible_message("The chain reaction was stopped! ...The ore's quality looks diminished.", "<span class='notice'>You stopped the chain reaction. ...The ore's quality looks diminished.</span>")
-			icon_state = "Gibtonite ore"
+		var/static/list/prime_stoppers = typecacheof(list(
+			/obj/item/mining_scanner,
+			/obj/item/t_scanner/adv_mining_scanner,
+			/obj/item/mecha_parts/mecha_equipment/mining_scanner,
+		))
+		if(is_type_in_typecache(I, prime_stoppers))
+			add_fingerprint(user)
+			primed = FALSE
+			user.visible_message(
+				span_notice("The chain reaction has been stopped! ...The ore's quality looks diminished though."),
+				span_notice("You have stopped the chain reaction. ...The ore's quality looks diminished though."),
+			)
 			quality = GIBTONITE_QUALITY_LOW
-			return
-	..()
+			update_icon(UPDATE_ICON_STATE)
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(wires && !primed && issignaler(I))
+		wires.Interact(user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(I.force >= 10 || istype(I, /obj/item/pickaxe) || istype(I, /obj/item/resonator))
+		GibtoniteReaction(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
+
+/obj/item/twohanded/required/gibtonite/wirecutter_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!wires || primed)
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	wires.Interact(user)
+
+
+/obj/item/twohanded/required/gibtonite/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(primed)
+		if(!I.use_tool(src, user, volume = I.tool_volume))
+			return .
+		primed = FALSE
+		user.visible_message(
+			span_notice("The chain reaction has been stopped! ...The ore's quality looks diminished though."),
+			span_notice("You have stopped the chain reaction. ...The ore's quality looks diminished though."),
+		)
+		quality = GIBTONITE_QUALITY_LOW
+		update_icon(UPDATE_ICON_STATE)
+		return .
+	if(!wires)
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	wires.Interact(user)
+
 
 /obj/item/twohanded/required/gibtonite/attack_ghost(mob/user)
 	if(wires)
@@ -327,13 +394,15 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 			add_game_logs("has primed a [name] for detonation at [AREACOORD(bombturf)])", user)
 		spawn(det_time)
 		if(primed)
-			if(quality == GIBTONITE_QUALITY_HIGH)
-				explosion(src.loc,2,4,9,adminlog = notify_admins, cause = src)
-			if(quality == GIBTONITE_QUALITY_MEDIUM)
-				explosion(src.loc,1,2,5,adminlog = notify_admins, cause = src)
-			if(quality == GIBTONITE_QUALITY_LOW)
-				explosion(src.loc,-1,1,3,adminlog = notify_admins, cause = src)
-			qdel(src)
+			switch(quality)
+				if(GIBTONITE_QUALITY_HIGH)
+					explosion(src.loc,2,4,9,adminlog = notify_admins, cause = src)
+				if(GIBTONITE_QUALITY_MEDIUM)
+					explosion(src.loc,1,2,5,adminlog = notify_admins, cause = src)
+				if(GIBTONITE_QUALITY_LOW)
+					explosion(src.loc,-1,1,3,adminlog = notify_admins, cause = src)
+			if(!QDELETED(src))
+				qdel(src)
 
 
 /obj/item/stack/ore/ex_act(severity)
@@ -354,7 +423,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	w_class = WEIGHT_CLASS_TINY
 	pickup_sound = 'sound/items/handling/ring_pickup.ogg'
 	drop_sound = 'sound/items/handling/ring_drop.ogg'
-	var/string_attached
+	var/string_attached = FALSE
 	var/list/sideslist = list("heads","tails")
 	var/cmineral = null
 	var/name_by_cmineral = TRUE
@@ -456,32 +525,43 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	credits = 160
 
 
-/obj/item/coin/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/CC = W
+/obj/item/coin/update_overlays()
+	. = ..()
+	if(string_attached)
+		. += "coin_string_overlay"
+
+
+/obj/item/coin/attackby(obj/item/I, mob/user, params)
+	if(iscoil(I))
+		add_fingerprint(user)
+		var/obj/item/stack/cable_coil/coil = I
 		if(string_attached)
 			balloon_alert(user, "уже прикреплено!")
-			return
+			return ATTACK_CHAIN_PROCEED
+		if(!coil.use(1))
+			balloon_alert(user, "недостаточно кабеля")
+			return ATTACK_CHAIN_PROCEED
+		string_attached = TRUE
+		update_icon(UPDATE_OVERLAYS)
+		balloon_alert(user, "прикреплено!")
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-		if(CC.use(1))
-			add_overlay(image('icons/obj/economy.dmi',"coin_string_overlay"))
-			string_attached = 1
-			balloon_alert(user, "прикреплено!")
-		else
-			balloon_alert(user, "недостаточно кабеля") //how the f could you take less than one lenght of cable
-			return
+	return  ..()
 
-	else if(istype(W,/obj/item/wirecutters))
-		if(!string_attached)
-			..()
-			return
 
-		var/obj/item/stack/cable_coil/CC = new/obj/item/stack/cable_coil(user.loc, 1)
-		CC.update_icon()
-		overlays = list()
-		string_attached = null
-		balloon_alert(user, "кабель срезан")
-	else ..()
+/obj/item/coin/wirecutter_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!string_attached)
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	balloon_alert(user, "кабель срезан")
+	string_attached = FALSE
+	update_icon(UPDATE_OVERLAYS)
+	var/obj/item/stack/cable_coil/coil = new(drop_location(), 1)
+	transfer_fingerprints_to(coil)
+	coil.add_fingerprint(user)
+
 
 /obj/item/coin/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -499,7 +579,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		qdel(src)
 
 
-/obj/item/coin/attack_self(mob/user as mob)
+/obj/item/coin/attack_self(mob/user)
 	if(cooldown < world.time - 15)
 		var/coinflip = pick(sideslist)
 		cooldown = world.time

@@ -30,30 +30,45 @@
 		else
 			. += "<span class='warning'>The bees are gone... Colony collapse disorder?</span>"
 
+
 /obj/item/bee_briefcase/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/syringe))
-		var/obj/item/reagent_containers/syringe/S = I
+		add_fingerprint(user)
+		var/obj/item/reagent_containers/syringe/syringe = I
 		if(!bees_left)
-			to_chat(user, "<span class='warning'>The briefcase is empty, so there is no point in injecting something into it.</span>")
-			return
-		if(S.reagents && S.reagents.total_volume)
-			to_chat(user, "<span class='notice'>You inject [src] with [S].</span>")
-			for(var/datum/reagent/A in S.reagents.reagent_list)
-				if(A.id == "blood")
-					if(!(A.data["donor"] in blood_list))
-						blood_list += A.data["donor"]
-				if(A.id == "strange_reagent")		//RELOAD THE BEES (1 bee per 1 unit, max 15 bees)
-					if(bees_left < 15)
-						bees_left = min(15, round((bees_left + A.volume), 1))	//No partial bees, max 15 bees in case at any given time
-						to_chat(user, "<span class='warning'>The buzzing inside the briefcase intensifies as new bees form inside.</span>")
-					else
-						to_chat(user, "<span class='warning'>The buzzing inside the briefcase swells momentarily, then returns to normal. Guess it was too cramped...</span>")
-				S.reagents.clear_reagents()
-				S.update_icon()
-	else if(istype(I, /obj/item/reagent_containers/spray/pestspray))
+			to_chat(user, span_warning("The briefcase is empty, there is no point in injecting something into it."))
+			return ATTACK_CHAIN_PROCEED
+		if(!syringe.reagents || !syringe.reagents.total_volume)
+			to_chat(user, span_warning("The [syringe.name] is empty."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You inject [src] with [syringe]."))
+		for(var/datum/reagent/reagent as anything in syringe.reagents.reagent_list)
+			if(reagent.id == "blood")
+				if(!(reagent.data["donor"] in blood_list))
+					blood_list += reagent.data["donor"]
+				continue
+			if(reagent.id == "strange_reagent")		//RELOAD THE BEES (1 bee per 1 unit, max 15 bees)
+				if(bees_left < 15)
+					bees_left = min(15, round((bees_left + reagent.volume), 1))	//No partial bees, max 15 bees in case at any given time
+					to_chat(user, span_warning("The buzzing inside the briefcase intensifies as new bees form inside."))
+				else
+					to_chat(user, span_warning("The buzzing inside the briefcase swells momentarily, then returns to normal. Guess it was too cramped..."))
+		syringe.reagents.clear_reagents()
+		syringe.update_icon()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/reagent_containers/spray/pestspray))
+		add_fingerprint(user)
+		if(!bees_left)
+			to_chat(user, span_warning("The briefcase is empty, there is no point in spraying it."))
+			return ATTACK_CHAIN_PROCEED
 		bees_left = max(0, (bees_left - 6))
-		to_chat(user, "You spray [I] into [src].")
-		playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
+		to_chat(user, span_warning("You spray [I] into [src]. The buzzing inside the briefcase wanes."))
+		playsound(loc, 'sound/effects/spray3.ogg', 50, TRUE, -6)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/item/bee_briefcase/attack_self(mob/user as mob)
 	if(!bees_left)

@@ -94,25 +94,31 @@
 	add_fingerprint(usr)
 	return TRUE
 
+
+/obj/structure/dispenser/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	set_anchored(!anchored)
+	to_chat(user, span_notice("[anchored ? "You wrench [src] into place." : "You lean down and unwrench [src]."]"))
+
+
 /obj/structure/dispenser/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/tank/internals/oxygen) || istype(I, /obj/item/tank/internals/air) || istype(I, /obj/item/tank/internals/anesthetic))
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	var/static/list/allowed_to_store = typecacheof(list(
+		/obj/item/tank/internals/oxygen,
+		/obj/item/tank/internals/air,
+		/obj/item/tank/internals/anesthetic,
+		/obj/item/tank/internals/plasma,
+	))
+	if(is_type_in_typecache(I, allowed_to_store))
 		try_insert_tank(user, stored_oxygen_tanks, I)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/tank/internals/plasma))
-		try_insert_tank(user, stored_plasma_tanks, I)
-		return
-
-	if(I.tool_behaviour == TOOL_WRENCH)
-		add_fingerprint(user)
-		if(anchored)
-			to_chat(user, "<span class='notice'>You lean down and unwrench [src].</span>")
-			set_anchored(FALSE)
-		else
-			to_chat(user, "<span class='notice'>You wrench [src] into place.</span>")
-			set_anchored(TRUE)
-		return
 	return ..()
+
 
 /// Called when the user clicks on the oxygen or plasma tank UI buttons, and tries to withdraw a tank.
 /obj/structure/dispenser/proc/try_remove_tank(mob/living/user, list/tank_list)
@@ -135,7 +141,6 @@
 		return
 
 	if(!user.drop_transfer_item_to_loc(T, src)) // Antidrop check
-		to_chat(user, "<span class='warning'>[T] is stuck to your hand!</span>")
 		return
 
 	add_fingerprint(user)

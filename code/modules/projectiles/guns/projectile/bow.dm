@@ -31,7 +31,7 @@
 
 
 /obj/item/gun/projectile/bow/update_icon_state()
-	if(magazine.ammo_count() && !ready_to_fire)
+	if(chambered && !ready_to_fire)
 		icon_state = "[initial(icon_state)]_loaded"
 	else if(ready_to_fire)
 		icon_state = "[initial(icon_state)]_firing"
@@ -44,8 +44,9 @@
 
 
 /obj/item/gun/projectile/bow/dropped(mob/user, slot, silent = FALSE)
-	if(magazine && magazine.ammo_count())
-		magazine.empty_magazine()
+	if(chambered)
+		chambered.forceMove(drop_location())
+		chambered = null
 		ready_to_fire = FALSE
 		update_state()
 
@@ -53,33 +54,42 @@
 
 
 /obj/item/gun/projectile/bow/attack_self(mob/living/user)
-	if(!ready_to_fire && magazine.ammo_count())
+	if(chambered && !ready_to_fire)
 		ready_to_fire = TRUE
-		playsound(user, draw_sound, 100, 1)
+		playsound(user, draw_sound, 100, TRUE)
 	else
 		ready_to_fire = FALSE
 	update_state()
 
 
-/obj/item/gun/projectile/bow/attackby(obj/item/A, mob/user, params)
-	var/num_loaded = magazine.attackby(A, user, params, 1)
-	if(num_loaded)
-		balloon_alert(user, "стрела помещена")
-		chamber_round()
-		update_state()
+/obj/item/gun/projectile/bow/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/ammo_box) || istype(I, /obj/item/ammo_casing))
+		add_fingerprint(user)
+		var/loaded = magazine.reload(I, user, silent = TRUE, count_chambered = TRUE)
+		if(loaded)
+			balloon_alert(user, "стрела помещена")
+			chamber_round()
+			update_state()
+			return ATTACK_CHAIN_BLOCKED_ALL
+		balloon_alert(user, "не удалось!")
+		return ATTACK_CHAIN_PROCEED
+
+	return ..()
+
 
 /obj/item/gun/projectile/bow/can_shoot(mob/user)
-	. = ..()
-	if(!ready_to_fire)
-		return FALSE
+	return chambered && ready_to_fire
+
 
 /obj/item/gun/projectile/bow/shoot_with_empty_chamber(mob/living/user)
 	return
 
-/obj/item/gun/projectile/bow/process_chamber(eject_casing = 0, empty_chamber = 1)
+
+/obj/item/gun/projectile/bow/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
 	. = ..()
 	ready_to_fire = FALSE
 	update_state()
+
 
 // ammo
 /obj/item/ammo_box/magazine/internal/bow
@@ -87,12 +97,12 @@
 	ammo_type = /obj/item/ammo_casing/caseless/arrow
 	caliber = "arrow"
 	max_ammo = 1
+	start_empty = TRUE
 
 /obj/item/ammo_box/magazine/internal/bow/ashen
 	name = "ashen bow internal magazine"
 	ammo_type = /obj/item/ammo_casing/caseless/arrow/bone_tipped
 	caliber = "bone_arrow"
-	max_ammo = 1
 
 /obj/item/projectile/bullet/reusable/arrow //only for wooden bow!
 	name = "arrow"
