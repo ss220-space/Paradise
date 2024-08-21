@@ -560,21 +560,16 @@
 		SSticker.mode.remove_clocker(target.mind)
 		praying = FALSE
 		return .|ATTACK_CHAIN_SUCCESS
-		var/datum/antagonist/vampire/vamp = M.mind?.has_antag_datum(/datum/antagonist/vampire)
-		if(vamp && !vamp.get_ability(/datum/vampire_passive/full)) // Getting a full prayer off on a vampire will interrupt their powers for a large duration.
-			switch(vamp.nullification)
-				if(OLD_NULLIFICATION)
-					vamp.adjust_nullification(120, 120)
+		
+	var/datum/antagonist/vampire/vamp = target.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(vamp && !vamp.get_ability(/datum/vampire_passive/full)) // Getting a full prayer off on a vampire will interrupt their powers for a large duration.
+		switch(vamp.nullification)
+			if(OLD_NULLIFICATION)
+				vamp.adjust_nullification(120, 120)
 
-				if(NEW_NULLIFICATION)
-					vamp.adjust_nullification(120, 50)
-			to_chat(target, "<span class='userdanger'>[user]'s prayer to [SSticker.Bible_deity_name] has interfered with your power!</span>")
-			praying = FALSE
-			return .|ATTACK_CHAIN_SUCCESS
-	var/datum/antagonist/goon_vampire/g_vamp = target.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-	if(g_vamp && !g_vamp.get_ability(/datum/goon_vampire_passive/full))
-		g_vamp.nullified = max(120, g_vamp.nullified + 120)
-		to_chat(target, span_userdanger("[user]'s prayer to [SSticker.Bible_deity_name] has interfered with your power!"))
+			if(NEW_NULLIFICATION)
+				vamp.adjust_nullification(120, 50)
+		to_chat(target, "<span class='userdanger'>[user]'s prayer to [SSticker.Bible_deity_name] has interfered with your power!</span>")
 		praying = FALSE
 		return .|ATTACK_CHAIN_SUCCESS
 
