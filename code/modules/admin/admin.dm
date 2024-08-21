@@ -310,7 +310,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	set category = "Admin"
 	set name = "Player Notes"
 
-	if(!check_rights(R_ADMIN|R_MOD))
+	if(!check_rights(R_ADMIN|R_BAN|R_MOD))
 		return
 
 	show_note()
@@ -319,7 +319,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	set category = "Admin"
 	set name = "Show Player Notes"
 
-	if(!check_rights(R_ADMIN|R_MOD))
+	if(!check_rights(R_ADMIN|R_BAN|R_MOD))
 		return
 
 	show_note(key)
@@ -469,7 +469,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	set desc="Globally Toggles OOC"
 	set name="Toggle OOC"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_SERVER))
 		return
 
 	toggle_ooc()
@@ -481,7 +481,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	set desc="Globally Toggles LOOC"
 	set name="Toggle LOOC"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_SERVER))
 		return
 
 	CONFIG_SET(flag/looc_allowed, !CONFIG_GET(flag/looc_allowed))
@@ -498,7 +498,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	set desc="Globally Toggles DSAY"
 	set name="Toggle DSAY"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_SERVER))
 		return
 
 	CONFIG_SET(flag/dsay_allowed, !CONFIG_GET(flag/dsay_allowed))
@@ -515,7 +515,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	set desc="Toggle Dead OOC."
 	set name="Toggle Dead OOC"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_SERVER))
 		return
 
 	CONFIG_SET(flag/dooc_allowed, !(CONFIG_GET(flag/dooc_allowed)))
@@ -531,7 +531,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	set desc = "Toggle OOC Emoji"
 	set name = "Toggle OOC Emoji"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_SERVER))
 		return
 	CONFIG_SET(flag/disable_ooc_emoji, !CONFIG_GET(flag/disable_ooc_emoji))
 

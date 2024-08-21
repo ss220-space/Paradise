@@ -27,43 +27,26 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/jumptomob,				/*allows us to jump to a specific mob*/
 	/client/proc/jumptoturf,			/*allows us to jump to a specific turf*/
 	/client/proc/jump_to,				/*Opens a menu for jumping to an Area, Mob, Key or Coordinate*/
-	/client/proc/admin_call_shuttle,	/*allows us to call the emergency shuttle*/
-	/client/proc/admin_cancel_shuttle,	/*allows us to cancel the emergency shuttle, sending it back to centcomm*/
-	/client/proc/admin_deny_shuttle,	/*toggles availability of shuttle calling*/
 	/client/proc/check_ai_laws,			/*shows AI and borg laws*/
 	/client/proc/manage_silicon_laws,	/* Allows viewing and editing silicon laws. */
 	/client/proc/open_borgopanel,		/* Opens Cyborg Panel to change anything in it */
 	/client/proc/admin_memo,			/*admin memo system. show/delete/write. +SERVER needed to delete admin memos of others*/
 	/client/proc/dsay,					/*talk in deadchat using our ckey/fakekey*/
 	/client/proc/investigate_show,		/*various admintools for investigation. Such as a singulo grief-log*/
-	/datum/admins/proc/toggleooc,		/*toggles ooc on/off for everyone*/
-	/datum/admins/proc/togglelooc,		/*toggles looc on/off for everyone*/
-	/datum/admins/proc/toggleoocdead,	/*toggles ooc on/off for everyone who is dead*/
-	/datum/admins/proc/togglevotedead,	/*toggles vote on/off for everyone who is dead*/
-	/datum/admins/proc/toggledsay,		/*toggles dsay on/off for everyone*/
-	/datum/admins/proc/toggleemoji,     /*toggles using emoji in ooc for everyone*/
 	/client/proc/game_panel,			/*game panel, allows to change game-mode etc*/
 	/client/proc/cmd_admin_say,			/*admin-only ooc chat*/
-	/datum/admins/proc/PlayerNotes,
 	/client/proc/cmd_mentor_say,
-	/datum/admins/proc/show_player_notes,
-	/client/proc/free_slot,			/*frees slot for chosen job*/
 	/client/proc/global_man_up,
 	/client/proc/delbook,
 	/client/proc/view_flagged_books,
 	/client/proc/view_asays,
-	/client/proc/empty_ai_core_toggle_latejoin,
 	/client/proc/aooc,
 	/client/proc/freeze,
 	/client/proc/debug_variables,
 	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
-	/client/proc/toggle_mentor_chat,
-	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
 	/client/proc/start_vote,
 	/client/proc/list_ssds_afks,
 	/client/proc/ccbdb_lookup_ckey,
-	/client/proc/toggle_pacifism_gt,
-	/client/proc/toogle_ghost_vision,
 	/datum/admins/proc/changetitlescreen,
 	/client/proc/debugstatpanel,
 	/client/proc/openAdminTicketUI,
@@ -75,6 +58,8 @@ GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,
 	/client/proc/stickybanpanel,
 	/datum/admins/proc/vpn_whitelist,
+	/datum/admins/proc/PlayerNotes,
+	/datum/admins/proc/show_player_notes,
 ))
 GLOBAL_LIST_INIT(admin_verbs_sounds, list(
 	/client/proc/play_local_sound,
@@ -109,6 +94,13 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/cmd_admin_headset_message,
 	/client/proc/force_hijack,
 	/client/proc/requests,
+	/client/proc/admin_call_shuttle,	/*allows us to call the emergency shuttle*/
+	/client/proc/admin_cancel_shuttle,	/*allows us to cancel the emergency shuttle, sending it back to centcomm*/
+	/client/proc/admin_deny_shuttle,	/*toggles availability of shuttle calling*/
+	/client/proc/free_slot,			/*frees slot for chosen job*/
+	/client/proc/toggle_pacifism_gt,
+	/client/proc/toogle_ghost_vision,
+	/client/proc/empty_ai_core_toggle_latejoin,
 ))
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(
 	/datum/admins/proc/spawn_atom,		/*allows us to spawn instances*/
@@ -137,6 +129,14 @@ GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/client/proc/view_asays,
 	/client/proc/toggle_antagHUD_use,
 	/client/proc/toggle_antagHUD_restrictions,
+	/datum/admins/proc/toggleooc,		/*toggles ooc on/off for everyone*/
+	/datum/admins/proc/togglelooc,		/*toggles looc on/off for everyone*/
+	/datum/admins/proc/toggleoocdead,	/*toggles ooc on/off for everyone who is dead*/
+	/datum/admins/proc/togglevotedead,	/*toggles vote on/off for everyone who is dead*/
+	/datum/admins/proc/toggledsay,		/*toggles dsay on/off for everyone*/
+	/datum/admins/proc/toggleemoji,     /*toggles using emoji in ooc for everyone*/
+	/client/proc/toggle_mentor_chat,
+	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
 ))
 GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/cmd_admin_list_open_jobs,
@@ -1165,7 +1165,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	set name = "Free Job Slot"
 	set category = "Admin"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_EVENT))
 		return
 
 	var/list/jobs = list()

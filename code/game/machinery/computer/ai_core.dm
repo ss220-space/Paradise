@@ -283,6 +283,7 @@
 /client/proc/empty_ai_core_toggle_latejoin()
 	set name = "Toggle AI Core Latejoin"
 	set category = "Admin"
+	if(!check_rights(R_EVENT)) return
 
 	var/list/cores = list()
 	for(var/obj/structure/AIcore/deactivated/D in world)

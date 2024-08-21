@@ -72,7 +72,7 @@
 	set name = "Toggle Mentor Chat"
 	set desc = "Toggle whether mentors have access to the msay command"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_SERVER))
 		return
 
 	var/enabling

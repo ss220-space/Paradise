@@ -860,7 +860,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(SSshuttle.emergency.mode >= SHUTTLE_DOCKED)
 		return
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_EVENT))
 		return
 
 	var/confirm = alert(src, "You sure?", "Confirm", "Yes", "No")
@@ -885,7 +885,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set category = "Admin"
 	set name = "Cancel Shuttle"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_EVENT))
 		return
 	if(alert(src, "You sure?", "Confirm", "Yes", "No") != "Yes") return
 
@@ -913,7 +913,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set name = "Toggle Pacifism After Greentext"
 	set category = "Admin"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_EVENT))
 		return
 
 	if(SSticker.current_state == GAME_STATE_FINISHED)
@@ -938,7 +938,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set name = "Toggle Ghost Vision After Greentext"
 	set category = "Admin"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_EVENT))
 		return
 
 	if(SSticker.current_state == GAME_STATE_FINISHED)
@@ -963,7 +963,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!SSticker)
 		return
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_EVENT))
 		return
 
 	if(alert(usr, "Do you want to [SSshuttle.emergencyNoEscape ? "ALLOW" : "DENY"] shuttle calls?", "Toggle Deny Shuttle", "Yes", "No") != "Yes")
