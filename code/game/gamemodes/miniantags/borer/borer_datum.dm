@@ -246,17 +246,13 @@
 	parent.user.adjustHealth(-0.15)
 
 /datum/borer_rank/adult/tick(seconds_between_ticks)
-	parent.user.adjustHealth(-0.2)
-
-/datum/borer_rank/adult/tick(seconds_between_ticks)
+    parent.user.adjustHealth(-0.2)
 	if(parent.host?.stat != DEAD && !parent.user.sneaking)
 		parent.user.chemicals += 0.2
 
 /datum/borer_rank/elder/tick(seconds_between_ticks)
 	parent.user.adjustHealth(-0.3)
-
-/datum/borer_rank/elder/tick(seconds_between_ticks)
-	if(parent.host?.stat != DEAD)
+    if(parent.host?.stat != DEAD)
 		parent.host.heal_overall_damage(0.4, 0.4)
 		parent.user.chemicals += 0.3
 
