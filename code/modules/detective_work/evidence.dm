@@ -8,16 +8,19 @@
 	item_state = ""
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/evidencebag/afterattack(obj/item/I, mob/user,proximity)
+/obj/item/evidencebag/afterattack(obj/item/I, mob/user, proximity, params)
 	if(!proximity || loc == I)
 		return
 	evidencebagEquip(I, user)
 
+
 /obj/item/evidencebag/attackby(obj/item/I, mob/user, params)
 	if(evidencebagEquip(I, user))
-		return 1
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 
-/obj/item/evidencebag/proc/evidencebagEquip(obj/item/I, mob/user)
+
+/obj/item/evidencebag/proc/evidencebagEquip(obj/item/I, mob/user)	// this shit is bad
 	if(!istype(I) || I.anchored == 1)
 		return
 

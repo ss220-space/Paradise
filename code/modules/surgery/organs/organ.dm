@@ -149,12 +149,19 @@
 
 
 /obj/item/organ/attackby(obj/item/I, mob/user, params)
-	if(is_robotic() && istype(I, /obj/item/stack/nanopaste))
-		var/obj/item/stack/nanopaste/nano = I
-		nano.use(1)
+	if(istype(I, /obj/item/stack/nanopaste))
+		add_fingerprint(user)
+		var/obj/item/stack/nanopaste/nanopaste = I
+		if(!is_robotic())
+			to_chat(user, span_warning("The [nanopaste.name] can only be used on robotic bodyparts."))
+			return ATTACK_CHAIN_PROCEED
+		if(!nanopaste.use(1))
+			to_chat(user, span_warning("You need at least one unit of [nanopaste] to proceed."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You have repaired the damage on [src]."))
 		rejuvenate()
-		to_chat(user, span_notice("You repair the damage on [src]."))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
 
 

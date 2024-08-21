@@ -146,11 +146,12 @@
 	if(blocks_emissive)
 		add_overlay(get_emissive_block())
 
-/mob/living/silicon/robot/cogscarab/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/borg/upgrade))
-		return
 
+/mob/living/silicon/robot/cogscarab/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/borg/upgrade))
+		return ATTACK_CHAIN_BLOCKED
 	return ..()
+
 
 /mob/living/silicon/robot/cogscarab/welder_act(mob/user, obj/item/I)
 	if(user.a_intent != INTENT_HELP)
@@ -347,7 +348,7 @@
 			else
 				metal_amount += A.materials[MAT_METAL]
 
-	user.changeNext_move(CLICK_CD_MELEE * melt_click_delay)
+	user.changeNext_move(attack_speed * melt_click_delay)
 	QDEL_LIST(grabbed_items)
 
 	if(isrobot(user))

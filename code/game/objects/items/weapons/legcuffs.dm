@@ -61,37 +61,43 @@
 		to_chat(user, span_notice("[src] is now [armed ? "armed" : "disarmed"]"))
 
 
-/obj/item/restraints/legcuffs/beartrap/attackby(obj/item/I, mob/user) //Let's get explosive.
-	if(istype(I, /obj/item/grenade/iedcasing))
+/obj/item/restraints/legcuffs/beartrap/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/grenade/iedcasing))	//Let's get explosive.
+		add_fingerprint(user)
 		if(IED)
 			to_chat(user, span_warning("This beartrap already has an IED hooked up to it!"))
-			return
+			return ATTACK_CHAIN_PROCEED
 		if(sig)
 			to_chat(user, span_warning("This beartrap already has a signaler hooked up to it!"))
-			return
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
 		IED = I
-		user.drop_transfer_item_to_loc(I, src)
 		message_admins("[key_name_admin(user)] has rigged a beartrap with an IED.")
 		add_game_logs("has rigged a beartrap with an IED.", user)
 		to_chat(user, span_notice("You sneak [IED] underneath the pressure plate and connect the trigger wire."))
 		desc = "A trap used to catch bears and other legged creatures. [span_warning("There is an IED hooked up to it.")]"
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(issignaler(I))
+		add_fingerprint(user)
 		if(IED)
 			to_chat(user, span_warning("This beartrap already has an IED hooked up to it!"))
-			return
+			return ATTACK_CHAIN_PROCEED
 		if(sig)
 			to_chat(user, span_warning("This beartrap already has a signaler hooked up to it!"))
-			return
-		sig = I
+			return ATTACK_CHAIN_PROCEED
 		if(sig.secured)
-			to_chat(user, span_notice("The signaler is secured."))
-			sig = null
-			return
-		user.drop_transfer_item_to_loc(I, src)
+			to_chat(user, span_warning("The signaler should not be secured."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		sig = I
 		to_chat(user, span_notice("You sneak the [sig] underneath the pressure plate and connect the trigger wire."))
 		desc = "A trap used to catch bears and other legged creatures. [span_warning("There is a remote signaler hooked up to it.")]"
-	..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/item/restraints/legcuffs/beartrap/screwdriver_act(mob/user, obj/item/I)

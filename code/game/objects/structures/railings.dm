@@ -31,8 +31,6 @@
 	density = FALSE
 	climbable = FALSE
 
-/obj/structure/railing/attackby(obj/item/I, mob/living/user, params)
-	..()
 
 /obj/structure/railing/welder_act(mob/living/user, obj/item/I)
 	if(user.intent != INTENT_HELP)

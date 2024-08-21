@@ -12,8 +12,8 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 50
-	var/rating_speed = 1
-	var/rating_amount = 1
+	var/rating_speed = 0
+	var/rating_amount = 0
 
 /obj/machinery/processor/New()
 		..()
@@ -24,10 +24,12 @@
 		RefreshParts()
 
 /obj/machinery/processor/RefreshParts()
+	rating_speed = 0
+	rating_amount = 0
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		rating_amount = B.rating
+		rating_amount += B.rating
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		rating_speed = M.rating
+		rating_speed += M.rating
 
 /obj/machinery/processor/process()
 	if(processing)
@@ -56,7 +58,7 @@
 
 /datum/food_processor_process/proc/process_food(loc, what, obj/machinery/processor/processor)
 	if(output && loc && processor)
-		for(var/i = 0, i < processor.rating_amount, i++)
+		for(var/i in 1 to processor.rating_amount)
 			new output(loc)
 	if(what)
 		qdel(what)
@@ -161,37 +163,52 @@
 	return 0
 
 
-/obj/machinery/processor/attackby(obj/item/O, mob/user, params)
-	add_fingerprint(user)
+/obj/machinery/processor/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
 	if(processing)
-		to_chat(user, span_warning("[src] is already processing something!"))
-		return TRUE
+		to_chat(user, span_warning("The [name] is working."))
+		return ATTACK_CHAIN_PROCEED
 
-	if(default_deconstruction_screwdriver(user, "processor_open", "processor", O))
-		return
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(exchange_parts(user, O))
-		return
-
-	if(default_unfasten_wrench(user, O))
-		return
-
-	if(default_deconstruction_crowbar(user, O))
-		return
-
-	var/datum/food_processor_process/recipe = select_recipe(O)
+	add_fingerprint(user)
+	var/datum/food_processor_process/recipe = select_recipe(I)
 	if(!recipe)
-		to_chat(user, span_warning("That probably won't blend."))
-		return TRUE
+		to_chat(user, span_warning("The [I.name] probably won't blend."))
+		return ATTACK_CHAIN_PROCEED
 
-	if(!user.drop_transfer_item_to_loc(O, src))
-		return
+	if(!user.drop_transfer_item_to_loc(I, src))
+		return ..()
 
 	user.visible_message(
-		span_notice("[user] puts [O.name] into [src]."),
-		span_notice("You put [O.name] into [src]."),
+		span_notice("[user] puts [I.name] into [src]."),
+		span_notice("You have put [I] into [src]."),
 	)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
+
+/obj/machinery/processor/screwdriver_act(mob/living/user, obj/item/I)
+	if(processing)
+		to_chat(user, span_warning("The [name] is working."))
+		return TRUE
+	return default_deconstruction_screwdriver(user, "processor_open", "processor", I)
+
+
+/obj/machinery/processor/wrench_act(mob/living/user, obj/item/I)
+	if(processing)
+		to_chat(user, span_warning("The [name] is working."))
+		return TRUE
+	return default_unfasten_wrench(user, I)
+
+
+/obj/machinery/processor/crowbar_act(mob/living/user, obj/item/I)
+	if(processing)
+		to_chat(user, span_warning("The [name] is working."))
+		return TRUE
+	return default_deconstruction_crowbar(user, I)
 
 
 /obj/machinery/processor/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)

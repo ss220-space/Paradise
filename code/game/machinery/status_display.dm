@@ -269,7 +269,6 @@ GLOBAL_LIST_INIT(statdisp_picture_colors, list(
 			lum += 0.4
 		set_light(1, lum, (SSshuttle.emergency && SSshuttle.emergency.timer) ? COLOR_SUN : COLOR_LIGHT_CYAN, l_on = TRUE)
 
-
 GLOBAL_LIST_EMPTY(ai_displays)
 
 /obj/machinery/ai_status_display

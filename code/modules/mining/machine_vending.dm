@@ -144,33 +144,42 @@
 			return FALSE
 	add_fingerprint()
 
+
 /obj/machinery/mineral/equipment_vendor/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "mining-open", "mining", I))
-		add_fingerprint(user)
-		return
-	if(panel_open)
-		if(I.tool_behaviour == TOOL_CROWBAR)
-			remove_id() //Prevents deconstructing the ORM from deleting whatever ID was inside it.
-			default_deconstruction_crowbar(user, I)
-		return TRUE
+	if(user.a_intent == INTENT_HARM || !powered())
+		return ..()
+
 	if(istype(I, /obj/item/mining_voucher))
-		if(!powered())
-			return
 		add_fingerprint(user)
 		redeem_voucher(I, user)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	if(istype(I, /obj/item/card/id))
-		if(!powered())
-			return
-		var/obj/item/card/id/C = user.get_active_hand()
-		if(istype(C) && !istype(inserted_id))
-			if(!user.drop_transfer_item_to_loc(C, src))
-				return
-			add_fingerprint(user)
-			inserted_id = C
-			ui_interact(user)
-		return
+		add_fingerprint(user)
+		if(inserted_id)
+			to_chat(user, span_warning("The [name] is already holding another ID-card."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		inserted_id = I
+		ui_interact(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
+
+/obj/machinery/mineral/equipment_vendor/screwdriver_act(mob/living/user, obj/item/I)
+	return default_deconstruction_screwdriver(user, "mining-open", "mining", I)
+
+
+/obj/machinery/mineral/equipment_vendor/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!panel_open)
+		to_chat(user, span_warning("You should open the service panel first."))
+		return .
+	remove_id() //Prevents deconstructing the ORM from deleting whatever ID was inside it.
+	default_deconstruction_crowbar(user, I)
+
 
 /**
   * Called when someone slaps the machine with a mining voucher
@@ -184,7 +193,12 @@
 
 	var/selection = tgui_input_list(redeemer, "Pick your equipment", "Mining Voucher Redemption", items)
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
-		return
+		return FALSE
+
+	if(!redeemer.drop_transfer_item_to_loc(voucher, src))
+		return FALSE
+
+	. = TRUE
 
 	var/drop_location = drop_location()
 	switch(selection)
@@ -296,17 +310,21 @@
 /obj/item/card/mining_point_card/fivethousand
 	points = 5000
 
+
 /obj/item/card/mining_point_card/attackby(obj/item/I, mob/user, params)
-	if(I.GetID())
-		if(points)
-			add_fingerprint(user)
-			var/obj/item/card/id/C = I.GetID()
-			C.mining_points += points
-			to_chat(user, "<span class='info'>You transfer [points] points to [C].</span>")
-			points = 0
-		else
-			to_chat(user, "<span class='info'>There's no points left on [src].</span>")
-	..()
+	var/obj/item/card/id/id_card = I.GetID()
+	if(id_card)
+		add_fingerprint(user)
+		if(!points)
+			to_chat(user, span_warning("The [name] has zero points left."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_info("You have transfered <b>[points]</b> points to your ID-card."))
+		id_card.mining_points += points
+		points = 0
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/item/card/mining_point_card/examine(mob/user)
 	. = ..()
@@ -329,7 +347,7 @@
 	desc = "A small card, that when used on any ID, will add mining access."
 	icon_state = "data"
 
-/obj/item/card/mining_access_card/afterattack(atom/movable/AM, mob/user, proximity)
+/obj/item/card/mining_access_card/afterattack(atom/movable/AM, mob/user, proximity, params)
 	if(!istype(AM, /obj/item/card/id))
 		return
 

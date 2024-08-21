@@ -15,7 +15,7 @@
 	else
 		..()
 
-/obj/item/mounted/proc/try_build(turf/on_wall, mob/user, proximity_flag) //checks
+/obj/item/mounted/proc/try_build(turf/on_wall, mob/user, proximity_flag, params) //checks
 	if(!on_wall || !user)
 		return
 	if(proximity_flag != 1) //if we aren't next to the wall

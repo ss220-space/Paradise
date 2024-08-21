@@ -99,13 +99,20 @@
 	canSmoothWith = SMOOTH_GROUP_PLASMA_WALLS
 	smoothing_groups = SMOOTH_GROUP_PLASMA_WALLS
 
-/turf/simulated/wall/mineral/plasma/attackby(obj/item/W as obj, mob/user as mob)
-	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
-		add_attack_logs(user, src, "Ignited using [W]", ATKLOG_FEW)
-		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
-		ignite(is_hot(W))
-		return
-	..()
+
+/turf/simulated/wall/mineral/plasma/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
+	var/hot_temp = is_hot(I)
+	if(hot_temp <= 300)	//If the temperature of the object is over 300, then ignite
+		return .
+	. |= ATTACK_CHAIN_BLOCKED_ALL
+	add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
+	investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
+	ignite(hot_temp)
+
+
 
 /turf/simulated/wall/mineral/plasma/welder_act(mob/user, obj/item/I)
 	if(I.tool_enabled)
@@ -162,15 +169,18 @@
 	hardness = 70
 	explosion_block = 0
 
-/turf/simulated/wall/mineral/wood/attackby(obj/item/W, mob/user)
-	if(W.sharp && W.force)
-		var/duration = (48 / W.force) * 2 //In seconds, for now.
-		if(istype(W, /obj/item/hatchet) || istype(W, /obj/item/twohanded/fireaxe))
+
+/turf/simulated/wall/mineral/wood/try_decon(obj/item/I, mob/user, params)
+	if(is_sharp(I) && I.force)
+		var/duration = (48 / I.force) * 2 //In seconds, for now.
+		if(istype(I, /obj/item/hatchet) || istype(I, /obj/item/twohanded/fireaxe))
 			duration /= 4 //Much better with hatchets and axes.
-		if(do_after(user, duration SECONDS, src)) //Into deciseconds.
+		if(do_after(user, duration * I.toolspeed, src, category = DA_CAT_TOOL))
 			dismantle_wall(FALSE, FALSE)
-			return
+			return TRUE
+		return FALSE
 	return ..()
+
 
 /turf/simulated/wall/mineral/wood/nonmetal
 	desc = "A solidly wooden wall. It's a bit weaker than a wall made with metal."
@@ -202,7 +212,7 @@
 	smoothing_groups = SMOOTH_GROUP_ABDUCTOR_WALLS
 
 /turf/simulated/wall/mineral/abductor/Initialize(mapload)
-	..()
+	. = ..()
 	AddComponent(/datum/component/wall_regenerate)
 
 /turf/simulated/wall/mineral/gingerbread

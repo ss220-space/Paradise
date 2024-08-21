@@ -9,6 +9,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	var/used = FALSE
 
+
 /obj/item/anomaly_extract/attack_self(mob/user)
 	if(used)
 		to_chat(user, span_notice("Looks like somebody already used it."))
@@ -27,12 +28,18 @@
 	H.replaced(user)
 	to_chat(user, span_warning("Something changes inside you. It feel SOO warm!"))
 	used = TRUE
-	icon_state = "slime_extract0"
+	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
-/obj/item/anomaly_extract/attack(mob/living/target, mob/living/user, def_zone)
-	if(target == user)
-		return attack_self(user)
+
+/obj/item/anomaly_extract/update_icon_state()
+	icon_state = "slime_extract[used ? "0" : "1"]"
+
+
+/obj/item/anomaly_extract/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(target == user && attack_self(user))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	return ATTACK_CHAIN_PROCEED
 
 
 /obj/effect/proc_holder/spell/slime_degradation

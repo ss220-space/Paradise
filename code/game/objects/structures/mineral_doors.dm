@@ -136,17 +136,31 @@
 		icon_state = initial_state
 
 
-/obj/structure/mineral_door/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pickaxe))
-		var/obj/item/pickaxe/digTool = W
-		to_chat(user, "<span class='notice'>You start digging \the [src].</span>")
-		if(do_after(user, 4 SECONDS * digTool.toolspeed * hardness, src, category = DA_CAT_TOOL) && src)
-			to_chat(user, "<span class='notice'>You finished digging.</span>")
-			deconstruct(TRUE)
-	else if(user.a_intent != INTENT_HARM)
+/obj/structure/mineral_door/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/pickaxe))
+		add_fingerprint(user)
+		var/obj/item/pickaxe/pickaxe = I
+		user.visible_message(
+			span_notice("[user] start digging into [src]."),
+			span_notice("You start digging into [src]..."),
+		)
+		I.play_tool_sound(src, 100)
+		if(!do_after(user, 4 SECONDS * pickaxe.toolspeed * hardness, src, category = DA_CAT_TOOL))
+			return ATTACK_CHAIN_PROCEED
+		I.play_tool_sound(src, 100)
+		user.visible_message(
+			span_notice("[user] finishes digging into [src]."),
+			span_notice("You have finished digging into [src]."),
+		)
+		deconstruct(TRUE)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(user.a_intent != INTENT_HARM)
 		attack_hand(user)
-	else
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/structure/mineral_door/deconstruct(disassembled = TRUE)
 	var/turf/T = get_turf(src)
@@ -193,14 +207,16 @@
 	icon_state = "plasma"
 	sheetType = /obj/item/stack/sheet/mineral/plasma
 
-/obj/structure/mineral_door/transparent/plasma/attackby(obj/item/W, mob/user)
-	if(is_hot(W))
-		add_fingerprint(user)
-		add_attack_logs(user, src, "Ignited using [W]", ATKLOG_FEW)
+
+/obj/structure/mineral_door/transparent/plasma/attackby(obj/item/I, mob/user, params)
+	var/hot_temp = is_hot(I)
+	if(hot_temp)
+		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
 		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
-		TemperatureAct(100)
-	else
-		return ..()
+		TemperatureAct(hot_temp)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 /obj/structure/mineral_door/transparent/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()

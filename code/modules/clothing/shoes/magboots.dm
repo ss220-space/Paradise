@@ -262,29 +262,33 @@
 	cell = null
 	update_icon()
 
+
 /obj/item/clothing/shoes/magboots/gravity/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stock_parts/cell))
+		add_fingerprint(user)
 		if(cell)
-			to_chat(user, "<span class='warning'>[src] already has a cell!</span>")
-			return
+			to_chat(user, span_warning("The [name] already has a cell."))
+			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
-			return
+			return ..()
+		to_chat(user, span_notice("You install [I] into [src]."))
 		cell = I
-		to_chat(user, "<span class='notice'>You install [I] into [src].</span>")
 		update_icon()
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/assembly/signaler/anomaly/grav))
+		add_fingerprint(user)
 		if(core)
-			to_chat(user, "<span class='notice'>[src] already has a [I]!</span>")
-			return
+			to_chat(user, span_warning("The [name] already has [core]."))
+			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
-			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
-			return
-		to_chat(user, "<span class='notice'>You insert [I] into [src], and [src] starts to warm up.</span>")
+			return ..()
+		to_chat(user, span_notice("You insert [I] into [src], and it starts to warm up."))
 		core = I
-	else
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/clothing/shoes/magboots/gravity/equipped(mob/user, slot, initial)
 	. = ..()

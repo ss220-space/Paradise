@@ -169,7 +169,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			break
 
 /obj/machinery/computer/rdconsole/Initialize(mapload)
-	..()
+	. = ..()
 	SyncRDevices()
 
 /obj/machinery/computer/rdconsole/Destroy()
@@ -197,27 +197,32 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	griefProtection()
 */
 
-/obj/machinery/computer/rdconsole/attackby(var/obj/item/D as obj, var/mob/user as mob, params)
+/obj/machinery/computer/rdconsole/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
 	//Loading a disk into it.
-	if(istype(D, /obj/item/disk))
+	if(istype(I, /obj/item/disk))
+		add_fingerprint(user)
 		if(t_disk || d_disk)
-			to_chat(user, "A disk is already loaded into the machine.")
-			return
-
-		if(istype(D, /obj/item/disk/tech_disk)) t_disk = D
-		else if(istype(D, /obj/item/disk/design_disk)) d_disk = D
+			to_chat(user, span_warning("Another disk is inserted into the machine."))
+			return ATTACK_CHAIN_PROCEED
+		var/tech_disk = istype(I, /obj/item/disk/tech_disk)
+		if(!tech_disk && !istype(I, /obj/item/disk/design_disk))
+			to_chat(user, span_warning("Machine cannot accept disks in that format."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		if(tech_disk)
+			t_disk = I
 		else
-			to_chat(user, "<span class='danger'>Machine cannot accept disks in that format.</span>")
-			return
-		if(!user.drop_transfer_item_to_loc(D, src))
-			return
-		to_chat(user, "<span class='notice'>You add the disk to the machine!</span>")
-	else if(!(linked_destroy && linked_destroy.busy) && !(linked_lathe && linked_lathe.busy) && !(linked_imprinter && linked_imprinter.busy))
-		..()
-	add_fingerprint(user)
-	SStgui.update_uis(src)
-	return
+			d_disk = I
+		SStgui.update_uis(src)
+		to_chat(user, span_notice("You have inserted a disk into the machine."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/machinery/computer/rdconsole/emag_act(mob/user)
 	if(!emagged)

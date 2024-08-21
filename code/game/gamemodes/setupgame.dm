@@ -33,6 +33,7 @@
 	GLOB.teleblock				= getAssignedBlock("TELE", numsToAssign,			DNA_HARD_BOUNDS,		good = TRUE)
 	GLOB.fireblock				= getAssignedBlock("FIRE", numsToAssign,			DNA_HARDER_BOUNDS,		good = TRUE)
 	GLOB.xrayblock				= getAssignedBlock("XRAY", numsToAssign,			DNA_HARDER_BOUNDS,		good = TRUE)
+	GLOB.farvisionblock			= getAssignedBlock("FARVISION", numsToAssign,		DNA_HARD_BOUNDS,		good = TRUE)
 	GLOB.clumsyblock			= getAssignedBlock("CLUMSY", numsToAssign)
 	GLOB.coughblock				= getAssignedBlock("COUGH", numsToAssign)
 	GLOB.glassesblock			= getAssignedBlock("GLASSES", numsToAssign)
@@ -47,7 +48,6 @@
 	GLOB.fakeblock3				= getAssignedBlock("", numsToAssign)
 	GLOB.fakeblock4				= getAssignedBlock("", numsToAssign)
 	GLOB.fakeblock5				= getAssignedBlock("", numsToAssign)
-	GLOB.fakeblock6				= getAssignedBlock("", numsToAssign)
 
 	// Bay muts
 	GLOB.breathlessblock		= getAssignedBlock("BREATHLESS", numsToAssign,		DNA_HARD_BOUNDS,		good = TRUE)

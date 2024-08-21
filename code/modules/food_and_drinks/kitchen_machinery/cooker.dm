@@ -63,30 +63,34 @@
 // if burns = 0 then it'll just tell you that the item is already that foodtype and it would do nothing
 // if you wanted a different side effect set burns to 1 and override burn_food()
 /obj/machinery/cooker/proc/burn_food(mob/user, obj/item/reagent_containers/props)
-	var/obj/item/reagent_containers/food/snacks/badrecipe/burnt = new(get_turf(src))
+	var/turf/drop_turf = get_turf(src)
+	var/obj/item/reagent_containers/food/snacks/badrecipe/burnt = new(drop_turf)
 	setRegents(props, burnt)
-	to_chat(user, "<span class='warning'>You smell burning coming from the [src]!</span>")
+	if(user && (user in viewers(5, src)))
+		to_chat(user, span_warning("You smell burning coming from the [src]!"))
 	var/datum/effect_system/smoke_spread/bad/smoke = new    // burning things makes smoke!
 	smoke.set_up(5, 0, src)
 	smoke.start()
 	if(prob(firechance))
-		var/turf/location = get_turf(src)
-		var/obj/effect/decal/cleanable/liquid_fuel/oil = new(location)
+		var/obj/effect/decal/cleanable/liquid_fuel/oil = new(drop_turf)
 		oil.name = "fat"
-		oil.desc = "uh oh, looks like some fat from the [src]"
-		oil.loc = location
-		location.hotspot_expose(700, 50, 1)
+		oil.desc = "uh oh, looks like some fat from [src]"
+		drop_turf.hotspot_expose(700, 50, 1)
 		//TODO have a chance of setting the tile on fire
 
 /obj/machinery/cooker/proc/changename(obj/item/name, obj/item/setme)
 	setme.name = "[thiscooktype] [name.name]"
 	setme.desc = "[name.desc]. It has been [thiscooktype]"
 
+
 /obj/machinery/cooker/proc/putIn(obj/item/tocook, mob/chef)
+	if(!chef.drop_transfer_item_to_loc(tocook, src))
+		return FALSE
+	. = TRUE
 	icon_state = onicon
 	to_chat(chef, "<span class='notice'>You put [tocook] into [src].</span>")
 	on = 1
-	chef.drop_transfer_item_to_loc(tocook, src)
+
 
 // Override this with the correct snack type
 /obj/machinery/cooker/proc/gettype()
@@ -106,51 +110,64 @@
 
 
 /obj/machinery/cooker/attackby(obj/item/I, mob/user, params)
-	if(upgradeable)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	//Not all cooker types currently support build/upgrade stuff, so not all of it will work well with this
-	//Until we decide whether or not we want to bring back the cereal maker or old grill/oven in some form, this initial check will have to suffice
-		if(istype(I, /obj/item/storage/part_replacer))
-			exchange_parts(user, I)
-			return
+	//Until we decide whether or not we want to bring back the cereal maker or old grill/oven in some form,
+	//this initial check will have to suffice
+	if(upgradeable && istype(I, /obj/item/storage/part_replacer))
+		exchange_parts(user, I)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	if(stat & (NOPOWER|BROKEN))
-		return
-	if(panel_open)
-		to_chat(user, "<span class='warning'>Close the panel first!</span>")
-		return
-	if(!checkValid(I, user))
-		return
-	if(!burns)
-		if(istype(I, /obj/item/reagent_containers/food/snacks))
-			if(checkCooked(I))
-				to_chat(user, "<span class='warning'>That is already [thiscooktype], it would do nothing!</span>")
-				return
+		return ..()
+
 	add_fingerprint(user)
-	putIn(I, user)
-	sleep(cooktime)
-	if(I && I.loc == src)
-		//New interaction to allow special foods to be made/cooked via deepfryer without removing original functionality
-		//Define the foods/results on the specific machine		--FalseIncarnate
-		if(has_specials)						//Checks if the machine has any special recipes that should be checked
-			var/special = checkSpecials(I)		//Checks if the inserted item is one of the specials
-			if(special)							//If the inserted item is not special, it will skip this and run normally
-				cookSpecial(special)			//Handle cooking the item as appropriate
-				turnoff(I)						//Shut off the machine and qdel the original item
-				return
-		if(istype(I, /obj/item/reagent_containers/food/snacks))
-			if(checkCooked(I))
-				burn_food(user, I)
-				turnoff(I)
-				return
-		var/obj/item/reagent_containers/food/snacks/newfood = gettype()
-		setIcon(I, newfood)
-		changename(I, newfood)
-		if(istype(I, /obj/item/reagent_containers))
-			setRegents(I, newfood)
-		if(istype(I, /obj/item/reagent_containers/food/snacks))
-			setCooked(I, newfood)
-		newfood.cooktype[thiscooktype] = 1
-		turnoff(I)
-		//qdel(I)
+	if(panel_open)
+		to_chat(user, span_warning("Close the panel first!"))
+		return ATTACK_CHAIN_PROCEED
+
+	if(!checkValid(I, user))
+		return ATTACK_CHAIN_PROCEED
+
+	if(!burns && istype(I, /obj/item/reagent_containers/food/snacks) && checkCooked(I))
+		to_chat(user, span_warning("That is already [thiscooktype], it would do nothing!"))
+		return ATTACK_CHAIN_PROCEED
+
+	if(!putIn(I, user))
+		return ATTACK_CHAIN_PROCEED
+
+	addtimer(CALLBACK(src, PROC_REF(cooking_end), I, user))
+	return ATTACK_CHAIN_BLOCKED_ALL
+
+
+/obj/machinery/cooker/proc/cooking_end(obj/item/cooking, mob/cook)
+	if(!QDELETED(cooking) || cooking.loc != src)
+		return
+	//New interaction to allow special foods to be made/cooked via deepfryer without removing original functionality
+	//Define the foods/results on the specific machine		--FalseIncarnate
+	if(has_specials)							//Checks if the machine has any special recipes that should be checked
+		var/special = checkSpecials(cooking)	//Checks if the inserted item is one of the specials
+		if(special)								//If the inserted item is not special, it will skip this and run normally
+			cookSpecial(special)				//Handle cooking the item as appropriate
+			turnoff(cooking)							//Shut off the machine and qdel the original item
+			return
+	var/is_snack = istype(cooking, /obj/item/reagent_containers/food/snacks)
+	if(is_snack && checkCooked(cooking))
+		burn_food(cook, cooking)
+		turnoff(cooking)
+		return
+	var/obj/item/reagent_containers/food/snacks/newfood = gettype()
+	setIcon(cooking, newfood)
+	changename(cooking, newfood)
+	if(istype(cooking, /obj/item/reagent_containers))
+		setRegents(cooking, newfood)
+	if(is_snack)
+		setCooked(cooking, newfood)
+	newfood.cooktype[thiscooktype] = 1
+	turnoff(cooking)
+
 
 /obj/machinery/cooker/crowbar_act(mob/user, obj/item/I)
 	if(!upgradeable)

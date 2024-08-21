@@ -4,7 +4,6 @@
 	icon_state = "pipe_d"
 	density = TRUE
 	anchored = TRUE
-	var/unwrenched = 0
 	var/wait = 0
 
 /obj/machinery/pipedispenser/attack_hand(mob/user)
@@ -73,8 +72,9 @@
 	popup.open(0)
 	onclose(user, "pipedispenser")
 
+
 /obj/machinery/pipedispenser/Topic(href, href_list)
-	if(..() || unwrenched)
+	if(..() || !anchored)
 		return
 
 	usr.set_machine(src)
@@ -95,41 +95,43 @@
 		new /obj/item/pipe_gsensor(loc)
 	return TRUE
 
-/obj/machinery/pipedispenser/attackby(obj/item/W, mob/user, params)
-	add_fingerprint(usr)
-	if(istype(W, /obj/item/pipe) || istype(W, /obj/item/pipe_meter) || istype(W, /obj/item/pipe_gsensor))
-		to_chat(usr, span_notice("You put [W] back to [src]."))
-		user.drop_transfer_item_to_loc(W, src)
-		qdel(W)
-		return
-	else if(W.tool_behaviour == TOOL_WRENCH)
-		if(unwrenched==0)
-			playsound(loc, W.usesound, 50, 1)
-			to_chat(user, span_notice("You begin to unfasten \the [src] from the floor..."))
-			if(do_after(user, 4 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
-				user.visible_message( \
-					"[user] unfastens \the [src].", \
-					span_notice("You have unfastened \the [src]. Now it can be pulled somewhere else."), \
-					"You hear ratchet.")
-				set_anchored(FALSE)
-				stat |= MAINT
-				unwrenched = 1
-				if(usr.machine==src)
-					usr << browse(null, "window=pipedispenser")
-		else /*if(unwrenched==1)*/
-			playsound(loc, W.usesound, 50, 1)
-			to_chat(user, span_notice("You begin to fasten \the [src] to the floor..."))
-			if(do_after(user, 2 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
-				user.visible_message( \
-					"[user] fastens \the [src].", \
-					span_notice("You have fastened \the [src]. Now it can dispense pipes."), \
-					"You hear ratchet.")
-				set_anchored(TRUE)
-				stat &= ~MAINT
-				unwrenched = 0
-				power_change()
+
+/obj/machinery/pipedispenser/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	var/prev_state = anchored
+	to_chat(user, span_notice("You begin to [anchored ? "un" : ""]fasten [src] [anchored ? "from" : "to"] the floor..."))
+	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume) || anchored != prev_state)
+		return .
+	set_anchored(!anchored)
+	if(anchored)
+		stat &= ~MAINT
+		user.visible_message(
+			span_notice("[user] fastens [src]."),
+			span_notice("You have fastened [src]. Now it can dispense pipes."),
+			span_italics("You hear ratchet."),
+		)
 	else
+		stat |= MAINT
+		user.visible_message(
+			span_notice("[user] unfastens [src]."),
+			span_notice("You have unfastened [src]. Now it can be pulled somewhere else."),
+			span_italics("You hear ratchet."),
+		)
+
+
+/obj/machinery/pipedispenser/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(istype(I, /obj/item/pipe) || istype(I, /obj/item/pipe_meter) || istype(I, /obj/item/pipe_gsensor))
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		add_fingerprint(user)
+		to_chat(user, span_notice("You put [I] back to [src]."))
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/machinery/pipedispenser/disposal

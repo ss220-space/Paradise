@@ -146,11 +146,15 @@
 			remove_from_head(usr)
 			return
 
-/mob/living/silicon/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/clothing/head) && user.a_intent == INTENT_HELP)
-		place_on_head(user.get_active_hand(), user)
-		return
-	. = ..()
+
+/mob/living/silicon/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/clothing/head) && user.a_intent == INTENT_HELP)
+		add_fingerprint(user)
+		if(place_on_head(I, user))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		return ATTACK_CHAIN_PROCEED
+	return ..()
+
 
 /mob/living/silicon/proc/get_hat_overlay()
 	if(hat_icon_file && hat_icon_state)
@@ -162,42 +166,53 @@
 			borgI.transform = matrix(1.125, 0, 0.5, 0, 1, 0)
 		return borgI
 
+
 /mob/living/silicon/proc/place_on_head(obj/item/item_to_add, mob/user)
 	if(!item_to_add)
-		user.visible_message("<span class='notice'>[user] похлопывает по голове [src].</span>", "<span class='notice'>Вы положили руку на голову [src].</span>")
+		if(user)
+			user.visible_message(
+				span_notice("[user] похлопывает по голове [declent_ru(GENITIVE)]."),
+				span_notice("Вы положили руку на голову [declent_ru(DATIVE)]."),
+			)
 		if(flags & HOLOGRAM)
-			return 0
-		return 0
+			return FALSE
+		return FALSE
 
-	if(!istype(item_to_add, /obj/item/clothing/head/))
-		to_chat(user, "<span class='warning'>[item_to_add] нельзя надеть на голову [src]!</span>")
-		return 0
+	if(!istype(item_to_add, /obj/item/clothing/head))
+		if(user)
+			to_chat(user, span_warning("Предмет нельзя надеть на голову [declent_ru(DATIVE)]!"))
+		return FALSE
 
 	if(!canBeHatted)
-		to_chat(user, "<span class='warning'>[item_to_add] нельзя надеть на голову [src]! Похоже у него уже есть встроенная шляпа.</span>")
-		return 0
+		if(user)
+			to_chat(user, span_warning("Предмет нельзя надеть на голову [declent_ru(DATIVE)]! Похоже у него уже есть встроенный головной убор."))
+		return FALSE
 
 	if(inventory_head)
 		if(user)
-			to_chat(user, "<span class='warning'>Нельзя надеть больше одного головного убора на голову [src]!</span>")
-		return 0
+			to_chat(user, span_warning("Нельзя надеть больше одного головного убора!"))
+		return FALSE
 
-	if(user && !user.drop_item_ground(item_to_add))
-		to_chat(user, "<span class='warning'>[item_to_add] застрял в ваших руках, вы не можете его надеть на голову [src]!</span>")
-		return 0
+	if(user && item_to_add.loc == user && !user.drop_transfer_item_to_loc(item_to_add, src))
+		return FALSE
 
-	if (!canWearBlacklistedHats && is_type_in_list(item_to_add, blacklisted_hats))
-		to_chat(user, "<span class='warning'>[item_to_add] не помещается на голову [src]!</span>")
-		return 0
+	if(!canWearBlacklistedHats && is_type_in_list(item_to_add, blacklisted_hats))
+		if(user)
+			to_chat(user, span_warning("Предмет не подходит для [declent_ru(GENITIVE)]!"))
+		return FALSE
 
-	user.visible_message("<span class='notice'>[user] надевает [item_to_add] на голову [real_name].</span>",
-		"<span class='notice'>Вы надеваете [item_to_add] на голову [real_name].</span>",
-		"<span class='italics'>Вы слышите как что-то нацепили.</span>")
-	item_to_add.forceMove(src)
+	if(user)
+		user.visible_message(
+			span_notice("[user] надевает головной убор на голову [declent_ru(DATIVE)]."),
+			span_notice("Вы надеваете головной убор на голову [declent_ru(DATIVE)]."),
+			span_italics("Вы слышите как что-то нацепили."),
+		)
+	if(item_to_add.loc != src)
+		item_to_add.forceMove(src)
 	inventory_head = item_to_add
 	regenerate_icons()
+	return TRUE
 
-	return 1
 
 /mob/living/silicon/proc/remove_from_head(mob/user)
 	if(inventory_head)
@@ -235,12 +250,3 @@
 	hat_alpha = null
 	hat_color = null
 
-//Если вдруг кто-то захочет сразу спавнить боргов с шапками
-/mob/living/silicon/New()
-	..()
-	regenerate_icons()
-
-//Определяем шапочные свойства для сразу готовых боргов (синди-борги, борги дезсквад, дестроеры)
-/mob/living/silicon/robot/New()
-	..()
-	robot_module_hat_offset(icon_state)

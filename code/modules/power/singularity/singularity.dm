@@ -72,9 +72,11 @@
 /obj/singularity/attack_animal(mob/user)
 	consume(user)
 
-/obj/singularity/attackby(obj/item/W, mob/user, params)
+
+/obj/singularity/attackby(obj/item/I, mob/user, params)
 	consume(user)
-	return 1
+	return ATTACK_CHAIN_BLOCKED_ALL
+
 
 /obj/singularity/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE) //The singularity stops drifting for no man!
 	return FALSE

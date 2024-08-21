@@ -25,22 +25,31 @@
 		new/obj/item/stack/cable_coil(get_turf(src), 10, TRUE, color)
 	qdel(src)
 
-/obj/structure/cable/multiz/attackby(obj/item/W, mob/user)
-	var/turf/T = get_turf(src)
-	if((T.transparent_floor == TURF_TRANSPARENT) || T.intact)
-		to_chat(user, span_warning("You can't interact with something that's under the floor!"))
-		return
-	else if(istype(W, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/coil = W
-		if(coil.get_amount() < 1)
-			to_chat(user, "<span class='warning'>Not enough cable!</span>")
-			return
-		coil.place_turf(get_turf(src), user)
-	else
-		if(W.flags & CONDUCT)
-			shock(user, 50, 0.7)
 
-	add_fingerprint(user)
+/obj/structure/cable/multiz/attackby(obj/item/I, mob/user, params)
+	var/turf/our_turf = get_turf(src)
+	if(!our_turf)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if((our_turf.transparent_floor == TURF_TRANSPARENT) || our_turf.intact)
+		to_chat(user, span_danger("You cannot interact with something that's under the floor!"))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(iscoil(I))
+		add_fingerprint(user)
+		var/obj/item/stack/cable_coil/coil = I
+		if(coil.get_amount() < 1)
+			to_chat(user, span_warning("Not enough cable!"))
+			return ATTACK_CHAIN_PROCEED
+		coil.place_turf(our_turf, user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if((I.flags & CONDUCT) && shock(user, 50, 0.7))
+		add_fingerprint(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ATTACK_CHAIN_PROCEED
+
 
 /obj/structure/cable/multiz/wirecutter_act(mob/user, obj/item/I)
 	. = ..()

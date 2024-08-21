@@ -13,15 +13,50 @@
 	tastes = list("meat" = 1)
 	foodtype = MEAT
 
-/obj/item/reagent_containers/food/snacks/meat/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/kitchen/knife) || istype(W, /obj/item/scalpel))
-		new /obj/item/reagent_containers/food/snacks/rawcutlet(src)
-		new /obj/item/reagent_containers/food/snacks/rawcutlet(src)
-		new /obj/item/reagent_containers/food/snacks/rawcutlet(src)
-		to_chat(user, "You cut the meat in thin strips.")
-		qdel(src)
+
+/obj/item/reagent_containers/food/snacks/meat/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !is_sharp(I))
+		return .
+
+	if(!isturf(loc))
+		to_chat(user, span_warning("You cannot cut [src] [ismob(loc) ? "in inventory" : "in [loc]"]."))
+		return .
+
+	var/static/list/acceptable_surfaces = typecacheof(list(
+		/obj/structure/table,
+		/obj/machinery/optable,
+		/obj/item/storage/bag/tray,
+	))
+	var/acceptable = FALSE
+	for(var/thing in loc)
+		if(is_type_in_typecache(thing, acceptable_surfaces))
+			acceptable = TRUE
+			break
+	if(!acceptable)
+		to_chat(user, span_warning("You cannot cut [src] here! You need a table or at least a tray to do it."))
+		return .
+
+	. |= ATTACK_CHAIN_BLOCKED_ALL
+	var/strips_amount = 3
+	if(istype(I, /obj/item/kitchen/knife) || istype(I, /obj/item/scalpel))
+		user.visible_message(
+			span_notice("[user] cuts the meat in thin strips."),
+			span_notice("You have cut the meat in thin strips."),
+		)
 	else
-		..()
+		strips_amount = 1
+		user.visible_message(
+			span_notice("[user] crudely cuts the meat in thin strips."),
+			span_notice("You have crudely cut the meat in thin strips."),
+		)
+	for(var/i = 1 to strips_amount)
+		var/obj/item/reagent_containers/food/snacks/rawcutlet/cutlet = new(loc)
+		transfer_fingerprints_to(cutlet)
+		cutlet.add_fingerprint(user)
+	qdel(src)
+
 
 /obj/item/reagent_containers/food/snacks/meat/syntiflesh
 	name = "synthetic meat"
@@ -280,14 +315,50 @@
 	list_reagents = list("protein" = 1)
 	foodtype = MEAT
 
-/obj/item/reagent_containers/food/snacks/rawcutlet/attackby(obj/item/W, mob/user, params)
-	if(istype(W,/obj/item/kitchen/knife))
-		user.visible_message( \
-			"[user] cuts the raw cutlet with the knife!", \
-			"<span class ='notice'>You cut the raw cutlet with your knife!</span>" \
-			)
-		new /obj/item/reagent_containers/food/snacks/raw_bacon(loc)
-		qdel(src)
+
+/obj/item/reagent_containers/food/snacks/rawcutlet/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !is_sharp(I))
+		return .
+
+	if(!isturf(loc))
+		to_chat(user, span_warning("You cannot trim [src] [ismob(loc) ? "in inventory" : "in [loc]"]."))
+		return .
+
+	var/static/list/acceptable_surfaces = typecacheof(list(
+		/obj/structure/table,
+		/obj/machinery/optable,
+		/obj/item/storage/bag/tray,
+	))
+	var/acceptable = FALSE
+	for(var/thing in loc)
+		if(is_type_in_typecache(thing, acceptable_surfaces))
+			acceptable = TRUE
+			break
+	if(!acceptable)
+		to_chat(user, span_warning("You cannot trim [src] here! You need a table or at least a tray to do it."))
+		return .
+
+	. |= ATTACK_CHAIN_BLOCKED_ALL
+	var/bacon_amount = 2
+	if(istype(I, /obj/item/kitchen/knife) || istype(I, /obj/item/scalpel))
+		user.visible_message(
+			span_notice("[user] trims the raw bacon from [src]."),
+			span_notice("You have trimmed the raw bacon from [src]."),
+		)
+	else
+		bacon_amount = 1
+		user.visible_message(
+			span_notice("[user] crudely trims the raw bacon from [src]."),
+			span_notice("You have crudely trimmed the raw bacon from [src]."),
+		)
+	for(var/i = 1 to bacon_amount)
+		var/obj/item/reagent_containers/food/snacks/raw_bacon/bacon = new(loc)
+		transfer_fingerprints_to(bacon)
+		bacon.add_fingerprint(user)
+	qdel(src)
+
 
 //////////////////////////
 //		Monster Meat	//
@@ -746,6 +817,7 @@
 	tastes = list("egg" = 1)
 	foodtype = EGG
 
+
 /obj/item/reagent_containers/food/snacks/egg/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
 	var/turf/T = get_turf(hit_atom)
@@ -754,20 +826,26 @@
 		reagents.reaction(hit_atom, REAGENT_TOUCH)
 	qdel(src)
 
-/obj/item/reagent_containers/food/snacks/egg/attackby(obj/item/W, mob/user, params)
-	if(istype( W, /obj/item/toy/crayon ))
-		var/obj/item/toy/crayon/C = W
-		var/clr = C.colourName
 
-		if(!(clr in list("blue","green","mime","orange","purple","rainbow","red","yellow")))
-			to_chat(usr, "<span class ='notice'>The egg refuses to take on this color!</span>")
-			return
+/obj/item/reagent_containers/food/snacks/egg/update_icon_state()
+	icon_state = "egg[item_color ? "-[item_color]" : ""]"
 
-		to_chat(usr, "<span class ='notice'>You color \the [src] [clr]</span>")
-		icon_state = "egg-[clr]"
-		item_color = clr
-	else
-		..()
+
+/obj/item/reagent_containers/food/snacks/egg/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/toy/crayon))
+		var/obj/item/toy/crayon/crayon = I
+		var/crayon_color = crayon.colourName
+		var/static/list/acceptable_colors = list("blue","green","mime","orange","purple","rainbow","red","yellow")
+		if(!(crayon_color in acceptable_colors))
+			to_chat(user, span_warning("The egg refuses to take on this color!"))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You color [src] [crayon_color]."))
+		item_color = crayon_color
+		update_icon(UPDATE_ICON_STATE)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/item/reagent_containers/food/snacks/egg/blue
 	icon_state = "egg-blue"
@@ -899,7 +977,7 @@
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/pelmeni
-	name = "Pelmeni"
+	name = "pelmeni"
 	desc = "Meat wrapped in thin uneven dough."
 	icon_state = "pelmeni"
 	filling_color = "#d9be29"
@@ -909,7 +987,7 @@
 	foodtype = MEAT | RAW | GRAIN
 
 /obj/item/reagent_containers/food/snacks/boiledpelmeni
-	name = "Boiled pelmeni"
+	name = "boiled pelmeni"
 	desc = "We don't know what was Siberia, but these tasty pelmeni definitely arrived from there."
 	icon_state = "boiledpelmeni"
 	trash = /obj/item/trash/snack_bowl

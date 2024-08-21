@@ -194,50 +194,70 @@ Pipelines + Other Objects -> Pipe network
 	if(P)
 		P.other_atmosmch -= src
 
-//(De)construction
-/obj/machinery/atmospherics/attackby(obj/item/W, mob/user)
-	var/turf/T = get_turf(src)
-	if(can_unwrench && W.tool_behaviour == TOOL_WRENCH)
-		if(level == 1 && (T.transparent_floor == TURF_TRANSPARENT) && istype(src, /obj/machinery/atmospherics/pipe))
-			to_chat(user, span_danger("You can't interact with something that's under the floor!"))
-			return
-		if(level == 1 && isturf(T) && T.intact)
-			to_chat(user, span_danger("You must remove the plating first."))
-			return
-		var/datum/gas_mixture/int_air = return_air()
-		var/datum/gas_mixture/env_air = loc.return_air()
-		add_fingerprint(user)
 
-		var/unsafe_wrenching = FALSE
-		var/I = int_air ? int_air.return_pressure() : 0
-		var/E = env_air ? env_air.return_pressure() : 0
-		var/internal_pressure = I - E
+/obj/machinery/atmospherics/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	var/turf/our_turf = get_turf(src)
+	if(!our_turf)
+		return .
+	if(level == 1 && (our_turf.transparent_floor == TURF_TRANSPARENT) && istype(src, /obj/machinery/atmospherics/pipe))
+		to_chat(user, span_danger("You cannot interact with something that's under the floor!"))
+		return .
+	if(level == 1 && our_turf.intact)
+		to_chat(user, span_danger("You must remove the plating first."))
+		return .
+	if(!can_unwrench)
+		to_chat(user, span_warning("This machinery cannot be unwrenched."))
+		return .
+	if(!(stat & NOPOWER) && on)
+		to_chat(user, span_warning("You cannot unwrench [src], turn it off first."))
+		return .
 
-		playsound(src.loc, W.usesound, 50, 1)
-		to_chat(user, span_notice("You begin to unfasten \the [src]..."))
-		if(internal_pressure > 2*ONE_ATMOSPHERE)
-			to_chat(user, span_warning("As you begin unwrenching \the [src] a gust of air blows in your face... maybe you should reconsider?"))
-			unsafe_wrenching = TRUE //Oh dear oh dear
+	var/datum/gas_mixture/int_air = return_air()
+	var/datum/gas_mixture/env_air = loc.return_air()
 
-		if(do_after(user, 4 SECONDS * W.toolspeed, src, max_interact_count = 1, cancel_message = "", category = DA_CAT_TOOL) && !QDELETED(src))
-			user.visible_message( \
-				"[user] unfastens \the [src].", \
-				span_notice("You have unfastened \the [src]."), \
-				span_italics("You hear ratcheting."))
-			investigate_log("was <span class='warning'>REMOVED</span> by [key_name_log(usr)]", INVESTIGATE_ATMOS)
+	var/unsafe_wrenching = FALSE
+	var/internal_air = int_air ? int_air.return_pressure() : 0
+	var/envire_air  = env_air ? env_air.return_pressure() : 0
+	var/internal_pressure = internal_air - envire_air
 
-			//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
-			if(unsafe_wrenching)
-				if(HAS_TRAIT(user, TRAIT_GUSTPROTECTION))
-					to_chat(user, span_italics("Your magboots cling to the floor as a great burst of wind bellows against you."))
-				else
-					unsafe_pressure_release(user, internal_pressure)
-			deconstruct(TRUE)
+	if(internal_pressure > 2 * ONE_ATMOSPHERE)
+		to_chat(user, span_warning("As you begin unwrenching [src] a gust of air blows in your face... maybe you should reconsider?"))
+		unsafe_wrenching = TRUE //Oh dear oh dear
 	else
-		if(T.transparent_floor == TURF_TRANSPARENT)
-			to_chat(user, span_danger("You can't interact with something that's under the floor!"))
-			return TRUE
-		return ..()
+		to_chat(user, span_notice("You begin to unfasten [src]..."))
+
+	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
+		return .
+
+	user.visible_message(
+		span_notice("[user] unfastens [src]."),
+		span_notice("You have unfastened [src]."),
+		span_italics("You hear ratcheting."),
+	)
+	investigate_log("was <span class='warning'>REMOVED</span> by [key_name_log(usr)]", INVESTIGATE_ATMOS)
+
+	//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
+	if(unsafe_wrenching)
+		if(HAS_TRAIT(user, TRAIT_GUSTPROTECTION))
+			to_chat(user, span_italics("Your magboots cling to the floor as a great burst of wind bellows against you."))
+		else
+			unsafe_pressure_release(user, internal_pressure)
+
+	deconstruct(TRUE)
+
+
+/obj/machinery/atmospherics/attackby(obj/item/I, mob/user, params)
+	var/turf/our_turf = get_turf(src)
+	if(!our_turf)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(our_turf.transparent_floor == TURF_TRANSPARENT)
+		to_chat(user, span_warning("You cannot interact with something that's under the floor!"))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 //Called when an atmospherics object is unwrenched while having a large pressure difference
 //with it's locs air contents.

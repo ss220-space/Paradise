@@ -9,23 +9,37 @@
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/metal
 
-/obj/structure/statue/attackby(obj/item/W, mob/living/user, params)
-	if(!(obj_flags & NODECONSTRUCT))
-		if(default_unfasten_wrench(user, W))
+
+/obj/structure/statue/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/gun/energy/plasmacutter))
+		if(obj_flags & NODECONSTRUCT)
+			return ..()
+		user.visible_message(
+			span_notice("[user] start slicing apart [src] with [I]."),
+			span_notice("You start slicing apart [src]..."),
+		)
+		I.play_tool_sound(src, 100)
+		if(!do_after(user, 4 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
 			add_fingerprint(user)
-			return
-		if(istype(W, /obj/item/gun/energy/plasmacutter))
-			playsound(src, W.usesound, 100, 1)
-			user.visible_message("[user] is slicing apart the [name]...", \
-								 "<span class='notice'>You are slicing apart the [name]...</span>")
-			if(do_after(user, 4 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
-				if(!loc)
-					return
-				user.visible_message("[user] slices apart the [name].", \
-									 "<span class='notice'>You slice apart the [name].</span>")
-				deconstruct(TRUE)
-			return
+			return ATTACK_CHAIN_PROCEED
+		I.play_tool_sound(src, 100)
+		user.visible_message(
+			span_notice("[user] slices apart [src] with [I]."),
+			span_notice("You have sliced apart [src]."),
+		)
+		deconstruct(TRUE)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
+
+/obj/structure/statue/wrench_act(mob/living/user, obj/item/I)
+	if(obj_flags & NODECONSTRUCT)
+		return FALSE
+	return default_unfasten_wrench(user, I)
 
 
 /obj/structure/statue/welder_act(mob/user, obj/item/I)
@@ -115,14 +129,16 @@
 			PlasmaBurn()
 	..()
 
-/obj/structure/statue/plasma/attackby(obj/item/W, mob/user, params)
-	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
-		add_fingerprint(user)
-		add_attack_logs(user, src, "Ignited using [W]", ATKLOG_FEW)
+
+/obj/structure/statue/plasma/attackby(obj/item/I, mob/user, params)
+	var/is_hot = is_hot(I)
+	if(is_hot > 300)//If the temperature of the object is over 300, then ignite
+		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
 		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
-		ignite(is_hot(W))
-		return
+		ignite(is_hot)
+		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
+
 
 /obj/structure/statue/plasma/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -224,9 +240,12 @@
 	honk()
 	. = ..()
 
-/obj/structure/statue/bananium/attackby(obj/item/W, mob/user, params)
-	honk()
-	return ..()
+
+/obj/structure/statue/bananium/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(!ATTACK_CHAIN_CANCEL_CHECK(.))
+		honk()
+
 
 /obj/structure/statue/bananium/attack_hand(mob/user)
 	honk()
@@ -414,11 +433,10 @@
 	icon_state = "unknown[lit ? "_lit" : ""]"
 
 
-
-/obj/structure/statue/unknown/attackby(obj/item/W, mob/user, params)
-	if(is_hot(W))
-		light(span_notice("[user] lights [src] with [W]."))
-		return
+/obj/structure/statue/unknown/attackby(obj/item/I, mob/user, params)
+	if(is_hot(I) && light(span_notice("[user] lights [src] with [I].")))
+		add_fingerprint(user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
 
@@ -435,12 +453,14 @@
 
 
 /obj/structure/statue/unknown/proc/light(show_message)
-	if(!lit)
-		lit = TRUE
-		if(show_message)
-			usr.visible_message(show_message)
-		set_light(CANDLE_LUM, l_on = TRUE)
-		update_icon(UPDATE_ICON_STATE)
+	if(lit)
+		return FALSE
+	. = TRUE
+	lit = TRUE
+	if(show_message)
+		usr.visible_message(show_message)
+	set_light(CANDLE_LUM, l_on = TRUE)
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/structure/statue/unknown/attack_hand(mob/user)
@@ -473,13 +493,22 @@
 /obj/structure/snowman/built/has_prints()
 	return FALSE
 
-/obj/structure/snowman/built/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/snowball) && obj_integrity < max_integrity)
-		to_chat(user, "<span class='notice'>You patch some of the damage on [src] with [I].</span>")
+
+/obj/structure/snowman/built/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/snowball))
+		if(obj_integrity >= max_integrity)
+			to_chat(user, span_warning("The [name] is completely intact."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You patch some of the damage on [src] with [I]."))
 		obj_integrity = max_integrity
 		qdel(I)
-	else
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/structure/snowman/built/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
@@ -500,22 +529,30 @@
 	max_integrity = 100
 	material_drop_type = /obj/item/stack/sheet/cheese
 
+
 /obj/structure/statue/cheese/cheesus
 	name = "statue of cheesus"
 	desc = "Cheese expertly crafted into a representation of our mighty lord and saviour."
 	icon_state = "cheesus1"
 
-/obj/structure/statue/cheese/cheesus/attackby(obj/item/W, mob/user, params)
-	if(obj_integrity <= 20)
-		icon_state = "cheesus4"
-		return ..()
-	if(obj_integrity <= 40)
-		icon_state = "cheesus3"
-		return ..()
-	if(obj_integrity <= 60)
-		icon_state = "cheesus2"
-		return ..()
-	return ..()
+
+/obj/structure/statue/cheese/cheesus/update_icon_state()
+	switch(obj_integrity)
+		if(-INFINITY to 20)
+			icon_state = "cheesus4"
+		if(21 to 40)
+			icon_state = "cheesus3"
+		if(41 to 60)
+			icon_state = "cheesus2"
+		else
+			icon_state = "cheesus1"
+
+
+/obj/structure/statue/cheese/cheesus/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration = 0)
+	. = ..()
+	if(. && !QDELETED(src))
+		update_icon(UPDATE_ICON_STATE)
+
 
 //////BONES
 /obj/structure/bones
