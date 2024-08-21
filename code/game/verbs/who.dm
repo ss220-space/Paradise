@@ -116,6 +116,8 @@
 					modmsg += " (АФК)"
 				modmsg += "\n"
 				num_mods_online++
+			else if((holder.rights & R_CONTRIBUTOR) == R_CONTRIBUTOR)
+				modmsg += "\[[C.holder.rank]\]  [C]"
 	else
 		for(var/client/C in GLOB.admins)
 

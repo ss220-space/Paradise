@@ -43,6 +43,7 @@
 #define R_MENTOR		(1<<14)
 #define R_PROCCALL		(1<<15)
 #define R_VIEWRUNTIMES	(1<<16)
+#define R_CONTRIBUTOR	(R_REJUVINATE|R_VAREDIT|R_DEBUG|R_SPAWN|R_PROCCALL|R_VIEWRUNTIMES)
 
 #define R_MAXPERMISSION (1<<16)//This holds the maximum value for a permission. It is used in iteration, so keep it updated.
 
