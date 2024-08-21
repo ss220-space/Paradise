@@ -30,7 +30,7 @@ export class ChannelIterator {
     'Admin',
     'Dsay',
   ];
-  private readonly blacklist: Channel[] = ['Mentor', 'Admin', 'Dsay'];
+  private readonly blacklist: Channel[] = ['Mentor', 'Admin', 'Dsay', 'Dev'];
   private readonly quiet: Channel[] = [
     'OOC',
     'LOOC',
