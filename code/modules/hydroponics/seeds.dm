@@ -322,23 +322,27 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 /obj/item/seeds/proc/on_chem_reaction(datum/reagents/S)  //in case seeds have some special interaction with special chems
 	return
 
-/obj/item/seeds/attackby(obj/item/O, mob/user, params)
-	if (istype(O, /obj/item/plant_analyzer))
-		to_chat(user, "<span class='info'>This is \a <span class='name'>[src].</span></span>")
-		var/text = get_analyzer_text()
-		if(text)
-			to_chat(user, "<span class='notice'>[text]</span>")
 
-		return
-	if(is_pen(O))
+/obj/item/seeds/attackby(obj/item/I, mob/user, params)
+	if(is_pen(I))
+		add_fingerprint(user)
 		variant_prompt(user)
-		return
-	..() // Fallthrough to item/attackby() so that bags can pick seeds up
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/plant_analyzer))
+		add_fingerprint(user)
+		to_chat(user, "[span_info("This is the ")][span_name("[name]")]")
+		var/advanced_info = get_analyzer_text()
+		if(advanced_info)
+			to_chat(user, span_info("[advanced_info]"))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
 
 
 /obj/item/seeds/proc/variant_prompt(mob/user, obj/item/container = null)
 	var/prev = variant
-	var/V = input(user, "Choose variant name:", "Plant Variant Naming", variant) as text|null
+	var/V = tgui_input_text(user, "Choose variant name:", "Plant Variant Naming", variant, encode = FALSE)
 	if(isnull(V)) // Did the user cancel?
 		return
 	if(container && (loc != container)) // Was the seed removed from the container, if there is a container?

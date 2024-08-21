@@ -198,12 +198,15 @@
 		var/obj/item/toy/crayon/crayon = I
 		switch(crayon.colourName)
 			if("mime")
-				to_chat(usr, "This crayon is too sad to be contained in this box.")
-				return
+				add_fingerprint(user)
+				to_chat(user, span_notice("This crayon is too sad to be contained in this box."))
+				return ATTACK_CHAIN_PROCEED
 			if("rainbow")
-				to_chat(usr, "This crayon is too powerful to be contained in this box.")
-				return
-	..()
+				add_fingerprint(user)
+				to_chat(user, span_notice("This crayon is too powerful to be contained in this box."))
+				return ATTACK_CHAIN_PROCEED
+	return ..()
+
 
 ////////////
 //CIG PACK//
@@ -252,21 +255,21 @@
 			icon_state = "[init_state]0"
 
 
-/obj/item/storage/fancy/cigarettes/attack(mob/living/carbon/human/target, mob/living/carbon/user)
+/obj/item/storage/fancy/cigarettes/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!ishuman(target) || user.zone_selected != BODY_ZONE_PRECISE_MOUTH)
 		return ..()
 
+	. = ATTACK_CHAIN_PROCEED
 	var/obj/item/clothing/mask/cigarette/cigar = locate() in src
 	if(!cigar)
 		to_chat(user, span_warning("There are no smokables in the pack!"))
-		return TRUE
+		return .
 
 	if(target.equip_to_slot_if_possible(cigar, ITEM_SLOT_MASK, disable_warning = TRUE))
-		to_chat(user, span_notice("You took \a [cigar.name] out of the pack[target != user ? " and deftly place it in [target] mouth" : ""]."))
+		. |= ATTACK_CHAIN_SUCCESS
+		to_chat(user, span_notice("You took [cigar.name] out of the pack[target != user ? " and deftly place it in [target]'s mouth" : ""]."))
 	else
-		to_chat(user, span_warning("Something is blocking [target] mouth!"))
-
-	return TRUE
+		to_chat(user, span_warning("Something is blocking [target]'s mouth!"))
 
 
 /obj/item/storage/fancy/cigarettes/can_be_inserted(obj/item/W , stop_messages = 0)

@@ -48,19 +48,18 @@
 		item_state = initial(item_state)
 
 
-/obj/item/melee/cultblade/attack(mob/living/target, mob/living/carbon/human/user)
+/obj/item/melee/cultblade/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscultist(user))
-		user.Weaken(10 SECONDS)
+		user.Knockdown(10 SECONDS)
 		user.drop_item_ground(src, force = TRUE)
-		user.visible_message("<span class='warning'>A powerful force shoves [user] away from [target]!</span>",
-							 "<span class='cultlarge'>\"You shouldn't play with sharp things. You'll poke someone's eye out.\"</span>")
-		if(ishuman(user))
-			var/mob/living/carbon/human/H = user
-			H.apply_damage(rand(force/2, force), BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
-		else
-			user.adjustBruteLoss(rand(force/2, force))
-		return
-	..()
+		user.visible_message(
+			span_warning("A powerful force shoves [user] away from [target]!"),
+			span_cultlarge("\"You shouldn't play with sharp things. You'll poke someone's eye out.\""),
+		)
+		user.apply_damage(rand(force/2, force), BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 /obj/item/melee/cultblade/pickup(mob/living/user)
 	if(HULK in user.mutations)
@@ -82,7 +81,7 @@
 	icon_state = "bola_cult"
 	item_state = "bola_cult"
 	breakouttime = 45
-	weaken_amt = 2 SECONDS
+	knockdown_amt = 2 SECONDS
 
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(iscultist(hit_atom))
@@ -192,7 +191,7 @@
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.drop_item_ground(src, force = TRUE)
 		user.Confused(20 SECONDS)
-		user.Weaken(10 SECONDS)
+		user.Knockdown(10 SECONDS)
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/setup_shielding()
 	AddComponent(/datum/component/shielded, recharge_start_delay = 0 SECONDS, shield_icon_file = 'icons/effects/cult_effects.dmi', shield_icon = "shield-cult", run_hit_callback = CALLBACK(src, PROC_REF(shield_damaged)))
@@ -232,7 +231,7 @@
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
 		user.drop_item_ground(src, force = TRUE)
 		user.Confused(20 SECONDS)
-		user.Weaken(10 SECONDS)
+		user.Knockdown(10 SECONDS)
 	else if(slot == ITEM_SLOT_CLOTH_OUTER)
 		user.add_movespeed_modifier(/datum/movespeed_modifier/cult_robe)
 
@@ -277,9 +276,11 @@
 
 /obj/item/whetstone/cult/attackby(obj/item/I, mob/user, params)
 	. = ..()
-	if(!uses)
-		to_chat(user, span_notice("[src] crumbles to ashes."))
-		qdel(src)
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || uses)
+		return .
+	. |= ATTACK_CHAIN_BLOCKED_ALL
+	to_chat(user, span_notice("[src] crumbles to ashes."))
+	qdel(src)
 
 
 /obj/item/whetstone/cult/attack_self(mob/user)
@@ -314,7 +315,7 @@
 		to_chat(user, "<span class='cultlarge'>\"You want to be blind, do you?\"</span>")
 		user.drop_item_ground(src, force = TRUE)
 		user.Confused(60 SECONDS)
-		user.Weaken(10 SECONDS)
+		user.Knockdown(10 SECONDS)
 		user.EyeBlind(60 SECONDS)
 
 /obj/item/shuttle_curse
@@ -327,7 +328,7 @@
 /obj/item/shuttle_curse/attack_self(mob/living/user)
 	if(!iscultist(user))
 		user.drop_item_ground(src, force = TRUE)
-		user.Weaken(10 SECONDS)
+		user.Knockdown(10 SECONDS)
 		to_chat(user, "<span class='warning'>A powerful force shoves you away from [src]!</span>")
 		return
 	if(curselimit > 1)
@@ -355,6 +356,9 @@
 	icon = 'icons/obj/cult.dmi'
 	icon_state ="shifter"
 	var/uses = 4
+
+/obj/item/cult_shift/attack_self_tk(mob/user)
+	return
 
 /obj/item/cult_shift/examine(mob/user)
 	. = ..()
@@ -553,7 +557,7 @@
 			// 10 * 3 gives it a 30% chance to shatter per hit.
 			shatter_chance = min((P.damage - threshold) * 3, 75) // Maximum of 75% chance
 
-			if(prob(shatter_chance))
+			if(prob(shatter_chance) || P.shield_buster)
 				var/turf/T = get_turf(owner)
 				T.visible_message("<span class='warning'>The sheer force from [P] shatters the mirror shield!</span>")
 				new /obj/effect/temp_visual/cult/sparks(T)

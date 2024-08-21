@@ -1,7 +1,5 @@
 //Damage things	//TODO: merge these down to reduce on defines
 //Way to waste perfectly good damagetype names (BRUTE) on this... If you were really worried about case sensitivity, you could have just used lowertext(damagetype) in the proc...
-#define CUT 		"cut"
-#define BRUISE		"bruise"
 #define BRUTE		"brute"
 #define BURN		"fire"
 #define TOX			"tox"
@@ -20,7 +18,10 @@
 #define RAD 		"rad"
 #define FIRE 		"fire"
 #define ACID 		"acid"
-//#define MAGIC		"magic"
+#define MAGIC		"magic"
+
+/// All armors
+#define ARMOR_LIST_ALL(...) list(ACID, BIO, BOMB, BULLET, ENERGY, FIRE, LASER, MAGIC, MELEE, RAD)
 
 #define STUN		"stun"
 #define WEAKEN		"weaken"
@@ -194,3 +195,20 @@
 
 #define COMBO_STEPS "steps"
 #define COMBO_PROC "proc"
+
+
+// core bitflags
+#define ATTACK_CHAIN_PROCEED (1<<2)	// intentionally not started with (1<<0) or 1, since 1 is equal to TRUE
+#define ATTACK_CHAIN_BLOCKED (1<<3)	// and we want to check validity of the core bitflags, returned by the attack chain procs
+// optional bitflags
+#define ATTACK_CHAIN_SUCCESS (1<<0)
+#define ATTACK_CHAIN_NO_AFTERATTACK (1<<1)
+// bitflag combinations
+#define ATTACK_CHAIN_PROCEED_SUCCESS (ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_SUCCESS)
+#define ATTACK_CHAIN_BLOCKED_ALL (ATTACK_CHAIN_BLOCKED|ATTACK_CHAIN_NO_AFTERATTACK)
+#define ATTACK_CHAIN_CORE_RETURN_BITFLAGS (ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_BLOCKED)
+/// Helper to check whether attack chain result was blocked
+#define ATTACK_CHAIN_CANCEL_CHECK(bitflags) ((bitflags) & ATTACK_CHAIN_BLOCKED)
+/// Helper to check whether attack chain result wasn't blocked and was successful
+#define ATTACK_CHAIN_SUCCESS_CHECK(bitflags) ((!ATTACK_CHAIN_CANCEL_CHECK(bitflags) && ((bitflags) & ATTACK_CHAIN_SUCCESS)))
+

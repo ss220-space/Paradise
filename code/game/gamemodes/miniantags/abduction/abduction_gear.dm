@@ -66,7 +66,7 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/clothing/suit/armor/abductor/vest/item_action_slot_check(slot, mob/user)
+/obj/item/clothing/suit/armor/abductor/vest/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_CLOTH_OUTER) //we only give the mob the ability to activate the vest if he's actually wearing it.
 		return TRUE
 
@@ -104,7 +104,7 @@
 	DeactivateStealth()
 	return 0
 
-/obj/item/clothing/suit/armor/abductor/vest/ui_action_click()
+/obj/item/clothing/suit/armor/abductor/vest/ui_action_click(mob/user, datum/action/action, leftclick)
 	switch(mode)
 		if(VEST_COMBAT)
 			Adrenaline()
@@ -194,18 +194,21 @@
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, "<span class='notice'>You switch the device to [mode==GIZMO_SCAN? "SCAN": "MARK"] MODE</span>")
 
-/obj/item/abductor/gizmo/attack(mob/living/M, mob/user)
+
+/obj/item/abductor/gizmo/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!ScientistCheck(user))
-		return
+		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 	if(!console)
-		to_chat(user, "<span class='warning'>The device is not linked to console!</span>")
-		return
+		to_chat(user, span_warning("The device is not linked to console!"))
+		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
 
 	switch(mode)
 		if(GIZMO_SCAN)
-			scan(M, user)
+			scan(target, user)
 		if(GIZMO_MARK)
-			mark(M, user)
+			mark(target, user)
 
 
 /obj/item/abductor/gizmo/afterattack(atom/target, mob/living/user, flag, params)
@@ -263,10 +266,13 @@
 	item_state = "silencer"
 	origin_tech = "materials=4;programming=7;abductor=3"
 
-/obj/item/abductor/silencer/attack(mob/living/M, mob/user)
+
+/obj/item/abductor/silencer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!isgrey(user) && !AbductorCheck(user))
-		return
-	radio_off(M, user)
+		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
+	radio_off(target, user)
+
 
 /obj/item/abductor/silencer/afterattack(atom/target, mob/living/user, flag, params)
 	if(flag)
@@ -348,7 +354,7 @@
 			to_chat(user, "<span class='warning'>Your target is already under a mind-controlling influence!</span>")
 			return
 
-		var/command = stripped_input(user, "Enter the command for your target to follow. Uses Left: [G.mind_control_uses], Duration: [DisplayTimeText(G.mind_control_duration)]", "Enter command")
+		var/command = tgui_input_text(user, "Enter the command for your target to follow. Uses Left: [G.mind_control_uses], Duration: [DisplayTimeText(G.mind_control_duration)]", "Enter command")
 
 		if(!command)
 			return
@@ -368,7 +374,7 @@
 		if(L.stat == DEAD)
 			to_chat(user, "<span class='warning'>Your target is dead!</span>")
 			return
-		var/message = stripped_input(user, "Write a message to send to your target's brain.", "Enter message")
+		var/message = tgui_input_text(user, "Write a message to send to your target's brain.", "Enter message")
 		if(!message)
 			return
 		if(QDELETED(L) || L.stat == DEAD)
@@ -521,7 +527,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			. += span_warning("The baton is in probing mode.")
 
 
-/obj/item/melee/baton/abductor/baton_attack(mob/target, mob/living/user, add_melee_cooldown = TRUE, skip_attack_anim = FALSE)
+/obj/item/melee/baton/abductor/baton_attack(mob/target, mob/living/user)
 	if(!AbductorCheck(user))
 		return BATON_ATTACK_DONE
 	return ..()
@@ -753,36 +759,33 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	framestackamount = 1
 	density = TRUE
 
+
 /obj/structure/table_frame/abductor/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/sheet/mineral/abductor))
-		var/obj/item/stack/sheet/P = I
-		if(P.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one alien alloy sheet to do this!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
-		if(do_after(user, 5 SECONDS, src))
-			P.use(1)
-			new /obj/structure/table/abductor(loc)
-			qdel(src)
-		return
-	if(istype(I, /obj/item/stack/sheet/mineral/silver))
-		var/obj/item/stack/sheet/P = I
-		if(P.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one sheet of silver to do	this!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
-		if(do_after(user, 5 SECONDS, src))
-			P.use(1)
-			new /obj/machinery/optable/abductor(loc)
-			qdel(src)
-		return
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/stack/sheet/mineral/abductor) || istype(I, /obj/item/stack/sheet/mineral/silver))
+		add_fingerprint(user)
+		var/obj/item/stack/sheet/mineral/mineral = I
+		if(mineral.get_amount() < 1)
+			to_chat(user, span_warning("You need one sheet of [mineral] to do this!"))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You start adding [mineral] to [src]..."))
+		if(!do_after(user, 5 SECONDS, src) || QDELETED(mineral) || !mineral.use(1))
+			return ATTACK_CHAIN_PROCEED
+		new /obj/structure/table/abductor(loc)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/structure/table/abductor
 	name = "alien table"
 	desc = "Advanced flat surface technology at work!"
 	icon = 'icons/obj/smooth_structures/alien_table.dmi'
 	icon_state = "alien_table"
+	can_be_flipped = FALSE
 	buildstack = /obj/item/stack/sheet/mineral/abductor
 	framestack = /obj/item/stack/sheet/mineral/abductor
 	buildstackamount = 1
@@ -790,8 +793,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	base_icon_state = "alien_table"
 	smoothing_groups = SMOOTH_GROUP_ABDUCTOR_TABLES
 	canSmoothWith = SMOOTH_GROUP_ABDUCTOR_TABLES
-	can_be_flipped = FALSE
 	frame = /obj/structure/table_frame/abductor
+
 
 /obj/machinery/optable/abductor
 	icon = 'icons/obj/abductor.dmi'

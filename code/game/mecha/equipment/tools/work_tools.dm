@@ -46,7 +46,7 @@
 			M.take_overall_damage(dam_force)
 			if(!M)
 				return FALSE
-			M.adjustOxyLoss(round(dam_force/2))
+			M.apply_damage(round(dam_force/2), OXY)
 			target.visible_message(span_danger("[chassis] squeezes [target]."), \
 								span_userdanger("[chassis] squeezes [target]."),\
 								span_italics("You hear something crack."))
@@ -350,13 +350,16 @@
 		update_equip_info()
 		occupant_message("Switched to [targeted_module]")
 
+
 /obj/item/mecha_parts/mecha_equipment/multimodule/attackby(obj/item/I, mob/user, params)
-	. = ..()
 	if(istype(I, /obj/item/storage/bible))
 		var/obj/item/mecha_parts/mecha_equipment/extinguisher/extinguisher = locate() in src
 		if(extinguisher?.reagents && user.mind?.isholy)
 			var/obj/item/storage/bible/bible = I
 			bible.add_holy_water(user, extinguisher)
+			return ATTACK_CHAIN_PROCEED
+	return ..()
+
 
 /obj/item/mecha_parts/mecha_equipment/multimodule/atmos_module
 	name = "ATMOS module"

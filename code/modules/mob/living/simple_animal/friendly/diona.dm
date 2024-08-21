@@ -66,7 +66,7 @@
 /datum/action/innate/diona/evolve
 	name = "Evolve"
 	icon_icon = 'icons/obj/machines/cloning.dmi'
-	button_icon_state = "pod_1"
+	button_icon_state = "pod_cloning"
 
 /datum/action/innate/diona/evolve/Activate()
 	var/mob/living/simple_animal/diona/user = owner
@@ -107,14 +107,59 @@
 	//Let people pick the little buggers up.
 	if(M.a_intent == INTENT_HELP)
 		if(isdiona(M))
-			to_chat(M, "You feel your being twine with that of [src] as it merges with your biomass.")
-			to_chat(src, "You feel your being twine with that of [M] as you merge with its biomass.")
-			throw_alert(gestalt_alert, /atom/movable/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
-			forceMove(M)
+			gestalt_heal(M)
 		else
 			get_scooped(M)
 	else
 		..()
+/mob/living/simple_animal/diona/MouseDrop(mob/living/carbon/human/user, src_location, over_location, src_control, over_control, params)
+	if(isdiona(user)) // diona with NO HANDS?? Now it's not trouble.
+		gestalt_heal(user)
+		return FALSE
+	return ..()
+
+/mob/living/simple_animal/diona/proc/gestalt_heal(mob/living/carbon/human/M)
+	if(!Adjacent(M))
+		return FALSE
+	forceMove(M)
+	if(stat != CONSCIOUS)
+		qdel(src)
+		to_chat(M, span_notice("Тело нимфы сливается с вашим гештальтом."))
+		return TRUE // TRUE if nymph was deleted, FALSE - if not. Maybe I need this later..
+
+	if(ckey)
+		to_chat(src, span_notice("Ваше сознание соединяется с [M], когда вы сливаетесь с гештальтом."))
+		to_chat(M, span_notice("Ваше сознание соединяется с нимфой, когда она сливается с гештальтом."))
+		throw_alert(gestalt_alert, /atom/movable/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
+		return FALSE
+
+	to_chat(M, span_notice("Вы начинаете принимать нимфу в свой гештальт."))
+
+	if(!ckey && do_after(M, 5 SECONDS, M, ALL))
+		var/list/stock_limbs = /datum/species/diona::has_limbs
+		for(var/limb_zone in stock_limbs)
+			if(!M.bodyparts_by_name[limb_zone])
+				var/list/organ_data = stock_limbs[limb_zone]
+				var/limb_path = organ_data["path"]
+				var/obj/item/organ/new_organ = new limb_path(M)
+				organ_data["descriptor"] = new_organ.name
+				to_chat(M, span_notice("Нимфа занимает пустующее место в гештальте в качестве конечности."))
+				M.recalculate_limbs_status()
+				M.regenerate_icons()
+				qdel(src)
+				return TRUE
+
+		var/list/stock_organs = /datum/species/diona::has_organ
+		for(var/organ_slot in stock_organs)
+			if(!M.internal_organs_slot[organ_slot])
+				var/organ_path = stock_organs[organ_slot]
+				new organ_path(M)
+				to_chat(M, span_notice("Нимфа занимает пустующее место в гештальте в качестве органа."))
+				qdel(src)
+				return TRUE
+
+		to_chat(M, span_notice("Ваше сознание соединяется с нимфой, когда она сливается с гештальтом."))
+	return FALSE
 
 /mob/living/simple_animal/diona/proc/merge()
 	if(stat != CONSCIOUS)

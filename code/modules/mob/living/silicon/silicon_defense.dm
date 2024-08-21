@@ -11,7 +11,6 @@
 				flash_eyes(affect_silicon = TRUE)
 			add_attack_logs(M, src, "Alien attacked")
 			adjustBruteLoss(damage)
-			updatehealth()
 		else
 			playsound(loc, 'sound/weapons/slashmiss.ogg', 25, TRUE, -1)
 			visible_message(span_danger("[M] took a swipe at [src]!"), \
@@ -22,20 +21,8 @@
 	. = ..()
 	if(.)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-		switch(M.melee_damage_type)
-			if(BRUTE)
-				adjustBruteLoss(damage)
-			if(BURN)
-				adjustFireLoss(damage)
-			if(TOX)
-				adjustToxLoss(damage)
-			if(OXY)
-				adjustOxyLoss(damage)
-			if(CLONE)
-				adjustCloneLoss(damage)
-			if(STAMINA)
-				adjustStaminaLoss(damage)
-		updatehealth()
+		apply_damage(damage, M.melee_damage_type)
+
 
 /mob/living/silicon/attack_larva(mob/living/carbon/alien/larva/L)
 	if(L.a_intent == INTENT_HELP)

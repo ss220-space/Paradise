@@ -123,7 +123,7 @@
 		var/mob/living/carbon/human/M = target
 		if(istype(M.wear_suit))
 			if(M.wear_suit.type in suit_types)
-				M.adjustStaminaLoss(34)
+				M.apply_damage(34, STAMINA)
 	return 1
 
 /obj/item/projectile/beam/lasertag/omni
@@ -154,6 +154,28 @@
 	forced_accuracy = TRUE
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 	light_color = LIGHT_COLOR_PINK
+
+/obj/item/projectile/beam/podsniper/disabler
+	name = "sniper disabler beam"
+	icon_state = "LSR_disabler"
+	damage = 40
+	damage_type = STAMINA
+	hitsound = 'sound/weapons/resonator_blast.ogg'
+	flag = ENERGY
+	eyeblur = 0
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
+	light_color = LIGHT_COLOR_CYAN
+
+/obj/item/projectile/beam/podsniper/laser
+	name = "sniper laser beam"
+	icon_state = "LSR_kill"
+	damage = 45
+	damage_type = BURN
+	hitsound = 'sound/weapons/resonator_blast.ogg'
+	flag = LASER
+	eyeblur = 4 SECONDS
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
+	light_color = LIGHT_COLOR_DARKRED
 
 /obj/item/projectile/beam/immolator
 	name = "immolation beam"

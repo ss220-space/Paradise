@@ -29,8 +29,9 @@
 	if(.) // did we actually move?
 		if(body_position != LYING_DOWN && !buckled && !throwing)
 			update_splints()
-		if(dna.species.fragile_bones_chance > 0 && (m_intent != MOVE_INTENT_WALK || pulling))
-			if(prob(dna.species.fragile_bones_chance))
+		var/break_bones_chance = get_bones_symptom_prob()
+		if(break_bones_chance && (m_intent == MOVE_INTENT_RUN || pulling))
+			if(prob(break_bones_chance))
 				for(var/zone in list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT))
 					var/obj/item/organ/external/leg = get_organ(zone)
 					if(leg.has_fracture())
@@ -38,12 +39,17 @@
 					else
 						leg.fracture()
 						break
-			else
-				if(dna.species.fragile_bones_chance && prob(30))
-					playsound(src, "bonebreak", 10, TRUE)
+			else if(prob(30))
+				playsound(src, "bonebreak", 10, TRUE)
 
 	if(!has_gravity())
 		return .
+
+	if(nutrition && stat != DEAD && !isvampire(src))
+		var/hunger = HUNGER_FACTOR * 0.1 * dna.species.hunger_drain_mod * physiology.hunger_mod
+		if(m_intent == MOVE_INTENT_RUN)
+			hunger *= 2
+		adjust_nutrition(-hunger)
 
 	var/obj/item/clothing/shoes/S = shoes
 
@@ -182,7 +188,7 @@
 		return
 
 	to_chat(src, span_userdanger("Gravity exhausts you!"))
-	adjustStaminaLoss(35)
+	apply_damage(35, STAMINA)
 
 
 /mob/living/carbon/human/slip(weaken, obj/slipped_on, lube_flags, tilesSlipped)

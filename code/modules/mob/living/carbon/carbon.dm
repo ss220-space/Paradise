@@ -35,10 +35,6 @@
 /mob/living/carbon/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(.)
-		if(nutrition && stat != DEAD && !isvampire(src))
-			adjust_nutrition(-(hunger_drain * 0.1))
-			if(m_intent == MOVE_INTENT_RUN)
-				adjust_nutrition(-(hunger_drain * 0.1))
 		if((FAT in mutations) && m_intent == MOVE_INTENT_RUN && bodytemperature <= 360)
 			adjust_bodytemperature(2)
 
@@ -61,19 +57,7 @@
 
 			var/obj/item/I = user.get_active_hand()
 			if(I && I.force)
-				var/d = rand(round(I.force / 4), I.force)
-
-				if(ishuman(src))
-					var/mob/living/carbon/human/H = src
-					var/obj/item/organ/external/organ = H.get_organ(BODY_ZONE_CHEST)
-					if(istype(organ))
-						if(organ.receive_damage(d, 0))
-							H.UpdateDamageIcon()
-
-					H.updatehealth("stomach attack")
-
-				else
-					take_organ_damage(d)
+				apply_damage(rand(round(I.force / 4), I.force), def_zone = BODY_ZONE_CHEST)
 
 				for(var/mob/M in viewers(user, null))
 					if(M.client)
@@ -145,53 +129,54 @@
 		M.forceMove(drop_loc)
 		visible_message("<span class='danger'>[M] вырыва[pluralize_ru(M.gender,"ет","ют")]ся из [src.name]!</span>")
 
-/mob/living/carbon/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
-	SEND_SIGNAL(src, COMSIG_LIVING_ELECTROCUTE_ACT, shock_damage)
-	if(status_flags & GODMODE)	//godmode
-		return FALSE
-	if(HAS_TRAIT(src, TRAIT_SHOCKIMMUNE)) //shockproof
-		return FALSE
-	if(tesla_shock && tesla_ignore)
-		return FALSE
-	shock_damage *= siemens_coeff
-	if(dna && dna.species)
-		shock_damage *= dna.species.siemens_coeff
-	if(shock_damage < 1 && !override)
-		return FALSE
-	if(reagents.has_reagent("teslium"))
-		shock_damage *= 1.5 //If the mob has teslium in their body, shocks are 50% more damaging!
-	if(illusion)
-		adjustStaminaLoss(shock_damage)
-	else
-		take_overall_damage(0, shock_damage, TRUE, used_weapon = "Electrocution")
+
+/mob/living/carbon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+	. = ..()
+	if(!.)
+		return .
+
+	//Propagation through pulling
+	if(!(flags & SHOCK_ILLUSION))
 		shock_internal_organs(shock_damage)
-	visible_message(
-		"<span class='danger'>[src.name] получил[genderize_ru(src.gender,"","а","о","и")] разряд током [source]!</span>",
-		"<span class='userdanger'>Вы чувствуете электрический разряд проходящий через ваше тело!</span>",
-		"<span class='italics'>Вы слышите сильный электрический треск.</span>")
-	AdjustJitter(2000 SECONDS) //High numbers for violent convulsions
-	AdjustStuttering(4 SECONDS)
-	if((!tesla_shock || (tesla_shock && siemens_coeff > 0.5)) && stun)
-		Stun(4 SECONDS)
-	addtimer(CALLBACK(src, PROC_REF(secondary_shock), tesla_shock, siemens_coeff, stun), 2 SECONDS)
-	if(shock_damage > 200)
-		visible_message(
-			"<span class='danger'>[src.name] был[genderize_ru(src.gender,"","а","о","и")] прожжен[genderize_ru(src.gender,"","а","о","ы")] дугой [source]!</span>",
-			"<span class='userdanger'>Дуга [source] вспыхивает и ударяет вас электрическим током!</span>",
-			"<span class='italics'>Вы слышите треск похожий на молнию!</span>")
-		playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
-		explosion(loc, -1, 0, 2, 2, cause = "[source] over electrocuted [name]")
+		var/list/shocking_queue = list()
+		if(iscarbon(pulling) && source != pulling)
+			shocking_queue += pulling
+		if(iscarbon(pulledby) && source != pulledby)
+			shocking_queue += pulledby
+		if(iscarbon(buckled) && source != buckled)
+			shocking_queue += buckled
+		for(var/mob/living/carbon/carried in buckled_mobs)
+			if(source != carried)
+				shocking_queue += carried
+		//Found our victims, now lets shock them all
+		for(var/mob/living/carbon/victim as anything in shocking_queue)
+			victim.electrocute_act(shock_damage * 0.75, name, 1, flags, jitter_time, stutter_time, stun_duration)
 
-	if(override)
-		return override
+	//Stun
+	var/should_stun = (!(flags & SHOCK_TESLA) || siemens_coeff > 0.5) && !(flags & SHOCK_NOSTUN)
+	var/knockdown = (flags & SHOCK_KNOCKDOWN)
+	var/immediately_stun = should_stun && !(flags & SHOCK_DELAY_STUN)
+	if(immediately_stun)
+		if(knockdown)
+			Knockdown(stun_duration)
+		else
+			Stun(stun_duration)
+
+	//Jitter and other fluff.
+	AdjustJitter(jitter_time)
+	AdjustStuttering(stutter_time)
+	if(should_stun)
+		addtimer(CALLBACK(src, PROC_REF(secondary_shock), knockdown, stun_duration), 2 SECONDS)
+
+	return shock_damage
+
+
+///Called slightly after electrocute act to apply a secondary stun.
+/mob/living/carbon/proc/secondary_shock(knockdown, stun_duration)
+	if(knockdown)
+		Knockdown(stun_duration)
 	else
-		return shock_damage
-
-///Called slightly after electrocute act to reduce jittering and apply a secondary stun.
-/mob/living/carbon/proc/secondary_shock(tesla_shock, siemens_coeff, stun)
-	AdjustJitter(-2000 SECONDS, bound_lower = 20 SECONDS) //Still jittery, but vastly less
-	if((!tesla_shock || (tesla_shock && siemens_coeff > 0.5)) && stun)
-		Weaken(4 SECONDS)
+		Weaken(stun_duration)
 
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
@@ -233,10 +218,8 @@
 					var/protected = FALSE // Protected from the fire
 					if((H.gloves?.max_heat_protection_temperature > 360) || (HEATRES in H.mutations))
 						protected = TRUE
-
-					var/obj/item/organ/external/active_hand = H.get_organ(H.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-					if(active_hand && !protected) // Wouldn't really work without a hand
-						active_hand.receive_damage(0, 5)
+					if(!protected)
+						H.apply_damage(5, BURN, def_zone = H.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 						self_message = "<span class='danger'>Вы обжигаете ваши руки пытаясь потушить [src.name]!</span>"
 						H.update_icons()
 
@@ -362,14 +345,14 @@
 				to_chat(src, span_warning("Ваши глаза немного щиплет."))
 				var/minor_damage_multiplier = min(40 + extra_prob, 100) / 100
 				var/minor_damage = minor_damage_multiplier * (1 + extra_damage)
-				E.receive_damage(minor_damage, 1)
+				E.internal_receive_damage(minor_damage, silent = TRUE)
 			if(2)
 				to_chat(src, span_warning("Ваши глаза пылают."))
-				E.receive_damage(rand(2, 4) + extra_damage, 1)
+				E.internal_receive_damage(rand(2, 4) + extra_damage, silent = TRUE)
 
 			else
 				to_chat(src, span_warning("Глаза сильно чешутся и пылают!"))
-				E.receive_damage(rand(12, 16) + extra_damage, 1)
+				E.internal_receive_damage(rand(12, 16) + extra_damage, silent = TRUE)
 
 		if(E.damage > E.min_bruised_damage)
 			AdjustEyeBlind(damage STATUS_EFFECT_CONSTANT)
@@ -515,6 +498,10 @@
 		throw_icon.icon_state = "act_throw_on"
 	if(client?.mouse_pointer_icon == initial(client.mouse_pointer_icon))
 		client.mouse_pointer_icon = THROW_MODE_ICON
+	// we nullify click cd when someone tries to throw a grabbed mob
+	// improves combat robustness a lot
+	if(pulling && grab_state > GRAB_PASSIVE)
+		changeNext_move(0)
 
 #undef THROW_MODE_ICON
 
@@ -673,15 +660,15 @@
 	for(var/obj/item/organ/internal/organ as anything in internal_organs)
 		organ.emp_act(severity)
 
-/mob/living/carbon/Stat()
-	..()
-	if(statpanel("Status"))
-		var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
-		if(vessel)
-			stat(null, "Plasma Stored: [vessel.stored_plasma]/[vessel.max_plasma]")
-		var/obj/item/organ/internal/wryn/glands/glands = get_int_organ(/obj/item/organ/internal/wryn/glands)
-		if(glands)
-			stat(null, "Wax: [glands.wax]")
+/mob/living/carbon/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	var/obj/item/organ/internal/xenos/plasmavessel/vessel = get_int_organ(/obj/item/organ/internal/xenos/plasmavessel)
+	if(vessel)
+		status_tab_data[++status_tab_data.len] = list("Plasma Stored:", "[vessel.stored_plasma]/[vessel.max_plasma]")
+	var/obj/item/organ/internal/wryn/glands/glands = get_int_organ(/obj/item/organ/internal/wryn/glands)
+	if(glands)
+		status_tab_data[++status_tab_data.len] = list("Wax: [glands.wax]")
 
 /mob/living/carbon/slip(weaken, obj/slipped_on, lube_flags, tilesSlipped)
 	if(movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
@@ -691,9 +678,9 @@
 	return loc.handle_slip(src, weaken, slipped_on, lube_flags, tilesSlipped)
 
 
-/mob/living/carbon/proc/eat(var/obj/item/reagent_containers/food/toEat, mob/user, var/bitesize_override)
+/mob/living/carbon/proc/eat(obj/item/reagent_containers/food/toEat, mob/user, bitesize_override)
 	if(!istype(toEat))
-		return 0
+		return FALSE
 	var/fullness = nutrition + 10
 	if(istype(toEat, /obj/item/reagent_containers/food/snacks))
 		for(var/datum/reagent/consumable/C in reagents.reagent_list) //we add the nutrition value of what we're currently digesting
@@ -701,30 +688,30 @@
 	if(user == src)
 		if(istype(toEat, /obj/item/reagent_containers/food/drinks))
 			if(!selfDrink(toEat))
-				return 0
+				return FALSE
 		else
 			if(!selfFeed(toEat, fullness))
-				return 0
+				return FALSE
 		if(toEat.log_eating)
 			var/this_bite = bitesize_override ? bitesize_override : toEat.bitesize
 			add_game_logs("Ate [toEat](bite volume: [this_bite*toEat.transfer_efficiency]) containing [toEat.reagents.log_list()]", src)
 	else
 		if(!forceFed(toEat, user, fullness))
-			return 0
+			return FALSE
 		var/this_bite = bitesize_override ? bitesize_override : toEat.bitesize
 		add_attack_logs(user, src, "Force Fed [toEat](bite volume: [this_bite*toEat.transfer_efficiency]u) containing [toEat.reagents.log_list()]")
 	consume(toEat, bitesize_override, can_taste_container = toEat.can_taste)
 	SSticker.score.score_food_eaten++
-	return 1
+	return TRUE
 
 
-/mob/living/carbon/proc/selfFeed(var/obj/item/reagent_containers/food/toEat, fullness)
+/mob/living/carbon/proc/selfFeed(obj/item/reagent_containers/food/toEat, fullness)
 	if(ispill(toEat))
 		to_chat(src, "<span class='notify'>You [toEat.apply_method] [toEat].</span>")
 	else
 		if(toEat.junkiness && satiety < -150 && nutrition > NUTRITION_LEVEL_STARVING + 50 )
 			to_chat(src, "<span class='notice'>You don't feel like eating any more junk food at the moment.</span>")
-			return 0
+			return FALSE
 		if(fullness <= 50)
 			to_chat(src, "<span class='warning'>You hungrily chew out a piece of [toEat] and gobble it!</span>")
 		else if(fullness > 50 && fullness < 150)
@@ -735,15 +722,15 @@
 			to_chat(src, "<span class='notice'>You unwillingly chew a bit of [toEat].</span>")
 		else if(fullness > (600 * (1 + overeatduration / 2000)))	// The more you eat - the more you can eat
 			to_chat(src, "<span class='warning'>You cannot force any more of [toEat] to go down your throat.</span>")
-			return 0
-	return 1
+			return FALSE
+	return TRUE
 
 
-/mob/living/carbon/proc/selfDrink(var/obj/item/reagent_containers/food/drinks/toDrink, mob/user)
-	return 1
+/mob/living/carbon/proc/selfDrink(obj/item/reagent_containers/food/drinks/toDrink, mob/user)
+	return TRUE
 
 
-/mob/living/carbon/proc/forceFed(var/obj/item/reagent_containers/food/toEat, mob/user, fullness)
+/mob/living/carbon/proc/forceFed(obj/item/reagent_containers/food/toEat, mob/user, fullness)
 	if(ispill(toEat) || fullness <= (600 * (1 + overeatduration / 1000)))
 		if(!toEat.instant_application)
 			visible_message("<span class='warning'>[user] attempts to force [src] to [toEat.apply_method] [toEat].</span>")
@@ -900,13 +887,11 @@ so that different stomachs can handle things in different ways VB*/
 	return shock_reduction
 
 
-/mob/living/carbon/toggle_move_intent()
-	if(legcuffed)
-		to_chat(src, span_notice("Ваши ноги скованы! Вы не можете бежать, пока не снимете [legcuffed]!"))
-		m_intent = MOVE_INTENT_WALK	//Just incase
-		hud_used?.move_intent.icon_state = "walking"
-		update_move_intent_slowdown()
-		return
+/mob/living/carbon/can_change_move_intent(silent = FALSE)
+	if(m_intent == MOVE_INTENT_WALK && legcuffed)
+		if(!silent)
+			to_chat(src, span_notice("Ваши ноги скованы! Вы не можете бежать, пока не снимете [legcuffed.name]!"))
+		return FALSE
 	return ..()
 
 

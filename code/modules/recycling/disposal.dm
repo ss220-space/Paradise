@@ -137,42 +137,47 @@
 
 	return TRUE
 
-// attack by item places it in to disposal
-/obj/machinery/disposal/attackby(obj/item/I, mob/user, params)
-	if(stat & BROKEN || !I || !user)
-		return
 
-	if(istype(I, /obj/item/melee/energy/blade))
-		to_chat(user, "You can't place that item inside the disposal unit.")
-		return
+/obj/machinery/disposal/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM || (stat & BROKEN))
+		return ..()
+
+	add_fingerprint(user)
+	if(istype(I, /obj/item/melee/energy/blade))	// why???
+		to_chat(user, span_warning("You cannot place that item inside the disposal unit."))
+		return ATTACK_CHAIN_PROCEED
 
 	if(isstorage(I))
 		var/obj/item/storage/storage = I
 		if((storage.allow_quick_empty || storage.allow_quick_gather) && length(storage.contents))
-			add_fingerprint(user)
-			storage.hide_from(user)
-			for(var/obj/item/item in storage.contents)
-				if(!can_be_inserted(item))
-					break
+			storage.hide_from_all_viewers()
+			for(var/obj/item/item as anything in storage.contents)
+				if(!can_be_inserted(item, TRUE))
+					continue
 				storage.remove_from_storage(item, src)
-				item.add_hiddenprint(user)
-			if(!length(storage))
-				user.visible_message("[user] empties \the [storage] into \the [src].", "You empty \the [storage] into \the [src].")
+				item.add_fingerprint(user)
+			if(length(storage))
+				user.visible_message(
+					span_notice("[user] has dumped some items from [storage] into [src]."),
+					span_notice("You have dumped some items from [storage] into [src]."),
+				)
 			else
-				user.visible_message("[user] dumped some items from \the [storage] into \the [src].", "You dumped some items \the [storage] into \the [src].")
-			storage.update_icon() // For content-sensitive icons
+				user.visible_message(
+					span_notice("[user] has emptied [storage] into [src]."),
+					span_notice("You have emptied [storage] into [src]."),
+				)
 			update()
-			return
+			return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(!I || !can_be_inserted(I) || !user.drop_transfer_item_to_loc(I, src))
-		return
+	if(!can_be_inserted(I) || !user.drop_transfer_item_to_loc(I, src))
+		return ..()
 
-	add_fingerprint(user)
-	to_chat(user, "You place \the [I] into the [src].")
-	for(var/mob/viewer in (viewers(src) - user))
-		viewer.show_message("[user.name] places \the [I] into the [src].", 3)
-
+	user.visible_message(
+		span_notice("[user] has placed [I] into [src]."),
+		span_notice("You have placed [I] into [src]."),
+	)
 	update()
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 
 /obj/machinery/disposal/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
@@ -579,15 +584,19 @@
 
 
 /obj/machinery/disposal/deliveryChute/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(istype(I, /obj/item/destTagger))
 		add_fingerprint(user)
 		to_waste = !to_waste
-		to_chat(user, "<span class='notice'>The chute is now set to [to_waste ? "waste" : "cargo"] disposals.</span>")
+		to_chat(user, span_notice("The chute is now set to [to_waste ? "waste" : "cargo"] disposals."))
 		if(COOLDOWN_FINISHED(src, eject_effects_cd))
 			COOLDOWN_START(src, eject_effects_cd, DISPOSAL_SOUND_COOLDOWN)
-			playsound(src.loc, 'sound/machines/twobeep.ogg', 100, TRUE)
-		return
-	. = ..()
+			playsound(loc, 'sound/machines/twobeep.ogg', 100, TRUE)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return  ..()
 
 
 /obj/machinery/disposal/deliveryChute/examine(mob/user)

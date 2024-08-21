@@ -51,10 +51,14 @@
 		return
 	update_icon(UPDATE_ICON_STATE)
 
+
 /obj/machinery/recycler/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 	if(exchange_parts(user, I))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
+
 
 /obj/machinery/recycler/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -113,6 +117,8 @@
 			else
 				emergency_stop(AM)
 		else if(isitem(AM))
+			if(ismob(AM.loc) || ismob(AM.loc.loc))
+				continue
 			recycle_item(AM)
 			items_recycled++
 		else

@@ -20,6 +20,6 @@ GLOBAL_LIST_INIT(blacklisted_turf_types_for_transit, list(
 	/turf/space/openspace,
 	/turf/simulated/openspace,
 	/turf/simulated/floor/chasm,
-	/turf/simulated/floor/plating/lava,
+	/turf/simulated/floor/lava,
 	/turf/simulated/floor/plating/asteroid
 	))

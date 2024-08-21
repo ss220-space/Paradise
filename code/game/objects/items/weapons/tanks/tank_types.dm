@@ -58,22 +58,32 @@
 	desc = "Contains dangerous plasma. Do not inhale. Warning: extremely flammable."
 	icon_state = "plasma"
 	flags = CONDUCT
-	slot_flags = null	//they have no straps!
+	slot_flags = NONE	//they have no straps!
 
 /obj/item/tank/internals/plasma/populate_gas()
 	air_contents.toxins = (3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
 
+
 /obj/item/tank/internals/plasma/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/flamethrower))
-		var/obj/item/flamethrower/F = I
-		if((!F.status)||(F.ptank))
-			return
-		master = F
-		F.ptank = src
-		user.drop_transfer_item_to_loc(src, F)
-		F.update_icon()
-	else
-		return ..()
+		add_fingerprint(user)
+		var/obj/item/flamethrower/flamethrower = I
+		if(loc == user && !user.can_unEquip(src))
+			return ATTACK_CHAIN_PROCEED
+		if(flamethrower.ptank)
+			flamethrower.ptank.forceMove_turf()
+			to_chat(user, span_notice("You swap the plasma tank in [flamethrower]."))
+		else
+			to_chat(user, span_notice("You have installed new plasma tank in [flamethrower]."))
+		if(loc == user)
+			user.temporarily_remove_item_from_inventory(src)
+		forceMove(flamethrower)
+		master = flamethrower
+		flamethrower.ptank = src
+		flamethrower.update_icon()
+		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
+	return ..()
+
 
 /obj/item/tank/internals/plasma/full/populate_gas()
 	air_contents.toxins = (10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)

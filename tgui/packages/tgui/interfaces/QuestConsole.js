@@ -45,47 +45,45 @@ export const QuestConsole = (properties, context) => {
     <Window width={1000} height={820}>
       <Window.Content scrollable>
         <Stack fiil vertical>
-          <Box>
-            <Tabs>
-              <Tabs.Tab
-                key="NT Requests"
-                selected={tabName === 'centcomm'}
-                onClick={() => setTab('centcomm')}
-              >
-                <Icon name="mail-bulk" />
-                NT Requests
-              </Tabs.Tab>
-              <Tabs.Tab
-                key="Commercial"
-                selected={tabName === 'corporation'}
-                onClick={() => setTab('corporation')}
-              >
-                <Icon name="dollar-sign" />
-                Commercial
-              </Tabs.Tab>
-              <Tabs.Tab
-                key="Plasma Supply"
-                selected={tabName === 'plasma'}
-                onClick={() => setTab('plasma')}
-              >
-                <Icon name="fire" />
-                Plasma Supply
-              </Tabs.Tab>
-              <Tabs.Tab
-                key="Management"
-                selected={tabName === 'management'}
-                onClick={() => setTab('management')}
-              >
-                <Icon name="info" />
-                Management
-              </Tabs.Tab>
-            </Tabs>
-            {tabName === 'management' ? (
-              <StatusPane />
-            ) : (
-              <QuestPane source_customer={tabName} />
-            )}
-          </Box>
+          <Tabs fluid>
+            <Tabs.Tab
+              key="NT Requests"
+              icon="mail-bulk"
+              selected={tabName === 'centcomm'}
+              onClick={() => setTab('centcomm')}
+            >
+              NT Requests
+            </Tabs.Tab>
+            <Tabs.Tab
+              key="Commercial"
+              icon="dollar-sign"
+              selected={tabName === 'corporation'}
+              onClick={() => setTab('corporation')}
+            >
+              Commercial
+            </Tabs.Tab>
+            <Tabs.Tab
+              key="Plasma Supply"
+              icon="fire"
+              selected={tabName === 'plasma'}
+              onClick={() => setTab('plasma')}
+            >
+              Plasma Supply
+            </Tabs.Tab>
+            <Tabs.Tab
+              key="Management"
+              icon="info"
+              selected={tabName === 'management'}
+              onClick={() => setTab('management')}
+            >
+              Management
+            </Tabs.Tab>
+          </Tabs>
+          {tabName === 'management' ? (
+            <StatusPane />
+          ) : (
+            <QuestPane source_customer={tabName} />
+          )}
         </Stack>
       </Window.Content>
     </Window>

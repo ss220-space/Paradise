@@ -149,12 +149,19 @@
 
 
 /obj/item/organ/attackby(obj/item/I, mob/user, params)
-	if(is_robotic() && istype(I, /obj/item/stack/nanopaste))
-		var/obj/item/stack/nanopaste/nano = I
-		nano.use(1)
+	if(istype(I, /obj/item/stack/nanopaste))
+		add_fingerprint(user)
+		var/obj/item/stack/nanopaste/nanopaste = I
+		if(!is_robotic())
+			to_chat(user, span_warning("The [nanopaste.name] can only be used on robotic bodyparts."))
+			return ATTACK_CHAIN_PROCEED
+		if(!nanopaste.use(1))
+			to_chat(user, span_warning("You need at least one unit of [nanopaste] to proceed."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You have repaired the damage on [src]."))
 		rejuvenate()
-		to_chat(user, span_notice("You repair the damage on [src]."))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
 
 
@@ -294,11 +301,26 @@
 	weapon_data.time_inflicted = world.time
 
 
-//Note: external organs have their own version of this proc
-/obj/item/organ/proc/receive_damage(amount, silent = FALSE)
+/**
+ * Adjusts internal organ damage value.
+ *
+ * Arguments:
+ * * amount - Amount of damage.
+ * * silent - Stops custom pain messaged for organ owner.
+ *
+ * Returns `TRUE` on success
+ */
+/obj/item/organ/proc/internal_receive_damage(amount = 0, silent = FALSE)
+	. = FALSE
+	if(isexternalorgan(src))
+		CRASH("internal_receive_damage() is called for external organ. Use external_receive_damage()")
+
 	if(tough)
-		return
-	damage = between(0, damage + amount, max_damage)
+		return .
+
+	. = TRUE
+
+	damage = clamp(round(damage + amount, DAMAGE_PRECISION), 0, max_damage)
 
 	//only show this if the organ is not robotic
 	if(owner && parent_organ_zone && amount > 0)
@@ -306,9 +328,9 @@
 		if(parent && !silent)
 			owner.custom_pain("Something inside your [parent.name] hurts a lot.")
 
-		//check if we've hit max_damage
+	//check if we've hit max_damage
 	if(damage >= max_damage)
-		necrotize()
+		necrotize(silent)
 
 
 /obj/item/organ/proc/heal_internal_damage(amount, robo_repair = FALSE)
@@ -331,6 +353,7 @@
 		return
 
 	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN, src)
+	SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, owner)
 	owner.internal_organs -= src
 
 	var/obj/item/organ/external/affected = owner.get_organ(parent_organ_zone)

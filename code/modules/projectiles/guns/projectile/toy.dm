@@ -61,7 +61,7 @@
 	mag_type = /obj/item/ammo_box/magazine/toy/enforcer/riot
 
 
-/obj/item/gun/projectile/automatic/toy/pistol/enforcer/ui_action_click()
+/obj/item/gun/projectile/automatic/toy/pistol/enforcer/ui_action_click(mob/user, datum/action/action, leftclick)
 	toggle_gunlight()
 
 /obj/item/gun/projectile/shotgun/toy
@@ -77,6 +77,7 @@
 	needs_permit = FALSE
 	pickup_sound = 'sound/items/handling/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/generic_drop3.ogg'
+	pb_knockback = 0
 
 /obj/item/gun/projectile/shotgun/toy/process_chamber()
 	..()

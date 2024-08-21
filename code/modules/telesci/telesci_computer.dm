@@ -45,37 +45,62 @@
 	. = ..()
 	. += "<span class='notice'>There are [crystals ? crystals : "no"] bluespace crystal\s in the crystal slots.</span>"
 
-/obj/machinery/computer/telescience/Initialize()
-	..()
 
-/obj/machinery/computer/telescience/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stack/ore/bluespace_crystal))
-		var/obj/item/stack/ore/bluespace_crystal/B = W
-		if(crystals >= max_crystals)
-			to_chat(user, "<span class='warning'>There are not enough crystal slots.</span>")
-			return
-		add_fingerprint(user)
-		crystals += 1
-		user.visible_message("<span class='notice'>[user] inserts a [B.singular_name] into [src]'s crystal slot.</span>")
-		B.use(1)
-		updateUsrDialog()
-	else if(istype(W, /obj/item/gps))
-		if(!inserted_gps)
-			add_fingerprint(user)
-			inserted_gps = W
-			user.drop_transfer_item_to_loc(W, src)
-			user.visible_message("<span class='notice'>[user] inserts [W] into [src]'s GPS device slot.</span>")
-			updateUsrDialog()
-	else if(istype(W, /obj/item/multitool))
-		var/obj/item/multitool/M = W
-		if(M.buffer && istype(M.buffer, /obj/machinery/telepad))
-			add_fingerprint(user)
-			telepad = M.buffer
-			M.buffer = null
-			to_chat(user, "<span class = 'caution'>You upload the data from the [W.name]'s buffer.</span>")
-			updateUsrDialog()
-	else
+/obj/machinery/computer/telescience/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(istype(I, /obj/item/stack/ore/bluespace_crystal))
+		add_fingerprint(user)
+		var/obj/item/stack/ore/bluespace_crystal/crystal = I
+		if(crystals >= max_crystals)
+			to_chat(user, span_warning("There are not enough crystal slots."))
+			return ATTACK_CHAIN_PROCEED
+		if(!crystal.use(1))
+			to_chat(user, span_warning("You need at least one [crystal.singular_name] to proceed."))
+			return ATTACK_CHAIN_PROCEED
+		crystals++
+		updateUsrDialog()
+		user.visible_message(
+			span_notice("[user] has inserted a [crystal.singular_name] into [src]'s crystal slot."),
+			span_notice("You have inserted a [crystal.singular_name] into [src]'s crystal slot."),
+		)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/gps))
+		add_fingerprint(user)
+		if(inserted_gps)
+			to_chat(user, span_warning("The GPS device slot is already occupied."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		inserted_gps = I
+		updateUsrDialog()
+		user.visible_message(
+			span_notice("[user] has inserted [I] into [src]'s GPS device slot."),
+			span_notice("You have inserted [I] into [src]'s GPS device slot."),
+		)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
+
+/obj/machinery/computer/telescience/multitool_act(mob/living/user, obj/item/I)
+	if(!istype(I, /obj/item/multitool))
+		return FALSE
+	. = TRUE
+	var/obj/item/multitool/multitool = I
+	if(!istype(multitool.buffer, /obj/machinery/telepad))
+		add_fingerprint(user)
+		to_chat(user, span_warning("The [multitool.name]'s buffer has no valid information."))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	telepad = multitool.buffer
+	multitool.buffer = null
+	updateUsrDialog()
+	to_chat(user, span_notice("You have uploaded the data from [multitool]'s buffer."))
+
 
 /obj/machinery/computer/telescience/emag_act(mob/user)
 	if(!emagged)

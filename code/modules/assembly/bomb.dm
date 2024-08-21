@@ -40,10 +40,10 @@
 		. += "bomb_assembly"
 
 
-/obj/item/onetankbomb/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/analyzer))
-		bombtank.attackby(W, user, params)
-		return
+/obj/item/onetankbomb/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/analyzer))
+		bombtank.attackby(I, user, params)
+		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
 
@@ -126,29 +126,37 @@
 
 // ---------- Procs below are for tanks that are used exclusively in 1-tank bombs ----------
 
-/obj/item/tank/proc/bomb_assemble(W,user)	//Bomb assembly proc. This turns assembly+tank into a bomb
-	var/obj/item/assembly_holder/S = W
-	var/mob/M = user
-	if(!S.secured)										//Check if the assembly is secured
-		return
-	if(isigniter(S.a_left) == isigniter(S.a_right))		//Check if either part of the assembly has an igniter, but if both parts are igniters, then fuck it
-		return
+/// Bomb assembly proc. This turns assembly+tank into a bomb
+/obj/item/tank/proc/bomb_assemble(obj/item/assembly_holder/assembly_holder, mob/user)
+	//Check if the assembly is secured
+	if(!assembly_holder.secured)
+		return FALSE
+	//Check if either part of the assembly has an igniter, but if both parts are igniters, then fuck it
+	if(isigniter(assembly_holder.a_left) == isigniter(assembly_holder.a_right))
+		return FALSE
+	// drop checks
+	if((loc == user && !user.can_unEquip(src)) || (assembly_holder.loc == user && !user.can_unEquip(assembly_holder)))
+		return FALSE
 
-	var/obj/item/onetankbomb/R = new /obj/item/onetankbomb(drop_location())
+	. = TRUE
+	var/obj/item/onetankbomb/onetankbomb = new(drop_location())
+	onetankbomb.add_fingerprint(user)
+	if(loc == user)
+		user.transfer_item_to_loc(src, onetankbomb, silent = TRUE)
+	else
+		forceMove(onetankbomb)
+	if(assembly_holder.loc == user)
+		user.transfer_item_to_loc(assembly_holder, onetankbomb, silent = TRUE)
+	else
+		assembly_holder.forceMove(onetankbomb)
+	user.put_in_hands(onetankbomb, ignore_anim = FALSE)
 
-	M.drop_from_active_hand()			//Remove the assembly from your hands
-	M.drop_item_ground(src)	//Remove the tank from your character,in case you were holding it
-	M.put_in_hands(R, ignore_anim = FALSE)		//Equips the bomb if possible, or puts it on the floor.
+	onetankbomb.bombassembly = assembly_holder	//Tell the bomb about its assembly part
+	assembly_holder.master = onetankbomb		//Tell the assembly about its new owner
 
-	R.bombassembly = S	//Tell the bomb about its assembly part
-	S.master = R		//Tell the assembly about its new owner
-	S.loc = R			//Move the assembly out of the fucking way
-
-	R.bombtank = src	//Same for tank
-	master = R
-	loc = R
-	R.update_icon()
-	return
+	onetankbomb.bombtank = src	//Same for tank
+	master = onetankbomb
+	onetankbomb.update_icon()
 
 
 /obj/item/tank/proc/detonate()	//This happens when a bomb is told to explode

@@ -8,6 +8,9 @@
 
 	var/datum/mind/exchange_red
 	var/datum/mind/exchange_blue
+	/// The number of contractors who accepted the offer.
+	var/contractor_accepted = 0
+
 
 /datum/game_mode/traitor
 	name = "traitor"
@@ -25,14 +28,6 @@
 	var/datum/mind/pre_malf_AI
 	/// Hard limit on traitors if scaling is turned off.
 	var/traitors_possible = 4
-	// Contractor related
-	/// Minimum number of possible contractors regardless of the number of traitors.
-	var/min_contractors = 1
-	/// How many contractors there are in proportion to traitors.
-	/// Calculated as: num_contractors = max(min_contractors, CEILING(num_traitors * contractor_traitor_ratio, 1))
-	var/contractor_traitor_ratio = 0.25
-	/// List of traitors who are eligible to become a contractor.
-	var/list/datum/mind/selected_contractors = list()
 
 
 /datum/game_mode/traitor/announce()
@@ -69,8 +64,6 @@
 
 	add_game_logs("Number of traitors chosen: [num_traitors]")
 
-	var/num_contractors = max(min_contractors, CEILING(num_traitors * contractor_traitor_ratio, 1))
-
 	for(var/i in 1 to num_traitors)
 		if(!length(possible_traitors))
 			break
@@ -80,8 +73,6 @@
 			if((ROLE_TRAITOR in traitor.current.client.prefs.be_special) && prob(50))	// If traitor is also enabled its 50/50 chance.
 				pre_traitors += traitor
 				traitor.restricted_roles = restricted_jobs
-				if(num_contractors-- > 0)
-					selected_contractors += traitor
 			else
 				pre_malf_AI = traitor
 				pre_malf_AI.restricted_roles = (restricted_jobs|protected_jobs|protected_jobs_AI)	// All jobs are restricted for malf AI despite the config.
@@ -90,14 +81,12 @@
 		else
 			pre_traitors += traitor
 			traitor.restricted_roles = restricted_jobs
-			if(num_contractors-- > 0)
-				selected_contractors += traitor
 
 
 /datum/game_mode/traitor/post_setup()
 	for(var/datum/mind/traitor in pre_traitors)
 		var/datum/antagonist/traitor/new_antag = new
-		new_antag.is_contractor = (traitor in selected_contractors)
+		new_antag.is_contractor = TRUE
 		addtimer(CALLBACK(traitor, TYPE_PROC_REF(/datum/mind, add_antag_datum), new_antag), rand(1 SECONDS, 10 SECONDS))
 	if(pre_malf_AI)
 		addtimer(CALLBACK(pre_malf_AI, TYPE_PROC_REF(/datum/mind, add_antag_datum), /datum/antagonist/malf_ai), rand(1 SECONDS, 10 SECONDS))

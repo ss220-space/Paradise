@@ -778,6 +778,22 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
+/obj/item/clothing/suit/storage/leather_trenchcoat/runner
+	name = "leather trenchcoat"
+	desc = "Длинное кожаное пальто-тренч с натуральным мехом. Вы чувствуете себя одиноко, когда носите его..."
+	icon_state = "bladerunner_coat"
+	item_state = "bladerunner_coat"
+
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		)
 
 //trackjackets
 
@@ -1117,7 +1133,7 @@
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/clothing/suit/advanced_protective_suit/ui_action_click()
+/obj/item/clothing/suit/advanced_protective_suit/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(on)
 		on = 0
 		to_chat(usr, "You turn the suit's special processes off.")
@@ -1499,7 +1515,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_CLOTH_OUTER
 	body_parts_covered = LOWER_TORSO | UPPER_TORSO
-	var/drop_ammount = 3
+	var/drop_amount = 3
 	sprite_sheets = list(
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
@@ -1529,8 +1545,7 @@
 
 
 /obj/item/clothing/suit/towel/afterattack(mob/living/carbon/target, mob/user, proximity, params)
-	if(try_item_eat(target, user))
-		return
+	. = ..()
 
 	if(!istype(target) || !target.wetlevel)
 		return
@@ -1552,14 +1567,18 @@
 
 
 /obj/item/clothing/suit/towel/attackby(obj/item/I, mob/user, params)
-	if(I.sharp)
-		var/obj/item/stack/sheet/cloth/cloth = new(get_turf(src), drop_ammount)
-		transfer_fingerprints_to(cloth)
-		cloth.add_fingerprint(user)
-		to_chat(user, span_notice("You tear [src] up."))
-		qdel(src)
-	else
-		return ..()
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !is_sharp(I))
+		return .
+
+	. |= ATTACK_CHAIN_BLOCKED_ALL
+	var/obj/item/stack/sheet/cloth/cloth = new(drop_location(), drop_amount)
+	transfer_fingerprints_to(cloth)
+	cloth.add_fingerprint(user)
+	to_chat(user, span_notice("You tear [src] up."))
+	qdel(src)
+
 
 
 /obj/item/clothing/suit/towel/alt
@@ -1587,7 +1606,7 @@
 
 /obj/item/clothing/suit/towel/short
 	icon_state = "towel"
-	drop_ammount = 2
+	drop_amount = 2
 	slot_flags = ITEM_SLOT_CLOTH_OUTER | ITEM_SLOT_HEAD
 	body_parts_covered = LOWER_TORSO
 

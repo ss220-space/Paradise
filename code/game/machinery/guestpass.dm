@@ -49,17 +49,24 @@
 	var/list/internal_log = list()
 	var/mode = 0  // 0 - making pass, 1 - viewing logs
 
+
 /obj/machinery/computer/guestpass/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(istype(I, /obj/item/card/id))
-		if(!giver)
-			if(user.drop_transfer_item_to_loc(I, src))
-				add_fingerprint(user)
-				giver = I
-				updateUsrDialog()
-		else
+		add_fingerprint(user)
+		if(giver)
 			to_chat(user, span_warning("There is already ID card inside."))
-		return
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		giver = I
+		updateUsrDialog()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/machinery/computer/guestpass/proc/get_changeable_accesses()
 	return giver.access

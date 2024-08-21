@@ -1,0 +1,95 @@
+name: 'Testmerge Worker'
+
+concurrency:
+  group: testmerge
+
+on:
+  workflow_dispatch:
+
+env:
+  BASE_BRANCH: master220
+  TESTMERGE_BRANCH: testmerge2
+  REQUIRED_LABEL: testmerge
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get pull requests with required label and check for merge conflicts
+        id: get_labeled_prs
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const label_needed = '${{ env.REQUIRED_LABEL }}';
+            const { data: pullRequests } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+            });
+            const labeledPRs = [];
+            for (const pr of pullRequests) {
+              if (pr.labels.some(label => label.name === label_needed)) {
+                const prInfo = await github.rest.pulls.get({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: pr.number
+                });
+                if (prInfo.data.mergeable) {
+                  labeledPRs.push({
+                    number: pr.number,
+                    title: pr.title
+                  });
+                }
+              }
+            }
+            const prDetails = JSON.stringify(labeledPRs);
+            console.log(`Pull Requests with the label "${label_needed}" and no merge conflicts: ${prDetails}`);
+            if (prDetails.length == 0) {
+              core.setFailed(`No pull requests with the label "${label_needed}" and no merge conflicts found.`);
+            }
+            core.setOutput('labeled_pr_details', prDetails);
+      - name: Git checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+          ref: ${{ env.BASE_BRANCH }}
+      - name: Iterate over PRs and perform actions
+        id: prepare_testmerge_branch
+        run: |
+          set -e
+
+          git config --local user.email "action@github.com"
+          git config --local user.name "Testmerge Worker"
+          git switch ${{ env.TESTMERGE_BRANCH }} || git switch -c ${{ env.TESTMERGE_BRANCH }}
+          git reset --hard ${{ env.BASE_BRANCH }}
+
+          # Print debug information
+          echo "PR details JSON:"
+          echo '${{ steps.get_labeled_prs.outputs.labeled_pr_details }}'
+
+          echo '${{ steps.get_labeled_prs.outputs.labeled_pr_details }}' | jq -c '.[]' | while read -r PR_DETAIL; do
+            PR_NUMBER=$(echo "$PR_DETAIL" | jq -r '.number')
+            PR_TITLE=$(echo "$PR_DETAIL" | jq -r '.title')
+            echo "Preparing $PR_TITLE (#$PR_NUMBER)"
+
+            git fetch origin pull/$PR_NUMBER/head:pr-$PR_NUMBER
+
+            # Check for merge conflicts
+            git merge --no-commit --no-ff pr-$PR_NUMBER || true
+            CONFLICTS=$(git ls-files -u | wc -l)
+            if [ "$CONFLICTS" -gt 0 ] ; then
+              echo "There is a merge conflict. Skipping $PR_TITLE (#$PR_NUMBER)"
+              git merge --abort
+              continue
+            fi
+            git merge --abort
+
+            git merge --squash pr-$PR_NUMBER
+            git commit -m "$PR_TITLE (#$PR_NUMBER) [testmerge]"
+
+            # Perform your git actions here, for example:
+            echo "Successfully merged $PR_TITLE (#$PR_NUMBER)"
+          done
+
+          git push -f origin ${{ env.TESTMERGE_BRANCH }}

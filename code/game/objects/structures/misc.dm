@@ -33,7 +33,7 @@
 	var/use_old_mind = FALSE
 
 /obj/structure/respawner/attack_ghost(mob/dead/observer/user)
-	var/response = alert(user, "Are you sure you want to spawn here?\n(If you do this, you won't be able to be cloned!)", "Respawn?", "Yes", "No")
+	var/response = tgui_alert(user, "Are you sure you want to spawn here?\n(If you do this, you won't be able to be cloned!)", "Respawn?", list("Yes", "No"))
 	if(response == "Yes")
 		user.forceMove(get_turf(src))
 		log_admin("[key_name_log(user)] was incarnated by a respawner machine.")

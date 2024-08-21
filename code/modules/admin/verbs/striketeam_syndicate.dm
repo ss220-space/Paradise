@@ -4,32 +4,32 @@
 GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 /client/proc/syndicate_strike_team()
 	set category = "Event"
-	set name = "Spawn Syndicate Strike Team"
-	set desc = "Spawns a squad of commandos in the Syndicate Mothership if you want to run an admin event."
+	set name = "Заспавнить Ударный Отряд Синдиката"
+	set desc = "Спавнит Ударный Отряд Синдиката в месте их дислокации на СЦК."
 	if(!src.holder)
-		to_chat(src, "Only administrators may use this command.")
+		to_chat(src, "Только администраторы могут использовать эту команду.")
 		return
 	if(!SSticker)
-		alert("The game hasn't started yet!")
+		tgui_alert(src, "Игра еще не началась!")
 		return
 	if(GLOB.sent_syndicate_strike_team == 1)
-		alert("The Syndicate are already sending a team, Mr. Dumbass.")
+		tgui_alert(src, "Синдикат уже отправил отряд, Мистер Тупой.")
 		return
-	if(alert("Do you want to send in the Syndicate Strike Team? Once enabled, this is irreversible.",,"Yes","No")=="No")
+	if(tgui_alert(src, "Вы действительно хотите отправить Ударный Отряд Синдиката? После согласия это необратимо.", "Подтверждение", list("Да","Нет")) != "Да")
 		return
-	alert("This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle when appropriate. Spawned syndicates have internals cameras which are viewable through a monitor inside the Syndicate Mothership Bridge. Assigning the team's detailed task is recommended from there. The first one selected/spawned will be the team leader.")
+	tgui_alert(src, "Этот 'режим' будет продолжаться до тех пор, пока все не погибнут или станция не будет разрушена. Также, при необходимости, можно вызвать эвакуационный шаттл через админские кнопки. У появившихся агентов синдиката есть внутренние камеры, которые можно просматривать через монитор на мостике корабля синдиката. Руководить командой рекомендуется оттуда. Первый выбранный/появившийся будет лидером команды.")
 
-	message_admins("<span class='notice'>[key_name_admin(usr)] has started to spawn a Syndicate Strike Team.</span>")
+	message_admins(span_notice("[key_name_admin(usr)] has started to spawn a Syndicate Strike Team."))
 
 	var/input = null
 	while(!input)
-		input = sanitize(copytext_char(input(src, "Please specify which mission the syndicate strike team shall undertake.", "Specify Mission", ""),1,MAX_MESSAGE_LEN))
+		input = tgui_input_text(src, "Пожалуйста, уточните, какую миссию будет выполнять ударный отряд синдиката.", "Укажите миссию", "", max_length=MAX_MESSAGE_LEN)
 		if(!input)
-			if(alert("Error, no mission set. Do you want to exit the setup process?",,"Yes","No")=="Yes")
+			if(tgui_alert(src, "Ошибка, миссия не задана. Вы хотите приостановить процесс? ", "Подтверждение", list("Да","Нет")) == "Да")
 				return
 
 	if(GLOB.sent_syndicate_strike_team)
-		to_chat(src, "Looks like someone beat you to it.")
+		to_chat(src, "Кажется кто-то стукнет вас за это.")
 		return
 
 	var/syndicate_commando_number = SYNDICATE_COMMANDOS_POSSIBLE //for selecting a leader
@@ -46,17 +46,15 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
 	// Find ghosts willing to be SST
 	var/image/I = new('icons/obj/cardboard_cutout.dmi', "cutout_commando")
-	var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, SYNDICATE_COMMANDOS_POSSIBLE, "Join the Syndicate Strike Team?",, 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = I)
+	var/list/commando_ghosts = pick_candidates_all_types(src, SYNDICATE_COMMANDOS_POSSIBLE, "Присоединиться к Ударному Отряду Синдиката?", , 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, I, "Ударный Отряд Синдиката", input)
 	if(!commando_ghosts.len)
-		to_chat(usr, "<span class='userdanger'>Nobody volunteered to join the SST.</span>")
+		to_chat(src, span_userdanger("Никто не присоединился к SST."))
 		return
 
 	GLOB.sent_syndicate_strike_team = 1
 
 	//Spawns commandos and equips them.
-	for(var/thing in GLOB.landmarks_list)
-		var/obj/effect/landmark/L = thing
-
+	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 		if(syndicate_commando_number <= 0)
 			break
 
@@ -82,10 +80,10 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
 			//So they don't forget their code or mission.
 			if(nuke_code)
-				new_syndicate_commando.mind.store_memory("<B>Nuke Code:</B> <span class='warning'>[nuke_code]</span>.")
-			new_syndicate_commando.mind.store_memory("<B>Mission:</B> <span class='warning'>[input]</span>.")
+				new_syndicate_commando.mind.store_memory("<B>Коды от боеголовки:</B> <span class='warning'>[nuke_code]</span>.")
+			new_syndicate_commando.mind.store_memory("<B>Миссия:</B> <span class='warning'>[input]</span>.")
 
-			to_chat(new_syndicate_commando, "<span class='notice'>You are an Elite Syndicate [is_leader ? "<B>TEAM LEADER</B>" : "commando"] in the service of the Syndicate. \nYour current mission is: <span class='userdanger'>[input]</span></span>")
+			to_chat(new_syndicate_commando, span_notice("Вы [is_leader ? "<B>Лидер</B>" : "боец"] Элитного Отряда в подчинении Синдиката. \nВаша миссия: <span class='userdanger'>[input]</span>"))
 			new_syndicate_commando.faction += "syndicate"
 			var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
 			opshud.join_hud(new_syndicate_commando.mind.current)
@@ -94,7 +92,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 			is_leader = FALSE
 			syndicate_commando_number--
 
-	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned a Syndicate strike squad.</span>")
+	message_admins(span_notice("[key_name_admin(usr)] has spawned a Syndicate strike squad."))
 	log_admin("[key_name(usr)] used Spawn Syndicate Squad.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Send SST") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 

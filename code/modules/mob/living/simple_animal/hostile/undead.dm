@@ -13,7 +13,7 @@
 		else
 			R.visible_message("[R] stares at [src] for a minute before turning away.")
 			if(R.target == src)
-				R.target = null
+				R.GiveTarget(null)
 	if(!found)
 		return ..()
 

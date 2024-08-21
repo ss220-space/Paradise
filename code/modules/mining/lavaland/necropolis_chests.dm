@@ -293,7 +293,7 @@
 	playsound(T, 'sound/effects/splat.ogg', 80, 5, -1)
 	next_summon = world.time + COOLDOWN_SUMMON
 
-/obj/item/eflowers/afterattack(atom/target, mob/user, proximity)
+/obj/item/eflowers/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 	var/mob/living/simple_animal/M = target
@@ -350,7 +350,7 @@
 	item_flags = NO_PIXEL_RANDOM_DROP
 	contents = newlist(/obj/item/cursed_katana)
 
-/obj/item/organ/internal/cyberimp/arm/katana/prepare_eat() 
+/obj/item/organ/internal/cyberimp/arm/katana/prepare_eat()
 	return
 
 /obj/item/organ/internal/cyberimp/arm/katana/attack_self(mob/living/carbon/user, modifiers)
@@ -446,14 +446,14 @@
 	. = ..()
 	. += drew_blood ? ("<span class='notice'>It's sated... for now.</span>") : ("<span class='danger'>It will not be sated until it tastes blood.</span>")
 
-/obj/item/cursed_katana/attack(mob/living/target, mob/user, def_zone)
-	var/add_melee_cooldown = TRUE
+
+/obj/item/cursed_katana/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(can_combo_attack(user, target))
 		drew_blood = TRUE
 		if(ishostile(target))
 			user.changeNext_move(CLICK_CD_RAPID)
-			add_melee_cooldown = FALSE
-	return ..(target, user, def_zone, add_melee_cooldown)
+	return ..()
+
 
 /obj/item/cursed_katana/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
@@ -553,7 +553,7 @@
 	to_chat(target, span_userdanger("[user] shatters [src] over you!"))
 	target.apply_damage((ishostile(target) ? 75 : 35), BRUTE, BODY_ZONE_CHEST, TRUE)
 	target.Weaken(3 SECONDS)
-	target.adjustStaminaLoss(60) //Takes 4 hits to do, breaks your weapon. Perfectly fine.
+	target.apply_damage(60, STAMINA) //Takes 4 hits to do, breaks your weapon. Perfectly fine.
 	user.do_attack_animation(target, ATTACK_EFFECT_SMASH)
 	playsound(src, 'sound/effects/glassbr3.ogg', 100, TRUE)
 	if(ishuman(user))

@@ -1,3 +1,5 @@
+//#define KARMA_ENABLE
+
 /*	KARMA
 	Everything karma related is here.
 	Part of karma purchase is handled in client_procs.dm	*/
@@ -112,6 +114,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 		return FALSE
 	return TRUE
 
+#ifdef KARMA_ENABLE
 
 /mob/verb/spend_karma_list()
 	set name = "Award Karma"
@@ -210,3 +213,5 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 	currentkarma = (text2num(totalkarma) - text2num(karmaspent))
 
 	return currentkarma
+
+#endif
