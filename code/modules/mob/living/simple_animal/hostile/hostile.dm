@@ -37,7 +37,7 @@
 	var/ranged_ignores_vision = FALSE //if it'll fire ranged attacks even if it lacks vision on its target, only works with environment smash
 	var/check_friendly_fire = 0 // Should the ranged mob check for friendlies when shooting
 	var/retreat_distance = null //If our mob runs from players when they're too close, set in tile distance. By default, mobs do not retreat.
-	var/minimum_distance = 1 //Minimum approach distance, so ranged mobs chase targets down, but still keep their distance set in tiles to the target, set higher to make mobs keep distance
+	var/minimum_distance = 1 //Minimum approach distance, so ranged mobs chase targets down, but still keep their distance set in tiles to the target, set \er to make mobs keep distance
 
 
 //These vars are related to how mobs locate and target
@@ -264,7 +264,7 @@
 				return A
 
 
-/mob/living/simple_animal/hostile/proc/PickTarget(list/mob/Targets)//Step 3, pick amongst the possible, attackable targets
+/mob/living/simple_animal/hostile/proc/PickTarget(list/Targets)//Step 3, pick amongst the possible, attackable targets
 	if(target != null)//If we already have a target, but are told to pick again, calculate the lowest distance between all possible, and pick from the lowest distance targets
 		for(var/pos_targ in Targets)
 			var/atom/A = pos_targ
@@ -273,13 +273,13 @@
 			if(target_dist < possible_target_distance)
 				Targets -= A
 
-	var/list/mob/not_low_priority_targets = list()
+	var/list/mob/high_priority_targets = list()
 	for(var/mob/T in Targets)
 		if (!(T.UID() in low_priority_targets))
-			not_low_priority_targets.Add(T)
+			high_priority_targets.Add(T)
 
-	if (not_low_priority_targets.len)
-		Targets = not_low_priority_targets
+	if (high_priority_targets.len)
+		Targets = high_priority_targets
 
 	if(!Targets.len)//We didnt find nothin!
 		return

@@ -174,7 +174,7 @@
 			for(var/T in temp_tech)
 				techs_sum += temp_tech[T]
 			if (istype(O, /obj/item/relic) || techs_sum > 4 && !istype(src, /obj/item/storage/backpack/holding))
-				to_chat(user, "<span class='notice'>Этот предмет слишком сложен для копирования. Попробуйте вставить что-то попроще.</span>")
+				to_chat(user, span_notice("Этот предмет слишком сложен для копирования. Попробуйте вставить что-то попроще."))
 				return
 
 			investigate_log("Experimentor has made a clone of [O]", INVESTIGATE_EXPERIMENTOR)
@@ -735,14 +735,14 @@
 	icon_state = ""
 	icon = 'icons/obj/assemblies.dmi'
 	origin_tech = "bluespace=3;materials=3"
-	var/cooldown = 0
-	var/last_use = 0
+	var/cooldown = 5 SECONDS
+	COOLDOWN_DECLARE(relict_priduction_cooldown)
 
 /obj/item/relict_priduction/attack_self(mob/user)
-	if (world.time < last_use + cooldown)
+	if(!COOLDOWN_FINISHED(src, relict_priduction_cooldown))
 		to_chat(user, "<span class='notice'>[src] is not ready yet.</span>")
 		return FALSE
-	last_use = world.time
+	COOLDOWN_START(src, relict_priduction_cooldown, cooldown)
 	return TRUE
 
 /obj/item/relict_priduction/perfect_mix
@@ -775,7 +775,7 @@
 	icon_state = "prox-multitool2"
 	icon = 'icons/obj/assemblies.dmi'
 	origin_tech = "materials=4"
-	cooldown = 100
+	cooldown = 10 SECONDS
 
 /obj/item/relict_priduction/strange_teleporter/attack_self(mob/user)
 	if (!..())
@@ -799,7 +799,7 @@
 	icon_state = "armor-igniter-analyzer"
 	icon = 'icons/obj/assemblies.dmi'
 	origin_tech = "biotech=4"
-	cooldown = 600
+	cooldown = 60 SECONDS
 
 /obj/item/relict_priduction/pet_spray/attack_self(mob/user)
 	if (!..())
@@ -808,11 +808,18 @@
 	visible_message(message)
 	to_chat(user, message)
 	var/amount = rand(1,3)
-	var/A = pick(/mob/living/simple_animal/hostile/bear,/mob/living/simple_animal/hostile/poison/bees,/mob/living/simple_animal/hostile/carp,/mob/living/simple_animal/hostile/alien,/mob/living/simple_animal/butterfly,/mob/living/simple_animal/pet/dog/corgi)
+	var/list/possible_mobs = list(/mob/living/simple_animal/hostile/bear,
+		/mob/living/simple_animal/hostile/poison/bees,
+		/mob/living/simple_animal/hostile/carp,
+		/mob/living/simple_animal/hostile/alien,
+		/mob/living/simple_animal/butterfly,
+		/mob/living/simple_animal/pet/dog/corgi
+	)
+	var/mob/to_spawn = pick(possible_mobs)
 
 	for(var/i in 1 to amount)
 		var/mob/living/simple_animal/S
-		S = new A(get_turf(src))
+		S = new to_spawn(get_turf(src))
 		S.faction |= "petSpraySummon"
 		S.gold_core_spawnable = HOSTILE_SPAWN
 		S.low_priority_targets += user.UID()

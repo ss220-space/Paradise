@@ -1,7 +1,7 @@
 /obj/item/gun/syringe/rapidsyringe/experimental
 	name = "experimental syringe gun"
 	desc = "Эксперементальный шприцемет с 6 слотами для шприцев, встроенным, самовосполняющимся хранилищем химикатов и новейшей системой автозаправки шприцев."
-	origin_tech = "combat=3;biotech=4,bluespace=5"
+	origin_tech = "combat=3;biotech=4;bluespace=5"
 	icon = 'icons/obj/weapons/techrelic.dmi'
 	item_state = "strynggun"
 	lefthand_file = 'icons/mob/inhands/relics_production/inhandl.dmi'

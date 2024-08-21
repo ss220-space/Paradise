@@ -1,6 +1,3 @@
-
-//	var/turf/T | This was made 14th September 2013, and has no use at all. Its being removed
-
 /obj/item/grenade/fauna_bomb
 	name = "fauna bomb"
 	desc = "Эксперементальная, многоразовая граната, создающая фауну агрессивную ко всем, кроме активировавшего гранату."
@@ -12,16 +9,15 @@
 	righthand_file = 'icons/mob/inhands/relics_production/inhandr.dmi'
 	var/deliveryamt = 8
 	var/amount = 3
-	var/last_use = 0
-	var/cooldown = 600
+	COOLDOWN_DECLARE(fauna_bomb_cooldown)
 	var/mob/activator
 
 /obj/item/grenade/fauna_bomb/attack_self(mob/user)
-	if (last_use + cooldown > world.time)
+	if(!COOLDOWN_FINISHED(src, fauna_bomb_cooldown))
 		to_chat(user, "<span class='warning'>[src] is still recharging!</span>")
 		return
 
-	last_use = world.time
+	COOLDOWN_START(src, fauna_bomb_cooldown, 60 SECONDS)
 	activator = user
 	return ..(user, FALSE)
 
