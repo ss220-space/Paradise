@@ -1456,7 +1456,7 @@
 		if(isliving(affected))
 			var/mob/living/living = affected
 			living.ratvar_act(TRUE)
-			if(!isclocker(living) && !ishuman(living))
+			if(!isclocker(living) || !ishuman(living))
 				continue
 			living.heal_overall_damage(60, 60, affect_robotic = TRUE)
 			living.reagents?.add_reagent("epinephrine", 5)
