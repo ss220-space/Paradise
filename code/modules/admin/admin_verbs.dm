@@ -8,7 +8,6 @@ GLOBAL_LIST_INIT(admin_verbs_default, list(
 GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/check_antagonists,		/*shows all antags*/
 	/datum/admins/proc/show_player_panel,
-	/client/proc/fax_panel,
 	/client/proc/player_panel_new,		/*shows an interface for all players, with links to various panels*/
 	/client/proc/invisimin,				/*allows our mob to go invisible/visible*/
 	/datum/admins/proc/announce,		/*priority announce something to all clients.*/
@@ -101,6 +100,7 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/toggle_pacifism_gt,
 	/client/proc/toogle_ghost_vision,
 	/client/proc/empty_ai_core_toggle_latejoin,
+	/client/proc/fax_panel,
 ))
 GLOBAL_LIST_INIT(admin_verbs_spawn, list(
 	/datum/admins/proc/spawn_atom,		/*allows us to spawn instances*/

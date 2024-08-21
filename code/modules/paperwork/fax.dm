@@ -24,7 +24,7 @@ GLOBAL_LIST_EMPTY(adminfaxes)
 /client/proc/fax_panel()
 	set name = "Fax Panel"
 	set category = "Admin"
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_EVENT))
 		return
 	if(holder)
 		holder.fax_panel(usr)
