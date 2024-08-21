@@ -63,6 +63,11 @@
 	keys = list("F4")
 	required_rights = R_MENTOR | R_ADMIN
 
+/datum/keybinding/client/communication/devsay
+	name = DEV_CHANNEL
+	keys = list("ShiftF4")
+	required_rights = R_DEBUG
+
 /datum/keybinding/client/communication/asay
 	name = ADMIN_CHANNEL
 	keys = list("F5")

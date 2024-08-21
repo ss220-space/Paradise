@@ -62,12 +62,12 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	var/display_colour = GLOB.normal_ooc_colour
 	if(holder && !holder.fakekey)
 		display_colour = GLOB.mentor_ooc_colour
-		if(check_rights(R_MOD,0) && !check_rights(R_ADMIN,0))
+		if(check_rights(R_MOD,0) && !check_rights(R_ADMIN, FALSE))
 			display_colour = GLOB.moderator_ooc_colour
-		else if(check_rights(R_ADMIN,0))
+		else if(check_rights(R_ADMIN, FALSE) || check_rights_for_all(src, GLOB.admin_ranks["Контрибьютор"]))
 			if(CONFIG_GET(flag/allow_admin_ooccolor))
 				display_colour = src.prefs.ooccolor
-			else
+			else if(R_ADMIN)
 				display_colour = GLOB.admin_ooc_colour
 
 	if(prefs.unlock_content)

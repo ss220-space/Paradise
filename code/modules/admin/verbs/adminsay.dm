@@ -62,6 +62,34 @@
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Msay") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
+/client/proc/cmd_dev_say(msg as text)
+	set name = "Devsay"
+	set hidden = 1
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
+	log_mentorsay(msg, src)
+
+	if(!msg)
+		return
+
+	msg = handleDiscordEmojis(msg)
+
+	for(var/client/C in GLOB.admins)
+		if(check_rights(R_DEBUG, 0, C.mob))
+			var/display_name = key
+			if(holder.fakekey)
+				if(check_rights(R_ADMIN, 0, C.mob))
+					display_name = "[holder.fakekey]/([key])"
+				else
+					display_name = holder.fakekey
+			msg = "<span class='emoji_enabled'>[msg]</span>"
+			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "dev_channel_admin" : "dev_channel"]'>DEV: <span class='name'>[display_name]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_DEVCHAT, confidential = TRUE)
+
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Msay") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+
 /client/proc/get_mentor_say()
 	if(check_rights(R_MENTOR | R_ADMIN | R_MOD))
 		var/msg = input(src, null, "msay \"text\"") as text|null

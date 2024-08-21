@@ -347,18 +347,17 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	usr << browse(dat, "window=ban;size=400x400")
 
 /datum/admins/proc/Game()
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN|R_SPAWN))
 		return
 
 	var/dat = {"<meta charset="UTF-8">
-		<center><B>Game Panel</B></center><hr>\n
-		<A href='?src=[UID()];c_mode=1'>Change Game Mode</A><br>
-		"}
-	if(GLOB.master_mode == "secret")
-		dat += "<A href='?src=[UID()];f_secret=1'>(Force Secret Mode)</A><br>"
-	if(GLOB.master_mode == "antag-paradise" || GLOB.secret_force_mode == "antag-paradise")
-		dat += "<A href='?src=[UID()];change_weights=1'>Change Antag Weights</A><br>"
-
+		<center><B>Game Panel</B></center><hr>\n"}
+	if(check_rights(R_ADMIN, FALSE))
+		dat += "<A href='?src=[UID()];c_mode=1'>Change Game Mode</A><br>"
+		if(GLOB.master_mode == "secret")
+			dat += "<A href='?src=[UID()];f_secret=1'>(Force Secret Mode)</A><br>"
+		if(GLOB.master_mode == "antag-paradise" || GLOB.secret_force_mode == "antag-paradise")
+			dat += "<A href='?src=[UID()];change_weights=1'>Change Antag Weights</A><br>"
 	dat += {"
 		<BR>
 		<A href='?src=[UID()];create_object=1'>Create Object</A><br>

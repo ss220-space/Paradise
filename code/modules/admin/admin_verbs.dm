@@ -42,7 +42,6 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/datum/admins/proc/togglevotedead,	/*toggles vote on/off for everyone who is dead*/
 	/datum/admins/proc/toggledsay,		/*toggles dsay on/off for everyone*/
 	/datum/admins/proc/toggleemoji,     /*toggles using emoji in ooc for everyone*/
-	/client/proc/game_panel,			/*game panel, allows to change game-mode etc*/
 	/client/proc/cmd_admin_say,			/*admin-only ooc chat*/
 	/datum/admins/proc/PlayerNotes,
 	/client/proc/cmd_mentor_say,
@@ -114,6 +113,7 @@ GLOBAL_LIST_INIT(admin_verbs_spawn, list(
 	/datum/admins/proc/spawn_atom,		/*allows us to spawn instances*/
 	/client/proc/respawn_character,
 	/client/proc/admin_deserialize,
+	/client/proc/game_panel,			/*game panel, allows to change game-mode etc*/
 ))
 GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/client/proc/reload_admins,
@@ -180,6 +180,7 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/toggle_npcpool_suspension,
 	/client/proc/debug_atom_init,
 	/client/proc/debugstatpanel,
+	/client/proc/cmd_dev_say,
 ))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -416,7 +417,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	set name = "Game Panel"
 	set category = "Event"
 
-	if(!check_rights(R_ADMIN | R_EVENT))
+	if(!check_rights(R_ADMIN|R_EVENT|R_SPAWN))
 		return
 
 	holder.Game()

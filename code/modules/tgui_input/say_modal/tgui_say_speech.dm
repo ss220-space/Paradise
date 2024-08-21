@@ -33,6 +33,9 @@
 		if(MENTOR_CHANNEL)
 			client.cmd_mentor_say(entry)
 			return TRUE
+		if(DEV_CHANNEL)
+			client.cmd_dev_say(entry)
+			return TRUE
 		if(DSAY_CHANNEL)
 			client.dsay(entry)
 			return TRUE
