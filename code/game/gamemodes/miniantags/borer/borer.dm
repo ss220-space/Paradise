@@ -6,7 +6,7 @@
 
 /mob/living/captive_brain/say(message)
 	if(client)
-		if(check_mute(client.ckey, MUTE_IC))
+		if(client.prefs.muted & MUTE_IC)
 			to_chat(src, span_warning("Вы не можете говорить в IC (muted)."))
 			return
 		if(client.handle_spam_prevention(message,MUTE_IC))
@@ -109,10 +109,8 @@
 	var/hiding = FALSE
 	var/reproductions = 0 // used to upgrade rank
 	var/evo_points = 0 // used for borer shopping, gained by reproductions
-	var/datum/borer_rank/borer_rank
-	var/datum/antagonist/borer/borer_antag
-	var/list/datum/borer_focus/learned_focuses = list()
-	var/datum/borer_misc/change_host_and_scale/scaling
+	var/datum/borer_datum/borer_rank/borer_rank
+	var/list/datum/borer_datum/focus/learned_focuses = list()
 	var/datum/action/innate/borer/talk_to_host/talk_to_host_action = new
 	var/datum/action/innate/borer/toggle_hide/toggle_hide_action = new
 	var/datum/action/innate/borer/talk_to_borer/talk_to_borer_action = new
@@ -137,7 +135,6 @@
 	real_name = "Cortical Borer [rand(1000,9999)]"
 	truename = "[borer_names[min(generation, borer_names.len)]] [rand(1000,9999)]"
 	GrantBorerActions()
-	scaling = new scaling(src)
 
 /mob/living/simple_animal/borer/attack_ghost(mob/user)
 	if(cannotPossess(user))
@@ -481,8 +478,8 @@
 		
 	var/list/content = list()
 	
-	for(var/datum in subtypesof(/datum/borer_focus))
-		var/datum/borer_focus/borer_datum = datum
+	for(var/datum in subtypesof(/datum/borer_datum/focus))
+		var/datum/borer_datum/focus/borer_datum = datum
 		if(!locate(borer_datum) in learned_focuses)
 			content += borer_datum.bodypartname
 			
@@ -492,15 +489,15 @@
 		
 	var/tgui_menu = tgui_input_list(src, "Choose focus", "Focus Menu", content)
 	if(tgui_menu)
-		for(var/datum in subtypesof(/datum/borer_focus))
-			var/datum/borer_focus/borer_datum = datum
+		for(var/datum in subtypesof(/datum/borer_datum/focus))
+			var/datum/borer_datum/focus/borer_datum = datum
 			if(tgui_menu == borer_datum.bodypartname)
 				process_focus_choice(borer_datum)
 				break
 
 	return
 
-/mob/living/simple_animal/borer/proc/process_focus_choice(datum/borer_focus/focus)
+/mob/living/simple_animal/borer/proc/process_focus_choice(datum/borer_datum/focus/focus)
 	if(!src || !host || stat || docile)
 		return
 	if(locate(focus) in learned_focuses)
@@ -509,8 +506,7 @@
 	if(evo_points >= focus.cost)
 		evo_points -= focus.cost
 		to_chat(src, span_notice("Вы успешно приобрели [focus.bodypartname]"))
-		learned_focuses += new focus(src)
-		return borer_antag.apply_innate_effects(src)
+		return learned_focuses += new focus(src)
 	to_chat(src, span_notice("Вам требуется еще [focus.cost - evo_points] очков эволюции для получения [focus.bodypartname]."))
 	return 
 
@@ -910,8 +906,7 @@
 		mind.transfer_to(src)
 		candidate.mob = src
 		ckey = candidate.ckey
-		mind.add_antag_datum(borer_antag)
-		borer_antag = mind.antag_datums
+		mind.add_antag_datum(datum/antagonist/borer)
 		GrantBorerSpells()
 		hide_borer()
 
