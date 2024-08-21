@@ -109,7 +109,7 @@
 	var/hiding = FALSE
 	var/reproductions = 0 // used to upgrade rank
 	var/evo_points = 0 // used for borer shopping, gained by reproductions
-	var/datum/borer_datum/borer_rank/borer_rank
+	var/datum/borer_rank/borer_rank
 	var/datum/antagonist/borer/antag_datum
 	var/datum/action/innate/borer/talk_to_host/talk_to_host_action = new
 	var/datum/action/innate/borer/toggle_hide/toggle_hide_action = new
@@ -206,7 +206,7 @@
 	evo_points += 1
 	if(borer_rank?.required_reproductions && reproductions >= borer_rank.required_reproductions)
 		reproductions -= borer_rank.required_reproductions
-		if(host && borer_rank.update_rank(src))
+		if(host && borer_rank.update_rank())
 			to_chat(host, span_notice("Вы стали древнее. Ваш текущий ранг - [borer_rank.rankname]."))
 	return
 

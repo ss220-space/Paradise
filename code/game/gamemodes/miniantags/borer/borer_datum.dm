@@ -19,6 +19,7 @@
 	var/list/datum/borer_focus/learned_focuses = list()
 	var/datum/borer_misc/change_host_and_scale/scaling = new
 	var/signals_registered = FALSE
+	var/tick_interval = 1 SECONDS
 
 /datum/antagonist/borer/apply_innate_effects(mob/living/simple_animal/borer/borer)
 	. = ..()
@@ -61,13 +62,13 @@
 	to_chat(borer, chat_box_purple(messages.Join("<br>")))
 	return messages
 	
-/datum/borer_datum/proc/entered_host()
+/datum/antagonist/borer/proc/entered_host()
 	SIGNAL_HANDLER
 	host = user.host
 	if(pre_grant_movable_effect())
 		previous_host = host
 
-/datum/borer_datum/proc/left_host()
+/datum/antagonist/borer/proc/left_host()
 	SIGNAL_HANDLER
 	host = null
 	if(pre_remove_movable_effect())
@@ -183,6 +184,7 @@
 		if(/datum/borer_rank/adult)
 			borer.borer_rank = new /datum/borer_rank/elder(borer)
 	parent?.borer_rank = borer.borer_rank
+	parent?.user.borer_rank = parent.borer_rank
 	return TRUE
 
 /datum/borer_rank/New()
@@ -194,55 +196,55 @@
 /datum/borer_rank/proc/tick(seconds_between_ticks)
 	return
 
-/datum/borer_datum/borer_rank/young
+/datum/borer_rank/young
 	rankname = "Young"
 	required_reproductions = REPRODUCTIONS_TO_MATURE 
 
-/datum/borer_datum/borer_rank/mature
+/datum/borer_rank/mature
 	rankname = "Mature"
 	required_reproductions = REPRODUCTIONS_TO_ADULT 
 
-/datum/borer_datum/borer_rank/adult
+/datum/borer_rank/adult
 	rankname = "Adult"
 	required_reproductions = REPRODUCTIONS_TO_ELDER
 
-/datum/borer_datum/borer_rank/elder
+/datum/borer_rank/elder
 	rankname = "Elder"
 
-/datum/borer_datum/borer_rank/young/on_apply()
+/datum/borer_rank/young/on_apply()
 	owner.update_transform(0.5) // other ranks should be gained and processed only with antag datum
 	return TRUE
 
-/datum/borer_datum/borer_rank/mature/on_apply()
+/datum/borer_rank/mature/on_apply()
 	parent.user.update_transform(2)
 	parent.user.maxHealth += 5
 	return TRUE
 
-/datum/borer_datum/borer_rank/adult/on_apply()
+/datum/borer_rank/adult/on_apply()
 	parent.user.maxHealth += 5
 	return TRUE
 
-/datum/borer_datum/borer_rank/elder/on_apply()
+/datum/borer_rank/elder/on_apply()
 	parent.user.maxHealth += 10
 	return TRUE
 
-/datum/borer_datum/borer_rank/young/tick(seconds_between_ticks)
+/datum/borer_rank/young/tick(seconds_between_ticks)
 	parent.user.adjustHealth(-0.1)
 
-/datum/borer_datum/borer_rank/mature/tick(seconds_between_ticks)
+/datum/borer_rank/mature/tick(seconds_between_ticks)
 	parent.user.adjustHealth(-0.15)
 
-/datum/borer_datum/borer_rank/adult/tick(seconds_between_ticks)
+/datum/borer_rank/adult/tick(seconds_between_ticks)
 	parent.user.adjustHealth(-0.2)
 
-/datum/borer_datum/borer_rank/adult/tick(seconds_between_ticks)
+/datum/borer_rank/adult/tick(seconds_between_ticks)
 	if(parent.host?.stat != DEAD && !parent.user.sneaking)
 		parent.user.chemicals += 0.2
 
-/datum/borer_datum/borer_rank/elder/tick(seconds_between_ticks)
+/datum/borer_rank/elder/tick(seconds_between_ticks)
 	parent.user.adjustHealth(-0.3)
 
-/datum/borer_datum/borer_rank/elder/tick(seconds_between_ticks)
+/datum/borer_rank/elder/tick(seconds_between_ticks)
 	if(parent.host?.stat != DEAD)
 		parent.host.heal_overall_damage(0.4, 0.4)
 		parent.user.chemicals += 0.3
@@ -283,59 +285,59 @@
 	bodypartname = "Legs focus"
 	cost = LEGS_FOCUS_COST
 	
-/datum/borer_datum/focus/head/grant_movable_effect()
+/datum/borer_focus/head/grant_movable_effect()
 	parent.host.physiology.brain_mod *= 0.7
 	parent.host.physiology.hunger_mod *= 0.3
 	parent.host.stam_regen_start_modifier *= 0.75
 	return TRUE
 
-/datum/borer_datum/focus/head/remove_movable_effect()
+/datum/borer_focus/head/remove_movable_effect()
 	parent.previous_host.physiology.brain_mod /= 0.7
 	parent.previous_host.physiology.hunger_mod /= 0.3
 	parent.previous_host.stam_regen_start_modifier /= 0.75
 	return TRUE
 
-/datum/borer_datum/focus/head/tick(seconds_between_ticks)
+/datum/borer_focus/head/tick(seconds_between_ticks)
 	if(!parent.user.controlling && parent.host?.stat != DEAD)
 		parent.host?.adjustBrainLoss(-1)
 			
-/datum/borer_datum/focus/torso/grant_movable_effect()
+/datum/borer_focus/torso/grant_movable_effect()
 	parent.host.physiology.brute_mod *= 0.8
 	return TRUE
 
-/datum/borer_datum/focus/torso/remove_movable_effect()
+/datum/borer_focus/torso/remove_movable_effect()
 	parent.previous_host.physiology.brute_mod /= 0.8
 	return TRUE
 
-/datum/borer_datum/focus/torso/tick(seconds_between_ticks)
+/datum/borer_focus/torso/tick(seconds_between_ticks)
 	if(parent.host?.stat != DEAD)
 		linked_organ = parent.host?.get_int_organ(linked_organ)
 		if(linked_organ)
 			parent.host?.set_heartattack(FALSE)
 
-/datum/borer_datum/focus/torso/Destroy(force)
+/datum/borer_focus/torso/Destroy(force)
 	linked_organ = null
 	return ..()
 		
-/datum/borer_datum/focus/hands/grant_movable_effect()
+/datum/borer_focus/hands/grant_movable_effect()
 	parent.host.add_actionspeed_modifier(/datum/actionspeed_modifier/borer_arm_focus)
 	parent.host.physiology.punch_damage_low += 7
 	parent.host.physiology.punch_damage_high += 5
 	parent.host.next_move_modifier *= 0.75
 	return TRUE
 
-/datum/borer_datum/focus/hands/remove_movable_effect()
+/datum/borer_focus/hands/remove_movable_effect()
 	parent.previous_host.remove_actionspeed_modifier(/datum/actionspeed_modifier/borer_arm_focus)
 	parent.previous_host.physiology.punch_damage_low -= 7
 	parent.previous_host.physiology.punch_damage_high -= 5	
 	parent.previous_host.next_move_modifier /= 0.75
 	return TRUE
 	
-/datum/borer_datum/focus/legs/grant_movable_effect()
+/datum/borer_focus/legs/grant_movable_effect()
 	parent.host.add_movespeed_modifier(/datum/movespeed_modifier/borer_leg_focus)
 	return TRUE
 
-/datum/borer_datum/focus/legs/remove_movable_effect()
+/datum/borer_focus/legs/remove_movable_effect()
 	parent.previous_host.remove_movespeed_modifier(/datum/movespeed_modifier/borer_leg_focus)
 	return TRUE
 
