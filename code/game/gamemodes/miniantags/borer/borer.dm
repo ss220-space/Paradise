@@ -127,7 +127,7 @@
 	var/datum/action/innate/borer/learn_chem/learn_chem_action = new
 
 /mob/living/simple_animal/borer/New(atom/newloc, var/gen=1)
-	update_rank()
+	borer_rank.update_rank(src)
 	..(newloc)
 	remove_from_all_data_huds()
 	generation = gen
@@ -208,7 +208,7 @@
 	evo_points += 1
 	if(borer_rank?.required_reproductions && reproductions >= borer_rank.required_reproductions)
 		reproductions -= borer_rank.required_reproductions
-		if(host && update_rank())
+		if(host && borer_rank.update_rank(src))
 			to_chat(host, span_notice("Вы стали древнее. Ваш текущий ранг - [borer_rank.rankname]."))
 	return
 
@@ -316,19 +316,6 @@
 	if(istype(M))
 		to_chat(src, span_notice("Вы анализируете жизненные показатели [M]."))
 		healthscan(src, M, 1, TRUE)
-
-/mob/living/simple_animal/borer/proc/update_rank()
-	if(!borer_rank)
-		return borer_rank = new /datum/borer_rank/young(src)
-	switch(borer_rank)
-		if(/datum/borer_rank/young)
-			return borer_rank = new /datum/borer_rank/mature(src)
-
-		if(/datum/borer_rank/mature)
-			return borer_rank = new /datum/borer_rank/adult(src)
-
-		if(/datum/borer_rank/adult)
-			return borer_rank = new /datum/borer_rank/elder(src)
 
 /obj/effect/proc_holder/spell/borer_infest
 	name = "Infest"
