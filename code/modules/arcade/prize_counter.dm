@@ -42,7 +42,7 @@
 		add_fingerprint(user)
 		var/obj/item/stack/tickets/new_tickets = I
 		tickets += new_tickets.amount
-		qdel(tickets)
+		qdel(new_tickets)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
