@@ -440,14 +440,23 @@ emp_act
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if((istype(I, /obj/item/kitchen/knife/butcher/meatcleaver) || istype(I, /obj/item/twohanded/chainsaw)) && stat == DEAD && user.a_intent == INTENT_HARM)
-		new dna.species.meat_type(get_turf(loc), src)
-		add_mob_blood(src)
+		var/turf/source_turf = get_turf(src)
+		new dna.species.meat_type(source_turf, src)
+		I.add_mob_blood(src)
+		add_splatter_floor(source_turf)
+		if(get_dist(user, source_turf) <= 1) //people with TK won't get smeared with blood
+			user.add_mob_blood(src)
+		user.visible_message(
+			span_danger("[user] has hacked off a chunk of meat from [src]!"),
+			span_warning("You have hacked off a chunk of meat from [src]!"),
+		)
 		meatleft--
-		to_chat(user, span_warning("You hack off a chunk of meat from [name]."))
-		if(!meatleft)
+		if(meatleft <= 0)
 			add_attack_logs(user, src, "Chopped up into meat")
 			qdel(src)
 			return ATTACK_CHAIN_BLOCKED_ALL
+		add_mob_blood(src)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	var/attack_zone = ran_zone(def_zone)
 	var/obj/item/organ/external/affecting = get_organ(attack_zone)
