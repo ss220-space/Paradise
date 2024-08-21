@@ -133,6 +133,7 @@
 			var/obj/item/restraints/handcuffs/old_shackles = .
 			if(old_shackles.loc == src)
 				old_shackles.forceMove(drop_location())
+	update_icon(UPDATE_ICON_STATE)
 	update_equipped_item()
 
 
@@ -141,8 +142,15 @@
 
 
 /obj/item/clothing/shoes/orange/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/restraints/handcuffs) && !shackles && user.drop_transfer_item_to_loc(I, src))
+	if(istype(I, /obj/item/restraints/handcuffs))
+		add_fingerprint(user)
+		if(shackles)
+			to_chat(user, span_warning("The [name] already has [shackles] attached."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
 		set_shackles(I)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
 

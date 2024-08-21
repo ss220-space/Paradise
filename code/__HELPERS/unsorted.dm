@@ -1005,7 +1005,7 @@ GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 	if(is_type_in_typecache(W, GLOB.can_embed_types))
 		return 1
 
-/proc/is_hot(obj/item/W as obj)
+/proc/is_hot(obj/item/W)
 	if(W.tool_behaviour == TOOL_WELDER)
 		if(W.tool_enabled)
 			return 2500

@@ -117,25 +117,31 @@
 		E += M.rating
 	efficiency = E / 6
 
+
 /obj/machinery/power/compressor/attackby(obj/item/I, mob/user, params)
-	if(default_change_direction_wrench(user, I))
-		add_fingerprint(user)
-		turbine = null
-		inturf = get_step(src, dir)
-		locate_machinery()
-		if(turbine)
-			to_chat(user, "<span class='notice'>Turbine connected.</span>")
-			stat &= ~BROKEN
-		else
-			to_chat(user, "<span class='alert'>Turbine not connected.</span>")
-			stat |= BROKEN
-		return
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
 	if(exchange_parts(user, I))
-		return
-
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
+
+
+/obj/machinery/power/compressor/wrench_act(mob/living/user, obj/item/I)
+	. = default_change_direction_wrench(user, I)
+	if(!.)
+		return .
+	turbine = null
+	inturf = get_step(src, dir)
+	locate_machinery()
+	if(turbine)
+		to_chat(user, span_notice("The turbine is connected."))
+		stat &= ~BROKEN
+	else
+		to_chat(user, span_warning("The turbine is not connected."))
+		stat |= BROKEN
+
 
 /obj/machinery/power/compressor/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -299,30 +305,39 @@
 
 	interact(user)
 
-/obj/machinery/power/turbine/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I))
-		add_fingerprint(user)
-		return
 
-	if(default_change_direction_wrench(user, I))
-		add_fingerprint(user)
-		compressor = null
-		outturf = get_step(src, dir)
-		locate_machinery()
-		if(compressor)
-			to_chat(user, "<span class='notice'>Compressor connected.</span>")
-			stat &= ~BROKEN
-		else
-			to_chat(user, "<span class='alert'>Compressor not connected.</span>")
-			stat |= BROKEN
-		return
+/obj/machinery/power/turbine/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
 	if(exchange_parts(user, I))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(default_deconstruction_crowbar(user, I))
-		return
 	return ..()
+
+
+/obj/machinery/power/turbine/screwdriver_act(mob/living/user, obj/item/I)
+	return default_deconstruction_screwdriver(user, initial(icon_state), initial(icon_state), I)
+
+
+/obj/machinery/power/turbine/wrench_act(mob/living/user, obj/item/I)
+	. = default_change_direction_wrench(user, I)
+	if(!.)
+		return .
+	compressor = null
+	outturf = get_step(src, dir)
+	locate_machinery()
+	if(compressor)
+		to_chat(user, span_notice("The compressor is connected."))
+		stat &= ~BROKEN
+	else
+		to_chat(user, span_warning("The compressor is not connected."))
+		stat |= BROKEN
+
+
+/obj/machinery/power/turbine/crowbar_act(mob/living/user, obj/item/I)
+	return default_deconstruction_crowbar(user, I)
+
 
 /obj/machinery/power/turbine/interact(mob/user)
 

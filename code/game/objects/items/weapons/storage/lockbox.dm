@@ -23,32 +23,44 @@
 
 
 /obj/item/storage/lockbox/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)	// to allow storing special items
+		if(locked)
+			add_fingerprint(user)
+			to_chat(user, span_warning("It's locked!"))
+			return ATTACK_CHAIN_PROCEED
+		return ..()
+
 	if(I.GetID())
+		add_fingerprint(user)
 		if(broken)
-			to_chat(user, "<span class='warning'>It appears to be broken.</span>")
-			return
-		if(check_access(I))
-			locked = !locked
-			update_icon()
-			if(locked)
-				to_chat(user, "<span class='warning'>You lock \the [src]!</span>")
-				if(user.s_active)
-					user.s_active.close(user)
-				return
-			else
-				to_chat(user, "<span class='warning'>You unlock \the [src]!</span>")
-				origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
-				return
+			to_chat(user, span_warning("It appears to be broken."))
+			return ATTACK_CHAIN_PROCEED
+		if(!check_access(I))
+			to_chat(user, span_warning("Access denied."))
+			return ATTACK_CHAIN_PROCEED
+
+		locked = !locked
+		update_icon()
+		if(locked)
+			to_chat(user, span_warning("You lock [src]!"))
+			if(user.s_active == src)
+				user.s_active.close(user)
 		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
-			return
-	else if((istype(I, /obj/item/card/emag) || (istype(I, /obj/item/melee/energy/blade)) && !broken))
+			to_chat(user, span_warning("You unlock [src]!"))
+			origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if((istype(I, /obj/item/card/emag) || (istype(I, /obj/item/melee/energy/blade)) && !broken))
+		add_fingerprint(user)
 		emag_act(user)
-		return
-	if(!locked)
-		..()
-	else
-		to_chat(user, "<span class='warning'>It's locked!</span>")
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(locked)
+		add_fingerprint(user)
+		to_chat(user, span_warning("It's locked!"))
+		return ATTACK_CHAIN_PROCEED
+
+	return ..()
 
 
 /obj/item/storage/lockbox/show_to(mob/user)
@@ -181,18 +193,24 @@
 /obj/item/storage/lockbox/medal/hardmode_box/populate_contents()
 	return
 
-/obj/item/storage/lockbox/medal/hardmode_box/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/disk/fauna_research))
-		var/obj/item/disk/fauna_research/disky = W
-		var/obj/item/pride = new disky.output(get_turf(src))
-		to_chat(user, "<span class='notice'>[src] accepts [disky], and prints out [pride]!</span>")
+
+/obj/item/storage/lockbox/medal/hardmode_box/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/disk/fauna_research))
+		var/obj/item/disk/fauna_research/disky = I
+		if(!user.drop_transfer_item_to_loc(disky, src))
+			return ..()
+		add_fingerprint(user)
+		var/atom/drop_loc = drop_location()
+		var/obj/item/pride = new disky.output(drop_loc)
+		to_chat(user, span_notice("The [name] accepts [disky], and prints out [pride]."))
 		qdel(disky)
 		if(!is_type_in_list(pride, completed_fauna))
 			completed_fauna += pride.type
 			if(length(completed_fauna) == number_of_megafauna)
-				to_chat(user, "<span class='notice'>[src] prints out a very fancy medal!</span>")
-				var/obj/item/accomplishment = new /obj/item/clothing/accessory/medal/gold/heroism/hardmode_full(get_turf(src))
-				user.put_in_hands(accomplishment)
-		user.put_in_hands(pride)
-		return
+				to_chat(user, span_notice("The [name] prints out a very fancy medal."))
+				var/obj/item/clothing/accessory/medal/gold/heroism/hardmode_full/accomplishment = new(drop_loc)
+				user.put_in_hands(accomplishment, ignore_anim = FALSE)
+		user.put_in_hands(pride, ignore_anim = FALSE)
+		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
+

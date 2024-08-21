@@ -23,22 +23,28 @@
 /obj/item/reagent_containers/food/pill/attack_self(mob/user)
 	return
 
-/obj/item/reagent_containers/food/pill/attack(mob/living/carbon/M, mob/user, def_zone)
-	if(!istype(M))
-		return FALSE
-	if(!get_location_accessible(M, BODY_ZONE_PRECISE_MOUTH))
-		if(M == user)
-			to_chat(user, "<span class='warning'>Your face is obscured, so you cant eat.</span>")
-		else
-			to_chat(user, "<span class='warning'>[M]'s face is obscured, so[M.p_they()] cant eat.</span>")
-		return FALSE
-	bitesize = reagents.total_volume
-	if(M.eat(src, user))
-		qdel(src)
-		return TRUE
-	return FALSE
 
-/obj/item/reagent_containers/food/pill/afterattack(obj/target, mob/user, proximity)
+/obj/item/reagent_containers/food/pill/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
+	if(!iscarbon(target))
+		return .
+	if(!get_location_accessible(target, BODY_ZONE_PRECISE_MOUTH))
+		if(target == user)
+			to_chat(user, span_warning("Your face is obscured."))
+		else
+			to_chat(user, span_warning("[target]'s face is obscured."))
+		return .
+	if(!user.can_unEquip(src))
+		return .
+	bitesize = reagents.total_volume
+	if(!target.eat(src, user) || !user.can_unEquip(src))
+		return .
+	user.drop_transfer_item_to_loc(src, target)
+	qdel(src)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
+
+/obj/item/reagent_containers/food/pill/afterattack(obj/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 

@@ -126,16 +126,27 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 		playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 		qdel(src)
 
+
 /obj/structure/marker_beacon/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/marker_beacon))
-		var/obj/item/stack/marker_beacon/M = I
-		to_chat(user, "<span class='notice'>You start picking [src] up...</span>")
-		if(do_after(user, remove_speed, src) && M.amount + 1 <= M.max_amount)
-			M.add(1)
-			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
-			qdel(src)
-			return
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/stack/marker_beacon) && I != src)
+		add_fingerprint(user)
+		var/obj/item/stack/marker_beacon/beacon = I
+		if(beacon.amount >= beacon.max_amount)
+			to_chat(user, span_warning("The [name] is full."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You start picking [src] up..."))
+		if(!do_after(user, remove_speed, src) || beacon.amount >= beacon.max_amount)
+			return ATTACK_CHAIN_PROCEED
+		beacon.add(1)
+		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/structure/marker_beacon/AltClick(mob/living/user)
 	..()

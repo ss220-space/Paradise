@@ -128,59 +128,76 @@ GLOBAL_VAR(bomb_set)
 			INVOKE_ASYNC(src, PROC_REF(explode))
 	return
 
-/obj/machinery/nuclearbomb/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/disk/nuclear))
-		if(extended)
-			if(!user.drop_transfer_item_to_loc(O, src))
-				to_chat(user, "<span class='notice'>[O] is stuck to your hand!</span>")
-				return
-			auth = O
-			return attack_hand(user)
-		else
-			to_chat(user, "<span class='notice'>You need to deploy [src] first.</span>")
-		return
-	if(istype(O, /obj/item/stack/sheet/mineral/titanium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
-		var/obj/item/stack/S = O
-		if(S.get_amount() < sheets_to_fix)
-			to_chat(user, "<span class='warning'>You need at least [sheets_to_fix] sheets of titanium to repair [src]'s inner core plate!</span>")
-			return
-		if(do_after(user, 2 SECONDS, src))
-			if(!loc || !S || S.get_amount() < sheets_to_fix)
-				return
-			S.use(sheets_to_fix)
-			user.visible_message("<span class='notice'>[user] repairs [src]'s inner core plate.</span>", \
-								"<span class='notice'>You repair [src]'s inner core plate. The radiation is contained.</span>")
-			removal_stage = NUKE_CORE_PANEL_UNWELDED
-			if(core)
-				STOP_PROCESSING(SSobj, core)
-				ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, src)
-			return
-	if(istype(O, /obj/item/stack/sheet/metal) && removal_stage == NUKE_CORE_PANEL_EXPOSED)
-		var/obj/item/stack/S = O
-		if(S.get_amount() < sheets_to_fix)
-			to_chat(user, "<span class='warning'>You need at least [sheets_to_fix] sheets of metal to repair [src]'s outer core plate!</span>")
-			return
-		if(do_after(user, 2 SECONDS, src))
-			if(!loc || !S || S.get_amount() < sheets_to_fix)
-				return
-			S.use(sheets_to_fix)
-			user.visible_message("<span class='notice'>[user] repairs [src]'s outer core plate.</span>", \
-								"<span class='notice'>You repair [src]'s outer core plate.</span>")
-			removal_stage = NUKE_CORE_EVERYTHING_FINE
-			return
-	if(istype(O, /obj/item/nuke_core/plutonium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
-		if(do_after(user, 2 SECONDS, src))
-			if(!user.drop_item_ground(O))
-				to_chat(user, "<span class='notice'>The [O] is stuck to your hand!</span>")
-				return
-			user.visible_message("<span class='notice'>[user] puts [O] back in [src].</span>", "<span class='notice'>You put [O] back in [src].</span>")
-			O.forceMove(src)
-			core = O
 
-	else if(istype(O, /obj/item/disk/plantgene))
-		to_chat(user, "<span class='warning'>You try to plant the disk, but despite rooting around, it won't fit! After you branch out to read the instructions, you find out where the problem stems from. You've been bamboo-zled, this isn't a nuclear disk at all!</span>")
-		return
+/obj/machinery/nuclearbomb/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/disk/nuclear))
+		add_fingerprint(user)
+		if(extended)
+			if(!user.drop_transfer_item_to_loc(I, src))
+				return ..()
+			auth = I
+			attack_hand(user)
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+		to_chat(user, span_notice("You need to deploy [src] first."))
+		return ATTACK_CHAIN_PROCEED
+
+	if(istype(I, /obj/item/stack/sheet/mineral/titanium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
+		add_fingerprint(user)
+		var/obj/item/stack/stack = I
+		if(stack.get_amount() < sheets_to_fix)
+			to_chat(user, span_warning("You need at least [sheets_to_fix] sheets of titanium to repair [src]'s inner core plate!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!do_after(user, 2 SECONDS, src, category = DA_CAT_TOOL) || removal_stage != NUKE_CORE_FULLY_EXPOSED || QDELETED(stack) || !stack.use(sheets_to_fix))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] repairs [src]'s inner core plate."),
+			span_notice("You repair [src]'s inner core plate. The radiation is contained."),
+		)
+		removal_stage = NUKE_CORE_PANEL_UNWELDED
+		if(core)
+			STOP_PROCESSING(SSobj, core)
+			ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, src)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/stack/sheet/metal) && removal_stage == NUKE_CORE_PANEL_EXPOSED)
+		add_fingerprint(user)
+		var/obj/item/stack/stack = I
+		if(stack.get_amount() < sheets_to_fix)
+			to_chat(user, span_warning("You need at least [sheets_to_fix] sheets  of metal to repair [src]'s outer core plate!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!do_after(user, 2 SECONDS, src, category = DA_CAT_TOOL) || removal_stage != NUKE_CORE_PANEL_EXPOSED || QDELETED(stack) || !stack.use(sheets_to_fix))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] repairs [src]'s outer core plate."),
+			span_notice("You repair [src]'s outer core plate."),
+		)
+		removal_stage = NUKE_CORE_EVERYTHING_FINE
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/nuke_core/plutonium) && removal_stage == NUKE_CORE_FULLY_EXPOSED)
+		add_fingerprint(user)
+		if(!do_after(user, 2 SECONDS, src, category = DA_CAT_TOOL) || removal_stage != NUKE_CORE_FULLY_EXPOSED)
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] puts [I] back in [src]."),
+			span_notice("You put [I] back in [src]."),
+		)
+		core = I
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/disk/plantgene))
+		add_fingerprint(user)
+		to_chat(user, span_warning("You try to plant the disk, but despite rooting around, it won't fit! After you branch out to read the instructions, you find out where the problem stems from. You've been bamboo-zled, this isn't a nuclear disk at all!"))
+		return ATTACK_CHAIN_PROCEED
+
 	return ..()
+
 
 /obj/machinery/nuclearbomb/crowbar_act(mob/user, obj/item/I)
 	. = TRUE

@@ -449,7 +449,7 @@
 	if(drawing_power)
 		to_chat(user, span_warning("You're already charging."))
 		return
-	user.changeNext_move(CLICK_CD_MELEE)
+	user.changeNext_move(attack_speed)
 	var/obj/machinery/power/apc/A = target
 	var/mob/living/carbon/human/H = user
 	if(H.get_int_organ(/obj/item/organ/internal/cell))

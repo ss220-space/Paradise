@@ -20,10 +20,13 @@
 	to_chat(viewers(user), "<span class='suicide'>[user] is hitting [user.p_them()]self with the [src.name]! It looks like [user.p_theyre()] trying to ban [user.p_them()]self from life.</span>")
 	return BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS
 
-/obj/item/banhammer/attack(mob/M, mob/user)
-	to_chat(M, "<font color='red'><b> You have been banned FOR NO REISIN by [user]<b></font>")
-	to_chat(user, "<font color='red'> You have <b>BANNED</b> [M]</font>")
+
+/obj/item/banhammer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	to_chat(target, "<font color='red'><b> You have been banned FOR NO REISIN by [user]<b></font>")
+	to_chat(user, "<font color='red'> You have <b>BANNED</b> [target]</font>")
 	playsound(loc, 'sound/effects/adminhelp.ogg', 15) //keep it at 15% volume so people don't jump out of their skin too much
+	return ATTACK_CHAIN_PROCEED_SUCCESS
+
 
 /obj/item/sord
 	name = "\improper SORD"
@@ -111,17 +114,19 @@
 	var/faction_bonus_force = 30
 	var/nemesis_factions = list("mining", "boss")
 
-/obj/item/katana/basalt/attack(mob/living/target, mob/living/carbon/human/user)
+
+/obj/item/katana/basalt/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	var/nemesis_faction = FALSE
 	if(LAZYLEN(nemesis_factions))
-		for(var/F in target.faction)
-			if(F in nemesis_factions)
+		for(var/faction in target.faction)
+			if(faction in nemesis_factions)
 				nemesis_faction = TRUE
 				force += faction_bonus_force
 				break
 	. = ..()
 	if(nemesis_faction)
 		force -= faction_bonus_force
+
 
 /obj/item/harpoon
 	name = "harpoon"
@@ -148,36 +153,42 @@
 	materials = list(MAT_METAL=1150, MAT_GLASS=75)
 	attack_verb = list("hit", "bludgeoned", "whacked", "bonked")
 
+
 /obj/item/wirerod/attackby(obj/item/I, mob/user, params)
-	..()
 	if(istype(I, /obj/item/shard))
-		var/obj/item/twohanded/spear/S = new /obj/item/twohanded/spear(drop_location())
+		add_fingerprint(user)
+		if(loc == user && !user.can_unEquip(src))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		var/obj/item/twohanded/spear/spear
 		if(istype(I, /obj/item/shard/plasma))
-			S.force_wielded = 19
-			S.force_unwielded = 11
-			S.throwforce = 21
-			S.icon_prefix = "spearplasma"
-			S.update_icon()
-		if(!remove_item_from_storage(user))
-			user.temporarily_remove_item_from_inventory(src)
-		user.temporarily_remove_item_from_inventory(I)
-
-		user.put_in_hands(S, ignore_anim = FALSE)
-		to_chat(user, "<span class='notice'>You fasten the glass shard to the top of the rod with the cable.</span>")
+			spear = new /obj/item/twohanded/spear/plasma(drop_location())
+		else
+			spear = new /obj/item/twohanded/spear(drop_location())
+		spear.add_fingerprint(user)
+		to_chat(user, span_notice("You fasten the glass shard to the top of the rod with the cable."))
+		user.put_in_hands(spear, ignore_anim = FALSE)
 		qdel(I)
 		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	else if(isigniter(I) && !HAS_TRAIT(I, TRAIT_NODROP))
-		var/obj/item/melee/baton/security/cattleprod/P = new(drop_location())
-
-		if(!remove_item_from_storage(user))
-			user.temporarily_remove_item_from_inventory(src)
-		user.temporarily_remove_item_from_inventory(I)
-
-		user.put_in_hands(P, ignore_anim = FALSE)
-		to_chat(user, "<span class='notice'>You fasten [I] to the top of the rod with the cable.</span>")
+	if(isigniter(I))
+		add_fingerprint(user)
+		if(loc == user && !user.can_unEquip(src))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		var/obj/item/melee/baton/security/cattleprod/cattleprod = new(drop_location())
+		cattleprod.add_fingerprint(user)
+		to_chat(user, span_notice("You fasten [I] to the top of the rod with the cable."))
+		user.put_in_hands(cattleprod, ignore_anim = FALSE)
 		qdel(I)
 		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/throwing_star
 	name = "throwing star"
@@ -284,45 +295,49 @@
 		homerun_ready = 1
 	..()
 
-/obj/item/melee/baseball_bat/attack(mob/living/target, mob/living/user)
+
+/obj/item/melee/baseball_bat/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(deflectmode)
-		to_chat(user, "<span class='warning'>You cannot attack in deflect mode!</span>")
-		return
+		to_chat(user, span_warning("You cannot attack in deflect mode!"))
+		return ATTACK_CHAIN_PROCEED
 	. = ..()
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
+		return .
 	if(homerun_ready)
+		user.visible_message(span_userdanger("It's a home run!"))
 		var/atom/throw_target = get_edge_target_turf(target, user.dir)
-		user.visible_message("<span class='userdanger'>It's a home run!</span>")
-		target.throw_at(throw_target, rand(8,10), 14, user)
+		INVOKE_ASYNC(target, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, rand(8, 10), 14, user)
 		target.ex_act(2)
-		playsound(get_turf(src), 'sound/weapons/homerun.ogg', 100, 1)
+		playsound(loc, 'sound/weapons/homerun.ogg', 100, TRUE)
 		if(!homerun_always_charged)
-			homerun_ready = 0
-		return
+			homerun_ready = FALSE
+		return .
 	if(world.time < next_throw_time)
 		// Limit the rate of throwing, so you can't spam it.
-		return
+		return .
 	if(!istype(target))
 		// Should already be /mob/living, but check anyway.
-		return
+		return .
 	if(target.anchored)
 		// No throwing mobs that are anchored to the floor.
-		return
+		return .
 	if(target.mob_size > MOB_SIZE_HUMAN)
 		// No throwing things that are physically bigger than you are.
 		// Covers: blobbernaut, alien empress, ai core, juggernaut, ed209, mulebot, alien/queen/large, carp/megacarp, deathsquid, hostile/tree, megafauna, hostile/asteroid, terror_spider/queen/empress
-		return
+		return .
 	if(!(target.status_flags & CANPUSH))
 		// No throwing mobs specifically flagged as immune to being pushed.
 		// Covers: revenant, hostile/blob/*, most borgs, juggernauts, hivebot/tele, spaceworms, shades, bots, alien queens, hostile/syndicate/melee, hostile/asteroid
-		return
+		return .
 	if(target.move_resist > MOVE_RESIST_DEFAULT)
 		// No throwing mobs that have higher than normal move_resist.
 		// Covers: revenant, bot/mulebot, hostile/statue, hostile/megafauna, goliath
-		return
+		return .
 	var/atom/throw_target = get_edge_target_turf(target, user.dir)
 	if(!homerun_always_charged)
-		target.throw_at(throw_target, rand(1, 2), 7, user)
+		INVOKE_ASYNC(target, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, rand(1, 2), 7, user)
 	next_throw_time = world.time + 10 SECONDS
+
 
 /obj/item/melee/baseball_bat/ablative
 	name = "metal baseball bat"

@@ -1,19 +1,17 @@
 /obj/machinery/computer/library/public
 	name = "visitor computer"
 
-/obj/machinery/computer/library/public/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/library/public/attack_hand(mob/user)
 	if(..())
 		return
 	interact(user)
 
-/obj/machinery/computer/library/public/attackby(obj/item/W as obj, mob/user as mob)
-	if(default_unfasten_wrench(user, W))
-		add_fingerprint(user)
-		power_change()
-		return
-	return ..()
 
-/obj/machinery/computer/library/public/interact(var/mob/user)
+/obj/machinery/computer/library/public/wrench_act(mob/living/user, obj/item/I)
+	return default_unfasten_wrench(user, I)
+
+
+/obj/machinery/computer/library/public/interact(mob/user)
 	if(interact_check(user))
 		return
 

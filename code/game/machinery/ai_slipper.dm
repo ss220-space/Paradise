@@ -27,16 +27,20 @@
 	update_icon(UPDATE_ICON_STATE)
 
 
-/obj/machinery/ai_slipper/attackby(obj/item/W, mob/user, params)
-	add_fingerprint(user)
-	if(stat & (NOPOWER|BROKEN))
-		return
-	if(issilicon(user))
-		return attack_hand(user)
-	if(!allowed(user)) // trying to unlock the interface
-		to_chat(user, span_warning("Access denied."))
+/obj/machinery/ai_slipper/attackby(obj/item/I, mob/user, params)
+	if(stat & (NOPOWER|BROKEN) || user.a_intent == INTENT_HARM)
 		return ..()
 
+	if(issilicon(user))
+		attack_hand(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	add_fingerprint(user)
+	if(!allowed(user)) // trying to unlock the interface
+		to_chat(user, span_warning("Access denied."))
+		return ATTACK_CHAIN_PROCEED
+
+	. = ATTACK_CHAIN_BLOCKED_ALL
 	locked = !locked
 	to_chat(user, span_notice("You [locked ? "lock" : "unlock"] the device."))
 	if(locked)

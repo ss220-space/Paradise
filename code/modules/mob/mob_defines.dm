@@ -47,7 +47,7 @@
 	var/stat = CONSCIOUS //Whether a mob is alive or dead. TODO: Move this to living - Nodrak
 
 	/// The zone this mob is currently targeting
-	var/zone_selected = null
+	var/zone_selected = BODY_ZONE_CHEST
 
 	var/atom/movable/screen/hands = null
 	var/atom/movable/screen/pullin = null

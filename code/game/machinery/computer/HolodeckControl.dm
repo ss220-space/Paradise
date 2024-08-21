@@ -159,8 +159,10 @@
 	updateUsrDialog()
 	return
 
-/obj/machinery/computer/HolodeckControl/attackby(var/obj/item/D as obj, var/mob/user as mob, params)
-	return
+
+/obj/machinery/computer/HolodeckControl/attackby(obj/item/I, mob/user, params)
+	return ATTACK_CHAIN_BLOCKED
+
 
 /obj/machinery/computer/HolodeckControl/emag_act(mob/user)
 	if(!emagged)
@@ -340,9 +342,11 @@
 	if(!(icon_state in list("grass1", "grass2", "grass3", "grass4", "sand")))
 		icon_state = "grass[pick("1","2","3","4")]"
 
-/turf/simulated/floor/holofloor/attackby(obj/item/W as obj, mob/user as mob, params)
-	return
+
+/turf/simulated/floor/holofloor/attackby(obj/item/I, mob/user, params)
+	return ATTACK_CHAIN_BLOCKED
 	// HOLOFLOOR DOES NOT GIVE A FUCK
+
 
 /turf/simulated/floor/holofloor/space
 	name = "\proper space"
@@ -527,10 +531,10 @@
 	target.Weaken(10 SECONDS)
 
 
-/obj/structure/holohoop/attackby(obj/item/W, mob/user, params)
-	if(isitem(W) && get_dist(src,user)<2)
-		user.drop_from_active_hand(src)
-		visible_message(span_notice("[user] dunks [W] into the [src]!"))
+/obj/structure/holohoop/attackby(obj/item/I, mob/user, params)
+	if(user.drop_transfer_item_to_loc(I, src))
+		visible_message(span_notice("[user] dunks [I] into [src]!"))
+	return ATTACK_CHAIN_BLOCKED
 
 
 /obj/structure/holohoop/has_prints()
@@ -579,9 +583,12 @@
 	to_chat(user, "The station AI is not to interact with these devices.")
 	return
 
-/obj/machinery/readybutton/attackby(obj/item/W as obj, mob/user as mob, params)
+
+/obj/machinery/readybutton/attackby(obj/item/I, mob/user, params)
 	add_fingerprint(user)
 	to_chat(user, "The device is a solid button, there's nothing you can do with it!")
+	return ATTACK_CHAIN_BLOCKED
+
 
 /obj/machinery/readybutton/attack_hand(mob/user as mob)
 	if(user.stat || stat & (BROKEN))

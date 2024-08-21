@@ -7,7 +7,7 @@
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_SCRUBBER_OFFSET
 	layer_offset = GAS_SCRUBBER_OFFSET
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF //really helpful in building gas chambers for xenomorphs
-	can_unwrench = 1
+	can_unwrench = TRUE
 	frequency = ATMOS_TANKS_FREQ
 	on = FALSE
 	multitool_menu_type = /datum/multitool_menu/idtag/freq/outlet_injector
@@ -151,12 +151,6 @@
 			on = 0
 		return*/
 
-/obj/machinery/atmospherics/unary/outlet_injector/attackby(obj/item/W, mob/user)
-	if(W.tool_behaviour == TOOL_WRENCH)
-		if(!(stat & NOPOWER) && on)
-			to_chat(user, span_danger("You cannot unwrench this [src], turn if off first."))
-			return 1
-	return ..()
 
 /obj/machinery/atmospherics/unary/outlet_injector/multitool_act(mob/user, obj/item/I)
 	. = TRUE

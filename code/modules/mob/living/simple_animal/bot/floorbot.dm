@@ -61,7 +61,7 @@
 	target = null
 	oldloc = null
 	ignore_list.Cut()
-	nagged = 0
+	nagged = FALSE
 	set_anchored(FALSE)
 	update_icon()
 
@@ -100,22 +100,24 @@
 	return dat
 
 
-/mob/living/simple_animal/bot/floorbot/attackby(obj/item/W , mob/user, params)
-	if(istype(W, /obj/item/stack/tile/plasteel))
-		var/obj/item/stack/tile/plasteel/T = W
-		if(amount >= 50)
-			return
-		var/loaded = min(50-amount, T.amount)
-		T.use(loaded)
-		amount += loaded
-		if(loaded > 0)
-			to_chat(user, span_notice("You load [loaded] tiles into the floorbot. [p_they(TRUE)] now contains [amount] tiles."))
-			nagged = 0
-			update_icon()
-		else
+/mob/living/simple_animal/bot/floorbot/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/stack/tile/plasteel))
+		add_fingerprint(user)
+		var/obj/item/stack/tile/plasteel/plasteel = I
+		var/loaded = min(50 - amount, plasteel.get_amount())
+		if(!plasteel.use(loaded))
 			to_chat(user, span_warning("You need at least one floor tile to put into [src]!"))
-	else
-		..()
+			return ATTACK_CHAIN_PROCEED
+		amount += loaded
+		to_chat(user, span_notice("You have loaded [loaded] tile\s into the floorbot. [p_they(TRUE)] now contains [amount] tiles."))
+		nagged = FALSE
+		update_icon()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
 
 
 /mob/living/simple_animal/bot/floorbot/emag_act(mob/user)

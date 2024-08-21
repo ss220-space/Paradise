@@ -77,7 +77,7 @@
 	drawtype = temp
 	update_window(usr)
 
-/obj/item/toy/crayon/afterattack(atom/target, mob/user, proximity)
+/obj/item/toy/crayon/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity) return
 	if(busy) return
 	if(is_type_in_list(target,validSurfaces))
@@ -99,26 +99,34 @@
 					qdel(src)
 		busy = FALSE
 
-/obj/item/toy/crayon/attack(mob/M, mob/user)
-	var/huffable = istype(src,/obj/item/toy/crayon/spraycan)
-	if(M == user)
-		if(ishuman(user))
-			var/mob/living/carbon/human/H = user
-			if(!H.check_has_mouth())
-				to_chat(user, "<span class='warning'>You do not have a mouth!</span>")
-				return
-		playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
-		to_chat(user, "<span class='notice'>You take a [huffable ? "huff" : "bite"] of the [name]. Delicious!</span>")
-		if(!isvampire(user))
-			user.adjust_nutrition(5)
-		if(uses)
-			uses -= 5
-			if(uses <= 0)
-				to_chat(user, "<span class='warning'>There is no more of [huffable ? "paint in " : ""][name] left!</span>")
-				qdel(src)
 
-	else
-		..()
+/obj/item/toy/crayon/attack(mob/living/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
+
+	if(target != user)
+		return ..()
+
+	. = ATTACK_CHAIN_PROCEED
+
+	if(ishuman(user) && !user.check_has_mouth())
+		to_chat(user, span_warning("You do not have a mouth!"))
+		return .
+
+	var/huffable = istype(src, /obj/item/toy/crayon/spraycan)
+	playsound(loc, 'sound/items/eatfood.ogg', 50, FALSE)
+	to_chat(user, span_notice("YYou take a [huffable ? "huff" : "bite"] of the [name]. Delicious!"))
+	if(!isvampire(user))
+		user.adjust_nutrition(5)
+
+	if(!uses)
+		return .
+
+	. |= ATTACK_CHAIN_SUCCESS
+
+	uses -= 5
+	if(uses <= 0)
+		. = ATTACK_CHAIN_BLOCKED_ALL
+		to_chat(user, span_warning("There is no more of [huffable ? "paint in " : ""][name] left!"))
+		qdel(src)
 
 
 /obj/item/toy/crayon/red
@@ -298,7 +306,7 @@
 			colour = input(user,"Choose Color") as color
 			update_icon()
 
-/obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user as mob, proximity)
+/obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(capped)

@@ -48,10 +48,10 @@
 	return TRUE
 
 
-/obj/item/candle/attackby(obj/item/W, mob/user, params)
-	if(is_hot(W))
-		light("<span class='notice'>[user] lights [src] with [W].</span>")
-		return
+/obj/item/candle/attackby(obj/item/I, mob/user, params)
+	if(is_hot(I) && light(span_notice("[user] lights [src] with [I].")))
+		add_fingerprint(user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
 
@@ -68,13 +68,15 @@
 
 
 /obj/item/candle/proc/light(show_message)
-	if(!lit)
-		lit = 1
-		if(show_message)
-			usr.visible_message(show_message)
-		set_light_on(TRUE)
-		START_PROCESSING(SSobj, src)
-		update_icon(UPDATE_ICON_STATE)
+	if(lit)
+		return FALSE
+	lit = 1
+	if(show_message)
+		usr?.visible_message(show_message)
+	set_light_on(TRUE)
+	START_PROCESSING(SSobj, src)
+	update_icon(UPDATE_ICON_STATE)
+	return TRUE
 
 
 /obj/item/candle/proc/update_wax_index()

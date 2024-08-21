@@ -104,19 +104,26 @@
 	move_into_gibber(grabber, grabbed_thing)
 
 
-/obj/machinery/gibber/attackby(obj/item/P, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", P))
-		add_fingerprint(user)
-		return
 
-	if(exchange_parts(user, P))
-		return
+/obj/machinery/gibber/screwdriver_act(mob/living/user, obj/item/I)
+	return default_deconstruction_screwdriver(user, "grinder_open", "grinder", I)
 
-	if(default_unfasten_wrench(user, P))
-		return
 
-	if(default_deconstruction_crowbar(user, P))
-		return
+/obj/machinery/gibber/wrench_act(mob/living/user, obj/item/I)
+	return default_unfasten_wrench(user, I)
+
+
+/obj/machinery/gibber/crowbar_act(mob/living/user, obj/item/I)
+	return default_deconstruction_crowbar(user, I)
+
+
+/obj/machinery/gibber/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
 
 

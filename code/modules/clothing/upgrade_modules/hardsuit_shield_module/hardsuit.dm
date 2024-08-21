@@ -1,19 +1,3 @@
-
-/obj/item/clothing/suit/space/hardsuit/attackby(obj/item/I, mob/user, params)
-	. = ..()
-	if(!istype(I, /obj/item/hardsuit_shield))
-		return
-	var/obj/item/hardsuit_shield/new_shield = I
-	if(user.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER) == src)
-		to_chat(user, "<span class='warning'>You cannot install the upgrade to [src] while wearing it.</span>")
-		return
-	var/datum/component/shielded/shielded = GetComponent(/datum/component/shielded)
-	if(istype(shielded))
-		to_chat(user, "<span class='warning'>[src] already has a shield installed.</span>")
-		return
-	new_shield.attach_to_suit(src)
-	to_chat(user, "<span class='notice'>You successfully install the shield upgrade into [src].</span>")
-
 //////Syndicate Version
 
 /obj/item/clothing/suit/space/hardsuit/syndi/shielded
@@ -44,7 +28,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "electricity2"
 
-/obj/item/wizard_armour_charge/afterattack(obj/item/clothing/suit/space/hardsuit/wizard/W, mob/user)
+/obj/item/wizard_armour_charge/afterattack(obj/item/clothing/suit/space/hardsuit/wizard/W, mob/user, proximity, params)
 	. = ..()
 	if(!istype(W))
 		to_chat(user, "<span class='warning'>The rune can only be used on battlemage armour!</span>")

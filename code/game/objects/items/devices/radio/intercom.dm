@@ -1,3 +1,9 @@
+#define INTERCOM_BUILD_NO_CIRCUIT 0
+#define INTERCOM_BUILD_CIRCUIT 1
+#define INTERCOM_BUILD_WIRED 2
+#define INTERCOM_BUILD_SECURED 3
+
+
 /obj/item/radio/intercom
 	name = "station intercom (General)"
 	desc = "Talk through this."
@@ -8,7 +14,8 @@
 	flags = CONDUCT
 	blocks_emissive = FALSE
 	var/circuitry_installed = TRUE
-	var/buildstage = 0
+	/// Current buildstage of the object
+	var/buildstage = INTERCOM_BUILD_NO_CIRCUIT
 	dog_fashion = null
 
 
@@ -46,9 +53,10 @@
 	name = "station intercom (Security)"
 	frequency = SEC_I_FREQ
 
-/obj/item/radio/intercom/New(turf/loc, direction, building = 3)
+
+/obj/item/radio/intercom/Initialize(mapload, direction, buildstage = INTERCOM_BUILD_SECURED)
 	. = ..()
-	buildstage = building
+	src.buildstage = buildstage
 	if(buildstage)
 		update_operating_status()
 	else
@@ -60,16 +68,19 @@
 	GLOB.global_intercoms.Add(src)
 	update_icon()
 
-/obj/item/radio/intercom/department/medbay/New()
-	..()
+
+/obj/item/radio/intercom/department/medbay/Initialize(mapload, direction, buildstage = INTERCOM_BUILD_SECURED)
+	. = ..()
 	internal_channels = GLOB.default_medbay_channels.Copy()
 
-/obj/item/radio/intercom/department/security/New()
-	..()
+
+/obj/item/radio/intercom/department/security/Initialize(mapload, direction, buildstage = INTERCOM_BUILD_SECURED)
+	. = ..()
 	internal_channels = list(
 		num2text(PUB_FREQ) = list(),
 		num2text(SEC_I_FREQ) = list(ACCESS_SECURITY),
 	)
+
 
 /obj/item/radio/intercom/syndicate
 	name = "illicit intercom"
@@ -77,17 +88,20 @@
 	frequency = SYND_FREQ
 	syndiekey = new /obj/item/encryptionkey/syndicate/nukeops
 
-/obj/item/radio/intercom/syndicate/New()
-	..()
+
+/obj/item/radio/intercom/syndicate/Initialize(mapload, direction, buildstage = INTERCOM_BUILD_SECURED)
+	. = ..()
 	internal_channels[num2text(SYND_FREQ)] = list(ACCESS_SYNDICATE)
 	internal_channels[num2text(SYND_TAIPAN_FREQ)] = list(ACCESS_SYNDICATE)
+
 
 /obj/item/radio/intercom/pirate
 	name = "pirate radio intercom"
 	desc = "You wouldn't steal a space shuttle. Piracy. It's a crime!"
 
-/obj/item/radio/intercom/pirate/New()
-	..()
+
+/obj/item/radio/intercom/pirate/Initialize(mapload, direction, buildstage = INTERCOM_BUILD_SECURED)
+	. = ..()
 	internal_channels.Cut()
 	internal_channels = list(
 		num2text(PUB_FREQ) = list(),
@@ -130,85 +144,108 @@
 
 	return canhear_range
 
-/obj/item/radio/intercom/attackby(obj/item/W, mob/user)
-	if(istype(W, /obj/item/stack/tape_roll)) //eww
-		return
-	else if(iscoil(W) && buildstage == 1)
-		var/obj/item/stack/cable_coil/coil = W
-		if(coil.get_amount() >= 5)
-			to_chat(user, "<span class='notice'>You start to add cables to the frame...</span>")
-			if(do_after(user, 1 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) && buildstage == 1 && coil.use(5))
-				to_chat(user, "<span class='notice'>You wire \the [src]!</span>")
-				buildstage = 2
-			return 1
-		else
-			to_chat(user, "<span class='warning'>You need more cable for this!</span>")
-			return
-	else if(istype(W,/obj/item/intercom_electronics) && buildstage == 0)
-		playsound(get_turf(src), W.usesound, 50, 1)
-		if(do_after(user, 1 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL) && buildstage == 0)
-			qdel(W)
-			to_chat(user, "<span class='notice'>You insert \the [W] into \the [src]!</span>")
-			buildstage = 1
-		return 1
-	else
+
+/obj/item/radio/intercom/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/tape_roll)) //eww
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	switch(buildstage)
+		if(INTERCOM_BUILD_NO_CIRCUIT)
+			if(!istype(I, /obj/item/intercom_electronics))
+				return ..()
+			add_fingerprint(user)
+			playsound(loc, I.usesound, 50, TRUE)
+			to_chat(user, span_notice("You start to add a circuit board to the frame..."))
+			if(!do_after(user, 1 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || buildstage != INTERCOM_BUILD_NO_CIRCUIT)
+				return ATTACK_CHAIN_PROCEED
+			if(!user.drop_transfer_item_to_loc(I, src))
+				return ATTACK_CHAIN_PROCEED
+			to_chat(user, span_notice("You insert a circuit board into the frame."))
+			buildstage = INTERCOM_BUILD_CIRCUIT
+			qdel(I)
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+		if(INTERCOM_BUILD_CIRCUIT)
+			if(!iscoil(I))
+				return ..()
+			add_fingerprint(user)
+			var/obj/item/stack/cable_coil/coil = I
+			if(coil.get_amount() < 5)
+				to_chat(user, span_warning("You need five lengths of cable to wire the frame."))
+				return ATTACK_CHAIN_PROCEED
+			playsound(loc, coil.usesound, 50, TRUE)
+			to_chat(user, span_notice("You start to add cables to the frame..."))
+			if(!do_after(user, 2 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || buildstage != INTERCOM_BUILD_CIRCUIT || QDELETED(coil))
+				return ATTACK_CHAIN_PROCEED
+			if(!coil.use(5))
+				to_chat(user, span_warning("At some point during construction you lost some cable. Make sure you have five lengths before trying again."))
+				return ATTACK_CHAIN_PROCEED
+			to_chat(user, span_notice("You added cables to the frame."))
+			buildstage = INTERCOM_BUILD_WIRED
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/item/radio/intercom/crowbar_act(mob/user, obj/item/I)
-	if(buildstage != 1)
-		return
+	if(buildstage != INTERCOM_BUILD_CIRCUIT)
+		return FALSE
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
-	to_chat(user, "<span class='notice'>You begin removing the electronics...</span>")
-	if(!I.use_tool(src, user, 10, volume = I.tool_volume) || buildstage != 1)
-		return
-	new /obj/item/intercom_electronics(get_turf(src))
-	to_chat(user, "<span class='notice'>The circuit board pops out!</span>")
-	buildstage = 0
+	to_chat(user,  span_notice("You begin removing the electronics..."))
+	if(!I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume) || buildstage != INTERCOM_BUILD_CIRCUIT)
+		return .
+	new /obj/item/intercom_electronics(drop_location())
+	to_chat(user,  span_notice("The circuit board pops out!"))
+	buildstage = INTERCOM_BUILD_NO_CIRCUIT
+
 
 /obj/item/radio/intercom/screwdriver_act(mob/user, obj/item/I)
-	if(buildstage != 2)
+	if(buildstage != INTERCOM_BUILD_WIRED)
 		return ..()
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
-	if(!I.use_tool(src, user, 10, volume = I.tool_volume) || buildstage != 2)
+	if(!I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume) || buildstage != INTERCOM_BUILD_WIRED)
 		return
 	on = TRUE
 	b_stat = FALSE
-	buildstage = 3
-	to_chat(user, "<span class='notice'>You secure the electronics!</span>")
+	buildstage = INTERCOM_BUILD_SECURED
+	to_chat(user, span_notice("You secure the electronics!"))
 	update_icon()
 	update_operating_status()
-	for(var/i, i<= 5, i++)
-		wires.on_cut(i, 1)
+	for(var/i = 1 to 5)
+		wires.on_cut(i, TRUE)
+
 
 /obj/item/radio/intercom/wirecutter_act(mob/user, obj/item/I)
-	if(!(buildstage == 3 && b_stat && wires.is_all_cut()))
-		return
+	if(buildstage != INTERCOM_BUILD_WIRED || b_stat || wires.is_all_cut())
+		return ..()
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
 	WIRECUTTER_SNIP_MESSAGE
-	new /obj/item/stack/cable_coil(get_turf(src),5)
+	new /obj/item/stack/cable_coil(drop_location(), 5)
 	on = FALSE
 	b_stat = TRUE
-	buildstage = 1
+	buildstage = INTERCOM_BUILD_CIRCUIT
 	update_icon()
 	update_operating_status(FALSE)
 
+
 /obj/item/radio/intercom/welder_act(mob/user, obj/item/I)
-	if(buildstage != 0)
-		return
+	if(buildstage != INTERCOM_BUILD_NO_CIRCUIT)
+		return FALSE
 	. = TRUE
 	if(!I.tool_use_check(user, 3))
-		return
-	to_chat(user, "<span class='notice'>You start slicing [src] from the wall...</span>")
-	if(I.use_tool(src, user, 10, amount = 3, volume = I.tool_volume))
-		to_chat(user, "<span class='notice'>You cut [src] free from the wall!</span>")
-		new /obj/item/mounted/frame/intercom(get_turf(src))
-		qdel(src)
+		return .
+	to_chat(user, span_notice("You start slicing [src] from the wall..."))
+	if(!I.use_tool(src, user, 1 SECONDS, amount = 3, volume = I.tool_volume) || buildstage != INTERCOM_BUILD_NO_CIRCUIT)
+		return .
+	to_chat(user,  span_notice("You cut [src] free from the wall!"))
+	new /obj/item/mounted/frame/intercom(drop_location())
+	qdel(src)
+
 
 /obj/item/radio/intercom/update_icon_state()
 	if(!circuitry_installed)
@@ -219,7 +256,7 @@
 /obj/item/radio/intercom/update_overlays()
 	. = ..()
 	underlays.Cut()
-	if(on && buildstage == 3)
+	if(on && buildstage == INTERCOM_BUILD_SECURED)
 		underlays += emissive_appearance(icon, "intercom_lightmask", src)
 
 /obj/item/radio/intercom/proc/update_operating_status(on = TRUE)
@@ -273,6 +310,14 @@
 	name = "\improper prison intercom"
 	desc = "Talk through this. It looks like it has been modified to not broadcast."
 
-/obj/item/radio/intercom/locked/prison/New()
-	..()
+
+/obj/item/radio/intercom/locked/prison/Initialize(mapload, direction, buildstage = INTERCOM_BUILD_SECURED)
+	. = ..()
 	wires.cut(WIRE_RADIO_TRANSMIT)
+
+
+#undef INTERCOM_BUILD_NO_CIRCUIT
+#undef INTERCOM_BUILD_CIRCUIT
+#undef INTERCOM_BUILD_WIRED
+#undef INTERCOM_BUILD_SECURED
+

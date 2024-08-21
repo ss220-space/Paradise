@@ -166,8 +166,8 @@
 	fire_sound = 'sound/weapons/gunshots/1laser7.ogg'
 	var/temp = 300
 
-/obj/item/ammo_casing/energy/temp/New()
-	..()
+/obj/item/ammo_casing/energy/temp/Initialize(mapload)
+	. = ..()
 	BB = null
 
 /obj/item/ammo_casing/energy/temp/newshot()

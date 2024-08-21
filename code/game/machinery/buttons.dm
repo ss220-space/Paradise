@@ -78,12 +78,11 @@
 	qdel(src)
 
 
-/obj/machinery/driver_button/attackby(obj/item/W, mob/user as mob, params)
-
-	if(istype(W, /obj/item/detective_scanner))
-		return
-
+/obj/machinery/driver_button/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/detective_scanner))
+		return ATTACK_CHAIN_PROCEED
 	return ..()
+
 
 /obj/machinery/driver_button/attack_hand(mob/user as mob)
 

@@ -261,27 +261,36 @@
 	update_controls()
 
 
-/mob/living/simple_animal/bot/medbot/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/reagent_containers/glass))
-		. = TRUE //no afterattack
+/mob/living/simple_animal/bot/medbot/attackby(obj/item/I, mob/user, params)
+	var/current_health = health
+	if(user.a_intent == INTENT_HARM)
+		current_health = health
+		. = ..()
+		if(ATTACK_CHAIN_CANCEL_CHECK(.) || health >= current_health)
+			return .
+		step_to(src, (get_step_away(src, user)))	//if medbot took some damage
+		return .
+
+	if(istype(I, /obj/item/reagent_containers/glass))
+		add_fingerprint(user)
 		if(locked)
 			to_chat(user, span_warning("You cannot insert a beaker because the panel is locked!"))
-			return
-		if(!isnull(reagent_glass))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		if(reagent_glass)
 			to_chat(user, span_warning("There is already a beaker loaded!"))
-			return
-		if(!user.drop_transfer_item_to_loc(W, src))
-			return
-
-		reagent_glass = W
-		to_chat(user, span_notice("You insert [W]."))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..() | ATTACK_CHAIN_NO_AFTERATTACK
+		reagent_glass = I
+		to_chat(user, span_notice("You insert [I]."))
 		show_controls(user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
 
-	else
-		var/current_health = health
-		..()
-		if(health < current_health) //if medbot took some damage
-			step_to(src, (get_step_away(src,user)))
+	current_health = health
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || health >= current_health)
+		return .
+	step_to(src, (get_step_away(src, user)))	//if medbot took some damage
 
 
 /mob/living/simple_animal/bot/medbot/emag_act(mob/user)

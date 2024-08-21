@@ -107,7 +107,7 @@
 	SIGNAL_HANDLER  // COMSIG_ITEM_ATTACK
 	// This includes some do-afters, so we have to pass it off asynchronously
 	INVOKE_ASYNC(src, PROC_REF(defibrillate), user, target)
-	return TRUE
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /**
  * Perform a defibrillation.

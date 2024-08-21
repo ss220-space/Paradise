@@ -83,36 +83,54 @@ Note: Must be placed west/left of and R&D console to function.
 		A = A / max(1, (being_built.materials[M] * efficiency_coeff))
 	return A
 
-/obj/machinery/r_n_d/protolathe/attackby(obj/item/O, mob/user, params)
-	if(shocked)
-		add_fingerprint(user)
-		if(shock(user,50))
-			return TRUE
-	if(default_deconstruction_screwdriver(user, "[base_icon_state]_t", base_icon_state, O))
-		add_fingerprint(user)
-		if(linked_console)
-			linked_console.linked_lathe = null
-			linked_console = null
-		return
 
-	if(exchange_parts(user, O))
-		return
+/obj/machinery/r_n_d/protolathe/attackby(obj/item/I, mob/user, params)
+	if(shocked && shock(user, 50))
+		add_fingerprint(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(panel_open)
-		if(O.tool_behaviour == TOOL_CROWBAR)
-			for(var/obj/I in component_parts)
-				if(istype(I, /obj/item/reagent_containers/glass/beaker))
-					reagents.trans_to(I, reagents.total_volume)
-				I.loc = src.loc
-			for(var/obj/item/reagent_containers/glass/G in component_parts)
-				reagents.trans_to(G, G.reagents.maximum_volume)
-			materials.retrieve_all()
-			default_deconstruction_crowbar(user, O)
-			return 1
-		else
-			to_chat(user, "<span class='warning'>You can't load the [src.name] while it's opened.</span>")
-			return 1
-	if(O.is_open_container())
-		return FALSE
-	else
+	var/is_open_container = I.is_open_container()
+	if(user.a_intent == INTENT_HARM)
+		if(is_open_container)
+			return ..() | ATTACK_CHAIN_NO_AFTERATTACK
 		return ..()
+
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(is_open_container)
+		if(panel_open)
+			to_chat(user, span_warning("Close the maintenance panel first."))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		return ATTACK_CHAIN_PROCEED	// afterattack will handle this
+
+	return ..()
+
+
+/obj/machinery/r_n_d/protolathe/screwdriver_act(mob/living/user, obj/item/I)
+	if(shocked && shock(user, 50))
+		add_fingerprint(user)
+		return TRUE
+	. = default_deconstruction_screwdriver(user, "[base_icon_state]_t", base_icon_state, I)
+	if(. && linked_console)
+		linked_console.linked_lathe = null
+		linked_console = null
+
+
+/obj/machinery/r_n_d/protolathe/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(shocked && shock(user, 50))
+		add_fingerprint(user)
+		return .
+	if(!panel_open)
+		add_fingerprint(user)
+		to_chat(user, span_warning("Open the maintenance panel first."))
+		return .
+	var/atom/drop_loc = drop_location()
+	for(var/obj/component as anything in component_parts)
+		if(istype(component, /obj/item/reagent_containers/glass/beaker))
+			reagents.trans_to(component, reagents.total_volume)
+		component.forceMove(drop_loc)
+	materials.retrieve_all()
+	default_deconstruction_crowbar(user, I)
+
