@@ -52,24 +52,24 @@
 	for(var/datum/datum in operable_datums)
 		datum.user = user
 		datum.host = user.host
-	if(datum.flags & FLAG_HOST_REQUIRED)
-		RegisterSignal(datum.user, COMSIG_BORER_ENTERED_HOST, PROC_REF(entered_host))
-		RegisterSignal(datum.user, COMSIG_BORER_LEFT_HOST, PROC_REF(left_host)) 
-	if((datum.flags & FLAG_HAS_MOVABLE_EFFECT) && (datum.host))
-		datum.previous_host = host
-		pre_grant_movable_effect()
-	if(datum.flags & FLAG_PROCESS)
-		if(tick_interval != -1)
-			tick_interval = world.time + tick_interval
-		if(!(tick_interval > world.time))
-			return FALSE
-		if(!(datum.processing_flags & SHOULD_PROCESS_AFTER_DEATH))
-			RegisterSignal(datum.user, COMSIG_MOB_DEATH, PROC_REF(on_mob_death)) 
-			RegisterSignal(datum.user, COMSIG_LIVING_REVIVE, PROC_REF(on_mob_revive))
-			if(datum.user.stat != DEAD)
-				START_PROCESSING(SSprocessing, src)
-			return TRUE
-		START_PROCESSING(SSprocessing, src)
+		if(datum.flags & FLAG_HOST_REQUIRED)
+			RegisterSignal(datum.user, COMSIG_BORER_ENTERED_HOST, PROC_REF(entered_host))
+			RegisterSignal(datum.user, COMSIG_BORER_LEFT_HOST, PROC_REF(left_host)) 
+		if((datum.flags & FLAG_HAS_MOVABLE_EFFECT) && (datum.host))
+			datum.previous_host = host
+			pre_grant_movable_effect()
+		if(datum.flags & FLAG_PROCESS)
+			if(tick_interval != -1)
+				tick_interval = world.time + tick_interval
+			if(!(tick_interval > world.time))
+				return FALSE
+			if(!(datum.processing_flags & SHOULD_PROCESS_AFTER_DEATH))
+				RegisterSignal(datum.user, COMSIG_MOB_DEATH, PROC_REF(on_mob_death)) 
+				RegisterSignal(datum.user, COMSIG_LIVING_REVIVE, PROC_REF(on_mob_revive))
+				if(datum.user.stat != DEAD)
+					START_PROCESSING(SSprocessing, src)
+				return TRUE
+			START_PROCESSING(SSprocessing, src)
 	return TRUE
 
 /datum/antagonist/borer/proc/entered_host()
