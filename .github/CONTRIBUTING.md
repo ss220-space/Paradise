@@ -453,22 +453,23 @@ SS13 has a lot of legacy code that's never been updated. Here are some examples 
   - Bad:
   ```
   for(var/mob/M in viewers(src))
-          M.show_message("<span class='warning'>Arbitrary text</span>")
+          M.show_message(span_warning("Arbitrary text"))
   ```
   - Good:
   ```
-  visible_message("<span class='warning'>Arbitrary text</span>")
+  visible_message(span_warning("Arbitrary text"))
   ```
 - You should not use color macros (`\red, \blue, \green, \black`) to color text,
-  instead, you should use span classes. `<span class='warning'>red text</span>`,
-  `<span class='notice'>blue text</span>`.
+  instead, you should use span macros. span_warning(`red text`),
+  span_notice(`blue text`).
   - Bad:
   ```
   to_chat("\red Red Text \black black text")
+  to_chat("<span class='warning'>red text</span>")
   ```
   - Good:
   ```
-  to_chat("<span class='warning'>Red Text</span>black text")
+  to_chat("[span_warning("Red Text")]black text")
   ```
 - To use variables in strings, you should **never** use the `text()` operator, use
   embedded expressions directly in the string.
@@ -685,34 +686,36 @@ There are a few other defines that do other things. `GLOBAL_REAL` shouldn't be u
 `GLOBAL_VAR_INIT` allows you to set an initial value on the var, like `GLOBAL_VAR_INIT(number_one, 1)`.
 `GLOBAL_LIST_INIT` allows you to define a list global var with an initial value. Etc.
 
-## Maintainers
+## Maintainers and Review Team
 
-The only current official role for GitHub staff are the `Maintainers`. They share equal power. The `Maintainers` are
-responsible for properly tagging new pull requests and issues, moderating comments in
-pull requests/issues, and merging/closing pull requests.
+There are two official roles for GitHub: `Maintainer` and `Review Team`. First ones have ability to merge and close
+pull requests by themselfs. The Review Team has ability to approve pull requests. After two approves PR will be sent
+to the Merge Queue.
 
-### Maintainer List
+### Maintainers List
 
-- [Fox P McCloud](https://github.com/Fox-McCloud)
-- [Crazy Lemon](https://github.com/Crazylemon64)
-- [Ansari](https://github.com/variableundefined)
-- [AffectedArc07](https://github.com/AffectedArc07)
+- [Aziz Chynaliev](https://github.com/Bizzonium)
+- [Dimach](https://github.com/Dimach)
 
-### Maintainer instructions
+### Review Team List
 
-- Do not `self-merge`; this refers to the practice of opening a pull request, then
-  merging it yourself. A different maintainer must review and merge your pull request, no
-  matter how trivial. This is to ensure quality.
-  - A subset of this instruction: Do not push directly to the repository, always make a
-    pull request.
+- [Vladisvell](https://github.com/Vladisvell)
+- [Zwei](https://github.com/Gottfrei)
+- [BeebBeebBoob](https://github.com/BeebBeebBoob)
+- [Daeberdir](https://github.com/Daeberdir)
+- [Rerik007](https://github.com/Rerik007)
+- [ROdenFL](https://github.com/ROdenFL)
+- [NightDawnFox](https://github.com/NightDawnFox)
+
+### Map Review Team
+
+- [SAAD](https://github.com/SAADf603)
+- [SQUEEK](https://github.com/aeternaclose)
+
+### Review Team instructions
+
+- Do not `self-approve`; this refers to the practice of opening a pull request, then
+  approve it yourself.
 - Wait for the CI build to complete. If it fails, the pull request may only be
   merged if there is a very good reason (example: fixing the CI configuration).
-- Pull requests labeled as bugfixes and refactors may be merged as soon as they are
-  reviewed.
-- The shortest waiting period for -any- feature or balancing altering pull request is 24
-  hours, to allow other coders and the community time to discuss the proposed changes.
-- If the discussion is active, or the change is controversial, the pull request is to be
-  put on hold until a consensus is reached.
-- To keep commit history easy to navigate for future contributors (e.g. Git Blame), squash merge
-  is to be preferred to normal merge where suitable. Ensure that the squashed commit name is easy
-  to understand and read. Modify it if needed.
+- PRs with MAP label must have at least one Map Review Team approve before sending to Merge Queue
