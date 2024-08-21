@@ -233,7 +233,7 @@
 /obj/effect/spawner/lootdrop/randomsafe
 	name = "Secret or data documents safe spawner"
 	icon_state = "floorsafe-open"
-	lootdoubles = 0
+	lootdoubles = FALSE
 	loot = list(
 				/obj/structure/safe/floor/random_documents,
 				/obj/structure/safe/floor/random_researchnotes_MatBioProg
