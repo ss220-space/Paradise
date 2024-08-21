@@ -210,6 +210,8 @@
   Kray1k:
   - bugfix: some random spawn init fixes (#5746)
   - bugfix: reagents duplication on soda dispencer upgrade (#5756)
+  NightDawnFox:
+  - tweak: new spawn button location in game panel (#5760)
   ROdenFL:
   - bugfix: ochki serdechki (#5757)
   SHODAN:
@@ -218,3 +220,4 @@
   - bugfix: LSR-39 pierces two objects (#5752)
   Zwei:
   - refactor: Attack Chain Rework (#5672)
+  - bugfix: Attack Chain Fixes (#5761)
