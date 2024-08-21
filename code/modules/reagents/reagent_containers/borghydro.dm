@@ -123,24 +123,30 @@
 	return FALSE
 
 
-/obj/item/reagent_containers/borghypo/attack(mob/living/carbon/human/M, mob/user)
-	var/datum/reagents/R = reagent_list[mode]
-	if(!R.total_volume)
-		to_chat(user, span_warning("The injector is empty."))
-		return
-	if(!istype(M))
-		return
-	if(R.total_volume && M.can_inject(user, TRUE, user.zone_selected, bypass_protection, bypass_protection))
-		to_chat(user, span_notice("You inject [M] with the injector."))
-		to_chat(M, span_notice("You feel a tiny prick!"))
+/obj/item/reagent_containers/borghypo/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
 
-		R.add_reagent(M)
-		if(M.reagents)
-			var/datum/reagent/injected = GLOB.chemical_reagents_list[reagent_ids[mode]]
-			var/contained = injected.name
-			var/trans = R.trans_to(M, amount_per_transfer_from_this)
-			add_attack_logs(user, M, "Injected with [name] containing [contained], transfered [trans] units", injected.harmless ? ATKLOG_ALMOSTALL : null)
-			to_chat(user, span_notice("[trans] units injected. [R.total_volume] units remaining."))
+	if(!ishuman(target) || !target.reagents)
+		return .
+
+	var/datum/reagents/our_reagents = reagent_list[mode]
+	if(!our_reagents.total_volume)
+		to_chat(user, span_warning("The injector is empty."))
+		return .
+
+	if(!target.can_inject(user, TRUE, user.zone_selected, bypass_protection, bypass_protection))
+		return .
+
+	. |= ATTACK_CHAIN_SUCCESS
+
+	to_chat(user, span_notice("You inject [target] with the injector."))
+	to_chat(target, span_notice("You feel a tiny prick!"))
+	our_reagents.add_reagent(target)
+	var/datum/reagent/injected = GLOB.chemical_reagents_list[reagent_ids[mode]]
+	var/contained = injected.name
+	var/trans = our_reagents.trans_to(target, amount_per_transfer_from_this)
+	add_attack_logs(user, target, "Injected with [name] containing [contained], transfered [trans] units", injected.harmless ? ATKLOG_ALMOSTALL : null)
+	to_chat(user, span_notice("[trans] units injected. [our_reagents.total_volume] units remaining."))
 
 
 /obj/item/reagent_containers/borghypo/attack_self(mob/user)

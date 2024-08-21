@@ -166,17 +166,19 @@
 	list_reagents = list("nutriment" = 5)
 
 
-/obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
-	if(M == user && ishuman(user))
-		var/mob/living/carbon/human/H = user
-		var/obj/item/reagent_containers/food/snacks/S = prepare_eat()
-		if(S)
-			H.drop_from_active_hand()
-			H.put_in_active_hand(S)
-			S.attack(H, H)
-			qdel(src)
-	else
-		..()
+/obj/item/organ/internal/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(target != user || !ishuman(target) || !user.can_unEquip(src))
+		return ..()
+
+	var/obj/item/reagent_containers/food/snacks/snack = prepare_eat()
+	if(!snack)
+		return ATTACK_CHAIN_PROCEED
+
+	user.temporarily_remove_item_from_inventory(src)
+	target.put_in_active_hand(snack, silent = TRUE)
+	snack.attack(target, target, params)
+	qdel(src)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 
 /****************************************************

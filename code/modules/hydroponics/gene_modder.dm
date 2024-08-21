@@ -96,64 +96,85 @@
 	if(panel_open)
 		. += "dnamod-open"
 
+
 /obj/machinery/plantgenes/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "dnamod", "dnamod", I))
-		add_fingerprint(user)
-		update_icon(UPDATE_OVERLAYS)
-		return
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(exchange_parts(user, I))
-		return
-	if(default_deconstruction_crowbar(user, I))
-		return
-	if(isrobot(user))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(I, /obj/item/seeds))
-		add_seed(I, user)
-	else if(istype(I, /obj/item/disk/plantgene))
-		add_disk(I, user)
+		if(add_seed(I, user))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		return ATTACK_CHAIN_PROCEED
+
+	if(istype(I, /obj/item/disk/plantgene))
+		if(add_disk(I, user))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		return ATTACK_CHAIN_PROCEED
 
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		var/cleaning = FALSE
 		if(istype(I, /obj/item/reagent_containers/spray/cleaner))
-			var/obj/item/reagent_containers/spray/cleaner/C = I
-			if(C.reagents.total_volume >= C.amount_per_transfer_from_this)
+			var/obj/item/reagent_containers/spray/cleaner/cleaner = I
+			if(cleaner.reagents.total_volume >= cleaner.amount_per_transfer_from_this)
 				cleaning = TRUE
-			else
-				return
-		if(istype(I, /obj/item/soap))
+		else if(istype(I, /obj/item/soap))
 			cleaning = TRUE
-
 		if(!cleaning)
-			return
-		user.visible_message(span_notice("[user] starts to clean the ooze off the [src]."), span_notice("You start to clean the ooze off the [src]."))
-		if(do_after(user, 5 SECONDS, src))
-			user.visible_message(span_notice("[user] cleans the ooze off [src]."), span_notice("You clean the ooze off [src]."))
-			REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] starts to clean the ooze off the [src]."),
+			span_notice("You start to clean the ooze off the [src]."),
+		)
+		if(!do_after(user, 5 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || !HAS_TRAIT(src, TRAIT_CMAGGED))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] cleans the ooze off [src]."),
+			span_notice("You clean the ooze off [src]."),
+		)
+		REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	else
-		return ..()
+	return ..()
+
+
+/obj/machinery/plantgenes/screwdriver_act(mob/living/user, obj/item/I)
+	. = default_deconstruction_screwdriver(user, "dnamod", "dnamod", I)
+	if(.)
+		update_icon(UPDATE_OVERLAYS)
+
+
+/obj/machinery/plantgenes/crowbar_act(mob/living/user, obj/item/I)
+	return default_deconstruction_crowbar(user, I)
+
 
 /obj/machinery/plantgenes/proc/add_seed(obj/item/seeds/new_seed, mob/user)
+	add_fingerprint(user)
 	if(seed)
-		to_chat(user, "<span class='warning'>A sample is already loaded into the machine!</span>")
-		return
+		to_chat(user, span_warning("A sample is already loaded into the machine!"))
+		return FALSE
 	if(!user.drop_item_ground(new_seed))
-		return
+		return FALSE
+	. = TRUE
 	insert_seed(new_seed)
-	to_chat(user, "<span class='notice'>You add [new_seed] to the machine.</span>")
+	to_chat(user, span_notice("You add [new_seed] to the machine."))
 	ui_interact(user)
 
+
 /obj/machinery/plantgenes/proc/add_disk(obj/item/disk/plantgene/new_disk, mob/user)
+	add_fingerprint(user)
 	if(disk)
-		to_chat(user, "<span class='warning'>A data disk is already loaded into the machine!</span>")
-		return
-	if(!user.drop_item_ground(new_disk))
-		return
+		to_chat(user, span_warning("A data disk is already loaded into the machine!"))
+		return FALSE
+	if(!user.drop_transfer_item_to_loc(new_disk, src))
+		return FALSE
+	. = TRUE
 	disk = new_disk
-	disk.forceMove(src)
-	to_chat(user, "<span class='notice'>You add [new_disk] to the machine.</span>")
+	to_chat(user, span_notice("You add [new_disk] to the machine."))
 	ui_interact(user)
+
 
 /obj/machinery/plantgenes/attack_hand(mob/user)
 	if(..())

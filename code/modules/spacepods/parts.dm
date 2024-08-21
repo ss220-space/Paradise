@@ -55,30 +55,43 @@
 			return 0
 	return connectedparts
 
-/obj/item/pod_parts/pod_frame/attackby(obj/item/O, mob/user)
-	if(istype(O, /obj/item/stack/rods))
-		var/obj/item/stack/rods/R = O
+
+/obj/item/pod_parts/pod_frame/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/rods))
+		add_fingerprint(user)
+		var/obj/item/stack/rods/rods = I
 		var/list/linkedparts = find_square()
 		if(!linkedparts)
-			to_chat(user, "<span class='rose'>You cannot assemble a pod frame because you do not have the necessary assembly.</span>")
-			return
-		if(!R.use(10))
-			to_chat(user, "<span class='warning'>Вам не хватает арматуры! Нужно минимум десять!</span>")
-			return
-		var/obj/structure/spacepod_frame/pod = new /obj/structure/spacepod_frame(src.loc)
-		pod.dir = src.dir
-		to_chat(user, "<span class='notice'>You strut the pod frame together.</span>")
-		for(var/obj/item/pod_parts/pod_frame/F in linkedparts)
-			if(1 == turn(F.dir, -F.link_angle)) //if the part links north during construction, as the bottom left part always does
+			to_chat(user, span_warning("You cannot assemble a pod frame because you do not have the necessary assembly."))
+			return ATTACK_CHAIN_PROCEED
+		var/cached_sound = rods.usesound
+		if(!rods.use(10))
+			to_chat(user, span_warning("You need at least ten rods to strut the frame."))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/structure/spacepod_frame/new_pod = new(loc)
+		new_pod.setDir(dir)
+		transfer_fingerprints_to(new_pod)
+		new_pod.add_fingerprint(user)
+		to_chat(user, span_notice("You have strutted the pod frame together."))
+		for(var/obj/item/pod_parts/pod_frame/frame in linkedparts)
+			//if the part links north during construction, as the bottom left part always does
+			if(turn(frame.dir, -frame.link_angle) == NORTH)
 				//log_admin("Repositioning")
-				pod.loc = F.loc
-			qdel(F)
-		playsound(get_turf(src), O.usesound, 50, 1)
-	if(O.tool_behaviour == TOOL_WRENCH)
-		to_chat(user, "<span class='notice'>You [!anchored ? "secure \the [src] in place."  : "remove the securing bolts."]</span>")
-		set_anchored(!anchored)
-		set_density(anchored)
-		playsound(get_turf(src), O.usesound, 50, 1)
+				new_pod.forceMove(frame.loc)
+			qdel(frame)
+		playsound(new_pod.loc, cached_sound, 50, TRUE)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
+
+/obj/item/pod_parts/pod_frame/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	set_anchored(!anchored)
+	set_density(anchored)
+	to_chat(user, span_notice("You have [anchored ? "secured [src] in place" : "removed the securing bolts"]."))
 
 
 /obj/item/pod_parts/pod_frame/examine(mob/user)

@@ -162,35 +162,48 @@
 	sharp = 1
 	can_charge = FALSE
 
+
 /obj/item/gun/energy/plasmacutter/examine(mob/user)
 	. = ..()
 	if(cell)
 		. += "<span class='notice'>[src] is [round(cell.percent())]% charged.</span>"
 
-/obj/item/gun/energy/plasmacutter/attackby(obj/item/A, mob/user)
-	if(istype(A, /obj/item/stack/sheet/mineral/plasma))
+
+/obj/item/gun/energy/plasmacutter/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/sheet/mineral/plasma))
+		add_fingerprint(user)
+		var/obj/item/stack/sheet/mineral/plasma/plasma = I
 		if(cell.charge >= cell.maxcharge)
-			balloon_alert(user, "уже заряжено!")
-			return
-		var/obj/item/stack/sheet/S = A
-		S.use(1)
+			balloon_alert(user, "заряд на максимуме!")
+			return ATTACK_CHAIN_PROCEED
+		if(!plasma.use(1))
+			balloon_alert(user, "недостаточно плазмы!")
+			return ATTACK_CHAIN_PROCEED
+		balloon_alert(user, "заряд увеличен")
 		cell.give(1000)
 		on_recharge()
-		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
-	else if(istype(A, /obj/item/stack/ore/plasma))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/stack/ore/plasma))
+		add_fingerprint(user)
+		var/obj/item/stack/ore/plasma/plasma = I
 		if(cell.charge >= cell.maxcharge)
-			balloon_alert(user, "уже заряжено!")
-			return
-		var/obj/item/stack/ore/S = A
-		S.use(1)
+			balloon_alert(user, "заряд на максимуме!")
+			return ATTACK_CHAIN_PROCEED
+		if(!plasma.use(1))
+			balloon_alert(user, "недостаточно плазмы!")
+			return ATTACK_CHAIN_PROCEED
+		balloon_alert(user, "заряд увеличен")
 		cell.give(500)
 		on_recharge()
-		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
-	else
-		return ..()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/item/gun/energy/plasmacutter/update_overlays()
 	return list()
+
 
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
@@ -355,6 +368,25 @@
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	shaded_charge = TRUE
 
+/obj/item/gun/energy/sniperrifle/pod_pilot
+	name = "LSR-39 Queen blade"
+	desc = "Прототип компактной лазерной снайперской винтовки с парализующим и летальным режимом стрельбы, оснащена большим оптическим прицелом для эффективной работы в открытом космосе."
+	icon_state = "LSR-39"
+	ammo_type = list(
+		/obj/item/ammo_casing/energy/podsniper/disabler,
+		/obj/item/ammo_casing/energy/podsniper/laser
+	)
+	item_state = null
+	weapon_weight = WEAPON_HEAVY
+	slot_flags = ITEM_SLOT_BACK
+	w_class = WEIGHT_CLASS_BULKY
+	charge_sections = 3
+	can_holster = FALSE
+	zoomable = TRUE
+	zoom_amt = 7
+	shaded_charge = TRUE
+	modifystate = TRUE
+
 /obj/item/gun/energy/bsg
 	name = "\improper Б.С.П"
 	desc = "Большая С*** Пушка. Использует ядро аномалии потока и кристалл блюспейса для производства разрушительных взрывов энергии, вдохновленный дивизионом БСА Нанотрейзен."
@@ -383,30 +415,37 @@
 	else
 		. += "<span class='warning'>Не хватает ядра аномалии потока и БС кристалла для работы.</span>"
 
-/obj/item/gun/energy/bsg/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/stack/ore/bluespace_crystal))
+
+/obj/item/gun/energy/bsg/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/ore/bluespace_crystal))
+		add_fingerprint(user)
+		var/obj/item/stack/ore/bluespace_crystal/crystal = I
 		if(has_bluespace_crystal)
 			balloon_alert(user, "уже установлено!")
-			return
-		var/obj/item/stack/S = O
-		if(!loc || !S || S.get_amount() < 1)
-			return
+			return ATTACK_CHAIN_PROCEED
+		if(!crystal.use(1))
+			balloon_alert(user, "недостаточно кристаллов!")
+			return ATTACK_CHAIN_PROCEED
 		balloon_alert(user, "установлено")
-		S.use(1)
 		has_bluespace_crystal = TRUE
 		update_icon(UPDATE_ICON_STATE)
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(istype(O, /obj/item/assembly/signaler/anomaly/flux))
+	if(istype(I, /obj/item/assembly/signaler/anomaly/flux))
+		add_fingerprint(user)
 		if(has_core)
 			balloon_alert(user, "уже установлено!")
-			return
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
 		balloon_alert(user, "установлено")
 		has_core = TRUE
-		qdel(O)
+		qdel(I)
 		update_icon(UPDATE_ICON_STATE)
-	else
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/gun/energy/bsg/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	if(!has_bluespace_crystal)

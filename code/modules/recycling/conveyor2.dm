@@ -131,23 +131,26 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	update()
 
 
-/obj/machinery/conveyor/attackby(obj/item/I, mob/user)
-	if(stat & BROKEN)
+/obj/machinery/conveyor/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM || (stat & BROKEN))
 		return ..()
-	else if(istype(I, /obj/item/conveyor_switch_construct))
+
+	if(istype(I, /obj/item/conveyor_switch_construct))
+		add_fingerprint(user)
 		var/obj/item/conveyor_switch_construct/switch_construct = I
 		if(switch_construct.id == id)
 			return ..()
-		add_fingerprint(user)
 		LAZYREMOVE(GLOB.conveyors_by_id[id], src)
 		id = switch_construct.id
 		LAZYADD(GLOB.conveyors_by_id[id], src)
 		to_chat(user, span_notice("You link [switch_construct] with [src]."))
-	else if(user.a_intent != INTENT_HARM)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(user.drop_transfer_item_to_loc(I, loc))
 		add_fingerprint(user)
-		user.drop_transfer_item_to_loc(I, loc)
-	else
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/machinery/conveyor/crowbar_act(mob/user, obj/item/I)
@@ -393,6 +396,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	icon_state = "switch-off"
 	base_icon_state = "switch"
 	processing_flags = START_PROCESSING_MANUALLY
+	anchored = TRUE
 	/// The current state of the switch.
 	var/position = CONVEYOR_OFF
 	/// If the switch only operates the conveyor belts in a single direction.
@@ -635,15 +639,18 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 
 /obj/item/conveyor_construct/attackby(obj/item/I, mob/user, params)
-	..()
-	if(!istype(I, /obj/item/conveyor_switch_construct))
-		return
-	var/obj/item/conveyor_switch_construct/switch_construct = I
-	to_chat(user, span_notice("You link [src] to [switch_construct]."))
-	id = switch_construct.id
+	if(istype(I, /obj/item/conveyor_switch_construct))
+		add_fingerprint(user)
+		var/obj/item/conveyor_switch_construct/switch_construct = I
+		to_chat(user, span_notice("You link [src] to [switch_construct]."))
+		id = switch_construct.id
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
 
 
-/obj/item/conveyor_construct/afterattack(turf/interacting_with, mob/user, proximity)
+
+/obj/item/conveyor_construct/afterattack(turf/interacting_with, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(user.incapacitated())
@@ -685,7 +692,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	. += span_info("<b>Use</b> the assembly on the ground to finalize it.")
 
 
-/obj/item/conveyor_switch_construct/afterattack(turf/interacting_with, mob/user, proximity)
+/obj/item/conveyor_switch_construct/afterattack(turf/interacting_with, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(user.incapacitated())
@@ -706,11 +713,14 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 
 /obj/item/conveyor_switch_construct/attackby(obj/item/I, mob/user, params)
-	if(!istype(I, /obj/item/conveyor_switch_construct))
-		return ..()
-	var/obj/item/conveyor_switch_construct/switch_construct = I
-	id = switch_construct.id
-	to_chat(user, span_notice("You link the two switch constructs."))
+	if(istype(I, /obj/item/conveyor_switch_construct))
+		add_fingerprint(user)
+		var/obj/item/conveyor_switch_construct/switch_construct = I
+		to_chat(user, span_notice("You link the two switch constructs."))
+		id = switch_construct.id
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
 
 
 /obj/item/paper/conveyor

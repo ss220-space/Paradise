@@ -721,20 +721,22 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/borg/ert/specops
 	keyslot = new /obj/item/encryptionkey/centcom
 
-/obj/item/radio/borg/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/encryptionkey/))
+
+/obj/item/radio/borg/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/encryptionkey))
+		add_fingerprint(user)
 		user.set_machine(src)
 		if(keyslot)
-			to_chat(user, "The radio can't hold another key!")
-			return
-
-		if(!keyslot)
-			user.drop_transfer_item_to_loc(W, src)
-			keyslot = W
-
+			to_chat(user, span_warning("The radio can't hold another key!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return .()
+		keyslot = I
 		recalculateChannels()
-	else
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/radio/borg/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

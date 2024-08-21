@@ -156,9 +156,71 @@
   Vladisvell:
   - bugfix: fixes broken assets for safe and stamps (#5725)
   - bugfix: Fixes templar shields invisible states (#5716)
+  - bugfix: Fixes a lot of bad Initialize calls (#5726)
   endipe:
   - add: science HUD implant (#5653)
   - add: modified medical gloves (#5693)
   pilygun:
   - add: smokebomb in Sec-vend (#5713)
   - tweak: Delete spy_kit (#5714)
+'2024-08-18':
+  FlitchTime:
+  - bugfix: Icon states for items (#5732)
+  - qol: Change Mixer Category (#5734)
+  - bugfix: lattice layer fix (#5737)
+  NightDawnFox:
+  - bugfix: little bug with robo modules (#5736)
+  Vladisvell:
+  - bugfix: lava layer fix, catwalks on lava are now visible (#5739)
+  endipe:
+  - bugfix: correct removal of gloves (#5735)
+'2024-08-20':
+  Anorak2020:
+  - add: Laser eyes injector (#5717)
+  - add: Techs for genetics block injectors (#5704)
+  - add: '"Far vision" gene (#5700)'
+  - add: Telekenesis attack_self_tk = attack_self (#5685)
+  Aziz Chynaliev:
+  - server: tweak default deployment targets
+  Dreamer3-3:
+  - balance: mantis blades buff (#5710)
+  Etrnlmelancholy:
+  - balance: 2.5 bruteburn regen (#5743)
+  FanTik-Ratge:
+  - imageadd: Initialization of the merge conflict (#5751)
+  Kray1k:
+  - bugfix: crematorium content check fix (#5748)
+  Mahimka42:
+  - tweak: LR-30 buff (#5738)
+  ROdenFL:
+  - bugfix: nanomap bordered and not, air alarm state, patch safe reagents (#5745)
+  SHODAN:
+  - add: solid smoke (#5747)
+  Sheya:
+  - add: cyborg update (#5656)
+  - add: new weapon for pod pilot (#5661)
+  - add: syndicate rapier in uplink (#5681)
+  endipe:
+  - add: new inhand dmi for foods (#5689)
+  mrWhiteFox365:
+  - tweak: add waistcoat to loadout and law's clothesmate (#5742)
+  pilygun:
+  - qol: Pai soft update (#5712)
+'2024-08-21':
+  Den109G:
+  - bugfix: Now AI and his minions doesn't drop blueprints upon deleting (#5763)
+  Kray1k:
+  - bugfix: some random spawn init fixes (#5746)
+  - bugfix: reagents duplication on soda dispencer upgrade (#5756)
+  NightDawnFox:
+  - tweak: new spawn button location in game panel (#5760)
+  ROdenFL:
+  - bugfix: ochki serdechki (#5757)
+  - add: minesweeper (#5205)
+  SHODAN:
+  - bugfix: solid smoke runtime (#5755)
+  Sheya:
+  - bugfix: LSR-39 pierces two objects (#5752)
+  Zwei:
+  - refactor: Attack Chain Rework (#5672)
+  - bugfix: Attack Chain Fixes (#5761)

@@ -75,32 +75,36 @@ To draw a rune, use a ritual dagger.
 		if(req_keyword && keyword)
 			. += "<b>Keyword:</b> <span class='cultitalic'>[keyword]</span>"
 
+
 /obj/effect/rune/attackby(obj/I, mob/user, params)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
 		// Telerunes with portals open
 		if(istype(src, /obj/effect/rune/teleport))
 			var/obj/effect/rune/teleport/T = src // Can't erase telerunes if they have a portal open
 			if(T.inner_portal || T.outer_portal)
-				to_chat(user, "<span class='warning'>The portal needs to close first!</span>")
-				return
-
+				to_chat(user, span_warning("The portal needs to close first!"))
+				return ATTACK_CHAIN_PROCEED
 		// Everything else
-		var/obj/item/melee/cultblade/dagger/D = I
-		user.visible_message("<span class='warning'>[user] begins to erase [src] with [I].</span>")
-		if(do_after(user, initial(scribe_delay) * D.scribe_multiplier, src))
-			to_chat(user, "<span class='notice'>You carefully erase the [lowertext(cultist_name)] rune.</span>")
-			qdel(src)
-		return
+		var/obj/item/melee/cultblade/dagger/dagger = I
+		user.visible_message(span_warning("[user] begins to erase [src] with [dagger]."))
+		if(!do_after(user, initial(scribe_delay) * dagger.scribe_multiplier, src))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You carefully erase the [lowertext(cultist_name)] rune."))
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
 	if(istype(I, /obj/item/nullrod))
 		if(iscultist(user))//cultist..what are doing..cultist..staph...
 			user.drop_from_active_hand()
-			user.visible_message("<span class='warning'>[I] suddenly glows with a white light, forcing [user] to drop it in pain!</span>", \
-			"<span class='danger'>[I] suddenly glows with a white light that sears your hand, forcing you to drop it!</span>") // TODO: Make this actually burn your hand
-			return
-		to_chat(user,"<span class='danger'>You disrupt the magic of [src] with [I].</span>")
+			user.visible_message(
+				span_warning("[I] suddenly glows with a white light, forcing [user] to drop it in pain!"),
+				span_danger("[I] suddenly glows with a white light that sears your hand, forcing you to drop it!"),
+			) // TODO: Make this actually burn your hand
+			return ATTACK_CHAIN_BLOCKED_ALL
+		to_chat(user, span_danger("You disrupt the magic of [src] with [I]."))
 		qdel(src)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
+
 
 /obj/effect/rune/attack_hand(mob/living/user)
 	user.Move_Pulled(src) // So that you can still drag things onto runes
@@ -1002,11 +1006,12 @@ structure_check() searches for nearby cultist structures required for the invoca
 	sleep(40)
 	new /obj/singularity/narsie/large(T) //Causes Nar'Sie to spawn even if the rune has been removed
 
-/obj/effect/rune/narsie/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
+
+/obj/effect/rune/narsie/attackby(obj/item/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
 	if((istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user)))
 		add_game_logs("erased Summon Narsie rune with a cult dagger", user)
 		message_admins("[key_name_admin(user)] erased a Narsie rune with a cult dagger")
-	if(istype(I, /obj/item/nullrod))	//Begone foul magiks. You cannot hinder me.
+	else if(istype(I, /obj/item/nullrod))	//Begone foul magiks. You cannot hinder me.
 		add_game_logs("erased Summon Narsie rune using a null rod", user)
 		message_admins("[key_name_admin(user)] erased a Narsie rune with a null rod")
 	return ..()

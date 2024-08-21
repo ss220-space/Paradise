@@ -45,13 +45,13 @@
 
 /obj/item/pet_carrier/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/holder))
-		var/obj/item/holder/H = I
-		for(var/mob/M in H.contents)
-			if(put_in_carrier(M, user))
-				qdel(H)
-				return TRUE
-		return FALSE
-	. = ..()
+		add_fingerprint(user)
+		for(var/mob/living/animal in I.contents)
+			if(put_in_carrier(animal, user))
+				qdel(I)
+				return ATTACK_CHAIN_BLOCKED_ALL
+		return ATTACK_CHAIN_PROCEED
+	return ..()
 
 
 /obj/item/pet_carrier/emp_act(intensity)

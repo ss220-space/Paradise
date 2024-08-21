@@ -19,52 +19,52 @@
 	attacher = null
 	return ..()
 
+
 /obj/item/transfer_valve/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/tank))
+		add_fingerprint(user)
 		if(tank_one && tank_two)
-			to_chat(user, "<span class='warning'>There are already two tanks attached, remove one first.</span>")
-			return
-
-		if(!tank_one)
-			if(!user.drop_transfer_item_to_loc(I, src))
-				return
-			tank_one = I
-			to_chat(user, "<span class='notice'>You attach the tank to the transfer valve.</span>")
-			if(I.w_class > w_class)
-				w_class = I.w_class
-		else if(!tank_two)
-			if(!user.drop_transfer_item_to_loc(I, src))
-				return
+			to_chat(user, span_warning("There are already two tanks attached, remove one first."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user,  span_notice("You attach the tank to the transfer valve."))
+		if(tank_one)
 			tank_two = I
-			to_chat(user, "<span class='notice'>You attach the tank to the transfer valve.</span>")
-			if(I.w_class > w_class)
-				w_class = I.w_class
-
+		else
+			tank_one = I
+		if(I.w_class > w_class)
+			w_class = I.w_class
 		update_icon()
-		SStgui.update_uis(src) // update all UIs attached to src
-//TODO: Have this take an assemblyholder
-	else if(isassembly(I))
-		var/obj/item/assembly/A = I
-		if(A.secured)
-			to_chat(user, "<span class='notice'>The device is secured.</span>")
-			return
-		if(attached_device)
-			to_chat(user, "<span class='warning'>There is already a device attached to the valve, remove it first.</span>")
-			return
-		if(!user.drop_transfer_item_to_loc(A, src))
-			return
-		attached_device = A
-		to_chat(user, "<span class='notice'>You attach the [A] to the valve controls and secure it.</span>")
-		A.holder = src
-		A.toggle_secure()	//this calls update_icon(), which calls update_icon() on the holder (i.e. the bomb).
-		if(isprox(attached_device))
-			AddComponent(/datum/component/proximity_monitor)
+		SStgui.update_uis(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-		investigate_log("[key_name_log(user)] attached a [A] to a transfer valve.", INVESTIGATE_BOMB)
-		add_attack_logs(user, src, "attached [A] to a transfer valve", ATKLOG_FEW)
-		add_game_logs("attached [A] to a transfer valve.", user)
+	//TODO: Have this take an assemblyholder
+	if(isassembly(I))
+		add_fingerprint(user)
+		var/obj/item/assembly/assembly = I
+		if(attached_device)
+			to_chat(user, span_warning("There is already [attached_device] attached to the valve, remove it first."))
+			return ATTACK_CHAIN_PROCEED
+		if(assembly.secured)
+			to_chat(user, span_warning("The device should not be secured."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(assembly, src))
+			return ..()
+		attached_device = assembly
+		to_chat(user, span_notice("You attach [assembly] to the valve controls and secure it."))
+		assembly.holder = src
+		assembly.toggle_secure()	//this calls update_icon(), which calls update_icon() on the holder (i.e. the bomb).
+		if(isprox(assembly))
+			AddComponent(/datum/component/proximity_monitor)
+		investigate_log("[key_name_log(user)] attached [assembly] to a transfer valve.", INVESTIGATE_BOMB)
+		add_attack_logs(user, src, "attached [assembly] to a transfer valve", ATKLOG_FEW)
+		add_game_logs("attached [assembly] to a transfer valve.", user)
 		attacher = user
 		SStgui.update_uis(src) // update all UIs attached to src
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/item/transfer_valve/HasProximity(atom/movable/AM)

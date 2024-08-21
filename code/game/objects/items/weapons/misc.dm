@@ -77,6 +77,22 @@
 	item_state = "gift"
 	w_class = WEIGHT_CLASS_BULKY
 
+
+/obj/item/gift/Destroy()
+	QDEL_NULL(gift)
+	return ..()
+
+
+/obj/item/gift/attack_self(mob/user)
+	if(gift)
+		gift.forceMove(drop_location())
+		user.put_in_active_hand(gift)
+		gift.add_fingerprint(user)
+	else
+		to_chat(user, span_notice("The gift was empty!"))
+	qdel(src)
+
+
 /obj/item/gift/emp_act(severity)
 	..()
 	gift.emp_act(severity)
@@ -176,20 +192,21 @@
 			active = TRUE
 			update_icon(UPDATE_ICON_STATE)
 
-/obj/item/nunchuck/attack(mob/living/target, mob/living/user, def_zone, add_melee_cooldown = FALSE)
+
+/obj/item/nunchuck/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!active)
 		return ..()
 	if(!user.temporarily_remove_item_from_inventory(src) || !user.put_in_inactive_hand(src))
 		user.drop_item_ground(src)
-		to_chat(user, span_warning("Вы ударили себя-же! Нужно иметь возможность перекинуть нунчаки в вторую руку."))
+		to_chat(user, span_warning("Вы ударили себя-же! Нужно иметь возможность перекинуть нунчаки во вторую руку."))
 		user.apply_damage(30, STAMINA)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 	if(user.a_intent == INTENT_HARM)
-		target.apply_damage(10, BRUTE, def_zone)
-		target.apply_damage(10, STAMINA)
+		target.apply_damages(brute = 10, stamina = 10, def_zone = def_zone)
 	else
 		target.apply_damage(15, STAMINA)
-	user.changeNext_move(4)
+	user.changeNext_move(attack_speed * 0.5)
 	active = TRUE // it set in dropped() to false every time. Not best way for sure
 	update_icon(UPDATE_ICON_STATE)
 	return ..()
+

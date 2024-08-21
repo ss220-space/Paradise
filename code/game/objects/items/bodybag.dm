@@ -66,18 +66,22 @@
 
 /obj/structure/closet/body_bag/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
-		var/t = rename_interactive(user, I)
-		if(isnull(t))
-			return
-		if(t)
+		var/new_name = rename_interactive(user, I)
+		if(new_name)
 			update_icon(UPDATE_OVERLAYS)
-		return
-	if(I.tool_behaviour == TOOL_WIRECUTTER)
-		to_chat(user, "<span class='notice'>You cut the tag off the bodybag.</span>")
-		name = initial(name)
-		update_icon(UPDATE_OVERLAYS)
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
+
+
+/obj/structure/closet/body_bag/wirecutter_act(mob/living/user, obj/item/I)
+	if(name == initial(name))
+		return FALSE
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	to_chat(user, span_notice("You cut the tag off the bodybag."))
+	name = initial(name)
+	update_icon(UPDATE_OVERLAYS)
 
 
 /obj/structure/closet/body_bag/open()

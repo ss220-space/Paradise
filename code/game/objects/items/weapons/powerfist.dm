@@ -38,24 +38,52 @@
 			. += span_notice("[bicon(tank)] It has [tank] mounted onto it.")
 		if(cell)
 			. += span_notice("[bicon(cell)]The fist is charged for [cell.charge] W")
-	else . += span_notice("You'll need to get closer to see any more.")
+	else
+		. += span_notice("You'll need to get closer to see any more.")
 
-/obj/item/melee/powerfist/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/tank/internals))
-		if(!tank)
-			var/obj/item/tank/internals/IT = W
-			if(IT.volume <= 3)
-				to_chat(user, span_warning("[IT] is too small for [src]."))
-				return
-			updateTank(W, FALSE, user)
-		return
-	if(istype(W, /obj/item/stock_parts/cell))
-		updateCell(W, FALSE, user)
-		return
+
+/obj/item/melee/powerfist/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/tank/internals))
+		add_fingerprint(user)
+		if(tank)
+			to_chat(user, span_warning("There is already [tank] installed."))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/item/tank/internals/new_tank = I
+		if(new_tank.volume <= 3)
+			to_chat(user, span_warning("The [new_tank.name] is too small for [src]."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(new_tank, src))
+			return ..()
+		to_chat(user, span_notice("You hook [new_tank] up to [src]."))
+		tank = new_tank
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/stock_parts/cell))
+		add_fingerprint(user)
+		if(cell)
+			to_chat(user, span_warning("The [name] already has a cell."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("You insert [I] into [src]."))
+		cell = I
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
 
+
 /obj/item/melee/powerfist/attack_self(mob/user)
-	updateCell(cell, TRUE, user)
+	. = ..()
+	if(.)
+		return .
+	if(!cell)
+		to_chat(user, span_warning("There is no cell installed."))
+		return .
+	to_chat(user, span_notice("You detach [cell] from [src]."))
+	cell.forceMove(drop_location())
+	user.put_in_hands(cell, ignore_anim = FALSE)
+	cell = null
+
 
 /obj/item/melee/powerfist/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -70,51 +98,21 @@
 			fisto_setting = 1
 	to_chat(user, span_notice("You tweak [src]'s piston valve to [fisto_setting]."))
 
-/obj/item/melee/powerfist/screwdriver_act(mob/user, obj/item/I)
-	if(!tank)
-		return
+
+/obj/item/melee/powerfist/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	updateTank(tank, TRUE, user)
+	if(!tank)
+		to_chat(user, span_warning("There is no tank inside."))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	to_chat(user, span_notice("You detach [tank] from [src]."))
+	tank.forceMove(drop_location())
+	user.put_in_hands(tank, ignore_anim = FALSE)
+	tank = null
 
-/obj/item/melee/powerfist/proc/updateTank(obj/item/tank/thetank, removing = FALSE, mob/living/carbon/human/user)
-	if(removing)
-		if(!tank)
-			to_chat(user, span_notice("[src] currently has no tank attached to it."))
-			return
-		to_chat(user, span_notice("You detach [thetank] from [src]."))
-		tank.forceMove_turf()
-		user.put_in_hands(tank, ignore_anim = FALSE)
-		tank = null
-	else
-		if(tank)
-			to_chat(user, span_warning("[src] already has a tank."))
-			return
-		if(!user.drop_transfer_item_to_loc(thetank, src))
-			return
-		to_chat(user, span_notice("You hook [thetank] up to [src]."))
-		tank = thetank
 
-/obj/item/melee/powerfist/proc/updateCell(obj/item/stock_parts/cell/thecell, removing = FALSE, mob/living/carbon/human/user)
-	if(removing)
-		if(!cell)
-			to_chat(user, span_notice("[src] currently has no cell inside."))
-			return
-		to_chat(user, span_notice("You detach [thecell] from [src]."))
-		cell.forceMove_turf()
-		user.put_in_hands(cell, ignore_anim = FALSE)
-		cell = null
-	else
-		if(cell)
-			to_chat(user, span_warning("[src] already has a cell."))
-			return
-		if(!user.drop_transfer_item_to_loc(thecell, src))
-			return
-		to_chat(user, span_notice("You insert [thecell] in to [src]."))
-		cell = thecell
-
-/obj/item/melee/powerfist/afterattack(atom/target, mob/living/user, proximity)
+/obj/item/melee/powerfist/afterattack(atom/target, mob/living/user, proximity, params)
 	if(!proximity)
 		return
 	if(QDELETED(target))
@@ -155,5 +153,5 @@
 			cell.use(cell.maxcharge)
 			spark_system.start()
 			to_chat(user, "[src] sparkles violently")
-	user.changeNext_move(CLICK_CD_MELEE * click_delay)
+	user.changeNext_move(attack_speed * click_delay)
 	add_attack_logs(user, target, "POWER FISTED with [src]")

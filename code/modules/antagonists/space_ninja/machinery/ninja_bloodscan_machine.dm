@@ -71,35 +71,48 @@
 		return
 	ui_interact(user)
 
+
 /obj/machinery/ninja_bloodscan_machine/attackby(obj/item/I, mob/user, params)
-	. = ..()
+	if(user.a_intent == INTENT_HARM || !istype(I, /obj/item/reagent_containers/glass/beaker))
+		return ..()
+
+	. = ATTACK_CHAIN_PROCEED
+
 	if(!isninja(user))
 		to_chat(user, span_boldwarning("ERROR!!! UNAUTORISED USER!!!"))
-		return
+		return .
+
 	if(!objective || user != ninja)
 		to_chat(user, span_boldwarning("The machine won't accept any samples without a registered user. Please touch the machine's hand-scan terminal, to proceed forward."))
-		return
+		return .
+
 	if(objective.completed)
-		to_chat(user, span_info("Your mission is over, you don't need to use this machine anymore"))
-		return
-	if(istype(I, /obj/item/reagent_containers/glass/beaker))
-		if(!istype(I, /obj/item/reagent_containers/glass/beaker/vial))
-			to_chat(user, span_boldwarning("This machine only accept's small vial's. Beaker's won't fit."))
-			return
-		var/obj/item/reagent_containers/glass/beaker/vial/blood_vial = I
-		if(!length(blood_vial.reagents.reagent_list))
-			to_chat(user, span_info("Vial is empty..."))
-			return
-		var/datum/reagent/blood/blood_sample = locate(/datum/reagent/blood) in blood_vial.reagents.reagent_list
-		if(!istype(blood_sample) || length(blood_vial.reagents.reagent_list) > 1)
-			to_chat(user, span_boldwarning("The machine won't accept any other reagent's than the one prescribed by the clan. Which in your case is [span_redtext("BLOOD")]!"))
-			return
-		user.drop_transfer_item_to_loc(blood_vial, src)
-		vials += blood_vial
-		blood_samples += blood_sample
-		update_state_icon()
-		to_chat(user, span_info("You place [blood_vial] in the machine."))
-		return
+		to_chat(user, span_warning("Your mission is over, you don't need to use this machine anymore."))
+		return .
+
+	if(!istype(I, /obj/item/reagent_containers/glass/beaker/vial))
+		to_chat(user, span_warning("This machine only accept's small vial's. Beaker's won't fit."))
+		return .
+
+	var/obj/item/reagent_containers/glass/beaker/vial/blood_vial = I
+	if(!length(blood_vial.reagents.reagent_list))
+		to_chat(user, span_warning("Vial is empty."))
+		return .
+
+	var/datum/reagent/blood/blood_sample = locate(/datum/reagent/blood) in blood_vial.reagents.reagent_list
+	if(!istype(blood_sample) || length(blood_vial.reagents.reagent_list) > 1)
+		to_chat(user, span_boldwarning("The machine won't accept any other reagent's than the one prescribed by the clan. Which in your case is [span_redtext("BLOOD")]!"))
+		return .
+
+	if(!user.drop_transfer_item_to_loc(blood_vial, src))
+		return .
+
+	vials += blood_vial
+	blood_samples += blood_sample
+	update_state_icon()
+	to_chat(user, span_notice("You place [blood_vial] in the machine."))
+	return  ATTACK_CHAIN_BLOCKED_ALL
+
 
 /obj/machinery/ninja_bloodscan_machine/proc/start_scan()
 	if(!blood_samples || !vials)

@@ -13,24 +13,36 @@
 	flags = CONDUCT
 	max_amount = 60
 
-/obj/item/stack/light_w/attackby(obj/item/O, mob/user, params)
-	..()
-	if(istype(O,/obj/item/wirecutters))
-		new /obj/item/stack/cable_coil(user.drop_location(), 5)
-		amount--
-		new/obj/item/stack/sheet/glass(user.drop_location())
-		if(amount <= 0)
-			user.temporarily_remove_item_from_inventory(src, force = TRUE)
-			qdel(src)
 
-	if(istype(O,/obj/item/stack/sheet/metal))
-		var/obj/item/stack/sheet/metal/M = O
-		M.use(1)
-		if(M.amount <= 0)
-			user.drop_item_ground(src, force = TRUE)
-			qdel(M)
-		amount--
-		new/obj/item/stack/tile/light(user.drop_location())
-		if(amount <= 0)
-			user.temporarily_remove_item_from_inventory(src, force = TRUE)
-			qdel(src)
+/obj/item/stack/light_w/wirecutter_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	var/atom/drop_loc = drop_location()
+	if(!use(1))
+		return .
+	var/obj/item/stack/cable_coil/coil = new(drop_loc, 5)
+	coil.add_fingerprint(user)
+	var/obj/item/stack/sheet/glass/glass = new(drop_loc)
+	glass.add_fingerprint(user)
+
+
+/obj/item/stack/light_w/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/sheet/metal))
+		add_fingerprint(user)
+		var/obj/item/stack/sheet/metal/metal = I
+		if(metal.get_amount() < 1)
+			to_chat(user, span_warning("There is not enough [metal.name] sheets."))
+			return ATTACK_CHAIN_PROCEED
+		if(get_amount() < 1)
+			to_chat(user, span_warning("There is not enough [name]."))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/item/stack/tile/light/light = new(drop_location())
+		to_chat(user, span_notice("You finished [light.name] construction."))
+		light.add_fingerprint(user)
+		metal.use(1)
+		use(1)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+

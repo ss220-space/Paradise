@@ -7,7 +7,7 @@
 	name = "passive gate"
 	desc = "A one-way air valve that does not require power"
 
-	can_unwrench = 1
+	can_unwrench = TRUE
 
 	on = FALSE
 	var/target_pressure = ONE_ATMOSPHERE
@@ -174,10 +174,9 @@
 		investigate_log("was set to [target_pressure] kPa by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 
 
-/obj/machinery/atmospherics/binary/passive_gate/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour != TOOL_WRENCH)
-		return ..()
+/obj/machinery/atmospherics/binary/passive_gate/wrench_act(mob/living/user, obj/item/I)
 	if(on)
-		to_chat(user, span_alert("You cannot unwrench this [src], turn it off first."))
-		return 1
+		to_chat(user, span_warning("You cannot unwrench [src], turn it off first."))
+		return TRUE
 	return ..()
+

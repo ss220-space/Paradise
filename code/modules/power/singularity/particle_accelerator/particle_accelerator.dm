@@ -177,18 +177,32 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 			return 1
 	return 0
 
-/obj/structure/particle_accelerator/attackby(obj/item/W, mob/user, params)
-	if(!iscoil(W))
+
+/obj/structure/particle_accelerator/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
-	if(construction_state == ACCELERATOR_WRENCHED)
-		var/obj/item/stack/cable_coil/C = W
-		if(C.use(1))
-			add_fingerprint(user)
-			playsound(loc, C.usesound, 50, 1)
-			user.visible_message("[user.name] adds wires to the [name].", \
-				"You add some wires.")
-			construction_state = ACCELERATOR_WIRED
-	update_icon(UPDATE_ICON_STATE)
+
+	if(iscoil(I))
+		add_fingerprint(user)
+		var/obj/item/stack/cable_coil/coil = I
+		if(construction_state != ACCELERATOR_WRENCHED)
+			to_chat(user, span_warning("The [name] should be secured to the floor."))
+			return ATTACK_CHAIN_PROCEED
+		var/cached_sound = coil.usesound
+		if(!coil.use(1))
+			to_chat(user, span_warning("You need at least one length of the cable to proceed."))
+			return ATTACK_CHAIN_PROCEED
+		playsound(loc, cached_sound, 50, TRUE)
+		user.visible_message(
+			span_notice("[user] has wired [src]."),
+			span_notice("You have wired [src]."),
+		)
+		construction_state = ACCELERATOR_WIRED
+		update_icon(UPDATE_ICON_STATE)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/structure/particle_accelerator/screwdriver_act(mob/user, obj/item/I)
 	if(construction_state != ACCELERATOR_WIRED && construction_state != ACCELERATOR_READY)
@@ -275,18 +289,31 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	dir = turn(dir, 270)
 
 
-/obj/machinery/particle_accelerator/attackby(obj/item/W, mob/user, params)
-	if(!iscoil(W))
+/obj/machinery/particle_accelerator/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
-	if(construction_state == ACCELERATOR_WRENCHED)
-		var/obj/item/stack/cable_coil/C = W
-		if(C.use(1))
-			add_fingerprint(user)
-			playsound(loc, C.usesound, 50, 1)
-			user.visible_message("[user.name] adds wires to the [name].", \
-				"You add some wires.")
-			construction_state = ACCELERATOR_WIRED
-	update_icon()
+
+	if(iscoil(I))
+		add_fingerprint(user)
+		var/obj/item/stack/cable_coil/coil = I
+		if(construction_state != ACCELERATOR_WRENCHED)
+			to_chat(user, span_warning("The [name] should be secured to the floor."))
+			return ATTACK_CHAIN_PROCEED
+		var/cached_sound = coil.usesound
+		if(!coil.use(1))
+			to_chat(user, span_warning("You need at least one length of the cable to proceed."))
+			return ATTACK_CHAIN_PROCEED
+		playsound(loc, cached_sound, 50, TRUE)
+		user.visible_message(
+			span_notice("[user] has wired [src]."),
+			span_notice("You have wired [src]."),
+		)
+		construction_state = ACCELERATOR_WIRED
+		update_icon()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/machinery/particle_accelerator/screwdriver_act(mob/user, obj/item/I)
 	if(construction_state != ACCELERATOR_WIRED && construction_state != ACCELERATOR_READY)
