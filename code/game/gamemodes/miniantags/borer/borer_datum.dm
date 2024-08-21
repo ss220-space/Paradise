@@ -23,7 +23,7 @@
 	var/datum/borer_rank/borer_rank // Borer rank.
 	var/list/datum/borer_focus/borer_focus = list() // focuses of our borer
 	var/datum/borer_misc/change_host_and_scale/scaling // chemical scaling
-	var/list/operable_datums = list(scaling.type, borer_focus.type, borer_rank.type)
+	var/list/operable_datums = list(scaling, borer_focus, borer_rank)
 	var/tick_interval = 1 SECONDS
 
 /datum/antagonist/borer/greet()
@@ -84,7 +84,7 @@
 /datum/antagonist/borer/proc/left_host()
 	SIGNAL_HANDLER
 	host = null
-	for(var/datum/datum in soperable_datums)
+	for(var/datum/datum in operable_datums)
 		datum.host = null
 		if((datum.flags & FLAG_HAS_MOVABLE_EFFECT) && (pre_remove_movable_effect()))
 			datum.previous_host = host
@@ -295,6 +295,7 @@
 	var/mob/living/simple_animal/borer/user
 	var/mob/living/carbon/human/host 
 	var/mob/living/carbon/human/previous_host
+	var/datum/antagonist/borer/parent
 	var/processing_flags = NONE
 
 /datum/borer_focus/proc/grant_movable_effect()

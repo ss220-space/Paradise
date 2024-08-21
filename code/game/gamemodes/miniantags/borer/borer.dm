@@ -508,7 +508,8 @@
 	if(evo_points >= focus.cost)
 		evo_points -= focus.cost
 		to_chat(src, span_notice("Вы успешно приобрели [focus.bodypartname]"))
-		return learned_focuses += new focus(src)
+		learned_focuses += new focus(src)
+		return borer_focus.parent.borer_focus += learned_focuses
 	to_chat(src, span_notice("Вам требуется еще [focus.cost - evo_points] очков эволюции для получения [focus.bodypartname]."))
 	return 
 
