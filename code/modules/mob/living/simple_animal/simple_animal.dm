@@ -140,6 +140,8 @@
 	var/Discipline = 0 // if a slime has been hit with a freeze gun, or wrestled/attacked off a human, they become disciplined and don't attack anymore for a while
 	var/SStun = 0 // stun variable
 
+	var/list/old_atmos_requirements
+
 
 /mob/living/simple_animal/Initialize(mapload)
 	. = ..()

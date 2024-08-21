@@ -86,20 +86,21 @@
 
 
 /datum/antagonist/blob_infected/apply_innate_effects(mob/living/mob_override)
-	var/user = ..(mob_override)
+	var/mob/living/user = ..(mob_override)
 	add_blob_actions(user)
 	add_burst_display(user)
+	user.add_blob_atmos_immunity()
 	is_processing = TRUE
 	return user
 
 
 /datum/antagonist/blob_infected/remove_innate_effects(mob/living/mob_override)
-	var/user = ..(mob_override)
+	var/mob/living/user = ..(mob_override)
 	remove_blob_actions(user)
 	remove_burst_display(user)
+	user.remove_blob_atmos_immunity()
 	is_processing = FALSE
 	return user
-
 
 /datum/antagonist/blob_infected/roundend_report_header()
 	return
