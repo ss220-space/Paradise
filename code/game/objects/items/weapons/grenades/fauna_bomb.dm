@@ -34,7 +34,7 @@
 	for(var/i in 1 to amount)
 		var/mob/living/simple_animal/S1 = new S(get_turf(src))
 		mobs.Add(S1)
-		S1.set_anchor(activator, 10)
+		S1.set_leash(activator, 10)
 		S1.faction |= faction
 		if(prob(50))
 			for(var/j = 1, j <= rand(1, 3), j++)

@@ -142,8 +142,8 @@
 
 	var/list/low_priority_targets = list()
 
-	var/atom/anchor // autodust on a big distance
-	var/anchor_radius = 10
+	var/atom/leash // autodust on a big distance
+	var/leash_radius = 10
 
 /mob/living/simple_animal/Initialize(mapload)
 	. = ..()
@@ -310,9 +310,9 @@
 
 
 /mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
-	if (anchor)
-		var/dist = get_dist(src, anchor)
-		if (dist > anchor_radius)
+	if (leash)
+		var/dist = get_dist(src, leash)
+		if (dist > leash_radius)
 			src.dust()
 			return
 
@@ -816,6 +816,6 @@
 		return
 	AddElement(/datum/element/strippable, create_strippable_list(list(/datum/strippable_item/pet_collar)))
 
-/mob/living/simple_animal/proc/set_anchor(atom/A, radius)
-	anchor = A
-	anchor_radius = radius
+/mob/living/simple_animal/proc/set_leash(atom/A, radius)
+	leash = A
+	leash_radius = radius

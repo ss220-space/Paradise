@@ -151,16 +151,16 @@
 	if(loaded_item)
 		to_chat(user, span_warning("The [name] is already loaded."))
 		return ATTACK_CHAIN_PROCEED
-	if(!checkCircumstances(O))
-		to_chat(user, span_warning("The [O.name] is not yet valid for [src] and must be completed."))
+	if(!checkCircumstances(I))
+		to_chat(user, span_warning("The [I.name] is not yet valid for [src] and must be completed."))
 		return ATTACK_CHAIN_PROCEED
-	if(!O.origin_tech)
-		to_chat(user, span_warning("The [O.name] has no technological origin."))
+	if(!I.origin_tech)
+		to_chat(user, span_warning("The [I.name] has no technological origin."))
 		return ATTACK_CHAIN_PROCEED
-	if(!O.origin_tech)
-		to_chat(user, span_warning("The [O.name] has no technological origin."))
+	if(!I.origin_tech)
+		to_chat(user, span_warning("The [I.name] has no technological origin."))
 		return ATTACK_CHAIN_PROCEED
-	var/list/temp_tech = ConvertReqString2List(O.origin_tech)
+	var/list/temp_tech = ConvertReqString2List(I.origin_tech)
 	if(temp_tech.len == 0)
 		to_chat(user, "<span class='warning'>You cannot experiment on this item!</span>")
 		return
@@ -168,22 +168,22 @@
 		var/techs_sum = 0
 		for(var/T in temp_tech)
 			techs_sum += temp_tech[T]
-		if (istype(O, /obj/item/relic) || techs_sum > 4 && !istype(src, /obj/item/storage/backpack/holding))
+		if (istype(I, /obj/item/relic) || techs_sum > 4 && !istype(src, /obj/item/storage/backpack/holding))
 			to_chat(user, span_notice("Этот предмет слишком сложен для копирования. Попробуйте вставить что-то попроще."))
 			return
 
-		investigate_log("Experimentor has made a clone of [O]", INVESTIGATE_EXPERIMENTOR)
+		investigate_log("Experimentor has made a clone of [I]", INVESTIGATE_EXPERIMENTOR)
 		throwSmoke(get_turf(pick(oview(1,src))))
 		for (var/i = 1; i <= badThingCoeff; i++)
-			visible_message("<span class='notice'>A duplicate [O] pops out!</span>")
-			var/type_to_make = O.type
+			visible_message("<span class='notice'>A duplicate [I] pops out!</span>")
+			var/type_to_make = I.type
 			new type_to_make(get_turf(pick(oview(1,src))))
 		clone_next = FALSE
 		return
-	if(!user.drop_transfer_item_to_loc(O, src))
+	if(!user.drop_transfer_item_to_loc(I, src))
 		return
-	loaded_item = O
-	to_chat(user, span_notice("You have added [O] to [src]."))
+	loaded_item = I
+	to_chat(user, span_notice("You have added [I] to [src]."))
 	flick("h_lathe_load", src)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
