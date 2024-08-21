@@ -21,7 +21,7 @@
 	item_state = "banana_touch"
 
 
-/obj/item/melee/touch_attack/banana/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/touch_attack/banana/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	if(!proximity || target == user || !ishuman(target) || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 

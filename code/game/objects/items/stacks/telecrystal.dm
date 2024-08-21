@@ -10,15 +10,21 @@
 	item_flags = NOBLUDGEON
 	origin_tech = "materials=6"
 
-/obj/item/stack/telecrystal/attack(mob/target, mob/user)
-	if(target == user) //You can't go around smacking people with crystals to find out if they have an uplink or not.
-		for(var/obj/item/implant/uplink/I in target)
-			if(I && I.imp_in)
-				I.hidden_uplink.uses += amount
-				use(amount)
-				to_chat(user, "<span class='notice'>You press [src] onto yourself and charge your hidden uplink.</span>")
 
-/obj/item/stack/telecrystal/afterattack(obj/item/I, mob/user, proximity)
+/obj/item/stack/telecrystal/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
+	if(target != user) //You can't go around smacking people with crystals to find out if they have an uplink or not.
+		return .
+	for(var/obj/item/implant/uplink/uplink_imp in user)
+		if(uplink_imp.imp_in != user)
+			continue
+		uplink_imp.hidden_uplink.uses += amount
+		to_chat(user, span_notice("You press [src] onto yourself and charge your hidden uplink."))
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+
+/obj/item/stack/telecrystal/afterattack(obj/item/I, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(istype(I) && I.hidden_uplink && I.hidden_uplink.active) //No metagaming by using this on every PDA around just to see if it gets used up.

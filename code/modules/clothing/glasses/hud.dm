@@ -6,8 +6,6 @@
 	prescription_upgradable = TRUE
 	/// The visual icons granted by wearing these glasses.
 	var/HUDType = null
-	/// List of things added to examine text, like security or medical records.
-	var/examine_extensions = 0
 
 
 /obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot, initial)

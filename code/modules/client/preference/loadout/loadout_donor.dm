@@ -220,6 +220,7 @@
 	slot = ITEM_SLOT_EYES
 
 /datum/gear/donor/heartglasses/New()
+	..()
 	gear_tweaks += new /datum/gear_tweak/color(parent = src)
 
 /datum/gear/donor/night_dress

@@ -5764,6 +5764,10 @@
 /obj/machinery/firealarm{
 	pixel_y = 24
 	},
+/obj/item/flashlight,
+/obj/item/radio{
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -36306,16 +36310,12 @@
 	},
 /area/medical/morgue)
 "gFj" = (
-/obj/structure/table/reinforced,
-/obj/item/flashlight,
-/obj/item/radio{
-	pixel_y = 6
-	},
 /obj/machinery/camera{
 	c_tag = "Brig Pilot Office";
 	dir = 1;
 	network = list("SS13","Security")
 	},
+/obj/structure/closet/secure_closet/pilot_sniper,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -42582,6 +42582,7 @@
 /obj/structure/cable/orange{
 	icon_state = "0-2"
 	},
+/obj/machinery/roboquest_pad,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -66345,6 +66346,7 @@
 	name = "Robotics Requests Console";
 	pixel_y = 30
 	},
+/obj/machinery/computer/roboquest,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},

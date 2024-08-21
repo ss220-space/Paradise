@@ -78,7 +78,7 @@
 			return
 		else
 			if(W)
-				W.afterattack(A, src, 0, params)
+				W.afterattack(A, src, FALSE, params)
 			else
 				RangedAttack(A, params)
 	return

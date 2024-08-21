@@ -132,20 +132,23 @@
 	powernet.remove_machine(src)
 	return TRUE
 
-// attach a wire to a power machine - leads from the turf you are standing on
-//almost never called, overwritten by all power machines but terminal and generator
+
 /obj/machinery/power/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/coil = I
-		var/turf/T = user.loc
-		if(T.intact || !isfloorturf(T))
-			return
-		if(get_dist(src, user) > 1)
-			return
-		add_fingerprint(user)
-		coil.place_turf(T, user)
-	else
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(iscoil(I))
+		add_fingerprint(user)
+		var/obj/item/stack/cable_coil/coil = I
+		var/turf/our_turf = get_turf(src)
+		if(!isfloorturf(our_turf) || !our_turf.can_lay_cable())
+			return ATTACK_CHAIN_PROCEED
+		if(get_dist(src, user) > 1)	// probably needed, ffs
+			return ATTACK_CHAIN_PROCEED
+		coil.place_turf(our_turf, user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 ///////////////////////////////////////////

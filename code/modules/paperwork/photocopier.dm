@@ -230,23 +230,23 @@
   * * use_toner - If true, this operation uses toner, this is not done in copy() because partial bundles would be impossible otherwise
   */
 /obj/machinery/photocopier/proc/bundlecopy(obj/item/paper_bundle/bundle, scanning = FALSE, use_toner = FALSE)
-	var/obj/item/paper_bundle/P = new /obj/item/paper_bundle (src, default_papers = FALSE)
-	P.forceMove(src) //Bundle is initially inside copier to give copier time to build the bundle before the player can pick it up
-	for(var/obj/item/W in bundle)
-		if(istype(W, /obj/item/paper))
-			W = papercopy(W, bundled = TRUE)
-			if(use_toner && W)
+	var/obj/item/paper_bundle/P = new(src, FALSE)	//Bundle is initially inside copier to give copier time to build the bundle before the player can pick it up
+	for(var/obj/item/thing as anything in bundle.papers)
+		if(istype(thing, /obj/item/paper))
+			thing = papercopy(thing, bundled = TRUE)
+			if(use_toner && thing)
 				toner-- //In order to allow partial bundles we have to handle toner +- inside the proc
-		else if(istype(W, /obj/item/photo))
-			W = photocopy(W, bundled = TRUE)
-			if(use_toner && W)
+		else if(istype(thing, /obj/item/photo))
+			thing = photocopy(thing, bundled = TRUE)
+			if(use_toner && thing)
 				toner -= 5
-		if(!W)
+		if(!thing)
 			break
-		W.forceMove(P)
+		thing.forceMove(P)
 		P.amount++
+		P.papers += thing
 	P.amount-- //amount variable should be the number of pages in addition to the first (#pages - 1) this avoids runtimes from index errors
-	if(!P.amount) //if we did not have enough toner to complete the second page, delete the bundle
+	if(P.amount <= 0) //if we did not have enough toner to complete the second page, delete the bundle
 		qdel(P)
 		return FALSE
 	if(!scanning)
@@ -566,28 +566,37 @@
 	paper.pixel_y = rand(-10, 10)
 	copying = FALSE
 
-/obj/machinery/photocopier/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/paper) || istype(O, /obj/item/photo) || istype(O, /obj/item/paper_bundle))
-		if(!copyitem)
-			add_fingerprint(user)
-			user.drop_transfer_item_to_loc(O, src)
-			copyitem = O
-			to_chat(user, "<span class='notice'>You insert \the [O] into \the [src].</span>")
-			flick(insert_anim, src)
-		else
-			to_chat(user, "<span class='notice'>There is already something in \the [src].</span>")
-	else if(istype(O, /obj/item/toner))
-		if(toner <= 10) //allow replacing when low toner is affecting the print darkness
-			add_fingerprint(user)
-			user.drop_transfer_item_to_loc(O, src)
-			to_chat(user, "<span class='notice'>You insert the toner cartridge into \the [src].</span>")
-			var/obj/item/toner/T = O
-			toner += T.toner_amount
-			qdel(O)
-		else
-			to_chat(user, "<span class='notice'>This cartridge is not yet ready for replacement! Use up the rest of the toner.</span>")
-	else
+
+/obj/machinery/photocopier/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/paper_bundle))
+		add_fingerprint(user)
+		if(copyitem)
+			to_chat(user, span_warning("There is already something in [src]."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		copyitem = I
+		to_chat(user, span_notice("You have inserted [I] into [src]."))
+		flick(insert_anim, src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/toner))
+		add_fingerprint(user)
+		var/obj/item/toner/toner = I
+		if(toner > 10) //allow replacing when low toner is affecting the print darkness
+			to_chat(user, span_warning("This cartridge is not yet ready for replacement! Use up the rest of the toner."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("You have inserted the toner cartridge into [src]."))
+		toner += toner.toner_amount
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/machinery/photocopier/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)

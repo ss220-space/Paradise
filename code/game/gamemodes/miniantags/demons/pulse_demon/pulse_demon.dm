@@ -563,7 +563,7 @@
 		. += pick("!", "@", "#", "$", "%", "^", "&", "*")
 
 /mob/living/simple_animal/demon/pulse_demon/say(message, verb, sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
-	if(client && (client.prefs.muted & MUTE_IC))
+	if(check_mute(ckey, MUTE_IC))
 		to_chat(src, span_danger("You cannot speak in IC (Muted)."))
 		return FALSE
 
@@ -800,18 +800,21 @@
 			visible_message(span_danger("[M] [response_harm] [src]."))
 	try_attack_mob(M)
 
-/mob/living/simple_animal/demon/pulse_demon/attackby(obj/item/O, mob/living/user)
+
+/mob/living/simple_animal/demon/pulse_demon/attackby(obj/item/I, mob/user, params)
+	. = ATTACK_CHAIN_BLOCKED_ALL
 	if(is_under_tile())
 		to_chat(user, span_danger("You can't interact with something that's under the floor!"))
-		return
-	var/obj/item/stock_parts/cell/C = O.get_cell()
-	if(C && C.charge)
-		C.use(min(C.charge, power_drain_rate))
-		adjust_charge(min(C.charge, power_drain_rate))
-		to_chat(user, span_warning("You touch [src] with [O] and [src] drains it."))
-		to_chat(src, span_notice("[user] touches you with [O] and you drain its power!"))
-	visible_message(span_notice("[O] goes right through [src]."))
-	try_shock_mob(user, O.siemens_coefficient)
+		return .
+	var/obj/item/stock_parts/cell/cell = I.get_cell()
+	if(cell?.charge)
+		cell.use(min(cell.charge, power_drain_rate))
+		adjust_charge(min(cell.charge, power_drain_rate))
+		to_chat(user, span_warning("You touch [src] with [I] and [src] drains it."))
+		to_chat(src, span_notice("[user] touches you with [I] and you drain its power!"))
+	visible_message(span_notice("[I] goes right through [src]."))
+	try_shock_mob(user, I.siemens_coefficient)
+
 
 /mob/living/simple_animal/demon/pulse_demon/ex_act()
 	return

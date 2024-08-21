@@ -234,10 +234,10 @@
 	for(var/mob/living/target in targets)
 		var/datum/atom_hud/thoughts/hud = GLOB.huds[THOUGHTS_HUD]
 		hud.manage_hud(target, THOUGHTS_HUD_PRECISE)
-		user.hud_typing = TRUE
+		// user.hud_typing = TRUE do not know what to do
 		user.thoughts_hud_set(TRUE)
 		var/say = tgui_input_text(user, "What do you wish to say?", "Project Mind")
-		user.hud_typing = FALSE
+		// user.hud_typing = FALSE
 		user.typing = FALSE
 		if(!say || usr.stat)
 			hud.manage_hud(target, THOUGHTS_HUD_DISPERSE)
@@ -305,10 +305,10 @@
 		var/mob/living/target = locateUID(href_list["target"])
 		if(!(target in available_targets))
 			return
-		target.hud_typing = TRUE
+		// target.hud_typing = TRUE
 		target.thoughts_hud_set(TRUE)
 		var/say = tgui_input_text(user, "What do you wish to say?", "Scan Mind")
-		target.hud_typing = FALSE
+		// target.hud_typing = FALSE
 		target.typing = FALSE
 		if(!say || target.stat)
 			target.thoughts_hud_set(FALSE)

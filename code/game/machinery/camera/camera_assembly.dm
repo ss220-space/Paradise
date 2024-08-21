@@ -23,49 +23,54 @@
 	QDEL_LIST(upgrades)
 	return ..()
 
+
 /obj/item/camera_assembly/attackby(obj/item/I, mob/living/user, params)
-	if(state == ASSEMBLY_WELDED && iscoil(I))
-		var/obj/item/stack/cable_coil/C = I
-		if(C.use(2))
-			to_chat(user, span_notice("You add wires to the assembly."))
-			playsound(loc, I.usesound, 50, 1)
-			state = ASSEMBLY_WIRED
-		else
-			to_chat(user, span_warning("You need 2 coils of wire to wire the assembly."))
-		return
-
-	// Upgrades!
-	else if(is_type_in_list(I, possible_upgrades) && !is_type_in_list(I, upgrades)) // Is a possible upgrade and isn't in the camera already.
-		if(isstack(I))
-			if(!user.can_unEquip(I) || !I.use(1))
-				to_chat(user, span_warning("[I] is stuck!"))
-				return
-			var/obj/item/stack/sheet/mineral/plasma/new_stack = new(src, 1)
-			to_chat(user, span_notice("You attach [new_stack] into the assembly inner circuits."))
-			upgrades += new_stack
-			return
-
-		if(!user.drop_transfer_item_to_loc(I, src, silent = TRUE))
-			to_chat(user, span_warning("[I] is stuck!"))
-			return
-		to_chat(user, span_notice("You attach [I] into the assembly inner circuits."))
-		upgrades += I
-		return
-	else
+	if(user.a_intent == INTENT_HARM)
 		return ..()
 
+	if(state == ASSEMBLY_WELDED && iscoil(I))
+		var/obj/item/stack/cable_coil/coil = I
+		if(!coil.use(2))
+			to_chat(user, span_warning("You need two coils of cable to wire the assembly."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You add wires to the assembly."))
+		playsound(loc, I.usesound, 50, TRUE)
+		state = ASSEMBLY_WIRED
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	// Upgrades!
+	if(is_type_in_list(I, possible_upgrades) && !is_type_in_list(I, upgrades)) // Is a possible upgrade and isn't in the camera already.
+		if(isstack(I))
+			if(!I.use(1))
+				to_chat(user, span_warning("You need more of [I]."))
+				return ATTACK_CHAIN_PROCEED
+			var/obj/item/stack/new_stack = new(src, 1)
+			to_chat(user, span_notice("You attach [new_stack] into the assembly inner circuits."))
+			upgrades += new_stack
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("You attach [I] into the assembly inner circuits."))
+		upgrades += I
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
+
 /obj/item/camera_assembly/crowbar_act(mob/user, obj/item/I)
-	if(!upgrades.len)
-		return
+	if(!length(upgrades))
+		return FALSE
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	var/obj/U = locate(/obj) in upgrades
-	if(U)
-		to_chat(user, span_notice("You unattach an upgrade from the assembly."))
-		playsound(loc, I.usesound, 50, 1)
-		U.loc = get_turf(src)
-		upgrades -= U
+		return .
+	var/obj/upgrade = locate() in upgrades
+	if(!upgrade)
+		return .
+	to_chat(user, span_notice("You unattach [upgrade] from the assembly."))
+	playsound(loc, I.usesound, 50, TRUE)
+	upgrade.forceMove(loc)
+	upgrades -= upgrade
+
 
 /obj/item/camera_assembly/screwdriver_act(mob/user, obj/item/I)
 	if(state != ASSEMBLY_WIRED)
@@ -83,21 +88,21 @@
 	var/list/tempnetwork = splittext(input, ",")
 	if(tempnetwork.len < 1)
 		state = ASSEMBLY_WIRED
-		to_chat(usr, span_warning("No network found please hang up and try your call again."))
+		to_chat(user, span_warning("No network found please hang up and try your call again."))
 		return
 
 	var/area/camera_area = get_area(src)
 	var/temptag = "[sanitize(camera_area.name)] ([rand(1, 999)])"
-	input = strip_html(input(usr, "How would you like to name the camera?", "Set Camera Name", temptag))
+	input = strip_html(input(user, "How would you like to name the camera?", "Set Camera Name", temptag))
 	state = ASSEMBLY_BUILT
-	var/obj/machinery/camera/C = new(loc, uniquelist(tempnetwork), input, src)
-	loc = C
-	C.auto_turn()
+	var/obj/machinery/camera/camera = new(loc, uniquelist(tempnetwork), input, src)
+	forceMove(camera)
+	camera.auto_turn()
 
 	for(var/i = 5; i >= 0; i -= 1)
 		var/direct = input(user, "Direction?", "Assembling Camera", null) in list("LEAVE IT", "NORTH", "EAST", "SOUTH", "WEST" )
 		if(direct != "LEAVE IT")
-			C.dir = text2dir(direct)
+			camera.setDir(text2dir(direct))
 		if(i != 0)
 			var/confirm = tgui_alert(user, "Is this what you want? Chances Remaining: [i]", "Confirmation", list("Yes", "No"))
 			if(confirm == "Yes")

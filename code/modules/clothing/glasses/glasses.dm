@@ -6,21 +6,23 @@
 
 
 /obj/item/clothing/glasses/attackby(obj/item/I, mob/living/carbon/human/user, params)
-	if(!prescription_upgradable || user.incapacitated() || !ishuman(user))
+	if(!ishuman(user) || user.incapacitated())
 		return ..()
 
+	if(istype(I, /obj/item/clothing/glasses/regular))
+		add_fingerprint(user)
+		if(!prescription_upgradable)
+			to_chat(user, span_warning("You cannot add prescription lenses to [src]."))
+			return ATTACK_CHAIN_PROCEED
+		if(prescription)
+			to_chat(user, span_warning("You cannot possibly imagine how adding more lenses would improve [src]."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))	// Store the glasses for later removal
+			return ..()
+		upgrade_prescription(I, user)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(!istype(I, /obj/item/clothing/glasses/regular))
-		return ..()
-
-	if(prescription)
-		to_chat(user, span_warning("You can't possibly imagine how adding more lenses would improve [src]."))
-		return
-
-	if(!user.drop_transfer_item_to_loc(I, src))	// Store the glasses for later removal
-		return
-
-	upgrade_prescription(I, user)
+	return ..()
 
 
 /obj/item/clothing/glasses/update_name(updates = ALL)
@@ -157,7 +159,7 @@
 	item_state = "purple"
 	origin_tech = "magnets=2;engineering=1"
 	prescription_upgradable = FALSE
-	scan_reagents = TRUE //You can see reagents while wearing science goggles
+	examine_extensions = EXAMINE_HUD_SCIENCE
 	resistance_flags = ACID_PROOF
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
 	sprite_sheets = list(
@@ -445,7 +447,7 @@
 /obj/item/clothing/glasses/sunglasses/reagent
 	name = "sunscanners"
 	desc = "Strangely ancient technology used to help provide rudimentary eye color. Outfitted with apparatus to scan individual reagents."
-	scan_reagents = TRUE
+	examine_extensions = EXAMINE_HUD_SCIENCE
 
 /obj/item/clothing/glasses/virussunglasses
 	desc = "Strangely ancient technology used to help provide rudimentary eye cover. Enhanced shielding blocks many flashes."
@@ -609,7 +611,7 @@
 	item_state = "godeye"
 	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
 	see_in_dark = 8
-	scan_reagents = TRUE
+	examine_extensions = EXAMINE_HUD_SCIENCE
 	flags_cover = null
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
@@ -645,17 +647,19 @@
 	desc = "A pair of strange eyes, said to have been torn from an omniscient creature that used to roam the wastes. There's no real reason to have two, but that isn't stopping you."
 
 
-/obj/item/clothing/glasses/hud/godeye/attackby(obj/item/W, mob/user, params)
-	if(istype(W, type) && W != src && W.loc == user)
+/obj/item/clothing/glasses/hud/godeye/attackby(obj/item/I, mob/user, params)
+	if(istype(I, type) && I != src && I.loc == user)
+		add_fingerprint(user)
 		if(double_eye)
 			to_chat(user, span_notice("The eye winks at you and vanishes into the abyss, you feel really unlucky."))
 		else
 			double_eye = TRUE
 			update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 			user.wear_glasses_update(src)
-		qdel(W)
-		return
-	..()
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/item/clothing/glasses/tajblind
@@ -705,7 +709,7 @@
 	desc = "An Ahdominian made veil that allows the user to see while obscuring their eyes. This ones are with reagent and research scanners."
 	icon_state = "tajblind_sci"
 	item_state = "tajblind_sci"
-	scan_reagents = TRUE
+	examine_extensions = EXAMINE_HUD_SCIENCE
 	actions_types = list(/datum/action/item_action/toggle_research_scanner,/datum/action/item_action/toggle)
 
 /obj/item/clothing/glasses/tajblind/sci/sunglasses

@@ -45,12 +45,18 @@
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/proc/clumsilyDrink(mob/living/carbon/human/user) //Clowns beware
 	if(!(resistance_flags & ON_FIRE))
-		return
-	user.visible_message("<span class = 'warning'>[user] pours [src] all over [user.p_them()]self!</span>", "<span class = 'danger'>You pour [src] all over yourself!</span>", "<span class = 'warning'>You hear a 'whoompf' and a sizzle.</span>")
+		return ATTACK_CHAIN_PROCEED
+	user.visible_message(
+		span_warning("[user] pours [src] all over [user.p_them()]self!"),
+		span_danger("You pour [src] all over yourself!"),
+		span_italics("You hear a 'whoompf' and a sizzle."),
+	)
 	extinguish(TRUE)
 	reagents.reaction(user, REAGENT_TOUCH)
 	reagents.clear_reagents()
 	user.IgniteMob()
+	return ATTACK_CHAIN_PROCEED_SUCCESS
+
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/proc/isShotFlammable()
 	var/datum/reagent/R = reagents.get_master_reagent()
@@ -78,16 +84,19 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/burn() //Let's override fire deleting the reagents inside the shot
 	return
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/attack(mob/living/carbon/human/user)
-	if((CLUMSY in user.mutations) && prob(50) && (resistance_flags & ON_FIRE))
-		clumsilyDrink(user)
-	else
-		..()
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/attackby(obj/item/W)
-	..()
-	if(is_hot(W))
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if((CLUMSY in user.mutations) && prob(50) && (resistance_flags & ON_FIRE))
+		return clumsilyDrink(user)
+	return ..()
+
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && is_hot(I))
 		fire_act()
+
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/attack_hand(mob/user, pickupfireoverride = TRUE)
 	..()

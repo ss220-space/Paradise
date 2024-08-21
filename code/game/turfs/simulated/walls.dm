@@ -379,32 +379,33 @@
 	add_fingerprint(user)
 	return ..()
 
-/turf/simulated/wall/attackby(obj/item/I, mob/user, params)
-	user.changeNext_move(CLICK_CD_MELEE)
 
-	if(!isturf(user.loc))
-		return // No touching walls unless you're on a turf (pretty sure attackby can't be called anyways but whatever)
+/turf/simulated/wall/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !isturf(user.loc))
+		return .
 
 	if(rotting && try_rot(I, user, params))
-		return
+		. |= (ATTACK_CHAIN_BLOCKED_ALL)
+		return .
 
 	if(try_decon(I, user, params))
-		return
+		. |= (ATTACK_CHAIN_BLOCKED_ALL)
+		return .
 
 	if(try_destroy(I, user, params))
-		return
+		. |= (ATTACK_CHAIN_BLOCKED_ALL)
+		return .
 
 	if(try_wallmount(I, user, params))
-		return
+		. |= (ATTACK_CHAIN_BLOCKED_ALL)
+		return .
 
 	if(try_reform(I, user, params))
-		return
+		. |= (ATTACK_CHAIN_BLOCKED_ALL)
+		return .
 
-	// The magnetic gripper does a separate attackby, so bail from this one
-	if(istype(I, /obj/item/gripper))
-		return
-
-	return ..()
 
 /turf/simulated/wall/welder_act(mob/user, obj/item/I)
 	. = TRUE

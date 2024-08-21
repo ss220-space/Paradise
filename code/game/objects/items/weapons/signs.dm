@@ -12,15 +12,17 @@
 
 	var/label = ""
 
-/obj/item/picket_sign/attackby(obj/item/W, mob/user, params)
-	if(is_pen(W) || istype(W, /obj/item/toy/crayon))
-		var/txt = tgui_input_text(user, "What would you like to write on the sign?", "Sign Label", max_length = 30)
-		if(isnull(txt))
-			return
-		label = txt
-		src.name = "[label] sign"
-		desc =	"It reads: [label]"
-	..()
+
+/obj/item/picket_sign/attackby(obj/item/I, mob/user, params)
+	if(is_pen(I) || istype(I, /obj/item/toy/crayon))
+		var/new_label = tgui_input_text(user, "What would you like to write on the sign?", "Sign Label", max_length = 30)
+		if(!isnull(new_label))
+			label = new_label
+			name = "[label] sign"
+			desc =	"It reads: [label]"
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	return ..()
+
 
 /obj/item/picket_sign/attack_self(mob/living/carbon/human/user)
 	if(delayed)

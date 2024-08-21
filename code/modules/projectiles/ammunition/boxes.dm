@@ -362,7 +362,7 @@
 	ammo_type = null
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/ammo_box/speedloader/shotgun/New()
+/obj/item/ammo_box/speedloader/shotgun/Initialize(mapload)
 	. = ..()
 	name = "shotgun speedloader"
 

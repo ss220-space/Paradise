@@ -69,10 +69,8 @@
 	E = 0
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		E += M.rating
-	teleport_speed = initial(teleport_speed)
-	teleport_speed -= (E*10)
-	teleport_cooldown = initial(teleport_cooldown)
-	teleport_cooldown -= (E * 56.25) //Это число гарантирует кулдаун в 2.5 секунды у телепада и в 20 секунд у карго с 8 телепадами при максимальных деталях
+	teleport_speed = max(initial(teleport_speed) - (E*10), 0)
+	teleport_cooldown = max(initial(teleport_cooldown) - (E * 56.25), 0) //Это число гарантирует кулдаун в 2.5 секунды у телепада и в 20 секунд у карго с 8 телепадами при максимальных деталях
 	if(console_link)
 		var/datum/syndie_data_storage/S = LocateDataStorage()
 		S?.sync()
@@ -86,10 +84,14 @@
 		return S
 	return null
 
+
 /obj/machinery/syndiepad/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 	if(exchange_parts(user, I))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
+
 
 /obj/machinery/syndiepad/crowbar_act(mob/user, obj/item/I)
 	. = TRUE

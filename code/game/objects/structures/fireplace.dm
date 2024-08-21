@@ -26,48 +26,86 @@
 	STOP_PROCESSING(SSobj, src)
 	. = ..()
 
-/obj/structure/fireplace/proc/try_light(obj/item/O, mob/user)
-	if(lit)
-		to_chat(user, span_warning("It's already lit!"))
-		return FALSE
-	if(!fuel_added)
-		to_chat(user, span_warning("[src] needs some fuel to burn!"))
-		return FALSE
-	if(is_hot(O))
-		visible_message(span_notice("[user] lights [src] with [O]."))
-		ignite()
-		return TRUE
 
-/obj/structure/fireplace/attackby(obj/item/T, mob/user)
-	if(istype(T, /obj/item/stack/sheet/wood))
-		var/obj/item/stack/sheet/wood/wood = T
+/obj/structure/fireplace/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/stack/sheet/wood))
+		add_fingerprint(user)
+		var/obj/item/stack/sheet/wood/wood = I
 		var/space_remaining = MAXIMUM_BURN_TIMER - burn_time_remaining()
 		var/space_for_logs = round(space_remaining / LOG_BURN_TIMER)
 		if(space_for_logs < 1)
-			to_chat(user, span_warning("You can't fit any more of [T] in [src]!"))
-			return
+			to_chat(user, span_warning("You cannot add any more wood to [src]!"))
+			return ATTACK_CHAIN_PROCEED
 		var/logs_used = min(space_for_logs, wood.amount)
-		wood.use(logs_used)
+		if(!wood.use(logs_used))
+			return ATTACK_CHAIN_PROCEED
 		adjust_fuel_timer(LOG_BURN_TIMER * logs_used)
-		user.visible_message(span_notice("[user] tosses some wood into [src]."), span_notice("You add some fuel to [src]."))
-	else if(istype(T, /obj/item/paper_bin))
-		var/obj/item/paper_bin/paper_bin = T
-		user.visible_message(span_notice("[user] throws [T] into [src]."), span_notice("You add [T] to [src]."))
+		user.visible_message(
+			span_notice("[user] tosses some wood into [src]."),
+			span_notice("You add some fuel to [src]."),
+		)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/paper_bin))
+		var/obj/item/paper_bin/paper_bin = I
+		if(!user.drop_transfer_item_to_loc(paper_bin, src))
+			return ..()
+		add_fingerprint(user)
+		user.visible_message(
+			span_notice("[user] throws [paper_bin] into [src]."),
+			span_notice("You add [paper_bin] to [src]."),
+		)
 		adjust_fuel_timer(PAPER_BURN_TIMER * paper_bin.amount)
 		qdel(paper_bin)
-	else if(istype(T, /obj/item/paper))
-		user.visible_message(span_notice("[user] throws [T] into [src]."), span_notice("You throw [T] into [src]."))
-		adjust_fuel_timer(PAPER_BURN_TIMER)
-		qdel(T)
-	else if(istype(T, /obj/item/paper_bundle))
-		var/obj/item/paper_bundle/paper_bundle = T
-		user.visible_message(span_notice("[user] throws [T] into [src]."), span_notice("You add [T] to [src]."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/paper_bundle))
+		var/obj/item/paper_bundle/paper_bundle  = I
+		if(!user.drop_transfer_item_to_loc(paper_bundle, src))
+			return ..()
+		add_fingerprint(user)
+		user.visible_message(
+			span_notice("[user] throws [paper_bundle] into [src]."),
+			span_notice("You add [paper_bundle] to [src]."),
+		)
 		adjust_fuel_timer(PAPER_BURN_TIMER * paper_bundle.amount)
 		qdel(paper_bundle)
-	else if(try_light(T,user))
-		return
-	else
-		. = ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/paper))
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		add_fingerprint(user)
+		user.visible_message(
+			span_notice("[user] throws [I] into [src]."),
+			span_notice("You throw [I] into [src]."),
+		)
+		adjust_fuel_timer(PAPER_BURN_TIMER)
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(!is_hot(I))
+		return ..()
+
+	add_fingerprint(user)
+
+	if(lit)
+		to_chat(user, span_warning("It's already lit!"))
+		return ATTACK_CHAIN_PROCEED
+
+	if(!fuel_added)
+		to_chat(user, span_warning("The [name] needs some fuel to burn!"))
+		return ATTACK_CHAIN_PROCEED
+
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
+	user.visible_message(
+		span_notice("[user] lights [src] with [I]."),
+		span_notice("You have lit [src] with [I]."),
+	)
+	ignite()
 
 
 /obj/structure/fireplace/update_desc(updates = ALL)

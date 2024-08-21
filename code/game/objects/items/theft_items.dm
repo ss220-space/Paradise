@@ -28,8 +28,9 @@
 	return ..()
 
 
-/obj/item/nuke_core/attackby(obj/item/nuke_core_container/container, mob/user)
-	return
+/obj/item/nuke_core/attackby(obj/item/I, mob/user, params)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
 
 /obj/item/nuke_core/process()
 	if(cooldown < world.time - 2 SECONDS)
@@ -99,14 +100,21 @@
 	else
 		return ..()
 
+
 /obj/item/nuke_core_container/proc/load(obj/item/nuke_core/plutonium/new_core, mob/user)
 	if(core || !istype(new_core) || cracked)
-		return
-	new_core.forceMove(src)
+		return FALSE
+	if(user)
+		if(!user.drop_transfer_item_to_loc(new_core, src))
+			return FALSE
+	else
+		new_core.forceMove(src)
 	core = new_core
 	update_icon(UPDATE_ICON_STATE)
-	to_chat(user, "<span class='warning'>Container is sealing...</span>")
+	to_chat(user, span_warning("Container is sealing..."))
 	addtimer(CALLBACK(src, PROC_REF(seal)), 10 SECONDS)
+	return TRUE
+
 
 /obj/item/nuke_core_container/proc/unload(mob/user)
 	core.add_fingerprint(user)
@@ -124,14 +132,13 @@
 		if(ismob(loc))
 			to_chat(loc, "<span class='warning'>[src] is permanently sealed, [core]'s radiation is contained.</span>")
 
-/obj/item/nuke_core_container/attackby(obj/item/nuke_core/plutonium/core, mob/user)
-	if(!istype(core) || cracked)
-		return ..()
-	if(!user.drop_item_ground(core))
-		to_chat(user, "<span class='warning'>[core] is stuck to your hand!</span>")
-		return
-	else
-		load(core, user)
+
+/obj/item/nuke_core_container/attackby(obj/item/I, mob/user, params)
+	if(load(I, user))
+		add_fingerprint(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 /obj/item/nuke_core_container/proc/crack_open()
 	visible_message("<span class='boldnotice'>[src] bursts open!</span>")
@@ -181,26 +188,36 @@
 /obj/item/nuke_core/supermatter_sliver/can_be_pulled(atom/movable/puller, grab_state, force, supress_message) // no drag memes
 	return FALSE
 
+
 /obj/item/nuke_core/supermatter_sliver/attackby(obj/item/I, mob/living/user, params)
+	. = ATTACK_CHAIN_BLOCKED_ALL
+	add_fingerprint(user)
+
 	if(istype(I, /obj/item/retractor/supermatter))
 		var/obj/item/retractor/supermatter/tongs = I
 		if(tongs.sliver)
-			to_chat(user, "<span class='warning'>[tongs] are already holding a supermatter sliver!</span>")
-			return FALSE
+			to_chat(user, span_warning("The [tongs.name] are already holding a supermatter sliver!"))
+			return .
+		if(ismob(loc))
+			var/mob/holder = loc
+			if(!holder.drop_item_ground(src))
+				return .
 		forceMove(tongs)
 		tongs.sliver = src
 		tongs.update_icon(UPDATE_ICON_STATE)
+		to_chat(user, span_notice("You carefully pick up [src] with [tongs]."))
+		return .
 
-		to_chat(user, "<span class='notice'>You carefully pick up [src] with [tongs].</span>")
-	else if(istype(I, /obj/item/scalpel/supermatter) || istype(I, /obj/item/nuke_core_container/supermatter)) // we don't want it to dust
-		return
-	else
-		to_chat(user, "<span class='danger'>As it touches [src], both [src] and [I] bursts into flames!</span>")
-		for(var/mob/living/L in view(5, src))
-			L.apply_effect(80, IRRADIATE)
-		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
-		qdel(I)
-		qdel(src)
+	if(istype(I, /obj/item/scalpel/supermatter) || istype(I, /obj/item/nuke_core_container/supermatter)) // we don't want it to dust
+		return .
+
+	to_chat(user, span_danger("As it touches [src], both [src] and [I] bursts into flames!"))
+	for(var/mob/living/victim in view(5, get_turf(src)))
+		victim.apply_effect(80, IRRADIATE)
+	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
+	qdel(I)
+	qdel(src)
+
 
 /obj/item/nuke_core/supermatter_sliver/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(!isliving(hit_atom))
@@ -297,16 +314,20 @@
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, "<span class='notice'>You carefully pick up [I.sliver] with [I].</span>")
 
-/obj/item/nuke_core_container/supermatter/attackby(obj/item/retractor/supermatter/tongs, mob/user)
+
+/obj/item/nuke_core_container/supermatter/attackby(obj/item/retractor/supermatter/tongs, mob/user, params)
 	if(istype(tongs))
+		add_fingerprint(user)
 		if(cracked)
 			//lets take that shard out
 			unload(tongs, user)
 		else
 			//try to load shard into core
 			load(tongs, user)
-	else
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/nuke_core_container/supermatter/attack_hand(mob/user)
 	if(cracked && sliver) //What did we say about touching the shard...
@@ -369,9 +390,10 @@
 /obj/item/retractor/supermatter/update_icon_state()
 	icon_state = "supermatter_tongs[sliver ? "_loaded" : ""]"
 	item_state = "supermatter_tongs[sliver ? "_loaded" : ""]"
+	update_equipped_item(update_speedmods = FALSE)
 
 
-/obj/item/retractor/supermatter/afterattack(atom/O, mob/user, proximity)
+/obj/item/retractor/supermatter/afterattack(atom/O, mob/user, proximity, params)
 	. = ..()
 	if(!sliver)
 		return

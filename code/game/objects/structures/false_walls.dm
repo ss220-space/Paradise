@@ -119,27 +119,47 @@
 		qdel(src)
 	return T
 
-/obj/structure/falsewall/attackby(obj/item/W, mob/user, params)
+
+/obj/structure/falsewall/attackby(obj/item/I, mob/user, params)
 	if(opening)
-		to_chat(user, "<span class='warning'>You must wait until the door has stopped moving.</span>")
-		return
+		add_fingerprint(user)
+		to_chat(user, span_warning("You have to wait until the door stops moving!"))
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(density)
-		var/turf/T = get_turf(src)
-		if(T.density)
-			to_chat(user, "<span class='warning'>[src] is blocked!</span>")
-			return
-		if(W.tool_behaviour == TOOL_SCREWDRIVER)
-			if(!isfloorturf(T))
-				to_chat(user, "<span class='warning'>[src] bolts must be tightened on the floor!</span>")
-				return
-			user.visible_message("<span class='notice'>[user] tightens some bolts on the wall.</span>", "<span class='warning'>You tighten the bolts on the wall.</span>")
-			ChangeToWall()
-	else
-		to_chat(user, "<span class='warning'>You can't reach, close it first!</span>")
-
-	if(istype(W, /obj/item/gun/energy/plasmacutter) || istype(W, /obj/item/pickaxe/drill/diamonddrill) || istype(W, /obj/item/pickaxe/drill/jackhammer) || istype(W, /obj/item/melee/energy/blade) || istype(W, /obj/item/twohanded/required/pyro_claws))
+	var/static/list/dismantle_typecache = typecacheof(list(
+		/obj/item/gun/energy/plasmacutter,
+		/obj/item/pickaxe/drill/diamonddrill,
+		/obj/item/pickaxe/drill/jackhammer,
+		/obj/item/melee/energy/blade,
+		/obj/item/twohanded/required/pyro_claws,
+	))
+	if(is_type_in_typecache(I, dismantle_typecache))
 		dismantle(user, TRUE)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
+
+/obj/structure/falsewall/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!density)
+		to_chat(user, span_warning("You can't reach, close it first!"))
+		return .
+	var/turf/our_turf = get_turf(src)
+	if(our_turf?.density)
+		to_chat(user, span_warning("The [name] is blocked!"))
+		return .
+	if(!isfloorturf(our_turf))
+		to_chat(user,  span_warning("The [name]'s bolts must be tightened on the floor!"))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	user.visible_message(
+		span_notice("[user] tightens some bolts on the wall."),
+		span_warning("You tighten the bolts on the wall."),
+	)
+	ChangeToWall()
+
 
 /obj/structure/falsewall/welder_act(mob/user, obj/item/I)
 	if(!density)
@@ -286,14 +306,19 @@
 	canSmoothWith = SMOOTH_GROUP_PLASMA_WALLS
 	smoothing_groups = SMOOTH_GROUP_PLASMA_WALLS
 
-/obj/structure/falsewall/plasma/attackby(obj/item/W, mob/user, params)
-	if(is_hot(W) > 300)
-		add_fingerprint(user)
-		add_attack_logs(user, src, "Ignited using [W]", ATKLOG_FEW)
+
+/obj/structure/falsewall/plasma/attackby(obj/item/I, mob/user, params)
+	if(opening)
+		return ..()
+
+	if(is_hot(I) > 300)
+		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
 		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
 		burnbabyburn()
-	else
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/structure/falsewall/plasma/proc/burnbabyburn(user)
 	playsound(src, 'sound/items/welder.ogg', 100, 1)
@@ -461,21 +486,9 @@
 	if(I.use_tool(src, user, 120, volume = I.tool_volume)) // 20% more than double normal wall.
 		dismantle(user, TRUE)
 
-/obj/structure/falsewall/clockwork/attackby(obj/item/W, mob/user, params)
-	if(opening)
-		to_chat(user, "<span class='warning'>You must wait until the door has stopped moving.</span>")
-		return FALSE
 
-	if(density)
-		var/turf/T = get_turf(src)
-		if(T.density)
-			to_chat(user, "<span class='warning'>[src] is blocked!</span>")
-			return FALSE
-
-	if(istype(W, /obj/item/gun/energy/plasmacutter) || istype(W, /obj/item/pickaxe/drill/diamonddrill) || istype(W, /obj/item/pickaxe/drill/jackhammer) || istype(W, /obj/item/melee/energy/blade))
-		dismantle(user, TRUE)
-		return TRUE
-	return TRUE
+/obj/structure/falsewall/clockwork/screwdriver_act(mob/living/user, obj/item/I)
+	return FALSE	// wall change is unavailable, idk why
 
 
 /obj/structure/falsewall/mineral_ancient
