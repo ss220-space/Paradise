@@ -67,7 +67,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		else if(check_rights(R_ADMIN, FALSE) || check_rights_for_all(src, GLOB.admin_ranks["Контрибьютор"]))
 			if(CONFIG_GET(flag/allow_admin_ooccolor))
 				display_colour = src.prefs.ooccolor
-			else if(R_ADMIN)
+			else if(check_rights(R_ADMIN))
 				display_colour = GLOB.admin_ooc_colour
 
 	if(prefs.unlock_content)
