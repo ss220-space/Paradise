@@ -478,7 +478,7 @@
 		
 	var/list/content = list()
 	
-	for(var/datum in subtypesof(/datum/borer_datum/focus))
+	for(var/datum in subtypesof(/datum/borer_focus))
 		var/datum/borer_focus/borer_datum = datum
 		if(!locate(borer_datum) in antag_datum.learned_focuses)
 			content += borer_datum.bodypartname
@@ -489,15 +489,15 @@
 		
 	var/tgui_menu = tgui_input_list(src, "Choose focus", "Focus Menu", content)
 	if(tgui_menu)
-		for(var/datum in subtypesof(/datum/borer_datum/focus))
-			var/datum/borer_datum/focus/borer_datum = datum
+		for(var/datum in subtypesof(/datum/borer_focus))
+			var/datum/borer_focus/borer_datum = datum
 			if(tgui_menu == borer_datum.bodypartname)
 				process_focus_choice(borer_datum)
 				break
 
 	return
 
-/mob/living/simple_animal/borer/proc/process_focus_choice(datum/borer_datum/focus/focus)
+/mob/living/simple_animal/borer/proc/process_focus_choice(datum/borer_focus/focus)
 	if(!src || !host || stat || docile)
 		return
 	if(locate(focus) in antag_datum.learned_focuses)
