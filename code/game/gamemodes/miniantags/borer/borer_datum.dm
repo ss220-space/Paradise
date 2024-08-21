@@ -23,7 +23,7 @@
 	var/datum/borer_rank/borer_rank // Borer rank.
 	var/list/datum/borer_focus/borer_focus = list() // focuses of our borer
 	var/datum/borer_misc/change_host_and_scale/scaling // chemical scaling
-	var/list/operable_datums = typesof(/datum/borer_misc/change_host_and_scale, /datum/borer_focus, /datum/borer_rank)
+	var/list/operable_datums = (/datum/borer_misc, /datum/borer_focus, /datum/borer_rank)
 	var/tick_interval = 1 SECONDS
 
 /datum/antagonist/borer/greet()
@@ -49,7 +49,7 @@
 	borer_focus = user.learned_focuses
 	borer_rank = user.borer_rank
 	scaling = user.scaling
-	for(var/datum/datum in operable_datums)
+	for(var/datum/datum in subtypesof(operable_datums))
 		datum.user = user
 		datum.host = user.host
 		if(datum.flags & FLAG_HOST_REQUIRED)
@@ -75,9 +75,8 @@
 /datum/antagonist/borer/proc/entered_host()
 	SIGNAL_HANDLER
 	host = user.host
-	for(var/datum/datum in operable_datums)
+	for(var/datum/datum in subtypesof(operable_datums))
 		datum.host = user.host
-	for(var/datum/datum in operable_datums)
 		if((datum.flags & FLAG_HAS_MOVABLE_EFFECT) && (pre_grant_movable_effect()))
 			datum.previous_host = host
 	previous_host = host
@@ -85,9 +84,8 @@
 /datum/antagonist/borer/proc/left_host()
 	SIGNAL_HANDLER
 	host = null
-	for(var/datum/datum in operable_datums)
+	for(var/datum/datum in subtypesof(operable_datums))
 		datum.host = null
-	for(var/datum/datum in operable_datums)
 		if((datum.flags & FLAG_HAS_MOVABLE_EFFECT) && (pre_remove_movable_effect()))
 			datum.previous_host = host
 	previous_host = host
@@ -96,7 +94,7 @@
 	if(QDELETED(user) || QDELETED(host))
 		return
 
-	for(var/datum/datum in operable_datums)
+	for(var/datum/datum in subtypesof(operable_datums))
 		datum.grant_movable_effect()
 		break // so we calling it multiple time.
 
@@ -106,14 +104,14 @@
 	if(QDELETED(user) || QDELETED(previous_host))
 		return
 
-	for(var/datum/datum in operable_datums)
+	for(var/datum/datum in subtypesof(operable_datums))
 		datum.remove_movable_effect()
 		break
 
 	return
 
 /datum/antagonist/borer/Destroy(force)
-	for(var/datum/datum in operable_datums)
+	for(var/datum/datum in subtypesof(operable_datums))
 		if(datum.flags & FLAG_HOST_REQUIRED)
 			UnregisterSignal(datum.user, COMSIG_BORER_ENTERED_HOST)
 			UnregisterSignal(datum.user, COMSIG_BORER_LEFT_HOST)
@@ -148,10 +146,9 @@
 		return
 	if(tick_interval != -1 && tick_interval <= world.time)
 		var/tick_length = initial(tick_interval)
-		for(var/datum/datum in operable_datums)
+		for(var/datum/datum in subtypesof(operable_datums))
 			datum.tick(tick_length / (1 SECONDS))
-		if(!QDELETED(host))
-			for(var/datum/datum in operable_datums)
+			if((datum.flags & FLAG_HOST_REQUIRED) && (!QDELETED(host)))
 				datum.host_tick(tick_length / (1 SECONDS))
 		tick_interval = world.time + tick_length
 		if(QDELING(src))
@@ -164,6 +161,9 @@
 
 /datum/borer_misc/proc/remove_movable_effect()
 	return
+
+/datum/borer_misc/New(mob/living/simple_animal)
+	user = borer
 
 /datum/borer_misc/change_host_and_scale
 	var/list/used_UIDs = list()
