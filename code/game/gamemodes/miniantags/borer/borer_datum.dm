@@ -24,6 +24,7 @@
 	var/flags = NONE
 	var/processing_flags = NONE
 	var/tick_interval = 1 SECONDS
+	var/process_ranks = TRUE
 
 /datum/antagonist/borer/greet()
 	var/list/messages = list()
@@ -152,11 +153,15 @@
 		return
 	if(tick_interval != -1 && tick_interval <= world.time)
 		var/tick_length = initial(tick_interval)
-		tick(tick_length / (1 SECONDS))
-		borer_rank.tick(tick_length / (1 SECONDS))
-		if((flags &  FLAG_HOST_REQUIRED) && (!QDELETED(host)))
-			borer_rank.host_tick(tick_length / (1 SECONDS))
-			host_tick(tick_length / (1 SECONDS))
+		if(process_ranks)
+			borer_rank.tick(tick_length / (1 SECONDS))
+		else
+			tick(tick_length / (1 SECONDS))
+		if((flags &  FLAG_HOST_REQUIRED) && ((!QDELETED(host)) || (borer_rank.flags & FLAG_HOST_REQUIRED)) && (!QDELETED(borer_rank.host)))
+			if(process_ranks)
+				borer_rank.host_tick(tick_length / (1 SECONDS))
+			else
+				host_tick(tick_length / (1 SECONDS))
 		tick_interval = world.time + tick_length
 		if(QDELING(src))
 			return
@@ -273,6 +278,7 @@
 	var/bodypartname = "Focus"
 	var/cost = 0
 	flags = FLAG_HAS_MOVABLE_EFFECT
+	process_ranks = FALSE
 	
 /datum/antagonist/borer/focus/head
 	bodypartname = "Head focus"
