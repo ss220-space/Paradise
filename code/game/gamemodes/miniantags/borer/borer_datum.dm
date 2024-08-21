@@ -207,6 +207,7 @@
 /datum/borer_rank/Destroy(force)
 	user = null
 	host = null
+	parent = null
 	return ..()
 
 /datum/borer_rank/proc/on_apply()
