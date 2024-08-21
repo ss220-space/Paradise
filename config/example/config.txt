@@ -710,9 +710,6 @@ MINUTE_TOPIC_LIMIT 150
 SECOND_CLICK_LIMIT 15
 MINUTE_CLICK_LIMIT 400
 
-## Flag which choose what kind of lobby music players will get.
-LOBBY_SS13_CLASSIC_MUSIC
-
 ## System command that invokes yt-dlp, used by Play Internet Sound.
 ## You can install yt-dlp with
 ## "pip install yt-dlp" if you have pip installed
