@@ -114,6 +114,7 @@
 	STOP_PROCESSING(SSprocessing, src)
 	QDEL_NULL(borer_rank)
 	QDEL_NULL(learned_focuses)
+	QDEL_NULL(scaling)
 	user = null
 	host = null
 	previous_host = null
@@ -195,7 +196,6 @@
 		if(/datum/borer_rank/adult)
 			borer.borer_rank = new /datum/borer_rank/elder(borer)
 	parent?.borer_rank = borer.borer_rank
-	parent?.user.borer_rank = parent.borer_rank
 	return TRUE
 
 /datum/borer_rank/New()
