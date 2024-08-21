@@ -28,12 +28,13 @@
 	icon_state = "[initial(icon_state)][charges ? "" : "-drained"]"
 
 
-/obj/item/gun/magic/wand/attack(atom/target, mob/living/user)
+/obj/item/gun/magic/wand/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(target == user)
-		return
-	..()
+		return ATTACK_CHAIN_PROCEED
+	return ..()
 
-/obj/item/gun/magic/wand/afterattack(atom/target, mob/living/user)
+
+/obj/item/gun/magic/wand/afterattack(atom/target, mob/living/user, proximity, params)
 	if(!charges)
 		shoot_with_empty_chamber(user)
 		return
@@ -192,7 +193,7 @@
 	charges--
 	..()
 
-/obj/item/gun/magic/wand/slipping/afterattack(atom/target, mob/living/user)
+/obj/item/gun/magic/wand/slipping/afterattack(atom/target, mob/living/user, proximity, params)
 	. = ..()
 	if(!charges && !charging)
 		to_chat(usr, "<span class='notice'>[src] has started to regain its charge.</span>")

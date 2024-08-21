@@ -558,9 +558,11 @@
 	if(I == r_hand)
 		r_hand = null
 		update_inv_r_hand()
+		update_equipment_speed_mods()
 	else if(I == l_hand)
 		l_hand = null
 		update_inv_l_hand()
+		update_equipment_speed_mods()
 	else if(I in tkgrabbed_objects)
 		var/obj/item/tk_grab/tkgrab = tkgrabbed_objects[I]
 		drop_item_ground(tkgrab, force)
@@ -731,4 +733,12 @@
 
 /mob/proc/covered_with_thick_material(check_zone, full_body_check = FALSE)
 	return FALSE
+
+
+/mob/proc/is_type_in_hands(typepath)
+	if(istype(l_hand,typepath))
+		return l_hand
+	if(istype(r_hand,typepath))
+		return r_hand
+	return null
 

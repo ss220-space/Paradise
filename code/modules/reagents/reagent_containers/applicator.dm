@@ -65,42 +65,57 @@
 	. += applicator_bar
 
 
-/obj/item/reagent_containers/applicator/attack(mob/living/M, mob/user)
-	if(!reagents.total_volume)
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
-		return
-	if(applying)
-		to_chat(user, "<span class='warning'>You're already applying [src].</span>")
-		return
-	if(!iscarbon(M))
-		return
+/obj/item/reagent_containers/applicator/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
 
-	if(ignore_flags || M.can_inject(user, TRUE))
-		if(M == user)
-			M.visible_message("[user] begins mending [user.p_them()]self with [src].", "<span class='notice'>You begin mending yourself with [src].</span>")
-		else
-			user.visible_message("<span class='warning'>[user] begins mending [M] with [src].</span>", "<span class='notice'>You begin mending [M] with [src].</span>")
-		if(M.reagents)
-			applying = TRUE
-			update_icon()
-			apply_to(M, user, 0.2) // We apply a very weak application up front, then loop.
-			add_attack_logs(user, M, "Started mending with [src] containing ([reagents.log_list()])", (emagged && !(reagents.harmless_helper())) ? null : ATKLOG_ALMOSTALL)
-			var/cycle_count = 0
-			var/measured_health = 0
-			while(do_after(user, 1 SECONDS, M))
-				measured_health = M.health
-				apply_to(M, user, 1, FALSE)
-				if(measured_health == M.health)
-					to_chat(user, "<span class='notice'>[M] is finished healing and [src] powers down automatically.</span>")
-					break
-				if(!reagents.total_volume)
-					to_chat(user, "<span class='notice'>[src] is out of reagents and powers down automatically.</span>")
-					break
-				cycle_count++
-			add_attack_logs(user, M, "Stopped mending after [cycle_count] cycles with [src] containing ([reagents.log_list()])", (emagged && !(reagents.harmless_helper())) ? null : ATKLOG_ALMOSTALL)
-		applying = FALSE
-		update_icon()
-		user.changeNext_move(CLICK_CD_MELEE)
+	if(!iscarbon(target) || !target.reagents)
+		return .
+
+	if(!reagents || !reagents.total_volume)
+		to_chat(user, span_warning("[src] is empty!"))
+		return .
+
+	if(applying)
+		to_chat(user, span_warning("You're already applying [src]."))
+		return .
+
+	if(!ignore_flags && !target.can_inject(user, TRUE))
+		return .
+
+	if(target == user)
+		target.visible_message(
+			span_notice("[user] begins mending [user.p_them()]self with [src]."),
+			span_notice("You begin mending yourself with [src]."),
+		)
+	else
+		user.visible_message(
+			span_notice("[user] begins mending [target] with [src]."),
+			span_notice("You begin mending [target] with [src]."),
+		)
+
+	. |= ATTACK_CHAIN_SUCCESS
+
+	applying = TRUE
+	update_icon()
+	apply_to(target, user, 0.2) // We apply a very weak application up front, then loop.
+	add_attack_logs(user, target, "Started mending with [src] containing ([reagents.log_list()])", (emagged && !(reagents.harmless_helper())) ? null : ATKLOG_ALMOSTALL)
+	var/cycle_count = 0
+
+	var/measured_health = 0
+	while(do_after(user, 1 SECONDS, target))
+		measured_health = target.health
+		apply_to(target, user, 1, FALSE)
+		if(measured_health == target.health)
+			to_chat(user, span_notice("[target] is finished healing and [src] powers down automatically."))
+			break
+		if(!reagents.total_volume)
+			to_chat(user, span_notice("[src] is out of reagents and powers down automatically."))
+			break
+		cycle_count++
+
+	add_attack_logs(user, target, "Stopped mending after [cycle_count] cycles with [src] containing ([reagents.log_list()])", (emagged && !(reagents.harmless_helper())) ? null : ATKLOG_ALMOSTALL)
+	applying = FALSE
+	update_icon()
 
 
 /obj/item/reagent_containers/applicator/proc/apply_to(mob/living/carbon/M, mob/user, multiplier = 1, show_message = TRUE)

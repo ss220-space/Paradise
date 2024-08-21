@@ -72,7 +72,7 @@
 /mob/living/simple_animal/pet/dog/security/place_on_head(obj/item/item_to_add, mob/user)
 
 	if(istype(item_to_add, /obj/item/grenade/plastic/c4)) // last thing he ever wears, I guess
-		item_to_add.afterattack(src,user,1)
+		item_to_add.afterattack(src, user, TRUE)
 		return
 
 	if(inventory_head)

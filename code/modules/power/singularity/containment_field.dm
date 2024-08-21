@@ -34,9 +34,11 @@
 		shock_field(user)
 		return 1
 
-/obj/machinery/field/containment/attackby(obj/item/W, mob/user, params)
+
+/obj/machinery/field/containment/attackby(obj/item/I, mob/user, params)
 	shock(user)
-	return TRUE
+	return ATTACK_CHAIN_BLOCKED_ALL
+
 
 /obj/machinery/field/containment/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

@@ -177,17 +177,19 @@
 
 
 //Mobs with objects
-/mob/living/simple_animal/parrot/attackby(obj/item/O, mob/user, params)
-	..()
-	if(!stat && !client && !istype(O, /obj/item/stack/medical))
-		if(O.force)
-			if(parrot_state == PARROT_PERCH)
-				parrot_sleep_dur = parrot_sleep_max //Reset it's sleep timer if it was perched
+/mob/living/simple_animal/parrot/attackby(obj/item/I, mob/user, params)
+	. = ..()
 
-			parrot_interest = user
-			parrot_state = PARROT_SWOOP|PARROT_FLEE
-			icon_state = "parrot_fly"
-			drop_held_item(FALSE)
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || stat || client || !I.force)
+		return .
+
+	if(parrot_state == PARROT_PERCH)
+		parrot_sleep_dur = parrot_sleep_max //Reset it's sleep timer if it was perched
+
+	parrot_interest = user
+	parrot_state = PARROT_SWOOP|PARROT_FLEE
+	icon_state = "parrot_fly"
+	drop_held_item(FALSE)
 
 
 //Bullets

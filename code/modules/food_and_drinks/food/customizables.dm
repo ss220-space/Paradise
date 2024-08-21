@@ -3,34 +3,40 @@
 	if(!istype(snack) || !user.can_unEquip(snack))
 		return FALSE
 
-	var/obj/item/reagent_containers/food/snacks/customizable/custom_snack = new custom_type(get_turf(src))
+	var/obj/item/reagent_containers/food/snacks/customizable/custom_snack = new custom_type(drop_location())
 	custom_snack.add_ingredient(snack, user)
 	qdel(src)
 
 
-/obj/item/reagent_containers/food/snacks/breadslice/attackby(obj/item/W, mob/user, params)
-	if(!make_custom_food(W, user, /obj/item/reagent_containers/food/snacks/customizable/sandwich))
-		return ..()
+/obj/item/reagent_containers/food/snacks/breadslice/attackby(obj/item/I, mob/user, params)
+	if(make_custom_food(I, user, /obj/item/reagent_containers/food/snacks/customizable/sandwich))
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 
 
-/obj/item/reagent_containers/food/snacks/bun/attackby(obj/item/W, mob/user, params)
-	if(!make_custom_food(W, user, /obj/item/reagent_containers/food/snacks/customizable/burger))
-		return ..()
+/obj/item/reagent_containers/food/snacks/bun/attackby(obj/item/I, mob/user, params)
+	if(make_custom_food(I, user, /obj/item/reagent_containers/food/snacks/customizable/burger))
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 
 
-/obj/item/reagent_containers/food/snacks/sliceable/flatdough/attackby(obj/item/W, mob/user, params)
-	if(!make_custom_food(W, user, /obj/item/reagent_containers/food/snacks/customizable/pizza))
-		return ..()
+/obj/item/reagent_containers/food/snacks/sliceable/flatdough/attackby(obj/item/I, mob/user, params)
+	if(make_custom_food(I, user, /obj/item/reagent_containers/food/snacks/customizable/pizza))
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 
 
-/obj/item/reagent_containers/food/snacks/boiledspaghetti/attackby(obj/item/W, mob/user, params)
-	if(!make_custom_food(W, user, /obj/item/reagent_containers/food/snacks/customizable/pasta))
-		return ..()
+/obj/item/reagent_containers/food/snacks/boiledspaghetti/attackby(obj/item/I, mob/user, params)
+	if(make_custom_food(I, user, /obj/item/reagent_containers/food/snacks/customizable/pasta))
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 
 
-/obj/item/trash/plate/attackby(obj/item/W, mob/user, params)
-	if(!make_custom_food(W, user, /obj/item/reagent_containers/food/snacks/customizable/fullycustom))
-		return ..()
+/obj/item/trash/plate/attackby(obj/item/I, mob/user, params)
+	if(make_custom_food(I, user, /obj/item/reagent_containers/food/snacks/customizable/fullycustom))
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 /obj/item/trash/bowl
 	name = "bowl"
@@ -39,9 +45,10 @@
 	icon_state = "soup"
 
 
-/obj/item/trash/bowl/attackby(obj/item/W, mob/user, params)
-	if(!make_custom_food(W, user, /obj/item/reagent_containers/food/snacks/customizable/soup))
-		return ..()
+/obj/item/trash/bowl/attackby(obj/item/I, mob/user, params)
+	if(make_custom_food(I, user, /obj/item/reagent_containers/food/snacks/customizable/soup))
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 
 
 /obj/item/reagent_containers/food/snacks/customizable
@@ -296,8 +303,10 @@
 	if(!user.can_unEquip(I))
 		return ..()
 
-	if(!add_ingredient(I, user))
-		return ..()
+	if(add_ingredient(I, user))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /**
@@ -310,6 +319,7 @@
 /obj/item/reagent_containers/food/snacks/customizable/proc/add_ingredient(obj/item/reagent_containers/food/snacks/snack, mob/user)
 	. = FALSE
 
+	add_fingerprint(user)
 	if(length(ingredients) > ingredient_limit)
 		to_chat(user, span_warning("If you put anything else in or on [src] it's going to make a mess."))
 		return .

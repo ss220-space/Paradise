@@ -193,7 +193,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 			/obj/item/clothing/head/helmet/space/plasmaman/mining,
 	))
 
-/obj/item/stack/sheet/animalhide/goliath_hide/afterattack(atom/target, mob/user, proximity_flag)
+/obj/item/stack/sheet/animalhide/goliath_hide/afterattack(atom/target, mob/user, proximity_flag, params)
 	if(!proximity_flag)
 		return
 	var/platable_armor_with_icon = is_type_in_typecache(target, goliath_platable_armor_with_icon_typecache)
@@ -244,7 +244,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
 
-/obj/item/stack/sheet/armour_plate/afterattack(atom/target, mob/user, proximity_flag)
+/obj/item/stack/sheet/armour_plate/afterattack(atom/target, mob/user, proximity_flag, params)
 	if(!proximity_flag)
 		return
 	if(istype(target, /obj/mecha/working/ripley))
@@ -273,22 +273,26 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 
 //Step one - dehairing.
 
-/obj/item/stack/sheet/animalhide/attackby(obj/item/W, mob/user, params)
-	if(W.sharp)
-		user.visible_message("[user] starts cutting hair off \the [src].", "<span class='notice'>You start cutting the hair off \the [src]...</span>", "<span class='italics'>You hear the sound of a knife rubbing against flesh.</span>")
-		if(do_after(user, 5 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
-			to_chat(user, "<span class='notice'>You cut the hair from this [src.singular_name].</span>")
-			//Try locating an exisitng stack on the tile and add to there if possible
-			for(var/obj/item/stack/sheet/hairlesshide/HS in usr.loc)
-				if(HS.amount < 50)
-					HS.amount++
-					src.use(1)
-					break
-			//If it gets to here it means it did not find a suitable stack on the tile.
-			new /obj/item/stack/sheet/hairlesshide(usr.loc, 1)
-			src.use(1)
-	else
-		..()
+/obj/item/stack/sheet/animalhide/attackby(obj/item/I, mob/user, params)
+	if(is_sharp(I))
+		add_fingerprint(user)
+		if(loc == user && !user.can_unEquip(src))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] starts cutting hair off [src]."),
+			span_notice("You start cutting the hair off [src]..."),
+			span_italics("You hear the sound of a knife rubbing against flesh."),
+		)
+		if(!do_after(user, 5 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You cut the hair from [src]."))
+		var/obj/item/stack/sheet/hairlesshide/hide = new(drop_location(), amount)
+		hide.add_fingerprint(user)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 //Step two - washing (also handled by water reagent code and washing machine code)
 /obj/item/stack/sheet/hairlesshide/water_act(volume, temperature, source, method = REAGENT_TOUCH)

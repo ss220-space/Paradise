@@ -64,19 +64,26 @@
 	set_light_color(temp)
 
 
-/obj/machinery/dye_generator/attackby(obj/item/I, mob/user, params)
+/obj/machinery/dye_generator/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	default_unfasten_wrench(user, I)
 
-	if(default_unfasten_wrench(user, I, time = 60))
-		add_fingerprint(user)
-		return
+
+/obj/machinery/dye_generator/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
 	if(istype(I, /obj/item/hair_dye_bottle))
 		add_fingerprint(user)
-		var/obj/item/hair_dye_bottle/HD = I
-		user.visible_message(span_notice("[user] fills the [HD] up with some dye."),span_notice("You fill the [HD] up with some hair dye."))
-		HD.dye_color = light_color
-		HD.update_icon(UPDATE_OVERLAYS)
-		return
+		var/obj/item/hair_dye_bottle/dye_bottle = I
+		user.visible_message(
+			span_notice("[user] fills [dye_bottle] up with some hair dye."),
+			span_notice("You fill [dye_bottle] up with some hair dye."),
+		)
+		dye_bottle.hair_dye_color = light_color
+		dye_bottle.update_icon(UPDATE_OVERLAYS)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
 
 
@@ -104,40 +111,50 @@
 	. += mutable_appearance(icon, icon_state = "hairdyebottle-overlay", color = hair_dye_color)
 
 
-/obj/item/hair_dye_bottle/attack(mob/living/carbon/M, mob/user)
-	if(user.a_intent != INTENT_HELP)
-		..()
-		return
-	if(!(M in view(1)))
-		..()
-		return
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		var/dye_list = list("hair", "alt. hair theme")
+/obj/item/hair_dye_bottle/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(ishuman(target) || user.a_intent != INTENT_HELP || !(target in view(1)))
+		return ..()
 
-		if(H.gender == MALE || isvulpkanin(H))
-			dye_list += "facial hair"
-			dye_list += "alt. facial hair theme"
+	. = ATTACK_CHAIN_PROCEED
 
-		if(H && (H.dna.species.bodyflags & HAS_SKIN_COLOR))
-			dye_list += "body"
+	var/dye_list = list("hair", "alt. hair theme")
+	if(target.gender == MALE || isvulpkanin(target))
+		dye_list += "facial hair"
+		dye_list += "alt. facial hair theme"
 
-		var/what_to_dye = input(user, "Choose an area to apply the dye", "Dye Application") in dye_list
-		if(!user.Adjacent(M))
-			to_chat(user, "You are too far away!")
-			return
-		user.visible_message(span_notice("[user] starts dying [M]'s [what_to_dye]!"), span_notice("You start dying [M]'s [what_to_dye]!"))
-		if(do_after(user, 5 SECONDS, H))
-			switch(what_to_dye)
-				if("hair")
-					H.change_hair_color(hair_dye_color)
-				if("alt. hair theme")
-					H.change_hair_color(hair_dye_color, 1)
-				if("facial hair")
-					H.change_facial_hair_color(hair_dye_color)
-				if("alt. facial hair theme")
-					H.change_facial_hair_color(hair_dye_color, 1)
-				if("body")
-					H.change_skin_color(hair_dye_color)
-			H.update_dna()
-		user.visible_message(span_notice("[user] finishes dying [M]'s [what_to_dye]!"), span_notice("You finish dying [M]'s [what_to_dye]!"))
+	if(target.dna.species.bodyflags & HAS_SKIN_COLOR)
+		dye_list += "body"
+
+	var/what_to_dye = tgui_input_list(user, "Choose an area to apply the dye", "Dye Application", dye_list)
+	if(isnull(what_to_dye) || !user.Adjacent(target))
+		to_chat(user, "You are too far away!")
+		return .
+
+	user.visible_message(
+		span_notice("[user] starts dying [target]'s [what_to_dye]!"),
+		span_notice("You start dying [target]'s [what_to_dye]!"),
+	)
+
+	if(!do_after(user, 5 SECONDS, target, category = DA_CAT_TOOL))
+		return .
+
+	. |= ATTACK_CHAIN_SUCCESS
+
+	switch(what_to_dye)
+		if("hair")
+			target.change_hair_color(hair_dye_color)
+		if("alt. hair theme")
+			target.change_hair_color(hair_dye_color, 1)
+		if("facial hair")
+			target.change_facial_hair_color(hair_dye_color)
+		if("alt. facial hair theme")
+			target.change_facial_hair_color(hair_dye_color, 1)
+		if("body")
+			target.change_skin_color(hair_dye_color)
+
+	target.update_dna()
+	user.visible_message(
+		span_notice("[user] finishes dying [target]'s [what_to_dye]!"),
+		span_notice("You finish dying [target]'s [what_to_dye]!"),
+	)
+

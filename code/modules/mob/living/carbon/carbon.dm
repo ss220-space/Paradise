@@ -678,9 +678,9 @@
 	return loc.handle_slip(src, weaken, slipped_on, lube_flags, tilesSlipped)
 
 
-/mob/living/carbon/proc/eat(var/obj/item/reagent_containers/food/toEat, mob/user, var/bitesize_override)
+/mob/living/carbon/proc/eat(obj/item/reagent_containers/food/toEat, mob/user, bitesize_override)
 	if(!istype(toEat))
-		return 0
+		return FALSE
 	var/fullness = nutrition + 10
 	if(istype(toEat, /obj/item/reagent_containers/food/snacks))
 		for(var/datum/reagent/consumable/C in reagents.reagent_list) //we add the nutrition value of what we're currently digesting
@@ -688,30 +688,30 @@
 	if(user == src)
 		if(istype(toEat, /obj/item/reagent_containers/food/drinks))
 			if(!selfDrink(toEat))
-				return 0
+				return FALSE
 		else
 			if(!selfFeed(toEat, fullness))
-				return 0
+				return FALSE
 		if(toEat.log_eating)
 			var/this_bite = bitesize_override ? bitesize_override : toEat.bitesize
 			add_game_logs("Ate [toEat](bite volume: [this_bite*toEat.transfer_efficiency]) containing [toEat.reagents.log_list()]", src)
 	else
 		if(!forceFed(toEat, user, fullness))
-			return 0
+			return FALSE
 		var/this_bite = bitesize_override ? bitesize_override : toEat.bitesize
 		add_attack_logs(user, src, "Force Fed [toEat](bite volume: [this_bite*toEat.transfer_efficiency]u) containing [toEat.reagents.log_list()]")
 	consume(toEat, bitesize_override, can_taste_container = toEat.can_taste)
 	SSticker.score.score_food_eaten++
-	return 1
+	return TRUE
 
 
-/mob/living/carbon/proc/selfFeed(var/obj/item/reagent_containers/food/toEat, fullness)
+/mob/living/carbon/proc/selfFeed(obj/item/reagent_containers/food/toEat, fullness)
 	if(ispill(toEat))
 		to_chat(src, "<span class='notify'>You [toEat.apply_method] [toEat].</span>")
 	else
 		if(toEat.junkiness && satiety < -150 && nutrition > NUTRITION_LEVEL_STARVING + 50 )
 			to_chat(src, "<span class='notice'>You don't feel like eating any more junk food at the moment.</span>")
-			return 0
+			return FALSE
 		if(fullness <= 50)
 			to_chat(src, "<span class='warning'>You hungrily chew out a piece of [toEat] and gobble it!</span>")
 		else if(fullness > 50 && fullness < 150)
@@ -722,15 +722,15 @@
 			to_chat(src, "<span class='notice'>You unwillingly chew a bit of [toEat].</span>")
 		else if(fullness > (600 * (1 + overeatduration / 2000)))	// The more you eat - the more you can eat
 			to_chat(src, "<span class='warning'>You cannot force any more of [toEat] to go down your throat.</span>")
-			return 0
-	return 1
+			return FALSE
+	return TRUE
 
 
-/mob/living/carbon/proc/selfDrink(var/obj/item/reagent_containers/food/drinks/toDrink, mob/user)
-	return 1
+/mob/living/carbon/proc/selfDrink(obj/item/reagent_containers/food/drinks/toDrink, mob/user)
+	return TRUE
 
 
-/mob/living/carbon/proc/forceFed(var/obj/item/reagent_containers/food/toEat, mob/user, fullness)
+/mob/living/carbon/proc/forceFed(obj/item/reagent_containers/food/toEat, mob/user, fullness)
 	if(ispill(toEat) || fullness <= (600 * (1 + overeatduration / 1000)))
 		if(!toEat.instant_application)
 			visible_message("<span class='warning'>[user] attempts to force [src] to [toEat.apply_method] [toEat].</span>")

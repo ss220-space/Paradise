@@ -606,7 +606,7 @@
 			target.forcesay(GLOB.hit_appends)
 		else if(target.body_position == LYING_DOWN)
 			target.forcesay(GLOB.hit_appends)
-		SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
+
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(user == target)
@@ -1162,8 +1162,10 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
 	return
 
-/datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
-	return
+
+/datum/species/proc/spec_proceed_attack_results(obj/item/I, mob/living/carbon/human/defender, mob/living/attacker, obj/item/organ/external/affecting)
+	return ATTACK_CHAIN_PROCEED
+
 
 /proc/get_random_species(species_name = FALSE)	// Returns a random non black-listed or hazardous species, either as a string or datum
 	var/static/list/random_species = list()

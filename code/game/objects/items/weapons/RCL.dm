@@ -15,28 +15,32 @@
 	var/obj/structure/cable/last = null
 	var/obj/item/stack/cable_coil/loaded = null
 
-/obj/item/twohanded/rcl/attackby(obj/item/W, mob/user)
-	if(istype(W, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/C = W
+
+/obj/item/twohanded/rcl/attackby(obj/item/I, mob/user, params)
+	if(iscoil(I))
+		add_fingerprint(user)
+		var/obj/item/stack/cable_coil/coil = I
 		if(!loaded)
-			if(user.drop_from_active_hand())
-				loaded = W
-				loaded.forceMove(src)
-				loaded.max_amount = max_amount //We store a lot.
-			else
-				to_chat(user, "<span class='warning'>[user.get_active_hand()] is stuck to your hand!</span>")
-				return
-		else
-			if(loaded.amount < max_amount)
-				var/amount = min(loaded.amount + C.amount, max_amount)
-				C.use(amount - loaded.amount)
-				loaded.amount = amount
-			else
-				return
+			if(!user.drop_transfer_item_to_loc(coil, src))
+				return ..()
+			loaded = coil
+			loaded.max_amount = max_amount //We store a lot.
+			update_icon(UPDATE_ICON_STATE)
+			to_chat(user, span_notice("You add the cables to the [src]. It now contains [loaded.amount]."))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		if(loaded.amount >= max_amount)
+			to_chat(user, span_warning("The [name]'s cable storage is full."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You load some cable into [src]."))
+		var/amount = min(loaded.amount + coil.amount, max_amount)
+		coil.use(amount - loaded.amount)
+		loaded.amount = amount
 		update_icon(UPDATE_ICON_STATE)
-		to_chat(user, "<span class='notice'>You add the cables to the [src]. It now contains [loaded.amount].</span>")
-	else
-		..()
+		to_chat(user, span_notice("You add the cables to the [src]. It now contains [loaded.amount]."))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/item/twohanded/rcl/screwdriver_act(mob/user, obj/item/I)
 	if(!loaded)
@@ -136,7 +140,7 @@
 	if(last)
 		if(get_dist(last, user) == 1) //hacky, but it works
 			var/turf/T = get_turf(user)
-			if(!isturf(T) || T.intact || !T.can_have_cabling())
+			if(!T || !T.can_lay_cable())
 				last = null
 				return
 			if(get_dir(last, user) == last.d2)

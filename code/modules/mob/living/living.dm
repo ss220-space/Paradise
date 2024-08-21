@@ -846,7 +846,7 @@
 		if(!buckled.anchored)
 			buckled.moving_from_pull = moving_from_pull
 			. = buckled.Move(newloc, direct)
-			buckled.moving_from_pull = null
+			buckled?.moving_from_pull = null
 		return .
 
 	if(pulling)
@@ -1388,26 +1388,27 @@
 /mob/living/proc/get_permeability_protection()
 	return 0
 
+
 /mob/living/proc/attempt_harvest(obj/item/I, mob/user)
-	if(user.a_intent == INTENT_HARM && stat == DEAD && (butcher_results || is_monkeybasic(src))) //can we butcher it?
-		var/sharpness = is_sharp(I)
-		if(sharpness)
-			to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
-			playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
-			if(do_after(user, 8 SECONDS / sharpness, src, NONE) && Adjacent(I))
-				harvest(user)
-			return 1
+	if(user.a_intent != INTENT_HARM || stat != DEAD || !is_sharp(I) || (!butcher_results && !is_monkeybasic(src))) //can we butcher it?
+		return FALSE
+	. = TRUE
+	to_chat(user, span_notice("You begin to butcher [src]..."))
+	playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
+	if(!do_after(user, 4 SECONDS * mob_size, src, NONE, max_interact_count = 1, cancel_on_max = TRUE) || !Adjacent(user))
+		return .
+	harvest(user)
+
 
 /mob/living/proc/harvest(mob/living/user)
-	if(QDELETED(src))
+	if(QDELETED(src) || !butcher_results)
 		return
-	if(butcher_results)
-		for(var/path in butcher_results)
-			for(var/i = 1, i <= butcher_results[path], i++)
-				new path(loc)
-			butcher_results.Remove(path) //In case you want to have things like simple_animals drop their butcher results on gib, so it won't double up below.
-		visible_message("<span class='notice'>[user] butchers [src].</span>")
-		gib()
+	for(var/path in butcher_results)
+		for(var/i in 1 to butcher_results[path])
+			new path(loc)
+		butcher_results.Remove(path) //In case you want to have things like simple_animals drop their butcher results on gib, so it won't double up below.
+	visible_message(span_notice("[user] butchers [src]."))
+	gib()
 
 
 /mob/living/proc/can_use_guns(var/obj/item/gun/G)

@@ -56,10 +56,14 @@
 /obj/machinery/atmospherics/unary/cold_sink/freezer/process()
 	return	// need to overwrite the parent or it returns PROCESS_KILL and it stops processing/using power
 
+
 /obj/machinery/atmospherics/unary/cold_sink/freezer/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 	if(exchange_parts(user, I))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
+
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -229,10 +233,14 @@
 	max_temperature = T20C + (140 * T)
 	current_heat_capacity = 1000 * ((H - 1) ** 2)
 
+
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 	if(exchange_parts(user, I))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
+
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))

@@ -106,129 +106,125 @@
 
 
 /obj/machinery/power/smes/attackby(obj/item/I, mob/user, params)
-	//opening using screwdriver
-	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I))
-		add_fingerprint(user)
-		update_icon(UPDATE_OVERLAYS)
-		return
-
-	//changing direction using wrench
-	if(default_change_direction_wrench(user, I))
-		add_fingerprint(user)
-		terminal = null
-		var/turf/T = get_step(src, dir)
-		for(var/obj/machinery/power/terminal/term in T)
-			if(term && term.dir == turn(dir, 180))
-				terminal = term
-				terminal.master = src
-				to_chat(user, "<span class='notice'>Terminal found.</span>")
-				break
-		if(!terminal)
-			to_chat(user, "<span class='alert'>No power source found.</span>")
-			return
-		stat &= ~BROKEN
-		update_icon(UPDATE_OVERLAYS)
-		return
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
 	//exchanging parts using the RPE
 	if(exchange_parts(user, I))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	//building and linking a terminal
-	if(istype(I, /obj/item/stack/cable_coil))
-		var/dir = get_dir(user,src)
-		if(dir & (dir-1))//we don't want diagonal click
-			return
+	if(iscoil(I))
+		add_fingerprint(user)
+		var/obj/item/stack/cable_coil/coil = I
+		if(terminal)	//is there already a terminal ?
+			to_chat(user, span_warning("This SMES already has a power terminal."))
+			return ATTACK_CHAIN_PROCEED
+		var/terminal_dir = get_dir(user, src)
+		if(ISDIAGONALDIR(terminal_dir))	//we don't want diagonal click
+			to_chat(user, span_warning("You should face the SMES from any cardinal direction."))
+			return ATTACK_CHAIN_PROCEED
+		if(!panel_open)	//is the panel open ?
+			to_chat(user, span_warning("You should open the maintenance panel first."))
+			return ATTACK_CHAIN_PROCEED
+		var/turf/terminal_turf = get_step(src, REVERSE_DIR(terminal_dir))
+		if(!terminal_turf.can_have_cabling() || terminal_turf.intact)	//is the floor plating removed or is it a spaceturf ?
+			to_chat(user, span_warning("You should remove or change the floor plating beneath you."))
+			return ATTACK_CHAIN_PROCEED
+		if(user.loc == loc)	// somehow???
+			to_chat(user, span_warning("You must not be on the same tile as the SMES."))
+			return ATTACK_CHAIN_PROCEED
+		if(coil.get_amount() < 10)
+			to_chat(user, span_warning("You need at least ten length of cable to construct a power terminal."))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] starts to construct the cable terminal for the SMES."),
+			span_notice("You start to construct the cable terminal for the SMES..."),
+		)
+		coil.play_tool_sound(src)
+		if(!do_after(user, 5 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || !panel_open || !terminal_turf.can_have_cabling() || terminal_turf.intact || QDELETED(coil))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/structure/cable/node = terminal_turf.get_cable_node()
+		if(prob(50) && electrocute_mob(user, node, node, 1, TRUE))
+			do_sparks(5, TRUE, src)
+			return ATTACK_CHAIN_BLOCKED_ALL
+		if(!coil.use(10))
+			to_chat(user, span_warning("At some point during construction you lost some cable. Make sure you have ten lengths before trying again."))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] has finished the construction of the cable terminal for the SMES."),
+			span_notice("You have finished the construction of the cable terminal for the SMES."),
+		)
+		make_terminal(terminal_dir, terminal_turf)
+		terminal.add_fingerprint(user)
+		terminal.connect_to_network()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-		if(terminal) //is there already a terminal ?
-			to_chat(user, "<span class='alert'>This SMES already has a power terminal!</span>")
-			return
-
-		if(!panel_open) //is the panel open ?
-			to_chat(user, "<span class='alert'>You must open the maintenance panel first!</span>")
-			return
-
-		var/turf/T = get_turf(user)
-		if(T.intact) //is the floor plating removed ?
-			to_chat(user, "<span class='alert'>You must first remove the floor plating!</span>")
-			return
-
-		var/obj/item/stack/cable_coil/C = I
-		if(C.get_amount() < 10)
-			to_chat(user, "<span class='alert'>You need more wires.</span>")
-			return
-
-		if(user.loc == loc)
-			to_chat(user, "<span class='warning'>You must not be on the same tile as the [src].</span>")
-			return
-
-		//Direction the terminal will face to
-		var/tempDir = get_dir(user, src)
-		switch(tempDir)
-			if(NORTHEAST, SOUTHEAST)
-				tempDir = EAST
-			if(NORTHWEST, SOUTHWEST)
-				tempDir = WEST
-		var/turf/tempLoc = get_step(src, reverse_direction(tempDir))
-		if(isspaceturf(tempLoc))
-			to_chat(user, "<span class='warning'>You can't build a terminal on space.</span>")
-			return
-		else if(istype(tempLoc))
-			if(tempLoc.intact)
-				to_chat(user, "<span class='warning'>You must remove the floor plating first.</span>")
-				return
-
-		to_chat(user, "<span class='notice'>You start adding cable to the [src].</span>")
-		playsound(loc, C.usesound, 50, 1)
-
-		if(do_after(user, 5 SECONDS, src))
-			if(!terminal && panel_open)
-				add_fingerprint(user)
-				T = get_turf(user)
-				var/obj/structure/cable/N = T.get_cable_node() //get the connecting node cable, if there's one
-				if(prob(50) && electrocute_mob(usr, N, N, 1, TRUE)) //animate the electrocution if uncautious and unlucky
-					do_sparks(5, 1, src)
-					return
-
-				C.use(10) // make sure the cable gets used up
-				user.visible_message(\
-					"<span class='notice'>[user.name] adds the cables and connects the power terminal.</span>",\
-					"<span class='notice'>You add the cables and connect the power terminal.</span>")
-
-				make_terminal(user, tempDir, tempLoc)
-				terminal.add_fingerprint(user)
-				terminal.connect_to_network()
-		return
-
-	//disassembling the terminal
-	if(I.tool_behaviour == TOOL_WIRECUTTER && terminal && panel_open)
-		var/turf/T = get_turf(terminal)
-		if(T.intact) //is the floor plating removed ?
-			to_chat(user, "<span class='alert'>You must first expose the power terminal!</span>")
-			return
-
-		to_chat(user, "<span class='notice'>You begin to dismantle the power terminal...</span>")
-		playsound(src.loc, I.usesound, 50, 1)
-
-		if(do_after(user, 5 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
-			if(terminal && panel_open)
-				if(prob(50) && electrocute_mob(usr, terminal.powernet, terminal, 1, TRUE)) //animate the electrocution if uncautious and unlucky
-					do_sparks(5, 1, src)
-					return
-
-				//give the wires back and delete the terminal
-				new /obj/item/stack/cable_coil(T,10)
-				user.visible_message(\
-					"<span class='alert'>[user.name] cuts the cables and dismantles the power terminal.</span>",\
-					"<span class='notice'>You cut the cables and dismantle the power terminal.</span>")
-				inputting = 0 //stop inputting, since we have don't have a terminal anymore
-				qdel(terminal)
-				return
-
-	//crowbarring it !
-	if(default_deconstruction_crowbar(user, I))
-		return
 	return ..()
+
+
+/obj/machinery/power/smes/screwdriver_act(mob/living/user, obj/item/I)
+	. = default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", initial(icon_state), I)
+	if(.)
+		update_icon(UPDATE_OVERLAYS)
+
+
+/obj/machinery/power/smes/wrench_act(mob/living/user, obj/item/I)
+	. = default_change_direction_wrench(user, I)
+	if(!.)
+		return .
+	terminal = null
+	var/turf/terminal_turf = get_step(src, dir)
+	for(var/obj/machinery/power/terminal/check_terminal in terminal_turf)
+		if(check_terminal.dir == turn(dir, 180))
+			terminal = check_terminal
+			terminal.master = src
+			to_chat(user, span_notice("Terminal found."))
+			break
+	if(!terminal)
+		to_chat(user, span_warning("No power source found."))
+		return .
+	stat &= ~BROKEN
+	update_icon(UPDATE_OVERLAYS)
+
+
+/obj/machinery/power/smes/wirecutter_act(mob/living/user, obj/item/I)
+	. = TRUE
+	add_fingerprint(user)
+	if(QDELETED(terminal))
+		to_chat(user, span_warning("The [name] has no power terminal."))
+		return .
+	var/turf/terminal_turf = get_turf(terminal)
+	if(terminal_turf.intact)
+		to_chat(user, span_warning("You should expose the power terminal first."))
+		return .
+	if(!panel_open)
+		to_chat(user, span_warning("You cannot dismantle the power terminal while the maintenance panel is closed."))
+		return .
+	to_chat(user, span_notice("You start to dismantle the power terminal..."))
+	user.visible_message(
+		span_notice("[user] starts to dismantle the power terminal."),
+		span_notice("You start to dismantle the power terminal..."),
+	)
+	if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume) || QDELETED(terminal) || terminal_turf.intact || !panel_open)
+		return .
+	if(prob(50) && electrocute_mob(user, terminal.powernet, terminal, 1, TRUE)) //animate the electrocution if uncautious and unlucky
+		do_sparks(5, TRUE, src)
+		return .
+	user.visible_message(
+		span_notice("[user] has dismantled the power terminal."),
+		span_notice("You have dismantled the power terminal."),
+	)
+	var/obj/item/stack/cable_coil/coil = new(terminal_turf, 10)	//give the wires back and delete the terminal
+	terminal.transfer_fingerprints_to(coil)
+	coil.add_fingerprint(user)
+	inputting = 0 //stop inputting, since we have don't have a terminal anymore
+	qdel(terminal)
+
+
+/obj/machinery/power/smes/crowbar_act(mob/living/user, obj/item/I)
+	return default_deconstruction_crowbar(user, I)
+
 
 /obj/machinery/power/smes/disconnect_terminal()
 	if(terminal)
@@ -237,12 +233,14 @@
 		return TRUE
 	return FALSE
 
-/obj/machinery/power/smes/proc/make_terminal(user, tempDir, tempLoc)
+
+/obj/machinery/power/smes/proc/make_terminal(tempDir, tempLoc)
 	// create a terminal object at the same position as original turf loc
 	// wires will attach to this
 	terminal = new /obj/machinery/power/terminal(tempLoc)
 	terminal.dir = tempDir
 	terminal.master = src
+
 
 /obj/machinery/power/smes/Destroy()
 	if(SSticker && SSticker.current_state == GAME_STATE_PLAYING)

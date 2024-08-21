@@ -68,7 +68,7 @@
 	if((I.item_flags & NO_MAT_REDEMPTION) || (I.flags & HOLOGRAM) || (tc && !is_type_in_typecache(I, tc)))
 		to_chat(user, "<span class='warning'>[parent] won't accept [I]!</span>")
 		return
-	. = COMPONENT_NO_AFTERATTACK
+	. = COMPONENT_CANCEL_ATTACK_CHAIN|COMPONENT_NO_AFTERATTACK
 	var/datum/callback/pc = precondition
 	if(pc && !pc.Invoke(user))
 		return
