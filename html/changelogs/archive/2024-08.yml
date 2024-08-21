@@ -180,6 +180,8 @@
   - add: Techs for genetics block injectors (#5704)
   - add: '"Far vision" gene (#5700)'
   - add: Telekenesis attack_self_tk = attack_self (#5685)
+  Aziz Chynaliev:
+  - server: tweak default deployment targets
   Dreamer3-3:
   - balance: mantis blades buff (#5710)
   Etrnlmelancholy:
@@ -204,3 +206,15 @@
   - tweak: add waistcoat to loadout and law's clothesmate (#5742)
   pilygun:
   - qol: Pai soft update (#5712)
+'2024-08-21':
+  Kray1k:
+  - bugfix: some random spawn init fixes (#5746)
+  - bugfix: reagents duplication on soda dispencer upgrade (#5756)
+  ROdenFL:
+  - bugfix: ochki serdechki (#5757)
+  SHODAN:
+  - bugfix: solid smoke runtime (#5755)
+  Sheya:
+  - bugfix: LSR-39 pierces two objects (#5752)
+  Zwei:
+  - refactor: Attack Chain Rework (#5672)
