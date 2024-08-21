@@ -47,8 +47,11 @@
 	borer_rank = user.borer_rank
 	host = user.host
 	previous_host = host
+	borer_misc.parent = src
 	borer_rank.parent = src
-	learned_focuses.parent = src
+	for(var/datum in subtypesof(learned_focuses))
+		var/datum/borer_focus/focus = datum
+		focus.parent = src
 
 /datum/antagonist/borer/greet()
 	var/list/messages = list()
@@ -132,7 +135,9 @@
 		return
 	if(tick_interval != -1 && tick_interval <= world.time)
 		var/tick_length = initial(tick_interval)
-		learned_focuses.tick(tick_length / (1 SECONDS))
+		for(var/datum in subtypesof(learned_focuses))
+			var/datum/borer_focus/focus = datum
+			focus.tick(tick_length / (1 SECONDS))
 		borer_rank.tick(tick_length / (1 SECONDS))
 		tick_interval = world.time + tick_length
 		if(QDELING(src))
@@ -144,6 +149,7 @@
 
 /datum/borer_misc/Destroy(force)
 	parent = null
+	return ..()
 
 /datum/borer_misc/proc/grant_movable_effect()
 	return
@@ -172,6 +178,11 @@
 	var/datum/antagonist/borer/parent
 	var/mob/living/simple_animal/borer/owner
 	
+/datum/borer_rank/Destroy(force)
+	parent = null
+	owner = null
+	return ..()
+
 /datum/borer_rank/proc/update_rank(mob/living/simple_animal/borer/borer)
 	if(!borer.borer_rank)
 		borer.borer_rank = new /datum/borer_rank/young(borer)
@@ -550,7 +561,4 @@
 #undef LEGS_FOCUS_COST
 #undef SCALING_MAX_CHEM
 #undef SCALING_CHEM_GAIN
-#undef FLAG_PROCESS
-#undef FLAG_HOST_REQUIRED 
-#undef FLAG_HAS_MOVABLE_EFFECT 
-#undef SHOULD_PROCESS_AFTER_DEATH
+
