@@ -144,9 +144,9 @@
 
 
 /mob/living/simple_animal/hostile/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
-	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client && user)
+	. = ..()
+	if(ATTACK_CHAIN_SUCCESS_CHECK(.) && I.force && stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client)
 		FindTarget(list(user), TRUE)
-	return ..()
 
 
 /mob/living/simple_animal/hostile/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)

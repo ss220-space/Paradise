@@ -253,7 +253,7 @@
 	return 1
 
 /datum/spacevine_mutation/fire_proof/on_hit(obj/structure/spacevine/holder, mob/hitter, obj/item/I, expected_damage)
-	if(I && I.damtype == "fire")
+	if(I && I.damtype == BURN)
 		. = 0
 	else
 		. = expected_damage
@@ -500,31 +500,44 @@
 
 
 /obj/structure/spacevine/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
+	if(!I.force)
+		user.visible_message(
+			span_warning("[user] gently pokes [src] with [I]."),
+			span_warning("You gently poke [src] with [I]."),
+		)
+		return .
+	user.visible_message(
+		span_danger("[user] has hit [src] with [I]!"),
+		span_danger("You have hit [src] with [I]!"),
+	)
 	var/damage_dealt = I.force
-	if(istype(I, /obj/item/scythe))
-		var/obj/item/scythe/scythe = I
-		//so folded telescythes won't get damage boosts / insta-clears (they instead will instead be treated like non-scythes)
-		if(scythe.extend)
-			damage_dealt *= 4
-			for(var/obj/structure/spacevine/spacevine in range(1,src))
-				//this only is going to occur for woodening mutation vines (increased health) or if we nerf scythe damage/multiplier
-				if(spacevine.obj_integrity > damage_dealt)
-					spacevine.take_damage(damage_dealt, I.damtype, MELEE, TRUE)
-				else
-					spacevine.wither()
-			return
-
-	if(is_sharp(I))
+	var/obj/item/scythe/scythe = I
+	//so folded telescythes won't get damage boosts / insta-clears (they instead will be treated like non-scythes)
+	if(istype(I, /obj/item/scythe) && scythe.extend)
 		damage_dealt *= 4
+		for(var/obj/structure/spacevine/spacevine in range(1, src))
+			for(var/datum/spacevine_mutation/mutation as anything in spacevine.mutations)
+				//on_hit now takes override damage as arg and returns new value for other mutations to permutate further
+				damage_dealt = mutation.on_hit(src, user, I, damage_dealt)
+			//this only is going to occur for woodening mutation vines (increased health) or if we nerf scythe damage/multiplier
+			if(spacevine.obj_integrity > damage_dealt)
+				spacevine.take_damage(damage_dealt, I.damtype, MELEE, TRUE, get_dir(user, spacevine), I.armour_penetration)
+			else
+				spacevine.wither()
+		if(QDELETED(src))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		return .
 
-	if(I.damtype == BURN)
+	if(is_sharp(I) || I.damtype == BURN)
 		damage_dealt *= 4
 
 	for(var/datum/spacevine_mutation/mutation as anything in mutations)
-		//on_hit now takes override damage as arg and returns new value for other mutations to permutate further
 		damage_dealt = mutation.on_hit(src, user, I, damage_dealt)
 
-	take_damage(damage_dealt, I.damtype, MELEE, TRUE)
+	take_damage(damage_dealt, I.damtype, MELEE, TRUE, get_dir(user, src), I.armour_penetration)
+	if(QDELETED(src))
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 
 /obj/structure/spacevine/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)

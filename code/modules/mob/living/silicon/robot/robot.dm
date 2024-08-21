@@ -1085,9 +1085,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 
 /mob/living/silicon/robot/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
-	if(I.force && I.damtype != STAMINA && stat != DEAD) //only sparks if real damage is dealt.
-		spark_system.start()
-	return ..()
+	. = ..()
+	if(ATTACK_CHAIN_SUCCESS_CHECK(.) && I.force && I.damtype != STAMINA && stat != DEAD)
+		spark_system.start()	//only sparks if real damage is dealt
 
 
 /mob/living/silicon/robot/emag_act(mob/user)

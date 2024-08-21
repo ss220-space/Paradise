@@ -100,24 +100,15 @@
 
 
 /mob/living/carbon/true_devil/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
+
+	send_item_attack_message(I, user, def_zone)
 	if(!I.force)
-		return
+		return .
 
-	var/weakness = check_weakness(I, user)
-	var/message_verb = "attacked"
-	if(length(I.attack_verb))
-		message_verb = "[pick(I.attack_verb)]"
-
-	var/attack_message = "[src] has been [message_verb] with [I]."
-	if(user in viewers(src))
-		attack_message = "[user] has [message_verb] [src] with [I]!"
-
-	visible_message(
-		span_danger("[attack_message]"),
-		span_userdanger("[attack_message]"),
-	)
-
-	apply_damage(I.force * weakness, I.damtype, def_zone)
+	apply_damage(I.force * check_weakness(I, user), I.damtype, def_zone, sharp = is_sharp(I), used_weapon = I)
+	if(QDELETED(src))
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 
 /mob/living/carbon/true_devil/UnarmedAttack(atom/A, proximity)

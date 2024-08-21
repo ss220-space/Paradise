@@ -436,8 +436,8 @@ emp_act
 
 
 /mob/living/carbon/human/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
-	if(QDELETED(I) || QDELETED(user))
-		return
+	if(QDELETED(src) || QDELETED(I) || QDELETED(user))	// tripple insurance, jesus fucking christ
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if((istype(I, /obj/item/kitchen/knife/butcher/meatcleaver) || istype(I, /obj/item/twohanded/chainsaw)) && stat == DEAD && user.a_intent == INTENT_HARM)
 		new dna.species.meat_type(get_turf(loc), src)
@@ -447,7 +447,7 @@ emp_act
 		if(!meatleft)
 			add_attack_logs(user, src, "Chopped up into meat")
 			qdel(src)
-			return
+			return ATTACK_CHAIN_BLOCKED_ALL
 
 	var/attack_zone = ran_zone(def_zone)
 	var/obj/item/organ/external/affecting = get_organ(attack_zone)
@@ -457,107 +457,131 @@ emp_act
 		var/obj/item/organ/external/affecting_path = species_bodyparts["path"]
 		affecting = get_organ(initial(affecting_path.parent_organ_zone)) || get_organ(BODY_ZONE_CHEST)
 		if(!affecting)
-			CRASH("Human somehow has no chest bodypart.")
+			stack_trace("Human somehow has no chest bodypart.")
+			return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(user != src && check_shields(I, I.force, "the [I.name]", MELEE_ATTACK, I.armour_penetration))
-		return
+		return ATTACK_CHAIN_BLOCKED
 
 	if(check_martial_art_defense(src, user, I, span_warning("[src] blocks [I]!")))
-		return
+		return ATTACK_CHAIN_BLOCKED
 
 	if(istype(I, /obj/item/card/emag) && emag_act(user, affecting))
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	send_item_attack_message(I, user, affecting.limb_zone)
 
-	var/weakness = check_weakness(I, user)
-
+	. = ATTACK_CHAIN_PROCEED_SUCCESS	// from now on we consider that attack was succesful
 	if(!I.force)
-		return
+		return .
 
-	var/hit_area = parse_zone(affecting.limb_zone)
+	var/hit_area = affecting.limb_zone
+	var/hit_area_name = parse_zone(hit_area)
 
-	var/armor = run_armor_check(affecting, MELEE, span_warning("Your armour has protected your [hit_area]."), span_warning("Your armour has softened hit to your [hit_area]."), armour_penetration = I.armour_penetration)
+	var/armor = run_armor_check(affecting, MELEE, span_warning("Your armour has protected your [hit_area_name]."), span_warning("Your armour has softened hit to your [hit_area_name]."), armour_penetration = I.armour_penetration)
 	if(armor >= 100)
-		return FALSE
+		return .
+
 	var/weapon_sharp = is_sharp(I)
 	if(weapon_sharp && prob(getarmor(user.zone_selected, MELEE)))
 		weapon_sharp = FALSE
-	if(armor >= 100)
-		return
 
-	// to avoid runtimes on the forcesay checks at the bottom.
-	// some items might delete themselves if you drop them. (stunning yourself, ninja swords)
-	var/cached_force = I.force * weakness
-	var/cached_dam_type = I.damtype
+	var/cached_force = I.force * check_weakness(I, user)
+	// this can destroy some species (damn nucleo-bombers), so from now on we cannot count on its existance
+	var/apply_damage_result = apply_damage(cached_force, I.damtype, affecting, armor, weapon_sharp, I)
+	var/IM_ALIVE = !QDELETED(src)
 
-	apply_damage(cached_force, cached_dam_type, affecting, armor, weapon_sharp, I)
-
-	var/all_objectives = user?.mind?.get_all_objectives()
-	if(mind && all_objectives)
+	var/list/all_objectives = user.mind?.get_all_objectives()
+	if(all_objectives)
 		for(var/datum/objective/pain_hunter/objective in all_objectives)
 			if(mind == objective.target)
-				objective.take_damage(cached_force, cached_dam_type)
+				objective.take_damage(cached_force, I.damtype)
+
+	if(!IM_ALIVE)
+		return .
 
 	var/bloody = FALSE
-	if(cached_dam_type == BRUTE && cached_force && prob(25 + cached_force * 2))
-		I?.add_mob_blood(src)	//Make the weapon bloody, not the person.
+	if(apply_damage_result && I.damtype == BRUTE && prob(25 + cached_force * 2))
+		I.add_mob_blood(src)	//Make the weapon bloody, not the person.
 		if(prob(cached_force * 2)) //blood spatter!
 			bloody = TRUE
-			var/turf/location = loc
-			if(issimulatedturf(location))
-				add_splatter_floor(location)
-			if(ishuman(user))
-				var/mob/living/carbon/human/human_user = user
-				if(get_dist(human_user, src) <= 1) //people with TK won't get smeared with blood
-					human_user.add_mob_blood(src)
+			add_splatter_floor()
+			if(get_dist(user, src) <= 1) //people with TK won't get smeared with blood
+				user.add_mob_blood(src)
 
-		if(!stat)
-			switch(hit_area)
-				if(BODY_ZONE_HEAD)//Harder to score a stun but if you do it lasts a bit longer
-					if(stat == CONSCIOUS && armor < 50)
-						if(prob(cached_force))
-							visible_message(
-								span_combatdanger("[src] has been knocked down!"),
-								span_combatuserdanger("[src] has been knocked down!"),
-							)
-							apply_effect(4 SECONDS, KNOCKDOWN, armor)
-							AdjustConfused(30 SECONDS)
-						if(mind && mind.special_role == SPECIAL_ROLE_REV && prob(cached_force + ((100 - health)/2)) && src != user && cached_dam_type == BRUTE)
-							SSticker.mode.remove_revolutionary(mind)
+	switch(hit_area)
+		if(BODY_ZONE_HEAD)//Harder to score a stun but if you do it lasts a bit longer
+			if(apply_damage_result && stat == CONSCIOUS && armor < 50)
+				if(prob(cached_force))
+					visible_message(
+						span_combatdanger("[src] has been knocked down!"),
+						span_combatuserdanger("[src] has been knocked down!"),
+					)
+					apply_effect(4 SECONDS, KNOCKDOWN, armor)
+					AdjustConfused(30 SECONDS)
+				if(mind?.special_role == SPECIAL_ROLE_REV && prob(cached_force + ((100 - health)/2)) && src != user && I.damtype == BRUTE)
+					SSticker.mode.remove_revolutionary(mind)
 
-					if(bloody)//Apply blood
-						if(wear_mask)
-							wear_mask.add_mob_blood(src)
-							update_inv_wear_mask()
-						if(head)
-							head.add_mob_blood(src)
-							update_inv_head()
-						if(glasses && prob(33))
-							glasses.add_mob_blood(src)
-							update_inv_glasses()
+			if(bloody)//Apply blood
+				if(wear_mask)
+					wear_mask.add_mob_blood(src)
+					update_inv_wear_mask()
+				if(head)
+					head.add_mob_blood(src)
+					update_inv_head()
+				if(glasses && prob(33))
+					glasses.add_mob_blood(src)
+					update_inv_glasses()
 
+		if(BODY_ZONE_CHEST)//Easier to score a stun but lasts less time
+			if(apply_damage_result && stat == CONSCIOUS && prob(cached_force + 10))
+				visible_message(
+					span_combatdanger("[src] has been knocked down!"),
+					span_combatuserdanger("[src] has been knocked down!"),
+				)
+				apply_effect(2 SECONDS, KNOCKDOWN, armor)
 
-				if(BODY_ZONE_CHEST)//Easier to score a stun but lasts less time
-					if(stat == CONSCIOUS && cached_force && prob(cached_force + 10))
-						visible_message(
-							span_combatdanger("[src] has been knocked down!"),
-							span_combatuserdanger("[src] has been knocked down!"),
-						)
-						apply_effect(4 SECONDS, KNOCKDOWN, armor)
+			if(bloody)
+				if(wear_suit)
+					wear_suit.add_mob_blood(src)
+					update_inv_wear_suit()
+				if(w_uniform)
+					w_uniform.add_mob_blood(src)
+					update_inv_w_uniform()
 
-					if(bloody)
-						if(wear_suit)
-							wear_suit.add_mob_blood(src)
-							update_inv_wear_suit()
-						if(w_uniform)
-							w_uniform.add_mob_blood(src)
-							update_inv_w_uniform()
-
-	if(cached_force > 10 || (cached_force >= 5 && prob(33)))
+	if(apply_damage_result && (cached_force > 10 || (cached_force >= 5 && prob(33))))
 		forcesay(GLOB.hit_appends)	//forcesay checks stat already
 
-	dna.species.spec_proceed_attack_results(I, src, user, affecting)
+	. |= dna.species.spec_proceed_attack_results(I, src, user, affecting)
+
+
+/mob/living/carbon/human/send_item_attack_message(obj/item/I, mob/living/user, def_zone)
+	if(I.item_flags & SKIP_ATTACK_MESSAGE)
+		return
+
+	var/message_hit_area = ""	// only humans have def zones, so we need an override
+	if(def_zone)
+		message_hit_area = " in the [parse_zone(def_zone)]"
+
+	if(!I.force)
+		visible_message(
+			span_warning("[user] gently taps [src][message_hit_area] with [I]."),
+			span_warning("[user] gently taps you[message_hit_area] with [I]."),
+			ignored_mobs = user,
+		)
+		to_chat(user, span_warning("You gently tap [src][message_hit_area] with [I]."))
+		return
+
+	var/message_verb = "attacked"
+	if(length(I.attack_verb))
+		message_verb = "[pick(I.attack_verb)]"
+
+	visible_message(
+		span_danger("[user] has [message_verb] [src][message_hit_area] with [I]!"),
+		span_userdanger("[user] has [message_verb] you[message_hit_area] with [I]!"),
+		ignored_mobs = user,
+	)
+	to_chat(user, span_danger("You have [message_verb] [src][message_hit_area] with [I]!"))
 
 
 /**

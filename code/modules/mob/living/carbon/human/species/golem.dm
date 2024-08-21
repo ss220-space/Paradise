@@ -705,8 +705,9 @@
 
 
 /datum/species/golem/bluespace/spec_proceed_attack_results(obj/item/I, mob/living/carbon/human/defender, mob/living/attacker, obj/item/organ/external/affecting)
-	if(world.time > last_teleport + teleport_cooldown && defender != attacker)
-		reactive_teleport(defender)
+	. = ..()
+	if(world.time > last_teleport + teleport_cooldown && defender != attacker && reactive_teleport(defender))
+		. |= ATTACK_CHAIN_NO_AFTERATTACK
 
 
 /datum/species/golem/bluespace/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
@@ -829,6 +830,7 @@
 
 
 /datum/species/golem/bananium/spec_proceed_attack_results(obj/item/I, mob/living/carbon/human/defender, mob/living/attacker, obj/item/organ/external/affecting)
+	. = ..()
 	if(world.time > last_banana + banana_cooldown && defender != attacker)
 		new /obj/item/grown/bananapeel/specialpeel(get_turf(defender))
 		last_banana = world.time

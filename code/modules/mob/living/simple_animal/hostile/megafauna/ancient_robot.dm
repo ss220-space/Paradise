@@ -331,11 +331,14 @@ Difficulty: Very Hard
 	if(!body_shield_enabled)
 		return ..()
 
+	. = ATTACK_CHAIN_BLOCKED
 	do_sparks(2, 1, src)
 	visible_message(
 		span_danger("[src]'s shield deflects [I] in a shower of sparks!"),
-		span_userdanger("You deflect the attack!"),
+		span_warning("Your shield deflects the attack!"),
+		ignored_mobs = user,
 	)
+	to_chat(user, span_danger("[src]'s shield deflects your attack!"))
 	if(I.force)
 		disable_shield()
 

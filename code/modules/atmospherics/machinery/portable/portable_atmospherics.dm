@@ -171,6 +171,10 @@
 
 /obj/machinery/portable_atmospherics/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
 	if(I.force < 10 && !(stat & BROKEN))
-		return
+		user.visible_message(
+			span_warning("[user] gently pokes [src] with [I]."),
+			span_warning("You gently poke [src] with [I]."),
+		)
+		return ATTACK_CHAIN_BLOCKED
 	return ..()
 

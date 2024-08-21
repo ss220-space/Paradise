@@ -561,10 +561,12 @@
 		transfer_fingerprints_to(newlight)
 	qdel(src)
 
+
 /obj/machinery/light/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
 	. = ..()
-	if((status == LIGHT_BROKEN || status == LIGHT_EMPTY) && on && (I.flags & CONDUCT) && prob(12))
+	if(ATTACK_CHAIN_SUCCESS_CHECK(.) && (status == LIGHT_BROKEN || status == LIGHT_EMPTY) && on && (I.flags & CONDUCT) && prob(12))
 		electrocute_mob(user, get_area(src), src, 0.3, TRUE)
+
 
 /obj/machinery/light/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
 	. = ..()

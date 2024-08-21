@@ -712,9 +712,19 @@
 
 
 /mob/living/simple_animal/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
+	if(I.force && (I.force < force_threshold || I.damtype == STAMINA))
+		visible_message(
+			span_warning("[user] tries to hit [src] with [I], but it bounces harmlessly!"),
+			span_warning("[user] tries to hit you with [I], but it bounces harmlessly!"),
+			ignored_mobs = user,
+		)
+		to_chat(user, span_danger("This weapon is ineffective, it does no damage!"))
+		return ATTACK_CHAIN_BLOCKED
+
 	. = ..()
-	if(. && length(damaged_sound))
-		playsound(src, pick(damaged_sound), 40, TRUE)
+	if(ATTACK_CHAIN_SUCCESS_CHECK(.) && I.force && length(damaged_sound))
+		playsound(loc, pick(damaged_sound), 40, TRUE)
+
 
 /mob/living/simple_animal/attack_hand(mob/living/carbon/human/M)
 	. = ..()

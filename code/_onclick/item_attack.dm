@@ -148,6 +148,8 @@
  * * mob/living/target - The mob being hit by this item
  * * mob/living/user - The mob hitting with this item
  * * params - Click params of this attack
+ * * def_zone - Bodypart zone, targeted by the wielder of this item
+ * * skip_attack_anim - If TRUE will not animate hitting mob's attack
  */
 /obj/item/proc/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
@@ -173,8 +175,6 @@
 		to_chat(user, span_warning("You don't want to harm other living beings!"))
 		return .
 
-	. |= ATTACK_CHAIN_SUCCESS
-
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, target, params, def_zone)
 
 	if(!force)
@@ -191,7 +191,7 @@
 		user.do_attack_animation(target)
 
 	add_fingerprint(user)
-	target.proceed_attack_results(src, user, params, def_zone)
+	. |= target.proceed_attack_results(src, user, params, def_zone)
 
 
 /// The equivalent of the standard version of [/obj/item/proc/attack] but for object targets.
@@ -212,61 +212,59 @@
 	if(item_flags & NOBLUDGEON)
 		return .
 
-	. |= ATTACK_CHAIN_SUCCESS
-	user.changeNext_move(attack_speed)
+	add_fingerprint(user)
 	user.do_attack_animation(object)
-	object.proceed_attack_results(src, user, params)
+	user.changeNext_move(attack_speed)
+	. |= object.proceed_attack_results(src, user, params)
 
 
-/// Called from [/obj/item/proc/attack_obj] and [/obj/item/proc/attack] if the attack succeeds.
-/// Return value is not considered for attack chain, only for internal usage.
+/**
+ * Called from [/obj/item/proc/attack] and [/obj/item/proc/attack_obj]
+ *
+ * Arguments:
+ * * obj/item/I - The item hitting this atom
+ * * mob/living/user - The wielder of this item
+ * * params - Click params of this attack
+ * * def_zone - Bodypart zone, targeted by the wielder of this item
+ */
 /atom/movable/proc/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
-	return FALSE
+	return ATTACK_CHAIN_PROCEED_SUCCESS
 
 
-/obj/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
+/obj/proceed_attack_results(obj/item/I, mob/living/user, params)
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	if(!I.force)
-		return
+		user.visible_message(
+			span_warning("[user] gently pokes [src] with [I]."),
+			span_warning("You gently poke [src] with [I]."),
+		)
+		return .
 	user.visible_message(
 		span_danger("[user] has hit [src] with [I]!"),
-		span_danger("You hit [src] with [I]!"),
+		span_danger("You have hit [src] with [I]!"),
 	)
-	take_damage(I.force, I.damtype, MELEE, TRUE, get_dir(src, user), I.armour_penetration)
+	take_damage(I.force, I.damtype, MELEE, TRUE, get_dir(user, src), I.armour_penetration)
+	if(QDELETED(src))	// thats a pretty common behavior with objects, when they take damage
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 
 /mob/living/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
-	if(!I.force)
-		return FALSE
-
-	. = TRUE
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
 
 	send_item_attack_message(I, user, def_zone)
-	var/success = apply_damage(I.force, I.damtype, def_zone, sharp = is_sharp(I), used_weapon = I)
-	if(!success || I.damtype != BRUTE || !prob(33))
+	if(!I.force)
 		return .
 
-	I.add_mob_blood(src)
-	var/turf/source_turf = get_turf(src)
-	add_splatter_floor(source_turf)
-	if(get_dist(user, source_turf) <= 1)	//people with TK won't get smeared with blood
-		user.add_mob_blood(src)
+	var/apply_damage_result = apply_damage(I.force, I.damtype, def_zone, sharp = is_sharp(I), used_weapon = I)
+	// if we are hitting source with real weapon and any brute damage was done, we apply victim's blood everywhere
+	if(apply_damage_result && I.damtype == BRUTE && prob(33))
+		I.add_mob_blood(src)
+		add_splatter_floor()
+		if(get_dist(user, src) <= 1)	//people with TK won't get smeared with blood
+			user.add_mob_blood(src)
 
-
-/mob/living/simple_animal/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
-	if(!I.force)
-		user.visible_message(
-			span_warning("[user] gently taps [src] with [I]."),
-			span_warning("This weapon is ineffective, it does no damage!"),
-		)
-		return
-	if(I.force < force_threshold || I.damtype == STAMINA)
-		user.visible_message(
-			span_warning("[user] tries to hit [src] with [I], but it bounces harmlessly."),
-			span_warning("This weapon is ineffective, it does no damage!"),
-		)
-		return
-
-	return ..()
+	if(QDELETED(src))	// rare, but better be safe
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 
 /// Return sound volumet between 10 and 100, depending on the item weight class
@@ -282,21 +280,26 @@
 
 /// Sends a default message feedback about being attacked by other mob
 /mob/living/proc/send_item_attack_message(obj/item/I, mob/living/user, def_zone)
-	if((I.item_flags & SKIP_ATTACK_MESSAGE) || !I.force)
+	if(I.item_flags & SKIP_ATTACK_MESSAGE)
+		return
+
+	if(!I.force)
+		visible_message(
+			span_warning("[user] gently taps [src] with [I]."),
+			span_warning("[user] gently taps you with [I]."),
+			ignored_mobs = user,
+		)
+		to_chat(user, span_warning("You gently tap [src] with [I]."))
 		return
 
 	var/message_verb = "attacked"
 	if(length(I.attack_verb))
 		message_verb = "[pick(I.attack_verb)]"
 
-	var/message_hit_area = ""
-	if(def_zone)
-		message_hit_area = " in the [parse_zone(def_zone)]"
-
 	visible_message(
-		span_danger("[user] has [message_verb] [src][message_hit_area] with [I]!"),
-		span_userdanger("[user] has [message_verb] you[message_hit_area] with [I]!"),
+		span_danger("[user] has [message_verb] [src] with [I]!"),
+		span_userdanger("[user] has [message_verb] you with [I]!"),
 		ignored_mobs = user,
 	)
-	to_chat(user, span_danger("You have [message_verb] [src][message_hit_area] with [I]!"))
+	to_chat(user, span_danger("You have [message_verb] [src] with [I]!"))
 
