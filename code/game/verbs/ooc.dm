@@ -67,7 +67,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		else if(check_rights(R_ADMIN|R_DEBUG, FALSE))
 			if(CONFIG_GET(flag/allow_admin_ooccolor))
 				display_colour = src.prefs.ooccolor
-			else if(check_rights(R_ADMIN))
+			else if(check_rights(R_ADMIN, FALSE))
 				display_colour = GLOB.admin_ooc_colour
 
 	if(prefs.unlock_content)
