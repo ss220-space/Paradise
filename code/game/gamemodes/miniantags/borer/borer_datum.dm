@@ -51,7 +51,7 @@
 	scaling = user.scaling
 	operable_datums += list(borer_focus, borer_rank, scaling)
 	for(var/datum in operable_datums)
-		operable_datums = datum
+		datum = operable_datum
 		datum.parent = src
 		datum.user = user
 		datum.host = user.host
@@ -79,7 +79,7 @@
 	SIGNAL_HANDLER
 	host = user.host
 	for(var/datum in operable_datums)
-		operable_datums = datum
+		datum = operable_datum
 		datum.host = user.host
 		if((datum.flags & FLAG_HAS_MOVABLE_EFFECT) && (pre_grant_movable_effect()))
 			datum.previous_host = host
@@ -89,7 +89,7 @@
 	SIGNAL_HANDLER
 	host = null
 	for(var/datum in operable_datums)
-		operable_datums = datum
+		datum = operable_datum
 		datum.host = null
 		if((datum.flags & FLAG_HAS_MOVABLE_EFFECT) && (pre_remove_movable_effect()))
 			datum.previous_host = host
@@ -100,7 +100,7 @@
 		return
 
 	for(var/datum in operable_datums)
-		operable_datums = datum
+		datum = operable_datum
 		datum.grant_movable_effect()
 		break // so we calling it multiple time.
 
@@ -111,7 +111,7 @@
 		return
 
 	for(var/datum in operable_datums)
-		operable_datums = datum
+		datum = operable_datum
 		datum.remove_movable_effect()
 		break
 
@@ -119,7 +119,7 @@
 
 /datum/antagonist/borer/Destroy(force)
 	for(var/datum in operable_datums)
-		operable_datums = datum
+		datum = operable_datum
 		if(datum.flags & FLAG_HOST_REQUIRED)
 			UnregisterSignal(datum.user, COMSIG_BORER_ENTERED_HOST)
 			UnregisterSignal(datum.user, COMSIG_BORER_LEFT_HOST)
@@ -156,7 +156,7 @@
 	if(tick_interval != -1 && tick_interval <= world.time)
 		var/tick_length = initial(tick_interval)
 		for(var/datum in operable_datums)
-			operable_datums = datum
+			datum = operable_datum
 			datum.tick(tick_length / (1 SECONDS))
 			if((datum.flags & FLAG_HOST_REQUIRED) && (!QDELETED(host)))
 				datum.host_tick(tick_length / (1 SECONDS))
@@ -223,6 +223,7 @@
 /datum/borer_rank/Destroy(force)
 	user = null
 	host = null
+	previous_host = null
 	parent = null
 	return ..()
 
