@@ -30132,15 +30132,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/table,
-/obj/item/storage/belt/utility,
-/obj/item/secbot_assembly{
-	created_name = "Officer Podsky";
-	desc = "Ты не узнаешь ценность чего-либо, пока не потеряешь это...";
-	name = "Обломки офицера Подски";
-	pixel_y = 14;
-	pixel_x = -5
-	},
+/obj/structure/closet/secure_closet/pilot_sniper,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -30210,6 +30202,14 @@
 /obj/item/gps,
 /obj/item/radio/intercom{
 	pixel_y = 24
+	},
+/obj/item/storage/belt/utility,
+/obj/item/secbot_assembly{
+	created_name = "Officer Podsky";
+	desc = "Ты не узнаешь ценность чего-либо, пока не потеряешь это...";
+	name = "Обломки офицера Подски";
+	pixel_y = 14;
+	pixel_x = -5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;

@@ -266,6 +266,9 @@
 	var/cooldown = FALSE
 	var/cooldown_time = 40 SECONDS
 
+/obj/item/gem/void/attack_self_tk(mob/user)
+	return
+
 /obj/item/gem/void/examine(mob/user)
 	. = ..()
 	if(!cooldown)
