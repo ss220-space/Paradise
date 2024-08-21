@@ -139,9 +139,9 @@ you will have to do something like if(client.holder.rights & R_ADMIN) yourself.
 /proc/check_rights_for_all(client/subject, rights_required)
 	if(subject && subject.holder)
 		if(rights_required && !((rights_required & subject.holder.rights) == rights_required))
-			return 0
-		return 1
-	return 0
+			return FALSE
+		return TRUE
+	return FALSE
 
 /datum/admins/vv_edit_var(var_name, var_value)
 	return FALSE // no admin abuse
