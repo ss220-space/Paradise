@@ -78,7 +78,7 @@
 	msg = handleDiscordEmojis(msg)
 
 	for(var/client/C in GLOB.admins)
-		if(check_rights(R_DEBUG, 0, C.mob))
+		if(check_rights(R_VIEWRUNTIMES, 0, C.mob))
 			var/display_name = key
 			if(holder.fakekey)
 				if(check_rights(R_ADMIN, 0, C.mob))
