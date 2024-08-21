@@ -911,6 +911,7 @@
 		candidate.mob = src
 		ckey = candidate.ckey
 		mind.add_antag_datum(borer_antag)
+		borer_antag = mind.antag_datums
 		GrantBorerSpells()
 		hide_borer()
 
