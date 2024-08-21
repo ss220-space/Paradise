@@ -826,5 +826,4 @@
 
 
 /datum/config_entry/str_list/lobby_music
-	dupes_allowed = FALSE
 	default = list("https://www.youtube.com/watch?v=Ae2N5310MXE")
