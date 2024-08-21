@@ -110,6 +110,7 @@
 	var/reproductions = 0 // used to upgrade rank
 	var/evo_points = 0 // used for borer shopping, gained by reproductions
 	var/datum/borer_rank/borer_rank
+	var/datum/antagonist/borer/borer_antag
 	var/list/datum/borer_focus/learned_focuses = list()
 	var/datum/borer_misc/change_host_and_scale/scaling
 	var/datum/action/innate/borer/talk_to_host/talk_to_host_action = new
@@ -509,7 +510,8 @@
 		evo_points -= focus.cost
 		to_chat(src, span_notice("Вы успешно приобрели [focus.bodypartname]"))
 		learned_focuses += new focus(src)
-		return borer_focus.parent.borer_focus += learned_focuses
+		learned_focuses.acquired = TRUE
+		return borer_antag.apply_innate_effects(src)
 	to_chat(src, span_notice("Вам требуется еще [focus.cost - evo_points] очков эволюции для получения [focus.bodypartname]."))
 	return 
 
@@ -909,7 +911,7 @@
 		mind.transfer_to(src)
 		candidate.mob = src
 		ckey = candidate.ckey
-		mind.add_antag_datum(/datum/antagonist/borer)
+		mind.add_antag_datum(borer_antag)
 		GrantBorerSpells()
 		hide_borer()
 

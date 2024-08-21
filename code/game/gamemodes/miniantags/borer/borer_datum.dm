@@ -23,7 +23,7 @@
 	var/datum/borer_rank/borer_rank // Borer rank.
 	var/list/datum/borer_focus/borer_focus = list() // focuses of our borer
 	var/datum/borer_misc/change_host_and_scale/scaling // chemical scaling
-	var/list/operable_datums = list(scaling, borer_focus, borer_rank)
+	var/list/operable_datums = list(subtypesof(datum/borer_misc, datum/borer_focus, datum/borer_rank))
 	var/tick_interval = 1 SECONDS
 
 /datum/antagonist/borer/greet()
@@ -50,6 +50,8 @@
 	borer_rank = user.borer_rank
 	scaling = user.scaling
 	for(var/datum/datum in operable_datums)
+		if(!datum.acquired)
+			continue
 		datum.user = user
 		datum.host = user.host
 		if(datum.flags & FLAG_HOST_REQUIRED)
@@ -112,6 +114,8 @@
 
 /datum/antagonist/borer/Destroy(force)
 	for(var/datum/datum in operable_datums)
+		if(!datum.acquired)
+			continue
 		if(datum.flags & FLAG_HOST_REQUIRED)
 			UnregisterSignal(datum.user, COMSIG_BORER_ENTERED_HOST)
 			UnregisterSignal(datum.user, COMSIG_BORER_LEFT_HOST)
@@ -172,6 +176,7 @@
 	var/mob/living/carbon/human/host
 	var/mob/living/carbon/human/previous_host
 	var/processing_flags = NONE
+	var/acquired = FALSE
 
 /datum/borer_misc/change_host_and_scale/grant_movable_effect()
 	if(user.max_chems >= SCALING_MAX_CHEM)
@@ -200,6 +205,7 @@
 	var/datum/antagonist/borer/parent
 	var/mob/living/carbon/human/previous_host
 	var/processing_flags = NONE
+	var/acquired = FALSE
 
 /datum/borer_rank/New(mob/living/simple_animal/borer/borer)
 	user = borer
@@ -231,6 +237,8 @@
 		if(/datum/borer_rank/adult)
 			borer.borer_rank = new /datum/borer_rank/elder(borer)
 	parent?.borer_rank = borer.borer_rank
+	parent?.borer_rank.acquired = TRUE
+	parent?.apply_innate_effects(user)
 	return TRUE
 
 /datum/borer_rank/young
