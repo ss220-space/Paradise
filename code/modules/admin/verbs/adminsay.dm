@@ -70,7 +70,7 @@
 		return
 
 	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
-	log_mentorsay(msg, src)
+	log_devsay(msg, src)
 
 	if(!msg)
 		return
@@ -88,7 +88,7 @@
 			msg = "<span class='emoji_enabled'>[msg]</span>"
 			to_chat(C, "<span class='[check_rights(R_ADMIN, 0) ? "dev_channel_admin" : "dev_channel"]'>DEV: <span class='name'>[display_name]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>", MESSAGE_TYPE_DEVCHAT, confidential = TRUE)
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Msay") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Devsay") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/get_mentor_say()
 	if(check_rights(R_MENTOR | R_ADMIN | R_MOD))
