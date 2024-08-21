@@ -18,6 +18,7 @@ export const Minesweeper = (props, context) => {
     8: 'white',
   };
 
+  document.addEventListener('contextmenu', (event) => event.preventDefault());
   const handleClick = (e, row, cell) => {
     if (e.button !== 0 && e.button !== 2) {
       return;
@@ -27,7 +28,6 @@ export const Minesweeper = (props, context) => {
       'Y': cell,
       'mode': e.button === 2 ? altMode[currentMode] : currentMode,
     });
-    document.addEventListener('contextmenu', (event) => event.preventDefault());
   };
 
   const [currentMode, setMode] = useLocalState(context, 'mode', 'bomb');
