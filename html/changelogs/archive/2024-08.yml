@@ -207,6 +207,8 @@
   pilygun:
   - qol: Pai soft update (#5712)
 '2024-08-21':
+  Den109G:
+  - bugfix: Now AI and his minions doesn't drop blueprints upon deleting (#5763)
   Kray1k:
   - bugfix: some random spawn init fixes (#5746)
   - bugfix: reagents duplication on soda dispencer upgrade (#5756)
@@ -214,6 +216,7 @@
   - tweak: new spawn button location in game panel (#5760)
   ROdenFL:
   - bugfix: ochki serdechki (#5757)
+  - add: minesweeper (#5205)
   SHODAN:
   - bugfix: solid smoke runtime (#5755)
   Sheya:
