@@ -110,7 +110,7 @@
 	var/reproductions = 0 // used to upgrade rank
 	var/evo_points = 0 // used for borer shopping, gained by reproductions
 	var/datum/borer_datum/borer_rank/borer_rank
-	var/list/datum/borer_datum/focus/learned_focuses = list()
+	var/datum/antagonist/borer/antag_datum
 	var/datum/action/innate/borer/talk_to_host/talk_to_host_action = new
 	var/datum/action/innate/borer/toggle_hide/toggle_hide_action = new
 	var/datum/action/innate/borer/talk_to_borer/talk_to_borer_action = new
@@ -479,8 +479,8 @@
 	var/list/content = list()
 	
 	for(var/datum in subtypesof(/datum/borer_datum/focus))
-		var/datum/borer_datum/focus/borer_datum = datum
-		if(!locate(borer_datum) in learned_focuses)
+		var/datum/borer_focus/borer_datum = datum
+		if(!locate(borer_datum) in antag_datum.learned_focuses)
 			content += borer_datum.bodypartname
 			
 	if(!LAZYLEN(content))
@@ -500,13 +500,15 @@
 /mob/living/simple_animal/borer/proc/process_focus_choice(datum/borer_datum/focus/focus)
 	if(!src || !host || stat || docile)
 		return
-	if(locate(focus) in learned_focuses)
+	if(locate(focus) in antag_datum.learned_focuses)
 		to_chat(src, span_notice("Вы не можете изучить уже изученный фокус."))
 		return
 	if(evo_points >= focus.cost)
 		evo_points -= focus.cost
 		to_chat(src, span_notice("Вы успешно приобрели [focus.bodypartname]"))
-		return learned_focuses += new focus(src)
+		antag_datum.learned_focuses += new focus(src)
+		antag_datum.apply_innate_effects()
+		return 
 	to_chat(src, span_notice("Вам требуется еще [focus.cost - evo_points] очков эволюции для получения [focus.bodypartname]."))
 	return 
 
@@ -907,6 +909,7 @@
 		candidate.mob = src
 		ckey = candidate.ckey
 		mind.add_antag_datum(/datum/antagonist/borer)
+		antag_datum = mind.has_antag_datum(/datum/antagonist/borer)
 		GrantBorerSpells()
 		hide_borer()
 
