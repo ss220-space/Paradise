@@ -23,7 +23,7 @@
 	var/datum/borer_rank/borer_rank // Borer rank.
 	var/list/datum/borer_focus/borer_focus = list() // focuses of our borer
 	var/datum/borer_misc/change_host_and_scale/scaling // chemical scaling
-	var/list/operable_datums = list(subtypesof(datum/borer_misc, datum/borer_focus, datum/borer_rank))
+	var/list/operable_datums = list(subtypesof(/datum/borer_misc, /datum/borer_focus, /datum/borer_rank))
 	var/tick_interval = 1 SECONDS
 
 /datum/antagonist/borer/greet()
@@ -52,6 +52,7 @@
 	for(var/datum/datum in operable_datums)
 		if(!datum.acquired)
 			continue
+		datum.parent = src
 		datum.user = user
 		datum.host = user.host
 		if(datum.flags & FLAG_HOST_REQUIRED)
@@ -159,6 +160,13 @@
 			return
 
 /datum/borer_misc // category for small datums.
+	var/flags = FLAG_HAS_MOVABLE_EFFECT
+	var/mob/living/simple_animal/borer/user
+	var/mob/living/carbon/human/host
+	var/mob/living/carbon/human/previous_host
+	var/datum/antagonist/borer/parent 
+	var/processing_flags = NONE
+	var/acquired = FALSE
 
 /datum/borer_misc/proc/grant_movable_effect()
 	return 
@@ -166,17 +174,18 @@
 /datum/borer_misc/proc/remove_movable_effect()
 	return
 
-/datum/borer_misc/New(mob/living/simple_animal)
+/datum/borer_misc/New(mob/living/simple_animal/borer/borer)
 	user = borer
+
+/datum/borer_misc/Destroy(force)
+	user = null
+	host = null
+	previous_host = null
+	parent = null
+	return ..()
 
 /datum/borer_misc/change_host_and_scale
 	var/list/used_UIDs = list()
-	var/flags = FLAG_HAS_MOVABLE_EFFECT
-	var/mob/living/simple_animal/borer/user
-	var/mob/living/carbon/human/host
-	var/mob/living/carbon/human/previous_host
-	var/processing_flags = NONE
-	var/acquired = FALSE
 
 /datum/borer_misc/change_host_and_scale/grant_movable_effect()
 	if(user.max_chems >= SCALING_MAX_CHEM)
@@ -190,9 +199,6 @@
 	return TRUE
 
 /datum/borer_misc/change_host_and_scale/Destroy(force)
-	user = null
-	host = null
-	previous_host = null
 	LAZYNULL(used_UIDs)
 	return ..()
 
