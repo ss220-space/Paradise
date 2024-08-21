@@ -36,7 +36,13 @@
 	messages.Add("Ваш текущий ранг - [borer.borer_rank?.rankname].")
 	to_chat(borer, chat_box_purple(messages.Join("<br>")))
 	return messages
-	
+
+/datum/antagonist/borer/on_gain()
+	. = ..()
+	if(.)
+		Grant(owner.current)
+	return
+
 /datum/antagonist/borer/New(mob/living/simple_animal/borer/borer) //we really need to modify this, cause many features are linked to borer and doesn't require mind
 	if(!borer)
 		return ..() // if add_antag_datum
