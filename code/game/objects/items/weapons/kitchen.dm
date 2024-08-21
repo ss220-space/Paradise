@@ -52,6 +52,7 @@
 		var/mutable_appearance/food_olay = mutable_appearance('icons/obj/kitchen.dmi', "loadedfood", color = snack.filling_color)
 		food_olay.pixel_w = pixel_x
 		food_olay.pixel_z = pixel_y
+		. += food_olay
 
 
 /obj/item/kitchen/utensil/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
