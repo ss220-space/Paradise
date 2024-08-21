@@ -171,6 +171,7 @@
 	var/mob/living/simple_animal/borer/user
 	var/mob/living/carbon/human/host
 	var/mob/living/carbon/human/previous_host
+	var/processing_flags = NONE
 
 /datum/borer_misc/change_host_and_scale/grant_movable_effect()
 	if(user.max_chems >= SCALING_MAX_CHEM)
@@ -197,6 +198,8 @@
 	var/mob/living/simple_animal/borer/user // rank owner.
 	var/mob/living/carbon/human/host // host for borer
 	var/datum/antagonist/borer/parent
+	var/mob/living/carbon/human/previous_host
+	var/processing_flags = NONE
 
 /datum/borer_rank/New(mob/living/simple_animal/borer/borer)
 	user = borer
@@ -288,9 +291,20 @@
 /datum/borer_focus
 	var/bodypartname = "Focus"
 	var/cost = 0
-	flags = FLAG_HAS_MOVABLE_EFFECT
-	process_ranks = FALSE
+	var/flags = FLAG_HAS_MOVABLE_EFFECT
+	var/mob/living/simple_animal/borer/user
+	var/mob/living/carbon/human/host 
+	var/mob/living/carbon/human/previous_host
+	var/processing_flags = NONE
+
+/datum/borer_focus/proc/grant_movable_effect()
+	return
+
+/datum/borer_focus/proc/remove_movable_effect()	
+	return
 	
+/datum/borer_focus/proc/host_tick(seconds_between_ticks)
+
 /datum/borer_focus/head
 	bodypartname = "Head focus"
 	cost = HEAD_FOCUS_COST
