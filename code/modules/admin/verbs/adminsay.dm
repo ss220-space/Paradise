@@ -66,7 +66,7 @@
 	set name = "Devsay"
 	set hidden = 1
 
-	if(!check_rights(R_DEBUG))
+	if(!check_rights(R_VIEWRUNTIMES))
 		return
 
 	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
