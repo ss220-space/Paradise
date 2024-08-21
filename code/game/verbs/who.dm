@@ -73,7 +73,6 @@
 	var/msg = ""
 	var/modmsg = ""
 	var/devmsg = ""
-	var/num_devs_online = 0
 	var/num_mods_online = 0
 	var/num_admins_online = 0
 	if(holder)
@@ -118,9 +117,8 @@
 					modmsg += " (АФК)"
 				modmsg += "\n"
 				num_mods_online++
-			else if(check_rights_for_all(C, R_CONTRIBUTOR))
+			else if(check_rights(R_DEBUG, 0, C.mob))
 				devmsg += "\[[C.holder.rank]\]  [C]\n"
-				num_devs_online++
 	else
 		for(var/client/C in GLOB.admins)
 			if(check_rights(R_ADMIN, 0, C.mob))
@@ -130,15 +128,14 @@
 			else if(check_rights(R_MOD|R_MENTOR, 0, C.mob) && !check_rights(R_ADMIN, 0, C.mob))
 				modmsg += "\[[C.holder.rank]\]  [C]\n"
 				num_mods_online++
-			else if((check_rights_for_all(C, R_CONTRIBUTOR)) && !check_rights(R_ADMIN, 0, C.mob))
+			else if(check_rights(R_DEBUG, 0, C.mob) && !check_rights(R_ADMIN, 0, C.mob))
 				devmsg += "\[[C.holder.rank]\]  [C]\n"
-				num_devs_online++
 
 	var/noadmins_info = "\n<span class='notice'><small>Если никого из админсостава нет онлайн, все равно создавайте тикеты. Админхэлпы и менторхэлпы будут перенаправлены в дискорд!<small></span>"
 	msg = "<b>Онлайн Админов ([num_admins_online]):</b>\n" + msg
 	msg += "\n<b>Онлайн Менторов/Модераторов ([num_mods_online]):</b>\n" + modmsg
-	if(num_devs_online)
-		msg += "\n<b>Онлайн Разработчиков ([num_devs_online]):</b>\n" + devmsg
+	if(devmsg)
+		msg += "\n<b>Разработчики онлайн:</b>\n" + devmsg
 	msg += noadmins_info
 
 	msg = replacetext(msg, "\[Хост\]",	"\[<font color='#1ABC9C'>Хост</font>\]")
