@@ -80,14 +80,12 @@
 /datum/antagonist/borer/proc/entered_host()
 	SIGNAL_HANDLER
 	host = user.host
-	borer_rank.host = user.host
 	if((flags & FLAG_HAS_MOVABLE_EFFECT) && (pre_grant_movable_effect()))
 		previous_host = host
 			
 /datum/antagonist/borer/proc/left_host()
 	SIGNAL_HANDLER
 	host = null
-	borer_rank.host = null
 	if((flags & FLAG_HAS_MOVABLE_EFFECT) && (pre_remove_movable_effect()))
 		previous_host = host
 
@@ -197,12 +195,13 @@
 	var/rankname = "Error"
 	var/required_reproductions = null // how many reproductions we need to gain new rank
 	var/flags = FLAG_PROCESS
+	var/datum/antagonist/borer/parent 
 	var/mob/living/simple_animal/borer/user // rank owner.
 	var/mob/living/carbon/human/host // host for borer
 
 /datum/borer_rank/New(mob/living/simple_animal/borer/borer)
 	user = borer
-	host = borer.host
+	host = parent.host // will be null but after gain antag datum we'll don't need to separate host update
 	on_apply()
 
 /datum/borer_rank/Destroy(force)
