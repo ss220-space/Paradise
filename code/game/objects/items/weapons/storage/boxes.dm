@@ -1539,6 +1539,15 @@
 	new /obj/item/clothing/shoes/mr_chang_sandals(src)
 	new /obj/item/clothing/head/mr_chang_band(src)
 
+/obj/item/storage/box/bombsecurity
+	name = "\improper Security Bombsuit"
+	desc = "It's a box with explosion-protective suit."
+
+/obj/item/storage/box/bombclosetsecurity/populate_contents()
+	new /obj/item/clothing/suit/bomb_suit/security( src )
+	new /obj/item/clothing/under/rank/security( src )
+	new /obj/item/clothing/shoes/brown( src )
+	new /obj/item/clothing/head/bomb_hood/security( src )
 
 /*
  *  Plant DNA Disks Box

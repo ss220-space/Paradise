@@ -1129,6 +1129,17 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/cable_coil = 5,
 							/obj/item/stack/sheet/glass = 1)
 
+/obj/item/circuitboard/minesweeper
+	board_name = "Сапер"
+	build_path = /obj/machinery/arcade/minesweeper
+	board_type = "machine"
+	origin_tech = "programming=1"
+	req_components = list(
+							/obj/item/stock_parts/matter_bin = 1,
+							/obj/item/stock_parts/manipulator = 1,
+							/obj/item/stack/cable_coil = 5,
+							/obj/item/stack/sheet/glass = 1)
+
 /obj/item/circuitboard/prize_counter
 	board_name = "Prize Counter"
 	build_path = /obj/machinery/prize_counter
