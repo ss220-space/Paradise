@@ -404,10 +404,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Janitor")
 			module = new /obj/item/robot_module/janitor(src)
 
-		if("Destroyer") // Rolling Borg
-			module = new /obj/item/robot_module/destroyer(src)
-			status_flags &= ~CANPUSH
-
 		if("Combat") // Gamma ERT
 			module = new /obj/item/robot_module/combat(src)
 			status_flags &= ~CANPUSH
@@ -460,6 +456,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if("Deathsquad")
 			var/mob/living/silicon/robot/deathsquad/death = new(get_turf(src))
 			mind.transfer_to(death)
+			qdel(src)
+			return
+
+		if("Destroyer") // Rolling Borg
+			var/mob/living/silicon/robot/destroyer/destroy = new(get_turf(src))
+			mind.transfer_to(destroy)
 			qdel(src)
 			return
 
@@ -1145,22 +1147,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/update_icons()
 	cut_overlays()
-
-	if(stat != DEAD && !HAS_TRAIT(src, TRAIT_INCAPACITATED) && !low_power_mode) //Not dead, not stunned.
-		var/eyes_olay
-		if(custom_panel in custom_eye_names)
-			if(isclocker(src) && SSticker.mode.power_reveal)
-				eyes_olay = "eyes-[custom_panel]-clocked"
-			else
-				eyes_olay = "eyes-[custom_panel]"
-		else
-			if(isclocker(src) && SSticker.mode.power_reveal)
-				eyes_olay = "eyes-[icon_state]-clocked"
-			else
-				eyes_olay = "eyes-[icon_state]"
-		if(eyes_olay)
-			add_overlay(eyes_olay)
-
+	borg_icons()
+	eyes_overlays()
 	if(opened)
 		var/panelprefix = "ov"
 		if(custom_sprite) //Custom borgs also have custom panels, heh
@@ -1189,7 +1177,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(head_icon)
 			add_overlay(head_icon)
 
-	borg_icons()
 	update_fire()
 
 	if(blocks_emissive)
@@ -1197,6 +1184,23 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 
 /mob/living/silicon/robot/proc/borg_icons() // Exists so that robot/destroyer can override it
+	return
+
+/mob/living/silicon/robot/proc/eyes_overlays() // Exists so that robot/destroyer can override it
+	if(stat != DEAD && !HAS_TRAIT(src, TRAIT_INCAPACITATED) && !low_power_mode) //Not dead, not stunned.
+		var/eyes_olay
+		if(custom_panel in custom_eye_names)
+			if(isclocker(src) && SSticker.mode.power_reveal)
+				eyes_olay = "eyes-[custom_panel]-clocked"
+			else
+				eyes_olay = "eyes-[custom_panel]"
+		else
+			if(isclocker(src) && SSticker.mode.power_reveal)
+				eyes_olay = "eyes-[icon_state]-clocked"
+			else
+				eyes_olay = "eyes-[icon_state]"
+		if(eyes_olay)
+			add_overlay(eyes_olay)
 	return
 
 /mob/living/silicon/robot/proc/installed_modules()
@@ -1616,12 +1620,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	base_icon = "nano_bloodhound"
 	icon_state = "nano_bloodhound"
 	designation = "SpecOps"
-	lawupdate = 0
-	scrambledcodes = 1
+	lawupdate = FALSE
+	scrambledcodes = TRUE
 	has_camera = FALSE
 	req_access = list(ACCESS_CENT_SPECOPS)
-	ionpulse = 1
-	pdahide = 1
+	ionpulse = TRUE
+	pdahide = TRUE
 	eye_protection = FLASH_PROTECTION_WELDER // Immunity to flashes and the visual part of flashbangs
 	ear_protection = HEARING_PROTECTION_MINOR // Immunity to the audio part of flashbangs
 	damage_protection = 10 // Reduce all incoming damage by this number
@@ -1651,7 +1655,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	radio.recalculateChannels()
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
 
-/mob/living/silicon/robot/deathsquad/bullet_act(var/obj/item/projectile/P)
+/mob/living/silicon/robot/deathsquad/bullet_act(obj/item/projectile/P)
 	if(istype(P) && P.is_reflectable(REFLECTABILITY_ENERGY) && P.starting)
 		visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", "<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
 		P.reflect_back(src)
@@ -1720,16 +1724,20 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	icon_state = "droidcombat"
 	modtype = "Destroyer"
 	designation = "Destroyer"
-	lawupdate = 0
-	scrambledcodes = 1
+	lawupdate = FALSE
+	scrambledcodes = TRUE
 	has_camera = FALSE
 	req_access = list(ACCESS_CENT_SPECOPS)
-	ionpulse = 1
-	pdahide = 1
+	ionpulse = TRUE
+	pdahide = TRUE
 	eye_protection = FLASH_PROTECTION_WELDER // Immunity to flashes and the visual part of flashbangs
 	ear_protection = HEARING_PROTECTION_MINOR // Immunity to the audio part of flashbangs
 	emp_protection = TRUE // Immunity to EMP, due to heavy shielding
+	brute_mod = 0.5 // Пулевые орудия наносят на 50%+5ед меньше урона. Теперь полная обойма ружейных пуль не убьет киборга(но заставит потерять 2 модуля и броню)
+	burn_mod = 0.5 // Забавно, у киборга отряда смерти отражение лазерных снарядов, впрочем все еще снижает урон от взрывов, и позволяет пережить более чем одну ракету из SRM8.
 	damage_protection = 20 // Reduce all incoming damage by this number. Very high in the case of /destroyer borgs, since it is an admin-only borg.
+	faction = list("nanotrasen")
+	is_emaggable = FALSE
 	can_lock_cover = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/infinite/abductor
 	see_reagents = TRUE
@@ -1749,11 +1757,19 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	module.add_languages(src)
 	module.add_subsystems_and_actions(src)
 	status_flags &= ~CANPUSH
+	addtimer(CALLBACK(module, TYPE_PROC_REF(/obj/item/robot_module, update_cells)), 1 SECONDS)
 	if(radio)
 		qdel(radio)
 	radio = new /obj/item/radio/borg/ert/specops(src)
 	radio.recalculateChannels()
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
+
+/mob/living/silicon/robot/destroyer/bullet_act(obj/item/projectile/P)
+	if(istype(P) && P.is_reflectable(REFLECTABILITY_ENERGY) && P.starting && !(istype(module_active, /obj/item/borg/destroyer/mobility)))
+		visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", "<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
+		P.reflect_back(src)
+		return -1
+	return ..(P)
 
 /mob/living/silicon/robot/destroyer/borg_icons()
 	if(base_icon == "")
@@ -1763,6 +1779,17 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	else
 		icon_state = base_icon
 		add_overlay("[base_icon]-shield")
+
+/mob/living/silicon/robot/destroyer/eyes_overlays()
+	if(stat != DEAD && !HAS_TRAIT(src, TRAIT_INCAPACITATED) && !low_power_mode) //Not dead, not stunned.
+		var/eyes_olay
+		if(isclocker(src) && SSticker.mode.power_reveal)
+			eyes_olay = "eyes-[base_icon]-clocked"
+		else
+			eyes_olay = "eyes-[base_icon]"
+		if(eyes_olay)
+			add_overlay(eyes_olay)
+	return
 
 
 /mob/living/silicon/robot/extinguish_light(force = FALSE)
