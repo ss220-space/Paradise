@@ -191,14 +191,14 @@
 	
 /datum/borer_datum/borer_rank/proc/update_rank(mob/living/simple_animal/borer/borer)
 	if(!borer.borer_rank)
-		return borer.borer_rank = new /datum/borer_rank/young(borer)
+		return borer.borer_rank = new /datum/borer_datum/borer_rank/young(borer)
 	switch(borer.borer_rank)
-		if(/datum/borer_rank/young)
-			borer.borer_rank = new /datum/borer_rank/mature(borer)
-		if(/datum/borer_rank/mature)
-			borer.borer_rank = new /datum/borer_rank/adult(borer)
-		if(/datum/borer_rank/adult)
-			borer.borer_rank = new /datum/borer_rank/elder(borer)
+		if(/datum/borer_datum/borer_rank/young)
+			borer.borer_rank = new /datum/borer_datum/borer_rank/mature(borer)
+		if(/datum/borer_datum/borer_rank/mature)
+			borer.borer_rank = new /datum/borer_datum/borer_rank/adult(borer)
+		if(/datum/borer_datum/borer_rank/adult)
+			borer.borer_rank = new /datum/borer_datum/borer_rank/elder(borer)
 	return TRUE
 
 /datum/borer_datum/borer_rank/young

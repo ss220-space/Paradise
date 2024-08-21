@@ -906,7 +906,7 @@
 		mind.transfer_to(src)
 		candidate.mob = src
 		ckey = candidate.ckey
-		mind.add_antag_datum(datum/antagonist/borer)
+		mind.add_antag_datum(/datum/antagonist/borer)
 		GrantBorerSpells()
 		hide_borer()
 
