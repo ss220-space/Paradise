@@ -23,7 +23,7 @@
 	var/datum/borer_rank/borer_rank // Borer rank.
 	var/list/datum/borer_focus/borer_focus = list() // focuses of our borer
 	var/datum/borer_misc/change_host_and_scale/scaling // chemical scaling
-	var/list/operable_datums = typesof(datum/borer_misc/change_host_and_scale, datum/borer_focus, datum/borer_rank)
+	var/list/operable_datums = typesof(/datum/borer_misc/change_host_and_scale, /datum/borer_focus, /datum/borer_rank)
 	var/tick_interval = 1 SECONDS
 
 /datum/antagonist/borer/greet()
