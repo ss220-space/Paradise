@@ -107,7 +107,7 @@
 /obj/item/extinguisher/afterattack(atom/target, mob/user, flag, params)
 	. = ..()
 	//TODO; Add support for reagents in water.
-	if(target.loc == user)//No more spraying yourself when putting your extinguisher away
+	if(target.loc == user || isstorage(loc))//No more spraying yourself when putting your extinguisher away
 		return
 
 	if(safety)

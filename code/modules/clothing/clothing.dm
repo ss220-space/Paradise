@@ -1112,7 +1112,7 @@ BLIND     // can't see anything
 	accessory.on_attached(src, user)
 	if(user)
 		accessory.add_fingerprint(user)
-		to_chat(user, span_notice("You attach [accessory] to [src]."))
+		to_chat(user, span_notice("You have attached [accessory] to [src]."))
 	return TRUE
 
 
