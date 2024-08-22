@@ -6,7 +6,7 @@
 	anchored = FALSE
 	density = TRUE
 	layer = 3
-	var/finished = 0
+	var/finished = FALSE
 
 
 /obj/structure/reflector/bullet_act(obj/item/projectile/P)
@@ -35,38 +35,56 @@
 	return -1
 
 
-/obj/structure/reflector/attackby(obj/item/W, mob/user, params)
+/obj/structure/reflector/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	//Finishing the frame
-	if(istype(W,/obj/item/stack/sheet))
+	var/obj/item/stack/sheet/sheet = I
+	if(istype(sheet, /obj/item/stack/sheet/glass))
+		add_fingerprint(user)
 		if(finished)
-			return
-		var/obj/item/stack/sheet/S = W
-		if(istype(W, /obj/item/stack/sheet/glass))
-			if(S.get_amount() < 5)
-				to_chat(user, "<span class='warning'>You need five sheets of glass to create a reflector!</span>")
-				return
-			else
-				S.use(5)
-				var/obj/structure/reflector/single/reflector = new(loc)
-				reflector.add_fingerprint(user)
-				qdel(src)
-		if(istype(W,/obj/item/stack/sheet/rglass))
-			if(S.get_amount() < 10)
-				to_chat(user, "<span class='warning'>You need ten sheets of reinforced glass to create a double reflector!</span>")
-				return
-			else
-				S.use(10)
-				var/obj/structure/reflector/double/reflector = new(loc)
-				reflector.add_fingerprint(user)
-				qdel(src)
-		if(istype(W, /obj/item/stack/sheet/mineral/diamond))
-			if(S.get_amount() >= 1)
-				S.use(1)
-				var/obj/structure/reflector/box/reflector = new(loc)
-				reflector.add_fingerprint(user)
-				qdel(src)
-		return
+			to_chat(user, span_warning("The reflector is already completed!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!sheet.use(5))
+			to_chat(user, span_warning("You need at least five sheets of glass to create a reflector!"))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/structure/reflector/single/reflector = new(loc)
+		transfer_fingerprints_to(reflector)
+		reflector.add_fingerprint(user)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(sheet, /obj/item/stack/sheet/rglass))
+		add_fingerprint(user)
+		if(finished)
+			to_chat(user, span_warning("The reflector is already completed!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!sheet.use(10))
+			to_chat(user, span_warning("You need at least ten sheets of reinforced glass to create a double reflector!"))
+			return .
+		var/obj/structure/reflector/double/reflector = new(loc)
+		transfer_fingerprints_to(reflector)
+		reflector.add_fingerprint(user)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(sheet, /obj/item/stack/sheet/mineral/diamond))
+		add_fingerprint(user)
+		if(finished)
+			to_chat(user, span_warning("The reflector is already completed!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!sheet.use(1))
+			to_chat(user, span_warning("You need at least one diamond to create a reflector box!"))
+			return .
+		var/obj/structure/reflector/box/reflector = new(loc)
+		transfer_fingerprints_to(reflector)
+		reflector.add_fingerprint(user)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/structure/reflector/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -115,7 +133,7 @@
 	if(anchored)
 		to_chat(usr, "<span class='warning'>It is fastened to the floor!</span>")
 		return FALSE
-	dir = turn(dir, 270)
+	setDir(turn(dir, 270))
 	return TRUE
 
 
@@ -134,7 +152,7 @@
 	icon = 'icons/obj/engines_and_power/reflector.dmi'
 	icon_state = "reflector"
 	desc = "A double sided angled mirror for reflecting lasers. This one does so at a 90 degree angle."
-	finished = 1
+	finished = TRUE
 	var/static/list/rotations = list("[NORTH]" = list("[SOUTH]" = WEST, "[EAST]" = NORTH),
 "[EAST]" = list("[SOUTH]" = EAST, "[WEST]" = NORTH),
 "[SOUTH]" = list("[NORTH]" = EAST, "[WEST]" = SOUTH),
@@ -151,7 +169,7 @@
 	icon = 'icons/obj/engines_and_power/reflector.dmi'
 	icon_state = "reflector_double"
 	desc = "A double sided angled mirror for reflecting lasers. This one does so at a 90 degree angle."
-	finished = 1
+	finished = TRUE
 	var/static/list/double_rotations = list("[NORTH]" = list("[NORTH]" = WEST, "[EAST]" = SOUTH, "[SOUTH]" = EAST, "[WEST]" = NORTH),
 "[EAST]" = list("[NORTH]" = EAST, "[WEST]" = SOUTH, "[SOUTH]" = WEST, "[EAST]" = NORTH),
 "[SOUTH]" = list("[NORTH]" = EAST, "[WEST]" = SOUTH, "[SOUTH]" = WEST, "[EAST]" = NORTH),
@@ -168,7 +186,7 @@
 	icon = 'icons/obj/engines_and_power/reflector.dmi'
 	icon_state = "reflector_box"
 	desc = "A box with an internal set of mirrors that reflects all laser fire in a single direction."
-	finished = 1
+	finished = TRUE
 	var/static/list/box_rotations = list("[NORTH]" = list("[SOUTH]" = NORTH, "[EAST]" = NORTH, "[WEST]" = NORTH, "[NORTH]" = NORTH),
 "[EAST]" = list("[SOUTH]" = EAST, "[EAST]" = EAST, "[WEST]" = EAST, "[NORTH]" = EAST),
 "[SOUTH]" = list("[SOUTH]" = SOUTH, "[EAST]" = SOUTH, "[WEST]" = SOUTH, "[NORTH]" = SOUTH),

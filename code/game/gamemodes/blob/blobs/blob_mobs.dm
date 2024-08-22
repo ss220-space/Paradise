@@ -212,13 +212,11 @@
 /mob/living/simple_animal/hostile/blob/blobbernaut/Life(seconds, times_fired)
 	if(stat != DEAD && (getBruteLoss() || getFireLoss())) // Heal on blob structures
 		if(locate(/obj/structure/blob) in get_turf(src))
-			adjustBruteLoss(-0.25)
-			adjustFireLoss(-0.25)
+			heal_overall_damage(0.25, 0.25)
 			if(on_fire)
 				adjust_fire_stacks(-1)	// Slowly extinguish the flames
 		else
-			adjustBruteLoss(0.2) // If you are at full health, you won't lose health. You'll need it. However the moment anybody sneezes on you, the decaying will begin.
-			adjustFireLoss(0.2)
+			take_overall_damage(0.2, 0.2)	// If you are at full health, you won't lose health. You'll need it. However the moment anybody sneezes on you, the decaying will begin.
 	..()
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/New()

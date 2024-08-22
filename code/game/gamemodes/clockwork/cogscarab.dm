@@ -146,11 +146,12 @@
 	if(blocks_emissive)
 		add_overlay(get_emissive_block())
 
-/mob/living/silicon/robot/cogscarab/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/borg/upgrade))
-		return
 
+/mob/living/silicon/robot/cogscarab/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/borg/upgrade))
+		return ATTACK_CHAIN_BLOCKED
 	return ..()
+
 
 /mob/living/silicon/robot/cogscarab/welder_act(mob/user, obj/item/I)
 	if(user.a_intent != INTENT_HELP)
@@ -196,11 +197,13 @@
 /mob/living/silicon/robot/cogscarab/allowed(obj/item/I) //No opening cover
 	return FALSE
 
+
 /mob/living/silicon/robot/cogscarab/updatehealth(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
 		return ..()
-	health = maxHealth - (getBruteLoss() + getFireLoss() + (suiciding ? getOxyLoss() : 0))
+	set_health(maxHealth - (getBruteLoss() + getFireLoss() + (suiciding ? getOxyLoss() : 0)))
 	update_stat("updatehealth([reason])", should_log)
+
 
 /mob/living/silicon/robot/cogscarab/update_stat(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
@@ -345,7 +348,7 @@
 			else
 				metal_amount += A.materials[MAT_METAL]
 
-	user.changeNext_move(CLICK_CD_MELEE * melt_click_delay)
+	user.changeNext_move(attack_speed * melt_click_delay)
 	QDEL_LIST(grabbed_items)
 
 	if(isrobot(user))

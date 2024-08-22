@@ -14,12 +14,12 @@
 	var/last_winner = null			//for letting people who to hunt down and steal prizes from
 	var/window_name = "arcade"		//in case you want to change the window name for certain machines
 
-/obj/machinery/arcade/New()
-	..()
+/obj/machinery/arcade/Initialize(mapload)
+	. = ..()
 	if(type == /obj/machinery/arcade)		//if you spawn the base-type, it will replace itself with a random subtype for randomness
 		var/choice = pick(subtypesof(/obj/machinery/arcade))
 		new choice(loc)
-		qdel(src)
+		return INITIALIZE_HINT_QDEL
 
 /obj/machinery/arcade/examine(mob/user)
 	. = ..()
@@ -60,16 +60,23 @@
 		return
 
 /obj/machinery/arcade/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(!freeplay)
+		add_fingerprint(user)
 		if(I.GetID())
 			if(pay_with_card(user, token_price, name))
 				tokens += 1
-			return
-		else if(istype(I, /obj/item/stack/spacecash))
-			var/obj/item/stack/spacecash/cash = I
-			if(pay_with_cash(cash, user, token_price, name))
+				return ATTACK_CHAIN_PROCEED_SUCCESS
+			return ATTACK_CHAIN_PROCEED
+
+		if(istype(I, /obj/item/stack/spacecash))
+			if(pay_with_cash(I, user, token_price, name))
 				tokens += 1
-		return
+				return ATTACK_CHAIN_PROCEED_SUCCESS
+		return ATTACK_CHAIN_PROCEED
+
 	return ..()
 
 

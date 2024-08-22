@@ -123,17 +123,17 @@
 		var/obj/item/stock_parts/cell/new_cell = I
 		if(cell)
 			balloon_alert(user, "уже установлено!")
-			return
+			return ATTACK_CHAIN_PROCEED
 		if(new_cell.maxcharge < cell_hit_cost)
 			balloon_alert(user, "энергоёмкость недостаточна!")
-			return
+			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(new_cell, src))
-			return
+			return ..()
 		cell = new_cell
 		balloon_alert(user, "установлено")
 		update_icon(UPDATE_ICON_STATE)
-	else
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 
 
 /obj/item/melee/baton/security/screwdriver_act(mob/living/user, obj/item/I)

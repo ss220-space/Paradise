@@ -42,11 +42,10 @@ effective or pretty fucking useless.
 		to_chat(user, span_danger("The mind batterer is out of charge!"))
 		return
 
-
 	for(var/mob/living/carbon/human/M in orange (10, user))
 		if(prob(50))
 			M.Weaken(rand(2,6) SECONDS)
-			M.adjustStaminaLoss(rand(35, 60))
+			M.apply_damage(rand(35, 60), STAMINA)
 			add_attack_logs(user, M, "Stunned with [src]")
 			to_chat(M, span_danger("You feel a tremendous, paralyzing wave flood your mind."))
 		else
@@ -101,11 +100,12 @@ effective or pretty fucking useless.
 	icon_state = used ? "health1" : "health2"
 
 
-/obj/item/rad_laser/attack(mob/living/target, mob/living/user)
+/obj/item/rad_laser/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(used)
 		to_chat(user, span_warning("The radioactive microlaser is still recharging."))
-		return
+		return ATTACK_CHAIN_PROCEED
 
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	add_attack_logs(user, target, "Irradiated by [src]")
 	user.visible_message(span_notice("[user] analyzes [target]'s vitals."))
 	var/cooldown = round(max(100,(((intensity*8)-(wavelength/2))+(intensity*2))*10))
@@ -230,6 +230,8 @@ effective or pretty fucking useless.
 /obj/item/teleporter/attack_self(mob/user)
 	attempt_teleport(user, FALSE)
 
+/obj/item/teleporter/attack_self_tk(mob/user)
+	return
 
 /obj/item/teleporter/process()
 	if(charges >= max_charges)

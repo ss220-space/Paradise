@@ -5,7 +5,7 @@
 	set name = "Open Admin Ticket Interface"
 	set category = "Admin"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN|R_MOD))
 		return
 
 	SStickets.showUI(usr)

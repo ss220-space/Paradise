@@ -7,6 +7,9 @@
 	if(!tts_seed)
 		tts_seed = SStts.get_random_seed(src)
 
+	// Physiology needs to be created before species, as some species modify physiology
+	physiology = new()
+
 	setup_dna(new_species)
 	var/datum/atom_hud/data/diagnostic/diag_hud = GLOB.huds[DATA_HUD_DIAGNOSTIC]
 	diag_hud.add_to_hud(src)
@@ -23,8 +26,17 @@
 	GLOB.human_list += src
 
 
+/mob/living/carbon/human/Destroy()
+	QDEL_NULL(physiology)
+	QDEL_LIST(bodyparts)
+	SSmobs.cubemonkeys -= src
+	GLOB.human_list -= src
+	return ..()
+
+
 /mob/living/carbon/human/OpenCraftingMenu()
 	handcrafting.ui_interact(src)
+
 
 /mob/living/carbon/human/prepare_data_huds()
 	//...sec hud images...
@@ -34,11 +46,6 @@
 	//...and display them.
 	add_to_all_human_data_huds()
 
-/mob/living/carbon/human/Destroy()
-	. = ..()
-	SSmobs.cubemonkeys -= src
-	QDEL_LIST(bodyparts)
-	GLOB.human_list -= src
 
 /mob/living/carbon/human/dummy
 	real_name = "Test Dummy"
@@ -260,7 +267,7 @@
 	if(status_flags & GODMODE)
 		return FALSE
 
-	var/armor = getarmor(null, "bomb")	//Average bomb protection
+	var/armor = getarmor(attack_flag = BOMB)	//Average bomb protection
 	var/limb_loss_reduction = FLOOR(armor / 25, 1) //It's guaranteed that every 25th armor point will protect from one delimb
 	var/limbs_affected = 0
 
@@ -282,7 +289,7 @@
 				AdjustDeaf(ex_armor_reduction(120 SECONDS, armor))
 				var/obj/item/organ/internal/ears/ears = get_int_organ(/obj/item/organ/internal/ears)
 				if(istype(ears))
-					ears.receive_damage(ex_armor_reduction(30, armor))
+					ears.internal_receive_damage(ex_armor_reduction(30, armor))
 
 		if(3)
 			bruteloss += 30
@@ -308,7 +315,7 @@
 		process_dismember(limbs_affected)
 	bruteloss = ex_armor_reduction(bruteloss, armor)
 	burnloss = ex_armor_reduction(burnloss, armor)
-	take_overall_damage(bruteloss, burnloss, TRUE, used_weapon = "Explosive Blast")
+	take_overall_damage(bruteloss, burnloss, used_weapon = "Explosive Blast")
 
 	..()
 
@@ -459,7 +466,7 @@
 	else if(!(flags & SHOCK_NOGLOVES)) //This gets the siemens_coeff for all non tesla shocks
 		if(gloves)
 			siemens_coeff *= gloves.siemens_coefficient
-	//siemens_coeff *= physiology.siemens_coeff
+	siemens_coeff *= physiology.siemens_coeff
 	siemens_coeff *= dna.species.siemens_coeff
 	. = ..()
 	//Don't go further if the shock was blocked/too weak.
@@ -494,7 +501,7 @@
 				if(QDELETED(thing) || QDELETED(bodypart) || thing.loc != bodypart || !LAZYIN(bodypart.embedded_objects, thing))
 					return
 				bodypart.remove_embedded_object(thing)
-				bodypart.receive_damage(thing.embedded_unsafe_removal_pain_multiplier * thing.w_class)//It hurts to rip it out, get surgery you dingus.
+				apply_damage(thing.embedded_unsafe_removal_pain_multiplier * thing.w_class, def_zone = bodypart)	//It hurts to rip it out, get surgery you dingus.
 				usr.put_in_hands(thing)
 				if(ishuman(usr))
 					var/mob/living/carbon/human/h_user = usr
@@ -1059,7 +1066,6 @@
 	if(dna.species.default_language)
 		add_language(dna.species.default_language)
 
-	hunger_drain = dna.species.hunger_drain
 	digestion_ratio = dna.species.digestion_ratio
 
 	if(dna.species.base_color && use_default_color)
@@ -1136,13 +1142,18 @@
 		dna.species.create_organs(src, missing_bodyparts, additional_organs)
 
 		//Apply relevant damages and variables to the new organs.
+		var/should_update_health = FALSE
 		for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 			for(var/stats in bodypart_damages)
 				if(bodypart.limb_zone == stats["zone"])
 					var/brute_dmg = stats["brute"]
 					var/burn_dmg = stats["burn"]
 					if(brute_dmg || burn_dmg)
-						bodypart.receive_damage(brute_dmg, burn_dmg, ignore_resists = TRUE, silent = TRUE)
+						var/brute_was = bodypart.brute_dam
+						var/burn_was = bodypart.burn_dam
+						bodypart.external_receive_damage(brute_dmg, burn_dmg, forced = TRUE, updating_health = FALSE, silent = TRUE)
+						if(bodypart.brute_dam != brute_was || bodypart.burn_dam != burn_was)
+							should_update_health = TRUE
 					var/status = stats["status"]
 					if(status & ORGAN_INT_BLEED)
 						bodypart.internal_bleeding(silent = TRUE)
@@ -1156,12 +1167,15 @@
 						bodypart.mutate(silent = TRUE)
 					break
 
+		if(should_update_health)
+			updatehealth("set_species damage retain")
+
 		for(var/obj/item/organ/internal/organ as anything in internal_organs)
 			for(var/stats in internal_damages)
 				if(organ.slot == stats["slot"])
 					var/damage = stats["damage"]
 					if(damage)
-						organ.receive_damage(damage, silent = TRUE)
+						organ.internal_receive_damage(damage, silent = TRUE)
 					if(stats["status"] & ORGAN_DEAD)
 						organ.necrotize(silent = TRUE)
 					break
@@ -1234,6 +1248,7 @@
 		UpdateAppearance()
 
 	if(dna.species)
+		SEND_SIGNAL(src, COMSIG_HUMAN_SPECIES_CHANGED, oldspecies)
 		return TRUE
 	else
 		return FALSE
@@ -1469,10 +1484,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	H.receiving_cpr = TRUE
 	if(do_after(src, 4 SECONDS, H, NONE))
 		if(H.health <= HEALTH_THRESHOLD_CRIT)
-			H.adjustOxyLoss(-15)
+			H.heal_damage_type(15, OXY)
 			H.SetLoseBreath(0)
 			H.AdjustParalysis(-2 SECONDS)
-			H.updatehealth("cpr")
 			visible_message("<span class='danger'>[src] performs CPR on [H.name]!</span>", "<span class='notice'>You perform CPR on [H.name].</span>")
 
 			to_chat(H, "<span class='notice'>You feel a breath of fresh air enter your lungs. It feels good.</span>")
@@ -1525,30 +1539,27 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	return md5(dna.uni_identity)
 
 /mob/living/carbon/human/can_see_reagents()
-	var/slots_to_see = src.get_all_slots() - l_store - r_store
-	for(var/obj/item/clothing/C in slots_to_see) //If they have some clothing equipped that lets them see reagents, they can see reagents
-		if(C.scan_reagents)
-			return TRUE
+	return hasHUD(src, EXAMINE_HUD_SCIENCE)
 
 /mob/living/carbon/human/can_see_food()
 	for(var/obj/item/organ/internal/organ as anything in internal_organs)
 		if(organ.can_see_food)
 			return TRUE
 
-/mob/living/carbon/human/selfFeed(var/obj/item/reagent_containers/food/toEat, fullness)
+/mob/living/carbon/human/selfFeed(obj/item/reagent_containers/food/toEat, fullness)
 	if(!check_has_mouth())
-		to_chat(src, "Where do you intend to put \the [toEat]? You don't have a mouth!")
+		to_chat(src, "Where do you intend to put [toEat]? You don't have a mouth!")
 		return FALSE
 	return ..()
 
-/mob/living/carbon/human/forceFed(var/obj/item/reagent_containers/food/toEat, mob/user, fullness)
+/mob/living/carbon/human/forceFed(obj/item/reagent_containers/food/toEat, mob/user, fullness)
 	if(!check_has_mouth())
 		if(!((istype(toEat, /obj/item/reagent_containers/food/drinks) && (ismachineperson(src)))))
-			to_chat(user, "Where do you intend to put \the [toEat]? \The [src] doesn't have a mouth!")
+			to_chat(user, "Where do you intend to put [toEat]? [src] doesn't have a mouth!")
 			return FALSE
 	return ..()
 
-/mob/living/carbon/human/selfDrink(var/obj/item/reagent_containers/food/drinks/toDrink)
+/mob/living/carbon/human/selfDrink(obj/item/reagent_containers/food/drinks/toDrink)
 	if(!check_has_mouth())
 		if(!ismachineperson(src))
 			to_chat(src, "Where do you intend to put \the [src]? You don't have a mouth!")

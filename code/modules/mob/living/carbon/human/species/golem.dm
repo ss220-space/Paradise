@@ -430,14 +430,17 @@
 	chance_name_male = 80
 	chance_name_female = 30
 
+
 //Regenerates because self-repairing super-advanced alien tech
 /datum/species/golem/alloy/handle_life(mob/living/carbon/human/H)
 	if(H.stat == DEAD)
 		return
-	H.adjustBruteLoss(-2)
-	H.adjustFireLoss(-2)
-	H.adjustToxLoss(-2)
-	H.adjustOxyLoss(-2)
+	var/update = NONE
+	update |= H.heal_overall_damage(2, 2, updating_health = FALSE)
+	update |= H.heal_damages(tox = 2, oxy = 2, updating_health = FALSE)
+	if(update)
+		H.updatehealth()
+
 
 /datum/species/golem/alloy/can_understand(mob/other) //Can understand everyone, but they can only speak over their mindlink
 	return TRUE
@@ -496,10 +499,11 @@
 			if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
 				H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
 		if(light_amount > 0.2 && !H.suiciding) //if there's enough light, heal
-			H.adjustBruteLoss(-1)
-			H.adjustFireLoss(-1)
-			H.adjustToxLoss(-1)
-			H.adjustOxyLoss(-1)
+			var/update = NONE
+			update |= H.heal_overall_damage(1, 1, updating_health = FALSE)
+			update |= H.heal_damages(tox = 1, oxy = 1, updating_health = FALSE)
+			if(update)
+				H.updatehealth()
 
 	if(!is_vamp && H.nutrition < NUTRITION_LEVEL_STARVING + 50)
 		H.adjustBruteLoss(2)
@@ -699,10 +703,12 @@
 	if(world.time > last_teleport + teleport_cooldown && M != H &&  M.a_intent != INTENT_HELP)
 		reactive_teleport(H)
 
-/datum/species/golem/bluespace/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
-	..()
-	if(world.time > last_teleport + teleport_cooldown && user != H)
-		reactive_teleport(H)
+
+/datum/species/golem/bluespace/spec_proceed_attack_results(obj/item/I, mob/living/carbon/human/defender, mob/living/attacker, obj/item/organ/external/affecting)
+	. = ..()
+	if(world.time > last_teleport + teleport_cooldown && defender != attacker && reactive_teleport(defender))
+		. |= ATTACK_CHAIN_NO_AFTERATTACK
+
 
 /datum/species/golem/bluespace/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
 	if(world.time > last_teleport + teleport_cooldown)
@@ -822,11 +828,13 @@
 		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
 		last_banana = world.time
 
-/datum/species/golem/bananium/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
-	..()
-	if(world.time > last_banana + banana_cooldown && user != H)
-		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
+
+/datum/species/golem/bananium/spec_proceed_attack_results(obj/item/I, mob/living/carbon/human/defender, mob/living/attacker, obj/item/organ/external/affecting)
+	. = ..()
+	if(world.time > last_banana + banana_cooldown && defender != attacker)
+		new /obj/item/grown/bananapeel/specialpeel(get_turf(defender))
 		last_banana = world.time
+
 
 /datum/species/golem/bananium/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
 	if(world.time > last_banana + banana_cooldown)

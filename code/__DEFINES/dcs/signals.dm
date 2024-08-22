@@ -57,7 +57,7 @@
 #define COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE "atom_init_success"
 //from SSatoms InitAtom - Only if the  atom was not deleted or failed initialization and has a loc
 #define COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON "atom_init_success_on"
-///from base of atom/attackby(): (/obj/item, /atom/source, params) sends singal on user who attacked source
+///from base of /obj/item//attack(): (/obj/item, /atom/source, params) sends singal on user who attacked source
 #define COMSIG_ATOM_ATTACK "atom_attack"
 ///called when the atom sucessfully has it's density var changed, from base atom/set_density(): (value)
 #define COMSIG_ATOM_SET_DENSITY "atom_set_density"
@@ -77,8 +77,6 @@
 
 ///from base of atom/attackby(): (/obj/item, /mob/living, params)
 #define COMSIG_PARENT_ATTACKBY "atom_attackby"
-///Return this in response if you don't want afterattack to be called
-	#define COMPONENT_NO_AFTERATTACK (1<<0)
 ///from base of atom/attack_hulk(): (/mob/living/carbon/human)
 #define COMSIG_ATOM_HULK_ATTACK "hulk_attack"
 ///from base of atom/animal_attack(): (/mob/user)
@@ -220,6 +218,10 @@
 // You can use these signal responses to cancel the attack chain at a certain point from most attack signal types.
 	/// This response cancels the attack chain entirely. If sent early, it might cause some later effects to be skipped.
 	#define COMPONENT_CANCEL_ATTACK_CHAIN (1<<0)
+	///Return this in response if you don't want afterattack to be called
+	#define COMPONENT_NO_AFTERATTACK (1<<1)
+	///Skips the specific attack step, continuing for the next one to happen.
+	#define COMPONENT_SKIP_ATTACK (1<<2)
 
 /////////////////
 ///from base of atom/attack_ghost(): (mob/dead/observer/ghost)
@@ -420,8 +422,14 @@
 ///from base of /obj/item/attack(): (mob/M, mob/user)
 #define COMSIG_MOB_ITEM_ATTACK "mob_item_attack"
 	#define COMPONENT_ITEM_NO_ATTACK (1<<0)
-///from base of /mob/living/proc/apply_damage(): (damage, damagetype, def_zone)
+
+///from base of /mob/living/proc/get_incoming_damage_modifier(): (list/damage_mods, damage, damagetype, def_zone, sharp, used_weapon)
+#define COMSIG_MOB_APPLY_DAMAGE_MODIFIERS "mob_apply_damage_modifiers"
+///from base of /mob/living/proc/get_blocking_resistance(): (list/damage_resistances, damage, damagetype, def_zone, sharp, used_weapon)
+#define COMSIG_MOB_APPLY_BLOCKING_RESISTANCES "mob_apply_blocking_resistances"
+///from base of /mob/living/proc/apply_damage(): (damage, damagetype, def_zone, blocked, sharp, used_weapon, spread_damage, forced)
 #define COMSIG_MOB_APPLY_DAMAGE	"mob_apply_damage"
+
 ///from base of obj/item/afterattack(): (atom/target, mob/user, proximity_flag, click_parameters)
 #define COMSIG_MOB_ITEM_AFTERATTACK "mob_item_afterattack"
 	/// Flag for when /afterattack potentially acts on an item.
@@ -701,17 +709,15 @@
 
 // /obj/item signals
 
-///from base of obj/item/attack(): (/mob/living/target, /mob/living/user)
+///from base of obj/item/attack(): (/mob/living/target, /mob/living/user, params, def_zone)
 #define COMSIG_ITEM_ATTACK "item_attack"
 ///from base of obj/item/attack_self(): (/mob)
 #define COMSIG_ITEM_ATTACK_SELF "item_attack_self"
 	#define COMPONENT_NO_INTERACT (1<<0)
 ///from base of obj/item/attack_obj(): (/obj, /mob)
 #define COMSIG_ITEM_ATTACK_OBJ "item_attack_obj"
-	#define COMPONENT_NO_ATTACK_OBJ (1<<0)
 ///from base of obj/item/pre_attackby(): (atom/target, mob/user, params)
 #define COMSIG_ITEM_PRE_ATTACKBY "item_pre_attackby"
-	#define COMPONENT_NO_ATTACK (1<<0)
 ///from base of obj/item/afterattack(): (atom/target, mob/user, params)
 #define COMSIG_ITEM_AFTERATTACK "item_afterattack"
 ///from base of obj/item/attack_qdeleted(): (atom/target, mob/user, params)
@@ -728,8 +734,6 @@
 #define COMSIG_ITEM_DROPPED "item_drop"
 ///from base of obj/item/pickup(): (/mob/taker)
 #define COMSIG_ITEM_PICKUP "item_pickup"
-///from base of mob/living/carbon/attacked_by(): (mob/living/carbon/target, mob/living/user, hit_zone)
-#define COMSIG_ITEM_ATTACK_ZONE "item_attack_zone"
 ///return a truthy value to prevent ensouling, checked in /obj/effect/proc_holder/spell/lichdom/cast(): (mob/user)
 #define COMSIG_ITEM_IMBUE_SOUL "item_imbue_soul"
 ///called before marking an object for retrieval, checked in /obj/effect/proc_holder/spell/summonitem/cast() : (mob/user)
@@ -756,6 +760,8 @@
 #define COMSIG_ITEM_DISABLE_EMBED "item_disable_embed"
 ///from [/obj/effect/mine/proc/triggermine]:
 #define COMSIG_MINE_TRIGGERED "minegoboom"
+///from [/obj/item/organ/internal/remove]:
+#define COMSIG_ORGAN_REMOVED "organ_removed"
 
 /// Defib-specific signals
 
@@ -886,6 +892,8 @@
 #define COMSIG_HUMAN_SUICIDE_ACT "human_suicide_act"
 ///From mob/living/carbon/human/regenerate_icons()
 #define COMSIG_HUMAN_REGENERATE_ICONS "human_regenerate_icons"
+///From /mob/living/carbon/human/proc/set_species(): (datum/species/old_species)
+#define COMSIG_HUMAN_SPECIES_CHANGED "human_species_changed"
 
 
 ///from /mob/living/carbon/human/proc/check_shields(): (atom/hit_by, damage, attack_text, attack_type, armour_penetration, damage_type)
@@ -1143,6 +1151,8 @@
 #define COMSIG_MOVELOOP_POSTPROCESS "moveloop_postprocess"
 //from [/datum/move_loop/has_target/jps/recalculate_path] ():
 #define COMSIG_MOVELOOP_JPS_REPATH "moveloop_jps_repath"
+///from [/datum/move_loop/has_target/jps/on_finish_pathing]
+#define COMSIG_MOVELOOP_JPS_FINISHED_PATHING "moveloop_jps_finished_pathing"
 
 ///from of mob/MouseDrop(): (/atom/over, /mob/user)
 #define COMSIG_DO_MOB_STRIP "do_mob_strip"

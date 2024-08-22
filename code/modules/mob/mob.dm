@@ -35,6 +35,7 @@
 	. = ..()
 	update_config_movespeed()
 	update_movespeed()
+	initialize_actionspeed()
 	if(can_strip())
 		ADD_TRAIT(src, TRAIT_CAN_STRIP, GENERIC_TRAIT)
 
@@ -1106,6 +1107,8 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	. = stat
 	stat = new_stat
 	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat, .)
+	if(.)
+		set_typing_indicator(FALSE)
 
 /**
  * Called when this mob slips over, override as needed
@@ -1119,5 +1122,37 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_MOB_SLIPPED, weaken_amount, slipped_on, lube_flags, tilesSlipped)
 
+
 /mob/proc/IsLying()
 	return FALSE
+
+
+///Ignores specific action slowdowns. Accepts a list of slowdowns.
+/mob/proc/add_actionspeed_mod_immunities(source, slowdown_type, update = TRUE)
+	if(islist(slowdown_type))
+		for(var/listed_type in slowdown_type)
+			if(ispath(listed_type))
+				listed_type = "[listed_type]" //Path2String
+			LAZYADDASSOCLIST(actionspeed_mod_immunities, listed_type, source)
+	else
+		if(ispath(slowdown_type))
+			slowdown_type = "[slowdown_type]" //Path2String
+		LAZYADDASSOCLIST(actionspeed_mod_immunities, slowdown_type, source)
+	if(update)
+		update_actionspeed()
+
+
+///Unignores specific action slowdowns. Accepts a list of slowdowns.
+/mob/proc/remove_actionspeed_mod_immunities(source, slowdown_type, update = TRUE)
+	if(islist(slowdown_type))
+		for(var/listed_type in slowdown_type)
+			if(ispath(listed_type))
+				listed_type = "[listed_type]" //Path2String
+			LAZYREMOVEASSOC(actionspeed_mod_immunities, listed_type, source)
+	else
+		if(ispath(slowdown_type))
+			slowdown_type = "[slowdown_type]" //Path2String
+		LAZYREMOVEASSOC(actionspeed_mod_immunities, slowdown_type, source)
+	if(update)
+		update_actionspeed()
+

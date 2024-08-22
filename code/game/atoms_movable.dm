@@ -243,6 +243,8 @@
 
 	return ..()
 
+/atom/movable/proc/moveToNullspace()
+	return doMove(null)
 
 /// Proc to hook user-enacted teleporting behavior and keep logging of the event.
 /atom/movable/proc/admin_teleport(atom/new_location)
@@ -344,7 +346,7 @@
 		return FALSE
 	if(ismob(src))
 		var/mob/mob = src
-		mob.changeNext_move(CLICK_CD_GRABBING)
+		mob.changeNext_move(CLICK_CD_PULLING)
 	return pulling.Move(pull_turf, move_dir, glide_size)
 
 
@@ -1169,18 +1171,21 @@
 	anchored = TRUE
 	simulated = FALSE
 
-/atom/movable/overlay/New()
+
+/atom/movable/overlay/Initialize(mapload, ...)
 	. = ..()
 	verbs.Cut()
-	return
 
-/atom/movable/overlay/attackby(a, b, c)
-	if(master)
-		return master.attackby(a, b, c)
 
-/atom/movable/overlay/attack_hand(a, b, c)
+/atom/movable/overlay/attackby(obj/item/I, mob/user, params)
 	if(master)
-		return master.attack_hand(a, b, c)
+		I.melee_attack_chain(user, master, params)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
+
+/atom/movable/overlay/attack_hand(mob/user)
+	if(master)
+		return master.attack_hand(user)
 
 
 /atom/movable/proc/handle_buckled_mob_movement(newloc, direct, glide_size_override)
@@ -1427,8 +1432,6 @@
 * A wrapper for setDir that should only be able to fail by living mobs.
 *
 * Called from [/atom/movable/proc/keyLoop], this exists to be overwritten by living mobs with a check to see if we're actually alive enough to change directions
-*
-* Not implemented currently.
 */
 /atom/movable/proc/keybind_face_direction(direction)
 	setDir(direction)

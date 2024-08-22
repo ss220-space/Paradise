@@ -56,6 +56,7 @@
 	force_wielded = 15
 	armour_penetration = 40
 	sharp = TRUE
+	attack_speed = 0.4 SECONDS
 	attack_effect_override = ATTACK_EFFECT_CLAW
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut", "savaged", "clawed")
@@ -80,7 +81,7 @@
 	return ..()
 
 
-/obj/item/twohanded/required/vamp_claws/afterattack(atom/target, mob/user, proximity)
+/obj/item/twohanded/required/vamp_claws/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 
@@ -97,7 +98,7 @@
 			C.bleed(blood_drain_amount)
 			attacker.adjustStaminaLoss(-20) // security is dead
 			attacker.heal_overall_damage(4, 4) // the station is full
-			attacker.AdjustWeakened(-1 SECONDS) // blood is fuel
+			attacker.AdjustKnockdown(-1 SECONDS) // blood is fuel
 			if(!C.dna.species.exotic_blood)
 				V.adjust_blood(C, blood_absorbed_amount)
 
@@ -106,12 +107,6 @@
 		if(durability <= 0)
 			qdel(src)
 			to_chat(user, span_warning("Your claws shatter!"))
-
-
-/obj/item/twohanded/required/vamp_claws/melee_attack_chain(mob/user, atom/target, params)
-	..()
-	if(wielded)
-		user.changeNext_move(CLICK_CD_MELEE * 0.5)
 
 
 /obj/item/twohanded/required/vamp_claws/attack_self(mob/user)
@@ -157,7 +152,7 @@
 	for(var/mob/living/L in range(distance, T))
 		if(L.affects_vampire(user))
 			L.Slowed(slowed_amount)
-			L.adjustToxLoss(33)
+			L.apply_damage(33, TOX)
 			L.visible_message(span_warning("[L] gets ensnare in blood tendrils, restricting [L.p_their()] movement!"))
 			var/turf/target_turf = get_turf(L)
 			playsound(target_turf, 'sound/magic/tail_swing.ogg', 50, TRUE)
@@ -477,8 +472,11 @@
 		H.bleed(drain_amount)
 		H.Beam(owner, icon_state = "drainbeam", time = 2 SECONDS)
 		H.adjustBruteLoss(5)
-		owner.heal_overall_damage(8, 2, TRUE)
-		owner.adjustStaminaLoss(-15)
+		var/update = NONE
+		update |= owner.heal_overall_damage(8, 2, updating_health = FALSE, affect_robotic = TRUE)
+		update |= owner.heal_damage_type(15, STAMINA, updating_health = FALSE)
+		if(update)
+			owner.updatehealth()
 		owner.AdjustStunned(-2 SECONDS)
 		owner.AdjustWeakened(-2 SECONDS)
 		if(drain_amount == 10)

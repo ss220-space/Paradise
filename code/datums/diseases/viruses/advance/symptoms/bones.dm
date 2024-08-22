@@ -56,13 +56,21 @@ Fragile Bones Syndrome
 						M.visible_message(span_userdanger(span_italics("CRUNCH")))
 
 				if(!done)
-					M.dna.species.bonefragility *= bonefragility_multiplier
-					M.dna.species.fragile_bones_chance += fragile_bones_chance
+					M.physiology.bone_fragility *= bonefragility_multiplier
 					done = TRUE
 
-	return
 
 /datum/symptom/bones/End(datum/disease/virus/advance/A)
 	var/mob/living/carbon/human/M = A.affected_mob
-	M.dna.species.bonefragility /= bonefragility_multiplier
-	M.dna.species.fragile_bones_chance -= fragile_bones_chance
+	M.physiology.bone_fragility /= bonefragility_multiplier
+
+
+/mob/living/proc/get_bones_symptom_prob()
+	. = 0
+	if(!LAZYLEN(diseases))
+		return .
+	for(var/datum/disease/virus/advance/disease in diseases)
+		var/datum/symptom/bones/symptom = locate() in disease.symptoms
+		if(symptom)
+			return symptom.fragile_bones_chance
+

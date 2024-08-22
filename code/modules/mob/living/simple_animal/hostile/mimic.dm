@@ -82,9 +82,16 @@
 		visible_message("<b>[src]</b> starts to move!")
 		attempt_open = 1
 
-/mob/living/simple_animal/hostile/mimic/crate/adjustHealth(amount, updating_health = TRUE)
-	trigger()
-	. = ..()
+/mob/living/simple_animal/hostile/mimic/crate/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
+	if(amount > 0)
+		trigger()
+	return ..()
 
 /mob/living/simple_animal/hostile/mimic/crate/LoseTarget()
 	..()

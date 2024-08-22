@@ -369,83 +369,88 @@
 		pai.extinguish_light()
 		set_light_on(FALSE)
 
+
 /obj/item/paicard/attackby(obj/item/I, mob/user, params)
-	. = ..()
 	if(istype(I, /obj/item/pai_cartridge))
+		add_fingerprint(user)
 		if(!pai)
-			to_chat(user, "<span class='notice'>PAI must be active to install the cartridge.")
-			return
-		var/obj/item/pai_cartridge/P = I
+			to_chat(user, span_warning("PAI must be active to install the cartridge."))
+			return ATTACK_CHAIN_PROCEED
 		for(var/obj/item/pai_cartridge/cartridge in upgrades)
-			if(istype(P, cartridge))
-				to_chat(user, "<span class='notice'>PAI already has this cartridge")
-				return
-		to_chat(user, "<span class='notice'>You install cartridge")
-		if(istype(P, /obj/item/pai_cartridge/reset))
-			pai.reset_software(extra_memory)
-			qdel(P)
-			return
-		if(istype(P, /obj/item/pai_cartridge/memory))
-			var/obj/item/pai_cartridge/memory/U = P
-			extra_memory = U.extra_memory
-			pai.ram += min(extra_memory, 70)
-			upgrades += P
-			qdel(P)
-			return
-		if(istype(P, /obj/item/pai_cartridge/doorjack))
-			var/obj/item/pai_cartridge/doorjack/U = P
-			pai.doorjack_factor += U.factor
-			upgrades += P
-			qdel(P)
-			return
-		if(istype(P, /obj/item/pai_cartridge/female))
-			pai.female_chassis = TRUE
-			upgrades += P
-			qdel(P)
-			return
-		if(istype(P, /obj/item/pai_cartridge/snake))
-			pai.snake_chassis = TRUE
-			upgrades += P
-			qdel(P)
-			return
-		if(istype(P, /obj/item/pai_cartridge/syndi_emote))
-			pai.syndi_emote = TRUE
-			upgrades += P
-			qdel(P)
-			return
+			if(istype(I, cartridge))
+				to_chat(user, span_warning("PAI already has this cartridge."))
+				return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("You install [I]."))
+		switch(I.type)
+			if(/obj/item/pai_cartridge/reset)
+				pai.reset_software(extra_memory)
+				qdel(I)
+			if(/obj/item/pai_cartridge/female)
+				pai.female_chassis = TRUE
+				upgrades += I
+			if(/obj/item/pai_cartridge/memory)
+				var/obj/item/pai_cartridge/memory/memory = I
+				extra_memory = memory.extra_memory
+				pai.ram += min(extra_memory, 70)
+				upgrades += memory
+			if(/obj/item/pai_cartridge/doorjack)
+				var/obj/item/pai_cartridge/doorjack/doorjack = I
+				pai.doorjack_factor += doorjack.factor
+				upgrades += doorjack
+			if(/obj/item/pai_cartridge/snake)
+				pai.snake_chassis = TRUE
+				upgrades += I
+			if(/obj/item/pai_cartridge/syndi_emote)
+				pai.syndi_emote = TRUE
+				upgrades += I
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/paicard_upgrade))
-		var/obj/item/paicard_upgrade/P = I
+		add_fingerprint(user)
+		var/obj/item/paicard_upgrade/new_upgrade = I
 		if(pai)
 			if(pai.syndipai)
-				return
-			extra_memory += P.extra_memory
+				to_chat(user, span_warning("This [name] is badass enough already!"))
+				return ATTACK_CHAIN_PROCEED
+			if(!user.drop_transfer_item_to_loc(new_upgrade, src))
+				return ..()
+			extra_memory += new_upgrade.extra_memory
 			pai.reset_software(extra_memory)
 			pai.syndipai = TRUE
-			qdel(P)
-			return
-		if(upgrade || is_syndicate_type)
-			return
-		to_chat(user, "<span class='notice'>You install upgrade.</span>")
-		upgrade = P
-		user.drop_transfer_item_to_loc(P, src)
-		extra_memory += P.extra_memory
+			qdel(new_upgrade)
+			return ATTACK_CHAIN_BLOCKED_ALL
+		if(is_syndicate_type)
+			to_chat(user, span_warning("This [name] is badass enough already!"))
+			return ATTACK_CHAIN_PROCEED
+		if(upgrade)
+			to_chat(user, span_warning("This [name] has [upgrade] installed already!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(new_upgrade, src))
+			return ..()
+		to_chat(user, span_notice("You install [new_upgrade]."))
+		upgrade = new_upgrade
+		extra_memory += new_upgrade.extra_memory
 		is_syndicate_type = TRUE
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/encryptionkey))
+		add_fingerprint(user)
 		if(!radio)
-			return
-
+			to_chat(user, span_warning("This [name] has no radio installed!"))
+			return ATTACK_CHAIN_PROCEED
 		if(radio.keyslot1)
-			to_chat(user, "The headset can't hold another key!")
-			return
-		else
-			user.drop_transfer_item_to_loc(I, radio)
-			radio.keyslot1 = I
-
+			to_chat(user, span_warning("[name]'s radio cannot hold another encryption key!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		radio.keyslot1 = I
 		radio.recalculateChannels()
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/paicard/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE

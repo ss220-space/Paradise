@@ -133,7 +133,7 @@
 				add_attack_logs(H, C, "Touched with stun gloves")
 				C.Weaken(stun_strength)
 				C.Stuttering(stun_strength)
-				C.adjustStaminaLoss(20)
+				C.apply_damage(20, STAMINA)
 			else
 				to_chat(H, "<span class='notice'>Not enough charge!</span>")
 			return TRUE
@@ -147,19 +147,21 @@
 		. += "gloves_cell"
 
 
-/obj/item/clothing/gloves/color/yellow/stun/attackby(obj/item/W, mob/living/user, params)
-	if(istype(W, /obj/item/stock_parts/cell))
-		if(!cell)
-			if(!user.drop_transfer_item_to_loc(W, src))
-				to_chat(user, "<span class='warning'>[W] is stuck to you!</span>")
-				return
-			cell = W
-			to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
-			update_icon(UPDATE_OVERLAYS)
-		else
-			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
-	else
-		return ..()
+/obj/item/clothing/gloves/color/yellow/stun/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/stock_parts/cell))
+		add_fingerprint(user)
+		if(cell)
+			to_chat(user, span_warning("The [name] already has a cell."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("You attach [I] to [src]."))
+		cell = I
+		update_icon(UPDATE_OVERLAYS)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/clothing/gloves/color/yellow/stun/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
@@ -326,9 +328,9 @@
 	if(!(user.a_intent == INTENT_HARM) || !proximity || isturf(A))
 		return FALSE
 
-	var/damage = knuckle_damage + rand(user.dna.species.punchdamagelow,user.dna.species.punchdamagehigh)
+	var/damage = knuckle_damage + rand(user.dna.species.punchdamagelow + user.physiology.punch_damage_low, user.dna.species.punchdamagehigh + user.physiology.punch_damage_high)
 	var/staminadamage = rand(knock_damage_low, knock_damage_high)
-	var/knobj_damage = knuckle_damage + user.dna.species.obj_damage
+	var/knobj_damage = knuckle_damage + user.dna.species.obj_damage + user.physiology.punch_obj_damage
 	if(ishuman(A))
 		user.do_attack_animation(A, "kick")
 		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)

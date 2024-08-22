@@ -26,7 +26,7 @@
 	light_color = LIGHT_COLOR_DARKBLUE
 
 /obj/machinery/computer/med_data/Initialize()
-	..()
+	. = ..()
 	field_edit_questions = list(
 		// General
 		"sex" = "Please select new sex:",
@@ -61,11 +61,17 @@
 	active2 = null
 	return ..()
 
-/obj/machinery/computer/med_data/attackby(obj/item/O, mob/user, params)
-	if(ui_login_attackby(O, user))
+
+/obj/machinery/computer/med_data/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(ui_login_attackby(I, user))
 		add_fingerprint(user)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/machinery/computer/med_data/attack_hand(mob/user)
 	if(..())

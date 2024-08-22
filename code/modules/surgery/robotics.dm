@@ -461,11 +461,10 @@
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
-	target.adjustToxLoss(5)
-	affected.receive_damage(5)
+	target.apply_damages(brute = 5, tox = 5, def_zone = affected)
 
 	for(var/obj/item/organ/internal/organ as anything in affected.internal_organs)
-		organ.receive_damage(rand(3,5),0)
+		organ.internal_receive_damage(rand(3,5))
 	return SURGERY_STEP_RETRY
 
 

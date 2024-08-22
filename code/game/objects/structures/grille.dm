@@ -66,7 +66,7 @@
 		return RCD_ACT_FAILED
 	to_chat(user, "Deconstructing window...")
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
-	if(!do_after(user, 2 SECONDS * our_rcd.toolspeed * gettoolspeedmod(user), src))
+	if(!do_after(user, 2 SECONDS * our_rcd.toolspeed, src, category = DA_CAT_TOOL))
 		to_chat(user, span_warning("ERROR! Deconstruction interrupted!"))
 		return RCD_ACT_FAILED
 	if(!our_rcd.useResource(2, user))
@@ -114,7 +114,7 @@
 	if(. && !QDELETED(src) && !shock(user, 70))
 		take_damage(rand(5,10), BRUTE, "melee", 1)
 
-/obj/structure/grille/attack_hand(mob/living/user)
+/obj/structure/grille/attack_hand(mob/living/carbon/human/user)
 	. = ..()
 	if(.)
 		return
@@ -123,9 +123,9 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.visible_message(span_warning("[user] hits [src]."))
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
-	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+	if(user.a_intent == INTENT_HARM && ishuman(user) && (user.dna.species.obj_damage + user.physiology.punch_obj_damage > 0))
 		user.changeNext_move(CLICK_CD_MELEE)
-		attack_generic(user, user.dna.species.obj_damage)
+		attack_generic(user, user.dna.species.obj_damage + user.physiology.punch_obj_damage)
 		return
 	take_damage(rand(5,10), BRUTE, "melee", 1)
 
@@ -153,27 +153,45 @@
 	return FALSE
 
 
-/obj/structure/grille/attackby(obj/item/W, mob/user, params)
-	user.changeNext_move(CLICK_CD_MELEE)
-	if(istype(W, /obj/item/stack/rods) && broken)
-		var/obj/item/stack/rods/R = W
-		if(!shock(user, 90))
-			user.visible_message("<span class='notice'>[user] rebuilds the broken grille.</span>", \
-								 "<span class='notice'>You rebuild the broken grille.</span>")
-			new grille_type(loc)
-			R.use(1)
-			qdel(src)
-			return
-
-//window placing begin
-	else if(is_glass_sheet(W))
-		add_fingerprint(user)
-		build_window(W, user)
-		return
-//window placing end
-
-	else if(istype(W, /obj/item/shard) || !shock(user, 70))
+/obj/structure/grille/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		// shards help prisoners to escape safely
+		// some day this will move on CONDUCT flag
+		if(!istype(I, /obj/item/shard) && shock(user, 70))
+			return ATTACK_CHAIN_BLOCKED_ALL
 		return ..()
+
+	if(istype(I, /obj/item/stack/rods))
+		add_fingerprint(user)
+		if(shock(user, 90))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		if(!broken)
+			to_chat(user, span_warning("The [name] is completely intact."))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/item/stack/rods/rods = I
+		if(!rods.use(1))
+			to_chat(user, span_warning("You need at least one rod to rebuild the broken grille!"))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] rebuilds the broken grille."),
+			span_notice("You rebuild the broken grille."),
+		)
+		var/obj/structure/grille/new_grille = new grille_type(loc)
+		transfer_fingerprints_to(new_grille)
+		new_grille.add_fingerprint(user)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(is_glass_sheet(I))
+		add_fingerprint(user)
+		build_window(I, user)	// this shit needs some love
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(!istype(I, /obj/item/shard) && shock(user, 70))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/structure/grille/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE

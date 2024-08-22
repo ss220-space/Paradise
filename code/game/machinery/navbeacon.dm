@@ -87,23 +87,27 @@
 
 
 /obj/machinery/navbeacon/attackby(obj/item/I, mob/user, params)
-	var/turf/T = loc
-	if(T.intact)
-		return		// prevent intraction when T-scanner revealed
+	var/turf/our_turf = loc
+	if(!isturf(our_turf) || our_turf.intact || our_turf.transparent_floor == TURF_TRANSPARENT)	// prevent intraction when T-scanner revealed
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(I.GetID())
-		if(open)
-			if(allowed(user))
-				add_fingerprint(user)
-				locked = !locked
-				to_chat(user, span_notice("Controls are now [locked ? "locked" : "unlocked"]."))
-			else
-				to_chat(user, span_danger("Access denied."))
-			updateDialog()
-		else
-			to_chat(user, span_warning("You must open the cover first!"))
-	else
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(I.GetID() || is_pda(I))
+		add_fingerprint(user)
+		if(!open)
+			to_chat(user, span_warning("You must open the cover first!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!allowed(user))
+			to_chat(user, span_danger("Access denied."))
+			return ATTACK_CHAIN_PROCEED
+		locked = !locked
+		to_chat(user, span_notice("Controls are now [locked ? "locked" : "unlocked"]."))
+		updateDialog()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
 
 
 /obj/machinery/navbeacon/screwdriver_act(mob/living/user, obj/item/I)

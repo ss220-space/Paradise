@@ -29,7 +29,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 		revert_cast(user)
 		return
 
-	user.Stun(INFINITY)
+	ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 	user.visible_message("<span class='warning'>[user]'s things suddenly slip off. They hunch over and vomit up a copious amount of purple goo which begins to shape around them!</span>", \
 						"<span class='shadowling'>You remove any equipment which would hinder your hatching and begin regurgitating the resin which will protect you.</span>")
 
@@ -50,12 +50,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 		new /obj/structure/alien/weeds/node(shadowturf) //Dim lighting in the chrysalis -- removes itself afterwards
 
 	//Can't die while hatching
-	user.dna.species.brute_mod = 0;
-	user.dna.species.burn_mod = 0;
-	user.dna.species.tox_mod = 0;
-	user.dna.species.oxy_mod = 0;
-	user.dna.species.clone_mod = 0;
-	user.dna.species.brain_mod = 0;
+	user.status_flags |= GODMODE
 
 	user.visible_message("<span class='warning'>A chrysalis forms around [user], sealing [user.p_them()] inside.</span>", \
 					"<span class='shadowling'>You create your chrysalis and begin to contort within.</span>")
@@ -104,8 +99,10 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	GLOB.possibleShadowlingNames.Remove(newNameId)
 	user.real_name = newNameId
 	user.name = user.real_name
-	user.SetStunned(0)
 	to_chat(user, "<i><b><font size=3>YOU LIVE!!!</i></b></font>")
+
+	user.status_flags &= ~GODMODE
+	REMOVE_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 
 	for(var/obj/structure/alien/resin/wall/shadowling/resin in orange(user, 1))
 		playsound(resin, 'sound/effects/splat.ogg', 50, TRUE)

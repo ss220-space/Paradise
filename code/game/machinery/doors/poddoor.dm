@@ -23,8 +23,12 @@
 /obj/machinery/door/poddoor/impassable
 	name = "reinforced blast door"
 	desc = "A heavy duty blast door that opens mechanically. Looks even tougher than usual."
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF
 	hackable = FALSE
+
+
+/obj/machinery/door/poddoor/impassable/unhittable
+	obj_flags = IGNORE_HITS
 
 
 /obj/machinery/door/poddoor/Bumped(atom/movable/moving_atom, skip_effects = TRUE)
@@ -62,7 +66,7 @@
 		return
 	if(!hasPower())
 		to_chat(user, span_notice("You start forcing [src] open..."))
-		if(do_after(user, 5 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
+		if(do_after(user, 5 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
 			if(!hasPower())
 				open()
 			else

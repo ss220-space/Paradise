@@ -40,7 +40,7 @@
 			icon = initial(icon)
 			icon_state = initial(icon_state) //This resets a cutout to its blank state - this is intentional to allow for resetting
 			pushed_over = FALSE
-		
+
 		var/image/I = image(icon = src.icon , icon_state = src.icon_state, loc = user)
 		I.override = 1
 		I.color = color
@@ -52,28 +52,38 @@
 	. = ..()
 	user.remove_alt_appearance("sneaking_mission")
 
+
 /obj/item/twohanded/cardboard_cutout/attackby(obj/item/I, mob/living/user, params)
+	add_fingerprint(user)
 	if(istype(I, /obj/item/toy/crayon))
 		change_appearance(I, user)
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	// Why yes, this does closely resemble mob and object attack code.
 	if(I.item_flags & NOBLUDGEON)
-		return
-	if(!I.force)
-		playsound(loc, 'sound/weapons/tap.ogg', 20, 1, -1)
-	else if(I.hitsound)
-		playsound(loc, I.hitsound, 20, 1, -1)
+		return ATTACK_CHAIN_PROCEED
 
-	user.changeNext_move(CLICK_CD_MELEE)
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(!I.force)
+		playsound(loc, 'sound/weapons/tap.ogg', 20, TRUE, -1)
+	else if(I.hitsound)
+		playsound(loc, I.hitsound, 20, TRUE, -1)
+
 	user.do_attack_animation(src)
 
-	if(I.force)
-		user.visible_message("<span class='danger'>[user] has hit \
-			[src] with [I]!</span>", "<span class='danger'>You hit [src] \
-			with [I]!</span>")
+	if(!I.force)
+		return .
 
-		if(prob(I.force))
-			push_over()
+	user.visible_message(
+		span_danger("[user] has hit [src] with [I]!"),
+		span_danger("You hit [src] with [I]!"),
+	)
+
+	if(prob(I.force))
+		push_over()
+
+
 
 /obj/item/twohanded/cardboard_cutout/bullet_act(obj/item/projectile/P)
 	visible_message("<span class='danger'>[src] is hit by [P]!</span>")

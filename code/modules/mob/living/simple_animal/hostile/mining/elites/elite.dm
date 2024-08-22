@@ -97,10 +97,18 @@
 		return REVIVE_COOLDOWN_MULT_ANTAG
 	return 1
 
-/mob/living/simple_animal/hostile/asteroid/elite/adjustHealth(damage, updating_health)
+
+/mob/living/simple_animal/hostile/asteroid/elite/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
 	. = ..()
-	if(del_on_death)
-		maxHealth -= damage * antag_revived_heal_mod
+	if(. && del_on_death)
+		setMaxHealth(max(maxHealth - (amount * antag_revived_heal_mod), 0))
+
 
 /mob/living/simple_animal/hostile/asteroid/elite/ex_act(severity, origin) //No surrounding the tumor with gibtonite and one shotting them.
 	switch(severity)
@@ -118,8 +126,8 @@
 	dif_mult_dmg = (dif_mult + 1) * 0.5
 	if(scale_with_time && world.time > STRENGHT_INCREASE_TIME)
 		dif_mult *= 1.4
-	maxHealth = initial(maxHealth) * dif_mult
-	health = initial(health) * dif_mult
+	setMaxHealth(initial(maxHealth) * dif_mult)
+	setHealth(initial(health) * dif_mult)
 	melee_damage_lower = initial(melee_damage_lower) * dif_mult_dmg
 	melee_damage_upper = initial(melee_damage_upper) * dif_mult_dmg
 
@@ -180,7 +188,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	if(timeleft == 0)
 		button.maptext = ""
 	else
-		button.maptext = "<b class='maptext'>[round(timeleft/10, 0.1)]</b>"
+		button.maptext = MAPTEXT("[round(timeleft/10, 0.1)]")
 
 /datum/action/innate/elite_attack/Grant(mob/living/L)
 	if(istype(L, /mob/living/simple_animal/hostile/asteroid/elite))
@@ -289,7 +297,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		mychild.sentience_act()
 		notify_ghosts("\A [mychild] has been awakened in \the [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 		log_game("[mychild.key] has become [mychild] from lavaland elite tumor.")
-	icon_state = "tumor_popped"
+	update_icon(UPDATE_ICON_STATE)
 	INVOKE_ASYNC(src, PROC_REF(arena_checks))
 
 /obj/structure/elite_tumor/proc/return_elite()
@@ -298,8 +306,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 	mychild.revive()
 	if(boosted)
-		mychild.maxHealth = mychild.maxHealth * 2.5
-		mychild.health = mychild.maxHealth
+		mychild.setMaxHealth(mychild.maxHealth * 2.5)
+		mychild.setHealth(mychild.maxHealth)
 		mychild.grab_ghost()
 		notify_ghosts("\A [mychild] has been challenged in \the [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 	INVOKE_ASYNC(src, PROC_REF(arena_checks))
@@ -343,16 +351,33 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			var/obj/effect/temp_visual/heal/H = new(get_turf(mychild))
 			H.color = "#FF0000"
 
-/obj/structure/elite_tumor/attackby(obj/item/attacking_item, mob/user, params)
-	. = ..()
-	if(istype(attacking_item, /obj/item/organ/internal/regenerative_core) && activity == TUMOR_INACTIVE && !boosted)
-		var/obj/item/organ/internal/regenerative_core/core = attacking_item
-		visible_message("<span class='warning'>As [user] drops the core into [src], [src] appears to swell.</span>")
-		icon_state = "advanced_tumor"
-		boosted = TRUE
+
+/obj/structure/elite_tumor/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/organ/internal/regenerative_core))
+		add_fingerprint(user)
+		if(activity != TUMOR_INACTIVE || boosted)
+			to_chat(user, span_warning("The core cannot be used right now."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		visible_message(span_warning("As [user] drops the core into [src], it appears to swell."))
+		update_icon(UPDATE_ICON_STATE)
 		set_light(6, l_on = TRUE)
-		qdel(core)
-		return TRUE
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
+
+/obj/structure/elite_tumor/update_icon_state()
+	if(mychild)
+		icon_state = "tumor_popped"
+		return
+	icon_state = boosted ? "advanced_tumor" : "tumor"
+
 
 /obj/structure/elite_tumor/examine(mob/user)
 	. = ..()
@@ -440,7 +465,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	var/obj/structure/elite_tumor/copy = new(loc)
 	if(boosted)
 		copy.boosted = TRUE
-		copy.icon_state = "advanced_tumor"
+		copy.update_icon(UPDATE_ICON_STATE)
 		SSblackbox.record_feedback("tally", "Player controlled Elite win", 1, mychild.name)
 		times_won++
 	else
@@ -457,7 +482,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	throw_speed = 3
 	throw_range = 5
 
-/obj/item/tumor_shard/afterattack(atom/target, mob/user, proximity_flag)
+/obj/item/tumor_shard/afterattack(atom/target, mob/user, proximity_flag, params)
 	. = ..()
 	if(istype(target, /mob/living/simple_animal/hostile/asteroid/elite) && proximity_flag)
 		var/mob/living/simple_animal/hostile/asteroid/elite/E = target
@@ -475,12 +500,12 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		to_chat(E, "<span class='big bold'>Помните, что вы разделяете интересы [user].  От вас ожидается не мешать союзникам хозяина, пока вам не прикажут!</span>")
 		E.mind.store_memory("Я теперь разделяю интересы [user].  От меня ожидается не мешать союзникам хозяина, пока вам не прикажут!")
 		if(user.mind.special_role)
-			E.maxHealth = initial(E.maxHealth) * REVIVE_HEALTH_MULT_ANTAG
-			E.health = initial(E.health) * REVIVE_HEALTH_MULT_ANTAG
+			E.setMaxHealth(initial(E.maxHealth) * REVIVE_HEALTH_MULT_ANTAG)
+			E.setHealth(initial(E.health) * REVIVE_HEALTH_MULT_ANTAG)
 			E.del_on_death = TRUE
 		else
-			E.maxHealth = initial(E.maxHealth) * REVIVE_HEALTH_MULT
-			E.health = initial(E.health) * REVIVE_HEALTH_MULT
+			E.setMaxHealth(initial(E.maxHealth) * REVIVE_HEALTH_MULT)
+			E.setHealth(initial(E.health) * REVIVE_HEALTH_MULT)
 			E.revive_cooldown = TRUE
 		E.sentience_type = SENTIENCE_ORGANIC
 		qdel(src)

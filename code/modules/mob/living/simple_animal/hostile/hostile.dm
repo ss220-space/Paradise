@@ -143,10 +143,10 @@
 	return ..(newloc, direction, move_to_delay)
 
 
-/mob/living/simple_animal/hostile/attacked_by(obj/item/I, mob/living/user)
-	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client && user)
-		FindTarget(list(user))
-	return ..()
+/mob/living/simple_animal/hostile/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
+	. = ..()
+	if(ATTACK_CHAIN_SUCCESS_CHECK(.) && I.force && stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client)
+		FindTarget(list(user), TRUE)
 
 
 /mob/living/simple_animal/hostile/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
@@ -424,9 +424,17 @@
 	return SSmove_manager.move_to(src, target, minimum_distance, delay, timeout, flags = glide_flag)
 
 
-/mob/living/simple_animal/hostile/adjustHealth(damage, updating_health = TRUE)
+/mob/living/simple_animal/hostile/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
 	. = ..()
-	if(!ckey && !stat && search_objects < 3 && damage > 0)//Not unconscious, and we don't ignore mobs
+	if(!.)
+		return .
+	if(!ckey && !stat && search_objects < 3 && amount > 0)//Not unconscious, and we don't ignore mobs
 		if(search_objects)//Turn off item searching and ignore whatever item we were looking at, we're more concerned with fight or flight
 			LoseTarget()
 			LoseSearchObjects()
@@ -435,9 +443,9 @@
 			FindTarget()
 		else if(target != null && prob(40))//No more pulling a mob forever and having a second player attack it, it can switch targets now if it finds a more suitable one
 			FindTarget()
-	if(retaliate_only)
-		if(damage > 0 && stat == CONSCIOUS)
-			Retaliate()
+	if(retaliate_only && amount > 0 && stat == CONSCIOUS)
+		Retaliate()
+
 
 
 /mob/living/simple_animal/hostile/proc/AttackingTarget()

@@ -22,13 +22,32 @@
 	/// Contains /atom/movable/screen/alert only // On /mob so clientless mobs will throw alerts properly
 	var/list/alerts
 
+	var/bloody_hands = 0
+	/// Basically a lazy list, copies the DNA of blood you step in
+	var/list/feet_blood_DNA
+	/// affects the blood color of your feet, color taken from the blood you step in
+	var/feet_blood_color
+	/// Weirdly named, effects how blood transfers onto objects
+	var/blood_state = BLOOD_STATE_NOT_BLOODY
+	/// Assoc list for tracking how "bloody" a mobs feet are, used for creating bloody foot/shoeprints on turfs when moving
+	var/list/bloody_feet = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0, BLOOD_BASE_ALPHA = BLOODY_FOOTPRINT_BASE_ALPHA)
+
+	/// Affects if you have a typing indicator
+	var/typing
+	/// Affects if you have a thinking indicator
+	var/thinking
+	/// Last thing we typed in to the typing indicator, probably does not need to exist
+	var/last_typed
+	/// Last time we typed something in to the typing popup
+	var/last_typed_time
+
 	var/datum/mind/mind
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
 	var/stat = CONSCIOUS //Whether a mob is alive or dead. TODO: Move this to living - Nodrak
 
 	/// The zone this mob is currently targeting
-	var/zone_selected = null
+	var/zone_selected = BODY_ZONE_CHEST
 
 	var/atom/movable/screen/hands = null
 	var/atom/movable/screen/pullin = null
@@ -86,7 +105,6 @@
 	var/bodytemperature = BODYTEMP_NORMAL	//98.7 F
 	var/nutrition = NUTRITION_LEVEL_FED + 50 //Carbon
 	var/satiety = 0 //Carbon
-	var/hunger_drain = HUNGER_FACTOR // how quickly the mob gets hungry; largely utilized by species.
 
 	var/overeatduration = 0		// How long this guy is overeating //Carbon
 	var/intent = null //Living
@@ -244,4 +262,10 @@
 	var/list/movespeed_mod_immunities //Lazy list, see mob_movespeed.dm
 	/// The calculated mob speed slowdown based on the modifiers list
 	var/cached_multiplicative_slowdown
+	/// List of action speed modifiers applying to this mob
+	var/list/actionspeed_modification
+	/// List of action speed modifiers ignored by this mob. List -> List (id) -> List (sources)
+	var/list/actionspeed_mod_immunities
+	/// The calculated mob action speed slowdown based on the modifiers list, sorted by category in associvative list
+	var/list/cached_multiplicative_actions_slowdown
 

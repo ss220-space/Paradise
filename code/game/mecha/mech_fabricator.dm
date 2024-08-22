@@ -291,19 +291,26 @@
 		return FALSE
 	return TRUE
 
-// Interaction code
-/obj/machinery/mecha_part_fabricator/attackby(obj/item/W, mob/user, params)
-	if(default_change_direction_wrench(user, W))
-		add_fingerprint(user)
-		return
-	if(default_deconstruction_screwdriver(user, icon_open, icon_closed, W))
-		add_fingerprint(user)
-		return
-	if(exchange_parts(user, W))
-		return
-	if(default_deconstruction_crowbar(user, W))
-		return TRUE
+
+/obj/machinery/mecha_part_fabricator/wrench_act(mob/living/user, obj/item/I)
+	return default_change_direction_wrench(user, I)
+
+
+/obj/machinery/mecha_part_fabricator/screwdriver_act(mob/living/user, obj/item/I)
+	return default_deconstruction_screwdriver(user, icon_open, icon_closed, I)
+
+
+/obj/machinery/mecha_part_fabricator/crowbar_act(mob/living/user, obj/item/I)
+	return default_deconstruction_crowbar(user, I)
+
+
+/obj/machinery/mecha_part_fabricator/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
+
 
 /obj/machinery/mecha_part_fabricator/attack_ghost(mob/user)
 	ui_interact(user)
@@ -478,7 +485,6 @@
 /obj/machinery/mecha_part_fabricator/upgraded/New()
 	..()
 	// Upgraded components
-	QDEL_LIST(component_parts)
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/mechfab(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -500,7 +506,6 @@
 
 /obj/machinery/mecha_part_fabricator/spacepod/New()
 	..()
-	QDEL_LIST(component_parts)
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/podfab(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)

@@ -79,7 +79,7 @@
 
 GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/lesser/monkey,/mob/living/carbon/alien)))
 
-/obj/item/dna_probe/afterattack(atom/target, mob/user, proximity)
+/obj/item/dna_probe/afterattack(atom/target, mob/user, proximity, params)
 	..()
 	if(!proximity || !target)
 		return
@@ -272,27 +272,36 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	if(plants.len >= plants_max && animals.len >= animals_max && dna.len >= dna_max)
 		completed = TRUE
 
+
 /obj/machinery/dna_vault/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(istype(I, /obj/item/dna_probe))
 		add_fingerprint(user)
-		var/obj/item/dna_probe/P = I
+		var/obj/item/dna_probe/probe = I
 		var/uploaded = 0
-		for(var/plant in P.plants)
+		for(var/plant in probe.plants)
 			if(!plants[plant])
 				uploaded++
 				plants[plant] = 1
-		for(var/animal in P.animals)
+		for(var/animal in probe.animals)
 			if(!animals[animal])
 				uploaded++
 				animals[animal] = 1
-		for(var/ui in P.dna)
+		for(var/ui in probe.dna)
 			if(!dna[ui])
 				uploaded++
 				dna[ui] = 1
+		if(!uploaded)
+			to_chat(user, span_warning("The [probe.name] has no relevant datapoints."))
+			return ATTACK_CHAIN_PROCEED
 		check_goal()
-		to_chat(user, "<span class='notice'>[uploaded] new datapoints uploaded.</span>")
-	else
-		return ..()
+		to_chat(user, span_notice("You have uploaded <b>[uploaded]</b> new datapoints."))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/machinery/dna_vault/proc/upgrade(mob/living/carbon/human/H, upgrade_type)
 	if(!(upgrade_type in power_lottery[H]))
@@ -316,29 +325,29 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 			S.species_traits |= NO_BREATHE
 		if(VAULT_FIREPROOF)
 			to_chat(H, "<span class='notice'>You feel fireproof.</span>")
-			S.burn_mod *= 0.5
+			H.physiology.burn_mod *= 0.5
 			S.species_traits |= RESISTHOT
 		if(VAULT_STUNTIME)
 			to_chat(H, "<span class='notice'>Nothing can keep you down for long.</span>")
-			S.stun_mod *= 0.5
-			S.stamina_mod *= 0.5
+			H.physiology.stun_mod *= 0.5
+			H.physiology.stamina_mod *= 0.5
 			H.stam_regen_start_modifier *= 0.5
 		if(VAULT_ARMOUR)
 			to_chat(H, "<span class='notice'>You feel tough.</span>")
-			S.brute_mod *= 0.7
-			S.burn_mod *= 0.7
-			S.tox_mod *= 0.7
-			S.oxy_mod *= 0.7
-			S.clone_mod *= 0.7
-			S.brain_mod *= 0.7
-			S.stamina_mod *= 0.7
+			H.physiology.brute_mod *= 0.7
+			H.physiology.burn_mod *= 0.7
+			H.physiology.tox_mod *= 0.7
+			H.physiology.oxy_mod *= 0.7
+			H.physiology.clone_mod *= 0.7
+			H.physiology.brain_mod *= 0.7
+			H.physiology.stamina_mod *= 0.7
 			S.species_traits |= PIERCEIMMUNE
 		if(VAULT_SPEED)
 			to_chat(H, "<span class='notice'>You feel very fast and agile.</span>")
 			H.add_movespeed_modifier(/datum/movespeed_modifier/dna_vault_speedup)
 		if(VAULT_QUICK)
 			to_chat(H, "<span class='notice'>Your arms move as fast as lightning.</span>")
-			H.next_move_modifier = 0.5
+			H.next_move_modifier *= 0.5
 	power_lottery[H] = list()
 
 #undef VAULT_TOXIN

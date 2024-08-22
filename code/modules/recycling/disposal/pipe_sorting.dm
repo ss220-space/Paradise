@@ -30,18 +30,22 @@
 
 
 /obj/structure/disposalpipe/sortjunction/attackby(obj/item/I, mob/user, params)
-	if(..())
-		return
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
 	if(istype(I, /obj/item/destTagger))
+		add_fingerprint(user)
 		var/obj/item/destTagger/tagger = I
+		if(sortType == tagger.currTag)
+			to_chat(user, span_warning("The pipe is already configured this way."))
+			return ATTACK_CHAIN_PROCEED
+		sortType = tagger.currTag
+		to_chat(user, span_notice("The filter is changed to *[uppertext(GLOB.TAGGERLOCATIONS[tagger.currTag])]*."))
+		playsound(loc, 'sound/machines/twobeep.ogg', 100, TRUE)
+		update_appearance(UPDATE_NAME|UPDATE_DESC)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-		if(tagger.currTag > 0)	// Tag set
-			sortType = tagger.currTag
-			playsound(loc, 'sound/machines/twobeep.ogg', 100, TRUE)
-			var/tag = uppertext(GLOB.TAGGERLOCATIONS[tagger.currTag])
-			to_chat(user, span_notice("Changed filter to [tag]."))
-			update_appearance(UPDATE_NAME|UPDATE_DESC)
+	return ..()
 
 
 /obj/structure/disposalpipe/sortjunction/nextdir(obj/structure/disposalholder/holder)

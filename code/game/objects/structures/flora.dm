@@ -400,7 +400,7 @@
 	density = TRUE
 	anchored = TRUE
 	layer = ABOVE_OBJ_LAYER
-	var/indestructable = 0
+	var/indestructable = FALSE
 	var/stump = 0
 
 
@@ -410,31 +410,57 @@
 		set_opacity(TRUE)
 
 
-/obj/structure/bush/attackby(var/obj/I as obj, var/mob/user as mob, params)
-	//hatchets can clear away undergrowth
-	if(istype(I, /obj/item/hatchet) && !stump)
+/obj/structure/bush/update_icon_state()
+	icon_state = stump ? "stump[stump]" : initial(icon_state)
+
+
+/obj/structure/bush/update_name(updates = ALL)
+	. = ..()
+	name = stump ? "cleared foliage" : initial(name)
+
+
+/obj/structure/bush/update_desc(updates = ALL)
+	. = ..()
+	desc = stump ? "There used to be dense undergrowth here." : initial(desc)
+
+
+/obj/structure/bush/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/hatchet))	//hatchets can clear away undergrowth
+		add_fingerprint(user)
 		if(indestructable)
 			//this bush marks the edge of the map, you can't destroy it
-			to_chat(user, "<span class='warning'>You flail away at the undergrowth, but it's too thick here.</span>")
-		else
-			user.visible_message("<span class='danger'>[user] begins clearing away [src].</b>","<span class='warning'><b>You begin clearing away [src].</span></span>")
-			spawn(rand(15,30))
-				if(get_dist(user,src) < 2)
-					to_chat(user, "<span class='notice'>You clear away [src].</span>")
-					new /obj/item/stack/sheet/wood(src.loc, rand(3,15))
-					if(prob(50))
-						add_fingerprint(user)
-						icon_state = "stump[rand(1,2)]"
-						name = "cleared foliage"
-						desc = "There used to be dense undergrowth here."
-						set_density(FALSE)
-						stump = 1
-						pixel_x = rand(-6,6)
-						pixel_y = rand(-6,6)
-					else
-						qdel(src)
-	else
-		return ..()
+			to_chat(user, span_warning("You flail away at the undergrowth, but it's too thick here."))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		if(stump)
+			to_chat(user, span_warning("All the foliage has been already cleared."))
+			return ATTACK_CHAIN_PROCEED
+		I.play_tool_sound(src)
+		user.visible_message(
+			span_danger("[user] starts clearing away [src]."),
+			span_warning("You start clearing away [src]."),
+		)
+		if(!do_after(user, rand(3 SECONDS, 5 SECONDS) * I.toolspeed, src, category = DA_CAT_TOOL) || stump)
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user,span_notice("You clear away [src]."))
+		var/obj/item/stack/sheet/wood/wood = new(loc, rand(3, 15))
+		transfer_fingerprints_to(wood)
+		wood.add_fingerprint(user)
+		if(prob(50))
+			qdel(src)
+			return ATTACK_CHAIN_BLOCKED_ALL
+		stump = rand(1, 2)
+		set_density(FALSE)
+		set_opacity(FALSE)
+		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
+		set_base_pixel_x(rand(-6, 6))
+		set_base_pixel_y(rand(-6, 6))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 //Jungle grass
 

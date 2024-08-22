@@ -8,7 +8,7 @@
 	name = "manual switching valve"
 	desc = "A pipe valve."
 
-	can_unwrench = 1
+	can_unwrench = TRUE
 
 	var/state = TVALVE_STATE_STRAIGHT
 	var/animation = FALSE

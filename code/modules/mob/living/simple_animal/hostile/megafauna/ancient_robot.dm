@@ -327,13 +327,21 @@ Difficulty: Very Hard
 		disable_shield()
 
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/attacked_by(obj/item/I, mob/living/user)
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
 	if(!body_shield_enabled)
 		return ..()
+
+	. = ATTACK_CHAIN_BLOCKED
 	do_sparks(2, 1, src)
-	visible_message("<span class='danger'>[src]'s shield deflects [I] in a shower of sparks!</span>", "<span class='userdanger'>You deflect the attack!</span>")
+	visible_message(
+		span_danger("[src]'s shield deflects [I] in a shower of sparks!"),
+		span_warning("Your shield deflects the attack!"),
+		ignored_mobs = user,
+	)
+	to_chat(user, span_danger("[src]'s shield deflects your attack!"))
 	if(I.force)
 		disable_shield()
+
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/devour(mob/living/L)
 	say(pick("JKYZXAIZOBK GTGREYKX GIZOBK", "OTZKMXGZOTM YAHPKIZ YZXKTMZNY", "JKIUSVOROTM GTJ RKGXTOTM", "LOTJOTM IXOZOIGR CKGQTKYYKY")) //what can I say, I like the trope of something talking in cypher
@@ -669,16 +677,25 @@ Difficulty: Very Hard
 		QDEL_NULL(leg_part)
 	addtimer(CALLBACK(src, PROC_REF(beam_setup)), 1 SECONDS)
 
-/mob/living/simple_animal/hostile/ancient_robot_leg/adjustHealth(amount, updating_health = TRUE)
-	var/damage = amount * transfer_rate
-	core.adjustBruteLoss(damage)
-	fake_hp = clamp(fake_hp - damage, 0, fake_max_hp)
-	if(damage && ranged && fake_hp <= 200)
+
+/mob/living/simple_animal/hostile/ancient_robot_leg/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
+	. = STATUS_UPDATE_NONE
+	amount *= transfer_rate
+	core.adjustBruteLoss(amount)
+	fake_hp = clamp(fake_hp - amount, 0, fake_max_hp)
+	if(amount && ranged && fake_hp <= 200)
 		ranged = FALSE
 		visible_message("<span class='danger'>[src]'s turret breaks and pulls back into the leg!</span>")
-	if(damage && transfer_rate <= 0.25) //warn that you are not doing much damage
+	if(amount && transfer_rate <= 0.25) //warn that you are not doing much damage
 		visible_message("<span class='danger'>[src] looks too damaged to hurt it much more!</span>")
 	health_and_snap_check(FALSE)
+
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/proc/health_and_snap_check(regen = FALSE)
 	if(regen)

@@ -163,8 +163,8 @@
 	..(gibbed)
 	regenerate_icons()
 
-/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/getarmor(def_zone, type)
-	var/armorval = inventory_head?.armor.getRating(type)
+/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/getarmor(def_zone, attack_flag)
+	var/armorval = inventory_head?.armor.getRating(attack_flag)
 	if(!def_zone)
 		armorval *= 0.5
 	else if(def_zone != BODY_ZONE_HEAD)
@@ -174,7 +174,7 @@
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/proc/place_on_head(obj/item/item_to_add, mob/user)
 
 	if(istype(item_to_add, /obj/item/grenade/plastic/c4)) // last thing she ever wears, I guess
-		item_to_add.afterattack(src,user,1)
+		item_to_add.afterattack(src, user, TRUE)
 		return
 
 	if(inventory_head)

@@ -549,14 +549,14 @@
 /mob/living/verb/succumb()
 	set hidden = 1
 	if(InCritical())
-		add_misc_logs(src, "has succumbed to death with [round(health, 0.1)] points of health")
+		add_attack_logs(src, src, "has succumbed to death with [round(health, 0.1)] points of health")
 		adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
 		// super check for weird mobs, including ones that adjust hp
 		// we don't want to go overboard and gib them, though
 		for(var/i = 1 to 5)
 			if(health < HEALTH_THRESHOLD_DEAD)
 				break
-			take_overall_damage(max(5, health - HEALTH_THRESHOLD_DEAD), 0)
+			take_overall_damage(max(5, health - HEALTH_THRESHOLD_DEAD))
 		death()
 		to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
 
@@ -591,13 +591,21 @@
 	if(should_log)
 		log_debug("[src] update_stat([reason][status_flags & GODMODE ? ", GODMODE" : ""])")
 
+
+///Sets the current mob's health value. Do not call directly if you don't know what you are doing, use the damage procs, instead.
+/mob/living/proc/set_health(new_value)
+	. = health
+	health = new_value
+
+
 /mob/living/proc/updatehealth(reason = "none given", should_log = FALSE)
 	if(status_flags & GODMODE)
-		health = maxHealth
+		set_health(maxHealth)
 		update_stat("updatehealth([reason])", should_log)
 		return
-	health = maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
+	set_health(maxHealth - getOxyLoss() - getToxLoss() - getFireLoss() - getBruteLoss() - getCloneLoss())
 	update_stat("updatehealth([reason])", should_log)
+
 
 //This proc is used for mobs which are affected by pressure to calculate the amount of pressure that actually
 //affects them once clothing is factored in. ~Errorage
@@ -838,7 +846,7 @@
 		if(!buckled.anchored)
 			buckled.moving_from_pull = moving_from_pull
 			. = buckled.Move(newloc, direct)
-			buckled.moving_from_pull = null
+			buckled?.moving_from_pull = null
 		return .
 
 	if(pulling)
@@ -1034,8 +1042,9 @@
 				var/martial_override = grabber.mind?.martial_art?.get_resist_chance(GRAB_KILL)
 				. = isnull(martial_override) ? GRAB_RESIST_CHANCE_KILL : martial_override
 	if(. > 0)
-		if(dna?.species.strength_modifier)
-			. *= dna.species.strength_modifier
+		if(ishuman(src))
+			var/mob/living/carbon/human/human = src
+			. *= human.physiology.grab_resist_mod
 		. = round(. * (1 - (clamp(getStaminaLoss(), 0, maxHealth) / maxHealth)))
 	else if(. < 0)
 		. = 0
@@ -1379,26 +1388,27 @@
 /mob/living/proc/get_permeability_protection()
 	return 0
 
+
 /mob/living/proc/attempt_harvest(obj/item/I, mob/user)
-	if(user.a_intent == INTENT_HARM && stat == DEAD && (butcher_results || is_monkeybasic(src))) //can we butcher it?
-		var/sharpness = is_sharp(I)
-		if(sharpness)
-			to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
-			playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
-			if(do_after(user, 8 SECONDS / sharpness, src, NONE) && Adjacent(I))
-				harvest(user)
-			return 1
+	if(user.a_intent != INTENT_HARM || stat != DEAD || !is_sharp(I) || (!butcher_results && !is_monkeybasic(src))) //can we butcher it?
+		return FALSE
+	. = TRUE
+	to_chat(user, span_notice("You begin to butcher [src]..."))
+	playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
+	if(!do_after(user, 4 SECONDS * mob_size, src, NONE, max_interact_count = 1, cancel_on_max = TRUE) || !Adjacent(user))
+		return .
+	harvest(user)
+
 
 /mob/living/proc/harvest(mob/living/user)
-	if(QDELETED(src))
+	if(QDELETED(src) || !butcher_results)
 		return
-	if(butcher_results)
-		for(var/path in butcher_results)
-			for(var/i = 1, i <= butcher_results[path], i++)
-				new path(loc)
-			butcher_results.Remove(path) //In case you want to have things like simple_animals drop their butcher results on gib, so it won't double up below.
-		visible_message("<span class='notice'>[user] butchers [src].</span>")
-		gib()
+	for(var/path in butcher_results)
+		for(var/i in 1 to butcher_results[path])
+			new path(loc)
+		butcher_results.Remove(path) //In case you want to have things like simple_animals drop their butcher results on gib, so it won't double up below.
+	visible_message(span_notice("[user] butchers [src]."))
+	gib()
 
 
 /mob/living/proc/can_use_guns(var/obj/item/gun/G)
@@ -1510,11 +1520,11 @@
 				to_chat(src, span_notice("Вы cхватили [grabbed_human.name][grabbed_by_hands ? " за руки" : ""]!"))
 			else
 				pulled_mob.visible_message(
-					span_warning("[name] схватил[genderize_ru(gender,"","а","о","и")] [pulled_mob.name]!"),
+					span_warning("[name] схватил[genderize_ru(gender,"","а","о","и")] [pulled_mob.declent_ru(ACCUSATIVE)]!"),
 					span_warning("[name] схватил[genderize_ru(gender,"","а","о","и")] Вас!"),
 					ignored_mobs = src,
 				)
-				to_chat(src, span_notice("Вы схватили [pulled_mob.name]!"))
+				to_chat(src, span_notice("Вы схватили [pulled_mob.declent_ru(ACCUSATIVE)]!"))
 
 		if(isliving(pulled_mob))
 			var/mob/living/pulled_living = pulled_mob

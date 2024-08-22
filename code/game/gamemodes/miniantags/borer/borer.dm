@@ -6,7 +6,7 @@
 
 /mob/living/captive_brain/say(message)
 	if(client)
-		if(client.prefs.muted & MUTE_IC)
+		if(check_mute(client.ckey, MUTE_IC))
 			to_chat(src, span_warning("Вы не можете говорить в IC (muted)."))
 			return
 		if(client.handle_spam_prevention(message,MUTE_IC))
@@ -55,7 +55,7 @@
 	if(!B || !B.controlling)
 		return
 
-	B.host.adjustBrainLoss(rand(5,10))
+	B.host.apply_damage(rand(5, 10), BRAIN)
 	to_chat(src, span_userdanger("Огромным усилием воли вы вновь обретаете контроль над своим телом!"))
 	to_chat(B.host, span_userdanger("Вы чувствуете, как мозг носителя уходит из под вашего контроля. Вы успеваете разорвать связь прежде, чем сильные нейронные импульсы смогут навредить вам."))
 
@@ -293,7 +293,7 @@
 					return
 
 				if(prob(5))
-					host.adjustBrainLoss(rand(1,2))
+					host.apply_damage(rand(1, 2), BRAIN)
 
 				if(prob(host.getBrainLoss()/20))
 					host.say("*[pick(list("blink","blink_r","choke","aflap","drool","twitch","twitch_s","gasp"))]")

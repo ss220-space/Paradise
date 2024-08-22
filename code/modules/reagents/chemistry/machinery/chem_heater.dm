@@ -61,27 +61,29 @@
 		SStgui.update_uis(src)
 
 
-/obj/machinery/chem_heater/attackby(obj/item/I, mob/user)
-	if(isrobot(user))
-		return
-
-	if(istype(I, /obj/item/reagent_containers/glass))
-		if(beaker)
-			to_chat(user, "<span class='notice'>A beaker is already loaded into the machine.</span>")
-			return
-
-		if(user.drop_transfer_item_to_loc(I, src))
-			add_fingerprint(user)
-			beaker = I
-			to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
-			update_icon(UPDATE_ICON_STATE)
-			SStgui.update_uis(src)
-			return
+/obj/machinery/chem_heater/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
 	if(exchange_parts(user, I))
-		return
+		SStgui.update_uis(src)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/reagent_containers/glass))
+		add_fingerprint(user)
+		if(beaker)
+			to_chat(user, span_warning("The [name] already has [beaker] loaded."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		beaker = I
+		to_chat(user, span_notice("You have inserted [I] into [src]."))
+		SStgui.update_uis(src)
+		update_icon(UPDATE_ICON_STATE)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
+
 
 /obj/machinery/chem_heater/wrench_act(mob/user, obj/item/I)
 	. = TRUE

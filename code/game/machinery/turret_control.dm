@@ -72,7 +72,7 @@
 	return ..()
 
 /obj/machinery/turretid/Initialize()
-	..()
+	. = ..()
 	if(!control_area)
 		control_area = get_area(src)
 	else if(istext(control_area))
@@ -112,21 +112,25 @@
 
 	return FALSE
 
-/obj/machinery/turretid/attackby(obj/item/I, mob/user)
-	if(stat & BROKEN)
-		add_fingerprint(user)
-		return
+
+/obj/machinery/turretid/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM || (stat & BROKEN))
+		return ..()
 
 	if(I.GetID() || is_pda(I))
-		if(src.allowed(usr))
-			add_fingerprint(user)
-			if(emagged)
-				to_chat(user, span_notice("The turret control is unresponsive."))
-			else
-				locked = !locked
-				to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] the panel."))
-		return
+		add_fingerprint(user)
+		if(emagged)
+			to_chat(user, span_warning("The turret control is unresponsive."))
+			return ATTACK_CHAIN_PROCEED
+		if(!allowed(user))
+			to_chat(user, span_warning("Access Denied."))
+			return ATTACK_CHAIN_PROCEED
+		locked = !locked
+		to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] the panel."))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
+
 
 /obj/machinery/turretid/emag_act(mob/user)
 	if(!emagged)

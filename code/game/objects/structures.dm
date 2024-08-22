@@ -67,10 +67,12 @@
 		add_fingerprint(user)
 	return ..()
 
-/obj/structure/attackby(obj/item/P, mob/user, params)
-	if(has_prints() && Adjacent(user) && !(istype(P, /obj/item/detective_scanner)))
+
+/obj/structure/attackby(obj/item/I, mob/user, params)
+	if(has_prints() && !(istype(I, /obj/item/detective_scanner)))
 		add_fingerprint(user)
 	return ..()
+
 
 /obj/structure/proc/climb_on()
 
@@ -207,8 +209,8 @@
 
 			if(affecting)
 				to_chat(M, "<span class='warning'>You land heavily on your [affecting.name]!</span>")
-				affecting.receive_damage(damage, 0)
-				if(affecting.parent)
+				H.apply_damage(damage, def_zone = affecting)
+				if(affecting?.parent)
 					affecting.parent.add_autopsy_data("Misadventure", damage)
 			else
 				to_chat(H, "<span class='warning'>You land heavily!</span>")

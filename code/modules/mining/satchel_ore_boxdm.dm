@@ -9,27 +9,48 @@
 	density = TRUE
 	pressure_resistance = 5 * ONE_ATMOSPHERE
 
-/obj/structure/ore_box/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stack/ore))
-		if(!user.drop_transfer_item_to_loc(W, src))
-			return
-		add_fingerprint(user)
-	else if(isstorage(W))
-		add_fingerprint(user)
-		var/obj/item/storage/S = W
-		S.hide_from(usr)
-		for(var/obj/item/stack/ore/O in S.contents)
-			S.remove_from_storage(O, src) //This will move the item to this item's contents
-			CHECK_TICK
-		to_chat(user, "<span class='notice'>You empty the satchel into the box.</span>")
-	else if(W.tool_behaviour == TOOL_CROWBAR)
-		playsound(src, W.usesound, 50, 1)
-		var/obj/item/crowbar/C = W
-		if(do_after(user, 5 SECONDS * C.toolspeed * gettoolspeedmod(user), src))
-			user.visible_message("<span class='notice'>[user] pries [src] apart.</span>", "<span class='notice'>You pry apart [src].</span>", "<span class='italics'>You hear splitting wood.</span>")
-			deconstruct(TRUE, user)
-	else
+
+/obj/structure/ore_box/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(istype(I, /obj/item/stack/ore))
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		add_fingerprint(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(isstorage(I))
+		add_fingerprint(user)
+		var/obj/item/storage/storage = I
+		storage.hide_from(user)
+		var/loaded = 0
+		for(var/obj/item/stack/ore/ore in storage.contents)
+			loaded++
+			ore.add_fingerprint(user)
+			storage.remove_from_storage(ore, src) //This will move the item to this item's contents
+			CHECK_TICK
+		if(!loaded)
+			to_chat(user, span_warning("The [storage.name] has no ore."))
+			return ATTACK_CHAIN_PROCEED
+		storage.update_appearance()	// just in case
+		to_chat(user, span_notice("You have emptied [storage] into [src]."))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
+
+/obj/structure/ore_box/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
+		return .
+	user.visible_message(
+		span_notice("[user] has pried [src] apart."),
+		span_notice("You have pried [src] apart."),
+		span_italics("You hear splitting wood."),
+	)
+	deconstruct(TRUE, user)
+
 
 /obj/structure/ore_box/attack_hand(mob/user)
 	if(Adjacent(user))
@@ -61,7 +82,7 @@
 	add_fingerprint(usr)
 	if(href_list["removeall"])
 		dump_box_contents()
-		to_chat(usr, "<span class='notice'>You empty the box.</span>")
+		balloon_alert(usr, "разгружено")
 	updateUsrDialog()
 
 /obj/structure/ore_box/deconstruct(disassembled = TRUE, mob/user)
@@ -92,14 +113,14 @@
 		return
 
 	if(!Adjacent(usr))
-		to_chat(usr, "You cannot reach the ore box.")
+		balloon_alert(usr, "слишком далеко!")
 		return
 
 	add_fingerprint(usr)
 
 	if(contents.len < 1)
-		to_chat(usr, "<span class='warning'>The ore box is empty.</span>")
+		balloon_alert(usr, "груз отсутствует")
 		return
 
 	dump_box_contents()
-	to_chat(usr, "<span class='notice'>You empty the ore box.</span>")
+	balloon_alert(usr, "разгружено")

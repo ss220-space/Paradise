@@ -390,15 +390,18 @@
 /obj/item/melee/blood_magic/attack_self(mob/living/user)
 	afterattack(user, user, TRUE)
 
-/obj/item/melee/blood_magic/attack(mob/living/M, mob/living/carbon/user)
+
+/obj/item/melee/blood_magic/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(user) || !iscultist(user))
 		uses = 0
 		qdel(src)
-		return
-	add_attack_logs(user, M, "used a cult spell ([src]) on")
-	M.lastattacker = user.real_name
+		return ATTACK_CHAIN_BLOCKED_ALL
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
+	add_attack_logs(user, target, "used a cult spell ([src]) on")
+	target.lastattacker = user.real_name
 
-/obj/item/melee/blood_magic/afterattack(atom/target, mob/living/carbon/user, proximity)
+
+/obj/item/melee/blood_magic/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	. = ..()
 	if(invocation)
 		user.whisper(invocation)
@@ -420,7 +423,7 @@
 	color = RUNE_COLOR_RED
 	invocation = "Fuu ma'jin!"
 
-/obj/item/melee/blood_magic/stun/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/blood_magic/stun/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	if(!isliving(target) || !proximity)
 		return
 	var/mob/living/L = target
@@ -439,7 +442,7 @@
 		to_chat(user, span_cultitalic("In a brilliant flash of red, [L] falls to the ground!"))
 		// These are in life cycles, so double the time that's stated.
 		L.Knockdown(3 SECONDS)
-		L.adjustStaminaLoss(30)
+		L.apply_damage(30, STAMINA)
 		L.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 		L.flash_eyes(1, TRUE)
 		if(issilicon(target))
@@ -462,7 +465,7 @@
 	desc = "Will teleport a cultist to a teleport rune on contact."
 	invocation = "Sas'so c'arta forbici!"
 
-/obj/item/melee/blood_magic/teleport/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/blood_magic/teleport/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	var/list/potential_runes = list()
 	var/list/teleportnames = list()
 	var/list/duplicaterunecount = list()
@@ -520,7 +523,7 @@
 	invocation = "In'totum Lig'abis!"
 	color = "#000000" // black
 
-/obj/item/melee/blood_magic/shackles/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/blood_magic/shackles/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	if(iscarbon(target) && proximity)
 		var/mob/living/carbon/C = target
 		if(C.has_organ_for_slot(ITEM_SLOT_HANDCUFFED))
@@ -634,7 +637,7 @@
 	desc = "Will equipt cult combat gear onto a cultist on contact."
 	color = "#33cc33" // green
 
-/obj/item/melee/blood_magic/armor/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/blood_magic/armor/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	if(iscarbon(target) && proximity)
 		uses--
 		var/mob/living/carbon/C = target
@@ -703,7 +706,7 @@
 	. += "<span class='cultitalic'>You have collected [uses] charge\s of blood.</span>"
 
 // This should really be split into multiple procs
-/obj/item/melee/blood_magic/manipulator/afterattack(atom/target, mob/living/carbon/human/user, proximity)
+/obj/item/melee/blood_magic/manipulator/afterattack(atom/target, mob/living/carbon/human/user, proximity, params)
 	if(proximity)
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
@@ -716,7 +719,7 @@
 					return
 
 				//Blood restoration
-				if(H.dna && !(NO_BLOOD in H.dna.species.species_traits) && H.dna.species.exotic_blood == null)
+				if(H.dna && !(NO_BLOOD in H.dna.species.species_traits) && H.dna.species.exotic_blood == null  && !isdiona(H))
 					if(H.blood_volume < BLOOD_VOLUME_SAFE)
 						var/restore_blood = BLOOD_VOLUME_SAFE - H.blood_volume
 						if(uses * 2 < restore_blood)
@@ -750,11 +753,11 @@
 						"<span class='cultitalic'>You are partially healed by [H == user ? "your" : "[user]'s"] blood magic.</span>")
 						uses = 0
 					ratio *= -1
-					H.adjustOxyLoss((overall_damage * ratio) * (H.getOxyLoss() / overall_damage), FALSE, null, TRUE)
-					H.adjustToxLoss((overall_damage * ratio) * (H.getToxLoss() / overall_damage), FALSE, null, TRUE)
-					H.adjustFireLoss((overall_damage * ratio) * (H.getFireLoss() / overall_damage), FALSE, null, TRUE)
-					H.adjustBruteLoss((overall_damage * ratio) * (H.getBruteLoss() / overall_damage), FALSE, null, TRUE)
-					H.updatehealth()
+					var/update = NONE
+					update |= H.heal_overall_damage((overall_damage * ratio) * (H.getBruteLoss() / overall_damage), (overall_damage * ratio) * (H.getFireLoss() / overall_damage), updating_health = FALSE, affect_robotic = TRUE)
+					update |= H.heal_damages(tox = (overall_damage * ratio) * (H.getToxLoss() / overall_damage), oxy = (overall_damage * ratio) * (H.getOxyLoss() / overall_damage), updating_health = FALSE)
+					if(update)
+						H.updatehealth("Blood Rite")
 					playsound(get_turf(H), 'sound/magic/staff_healing.ogg', 25)
 					new /obj/effect/temp_visual/cult/sparks(get_turf(H))
 					user.Beam(H, icon_state="sendbeam", time = 15)

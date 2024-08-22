@@ -37,15 +37,15 @@
  * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\/////////////////////////////////////////////////////////////////////// *
 \*======================================================================================================================================*/
 /mob/living/proc/get_vampire_bonus(damage_type)
-	. = 0
+	. = 1
 	if(!mind || !damage_type)
-		return
+		return .
 
 	var/datum/antagonist/vampire/vampire = mind.has_antag_datum(/datum/antagonist/vampire)
 	if(!vampire)
-		return
+		return .
 
-	. = -vampire.damage_modifiers[damage_type]
+	. = vampire.damage_modifiers[damage_type]
 
 
 /datum/antagonist/vampire/proc/get_trophies(trophie_type)
@@ -92,8 +92,8 @@
 			new_trophies = clamp(new_amount, 0, MAX_TROPHIES_PER_TYPE_CRITICAL)
 			bestia.trophies[INTERNAL_ORGAN_HEART] = new_trophies
 
-			damage_modifiers[BRUTE] = CEILING((new_trophies * (TROPHIES_CAP_PROT_BRUTE / MAX_TROPHIES_PER_TYPE_CRITICAL)), 1) / 100
-			damage_modifiers[BURN] = CEILING((new_trophies * (TROPHIES_CAP_PROT_BURN / MAX_TROPHIES_PER_TYPE_CRITICAL)), 1) / 100
+			damage_modifiers[BRUTE] = (100 - CEILING((new_trophies * (TROPHIES_CAP_PROT_BRUTE / MAX_TROPHIES_PER_TYPE_CRITICAL)), 1)) / 100
+			damage_modifiers[BURN] = (100 - CEILING((new_trophies * (TROPHIES_CAP_PROT_BURN / MAX_TROPHIES_PER_TYPE_CRITICAL)), 1)) / 100
 
 			if((prev_trophies == 0 && new_amount < 0) || (prev_trophies == MAX_TROPHIES_PER_TYPE_CRITICAL && new_amount > MAX_TROPHIES_PER_TYPE_CRITICAL))
 				update_spells = FALSE
@@ -104,8 +104,8 @@
 			new_trophies = clamp(new_amount, 0, MAX_TROPHIES_PER_TYPE_CRITICAL)
 			bestia.trophies[INTERNAL_ORGAN_LUNGS] = new_trophies
 
-			damage_modifiers[OXY] = CEILING((new_trophies * (TROPHIES_CAP_PROT_OXY / MAX_TROPHIES_PER_TYPE_CRITICAL)), 1) / 100
-			damage_modifiers[STAMINA] = CEILING((new_trophies * (TROPHIES_CAP_PROT_STAMINA / MAX_TROPHIES_PER_TYPE_CRITICAL)), 1) / 100
+			damage_modifiers[OXY] = (100 - CEILING((new_trophies * (TROPHIES_CAP_PROT_OXY / MAX_TROPHIES_PER_TYPE_CRITICAL)), 1)) / 100
+			damage_modifiers[STAMINA] = (100 - CEILING((new_trophies * (TROPHIES_CAP_PROT_STAMINA / MAX_TROPHIES_PER_TYPE_CRITICAL)), 1)) / 100
 
 			if((prev_trophies == 0 && new_amount < 0) || (prev_trophies == MAX_TROPHIES_PER_TYPE_CRITICAL && new_amount > MAX_TROPHIES_PER_TYPE_CRITICAL))
 				update_spells = FALSE
@@ -116,7 +116,7 @@
 			new_trophies = clamp(new_amount, 0, MAX_TROPHIES_PER_TYPE_GENERAL)
 			bestia.trophies[INTERNAL_ORGAN_LIVER] = new_trophies
 
-			damage_modifiers[TOX] = (new_trophies * (TROPHIES_CAP_PROT_TOX / MAX_TROPHIES_PER_TYPE_GENERAL)) / 100
+			damage_modifiers[TOX] = (100 - (new_trophies * (TROPHIES_CAP_PROT_TOX / MAX_TROPHIES_PER_TYPE_GENERAL))) / 100
 
 			if((prev_trophies == 0 && new_amount < 0) || (prev_trophies == MAX_TROPHIES_PER_TYPE_GENERAL && new_amount > MAX_TROPHIES_PER_TYPE_GENERAL))
 				update_spells = FALSE
@@ -127,8 +127,8 @@
 			new_trophies = clamp(new_amount, 0, MAX_TROPHIES_PER_TYPE_GENERAL)
 			bestia.trophies[INTERNAL_ORGAN_KIDNEYS] = new_trophies
 
-			damage_modifiers[CLONE] = (new_trophies * (TROPHIES_CAP_PROT_CLONE / MAX_TROPHIES_PER_TYPE_GENERAL)) / 100
-			damage_modifiers[BRAIN] = (new_trophies * (TROPHIES_CAP_PROT_BRAIN / MAX_TROPHIES_PER_TYPE_GENERAL)) / 100
+			damage_modifiers[CLONE] = (100 - (new_trophies * (TROPHIES_CAP_PROT_CLONE / MAX_TROPHIES_PER_TYPE_GENERAL))) / 100
+			damage_modifiers[BRAIN] = (100 - (new_trophies * (TROPHIES_CAP_PROT_BRAIN / MAX_TROPHIES_PER_TYPE_GENERAL))) / 100
 
 			suck_rate = clamp(BESTIA_SUCK_RATE - (new_trophies * TROPHIES_SUCK_BONUS), 0.1 SECONDS, BESTIA_SUCK_RATE)
 
@@ -1163,7 +1163,7 @@
 			if(h_victim.check_ear_prot() >= HEARING_PROTECTION_TOTAL)
 				continue
 
-			h_victim.adjustBrainLoss(brain_dmg)
+			h_victim.apply_damage(brain_dmg, BRAIN)
 
 		if(issilicon(victim))
 			playsound(get_turf(victim), 'sound/weapons/flash.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
@@ -1578,11 +1578,11 @@
 	human_vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, human_vampire.nutrition + 10))
 
 	// damage types
-	human_vampire.adjustBruteLoss(-heal_brute, updating_health = FALSE)
-	human_vampire.adjustFireLoss(-heal_burn, updating_health = FALSE)
-	human_vampire.adjustToxLoss(-heal_tox, updating_health = FALSE)
-	human_vampire.adjustOxyLoss(-heal_oxy, updating_health = FALSE)
-	human_vampire.adjustCloneLoss(-heal_clone, updating_health = FALSE)
+	var/update = NONE
+	update |= human_vampire.heal_overall_damage(heal_brute, heal_burn, updating_health = FALSE, affect_robotic = TRUE)
+	update |= human_vampire.heal_damages(tox = heal_tox, oxy = heal_oxy, clone = heal_clone, updating_health = FALSE)
+	if(update)
+		human_vampire.updatehealth()
 
 	// blood
 	human_vampire.blood_volume = clamp(human_vampire.blood_volume + heal_blood, 0, BLOOD_VOLUME_NORMAL)
@@ -1788,7 +1788,7 @@
 
 /obj/structure/closet/coffin/vampire/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/rcs))
-		return FALSE
+		return ATTACK_CHAIN_PROCEED
 	return ..()
 
 
@@ -2247,10 +2247,12 @@
 
 /mob/living/simple_animal/hostile/vampire/bats_summoned/attackby(obj/item/I, mob/living/user, params)
 	. = ..()
-	if(isliving(target))
-		var/mob/living/l_target = target
-		if(l_target.stat != CONSCIOUS && (!isvampire(user) && !isvampirethrall(user)))	// will change target on attacker instantly if its current target is unconscious or dead
-			GiveTarget(user)
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !isliving(target))
+		return .
+	var/mob/living/l_target = target
+	// will change target on attacker instantly if its current target is unconscious or dead
+	if(l_target.stat != CONSCIOUS && (!isvampire(user) && !isvampirethrall(user)))
+		GiveTarget(user)
 
 
 /mob/living/simple_animal/hostile/vampire/bats_summoned/Found(atom/A)

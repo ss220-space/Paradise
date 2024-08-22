@@ -135,6 +135,11 @@
 	path = /obj/item/clothing/under/rank/chief_medical_officer/skirt
 	allowed_roles = list(JOB_TITLE_CMO)
 
+/datum/gear/uniform/skirt/job/paramedic
+	display_name = "skirt, paramedic"
+	path = /obj/item/clothing/under/rank/medical/paramedic/skirt
+	allowed_roles = list(JOB_TITLE_PARAMEDIC)
+
 /datum/gear/uniform/skirt/job/chem
 	display_name = "skirt, chemist"
 	path = /obj/item/clothing/under/rank/chemist/skirt

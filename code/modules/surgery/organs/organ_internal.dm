@@ -95,7 +95,8 @@
 		action.Remove(organ_owner)
 
 	if(send_signal)
-		SEND_SIGNAL(target, COMSIG_CARBON_LOSE_ORGAN, src)
+		SEND_SIGNAL(organ_owner, COMSIG_CARBON_LOSE_ORGAN, src)
+		SEND_SIGNAL(src, COMSIG_ORGAN_REMOVED, organ_owner)
 
 	owner = null
 	START_PROCESSING(SSobj, src)
@@ -107,9 +108,9 @@
 		return
 	switch(severity)
 		if(1)
-			receive_damage(20, 1)
+			internal_receive_damage(20, silent = TRUE)
 		if(2)
-			receive_damage(7, 1)
+			internal_receive_damage(7, silent = TRUE)
 
 
 /obj/item/organ/internal/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
@@ -165,17 +166,19 @@
 	list_reagents = list("nutriment" = 5)
 
 
-/obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
-	if(M == user && ishuman(user))
-		var/mob/living/carbon/human/H = user
-		var/obj/item/reagent_containers/food/snacks/S = prepare_eat()
-		if(S)
-			H.drop_from_active_hand()
-			H.put_in_active_hand(S)
-			S.attack(H, H)
-			qdel(src)
-	else
-		..()
+/obj/item/organ/internal/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(target != user || !ishuman(target) || !user.can_unEquip(src))
+		return ..()
+
+	var/obj/item/reagent_containers/food/snacks/snack = prepare_eat()
+	if(!snack)
+		return ATTACK_CHAIN_PROCEED
+
+	user.temporarily_remove_item_from_inventory(src)
+	target.put_in_active_hand(snack, silent = TRUE)
+	snack.attack(target, target, params)
+	qdel(src)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 
 /****************************************************
@@ -330,7 +333,7 @@
 
 /obj/item/organ/internal/honktumor/cursed/on_life() //No matter what you do, no matter who you are, no matter where you go, you're always going to be a fat, stuttering dimwit.
 	..()
-	owner.setBrainLoss(80, use_brain_mod = FALSE)
+	owner.setBrainLoss(80)
 	owner.set_nutrition(9000)
 	owner.overeatduration = 9000
 
@@ -388,22 +391,12 @@
 			H.update_fhair()
 
 
-/obj/item/organ/internal/emp_act(severity)
-	if(!is_robotic() || emp_proof)
-		return
-	switch(severity)
-		if(1)
-			receive_damage(20, 1)
-		if(2)
-			receive_damage(7, 1)
-
-
 /obj/item/organ/internal/handle_germs()
 	..()
 	if(germ_level >= INFECTION_LEVEL_TWO)
 		if(prob(3 * owner.dna.species.germs_growth_rate))
 			// big message from every 1 damage is not good. If germs growth rate is big, it will spam the chat.
-			receive_damage(1, silent = prob(30*owner.dna.species.germs_growth_rate))
+			internal_receive_damage(1, silent = prob(30*owner.dna.species.germs_growth_rate))
 
 
 /mob/living/carbon/human/proc/check_infections()

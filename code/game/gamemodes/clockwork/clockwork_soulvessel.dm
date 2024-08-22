@@ -163,51 +163,55 @@
 		to_chat(user, "<span class='warning'>You have to find a body or brain to fill a vessel.</span>")
 
 
-/obj/item/mmi/robotic_brain/clockwork/attackby(obj/item/O, mob/user)
-	if(istype(O, /obj/item/mmi/robotic_brain/clockwork))
-		return FALSE
-
+/obj/item/mmi/robotic_brain/clockwork/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/mmi/robotic_brain/clockwork))
+		return ATTACK_CHAIN_BLOCKED_ALL
 	// chaplain purifying
-	if(istype(O, /obj/item/storage/bible) && !isclocker(user) && user.mind.isholy)
-		to_chat(user, "<span class='notice'>You begin to exorcise [src].</span>")
+	if(istype(I, /obj/item/storage/bible) && !isclocker(user) && user.mind.isholy)
+		to_chat(user, span_notice("You begin to exorcise [src]."))
 		playsound(src, 'sound/hallucinations/veryfar_noise.ogg', 40, TRUE)
-		if(do_after(user, 4 SECONDS, src))
-			var/obj/item/mmi/robotic_brain/positronic/purified = new(get_turf(src))
-			if(brainmob.key)
-				SSticker.mode.remove_clocker(brainmob.mind)
-				purified.transfer_identity(brainmob)
-			QDEL_NULL(src)
-			return TRUE
-		return FALSE
-	. = ..()
+		if(!do_after(user, 4 SECONDS, src))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		var/obj/item/mmi/robotic_brain/positronic/purified = new(get_turf(src))
+		if(brainmob.key)
+			SSticker.mode.remove_clocker(brainmob.mind)
+			purified.transfer_identity(brainmob)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 
 
-/obj/item/mmi/robotic_brain/attackby(obj/item/O, mob/user)
+/obj/item/mmi/robotic_brain/attackby(obj/item/I, mob/user, params)
 	// capturing robotic brains
-	if(istype(O, /obj/item/mmi/robotic_brain/clockwork))
-		var/obj/item/mmi/robotic_brain/clockwork/brain = O
-		return brain.init_transfer(user, src)
-	. = ..()
+	if(istype(I, /obj/item/mmi/robotic_brain/clockwork))
+		var/obj/item/mmi/robotic_brain/clockwork/brain = I
+		brain.init_transfer(user, src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 
 
-/obj/item/organ/internal/brain/attackby(obj/item/O, mob/user)
+/obj/item/organ/internal/brain/attackby(obj/item/I, mob/user, params)
 	// capturing organic brains
-	if(istype(O, /obj/item/mmi/robotic_brain/clockwork))
-		var/obj/item/mmi/robotic_brain/clockwork/brain = O
-		return brain.init_transfer(user, src)
-	. = ..()
+	if(istype(I, /obj/item/mmi/robotic_brain/clockwork))
+		var/obj/item/mmi/robotic_brain/clockwork/brain = I
+		brain.init_transfer(user, src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 
 
-/obj/item/organ/external/head/attackby(obj/item/O, mob/user)
+/obj/item/organ/external/head/attackby(obj/item/I, mob/user, params)
 	// heads have brains too!
-	if(istype(O, /obj/item/mmi/robotic_brain/clockwork))
-		var/obj/item/mmi/robotic_brain/clockwork/brain = O
-		return brain.init_transfer(user, src)
-	. = ..()
+	if(istype(I, /obj/item/mmi/robotic_brain/clockwork))
+		var/obj/item/mmi/robotic_brain/clockwork/brain = I
+		brain.init_transfer(user, src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 
 
-/obj/item/mmi/robotic_brain/clockwork/attack(mob/living/M, mob/living/user, def_zone)
+/obj/item/mmi/robotic_brain/clockwork/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	// catching souls of dead/unconscious humans and robots
-	if(isrobot(M) || ishuman(M))
-		return init_transfer(user, target_body = M)
-	. = ..()
+	if((isrobot(target) || ishuman(target)))
+		init_transfer(user, target_body = target)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+

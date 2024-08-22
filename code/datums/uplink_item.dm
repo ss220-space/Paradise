@@ -407,6 +407,14 @@
 	job = list(JOB_TITLE_CMO, JOB_TITLE_GENETICIST)
 	surplus = 0
 
+/datum/uplink_item/jobspecific/laser_eyes_injector
+	name = "Laser Eyes Injector"
+	desc = "Эксперементальный ДНК инжектор, который навсегда даст вам способность стрелять лазерами из глаз."
+	item = /obj/item/laser_eyes_injector
+	cost = 37
+	job = list(JOB_TITLE_GENETICIST)
+	surplus = 0
+
 //Virology
 /datum/uplink_item/jobspecific/viral_injector
 	name = "Viral Injector"
@@ -672,6 +680,13 @@
 	cost = 16
 	race = list(SPECIES_GREY)
 
+/datum/uplink_item/racial/silencer
+	name = "Abductor Silencer"
+	desc = "A compact device used to shut down communications equipment."
+	item = /obj/item/abductor/silencer
+	cost = 12
+	race = list(SPECIES_GREY)
+
 
 // DANGEROUS WEAPONS
 
@@ -797,6 +812,12 @@
 	desc = "A high powered chainsaw for cutting up ...you know...."
 	item = /obj/item/twohanded/chainsaw
 	cost = 60
+
+/datum/uplink_item/dangerous/rapier
+	name = "Syndicate rapier"
+	desc = "An elegant plastitanium rapier with a diamond tip and coated in a specialized knockout poison. The rapier comes with its own sheath, and is capable of puncturing through almost any defense. However, due to the size of the blade and obvious nature of the sheath, the weapon stands out as being obviously nefarious."
+	item = /obj/item/storage/belt/rapier/syndie
+	cost = 40
 
 /datum/uplink_item/dangerous/commando_kit
 	name = "Commandos knife operation kit"
@@ -2224,5 +2245,93 @@
 	item = /obj/item/stack/telecrystal/twohundred_fifty
 	cost = 250
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/contractor
+	category = "Contractor"
+	uplinktypes = list(UPLINK_TYPE_ADMIN)
+	surplus = 0
+	can_discount = FALSE
+
+/datum/uplink_item/contractor/balloon
+	name = "Contractor Balloon"
+	desc = "An unique black and gold balloon with no purpose other than showing off. All contracts must be completed in the hardest location to unlock this."
+	item = /obj/item/toy/syndicateballoon/contractor
+	cost = 240
+
+/datum/uplink_item/contractor/baton
+	name = "Contractor Baton"
+	desc = "A compact, specialised baton issued to Syndicate contractors. Applies light electrical shocks to targets. Never know when you will get disarmed."
+	item = /obj/item/melee/baton/telescopic/contractor
+	cost = 40
+
+/datum/uplink_item/contractor/baton_cuffup
+	name = "Baton Cuff Upgrade"
+	desc = "Using technology reverse-engineered from some alien batons we had lying around, you can now cuff people using your baton. Due to technical limitations, only cable cuffs work, and they need to be loaded into the baton manually."
+	item = /obj/item/baton_upgrade/cuff
+	cost = 40
+
+/datum/uplink_item/contractor/baton_muteup
+	name = "Baton Mute Upgrade"
+	desc = "A relatively new advancement in completely proprietary baton technology, this baton upgrade will mute anyone hit for about five seconds."
+	item = /obj/item/baton_upgrade/mute
+	cost = 40
+
+/datum/uplink_item/contractor/baton_focusup
+	name = "Baton Focus Upgrade"
+	desc = "When applied to a baton, it will exhaust the target even more, should they be the target of your current contract."
+	item = /obj/item/baton_upgrade/focus
+	cost = 40
+
+/datum/uplink_item/contractor/baton_antidropup
+	name = "Baton Antidrop Upgrade"
+	desc = "An experimental and extremely undertested technology that activates a system of spikes that burrow into the skin when user extends baton, preventing the user to drop it. That will hurt.."
+	item = /obj/item/baton_upgrade/antidrop
+	cost = 40
+
+/datum/uplink_item/contractor/fulton
+	name = "Fulton Extraction Kit"
+	desc = "For getting your target across the station to those difficult dropoffs. Place the beacon somewhere secure, and link the pack. Activating the pack on your target will send them over to the beacon - make sure they're not just going to run away though!"
+	item = /obj/item/storage/box/contractor/fulton_kit
+	cost = 20
+
+/datum/uplink_item/contractor/contractor_hardsuit
+	name = "Contractor Hardsuit"
+	desc = "A top-tier Hardsuit developed with cooperation of Cybersun Industries and the Gorlex Marauders, a favorite of Syndicate Contractors. \
+	In addition, it has an in-built chameleon system, allowing you to disguise your hardsuit to the most common variations on your mission area."
+	item = /obj/item/storage/box/contractor/hardsuit
+	cost = 80
+
+/datum/uplink_item/contractor/pinpointer
+	name = "Contractor Pinpointer"
+	desc = "A low accuracy pinpointer that can track anyone in the sector without the need for suit sensors. Can only be used by the first person to activate it."
+	item = /obj/item/pinpointer/crew/contractor
+	cost = 20
+
+/datum/uplink_item/contractor/contractor_partner
+	name = "Reinforcements"
+	desc = "Upon purchase we'll give you a device, that contact available units in the area. Should there be an agent free, we'll send them down to assist you immediately. If no units are free, we give a full refund."
+	item = /obj/item/antag_spawner/contractor_partner
+	cost = 40
+	refundable = TRUE
+
+/datum/uplink_item/contractor/spai_kit
+	name = "SPAI Kit"
+	desc = "A kit with your personal assistant. It comes with an increased amount of memory and special programs."
+	item = /obj/item/storage/box/contractor/spai_kit
+	cost = 40
+	refundable = TRUE
+	refund_path = /obj/item/paicard_upgrade/unused
+
+/datum/uplink_item/contractor/zippo
+	name = "Contractor Zippo Lighter"
+	desc = "A kit with your personal assistant. It comes with an increased amount of memory and special programs."
+	item = /obj/item/storage/box/contractor/spai_kit
+	cost = 120
+
+/datum/uplink_item/contractor/loadout_box
+	name = "Contractor standard loadout box"
+	desc = "A standard issue box included in a contractor kit."
+	item = /obj/item/storage/box/syndie_kit/contractor_loadout
+	cost = 40
 
 #undef UPLINK_DISCOUNTS

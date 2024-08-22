@@ -45,36 +45,24 @@
 	var/melee_block_chance = 20
 	var/ranged_block_chance = 35
 
-/mob/living/simple_animal/hostile/syndicate/melee/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
-	if(O.force)
-		if(prob(melee_block_chance))
-			visible_message(span_boldwarning("[src] blocks [O] with its shield!"))
-		else
-			var/damage = O.force
-			if(O.damtype == STAMINA)
-				damage = 0
-			if(force_threshold && damage < force_threshold)
-				visible_message(span_boldwarning("[src] is unharmed by [O]!"))
-				return
-			adjustHealth(damage)
-			visible_message(span_boldwarning("[src] has been attacked with the [O] by [user]."))
-		playsound(loc, O.hitsound, 25, 1, -1)
-	else
-		to_chat(usr, span_warning("This weapon is ineffective, it does no damage."))
-		visible_message(span_warning("[user] gently taps [src] with the [O]."))
+
+/mob/living/simple_animal/hostile/syndicate/melee/attackby(obj/item/I, mob/user, params)
+	if(I.force && prob(melee_block_chance))
+		user.do_attack_animation(src)
+		visible_message(span_danger("[src] blocks [I] with its shield!"))
+		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 
 
-/mob/living/simple_animal/hostile/syndicate/melee/bullet_act(var/obj/item/projectile/Proj)
+/mob/living/simple_animal/hostile/syndicate/melee/bullet_act(obj/item/projectile/Proj)
 	if(!Proj)
 		return
 	if(prob(ranged_block_chance))
-		visible_message("<span class='danger'>[src] blocks [Proj] with its shield!</span>")
-	else
-		if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
-			adjustHealth(Proj.damage)
-	return 0
+		visible_message(span_danger("[src] blocks [Proj] with its shield!"))
+		return FALSE
+	return ..()
+
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib
 	loot = list()//no loot, its gonna delete and gib.

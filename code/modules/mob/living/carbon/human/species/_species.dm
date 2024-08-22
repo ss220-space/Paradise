@@ -37,16 +37,14 @@
 	var/cold_level_1 = 260  // Cold damage level 1 below this point.
 	var/cold_level_2 = 200  // Cold damage level 2 below this point.
 	var/cold_level_3 = 120  // Cold damage level 3 below this point.
-	var/coldmod = 1 // Damage multiplier for being in a cold environment
 
 	var/heat_level_1 = 360  // Heat damage level 1 above this point.
 	var/heat_level_2 = 400  // Heat damage level 2 above this point.
 	var/heat_level_3 = 460 // Heat damage level 3 above this point; used for body temperature
-	var/heatmod = 1 // Damage multiplier for being in a hot environment
 
 	var/body_temperature = BODYTEMP_NORMAL	//non-IS_SYNTHETIC species will try to stabilize at this temperature. (also affects temperature processing)
 	var/reagent_tag                 //Used for metabolizing reagents.
-	var/hunger_drain = HUNGER_FACTOR
+
 	var/digestion_ratio = 1 //How quickly the species digests/absorbs reagents.
 	var/taste_sensitivity = TASTE_SENSITIVITY_NORMAL //the most widely used factor; humans use a different one
 	var/germs_growth_rate = 1 //How quickly germs are growing.
@@ -62,26 +60,54 @@
 	var/warning_low_pressure = WARNING_LOW_PRESSURE   // Low pressure warning.
 	var/hazard_low_pressure = HAZARD_LOW_PRESSURE     // Dangerously low pressure.
 
-	var/brute_mod = 1    // Physical damage reduction/amplification
-	var/burn_mod = 1     // Burn damage reduction/amplification
-	var/tox_mod = 1      // Toxin damage reduction/amplification
-	var/oxy_mod = 1		 // Oxy damage reduction/amplification
-	var/clone_mod = 1	 // Clone damage reduction/amplification
-	var/brain_mod = 1    // Brain damage damage reduction/amplification
-	var/stamina_mod = 1
-	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
-	var/speed_mod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
-	var/bonefragility = 1 // higher numbers - higher chances to break bones
-	var/fragile_bones_chance = 0	//chance to break bones while walking, pulling and beating
-	var/blood_damage_type = OXY //What type of damage does this species take if it's low on blood?
-	var/total_health = 100
-	var/punchdamagelow = 0       //lowest possible punch damage
-	var/punchdamagehigh = 9      //highest possible punch damage
-	var/punchstunthreshold = 9	 //damage at which punches from this race will stun //yes it should be to the attacked race but it's not useful that way even if it's logical
-	var/strength_modifier = 1	 //for now only used in resist/grab chances. Maybe sometime it will become more usefull
-	var/obj_damage = 0
-	var/list/default_genes
+	// DO NOT CHANGE THESE VARS OUTSIDE OF OVERRIDING BY OTHER SPECIES, USE PHYSIOLOGY DATUM, OR I WILL FIND YOU .\_/.
+	// [/code/mob/living/carbon/human/physiology.dm]
 
+	/// Flat modifier on all damage taken from any source.
+	/// IE: 10 = 10% less damage taken.
+	var/damage_resistance = 0
+	/// Physical damage reduction/amplification
+	var/brute_mod = 1
+	/// Burn damage reduction/amplification
+	var/burn_mod = 1
+	/// Toxin damage reduction/amplification
+	var/tox_mod = 1
+	/// Oxy damage reduction/amplification
+	var/oxy_mod = 1
+	/// Clone damage reduction/amplification
+	var/clone_mod = 1
+	/// Brain damage reduction/amplification
+	var/brain_mod = 1
+	/// Stamina damage reduction/amplification
+	var/stamina_mod = 1
+	/// If a species is more/less impacated by incapacitated effects (stun/weaken/knockdown/paralysis/sleeping)
+	var/stun_mod = 1
+	/// Hunder drain reduction/amplification
+	var/hunger_drain_mod = 1
+	/// Lowest possible punch damage
+	var/punchdamagelow = 0
+	/// Highest possible punch damage
+	var/punchdamagehigh = 9
+	/// Damage at which punches from this race will stun
+	var/punchstunthreshold = 9
+	/// Damage for punching objects
+	var/obj_damage = 0
+	/// Fractures chance reduction/amplification
+	var/bonefragility = 1
+	/// Damage multiplier for being in a hot environment
+	var/heatmod = 1
+	/// Damage multiplier for being in a cold environment
+	var/coldmod = 1
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	/// Maximum health of this species
+	var/total_health = 100
+	/// What type of damage does this species take if it's low on blood?
+	var/blood_damage_type = OXY
+	/// Species default genes
+	var/list/default_genes
+	/// Species movement speed. Positive numbers make it move slower, negative numbers make it move faster
+	var/speed_mod = 0
 	/// Allows species to have ventcrawl trait defined here.
 	/// Values are: TRAIT_VENTCRAWLER_ALWAYS / TRAIT_VENTCRAWLER_NUDE
 	var/ventcrawler_trait
@@ -216,7 +242,12 @@
 	/// Whether the presence of a body accessory on this species is optional or not.
 	var/optional_body_accessory = TRUE
 
-	var/toolspeedmod = 1
+	/// Flat bonus to various tool handling
+	/// Value of 0.1 adds 10% time delay to all performed actions in tool's category, -0.1 vice versa
+	/// READ ONLY!
+	var/toolspeedmod = 0
+	/// Same as above, used for surgery modifiers
+	var/surgeryspeedmod = 0
 
 	var/toxic_food = TOXIC
 	var/disliked_food = GROSS
@@ -297,6 +328,12 @@
 	if(speed_mod)
 		H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/species_speedmod, multiplicative_slowdown = speed_mod)
 
+	if(toolspeedmod)
+		H.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod, multiplicative_slowdown = toolspeedmod)
+
+	if(surgeryspeedmod)
+		H.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/species_surgery_mod, multiplicative_slowdown = surgeryspeedmod)
+
 	if(ventcrawler_trait)
 		var/static/list/ventcrawler_sanity = list(
 			TRAIT_VENTCRAWLER_ALWAYS,
@@ -363,6 +400,12 @@
 	if(speed_mod)
 		H.remove_movespeed_modifier(/datum/movespeed_modifier/species_speedmod)
 
+	if(toolspeedmod)
+		H.remove_actionspeed_modifier(/datum/actionspeed_modifier/species_tool_mod)
+
+	if(surgeryspeedmod)
+		H.remove_actionspeed_modifier(/datum/actionspeed_modifier/species_surgery_mod)
+
 	H.meatleft = initial(H.meatleft)
 
 	REMOVE_TRAIT(H, ventcrawler_trait, SPECIES_TRAIT)
@@ -390,15 +433,15 @@
 // For special snowflake species effects
 // (Slime People changing color based on the reagents they consume)
 /datum/species/proc/handle_life(mob/living/carbon/human/H)
-	if((H.blood_volume > BLOOD_VOLUME_REGENERATION) && (HAVE_REGENERATION in species_traits) && (H.getBruteLoss() || H.getFireLoss()))
-		H.adjustBruteLoss(-0.1, FALSE)
-		H.adjustFireLoss(-0.1)
-
+	var/regenerate = TRUE
 	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
 		var/takes_crit_damage = (!(NOCRITDAMAGE in species_traits))
 		if((H.health <= HEALTH_THRESHOLD_CRIT) && takes_crit_damage)
+			regenerate = FALSE
 			H.adjustBruteLoss(1)
-	return
+
+	if(regenerate && (H.blood_volume > BLOOD_VOLUME_REGENERATION) && (HAVE_REGENERATION in species_traits) && (H.getBruteLoss() || H.getFireLoss()))
+		H.heal_overall_damage(0.1, 0.1)
 
 /**
  * Handles DNA mutations, as that doesn't work at init.
@@ -409,48 +452,12 @@
 /datum/species/proc/handle_death(gibbed, mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).
 	return
 
-/datum/species/proc/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, mob/living/carbon/human/H, sharp = 0, obj/used_weapon = null)
-	blocked = (100 - blocked) / 100
-	if(blocked <= 0)
-		return 0
 
-	var/obj/item/organ/external/organ = null
-	if(isexternalorgan(def_zone))
-		organ = def_zone
-	else
-		if(!def_zone)
-			def_zone = ran_zone(def_zone)
-		organ = H.get_organ(check_zone(def_zone))
-	if(!organ)
-		return 0
+/datum/species/proc/spec_stun(mob/living/carbon/human/user, duration)
+	. = duration
+	if(!user.frozen) //admin freeze has no breaks
+		. = duration * stun_mod * user.physiology.stun_mod
 
-	damage = damage * blocked
-
-	switch(damagetype)
-		if(BRUTE)
-			damage = damage * (brute_mod + H.get_vampire_bonus(BRUTE))
-			if(damage)
-				H.damageoverlaytemp = 20
-
-			if(organ.receive_damage(damage, 0, sharp, used_weapon))
-				H.UpdateDamageIcon()
-
-		if(BURN)
-			damage = damage * (burn_mod + H.get_vampire_bonus(BURN))
-			if(damage)
-				H.damageoverlaytemp = 20
-
-			if(organ.receive_damage(0, damage, sharp, used_weapon))
-				H.UpdateDamageIcon()
-
-	// Will set our damageoverlay icon to the next level, which will then be set back to the normal level the next mob.Life().
-	H.updatehealth("apply damage")
-	return 1
-
-/datum/species/proc/spec_stun(mob/living/carbon/human/H, amount)
-	. = amount
-	if(!H.frozen) //admin freeze has no breaks
-		. = stun_mod * amount
 
 
 /datum/species/proc/spec_electrocute_act(mob/living/carbon/human/affected, shock_damage, source, siemens_coeff, flags, jitter_time, stutter_time, stun_duration)
@@ -552,7 +559,7 @@
 		target.lastattackerckey = user.ckey
 
 		var/damage_type = BRUTE
-		var/damage = rand(user.dna.species.punchdamagelow, user.dna.species.punchdamagehigh)
+		var/damage = rand(user.dna.species.punchdamagelow + user.physiology.punch_damage_low, user.dna.species.punchdamagehigh + user.physiology.punch_damage_high)
 		damage += attack.damage
 		if(!damage)
 			playsound(target.loc, attack.miss_sound, 25, 1, -1)
@@ -592,14 +599,14 @@
 					objective.take_damage(damage, damage_type)
 
 		target.apply_damage(damage, damage_type, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
-		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
+		if((target.stat != DEAD) && damage >= (user.dna.species.punchstunthreshold + user.physiology.punch_stun_threshold))
 			target.visible_message("<span class='danger'>[user.declent_ru(NOMINATIVE)] ослабля[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>", \
 							"<span class='userdanger'>[user.declent_ru(NOMINATIVE)] ослабля[pluralize_ru(user.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)]!</span>")
 			target.apply_effect(4 SECONDS, WEAKEN, armor_block)
 			target.forcesay(GLOB.hit_appends)
 		else if(target.body_position == LYING_DOWN)
 			target.forcesay(GLOB.hit_appends)
-		SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
+
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(user == target)
@@ -1153,8 +1160,12 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	return TRUE
 
 /datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
+	return
 
-/datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
+
+/datum/species/proc/spec_proceed_attack_results(obj/item/I, mob/living/carbon/human/defender, mob/living/attacker, obj/item/organ/external/affecting)
+	return ATTACK_CHAIN_PROCEED
+
 
 /proc/get_random_species(species_name = FALSE)	// Returns a random non black-listed or hazardous species, either as a string or datum
 	var/static/list/random_species = list()

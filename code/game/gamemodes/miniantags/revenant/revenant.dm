@@ -99,9 +99,17 @@
 /mob/living/simple_animal/revenant/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	return FALSE //You are a ghost, atmos and grill makes sparks, and you make your own shocks with lights.
 
-/mob/living/simple_animal/revenant/adjustHealth(amount, updating_health = TRUE)
+
+/mob/living/simple_animal/revenant/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
+	. = STATUS_UPDATE_NONE
 	if(!revealed)
-		return
+		return .
 	essence = max(0, essence-amount)
 	if(essence == 0)
 		to_chat(src, "<span class='revendanger'>You feel your essence fraying!</span>")
@@ -242,16 +250,17 @@
 	qdel(src)
 
 
-/mob/living/simple_animal/revenant/attackby(obj/item/W, mob/living/user, params)
-	if(istype(W, /obj/item/nullrod))
-		visible_message("<span class='warning'>[src] violently flinches!</span>", \
-						"<span class='revendanger'>As \the [W] passes through you, you feel your essence draining away!</span>")
-		adjustBruteLoss(25) //hella effective
-		inhibited = 1
-		spawn(30)
-			inhibited = 0
+/mob/living/simple_animal/revenant/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/nullrod))
+		visible_message(
+			span_warning("[src] violently flinches!"),
+			span_revendanger("As [I.name] passes through you, you feel your essence draining away!"),
+		)
+		apply_damage(25) //hella effective
+		inhibited = TRUE
+		addtimer(VARSET_CALLBACK(src, inhibited, FALSE), 3 SECONDS)
+	return ..()
 
-	..()
 
 /mob/living/simple_animal/revenant/proc/castcheck(essence_cost)
 	if(!src)

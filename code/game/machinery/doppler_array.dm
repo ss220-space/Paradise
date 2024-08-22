@@ -38,13 +38,18 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	logged_explosions.Cut()
 	return ..()
 
+
 /obj/machinery/doppler_array/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(istype(I, /obj/item/disk/tech_disk))
 		add_fingerprint(user)
 		var/obj/item/disk/tech_disk/disk = I
 		disk.load_tech(toxins_tech)
 		to_chat(user, span_notice("You swipe the disk into [src]."))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
 
 

@@ -7,15 +7,17 @@
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "biotech=3"
 
-/obj/item/hivelordstabilizer/afterattack(obj/item/organ/internal/M, mob/user)
+/obj/item/hivelordstabilizer/afterattack(obj/item/organ/internal/M, mob/user, proximity, params)
 	. = ..()
+	if(!proximity)
+		return
 	var/obj/item/organ/internal/regenerative_core/C = M
 	if(!istype(C, /obj/item/organ/internal/regenerative_core))
-		to_chat(user, "<span class='warning'>The stabilizer only works on certain types of monster organs, generally regenerative in nature.</span>")
+		to_chat(user, span_warning("The stabilizer only works on certain types of monster organs, generally regenerative in nature."))
 		return ..()
 
 	C.preserved()
-	to_chat(user, "<span class='notice'>You inject the [M] with the stabilizer. It will no longer go inert.</span>")
+	balloon_alert(user, "ядро стабилизировано!") //replace to "organ" when there is more than one kind of regenerative organ
 	qdel(src)
 
 /************************Hivelord core*******************/
@@ -72,23 +74,23 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if(inert)
-			to_chat(user, "<span class='notice'>[src] has decayed and can no longer be used to heal.</span>")
+			balloon_alert(user, "ядро сгнило!")
 			return
 		else
 			if(H.stat == DEAD)
-				to_chat(user, "<span class='notice'>[src] is useless on the dead.</span>")
+				balloon_alert(user, "не сработает на трупах!")
 				return
 			if(H != user)
 				H.visible_message("[user] forces [H] to apply [src]... Black tendrils entangle and reinforce [H.p_them()]!")
 				SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "other"))
 			else
-				to_chat(user, "<span class='notice'>You start to smear [src] on yourself. Disgusting tendrils hold you together and allow you to keep moving, but for how long?</span>")
+				to_chat(user, span_notice("You start to smear [src] on yourself. Disgusting tendrils hold you together and allow you to keep moving, but for how long?"))
 				SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "self"))
 			H.apply_status_effect(STATUS_EFFECT_REGENERATIVE_CORE)
 			user.temporarily_remove_item_from_inventory(src)
 			qdel(src)
 
-/obj/item/organ/internal/regenerative_core/afterattack(atom/target, mob/user, proximity_flag)
+/obj/item/organ/internal/regenerative_core/afterattack(atom/target, mob/user, proximity_flag, params)
 	. = ..()
 	if(proximity_flag)
 		applyto(target, user)
@@ -184,28 +186,33 @@
 		egg_owner.med_hud_set_status()
 	. = ..()
 
-/obj/item/organ/internal/legion_tumour/attack(mob/living/target, mob/living/user, params)
+
+/obj/item/organ/internal/legion_tumour/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(try_apply(target, user))
-		qdel(src)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
+
 /// Smear it on someone like a regen core, why not. Make sure they're alive though.
-/obj/item/organ/internal/legion_tumour/proc/try_apply(mob/living/target, mob/user)
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		if(H.stat == DEAD)
-			to_chat(user, "<span class='notice'>[src] is useless on the dead.</span>")
-			return
-		if(H != user)
-			H.visible_message("[user] forces [H] to apply [src]... Black tendrils entangle and reinforce [H.p_them()]!")
-			SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "other"))
-		else
-			to_chat(user, "<span class='notice'>You start to smear [src] on yourself. Disgusting tendrils hold you together and allow you to keep moving, but for how long?</span>")
-			SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "self"))
-		H.apply_status_effect(STATUS_EFFECT_REGENERATIVE_CORE)
-		user.temporarily_remove_item_from_inventory(src)
-		qdel(src)
+/obj/item/organ/internal/legion_tumour/proc/try_apply(mob/living/carbon/human/target, mob/user)
+	if(!ishuman(target))
+		return FALSE
+	if(target.stat == DEAD)
+		balloon_alert(user, "не сработает на трупах!")
+		return FALSE
+	. = TRUE
+	if(target != user)
+		target.visible_message(
+			span_warning("[user] forces [target] to apply [src]... Black tendrils entangle and reinforce [target.p_them()]!"),
+			span_notice("You have forced [target] to apply [src]... Black tendrils entangle and reinforce [target.p_them()]!"),
+		)
+		SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "other"))
+	else
+		to_chat(user, span_notice("You start to smear [src] on yourself. Disgusting tendrils hold you together and allow you to keep moving, but for how long?"))
+		SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "self"))
+	target.apply_status_effect(STATUS_EFFECT_REGENERATIVE_CORE)
+	qdel(src)
+
 
 /obj/item/organ/internal/legion_tumour/on_life()
 	. = ..()

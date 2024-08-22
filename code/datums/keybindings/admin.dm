@@ -27,32 +27,6 @@
 	return TRUE
 
 
-/datum/keybinding/admin/msay
-	name = "Msay (for admins)"
-	keys = list("ShiftF5")
-
-
-/datum/keybinding/admin/msay/down(client/user)
-	. = ..()
-	if(.)
-		return .
-	user.get_mentor_say()
-	return TRUE
-
-
-/datum/keybinding/admin/asay
-	name = "Msay/Asay"
-	keys = list("F5")
-
-
-/datum/keybinding/admin/asay/down(client/user)
-	. = ..()
-	if(.)
-		return .
-	user.get_admin_say()
-	return TRUE
-
-
 /datum/keybinding/admin/aghost
 	name = "Aghost"
 	keys = list("F6")
@@ -104,17 +78,3 @@
 		return .
 	user.invisimin()
 	return TRUE
-
-
-/datum/keybinding/admin/dsay
-	name = "Dsay"
-	keys = list("F10")
-
-
-/datum/keybinding/admin/dsay/down(client/user)
-	. = ..()
-	if(.)
-		return .
-	user.get_dead_say()
-	return TRUE
-

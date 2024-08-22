@@ -269,11 +269,11 @@
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
 
-/obj/machinery/door/window/attack_hand(mob/user)
-	if(user.a_intent == INTENT_HARM && ishuman(user) && user.dna.species.obj_damage)
+/obj/machinery/door/window/attack_hand(mob/living/carbon/human/user)
+	if(user.a_intent == INTENT_HARM && ishuman(user) && (user.dna.species.obj_damage + user.physiology.punch_obj_damage > 0))
 		add_fingerprint(user)
 		user.changeNext_move(CLICK_CD_MELEE)
-		attack_generic(user, user.dna.species.obj_damage)
+		attack_generic(user, user.dna.species.obj_damage + user.physiology.punch_obj_damage)
 		return
 	return try_to_activate_door(user)
 
@@ -300,13 +300,14 @@
 	operating = FALSE
 	return TRUE
 
+
 /obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
 	//If it's in the process of opening/closing, ignore the click
 	if(operating)
-		return
-
-	add_fingerprint(user)
+		add_fingerprint(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
+
 
 /obj/machinery/door/window/screwdriver_act(mob/user, obj/item/I)
 	if(obj_flags & NODECONSTRUCT)
