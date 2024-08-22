@@ -129,7 +129,7 @@
 		custom_emote(EMOTE_AUDIBLE, "задыха%(ет,ют)%ся")
 
 	SetWeakened(0)
-	adjustBruteLoss(modifier - health_regen * 4)
+	adjustBruteLoss(modifier - health_regen)
 
 	if(health < 1)
 		death()
