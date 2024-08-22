@@ -377,7 +377,7 @@
 		/obj/item/ammo_casing/energy/podsniper/laser
 	)
 	item_state = null
-	weapon_weight = WEAPON_HEAVY
+	weapon_weight = WEAPON_MEDIUM
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	charge_sections = 3
