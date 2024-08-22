@@ -163,25 +163,25 @@
 	var/list/temp_tech = ConvertReqString2List(I.origin_tech)
 	if(temp_tech.len == 0)
 		to_chat(user, "<span class='warning'>You cannot experiment on this item!</span>")
-		return
+		return ATTACK_CHAIN_PROCEED
 	if (clone_next)
 		var/techs_sum = 0
 		for(var/T in temp_tech)
 			techs_sum += temp_tech[T]
 		if (istype(I, /obj/item/relic) || techs_sum > 4 && !istype(src, /obj/item/storage/backpack/holding))
 			to_chat(user, span_notice("Этот предмет слишком сложен для копирования. Попробуйте вставить что-то попроще."))
-			return
+			return ATTACK_CHAIN_PROCEED
 
 		investigate_log("Experimentor has made a clone of [I]", INVESTIGATE_EXPERIMENTOR)
 		throwSmoke(get_turf(pick(oview(1,src))))
 		for (var/i = 1; i <= badThingCoeff; i++)
-			visible_message("<span class='notice'>A duplicate [I] pops out!</span>")
+			visible_message(span_notice("A duplicate [I] pops out!"))
 			var/type_to_make = I.type
 			new type_to_make(get_turf(pick(oview(1,src))))
 		clone_next = FALSE
-		return
+		return ATTACK_CHAIN_PROCEED
 	if(!user.drop_transfer_item_to_loc(I, src))
-		return
+		return ATTACK_CHAIN_PROCEED
 	loaded_item = I
 	to_chat(user, span_notice("You have added [I] to [src]."))
 	flick("h_lathe_load", src)

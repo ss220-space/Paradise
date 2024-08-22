@@ -27,11 +27,11 @@
 		var/in_clip = length(syringes) + (chambered.BB ? 1 : 0)
 		if(in_clip < max_syringes)
 			if(!user.drop_transfer_item_to_loc(A, src))
-				return
+				return ..()
 			balloon_alert(user, "заряжено!")
 			syringes.Add(A)
 			process_chamber() // Chamber the syringe if none is already
-			return TRUE
+			return ATTACK_CHAIN_BLOCKED_ALL
 		else
 			balloon_alert(user, "недостаточно места!")
 	else if(istype(A, /obj/item/reagent_containers/glass))
