@@ -347,7 +347,7 @@
 	origin_tech = "combat=6;materials=5;powerstorage=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/sniper)
 	item_state = null
-	weapon_weight = WEAPON_HEAVY
+	weapon_weight = WEAPON_MEDIUM
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_NORMAL
 	can_holster = FALSE
@@ -364,7 +364,7 @@
 		/obj/item/ammo_casing/energy/podsniper/laser
 	)
 	item_state = null
-	weapon_weight = WEAPON_HEAVY
+	weapon_weight = WEAPON_MEDIUM
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	charge_sections = 3
