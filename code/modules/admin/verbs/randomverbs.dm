@@ -690,7 +690,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set category = "Admin"
 	set name = "List free slots"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN|R_DEBUG))
 		return
 
 	if(SSjobs)

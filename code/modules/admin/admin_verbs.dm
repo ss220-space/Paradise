@@ -287,6 +287,9 @@ GLOBAL_LIST_INIT(pepelopment_verbs, list(
 			add_verb(src, GLOB.view_runtimes_verbs)
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
+		if(holder.rights & R_PEPELOPMENT)
+			add_verb(src, GLOB.pepelopment_verbs)
+
 
 
 /client/proc/hide_verbs()
@@ -948,7 +951,7 @@ GLOBAL_LIST_INIT(pepelopment_verbs, list(
 	set name = "De-admin self"
 	set category = "Admin"
 
-	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
+	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR|R_PEPELOPMENT))
 		return
 
 	log_admin("[key_name(usr)] deadmined themself.")
@@ -974,7 +977,7 @@ GLOBAL_LIST_INIT(pepelopment_verbs, list(
 			if(findtext(line, "#")) // Skip comments
 				continue
 
-			var/list/splitline = splittext(line, " - ")
+			var/list/splitline = splittext(line, "-")
 			if(length(splitline) != 2) // Always 'ckey - rank'
 				continue
 			if(lowertext(splitline[1]) == ckey)

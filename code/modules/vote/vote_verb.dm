@@ -37,6 +37,8 @@
 		return
 
 	if(choice != "\[CUSTOM]")
+		if(!check_rights(R_ADMIN))
+			return
 		// Not custom, figure it out
 		var/datum/vote/votetype = votemap["[choice]"]
 		SSvote.start_vote(new votetype(usr.ckey))
