@@ -4,9 +4,12 @@
 #define DETONATION_APC_BREAKDOWN_CHANCE 40
 #define SPECIAL_EFFECTS_TIMER_DELAY 10 //periods between special effects, for optimizing
 #define SIMPLE_ANIMAL_MINDGIVING_CHANCE 2
+#define DNA_MUTATION_CHANCE 10
 
 /datum/supermatter_explosive_effects
 	var/z = 0
+	///DNA mutation chance. Made this into var so admins can have fun messing up station
+	var/dna_mutation_chance = DNA_MUTATION_CHANCE
 
 /datum/supermatter_explosive_effects/proc/handle_special_effects()
 	//1. All machinery will have 30% on each one machine messing up wires AND 20% of having damage
@@ -19,6 +22,8 @@
 	addtimer(CALLBACK(src, PROC_REF(handle_mind_giving)), SPECIAL_EFFECTS_TIMER_DELAY*4)
 	//5. Random up seeds.
 	addtimer(CALLBACK(src, PROC_REF(handle_seeds_mutation)), SPECIAL_EFFECTS_TIMER_DELAY*5)
+	//6. Mutate everyone with DNA.
+	addtimer(CALLBACK(src, PROC_REF(handle_genetic_mutation)), SPECIAL_EFFECTS_TIMER_DELAY*6)
 
 //Makes APCs go wild
 /datum/supermatter_explosive_effects/proc/handle_apc_breaking()
@@ -138,6 +143,17 @@
 			if(prob(SIMPLE_ANIMAL_MINDGIVING_CHANCE))
 				INVOKE_ASYNC(src, PROC_REF(give_mind_lesser), monke)
 	return
+
+/datum/supermatter_explosive_effects/proc/handle_genetic_mutation()
+	for(var/mob/living/creature in GLOB.alive_mob_list)
+		var/turf/T = get_turf(creature)
+		if(!T || T.z != src.z)
+			continue
+		if(NO_DNA in creature.dna?.species.species_traits)
+			continue
+		if(prob(dna_mutation_chance))
+			randmut(creature)
+			creature.check_genes(MUTCHK_FORCED)
 
 /datum/supermatter_explosive_effects/proc/give_mind_lesser(mob/living/carbon/human/lesser/monke)
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to awaken as [monke]?", ROLE_SENTIENT, TRUE, source = monke)

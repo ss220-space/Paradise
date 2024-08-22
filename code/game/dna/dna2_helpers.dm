@@ -39,6 +39,14 @@
 		return "biotech=6"
 	return I.origin_tech
 
+///Gives random mutation excluding monkeyfication
+/proc/randmut(mob/living/M)
+	if(!M || !M.dna)
+		return
+	M.dna.check_integrity()
+	var/block = pick(GLOB.bad_blocks + GLOB.good_blocks)
+	M.dna.SetSEState(block, 1)
+
 // Give Random Bad Mutation to M
 /proc/randmutb(mob/living/M)
 	if(!M || !M.dna)
