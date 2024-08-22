@@ -102,7 +102,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(I.GetID())
+	if(I.GetID() || is_pda(I))
 		if(!openable)
 			return ..()
 		add_fingerprint(user)
