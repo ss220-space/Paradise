@@ -206,7 +206,7 @@
 	if(borer_rank?.required_reproductions && reproductions >= borer_rank.required_reproductions)
 		reproductions -= borer_rank.required_reproductions
 		if(host && borer_rank.update_rank())
-			to_chat(host, span_notice("Вы стали древнее. Ваш текущий ранг - [borer_rank.rankname]."))
+			to_chat(host, span_notice("Вы эволюционировали. Ваш текущий ранг - [borer_rank.rankname]."))
 	return
 
 /mob/living/simple_animal/borer/verb/toggle_silence_inside_host()

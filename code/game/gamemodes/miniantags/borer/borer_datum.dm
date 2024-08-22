@@ -47,7 +47,7 @@
 	borer_rank = user.borer_rank
 	host = user.host
 	previous_host = host
-	scaling.parent = src
+	scaling?.parent = src
 	borer_rank.parent = src
 	for(var/datum in subtypesof(learned_focuses))
 		var/datum/borer_focus/focus = datum
@@ -87,7 +87,7 @@
 			focus.movable_granted = TRUE
 			focus.grant_movable_effect()
 
-	scaling.grant_movable_effect()
+	scaling?.grant_movable_effect()
 	
 	return
 
