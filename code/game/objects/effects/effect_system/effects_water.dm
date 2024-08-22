@@ -50,7 +50,6 @@
 		reagents.reaction(thing)
 		if(should_extinguish && isliving(thing))
 			var/mob/living/mob = thing
-			to_chat(mob, "Extinguish")
 			mob.ExtinguishMob()
 	reagents.reaction(turf)
 
