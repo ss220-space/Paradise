@@ -87,9 +87,7 @@
 			focus.movable_granted = TRUE
 			focus.grant_movable_effect()
 
-	if(!scaling.movable_granted)
-		scaling.movable_granted = TRUE
-		scaling.grant_movable_effect()
+	scaling.grant_movable_effect()
 	
 	return
 
