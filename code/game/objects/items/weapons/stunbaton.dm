@@ -68,6 +68,7 @@
 		cell = robot.cell
 	else if(ispath(cell))
 		cell = new cell(src)
+	update_appearance(UPDATE_ICON_STATE)
 
 
 /obj/item/melee/baton/security/update_icon_state()
