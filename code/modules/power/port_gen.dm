@@ -318,7 +318,12 @@
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
 	set_anchored(!anchored)
-	to_chat(user, span_notice("You have [anchored ? "secured [src] to the floor" : "unsecured [src] from the floor"]."))
+	if(anchored)
+		to_chat(user, span_notice("You have secured [src] to the floor."))
+		connect_to_network()
+	else
+		to_chat(user, span_notice("You have unsecured [src] from the floor."))
+		disconnect_from_network()
 
 
 /obj/machinery/power/port_gen/pacman/crowbar_act(mob/living/user, obj/item/I)
