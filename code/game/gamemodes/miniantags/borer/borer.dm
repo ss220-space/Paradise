@@ -371,6 +371,40 @@
 
 	to_chat(user, span_boldnotice("Вы можете анализировать здоровье носителя при помощи Left-click."))
 
+/obj/effect/proc_holder/spell/borer_force_say
+	name = "Speak as host"
+	desc = "Force your host to say something."
+	base_cooldown = 15
+	clothes_req = FALSE
+	action_background_icon_state = "bg_alien"
+	action_icon_state = "god_transmit"
+	need_active_overlay = TRUE
+	human_req = FALSE
+	var/evo_cost = 0.4
+
+/obj/effect/proc_holder/spell/borer_force_say/create_new_targeting()
+	return /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/borer_force_say/can_cast(mob/living/simple_animal/borer/user, charge_check = TRUE, show_message = FALSE)
+	if (!src || user.stat || !user.host || user.host.stat)
+		return FALSE
+	. = ..()
+
+/obj/effect/proc_holder/spell/borer_force_say/cast(list/targets, mob/living/simple_animal/borer/user)
+	if(user.evo_points < evo_cost)
+		to_chat(user, "Вам требуется еще [evo_cost - user.evo_points] очков эволюции для подчинения голосовых связок хозяина.")
+		return 
+		
+	var/force_say_content = tgui_input_text(user, "Content:", "Host forcesay")
+
+	if(!force_say_content)
+		return
+
+	if(!user.controlling && !user.stat && user.host && !user.host.stat && user.evo_points >= evo_cost) // we really need that double check
+		user.host.say(force_say_content)
+		user.evo_points -= evo_cost
+		add_attack_logs(user, user.host, "Forcesaid: [force_say_content]")
+
 /mob/living/simple_animal/borer/verb/secrete_chemicals()
 	set category = "Borer"
 	set name = "Secrete Chemicals"
@@ -881,12 +915,14 @@
 	leave_body_action.Grant(src)
 	take_control_action.Grant(src)
 	make_chems_action.Grant(src)
+	mind?.AddSpell(new /obj/effect/proc_holder/spell/borer_force_say)
 
 /mob/living/simple_animal/borer/proc/RemoveInfestActions()
 	talk_to_host_action.Remove(src)
 	take_control_action.Remove(src)
 	leave_body_action.Remove(src)
 	make_chems_action.Remove(src)
+	mind?.RemoveSpell(/obj/effect/proc_holder/spell/borer_force_say)
 
 /mob/living/simple_animal/borer/proc/GrantControlActions()
 	talk_to_brain_action.Grant(host)
