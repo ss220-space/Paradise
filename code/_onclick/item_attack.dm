@@ -135,8 +135,7 @@
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
 	if(attempt_harvest(I, user))
-		. |= ATTACK_CHAIN_BLOCKED_ALL
-		return .
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 	user.changeNext_move(I.attack_speed)
 	. |= I.attack(src, user, params, user.zone_selected)
 
