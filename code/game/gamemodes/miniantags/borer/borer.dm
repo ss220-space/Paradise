@@ -380,7 +380,7 @@
 	action_icon_state = "god_transmit"
 	need_active_overlay = TRUE
 	human_req = FALSE
-	var/evo_cost = 0.4
+	var/evo_cost = 0.3
 
 /obj/effect/proc_holder/spell/borer_force_say/create_new_targeting()
 	return /datum/spell_targeting/self
