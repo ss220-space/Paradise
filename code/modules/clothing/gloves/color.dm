@@ -72,14 +72,14 @@
 	toolspeedmod = 0.2
 
 /obj/item/clothing/gloves/color/fyellow/equipped(mob/living/carbon/human/user, slot)
-	if(src == ITEM_SLOT_GLOVES)
-		ADD_TRAIT(user, TRAIT_CHUNKYFINGERS, UNIQUE_TRAIT_SOURCE(src))
 	.=..()
+	if(. && slot == ITEM_SLOT_GLOVES)
+		ADD_TRAIT(user, TRAIT_CHUNKYFINGERS, UNIQUE_TRAIT_SOURCE(src))
 
 /obj/item/clothing/gloves/color/fyellow/dropped(mob/living/carbon/human/user, slot)
-	if(src != ITEM_SLOT_GLOVES)
-		REMOVE_TRAIT(user, TRAIT_CHUNKYFINGERS, UNIQUE_TRAIT_SOURCE(src))
 	.=..()
+	if(. && slot != ITEM_SLOT_GLOVES)
+		REMOVE_TRAIT(user, TRAIT_CHUNKYFINGERS, UNIQUE_TRAIT_SOURCE(src))
 
 /obj/item/clothing/gloves/color/fyellow/old
 	desc = "Old and worn out insulated gloves, hopefully they still work."
