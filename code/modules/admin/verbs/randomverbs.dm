@@ -667,7 +667,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 /client/proc/cmd_admin_delete(atom/A as obj|mob|turf in view(maxview()))
 	set name = "\[Admin\] Delete"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN|R_PEPELOPMENT))
 		return
 
 	admin_delete(A)
@@ -800,7 +800,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 /client/proc/cmd_admin_check_contents(mob/living/M as mob in GLOB.mob_list)
 	set name = "\[Admin\] Check Contents"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN|R_PEPELOPMENT))
 		return
 
 	var/list/L = M.get_contents()
@@ -814,7 +814,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set name = "Change View Range"
 	set desc = "switches between 1x and custom views"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN|R_PEPELOPMENT))
 		return
 
 	var/client_view = prefs.viewrange

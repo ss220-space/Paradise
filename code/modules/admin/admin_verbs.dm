@@ -227,6 +227,18 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/ss_breakdown,
 	/client/proc/debug_variables,
 ))
+GLOBAL_LIST_INIT(pepelopment_verbs, list(
+	/client/proc/toggle_view_range,			/*changes how far we can see*/
+	/client/proc/cmd_admin_check_contents,	/*displays the contents of an instance*/
+	/client/proc/cmd_admin_delete,			/*delete an instance/object/mob/etc*/
+	/client/proc/admin_ghost,				/*allows us to ghost/reenter body at will*/
+	/client/proc/jumptomob,					/*allows us to jump to a specific mob*/
+	/client/proc/jumptoturf,				/*allows us to jump to a specific turf*/
+	/client/proc/jump_to,					/*Opens a menu for jumping to an Area, Mob, Key or Coordinate*/
+	/client/proc/start_vote,
+	/client/proc/freeze,
+	/client/proc/cmd_admin_dress, 			/*For fast testes*/
+))
 
 /client/proc/add_admin_verbs()
 	if(holder)

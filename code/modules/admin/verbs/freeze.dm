@@ -11,7 +11,7 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 /client/proc/freeze(atom/movable/M in view(maxview()))
 	set name = "\[Admin\] Freeze"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN|R_PEPELOPMENT))
 		return
 
 	M.admin_Freeze(src)

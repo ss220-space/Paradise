@@ -66,7 +66,7 @@
 /datum/keybinding/client/communication/devsay
 	name = DEV_CHANNEL
 	keys = list("ShiftF4")
-	required_rights = R_VIEWRUNTIMES
+	required_rights = R_DEV
 
 /datum/keybinding/client/communication/asay
 	name = ADMIN_CHANNEL

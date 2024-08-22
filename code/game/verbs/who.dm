@@ -117,7 +117,7 @@
 					modmsg += " (АФК)"
 				modmsg += "\n"
 				num_mods_online++
-			else if(check_rights(R_DEBUG, 0, C.mob))
+			else if(check_rights(R_DEV, 0, C.mob))
 				devmsg += "\[[C.holder.rank]\]  [C]\n"
 	else
 		for(var/client/C in GLOB.admins)
@@ -128,7 +128,7 @@
 			else if(check_rights(R_MOD|R_MENTOR, 0, C.mob) && !check_rights(R_ADMIN, 0, C.mob))
 				modmsg += "\[[C.holder.rank]\]  [C]\n"
 				num_mods_online++
-			else if(check_rights(R_DEBUG, 0, C.mob) && !check_rights(R_ADMIN, 0, C.mob))
+			else if(check_rights(R_DEV, 0, C.mob) && !check_rights(R_ADMIN, 0, C.mob))
 				devmsg += "\[[C.holder.rank]\]  [C]\n"
 
 	var/noadmins_info = "\n<span class='notice'><small>Если никого из админсостава нет онлайн, все равно создавайте тикеты. Админхэлпы и менторхэлпы будут перенаправлены в дискорд!<small></span>"

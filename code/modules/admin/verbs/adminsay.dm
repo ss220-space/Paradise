@@ -66,7 +66,7 @@
 	set name = "Devsay"
 	set hidden = 1
 
-	if(!check_rights(R_VIEWRUNTIMES))
+	if(!check_rights(R_DEV))
 		return
 
 	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
@@ -78,7 +78,7 @@
 	msg = handleDiscordEmojis(msg)
 
 	for(var/client/C in GLOB.admins)
-		if(check_rights(R_VIEWRUNTIMES, 0, C.mob))
+		if(check_rights(R_DEV, 0, C.mob))
 			var/display_name = key
 			if(holder.fakekey)
 				if(check_rights(R_ADMIN, 0, C.mob))

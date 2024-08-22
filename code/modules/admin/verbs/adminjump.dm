@@ -4,7 +4,7 @@
 	set category = "Admin"
 	var/list/choices = list("Area", "Mob", "Key", "Coordinates")
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN|R_PEPELOPMENT))
 		return
 
 	var/chosen = tgui_input_list(src, "What to jump to?", "Jump to...", choices)
@@ -38,7 +38,7 @@
 			return jumptocoord(x, y, z)
 
 /client/proc/jumptoarea(area/A)
-	if(!A || !check_rights(R_ADMIN))
+	if(!A || !check_rights(R_ADMIN|R_PEPELOPMENT))
 		return
 
 	var/list/turfs = list()
@@ -67,7 +67,7 @@
 /client/proc/jumptoturf(turf/T in world)
 	set name = "\[Admin\] Jump to Turf"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN|R_PEPELOPMENT))
 		return
 
 	if(isobj(usr.loc))
@@ -82,7 +82,7 @@
 
 /client/proc/jumptomob(mob/M)
 	set name = "\[Admin\] Jump to Mob"
-	if(!M || !check_rights(R_ADMIN))
+	if(!M || !check_rights(R_ADMIN|R_PEPELOPMENT))
 		return
 
 	log_admin("[key_name(usr)] jumped to [key_name(M)]")

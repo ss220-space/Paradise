@@ -18,7 +18,7 @@
 	set name = "Start Vote"
 	set desc = "Start a vote on the server"
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN|R_PEPELOPMENT))
 		return
 
 

@@ -16,11 +16,11 @@
 # +DEBUG = debug tools used for diagnosing and fixing problems. It's useful to give this to coders so they can investigate problems on a live server.
 # +POSSESS = the ability to possess objects
 # +PERMISSIONS (or +RIGHTS) = allows you to promote and/or demote people.
-# +STEALTH = the ability to stealthmin (make yourself appear with a fake name to everyone but other admins
+# +STEALTH = the ability to stealthmin (make yourself appear with a fake name to everyone but other admins)
 # +REJUVINATE (or +REJUV) = the ability to heal, respawn, modify damage and use godmode
 # +VAREDIT = everyone may view viewvars/debugvars/whatever you call it. This keyword allows you to actually EDIT those variables.
 # +SOUND (or +SOUNDS) = allows you to upload and play sounds
-# +SPAWN (or +CREATE) = mob transformations, spawning of most atoms including mobs (high-risk atoms, e.g.
+# +SPAWN (or +CREATE) = mob transformations, spawning of most atoms including mobs (high-risk atoms, e.g.)
 # +PROCCALL = allows you to call procs
 # +MODERATOR = the ability to view notes and bans, and regulate the game.
 # +MENTOR = Access only to the Question's Ahelp and has little way of metagaming the game.
@@ -38,6 +38,6 @@
 Хост                             +EVERYTHING
 
 # Coder Ranks
-Разработчик                      +VIEWRUNTIMES
-Контрибьютор                     +REJUVINATE +VAREDIT +DEBUG +SPAWN + PROCCALL +VIEWRUNTIMES
+Разработчик                      +VIEWRUNTIMES +DEV
+Контрибьютор                     +REJUVINATE +VAREDIT +DEBUG +SPAWN + PROCCALL +VIEWRUNTIMES +POSSESS +DEV +PEPELOPMENT
 Ведущий Разработчик              +BUILDMODE +ADMIN +BAN +EVENT +SERVER +DEBUG +POSSESS +STEALTH +REJUVINATE +VAREDIT +SOUND +SPAWN +PROCCALL +MODERATOR +MENTOR +VIEWRUNTIMES

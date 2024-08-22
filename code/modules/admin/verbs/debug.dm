@@ -593,7 +593,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 /client/proc/cmd_admin_dress(mob/living/carbon/human/M in GLOB.human_list)
 	set name = "\[Admin\] Select equipment"
 
-	if(!check_rights(R_EVENT))
+	if(!check_rights(R_EVENT|R_PEPELOPMENT))
 		return
 
 	if(!ishuman(M) && !isobserver(M))

@@ -46,6 +46,8 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 				if("mentor")					rights |= R_MENTOR
 				if("proccall")					rights |= R_PROCCALL
 				if("viewruntimes")				rights |= R_VIEWRUNTIMES
+				if("dev")						rights |= R_DEV
+				if("pepelopment")				rights |= R_PEPELOPMENT
 
 		GLOB.admin_ranks[rank] = rights
 		previous_rights = rights
