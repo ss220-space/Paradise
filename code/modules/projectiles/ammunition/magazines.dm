@@ -656,14 +656,15 @@
 /obj/item/ammo_box/magazine/lr30mag
 	name = "small encased laser projector magazine"
 	desc = "Fits experimental laser ammo casings."
-	icon_state = "lmag-12"
+	icon_state = "lmag"
 	ammo_type = /obj/item/ammo_casing/laser
 	origin_tech = "combat=3"
 	caliber = "laser"
 	max_ammo = 20
 
+
 /obj/item/ammo_box/magazine/lr30mag/update_icon_state()
-	icon_state = "lmag-[round(ammo_count(),3)]"
+	icon_state = "lmag-[CEILING(ammo_count(), 5)]"
 
 
 /obj/item/ammo_box/magazine/toy/smgm45/riot
