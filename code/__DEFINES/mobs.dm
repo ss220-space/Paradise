@@ -329,8 +329,6 @@
 
 #define hasorgans(A)	(iscarbon(A))
 
-#define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
-
 #define SLEEP_CHECK_DEATH(A, X) \
 	sleep(X); \
 	if(QDELETED(A)) return; \

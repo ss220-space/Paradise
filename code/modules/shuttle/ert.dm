@@ -9,7 +9,7 @@
 /obj/machinery/computer/shuttle/ert/can_call_shuttle(mob/user, action)
 	if(action == "move")
 		var/authorized_roles = list(SPECIAL_ROLE_ERT, SPECIAL_ROLE_DEATHSQUAD)
-		if(!((user.mind?.assigned_role in authorized_roles) || is_admin(user)))
+		if(!((user.mind?.assigned_role in authorized_roles) || check_rights(R_ADMIN, FALSE, user)))
 			message_admins("Potential ERT shuttle hijack, ERT shuttle moved by unauthorized user: [key_name_admin(user)]")
 	return TRUE
 

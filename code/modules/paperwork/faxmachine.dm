@@ -170,7 +170,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		return
 
 	// Do not let click buttons if you're ghost unless you're an admin.
-	if (isobserver(usr) && !is_admin(usr))
+	if (isobserver(usr) && !check_rights(R_ADMIN, FALSE))
 		return FALSE
 
 	var/is_authenticated = is_authenticated(usr)

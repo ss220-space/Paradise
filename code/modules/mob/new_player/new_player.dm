@@ -273,7 +273,7 @@
 			return
 
 		//Prevents people rejoining as same character.
-		if(!is_admin(usr)) //Админам можно всё
+		if(!check_rights(R_ADMIN, FALSE))
 			for(var/C in GLOB.human_names_list)
 				var/char_name = client.prefs.real_name
 				if(char_name == C)

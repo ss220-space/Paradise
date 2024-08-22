@@ -78,7 +78,7 @@
 		attack_atom.attack_ghost(user)
 
 /obj/structure/ghost_beacon/attack_hand(mob/user)
-	if(!is_admin(user))
+	if(!check_rights(R_ADMIN, FALSE, user))
 		return
 	to_chat(user, "<span class='notice'>You [active ? "disable" : "enable"] \the [src].</span>")
 	if(active)

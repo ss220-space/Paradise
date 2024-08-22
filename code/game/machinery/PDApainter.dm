@@ -126,7 +126,7 @@
 
 	// Do not let click buttons if you're ghost unless you're an admin.
 	// TODO: To parent class or separate helper method?
-	if (isobserver(usr) && !is_admin(usr))
+	if (isobserver(usr) && !check_rights(R_ADMIN, FALSE))
 		return FALSE
 
 	ui_interact(user)

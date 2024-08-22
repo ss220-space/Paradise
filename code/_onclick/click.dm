@@ -73,7 +73,7 @@
 	var/dragged = modifiers["drag"]
 	if(dragged && !modifiers[dragged])
 		return
-	if(IsFrozen(A) && !is_admin(usr))
+	if(IsFrozen(A) && !check_rights(R_ADMIN, FALSE))
 		to_chat(usr, span_boldannounceooc("Interacting with admin-frozen players is not permitted."))
 		return
 	if(modifiers["middle"] && modifiers["shift"] && modifiers["ctrl"])

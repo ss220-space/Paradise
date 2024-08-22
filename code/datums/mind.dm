@@ -864,7 +864,7 @@
 /datum/mind/Topic(href, href_list)
 	//проверяем на амбиции, после чего прерываем выполнение, иначе он залезет в админский антаг-панель
 	var/ambition_func = ambition_topic(href, href_list)
-	if (ambition_func)
+	if(ambition_func)
 		return
 
 	if(!check_rights(R_ADMIN))

@@ -53,7 +53,7 @@
 				owner.laws.set_state_law(AL, state_law)
 
 		if("add_zeroth_law")
-			if(zeroth_law && is_admin(usr) && !owner.laws.zeroth_law)
+			if(zeroth_law && check_rights(R_ADMIN, FALSE) && !owner.laws.zeroth_law)
 				owner.set_zeroth_law(zeroth_law)
 				SSticker?.score?.save_silicon_laws(owner, usr, "admin used law manager, new zero law was added '[zeroth_law]'")
 
@@ -128,13 +128,13 @@
 			owner.statelaws(owner.laws)
 
 		if("state_law_set")
-			var/datum/ai_laws/ALs = locate(params["state_law_set"]) in (is_admin(usr) ? admin_laws : player_laws)
+			var/datum/ai_laws/ALs = locate(params["state_law_set"]) in (check_rights(R_ADMIN, FALSE) ? admin_laws : player_laws)
 			if(ALs)
 				owner.statelaws(ALs)
 
 		if("transfer_laws")
 			if(is_malf(usr))
-				var/datum/ai_laws/ALs = locate(params["transfer_laws"]) in (is_admin(usr) ? admin_laws : player_laws)
+				var/datum/ai_laws/ALs = locate(params["transfer_laws"]) in (check_rights(R_ADMIN, FALSE) ? admin_laws : player_laws)
 				if(ALs)
 					log_and_message_admins("has transfered the [ALs.name] laws to [owner].")
 					ALs.sync(owner, 0, TRUE)
@@ -184,7 +184,7 @@
 	data["isAI"] = isAI(owner)
 	data["isMalf"] = is_malf(user)
 	data["isSlaved"] = owner.is_slaved()
-	data["isAdmin"] = is_admin(user)
+	data["isAdmin"] = check_rights(R_ADMIN, FALSE, user)
 	data["view"] = current_view
 
 	var/list/channels = list()
@@ -216,7 +216,7 @@
 	return law_sets
 
 /datum/ui_module/law_manager/proc/is_malf(var/mob/user)
-	if(is_admin(user) && !owner.is_slaved())
+	if(check_rights(R_ADMIN, FALSE, user) && !owner.is_slaved())
 		return TRUE
 	if(isAI(owner))
 		var/mob/living/silicon/ai/malf = owner

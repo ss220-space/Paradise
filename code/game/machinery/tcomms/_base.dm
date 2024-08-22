@@ -337,7 +337,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 
 	  /* --- Loop through the receivers and categorize them --- */
 
-		if(is_admin(R) && !R.get_preference(PREFTOGGLE_CHAT_RADIO)) //Adminning with 80 people on can be fun when you're trying to talk and all you can hear is radios.
+		if(check_rights(R_ADMIN, FALSE, R) && !R.get_preference(PREFTOGGLE_CHAT_RADIO)) //Adminning with 80 people on can be fun when you're trying to talk and all you can hear is radios.
 			continue
 
 		if(isnewplayer(R)) // we don't want new players to hear messages. rare but generates runtimes.

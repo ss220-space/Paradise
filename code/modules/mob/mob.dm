@@ -551,7 +551,7 @@
 		return FALSE
 	if(isliving(user) && user.mob_size <= MOB_SIZE_SMALL)
 		return FALSE // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
-	if(IsFrozen(src) && !is_admin(user))
+	if(IsFrozen(src) && !check_rights(R_ADMIN, FALSE, user))
 		to_chat(usr, span_boldnotice("Interacting with admin-frozen players is not permitted."))
 		return FALSE
 	if(isLivingSSD(src) && user.client?.send_ssd_warning(src))
