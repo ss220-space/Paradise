@@ -1037,8 +1037,5 @@
  */
 /obj/item/robot_module/proc/update_cells(unlink_cell = FALSE)
 	for(var/obj/item/melee/baton/security/baton in modules)
-		if(istype(baton))
-			baton?.link_new_cell(unlink_cell)
-			baton?.update_appearance(UPDATE_OVERLAYS | UPDATE_ICON | UPDATE_DESC)
-	return
+		baton.link_new_cell(unlink_cell)
 
