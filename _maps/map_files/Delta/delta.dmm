@@ -74314,9 +74314,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/arcade/minesweeper{
-	freeplay = 1
-	},
+/obj/machinery/arcade/minesweeper,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
 "mlG" = (

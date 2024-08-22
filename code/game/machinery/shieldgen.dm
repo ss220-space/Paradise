@@ -270,7 +270,7 @@
 		update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(I.GetID())
+	if(I.GetID() || is_pda(I))
 		add_fingerprint(user)
 		if(!allowed(user))
 			to_chat(user, span_warning("Access denied."))
@@ -493,7 +493,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(I.GetID())
+	if(I.GetID() || is_pda(I))
 		add_fingerprint(user)
 		if(!allowed(user))
 			to_chat(user, span_warning("Access denied."))

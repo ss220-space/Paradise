@@ -36,6 +36,17 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/pizza_bomb
+	name = "Pizza Bomb"
+	result = /obj/item/pizza_bomb
+	reqs = list(/obj/item/stack/cable_coil = 30,
+				/obj/item/assembly/timer = 1,
+				/obj/item/bombcore/chemical =  1,
+				/obj/item/pizzabox = 1)
+	time = 6
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
 /datum/crafting_recipe/molotov
 	name = "Molotov"
 	result = /obj/item/reagent_containers/food/drinks/bottle/molotov
