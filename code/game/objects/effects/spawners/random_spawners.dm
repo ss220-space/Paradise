@@ -13,19 +13,19 @@
 	var/active_power_usage = null // Сколько энергии оно тратит если активно
 	var/idle_power_usage = null // Сколько энергии оно тратит в пассивном режиме
 
-// This needs to use New() instead of Initialize() because the thing it creates might need to be initialized too
-/obj/effect/spawner/random_spawners/New()
-	. = ..()
+/obj/effect/spawner/random_spawners/Initialize(mapload)
+	. = ..()	
 	var/turf/T = get_turf(src)
 	if(!T)
 		log_runtime(EXCEPTION("Spawner placed in nullspace!"), src)
 		return
 	randspawn(T)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/random_spawners/proc/randspawn(turf/T)
 	var/thing_to_place = pickweight(result)
 	if(ispath(thing_to_place, /datum/nothing))
-		// Nothing.
+		return
 	else if(ispath(thing_to_place, /turf))
 		T.ChangeTurf(thing_to_place)
 	else
@@ -50,7 +50,6 @@
 					OM.active_power_usage = active_power_usage
 				if(idle_power_usage)
 					OM.idle_power_usage = idle_power_usage
-	qdel(src)
 
 /obj/effect/spawner/random_spawners/blood_5
 	name = "blood maybe"

@@ -150,25 +150,29 @@
 	origin_tech = "materials=1;engineering=1"
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
 
-/obj/item/clothing/mask/muzzle/safety/shock/attackby(obj/item/W, mob/user, params)
-	if(issignaler(W) || istype(W, /obj/item/assembly/voice))
-		if(issignaler(trigger) || istype(trigger, /obj/item/assembly/voice))
-			to_chat(user, "<span class='notice'>Something is already attached to [src].</span>")
-			return FALSE
-		if(!user.drop_transfer_item_to_loc(W, src))
-			to_chat(user, "<span class='warning'>You are unable to insert [W] into [src].</span>")
-			return FALSE
-		trigger = W
+
+/obj/item/clothing/mask/muzzle/safety/shock/attackby(obj/item/I, mob/user, params)
+	if(issignaler(I) || istype(I, /obj/item/assembly/voice))
+		add_fingerprint(user)
+		if(trigger)
+			to_chat(user, span_warning("The [name] already has [trigger] attached."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		trigger = I
 		trigger.master = src
 		trigger.holder = src
 		AddComponent(/datum/component/proximity_monitor)
-		to_chat(user, "<span class='notice'>You attach the [W] to [src].</span>")
-		return TRUE
-	else if(isassembly(W))
-		to_chat(user, "<span class='notice'>That won't fit in [src]. Perhaps a signaler or voice analyzer would?</span>")
-		return FALSE
+		to_chat(user, span_notice("You have attached [I] to [src]."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(isassembly(I))
+		add_fingerprint(user)
+		to_chat(user, span_notice("The [I.name] will not fit in [src]. Perhaps a signaler or voice analyzer would?"))
+		return ATTACK_CHAIN_PROCEED
 
 	return ..()
+
 
 /obj/item/clothing/mask/muzzle/safety/shock/screwdriver_act(mob/user, obj/item/I)
 	if(!trigger)

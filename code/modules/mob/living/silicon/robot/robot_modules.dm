@@ -297,7 +297,7 @@
 /obj/item/robot_module/engineering
 	name = "Engineering"
 	module_type = "Engineer"
-	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor)
+	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor, /mob/living/silicon/proc/subsystem_blueprints)
 	module_actions = list(
 		/datum/action/innate/robot_sight/meson,
 	)
@@ -333,7 +333,6 @@
 	modules += new /obj/item/gripper(src)
 	modules += new /obj/item/matter_decompiler(src)
 	modules += new /obj/item/floor_painter(src)
-	modules += new /obj/item/areaeditor/blueprints/cyborg(src)
 	modules += new /obj/item/stack/sheet/metal/cyborg(src)
 	modules += new /obj/item/stack/sheet/glass/cyborg(src)
 	modules += new /obj/item/stack/sheet/rglass/cyborg(src)
@@ -966,11 +965,14 @@
 //checks whether this item is a module of the robot it is located in.
 /obj/item/proc/is_robot_module()
 	if(!istype(loc, /mob/living/silicon/robot))
-		return 0
+		return FALSE
 
-	var/mob/living/silicon/robot/R = loc
+	var/mob/living/silicon/robot/robot = loc
+	if(!robot.module)
+		return FALSE
 
-	return (src in R.module.modules)
+	return (src in robot.module.modules)
+
 
 /datum/robot_energy_storage
 	var/name = "Generic energy storage"

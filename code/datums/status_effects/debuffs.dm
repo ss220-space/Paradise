@@ -177,7 +177,7 @@
 	return ..()
 
 /datum/status_effect/bluespace_slowdown/on_remove()
-	owner.next_move_modifier /= 2
+	owner.next_move_modifier *= 0.5
 
 
 /**
@@ -294,11 +294,11 @@
 			if(force_left > force_right)
 				if(!owner.hand)
 					owner.swap_hand()
-				left_hand.attack(target, owner, BODY_ZONE_HEAD)	// yes! right in the neck
+				left_hand.attack(target, owner, def_zone = BODY_ZONE_HEAD)	// yes! right in the neck
 			else if(force_right)
 				if(owner.hand)
 					owner.swap_hand()
-				right_hand.attack(target, owner, BODY_ZONE_HEAD)
+				right_hand.attack(target, owner, def_zone = BODY_ZONE_HEAD)
 			return
 
 		// here goes nothing!
@@ -309,7 +309,7 @@
 			if(owner.hand && owner.l_hand != found_gun)
 				owner.swap_hand()
 			found_gun.process_fire(target, owner, zone_override = BODY_ZONE_HEAD)	// hell yeah! few headshots for mr. vampire!
-			found_gun.attack(owner, owner, BODY_ZONE_HEAD)	// attack ourselves also in case gun has no ammo
+			found_gun.attack(owner, owner, def_zone = BODY_ZONE_HEAD)	// attack ourselves also in case gun has no ammo
 
 
 // start of `living` level status procs.

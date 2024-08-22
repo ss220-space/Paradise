@@ -36,274 +36,297 @@
 	if(temp_check >= GIRDER_MELTING_TEMP)
 		take_damage(10)
 
-/obj/structure/girder/attackby(obj/item/W, mob/user, params)
-	add_fingerprint(user)
-	if(istype(W, /obj/item/gun/energy/plasmacutter))
-		to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
-		if(do_after(user, 4 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
-			if(!src)
-				return
-			playsound(loc, W.usesound, 100, 1)
-			to_chat(user, "<span class='notice'>You slice apart the girder.</span>")
-			refundMetal(metalUsed)
-			qdel(src)
 
-	else if(istype(W, /obj/item/pickaxe/drill/diamonddrill))
-		to_chat(user, "<span class='notice'>You drill through the girder!</span>")
-		refundMetal(metalUsed)
-		qdel(src)
-
-	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
-		playsound(loc, W.usesound, 100, 1)
-		to_chat(user, "<span class='notice'>You disintegrate the girder!</span>")
-		refundMetal(metalUsed)
-		qdel(src)
-
-	else if(istype(W, /obj/item/twohanded/required/pyro_claws))
-		playsound(loc, W.usesound, 100, 1)
-		to_chat(user, "<span class='notice'>You melt the girder!</span>")
-		refundMetal(metalUsed)
-		qdel(src)
-
-	else if(isstack(W))
-		if(iswallturf(loc))
-			to_chat(user, "<span class='warning'>There is already a wall present!</span>")
-			return
-		if(!isfloorturf(loc))
-			to_chat(user, "<span class='warning'>A floor must be present to build a false wall!</span>")
-			return
-		if(locate(/obj/structure/clockwork) in loc.contents)
-			to_chat(user, "<span class='warning'>There is a structure here!</span>")
-			return
-		if (locate(/obj/structure/falsewall) in loc.contents)
-			to_chat(user, "<span class='warning'>There is already a false wall present!</span>")
-			return
-		if(istype(W, /obj/item/stack/sheet/runed_metal))
-			to_chat(user, "<span class='warning'>You can't seem to make the metal bend.</span>")
-			return
-
-		if(istype(W,/obj/item/stack/rods))
-			var/obj/item/stack/rods/S = W
-			if(state == GIRDER_DISPLACED)
-				if(S.get_amount() < 5)
-					to_chat(user, "<span class='warning'>You need at least five rods to create a false wall!</span>")
-					return
-				to_chat(user, "<span class='notice'>You start building a reinforced false wall...</span>")
-				if(do_after(user, 2 SECONDS, src))
-					if(!loc || !S || S.get_amount() < 5)
-						return
-					S.use(5)
-					to_chat(user, "<span class='notice'>You create a false wall. Push on it to open or close the passage.</span>")
-					var/obj/structure/falsewall/iron/FW = new (loc)
-					transfer_fingerprints_to(FW)
-					qdel(src)
-			else
-				if(S.get_amount() < 5)
-					to_chat(user, "<span class='warning'>You need at least five rods to add plating!</span>")
-					return
-				to_chat(user, "<span class='notice'>You start adding plating...</span>")
-				if (do_after(user, 4 SECONDS, src))
-					if(!loc || !S || S.get_amount() < 5)
-						return
-					S.use(5)
-					to_chat(user, "<span class='notice'>You add the plating.</span>")
-					var/turf/T = get_turf(src)
-					T.ChangeTurf(/turf/simulated/wall/mineral/iron)
-					transfer_fingerprints_to(T)
-					qdel(src)
-				return
-
-		if(istype(W, /obj/item/stack/ore/glass/basalt))
-			var/obj/item/stack/ore/glass/basalt/A = W
-			if(state == GIRDER_DISPLACED)
-				if(A.get_amount() < 2)
-					to_chat(user, "<span class='warning'>You need at least two [A] to create a false wall!</span>")
-					return
-				if(do_after(user, 2 SECONDS, src))
-					if(!loc || !A || A.get_amount() < 2)
-						return
-					A.use(2)
-					to_chat(user, "<span class='notice'>You create a false wall. Push on it to open or close the passage.</span>")
-					var/obj/structure/falsewall/mineral_ancient/FW = new (loc)
-					transfer_fingerprints_to(FW)
-					qdel(src)
-			else
-				if(A.get_amount() < 2)
-					to_chat(user, "<span class='warning'>You need at least two [A] to add plating!</span>")
-					return
-				to_chat(user, "<span class='notice'>You start adding [A]...</span>")
-				if(do_after(user, 4 SECONDS, src))
-					if(!src || !A || A.get_amount() < 2)
-						return
-					A.use(2)
-					to_chat(user, "<span class='notice'>You add [A].</span>")
-					var/turf/parent_turf = get_turf(src)
-					parent_turf.ChangeTurf(/turf/simulated/mineral/ancient)
-					for(var/turf/simulated/mineral/X in parent_turf.loc)
-						X.add_hiddenprint(usr)
-					qdel(src)
-				return
-
-		if(!istype(W,/obj/item/stack/sheet))
-			return
-
-		var/obj/item/stack/sheet/S = W
-		if(!S.wall_allowed)
-			to_chat(user, "<span class='warning'>You don't think that is good material for a wall!</span>")
-			return
-
-		if(istype(S, /obj/item/stack/sheet/wood))
-			if(state == GIRDER_DISPLACED)
-				if(S.get_amount() < 2)
-					to_chat(user, "<span class='warning'>You need two planks of wood to create a false wall!</span>")
-					return
-				to_chat(user, "<span class='notice'>You start building a false wall...</span>")
-				if(do_after(user, 2 SECONDS, src))
-					if(!loc || !S || S.get_amount() < 2)
-						return
-					S.use(2)
-					to_chat(user, "<span class='notice'>You create a false wall. Push on it to open or close the passage.</span>")
-					var/obj/structure/falsewall/wood/falsewood = new(loc)
-					transfer_fingerprints_to(falsewood)
-					qdel(src)
-			else
-				if(S.get_amount() < 2)
-					to_chat(user, "<span class='warning'>You need two planks of wood to finish a wall!</span>")
-					return
-				to_chat(user, "<span class='notice'>You start adding plating...</span>")
-				if(do_after(user, 4 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
-					if(!src || !S || S.get_amount() < 2)
-						return
-					S.use(2)
-					to_chat(user, "<span class='notice'>You add the plating.</span>")
-					var/turf/Tsrc = get_turf(src)
-					Tsrc.ChangeTurf(/turf/simulated/wall/mineral/wood)
-					for(var/turf/simulated/wall/mineral/wood/X in Tsrc.loc)
-						if(X)
-							X.add_hiddenprint(usr)
-					qdel(src)
-				return
-
-		else if(istype(S, /obj/item/stack/sheet/metal))
-			if(state == GIRDER_DISPLACED)
-				if(S.get_amount() < 2)
-					to_chat(user, "<span class='warning'>You need two sheets of metal to create a false wall!</span>")
-					return
-				to_chat(user, "<span class='notice'>You start building a false wall...</span>")
-				if(do_after(user, 2 SECONDS, src))
-					if(!loc || !S || S.get_amount() < 2)
-						return
-					S.use(2)
-					to_chat(user, "<span class='notice'>You create a false wall. Push on it to open or close the passage.</span>")
-					var/obj/structure/falsewall/F = new(loc)
-					transfer_fingerprints_to(F)
-					qdel(src)
-			else
-				if(S.get_amount() < 2)
-					to_chat(user, "<span class='warning'>You need two sheets of metal to finish a wall!</span>")
-					return
-				to_chat(user, "<span class='notice'>You start adding plating...</span>")
-				if(do_after(user, 4 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
-					if(!src || !S || S.get_amount() < 2)
-						return
-					S.use(2)
-					to_chat(user, "<span class='notice'>You add the plating.</span>")
-					var/turf/Tsrc = get_turf(src)
-					Tsrc.ChangeTurf(/turf/simulated/wall)
-					for(var/turf/simulated/wall/X in Tsrc.loc)
-						if(X)
-							X.add_hiddenprint(usr)
-					qdel(src)
-				return
-
-		if(istype(S, /obj/item/stack/sheet/plasteel))
-			if(state == GIRDER_DISPLACED)
-				if(S.get_amount() < 2)
-					to_chat(user, "<span class='warning'>You need at least two sheets to create a false wall!</span>")
-					return
-				to_chat(user, "<span class='notice'>You start building a reinforced false wall...</span>")
-				if(do_after(user, 2 SECONDS, src))
-					if(!loc || !S || S.get_amount() < 2)
-						return
-					S.use(2)
-					to_chat(user, "<span class='notice'>You create a reinforced false wall. Push on it to open or close the passage.</span>")
-					var/obj/structure/falsewall/reinforced/FW = new (loc)
-					transfer_fingerprints_to(FW)
-					qdel(src)
-			else
-				if(state == GIRDER_REINF)
-					if(S.get_amount() < 1)
-						return
-					to_chat(user, "<span class='notice'>You start finalizing the reinforced wall...</span>")
-					if(do_after(user, 5 SECONDS, src))
-						if(!src || !S || S.get_amount() < 1)
-							return
-						S.use(1)
-						to_chat(user, "<span class='notice'>You fully reinforce the wall.</span>")
-						var/turf/Tsrc = get_turf(src)
-						Tsrc.ChangeTurf(/turf/simulated/wall/r_wall)
-						for(var/turf/simulated/wall/r_wall/X in Tsrc.loc)
-							if(X)
-								X.add_hiddenprint(usr)
-						qdel(src)
-					return
-				else
-					if(S.get_amount() < 1)
-						return
-					to_chat(user, "<span class='notice'>You start reinforcing the girder...</span>")
-					if(do_after(user, 6 SECONDS, src))
-						if(!src || !S || S.get_amount() < 1)
-							return
-						S.use(1)
-						to_chat(user, "<span class='notice'>You reinforce the girder.</span>")
-						var/obj/structure/girder/reinforced/R = new (loc)
-						transfer_fingerprints_to(R)
-						qdel(src)
-					return
-
-		if(S.sheettype)
-			var/M = S.sheettype
-			if(state == GIRDER_DISPLACED)
-				if(S.get_amount() < 2)
-					to_chat(user, "<span class='warning'>You need at least two sheets to create a false wall!</span>")
-					return
-				if(do_after(user, 2 SECONDS, src))
-					if(!loc || !S || S.get_amount() < 2)
-						return
-					S.use(2)
-					to_chat(user, "<span class='notice'>You create a false wall. Push on it to open or close the passage.</span>")
-					var/F = text2path("/obj/structure/falsewall/[M]")
-					var/obj/structure/FW = new F (loc)
-					transfer_fingerprints_to(FW)
-					qdel(src)
-			else
-				if(S.get_amount() < 2)
-					to_chat(user, "<span class='warning'>You need at least two sheets to add plating!</span>")
-					return
-				to_chat(user, "<span class='notice'>You start adding plating...</span>")
-				if(do_after(user, 4 SECONDS, src))
-					if(!src || !S || S.get_amount() < 2)
-						return
-					S.use(2)
-					to_chat(user, "<span class='notice'>You add the plating.</span>")
-					var/turf/Tsrc = get_turf(src)
-					Tsrc.ChangeTurf(text2path("/turf/simulated/wall/mineral/[M]"))
-					for(var/turf/simulated/wall/mineral/X in Tsrc.loc)
-						if(X)
-							X.add_hiddenprint(usr)
-					qdel(src)
-				return
-
-		add_hiddenprint(user)
-
-	else if(istype(W, /obj/item/pipe))
-		var/obj/item/pipe/P = W
-		if(P.pipe_type in list(0, 1, 5))	//simple pipes, simple bends, and simple manifolds.
-			if(!user.drop_transfer_item_to_loc(P, src))
-				return
-			to_chat(user, "<span class='notice'>You fit the pipe into \the [src].</span>")
-	else
+/obj/structure/girder/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(istype(I, /obj/item/gun/energy/plasmacutter))
+		user.visible_message(
+			span_notice("[user] start slicing apart [src] with [I]."),
+			span_notice("You start slicing apart [src]..."),
+		)
+		I.play_tool_sound(src, 100)
+		if(!do_after(user, 4 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
+			add_fingerprint(user)
+			return ATTACK_CHAIN_PROCEED
+		I.play_tool_sound(src, 100)
+		user.visible_message(
+			span_notice("[user] slices apart [src] with [I]."),
+			span_notice("You have sliced apart [src]."),
+		)
+		refundMetal(metalUsed)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/pickaxe/drill/diamonddrill))
+		user.visible_message(
+			span_notice("[user] drills through [src] with [I]."),
+			span_notice("You have drilled through [src]."),
+		)
+		I.play_tool_sound(src, 100)
+		refundMetal(metalUsed)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/pickaxe/drill/jackhammer))
+		user.visible_message(
+			span_notice("[user] disintegrates [src] with [I]."),
+			span_notice("You have disintegrated [src]."),
+		)
+		I.play_tool_sound(src, 100)
+		refundMetal(metalUsed)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/twohanded/required/pyro_claws))
+		user.visible_message(
+			span_notice("[user] melts [src] with [I]."),
+			span_notice("You have melted [src]."),
+		)
+		I.play_tool_sound(src, 100)
+		refundMetal(metalUsed)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/pipe))
+		add_fingerprint(user)
+		var/obj/item/pipe/pipe = I
+		if(!(pipe.pipe_type in list(0, 1, 5)))	//simple pipes, simple bends, and simple manifolds.
+			to_chat(user, span_warning("This [pipe.name] is not compatible!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(pipe, src))
+			return ..()
+		to_chat(user, span_notice("You fit the pipe into [src]."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(!isstack(I))
+		return ..()
+
+	. = ATTACK_CHAIN_PROCEED
+	add_hiddenprint(user)
+	var/obj/item/stack = I
+	if(iswallturf(loc))
+		to_chat(user, span_warning("There is already a wall present!"))
+		return .
+	if(!isfloorturf(loc))
+		to_chat(user, span_warning("A floor must be present to build a false wall!"))
+		return .
+	if(locate(/obj/structure/clockwork) in loc.contents)
+		to_chat(user, span_warning("There is a structure here!"))
+		return .
+	if(locate(/obj/structure/falsewall) in loc.contents)
+		to_chat(user, span_warning("There is already a false wall present!"))
+		return .
+	if(istype(I, /obj/item/stack/sheet/runed_metal) || istype(I, /obj/item/stack/sheet/runed_metal_fake))
+		to_chat(user, span_warning("You can't seem to make the metal bend."))
+		return .
+
+	if(istype(I, /obj/item/stack/rods))
+		var/obj/item/stack/rods/rods = stack
+		if(state == GIRDER_DISPLACED)
+			if(rods.get_amount() < 5)
+				to_chat(user, span_warning("You need at least five rods to create a false wall!"))
+				return .
+			to_chat(user, span_notice("You start building a reinforced false wall..."))
+			if(!do_after(user, 2 SECONDS * rods.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_DISPLACED || QDELETED(rods) || !rods.use(5))
+				return .
+			to_chat(user, span_notice("You created a false wall. Push on it to open or close the passage."))
+			var/obj/structure/falsewall/iron/falsewall = new(loc)
+			transfer_fingerprints_to(falsewall)
+			falsewall.add_fingerprint(user)
+			qdel(src)
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+		if(rods.get_amount() < 5)
+			to_chat(user, span_warning("You need at least five rods to finalize the iron wall!"))
+			return .
+		to_chat(user, span_notice("You start adding plating..."))
+		if(!do_after(user, 2 SECONDS * rods.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || !isfloorturf(loc) || QDELETED(rods) || !rods.use(5))
+			return .
+		to_chat(user, span_notice("You have finalized the metal wall."))
+		var/turf/floor = loc
+		floor.ChangeTurf(/turf/simulated/wall/mineral/iron)
+		transfer_fingerprints_to(floor)
+		floor.add_fingerprint(user)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/stack/ore/glass/basalt))
+		var/obj/item/stack/ore/glass/basalt/glass = stack
+		if(state == GIRDER_DISPLACED)
+			if(glass.get_amount() < 2)
+				to_chat(user, span_warning("You need at least two piles of [glass] to create a false wall!"))
+				return .
+			to_chat(user, span_notice("You start building a false wall..."))
+			if(!do_after(user, 2 SECONDS * glass.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_DISPLACED || QDELETED(glass) || !glass.use(2))
+				return .
+			to_chat(user, span_notice("You created a false wall. Push on it to open or close the passage."))
+			var/obj/structure/falsewall/mineral_ancient/falsewall = new(loc)
+			transfer_fingerprints_to(falsewall)
+			falsewall.add_fingerprint(user)
+			qdel(src)
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+		if(glass.get_amount() < 1)
+			to_chat(user, span_warning("You need at least one pile of [glass] to finalize the wall!"))
+			return .
+		to_chat(user, span_notice("You start adding [glass]..."))
+		if(!do_after(user, 4 SECONDS * glass.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || !isfloorturf(loc) || QDELETED(glass) || !glass.use(1))
+			return .
+		to_chat(user, span_notice("You have finalized basalt wall."))
+		var/turf/floor = loc
+		floor.ChangeTurf(/turf/simulated/mineral/ancient)
+		transfer_fingerprints_to(floor)
+		floor.add_fingerprint(user)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	var/obj/item/stack/sheet/sheet = stack
+	if(!istype(sheet, /obj/item/stack/sheet) || !sheet.wall_allowed)
+		to_chat(user, span_warning("This material is not suitable for a wall."))
+		return .
+
+	if(istype(sheet, /obj/item/stack/sheet/wood))
+		var/obj/item/stack/sheet/wood/wood = sheet
+		if(state == GIRDER_DISPLACED)
+			if(wood.get_amount() < 2)
+				to_chat(user, span_warning("You need at least two planks of wood to create a false wall!"))
+				return .
+			to_chat(user, span_notice("You start building a false wall..."))
+			if(!do_after(user, 2 SECONDS * wood.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_DISPLACED || QDELETED(wood) || !wood.use(2))
+				return .
+			to_chat(user, span_notice("You created a false wall. Push on it to open or close the passage."))
+			var/obj/structure/falsewall/wood/falsewall = new(loc)
+			transfer_fingerprints_to(falsewall)
+			falsewall.add_fingerprint(user)
+			qdel(src)
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+		if(wood.get_amount() < 1)
+			to_chat(user, span_warning("You need at least one plank of wood to finalize the wall!"))
+			return .
+		to_chat(user, span_notice("You start adding plating..."))
+		if(!do_after(user, 4 SECONDS * wood.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || !isfloorturf(loc) || QDELETED(wood) || !wood.use(1))
+			return .
+		to_chat(user, span_notice("You have finalized the wooden wall."))
+		var/turf/floor = loc
+		floor.ChangeTurf(/turf/simulated/wall/mineral/wood)
+		transfer_fingerprints_to(floor)
+		floor.add_fingerprint(user)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(sheet, /obj/item/stack/sheet/metal))
+		var/obj/item/stack/sheet/metal/metal = sheet
+		if(state == GIRDER_DISPLACED)
+			if(metal.get_amount() < 2)
+				to_chat(user, span_warning("You need at least two sheets of metal to create a false wall!"))
+				return .
+			to_chat(user, span_notice("You start building a false wall..."))
+			if(!do_after(user, 2 SECONDS * metal.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_DISPLACED || QDELETED(metal) || !metal.use(2))
+				return .
+			to_chat(user, span_notice("You created a false wall. Push on it to open or close the passage."))
+			var/obj/structure/falsewall/falsewall = new(loc)
+			transfer_fingerprints_to(falsewall)
+			falsewall.add_fingerprint(user)
+			qdel(src)
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+		if(metal.get_amount() < 1)
+			to_chat(user, span_warning("You need at least one sheet of metal to finalize the wall!"))
+			return .
+		to_chat(user, span_notice("You start adding plating..."))
+		if(!do_after(user, 4 SECONDS * metal.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || !isfloorturf(loc) || QDELETED(metal) || !metal.use(1))
+			return .
+		to_chat(user, span_notice("You have finalized the wall."))
+		var/turf/floor = loc
+		floor.ChangeTurf(/turf/simulated/wall)
+		transfer_fingerprints_to(floor)
+		floor.add_fingerprint(user)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(sheet, /obj/item/stack/sheet/plasteel))
+		var/obj/item/stack/sheet/plasteel/plasteel = sheet
+		switch(state)
+			if(GIRDER_DISPLACED)
+				if(plasteel.get_amount() < 2)
+					to_chat(user, span_warning("You need at least two sheets of plasteel to create a false wall!"))
+					return .
+				to_chat(user, span_notice("You start building a false wall..."))
+				if(!do_after(user, 2 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_DISPLACED || QDELETED(plasteel) || !plasteel.use(2))
+					return .
+				to_chat(user, span_notice("You created a reinforced false wall. Push on it to open or close the passage."))
+				var/obj/structure/falsewall/reinforced/falsewall = new(loc)
+				transfer_fingerprints_to(falsewall)
+				falsewall.add_fingerprint(user)
+				qdel(src)
+				return ATTACK_CHAIN_BLOCKED_ALL
+
+			if(GIRDER_REINF)
+				if(plasteel.get_amount() < 1)
+					to_chat(user, span_warning("You need at least one sheet of plasteel to finalize the reinforced wall!"))
+					return .
+				to_chat(user, span_notice("You start finalizing the reinforced wall..."))
+				if(!do_after(user, 2 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_REINF || !isfloorturf(loc) || QDELETED(plasteel) || !plasteel.use(1))
+					return .
+				to_chat(user, span_notice("You have finalized the reinforced wall."))
+				var/turf/floor = loc
+				floor.ChangeTurf(/turf/simulated/wall/r_wall)
+				transfer_fingerprints_to(floor)
+				floor.add_fingerprint(user)
+				qdel(src)
+				return ATTACK_CHAIN_BLOCKED_ALL
+
+			else
+				if(plasteel.get_amount() < 1)
+					to_chat(user, span_warning("You need at least one sheet of plasteel to reinforce the girder!"))
+					return .
+				to_chat(user, span_notice("You start reinforcing the girder..."))
+				if(!do_after(user, 6 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || state == GIRDER_REINF || QDELETED(plasteel) || !plasteel.use(1))
+					return .
+				to_chat(user, span_notice("You reinforce the girder."))
+				var/obj/structure/girder/reinforced/girder = new(loc)
+				transfer_fingerprints_to(girder)
+				girder.add_fingerprint(user)
+				qdel(src)
+				return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(!sheet.sheettype)
+		to_chat(user, span_warning("This material is not suitable for a wall."))
+		return .
+
+	var/cached_sheet_type = sheet.sheettype
+	if(state == GIRDER_DISPLACED)
+		if(sheet.get_amount() < 2)
+			to_chat(user, span_warning("You need at least two sheets of [cached_sheet_type] to create a false wall!"))
+			return .
+		to_chat(user, span_notice("You start building a false wall..."))
+		if(!do_after(user, 2 SECONDS * sheet.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_DISPLACED || QDELETED(sheet) || !sheet.use(2))
+			return .
+		to_chat(user, span_notice("You created [cached_sheet_type] false wall. Push on it to open or close the passage."))
+		var/falsewall_path = text2path("/obj/structure/falsewall/[cached_sheet_type]")
+		var/obj/structure/falsewall/falsewall = new falsewall_path(loc)
+		transfer_fingerprints_to(falsewall)
+		falsewall.add_fingerprint(user)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(sheet.get_amount() < 1)
+		to_chat(user, span_warning("You need at least one sheet of [cached_sheet_type] to add plating!"))
+		return .
+	to_chat(user, span_notice("You start adding plating..."))
+	if(!do_after(user, 4 SECONDS * sheet.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || !isfloorturf(loc) || QDELETED(sheet) || !sheet.use(1))
+		return .
+	to_chat(user, span_notice("You have finalized the [cached_sheet_type] wall."))
+	var/turf/floor = loc
+	floor.ChangeTurf(text2path("/turf/simulated/wall/mineral/[cached_sheet_type]"))
+	transfer_fingerprints_to(floor)
+	floor.add_fingerprint(user)
+	qdel(src)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
 
 /obj/structure/girder/crowbar_act(mob/user, obj/item/I)
 	if(!can_displace || state != GIRDER_NORMAL)
@@ -323,8 +346,8 @@
 	if(state != GIRDER_DISPLACED && state != GIRDER_REINF && state != GIRDER_REINF_STRUTS)
 		return
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
-		return
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
 	switch(state)
 		if(GIRDER_DISPLACED)
 			TOOL_ATTEMPT_DISMANTLE_MESSAGE
@@ -472,83 +495,88 @@
 	. = ..()
 	icon_state = SSticker.cultdat?.cult_girder_icon_state
 
-/obj/structure/girder/cult/attackby(obj/item/W, mob/user, params)
-	add_fingerprint(user)
-	if(istype(W, /obj/item/melee/cultblade/dagger) && iscultist(user)) //Cultists can demolish cult girders instantly with their dagger
-		user.visible_message("<span class='warning'>[user] strikes [src] with [W]!</span>", "<span class='notice'>You demolish [src].</span>")
-		refundMetal(metalUsed)
-		qdel(src)
-	else if(istype(W, /obj/item/gun/energy/plasmacutter))
-		to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
-		if(do_after(user, 4 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
-			playsound(loc, W.usesound, 100, 1)
-			to_chat(user, "<span class='notice'>You slice apart the girder.</span>")
-			var/obj/item/stack/sheet/runed_metal/R = new(get_turf(src), 1)
-			transfer_fingerprints_to(R)
-			qdel(src)
-	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
-		var/obj/item/pickaxe/drill/jackhammer/D = W
-		to_chat(user, "<span class='notice'>Your jackhammer smashes through the girder!</span>")
-		var/obj/item/stack/sheet/runed_metal/R = new(get_turf(src), 1)
-		transfer_fingerprints_to(R)
-		D.playDigSound()
-		qdel(src)
 
-	else if(istype(W, /obj/item/stack/sheet/runed_metal))
-		var/obj/item/stack/sheet/runed_metal/R = W
-		if(R.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need at least one sheet of runed metal to construct a runed wall!</span>")
-			return 0
-		user.visible_message("<span class='notice'>[user] begins laying runed metal on [src]...</span>", "<span class='notice'>You begin constructing a runed wall...</span>")
-		if(do_after(user, 1 SECONDS, src))
-			if(R.get_amount() < 1 || !R)
-				return
-			user.visible_message("<span class='notice'>[user] plates [src] with runed metal.</span>", "<span class='notice'>You construct a runed wall.</span>")
-			R.use(1)
-			var/turf/T = get_turf(src)
-			T.ChangeTurf(/turf/simulated/wall/cult)
-			qdel(src)
-	else
+/obj/structure/girder/cult/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-/obj/structure/girder/cult_fake/attackby(obj/item/W, mob/user, params)
-	add_fingerprint(user)
-	if(istype(W, /obj/item/melee/cultblade/dagger) && iscultist(user)) //Cultists can demolish cult girders instantly with their dagger
-		user.visible_message("<span class='warning'>[user] strikes [src] with [W]!</span>", "<span class='notice'>You demolish [src].</span>")
+	if(istype(I, /obj/item/melee/cultblade/dagger))
+		if(!iscultist(user))	//Cultists can demolish cult girders instantly with their dagger
+			return ..()
+		user.visible_message(
+			span_warning("[user] strikes [src] with [I]!"),
+			span_notice("You demolish [src]."),
+		)
 		refundMetal(metalUsed)
 		qdel(src)
-	else if(istype(W, /obj/item/gun/energy/plasmacutter))
-		to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
-		if(do_after(user, 4 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
-			playsound(loc, W.usesound, 100, 1)
-			to_chat(user, "<span class='notice'>You slice apart the girder.</span>")
-			var/obj/item/stack/sheet/runed_metal_fake/R = new(get_turf(src), 1)
-			transfer_fingerprints_to(R)
-			qdel(src)
-	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
-		var/obj/item/pickaxe/drill/jackhammer/D = W
-		to_chat(user, "<span class='notice'>Your jackhammer smashes through the girder!</span>")
-		var/obj/item/stack/sheet/runed_metal_fake/R = new(get_turf(src), 1)
-		transfer_fingerprints_to(R)
-		D.playDigSound()
-		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	else if(istype(W, /obj/item/stack/sheet/runed_metal_fake))
-		var/obj/item/stack/sheet/runed_metal_fake/R = W
-		if(R.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need at least one sheet of runed metal to construct a runed wall!</span>")
-			return 0
-		user.visible_message("<span class='notice'>[user] begins laying runed metal on [src]...</span>", "<span class='notice'>You begin constructing a runed wall...</span>")
-		if(do_after(user, 1 SECONDS, src))
-			if(R.get_amount() < 1 || !R)
-				return
-			user.visible_message("<span class='notice'>[user] plates [src] with runed metal.</span>", "<span class='notice'>You construct a runed wall.</span>")
-			R.use(1)
-			var/turf/T = get_turf(src)
-			T.ChangeTurf(/turf/simulated/wall/cult_fake)
-			qdel(src)
-	else
+	if(istype(I, /obj/item/stack/sheet/runed_metal))
+		add_fingerprint(user)
+		var/obj/item/stack/sheet/runed_metal/metal = I
+		if(metal.get_amount() < 1)
+			to_chat(user, span_warning("You need at least one sheet of runed metal to construct a runed wall!"))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] starts laying runed metal on [src]."),
+			span_notice("You start constructing a runed wall..."),
+		)
+		if(!do_after(user, 1 SECONDS * metal.toolspeed, src, category = DA_CAT_TOOL) || !isfloorturf(loc) || QDELETED(metal) || !metal.use(1))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] plates [name] with runed metal."),
+			span_notice("You have constructed the runed wall."),
+		)
+		var/turf/floor = loc
+		floor.ChangeTurf(/turf/simulated/wall/cult)
+		transfer_fingerprints_to(floor)
+		floor.add_fingerprint(user)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
+
+/obj/structure/girder/cult_fake/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(istype(I, /obj/item/melee/cultblade/dagger))
+		if(!iscultist(user))	//Cultists can demolish cult girders instantly with their dagger
+			return ..()
+		user.visible_message(
+			span_warning("[user] strikes [src] with [I]!"),
+			span_notice("You demolish [src]."),
+		)
+		refundMetal(metalUsed)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/stack/sheet/runed_metal_fake))
+		add_fingerprint(user)
+		var/obj/item/stack/sheet/runed_metal_fake/metal = I
+		if(metal.get_amount() < 1)
+			to_chat(user, span_warning("You need at least one sheet of runed metal to construct a runed wall!"))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] starts laying runed metal on [src]."),
+			span_notice("You start constructing a runed wall..."),
+		)
+		if(!do_after(user, 1 SECONDS * metal.toolspeed, src, category = DA_CAT_TOOL) || !isfloorturf(loc) || QDELETED(metal) || !metal.use(1))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] plates [name] with runed metal."),
+			span_notice("You have constructed the runed wall."),
+		)
+		var/turf/floor = loc
+		floor.ChangeTurf(/turf/simulated/wall/cult_fake)
+		transfer_fingerprints_to(floor)
+		floor.add_fingerprint(user)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/structure/girder/cult/narsie_act()
 	return

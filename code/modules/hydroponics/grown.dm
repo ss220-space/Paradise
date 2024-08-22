@@ -60,38 +60,63 @@
 			if(T.examine_line)
 				. += T.examine_line
 
-/obj/item/reagent_containers/food/snacks/grown/attackby(obj/item/O, mob/user, params)
-	..()
-	if(slices_num && slice_path)
-		var/inaccurate = TRUE
-		if(O.sharp)
-			if(istype(O, /obj/item/kitchen/knife) || istype(O, /obj/item/scalpel))
-				inaccurate = FALSE
 
-			if(!isturf(loc) || !(locate(/obj/structure/table) in loc) && !(locate(/obj/machinery/optable) in loc) && !(locate(/obj/item/storage/bag/tray) in loc))
-				to_chat(user, "<span class='warning'>You cannot slice [src] here! You need a table or at least a tray to do it.</span>")
-				return TRUE
+/obj/item/reagent_containers/food/snacks/grown/attackby(obj/item/I, mob/user, params)
+	. = ..()
 
-			var/slices_lost = 0
-			if(!inaccurate)
-				user.visible_message("<span class='notice'>[user] slices [src] with [O]!</span>", "<span class='notice'>You slice [src]!</span>")
-			else
-				user.visible_message("<span class='notice'>[user] crudely slices [src] with [O]!</span>", "<span class='notice'>You crudely slice [src] with your [O]!</span>")
-				slices_lost = rand(1, min(1, round(slices_num / 2)))
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
 
-			var/reagents_per_slice = reagents.total_volume/slices_num
-			for(var/i = 1 to (slices_num - slices_lost))
-				var/obj/slice = new slice_path (loc)
-				reagents.trans_to(slice, reagents_per_slice)
-			qdel(src)
-			return ..()
+	if(is_sharp(I) && slices_num && slice_path)
+		add_fingerprint(user)
+		if(!isturf(loc))
+			to_chat(user, span_warning("You cannot slice [src] [ismob(loc) ? "in inventory" : "in [loc]"]."))
+			return .
 
-	if(istype(O, /obj/item/plant_analyzer))
+		var/static/list/acceptable_surfaces = typecacheof(list(
+			/obj/structure/table,
+			/obj/machinery/optable,
+			/obj/item/storage/bag/tray,
+		))
+		var/acceptable = FALSE
+		for(var/thing in loc)
+			if(is_type_in_typecache(thing, acceptable_surfaces))
+				acceptable = TRUE
+				break
+		if(!acceptable)
+			to_chat(user, span_warning("You cannot slice [src] here! You need a table or at least a tray to do it."))
+			return .
+
+		var/slices_lost = 0
+		if(istype(I, /obj/item/kitchen/knife) || istype(I, /obj/item/scalpel))
+			user.visible_message(
+				span_notice("[user] slices [src] with [I]."),
+				span_notice("You have sliced [src]."),
+			)
+		else
+			slices_lost = rand(1, min(1, round(slices_num / 2)))
+			user.visible_message(
+				span_notice("[user] crudely slices [src] with [I]."),
+				span_notice("You have crudely sliced [src]."),
+			)
+
+		var/reagents_per_slice = reagents.total_volume / slices_num
+		for(var/i = 1 to (slices_num - slices_lost))
+			var/obj/slice = new slice_path(loc)
+			reagents.trans_to(slice, reagents_per_slice)
+		qdel(src)
+		return .|ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/plant_analyzer))
 		send_plant_details(user)
-	else
-		if(seed)
-			for(var/datum/plant_gene/trait/T in seed.genes)
-				T.on_attackby(src, O, user)
+		return .|ATTACK_CHAIN_SUCCESS
+
+	if(seed)
+		for(var/datum/plant_gene/trait/trait in seed.genes)
+			if(!QDELETED(src) && !QDELETED(I))
+				trait.on_attackby(src, I, user)
+
+
 
 
 // Various gene procs
@@ -113,7 +138,7 @@
 				squash(hit_atom, thrower)
 
 /obj/item/reagent_containers/food/snacks/grown/proc/squash(atom/target, mob/thrower)
-	var/turf/T = get_turf(target)
+	var/turf/T = get_turf(src)
 	if(ispath(splat_type, /obj/effect/decal/cleanable/plant_smudge))
 		if(filling_color)
 			var/obj/O = new splat_type(T)

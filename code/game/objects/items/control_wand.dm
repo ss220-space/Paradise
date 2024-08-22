@@ -224,7 +224,7 @@
 	icon_state = "hacktool[busy ? "-g" : ""]"
 
 
-/obj/item/door_remote/omni/access_tuner/afterattack(obj/machinery/door/airlock/D, mob/user)
+/obj/item/door_remote/omni/access_tuner/afterattack(obj/machinery/door/airlock/D, mob/user, proximity, params)
 	if(!istype(D))
 		return
 	if(HAS_TRAIT(D, TRAIT_CMAGGED))

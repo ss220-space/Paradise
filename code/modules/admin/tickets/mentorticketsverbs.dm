@@ -5,7 +5,7 @@
 	set name = "Open Mentor Ticket Interface"
 	set category = "Admin"
 
-	if(!check_rights(R_MENTOR|R_ADMIN))
+	if(!check_rights(R_MENTOR))
 		return
 
 	SSmentor_tickets.showUI(usr)

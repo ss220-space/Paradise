@@ -158,11 +158,13 @@
 	origin_tech = "biotech=4;combat=5"
 	distill_reagent = "demonsblood"
 
-/obj/item/reagent_containers/food/snacks/grown/tomato/killer/attack(mob/M, mob/user, def_zone)
+
+/obj/item/reagent_containers/food/snacks/grown/tomato/killer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(awakening)
-		to_chat(user, "<span class='warning'>The tomato is twitching and shaking, preventing you from eating it.</span>")
-		return
-	..()
+		to_chat(user, span_warning("The tomato is twitching and shaking, preventing you from eating it."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 /obj/item/reagent_containers/food/snacks/grown/tomato/killer/attack_self(mob/user)
 	if(awakening || isspaceturf(user.loc))

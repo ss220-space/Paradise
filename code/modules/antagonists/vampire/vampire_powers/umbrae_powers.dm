@@ -123,13 +123,16 @@
 		C.EyeBlind(20 SECONDS)
 
 
-/obj/item/restraints/legcuffs/beartrap/shadow_snare/attackby(obj/item/I, mob/user)
+/obj/item/restraints/legcuffs/beartrap/shadow_snare/attackby(obj/item/I, mob/user, params)
 	var/obj/item/flash/flash = I
 	if(!istype(flash) || !flash.try_use_flash(user))
 		return ..()
-	user.visible_message(span_danger("[user] points [I] at [src]!"), \
-						span_danger("You point [I] at [src]!"))
-	visible_message(span_notice("[src] withers away."))
+	. |= ATTACK_CHAIN_BLOCKED_ALL
+	user.do_attack_animation(src)
+	user.visible_message(
+		span_danger("[user] points [I] at [src] and it withers away!"),
+		span_danger("You point [I] at [src] and it withers away!"),
+	)
 	qdel(src)
 
 

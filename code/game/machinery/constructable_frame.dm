@@ -202,6 +202,7 @@
 		return ..()
 
 	add_fingerprint(user)
+	. = ATTACK_CHAIN_PROCEED
 
 	switch(state)
 		if(STATE_EMPTY)
@@ -211,20 +212,21 @@
 			var/obj/item/stack/cable_coil/coil = I
 			if(coil.get_amount() < 5)
 				to_chat(user, span_warning("You need five lengths of cable to wire the frame."))
-				return
+				return .
 
 			playsound(loc, coil.usesound, 50, TRUE)
-			to_chat(user, span_notice("You start to add cables to the frame."))
-			if(!do_after(user, 2 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || state != STATE_EMPTY)
-				return
+			to_chat(user, span_notice("You start to add cables to the frame..."))
+			if(!do_after(user, 2 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || state != STATE_EMPTY || QDELETED(coil))
+				return .
 
 			if(!coil.use(5))
 				to_chat(user, span_warning("At some point during construction you lost some cable. Make sure you have five lengths before trying again."))
-				return
+				return .
 
 			state = STATE_WIRED
 			update_icon(UPDATE_ICON_STATE)
 			to_chat(user, span_notice("You add cables to the frame."))
+			return ATTACK_CHAIN_PROCEED_SUCCESS
 
 		if(STATE_WIRED)
 			if(!istype(I, /obj/item/circuitboard))
@@ -233,11 +235,10 @@
 			var/obj/item/circuitboard/new_circuit = I
 			if(new_circuit.board_type != "machine")
 				to_chat(user, span_warning("This frame does not accept circuit boards of this type!"))
-				return
+				return .
 
 			if(!user.drop_transfer_item_to_loc(new_circuit, src))
-				to_chat(user, span_warning("[new_circuit] is stuck to you and cannot be placed into [src]!"))
-				return
+				return ..()
 
 			state = STATE_COMPONENTS
 			circuit = new_circuit
@@ -249,9 +250,9 @@
 			playsound(loc, new_circuit.usesound, 50, TRUE)
 			to_chat(user, span_notice("You add the circuit board to the frame."))
 			update_icon(UPDATE_ICON_STATE)
+			return ATTACK_CHAIN_BLOCKED_ALL
 
 		if(STATE_COMPONENTS)
-
 			if(istype(I, /obj/item/storage/part_replacer) && length(I.contents) && get_req_components_amt())
 				var/obj/item/storage/part_replacer/replacer = I
 				var/list/added_components = list()
@@ -273,7 +274,7 @@
 					components += part
 					to_chat(user, span_notice("[part.name] applied."))
 				replacer.play_rped_sound()
-				return
+				return ATTACK_CHAIN_PROCEED_SUCCESS
 
 			if(isitem(I))
 				var/success = FALSE
@@ -302,6 +303,8 @@
 
 				if(!success)
 					to_chat(user, span_warning("You cannot add that to the machine!"))
+
+				return ATTACK_CHAIN_BLOCKED_ALL
 
 
 #undef STATE_EMPTY
@@ -440,18 +443,20 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/cable_coil = 1,
 							/obj/item/stack/sheet/glass = 1)
 
-/obj/item/circuitboard/thermomachine/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_SCREWDRIVER)
-		if(build_path == /obj/machinery/atmospherics/unary/cold_sink/freezer)
-			build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
-			board_name = "Heater"
-			to_chat(user, span_notice("You set the board to heating."))
-		else
-			build_path = /obj/machinery/atmospherics/unary/cold_sink/freezer
-			board_name = "Freezer"
-			to_chat(user, span_notice("You set the board to cooling."))
-		return
-	return ..()
+
+/obj/item/circuitboard/thermomachine/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	if(build_path == /obj/machinery/atmospherics/unary/cold_sink/freezer)
+		build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
+		board_name = "Heater"
+		to_chat(user, span_notice("You set the board to heating."))
+	else
+		build_path = /obj/machinery/atmospherics/unary/cold_sink/freezer
+		board_name = "Freezer"
+		to_chat(user, span_notice("You set the board to cooling."))
+
 
 /obj/item/circuitboard/recharger
 	board_name = "Recharger"
@@ -931,14 +936,21 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/matter_bin = 1)
 	var/target
 
+
 /obj/item/circuitboard/teleporter_perma/attackby(obj/item/I, mob/living/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(istype(I, /obj/item/gps))
-		var/obj/item/gps/L = I
-		if(L.locked_location)
-			target = get_turf(L.locked_location)
-			to_chat(user, span_caution("You upload the data from [L]"))
-		return
+		add_fingerprint(user)
+		var/obj/item/gps/gps = I
+		if(gps.locked_location)
+			target = get_turf(gps.locked_location)
+			to_chat(user, span_caution("You upload the data from [gps]"))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
+
 
 /obj/item/circuitboard/telesci_pad
 	board_name = "Telepad"
@@ -992,6 +1004,16 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stack/cable_coil = 1)
 	emagged = TRUE
+
+/obj/item/circuitboard/roboquest_pad
+
+	board_name = "Robotics Request Quantum Pad"
+	build_path = /obj/machinery/roboquest_pad
+	board_type = "machine"
+	origin_tech = "programming=3;engineering=3;plasmatech=3;bluespace=5"
+	req_components = list(
+							/obj/item/stack/ore/bluespace_crystal = 5,
+							/obj/item/stack/cable_coil = 15)
 
 /obj/item/circuitboard/sleeper
 	board_name = "Sleeper"
@@ -1099,6 +1121,17 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/clawgame
 	board_name = "Claw Game"
 	build_path = /obj/machinery/arcade/claw
+	board_type = "machine"
+	origin_tech = "programming=1"
+	req_components = list(
+							/obj/item/stock_parts/matter_bin = 1,
+							/obj/item/stock_parts/manipulator = 1,
+							/obj/item/stack/cable_coil = 5,
+							/obj/item/stack/sheet/glass = 1)
+
+/obj/item/circuitboard/minesweeper
+	board_name = "Сапер"
+	build_path = /obj/machinery/arcade/minesweeper
 	board_type = "machine"
 	origin_tech = "programming=1"
 	req_components = list(

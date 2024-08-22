@@ -56,44 +56,54 @@
 	return FALSE
 
 
+/turf/simulated/floor/chasm/can_have_cabling()
+	if(locate(/obj/structure/lattice/catwalk/fireproof, src))
+		return TRUE
+	return FALSE
+
+
 /turf/simulated/floor/chasm/attackby(obj/item/I, mob/user, params)
-	..()
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
+
 	if(istype(I, /obj/item/stack/fireproof_rods))
 		var/obj/item/stack/fireproof_rods/rods = I
-		var/obj/structure/lattice/catwalk/fireproof/catwalk = locate() in contents
-		if(catwalk)
+		if(locate(/obj/structure/lattice/catwalk/fireproof, src))
 			to_chat(user, span_warning("Здесь уже есть мостик!"))
-			return
-		var/obj/structure/lattice/fireproof/lattice = locate() in contents
+			return .
+		var/obj/structure/lattice/fireproof/lattice = locate() in src
 		if(!lattice)
-			if(rods.use(1))
-				to_chat(user, span_notice("Вы установили прочную решётку."))
-				playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
-				new /obj/structure/lattice/fireproof(src)
-			else
+			if(!rods.use(1))
 				to_chat(user, span_warning("Вам нужен один огнеупорный стержень для постройки решётки!"))
-			return
+				return .
+			to_chat(user, span_notice("Вы установили прочную решётку."))
+			playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+			new /obj/structure/lattice/fireproof(src)
+			return .|ATTACK_CHAIN_SUCCESS
 		if(!rods.use(2))
 			to_chat(user, span_warning("Вам нужно два огнеупорных стержня для постройки мостика!"))
-			return
-		to_chat(user, span_notice("Вы установили мостик."))
+			return .
+		qdel(lattice)
 		playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+		to_chat(user, span_notice("Вы установили огнеупорный мостик."))
 		new /obj/structure/lattice/catwalk/fireproof(src)
-		return
+		return .|ATTACK_CHAIN_SUCCESS
 
-	else if(istype(I, /obj/item/twohanded/fishingrod))
+	if(istype(I, /obj/item/twohanded/fishingrod))
 		var/obj/item/twohanded/fishingrod/rod = I
 		if(!HAS_TRAIT(rod, TRAIT_WIELDED))
 			to_chat(user, span_warning("Для того чтобы начать ловлю следует взять удочку в обе руки!"))
-			return
+			return .
 		user.visible_message(
 			span_notice("[user] забрасывает удочку в пропасть, надеясь что-либо поймать!"),
 			span_notice("Вы приступили к рыбалке."),
 			span_italics("Вы слышите долгий потрескивающий звук."),
 		)
 		playsound(rod, 'sound/effects/fishing_rod_throw.ogg', 30)
-		if(!do_after(user, 6 SECONDS, src, extra_checks = CALLBACK(src, PROC_REF(rod_checks), rod)))
-			return
+		if(!do_after(user, 6 SECONDS * rod.toolspeed, src, extra_checks = CALLBACK(src, PROC_REF(rod_checks), rod), category = DA_CAT_TOOL))
+			return .
 
 		var/list/fishing_contents = list()
 		for(var/turf/simulated/floor/chasm/chasm in range(4, src))
@@ -101,13 +111,14 @@
 
 		if(!length(fishing_contents))
 			to_chat(user, span_boldwarning("Не клюёт!"))
-			return
+			return .
 
 		var/mob/fish = pick(fishing_contents)
 		var/obj/effect/abstract/chasm_storage/pool = fish.loc
 		pool.get_fish(fish, user.loc)
 		to_chat(user, span_boldnotice("Попался [fish.name]!"))
 		playsound(rod, 'sound/effects/fishing_rod_catch.ogg', 30)
+		return .|ATTACK_CHAIN_SUCCESS
 
 
 /turf/simulated/floor/chasm/proc/rod_checks(obj/item/twohanded/fishingrod/rod)

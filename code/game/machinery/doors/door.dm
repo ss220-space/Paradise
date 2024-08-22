@@ -84,7 +84,7 @@
 
 /obj/machinery/door/Initialize()
 	air_update_turf(1)
-	..()
+	. = ..()
 
 /obj/machinery/door/Destroy()
 	set_density(FALSE)
@@ -285,16 +285,22 @@
 		user.visible_message(span_notice("[user] cleans the ooze off [src]."), span_notice("You clean the ooze off [src]."))
 		REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
 
+
 /obj/machinery/door/attackby(obj/item/I, mob/user, params)
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		clean_cmag_ooze(I, user)
-	if(user.a_intent != INTENT_HARM && istype(I, /obj/item/twohanded/fireaxe))
-		add_fingerprint(user)
-		try_to_crowbar(user, I)
-		return 1
-	else if(!(I.item_flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)
-		try_to_activate_door(user)
-		return 1
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(user.a_intent != INTENT_HARM)
+		if(istype(I, /obj/item/twohanded/fireaxe))
+			add_fingerprint(user)
+			try_to_crowbar(user, I)
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+		if(!(I.item_flags & NOBLUDGEON))
+			try_to_activate_door(user)
+			return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
 
 

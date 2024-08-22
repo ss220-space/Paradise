@@ -114,8 +114,10 @@
 
 //All of this shit is useless for vines
 
-/turf/simulated/floor/vines/attackby()
-	return
+
+/turf/simulated/floor/vines/attackby(obj/item/I, mob/user, params)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
 
 /turf/simulated/floor/vines/burn_tile()
 	return
@@ -251,7 +253,7 @@
 	return 1
 
 /datum/spacevine_mutation/fire_proof/on_hit(obj/structure/spacevine/holder, mob/hitter, obj/item/I, expected_damage)
-	if(I && I.damtype == "fire")
+	if(I && I.damtype == BURN)
 		. = 0
 	else
 		. = expected_damage
@@ -496,26 +498,47 @@
 			eater.say("Nom")
 		wither()
 
-/obj/structure/spacevine/attacked_by(obj/item/I, mob/living/user)
+
+/obj/structure/spacevine/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
+	if(!I.force)
+		user.visible_message(
+			span_warning("[user] gently pokes [src] with [I]."),
+			span_warning("You gently poke [src] with [I]."),
+		)
+		return .
+	user.visible_message(
+		span_danger("[user] has hit [src] with [I]!"),
+		span_danger("You have hit [src] with [I]!"),
+	)
 	var/damage_dealt = I.force
-	if(istype(I, /obj/item/scythe))
-		var/obj/item/scythe/S = I
-		if(S.extend)	//so folded telescythes won't get damage boosts / insta-clears (they instead will instead be treated like non-scythes)
-			damage_dealt *= 4
-			for(var/obj/structure/spacevine/B in range(1,src))
-				if(B.obj_integrity > damage_dealt)	//this only is going to occur for woodening mutation vines (increased health) or if we nerf scythe damage/multiplier
-					B.take_damage(damage_dealt, I.damtype, "melee", 1)
-				else
-					B.wither()
-			return
-	if(is_sharp(I))
+	var/obj/item/scythe/scythe = I
+	//so folded telescythes won't get damage boosts / insta-clears (they instead will be treated like non-scythes)
+	if(istype(I, /obj/item/scythe) && scythe.extend)
 		damage_dealt *= 4
-	if(I.damtype == BURN)
+		for(var/obj/structure/spacevine/spacevine in range(1, src))
+			for(var/datum/spacevine_mutation/mutation as anything in spacevine.mutations)
+				//on_hit now takes override damage as arg and returns new value for other mutations to permutate further
+				damage_dealt = mutation.on_hit(src, user, I, damage_dealt)
+			//this only is going to occur for woodening mutation vines (increased health) or if we nerf scythe damage/multiplier
+			if(spacevine.obj_integrity > damage_dealt)
+				spacevine.take_damage(damage_dealt, I.damtype, MELEE, TRUE, get_dir(user, spacevine), I.armour_penetration)
+			else
+				spacevine.wither()
+		if(QDELETED(src))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		return .
+
+	if(is_sharp(I) || I.damtype == BURN)
 		damage_dealt *= 4
 
-	for(var/datum/spacevine_mutation/SM in mutations)
-		damage_dealt = SM.on_hit(src, user, I, damage_dealt) //on_hit now takes override damage as arg and returns new value for other mutations to permutate further
-	take_damage(damage_dealt, I.damtype, "melee", 1)
+	for(var/datum/spacevine_mutation/mutation as anything in mutations)
+		damage_dealt = mutation.on_hit(src, user, I, damage_dealt)
+
+	take_damage(damage_dealt, I.damtype, MELEE, TRUE, get_dir(user, src), I.armour_penetration)
+	if(QDELETED(src))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 
 /obj/structure/spacevine/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

@@ -36,8 +36,10 @@
 /turf/simulated/wall/shuttle/burn_down()
 	return
 
+
 /turf/simulated/wall/shuttle/attackby(obj/item/I, mob/user, params)
-	return
+	return ATTACK_CHAIN_BLOCKED_ALL
+
 
 /turf/simulated/wall/shuttle/attack_hand(mob/user)
 	return
@@ -103,7 +105,7 @@
 	var/underlay_floor_dir = 2
 
 /turf/simulated/wall/shuttle/nosmooth/interior/Initialize()
-	..()
+	. = ..()
 	if(underlay_floor_icon && underlay_floor_icon_state)
 		var/image/floor_underlay = image(underlay_floor_icon,,underlay_floor_icon_state,,underlay_floor_dir)
 		underlays.Cut()
@@ -136,11 +138,13 @@
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
-/turf/simulated/floor/shuttle/attackby(obj/item/W as obj, mob/user as mob, params)
-	return
+
+/turf/simulated/floor/shuttle/attackby(obj/item/I, mob/user, params)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
 
 /turf/simulated/floor/shuttle/tool_act()
-	return
+	return FALSE
 
 /turf/simulated/floor/shuttle/ratvar_act()
 	if(prob(20))
@@ -171,7 +175,7 @@
 	smoothing_groups = SMOOTH_GROUP_TRANSPARENT_FLOOR
 
 /turf/simulated/floor/shuttle/transparent_floor/Initialize()
-	..()
+	. = ..()
 	var/obj/O
 	O = new()
 	O.underlays.Add(src)

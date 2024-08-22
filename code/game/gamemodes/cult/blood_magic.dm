@@ -390,15 +390,18 @@
 /obj/item/melee/blood_magic/attack_self(mob/living/user)
 	afterattack(user, user, TRUE)
 
-/obj/item/melee/blood_magic/attack(mob/living/M, mob/living/carbon/user)
+
+/obj/item/melee/blood_magic/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(user) || !iscultist(user))
 		uses = 0
 		qdel(src)
-		return
-	add_attack_logs(user, M, "used a cult spell ([src]) on")
-	M.lastattacker = user.real_name
+		return ATTACK_CHAIN_BLOCKED_ALL
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
+	add_attack_logs(user, target, "used a cult spell ([src]) on")
+	target.lastattacker = user.real_name
 
-/obj/item/melee/blood_magic/afterattack(atom/target, mob/living/carbon/user, proximity)
+
+/obj/item/melee/blood_magic/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	. = ..()
 	if(invocation)
 		user.whisper(invocation)
@@ -420,7 +423,7 @@
 	color = RUNE_COLOR_RED
 	invocation = "Fuu ma'jin!"
 
-/obj/item/melee/blood_magic/stun/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/blood_magic/stun/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	if(!isliving(target) || !proximity)
 		return
 	var/mob/living/L = target
@@ -462,7 +465,7 @@
 	desc = "Will teleport a cultist to a teleport rune on contact."
 	invocation = "Sas'so c'arta forbici!"
 
-/obj/item/melee/blood_magic/teleport/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/blood_magic/teleport/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	var/list/potential_runes = list()
 	var/list/teleportnames = list()
 	var/list/duplicaterunecount = list()
@@ -520,7 +523,7 @@
 	invocation = "In'totum Lig'abis!"
 	color = "#000000" // black
 
-/obj/item/melee/blood_magic/shackles/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/blood_magic/shackles/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	if(iscarbon(target) && proximity)
 		var/mob/living/carbon/C = target
 		if(C.has_organ_for_slot(ITEM_SLOT_HANDCUFFED))
@@ -634,7 +637,7 @@
 	desc = "Will equipt cult combat gear onto a cultist on contact."
 	color = "#33cc33" // green
 
-/obj/item/melee/blood_magic/armor/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/blood_magic/armor/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	if(iscarbon(target) && proximity)
 		uses--
 		var/mob/living/carbon/C = target
@@ -703,7 +706,7 @@
 	. += "<span class='cultitalic'>You have collected [uses] charge\s of blood.</span>"
 
 // This should really be split into multiple procs
-/obj/item/melee/blood_magic/manipulator/afterattack(atom/target, mob/living/carbon/human/user, proximity)
+/obj/item/melee/blood_magic/manipulator/afterattack(atom/target, mob/living/carbon/human/user, proximity, params)
 	if(proximity)
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target

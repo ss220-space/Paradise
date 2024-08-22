@@ -17,9 +17,11 @@
 	resistance_flags = INDESTRUCTIBLE
 	var/obj/item/storage/backpack/shared/bag
 
+
 /obj/item/shared_storage/red
 	name = "paradox bag"
 	desc = "Somehow, it's in two places at once."
+
 
 /obj/item/shared_storage/red/Initialize(mapload)
 	. = ..()
@@ -30,18 +32,37 @@
 		blue.bag = shared_storage
 
 
-/obj/item/shared_storage/attackby(obj/item/W, mob/user, params)
-	if(bag)
-		bag.loc = user
-		bag.attackby(W, user, params)
-		add_fingerprint(user)
+/obj/item/shared_storage/attackby(obj/item/I, mob/user, params)
+	add_fingerprint(user)
+	if(!bag)
+		return ATTACK_CHAIN_PROCEED
+	if(loc != user)
+		if(user.s_active == bag)
+			user.s_active.close(user)
+		return ATTACK_CHAIN_PROCEED
+	if(bag.loc != user)
+		bag.forceMove(user)
+	bag.attackby(I, user, params)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
+
+/obj/item/shared_storage/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	if(user.s_active == bag)
+		user.s_active.close(user)
 
 
 /obj/item/shared_storage/proc/open_bag(mob/user)
-	if(bag)
-		bag.loc = user
-		bag.attack_hand(user)
-		add_fingerprint(user)
+	add_fingerprint(user)
+	if(!bag)
+		return
+	if(loc != user || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		if(user.s_active == bag)
+			user.s_active.close(user)
+		return
+	if(bag.loc != user)
+		bag.forceMove(user)
+	bag.attack_hand(user)
 
 
 /obj/item/shared_storage/attack_self(mob/living/carbon/user)
@@ -52,7 +73,7 @@
 
 
 /obj/item/shared_storage/AltClick(mob/user)
-	if(!bag || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+	if(!bag || !iscarbon(user) || loc != user)
 		return ..()
 
 	open_bag(user)
@@ -60,7 +81,7 @@
 
 
 /obj/item/shared_storage/attack_hand(mob/living/carbon/user)
-	if(!iscarbon(user) || !bag || loc != user || !user.back || user.back != src)
+	if(!iscarbon(user) || !bag || loc != user)
 		return ..()
 
 	open_bag(user)
@@ -485,8 +506,8 @@
 	var/can_destroy = FALSE
 
 
-/obj/effect/immortality_talisman/attackby()
-	return
+/obj/effect/immortality_talisman/attackby(obj/item/I, mob/user, params)
+	return ATTACK_CHAIN_PROCEED
 
 
 /obj/effect/immortality_talisman/ex_act()

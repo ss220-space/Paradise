@@ -379,7 +379,6 @@
 	SIGNAL_HANDLER
 
 	if(wielded && attacksound)
-		//var/obj/item/parent_item = parent
 		playsound(source.loc, attacksound, 50, TRUE)
 
 
