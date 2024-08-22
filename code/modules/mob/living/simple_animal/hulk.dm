@@ -80,7 +80,6 @@
 	emote_hear = list("gnaw")
 	tts_seed = "Huskar"
 	attack_sound = list('sound/weapons/bite.ogg')
-	health_regen = 6
 
 	hulk_powers = list(/obj/effect/proc_holder/spell/hulk_mill,
 	/obj/effect/proc_holder/spell/fireball/hulk_spit,
