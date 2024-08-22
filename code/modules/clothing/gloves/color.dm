@@ -64,7 +64,7 @@
 	name = "budget insulated gloves"
 	icon_state = "yellow"
 	item_state = "ygloves"
-	siemens_coefficient = 0			//Set to a default of 1, gets overridden in New()
+	siemens_coefficient = 0			//Set to a default of 0
 	belt_icon = "ygloves"
 	permeability_coefficient = 0.05
 	item_color="yellow"
