@@ -61,7 +61,7 @@
 	to_chat(H, "<span class='userdanger'>The nettle burns your bare hand!</span>")
 	return TRUE
 
-/obj/item/grown/nettle/afterattack(atom/A as mob|obj, mob/user,proximity)
+/obj/item/grown/nettle/afterattack(atom/A, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(force > 0)
@@ -103,14 +103,16 @@
 			return FALSE
 	return ..()
 
-/obj/item/grown/nettle/death/attack(mob/living/carbon/M, mob/user)
-	. = ..()
-	if(. && isliving(M))
-		to_chat(M, span_danger("You are stunned by the powerful acid of the Deathnettle!"))
-		add_attack_logs(user, M, "Hit with [src]")
 
-		M.AdjustEyeBlurry((force / 7) STATUS_EFFECT_CONSTANT)
-		if(prob(20))
-			M.Paralyse(2 SECONDS)
-			M.Weaken(2 SECONDS)
-		M.drop_from_active_hand()
+/obj/item/grown/nettle/death/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
+		return .
+
+	to_chat(target, span_danger("You are stunned by the powerful acid of the Deathnettle!"))
+	add_attack_logs(user, target, "Hit with [src]")
+	target.AdjustEyeBlurry((force / 7) STATUS_EFFECT_CONSTANT)
+	target.drop_from_active_hand()
+	if(prob(20))
+		target.Paralyse(2 SECONDS)
+

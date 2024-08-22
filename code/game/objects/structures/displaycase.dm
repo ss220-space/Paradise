@@ -99,33 +99,59 @@
 
 
 /obj/structure/displaycase/attackby(obj/item/I, mob/user, params)
-	if(I.GetID() && !broken && openable)
-		if(allowed(user))
-			add_fingerprint(user)
-			to_chat(user,  "<span class='notice'>You [open ? "close":"open"] [src].</span>")
-			toggle_lock(user)
-		else
-			to_chat(user,  "<span class='warning'>Access denied.</span>")
-	else if(open && !showpiece && !(I.item_flags & ABSTRACT))
-		if(user.drop_transfer_item_to_loc(I, src))
-			add_fingerprint(user)
-			showpiece = I
-			to_chat(user, "<span class='notice'>You put [I] on display</span>")
-			update_icon(UPDATE_OVERLAYS)
-	else if(istype(I, /obj/item/stack/sheet/glass) && broken)
-		var/obj/item/stack/sheet/glass/G = I
-		if(G.get_amount() < 2)
-			to_chat(user, "<span class='warning'>You need two glass sheets to fix the case!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start fixing [src]...</span>")
-		if(do_after(user, 2 SECONDS, src))
-			add_fingerprint(user)
-			G.use(2)
-			broken = 0
-			obj_integrity = max_integrity
-			update_icon(UPDATE_OVERLAYS)
-	else
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(I.GetID() || is_pda(I))
+		if(!openable)
+			return ..()
+		add_fingerprint(user)
+		if(broken)
+			to_chat(user, span_warning("The [name] is broken."))
+			return ATTACK_CHAIN_PROCEED
+		if(!allowed(user))
+			to_chat(user, span_warning("Access denied!"))
+			return ATTACK_CHAIN_PROCEED
+		toggle_lock(user)
+		to_chat(user, span_notice("You [open ? "open" : "close"] [src]."))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/stack/sheet/glass) && broken)
+		add_fingerprint(user)
+		var/obj/item/stack/sheet/glass/glass = I
+		if(glass.get_amount() < 2)
+			to_chat(user, span_warning("You need two glass sheets to fix the case!"))
+			return ATTACK_CHAIN_PROCEED
+		glass.play_tool_sound(src)
+		to_chat(user, span_notice("You start replacing [src]'s glass panel..."))
+		if(!do_after(user, 2 SECONDS * glass.toolspeed, src, category = DA_CAT_TOOL) || !broken || QDELETED(glass))
+			return ATTACK_CHAIN_PROCEED
+		if(!glass.use(2))
+			to_chat(user, span_warning("At some point during construction you lost some glass. Make sure you have two sheets before trying again."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You replace [src]'s glass panel."))
+		broken = FALSE
+		obj_integrity = max_integrity
+		update_icon(UPDATE_OVERLAYS)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(!(I.item_flags & ABSTRACT))
+		add_fingerprint(user)
+		if(!open)
+			to_chat(user, span_warning("You should open [src] first!"))
+			return ATTACK_CHAIN_PROCEED
+		if(showpiece)
+			to_chat(user, span_warning("The [name] is already displays [showpiece]."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("You put [I] on the display."))
+		showpiece = I
+		update_icon(UPDATE_OVERLAYS)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/structure/displaycase/crowbar_act(mob/user, obj/item/I) //Only applies to the lab cage and player made display cases
 	if(alert || !openable)
@@ -181,42 +207,58 @@
 	icon_state = "glassbox_chassis"
 	var/obj/item/access_control/electronics
 
-/obj/structure/displaycase_chassis/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/access_control))
-		if(electronics)
-			return
-		var/obj/item/access_control/control = I
-		if(control.emagged)
-			return
-		to_chat(user, "<span class='notice'>You start installing the electronics into [src]...</span>")
-		playsound(src.loc, I.usesound, 50, TRUE)
-		if(do_after(user, 3 SECONDS, src))
-			if(electronics)
-				return
-			if(user.drop_transfer_item_to_loc(I, src))
-				add_fingerprint(user)
-				electronics = I
-				to_chat(user, "<span class='notice'>You install the electronics.</span>")
 
-	else if(istype(I, /obj/item/stack/sheet/glass))
-		var/obj/item/stack/sheet/glass/G = I
-		if(G.get_amount() < 10)
-			to_chat(user, "<span class='warning'>You need ten glass sheets to do this!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start adding [G] to [src]...</span>")
-		if(do_after(user, 2 SECONDS, src))
-			G.use(10)
-			var/obj/structure/displaycase/display = new(src.loc)
-			display.add_fingerprint(user)
-			if(electronics)
-				electronics.forceMove(display)
-				display.electronics = electronics
-				display.req_access = electronics.selected_accesses
-				display.check_one_access = electronics.one_access
-				electronics = null
-			qdel(src)
-	else
+/obj/structure/displaycase_chassis/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(istype(I, /obj/item/access_control))
+		add_fingerprint(user)
+		var/obj/item/access_control/control = I
+		if(electronics)
+			to_chat(user, span_warning("There is already [electronics] installed."))
+			return ATTACK_CHAIN_PROCEED
+		if(control.emagged)
+			to_chat(user, span_warning("The [control.name] is broken."))
+			return ATTACK_CHAIN_PROCEED
+		control.play_tool_sound(src)
+		to_chat(user, span_notice("You start installing [control] into [src]..."))
+		if(!do_after(user, 3 SECONDS * control.toolspeed, src, category = DA_CAT_TOOL) || electronics || control.emagged)
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(control, src))
+			return ..()
+		to_chat(user, span_notice("You have installed [control] into [src]."))
+		electronics = control
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/stack/sheet/glass))
+		add_fingerprint(user)
+		var/obj/item/stack/sheet/glass/glass = I
+		if(glass.get_amount() < 10)
+			to_chat(user, span_warning("You need ten glass sheets to do this!"))
+			return ATTACK_CHAIN_PROCEED
+		glass.play_tool_sound(src)
+		to_chat(user, span_notice("You start adding [glass] to [src]..."))
+		if(!do_after(user, 2 SECONDS * glass.toolspeed, src, category = DA_CAT_TOOL) || QDELETED(glass))
+			return ATTACK_CHAIN_PROCEED
+		if(!glass.use(10))
+			to_chat(user, span_warning("At some point during construction you lost some glass. Make sure you have ten sheets before trying again."))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/structure/displaycase/display = new(loc)
+		transfer_fingerprints_to(display)
+		display.add_fingerprint(user)
+		if(electronics)
+			electronics.forceMove(display)
+			display.electronics = electronics
+			display.req_access = electronics.selected_accesses
+			display.check_one_access = electronics.one_access
+			electronics = null
+		to_chat(user, span_notice("You have finished the construction of [display]."))
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/structure/displaycase_chassis/wrench_act(mob/user, obj/item/I)
 	. = TRUE

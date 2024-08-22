@@ -394,15 +394,22 @@ GLOBAL_LIST_INIT(cardboard_recipes, list(
 	new /datum/stack_recipe("glowstick box", /obj/item/storage/fancy/glowsticks_box/empty, 2),
 ))
 
+
 /obj/item/stack/sheet/cardboard/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stamp/clown) && !isstorage(loc))
+		add_fingerprint(user)
 		var/atom/droploc = drop_location()
-		if(use(1))
-			playsound(I, 'sound/items/bikehorn.ogg', 50, 1, -1)
-			to_chat(user, "<span class='notice'>You stamp the cardboard! It's a clown box! Honk!</span>")
-			new/obj/item/storage/box/clown(droploc) //bugfix
-	else
-		. = ..()
+		if(!use(1))
+			to_chat(user, span_warning("There is not enough cardboard."))
+			return ATTACK_CHAIN_PROCEED
+		playsound(droploc, 'sound/items/bikehorn.ogg', 50, TRUE, -1)
+		to_chat(user, span_notice("You stamp the cardboard! It's a clown box! Honk!"))
+		var/obj/item/storage/box/clown/new_box = new(droploc)
+		new_box.add_fingerprint(user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/item/stack/sheet/cardboard	//BubbleWrap
 	name = "cardboard"

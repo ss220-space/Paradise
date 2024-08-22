@@ -169,7 +169,7 @@
 					S.direction = pick(GLOB.alldirs)
 			else
 				S.direction = direction
-			S.steps = pickweight(list(0 = 1, 1 = 3, 2 = 3, 3 = 2))
+			S.steps = pick(0,1,1,1,2,2,2,3)
 			S.process()
 
 /////////////////////////////////////////////

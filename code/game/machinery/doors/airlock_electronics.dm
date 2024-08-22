@@ -17,14 +17,34 @@
 	. = TRUE
 	multitool_menu_interact(user, I)
 
+
+/obj/item/airlock_electronics/examine(mob/user)
+	. = ..()
+	if(access_electronics)
+		. += span_info("It has [access_electronics] attached. Use <b>screwdriver</b> to remove it.")
+
+
 /obj/item/airlock_electronics/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/access_control) && !access_electronics)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/access_control))
+		add_fingerprint(user)
+		var/obj/item/access_control/control = I
+		if(access_electronics)
+			to_chat(user, span_warning("There is already [access_electronics] installed!"))
+			return ATTACK_CHAIN_PROCEED
+		if(control.emagged)
+			to_chat(user, span_warning("The [control.name] is broken"))
+			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
-			return
+			return ..()
 		access_electronics = I
 		update_icon(UPDATE_OVERLAYS)
-		return TRUE
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/item/airlock_electronics/screwdriver_act(mob/living/user, obj/item/I)
 	if(!access_electronics)

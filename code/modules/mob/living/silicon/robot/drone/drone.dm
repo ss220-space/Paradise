@@ -174,58 +174,69 @@
 	if(emagged)
 		return FALSE
 
+
 //Drones cannot be upgraded with borg modules so we need to catch some items before they get used in ..().
-/mob/living/silicon/robot/drone/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/borg/upgrade/))
-		to_chat(user, "<span class='warning'>The maintenance drone chassis not compatible with \the [W].</span>")
-		return
+/mob/living/silicon/robot/drone/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)	// no interactions in combat
+		return ..()
 
-	else if(W.tool_behaviour == TOOL_CROWBAR)
-		to_chat(user, "The machine is hermetically sealed. You can't open the case.")
-		return
+	if(istype(I, /obj/item/borg/upgrade))
+		add_fingerprint(user)
+		to_chat(user, span_warning("The maintenance drone chassis not compatible with [I]!"))
+		return ATTACK_CHAIN_PROCEED
 
-	else if(W.GetID())
+	if(I.GetID())
+		add_fingerprint(user)
 		if(stat == DEAD)
 			if(!CONFIG_GET(flag/allow_drone_spawn) || emagged || health < -35) //It's dead, Dave.
-				to_chat(user, "<span class='warning'>The interface is fried, and a distressing burned smell wafts from the robot's interior. You're not rebooting this one.</span>")
-				return
-
-			if(!allowed(W))
-				to_chat(user, "<span class='warning'>Access denied.</span>")
-				return
-
+				to_chat(user, span_warning("The interface is fried, and a distressing burned smell wafts from the robot's interior. You're not rebooting this one."))
+				return ATTACK_CHAIN_PROCEED
+			if(!allowed(I))
+				to_chat(user, span_warning("Access denied."))
+				return ATTACK_CHAIN_PROCEED
 			var/delta = (world.time / 10) - last_reboot
 			if(reboot_cooldown > delta)
 				var/cooldown_time = round(reboot_cooldown - ((world.time / 10) - last_reboot), 1)
-				to_chat(usr, "<span class='warning'>The reboot system is currently offline. Please wait another [cooldown_time] seconds.</span>")
-				return
-
-			user.visible_message("<span class='warning'>\the [user] swipes [user.p_their()] ID card through [src], attempting to reboot it.</span>", "<span class='warning'>You swipe your ID card through [src], attempting to reboot it.</span>")
+				to_chat(user, span_warning("The reboot system is currently offline. Please wait another [cooldown_time] second\s."))
+				return ATTACK_CHAIN_PROCEED
+			user.visible_message(
+				span_warning("[user] has swiped [user.p_their()] ID card through [src], attempting to reboot it."),
+				span_notice("You have swiped your ID card through [src], attempting to reboot it."),
+			)
 			last_reboot = world.time / 10
 			var/drones = 0
-			for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
-				if(D.key && D.client)
+			for(var/mob/living/silicon/robot/drone/drone in GLOB.silicon_mob_list)
+				if(drone.key && drone.client)
 					drones++
 			if(drones < CONFIG_GET(number/max_maint_drones))
 				request_player()
-			return
+			return ATTACK_CHAIN_PROCEED_SUCCESS
 
-		else
-			var/confirm = tgui_alert(user, "Using your ID on a Maintenance Drone will shut it down, are you sure you want to do this?", "Disable Drone", list("Yes", "No"))
-			if(confirm == ("Yes") && (user in range(3, src)))
-				user.visible_message("<span class='warning'>\the [user] swipes [user.p_their()] ID card through [src], attempting to shut it down.</span>", "<span class='warning'>You swipe your ID card through \the [src], attempting to shut it down.</span>")
+		if(emagged)
+			to_chat(user, span_danger("The interface seems slightly damaged and refuses the ID card!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!allowed(I))
+			to_chat(user, span_warning("Access denied."))
+			return ATTACK_CHAIN_PROCEED
+		var/confirm = tgui_alert(user, "Using your ID on a Maintenance Drone will shut it down, are you sure you want to do this?", "Disable Drone", list("Yes", "No"))
+		if(confirm != "Yes" || !Adjacent(user) || QDELETED(I) || I.loc != user)
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_warning("[user] has swiped [user.p_their()] ID card through [src], attempting to shut it down."),
+			span_notice("You have swiped your ID card through [src], attempting to shut it down."),
+		)
+		shut_down()
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-				if(emagged)
-					return
+	return ..()
 
-				if(allowed(W))
-					shut_down()
-				else
-					to_chat(user, "<span class='warning'>Access denied.</span>")
 
-		return
+/mob/living/silicon/robot/drone/crowbar_act(mob/user, obj/item/I)
+	if(user.a_intent == INTENT_HARM)
+		return FALSE
+	to_chat(user, span_warning("The machine is hermetically sealed. You cannot open the case."))
+	return TRUE
 
-	..()
 
 /mob/living/silicon/robot/drone/emag_act(mob/user)
 	if(!client || stat == DEAD)

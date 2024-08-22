@@ -4,10 +4,11 @@
 
 /obj/effect
 	icon = 'icons/effects/effects.dmi'
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	obj_flags = IGNORE_HITS
+	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF|FREEZE_PROOF
 	move_resist = INFINITY
 	anchored = TRUE
-	can_be_hit = FALSE
+
 
 /obj/effect/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	return
@@ -118,9 +119,14 @@
 		create_reagents(100)
 		reagents.add_reagent_list(scoop_reagents)
 
-/obj/effect/decal/attackby(obj/item/I, mob/user)
+
+/obj/effect/decal/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks))
+		add_fingerprint(user)
 		scoop(I, user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ATTACK_CHAIN_PROCEED
+
 
 /obj/effect/decal/proc/scoop(obj/item/I, mob/user)
 	if(reagents && I.reagents && !no_scoop)

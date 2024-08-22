@@ -6,21 +6,23 @@
 
 
 /obj/item/clothing/glasses/attackby(obj/item/I, mob/living/carbon/human/user, params)
-	if(!prescription_upgradable || user.incapacitated() || !ishuman(user))
+	if(!ishuman(user) || user.incapacitated())
 		return ..()
 
+	if(istype(I, /obj/item/clothing/glasses/regular))
+		add_fingerprint(user)
+		if(!prescription_upgradable)
+			to_chat(user, span_warning("You cannot add prescription lenses to [src]."))
+			return ATTACK_CHAIN_PROCEED
+		if(prescription)
+			to_chat(user, span_warning("You cannot possibly imagine how adding more lenses would improve [src]."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))	// Store the glasses for later removal
+			return ..()
+		upgrade_prescription(I, user)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(!istype(I, /obj/item/clothing/glasses/regular))
-		return ..()
-
-	if(prescription)
-		to_chat(user, span_warning("You can't possibly imagine how adding more lenses would improve [src]."))
-		return
-
-	if(!user.drop_transfer_item_to_loc(I, src))	// Store the glasses for later removal
-		return
-
-	upgrade_prescription(I, user)
+	return ..()
 
 
 /obj/item/clothing/glasses/update_name(updates = ALL)
@@ -645,17 +647,19 @@
 	desc = "A pair of strange eyes, said to have been torn from an omniscient creature that used to roam the wastes. There's no real reason to have two, but that isn't stopping you."
 
 
-/obj/item/clothing/glasses/hud/godeye/attackby(obj/item/W, mob/user, params)
-	if(istype(W, type) && W != src && W.loc == user)
+/obj/item/clothing/glasses/hud/godeye/attackby(obj/item/I, mob/user, params)
+	if(istype(I, type) && I != src && I.loc == user)
+		add_fingerprint(user)
 		if(double_eye)
 			to_chat(user, span_notice("The eye winks at you and vanishes into the abyss, you feel really unlucky."))
 		else
 			double_eye = TRUE
 			update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
 			user.wear_glasses_update(src)
-		qdel(W)
-		return
-	..()
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/item/clothing/glasses/tajblind

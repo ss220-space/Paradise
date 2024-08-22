@@ -121,46 +121,50 @@
 		return
 	update_icon()
 
+
 /obj/machinery/chem_master/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(exchange_parts(user, I))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(panel_open)
-		to_chat(user, span_warning("You can't use [src] while it's panel is opened!"))
-		return TRUE
-
-	if((istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass)) && user.a_intent != INTENT_HARM)
+	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass))
+		add_fingerprint(user)
+		if(panel_open)
+			to_chat(user, span_warning("Close the maintenance panel first."))
+			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
-			to_chat(user, span_warning("[I] is stuck to you!"))
-			return
+			return ..()
 		if(beaker)
-			to_chat(user, span_notice("You swap [I] with [beaker] inside."))
+			to_chat(user, span_notice("You have swapped [beaker] with [I]."))
+			beaker.forceMove(drop_location())
 			if(Adjacent(user) && !issilicon(user)) //Prevents telekinesis from putting in hand
-				beaker.forceMove(loc)
 				user.put_in_hands(beaker, ignore_anim = FALSE)
-			else
-				beaker.forceMove(loc)
 		else
-			to_chat(user, span_notice("You add [I] to the machine."))
+			to_chat(user, span_notice("You have inserted [I] into [src]."))
 		beaker = I
 		SStgui.update_uis(src)
 		update_icon()
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	else if(istype(I, /obj/item/storage/pill_bottle))
-		if(loaded_pill_bottle)
-			to_chat(user, span_warning("A [loaded_pill_bottle] is already loaded into the machine."))
-			return
-
-		if(!user.drop_transfer_item_to_loc(I, src))
-			to_chat(user, span_warning("[I] is stuck to you!"))
-			return
-
+	if(istype(I, /obj/item/storage/pill_bottle))
 		add_fingerprint(user)
+		if(panel_open)
+			to_chat(user, span_warning("Close the maintenance panel first."))
+			return ATTACK_CHAIN_PROCEED
+		if(loaded_pill_bottle)
+			to_chat(user, span_warning("The [loaded_pill_bottle.name] is already inserted into [src]."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
 		loaded_pill_bottle = I
-		to_chat(user, span_notice("You add [I] into the dispenser slot!"))
+		to_chat(user, span_notice("You have inserted [I] into the dispenser slot."))
 		SStgui.update_uis(src)
-	else
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/machinery/chem_master/crowbar_act(mob/user, obj/item/I)
 	if(!panel_open)

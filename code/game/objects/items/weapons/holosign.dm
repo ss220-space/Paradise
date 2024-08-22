@@ -21,7 +21,7 @@
 	. = ..()
 	AddElement(/datum/element/openspace_item_click_handler)
 
-/obj/item/holosign_creator/afterattack(atom/target, mob/user, flag)
+/obj/item/holosign_creator/afterattack(atom/target, mob/user, flag, params)
 	if(flag)
 		if(!check_allowed_items(target, 1))
 			return
@@ -53,8 +53,10 @@
 				else
 					to_chat(user, "<span class='notice'>[src] is projecting at max capacity!</span>")
 
-/obj/item/holosign_creator/attack(mob/living/carbon/human/M, mob/user)
-	return
+
+/obj/item/holosign_creator/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	return ATTACK_CHAIN_PROCEED
+
 
 /obj/item/holosign_creator/attack_self(mob/user)
 	if(signs.len)
@@ -89,7 +91,7 @@
 	. = ..()
 	. += "<span class='info'>Alt-Click to [wet_enabled ? "deactivate" : "activate"] its built-in wet evaporation timer.</span>"
 
-/obj/item/holosign_creator/janitor/afterattack(atom/target, mob/user, flag)
+/obj/item/holosign_creator/janitor/afterattack(atom/target, mob/user, flag, params)
 	var/obj/structure/holosign/wetsign/WS = ..()
 	if(WS && wet_enabled)
 		WS.wet_timer_start(src)

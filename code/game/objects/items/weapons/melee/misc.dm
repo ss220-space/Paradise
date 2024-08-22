@@ -73,11 +73,13 @@
 	/// How much stamina damage we deal on a successful hit against a living, non-cyborg mob.
 	var/stamina_damage = 30
 
-/obj/item/melee/syndie_rapier/attack(mob/living/target, mob/living/user, def_zone, add_melee_cooldown = TRUE, skip_attack_anim = TRUE)
-	. = . ()
-	if(!.)
-		return
+
+/obj/item/melee/syndie_rapier/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
+		return .
 	syndie_rapier_effect(target, user)
+
 
 /obj/item/melee/syndie_rapier/proc/syndie_rapier_effect(mob/living/target, mob/living/user)
 	if(target.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
@@ -88,7 +90,7 @@
 		target.Sleeping(10 SECONDS)
 		add_attack_logs(user, target, "put to sleep with [src]")
 	target.apply_damage(stamina_damage, STAMINA)
-	return TRUE
+
 
 /obj/item/melee/mantisblade
 	name = "Gorlex mantis blade"
@@ -106,6 +108,9 @@
 	attack_verb = list("slashed", "stabbed", "sliced", "caned")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	materials = list(MAT_METAL = 1000)
+	/// Whether we are currently performing double attack
+	var/attack_in_progress = FALSE
+
 
 /obj/item/melee/mantisblade/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
@@ -115,17 +120,24 @@
 	else
 		transform = matrix(-1, 0, 0, 0, 1, 0)
 
-/obj/item/melee/mantisblade/attack(mob/living/M, mob/living/user, secondattack = FALSE)
-	. = ..()
-	var/obj/item/melee/mantisblade/secondsword = user.get_inactive_hand()
-	if(istype(secondsword, /obj/item/melee/mantisblade) && !secondattack && user.a_intent == INTENT_HARM)
-		addtimer(CALLBACK(src, PROC_REF(mantis_attack), M, user, FALSE), 0.2 SECONDS)
-	return
 
-/obj/item/melee/mantisblade/proc/mantis_attack(mob/living/M, mob/living/user, secondattack = FALSE)
+/obj/item/melee/mantisblade/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || attack_in_progress || user.a_intent != INTENT_HARM)
+		return .
 	var/obj/item/melee/mantisblade/secondsword = user.get_inactive_hand()
-	secondsword.attack(M, user, TRUE)
-	user.changeNext_move(CLICK_CD_MELEE)
+	if(!istype(secondsword, /obj/item/melee/mantisblade))
+		return .
+	addtimer(CALLBACK(secondsword, PROC_REF(mantis_attack), target, user, params, def_zone), 0.2 SECONDS)
+
+
+/obj/item/melee/mantisblade/proc/mantis_attack(mob/living/target, mob/living/user, params, def_zone)
+	if(QDELETED(src) || QDELETED(target) || !user.is_in_hands(src) || !user.Adjacent(target))
+		return
+	attack_in_progress = TRUE
+	attack(target, user, params, def_zone)
+	attack_in_progress = FALSE
+
 
 
 /obj/item/melee/mantisblade/afterattack(atom/target, mob/user, proximity)
@@ -206,7 +218,7 @@
 					/obj/item/queen_bee
 	))
 
-/obj/item/melee/flyswatter/afterattack(atom/target, mob/user, proximity_flag)
+/obj/item/melee/flyswatter/afterattack(atom/target, mob/user, proximity_flag, params)
 	. = ..()
 	if(proximity_flag)
 		if(is_type_in_typecache(target, strong_against))

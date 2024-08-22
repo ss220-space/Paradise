@@ -33,6 +33,7 @@
 	to_chat(user, "<span class='notice'>You transfer the contents of \the [supplied] into \the [src].</span>")
 	return 1
 
+
 /obj/item/sample/print/merge_evidence(obj/item/sample/supplied, mob/user)
 	if(!supplied.evidence || !supplied.evidence.len)
 		return 0
@@ -45,17 +46,18 @@
 	to_chat(user, "<span class='notice'>You overlay \the [src] and \the [supplied], combining the print records.</span>")
 	return 1
 
-/obj/item/sample/pre_attackby(atom/A, mob/living/user, params)
-	// Fingerprints will be handled in after_attack() to not mess up the samples taken
-	return A.attackby(src, user, params)
 
-/obj/item/sample/attackby(obj/O, mob/user)
-	if(O.type == src.type)
-		user.drop_item_ground(O)
-		if(merge_evidence(O, user))
-			qdel(O)
-		return 1
+/obj/item/sample/attackby(obj/item/I, mob/user, params)
+	if(I.type == type)
+		if(!user.can_unEquip(I) || !merge_evidence(I, user))
+			return ..()
+		user.drop_transfer_item_to_loc(I, src)
+		add_fingerprint(user)
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/item/sample/fibers
 	name = "fiber bag"
@@ -85,44 +87,44 @@
 	name = ("[initial(name)] (\the [H])")
 	icon_state = "fingerprint1"
 
-/obj/item/sample/print/attack(mob/living/M, mob/user)
 
-	if(!ishuman(M))
+/obj/item/sample/print/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(!ishuman(target))
 		return ..()
 
-	if(evidence && evidence.len)
-		return 0
+	. = ATTACK_CHAIN_PROCEED
 
-	var/mob/living/carbon/human/H = M
+	if(length(evidence))
+		return .
 
-	if(H.gloves)
-		to_chat(user, "<span class='warning'>\The [H] is wearing gloves.</span>")
-		return 1
+	if(target.gloves)
+		to_chat(user, span_warning("[target] is wearing gloves."))
+		return .
 
-	if(user != H && H.a_intent != INTENT_HELP && H.body_position != LYING_DOWN)
-		user.visible_message("<span class='danger'>\The [user] tries to take prints from \the [H], but they move away.</span>")
-		return 1
+	if(user != target && target.a_intent != INTENT_HELP && target.body_position != LYING_DOWN)
+		user.visible_message(span_danger("[user] tries to take prints from [target], but they move away."))
+		return .
 
-	if(user.zone_selected == BODY_ZONE_PRECISE_L_HAND || user.zone_selected == BODY_ZONE_PRECISE_R_HAND)
-		var/has_hand
-		var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_PRECISE_R_HAND)
-		if(istype(O))
-			has_hand = 1
-		else
-			O = H.get_organ(BODY_ZONE_PRECISE_L_HAND)
-			if(istype(O))
-				has_hand = 1
-		if(!has_hand)
-			to_chat(user, "<span class='warning'>They don't have any hands.</span>")
-			return 1
-		user.visible_message("[user] takes a copy of \the [H]'s fingerprints.")
-		var/fullprint = H.get_full_print()
-		evidence[fullprint] = fullprint
-		copy_evidence(src)
-		name = ("[initial(name)] (\the [H])")
-		icon_state = "fingerprint1"
-		return 1
-	return 0
+	if(user.zone_selected != BODY_ZONE_PRECISE_L_HAND || user.zone_selected != BODY_ZONE_PRECISE_R_HAND)
+		to_chat(user, span_warning("You need to select a hand to take prints from."))
+		return .
+
+	if(!target.get_organ(user.zone_selected))
+		to_chat(user, span_warning("This hand is absent."))
+		return .
+
+	. |= ATTACK_CHAIN_SUCCESS
+
+	user.visible_message(
+		span_notice("[user] takes a copy of [target]'s fingerprints."),
+		span_notice("You take a copy of [target]'s fingerprints."),
+	)
+	var/fullprint = target.get_full_print()
+	evidence[fullprint] = fullprint
+	copy_evidence(src)
+	name = "[initial(name)] ([target])"
+	icon_state = "fingerprint1"
+
 
 /obj/item/sample/print/copy_evidence(atom/supplied)
 	if(supplied.fingerprints_time && supplied.fingerprints_time.len)
@@ -147,7 +149,7 @@
 	var/obj/item/sample/S = new evidence_path(get_turf(user), supplied)
 	to_chat(user, "<span class='notice'>You transfer [S.evidence.len] [S.evidence.len > 1 ? "[evidence_type]s" : "[evidence_type]"] to \the [S].</span>")
 
-/obj/item/forensics/sample_kit/afterattack(atom/A, mob/user, proximity)
+/obj/item/forensics/sample_kit/afterattack(atom/A, mob/user, proximity, params)
 	if(!proximity || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(can_take_sample(user, A))
@@ -170,7 +172,7 @@
 	if(loc != user || !ishuman(user))
 		return FALSE
 
-	afterattack(over_object, user, TRUE)
+	afterattack(over_object, user, TRUE, params)
 	return TRUE
 
 

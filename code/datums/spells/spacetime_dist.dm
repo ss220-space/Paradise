@@ -134,9 +134,10 @@
 		walk_link(arrived)
 
 
-/obj/effect/cross_action/spacetime_dist/attackby(obj/item/W, mob/user, params)
-	if(user.drop_item_ground(W))
-		walk_link(W)
+/obj/effect/cross_action/spacetime_dist/attackby(obj/item/I, mob/user, params)
+	. = ATTACK_CHAIN_BLOCKED_ALL
+	if(user.drop_item_ground(I))
+		walk_link(I)
 	else
 		walk_link(user)
 

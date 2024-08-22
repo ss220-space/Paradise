@@ -30,9 +30,15 @@
 		update_icon(UPDATE_OVERLAYS)
 
 
-/obj/structure/coatrack/attackby(obj/item/W, mob/living/user, params)
-	if(!move_on_rack(W, user))
+/obj/structure/coatrack/attackby(obj/item/I, mob/living/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(move_on_rack(I, user))
+		add_fingerprint(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/structure/coatrack/MouseDrop_T(obj/item/I, mob/user, params)
@@ -62,7 +68,6 @@
 		. = TRUE
 		coat = moving_atom
 		if(user)
-			add_fingerprint(user)
 			user.visible_message("[user] hangs [coat] on [src].", "You hang [coat] on [src].")
 		else
 			visible_message("[coat] lands on [src].")

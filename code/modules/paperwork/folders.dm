@@ -36,15 +36,32 @@
 		. += "folder_paper"
 
 
-/obj/item/folder/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/paper) || istype(W, /obj/item/photo) || istype(W, /obj/item/paper_bundle) || istype(W, /obj/item/documents))
-		user.drop_transfer_item_to_loc(W, src)
-		to_chat(user, "<span class='notice'>You put the [W] into \the [src].</span>")
+/obj/item/folder/attackby(obj/item/I, mob/user, params)
+	if(is_pen(I))
+		rename_interactive(user, I)
+		return ATTACK_CHAIN_BLOCKED
+
+	var/static/list/allowed_to_store = typecacheof(list(
+		/obj/item/paper,
+		/obj/item/photo,
+		/obj/item/paper_bundle,
+		/obj/item/documents,
+	))
+	if(is_type_in_typecache(I, allowed_to_store))
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		add_fingerprint(user)
+		to_chat(user, span_notice("You put [I] into [src]."))
 		update_icon(UPDATE_OVERLAYS)
-	else if(is_pen(W))
-		rename_interactive(user, W)
-	else
-		return ..()
+		updateUsrDialog()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(user.a_intent != INTENT_HARM)
+		to_chat(user, span_warning("You cannot put [I] into [src]!"))
+		return ATTACK_CHAIN_PROCEED
+
+	return ..()
+
 
 /obj/item/folder/attack_self(mob/user as mob)
 	var/dat = {"<meta charset="UTF-8"><title>[name]</title>"}

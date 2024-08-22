@@ -1,3 +1,9 @@
+#define MASS_DRIVER_BUILD_LOOSE 0
+#define MASS_DRIVER_BUILD_ANCHORED 1
+#define MASS_DRIVER_BUILD_WELDED 2
+#define MASS_DRIVER_BUILD_WIRED 3
+#define MASS_DRIVER_BUILD_GRILLE 4
+
 /obj/machinery/mass_driver
 	name = "mass driver"
 	desc = "Shoots things into space."
@@ -28,7 +34,7 @@
 	var/obj/machinery/mass_driver_frame/frame = new(loc)
 	frame.setDir(dir)
 	frame.set_anchored(TRUE)
-	frame.build = 4
+	frame.build = MASS_DRIVER_BUILD_GRILLE
 	frame.update_icon()
 	qdel(src)
 
@@ -91,105 +97,132 @@
 	icon_state = "mass_driver_frame"
 	density = FALSE
 	anchored = FALSE
-	var/build = 0
+	/// Current construction stage
+	var/build = MASS_DRIVER_BUILD_LOOSE
 
-/obj/machinery/mass_driver_frame/attackby(obj/item/W, mob/user)
+
+/obj/machinery/mass_driver_frame/wrench_act(mob/living/user, obj/item/I)
+	if(build != MASS_DRIVER_BUILD_LOOSE && build != MASS_DRIVER_BUILD_ANCHORED)
+		return FALSE
+	. = TRUE
 	switch(build)
-		if(0) // Loose frame
-			if(W.tool_behaviour == TOOL_WRENCH)
-				to_chat(user, "You begin to anchor \the [src] on the floor.")
-				playsound(get_turf(src), W.usesound, 50, 1)
-				if(do_after(user, 1 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL) && (build == 0))
-					add_fingerprint(user)
-					to_chat(user, span_notice("You anchor \the [src]!"))
-					set_anchored(TRUE)
-					build++
-				return 1
-			return
-		if(1) // Fixed to the floor
-			if(W.tool_behaviour == TOOL_WRENCH)
-				to_chat(user, "You begin to de-anchor \the [src] from the floor.")
-				playsound(get_turf(src), W.usesound, 50, 1)
-				if(do_after(user, 1 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL) && (build == 1))
-					add_fingerprint(user)
-					build--
-					set_anchored(FALSE)
-					to_chat(user, span_notice("You de-anchored \the [src]!"))
-				return 1
-		if(2) // Welded to the floor
-			if(istype(W, /obj/item/stack/cable_coil))
-				var/obj/item/stack/cable_coil/C = W
-				to_chat(user, "You start adding cables to \the [src]...")
-				playsound(get_turf(src), C.usesound, 50, 1)
-				if(do_after(user, 2 SECONDS * C.toolspeed, src, category = DA_CAT_TOOL) && (C.get_amount() >= 2) && (build == 2))
-					add_fingerprint(user)
-					C.use(2)
-					to_chat(user, span_notice("You've added cables to \the [src]."))
-					build++
-			return
-		if(3) // Wired
-			if(W.tool_behaviour == TOOL_WIRECUTTER)
-				to_chat(user, "You begin to remove the wiring from \the [src].")
-				if(do_after(user, 1 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL) && (build == 3))
-					add_fingerprint(user)
-					new /obj/item/stack/cable_coil(loc,2)
-					playsound(get_turf(src), W.usesound, 50, 1)
-					to_chat(user, span_notice("You've removed the cables from \the [src]."))
-					build--
-				return 1
-			if(istype(W, /obj/item/stack/rods))
-				var/obj/item/stack/rods/R = W
-				to_chat(user, "You begin to complete \the [src]...")
-				playsound(get_turf(src), R.usesound, 50, 1)
-				if(do_after(user, 2 SECONDS * R.toolspeed, src, category = DA_CAT_TOOL) && (R.get_amount() >= 2) && (build == 3))
-					add_fingerprint(user)
-					R.use(2)
-					to_chat(user, span_notice("You've added the grille to \the [src]."))
-					build++
-				return 1
-			return
-		if(4) // Grille in place
-			if(W.tool_behaviour == TOOL_CROWBAR)
-				to_chat(user, "You begin to pry off the grille from \the [src]...")
-				playsound(get_turf(src), W.usesound, 50, 1)
-				if(do_after(user, 3 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL) && (build == 4))
-					add_fingerprint(user)
-					new /obj/item/stack/rods(loc,2)
-					build--
-				return 1
-			if(W.tool_behaviour == TOOL_SCREWDRIVER)
+		if(MASS_DRIVER_BUILD_LOOSE)
+			to_chat(user, "You begin to anchor [src] on the floor.")
+			if(!I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume) || build != MASS_DRIVER_BUILD_LOOSE)
+				return .
+			set_anchored(TRUE)
+			build = MASS_DRIVER_BUILD_ANCHORED
+			to_chat(user, span_notice("You anchor [src]!"))
+		if(MASS_DRIVER_BUILD_ANCHORED)
+			to_chat(user, "You begin to de-anchor [src] from the floor.")
+			if(!I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume) || build != MASS_DRIVER_BUILD_ANCHORED)
+				return .
+			set_anchored(FALSE)
+			build = MASS_DRIVER_BUILD_LOOSE
+			to_chat(user, span_notice("You de-anchored [src]!"))
+
+
+/obj/machinery/mass_driver_frame/wirecutter_act(mob/living/user, obj/item/I)
+	if(build != MASS_DRIVER_BUILD_WIRED)
+		return FALSE
+	. = TRUE
+	to_chat(user, "You begin to remove the wiring from [src].")
+	if(!I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume) || build != MASS_DRIVER_BUILD_WIRED)
+		return .
+	build = MASS_DRIVER_BUILD_WELDED
+	to_chat(user, span_notice("You've removed the cables from [src]."))
+
+
+/obj/machinery/mass_driver_frame/crowbar_act(mob/living/user, obj/item/I)
+	if(build != MASS_DRIVER_BUILD_GRILLE)
+		return FALSE
+	. = TRUE
+	to_chat(user, "You begin to pry off the grille from [src]...")
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || build != MASS_DRIVER_BUILD_GRILLE)
+		return .
+	build = MASS_DRIVER_BUILD_WIRED
+	new /obj/item/stack/rods(loc, 2)
+
+
+/obj/machinery/mass_driver_frame/screwdriver_act(mob/living/user, obj/item/I)
+	if(build != MASS_DRIVER_BUILD_GRILLE) // Grille in place
+		return FALSE
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	to_chat(user, "You finalize the Mass Driver...")
+	var/obj/machinery/mass_driver/driver = new(loc)
+	driver.setDir(dir)
+	qdel(src)
+
+
+/obj/machinery/mass_driver_frame/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	switch(build)
+		if(MASS_DRIVER_BUILD_WELDED)
+			if(istype(I, /obj/item/stack/cable_coil))
 				add_fingerprint(user)
-				to_chat(user, "You finalize the Mass Driver...")
-				playsound(get_turf(src), W.usesound, 50, 1)
-				var/obj/machinery/mass_driver/driver = new(loc)
-				driver.setDir(dir)
-				qdel(src)
-				return 1
-			return
+				var/obj/item/stack/cable_coil/coil = I
+				if(coil.get_amount() < 2)
+					to_chat(user, span_warning("You need more cable for this!"))
+					return ATTACK_CHAIN_PROCEED
+				to_chat(user, "You start adding cables to [src]...")
+				playsound(loc, coil.usesound, 50, TRUE)
+				if(!do_after(user, 2 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || build != MASS_DRIVER_BUILD_WELDED || QDELETED(coil) || !coil.use(2))
+					return ATTACK_CHAIN_PROCEED
+				to_chat(user, span_notice("You've added cables to [src]."))
+				build = MASS_DRIVER_BUILD_WIRED
+				return ATTACK_CHAIN_PROCEED_SUCCESS
+
+		if(MASS_DRIVER_BUILD_WIRED)
+			if(istype(I, /obj/item/stack/rods))
+				add_fingerprint(user)
+				var/obj/item/stack/rods/rods = I
+				if(rods.get_amount() < 2)
+					to_chat(user, span_warning("You need more rods for this!"))
+					return ATTACK_CHAIN_PROCEED
+				to_chat(user, "You start adding rods to [src]...")
+				playsound(loc, rods.usesound, 50, TRUE)
+				if(!do_after(user, 2 SECONDS * rods.toolspeed, src, category = DA_CAT_TOOL) || build != MASS_DRIVER_BUILD_WIRED || QDELETED(rods) || !rods.use(2))
+					return ATTACK_CHAIN_PROCEED
+				to_chat(user, span_notice("You've added rods to [src]."))
+				build = MASS_DRIVER_BUILD_GRILLE
+				return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
 
+
 /obj/machinery/mass_driver_frame/welder_act(mob/user, obj/item/I)
-	if(build != 0 && build != 1 && build != 2)
-		return
+	if(build != MASS_DRIVER_BUILD_LOOSE && build != MASS_DRIVER_BUILD_ANCHORED && build != MASS_DRIVER_BUILD_WELDED)
+		return FALSE
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
-		return
-	if(build == 0) //can deconstruct
-		WELDER_ATTEMPT_SLICING_MESSAGE
-		if(I.use_tool(src, user, 30, volume = I.tool_volume))
+		return .
+	switch(build)
+		if(MASS_DRIVER_BUILD_LOOSE)
+			WELDER_ATTEMPT_SLICING_MESSAGE
+			if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || build != MASS_DRIVER_BUILD_LOOSE)
+				return .
 			WELDER_SLICING_SUCCESS_MESSAGE
 			new /obj/item/stack/sheet/plasteel(drop_location(),3)
 			qdel(src)
-	else if(build == 1) //wrenched but not welded down
-		WELDER_ATTEMPT_FLOOR_WELD_MESSAGE
-		if(I.use_tool(src, user, 40, volume = I.tool_volume) && build == 1)
+
+		if(MASS_DRIVER_BUILD_ANCHORED)
+			WELDER_ATTEMPT_FLOOR_WELD_MESSAGE
+			if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume) || build != MASS_DRIVER_BUILD_ANCHORED)
+				return .
 			WELDER_FLOOR_WELD_SUCCESS_MESSAGE
-			build = 2
-	else if(build == 2) //welded down
-		WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
-		if(I.use_tool(src, user, 40, volume = I.tool_volume) && build == 2)
+			build = MASS_DRIVER_BUILD_WELDED
+
+		if(MASS_DRIVER_BUILD_WELDED)
+			WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
+			if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume) || build != MASS_DRIVER_BUILD_WELDED)
+				return .
 			WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
-			build = 1
+			build = MASS_DRIVER_BUILD_ANCHORED
+
 
 /obj/machinery/mass_driver_frame/verb/rotate()
 	set category = "Object"
@@ -200,4 +233,11 @@
 		return
 
 	setDir(turn(dir, -90))
+
+
+#undef MASS_DRIVER_BUILD_LOOSE
+#undef MASS_DRIVER_BUILD_ANCHORED
+#undef MASS_DRIVER_BUILD_WIRED
+#undef MASS_DRIVER_BUILD_WELDED
+#undef MASS_DRIVER_BUILD_GRILLE
 

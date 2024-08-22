@@ -195,7 +195,7 @@ Difficulty: Medium
 	force_on = 10
 
 
-/obj/item/melee/energy/cleaving_saw/miner/attack(mob/living/target, mob/living/carbon/human/user)
+/obj/item/melee/energy/cleaving_saw/miner/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	target.add_status_effect_absorption(
 		source = "miner",
 		effect_type = list(WEAKEN, STUN, KNOCKDOWN),

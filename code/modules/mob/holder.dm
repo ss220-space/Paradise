@@ -29,19 +29,21 @@
 
 		qdel(src)
 
-/obj/item/holder/attackby(obj/item/W as obj, mob/user as mob, params)
-	for(var/mob/M in src.contents)
-		M.attackby(W,user, params)
 
-/obj/item/holder/attack(mob/living/target, mob/living/user, def_zone)
-	if(ishuman(user))	//eating holder
-		if(target == user)
-			for(var/mob/M in src.contents)
-				. = M.devoured(user)
-				if(.)
-					qdel(src)
-				return .
-	. = ..()
+/obj/item/holder/attackby(obj/item/I, mob/user, params)
+	for(var/mob/living/animal in contents)
+		return animal.attackby(I, user, params)
+	return ..()
+
+
+/obj/item/holder/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(target == user && ishuman(user))	//eating holder
+		for(var/mob/living/mob in contents)
+			if(mob.devoured(user))
+				qdel(src)
+				return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 /obj/item/holder/proc/show_message(message, m_type, chat_message_type)
 	for(var/mob/living/M in contents)

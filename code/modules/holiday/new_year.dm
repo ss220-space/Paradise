@@ -13,21 +13,20 @@
 
 
 /obj/structure/garland/wirecutter_act(mob/living/user, obj/item/wirecutters/I)
-	. = ..()
-	I.play_tool_sound(src, I.tool_volume)
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
 	to_chat(user, span_notice("You cut garland apart."))
 	deconstruct()
 
-/obj/structure/garland/wrench_act(mob/living/user, obj/item/wrench/I)
-	. = ..()
-	I.play_tool_sound(src, I.tool_volume)
-	set_anchored(!anchored)
-	to_chat(user, span_notice("You [anchored ? "un" : ""]wrenched [src]"))
 
-/obj/structure/garland/attackby(obj/item/P, mob/user, params)
-	if(P.tool_behaviour == TOOL_WIRECUTTER || P.tool_behaviour == TOOL_WRENCH)
-		return
-	return ..()
+/obj/structure/garland/wrench_act(mob/living/user, obj/item/wrench/I)
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	set_anchored(!anchored)
+	to_chat(user, span_notice("You [anchored ? "" : "un"]wrenched [src]"))
+
 
 /obj/item/clothing/head/new_year
 	name = "Red furhat"

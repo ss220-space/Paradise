@@ -271,38 +271,57 @@
 	var/mob/living/simple_animal/hostile/poison/bees/queen/queen
 
 
-/obj/item/queen_bee/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/syringe))
-		var/obj/item/reagent_containers/syringe/S = I
-		if(S.reagents.has_reagent("royal_bee_jelly")) //checked twice, because I really don't want royal bee jelly to be duped
-			if(S.reagents.has_reagent("royal_bee_jelly", 5))
-				S.reagents.remove_reagent("royal_bee_jelly", 5)
-				var/obj/item/queen_bee/qb = new(user.drop_location())
-				qb.queen = new(qb)
-				if(queen && queen.beegent)
-					qb.queen.assign_reagent(queen.beegent) //Bees use the global singleton instances of reagents, so we don't need to worry about one bee being deleted and her copies losing their reagents.
-				user.put_in_active_hand(qb)
-				user.visible_message("<span class='notice'>[user] injects [src] with royal bee jelly, causing it to split into two bees, MORE BEES!</span>","<span class ='warning'>You inject [src] with royal bee jelly, causing it to split into two bees, MORE BEES!</span>")
-			else
-				to_chat(user, "<span class='warning'>You don't have enough royal bee jelly to split a bee in two!</span>")
-		else
-			var/datum/reagent/R = GLOB.chemical_reagents_list[S.reagents.get_master_reagent_id()]
-			if(R && S.reagents.has_reagent(R.id, 5))
-				S.reagents.remove_reagent(R.id, 5)
-				queen.assign_reagent(R)
-				user.visible_message("<span class='warning'>[user] injects [src]'s genome with [R.name], mutating its DNA!</span>", "<span class='warning'>You inject [src]'s genome with [R.name], mutating its DNA!</span>")
-				name = queen.name
-			else
-				to_chat(user, "<span class='warning'>You don't have enough units of that chemical to modify the bee's DNA!</span>")
-	else
-		return ..()
-
 /obj/item/queen_bee/bought/Initialize(mapload)
 	. = ..()
 	queen = new(src)
 
+
 /obj/item/queen_bee/Destroy()
 	QDEL_NULL(queen)
+	return ..()
+
+
+/obj/item/queen_bee/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/reagent_containers/syringe))
+		add_fingerprint(user)
+		var/obj/item/reagent_containers/syringe/syringe = I
+		if(syringe.mode != 1)	// injecting
+			to_chat(user, span_warning("The [syringe.name] should be in inject mode."))
+			return ATTACK_CHAIN_PROCEED
+		if(!syringe.reagents.total_volume)
+			to_chat(user, span_warning("The [syringe.name] is empty."))
+			return ATTACK_CHAIN_PROCEED
+		if(syringe.reagents.has_reagent("royal_bee_jelly"))
+			if(!syringe.reagents.has_reagent("royal_bee_jelly", 5))
+				to_chat(user, span_warning("You don't have enough royal bee jelly to split a bee in two!"))
+				return ATTACK_CHAIN_PROCEED
+			var/obj/item/queen_bee/new_queen = new(drop_location())
+			new_queen.add_fingerprint(user)
+			new_queen.queen = new(new_queen)	// inserting the mob in the holder
+			if(queen?.beegent)
+				// bees use the global singleton instances of reagents,
+				// so we don't need to worry about one bee being deleted and her copies losing their reagents.
+				new_queen.queen.assign_reagent(queen.beegent)
+			syringe.reagents.remove_reagent("royal_bee_jelly", 5, TRUE)
+			syringe.update_icon()
+			user.visible_message(
+				span_warning("[user] has injected [src] with royal bee jelly, causing it to split into two bees, MORE BEES!"),
+				span_notice("You have injected [src] with royal bee jelly, causing it to split into two bees, MORE BEES!"),
+			)
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		var/datum/reagent/new_reagent = GLOB.chemical_reagents_list[syringe.reagents.get_master_reagent_id()]
+		if(!new_reagent || !syringe.reagents.has_reagent(new_reagent.id, 5))
+			to_chat(user, span_warning("You don't have enough units of [new_reagent.name] to modify the bee's DNA!"))
+			return ATTACK_CHAIN_PROCEED
+		syringe.reagents.remove_reagent(new_reagent.id, 5, TRUE)
+		syringe.update_icon()
+		queen.assign_reagent(new_reagent)
+		user.visible_message(
+			span_warning("[user] has injected [src] with [new_reagent.name], mutating its DNA!"),
+			span_notice("You have injected [src] with [new_reagent.name], mutating its DNA!"),
+		)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
 
 

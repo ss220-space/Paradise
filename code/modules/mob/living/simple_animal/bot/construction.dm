@@ -14,25 +14,42 @@
 	var/created_name = "Cleanbot"
 	var/robot_arm = /obj/item/robot_parts/l_arm
 
-/obj/item/bucket_sensor/attackby(obj/item/W, mob/user, params)
-	..()
-	if(istype(W, /obj/item/robot_parts/l_arm) || istype(W, /obj/item/robot_parts/r_arm))
-		if(!user.drop_transfer_item_to_loc(W, src))
-			return
-		qdel(W)
-		var/turf/T = get_turf(loc)
-		var/mob/living/simple_animal/bot/cleanbot/A = new /mob/living/simple_animal/bot/cleanbot(T)
-		A.name = created_name
-		A.robot_arm = W.type
-		to_chat(user, "<span class='notice'>You add the robot arm to the bucket and sensor assembly. Beep boop!</span>")
-		user.temporarily_remove_item_from_inventory(src, force = TRUE)
-		qdel(src)
 
-	else if(is_pen(W))
-		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
-		if(!isnull(t))
-			created_name = t
-			add_game_logs("[key_name(user)] has renamed a robot to [t]", user)
+/obj/item/bucket_sensor/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(is_pen(I))
+		var/new_name = rename_interactive(user, I, prompt = "Enter new robot name")
+		if(!isnull(new_name))
+			created_name = new_name
+			add_game_logs("[key_name(user)] has renamed a robot to [new_name]", user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	add_fingerprint(user)
+	if(!istype(I, /obj/item/robot_parts/l_arm) && !istype(I, /obj/item/robot_parts/r_arm))
+		to_chat(user, span_warning("You need a cyborg arm to finish the construction."))
+		return ATTACK_CHAIN_PROCEED
+
+	if(!isturf(loc))
+		to_chat(user, span_warning("You cannot finish the construction [ismob(loc) ? "in inventory" : "in [loc]"]."))
+		return ATTACK_CHAIN_PROCEED
+
+	if(!user.drop_transfer_item_to_loc(I, src))
+		return ..()
+
+	to_chat(user, span_notice("You have added the robot arm to the bucket and sensor assembly. Beep boop!"))
+	var/mob/living/simple_animal/bot/cleanbot/new_bot = new(loc)
+	transfer_fingerprints_to(new_bot)
+	I.transfer_fingerprints_to(new_bot)
+	new_bot.add_fingerprint(user)
+	new_bot.name = created_name
+	new_bot.robot_arm = I.type
+	qdel(src)
+	qdel(I)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
+
 
 //Edbot Assembly
 
@@ -92,126 +109,161 @@
 
 
 
-/obj/item/ed209_assembly/attackby(obj/item/W, mob/user, params)
-	..()
+/obj/item/ed209_assembly/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
-	if(is_pen(W))
-		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
-		if(!isnull(t))
-			created_name = t
-			add_game_logs("[key_name(user)] has renamed a robot to [t]", user)
-		return
+	if(is_pen(I))
+		var/new_name = rename_interactive(user, I, prompt = "Enter new robot name")
+		if(!isnull(new_name))
+			created_name = new_name
+			add_game_logs("[key_name(user)] has renamed a robot to [new_name]", user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	switch(build_step)
-		if(0,1)
-			if(istype(W, /obj/item/robot_parts/l_leg) || istype(W, /obj/item/robot_parts/r_leg))
-				if(!user.drop_transfer_item_to_loc(W, src))
-					return
-				qdel(W)
-				build_step++
-				to_chat(user, "<span class='notice'>You add the robot leg to [src].</span>")
-				update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
+		if(0, 1)
+			add_fingerprint(user)
+			if(!istype(I, /obj/item/robot_parts/l_leg) && !istype(I, /obj/item/robot_parts/r_leg))
+				to_chat(user, span_warning("You need a cyborg leg to continue the construction."))
+				return ATTACK_CHAIN_PROCEED
+			if(!user.drop_transfer_item_to_loc(I, src))
+				return ..()
+			qdel(I)
+			build_step++
+			to_chat(user, span_notice("You have added the the robot leg to the ED-209 assembly."))
+			update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
+			return ATTACK_CHAIN_PROCEED_SUCCESS
 
 		if(2)
+			add_fingerprint(user)
 			var/newcolor = ""
-			if(istype(W, /obj/item/clothing/suit/redtag))
+			if(istype(I, /obj/item/clothing/suit/redtag))
 				newcolor = "r"
-			else if(istype(W, /obj/item/clothing/suit/bluetag))
+			else if(istype(I, /obj/item/clothing/suit/bluetag))
 				newcolor = "b"
-			if(newcolor || istype(W, /obj/item/clothing/suit/armor/vest))
-				if(!user.drop_transfer_item_to_loc(W, src))
-					return
-				lasercolor = newcolor
-				qdel(W)
-				build_step++
-				to_chat(user, "<span class='notice'>You add the armor to [src].</span>")
-				update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
+			if(!newcolor && !istype(I, /obj/item/clothing/suit/armor/vest))
+				to_chat(user, span_warning("You need a helmet to continue the construction."))
+				return ATTACK_CHAIN_PROCEED
+			if(!user.drop_transfer_item_to_loc(I, src))
+				return ..()
+			lasercolor = newcolor
+			build_step++
+			to_chat(user, span_notice("You have added [I] to the ED-209 assembly."))
+			update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
+			qdel(I)
+			return ATTACK_CHAIN_PROCEED_SUCCESS
 
-		if(3)
-			if(W.tool_behaviour == TOOL_WELDER && W.use_tool(src, user, volume = W.tool_volume))
-				build_step++
-				update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
-				to_chat(user, "<span class='notice'>You weld the vest to [src].</span>")
 		if(4)
+			add_fingerprint(user)
 			switch(lasercolor)
 				if("b")
-					if(!istype(W, /obj/item/clothing/head/helmet/bluetaghelm))
-						return
-
+					if(!istype(I, /obj/item/clothing/head/helmet/bluetaghelm))
+						to_chat(user, span_warning("You need a blue laser tag helmet to continue the construction."))
+						return ATTACK_CHAIN_PROCEED
 				if("r")
-					if(!istype(W, /obj/item/clothing/head/helmet/redtaghelm))
-						return
-
+					if(!istype(I, /obj/item/clothing/head/helmet/redtaghelm))
+						to_chat(user, span_warning("You need a red laser tag helmet to continue the construction."))
+						return ATTACK_CHAIN_PROCEED
 				if("")
-					if(!istype(W, /obj/item/clothing/head/helmet))
-						return
-
-			if(!user.drop_transfer_item_to_loc(W, src))
-				return
-			qdel(W)
+					if(!istype(I, /obj/item/clothing/head/helmet))
+						to_chat(user, span_warning("You need a standard helmet to continue the construction."))
+						return ATTACK_CHAIN_PROCEED
+			if(!user.drop_transfer_item_to_loc(I, src))
+				return ..()
 			build_step++
-			to_chat(user, "<span class='notice'>You add the helmet to [src].</span>")
+			to_chat(user, span_notice("You have added [I] to the ED-209 assembly."))
 			update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
+			qdel(I)
+			return ATTACK_CHAIN_BLOCKED_ALL
 
 		if(5)
-			if(isprox(W))
-				if(!user.drop_transfer_item_to_loc(W, src))
-					return
-				qdel(W)
-				build_step++
-				to_chat(user, "<span class='notice'>You add the prox sensor to [src].</span>")
-				update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
+			add_fingerprint(user)
+			if(!isprox(I))
+				to_chat(user, span_warning("You need a proximity sensor to continue the construction."))
+				return ATTACK_CHAIN_PROCEED
+			if(!user.drop_transfer_item_to_loc(I, src))
+				return ..()
+			qdel(I)
+			build_step++
+			to_chat(user, span_notice("You have added the proximity sensor to the ED-209 assembly."))
+			update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
+			return ATTACK_CHAIN_BLOCKED_ALL
 
 		if(6)
-			if(istype(W, /obj/item/stack/cable_coil))
-				var/obj/item/stack/cable_coil/coil = W
-				if(coil.get_amount() < 1)
-					to_chat(user, "<span class='warning'>You need one length of cable to wire the ED-209!</span>")
-					return
-				to_chat(user, "<span class='notice'>You start to wire [src]...</span>")
-				if(do_after(user, 4 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
-					if(coil.get_amount() >= 1 && build_step == 6)
-						coil.use(1)
-						build_step = 7
-						playsound(loc, W.usesound, 50, 1)
-						to_chat(user, "<span class='notice'>You wire the ED-209 assembly.</span>")
-						update_appearance(UPDATE_NAME)
+			add_fingerprint(user)
+			var/obj/item/stack/cable_coil/coil = I
+			if(!iscoil(I) || coil.get_amount() < 1)
+				to_chat(user, span_warning("You need at least one length of cable to continue the construction."))
+				return ATTACK_CHAIN_PROCEED
+			coil.play_tool_sound(src)
+			to_chat(user, span_notice("You start to wire the ED-209 assembly..."))
+			if(!do_after(user, 4 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || build_step != 6 || QDELETED(coil) || !coil.use(1))
+				return ATTACK_CHAIN_PROCEED
+			build_step++
+			to_chat(user, span_notice("You have wired the ED-209 assembly."))
+			update_appearance(UPDATE_NAME)
+			return ATTACK_CHAIN_PROCEED_SUCCESS
 
 		if(7)
+			add_fingerprint(user)
 			new_name = ""
 			switch(lasercolor)
 				if("b")
-					if(!istype(W, /obj/item/gun/energy/laser/tag/blue))
-						return
+					if(!istype(I, /obj/item/gun/energy/laser/tag/blue))
+						to_chat(user, span_warning("You need a blue laser tag gun to continue the construction."))
+						return ATTACK_CHAIN_PROCEED
 					new_name = "bluetag ED-209 assembly"
 				if("r")
-					if(!istype(W, /obj/item/gun/energy/laser/tag/red))
-						return
+					if(!istype(I, /obj/item/gun/energy/laser/tag/red))
+						to_chat(user, span_warning("You need a red laser tag gun to continue the construction."))
+						return ATTACK_CHAIN_PROCEED
 					new_name = "redtag ED-209 assembly"
 				if("")
-					if(!istype(W, /obj/item/gun/energy/gun/advtaser))
-						return
+					if(!istype(I, /obj/item/gun/energy/gun/advtaser))
+						to_chat(user, span_warning("You need a hybrid taser to continue the construction."))
+						return ATTACK_CHAIN_PROCEED
 					new_name = "taser ED-209 assembly"
-				else
-					return
-			if(!user.drop_transfer_item_to_loc(W, src))
-				return
+			if(!user.drop_transfer_item_to_loc(I, src))
+				return ..()
 			build_step++
-			to_chat(user, "<span class='notice'>You add [W] to [src].</span>")
+			to_chat(user, span_notice("You have added [I] to the ED-209 assembly."))
 			update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
-			qdel(W)
+			qdel(I)
+			return ATTACK_CHAIN_BLOCKED_ALL
 
 		if(9)
-			if(istype(W, /obj/item/stock_parts/cell))
-				if(!user.drop_transfer_item_to_loc(W, src))
-					return
-				build_step++
-				to_chat(user, "<span class='notice'>You complete the ED-209.</span>")
-				var/turf/T = get_turf(src)
-				new /mob/living/simple_animal/bot/ed209(T,created_name,lasercolor)
-				qdel(W)
-				user.temporarily_remove_item_from_inventory(src, force = TRUE)
-				qdel(src)
+			add_fingerprint(user)
+			if(!istype(I, /obj/item/stock_parts/cell))
+				to_chat(user, span_warning("You need a power cell to complete the assembly."))
+				return ATTACK_CHAIN_PROCEED
+			if(!isturf(loc))
+				to_chat(user, span_warning("You cannot finish the construction [ismob(loc) ? "in inventory" : "in [loc]"]."))
+				return ATTACK_CHAIN_PROCEED
+			if(!user.drop_transfer_item_to_loc(I, src))
+				return ..()
+			to_chat(user, span_notice("You have completed the ED-209 assembly. Beep boop!"))
+			var/mob/living/simple_animal/bot/ed209/new_bot = new(loc, created_name, lasercolor)
+			transfer_fingerprints_to(new_bot)
+			I.transfer_fingerprints_to(new_bot)
+			new_bot.add_fingerprint(user)
+			qdel(I)
+			qdel(src)
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
+
+/obj/item/ed209_assembly/welder_act(mob/living/user, obj/item/I)
+	if(build_step != 3)
+		return FALSE
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	build_step++
+	to_chat(user, span_notice("You have welded the the armor to [src]."))
+	update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 
 
 /obj/item/ed209_assembly/screwdriver_act(mob/living/user, obj/item/I)
@@ -246,123 +298,170 @@
 	name = "tiles, toolbox and sensor arrangement"
 	icon_state = "toolbox_tiles_sensor"
 
-/obj/item/storage/toolbox/attackby(obj/item/stack/tile/plasteel/T, mob/user, params)
 
-	if(!istype(T, /obj/item/stack/tile/plasteel))
-		..()
-		return
-	if(!istype(src, /obj/item/storage/toolbox))
-		return
-	if(type == /obj/item/storage/toolbox/green/memetic)
-		return
-	if(contents.len >= 1)
-		to_chat(user, "<span class='warning'>They won't fit in, as there is already stuff inside.</span>")
-		return
-	if(T.use(10))
-		if(user.s_active)
-			user.s_active.close(user)
-		var/obj/item/toolbox_tiles/B = new /obj/item/toolbox_tiles(drop_location())
-		B.toolbox = type
-		switch(B.toolbox)
-			if(/obj/item/storage/toolbox/mechanical/old)
-				B.toolbox_color = "ob"
-			if(/obj/item/storage/toolbox/emergency)
-				B.toolbox_color = "r"
-			if(/obj/item/storage/toolbox/emergency/old)
-				B.toolbox_color = "or"
-			if(/obj/item/storage/toolbox/electrical)
-				B.toolbox_color = "y"
-			if(/obj/item/storage/toolbox/green)
-				B.toolbox_color = "g"
-			if(/obj/item/storage/toolbox/syndicate)
-				B.toolbox_color = "s"
-			if(/obj/item/storage/toolbox/fakesyndi)
-				B.toolbox_color = "s"
-		B.update_icon(UPDATE_ICON_STATE)
-		user.put_in_hands(B, ignore_anim = FALSE)
-		to_chat(user, "<span class='notice'>You add the tiles into the empty toolbox. They protrude from the top.</span>")
+/obj/item/storage/toolbox/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM || !istype(I, /obj/item/stack/tile/plasteel))
+		return ..()
+
+	. = ATTACK_CHAIN_PROCEED
+
+	add_fingerprint(user)
+	var/obj/item/stack/tile/plasteel/plasteel = I
+	if(istype(I, /obj/item/storage/toolbox/green/memetic))
+		to_chat(user, "<i><b><font face = Tempus Sans ITC>Nice try...</font></b></i>")
+		return .
+
+	if(length(contents))
+		to_chat(user, span_warning("The [name] should be empty to start the floorbot construction."))
+		return .
+
+	if(!plasteel.use(10))
+		to_chat(user, span_warning("You need at least ten sheets of plasteel to start the floorbot construction."))
+		return .
+
+	. |= ATTACK_CHAIN_BLOCKED_ALL
+
+	hide_from_all_viewers()
+
+	var/obj/item/toolbox_tiles/assembly = new(drop_location())
+	assembly.toolbox = type
+	switch(assembly.toolbox)
+		if(/obj/item/storage/toolbox/mechanical/old)
+			assembly.toolbox_color = "ob"
+		if(/obj/item/storage/toolbox/emergency)
+			assembly.toolbox_color = "r"
+		if(/obj/item/storage/toolbox/emergency/old)
+			assembly.toolbox_color = "or"
+		if(/obj/item/storage/toolbox/electrical)
+			assembly.toolbox_color = "y"
+		if(/obj/item/storage/toolbox/green)
+			assembly.toolbox_color = "g"
+		if(/obj/item/storage/toolbox/syndicate)
+			assembly.toolbox_color = "s"
+		if(/obj/item/storage/toolbox/fakesyndi)
+			assembly.toolbox_color = "s"
+	assembly.update_icon(UPDATE_ICON_STATE)
+	transfer_fingerprints_to(assembly)
+	assembly.add_fingerprint(user)
+	if(loc == user)
 		user.temporarily_remove_item_from_inventory(src, force = TRUE)
-		qdel(src)
-	else
-		to_chat(user, "<span class='warning'>You need 10 floor tiles to start building a floorbot.</span>")
-		return
+		user.put_in_hands(assembly)
+	to_chat(user, span_notice("You have reinforced the toolbox with plasteel sheets. Now it is suitable for further floorbot construction."))
+	qdel(src)
 
 
 /obj/item/toolbox_tiles/update_icon_state()
 	icon_state = "[toolbox_color]toolbox_tiles"
 
 
-/obj/item/toolbox_tiles/attackby(obj/item/W, mob/user, params)
-	..()
-	if(isprox(W))
-		if(!user.drop_transfer_item_to_loc(W, src))
-			return
-		qdel(W)
-		var/obj/item/toolbox_tiles/sensor/B = new /obj/item/toolbox_tiles/sensor(drop_location())
-		B.created_name = created_name
-		B.toolbox_color = src.toolbox_color
-		B.update_icon(UPDATE_ICON_STATE)
-		user.put_in_hands(B, ignore_anim = FALSE)
-		to_chat(user, "<span class='notice'>You add the sensor to the toolbox and tiles.</span>")
-		user.temporarily_remove_item_from_inventory(src, force = TRUE)
-		qdel(src)
+/obj/item/toolbox_tiles/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
-	else if(is_pen(W))
-		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
-		if(!isnull(t))
-			created_name = t
-			add_game_logs("[key_name(user)] has renamed a robot to [t]", user)
+	if(is_pen(I))
+		var/new_name = rename_interactive(user, I, prompt = "Enter new robot name")
+		if(!isnull(new_name))
+			created_name = new_name
+			add_game_logs("[key_name(user)] has renamed a robot to [new_name]", user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	add_fingerprint(user)
+	if(!isprox(I))
+		to_chat(user, span_warning("You need a proximity sensor to continue the construction."))
+		return ATTACK_CHAIN_PROCEED
+
+	if(!user.drop_transfer_item_to_loc(I, src))
+		return ..()
+	var/obj/item/toolbox_tiles/sensor/assembly = new(drop_location())
+	assembly.created_name = created_name
+	assembly.toolbox_color = toolbox_color
+	assembly.update_icon(UPDATE_ICON_STATE)
+	I.transfer_fingerprints_to(assembly)
+	transfer_fingerprints_to(assembly)
+	assembly.add_fingerprint(user)
+	if(loc == user)
+		user.temporarily_remove_item_from_inventory(src, force = TRUE)
+		user.put_in_hands(assembly)
+	to_chat(user, span_notice("You have added the proximity sensor to the floorbot assembly."))
+	qdel(I)
+	qdel(src)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
 
 
 /obj/item/toolbox_tiles/sensor/update_icon_state()
 	icon_state = "[toolbox_color]toolbox_tiles_sensor"
 
 
-/obj/item/toolbox_tiles/sensor/attackby(obj/item/W, mob/user, params)
-	..()
-	if(istype(W, /obj/item/robot_parts/l_arm) || istype(W, /obj/item/robot_parts/r_arm))
-		if(!user.drop_transfer_item_to_loc(W, src))
-			return
-		qdel(W)
-		var/mob/living/simple_animal/bot/floorbot/A = new(drop_location(), toolbox_color)
-		A.name = created_name
-		A.robot_arm = W.type
-		to_chat(user, "<span class='notice'>You add the robot arm to the odd looking toolbox assembly. Boop beep!</span>")
-		user.temporarily_remove_item_from_inventory(src, force = TRUE)
-		qdel(src)
-	else if(is_pen(W))
-		var/t = rename_interactive(user, W, prompt = "Enter new robot name")
-		if(!isnull(t))
-			created_name = t
-			add_game_logs("[key_name(user)] has renamed a robot to [t]", user)
-
-//Medbot Assembly
-/obj/item/storage/firstaid/attackby(obj/item/I, mob/user, params)
-	if(!istype(I, /obj/item/robot_parts/l_arm) && !istype(I, /obj/item/robot_parts/r_arm))
+/obj/item/toolbox_tiles/sensor/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
-	else
-		robot_arm = I.type
 
-	//Making a medibot!
-	if(contents.len)
-		to_chat(user, "<span class='warning'>You need to empty [src] out first!</span>")
-		return
+	if(is_pen(I))
+		var/new_name = rename_interactive(user, I, prompt = "Enter new robot name")
+		if(!isnull(new_name))
+			created_name = new_name
+			add_game_logs("[key_name(user)] has renamed a robot to [new_name]", user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	var/obj/item/firstaid_arm_assembly/A = new /obj/item/firstaid_arm_assembly(drop_location(), med_bot_skin)
+	add_fingerprint(user)
+	if(!istype(I, /obj/item/robot_parts/l_arm) && !istype(I, /obj/item/robot_parts/r_arm))
+		to_chat(user, span_warning("You need a cyborg arm to finish the construction."))
+		return ATTACK_CHAIN_PROCEED
 
-	A.req_access = req_access
-	A.syndicate_aligned = syndicate_aligned
-	A.treatment_oxy = treatment_oxy
-	A.treatment_brute = treatment_brute
-	A.treatment_fire = treatment_fire
-	A.treatment_tox = treatment_tox
-	A.treatment_virus = treatment_virus
+	if(!isturf(loc))
+		to_chat(user, span_warning("You cannot finish the construction [ismob(loc) ? "in inventory" : "in [loc]"]."))
+		return ATTACK_CHAIN_PROCEED
 
+	if(!user.drop_transfer_item_to_loc(I, src))
+		return ..()
+
+	var/mob/living/simple_animal/bot/floorbot/new_bot = new(loc, toolbox_color)
+	I.transfer_fingerprints_to(new_bot)
+	transfer_fingerprints_to(new_bot)
+	new_bot.add_fingerprint(user)
+	new_bot.name = created_name
+	new_bot.robot_arm = I.type
+	to_chat(user, span_notice("You have completed the floorbot assembly. Beep boop!"))
 	qdel(I)
-	user.put_in_hands(A, ignore_anim = FALSE)
-	to_chat(user, "<span class='notice'>You add the robot arm to the first aid kit.</span>")
-	user.temporarily_remove_item_from_inventory(src, force = TRUE)
 	qdel(src)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
+
+/obj/item/storage/firstaid/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM || (!istype(I, /obj/item/robot_parts/l_arm) && !istype(I, /obj/item/robot_parts/r_arm)))
+		return ..()
+
+	. = ATTACK_CHAIN_PROCEED
+
+	add_fingerprint(user)
+	if(length(contents))
+		to_chat(user, span_warning("The [name] should be empty to start the medibot construction."))
+		return .
+
+	. |= ATTACK_CHAIN_BLOCKED_ALL
+
+	hide_from_all_viewers()
+
+	var/obj/item/firstaid_arm_assembly/assembly = new(drop_location(), med_bot_skin)
+	assembly.req_access = req_access
+	assembly.syndicate_aligned = syndicate_aligned
+	assembly.treatment_oxy = treatment_oxy
+	assembly.treatment_brute = treatment_brute
+	assembly.treatment_fire = treatment_fire
+	assembly.treatment_tox = treatment_tox
+	assembly.treatment_virus = treatment_virus
+	assembly.robot_arm = I.type
+	transfer_fingerprints_to(assembly)
+	I.transfer_fingerprints_to(assembly)
+	assembly.add_fingerprint(user)
+	if(loc == user)
+		user.temporarily_remove_item_from_inventory(src, force = TRUE)
+		user.put_in_hands(assembly)
+	to_chat(user, span_notice("You have added the cyborg arm to [src]. Now it is suitable for further medibot construction."))
+	qdel(I)
+	qdel(src)
+
 
 /obj/item/firstaid_arm_assembly
 	name = "incomplete medibot assembly."
@@ -405,45 +504,65 @@
 
 
 /obj/item/firstaid_arm_assembly/attackby(obj/item/I, mob/user, params)
-	..()
-	if(is_pen(I))
-		var/t = rename_interactive(user, I, prompt = "Enter new robot name")
-		if(!isnull(t))
-			created_name = t
-			add_game_logs("[key_name(user)] has renamed a robot to [t]", user)
-	else
-		switch(build_step)
-			if(0)
-				if(istype(I, /obj/item/healthanalyzer))
-					if(!user.drop_transfer_item_to_loc(I, src))
-						return
-					qdel(I)
-					build_step++
-					to_chat(user, "<span class='notice'>You add the health sensor to [src].</span>")
-					update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
-			if(1)
-				if(isprox(I))
-					if(!user.drop_transfer_item_to_loc(I, src))
-						return
-					qdel(I)
-					build_step++
-					to_chat(user, "<span class='notice'>You complete the Medibot. Beep boop!</span>")
-					var/turf/T = get_turf(src)
-					if(!syndicate_aligned)
-						var/mob/living/simple_animal/bot/medbot/S = new /mob/living/simple_animal/bot/medbot(T, skin)
-						S.name = created_name
-						S.bot_core.req_access = req_access
-						S.treatment_oxy = treatment_oxy
-						S.treatment_brute = treatment_brute
-						S.treatment_fire = treatment_fire
-						S.treatment_tox = treatment_tox
-						S.treatment_virus = treatment_virus
-						S.robot_arm = robot_arm
-					else
-						new /mob/living/simple_animal/bot/medbot/syndicate(T) //Syndicate medibots are a special case that have so many unique vars on them, it's not worth passing them through construction phases
-					user.temporarily_remove_item_from_inventory(src, force = TRUE)
-					qdel(src)
+	if(is_pen(I))
+		var/new_name = rename_interactive(user, I, prompt = "Enter new robot name")
+		if(!isnull(new_name))
+			created_name = new_name
+			add_game_logs("[key_name(user)] has renamed a robot to [new_name]", user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	switch(build_step)
+		if(0)
+			add_fingerprint(user)
+			if(!istype(I, /obj/item/healthanalyzer))
+				to_chat(user, span_warning("You need a health analyzer to continue the construction."))
+				return ATTACK_CHAIN_PROCEED
+			if(!user.drop_transfer_item_to_loc(I, src))
+				return ..()
+			to_chat(user, span_notice("You have added the health analyzer to the medibot assembly."))
+			build_step++
+			update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
+			qdel(I)
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+		if(1)
+			add_fingerprint(user)
+			if(!isprox(I))
+				to_chat(user, span_warning("You need a proximity sensor to complete the assembly."))
+				return ATTACK_CHAIN_PROCEED
+			if(!isturf(loc))
+				to_chat(user, span_warning("You cannot finish the construction [ismob(loc) ? "in inventory" : "in [loc]"]."))
+				return ATTACK_CHAIN_PROCEED
+			if(!user.drop_transfer_item_to_loc(I, src))
+				return ..()
+			to_chat(user, span_notice("You have completed the medibot assembly. Beep boop!"))
+			var/mob/living/simple_animal/bot/medbot/new_bot
+			if(syndicate_aligned)
+				// syndicate medibots are a special case that have so many unique vars on them,
+				// it's not worth passing them through construction phases
+				new_bot = new /mob/living/simple_animal/bot/medbot/syndicate(loc)
+			else
+				new_bot = new /mob/living/simple_animal/bot/medbot(loc, skin)
+				new_bot.name = created_name
+				new_bot.bot_core.req_access = req_access
+				new_bot.treatment_oxy = treatment_oxy
+				new_bot.treatment_brute = treatment_brute
+				new_bot.treatment_fire = treatment_fire
+				new_bot.treatment_tox = treatment_tox
+				new_bot.treatment_virus = treatment_virus
+				new_bot.robot_arm = robot_arm
+			transfer_fingerprints_to(new_bot)
+			I.transfer_fingerprints_to(new_bot)
+			new_bot.add_fingerprint(user)
+			qdel(I)
+			qdel(src)
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 //Secbot Assembly
 /obj/item/secbot_assembly
@@ -477,121 +596,164 @@
 			. += "hs_arm"
 
 
-/obj/item/secbot_assembly/screwdriver_act(mob/living/user, obj/item/I)
-	if(build_step != 0 && build_step != 2 && build_step != 3)
-		return
+/obj/item/clothing/head/helmet/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM || !issignaler(I))
+		return ..()
 
-	switch(build_step)
-		if(0)
-			new /obj/item/assembly/signaler(get_turf(src))
-			new /obj/item/clothing/head/helmet(get_turf(src))
-			to_chat(user, "<span class='notice'>You disconnect the signaler from the helmet.</span>")
-			qdel(src)
-		if(2)
-			new /obj/item/assembly/prox_sensor(get_turf(src))
-			to_chat(user, "<span class='notice'>You detach the proximity sensor from [src].</span>")
-			build_step--
-		if(3)
-			new /obj/item/robot_parts/l_arm(get_turf(src))
-			to_chat(user, "<span class='notice'>You remove the robot arm from [src].</span>")
-			build_step--
+	. = ATTACK_CHAIN_PROCEED
+	add_fingerprint(user)
+	var/obj/item/assembly/signaler/signaler = I
+	if(signaler.secured)
+		to_chat(user, span_warning("The [signaler.name] should be unsecured."))
+		return ATTACK_CHAIN_PROCEED
 
-	I.play_tool_sound(src)
-	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
-	return TRUE
+	. |= ATTACK_CHAIN_BLOCKED_ALL
 
-
-/obj/item/clothing/head/helmet/attackby(obj/item/assembly/signaler/S, mob/user, params)
-	..()
-	if(!issignaler(S))
-		..()
-		return
-
-	if(S.secured)
-		to_chat(user, "<span class='notice'>[S] is secured.</span>")
-		return
-
-	qdel(S)
-	var/obj/item/secbot_assembly/A = new /obj/item/secbot_assembly(drop_location())
-	user.put_in_hands(A, ignore_anim = FALSE)
-	to_chat(user, "<span class='notice'>You add the signaler to the helmet.</span>")
-	user.temporarily_remove_item_from_inventory(src, force = TRUE)
+	var/obj/item/secbot_assembly/assembly = new(drop_location())
+	I.transfer_fingerprints_to(assembly)
+	transfer_fingerprints_to(assembly)
+	assembly.add_fingerprint(user)
+	if(loc == user)
+		user.temporarily_remove_item_from_inventory(src, force = TRUE)
+		user.put_in_hands(assembly)
+	to_chat(user, span_notice("You have added the the signaler to the helmet. Now it is suitable for further securitron construction."))
+	qdel(I)
 	qdel(src)
 
 
 /obj/item/secbot_assembly/attackby(obj/item/I, mob/user, params)
-	..()
-	if(I.tool_behaviour == TOOL_WELDER && I.use_tool(src, user, volume = I.tool_volume))
-		if(!build_step)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(is_pen(I))
+		var/new_name = rename_interactive(user, I, prompt = "Enter new robot name")
+		if(!isnull(new_name))
+			created_name = new_name
+			add_game_logs("[key_name(user)] has renamed a robot to [new_name]", user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	switch(build_step)
+		if(1)
+			add_fingerprint(user)
+			if(!isprox(I))
+				to_chat(user, span_warning("You need a proximity sensor to continue the construction."))
+				return ATTACK_CHAIN_PROCEED
+			if(!user.drop_transfer_item_to_loc(I, src))
+				return ..()
+			to_chat(user, span_notice("You have added the proximity sensor to the securitron assembly."))
 			build_step++
-			to_chat(user, "<span class='notice'>You weld a hole in [src]!</span>")
-		else if(build_step == 1)
-			build_step--
-			to_chat(user, "<span class='notice'>You weld the hole in [src] shut!</span>")
+			update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
+			qdel(I)
+			return ATTACK_CHAIN_BLOCKED_ALL
 
-	else if(isprox(I) && (build_step == 1))
-		if(!user.drop_transfer_item_to_loc(I, src))
-			return
-		build_step++
-		to_chat(user, "<span class='notice'>You add the prox sensor to [src]!</span>")
-		qdel(I)
+		if(2)
+			add_fingerprint(user)
+			if(!istype(I, /obj/item/robot_parts/l_arm) && !istype(I, /obj/item/robot_parts/r_arm))
+				to_chat(user, span_warning("You need a cyborg arm to continue the construction."))
+				return ATTACK_CHAIN_PROCEED
+			if(!user.drop_transfer_item_to_loc(I, src))
+				return ..()
+			to_chat(user, span_notice("You have added the cyborg arm to the securitron assembly."))
+			build_step++
+			robot_arm = I.type
+			update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
+			qdel(I)
+			return ATTACK_CHAIN_BLOCKED_ALL
 
-	else if(((istype(I, /obj/item/robot_parts/l_arm)) || (istype(I, /obj/item/robot_parts/r_arm))) && (build_step == 2))
-		if(!user.drop_transfer_item_to_loc(I, src))
-			return
-		build_step++
-		to_chat(user, "<span class='notice'>You add the robot arm to [src]!</span>")
-		robot_arm = I.type
-		qdel(I)
-
-	else if((istype(I, /obj/item/melee/baton/security)) && (build_step >= 3))
-		if(!user.drop_transfer_item_to_loc(I, src))
-			return
-		build_step++
-		to_chat(user, "<span class='notice'>You complete the Securitron! Beep boop.</span>")
-		var/mob/living/simple_animal/bot/secbot/S = new /mob/living/simple_animal/bot/secbot(get_turf(src))
-		S.name = created_name
-		S.robot_arm = robot_arm
-		qdel(I)
-		qdel(src)
-
-	else if(is_pen(I))
-		var/t = rename_interactive(user, I, prompt = "Enter new robot name")
-		if(!isnull(t))
-			created_name = t
-			add_game_logs("[key_name(user)] has renamed a robot to [t]", user)
-
-	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
-		if(!build_step)
-			new /obj/item/assembly/signaler(get_turf(src))
-			new /obj/item/clothing/head/helmet(get_turf(src))
-			to_chat(user, "<span class='notice'>You disconnect the signaler from the helmet.</span>")
+		if(3)
+			add_fingerprint(user)
+			if(!istype(I, /obj/item/melee/baton/security))
+				to_chat(user, span_warning("You need a stunbaton to complete the assembly."))
+				return ATTACK_CHAIN_PROCEED
+			if(!isturf(loc))
+				to_chat(user, span_warning("You cannot finish the construction [ismob(loc) ? "in inventory" : "in [loc]"]."))
+				return ATTACK_CHAIN_PROCEED
+			if(!user.drop_transfer_item_to_loc(I, src))
+				return ..()
+			to_chat(user, span_notice("You have completed the securitron assembly. Beep boop!"))
+			var/mob/living/simple_animal/bot/secbot/new_bot = new(loc)
+			new_bot.name = created_name
+			new_bot.robot_arm = robot_arm
+			transfer_fingerprints_to(new_bot)
+			I.transfer_fingerprints_to(new_bot)
+			new_bot.add_fingerprint(user)
+			qdel(I)
 			qdel(src)
+			return ATTACK_CHAIN_BLOCKED_ALL
 
-		else if(build_step == 2)
-			new /obj/item/assembly/prox_sensor(get_turf(src))
-			to_chat(user, "<span class='notice'>You detach the proximity sensor from [src].</span>")
+	return ..()
+
+
+/obj/item/secbot_assembly/screwdriver_act(mob/living/user, obj/item/I)
+	if(build_step != 0 && build_step != 2 && build_step != 3)
+		return FALSE
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	var/atom/drop_loc = drop_location()
+	switch(build_step)
+		if(0)
+			var/obj/item/assembly/signaler/signaler = new(drop_loc)
+			transfer_fingerprints_to(signaler)
+			signaler.add_fingerprint(user)
+			var/obj/item/clothing/head/helmet/helmet = new(drop_loc)
+			transfer_fingerprints_to(helmet)
+			helmet.add_fingerprint(user)
+			to_chat(user, span_notice("You have disconnected the signaler from the helmet."))
+			qdel(src)
+		if(2)
+			var/obj/item/assembly/prox_sensor/sensor = new(drop_loc)
+			transfer_fingerprints_to(sensor)
+			sensor.add_fingerprint(user)
 			build_step--
-
-		else if(build_step == 3)
-			new /obj/item/robot_parts/l_arm(get_turf(src))
-			to_chat(user, "<span class='notice'>You remove the robot arm from [src].</span>")
+			to_chat(user, span_notice("You have detached the proximity sensor from the securitron assembly."))
+			update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
+		if(3)
+			var/obj/item/robot_parts/new_arm = new robot_arm(drop_loc)
+			transfer_fingerprints_to(new_arm)
+			new_arm.add_fingerprint(user)
 			build_step--
+			to_chat(user, span_notice("You have removed the cyborg arm from the securitron assembly."))
+			update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
-	else if((I.tool_behaviour == TOOL_WRENCH) && (build_step == 3))
-		var/obj/item/griefsky_assembly/A = new /obj/item/griefsky_assembly(drop_location())
-		user.put_in_hands(A, ignore_anim = FALSE)
-		to_chat(user, "<span class='notice'>You adjust the arm slots for extra weapons!.</span>")
+
+/obj/item/secbot_assembly/wrench_act(mob/living/user, obj/item/I)
+	if(build_step != 3)
+		return FALSE
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	to_chat(user, span_notice("You have adjusted the arm slots for extra weapons."))
+	var/obj/item/griefsky_assembly/destroyer_of_the_worlds = new(drop_location())
+	transfer_fingerprints_to(destroyer_of_the_worlds)
+	destroyer_of_the_worlds.add_fingerprint(user)
+	if(loc == user)
 		user.temporarily_remove_item_from_inventory(src, force = TRUE)
-		qdel(src)
+		user.put_in_hands(destroyer_of_the_worlds)
+	qdel(src)
 
-	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
+
+/obj/item/secbot_assembly/welder_act(mob/living/user, obj/item/I)
+	if(build_step != 0 && build_step != 1)
+		return FALSE
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	if(build_step == 1)
+		build_step = 0
+		to_chat(user, span_notice("You have welded shut the hole in the securitron assembly."))
+	else
+		build_step = 1
+		to_chat(user, span_notice("You have welded a hole in the securitron assembly."))
+	update_appearance(UPDATE_OVERLAYS)
 
 
 //General Griefsky
 
 /obj/item/griefsky_assembly
-	name = "\improper Griefsky assembly"
+	name = "\improper General Griefsky assembly"
 	desc = "Some sort of bizarre assembly."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "griefsky_assembly"
@@ -599,88 +761,132 @@
 	var/build_step = 0
 	var/toy_step = 0
 
+
+/obj/item/griefsky_assembly/update_name(updates = ALL)
+	. = ..()
+	name = toy_step > 0 ? "\improper Genewul Giftskee assembly" : "\improper General Griefsky assembly"
+
+
 /obj/item/griefsky_assembly/attackby(obj/item/I, mob/user, params)
-	..()
-	if((istype(I, /obj/item/melee/energy/sword)) && (toy_step != 0 ))
-		to_chat(user, "<span class='notice'>You can't add an energy sword to [src]!.</span>")
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
-	else if((istype(I, /obj/item/melee/energy/sword)) && (build_step < 3 ))
+	add_fingerprint(user)
+	var/energy_sword = istype(I, /obj/item/melee/energy/sword)
+	var/toy_sword = istype(I, /obj/item/toy/sword)
+	if(!energy_sword && !toy_sword)
+		if(build_step == 0 && toy_step == 0)
+			to_chat(user, span_warning("You need a toy sword or an energy sword to continue the construction."))
+			return ATTACK_CHAIN_PROCEED
+		if(build_step > 0)
+			to_chat(user, span_warning("You need an energy sword to continue the construction."))
+			return ATTACK_CHAIN_PROCEED
+		if(toy_step > 0)
+			to_chat(user, span_warning("You need a toy sword to continue the construction."))
+			return ATTACK_CHAIN_PROCEED
+		return ATTACK_CHAIN_PROCEED
+
+	if(energy_sword)
+		if(toy_step > 0)
+			to_chat(user, span_warning("The energy sword is incompatible with the Genewul Giftskee assembly."))
+			return ATTACK_CHAIN_PROCEED
+		if(build_step == 3)
+			if(!isturf(loc))
+				to_chat(user, span_warning("You cannot finish the construction [ismob(loc) ? "in inventory" : "in [loc]"]."))
+				return ATTACK_CHAIN_PROCEED
+			if(!user.drop_transfer_item_to_loc(I, src))
+				return ..()
+			to_chat(user, span_notice("You have completed the General Griefsky assembly. Its war crimes time!"))
+			var/mob/living/simple_animal/bot/secbot/griefsky/destroyer_of_the_worlds = new(loc)
+			transfer_fingerprints_to(destroyer_of_the_worlds)
+			I.transfer_fingerprints_to(destroyer_of_the_worlds)
+			destroyer_of_the_worlds.add_fingerprint(user)
+			qdel(I)
+			qdel(src)
+			return ATTACK_CHAIN_BLOCKED_ALL
 		if(!user.drop_transfer_item_to_loc(I, src))
-			return
+			return ..()
 		build_step++
-		to_chat(user, "<span class='notice'>You add an energy sword to [src]!.</span>")
+		I.transfer_fingerprints_to(src)
+		update_appearance(UPDATE_NAME)
+		to_chat(user, span_notice("You have added the energy sword to the General Griefsky assembly. It prays for more!"))
 		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	else if((istype(I, /obj/item/melee/energy/sword)) && (build_step == 3))
+	if(build_step > 0)
+		to_chat(user, span_warning("The toy sword is incompatible with the General Griefsky assembly."))
+		return ATTACK_CHAIN_PROCEED
+	if(toy_step == 3)
+		if(!isturf(loc))
+			to_chat(user, span_warning("You cannot finish the construction [ismob(loc) ? "in inventory" : "in [loc]"]."))
+			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
-			return
-		to_chat(user, "<span class='notice'>You complete General Griefsky!.</span>")
-		new /mob/living/simple_animal/bot/secbot/griefsky(get_turf(src))
+			return ..()
+		to_chat(user, span_notice("You have completed the Genewul Giftskee assembly. Its party time!"))
+		var/mob/living/simple_animal/bot/secbot/griefsky/toy/destroyer_of_the_pinatas = new(loc)
+		transfer_fingerprints_to(destroyer_of_the_pinatas)
+		I.transfer_fingerprints_to(destroyer_of_the_pinatas)
+		destroyer_of_the_pinatas.add_fingerprint(user)
 		qdel(I)
 		qdel(src)
-
-	else if((istype(I, /obj/item/toy/sword)) && (build_step != 0 ))
-		to_chat(user, "<span class='notice'>You can't add a toy sword to [src]!.</span>")
-
-	else if((istype(I, /obj/item/toy/sword)) && (toy_step < 3 ))
-		if(!user.drop_transfer_item_to_loc(I, src))
-			return
-		toy_step++
-		to_chat(user, "<span class='notice'>You add a toy sword to [src]!.</span>")
-		qdel(I)
-
-	else if((istype(I, /obj/item/toy/sword)) && (toy_step == 3))
-		if(!user.drop_transfer_item_to_loc(I, src))
-			return
-		to_chat(user, "<span class='notice'>You complete Genewul Giftskee!.</span>")
-		new /mob/living/simple_animal/bot/secbot/griefsky/toy(get_turf(src))
-		qdel(I)
-		qdel(src)
-
-	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
-		if((build_step == 1) || (build_step == 2) || (build_step == 3) || (build_step == 4))
-			new /obj/item/melee/energy/sword(get_turf(src))
-			to_chat(user, "<span class='notice'>You detach the energy sword from [src].</span>")
-			build_step--
-		else if((toy_step == 1) || (toy_step == 2) || (toy_step == 3) || (toy_step == 4))
-			new /obj/item/toy/sword(get_turf(src))
-			to_chat(user, "<span class='notice'>You detach the toy sword from [src].</span>")
-			toy_step--
+		return ATTACK_CHAIN_BLOCKED_ALL
+	if(!user.drop_transfer_item_to_loc(I, src))
+		return ..()
+	toy_step++
+	I.transfer_fingerprints_to(src)
+	update_appearance(UPDATE_NAME)
+	to_chat(user, span_notice("You have added the toy sword to the Genewul Giftskee assembly. It prays for more!"))
+	qdel(I)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 
 /obj/item/griefsky_assembly/screwdriver_act(mob/living/user, obj/item/I)
-	if(!build_step && !toy_step)
-		return
-
+	if(build_step == 0 && toy_step == 0)
+		return FALSE
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	var/obj/item/sword
 	if(build_step)
-		new /obj/item/melee/energy/sword(get_turf(src))
-		to_chat(user, "<span class='notice'>You detach the energy sword from [src].</span>")
+		sword = new /obj/item/melee/energy/sword(drop_location())
+		to_chat(user, span_notice("You have detached the energy sword from the Griefsky assembly."))
 		build_step--
 	else if(toy_step)
-		new /obj/item/toy/sword(get_turf(src))
-		to_chat(user, "<span class='notice'>You detach the toy sword from [src].</span>")
+		sword = new /obj/item/toy/sword(drop_location())
+		to_chat(user, span_notice("You have detached the toy sword from the Griefsky assembly."))
 		toy_step--
-	I.play_tool_sound(src)
-	return TRUE
+	transfer_fingerprints_to(sword)
+	sword.add_fingerprint(user)
+	update_appearance(UPDATE_NAME)
 
 
-//Honkbot Assembly
-/obj/item/storage/box/clown/attackby(obj/item/W, mob/user, params)
-	if(!istype(W, /obj/item/robot_parts/l_arm) && !istype(W, /obj/item/robot_parts/r_arm))
+/obj/item/storage/box/clown/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM || (!istype(I, /obj/item/robot_parts/l_arm) && !istype(I, /obj/item/robot_parts/r_arm)))
 		return ..()
-	else
-		robot_arm = W.type
 
-	if(contents.len)
-		to_chat(user, "<span class='warning'>You need to empty [src] out first!</span>")
-		return
+	. = ATTACK_CHAIN_PROCEED
 
-	var/obj/item/honkbot_arm_assembly/A = new /obj/item/honkbot_arm_assembly(drop_location())
-	qdel(W)
-	user.put_in_hands(A, ignore_anim = FALSE)
-	to_chat(user, "<span class='notice'>You add the robot arm to the honkbot.</span>")
-	user.temporarily_remove_item_from_inventory(src, force = TRUE)
+	add_fingerprint(user)
+	if(length(contents))
+		to_chat(user, span_warning("The [name] should be empty to start the honkbot construction."))
+		return .
+
+	. |= ATTACK_CHAIN_BLOCKED_ALL
+
+	hide_from_all_viewers()
+
+	var/obj/item/honkbot_arm_assembly/assembly = new(drop_location())
+	assembly.robot_arm = I.type
+	transfer_fingerprints_to(assembly)
+	I.transfer_fingerprints_to(assembly)
+	assembly.add_fingerprint(user)
+	if(loc == user)
+		user.temporarily_remove_item_from_inventory(src, force = TRUE)
+		user.put_in_hands(assembly)
+	to_chat(user, span_notice("You have added the cyborg arm to [src]. Now it is suitable for further honkbot construction."))
+	qdel(I)
 	qdel(src)
+
 
 /obj/item/honkbot_arm_assembly
 	name = "incomplete honkbot assembly"
@@ -693,42 +899,69 @@
 	var/created_name = "Honkbot" //To preserve the name if it's a unique medbot I guess
 	var/robot_arm = /obj/item/robot_parts/l_arm
 
-/obj/item/honkbot_arm_assembly/attackby(obj/item/W, mob/user, params)
-	..()
-	if(build_step == 0)
-		if(isprox(W))
-			if(!user.drop_transfer_item_to_loc(W, src))
-				return
-			build_step++
-			to_chat(user, "<span class='notice'>You add the proximity sensor to [src].</span>")
-			qdel(W)
-	else if(build_step == 1)
-		if(istype(W, /obj/item/bikehorn))
-			if(!user.drop_transfer_item_to_loc(W, src))
-				return
-			build_step++
-			to_chat(user, "<span class='notice'>You add the bikehorn to [src]! Honk!</span>")
-			qdel(W)
-	else if(build_step == 2)
-		if(istype(W, /obj/item/instrument/trombone))
-			if(!user.drop_transfer_item_to_loc(W, src))
-				return
-			to_chat(user, "<span class='notice'>You add the trombone to [src]! Heeeenk!</span>")
-			qdel(W)
-			var/mob/living/simple_animal/bot/honkbot/A = new /mob/living/simple_animal/bot/honkbot(get_turf(src))
-			A.robot_arm = robot_arm
-			qdel(src)
 
-	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+/obj/item/honkbot_arm_assembly/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	switch(build_step)
+		if(0)
+			add_fingerprint(user)
+			if(!isprox(I))
+				to_chat(user, span_warning("You need a proximity sensor to continue the construction."))
+				return ATTACK_CHAIN_PROCEED
+			if(!user.drop_transfer_item_to_loc(I, src))
+				return ..()
+			to_chat(user, span_notice("You have added the proximity sensor to the honkbot assembly."))
+			build_step++
+			update_appearance(UPDATE_ICON_STATE)
+			qdel(I)
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+		if(1)
+			add_fingerprint(user)
+			if(!istype(I, /obj/item/bikehorn))
+				to_chat(user, span_warning("You need a bike horn to continue the construction."))
+				return ATTACK_CHAIN_PROCEED
+			if(!user.drop_transfer_item_to_loc(I, src))
+				return ..()
+			to_chat(user, span_notice("You have added the bike horn to the honkbot assembly."))
+			build_step++
+			update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
+			qdel(I)
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+		if(2)
+			add_fingerprint(user)
+			if(!istype(I, /obj/item/instrument/trombone))
+				to_chat(user, span_warning("You need a trombone to complete the assembly."))
+				return ATTACK_CHAIN_PROCEED
+			if(!isturf(loc))
+				to_chat(user, span_warning("You cannot finish the construction [ismob(loc) ? "in inventory" : "in [loc]"]."))
+				return ATTACK_CHAIN_PROCEED
+			if(!user.drop_transfer_item_to_loc(I, src))
+				return ..()
+			to_chat(user, span_notice("You have completed the honkbot assembly. HONK!"))
+			var/mob/living/simple_animal/bot/honkbot/new_bot = new(loc)
+			new_bot.robot_arm = robot_arm
+			transfer_fingerprints_to(new_bot)
+			I.transfer_fingerprints_to(new_bot)
+			new_bot.add_fingerprint(user)
+			qdel(I)
+			qdel(src)
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/item/honkbot_arm_assembly/update_icon_state()
-	if(build_step == 1)
-		icon_state = "honkbot_proxy"
+	icon_state = build_step == 1 ? "honkbot_proxy" : "honkbot_arm"
 
 
 /obj/item/honkbot_arm_assembly/update_desc(updates = ALL)
 	. = ..()
 	if(build_step == 2)
 		desc = "A clown box with a robot arm and a bikehorn permanently grafted to it. It needs a trombone to be finished"
+		return .
+	desc = initial(desc)
 

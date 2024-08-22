@@ -6661,12 +6661,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/central)
-"bca" = (
-/obj/machinery/computer/arcade/orion_trail{
-	dir = 8
-	},
-/turf/simulated/floor/carpet/arcade,
-/area/crew_quarters/arcade)
 "bcb" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -7815,9 +7809,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "bik" = (
-/obj/machinery/computer/arcade/battle{
-	dir = 8
-	},
+/obj/machinery/arcade/minesweeper,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "bil" = (
@@ -81361,6 +81353,12 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/port/north)
+"tqQ" = (
+/obj/machinery/arcade/minesweeper{
+	freeplay = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/security/permabrig)
 "tqV" = (
 /obj/structure/table,
 /obj/machinery/recharger,
@@ -117671,7 +117669,7 @@ afd
 adI
 hyJ
 afd
-vdq
+tqQ
 aja
 dpl
 dpl
@@ -126170,7 +126168,7 @@ kXu
 kXu
 uyM
 aTP
-bca
+bik
 bik
 jBc
 aHc

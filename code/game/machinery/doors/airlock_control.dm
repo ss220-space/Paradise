@@ -242,12 +242,18 @@
 	else
 		to_chat(user, "Error, no route to host.")
 
+
 /obj/machinery/access_button/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	//Swiping ID on the access button
 	if(I.GetID())
 		attack_hand(user)
-		return
+		return ATTACK_CHAIN_BLOCKED
+
 	return ..()
+
 
 /obj/machinery/access_button/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())

@@ -14,6 +14,8 @@
 #define BLOCK_Z_IN_UP (1<<4)
 /// Objects will not leave any components after being destroyed
 #define NODECONSTRUCT (1<<5)
+/// Objects will ignore item attacks
+#define IGNORE_HITS (1<<6)
 
 
 // Flags for the item_flags var on /obj/item
@@ -34,7 +36,7 @@
 #define NOSHARPENING (1<<6)
 /// If an item has this flag, it will slow you, but only if in hands.
 #define SLOWS_WHILE_IN_HAND (1<<7)
-/// When an item has this it produces no "X has been hit by Y with Z" message in the default attackby()
+/// When an item has this it will skip all the procedures in default /obj/item/proc/attack() and /obj/item/proc/attack_obj()
 #define NOBLUDGEON (1<<8)
 /// When dropped, it wont have a randomized pixel_x/pixel_y
 #define NO_PIXEL_RANDOM_DROP (1<<9)
@@ -50,6 +52,8 @@
 #define HEALS_EARS (1<<14)
 /// An item will allow its usage even when UI is blocked but user is conscious, not incapacitated and has no hands blocked trait.
 #define DENY_UI_BLOCKED (1<<15)
+/// When an item has this it produces no "X has been hit by Y with Z" message in the default /mob/living/proc/send_item_attack_message()
+#define SKIP_ATTACK_MESSAGE (1<<16)
 
 
 // Flags for the clothing_flags var on /obj/item/clothing
