@@ -164,8 +164,10 @@
 
 
 /turf/attack_hand(mob/user)
-	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user)
-	user.Move_Pulled(src)
+	. = ..()
+	if(!.)
+		user.Move_Pulled(src)
+
 
 /turf/attack_robot(mob/user)
 	user.Move_Pulled(src)
@@ -536,34 +538,48 @@
 	ChangeTurf(baseturf)
 	return 2
 
-/turf/attackby(obj/item/I, mob/user, params)
-	SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, I, user, params)
-	if(can_lay_cable())
-		if(istype(I, /obj/item/stack/cable_coil))
-			var/obj/item/stack/cable_coil/C = I
-			for(var/obj/structure/cable/LC in src)
-				if(LC.d1 == 0 || LC.d2 == 0)
-					LC.attackby(C, user)
-					return
-			C.place_turf(src, user)
-			return TRUE
-		else if(istype(I, /obj/item/twohanded/rcl))
-			var/obj/item/twohanded/rcl/R = I
-			if(R.loaded)
-				for(var/obj/structure/cable/LC in src)
-					if(LC.d1 == 0 || LC.d2 == 0)
-						LC.attackby(R, user)
-						return
-				R.loaded.place_turf(src, user)
-				R.is_empty(user)
 
-	return FALSE
+/turf/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !can_lay_cable())
+		return .
+
+	if(iscoil(I))
+		add_fingerprint(user)
+		var/obj/item/stack/cable_coil/coil = I
+		for(var/obj/structure/cable/local_cable in src)
+			if(local_cable.d1 == 0 || local_cable.d2 == 0)
+				local_cable.attackby(coil, user, params)
+				. |= (ATTACK_CHAIN_BLOCKED_ALL)
+				return .
+		coil.place_turf(src, user)
+		. |= (ATTACK_CHAIN_BLOCKED_ALL)
+		return .
+
+	if(istype(I, /obj/item/twohanded/rcl))
+		add_fingerprint(user)
+		var/obj/item/twohanded/rcl/rcl = I
+		if(!rcl.loaded)
+			to_chat(user, span_warning("The [rcl.name] has no cable!"))
+			return .
+		for(var/obj/structure/cable/local_cable in src)
+			if(local_cable.d1 == 0 || local_cable.d2 == 0)
+				local_cable.attackby(rcl, user, params)
+				. |= (ATTACK_CHAIN_BLOCKED_ALL)
+				return .
+		rcl.loaded.place_turf(src, user)
+		rcl.is_empty(user)
+		. |= (ATTACK_CHAIN_BLOCKED_ALL)
+		return .
+
 
 /turf/proc/can_have_cabling()
 	return TRUE
 
+
 /turf/proc/can_lay_cable()
-	return can_have_cabling() & !intact
+	return can_have_cabling() && !intact && transparent_floor != TURF_TRANSPARENT
 
 
 /turf/proc/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)

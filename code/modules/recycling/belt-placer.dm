@@ -28,6 +28,7 @@
 
 /obj/item/storage/conveyor/attackby(obj/item/I, mob/user, params) //So we can link belts en masse
 	if(istype(I, /obj/item/conveyor_switch_construct))
+		add_fingerprint(user)
 		var/obj/item/conveyor_switch_construct/switch_construct = I
 		var/linked = FALSE //For nice message
 		for(var/obj/item/conveyor_construct/conveyor in contents)
@@ -35,16 +36,17 @@
 			linked = TRUE
 		if(linked)
 			to_chat(user, span_notice("All belts in [src] linked with [switch_construct]."))
-	else
-		return ..()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
 
 
-/obj/item/storage/conveyor/afterattack(atom/target, mob/user, proximity)
+/obj/item/storage/conveyor/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 	var/obj/item/conveyor_construct/conveyor = locate() in contents
 	if(!conveyor)
 		to_chat(user, span_warning("There are no belts in [src]."))
 		return
-	conveyor.afterattack(target, user, proximity)
+	conveyor.afterattack(target, user, proximity, params)
 

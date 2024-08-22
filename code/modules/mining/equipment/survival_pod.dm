@@ -166,6 +166,11 @@
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "pwindow"
 
+
+/obj/structure/window/reinforced/survival_pod/unhittable
+	obj_flags = IGNORE_HITS
+
+
 //Floors
 /turf/simulated/floor/pod
 	name = "pod floor"

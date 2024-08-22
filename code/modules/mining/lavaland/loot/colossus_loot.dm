@@ -48,9 +48,17 @@
 	..()
 	ActivationReaction(user,"touch")
 
+
 /obj/machinery/anomalous_crystal/attackby(obj/item/I, mob/user, params)
-	ActivationReaction(user,"weapon")
-	return ..()
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
+
+	if(ActivationReaction(user, "weapon"))
+		return .|ATTACK_CHAIN_SUCCESS
+
+
 
 /obj/machinery/anomalous_crystal/bullet_act(obj/item/projectile/P, def_zone)
 	..()

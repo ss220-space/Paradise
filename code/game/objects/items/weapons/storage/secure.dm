@@ -46,37 +46,52 @@
 	new /obj/item/paper(src)
 	new /obj/item/pen(src)
 
-/obj/item/storage/secure/attackby(obj/item/W, mob/user, params)
+
+/obj/item/storage/secure/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+		return .
+	open = !open
+	to_chat(user, span_notice("You [open ? "open" : "close"] the service panel."))
+
+
+/obj/item/storage/secure/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!open)
+		to_chat(user, span_warning("Open the service panel first."))
+		return .
+	to_chat(user, span_notice("Now attempting to reset internal memory, please hold..."))
+	l_hacking = TRUE
+	if(!I.use_tool(src, user, 10 SECONDS, volume = I.tool_volume) || !open)
+		l_hacking = FALSE
+		return .
+	l_hacking = FALSE
+	if(!prob(40))
+		to_chat(user, span_danger("Unable to reset internal memory."))
+		return .
+	to_chat(user, span_notice("Internal memory reset. Please give [name] a few seconds to reinitialize..."))
+	l_set = FALSE
+	l_setshort = TRUE
+	addtimer(VARSET_CALLBACK(src, l_setshort, FALSE), 8 SECONDS)
+
+
+/obj/item/storage/secure/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)	// to allow storing special items
+		if(locked)
+			add_fingerprint(user)
+			to_chat(user, span_warning("It's locked!"))
+			return ATTACK_CHAIN_PROCEED
+		return ..()
+
+	if(istype(I, /obj/item/melee/energy/blade) && !emagged)
+		add_fingerprint(user)
+		emag_act(user, I)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	if(locked)
-		if((istype(W, /obj/item/melee/energy/blade)) && (!emagged))
-			emag_act(user, W)
-
-		if(W.tool_behaviour == TOOL_SCREWDRIVER)
-			if(do_after(user, 2 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
-				open = !open
-				user.show_message("<span class='notice'>You [open ? "open" : "close"] the service panel.</span>", 1)
-			return
-
-		if((W.tool_behaviour = TOOL_MULTITOOL) && (open) && (!l_hacking))
-			user.show_message("<span class='danger'>Now attempting to reset internal memory, please hold.</span>", 1)
-			l_hacking = TRUE
-			if(do_after(user, 10 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
-				if(prob(40))
-					l_setshort = TRUE
-					l_set = FALSE
-					user.show_message("<span class='danger'>Internal memory reset. Please give it a few seconds to reinitialize.</span>", 1)
-					sleep(80)
-					l_setshort = FALSE
-					l_hacking = FALSE
-				else
-					user.show_message("<span class='danger'>Unable to reset internal memory.</span>", 1)
-					l_hacking = FALSE
-			else
-				l_hacking = FALSE
-			return
-		//At this point you have exhausted all the special things to do when locked
-		// ... but it's still locked.
-		return
+		add_fingerprint(user)
+		to_chat(user, span_warning("It's locked!"))
+		return ATTACK_CHAIN_PROCEED
 
 	return ..()
 

@@ -949,14 +949,18 @@
 	fix_modules()
 	handle_storages()
 
+
 //checks whether this item is a module of the robot it is located in.
 /obj/item/proc/is_robot_module()
 	if(!istype(loc, /mob/living/silicon/robot))
-		return 0
+		return FALSE
 
-	var/mob/living/silicon/robot/R = loc
+	var/mob/living/silicon/robot/robot = loc
+	if(!robot.module)
+		return FALSE
 
-	return (src in R.module.modules)
+	return (src in robot.module.modules)
+
 
 /datum/robot_energy_storage
 	var/name = "Generic energy storage"

@@ -21,8 +21,9 @@
 		loaded_projectiles += P
 	process_chamber()
 
+
 /obj/item/gun/throw/piecannon/notify_ammo_count()
-	return "<span class='notice'>[src] has [get_ammocount()] of [max_capacity] pies left.</span>"
+	return "It has <b>[get_ammocount()]</b> of <b>[max_capacity]</b> pies left."
 
 
 /obj/item/gun/throw/piecannon/update_icon_state()

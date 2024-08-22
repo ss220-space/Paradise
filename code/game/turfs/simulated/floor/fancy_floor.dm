@@ -117,25 +117,35 @@
 /turf/simulated/floor/grass/update_icon_state()
 	icon_state = "grass[pick("1","2","3","4")]"
 
-/turf/simulated/floor/grass/attackby(obj/item/C, mob/user, params)
-	if(..())
-		return
-	if(istype(C, /obj/item/shovel))
+
+/turf/simulated/floor/grass/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
+
+	if(istype(I, /obj/item/shovel))
+		add_fingerprint(user)
 		if((locate(/obj/structure/pit) in src))
 			to_chat(user, span_notice("Looks like someone dug here a pit!"))
-			return FALSE
+			return .
 
 		if(user.a_intent == INTENT_DISARM)
-			if(do_after(user, 4 SECONDS * C.toolspeed, src, category = DA_CAT_TOOL))
-				playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
-				new /obj/structure/pit(src)
-				return TRUE
-			return FALSE
-		else
-			new /obj/item/stack/ore/glass(src, 2) //Make some sand if you shovel grass
-			to_chat(user, span_notice("You shovel the grass."))
-			playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
-			make_plating(FALSE)
+			I.play_tool_sound(src)
+			to_chat(user, span_notice("You start digging..."))
+			if(!do_after(user, 4 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
+				return .
+			I.play_tool_sound(src)
+			to_chat(user, span_notice("You have dug a pit."))
+			new /obj/structure/pit(src)
+			return .|ATTACK_CHAIN_SUCCESS
+
+		I.play_tool_sound(src)
+		to_chat(user, span_notice("You shovel the grass."))
+		make_plating(FALSE)
+		new /obj/item/stack/ore/glass(src, 2) //Make some sand if you shovel grass
+		return .|ATTACK_CHAIN_BLOCKED_ALL
+
 
 // CARPETS
 /turf/simulated/floor/carpet

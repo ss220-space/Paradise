@@ -141,32 +141,42 @@
 				env.merge(removed)
 				air_update_turf()
 
-/obj/machinery/r_n_d/server/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(disabled)
+
+/obj/machinery/r_n_d/server/attackby(obj/item/I, mob/user, params)
+	if(shocked && shock(user, 50))
 		add_fingerprint(user)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(shocked)
-		add_fingerprint(user)
-		shock(user,50)
-
-	if(O.tool_behaviour == TOOL_SCREWDRIVER)
-		add_fingerprint(user)
-		default_deconstruction_screwdriver(user, "[base_icon_state]_o", base_icon_state, O)
-		return 1
-
-	if(exchange_parts(user, O))
-		return 1
-
-	if(panel_open)
-		if(O.tool_behaviour == TOOL_CROWBAR)
-			griefProtection()
-			default_deconstruction_crowbar(user, O)
-			return 1
-	else
+	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-/obj/machinery/r_n_d/server/attack_hand(mob/user as mob)
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
+
+/obj/machinery/r_n_d/server/screwdriver_act(mob/living/user, obj/item/I)
+	if(shocked && shock(user, 50))
+		add_fingerprint(user)
+		return TRUE
+	. = default_deconstruction_screwdriver(user, "[base_icon_state]_o", base_icon_state, I)
+
+
+/obj/machinery/r_n_d/server/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(shocked && shock(user, 50))
+		add_fingerprint(user)
+		return .
+	if(!panel_open)
+		add_fingerprint(user)
+		to_chat(user, span_warning("Open the maintenance panel first."))
+		return .
+	griefProtection()
+	default_deconstruction_crowbar(user, I)
+
+
+/obj/machinery/r_n_d/server/attack_hand(mob/user)
 	if(..())
 		return TRUE
 

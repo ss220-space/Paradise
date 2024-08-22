@@ -193,27 +193,37 @@
 		message_sent = TRUE
 
 // Interactions
-/obj/machinery/mineral/ore_redemption/attackby(obj/item/W, mob/user, params)
-	if(exchange_parts(user, W))
-		return
+/obj/machinery/mineral/ore_redemption/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	if(!powered())
 		return ..()
 
-	if(istype(W, /obj/item/card/id))
-		if(try_insert_id(user))
-			add_fingerprint(user)
-		return
-	else if(istype(W, /obj/item/disk/design_disk))
-		if(!user.drop_transfer_item_to_loc(W, src))
-			return
+	if(istype(I, /obj/item/card/id))
 		add_fingerprint(user)
-		inserted_disk = W
+		if(!try_insert_id(user))
+			return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/disk/design_disk))
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		add_fingerprint(user)
+		inserted_disk = I
 		SStgui.update_uis(src)
 		interact(user)
-		user.visible_message("<span class='notice'>[user] inserts [W] into [src].</span>", \
-						 	 "<span class='notice'>You insert [W] into [src].</span>")
-		return
+		user.visible_message(
+			span_notice("[user] has inserted [I] into [src]."),
+			span_notice("You have inserted [I] into [src]."),
+		)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/machinery/mineral/ore_redemption/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))

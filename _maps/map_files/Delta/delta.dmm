@@ -48443,7 +48443,8 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced,
-/obj/machinery/arcade/claw,
+/obj/structure/table,
+/obj/item/toy/plushie/red_fox,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
 "fOK" = (
@@ -63396,6 +63397,7 @@
 "jwd" = (
 /obj/structure/table,
 /obj/item/assembly/igniter,
+/obj/item/book/manual/nuclear,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -71303,8 +71305,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/table,
-/obj/random/plushie,
+/obj/machinery/arcade/claw,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
 "lyU" = (
@@ -74313,7 +74314,9 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/chair/stool,
+/obj/machinery/arcade/minesweeper{
+	freeplay = 1
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
 "mlG" = (
@@ -74959,9 +74962,6 @@
 /area/maintenance/kitchen)
 "msG" = (
 /obj/structure/window/reinforced,
-/obj/structure/chair/comfy/black{
-	dir = 8
-	},
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
 "msV" = (
@@ -88857,7 +88857,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/chair/comfy/black,
+/obj/structure/chair/stool,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
 "pCX" = (
@@ -90665,6 +90665,16 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/engine/break_room)
+"pWQ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/chair/stool,
+/turf/simulated/floor/carpet/arcade,
+/area/crew_quarters/fitness)
 "pWR" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/wood,
@@ -94369,8 +94379,9 @@
 	},
 /area/bridge)
 "qMN" = (
-/obj/structure/table,
-/obj/item/book/manual/nuclear,
+/obj/machinery/arcade/minesweeper{
+	freeplay = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -97933,7 +97944,9 @@
 /obj/machinery/newscaster{
 	pixel_x = 30
 	},
-/obj/machinery/computer/arcade,
+/obj/machinery/arcade/minesweeper{
+	freeplay = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -112809,10 +112822,6 @@
 	icon_state = "grimy"
 	},
 /area/crew_quarters/chief)
-"vgo" = (
-/obj/structure/closet/secure_closet/pilot_sniper,
-/turf/space,
-/area/space)
 "vgq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -129624,7 +129633,7 @@ aaq
 aaq
 aaq
 aaq
-vgo
+aaq
 aaq
 aaq
 aaq
@@ -179153,10 +179162,10 @@ oId
 xyi
 fVK
 cQj
-cQj
 iUT
-mjE
-msG
+cQj
+pWQ
+cTc
 lQm
 qEC
 ogj
@@ -179670,7 +179679,7 @@ cQj
 iUT
 cQj
 pww
-cTc
+msG
 wkE
 qEC
 oum

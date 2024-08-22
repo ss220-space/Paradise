@@ -180,42 +180,41 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	W.update_icon()
 	return W
 
-/turf/simulated/floor/attackby(obj/item/C, mob/user, params)
-	if(!C || !user)
-		return TRUE
 
-	if(..())
-		return TRUE
+/turf/simulated/floor/attackby(obj/item/I, mob/user, params)
+	. = ..()
 
-	if(intact && istype(C, /obj/item/stack/tile))
-		try_replace_tile(C, user, params)
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
 
-	if(istype(C, /obj/item/pipe))
-		var/obj/item/pipe/P = C
-		if(P.pipe_type != -1) // ANY PIPE
-			user.visible_message( \
-				"[user] starts sliding [P] along \the [src].", \
-				span_notice("You slide [P] along \the [src]."), \
-				span_italics("You hear the scrape of metal against something."))
-			user.drop_from_active_hand()
+	if(intact && transparent_floor != TURF_TRANSPARENT && istype(I, /obj/item/stack/tile))
+		try_replace_tile(I, user, params)
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 
-			if(P.is_bent_pipe())  // bent pipe rotation fix see construction.dm
-				P.dir = 5
-				if(user.dir == 1)
-					P.dir = 6
-				else if(user.dir == 2)
-					P.dir = 9
-				else if(user.dir == 4)
-					P.dir = 10
-			else
-				P.setDir(user.dir)
+	if(istype(I, /obj/item/pipe))
+		add_fingerprint(user)
+		var/obj/item/pipe/pipe = I
+		if(pipe.pipe_type == -1) // ANY PIPE
+			return .
+		if(!user.drop_transfer_item_to_loc(pipe, src))
+			return .
+		user.visible_message(
+			span_notice("[user] slides [pipe] along [src]."),
+			span_notice("You slide [pipe] along [src]."),
+			span_italics("You hear the scrape of metal against something."),
+		)
+		if(pipe.is_bent_pipe())  // bent pipe rotation fix see construction.dm
+			pipe.setDir(NORTHEAST)
+			if(user.dir == NORTH)
+				pipe.setDir(SOUTHEAST)
+			else if(user.dir == SOUTH)
+				pipe.setDir(NORTHWEST)
+			else if(user.dir == EAST)
+				pipe.setDir(SOUTHWEST)
+		else
+			pipe.setDir(user.dir)
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 
-			P.x = src.x
-			P.y = src.y
-			P.z = src.z
-			P.forceMove(src)
-			return TRUE
-	return FALSE
 
 /turf/simulated/floor/crowbar_act(mob/user, obj/item/I)
 	if(!intact)

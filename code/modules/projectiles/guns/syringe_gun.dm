@@ -63,20 +63,23 @@
 	balloon_alert(user, "шприц разряжен!")
 	return TRUE
 
-/obj/item/gun/syringe/attackby(obj/item/A, mob/user, params, show_msg = TRUE)
-	if(istype(A, /obj/item/reagent_containers/syringe))
+
+/obj/item/gun/syringe/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/reagent_containers/syringe))
+		add_fingerprint(user)
 		var/in_clip = length(syringes) + (chambered.BB ? 1 : 0)
-		if(in_clip < max_syringes)
-			if(!user.drop_transfer_item_to_loc(A, src))
-				return
-			balloon_alert(user, "заряжено!")
-			syringes.Add(A)
-			process_chamber() // Chamber the syringe if none is already
-			return TRUE
-		else
+		if(in_clip >= max_syringes)
 			balloon_alert(user, "недостаточно места!")
-	else
-		return ..()
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		balloon_alert(user, "заряжено!")
+		syringes += I
+		process_chamber() // chamber the syringe if none is already
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/gun/syringe/rapidsyringe
 	name = "rapid syringe gun"

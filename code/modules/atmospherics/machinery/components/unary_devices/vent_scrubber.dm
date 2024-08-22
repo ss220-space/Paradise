@@ -365,14 +365,6 @@
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
 
-/obj/machinery/atmospherics/unary/vent_scrubber/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_WRENCH)
-		if(!(stat & NOPOWER) && on)
-			to_chat(user, span_danger("You cannot unwrench this [src], turn it off first."))
-			return 1
-
-	return ..()
-
 /obj/machinery/atmospherics/unary/vent_scrubber/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	multitool_menu_interact(user, I)

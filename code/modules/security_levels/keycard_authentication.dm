@@ -28,30 +28,35 @@
 	to_chat(user, "<span class='warning'>The station AI is not to interact with these devices.</span>")
 	return
 
-/obj/machinery/keycard_auth/attackby(obj/item/W, mob/user, params)
-	if(stat & (NOPOWER|BROKEN))
-		to_chat(user, "This device is not powered.")
-		return
-	if(W.GetID())
-		if(check_access(W))
-			add_fingerprint(user)
-			if(active)
-				//This is not the device that made the initial request. It is the device confirming the request.
-				if(event_source)
-					event_source.event_confirmed_by = user
-					SStgui.update_uis(event_source)
-					SStgui.update_uis(src)
-			else if(swiping)
-				if(event == "Emergency Response Team" && !ert_reason)
-					to_chat(user, "<span class='warning'>Supply a reason for calling the ERT first!</span>")
-					return
-				event_triggered_by = user
+
+/obj/machinery/keycard_auth/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(I.GetID())
+		add_fingerprint(user)
+		if(stat & (NOPOWER|BROKEN))
+			to_chat(user, span_warning("The [name] is not powered or broken."))
+			return ATTACK_CHAIN_PROCEED
+		if(!check_access(I))
+			to_chat(user, span_warning("Access denied."))
+			playsound(loc, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+			return ATTACK_CHAIN_PROCEED
+		if(active)
+			//This is not the device that made the initial request. It is the device confirming the request.
+			if(event_source)
+				event_source.event_confirmed_by = user
+				SStgui.update_uis(event_source)
 				SStgui.update_uis(src)
-				broadcast_request() //This is the device making the initial event request. It needs to broadcast to other devices
-		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
-			playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
-		return
+		else if(swiping)
+			if(event == "Emergency Response Team" && !ert_reason)
+				to_chat(user, span_warning("Supply a reason for calling the ERT first."))
+				return ATTACK_CHAIN_PROCEED
+			event_triggered_by = user
+			SStgui.update_uis(src)
+			broadcast_request() //This is the device making the initial event request. It needs to broadcast to other devices
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
 
 

@@ -94,33 +94,48 @@
 			P.connected = src
 			P.name = "[initial(P.name)] #[num++]"
 
-/obj/machinery/computer/cloning/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/disk/data)) //INSERT SOME DISKETTES
-		if(!src.diskette)
-			add_fingerprint(user)
-			user.drop_transfer_item_to_loc(W, src)
-			src.diskette = W
-			to_chat(user, "You insert [W].")
-			SStgui.update_uis(src)
-			return
-	else if(istype(W, /obj/item/multitool))
-		var/obj/item/multitool/M = W
-		if(M.buffer && istype(M.buffer, /obj/machinery/clonepod))
-			var/obj/machinery/clonepod/P = M.buffer
-			if(P && !(P in pods))
-				add_fingerprint(user)
-				pods += P
-				P.connected = src
-				P.name = "[initial(P.name)] #[pods.len]"
-				to_chat(user, span_notice("You connect [P] to [src]."))
-	else
+
+/obj/machinery/computer/cloning/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
 
+	if(istype(I, /obj/item/disk/data)) //INSERT SOME DISKETTES
+		add_fingerprint(user)
+		if(diskette)
+			to_chat(user, span_warning("There is already [diskette] inside!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		diskette = I
+		to_chat(user, "You insert [I].")
+		SStgui.update_uis(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/machinery/computer/cloning/attack_ai(mob/user as mob)
+	return ..()
+
+
+/obj/machinery/computer/cloning/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	var/obj/item/multitool/multitool = I
+	if(!multitool.buffer || !istype(multitool.buffer, /obj/machinery/clonepod))
+		return .
+	if(multitool.buffer in pods)
+		to_chat(user, span_notice("The [multitool.buffer.name] is already connected to [src]."))
+		return .
+	var/obj/machinery/clonepod/clonepod = multitool.buffer
+	pods += clonepod
+	clonepod.connected = src
+	clonepod.name = "[initial(clonepod.name)] #[length(pods)]"
+	to_chat(user, span_notice("You connect [clonepod] to [src]."))
+
+
+/obj/machinery/computer/cloning/attack_ai(mob/user)
 	return attack_hand(user)
 
-/obj/machinery/computer/cloning/attack_hand(mob/user as mob)
+
+/obj/machinery/computer/cloning/attack_hand(mob/user)
 	if(..())
 		return TRUE
 

@@ -2554,13 +2554,13 @@
 			//having multiple people turning pages on a paper_bundle can cause issues
 			//open a browse window listing the contents instead
 			var/data = ""
-			var/obj/item/paper_bundle/B = fax
+			var/obj/item/paper_bundle/bundle = fax
 
-			for(var/page = 1, page <= B.amount + 1, page++)
-				var/obj/pageobj = B.contents[page]
-				data += "<A href='?src=[UID()];AdminFaxViewPage=[page];paper_bundle=\ref[B]'>Page [page] - [pageobj.name]</A><BR>"
+			for(var/page = 1 to length(bundle.papers))
+				var/obj/pageobj = bundle.papers[page]
+				data += "<A href='?src=[UID()];AdminFaxViewPage=[page];paper_bundle=\ref[bundle]'>Page [page] - [pageobj.name]</A><BR>"
 
-			usr << browse(data, "window=PaperBundle[B.UID()]")
+			usr << browse(data, "window=PaperBundle[bundle.UID()]")
 		else
 			to_chat(usr, "<span class='warning'>The faxed item is not viewable. This is probably a bug, and should be reported on the tracker: [fax.type]</span>")
 
@@ -2573,11 +2573,11 @@
 
 		if(!bundle) return
 
-		if(istype(bundle.contents[page], /obj/item/paper))
-			var/obj/item/paper/P = bundle.contents[page]
+		if(istype(bundle.papers[page], /obj/item/paper))
+			var/obj/item/paper/P = bundle.papers[page]
 			P.show_content(usr, 1)
-		else if(istype(bundle.contents[page], /obj/item/photo))
-			var/obj/item/photo/H = bundle.contents[page]
+		else if(istype(bundle.papers[page], /obj/item/photo))
+			var/obj/item/photo/H = bundle.papers[page]
 			H.show(usr)
 		return
 
