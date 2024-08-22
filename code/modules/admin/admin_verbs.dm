@@ -42,6 +42,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/datum/admins/proc/togglevotedead,	/*toggles vote on/off for everyone who is dead*/
 	/datum/admins/proc/toggledsay,		/*toggles dsay on/off for everyone*/
 	/datum/admins/proc/toggleemoji,     /*toggles using emoji in ooc for everyone*/
+	/client/proc/game_panel,			/*game panel, allows to change game-mode etc*/
 	/client/proc/cmd_admin_say,			/*admin-only ooc chat*/
 	/datum/admins/proc/PlayerNotes,
 	/client/proc/cmd_mentor_say,

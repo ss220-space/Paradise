@@ -158,7 +158,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 				<A href='?_src_=holder;userandomname=[M.UID()]'>User Randomize Name</A> |
 				<A href='?_src_=holder;eraseflavortext=[M.UID()]'>Erase Flavor Text</A> |
 				"}
-	if(ishuman(M))
+	if(M.client && ishuman(M))
 		body += {"
 		<A href='?_src_=holder;cma_admin=[M.UID()]'>Mirror UI to Admin</A> |
 		<A href='?_src_=holder;cma_self=[M.UID()]'>Mirror UI to Player</A> |
