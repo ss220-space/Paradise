@@ -198,3 +198,10 @@
 			else
 				seed.product = /obj/item/reagent_containers/food/snacks/grown/random
 				seed.transform_into_random()
+
+#undef DETONATION_MACHINE_BREAKDOWN_CHANCE
+#undef DETONATION_MACHINE_EFFECT_CHANCE
+#undef DETONATION_APC_BREAKDOWN_CHANCE
+#undef SPECIAL_EFFECTS_TIMER_DELAY
+#undef SIMPLE_ANIMAL_MINDGIVING_CHANCE
+#undef DNA_MUTATION_CHANCE
