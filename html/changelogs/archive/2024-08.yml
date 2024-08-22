@@ -209,6 +209,8 @@
 '2024-08-21':
   Den109G:
   - bugfix: Now AI and his minions doesn't drop blueprints upon deleting (#5763)
+  - bugfix: Anchoring conveyors' switches (#5766)
+  - bugfix: Delete pilot's laser from station orbit (#5764)
   Kray1k:
   - bugfix: some random spawn init fixes (#5746)
   - bugfix: reagents duplication on soda dispencer upgrade (#5756)
@@ -224,3 +226,13 @@
   Zwei:
   - refactor: Attack Chain Rework (#5672)
   - bugfix: Attack Chain Fixes (#5761)
+'2024-08-22':
+  Anorak2020:
+  - bugfix: Hulk regen * 4 (#5776)
+  - bugfix: Hulk regen *4 2.0 (#5779)
+  ROdenFL:
+  - add: yogstation music system (#5758)
+  Zwei:
+  - bugfix: Attack Chain Fixes N2 (#5777)
+  - bugfix: Pacman Fix (#5778)
+  - bugfix: LR-30 Magazine Sprites Fix (#5780)
