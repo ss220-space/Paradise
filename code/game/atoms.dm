@@ -1221,7 +1221,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	var/tts_test_str = "Так звучит мой голос."
 
 	var/tts_seeds
-	if(user && (check_rights(R_ADMIN, 0, user) || override))
+	if(user && (check_rights(R_ADMIN|R_PEPELOPMENT, 0, user) || override))
 		tts_seeds = SStts.tts_seeds_names
 	else
 		tts_seeds = SStts.get_available_seeds(src)

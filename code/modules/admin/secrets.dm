@@ -1,10 +1,11 @@
 /datum/admins
-	var/current_tab =0
+	var/current_tab = 0
 
 /datum/admins/proc/Secrets()
 
 
-	if(!check_rights(0))	return
+	if(!check_rights(0))
+		return
 	var/dat = {"<html><meta charset="UTF-8"><body><center>"}
 
 	dat += "<a href='?src=[UID()];secretsmenu=tab;tab=0' [current_tab == 0 ? "class='linkOn'" : ""]>Debug</a>"

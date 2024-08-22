@@ -356,7 +356,8 @@
 		edit_admin_permissions()
 
 	else if(href_list["call_shuttle"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_ADMIN))
+			return
 
 
 		switch(href_list["call_shuttle"])
@@ -384,7 +385,8 @@
 		href_list["secrets"] = "check_antagonist"
 
 	else if(href_list["edit_shuttle_time"])
-		if(!check_rights(R_SERVER))	return
+		if(!check_rights(R_SERVER))
+			return
 
 		var/timer = input("Enter new shuttle duration (seconds):","Edit Shuttle Timeleft", SSshuttle.emergency.timeLeft() ) as num
 		SSshuttle.emergency.setTimer(timer SECONDS)
@@ -417,7 +419,8 @@
 		href_list["secrets"] = "check_antagonist"
 
 	else if(href_list["delay_round_end"])
-		if(!check_rights(R_SERVER))	return
+		if(!check_rights(R_SERVER))
+			return
 
 		SSticker.delay_end = !SSticker.delay_end
 		log_and_message_admins("[SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
@@ -426,7 +429,8 @@
 		href_list["secretsadmin"] = "check_antagonist"
 
 	else if(href_list["simplemake"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/M = locateUID(href_list["mob"])
 		if(!istype(M, /mob))
@@ -470,7 +474,8 @@
 
 	/////////////////////////////////////new ban stuff
 	else if(href_list["unbanf"])
-		if(!check_rights(R_BAN))	return
+		if(!check_rights(R_BAN))
+			return
 
 		var/banfolder = href_list["unbanf"]
 		GLOB.banlist_savefile.cd = "/base/[banfolder]"
@@ -483,7 +488,8 @@
 				unbanpanel()
 
 	else if(href_list["unbane"])
-		if(!check_rights(R_BAN))	return
+		if(!check_rights(R_BAN))
+			return
 
 		UpdateTime()
 		var/reason
@@ -830,7 +836,8 @@
 
 	//JOBBAN'S INNARDS
 	else if(href_list["jobban3"])
-		if(!check_rights(R_BAN))	return
+		if(!check_rights(R_BAN))
+			return
 
 		var/mob/M = locateUID(href_list["jobban4"])
 		if(!istype(M, /mob))
@@ -1014,6 +1021,8 @@
 			usr.client.open_logging_view(list(M), TRUE)
 
 	else if(href_list["geoip"])
+		if(!check_rights(R_ADMIN|R_MOD))
+			return
 		var/mob/M = locateUID(href_list["geoip"])
 		if (ismob(M))
 			if(!M.client)
@@ -1078,7 +1087,8 @@
 		show_note(index = target)
 
 	else if(href_list["removejobban"])
-		if(!check_rights(R_BAN))	return
+		if(!check_rights(R_BAN))
+			return
 
 		var/t = href_list["removejobban"]
 		if(t)
@@ -1092,7 +1102,8 @@
 				DB_ban_unban(ckey(key), BANTYPE_JOB_PERMA, job)
 
 	else if(href_list["newban"])
-		if(!check_rights(R_BAN))	return
+		if(!check_rights(R_BAN))
+			return
 
 		var/mob/M = locateUID(href_list["newban"])
 		if(!istype(M, /mob))
@@ -1208,7 +1219,8 @@
 		cmd_admin_mute(M, mute_type)
 
 	else if(href_list["c_mode"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_ADMIN))
+			return
 
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
@@ -1222,7 +1234,8 @@
 		usr << browse(dat, "window=c_mode")
 
 	else if(href_list["f_secret"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_ADMIN))
+			return
 
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
@@ -1237,7 +1250,8 @@
 		usr << browse(dat, "window=f_secret")
 
 	else if(href_list["c_mode2"])
-		if(!check_rights(R_ADMIN|R_SERVER))	return
+		if(!check_rights(R_ADMIN|R_SERVER))
+			return
 
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
@@ -1249,7 +1263,8 @@
 		.(href, list("c_mode"=1))
 
 	else if(href_list["f_secret2"])
-		if(!check_rights(R_ADMIN|R_SERVER))	return
+		if(!check_rights(R_ADMIN|R_SERVER))
+			return
 
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
@@ -1344,7 +1359,8 @@
 		.(href, list("change_weights"=1))
 
 	else if(href_list["monkeyone"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/living/carbon/human/H = locateUID(href_list["monkeyone"])
 		if(!istype(H))
@@ -1357,7 +1373,8 @@
 		H.monkeyize()
 
 	else if(href_list["forcespeech"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_SERVER|R_EVENT))
+			return
 
 		var/mob/M = locateUID(href_list["forcespeech"])
 		if(!istype(M, /mob))
@@ -1372,7 +1389,8 @@
 		message_admins("<span class='notice'>[key_name_admin(usr)] forced [key_name_admin(M)] to say: [speech]</span>")
 
 	else if(href_list["sendtoprison"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_ADMIN))
+			return
 
 		if(alert(usr, "Send to admin prison for the round?", "Message", "Yes", "No") != "Yes")
 			return
@@ -1499,7 +1517,7 @@
 		M.client.prefs.save_character(M.client)
 
 	else if(href_list["cma_admin"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_ADMIN|R_PEPELOPMENT))
 			return
 
 		var/mob/M = locateUID(href_list["cma_admin"])
@@ -1509,7 +1527,7 @@
 		usr.client.change_human_appearance_admin(M)
 
 	else if(href_list["cma_self"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_ADMIN|R_PEPELOPMENT))
 			return
 
 		var/mob/M = locateUID(href_list["cma_self"])
@@ -1519,7 +1537,7 @@
 		usr.client.change_human_appearance_self(M)
 
 	else if(href_list["check_contents"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_ADMIN|R_PEPELOPMENT))
 			return
 
 		var/mob/M = locateUID(href_list["check_contents"])
@@ -1539,7 +1557,7 @@
 		usr.client.man_up(M)
 
 	else if(href_list["select_equip"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_ADMIN|R_PEPELOPMENT))
 			return
 
 		var/mob/M = locateUID(href_list["select_equip"])
@@ -1548,7 +1566,7 @@
 			return
 		usr.client.cmd_admin_dress(M)
 	else if(href_list["change_voice"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_ADMIN|R_PEPELOPMENT))
 			return
 
 		var/mob/M = locateUID(href_list["change_voice"])
@@ -1561,7 +1579,7 @@
 		log_and_message_admins("has changed [key_name_admin(M)]'s voice from [old_tts_seed] to [new_tts_seed]")
 
 	else if(href_list["update_mob_sprite"])
-		if(!check_rights(R_ADMIN))
+		if(!check_rights(R_ADMIN|R_PEPELOPMENT))
 			return
 
 		var/mob/M = locateUID(href_list["update_mob_sprite"])
@@ -1577,7 +1595,8 @@
 		usr.client.view_asays()
 
 	else if(href_list["tdome1"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_SERVER|R_EVENT))
+			return
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
@@ -1603,7 +1622,8 @@
 		log_and_message_admins("has sent [key_name_admin(M)] to the thunderdome. (Team 1)")
 
 	else if(href_list["tdome2"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_SERVER|R_EVENT))
+			return
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
@@ -1629,7 +1649,8 @@
 		log_and_message_admins("has sent [key_name_admin(M)] to the thunderdome. (Team 2)")
 
 	else if(href_list["tdomeadmin"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_SERVER|R_EVENT))
+			return
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
@@ -1652,7 +1673,8 @@
 		log_and_message_admins("has sent [key_name_admin(M)] to the thunderdome. (Admin.)")
 
 	else if(href_list["tdomeobserve"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_SERVER|R_EVENT))
+			return
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
@@ -1753,7 +1775,8 @@
 
 
 	else if(href_list["aroomwarp"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_SERVER|R_EVENT))
+			return
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")
 			return
@@ -1788,7 +1811,8 @@
 			log_and_message_admins("disallowed [key_name(O)] to respawn!")
 
 	else if(href_list["revive"])
-		if(!check_rights(R_REJUVINATE))	return
+		if(!check_rights(R_REJUVINATE))
+			return
 
 		var/mob/living/L = locateUID(href_list["revive"])
 		if(!istype(L))
@@ -1799,7 +1823,8 @@
 		log_and_message_admins("healed / revived [key_name(L)]")
 
 	else if(href_list["makeai"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/living/carbon/human/H = locateUID(href_list["makeai"])
 		if(!istype(H))
@@ -1815,7 +1840,8 @@
 		SSticker?.score?.save_silicon_laws(ai_character, usr, "admin AIzed user", log_all_laws = TRUE)
 
 	else if(href_list["makesuper"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/living/carbon/human/H = locateUID(href_list["makesuper"])
 		if(!istype(H))
@@ -1828,7 +1854,8 @@
 		usr.client.cmd_admin_super(H)
 
 	else if(href_list["makerobot"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/living/carbon/human/H = locateUID(href_list["makerobot"])
 		if(!istype(H))
@@ -1840,7 +1867,8 @@
 		usr.client.cmd_admin_robotize(H)
 
 	else if(href_list["makeanimal"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/M = locateUID(href_list["makeanimal"])
 		if(isnewplayer(M))
@@ -1913,7 +1941,8 @@
 		message_admins("[key_name_admin(G)] was incarnated by [key_name_admin(owner)]")
 
 	else if(href_list["togmutate"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/mob/living/carbon/human/H = locateUID(href_list["togmutate"])
 		if(!istype(H))
@@ -1937,7 +1966,7 @@
 	else if(href_list["adminplayerobservefollow"])
 		var/client/C = usr.client
 		if(!isobserver(usr))
-			if(!check_rights(R_ADMIN|R_MOD)) // Need to be mod or admin to aghost
+			if(!check_rights(R_ADMIN|R_MOD|R_PEPELOPMENT)) // Need to be mod or admin to aghost
 				return
 			C.admin_ghost()
 		var/mob/M = locateUID(href_list["adminplayerobservefollow"])
@@ -2001,7 +2030,7 @@
 		message_admins("[key_name_admin(usr)] has burst all blobs")
 
 	else if(href_list["delay_blob_end"])
-		if(!check_rights(R_ADMIN) || !check_rights(R_EVENT))
+		if(!check_rights(R_ADMIN|R_EVENT))
 			return
 		if(alert(usr,"Вы действительно хотите преостановить конец раунда в случае победы блоба?", "", "Да", "Нет") == "Нет")
 			return
@@ -2063,7 +2092,8 @@
 		check_teams()
 
 	else if(href_list["randomizename"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_ADMIN))
+			return
 
 		var/mob/M = locateUID(href_list["randomizename"])
 		//exists?
@@ -2268,14 +2298,16 @@
 		log_admin("Admin [key_name_admin(usr)] has unlocked the Clock Cult's ability to summon Ratvar.")
 
 	else if(href_list["adminplayerobservecoodjump"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_ADMIN|R_PEPELOPMENT))
+			return
 
 		var/x = text2num(href_list["X"])
 		var/y = text2num(href_list["Y"])
 		var/z = text2num(href_list["Z"])
 
 		var/client/C = usr.client
-		if(!isobserver(usr))	C.admin_ghost()
+		if(!isobserver(usr))
+			C.admin_ghost()
 		sleep(2)
 		C.jumptocoord(x,y,z)
 
@@ -2292,7 +2324,8 @@
 		admin_mob_info(M)
 
 	else if(href_list["adminspawncookie"])
-		if(!check_rights(R_ADMIN|R_EVENT))	return
+		if(!check_rights(R_ADMIN|R_EVENT))
+			return
 
 		var/mob/living/carbon/human/H = locateUID(href_list["adminspawncookie"])
 		if(!ishuman(H))
@@ -2316,7 +2349,8 @@
 		to_chat(H, "<span class='notice'>Your prayers have been answered!! You received the <b>best cookie</b>!</span>")
 
 	else if(href_list["BlueSpaceArtillery"])
-		if(!check_rights(R_ADMIN|R_EVENT))	return
+		if(!check_rights(R_ADMIN|R_EVENT))
+			return
 
 		var/mob/living/M = locateUID(href_list["BlueSpaceArtillery"])
 		if(!isliving(M))
@@ -2746,7 +2780,8 @@
 		cmd_mentor_show_exp_panel(M.client)
 
 	else if(href_list["jumpto"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_ADMIN|R_PEPELOPMENT))
+			return
 
 		var/mob/M = locateUID(href_list["jumpto"])
 		if(!istype(M, /mob))
@@ -2755,7 +2790,8 @@
 		usr.client.jumptomob(M)
 
 	else if(href_list["getmob"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_ADMIN))
+			return
 
 		if(alert(usr, "Confirm?", "Message", "Yes", "No") != "Yes")	return
 		var/mob/M = locateUID(href_list["getmob"])
@@ -2765,7 +2801,8 @@
 		usr.client.Getmob(M)
 
 	else if(href_list["sendmob"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_ADMIN))
+			return
 
 		var/mob/M = locateUID(href_list["sendmob"])
 		if(!istype(M, /mob))
@@ -2774,7 +2811,8 @@
 		usr.client.sendmob(M)
 
 	else if(href_list["narrateto"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_ADMIN))
+			return
 
 		var/mob/M = locateUID(href_list["narrateto"])
 		if(!istype(M, /mob))
@@ -2793,7 +2831,8 @@
 		usr.client.cmd_admin_subtle_message(M)
 
 	else if(href_list["traitor"])
-		if(!check_rights(R_ADMIN|R_MOD))	return
+		if(!check_rights(R_ADMIN|R_MOD|R_PEPELOPMENT))
+			return
 
 		if(!SSticker || !SSticker.mode)
 			alert("The game hasn't started yet!")
@@ -2806,23 +2845,28 @@
 		show_traitor_panel(M)
 
 	else if(href_list["create_object"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 		return create_object(usr)
 
 	else if(href_list["quick_create_object"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 		return quick_create_object(usr)
 
 	else if(href_list["create_turf"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 		return create_turf(usr)
 
 	else if(href_list["create_mob"])
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 		return create_mob(usr)
 
 	else if(href_list["object_list"])			//this is the laggiest thing ever
-		if(!check_rights(R_SPAWN))	return
+		if(!check_rights(R_SPAWN))
+			return
 
 		var/atom/loc = usr.loc
 
@@ -2953,7 +2997,8 @@
 			to_chat(usr, "<span class='warning'>You may only use this when the game is running.</span>")
 
 	else if(href_list["memoeditlist"])
-		if(!check_rights(R_SERVER)) return
+		if(!check_rights(R_SERVER))
+			return
 		var/sql_key = href_list["memoeditlist"]
 		var/datum/db_query/query_memoedits = SSdbcore.NewQuery("SELECT edits FROM [CONFIG_GET(string/utility_database)].[format_table_name("memo")] WHERE (ckey=:sql_key)", list(
 			"sql_key" = sql_key
@@ -2967,7 +3012,8 @@
 		qdel(query_memoedits)
 
 	else if(href_list["secretsfun"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
+		if(!check_rights(R_SERVER|R_EVENT))
+			return
 
 		var/ok = 0
 		switch(href_list["secretsfun"])
@@ -3479,7 +3525,8 @@
 				to_chat(world, text("<b>A secret has been activated by []!</b>", usr.key))
 
 	else if(href_list["secretsadmin"])
-		if(!check_rights(R_ADMIN))	return
+		if(!check_rights(R_ADMIN))
+			return
 
 		var/ok = 0
 		switch(href_list["secretsadmin"])
@@ -3573,7 +3620,8 @@
 				to_chat(world, text("<b>A secret has been activated by []!</b>", usr.key))
 
 	else if(href_list["secretscoder"])
-		if(!check_rights(R_DEBUG))	return
+		if(!check_rights(R_DEBUG))
+			return
 
 		switch(href_list["secretscoder"])
 			if("spawn_objects")
@@ -3818,7 +3866,8 @@
 	set_antag_hud(hunter_mob, "hudsyndicate")
 
 /proc/admin_jump_link(var/atom/target)
-	if(!target) return
+	if(!target)
+		return
 	// The way admin jump links handle their src is weirdly inconsistent...
 
 	. = ADMIN_FLW(target,"FLW")

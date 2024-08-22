@@ -542,7 +542,6 @@
 						continue //Ghosted while alive
 
 	for(var/mob/mob in GLOB.mob_list)
-
 		if(check_rights(R_ADMIN, FALSE, mob))
 			to_chat(mob, msg)
 

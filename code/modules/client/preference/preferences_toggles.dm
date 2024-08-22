@@ -429,7 +429,7 @@
 	name = "Set Your OOC Color"
 	description = "Pick a custom OOC color"
 	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
-	rights_required = R_ADMIN | R_DEBUG
+	rights_required = R_ADMIN | R_PEPELOPMENT
 	blackbox_message = "Set Own OOC"
 
 /datum/preference_toggle/special_toggle/set_ooc_color/set_toggles(client/user)

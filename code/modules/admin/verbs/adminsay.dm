@@ -1,7 +1,8 @@
 /client/proc/cmd_admin_say(msg as text)
 	set name = "Asay" //Gave this shit a shorter name so you only have to time out "asay" rather than "admin say" to use it --NeoFite
 	set hidden = 1
-	if(!check_rights(R_ADMIN))	return
+	if(!check_rights(R_ADMIN))
+		return
 
 	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
 	if(!msg)	return
@@ -66,7 +67,7 @@
 	set name = "Devsay"
 	set hidden = 1
 
-	if(!check_rights(R_DEV))
+	if(!check_rights(R_DEV|R_ADMIN))
 		return
 
 	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
@@ -78,7 +79,7 @@
 	msg = handleDiscordEmojis(msg)
 
 	for(var/client/C in GLOB.admins)
-		if(check_rights(R_DEV, 0, C.mob))
+		if(check_rights(R_DEV|R_ADMIN, 0, C.mob))
 			var/display_name = key
 			if(holder.fakekey)
 				if(check_rights(R_ADMIN, 0, C.mob))

@@ -74,7 +74,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		to_chat(usr, "You seem to be selecting a mob that doesn't exist anymore.")
 		return
 
-	if(!check_rights(R_ADMIN|R_MOD))
+	if(!check_rights(R_ADMIN|R_MOD|R_PEPELOPMENT))
 		return
 
 	var/body = {"<html><meta charset="UTF-8"><head><title>Options for [M.key]</title></head>"}
@@ -85,9 +85,10 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			body += "\[<A href='?_src_=holder;editrights=rank;ckey=[M.ckey]'>[M.client.holder ? M.client.holder.rank : "Player"]</A>\] "
 		else
 			body += "\[[M.client.holder ? M.client.holder.rank : "Player"]\] "
-		body += "\[<A href='?_src_=holder;getplaytimewindow=[M.UID()]'>" + M.client.get_exp_type(EXP_TYPE_CREW) + " as [EXP_TYPE_CREW]</a>\]"
-		body += "<br>BYOND account registration date: [M.client.byondacc_date || "ERROR"] [M.client.byondacc_age <= CONFIG_GET(number/byond_account_age_threshold) ? "<b>" : ""]([M.client.byondacc_age] days old)[M.client.byondacc_age <= CONFIG_GET(number/byond_account_age_threshold) ? "</b>" : ""]"
-		body += "<br>Global Ban DB Lookup: [CONFIG_GET(string/centcom_ban_db_url) ? "<a href='?_src_=holder;open_ccbdb=[M.client.ckey]'>Lookup</a>" : "<i>Disabled</i>"]"
+		if(check_rights(R_ADMIN|R_MOD, 0))
+			body += "\[<A href='?_src_=holder;getplaytimewindow=[M.UID()]'>" + M.client.get_exp_type(EXP_TYPE_CREW) + " as [EXP_TYPE_CREW]</a>\]"
+			body += "<br>BYOND account registration date: [M.client.byondacc_date || "ERROR"] [M.client.byondacc_age <= CONFIG_GET(number/byond_account_age_threshold) ? "<b>" : ""]([M.client.byondacc_age] days old)[M.client.byondacc_age <= CONFIG_GET(number/byond_account_age_threshold) ? "</b>" : ""]"
+			body += "<br>Global Ban DB Lookup: [CONFIG_GET(string/centcom_ban_db_url) ? "<a href='?_src_=holder;open_ccbdb=[M.client.ckey]'>Lookup</a>" : "<i>Disabled</i>"]"
 
 		body += "<br>"
 
@@ -98,74 +99,78 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 
 	body += "<br><br>\[ "
-	body += "<a href='?_src_=holder;open_logging_view=[M.UID()];'>LOGS</a> - "
 	body += "<a href='?_src_=vars;Vars=[M.UID()]'>VV</a> - "
 	body += "[ADMIN_TP(M,"TP")] - "
-	if(M.client)
-		body += "<a href='?src=[usr.UID()];priv_msg=[M.client.ckey]'>PM</a> - "
-		body += "[ADMIN_SM(M,"SM")] - "
-	if(ishuman(M) && M.mind)
-		body += "<a href='?_src_=holder;HeadsetMessage=[M.UID()]'>HM</a> - "
 	body += "[admin_jump_link(M)] - "
-	body += "<a href='?_src_=holder;adminalert=[M.UID()]'>SEND ALERT</a>\]</b><br>"
+	if(check_rights(R_ADMIN|R_MOD, 0))
+		body += "<a href='?_src_=holder;open_logging_view=[M.UID()];'>LOGS</a> - "
+		if(M.client)
+			body += "<a href='?src=[usr.UID()];priv_msg=[M.client.ckey]'>PM</a> - "
+			body += "[ADMIN_SM(M,"SM")] - "
+		if(ishuman(M) && M.mind)
+			body += "<a href='?_src_=holder;HeadsetMessage=[M.UID()]'>HM</a> - "
+
+		body += "<a href='?_src_=holder;adminalert=[M.UID()]'>SEND ALERT</a>"
+	body += "\]<br>"
 	body += "<b>Mob type:</b> [M.type]<br>"
-	if(M.client)
-		if(M.client.prefs.discord_id)
-			if(length(M.client.prefs.discord_id) < 32)
-				body += "<b>Discord:</b>  <@[M.client.prefs.discord_id]>  <b>[M.client.prefs.discord_name]</b><br>"
+	if(check_rights(R_ADMIN|R_MOD, 0))
+		if(M.client)
+			if(M.client.prefs.discord_id)
+				if(length(M.client.prefs.discord_id) < 32)
+					body += "<b>Discord:</b>  <@[M.client.prefs.discord_id]>  <b>[M.client.prefs.discord_name]</b><br>"
+				else
+					body += "<b>Discord: Привязка не завершена!</b><br>"
+			if(M.client.related_accounts_cid.len)
+				body += "<b>Related accounts by CID:</b> [jointext(M.client.related_accounts_cid, " - ")]<br>"
+			if(M.client.related_accounts_ip.len)
+				body += "<b>Related accounts by IP:</b> [jointext(M.client.related_accounts_ip, " - ")]<br><br>"
+
+		if(M.ckey)
+			body += "<A href='?_src_=holder;boot2=[M.UID()]'>Kick</A> | "
+			body += "<A href='?_src_=holder;newban=[M.UID()];dbbanaddckey=[M.ckey]'>Ban</A> | "
+			body += "<A href='?_src_=holder;jobban2=[M.UID()];dbbanaddckey=[M.ckey]'>Jobban</A> | "
+			body += "<A href='?_src_=holder;appearanceban=[M.UID()];dbbanaddckey=[M.ckey]'>Appearance Ban</A> | "
+			body += "<A href='?_src_=holder;shownoteckey=[M.ckey]'>Notes</A> | "
+			body += "<A href='?_src_=holder;geoip=[M.UID()]'>GeoIP</A> | "
+			if(CONFIG_GET(string/forum_playerinfo_url))
+				body += "<A href='?_src_=holder;webtools=[M.ckey]'>WebInfo</A> | "
+		if(M.client)
+			if(check_watchlist(M.client.ckey))
+				body += "<A href='?_src_=holder;watchremove=[M.ckey]'>Remove from Watchlist</A> | "
+				body += "<A href='?_src_=holder;watchedit=[M.ckey]'>Edit Watchlist Reason</A> "
 			else
-				body += "<b>Discord: Привязка не завершена!</b><br>"
-		if(M.client.related_accounts_cid.len)
-			body += "<b>Related accounts by CID:</b> [jointext(M.client.related_accounts_cid, " - ")]<br>"
-		if(M.client.related_accounts_ip.len)
-			body += "<b>Related accounts by IP:</b> [jointext(M.client.related_accounts_ip, " - ")]<br><br>"
+				body += "<A href='?_src_=holder;watchadd=[M.ckey]'>Add to Watchlist</A> "
 
-	if(M.ckey)
-		body += "<A href='?_src_=holder;boot2=[M.UID()]'>Kick</A> | "
-		body += "<A href='?_src_=holder;newban=[M.UID()];dbbanaddckey=[M.ckey]'>Ban</A> | "
-		body += "<A href='?_src_=holder;jobban2=[M.UID()];dbbanaddckey=[M.ckey]'>Jobban</A> | "
-		body += "<A href='?_src_=holder;appearanceban=[M.UID()];dbbanaddckey=[M.ckey]'>Appearance Ban</A> | "
-		body += "<A href='?_src_=holder;shownoteckey=[M.ckey]'>Notes</A> | "
-		body += "<A href='?_src_=holder;geoip=[M.UID()]'>GeoIP</A> | "
-		if(CONFIG_GET(string/forum_playerinfo_url))
-			body += "<A href='?_src_=holder;webtools=[M.ckey]'>WebInfo</A> | "
-	if(M.client)
-		if(check_watchlist(M.client.ckey))
-			body += "<A href='?_src_=holder;watchremove=[M.ckey]'>Remove from Watchlist</A> | "
-			body += "<A href='?_src_=holder;watchedit=[M.ckey]'>Edit Watchlist Reason</A> "
-		else
-			body += "<A href='?_src_=holder;watchadd=[M.ckey]'>Add to Watchlist</A> "
-
-		body += "| <A href='?_src_=holder;sendtoprison=[M.UID()]'>Prison</A> | "
-		body += "\ <A href='?_src_=holder;sendbacktolobby=[M.UID()]'>Send back to Lobby</A> | "
-		body += {"<br><b>Mute: </b>
-			\[<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_IC]'><font color='[check_mute(M.client.ckey, MUTE_IC) ? "red" : "#6685f5"]'>IC</font></a> |
-			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_OOC]'><font color='[check_mute(M.client.ckey, MUTE_OOC) ? "red" : "#6685f5"]'>OOC</font></a> |
-			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_PRAY]'><font color='[check_mute(M.client.ckey, MUTE_PRAY) ? "red" : "#6685f5"]'>PRAY</font></a> |
-			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ADMINHELP]'><font color='[check_mute(M.client.ckey, MUTE_ADMINHELP) ? "red" : "#6685f5"]'>ADMINHELP</font></a> |
-			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_DEADCHAT]'><font color='[check_mute(M.client.ckey, MUTE_DEADCHAT) ?" red" : "#6685f5"]'>DEADCHAT</font></a> |
-			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_TTS]'><font color='[check_mute(M.client.ckey, MUTE_TTS)?"red":"#6685f5"]'>TTS</font></a> |
-			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_EMOTE]'><font color='[check_mute(M.client.ckey, MUTE_EMOTE) ? "red" : "#6685f5"]'>EMOTE</font></a>\]
-			(<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ALL]'><font color='[check_mute(M.client.ckey, MUTE_ALL) ? "red" : "#6685f5"]'>toggle all</font></a>)
-		"}
-		body += {"<br><b>Mob Manipulation:</b>
-			<A href='?_src_=holder;randomizename=[M.UID()]'>Randomize Name</A> |
-			<A href='?_src_=holder;userandomname=[M.UID()]'>User Randomize Name</A> |
-			<A href='?_src_=holder;eraseflavortext=[M.UID()]'>Erase Flavor Text</A> |
+			body += "| <A href='?_src_=holder;sendtoprison=[M.UID()]'>Prison</A> | "
+			body += "\ <A href='?_src_=holder;sendbacktolobby=[M.UID()]'>Send back to Lobby</A> | "
+			body += {"<br><b>Mute: </b>
+				\[<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_IC]'><font color='[check_mute(M.client.ckey, MUTE_IC) ? "red" : "#6685f5"]'>IC</font></a> |
+				<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_OOC]'><font color='[check_mute(M.client.ckey, MUTE_OOC) ? "red" : "#6685f5"]'>OOC</font></a> |
+				<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_PRAY]'><font color='[check_mute(M.client.ckey, MUTE_PRAY) ? "red" : "#6685f5"]'>PRAY</font></a> |
+				<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ADMINHELP]'><font color='[check_mute(M.client.ckey, MUTE_ADMINHELP) ? "red" : "#6685f5"]'>ADMINHELP</font></a> |
+				<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_DEADCHAT]'><font color='[check_mute(M.client.ckey, MUTE_DEADCHAT) ?" red" : "#6685f5"]'>DEADCHAT</font></a> |
+				<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_TTS]'><font color='[check_mute(M.client.ckey, MUTE_TTS)?"red":"#6685f5"]'>TTS</font></a> |
+				<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_EMOTE]'><font color='[check_mute(M.client.ckey, MUTE_EMOTE) ? "red" : "#6685f5"]'>EMOTE</font></a>\]
+				(<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ALL]'><font color='[check_mute(M.client.ckey, MUTE_ALL) ? "red" : "#6685f5"]'>toggle all</font></a>)
 			"}
-		if(ishuman(M))
-			body += {"
-			<A href='?_src_=holder;cma_admin=[M.UID()]'>Mirror UI to Admin</A> |
-			<A href='?_src_=holder;cma_self=[M.UID()]'>Mirror UI to Player</A> |
-			<A href='?_src_=holder;select_equip=[M.UID()]'>Select Equipment</A> |
-			<A href='?_src_=holder;update_mob_sprite=[M.UID()]'>Update Mob Sprite</A> |
-			<A href='?_src_=holder;change_voice=[M.UID()]'>Change Voice</A> |
-			"}
-		if(isliving(M))
-			body += {"<A href='?_src_=holder;check_contents=[M.UID()]'>Check Contents</A> |"}
+			body += {"<br><b>Mob Manipulation:</b>
+				<A href='?_src_=holder;randomizename=[M.UID()]'>Randomize Name</A> |
+				<A href='?_src_=holder;userandomname=[M.UID()]'>User Randomize Name</A> |
+				<A href='?_src_=holder;eraseflavortext=[M.UID()]'>Erase Flavor Text</A> |
+				"}
+	if(ishuman(M))
 		body += {"
-		<A href='?_src_=holder;man_up=[M.UID()]'>Man Up</A> |
+		<A href='?_src_=holder;cma_admin=[M.UID()]'>Mirror UI to Admin</A> |
+		<A href='?_src_=holder;cma_self=[M.UID()]'>Mirror UI to Player</A> |
+		<A href='?_src_=holder;select_equip=[M.UID()]'>Select Equipment</A> |
+		<A href='?_src_=holder;update_mob_sprite=[M.UID()]'>Update Mob Sprite</A> |
+		<A href='?_src_=holder;change_voice=[M.UID()]'>Change Voice</A> |
 		"}
+	if(isliving(M))
+		body += {"<A href='?_src_=holder;check_contents=[M.UID()]'>Check Contents</A> |"}
+	body += {"
+	<A href='?_src_=holder;man_up=[M.UID()]'>Man Up</A> |
+	"}
 
 
 	var/jumptoeye = ""
@@ -178,10 +183,12 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		<A href='?_src_=holder;getmob=[M.UID()]'>Get</A> |
 		<A href='?_src_=holder;sendmob=[M.UID()]'>Send To</A>
 		<br><br>
-		[check_rights(R_ADMIN,0) ? "[ADMIN_TP(M,"Traitor panel")] | " : "" ]
-		<A href='?_src_=holder;narrateto=[M.UID()]'>Narrate to</A> |
-		[ADMIN_SM(M,"Subtle message")]
+		[check_rights(R_ADMIN|R_PEPELOPMENT, 0) ? "[ADMIN_TP(M,"Traitor panel")] | " : "" ]
 	"}
+	if(check_rights(R_ADMIN|R_MOD, 0))
+		body += {"<A href='?_src_=holder;narrateto=[M.UID()]'>Narrate to</A> |
+			[ADMIN_SM(M,"Subtle message")]
+			"}
 
 	if(check_rights(R_EVENT, 0))
 		body += {" | <A href='?_src_=holder;Bless=[M.UID()]'>Bless</A> | <A href='?_src_=holder;Smite=[M.UID()]'>Smite</A>"}
@@ -225,7 +232,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			else
 				body += "<A href='?_src_=holder;makeanimal=[M.UID()]'>Animalize</A> | "
 
-			if(istype(M, /mob/dead/observer))
+			if(istype(M, /mob/dead/observer) && check_rights(R_ADMIN|R_MOD, 0))
 				body += "<A href='?_src_=holder;incarn_ghost=[M.UID()]'>Re-incarnate</a> | "
 				body += {"<A href='?_src_=holder;togglerespawnability=[M.UID()]'>Toggle Respawnability</A> | "}
 
@@ -277,7 +284,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 				<A href='?_src_=holder;simplemake=shade;mob=[M.UID()]'>Shade</A>
 			"}
 
-	if(M.client)
+	if(M.client && check_rights(R_ADMIN|R_MOD|R_EVENT, 0))
 		body += {"<br><br>
 			<b>Other actions:</b>
 			<br>
@@ -811,7 +818,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	set desc = "Edit mobs's memory and role"
 	set name = "\[Admin\] Show Traitor Panel"
 
-	if(!check_rights(R_ADMIN|R_MOD))
+	if(!check_rights(R_ADMIN|R_MOD|R_PEPELOPMENT))
 		return
 
 	if(!istype(M))
@@ -871,7 +878,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 /client/proc/update_mob_sprite(mob/living/carbon/human/H as mob)
 
-	if(!check_rights(R_ADMIN))
+	if(!check_rights(R_ADMIN|R_PEPELOPMENT))
 		return
 
 	if(istype(H))

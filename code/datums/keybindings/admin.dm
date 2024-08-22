@@ -43,7 +43,7 @@
 /datum/keybinding/admin/player_panel
 	name = "Player Panel"
 	keys = list("F7")
-	rights = R_ADMIN|R_MOD
+	rights = R_ADMIN|R_MOD|R_PEPELOPMENT
 
 
 /datum/keybinding/admin/player_panel/down(client/user)

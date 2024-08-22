@@ -238,6 +238,8 @@ GLOBAL_LIST_INIT(pepelopment_verbs, list(
 	/client/proc/start_vote,
 	/client/proc/freeze,
 	/client/proc/cmd_admin_dress, 			/*For fast testes*/
+	/datum/admins/proc/show_player_panel,
+	/client/proc/player_panel_new,
 ))
 
 /client/proc/add_admin_verbs()
@@ -395,7 +397,7 @@ GLOBAL_LIST_INIT(pepelopment_verbs, list(
 	set name = "Player Panel"
 	set category = "Admin"
 
-	if(!check_rights(R_ADMIN | R_MOD))
+	if(!check_rights(R_ADMIN|R_MOD|R_PEPELOPMENT))
 		return
 
 	holder.player_panel_new()
@@ -443,7 +445,7 @@ GLOBAL_LIST_INIT(pepelopment_verbs, list(
 	set name = "Secrets"
 	set category = "Event"
 
-	if(!check_rights(R_ADMIN | R_EVENT))
+	if(!check_rights(R_ADMIN|R_EVENT))
 		return
 
 	holder.Secrets()

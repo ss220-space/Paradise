@@ -3,7 +3,8 @@
 	set name = "AOOC"
 	set desc = "Antagonist OOC"
 
-	if(!check_rights(R_ADMIN))	return
+	if(!check_rights(R_ADMIN))
+		return
 
 	msg = sanitize(msg)
 	if(!msg)	return

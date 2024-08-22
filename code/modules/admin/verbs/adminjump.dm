@@ -101,7 +101,7 @@
 			to_chat(A, "This mob is not located in the game world.")
 
 /client/proc/jumptocoord(tx as num, ty as num, tz as num)
-	if(!isobserver(usr) && !check_rights(R_ADMIN)) // Only admins can jump without being a ghost
+	if(!isobserver(usr) && !check_rights(R_ADMIN|R_PEPELOPMENT)) // Only admins can jump without being a ghost
 		return
 
 	var/turf/T = locate(tx, ty, tz)
@@ -118,7 +118,7 @@
 		message_admins("[key_name_admin(usr)] jumped to coordinates [COORD(T)]")
 
 /client/proc/jumptokey(client/C)
-	if(!C?.mob || !check_rights(R_ADMIN))
+	if(!C?.mob || !check_rights(R_ADMIN|R_PEPELOPMENT))
 		return
 	var/mob/M = C.mob
 	log_admin("[key_name(usr)] jumped to [key_name(M)]")
