@@ -205,7 +205,7 @@
 	evo_points += 1
 	if(borer_rank?.required_reproductions && reproductions >= borer_rank.required_reproductions)
 		reproductions -= borer_rank.required_reproductions
-		if(host && borer_rank.update_rank())
+		if(host && borer_rank.update_rank(src))
 			to_chat(host, span_notice("Вы эволюционировали. Ваш текущий ранг - [borer_rank.rankname]."))
 	return
 

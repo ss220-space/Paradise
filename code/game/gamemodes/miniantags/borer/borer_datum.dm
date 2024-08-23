@@ -146,6 +146,9 @@
 /datum/borer_misc/change_host_and_scale
 	var/list/used_UIDs = list()
 
+/datum/borer_misc/change_host_and_scale/New()
+	parent.pre_grant_movable_effect()
+
 /datum/borer_misc/change_host_and_scale/grant_movable_effect()
 	if(parent.user.max_chems >= SCALING_MAX_CHEM)
 		qdel(src)
