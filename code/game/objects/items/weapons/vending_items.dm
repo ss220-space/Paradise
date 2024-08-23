@@ -187,3 +187,7 @@
 /obj/item/vending_refill/pai
 	machine_name = "RoboFriends"
 	icon_state = "restock_pai"
+
+/obj/item/vending_refill/custom
+	machine_name = "Торговый автомат с уникальным содержимым"
+	icon_state = "restock_pai"
