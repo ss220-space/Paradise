@@ -328,15 +328,16 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/item_filename
 
 /datum/asset/music/New(date)
-	item_filename = sanitize_filename("[date].mp3")
-	SSassets.transport.register_asset(item_filename, file("cache/songs/" + item_filename))
+	item_filename = sanitize_filename(date)
+	SSassets.transport.register_asset(item_filename, file(date))
+	fdel(date)
 
 /datum/asset/music/send(client)
 	if(!item_filename)
 		return
 	. = SSassets.transport.send_assets(client, item_filename)
 
-/datum/asset/music/get_url_mappings()
+/datum/asset/music/proc/get_url()
 	if(!item_filename)
 		return
 	. = url_decode(SSassets.transport.get_asset_url(item_filename))

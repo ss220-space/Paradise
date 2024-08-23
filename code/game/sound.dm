@@ -1,3 +1,4 @@
+GLOBAL_LIST_EMPTY(cached_songs)
 
 ///Default override for echo
 /sound
@@ -184,26 +185,25 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	S.status = SOUND_UPDATE
 	SEND_SOUND(src, S)
 
-GLOBAL_LIST_EMPTY(cached_songs)
-
 /client/proc/playtitlemusic(vol = 85)
 	set waitfor = FALSE
 	UNTIL(SSticker.login_music) //wait for SSticker init to set the login music
 	UNTIL(tgui_panel)
+	UNTIL(SSassets.initialized)
 
 	var/datum/asset/music/my_asset
 	if(GLOB.cached_songs[SSticker.login_music_data["id"]])
 		my_asset = GLOB.cached_songs[SSticker.login_music_data["id"]]
 	else
 		my_asset = new /datum/asset/music(SSticker.login_music_data["id"])
+		GLOB.cached_songs[SSticker.login_music_data["id"]] = my_asset
 
-	my_asset.send(src)
-
-	var/url = my_asset.get_url_mappings()
+	var/url = my_asset.get_url()
 
 	if(prefs && (prefs.toggles & SOUND_LOBBY))
 		tgui_panel?.play_music(url, SSticker.login_music_data)
-		to_chat(src, span_notice("Currently playing: [SSticker.login_music_data["title"]]"))
+		to_chat(src, span_notice("Сейчас играет: [SSticker.login_music_data["title"]]"))
+
 
 /proc/get_rand_frequency()
 	return rand(32000, 55000) //Frequency stuff only works with 45kbps oggs.

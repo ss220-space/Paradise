@@ -46,10 +46,14 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	playsound(get_turf(src.mob), S, 50, 0, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Local Sound") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
+
 /client/proc/play_web_sound()
 	set category = "Event"
 	set name = "Play Internet Sound"
 	if(!check_rights(R_SOUNDS))
+		return
+
+	if(!tgui_panel || !SSassets.initialized)
 		return
 
 	var/ytdl = CONFIG_GET(string/invoke_youtubedl)
@@ -59,6 +63,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 
 	var/web_sound_input = input("Enter content URL (supported sites only, leave blank to stop playing)", "Play Internet Sound via youtube-dl") as text|null
 	if(istext(web_sound_input))
+		var/web_sound_path = ""
 		var/web_sound_url = ""
 		var/stop_web_sounds = FALSE
 		var/list/music_extra_data = list()
@@ -69,7 +74,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 				to_chat(src, span_warning("For youtube-dl shortcuts like ytsearch: please use the appropriate full url from the website."), confidential=TRUE)
 				return
 			var/shell_scrubbed_input = shell_url_scrub(web_sound_input)
-			var/list/output = world.shelleo("[ytdl] --geo-bypass --format \"bestaudio\[ext=mp3]/best\[ext=mp4]\[height<=360]/bestaudio\[ext=m4a]/bestaudio\[ext=aac]\" --dump-single-json --no-playlist -- \"[shell_scrubbed_input]\"")
+			var/list/output = world.shelleo("[ytdl] -x --audio-format mp3 --audio-quality 0 --geo-bypass --no-playlist -o cache/songs/%(id)s.%(ext)s --dump-json --no-simulate \"[shell_scrubbed_input]\"")
 			var/errorlevel = output[SHELLEO_ERRORLEVEL]
 			var/stdout = output[SHELLEO_STDOUT]
 			var/stderr = output[SHELLEO_STDERR]
@@ -82,11 +87,12 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 					to_chat(src, span_warning("[e]: [stdout]"), confidential=TRUE)
 					return
 
-				if (data["url"])
+				if(data["url"])
+					web_sound_path = "cache/songs/[data["id"]].mp3"
 					web_sound_url = data["url"]
 					var/title = "[data["title"]]"
 					var/webpage_url = title
-					if (data["webpage_url"])
+					if(data["webpage_url"])
 						webpage_url = "<a href=\"[data["webpage_url"]]\">[title]</a>"
 					music_extra_data["start"] = data["start_time"]
 					music_extra_data["end"] = data["end_time"]
@@ -103,7 +109,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 					var/res = tgui_alert(usr, "Show the title of and link to this song to the players?\n[title]",, list("No", "Yes", "Cancel"))
 					switch(res)
 						if("Yes")
-							to_chat(world, span_boldannounceooc("An admin played: [webpage_url]"))
+							to_chat(world, span_boldannounceooc("Сейчас играет: [webpage_url]"))
 						if("Cancel")
 							return
 
@@ -117,23 +123,31 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 		else //pressed ok with blank
 			log_admin("[key_name(src)] stopped web sound")
 			message_admins("[key_name(src)] stopped web sound")
-			web_sound_url = null
+			web_sound_path = null
 			stop_web_sounds = TRUE
 			SSticker.music_available = 0
 
-		if(web_sound_url && !findtext(web_sound_url, GLOB.is_http_protocol))
-			to_chat(src, span_boldwarning("BLOCKED: Content URL not using http(s) protocol"), confidential=TRUE)
-			to_chat(src, span_warning("The media provider returned a content URL that isn't using the HTTP or HTTPS protocol"), confidential=TRUE)
-			return
-		if(web_sound_url || stop_web_sounds)
+		if(stop_web_sounds)
 			for(var/m in GLOB.player_list)
 				var/mob/M = m
 				var/client/C = M.client
 				if(C.prefs.toggles & SOUND_MIDI)
-					if(!stop_web_sounds)
-						C.tgui_panel?.play_music(web_sound_url, music_extra_data)
-					else
-						C.tgui_panel?.stop_music()
+					C.tgui_panel?.stop_music()
+		else
+			var/datum/asset/music/my_asset
+			if(GLOB.cached_songs[web_sound_path])
+				my_asset = GLOB.cached_songs[web_sound_path]
+			else
+				my_asset = new /datum/asset/music(web_sound_path)
+				GLOB.cached_songs[web_sound_path] = my_asset
+
+			var/url = my_asset.get_url()
+
+			for(var/m in GLOB.player_list)
+				var/mob/M = m
+				var/client/C = M.client
+				if(C.prefs.toggles & SOUND_MIDI)
+					C.tgui_panel?.play_music(url, music_extra_data)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Internet Sound")
 

@@ -421,7 +421,7 @@ SUBSYSTEM_DEF(ticker)
 			return
 		if(data["title"])
 			login_music_data["title"] = data["title"]
-			login_music_data["id"] = data["id"]
+			login_music_data["id"] = "cache/songs/[data["id"]].mp3"
 
 	if(errorlevel)
 		to_chat(world, span_boldwarning("Youtube-dl failed."))
