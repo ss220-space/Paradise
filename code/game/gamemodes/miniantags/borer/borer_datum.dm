@@ -264,7 +264,7 @@
 	var/datum/antagonist/borer/parent
 	var/movable_granted = FALSE
 
-/datum/borer_focus/proc/New(mob/living/simple_animal/borer/borer)
+/datum/borer_focus/New(mob/living/simple_animal/borer/borer)
 	parent = borer.mind?.has_antag_datum(/datum/antagonist/borer)
 	parent?.pre_grant_movable_effect()
 
