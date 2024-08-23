@@ -466,7 +466,7 @@
 			var/list/mentorcounter = staff_countup(R_MENTOR)
 			var/msg = "<b>[ckey]</b> зашел на сервер. Менторов в сети: <b>[mentorcounter[1]]</b>."
 			var/list/data = list()
-			data["author"] = "alice"
+			data["author"] = "warden"
 			data["source"] = CONFIG_GET(string/instance_id)
 			data["message"] = msg
 			SSredis.publish("byond.msay", json_encode(data))
@@ -476,7 +476,7 @@
 			var/list/admincounter = staff_countup(R_BAN)
 			var/msg = "<b>[ckey]</b> зашел на сервер. Админов в сети: <b>[admincounter[1]]</b>."
 			var/list/data = list()
-			data["author"] = "alice"
+			data["author"] = "warden"
 			data["source"] = CONFIG_GET(string/instance_id)
 			data["message"] = msg
 			SSredis.publish("byond.asay", json_encode(data))
@@ -493,7 +493,7 @@
 				mentor_count-- // Exclude ourself
 			var/msg = "<b>[ckey]</b> покинул сервер. Менторов в сети: <b>[mentor_count]</b>."
 			var/list/data = list()
-			data["author"] = "alice"
+			data["author"] = "warden"
 			data["source"] = CONFIG_GET(string/instance_id)
 			data["message"] = msg
 			SSredis.publish("byond.msay", json_encode(data))
@@ -506,7 +506,7 @@
 				admin_count-- // Exclude ourself
 			var/msg = "<b>[ckey]</b> покинул сервер. Админов в сети: <b>[admin_count]</b>."
 			var/list/data = list()
-			data["author"] = "alice"
+			data["author"] = "warden"
 			data["source"] = CONFIG_GET(string/instance_id)
 			data["message"] = msg
 			SSredis.publish("byond.asay", json_encode(data))
