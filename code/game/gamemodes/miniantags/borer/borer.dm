@@ -470,9 +470,7 @@
 	if(evo_points >= focus.cost)
 		evo_points -= focus.cost
 		to_chat(src, span_notice("Вы успешно приобрели [focus.bodypartname]"))
-		antag_datum.learned_focuses += new focus(src)
-		antag_datum.apply_innate_effects()
-		return 
+		return antag_datum.learned_focuses += new focus(src)
 	to_chat(src, span_notice("Вам требуется еще [focus.cost - evo_points] очков эволюции для получения [focus.bodypartname]."))
 	return 
 

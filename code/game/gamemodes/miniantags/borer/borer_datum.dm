@@ -11,6 +11,7 @@
 /datum/antagonist/borer
 	name = "Cortical borer"
 	show_in_roundend = FALSE
+	job_rank = ROLE_BORER
 	special_role = SPECIAL_ROLE_BORER
 	var/mob/living/simple_animal/borer/user // our borer
 	var/mob/living/carbon/human/host // our host
@@ -18,7 +19,6 @@
 	var/datum/borer_rank/borer_rank
 	var/list/datum/borer_focus/learned_focuses = list()
 	var/datum/borer_misc/change_host_and_scale/scaling = new
-	var/signals_registered = FALSE
 	var/tick_interval = 1 SECONDS
 
 /datum/antagonist/borer/apply_innate_effects(mob/living/simple_animal/borer/borer)
@@ -27,20 +27,17 @@
 	if(QDELETED(user))
 		qdel(src)
 		return FALSE
-	if(!signals_registered)
-		RegisterSignal(user, COMSIG_BORER_ENTERED_HOST, PROC_REF(entered_host))
-		RegisterSignal(user, COMSIG_BORER_LEFT_HOST, PROC_REF(left_host))
-		RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_mob_death)) 
-		RegisterSignal(user, COMSIG_LIVING_REVIVE, PROC_REF(on_mob_revive))
-		signals_registered = TRUE
+	RegisterSignal(user, COMSIG_BORER_ENTERED_HOST, PROC_REF(entered_host))
+	RegisterSignal(user, COMSIG_BORER_LEFT_HOST, PROC_REF(left_host))
+	RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_mob_death)) 
+	RegisterSignal(user, COMSIG_LIVING_REVIVE, PROC_REF(on_mob_revive))
 	sync()
 	if(tick_interval != -1)
 		tick_interval = world.time + tick_interval
 	if(!(tick_interval > world.time))
 		return FALSE
-	if(user.stat != DEAD && !isprocessing)
+	if(user.stat != DEAD)
 		START_PROCESSING(SSprocessing, src)
-	pre_grant_movable_effect()
 	return TRUE
 
 /datum/antagonist/borer/proc/sync()
@@ -49,7 +46,7 @@
 	previous_host = host
 	scaling?.parent = src
 	borer_rank.parent = src
-	for(var/datum in subtypesof(learned_focuses))
+	for(var/datum in typesof(learned_focuses))
 		var/datum/borer_focus/focus = datum
 		focus.parent = src
 
@@ -61,8 +58,7 @@
 	messages.Add("Сахар сводит на нет ваши способности, избегайте его любой ценой!")
 	messages.Add("Вы можете разговаривать со своими коллегами-борерами, используя '[get_language_prefix(LANGUAGE_HIVE_BORER)]'.")
 	messages.Add("Воспроизведение себе подобных увеличивает количество эволюционных очков и позволяет перейти на следующий ранг.")
-	messages.Add("Ваш текущий ранг - [borer.borer_rank?.rankname].")
-	to_chat(borer, chat_box_purple(messages.Join("<br>")))
+	messages.Add("Ваш текущий ранг - [borer_rank?.rankname].")
 	return messages
 	
 /datum/antagonist/borer/proc/entered_host()
@@ -81,7 +77,7 @@
 	if(QDELETED(user) || QDELETED(host))
 		return
 
-	for(var/datum in subtypesof(learned_focuses))
+	for(var/datum in typesof(learned_focuses))
 		var/datum/borer_focus/focus = datum
 		if(!focus.movable_granted)
 			focus.movable_granted = TRUE
@@ -95,7 +91,7 @@
 	if(QDELETED(user) || QDELETED(previous_host))
 		return
 
-	for(var/datum in subtypesof(learned_focuses))
+	for(var/datum in typesof(learned_focuses))
 		var/datum/borer_focus/focus = datum
 		if(focus.movable_granted)
 			focus.movable_granted = FALSE
@@ -134,7 +130,7 @@
 		return
 	if(tick_interval != -1 && tick_interval <= world.time)
 		var/tick_length = initial(tick_interval)
-		for(var/datum in subtypesof(learned_focuses))
+		for(var/datum in typesof(learned_focuses))
 			var/datum/borer_focus/focus = datum
 			focus.tick(tick_length / (1 SECONDS))
 		borer_rank.tick(tick_length / (1 SECONDS))
@@ -193,7 +189,6 @@
 			owner.borer_rank = new /datum/borer_rank/adult(owner)
 		if(/datum/borer_rank/adult)
 			owner.borer_rank = new /datum/borer_rank/elder(owner)
-	parent?.sync()
 	return TRUE
 
 /datum/borer_rank/New()
@@ -259,6 +254,9 @@
 	var/cost = 0
 	var/datum/antagonist/borer/parent
 	var/movable_granted = FALSE
+
+/datum/borer_focus/New()
+	parent?.pre_grant_movable_effect()
 
 /datum/borer_focus/proc/tick(seconds_between_ticks)
 	return
