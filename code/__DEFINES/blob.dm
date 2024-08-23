@@ -42,6 +42,8 @@
 #define BLOB_DEATH_REPORT_THIRD 2
 #define BLOB_DEATH_REPORT_FOURTH 3
 #define BLOB_INFECTED_ATMOS_REC list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+#define BLOB_INFECTED_MIN_BODY_TEMP -INFINITY
+#define BLOB_INFECTED_MIN_PRESSURE -INFINITY
 #define AWAY_STATION_WARN span_userdanger("Вы готовы лопнуть, но это не подходящее место! Вы должны вернуться на станцию!")
 #define FIRST_STAGE_WARN span_userdanger("Вы чувствуете усталость и раздутость.")
 #define SECOND_STAGE_WARN span_userdanger("Вы чувствуете, что вот-вот лопнете.")

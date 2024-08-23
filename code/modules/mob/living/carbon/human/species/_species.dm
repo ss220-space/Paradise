@@ -257,9 +257,6 @@
 	var/list/autohiss_extra_map = null
 	var/list/autohiss_exempt = null
 
-	// Indicates that the breathless trait was present before the change
-	var/no_breathe_exist
-
 /datum/species/New()
 	unarmed = new unarmed_type()
 
