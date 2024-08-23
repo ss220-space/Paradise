@@ -52,13 +52,12 @@
 
 /datum/antagonist/borer/greet()
 	var/list/messages = list()
-	var/mob/living/simple_animal/borer/borer = owner.current
 	messages.Add(span_notice("Вы - Мозговой Червь!"))
 	messages.Add("Забирайтесь в голову своей жертвы, используйте скрытность, убеждение и свои способности к управлению разумом, чтобы сохранить себя, своё потомство и своего носителя в безопасности и тепле.")
 	messages.Add("Сахар сводит на нет ваши способности, избегайте его любой ценой!")
 	messages.Add("Вы можете разговаривать со своими коллегами-борерами, используя '[get_language_prefix(LANGUAGE_HIVE_BORER)]'.")
 	messages.Add("Воспроизведение себе подобных увеличивает количество эволюционных очков и позволяет перейти на следующий ранг.")
-	messages.Add("Ваш текущий ранг - [borer_rank?.rankname].")
+	messages.Add("Ваш текущий ранг - [borer_rank.rankname].")
 	return messages
 	
 /datum/antagonist/borer/proc/entered_host()
