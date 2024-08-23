@@ -44,11 +44,6 @@
 	borer_rank = user.borer_rank
 	host = user.host
 	previous_host = host
-	scaling?.parent = src
-	borer_rank.parent = src
-	for(var/datum in typesof(learned_focuses))
-		var/datum/borer_focus/focus = datum
-		focus.parent = src
 
 /datum/antagonist/borer/greet()
 	var/list/messages = list()
@@ -540,4 +535,3 @@
 #undef LEGS_FOCUS_COST
 #undef SCALING_MAX_CHEM
 #undef SCALING_CHEM_GAIN
-
