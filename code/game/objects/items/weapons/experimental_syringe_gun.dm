@@ -34,6 +34,7 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 		else
 			balloon_alert(user, "недостаточно места!")
+			return ATTACK_CHAIN_PROCEED
 	else if(istype(A, /obj/item/reagent_containers/glass))
 		var/obj/item/reagent_containers/glass/RC = A;
 		if (!RC.reagents.reagent_list)

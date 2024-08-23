@@ -157,14 +157,8 @@
 	if(!I.origin_tech)
 		to_chat(user, span_warning("The [I.name] has no technological origin."))
 		return ATTACK_CHAIN_PROCEED
-	if(!I.origin_tech)
-		to_chat(user, span_warning("The [I.name] has no technological origin."))
-		return ATTACK_CHAIN_PROCEED
-	var/list/temp_tech = ConvertReqString2List(I.origin_tech)
-	if(temp_tech.len == 0)
-		to_chat(user, "<span class='warning'>You cannot experiment on this item!</span>")
-		return ATTACK_CHAIN_PROCEED
 	if (clone_next)
+		var/list/temp_tech = ConvertReqString2List(I.origin_tech)
 		var/techs_sum = 0
 		for(var/T in temp_tech)
 			techs_sum += temp_tech[T]
