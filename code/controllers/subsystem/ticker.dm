@@ -406,7 +406,7 @@ SUBSYSTEM_DEF(ticker)
 		log_world("Could not play lobby song because youtube-dl is not configured properly, check the config.")
 		return
 
-	var/list/output = world.shelleo("[ytdl] --geo-bypass --format \"bestaudio\[ext=mp3]/best\[ext=mp4]\[height<=360]/bestaudio\[ext=m4a]/bestaudio\[ext=aac]\" --dump-single-json --no-playlist -- \"[selected_lobby_music]\"")
+	var/list/output = world.shelleo("[ytdl] -x --audio-format mp3 --audio-quality 0 --geo-bypass --no-playlist -o cache/songs/%(id)s.%(ext)s --dump-json --no-simulate \"[selected_lobby_music]\"")
 	var/errorlevel = output[SHELLEO_ERRORLEVEL]
 	var/stdout = output[SHELLEO_STDOUT]
 	var/stderr = output[SHELLEO_STDERR]
@@ -421,7 +421,7 @@ SUBSYSTEM_DEF(ticker)
 			return
 		if(data["title"])
 			login_music_data["title"] = data["title"]
-			login_music_data["url"] = data["url"]
+			login_music_data["id"] = data["id"]
 
 	if(errorlevel)
 		to_chat(world, span_boldwarning("Youtube-dl failed."))
