@@ -7,6 +7,10 @@
 #define LEGS_FOCUS_COST 10
 #define SCALING_MAX_CHEM 355
 #define SCALING_CHEM_GAIN 15
+#define BORER_RANK_YOUNG /datum/borer_rank/young
+#define BORER_RANK_MATURE /datum/borer_rank/mature
+#define BORER_RANK_ADULT /datum/borer_rank/adult
+#define BORER_RANK_ELDER /datum/borer_rank/elder
 
 /datum/antagonist/borer
 	name = "Cortical borer"
@@ -44,6 +48,16 @@
 	borer_rank = user.borer_rank
 	host = user.host
 	previous_host = host
+	parent_sync()
+	return
+
+/datum/antagonist/borer/proc/parent_sync()
+	scaling?.parent = src
+	borer_rank.parent = src
+	for(var/datum in typesof(learned_focuses))
+		var/datum/borer_focus/focus = datum
+		focus.parent = src
+	return
 
 /datum/antagonist/borer/greet()
 	var/list/messages = list()
@@ -70,7 +84,7 @@
 /datum/antagonist/borer/proc/pre_grant_movable_effect()
 	if(QDELETED(user) || QDELETED(host))
 		return
-
+		
 	for(var/datum in typesof(learned_focuses))
 		var/datum/borer_focus/focus = datum
 		if(!focus.movable_granted)
@@ -146,9 +160,6 @@
 /datum/borer_misc/change_host_and_scale
 	var/list/used_UIDs = list()
 
-/datum/borer_misc/change_host_and_scale/New()
-	parent.pre_grant_movable_effect()
-
 /datum/borer_misc/change_host_and_scale/grant_movable_effect()
 	if(parent.user.max_chems >= SCALING_MAX_CHEM)
 		qdel(src)
@@ -176,19 +187,20 @@
 	return ..()
 
 /datum/borer_rank/proc/update_rank(mob/living/simple_animal/borer/borer)
-	owner = borer || parent.user
+	owner = borer
 	if(!owner.borer_rank)
-		return owner.borer_rank = new /datum/borer_rank/young(owner)
+		return owner.borer_rank = new /datum/borer_rank/young()
 	switch(owner.borer_rank)
-		if(/datum/borer_rank/young)
-			owner.borer_rank = new /datum/borer_rank/mature(owner)
-		if(/datum/borer_rank/mature)
-			owner.borer_rank = new /datum/borer_rank/adult(owner)
-		if(/datum/borer_rank/adult)
-			owner.borer_rank = new /datum/borer_rank/elder(owner)
+		if(BORER_RANK_YOUNG)
+			owner.borer_rank = new /datum/borer_rank/mature()
+		if(BORER_RANK_MATURE)
+			owner.borer_rank = new /datum/borer_rank/adult()
+		if(BORER_RANK_ADULT)
+			owner.borer_rank = new /datum/borer_rank/elder()
 	return TRUE
 
 /datum/borer_rank/New()
+	parent = owner.mind?.has_antag_datum(/datum/antagonist/borer)
 	on_apply()
 
 /datum/borer_rank/proc/on_apply()
@@ -252,7 +264,8 @@
 	var/datum/antagonist/borer/parent
 	var/movable_granted = FALSE
 
-/datum/borer_focus/New()
+/datum/borer_focus/proc/New(mob/living/simple_animal/borer/borer)
+	parent = borer.mind?.has_antag_datum(/datum/antagonist/borer)
 	parent?.pre_grant_movable_effect()
 
 /datum/borer_focus/proc/tick(seconds_between_ticks)
@@ -538,3 +551,7 @@
 #undef LEGS_FOCUS_COST
 #undef SCALING_MAX_CHEM
 #undef SCALING_CHEM_GAIN
+#undef BORER_RANK_YOUNG
+#undef BORER_RANK_MATURE
+#undef BORER_RANK_ADULT
+#undef BORER_RANK_ELDER
