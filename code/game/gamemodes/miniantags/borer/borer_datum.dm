@@ -189,14 +189,14 @@
 /datum/borer_rank/proc/update_rank(mob/living/simple_animal/borer/borer)
 	owner = borer
 	if(!owner.borer_rank)
-		return owner.borer_rank = new /datum/borer_rank/young()
+		return owner.borer_rank = new BORER_RANK_YOUNG()
 	switch(owner.borer_rank)
 		if(BORER_RANK_YOUNG)
-			owner.borer_rank = new /datum/borer_rank/mature()
+			owner.borer_rank = new BORER_RANK_MATURE()
 		if(BORER_RANK_MATURE)
-			owner.borer_rank = new /datum/borer_rank/adult()
+			owner.borer_rank = new BORER_RANK_ADULT()
 		if(BORER_RANK_ADULT)
-			owner.borer_rank = new /datum/borer_rank/elder()
+			owner.borer_rank = new BORER_RANK_ELDER()
 	return TRUE
 
 /datum/borer_rank/New()
