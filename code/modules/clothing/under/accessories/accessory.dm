@@ -245,7 +245,7 @@
 
 		msg += "You hear <span class='[color]'>[heart_sound]</span> heart pulse"
 
-	if(lungs && !(BREATHLESS in target.mutations) && !(NO_BREATHE in target.dna.species.species_traits))
+	if(lungs && !HAS_TRAIT(target, TRAIT_NO_BREATH) && !(NO_BREATHE in target.dna.species.species_traits))
 		var/color = "notice"
 		var/lung_sound
 		var/respiration = TRUE

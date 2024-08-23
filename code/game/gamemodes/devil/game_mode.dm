@@ -46,9 +46,12 @@
 	devil_mind.devilinfo.link_with_mob(devil_mind.current)
 	if(devil_mind.assigned_role == JOB_TITLE_CLOWN)
 		to_chat(devil_mind.current, "Your infernal nature allows you to wield weapons without harming yourself.")
-		devil_mind.current.mutations.Remove(CLUMSY)
-		var/datum/action/innate/toggle_clumsy/A = new
-		A.Grant(devil_mind.current)
+		devil_mind.current.force_gene_block(GLOB.clumsyblock, FALSE)
+		// Don't give them another action if they already have one.
+		if(!(locate(/datum/action/innate/toggle_clumsy) in devil_mind.current.actions))
+			var/datum/action/innate/toggle_clumsy/toggle_clumsy = new
+			toggle_clumsy.Grant(devil_mind.current)
+
 	spawn(10)
 		devil_mind.devilinfo.update_hud()
 	if(issilicon(devil_mind.current))

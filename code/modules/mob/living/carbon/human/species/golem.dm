@@ -797,6 +797,7 @@
 		NEUTER = null
 		)
 	unarmed_type = /datum/unarmed_attack/golem/bananium
+	default_genes = list(/datum/dna/gene/disability/comic)
 
 	var/last_honk = 0
 	var/honkooldown = 0
@@ -804,14 +805,19 @@
 	var/banana_cooldown = 100
 	var/active = null
 
+
 /datum/species/golem/bananium/on_species_gain(mob/living/carbon/human/H)
 	..()
 	last_banana = world.time
 	last_honk = world.time
-	H.mutations.Add(COMIC)
 	H.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(H), ITEM_SLOT_POCKET_RIGHT)
 	H.equip_to_slot_or_del(new /obj/item/bikehorn(H), ITEM_SLOT_POCKET_LEFT)
 	H.AddElement(/datum/element/waddling)
+
+
+/datum/species/grey/handle_dna(mob/living/carbon/human/H, remove = FALSE)
+	H.force_gene_block(GLOB.comicblock, !remove, TRUE, TRUE)
+
 
 /datum/species/golem/bananium/on_species_loss(mob/living/carbon/C)
 	. = ..()

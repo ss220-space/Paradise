@@ -126,7 +126,7 @@
 
 
 /obj/item/paper/proc/rename(mob/user)
-	if((CLUMSY in user.mutations) && prob(50))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, "<span class='warning'>You cut yourself on the paper.</span>")
 		return
 	if(!user.is_literate())
@@ -452,7 +452,7 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 
 		add_fingerprint(user)
-		if((CLUMSY in user.mutations) && prob(10))
+		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message(
 				span_warning("[user] accidentally ignites [user.p_them()]self!"),
 				span_userdanger("You miss the paper and accidentally light yourself on fire!"),
@@ -912,7 +912,7 @@
 		target.adjustFireLoss(150) // hard crit, the burning takes care of the rest.
 	else if(myeffect == "Total Brain Death")
 		to_chat(target,"<span class='userdanger'>You see a message appear in front of you in bright red letters: <b>YHWH-3 ACTIVATED. TERMINATION IN 3 SECONDS</b></span>")
-		target.mutations.Add(NOCLONE)
+		ADD_TRAIT(target, TRAIT_NO_CLONE, EVIL_FAX_TRAIT)
 		target.adjustBrainLoss(125)
 	else if(myeffect == "Honk Tumor")
 		if(!target.get_int_organ(/obj/item/organ/internal/honktumor))
