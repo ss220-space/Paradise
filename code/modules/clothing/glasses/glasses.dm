@@ -479,11 +479,19 @@
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
 
-/obj/item/clothing/glasses/sunglasses/lasers/equipped(mob/user, slot, initial) //grant them laser eyes upon equipping it.
+/obj/item/clothing/glasses/sunglasses/lasers/equipped(mob/user, slot, initial = FALSE) //grant them laser eyes upon equipping it.
+	. = ..()
 	if(slot == ITEM_SLOT_EYES)
-		ADD_TRAIT(user, TRAIT_LASEREYES, "admin_zapglasses")
-		user.regenerate_icons()
-	. = ..(user, slot)
+		ADD_TRAIT(user, TRAIT_LASEREYES, UNIQUE_TRAIT_SOURCE(src))
+		user.update_mutations()
+
+
+/obj/item/clothing/glasses/sunglasses/lasers/dropped(mob/living/user, slot, silent = FALSE)
+	. = ..()
+	if(slot == ITEM_SLOT_EYES)
+		REMOVE_TRAIT(user, TRAIT_LASEREYES, UNIQUE_TRAIT_SOURCE(src))
+		user.update_mutations()
+
 
 /obj/item/clothing/glasses/welding
 	name = "welding goggles"

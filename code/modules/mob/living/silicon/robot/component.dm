@@ -262,7 +262,7 @@
 
 /obj/item/robotanalyzer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
-	if(((CLUMSY in user.mutations) || user.getBrainLoss() >= 60) && prob(50))
+	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
 		user.visible_message(
 			span_warning("[user] has analyzed the floor's vitals!"),
 			span_notice("You try to analyze the floor's vitals!"),

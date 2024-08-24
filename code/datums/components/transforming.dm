@@ -236,7 +236,7 @@
 	if(!clumsy_check_prob || !isnum(clumsy_check_prob))
 		return FALSE
 
-	if(!user || !(CLUMSY in user.mutations))
+	if(!user || !HAS_TRAIT(user, TRAIT_CLUMSY))
 		return FALSE
 
 	if(!active || !prob(clumsy_check_prob))

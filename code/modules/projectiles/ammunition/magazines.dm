@@ -16,6 +16,13 @@
 	max_ammo = 7
 
 
+/obj/item/ammo_box/magazine/internal/cylinder/Initialize(mapload)
+	. = ..()
+	if(start_empty)
+		for(var/i in 1 to max_ammo)
+			stored_ammo += null	// thats right, we fill empty cylinders with nulls
+
+
 /obj/item/ammo_box/magazine/internal/cylinder/ammo_count(countempties = TRUE)
 	. = 0
 	for(var/obj/item/ammo_casing/bullet in stored_ammo)
@@ -104,10 +111,11 @@
 	max_ammo = 4
 
 
-/obj/item/ammo_box/magazine/internal/cylinder/improvised/ammo_suitability(obj/item/ammo_casing/bullet)
-	if(!bullet || !(bullet.caliber in caliber))
+/obj/item/ammo_box/magazine/internal/cylinder/improvised/ammo_suitability(obj/item/ammo_casing/new_casing)
+	if(!new_casing || !(new_casing.caliber in caliber))
 		return FALSE
 	return TRUE
+
 
 /obj/item/ammo_box/magazine/internal/cylinder/improvised/steel
 	name = "steel bullet cylinder"
