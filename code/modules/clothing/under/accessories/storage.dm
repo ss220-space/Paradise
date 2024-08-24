@@ -38,8 +38,12 @@
 		return ..()
 
 
-/obj/item/clothing/accessory/storage/attackby(obj/item/W, mob/user, params)
-	return hold.attackby(W, user, params)
+/obj/item/clothing/accessory/storage/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !hold)
+		return .
+	return hold.attackby(I, user, params)
+
 
 /obj/item/clothing/accessory/storage/emp_act(severity)
 	..()

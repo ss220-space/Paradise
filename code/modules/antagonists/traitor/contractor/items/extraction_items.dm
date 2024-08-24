@@ -17,11 +17,13 @@
 	new /obj/effect/decal/cleanable/ash(loc)
 	return ..()
 
-/obj/effect/contractor_flare/attackby(obj/item/clothing/mask/cigarette/C, mob/user, params)
-	..()
-	if(istype(C) && !C.lit)
-		C.light("<span class='rose'>[user] with a familiar motion lights [user.p_their()] well-deserved [C.name] on a [name]. The air smells of TK.</span>")
-	return
+
+/obj/effect/contractor_flare/attackby(obj/item/clothing/mask/cigarette/cigarette, mob/user, params)
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !istype(cigarette) || cigarette.lit)
+		return .
+	. |= ATTACK_CHAIN_SUCCESS
+	cigarette.light(span_rose("[user] with a familiar motion lights [user.p_their()] well-deserved [cigarette.name] on a [name]. The air smells of TK."))
 
 
 /**

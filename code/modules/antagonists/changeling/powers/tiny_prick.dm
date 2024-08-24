@@ -167,7 +167,7 @@
 	if(!..())
 		return FALSE
 
-	if((HUSK in target.mutations) || (!ishuman(target)))
+	if(!ishuman(target) || HAS_TRAIT(target, TRAIT_HUSK))
 		to_chat(user, span_warning("Our sting appears ineffective against its DNA."))
 		return FALSE
 
@@ -240,7 +240,10 @@
 /datum/action/changeling/sting/blind/sting_action(mob/living/user, mob/living/target)
 	add_attack_logs(user, target, "Blind sting (changeling)")
 	to_chat(target, "<span class='danger'>Your eyes burn horrifically!</span>")
-	target.BecomeNearsighted()
+	if(!HAS_TRAIT_NOT_FROM(target, TRAIT_NEARSIGHTED, CHANGELING_TRAIT))
+		ADD_TRAIT(target, TRAIT_NEARSIGHTED, CHANGELING_TRAIT)
+		if(!HAS_TRAIT_NOT_FROM(target, TRAIT_NEARSIGHTED, CHANGELING_TRAIT))
+			target.update_nearsighted_effects()
 	target.EyeBlind(40 SECONDS)
 	target.EyeBlurry(80 SECONDS)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))

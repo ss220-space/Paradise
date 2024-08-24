@@ -93,7 +93,7 @@
 	. = ..()
 	if(ishuman(mover))
 		var/mob/living/carbon/human/human_mover = mover
-		if(human_mover.nutrition >= NUTRITION_LEVEL_FAT || (FAT in human_mover.mutations))
+		if(human_mover.nutrition >= NUTRITION_LEVEL_FAT || HAS_TRAIT(human_mover, TRAIT_FAT))
 			human_mover.visible_message(
 				span_warning("[human_mover] pushes through [src]!"),
 				span_notice("You've seen and eaten worse than this."),
@@ -147,7 +147,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
-/obj/item/kitchen/knife/envy/afterattack(atom/movable/AM, mob/living/carbon/human/user, proximity)
+/obj/item/kitchen/knife/envy/afterattack(atom/movable/AM, mob/living/carbon/human/user, proximity, params)
 	. = ..()
 	if(!proximity)
 		return

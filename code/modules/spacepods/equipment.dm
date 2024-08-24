@@ -276,14 +276,18 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 	w_class = WEIGHT_CLASS_TINY
 	var/id = 0
 
+
 // Key - Lock Interactions
-/obj/item/spacepod_equipment/lock/keyed/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/item/spacepod_equipment/lock/keyed/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/spacepod_equipment/key))
+		add_fingerprint(user)
 		var/obj/item/spacepod_equipment/key/key = I
-		if(!key.id)
-			key.id = id
-			to_chat(user, "<span class='notice'>You grind the blank key to fit the lock.</span>")
-		else
-			to_chat(user, "<span class='warning'>This key is already ground!</span>")
-	else
-		return ..()
+		if(key.id)
+			to_chat(user, span_warning("This key is already ground."))
+			return ATTACK_CHAIN_PROCEED
+		key.id = id
+		to_chat(user, span_notice("You have ground the blank key to fit the lock."))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+

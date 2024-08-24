@@ -75,7 +75,7 @@
 	else
 		return TRUE
 
-/obj/item/flamethrower/afterattack(atom/target, mob/user, flag)
+/obj/item/flamethrower/afterattack(atom/target, mob/user, flag, params)
 	. = ..()
 	if(flag)
 		return // too close
@@ -87,34 +87,38 @@
 			flame_turf(turflist)
 			playsound(src, 'sound/weapons/gunshots/1flamethr.ogg', 50, 1)
 
+
 /obj/item/flamethrower/attackby(obj/item/I, mob/user, params)
 	if(isigniter(I))
-		var/obj/item/assembly/igniter/IG = I
-		if(IG.secured)
-			return
+		add_fingerprint(user)
+		var/obj/item/assembly/igniter/new_igniter = I
 		if(igniter)
-			return
-		if(!user.drop_transfer_item_to_loc(IG, src))
-			return
-		igniter = IG
+			to_chat(user, span_warning("There is [igniter] already installed!"))
+			return ATTACK_CHAIN_PROCEED
+		if(new_igniter.secured)
+			to_chat(user, span_warning("The [new_igniter.name] should not be secured!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(new_igniter, src))
+			return ..()
+		igniter = new_igniter
 		update_icon()
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	else if(istype(I, /obj/item/tank/internals/plasma))
-		if(ptank)
-			if(user.drop_transfer_item_to_loc(I, src))
-				ptank.forceMove(get_turf(src))
-				ptank = I
-				to_chat(user, "<span class='notice'>You swap the plasma tank in [src]!</span>")
-			return
+	if(istype(I, /obj/item/tank/internals/plasma))
+		add_fingerprint(user)
 		if(!user.drop_transfer_item_to_loc(I, src))
-			return
+			return ..()
+		if(ptank)
+			ptank.forceMove_turf()
+			to_chat(user, span_notice("You swap the plasma tank in [src]."))
+		else
+			to_chat(user, span_notice("You have installed new plasma tank in [src]."))
 		ptank = I
 		update_icon()
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	else
-		return ..()
+	return ..()
+
 
 /obj/item/flamethrower/wrench_act(mob/user, obj/item/I)
 	if(status)

@@ -294,25 +294,28 @@
 			return FALSE
 	add_fingerprint(usr)
 
+
 /obj/machinery/sleeper/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/glass))
-		if(!beaker)
-			if(!user.drop_transfer_item_to_loc(I, src))
-				to_chat(user, span_warning("[I] is stuck to you!"))
-				return
-
-			add_fingerprint(user)
-			beaker = I
-			user.visible_message("[user] adds \a [I] to [src]!", "You add \a [I] to [src]!")
-			SStgui.update_uis(src)
-			return
-
-		else
-			to_chat(user, span_warning("The sleeper has a beaker already."))
-			return
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
 	if(exchange_parts(user, I))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/reagent_containers/glass))
+		add_fingerprint(user)
+		if(beaker)
+			to_chat(user, span_warning("The sleeper has a beaker already."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		beaker = I
+		user.visible_message(
+			span_notice("[user] adds [I] to [src]!"),
+			span_notice("You add [I] to [src]!"),
+		)
+		SStgui.update_uis(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
 

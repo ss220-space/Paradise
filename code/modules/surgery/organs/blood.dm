@@ -25,7 +25,7 @@
 		bleed_rate = 0
 		return
 
-	if(bodytemperature >= TCRYO && !(NOCLONE in mutations)) //cryosleep or husked people do not pump the blood.
+	if(bodytemperature >= TCRYO && !HAS_TRAIT(src, TRAIT_NO_CLONE)) //cryosleep or husked people do not pump the blood.
 		if(blood_volume < BLOOD_VOLUME_NORMAL)
 			blood_volume += 0.1 // regenerate blood VERY slowly
 
@@ -247,7 +247,7 @@
 /mob/living/carbon/human/get_blood_id()
 	if(dna.species.exotic_blood)//some races may bleed water..or kethcup..
 		return dna.species.exotic_blood
-	else if((NO_BLOOD in dna.species.species_traits) || (NOCLONE in mutations))
+	else if((NO_BLOOD in dna.species.species_traits) || HAS_TRAIT(src, TRAIT_NO_CLONE))
 		return
 	return "blood"
 
@@ -282,7 +282,7 @@
 		return
 	if(!T)
 		T = get_turf(src)
-	if(density || isopenspaceturf(T) && !GET_TURF_BELOW(T))
+	if(T.density || isopenspaceturf(T) && !GET_TURF_BELOW(T))
 		return
 
 	var/list/temp_blood_DNA

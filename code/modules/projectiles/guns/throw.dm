@@ -12,28 +12,6 @@
 	var/projectile_speed = 1
 	var/projectile_range = 1
 
-/obj/item/gun/throw/proc/notify_ammo_count()
-	return
-
-/obj/item/gun/throw/proc/get_throwrange()
-	return projectile_range
-
-/obj/item/gun/throw/proc/get_throwspeed()
-	return projectile_speed
-
-/obj/item/gun/throw/proc/modify_projectile(obj/item/I, on_chamber = 0)
-	return
-
-/obj/item/gun/throw/proc/get_ammocount(include_loaded = 1)
-	var/count = loaded_projectiles.len
-	if(include_loaded && to_launch)
-		count++
-	return count
-
-/obj/item/gun/throw/examine(mob/user)
-	. = ..()
-	. += "<span class='notice'>It is [to_launch ? "loaded with \a [to_launch]" : "not loaded"].</span>"
-	. += notify_ammo_count()
 
 /obj/item/gun/throw/Destroy()
 	QDEL_NULL(to_launch)
@@ -42,31 +20,70 @@
 	return ..()
 
 
+/obj/item/gun/throw/proc/notify_ammo_count()
+	return ""
+
+
+/obj/item/gun/throw/proc/get_throwrange()
+	return projectile_range
+
+
+/obj/item/gun/throw/proc/get_throwspeed()
+	return projectile_speed
+
+
+/obj/item/gun/throw/proc/modify_projectile(obj/item/I, on_chamber = 0)
+	return
+
+
+/obj/item/gun/throw/proc/get_ammocount(include_loaded = 1)
+	var/count = loaded_projectiles.len
+	if(include_loaded && to_launch)
+		count++
+	return count
+
+
+/obj/item/gun/throw/examine(mob/user)
+	. = ..()
+	. += span_info("It is [to_launch ? "loaded with [to_launch]" : "not loaded"].")
+	var/ammo_count = notify_ammo_count()
+	if(ammo_count)
+		. += span_info(ammo_count)
+
+
 /obj/item/gun/throw/attackby(obj/item/I, mob/user, params)
-	if(istype(I, valid_projectile_type) && !HAS_TRAIT(I, TRAIT_NODROP))
-		if(get_ammocount() < max_capacity)
-			user.drop_transfer_item_to_loc(I, src)
-			loaded_projectiles += I
-			to_chat(user, "<span class='notice'>You load [I] into [src].</span>")
-			if(!to_launch)
-				process_chamber()
-			to_chat(user, notify_ammo_count())
-		else
-			to_chat(user, "<span class='warning'>[src] cannot hold any more projectiles.</span>")
-	else
-		to_chat(user, "<span class='warning'>You cannot load [I] into [src]!</span>")
+	if(istype(I, valid_projectile_type))
+		add_fingerprint(user)
+		if(get_ammocount() >= max_capacity)
+			to_chat(user, span_warning("The [name] cannot hold more."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		loaded_projectiles += I
+		var/message = span_notice("You have loaded [I] into [src].")
+		var/ammo_count = notify_ammo_count()
+		if(ammo_count)
+			message += span_notice(" [ammo_count]")
+		to_chat(user, message)
+		if(!to_launch)
+			process_chamber()
+		update_appearance()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/gun/throw/process_chamber()
 	if(!to_launch && loaded_projectiles.len)
 		to_launch = loaded_projectiles[1]
 		loaded_projectiles -= to_launch
-	return
+
 
 /obj/item/gun/throw/can_shoot(mob/user)
 	return to_launch
 
 
-/obj/item/gun/throw/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
+/obj/item/gun/throw/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	add_fingerprint(user)
 	if(semicd)
 		return

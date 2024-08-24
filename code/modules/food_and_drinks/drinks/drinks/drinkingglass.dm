@@ -23,19 +23,23 @@
 	set hidden = FALSE
 	..()
 
+
 /obj/item/reagent_containers/food/drinks/drinkingglass/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/egg)) //breaking eggs
-		var/obj/item/reagent_containers/food/snacks/egg/E = I
-		if(reagents)
-			if(reagents.total_volume >= reagents.maximum_volume)
-				to_chat(user, "<span class='notice'>[src] is full.</span>")
-			else
-				to_chat(user, "<span class='notice'>You break [E] in [src].</span>")
-				E.reagents.trans_to(src, E.reagents.total_volume)
-				qdel(E)
-			return
-	else
-		..()
+		add_fingerprint(user)
+		if(!reagents)
+			to_chat(user, span_warning("The [I.name] is empty."))
+			return ATTACK_CHAIN_PROCEED
+		if(reagents.total_volume >= reagents.maximum_volume)
+			to_chat(user, span_warning("The [name] is full."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You break [I] into [src]."))
+		I.reagents.trans_to(src, I.reagents.total_volume)
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(!reagents.total_volume)

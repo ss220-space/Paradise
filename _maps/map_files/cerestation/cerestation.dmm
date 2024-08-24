@@ -5764,6 +5764,10 @@
 /obj/machinery/firealarm{
 	pixel_y = 24
 	},
+/obj/item/flashlight,
+/obj/item/radio{
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -6657,12 +6661,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/hallway/primary/central)
-"bca" = (
-/obj/machinery/computer/arcade/orion_trail{
-	dir = 8
-	},
-/turf/simulated/floor/carpet/arcade,
-/area/crew_quarters/arcade)
 "bcb" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -7811,9 +7809,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "bik" = (
-/obj/machinery/computer/arcade/battle{
-	dir = 8
-	},
+/obj/machinery/arcade/minesweeper,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/arcade)
 "bil" = (
@@ -36306,16 +36302,12 @@
 	},
 /area/medical/morgue)
 "gFj" = (
-/obj/structure/table/reinforced,
-/obj/item/flashlight,
-/obj/item/radio{
-	pixel_y = 6
-	},
 /obj/machinery/camera{
 	c_tag = "Brig Pilot Office";
 	dir = 1;
 	network = list("SS13","Security")
 	},
+/obj/structure/closet/secure_closet/pilot_sniper,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -81361,6 +81353,12 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/port/north)
+"tqQ" = (
+/obj/machinery/arcade/minesweeper{
+	freeplay = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/security/permabrig)
 "tqV" = (
 /obj/structure/table,
 /obj/machinery/recharger,
@@ -117671,7 +117669,7 @@ afd
 adI
 hyJ
 afd
-vdq
+tqQ
 aja
 dpl
 dpl
@@ -126170,7 +126168,7 @@ kXu
 kXu
 uyM
 aTP
-bca
+bik
 bik
 jBc
 aHc

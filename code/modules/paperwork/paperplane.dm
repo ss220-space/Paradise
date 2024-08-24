@@ -62,33 +62,43 @@
 		qdel(src)
 
 
-/obj/item/paperplane/attackby(obj/item/P, mob/living/carbon/human/user, params)
-	..()
+/obj/item/paperplane/attackby(obj/item/I, mob/living/user, params)
+	if(resistance_flags & ON_FIRE)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(is_pen(P) || istype(P, /obj/item/toy/crayon))
-		to_chat(user, "<span class='notice'>You should unfold [src] before changing it.</span>")
-		return
+	if(is_pen(I) || istype(I, /obj/item/toy/crayon))
+		add_fingerprint(user)
+		to_chat(user, span_warning("You should unfold [src] before changing it."))
+		return ATTACK_CHAIN_PROCEED
 
-	else if(istype(P, /obj/item/stamp)) 	//we don't randomize stamps on a paperplane
-		internal_paper.attackby(P, user) //spoofed attack to update internal paper.
+	if(istype(I, /obj/item/stamp)) 	//we don't randomize stamps on a paperplane
+		add_fingerprint(user)
+		internal_paper.attackby(I, user, params) //spoofed attack to update internal paper.
 		update_icon(UPDATE_OVERLAYS)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	else if(is_hot(P))
-		if((CLUMSY in user.mutations) && prob(10))
-			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
-				"<span class='userdanger'>You miss [src] and accidentally light yourself on fire!</span>")
-			user.drop_item_ground(P)
-			user.adjust_fire_stacks(1)
-			user.IgniteMob()
-			return
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !is_hot(I) || !Adjacent(user))
+		return .
 
-		if(!in_range(user, src)) //to prevent issues as a result of telepathically lighting a paper
-			return
-		user.drop_item_ground(src)
-		user.visible_message("<span class='danger'>[user] lights [src] on fire with [P]!</span>", "<span class='danger'>You lights [src] on fire!</span>")
-		fire_act()
-
+	. |= ATTACK_CHAIN_BLOCKED_ALL
 	add_fingerprint(user)
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
+		user.visible_message(
+			span_warning("[user] accidentally ignites [user.p_them()]self!"),
+			span_userdanger("You miss the paperplane and accidentally light yourself on fire!"),
+		)
+		user.drop_item_ground(I)
+		user.adjust_fire_stacks(1)
+		user.IgniteMob()
+		return .
+
+	user.drop_item_ground(src)
+	user.visible_message(
+		span_danger("[user] lights [src] ablaze with [I]!"),
+		span_danger("You light [src] on fire!"),
+	)
+	fire_act()
 
 
 /obj/item/paperplane/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)

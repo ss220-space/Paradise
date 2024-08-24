@@ -38,10 +38,15 @@
 	if(enchant_type)
 		. += "clock_slab_overlay_[enchant_type]"
 
-/obj/item/clockwork/clockslab/attack(mob/M as mob, mob/user as mob)
-	if(plushy)
-		playsound(loc, 'sound/weapons/thudswoosh.ogg', 20, 1)	// Play the whoosh sound in local area
-	return ..()
+
+/obj/item/clockwork/clockslab/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(ATTACK_CHAIN_SUCCESS_CHECK(.) && plushy)
+		playsound(loc, 'sound/weapons/thudswoosh.ogg', 20, TRUE)	// Play the whoosh sound in local area
+
+
+/obj/item/clockwork/clockslab/attack_self_tk(mob/user)
+	return
 
 /obj/item/clockwork/clockslab/attack_self(mob/user)
 	. = ..()
@@ -259,18 +264,20 @@
 		return
 	. = ..()
 
-/obj/item/twohanded/ratvarian_spear/attack(mob/living/M, mob/living/user, def_zone)
+
+/obj/item/twohanded/ratvarian_spear/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!isclocker(user))
 		user.emote("scream")
 		if(ishuman(user))
 			var/mob/living/carbon/human/human = user
 			human.embed_item_inside(src)
-			to_chat(user, "<span class='clocklarge'>\"How does it feel it now?\"</span>")
+			to_chat(user, span_clocklarge("\"How does it feel it now?\""))
 		else
-			user.drop_item_ground(src)
-			to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
-		return
-	. = ..()
+			user.drop_item_ground(src, force = TRUE)
+			to_chat(user, span_clocklarge("\"Now now, this is for my servants, not you.\""))
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 /obj/item/twohanded/ratvarian_spear/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
@@ -402,22 +409,20 @@
 		return
 	. = ..()
 
-/obj/item/twohanded/clock_hammer/attack(mob/living/M, mob/living/user, def_zone)
+
+/obj/item/twohanded/clock_hammer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!isclocker(user))
 		user.Knockdown(10 SECONDS)
 		user.drop_item_ground(src, force = TRUE)
 		user.emote("scream")
-		user.visible_message("<span class='warning'>A powerful force shoves [user] away from [M]!</span>",
-		"<span class='clocklarge'>\"Don't hit yourself.\"</span>")
+		user.visible_message(
+			span_warning("A powerful force shoves [user] away from [target]!"),
+			span_clocklarge("\"Don't hit yourself.\""),
+		)
+		user.apply_damage(rand(force_unwielded, force_wielded), BRUTE, BODY_ZONE_HEAD)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 
-		var/wforce = rand(force_unwielded, force_wielded)
-		if(ishuman(user))
-			var/mob/living/carbon/human/human = user
-			human.apply_damage(wforce, BRUTE, BODY_ZONE_HEAD)
-		else
-			user.adjustBruteLoss(wforce)
-		return
-	. = ..()
 
 /obj/item/twohanded/clock_hammer/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
@@ -525,18 +530,20 @@
 	swordsman = FALSE
 	deplete_spell()
 
-/obj/item/melee/clock_sword/attack(mob/living/M, mob/living/user, def_zone)
+
+/obj/item/melee/clock_sword/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!isclocker(user))
 		user.emote("scream")
 		if(ishuman(user))
 			var/mob/living/carbon/human/human = user
 			human.embed_item_inside(src)
-			to_chat(user, "<span class='clocklarge'>\"How does it feel it now?\"</span>")
+			to_chat(user, span_clocklarge("\"How does it feel it now?\""))
 		else
-			user.drop_item_ground(src)
-			to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
-		return
-	. = ..()
+			user.drop_item_ground(src, force = TRUE)
+			to_chat(user, span_clocklarge("\"Now now, this is for my servants, not you.\""))
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 /obj/item/melee/clock_sword/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -1287,27 +1294,34 @@
 	desc = "The stalwart apparition of a soldier. It looks lifeless."
 	icon_state = "marauder_shell"
 
+
 /obj/item/clockwork/marauder/attackby(obj/item/I, mob/living/user, params)
-	. = ..()
 	if(istype(I, /obj/item/mmi/robotic_brain/clockwork))
+		add_fingerprint(user)
 		if(!isclocker(user))
-			to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you attempt to place the soul vessel into the marauder shell.</span>")
+			to_chat(user, span_danger("An overwhelming feeling of dread comes over you as you attempt to place the soul vessel into the marauder shell."))
 			user.Confused(10 SECONDS)
 			user.Jitter(8 SECONDS)
-			return
+			return ATTACK_CHAIN_BLOCKED_ALL
 		if(isdrone(user))
-			to_chat(user, "<span class='warning'>You are not dexterous enough to do this!</span>")
-			return
+			to_chat(user, span_warning("You are not dexterous enough to do this!"))
+			return ATTACK_CHAIN_PROCEED
 		var/obj/item/mmi/robotic_brain/clockwork/soul = I
 		if(!soul.brainmob.mind)
-			to_chat(user, "<span class='warning'> There is no soul in [I]!</span>")
-			return
-		var/mob/living/simple_animal/hostile/clockwork/marauder/cog = new (get_turf(src))
+			to_chat(user, span_warning("There is no soul in [I]!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.can_unEquip(src))
+			return ..()
+		if(!user.drop_transfer_item_to_loc(soul, src))
+			return ..()
+		var/mob/living/simple_animal/hostile/clockwork/marauder/cog = new(drop_location())
 		soul.brainmob.mind.transfer_to(cog)
 		playsound(cog, 'sound/effects/constructform.ogg', 50)
-		user.temporarily_remove_item_from_inventory(soul)
 		qdel(soul)
 		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 //Shard
 /obj/item/clockwork/shard
@@ -1364,18 +1378,20 @@
 				new /obj/effect/temp_visual/ratvar/reconstruct(get_turf(user))
 	return
 
-/obj/item/clockwork/shard/attack(mob/living/M, mob/living/user, def_zone)
+
+/obj/item/clockwork/shard/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!isclocker(user))
 		user.emote("scream")
 		if(ishuman(user))
 			var/mob/living/carbon/human/human = user
 			human.embed_item_inside(src)
-			to_chat(user, "<span class='clocklarge'>\"How does it feel it now?\"</span>")
+			to_chat(user, span_clocklarge("\"How does it feel it now?\""))
 		else
-			user.drop_item_ground(src)
-			to_chat(user, "<span class='clocklarge'>\"Now now, this is for my servants, not you.\"</span>")
-		return
-	. = ..()
+			user.drop_item_ground(src, force = TRUE)
+			to_chat(user, span_clocklarge("\"Now now, this is for my servants, not you.\""))
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 /obj/item/clockwork/shard/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
@@ -1440,7 +1456,7 @@
 		if(isliving(affected))
 			var/mob/living/living = affected
 			living.ratvar_act(TRUE)
-			if(!isclocker(living) && !ishuman(living))
+			if(!isclocker(living) || !ishuman(living))
 				continue
 			living.heal_overall_damage(60, 60, affect_robotic = TRUE)
 			living.reagents?.add_reagent("epinephrine", 5)

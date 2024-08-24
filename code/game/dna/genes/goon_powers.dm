@@ -5,12 +5,13 @@
 	name = "Sober"
 	activation_messages = list("You feel unusually sober.")
 	deactivation_messages = list("You feel like you could use a stiff drink.")
+	traits_to_add = list(TRAIT_SOBER)
 
-	mutation = SOBER
 
 /datum/dna/gene/basic/sober/New()
 	..()
 	block = GLOB.soberblock
+
 
 //WAS: /datum/bioEffect/psychic_resist
 /datum/dna/gene/basic/psychic_resist
@@ -18,12 +19,13 @@
 	desc = "Boosts efficiency in sectors of the brain commonly associated with meta-mental energies."
 	activation_messages = list("Your mind feels closed.")
 	deactivation_messages = list("You feel oddly exposed.")
+	traits_to_add = list(TRAIT_PSY_RESIST)
 
-	mutation = PSY_RESIST
 
 /datum/dna/gene/basic/psychic_resist/New()
 	..()
 	block = GLOB.psyresistblock
+
 
 /////////////////////////
 // Stealth Enhancers
@@ -45,11 +47,12 @@
 	activation_messages = list("You begin to fade into the shadows.")
 	deactivation_messages = list("You become fully visible.")
 	activation_prob = 25
-	mutation = CLOAK
+
 
 /datum/dna/gene/basic/stealth/darkcloak/New()
 	..()
 	block = GLOB.shadowblock
+
 
 /datum/dna/gene/basic/stealth/darkcloak/OnMobLife(mob/living/mutant)
 	var/turf/simulated/T = get_turf(mutant)
@@ -61,6 +64,7 @@
 	else
 		mutant.alpha = initial(mutant.alpha)
 
+
 //WAS: /datum/bioEffect/chameleon
 /datum/dna/gene/basic/stealth/chameleon
 	name = "Chameleon"
@@ -68,17 +72,19 @@
 	activation_messages = list("You feel one with your surroundings.")
 	deactivation_messages = list("You feel oddly visible.")
 	activation_prob = 25
-	mutation = CHAMELEON
+
 
 /datum/dna/gene/basic/stealth/chameleon/New()
 	..()
 	block = GLOB.chameleonblock
+
 
 /datum/dna/gene/basic/stealth/chameleon/OnMobLife(mob/living/mutant)
 	if((world.time - mutant.last_movement) >= 30 && (mutant.mobility_flags & MOBILITY_MOVE) && !HAS_TRAIT(mutant, TRAIT_RESTRAINED))
 		mutant.alpha -= 25
 	else
 		mutant.alpha = round(255 * 0.80)
+
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -119,13 +125,13 @@
 	activation_messages = list("You notice a strange cold tingle in your fingertips.")
 	deactivation_messages = list("Your fingers feel warmer.")
 	instability = GENE_INSTABILITY_MODERATE
-	mutation = CRYO
-
 	spelltype = /obj/effect/proc_holder/spell/cryokinesis
+
 
 /datum/dna/gene/basic/grant_spell/cryo/New()
 	..()
 	block = GLOB.cryoblock
+
 
 /obj/effect/proc_holder/spell/cryokinesis
 	name = "Cryokinesis"
@@ -142,6 +148,7 @@
 	action_icon_state = "genetic_cryo"
 	need_active_overlay = TRUE
 
+
 /obj/effect/proc_holder/spell/cryokinesis/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.allowed_type = /mob/living/carbon
@@ -151,11 +158,12 @@
 	T.include_user = TRUE
 	return T
 
+
 /obj/effect/proc_holder/spell/cryokinesis/cast(list/targets, mob/user = usr)
 
 	var/mob/living/carbon/C = targets[1]
 
-	if(COLDRES in C.mutations)
+	if(HAS_TRAIT(C, TRAIT_RESIST_COLD))
 		C.visible_message("<span class='warning'>A cloud of fine ice crystals engulfs [C.name], but disappears almost instantly!</span>")
 		return
 	var/handle_suit = FALSE
@@ -189,6 +197,7 @@
 	desc = ""
 	//layer = 15
 
+
 /obj/effect/self_deleting/New(atom/location, icon/I, duration = 20, oname = "something")
 	. = ..()
 	name = oname
@@ -198,6 +207,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+
 // WAS: /datum/bioEffect/mattereater
 /datum/dna/gene/basic/grant_spell/mattereater
 	name = "Matter Eater"
@@ -205,9 +215,8 @@
 	activation_messages = list("You feel hungry.")
 	deactivation_messages = list("You don't feel quite so hungry anymore.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation = EATER
-
 	spelltype = /obj/effect/proc_holder/spell/eat
+
 
 /datum/dna/gene/basic/grant_spell/mattereater/New()
 	..()
@@ -323,13 +332,13 @@
 	activation_messages = list("Your leg muscles feel taut and strong.")
 	deactivation_messages = list("Your leg muscles shrink back to normal.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation = JUMPY
-
 	spelltype = /obj/effect/proc_holder/spell/leap
+
 
 /datum/dna/gene/basic/grant_spell/jumpy/New()
 	..()
 	block = GLOB.jumpblock
+
 
 /obj/effect/proc_holder/spell/leap
 	name = "Jump"
@@ -389,7 +398,7 @@
 			var/turf/pitfall = get_turf(user)
 			pitfall?.zFall(user)
 
-		else if((FAT in user.mutations) && prob(66))
+		else if(HAS_TRAIT(user, TRAIT_FAT) && prob(66))
 			user.visible_message("<span class='danger'>[user.name]</b> crashes due to [user.p_their()] heavy weight!</span>")
 			//playsound(user.loc, 'zhit.wav', 50, 1)
 			user.AdjustWeakened(20 SECONDS)
@@ -412,6 +421,7 @@
 		container.pixel_x = 0
 		container.pixel_y = 0
 
+
 ////////////////////////////////////////////////////////////////////////
 
 // WAS: /datum/bioEffect/polymorphism
@@ -425,11 +435,12 @@
 	activation_messages = list("You don't feel entirely like yourself somehow.")
 	deactivation_messages = list("You feel secure in your identity.")
 	instability = GENE_INSTABILITY_MODERATE
-	mutation = POLYMORPH
+
 
 /datum/dna/gene/basic/grant_spell/polymorph/New()
 	..()
 	block = GLOB.polymorphblock
+
 
 /obj/effect/proc_holder/spell/polymorph
 	name = "Polymorph"
@@ -479,11 +490,13 @@
 	activation_messages = list("You suddenly notice more about others than you did before.")
 	deactivation_messages = list("You no longer feel able to sense intentions.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation = EMPATH
+	traits_to_add = list(TRAIT_EMPATHY)
+
 
 /datum/dna/gene/basic/grant_spell/empath/New()
 	..()
 	block = GLOB.empathblock
+
 
 /obj/effect/proc_holder/spell/empath
 	name = "Read Mind"
@@ -576,10 +589,11 @@
 				to_chat(user, "<span class='notice'><b>Numbers</b>: You sense the number[numbers.len>1?"s":""] [english_list(numbers)] [numbers.len>1?"are":"is"] important to [M.name].</span>")
 		to_chat(user, "<span class='notice'><b>Thoughts</b>: [M.name] is currently [thoughts].</span>")
 
-		if(M.dna?.GetSEState(GLOB.empathblock))
+		if(HAS_TRAIT(M, TRAIT_EMPATHY))
 			to_chat(M, "<span class='warning'>You sense [user.name] reading your mind.</span>")
 		else if(prob(5) || M.mind?.assigned_role == JOB_TITLE_CHAPLAIN)
 			to_chat(M, "<span class='warning'>You sense someone intruding upon your thoughts...</span>")
+
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -590,7 +604,7 @@
 	activation_messages = list("You feel buff!")
 	deactivation_messages = list("You feel wimpy and weak.")
 	instability = GENE_INSTABILITY_MAJOR
-	mutation = STRONG
+	traits_to_add = list(TRAIT_GENE_STRONG)
 
 
 /datum/dna/gene/basic/strong/New()
@@ -599,7 +613,7 @@
 
 
 /datum/dna/gene/basic/strong/can_activate(mob/living/mutant, flags)
-	if(!ishuman(mutant) || (WEAK in mutant.mutations))
+	if(!ishuman(mutant) || HAS_TRAIT(mutant, TRAIT_GENE_WEAK))
 		return FALSE
 	return ..()
 

@@ -1160,7 +1160,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_DEAF, "Deaf")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_MUTE, "Mute")
 	if(!(NO_OBESITY in S.species_traits))
-		HTML += ShowDisabilityState(user, DISABILITY_FLAG_FAT, "Obese")
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_OBESITY, "Obese")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_NERVOUS, "Stutter")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_SWEDISH, "Swedish accent")
 	HTML += ShowDisabilityState(user, DISABILITY_FLAG_AULD_IMPERIAL, "Староимпѣрская рѣчь")
@@ -2904,8 +2904,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		new_reagent.last_addiction_dose = world.timeofday
 		character.reagents.addiction_list.Add(new_reagent)
 
-	if(disabilities & DISABILITY_FLAG_FAT)
-		character.force_gene_block(GLOB.fatblock, TRUE, TRUE)
+	if(disabilities & DISABILITY_FLAG_OBESITY)
+		character.force_gene_block(GLOB.obesityblock, TRUE, TRUE)
 		character.overeatduration = 600
 
 	if(disabilities & DISABILITY_FLAG_NEARSIGHTED)

@@ -5136,15 +5136,11 @@
 /turf/simulated/floor/wood,
 /area/security/hos)
 "asd" = (
-/obj/structure/table/reinforced,
-/obj/item/flashlight,
-/obj/item/radio{
-	pixel_y = 6
-	},
 /obj/machinery/alarm{
 	dir = 1;
 	pixel_y = -24
 	},
+/obj/structure/closet/secure_closet/pilot_sniper,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -13418,6 +13414,10 @@
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
+	},
+/obj/item/flashlight,
+/obj/item/radio{
+	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -70893,6 +70893,10 @@
 	icon_state = "cafeteria"
 	},
 /area/crew_quarters/kitchen)
+"nkz" = (
+/obj/machinery/arcade/minesweeper,
+/turf/simulated/floor/carpet/arcade,
+/area/crew_quarters/arcade)
 "nkK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
@@ -78450,13 +78454,15 @@
 	},
 /area/medical/cmo)
 "sku" = (
-/obj/machinery/computer/arcade,
 /obj/machinery/camera{
 	c_tag = "Prison Library";
 	dir = 6;
 	network = list("Prison","SS13")
 	},
 /obj/effect/decal/cleanable/dust,
+/obj/machinery/arcade/minesweeper{
+	freeplay = 1
+	},
 /turf/simulated/floor/wood,
 /area/security/permabrig)
 "skM" = (
@@ -122526,7 +122532,7 @@ aFI
 buY
 aGO
 aKI
-aJv
+nkz
 aIp
 aMC
 aOb

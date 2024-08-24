@@ -61,7 +61,7 @@
 	if(owner.AmountBlinded() || owner.AmountEyeBlurry() || (eyes?.damage > 0))
 		owner.reagents.add_reagent("oculine", 1)
 
-	if((NEARSIGHTED in owner.mutations) || (BLINDNESS in owner.mutations))
+	if(HAS_TRAIT(owner, TRAIT_NEARSIGHTED) || HAS_TRAIT(owner, TRAIT_BLIND))
 		update_flags |= owner.CureNearsighted()
 		update_flags |= owner.CureBlind()
 		owner.SetEyeBlind(0)

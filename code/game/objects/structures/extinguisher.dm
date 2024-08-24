@@ -14,7 +14,7 @@
 	integrity_failure = 50
 	var/obj/item/extinguisher/has_extinguisher = null
 	var/extinguishertype
-	var/opened = 0
+	var/opened = FALSE
 	var/material_drop = /obj/item/stack/sheet/metal
 
 /obj/structure/extinguisher_cabinet/Initialize(mapload, direction = null)
@@ -61,29 +61,28 @@
 		has_extinguisher = null
 		update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/extinguisher_cabinet/attackby(obj/item/O, mob/user, params)
-	if(isrobot(user) || isalien(user))
-		return
-	if(istype(O, /obj/item/extinguisher))
-		if(!has_extinguisher && opened)
-			if(!user.drop_transfer_item_to_loc(O, src))
-				return
-			add_fingerprint(user)
-			has_extinguisher = O
-			update_icon(UPDATE_ICON_STATE)
-			to_chat(user, "<span class='notice'>You place [O] in [src].</span>")
-			return TRUE
-		else
-			playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
-			opened = !opened
-		update_icon(UPDATE_ICON_STATE)
-	else if(user.a_intent != INTENT_HARM)
-		add_fingerprint(user)
-		playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
-		opened = !opened
-		update_icon(UPDATE_ICON_STATE)
-	else
+
+/obj/structure/extinguisher_cabinet/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM || I.is_robot_module())
 		return ..()
+
+	if(istype(I, /obj/item/extinguisher))
+		add_fingerprint(user)
+		if(!opened)
+			to_chat(user, span_warning("You need to open [src] first!"))
+			return ATTACK_CHAIN_PROCEED
+		if(has_extinguisher)
+			to_chat(user, span_warning("The [name] already has [has_extinguisher]!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		has_extinguisher = I
+		update_icon(UPDATE_ICON_STATE)
+		to_chat(user, span_notice("You place [I] into [src]."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/structure/extinguisher_cabinet/welder_act(mob/user, obj/item/I)
 	if(has_extinguisher)

@@ -75,11 +75,22 @@
 	if(!stat)
 		eat_plants()
 
-/mob/living/simple_animal/hostile/retaliate/goat/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
-		udder.milkAnimal(O, user)
-	else
+
+/mob/living/simple_animal/hostile/retaliate/goat/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(istype(I, /obj/item/reagent_containers/glass))
+		add_fingerprint(user)
+		if(stat != CONSCIOUS)
+			to_chat(user, span_warning("[src] has problems with health."))	// yeah, ITS DEAD
+			return ATTACK_CHAIN_PROCEED
+		if(udder.milkAnimal(I, user))
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		return ATTACK_CHAIN_PROCEED
+
+	return ..()
+
 
 /mob/living/simple_animal/hostile/retaliate/goat/proc/eat_plants()
 	var/eaten = FALSE
@@ -122,7 +133,7 @@
 	turns_per_move = 5
 	nightvision = 6
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 6)
-	food_type = /obj/item/reagent_containers/food/snacks/grown/wheat
+	food_type = list(/obj/item/reagent_containers/food/snacks/grown/wheat)
 	var/list/feedMessages = list("довольно мычит","благодарно мычит", "довольно помахивает хвостом")
 	response_help = "гладит"
 	response_disarm = "осторожно отодвигает в сторону"
@@ -152,23 +163,41 @@
 	udder = null
 	return ..()
 
-/mob/living/simple_animal/cow/attackby(obj/item/O, mob/user, params)
-	if(stat == CONSCIOUS && istype(O, food_type))
-		if(COOLDOWN_TIMELEFT(src, feeded_cow) < 40 SECONDS) //starting milk mini-factory
-			user.visible_message(span_notice("[user] скармлива[pluralize_ru(user.gender, "ет", "ют")] пшеницу [src.declent_ru(DATIVE)]! Она [pick(feedMessages)]."))
-			user.drop_transfer_item_to_loc(O, src)
-			qdel(O)
-			COOLDOWN_START(src, feeded_cow, 60 SECONDS)
-			udder.feeded = TRUE
 
-		else
-			user.balloon_alert(user, "[src.declent_ru(NOMINATIVE)] не голодна")
-
-	else if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
-		udder.milkAnimal(O, user)
-		return 1
-	else
+/mob/living/simple_animal/cow/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(is_type_in_list(I, food_type))
+		add_fingerprint(user)
+		if(stat != CONSCIOUS)
+			user.balloon_alert(user, "[declent_ru(NOMINATIVE)] нездоров[genderize_ru(src, "", "а", "о", "ы")]")
+			return ATTACK_CHAIN_PROCEED
+		if(COOLDOWN_TIMELEFT(src, feeded_cow) > 40 SECONDS) //starting milk mini-factory
+			user.balloon_alert(user, "[declent_ru(NOMINATIVE)] не голод[genderize_ru(src, "ен", "на", "но", "ны")]")
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] скармлива[pluralize_ru(user.gender, "ет", "ют")] пшеницу [declent_ru(DATIVE)]! [genderize_ru(src, "Он", "Она", "Оно", "Они")] [pick(feedMessages)]."),
+			span_notice("Вы скармливаете пшеницу [declent_ru(DATIVE)]! [genderize_ru(src, "Он", "Она", "Оно", "Они")] [pick(feedMessages)].")
+		)
+		COOLDOWN_START(src, feeded_cow, 60 SECONDS)
+		udder.feeded = TRUE
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/reagent_containers/glass))
+		add_fingerprint(user)
+		if(stat != CONSCIOUS)
+			to_chat(user, span_warning("[src] has problems with health."))
+			return ATTACK_CHAIN_PROCEED
+		if(udder.milkAnimal(I, user))
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		return ATTACK_CHAIN_PROCEED
+
+	return ..()
+
 
 /mob/living/simple_animal/cow/Life(seconds, times_fired)
 	. = ..()
@@ -268,7 +297,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	turns_per_move = 3
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/bird = 2)
 	var/egg_type = /obj/item/reagent_containers/food/snacks/egg
-	food_type = /obj/item/reagent_containers/food/snacks/grown/wheat
+	food_type = list(/obj/item/reagent_containers/food/snacks/grown/wheat)
 	response_help = "гладит"
 	response_disarm = "осторожно отодвигает в сторону"
 	response_harm = "пинает"
@@ -312,18 +341,31 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		return
 	GLOB.chicken_count -= 1
 
-/mob/living/simple_animal/chicken/attackby(obj/item/O, mob/user, params)
-	if(istype(O, food_type)) //feedin' dem chickens
-		if(!stat && eggsleft < 8)
-			user.visible_message(span_notice("[user] скармлива[pluralize_ru(user.gender, "ет", "ют")] пшеницу [src.declent_ru(DATIVE)]. Она радостно [pick(speak_emote)]."))
-			user.drop_transfer_item_to_loc(O, src)
-			qdel(O)
-			eggsleft += rand(1, 4)
-			//world << eggsleft
-		else
-			user.balloon_alert(user, "[src.declent_ru(NOMINATIVE)] не голодна")
-	else
-		..()
+
+/mob/living/simple_animal/chicken/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(is_type_in_list(I, food_type)) //feedin' dem chickens
+		add_fingerprint(user)
+		if(stat != CONSCIOUS)
+			user.balloon_alert(user, "[declent_ru(NOMINATIVE)] нездоров[genderize_ru(src, "", "а", "о", "ы")]")
+			return ATTACK_CHAIN_PROCEED
+		if(eggsleft >= 8)
+			user.balloon_alert(user, "[declent_ru(NOMINATIVE)] не голод[genderize_ru(src, "ен", "на", "но", "ны")]")
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] скармлива[pluralize_ru(user.gender, "ет", "ют")] пшеницу [declent_ru(DATIVE)]. [genderize_ru(src, "Он", "Она", "Оно", "Они")] радостно [pick(speak_emote)]."),
+			span_notice("Вы скармливаете пшеницу [declent_ru(DATIVE)]. [genderize_ru(src, "Он", "Она", "Оно", "Они")] радостно [pick(speak_emote)]."),
+		)
+		eggsleft += rand(1, 4)
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /mob/living/simple_animal/chicken/Life(seconds, times_fired)
 	. = ..()
@@ -563,14 +605,21 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	if(prob(probability))
 		reagents.add_reagent("milk", rand(5, 10))
 
-/obj/item/udder/proc/milkAnimal(obj/O, mob/user)
-	var/obj/item/reagent_containers/glass/G = O
-	if(G.reagents.total_volume >= G.volume)
+
+/obj/item/udder/proc/milkAnimal(obj/item/reagent_containers/glass/container, mob/user)
+	if(!container.reagents)
+		user.balloon_alert(user, "неподходящая ёмкость!")
+		return FALSE
+	if(container.reagents.total_volume >= container.volume)
 		user.balloon_alert(user, "ёмкость заполнена!")
-		return
-	var/transfered = reagents.trans_to(O, rand(5,10))
-	if(transfered)
-		user.visible_message(span_notice("[user] до[pluralize_ru(user.gender, "ит", "ят")] корову."), \
-							span_notice("Вы доите корову."))
-	else
-		user.balloon_alert(user, "вымя сухое, подождите немного!")
+		return FALSE
+	var/transfered = reagents.trans_to(container, rand(5,10))
+	if(!transfered)
+		user.balloon_alert(user, "вымя сухое, подождите")
+		return FALSE
+	user.visible_message(
+		span_notice("[user] до[pluralize_ru(user.gender, "ит", "ят")] [declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы доите [declent_ru(ACCUSATIVE)]."),
+	)
+	return TRUE
+

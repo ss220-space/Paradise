@@ -18,37 +18,45 @@
 		/obj/item/book = 5
 		)
 
-/obj/machinery/papershredder/attackby(obj/item/W, mob/user, params)
 
-	if(isstorage(W))
+/obj/machinery/papershredder/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(isstorage(I))
 		add_fingerprint(user)
-		empty_bin(user, W)
-		return
-	else
-		var/paper_result
-		for(var/shred_type in shred_amounts)
-			if(istype(W, shred_type))
-				paper_result = shred_amounts[shred_type]
-		if(paper_result)
-			if(paperamount == max_paper)
-				to_chat(user, "<span class='warning'>\The [src] is full; please empty it before you continue.</span>")
-				return
-			paperamount += paper_result
-			qdel(W)
-			playsound(src.loc, 'sound/items/pshred.ogg', 75, 1)
-			if(paperamount > max_paper)
-				to_chat(user, "<span class='danger'>\The [src] was too full, and shredded paper goes everywhere!</span>")
-				for(var/i=(paperamount-max_paper);i>0;i--)
-					var/obj/item/shredded_paper/SP = get_shredded_paper()
-					SP.loc = get_turf(src)
-					SP.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), 1, 1)
-				paperamount = max_paper
-			update_icon(UPDATE_ICON_STATE)
-			add_fingerprint(user)
-			return
-	..()
+		empty_bin(user, I)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	return
+	var/paper_result = 0
+	for(var/shred_type in shred_amounts)
+		if(istype(I, shred_type))
+			paper_result = shred_amounts[shred_type]
+	if(!paper_result)
+		return ..()
+
+	add_fingerprint(user)
+	if(paperamount == max_paper)
+		to_chat(user, span_warning("The [name] is full; please empty it before you continue."))
+		return ATTACK_CHAIN_PROCEED
+
+	if(!user.drop_transfer_item_to_loc(I, src))
+		return ..()
+
+	. = ATTACK_CHAIN_BLOCKED_ALL
+	to_chat(user, span_notice("The [I.name] was succesfully destroyed."))
+	qdel(I)
+	paperamount += paper_result
+	playsound(loc, 'sound/items/pshred.ogg', 75, TRUE)
+	if(paperamount > max_paper)
+		to_chat(user, span_danger("The [name] was too full, and shredded paper goes everywhere!"))
+		var/atom/drop_loc = drop_location()
+		var/turf/throw_to = get_edge_target_turf(src, pick(GLOB.alldirs))
+		for(var/i = 1 to (paperamount - max_paper))
+			var/obj/item/shredded_paper/shredded = get_shredded_paper(drop_loc)
+			shredded.throw_at(throw_to, 1, 1)
+	update_icon(UPDATE_ICON_STATE)
+
 
 /obj/machinery/papershredder/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -84,9 +92,11 @@
 		to_chat(user, "<span class='notice'>\The [empty_into] is full.</span>")
 		return
 
+	var/atom/drop_loc = drop_location()
 	while(paperamount)
-		var/obj/item/shredded_paper/SP = get_shredded_paper()
-		if(!SP) break
+		var/obj/item/shredded_paper/SP = get_shredded_paper(drop_loc)
+		if(!SP)
+			break
 		if(empty_into)
 			empty_into.handle_item_insertion(SP)
 			if(empty_into.contents.len >= empty_into.storage_slots)
@@ -101,26 +111,46 @@
 		to_chat(user, "<span class='notice'>You empty \the [src].</span>")
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/papershredder/proc/get_shredded_paper()
+
+/obj/machinery/papershredder/proc/get_shredded_paper(atom/location)
 	if(!paperamount)
 		return
+	if(!location)
+		location = drop_location()
 	paperamount--
-	return new /obj/item/shredded_paper(get_turf(src))
+	return new /obj/item/shredded_paper(location)
+
 
 /obj/machinery/papershredder/update_icon_state()
 	icon_state = "papershredder[clamp(round(paperamount/3), 0, 5)]"
 
-/obj/item/shredded_paper/attackby(obj/item/W as obj, mob/user)
+
+/obj/item/shredded_paper/attackby(obj/item/I, mob/living/user, params)
 	if(resistance_flags & ON_FIRE)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(is_hot(I))
 		add_fingerprint(user)
-		return
-	if(is_hot(W, user))
-		add_fingerprint(user)
-		user.visible_message("<span class='danger'>\The [user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
-		"<span class='danger'>You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
+		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
+			user.visible_message(
+				span_warning("[user] accidentally ignites [user.p_them()]self!"),
+				span_userdanger("You miss shredded paper and accidentally light yourself on fire!"),
+			)
+			user.drop_item_ground(I)
+			user.adjust_fire_stacks(1)
+			user.IgniteMob()
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+		user.drop_item_ground(src)
+		user.visible_message(
+			span_danger("[user] burns right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap."),
+			span_danger("You burn right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap."),
+		)
 		fire_act()
-	else
-		..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/shredded_paper
 	name = "shredded paper"

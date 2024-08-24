@@ -3,7 +3,7 @@
 	desc = "It measures something."
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/meter.dmi'
 	icon_state = "meterX"
-
+	can_unwrench = TRUE
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PUMP_OFFSET
 	layer_offset = GAS_PUMP_OFFSET
 
@@ -130,40 +130,14 @@
 	return ..()
 
 
-/obj/machinery/atmospherics/meter/wrench_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
-		return .
-	user.visible_message(
-		"[user] unfastens [src].",
-		span_notice("You have unfastened [src]."),
-		"You hear ratchet.",
-	)
-	deconstruct(TRUE)
-
-
 /obj/machinery/atmospherics/meter/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/pipe_meter(loc)
 	qdel(src)
+
 
 /obj/machinery/atmospherics/meter/singularity_pull(S, current_size)
 	..()
 	if(current_size >= STAGE_FIVE)
 		deconstruct()
 
-// TURF METER - REPORTS A TILE'S AIR CONTENTS
-
-/obj/machinery/atmospherics/meter/turf/New()
-	..()
-	target = loc
-	return 1
-
-
-/obj/machinery/atmospherics/meter/turf/Initialize()
-	if(!target)
-		target = loc
-	..()
-
-/obj/machinery/atmospherics/meter/turf/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	return

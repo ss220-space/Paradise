@@ -513,7 +513,7 @@
 	return FALSE
 
 /mob/living/RangedAttack(atom/A, params) //Player firing
-	if(GLOB.pacifism_after_gt)
+	if(HAS_TRAIT(src, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
 		return
 	if(dirslash_enabled && a_intent != INTENT_HELP)
 		var/turf/turf_attacking = get_step(src, get_compass_dir(src, A))

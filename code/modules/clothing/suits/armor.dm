@@ -63,6 +63,7 @@
 
 /obj/item/clothing/suit/armor/vest/security/update_icon_state()
 	icon_state = "armor[attached_badge ? "sec" : ""]"
+	update_equipped_item(update_speedmods = FALSE)
 
 
 /obj/item/clothing/suit/armor/vest/security/update_desc(updates = ALL)
@@ -74,16 +75,21 @@
 
 
 /obj/item/clothing/suit/armor/vest/security/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/accessory/holobadge) && !attached_badge && user.drop_transfer_item_to_loc(I, src))
+	if(istype(I, /obj/item/clothing/accessory/holobadge))
 		add_fingerprint(user)
+		if(attached_badge)
+			to_chat(user, span_warning("The [name] already has [attached_badge]."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("You attach [I] to [src]."))
 		attached_badge = I
 		var/datum/action/item_action/remove_badge/holoaction = new(src)
 		holoaction.Grant(user)
 		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
-		update_equipped_item()
-		to_chat(user, span_notice("You attach [attached_badge] to [src]."))
-		return
-	..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/item/clothing/suit/armor/vest/security/attack_self(mob/user)

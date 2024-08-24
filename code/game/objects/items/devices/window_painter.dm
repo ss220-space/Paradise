@@ -33,7 +33,7 @@
 			update_icon(UPDATE_OVERLAYS)
 
 
-/obj/item/pipe_painter/window_painter/afterattack(atom/A, mob/user as mob)
+/obj/item/pipe_painter/window_painter/afterattack(atom/A, mob/user, proximity, params)
 	if(!is_type_in_list(A, paintable_windows) || !in_range(user, A))
 		return
 	var/obj/structure/window/W = A
