@@ -26,6 +26,7 @@
 /mob/living/silicon/decoy/syndicate/Initialize(mapload)
 	. = ..()
 	icon_state = "ai-magma"
+	QDEL_NULL(gps)
 
 /mob/living/silicon/decoy/syndicate/depot
 	universal_speak = TRUE
