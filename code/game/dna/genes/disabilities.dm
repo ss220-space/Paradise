@@ -184,18 +184,16 @@
 	block = GLOB.colourblindblock
 
 
-/datum/dna/gene/disability/colourblindness/activate(mob/living/carbon/human/mutant, flags)
+/datum/dna/gene/disability/colourblindness/activate(mob/living/mutant, flags)
 	. = ..()
-	mutant.update_client_colour() //Handle the activation of the colourblindness on the mob.
-	if(ishuman(mutant))
-		mutant.update_body()	//Apply eyeshine as needed.
+	mutant.update_client_colour()	//Handle the activation of the colourblindness on the mob.
+	mutant.update_misc_effects()	//Apply eyeshine as needed.
 
 
 /datum/dna/gene/disability/colourblindness/deactivate(mob/living/carbon/human/mutant, flags)
 	. = ..()
-	mutant.update_client_colour() //Handle the deactivation of the colourblindness on the mob.
-	if(ishuman(mutant))
-		mutant.update_body() //Remove eyeshine as needed.
+	mutant.update_client_colour()	//Handle the deactivation of the colourblindness on the mob.
+	mutant.update_misc_effects()	//Remove eyeshine as needed.
 
 
 /datum/dna/gene/disability/deaf
