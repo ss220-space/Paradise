@@ -3617,14 +3617,6 @@
 	name = "Торговый автомат с уникальным содержимым"
 	desc = "Fabricator with advanced technology of bluespace transporting of resources."
 
-	icon_state = "paivend_off"
-	panel_overlay = "paivend_panel"
-	screen_overlay = "paivend"
-	lightmask_overlay = "paivend_lightmask"
-	broken_overlay = "paivend_broken"
-	broken_lightmask_overlay = "paivend_broken_lightmask"
-
-	ads_list = list("Купи самый дорогой предмет из моего содержимого! Не пожалеешь!","Мое содержимое разнообразней чем вся твоя жизнь!","У меня богатый внутренний мир.","Во мне может быть что угодно.","Не ядерный ли это диск во мне продается, всего за 1984 кредита?", "Не хочешь платить за содержимое? Сломай меня и получи все бесплатно!", "Товары на любой вкус и цвет!", "Может во мне продается контробанда?", "Не нравится мое содержимое? Создай свой кастомат, со своим уникальным содержимым!")
 	resistance_flags = FIRE_PROOF | LAVA_PROOF | FIRE_PROOF | ACID_PROOF | FREEZE_PROOF
 	products = null
 	prices = null
