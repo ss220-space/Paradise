@@ -513,9 +513,6 @@
 						beaker.reagents.add_reagent("slimejelly",min(20*efficiency, space))
 				remove_object(O)
 
-				//Slime Extractis
-
-
 		//Everything else - Transfers reagents from it into beaker
 		for (var/obj/item/reagent_containers/O in holdingitems)
 				if (beaker.reagents.total_volume >= beaker.reagents.maximum_volume)

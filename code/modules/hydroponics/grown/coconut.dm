@@ -8,12 +8,12 @@
 	force = 10
 	throwforce = 10
 	throw_speed = 2
-	throw_range = 3
+	throw_range = 4
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/seeds/coconut
 	name = "pack of coconut seeds"
-	desc = "test"
+	desc = "Coconut planting device"
 	icon_state = "seed-coconut"
 	species = "coconut"
 	plantname = "Coconut Tree"
@@ -35,10 +35,9 @@
 /obj/item/reagent_containers/food/snacks/dry_coco/attackby(obj/item/W, mob/user, params)
 	if(is_sharp(W))
 		if(isturf(loc))
-			user.show_message(span_notice("You make [coco_name] out of \the [src]!"), 1)
-			new /obj/item/reagent_containers/food/snacks/piece_coconut(loc)
-			new /obj/item/reagent_containers/food/snacks/piece_coconut(loc)
 			to_chat(user, "<span class='notice'>You crack [src].</span>")
+			new /obj/item/reagent_containers/food/snacks/piece_coconut(loc)
+			new /obj/item/reagent_containers/food/snacks/piece_coconut(loc)
 			qdel(src)
 		else
 			to_chat(user, "<span class='notice'>You need to put [src] on a surface to roll it out!</span>")
@@ -55,10 +54,9 @@
 
 /obj/item/reagent_containers/food/snacks/dry_coco
 	name = "Dried coconut"
-	desc = "test"
+	desc = "The old coconut is already brown"
 	icon_state = "dried_coconut"
 	item_state = "dried_coconut"
-	var/coco_name = "piece coconut"
 	list_reagents = list("shradded_coconut" = 25)
 	bitesize = 2
 
