@@ -337,7 +337,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_BAN))
 		return
 
-	var/dat = {"<meta charset="UTF-8"><B>Job Bans!</B><HR><table>"}
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8"><B>Job Bans!</B><HR><table>"}
 	for(var/t in GLOB.jobban_keylist)
 		var/r = t
 		if( findtext(r,"##") )
@@ -350,7 +350,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/dat = {"<meta charset="UTF-8">
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">
 		<center><B>Game Panel</B></center><hr>\n
 		<a href='byond://?src=[UID()];c_mode=1'>Change Game Mode</A><br>
 		"}
