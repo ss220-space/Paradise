@@ -175,9 +175,6 @@
 
 
 /mob/living/simple_animal/borer/proc/Communicate(var/sended_message)
-	if(stat)
-		to_chat(src, "Сейчас вы не в состоянии этого сделать.")
-		return
 
 	if(host.stat == DEAD)
 		to_chat(src, span_warning("Мозг носителя не способен воспринимать вас сейчас!"))
@@ -375,13 +372,6 @@
 	SEND_SIGNAL(user, COMSIG_BORER_ENTERED_HOST)
 
 /mob/living/simple_animal/borer/proc/secrete_chemicals()
-	if(stat)
-		to_chat(src, "Вы не можете производить химикаты в вашем нынешнем состоянии.")
-		return
-
-	if(docile)
-		to_chat(src, "<font color='blue'>Вы слишком обессилели для этого.</font>")
-		return
 
 	var/content = ""
 
@@ -432,13 +422,6 @@
 	..()
 
 /mob/living/simple_animal/borer/proc/focus_menu()
-	if(stat)
-		to_chat(src, "Вы не можете приобрести фокус в вашем текущем состоянии.")
-		return
-
-	if(docile)
-		to_chat(src, "Вы слишком обессилели для этого.")
-		return
 		
 	var/list/content = list()
 	
@@ -475,13 +458,6 @@
 	return 
 
 /mob/living/simple_animal/borer/proc/hide_borer()
-	if(host)
-		to_chat(usr, span_warning("Вы не можете сделать этого, находясь внутри носителя."))
-		return
-
-	if(stat != CONSCIOUS)
-		return
-
 	if(!hiding)
 		layer = TURF_LAYER+0.2
 		to_chat(src, span_notice("Вы прячетесь."))
@@ -530,17 +506,6 @@
 	target.Weaken(6 SECONDS)
 
 /mob/living/simple_animal/borer/proc/release_host()
-	if(stat)
-		to_chat(src, "Вы не можете покинуть носителя в вашем текущем состоянии.")
-		return
-
-	if(docile)
-		to_chat(src, span_notice("<font color='blue'>Вы слишком обессилели для этого.</font>"))
-		return
-
-	if(!host || !src)
-		return
-
 	leaving = !leaving
 	let_go()
 	leaving = FALSE
@@ -595,14 +560,6 @@
 /mob/living/simple_animal/borer/proc/bond_brain()
 	if(host.stat == DEAD)
 		to_chat(src, "Носитель не может быть взят под контроль в его текущем состоянии.")
-		return
-
-	if(stat)
-		to_chat(src, "Вы не можете сделать этого в вашем нынешнем состоянии.")
-		return
-
-	if(docile)
-		to_chat(src, span_notice("<font color='blue'>Вы слишком обессилели для этого.</font>"))
 		return
 
 	if(QDELETED(src) || QDELETED(host))
@@ -724,17 +681,13 @@
 /mob/living/carbon/proc/spawn_larvae()
 	var/mob/living/simple_animal/borer/borer = has_brain_worms()
 
-	if(borer.chemicals >= 100)
-		to_chat(src, span_danger("Ваш хозяин дёргается и вздрагивает, когда вы быстро выводите личинку из своего слизнеподобного тела."))
-		visible_message(span_danger("[src] яростно блюёт, изрыгая рвотные массы вместе с извивающимся, похожим на слизня существом!"))
-		borer.chemicals -= 100
-		var/turf/turf = get_turf(src)
-		turf.add_vomit_floor()
-		new /mob/living/simple_animal/borer(turf, borer.generation + 1)
-		borer.post_reproduce()
-		return
-		
-	to_chat(src, "Вам требуется 100 химикатов для размножения!")
+	to_chat(src, span_danger("Ваш хозяин дёргается и вздрагивает, когда вы быстро выводите личинку из своего слизнеподобного тела."))
+	visible_message(span_danger("[src] яростно блюёт, изрыгая рвотные массы вместе с извивающимся, похожим на слизня существом!"))
+	borer.chemicals -= 100
+	var/turf/turf = get_turf(src)
+	turf.add_vomit_floor()
+	new /mob/living/simple_animal/borer(turf, borer.generation + 1)
+	borer.post_reproduce()
 	return
 
 /mob/living/carbon/proc/sneak_mode()
@@ -750,14 +703,10 @@
 		to_chat(src, span_danger("Душа вашего хозяина не позволяет вам скрыть свое присутствие!"))
 		return
 
-	if(borer.chemicals >= 50)
-		borer.sneaking = TRUE
-		to_chat(src, span_notice("Вы скрываете ваше присутствие внутри хозяина!"))
-		borer.chemicals -= 50
-		borer.host.med_hud_set_status()
-		return
-		
-	to_chat(src, "Вам требуется 50 химикатов для сокрытия вашего присутствия!")
+	borer.sneaking = TRUE
+	to_chat(src, span_notice("Вы скрываете ваше присутствие внутри хозяина!"))
+	borer.chemicals -= 50
+	borer.host.med_hud_set_status()
 	return
 
 /mob/living/simple_animal/borer/proc/detach()

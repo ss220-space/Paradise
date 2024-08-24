@@ -401,6 +401,9 @@
 	var/mob/living/simple_animal/borer/borer
 	var/mob/living/carbon/human/host
 	var/host_req = FALSE
+	var/docile_message = span_notice("<font color='blue'>Вы слишком обессилели для этого.</font>")
+	var/stat_message = "Вы не можете сделать этого в вашем нынешнем состоянии."
+	var/chem_cost = 0
 	
 /datum/action/innate/borer/Grant(mob/user)
 	. = ..()
@@ -413,7 +416,16 @@
 /datum/action/innate/borer/IsAvailable()
 	if(!borer)
 		return FALSE
+	if(borer.stat) // No AB_CHECK_CONSCIOUS, we should do something even host is dead.
+		to_chat(usr, stat_message)
+		return FALSE
+	if(borer.docile)
+		to_chat(borer, docile_message)
+		return FALSE
 	if(host_req && !borer.host)
+		return FALSE
+	if(borer.chemicals < chem_cost && borer.chemicals >= 0)
+		to_chat(usr, "Вам требуется еще [chem_cost - borer.chemicals] химикатов для использования способности.")
 		return FALSE
 	. = ..()
 
@@ -490,6 +502,7 @@
 	desc = "Slither out of your host."
 	button_icon_state = "borer_leave"
 	host_req = TRUE
+	stat_message = "Вы не можете покинуть носителя в вашем текущем состоянии."
 
 /datum/action/innate/borer/leave_body/Activate()
 	borer = owner
@@ -500,6 +513,7 @@
 	desc = "Push some chemicals into your host's bloodstream."
 	button_icon_state = "fleshmend"
 	host_req = TRUE
+	stat_message = "Вы не можете производить химикаты в вашем нынешнем состоянии."
 
 /datum/action/innate/borer/make_chems/Activate()
 	borer = owner
@@ -510,6 +524,7 @@
 	desc = "Reinforce your host."
 	button_icon_state = "human_form"
 	host_req = TRUE
+	stat_message = "Вы не можете приобрести фокус в вашем нынешнем состоянии."
 
 /datum/action/innate/borer/focus_menu/Activate()
 	borer = owner
@@ -519,6 +534,7 @@
 	name = "Reproduce"
 	desc = "Spawn several young."
 	button_icon_state = "borer_reproduce"
+	chem_cost = 100
 
 /datum/action/innate/borer/make_larvae/Activate()
 	borer.host = owner
@@ -537,6 +553,7 @@
 	name = "Sneak mode"
 	desc = "Hides your status from medical huds."
 	button_icon_state = "chameleon_skin"
+	chem_cost = 50
 
 /datum/action/innate/borer/sneak_mode/Activate()
 	borer.host = owner
