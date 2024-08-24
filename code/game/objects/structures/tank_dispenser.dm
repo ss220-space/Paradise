@@ -114,8 +114,9 @@
 		/obj/item/tank/internals/plasma,
 	))
 	if(is_type_in_typecache(I, allowed_to_store))
-		try_insert_tank(user, stored_oxygen_tanks, I)
-		return ATTACK_CHAIN_BLOCKED_ALL
+		if(try_insert_tank(user, istype(I, /obj/item/tank/internals/plasma) ? stored_plasma_tanks : stored_oxygen_tanks, I))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		return ATTACK_CHAIN_PROCEED
 
 	return ..()
 
@@ -131,23 +132,26 @@
 	tank.forceMove_turf()
 	user.put_in_hands(tank, ignore_anim = FALSE)
 
-	to_chat(user, "<span class='notice'>You take [tank] out of [src].</span>")
+	to_chat(user, span_notice("You have taken [tank] out of [src]."))
 	update_icon(UPDATE_OVERLAYS)
+
 
 /// Called when the user clicks on the dispenser with a tank. Tries to insert the tank into the dispenser, and updates the UI if successful.
-/obj/structure/dispenser/proc/try_insert_tank(mob/living/user, list/tank_list, obj/item/tank/T)
-	if(LAZYLEN(tank_list) >= MAX_TANK_STORAGE)
-		to_chat(user, "<span class='warning'>[src] is full.</span>")
-		return
-
-	if(!user.drop_transfer_item_to_loc(T, src)) // Antidrop check
-		return
-
+/obj/structure/dispenser/proc/try_insert_tank(mob/living/user, list/tank_list, obj/item/tank/tank)
 	add_fingerprint(user)
-	tank_list.Add(T)
+	if(LAZYLEN(tank_list) >= MAX_TANK_STORAGE)
+		to_chat(user, span_warning("The [name] is full."))
+		return FALSE
+
+	if(!user.drop_transfer_item_to_loc(tank, src)) // Antidrop check
+		return FALSE
+
+	. = TRUE
+	tank_list += tank
 	update_icon(UPDATE_OVERLAYS)
-	to_chat(user, "<span class='notice'>You put [T] in [src].</span>")
+	to_chat(user, span_notice("You have put [tank] into [src]."))
 	SStgui.update_uis(src)
+
 
 /obj/structure/tank_dispenser/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))

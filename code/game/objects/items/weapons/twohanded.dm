@@ -229,7 +229,7 @@
 
 
 /obj/item/twohanded/dualsaber/proc/on_wield(obj/item/source, mob/living/carbon/user)
-	if(HULK in user.mutations)
+	if(HAS_TRAIT(user, TRAIT_HULK))
 		to_chat(user, span_warning("You lack the grace to wield this!"))
 		return COMPONENT_TWOHANDED_BLOCK_WIELD
 
@@ -265,7 +265,7 @@
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return .
 
-	if((CLUMSY in user.mutations) && prob(40))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
 		to_chat(user, span_warning("You twirl around a bit before losing your balance and impaling yourself on the [src]."))
 		user.take_organ_damage(20, 25)
 		return .

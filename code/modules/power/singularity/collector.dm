@@ -72,7 +72,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		update_icon()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(I.GetID())
+	if(I.GetID() || is_pda(I))
 		add_fingerprint(user)
 		if(!allowed(user))
 			to_chat(user, span_warning("Access denied."))

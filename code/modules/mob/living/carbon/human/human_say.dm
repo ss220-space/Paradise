@@ -140,12 +140,12 @@
 		verb = translator.speech_verb
 		return list("verb" = verb)
 
-	if((COMIC in mutations) \
+	if(HAS_TRAIT(src, TRAIT_COMIC) \
 		|| (locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in internal_organs) \
 		|| HAS_TRAIT(src, TRAIT_JESTER))
 		span = "sans"
 
-	if(WINGDINGS in mutations)
+	if(HAS_TRAIT(src, TRAIT_WINGDINGS))
 		span = "wingdings"
 
 	var/list/parent = ..()

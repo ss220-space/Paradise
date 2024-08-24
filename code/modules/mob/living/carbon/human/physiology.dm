@@ -30,6 +30,8 @@
 
 	/// Resistance to shocks
 	var/siemens_coeff = 1
+	/// How quickly germs are growing
+	var/germs_growth_mod = 1
 
 	/// Multiplier applied to all incapacitating effects (knockdown, stun, weaken, immobilized)
 	var/stun_mod = 1

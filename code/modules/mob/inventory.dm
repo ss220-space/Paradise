@@ -554,18 +554,20 @@
 		return FALSE
 
 	var/slot = get_slot_by_item(I)
+	//if we actually unequipped an item
+	var/not_handled = FALSE
 
 	if(I == r_hand)
 		r_hand = null
 		update_inv_r_hand()
-		update_equipment_speed_mods()
 	else if(I == l_hand)
 		l_hand = null
 		update_inv_l_hand()
-		update_equipment_speed_mods()
 	else if(I in tkgrabbed_objects)
 		var/obj/item/tk_grab/tkgrab = tkgrabbed_objects[I]
 		drop_item_ground(tkgrab, force)
+	else
+		not_handled = TRUE
 
 	if(I)
 		if(client)
@@ -580,6 +582,8 @@
 		I.dropped(src, slot, silent)
 
 	SEND_SIGNAL(I, COMSIG_ITEM_POST_UNEQUIP, force, newloc, no_move, invdrop, silent)
+	if(!not_handled)
+		update_equipment_speed_mods()
 	return TRUE
 
 

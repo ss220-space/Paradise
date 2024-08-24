@@ -387,24 +387,24 @@
 		return .
 
 	if(rotting && try_rot(I, user, params))
-		. |= (ATTACK_CHAIN_BLOCKED_ALL)
-		return .
+		user.changeNext_move(I.attack_speed)
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 
 	if(try_decon(I, user, params))
-		. |= (ATTACK_CHAIN_BLOCKED_ALL)
-		return .
+		user.changeNext_move(I.attack_speed)
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 
 	if(try_destroy(I, user, params))
-		. |= (ATTACK_CHAIN_BLOCKED_ALL)
-		return .
+		user.changeNext_move(I.attack_speed)
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 
 	if(try_wallmount(I, user, params))
-		. |= (ATTACK_CHAIN_BLOCKED_ALL)
-		return .
+		user.changeNext_move(I.attack_speed)
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 
 	if(try_reform(I, user, params))
-		. |= (ATTACK_CHAIN_BLOCKED_ALL)
-		return .
+		user.changeNext_move(I.attack_speed)
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 
 
 /turf/simulated/wall/welder_act(mob/user, obj/item/I)
@@ -510,7 +510,7 @@
 
 /turf/simulated/wall/proc/try_wallmount(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/mounted))
-		return TRUE // We don't want attack_hand running and doing stupid shit with this
+		return FALSE	// afterattack will handle this
 
 	if(istype(I, /obj/item/poster))
 		place_poster(I, user)

@@ -402,7 +402,7 @@
 //Returns "Unknown" if facially disfigured and real_name if not. Useful for setting name when polyacided or when updating a human's name variable
 /mob/living/carbon/human/proc/get_face_name()
 	var/obj/item/organ/external/head_organ = get_organ(BODY_ZONE_HEAD)
-	if(!head_organ || head_organ.is_disfigured() || cloneloss > 50 || !real_name || (HUSK in mutations))	//disfigured. use id-name if possible
+	if(!head_organ || head_organ.is_disfigured() || cloneloss > 50 || !real_name || HAS_TRAIT(src, TRAIT_HUSK))	//disfigured. use id-name if possible
 		return "Unknown"
 	return real_name
 
@@ -898,12 +898,14 @@
 	check_and_regenerate_organs() //Regenerate limbs and organs only if they're really missing.
 	surgeries.Cut() //End all surgeries.
 
-	if(!isskeleton(src) && (SKELETON in mutations))
-		mutations.Remove(SKELETON)
-	if(NOCLONE in mutations)
-		mutations.Remove(NOCLONE)
-	if(HUSK in mutations)
-		mutations.Remove(HUSK)
+	var/update_appearance = FALSE
+	if(remove_skeleton(update_appearance = FALSE))
+		update_appearance = TRUE
+	if(cure_husk(update_appearance = FALSE))
+		update_appearance = TRUE
+	if(update_appearance)
+		UpdateAppearance()
+	revive_no_clone_removal()
 
 	if(!client || !key) //Don't boot out anyone already in the mob.
 		for(var/obj/item/organ/internal/brain/H in world)
@@ -933,7 +935,7 @@
 
 
 /mob/living/carbon/human/cuff_resist(obj/item/I, cuff_break = FALSE)
-	if(HULK in mutations)
+	if(HAS_TRAIT(src, TRAIT_HULK))
 		say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		return ..(I, cuff_break = TRUE)
 	return ..()
@@ -1354,7 +1356,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(!get_location_accessible(src, BODY_ZONE_PRECISE_EYES))
 		return FALSE
 	// Natural eyeshine, any implants, and XRAY - all give shiny appearance.
-	if((istype(eyes) && eyes.shine()) || istype(eye_implant) || (XRAY in mutations))
+	if((istype(eyes) && eyes.shine()) || istype(eye_implant) || HAS_TRAIT(src, TRAIT_XRAY))
 		return TRUE
 
 	return FALSE
@@ -1547,13 +1549,13 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			return TRUE
 
 /mob/living/carbon/human/selfFeed(obj/item/reagent_containers/food/toEat, fullness)
-	if(!check_has_mouth())
+	if(!istype(toEat, /obj/item/reagent_containers/food/pill/patch) && !check_has_mouth())
 		to_chat(src, "Where do you intend to put [toEat]? You don't have a mouth!")
 		return FALSE
 	return ..()
 
 /mob/living/carbon/human/forceFed(obj/item/reagent_containers/food/toEat, mob/user, fullness)
-	if(!check_has_mouth())
+	if(!istype(toEat, /obj/item/reagent_containers/food/pill/patch) && !check_has_mouth())
 		if(!((istype(toEat, /obj/item/reagent_containers/food/drinks) && (ismachineperson(src)))))
 			to_chat(user, "Where do you intend to put [toEat]? [src] doesn't have a mouth!")
 			return FALSE

@@ -506,19 +506,19 @@
 		return .
 	if(istype(I, /obj/item/hand_labeler))
 		var/obj/item/hand_labeler/labeler = I
-		if(labeler.mode)
+		if(labeler.mode)	// labeling with afterattack
 			return .
 
-	. |= ATTACK_CHAIN_BLOCKED
 	if(isrobot(user))
-		return .|ATTACK_CHAIN_NO_AFTERATTACK //Robots can't interact with storage items.
+		return .|ATTACK_CHAIN_BLOCKED_ALL //Robots can't interact with storage items.
 
 	if(!can_be_inserted(I))
 		if(length(contents) >= storage_slots) //don't use items on the backpack if they don't fit
-			return .|ATTACK_CHAIN_NO_AFTERATTACK
+			return .|ATTACK_CHAIN_BLOCKED_ALL
 		return .
 
 	handle_item_insertion(I)
+	return .|ATTACK_CHAIN_BLOCKED_ALL
 
 
 /obj/item/storage/attack_hand(mob/user)

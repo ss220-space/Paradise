@@ -310,6 +310,7 @@
 		return ..()
 
 	if(state_open)
+		add_fingerprint(user)
 		if(!is_operational())
 			return ..()
 		add_fingerprint(user)
@@ -339,22 +340,25 @@
 	if(panel_open)
 		return .
 	if(istype(I, /obj/item/clothing/suit/space) && !suit)
-		suit = I
-		. = TRUE
-	else if(istype(I, /obj/item/clothing/head/helmet) && !helmet)
-		helmet = I
-		. = TRUE
-	else if(istype(I, /obj/item/clothing/mask) && !mask)
-		mask = I
-		. = TRUE
-	else if(istype(I, /obj/item/clothing/shoes/magboots) && !magboots)
-		magboots = I
-		. = TRUE
-	else if((istype(I, /obj/item/tank)) && !storage)
-		storage = I
-		. = TRUE
-	if(.)
 		. = user.drop_transfer_item_to_loc(I, src)
+		if(.)
+			suit = I
+	else if(istype(I, /obj/item/clothing/head/helmet) && !helmet)
+		. = user.drop_transfer_item_to_loc(I, src)
+		if(.)
+			helmet = I
+	else if(istype(I, /obj/item/clothing/mask) && !mask)
+		. = user.drop_transfer_item_to_loc(I, src)
+		if(.)
+			mask = I
+	else if(istype(I, /obj/item/clothing/shoes/magboots) && !magboots)
+		. = user.drop_transfer_item_to_loc(I, src)
+		if(.)
+			magboots = I
+	else if((istype(I, /obj/item/tank)) && !storage)
+		. = user.drop_transfer_item_to_loc(I, src)
+		if(.)
+			storage = I
 
 
 /obj/machinery/suit_storage_unit/power_change(forced = FALSE)

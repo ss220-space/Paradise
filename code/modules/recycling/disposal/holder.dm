@@ -60,7 +60,7 @@
 				mob.reset_perspective(src)
 			hasmob = TRUE
 			RegisterSignal(mob, COMSIG_LIVING_RESIST, PROC_REF(struggle_prep))
-			if(FAT in mob.mutations)
+			if(HAS_TRAIT(mob, TRAIT_FAT))
 				has_fat_guy = TRUE
 
 	// now everything inside the disposal gets put into the holder
