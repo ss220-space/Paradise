@@ -690,7 +690,7 @@
 /obj/structure/sign/poster/official/coconut_para
 	name = "Coconut Paradise"
 	desc = "The heads of NT departments are entitled to carparative resorts."
-	icon_state = "coconut_paradise"
+	icon_state = "poster54_legit"
 
 /obj/structure/sign/poster/secret
 	poster_item_name = "Secret poster"
