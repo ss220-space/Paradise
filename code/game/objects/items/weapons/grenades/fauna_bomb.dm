@@ -14,7 +14,7 @@
 
 /obj/item/grenade/fauna_bomb/attack_self(mob/user)
 	if(!COOLDOWN_FINISHED(src, fauna_bomb_cooldown))
-		to_chat(user, "<span class='warning'>[src] is still recharging!</span>")
+		to_chat(user, span_warning("[src] is still recharging!"))
 		return
 
 	COOLDOWN_START(src, fauna_bomb_cooldown, 60 SECONDS)
@@ -23,30 +23,32 @@
 
 /obj/item/grenade/fauna_bomb/prime()
 	active = FALSE
-	var/turf/T = get_turf(src)
-	playsound(T, 'sound/items/rawr.ogg', 100, TRUE)
+	playsound(get_turf(src), 'sound/items/rawr.ogg', 100, TRUE)
 	var/faction = activator.name + "_fauna_bomb"
 	activator.faction |= faction
 	var/list/mob/living/simple_animal/mobs = list()
 
-	var/mob/living/simple_animal/S = pick(/mob/living/simple_animal/hostile/asteroid/hivelord/legion, /mob/living/simple_animal/hostile/asteroid/goliath, /mob/living/simple_animal/hostile/asteroid/marrowweaver)
+	var/mob/living/simple_animal/spawn_mob_type = pick(/mob/living/simple_animal/hostile/asteroid/hivelord/legion, /mob/living/simple_animal/hostile/asteroid/goliath, /mob/living/simple_animal/hostile/asteroid/marrowweaver)
 
 	for(var/i in 1 to amount)
-		var/mob/living/simple_animal/S1 = new S(get_turf(src))
-		mobs.Add(S1)
-		S1.set_leash(activator, 10)
-		S1.faction |= faction
+		var/mob/living/simple_animal/new_mob = new spawn_mob_type(get_turf(src))
+		mobs.Add(new_mob)
+		new_mob.set_leash(activator, 10)
+		new_mob.faction |= faction
 		if(prob(50))
 			for(var/j = 1, j <= rand(1, 3), j++)
-				step(S, pick(NORTH, SOUTH, EAST, WEST))
+				step(new_mob, pick(NORTH, SOUTH, EAST, WEST))
 
 	if(prob(40))
-		to_chat(activator, "<span class='warning'>[src] falls apart!</span>")
+		to_chat(activator, span_warning("[src] falls apart!"))
 		qdel(src)
 
 	sleep(600)
-	for (var/mob/M in mobs)
-		M.dust()
+	for (var/mob/mob in mobs)
+		mob.dust()
+
+/obj/item/grenade/fauna_bomb/update_icon_state()
+	return
 
 /datum/crafting_recipe/fauna_bomb
 	name = "Fauna bomb"

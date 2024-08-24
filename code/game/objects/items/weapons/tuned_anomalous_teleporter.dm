@@ -14,25 +14,25 @@
 	origin_tech = "magnets=3;bluespace=4"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	var/icon_state_inactive = "hand_tele_inactive"
-	var/active_portals = 0
 	/// Variable contains next time hand tele can be used to make it not EMP proof
 	var/emp_timer = 0
-	var/last_use = 0
-	var/cooldown = 200
-	var/tp_range = 5
+	COOLDOWN_DECLARE(tuned_anomalous_teleporter_cooldown) // declare cooldown for teleportations
+	COOLDOWN_DECLARE(emp_cooldown) // declare cooldown for EMP
+	var/base_cooldown = 20 SECONDS // cooldown  for teleportations
+	var/emp_cooldown_min = 10 SECONDS // min cooldown for emp
+	var/emp_cooldown_max = 15 SECONDS // max cooldown for emp
+	var/tp_range = 5 // range of teleportations
 
 /obj/item/tuned_anomalous_teleporter/attack_self(mob/user)
-	if(emp_timer > world.time)
+	if(!COOLDOWN_FINISHED(src, emp_cooldown))
 		do_sparks(5, FALSE, loc)
 		to_chat(user, span_warning("[src] attempts to teleport you, but abruptly shuts off."))
 		return FALSE
-	if (world.time < last_use + cooldown)
-		var/T = (last_use + cooldown - world.time)/10
-		var/msg = "Wait <b>[T]</b> seconds."
-		to_chat(user, span_warning(msg))
+	if(!COOLDOWN_FINISHED(src, tuned_anomalous_teleporter_cooldown))
+		to_chat(user, span_warning("[src] is still recharging."))
 		return FALSE
-	last_use = world.time
+
+	COOLDOWN_START(src, tuned_anomalous_teleporter_cooldown, base_cooldown)
 
 	var/datum/teleport/TP = new /datum/teleport()
 	var/crossdir = angle2dir((dir2angle(user.dir)) % 360)
@@ -50,28 +50,14 @@
 	make_inactive(severity)
 	return ..()
 
-
 /obj/item/tuned_anomalous_teleporter/proc/make_inactive(severity)
-	var/time = rand(10 SECONDS, 15 SECONDS) * (severity == EMP_HEAVY ? 2 : 1)
-	emp_timer = world.time + time
-	update_icon(UPDATE_ICON_STATE)
-	addtimer(CALLBACK(src, PROC_REF(check_inactive), emp_timer), time)
-
-
-/obj/item/tuned_anomalous_teleporter/proc/check_inactive(current_emp_timer)
-	if(emp_timer != current_emp_timer)
-		return
-	update_icon(UPDATE_ICON_STATE)
-
+	var/time = rand(emp_cooldown_min, emp_cooldown_max) * (severity == EMP_HEAVY ? 2 : 1)
+	COOLDOWN_START(src, emp_cooldown, time)
 
 /obj/item/tuned_anomalous_teleporter/examine(mob/user)
 	. = ..()
 	if(emp_timer > world.time)
 		. += span_warning("It looks inactive.")
-
-
-/obj/item/tuned_anomalous_teleporter/update_icon_state()
-	icon_state = (emp_timer > world.time) ? icon_state_inactive : base_icon_state
 
 /datum/crafting_recipe/tuned_anomalous_teleporter
 	name = "Tuned anomalous teleporter"

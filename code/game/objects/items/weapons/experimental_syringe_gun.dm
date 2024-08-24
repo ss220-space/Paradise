@@ -13,16 +13,15 @@
 	var/synth_speed = 5
 	var/bank_size = 100
 
-/obj/item/gun/syringe/rapidsyringe/experimental/Initialize() {
-	..()
+/obj/item/gun/syringe/rapidsyringe/experimental/Initialize()
+	. = ..()
 	START_PROCESSING(SSobj, src)
-}
 
 /obj/item/gun/syringe/rapidsyringe/experimental/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/gun/syringe/rapidsyringe/experimental/attackby(obj/item/A, mob/user, params, show_msg = TRUE)
+/obj/item/gun/syringe/rapidsyringe/experimental/attackby(obj/item/A, mob/user)
 	if(istype(A, /obj/item/reagent_containers/syringe))
 		var/in_clip = length(syringes) + (chambered.BB ? 1 : 0)
 		if(in_clip < max_syringes)
@@ -36,7 +35,7 @@
 			balloon_alert(user, "недостаточно места!")
 			return ATTACK_CHAIN_PROCEED
 	else if(istype(A, /obj/item/reagent_containers/glass))
-		var/obj/item/reagent_containers/glass/RC = A;
+		var/obj/item/reagent_containers/glass/RC = A
 		if (!RC.reagents.reagent_list)
 			return  ..()
 		ready_reagents.reagents.clear_reagents()
@@ -44,6 +43,7 @@
 		RC.reagents.trans_to(ready_reagents, bank_size)
 		ready_reagents.reagents.trans_to(processed_reagents, synth_speed)
 		balloon_alert(user, "синтезируемый набор веществ изменен!")
+		return ATTACK_CHAIN_BLOCKED_ALL
 	else
 		return ..()
 
