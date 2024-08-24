@@ -61,6 +61,7 @@
 	blueprints		= new(src)
 
 /mob/living/silicon/decoy/init_subsystems()
+	law_manager = new(src)
 	return
 
 /mob/living/silicon/robot/init_subsystems()
