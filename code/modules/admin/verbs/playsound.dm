@@ -58,10 +58,10 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 
 	var/ytdl = CONFIG_GET(string/invoke_youtubedl)
 	if(!ytdl)
-		to_chat(src, span_boldwarning("Youtube-dl was not configured, action unavailable"), confidential=TRUE) //Check config.txt for the INVOKE_YOUTUBEDL value
+		to_chat(src, span_boldwarning("yt-dlp was not configured, action unavailable"), confidential=TRUE) //Check config.txt for the INVOKE_YOUTUBEDL value
 		return
 
-	var/web_sound_input = input("Enter content URL (supported sites only, leave blank to stop playing)", "Play Internet Sound via youtube-dl") as text|null
+	var/web_sound_input = input("Enter content URL (supported sites only, leave blank to stop playing)", "Play Internet Sound via yt-dlp") as text|null
 	if(istext(web_sound_input))
 		var/web_sound_path = ""
 		var/web_sound_url = ""
@@ -71,10 +71,10 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 			web_sound_input = trim(web_sound_input)
 			if(findtext(web_sound_input, ":") && !findtext(web_sound_input, GLOB.is_http_protocol))
 				to_chat(src, span_boldwarning("Non-http(s) URIs are not allowed."), confidential=TRUE)
-				to_chat(src, span_warning("For youtube-dl shortcuts like ytsearch: please use the appropriate full url from the website."), confidential=TRUE)
+				to_chat(src, span_warning("For yt-dlp shortcuts like ytsearch: please use the appropriate full url from the website."), confidential=TRUE)
 				return
 			var/shell_scrubbed_input = shell_url_scrub(web_sound_input)
-			var/list/output = world.shelleo("[ytdl] -x --audio-format mp3 --audio-quality 0 --geo-bypass --no-playlist -o cache/songs/%(id)s.%(ext)s --dump-json --no-simulate \"[shell_scrubbed_input]\"")
+			var/list/output = world.shelleo("[ytdl] -x --audio-format mp3 --audio-quality 0 --geo-bypass --no-playlist -o 'cache/songs/%(id)s.%(ext)s' --dump-single-json --no-simulate \"[shell_scrubbed_input]\"")
 			var/errorlevel = output[SHELLEO_ERRORLEVEL]
 			var/stdout = output[SHELLEO_STDOUT]
 			var/stderr = output[SHELLEO_STDERR]
@@ -83,7 +83,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 				try
 					data = json_decode(stdout)
 				catch(var/exception/e)
-					to_chat(src, span_boldwarning("Youtube-dl JSON parsing FAILED:"), confidential=TRUE)
+					to_chat(src, span_boldwarning("yt-dlp JSON parsing FAILED:"), confidential=TRUE)
 					to_chat(src, span_warning("[e]: [stdout]"), confidential=TRUE)
 					return
 
@@ -117,7 +117,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 					log_admin("[key_name(src)] played web sound: [web_sound_input]")
 					message_admins("[key_name(src)] played web sound: [web_sound_input]")
 			else
-				to_chat(src, span_boldwarning("Youtube-dl URL retrieval FAILED:"), confidential=TRUE)
+				to_chat(src, span_boldwarning("yt-dlp URL retrieval FAILED:"), confidential=TRUE)
 				to_chat(src, span_warning("[stderr]"), confidential=TRUE)
 
 		else //pressed ok with blank
@@ -134,19 +134,21 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 				if(C.prefs.toggles & SOUND_MIDI)
 					C.tgui_panel?.stop_music()
 		else
-			var/datum/asset/music/my_asset
-			if(GLOB.cached_songs[web_sound_path])
-				my_asset = GLOB.cached_songs[web_sound_path]
-			else
-				my_asset = new /datum/asset/music(web_sound_path)
-				GLOB.cached_songs[web_sound_path] = my_asset
-
-			var/url = my_asset.get_url()
+			var/url = web_sound_url
+			switch(CONFIG_GET(string/asset_transport))
+				if ("webroot")
+					var/datum/asset/music/my_asset
+					if(GLOB.cached_songs[web_sound_path])
+						my_asset = GLOB.cached_songs[web_sound_path]
+					else
+						my_asset = new /datum/asset/music(web_sound_path)
+						GLOB.cached_songs[web_sound_path] = my_asset
+					url = my_asset.get_url()
 
 			for(var/m in GLOB.player_list)
 				var/mob/M = m
 				var/client/C = M.client
-				if(C.prefs.toggles & SOUND_MIDI)
+				if(C.prefs.sound & SOUND_MIDI)
 					C.tgui_panel?.play_music(url, music_extra_data)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Internet Sound")

@@ -402,11 +402,11 @@ SUBSYSTEM_DEF(ticker)
 
 	var/ytdl = CONFIG_GET(string/invoke_youtubedl)
 	if(!ytdl)
-		to_chat(world, span_boldwarning("Youtube-dl was not configured."))
-		log_world("Could not play lobby song because youtube-dl is not configured properly, check the config.")
+		to_chat(world, span_boldwarning("yt-dlp was not configured."))
+		log_world("Could not play lobby song because yt-dlp is not configured properly, check the config.")
 		return
 
-	var/list/output = world.shelleo("[ytdl] -x --audio-format mp3 --audio-quality 0 --geo-bypass --no-playlist -o cache/songs/%(id)s.%(ext)s --dump-json --no-simulate \"[selected_lobby_music]\"")
+	var/list/output = world.shelleo("[ytdl] -x --audio-format mp3 --audio-quality 0 --geo-bypass --no-playlist -o 'cache/songs/%(id)s.%(ext)s' --dump-single-json --no-simulate \"[selected_lobby_music]\"")
 	var/errorlevel = output[SHELLEO_ERRORLEVEL]
 	var/stdout = output[SHELLEO_STDOUT]
 	var/stderr = output[SHELLEO_STDERR]
@@ -416,16 +416,19 @@ SUBSYSTEM_DEF(ticker)
 		try
 			data = json_decode(stdout)
 		catch(var/exception/e)
-			to_chat(world, span_boldwarning("Youtube-dl JSON parsing FAILED."))
-			log_world(span_boldwarning("Youtube-dl JSON parsing FAILED:"))
+			to_chat(world, span_boldwarning("yt-dlp JSON parsing FAILED."))
+			log_world(span_boldwarning("yt-dlp JSON parsing FAILED:"))
 			log_world(span_warning("[e]: [stdout]"))
 			return
 		if(data["title"])
 			login_music_data["title"] = data["title"]
-			login_music_data["id"] = "cache/songs/[data["id"]].mp3"
+			login_music_data["url"] = data["url"]
+			login_music_data["link"] = data["webpage_url"]
+			login_music_data["path"] = "cache/songs/[data["id"]].mp3"
+			login_music_data["title_link"] = data["webpage_url"] ? "<a href=\"[data["webpage_url"]]\">[data["title"]]</a>" : data["title"]
 
 	if(errorlevel)
-		to_chat(world, span_boldwarning("Youtube-dl failed."))
+		to_chat(world, span_boldwarning("yt-dlp failed."))
 		log_world("Could not play lobby song [selected_lobby_music]: [stderr]")
 		return
 	return stdout

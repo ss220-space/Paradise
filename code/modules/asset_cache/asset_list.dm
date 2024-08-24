@@ -532,10 +532,10 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	_abstract = /datum/asset/music
 	var/item_filename
 
-/datum/asset/music/New(date)
-	item_filename = sanitize_filename(date)
-	SSassets.transport.register_asset(item_filename, file(date))
-	fdel(date)
+/datum/asset/music/New(path)
+	item_filename = sanitize_filename(path)
+	SSassets.transport.register_asset(item_filename, file(path))
+	fdel(path)
 
 /datum/asset/music/send(client)
 	if(!item_filename)
