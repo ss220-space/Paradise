@@ -228,9 +228,9 @@
 	return FALSE
 
 
-/obj/item/ammo_box/proc/ammo_suitability(obj/item/ammo_casing/bullet)
+/obj/item/ammo_box/proc/ammo_suitability(obj/item/ammo_casing/new_casing)
 	// Boxes don't have a caliber type, magazines do. Not sure if it's intended or not, but if we fail to find a caliber, then we fall back to ammo_type.
-	if(!bullet || (caliber && bullet.caliber != caliber) || (!caliber && bullet.type != ammo_type))
+	if(!new_casing || (caliber && new_casing.caliber != caliber) || (!caliber && new_casing.type != ammo_type))
 		return FALSE
 	return TRUE
 

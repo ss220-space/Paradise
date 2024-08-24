@@ -41,7 +41,7 @@
 		to_chat(user, span_warning("How do you suggest handcuffing someone with no hands?"))
 		return .
 
-	if(!ignoresClumsy && (CLUMSY in user.mutations) && prob(50))
+	if(!ignoresClumsy && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		playsound(loc, cuffsound, 30, TRUE, -2)
 		to_chat(user, span_warning("Uh... how do those things work?!"))
 		apply_cuffs(user, user)

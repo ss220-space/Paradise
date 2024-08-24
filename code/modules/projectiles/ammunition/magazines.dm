@@ -16,6 +16,13 @@
 	max_ammo = 7
 
 
+/obj/item/ammo_box/magazine/internal/cylinder/Initialize(mapload)
+	. = ..()
+	if(start_empty)
+		for(var/i in 1 to max_ammo)
+			stored_ammo += null	// thats right, we fill empty cylinders with nulls
+
+
 /obj/item/ammo_box/magazine/internal/cylinder/ammo_count(countempties = TRUE)
 	. = 0
 	for(var/obj/item/ammo_casing/bullet in stored_ammo)
@@ -104,10 +111,11 @@
 	max_ammo = 4
 
 
-/obj/item/ammo_box/magazine/internal/cylinder/improvised/ammo_suitability(obj/item/ammo_casing/bullet)
-	if(!bullet || !(bullet.caliber in caliber))
+/obj/item/ammo_box/magazine/internal/cylinder/improvised/ammo_suitability(obj/item/ammo_casing/new_casing)
+	if(!new_casing || !(new_casing.caliber in caliber))
 		return FALSE
 	return TRUE
+
 
 /obj/item/ammo_box/magazine/internal/cylinder/improvised/steel
 	name = "steel bullet cylinder"
@@ -656,14 +664,15 @@
 /obj/item/ammo_box/magazine/lr30mag
 	name = "small encased laser projector magazine"
 	desc = "Fits experimental laser ammo casings."
-	icon_state = "lmag-12"
+	icon_state = "lmag"
 	ammo_type = /obj/item/ammo_casing/laser
 	origin_tech = "combat=3"
 	caliber = "laser"
 	max_ammo = 20
 
+
 /obj/item/ammo_box/magazine/lr30mag/update_icon_state()
-	icon_state = "lmag-[round(ammo_count(),3)]"
+	icon_state = "lmag-[CEILING(ammo_count(), 5)]"
 
 
 /obj/item/ammo_box/magazine/toy/smgm45/riot

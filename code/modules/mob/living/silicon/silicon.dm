@@ -63,6 +63,8 @@
 	QDEL_NULL(crew_monitor)
 	QDEL_NULL(law_manager)
 	QDEL_NULL(power_monitor)
+	QDEL_NULL(gps)
+	QDEL_NULL(blueprints)
 	return ..()
 
 /mob/living/silicon/proc/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)

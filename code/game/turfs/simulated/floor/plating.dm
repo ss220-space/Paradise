@@ -201,7 +201,7 @@
 
 /turf/simulated/floor/engine/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || istype(src, /turf/simulated/floor/engine))
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || !istype(src, /turf/simulated/floor/engine))
 		return .
 	make_plating(make_floor_tile = FALSE, force = TRUE)
 	var/obj/item/stack/rods/rods = new(src, 2)

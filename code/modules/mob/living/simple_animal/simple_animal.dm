@@ -310,7 +310,7 @@
 
 	var/areatemp = get_temperature(environment)
 
-	if(abs(areatemp - bodytemperature) > 5 && !(BREATHLESS in mutations))
+	if(abs(areatemp - bodytemperature) > 5 && !HAS_TRAIT(src, TRAIT_NO_BREATH))
 		var/diff = areatemp - bodytemperature
 		diff = diff / 5
 		adjust_bodytemperature(diff)

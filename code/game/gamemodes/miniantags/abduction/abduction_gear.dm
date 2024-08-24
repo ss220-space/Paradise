@@ -764,16 +764,24 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/stack/sheet/mineral/abductor) || istype(I, /obj/item/stack/sheet/mineral/silver))
+	var/alien_material = istype(I, /obj/item/stack/sheet/mineral/abductor)
+	if(alien_material || istype(I, /obj/item/stack/sheet/mineral/silver))
 		add_fingerprint(user)
 		var/obj/item/stack/sheet/mineral/mineral = I
 		if(mineral.get_amount() < 1)
 			to_chat(user, span_warning("You need one sheet of [mineral] to do this!"))
 			return ATTACK_CHAIN_PROCEED
 		to_chat(user, span_notice("You start adding [mineral] to [src]..."))
-		if(!do_after(user, 5 SECONDS, src) || QDELETED(mineral) || !mineral.use(1))
+		if(!do_after(user, 5 SECONDS * mineral.toolspeed, src, category = DA_CAT_TOOL) || QDELETED(mineral) || !mineral.use(1))
 			return ATTACK_CHAIN_PROCEED
-		new /obj/structure/table/abductor(loc)
+		var/obj/new_table
+		if(alien_material)
+			new_table = new /obj/structure/table/abductor(loc)
+		else
+			new_table = new /obj/machinery/optable/abductor(loc)
+		to_chat(user, span_notice("You have completed the construction of [new_table]."))
+		transfer_fingerprints_to(new_table)
+		new_table.add_fingerprint(user)
 		qdel(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -797,6 +805,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 
 /obj/machinery/optable/abductor
+	name = "alien operating table"
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "bed"
 	no_icon_updates = 1 //no icon updates for this; it's static.

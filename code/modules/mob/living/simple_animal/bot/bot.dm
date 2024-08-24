@@ -405,7 +405,7 @@
 	if(user.a_intent == INTENT_HARM)	// NOT IN COMBAT
 		return ..()
 
-	if(I.GetID())
+	if(I.GetID() || is_pda(I))
 		add_fingerprint(user)
 		if(emagged)
 			to_chat(user, span_danger("ERROR##?"))

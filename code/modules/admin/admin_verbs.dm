@@ -82,6 +82,7 @@ GLOBAL_LIST_INIT(admin_verbs_sounds, list(
 	/client/proc/play_server_sound,
 	/client/proc/play_intercomm_sound,
 	/client/proc/stop_global_admin_sounds,
+	/client/proc/play_web_sound,
 ))
 GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/secrets,
@@ -734,7 +735,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			logmsg = "starvation."
 		if("Cluwne")
 			H.makeCluwne()
-			H.mutations |= NOCLONE
+			ADD_TRAIT(H, TRAIT_NO_CLONE, ADMIN_TRAIT)
 			logmsg = "cluwned."
 		if("Mutagen Cookie")
 			var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
@@ -757,7 +758,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			H.equip_to_slot_or_del(evilcookie, ITEM_SLOT_HAND_LEFT)
 			logmsg = "a hellwater cookie."
 		if("Hunter")
-			H.mutations |= NOCLONE
+			ADD_TRAIT(H, TRAIT_NO_CLONE, ADMIN_TRAIT)
 			usr.client.create_eventmob_for(H, 1)
 			logmsg = "hunter."
 		if("Crew Traitor")

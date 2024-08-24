@@ -89,8 +89,8 @@
 	taste_description = "mint"
 
 /datum/reagent/minttoxin/on_mob_life(mob/living/M)
-	if(FAT in M.mutations)
-		M.gib()
+	if(HAS_TRAIT(M, TRAIT_FAT) && M.gib())
+		return STATUS_UPDATE_NONE
 	return ..()
 
 /datum/reagent/slimejelly

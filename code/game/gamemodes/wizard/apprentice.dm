@@ -423,13 +423,13 @@
 /datum/magick_school/vision/kit()
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/trigger/blind(null))
 	owner.equip_or_collect(new /obj/item/scrying(owner), ITEM_SLOT_HAND_RIGHT)
-	//Выдаем трейты ОРБа
-	if(!(XRAY in owner.mutations))
-		owner.mutations.Add(XRAY)
-		owner.add_sight(SEE_MOBS|SEE_OBJS|SEE_TURFS)
-		owner.nightvision = 8
+	if(!HAS_TRAIT_FROM(owner, TRAIT_XRAY, SCRYING_ORB_TRAIT))
+		ADD_TRAIT(owner, TRAIT_XRAY, SCRYING_ORB_TRAIT)
+		owner.see_in_dark = 8
 		owner.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-		to_chat(owner, "<span class='notice'>The walls suddenly disappear.</span>")
+		owner.update_sight()
+		owner.update_misc_effects()
+		to_chat(owner, span_notice("The walls suddenly disappear."))
 
 	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/visionmage(owner), ITEM_SLOT_CLOTH_OUTER)
 	owner.equip_or_collect(new /obj/item/clothing/head/wizard/visionmage(owner), ITEM_SLOT_HEAD)
