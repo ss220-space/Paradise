@@ -148,7 +148,7 @@
 	if(tank && !tank.air_contents.remove(gasPerThrow * pressure_setting))
 		to_chat(user, span_warning("[src] lets out a weak hiss and doesn't react!"))
 		return
-	if(user && (CLUMSY in user.mutations) && prob(75))
+	if(user && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(75))
 		user.visible_message(span_warning("[user] loses [user.p_their()] grip on [src], causing it to go off!"), span_userdanger("[src] slips out of your hands and goes off!"))
 		user.drop_from_active_hand()
 		if(prob(10))

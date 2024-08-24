@@ -131,7 +131,7 @@
 
 	if(is_hot(I))
 		add_fingerprint(user)
-		if((CLUMSY in user.mutations) && prob(10))
+		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message(
 				span_warning("[user] accidentally ignites [user.p_them()]self!"),
 				span_userdanger("You miss shredded paper and accidentally light yourself on fire!"),
