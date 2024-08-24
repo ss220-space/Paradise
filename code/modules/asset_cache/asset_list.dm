@@ -116,6 +116,12 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	for(var/asset_name in assets)
 		.[asset_name] = SSassets.transport.get_asset_url(asset_name, assets[asset_name])
 
+/datum/asset/simple/music
+	legacy = TRUE
+	keep_local_name = TRUE
+
+/datum/asset/simple/music/New()
+	GLOB.asset_datums[type] = src
 
 /// For registering or sending multiple others at once
 /datum/asset/group
@@ -521,6 +527,25 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	if (!item_filename)
 		return
 	. = list("[item_filename]" = SSassets.transport.get_asset_url(item_filename))
+
+/datum/asset/music
+	_abstract = /datum/asset/music
+	var/item_filename
+
+/datum/asset/music/New(path)
+	item_filename = sanitize_filename(path)
+	SSassets.transport.register_asset(item_filename, file(path))
+	fdel(path)
+
+/datum/asset/music/send(client)
+	if(!item_filename)
+		return
+	. = SSassets.transport.send_assets(client, item_filename)
+
+/datum/asset/music/proc/get_url()
+	if(!item_filename)
+		return
+	. = url_decode(SSassets.transport.get_asset_url(item_filename))
 
 /datum/asset/spritesheet/simple
 	_abstract = /datum/asset/spritesheet/simple
