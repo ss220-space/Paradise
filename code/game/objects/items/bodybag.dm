@@ -253,19 +253,18 @@
 
 	return TRUE
 
+
 /obj/structure/closet/body_bag/bluespace/perform_fold(mob/living/carbon/human/the_folder)
 	visible_message(span_notice("[the_folder] folds up [src]."))
 	var/obj/item/bodybag/folding_bodybag = new foldedbag_path
 	var/max_weight_of_contents = initial(folding_bodybag.w_class)
-	for(var/atom/movable/content in contents)
+	for(var/atom/movable/content as anything in contents)
 		content.forceMove(folding_bodybag)
 		if(isliving(content))
 			to_chat(content, span_userdanger("You're suddenly forced into a tiny, compressed space!"))
-		if(ishuman(content))
-			var/mob/living/carbon/human/mob = content
-			if(DWARF in mob.mutations)
-				max_weight_of_contents = max(WEIGHT_CLASS_NORMAL, max_weight_of_contents)
-				continue
+		if(HAS_TRAIT(content, TRAIT_DWARF))
+			max_weight_of_contents = max(WEIGHT_CLASS_NORMAL, max_weight_of_contents)
+			continue
 		if(!isitem(content))
 			max_weight_of_contents = max(WEIGHT_CLASS_BULKY, max_weight_of_contents)
 			continue

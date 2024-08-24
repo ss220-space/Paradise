@@ -672,7 +672,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
  */
 /obj/item/proc/item_action_slot_check(slot, mob/user, datum/action/action)
 	//these aren't true slots, so avoid granting actions there
-	if(slot & (ITEM_SLOT_BACKPACK|ITEM_SLOT_LEGCUFFED|ITEM_SLOT_HANDCUFFED|ITEM_SLOT_ACCESSORY))
+	if(slot & (ITEM_SLOT_BACKPACK|ITEM_SLOT_LEGCUFFED|ITEM_SLOT_HANDCUFFED))
 		return FALSE
 	return TRUE
 

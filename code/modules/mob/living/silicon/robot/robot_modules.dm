@@ -382,9 +382,6 @@
 
 	fix_modules()
 
-/obj/item/robot_module/security/update_cells(unlink_cell = FALSE)
-	var/obj/item/melee/baton/security/baton = locate() in modules
-	baton?.link_new_cell(unlink_cell)
 
 /obj/item/robot_module/janitor
 	name = "Janitor"
@@ -597,7 +594,7 @@
 	modules += new /obj/item/crowbar(src)
 	modules += new /obj/item/gripper/nuclear(src)
 	modules += new /obj/item/pinpointer(src)
-	emag = null
+	emag = new /obj/item/gun/energy/pulse/destroyer/annihilator(src)
 
 	fix_modules()
 
@@ -720,6 +717,7 @@
 	channels = list("Security" = 1)
 	default_skin = "droidcombat"
 	borg_skins = list("Destroyer" = "droidcombat")
+	has_transform_animation = TRUE
 
 /obj/item/robot_module/destroyer/New()
 	..()
@@ -732,7 +730,7 @@
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/gripper/nuclear(src)
 	modules += new /obj/item/pinpointer(src)
-	emag = null
+	emag = new /obj/item/gun/energy/pulse/destroyer/annihilator(src)
 	fix_modules()
 
 
@@ -1054,5 +1052,6 @@
  * * unlink_cell - If TRUE, set the item's power cell variable to `null` rather than linking it to a new one.
  */
 /obj/item/robot_module/proc/update_cells(unlink_cell = FALSE)
-	return
+	for(var/obj/item/melee/baton/security/baton in modules)
+		baton.link_new_cell(unlink_cell)
 

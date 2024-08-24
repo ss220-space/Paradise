@@ -199,11 +199,11 @@
 	name = "Space Explorer REAL_NAME"
 	desc = "That's one small step for a corgi. One giant yap for corgikind."
 
-/datum/dog_fashion/back/hardsuit/apply(mob/living/simple_animal/pet/dog/D)
+/datum/dog_fashion/back/hardsuit/apply(mob/living/simple_animal/pet/dog/doggo)
 	..()
-	D.mutations.Add(BREATHLESS)
-	D.atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	D.minbodytemp = 0
+	ADD_TRAIT(doggo, TRAIT_NO_BREATH, CORGI_HARDSUIT_TRAIT)
+	doggo.atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	doggo.minbodytemp = 0
 
 /datum/dog_fashion/head/fried_vox_empty
 	name = "Colonel REAL_NAME"

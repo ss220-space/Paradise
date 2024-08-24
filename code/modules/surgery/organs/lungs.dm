@@ -270,7 +270,7 @@
 	if(H && H.dna.species && H.dna.species.species_traits)
 		species_traits = H.dna.species.species_traits
 
-	if(!(COLDRES in H.mutations) && !(RESISTCOLD in species_traits)) // COLD DAMAGE
+	if(!HAS_TRAIT(H, TRAIT_RESIST_COLD) && !(RESISTCOLD in species_traits)) // COLD DAMAGE
 		var/CM = abs(H.dna.species.coldmod * H.physiology.cold_mod)
 		var/TC = 0
 		if(breath_temperature < cold_level_3_threshold)
@@ -286,7 +286,7 @@
 			if(prob(20))
 				to_chat(H, span_warning("You feel [cold_message] in your [name]!"))
 
-	if(!(HEATRES in H.mutations) && !(RESISTHOT in species_traits)) // HEAT DAMAGE
+	if(!HAS_TRAIT(H, TRAIT_RESIST_HEAT) && !(RESISTHOT in species_traits)) // HEAT DAMAGE
 		var/HM = abs(H.dna.species.heatmod * H.physiology.heat_mod)
 		var/TH = 0
 		if(breath_temperature > heat_level_1_threshold && breath_temperature < heat_level_2_threshold)
