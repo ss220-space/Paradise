@@ -42,13 +42,29 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	/// Disable this if your asset can change between rounds on the same exact version of the code.
 	var/cross_round_cachable = FALSE
 
-
 /datum/asset/New()
 	GLOB.asset_datums[type] = src
 	register()
 
+/// Stub that allows us to react to something trying to get us
+/// Not useful here, more handy for sprite sheets
+/datum/asset/proc/ensure_ready()
+	return src
+
+/// Stub to hook into if your asset is having its generation queued by SSasset_loading
+/datum/asset/proc/queued_generation()
+	CRASH("[type] inserted into SSasset_loading despite not implementing /proc/queued_generation")
+
 /datum/asset/proc/get_url_mappings()
 	return list()
+
+/// Returns a cached tgui message of URL mappings
+/datum/asset/proc/get_serialized_url_mappings()
+	if(isnull(cached_serialized_url_mappings) || cached_serialized_url_mappings_transport_type != SSassets.transport.type)
+		cached_serialized_url_mappings = TGUI_CREATE_MESSAGE("asset/mappings", get_url_mappings())
+		cached_serialized_url_mappings_transport_type = SSassets.transport.type
+
+	return cached_serialized_url_mappings
 
 /datum/asset/proc/register()
 	return
@@ -67,21 +83,15 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	fdel(asset_path) // just in case, sadly we can't use rust_g stuff here.
 	fcopy(file_location, asset_path)
 
-/// Stub that allows us to react to something trying to get us
-/// Not useful here, more handy for sprite sheets
-/datum/asset/proc/ensure_ready()
-	return src
-
-/// Stub to hook into if your asset is having its generation queued by SSasset_loading
-/datum/asset/proc/queued_generation()
-	CRASH("[type] inserted into SSasset_loading despite not implementing /proc/queued_generation")
-
 /// If you don't need anything complicated.
 /datum/asset/simple
 	_abstract = /datum/asset/simple
-	/// List of assets for this datum in the form of asset_filename = asset_file. At runtime the asset_file will be converted into a asset_cache datum
+	/// list of assets for this datum in the form of:
+	/// asset_filename = asset_file. At runtime the asset_file will be
+	/// converted into a asset_cache datum.
 	var/assets = list()
-	/// Set to true to have this asset also be sent via browse_rsc when cdn asset transports are enabled
+	/// Set to true to have this asset also be sent via the legacy browse_rsc
+	/// system when cdn transports are enabled?
 	var/legacy = FALSE
 	/// TRUE for keeping local asset names when browse_rsc backend is used
 	var/keep_local_name = FALSE
@@ -104,9 +114,6 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /datum/asset/simple/get_url_mappings()
 	. = list()
 	for(var/asset_name in assets)
-		var/datum/asset_cache_item/ACI = assets[asset_name]
-		if(!ACI)
-			continue
 		.[asset_name] = SSassets.transport.get_asset_url(asset_name, assets[asset_name])
 
 
@@ -129,14 +136,6 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	for(var/type in children)
 		var/datum/asset/A = get_asset_datum(type)
 		. += A.get_url_mappings()
-
-/// Returns a cached tgui message of URL mappings
-/datum/asset/proc/get_serialized_url_mappings()
-	if(isnull(cached_serialized_url_mappings) || cached_serialized_url_mappings_transport_type != SSassets.transport.type)
-		cached_serialized_url_mappings = TGUI_CREATE_MESSAGE("asset/mappings", get_url_mappings())
-		cached_serialized_url_mappings_transport_type = SSassets.transport.type
-
-	return cached_serialized_url_mappings
 
 // spritesheet implementation - coalesces various icons into a single .png file
 // and uses CSS to select icons out of that file - saves on transferring some
@@ -181,7 +180,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 	if(isnull(should_refresh))
 		// `fexists` seems to always fail on static-time
-		should_refresh = !fexists("[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[name].css")
+		should_refresh = !fexists(css_cache_filename()) || !fexists(data_cache_filename())
 
 	return should_refresh
 
@@ -192,6 +191,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		CRASH("spritesheet [type] cannot register without a name")
 
 	if(!should_refresh() && read_from_cache())
+		fully_generated = TRUE
 		return
 
 	// If it's cached, may as well load it now, while the loading is cheap
@@ -203,9 +203,6 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		realize_spritesheets(yield = FALSE)
 	else
 		SSasset_loading.queue_asset(src)
-
-	if(CONFIG_GET(flag/cache_assets) && cross_round_cachable)
-		write_to_cache()
 
 /datum/asset/spritesheet/proc/realize_spritesheets(yield)
 	if(fully_generated)
@@ -315,8 +312,17 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 	return out.Join("\n")
 
+/datum/asset/spritesheet/proc/css_cache_filename()
+	return "[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[name].css"
+
+/datum/asset/spritesheet/proc/data_cache_filename()
+	return "[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[name].json"
+
 /datum/asset/spritesheet/proc/read_from_cache()
-	var/replaced_css = file2text("[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[name].css")
+	return read_css_from_cache() && read_data_from_cache()
+
+/datum/asset/spritesheet/proc/read_css_from_cache()
+	var/replaced_css = file2text(css_cache_filename())
 
 	var/regex/find_background_urls = regex(@"background:url\('%(.+?)%'\)", "g")
 	while (find_background_urls.Find(replaced_css))
@@ -338,6 +344,14 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 	return TRUE
 
+/datum/asset/spritesheet/proc/read_data_from_cache()
+	var/json = json_decode(file2text(data_cache_filename()))
+
+	if (islist(json["sprites"]))
+		sprites = json["sprites"]
+
+	return TRUE
+
 /datum/asset/spritesheet/proc/send_from_cache(client/client)
 	if (isnull(cached_spritesheets_needed))
 		stack_trace("cached_spritesheets_needed was null when sending assets from [type] from cache")
@@ -353,6 +367,10 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		return SSassets.transport.get_asset_url(asset)
 
 /datum/asset/spritesheet/proc/write_to_cache()
+	write_css_to_cache()
+	write_data_to_cache()
+
+/datum/asset/spritesheet/proc/write_css_to_cache()
 	for (var/size_id in sizes)
 		fcopy(SSassets.cache["[name]_[size_id].png"].resource, "[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[name]_[size_id].png")
 
@@ -360,7 +378,12 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/mock_css = generate_css()
 	generating_cache = FALSE
 
-	rustg_file_write(mock_css, "[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[name].css", "false")
+	rustg_file_write(mock_css, css_cache_filename(), "false")
+
+/datum/asset/spritesheet/proc/write_data_to_cache()
+	rustg_file_write(json_encode(list(
+		"sprites" = sprites,
+	)), data_cache_filename(), "false")
 
 /datum/asset/spritesheet/proc/get_cached_url_mappings()
 	var/list/mappings = list()
@@ -480,12 +503,13 @@ GLOBAL_LIST_EMPTY(asset_datums)
 #undef SPRSZ_ICON
 #undef SPRSZ_STRIPPED
 
+
 /datum/asset/changelog_item
 	_abstract = /datum/asset/changelog_item
 	var/item_filename
 
 /datum/asset/changelog_item/New(date)
-	item_filename = sanitize_filename("[date].yml")
+	item_filename = SANITIZE_FILENAME("[date].yml")
 	SSassets.transport.register_asset(item_filename, file("html/changelogs/archive/" + item_filename))
 
 /datum/asset/changelog_item/send(client)
@@ -527,7 +551,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 				continue
 			asset = fcopy_rsc(asset) //dedupe
 			var/prefix2 = (length(directions) > 1) ? "[dir2text(direction)]." : ""
-			var/asset_name = "[prefix].[prefix2][icon_state_name].png"
+			var/asset_name = SANITIZE_FILENAME("[prefix].[prefix2][icon_state_name].png")
 			if(generic_icon_names)
 				asset_name = "[GENERATE_ASSET_NAME(asset)].png"
 
