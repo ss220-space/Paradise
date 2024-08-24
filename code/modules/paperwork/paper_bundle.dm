@@ -44,7 +44,7 @@
 		if(!Adjacent(user)) //to prevent issues as a result of telepathically lighting a paper bundles
 			return ATTACK_CHAIN_BLOCKED_ALL
 
-		if((CLUMSY in user.mutations) && prob(10))
+		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message(
 				span_warning("[user] accidentally ignites [user.p_them()]self!"),
 				span_userdanger("You miss the paper and accidentally light yourself on fire!"),

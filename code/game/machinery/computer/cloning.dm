@@ -464,7 +464,7 @@
 		set_scan_temp(emagged ? "Prey's brain is in pristine condition. Further attempts not needed." : "Subject's brain is not responding. Further attempts after a short delay may succeed.", emagged ? "good" : "bad")
 		SStgui.update_uis(src)
 		return
-	if((NOCLONE in subject.mutations) && src.scanner.scan_level < 2)
+	if(HAS_TRAIT(subject, TRAIT_NO_CLONE) && scanner.scan_level < 2)
 		set_scan_temp(emagged ? "Prey has a too perfect body. Cry about it" : "Subject has incompatible genetic mutations.", emagged ? "good" : "bad")
 		SStgui.update_uis(src)
 		return

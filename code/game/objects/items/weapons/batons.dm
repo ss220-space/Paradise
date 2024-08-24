@@ -179,7 +179,7 @@
 
 
 /obj/item/melee/baton/proc/clumsy_check(mob/living/user, mob/living/intented_target)
-	if(!active || !(CLUMSY in user.mutations) || prob(50))
+	if(!active || !HAS_TRAIT(user, TRAIT_CLUMSY) || prob(50))
 		return FALSE
 	user.visible_message(
 		span_danger("[user] accidentally hits [user.p_them()]self over the head with [src]! What a doofus!"),
