@@ -416,8 +416,9 @@ SUBSYSTEM_DEF(ticker)
 		try
 			data = json_decode(stdout)
 		catch(var/exception/e)
-			to_chat(src, span_boldwarning("Youtube-dl JSON parsing FAILED:"), confidential=TRUE)
-			to_chat(src, span_warning("[e]: [stdout]"), confidential=TRUE)
+			to_chat(world, span_boldwarning("Youtube-dl JSON parsing FAILED."))
+			log_world(span_boldwarning("Youtube-dl JSON parsing FAILED:"))
+			log_world(span_warning("[e]: [stdout]"))
 			return
 		if(data["title"])
 			login_music_data["title"] = data["title"]
