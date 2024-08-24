@@ -2503,7 +2503,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if((sound & SOUND_LOBBY) && user.client)
 						user.client.playtitlemusic()
 					else
-						user.stop_sound_channel(CHANNEL_LOBBYMUSIC)
+						// user.stop_sound_channel(CHANNEL_LOBBYMUSIC)
+						user.client?.tgui_panel?.stop_music()
 
 				if("ghost_ears")
 					toggles ^= PREFTOGGLE_CHAT_GHOSTEARS
