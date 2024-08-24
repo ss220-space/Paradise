@@ -483,14 +483,14 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/stamp))
-		if(loc != user && !istype(loc, /obj/item/clipboard) && loc.loc != user)
+		if(!Adjacent(user, recurse = 2))
 			return ATTACK_CHAIN_PROCEED
 		add_fingerprint(user)
 		if(istype(I, /obj/item/stamp/clown) && (user.mind && (user.mind.assigned_role != JOB_TITLE_CLOWN)))
 			to_chat(user, span_userdanger("You are totally unable to use the stamp. HONK!"))
 			return ATTACK_CHAIN_PROCEED
 		stamp(I)
-		to_chat(user, span_notice("You stamp the paper with [I]."))
+		to_chat(user, span_notice("You have stamped the paper with [I]."))
 		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, TRUE)
 		return ATTACK_CHAIN_PROCEED
 
