@@ -35,12 +35,12 @@
 /obj/item/reagent_containers/food/snacks/dry_coco/attackby(obj/item/W, mob/user, params)
 	if(is_sharp(W))
 		if(isturf(loc))
-			to_chat(user, "<span class='notice'>You crack [src].</span>")
+			to_chat(user, span_notice("You crack [src]."))
 			new /obj/item/reagent_containers/food/snacks/piece_coconut(loc)
 			new /obj/item/reagent_containers/food/snacks/piece_coconut(loc)
 			qdel(src)
 		else
-			to_chat(user, "<span class='notice'>You need to put [src] on a surface to roll it out!</span>")
+			to_chat(user, span_notice("You need to put [src] on a surface to roll it out!"))
 	else
 		return ..()
 

@@ -250,11 +250,11 @@
 	if(istype(I, /obj/item/reagent_containers/food/snacks/piece_coconut))
 		if(isturf(loc))
 			new /obj/item/reagent_containers/food/snacks/rawcookies/cocochips(loc)
-			to_chat(user, "<span class='notice'>You sprinkle [I] all over the cookies.</span>")
+			to_chat(user, span_notice("You sprinkle [I] all over the cookies."))
 			qdel(src)
 			qdel(I)
 		else
-			to_chat(user, "<span class='notice'>You need to put [src] on a surface to add this</span>")
+			to_chat(user, span_notice("You need to put [src] on a surface to add this."))
 	else
 		return ..()
 
