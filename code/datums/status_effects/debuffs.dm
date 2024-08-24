@@ -541,6 +541,9 @@
 			liver_multiplier = L.alcohol_intensity
 		actual_strength *= liver_multiplier
 
+	if(HAS_TRAIT(owner, TRAIT_SOBER))
+		actual_strength *= 0.5	// you can resist the effects of the alcohol twice as good
+
 	// THRESHOLD_SLUR (60 SECONDS)
 	if(actual_strength >= THRESHOLD_SLUR)
 		owner.Slur(actual_strength)
@@ -959,7 +962,7 @@
 /datum/status_effect/transient/blindness/calc_decay()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		if((BLINDNESS in H.mutations))
+		if(HAS_TRAIT(H, TRAIT_BLIND))
 			return 0
 
 		var/obj/item/organ/vision = H.dna?.species?.get_vision_organ(H)

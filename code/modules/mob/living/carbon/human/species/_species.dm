@@ -318,9 +318,10 @@
 	target.recalculate_limbs_status()
 
 
-/datum/species/proc/breathe(mob/living/carbon/human/H)
-	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
+/datum/species/proc/breathe(mob/living/carbon/human/user)
+	if((NO_BREATHE in species_traits) || HAS_TRAIT(user, TRAIT_NO_BREATH))
 		return TRUE
+	return FALSE
 
 
 /datum/species/proc/on_species_gain(mob/living/carbon/human/H) //Handles anything not already covered by basic species assignment.
@@ -435,7 +436,7 @@
 // (Slime People changing color based on the reagents they consume)
 /datum/species/proc/handle_life(mob/living/carbon/human/H)
 	var/regenerate = TRUE
-	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
+	if((NO_BREATHE in species_traits) || HAS_TRAIT(H, TRAIT_NO_BREATH))
 		var/takes_crit_damage = (!(NOCRITDAMAGE in species_traits))
 		if((H.health <= HEALTH_THRESHOLD_CRIT) && takes_crit_damage)
 			regenerate = FALSE
@@ -503,7 +504,7 @@
 		if(target.mind && (target.mind.has_antag_datum(/datum/antagonist/vampire) || target.mind.has_antag_datum(/datum/antagonist/mindslave/thrall)))
 			to_chat(user, "<span class='warning'>Your fangs fail to pierce [target.name]'s cold flesh</span>")
 			return
-		if(SKELETON in target.mutations)
+		if(HAS_TRAIT(target, TRAIT_SKELETON))
 			to_chat(user, "<span class='warning'>There is no blood in a skeleton!</span>")
 			return
 		//we're good to suck the blood, blaah
@@ -520,7 +521,7 @@
 		if(target.mind?.has_antag_datum(/datum/antagonist/goon_vampire))
 			to_chat(user, "<span class='warning'>[pluralize_ru(user.gender,"Твои","Ваши")] клыки не могут пронзить холодную плоть [target.declent_ru(GENITIVE)].</span>")
 			return
-		if(SKELETON in target.mutations)
+		if(HAS_TRAIT(target, TRAIT_SKELETON))
 			to_chat(user, "<span class='warning'>В скелете нет ни капли крови!</span>")
 			return
 		g_vamp.handle_bloodsucking(target)
@@ -1145,7 +1146,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		if(H.vision_type.light_sensitive)
 			H.weakeyes = TRUE
 
-	if(XRAY in H.mutations)
+	if(HAS_TRAIT(H, TRAIT_XRAY))
 		H.add_sight((SEE_TURFS|SEE_MOBS|SEE_OBJS))
 
 	if(H.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
@@ -1188,7 +1189,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/has_vision(mob/living/carbon/human/user, information_only = FALSE)
 	if(information_only && user.stat == DEAD)
 		return TRUE
-	if(user.AmountBlinded() || (BLINDNESS in user.mutations) || user.stat)
+	if(user.AmountBlinded() || HAS_TRAIT(user, TRAIT_BLIND) || user.stat)
 		return FALSE
 	var/obj/item/organ/vision = get_vision_organ(user)
 	return vision && (vision == NO_VISION_ORGAN || !vision.is_traumatized())

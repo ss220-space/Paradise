@@ -89,3 +89,6 @@
 /mob/proc/update_unconscious_overlay()
 	return
 
+/mob/proc/update_misc_effects()
+	return
+

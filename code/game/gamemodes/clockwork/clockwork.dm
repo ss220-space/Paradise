@@ -94,9 +94,11 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 		if(clockwork_mind.assigned_role == JOB_TITLE_CLOWN)
 			to_chat(clockwork_mind.current, "<span class='clockitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
-			clockwork_mind.current.mutations.Remove(CLUMSY)
-			var/datum/action/innate/toggle_clumsy/A = new
-			A.Grant(clockwork_mind.current)
+			clockwork_mind.current.force_gene_block(GLOB.clumsyblock, FALSE)
+			// Don't give them another action if they already have one.
+			if(!(locate(/datum/action/innate/toggle_clumsy) in clockwork_mind.current.actions))
+				var/datum/action/innate/toggle_clumsy/toggle_clumsy = new
+				toggle_clumsy.Grant(clockwork_mind.current)
 
 		add_clock_actions(clockwork_mind)
 		update_clock_icons_added(clockwork_mind)
@@ -191,9 +193,12 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 		if(clock_mind.assigned_role == JOB_TITLE_CLOWN)
 			to_chat(clock_mind.current, "<span class='clockitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
-			clock_mind.current.mutations.Remove(CLUMSY)
-			var/datum/action/innate/toggle_clumsy/A = new
-			A.Grant(clock_mind.current)
+			clock_mind.current.force_gene_block(GLOB.clumsyblock, FALSE)
+			// Don't give them another action if they already have one.
+			if(!(locate(/datum/action/innate/toggle_clumsy) in clock_mind.current.actions))
+				var/datum/action/innate/toggle_clumsy/toggle_clumsy = new
+				toggle_clumsy.Grant(clock_mind.current)
+
 		SEND_SOUND(clock_mind.current, 'sound/ambience/antag/clockcult.ogg')
 		add_conversion_logs(clock_mind.current, "converted to the clockwork cult")
 

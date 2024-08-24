@@ -41,7 +41,7 @@
 
 
 /obj/item/flash/proc/clown_check(mob/user)
-	if(user && (CLUMSY in user.mutations) && prob(50))
+	if(user && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		flash_carbon(user, user, 30 SECONDS, 0)
 		return FALSE
 	return TRUE
