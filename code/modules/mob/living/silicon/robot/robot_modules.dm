@@ -1042,3 +1042,4 @@
 /obj/item/robot_module/proc/update_cells(unlink_cell = FALSE)
 	for(var/obj/item/melee/baton/security/baton in modules)
 		baton.link_new_cell(unlink_cell)
+
