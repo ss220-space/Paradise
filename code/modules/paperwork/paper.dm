@@ -483,7 +483,7 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/stamp))
-		if(loc != user && !istype(loc, /obj/item/clipboard) && loc.loc != user)
+		if(!Adjacent(user, recurse = 2))
 			return ATTACK_CHAIN_PROCEED
 		add_fingerprint(user)
 		if(istype(I, /obj/item/stamp/clown) && (user.mind && (user.mind.assigned_role != JOB_TITLE_CLOWN)))
