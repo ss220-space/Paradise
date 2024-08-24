@@ -406,7 +406,7 @@ SUBSYSTEM_DEF(ticker)
 		log_world("Could not play lobby song because yt-dlp is not configured properly, check the config.")
 		return
 
-	var/list/output = world.shelleo("[ytdl] -x --audio-format mp3 --audio-quality 0 --geo-bypass --no-playlist -o 'cache/songs/%(id)s.%(ext)s' --dump-single-json --no-simulate \"[selected_lobby_music]\"")
+	var/list/output = world.shelleo("[ytdl] -x --audio-format mp3 --audio-quality 0 --geo-bypass --no-playlist -o \"cache/songs/%(id)s.%(ext)s\" --dump-single-json --no-simulate \"[selected_lobby_music]\"")
 	var/errorlevel = output[SHELLEO_ERRORLEVEL]
 	var/stdout = output[SHELLEO_STDOUT]
 	var/stderr = output[SHELLEO_STDERR]
