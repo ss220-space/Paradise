@@ -158,7 +158,7 @@
 /proc/show_note(target_ckey, index, linkless = 0)
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
-	var/list/output = list("<!DOCTYPE html>")
+	var/list/output = list({"<!DOCTYPE html><meta charset="UTF-8">"})
 	var/list/navbar = list()
 	var/ruler = "<hr style='background:#000000; border:0; height:3px'>"
 
