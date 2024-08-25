@@ -28,7 +28,6 @@ var mc_tab_parts = [['Loading...', '']];
 var href_token = null;
 var verb_tabs = [];
 var verbs = [['', '']]; // list with a list inside
-var sdql2 = [];
 var permanent_tabs = []; // tabs that won't be cleared by wipes
 var turf_row_inner_height = 33;
 var turf_row_outer_height = 35;
@@ -42,7 +41,6 @@ var imageFirstRetryDelay = 50;
 var imageRetryDelay = 500;
 var imageRetryLimit = 50;
 var menu = document.getElementById('menu');
-var under_menu = document.getElementById('under_menu');
 var statcontentdiv = document.getElementById('statcontent');
 var split_admin_tabs = false;
 
@@ -65,23 +63,26 @@ function createStatusTab(name) {
 	if (!verb_tabs.includes(name) && !permanent_tabs.includes(name)) {
 		return;
 	}
-	var B = document.createElement('BUTTON');
-	B.onclick = function () {
+	var button = document.createElement('DIV');
+	var button_text = document.createElement('DIV');
+	button.onclick = function () {
 		tab_change(name);
 		this.blur();
+		statcontentdiv.focus();
 	};
-	B.id = name;
-	B.textContent = name;
-	B.className = 'button';
+	button.id = name;
+	button.className = 'button';
+	button_text.textContent = name;
+	button_text.className = 'button-text';
 	//ORDERING ALPHABETICALLY
-	B.style.order = name.charCodeAt(0);
+	button.style.order = name.charCodeAt(0);
 	if (name == 'Status' || name == 'MC') {
-		B.style.order = name == 'Status' ? 1 : 2;
+		button.style.order = name == 'Status' ? 1 : 2;
 	}
 	//END ORDERING
-	menu.appendChild(B);
+	button.appendChild(button_text);
+	menu.appendChild(button);
 	SendTabToByond(name);
-	under_menu.style.height = menu.clientHeight + 'px';
 }
 
 function removeStatusTab(name) {
@@ -95,7 +96,6 @@ function removeStatusTab(name) {
 	}
 	menu.removeChild(document.getElementById(name));
 	TakeTabFromByond(name);
-	under_menu.style.height = menu.clientHeight + 'px';
 }
 
 function sortVerbs() {
@@ -109,10 +109,6 @@ function sortVerbs() {
 		return 0;
 	});
 }
-
-window.onresize = function () {
-	under_menu.style.height = menu.clientHeight + 'px';
-};
 
 function addPermanentTab(name) {
 	if (!permanent_tabs.includes(name)) {
@@ -242,8 +238,6 @@ function tab_change(tab) {
 		draw_verbs(tab);
 	} else if (tab == 'Debug Stat Panel') {
 		draw_debug();
-	} else if (tab == 'SDQL2') {
-		draw_sdql2();
 	} else if (tab == turfname) {
 		draw_listedturf();
 	} else {
@@ -383,35 +377,8 @@ function draw_mc() {
 	document.getElementById('statcontent').appendChild(table);
 }
 
-function draw_sdql2() {
-	statcontentdiv.textContent = '';
-	var table = document.createElement('table');
-	for (var i = 0; i < sdql2.length; i++) {
-		var part = sdql2[i];
-		var tr = document.createElement('tr');
-		var td1 = document.createElement('td');
-		td1.textContent = part[0];
-		var td2 = document.createElement('td');
-		if (part[2]) {
-			var a = document.createElement('a');
-			a.href = '?src=' + part[2] + ';statpanel_item_click=left';
-			a.textContent = part[1];
-			td2.appendChild(a);
-		} else {
-			td2.textContent = part[1];
-		}
-		tr.appendChild(td1);
-		tr.appendChild(td2);
-		table.appendChild(tr);
-	}
-	document.getElementById('statcontent').appendChild(table);
-}
-
 function listedturf_add_row(table, table_index, true_index) {
 	let row = table.insertRow(table_index);
-	row.style.height = turf_row_inner_height + 'px';
-	row.style.padding = '0px';
-	row.style.margin = '0px';
 	turf_rows[true_index] = row;
 	turf_incomplete_rows[true_index] = true_index + 1;
 }
@@ -423,9 +390,6 @@ function listedturf_fill_row(row, item_index) {
 	}
 
 	let cell = document.createElement('td');
-	cell.style.height = turf_row_inner_height + 'px';
-	cell.style.padding = '0px';
-	cell.style.margin = '0px';
 	row.appendChild(cell);
 
 	var button = document.createElement('div');
@@ -437,7 +401,7 @@ function listedturf_fill_row(row, item_index) {
 		// of the last entry.
 		return function (e) {
 			e.preventDefault();
-			clickcatcher = '?src=' + object_info[1];
+			clickcatcher = 'byond://?src=' + object_info[1];
 			switch (e.button) {
 				case 1:
 					clickcatcher += ';statpanel_item_click=middle';
@@ -466,6 +430,8 @@ function listedturf_fill_row(row, item_index) {
 	img.id = object_info[1];
 	img.src = object_info[2];
 	img.style.verticalAlign = 'middle';
+	img.style.width = '2.66em';
+	img.style.height = '2.66em';
 	img.onerror = (function (object_info) {
 		return function () {
 			let delay = imageRetryDelay;
@@ -489,7 +455,7 @@ function listedturf_fill_row(row, item_index) {
 	button.appendChild(img);
 
 	var label = document.createElement('span');
-	label.style.marginLeft = '5px';
+	label.style.marginLeft = '0.5em';
 	label.textContent = object_info[0];
 	button.appendChild(label);
 
@@ -668,15 +634,6 @@ function remove_mc() {
 	}
 }
 
-function remove_sdql2() {
-	if (sdql2) {
-		sdql2 = [];
-		removePermanentTab('SDQL2');
-		if (current_tab == 'SDQL2') tab_change('Status');
-	}
-	checkStatusTab();
-}
-
 function make_verb_onclick(command) {
 	return function () {
 		run_after_focus(function () {
@@ -774,6 +731,33 @@ function set_theme(which) {
 		set_style_sheet('chat_panel_syndicate');
 	}
 }
+
+function set_font_size(fontSize) {
+	document.body.style.setProperty('font-size', fontSize);
+}
+
+function set_font_style(fontFamily) {
+	/* Yes, null is a string here. Live with that. */
+	if (fontFamily !== 'null') {
+		document.body.style.setProperty('font-family', fontFamily);
+	} else {
+		document.body.style.removeProperty('font-family');
+	}
+}
+
+function set_tabs_style(style) {
+	if (style == 'default') {
+		menu.classList.add('menu-wrap');
+		menu.classList.remove('tabs-classic');
+	} else if (style == 'classic') {
+		menu.classList.add('menu-wrap');
+		menu.classList.add('tabs-classic');
+	} else if (style == 'scrollable') {
+		menu.classList.remove('menu-wrap');
+		menu.classList.remove('tabs-classic');
+	}
+}
+
 function set_style_sheet(sheet) {
 	if (document.getElementById('goonStyle')) {
 		var currentSheet = document.getElementById('goonStyle');
@@ -932,18 +916,6 @@ Byond.subscribeTo('update_mc', function (payload) {
 	}
 });
 
-Byond.subscribeTo('update_sdql2', function (S) {
-	sdql2 = S;
-	if (sdql2.length > 0 && !verb_tabs.includes('SDQL2')) {
-		verb_tabs.push('SDQL2');
-		addPermanentTab('SDQL2');
-	}
-
-	if (current_tab == 'SDQL2') {
-		draw_sdql2();
-	}
-});
-
 Byond.subscribeTo('create_debug', function () {
 	if (!document.getElementById('Debug Stat Panel')) {
 		addPermanentTab('Debug Stat Panel');
@@ -1001,8 +973,6 @@ Byond.subscribeTo('add_mc_tab', function (ht) {
 });
 
 Byond.subscribeTo('remove_listedturf', remove_listedturf);
-
-Byond.subscribeTo('remove_sdql2', remove_sdql2);
 
 Byond.subscribeTo('remove_mc', remove_mc);
 
