@@ -51,6 +51,9 @@
 			return FALSE
 
 	next_move = 1
+
+	SSdemo.write_event_line("setmob [client.ckey] \ref[src]")
+
 	add_sight(SEE_SELF)
 
 	// DO NOT CALL PARENT HERE
