@@ -5,8 +5,6 @@
 	icon_state = "snowmobile"
 	move_speed = 0
 	key_type = /obj/item/key/snowmobile
-	generic_pixel_x = 0
-	generic_pixel_y = 4
 
 /obj/vehicle/snowmobile/blue
 	name = "blue snowmobile"

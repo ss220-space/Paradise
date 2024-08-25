@@ -102,7 +102,7 @@
 		// Vehicles
 		/obj/item/fluff/rapid_wheelchair_kit = 50,
 		/obj/vehicle/secway = 60,
-		/obj/vehicle/atv = 30,
+		/obj/vehicle/ridden/atv = 30,
 		/obj/vehicle/motorcycle = 20,
 		/obj/vehicle/janicart = 15,
 		/obj/vehicle/ambulance = 15,

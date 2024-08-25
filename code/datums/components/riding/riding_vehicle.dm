@@ -106,7 +106,6 @@
 	handle_vehicle_offsets(movable_parent.dir)
 	return TRUE
 
-/*
 /datum/component/riding/vehicle/atv
 	keytype = /obj/item/key/atv
 	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS | UNBUCKLE_DISABLED_RIDER
@@ -120,6 +119,7 @@
 	set_vehicle_dir_layer(EAST, OBJ_LAYER)
 	set_vehicle_dir_layer(WEST, OBJ_LAYER)
 
+/*
 /datum/component/riding/vehicle/bicycle
 	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS | UNBUCKLE_DISABLED_RIDER
 	vehicle_move_delay = 0

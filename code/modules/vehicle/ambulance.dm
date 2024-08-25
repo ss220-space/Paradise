@@ -2,7 +2,6 @@
 	name = "ambulance"
 	desc = "This is what the paramedic uses to run over people they need to take to medbay."
 	icon_state = "docwagon2"
-	vehicle_move_delay = 0.3 SECONDS
 	key_type = /obj/item/key/ambulance
 	var/obj/structure/bed/amb_trolley/bed = null
 	var/datum/action/ambulance_alarm/AA
@@ -80,7 +79,7 @@
 	desc = "A keyring with a small steel key, and tag with a red cross on it."
 	icon_state = "keydoc"
 
-
+/*
 /obj/vehicle/ambulance/handle_vehicle_offsets()
 	if(!has_buckled_mobs())
 		return
@@ -99,7 +98,7 @@
 			if(EAST)
 				buckled_mob.pixel_x = -13
 				buckled_mob.pixel_y = 7
-
+*/
 
 /obj/vehicle/ambulance/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/oldloc = loc

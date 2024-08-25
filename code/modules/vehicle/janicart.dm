@@ -11,7 +11,7 @@
 	QDEL_NULL(trash_bag)
 	return ..()
 
-
+/*
 /obj/vehicle/janicart/handle_vehicle_offsets()
 	if(!has_buckled_mobs())
 		return
@@ -30,6 +30,7 @@
 			if(WEST)
 				buckled_mob.pixel_x = 12
 				buckled_mob.pixel_y = 7
+*/
 
 
 /obj/vehicle/janicart/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
@@ -76,9 +77,9 @@
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(trash_bag && (initial(key_type.type) != I.type)) // don't put a key in the trash when we need it
-		trash_bag.attackby(I, user, params)
-		return ATTACK_CHAIN_BLOCKED_ALL
+	//if(trash_bag && (initial(key_type.type) != I.type)) // don't put a key in the trash when we need it
+		//trash_bag.attackby(I, user, params)
+		//return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
 

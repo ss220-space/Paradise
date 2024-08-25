@@ -3,7 +3,6 @@
 	desc = "A very luxurious vehicle."
 	icon = 'icons/obj/vehicles/sportscar.dmi'
 	icon_state = "sportscar"
-	vehicle_move_delay = 0.25 SECONDS
 	pull_push_slowdown = 2
 
 
@@ -38,11 +37,7 @@
 #undef CAR_COVER_EAST
 #undef CAR_COVER_WEST
 
-
-/obj/vehicle/car/handle_vehicle_icons()
-	update_icon(UPDATE_OVERLAYS)
-
-
+/*
 /obj/vehicle/car/handle_vehicle_offsets()
 	if(!has_buckled_mobs())
 		return
@@ -61,8 +56,4 @@
 			if(WEST)
 				buckled_mob.pixel_x = 34
 				buckled_mob.pixel_y = 10
-
-
-/obj/vehicle/car/handle_vehicle_layer()
-	return	// we got custom layers, dont worry
-
+*/

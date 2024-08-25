@@ -178,24 +178,7 @@
 	icon = 'icons/obj/lavaland/dragonboat.dmi'
 	layer = ABOVE_MOB_LAYER
 	key_type = /obj/item/oar
-	key_in_hands = TRUE
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
-
-
-/obj/vehicle/lavaboat/relaymove(mob/user, direction)
-	if(!COOLDOWN_FINISHED(src, vehicle_move_cooldown))
-		return FALSE
-	//We can move from land to lava, or lava to land, but not from land to land
-	if(!istype(get_step(src, direction), /turf/simulated/floor/lava) && !istype(get_turf(src), /turf/simulated/floor/lava))
-		to_chat(user, span_warning("You cannot traverse futher!"))
-		COOLDOWN_START(src, vehicle_move_cooldown, 0.5 SECONDS)
-		return FALSE
-	return ..()
-
-
-/obj/vehicle/lavaboat/handle_vehicle_layer()
-	return
-
 
 /obj/item/oar
 	name = "oar"
@@ -239,11 +222,6 @@
 	name = "mysterious boat"
 	desc = "This boat moves where you will it, without the need for an oar."
 	key_type = null
-	key_in_hands = FALSE
-	icon_state = "dragon_boat"
-	generic_pixel_y = 2
-	generic_pixel_x = 1
-	vehicle_move_delay = 0.25 SECONDS
 
 //Wisp Lantern
 /obj/item/wisp_lantern

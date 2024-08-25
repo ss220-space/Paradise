@@ -518,6 +518,8 @@
 	if(!istype(O))
 		to_chat(user, "<span class='warning'>The potion can only be used on items or vehicles!</span>")
 		return
+	if(SEND_SIGNAL(O, COMSIG_SPEED_POTION_APPLIED, src, user) & SPEED_POTION_STOP)
+		return
 	if(isitem(O))
 		var/obj/item/I = O
 		if(I.slowdown <= 0 || (I.item_flags & IGNORE_SLOWDOWN))
@@ -530,11 +532,6 @@
 				return
 		I.item_flags |= IGNORE_SLOWDOWN
 		I.update_equipped_item()
-
-	else if(istype(O, /obj/vehicle))
-		var/obj/vehicle/vehicle = O
-		if(vehicle.check_potion(src, user))
-			return
 		return ..()
 
 	else if (!drop && istype(O, /obj/machinery/smartfridge))
