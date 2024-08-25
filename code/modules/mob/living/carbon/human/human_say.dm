@@ -91,7 +91,7 @@
 	if(HAS_TRAIT(src, TRAIT_MUTE))
 		return FALSE
 	// how do species that don't breathe talk? magic, that's what.
-	var/breathes = (!(NO_BREATHE in dna?.species?.species_traits))
+	var/breathes = !HAS_TRAIT(src, TRAIT_NO_BREATH)
 	var/obj/item/organ/internal/lungs = get_organ_slot(INTERNAL_ORGAN_LUNGS)
 	if((breathes && !lungs) || (breathes && lungs && lungs.is_dead()))
 		return FALSE

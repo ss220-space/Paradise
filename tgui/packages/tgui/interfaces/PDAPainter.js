@@ -45,7 +45,8 @@ export const PDAPainter = (props, context) => {
                       height="160px" // Set image size here.
                       src={hasPDA ? `data:image/png;base64,${pdaIcon}` : ''}
                       style={{
-                        '-ms-interpolation-mode': 'nearest-neighbor',
+                        '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                        'image-rendering': 'pixelated',
                       }}
                       align="middle"
                     />

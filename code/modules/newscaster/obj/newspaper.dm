@@ -57,7 +57,7 @@
 		to_chat(user, "<span class='warning'>Unroll it first!</span>")
 		return
 	if(user.is_literate())
-		var/dat = {"<meta charset="UTF-8">"}
+		var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 		pages = 0
 		switch(screen)
 			if(SCREEN_COVER) //Cover
@@ -81,7 +81,7 @@
 					dat += "</ul>"
 				if(scribble_page==curr_page)
 					dat += "<br><i>There is a small scribble near the end of this page... It reads: \"[scribble]\"</i>"
-				dat+= "<hr><div style='float:right;'><a href='?src=[UID()];next_page=1'>Next Page</a></div> <div style='float:left;'><a href='?src=[user.UID()];mach_close=newspaper_main'>Done reading</a></div>"
+				dat+= "<hr><div style='float:right;'><a href='byond://?src=[UID()];next_page=1'>Next Page</a></div> <div style='float:left;'><a href='byond://?src=[user.UID()];mach_close=newspaper_main'>Done reading</a></div>"
 			if(SCREEN_PAGE_INNER) // X channel pages inbetween.
 				for(var/datum/feed_channel/NP in news_content)
 					pages++ //Let's get it right again.
@@ -108,7 +108,7 @@
 						dat += "</ul>"
 				if(scribble_page==curr_page)
 					dat += "<br><i>There is a small scribble near the end of this page... It reads: \"[scribble]\"</i>"
-				dat+= "<br><hr><div style='float:left;'><a href='?src=[UID()];prev_page=1'>Previous Page</a></div> <div style='float:right;'><a href='?src=[UID()];next_page=1'>Next Page</a></div>"
+				dat+= "<br><hr><div style='float:left;'><a href='byond://?src=[UID()];prev_page=1'>Previous Page</a></div> <div style='float:right;'><a href='byond://?src=[UID()];next_page=1'>Next Page</a></div>"
 			if(SCREEN_PAGE_LAST) //Last page
 				for(var/datum/feed_channel/NP in news_content)
 					pages++
@@ -126,7 +126,7 @@
 					dat += "<i>Apart from some uninteresting Classified ads, there's nothing on this page...</i>"
 				if(scribble_page==curr_page)
 					dat += "<br><i>There is a small scribble near the end of this page... It reads: \"[scribble]\"</i>"
-				dat+= "<hr><div style='float:left;'><a href='?src=[UID()];prev_page=1'>Previous Page</a></div>"
+				dat+= "<hr><div style='float:left;'><a href='byond://?src=[UID()];prev_page=1'>Previous Page</a></div>"
 			else
 				dat += "i'm sorry to break your immersion. This shit's bugged. Report this bug to Agouri, polyxenitopalidou@gmail.com"
 

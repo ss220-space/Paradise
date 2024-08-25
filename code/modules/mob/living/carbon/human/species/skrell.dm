@@ -15,7 +15,13 @@
 	tox_mod = 0.75
 	bonefragility = 0.8
 
-	species_traits = list(LIPS, NO_OBESITY, HAVE_REGENERATION)
+	inherent_traits = list(
+		TRAIT_HAS_LIPS,
+		TRAIT_HAS_REGENERATION,
+		TRAIT_NO_FAT,
+		TRAIT_WATERBREATH,
+	)
+	blacklisted_disabilities = DISABILITY_FLAG_WINGDINGS|DISABILITY_FLAG_OBESITY
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_BODY_MARKINGS
 	taste_sensitivity = TASTE_SENSITIVITY_DULL
@@ -75,8 +81,7 @@
 	whistle_sound = list('sound/voice/skrell/whistling1.ogg', 'sound/voice/skrell/whistling2.ogg')
 
 /datum/species/skrell/on_species_gain(mob/living/carbon/human/H)
-	..()
-	ADD_TRAIT(H, TRAIT_WATERBREATH, "species")
+	. = ..()
 	add_verb(H, list(
 		/mob/living/carbon/human/proc/emote_warble,
 		/mob/living/carbon/human/proc/emote_sad_trill,
@@ -97,8 +102,7 @@
 		/mob/living/carbon/human/verb/emote_snuffle))
 
 /datum/species/skrell/on_species_loss(mob/living/carbon/human/H)
-	..()
-	REMOVE_TRAIT(H, TRAIT_WATERBREATH, "species")
+	. = ..()
 	remove_verb(H, list(
 		/mob/living/carbon/human/proc/emote_warble,
 		/mob/living/carbon/human/proc/emote_sad_trill,

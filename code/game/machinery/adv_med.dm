@@ -267,7 +267,7 @@
 
 		var/bloodData[0]
 		bloodData["hasBlood"] = FALSE
-		if(!(NO_BLOOD in occupant.dna.species.species_traits))
+		if(!HAS_TRAIT(occupant, TRAIT_NO_BLOOD))
 			bloodData["hasBlood"] = TRUE
 			bloodData["volume"] = occupant.blood_volume
 			bloodData["percent"] = round(((occupant.blood_volume / BLOOD_VOLUME_NORMAL)*100))

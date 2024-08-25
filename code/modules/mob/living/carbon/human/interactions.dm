@@ -45,38 +45,38 @@
 
 	var/dat = {"<meta charset="UTF-8"><B><HR><FONT size=3>[H.partner]</FONT></B><BR><HR>"}
 
-	dat +=  {"• <A href='?src=[UID()];interaction=bow'>Отвесить поклон.</A><BR>"}
+	dat +=  {"• <a href='byond://?src=[UID()];interaction=bow'>Отвесить поклон.</A><BR>"}
 	if (hashands)
 		dat +=  {"<font size=3><B>Руки:</B></font><BR>"}
-		dat +=  {"• <A href='?src=[UID()];interaction=wave'>Приветливо помахать.</A><BR>"}
-		dat +=  {"• <A href='?src=[UID()];interaction=bow_affably'>Приветливо кивнуть.</A><BR>"}
+		dat +=  {"• <a href='byond://?src=[UID()];interaction=wave'>Приветливо помахать.</A><BR>"}
+		dat +=  {"• <a href='byond://?src=[UID()];interaction=bow_affably'>Приветливо кивнуть.</A><BR>"}
 		if (Adjacent(P))
-			dat +=  {"• <A href='?src=[UID()];interaction=handshake'>Пожать руку.</A><BR>"}
-			dat +=  {"• <A href='?src=[UID()];interaction=hug'>Обнимашки!</A><BR>"}
-			dat +=  {"• <A href='?src=[UID()];interaction=cheer'>Похлопать по плечу</A><BR>"}
-			dat +=  {"• <A href='?src=[UID()];interaction=five'>Дать пять.</A><BR>"}
+			dat +=  {"• <a href='byond://?src=[UID()];interaction=handshake'>Пожать руку.</A><BR>"}
+			dat +=  {"• <a href='byond://?src=[UID()];interaction=hug'>Обнимашки!</A><BR>"}
+			dat +=  {"• <a href='byond://?src=[UID()];interaction=cheer'>Похлопать по плечу</A><BR>"}
+			dat +=  {"• <a href='byond://?src=[UID()];interaction=five'>Дать пять.</A><BR>"}
 			if (hashands_p)
-				dat +=  {"• <A href='?src=[UID()];interaction=give'>Передать предмет.</A><BR>"}
-			dat +=  {"• <A href='?src=[UID()];interaction=slap'><font color=darkred>Дать пощечину!</font></A><BR>"}
+				dat +=  {"• <a href='byond://?src=[UID()];interaction=give'>Передать предмет.</A><BR>"}
+			dat +=  {"• <a href='byond://?src=[UID()];interaction=slap'><font color=darkred>Дать пощечину!</font></A><BR>"}
 			if (P.dna.species.name == SPECIES_MOTH)
-				dat +=  {"• <A href='?src=[UID()];interaction=pullwing'><font color=darkred>Дёрнуть за крылья!</font></A><BR>"}
+				dat +=  {"• <a href='byond://?src=[UID()];interaction=pullwing'><font color=darkred>Дёрнуть за крылья!</font></A><BR>"}
 			if ((P.dna.species.name == SPECIES_TAJARAN)  || (P.dna.species.name == SPECIES_VOX)|| (P.dna.species.name == SPECIES_VULPKANIN) || (P.dna.species.name == SPECIES_UNATHI))
-				dat +=  {"• <A href='?src=[UID()];interaction=pull'><font color=darkred>Дёрнуть за хвост!</font></A><BR>"}
+				dat +=  {"• <a href='byond://?src=[UID()];interaction=pull'><font color=darkred>Дёрнуть за хвост!</font></A><BR>"}
 				if(P.can_inject(H))
-					dat +=  {"• <A href='?src=[UID()];interaction=pet'>Погладить.</A><BR>"}
-					dat +=  {"• <A href='?src=[UID()];interaction=scratch'>Почесать.</A><BR>"}
-			dat +=  {"• <A href='?src=[UID()];interaction=knock'><font color=darkred>Дать подзатыльник.</font></A><BR>"}
-		dat +=  {"• <A href='?src=[UID()];interaction=fuckyou'><font color=darkred>Показать средний палец.</font></A><BR>"}
-		dat +=  {"• <A href='?src=[UID()];interaction=threaten'><font color=darkred>Погрозить кулаком.</font></A><BR>"}
+					dat +=  {"• <a href='byond://?src=[UID()];interaction=pet'>Погладить.</A><BR>"}
+					dat +=  {"• <a href='byond://?src=[UID()];interaction=scratch'>Почесать.</A><BR>"}
+			dat +=  {"• <a href='byond://?src=[UID()];interaction=knock'><font color=darkred>Дать подзатыльник.</font></A><BR>"}
+		dat +=  {"• <a href='byond://?src=[UID()];interaction=fuckyou'><font color=darkred>Показать средний палец.</font></A><BR>"}
+		dat +=  {"• <a href='byond://?src=[UID()];interaction=threaten'><font color=darkred>Погрозить кулаком.</font></A><BR>"}
 
 	if (mouthfree && H.dna.species.name != SPECIES_DIONA)
 		dat += {"<font size=3><B>Лицо:</B></font><BR>"}
-		dat += {"• <A href='?src=[UID()];interaction=kiss'>Поцеловать.</A><BR>"}
+		dat += {"• <a href='byond://?src=[UID()];interaction=kiss'>Поцеловать.</A><BR>"}
 		if (Adjacent(P))
 			if (mouthfree_p)
-				dat += {"• <A href='?src=[UID()];interaction=lick'>Лизнуть в щеку.</A><BR>"}
-			dat +=  {"• <A href='?src=[UID()];interaction=spit'><font color=darkred>Плюнуть.</font></A><BR>"}
-		dat +=  {"• <A href='?src=[UID()];interaction=tongue'><font color=darkred>Показать язык.</font></A><BR>"}
+				dat += {"• <a href='byond://?src=[UID()];interaction=lick'>Лизнуть в щеку.</A><BR>"}
+			dat +=  {"• <a href='byond://?src=[UID()];interaction=spit'><font color=darkred>Плюнуть.</font></A><BR>"}
+		dat +=  {"• <a href='byond://?src=[UID()];interaction=tongue'><font color=darkred>Показать язык.</font></A><BR>"}
 
 	var/datum/browser/popup = new(usr, "interactions", "Взаимодействие", 340, 520)
 	popup.set_content(dat)

@@ -49,7 +49,7 @@ $bg-map: colors.$bg-map !default;
 .ImageButton__horizontal {
   display: flex;
   user-select: none;
-  -ms-user-select: none;
+  -ms-user-select: none; // TODO: Remove with 516
   width: 100%;
   align-items: center;
 }
@@ -58,7 +58,7 @@ $bg-map: colors.$bg-map !default;
   display: flex;
   margin-bottom: 0.5em;
   user-select: none;
-  -ms-user-select: none;
+  -ms-user-select: none; // TODO: Remove with 516
 
   &:last-child {
     margin-bottom: 0;

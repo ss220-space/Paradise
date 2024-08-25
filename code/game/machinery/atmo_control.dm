@@ -365,11 +365,11 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 			var/volume_rate = input_info["volume_rate"]
 			output += {"
 <fieldset>
-	<legend>Input (<A href='?src=[UID()];in_refresh_status=1'>Refresh</A>)</legend>
+	<legend>Input (<a href='byond://?src=[UID()];in_refresh_status=1'>Refresh</A>)</legend>
 	<table>
 		<tr>
 			<th>State:</th>
-			<td><A href='?src=[UID()];in_toggle_injector=1'>[power?("Injecting"):("On Hold")]</A></td>
+			<td><a href='byond://?src=[UID()];in_toggle_injector=1'>[power?("Injecting"):("On Hold")]</A></td>
 		</tr>
 		<tr>
 			<th>Rate:</th>
@@ -379,28 +379,28 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 </fieldset>
 "}
 		else
-			output += "<FONT color='red'>ERROR: Can not find input port</FONT> <A href='?src=[UID()];in_refresh_status=1'>Search</A><BR>"
+			output += "<FONT color='red'>ERROR: Can not find input port</FONT> <a href='byond://?src=[UID()];in_refresh_status=1'>Search</A><BR>"
 	if(output_tag)
 		if(output_info)
 			var/power = (output_info["power"])
 			var/output_pressure = output_info["internal"]
 			output += {"
 <fieldset>
-	<legend>Output (<A href='?src=[UID()];out_refresh_status=1'>Refresh</A>)</legend>
+	<legend>Output (<a href='byond://?src=[UID()];out_refresh_status=1'>Refresh</A>)</legend>
 	<table>
 		<tr>
 			<th>State:</th>
-			<td><A href='?src=[UID()];out_toggle_power=1'>[power?("Open"):("On Hold")]</A></td>
+			<td><a href='byond://?src=[UID()];out_toggle_power=1'>[power?("Open"):("On Hold")]</A></td>
 		</tr>
 		<tr>
 			<th>Max Output Pressure:</th>
-			<td><A href='?src=[UID()];out_set_pressure=1'>[output_pressure]</A> kPa</td>
+			<td><a href='byond://?src=[UID()];out_set_pressure=1'>[output_pressure]</A> kPa</td>
 		</tr>
 	</table>
 </fieldset>
 "}
 		else
-			output += "<FONT color='red'>ERROR: Can not find output port</FONT> <A href='?src=[UID()];out_refresh_status=1'>Search</A><BR>"
+			output += "<FONT color='red'>ERROR: Can not find output port</FONT> <a href='byond://?src=[UID()];out_refresh_status=1'>Search</A><BR>"
 
 	return output
 
@@ -518,7 +518,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 
 /obj/machinery/computer/general_air_control/fuel_injection/return_text()
 	var/output = ..()
-	output += "<fieldset><legend>Fuel Injection System (<A href='?src=[UID()];refresh_status=1'>Refresh</A>)</legend>"
+	output += "<fieldset><legend>Fuel Injection System (<a href='byond://?src=[UID()];refresh_status=1'>Refresh</A>)</legend>"
 	if(device_info)
 		var/power = device_info["power"]
 		var/volume_rate = device_info["volume_rate"]
@@ -533,13 +533,13 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 		</tr>
 		<tr>
 			<th>Automated Fuel Injection:</th>
-			<td><A href='?src=[UID()];toggle_automation=1'>[automation?"Engaged":"Disengaged"]</A></td>
+			<td><a href='byond://?src=[UID()];toggle_automation=1'>[automation?"Engaged":"Disengaged"]</A></td>
 		</tr>"}
 
 		if(automation)
 
 			// AUTOFIXED BY fix_string_idiocy.py
-			// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\atmo_control.dm:372: output += "Automated Fuel Injection: <A href='?src=[UID()];toggle_automation=1'>Engaged</A><BR>"
+			// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\atmo_control.dm:372: output += "Automated Fuel Injection: <a href='byond://?src=[UID()];toggle_automation=1'>Engaged</A><BR>"
 			output += {"
 			<tr>
 				<td colspan="2">Injector Controls Locked Out</td>
@@ -548,16 +548,16 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 		else
 
 			// AUTOFIXED BY fix_string_idiocy.py
-			// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\atmo_control.dm:375: output += "Automated Fuel Injection: <A href='?src=[UID()];toggle_automation=1'>Disengaged</A><BR>"
+			// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\atmo_control.dm:375: output += "Automated Fuel Injection: <a href='byond://?src=[UID()];toggle_automation=1'>Disengaged</A><BR>"
 			output += {"
 			<tr>
 				<th>Injector:</th>
-				<td><A href='?src=[UID()];toggle_injector=1'>Toggle Power</A> <A href='?src=[UID()];injection=1'>Inject (1 Cycle)</A></td>
+				<td><a href='byond://?src=[UID()];toggle_injector=1'>Toggle Power</A> <a href='byond://?src=[UID()];injection=1'>Inject (1 Cycle)</A></td>
 			</td>"}
 			// END AUTOFIX
 		output += "</table>"
 	else
-		output += {"<p style="color:red"><b>ERROR:</b> Can not find device. <A href='?src=[UID()];refresh_status=1'>Search</A></p>"}
+		output += {"<p style="color:red"><b>ERROR:</b> Can not find device. <a href='byond://?src=[UID()];refresh_status=1'>Search</A></p>"}
 	output += "</fieldset>"
 
 	return output

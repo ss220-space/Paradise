@@ -20,9 +20,13 @@
 /obj/item/proc/melee_attack_chain(mob/user, atom/target, params)
 	. = ATTACK_CHAIN_PROCEED
 
+	var/user_type = "[user.type]"
+	var/item_type = "[type]"
+	var/target_type = "[target.type]"
+
 	var/tool_chain_result = tool_attack_chain(user, target, params)
 	if(!(tool_chain_result & ATTACK_CHAIN_CORE_RETURN_BITFLAGS))
-		CRASH("tool_attack_chain() must return one of the core ATTACK_CHAIN_* bitflags, please consult code/__DEFINES/combat.dm")
+		CRASH("tool_attack_chain() must return one of the core ATTACK_CHAIN_* bitflags, please consult code/__DEFINES/combat.dm; user = [user_type]; item = [item_type]; target = [target_type]")
 
 	. |= tool_chain_result
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
@@ -32,7 +36,7 @@
 	var/pre_attackby_result = pre_attackby(target, user, params)
 	if(!(pre_attackby_result & ATTACK_CHAIN_CORE_RETURN_BITFLAGS))
 		mark_target(target)
-		CRASH("pre_attackby() must return one of the core ATTACK_CHAIN_* bitflags, please consult code/__DEFINES/combat.dm")
+		CRASH("pre_attackby() must return one of the core ATTACK_CHAIN_* bitflags, please consult code/__DEFINES/combat.dm; user = [user_type]; item = [item_type]; target = [target_type]")
 
 	. |= pre_attackby_result
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
@@ -42,7 +46,7 @@
 	var/attackby_result = target.attackby(src, user, params)
 	if(!(attackby_result & ATTACK_CHAIN_CORE_RETURN_BITFLAGS))
 		mark_target(target)
-		CRASH("attackby() must return one of the core ATTACK_CHAIN_* bitflags, please consult code/__DEFINES/combat.dm")
+		CRASH("attackby() must return one of the core ATTACK_CHAIN_* bitflags, please consult code/__DEFINES/combat.dm; user = [user_type]; item = [item_type]; target = [target_type]")
 
 	. |= attackby_result
 	// yes a lot of QDELETED checks but attackby is a longest spaghetti code in the entire game

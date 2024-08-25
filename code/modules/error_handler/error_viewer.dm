@@ -69,7 +69,7 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 		back_to_param = ";viewruntime_backto=[back_to.UID()]"
 	if(linear)
 		back_to_param += ";viewruntime_linear=1"
-	return "<a href='?_src_=holder;viewruntime=[src.UID()][back_to_param]'>[linktext]</a>"
+	return "<a href='byond://?_src_=holder;viewruntime=[src.UID()][back_to_param]'>[linktext]</a>"
 
 
 /datum/error_viewer/error_cache
@@ -193,21 +193,21 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 	html += "[name]<div class='runtime'>[desc]</div>"
 
 	if(src_UID)
-		html += "<br>src: <a href='?_src_=vars;Vars=[src_UID]'>VV</a>"
+		html += "<br>src: <a href='byond://?_src_=vars;Vars=[src_UID]'>VV</a>"
 		if(src_mob)
-			html += " <a href='?_src_=holder;adminplayeropts=[src_UID]'>PP</a>"
-			html += " <a href='?_src_=holder;adminplayerobservefollow=[src_UID]'>Follow</a>"
+			html += " <a href='byond://?_src_=holder;adminplayeropts=[src_UID]'>PP</a>"
+			html += " <a href='byond://?_src_=holder;adminplayerobservefollow=[src_UID]'>Follow</a>"
 		if(isturf(src_loc))
-			html += "<br>src.loc: <a href='?_src_=vars;Vars=[src_loc.UID()]'>VV</a>"
-			html += " <a href='?_src_=holder;adminplayerobservecoodjump=1;X=[src_loc.x];Y=[src_loc.y];Z=[src_loc.z]'>JMP</a>"
+			html += "<br>src.loc: <a href='byond://?_src_=vars;Vars=[src_loc.UID()]'>VV</a>"
+			html += " <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[src_loc.x];Y=[src_loc.y];Z=[src_loc.z]'>JMP</a>"
 
 	if(usr_UID)
-		html += "<br><b>usr</b>: <a href='?_src_=vars;Vars=[usr_UID]'>VV</a>"
-		html += " <a href='?_src_=holder;adminplayeropts=[usr_UID]'>PP</a>"
-		html += " <a href='?_src_=holder;adminplayerobservefollow=[usr_UID]'>Follow</a>"
+		html += "<br><b>usr</b>: <a href='byond://?_src_=vars;Vars=[usr_UID]'>VV</a>"
+		html += " <a href='byond://?_src_=holder;adminplayeropts=[usr_UID]'>PP</a>"
+		html += " <a href='byond://?_src_=holder;adminplayerobservefollow=[usr_UID]'>Follow</a>"
 		if(isturf(usr_loc))
-			html += "<br><b>usr.loc</b>: <a href='?_src_=vars;Vars=[usr_loc.UID()]'>VV</a>"
-			html += " <a href='?_src_=holder;adminplayerobservecoodjump=1;X=[usr_loc.x];Y=[usr_loc.y];Z=[usr_loc.z]'>JMP</a>"
+			html += "<br><b>usr.loc</b>: <a href='byond://?_src_=vars;Vars=[usr_loc.UID()]'>VV</a>"
+			html += " <a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[usr_loc.x];Y=[usr_loc.y];Z=[usr_loc.z]'>JMP</a>"
 
 	browse_to(user, html)
 

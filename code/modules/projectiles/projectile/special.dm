@@ -160,7 +160,7 @@
 	var/mob/living/M = target
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = M
-		if(IS_PLANT in H.dna.species.species_traits)
+		if(HAS_TRAIT(H, TRAIT_PLANT_ORIGIN))
 			if(prob(15))
 				M.apply_effect((rand(30,80)),IRRADIATE)
 				M.Weaken(10 SECONDS)
@@ -187,15 +187,14 @@
 	nodamage = TRUE
 	flag = "energy"
 
-/obj/item/projectile/energy/florayield/on_hit(var/atom/target, var/blocked = 0)
+
+/obj/item/projectile/energy/florayield/on_hit(mob/living/target, blocked = 0)
 	..()
-	var/mob/M = target
-	if(ishuman(target)) //These rays make plantmen fat.
-		var/mob/living/carbon/human/H = M
-		if(IS_PLANT in H.dna.species.species_traits)
-			H.set_nutrition(min(H.nutrition+30, NUTRITION_LEVEL_FULL))
-	else if(iscarbon(target))
-		M.show_message("<span class='notice'>The radiation beam dissipates harmlessly through your body.</span>")
+	var/living_target = isliving(target)
+	if(living_target && HAS_TRAIT(target, TRAIT_PLANT_ORIGIN)) //These rays make plantmen fat.
+		target.set_nutrition(min(target.nutrition + 30, NUTRITION_LEVEL_FULL))
+	else if(living_target)
+		to_chat(target, span_notice("The radiation beam dissipates harmlessly through your body."))
 	else
 		return 1
 
