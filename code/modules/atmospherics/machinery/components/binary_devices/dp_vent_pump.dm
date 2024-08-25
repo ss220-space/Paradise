@@ -8,7 +8,7 @@
 	name = "dual-port air vent"
 	desc = "Has a valve and pump attached to it. There are two ports."
 
-	can_unwrench = 1
+	can_unwrench = TRUE
 
 	level = 1
 

@@ -47,10 +47,14 @@
 		return
 	..()
 
-/obj/structure/spawner/attackby(obj/item/item, mob/user, params)
-	if(scanner_taggable && is_type_in_list(item, scanner_types))
-		gps_tag(user)
-	..()
+
+/obj/structure/spawner/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !scanner_taggable || !is_type_in_list(I, scanner_types))
+		return .
+	. |= ATTACK_CHAIN_SUCCESS
+	gps_tag(user)
+
 
 /// Tag the spawner, prefixing its GPS entry with an identifier - or giving it one, if nonexistent.
 /obj/structure/spawner/proc/gps_tag(mob/user)

@@ -35,13 +35,20 @@
 	if(exposed_temperature > 300)
 		PlasmaBurn()
 
-/turf/simulated/floor/mineral/plasma/attackby(obj/item/W, mob/user, params)
-	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
-		add_attack_logs(user, src, "Ignited using [W]", ATKLOG_FEW)
+
+/turf/simulated/floor/mineral/plasma/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
+
+	var/hot_temp = is_hot(I)
+	if(hot_temp > 300)//If the temperature of the object is over 300, then ignite
+		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
 		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
-		ignite(is_hot(W))
-		return
-	..()
+		ignite(hot_temp)
+		return .|ATTACK_CHAIN_BLOCKED_ALL
+
 
 /turf/simulated/floor/mineral/plasma/welder_act(mob/user, obj/item/I)
 	if(I.use_tool(src, user, volume = I.tool_volume))
@@ -157,10 +164,11 @@
 	if(isliving(arrived))
 		squeek()
 
-/turf/simulated/floor/mineral/bananium/attackby(obj/item/W, mob/user, params)
-	.=..()
-	if(!.)
-		honk()
+
+/turf/simulated/floor/mineral/bananium/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	honk()
+
 
 /turf/simulated/floor/mineral/bananium/attack_hand(mob/user)
 	.=..()

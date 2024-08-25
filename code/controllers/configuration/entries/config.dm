@@ -823,3 +823,14 @@
 	default = 400
 	min_val = 0
 
+/datum/config_entry/flag/cache_assets
+	default = TRUE
+
+/datum/config_entry/flag/save_spritesheets
+	default = FALSE
+
+
+/datum/config_entry/string/invoke_youtubedl
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
+
+/datum/config_entry/str_list/lobby_music

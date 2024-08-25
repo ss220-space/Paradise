@@ -38,22 +38,29 @@
 	<BR>Кроме того, Раб соглашается передать право на владение своей душой отделу лояльности Вездесущего и полезного наблюдателя за человечеством.\
 	<BR>В случае, если передача души Раба невозможна, Раб вносит вместо неё залог.<BR>Подписано,<BR><i>[target]</i>"
 
-/obj/item/paper/contract/employment/attack(mob/living/M, mob/living/carbon/human/user)
+
+/obj/item/paper/contract/employment/attack(mob/living/victim, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
+		return .
+
 	var/deconvert = 0
-	if(M.mind == target && target.soulOwner != target)
+	if(victim.mind == target && target.soulOwner != target)
 		if(user.mind && (user.mind.assigned_role == JOB_TITLE_LAWYER))
 			deconvert = 60
 		else if (user.mind && (user.mind.assigned_role == JOB_TITLE_HOP) || (user.mind.assigned_role == "Centcom Commander") || (user.mind.assigned_role == JOB_TITLE_JUDGE))
-			deconvert = 40 // Не столь разбираются в бюрократии
+			deconvert = 40
 		else if(user.mind && (user.mind.assigned_role == JOB_TITLE_CAPTAIN))
-			deconvert = 25 // Капитан разбирается ещё меньше
+			deconvert = 25
 		else
-			deconvert = 0.0001 // Один на миллион
+			deconvert = 0.0001
+
 	if(prob(deconvert))
-		M.visible_message("<span class='notice'>Благодаря [user] [M] вспоминает, что душа [M] уже приобретена НаноТрейзен!</span>")
-		to_chat(M,"<span class='boldnotice'>Вы чувствуете, как Ваша душа возвращается к её правомочному владельцу — НаноТрейзен.</span>")
-		M.return_soul()
-	return ..()
+		victim.visible_message(
+			span_notice("Благодаря [user] [victim] вспоминает, что душа [victim] уже приобретена НаноТрейзен!"),
+			span_boldnotice("Вы чувствуете, как Ваша душа возвращается к её правомочному владельцу — НаноТрейзен."),
+		)
+		victim.return_soul()
 
 
 /obj/item/paper/contract/infernal
@@ -170,28 +177,43 @@
 	else
 		info += "<i>[signature]</i>"
 
-/obj/item/paper/contract/infernal/attackby(obj/item/P, mob/living/carbon/human/user, params)
-	add_fingerprint(user)
-	if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
-		attempt_signature(user)
-	else if(istype(P, /obj/item/stamp))
-		to_chat(user,"<span class='notice'>You stamp the paper with your rubber stamp, however the ink ignites as you release the stamp.</span>")
-	else if(is_hot(P))
-		user.visible_message("<span class='danger'>[user] brings [P] next to [src], but [src] does not catch fire!</span>", "<span class='danger'>The [src] refuses to ignite!</span>")
-	else
-		return ..()
 
-/obj/item/paper/contract/infernal/attack(mob/M, mob/living/user)
-	add_fingerprint(user)
-	if(M == user && target == M.mind && M.mind.soulOwner != owner && attempt_signature(user, 1))
-		user.visible_message("<span class='danger'>[user] slices their wrist with [src], and scrawls their name in blood.</span>", "<span class='danger'>You slice your wrist open and scrawl your name in blood.</span>")
-		if(istype(user, /mob/living/carbon/human))
-			var/mob/living/carbon/human/C = user
-			C.blood_volume = max(0, C.blood_volume - 100)
-	else
-		return ..()
+/obj/item/paper/contract/infernal/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/pen) || istype(I, /obj/item/toy/crayon))
+		if(attempt_signature(user))
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		return ATTACK_CHAIN_PROCEED
+
+	if(istype(I, /obj/item/stamp))
+		to_chat(user, span_notice("You stamp the paper with your rubber stamp, however the ink ignites as you release the stamp."))
+		return ATTACK_CHAIN_PROCEED
+
+	if(is_hot(I))
+		user.visible_message(
+			span_danger("[user] brings [I] next to [src], but it does not catch a fire!"),
+			span_danger("The [name] refuses to ignite!"),
+		)
+		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+
+	return ..()
+
+
+/obj/item/paper/contract/infernal/attack(mob/living/victim, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
+		return .
+
+	if(victim == user && target == victim.mind && victim.mind.soulOwner != owner && attempt_signature(user, TRUE))
+		user.visible_message(
+			span_danger("[user] slices their wrist with [src], and scrawls their name in blood."),
+			span_danger("You slice your wrist open and scrawl your name in blood."),
+		)
+		if(ishuman(user))
+			user.blood_volume = max(0, user.blood_volume - 100)
+
 
 /obj/item/paper/contract/infernal/proc/attempt_signature(mob/living/carbon/human/user, blood = 0)
+	add_fingerprint(user)
 	if(!(user.IsAdvancedToolUser() && user.is_literate()))
 		to_chat(user, "<span class='notice'>You don't know how to read or write.</span>")
 		return FALSE
@@ -221,34 +243,35 @@
 		to_chat(user,"<span class='notice'>But it seemed to have no effect, perhaps even Hell itself cannot grant this boon?</span>")
 	return TRUE
 
-/obj/item/paper/contract/infernal/revive/attack(mob/M, mob/living/user)
-	if(target == M.mind && M.stat == DEAD && M.mind.hasSoul && M.mind.soulOwner == M.mind)
-		if(!ishuman(M))
-			return
-		var/mob/living/carbon/human/H = M
-		var/mob/dead/observer/ghost = M.get_ghost(1)
-		var/response = "No"
-		if(ghost)
-			if(!ghost.client)
-				return
-			ghost.notify_cloning("A devil has offered you revival, at the cost of your soul.",'sound/effects/genetics.ogg', H)
-			response = alert(ghost, "A devil is offering you another chance at life, at the price of your soul, do you accept?", "Infernal Resurrection", "Yes", "No")
-			if(!ghost)
-				return		//handle logouts that happen whilst the alert is waiting for a response.
-			if(response == "Yes")
-				ghost.reenter_corpse()
-		else
-			response = alert(target.current, "A devil is offering you another chance at life, at the price of your soul, do you accept?", "Infernal Resurrection", "Yes", "No")
+
+/obj/item/paper/contract/infernal/revive/attack(mob/living/carbon/human/victim, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(!ishuman(victim) || target != victim.mind || victim.stat != DEAD || !victim.mind.hasSoul || victim.mind.soulOwner != victim.mind)
+		return ..()
+
+	. = ATTACK_CHAIN_PROCEED
+
+	var/mob/dead/observer/ghost = victim.get_ghost(TRUE)
+	var/response = "No"
+	if(ghost)
+		if(!ghost.client)
+			return .
+		ghost.notify_cloning("A devil has offered you revival, at the cost of your soul.",'sound/effects/genetics.ogg', victim)
+		response = alert(ghost, "A devil is offering you another chance at life, at the price of your soul, do you accept?", "Infernal Resurrection", "Yes", "No")
+		if(!ghost)
+			return .		//handle logouts that happen whilst the alert is waiting for a response.
 		if(response == "Yes")
-			H.revive()
-			add_attack_logs(user, H, "infernally revived via contract")
-			user.visible_message("<span class='notice'>With a sudden blaze, [H] stands back up.</span>")
-			H.fakefire()
-			FulfillContract(H, 1)//Revival contracts are always signed in blood
-			spawn(5)
-				H.fakefireextinguish(TRUE)
+			ghost.reenter_corpse()
 	else
-		..()
+		response = alert(target.current, "A devil is offering you another chance at life, at the price of your soul, do you accept?", "Infernal Resurrection", "Yes", "No")
+	if(response == "Yes")
+		. |= ATTACK_CHAIN_SUCCESS
+		victim.revive()
+		add_attack_logs(user, victim, "infernally revived via contract")
+		user.visible_message("<span class='notice'>With a sudden blaze, [victim] stands back up.</span>")
+		victim.fakefire()
+		FulfillContract(victim, 1)//Revival contracts are always signed in blood
+		spawn(5)
+			victim.fakefireextinguish(TRUE)
 
 
 /obj/item/paper/contract/infernal/proc/FulfillContract(mob/living/carbon/human/user = target.current, blood = 0)
@@ -322,7 +345,9 @@
 /obj/item/paper/contract/infernal/knowledge/FulfillContract(mob/living/carbon/human/user = target.current, blood = 0)
 	if(!istype(user) || !user.mind)
 		return -1
-	user.mutations.Add(XRAY)
+	ADD_TRAIT(user, TRAIT_XRAY, UNIQUE_TRAIT_SOURCE(src))
+	user.update_sight()
+	user.update_misc_effects()
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/view_range(null))
 	return ..()
 

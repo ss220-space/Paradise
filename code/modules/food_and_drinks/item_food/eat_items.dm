@@ -88,11 +88,9 @@
 	SSticker.score.score_food_eaten++
 
 
-/obj/item/proc/forceFed(mob/living/carbon/target, mob/user, var/instant_application = FALSE)
+/obj/item/proc/forceFed(mob/living/carbon/target, mob/user, instant_application = FALSE)
 	if(!instant_application)
-		visible_message("<span class='warning'>[user] пытается накормить [target], запихивая в рот [src.name].</span>")
-
-	if(!instant_application)
+		target.visible_message("<span class='warning'>[user] пытается накормить [target], запихивая в рот [src.name].</span>")
 		if(!do_after(user, 2 SECONDS, target, NONE))
 			return FALSE
 	return TRUE

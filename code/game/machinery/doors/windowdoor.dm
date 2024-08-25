@@ -300,13 +300,14 @@
 	operating = FALSE
 	return TRUE
 
+
 /obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
 	//If it's in the process of opening/closing, ignore the click
 	if(operating)
-		return
-
-	add_fingerprint(user)
+		add_fingerprint(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
+
 
 /obj/machinery/door/window/screwdriver_act(mob/user, obj/item/I)
 	if(obj_flags & NODECONSTRUCT)

@@ -40,10 +40,14 @@
 	teleport_speed = max(initial(teleport_speed) - (E*10), 0)
 	teleport_cooldown = max(initial(teleport_cooldown) - (E * 100), 0)
 
+
 /obj/machinery/quantumpad/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 	if(exchange_parts(user, I))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
+
 
 /obj/machinery/quantumpad/crowbar_act(mob/user, obj/item/I)
 	. = TRUE

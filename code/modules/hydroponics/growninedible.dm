@@ -35,11 +35,15 @@
 	QDEL_NULL(seed)
 	return ..()
 
-/obj/item/grown/attackby(obj/item/O, mob/user, params)
-	..()
-	if(istype(O, /obj/item/plant_analyzer))
-		send_plant_details(user)
-		return
+
+/obj/item/grown/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !istype(I, /obj/item/plant_analyzer))
+		return .
+	. |= ATTACK_CHAIN_SUCCESS
+	send_plant_details(user)
+
 
 /obj/item/grown/proc/add_juice()
 	if(reagents)

@@ -494,7 +494,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		to_chat(user, span_warning("[human_target] is not compatible with our biology."))
 		return FALSE
 
-	if((NOCLONE || SKELETON || HUSK) in human_target.mutations)
+	if(HAS_TRAIT(human_target, TRAIT_HUSK) || HAS_TRAIT(human_target, TRAIT_SKELETON) || HAS_TRAIT(human_target, TRAIT_NO_CLONE))
 		to_chat(user, span_warning("DNA of [target] is ruined beyond usability!"))
 		return FALSE
 

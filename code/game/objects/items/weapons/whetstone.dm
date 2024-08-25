@@ -20,33 +20,34 @@
 
 
 /obj/item/whetstone/attackby(obj/item/I, mob/user, params)
+	. = ATTACK_CHAIN_BLOCKED_ALL
 	if(!uses)
 		to_chat(user, span_warning("The sharpening block is too worn to use again!"))
-		return
+		return .
 	if(I.item_flags & NOSHARPENING)
 		to_chat(user, span_warning("You don't think [I] will be the thing getting modified if you use it on [src]!"))
-		return
+		return .
 	if(I.force >= max || I.throwforce >= max) //So the whetstone never reduces force or throw_force
 		to_chat(user, span_warning("[I] is much too powerful to sharpen further!"))
-		return
+		return .
 	if(requires_sharpness && !I.sharp)
 		to_chat(user, span_warning("You can only sharpen items that are already sharp, such as knives!"))
-		return
+		return .
 
 	//This block is used to check more things if the item has a relevant component.
 	var/signal_out = SEND_SIGNAL(I, COMSIG_ITEM_SHARPEN_ACT, increment, max) //Stores the bitflags returned by SEND_SIGNAL
 	if(signal_out & COMPONENT_BLOCK_SHARPEN_MAXED) //If the item's components enforce more limits on maximum power from sharpening,  we fail
 		to_chat(user, span_warning("[I] is much too powerful to sharpen further!"))
-		return
+		return .
 	if(signal_out & COMPONENT_BLOCK_SHARPEN_BLOCKED)
 		to_chat(user, span_warning("[I] is not able to be sharpened!"))
-		return
+		return .
 	if((signal_out & COMPONENT_BLOCK_SHARPEN_ALREADY) || (!signal_out && I.force > initial(I.force))) //No sharpening stuff twice
 		to_chat(user, span_warning("[I] has already been refined before. It cannot be sharpened further!"))
-		return
-	//If component returns nothing or sharpen_act() returns FALSE we are out
+		return .
+	//If component returns nothing and sharpen_act() returns FALSE we are out
 	if(!(signal_out & COMPONENT_BLOCK_SHARPEN_APPLIED) && !I.sharpen_act(src, user))
-		return
+		return .
 
 	user.visible_message(
 		span_notice("[user] sharpens [I] with [src]!"),
@@ -76,7 +77,7 @@
 		return .
 	var/datum/unarmed_attack/claws/claws = user.dna.species.unarmed
 	if(claws.damage > initial(claws.damage))
-		to_chat(user, span_warning("You can not sharpen your claws any further!"))
+		to_chat(user, span_warning("You cannot sharpen your claws any further!"))
 		return .
 
 	claws.damage = clamp(claws.damage + claws_increment, 0, max)

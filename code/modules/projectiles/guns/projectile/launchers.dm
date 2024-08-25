@@ -10,10 +10,6 @@
 	fire_sound = 'sound/weapons/gunshots/1grenlauncher.ogg'
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/gun/projectile/revolver/grenadelauncher/attackby(var/obj/item/A, mob/user, params)
-	..()
-	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
-		chamber_round()
 
 /obj/item/gun/projectile/revolver/grenadelauncher/multi
 	desc = "A revolving 6-shot grenade launcher."
@@ -59,7 +55,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "combat=4;engineering=4"
 	force = 10
-	can_suppress = 0
+	can_suppress = FALSE
 	mag_type = /obj/item/ammo_box/magazine/internal/speargun
 	fire_sound = 'sound/weapons/genhit.ogg'
 	burst_size = 1
@@ -67,21 +63,39 @@
 	select = 0
 	actions_types = null
 
+
 /obj/item/gun/projectile/automatic/speargun/update_icon_state()
 	return
+
 
 /obj/item/gun/projectile/automatic/speargun/attack_self()
 	return
 
-/obj/item/gun/projectile/automatic/speargun/process_chamber(eject_casing = 0, empty_chamber = 1)
-	..()
 
-/obj/item/gun/projectile/automatic/speargun/attackby(obj/item/A, mob/user, params)
-	var/num_loaded = magazine.attackby(A, user, params, 1)
-	if(num_loaded)
-		to_chat(user, "<span class='notice'>You load [num_loaded] spear\s into \the [src].</span>")
-		update_icon()
-		chamber_round()
+/obj/item/gun/projectile/automatic/speargun/can_shoot(mob/user)
+	if(chambered)
+		return TRUE
+	return FALSE
+
+
+/obj/item/gun/projectile/automatic/speargun/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
+	. = ..()
+
+
+/obj/item/gun/projectile/automatic/speargun/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/ammo_box) || istype(I, /obj/item/ammo_casing))
+		add_fingerprint(user)
+		var/num_loaded = magazine.reload(I, user, silent = TRUE, count_chambered = TRUE)
+		if(num_loaded)
+			balloon_alert(user, "копьё заряжено")
+			chamber_round()
+			update_icon()
+			return ATTACK_CHAIN_BLOCKED_ALL
+		balloon_alert(user, "не удалось!")
+		return ATTACK_CHAIN_PROCEED
+
+	return ..()
+
 
 /obj/item/gun/projectile/revolver/rocketlauncher //nice revolver you got here
 	name = "\improper PML-9"
@@ -94,47 +108,75 @@
 	weapon_weight = WEAPON_HEAVY
 	can_holster = FALSE
 	flags = CONDUCT
+	show_live_rounds = FALSE
 
-/obj/item/gun/projectile/revolver/rocketlauncher/attackby(obj/item/A, mob/user, params)
-	var/num_loaded = magazine.attackby(A, user, params, 1)
-	if(num_loaded)
-		to_chat(user, "<span class='notice'>You carefully load [A] into \the [src].</span>")
-		chamber_round()
-		cut_overlays()
 
-/obj/item/gun/projectile/revolver/rocketlauncher/process_chamber()
-	var/obj/item/ammo_casing/AC = chambered
-	if(isnull(AC) || !istype(AC))
-		chamber_round()
-		return
-	chambered = null
-	chamber_round()
-	update_icon()
-	return
+/obj/item/gun/projectile/revolver/rocketlauncher/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/ammo_box) || istype(I, /obj/item/ammo_casing))
+		add_fingerprint(user)
+		var/num_loaded = magazine.reload(I, user, silent = TRUE, count_chambered = TRUE)
+		if(num_loaded)
+			balloon_alert(user, "ракета заряжена")
+			chamber_round()
+			update_icon(UPDATE_OVERLAYS)
+			return ATTACK_CHAIN_BLOCKED_ALL
+		balloon_alert(user, "не удалось!")
+		return ATTACK_CHAIN_PROCEED
+
+	return ..()
+
+
+/obj/item/gun/projectile/revolver/rocketlauncher/can_shoot(mob/user)
+	if(chambered)
+		return TRUE
+	return FALSE
+
+
+/obj/item/gun/projectile/revolver/rocketlauncher/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
+	. = ..()
+
 
 /obj/item/gun/projectile/revolver/rocketlauncher/chamber_round()
 	if(chambered || !magazine)
 		return
-	else if(magazine.ammo_count())
+	if(magazine.ammo_count())
 		chambered = magazine.get_round()
-		chambered.loc = src
-	return
+		chambered.forceMove(src)
+
+
+/obj/item/gun/projectile/revolver/rocketlauncher/get_ammo(countchambered = TRUE, countempties = TRUE)
+	. = ..()
+
 
 /obj/item/gun/projectile/revolver/rocketlauncher/attack_self(mob/living/user)
+	add_fingerprint(user)
 	var/num_unloaded = 0
-	var/obj/item/ammo_casing/CB
-	while(get_ammo() > 0)
-		CB = magazine.get_round(0)
-		chambered = null
-		CB.loc = get_turf(loc)
-		user.put_in_hands(CB)
+	var/atom/drop_loc = drop_location()
+	while(get_ammo(FALSE) > 0)
+		var/obj/item/ammo_casing/CB = magazine.get_round()
+		CB.forceMove(drop_loc)
+		CB.pixel_x = rand(-10, 10)
+		CB.pixel_y = rand(-10, 10)
+		CB.SpinAnimation(5, 1)
+		CB.setDir(pick(GLOB.alldirs))
+		CB.update_appearance()
+		playsound(drop_loc, CB.casing_drop_sound, 60, TRUE)
 		num_unloaded++
+	if(chambered)
+		chambered.forceMove(drop_loc)
+		chambered.pixel_x = rand(-10, 10)
+		chambered.pixel_y = rand(-10, 10)
+		chambered.setDir(pick(GLOB.alldirs))
+		chambered.update_appearance()
+		chambered.SpinAnimation(5, 1)
+		playsound(drop_loc, chambered.casing_drop_sound, 60, TRUE)
+		chambered = null
+		num_unloaded++
+	update_icon(UPDATE_OVERLAYS)
 	if(num_unloaded)
-		to_chat(user, "<span class = 'notice'>You carefully remove [CB] from \the [src] .</span>")
+		balloon_alert(user, "[declension_ru(num_unloaded, "ракета извлечена",  "извлечено [num_unloaded] ракеты",  "извлечено [num_unloaded] ракет")]")
 	else
-		to_chat(user, "<span class='notice'>[src] is empty.</span>")
-	update_icon()
-	return
+		balloon_alert(user, "уже разряжено!")
 
 
 /obj/item/gun/projectile/revolver/rocketlauncher/update_icon_state()

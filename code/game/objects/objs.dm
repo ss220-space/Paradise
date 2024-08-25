@@ -20,8 +20,6 @@
 
 	var/acid_level = 0 //how much acid is on that obj
 
-	var/can_be_hit = TRUE //can this be bludgeoned by items?
-
 	var/being_shocked = FALSE
 	var/speed_process = FALSE
 
@@ -206,6 +204,7 @@
 /obj/proc/hear_message(mob/M, text)
 
 /obj/proc/default_welder_repair(mob/user, obj/item/I) //Returns TRUE if the object was successfully repaired. Fully repairs an object (setting BROKEN to FALSE), default repair time = 40
+	add_fingerprint(user)
 	if(obj_integrity >= max_integrity)
 		to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
 		return
@@ -222,6 +221,7 @@
 	return TRUE
 
 /obj/proc/default_unfasten_wrench(mob/user, obj/item/I, time = 20)
+	add_fingerprint(user)
 	if(!anchored && !isfloorturf(loc))
 		user.visible_message("<span class='warning'>A floor must be present to secure [src]!</span>")
 		return FALSE

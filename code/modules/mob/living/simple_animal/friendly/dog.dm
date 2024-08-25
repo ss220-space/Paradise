@@ -147,28 +147,39 @@
 			armorval += inventory_back.armor.getRating(attack_flag)
 	return armorval * 0.5
 
-/mob/living/simple_animal/pet/dog/corgi/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/razor))
+
+/mob/living/simple_animal/pet/dog/corgi/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/razor))
+		add_fingerprint(user)
 		if(shaved)
-			to_chat(user, "<span class='warning'>You can't shave this corgi, it's already been shaved!</span>")
-			return
+			to_chat(user, span_warning("You cannot shave this corgi, it has been already shaved!"))
+			return ATTACK_CHAIN_PROCEED
 		if(nofur)
-			to_chat(user, "<span class='warning'>You can't shave this corgi, it doesn't have a fur coat!</span>")
-			return
-		user.visible_message("<span class='notice'>[user] starts to shave [src] using \the [O].", "<span class='notice'>You start to shave [src] using \the [O]...</span>")
-		if(do_after(user, 5 SECONDS, src))
-			user.visible_message("<span class='notice'>[user] shaves [src]'s hair using \the [O].</span>")
-			playsound(loc, O.usesound, 20, TRUE)
-			shaved = TRUE
-			icon_living = "[initial(icon_living)]_shaved"
-			icon_dead = "[initial(icon_living)]_shaved_dead"
-			if(stat == CONSCIOUS)
-				icon_state = icon_living
-			else
-				icon_state = icon_dead
-		return
-	..()
-	update_dog_fluff()
+			to_chat(user, span_warning("You cannot shave this corgi, it doesn't have any fur!"))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] starts to shave [src], using [I]."),
+			span_notice("You start to shave [src]..."),
+		)
+		I.play_tool_sound(src, 30)
+		if(!do_after(user, 5 SECONDS, src, category = DA_CAT_TOOL) || shaved || nofur)
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] has shaved [src]'s fur using [I]."),
+			span_notice("You have shaved [src]'s fur."),
+		)
+		I.play_tool_sound(src, 30)
+		shaved = TRUE
+		icon_living = "[initial(icon_living)]_shaved"
+		icon_dead = "[initial(icon_living)]_shaved_dead"
+		update_icons()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 //Corgis are supposed to be simpler, so only a select few objects can actually be put
 //to be compatible with them. The objects are below.
@@ -178,7 +189,7 @@
 /mob/living/simple_animal/pet/dog/corgi/place_on_head(obj/item/item_to_add, mob/user)
 
 	if(istype(item_to_add, /obj/item/grenade/plastic/c4)) // last thing he ever wears, I guess
-		item_to_add.afterattack(src,user,1)
+		item_to_add.afterattack(src, user, TRUE)
 		return
 
 	if(inventory_head)
@@ -235,7 +246,7 @@
 	desc = initial(desc)
 	set_light_on(FALSE)
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
-	mutations.Remove(BREATHLESS)
+	REMOVE_TRAIT(src, TRAIT_NO_BREATH, CORGI_HARDSUIT_TRAIT)
 	minbodytemp = initial(minbodytemp)
 
 	if(inventory_head && inventory_head.dog_fashion)
@@ -667,15 +678,27 @@
 		if(target)
 			shootAt(target)
 
-/mob/living/simple_animal/pet/dog/corgi/borgi/attackby(obj/item/I, mob/living/user)
+
+/mob/living/simple_animal/pet/dog/corgi/borgi/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(istype(I, /obj/item/stack/nanopaste))
-		var/obj/item/stack/nanopaste/N = I
-		N.use(1)
-		if(LAZYLEN(diseases))
-			CureAllDiseases()
-			visible_message("<span class='notice'>[name] looks happy! </span>")
-			chasetail()
+		add_fingerprint(user)
+		var/obj/item/stack/nanopaste/nanopaste = I
+		if(!LAZYLEN(diseases))
+			to_chat(user, span_warning("[src] has nothing to fix."))
+			return ATTACK_CHAIN_PROCEED
+		if(!nanopaste.use(1))
+			to_chat(user, span_warning("You need at least one unit of [nanopaste] to proceed."))
+			return ATTACK_CHAIN_PROCEED
+		CureAllDiseases()
+		visible_message(span_notice("[src] looks happy!"))
+		chasetail()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
+
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/death(gibbed)
 	// Only execute the below if we successfully died

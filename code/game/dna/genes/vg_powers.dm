@@ -7,7 +7,7 @@
 	activation_messages = list("Your body feels if can alter its appearance.")
 	deactivation_messages = list("Your body doesn't feel capable of altering its appearance.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation = MORPH
+
 
 /datum/dna/gene/basic/grant_spell/morph/New()
 	..()
@@ -186,8 +186,6 @@
 	activation_messages = list("You feel you can project your thoughts.")
 	deactivation_messages = list("You no longer feel you can project your thoughts.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation = REMOTE_TALK
-
 	spelltype = /obj/effect/proc_holder/spell/remotetalk
 
 
@@ -338,9 +336,8 @@
 	activation_messages = list("Your mind can see things from afar.")
 	deactivation_messages = list("Your mind can no longer can see things from afar.")
 	instability = GENE_INSTABILITY_MINOR
-	mutation = REMOTE_VIEW
-
 	spelltype = /obj/effect/proc_holder/spell/remoteview
+	traits_to_add = list(TRAIT_OPEN_MIND)
 
 
 /datum/dna/gene/basic/grant_spell/remoteview/New()

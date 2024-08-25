@@ -133,28 +133,38 @@ GLOBAL_LIST_EMPTY(firealarms)
 		alarm(rand(30/severity, 60/severity))
 	..()
 
+
 /obj/machinery/firealarm/attackby(obj/item/I, mob/user, params)
-	add_fingerprint(user)
-	if(wiresexposed)
-		if(buildstage == FIRE_ALARM_UNWIRED)
+	if(!wiresexposed || user.a_intent == INTENT_HARM)
+		return ..()
+
+	switch(buildstage)
+		if(FIRE_ALARM_UNWIRED)
 			if(istype(I, /obj/item/stack/cable_coil))
+				add_fingerprint(user)
 				var/obj/item/stack/cable_coil/coil = I
 				if(!coil.use(5))
 					to_chat(user, span_warning("You need more cable for this!"))
-					return
-
+					return ATTACK_CHAIN_PROCEED
 				buildstage = FIRE_ALARM_READY
 				playsound(get_turf(src), I.usesound, 50, 1)
 				to_chat(user, span_notice("You wire [src]!"))
 				update_icon()
-		if(buildstage == FIRE_ALARM_FRAME)
+				return ATTACK_CHAIN_PROCEED_SUCCESS
+
+		if(FIRE_ALARM_FRAME)
 			if(istype(I, /obj/item/firealarm_electronics))
+				if(!user.drop_transfer_item_to_loc(I, src))
+					return ..()
+				add_fingerprint(user)
 				to_chat(user, span_notice("You insert the circuit!"))
 				qdel(I)
 				buildstage = FIRE_ALARM_UNWIRED
 				update_icon()
-		return
+				return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/machinery/firealarm/crowbar_act(mob/user, obj/item/I)
 	if(buildstage != FIRE_ALARM_UNWIRED)

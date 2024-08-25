@@ -30,7 +30,7 @@
 	deathmessage = "fainted"
 	var/powerlevel = 0 //Tracks our general strength level gained from eating other shrooms
 	var/bruised = 0 //If someone tries to cheat the system by attacking a shroom to lower its health, punish them so that it wont award levels to shrooms that eat it
-	var/recovery_cooldown = 0 //So you can't repeatedly revive it during a fight
+	var/recovery_cooldown = FALSE //So you can't repeatedly revive it during a fight
 	var/faint_ticker = 0 //If we hit three, another mushroom's gonna eat us
 	var/image/cap_living = null //Where we store our cap icons so we dont generate them constantly to update our icon
 	var/image/cap_dead = null
@@ -138,13 +138,13 @@
 
 
 /mob/living/simple_animal/hostile/mushroom/proc/Recover()
-	visible_message("<span class='notice'>[src] slowly begins to recover.</span>")
+	visible_message(span_notice("[src] starts to slowly recover."))
 	faint_ticker = 0
 	revive()
 	UpdateMushroomCap()
-	recovery_cooldown = 1
-	spawn(300)
-		recovery_cooldown = 0
+	recovery_cooldown = TRUE
+	addtimer(VARSET_CALLBACK(src, recovery_cooldown, FALSE), 30 SECONDS)
+
 
 /mob/living/simple_animal/hostile/mushroom/proc/LevelUp(var/level_gain)
 	if(powerlevel <= 9)
@@ -156,22 +156,40 @@
 		maxHealth += (level_gain * rand(1,5))
 	adjustBruteLoss(-maxHealth) //They'll always heal, even if they don't gain a level, in case you want to keep this shroom around instead of harvesting it
 
+
 /mob/living/simple_animal/hostile/mushroom/proc/Bruise()
 	if(!bruised && !stat)
-		src.visible_message("<span class='notice'>The [src.name] was bruised!</span>")
-		bruised = 1
+		visible_message(span_notice("The [name] was bruised!"))
+		bruised = TRUE
 
-/mob/living/simple_animal/hostile/mushroom/attackby(obj/item/I as obj, mob/user as mob, params)
+
+/mob/living/simple_animal/hostile/mushroom/attackby(obj/item/I, mob/user, params)
+	var/current_health
+	if(user.a_intent == INTENT_HARM)
+		current_health = health
+		. = ..()
+		if(!ATTACK_CHAIN_CANCEL_CHECK(.) && health < current_health)
+			Bruise()
+		return .
+
 	if(istype(I, /obj/item/reagent_containers/food/snacks/grown/mushroom))
-		if(stat == DEAD && !recovery_cooldown)
-			Recover()
-			qdel(I)
-		else
-			to_chat(user, "<span class='notice'>[src] won't eat it!</span>")
-		return
-	if(I.force)
+		if(stat != DEAD)
+			to_chat(user, span_warning("The [name] should be dead to recover it."))
+			return ATTACK_CHAIN_PROCEED
+		if(recovery_cooldown)
+			to_chat(user, span_warning("The [name] is still recovering. Wait a bit more."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		Recover()
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	current_health = health
+	. = ..()
+	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && health < current_health)
 		Bruise()
-	..()
+
 
 /mob/living/simple_animal/hostile/mushroom/attack_hand(mob/living/carbon/human/M as mob)
 	..()

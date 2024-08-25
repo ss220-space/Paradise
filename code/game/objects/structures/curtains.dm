@@ -42,12 +42,17 @@
 	icon_state = opacity ? "closed" : "open"
 
 
-/obj/structure/curtain/attackby(obj/item/W, mob/user)
-	if(istype(W, /obj/item/toy/crayon))
+/obj/structure/curtain/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/toy/crayon))
 		add_fingerprint(user)
 		color = input(user, "Choose Color") as color
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
+
 
 /obj/structure/curtain/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
