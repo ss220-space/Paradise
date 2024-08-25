@@ -256,11 +256,14 @@
   - bugfix: Storage Afterattack Fix (#5791)
   - bugfix: Few Bugs Fixed (#5794)
 '2024-08-24':
+  Aziz Chynaliev:
+  - bugfix: stop lobby music played by tgui panel (#5803)
   Daeberdir:
   - tweak: Wallthrow mini-stun. (#5788)
   ROdenFL:
   - server: some tg assets prs (#5784)
   - add: yt-dlp music system (#5792)
+  - server: TGUI 4.5.1-paradise (Inferno 8, eslint 9) (#5801)
   Sheya:
   - bugfix: syndicate depo AI gps (#5799)
   Vesterlim13:
@@ -268,3 +271,20 @@
   Zwei:
   - unknown: Mutation Traits To Real Traits (#5793)
   - bugfix: Attack Chain Fixes N5 (#5796)
+'2024-08-25':
+  ROdenFL:
+  - server: 516 compability (#5753)
+  Shaman:
+  - tweak: replace spellblade with guardian (#5807)
+  Vladisvell:
+  - add: Supermatter explosion now gives random mutation (with 10% chance!) without
+      monkeyfication (#5773)
+  - bugfix: finally fixes table unflipping (#5808)
+  - bugfix: Fixes events firing several times (#5810)
+  WolfLox:
+  - bugfix: lr30 havnt sprites after spawn (#5805)
+  Zwei:
+  - bugfix: Mutate Virus Checks For Reagents Holder (#5804)
+  - refactor: Species Traits Rework (#5806)
+  - bugfix: Old Traits Removal (#5809)
+  - bugfix: Runtimes Fixes N5 (#5811)

@@ -66,7 +66,8 @@ const Trophies = (props, context) => {
                 'margin-bottom': '-48px',
                 'height': '128px',
                 'width': '128px',
-                '-ms-interpolation-mode': 'nearest-neighbor',
+                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                'image-rendering': 'pixelated',
               }}
             />
             <Box
@@ -94,7 +95,8 @@ const Trophies = (props, context) => {
                 'margin-bottom': '-12px',
                 'height': '72px',
                 'width': '72px',
-                '-ms-interpolation-mode': 'nearest-neighbor',
+                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                'image-rendering': 'pixelated',
               }}
             />
             <Box
@@ -122,7 +124,8 @@ const Trophies = (props, context) => {
                 'margin-bottom': '-20px',
                 'height': '96px',
                 'width': '96px',
-                '-ms-interpolation-mode': 'nearest-neighbor',
+                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                'image-rendering': 'pixelated',
               }}
             />
             <Box
@@ -150,7 +153,8 @@ const Trophies = (props, context) => {
                 'margin-bottom': '-20px',
                 'height': '96px',
                 'width': '96px',
-                '-ms-interpolation-mode': 'nearest-neighbor',
+                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                'image-rendering': 'pixelated',
               }}
             />
             <Box
@@ -178,7 +182,8 @@ const Trophies = (props, context) => {
                 'margin-bottom': '-26px',
                 'height': '96px',
                 'width': '96px',
-                '-ms-interpolation-mode': 'nearest-neighbor',
+                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                'image-rendering': 'pixelated',
               }}
             />
             <Box
@@ -206,7 +211,8 @@ const Trophies = (props, context) => {
                 'margin-bottom': '-8px',
                 'height': '64px',
                 'width': '64px',
-                '-ms-interpolation-mode': 'nearest-neighbor',
+                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                'image-rendering': 'pixelated',
               }}
             />
             <Box
