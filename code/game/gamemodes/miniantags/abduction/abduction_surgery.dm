@@ -51,7 +51,7 @@
 		IC.forceMove(get_turf(target))
 		user.put_in_hands(IC, ignore_anim = FALSE)
 		return SURGERY_STEP_CONTINUE
-	if(NO_INTORGANS in AB.dna.species.species_traits)
+	if(HAS_TRAIT(AB, TRAIT_NO_INTORGANS))
 		user.visible_message(
 			"[user] prepares [target]'s [target_zone] for further dissection!",
 			span_notice("You prepare [target]'s [target_zone] for further dissection."),

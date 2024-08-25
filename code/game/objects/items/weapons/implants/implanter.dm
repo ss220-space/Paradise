@@ -51,7 +51,7 @@
 		/obj/item/implant/mindshield/ert,
 	)
 
-	if(target.dna && (NO_BIOCHIPS in target.dna.species.species_traits) && !(imp.type in whitelisted_implants))
+	if(!(imp.type in whitelisted_implants) && HAS_TRAIT(target, TRAIT_NO_BIOCHIPS))
 		to_chat(user, span_warning("Био-чип не приживётся в этом теле."))
 		return .
 

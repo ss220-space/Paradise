@@ -134,7 +134,14 @@
 	chemical_cost = 50
 	dna_cost = 3
 	genetic_damage = 100
+	/// Currently selected DNA
 	var/datum/dna/selected_dna = null
+	/// Typecache of the blacklisted species
+	var/static/list/blacklisted_species = list(
+		SPECIES_MACNINEPERSON = TRUE,
+		SPECIES_PLASMAMAN = TRUE,
+		SPECIES_VOX = TRUE,
+	)
 
 
 /datum/action/changeling/sting/transformation/Destroy(force)
@@ -156,7 +163,7 @@
 	if(!selected_dna)
 		return
 
-	if((NOTRANSSTING in selected_dna.species.species_traits) || selected_dna.species.is_monkeybasic)
+	if(blacklisted_species[selected_dna.species.name] || selected_dna.species.is_monkeybasic)
 		to_chat(cling?.owner?.current, span_warning("The selected DNA is incompatible with our sting."))
 		return
 
@@ -171,7 +178,7 @@
 		to_chat(user, span_warning("Our sting appears ineffective against its DNA."))
 		return FALSE
 
-	if(has_no_DNA(target))
+	if(HAS_TRAIT(target, TRAIT_NO_DNA))
 		to_chat(user, span_warning("This won't work on a creature without DNA."))
 		return FALSE
 

@@ -805,7 +805,7 @@
 		. = FALSE
 		fail_msg = "That limb is robotic."
 	// affecting.open = ORGAN_ORGANIC_ENCASED_OPEN after scalpel->hemostat->retractor
-	else if((PIERCEIMMUNE in dna.species.species_traits) && !ignore_pierceimmune && affecting.open < ORGAN_ORGANIC_ENCASED_OPEN)
+	else if(!ignore_pierceimmune && affecting.open < ORGAN_ORGANIC_ENCASED_OPEN && HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
 		. = FALSE
 	else if(covered_with_thick_material(target_zone) && !penetrate_thick)
 		. = FALSE
@@ -1240,10 +1240,9 @@
 
 	dna.real_name = real_name
 
-	update_sight()
-
 	dna.species.handle_dna(src) //Give them whatever special dna business they got.
 
+	update_sight()
 	update_client_colour(0)
 
 	if(!delay_icon_update)
@@ -1604,10 +1603,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/can_use_guns(obj/item/gun/check_gun)
 	. = ..()
 
-	if(check_gun.trigger_guard == TRIGGER_GUARD_NORMAL)
-		if((NOGUNS in dna.species.species_traits) || HAS_TRAIT(src, TRAIT_CHUNKYFINGERS))
-			to_chat(src, span_warning("Your fingers don't fit in the trigger guard!"))
-			return FALSE
+	if(check_gun.trigger_guard == TRIGGER_GUARD_NORMAL && HAS_TRAIT(src, TRAIT_NO_GUNS))
+		to_chat(src, span_warning("Your fingers don't fit in the trigger guard!"))
+		return FALSE
 
 	if(mind && mind.martial_art && mind.martial_art.no_guns) //great dishonor to famiry
 		to_chat(src, span_warning("[mind.martial_art.no_guns_message]"))
@@ -1737,15 +1735,16 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	.["Make superhero"] = "?_src_=vars;makesuper=[UID()]"
 	. += "---"
 
-/mob/living/carbon/human/adjust_nutrition(change)
-	if((NO_HUNGER in dna.species.species_traits) && !isvampire(src))
+
+/mob/living/carbon/human/adjust_nutrition(change, forced)
+	if(!forced && HAS_TRAIT(src, TRAIT_NO_HUNGER) && !isvampire(src))
 		return FALSE
 	. = ..()
 	update_hunger_slowdown()
 
 
-/mob/living/carbon/human/set_nutrition(change)
-	if((NO_HUNGER in dna.species.species_traits) && !isvampire(src))
+/mob/living/carbon/human/set_nutrition(change, forced)
+	if(!forced && HAS_TRAIT(src, TRAIT_NO_HUNGER) && !isvampire(src))
 		return FALSE
 	. = ..()
 	update_hunger_slowdown()

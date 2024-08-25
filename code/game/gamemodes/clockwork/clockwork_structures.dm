@@ -205,8 +205,9 @@
 				if(M.health < M.maxHealth)
 					M.adjustHealth(-8)
 
-			if(ishuman(L) && L.blood_volume < BLOOD_VOLUME_NORMAL && !isdiona(L))
+			if(ishuman(L) && !HAS_TRAIT(L, TRAIT_NO_BLOOD_RESTORE) && L.blood_volume < BLOOD_VOLUME_NORMAL)
 				L.blood_volume += 1
+
 
 /obj/structure/clockwork/functional/beacon/Destroy()
 	GLOB.clockwork_beacons -= src
