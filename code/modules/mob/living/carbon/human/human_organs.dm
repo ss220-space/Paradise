@@ -90,18 +90,18 @@
 
 /mob/living/carbon/human/proc/becomeSlim()
 	to_chat(src, span_notice("[pluralize_ru(src.gender,"Ты","Вы")] снова чувствуе[pluralize_ru(src.gender,"шь","те")] себя в форме!"))
-	mutations.Remove(FAT)
+	REMOVE_TRAIT(src, TRAIT_FAT, GENERIC_TRAIT)
 	update_obesity_slowdown()
 
 
 /mob/living/carbon/human/proc/becomeFat()
 	to_chat(src, span_alert("[pluralize_ru(src.gender,"Ты","Вы")] вдруг чувствуе[pluralize_ru(src.gender,"шь","те")] себя пухлым!"))
-	mutations.Add(FAT)
+	ADD_TRAIT(src, TRAIT_FAT, GENERIC_TRAIT)
 	update_obesity_slowdown()
 
 
 /mob/living/carbon/human/proc/update_obesity_slowdown()
-	if(FAT in mutations)
+	if(HAS_TRAIT(src, TRAIT_FAT))
 		add_movespeed_modifier(/datum/movespeed_modifier/obesity)
 		add_movespeed_modifier(/datum/movespeed_modifier/obesity_flying)
 	else

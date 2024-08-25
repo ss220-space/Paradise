@@ -12,6 +12,11 @@
 		/mob/living/silicon/proc/subsystem_law_manager
 	)
 
+/mob/living/silicon/decoy
+	silicon_subsystems = list(
+		/mob/living/silicon/proc/subsystem_law_manager
+	)
+
 /mob/living/silicon/ai
 	silicon_subsystems = list(
 		/mob/living/silicon/proc/subsystem_open_gps,
@@ -54,6 +59,10 @@
 	power_monitor	= new(src)
 	gps				= new(src)
 	blueprints		= new(src)
+
+/mob/living/silicon/decoy/init_subsystems()
+	law_manager = new(src)
+	return
 
 /mob/living/silicon/robot/init_subsystems()
 	. = ..()

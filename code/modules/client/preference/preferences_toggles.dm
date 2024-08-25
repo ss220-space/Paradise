@@ -153,7 +153,8 @@
 		if(isnewplayer(usr))
 			user.playtitlemusic()
 	else
-		usr.stop_sound_channel(CHANNEL_LOBBYMUSIC)
+		// usr.stop_sound_channel(CHANNEL_LOBBYMUSIC)
+		user.tgui_panel?.stop_music()
 
 /datum/preference_toggle/toggle_admin_midis
 	name = "Toggle Admin Midis"

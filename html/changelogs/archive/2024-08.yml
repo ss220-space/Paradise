@@ -230,9 +230,41 @@
   Anorak2020:
   - bugfix: Hulk regen * 4 (#5776)
   - bugfix: Hulk regen *4 2.0 (#5779)
+  Aziz Chynaliev:
+  - del: yogstation music system" (#5782)
+  Den109G:
+  - bugfix: Now you can change freeform law without changing position (#5749)
+  NightDawnFox:
+  - bugfix: another roboquest fix (#5781)
   ROdenFL:
   - add: yogstation music system (#5758)
+  - bugfix: freeplay minesweeper in dorms and paying for mode changing (#5770)
+  Sheya:
+  - bugfix: LSR-39 needs two hands (#5783)
+  - add: craftable pizza bomb (#5662)
   Zwei:
   - bugfix: Attack Chain Fixes N2 (#5777)
   - bugfix: Pacman Fix (#5778)
   - bugfix: LR-30 Magazine Sprites Fix (#5780)
+  - bugfix: Attack Chain Fixes N3 (#5787)
+  dageavtobusnick:
+  - unknown: destroyer robot(droidec) tweaks and fixes (#5768)
+'2024-08-23':
+  Zwei:
+  - bugfix: Abductor Optable Construction Fix (#5789)
+  - bugfix: Germs Growth Physiology Based (#5790)
+  - bugfix: Storage Afterattack Fix (#5791)
+  - bugfix: Few Bugs Fixed (#5794)
+'2024-08-24':
+  Daeberdir:
+  - tweak: Wallthrow mini-stun. (#5788)
+  ROdenFL:
+  - server: some tg assets prs (#5784)
+  - add: yt-dlp music system (#5792)
+  Sheya:
+  - bugfix: syndicate depo AI gps (#5799)
+  Vesterlim13:
+  - bugfix: Small fix pirate base (#5795)
+  Zwei:
+  - unknown: Mutation Traits To Real Traits (#5793)
+  - bugfix: Attack Chain Fixes N5 (#5796)

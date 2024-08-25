@@ -393,12 +393,13 @@
 		return TRUE	//godmode
 
 	if(adjusted_pressure >= dna.species.hazard_high_pressure)
-		if(!(HEATRES in mutations))
+		if(HAS_TRAIT(src, TRAIT_RESIST_HEAT))
+			clear_alert("pressure")
+		else
 			var/pressure_damage = min( ( (adjusted_pressure / dna.species.hazard_high_pressure) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE) * physiology.pressure_mod * physiology.brute_mod
 			take_overall_damage(brute = pressure_damage, used_weapon = "High Pressure")
 			throw_alert("pressure", /atom/movable/screen/alert/highpressure, 2)
-		else
-			clear_alert("pressure")
+
 	else if(adjusted_pressure >= dna.species.warning_high_pressure)
 		throw_alert("pressure", /atom/movable/screen/alert/highpressure, 1)
 	else if(adjusted_pressure >= dna.species.warning_low_pressure)
@@ -406,7 +407,7 @@
 	else if(adjusted_pressure >= dna.species.hazard_low_pressure)
 		throw_alert("pressure", /atom/movable/screen/alert/lowpressure, 1)
 	else
-		if(COLDRES in mutations)
+		if(HAS_TRAIT(src, TRAIT_RESIST_COLD))
 			clear_alert("pressure")
 		else
 			var/pressure_damage = LOW_PRESSURE_DAMAGE * physiology.pressure_mod * physiology.brute_mod
@@ -417,9 +418,7 @@
 ///FIRE CODE
 /mob/living/carbon/human/handle_fire()
 	. = ..()
-	if(!.)
-		return
-	if(HEATRES in mutations)
+	if(!. || HAS_TRAIT(src, TRAIT_RESIST_HEAT))
 		return
 	var/thermal_protection = get_thermal_protection()
 
@@ -503,7 +502,7 @@
 
 /mob/living/carbon/human/proc/get_heat_protection(temperature) //Temperature is the temperature you're being exposed to.
 
-	if(HEATRES in mutations)
+	if(HAS_TRAIT(src, TRAIT_RESIST_HEAT))
 		return 1
 
 	var/thermal_protection_flags = get_heat_protection_flags(temperature)
@@ -567,7 +566,7 @@
 
 /mob/living/carbon/human/proc/get_cold_protection(temperature)
 
-	if(COLDRES in mutations)
+	if(HAS_TRAIT(src, TRAIT_RESIST_COLD))
 		return 1 //Fully protected from the cold.
 
 	temperature = max(temperature, TCMB) //There is an occasional bug where the temperature is miscalculated in areas with a small amount of gas on them, so this is necessary to ensure that that bug does not affect this calculation. Space's temperature is 2.7K and most suits that are intended to protect against any cold, protect down to 2.0K.
@@ -630,7 +629,7 @@
 	var/is_vamp = isvampire(src)
 
 	if(!(NO_HUNGER in dna.species.species_traits) || is_vamp)
-		if(FAT in mutations)
+		if(HAS_TRAIT(src, TRAIT_FAT))
 			if(overeatduration < 100)
 				becomeSlim()
 		else
@@ -657,7 +656,7 @@
 
 		else
 			if(overeatduration > 1)
-				if(OBESITY in mutations)
+				if(HAS_TRAIT(src, TRAIT_OBESITY))
 					overeatduration -= 1 // Those with obesity gene take twice as long to unfat
 				else
 					overeatduration -= 2

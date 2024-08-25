@@ -30,7 +30,7 @@
 
 
 /obj/item/memorizer/proc/clown_check(mob/user)
-	if(user && (CLUMSY in user.mutations) && prob(50))
+	if(user && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		memorize_carbon(user, user, 15, FALSE)
 		return FALSE
 	return TRUE
