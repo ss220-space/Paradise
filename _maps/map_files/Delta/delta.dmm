@@ -117439,9 +117439,9 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
 	},
+/obj/item/clothing/gloves/color/fyellow,
 /obj/item/storage/toolbox/electrical,
 /obj/item/multitool,
-/obj/item/clothing/gloves/color/fyellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -119945,9 +119945,9 @@
 /area/crew_quarters/captain/bedroom)
 "wPi" = (
 /obj/structure/table/reinforced,
+obj/item/clothing/gloves/color/fyellow,
 /obj/item/storage/toolbox/electrical,
 /obj/item/multitool,
-/obj/item/clothing/gloves/color/fyellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

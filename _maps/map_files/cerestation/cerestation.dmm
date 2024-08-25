@@ -26899,9 +26899,9 @@
 	pixel_x = 1;
 	pixel_y = -1
 	},
+/obj/item/clothing/gloves/color/fyellow,
 /obj/item/t_scanner,
 /obj/item/multitool,
-/obj/item/clothing/gloves/color/fyellow,
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "dDh" = (

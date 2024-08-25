@@ -101066,9 +101066,9 @@
 "sdv" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/electrical,
+/obj/item/clothing/gloves/color/fyellow,
 /obj/item/t_scanner,
 /obj/item/multitool,
-/obj/item/clothing/gloves/color/fyellow,
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "sdz" = (
