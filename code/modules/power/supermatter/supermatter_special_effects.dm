@@ -149,10 +149,17 @@
 		var/turf/T = get_turf(creature)
 		if(!T || T.z != src.z)
 			continue
+
+		if(!creature.dna)
+			continue
+
 		if(NO_DNA in creature.dna?.species.species_traits)
 			continue
-		if(prob(dna_mutation_chance))
-			randmut(creature)
+
+		var/resist = creature.getarmor(attack_flag = RAD)
+		var/chance = clamp(dna_mutation_chance * (1 - (resist / 100)), 0, 100)
+		if(!(RADIMMUNE in creature.dna?.species.species_traits) && prob(chance))
+			randmut(creature, FALSE)
 			creature.check_genes(MUTCHK_FORCED)
 
 /datum/supermatter_explosive_effects/proc/give_mind_lesser(mob/living/carbon/human/lesser/monke)
