@@ -608,3 +608,31 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/shoes.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/shoes.dmi'
 		)
+
+/obj/item/clothing/shoes/reflector
+	name = "reflector boots"
+	desc = "Довольно легкая хоть и неудобная обувь, сделанная из сплавов высокотехнологичных материалов. Хотя не похоже, что она может защитить то чего-то кроме лазеров."
+	icon_state = "reflector"
+	item_state = "reflector"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 50, "energy" = 50, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	sprite_sheets = list(
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/shoes.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/shoes.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		)
+	var/hit_reflect_chance = 50
+
+/obj/item/clothing/shoes/reflector/IsReflect(def_zone)
+	if(!(def_zone in list(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)))
+		return FALSE
+	if (prob(hit_reflect_chance))
+		return TRUE

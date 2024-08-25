@@ -29473,7 +29473,6 @@
 /area/toxins/explab_chamber)
 "ekN" = (
 /obj/structure/rack,
-/obj/item/clothing/suit/armor/laserproof,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -29486,6 +29485,10 @@
 /obj/structure/sign/poster/official/ion_rifle{
 	pixel_y = -32
 	},
+/obj/item/clothing/shoes/reflector,
+/obj/item/clothing/gloves/reflector,
+/obj/item/clothing/suit/armor/reflector,
+/obj/item/clothing/head/helmet/reflector,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},

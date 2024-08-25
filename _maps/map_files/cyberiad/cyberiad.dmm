@@ -1719,11 +1719,31 @@
 /turf/simulated/floor/plating,
 /area/security/main)
 "ahS" = (
-/obj/machinery/door/airlock/hatch/gamma{
-	locked = 1;
-	req_access = list(1);
-	use_power = 0
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
 	},
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "Secure Armory West";
+	dir = 4;
+	network = list("SS13","Security")
+	},
+/obj/item/gun/energy/ionrifle,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/machinery/door/window{
+	name = "Secure Armory";
+	req_access = list(1)
+	},
+/obj/item/clothing/suit/armor/reflector,
+/obj/item/clothing/gloves/reflector,
+/obj/item/clothing/shoes/reflector,
+/obj/item/clothing/head/helmet/reflector,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2380,7 +2400,6 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3022,35 +3041,13 @@
 	},
 /area/security/main)
 "ama" = (
-/obj/structure/rack{
-	dir = 8;
-	layer = 2.9
-	},
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
 /obj/machinery/camera{
 	c_tag = "Secure Armory West";
 	dir = 4;
 	network = list("SS13","Security")
 	},
-/obj/item/clothing/suit/armor/laserproof,
-/obj/item/gun/energy/ionrifle,
 /obj/structure/window/reinforced{
 	dir = 1
-	},
-/obj/machinery/door/window{
-	name = "Secure Armory";
-	req_access = list(1)
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/securearmory)
-"amb" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -114530,7 +114527,7 @@ abO
 abO
 aiv
 aiv
-ahS
+qzT
 aiv
 aiv
 aiv
@@ -114790,7 +114787,7 @@ acR
 aeo
 akf
 ama
-ama
+ahS
 arG
 pUD
 pUD
@@ -115303,7 +115300,7 @@ acS
 aev
 qzT
 qzT
-amb
+qzT
 alk
 alk
 atp

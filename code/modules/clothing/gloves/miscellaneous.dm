@@ -405,3 +405,28 @@
 	name = "syndicate armored gloves"
 	icon_state = "syndicate_swat"
 	item_state = "syndicate_swat_gl"
+
+/obj/item/clothing/gloves/reflector
+	name = "reflector gloves"
+	desc = "Перчатки, сделанные из сплава максимально неудобных материалов. Нося их, вы еле можете пошевелить кистью. Хотя не похоже, что они могут защитить то чего-то кроме лазеров."
+	icon_state = "reflector"
+	item_state = "reflector"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 50, "energy" = 50, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	sprite_sheets = list(
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/gloves.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
+		)
+	var/hit_reflect_chance = 50
+
+/obj/item/clothing/gloves/reflector/IsReflect(def_zone)
+	if(!(def_zone in list(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)))
+		return FALSE
+	if (prob(hit_reflect_chance))
+		return TRUE
