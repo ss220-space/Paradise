@@ -28,7 +28,8 @@
 
 /mob/proc/AIize()
 	if(client)
-		stop_sound_channel(CHANNEL_LOBBYMUSIC)
+		// stop_sound_channel(CHANNEL_LOBBYMUSIC)
+		client?.tgui_panel?.stop_music()
 
 	var/mob/living/silicon/ai/O = new (loc,,,1)//No MMI but safety is in effect.
 	O.invisibility = 0

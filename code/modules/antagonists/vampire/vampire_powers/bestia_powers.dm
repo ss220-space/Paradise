@@ -2101,7 +2101,6 @@
 	melee_damage_upper = 20
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	obj_damage = 50
-	mutations = list(BREATHLESS)
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)	// ultimate form, no need in oxy
 	maxbodytemp = 1200	// we are still a vampire
 	/// How many cycles will be skipped between blood cost apply.
@@ -2113,6 +2112,9 @@
 
 /mob/living/simple_animal/hostile/vampire/hound/Initialize(mapload, datum/antagonist/vampire/vamp, mob/living/carbon/human/h_vampire, obj/effect/proc_holder/spell/vampire/metamorphosis/meta_spell)
 	. = ..()
+
+	ADD_TRAIT(src, TRAIT_NO_BREATH, INNATE_TRAIT)
+
 	if(!vampire)
 		return
 

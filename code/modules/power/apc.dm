@@ -613,7 +613,7 @@
 		update_icon()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(I.GetID())	// trying to unlock the interface with an ID card
+	if(I.GetID() || is_pda(I))	// trying to unlock the interface with an ID card
 		add_fingerprint(user)
 		if(togglelock(user))
 			return ATTACK_CHAIN_PROCEED_SUCCESS

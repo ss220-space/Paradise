@@ -62,12 +62,14 @@
 /obj/item/melee/baton/security/proc/link_new_cell(unlink = FALSE)
 	if(unlink)
 		cell = null
+		update_appearance(UPDATE_ICON_STATE)
 		return
 	var/mob/living/silicon/robot/robot = get(loc, /mob/living/silicon/robot)
 	if(robot)
 		cell = robot.cell
 	else if(ispath(cell))
 		cell = new cell(src)
+	update_appearance(UPDATE_ICON_STATE)
 
 
 /obj/item/melee/baton/security/update_icon_state()

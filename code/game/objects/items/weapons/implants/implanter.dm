@@ -41,7 +41,7 @@
 	if(!iscarbon(target))
 		return .
 
-	if(user || !imp)
+	if(!user || !imp)
 		return .
 
 	// paradise balance moment

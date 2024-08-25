@@ -389,7 +389,7 @@
 
 /obj/item/borg/upgrade/modkit/proc/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
 	add_fingerprint(user)
-	add_fingerprint(KA)
+	KA.add_fingerprint(user)
 	if(!(compatibility & KA.compatibility))
 		to_chat(user, span_warning("Похоже, что этот модуль не подходит для таких ускорителей!"))
 		return FALSE

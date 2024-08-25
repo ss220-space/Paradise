@@ -246,7 +246,7 @@
 	desc = initial(desc)
 	set_light_on(FALSE)
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
-	mutations.Remove(BREATHLESS)
+	REMOVE_TRAIT(src, TRAIT_NO_BREATH, CORGI_HARDSUIT_TRAIT)
 	minbodytemp = initial(minbodytemp)
 
 	if(inventory_head && inventory_head.dog_fashion)

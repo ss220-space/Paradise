@@ -396,6 +396,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	icon_state = "switch-off"
 	base_icon_state = "switch"
 	processing_flags = START_PROCESSING_MANUALLY
+	anchored = TRUE
 	/// The current state of the switch.
 	var/position = CONVEYOR_OFF
 	/// If the switch only operates the conveyor belts in a single direction.

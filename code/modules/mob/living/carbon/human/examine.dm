@@ -305,7 +305,7 @@
 	if(nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
 		msg += "[p_they(TRUE)] [p_are()] severely malnourished.\n"
 
-	if(FAT in mutations)
+	if(HAS_TRAIT(src, TRAIT_FAT))
 		msg += "[p_they(TRUE)] [p_are()] morbidly obese.\n"
 		if(user.nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
 			msg += "[p_they(TRUE)] [p_are()] plump and delicious looking - Like a fat little piggy. A tasty piggy.\n"
@@ -450,7 +450,7 @@
 	if(!length(examine_list))
 		return
 
-	return examine_list.Join("\n") + "\n" 
+	return examine_list.Join("\n") + "\n"
 
 
 //Helper procedure. Called by /mob/living/carbon/human/examine() and /mob/living/carbon/human/Topic() to determine HUD access to security and medical records.
