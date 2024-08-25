@@ -55,7 +55,7 @@
 	var/obj/item/clothing/gloves = H.gloves
 	if(isclothing(gloves) && gloves.clothing_flags & FINGERS_COVERED)
 		return TRUE
-	if(PIERCEIMMUNE in H.dna.species.species_traits)
+	if(HAS_TRAIT(H, TRAIT_PIERCEIMMUNE))
 		return TRUE
 	H.apply_damage(force, BURN, def_zone = H.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 	to_chat(H, "<span class='userdanger'>The nettle burns your bare hand!</span>")
@@ -94,7 +94,7 @@
 /obj/item/grown/nettle/death/pickup(mob/living/carbon/user)
 	if(ishuman(user)) // If the pickup succeeded and is humanoid
 		var/mob/living/carbon/human/H = user
-		if(PIERCEIMMUNE in H.dna.species.species_traits)
+		if(HAS_TRAIT(H, TRAIT_PIERCEIMMUNE))
 			return ..()
 		var/obj/item/clothing/gloves = H.gloves
 		if((!isclothing(gloves) || !(gloves.clothing_flags & FINGERS_COVERED)) && prob(50))

@@ -24,7 +24,7 @@
 	if(used || !ishuman(target) || !ishuman(user))
 		return .
 
-	if(NO_DNA in target.dna.species.species_traits)
+	if(HAS_TRAIT(target, TRAIT_NO_DNA))
 		to_chat(user, span_warning("You failed to inject [target], as [target.p_they()] [target.p_have()] no DNA to scramble, nor flesh to inject."))
 		return .
 

@@ -138,8 +138,8 @@ effective or pretty fucking useless.
 
 	var/cooldown = round(max(10,((intensity*8)-(wavelength/2))+(intensity*2)))
 	var/dat = {"<meta charset="UTF-8">
-	Radiation Intensity: <A href='?src=[UID()];radint=-5'>-</A><A href='?src=[UID()];radint=-1'>-</A> [intensity] <A href='?src=[UID()];radint=1'>+</A><A href='?src=[UID()];radint=5'>+</A><BR>
-	Radiation Wavelength: <A href='?src=[UID()];radwav=-5'>-</A><A href='?src=[UID()];radwav=-1'>-</A> [(wavelength+(intensity*4))] <A href='?src=[UID()];radwav=1'>+</A><A href='?src=[UID()];radwav=5'>+</A><BR>
+	Radiation Intensity: <a href='byond://?src=[UID()];radint=-5'>-</A><a href='byond://?src=[UID()];radint=-1'>-</A> [intensity] <a href='byond://?src=[UID()];radint=1'>+</A><a href='byond://?src=[UID()];radint=5'>+</A><BR>
+	Radiation Wavelength: <a href='byond://?src=[UID()];radwav=-5'>-</A><a href='byond://?src=[UID()];radwav=-1'>-</A> [(wavelength+(intensity*4))] <a href='byond://?src=[UID()];radwav=1'>+</A><a href='byond://?src=[UID()];radwav=5'>+</A><BR>
 	Laser Cooldown: [cooldown] Seconds<BR>
 	"}
 
@@ -436,10 +436,14 @@ effective or pretty fucking useless.
 
 
 /obj/item/teleporter/admin
-	desc = "A strange syndicate version of a cult veil shifter. \n This one seems EMP proof, and with much better saftey protocols."
+	desc = "A strange syndicate version of a cult veil shifter. \n This one seems EMP proof, and with much better safety protocols."
 	charges = 8
 	max_charges = 8
 	flawless = TRUE
+
+
+/obj/item/teleporter/admin/update_icon_state()
+	icon_state = "[base_icon_state]-[CEILING(charges / 2, 1)]"
 
 
 #define ION_CALLER_AI_TARGETING		"AI targeting"

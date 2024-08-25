@@ -94,12 +94,12 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
 		// no parameter in [affects_vampire()] so holy always protects
-		if(C.ckey && C.stat != DEAD && C.affects_vampire() && !(NO_BLOOD in C.dna?.species?.species_traits))
+		if(C.ckey && C.stat != DEAD && C.affects_vampire() && !HAS_TRAIT(C, TRAIT_NO_BLOOD))
 			C.bleed(blood_drain_amount)
 			attacker.adjustStaminaLoss(-20) // security is dead
 			attacker.heal_overall_damage(4, 4) // the station is full
 			attacker.AdjustKnockdown(-1 SECONDS) // blood is fuel
-			if(!C.dna.species.exotic_blood)
+			if(!HAS_TRAIT(C, TRAIT_EXOTIC_BLOOD))
 				V.adjust_blood(C, blood_absorbed_amount)
 
 	if(!V.get_ability(/datum/vampire_passive/blood_spill))
@@ -461,7 +461,7 @@
 	var/beam_number = 0
 	var/datum/antagonist/vampire/V = owner.mind.has_antag_datum(/datum/antagonist/vampire)
 	for(var/mob/living/carbon/human/H in view(7, owner))
-		if(NO_BLOOD in H.dna.species.species_traits)
+		if(HAS_TRAIT(H, TRAIT_NO_BLOOD))
 			continue
 
 		if(!H.affects_vampire(owner) || H.stat)

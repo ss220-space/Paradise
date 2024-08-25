@@ -113,7 +113,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	//humans
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		if(NO_DNA in H.dna.species.species_traits)
+		if(HAS_TRAIT(H, TRAIT_NO_DNA))
 			to_chat(user, "<span class='notice'>This humanoid doesn't have DNA.</span>")
 			return
 		if(dna[H.dna.uni_identity])
@@ -308,8 +308,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 		return
 	if(!completed)
 		return
-	var/datum/species/S = H.dna.species
-	if(NO_DNA in S.species_traits)
+	if(HAS_TRAIT(H, TRAIT_NO_DNA))
 		to_chat(H, "<span class='warning'>Error, no DNA detected.</span>")
 		return
 	switch(upgrade_type)
@@ -319,14 +318,14 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 			if(L)
 				L.tox_breath_dam_min = 0
 				L.tox_breath_dam_max = 0
-			S.species_traits |= VIRUSIMMUNE
+			ADD_TRAIT(H, TRAIT_VIRUSIMMUNE, name)
 		if(VAULT_NOBREATH)
 			to_chat(H, "<span class='notice'>Your lungs feel great.</span>")
-			S.species_traits |= NO_BREATHE
+			ADD_TRAIT(H, TRAIT_NO_BREATH, name)
 		if(VAULT_FIREPROOF)
 			to_chat(H, "<span class='notice'>You feel fireproof.</span>")
 			H.physiology.burn_mod *= 0.5
-			S.species_traits |= RESISTHOT
+			ADD_TRAIT(H, TRAIT_RESIST_HEAT, name)
 		if(VAULT_STUNTIME)
 			to_chat(H, "<span class='notice'>Nothing can keep you down for long.</span>")
 			H.physiology.stun_mod *= 0.5
@@ -341,7 +340,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 			H.physiology.clone_mod *= 0.7
 			H.physiology.brain_mod *= 0.7
 			H.physiology.stamina_mod *= 0.7
-			S.species_traits |= PIERCEIMMUNE
+			ADD_TRAIT(H, TRAIT_PIERCEIMMUNE, name)
 		if(VAULT_SPEED)
 			to_chat(H, "<span class='notice'>You feel very fast and agile.</span>")
 			H.add_movespeed_modifier(/datum/movespeed_modifier/dna_vault_speedup)

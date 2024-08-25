@@ -93,10 +93,10 @@
 	Behaviour controls are [locked ? "locked" : "unlocked"]<BR>
 	Maintenance panel is [open ? "opened" : "closed"]<BR>"},
 
-	"<A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A>")
+	"<a href='byond://?src=[UID()];power=1'>[on ? "On" : "Off"]</A>")
 
 	if(!locked || issilicon(user) || user.can_admin_interact())
-		dat += "Auto Patrol <A href='?src=[UID()];operation=patrol'>[auto_patrol ? "On" : "Off"]</A><BR>"
+		dat += "Auto Patrol <a href='byond://?src=[UID()];operation=patrol'>[auto_patrol ? "On" : "Off"]</A><BR>"
 
 	return	dat
 

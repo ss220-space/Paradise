@@ -73,7 +73,7 @@
 		return
 
 	// injection_limb.open = ORGAN_ORGANIC_ENCASED_OPEN after scalpel->hemostat->retractor
-	if((PIERCEIMMUNE in injection_target.dna.species.species_traits) && injection_limb.open < ORGAN_ORGANIC_ENCASED_OPEN)
+	if(injection_limb.open < ORGAN_ORGANIC_ENCASED_OPEN && HAS_TRAIT(injection_target, TRAIT_PIERCEIMMUNE))
 		end_processing()
 		return
 
