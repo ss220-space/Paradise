@@ -28,6 +28,7 @@ var mc_tab_parts = [['Loading...', '']];
 var href_token = null;
 var verb_tabs = [];
 var verbs = [['', '']]; // list with a list inside
+var sdql2 = [];
 var permanent_tabs = []; // tabs that won't be cleared by wipes
 var turf_row_inner_height = 33;
 var turf_row_outer_height = 35;
@@ -238,6 +239,8 @@ function tab_change(tab) {
 		draw_verbs(tab);
 	} else if (tab == 'Debug Stat Panel') {
 		draw_debug();
+	} else if (tab == 'SDQL2') {
+		draw_sdql2();
 	} else if (tab == turfname) {
 		draw_listedturf();
 	} else {
@@ -369,6 +372,30 @@ function draw_mc() {
 			td2.appendChild(a);
 		} else {
 			td2.insertAdjacentHTML('beforeend', part[1]);
+		}
+		tr.appendChild(td1);
+		tr.appendChild(td2);
+		table.appendChild(tr);
+	}
+	document.getElementById('statcontent').appendChild(table);
+}
+
+function draw_sdql2() {
+	statcontentdiv.textContent = '';
+	var table = document.createElement('table');
+	for (var i = 0; i < sdql2.length; i++) {
+		var part = sdql2[i];
+		var tr = document.createElement('tr');
+		var td1 = document.createElement('td');
+		td1.textContent = part[0];
+		var td2 = document.createElement('td');
+		if (part[2]) {
+			var a = document.createElement('a');
+			a.href = '?src=' + part[2] + ';statpanel_item_click=left';
+			a.textContent = part[1];
+			td2.appendChild(a);
+		} else {
+			td2.textContent = part[1];
 		}
 		tr.appendChild(td1);
 		tr.appendChild(td2);
@@ -632,6 +659,15 @@ function remove_mc() {
 	if (current_tab == 'MC') {
 		tab_change('Status');
 	}
+}
+
+function remove_sdql2() {
+	if (sdql2) {
+		sdql2 = [];
+		removePermanentTab('SDQL2');
+		if (current_tab == 'SDQL2') tab_change('Status');
+	}
+	checkStatusTab();
 }
 
 function make_verb_onclick(command) {
@@ -916,6 +952,18 @@ Byond.subscribeTo('update_mc', function (payload) {
 	}
 });
 
+Byond.subscribeTo('update_sdql2', function (S) {
+	sdql2 = S;
+	if (sdql2.length > 0 && !verb_tabs.includes('SDQL2')) {
+		verb_tabs.push('SDQL2');
+		addPermanentTab('SDQL2');
+	}
+
+	if (current_tab == 'SDQL2') {
+		draw_sdql2();
+	}
+});
+
 Byond.subscribeTo('create_debug', function () {
 	if (!document.getElementById('Debug Stat Panel')) {
 		addPermanentTab('Debug Stat Panel');
@@ -973,6 +1021,8 @@ Byond.subscribeTo('add_mc_tab', function (ht) {
 });
 
 Byond.subscribeTo('remove_listedturf', remove_listedturf);
+
+Byond.subscribeTo('remove_sdql2', remove_sdql2);
 
 Byond.subscribeTo('remove_mc', remove_mc);
 
