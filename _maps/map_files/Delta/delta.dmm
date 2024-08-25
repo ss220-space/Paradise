@@ -119945,7 +119945,7 @@
 /area/crew_quarters/captain/bedroom)
 "wPi" = (
 /obj/structure/table/reinforced,
-obj/item/clothing/gloves/color/fyellow,
+/obj/item/clothing/gloves/color/fyellow,
 /obj/item/storage/toolbox/electrical,
 /obj/item/multitool,
 /turf/simulated/floor/plasteel{
