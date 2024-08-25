@@ -174,7 +174,7 @@
 			icon_state = base_state
 		else
 			icon_state = base_state
-
+	SSdemo.mark_dirty(src)
 
 /obj/machinery/door/window/open(forced=0)
 
