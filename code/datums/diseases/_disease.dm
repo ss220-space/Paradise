@@ -232,7 +232,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
  */
 /datum/disease/proc/mutate()
 	var/datum/reagents/reagents = affected_mob.reagents
-	if(!reagents.reagent_list.len)
+	if(!reagents || !length(reagents.reagent_list))
 		return FALSE
 	for(var/R in mutation_reagents)
 		if(!reagents.has_reagent(R))
