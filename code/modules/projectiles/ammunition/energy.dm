@@ -153,13 +153,38 @@
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	harmful = FALSE
 
-/obj/item/ammo_casing/energy/flora/yield
-	projectile_type = /obj/item/projectile/energy/florayield
-	select_name = "yield"
+/obj/item/ammo_casing/energy/flora/alpha
+	name = "alpha"
+	select_name = "floraalpha"
+	fire_sound = 'sound/weapons/gunshots/1declone.ogg'
+	projectile_type = /obj/item/projectile/energy/floraalpha
+	harmful = TRUE
+	click_cooldown_override = 2
+	e_cost = 150
 
-/obj/item/ammo_casing/energy/flora/mut
-	projectile_type = /obj/item/projectile/energy/floramut
-	select_name = "mutation"
+/obj/item/ammo_casing/energy/flora/alpha/emag
+	projectile_type = /obj/item/projectile/energy/floraalpha/emag
+	e_cost = 225
+
+/obj/item/ammo_casing/energy/flora/beta
+	name = "beta"
+	select_name = "florabeta"
+	projectile_type = /obj/item/projectile/energy/florabeta
+	click_cooldown_override = 1
+	e_cost = 75
+
+/obj/item/ammo_casing/energy/flora/gamma
+	name = "gamma"
+	select_name = "floragamma"
+	projectile_type = /obj/item/projectile/energy/floragamma
+	delay = 10
+	e_cost = 675
+
+/obj/item/ammo_casing/energy/flora/gamma/fire(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, atom/firer_source_atom)
+	playsound(src.loc, 'sound/weapons/floragun_gamma.ogg', 75, TRUE)
+	if(!do_after(user, 0.5 SECONDS, user, DA_IGNORE_USER_LOC_CHANGE, progress = FALSE))
+		return FALSE
+	. = ..()
 
 /obj/item/ammo_casing/energy/temp
 	projectile_type = /obj/item/projectile/temp
