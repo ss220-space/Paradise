@@ -150,3 +150,5 @@
 #define EVIL_FAX_TRAIT "evil_fax"
 #define CORGI_HARDSUIT_TRAIT "corgi_hardsuit"
 
+// blob trait sourses
+#define BLOB_INFECTED_TRAIT "blob_infected"

@@ -29,17 +29,13 @@
 
 /datum/blob_atmos_immunities/human
 	mob_type = /mob/living/carbon/human
-	/// Indicates that the breathless trait was present before the change
-	var/no_breathe_exist
 
 
 /datum/blob_atmos_immunities/human/add_immunity(mob/living/carbon/human/affected)
 	if(..(affected))
 		var/datum/species/S = affected.dna.species
-		if(NO_BREATHE in S.species_traits)
-			no_breathe_exist = TRUE
-		else
-			S.species_traits |= NO_BREATHE
+		if(!HAS_TRAIT_FROM(affected, TRAIT_NO_BREATH, BLOB_INFECTED_TRAIT))
+			ADD_TRAIT(affected, TRAIT_NO_BREATH, BLOB_INFECTED_TRAIT)
 		S.cold_level_1 = BLOB_INFECTED_MIN_BODY_TEMP
 		S.cold_level_2 = BLOB_INFECTED_MIN_BODY_TEMP
 		S.cold_level_3 = BLOB_INFECTED_MIN_BODY_TEMP
@@ -52,8 +48,8 @@
 /datum/blob_atmos_immunities/human/remove_immunity(mob/living/carbon/human/affected)
 	if(..(affected))
 		var/datum/species/S = affected.dna.species
-		if(!no_breathe_exist)
-			S.species_traits -= NO_BREATHE
+		if(HAS_TRAIT_FROM(affected, TRAIT_NO_BREATH, BLOB_INFECTED_TRAIT))
+			REMOVE_TRAIT_NOT_FROM(affected, TRAIT_NO_BREATH, BLOB_INFECTED_TRAIT)
 		S.cold_level_1 = initial(S.cold_level_1)
 		S.cold_level_2 = initial(S.cold_level_2)
 		S.cold_level_3 = initial(S.cold_level_3)
