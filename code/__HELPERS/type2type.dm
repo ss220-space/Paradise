@@ -43,7 +43,9 @@
 	return num_list
 
 //Splits the text of a file at seperator and returns them in a list.
-/proc/file2list(filename, seperator="\n")
+/proc/file2list(filename, seperator="\n", trim = TRUE)
+	if (trim)
+		return splittext(trim(return_file_text(filename)),seperator)
 	return splittext(return_file_text(filename),seperator)
 
 

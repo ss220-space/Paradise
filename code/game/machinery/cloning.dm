@@ -399,51 +399,65 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		update_icon()
 		use_power(200)
 
+
 //Let's unlock this early I guess.  Might be too early, needs tweaking.
 /obj/machinery/clonepod/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(exchange_parts(user, I))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(I.GetID())
+		add_fingerprint(user)
 		if(!check_access(I))
 			to_chat(user, span_danger("Access Denied."))
-			return
+			return ATTACK_CHAIN_PROCEED
 		if(!(occupant || mess))
 			to_chat(user, span_danger("Error: Pod has no occupant."))
-			return
-		else
-			add_fingerprint(user)
-			connected_message("Authorized Ejection")
-			announce_radio_message("An authorized ejection of [(occupant) ? occupant.real_name : "the malfunctioning pod"] has occured")
-			to_chat(user, span_notice("You force an emergency ejection."))
-			go_out()
+			return ATTACK_CHAIN_PROCEED
+		connected_message("Authorized Ejection")
+		announce_radio_message("An authorized ejection of [(occupant) ? occupant.real_name : "the malfunctioning pod"] has occured")
+		to_chat(user, span_notice("You force an emergency ejection."))
+		go_out()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
+		add_fingerprint(user)
 		var/cleaning = FALSE
 		if(istype(I, /obj/item/reagent_containers/spray/cleaner))
-			var/obj/item/reagent_containers/spray/cleaner/C = I
-			if(C.reagents.total_volume >= C.amount_per_transfer_from_this)
+			var/obj/item/reagent_containers/spray/cleaner/cleaner = I
+			if(cleaner.reagents.total_volume >= cleaner.amount_per_transfer_from_this)
 				cleaning = TRUE
-			else
-				return
-		if(istype(I, /obj/item/soap))
+		else if(istype(I, /obj/item/soap))
 			cleaning = TRUE
-
 		if(!cleaning)
-			return
-		user.visible_message(span_notice("[user] starts to clean the ooze off the [src]."), span_notice("You start to clean the ooze off the [src]."))
-		if(do_after(user, 5 SECONDS, src))
-			user.visible_message(span_notice("[user] cleans the ooze off [src]."), span_notice("You clean the ooze off [src]."))
-			REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+			return ..()
+		user.visible_message(
+			span_notice("[user] starts to clean the ooze off the [src]."),
+			span_notice("You start to clean the ooze off the [src]."),
+		)
+		if(!do_after(user, 5 SECONDS, src))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] cleans the ooze off [src]."),
+			span_notice("You clean the ooze off [src]."),
+		)
+		REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-// A user can feed in biomass sources manually.
-	else if(is_type_in_list(I, GLOB.cloner_biomass_items))
-		if(user.drop_transfer_item_to_loc(I, src))
-			add_fingerprint(user)
-			to_chat(user, span_notice("[src] processes [I]."))
-			biomass += BIOMASS_BASE_AMOUNT
-			qdel(I)
-	else
-		return ..()
+	// A user can feed in biomass sources manually.
+	if(is_type_in_list(I, GLOB.cloner_biomass_items))
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		add_fingerprint(user)
+		to_chat(user, span_notice("The [name] processes [I]."))
+		biomass += BIOMASS_BASE_AMOUNT
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/machinery/clonepod/crowbar_act(mob/user, obj/item/I)
 	. = TRUE

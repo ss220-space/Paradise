@@ -76,25 +76,34 @@
 	else
 		to_chat(H, "<span class='warning'>You need to hold [src] in order to shake it.</span>")
 
-/obj/item/reagent_containers/food/drinks/cans/attack(mob/M, mob/user, proximity)
+
+/obj/item/reagent_containers/food/drinks/cans/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!canopened)
-		to_chat(user, "<span class='notice'>You need to open the drink!</span>")
-		return
-	else if(M == user && !reagents.total_volume && user.a_intent == INTENT_HARM && user.zone_selected == BODY_ZONE_HEAD)
-		user.visible_message("<span class='warning'>[user] crushes [src] on [user.p_their()] forehead!</span>", "<span class='notice'>You crush [src] on your forehead.</span>")
+		to_chat(user, span_warning("You need to open the drink!"))
+		return ATTACK_CHAIN_PROCEED
+	if(target == user && !reagents.total_volume && user.a_intent == INTENT_HARM && user.zone_selected == BODY_ZONE_HEAD)
+		user.visible_message(
+			span_warning("[user] crushes [src] on [user.p_their()] forehead!"),
+			span_warning("You crush [src] on your forehead."),
+		)
 		crush(user)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
+
 
 /obj/item/reagent_containers/food/drinks/cans/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/bag/trash/cyborg))
-		user.visible_message("<span class='notice'>[user] crushes [src] in [user.p_their()] trash compactor.</span>", "<span class='notice'>You crush [src] in your trash compactor.</span>")
+		user.visible_message(
+			span_notice("[user] crushes [src] in [user.p_their()] trash compactor."),
+			span_notice("You crush [src] in your trash compactor."),
+		)
 		var/obj/can = crush(user)
 		can.attackby(I, user, params)
-		return 1
-	..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 
-/obj/item/reagent_containers/food/drinks/cans/afterattack(obj/target, mob/user, proximity)
+
+/obj/item/reagent_containers/food/drinks/cans/afterattack(obj/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(istype(target, /obj/structure/reagent_dispensers) && !canopened)

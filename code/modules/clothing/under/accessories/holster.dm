@@ -44,20 +44,26 @@
 
 
 /obj/item/clothing/accessory/holster/proc/holster(obj/item/I, mob/user)
+	if(istype(I, /obj/item/clothing/accessory/holster))
+		to_chat(user, span_warning("Putting holster into another holster was pretty dumb idea!"))
+		return FALSE
+
 	if(holstered.len >= max_content)
 		to_chat(user, span_warning("Holster is full!"))
-		return
+		return FALSE
 
 	if(!can_holster(I))
-		to_chat(user, span_warning("This [I] won't fit in the [src]!"))
-		return
+		to_chat(user, span_warning("The [I.name] won't fit in [src]!"))
+		return FALSE
 
-	if(!user.can_unEquip(I))
-		to_chat(user, span_warning("You can't let go of the [I]!"))
-		return
+	if(I.loc == user && !user.can_unEquip(I))
+		to_chat(user, span_warning("You cannnot let go of [I]!"))
+		return FALSE
 
+	. = TRUE
 	holstered += I
-	user.temporarily_remove_item_from_inventory(I)
+	if(I.loc == user)
+		user.temporarily_remove_item_from_inventory(I)
 	I.forceMove(src)
 	I.add_fingerprint(user)
 	user.visible_message(span_notice("[user] holsters the [I]."), span_notice("You holster the [I]."))
@@ -99,10 +105,12 @@
 
 	..(user)
 
-/obj/item/clothing/accessory/holster/attackby(obj/item/W, mob/user, params)
-	if(istype(W, src.type))
-		return
-	holster(W, user)
+
+/obj/item/clothing/accessory/holster/attackby(obj/item/I, mob/user, params)
+	if(holster(I, user))
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 /obj/item/clothing/accessory/holster/emp_act(severity)
 	for(var/obj/item/I in holstered)

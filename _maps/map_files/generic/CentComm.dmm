@@ -2630,8 +2630,7 @@
 "bhM" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 4;
-	pixel_x = -14;
-	initialized = 1
+	pixel_x = -14
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2929,8 +2928,7 @@
 "bnd" = (
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 8;
-	pixel_y = -16;
-	initialized = 1
+	pixel_y = -16
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -4269,8 +4267,7 @@
 /obj/structure/closet/cardboard{
 	icon_state = "cardboard_librarian";
 	icon_closed = "cardboard_librarian";
-	icon_opened = "cardboard_librarian_open";
-	initialized = 1
+	icon_opened = "cardboard_librarian_open"
 	},
 /obj/item/paper/central_command/archive/memes{
 	info = "<center><img src=\"https://cdn.discordapp.com/attachments/961279768249118750/1046826506741104830/unknown.png?width=604&height=604\"></center>";
@@ -5145,8 +5142,7 @@
 "cqx" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 4;
-	pixel_x = -14;
-	initialized = 1
+	pixel_x = -14
 	},
 /obj/effect/turf_decal/siding{
 	color = "#444444";
@@ -8658,10 +8654,9 @@
 /area/centcom/supply)
 "dZu" = (
 /obj/effect/turf_decal/caution/stand_clear/white,
-/obj/machinery/door/poddoor/impassable{
+/obj/machinery/door/poddoor/impassable/unhittable{
 	id_tag = "CC_Players_In";
-	name = "Blast Door";
-	can_be_hit = 0
+	name = "Blast Door"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -14288,8 +14283,7 @@
 	color = "black";
 	icon_state = "tile_full";
 	layer = 9;
-	opacity = 1;
-	initialized = 1
+	opacity = 1
 	},
 /turf/simulated/floor/plating,
 /area/centcom/supply)
@@ -17241,8 +17235,7 @@
 "ihi" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 1;
-	pixel_y = 3;
-	initialized = 1
+	pixel_y = 3
 	},
 /obj/effect/turf_decal/siding/white{
 	dir = 8
@@ -17271,21 +17264,18 @@
 /obj/effect/decal/cleanable/crayon{
 	color = "yellow";
 	icon_state = "guy";
-	initialized = 1;
 	layer = 5;
 	pixel_y = -30
 	},
 /obj/effect/decal/cleanable/crayon{
 	color = "yellow";
 	icon_state = "face";
-	initialized = 1;
 	pixel_x = -32;
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/crayon{
 	color = "yellow";
 	icon_state = "shitcurity";
-	initialized = 1;
 	pixel_x = 32;
 	pixel_y = 32
 	},
@@ -17913,8 +17903,7 @@
 	color = "black";
 	icon_state = "tile_full";
 	layer = 9;
-	opacity = 1;
-	initialized = 1
+	opacity = 1
 	},
 /turf/simulated/floor/plating,
 /area/centcom/supply)
@@ -20162,8 +20151,7 @@
 /area/syndicate_mothership/cargo)
 "jAZ" = (
 /obj/effect/turf_decal/box/white{
-	pixel_y = 16;
-	initialized = 1
+	pixel_y = 16
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -22073,7 +22061,6 @@
 "ktw" = (
 /obj/effect/decal/cleanable/crayon{
 	icon_state = "bodys";
-	initialized = 1;
 	pixel_x = 14;
 	pixel_y = 32
 	},
@@ -35329,8 +35316,7 @@
 "qpR" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 1;
-	pixel_y = 3;
-	initialized = 1
+	pixel_y = 3
 	},
 /obj/effect/turf_decal/siding/white{
 	dir = 4
@@ -36546,8 +36532,7 @@
 "qTA" = (
 /obj/effect/turf_decal/siding/white{
 	dir = 1;
-	pixel_y = 3;
-	initialized = 1
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -38802,8 +38787,7 @@
 	color = "black";
 	icon_state = "tile_full";
 	layer = 9;
-	opacity = 1;
-	initialized = 1
+	opacity = 1
 	},
 /turf/simulated/floor/plating,
 /area/centcom/supply)
@@ -40405,10 +40389,9 @@
 /area/centcom/zone2)
 "sFQ" = (
 /obj/effect/turf_decal/caution/stand_clear/white,
-/obj/machinery/door/poddoor/impassable{
+/obj/machinery/door/poddoor/impassable/unhittable{
 	id_tag = "CC_Players_In";
-	name = "Blast Door";
-	can_be_hit = 0
+	name = "Blast Door"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -47114,8 +47097,7 @@
 /area/syndicate_mothership)
 "vGJ" = (
 /obj/structure/marker_beacon{
-	icon_state = "markerburgundy-on";
-	initialized = 1
+	icon_state = "markerburgundy-on"
 	},
 /turf/simulated/floor/plating/airless,
 /area/space)
@@ -47935,8 +47917,7 @@
 /obj/structure/closet/cardboard{
 	icon_state = "cardboard_cargo";
 	icon_closed = "cardboard_cargo";
-	icon_opened = "cardboard_cargo_open";
-	initialized = 1
+	icon_opened = "cardboard_cargo_open"
 	},
 /mob/living/simple_animal/hostile/mimic{
 	faction = list("neutral");

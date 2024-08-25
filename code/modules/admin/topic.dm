@@ -29,7 +29,7 @@
 	if(href_list["openticket"])
 		var/ticketID = text2num(href_list["openticket"])
 		if(!href_list["is_mhelp"])
-			if(!check_rights(R_ADMIN))
+			if(!check_rights(SStickets.rights_needed))
 				return
 			SStickets.showDetailUI(usr, ticketID)
 		else
@@ -296,7 +296,7 @@
 		else if(task == "rank")
 			var/new_rank
 			if(length(GLOB.admin_ranks))
-				new_rank = input("Выберите стандартный ранг или создайте новый", "Выбор ранга", null, null) as null|anything in (GLOB.admin_ranks|"*Новый Ранг*")
+				new_rank = trim(input("Выберите стандартный ранг или создайте новый", "Выбор ранга", null, null) as null|anything in (GLOB.admin_ranks|"*Новый Ранг*"))
 			else
 				CRASH("GLOB.admin_ranks is empty, inform coders")
 
@@ -306,7 +306,7 @@
 			switch(new_rank)
 				if(null,"") return
 				if("*Новый Ранг*")
-					new_rank = input("Введите название нового ранга", "Новый Ранг", null, null) as null|text
+					new_rank = trim(input("Введите название нового ранга", "Новый Ранг", null, null) as null|text)
 					if(!new_rank)
 						to_chat(usr, "<font color='red'>Ошибка: Topic 'editrights': Неверный ранг</font>")
 						return
@@ -2554,13 +2554,13 @@
 			//having multiple people turning pages on a paper_bundle can cause issues
 			//open a browse window listing the contents instead
 			var/data = ""
-			var/obj/item/paper_bundle/B = fax
+			var/obj/item/paper_bundle/bundle = fax
 
-			for(var/page = 1, page <= B.amount + 1, page++)
-				var/obj/pageobj = B.contents[page]
-				data += "<A href='?src=[UID()];AdminFaxViewPage=[page];paper_bundle=\ref[B]'>Page [page] - [pageobj.name]</A><BR>"
+			for(var/page = 1 to length(bundle.papers))
+				var/obj/pageobj = bundle.papers[page]
+				data += "<A href='?src=[UID()];AdminFaxViewPage=[page];paper_bundle=\ref[bundle]'>Page [page] - [pageobj.name]</A><BR>"
 
-			usr << browse(data, "window=PaperBundle[B.UID()]")
+			usr << browse(data, "window=PaperBundle[bundle.UID()]")
 		else
 			to_chat(usr, "<span class='warning'>The faxed item is not viewable. This is probably a bug, and should be reported on the tracker: [fax.type]</span>")
 
@@ -2573,11 +2573,11 @@
 
 		if(!bundle) return
 
-		if(istype(bundle.contents[page], /obj/item/paper))
-			var/obj/item/paper/P = bundle.contents[page]
+		if(istype(bundle.papers[page], /obj/item/paper))
+			var/obj/item/paper/P = bundle.papers[page]
 			P.show_content(usr, 1)
-		else if(istype(bundle.contents[page], /obj/item/photo))
-			var/obj/item/photo/H = bundle.contents[page]
+		else if(istype(bundle.papers[page], /obj/item/photo))
+			var/obj/item/photo/H = bundle.papers[page]
 			H.show(usr)
 		return
 

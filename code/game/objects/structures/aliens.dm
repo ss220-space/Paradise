@@ -53,15 +53,14 @@
 	density = TRUE
 	opacity = TRUE
 	anchored = TRUE
-	canSmoothWith = SMOOTH_GROUP_ALIEN_RESIN
-	smoothing_groups = SMOOTH_GROUP_ALIEN_RESIN
+	canSmoothWith = SMOOTH_GROUP_ALIEN_WALLS
+	smoothing_groups = SMOOTH_GROUP_ALIEN_WALLS
 	max_integrity = 200
 	smooth = SMOOTH_BITMASK
-	var/resintype = null
 
 /obj/structure/alien/resin/Initialize()
 	air_update_turf(1)
-	..()
+	. = ..()
 
 /obj/structure/alien/resin/Destroy()
 	var/turf/T = get_turf(src)
@@ -81,9 +80,8 @@
 	name = "resin wall"
 	desc = "Thick resin solidified into a wall."
 	icon = 'icons/obj/smooth_structures/alien/resin_wall.dmi'
-	icon_state = "resin"
-	resintype = "wall"
-	canSmoothWith = SMOOTH_GROUP_ALIEN_WALLS
+	icon_state = "resin_wall-0"
+	base_icon_state = "resin_wall"
 
 /obj/structure/alien/resin/wall/BlockSuperconductivity()
 	return 1
@@ -97,12 +95,11 @@
 	name = "resin membrane"
 	desc = "Resin just thin enough to let light pass through."
 	icon = 'icons/obj/smooth_structures/alien/resin_membrane.dmi'
-	icon_state = "membrane0"
+	icon_state = "resin_membrane-0"
 	opacity = FALSE
 	max_integrity = 160
-	resintype = "membrane"
+	base_icon_state = "resin_membrane"
 	pass_flags_self = PASSGLASS
-	canSmoothWith = SMOOTH_GROUP_ALIEN_WALLS
 
 
 /obj/structure/alien/resin/attack_alien(mob/living/carbon/alien/humanoid/A)
@@ -129,7 +126,6 @@
 	icon = 'icons/obj/smooth_structures/alien/resin_door.dmi'
 	icon_state = "resin_door_closed"
 	max_integrity = 160
-	resintype = "door"
 	canSmoothWith = null
 	smooth = NONE
 	pass_flags_self = PASSDOOR

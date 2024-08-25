@@ -41,12 +41,15 @@
 		return
 	if(LAZYLEN(fields) < fieldlimit)
 		new /obj/effect/temp_visual/resonance(target_turf, user, src, mode, adding_failure)
-		user.changeNext_move(CLICK_CD_MELEE)
+
 
 /obj/item/resonator/pre_attackby(atom/target, mob/user, params)
-	if(check_allowed_items(target, TRUE))
-		create_resonance(target, user)
-	return TRUE
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !check_allowed_items(target, TRUE))
+		return .
+	. |= ATTACK_CHAIN_BLOCKED
+	create_resonance(target, user)
+
 
 //resonance field, crushes rock, damages mobs
 /obj/effect/temp_visual/resonance

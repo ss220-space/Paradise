@@ -16,12 +16,12 @@
 	. = ..()
 	set_frequency(NINJA_FREQ)
 
-/obj/item/radio/headset/ninja/attackby(obj/item/W as obj, mob/user as mob)
-	if(istype(W, /obj/item/radio/headset))
-		var/obj/item/radio/headset/target_headset = W
-		if(!do_after(user, 2 SECONDS, user, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
-			to_chat(user, "<span class='warning'>Сканирование прервано!</span>")
-			return
+
+/obj/item/radio/headset/ninja/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/radio/headset))
+		var/obj/item/radio/headset/target_headset = I
+		if(!do_after(user, 2 SECONDS, user, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Сканирование прервано!")))
+			return .
 		to_chat(user, span_notice("Вы сканируете \"[target_headset.name]\" и копируете доступные в нём каналы в память вашего собственного наушника."))
 		translate_hive = FALSE
 		syndiekey = null
@@ -38,16 +38,20 @@
 				to_chat(user, span_notice("\"[target_headset.name]\" способен прослушивать все частоты станции! Джекпот!"))
 				make_syndie()
 
-		for(var/ch_name in channels)
-			if(!SSradio)
-				name = "broken radio headset"
-				return
+		if(!SSradio)
+			name = "broken radio headset"
+			return .
 
-			secure_radio_connections[ch_name] = SSradio.add_object(src, SSradio.radiochannels[ch_name],  RADIO_CHAT)
-	else if(istype(W, /obj/item/encryptionkey))
+		for(var/ch_name in channels)
+			secure_radio_connections[ch_name] = SSradio.add_object(src, SSradio.radiochannels[ch_name], RADIO_CHAT)
+
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/encryptionkey))
 		to_chat(user, span_notice("Ваш наушник не принимает ключи. Вставьте его в любой другой наушник и проанализируйте сам наушник встроенным сканером."))
-	else
-		return ..()
+		return ATTACK_CHAIN_PROCEED
+
+	return ..()
 
 
 /obj/item/radio/headset/ninja/screwdriver_act(mob/user, obj/item/I)

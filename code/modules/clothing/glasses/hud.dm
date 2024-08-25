@@ -6,8 +6,6 @@
 	prescription_upgradable = TRUE
 	/// The visual icons granted by wearing these glasses.
 	var/HUDType = null
-	/// List of things added to examine text, like security or medical records.
-	var/examine_extensions = 0
 
 
 /obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot, initial)
@@ -78,7 +76,7 @@ MEDICAL
 	name = "\improper Night Vision Medical HUD"
 	desc = "An advanced medical head-up display that allows doctors to find patients in complete darkness."
 	icon_state = "healthhudnight"
-	item_state = "glasses"
+	item_state = "nvghud"
 	origin_tech = "magnets=4;biotech=4;plasmatech=4;engineering=5"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
@@ -153,7 +151,7 @@ DIAGNOSTIC
 	name = "\improper Night Vision Diagnostic HUD"
 	desc = "A robotics diagnostic HUD fitted with a light amplifier."
 	icon_state = "diagnostichudnight"
-	item_state = "glasses"
+	item_state = "nvghud"
 	origin_tech = "magnets=4;powerstorage=4;plasmatech=4;engineering=5"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
@@ -163,7 +161,7 @@ DIAGNOSTIC
 	name = "diagnostic sunglasses"
 	desc = "Sunglasses with a diagnostic HUD."
 	icon_state = "sunhuddiag"
-	item_state = "glasses"
+	item_state = "sunhuddiag"
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
 
@@ -333,7 +331,7 @@ HYDROPONIC
 	name = "\improper Night Vision Hydroponic HUD"
 	desc = "A hydroponic HUD fitted with a light amplifier."
 	icon_state = "hydroponichudnight"
-	item_state = "glasses"
+	item_state = "nvghud"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	prescription_upgradable = FALSE
@@ -371,7 +369,7 @@ SKILLS
 	name = "\improper Skills HUD"
 	desc = "A heads-up display capable of showing the employment history records of NT crew members."
 	icon_state = "skill"
-	item_state = "glasses"
+	item_state = "skill"
 	HUDType = DATA_HUD_SECURITY_BASIC
 	examine_extensions = EXAMINE_HUD_SKILLS
 	sprite_sheets = list(

@@ -21,21 +21,25 @@
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 
-/obj/machinery/microscope/attackby(obj/item/W as obj, mob/user as mob)
 
-	if(sample)
-		to_chat(user, "<span class='warning'>В микроскопе уже есть образец!</span>")
-		return
+/obj/machinery/microscope/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
-	if(istype(W, /obj/item/forensics/swab)|| istype(W, /obj/item/sample/fibers) || istype(W, /obj/item/sample/print))
+	if(istype(I, /obj/item/forensics/swab)|| istype(I, /obj/item/sample/fibers) || istype(I, /obj/item/sample/print))
 		add_fingerprint(user)
-		to_chat(user, "<span class='notice'>Вы вставили \the [W] в микроскоп.</span>")
-		user.drop_transfer_item_to_loc(W, src)
-		sample = W
+		if(sample)
+			to_chat(user, span_warning("В микроскопе уже есть образец."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("Вы вставляете образец в микроскоп."))
+		sample = I
 		update_icon(UPDATE_ICON_STATE)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-		return
-	..()
+	return ..()
+
 
 /obj/machinery/microscope/attack_hand(mob/user)
 

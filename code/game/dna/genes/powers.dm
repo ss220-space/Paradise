@@ -19,7 +19,7 @@
 	name = "Regenerate"
 	activation_messages = list("Your wounds start healing.")
 	deactivation_messages = list("Your regenerative powers feel like they've vanished.")
-	instability = GENE_INSTABILITY_MINOR
+	instability = GENE_INSTABILITY_MODERATE
 	mutation = REGEN
 
 /datum/dna/gene/basic/regenerate/New()
@@ -28,8 +28,7 @@
 
 
 /datum/dna/gene/basic/regenerate/OnMobLife(mob/living/carbon/human/H)
-	H.heal_overall_damage(0.1, 0.1)
-
+	H.heal_overall_damage(2.5, 2.5)
 
 /datum/dna/gene/basic/increaserun
 	name = "Super Speed"
@@ -203,3 +202,22 @@
 
 /datum/dna/gene/basic/tk/OnDrawUnderlays(mob/M, g)
 	return "telekinesishead_s"
+
+/datum/dna/gene/basic/farvision
+	name = "Far vision"
+	activation_messages = list("Вы можете видеть дальше чем раньше.")
+	deactivation_messages = list("Дальность вашего взора вернулась к нормальному состоянию")
+	instability = GENE_INSTABILITY_MODERATE
+	mutation = FARVISION
+
+/datum/dna/gene/basic/farvision/New()
+	..()
+	block = GLOB.farvisionblock
+
+/datum/dna/gene/basic/farvision/activate(mob/living/mutant, flags)
+	. = ..()
+	mutant.AddSpell(new /obj/effect/proc_holder/spell/view_range/genetic)
+
+/datum/dna/gene/basic/farvision/deactivate(mob/living/mutant, flags)
+	. = ..()
+	mutant.RemoveSpell(/obj/effect/proc_holder/spell/view_range/genetic)

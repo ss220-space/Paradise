@@ -332,9 +332,16 @@
 )
 	. = STATUS_UPDATE_NONE
 	var/obj/item/organ/external/picked = safepick(get_damaged_organs(brute, burn, flags = affect_robotic ? AFFECT_ALL_ORGANS : AFFECT_ORGANIC_ORGAN))
-	if(picked?.heal_damage(brute, burn, internal, affect_robotic, updating_health))
+	if(!picked)
+		return .
+	var/brute_was = picked.brute_dam
+	var/burn_was = picked.burn_dam
+	if(picked.heal_damage(brute, burn, internal, affect_robotic, updating_health = FALSE))
 		UpdateDamageIcon()
-		return STATUS_UPDATE_HEALTH
+	if(picked.brute_dam != brute_was || picked.burn_dam != burn_was)
+		. |= STATUS_UPDATE_HEALTH
+		if(updating_health)
+			updatehealth("heal organ damage")
 
 
 /mob/living/carbon/human/take_organ_damage(
@@ -352,9 +359,16 @@
 		return ..()
 	. = STATUS_UPDATE_NONE
 	var/obj/item/organ/external/picked = safepick(get_damageable_organs(affect_robotic))
-	if(picked?.external_receive_damage(brute, burn, blocked, sharp, used_weapon, forced = forced, updating_health = updating_health, silent = silent))
+	if(!picked)
+		return .
+	var/brute_was = picked.brute_dam
+	var/burn_was = picked.burn_dam
+	if(picked.external_receive_damage(brute, burn, blocked, sharp, used_weapon, forced = forced, updating_health = FALSE, silent = silent))
 		UpdateDamageIcon()
-		return STATUS_UPDATE_HEALTH
+	if(QDELETED(picked) || picked.loc != src || picked.brute_dam != brute_was || picked.burn_dam != burn_was)
+		. |= STATUS_UPDATE_HEALTH
+		if(updating_health)
+			updatehealth("take organ damage")
 
 
 /mob/living/carbon/human/heal_overall_damage(
@@ -370,26 +384,35 @@
 	brute = abs(brute)
 	burn = abs(burn)
 
-	var/list/obj/item/organ/external/parts = get_damaged_organs(brute, burn)
+	var/list/obj/item/organ/external/parts = get_damaged_organs(brute, burn, flags = affect_robotic ? AFFECT_ALL_ORGANS : AFFECT_ORGANIC_ORGAN)
 
-	var/update = NONE
+	var/should_update_health = FALSE
+	var/update_damage_icon = NONE
 	while(parts.len && (brute > 0 || burn > 0))
 		var/obj/item/organ/external/picked = pick(parts)
 		var/brute_per_part = round(brute/parts.len, DAMAGE_PRECISION)
 		var/burn_per_part = round(burn/parts.len, DAMAGE_PRECISION)
 
-		update |= picked.heal_damage(brute_per_part, burn_per_part, internal, affect_robotic, updating_health = FALSE)
+		var/brute_was = picked.brute_dam
+		var/burn_was = picked.burn_dam
+
+		update_damage_icon |= picked.heal_damage(brute_per_part, burn_per_part, internal, affect_robotic, updating_health = FALSE)
+
+		if(picked.brute_dam != brute_was || picked.burn_dam != burn_was)
+			should_update_health = TRUE
 
 		brute = max(brute - brute_per_part, 0)
 		burn = max(burn - burn_per_part, 0)
 
 		parts -= picked
 
-	if(update)
+	if(should_update_health)
+		. |= STATUS_UPDATE_HEALTH
 		if(updating_health)
 			updatehealth("heal overall damage")
+
+	if(update_damage_icon)
 		UpdateDamageIcon()
-		return STATUS_UPDATE_HEALTH
 
 
 /mob/living/carbon/human/take_overall_damage(
@@ -416,24 +439,33 @@
 	brute = abs(brute)
 	burn = abs(burn)
 
-	var/update = NONE
+	var/should_update_health = FALSE
+	var/update_damage_icon = NONE
 	while(parts.len && (brute > 0 || burn > 0))
 		var/obj/item/organ/external/picked = pick(parts)
 		var/brute_per_part = round(brute/parts.len, DAMAGE_PRECISION)
 		var/burn_per_part = round(burn/parts.len, DAMAGE_PRECISION)
 
-		update |= picked.external_receive_damage(brute_per_part, burn_per_part, blocked, sharp, used_weapon, forced = forced, updating_health = FALSE, silent = silent)
+		var/brute_was = picked.brute_dam
+		var/burn_was = picked.burn_dam
+
+		update_damage_icon |= picked.external_receive_damage(brute_per_part, burn_per_part, blocked, sharp, used_weapon, forced = forced, updating_health = FALSE, silent = silent)
+
+		if(QDELETED(picked) || picked.loc != src || picked.brute_dam != brute_was || picked.burn_dam != burn_was)
+			should_update_health = TRUE
 
 		brute = max(brute - brute_per_part, 0)
 		burn = max(burn - burn_per_part, 0)
 
 		parts -= picked
 
-	if(update)
+	if(should_update_health)
+		. |= STATUS_UPDATE_HEALTH
 		if(updating_health)
 			updatehealth("take overall damage")
+
+	if(update_damage_icon)
 		UpdateDamageIcon()
-		return STATUS_UPDATE_HEALTH
 
 
 ////////////////////////////////////////////

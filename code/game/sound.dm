@@ -185,12 +185,14 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	SEND_SOUND(src, S)
 
 
-/client/proc/playtitlemusic()
-	if(!SSticker || !SSticker.login_music || CONFIG_GET(flag/disable_lobby_music))
-		return
-	if(prefs.sound & SOUND_LOBBY)
-		SEND_SOUND(src, sound(SSticker.login_music, repeat = 0, wait = 0, volume = 85 * prefs.get_channel_volume(CHANNEL_LOBBYMUSIC), channel = CHANNEL_LOBBYMUSIC)) // MAD JAMS
+/client/proc/playtitlemusic(vol = 85)
+	set waitfor = FALSE
+	UNTIL(SSticker.login_music) //wait for SSticker init to set the login music
+	UNTIL(tgui_panel)
 
+	if(prefs && (prefs.toggles & SOUND_LOBBY))
+		tgui_panel?.play_music(SSticker.login_music_data["url"], SSticker.login_music_data)
+		to_chat(src, span_notice("Currently playing: [SSticker.login_music_data["title"]]"))
 
 /proc/get_rand_frequency()
 	return rand(32000, 55000) //Frequency stuff only works with 45kbps oggs.

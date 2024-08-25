@@ -23,10 +23,13 @@
 	QDEL_NULL(construct)
 	return ..()
 
-/obj/structure/spacepod_frame/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(!construct || !construct.action(W, user))
+
+/obj/structure/spacepod_frame/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM || !construct || !construct.action(I, user))
 		return ..()
 	add_fingerprint(user)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
 
 /obj/structure/spacepod_frame/attack_hand()
 	return

@@ -62,10 +62,11 @@
 	item_flags = NOBLUDGEON|NO_MAT_REDEMPTION
 
 
-/obj/item/card/emag/attack()
-	return
+/obj/item/card/emag/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	return ATTACK_CHAIN_PROCEED
 
-/obj/item/card/emag/afterattack(atom/target, mob/user, proximity)
+
+/obj/item/card/emag/afterattack(atom/target, mob/user, proximity, params)
 	var/atom/A = target
 	if(!proximity)
 		return
@@ -83,10 +84,12 @@
 /obj/item/card/cmag/ComponentInitialize()
 	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = (SLIDE|SLIP_WHEN_LYING))
 
-/obj/item/card/cmag/attack()
-	return
 
-/obj/item/card/cmag/afterattack(atom/target, mob/user, proximity)
+/obj/item/card/cmag/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	return ATTACK_CHAIN_PROCEED
+
+
+/obj/item/card/cmag/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 	INVOKE_ASYNC(target, TYPE_PROC_REF(/atom, cmag_act), user)
@@ -126,6 +129,10 @@
 	var/dat
 	var/stamped = 0
 	var/registered = FALSE
+
+	/// RoboQuest shit
+	var/datum/roboquest/robo_bounty
+	var/bounty_penalty
 
 	var/obj/item/card/id/guest/guest_pass = null // Guest pass attached to the ID
 
@@ -243,45 +250,54 @@
 
 	name = "[(!registered_name)	? "identification card"	: "[registered_name]'s ID Card"][(!assignment) ? "" : " ([assignment])"]"
 
-/obj/item/card/id/attackby(obj/item/W as obj, mob/user as mob, params)
-	..()
 
-	if(istype(W, /obj/item/id_decal/))
-		var/obj/item/id_decal/decal = W
-		to_chat(user, "You apply [decal] to [src].")
+/obj/item/card/id/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/id_decal))
+		add_fingerprint(user)
+		var/obj/item/id_decal/decal = I
+		if(!user.drop_transfer_item_to_loc(decal, src))
+			return ..()
+		to_chat(user, span_notice("You apply [decal] to [src]."))
 		if(decal.override_name)
 			name = decal.decal_name
 		desc = decal.decal_desc
-		icon_state = decal.decal_icon_state
+		icon_state = decal.decal_icon_state	// LATER .\_/.
 		item_state = decal.decal_item_state
 		qdel(decal)
-		qdel(W)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	else if(istype (W,/obj/item/stamp))
-		if(!stamped)
-			dat+="<img src=large_[W.icon_state].png>"
-			stamped = 1
-			to_chat(user, "You stamp the ID card!")
-		else
-			to_chat(user, "This ID has already been stamped!")
+	if(istype(I, /obj/item/stamp))
+		add_fingerprint(user)
+		if(stamped)
+			to_chat(user, span_warning("This ID has already been stamped."))
+			return ATTACK_CHAIN_PROCEED
+		dat += "<img src=large_[I.icon_state].png>"
+		stamped = TRUE
+		to_chat(user, span_notice("You stamp the ID card!"))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	else if(istype(W, /obj/item/card/id/guest))
+	if(istype(I, /obj/item/card/id/guest))
+		add_fingerprint(user)
 		if(istype(src, /obj/item/card/id/guest))
-			return
-		var/obj/item/card/id/guest/G = W
-		if(world.time > G.expiration_time)
-			to_chat(user, "There's no point, the guest pass has expired.")
-			return
+			to_chat(user, span_warning("Applying one guest card to another provides nothing."))
+			return ATTACK_CHAIN_PROCEED
 		if(guest_pass)
-			to_chat(user, "There's already a guest pass attached to this ID.")
-			return
-		if(G.registered_name != registered_name && G.registered_name != "NOT SPECIFIED")
-			to_chat(user, "The guest pass cannot be attached to this ID")
-			return
-		if(!user.drop_transfer_item_to_loc(G, src))
-			return
-		guest_pass = G
+			to_chat(user, span_warning("There's already a guest pass attached to this ID."))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/item/card/id/guest/guest_id = I
+		if(world.time > guest_id.expiration_time)
+			to_chat(user, span_warning("There's no point, the guest pass has expired."))
+			return ATTACK_CHAIN_PROCEED
+		if(guest_id.registered_name != registered_name && guest_id.registered_name != "NOT SPECIFIED")
+			to_chat(user, span_warning("The guest pass cannot be attached to this ID"))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(guest_id, src))
+			return ..()
+		guest_pass = guest_id
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/card/id/verb/remove_guest_pass()
 	set name = "Remove Guest Pass"
@@ -491,7 +507,7 @@
 	item_state = "syndierd-id"
 	rank = "Syndicate Research Director"
 
-/obj/item/card/id/syndicate/afterattack(obj/item/O, mob/user, proximity)
+/obj/item/card/id/syndicate/afterattack(obj/item/O, mob/user, proximity, params)
 	if(!proximity || !istype(O))
 		return
 	if(O.GetID())

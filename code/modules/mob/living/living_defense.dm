@@ -125,8 +125,8 @@
 	if(nosell_hit)
 		return ..()
 
-	visible_message(span_danger("[src.declent_ru(NOMINATIVE)] получа[pluralize_ru(src.gender,"ет","ют")] удар [thrown_item.declent_ru(INSTRUMENTAL)]."),
-					span_userdanger("[src.declent_ru(NOMINATIVE)] получа[pluralize_ru(src.gender,"ет","ют")] удар [thrown_item.declent_ru(INSTRUMENTAL)]."))
+	visible_message(span_danger("[capitalize(src.declent_ru(NOMINATIVE))] получа[pluralize_ru(src.gender,"ет","ют")] удар [thrown_item.declent_ru(INSTRUMENTAL)]."),
+					span_userdanger("[capitalize(src.declent_ru(NOMINATIVE))] получа[pluralize_ru(src.gender,"ет","ют")] удар [thrown_item.declent_ru(INSTRUMENTAL)]."))
 
 	if(!thrown_item.throwforce)
 		return
@@ -169,17 +169,17 @@
 			else
 				return
 		M.occupant_message("<span class='danger'>[pluralize_ru(M.occupant.gender,"Ты","Вы")] ударяе[pluralize_ru(M.occupant.gender,"шь","те")] [src.declent_ru(ACCUSATIVE)].</span>")
-		visible_message("<span class='danger'>[M.declent_ru(NOMINATIVE)] ударя[pluralize_ru(M.gender,"ет","ют")] [src.declent_ru(ACCUSATIVE)]!</span>", "<span class='userdanger'>[M.declent_ru(NOMINATIVE)] ударя[pluralize_ru(M.gender,"ет","ют")] [pluralize_ru(src.gender,"тебя","вас")]!</span>")
+		visible_message("<span class='danger'>[capitalize(M.declent_ru(NOMINATIVE))] ударя[pluralize_ru(M.gender,"ет","ют")] [src.declent_ru(ACCUSATIVE)]!</span>", "<span class='userdanger'>[capitalize(M.declent_ru(NOMINATIVE))] ударя[pluralize_ru(M.gender,"ет","ют")] [pluralize_ru(src.gender,"тебя","вас")]!</span>")
 		add_attack_logs(M.occupant, src, "Mecha-meleed with [M]")
 	else
 		if(!is_strong())
 			step_away(src,M)
 			add_attack_logs(M.occupant, src, "Mecha-pushed with [M]", ATKLOG_ALL)
 			M.occupant_message("<span class='warning'>[pluralize_ru(M.occupant.gender,"Ты толкаешь","Вы толкаете")] [src.declent_ru(ACCUSATIVE)] в сторону.</span>")
-			visible_message("<span class='warning'>[M.declent_ru(NOMINATIVE)] отталкива[pluralize_ru(M.gender,"ет","ют")] [src.declent_ru(ACCUSATIVE)] в сторону.</span>")
+			visible_message("<span class='warning'>[capitalize(M.declent_ru(NOMINATIVE))] отталкива[pluralize_ru(M.gender,"ет","ют")] [src.declent_ru(ACCUSATIVE)] в сторону.</span>")
 		else
 			M.occupant_message("<span class='warning'>[pluralize_ru(M.occupant.gender,"Ты пытаешься оттолкнуть","Вы пытаетесь оттолкнуть")] [src.declent_ru(ACCUSATIVE)] в сторону, но это не срабатывает.</span>")
-			visible_message("<span class='warning'>[M.declent_ru(NOMINATIVE)] безуспешно пытается оттолкнуть [src.declent_ru(ACCUSATIVE)] в сторону.</span>")
+			visible_message("<span class='warning'>[capitalize(M.declent_ru(NOMINATIVE))] безуспешно пытается оттолкнуть [src.declent_ru(ACCUSATIVE)] в сторону.</span>")
 
 //Mobs on Fire
 /mob/living/proc/IgniteMob()
@@ -445,7 +445,7 @@
 	if(stat != DEAD)
 		add_attack_logs(M, src, "Slime'd")
 		M.do_attack_animation(src)
-		visible_message("<span class='danger'>[M.declent_ru(NOMINATIVE)] поглоща[pluralize_ru(M.gender,"ет","ют")] [src.declent_ru(ACCUSATIVE)]!</span>", "<span class='userdanger'>[M.declent_ru(NOMINATIVE)] поглоща[pluralize_ru(M.gender,"ет","ют")] [pluralize_ru(src.gender,"тебя","вас")]!</span>")
+		visible_message("<span class='danger'>[capitalize(M.declent_ru(NOMINATIVE))] поглоща[pluralize_ru(M.gender,"ет","ют")] [src.declent_ru(ACCUSATIVE)]!</span>", "<span class='userdanger'>[M.declent_ru(NOMINATIVE)] поглоща[pluralize_ru(M.gender,"ет","ют")] [pluralize_ru(src.gender,"тебя","вас")]!</span>")
 		return TRUE
 
 /mob/living/attack_animal(mob/living/simple_animal/M)
@@ -462,8 +462,8 @@
 	if(M.attack_sound)
 		playsound(loc, M.attack_sound, 50, 1, 1)
 	M.do_attack_animation(src)
-	visible_message("<span class='danger'>[M.declent_ru(NOMINATIVE)] [M.attacktext] [src.declent_ru(ACCUSATIVE)]!</span>", \
-					"<span class='userdanger'>[M.declent_ru(NOMINATIVE)] [M.attacktext] [src.declent_ru(ACCUSATIVE)]!</span>")
+	visible_message("<span class='danger'>[capitalize(M.declent_ru(NOMINATIVE))] [M.attacktext] [src.declent_ru(ACCUSATIVE)]!</span>", \
+					"<span class='userdanger'>[capitalize(M.declent_ru(NOMINATIVE))] [M.attacktext] [src.declent_ru(ACCUSATIVE)]!</span>")
 	add_attack_logs(M, src, "Animal attacked")
 	SEND_SIGNAL(src, COMSIG_SIMPLE_ANIMAL_ATTACKEDBY, M)
 	return TRUE
@@ -482,13 +482,13 @@
 			L.do_attack_animation(src)
 			if(prob(90))
 				add_attack_logs(L, src, "Larva attacked")
-				visible_message("<span class='danger'>[L.declent_ru(NOMINATIVE)] куса[pluralize_ru(L.gender,"ет","ют")] [src.declent_ru(ACCUSATIVE)]!</span>", \
-						"<span class='userdanger'>[L.declent_ru(NOMINATIVE)] куса[pluralize_ru(L.gender,"ет","ют")] [src.declent_ru(ACCUSATIVE)]!</span>")
+				visible_message("<span class='danger'>[capitalize(L.declent_ru(NOMINATIVE))] куса[pluralize_ru(L.gender,"ет","ют")] [src.declent_ru(ACCUSATIVE)]!</span>", \
+						"<span class='userdanger'>[capitalize(L.declent_ru(NOMINATIVE))] куса[pluralize_ru(L.gender,"ет","ют")] [src.declent_ru(ACCUSATIVE)]!</span>")
 				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
 				return TRUE
 			else
-				visible_message("<span class='danger'>[L.declent_ru(NOMINATIVE)] пыта[pluralize_ru(L.gender,"ет","ют")]ся укусить [src.declent_ru(ACCUSATIVE)]!</span>", \
-					"<span class='userdanger'>[L.declent_ru(NOMINATIVE)] пыта[pluralize_ru(L.gender,"ет","ют")]ся укусить [src.declent_ru(ACCUSATIVE)]!</span>")
+				visible_message("<span class='danger'>[capitalize(L.declent_ru(NOMINATIVE))] пыта[pluralize_ru(L.gender,"ет","ют")]ся укусить [src.declent_ru(ACCUSATIVE)]!</span>", \
+					"<span class='userdanger'>[capitalize(L.declent_ru(NOMINATIVE))] пыта[pluralize_ru(L.gender,"ет","ют")]ся укусить [src.declent_ru(ACCUSATIVE)]!</span>")
 	return FALSE
 
 /mob/living/attack_alien(mob/living/carbon/alien/humanoid/M)
@@ -513,7 +513,7 @@
 	return FALSE
 
 /mob/living/RangedAttack(atom/A, params) //Player firing
-	if(GLOB.pacifism_after_gt)
+	if(HAS_TRAIT(src, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
 		return
 	if(dirslash_enabled && a_intent != INTENT_HELP)
 		var/turf/turf_attacking = get_step(src, get_compass_dir(src, A))

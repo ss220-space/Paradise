@@ -280,9 +280,22 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	icon_state = "cart-mine"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/gps/attackby(obj/item/C as obj)
-	if(istype(C, /obj/item/gpsupgrade) && !upgraded)
+
+/obj/item/gps/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/gpsupgrade))
+		add_fingerprint(user)
+		if(upgraded)
+			to_chat(user, span_warning("The [name] is already upgraded."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("You have upgraded [src]."))
 		upgraded = TRUE
-		qdel(C)
+		SStgui.update_uis(src)
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 #undef EMP_DISABLE_TIME
