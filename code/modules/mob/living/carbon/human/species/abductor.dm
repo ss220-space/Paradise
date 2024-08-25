@@ -18,7 +18,15 @@
 
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/grey
 
-	species_traits = list(NO_BLOOD, NO_BREATHE, VIRUSIMMUNE, NOGUNS, NO_HUNGER, NO_EXAMINE, REPEATSURGERY)
+	inherent_traits = list(
+		TRAIT_NO_BLOOD,
+		TRAIT_NO_BREATH,
+		TRAIT_NO_GUNS,
+		TRAIT_VIRUSIMMUNE,
+		TRAIT_NO_SPECIES_EXAMINE,
+		TRAIT_NO_HUNGER,
+		TRAIT_MASTER_SURGEON,
+	)
 	dies_at_threshold = TRUE
 
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
@@ -39,7 +47,7 @@
 	return TRUE
 
 /datum/species/abductor/on_species_gain(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	H.gender = NEUTER
 	LAZYREINITLIST(H.languages) //Under no condition should you be able to speak any language
 	H.add_language(LANGUAGE_HIVE_ABDUCTOR) //other than over the abductor's own mindlink
@@ -48,6 +56,6 @@
 	abductor_hud.add_hud_to(H)
 
 /datum/species/abductor/on_species_loss(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	var/datum/atom_hud/abductor_hud = GLOB.huds[DATA_HUD_ABDUCTOR]
 	abductor_hud.remove_hud_from(H)

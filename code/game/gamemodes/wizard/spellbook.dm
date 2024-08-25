@@ -242,13 +242,13 @@
 
 /datum/spellbook_entry/sacred_flame/LearnSpell(mob/living/carbon/human/user, obj/item/spellbook/book, obj/effect/proc_holder/spell/newspell)
 	to_chat(user, "<span class='notice'>You feel fireproof.</span>")
-	ADD_TRAIT(user, RESISTHOT, MAGIC_TRAIT)
+	ADD_TRAIT(user, TRAIT_RESIST_HEAT, MAGIC_TRAIT)
 	//ADD_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
 	return ..()
 
 /datum/spellbook_entry/sacred_flame/Refund(mob/living/carbon/human/user, obj/item/spellbook/book)
 	to_chat(user, "<span class='warning'>You no longer feel fireproof.</span>")
-	REMOVE_TRAIT(user, RESISTHOT, MAGIC_TRAIT)
+	REMOVE_TRAIT(user, TRAIT_RESIST_HEAT, MAGIC_TRAIT)
 	//REMOVE_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
 	return ..()
 

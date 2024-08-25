@@ -9,8 +9,8 @@
 		var/turf/T = get_turf(H)
 		if(!T || !is_station_level(T.z))
 			continue
-		var/armor = H.getarmor(attack_flag = RAD)
-		if((RADIMMUNE in H.dna.species.species_traits) || armor >= 75) // Leave radiation-immune species/rad armored players completely unaffected
+		// Leave radiation-immune species/rad armored players completely unaffected
+		if(HAS_TRAIT(H, TRAIT_RADIMMUNE) || H.getarmor(attack_flag = RAD) >= 75)
 			continue
 		H.AdjustHallucinate(rand(100 SECONDS, 200 SECONDS))
 		H.last_hallucinator_log = "Mass hallucination event"

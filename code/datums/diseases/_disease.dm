@@ -41,7 +41,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	var/cure_prob = 8
 	/// Immunity can be developed from the disease
 	var/can_immunity = TRUE
-	/// Does it skip VIRUSIMMUNE trait check
+	/// Does it skip TRAIT_VIRUSIMMUNE
 	var/ignore_immunity = FALSE
 	/// Immunity to Anti-Bodies Metabolism symptom
 	var/virus_heal_resistant = FALSE

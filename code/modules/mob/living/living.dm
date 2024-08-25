@@ -921,11 +921,12 @@
 						else
 							TH.color = "#A10808"
 
-/mob/living/carbon/human/makeTrail(turf/T)
 
-	if((NO_BLOOD in dna.species.species_traits) || dna.species.exotic_blood || !bleed_rate || bleedsuppress)
+/mob/living/carbon/human/makeTrail(turf/T)
+	if(HAS_TRAIT(src, TRAIT_NO_BLOOD) || !bleed_rate || bleedsuppress)
 		return
 	..()
+
 
 /mob/living/proc/getTrail()
 	if(getBruteLoss() < 300)
@@ -2265,4 +2266,9 @@
 		. = TRUE
 
 	update_ssd_overlay()	// special SSD overlay handling
+
+
+/// Updates damage slowdown accordingly to the current health
+/mob/living/proc/update_movespeed_damage_modifiers()
+	return
 

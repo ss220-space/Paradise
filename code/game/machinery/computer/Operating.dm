@@ -109,7 +109,7 @@
 		occupantData["btCelsius"] = occupant.bodytemperature - T0C
 		occupantData["btFaren"] = ((occupant.bodytemperature - T0C) * (9.0/5.0))+ 32
 
-		if(ishuman(occupant) && !(NO_BLOOD in occupant.dna.species.species_traits))
+		if(ishuman(occupant) && !HAS_TRAIT(occupant, TRAIT_NO_BLOOD))
 			var/mob/living/carbon/human/H = occupant
 			occupantData["pulse"] = occupant.get_pulse(GETPULSE_TOOL)
 			occupantData["hasBlood"] = 1
