@@ -756,7 +756,7 @@
 
 		var/datum/D = locateUID(href_list["delete"])
 		if(!D)
-			to_chat(usr, "Unable to locate item!"), confidential=TRUE
+			to_chat(usr, "Unable to locate item!", confidential=TRUE)
 		admin_delete(D)
 		href_list["datumrefresh"] = href_list["delete"]
 
