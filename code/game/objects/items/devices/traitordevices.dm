@@ -436,10 +436,14 @@ effective or pretty fucking useless.
 
 
 /obj/item/teleporter/admin
-	desc = "A strange syndicate version of a cult veil shifter. \n This one seems EMP proof, and with much better saftey protocols."
+	desc = "A strange syndicate version of a cult veil shifter. \n This one seems EMP proof, and with much better safety protocols."
 	charges = 8
 	max_charges = 8
 	flawless = TRUE
+
+
+/obj/item/teleporter/admin/update_icon_state()
+	icon_state = "[base_icon_state]-[CEILING(charges / 2, 1)]"
 
 
 #define ION_CALLER_AI_TARGETING		"AI targeting"
