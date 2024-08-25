@@ -295,52 +295,57 @@
 
 
 /obj/item/pizzabox/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/pizzabox/))
-		var/obj/item/pizzabox/box = I
-		if(!box.open && !open)
-			// Make a list of all boxes to be added
-			var/list/boxestoadd = list()
-			boxestoadd += box
-			for(var/obj/item/pizzabox/i in box.boxes)
-				boxestoadd += i
-			if((length(boxes) + 1) + length(boxestoadd) <= 5)
-				user.drop_transfer_item_to_loc(box, src)
-				box.boxes = list() // Clear the box boxes so we don't have boxes inside boxes. - Xzibit
-				boxes.Add(boxestoadd)
-				box.update_appearance(UPDATE_DESC|UPDATE_ICON)
-				update_appearance(UPDATE_DESC|UPDATE_ICON)
-				to_chat(user, span_warning("You put the [box] ontop of the [src]!"))
-			else
-				to_chat(user, span_warning("The stack is too high!"))
-		else
-			to_chat(user, span_warning("Close the [box] first!"))
-		return
-
-	if(istype(I, /obj/item/reagent_containers/food/snacks/sliceable/pizza/)) // Long ass fucking object name
-		if(open)
-			user.drop_transfer_item_to_loc(I, src)
-			pizza = I
-
-			update_appearance(UPDATE_DESC|UPDATE_ICON)
-
-			to_chat(user, span_warning("You put the [I] in the [src]!"))
-		else
-			to_chat(user, span_warning("You try to push the [I] through the lid but it doesn't work!"))
-		return
-
 	if(is_pen(I))
+		add_fingerprint(user)
 		if(open)
-			return
-		var/t = tgui_input_text(usr, "Enter what you want to set the tag to:", "Write")
-		if(!t)
-			return
+			to_chat(user, span_warning("You cannot rename an open pizza box."))
+			return ATTACK_CHAIN_PROCEED
+		var/new_name = tgui_input_text(user, "Enter what you want to set the tag to:", "Write", MAX_NAME_LEN)
+		if(!new_name)
+			return ATTACK_CHAIN_PROCEED
 		var/obj/item/pizzabox/boxtotagto = src
 		if(length(boxes))
 			boxtotagto = boxes[length(boxes)]
-		boxtotagto.box_tag = copytext("[boxtotagto.box_tag][t]", 1, 30)
+		boxtotagto.box_tag = copytext("[boxtotagto.box_tag][new_name]", 1, 30)
 		update_appearance(UPDATE_DESC|UPDATE_ICON)
-		return
-	..()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/pizzabox) && I != src)
+		add_fingerprint(user)
+		var/obj/item/pizzabox/box = I
+		if(box.open || open)
+			to_chat(user, span_warning("Both pizza boxes must be closed."))
+			return ATTACK_CHAIN_PROCEED
+		// Make a list of all boxes to be added
+		var/list/boxestoadd = list()
+		boxestoadd += box
+		for(var/obj/item/pizzabox/found_box in box.boxes)
+			boxestoadd += found_box
+		if((length(boxes) + 1) + length(boxestoadd) > 5)
+			to_chat(user, span_warning("The stack is too high!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(box, src))
+			return ..()
+		box.boxes = list() // Clear the box boxes so we don't have boxes inside boxes. - Xzibit
+		boxes.Add(boxestoadd)
+		box.update_appearance(UPDATE_DESC|UPDATE_ICON)
+		update_appearance(UPDATE_DESC|UPDATE_ICON)
+		to_chat(user, span_warning("You have put the [box] ontop of [src]!"))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/reagent_containers/food/snacks/sliceable/pizza)) // Long ass fucking object name
+		add_fingerprint(user)
+		if(!open)
+			to_chat(user, span_warning("You try to push [I] through the lid but it doesn't work!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		pizza = I
+		update_appearance(UPDATE_DESC|UPDATE_ICON)
+		to_chat(user, span_notice("You have put [I] into [src]."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/item/pizzabox/margherita/Initialize(mapload)

@@ -259,17 +259,25 @@
 	origin_tech = "magnets=1;biotech=1"
 	var/mode = 1
 
-/obj/item/robotanalyzer/attack(mob/living/M as mob, mob/living/user as mob)
-	if(( (CLUMSY in user.mutations) || user.getBrainLoss() >= 60) && prob(50))
-		user.visible_message("<span class='warning'>[user] has analyzed the floor's vitals!</span>", "<span class='warning'>You try to analyze the floor's vitals!</span>")
-		to_chat(user, "<span class='notice'>Analyzing Results for The floor:\n\t Overall Status: Healthy</span>")
-		to_chat(user, "<span class='notice'>\t Damage Specifics: [0]-[0]-[0]-[0]</span>")
-		to_chat(user, "<span class='notice'>Key: Suffocation/Toxin/Burns/Brute</span>")
-		to_chat(user, "<span class='notice'>Body Temperature: ???</span>")
-		return
 
-	user.visible_message("<span class='notice'>[user] has analyzed [M]'s components.</span>","<span class='notice'>You have analyzed [M]'s components.</span>")
-	robot_healthscan(user, M)
+/obj/item/robotanalyzer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
+	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))
+		user.visible_message(
+			span_warning("[user] has analyzed the floor's vitals!"),
+			span_notice("You try to analyze the floor's vitals!"),
+		)
+		to_chat(user, span_info("Analyzing Results for The floor:\n\t Overall Status: Healthy"))
+		to_chat(user, span_info("\t Damage Specifics: [0]-[0]-[0]-[0]"))
+		to_chat(user, span_info("Key: Suffocation/Toxin/Burns/Brute"))
+		to_chat(user, span_info("Body Temperature: ???"))
+		return .
+
+	user.visible_message(
+		span_warning("[user] has analyzed [target]'s components."),
+		span_notice("You have analyzed [target]'s components."),
+	)
+	robot_healthscan(user, target)
 	add_fingerprint(user)
 
 

@@ -231,16 +231,13 @@
 				handle_suicide(user, target, params)
 			return
 
-
 	//Exclude lasertag guns from the CLUMSY check.
-	if(clumsy_check)
-		if(istype(user))
-			if((CLUMSY in user.mutations) && prob(40))
-				to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with \the [src]!</span>")
-				var/shot_leg = pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
-				process_fire(user, user, 0, params, zone_override = shot_leg)
-				user.drop_from_active_hand()
-				return
+	if(clumsy_check && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
+		to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with \the [src]!</span>")
+		var/shot_leg = pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
+		process_fire(user, user, 0, params, zone_override = shot_leg)
+		user.drop_from_active_hand()
+		return
 
 	if(weapon_weight == WEAPON_HEAVY && (user.get_inactive_hand() || !user.has_inactive_hand() || (user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)))
 		to_chat(user, "<span class='userdanger'>You need both hands free to fire \the [src]!</span>")
@@ -391,58 +388,65 @@
 			user.take_organ_damage(0, 10)
 			return FALSE
 
-/obj/item/gun/attack(mob/M, mob/user)
-	if(user.a_intent == INTENT_HARM) //Flogging
-		if(bayonet)
-			M.attackby(bayonet, user)
-		else
-			return ..()
 
-/obj/item/gun/attack_obj(obj/O, mob/user, params)
-	if(user.a_intent == INTENT_HARM)
-		if(bayonet)
-			O.attackby(bayonet, user)
-			return
+/obj/item/gun/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(user.a_intent != INTENT_HARM)
+		return ATTACK_CHAIN_BLOCKED
+	if(bayonet) //Flogging
+		bayonet.melee_attack_chain(user, target, params)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
+
+/obj/item/gun/attack_obj(obj/object, mob/user, params)
+	if(bayonet)
+		bayonet.melee_attack_chain(user, object, params)
+		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
 
 /obj/item/gun/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/flashlight/seclite))
-		if(can_flashlight)
-			if(!gun_light)
-				if(!user.drop_transfer_item_to_loc(I, src))
-					return
-				to_chat(user, span_notice("You click [I] into place on [src]."))
-				set_gun_light(I)
-			else
-				to_chat(user, span_warning("There is already [gun_light] attached to [src]!"))
-		else
-			to_chat(user, span_warning("You cannot attach [I] to [src]!"))
-
-	else if(is_pen(I))
-		if(unique_rename)
-			var/t = rename_interactive(user, I, use_prefix = FALSE)
-			if(!isnull(t))
-				to_chat(user, span_notice("You name the gun '[name]'. Say hello to your new friend."))
-		else
+	if(is_pen(I))
+		if(!unique_rename)
+			add_fingerprint(user)
 			to_chat(user, span_warning("You cannot rename [src]!"))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		var/new_name = rename_interactive(user, I, use_prefix = FALSE)
+		if(!isnull(new_name))
+			to_chat(user, span_notice("You name the gun '[name]'. Say hello to your new friend."))
+		return ATTACK_CHAIN_BLOCKED
 
-	else if(istype(I, /obj/item/kitchen/knife))
+	if(istype(I, /obj/item/flashlight/seclite))
+		add_fingerprint(user)
+		if(!can_flashlight)
+			to_chat(user, span_warning("You cannot attach [I] to [src]!"))
+			return ATTACK_CHAIN_PROCEED
+		if(gun_light)
+			to_chat(user, span_warning("There is already [gun_light] attached to [src]!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("You click [I] into place on [src]."))
+		set_gun_light(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/kitchen/knife))
+		add_fingerprint(user)
 		var/obj/item/kitchen/knife/knife = I
 		//ensure the gun has an attachment point available and that the knife is compatible with it.
 		if(!can_bayonet || !knife.bayonet_suitable)
 			to_chat(user, span_warning("You cannot attach [knife] to [src]!"))
-			return
+			return ATTACK_CHAIN_PROCEED
 		if(bayonet)
 			to_chat(user, span_warning("There is already [knife] attached to [src]!"))
-			return
+			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(knife, src))
-			return
+			return ..()
 		to_chat(user, span_notice("You attach [knife] to [src]'s bayonet lug."))
 		set_bayonet(knife)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	else
-		return ..()
+	return ..()
 
 
 /obj/item/gun/screwdriver_act(mob/user, obj/item/I)

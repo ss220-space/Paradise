@@ -78,14 +78,22 @@
 	text_dehack_fail = "[name] does not seem to respond to your repair code!"
 
 
-/mob/living/simple_animal/bot/cleanbot/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/toy/crayon/spraycan))
-		var/obj/item/toy/crayon/spraycan/can = W
-		if(!can.capped && Adjacent(user))
-			src.mask_color = can.colour
-			update_icon()
-	else
+/mob/living/simple_animal/bot/cleanbot/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(istype(I, /obj/item/toy/crayon/spraycan))
+		add_fingerprint(user)
+		var/obj/item/toy/crayon/spraycan/can = I
+		if(can.capped)
+			to_chat(user, span_warning("The cap on [can] is sealed."))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		playsound(loc, 'sound/effects/spray.ogg', 20, TRUE)
+		mask_color = can.colour
+		update_icon()
+		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
+
+	return ..()
 
 
 /mob/living/simple_animal/bot/cleanbot/emag_act(mob/user)

@@ -449,38 +449,61 @@
 
 
 //Overriding this will stop a number of headaches down the track.
-/mob/living/silicon/pai/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stack/nanopaste))
-		var/obj/item/stack/nanopaste/N = W
+/mob/living/silicon/pai/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/nanopaste))
+		var/obj/item/stack/nanopaste/nanopaste = I
 		if(stat == DEAD)
-			to_chat(user, "<span class='danger'>\The [src] is beyond help, at this point.</span>")
-		else if(getBruteLoss() || getFireLoss())
-			heal_overall_damage(15, 15)
-			N.use(1)
-			user.visible_message("<span class='notice'>[user.name] applied some [W] at [src]'s damaged areas.</span>",\
-				"<span class='notice'>You apply some [W] at [name]'s damaged areas.</span>")
-		else
-			to_chat(user, "<span class='notice'>All [name]'s systems are nominal.</span>")
-		return
+			to_chat(user, span_warning("The [name] is beyond help, at this point."))
+			return ATTACK_CHAIN_PROCEED
+		if(!getBruteLoss() && !getFireLoss())
+			to_chat(user, span_warning("All [name]'s systems are nominal."))
+			return ATTACK_CHAIN_PROCEED
+		if(!nanopaste.use(1))
+			to_chat(user, span_warning("You need at least one unit of [nanopaste] to proceed."))
+			return ATTACK_CHAIN_PROCEED
+		heal_overall_damage(15, 15)
+		user.visible_message(
+			span_notice("[user] has applied some [nanopaste.name] at [src]'s damaged areas."),
+			span_notice("You have applied some [nanopaste.name] at [src]'s damaged areas."),
+		)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	else if(istype(W, /obj/item/paicard_upgrade) || istype(W, /obj/item/pai_cartridge))
-		to_chat(user, "<span class='warning'>[src] must be in card form.</span>")
-		return
+	if(istype(I, /obj/item/paicard_upgrade) || istype(I, /obj/item/pai_cartridge))
+		to_chat(user, span_warning("The [name] must be in card form."))
+		return ATTACK_CHAIN_PROCEED
 
-	else if(W.force)
-		visible_message("<span class='danger'>[user.name] attacks [src] with [W]!</span>")
-		adjustBruteLoss(W.force)
-	else
-		visible_message("<span class='warning'>[user.name] bonks [src] harmlessly with [W].</span>")
-	spawn(1)
+	user.do_attack_animation(src)
+
+	if(!I.force)
+		playsound(loc, 'sound/weapons/tap.ogg', I.get_clamped_volume(), TRUE, -1)
+		visible_message(
+			span_warning("[user] bonks [src] harmlessly with [I]."),
+			span_warning("[user] bonks you harmlessly with [I]."),
+		)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	if(I.hitsound)
+		playsound(loc, I.hitsound, I.get_clamped_volume(), TRUE, -1)
+	add_attack_logs(user, src, "Attacked with [I.name] ([uppertext(user.a_intent)]) ([uppertext(I.damtype)]), DMG: [I.force])", (ckey && I.force > 0 && I.damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
+	visible_message(
+		span_danger("[user] attacks [src] with [I]!"),
+		span_userdanger("[user] attacks you with [I]!"),
+	)
+	var/damage_type = I.damtype
+	if(damage_type != BRUTE && damage_type != BURN)
+		damage_type = BRUTE
+	apply_damage(I.force, damage_type)
+
+	spawn(1)	// thats dumb
 		if(stat != DEAD)
 			close_up()
-	return
+	return ATTACK_CHAIN_PROCEED_SUCCESS
+
+
 
 /mob/living/silicon/pai/welder_act()
 	return
 
-/mob/living/silicon/pai/attack_hand(mob/user as mob)
+/mob/living/silicon/pai/attack_hand(mob/user)
 	if(stat == DEAD)
 		return
 	if(user.a_intent == INTENT_HELP)

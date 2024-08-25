@@ -42,55 +42,67 @@
 		if(isBelted)
 			. += span_notice("It has a strap, now you can hold [src] on your back.")
 
+
 /obj/item/gun/pneumatic_rifle/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	if(tank)
-		updateTank(tank, 1, user)
-	else
-		to_chat(user, span_notice("There is no tank inside!"))
+	if(!tank)
+		to_chat(user, span_warning("There is no tank inside."))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	to_chat(user, span_notice("You detach [tank] from [src]."))
+	tank.forceMove(drop_location())
+	user.put_in_hands(tank, ignore_anim = FALSE)
+	tank = null
+	update_icon(UPDATE_OVERLAYS)
+
 
 /obj/item/gun/pneumatic_rifle/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/analyzer))
-		return
 	if(istype(I, /obj/item/stack/cable_coil))
-		if(!isBelted)
-			var/obj/item/stack/cable_coil/coil = I
-			if(coil.get_amount() < beltCost)
-				to_chat(user, span_warning("Not enough cable coil to strap [src]."))
-				return
-			else
-				coil.use(beltCost)
-				to_chat(user, span_notice("You strapped [src], so now you can wear it on your back"))
-				isBelted = TRUE
-				slot_flags |= ITEM_SLOT_BACK
-				update_icon(UPDATE_OVERLAYS)
-				return
-		else
-			to_chat(user, span_warning("[src] is already strapped!"))
-			return
-	if(istype(I, /obj/item/tank/internals) && !tank)
-		if(istype(I, /obj/item/tank/internals/emergency_oxygen))
-			updateTank(I, 0, user)
-			to_chat(user, span_notice("You load [I] into [src]"))
-			return
-		else
-			to_chat(user, span_warning("[I] is too big for [src]."))
-			return
+		add_fingerprint(user)
+		if(isBelted)
+			to_chat(user, span_warning("The [name] is already strapped!"))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/item/stack/cable_coil/coil = I
+		if(!coil.use(beltCost))
+			to_chat(user, span_warning("Not enough cable coil to strap [src]."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You strapped [src], so now you can wear it on your back"))
+		isBelted = TRUE
+		slot_flags |= ITEM_SLOT_BACK
+		update_icon(UPDATE_OVERLAYS)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/tank/internals))
+		add_fingerprint(user)
+		if(tank)
+			to_chat(user, span_warning("There is already [tank] installed."))
+			return ATTACK_CHAIN_PROCEED
+		if(!istype(I, /obj/item/tank/internals/emergency_oxygen))
+			to_chat(user, span_warning("The [I.name] is too big for [src]."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("You hook [I] up to [src]."))
+		tank = I
+		update_icon(UPDATE_OVERLAYS)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	if(istype(I, /obj/item/reagent_containers/syringe))
+		add_fingerprint(user)
 		var/in_clip = length(syringes) + (chambered.BB ? 1 : 0)
-		if(in_clip < max_syringes)
-			if(!user.drop_transfer_item_to_loc(I, src))
-				return
-			to_chat(user, "<span class='notice'>You load [I] into \the [src]!</span>")
-			syringes.Add(I)
-			process_chamber() // Chamber the syringe if none is already
-			return TRUE
-		else
-			to_chat(user, "<span class='notice'>[src] cannot hold more syringes.</span>")
-	else
-		return ..()
+		if(in_clip >= max_syringes)
+			to_chat(user, span_warning("The [I.name] cannot hold more syringes."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("You load [I] into [src]."))
+		syringes += I
+		process_chamber() // Chamber the syringe if none is already
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/gun/pneumatic_rifle/afterattack(atom/target, mob/living/carbon/human/user, flag, params)
 	. = ..()
@@ -150,23 +162,6 @@
 	if(tank)
 		return tank.return_analyzable_air()
 
-/obj/item/gun/pneumatic_rifle/proc/updateTank(obj/item/tank/thetank, removing = 0, mob/living/carbon/human/user)
-	if(removing)
-		if(!tank)
-			return
-		to_chat(user, span_notice("You remove [thetank] from [src]."))
-		tank.loc = get_turf(src)
-		user.put_in_hands(tank)
-		tank = null
-	if(!removing)
-		if(tank)
-			to_chat(user, span_warning("[src] already has a tank."))
-			return
-		if(!user.drop_transfer_item_to_loc(thetank, src))
-			return
-		to_chat(user, span_notice("You hook [thetank] up to [src]."))
-		tank = thetank
-	update_icon(UPDATE_OVERLAYS)
 
 /datum/crafting_recipe/pneumatic_rifle
 	name = "Pneumatic Rifle"

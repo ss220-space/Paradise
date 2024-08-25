@@ -86,12 +86,21 @@
 	return ..()
 
 
-/obj/item/taperecorder/attackby(obj/item/I, mob/user)
-	if(!mytape && istype(I, /obj/item/tape) && user.drop_transfer_item_to_loc(I, src))
+/obj/item/taperecorder/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/tape))
+		add_fingerprint(user)
+		if(mytape)
+			to_chat(user, span_warning("There is already [mytape] inserted!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
 		mytape = I
 		to_chat(user, span_notice("You insert [I] into [src]."))
-		playsound(src, 'sound/items/taperecorder/taperecorder_close.ogg', 50, FALSE)
+		playsound(loc, 'sound/items/taperecorder/taperecorder_close.ogg', 50, FALSE)
 		update_icon(UPDATE_ICON_STATE)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/item/taperecorder/attack_hand(mob/user)
@@ -388,23 +397,22 @@
 	ruin()
 
 
-/obj/item/tape/attackby(obj/item/I, mob/user)
+/obj/item/tape/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
 		rename_interactive(user, I)
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
 
 /obj/item/tape/screwdriver_act(mob/living/user, obj/item/I)
-	. = ..()
-	if(ruined)
-		if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-			return
-		to_chat(user, span_notice("You start winding the tape back in."))
-		if(!do_after(user, 12 SECONDS * I.toolspeed, user))
-			return
-		to_chat(user, span_notice("You wind the tape back in!"))
-		fix()
+	. = TRUE
+	if(!ruined)
+		return .
+	to_chat(user, span_notice("You start winding the tape back in..."))
+	if(!I.use_tool(src, user, 12 SECONDS, volume = I.tool_volume) || !ruined)
+		return .
+	to_chat(user, span_notice("You wind the tape back in!"))
+	fix()
 
 
 /obj/item/tape/attack_self(mob/user)

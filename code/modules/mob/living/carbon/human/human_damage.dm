@@ -23,7 +23,7 @@
 	update_movespeed_damage_modifiers()
 
 
-/mob/living/carbon/human/proc/update_movespeed_damage_modifiers()
+/mob/living/carbon/human/update_movespeed_damage_modifiers()
 	if(HAS_TRAIT(src, TRAIT_IGNOREDAMAGESLOWDOWN))
 		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown)
 		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown_flying)
@@ -264,7 +264,7 @@
 	forced = FALSE,
 	used_weapon = null,
 )
-	if(NO_BREATHE in dna.species.species_traits)
+	if(HAS_TRAIT(src, TRAIT_NO_BREATH))
 		var/old_oxyloss = getOxyLoss()
 		oxyloss = 0
 		if(old_oxyloss != 0)
@@ -274,7 +274,7 @@
 
 
 /mob/living/carbon/human/setOxyLoss(amount = 0, updating_health = TRUE)
-	if(NO_BREATHE in dna.species.species_traits)
+	if(HAS_TRAIT(src, TRAIT_NO_BREATH))
 		var/old_oxyloss = getOxyLoss()
 		oxyloss = 0
 		if(old_oxyloss != 0)

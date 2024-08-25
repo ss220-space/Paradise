@@ -15,8 +15,8 @@
 	var/mopcap = 5
 	var/mopspeed = 30
 
-/obj/item/mop/New()
-	..()
+/obj/item/mop/Initialize(mapload)
+	. = ..()
 	create_reagents(mopcap)
 	GLOB.janitorial_equipment += src
 
@@ -26,16 +26,17 @@
 
 
 /obj/item/mop/proc/wet_mop(obj/target, mob/user)
-	if(target.reagents.total_volume < 1)
-		to_chat(user, "[target] is out of water!</span>")
+	if(!target.reagents || target.reagents.total_volume < 1)
+		to_chat(user, span_notice("Looks like [target]'s bucket is empty."))
 		if(istype(target, /obj/structure/mopbucket))
-			mopbucket_insert(user, target)
-		if(!istype(target, /obj/item/reagent_containers/glass/bucket))
-			janicart_insert(user, target)
-		return
+			. = mopbucket_insert(user, target)
+		else if(istype(target, /obj/structure/janitorialcart))
+			. = janicart_insert(user, target)
+		return .
 
+	. = TRUE
 	target.reagents.trans_to(src, 5)
-	to_chat(user, "<span class='notice'>You wet [src] in [target].</span>")
+	to_chat(user, span_notice("You wet [src] in [target]."))
 	playsound(loc, 'sound/effects/slosh.ogg', 25, TRUE)
 
 
@@ -48,8 +49,9 @@
 	reagents.reaction(A, REAGENT_TOUCH, 10)	//10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
 	reagents.remove_any(1)			//reaction() doesn't use up the reagents
 
-/obj/item/mop/afterattack(atom/A, mob/user, proximity)
-	if(!proximity) return
+/obj/item/mop/afterattack(atom/A, mob/user, proximity, params)
+	if(!proximity || iseffect(A))
+		return
 
 	if(reagents.total_volume < 1)
 		to_chat(user, "<span class='warning'>Your mop is dry!</span>")
@@ -69,21 +71,26 @@
 			clean(T)
 		qdel(E)
 
-/obj/effect/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/mop) || istype(I, /obj/item/soap))
-		return
-	else
-		return ..()
-
 
 /obj/item/mop/proc/janicart_insert(mob/user, obj/structure/janitorialcart/cart)
-	cart.mymop = src
-	cart.put_in_cart(src, user)
+	if(cart.mymop)
+		to_chat(user, span_notice("There is already [cart.mymop] in [cart]."))
+		return FALSE
+	. = cart.put_in_cart(src, user)
+	if(.)
+		cart.mymop = src
+		cart.updateUsrDialog()
+		cart.update_icon(UPDATE_OVERLAYS)
 
 
 /obj/item/mop/proc/mopbucket_insert(mob/user, obj/structure/mopbucket/bucket)
-	bucket.mymop = src
-	bucket.put_in_cart(src, user)
+	if(bucket.mymop)
+		to_chat(user, span_notice("There is already [bucket.mymop] in [bucket]."))
+		return FALSE
+	. = bucket.put_in_cart(src, user)
+	if(.)
+		bucket.mymop = src
+		bucket.update_icon(UPDATE_OVERLAYS)
 
 
 /obj/item/mop/wash(mob/user, atom/source)
@@ -107,8 +114,8 @@
 	var/refill_rate = 1 //Rate per process() tick mop refills itself
 	var/refill_reagent = "water" //Determins what reagent to use for refilling, just in case someone wanted to make a HOLY MOP OF PURGING
 
-/obj/item/mop/advanced/New()
-	..()
+/obj/item/mop/advanced/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/mop/advanced/attack_self(mob/user)
@@ -135,6 +142,3 @@
 	return ..()
 
 /obj/item/mop/advanced/cyborg
-
-/obj/item/mop/advanced/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
-	return

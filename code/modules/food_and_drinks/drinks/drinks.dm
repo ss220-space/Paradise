@@ -27,31 +27,38 @@
 /obj/item/reagent_containers/food/drinks/attack_self(mob/user)
 	return
 
-/obj/item/reagent_containers/food/drinks/attack(mob/M, mob/user, def_zone)
+
+/obj/item/reagent_containers/food/drinks/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(!iscarbon(target))
+		return ..()
+
+	. = ATTACK_CHAIN_PROCEED
+
 	if(!reagents || !reagents.total_volume)
-		to_chat(user, "<span class='warning'> None of [src] left, oh no!</span>")
-		return FALSE
+		to_chat(user, span_warning("None of [src] left, oh no!"))
+		return .
 
 	if(!is_drainable())
-		to_chat(user, "<span class='warning'> You need to open [src] first!</span>")
-		return FALSE
+		to_chat(user, span_warning("You need to open [src] first!"))
+		return .
 
-	if(iscarbon(M))
-		var/mob/living/carbon/C = M
-		if(!get_location_accessible(C, BODY_ZONE_PRECISE_MOUTH))
-			if(C == user)
-				to_chat(user, "<span class='warning'>Your face is obscured, so you cant eat.</span>")
-			else
-				to_chat(user, "<span class='warning'>[C]'s face is obscured, so[C.p_they()] cant eat.</span>")
-			return FALSE
+	if(!get_location_accessible(target, BODY_ZONE_PRECISE_MOUTH))
+		if(target == user)
+			to_chat(user, span_warning("Your face is obscured."))
+		else
+			to_chat(user, span_warning("[target]'s face is obscured."))
+		return .
 
-		var/list/transfer_data = reagents.get_transferred_reagents(C, amount_per_transfer_from_this)
-		if(C.eat(src, user))
-			if(isrobot(user)) //Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
-				if(length(transfer_data))
-					SynthesizeDrinkFromTransfer(user, transfer_data)
-			return TRUE
-	return FALSE
+	if(!target.eat(src, user))
+		return .
+
+	. |= ATTACK_CHAIN_SUCCESS
+
+	var/list/transfer_data = reagents.get_transferred_reagents(target, amount_per_transfer_from_this)
+	//Cyborg modules that include drinks automatically refill themselves, but drain the borg's cell
+	if(isrobot(user) && length(transfer_data))
+		SynthesizeDrinkFromTransfer(user, transfer_data)
+
 
 /obj/item/reagent_containers/food/drinks/proc/SynthesizeDrinkFromTransfer(mob/user, list/transfer_data)
 
@@ -103,7 +110,7 @@
 				break
 		chugging = FALSE
 
-/obj/item/reagent_containers/food/drinks/afterattack(obj/target, mob/user, proximity)
+/obj/item/reagent_containers/food/drinks/afterattack(obj/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 

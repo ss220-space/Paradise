@@ -162,77 +162,75 @@
 		return
 	default_unfasten_wrench(user, I)
 
+
 /obj/machinery/reagentgrinder/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
 	if(exchange_parts(user, I))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER) )
+	if(istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER))
+		add_fingerprint(user)
+		if(panel_open)
+			to_chat(user, span_warning("Close the maintenance panel first."))
+			return ATTACK_CHAIN_PROCEED
 		if(beaker)
-			to_chat(user, "<span class='warning'>There's already a container inside.</span>")
-		else if(panel_open)
-			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
-		else
-			if(!user.drop_transfer_item_to_loc(I, src))
-				return FALSE
-			add_fingerprint(user)
-			beaker =  I
-			update_icon(UPDATE_ICON_STATE)
-			updateUsrDialog()
-		return TRUE //no afterattack
+			to_chat(user, span_warning("The [name] already has [beaker] loaded."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		beaker = I
+		to_chat(user, span_notice("You have inserted [I] into [src]."))
+		updateUsrDialog()
+		update_icon(UPDATE_ICON_STATE)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(is_type_in_list(I, dried_items))
-		if(istype(I, /obj/item/reagent_containers/food/snacks/grown))
-			var/obj/item/reagent_containers/food/snacks/grown/G = I
-			if(!G.dry)
-				to_chat(user, "<span class='warning'>You must dry that first!</span>")
-				return FALSE
+	add_fingerprint(user)
+	if(is_type_in_list(I, dried_items) && istype(I, /obj/item/reagent_containers/food/snacks/grown))
+		var/obj/item/reagent_containers/food/snacks/grown/grown = I
+		if(!grown.dry)
+			to_chat(user, span_warning("You must dry that first."))
+			return ATTACK_CHAIN_PROCEED
 
-	if(holdingitems && holdingitems.len >= limit)
-		to_chat(usr, "The machine cannot hold anymore items.")
-		return FALSE
+	if(length(holdingitems) >= limit)
+		to_chat(user, span_warning("The [name] cannot hold anymore items."))
+		return ATTACK_CHAIN_PROCEED
 
 	//Fill machine with a bag!
 	if(istype(I, /obj/item/storage/bag))
-		var/obj/item/storage/bag/B = I
-		if(!B.contents.len)
-			to_chat(user, "<span class='warning'>[B] is empty.</span>")
-			return FALSE
+		var/obj/item/storage/bag/bag = I
+		var/original_contents_len = length(bag.contents)
+		if(!length(bag.contents))
+			to_chat(user, span_warning("The [bag.name] is empty."))
+			return ATTACK_CHAIN_PROCEED
 
-		add_fingerprint(user)
-		var/original_contents_len = B.contents.len
-
-		for(var/obj/item/G in B.contents)
-			if(is_type_in_list(G, blend_items) || is_type_in_list(G, juice_items))
-				B.remove_from_storage(G, src)
-				holdingitems += G
-				if(holdingitems && holdingitems.len >= limit) //Sanity checking so the blender doesn't overfill
-					to_chat(user, "<span class='notice'>You fill the All-In-One grinder to the brim.</span>")
+		for(var/obj/item/thing as anything in bag.contents)
+			if(is_type_in_list(thing, blend_items) || is_type_in_list(thing, juice_items))
+				bag.remove_from_storage(thing, src)
+				holdingitems += thing
+				if(length(holdingitems) >= limit) //Sanity checking so the blender doesn't overfill
 					break
 
-		if(B.contents.len == original_contents_len)
-			to_chat(user, "<span class='warning'>Nothing in [B] can be put into the All-In-One grinder.</span>")
-			return FALSE
-		else if(!B.contents.len)
-			to_chat(user, "<span class='notice'>You empty all of [B]'s contents into the All-In-One grinder.</span>")
-		else
-			to_chat(user, "<span class='notice'>You empty some of [B]'s contents into the All-In-One grinder.</span>")
+		var/new_contents_len = length(bag.contents)
+		if(new_contents_len == original_contents_len)
+			to_chat(user, span_warning("Nothing in [bag] can be put into [src]."))
+			return ATTACK_CHAIN_PROCEED
 
+		to_chat(user, span_notice("You have emptied [new_contents_len ? "some" : "all"] of [bag]'s contents into [src]."))
 		updateUsrDialog()
-		return TRUE
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(!is_type_in_list(I, blend_items) && !is_type_in_list(I, juice_items))
-		if(user.a_intent == INTENT_HARM)
-			return ..()
-		else
-			to_chat(user, "<span class='warning'>Cannot refine into a reagent!</span>")
-			return TRUE
+		to_chat(user, span_warning("Cannot refine [I] into a reagent."))
+		return ATTACK_CHAIN_PROCEED
 
-	if(user.drop_transfer_item_to_loc(I, src))
-		add_fingerprint(user)
-		holdingitems += I
-		src.updateUsrDialog()
-		return FALSE
+	if(!user.drop_transfer_item_to_loc(I, src))
+		return ..()
+
+	holdingitems += I
+	updateUsrDialog()
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 
 
@@ -250,7 +248,7 @@
 		var/is_beaker_ready = 0
 		var/processing_chamber = ""
 		var/beaker_contents = ""
-		var/dat = {"<meta charset="UTF-8">"}
+		var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 
 		if(!operating)
 				for (var/obj/item/O in holdingitems)
@@ -278,12 +276,12 @@
 		[beaker_contents]<hr>
 		"}
 				if (is_beaker_ready && !is_chamber_empty && !(stat & (NOPOWER|BROKEN)))
-						dat += "<A href='?src=[src.UID()];action=grind'>Grind the reagents</a><BR>"
-						dat += "<A href='?src=[src.UID()];action=juice'>Juice the reagents</a><BR><BR>"
+						dat += "<a href='byond://?src=[src.UID()];action=grind'>Grind the reagents</a><BR>"
+						dat += "<a href='byond://?src=[src.UID()];action=juice'>Juice the reagents</a><BR><BR>"
 				if(holdingitems && holdingitems.len > 0)
-						dat += "<A href='?src=[src.UID()];action=eject'>Eject the reagents</a><BR>"
+						dat += "<a href='byond://?src=[src.UID()];action=eject'>Eject the reagents</a><BR>"
 				if (beaker)
-						dat += "<A href='?src=[src.UID()];action=detach'>Detach the beaker</a><BR>"
+						dat += "<a href='byond://?src=[src.UID()];action=detach'>Detach the beaker</a><BR>"
 		else
 				dat += "Please wait..."
 

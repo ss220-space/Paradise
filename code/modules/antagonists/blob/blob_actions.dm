@@ -48,6 +48,6 @@
 			M.show_message(rendered, 2)
 		else if(isobserver(M) && !isnewplayer(M))
 			var/rendered_ghost = "<i><span class='blob'>Blob Telepathy,</span> <span class='name'>[user.name]</span> \
-			<a href='?src=[M.UID()];follow=[user.UID()]'>(F)</a> states, <span class='blob'>\"[message]\"</span></i>"
+			<a href='byond://?src=[M.UID()];follow=[user.UID()]'>(F)</a> states, <span class='blob'>\"[message]\"</span></i>"
 			M.show_message(rendered_ghost, 2)
 

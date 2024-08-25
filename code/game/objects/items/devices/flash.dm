@@ -41,34 +41,48 @@
 
 
 /obj/item/flash/proc/clown_check(mob/user)
-	if(user && (CLUMSY in user.mutations) && prob(50))
+	if(user && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		flash_carbon(user, user, 30 SECONDS, 0)
 		return FALSE
 	return TRUE
 
 
-/obj/item/flash/attackby(obj/item/W, mob/user, params)
-	if(can_overcharge)
-		if(W.tool_behaviour == TOOL_SCREWDRIVER)
-			if(battery_panel)
-				to_chat(user, "<span class='notice'>You close the battery compartment on the [src].</span>")
-				battery_panel = FALSE
-			else
-				to_chat(user, "<span class='notice'>You open the battery compartment on the [src].</span>")
-				battery_panel = TRUE
-		if(battery_panel && !overcharged)
-			if(istype(W, /obj/item/stock_parts/cell))
-				to_chat(user, "<span class='notice'>You jam the cell into battery compartment on the [src].</span>")
-				qdel(W)
-				overcharged = TRUE
-				update_icon(UPDATE_OVERLAYS)
+/obj/item/flash/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!can_overcharge)
+		to_chat(user, span_warning("This [name] has no panel!"))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	battery_panel = !battery_panel
+	to_chat(user, span_notice("You [battery_panel ? "open" : "close"] the battery compartment on [src]."))
 
 
-/obj/item/flash/random/New()
-	..()
+/obj/item/flash/attackby(obj/item/I, mob/user, params)
+	if(!can_overcharge || !istype(I, /obj/item/stock_parts/cell))
+		return ..()
+	add_fingerprint(user)
+	if(!battery_panel)
+		to_chat(user, span_warning("You need to open the panel first!"))
+		return ATTACK_CHAIN_PROCEED
+	if(overcharged)
+		to_chat(user, span_warning("The [name] is already overcharged!"))
+		return ATTACK_CHAIN_PROCEED
+	if(!user.drop_transfer_item_to_loc(I, src))
+		return ..()
+	. = ATTACK_CHAIN_BLOCKED_ALL
+	to_chat(user,  span_notice("You jam the cell into the battery compartment on [src]."))
+	overcharged = TRUE
+	update_icon(UPDATE_OVERLAYS)
+	qdel(I)
+
+
+/obj/item/flash/random/Initialize(mapload)
+	. = ..()
 	if(prob(25))
 		broken = TRUE
 		update_icon(UPDATE_ICON_STATE)
+
 
 /obj/item/flash/proc/burn_out() //Made so you can override it if you want to have an invincible flash from R&D or something.
 	broken = TRUE
@@ -135,23 +149,31 @@
 	if(M.flash_eyes())
 		M.AdjustConfused(power)
 
-/obj/item/flash/attack(mob/living/M, mob/user)
+
+/obj/item/flash/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
 	if(!try_use_flash(user))
-		return FALSE
-	if(iscarbon(M))
-		flash_carbon(M, user, 10 SECONDS, 1)
+		return .
+	if(iscarbon(target))
+		flash_carbon(target, user, 10 SECONDS, TRUE)
 		if(overcharged)
-			M.adjust_fire_stacks(6)
-			M.IgniteMob()
+			target.adjust_fire_stacks(6)
+			target.IgniteMob()
 			burn_out()
-		return TRUE
-	else if(issilicon(M))
-		add_attack_logs(user, M, "Flashed with [src]")
-		if(M.flash_eyes(affect_silicon = TRUE))
-			M.Weaken(rand(10 SECONDS, 20 SECONDS))
-			user.visible_message(span_disarm("[user] overloads [M]'s sensors with the [name]!"), span_danger("You overload [M]'s sensors with the [name]!"))
-		return TRUE
-	user.visible_message(span_disarm("[user] fails to blind [M] with the [name]!"), span_warning("You fail to blind [M] with the [name]!"))
+		return .|ATTACK_CHAIN_SUCCESS
+	if(issilicon(target))
+		add_attack_logs(user, target, "Flashed with [src]")
+		if(target.flash_eyes(affect_silicon = TRUE))
+			target.Weaken(rand(10 SECONDS, 20 SECONDS))
+			user.visible_message(
+				span_disarm("[user] overloads [target]'s sensors with the [name]!"),
+				span_danger("You overload [target]'s sensors with the [name]!"),
+			)
+		return .|ATTACK_CHAIN_SUCCESS
+	user.visible_message(
+		span_disarm("[user] fails to blind [target] with the [name]!"),
+		span_warning("You fail to blind [target] with the [name]!"),
+	)
 
 
 /obj/item/flash/attack_self(mob/living/carbon/user, flag = 0, emp = FALSE)
@@ -173,9 +195,12 @@
 /obj/item/flash/cyborg
 	origin_tech = null
 
-/obj/item/flash/cyborg/attack(mob/living/M, mob/user)
-	..()
-	new /obj/effect/temp_visual/borgflash(get_turf(src))
+
+/obj/item/flash/cyborg/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
+		new /obj/effect/temp_visual/borgflash(get_turf(src))
+
 
 /obj/item/flash/cyborg/attack_self(mob/user)
 	..()

@@ -143,16 +143,25 @@
 	..()
 
 
-/mob/living/simple_animal/mouse/attackby(obj/item/W, mob/user, params)
-	if(!stat && istype(W, /obj/item/mouse_jetpack))
-		place_on_back(W, user)
-	else
+/mob/living/simple_animal/mouse/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(istype(I, /obj/item/mouse_jetpack)) // fly me to the moon
+		add_fingerprint(user)
+		if(place_on_back(I, user))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		return ATTACK_CHAIN_PROCEED
+
+	return ..()
 
 
 /mob/living/simple_animal/mouse/proc/place_on_back(obj/item/item_to_add, mob/living/user)
+	if(stat != CONSCIOUS)
+		to_chat(user, span_warning("[src] has problems with health."))
+		return FALSE
 	if(jetpack)
-		to_chat(user, span_warning("[src] already have jetpack!"))
+		to_chat(user, span_warning("[src] already has a jetpack!"))
 		return FALSE
 	if(!mind || !is_available_for_anim())
 		to_chat(user, span_warning("[src] doesn't seem interested in that."))

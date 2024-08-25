@@ -243,28 +243,43 @@
 	object.desc = "Looks like this was \an [src] some time ago."
 	qdel(src)
 
-/obj/structure/glowshroom/attacked_by(obj/item/tool, mob/living/user)
-	var/damage_dealt = tool.force
-	if(istype(tool, /obj/item/scythe))
-		var/obj/item/scythe/weapon = tool
-		//so folded telescythes won't get damage boosts / insta-clears (they instead will be treated like non-scythes)
-		if(weapon.extend)
-			damage_dealt *= 10
-			for(var/obj/structure/glowshroom/shroom in view(1, src))
-				shroom.take_damage(damage_dealt, tool.damtype, "melee", 1)
-			return
 
-	if(is_sharp(tool) || tool.damtype == BURN)
+/obj/structure/glowshroom/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
+	if(!I.force)
+		user.visible_message(
+			span_warning("[user] gently pokes [src] with [I]."),
+			span_warning("You gently poke [src] with [I]."),
+		)
+		return .
+	user.visible_message(
+		span_danger("[user] has hit [src] with [I]!"),
+		span_danger("You have hit [src] with [I]!"),
+	)
+	var/damage_dealt = I.force
+	var/obj/item/scythe/scythe = I
+	//so folded telescythes won't get damage boosts / insta-clears (they instead will be treated like non-scythes)
+	if(istype(I, /obj/item/scythe) && scythe.extend)
+		damage_dealt *= 10
+		for(var/obj/structure/glowshroom/shroom in (view(1, src) - src))
+			shroom.take_damage(damage_dealt, I.damtype, MELEE, TRUE, get_dir(user, shroom), I.armour_penetration)
+	else if(is_sharp(I) || I.damtype == BURN)
 		damage_dealt *= 4
 
-	take_damage(damage_dealt, tool.damtype, "melee", 1)
+	take_damage(damage_dealt, I.damtype, MELEE, TRUE, get_dir(user, src), I.armour_penetration)
+	if(QDELETED(src))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 
 //Way to check glowshroom stats using plant analyzer
-/obj/structure/glowshroom/attackby(obj/item/plant_analyzer/plant_analyzer, mob/living/user, params)
-	if(istype(plant_analyzer))
+/obj/structure/glowshroom/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/plant_analyzer))
 		// Hacky I guess
-		return myseed.attackby(plant_analyzer, user, params)
+		I.melee_attack_chain(user, myseed, params)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 #undef SPREAD_DELAY
 #undef DECAY_DELAY

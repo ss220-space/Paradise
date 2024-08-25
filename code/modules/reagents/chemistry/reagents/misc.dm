@@ -164,9 +164,8 @@
 /datum/reagent/iron/on_mob_life(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(!(NO_BLOOD in H.dna.species.species_traits))
-			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
-				H.blood_volume += 0.8
+		if(!HAS_TRAIT(H, TRAIT_NO_BLOOD) && !HAS_TRAIT(H, TRAIT_NO_BLOOD_RESTORE) && H.blood_volume < BLOOD_VOLUME_NORMAL)
+			H.blood_volume += 0.8
 	return ..()
 
 /datum/reagent/iron/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
@@ -308,7 +307,7 @@
 /datum/reagent/colorful_reagent/on_mob_life(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(!(NO_BLOOD in H.dna.species.species_traits) && !H.dna.species.exotic_blood)
+		if(!HAS_TRAIT(H, TRAIT_NO_BLOOD) && !HAS_TRAIT(H, TRAIT_EXOTIC_BLOOD))
 			H.dna.species.blood_color = "#[num2hex(rand(0, 255), 2)][num2hex(rand(0, 255), 2)][num2hex(rand(0, 255), 2)]"
 	return ..()
 

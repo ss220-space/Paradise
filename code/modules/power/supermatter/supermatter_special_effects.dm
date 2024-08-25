@@ -4,9 +4,12 @@
 #define DETONATION_APC_BREAKDOWN_CHANCE 40
 #define SPECIAL_EFFECTS_TIMER_DELAY 10 //periods between special effects, for optimizing
 #define SIMPLE_ANIMAL_MINDGIVING_CHANCE 2
+#define DNA_MUTATION_CHANCE 10
 
 /datum/supermatter_explosive_effects
 	var/z = 0
+	///DNA mutation chance. Made this into var so admins can have fun messing up station
+	var/dna_mutation_chance = DNA_MUTATION_CHANCE
 
 /datum/supermatter_explosive_effects/proc/handle_special_effects()
 	//1. All machinery will have 30% on each one machine messing up wires AND 20% of having damage
@@ -19,6 +22,8 @@
 	addtimer(CALLBACK(src, PROC_REF(handle_mind_giving)), SPECIAL_EFFECTS_TIMER_DELAY*4)
 	//5. Random up seeds.
 	addtimer(CALLBACK(src, PROC_REF(handle_seeds_mutation)), SPECIAL_EFFECTS_TIMER_DELAY*5)
+	//6. Mutate everyone with DNA.
+	addtimer(CALLBACK(src, PROC_REF(handle_genetic_mutation)), SPECIAL_EFFECTS_TIMER_DELAY*6)
 
 //Makes APCs go wild
 /datum/supermatter_explosive_effects/proc/handle_apc_breaking()
@@ -139,6 +144,21 @@
 				INVOKE_ASYNC(src, PROC_REF(give_mind_lesser), monke)
 	return
 
+
+/datum/supermatter_explosive_effects/proc/handle_genetic_mutation()
+	for(var/mob/living/creature in GLOB.alive_mob_list)
+		if(!creature.dna || HAS_TRAIT(creature, TRAIT_NO_DNA) || HAS_TRAIT(creature, TRAIT_RADIMMUNE))
+			continue
+		var/turf/creature_turf = get_turf(creature)
+		if(!creature_turf || creature_turf.z != z)
+			continue
+		var/resist = creature.getarmor(attack_flag = RAD)
+		var/chance = clamp(dna_mutation_chance * (1 - (resist / 100)), 0, 100)
+		if(prob(chance))
+			randmut(creature, FALSE)
+			creature.check_genes(MUTCHK_FORCED)
+
+
 /datum/supermatter_explosive_effects/proc/give_mind_lesser(mob/living/carbon/human/lesser/monke)
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to awaken as [monke]?", ROLE_SENTIENT, TRUE, source = monke)
 	if(!length(candidates))
@@ -182,3 +202,10 @@
 			else
 				seed.product = /obj/item/reagent_containers/food/snacks/grown/random
 				seed.transform_into_random()
+
+#undef DETONATION_MACHINE_BREAKDOWN_CHANCE
+#undef DETONATION_MACHINE_EFFECT_CHANCE
+#undef DETONATION_APC_BREAKDOWN_CHANCE
+#undef SPECIAL_EFFECTS_TIMER_DELAY
+#undef SIMPLE_ANIMAL_MINDGIVING_CHANCE
+#undef DNA_MUTATION_CHANCE

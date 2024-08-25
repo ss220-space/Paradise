@@ -197,9 +197,12 @@
 	throw_speed = 1
 	throw_range = 3
 
-/obj/item/grown/sunflower/attack(mob/M, mob/user)
-	to_chat(M, "<font color='green'><b> [user] smacks you with a sunflower!</font><font color='yellow'><b>FLOWER POWER<b></font>")
-	to_chat(user, "<font color='green'>Your sunflower's </font><font color='yellow'><b>FLOWER POWER</b></font><font color='green'>strikes [M]</font>")
+
+/obj/item/grown/sunflower/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	to_chat(target, "<font color='green'><b> [user] smacks you with a sunflower!</font><font color='yellow'><b>FLOWER POWER<b></font>")
+	to_chat(user, "<font color='green'>Your sunflower's </font><font color='yellow'><b>FLOWER POWER</b></font><font color='green'>strikes [target]</font>")
+	return ATTACK_CHAIN_PROCEED_SUCCESS
+
 
 // Moonflower
 /obj/item/seeds/sunflower/moonflower
@@ -258,15 +261,19 @@
 	..()
 	force = round((5 + seed.potency / 5), 1)
 
-/obj/item/grown/novaflower/attack(mob/living/carbon/M, mob/user)
-	..()
-	if(isliving(M))
-		to_chat(M, "<span class='danger'>You are lit on fire from the intense heat of the [name]!</span>")
-		M.adjust_fire_stacks(seed.potency / 20)
-		if(M.IgniteMob())
-			add_attack_logs(user, M, "set on fire", ATKLOG_FEW)
 
-/obj/item/grown/novaflower/afterattack(atom/A as mob|obj, mob/user,proximity)
+/obj/item/grown/novaflower/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
+		return .
+
+	to_chat(target, span_danger("You are lit on fire from the intense heat of the [name]!"))
+	target.adjust_fire_stacks(seed.potency / 20)
+	if(target.IgniteMob())
+		add_attack_logs(user, target, "set on fire", ATKLOG_FEW)
+
+
+/obj/item/grown/novaflower/afterattack(atom/A, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(force > 0)

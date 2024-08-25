@@ -145,7 +145,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		pai_candidates.Add(candidate)
 
 
-	var/dat = {"<meta charset="UTF-8">"}
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	dat += {"
 			<style type="text/css">
 				body {
@@ -383,12 +383,12 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		if(O.client && (ROLE_PAI in O.client.prefs.be_special))
 			if(player_old_enough_antag(O.client,ROLE_PAI))
 				if(check_recruit(O))
-					to_chat(O, "<span class='boldnotice'>A [(P.is_syndicate_type) ? "Syndicate" : ""]  pAI card activated by [user.real_name] is looking for personalities. (<a href='?src=[O.UID()];jump=\ref[P]'>Teleport</a> | <a href='?src=[UID()];signup=\ref[O]'>Sign Up</a>)</span>")
+					to_chat(O, "<span class='boldnotice'>A [(P.is_syndicate_type) ? "Syndicate" : ""]  pAI card activated by [user.real_name] is looking for personalities. (<a href='byond://?src=[O.UID()];jump=\ref[P]'>Teleport</a> | <a href='byond://?src=[UID()];signup=\ref[O]'>Sign Up</a>)</span>")
 	if(P.is_syndicate_type)
 		if(summon_cooldown > world.time)
 			return
 		var/image/alert_overlay = image('icons/obj/aicards.dmi', "ghostalert")
-		notify_ghosts("[user] activated [user.p_their()] Syndicate pAI card, calling for your help!", enter_link="<a href='?src=[UID()];signup=1'>(Click to Sign Up)</a>", source = P, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
+		notify_ghosts("[user] activated [user.p_their()] Syndicate pAI card, calling for your help!", enter_link="<a href='byond://?src=[UID()];signup=1'>(Click to Sign Up)</a>", source = P, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
 		summon_cooldown = world.time + 60 SECONDS
 
 /datum/paiController/proc/check_recruit(var/mob/dead/observer/O)

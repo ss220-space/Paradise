@@ -23,7 +23,12 @@
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	)
 
-	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, VIRUSIMMUNE)
+	inherent_traits = list(
+		TRAIT_NO_BLOOD,
+		TRAIT_NO_BREATH,
+		TRAIT_RADIMMUNE,
+		TRAIT_VIRUSIMMUNE,
+	)
 	dies_at_threshold = TRUE
 
 	reagent_tag = PROCESS_ORG
@@ -53,7 +58,7 @@
 		to_chat(human, "<span class='notice'>Вы изменяете свой взор, чтобы вновь различать свет и тени.</span>")
 
 /datum/species/shadow/on_species_gain(mob/living/carbon/human/human)
-	..()
+	. = ..()
 	if(grant_vision_toggle)
 		var/datum/action/innate/shadow/darkvision/vision_toggle = locate() in human.actions
 		if(!vision_toggle)
@@ -61,7 +66,7 @@
 			vision_toggle.Grant(human)
 
 /datum/species/shadow/on_species_loss(mob/living/carbon/human/human)
-	..()
+	. = ..()
 	var/datum/action/innate/shadow/darkvision/vision_toggle = locate() in human.actions
 	if(grant_vision_toggle && vision_toggle)
 		human.vision_type = null

@@ -61,7 +61,7 @@
 	if(chassis.selected == src)
 		txt += "<b>[name]</b>"
 	else if(selectable == MODULE_SELECTABLE_FULL)
-		txt += "<a href='?src=[chassis.UID()];select_equip=\ref[src]'>[name]</a>"
+		txt += "<a href='byond://?src=[chassis.UID()];select_equip=\ref[src]'>[name]</a>"
 	else
 		txt += "[name]"
 
@@ -150,7 +150,8 @@
 /obj/item/mecha_parts/mecha_equipment/proc/attach(obj/mecha/M)
 	M.equipment += src
 	chassis = M
-	loc = M
+	if(loc != M)
+		forceMove(M)
 	M.log_message("[src] initialized.")
 	if(!M.selected)
 		M.selected = src

@@ -49,70 +49,83 @@
 		name = initial(name)
 
 
-/obj/item/mmi/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/organ/internal/brain/crystal))
-		to_chat(user, "<span class='warning'> This brain is too malformed to be able to use with the [src].</span>")
-		return
-	if(istype(O, /obj/item/organ/internal/brain/golem))
-		to_chat(user, "<span class='warning'>You can't find a way to plug [O] into [src].</span>")
-		return
-	if(istype(O,/obj/item/organ/internal/brain) && !brainmob) //Time to stick a brain in it --NEO
-		var/obj/item/organ/internal/brain/B = O
-		if(!B.brainmob)
-			to_chat(user, "<span class='warning'>You aren't sure where this brain came from, but you're pretty sure it's a useless brain.</span>")
-			return
+/obj/item/mmi/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/organ/internal/brain)) //Time to stick a brain in it --NEO
+		add_fingerprint(user)
+		var/obj/item/organ/internal/brain/brain = I
+		if(brainmob)
+			to_chat(user, span_warning("The [name] is already occupied."))
+			return ATTACK_CHAIN_PROCEED
+
+		if(istype(brain, /obj/item/organ/internal/brain/crystal))
+			to_chat(user, span_warning("This brain is too malformed to be able to use with the [src]."))
+			return ATTACK_CHAIN_PROCEED
+
+		if(istype(brain, /obj/item/organ/internal/brain/golem))
+			to_chat(user, span_warning("You cannot find a way to plug [brain] into [src]."))
+			return ATTACK_CHAIN_PROCEED
+
+		if(!brain.brainmob)
+			to_chat(user, span_warning("You aren't sure where this brain came from, but you're pretty sure it's useless."))
+			return ATTACK_CHAIN_PROCEED
+
 		if(held_brain)
-			to_chat(user, "<span class='userdanger'>Somehow, this MMI still has a brain in it. Report this to the bug tracker.</span>")
-			log_runtime(EXCEPTION("[user] tried to stick a [O] into [src] in [get_area(src)], but the held brain variable wasn't cleared"), src)
-			return
-		if(user.drop_transfer_item_to_loc(B, src))
-			visible_message("<span class='notice'>[user] sticks \a [O] into \the [src].</span>")
-			brainmob = B.brainmob
-			B.brainmob = null
-			brainmob.container = src
-			brainmob.forceMove(src)
-			brainmob.set_stat(CONSCIOUS)
-			brainmob.set_invis_see(initial(brainmob.see_invisible))
-			GLOB.respawnable_list -= brainmob
-			GLOB.dead_mob_list -= brainmob//Update dem lists
-			GLOB.alive_mob_list += brainmob
-			brainmob.update_sight()
-			held_brain = B
-			alien = istype(O, /obj/item/organ/internal/brain/xeno)
-			update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
-			if(radio_action)
-				radio_action.UpdateButtonIcon()
-			SSblackbox.record_feedback("amount", "mmis_filled", 1)
-		else
-			to_chat(user, "<span class='warning'>You can't drop [B]!</span>")
+			to_chat(user, span_userdanger("Somehow, this MMI still has a brain in it. Report this to the bug tracker."))
+			log_runtime(EXCEPTION("[user] tried to stick a [brain.name] into [src] in [get_area(src)], but the held brain variable wasn't cleared"), src)
+			return ATTACK_CHAIN_PROCEED
 
-		return
+		if(!user.drop_transfer_item_to_loc(brain, src))
+			return ATTACK_CHAIN_PROCEED
 
-	if(istype(O, /obj/item/mmi_radio_upgrade))
+		user.visible_message(
+			span_notice("[user] has sticked [brain] into [src]."),
+			span_notice("You have sticked [brain] into [src]."),
+		)
+		brainmob = brain.brainmob
+		brain.brainmob = null
+		brainmob.container = src
+		brainmob.forceMove(src)
+		brainmob.set_stat(CONSCIOUS)
+		brainmob.set_invis_see(initial(brainmob.see_invisible))
+		held_brain = brain
+		alien = istype(brain, /obj/item/organ/internal/brain/xeno)
+		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
+		if(radio_action)
+			radio_action.UpdateButtonIcon()
+		SSblackbox.record_feedback("amount", "mmis_filled", 1)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/mmi_radio_upgrade))
+		add_fingerprint(user)
 		if(radio)
-			to_chat(user, "<span class='warning'>[src] already has a radio installed.</span>")
-		else
-			user.visible_message("<span class='notice'>[user] begins to install the [O] into [src]...</span>", \
-				"<span class='notice'>You start to install the [O] into [src]...</span>")
-			if(do_after(user, 2 SECONDS, src))
-				if(user.drop_transfer_item_to_loc(O, src))
-					user.visible_message("<span class='notice'>[user] installs [O] in [src].</span>", \
-						"<span class='notice'>You install [O] in [src].</span>")
-					if(brainmob)
-						to_chat(brainmob, "<span class='notice'>MMI radio capability installed.</span>")
-					install_radio()
-					qdel(O)
-				else
-					to_chat(user, "<span class='warning'>You can't drop [O]!</span>")
-		return
+			to_chat(user, span_warning("The [name] already has a radio installed."))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] starts to install [I] into [src]."),
+			span_notice("You start to install [I] into [src]..."),
+		)
+		if(!do_after(user, 2 SECONDS, src) || radio)
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] has installed [I] into [src]."),
+			span_notice("You have installed [I] into [src]."),
+		)
+		if(brainmob)
+			to_chat(brainmob, span_notice("MMI radio capability installed."))
+		install_radio()
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	// Maybe later add encryption key support, but that's a pain in the neck atm
-
 	if(brainmob)
-		O.attack(brainmob, user)//Oh noooeeeee
+		I.attack(brainmob, user, params)//Oh noooeeeee
 		// Brainmobs can take damage, but they can't actually die. Maybe should fix.
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/item/mmi/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

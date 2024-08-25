@@ -78,30 +78,58 @@
 		return buf.dna.SetUIValue(real_block,val)
 
 
-/obj/item/dnainjector/proc/inject(mob/living/carbon/human/target, mob/user)
+/obj/item/dnainjector/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(used)
-		return
+		to_chat(user, span_warning("This injector is used up!"))
+		return ATTACK_CHAIN_PROCEED
 
-	if(isliving(target))
-		target.apply_effect(rand(20 / (damage_coeff  ** 2), 50 / (damage_coeff  ** 2)), IRRADIATE, 0, 1)
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
+	target.apply_effect(rand(20 / (damage_coeff  ** 2), 50 / (damage_coeff  ** 2)), IRRADIATE, 0, 1)
 
-	if(!ishuman(target))
-		return
+	if(!ishuman(target) || HAS_TRAIT(target, TRAIT_NO_DNA))
+		return .
+
+	if(!user.IsAdvancedToolUser())
+		return .
 
 	if(!buf)
 		log_runtime(EXCEPTION("[src] used by [user] on [target] failed to initialize properly."), src)
-		return
+		return .
 
+	var/attack_log = "injected with the Isolated [name]"
+
+	if(buf.types & DNA2_BUF_SE)
+		if(block)
+			if(GetState() && block == GLOB.monkeyblock)
+				attack_log = "injected with the Isolated [name] (MONKEY)"
+				message_admins("[ADMIN_LOOKUPFLW(user)] injected [key_name_admin(target)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
+
+		else
+			if(GetState(GLOB.monkeyblock))
+				attack_log = "injected with the Isolated [name] (MONKEY)"
+				message_admins("[ADMIN_LOOKUPFLW(user)] injected [key_name_admin(target)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
+
+	if(target != user)
+		target.visible_message(
+			span_danger("[user] is trying to inject [target] with [src]!"),
+			span_userdanger("[user] is trying to inject [target] with [src]!"),
+		)
+		if(!do_after(user, 3 SECONDS, target, NONE))
+			return .
+		target.visible_message(
+			span_danger("[user] injects [target] with the syringe with [src]!"),
+			span_userdanger("[user] injects [target] with the syringe with [src]!"),
+		)
+	else
+		to_chat(user, span_notice("You inject yourself with [src]."))
+
+	add_attack_logs(user, target, attack_log, ATKLOG_ALL)
 	used = TRUE
 	update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 	INVOKE_ASYNC(src, PROC_REF(async_update), target)	//Some mutations have sleeps in them, like monkey
 
 
 /obj/item/dnainjector/proc/async_update(mob/living/carbon/human/target)
-	// prevents drained people from having their DNA changed
-	if(!target.dna || (NOCLONE in target.mutations) || (NO_DNA in target.dna.species.species_traits))
-		return
-
 	var/datum/dna/target_dna = target.dna
 	var/prev_UE = target_dna.unique_enzymes
 
@@ -132,48 +160,6 @@
 
 	target.sync_organ_dna(assimilate = FALSE, old_ue = prev_UE)
 
-
-/obj/item/dnainjector/attack(mob/M, mob/user)
-	if(used)
-		to_chat(user, "<span class='warning'>This injector is used up!</span>")
-		return
-	if(!M.dna) //You know what would be nice? If the mob you're injecting has DNA, and so doesn't cause runtimes.
-		return FALSE
-
-	if(ishuman(M)) // Would've done this via species instead of type, but the basic mob doesn't have a species, go figure.
-		var/mob/living/carbon/human/H = M
-		if(NO_DNA in H.dna.species.species_traits)
-			return FALSE
-
-	if(!user.IsAdvancedToolUser())
-		return FALSE
-
-	var/attack_log = "injected with the Isolated [name]"
-
-	if(buf && buf.types & DNA2_BUF_SE)
-		if(block)
-			if(GetState() && block == GLOB.monkeyblock && ishuman(M))
-				attack_log = "injected with the Isolated [name] (MONKEY)"
-				message_admins("[ADMIN_LOOKUPFLW(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
-
-		else
-			if(GetState(GLOB.monkeyblock) && ishuman(M))
-				attack_log = "injected with the Isolated [name] (MONKEY)"
-				message_admins("[ADMIN_LOOKUPFLW(user)] injected [key_name_admin(M)] with the Isolated [name] <span class='warning'>(MONKEY)</span>")
-
-
-	if(M != user)
-		M.visible_message("<span class='danger'>[user] is trying to inject [M] with [src]!</span>", "<span class='userdanger'>[user] is trying to inject [M] with [src]!</span>")
-		if(!do_after(user, 3 SECONDS, M, NONE))
-			return
-		M.visible_message("<span class='danger'>[user] injects [M] with the syringe with [src]!", \
-						"<span class='userdanger'>[user] injects [M] with the syringe with [src]!")
-	else
-		to_chat(user, "<span class='notice'>You inject yourself with [src].</span>")
-
-	add_attack_logs(user, M, attack_log, ATKLOG_ALL)
-
-	inject(M, user)
 
 /obj/item/dnainjector/hulkmut
 	name = "DNA-Injector (Hulk)"

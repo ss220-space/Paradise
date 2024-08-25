@@ -104,19 +104,26 @@
 	move_into_gibber(grabber, grabbed_thing)
 
 
-/obj/machinery/gibber/attackby(obj/item/P, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", P))
-		add_fingerprint(user)
-		return
 
-	if(exchange_parts(user, P))
-		return
+/obj/machinery/gibber/screwdriver_act(mob/living/user, obj/item/I)
+	return default_deconstruction_screwdriver(user, "grinder_open", "grinder", I)
 
-	if(default_unfasten_wrench(user, P))
-		return
 
-	if(default_deconstruction_crowbar(user, P))
-		return
+/obj/machinery/gibber/wrench_act(mob/living/user, obj/item/I)
+	return default_unfasten_wrench(user, I)
+
+
+/obj/machinery/gibber/crowbar_act(mob/living/user, obj/item/I)
+	return default_deconstruction_crowbar(user, I)
+
+
+/obj/machinery/gibber/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
 
 
@@ -238,7 +245,7 @@
 
 /obj/machinery/gibber/proc/startgibbing(mob/user, UserOverride=0)
 	if(!istype(user) && !UserOverride)
-		log_debug("Some shit just went down with the gibber at X[x], Y[y], Z[z] with an invalid user. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+		log_debug("Some shit just went down with the gibber at X[x], Y[y], Z[z] with an invalid user. (<a href='byond://?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 		return
 
 	if(UserOverride)
