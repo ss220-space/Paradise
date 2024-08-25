@@ -27,29 +27,34 @@
 		master = null
 	return ..()
 
-/obj/item/radio/electropack/attackby(obj/item/W, mob/user, params)
-	..()
-	if(istype(W, /obj/item/clothing/head/helmet))
+
+/obj/item/radio/electropack/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/clothing/head/helmet))
+		add_fingerprint(user)
 		if(!b_stat)
 			to_chat(user, span_notice("[src] is not ready to be attached!"))
-			return
-		var/obj/item/assembly/shock_kit/A = new /obj/item/assembly/shock_kit(drop_location())
-		A.icon = 'icons/obj/assemblies.dmi'
+			return ATTACK_CHAIN_PROCEED
+		var/obj/item/assembly/shock_kit/shock_kit = new(drop_location())
+		if((loc == user && !user.can_unEquip(src)) || !user.drop_transfer_item_to_loc(I, shock_kit))
+			qdel(shock_kit)
+			return ATTACK_CHAIN_PROCEED
+		if(loc == user)
+			user.transfer_item_to_loc(src, shock_kit, silent = TRUE)
+		else
+			forceMove(shock_kit)
+		shock_kit.icon = 'icons/obj/assemblies.dmi'
+		shock_kit.add_fingerprint(user)
 
-		if(!user.drop_transfer_item_to_loc(W, A))
-			to_chat(user, span_notice("\the [W] is stuck to your hand, you cannot attach it to \the [src]!"))
-			return
-		W.master = A
-		A.part1 = W
+		I.master = shock_kit
+		shock_kit.part1 = I
 
-		user.drop_transfer_item_to_loc(src, A)
-		master = A
-		A.part2 = src
+		master = shock_kit
+		shock_kit.part2 = src
 
-		user.put_in_hands(A, ignore_anim = FALSE)
-		A.add_fingerprint(user)
-		if(HAS_TRAIT(src, TRAIT_NODROP))
-			ADD_TRAIT(A, TRAIT_NODROP, type)
+		user.put_in_hands(shock_kit, ignore_anim = FALSE)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/item/radio/electropack/receive_signal(datum/signal/signal)

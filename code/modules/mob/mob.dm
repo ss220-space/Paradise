@@ -1020,11 +1020,11 @@
 		S.icon_state = "[initial(S.icon_state)][suffix]"
 
 ///Adjust the nutrition of a mob
-/mob/proc/adjust_nutrition(change)
+/mob/proc/adjust_nutrition(change, forced)
 	nutrition = max(0, nutrition + change)
 
 ///Force set the mob nutrition
-/mob/proc/set_nutrition(change)
+/mob/proc/set_nutrition(change, forced)
 	nutrition = max(0, change)
 
 /mob/clean_blood(clean_hands = TRUE, clean_mask = TRUE, clean_feet = TRUE)
@@ -1107,6 +1107,8 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	. = stat
 	stat = new_stat
 	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat, .)
+	if(.)
+		set_typing_indicator(FALSE)
 
 /**
  * Called when this mob slips over, override as needed

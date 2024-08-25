@@ -149,55 +149,59 @@
 
 
 /obj/structure/beebox/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(istype(I, /obj/item/honey_frame))
-		var/obj/item/honey_frame/HF = I
-		if(honey_frames.len < BEEBOX_MAX_FRAMES)
-			if(!user.drop_transfer_item_to_loc(HF, src))
-				return
-			add_fingerprint(user)
-			visible_message("<span class='notice'>[user] adds a frame to the apiary.</span>")
-			honey_frames += HF
-		else
-			to_chat(user, "<span class='warning'>There's no room for anymore frames in the apiary!</span>")
-		return
+		add_fingerprint(user)
+		var/obj/item/honey_frame/frame = I
+		if(length(honey_frames) >= BEEBOX_MAX_FRAMES)
+			to_chat(user, span_warning("There's no room for more frames in [src]."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(frame, src))
+			return ..()
+		user.visible_message(
+			span_notice("[user] adds [frame] to [src]."),
+			span_notice("You have added [frame] to [src]."),
+		)
+		honey_frames += frame
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/queen_bee))
+		add_fingerprint(user)
+		var/obj/item/queen_bee/dancing_queen = I	// ooh, see that girl, watch that scene...
 		if(queen_bee)
-			to_chat(user, "<span class='warning'>This hive already has a queen!</span>")
-			return
+			to_chat(user, span_warning("This hive already has a queen."))
+			return ATTACK_CHAIN_PROCEED
+		if(!dancing_queen.queen.beegent || !dancing_queen.queen.beegent.can_synth)
+			to_chat(user, span_warning("The [dancing_queen.name] refuses to settle down. Maybe it's something to do with its reagent?"))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(dancing_queen, src))
+			return ..()
+		dancing_queen.queen.forceMove(src)
+		bees += dancing_queen.queen
+		queen_bee = dancing_queen.queen
+		dancing_queen.queen = null
+		user.visible_message(
+			span_notice("[user] has set [dancing_queen] down inside [src], making it their new home."),
+			span_notice("You have set [dancing_queen] down inside [src], making it their new home."),
+		)
+		var/relocated = 0
+		var/atom/drop_loc = drop_location()
+		for(var/mob/living/simple_animal/hostile/poison/bees/bee as anything in bees)
+			if(bee.reagent_incompatible(queen_bee))
+				bees -= bee
+				bee.beehome = null
+				if(bee.loc == src)
+					bee.forceMove(drop_loc)
+				relocated++
+		if(relocated)
+			to_chat(user, span_warning("This queen has a different reagent to some of the bees who live here, those bees will not return to this apiary."))
+		qdel(dancing_queen)	// having the time of your life...
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-		var/obj/item/queen_bee/qb = I
-		if(!qb.queen.beegent || (qb.queen.beegent && qb.queen.beegent.can_synth))
-			if(!user.drop_transfer_item_to_loc(qb, src))
-				return
-			qb.queen.forceMove(src)
-			bees += qb.queen
-			queen_bee = qb.queen
-			qb.queen = null
-		else
-			visible_message("<span class='notice'>The [qb] refuses to settle down. Maybe it's something to do with its reagent?</span>")
-			return
-
-		if(queen_bee)
-			visible_message("<span class='notice'>[user] sets [qb] down inside the apiary, making it [user.p_their()] new home.</span>")
-			var/relocated = 0
-			for(var/b in bees)
-				var/mob/living/simple_animal/hostile/poison/bees/B = b
-				if(B.reagent_incompatible(queen_bee))
-					bees -= B
-					B.beehome = null
-					if(B.loc == src)
-						B.forceMove(drop_location())
-					relocated++
-			if(relocated)
-				to_chat(user, "<span class='warning'>This queen has a different reagent to some of the bees who live here, those bees will not return to this apiary!</span>")
-
-		else
-			to_chat(user, "<span class='warning'>The queen bee disappeared! bees disappearing has been in the news lately...</span>")
-
-		qdel(qb)
-		return
 	return ..()
+
 
 /obj/structure/beebox/crowbar_act(mob/user, obj/item/I)
 	. = TRUE

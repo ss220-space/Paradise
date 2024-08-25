@@ -45,9 +45,10 @@
 
 
 /mob/living/simple_animal/hostile/gorilla/attackby(obj/item/I, mob/user, params)
-	if(!istype(I, /obj/item/reagent_containers/food/snacks/grown/banana))
+	if(user.a_intent == INTENT_HARM || !istype(I, /obj/item/reagent_containers/food/snacks/grown/banana))
 		return ..()
 
+	add_fingerprint(user)
 	if(!can_befriend)
 		if(is_on_cooldown())
 			return ..()
@@ -64,7 +65,7 @@
 		eat_banana(I)
 		to_chat(user, span_notice("Вы замечаете искру разума в глазах [name], но [genderize_ru(gender, "он", "она", "оно", "они")] не мо[pluralize_ru(gender, "жет", "гут")] устоять перед искушением!"))
 		to_chat(src, span_notice("[user] покорм[genderize_ru(user.gender, "ил", "ила", "ило", "или")] Вас, возможно стоит [genderize_ru(user.gender, "его", "её", "его", "их")] отблагодарить..."))
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(is_on_cooldown())
 		to_chat(user, span_warning("[capitalize(name)] сейчас занят[genderize_ru(gender, "", "а", "о", "ы")]."))
@@ -75,7 +76,7 @@
 	if(master)
 		if(user == master && user.drop_item_ground(I))
 			eat_banana(I, from_master_hand = TRUE)
-			return
+			return ATTACK_CHAIN_BLOCKED_ALL
 
 		face_atom(user)
 		oogaooga(50)
@@ -84,7 +85,7 @@
 
 	if(user.drop_item_ground(I))
 		eat_banana(I, user)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	face_atom(user)
 	oogaooga(50)

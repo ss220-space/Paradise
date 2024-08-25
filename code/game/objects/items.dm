@@ -7,14 +7,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	pass_flags = PASSTABLE
 
 	move_resist = null // Set in the Initialise depending on the item size. Unless it's overriden by a specific item
-	var/discrete = 0 // used in item_attack.dm to make an item not show an attack message to viewers
 
 	max_integrity = 200
 
-	can_be_hit = FALSE
 	suicidal_hands = TRUE
 
-	obj_flags = NONE
+	obj_flags = IGNORE_HITS
 
 	// Item flags
 	/// Flags only used with items.
@@ -38,6 +36,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/undyeable = FALSE
 	/// What dye registry should be looked at when dying this item; see washing_machine.dm
 	var/dying_key
+
+	/// The click cooldown given after attacking. Lower numbers means faster attacks
+	var/attack_speed = CLICK_CD_MELEE
 
 	/// Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]".
 	var/list/attack_verb
@@ -89,6 +90,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/list/materials = null
 	var/materials_coeff = 1
 	var/item_color = null
+
+	/// if you want to color icon in hands, but not a icon of item
+	var/item_state_color
+	var/item_state_alpha
+
 	var/body_parts_covered = 0 //see setup.dm for appropriate bit flags
 	//var/heat_transfer_coefficient = 1 //0 prevents all transfers, 1 is invisible
 	var/gas_transfer_coefficient = 1 // for leaking gas from turf to mask and vice-versa (for masks right now, but at some point, i'd like to include space helmets)
@@ -343,10 +349,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/afterattack(atom/target, mob/user, proximity, params)
 	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity, params)
 
-	if(!proximity)
-		return
-	try_item_eat(target, user)
-
 
 /obj/item/attack_hand(mob/user, pickupfireoverride = FALSE)
 	. = ..()
@@ -453,54 +455,60 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 // I have cleaned it up a little, but it could probably use more.  -Sayu
 /obj/item/attackby(obj/item/I, mob/user, params)
 	if(isstorage(I))
-		var/obj/item/storage/S = I
-		if(S.use_to_pickup)
-			if(S.pickup_all_on_tile) //Mode is set to collect all items on a tile and we clicked on a valid one.
-				if(isturf(loc))
-					var/list/rejections = list()
-					var/success = 0
-					var/failure = 0
+		var/obj/item/storage/storage = I
+		if(!storage.use_to_pickup)
+			return ..()
+		if(storage.pickup_all_on_tile) //Mode is set to collect all items on a tile and we clicked on a valid one.
+			if(!isturf(loc))
+				return ..()
+			var/success = FALSE
+			var/failure = FALSE
+			for(var/obj/item/item as anything in loc)
+				if(!storage.can_be_inserted(item, stop_messages = TRUE))
+					failure = TRUE
+					continue
+				success = TRUE
+				item.do_pickup_animation(user)
+				storage.handle_item_insertion(item, prevent_warning = TRUE)
+			if(success && !failure)
+				playsound(loc, 'sound/items/handling/generic_pickup3.ogg', PICKUP_SOUND_VOLUME, channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
+				to_chat(user, span_notice("You put everything in [storage]."))
+				return ATTACK_CHAIN_BLOCKED_ALL
+			if(success)
+				playsound(loc, 'sound/items/handling/generic_pickup3.ogg', PICKUP_SOUND_VOLUME, channel = CHANNEL_INTERACTION_SOUNDS, ignore_walls = FALSE)
+				to_chat(user, span_notice("You put some things in [storage]."))
+				return ATTACK_CHAIN_BLOCKED_ALL
+			to_chat(user, span_notice("You fail to pick up anything with [storage]."))
+			return ATTACK_CHAIN_PROCEED
 
-					for(var/obj/item/IT in loc)
-						if(IT.type in rejections) // To limit bag spamming: any given type only complains once
-							continue
-						if(!S.can_be_inserted(IT))	// Note can_be_inserted still makes noise when the answer is no
-							rejections += IT.type	// therefore full bags are still a little spammy
-							failure = 1
-							continue
-						success = 1
-						IT.do_pickup_animation(user)
-						S.handle_item_insertion(IT, 1)	//The 1 stops the "You put the [src] into [S]" insertion message from being displayed.
-					if(success && !failure)
-						to_chat(user, "<span class='notice'>You put everything in [S].</span>")
-					else if(success)
-						to_chat(user, "<span class='notice'>You put some things in [S].</span>")
-					else
-						to_chat(user, "<span class='notice'>You fail to pick anything up with [S].</span>")
+		if(storage.can_be_inserted(src))
+			I.do_pickup_animation(user)
+			storage.handle_item_insertion(src)
+			return ATTACK_CHAIN_BLOCKED_ALL
 
-			else if(S.can_be_inserted(src))
-				I.do_pickup_animation(user)
-				S.handle_item_insertion(src)
-	else if(istype(I, /obj/item/stack/tape_roll))
+		return ATTACK_CHAIN_PROCEED
+
+	if(istype(I, /obj/item/stack/tape_roll))
 		if(isstorage(src)) //Don't tape the bag if we can put the duct tape inside it instead
 			var/obj/item/storage/bag = src
 			if(bag.can_be_inserted(I))
 				return ..()
-		var/obj/item/stack/tape_roll/TR = I
+		var/obj/item/stack/tape_roll/tape = I
 		var/list/clickparams = params2list(params)
 		var/x_offset = text2num(clickparams["icon-x"])
 		var/y_offset = text2num(clickparams["icon-y"])
+		add_fingerprint(user)
 		if(GetComponent(/datum/component/ducttape))
-			to_chat(user, "<span class='notice'>[src] already has some tape attached!</span>")
-			return
-		if(TR.use(1))
-			to_chat(user, "<span class='notice'>You apply some tape to [src].</span>")
-			AddComponent(/datum/component/ducttape, x_offset, y_offset)
-			user.transfer_fingerprints_to(src)
-		else
-			to_chat(user, "<span class='notice'>You don't have enough tape to do that!</span>")
-	else
-		return ..()
+			to_chat(user, span_notice("[src] already has some tape attached!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!tape.use(1))
+			to_chat(user, span_notice("You don't have enough tape to do that!"))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You apply some tape to [src]."))
+		AddComponent(/datum/component/ducttape, x_offset, y_offset)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
 
 
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
@@ -664,7 +672,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
  */
 /obj/item/proc/item_action_slot_check(slot, mob/user, datum/action/action)
 	//these aren't true slots, so avoid granting actions there
-	if(slot & (ITEM_SLOT_BACKPACK|ITEM_SLOT_LEGCUFFED|ITEM_SLOT_HANDCUFFED|ITEM_SLOT_ACCESSORY))
+	if(slot & (ITEM_SLOT_BACKPACK|ITEM_SLOT_LEGCUFFED|ITEM_SLOT_HANDCUFFED))
 		return FALSE
 	return TRUE
 
@@ -816,69 +824,71 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	return loc
 
 
-/obj/item/proc/eyestab(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+/obj/item/proc/eyestab(mob/living/carbon/human/target, mob/living/user)
+	. = ATTACK_CHAIN_PROCEED
 
-	var/mob/living/carbon/human/H = M
-	if(istype(H) && ( \
-			(H.head && H.head.flags_cover & HEADCOVERSEYES) || \
-			(H.wear_mask && H.wear_mask.flags_cover & MASKCOVERSEYES) || \
-			(H.glasses && H.glasses.flags_cover & GLASSESCOVERSEYES) \
-		))
+	if(isalien(target) || isslime(target))//Aliens don't have eyes. slimes also don't have eyes!
+		to_chat(user, span_warning("You cannot locate any eyes on this creature!"))
+		return .
+
+	var/target_is_human = ishuman(target)
+
+	if(target_is_human && \
+		(target.head && target.head.flags_cover & HEADCOVERSEYES) || \
+		(target.wear_mask && target.wear_mask.flags_cover & MASKCOVERSEYES) || \
+		(target.glasses && target.glasses.flags_cover & GLASSESCOVERSEYES))
 		// you can't stab someone in the eyes wearing a mask!
-		to_chat(user, "<span class='danger'>You're going to need to remove that mask/helmet/glasses first!</span>")
-		return
+		to_chat(user, span_danger("You're going to need to remove that mask/helmet/glasses first!"))
+		return .
 
-	if(isalien(M) || isslime(M))//Aliens don't have eyes./N     slimes also don't have eyes!
-		to_chat(user, "<span class='warning'>You cannot locate any eyes on this creature!</span>")
-		return
+	. |= ATTACK_CHAIN_SUCCESS
 
 	if(!iscarbon(user))
-		M.LAssailant = null
+		target.LAssailant = null
 	else
-		M.LAssailant = user
+		target.LAssailant = user
 
-	src.add_fingerprint(user)
+	add_fingerprint(user)
+	playsound(loc, hitsound, 30, TRUE, -1)
+	user.do_attack_animation(target)
 
-	playsound(loc, src.hitsound, 30, 1, -1)
-
-	user.do_attack_animation(M)
-
-	if(M != user)
-		M.visible_message("<span class='danger'>[user] has stabbed [M] in the eye with [src]!</span>", \
-							"<span class='userdanger'>[user] stabs you in the eye with [src]!</span>")
+	if(target != user)
+		target.visible_message(
+			span_danger("[user] has stabbed [target] in the eye with [src]!"),
+			span_userdanger("[user] stabs you in the eye with [src]!"),
+		)
 	else
-		user.visible_message( \
-			"<span class='danger'>[user] has stabbed [user.p_them()]self in the eyes with [src]!</span>", \
-			"<span class='userdanger'>You stab yourself in the eyes with [src]!</span>" \
+		user.visible_message(
+			span_danger("[user] has stabbed [user.p_them()]self in the eyes with [src]!"),
+			span_userdanger("You stab yourself in the eyes with [src]!"),
 		)
 
-	add_attack_logs(user, M, "Eye-stabbed with [src] ([uppertext(user.a_intent)])")
+	add_attack_logs(user, target, "Eye-stabbed with [src] ([uppertext(user.a_intent)])")
 
-	if(istype(H))
-		var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
+	if(target_is_human)
+		var/obj/item/organ/internal/eyes/eyes = target.get_int_organ(/obj/item/organ/internal/eyes)
 		if(!eyes) // should still get stabbed in the head
-			H.apply_damage(rand(10,14), def_zone = BODY_ZONE_HEAD)
-			return
-		eyes.internal_receive_damage(rand(3,4), silent = TRUE)
+			target.apply_damage(rand(10, 14), def_zone = BODY_ZONE_HEAD)
+			return .
+
+		eyes.internal_receive_damage(rand(3, 4), silent = TRUE)
+
 		if(eyes.damage >= eyes.min_bruised_damage)
-			if(M.stat != 2)
-				if(!eyes.is_robotic())  //robot eyes bleeding might be a bit silly
-					to_chat(M, "<span class='danger'>Your eyes start to bleed profusely!</span>")
+			if(target.stat != DEAD && !eyes.is_robotic())	//robot eyes bleeding might be a bit silly
+				to_chat(target, span_danger("Your eyes start to bleed profusely!"))
 			if(prob(50))
-				if(M.stat != DEAD)
-					to_chat(M, "<span class='danger'>You drop what you're holding and clutch at your eyes!</span>")
-					M.drop_from_active_hand()
-				M.AdjustEyeBlurry(20 SECONDS)
-				M.Paralyse(2 SECONDS)
-				M.Weaken(4 SECONDS)
-			if(eyes.damage >= eyes.min_broken_damage)
-				if(M.stat != 2)
-					to_chat(M, "<span class='danger'>You go blind!</span>")
-		H.apply_damage(7, def_zone = BODY_ZONE_HEAD)
+				if(target.stat != DEAD)
+					to_chat(target, span_danger("You drop what you're holding and clutch at your eyes!"))
+				target.AdjustEyeBlurry(20 SECONDS)
+				target.Paralyse(2 SECONDS)
+			if(eyes.damage >= eyes.min_broken_damage && target.stat != DEAD)
+				to_chat(target, span_danger("You go blind!"))
+
+		target.apply_damage(7, def_zone = BODY_ZONE_HEAD)
+		target.AdjustEyeBlurry(rand(6 SECONDS, 8 SECONDS))
+
 	else
-		M.take_organ_damage(7)
-	M.AdjustEyeBlurry(rand(6 SECONDS, 8 SECONDS))
-	return
+		target.apply_damage(7)
 
 
 /obj/item/singularity_pull(S, current_size)
@@ -983,7 +993,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 
 /obj/item/attack_animal(mob/living/simple_animal/M)
-	if(can_be_hit)
+	if(!(obj_flags & IGNORE_HITS))
 		return ..()
 	return FALSE
 

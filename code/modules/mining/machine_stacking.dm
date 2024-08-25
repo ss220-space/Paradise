@@ -10,13 +10,13 @@
 	var/obj/machinery/mineral/stacking_machine/machine = null
 	var/machinedir = SOUTHEAST
 
-/obj/machinery/mineral/stacking_unit_console/New()
-	..()
+/obj/machinery/mineral/stacking_unit_console/Initialize(mapload)
+	. = ..()
 	machine = locate(/obj/machinery/mineral/stacking_machine, get_step(src, machinedir))
 	if(machine)
 		machine.CONSOLE = src
 	else
-		qdel(src)
+		return INITIALIZE_HINT_QDEL
 
 /obj/machinery/mineral/stacking_unit_console/attack_hand(mob/user)
 	if(..())

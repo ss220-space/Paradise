@@ -43,67 +43,77 @@
 	if(unfastened)
 		. += span_warning("It has been unfastened.")
 
-/turf/simulated/floor/plating/attackby(obj/item/C, mob/user, params)
-	if(..())
-		return TRUE
 
-	if(istype(C, /obj/item/stack/rods))
+/turf/simulated/floor/plating/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
+
+	if(istype(I, /obj/item/stack/rods))
+		add_fingerprint(user)
+		var/obj/item/stack/rods/rods = I
 		if(broken || burnt)
 			to_chat(user, span_warning("Repair the plating first!"))
-			return TRUE
-		var/obj/item/stack/rods/R = C
-		if(R.get_amount() < 2)
-			to_chat(user, span_warning("You need two rods to make a reinforced floor!"))
-			return TRUE
-		else
-			to_chat(user, span_notice("You begin reinforcing the floor..."))
-			if(do_after(user, 3 SECONDS * C.toolspeed, src, category = DA_CAT_TOOL))
-				if(R.get_amount() >= 2 && !istype(src, /turf/simulated/floor/engine))
-					ChangeTurf(/turf/simulated/floor/engine)
-					playsound(src, C.usesound, 80, 1)
-					R.use(2)
-					to_chat(user, span_notice("You reinforce the floor."))
-				return TRUE
+			return .
+		if(rods.get_amount() < 2)
+			to_chat(user, span_warning("You need at least two rods to make a reinforced floor!"))
+			return .
+		to_chat(user, span_notice("You begin reinforcing the floor..."))
+		var/cached_use_sound = rods.usesound
+		if(!do_after(user, 3 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || broken || burnt || istype(src, /turf/simulated/floor/engine) || QDELETED(rods) || !rods.use(2))
+			return .
+		ChangeTurf(/turf/simulated/floor/engine)
+		playsound(src, cached_use_sound, 80, TRUE)
+		to_chat(user, span_notice("You reinforce the floor."))
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 
-	else if(istype(C, /obj/item/stack/tile))
-		if(!broken && !burnt)
-			var/obj/item/stack/tile/W = C
-			if(!W.use(1))
-				return
-			ChangeTurf(W.turf_type)
-			playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-		else
+	if(istype(I, /obj/item/stack/tile))
+		add_fingerprint(user)
+		var/obj/item/stack/tile/tile = I
+		if(broken || burnt)
 			to_chat(user, span_warning("This section is too damaged to support a tile! Use a welder to fix the damage."))
-		return TRUE
+			return .
+		var/cached_type = tile.turf_type
+		if(!tile.use(1))
+			to_chat(user, span_warning("You need at least one sheet of [tile] to construct a tile."))
+			return .
+		to_chat(user, span_notice("You have constructed a new tile."))
+		ChangeTurf(cached_type)
+		playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 
-	else if(is_glass_sheet(C))
+	if(is_glass_sheet(I))
+		add_fingerprint(user)
+		var/obj/item/stack/sheet/glass = I
 		if(broken || burnt)
 			to_chat(user, span_warning("Repair the plating first!"))
-			return TRUE
-		var/obj/item/stack/sheet/R = C
-		if(R.get_amount() < 2)
-			to_chat(user, span_warning("You need two sheets to build a [C.name] floor!"))
-			return TRUE
-		to_chat(user, span_notice("You begin swapping the plating for [C]..."))
-		if(do_after(user, 3 SECONDS * C.toolspeed, src, category = DA_CAT_TOOL))
-			if(R.get_amount() >= 2 && !transparent_floor)
-				if(istype(C, /obj/item/stack/sheet/plasmaglass)) //So, what type of glass floor do we want today?
-					ChangeTurf(/turf/simulated/floor/glass/plasma)
-				else if(istype(C, /obj/item/stack/sheet/plasmarglass))
-					ChangeTurf(/turf/simulated/floor/glass/reinforced/plasma)
-				else if(istype(C, /obj/item/stack/sheet/glass))
-					ChangeTurf(/turf/simulated/floor/glass)
-				else if(istype(C, /obj/item/stack/sheet/rglass))
-					ChangeTurf(/turf/simulated/floor/glass/reinforced)
-				else if(istype(C, /obj/item/stack/sheet/titaniumglass))
-					ChangeTurf(/turf/simulated/floor/glass/titanium)
-				else if(istype(C, /obj/item/stack/sheet/plastitaniumglass))
-					ChangeTurf(/turf/simulated/floor/glass/titanium/plasma)
-				playsound(src, C.usesound, 80, TRUE)
-				R.use(2)
-				to_chat(user, span_notice("You swap the plating for [C]."))
-				new /obj/item/stack/sheet/metal(src, 2)
-			return TRUE
+			return .
+		if(glass.get_amount() < 2)
+			to_chat(user, span_warning("You need at least two sheets to build a transparent floor!"))
+			return .
+		to_chat(user, span_notice("You start swapping the plating to transparent one..."))
+		var/cached_type = glass.type
+		var/cached_sound = glass.usesound
+		if(!do_after(user, 3 SECONDS * glass.toolspeed, src, category = DA_CAT_TOOL) || broken || burnt || transparent_floor || QDELETED(glass) || !glass.use(2))
+			return .
+		if(ispath(cached_type, /obj/item/stack/sheet/plasmaglass)) //So, what type of glass floor do we want today?
+			ChangeTurf(/turf/simulated/floor/glass/plasma)
+		else if(ispath(cached_type, /obj/item/stack/sheet/plasmarglass))
+			ChangeTurf(/turf/simulated/floor/glass/reinforced/plasma)
+		else if(ispath(cached_type, /obj/item/stack/sheet/glass))
+			ChangeTurf(/turf/simulated/floor/glass)
+		else if(ispath(cached_type, /obj/item/stack/sheet/rglass))
+			ChangeTurf(/turf/simulated/floor/glass/reinforced)
+		else if(ispath(cached_type, /obj/item/stack/sheet/titaniumglass))
+			ChangeTurf(/turf/simulated/floor/glass/titanium)
+		else if(ispath(cached_type, /obj/item/stack/sheet/plastitaniumglass))
+			ChangeTurf(/turf/simulated/floor/glass/titanium/plasma)
+		playsound(src, cached_sound, 80, TRUE)
+		to_chat(user, span_notice("You swap the plating to transparent one."))
+		new /obj/item/stack/sheet/metal(src, 2)
+		return .|ATTACK_CHAIN_BLOCKED_ALL
+
 
 /turf/simulated/floor/plating/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -188,27 +198,38 @@
 	acidpwr = min(acidpwr, 50) //we reduce the power so reinf floor never get melted.
 	. = ..()
 
-/turf/simulated/floor/engine/attackby(obj/item/C, mob/user, params)
-	if(!C || !user)
-		return
-	if(C.tool_behaviour == TOOL_WRENCH)
-		to_chat(user, span_notice("You begin removing rods..."))
-		playsound(src, C.usesound, 80, 1)
-		if(do_after(user, 3 SECONDS * C.toolspeed, src, category = DA_CAT_TOOL))
-			if(!istype(src, /turf/simulated/floor/engine))
-				return
-			new /obj/item/stack/rods(src, 2)
-			make_plating(make_floor_tile = FALSE, force = TRUE)
-			return
 
-	if(istype(C, /obj/item/stack/sheet/plasteel) && !insulated) //Insulating the floor
-		to_chat(user, span_notice("You begin insulating [src]..."))
-		if(do_after(user, 4 SECONDS, src) && !insulated) //You finish insulating the insulated insulated insulated insulated insulated insulated insulated insulated vacuum floor
-			to_chat(user, span_notice("You finish insulating [src]."))
-			var/obj/item/stack/sheet/plasteel/W = C
-			W.use(1)
-			ChangeTurf(/turf/simulated/floor/engine/insulated)
-			return
+/turf/simulated/floor/engine/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || !istype(src, /turf/simulated/floor/engine))
+		return .
+	make_plating(make_floor_tile = FALSE, force = TRUE)
+	var/obj/item/stack/rods/rods = new(src, 2)
+	rods.add_fingerprint(user)
+
+
+/turf/simulated/floor/engine/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
+
+	if(istype(I, /obj/item/stack/sheet/plasteel)) //Insulating the floor
+		add_fingerprint(user)
+		var/obj/item/stack/sheet/plasteel/plasteel = I
+		if(insulated)
+			to_chat(user, span_warning("The [name] is already insulatedt!"))
+			return .
+		if(plasteel.get_amount() < 1)
+			to_chat(user, span_warning("You need at least one sheet of plasteel to do this!"))
+			return .
+		to_chat(user, span_notice("You start insulating [src]..."))
+		if(!do_after(user, 4 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || insulated || QDELETED(plasteel) || !plasteel.use(1))
+			return .
+		to_chat(user, span_notice("You finish insulating [src]."))
+		ChangeTurf(/turf/simulated/floor/engine/insulated)
+		return .|ATTACK_CHAIN_BLOCKED_ALL
+
 
 /turf/simulated/floor/engine/ex_act(severity)
 	switch(severity)
@@ -376,35 +397,48 @@
 		if(MFOAM_IRON)
 			icon_state = "ironfoam"
 
-/turf/simulated/floor/plating/metalfoam/attackby(var/obj/item/C, mob/user, params)
-	if(..())
-		return TRUE
 
-	if(istype(C, /obj/item/stack/sheet/metal))
-		var/obj/item/stack/sheet/metal/metal = C
+/turf/simulated/floor/plating/metalfoam/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
+
+	if(istype(I, /obj/item/stack/sheet/metal))
+		add_fingerprint(user)
+		var/obj/item/stack/sheet/metal/metal = I
 		if(metal.get_amount() < 2)
-			to_chat(user, span_warning("You need at least 2 [metal] to make a plating!"))
-			return TRUE
-		else
-			to_chat(user, span_notice("You begin swapping the plating for [metal]..."))
-			if(do_after(user, 3 SECONDS * metal.toolspeed, src, category = DA_CAT_TOOL))
-				if(metal.get_amount() >= 2)
-					ChangeTurf(/turf/simulated/floor/plating, FALSE, FALSE)
-					playsound(src, metal.usesound, 80, TRUE)
-					metal.use(2)
-					to_chat(user, span_notice("You swap the plating for [metal]."))
-				return TRUE
+			to_chat(user, span_warning("You need at least two metal sheets to replace a foam!"))
+			return .
+		to_chat(user, span_notice("You start swapping the foam with metal sheets..."))
+		var/cached_sound = metal.usesound
+		if(!do_after(user, 3 SECONDS * metal.toolspeed, src, category = DA_CAT_TOOL) || !istype(src, /turf/simulated/floor/plating/metalfoam) || QDELETED(metal) || !metal.use(1))
+			return .
+		ChangeTurf(/turf/simulated/floor/plating, FALSE, FALSE)
+		add_fingerprint(user)
+		playsound(src, cached_sound, 80, TRUE)
+		to_chat(user, span_notice("You swap the foam with the metal plating."))
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(C) && C.force)
-		user.changeNext_move(CLICK_CD_MELEE)
+	if(I.force)
 		user.do_attack_animation(src)
-		var/smash_prob = max(0, C.force*17 - metal*25) // A crowbar will have a 60% chance of a breakthrough on alum, 35% on iron
-		if(prob(smash_prob))
-			// YAR BE CAUSIN A HULL BREACH
-			visible_message(span_danger("[user] smashes through \the [src] with \the [C]!"))
-			smash()
-		else
-			visible_message(span_warning("[user]'s [C.name] bounces against \the [src]!"))
+		var/smash_prob = max(0, I.force * 17 - metal * 25) // A crowbar will have a 60% chance of a breakthrough on alum, 35% on iron
+		if(!prob(smash_prob))
+			user.visible_message(
+				span_warning("[user]'s [I.name] bounces against [src]!"),
+				span_warning("Your [I.name] bounces against [src]!"),
+			)
+			return .
+		// YAR BE CAUSIN A HULL BREACH
+		user.visible_message(
+			span_warning("[user] smashes through [src] with [I]!"),
+			span_warning("You have smashed through [src] with [I]!"),
+		)
+		smash()
+		add_fingerprint(user)
+		return .|ATTACK_CHAIN_BLOCKED_ALL
+
+
 
 /turf/simulated/floor/plating/metalfoam/attack_animal(mob/living/simple_animal/M)
 	M.do_attack_animation(src)

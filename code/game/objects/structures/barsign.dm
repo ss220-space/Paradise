@@ -84,25 +84,32 @@
 
 	return TRUE
 
-/obj/structure/sign/barsign/attackby(var/obj/item/I, var/mob/user)
-	if(istype(I, /obj/item/stack/cable_coil) && panel_open)
-		if(emagged) //Emagged, not broken by EMP
-			to_chat(user, "<span class='warning'>Sign has been damaged beyond repair!</span>")
-			return
-		if(!broken)
-			to_chat(user, "<span class='warning'>This sign is functioning properly!</span>")
-			return
 
-		var/obj/item/stack/cable_coil/C = I
-		if(C.use(2))
-			add_fingerprint(user)
-			to_chat(user, "<span class='notice'>You replace the burnt wiring.</span>")
-			broken = FALSE
-		else
-			to_chat(user, "<span class='warning'>You need at least two lengths of cable!</span>")
-
-	else
+/obj/structure/sign/barsign/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(iscoil(I))
+		add_fingerprint(user)
+		if(!panel_open)
+			to_chat(user, span_warning("You should open the service panel first!"))
+			return ATTACK_CHAIN_PROCEED
+		if(emagged) //Emagged, not broken by EMP
+			to_chat(user, span_warning("Sign has been damaged beyond repair!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!broken)
+			to_chat(user, span_warning("This sign is functioning properly!"))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/item/stack/cable_coil/coil = I
+		if(!coil.use(2))
+			to_chat(user, span_warning("You need at least two lengths of cable!"))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You replace the burnt wiring."))
+		broken = FALSE
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/structure/sign/barsign/emp_act(severity)
     set_sign(new /datum/barsign/hiddensigns/empbarsign)
@@ -366,6 +373,11 @@
 	name = "SS1984 Shitcur"
 	icon = "shitcur"
 	desc = "Innocence proves nothing."
+
+/datum/barsign/vacation
+	name = "Digital Vacation"
+	icon = "vacation"
+	desc = "Отдохните от мира информации, преисполнившись свободой не выбирать!"
 
 /datum/barsign/hiddensigns
 	hidden = 1

@@ -58,7 +58,7 @@
 	appearance_flags = LONG_GLIDE
 
 /obj/structure/shuttle/engine/large/Initialize()
-	..()
+	. = ..()
 	var/list/occupied = list()
 	for(var/direct in list(EAST,NORTH,NORTHEAST))
 		occupied += get_step(src,direct)
@@ -81,7 +81,7 @@
 	appearance_flags = LONG_GLIDE
 
 /obj/structure/shuttle/engine/huge/Initialize()
-	..()
+	. = ..()
 	var/list/occupied = list()
 	for(var/direct in list(EAST,WEST,NORTH,SOUTH,SOUTHEAST,SOUTHWEST,NORTHEAST,NORTHWEST))
 		occupied += get_step(src,direct)

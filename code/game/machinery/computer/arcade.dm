@@ -11,15 +11,14 @@
 /obj/machinery/computer/arcade/proc/Reset()
 	return
 
-/obj/machinery/computer/arcade/New()
-	..()
+/obj/machinery/computer/arcade/Initialize(mapload)
+	. = ..()
 	if(!circuit)
 		var/choice = pick(/obj/machinery/computer/arcade/battle, /obj/machinery/computer/arcade/orion_trail)
 		new choice(loc)
-		qdel(src)
-		return
-	Reset()
+		return INITIALIZE_HINT_QDEL
 
+	Reset()
 
 /obj/machinery/computer/arcade/proc/prizevend(var/score)
 	if(!contents.len)

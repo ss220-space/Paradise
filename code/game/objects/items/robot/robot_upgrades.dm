@@ -319,24 +319,14 @@
 /obj/item/borg/upgrade/gps/action(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
 		return FALSE
-
-	for(var/obj/item/gps/cyborg/gps in robot.module.modules)
-		qdel(gps)
-
-	robot.module.modules += new /obj/item/gps/cyborg/upgraded(robot.module)
-	robot.module.rebuild()
+	robot.gps.upgraded = TRUE
 	return TRUE
 
 
 /obj/item/borg/upgrade/gps/deactivate(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
 		return FALSE
-
-	for(var/obj/item/gps/cyborg/upgraded/gps in robot.module)
-		qdel(gps)
-
-	robot.module.modules += new /obj/item/gps/cyborg(robot.module)
-	robot.module.rebuild()
+	robot.gps.upgraded = FALSE
 	return TRUE
 
 

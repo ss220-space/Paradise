@@ -30,7 +30,7 @@
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "borg-spray-smoke"
 
-/obj/item/reagent_containers/spray/alien/smoke/afterattack(atom/A as mob|obj, mob/user as mob)
+/obj/item/reagent_containers/spray/alien/smoke/afterattack(atom/A, mob/user, proximity, params)
 	if(istype(A, /obj/structure/reagent_dispensers) && get_dist(src,A) <= 1)
 		if(!A.reagents.total_volume && A.reagents)
 			to_chat(user, "<span class='notice'>\The [A] is empty.</span>")
@@ -58,7 +58,7 @@
 	icon_state = "borg-spray-stun"
 	volume = 80
 
-/obj/item/reagent_containers/spray/alien/stun/afterattack(atom/A as mob|obj, mob/user as mob)
+/obj/item/reagent_containers/spray/alien/stun/afterattack(atom/A, mob/user, proximity, params)
 	reagents.remove_reagent(reagents.get_master_reagent_id(),25)
 	var/location = get_turf(user)
 	var/datum/reagents/reagents_list = new (250)

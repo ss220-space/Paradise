@@ -31,7 +31,7 @@
 	detonation_objective = null
 	return ..()
 
-/obj/item/grenade/plastic/c4/ninja/afterattack(atom/movable/AM, mob/ninja, flag)
+/obj/item/grenade/plastic/c4/ninja/afterattack(atom/movable/AM, mob/ninja, flag, params)
 	if(!isninja(ninja))
 		to_chat(ninja, span_notice("While it appears normal, you can't seem to detonate the charge."))
 		return

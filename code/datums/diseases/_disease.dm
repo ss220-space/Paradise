@@ -41,7 +41,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	var/cure_prob = 8
 	/// Immunity can be developed from the disease
 	var/can_immunity = TRUE
-	/// Does it skip VIRUSIMMUNE trait check
+	/// Does it skip TRAIT_VIRUSIMMUNE
 	var/ignore_immunity = FALSE
 	/// Immunity to Anti-Bodies Metabolism symptom
 	var/virus_heal_resistant = FALSE
@@ -232,7 +232,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
  */
 /datum/disease/proc/mutate()
 	var/datum/reagents/reagents = affected_mob.reagents
-	if(!reagents.reagent_list.len)
+	if(!reagents || !length(reagents.reagent_list))
 		return FALSE
 	for(var/R in mutation_reagents)
 		if(!reagents.has_reagent(R))

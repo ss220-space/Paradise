@@ -51,12 +51,14 @@
 				. += span_notice("There is a [MK.name] mod installed, using <b>[MK.cost]%</b> capacity.")
 
 
-/obj/item/gun/energy/kinetic_accelerator/attackby(obj/item/I, mob/user)
+/obj/item/gun/energy/kinetic_accelerator/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/borg/upgrade/modkit))
-		var/obj/item/borg/upgrade/modkit/MK = I
-		MK.install(src, user)
-	else
-		..()
+		var/obj/item/borg/upgrade/modkit/modkit = I
+		if(modkit.install(src, user))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		return ATTACK_CHAIN_PROCEED
+
+	return ..()
 
 
 /obj/item/gun/energy/kinetic_accelerator/crowbar_act(mob/user, obj/item/I)
@@ -364,11 +366,13 @@
 		. += span_notice("Occupies <b>[cost]%</b> of mod capacity.")
 
 
-/obj/item/borg/upgrade/modkit/attackby(obj/item/A, mob/user)
-	if(istype(A, /obj/item/gun/energy/kinetic_accelerator))
-		install(A, user)
-	else
-		..()
+/obj/item/borg/upgrade/modkit/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/gun/energy/kinetic_accelerator))
+		if(install(I, user))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		return ATTACK_CHAIN_PROCEED
+
+	return ..()
 
 
 /obj/item/borg/upgrade/modkit/action(mob/living/silicon/robot/R)
@@ -384,6 +388,8 @@
 
 
 /obj/item/borg/upgrade/modkit/proc/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
+	add_fingerprint(user)
+	KA.add_fingerprint(user)
 	if(!(compatibility & KA.compatibility))
 		to_chat(user, span_warning("Похоже, что этот модуль не подходит для таких ускорителей!"))
 		return FALSE
@@ -398,9 +404,12 @@
 				break
 	if(KA.get_remaining_mod_capacity() >= cost)
 		if(.)
+			if(loc == user && !user.drop_transfer_item_to_loc(src, KA))
+				return FALSE
+			if(loc != KA)
+				forceMove(KA)
 			balloon_alert(user, "модификация установлена!")
 			playsound(loc, usesound, 100, TRUE)
-			user.drop_transfer_item_to_loc(src, KA)
 			LAZYADD(KA.modkits, src)
 		else
 			to_chat(user, span_notice("The modkit you're trying to install would conflict with an already installed modkit. Use a crowbar to remove existing modkits."))

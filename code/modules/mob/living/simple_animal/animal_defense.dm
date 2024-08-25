@@ -1,13 +1,55 @@
-/mob/living/simple_animal/attackby(obj/item/O, mob/living/user)
+/mob/living/simple_animal/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)	// no bullshit interactions in combat
+		return ..()
+
+	if(is_type_in_list(I, food_type))
+		add_fingerprint(user)
+		if(stat != CONSCIOUS)
+			to_chat(user, span_warning("[src] has problems with health."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		user.visible_message(
+			span_notice("[user] hand-feeds [I] to [src]."),
+			span_notice("You hand-feed [I] to [src]."),
+		)
+		qdel(I)
+		if(tame)
+			return ATTACK_CHAIN_BLOCKED_ALL
+		if(prob(tame_chance)) //note: lack of feedback message is deliberate, keep them guessing!
+			tame = TRUE
+			tamed(user)
+		else
+			tame_chance += bonus_tame_chance
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	if(user.a_intent == INTENT_HELP || user.a_intent == INTENT_GRAB)
-		if(can_collar && istype(O, /obj/item/clothing/accessory/petcollar) && !pcollar)
-			add_collar(O, user)
-			return
-		if(istype(O, /obj/item/pet_carrier))
-			var/obj/item/pet_carrier/C = O
-			if(C.put_in_carrier(src, user))
-				return
+		if(istype(I, /obj/item/clothing/accessory/petcollar))
+			add_fingerprint(user)
+			if(stat != CONSCIOUS)
+				to_chat(user, span_warning("[src] has problems with health."))
+				return ATTACK_CHAIN_PROCEED
+			if(!can_collar)
+				to_chat(user, span_warning("You cannot use [I] on [src]."))
+				return ATTACK_CHAIN_PROCEED
+			if(pcollar)
+				to_chat(user, span_warning("Looks like [src] already has a collar."))
+				return ATTACK_CHAIN_PROCEED
+			add_collar(I, user)
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+		if(istype(I, /obj/item/pet_carrier))
+			add_fingerprint(user)
+			var/obj/item/pet_carrier/carrier = I
+			if(stat != CONSCIOUS)
+				to_chat(user, span_warning("[src] has problems with health."))
+				return ATTACK_CHAIN_PROCEED
+			if(carrier.put_in_carrier(src, user))
+				return ATTACK_CHAIN_BLOCKED_ALL
+			return ATTACK_CHAIN_PROCEED
+
 	return ..()
+
 
 /mob/living/simple_animal/attack_hand(mob/living/carbon/human/M)
 	..()

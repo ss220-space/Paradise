@@ -24,11 +24,12 @@
 		return ..()
 
 
-/obj/item/clothing/suit/storage/attackby(obj/item/W, mob/user, params)
+/obj/item/clothing/suit/storage/attackby(obj/item/I, mob/user, params)
 	. = ..()
-	if(istype(W, /obj/item/radio/spy_spider))
-		return
-	return pockets.attackby(W, user, params)
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !pockets || istype(I, /obj/item/radio/spy_spider))
+		return .
+	return pockets.attackby(I, user, params)
+
 
 /obj/item/clothing/suit/storage/emp_act(severity)
 	..()

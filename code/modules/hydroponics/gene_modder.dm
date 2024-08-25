@@ -53,12 +53,14 @@
 
 /obj/machinery/plantgenes/RefreshParts() // Comments represent the max you can set per tier, respectively. seeds.dm [219] clamps these for us but we don't want to mislead the viewer.
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		if(M.rating > 3)
+		if(M.rating > 4)
+			max_potency = 100
+		else if(M.rating > 3)
 			max_potency = 95
 		else
-			max_potency = initial(max_potency) + (M.rating**3) // 51,58,77,95 	 Clamps at 100
+			max_potency = initial(max_potency) + (M.rating**3) // 51,58,77,95,100 	 Clamps at 100
 
-		max_yield = initial(max_yield) + (M.rating*2) // 4,6,8,10 	Clamps at 10
+		max_yield = min(initial(max_yield) + (M.rating*2), 10) // 4,6,8,10 	Clamps at 10
 
 	for(var/obj/item/stock_parts/scanning_module/SM in component_parts)
 		if(SM.rating > 3) //If you create t5 parts I'm a step ahead mwahahaha!
@@ -70,9 +72,8 @@
 
 	for(var/obj/item/stock_parts/micro_laser/ML in component_parts)
 		var/weed_rate_mod = ML.rating * 2.5
-		min_weed_rate = FLOOR(10-weed_rate_mod, 1) // 7,5,2,0	Clamps at 0 and 10	You want this low
-		min_weed_chance = 67-(ML.rating*16) // 48,35,19,3 	Clamps at 0 and 67	You want this low
-
+		min_weed_rate = max(FLOOR(10-weed_rate_mod, 1), 0) // 7,5,2,0	Clamps at 0 and 10	You want this low
+		min_weed_chance = max(67-(ML.rating*16), 0)  // 48,35,19,3,0 	Clamps at 0 and 67	You want this low
 	for(var/obj/item/circuitboard/plantgenes/vaultcheck in component_parts)
 		if(istype(vaultcheck, /obj/item/circuitboard/plantgenes/vault)) // TRAIT_DUMB BOTANY TUTS
 			max_potency = 100
@@ -95,64 +96,85 @@
 	if(panel_open)
 		. += "dnamod-open"
 
+
 /obj/machinery/plantgenes/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "dnamod", "dnamod", I))
-		add_fingerprint(user)
-		update_icon(UPDATE_OVERLAYS)
-		return
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(exchange_parts(user, I))
-		return
-	if(default_deconstruction_crowbar(user, I))
-		return
-	if(isrobot(user))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(I, /obj/item/seeds))
-		add_seed(I, user)
-	else if(istype(I, /obj/item/disk/plantgene))
-		add_disk(I, user)
+		if(add_seed(I, user))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		return ATTACK_CHAIN_PROCEED
+
+	if(istype(I, /obj/item/disk/plantgene))
+		if(add_disk(I, user))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		return ATTACK_CHAIN_PROCEED
 
 	if(HAS_TRAIT(src, TRAIT_CMAGGED))
 		var/cleaning = FALSE
 		if(istype(I, /obj/item/reagent_containers/spray/cleaner))
-			var/obj/item/reagent_containers/spray/cleaner/C = I
-			if(C.reagents.total_volume >= C.amount_per_transfer_from_this)
+			var/obj/item/reagent_containers/spray/cleaner/cleaner = I
+			if(cleaner.reagents.total_volume >= cleaner.amount_per_transfer_from_this)
 				cleaning = TRUE
-			else
-				return
-		if(istype(I, /obj/item/soap))
+		else if(istype(I, /obj/item/soap))
 			cleaning = TRUE
-
 		if(!cleaning)
-			return
-		user.visible_message(span_notice("[user] starts to clean the ooze off the [src]."), span_notice("You start to clean the ooze off the [src]."))
-		if(do_after(user, 5 SECONDS, src))
-			user.visible_message(span_notice("[user] cleans the ooze off [src]."), span_notice("You clean the ooze off [src]."))
-			REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] starts to clean the ooze off the [src]."),
+			span_notice("You start to clean the ooze off the [src]."),
+		)
+		if(!do_after(user, 5 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || !HAS_TRAIT(src, TRAIT_CMAGGED))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] cleans the ooze off [src]."),
+			span_notice("You clean the ooze off [src]."),
+		)
+		REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	else
-		return ..()
+	return ..()
+
+
+/obj/machinery/plantgenes/screwdriver_act(mob/living/user, obj/item/I)
+	. = default_deconstruction_screwdriver(user, "dnamod", "dnamod", I)
+	if(.)
+		update_icon(UPDATE_OVERLAYS)
+
+
+/obj/machinery/plantgenes/crowbar_act(mob/living/user, obj/item/I)
+	return default_deconstruction_crowbar(user, I)
+
 
 /obj/machinery/plantgenes/proc/add_seed(obj/item/seeds/new_seed, mob/user)
+	add_fingerprint(user)
 	if(seed)
-		to_chat(user, "<span class='warning'>A sample is already loaded into the machine!</span>")
-		return
+		to_chat(user, span_warning("A sample is already loaded into the machine!"))
+		return FALSE
 	if(!user.drop_item_ground(new_seed))
-		return
+		return FALSE
+	. = TRUE
 	insert_seed(new_seed)
-	to_chat(user, "<span class='notice'>You add [new_seed] to the machine.</span>")
+	to_chat(user, span_notice("You add [new_seed] to the machine."))
 	ui_interact(user)
 
+
 /obj/machinery/plantgenes/proc/add_disk(obj/item/disk/plantgene/new_disk, mob/user)
+	add_fingerprint(user)
 	if(disk)
-		to_chat(user, "<span class='warning'>A data disk is already loaded into the machine!</span>")
-		return
-	if(!user.drop_item_ground(new_disk))
-		return
+		to_chat(user, span_warning("A data disk is already loaded into the machine!"))
+		return FALSE
+	if(!user.drop_transfer_item_to_loc(new_disk, src))
+		return FALSE
+	. = TRUE
 	disk = new_disk
-	disk.forceMove(src)
-	to_chat(user, "<span class='notice'>You add [new_disk] to the machine.</span>")
+	to_chat(user, span_notice("You add [new_disk] to the machine."))
 	ui_interact(user)
+
 
 /obj/machinery/plantgenes/attack_hand(mob/user)
 	if(..())

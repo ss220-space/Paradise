@@ -149,7 +149,18 @@ export class NanoMap extends Component {
 }
 
 const NanoMapMarker = (props, context) => {
-  const { x, y, z, z_current, zoom = 1, icon, tooltip, color, onClick } = props;
+  const {
+    x,
+    y,
+    z,
+    z_current,
+    zoom = 1,
+    icon,
+    tooltip,
+    color,
+    bordered,
+    onClick,
+  } = props;
   if (z_current !== z) {
     return null;
   }
@@ -160,7 +171,7 @@ const NanoMapMarker = (props, context) => {
       <Tooltip content={tooltip}>
         <Box
           position="absolute"
-          className="NanoMap__marker"
+          className={bordered ? 'NanoMap__marker__bordered' : 'NanoMap__marker'}
           lineHeight="0"
           bottom={ry + 'px'}
           left={rx + 'px'}

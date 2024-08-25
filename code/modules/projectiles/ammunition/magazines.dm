@@ -2,9 +2,11 @@
 /obj/item/ammo_box/magazine/internal
 	desc = "Oh god, this shouldn't be here!"
 
+
 //internals magazines are accessible, so replace spent ammo if full when trying to put a live one in
-/obj/item/ammo_box/magazine/internal/give_round(obj/item/ammo_casing/R)
-	return ..(R,1)
+/obj/item/ammo_box/magazine/internal/give_round(obj/item/ammo_casing/new_casing, replace_spent = TRUE, count_chambered = FALSE, mob/user)
+	. = ..()
+
 
 // Revolver internal mags
 /obj/item/ammo_box/magazine/internal/cylinder
@@ -14,14 +16,21 @@
 	max_ammo = 7
 
 
-/obj/item/ammo_box/magazine/internal/cylinder/ammo_count(countempties = TRUE)
-	var/boolets = 0
-	for(var/obj/item/ammo_casing/bullet in stored_ammo)
-		if(bullet && (bullet.BB || countempties))
-			boolets++
-	return boolets
+/obj/item/ammo_box/magazine/internal/cylinder/Initialize(mapload)
+	. = ..()
+	if(start_empty)
+		for(var/i in 1 to max_ammo)
+			stored_ammo += null	// thats right, we fill empty cylinders with nulls
 
-/obj/item/ammo_box/magazine/internal/cylinder/get_round(keep = 0)
+
+/obj/item/ammo_box/magazine/internal/cylinder/ammo_count(countempties = TRUE)
+	. = 0
+	for(var/obj/item/ammo_casing/bullet in stored_ammo)
+		if(bullet.BB || countempties)
+			.++
+
+
+/obj/item/ammo_box/magazine/internal/cylinder/get_round(keep = FALSE)
 	rotate()
 
 	var/b = stored_ammo[1]
@@ -39,21 +48,31 @@
 	for(var/i in 1 to rand(0, max_ammo*2))
 		rotate()
 
-/obj/item/ammo_box/magazine/internal/cylinder/give_round(obj/item/ammo_casing/R, replace_spent = FALSE)
-	if(!ammo_suitability(R))
+
+/obj/item/ammo_box/magazine/internal/cylinder/give_round(obj/item/ammo_casing/new_casing, replace_spent = FALSE, count_chambered = FALSE, mob/user)
+	if(!ammo_suitability(new_casing))
 		return FALSE
 
-	for(var/i in 1 to stored_ammo.len)
-		var/obj/item/ammo_casing/bullet = stored_ammo[i]
-		if(!bullet || !bullet.BB) // found a spent ammo
-			stored_ammo[i] = R
-			R.loc = src
-
-			if(bullet)
-				bullet.loc = get_turf(loc)
+	for(var/i in 1 to length(stored_ammo))
+		var/obj/item/ammo_casing/casing = stored_ammo[i]
+		if(!casing || !casing.BB) // found a spent ammo
+			if(user && new_casing.loc == user && !user.drop_transfer_item_to_loc(new_casing, src))
+				return FALSE
+			stored_ammo[i] = new_casing
+			if(new_casing.loc != src)
+				new_casing.forceMove(src)
+			if(casing)
+				casing.forceMove(drop_location())
+				playsound(casing.loc, casing.casing_drop_sound, 60, TRUE)
+				casing.pixel_x = rand(-10, 10)
+				casing.pixel_y = rand(-10, 10)
+				casing.setDir(pick(GLOB.alldirs))
+				casing.update_appearance()
+				casing.SpinAnimation(10, 1)
 			return TRUE
 
 	return FALSE
+
 
 /obj/item/ammo_box/magazine/internal/cylinder/rev38
 	name = "detective revolver cylinder"
@@ -87,18 +106,16 @@
 	icon = 'icons/obj/improvised.dmi'
 	icon_state = "rev_cylinder"
 	ammo_type = null
+	start_empty = TRUE
 	caliber = list(".257")
 	max_ammo = 4
 
-/obj/item/ammo_box/magazine/internal/cylinder/improvised/Initialize(mapload)
-	..()
-	if(!ammo_type)
-		stored_ammo = new(max_ammo)
 
-/obj/item/ammo_box/magazine/internal/cylinder/improvised/ammo_suitability(obj/item/ammo_casing/bullet)
-	if(!bullet || !(bullet.caliber in caliber))
+/obj/item/ammo_box/magazine/internal/cylinder/improvised/ammo_suitability(obj/item/ammo_casing/new_casing)
+	if(!new_casing || !(new_casing.caliber in caliber))
 		return FALSE
 	return TRUE
+
 
 /obj/item/ammo_box/magazine/internal/cylinder/improvised/steel
 	name = "steel bullet cylinder"
@@ -129,15 +146,13 @@
 	max_ammo = 4
 	multiload = FALSE
 
+
 /obj/item/ammo_box/magazine/internal/shot/ammo_count(countempties = TRUE)
-	if(!countempties)
-		var/boolets = 0
-		for(var/obj/item/ammo_casing/bullet in stored_ammo)
-			if(bullet.BB)
-				boolets++
-		return boolets
-	else
-		return ..()
+	. = 0
+	for(var/obj/item/ammo_casing/bullet in stored_ammo)
+		if(bullet.BB || countempties)
+			.++
+
 
 /obj/item/ammo_box/magazine/internal/shot/tube
 	name = "dual feed shotgun internal tube"
@@ -183,6 +198,7 @@
 
 /obj/item/ammo_box/magazine/internal/cylinder/grenadelauncher/multi
 	ammo_type = /obj/item/ammo_casing/a40mm
+	caliber = null
 	max_ammo = 6
 
 /obj/item/ammo_box/magazine/internal/speargun
@@ -203,11 +219,20 @@
 	caliber = ".357"
 	max_ammo = 6
 	multiload = FALSE
+	start_empty = TRUE
 
-/obj/item/ammo_box/magazine/internal/rus357/New()
-	..()
-	stored_ammo.Cut() // We only want 1 bullet in there
-	stored_ammo += new ammo_type(src)
+
+/obj/item/ammo_box/magazine/internal/rus357/Initialize(mapload)
+	. = ..()
+	stored_ammo += new ammo_type(src)	// We only want 1 bullet in there
+
+
+/obj/item/ammo_box/magazine/internal/rus357/ammo_count(countempties = TRUE)
+	. = 0
+	for(var/obj/item/ammo_casing/bullet in stored_ammo)
+		if(bullet.BB || countempties)
+			.++
+
 
 /obj/item/ammo_box/magazine/internal/boltaction
 	name = "bolt action rifle internal magazine"
@@ -639,14 +664,15 @@
 /obj/item/ammo_box/magazine/lr30mag
 	name = "small encased laser projector magazine"
 	desc = "Fits experimental laser ammo casings."
-	icon_state = "lmag-12"
+	icon_state = "lmag"
 	ammo_type = /obj/item/ammo_casing/laser
 	origin_tech = "combat=3"
 	caliber = "laser"
-	max_ammo = 12
+	max_ammo = 20
+
 
 /obj/item/ammo_box/magazine/lr30mag/update_icon_state()
-	icon_state = "lmag-[round(ammo_count(),3)]"
+	icon_state = "lmag-[CEILING(ammo_count(), 5)]"
 
 
 /obj/item/ammo_box/magazine/toy/smgm45/riot

@@ -66,18 +66,21 @@
 
 
 /obj/vehicle/attackby(obj/item/I, mob/user, params)
-	if(!key_type || I.type != key_type)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(inserted_key)
-		to_chat(user, span_warning("[src] already has [inserted_key.name] in the ignition!"))
-		return
+	if(key_type && I.type == key_type)
+		add_fingerprint(user)
+		if(inserted_key)
+			to_chat(user, span_warning("The [name] already has [inserted_key.name] in the ignition!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		inserted_key = I
+		to_chat(user, span_notice("You have inserted [I] into [src]'s ignintion."))
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(!user.drop_transfer_item_to_loc(I, src))
-		return
-
-	to_chat(user, span_notice("You insert [I] into [src]'s ignintion."))
-	inserted_key = I
+	return ..()
 
 
 /obj/vehicle/AltClick(mob/living/user)

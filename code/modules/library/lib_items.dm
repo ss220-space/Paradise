@@ -21,63 +21,88 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0)
-	/// Things allowed in the bookcase
-	var/list/allowed_books = list(
+	/// Typecache of the things allowed in the bookcase. Populated in [/proc/generate_allowed_books()] on Initialize.
+	var/list/allowed_books
+
+
+/obj/structure/bookcase/Initialize(mapload)
+	. = ..()
+	generate_allowed_books()
+	if(mapload)
+		addtimer(CALLBACK(src, PROC_REF(take_contents)), 0)
+
+
+/// Populates typecache with the things allowed to store
+/obj/structure/bookcase/proc/generate_allowed_books()
+	allowed_books = typecacheof(list(
 		/obj/item/book,
 		/obj/item/spellbook,
 		/obj/item/storage/bible,
 		/obj/item/tome,
-	)
+	))
 
 
-/obj/structure/bookcase/Initialize()
-	..()
-	for(var/obj/item/I in loc)
-		if(is_type_in_list(I, allowed_books))
-			I.forceMove(src)
-	update_icon(UPDATE_ICON_STATE)
+/// This is called on Initialize to add contents on the tile
+/obj/structure/bookcase/proc/take_contents()
+	var/update = FALSE
+	for(var/atom/movable/thing as anything in loc)
+		if(is_type_in_typecache(thing, allowed_books))
+			update = TRUE
+			thing.forceMove(src)
+	if(update)
+		update_icon(UPDATE_ICON_STATE)
 
 
-/obj/structure/bookcase/attackby(obj/item/O, mob/user, params)
-	if(is_type_in_list(O, allowed_books))
-		if(!user.drop_transfer_item_to_loc(O, src))
-			return
+/obj/structure/bookcase/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(is_pen(I))
+		rename_interactive(user, I)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/storage/bag/books))
+		add_fingerprint(user)
+		var/obj/item/storage/bag/books/bag = I
+		var/loaded = 0
+		for(var/obj/item/book as anything in bag.contents)
+			if(is_type_in_typecache(book, allowed_books))
+				loaded++
+				book.add_fingerprint(user)
+				bag.remove_from_storage(book, src)
+		if(!loaded)
+			to_chat(user, span_warning("There are no books in [bag]."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You have emptied [bag] into [src]."))
+		update_icon(UPDATE_ICON_STATE)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(is_type_in_typecache(I, allowed_books))
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("You have added [I] into [src]."))
 		add_fingerprint(user)
 		update_icon(UPDATE_ICON_STATE)
-		return TRUE
-	if(istype(O, /obj/item/storage/bag/books))
-		var/obj/item/storage/bag/books/B = O
-		for(var/obj/item/T in B.contents)
-			if(is_type_in_list(T, allowed_books))
-				T.add_fingerprint(user)
-				B.remove_from_storage(T, src)
-		add_fingerprint(user)
-		to_chat(user, span_notice("You empty [O] into [src]."))
-		update_icon(UPDATE_ICON_STATE)
-		return TRUE
-	if(is_pen(O))
-		add_fingerprint(user)
-		rename_interactive(user, O)
-		return TRUE
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
 
 
 /obj/structure/bookcase/screwdriver_act(mob/user, obj/item/I)
 	if(obj_flags & NODECONSTRUCT)
-		return
+		return FALSE
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
-		return
+		return .
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
 	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
-		return
+		return .
 	TOOL_DISMANTLE_SUCCESS_MESSAGE
 	deconstruct(TRUE)
 
 
 /obj/structure/bookcase/wrench_act(mob/user, obj/item/I)
-	. = TRUE
-	default_unfasten_wrench(user, I, 0)
+	return default_unfasten_wrench(user, I, 0)
 
 
 /obj/structure/bookcase/attack_hand(mob/user)
@@ -95,9 +120,10 @@
 
 /obj/structure/bookcase/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/wood(loc, 5)
-	for(var/obj/item/I in contents)
-		if(is_type_in_list(I, allowed_books))
-			I.forceMove(get_turf(src))
+	var/atom/drop_loc = drop_location()
+	for(var/atom/movable/thing as anything in contents)
+		if(is_type_in_typecache(thing, allowed_books))
+			thing.forceMove(drop_loc)
 	..()
 
 
@@ -181,7 +207,7 @@
 	else
 		. += "<span class='notice'>You don't know how to read.</span>"
 
-/obj/item/book/attack_self(var/mob/user as mob)
+/obj/item/book/attack_self(mob/user)
 	if(carved)
 		if(store)
 			to_chat(user, "<span class='notice'>[store] falls out of [title]!</span>")
@@ -199,108 +225,120 @@
 	else
 		to_chat(user, "This book is completely blank!")
 
-/obj/item/book/attackby(obj/item/W as obj, mob/user as mob, params)
+
+/obj/item/book/attackby(obj/item/I, mob/user, params)
 	if(carved)
-		if(!store)
-			if(W.w_class < WEIGHT_CLASS_NORMAL)
-				user.drop_from_active_hand()
-				W.forceMove(src)
-				store = W
-				to_chat(user, "<span class='notice'>You put [W] in [title].</span>")
-				return 1
-			else
-				to_chat(user, "<span class='notice'>[W] won't fit in [title].</span>")
-				return 1
-		else
-			to_chat(user, "<span class='notice'>There's already something in [title]!</span>")
-			return 1
-	if(is_pen(W))
+		add_fingerprint(user)
+		if(store)
+			to_chat(user, span_warning("There's already something in [title]!"))
+			return ATTACK_CHAIN_PROCEED
+		if(I.w_class >= WEIGHT_CLASS_NORMAL)
+			to_chat(user, span_warning("The [I.name] won't fit in [title]!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		store = I
+		to_chat(user, span_notice("You have put [I] into [title]."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(is_sharp(I))
+		add_fingerprint(user)
+		if(!carve_book(user, I))
+			return ATTACK_CHAIN_PROCEED
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(is_pen(I))
+		add_fingerprint(user)
 		if(unique)
-			to_chat(user, "These pages don't seem to take the ink well. Looks like you can't modify it.")
-			return 1
+			to_chat(user, span_warning("These pages don't seem to take the ink well. Looks like you can't modify it."))
+			return ATTACK_CHAIN_PROCEED
 		var/choice = tgui_input_list(user, "What would you like to change?", "Book Edit", list("Title", "Contents", "Author", "Cancel"))
 		switch(choice)
 			if("Title")
 				var/newtitle = reject_bad_text(tgui_input_text(user, "Write a new title:", "Title", title))
 				if(isnull(newtitle))
-					to_chat(usr, "The title is invalid.")
-					return 1
-				else
-					src.name = newtitle
-					src.title = newtitle
+					to_chat(user, span_warning("The title is invalid."))
+					return ATTACK_CHAIN_PROCEED
+				name = newtitle
+				title = newtitle
 			if("Contents")
 				var/content = tgui_input_text(user, "Write your book's contents (HTML NOT allowed):", "Summary", max_length = MAX_BOOK_MESSAGE_LEN, multiline = TRUE)
 				if(isnull(content))
-					to_chat(usr, "The content is invalid.")
-					return 1
-				else
-					src.dat += content
+					to_chat(user, span_warning("The contents is invalid."))
+					return ATTACK_CHAIN_PROCEED
+				dat += content
 			if("Author")
 				var/newauthor = tgui_input_text(user, "Write the author's name:", "Author", author, MAX_NAME_LEN)
 				if(isnull(newauthor))
-					to_chat(usr, "The name is invalid.")
-					return 1
-				else
-					src.author = newauthor
-		return 1
-	else if(istype(W, /obj/item/barcodescanner))
-		var/obj/item/barcodescanner/scanner = W
+					to_chat(user, span_warning("The name is invalid."))
+					return ATTACK_CHAIN_PROCEED
+				author = newauthor
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/barcodescanner))
+		add_fingerprint(user)
+		var/obj/item/barcodescanner/scanner = I
 		if(!scanner.computer)
-			to_chat(user, "[W]'s screen flashes: 'No associated computer found!'")
-		else
-			switch(scanner.mode)
-				if(0)
-					scanner.book = src
-					to_chat(user, "[W]'s screen flashes: 'Book stored in buffer.'")
-				if(1)
-					scanner.book = src
-					scanner.computer.buffer_book = src.name
-					to_chat(user, "[W]'s screen flashes: 'Book stored in buffer. Book title stored in associated computer buffer.'")
-				if(2)
-					scanner.book = src
-					for(var/datum/borrowbook/b in scanner.computer.checkouts)
-						if(b.bookname == src.name)
-							scanner.computer.checkouts.Remove(b)
-							to_chat(user, "[W]'s screen flashes: 'Book stored in buffer. Book has been checked in.'")
-							return 1
-					to_chat(user, "[W]'s screen flashes: 'Book stored in buffer. No active check-out record found for current title.'")
-				if(3)
-					scanner.book = src
-					for(var/obj/item/book in scanner.computer.inventory)
-						if(book == src)
-							to_chat(user, "[W]'s screen flashes: 'Book stored in buffer. Title already present in inventory, aborting to avoid duplicate entry.'")
-							return 1
-					scanner.computer.inventory.Add(src)
-					to_chat(user, "[W]'s screen flashes: 'Book stored in buffer. Title added to general inventory.'")
-		return 1
-	else if(istype(W, /obj/item/kitchen/knife) && !carved)
-		carve_book(user, W)
-	else
-		return ..()
+			to_chat(user, span_warning("The [scanner.name]'s screen flashes: 'No associated computer found!'"))
+			return ATTACK_CHAIN_PROCEED
+		switch(scanner.mode)
+			if(0)
+				scanner.book = src
+				to_chat(user, span_notice("The [scanner.name]'s screen flashes: 'Book stored in buffer.'"))
+			if(1)
+				scanner.book = src
+				scanner.computer.buffer_book = name
+				to_chat(user, span_notice("The [scanner.name]'s screen flashes: 'Book stored in buffer. Book title stored in associated computer buffer.'"))
+			if(2)
+				scanner.book = src
+				for(var/datum/borrowbook/borrowbook as anything in scanner.computer.checkouts)
+					if(borrowbook.bookname == name)
+						scanner.computer.checkouts.Remove(borrowbook)
+						to_chat(user, span_notice("The [scanner.name]'s screen flashes: 'Book stored in buffer. Book has been checked in.'"))
+						return ATTACK_CHAIN_PROCEED_SUCCESS
+				to_chat(user, span_notice("The [scanner.name]'s screen flashes: 'Book stored in buffer. No active check-out record found for current title.'"))
+			if(3)
+				scanner.book = src
+				for(var/obj/item/book as anything in scanner.computer.inventory)
+					if(book == src)
+						to_chat(user, span_notice("The [scanner.name]'s screen flashes: 'Book stored in buffer. Title already present in inventory, aborting to avoid duplicate entry.'"))
+						return ATTACK_CHAIN_PROCEED_SUCCESS
+				scanner.computer.inventory.Add(src)
+				to_chat(user, span_notice("The [scanner.name]'s screen flashes: 'Book stored in buffer. Title added to general inventory.'"))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/item/book/wirecutter_act(mob/user, obj/item/I)
 	return carve_book(user, I)
 
-/obj/item/book/attack(mob/M, mob/living/user)
+
+/obj/item/book/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(user.a_intent == INTENT_HELP)
 		force = 0
 		attack_verb = list("educated")
 	else
 		force = initial(force)
 		attack_verb = list("bashed", "whacked")
-	..()
+	return ..()
+
 
 /obj/item/book/proc/carve_book(mob/user, obj/item/I)
-	if(!I.sharp && I.tool_behaviour != TOOL_WIRECUTTER) //Only sharp and wirecutter things can carve books
-		to_chat(user, "<span class='warning>You can't carve [title] using that!</span>")
-		return
+	if(!is_sharp(I) && I.tool_behaviour != TOOL_WIRECUTTER) //Only sharp and wirecutter things can carve books
+		to_chat(user, span_warning("You can't carve [title] using that!"))
+		return FALSE
 	if(carved)
-		return
-	to_chat(user, "<span class='notice'>You begin to carve out [title].</span>")
-	if(I.use_tool(src, user, 30, volume = I.tool_volume))
-		to_chat(user, "<span class='notice'>You carve out the pages from [title]! You didn't want to read it anyway.</span>")
-		carved = TRUE
-		return TRUE
+		to_chat(user, span_warning("The [title] is already carved!"))
+		return FALSE
+	to_chat(user, span_notice("You start to carve out [title]..."))
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || carved)
+		return FALSE
+	to_chat(user, span_notice("You have carved out the pages from [title]! You didn't want to read it anyway."))
+	carved = TRUE
+	return TRUE
+
+
 /*
  * Barcode Scanner
  */
@@ -315,7 +353,7 @@
 	var/obj/item/book/book	 //  Currently scanned book
 	var/mode = 0 					// 0 - Scan only, 1 - Scan and Set Buffer, 2 - Scan and Attempt to Check In, 3 - Scan and Attempt to Add to Inventory
 
-/obj/item/barcodescanner/attack_self(mob/user as mob)
+/obj/item/barcodescanner/attack_self(mob/user)
 	mode += 1
 	if(mode > 3)
 		mode = 0

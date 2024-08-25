@@ -35,33 +35,49 @@
 	icon_state = "implanter[imp ? "1" : "0"]"
 
 
-/obj/item/implanter/attack(mob/living/carbon/target, mob/user)
-	if(!iscarbon(target))
-		return
-	if(user && imp)
-		if(NO_BIOCHIPS in target.dna.species.species_traits)
-			var/static/list/whitelisted_implants = list(/obj/item/implant/traitor, /obj/item/implant/mindshield, /obj/item/implant/mindshield/ert) // paradise balance moment
-			if(!(imp.type in whitelisted_implants))
-				to_chat(user, span_warning("Био-чип не приживётся в этом теле."))
-				return
-		if(target != user)
-			target.visible_message(span_warning("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся имплантировать био-чип в [target]."))
+/obj/item/implanter/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
 
-		var/turf/target_turf = get_turf(target)
-		if(target_turf && (target == user || do_after(user, 5 SECONDS * toolspeed, target, category = DA_CAT_TOOL)))
-			if(!QDELETED(user) && !QDELETED(target) && !QDELETED(src) && !QDELETED(imp) && get_turf(target) == target_turf && imp.implant(target, user))
-				if(user == target)
-					to_chat(user, span_notice("Вы имплантировали био-чип в себя."))
-				else
-					target.visible_message("[user] имплантирова[genderize_ru(user.gender, "л", "ла", "ло", "ли")] био-чип в [target].", \
-					 span_notice("[user] имплантирова[genderize_ru(user.gender, "л", "ла", "ло", "ли")] вам био-чип."))
-				imp = null
-				update_state()
+	if(!iscarbon(target))
+		return .
+
+	if(!user || !imp)
+		return .
+
+	// paradise balance moment
+	var/static/list/whitelisted_implants = list(
+		/obj/item/implant/traitor,
+		/obj/item/implant/mindshield,
+		/obj/item/implant/mindshield/ert,
+	)
+
+	if(!(imp.type in whitelisted_implants) && HAS_TRAIT(target, TRAIT_NO_BIOCHIPS))
+		to_chat(user, span_warning("Био-чип не приживётся в этом теле."))
+		return .
+
+	if(target != user)
+		target.visible_message(span_warning("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся имплантировать био-чип в [target]."))
+		if(!do_after(user, 5 SECONDS * toolspeed, target, category = DA_CAT_TOOL) || QDELETED(user) || QDELETED(target) || QDELETED(src) || QDELETED(imp))
+			return .
+
+	if(!imp.implant(target, user))
+		return .
+
+	. |= ATTACK_CHAIN_SUCCESS
+	if(user == target)
+		to_chat(user, span_notice("Вы имплантировали био-чип."))
+	else
+		target.visible_message(
+			span_warning("[user] имплантирова[genderize_ru(user.gender, "л", "ла", "ло", "ли")] био-чип в [target]."),
+			span_notice("[user] имплантирова[genderize_ru(user.gender, "л", "ла", "ло", "ли")] вам био-чип."),
+		)
+	imp = null
+	update_state()
 
 
 /obj/item/implanter/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
 		rename_interactive(user, I)
-	else
-		return ..()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	return ..()
 

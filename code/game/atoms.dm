@@ -811,7 +811,7 @@
 		add_fibers(M)
 
 		//He has no prints!
-		if(FINGERPRINTS in M.mutations)
+		if(HAS_TRAIT(M, TRAIT_NO_FINGERPRINTS))
 			if(fingerprintslast != M.key)
 				fingerprintshidden += "(Has no fingerprints) Real name: [M.real_name], Key: [M.key]"
 				fingerprintslast = M.key
@@ -1434,13 +1434,14 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	Returns: Either null if the renaming was aborted, or the user-provided sanitized string.
  **/
-/atom/proc/rename_interactive(mob/user, obj/implement = null, use_prefix = TRUE,
-		actually_rename = TRUE, prompt = null)
+/atom/proc/rename_interactive(mob/user, obj/implement = null, use_prefix = TRUE, actually_rename = TRUE, prompt = null)
 	// Sanity check that the user can, indeed, rename the thing.
 	// This, sadly, means you can't rename things with a telekinetic pen, but that's
 	// too much of a hassle to make work nicely.
 	if((implement && implement.loc != user) || !in_range(src, user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return null
+
+	add_fingerprint(user)
 
 	var/prefix = ""
 	if(use_prefix)

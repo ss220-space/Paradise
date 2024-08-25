@@ -95,8 +95,7 @@
 
 /client/verb/volume_mixer()
 	set name = "Open Volume Mixer"
-	set category = null
-	set hidden = TRUE
+	set category = "Special Verbs"
 
 	var/datum/ui_module/volume_mixer/VM = new()
 	VM.ui_interact(usr)

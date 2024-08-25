@@ -21,7 +21,6 @@
 	/// Whether the machine is currently performing dialysis.
 	var/filtering = FALSE
 	var/max_chem
-	var/initial_bin_rating = 1
 	var/min_health = -25
 	var/controls_inside = FALSE
 	var/auto_eject_dead = FALSE
@@ -35,12 +34,7 @@
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/sleeper(null)
-
-	// Customizable bin rating, used by the labor camp to stop people filling themselves with chemicals and escaping.
-	var/obj/item/stock_parts/matter_bin/B = new(null)
-	B.rating = initial_bin_rating
-	component_parts += B
-
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
@@ -107,7 +101,7 @@
 
 		if(filtering > 0 && beaker)
 			// To prevent runtimes from drawing blood from runtime, and to prevent getting IPC blood.
-			if(!istype(occupant) || !occupant.dna || (NO_BLOOD in occupant.dna.species.species_traits))
+			if(!istype(occupant) || HAS_TRAIT(occupant, TRAIT_NO_BLOOD))
 				filtering = 0
 				return
 
@@ -210,7 +204,7 @@
 		crisis = (occupant.health < min_health)
 		// I'm not sure WHY you'd want to put a simple_animal in a sleeper, but precedent is precedent
 		// Runtime is aptly named, isn't she?
-		if(ishuman(occupant) && !(NO_BLOOD in occupant.dna.species.species_traits))
+		if(ishuman(occupant) && !HAS_TRAIT(occupant, TRAIT_NO_BLOOD))
 			occupantData["pulse"] = occupant.get_pulse(GETPULSE_TOOL)
 			occupantData["hasBlood"] = 1
 			occupantData["bloodLevel"] = round(occupant.blood_volume)
@@ -300,25 +294,28 @@
 			return FALSE
 	add_fingerprint(usr)
 
+
 /obj/machinery/sleeper/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/glass))
-		if(!beaker)
-			if(!user.drop_transfer_item_to_loc(I, src))
-				to_chat(user, span_warning("[I] is stuck to you!"))
-				return
-
-			add_fingerprint(user)
-			beaker = I
-			user.visible_message("[user] adds \a [I] to [src]!", "You add \a [I] to [src]!")
-			SStgui.update_uis(src)
-			return
-
-		else
-			to_chat(user, span_warning("The sleeper has a beaker already."))
-			return
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
 	if(exchange_parts(user, I))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/reagent_containers/glass))
+		add_fingerprint(user)
+		if(beaker)
+			to_chat(user, span_warning("The sleeper has a beaker already."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		beaker = I
+		user.visible_message(
+			span_notice("[user] adds [I] to [src]!"),
+			span_notice("You add [I] to [src]!"),
+		)
+		SStgui.update_uis(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
 
@@ -582,9 +579,7 @@
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/sleeper/syndicate(null)
-	var/obj/item/stock_parts/matter_bin/B = new(null)
-	B.rating = initial_bin_rating
-	component_parts += B
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)

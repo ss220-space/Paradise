@@ -33,14 +33,20 @@
 	add_overlay(shine_overlay)
 	pixel_x = rand(-8,8)
 	pixel_y = rand(-8,8)
+	base_pixel_x = pixel_x
+	base_pixel_y = pixel_y
+
 
 /obj/item/gem/attackby(obj/item/item, mob/living/user, params) //Stolen directly from geysers, removed the internal gps
 	if(!istype(item, /obj/item/mining_scanner) && !istype(item, /obj/item/t_scanner/adv_mining_scanner))
 		return ..()
 
+	add_fingerprint(user)
 	if(analysed)
-		to_chat(user, span_warning("This gem has already been analysed!"))
-		return
+		to_chat(user, span_warning("This gem has been already analysed!"))
+		return ATTACK_CHAIN_PROCEED
+
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
 
 	to_chat(user, span_notice("You analyse the precious gemstone!"))
 	if(analysed_message)
@@ -54,14 +60,14 @@
 		cut_overlay(shine_overlay)
 		qdel(shine_overlay)
 
-	if(isliving(user))
-		var/mob/living/living = user
+	var/obj/item/card/id/card = user.get_id_card()
+	if(!card)
+		return .
 
-		var/obj/item/card/id/card = living.get_id_card()
-		if(card)
-			to_chat(user, span_notice("[point_value] mining points have been paid out!"))
-			card.mining_points += point_value
-			playsound(src, 'sound/machines/ping.ogg', 15, TRUE)
+	to_chat(user, span_notice("[point_value] mining points have been paid out!"))
+	card.mining_points += point_value
+	playsound(loc, 'sound/machines/ping.ogg', 15, TRUE)
+
 
 /obj/item/gem/welder_act(mob/living/user, obj/item/I) //Jank code that detects if the gem in question has a sheet_type and spawns the items specifed in it
 	if(I.use_tool(src, user, 0, volume=50))
@@ -81,39 +87,45 @@
 	materials = list(MAT_URANIUM = 60000)
 	sheet_type = /obj/item/stack/sheet/mineral/uranium{amount = 30}
 	point_value = 500
-	var/damaged = FALSE
-	var/pulse = "rupee_pulse"
 	sell_multiplier = 2
 
-/obj/item/gem/rupee/Initialize()
+
+/obj/item/gem/rupee/Initialize(mapload)
+	. = ..()
 	AddComponent(/datum/component/radioactivity, \
 			rad_per_cycle = 10, \
 			rad_cycle = 3 SECONDS, \
 			rad_cycle_radius = 5 \
 	)
-	ADD_TRAIT(src, TRAIT_BLOCK_RADIATION, src)
-	. = ..()
+	ADD_TRAIT(src, TRAIT_BLOCK_RADIATION, INNATE_TRAIT)
+
 
 /obj/item/gem/rupee/examine(mob/user)
 	. = ..()
-	if(!damaged)
-		. += "<span class='notice'>You could use something sharp to damage crystal.</span>"
+	if(HAS_TRAIT(src, TRAIT_BLOCK_RADIATION))
+		. += span_info("You could use something <b>sharp</b> to damage crystal.")
 	else
-		. += "<span class='warning'>The crystal glows strongly!</span>"
+		. += span_warning("The crystal glows strongly!")
 
-/obj/item/gem/rupee/attackby(obj/item/W, mob/user, params)
-	..()
-	if(is_sharp(W) && !damaged)
-		to_chat(user, span_notice("You started damaging the crystal. You have the feeling that's it's not a good idea..."))
-		if(!do_after(user, 5 SECONDS, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
-			to_chat(user, span_notice("You decide not to die from radiation."))
-			return
-		to_chat(user, span_warning("You make a crack in the crystal! Your head hurts..."))
-		var/mob/living/carbon/human/H = user
-		H.apply_effect(50, IRRADIATE)
-		damaged = TRUE
-		src.icon_state = "broken_rupee"
-		REMOVE_TRAIT(src, TRAIT_BLOCK_RADIATION, src)
+
+/obj/item/gem/rupee/update_icon_state()
+	icon_state = "[HAS_TRAIT(src, TRAIT_BLOCK_RADIATION) ? "" : "broken_"]rupee"
+
+
+/obj/item/gem/rupee/attackby(obj/item/I, mob/living/user, params)
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !is_sharp(I) || !HAS_TRAIT(src, TRAIT_BLOCK_RADIATION))
+		return .
+
+	to_chat(user, span_notice("You start damaging the crystal. You have the feeling that's it's not a good idea..."))
+	if(!do_after(user, 5 SECONDS, src, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_notice("You decide not to die from the radiation."), category = DA_CAT_TOOL))
+		return .
+	. |= ATTACK_CHAIN_SUCCESS
+	to_chat(user, span_warning("You make a crack in the crystal! Your head hurts..."))
+	user.apply_effect(50, IRRADIATE)
+	REMOVE_TRAIT(src, TRAIT_BLOCK_RADIATION, INNATE_TRAIT)
+	update_icon(UPDATE_ICON_STATE)
+
 
 //magmawing watcher gem
 /obj/item/gem/magma
@@ -266,6 +278,9 @@
 	var/cooldown = FALSE
 	var/cooldown_time = 40 SECONDS
 
+/obj/item/gem/void/attack_self_tk(mob/user)
+	return
+
 /obj/item/gem/void/examine(mob/user)
 	. = ..()
 	if(!cooldown)
@@ -327,7 +342,7 @@
 		set_light_range_power_color(3, 2, "#ac2626")
 
 
-/obj/item/gem/bloodstone/afterattack(obj/item/I, mob/user, proximity)
+/obj/item/gem/bloodstone/afterattack(obj/item/I, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(istype(I) && I.hidden_uplink && I.hidden_uplink.active)

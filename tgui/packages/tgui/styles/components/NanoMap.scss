@@ -10,6 +10,12 @@ $background-color: rgba(0, 0, 0, 0.33) !default;
   z-index: 10;
   padding: 0px;
   margin: 0px;
+}
+
+.NanoMap__marker__bordered {
+  z-index: 10;
+  padding: 0px;
+  margin: 0px;
   border: 2px solid black;
 }
 

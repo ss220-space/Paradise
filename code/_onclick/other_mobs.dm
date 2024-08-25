@@ -58,11 +58,11 @@
 		if(istype(G) && G.Touch(A, 0)) // for magic gloves
 			return
 
-	if(!GLOB.pacifism_after_gt)
+	if(!GLOB.pacifism_after_gt && !HAS_TRAIT(src, TRAIT_PACIFISM))
 		if(HAS_TRAIT(src, TRAIT_LASEREYES) && a_intent == INTENT_HARM)
 			LaserEyes(A)
 
-		if(TK in mutations)
+		if(HAS_TRAIT(src, TRAIT_TELEKINESIS))
 			A.attack_tk(src)
 
 	if(isturf(A) && get_dist(src, A) <= 1)

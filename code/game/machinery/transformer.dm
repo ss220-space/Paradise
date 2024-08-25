@@ -338,19 +338,22 @@
 
 
 /obj/machinery/transformer/gene_applier/attackby(obj/item/I, mob/living/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(istype(I, /obj/item/disk/data))
+		add_fingerprint(user)
 		if(locked)
 			to_chat(user, span_warning("Access Denied."))
 			playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
-			return FALSE
+			return ATTACK_CHAIN_PROCEED
 		var/obj/item/disk/data/disk = I
 		if(!disk.buf)
 			to_chat(user, span_warning("Error: No data found."))
-			return FALSE
-		add_fingerprint(user)
+			return ATTACK_CHAIN_PROCEED
 		template = disk.buf.dna.Clone()
 		to_chat(user, span_notice("Upload of gene template for '[template.real_name]' complete!"))
-		return TRUE
-	else
-		return ..()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
 

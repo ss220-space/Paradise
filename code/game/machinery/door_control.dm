@@ -58,53 +58,61 @@
 	else
 		to_chat(user, "Error, no route to host.")
 
-/obj/machinery/door_control/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/detective_scanner))
-		return
 
-	if(!open)
+/obj/machinery/door_control/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/detective_scanner))
+		return ATTACK_CHAIN_PROCEED
+
+	if(!open || user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(is_pen(W))
-		rename_interactive(user, W)
-		return
+	if(is_pen(I))
+		rename_interactive(user, I)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(isassembly(W))
+	if(isassembly(I))
+		add_fingerprint(user)
 		if(device)
-			return
-		if(!user.drop_transfer_item_to_loc(W, src))
-			return
-
-		playsound(loc, W.usesound, 100, TRUE)
-		user.visible_message("[user] installs [W] into the button frame.", "You install [W] into the button frame.")
-		device = W
-
+			to_chat(user, span_warning("There is already [device.name] installed."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		playsound(loc, I.usesound, 100, TRUE)
+		user.visible_message(
+			span_notice("[user] installs [I] into the button frame."),
+			span_notice("You install [I] into the button frame."),
+		)
+		device = I
 		// ignore "readiness" of the assembly to not confuse players with multiple assembly states
 		if(!device.secured)
 			device.toggle_secure()
-
-		add_fingerprint(user)
 		update_icon(UPDATE_OVERLAYS)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(W, /obj/item/access_control))
-		var/obj/item/access_control/access_control = W
-		if(access_control.emagged)
-			return
-		if(access_electronics)
-			return
-		if(!user.drop_transfer_item_to_loc(W, src))
-			return
-		playsound(loc, W.usesound, 100, TRUE)
-		user.visible_message("[user] installs [W] into the button frame.", "You install [W] into the button frame.")
-		access_electronics = W
+	if(istype(I, /obj/item/access_control))
 		add_fingerprint(user)
+		var/obj/item/access_control/control = I
+		if(access_electronics)
+			to_chat(user, span_warning("The [name] already has [access_electronics] installed."))
+			return ATTACK_CHAIN_PROCEED
+		if(control.emagged)
+			to_chat(user, span_warning("The [control.name] is broken."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		playsound(loc, I.usesound, 100, TRUE)
+		user.visible_message(
+			span_notice("[user] installs [I] into the button frame."),
+			span_notice("You install [I] into the button frame."),
+		)
+		access_electronics = I
 		if(emagged)
 			emagged = FALSE
 		update_icon(UPDATE_OVERLAYS)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
+
 
 /obj/machinery/door_control/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
