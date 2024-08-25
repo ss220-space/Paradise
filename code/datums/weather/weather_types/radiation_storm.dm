@@ -38,10 +38,13 @@
 
 
 /datum/weather/rad_storm/weather_act(mob/living/target)
+	if(HAS_TRAIT(target, TRAIT_RADIMMUNE))
+		return
+
 	var/resist = target.getarmor(attack_flag = RAD)
 	target.apply_effect(20, IRRADIATE, resist)
 
-	if(!ishuman(target) || (RADIMMUNE in target.dna.species.species_traits) || !prob(max(0, 100 - resist)))
+	if(!ishuman(target) || !prob(max(0, 100 - resist)))
 		return
 
 	randmuti(target)

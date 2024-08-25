@@ -146,9 +146,8 @@
 
 
 /mob/living/carbon/human/proc/ChangeToHusk(update_appearance = TRUE)
-
 	// If the target has no DNA to begin with, its DNA can't be damaged beyond repair.
-	if(NO_DNA in dna.species.species_traits)
+	if(HAS_TRAIT(src, TRAIT_NO_DNA))
 		return FALSE
 	if(HAS_TRAIT_FROM(src, TRAIT_HUSK, GENERIC_TRAIT))
 		return FALSE

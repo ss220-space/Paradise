@@ -28,7 +28,7 @@
 	if(!user.bodyparts_by_name[check_zone(storedorgan.parent_organ_zone)])
 		to_chat(user, span_warning("Отсутствует требуемая часть тела!"))
 		return FALSE
-	if(NO_CYBERIMPS in user.dna.species.species_traits)
+	if(HAS_TRAIT(user, TRAIT_NO_CYBERIMPLANTS))
 		to_chat(user, span_warning("Ваш вид неспособен принять этот киберимплант!"))
 		return FALSE
 	storedorgan.insert(user)//insert stored organ into the user

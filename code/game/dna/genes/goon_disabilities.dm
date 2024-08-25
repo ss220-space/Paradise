@@ -42,7 +42,7 @@
 
 
 /datum/dna/gene/disability/radioactive/can_activate(mob/living/mutant, flags)
-	if((RADIMMUNE in mutant.dna.species.species_traits) && !(flags & MUTCHK_FORCED))
+	if(HAS_TRAIT(mutant, TRAIT_RADIMMUNE) && !(flags & MUTCHK_FORCED))
 		return FALSE
 	return TRUE
 

@@ -28,7 +28,13 @@
 	male_cough_sounds = list('sound/effects/mob_effects/slime_squish.ogg')
 	female_cough_sounds = list('sound/effects/mob_effects/slime_squish.ogg')
 
-	species_traits = list(LIPS, NO_SCAN, EXOTIC_COLOR, HAVE_REGENERATION)
+	inherent_traits = list(
+		TRAIT_EXOTIC_BLOOD,
+		TRAIT_HAS_LIPS,
+		TRAIT_HAS_REGENERATION,
+		TRAIT_NO_SCAN,
+		TRAIT_WATERBREATH,
+	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | NO_EYES
 	reagent_tag = PROCESS_ORG
@@ -76,7 +82,7 @@
 	var/evolved_slime = FALSE
 
 /datum/species/slime/on_species_gain(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	var/datum/action/innate/regrow/grow = locate() in H.actions
 	if(!grow)
 		grow = new
@@ -93,7 +99,6 @@
 	if(!changebeard)
 		changebeard = new
 		changebeard.Grant(H)
-	ADD_TRAIT(H, TRAIT_WATERBREATH, "species")
 	RegisterSignal(H, COMSIG_HUMAN_UPDATE_DNA, PROC_REF(blend))
 	blend(H)
 	add_verb(H, /mob/living/carbon/human/proc/emote_squish)
@@ -102,20 +107,15 @@
 
 
 /datum/species/slime/on_species_loss(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	var/datum/action/innate/regrow/grow = locate() in H.actions
-	if(grow)
-		grow.Remove(H)
+	grow?.Remove(H)
 	var/datum/action/innate/slimecolor/recolor = locate() in H.actions
-	if(recolor)
-		recolor.Remove(H)
+	recolor?.Remove(H)
 	var/datum/action/innate/slimehair/changehair = locate() in H.actions
-	if(changehair)
-		changehair.Remove(H)
+	changehair?.Remove(H)
 	var/datum/action/innate/slimebeard/changebeard = locate() in H.actions
-	if(changebeard)
-		changebeard.Remove(H)
-	REMOVE_TRAIT(H, TRAIT_WATERBREATH, "species")
+	changebeard?.Remove(H)
 	UnregisterSignal(H, COMSIG_HUMAN_UPDATE_DNA)
 	remove_verb(H, /mob/living/carbon/human/proc/emote_squish)
 	remove_verb(H, /mob/living/carbon/human/proc/emote_bubble)

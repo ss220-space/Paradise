@@ -53,7 +53,12 @@
 		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/wryn),
 	)
 
-	species_traits = list(LIPS, NO_BREATHE, NO_SCAN, HIVEMIND, HAVE_REGENERATION)
+	inherent_traits = list(
+		TRAIT_HAS_LIPS,
+		TRAIT_HAS_REGENERATION,
+		TRAIT_NO_BREATH,
+		TRAIT_NO_SCAN,
+	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR
 
@@ -68,17 +73,16 @@
 	default_hair = "Antennae"
 
 /datum/species/wryn/on_species_gain(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	var/datum/action/innate/wryn_sting/wryn_sting = locate() in H.actions
 	if(!wryn_sting)
 		wryn_sting = new
 		wryn_sting.Grant(H)
 
 /datum/species/wryn/on_species_loss(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	var/datum/action/innate/wryn_sting/wryn_sting = locate() in H.actions
-	if(wryn_sting)
-		wryn_sting.Remove(H)
+	wryn_sting?.Remove(H)
 
 /datum/species/wryn/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/comb_deafness = H.client.prefs.speciesprefs

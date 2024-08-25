@@ -55,7 +55,7 @@
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/h_target = target
-		if(h_target.dna && (PIERCEIMMUNE in h_target.dna.species.species_traits))
+		if(HAS_TRAIT(h_target, TRAIT_PIERCEIMMUNE))
 			playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
 			armed = FALSE
 			update_icon()
