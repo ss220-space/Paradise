@@ -70,7 +70,7 @@
 	item_color="yellow"
 	resistance_flags = NONE
 	toolspeedmod = 0.2
-	clothing_traits = list(TRAIT_CHUNKYFINGERS)
+	clothing_traits = list(TRAIT_NO_GUNS)
 
 
 /obj/item/clothing/gloves/color/fyellow/old
