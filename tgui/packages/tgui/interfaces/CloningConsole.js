@@ -311,7 +311,8 @@ const CloningConsoleMain = (props, context) => {
                   src={resolveAsset('pod_' + pod.status + '.gif')}
                   style={{
                     width: '100%',
-                    '-ms-interpolation-mode': 'nearest-neighbor',
+                    '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                    'image-rendering': 'pixelated',
                   }}
                 />
                 <Box color="label">Pod #{i + 1}</Box>

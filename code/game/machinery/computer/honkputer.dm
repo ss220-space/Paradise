@@ -80,12 +80,12 @@
 	switch(src.state)
 		if(STATE_DEFAULT)
 			if(src.authenticated)
-				dat += "<BR>\[ <A HREF='?src=[UID()];operation=logout'>Log Out</A> \]"
-				dat += "<BR>\[ <A HREF='?src=[UID()];operation=MessageHonkplanet'>Send an emergency message to Honkplanet</A> \]"
+				dat += "<BR>\[ <a href='byond://?src=[UID()];operation=logout'>Log Out</A> \]"
+				dat += "<BR>\[ <a href='byond://?src=[UID()];operation=MessageHonkplanet'>Send an emergency message to Honkplanet</A> \]"
 			else
-				dat += "<BR>\[ <A HREF='?src=[UID()];operation=login'>Log In</A> \]"
+				dat += "<BR>\[ <a href='byond://?src=[UID()];operation=login'>Log In</A> \]"
 
 
-	dat += "<BR>\[ [(src.state != STATE_DEFAULT) ? "<A HREF='?src=[UID()];operation=main'>Main Menu</A> | " : ""]<A HREF='?src=[user.UID()];mach_close=honkputer'>Close</A> \]"
+	dat += "<BR>\[ [(src.state != STATE_DEFAULT) ? "<a href='byond://?src=[UID()];operation=main'>Main Menu</A> | " : ""]<a href='byond://?src=[user.UID()];mach_close=honkputer'>Close</A> \]"
 	user << browse(dat, "window=honkputer;size=400x500")
 	onclose(user, "honkputer")
