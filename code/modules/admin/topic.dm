@@ -2553,7 +2553,7 @@
 		else if(istype(fax, /obj/item/paper_bundle))
 			//having multiple people turning pages on a paper_bundle can cause issues
 			//open a browse window listing the contents instead
-			var/data = "<!DOCTYPE html>"
+			var/data = {"<!DOCTYPE html><meta charset="UTF-8">"}
 			var/obj/item/paper_bundle/bundle = fax
 
 			for(var/page = 1 to length(bundle.papers))
