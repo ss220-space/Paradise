@@ -153,12 +153,12 @@
 		if(!creature.dna)
 			continue
 
-		if(NO_DNA in creature.dna?.species.species_traits)
+		if(NO_DNA in creature.dna.species.species_traits)
 			continue
 
 		var/resist = creature.getarmor(attack_flag = RAD)
 		var/chance = clamp(dna_mutation_chance * (1 - (resist / 100)), 0, 100)
-		if(!(RADIMMUNE in creature.dna?.species.species_traits) && prob(chance))
+		if(!(RADIMMUNE in creature.dna.species.species_traits) && prob(chance))
 			randmut(creature, FALSE)
 			creature.check_genes(MUTCHK_FORCED)
 
