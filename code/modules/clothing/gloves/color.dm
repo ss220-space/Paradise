@@ -62,7 +62,7 @@
 /obj/item/clothing/gloves/color/fyellow                             //Cheap Chinese Crap
 	desc = "These gloves are cheap copies of the coveted gloves, no way this can end badly."
 	name = "budget insulated gloves"
-	icon_state = "yellow"
+	icon_state = "fyellow"
 	item_state = "ygloves"
 	siemens_coefficient = 0			//Set to a default of 0
 	belt_icon = "ygloves"
