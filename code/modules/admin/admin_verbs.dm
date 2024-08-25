@@ -762,7 +762,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			logmsg = "hunter."
 		if("Crew Traitor")
 			if(!H.mind)
-				to_chat(usr, "<span class='warning'>ERROR: This mob ([H]) has no mind!</span>")
+				to_chat(usr, "<span class='warning'>ERROR: This mob ([H]) has no mind!</span>", confidential=TRUE)
 				return
 			var/list/possible_traitors = list()
 			for(var/mob/living/player in GLOB.alive_mob_list)
