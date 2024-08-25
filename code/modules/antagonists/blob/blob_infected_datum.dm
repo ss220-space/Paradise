@@ -53,6 +53,7 @@
 	var/return_value = ..()
 	burst_wait_time = rand(time_to_burst_low, time_to_burst_hight)
 	burst_waited_time = 0
+	atmos_immunities = get_suitable_blob_atmos_immunities(owner)
 	if(start_process)
 		process_blob_player()
 	return return_value
@@ -265,6 +266,11 @@
 		borer.leave_host()
 		borer.death()
 
+/datum/antagonist/blob_infected/proc/get_suitable_blob_atmos_immunities(mob/living/affected)
+	if(isanimal(affected))
+		return new /datum/blob_atmos_immunities/simple_animal()
+	if(ishuman(affected))
+		return new /datum/blob_atmos_immunities/human()
 
 /**
  * Takes any datum `source` and checks it for blob_infected datum.

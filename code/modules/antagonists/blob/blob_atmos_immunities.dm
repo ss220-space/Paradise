@@ -85,8 +85,3 @@
 		return TRUE
 	return FALSE
 
-/proc/get_suitable_blob_atmos_immunities(mob/living/affected)
-	if(isanimal(affected))
-		return new /datum/blob_atmos_immunities/simple_animal()
-	if(ishuman(affected))
-		return new /datum/blob_atmos_immunities/human()
