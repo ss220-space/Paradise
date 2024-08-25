@@ -344,18 +344,27 @@
 	qdel(src)
 	qdel(I)
 
-
 /obj/item/reagent_containers/food/snacks/rawcookies/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/food/snacks/piece_coconut))
-		if(isturf(loc))
-			new /obj/item/reagent_containers/food/snacks/rawcookies/cocochips(loc)
-			to_chat(user, span_notice("You sprinkle [I] all over the cookies."))
-			qdel(src)
-			qdel(I)
-		else
-			to_chat(user, span_notice("You need to put [src] on a surface to add this."))
-	else
-		return ..()
+	. = ..()
+
+	// Dough + rolling pin = flat dough
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !istype(I, /obj/item/reagent_containers/food/snacks/piece_coconut))
+		return .
+
+	if(!isturf(loc))
+		to_chat(user, span_warning("You need to put [src] on a surface to add [I]."))
+		return .
+
+	if(!user.drop_transfer_item_to_loc(I, src))
+		return .
+
+	. |= ATTACK_CHAIN_BLOCKED_ALL
+	var/obj/item/reagent_containers/food/snacks/rawcookies/cocochips/cocochips = new(loc)
+	transfer_fingerprints_to(cocochips)
+	cocochips.add_fingerprint(user)
+	to_chat(user, span_notice("You sprinkle [I] all over the cookies."))
+	qdel(src)
+	qdel(I)
 
 /obj/item/reagent_containers/food/snacks/rawcookies/chocochips
 	name = "raw cookies"
