@@ -144,23 +144,20 @@
 				INVOKE_ASYNC(src, PROC_REF(give_mind_lesser), monke)
 	return
 
+
 /datum/supermatter_explosive_effects/proc/handle_genetic_mutation()
 	for(var/mob/living/creature in GLOB.alive_mob_list)
-		var/turf/T = get_turf(creature)
-		if(!T || T.z != src.z)
+		if(!creature.dna || HAS_TRAIT(creature, TRAIT_NO_DNA) || HAS_TRAIT(creature, TRAIT_RADIMMUNE))
 			continue
-
-		if(!creature.dna)
+		var/turf/creature_turf = get_turf(creature)
+		if(!creature_turf || creature_turf.z != z)
 			continue
-
-		if(NO_DNA in creature.dna.species.species_traits)
-			continue
-
 		var/resist = creature.getarmor(attack_flag = RAD)
 		var/chance = clamp(dna_mutation_chance * (1 - (resist / 100)), 0, 100)
-		if(!(RADIMMUNE in creature.dna.species.species_traits) && prob(chance))
+		if(prob(chance))
 			randmut(creature, FALSE)
 			creature.check_genes(MUTCHK_FORCED)
+
 
 /datum/supermatter_explosive_effects/proc/give_mind_lesser(mob/living/carbon/human/lesser/monke)
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to awaken as [monke]?", ROLE_SENTIENT, TRUE, source = monke)
