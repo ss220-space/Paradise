@@ -51,16 +51,17 @@
 
 
 /obj/item/storage/ashtray/attackby(obj/item/I, mob/user, params)
-	if(!can_be_inserted(I))
-		return
+	if(user.a_intent == INTENT_HARM || !can_be_inserted(I))
+		return ..()
+
+	add_fingerprint(user)
+	. = ATTACK_CHAIN_BLOCKED_ALL
 
 	var/is_cig = istype(I, /obj/item/clothing/mask/cigarette)
 	if(is_cig || istype(I, /obj/item/cigbutt) || istype(I, /obj/item/match))
 		if(!user.drop_item_ground(I))
-			return
-
+			return ..()
 		handle_item_insertion(I)
-
 		var/message_done = FALSE
 		if(is_cig)
 			var/obj/item/clothing/mask/cigarette/cig = I
@@ -72,10 +73,8 @@
 				qdel(cig)
 			else
 				to_chat(user, "You place [cig] in [src] without even smoking it. Why would you do that?")
-
 		if(!message_done)
 			visible_message("[user] places [I] in [src].")
-		add_fingerprint(user)
 		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 
 

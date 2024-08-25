@@ -238,7 +238,7 @@ GLOBAL_LIST_INIT(meteors_space_dust, list(/obj/effect/meteor/space_dust/weak)) /
 	if(istype(I, /obj/item/pickaxe))
 		make_debris()
 		qdel(src)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
 

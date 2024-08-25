@@ -108,9 +108,10 @@
 	RefreshParts()
 
 /obj/machinery/r_n_d/experimentor/RefreshParts()
+	badThingCoeff = initial(badThingCoeff)
+	resetTime = initial(resetTime)
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		if(resetTime > 0 && (resetTime - M.rating) >= 1)
-			resetTime -= M.rating
+		resetTime -= M.rating
 	for(var/obj/item/stock_parts/scanning_module/M in component_parts)
 		badThingCoeff += M.rating*2
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
@@ -129,57 +130,67 @@
 	icon_state = "h_lathe[recentlyExperimented ? "_wloop" : ""]"
 
 
-/obj/machinery/r_n_d/experimentor/attackby(obj/item/O, mob/user, params)
-	if(shocked)
+/obj/machinery/r_n_d/experimentor/attackby(obj/item/I, mob/user, params)
+	if(shocked && shock(user, 50))
 		add_fingerprint(user)
-		shock(user,50)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(default_deconstruction_screwdriver(user, "h_lathe_maint", "h_lathe", O))
-		add_fingerprint(user)
-		if(linked_console)
-			linked_console.linked_destroy = null
-			linked_console = null
-		return
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
-	if(exchange_parts(user, O))
-		return
-
-	if(panel_open && O.tool_behaviour == TOOL_CROWBAR)
-		default_deconstruction_crowbar(user, O)
-		return
-
-	if(!checkCircumstances(O))
-		to_chat(user, "<span class='warning'>The [O] is not yet valid for the [src] and must be completed!</span>")
-		return
-
-	if(disabled)
-		return
-	if(!linked_console)
-		to_chat(user, "<span class='warning'>The [src] must be linked to an R&D console first!</span>")
-		return
-	if(loaded_item)
-		to_chat(user, "<span class='warning'>The [src] is already loaded.</span>")
-		return
-	if(isitem(O))
-		if(!O.origin_tech)
-			to_chat(user, "<span class='warning'>This doesn't seem to have a tech origin!</span>")
-			return
-		var/list/temp_tech = ConvertReqString2List(O.origin_tech)
-		if(temp_tech.len == 0)
-			to_chat(user, "<span class='warning'>You cannot experiment on this item!</span>")
-			return
-		if(!user.drop_transfer_item_to_loc(O, src))
-			return
-		loaded_item = O
-		to_chat(user, "<span class='notice'>You add the [O.name] to the machine.</span>")
-		flick("h_lathe_load", src)
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	add_fingerprint(user)
-	return
+	if(disabled)
+		to_chat(user, span_warning("The [name] is offline."))
+		return ATTACK_CHAIN_PROCEED
+	if(!linked_console)
+		to_chat(user, span_warning("The [name] should be linked to an R&D console first."))
+		return ATTACK_CHAIN_PROCEED
+	if(loaded_item)
+		to_chat(user, span_warning("The [name] is already loaded."))
+		return ATTACK_CHAIN_PROCEED
+	if(!checkCircumstances(I))
+		to_chat(user, span_warning("The [I.name] is not yet valid for [src] and must be completed."))
+		return ATTACK_CHAIN_PROCEED
+	if(!I.origin_tech)
+		to_chat(user, span_warning("The [I.name] has no technological origin."))
+		return ATTACK_CHAIN_PROCEED
+	var/list/temp_tech = ConvertReqString2List(I.origin_tech)
+	if(!length(temp_tech))
+		to_chat(user, span_warning("The [I.name] has no technological origin."))
+		return ATTACK_CHAIN_PROCEED
+	if(!user.drop_transfer_item_to_loc(I, src))
+		return ..()
+	loaded_item = I
+	to_chat(user, span_notice("You have added [I] to [src]."))
+	flick("h_lathe_load", src)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/machinery/r_n_d/experimentor/default_deconstruction_crowbar(user, obj/item/O)
+
+/obj/machinery/r_n_d/experimentor/screwdriver_act(mob/living/user, obj/item/I)
+	if(shocked && shock(user, 50))
+		add_fingerprint(user)
+		return TRUE
+	. = default_deconstruction_screwdriver(user, "h_lathe_maint", "h_lathe", I)
+	if(. && linked_console)
+		linked_console.linked_destroy = null
+		linked_console = null
+
+
+/obj/machinery/r_n_d/experimentor/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(shocked && shock(user, 50))
+		add_fingerprint(user)
+		return .
+	if(!panel_open)
+		add_fingerprint(user)
+		to_chat(user, span_warning("Open the maintenance panel first."))
+		return .
 	ejectItem()
-	..(O)
+	default_deconstruction_crowbar(user, I)
+
 
 /obj/machinery/r_n_d/experimentor/attack_hand(mob/user)
 	if(..())

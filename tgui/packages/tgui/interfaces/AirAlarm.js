@@ -262,8 +262,8 @@ const AirAlarmVentsView = (props, context) => {
             }
           />
           <Button
-            content={v.direction ? 'Blowing' : 'Siphoning'}
-            icon={v.direction ? 'sign-out-alt' : 'sign-in-alt'}
+            content={v.direction === 'release' ? 'Blowing' : 'Siphoning'}
+            icon={v.direction === 'release' ? 'sign-out-alt' : 'sign-in-alt'}
             onClick={() =>
               act('command', {
                 cmd: 'direction',

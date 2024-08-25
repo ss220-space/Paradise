@@ -5,11 +5,15 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder
 	origin_tech = "combat=3;materials=2"
 	fire_sound = 'sound/weapons/gunshots/1rev.ogg'
+	/// If TRUE will show empty casing on examine
+	var/show_live_rounds = TRUE
+
 
 /obj/item/gun/projectile/revolver/Initialize(mapload)
 	. = ..()
 	if(!istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
 		verbs -= /obj/item/gun/projectile/revolver/verb/spin
+
 
 /obj/item/gun/projectile/revolver/chamber_round(spin = TRUE)
 	if(!magazine)
@@ -18,43 +22,55 @@
 		chambered = magazine.get_round(TRUE)
 	else
 		chambered = magazine.stored_ammo[1]
-	return
+
 
 /obj/item/gun/projectile/revolver/shoot_with_empty_chamber(mob/living/user)
 	..()
 	chamber_round(TRUE)
 
-/obj/item/gun/projectile/revolver/process_chamber()
-	return ..(FALSE, TRUE)
 
-/obj/item/gun/projectile/revolver/attackby(obj/item/A, mob/user, params)
-	. = ..()
-	if(.)
-		return
-	if(istype(A, /obj/item/ammo_box/speedloader) || istype(A, /obj/item/ammo_casing))
-		var/num_loaded = magazine.attackby(A, user, params, TRUE)
+/obj/item/gun/projectile/revolver/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
+	return ..()
+
+
+/obj/item/gun/projectile/revolver/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/ammo_box/speedloader) || istype(I, /obj/item/ammo_casing))
+		add_fingerprint(user)
+		var/num_loaded = magazine.reload(I, user)
 		if(num_loaded)
-			balloon_alert(user, "[declension_ru(num_loaded, "заряжен [num_loaded] патрон",  "заряжено [num_loaded] патрона",  "заряжено [num_loaded] патронов")]")
-			A.update_icon()
 			update_icon()
 			chamber_round(FALSE)
+			return ATTACK_CHAIN_BLOCKED_ALL
+		return ATTACK_CHAIN_PROCEED
+
+	return ..()
+
 
 /obj/item/gun/projectile/revolver/attack_self(mob/living/user)
+	add_fingerprint(user)
 	var/num_unloaded = 0
 	chambered = null
-	while(get_ammo(FALSE) > 0)
+	var/atom/drop_loc = drop_location()
+	while(get_ammo() > 0)
 		var/obj/item/ammo_casing/CB
 		CB = magazine.get_round(FALSE)
 		if(CB)
-			CB.loc = get_turf(loc)
+			CB.forceMove(drop_loc)
+			CB.pixel_x = rand(-10, 10)
+			CB.pixel_y = rand(-10, 10)
+			CB.setDir(pick(GLOB.alldirs))
+			CB.update_appearance()
 			CB.SpinAnimation(10, 1)
-			CB.update_icon()
-			playsound(get_turf(CB), "casingdrop", 60, 1)
+			playsound(drop_loc, CB.casing_drop_sound, 60, TRUE)
 			num_unloaded++
 	if(num_unloaded)
 		balloon_alert(user, "[declension_ru(num_unloaded, "разряжен [num_unloaded] патрон",  "разряжено [num_unloaded] патрона",  "разряжено [num_unloaded] патронов")]")
 	else
 		balloon_alert(user, "уже разряжено!")
+
+
+/// Removes all the shells in the cylinder
+/obj/item/gun/projectile/revolver/proc/unload(user)
 
 /obj/item/gun/projectile/revolver/verb/spin()
 	set name = "Spin Chamber"
@@ -85,7 +101,9 @@
 
 /obj/item/gun/projectile/revolver/examine(mob/user)
 	. = ..()
-	. += span_notice("[get_ammo(FALSE, FALSE)] of those are live rounds")
+	if(show_live_rounds)
+		. += span_notice("[get_ammo(FALSE, FALSE)] of those are live rounds")
+
 
 /obj/item/gun/projectile/revolver/detective
 	name = ".38 Mars Special"
@@ -160,14 +178,16 @@
 		return
 	..()
 
-/obj/item/gun/projectile/revolver/fingergun/attackby(obj/item/A, mob/user, params)
-	return
+
+/obj/item/gun/projectile/revolver/fingergun/attackby(obj/item/I, mob/user, params)
+	return ATTACK_CHAIN_PROCEED
+
 
 /obj/item/gun/projectile/revolver/fingergun/attack_self(mob/living/user)
 	if(istype(user))
 		to_chat(user, span_notice("You holster your fingers. Another time."))
 	qdel(src)
-	return
+
 
 /obj/item/gun/projectile/revolver/mateba
 	name = "\improper Unica 6 auto-revolver"
@@ -220,7 +240,7 @@
 /obj/item/gun/projectile/revolver/russian/Initialize(mapload)
 	. = ..()
 	Spin()
-	update_icon()
+
 
 /obj/item/gun/projectile/revolver/russian/proc/Spin()
 	chambered = null
@@ -229,36 +249,53 @@
 		chamber_round()
 	spun = TRUE
 
-/obj/item/gun/projectile/revolver/russian/attackby(obj/item/A, mob/user, params)
-	var/num_loaded = ..()
-	if(num_loaded)
-		user.visible_message("[user] loads a single bullet into the revolver and spins the chamber.", span_notice("You load a single bullet into the chamber and spin it."))
-	else
-		user.visible_message("[user] spins the chamber of the revolver.", span_notice("You spin the revolver's chamber."))
-	if(get_ammo() > 0)
-		Spin()
-	update_icon()
-	A.update_icon()
-	return
+
+/obj/item/gun/projectile/revolver/russian/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/ammo_box/speedloader) || istype(I, /obj/item/ammo_casing))
+		if(get_ammo() > 0)
+			to_chat(user, span_warning("The [name] can only hold a single bullet."))
+			return ATTACK_CHAIN_PROCEED
+		var/loaded = magazine.reload(I, user, silent = TRUE)
+		if(loaded)
+			user.visible_message(
+				span_notice("[user] has loaded a single bullet into the revolver and spins the chamber."),
+				span_notice("You have loaded a single bullet into the chamber and spin it."),
+			)
+			Spin()
+			return ATTACK_CHAIN_BLOCKED_ALL
+		return ATTACK_CHAIN_PROCEED
+
+	return ..()
+
 
 /obj/item/gun/projectile/revolver/russian/attack_self(mob/user)
+	add_fingerprint(user)
 	if(!spun && can_shoot(user))
-		user.visible_message("[user] spins the chamber of the revolver.", span_notice("You spin the revolver's chamber."))
+		user.visible_message(
+			span_notice("[user] has spinned the chamber of the revolver."),
+			span_notice("You have spinned the revolver's chamber.")
+		)
 		Spin()
+		return
+	var/num_unloaded = 0
+	var/atom/drop_loc = drop_location()
+	while(get_ammo() > 0)
+		var/obj/item/ammo_casing/CB
+		CB = magazine.get_round()
+		chambered = null
+		CB.forceMove(drop_loc)
+		CB.pixel_x = rand(-10, 10)
+		CB.pixel_y = rand(-10, 10)
+		CB.setDir(pick(GLOB.alldirs))
+		CB.update_appearance()
+		CB.SpinAnimation(10, 1)
+		playsound(drop_loc, CB.casing_drop_sound, 60, TRUE)
+		num_unloaded++
+	if(num_unloaded)
+		balloon_alert(user, "[declension_ru(num_unloaded, "разряжен [num_unloaded] патрон",  "разряжено [num_unloaded] патрона",  "разряжено [num_unloaded] патронов")]")
 	else
-		var/num_unloaded = 0
-		while(get_ammo() > 0)
-			var/obj/item/ammo_casing/CB
-			CB = magazine.get_round()
-			chambered = null
-			CB.loc = get_turf(loc)
-			CB.update_icon()
-			playsound(get_turf(CB), "casingdrop", 60, 1)
-			num_unloaded++
-		if(num_unloaded)
-			balloon_alert(user, "[declension_ru(num_unloaded, "разряжен [num_unloaded] патрон",  "разряжено [num_unloaded] патрона",  "разряжено [num_unloaded] патронов")]")
-		else
-			balloon_alert(user, "уже разряжено!")
+		balloon_alert(user, "уже разряжено!")
+
 
 /obj/item/gun/projectile/revolver/russian/afterattack(atom/target, mob/living/user, flag, params)
 	if(flag)
@@ -327,15 +364,17 @@
 	var/unscrewed = TRUE
 	var/obj/item/weaponcrafting/revolverbarrel/barrel
 
-/obj/item/gun/projectile/revolver/improvised/New()
-	..()
+
+/obj/item/gun/projectile/revolver/improvised/Initialize(mapload)
+	. = ..()
 	barrel = new	// I just want it to spawn with barrel.
 	update_icon(UPDATE_OVERLAYS)
+
 
 /obj/item/gun/projectile/revolver/improvised/update_overlays()
 	. = ..()
 	if(magazine)
-		. += icon('icons/obj/weapons/projectile.dmi', magazine.icon_state)
+		. += mutable_appearance('icons/obj/weapons/projectile.dmi', magazine.icon_state)
 	if(barrel)
 		var/icon/barrel_icon = icon('icons/obj/weapons/projectile.dmi', barrel.icon_state)
 		if(unscrewed)
@@ -367,7 +406,7 @@
 
 	switch(choice)
 		if("Barrel")
-			if(!do_after(user, 8 SECONDS, src, NONE))
+			if(!do_after(user, 8 SECONDS, src, NONE, category = DA_CAT_TOOL))
 				return
 			to_chat(user, span_notice("You unscrew [barrel] from [src]."))
 			user.put_in_hands(barrel)
@@ -380,45 +419,63 @@
 	playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 	update_icon(UPDATE_OVERLAYS)
 
+
 /obj/item/gun/projectile/revolver/improvised/attack_hand(mob/user)
 	if(loc == user && unscrewed)
 		radial_menu(user)
-	else ..()
+		return
+	return ..()
+
 
 /obj/item/gun/projectile/revolver/improvised/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume))
-		return
 	if(!magazine || !barrel)
-		to_chat(user, span_notice("You can't do it without cylinder and barrel, attached to revolver."))
-	else
-		to_chat(user, span_notice("You [unscrewed ? "screwed [magazine] to the place" : "unscrewed [magazine] from [src]"]."))
-		unscrewed = !unscrewed
-		update_icon(UPDATE_OVERLAYS)
+		add_fingerprint(user)
+		to_chat(user, span_notice("You cannot do this without cylinder and barrel, attached to the revolver."))
+		return .
+	to_chat(user, span_notice("You start to [unscrewed ? "assemble" : "disassemble"] the revolver..."))
+	if(!I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume) || !magazine || !barrel)
+		return .
+	unscrewed = !unscrewed
+	to_chat(user, span_notice("You have [unscrewed ? "disassembled" : "assembled"] the revolver."))
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/gun/projectile/revolver/improvised/attackby(obj/item/A, mob/user, params)
-	if(unscrewed)
-		if(istype(A, /obj/item/ammo_box/magazine/internal/cylinder/improvised))
-			if(magazine)
-				to_chat(user, span_notice("[src] already have [magazine]."))
-			else if(user.drop_transfer_item_to_loc(A, src))
-				magazine = A
-				verbs += /obj/item/gun/projectile/revolver/verb/spin
-				update_icon(UPDATE_OVERLAYS)
-				playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
-		else if(istype(A, /obj/item/weaponcrafting/revolverbarrel))
-			if(barrel)
-				to_chat(user, span_notice("[src] already have [barrel]."))
-			else if(do_after(user, 8 SECONDS, src, NONE))
 
-				if(user.drop_transfer_item_to_loc(A, src))
-					var/obj/item/weaponcrafting/revolverbarrel/new_barrel = A
-					barrel = A
-					fire_sound = new_barrel.new_fire_sound
-					update_icon(UPDATE_OVERLAYS)
-					playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
-	else
+/obj/item/gun/projectile/revolver/improvised/attackby(obj/item/I, mob/user, params)
+	if(!unscrewed)
 		return ..()
+
+	. = ATTACK_CHAIN_PROCEED
+	add_fingerprint(user)
+	if(istype(I, /obj/item/ammo_box/magazine/internal/cylinder/improvised))
+		if(magazine)
+			to_chat(user, span_notice("The [name] already has [magazine]."))
+			return .
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return .
+		magazine = I
+		verbs |= /obj/item/gun/projectile/revolver/verb/spin
+		update_icon(UPDATE_OVERLAYS)
+		playsound(loc, 'sound/items/screwdriver.ogg', 40, TRUE)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/weaponcrafting/revolverbarrel))
+		var/obj/item/weaponcrafting/revolverbarrel/new_barrel = I
+		if(barrel)
+			to_chat(user, span_notice("The [name] already has [barrel]."))
+			return .
+		to_chat(user, span_notice("You start to install [new_barrel] to [src]..."))
+		if(!do_after(user, 8 SECONDS, src, NONE, category = DA_CAT_TOOL) || barrel)
+			return .
+		if(!user.drop_transfer_item_to_loc(new_barrel, src))
+			return .
+		to_chat(user, span_notice("You have installed [new_barrel] to [src]."))
+		barrel = new_barrel
+		fire_sound = new_barrel.new_fire_sound
+		update_icon(UPDATE_OVERLAYS)
+		playsound(loc, 'sound/items/screwdriver.ogg', 40, TRUE)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 
 /////////////////////////////
 // DOUBLE BARRELED SHOTGUN //
@@ -452,38 +509,51 @@
 	add_skin("Rosewood", "dshotgun-p")
 
 
-/obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/A, mob/user, params)
-	if(istype(A, /obj/item/ammo_box/speedloader) || istype(A, /obj/item/ammo_casing))
-		chamber_round()
-	if(istype(A, /obj/item/melee/energy))
-		var/obj/item/melee/energy/W = A
-		if(W.active)
-			sawoff(user)
-	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))
-		sawoff(user)
-	else
-		return ..()
+/obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/circular_saw) || istype(I, /obj/item/gun/energy/plasmacutter))
+		add_fingerprint(user)
+		if(sawoff(user))
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		return ATTACK_CHAIN_PROCEED
+
+	if(istype(I, /obj/item/melee/energy))
+		add_fingerprint(user)
+		var/obj/item/melee/energy/sword = I
+		if(sword.active && sawoff(user))
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		return ATTACK_CHAIN_PROCEED
+
+	return ..()
+
 
 /obj/item/gun/projectile/revolver/doublebarrel/sawoff(mob/user)
 	. = ..()
-	weapon_weight = WEAPON_MEDIUM
-	can_holster = TRUE
+	if(.)
+		weapon_weight = WEAPON_MEDIUM
+		can_holster = TRUE
+
 
 /obj/item/gun/projectile/revolver/doublebarrel/attack_self(mob/living/user)
+	add_fingerprint(user)
 	var/num_unloaded = 0
-	while(get_ammo(FALSE) > 0)
+	var/atom/drop_loc = drop_location()
+	while(get_ammo() > 0)
 		var/obj/item/ammo_casing/CB
 		CB = magazine.get_round(0)
 		chambered = null
-		CB.loc = get_turf(loc)
+		CB.forceMove(drop_loc)
+		CB.pixel_x = rand(-10, 10)
+		CB.pixel_y = rand(-10, 10)
+		CB.setDir(pick(GLOB.alldirs))
+		CB.update_appearance()
 		CB.SpinAnimation(10, 1)
-		CB.update_icon()
-		playsound(get_turf(CB), 'sound/weapons/gun_interactions/shotgun_fall.ogg', 70, 1)
+		playsound(drop_loc, CB.casing_drop_sound, 70, TRUE)
 		num_unloaded++
 	if(num_unloaded)
 		balloon_alert(user, "[declension_ru(num_unloaded, "разряжен [num_unloaded] патрон",  "разряжено [num_unloaded] патрона",  "разряжено [num_unloaded] патронов")]")
 	else
 		balloon_alert(user, "уже разряжено!")
+
 
 // IMPROVISED SHOTGUN //
 
@@ -500,22 +570,27 @@
 	sawn_desc = "I'm just here for the gasoline."
 	unique_rename = FALSE
 	unique_reskin = FALSE
-	var/slung = FALSE
 	pb_knockback = 0
+	var/slung = FALSE
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/A, mob/user, params)
-	if(istype(A, /obj/item/stack/cable_coil) && !sawn_state)
-		var/obj/item/stack/cable_coil/C = A
-		if(C.use(10))
-			slot_flags = ITEM_SLOT_BACK
-			balloon_alert(user, "присоединён самодельный ремень!")
-			slung = TRUE
-			update_icon()
-		else
+
+/obj/item/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/I, mob/user, params)
+	if(iscoil(I))
+		add_fingerprint(user)
+		var/obj/item/stack/cable_coil/coil = I
+		if(sawn_state == SAWN_OFF)
+			balloon_alert(user, "не совместимо!")
+			return ATTACK_CHAIN_PROCEED
+		if(!coil.use(10))
 			balloon_alert(user, "нужно больше кабеля!")
-			return
-	else
-		return ..()
+			return ATTACK_CHAIN_PROCEED
+		slot_flags |= ITEM_SLOT_BACK
+		balloon_alert(user, "присоединён самодельный ремень!")
+		slung = TRUE
+		update_icon()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
 
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/update_icon_state()
@@ -525,7 +600,7 @@
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/sawoff(mob/user)
 	. = ..()
 	if(. && slung) //sawing off the gun removes the sling
-		new /obj/item/stack/cable_coil(get_turf(src), 10)
+		new /obj/item/stack/cable_coil(drop_location(), 10)
 		slung = FALSE
 		update_icon()
 
@@ -552,20 +627,24 @@
 	suppressed = TRUE
 	needs_permit = FALSE //its just a cane beepsky.....
 
+
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/is_crutch()
 	return 2
+
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/update_icon_state()
 	return
 
+
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/update_overlays()
 	return list()
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/attackby(obj/item/A, mob/user, params)
-	if(istype(A, /obj/item/stack/cable_coil))
-		return
-	else
-		return ..()
+
+/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/attackby(obj/item/I, mob/user, params)
+	if(iscoil(I))
+		return ATTACK_CHAIN_PROCEED
+	return ..()
+
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/examine(mob/user) // HAD TO REPEAT EXAMINE CODE BECAUSE GUN CODE DOESNT STEALTH
 	var/f_name = "\a [src]."

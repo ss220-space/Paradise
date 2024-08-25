@@ -106,41 +106,48 @@
 			maptext_x = 8
 	maptext = "<font face='Small Fonts'>[ticket_number]</font>"
 
+
 /obj/machinery/ticket_machine/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(istype(I, /obj/item/hand_labeler_refill))
-		if(!(ticket_number >= max_number))
-			to_chat(user, "<span class='notice'>[src] refuses [I]! There [max_number-ticket_number==1 ? "is" : "are"] still [max_number-ticket_number] ticket\s left!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start to refill [src]'s ticket holder (doing this will reset its ticket count!).</span>")
-		if(do_after(user, 3 SECONDS, src))
-			add_fingerprint(user)
-			to_chat(user, "<span class='notice'>You insert [I] into [src] as it whirs nondescriptly.</span>")
-			user.drop_transfer_item_to_loc(I, src)
-			qdel(I)
-			ticket_number = 0
-			current_number = 0
-			for(var/obj/item/ticket_machine_ticket/ticket in tickets)
-				ticket.audible_message("<span class='notice'>\the [ticket] disperses!</span>")
-				qdel(ticket)
-			tickets.Cut()
-			max_number = initial(max_number)
-			update_icon(UPDATE_ICON_STATE)
-			handle_maptext()
-			return
-	else if(I.GetID())
-		var/obj/item/card/id/heldID = I.GetID()
-		if(ACCESS_HOP in heldID.access)
-			add_fingerprint(user)
-			dispense_enabled = !dispense_enabled
-			to_chat(user, "<span class='notice'>You [dispense_enabled ? "enable" : "disable"] [src], it will [dispense_enabled ? "now" : "no longer"] dispense tickets!</span>")
-			handle_maptext()
-			return
-		to_chat(user, "<span class='warning'>You do not have the required access to [dispense_enabled ? "disable" : "enable"] the ticket machine.</span>")
-		return
+		add_fingerprint(user)
+		if(ticket_number < max_number)
+			var/tickets_left = max_number - ticket_number
+			to_chat(user, span_warning("The [name] refuses [I]! There [tickets_left == 1 ? "is" : "are"] still [tickets_left] ticket\s left!"))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You start to refill [src]'s ticket holder (doing this will reset its ticket count!)."))
+		if(!do_after(user, 3 SECONDS, src))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You have inserted [I] into [src] as it whirs nondescriptly."))
+		qdel(I)
+		ticket_number = 0
+		current_number = 0
+		for(var/obj/item/ticket_machine_ticket/ticket in tickets)
+			ticket.audible_message(span_notice("The [ticket.name] disperses!"))
+			qdel(ticket)
+		tickets.Cut()
+		max_number = initial(max_number)
+		update_icon(UPDATE_ICON_STATE)
+		handle_maptext()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	var/obj/item/card/id/id_card = I.GetID()
+	if(id_card)
+		add_fingerprint(user)
+		if(!(ACCESS_HOP in id_card.access))
+			to_chat(user, span_warning("You do not have the required access to [dispense_enabled ? "disable" : "enable"] the ticket machine."))
+			return ATTACK_CHAIN_PROCEED
+		dispense_enabled = !dispense_enabled
+		to_chat(user, span_notice("You have [dispense_enabled ? "enabled" : "disabled"] [src], it will [dispense_enabled ? "now" : "no longer"] dispense tickets."))
+		handle_maptext()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
 
-/obj/machinery/ticket_machine/proc/reset_cooldown()
-	ready = TRUE
 
 /obj/machinery/ticket_machine/attack_hand(mob/living/carbon/user)
 	. = ..()
@@ -171,7 +178,7 @@
 	tickets += theirticket
 	if(emagged) //Emag the machine to destroy the HOP's life.
 		ready = FALSE
-		addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), cooldown)//Small cooldown to prevent piles of flaming tickets
+		addtimer(VARSET_CALLBACK(src, ready, TRUE), cooldown)	//Small cooldown to prevent piles of flaming tickets
 		theirticket.fire_act()
 		user.drop_from_active_hand()
 		user.adjust_fire_stacks(1)
@@ -204,18 +211,31 @@
 	. = ..()
 	maptext = saved_maptext //For some reason, storage code removes all maptext off objs, this stops its number from being wiped off when taken out of storage.
 
-/obj/item/ticket_machine_ticket/attackby(obj/item/P, mob/living/carbon/human/user, params) //Stolen from papercode
-	..()
-	if(is_hot(P))
-		if((CLUMSY in user.mutations) && prob(10))
-			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
-								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
-			user.drop_from_active_hand()
-			user.adjust_fire_stacks(1)
-			user.IgniteMob()
-			return
-		user.visible_message("<span class='danger'>[user] lights [src] ablaze with [P]!</span>", "<span class='danger'>You light [src] on fire!</span>")
-		fire_act()
+
+/obj/item/ticket_machine_ticket/attackby(obj/item/I, mob/living/user, params) //Stolen from papercode
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !is_hot(I) || !Adjacent(user))
+		return .
+
+	. |= ATTACK_CHAIN_BLOCKED_ALL
+	add_fingerprint(user)
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
+		user.visible_message(
+			span_warning("[user] accidentally ignites [user.p_them()]self!"),
+			span_userdanger("You miss the ticket and accidentally light yourself on fire!"),
+		)
+		user.drop_item_ground(I)
+		user.adjust_fire_stacks(1)
+		user.IgniteMob()
+		return .
+
+	user.drop_item_ground(src)
+	user.visible_message(
+		span_danger("[user] lights [src] ablaze with [I]!"),
+		span_danger("You light [src] on fire!"),
+	)
+	fire_act()
+
 
 /obj/item/paper/extinguish()
 	..()

@@ -55,49 +55,69 @@
 	name = displayed.name
 	displayed.pixel_x = 0
 	displayed.pixel_y = 0
-	displayed.forceMove(src)
+	if(displayed.loc != src)
+		displayed.forceMove(src)
 	if(istype(D, /obj/item/poster))
 		qdel(D)
 
-/obj/item/picture_frame/attackby(obj/item/I, mob/user)
-	if(I.tool_behaviour == TOOL_SCREWDRIVER)
+
+/obj/item/picture_frame/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/poster))
+		add_fingerprint(user)
 		if(displayed)
-			playsound(src, I.usesound, 100, 1)
-			user.visible_message("<span class='warning'>[user] unfastens \the [displayed] out of \the [src].</span>", "<span class='warning'>You unfasten \the [displayed] out of \the [src].</span>")
+			to_chat(user, span_warning("There is nothing to remove from [src]."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		insert(I)
+		update_icon()
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-			if(istype(displayed, /obj/structure/sign/poster))
-				var/obj/structure/sign/poster/P = displayed
-				P.roll_and_drop(user.loc)
-			else
-				displayed.forceMove(user.loc)
-			displayed = null
-			name = initial(name)
-			update_icon()
-		else
-			to_chat(user, "<span class='notice'>There is nothing to remove from \the [src].</span>")
-	else if(I.tool_behaviour == TOOL_CROWBAR)
-		playsound(src, I.usesound, 100, 1)
-		user.visible_message("<span class='warning'>[user] breaks down \the [src].</span>", "<span class='warning'>You break down \the [src].</span>")
-		for(var/A in contents)
-			if(istype(A, /obj/structure/sign/poster))
-				var/obj/structure/sign/poster/P = A
-				P.roll_and_drop(user.loc)
-			else
-				var/obj/O = A
-				O.forceMove(user.loc)
-		displayed = null
-		qdel(src)
-	else if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/poster))
-		if(!displayed)
-			user.drop_item_ground(I)
-			insert(I)
-			update_icon()
-		else
-			to_chat(user, "<span class='notice'>\The [src] already contains \a [displayed].</span>")
+	return ..()
+
+
+/obj/item/picture_frame/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!displayed)
+		add_fingerprint(user)
+		to_chat(user, span_warning("There is nothing to remove from [src]."))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	user.visible_message(
+		span_warning("[user] has unfastened [displayed] out of [src]."),
+		span_notice("You have unfastened [displayed] out of [src]."),
+	)
+	if(istype(displayed, /obj/structure/sign/poster))
+		var/obj/structure/sign/poster/poster = displayed
+		poster.roll_and_drop(drop_location())
 	else
-		return ..()
+		displayed.forceMove(drop_location())
+	displayed = null
+	name = initial(name)
+	update_icon()
 
-/obj/item/picture_frame/afterattack(atom/target, mob/user, proximity_flag)
+
+/obj/item/picture_frame/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	user.visible_message(
+		span_warning("[user] has broken down [src]."),
+		span_notice("You have broken down [src]."),
+	)
+	var/atom/drop_loc = drop_location()
+	for(var/atom/movable/thing as anything in contents)
+		if(istype(thing, /obj/structure/sign/poster))
+			var/obj/structure/sign/poster/poster = thing
+			poster.roll_and_drop(drop_loc)
+			continue
+		thing.forceMove(drop_loc)
+	displayed = null
+	qdel(src)
+
+
+/obj/item/picture_frame/afterattack(atom/target, mob/user, proximity_flag, params)
 	if(proximity_flag && iswallturf(target))
 		place(target, user)
 	else
@@ -219,42 +239,65 @@
 		. += getFlatIcon(frame)
 
 
-/obj/structure/sign/picture_frame/attackby(obj/item/I, mob/user)
-	if(I.tool_behaviour == TOOL_SCREWDRIVER)
-		playsound(src, I.usesound, 100, 1)
-		user.visible_message("<span class='warning'>[user] begins to unfasten \the [src] from the wall.</span>", "<span class='warning'>You begin to unfasten \the [src] from the wall.</span>")
-		if(do_after(user, 10 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
-			playsound(src, I.usesound, 100, 1)
-			user.visible_message("<span class='warning'>[user] unfastens \the [src] from the wall.</span>", "<span class='warning'>You unfasten \the [src] from the wall.</span>")
-			transfer_fingerprints_to(frame)
-			frame.forceMove(user.loc)
-			frame = null
-			if(explosive)
-				explosive.forceMove(user.loc)
-				explosive = null
-			qdel(src)
-	if(istype(I, /obj/item/grenade) || istype(I, /obj/item/grenade/plastic/c4))
-		if(explosive)
-			to_chat(user, "<span class='warning'>There is already a device attached behind \the [src], remove it first.</span>")
-			return 1
-		if(!tilted)
-			to_chat(user, "<span class='warning'>\The [src] needs to be already tilted before being rigged with \the [I].</span>")
-			return 1
-		user.visible_message("<span class='warning'>[user] is fiddling around behind \the [src].</span>", "<span class='warning'>You begin to secure \the [I] behind \the [src].</span>")
-		if(do_after(user, 15 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
-			if(explosive || !tilted)
-				return
-			add_fingerprint(user)
-			playsound(src, 'sound/weapons/handcuffs.ogg', 50, 1)
-			user.drop_transfer_item_to_loc(I, src)
-			explosive = I
-			user.visible_message("<span class='notice'>[user] fiddles with the back of \the [src].</span>", "<span class='notice'>You secure \the [I] behind \the [src].</span>")
-
-			message_admins("[key_name_admin(user)] attached [I] to a picture frame.")
-			add_game_logs("attached [I] to a picture frame.", user)
-		return 1
-	else
+/obj/structure/sign/picture_frame/attackby(obj/item/I, mob/user, params)
+	var/bomb = istype(I, /obj/item/grenade) || istype(I, /obj/item/grenade/plastic/c4)
+	if(user.a_intent == INTENT_HARM)
+		if(bomb)
+			return ..() | ATTACK_CHAIN_NO_AFTERATTACK
 		return ..()
+
+	if(bomb)
+		add_fingerprint(user)
+		if(explosive)
+			to_chat(user, span_warning("There is already a device attached behind [src], remove it first."))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		if(!tilted)
+			to_chat(user, span_warning("The [name] needs to be tilted before being rigged with [I]."))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		user.visible_message(
+			span_warning("[user] starts to fiddle around behind [src]."),
+			span_notice("You start to secure [I] behind [src]."),
+		)
+		if(!do_after(user, 15 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || explosive || tilted)
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		playsound(loc, 'sound/weapons/handcuffs.ogg', 50, TRUE)
+		explosive = I
+		user.visible_message(
+			span_warning("[user] has stopped to fiddle with the back of [src]."),
+			span_notice("You have secured [I] behind [src]."),
+		)
+		message_admins("[key_name_admin(user)] attached [I] to a picture frame.")
+		add_game_logs("attached [I] to a picture frame.", user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
+
+/obj/structure/sign/picture_frame/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	user.visible_message(
+		span_warning("[user] starts to unfasten [src] from the wall."),
+		span_notice("You start to unfasten [src] from the wall."),
+	)
+	if(!I.use_tool(src, user, 10 SECONDS, volume = I.tool_volume))
+		return .
+	user.visible_message(
+		span_warning("[user] has unfastened [src] from the wall."),
+		span_notice("You have unfastened [src] from the wall."),
+	)
+	var/atom/drop_loc = drop_location()
+	if(frame)
+		transfer_fingerprints_to(frame)
+		frame.add_fingerprint(user)
+		frame.forceMove(drop_loc)
+		frame = null
+	if(explosive)
+		explosive.forceMove(drop_loc)
+		explosive = null
+	qdel(src)
+
 
 /obj/structure/sign/picture_frame/examine(mob/user, var/infix = "", var/suffix = "")
 	if(frame)

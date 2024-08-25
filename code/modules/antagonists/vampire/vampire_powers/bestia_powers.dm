@@ -1788,7 +1788,7 @@
 
 /obj/structure/closet/coffin/vampire/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/rcs))
-		return FALSE
+		return ATTACK_CHAIN_PROCEED
 	return ..()
 
 
@@ -2101,7 +2101,6 @@
 	melee_damage_upper = 20
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	obj_damage = 50
-	mutations = list(BREATHLESS)
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)	// ultimate form, no need in oxy
 	maxbodytemp = 1200	// we are still a vampire
 	/// How many cycles will be skipped between blood cost apply.
@@ -2113,6 +2112,9 @@
 
 /mob/living/simple_animal/hostile/vampire/hound/Initialize(mapload, datum/antagonist/vampire/vamp, mob/living/carbon/human/h_vampire, obj/effect/proc_holder/spell/vampire/metamorphosis/meta_spell)
 	. = ..()
+
+	ADD_TRAIT(src, TRAIT_NO_BREATH, INNATE_TRAIT)
+
 	if(!vampire)
 		return
 
@@ -2247,10 +2249,12 @@
 
 /mob/living/simple_animal/hostile/vampire/bats_summoned/attackby(obj/item/I, mob/living/user, params)
 	. = ..()
-	if(isliving(target))
-		var/mob/living/l_target = target
-		if(l_target.stat != CONSCIOUS && (!isvampire(user) && !isvampirethrall(user)))	// will change target on attacker instantly if its current target is unconscious or dead
-			GiveTarget(user)
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !isliving(target))
+		return .
+	var/mob/living/l_target = target
+	// will change target on attacker instantly if its current target is unconscious or dead
+	if(l_target.stat != CONSCIOUS && (!isvampire(user) && !isvampirethrall(user)))
+		GiveTarget(user)
 
 
 /mob/living/simple_animal/hostile/vampire/bats_summoned/Found(atom/A)

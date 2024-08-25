@@ -61,22 +61,28 @@
 	. = ..()
 	spy_spider_attached?.hear_talk(M, message_pieces)
 
+
 /obj/item/clothing/attackby(obj/item/I, mob/user, params)
-	if(!istype(I, /obj/item/radio/spy_spider))
-		return ..()
-	if(spy_spider_attached || !((slot_flags & ITEM_SLOT_CLOTH_OUTER) || (slot_flags & ITEM_SLOT_CLOTH_INNER)))
-		to_chat(user, "<span class='warning'>Ты не находишь места для жучка!</span>")
-		return TRUE
-	var/obj/item/radio/spy_spider/spy_spider = I
+	if(istype(I, /obj/item/radio/spy_spider))
+		add_fingerprint(user)
+		var/obj/item/radio/spy_spider/spy_spider = I
+		if(!(slot_flags & (ITEM_SLOT_CLOTH_OUTER|ITEM_SLOT_CLOTH_INNER)))
+			to_chat(user, span_warning("Вы не находите места для жучка."))
+			return ATTACK_CHAIN_PROCEED
+		if(spy_spider_attached)
+			to_chat(user, span_warning("Жучок уже установлен."))
+			return ATTACK_CHAIN_PROCEED
+		if(!spy_spider.broadcasting)
+			to_chat(user, span_warning("Жучок выключен."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(spy_spider, src))
+			return ATTACK_CHAIN_PROCEED
+		spy_spider_attached = spy_spider
+		to_chat(user, span_notice("Вы незаметно прикрепляете жучок к [declent_ru(DATIVE)]."))
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(!spy_spider.broadcasting)
-		to_chat(user, "<span class='warning'>Жучок выключен!</span>")
-		return TRUE
+	return ..()
 
-	user.drop_transfer_item_to_loc(spy_spider, src)
-	spy_spider_attached = spy_spider
-	to_chat(user, "<span class='info'>Ты незаметно прикрепляешь жучок к [src.declent_ru(DATIVE)].</span>")
-	return TRUE
 
 /obj/item/clothing/proc/remove_spy_spider()
 	set name = "Снять жучок"
@@ -104,28 +110,31 @@
 	if(!istype(I, /obj/item/radio/spy_spider))
 		return ..()
 
-	if(!(w_uniform || wear_suit))
-		to_chat(user, "<span class='warning'>У тебя нет желания лезть к [genderize_ru(gender, "нему", "ней", "этому", "ним")] в трусы. Жучок надо крепить на одежду!</span>")
-		return TRUE
+	. = ATTACK_CHAIN_PROCEED
+
+	if(!w_uniform && !wear_suit)
+		to_chat(user, span_warning("У Вас нет желания лезть к [genderize_ru(gender, "нему", "ней", "этому", "ним")] в трусы. Жучок необходимо крепить на одежду!"))
+		return .
 
 	var/obj/item/radio/spy_spider/spy_spider = I
 	var/obj/item/clothing/clothing_for_attach = wear_suit || w_uniform
 	if(clothing_for_attach.spy_spider_attached)
-		to_chat(user, "<span class='warning'>Ты не находишь места для жучка!</span>")
-		return TRUE
+		to_chat(user, span_warning("Жучок уже установлен!"))
+		return .
 
 	if(!spy_spider.broadcasting)
-		to_chat(user, "<span class='warning'>Жучок выключен!</span>")
-		return TRUE
+		to_chat(user, span_warning("Жучок выключен!"))
+		return .
 
-	var/attempt_cancel_message = "<span class='warning'>Ты не успеваешь установить жучок.</span>"
-	if(!do_after(user, 3 SECONDS, src, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = attempt_cancel_message))
-		return TRUE
+	var/attempt_cancel_message = span_warning("Вы прекращаете установку жучка.")
+	if(!do_after(user, 3 SECONDS, src, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = attempt_cancel_message, category = DA_CAT_TOOL))
+		return .
 
-	user.temporarily_remove_item_from_inventory(spy_spider)
+	if(QDELETED(clothing_for_attach) || !clothing_for_attach.loc != src || clothing_for_attach.spy_spider_attached || !spy_spider.broadcasting || !user.temporarily_remove_item_from_inventory(spy_spider))
+		return .
+
+	. = ATTACK_CHAIN_BLOCKED_ALL
+	to_chat(user, span_info("Вы незаметно прикрепляете жучок к одежде [declent_ru(GENITIVE)]."))
 	spy_spider.forceMove(clothing_for_attach)
 	clothing_for_attach.spy_spider_attached = spy_spider
-	to_chat(user, "<span class='info'>Ты незаметно прикрепляешь жучок к одежде [src.declent_ru(GENITIVE)].</span>")
-	return TRUE
-
 

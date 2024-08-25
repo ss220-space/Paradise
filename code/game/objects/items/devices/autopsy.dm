@@ -64,22 +64,25 @@
 			chemtraces += chemID
 
 
-/obj/item/autopsy_scanner/attackby(obj/item/P, mob/user)
-	if(is_pen(P))
-		var/dead_name = input("Insert name of deceased individual")
-		var/dead_rank = input("Insert rank of deceased individual")
-		var/dead_tod = input("Insert time of death")
-		var/dead_cause = input("Insert cause of death")
-		var/dead_chems = input("Insert any chemical traces")
-		var/dead_notes = input("Insert any relevant notes")
-		var/obj/item/paper/R = new(user.loc)
-		R.name = "Official Coroner's Report - [dead_name]"
-		R.info = "<b>Nanotrasen Science Station [SSmapping.map_datum.station_short] - Coroner's Report</b><br><br><b>Name of Deceased:</b> [dead_name]</br><br><b>Rank of Deceased:</b> [dead_rank]<br><br><b>Time of Death:</b> [dead_tod]<br><br><b>Cause of Death:</b> [dead_cause]<br><br><b>Trace Chemicals:</b> [dead_chems]<br><br><b>Additional Coroner's Notes:</b> [dead_notes]<br><br><b>Coroner's Signature:</b> <span class=\"paper_field\">"
-		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
-		sleep(10)
-		user.put_in_hands(R, ignore_anim = FALSE)
-	else
-		return ..()
+/obj/item/autopsy_scanner/attackby(obj/item/I, mob/user, params)
+	if(is_pen(I))
+		add_fingerprint(user)
+		var/dead_name = tgui_input_text(user, "Insert name of the deceased individual", "Enter Name") || "Unknown"
+		var/dead_rank = tgui_input_text(user, "Insert rank of deceased individual", "Enter Rank") || "Not Available"
+		var/dead_tod = tgui_input_text(user, "Insert time of death", "Time Of Death") || "Unknown"
+		var/dead_cause = tgui_input_text(user, "Insert cause of death", "Cause Of Death") || "Unknown"
+		var/dead_chems = tgui_input_text(user, "Insert any chemical traces", "Chemical Traces") || "Unknown"
+		var/dead_notes = tgui_input_text(user, "Insert any relevant notes", "Relevant Notes") || "None"
+		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
+		sleep(1 SECONDS)
+		var/obj/item/paper/paper = new(user.loc)
+		paper.name = "Official Coroner's Report - [dead_name]"
+		paper.info = "<b>Nanotrasen Science Station [SSmapping.map_datum.station_short] - Coroner's Report</b><br><br><b>Name of Deceased:</b> [dead_name]</br><br><b>Rank of Deceased:</b> [dead_rank]<br><br><b>Time of Death:</b> [dead_tod]<br><br><b>Cause of Death:</b> [dead_cause]<br><br><b>Trace Chemicals:</b> [dead_chems]<br><br><b>Additional Coroner's Notes:</b> [dead_notes]<br><br><b>Coroner's Signature:</b> <span class=\"paper_field\">"
+		user.put_in_hands(paper, ignore_anim = FALSE)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/item/autopsy_scanner/attack_self(mob/user)
 	var/scan_data = ""
@@ -150,28 +153,28 @@
 
 	user.put_in_hands(P, ignore_anim = FALSE)
 
-/obj/item/autopsy_scanner/attack(mob/living/carbon/human/M, mob/living/carbon/user)
-	if(!istype(M))
-		return
 
-	if(!on_operable_surface(M))
-		return
+/obj/item/autopsy_scanner/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(!ishuman(target) || !on_operable_surface(target))
+		return ATTACK_CHAIN_PROCEED
 
-	if(target_UID != M.UID())
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(target_UID != target.UID())
 		to_chat(user, span_notice("A new patient has been registered.[target_UID ? " Purging data for previous patient." : ""]"))
-		target_UID = M.UID()
-		target_name = M.name
+		target_UID = target.UID()
+		target_name = target.name
 		wdata.Cut()
 		chemtraces.Cut()
 		timeofdeath = null
 
-	timeofdeath = M.timeofdeath
+	timeofdeath = target.timeofdeath
 
-	var/obj/item/organ/external/S = M.get_organ(user.zone_selected)
-	if(!S)
+	var/obj/item/organ/external/limb = target.get_organ(user.zone_selected)
+	if(!limb)
 		to_chat(user, span_warning("You can't scan this body part!"))
-		return
-	M.visible_message(span_notice("[user] scans the wounds on [M]'s [S] with [src]."))
+		return NONE
+	target.visible_message(span_notice("[user] scans the wounds on [target]'s [limb] with [src]."))
 
-	add_data(S)
-	return TRUE
+	add_data(limb)
+

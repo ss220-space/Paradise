@@ -735,7 +735,7 @@
 				clothes_s = new /icon(uniform_dmi, "paramedic_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "black"), ICON_UNDERLAY)
 				clothes_s.Blend(new /icon('icons/mob/clothing/mask.dmi', "cigoff"), ICON_OVERLAY)
-				clothes_s.Blend(new /icon('icons/mob/clothing/head.dmi', "bluesoft"), ICON_OVERLAY)
+				clothes_s.Blend(new /icon('icons/mob/clothing/head.dmi', "paramedicsoft"), ICON_OVERLAY)
 				switch(backbag)
 					if(2)
 						clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "medicalpack"), ICON_OVERLAY)

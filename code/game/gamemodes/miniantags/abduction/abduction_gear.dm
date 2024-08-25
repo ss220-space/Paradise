@@ -194,18 +194,21 @@
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, "<span class='notice'>You switch the device to [mode==GIZMO_SCAN? "SCAN": "MARK"] MODE</span>")
 
-/obj/item/abductor/gizmo/attack(mob/living/M, mob/user)
+
+/obj/item/abductor/gizmo/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!ScientistCheck(user))
-		return
+		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 	if(!console)
-		to_chat(user, "<span class='warning'>The device is not linked to console!</span>")
-		return
+		to_chat(user, span_warning("The device is not linked to console!"))
+		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
 
 	switch(mode)
 		if(GIZMO_SCAN)
-			scan(M, user)
+			scan(target, user)
 		if(GIZMO_MARK)
-			mark(M, user)
+			mark(target, user)
 
 
 /obj/item/abductor/gizmo/afterattack(atom/target, mob/living/user, flag, params)
@@ -263,10 +266,13 @@
 	item_state = "silencer"
 	origin_tech = "materials=4;programming=7;abductor=3"
 
-/obj/item/abductor/silencer/attack(mob/living/M, mob/user)
+
+/obj/item/abductor/silencer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!isgrey(user) && !AbductorCheck(user))
-		return
-	radio_off(M, user)
+		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
+	radio_off(target, user)
+
 
 /obj/item/abductor/silencer/afterattack(atom/target, mob/living/user, flag, params)
 	if(flag)
@@ -521,7 +527,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			. += span_warning("The baton is in probing mode.")
 
 
-/obj/item/melee/baton/abductor/baton_attack(mob/target, mob/living/user, add_melee_cooldown = TRUE, skip_attack_anim = FALSE)
+/obj/item/melee/baton/abductor/baton_attack(mob/target, mob/living/user)
 	if(!AbductorCheck(user))
 		return BATON_ATTACK_DONE
 	return ..()
@@ -753,30 +759,34 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	framestackamount = 1
 	density = TRUE
 
+
 /obj/structure/table_frame/abductor/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/sheet/mineral/abductor))
-		var/obj/item/stack/sheet/P = I
-		if(P.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one alien alloy sheet to do this!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
-		if(do_after(user, 5 SECONDS, src))
-			P.use(1)
-			new /obj/structure/table/abductor(loc)
-			qdel(src)
-		return
-	if(istype(I, /obj/item/stack/sheet/mineral/silver))
-		var/obj/item/stack/sheet/P = I
-		if(P.get_amount() < 1)
-			to_chat(user, "<span class='warning'>You need one sheet of silver to do	this!</span>")
-			return
-		to_chat(user, "<span class='notice'>You start adding [P] to [src]...</span>")
-		if(do_after(user, 5 SECONDS, src))
-			P.use(1)
-			new /obj/machinery/optable/abductor(loc)
-			qdel(src)
-		return
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	var/alien_material = istype(I, /obj/item/stack/sheet/mineral/abductor)
+	if(alien_material || istype(I, /obj/item/stack/sheet/mineral/silver))
+		add_fingerprint(user)
+		var/obj/item/stack/sheet/mineral/mineral = I
+		if(mineral.get_amount() < 1)
+			to_chat(user, span_warning("You need one sheet of [mineral] to do this!"))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You start adding [mineral] to [src]..."))
+		if(!do_after(user, 5 SECONDS * mineral.toolspeed, src, category = DA_CAT_TOOL) || QDELETED(mineral) || !mineral.use(1))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/new_table
+		if(alien_material)
+			new_table = new /obj/structure/table/abductor(loc)
+		else
+			new_table = new /obj/machinery/optable/abductor(loc)
+		to_chat(user, span_notice("You have completed the construction of [new_table]."))
+		transfer_fingerprints_to(new_table)
+		new_table.add_fingerprint(user)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/structure/table/abductor
 	name = "alien table"
@@ -795,6 +805,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 
 /obj/machinery/optable/abductor
+	name = "alien operating table"
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "bed"
 	no_icon_updates = 1 //no icon updates for this; it's static.

@@ -75,12 +75,20 @@
 /obj/item/clothing/head/welding/attack_self(mob/user)
 	weldingvisortoggle(user)
 
+
 /obj/item/clothing/head/welding/attackby(obj/item/I, mob/living/user)
 	if(istype(I, /obj/item/toy/crayon/spraycan))
+		add_fingerprint(user)
 		adjust_paint(user, I)
-	else if(istype(I, /obj/item/soap) && paint)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/soap) && paint)
+		add_fingerprint(user)
 		adjust_paint()
-	else return ..()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/item/clothing/head/welding/update_icon_state()
 	icon_state = paint ? paint : base_icon_state

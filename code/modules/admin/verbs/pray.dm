@@ -11,7 +11,7 @@
 		return
 
 	if(client)
-		if(client.prefs.muted & MUTE_PRAY)
+		if(check_mute(client.ckey, MUTE_PRAY))
 			to_chat(usr, "<span class='warning'>You cannot pray (muted).</span>")
 			return
 		if(client.handle_spam_prevention(msg, MUTE_PRAY, OOC_COOLDOWN))

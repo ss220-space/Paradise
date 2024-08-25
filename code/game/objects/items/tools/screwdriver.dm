@@ -52,14 +52,16 @@
 	if (prob(75))
 		src.pixel_y = rand(0, 16)
 
-/obj/item/screwdriver/attack(mob/living/carbon/M, mob/living/carbon/user)
-	if(!istype(M) || user.a_intent == INTENT_HELP)
+
+/obj/item/screwdriver/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(user.a_intent == INTENT_HELP)
 		return ..()
 	if(user.zone_selected != BODY_ZONE_PRECISE_EYES && user.zone_selected != BODY_ZONE_HEAD)
 		return ..()
-	if((CLUMSY in user.mutations) && prob(50))
-		M = user
-	return eyestab(M,user)
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+		target = user
+	return eyestab(target, user)
+
 
 /obj/item/screwdriver/brass
 	name = "brass screwdriver"

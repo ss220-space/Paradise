@@ -40,8 +40,7 @@
 
 /obj/machinery/light_construct/Initialize(mapload, ndir, building)
 	. = ..()
-	if(fixture_type == "bulb")
-		icon_state = "bulb-construct-stage1"
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/machinery/light_construct/examine(mob/user)
@@ -54,6 +53,10 @@
 				. += "<span class='notice'>The frame is <b>wired</b>, but the casing's cover is <i>unscrewed</i>.</span>"
 			if(STAGE_COMPLETED)
 				. += "<span class='notice'>The casing is <b>screwed</b> shut.</span>"
+
+
+/obj/machinery/light_construct/update_icon_state()
+	icon_state = (stage == STAGE_WIRED) ? "[fixture_type]-construct-stage2" : "[fixture_type]-construct-stage1"
 
 
 /obj/machinery/light_construct/wrench_act(mob/living/user, obj/item/I)
@@ -79,11 +82,7 @@
 		return
 	. = TRUE
 	stage = STAGE_EMPTY
-	switch(fixture_type)
-		if("tube")
-			icon_state = "tube-construct-stage1"
-		if("bulb")
-			icon_state = "bulb-construct-stage1"
+	update_icon(UPDATE_ICON_STATE)
 	new /obj/item/stack/cable_coil(get_turf(loc), 1, TRUE, COLOR_RED)
 	WIRECUTTER_SNIP_MESSAGE
 
@@ -94,15 +93,12 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	switch(fixture_type)
-		if("tube")
-			icon_state = "tube-empty"
-		if("bulb")
-			icon_state = "bulb-empty"
 	stage = STAGE_COMPLETED
-	user.visible_message("<span class='notice'>[user] closes [src]'s casing.</span>", \
-		"<span class='notice'>You close [src]'s casing.</span>", "<span class='notice'>You hear a screwdriver.</span>")
-
+	user.visible_message(
+		span_notice("[user] has closed [src]'s casing."),
+		span_notice("You have closed [src]'s casing."),
+		span_italics("You hear a screwdriver."),
+	)
 	switch(fixture_type)
 		if("tube")
 			newlight = new /obj/machinery/light/built(loc)
@@ -113,23 +109,30 @@
 	qdel(src)
 
 
-/obj/machinery/light_construct/attackby(obj/item/W, mob/living/user, params)
-	if(istype(W, /obj/item/stack/cable_coil))
+/obj/machinery/light_construct/attackby(obj/item/I, mob/living/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(iscoil(I))
 		add_fingerprint(user)
+		var/obj/item/stack/cable_coil/coil = I
 		if(stage != STAGE_EMPTY)
-			return
-		var/obj/item/stack/cable_coil/coil = W
-		coil.use(1)
-		switch(fixture_type)
-			if("tube")
-				icon_state = "tube-construct-stage2"
-			if("bulb")
-				icon_state = "bulb-construct-stage2"
+			to_chat(user, span_warning("You cannot wire [src] right now."))
+			return ATTACK_CHAIN_PROCEED
+		var/cached_sound = coil.usesound
+		if(!coil.use(1))
+			to_chat(user, span_warning("You need at least one length of cable to wire [src]."))
+			return ATTACK_CHAIN_PROCEED
 		stage = STAGE_WIRED
-		playsound(loc, coil.usesound, 50, 1)
-		user.visible_message("<span class='notice'>[user.name] adds wires to [src].</span>", \
-			"<span class='notice'>You add wires to [src].</span>", "<span class='notice'>You hear a noise.</span>")
-		return
+		update_icon(UPDATE_ICON_STATE)
+		playsound(loc, cached_sound, 50, TRUE)
+		user.visible_message(
+			span_notice("[user] has wired [src]."),
+			span_notice("You have wired [src]."),
+			span_italics("You hear a noise."),
+		)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
 
 
@@ -256,11 +259,11 @@
 
 /obj/machinery/light/built/Initialize(mapload)
 	status = LIGHT_EMPTY
-	..()
+	. = ..()
 
 /obj/machinery/light/small/built/Initialize(mapload)
 	status = LIGHT_EMPTY
-	..()
+	. = ..()
 
 // create a new lighting fixture
 /obj/machinery/light/Initialize(mapload)
@@ -437,82 +440,88 @@
 
 // attack with item - insert light (if right type), otherwise try to break the light
 
-/obj/machinery/light/attackby(obj/item/W, mob/living/user, params)
-	user.changeNext_move(CLICK_CD_MELEE) // This is an ugly hack and I hate it forever
+/obj/machinery/light/attackby(obj/item/I, mob/living/user, params)
+	if(user.a_intent == INTENT_HARM)
+		if(light_hit_check(I, user))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		return ..()
+
 	//Light replacer code
-	if(istype(W, /obj/item/lightreplacer))
+	if(istype(I, /obj/item/lightreplacer))
 		add_fingerprint(user)
-		var/obj/item/lightreplacer/LR = W
-		LR.ReplaceLight(src, user)
-		return
+		var/obj/item/lightreplacer/lightreplacer = I
+		lightreplacer.ReplaceLight(src, user)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	// attempt to insert light
-	if(istype(W, /obj/item/light))
+	// attempt to insert a light
+	if(istype(I, /obj/item/light))
+		add_fingerprint(user)
+		var/obj/item/light/new_light = I
 		if(status != LIGHT_EMPTY)
-			to_chat(user, "<span class='warning'>There is a [fitting] already inserted.</span>")
-		else
-			add_fingerprint(user)
-			var/obj/item/light/L = W
-			if(istype(L, light_type))
-				status = L.status
-				to_chat(user, "<span class='notice'>You insert [L].</span>")
-				switchcount = L.switchcount
-				rigged = L.rigged
-				brightness_range = L.brightness_range
-				brightness_power = L.brightness_power
-				brightness_color = L.brightness_color
-				lightmaterials = L.materials
-				on = has_power()
-				update()
+			to_chat(user, span_warning("There is a [fitting] already inserted."))
+			return ATTACK_CHAIN_PROCEED
+		if(!istype(I, light_type))
+			to_chat(user, span_warning("This type of light requires a [fitting]."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(new_light, src))
+			return ..()
+		to_chat(user, span_notice("You have inserted [new_light] into [src]."))
+		status = new_light.status
+		switchcount = new_light.switchcount
+		rigged = new_light.rigged
+		brightness_range = new_light.brightness_range
+		brightness_power = new_light.brightness_power
+		brightness_color = new_light.brightness_color
+		lightmaterials = new_light.materials
+		on = has_power()
+		update()
+		qdel(new_light)
+		if(on && rigged)
+			log_admin("LOG: Rigged light explosion, last touched by [fingerprintslast]")
+			message_admins("LOG: Rigged light explosion, last touched by [fingerprintslast]")
+			explode()
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-				user.drop_transfer_item_to_loc(L, src)	//drop the item to update overlays and such
-				qdel(L)
+	if(light_hit_check(I, user))
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-				if(on && rigged)
+	return ..()
 
-					log_admin("LOG: Rigged light explosion, last touched by [fingerprintslast]")
-					message_admins("LOG: Rigged light explosion, last touched by [fingerprintslast]")
 
-					explode()
-			else
-				to_chat(user, "<span class='warning'>This type of light requires a [fitting].</span>")
-			return
-
-		// attempt to break the light
-		//If xenos decide they want to smash a light bulb with a toolbox, who am I to stop them? /N
-
-	if(status != LIGHT_BROKEN && status != LIGHT_EMPTY)
-
-		add_fingerprint(user)
-		user.do_attack_animation(src)
-		if(prob(1 + W.force * 5))
-
-			user.visible_message("<span class='danger'>[user] smashed the light!</span>", "<span class='danger'>You hit the light, and it smashes!</span>", \
-			"<span class='danger'>You hear the tinkle of breaking glass.</span>")
-			if(on && (W.flags & CONDUCT))
-				if(prob(12))
-					electrocute_mob(user, get_area(src), src, 0.3, TRUE)
-			break_light_tube()
-
-		else
-			user.visible_message("<span class='danger'>[user] hits the light.</span>", "<span class='danger'>You hit the light.</span>", \
-			"<span class='danger'>You hear someone hitting a light.</span>")
-			playsound(loc, 'sound/effects/glasshit.ogg', 75, 1)
-		return
-
-	// attempt to stick weapon into light socket
+/// Special lights attack handling
+/obj/machinery/light/proc/light_hit_check(obj/item/I, mob/living/user)
 	if(status == LIGHT_EMPTY)
-		if(has_power() && (W.flags & CONDUCT))
+		if(has_power() && (I.flags & CONDUCT))
 			add_fingerprint(user)
 			do_sparks(3, 1, src)
 			if(prob(75)) // If electrocuted
 				electrocute_mob(user, get_area(src), src, rand(0.7, 1), TRUE)
-				to_chat(user, "<span class='userdanger'>You are electrocuted by [src]!</span>")
+				to_chat(user, span_userdanger("You have been electrocuted by [src]!"))
 			else // If not electrocuted
-				to_chat(user, "<span class='danger'>You stick [W] into the light socket!</span>")
-			return
-
-	return ..()
+				to_chat(user, span_danger("You stick [I] into the light socket."))
+			return TRUE
+		return FALSE
+	if(status == LIGHT_BROKEN)
+		return FALSE
+	add_fingerprint(user)
+	user.do_attack_animation(src)
+	if(prob(1 + I.force * 5))
+		user.visible_message(
+			span_danger("[user] smashed the light!"),
+			span_danger("You hit the light, and it smashes!"),
+			span_italics("You hear the tinkle of breaking glass."),
+		)
+		if(on && (I.flags & CONDUCT) && prob(12))
+			electrocute_mob(user, get_area(src), src, 0.3, TRUE)
+		break_light_tube()
+		return TRUE
+	playsound(loc, 'sound/effects/glasshit.ogg', 75, TRUE)
+	user.visible_message(
+		span_danger("[user] hits the light."),
+		span_danger("You hit the light."),
+		span_italics("You hear someone hitting a glass."),
+	)
+	return TRUE
 
 
 /obj/machinery/light/screwdriver_act(mob/living/user, obj/item/I)
@@ -552,12 +561,12 @@
 		transfer_fingerprints_to(newlight)
 	qdel(src)
 
-/obj/machinery/light/attacked_by(obj/item/I, mob/living/user)
-	..()
-	if(status == LIGHT_BROKEN || status == LIGHT_EMPTY)
-		if(on && (I.flags & CONDUCT))
-			if(prob(12))
-				electrocute_mob(user, get_area(src), src, 0.3, TRUE)
+
+/obj/machinery/light/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
+	. = ..()
+	if(ATTACK_CHAIN_SUCCESS_CHECK(.) && (status == LIGHT_BROKEN || status == LIGHT_EMPTY) && on && (I.flags & CONDUCT) && prob(12))
+		electrocute_mob(user, get_area(src), src, 0.3, TRUE)
+
 
 /obj/machinery/light/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
 	. = ..()
@@ -678,9 +687,9 @@
 		else
 			prot = 1
 
-		if(prot > 0 || (HEATRES in user.mutations))
+		if(prot > 0 || HAS_TRAIT(user, TRAIT_RESIST_HEAT))
 			to_chat(user, "<span class='notice'>You remove the light [fitting]</span>")
-		else if(TK in user.mutations)
+		else if(HAS_TRAIT(user, TRAIT_TELEKINESIS))
 			to_chat(user, "<span class='notice'>You telekinetically remove the light [fitting].</span>")
 		else
 			if(user.a_intent == INTENT_DISARM || user.a_intent == INTENT_GRAB)
@@ -918,38 +927,42 @@
 			desc = "A broken [name]."
 
 
-// attack bulb/tube with object
-// if a syringe, can inject plasma to make it explode
 /obj/item/light/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/syringe))
-		var/obj/item/reagent_containers/syringe/S = I
-
-		if(!length(S.reagents.reagent_list))
-			return
-
-		if(S.reagents.has_reagent("plasma", 5) || S.reagents.has_reagent("plasma_dust", 5))
-			to_chat(user, "<span class='danger'>You inject the solution into [src], rigging it to explode!</span>")
-			log_admin("LOG: [key_name(user)] injected a light with plasma, rigging it to explode.")
-			message_admins("LOG: [key_name_admin(user)] injected a light with plasma, rigging it to explode.")
-
+		add_fingerprint(user)
+		var/obj/item/reagent_containers/syringe/syringe = I
+		if(syringe.mode != 1)	// injecting
+			to_chat(user, span_warning("The [syringe.name] should be in inject mode."))
+			return ATTACK_CHAIN_PROCEED
+		if(!syringe.reagents.total_volume)
+			to_chat(user, span_warning("The [syringe.name] is empty."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You have injected the solution into [src]."))
+		if(syringe.reagents.has_reagent("plasma", 5) || syringe.reagents.has_reagent("plasma_dust", 5))
 			rigged = TRUE
-			S.reagents.clear_reagents()
+			log_admin("LOG: [key_name(user)] injected [src] with plasma, rigging it to explode.")
+			message_admins("LOG: [key_name_admin(user)] injected [src] with plasma, rigging it to explode.")
+		syringe.reagents.clear_reagents()
+		syringe.update_icon()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-		else // If it has a reagent, but it's not plasma
-			to_chat(user, "<span class='warning'>You fail to rig [src] with the solution.</span>")
+	return ..()
 
-	else // If it's not a syringe
-		return ..()
 
-/obj/item/light/attack(mob/living/M, mob/living/user, def_zone)
-	..()
-	shatter()
+/obj/item/light/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
+		shatter()
 
-/obj/item/light/attack_obj(obj/O, mob/living/user, params)
-	..()
-	shatter()
+
+/obj/item/light/attack_obj(obj/object, mob/living/user, params)
+	. = ..()
+	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
+		shatter()
+
 
 /obj/item/light/proc/shatter()
+	. = FALSE
 	if(status == LIGHT_OK || status == LIGHT_BURNED)
 		visible_message("<span class='warning'>[src] shatters.</span>", "<span class='warning'>You hear a small glass object shatter.</span>")
 		status = LIGHT_BROKEN
@@ -957,6 +970,7 @@
 		sharp = TRUE
 		playsound(loc, 'sound/effects/glasshit.ogg', 75, 1)
 		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
+		return TRUE
 
 
 /obj/item/light/suicide_act(mob/living/carbon/human/user)

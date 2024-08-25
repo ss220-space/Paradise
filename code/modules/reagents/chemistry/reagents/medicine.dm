@@ -238,18 +238,16 @@
 
 /datum/reagent/medicine/silver_sulfadiazine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustFireLoss(-1, FALSE)
+	update_flags |= M.heal_damage_type(1, BURN, updating_health = FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/silver_sulfadiazine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume, show_message = 1)
 	if(iscarbon(M))
 		if(method == REAGENT_TOUCH)
-			M.adjustFireLoss(-volume)
-			if(show_message)
+			if(M.heal_damage_type(volume, BURN) && show_message)
 				to_chat(M, "<span class='notice'>The silver sulfadiazine soothes your burns.</span>")
 		if(method == REAGENT_INGEST)
-			M.adjustToxLoss(0.5*volume)
-			if(show_message)
+			if(M.apply_damage(0.5 * volume, TOX) && show_message)
 				to_chat(M, "<span class='warning'>You feel sick...</span>")
 	..()
 
@@ -265,22 +263,16 @@
 
 /datum/reagent/medicine/styptic_powder/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustBruteLoss(-1, FALSE)
+	update_flags |= M.heal_damage_type(1, BRUTE, updating_health = FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/styptic_powder/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume, show_message = 1)
 	if(iscarbon(M))
 		if(method == REAGENT_TOUCH)
-			M.adjustBruteLoss(-volume)
-			var/has_pain = TRUE
-			if(ishuman(M))
-				var/mob/living/carbon/human/H = M
-				has_pain = H.has_pain()
-			if(show_message && has_pain)
+			if(M.heal_damage_type(volume, BRUTE) && show_message && M.has_pain())
 				to_chat(M, "<span class='notice'>The styptic powder stings like hell as it closes some of your wounds!</span>")
 		else if(method == REAGENT_INGEST)
-			M.adjustToxLoss(0.5*volume)
-			if(show_message)
+			if(M.apply_damage(0.5 * volume, TOX) && show_message)
 				to_chat(M, "<span class='warning'>You feel gross!</span>")
 	..()
 
@@ -343,7 +335,7 @@
 	to_chat(M, "<span class='notice'>Вы чуствуете чесотку.</span>")
 	update_flags |= M.adjustFireLoss(-1.5, FALSE)
 	if(volume > 1.9)
-		if((HUSK) in M.mutations)
+		if(HAS_TRAIT(M, TRAIT_HUSK))
 			var/mob/living/carbon/human/H = M
 			H.cure_husk()
 			to_chat(M, "<span class='warning'>Ваша обугленная кожа отпадает!</span>")
@@ -356,7 +348,7 @@
 	update |= M.heal_damage_type(6, BURN, updating_health = FALSE)
 	if(update)
 		M.updatehealth()
-	if(prob(25) && !((NO_BLOOD) in M.mutations))
+	if(prob(25) && ishuman(M) && !(NO_BLOOD in M.dna.species.species_traits))
 		var/mob/living/carbon/human/H = M
 		H.bleed(20)
 	return ..()
@@ -846,7 +838,7 @@
 				if(!M.ghost_can_reenter())
 					M.visible_message("<span class='warning'>[M] twitches slightly, but is otherwise unresponsive!</span>")
 					return
-				if(!M.suiciding && !(NOCLONE in M.mutations) && (!M.mind || M.mind?.is_revivable()))
+				if(!M.suiciding && !HAS_TRAIT(M, TRAIT_NO_CLONE) && (!M.mind || M.mind?.is_revivable()))
 					var/time_dead = world.time - M.timeofdeath
 					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
 					var/update = NONE
@@ -905,21 +897,24 @@
 	color = "#5096C8"
 	taste_description = "cleanliness"
 
+
 /datum/reagent/medicine/mutadone/on_mob_life(mob/living/carbon/human/M)
 	if(M.mind && M.mind.assigned_role == "Cluwne") // HUNKE
-		..()
-		return
+		return ..()
+
 	M.SetJitter(0)
-	var/needs_update = M.mutations.len > 0
 
-	if(needs_update)
-		for(var/block = 1; block<=DNA_SE_LENGTH; block++)
-			if(!LAZYIN(M.dna.default_blocks, block))
-				M.force_gene_block(block, FALSE)
+	if(!ishuman(M))
+		return ..()
 
-		M.dna.struc_enzymes = M.dna.struc_enzymes_original
+	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
+		if(!LAZYIN(M.dna.default_blocks, gene.block))
+			M.force_gene_block(gene.block, FALSE)
+
+	M.dna.struc_enzymes = M.dna.struc_enzymes_original
 
 	return ..()
+
 
 /datum/reagent/medicine/antihol
 	name = "Antihol"

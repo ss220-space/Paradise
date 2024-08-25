@@ -24,7 +24,12 @@
 	path = /obj/item/organ/internal/cyberimp/eyes/hud/medical
 	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_CHEMIST, JOB_TITLE_DOCTOR, JOB_TITLE_PARAMEDIC, JOB_TITLE_BRIGDOC, JOB_TITLE_VIROLOGIST)
 
-/datum/gear/implant/science
+/datum/gear/implant/diagnostic
 	display_name = "Diagnostical Hud Implant"
 	path = /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic
 	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_ROBOTICIST)
+
+/datum/gear/implant/science
+	display_name = "Science Hud Implant"
+	path = /obj/item/organ/internal/cyberimp/eyes/hud/science
+	allowed_roles = list(JOB_TITLE_CHEMIST, JOB_TITLE_SCIENTIST, JOB_TITLE_RD, JOB_TITLE_GENETICIST)

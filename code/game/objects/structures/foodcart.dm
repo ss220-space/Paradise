@@ -23,55 +23,68 @@
 	//var/obj/item/reagent_containers/food/drinks/drink5 = null
 	//var/obj/item/reagent_containers/food/drinks/drink6 = null
 
+
 /obj/structure/foodcart/proc/put_in_cart(obj/item/I, mob/user)
-	user.drop_transfer_item_to_loc(I, src)
-	updateUsrDialog()
-	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
-	return
+	. = user.drop_transfer_item_to_loc(I, src)
+	if(.)
+		to_chat(user, span_notice("You put [I] into [src]."))
+
 
 /obj/structure/foodcart/attackby(obj/item/I, mob/user, params)
-	var/fail_msg = "<span class='notice'>There are no open spaces for this in [src].</span>"
-	if(!I.is_robot_module())
-		if(istype(I, /obj/item/reagent_containers/food/snacks))
-			var/success = 0
-			for(var/s=1,s<=6,s++)
-				if(!food_slots[s])
-					add_fingerprint(user)
-					put_in_cart(I, user)
-					food_slots[s]=I
-					success = 1
-					break
-			if(!success)
-				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/reagent_containers/food/drinks))
-			var/success = 0
-			for(var/s=1,s<=6,s++)
-				if(!drink_slots[s])
-					add_fingerprint(user)
-					put_in_cart(I, user)
-					drink_slots[s]=I
-					success = 1
-					break
-			if(!success)
-				to_chat(user, fail_msg)
-		else if(I.tool_behaviour == TOOL_WRENCH)
-			add_fingerprint(user)
-			if(!anchored && !isinspace())
-				playsound(src.loc, I.usesound, 50, 1)
-				user.visible_message( \
-					"[user] tightens \the [src]'s casters.", \
-					"<span class='notice'> You have tightened \the [src]'s casters.</span>", \
-					"You hear ratchet.")
-				set_anchored(TRUE)
-			else if(anchored)
-				playsound(src.loc, I.usesound, 50, 1)
-				user.visible_message( \
-					"[user] loosens \the [src]'s casters.", \
-					"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
-					"You hear ratchet.")
-				set_anchored(FALSE)
+	if(user.a_intent == INTENT_HARM || I.is_robot_module())
+		return ..()
+
+	if(istype(I, /obj/item/reagent_containers/food/snacks))
+		add_fingerprint(user)
+		for(var/slot = 1 to length(food_slots))
+			if(food_slots[slot])
+				continue
+			if(put_in_cart(I, user))
+				food_slots[slot] = I
+				updateUsrDialog()
+				return ATTACK_CHAIN_BLOCKED_ALL
+			return ..()
+		to_chat(user, span_warning("The [name]'s snacks compartment is full!"))
+		return ATTACK_CHAIN_PROCEED
+
+	if(istype(I, /obj/item/reagent_containers/food/drinks))
+		add_fingerprint(user)
+		for(var/slot = 1 to length(drink_slots))
+			if(drink_slots[slot])
+				continue
+			if(put_in_cart(I, user))
+				drink_slots[slot] = I
+				updateUsrDialog()
+				return ATTACK_CHAIN_BLOCKED_ALL
+			return ..()
+		to_chat(user, span_warning("The [name]'s drinks compartment is full!"))
+		return ATTACK_CHAIN_PROCEED
+
+	return ..()
+
+
+/obj/structure/foodcart/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(isinspace())
+		to_chat(user, span_warning("That was a dumb idea."))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	set_anchored(!anchored)
+	if(anchored)
+		user.visible_message(
+			span_notice("[user] tightens [name]'s casters."),
+			span_notice("You have tightened [name]'s casters."),
+			span_italics("You hear ratchet."),
+		)
 	else
-		to_chat(usr, "<span class='warning'>You cannot interface your modules [src]!</span>")
+		user.visible_message(
+			span_notice("[user] loosens [name]'s casters."),
+			span_notice("You have loosened [name]'s casters."),
+			span_italics("You hear ratchet."),
+		)
+
+
 
 /obj/structure/foodcart/attack_hand(mob/user)
 	add_fingerprint(user)

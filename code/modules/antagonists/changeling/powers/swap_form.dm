@@ -22,7 +22,7 @@
 		to_chat(user, span_warning("[target] is not compatible with this ability."))
 		return FALSE
 
-	if((NOCLONE || SKELETON || HUSK) in target.mutations)
+	if(HAS_TRAIT(target, TRAIT_HUSK) || HAS_TRAIT(target, TRAIT_SKELETON) || HAS_TRAIT(target, TRAIT_NO_CLONE))
 		to_chat(user, span_warning("DNA of [target] is ruined beyond usability!"))
 		return FALSE
 

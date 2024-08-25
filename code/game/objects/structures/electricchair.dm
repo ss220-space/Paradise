@@ -50,18 +50,18 @@
 		. += image(icon, icon_state = "echair_shock", layer = ABOVE_MOB_LAYER)
 
 
-/obj/structure/chair/e_chair/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_WRENCH)
-		var/obj/structure/chair/chair = new (loc)
-		transfer_fingerprints_to(chair)
-		playsound(loc, W.usesound, 50, TRUE)
-		chair.dir = dir
-		part.forceMove(loc)
-		part.master = null
-		part = null
-		qdel(src)
-		return
-	return ..()
+/obj/structure/chair/e_chair/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	var/obj/structure/chair/new_chair = new(loc)
+	new_chair.setDir(dir)
+	transfer_fingerprints_to(new_chair)
+	new_chair.add_fingerprint(user)
+	part.forceMove(loc)
+	part.master = null
+	part = null
+	qdel(src)
 
 
 /obj/structure/chair/e_chair/examine(mob/user)

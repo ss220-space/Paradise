@@ -5,14 +5,6 @@
 	return TRUE
 
 
-/mob/living/carbon/human/proc/is_type_in_hands(typepath)
-	if(istype(l_hand,typepath))
-		return l_hand
-	if(istype(r_hand,typepath))
-		return r_hand
-	return FALSE
-
-
 /mob/living/carbon/human/has_organ_for_slot(slot)
 	switch(slot)
 		if(ITEM_SLOT_BACKPACK, ITEM_SLOT_PDA, ITEM_SLOT_ID, ITEM_SLOT_ACCESSORY)

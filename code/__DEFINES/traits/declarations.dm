@@ -26,6 +26,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CHASM_STOPPER "chasm_stopper"
 /// `do_teleport` will not allow this atom to teleport
 #define TRAIT_NO_TELEPORT "no-teleport"
+#define TRAIT_SILENT_FOOTSTEPS "silent_footsteps"
 
 //turf traits
 /// Prevent mobs on the turf from being affected by anything below that turf, such as a pulse demon going under it. Added by a /obj/structure with creates_cover set to TRUE
@@ -72,6 +73,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_PUSHIMMUNE "push_immunity"
 /// trait that prevents AI controllers from planning detached from ai_status to prevent weird state stuff.
 #define TRAIT_AI_PAUSED "TRAIT_AI_PAUSED"
+/// Not a genetic obesity but just a mob who overate
+#define	TRAIT_FAT "trait_fat"
+#define TRAIT_HUSK "husk"
+#define TRAIT_SKELETON "skeleton"
+#define TRAIT_NO_CLONE "no_clone"
 
 /// "Magic" trait that blocks the mob from moving or interacting with anything. Used for transient stuff like mob transformations or incorporality in special cases.
 /// Will block movement, `Life()` (!!!), and other stuff based on the mob.
@@ -175,4 +181,27 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MOVE_UPSIDE_DOWN "move_upside_down"
 /// Disables the floating animation. See above.
 #define TRAIT_NO_FLOATING_ANIM "no-floating-animation"
+
+// all the old mutation traits
+#define	TRAIT_TELEKINESIS "telekinesis"
+#define TRAIT_RESIST_COLD "cold_resistance"
+#define TRAIT_RESIST_HEAT "heat_resistance"
+#define TRAIT_XRAY "xray"
+#define TRAIT_HULK "hulk"
+#define TRAIT_CLUMSY "clumsy"
+#define TRAIT_OBESITY "obesity"
+#define TRAIT_NO_BREATH "no_breath"
+#define TRAIT_WINGDINGS "wingdings"
+#define TRAIT_NO_FINGERPRINTS "no_fingerprints"
+#define TRAIT_DWARF "dwarf"
+#define TRAIT_GENE_STRONG "gene_strong"
+#define TRAIT_GENE_WEAK "gene_weak"
+#define TRAIT_SOBER "sober"
+#define TRAIT_PSY_RESIST "psy_resist"	// block remoteview
+#define TRAIT_OPEN_MIND "open_mind"	// allows to remote view this mob
+#define TRAIT_EMPATHY "empathy"	// allows to see when someone reads your mind
+#define TRAIT_COMIC "comic_sans"
+#define TRAIT_NEARSIGHTED "nearsighted"
+#define TRAIT_BLIND "blind"
+#define TRAIT_COLORBLIND "colorblind"
 

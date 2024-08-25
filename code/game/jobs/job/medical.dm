@@ -360,7 +360,7 @@
 
 	uniform = /obj/item/clothing/under/rank/medical/paramedic
 	shoes = /obj/item/clothing/shoes/black
-	head = /obj/item/clothing/head/soft/blue
+	head = /obj/item/clothing/head/soft/paramedic
 	mask = /obj/item/clothing/mask/cigarette
 	l_ear = /obj/item/radio/headset/headset_med
 	id = /obj/item/card/id/medical
@@ -375,3 +375,8 @@
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 	box = /obj/item/storage/box/engineer
+
+/datum/outfit/job/paramedic/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(H.gender == FEMALE)
+		uniform = /obj/item/clothing/under/rank/medical/paramedic/skirt

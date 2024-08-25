@@ -10,8 +10,8 @@
 	idle_power_usage = 40
 	var/tickets = 0
 
-/obj/machinery/prize_counter/New()
-	..()
+/obj/machinery/prize_counter/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/prize_counter(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -32,22 +32,33 @@
 		icon_state = "prize_counter-on"
 
 
-/obj/machinery/prize_counter/attackby(obj/item/O, var/mob/user, params)
-	if(istype(O, /obj/item/stack/tickets))
-		var/obj/item/stack/tickets/T = O
-		if(user.temporarily_remove_item_from_inventory(T))		//Because if you can't drop it for some reason, you shouldn't be increasing the tickets var
-			tickets += T.amount
-			qdel(T)
-		else
-			to_chat(user, "<span class='warning'>\The [T] seems stuck to your hand!</span>")
-		return
-	if(panel_open)
-		if(component_parts && O.tool_behaviour == TOOL_CROWBAR)
-			if(tickets)		//save the tickets!
-				print_tickets()
-			default_deconstruction_crowbar(user, O)
-		return
+/obj/machinery/prize_counter/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/stack/tickets))
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		add_fingerprint(user)
+		var/obj/item/stack/tickets/new_tickets = I
+		tickets += new_tickets.amount
+		qdel(new_tickets)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
+
+/obj/machinery/prize_counter/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!panel_open)
+		to_chat(user, span_warning("Open the service panel first."))
+		return .
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || !panel_open)
+		return .
+	if(tickets)		//save the tickets!
+		print_tickets()
+	to_chat(user, span_notice("You disassemble [src]."))
+	deconstruct(TRUE)
 
 
 /obj/machinery/prize_counter/screwdriver_act(mob/living/user, obj/item/I)

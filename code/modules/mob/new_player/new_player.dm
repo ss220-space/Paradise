@@ -13,9 +13,9 @@
 
 /mob/new_player/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
-	if(initialized)
+	if(flags & INITIALIZED)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
-	initialized = TRUE
+	flags |= INITIALIZED
 	GLOB.mob_list += src
 	return INITIALIZE_HINT_NORMAL
 
@@ -195,7 +195,8 @@
 			var/mob/dead/observer/observer = new()
 			src << browse(null, "window=playersetup")
 			spawning = 1
-			stop_sound_channel(CHANNEL_LOBBYMUSIC)
+			// stop_sound_channel(CHANNEL_LOBBYMUSIC)
+			client?.tgui_panel?.stop_music()
 
 
 			observer.started_as_observer = 1
@@ -628,7 +629,8 @@
 		client.prefs.real_name = random_name(client.prefs.gender)
 	client.prefs.copy_to(new_character)
 
-	stop_sound_channel(CHANNEL_LOBBYMUSIC)
+	// stop_sound_channel(CHANNEL_LOBBYMUSIC)
+	client?.tgui_panel?.stop_music()
 
 
 	if(mind)

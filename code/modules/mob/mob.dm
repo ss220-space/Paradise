@@ -1107,6 +1107,8 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	. = stat
 	stat = new_stat
 	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat, .)
+	if(.)
+		set_typing_indicator(FALSE)
 
 /**
  * Called when this mob slips over, override as needed

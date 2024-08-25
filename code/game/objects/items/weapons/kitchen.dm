@@ -35,38 +35,56 @@
 	sharp = 0
 	var/max_contents = 1
 
-/obj/item/kitchen/utensil/New()
-	..()
+
+/obj/item/kitchen/utensil/Initialize(mapload)
+	. = ..()
+
 	if(prob(60))
-		src.pixel_y = rand(0, 4)
+		set_base_pixel_y(rand(0, 4))
 
 	create_reagents(5)
 
-/obj/item/kitchen/utensil/attack(mob/living/carbon/C, mob/living/carbon/user)
-	if(!istype(C))
+
+/obj/item/kitchen/utensil/update_overlays()
+	. = ..()
+	var/obj/item/reagent_containers/food/snack = locate() in src
+	if(snack)
+		var/mutable_appearance/food_olay = mutable_appearance('icons/obj/kitchen.dmi', "loadedfood", color = snack.filling_color)
+		food_olay.pixel_w = pixel_x
+		food_olay.pixel_z = pixel_y
+		. += food_olay
+
+
+/obj/item/kitchen/utensil/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(!iscarbon(target))
 		return ..()
 
 	if(user.a_intent != INTENT_HELP)
 		if(user.zone_selected == BODY_ZONE_HEAD || user.zone_selected == BODY_ZONE_PRECISE_EYES)
-			if((CLUMSY in user.mutations) && prob(50))
-				C = user
-			return eyestab(C, user)
-		else
-			return ..()
+			if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+				target = user
+			return eyestab(target, user)
+		return ..()
 
-	if(length(contents))
-		var/obj/item/reagent_containers/food/snacks/toEat = contents[1]
-		if(istype(toEat))
-			if(!get_location_accessible(C, BODY_ZONE_PRECISE_MOUTH))
-				if(C == user)
-					to_chat(user, "<span class='warning'>Your face is obscured, so you cant eat.</span>")
-				else
-					to_chat(user, "<span class='warning'>[C]'s face is obscured, so[C.p_they()] cant eat.</span>")
-				return
-			if(C.eat(toEat, user))
-				toEat.On_Consume(C, user)
-				cut_overlays()
-				return
+	. = ATTACK_CHAIN_PROCEED
+	if(!length(contents))
+		return .
+
+	var/obj/item/reagent_containers/food/snacks/toEat = contents[1]
+	if(!istype(toEat))
+		return .
+
+	if(!get_location_accessible(target, BODY_ZONE_PRECISE_MOUTH))
+		if(target == user)
+			to_chat(user, span_warning("Your face is obscured."))
+		else
+			to_chat(user, span_warning("[target]'s face is obscured."))
+		return .
+
+	if(target.eat(toEat, user))
+		toEat.On_Consume(target, user)
+		update_icon(UPDATE_OVERLAYS)
+		return .|ATTACK_CHAIN_SUCCESS
 
 
 /obj/item/kitchen/utensil/fork
@@ -155,44 +173,41 @@
 	. = ..()
 	playsound(src, 'sound/weapons/knife_holster/knife_throw.ogg', 30, 1)
 
+
 /obj/item/kitchen/knife/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	var/datum/martial_art/throwing/MA = throwingdatum?.thrower?.mind?.martial_art
 	if(istype(MA) && is_type_in_list(src, MA.knife_types, FALSE))
 		embed_chance = MA.knife_embed_chance
 		throwforce = default_throwforce + MA.knife_bonus_damage
 		shields_penetration = initial(shields_penetration) + MA.shields_penetration_bonus
-	. = ..()
+	return ..()
+
 
 /obj/item/kitchen/knife/after_throw(datum/callback/callback)
 	embed_chance = initial(embed_chance)
 	throwforce = default_throwforce
 	shields_penetration = initial(shields_penetration)
-	. = ..()
+	return ..()
 
-/obj/item/kitchen/knife/attack(mob/living/target, mob/living/user, def_zone)
+
+/obj/item/kitchen/knife/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	var/datum/martial_art/throwing/MA = user?.mind?.martial_art
 	if(istype(MA) && is_type_in_list(src, MA.knife_types, FALSE))
 		force = default_force + MA.knife_bonus_damage
 		if(user.zone_selected == BODY_ZONE_HEAD && user.a_intent == INTENT_HARM)
 			if(MA.neck_cut(target, user))
-				return TRUE
+				return ATTACK_CHAIN_PROCEED_SUCCESS
 	. = ..()
+	force = default_force
 
-/obj/item/kitchen/knife/attack_obj(obj/O, mob/living/user, params)
+
+/obj/item/kitchen/knife/attack_obj(obj/object, mob/living/user, params)
 	var/datum/martial_art/throwing/MA = user?.mind?.martial_art
 	if(istype(MA) && is_type_in_list(src, MA.knife_types, FALSE))
 		force = default_force + MA.knife_bonus_damage
 	. = ..()
-
-/obj/item/kitchen/knife/afterattack(atom/target, mob/user, proximity, params)
 	force = default_force
-	. = ..()
 
-//this ensures that an afterattack will always be called for knives
-/obj/item/kitchen/knife/melee_attack_chain(mob/user, atom/target, params)
-	if(!tool_attack_chain(user, target) && pre_attackby(target, user, params))
-		target.attackby(src, user, params)
-		afterattack(target, user, 1, params)
 
 /obj/item/kitchen/knife/plastic
 	name = "plastic knife"

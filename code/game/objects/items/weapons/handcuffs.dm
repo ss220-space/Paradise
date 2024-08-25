@@ -21,29 +21,31 @@
 	var/ignoresClumsy = FALSE
 
 
-/obj/item/restraints/handcuffs/attack(mob/living/carbon/target, mob/living/user)
+/obj/item/restraints/handcuffs/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
 	if(!iscarbon(target)) // Shouldn't be able to cuff anything but carbons.
-		return
-
-	if(target.handcuffed)
-		return
+		return .
 
 	if(!user.IsAdvancedToolUser())
-		return
+		return .
 
 	if(HAS_TRAIT(src, TRAIT_NODROP) && !isrobot(user))
 		to_chat(user, span_warning("[src] is stuck to your hand!"))
-		return
+		return .
+
+	if(target.handcuffed)
+		to_chat(user, span_warning("[target] is already handcudffed!"))
+		return .
 
 	if(!target.has_organ_for_slot(ITEM_SLOT_HANDCUFFED))
 		to_chat(user, span_warning("How do you suggest handcuffing someone with no hands?"))
-		return
+		return .
 
-	if(!ignoresClumsy && (CLUMSY in user.mutations) && prob(50))
+	if(!ignoresClumsy && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		playsound(loc, cuffsound, 30, TRUE, -2)
 		to_chat(user, span_warning("Uh... how do those things work?!"))
 		apply_cuffs(user, user)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	playsound(loc, cuffsound, 30, TRUE, -2)
 
@@ -58,13 +60,15 @@
 			span_userdanger("[user] is trying to put [name] on you!"),
 		)
 
-	if(do_after(user, 5 SECONDS, target))
-		if(isrobot(user))
-			apply_cuffs(target, user, TRUE)
-		else
-			apply_cuffs(target, user)
-	else
+	if(!do_after(user, 5 SECONDS, target))
 		to_chat(user, span_warning("You failed to handcuff [user == target ? "yourself" : target]!"))
+		return .
+
+	if(isrobot(user))
+		apply_cuffs(target, user, TRUE)
+	else
+		apply_cuffs(target, user)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 
 /**
@@ -181,36 +185,45 @@
 	icon_state = "pinkcuffs"
 	item_state = "pinkcuff"
 
-/obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user, params)
-	..()
-	if(istype(I, /obj/item/stack/rods))
-		var/obj/item/stack/rods/R = I
-		if(R.use(1))
-			var/obj/item/wirerod/W = new /obj/item/wirerod(drop_location())
-			if(!remove_item_from_storage(user))
-				user.temporarily_remove_item_from_inventory(src)
-			user.put_in_hands(W, ignore_anim = FALSE)
-			to_chat(user, span_notice("You wrap the cable restraint around the top of the rod."))
-			qdel(src)
-		else
-			to_chat(user, span_warning("You need at least six metal sheets to make good enough weights!"))
-	else if(istype(I, /obj/item/stack/sheet/metal))
-		var/obj/item/stack/sheet/metal/M = I
-		if(M.get_amount() < 6)
-			to_chat(user, span_warning("You need at least six metal sheets to make good enough weights!"))
-			return
 
-		to_chat(user, "<span class='notice'>You begin to apply [I] to [src]...</span>")
-		if(do_after(user, 3.5 SECONDS * M.toolspeed, src, category = DA_CAT_TOOL) && M.use(6))
-			var/obj/item/restraints/legcuffs/bola/S = new /obj/item/restraints/legcuffs/bola(drop_location())
-			user.put_in_hands(S, ignore_anim = FALSE)
-			to_chat(user, span_notice("You make some weights out of [I] and tie them to [src]."))
-			if(!remove_item_from_storage(user))
-				user.temporarily_remove_item_from_inventory(src)
-			qdel(src)
-	else if(istype(I, /obj/item/toy/crayon))
-		var/obj/item/toy/crayon/C = I
-		cable_color(C.colourName)
+/obj/item/restraints/handcuffs/cable/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/rods))
+		add_fingerprint(user)
+		var/obj/item/stack/rods/rods = I
+		if(!user.can_unEquip(src))
+			return ATTACK_CHAIN_PROCEED
+		if(!rods.use(1))
+			to_chat(user, span_warning("You need at least six metal sheets to make good enough weights!"))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You wrap the cable restraint around the top of the rod."))
+		var/obj/item/wirerod/wirerod = new(drop_location())
+		qdel(src)
+		user.put_in_hands(wirerod, ignore_anim = FALSE)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/stack/sheet/metal))
+		add_fingerprint(user)
+		var/obj/item/stack/sheet/metal/metal = I
+		if(metal.get_amount() < 6)
+			to_chat(user, span_warning("You need at least six metal sheets to make good enough weights!"))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You start to apply [I] to [src]..."))
+		if(!do_after(user, 3.5 SECONDS * metal.toolspeed, src, category = DA_CAT_TOOL) || QDELETED(metal) || !metal.use(6))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You make some weights out of [I] and tie them to [src]."))
+		var/obj/item/restraints/legcuffs/bola/bola = new(drop_location())
+		qdel(src)
+		user.put_in_hands(bola, ignore_anim = FALSE)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/toy/crayon))
+		add_fingerprint(user)
+		var/obj/item/toy/crayon/crayon = I
+		cable_color(crayon.colourName)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/item/restraints/handcuffs/cable/zipties
 	name = "zipties"
@@ -225,8 +238,10 @@
 	desc = "A pair of broken zipties."
 	icon_state = "cuff_white_used"
 
-/obj/item/restraints/handcuffs/cable/zipties/used/attack()
-	return
+
+/obj/item/restraints/handcuffs/cable/zipties/used/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	return ATTACK_CHAIN_PROCEED
+
 
 /obj/item/restraints/handcuffs/manacles
 	name = "manacles"
@@ -248,5 +263,6 @@
 	desc = "A pair of broken manacles."
 	icon_state = "manacle_unlock"
 
-/obj/item/restraints/handcuffs/manacles/used/attack()
-	return
+/obj/item/restraints/handcuffs/manacles/used/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	return ATTACK_CHAIN_PROCEED
+

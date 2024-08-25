@@ -282,6 +282,9 @@
 	if(owner?.status_flags & GODMODE)
 		return FALSE
 
+	var/brute_was = brute_dam
+	var/burn_was = burn_dam
+
 	if(!forced)
 		if(tough)
 			brute = max(0, brute - 5)
@@ -408,7 +411,7 @@
 				if(!limb_dropped && original_burn && prob(original_burn / 2))
 					droplimb(clean = FALSE, disintegrate = DROPLIMB_BURN, silent = silent)
 
-	if(updating_health)
+	if(updating_health && (QDELETED(src) || loc != organ_owner || brute_dam != brute_was || burn_dam != burn_was))
 		organ_owner?.updatehealth("limb receive damage")
 
 	return update_state()
@@ -416,10 +419,14 @@
 
 /obj/item/organ/external/proc/heal_damage(brute, burn, internal = FALSE, robo_repair = FALSE, updating_health = TRUE)
 	if(is_robotic() && !robo_repair)
-		return
+		return FALSE
 
-	brute_dam = round(max(brute_dam - brute, 0), DAMAGE_PRECISION)
-	burn_dam  = round(max(burn_dam - burn, 0), DAMAGE_PRECISION)
+	var/brute_was = brute_dam
+	var/burn_was = burn_dam
+	brute_dam = max(round(brute_dam - brute, DAMAGE_PRECISION), 0)
+	burn_dam  = max(round(burn_dam - burn, DAMAGE_PRECISION), 0)
+	if(brute_dam == brute_was && burn_dam == burn_was)
+		updating_health = FALSE
 
 	if(internal)
 		mend_fracture()
@@ -566,6 +573,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(germ_level < INFECTION_LEVEL_TWO)
 		return ..()
 
+	var/germs_amount = 1 * (owner.dna.species.germs_growth_mod * owner.physiology.germs_growth_mod)
+
 	if(germ_level >= INFECTION_LEVEL_TWO)
 		//spread the infection to internal organs
 		var/obj/item/organ/internal/target_organ = null	//make internal organs become infected one at a time instead of all at once
@@ -583,19 +592,19 @@ Note that amputating the affected organ does in fact remove the infection from t
 			target_organ = safepick(candidate_organs)
 
 		if(target_organ)
-			target_organ.germ_level += owner.dna.species.germs_growth_rate
+			target_organ.germ_level += germs_amount
 
 		//spread the infection to child and parent organs
 		for(var/obj/item/organ/external/childpart as anything in children)
 			if(childpart.germ_level < germ_level && !childpart.is_robotic() && (childpart.germ_level < INFECTION_LEVEL_ONE * 2 || prob(30)))
-				childpart.germ_level += owner.dna.species.germs_growth_rate
+				childpart.germ_level += germs_amount
 
 		if(parent && parent.germ_level < germ_level && !parent.is_robotic() && (parent.germ_level < INFECTION_LEVEL_ONE * 2 || prob(30)))
-			parent.germ_level += owner.dna.species.germs_growth_rate
+			parent.germ_level += germs_amount
 
 	if(germ_level >= INFECTION_LEVEL_THREE)
 		necrotize()
-		germ_level += owner.dna.species.germs_growth_rate
+		germ_level += germs_amount
 		owner.adjustToxLoss(1)
 
 
@@ -699,13 +708,12 @@ Note that amputating the affected organ does in fact remove the infection from t
 			for(var/obj/item/organ/external/childpart as anything in children) //Factor in the children's brute and burn into how much will transfer
 				total_brute += childpart.brute_dam
 				total_burn += childpart.burn_dam
-			parent.external_receive_damage(total_brute, total_burn, forced = TRUE, silent = silent) //Transfer the full damage to the parent, bypass limb damage reduction.
+			parent.external_receive_damage(total_brute, total_burn, forced = TRUE, updating_health = FALSE, silent = silent) //Transfer the full damage to the parent, bypass limb damage reduction.
 		parent = null
-		dir = SOUTH
+		setDir(SOUTH)
 
 	if(victim)
 		victim.updatehealth("droplimb")
-		victim.UpdateDamageIcon()
 		victim.regenerate_icons()
 
 	switch(disintegrate)
@@ -773,21 +781,27 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 /obj/item/organ/external/attackby(obj/item/I, mob/user, params)
-	if(I.sharp)
+	if(is_sharp(I))
 		add_fingerprint(user)
 		if(!length(contents))
 			user.balloon_alert(user, "внутри ничего нет!")
-			return
-
+			return ATTACK_CHAIN_PROCEED
 		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
 		user.visible_message(
-			span_warning("[user] begins to cut open [src]."),
-			span_notice("You begin to cut open [src]..."),
+			span_warning("[user] starts to rip the internals from [src]."),
+			span_notice("You start to rip the internals from [src]..."),
 		)
-		if(do_after(user, 5 SECONDS, src) && length(contents) && !QDELETED(src) && !QDELETED(user))
-			drop_organs()
-	else
-		return ..()
+		if(!do_after(user, 5 SECONDS, src, category = DA_CAT_SURGERY) || !length(contents))
+			return ATTACK_CHAIN_PROCEED
+		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
+		user.visible_message(
+			span_warning("[user] has ripped off all the internals from [src]."),
+			span_notice("You have ripped off all the internals from [src]."),
+		)
+		drop_organs()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
 
 
 /**
