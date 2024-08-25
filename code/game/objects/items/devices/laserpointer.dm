@@ -47,20 +47,26 @@
 	icon_state = "pointer[is_pointing ? "_[pointer_icon_state]" : ""]"
 
 
-/obj/item/laser_pointer/attack(mob/living/M, mob/user)
-	laser_act(M, user)
+/obj/item/laser_pointer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(laser_act(target, user))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	return ATTACK_CHAIN_PROCEED
 
-/obj/item/laser_pointer/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stock_parts/micro_laser))
-		if(!diode)
-			user.drop_transfer_item_to_loc(W, src)
-			diode = W
-			user.balloon_alert(user, "установлено")
-		else
+
+/obj/item/laser_pointer/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stock_parts/micro_laser))
+		add_fingerprint(user)
+		if(diode)
 			user.balloon_alert(user, "уже установлено!")
-		return
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		diode = I
+		user.balloon_alert(user, "установлено")
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
+
 
 /obj/item/laser_pointer/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -75,21 +81,22 @@
 	laser_act(target, user, params)
 
 /obj/item/laser_pointer/proc/laser_act(atom/target, mob/living/user, params)
-	if( !(user in (viewers(7,target))) )
-		return
+	if(!(user in (viewers(7,target))) )
+		return FALSE
 	if(!diode)
 		user.balloon_alert(user, "не функционирует!")
-		return
+		return FALSE
 	if(!user.IsAdvancedToolUser())
 		user.balloon_alert(user, "вы недостаточно ловки!")
-		return
+		return FALSE
 	add_fingerprint(user)
 
 	//nothing happens if the battery is drained
 	if(recharge_locked)
 		user.balloon_alert(user, "идёт перезарядка")
-		return
+		return FALSE
 
+	. = TRUE
 	var/outmsg
 	var/turf/targloc = get_turf(target)
 

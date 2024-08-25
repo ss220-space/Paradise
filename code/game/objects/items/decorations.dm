@@ -320,7 +320,7 @@
 
 /obj/structure/decorative_structures/corpse/Initialize()
 	START_PROCESSING(SSobj, src)
-	..()
+	. = ..()
 
 /obj/structure/decorative_structures/corpse/Destroy()
 	playsound(src, 'sound/goonstation/effects/gib.ogg', 30, 0)
@@ -357,7 +357,7 @@
 			var/obj/item/clothing/mask/M = H.wear_mask
 			if(M && (M.flags_cover & MASKCOVERSMOUTH))
 				continue
-			if(NO_BREATHE in H.dna.species.species_traits)
+			if(HAS_TRAIT(H, TRAIT_NO_BREATH))
 				continue //no puking if you can't smell!
 			to_chat(H, "<span class='warning'>You smell something foul...</span>")
 			H.fakevomit()
@@ -430,10 +430,15 @@
 	. = ..()
 	set_light(2, 1, COLOR_RED)
 
+
 /obj/structure/decorative_structures/cult_crystal/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
+	. |= ATTACK_CHAIN_SUCCESS
 	electrocute_mob(user, get_area(src), src, 0.5, TRUE)
 	to_chat(user, span_warning("When you touch it, you feel some dark energy."))
-	..()
+
 
 /obj/structure/decorative_structures/cult_crystal/attack_hand(mob/living/user)
 	electrocute_mob(user, get_area(src), src, 0.5, TRUE)

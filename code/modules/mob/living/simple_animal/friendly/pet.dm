@@ -6,13 +6,24 @@
 	attacktext = "кусает"
 	attack_sound = 'sound/weapons/bite.ogg'
 
-/mob/living/simple_animal/pet/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/newspaper))
-		if(!stat)
-			user.visible_message("<span class='notice'>[user] baps [name] on the nose with the rolled up [O].</span>")
-			spawn(0)
-				for(var/i in list(1,2,4,8,4,2,1,2))
-					setDir(i)
-					sleep(1)
-	else
+
+/mob/living/simple_animal/pet/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(istype(I, /obj/item/newspaper))
+		add_fingerprint(user)
+		if(stat != CONSCIOUS)
+			to_chat(user, span_warning("[src] has problems with health."))
+			return ATTACK_CHAIN_PROCEED
+		user.do_attack_animation(src)
+		playsound(loc, 'sound/items/handling/paper_drop.ogg', 100, TRUE)
+		user.visible_message(
+			span_notice("[user] baps [name] on the nose with the rolled up newspaper."),
+			span_notice("You bap [name] on the nose with the rolled up newspaper."),
+		)
+		spin(12, 1)
+		return ATTACK_CHAIN_PROCEED
+
+	return ..()
+

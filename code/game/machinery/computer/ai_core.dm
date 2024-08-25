@@ -16,109 +16,128 @@
 	QDEL_NULL(brain)
 	return ..()
 
-/obj/structure/AIcore/attackby(obj/item/P, mob/user, params)
+
+/obj/structure/AIcore/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	switch(state)
 		if(EMPTY_CORE)
-			if(istype(P, /obj/item/circuitboard/aicore))
-				if(!user.drop_transfer_item_to_loc(P, src))
-					return
+			if(istype(I, /obj/item/circuitboard/aicore))
+				if(!user.drop_transfer_item_to_loc(I, src))
+					return ..()
 				add_fingerprint(user)
-				playsound(loc, P.usesound, 50, 1)
+				playsound(loc, I.usesound, 50, TRUE)
 				to_chat(user, span_notice("You place the circuit board inside the frame."))
 				update_icon(UPDATE_ICON_STATE)
 				state = CIRCUIT_CORE
-				circuit = P
-				return
-		if(SCREWED_CORE)
-			if(istype(P, /obj/item/stack/cable_coil))
-				var/obj/item/stack/cable_coil/C = P
-				if(C.get_amount() >= 5)
-					playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
-					to_chat(user, span_notice("You start to add cables to the frame..."))
-					if(do_after(user, 2 SECONDS, src) && state == SCREWED_CORE && C.use(5))
-						add_fingerprint(user)
-						to_chat(user, span_notice("You add cables to the frame."))
-						state = CABLED_CORE
-						update_icon(UPDATE_ICON_STATE)
-				else
-					to_chat(user, span_warning("You need five lengths of cable to wire the AI core!"))
-				return
-		if(CABLED_CORE)
-			if(istype(P, /obj/item/stack/sheet/rglass))
-				var/obj/item/stack/sheet/rglass/G = P
-				if(G.get_amount() >= 2)
-					playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
-					to_chat(user, span_notice("You start to put in the glass panel..."))
-					if(do_after(user, 2 SECONDS, src) && state == CABLED_CORE && G.use(2))
-						add_fingerprint(user)
-						to_chat(user, span_notice("You put in the glass panel."))
-						state = GLASS_CORE
-						update_icon(UPDATE_ICON_STATE)
-				else
-					to_chat(user, span_warning("You need two sheets of reinforced glass to insert them into the AI core!"))
-				return
+				circuit = I
+				return ATTACK_CHAIN_BLOCKED_ALL
 
-			if(istype(P, /obj/item/aiModule/purge))
+		if(SCREWED_CORE)
+			if(istype(I, /obj/item/stack/cable_coil))
+				add_fingerprint(user)
+				var/obj/item/stack/cable_coil/coil = I
+				if(coil.get_amount() < 5)
+					to_chat(user, span_warning("You need five lengths of cable to wire the frame!"))
+					return ATTACK_CHAIN_PROCEED
+				playsound(loc, coil.usesound, 50, TRUE)
+				to_chat(user, span_notice("You start to add cables to the frame."))
+				if(!do_after(user, 2 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || state != SCREWED_CORE || QDELETED(coil))
+					return ATTACK_CHAIN_PROCEED
+				if(!coil.use(5))
+					to_chat(user, span_warning("At some point during construction you lost some cable. Make sure you have five lengths before trying again."))
+					return ATTACK_CHAIN_PROCEED
+				to_chat(user, span_notice("You add cables to the frame."))
+				state = CABLED_CORE
+				update_icon(UPDATE_ICON_STATE)
+				return ATTACK_CHAIN_PROCEED_SUCCESS
+
+		if(CABLED_CORE)
+			if(istype(I, /obj/item/stack/sheet/rglass))
+				add_fingerprint(user)
+				var/obj/item/stack/sheet/rglass/rglass = I
+				if(rglass.get_amount() < 2)
+					to_chat(user, span_warning("You need two sheets of [rglass.name] to insert them into the AI core!"))
+					return ATTACK_CHAIN_PROCEED
+				if(!do_after(user, 2 SECONDS * rglass.toolspeed, src, category = DA_CAT_TOOL) || state != CABLED_CORE || QDELETED(rglass))
+					return ATTACK_CHAIN_PROCEED
+				if(!rglass.use(2))
+					to_chat(user, span_warning("At some point during construction you lost some [rglass.name]. Make sure you have two sheets of [rglass.name] before trying again."))
+					return ATTACK_CHAIN_PROCEED
+				to_chat(user, span_notice("You put in the [rglass.name] panel."))
+				state = GLASS_CORE
+				update_icon(UPDATE_ICON_STATE)
+				return ATTACK_CHAIN_PROCEED_SUCCESS
+
+			if(istype(I, /obj/item/aiModule/purge))
 				add_fingerprint(user)
 				laws.clear_inherent_laws()
-				to_chat(usr, span_notice("Law module applied."))
-				return
+				to_chat(user, span_notice("Law module applied."))
+				return ATTACK_CHAIN_PROCEED_SUCCESS
 
-			if(istype(P, /obj/item/aiModule/freeform))
+			if(istype(I, /obj/item/aiModule/freeform))
 				add_fingerprint(user)
-				var/obj/item/aiModule/freeform/M = P
-				laws.add_inherent_law(M.newFreeFormLaw)
-				to_chat(usr, span_notice("Added a freeform law."))
-				return
+				var/obj/item/aiModule/freeform/freeform = I
+				laws.add_inherent_law(freeform.newFreeFormLaw)
+				to_chat(user, span_notice("Added a freeform law."))
+				return ATTACK_CHAIN_PROCEED_SUCCESS
 
-			if(istype(P, /obj/item/aiModule))
-				var/obj/item/aiModule/M = P
-				if(!M.laws)
-					to_chat(usr, span_warning("This AI module can not be applied directly to AI cores."))
-					return
+			if(istype(I, /obj/item/aiModule))
 				add_fingerprint(user)
-				laws = M.laws
+				var/obj/item/aiModule/aiModule = I
+				if(!aiModule.laws)
+					to_chat(user, span_warning("This AI module can not be applied directly to AI cores."))
+					return ATTACK_CHAIN_PROCEED
+				laws = aiModule.laws
+				return ATTACK_CHAIN_PROCEED_SUCCESS
 
-			if(istype(P, /obj/item/mmi) && !brain)
-				var/obj/item/mmi/M = P
-				if(!M.brainmob)
-					to_chat(user, span_warning("Sticking an empty [P] into the frame would sort of defeat the purpose."))
-					return
-				if(M.brainmob.stat == DEAD)
-					to_chat(user, span_warning("Sticking a dead [P] into the frame would sort of defeat the purpose."))
-					return
+			if(istype(I, /obj/item/mmi))
+				add_fingerprint(user)
+				if(brain)
+					to_chat(user, span_warning("There is already [brain] installed into the frame."))
+					return ATTACK_CHAIN_PROCEED
 
-				if(!M.brainmob.client)
-					to_chat(user, span_warning("Sticking an inactive [M.name] into the frame would sort of defeat the purpose."))
-					return
+				var/obj/item/mmi/mmi = I
+				if(!mmi.brainmob)
+					to_chat(user, span_warning("Sticking an empty [mmi.name] into the frame would sort of defeat the purpose."))
+					return ATTACK_CHAIN_PROCEED
 
-				if(jobban_isbanned(M.brainmob, JOB_TITLE_AI) || jobban_isbanned(M.brainmob, "nonhumandept"))
-					to_chat(user, span_warning("This [P] does not seem to fit."))
-					return
+				if(mmi.brainmob.stat == DEAD)
+					to_chat(user, span_warning("Sticking a dead [mmi.name] into the frame would sort of defeat the purpose."))
+					return ATTACK_CHAIN_PROCEED
+
+				if(!mmi.brainmob.client)
+					to_chat(user, span_warning("Sticking an inactive [mmi.name] into the frame would sort of defeat the purpose."))
+					return ATTACK_CHAIN_PROCEED
+
+				if(jobban_isbanned(mmi.brainmob, JOB_TITLE_AI) || jobban_isbanned(mmi.brainmob, "nonhumandept"))
+					to_chat(user, span_warning("This [mmi.name] does not seem to fit."))
+					return ATTACK_CHAIN_PROCEED
 
 				var/datum/job/job_ai = SSjobs.name_occupations[JOB_TITLE_AI]
-				if(job_ai.available_in_playtime(M.brainmob.client))
-					to_chat(user, span_warning("This [P] does not seem to fit."))
-					return
+				if(job_ai.available_in_playtime(mmi.brainmob.client))
+					to_chat(user, span_warning("This [mmi.name] does not seem to fit."))
+					return ATTACK_CHAIN_PROCEED
 
-				if(!M.brainmob.mind)
-					to_chat(user, span_warning("This [M.name] is mindless!"))
-					return
+				if(!mmi.brainmob.mind)
+					to_chat(user, span_warning("This [mmi.name] is mindless!"))
+					return ATTACK_CHAIN_PROCEED
 
-				if(istype(P, /obj/item/mmi/syndie))
+				if(istype(mmi, /obj/item/mmi/syndie))
 					to_chat(user, span_warning("This MMI does not seem to fit!"))
-					return
+					return ATTACK_CHAIN_PROCEED
 
-				if(!user.drop_transfer_item_to_loc(M, src))
-					return
+				if(!user.drop_transfer_item_to_loc(mmi, src))
+					return ..()
 
-				add_fingerprint(user)
-				brain = M
-				to_chat(user, span_notice("You add [M.name] to the frame."))
+				brain = mmi
+				to_chat(user, span_notice("You add [mmi] to the frame."))
 				update_icon(UPDATE_ICON_STATE)
-				return
+				return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
+
 
 /obj/structure/AIcore/crowbar_act(mob/living/user, obj/item/I)
 	if(state !=CIRCUIT_CORE && state != GLASS_CORE && !(state == CABLED_CORE && brain))

@@ -53,7 +53,8 @@
 		inv3.icon_state = "inv3"
 	if(hud_used)
 		hud_used.update_robot_modules_display()
-	return 1
+	update_icons()
+	return TRUE
 
 /mob/living/silicon/robot/proc/activate_module(var/obj/item/O)
 	if(!(locate(O) in src.module.modules) && O != src.module.emag)
@@ -179,6 +180,7 @@
 	if(!module_active(module))
 		return
 
+	deselect_module(get_selected_module())
 	switch(module)
 		if(1)
 			if(module_active != module_state_1)
@@ -203,6 +205,7 @@
 
 	if(istype(module_active, /obj/item/borg/destroyer/mobility))
 		add_movespeed_modifier(/datum/movespeed_modifier/destroyer_mobility)
+	update_icons()
 
 
 //deselect_module(module) - Deselects the module slot specified by "module"
@@ -226,6 +229,8 @@
 			if(module_active == module_state_3)
 				inv3.icon_state = "inv3"
 				module_active = null
+
+	update_icons()
 
 
 //toggle_module(module) - Toggles the selection of the module slot specified by "module".

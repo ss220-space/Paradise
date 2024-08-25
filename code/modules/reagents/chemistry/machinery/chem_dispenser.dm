@@ -244,29 +244,33 @@
 
 	add_fingerprint(usr)
 
+
 /obj/machinery/chem_dispenser/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(exchange_parts(user, I))
 		SStgui.update_uis(src)
-		return
-
-	if(beaker)
-		to_chat(user, "<span class='warning'>Something is already loaded into the machine.</span>")
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks))
-		if(panel_open)
-			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
-			return
-		if(!user.drop_transfer_item_to_loc(I, src))
-			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
-			return
 		add_fingerprint(user)
+		if(panel_open)
+			to_chat(user, span_warning("Close the maintenance panel first."))
+			return ATTACK_CHAIN_PROCEED
+		if(beaker)
+			to_chat(user, span_warning("The [name] already has [beaker] loaded."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
 		beaker = I
-		to_chat(user, "<span class='notice'>You set [I] on the machine.</span>")
+		to_chat(user, span_notice("You have inserted [I] into [src]."))
 		SStgui.update_uis(src) // update all UIs attached to src
 		update_icon(UPDATE_OVERLAYS)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/machinery/chem_dispenser/crowbar_act(mob/user, obj/item/I)
 	if(!panel_open)
@@ -373,7 +377,7 @@
 
 /obj/machinery/chem_dispenser/soda/New()
 	..()
-	QDEL_LIST(component_parts)
+	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser/soda(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -385,7 +389,7 @@
 
 /obj/machinery/chem_dispenser/soda/upgraded/New()
 	..()
-	QDEL_LIST(component_parts)
+	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser/soda(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -404,7 +408,7 @@
 			dispensable_reagents -= hackedupgrade_reagents
 
 	else if(update_type == UPDATE_TYPE_COMPONENTS && hackedcheck)
-		dispensable_reagents += hackedupgrade_reagents
+		dispensable_reagents |= hackedupgrade_reagents
 	..()
 
 
@@ -422,7 +426,7 @@
 
 /obj/machinery/chem_dispenser/beer/New()
 	..()
-	QDEL_LIST(component_parts)
+	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser/beer(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -434,7 +438,7 @@
 
 /obj/machinery/chem_dispenser/beer/upgraded/New()
 	..()
-	QDEL_LIST(component_parts)
+	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser/beer(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -454,7 +458,7 @@
 
 /obj/machinery/chem_dispenser/botanical/New()
 	..()
-	QDEL_LIST(component_parts)
+	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser/botanical(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -466,7 +470,7 @@
 
 /obj/machinery/chem_dispenser/botanical/upgraded/New()
 	..()
-	QDEL_LIST(component_parts)
+	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_dispenser/botanical(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
@@ -495,7 +499,7 @@
 	var/recharge_rate = 1 // Keep this as an integer
 
 /obj/item/handheld_chem_dispenser/Initialize()
-	..()
+	. = ..()
 	cell = new(src)
 	dispensable_reagents = sortList(dispensable_reagents)
 	current_reagent = pick(dispensable_reagents)
@@ -630,30 +634,44 @@
 	update_icon(UPDATE_OVERLAYS)
 	return TRUE
 
-/obj/item/handheld_chem_dispenser/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stock_parts/cell))
-		var/obj/item/stock_parts/cell/C = W
+
+/obj/item/handheld_chem_dispenser/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stock_parts/cell))
+		add_fingerprint(user)
 		if(cell)
-			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
-		else
-			if(C.maxcharge < 100)
-				to_chat(user, "<span class='notice'>[src] requires a higher capacity cell.</span>")
-				return
-			if(!user.drop_transfer_item_to_loc(W, src))
-				return
-			cell = W
-			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
-			update_icon(UPDATE_OVERLAYS)
+			to_chat(user, span_warning("The [name] already has a cell."))
+			return ATTACK_CHAIN_PROCEED
+		if(cell.maxcharge < 100)
+			to_chat(user, span_warning("The [name] requires a higher capacity cell."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		cell = I
+		update_icon(UPDATE_OVERLAYS)
+		to_chat(user, span_notice("You have installed [I] into the [src]."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/handheld_chem_dispenser/screwdriver_act(mob/user, obj/item/I)
-	if(!isrobot(loc) && cell)
-		cell.update_icon()
-		cell.loc = get_turf(src)
-		cell = null
-		to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
-		update_icon(UPDATE_OVERLAYS)
-		return
-	..()
+	. = TRUE
+	if(isrobot(loc))
+		to_chat(user, span_warning("That was dumb idea."))
+		return .
+	if(!cell)
+		add_fingerprint(user)
+		to_chat(user, span_warning("The [name] has no power cell installed."))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	to_chat(user, span_notice("You have removed [cell] from [src]."))
+	cell.update_icon()
+	cell.forceMove(drop_location())
+	cell.add_fingerprint(user)
+	cell = null
+	update_icon(UPDATE_OVERLAYS)
+
 
 /obj/item/handheld_chem_dispenser/booze
 	name = "handheld bar tap"

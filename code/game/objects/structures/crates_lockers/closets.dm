@@ -204,35 +204,41 @@ GLOBAL_LIST_EMPTY(closets)
 	MouseDrop_T(grabbed_thing, grabber)	//act like they were dragged onto the closet
 
 
-/obj/structure/closet/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/rcs) && !opened)
-		var/obj/item/rcs/E = W
-		if(E.try_send_container(user, src))
-			add_fingerprint(user)
-		return
-
+/obj/structure/closet/attackby(obj/item/I, mob/user, params)
 	if(opened)
-		if(istype(W, /obj/item/tk_grab))
-			return FALSE
-		if(user.a_intent != INTENT_HELP) // Stops you from putting your baton in the closet on accident
-			return
-		if(isrobot(user))
-			return
-		if(!user.transfer_item_to_loc(W, src.loc)) //couldn't drop the item
-			to_chat(user, "<span class='notice'>\The [W] is stuck to your hand, you cannot put it in \the [src]!</span>")
-			return
-		if(W)
-			add_fingerprint(user)
-			return TRUE // It's resolved. No afterattack needed. Stops you from emagging lockers when putting in an emag
-	else if(can_be_emaged && (istype(W, /obj/item/card/emag) || istype(W, /obj/item/melee/energy/blade) && !broken))
+		if(user.a_intent == INTENT_HARM || (I.item_flags & ABSTRACT) || I.is_robot_module())
+			return ..()
+		if(!user.drop_transfer_item_to_loc(I, loc)) //couldn't drop the item
+			return ..()
 		add_fingerprint(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/rcs))
+		var/obj/item/rcs/rcs = I
+		add_fingerprint(user)
+		rcs.try_send_container(user, src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	var/is_emag = istype(I, /obj/item/card/emag)
+	if(is_emag || istype(I, /obj/item/melee/energy/blade))
+		add_fingerprint(user)
+		if(!can_be_emaged || broken)
+			var/add_flags = NONE
+			if(is_emag)
+				add_flags |= ATTACK_CHAIN_NO_AFTERATTACK
+			return ..() | add_flags
 		emag_act(user)
-	else if(istype(W, /obj/item/stack/packageWrap))
-		return
-	else if(user.a_intent != INTENT_HARM)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/stack/packageWrap))
+		return ATTACK_CHAIN_PROCEED	// afterattack handles it
+
+	if(user.a_intent != INTENT_HARM)
 		closed_item_click(user)
-	else
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 // What happens when the closet is attacked by a random item not on harm mode
 /obj/structure/closet/proc/closed_item_click(mob/user)

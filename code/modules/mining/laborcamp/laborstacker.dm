@@ -35,20 +35,25 @@
 /proc/cmp_sheet_list(list/a, list/b)
 	return a["value"] - b["value"]
 
+
 /obj/machinery/mineral/labor_claim_console/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(istype(I, /obj/item/card/id/prisoner))
-		if(!inserted_id)
-			if(!user.drop_transfer_item_to_loc(I, src))
-				return
-			add_fingerprint(user)
-			inserted_id = I
-			to_chat(user, "<span class='notice'>You insert [I].</span>")
-			SStgui.update_uis(src)
-			return
-		else
-			to_chat(user, "<span class='notice'>There's an ID inserted already.</span>")
-		return
+		add_fingerprint(user)
+		if(inserted_id)
+			to_chat(user, span_warning("The [name] is already holding another ID-card."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		inserted_id = I
+		to_chat(user, span_notice("You have inserted [I] into [src]."))
+		SStgui.update_uis(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/machinery/mineral/labor_claim_console/attack_hand(mob/user)
 	if(..())
@@ -150,13 +155,19 @@
 	points += inp.point_value * inp.amount
 	..()
 
-/obj/machinery/mineral/stacking_machine/laborstacker/attackby(obj/item/I, mob/living/user)
+
+/obj/machinery/mineral/stacking_machine/laborstacker/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(istype(I, /obj/item/stack/sheet) && user.can_unEquip(I))
 		add_fingerprint(user)
-		var/obj/item/stack/sheet/inp = I
-		points += inp.point_value * inp.amount
-		return
+		var/obj/item/stack/sheet/sheet = I
+		points += sheet.point_value * sheet.amount
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
+
 
 /**********************Point Lookup Console**************************/
 /obj/machinery/mineral/labor_points_checker
@@ -173,16 +184,21 @@
 		return
 	user.examinate(src)
 
+
 /obj/machinery/mineral/labor_points_checker/attackby(obj/item/I, mob/user, params)
-	if(I.GetID())
-		if(istype(I.GetID(), /obj/item/card/id/prisoner))
-			add_fingerprint(user)
-			var/obj/item/card/id/prisoner/prisoner_id = I.GetID()
-			to_chat(user, "<span class='notice'><B>ID: [prisoner_id.registered_name]</B></span>")
-			to_chat(user, "<span class='notice'>Points Collected:[prisoner_id.mining_points]</span>")
-			to_chat(user, "<span class='notice'>Point Quota: [prisoner_id.goal]</span>")
-			to_chat(user, "<span class='notice'>Collect points by bringing smelted minerals to the Labor Shuttle stacking machine. Reach your quota to earn your release.</span>")
-		else
-			to_chat(user, "<span class='warning'>Error: Invalid ID</span>")
-		return
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	var/obj/item/card/id/prisoner/prisoner_id = I.GetID()
+	if(prisoner_id)
+		add_fingerprint(user)
+		if(!istype(prisoner_id, /obj/item/card/id/prisoner))
+			to_chat(user, span_warning("Error: Invalid ID."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_info("<B>ID: [prisoner_id.registered_name]</B>"))
+		to_chat(user, span_info("Points Collected:[prisoner_id.mining_points]"))
+		to_chat(user, span_info("Point Quota: [prisoner_id.goal]"))
+		to_chat(user, span_info("Collect points by bringing smelted minerals to the Labor Shuttle stacking machine. Reach your quota to earn your release."))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()

@@ -107,7 +107,7 @@
 	SIGNAL_HANDLER  // COMSIG_ITEM_ATTACK
 	// This includes some do-afters, so we have to pass it off asynchronously
 	INVOKE_ASYNC(src, PROC_REF(defibrillate), user, target)
-	return TRUE
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /**
  * Perform a defibrillation.
@@ -252,7 +252,7 @@
 		else
 			user.visible_message(span_boldnotice("[defib_ref] buzzes: Resuscitation failed - Patient's brain is unresponsive. Further attempts may succeed."))
 		defib_success = FALSE
-	else if((NOCLONE in target.mutations) || !target.mind || !(target.mind.is_revivable()) || HAS_TRAIT(target, TRAIT_FAKEDEATH) || target.suiciding)  // these are a bit more arbitrary
+	else if(HAS_TRAIT(target, TRAIT_NO_CLONE) || !target.mind || !(target.mind.is_revivable()) || HAS_TRAIT(target, TRAIT_FAKEDEATH) || target.suiciding)  // these are a bit more arbitrary
 		user.visible_message(span_boldnotice("[defib_ref] buzzes: Resuscitation failed."))
 		defib_success = FALSE
 

@@ -159,39 +159,47 @@ By design, d1 is the smallest direction and d2 is the highest
 /obj/structure/cable/attack_tk(mob/user)
 	return
 
-// Items usable on a cable :
-//   - Wirecutters : cut it duh !
-//   - Cable coil : merge cables
-//   - Multitool : get the power currently passing through the cable
-//
-/obj/structure/cable/attackby(obj/item/W, mob/user)
-	var/turf/T = get_turf(src)
-	if((T.transparent_floor == TURF_TRANSPARENT) || T.intact)
-		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
-		return
 
-	else if(istype(W, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/coil = W
+/obj/structure/cable/attackby(obj/item/I, mob/user, params)
+	var/turf/our_turf = get_turf(src)
+	if(!our_turf)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if((our_turf.transparent_floor == TURF_TRANSPARENT) || our_turf.intact)
+		to_chat(user, span_danger("You cannot interact with something that's under the floor!"))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(iscoil(I))
+		add_fingerprint(user)
+		var/obj/item/stack/cable_coil/coil = I
 		if(coil.get_amount() < 1)
-			to_chat(user, "<span class='warning'>Not enough cable!</span>")
-			return
+			to_chat(user, span_warning("Not enough cable!"))
+			return ATTACK_CHAIN_PROCEED
 		coil.cable_join(src, user)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	else if(istype(W, /obj/item/twohanded/rcl))
-		var/obj/item/twohanded/rcl/R = W
-		if(R.loaded)
-			R.loaded.cable_join(src, user)
-			R.is_empty(user)
+	if(istype(I, /obj/item/twohanded/rcl))
+		add_fingerprint(user)
+		var/obj/item/twohanded/rcl/rcl = I
+		if(!rcl.loaded)
+			to_chat(user, span_warning("The [rcl.name] has no cable!"))
+			return ATTACK_CHAIN_PROCEED
+		rcl.loaded.cable_join(src, user)
+		rcl.is_empty(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	else if(istype(W, /obj/item/toy/crayon))
-		var/obj/item/toy/crayon/C = W
-		cable_color(C.colourName)
+	if(istype(I, /obj/item/toy/crayon))
+		add_fingerprint(user)
+		var/obj/item/toy/crayon/crayon = I
+		cable_color(crayon.colourName)
+		return ATTACK_CHAIN_PROCEED
 
-	else
-		if(W.flags & CONDUCT)
-			shock(user, 50, 0.7)
+	if((I.flags & CONDUCT) && shock(user, 50, 0.7))
+		add_fingerprint(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	add_fingerprint(user)
+	return ..()
+
 
 /obj/structure/cable/multitool_act(mob/user, obj/item/I)
 	. = TRUE

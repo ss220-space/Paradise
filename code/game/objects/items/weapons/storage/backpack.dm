@@ -26,10 +26,12 @@
 	pickup_sound = 'sound/items/handling/backpack_pickup.ogg'
 	drop_sound = 'sound/items/handling/backpack_drop.ogg'
 
-/obj/item/storage/backpack/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(in_range(user, src))
-		playsound(src.loc, "rustle", 50, 1, -5)
-		return ..()
+
+/obj/item/storage/backpack/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(!ATTACK_CHAIN_CANCEL_CHECK(.))
+		playsound(loc, "rustle", 50, TRUE, -5)
+
 
 /obj/item/storage/backpack/examine(mob/user)
 	var/space_used = 0
@@ -65,31 +67,52 @@
 	cant_hold = list(/obj/item/storage/backpack/holding)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 50)
 
-/obj/item/storage/backpack/holding/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/storage/backpack/holding))
-		var/response = tgui_alert(user, "This creates a singularity, destroying you and much of the station. Are you SURE?", "IMMINENT DEATH!", list("No", "Yes"))
-		if(response == "Yes")
-			user.visible_message("<span class='warning'>[user] grins as [user.p_they()] begin[user.p_s()] to put a Bag of Holding into a Bag of Holding!</span>", "<span class='warning'>You begin to put the Bag of Holding into the Bag of Holding!</span>")
-			var/list/play_records = params2list(user.client.prefs.exp)
-			var/livingtime = text2num(play_records[EXP_TYPE_LIVING])
-			if (user.mind.special_role || livingtime > 9000)
-				if(do_after(user, 3 SECONDS, src))
-					investigate_log("has become a singularity. Caused by [key_name_log(user)]", INVESTIGATE_ENGINE)
-					user.visible_message("<span class='warning'>[user] erupts in evil laughter as [user.p_they()] put[user.p_s()] the Bag of Holding into another Bag of Holding!</span>", "<span class='warning'>You can't help but laugh wildly as you put the Bag of Holding into another Bag of Holding, complete darkness surrounding you.</span>","<span class='warning'> You hear the sound of scientific evil brewing!</span>")
-					qdel(W)
-					var/obj/singularity/singulo = new /obj/singularity(get_turf(user))
-					singulo.energy = 300 //To give it a small boost
-					message_admins("[ADMIN_FULLMONTY(user)] created singularity using two bag of holding at [ADMIN_COORDJMP(singulo)]!")
-					add_game_logs("created singularity using two bag of holding!", user)
-					qdel(src)
-				else
-					user.visible_message("After careful consideration, [user] has decided that putting a Bag of Holding inside another Bag of Holding would not yield the ideal outcome.","You come to the realization that this might not be the greatest idea.")
-			else
-				user.visible_message("After careful consideration, [user] has decided that putting a Bag of Holding inside another Bag of Holding would not yield the ideal outcome.","You come to the realization that this might not be the greatest idea.")
-				message_admins("[ADMIN_LOOKUPFLW(user)] tried to create a singularity with bag of holding (feature disabled for non-special roles)")
-				add_game_logs("tried to create a singularity with bag of holding (feature disabled for non-special roles)", user)
-	else
-		. = ..()
+
+/obj/item/storage/backpack/holding/attackby(obj/item/I, mob/user, params)
+	if(!istype(I, /obj/item/storage/backpack/holding))
+		return ..()
+
+	. = ATTACK_CHAIN_BLOCKED_ALL
+	add_fingerprint(user)
+	var/response = tgui_alert(user, "This creates a singularity, destroying you and much of the station. Are you SURE?", "IMMINENT DEATH!", list("No", "Yes"))
+	if(response != "Yes")
+		return .
+
+	user.visible_message(
+		span_warning("[user] grins as [user.p_they()] begin[user.p_s()] to put a Bag of Holding into a Bag of Holding!"),
+		span_warning("You begin to put the Bag of Holding into the Bag of Holding!"),
+	)
+	var/list/play_records = params2list(user.client.prefs.exp)
+	var/livingtime = text2num(play_records[EXP_TYPE_LIVING])
+	if(!user.mind.special_role && !check_rights(R_ADMIN, FALSE, user) && livingtime < 9000)
+		user.visible_message(
+			span_notice("After careful consideration, [user] has decided that putting a Bag of Holding inside another Bag of Holding would not yield the ideal outcome."),
+			span_notice("You come to the realization that this might not be the greatest idea."),
+		)
+		message_admins("[ADMIN_LOOKUPFLW(user)] tried to create a singularity with bag of holding (feature disabled for non-special roles)")
+		add_game_logs("tried to create a singularity with bag of holding (feature disabled for non-special roles)", user)
+		return .
+
+	if(!do_after(user, 3 SECONDS, src))
+		user.visible_message(
+			span_notice("After careful consideration, [user] has decided that putting a Bag of Holding inside another Bag of Holding would not yield the ideal outcome."),
+			span_notice("You come to the realization that this might not be the greatest idea."),
+		)
+		return .
+
+	investigate_log("has become a singularity. Caused by [key_name_log(user)]", INVESTIGATE_ENGINE)
+	user.visible_message(
+		span_warning("[user] erupts in evil laughter as [user.p_they()] put[user.p_s()] the Bag of Holding into another Bag of Holding!"),
+		span_warning("You can't help but laugh wildly as you put the Bag of Holding into another Bag of Holding, complete darkness surrounding you."),
+		span_italics("You hear the sound of scientific evil brewing!"),
+	)
+	qdel(I)
+	var/obj/singularity/singulo = new(get_turf(user))
+	singulo.energy = 300 //To give it a small boost
+	message_admins("[ADMIN_FULLMONTY(user)] created singularity using two bag of holding at [ADMIN_COORDJMP(singulo)]!")
+	add_game_logs("created singularity using two bag of holding!", user)
+	qdel(src)
+
 
 /obj/item/storage/backpack/holding/satchel
 	name = "Satchel of holding"
@@ -292,6 +315,7 @@
 	name = "leather satchel"
 	desc = "An NT Deluxe satchel, with the finest quality leather and the company logo in a thin gold stitch"
 	icon_state = "nt_deluxe"
+	item_state = "nt_deluxe"
 
 /obj/item/storage/backpack/satchel_lizard
 	name = "lizard skin handbag"
@@ -383,6 +407,7 @@
 	name = "leather satchel"
 	desc = "It's a very fancy satchel made with fine leather."
 	icon_state = "satchel"
+	item_state = "leather_satchel"
 	resistance_flags = FIRE_PROOF
 	var/strap_side_straight = FALSE
 

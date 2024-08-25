@@ -11,15 +11,24 @@
 	max_integrity = 200
 
 
-/obj/structure/kitchenspike_frame/attackby(obj/item/stack/rods/rods, mob/user, params)
-	if(!istype(rods, /obj/item/stack/rods))
+/obj/structure/kitchenspike_frame/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
-	if(!rods.use(4))
-		return
-	to_chat(user, span_notice("You add spikes to the frame."))
-	var/obj/structure/kitchenspike/spikes = new(loc)
-	spikes.add_fingerprint(user)
-	qdel(src)
+
+	if(istype(I, /obj/item/stack/rods))
+		add_fingerprint(user)
+		var/obj/item/stack/rods/rods = I
+		if(!rods.use(4))
+			to_chat(user, span_warning("You need at least four rods to add the meat spikes."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You add meat spikes to the frame."))
+		var/obj/structure/kitchenspike/spikes = new(loc)
+		transfer_fingerprints_to(spikes)
+		spikes.add_fingerprint(user)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/structure/kitchenspike_frame/wrench_act(mob/living/user, obj/item/I)

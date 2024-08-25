@@ -119,7 +119,7 @@
 	icon_state = "fireaxe[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 
-/obj/item/twohanded/fireaxe/afterattack(atom/A, mob/user, proximity)
+/obj/item/twohanded/fireaxe/afterattack(atom/A, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(HAS_TRAIT(src, TRAIT_WIELDED)) //destroys windows and grilles in one hit
@@ -168,18 +168,21 @@
 	charge = min(charge + 1, max_charge)
 
 
-/obj/item/twohanded/fireaxe/energized/attack(mob/M, mob/user)
+/obj/item/twohanded/fireaxe/energized/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
-	if(HAS_TRAIT(src, TRAIT_WIELDED) && charge == max_charge)
-		if(isliving(M))
-			var/mob/living/target = M
-			charge = 0
-			playsound(loc, 'sound/magic/lightningbolt.ogg', 5, 1)
-			user.visible_message("<span class='danger'>[user] slams the charged axe into [M.name] with all [user.p_their()] might!</span>")
-			do_sparks(1, 1, src)
-			target.Weaken(6 SECONDS)
-			var/atom/throw_target = get_edge_target_turf(M, get_dir(src, get_step_away(M, src)))
-			M.throw_at(throw_target, 5, 1)
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED) || charge != max_charge)
+		return .
+
+	charge = 0
+	playsound(loc, 'sound/magic/lightningbolt.ogg', 5, TRUE)
+	user.visible_message(
+		span_danger("[user] slams the charged axe into [target.name] with all [user.p_their()] might!"),
+		span_warning("You have slammed the charged axe into [target.name] with all your might!"),
+	)
+	do_sparks(1, 1, src)
+	target.Weaken(6 SECONDS)
+	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
+	INVOKE_ASYNC(target, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, 5, 1)
 
 
 /*
@@ -226,7 +229,7 @@
 
 
 /obj/item/twohanded/dualsaber/proc/on_wield(obj/item/source, mob/living/carbon/user)
-	if(HULK in user.mutations)
+	if(HAS_TRAIT(user, TRAIT_HULK))
 		to_chat(user, span_warning("You lack the grace to wield this!"))
 		return COMPONENT_TWOHANDED_BLOCK_WIELD
 
@@ -257,13 +260,17 @@
 		set_light_on(FALSE)
 
 
-/obj/item/twohanded/dualsaber/attack(mob/target, mob/living/user)
-	..()
-	if((CLUMSY in user.mutations) && HAS_TRAIT(src, TRAIT_WIELDED) && prob(40))
-		to_chat(user, "<span class='warning'>You twirl around a bit before losing your balance and impaling yourself on the [src].</span>")
+/obj/item/twohanded/dualsaber/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
+		return .
+
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
+		to_chat(user, span_warning("You twirl around a bit before losing your balance and impaling yourself on the [src]."))
 		user.take_organ_damage(20, 25)
-		return
-	if(HAS_TRAIT(src, TRAIT_WIELDED) && prob(50))
+		return .
+
+	if(prob(50))
 		INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
 
 
@@ -362,7 +369,7 @@
 	..()
 
 
-/obj/item/twohanded/spear/afterattack(atom/movable/AM, mob/user, proximity)
+/obj/item/twohanded/spear/afterattack(atom/movable/AM, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(isturf(AM)) //So you can actually melee with it
@@ -401,6 +408,17 @@
 	throwforce = 26
 	icon_prefix = "chitin_spear"
 
+
+/obj/item/twohanded/spear/plasma
+	name = "plasma spear"
+	icon_state = "spearplasma0"
+	force = 11
+	force_wielded = 19
+	force_unwielded = 11
+	throwforce = 21
+	icon_prefix = "spearplasma"
+
+
 //GREY TIDE
 /obj/item/twohanded/spear/grey_tide
 	icon_state = "spearglass0"
@@ -412,7 +430,7 @@
 	throw_speed = 4
 	attack_verb = list("gored")
 
-/obj/item/twohanded/spear/grey_tide/afterattack(atom/movable/AM, mob/living/user, proximity)
+/obj/item/twohanded/spear/grey_tide/afterattack(atom/movable/AM, mob/living/user, proximity, params)
 	..()
 	if(!proximity)
 		return
@@ -428,23 +446,34 @@
 			M.Copy_Parent(user, 100, user.health/2.5, 12, 30)
 			M.GiveTarget(L)
 
-//Putting heads on spears
-/obj/item/twohanded/spear/attackby(obj/item/I, mob/living/user)
-	if(istype(I, /obj/item/organ/external/head))
-		if(user.drop_item_ground(src) && user.drop_from_active_hand())
-			to_chat(user, "<span class='notice'>You stick [I] onto the spear and stand it upright on the ground.</span>")
-			var/obj/structure/headspear/HS = new /obj/structure/headspear(get_turf(src))
-			var/matrix/M = matrix()
-			I.transform = M
-			var/image/IM = image(I.icon, I.icon_state)
-			IM.copy_overlays(I)
-			HS.add_overlay(IM)
-			I.forceMove(HS)
-			HS.mounted_head = I
-			forceMove(HS)
-			HS.contained_spear = src
-	else
-		return ..()
+
+/obj/item/twohanded/spear/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/organ/external/head))	//Putting heads on spears
+		add_fingerprint(user)
+		if(loc == user && !user.can_unEquip(src))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		user.visible_message(
+			span_warning("[user] stick [I] onto the spear just in front of you!"),
+			span_notice("You stick [I] onto the spear and stand it upright on the ground."),
+		)
+		var/obj/structure/headspear/trophy = new(get_turf(src))
+		trophy.add_fingerprint(user)
+		I.transform = matrix()
+		var/image/head_olay = image(I.icon, I.icon_state)
+		head_olay.copy_overlays(I)
+		trophy.add_overlay(head_olay)
+		I.forceMove(trophy)
+		if(loc == user)
+			user.temporarily_remove_item_from_inventory(src)
+		forceMove(trophy)
+		trophy.mounted_head = I
+		trophy.contained_spear = src
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/structure/headspear
 	name = "head on a spear"
@@ -586,21 +615,15 @@
 	icon_state = "chainsaw[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 
-/obj/item/twohanded/chainsaw/attack(mob/living/target, mob/living/user)
-	if(HAS_TRAIT(src, TRAIT_WIELDED))
-		playsound(loc, 'sound/weapons/chainsaw.ogg', 100, 1, -1) //incredibly loud; you ain't goin' for stealth with this thing. Credit to Lonemonk of Freesound for this sound.
-		if(isrobot(target))
-			..()
-			return
-		if(!isliving(target))
-			return
-		else
-			target.Weaken(2 SECONDS)
-			..()
-		return
-	else
-		playsound(loc, "swing_hit", 50, 1, -1)
-		return ..()
+/obj/item/twohanded/chainsaw/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
+		return .
+
+	//incredibly loud; you ain't goin' for stealth with this thing. Credit to Lonemonk of Freesound for this sound.
+	playsound(loc, 'sound/weapons/chainsaw.ogg', 100, TRUE, -1)
+	if(!isrobot(target))
+		target.Weaken(2 SECONDS)
 
 
 // SINGULOHAMMER
@@ -660,7 +683,7 @@
 			step_towards(H, pull)
 			step_towards(H, pull)
 
-/obj/item/twohanded/singularityhammer/afterattack(atom/A, mob/user, proximity)
+/obj/item/twohanded/singularityhammer/afterattack(atom/A, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
@@ -688,28 +711,32 @@
 	//var/charged = 5
 	origin_tech = "combat=4;powerstorage=7"
 
-/obj/item/twohanded/mjollnir/proc/shock(mob/living/target)
-	do_sparks(5, 1, target.loc)
-	target.visible_message("<span class='danger'>[target.name] was shocked by the [name]!</span>", \
-		"<span class='userdanger'>You feel a powerful shock course through your body sending you flying!</span>", \
-		"<span class='italics'>You hear a heavy electrical crack!</span>")
-	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
-	target.throw_at(throw_target, 200, 4)
 
-/obj/item/twohanded/mjollnir/attack(mob/living/M, mob/user)
-	..()
-	if(HAS_TRAIT(src, TRAIT_WIELDED))
-		playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		if(isliving(M))
-			M.Stun(4 SECONDS)
-			shock(M)
+/obj/item/twohanded/mjollnir/proc/shock(mob/living/target)
+	target.Stun(4 SECONDS)
+	do_sparks(5, 1, target.loc)
+	target.visible_message(
+		"<span class='danger'>[target.name] was shocked by the [name]!</span>",
+		"<span class='userdanger'>You feel a powerful shock course through your body sending you flying!</span>",
+		"<span class='italics'>You hear a heavy electrical crack!</span>",
+	)
+	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
+	INVOKE_ASYNC(target, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, 200, 4)
+
+
+/obj/item/twohanded/mjollnir/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
+		return .
+	shock(target)
+
+
 
 /obj/item/twohanded/mjollnir/throw_impact(atom/target, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(isliving(target))
-		var/mob/living/L = target
-		L.Stun(4 SECONDS)
-		shock(L)
+		shock(target)
+
 
 /obj/item/twohanded/mjollnir/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "mjollnir[HAS_TRAIT(src, TRAIT_WIELDED)]"
@@ -746,7 +773,7 @@
 	icon_state = "knighthammer[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 
-/obj/item/twohanded/knighthammer/afterattack(atom/A, mob/user, proximity)
+/obj/item/twohanded/knighthammer/afterattack(atom/A, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(charged == 5)
@@ -833,14 +860,22 @@
 			else
 				U.adjustFireLoss(rand(force/2,force))
 
-/obj/item/twohanded/pitchfork/demonic/attack(mob/target, mob/living/carbon/human/user)
-	if(user.mind && !user.mind.devilinfo && (user.mind.soulOwner != user.mind))
-		to_chat(user, "<span class ='warning'>The [src] burns in your hands.</span>")
-		user.apply_damage(rand(force/2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
-	..()
+
+/obj/item/twohanded/pitchfork/demonic/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
+		return .
+
+	if(!user.mind || user.mind.devilinfo || (user.mind.soulOwner == user.mind))
+		return .
+
+	to_chat(user, span_warning("The [name] burns in your hands!"))
+	user.apply_damage(rand(force/2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
+
+
 
 // It's no fun being the lord of all hell if you can't get out of a simple room
-/obj/item/twohanded/pitchfork/demonic/ascended/afterattack(atom/target, mob/user, proximity)
+/obj/item/twohanded/pitchfork/demonic/ascended/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return
 	if(iswallturf(target))
@@ -900,7 +935,7 @@
 	if(prob(15))
 		do_sparks(rand(1,6), 1, loc)
 
-/obj/item/twohanded/required/pyro_claws/afterattack(atom/target, mob/user, proximity)
+/obj/item/twohanded/required/pyro_claws/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(prob(60))
@@ -975,19 +1010,20 @@
 	used = TRUE
 	do_sparks(rand(1,6), 1, loc)
 
+
 /obj/item/clothing/gloves/color/black/pyro_claws/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/assembly/signaler/anomaly/pyro))
+		add_fingerprint(user)
 		if(core)
-			to_chat(user, "<span class='notice'>[src] already has a [I]!</span>")
-			return
-		if(!user.drop_from_active_hand())
-			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
-			return
-		to_chat(user, "<span class='notice'>You insert [I] into [src], and [src] starts to warm up.</span>")
-		I.forceMove(src)
+			to_chat(user, span_warning("The [core.name] is already installed."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("You insert [I] into [src], and it starts to warm up."))
 		core = I
-	else
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 /obj/item/clothing/gloves/color/black/pyro_claws/proc/reboot()
 	on_cooldown = FALSE

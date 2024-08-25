@@ -410,6 +410,11 @@
 	desc = "Smoking time. On a poster you can see grub with cigarette that promote people to have a cig and smoke on work."
 	icon_state = "poster39"
 
+/obj/structure/sign/poster/contraband/ninja
+	name = "Space Ninja"
+	desc = "This is a poster depicting the main character of the most popular animated series in the galaxy, \"Space Ninja\". The inscription on it says that the new season will start soon."
+	icon_state = "poster40"
+
 //official posters
 /obj/structure/sign/poster/official
 	poster_item_name = "motivational poster"

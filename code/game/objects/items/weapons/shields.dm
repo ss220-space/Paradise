@@ -11,6 +11,10 @@
 	. = ..()
 	if(.)
 		var/damage_type = BRUTE
+		if(istype(hitby, /obj/item/projectile))
+			var/obj/item/projectile/P = hitby
+			if(P.shield_buster)
+				take_damage(180, damage_type, sound_effect = FALSE) //2 shots for tele, 3 for riot
 		if(isobj(hitby))
 			var/obj/hitby_obj = hitby
 			damage_type = hitby_obj.damtype
@@ -35,16 +39,22 @@
 	materials = list(MAT_GLASS=7500, MAT_METAL=1000)
 	origin_tech = "materials=3;combat=4"
 	attack_verb = list("shoved", "bashed")
-	var/cooldown = 0 //shield bash cooldown. based on world.time
+	/// Shield bash cooldown
+	COOLDOWN_DECLARE(cooldown)
 
-/obj/item/shield/riot/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/melee/baton))
-		if(cooldown < world.time - 25)
-			user.visible_message("<span class='warning'>[user] bashes [src] with [W]!</span>")
-			playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, 1)
-			cooldown = world.time
-	else
-		..()
+
+/obj/item/shield/riot/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/melee/baton) && COOLDOWN_FINISHED(src, cooldown))
+		COOLDOWN_START(src, cooldown, 2.5 SECONDS)
+		user.visible_message(
+			span_warning("[user] bashes [src] with [I]!"),
+			span_notice("You bash [src] with [I]."),
+			span_italics("You hear heavy bashing noises."),
+		)
+		playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, TRUE)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	return ..()
+
 
 /obj/item/shield/riot/roman
 	name = "roman shield"
@@ -97,13 +107,21 @@
 	var/active = 0
 
 /obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(istype(hitby, /obj/item/projectile))
+		var/obj/item/projectile/P = hitby
+		if(P.shield_buster && active)
+			toggle(owner, TRUE)
+			to_chat(owner, "<span class='warning'>[hitby] overloaded your [src]!</span>")
 	return FALSE
 
 /obj/item/shield/energy/IsReflect()
 	return (active)
 
 /obj/item/shield/energy/attack_self(mob/living/carbon/human/user)
-	if((CLUMSY in user.mutations) && prob(50))
+	toggle(user, FALSE)
+
+/obj/item/shield/energy/proc/toggle(mob/living/carbon/human/user, forced)
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && !forced)
 		to_chat(user, "<span class='warning'>You beat yourself in the head with [src].</span>")
 		user.take_organ_damage(5)
 	active = !active
@@ -127,7 +145,8 @@
 		var/mob/living/carbon/human/H = user
 		H.update_inv_l_hand()
 		H.update_inv_r_hand()
-	add_fingerprint(user)
+	if(!forced)
+		add_fingerprint(user)
 	return
 
 /obj/item/shield/energy/update_icon_state()

@@ -4,13 +4,18 @@
 	icon = 'icons/obj/food/pizza.dmi'
 	icon_state = "pizzabox1"
 	throw_range = 1
-	var/timer = 10 //Adjustable timer
+	var/timer = 1 SECONDS //Adjustable timer
 	var/timer_set = FALSE
 	var/primed = FALSE
 	var/disarmed = FALSE
 	var/wires = list("orange", "green", "blue", "yellow", "aqua", "purple")
 	var/correct_wire
 	var/armer //Used for admin purposes
+
+
+/obj/item/pizza_bomb/Initialize(mapload)
+	. = ..()
+	correct_wire = pick(wires)
 
 
 /obj/item/pizza_bomb/update_icon_state()
@@ -90,45 +95,45 @@
 	qdel(src)
 
 
-/obj/item/pizza_bomb/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_WIRECUTTER && primed)
-		to_chat(user, "<span class='danger'>Oh God, what wire do you cut?!</span>")
-		var/chosen_wire = input(user, "OH GOD OH GOD", "WHAT WIRE?!") in wires
-		if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-			return
-		playsound(src, I.usesound, 50, 1, 1)
-		user.visible_message("<span class='warning'>[user] cuts the [chosen_wire] wire!</span>", "<span class='danger'>You cut the [chosen_wire] wire!</span>")
-		sleep(5)
-		if(chosen_wire == correct_wire)
-			audible_message("<span class='warning'>[bicon(src)] \The [src] suddenly stops beeping and seems lifeless.</span>")
-			to_chat(user, "<span class='notice'>You did it!</span>")
-			disarmed = TRUE
-			primed = FALSE
-			update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
-			return
-		else
-			to_chat(user, "<span class='userdanger'>WRONG WIRE!</span>")
-			go_boom()
-			return
-	if(I.tool_behaviour == TOOL_WIRECUTTER && disarmed)
-		if(!in_range(user, src))
-			to_chat(user, "<span class='warning'>You can't see the box well enough to cut the wires out.</span>")
-			return
-		user.visible_message("<span class='notice'>[user] starts removing the payload and wires from \the [src].</span>")
-		if(do_after(user, 4 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
-			playsound(src, I.usesound, 50, 1, 1)
-			user.drop_item_ground(src)
-			user.visible_message("<span class='notice'>[user] removes the insides of \the [src]!</span>")
-			new /obj/item/stack/cable_coil(src.loc, 3)
-			new /obj/item/bombcore/miniature(src.loc)
-			new /obj/item/pizzabox(src.loc)
-			qdel(src)
-		return
-	..()
+/obj/item/pizza_bomb/wirecutter_act(mob/living/user, obj/item/I)
+	if(!primed && !disarmed)	// its a secret!
+		return FALSE
 
-/obj/item/pizza_bomb/New()
-	..()
-	correct_wire = pick(wires)
+	. = TRUE
+
+	if(disarmed)
+		user.visible_message(span_notice("[user] starts removing the payload and wires from [src]..."))
+		if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
+			return .
+		user.visible_message(span_notice("[user] removes the insides of [src]!"))
+		user.drop_item_ground(src, force = TRUE)
+		new /obj/item/stack/cable_coil(loc, 3)
+		new /obj/item/bombcore/miniature(loc)
+		new /obj/item/pizzabox(loc)
+		qdel(src)
+		return .
+
+	to_chat(user, span_danger("Oh God, what wire do you cut?!"))
+	var/chosen_wire = tgui_input_list(user, "OH GOD, OH GOD", "WHAT WIRE?!", wires)
+	if(!chosen_wire || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	user.visible_message(
+		span_danger("[user] cuts the [chosen_wire] wire!"),
+		span_userdanger("You cut the [chosen_wire] wire!"),
+	)
+	sleep(0.5 SECONDS)
+	if(chosen_wire != correct_wire)
+		to_chat(user, span_userdanger("WRONG WIRE!!!"))
+		go_boom()
+		return .
+	audible_message(span_warning("[bicon(src)] The [name] suddenly stops beeping and seems lifeless."))
+	to_chat(user, span_notice("You did it!"))
+	disarmed = TRUE
+	primed = FALSE
+	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
+
 
 /obj/item/pizza_bomb/autoarm
 	timer_set = 1

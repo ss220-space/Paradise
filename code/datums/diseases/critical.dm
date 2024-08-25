@@ -142,14 +142,14 @@
 	stage_prob = 1
 	cure_text = "Eating or administration of vitamins or nutrients"
 
+
 /datum/disease/critical/hypoglycemia/has_cure()
-	if(ishuman(affected_mob))
-		var/mob/living/carbon/human/H = affected_mob
-		if((NO_HUNGER in H.dna.species.species_traits) && !isvampire(H))
-			return TRUE
-		if(ismachineperson(H))
-			return TRUE
+	if(HAS_TRAIT(affected_mob, TRAIT_NO_HUNGER) && !isvampire(affected_mob))
+		return TRUE
+	if(ismachineperson(affected_mob))
+		return TRUE
 	return ..()
+
 
 /datum/disease/critical/hypoglycemia/stage_act()
 	if(..())

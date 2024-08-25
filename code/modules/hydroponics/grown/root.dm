@@ -31,16 +31,19 @@
 	filling_color = "#FFA500"
 	bitesize_mod = 2
 
+
 /obj/item/reagent_containers/food/snacks/grown/carrot/attackby(obj/item/I, mob/user, params)
 	if(is_sharp(I))
-		to_chat(user, "<span class='notice'>You sharpen the carrot into a shiv with [I].</span>")
-		var/obj/item/kitchen/knife/carrotshiv/Shiv = new /obj/item/kitchen/knife/carrotshiv
-		if(!remove_item_from_storage(user))
-			user.temporarily_remove_item_from_inventory(src)
-		user.put_in_hands(Shiv)
+		to_chat(user, span_notice("You have sharpen [src] into a shiv with [I]."))
+		var/obj/item/kitchen/knife/carrotshiv/shiv = new(drop_location())
+		transfer_fingerprints_to(shiv)
+		shiv.add_fingerprint(user)
+		if(loc == user)
+			user.temporarily_remove_item_from_inventory(src, force = TRUE)
+			user.put_in_hands(shiv)
 		qdel(src)
-	else
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 
 
 // Parsnip

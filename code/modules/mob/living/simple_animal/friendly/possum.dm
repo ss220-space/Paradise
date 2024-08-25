@@ -38,18 +38,36 @@
 	footstep_type = FOOTSTEP_MOB_CLAW
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 2)
 	holder_type = /obj/item/holder/possum
+	/// Used to change default standing icon to aggressive one
+	var/was_harmed = FALSE
 
-/mob/living/simple_animal/possum/attackby(obj/item/O, mob/living/user)
+
+/mob/living/simple_animal/possum/attack_hand(mob/user)
+	if(user.a_intent == INTENT_HELP)
+		was_harmed = FALSE
+		update_icons()
+	return ..()
+
+
+/mob/living/simple_animal/possum/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
+	. = ..()
+	if(. && amount > 0)
+		was_harmed = TRUE
+		update_icons()
+
+
+/mob/living/simple_animal/possum/update_icons()
+	. = ..()
+	if(stat == DEAD || resting || body_position == LYING_DOWN || !was_harmed)
+		return
 	icon_state = icon_harm
-	. = ..()
 
-/mob/living/simple_animal/possum/attack_hand(mob/living/carbon/human/M)
-	switch(M.a_intent)
-		if(INTENT_HELP)
-			icon_state = initial(icon_state)
-		if(INTENT_HARM, INTENT_DISARM, INTENT_GRAB)
-			icon_state = icon_harm
-	. = ..()
 
 /mob/living/simple_animal/possum/Poppy
 	name = "Ключик"

@@ -248,6 +248,7 @@
 /obj/item/organ/internal/cyberimp/arm/atmostoolset
 	name = "integrated atmos toolset implant"
 	desc = "A stripped-down version of engineering cyborg toolset, designed to be installed on subject's arm. Contains all neccessary tools for atmos-techs."
+	icon_state = "atmos_arm_implant"
 	origin_tech = "materials=3;engineering=4;biotech=3;powerstorage=4"
 	contents = newlist(/obj/item/holosign_creator/atmos, /obj/item/rpd, /obj/item/analyzer, /obj/item/destTagger, /obj/item/extinguisher/mini,
 		/obj/item/pipe_painter, /obj/item/wrench/cyborg, /obj/item/weldingtool/largetank/cyborg)
@@ -376,6 +377,7 @@
 /obj/item/organ/internal/cyberimp/arm/surgery
 	name = "surgical toolset implant"
 	desc = "A set of surgical tools hidden behind a concealed panel on the user's arm"
+	icon_state = "surgical_arm_implant"
 	contents = newlist(/obj/item/retractor/augment, /obj/item/hemostat/augment, /obj/item/cautery/augment, /obj/item/bonesetter/augment, /obj/item/scalpel/augment, /obj/item/circular_saw/augment, /obj/item/bonegel/augment, /obj/item/FixOVein/augment, /obj/item/surgicaldrill/augment)
 	origin_tech = "materials=3;engineering=3;biotech=3;programming=2;magnets=3"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/storage.dmi')
@@ -388,6 +390,7 @@
 /obj/item/organ/internal/cyberimp/arm/janitorial
 	name = "janitorial toolset implant"
 	desc = "A set of janitorial tools hidden behind a concealed panel on the user's arm"
+	icon_state = "janitor_arm_implant"
 	contents = newlist(/obj/item/mop/advanced, /obj/item/soap, /obj/item/lightreplacer, /obj/item/holosign_creator/janitor, /obj/item/melee/flyswatter, /obj/item/reagent_containers/spray/cleaner/safety)
 	origin_tech = "materials=3;engineering=4;biotech=3"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/clothing/belts.dmi')
@@ -400,6 +403,7 @@
 /obj/item/organ/internal/cyberimp/arm/botanical
 	name = "botanical toolset implant"
 	desc = "A set of botanical tools hidden behind a concealed panel on the user's arm"
+	icon_state = "botanical_arm_implant"
 	contents = newlist(/obj/item/plant_analyzer, /obj/item/cultivator, /obj/item/hatchet, /obj/item/shovel/spade, /obj/item/wirecutters, /obj/item/wrench)
 	origin_tech = "materials=3;engineering=4;biotech=3"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/clothing/belts.dmi')
@@ -445,7 +449,7 @@
 	if(drawing_power)
 		to_chat(user, span_warning("You're already charging."))
 		return
-	user.changeNext_move(CLICK_CD_MELEE)
+	user.changeNext_move(attack_speed)
 	var/obj/machinery/power/apc/A = target
 	var/mob/living/carbon/human/H = user
 	if(H.get_int_organ(/obj/item/organ/internal/cell))

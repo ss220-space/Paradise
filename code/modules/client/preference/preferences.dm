@@ -89,7 +89,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	//non-preference stuff
 	var/warns = 0
-	var/muted = 0
 	var/last_ip
 	var/last_id
 
@@ -353,13 +352,16 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Age:</b> <a href='?_src_=prefs;preference=age;task=input'>[age]</a><br>"
 			dat += "<b>Body:</b> <a href='?_src_=prefs;preference=all;task=random'>(&reg;)</a><br>"
 			dat += "<b>Species:</b> <a href='?_src_=prefs;preference=species;task=input'>[species]</a><br>"
-			if(species == SPECIES_VOX)
-				dat += "<b>N2 Tank:</b> <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Large N2 Tank" : "Specialized N2 Tank"]</a><br>"
-			if(species == SPECIES_GREY)
-				dat += "<b>Wingdings:</b> Set in disabilities<br>"
-				dat += "<b>Voice Translator:</b> <a href ='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Yes" : "No"]</a><br>"
-			if(species == SPECIES_MACNINEPERSON)
-				dat += "<b>Synthetic Shell:</b> <a href='?_src_=prefs;preference=ipcloadouts;task=input'>Selections</a><br>"
+			switch(species)
+				if(SPECIES_VOX)
+					dat += "<b>N2 Tank:</b> <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Large N2 Tank" : "Specialized N2 Tank"]</a><br>"
+				if(SPECIES_GREY)
+					dat += "<b>Wingdings:</b> Set in disabilities<br>"
+					dat += "<b>Voice Translator:</b> <a href ='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Yes" : "No"]</a><br>"
+				if(SPECIES_MACNINEPERSON)
+					dat += "<b>Synthetic Shell:</b> <a href='?_src_=prefs;preference=ipcloadouts;task=input'>Selections</a><br>"
+				if(SPECIES_WRYN)
+					dat += "<b>Comb Deafness:</b> <a href ='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Yes" : "No"]</a><br>"
 			dat += "<b>Secondary Language:</b> <a href='?_src_=prefs;preference=language;task=input'>[language]</a><br>"
 			if(S.autohiss_basic_map)
 				dat += "<b>Auto-accent:</b> <a href='?_src_=prefs;preference=autohiss_mode;task=input'>[autohiss_mode == AUTOHISS_FULL ? "Full" : (autohiss_mode == AUTOHISS_BASIC ? "Basic" : "Off")]</a><br>"
@@ -599,7 +601,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += " - <b>Color:</b> <a href='?_src_=prefs;preference=UIcolor'><b>[UI_style_color]</b></a> <span style='border: 1px solid #161616; background-color: [UI_style_color];'>&nbsp;&nbsp;&nbsp;</span><br>"
 			dat += " - <b>UI Style:</b> <a href='?_src_=prefs;preference=ui'><b>[UI_style]</b></a><br>"
 			dat += "<b>Fancy TGUI:</b> <a href='?_src_=prefs;preference=tgui'>[(toggles2 & PREFTOGGLE_2_FANCYUI) ? "Yes" : "No"]</a><br>"
-			dat += "<b>TGUI strip menu size:</b> <a href='byond://?_src_=prefs;preference=tgui_strip_menu'>[toggles2 & PREFTOGGLE_2_BIG_STRIP_MENU ? "Full-size" : "Miniature"]</a><br>"
+			dat += "<b> - TGUI strip menu size:</b> <a href='byond://?_src_=prefs;preference=tgui_strip_menu'>[toggles2 & PREFTOGGLE_2_BIG_STRIP_MENU ? "Full-size" : "Miniature"]</a><br>"
+			dat += "<b> - TGUI Say Theme:</b> <a href='?_src_=prefs;preference=tgui_say_light_mode'>[(toggles2 & PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE) ? "Light" : "Dark"]</a><br>"
 			dat += "<b> - TGUI Input:</b> <a href='?_src_=prefs;preference=tgui_input'>[(toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT) ? "No" : "Yes"]</a><br>"
 			dat += "<b> - TGUI Input - Large Buttons:</b> <a href='?_src_=prefs;preference=tgui_input_large'>[(toggles2 & PREFTOGGLE_2_LARGE_INPUT_BUTTONS) ? "Yes" : "No"]</a><br>"
 			dat += "<b> - TGUI Input - Swap Buttons:</b> <a href='?_src_=prefs;preference=tgui_input_swap'>[(toggles2 & PREFTOGGLE_2_SWAP_INPUT_BUTTONS) ? "Yes" : "No"]</a><br>"
@@ -1149,25 +1152,38 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/HTML = "<body>"
 	HTML += "<tt><center>"
 
-	if(CAN_WINGDINGS in S.species_traits)
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_WINGDINGS))
 		HTML += ShowDisabilityState(user, DISABILITY_FLAG_WINGDINGS, "Speak in Wingdings")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_NEARSIGHTED, "Nearsighted")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_COLOURBLIND, "Colourblind")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_BLIND, "Blind")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_DEAF, "Deaf")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_MUTE, "Mute")
-	if(!(NO_OBESITY in S.species_traits))
-		HTML += ShowDisabilityState(user, DISABILITY_FLAG_FAT, "Obese")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_NERVOUS, "Stutter")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_SWEDISH, "Swedish accent")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_AULD_IMPERIAL, "Староимпѣрская рѣчь")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_LISP, "Lisp")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_DIZZY, "Dizziness")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_NICOTINE_ADDICT, "Nicotine addict")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_TEA_ADDICT, "Tea addict")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_COFFEE_ADDICT, "Coffee addict")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_ALCOHOLE_ADDICT, "Alcohole addict")
-
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_NEARSIGHTED))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_NEARSIGHTED, "Nearsighted")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_COLOURBLIND))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_COLOURBLIND, "Colourblind")
+	if(!(S.blacklisted_disabilities &  DISABILITY_FLAG_BLIND))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_BLIND, "Blind")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_DEAF))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_DEAF, "Deaf")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_MUTE))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_MUTE, "Mute")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_OBESITY))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_OBESITY, "Obese")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_NERVOUS))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_NERVOUS, "Stutter")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_SWEDISH))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_SWEDISH, "Swedish accent")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_AULD_IMPERIAL))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_AULD_IMPERIAL, "Староимпѣрская рѣчь")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_LISP))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_LISP, "Lisp")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_DIZZY))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_DIZZY, "Dizziness")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_NICOTINE_ADDICT))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_NICOTINE_ADDICT, "Nicotine addict")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_TEA_ADDICT))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_TEA_ADDICT, "Tea addict")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_COFFEE_ADDICT))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_COFFEE_ADDICT, "Coffee addict")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_ALCOHOLE_ADDICT))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_ALCOHOLE_ADDICT, "Alcohole addict")
 
 	HTML += {"</ul>
 		<a href=\"?_src_=prefs;task=close;preference=disabilities\">\[Done\]</a>
@@ -2236,7 +2252,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 					if(!no_amputate)	// I don't want this in my menu if it's not an option, heck.
 						valid_limb_states += "Amputated"
-					if(NO_ROBOPARTS in S.species_traits)
+					if(TRAIT_NO_ROBOPARTS in S.inherent_traits)
 						valid_limb_states -= "Prosthesis"
 
 					var/new_state = tgui_input_list(user, "What state do you wish the limb to be in?", "[limb_name]", valid_limb_states)
@@ -2331,7 +2347,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							organ = INTERNAL_ORGAN_KIDNEYS
 
 					var/list/allowed_organs_type = list("Normal", "Cybernetic")
-					if(NO_ROBOPARTS in S.species_traits)
+					if(TRAIT_NO_ROBOPARTS in S.inherent_traits)
 						allowed_organs_type -= "Cybernetic"
 					var/new_state = tgui_input_list(user, "What state do you wish the organ to be in?", "[organ_name]", allowed_organs_type)
 					if(!new_state) return
@@ -2424,6 +2440,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("vote_popup")
 					toggles2 ^= PREFTOGGLE_2_DISABLE_VOTE_POPUPS
 
+				if("tgui_say_light_mode")
+					toggles2 ^= PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE
+					user?.client?.tgui_say?.load()
+
 				if("ghost_att_anim")
 					toggles2 ^= PREFTOGGLE_2_ITEMATTACK
 
@@ -2496,7 +2516,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if((sound & SOUND_LOBBY) && user.client)
 						user.client.playtitlemusic()
 					else
-						user.stop_sound_channel(CHANNEL_LOBBYMUSIC)
+						// user.stop_sound_channel(CHANNEL_LOBBYMUSIC)
+						user.client?.tgui_panel?.stop_music()
 
 				if("ghost_ears")
 					toggles ^= PREFTOGGLE_CHAT_GHOSTEARS
@@ -2877,61 +2898,63 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	character.change_eye_color(e_colour)
 	character.original_eye_color = e_colour
 
-	if(disabilities & DISABILITY_FLAG_COFFEE_ADDICT)
+	var/datum/species/new_species = character.dna.species
+
+	if((disabilities & DISABILITY_FLAG_COFFEE_ADDICT) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_COFFEE_ADDICT))
 		var/datum/reagent/new_reagent = new /datum/reagent/consumable/drink/coffee()
 		new_reagent.last_addiction_dose = world.timeofday
 		character.reagents.addiction_list.Add(new_reagent)
 
-	if(disabilities & DISABILITY_FLAG_TEA_ADDICT)
+	if((disabilities & DISABILITY_FLAG_TEA_ADDICT) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_TEA_ADDICT))
 		var/datum/reagent/new_reagent = new /datum/reagent/consumable/drink/tea()
 		new_reagent.last_addiction_dose = world.timeofday
 		character.reagents.addiction_list.Add(new_reagent)
 
-	if(disabilities & DISABILITY_FLAG_NICOTINE_ADDICT)
+	if((disabilities & DISABILITY_FLAG_NICOTINE_ADDICT) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_NICOTINE_ADDICT))
 		var/datum/reagent/new_reagent = new /datum/reagent/nicotine()
 		new_reagent.last_addiction_dose = world.timeofday
 		character.reagents.addiction_list.Add(new_reagent)
 
-	if(disabilities & DISABILITY_FLAG_ALCOHOLE_ADDICT)
+	if((disabilities & DISABILITY_FLAG_ALCOHOLE_ADDICT) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_ALCOHOLE_ADDICT))
 		var/datum/reagent/new_reagent = new /datum/reagent/consumable/ethanol()
 		new_reagent.last_addiction_dose = world.timeofday
 		character.reagents.addiction_list.Add(new_reagent)
 
-	if(disabilities & DISABILITY_FLAG_FAT)
-		character.force_gene_block(GLOB.fatblock, TRUE, TRUE)
+	if((disabilities & DISABILITY_FLAG_OBESITY) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_OBESITY))
+		character.force_gene_block(GLOB.obesityblock, TRUE, TRUE)
 		character.overeatduration = 600
 
-	if(disabilities & DISABILITY_FLAG_NEARSIGHTED)
+	if((disabilities & DISABILITY_FLAG_NEARSIGHTED) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_NEARSIGHTED))
 		character.force_gene_block(GLOB.glassesblock, TRUE, TRUE)
 
-	if(disabilities & DISABILITY_FLAG_BLIND)
+	if((disabilities & DISABILITY_FLAG_BLIND) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_BLIND))
 		character.force_gene_block(GLOB.blindblock, TRUE, TRUE)
 
-	if(disabilities & DISABILITY_FLAG_DEAF)
+	if((disabilities & DISABILITY_FLAG_DEAF) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_DEAF))
 		character.force_gene_block(GLOB.deafblock, TRUE, TRUE)
 
-	if(disabilities & DISABILITY_FLAG_COLOURBLIND)
+	if((disabilities & DISABILITY_FLAG_COLOURBLIND) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_COLOURBLIND))
 		character.force_gene_block(GLOB.colourblindblock, TRUE, TRUE)
 
-	if(disabilities & DISABILITY_FLAG_MUTE)
+	if((disabilities & DISABILITY_FLAG_MUTE) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_MUTE))
 		character.force_gene_block(GLOB.muteblock, TRUE, TRUE)
 
-	if(disabilities & DISABILITY_FLAG_NERVOUS)
+	if((disabilities & DISABILITY_FLAG_NERVOUS) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_NERVOUS))
 		character.force_gene_block(GLOB.nervousblock, TRUE, TRUE)
 
-	if(disabilities & DISABILITY_FLAG_SWEDISH)
+	if((disabilities & DISABILITY_FLAG_SWEDISH) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_SWEDISH))
 		character.force_gene_block(GLOB.swedeblock, TRUE, TRUE)
 
-	if(disabilities & DISABILITY_FLAG_AULD_IMPERIAL)
+	if((disabilities & DISABILITY_FLAG_AULD_IMPERIAL) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_AULD_IMPERIAL))
 		character.force_gene_block(GLOB.auld_imperial_block, TRUE, TRUE)
 
-	if(disabilities & DISABILITY_FLAG_LISP)
+	if((disabilities & DISABILITY_FLAG_LISP) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_LISP))
 		character.force_gene_block(GLOB.lispblock, TRUE, TRUE)
 
-	if(disabilities & DISABILITY_FLAG_DIZZY)
+	if((disabilities & DISABILITY_FLAG_DIZZY) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_DIZZY))
 		character.force_gene_block(GLOB.dizzyblock, TRUE, TRUE)
 
-	if(disabilities & DISABILITY_FLAG_WINGDINGS && (CAN_WINGDINGS in character.dna.species.species_traits))
+	if((disabilities & DISABILITY_FLAG_WINGDINGS) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_WINGDINGS))
 		character.force_gene_block(GLOB.wingdingsblock, TRUE, TRUE)
 
 	character.dna.species.handle_dna(character)

@@ -153,7 +153,8 @@
 		if(isnewplayer(usr))
 			user.playtitlemusic()
 	else
-		usr.stop_sound_channel(CHANNEL_LOBBYMUSIC)
+		// usr.stop_sound_channel(CHANNEL_LOBBYMUSIC)
+		user.tgui_panel?.stop_music()
 
 /datum/preference_toggle/toggle_admin_midis
 	name = "Toggle Admin Midis"
@@ -544,15 +545,21 @@
 	disable_message = "You will no longer receive popups when vote starts."
 	blackbox_message = "Toggle Vote Popup"
 
-/datum/preference_toggle/toggle_emote_indicator
-	name = "Toggle Emote Typing Indicator"
-	description = "Toggles showing an indicator when you are typing an emote."
-	preftoggle_bitflag = PREFTOGGLE_2_EMOTE_BUBBLE
-	preftoggle_toggle = PREFTOGGLE_TOGGLE2
-	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-	enable_message = "You will now  display a typing indicator for emotes."
-	disable_message = "You will no longer  display a typing indicator for emotes."
-	blackbox_message = "Toggle Typing Indicator (Emote)"
+// /datum/preference_toggle/toggle_emote_indicator
+// 	name = "Toggle Emote Typing Indicator"
+// 	description = "Toggles showing an indicator when you are typing an emote."
+// 	preftoggle_bitflag = PREFTOGGLE_2_EMOTE_BUBBLE
+// 	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+// 	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+// 	enable_message = "You will now  display a typing indicator for emotes."
+// 	disable_message = "You will no longer  display a typing indicator for emotes."
+// 	blackbox_message = "Toggle Typing Indicator (Emote)"
+
+// /datum/preference_toggle/toggle_emote_indicator/set_toggles(client/user)
+// 	. = ..()
+// 	if(user.prefs.toggles & PREFTOGGLE_SHOW_TYPING)
+// 		if(istype(usr))
+// 			usr.set_typing_emote_indicator(FALSE)
 
 /datum/preference_toggle/toggle_tgui_input
 	name = "Toggle TGUI Input"

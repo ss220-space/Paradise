@@ -677,10 +677,17 @@
 	for(var/i in 1 to storage_slots)
 		new /obj/item/match(src)
 
-/obj/item/storage/box/matches/attackby(obj/item/match/W, mob/user, params)
-	if(istype(W, /obj/item/match) && !W.lit)
-		W.matchignite()
-		playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
+
+/obj/item/storage/box/matches/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/match))
+		var/obj/item/match/match = I
+		if(match.lit)
+			return ..()
+		add_fingerprint(user)
+		match.matchignite()
+		playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, TRUE)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	return ..()
 
 
 /obj/item/storage/box/matches/update_icon_state()
@@ -813,37 +820,42 @@
 	icon_state = length(contents) ? "[item_state]_closed" : "[item_state]"
 
 
-/obj/item/storage/box/papersack/attackby(obj/item/W, mob/user, params)
-	if(is_pen(W))
+/obj/item/storage/box/papersack/attackby(obj/item/I, mob/user, params)
+	if(is_pen(I))
+		add_fingerprint(user)
 		//if a pen is used on the sack, dialogue to change its design appears
-		if(contents.len)
-			to_chat(user, "<span class='warning'>You can't modify [src] with items still inside!</span>")
-			return
-		var/list/designs = list(NODESIGN, NANOTRASEN, SYNDI, HEART, SMILE)
+		if(length(contents))
+			to_chat(user, span_warning("You cannot modify [src] with the items inside!"))
+			return ATTACK_CHAIN_PROCEED
+		var/static/list/designs = list(NODESIGN, NANOTRASEN, SYNDI, HEART, SMILE)
 		var/switchDesign = tgui_input_list(user, "Select a Design:", "Paper Sack Design", designs)
-		if(!switchDesign)
-			return
-		if(get_dist(usr, src) > 1 && !usr.incapacitated())
-			to_chat(usr, "<span class='warning'>You have moved too far away!</span>")
-			return
+		if(!switchDesign || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+			return ATTACK_CHAIN_BLOCKED_ALL
 		if(design == switchDesign)
-			return
-		to_chat(usr, "<span class='notice'>You make some modifications to [src] using your pen.</span>")
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You make some modifications to [src] using your pen."))
 		design = switchDesign
 		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
-		return
-	else if(is_sharp(W))
-		if(!contents.len)
-			if(item_state == "paperbag_None")
-				to_chat(user, "<span class='notice'>You cut eyeholes into [src].</span>")
-				new /obj/item/clothing/head/papersack(user.loc)
-				qdel(src)
-				return
-			else if(item_state == "paperbag_SmileyFace")
-				to_chat(user, "<span class='notice'>You cut eyeholes into [src] and modify the design.</span>")
-				new /obj/item/clothing/head/papersack/smiley(user.loc)
-				qdel(src)
-				return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(is_sharp(I))
+		add_fingerprint(user)
+		if(length(contents))
+			to_chat(user, span_warning("You cannot modify [src] with the items inside!"))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/item/clothing/head/papersack/papersack
+		if(design == SMILE)
+			papersack = new /obj/item/clothing/head/papersack/smiley(drop_location())
+		else
+			papersack = new /obj/item/clothing/head/papersack(drop_location())
+		papersack.add_fingerprint(user)
+		to_chat(user, span_notice("You cut eyeholes into [src] and modify the design."))
+		if(loc == user)
+			user.temporarily_remove_item_from_inventory(src)
+		user.put_in_hands(papersack, ignore_anim = FALSE)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
 
 
@@ -1246,7 +1258,7 @@
 	name = "clown box"
 	desc = "A colorful cardboard box for the clown"
 	icon_state = "box_clown"
-	var/robot_arm // This exists for bot construction
+
 
 /obj/item/storage/box/emptysandbags
 	name = "box of empty sandbags"
@@ -1280,6 +1292,7 @@
 /obj/item/storage/box/stockparts/deluxe
 	name = "box of deluxe stock parts"
 	desc = "Contains a variety of deluxe stock parts."
+	icon_state = "stock_box_t4"
 
 /obj/item/storage/box/stockparts/deluxe/populate_contents()
 	for(var/i in 1 to 3)
@@ -1288,6 +1301,18 @@
 		new /obj/item/stock_parts/manipulator/femto(src)
 		new /obj/item/stock_parts/micro_laser/quadultra(src)
 		new /obj/item/stock_parts/matter_bin/bluespace(src)
+
+/obj/item/storage/box/stockparts/experimental_parts
+	name = "box of experimental stock parts"
+	desc = "Contains some strange looking parts. Looks like it has some bluespace matter and something red."
+	icon_state = "stock_box_t5"
+
+/obj/item/storage/box/stockparts/experimental_parts/populate_contents()
+	new /obj/item/stock_parts/capacitor/purple(src)
+	new /obj/item/stock_parts/scanning_module/purple(src)
+	new /obj/item/stock_parts/manipulator/purple(src)
+	new /obj/item/stock_parts/micro_laser/purple(src)
+	new /obj/item/stock_parts/matter_bin/purple(src)
 
 /obj/item/storage/box/flare
 	name = "Flare box"
@@ -1366,35 +1391,44 @@
 	new /obj/item/reagent_containers/food/snacks/candy/sucker(src)
 
 /obj/item/storage/pouch
-    name = "pouch"
-    desc = "Подсумок на два магазина."
-    icon = 'icons/obj/storage.dmi'
-    icon_state = "pouch"
-    item_state = "pouch"
-    storage_slots = 2
-    w_class = WEIGHT_CLASS_TINY
-    slot_flags = ITEM_SLOT_BELT
-    can_hold = list(/obj/item/ammo_box/magazine)
+	name = "pouch"
+	desc = "Подсумок на два магазина."
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "pouch"
+	item_state = "pouch"
+	storage_slots = 2
+	w_class = WEIGHT_CLASS_TINY
+	slot_flags = ITEM_SLOT_BELT
+	can_hold = list(/obj/item/ammo_box/magazine)
+
 
 /obj/item/storage/pouch/fast
-    name = "fast pouch"
-    desc = "Подсумок на два магазина, настолько быстро перезаряжать оружие ещё никогда не было!"
-    icon_state = "pouch_fast"
-    item_state = "pouch_fast"
+	name = "fast pouch"
+	desc = "Подсумок на два магазина, настолько быстро перезаряжать оружие ещё никогда не было!"
+	icon_state = "pouch_fast"
+	item_state = "pouch_fast"
 
-/obj/item/storage/pouch/fast/attackby(var/obj/item/A as obj, mob/user as mob, params)
-    .=..()
-    if(istype(A, /obj/item/gun/projectile/automatic))
-        var/obj/item/gun/projectile/automatic/gun = A
-        for(var/obj/item/ammo_box/magazine/MA in contents)
-            var/obj/item/ammo_box/magazine/magazine
-            if(gun.magazine)
-                magazine = gun.magazine
-            gun.attackby(MA, user)
-            if(magazine)
-                magazine.loc = src
-                magazine.update_appearance(UPDATE_ICON | UPDATE_DESC)
-            return
+
+/obj/item/storage/pouch/fast/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/gun/projectile/automatic))
+		add_fingerprint(user)
+		var/obj/item/gun/projectile/automatic/gun = I
+		for(var/obj/item/ammo_box/magazine/magazine in contents)
+			if(!istype(magazine, gun.mag_type))
+				continue
+			var/obj/item/ammo_box/magazine/gun_magazine = gun.magazine
+			gun.attackby(magazine, user, params)
+			var/mag_changed = (gun_magazine && gun_magazine.loc != gun)
+			var/success = mag_changed || (!gun_magazine && gun.magazine)
+			if(mag_changed && can_be_inserted(gun_magazine))
+				handle_item_insertion(gun_magazine)
+				gun_magazine.update_appearance()
+			if(success)
+				break
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/item/storage/box/sec
 	name = "officer starter kit"
@@ -1505,6 +1539,15 @@
 	new /obj/item/clothing/shoes/mr_chang_sandals(src)
 	new /obj/item/clothing/head/mr_chang_band(src)
 
+/obj/item/storage/box/bombsecurity
+	name = "\improper Security Bombsuit"
+	desc = "It's a box with explosion-protective suit."
+
+/obj/item/storage/box/bombclosetsecurity/populate_contents()
+	new /obj/item/clothing/suit/bomb_suit/security( src )
+	new /obj/item/clothing/under/rank/security( src )
+	new /obj/item/clothing/shoes/brown( src )
+	new /obj/item/clothing/head/bomb_hood/security( src )
 
 /*
  *  Plant DNA Disks Box

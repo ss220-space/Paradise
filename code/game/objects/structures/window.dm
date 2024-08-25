@@ -270,7 +270,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 /obj/structure/window/attackby(obj/item/I, mob/living/user, params)
 	if(!can_be_reached(user))
-		return 1 //skip the afterattack
+		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
 

@@ -29,7 +29,11 @@
 
 	default_genes = list(/datum/dna/gene/basic/grant_spell/remotetalk)
 
-	species_traits = list(LIPS, CAN_WINGDINGS, HAVE_REGENERATION)
+	inherent_traits = list(
+		TRAIT_HAS_LIPS,
+		TRAIT_HAS_REGENERATION,
+	)
+	blacklisted_disabilities = NONE
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags =  HAS_BODY_MARKINGS
 	has_gender = FALSE
@@ -43,12 +47,12 @@
 
 
 /datum/species/grey/on_species_gain(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	H.gene_stability += GENE_INSTABILITY_MODERATE
 
 
 /datum/species/grey/on_species_loss(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	H.gene_stability -= GENE_INSTABILITY_MODERATE
 
 
@@ -88,7 +92,7 @@
 
 /datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/translator_pref = H.client.prefs.speciesprefs
-	if(translator_pref || ((ismindshielded(H) || J.is_command || J.supervisors == "the captain") && (WINGDINGS in H.mutations)))
+	if(translator_pref || ((ismindshielded(H) || J.is_command || J.supervisors == "the captain") && HAS_TRAIT(H, TRAIT_WINGDINGS)))
 		if(J.title == JOB_TITLE_MIME)
 			return
 		if(J.title == JOB_TITLE_CLOWN)

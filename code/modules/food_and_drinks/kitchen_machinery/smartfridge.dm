@@ -88,8 +88,9 @@
 	))
 
 /obj/machinery/smartfridge/RefreshParts()
+	max_n_of_items = 0
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		max_n_of_items = 1500 * B.rating
+		max_n_of_items += 1500 * B.rating
 
 /obj/machinery/smartfridge/Destroy()
 	SStgui.close_uis(wires)
@@ -196,36 +197,55 @@
 		return TRUE
 	return ..()
 
-/obj/machinery/smartfridge/attackby(obj/item/O, var/mob/user)
-	if(exchange_parts(user, O))
+
+/obj/machinery/smartfridge/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/card/emag))
+		to_chat(user, span_notice("The [name] smartly refuses [I]."))
+		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(exchange_parts(user, I))
 		SStgui.update_uis(src)
-		return
-	if(stat & (BROKEN|NOPOWER))
-		to_chat(user, "<span class='notice'>\The [src] is unpowered and useless.</span>")
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	add_fingerprint(user)
-	if(load(O, user))
-		user.visible_message("<span class='notice'>[user] has added \the [O] to \the [src].</span>", "<span class='notice'>You add \the [O] to \the [src].</span>")
+	if(stat & (BROKEN|NOPOWER))
+		to_chat(user, span_warning("The [name] is unpowered or broken."))
+		return ATTACK_CHAIN_PROCEED
+
+	if(load(I, user))
+		user.visible_message(
+			span_notice("[user] has added [I] into [src]."),
+			span_notice("You have added [I] into [src]."),
+		)
 		SStgui.update_uis(src)
 		update_icon(UPDATE_OVERLAYS)
-	else if(istype(O, /obj/item/storage/bag) || istype(O, /obj/item/storage/box))
-		var/obj/item/storage/bag/P = O
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/storage/bag) || istype(I, /obj/item/storage/box))
+		var/obj/item/storage/storage = I
 		var/items_loaded = 0
-		for(var/obj/G in P.contents)
-			if(load(G, user))
-				G.add_fingerprint(user)
+		for(var/obj/item/thing as anything in storage.contents)
+			if(load(thing, user))
+				thing.add_fingerprint(user)
 				items_loaded++
 		if(items_loaded)
-			user.visible_message("<span class='notice'>[user] loads \the [src] with \the [P].</span>", "<span class='notice'>You load \the [src] with \the [P].</span>")
+			user.visible_message(
+				span_notice("[user] has loaded [src] with [storage]."),
+				span_notice("You have loaded [src] with [storage]."),
+			)
 			SStgui.update_uis(src)
 			update_icon(UPDATE_OVERLAYS)
-		var/failed = length(P.contents)
+		var/failed = length(storage.contents)
 		if(failed)
-			to_chat(user, "<span class='notice'>[failed] item\s [failed == 1 ? "is" : "are"] refused.</span>")
-	else if(!istype(O, /obj/item/card/emag))
-		to_chat(user, "<span class='notice'>\The [src] smartly refuses [O].</span>")
-		return TRUE
+			to_chat(user, span_notice("[failed] item\s [failed == 1 ? "is" : "are"] refused."))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	to_chat(user, span_warning("You cannot put [I] into [src]."))
+	return ATTACK_CHAIN_PROCEED
+
 
 /obj/machinery/smartfridge/attack_ghost(mob/user)
 	return attack_hand(user)
@@ -351,34 +371,33 @@
   * * user - The user trying to load the item.
   */
 /obj/machinery/smartfridge/proc/load(obj/item/I, mob/user)
-	if(accept_check(I))
-		if(length(contents) >= max_n_of_items)
-			to_chat(user, "<span class='notice'>\The [src] is full.</span>")
-			return FALSE
+	if(!accept_check(I))
+		return FALSE
+
+	if(length(contents) >= max_n_of_items)
+		to_chat(user, span_notice("The [name] is full."))
+		return FALSE
+
+	if(isstorage(I.loc))
+		var/obj/item/storage/storage = I.loc
+		if(user)
+			storage.remove_from_storage(I, user.drop_location())
+			I.do_pickup_animation(src)
+			I.forceMove(src)
 		else
-			if(isstorage(I.loc))
-				var/obj/item/storage/S = I.loc
-				if(user)
-					S.remove_from_storage(I, user.drop_location())
-					I.do_pickup_animation(src)
-					I.forceMove(src)
-				else
-					S.remove_from_storage(I, src)
+			storage.remove_from_storage(I, src)
 
-			else if(ismob(I.loc))
-				var/mob/M = I.loc
-				if(M.get_active_hand() == I)
-					if(!M.drop_transfer_item_to_loc(I, src))
-						to_chat(user, "<span class='warning'>\The [I] is stuck to you!</span>")
-						return FALSE
-				else
-					M.drop_transfer_item_to_loc(I, src)
-			else
-				I.forceMove(src)
+	else if(ismob(I.loc))
+		var/mob/holder = I.loc
+		if(!holder.drop_transfer_item_to_loc(I, src))
+			return FALSE
 
-			item_quants[I.name] += 1
-			return TRUE
-	return FALSE
+	else
+		I.forceMove(src)
+
+	item_quants[I.name] += 1
+	return TRUE
+
 
 /**
   * Tries to shoot a random at a nearby living mob.

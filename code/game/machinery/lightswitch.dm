@@ -152,10 +152,12 @@
 	if(logic_connect && powered(LIGHT))		//We won't send signals while unpowered, but the last signal will remain valid for anything that received it before we went dark
 		handle_output()
 
-/obj/machinery/light_switch/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/detective_scanner))
-		return
+
+/obj/machinery/light_switch/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/detective_scanner))
+		return ATTACK_CHAIN_PROCEED
 	return ..()
+
 
 /obj/machinery/light_switch/wrench_act(mob/user, obj/item/I)
 	. = TRUE

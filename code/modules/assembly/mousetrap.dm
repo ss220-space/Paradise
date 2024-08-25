@@ -31,7 +31,7 @@
 	armed = !armed
 	if(!armed && ishuman(usr))
 		var/mob/living/carbon/human/user = usr
-		if((user.getBrainLoss() >= 60 || (CLUMSY in user.mutations)) && prob(50))
+		if((user.getBrainLoss() >= 60 || HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
 			to_chat(user, "Your hand slips, setting off the trigger.")
 			pulse(FALSE, user)
 
@@ -55,7 +55,7 @@
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/h_target = target
-		if(h_target.dna && (PIERCEIMMUNE in h_target.dna.species.species_traits))
+		if(HAS_TRAIT(h_target, TRAIT_PIERCEIMMUNE))
 			playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
 			armed = FALSE
 			update_icon()
@@ -93,7 +93,7 @@
 	if(!armed)
 		to_chat(user, span_notice("You arm [src]."))
 	else
-		if((user.getBrainLoss() >= 60 || (CLUMSY in user.mutations)) && prob(50))
+		if((user.getBrainLoss() >= 60 || HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
 			triggered(user, user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 			user.visible_message(
 				span_warning("[user] accidentally sets off [src], breaking [user.p_their()] fingers."),
@@ -107,7 +107,7 @@
 
 
 /obj/item/assembly/mousetrap/attack_hand(mob/living/user)
-	if(armed && (user.getBrainLoss() >= 60 || (CLUMSY in user.mutations)) && prob(50))
+	if(armed && (user.getBrainLoss() >= 60 || HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
 		triggered(user, user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 		user.visible_message(
 			span_warning("[user] accidentally sets off [src], breaking [user.p_their()] fingers."),

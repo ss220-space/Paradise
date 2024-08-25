@@ -43,12 +43,16 @@
 		var/obj/item/crusher_trophy/T = t
 		. += "<span class='notice'>It has \a [T] attached, which causes [T.effect_desc()].</span>"
 
-/obj/item/twohanded/kinetic_crusher/attackby(obj/item/I, mob/living/user)
+
+/obj/item/twohanded/kinetic_crusher/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/crusher_trophy))
-		var/obj/item/crusher_trophy/T = I
-		T.add_to(src, user)
-	else
-		return ..()
+		var/obj/item/crusher_trophy/trophy = I
+		add_fingerprint(user)
+		if(trophy.add_to(src, user))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		return ATTACK_CHAIN_PROCEED
+	return ..()
+
 
 /obj/item/twohanded/kinetic_crusher/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
@@ -62,32 +66,36 @@
 	else
 		balloon_alert(user, "нет трофеев!")
 
-/obj/item/twohanded/kinetic_crusher/attack(mob/living/target, mob/living/carbon/user)
+
+/obj/item/twohanded/kinetic_crusher/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
-		to_chat(user, "<span class='warning'>[src] is too heavy to use with one hand. You fumble and drop everything.")
-		user.drop_r_hand()
-		user.drop_l_hand()
-		return
-	var/datum/status_effect/crusher_damage/C = target.has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
-	if(!C)
-		C = target.apply_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
+		var/warn_message = "The [name] is too heavy to use with one hand."
+		if(user.drop_item_ground(src))
+			warn_message += " You fumble and drop it."
+		to_chat(user, span_warning(warn_message))
+		return ATTACK_CHAIN_BLOCKED_ALL
+	var/datum/status_effect/crusher_damage/damage_track = target.has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
+	if(!damage_track)
+		damage_track = target.apply_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
 	var/target_health = target.health
 	var/temp_force_bonus = 0
-	var/datum/status_effect/adaptive_learning/A = target.has_status_effect(STATUS_EFFECT_ADAPTIVELEARNING)
-	if(!A && adaptive_damage_bonus)
-		A = target.apply_status_effect(STATUS_EFFECT_ADAPTIVELEARNING)
-	if(A)
-		temp_force_bonus = A.bonus_damage
-		A.bonus_damage = min((A.bonus_damage + adaptive_damage_bonus), 20)
+	var/datum/status_effect/adaptive_learning/learning = target.has_status_effect(STATUS_EFFECT_ADAPTIVELEARNING)
+	if(!learning && adaptive_damage_bonus)
+		learning = target.apply_status_effect(STATUS_EFFECT_ADAPTIVELEARNING)
+	if(learning)
+		temp_force_bonus = learning.bonus_damage
+		learning.bonus_damage = min((learning.bonus_damage + adaptive_damage_bonus), 20)
 	force += temp_force_bonus
-	..()
+	. = ..()
 	force -= temp_force_bonus
-	for(var/t in trophies)
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || QDELETED(target))
+		return .
+	for(var/obj/item/crusher_trophy/trophy as anything in trophies)
 		if(!QDELETED(target))
-			var/obj/item/crusher_trophy/T = t
-			T.on_melee_hit(target, user)
-	if(!QDELETED(C) && !QDELETED(target))
-		C.total_damage += target_health - target.health //we did some damage, but let's not assume how much we did
+			trophy.on_melee_hit(target, user)
+	if(!QDELETED(damage_track) && !QDELETED(target))
+		damage_track.total_damage += target_health - target.health //we did some damage, but let's not assume how much we did
+
 
 /obj/item/twohanded/kinetic_crusher/afterattack(atom/target, mob/living/user, proximity_flag, clickparams)
 	. = ..()
@@ -229,22 +237,28 @@
 /obj/item/crusher_trophy/proc/effect_desc()
 	return "errors"
 
-/obj/item/crusher_trophy/attackby(obj/item/A, mob/living/user)
-	if(istype(A, /obj/item/twohanded/kinetic_crusher))
-		add_to(A, user)
-	else
-		..()
 
-/obj/item/crusher_trophy/proc/add_to(obj/item/twohanded/kinetic_crusher/H, mob/living/user)
-	for(var/t in H.trophies)
-		var/obj/item/crusher_trophy/T = t
-		if(istype(T, denied_type) || istype(src, T.denied_type))
-			to_chat(user, "<span class='warning'>You can't seem to attach [src] to [H]. Maybe remove a few trophies?</span>")
+/obj/item/crusher_trophy/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/twohanded/kinetic_crusher))
+		add_fingerprint(user)
+		if(add_to(I, user))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		return ATTACK_CHAIN_PROCEED
+	return ..()
+
+
+/obj/item/crusher_trophy/proc/add_to(obj/item/twohanded/kinetic_crusher/crusher, mob/living/user)
+	for(var/obj/item/crusher_trophy/crusher_trophy as anything in crusher.trophies)
+		if(istype(crusher_trophy, denied_type) || istype(src, crusher_trophy.denied_type))
+			to_chat(user, span_warning("You cannot attach [src] to [crusher]. Try to remove a few trophies first."))
 			return FALSE
-	if(!user.drop_transfer_item_to_loc(src, H))
-		return
-	H.trophies += src
-	to_chat(user, "<span class='notice'>You attach [src] to [H].</span>")
+	if(loc == user)
+		if(!user.drop_transfer_item_to_loc(src, crusher))
+			return FALSE
+	else
+		forceMove(crusher)
+	crusher.trophies += src
+	to_chat(user, span_notice("You have attached [src] to [crusher]."))
 	return TRUE
 
 /obj/item/crusher_trophy/proc/remove_from(obj/item/twohanded/kinetic_crusher/H, mob/living/user)

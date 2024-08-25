@@ -8,7 +8,7 @@
 	flash_protect = FLASH_PROTECTION_WELDER
 	tint = 2
 	HUDType = 0
-	var/examine_extensions = 0
+
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 75)
 	resistance_flags = FIRE_PROOF
 	light_range = 4
@@ -126,9 +126,8 @@
 	icon_state = "white_envirohelm"
 	item_state = "white_envirohelm"
 	armor = list("melee" = 25, "bullet" = 5, "laser" = 25, "energy" = 10, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 50)
-	scan_reagents = 1
 	HUDType = DATA_HUD_SECURITY_ADVANCED
-	examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
+	examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE | EXAMINE_HUD_SCIENCE
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/warden
 	name = "warden's plasma envirosuit helmet"
@@ -158,8 +157,7 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
-	examine_extensions = EXAMINE_HUD_MEDICAL
-	scan_reagents = 1
+	examine_extensions = EXAMINE_HUD_MEDICAL | EXAMINE_HUD_SCIENCE
 
 /obj/item/clothing/head/helmet/space/plasmaman/genetics
 	name = "geneticist's plasma envirosuit helmet"
@@ -173,7 +171,7 @@
 	desc = "The helmet worn by the safest people on the station, those who are completely immune to the monstrosities they create."
 	icon_state = "virologist_envirohelm"
 	item_state = "virologist_envirohelm"
-	scan_reagents = 1
+	examine_extensions = EXAMINE_HUD_SCIENCE
 
 /obj/item/clothing/head/helmet/space/plasmaman/chemist
 	name = "chemistry plasma envirosuit helmet"
@@ -182,7 +180,7 @@
 	item_state = "chemist_envirohelm"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	scan_reagents = 1
+	examine_extensions = EXAMINE_HUD_SCIENCE
 
 /obj/item/clothing/head/helmet/space/plasmaman/science
 	name = "science plasma envirosuit helmet"
@@ -191,7 +189,7 @@
 	item_state = "scientist_envirohelm"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	scan_reagents = 1
+	examine_extensions = EXAMINE_HUD_SCIENCE
 
 /obj/item/clothing/head/helmet/space/plasmaman/science/xeno
 	name = "xenobiologist plasma envirosuit helmet"
@@ -200,7 +198,7 @@
 	item_state = "scientist_envirohelm"
 	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
-	scan_reagents = 0
+	examine_extensions = EXAMINE_HUD_NONE
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
 
 /obj/item/clothing/head/helmet/space/plasmaman/rd
@@ -210,7 +208,7 @@
 	item_state = "rd_envirohelm"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	scan_reagents = 1
+	examine_extensions = EXAMINE_HUD_SCIENCE
 	HUDType = DATA_HUD_DIAGNOSTIC
 
 /obj/item/clothing/head/helmet/space/plasmaman/robotics
@@ -288,7 +286,7 @@
 	desc = "A generic white envirohelm."
 	icon_state = "white_envirohelm"
 	item_state = "white_envirohelm"
-	scan_reagents = 1
+	examine_extensions = EXAMINE_HUD_SCIENCE
 
 /obj/item/clothing/head/helmet/space/plasmaman/nt
 	name = "nanotrasen plasma envirosuit helmet"
