@@ -1913,7 +1913,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	return ..()
 
 /mob/living/carbon/human/mouse_buckle_handling(mob/living/M, mob/living/user)
-	if(pulling != M || grab_state != GRAB_AGGRESSIVE || stat != CONSCIOUS || a_intent != INTENT_GRAB)
+	if(pulling != M || grab_state != GRAB_AGGRESSIVE || stat != CONSCIOUS)
 		return FALSE
 	//If you dragged them to you and you're aggressively grabbing try to fireman carry them
 	if(can_be_firemanned(M))
@@ -1922,7 +1922,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(!active_hand_available && !inactive_hand_available)
 			return
 		if(!active_hand_available && !swap_hand())
-			to_chat(user, span_warning("освободи одну из рук ебать"))
+			to_chat(user, span_warning("освободи одну из рук!"))
 			return FALSE
 		fireman_carry(M)
 		return TRUE

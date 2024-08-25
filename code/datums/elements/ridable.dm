@@ -186,12 +186,12 @@
 			AM.unbuckle_mob(rider)
 	. = ..()
 
-/obj/item/riding_offhand/throw_at(mob/living/carbon/user, atom/target)
-	if(rider == user)
+/obj/item/riding_offhand/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
+	if(rider == thrower)
 		return //Piggyback user.
-	user.unbuckle_mob(rider)
-	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-		to_chat(user, span_notice("You gently let go of [rider]."))
+	thrower.unbuckle_mob(rider)
+	if(HAS_TRAIT(thrower, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
+		to_chat(thrower, span_notice("You gently let go of [rider]."))
 		return
 	return rider
 
