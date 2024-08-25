@@ -92,6 +92,9 @@
 	temperature = 300
 	},
 /area/ruin/powered/pirateship)
+"cb" = (
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "cy" = (
 /obj/structure/foamedmetal,
 /turf/simulated/floor/plating/metalfoam/iron,
@@ -320,6 +323,21 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"gO" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/structure/shuttle/engine/heater{
+	icon_state = "heater3x3_side_inv";
+	tag = "icon-heater (NORTH)"
+	},
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/turf/simulated/floor/pod/dark{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
+/area/ruin/powered/pirateship)
 "gQ" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/landmark/tiles/burnturf,
@@ -351,6 +369,23 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/dark{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
+/area/ruin/powered/pirateship)
+"hl" = (
+/obj/structure/table,
+/obj/structure/grille/broken,
+/obj/machinery/cell_charger{
+	pixel_x = -1;
+	pixel_y = 4
+	},
+/obj/item/stock_parts/cell/high{
+	pixel_x = 3;
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel/dark{
 	nitrogen = 23;
 	oxygen = 14;
@@ -450,6 +485,15 @@
 /obj/structure/grille,
 /turf/simulated/floor/engine,
 /area/ruin/powered/pirateship)
+"iK" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/effect/landmark/tiles/burnturf,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
+/area/lavaland/surface/outdoors)
 "iN" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -552,12 +596,6 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"jK" = (
-/obj/structure/railing,
-/obj/machinery/constructable_frame/machine_frame,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/pirateship)
 "jP" = (
 /obj/item/storage/backpack/duffel/syndie,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -620,19 +658,6 @@
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
-"kT" = (
-/obj/structure/table,
-/obj/structure/grille/broken,
-/obj/machinery/cell_charger{
-	pixel_x = -1;
-	pixel_y = 4
-	},
-/obj/item/stock_parts/cell/high{
-	pixel_x = 3;
-	pixel_y = 7
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/powered/pirateship)
 "kV" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -693,30 +718,6 @@
 	oxygen = 14;
 	temperature = 300
 	},
-/area/ruin/powered/pirateship)
-"mb" = (
-/obj/machinery/power/terminal,
-/obj/structure/cable/yellow{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/obj/structure/cable/orange{
-	icon_state = "4-5"
-	},
-/obj/machinery/power/apc/worn_out{
-	cell_type = 0;
-	dir = 8;
-	pixel_x = -24
-	},
-/obj/effect/decal/cleanable/glass{
-	pixel_x = 16;
-	pixel_y = 3
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	pixel_x = 4
-	},
-/obj/effect/decal/warning_stripes/northwestcorner,
-/turf/simulated/floor/pod/dark,
 /area/ruin/powered/pirateship)
 "md" = (
 /obj/structure/bonfire,
@@ -1091,6 +1092,14 @@
 	temperature = 300
 	},
 /area/ruin/powered/pirateship)
+"ri" = (
+/obj/structure/grille,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
+/area/lavaland/surface/outdoors)
 "rq" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -1144,6 +1153,22 @@
 	temperature = 300
 	},
 /area/ruin/powered/pirateship)
+"sl" = (
+/obj/structure/window/plasmareinforced{
+	color = 000000;
+	dir = 4
+	},
+/obj/structure/window/plasmareinforced{
+	color = 000000;
+	dir = 1
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
+/area/lavaland/surface/outdoors)
 "su" = (
 /obj/structure/grille/broken,
 /obj/effect/landmark/tiles/burnturf,
@@ -1191,6 +1216,15 @@
 	temperature = 300
 	},
 /area/ruin/powered/pirateship)
+"th" = (
+/obj/effect/landmark/tiles/burnturf,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
+/area/lavaland/surface/outdoors)
 "ts" = (
 /obj/structure/closet/crate/secure/loot,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -1203,33 +1237,9 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/safe_cave)
-"ur" = (
-/obj/machinery/door/airlock/external/glass,
-/turf/simulated/floor/plating,
-/area/ruin/powered/pirateship)
 "uS" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/safe_cave)
-"vg" = (
-/obj/structure/window/plasmareinforced{
-	color = 000000;
-	dir = 1
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating,
-/area/lavaland/surface/outdoors)
-"vH" = (
-/obj/structure/window/plasmareinforced{
-	color = 000000;
-	dir = 4
-	},
-/obj/structure/window/plasmareinforced{
-	color = 000000;
-	dir = 1
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating,
-/area/lavaland/surface/outdoors)
 "vW" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 4;
@@ -1246,6 +1256,22 @@
 	temperature = 300
 	},
 /area/ruin/powered/pirateship)
+"wc" = (
+/obj/structure/window/plasmareinforced{
+	color = 000000;
+	dir = 8
+	},
+/obj/structure/window/plasmareinforced{
+	color = 000000;
+	dir = 1
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
+/area/lavaland/surface/outdoors)
 "wp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -1432,16 +1458,31 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/engine,
 /area/ruin/powered/pirateship)
-"yA" = (
-/obj/effect/decal/warning_stripes/east,
-/obj/effect/landmark/tiles/burnturf,
-/turf/simulated/floor/plating,
-/area/lavaland/surface/outdoors)
 "yP" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"yQ" = (
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/door/airlock/highsecurity,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/plasteel/dark{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
+/area/ruin/powered/pirateship)
 "ze" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -1570,6 +1611,10 @@
 	temperature = 300
 	},
 /area/ruin/powered/pirateship)
+"Bt" = (
+/obj/structure/lattice/catwalk/fireproof,
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Bw" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -32
@@ -1624,22 +1669,6 @@
 "BO" = (
 /obj/structure/noticeboard,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/powered/pirateship)
-"Ce" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/door/airlock/highsecurity,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/dark,
 /area/ruin/powered/pirateship)
 "Cs" = (
 /obj/structure/cable/yellow{
@@ -1794,20 +1823,6 @@
 	temperature = 300
 	},
 /area/ruin/powered/pirateship)
-"Ez" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3_side";
-	tag = "icon-heater (NORTH)"
-	},
-/obj/machinery/power/terminal{
-	dir = 1
-	},
-/obj/machinery/door/window/northright{
-	name = "Engine Access"
-	},
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/pirateship)
 "EE" = (
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/effect/mapping_helpers/no_lava,
@@ -1858,6 +1873,16 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/safe_cave)
+"Fc" = (
+/obj/structure/railing,
+/obj/machinery/constructable_frame/machine_frame,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/pod/dark{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
+/area/ruin/powered/pirateship)
 "Ff" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave{
@@ -1865,6 +1890,19 @@
 	pixel_y = 7
 	},
 /turf/simulated/floor/plasteel/dark{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
+/area/ruin/powered/pirateship)
+"Fj" = (
+/obj/machinery/atmospherics/pipe/simple/visible/yellow,
+/obj/machinery/atmospherics/pipe/simple/visible/supply{
+	pixel_x = -2
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
+/obj/machinery/door/airlock/glass,
+/turf/simulated/floor/pod/dark{
 	nitrogen = 23;
 	oxygen = 14;
 	temperature = 300
@@ -1931,6 +1969,18 @@
 	temperature = 300
 	},
 /area/ruin/powered/pirateship)
+"Gg" = (
+/obj/effect/spawner/window/shuttle/gray,
+/obj/machinery/door/poddoor/shutters{
+	dir = 2;
+	id_tag = "pcarrier_bridge"
+	},
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
+/area/ruin/powered/pirateship)
 "Gj" = (
 /obj/machinery/computer{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
@@ -1951,15 +2001,6 @@
 	pixel_y = 8
 	},
 /turf/simulated/floor/engine,
-/area/ruin/powered/pirateship)
-"Gw" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/machinery/atmospherics/pipe/manifold/visible,
-/obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3";
-	tag = "icon-heater (NORTH)"
-	},
-/turf/simulated/floor/pod/dark,
 /area/ruin/powered/pirateship)
 "Gz" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -2114,6 +2155,18 @@
 	temperature = 300
 	},
 /area/ruin/powered/pirateship)
+"JO" = (
+/obj/effect/spawner/window/shuttle/gray,
+/obj/machinery/door/poddoor/shutters{
+	dir = 8;
+	id_tag = "pcarrier_windows"
+	},
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
+/area/ruin/powered/pirateship)
 "JQ" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/flora/ausbushes/ywflowers/hell,
@@ -2147,12 +2200,6 @@
 	temperature = 300
 	},
 /area/ruin/powered/pirateship)
-"Ky" = (
-/obj/effect/decal/warning_stripes/east,
-/obj/effect/decal/cleanable/glass,
-/obj/effect/landmark/tiles/burnturf,
-/turf/simulated/floor/plating,
-/area/lavaland/surface/outdoors)
 "KA" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/blood/drip{
@@ -2211,10 +2258,6 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/engine,
 /area/ruin/powered/pirateship)
-"LM" = (
-/obj/structure/grille,
-/turf/simulated/floor/plating,
-/area/lavaland/surface/outdoors)
 "LQ" = (
 /obj/structure/flora/ash/cacti,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -2271,9 +2314,6 @@
 	temperature = 300
 	},
 /area/ruin/powered/pirateship)
-"MC" = (
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/ruin/unpowered/safe_cave)
 "MP" = (
 /obj/effect/decal/cleanable/blood/drip{
 	pixel_x = 19;
@@ -2392,6 +2432,24 @@
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
+"Oe" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/structure/shuttle/engine/heater{
+	icon_state = "heater3x3_side";
+	tag = "icon-heater (NORTH)"
+	},
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/machinery/door/window/northright{
+	name = "Engine Access"
+	},
+/turf/simulated/floor/pod/dark{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
+/area/ruin/powered/pirateship)
 "Oo" = (
 /obj/structure/rack,
 /obj/structure/railing,
@@ -2430,12 +2488,6 @@
 	temperature = 300
 	},
 /area/ruin/powered/pirateship)
-"Ow" = (
-/obj/effect/decal/warning_stripes/east,
-/obj/effect/landmark/tiles/burnturf,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/lavaland/surface/outdoors)
 "OA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -2489,14 +2541,16 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/safe_cave)
-"Pf" = (
-/obj/effect/spawner/window/shuttle/gray,
-/obj/machinery/door/poddoor/shutters{
-	dir = 8;
-	id_tag = "pcarrier_windows"
+"Ps" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/effect/landmark/tiles/burnturf,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
 	},
-/turf/simulated/floor/plating,
-/area/ruin/powered/pirateship)
+/area/lavaland/surface/outdoors)
 "Py" = (
 /obj/machinery/power/terminal,
 /obj/machinery/atmospherics/binary/dp_vent_pump{
@@ -2537,6 +2591,34 @@
 	temperature = 300
 	},
 /area/ruin/powered/pirateship)
+"PL" = (
+/obj/machinery/power/terminal,
+/obj/structure/cable/yellow{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/structure/cable/orange{
+	icon_state = "4-5"
+	},
+/obj/machinery/power/apc/worn_out{
+	cell_type = 0;
+	dir = 8;
+	pixel_x = -24
+	},
+/obj/effect/decal/cleanable/glass{
+	pixel_x = 16;
+	pixel_y = 3
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	pixel_x = 4
+	},
+/obj/effect/decal/warning_stripes/northwestcorner,
+/turf/simulated/floor/pod/dark{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
+/area/ruin/powered/pirateship)
 "PT" = (
 /obj/machinery/atmospherics/binary/pump,
 /obj/structure/cable/yellow{
@@ -2561,23 +2643,26 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"PY" = (
-/obj/structure/window/plasmareinforced{
-	color = 000000;
-	dir = 8
-	},
-/obj/structure/window/plasmareinforced{
-	color = 000000;
-	dir = 1
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating,
-/area/lavaland/surface/outdoors)
 "Qa" = (
 /obj/item/clothing/suit/pirate_brown,
 /obj/effect/decal/fakelattice,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"Qo" = (
+/turf/simulated/floor/lava/lava_land_surface,
+/area/ruin/unpowered/safe_cave)
+"Qt" = (
+/obj/structure/window/plasmareinforced{
+	color = 000000;
+	dir = 1
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "Qz" = (
 /obj/structure/window/reinforced{
@@ -2731,6 +2816,17 @@
 	temperature = 300
 	},
 /area/ruin/powered/pirateship)
+"RG" = (
+/obj/effect/spawner/window/shuttle/gray,
+/obj/machinery/door/poddoor/shutters{
+	dir = 8
+	},
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
+/area/ruin/powered/pirateship)
 "RJ" = (
 /obj/effect/spawner/window/shuttle/gray,
 /obj/machinery/door/poddoor/shutters{
@@ -2750,31 +2846,6 @@
 	temperature = 300
 	},
 /area/lavaland/surface/outdoors)
-"Sd" = (
-/obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3_side";
-	tag = "icon-heater (NORTH)"
-	},
-/obj/machinery/power/terminal{
-	dir = 1
-	},
-/obj/machinery/door/window/northright{
-	name = "Engine Access"
-	},
-/obj/machinery/atmospherics/pipe/cap/visible/supply{
-	dir = 1;
-	pixel_x = 3
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/supply{
-	dir = 9;
-	pixel_x = 1
-	},
-/turf/simulated/floor/pod/dark{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
-/area/ruin/powered/pirateship)
 "Sz" = (
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -2787,6 +2858,14 @@
 /obj/effect/baseturf_helper/lava_land/surface/basalt,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/safe_cave)
+"SJ" = (
+/obj/machinery/door/airlock/external/glass,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
+/area/ruin/powered/pirateship)
 "Tl" = (
 /obj/effect/decal/cleanable/dust,
 /obj/item/clothing/under/pirate,
@@ -2836,6 +2915,23 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"Uj" = (
+/obj/structure/shuttle/engine/heater{
+	icon_state = "heater3x3_side";
+	tag = "icon-heater (NORTH)"
+	},
+/obj/machinery/power/terminal{
+	dir = 1
+	},
+/obj/machinery/door/window/northright{
+	name = "Engine Access"
+	},
+/turf/simulated/floor/pod/dark{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
+/area/ruin/powered/pirateship)
 "Uk" = (
 /obj/structure/sign/cargo,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -2962,6 +3058,19 @@
 	temperature = 300
 	},
 /area/ruin/powered/pirateship)
+"VS" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/atmospherics/pipe/manifold/visible,
+/obj/structure/shuttle/engine/heater{
+	icon_state = "heater3x3";
+	tag = "icon-heater (NORTH)"
+	},
+/turf/simulated/floor/pod/dark{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
+/area/ruin/powered/pirateship)
 "VX" = (
 /turf/simulated/wall/mineral/plastitanium,
 /area/ruin/powered/pirateship)
@@ -3020,21 +3129,19 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"WP" = (
+/obj/effect/spawner/window/shuttle/gray,
+/obj/machinery/door/poddoor/shutters,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
+/area/ruin/powered/pirateship)
 "WT" = (
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/safe_cave)
-"WV" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/structure/shuttle/engine/heater{
-	icon_state = "heater3x3_side_inv";
-	tag = "icon-heater (NORTH)"
-	},
-/obj/machinery/power/terminal{
-	dir = 1
-	},
-/turf/simulated/floor/pod/dark,
-/area/ruin/powered/pirateship)
 "WX" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /obj/machinery/atmospherics/pipe/simple/visible/supply{
@@ -3055,11 +3162,6 @@
 	temperature = 300
 	},
 /area/ruin/powered/pirateship)
-"WZ" = (
-/obj/effect/spawner/window/shuttle/gray,
-/obj/machinery/door/poddoor/shutters,
-/turf/simulated/floor/plating,
-/area/ruin/powered/pirateship)
 "Xk" = (
 /obj/item/reagent_containers/food/condiment/rice,
 /obj/effect/decal/cleanable/dust,
@@ -3068,15 +3170,6 @@
 	oxygen = 14;
 	temperature = 300
 	},
-/area/ruin/powered/pirateship)
-"Xo" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/obj/machinery/atmospherics/pipe/simple/visible/supply{
-	pixel_x = -2
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
-/obj/machinery/door/airlock/glass,
-/turf/simulated/floor/pod/dark,
 /area/ruin/powered/pirateship)
 "XA" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
@@ -3107,14 +3200,6 @@
 	temperature = 300
 	},
 /area/ruin/powered/pirateship)
-"XJ" = (
-/obj/effect/landmark/tiles/burnturf,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plating,
-/area/lavaland/surface/outdoors)
-"XL" = (
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "XR" = (
 /obj/item/stack/rods/ten{
 	pixel_x = -6;
@@ -3155,13 +3240,6 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"Yt" = (
-/obj/effect/spawner/window/shuttle/gray,
-/obj/machinery/door/poddoor/shutters{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/ruin/powered/pirateship)
 "Yw" = (
 /obj/machinery/atmospherics/binary/pump,
 /obj/machinery/atmospherics/pipe/simple/visible/supply{
@@ -3196,6 +3274,16 @@
 	temperature = 300
 	},
 /area/ruin/powered/pirateship)
+"YI" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/effect/decal/cleanable/glass,
+/obj/effect/landmark/tiles/burnturf,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
+/area/lavaland/surface/outdoors)
 "YV" = (
 /obj/structure/flora/ash/leaf_shroom,
 /obj/effect/mapping_helpers/no_lava,
@@ -3208,10 +3296,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/safe_cave)
-"Zm" = (
-/obj/structure/lattice/catwalk/fireproof,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "Zw" = (
 /obj/machinery/constructable_frame/machine_frame,
 /obj/item/mounted/frame/firealarm{
@@ -3233,14 +3317,6 @@
 	oxygen = 14;
 	temperature = 300
 	},
-/area/ruin/powered/pirateship)
-"ZT" = (
-/obj/effect/spawner/window/shuttle/gray,
-/obj/machinery/door/poddoor/shutters{
-	dir = 2;
-	id_tag = "pcarrier_bridge"
-	},
-/turf/simulated/floor/plating,
 /area/ruin/powered/pirateship)
 "ZV" = (
 /obj/effect/landmark/tiles/damageturf,
@@ -3511,9 +3587,9 @@ QL
 gL
 EN
 QL
-XL
-XL
-XL
+cb
+cb
+cb
 pY
 sR
 QL
@@ -3568,12 +3644,12 @@ QL
 sR
 QL
 QL
-XL
-XL
-XL
-XL
-XL
-XL
+cb
+cb
+cb
+cb
+cb
+cb
 QL
 QL
 QL
@@ -3626,12 +3702,12 @@ yP
 zP
 QL
 QL
-XL
-XL
-XL
-XL
-XL
-XL
+cb
+cb
+cb
+cb
+cb
+cb
 sR
 QL
 QL
@@ -3673,9 +3749,9 @@ EN
 EN
 QL
 Uf
-XL
-XL
-XJ
+cb
+cb
+th
 xz
 QL
 QL
@@ -3686,20 +3762,20 @@ sG
 ZV
 QL
 La
-XL
-XL
-XL
+cb
+cb
+cb
 QL
 YV
-XL
-XL
-XL
+cb
+cb
+cb
 fm
 QL
 QL
 La
-XL
-XL
+cb
+cb
 EN
 EN
 EN
@@ -3730,11 +3806,11 @@ EN
 EN
 EN
 QL
-XL
-XL
-XL
-yA
-Ow
+cb
+cb
+cb
+iK
+Ps
 nM
 zY
 Hl
@@ -3748,17 +3824,17 @@ QL
 QL
 QL
 QL
-XL
-XL
-XL
-XL
-XL
-XL
-XL
-XL
-XL
-XL
-XL
+cb
+cb
+cb
+cb
+cb
+cb
+cb
+cb
+cb
+cb
+cb
 EN
 EN
 EN
@@ -3788,13 +3864,13 @@ uS
 EN
 EN
 Uf
-XL
-XL
-XL
-XL
-XL
-XL
-Ky
+cb
+cb
+cb
+cb
+cb
+cb
+YI
 kQ
 yP
 yP
@@ -3807,7 +3883,7 @@ QL
 dT
 QL
 oi
-XL
+cb
 VX
 eG
 eG
@@ -3815,9 +3891,9 @@ eG
 iT
 eG
 VX
-XL
-XL
-XL
+cb
+cb
+cb
 QL
 QL
 QL
@@ -3845,13 +3921,13 @@ uS
 ts
 EN
 EN
-XL
-XL
-XL
-XL
-XL
-XL
-XL
+cb
+cb
+cb
+cb
+cb
+cb
+cb
 QL
 QL
 sR
@@ -3903,13 +3979,13 @@ uS
 Ro
 uS
 uS
-XL
-XL
+cb
+cb
 EN
 EN
-XL
-XL
-XL
+cb
+cb
+cb
 JQ
 QL
 QL
@@ -3921,7 +3997,7 @@ QL
 yP
 rE
 dT
-LM
+ri
 QL
 eG
 Ot
@@ -3936,7 +4012,7 @@ eG
 eG
 eG
 eG
-PY
+wc
 DO
 QL
 fm
@@ -3961,14 +4037,14 @@ Ro
 kV
 BK
 jn
-XL
-XL
+cb
+cb
 EN
 EN
 EN
-XL
-XL
-XL
+cb
+cb
+cb
 sR
 QL
 QL
@@ -3994,7 +4070,7 @@ hM
 At
 br
 CX
-vg
+Qt
 QL
 QL
 QL
@@ -4019,19 +4095,19 @@ SH
 EZ
 ll
 em
-XL
-XL
-XL
+cb
+cb
+cb
 EN
 jP
-XL
-XL
-XL
+cb
+cb
+cb
 KE
 eG
 eG
-WZ
-WZ
+WP
+WP
 eG
 Xk
 UI
@@ -4040,7 +4116,7 @@ DD
 DD
 yP
 WC
-Xo
+Fj
 XA
 OE
 UG
@@ -4077,14 +4153,14 @@ uS
 Lg
 kj
 tv
-XL
-XL
-XL
-XL
+cb
+cb
+cb
+cb
 DZ
-XL
-XL
-XL
+cb
+cb
+cb
 hE
 hE
 hE
@@ -4099,7 +4175,7 @@ BC
 ng
 Zw
 eG
-jK
+Fc
 Bd
 DK
 Vz
@@ -4109,12 +4185,12 @@ eG
 iN
 YH
 Py
-Sd
-vg
+Uj
+Qt
 DO
 QL
 fm
-XL
+cb
 QL
 QL
 EN
@@ -4135,13 +4211,13 @@ uS
 uS
 uS
 EN
-XL
-XL
-XL
-XL
-XL
-XL
-XL
+cb
+cb
+cb
+cb
+cb
+cb
+cb
 VX
 eG
 eG
@@ -4165,16 +4241,16 @@ lU
 eG
 eG
 eG
-ur
+SJ
 eG
 eG
-vH
+sl
 sR
 QL
-XL
-XL
-XL
-XL
+cb
+cb
+cb
+cb
 QL
 EN
 EN
@@ -4193,13 +4269,13 @@ fy
 EN
 EN
 EN
-XL
-XL
-XL
-XL
-XL
-XL
-XL
+cb
+cb
+cb
+cb
+cb
+cb
+cb
 ix
 ix
 VX
@@ -4215,13 +4291,13 @@ hW
 mC
 eG
 VX
-XL
-XL
-XL
-XL
-XL
-XL
-XL
+cb
+cb
+cb
+cb
+cb
+cb
+cb
 QL
 QL
 QL
@@ -4229,10 +4305,10 @@ VX
 eG
 QL
 QL
-XL
-XL
-XL
-XL
+cb
+cb
+cb
+cb
 QL
 EN
 EN
@@ -4251,13 +4327,13 @@ EN
 EN
 EN
 QL
-XL
-XL
-XL
-XL
-XL
-XL
-XL
+cb
+cb
+cb
+cb
+cb
+cb
+cb
 Ia
 MP
 XF
@@ -4272,26 +4348,26 @@ Nc
 PA
 fW
 fC
-XL
-XL
-XL
-XL
-XL
-XL
-XL
-XL
-XL
+cb
+cb
+cb
+cb
+cb
+cb
+cb
+cb
+cb
 QL
 QL
 GM
 QL
 sR
 QL
-XL
-XL
-XL
-XL
-XL
+cb
+cb
+cb
+cb
+cb
 EN
 EN
 cX
@@ -4310,12 +4386,12 @@ EN
 EN
 QL
 La
-XL
-XL
-XL
-XL
-XL
-XL
+cb
+cb
+cb
+cb
+cb
+cb
 aw
 KA
 wS
@@ -4330,15 +4406,15 @@ oT
 Wc
 fW
 fC
-XL
-XL
-XL
-XL
-XL
-XL
-XL
-XL
-XL
+cb
+cb
+cb
+cb
+cb
+cb
+cb
+cb
+cb
 QL
 QL
 QL
@@ -4346,10 +4422,10 @@ QL
 QL
 sR
 QL
-XL
-XL
-XL
-XL
+cb
+cb
+cb
+cb
 EN
 EN
 cX
@@ -4369,12 +4445,12 @@ EN
 EN
 QL
 La
-XL
-XL
-XL
-XL
-XL
-XL
+cb
+cb
+cb
+cb
+cb
+cb
 aL
 VX
 eG
@@ -4389,14 +4465,14 @@ Gb
 kA
 eG
 VX
-XL
-XL
-XL
-XL
-XL
-XL
-XL
-XL
+cb
+cb
+cb
+cb
+cb
+cb
+cb
+cb
 QL
 QL
 QL
@@ -4405,9 +4481,9 @@ QL
 QL
 QL
 jB
-XL
-XL
-XL
+cb
+cb
+cb
 EN
 EN
 cX
@@ -4427,11 +4503,11 @@ EN
 EN
 EN
 QL
-XL
-XL
-Zm
-Zm
-Zm
+cb
+cb
+Bt
+Bt
+Bt
 VX
 eG
 eG
@@ -4445,15 +4521,15 @@ eG
 nt
 EW
 iX
-kT
+hl
 eG
 eG
 eG
 RJ
 su
 RJ
-XL
-XL
+cb
+cb
 WM
 QL
 QL
@@ -4463,8 +4539,8 @@ GM
 QL
 QL
 QL
-XL
-XL
+cb
+cb
 Fm
 EN
 EN
@@ -4485,11 +4561,11 @@ EN
 EN
 EN
 QL
-XL
-XL
-XL
-XL
-XL
+cb
+cb
+cb
+cb
+cb
 cy
 gV
 hE
@@ -4510,7 +4586,7 @@ wp
 wp
 Uq
 wp
-XL
+cb
 La
 QL
 QL
@@ -4522,7 +4598,7 @@ QL
 QL
 QL
 QL
-XL
+cb
 QL
 EN
 EN
@@ -4544,15 +4620,15 @@ EN
 EN
 QL
 La
-XL
-XL
-XL
-XL
+cb
+cb
+cb
+cb
 cy
 cy
 cy
 eG
-Yt
+RG
 zM
 eG
 dy
@@ -4593,7 +4669,7 @@ EN
 EN
 EN
 EN
-MC
+Qo
 EN
 EN
 EN
@@ -4603,20 +4679,20 @@ EN
 EN
 QL
 La
-XL
-XL
-XL
-XL
-XL
+cb
+cb
+cb
+cb
+cb
 iv
 iv
-XL
-XL
+cb
+cb
 VX
 eG
 eG
 eG
-Ce
+yQ
 eG
 eG
 DY
@@ -4650,9 +4726,9 @@ EN
 EN
 EN
 EN
-MC
-MC
-MC
+Qo
+Qo
+Qo
 EN
 EN
 EN
@@ -4662,16 +4738,16 @@ EN
 EN
 QL
 La
-XL
-XL
-XL
-XL
-XL
-XL
-XL
-XL
-XL
-XL
+cb
+cb
+cb
+cb
+cb
+cb
+cb
+cb
+cb
+cb
 eG
 hu
 LZ
@@ -4708,10 +4784,10 @@ EN
 EN
 EN
 EN
-MC
-MC
-MC
-MC
+Qo
+Qo
+Qo
+Qo
 Af
 EN
 EN
@@ -4722,21 +4798,21 @@ EN
 QL
 QL
 Uf
-XL
-XL
-XL
-XL
-XL
-XL
-XL
-XL
-ZT
+cb
+cb
+cb
+cb
+cb
+cb
+cb
+cb
+Gg
 nx
 ru
 AY
 eG
 eG
-Pf
+JO
 eG
 jm
 mY
@@ -4748,10 +4824,10 @@ VY
 jm
 xa
 QL
-ur
+SJ
 eG
 eG
-PY
+wc
 DO
 QL
 EN
@@ -4767,8 +4843,8 @@ EN
 EN
 EN
 EN
-MC
-MC
+Qo
+Qo
 uS
 uS
 uS
@@ -4781,14 +4857,14 @@ QL
 QL
 QL
 Uf
-XL
-XL
-XL
-XL
-XL
-XL
-XL
-ZT
+cb
+cb
+cb
+cb
+cb
+cb
+cb
+Gg
 Lq
 oE
 Ng
@@ -4807,9 +4883,9 @@ VY
 nh
 QL
 nF
-mb
-WV
-vg
+PL
+gO
+Qt
 QL
 QL
 EN
@@ -4825,7 +4901,7 @@ EN
 EN
 EN
 EN
-MC
+Qo
 xd
 uS
 uS
@@ -4843,10 +4919,10 @@ QL
 EN
 QL
 QL
-XL
-XL
+cb
+cb
 QL
-ZT
+Gg
 Kb
 Gj
 eG
@@ -4866,7 +4942,7 @@ Tr
 do
 oq
 PT
-Gw
+VS
 by
 QL
 EN
@@ -4924,8 +5000,8 @@ eG
 ap
 gi
 EQ
-Ez
-vg
+Oe
+Qt
 DO
 EN
 EN
@@ -4983,7 +5059,7 @@ eG
 eG
 eG
 eG
-vH
+sl
 QL
 EN
 EN

@@ -21,7 +21,7 @@
 					  		"<span class='userdanger'>[user] kicks your head, knocking you out!</span>")
 		playsound(get_turf(user), 'sound/weapons/genhit1.ogg', 50, 1, -1)
 		target.SetSleeping(8 SECONDS)
-		target.adjustBrainLoss(5)
+		target.apply_damage(5, BRAIN)
 		add_attack_logs(user, target, "Knocked out with martial-art [src] : Kick", ATKLOG_ALL)
 		. = MARTIAL_COMBO_DONE
 

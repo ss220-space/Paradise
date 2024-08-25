@@ -38,13 +38,17 @@
 	if(volume > 10) // Anything over 10 volume will make the mob wetter.
 		wetlevel = min(wetlevel + 1,5)
 
+
 /mob/living/carbon/attackby(obj/item/I, mob/user, params)
-	if(length(surgeries))
-		if(user.a_intent == INTENT_HELP)
-			for(var/datum/surgery/S in surgeries)
-				if(S.next_step(user, src))
-					return TRUE
+	if(!length(surgeries) || user.a_intent != INTENT_HELP)
+		return ..()
+
+	for(var/datum/surgery/surgery as anything in surgeries)
+		if(surgery.next_step(user, src))
+			return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /mob/living/carbon/attack_hand(mob/living/carbon/human/user)
 	if(!iscarbon(user))
@@ -80,9 +84,8 @@
 				var/power = (M.powerlevel + rand(0,3)) STATUS_EFFECT_CONSTANT
 				Stun(power)
 				Stuttering(power)
-				if (prob(stunprob) && M.powerlevel >= 8)
+				if(prob(stunprob) && M.powerlevel >= 8)
 					adjustFireLoss(M.powerlevel * rand(6, 6 + M.age_state.damage))
-					updatehealth("slime attack")
 		return 1
 
 /mob/living/carbon/is_mouth_covered(head_only = FALSE, mask_only = FALSE)

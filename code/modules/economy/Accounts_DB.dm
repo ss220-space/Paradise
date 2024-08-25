@@ -50,11 +50,17 @@ GLOBAL_VAR(current_date_string)
 		<hr>
 	"}
 
-/obj/machinery/computer/account_database/attackby(obj/O, mob/user, params)
-	if(ui_login_attackby(O, user))
+
+/obj/machinery/computer/account_database/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(ui_login_attackby(I, user))
 		add_fingerprint(user)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/machinery/computer/account_database/attack_hand(mob/user)
 	if(..())
@@ -81,9 +87,10 @@ GLOBAL_VAR(current_date_string)
 				for(var/i in 1 to length(GLOB.all_money_accounts))
 					var/datum/money_account/D = GLOB.all_money_accounts[i]
 					accounts.Add(list(list(
-						"account_number" = D.account_number,
+						"account_number" = "[D.account_number]",
 						"owner_name" = D.owner_name,
 						"suspended" = D.suspended ? "SUSPENDED" : "Active",
+						"money" = "[D.money]", // needs to be strings because of TGUI localeCompare
 						"account_index" = i)))
 
 				data["accounts"] = accounts

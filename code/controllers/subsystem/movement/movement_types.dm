@@ -309,7 +309,7 @@
 	moving.forceMove(get_step(moving, get_dir(moving, target)))
 	return old_loc != moving?.loc ? MOVELOOP_SUCCESS : MOVELOOP_FAILURE
 
-/*
+
 /**
  * Used for following jps defined paths. The proc signature here's a bit long, I'm sorry
  *
@@ -467,7 +467,6 @@
 	else
 		INVOKE_ASYNC(src, PROC_REF(recalculate_path))
 		return MOVELOOP_FAILURE
-*/
 
 
 ///Base class of move_to and move_away, deals with the distance and target aspect of things
@@ -848,7 +847,7 @@
 	moving.Move(next, get_dir(moving, next), FALSE, !(flags & MOVEMENT_LOOP_NO_DIR_UPDATE))
 	return old_loc != moving?.loc ? MOVELOOP_SUCCESS : MOVELOOP_FAILURE
 
-/*
+
 /**
  * Snowflake disposal movement. Moves a disposal holder along a chain of disposal pipes
  *
@@ -887,4 +886,4 @@
 	var/atom/old_loc = moving.loc
 	holder.current_pipe = holder.current_pipe.transfer(holder)
 	return old_loc != moving?.loc ? MOVELOOP_SUCCESS : MOVELOOP_FAILURE
-*/
+

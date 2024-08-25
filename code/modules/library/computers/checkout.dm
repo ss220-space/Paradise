@@ -196,20 +196,25 @@
 		if(user)
 			to_chat(user, "<span class='notice'>You override the library computer's printing restrictions.</span>")
 
-/obj/machinery/computer/library/checkout/attackby(obj/item/W as obj, mob/user as mob)
-	if(default_unfasten_wrench(user, W))
-		add_fingerprint(user)
-		power_change()
-		return
-	if(istype(W, /obj/item/barcodescanner))
-		add_fingerprint(user)
-		var/obj/item/barcodescanner/scanner = W
-		scanner.computer = src
-		to_chat(user, "[scanner]'s associated machine has been set to [src].")
-		audible_message("[src] lets out a low, short blip.", hearing_distance = 2)
-		return 1
-	else
+
+/obj/machinery/computer/library/checkout/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(istype(I, /obj/item/barcodescanner))
+		add_fingerprint(user)
+		var/obj/item/barcodescanner/scanner = I
+		scanner.computer = src
+		to_chat(user, span_notice("The [scanner.name]'s associated machine has been set to [src]."))
+		audible_message("The [name] lets out a low, short blip.", hearing_distance = 2)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
+
+/obj/machinery/computer/library/checkout/wrench_act(mob/living/user, obj/item/I)
+	return default_unfasten_wrench(user, I)
+
 
 /obj/machinery/computer/library/checkout/Topic(href, href_list)
 	if(..())

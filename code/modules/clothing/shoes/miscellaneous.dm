@@ -184,15 +184,21 @@
 	icon_state = "explorer"
 	resistance_flags = FIRE_PROOF
 
-/obj/item/clothing/shoes/workboots/mining/attackby(obj/item/C as obj, mob/user as mob, params)
-	..()
-	if(istype(C, /obj/item/kitchen/knife/combat/survival))
-		var/obj/item/kitchen/knife/combat/survival/O = locate() in src
-		if(O)
-			to_chat(user, "<span class='notice'>В креплении уже есть нож.</span>")
-		else
-			user.drop_transfer_item_to_loc(C, src)
-			to_chat(user, "<span class='notice'>Вы убрали [C] в [src].</span>")
+
+/obj/item/clothing/shoes/workboots/mining/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/kitchen/knife/combat/survival))
+		add_fingerprint(user)
+		var/obj/item/kitchen/knife/combat/survival/knife = locate() in src
+		if(knife)
+			to_chat(user, span_warning("В креплении уже есть нож."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("Вы убрали нож внутрь ботинка."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/clothing/shoes/workboots/mining/verb/verb_remove_knife()
 	set category = "Object"
@@ -206,7 +212,7 @@
 	if(can_use(user))
 		var/obj/item/kitchen/knife/combat/survival/O = locate() in src
 		if(O)
-			to_chat(user, "<span class='notice'>Вы извлекли [O] из [src].</span>")
+			to_chat(user, "<span class='notice'>Вы извлекли нож из ботинка.</span>")
 			O.forceMove_turf()
 			if(istype(loc, /mob))
 				var/mob/M = loc
@@ -464,12 +470,12 @@
 	var/datum/callback/last_jump = null
 
 
-/obj/item/clothing/shoes/bhop/item_action_slot_check(slot)
+/obj/item/clothing/shoes/bhop/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_FEET)
 		return TRUE
 
 
-/obj/item/clothing/shoes/bhop/ui_action_click(mob/user, action)
+/obj/item/clothing/shoes/bhop/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/jumper = user
@@ -519,7 +525,7 @@
 	var/enabled_waddle = TRUE
 	jumpdistance = 7//-1 from to see the actual distance, e.g 7 goes over 6 tiles
 
-/obj/item/clothing/shoes/bhop/clown/ui_action_click(mob/user, action)
+/obj/item/clothing/shoes/bhop/clown/ui_action_click(mob/user, datum/action/action, leftclick)
 	user.emote("flip")
 	. = ..()
 

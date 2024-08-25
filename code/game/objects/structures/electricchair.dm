@@ -50,18 +50,18 @@
 		. += image(icon, icon_state = "echair_shock", layer = ABOVE_MOB_LAYER)
 
 
-/obj/structure/chair/e_chair/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_WRENCH)
-		var/obj/structure/chair/chair = new (loc)
-		transfer_fingerprints_to(chair)
-		playsound(loc, W.usesound, 50, TRUE)
-		chair.dir = dir
-		part.forceMove(loc)
-		part.master = null
-		part = null
-		qdel(src)
-		return
-	return ..()
+/obj/structure/chair/e_chair/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	var/obj/structure/chair/new_chair = new(loc)
+	new_chair.setDir(dir)
+	transfer_fingerprints_to(new_chair)
+	new_chair.add_fingerprint(user)
+	part.forceMove(loc)
+	part.master = null
+	part = null
+	qdel(src)
 
 
 /obj/structure/chair/e_chair/examine(mob/user)
@@ -84,7 +84,7 @@
 
 
 /obj/structure/chair/e_chair/proc/shock(mob/living/user)
-	if(isliving(user) && (user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
+	if(isliving(user) && (user.incapacitated() || !isAI(user) && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)))
 		return
 
 	// special power handling
@@ -111,9 +111,9 @@
 
 	if(has_buckled_mobs())
 		for(var/mob/living/buckled_mob as anything in buckled_mobs)
-			buckled_mob.electrocute_act(110, src, 1)
+			buckled_mob.electrocute_act(110, "электрического стула")
 			to_chat(buckled_mob, span_userdanger("You feel a deep shock course through your body!"))
-			addtimer(CALLBACK(buckled_mob, TYPE_PROC_REF(/mob/living, electrocute_act), 110, src, 1), 0.1 SECONDS, TIMER_DELETE_ME)
+			addtimer(CALLBACK(buckled_mob, TYPE_PROC_REF(/mob/living, electrocute_act), 110, "электрического стула"), 0.1 SECONDS, TIMER_DELETE_ME)
 
 
 /obj/structure/chair/e_chair/proc/reset_echair()

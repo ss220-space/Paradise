@@ -13,19 +13,19 @@
 	var/active_power_usage = null // Сколько энергии оно тратит если активно
 	var/idle_power_usage = null // Сколько энергии оно тратит в пассивном режиме
 
-// This needs to use New() instead of Initialize() because the thing it creates might need to be initialized too
-/obj/effect/spawner/random_spawners/New()
-	. = ..()
+/obj/effect/spawner/random_spawners/Initialize(mapload)
+	. = ..()	
 	var/turf/T = get_turf(src)
 	if(!T)
 		log_runtime(EXCEPTION("Spawner placed in nullspace!"), src)
 		return
 	randspawn(T)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/random_spawners/proc/randspawn(turf/T)
 	var/thing_to_place = pickweight(result)
 	if(ispath(thing_to_place, /datum/nothing))
-		// Nothing.
+		return
 	else if(ispath(thing_to_place, /turf))
 		T.ChangeTurf(thing_to_place)
 	else
@@ -50,7 +50,6 @@
 					OM.active_power_usage = active_power_usage
 				if(idle_power_usage)
 					OM.idle_power_usage = idle_power_usage
-	qdel(src)
 
 /obj/effect/spawner/random_spawners/blood_5
 	name = "blood maybe"
@@ -150,6 +149,28 @@
 	/turf/simulated/wall = 3,
 	/obj/effect/decal/cleanable/fungus = 7)
 
+
+/obj/effect/spawner/random_spawners/rodent
+	name = "50pc mouse 50pc rat"
+	icon_state = "mouse"
+	result = list(
+		/mob/living/simple_animal/mouse = 1,
+		/mob/living/simple_animal/mouse/white = 1,
+		/mob/living/simple_animal/mouse/brown = 1,
+		/mob/living/simple_animal/mouse/rat = 1,
+		/mob/living/simple_animal/mouse/rat/white = 1,
+		/mob/living/simple_animal/mouse/rat/irish = 1,
+	)
+
+
+/obj/effect/spawner/random_spawners/rat
+	name = "random color rat"
+	icon_state = "rat"
+	result = list(
+		/mob/living/simple_animal/mouse/rat,
+		/mob/living/simple_animal/mouse/rat/white,
+		/mob/living/simple_animal/mouse/rat/irish,
+	)
 
 
 // z6 DEPOT SPAWNERS

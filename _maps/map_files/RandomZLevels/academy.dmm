@@ -14,7 +14,6 @@
 /area/awaymission/academy/headmaster)
 "af" = (
 /obj/structure/table,
-/obj/machinery/computer/mob_healer_terminal,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -2657,7 +2656,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academyaft)
 "lc" = (
-/obj/structure/closet/secure_closet/bar,
+/obj/structure/closet/secure_closet/cabinet/bar,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -2790,8 +2789,7 @@
 /area/awaymission/academy/classrooms)
 "lU" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /turf/simulated/wall/indestructible/bananium,
 /area/awaymission/academy/academyaft)
@@ -3659,8 +3657,7 @@
 /area/awaymission/academy/headmaster)
 "uY" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/item/reagent_containers/food/snacks/cheesewedge,
 /turf/simulated/floor/indestructible/carpet,
@@ -4402,8 +4399,7 @@
 /area/awaymission/academy/academyaft)
 "CA" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/item/reagent_containers/food/snacks/cheesewedge,
 /turf/simulated/floor/indestructible/carpet,
@@ -4882,8 +4878,7 @@
 /area/awaymission/academy/academygate)
 "HJ" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/academy/academyaft)
@@ -4970,8 +4965,7 @@
 /area/awaymission/academy/headmaster)
 "IY" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /turf/simulated/wall/indestructible/bananium,
 /area/awaymission/academy/academyaft)
@@ -5059,7 +5053,9 @@
 /turf/simulated/wall/indestructible/sandstone,
 /area/awaymission/academy/headmaster)
 "JM" = (
-/obj/structure/disposalpipe/junction,
+/obj/structure/disposalpipe/junction{
+	dir = 2
+	},
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/academy/academyaft)
 "JW" = (
@@ -5171,8 +5167,7 @@
 /area/awaymission/academy/academyaft)
 "KD" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/academy/academyaft)
@@ -5386,8 +5381,7 @@
 /area/awaymission/academy/academyaft)
 "MB" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/item/reagent_containers/food/snacks/cheesewedge,
 /turf/simulated/floor/indestructible/carpet,
@@ -5740,8 +5734,7 @@
 /area/awaymission/academy/classrooms)
 "QF" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /turf/simulated/wall/indestructible/bananium,
 /area/awaymission/academy/academyaft)
@@ -6049,8 +6042,7 @@
 /area/awaymission/academy/academyaft)
 "Ty" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /turf/simulated/wall/indestructible/bananium,
 /area/awaymission/academy/academyaft)
@@ -6063,8 +6055,7 @@
 /area/awaymission/academy/academyaft)
 "TG" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/academy/academyaft)
@@ -6212,8 +6203,7 @@
 /area/awaymission/academy/classrooms)
 "UC" = (
 /obj/structure/disposalpipe/junction{
-	dir = 4;
-	tag = "icon-pipe-j1 (EAST)"
+	dir = 4
 	},
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/academy/academyaft)
@@ -6668,8 +6658,7 @@
 /area/awaymission/academy/classrooms)
 "Zo" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /turf/simulated/floor/indestructible/carpet,
 /area/awaymission/academy/academyaft)

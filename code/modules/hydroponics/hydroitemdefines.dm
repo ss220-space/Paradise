@@ -63,6 +63,7 @@
 	flags = CONDUCT
 	force = 5
 	throwforce = 7
+	toolspeed = 0.5
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50)
 	attack_verb = list("slashed", "sliced", "cut", "clawed")
@@ -71,6 +72,7 @@
 /obj/item/cultivator/rake
 	name = "rake"
 	icon_state = "rake"
+	toolspeed = 1
 	belt_icon = null
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("slashed", "sliced", "bashed", "clawed")
@@ -151,20 +153,28 @@
 			playsound(loc, "desceration", 50, 1, -1)
 	return BRUTELOSS
 
-/obj/item/scythe/pre_attackby(atom/A, mob/living/user, params)
-	if(swiping || !istype(A, /obj/structure/spacevine) || get_turf(A) == get_turf(user))
-		return ..()
-	else
-		var/turf/user_turf = get_turf(user)
-		var/dir_to_target = get_dir(user_turf, get_turf(A))
-		swiping = TRUE
-		var/static/list/scythe_slash_angles = list(0, 45, 90, -45, -90)
-		for(var/i in scythe_slash_angles)
-			var/turf/T = get_step(user_turf, turn(dir_to_target, i))
-			for(var/obj/structure/spacevine/V in T)
-				if(user.Adjacent(V))
-					melee_attack_chain(user, V)
+
+/obj/item/scythe/pre_attackby(atom/target, mob/living/user, params)
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || swiping || !istype(target, /obj/structure/spacevine))
+		return .
+
+	swiping = TRUE
+	var/turf/target_turf = get_turf(target)
+	var/turf/user_turf = get_turf(user)
+	if(target_turf == user_turf)
 		swiping = FALSE
+		return .
+
+	var/dir_to_target = get_dir(user_turf, target_turf)
+	var/static/list/scythe_slash_angles = list(0, 45, 90, -45, -90)
+	for(var/i in scythe_slash_angles)
+		var/turf/close_turf = get_step(user_turf, turn(dir_to_target, i))
+		for(var/obj/structure/spacevine/spacevine in close_turf)
+			if(user.Adjacent(close_turf))
+				melee_attack_chain(user, close_turf, params)
+	swiping = FALSE
+
 
 /obj/item/scythe/tele
 	icon_state = "tscythe0"

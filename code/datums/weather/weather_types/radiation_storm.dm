@@ -21,7 +21,7 @@
 	/area/turret_protected/ai, /area/storage/emergency, /area/storage/emergency2, /area/crew_quarters/sleep, /area/security/brig, /area/shuttle)
 	target_trait = STATION_LEVEL
 
-	immunity_type = "rad"
+	immunity_type = TRAIT_RADSTORM_IMMUNE
 
 /datum/weather/rad_storm/telegraph()
 	..()
@@ -31,22 +31,28 @@
 		make_maint_all_access()
 
 
-/datum/weather/rad_storm/weather_act(mob/living/L)
-	var/resist = L.getarmor(null, "rad")
-	if(prob(40))
-		if(ishuman(L))
-			var/mob/living/carbon/human/H = L
-			if(!(RADIMMUNE in H.dna.species.species_traits))
-				if(prob(max(0, 100 - resist)))
-					randmuti(H) // Applies bad mutation
-					if(prob(50))
-						if(prob(90))
-							randmutb(H)
-						else
-							randmutg(H)
-					H.check_genes(MUTCHK_FORCED)
+/datum/weather/rad_storm/can_weather_act(mob/living/mob_to_check)
+	if(!prob(40))
+		return FALSE
+	return ..()
 
-		L.apply_effect(20, IRRADIATE, resist)
+
+/datum/weather/rad_storm/weather_act(mob/living/target)
+	var/resist = target.getarmor(attack_flag = RAD)
+	target.apply_effect(20, IRRADIATE, resist)
+
+	if(!ishuman(target) || (RADIMMUNE in target.dna.species.species_traits) || !prob(max(0, 100 - resist)))
+		return
+
+	randmuti(target)
+
+	if(prob(50))
+		if(prob(90))
+			randmutb(target)
+		else
+			randmutg(target)
+	target.check_genes(MUTCHK_FORCED)
+
 
 /datum/weather/rad_storm/end()
 	if(..())

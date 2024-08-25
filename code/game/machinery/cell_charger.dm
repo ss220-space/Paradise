@@ -41,35 +41,41 @@
 	if(charging)
 		. += span_notice("Current charge: [round(charging.percent(), 1)]%")
 
+
 /obj/machinery/cell_charger/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(istype(I, /obj/item/stock_parts/cell))
+		add_fingerprint(user)
 		if(stat & BROKEN)
 			to_chat(user, span_warning("[src] is broken!"))
-			return
+			return ATTACK_CHAIN_PROCEED
 		if(!anchored)
 			to_chat(user, span_warning("[src] isn't attached to the ground!"))
-			return
+			return ATTACK_CHAIN_PROCEED
 		if(charging)
 			to_chat(user, span_warning("There is already a cell in the charger!"))
-			return
-		else
-			var/area/a = loc.loc // Gets our locations location, like a dream within a dream
-			if(!isarea(a))
-				return
-			if(a.power_equip == 0) // There's no APC in this area, don't try to cheat power!
-				to_chat(user, span_warning("[src] blinks red as you try to insert the cell!"))
-				return
-			if(!user.drop_transfer_item_to_loc(I, src))
-				return
+			return ATTACK_CHAIN_PROCEED
+		var/area/our_area = get_area(src)
+		if(!our_area)
+			return ATTACK_CHAIN_PROCEED
+		if(our_area.power_equip == 0) // There's no APC in this area, don't try to cheat power!
+			to_chat(user, span_warning("[src] blinks red as you try to insert the cell!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		charging = I
+		user.visible_message(
+			span_notice("[user] inserts a cell into the charger."),
+			span_notice("You insert a cell into the charger."),
+		)
+		check_level()
+		update_icon()
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-			add_fingerprint(user)
+	return ..()
 
-			charging = I
-			user.visible_message("[user] inserts a cell into the charger.", span_notice("You insert a cell into the charger."))
-			check_level()
-			update_icon()
-	else
-		return ..()
 
 /obj/machinery/cell_charger/wrench_act(mob/user, obj/item/I)
 	. = TRUE

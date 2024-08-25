@@ -141,32 +141,42 @@
 				env.merge(removed)
 				air_update_turf()
 
-/obj/machinery/r_n_d/server/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(disabled)
+
+/obj/machinery/r_n_d/server/attackby(obj/item/I, mob/user, params)
+	if(shocked && shock(user, 50))
 		add_fingerprint(user)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(shocked)
-		add_fingerprint(user)
-		shock(user,50)
-
-	if(O.tool_behaviour == TOOL_SCREWDRIVER)
-		add_fingerprint(user)
-		default_deconstruction_screwdriver(user, "[base_icon_state]_o", base_icon_state, O)
-		return 1
-
-	if(exchange_parts(user, O))
-		return 1
-
-	if(panel_open)
-		if(O.tool_behaviour == TOOL_CROWBAR)
-			griefProtection()
-			default_deconstruction_crowbar(user, O)
-			return 1
-	else
+	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-/obj/machinery/r_n_d/server/attack_hand(mob/user as mob)
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
+
+/obj/machinery/r_n_d/server/screwdriver_act(mob/living/user, obj/item/I)
+	if(shocked && shock(user, 50))
+		add_fingerprint(user)
+		return TRUE
+	. = default_deconstruction_screwdriver(user, "[base_icon_state]_o", base_icon_state, I)
+
+
+/obj/machinery/r_n_d/server/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(shocked && shock(user, 50))
+		add_fingerprint(user)
+		return .
+	if(!panel_open)
+		add_fingerprint(user)
+		to_chat(user, span_warning("Open the maintenance panel first."))
+		return .
+	griefProtection()
+	default_deconstruction_crowbar(user, I)
+
+
+/obj/machinery/r_n_d/server/attack_hand(mob/user)
 	if(..())
 		return TRUE
 
@@ -215,7 +225,7 @@
 	server_id = -1
 
 /obj/machinery/r_n_d/server/centcom/Initialize()
-	..()
+	. = ..()
 	var/list/no_id_servers = list()
 	var/list/server_ids = list()
 	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
@@ -315,7 +325,7 @@
 			temp_server.id_with_download += num
 
 	else if(href_list["reset_tech"])
-		var/choice = alert("Technology Data Reset", "Are you sure you want to reset this technology to its default data? Data lost cannot be recovered.", "Continue", "Cancel")
+		var/choice = tgui_alert(usr, "Technology Data Reset", "Are you sure you want to reset this technology to its default data? Data lost cannot be recovered.", list("Continue", "Cancel"))
 		if(choice == "Continue")
 			for(var/I in temp_server.files.known_tech)
 				var/datum/tech/T = temp_server.files.known_tech[I]
@@ -325,7 +335,7 @@
 		temp_server.files.RefreshResearch()
 
 	else if(href_list["reset_design"])
-		var/choice = alert("Design Data Deletion", "Are you sure you want to delete this design? Data lost cannot be recovered.", "Continue", "Cancel")
+		var/choice = tgui_alert(usr, "Design Data Deletion", "Are you sure you want to blacklist this design? Ensure you sync servers after this decision.", list("Continue", "Cancel"))
 		if(choice == "Continue")
 			for(var/I in temp_server.files.known_designs)
 				var/datum/design/D = temp_server.files.known_designs[I]

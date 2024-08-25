@@ -68,52 +68,64 @@
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		seed_multiplier = M.rating
 
-/obj/machinery/seed_extractor/attackby(obj/item/O, mob/user, params)
 
-	if(default_deconstruction_screwdriver(user, "sextractor_open", "sextractor", O))
-		add_fingerprint(user)
-		return
-
-	if(exchange_parts(user, O))
-		return
-
-	if(default_unfasten_wrench(user, O))
-		return
-
-	if(default_deconstruction_crowbar(user, O))
-		return
-
-	if (istype(O,/obj/item/storage/bag/plants))
-		add_fingerprint(user)
-		var/obj/item/storage/P = O
-		var/loaded = 0
-		for(var/obj/item/seeds/G in P.contents)
-			if(contents.len >= max_seeds)
-				break
-			++loaded
-			G.add_fingerprint(user)
-			add_seed(G)
-		if (loaded)
-			to_chat(user, "<span class='notice'>You put the seeds from \the [O.name] into [src].</span>")
-		else
-			to_chat(user, "<span class='notice'>There are no seeds in \the [O.name].</span>")
-		return
-
-	else if(seedify(O,-1, src, user))
-		add_fingerprint(user)
-		to_chat(user, "<span class='notice'>You extract some seeds.</span>")
-		return
-	else if (istype(O,/obj/item/seeds))
-		if(add_seed(O))
-			add_fingerprint(user)
-			to_chat(user, "<span class='notice'>You add [O] to [name].</span>")
-			updateUsrDialog()
-		return
-	else if(user.a_intent != INTENT_HARM)
-		add_fingerprint(user)
-		to_chat(user, "<span class='warning'>You can't extract any seeds from \the [O.name]!</span>")
-	else
+/obj/machinery/seed_extractor/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/storage/bag/plants))
+		add_fingerprint(user)
+		var/obj/item/storage/bag/plants/bag = I
+		if(length(contents) >= max_seeds)
+			to_chat(user, span_warning("The [name]'s storage is full."))
+			return ATTACK_CHAIN_PROCEED
+		var/loaded = 0
+		for(var/obj/item/seeds/seed in bag.contents)
+			if(length(contents) >= max_seeds)
+				break
+			loaded++
+			seed.add_fingerprint(user)
+			add_seed(seed)
+		if(!loaded)
+			to_chat(user, span_warning("There are no seeds in [bag]."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You have transfered seeds from [bag] into [src]."))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/seeds))
+		add_fingerprint(user)
+		if(length(contents) >= max_seeds)
+			to_chat(user, span_warning("The [name] is full."))
+			return ATTACK_CHAIN_PROCEED
+		if(!add_seed(I, user))
+			return ..()
+		to_chat(user, span_notice("You have added [I] into the internal storage."))
+		updateUsrDialog()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	var/cached_name = I.name
+	if(seedify(I, -1, src, user))
+		add_fingerprint(user)
+		to_chat(user, span_notice("You have extracted some seeds from the [cached_name]."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
+
+/obj/machinery/seed_extractor/screwdriver_act(mob/living/user, obj/item/I)
+	return default_deconstruction_screwdriver(user, "sextractor_open", "sextractor", I)
+
+
+/obj/machinery/seed_extractor/wrench_act(mob/living/user, obj/item/I)
+	return default_unfasten_wrench(user, I)
+
+
+/obj/machinery/seed_extractor/crowbar_act(mob/living/user, obj/item/I)
+	return default_deconstruction_crowbar(user, I)
+
 
 /obj/machinery/seed_extractor/attack_ai(mob/user)
 	ui_interact(user)
@@ -180,33 +192,39 @@
 			O.forceMove(loc)
 			amount_dispensed++
 
-/obj/machinery/seed_extractor/proc/add_seed(obj/item/seeds/O, mob/user)
-	if(!O || !ishuman(usr) || !Adjacent(usr))
-		return
+
+/obj/machinery/seed_extractor/proc/add_seed(obj/item/seeds/seed, mob/user)
+	if(!seed || (user && !ishuman(user) && !Adjacent(user)))
+		return FALSE
+
 	if(length(contents) >= max_seeds)
-		to_chat(user, "<span class='notice'>[src] is full.</span>")
-		return
+		if(user)
+			to_chat(user, span_warning("The [name] is full."))
+		return FALSE
 
-	if(ismob(O.loc))
-		var/mob/M = O.loc
-		if(!M.drop_item_ground(O))
-			to_chat(user,"<span class='warning'>[O] appears to be stuck to your hand!</span>")
-			return
-	else if(isstorage(O.loc))
-		var/obj/item/storage/S = O.loc
-		S.remove_from_storage(O, src)
+	if(ismob(seed.loc))
+		var/mob/holder = seed.loc
+		if(!holder.drop_transfer_item_to_loc(seed, src))
+			return FALSE
 
-	for(var/datum/seed_pile/N in piles) //this for loop physically hurts me
-		if(O.plantname == N.name && O.variant == N.variant && O.lifespan == N.lifespan && O.endurance == N.endurance && O.maturation == N.maturation && O.production == N.production && O.yield == N.yield && O.potency == N.potency)
-			N.amount++
-			O.forceMove(src)
-			return
+	else if(isstorage(seed.loc))
+		var/obj/item/storage/storage = seed.loc
+		storage.remove_from_storage(seed, src)
 
-	var/datum/seed_pile/new_pile = new(O.type, pile_count, O.plantname, O.variant, O.lifespan, O.endurance, O.maturation, O.production, O.yield, O.potency)
+	for(var/datum/seed_pile/pile as anything in piles) //this for loop physically hurts me
+		if(seed.plantname == pile.name && seed.variant == pile.variant && seed.lifespan == pile.lifespan && seed.endurance == pile.endurance && seed.maturation == pile.maturation && seed.production == pile.production && seed.yield == pile.yield && seed.potency == pile.potency)
+			pile.amount++
+			if(seed.loc != src)
+				seed.forceMove(src)
+			return TRUE
+
+	var/datum/seed_pile/new_pile = new(seed.type, pile_count, seed.plantname, seed.variant, seed.lifespan, seed.endurance, seed.maturation, seed.production, seed.yield, seed.potency)
 	pile_count++
 	piles += new_pile
-	O.forceMove(src)
-	return
+	if(seed.loc != src)
+		seed.forceMove(src)
+	return TRUE
+
 
 /obj/machinery/seed_extractor/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)

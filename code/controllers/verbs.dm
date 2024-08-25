@@ -41,3 +41,36 @@
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "Debug Space")
 
 	message_admins("Admin [key_name_admin(usr)] is debugging the [controller] controller.")
+
+/client/proc/toggle_npcpool_suspension()
+	set category = "Debug"
+	set name = "Toggle NPCpool suspension"
+	set desc = "Toggles NPCpool suspension, when there are no alive players in sector, NPC's are not processed."
+	if(!check_rights(R_DEBUG))
+		return
+
+	GLOB.npcpool_suspension = !GLOB.npcpool_suspension
+	message_admins("Admin [key_name_admin(usr)] toggled NPCpool suspension.")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle NPCpool suspension")
+
+/client/proc/toggle_Idlenpcpool_suspension()
+	set category = "Debug"
+	set name = "Toggle IdleNPCpool suspension"
+	set desc = "Toggles IdleNPCpool suspension, when there are no alive players in sector, Idle NPC's are not processed."
+	if(!check_rights(R_DEBUG))
+		return
+
+	GLOB.idlenpc_suspension = !GLOB.idlenpc_suspension
+	message_admins("Admin [key_name_admin(usr)] toggled IdleNPCpool suspension.")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle IdleNPCpool suspension")
+
+/client/proc/toggle_mobs_suspension()
+	set category = "Debug"
+	set name = "Toggle Mobs suspension"
+	set desc = "Toggles Mobs suspension, when there are no alive players in sector, mobs are not processed."
+	if(!check_rights(R_DEBUG))
+		return
+
+	GLOB.mob_suspension = !GLOB.mob_suspension
+	message_admins("Admin [key_name_admin(usr)] toggled mobs suspension.")
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Mobs suspension")

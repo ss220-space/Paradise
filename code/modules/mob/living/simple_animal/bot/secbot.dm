@@ -222,6 +222,8 @@
 		if("ejectpai")
 			ejectpai()
 
+/mob/living/simple_animal/bot/secbot/update_icon_state()
+	icon_state = "[base_icon][on]"
 
 /mob/living/simple_animal/bot/secbot/proc/retaliate(mob/living/carbon/human/H)
 	threatlevel = H.assess_threat(src)
@@ -237,12 +239,12 @@
 	return ..()
 
 
-/mob/living/simple_animal/bot/secbot/attackby(obj/item/W, mob/user, params)
-	..()
-	if(istype(W, /obj/item/weldingtool) && user.a_intent != INTENT_HARM) // Any intent but harm will heal, so we shouldn't get angry.
-		return
-	if(!isscrewdriver(W) && !locked && W.force && !target && (W.damtype != STAMINA))//If the target is locked, they are recieving damage from the screwdriver
-		retaliate(user)
+/mob/living/simple_animal/bot/secbot/attackby(obj/item/I, mob/user, params)
+	var/current_health = health
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || health >= current_health)
+		return .
+	retaliate(user)
 
 
 /mob/living/simple_animal/bot/secbot/emag_act(mob/user)
@@ -319,7 +321,7 @@
 		C.apply_damage(10, BRUTE)
 	C.SetStuttering(10 SECONDS)
 	C.Weaken(4 SECONDS)
-	C.adjustStaminaLoss(45)
+	C.apply_damage(45, STAMINA)
 	baton_delayed = TRUE
 	addtimer(VARSET_CALLBACK(src, baton_delayed, FALSE), BATON_COOLDOWN)
 	add_attack_logs(src, C, "stunned")
@@ -506,7 +508,7 @@
 	Sa.add_overlay("hs_hole")
 	Sa.created_name = name
 	new /obj/item/assembly/prox_sensor(Tsec)
-	new /obj/item/melee/baton(Tsec)
+	new /obj/item/melee/baton/security(Tsec)
 	if(prob(50))
 		drop_part(robot_arm, Tsec)
 	do_sparks(3, TRUE, src)

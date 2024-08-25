@@ -1112,8 +1112,7 @@
 /area/awaymission/centcomAway/cafe)
 "cW" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -1139,8 +1138,7 @@
 /area/awaymission/centcomAway/hangar)
 "cZ" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
@@ -1328,8 +1326,7 @@
 /area/awaymission/centcomAway/cafe)
 "dx" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -1337,8 +1334,7 @@
 /area/awaymission/centcomAway/cafe)
 "dy" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
@@ -6514,7 +6510,7 @@
 	},
 /area/awaymission/centcomAway/thunderdome)
 "qc" = (
-/obj/structure/closet/secure_closet/bar,
+/obj/structure/closet/secure_closet/cabinet/bar,
 /turf/simulated/floor/plasteel{
 	tag = "icon-redyellowfull (NORTHEAST)";
 	icon_state = "redyellowfull";

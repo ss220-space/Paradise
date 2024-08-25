@@ -46,9 +46,18 @@
 
 	return pick(valid_picks)
 
-/proc/random_hair_style(var/gender, species = SPECIES_HUMAN, var/datum/robolimb/robohead)
+/proc/random_hair_style(var/gender, species = SPECIES_HUMAN, var/datum/robolimb/robohead, var/mob/living/carbon/human/H)
 	var/h_style = "Bald"
 	var/list/valid_hairstyles = list()
+
+	if(species == SPECIES_WRYN) // wryns antennaes now bound to hivenode, no need to change them
+		if(H)
+			var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
+			if(head_organ?.h_style)
+				return head_organ.h_style
+		else
+			return "Antennae"
+
 	for(var/hairstyle in GLOB.hair_styles_public_list)
 		var/datum/sprite_accessory/S = GLOB.hair_styles_public_list[hairstyle]
 
@@ -297,10 +306,23 @@
  * * max_interact_count - The maximum amount of interactions allowed.
  * * cancel_on_max - If `TRUE` this proc will fail after reaching max_interact_count.
  * * cancel_message - Message shown to the user if cancel_on_max is set to `TRUE` and they exceeds max interaction count. Use empty string ("") to skip default cancel message.
+ * * category - Used to apply proper action speed modifier to passed delay.
  *
  * Returns `TRUE` on success, `FALSE` on failure.
  */
-/proc/do_after(mob/user, delay, atom/target, timed_action_flags = DEFAULT_DOAFTER_IGNORE, progress = TRUE, datum/callback/extra_checks, interaction_key, max_interact_count = INFINITY, cancel_on_max = FALSE, cancel_message = span_warning("Attempt cancelled."))
+/proc/do_after(
+	mob/user,
+	delay,
+	atom/target,
+	timed_action_flags = DEFAULT_DOAFTER_IGNORE,
+	progress = TRUE,
+	datum/callback/extra_checks,
+	interaction_key,
+	max_interact_count = INFINITY,
+	cancel_on_max = FALSE,
+	cancel_message = span_warning("Attempt cancelled."),
+	category = DA_CAT_ALL,
+)
 	if(!user)
 		return FALSE
 
@@ -329,6 +351,9 @@
 	var/gripper_check = FALSE
 	if(!(timed_action_flags & DA_IGNORE_EMPTY_GRIPPER) && istype(gripper) && !gripper.isEmpty())
 		gripper_check = TRUE
+
+	if(!(timed_action_flags & DA_IGNORE_SLOWDOWNS))
+		delay *= user.get_actionspeed_by_category(category)
 
 	var/datum/progressbar/progbar
 	var/endtime = world.time + delay
@@ -509,8 +534,6 @@
 
 	return locate(/mob) in A
 
-// Suppress the mouse macros
-/client/var/next_mouse_macro_warning
 /mob/proc/LogMouseMacro(verbused, params)
 	if(!client)
 		return

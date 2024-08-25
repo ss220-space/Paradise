@@ -7,6 +7,17 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //atom traits
 /// Trait used to prevent an atom from component radiation emission (see radioactivity.dm)
 #define TRAIT_BLOCK_RADIATION "block_radiation"
+/// Is this atom being actively shocked? Used to prevent repeated shocks.
+#define TRAIT_BEING_SHOCKED "being_shocked"
+
+/// Weather immunities, also protect mobs inside them.
+#define TRAIT_LAVA_IMMUNE "lava_immune" //Used by lava turfs and The Floor Is Lava.
+#define TRAIT_ASHSTORM_IMMUNE "ashstorm_immune"
+#define TRAIT_SNOWSTORM_IMMUNE "snowstorm_immune"
+#define TRAIT_RADSTORM_IMMUNE "radstorm_immune"
+#define TRAIT_SOLARFLARE_IMMUNE "solarflare_immune"
+#define TRAIT_BLOBSTORM_IMMUNE "blobstorm_immune"
+#define TRAIT_WEATHER_IMMUNE "weather_immune" //Immune to ALL weather effects.
 
 //atom/movable traits
 /// Buckling yourself to objects with this trait won't immobilize you
@@ -15,6 +26,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CHASM_STOPPER "chasm_stopper"
 /// `do_teleport` will not allow this atom to teleport
 #define TRAIT_NO_TELEPORT "no-teleport"
+#define TRAIT_SILENT_FOOTSTEPS "silent_footsteps"
 
 //turf traits
 /// Prevent mobs on the turf from being affected by anything below that turf, such as a pulse demon going under it. Added by a /obj/structure with creates_cover set to TRUE
@@ -42,7 +54,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FAKEDEATH "fakedeath"	//Makes the owner appear as dead to most forms of medical examination
 #define TRAIT_XENO_HOST "xeno_host"	//Tracks whether we're gonna be a baby alien's mummy.
 #define TRAIT_LEGION_TUMOUR "legion_tumour" //used in huds for special icon
-#define TRAIT_SHOCKIMMUNE "shockimmune"
+/// Are we immune to shocks?
+#define TRAIT_SHOCKIMMUNE "shock_immunity"
+/// Are we immune to specifically tesla / SM shocks?
+#define TRAIT_TESLA_SHOCKIMMUNE "tesla_shock_immunity"
 #define TRAIT_CHUNKYFINGERS "chunkyfingers"	//means that you can't use weapons with normal trigger guards.
 #define TRAIT_FORCE_DOORS "force_doors"
 #define TRAIT_EMOTE_MUTE "emote_mute"
@@ -50,10 +65,17 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_IGNOREDAMAGESLOWDOWN "ignoredamageslowdown"
 #define TRAIT_STRONG_GRABBER "strong_grabber"
 #define TRAIT_PUSHIMMUNE "push_immunity"
+/// Not a genetic obesity but just a mob who overate
+#define	TRAIT_FAT "trait_fat"
+#define TRAIT_HUSK "husk"
+#define TRAIT_SKELETON "skeleton"
+#define TRAIT_NO_CLONE "no_clone"
 
 /// "Magic" trait that blocks the mob from moving or interacting with anything. Used for transient stuff like mob transformations or incorporality in special cases.
 /// Will block movement, `Life()` (!!!), and other stuff based on the mob.
 #define TRAIT_NO_TRANSFORM "block_transformations"
+/// This mob heals from ash tendril
+#define TRAIT_HEALS_FROM_ASH_TENDRIL "heals_from_ash_tendril"
 /// This mob heals from carp rifts.
 #define TRAIT_HEALS_FROM_CARP_RIFTS "heals_from_carp_rifts"
 /// This mob heals from cult pylons.
@@ -80,6 +102,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// Abstract condition that prevents movement if being pulled and might be resisted against. Handcuffs and straight jackets, basically.
 #define TRAIT_RESTRAINED "restrained"
 
+/// Anti Dual-baton cooldown bypass exploit.
+#define TRAIT_IWASBATONED "iwasbatoned"
+
 /// Stops the mob from slipping on water, or banana peels, or pretty much anything that doesn't have [SLIP_IGNORE_NO_SLIP_WATER] set
 #define TRAIT_NO_SLIP_WATER "noslip_water"
 /// Stops the mob from slipping on permafrost ice (not any other ice) (but anything with [SLIDE_ICE] set)
@@ -91,6 +116,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_SLIP_ALL "noslip_all"
 /// Give us unsafe_unwrenching protection
 #define TRAIT_GUSTPROTECTION "gustprotection"
+/// This mob can strip other mobs.
+#define TRAIT_CAN_STRIP "can_strip"
+
 
 /// Unlinks gliding from movement speed, meaning that there will be a delay between movements rather than a single move movement between tiles
 #define TRAIT_NO_GLIDE "no_glide"
@@ -126,6 +154,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NEEDS_TWO_HANDS "needstwohands"
 /// Properly wielded two handed item
 #define TRAIT_WIELDED "wielded"
+/// A transforming item that is actively extended / transformed
+#define TRAIT_TRANSFORM_ACTIVE "active_transform"
 /// A surgical tool; when in hand in help intent (and with a surgery in progress) won't attack the user
 #define TRAIT_SURGICAL "surgical_tool"
 /// An advanced surgical tool. If a surgical tool has this flag, it will be able to automatically repeat steps until they succeed.
@@ -143,4 +173,27 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MOVE_UPSIDE_DOWN "move_upside_down"
 /// Disables the floating animation. See above.
 #define TRAIT_NO_FLOATING_ANIM "no-floating-animation"
+
+// all the old mutation traits
+#define	TRAIT_TELEKINESIS "telekinesis"
+#define TRAIT_RESIST_COLD "cold_resistance"
+#define TRAIT_RESIST_HEAT "heat_resistance"
+#define TRAIT_XRAY "xray"
+#define TRAIT_HULK "hulk"
+#define TRAIT_CLUMSY "clumsy"
+#define TRAIT_OBESITY "obesity"
+#define TRAIT_NO_BREATH "no_breath"
+#define TRAIT_WINGDINGS "wingdings"
+#define TRAIT_NO_FINGERPRINTS "no_fingerprints"
+#define TRAIT_DWARF "dwarf"
+#define TRAIT_GENE_STRONG "gene_strong"
+#define TRAIT_GENE_WEAK "gene_weak"
+#define TRAIT_SOBER "sober"
+#define TRAIT_PSY_RESIST "psy_resist"	// block remoteview
+#define TRAIT_OPEN_MIND "open_mind"	// allows to remote view this mob
+#define TRAIT_EMPATHY "empathy"	// allows to see when someone reads your mind
+#define TRAIT_COMIC "comic_sans"
+#define TRAIT_NEARSIGHTED "nearsighted"
+#define TRAIT_BLIND "blind"
+#define TRAIT_COLORBLIND "colorblind"
 

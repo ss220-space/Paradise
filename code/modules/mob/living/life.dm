@@ -19,6 +19,7 @@
 
 	if(!loc)
 		return FALSE
+	INVOKE_ASYNC(src, PROC_REF(burst_blob_in_mob))
 
 	if(stat != DEAD)
 		//Chemicals in the body
@@ -130,7 +131,7 @@
 
 /mob/living/proc/handle_disabilities()
 	//Eyes
-	if((BLINDNESS in mutations) || stat)	//blindness from disability or unconsciousness doesn't get better on its own
+	if(HAS_TRAIT(src, TRAIT_BLIND) || stat)	//blindness from disability or unconsciousness doesn't get better on its own
 		EyeBlind(2 SECONDS)
 
 // Gives a mob the vision of being dead

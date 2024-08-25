@@ -5,9 +5,6 @@
 "b" = (
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"c" = (
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "d" = (
 /obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/mineral/silver,
@@ -68,6 +65,11 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/mineral/silver,
 /area/ruin/powered/pride)
+"y" = (
+/obj/machinery/door/airlock/diamond,
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/mineral/silver,
+/area/ruin/powered/pride)
 "G" = (
 /turf/simulated/wall/mineral/diamond,
 /area/ruin/powered/pride)
@@ -75,13 +77,9 @@
 /obj/structure/mirror/magic/pride,
 /turf/simulated/wall/mineral/diamond,
 /area/ruin/powered/pride)
-"Y" = (
-/obj/machinery/door/airlock/diamond,
-/obj/structure/fans/tiny/invisible,
-/turf/simulated/floor/mineral/silver{
-	blocks_air = 1
-	},
-/area/ruin/powered/pride)
+"S" = (
+/turf/simulated/floor/lava/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Z" = (
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -112,29 +110,29 @@ a
 (2,1,1) = {"
 a
 a
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
+S
+S
+S
+S
+S
+S
+S
+S
+S
+S
+S
+S
+S
+S
+S
+S
+S
 Z
 "}
 (3,1,1) = {"
 b
-c
-c
+S
+S
 G
 G
 G
@@ -150,12 +148,12 @@ G
 G
 G
 G
-c
+S
 Z
 "}
 (4,1,1) = {"
-c
-c
+S
+S
 G
 G
 G
@@ -172,11 +170,11 @@ l
 e
 e
 G
-c
+S
 Z
 "}
 (5,1,1) = {"
-c
+S
 G
 G
 G
@@ -198,7 +196,7 @@ Z
 Z
 "}
 (6,1,1) = {"
-c
+S
 G
 G
 G
@@ -215,12 +213,12 @@ g
 g
 g
 g
-Y
+y
 Z
 Z
 "}
 (7,1,1) = {"
-c
+S
 G
 G
 G
@@ -238,12 +236,12 @@ g
 g
 r
 G
-c
+S
 Z
 "}
 (8,1,1) = {"
-c
-c
+S
+S
 G
 G
 G
@@ -260,13 +258,13 @@ m
 f
 f
 G
-c
+S
 Z
 "}
 (9,1,1) = {"
 b
-c
-c
+S
+S
 G
 G
 G
@@ -282,28 +280,28 @@ G
 G
 G
 G
-c
+S
 Z
 "}
 (10,1,1) = {"
 b
 b
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
-c
+S
+S
+S
+S
+S
+S
+S
+S
+S
+S
+S
+S
+S
+S
+S
+S
+S
 Z
 "}

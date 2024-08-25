@@ -201,7 +201,7 @@
 	id = "lmag"
 	build_type = PROTOLATHE
 	req_tech = list("combat" = 4, "powerstorage" = 4)
-	materials = list(MAT_METAL = 8000, MAT_GLASS = 2500, MAT_PLASMA = 3000)
+	materials = list(MAT_METAL = 8000, MAT_GLASS = 2500)
 	build_path = /obj/item/ammo_box/magazine/lr30mag
 	category = list("Weapons")
 
@@ -396,7 +396,7 @@
 	name = "Energy dagger"
 	desc = "A dagger made of energy that looks and functions as a pen when off."
 	id = "e_dagger"
-	req_tech = list("combat" = 7, "programming" = 7, "syndicate" = 4, "materials" = 7)
+	req_tech = list("combat" = 7, "programming" = 7, "syndicate" = 2, "materials" = 7)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 15000, MAT_DIAMOND = 3000, MAT_TITANIUM = 3000)
 	build_path = /obj/item/pen/edagger

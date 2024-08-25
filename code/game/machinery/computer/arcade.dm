@@ -11,15 +11,14 @@
 /obj/machinery/computer/arcade/proc/Reset()
 	return
 
-/obj/machinery/computer/arcade/New()
-	..()
+/obj/machinery/computer/arcade/Initialize(mapload)
+	. = ..()
 	if(!circuit)
 		var/choice = pick(/obj/machinery/computer/arcade/battle, /obj/machinery/computer/arcade/orion_trail)
 		new choice(loc)
-		qdel(src)
-		return
-	Reset()
+		return INITIALIZE_HINT_QDEL
 
+	Reset()
 
 /obj/machinery/computer/arcade/proc/prizevend(var/score)
 	if(!contents.len)
@@ -100,6 +99,7 @@
 	//onclose(user, "arcade")
 	var/datum/browser/popup = new(user, "arcade", "Space Villian 2000", 420, 280, src)
 	popup.set_content(dat)
+	popup.open()
 	return
 
 /obj/machinery/computer/arcade/battle/Topic(href, href_list)
@@ -638,7 +638,7 @@
 					atom_say("WEEWOO WEEWOO, Spaceport Security en route!")
 					for(var/i, i<=3, i++)
 						var/mob/living/simple_animal/hostile/syndicate/ranged/orion/O = new/mob/living/simple_animal/hostile/syndicate/ranged/orion(get_turf(src))
-						O.target = usr
+						O.GiveTarget(usr)
 
 
 		fuel += FU

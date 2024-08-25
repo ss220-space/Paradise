@@ -7,14 +7,14 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	for(var/client/C in GLOB.admins)
 		if(R_ADMIN & C.holder.rights)
 			if(C.prefs && !(C.prefs.toggles & PREFTOGGLE_CHAT_NO_ADMINLOGS))
-				to_chat(C, msg)
+				to_chat(C, msg, MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 
 /proc/msg_admin_attack(var/text, var/loglevel)
 	if(!GLOB.nologevent)
 		var/rendered = "<span class=\"admin\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
 		for(var/client/C in GLOB.admins)
 			if((C.holder.rights & R_ADMIN) && (C.prefs?.atklog <= loglevel))
-				to_chat(C, rendered)
+				to_chat(C, rendered, MESSAGE_TYPE_ATTACKLOG, confidential = TRUE)
 
 /**
  * Sends a message to the staff able to see admin tickets
@@ -25,9 +25,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
  */
 /proc/message_adminTicket(msg, important = FALSE)
 	for(var/client/C in GLOB.admins)
-		if(R_ADMIN & C.holder.rights)
+		if((R_ADMIN|R_MOD) & C.holder.rights)
 			if(important || (C.prefs && !(C.prefs.toggles & PREFTOGGLE_CHAT_NO_TICKETLOGS)))
-				to_chat(C, msg)
+				to_chat(C, msg, MESSAGE_TYPE_ADMINPM, confidential = TRUE)
 			if(important)
 				if(C.prefs?.sound & SOUND_ADMINHELP)
 					SEND_SOUND(C, 'sound/effects/adminhelp.ogg')
@@ -44,7 +44,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_ADMIN | R_MENTOR | R_MOD, 0, C.mob))
 			if(important || (C.prefs && !(C.prefs.toggles & PREFTOGGLE_CHAT_NO_TICKETLOGS)))
-				to_chat(C, msg)
+				to_chat(C, msg, MESSAGE_TYPE_MENTORCHAT, confidential = TRUE)
 			if(important)
 				if(C.prefs?.sound & SOUND_MENTORHELP)
 					SEND_SOUND(C, 'sound/effects/adminhelp.ogg')
@@ -56,18 +56,17 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			for(var/mob/O in GLOB.mob_list)
 				if(O.ckey && O.ckey == ckey_to_find)
 					if(admin_to_notify)
-						to_chat(admin_to_notify, "<span class='warning'>admin_ban_mobsearch: Player [ckey_to_find] is now in mob [O]. Pulling data from new mob.</span>")
+						to_chat(admin_to_notify, span_warning("admin_ban_mobsearch: Player [ckey_to_find] is now in mob [O]. Pulling data from new mob."), MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 						return O
 			if(admin_to_notify)
-				to_chat(admin_to_notify, "<span class='warning'>admin_ban_mobsearch: Player [ckey_to_find] does not seem to have any mob, anywhere. This is probably an error.</span>")
+				to_chat(admin_to_notify, span_warning("admin_ban_mobsearch: Player [ckey_to_find] does not seem to have any mob, anywhere. This is probably an error."), MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 		else if(admin_to_notify)
-			to_chat(admin_to_notify, "<span class='warning'>admin_ban_mobsearch: No mob or ckey detected.</span>")
+			to_chat(admin_to_notify, span_warning("admin_ban_mobsearch: No mob or ckey detected."), MESSAGE_TYPE_ADMINLOG, confidential = TRUE)
 	return M
 
 ///////////////////////////////////////////////////////////////////////////////////////////////Panels
 
 /datum/admins/proc/show_player_panel(var/mob/M in GLOB.mob_list)
-	set category = null
 	set name = "\[Admin\] Show Player Panel"
 	set desc="Edit player (respawn, ban, heal, etc)"
 
@@ -139,16 +138,15 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 		body += "| <A href='?_src_=holder;sendtoprison=[M.UID()]'>Prison</A> | "
 		body += "\ <A href='?_src_=holder;sendbacktolobby=[M.UID()]'>Send back to Lobby</A> | "
-		var/muted = M.client.prefs.muted
 		body += {"<br><b>Mute: </b>
-			\[<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_IC]'><font color='[(muted & MUTE_IC)?"red":"#6685f5"]'>IC</font></a> |
-			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_OOC]'><font color='[(muted & MUTE_OOC)?"red":"#6685f5"]'>OOC</font></a> |
-			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_PRAY]'><font color='[(muted & MUTE_PRAY)?"red":"#6685f5"]'>PRAY</font></a> |
-			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ADMINHELP]'><font color='[(muted & MUTE_ADMINHELP)?"red":"#6685f5"]'>ADMINHELP</font></a> |
-			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_DEADCHAT]'><font color='[(muted & MUTE_DEADCHAT)?"red":"#6685f5"]'>DEADCHAT</font></a> |
-			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_TTS]'><font color='[(muted & MUTE_TTS)?"red":"#6685f5"]'>TTS</font></a> |
-			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_EMOTE]'><font color='[(muted & MUTE_EMOTE)?"red":"#6685f5"]'>EMOTE</font></a>\]
-			(<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ALL]'><font color='[(muted & MUTE_ALL)?"red":"#6685f5"]'>toggle all</font></a>)
+			\[<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_IC]'><font color='[check_mute(M.client.ckey, MUTE_IC) ? "red" : "#6685f5"]'>IC</font></a> |
+			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_OOC]'><font color='[check_mute(M.client.ckey, MUTE_OOC) ? "red" : "#6685f5"]'>OOC</font></a> |
+			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_PRAY]'><font color='[check_mute(M.client.ckey, MUTE_PRAY) ? "red" : "#6685f5"]'>PRAY</font></a> |
+			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ADMINHELP]'><font color='[check_mute(M.client.ckey, MUTE_ADMINHELP) ? "red" : "#6685f5"]'>ADMINHELP</font></a> |
+			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_DEADCHAT]'><font color='[check_mute(M.client.ckey, MUTE_DEADCHAT) ?" red" : "#6685f5"]'>DEADCHAT</font></a> |
+			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_TTS]'><font color='[check_mute(M.client.ckey, MUTE_TTS)?"red":"#6685f5"]'>TTS</font></a> |
+			<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_EMOTE]'><font color='[check_mute(M.client.ckey, MUTE_EMOTE) ? "red" : "#6685f5"]'>EMOTE</font></a>\]
+			(<A href='?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ALL]'><font color='[check_mute(M.client.ckey, MUTE_ALL) ? "red" : "#6685f5"]'>toggle all</font></a>)
 		"}
 		body += {"<br><b>Mob Manipulation:</b>
 			<A href='?_src_=holder;randomizename=[M.UID()]'>Randomize Name</A> |

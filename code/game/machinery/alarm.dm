@@ -733,7 +733,7 @@
 			if(!vent_data)
 				continue
 			vent_info["id_tag"] = id_tag
-			vent_info["name"] = sanitize(long_name)
+			vent_info["name"] = readd_quote(sanitize(long_name))
 			vent_info += vent_data
 			vents += list(vent_info)
 	data["vents"] = vents
@@ -746,18 +746,18 @@
 			if(!scrubber_data)
 				continue
 			scrubber_data["id_tag"] = id_tag
-			scrubber_data["name"] = sanitize(long_name)
+			scrubber_data["name"] = readd_quote(sanitize(long_name))
 			scrubbers += list(scrubber_data)
 	data["scrubbers"] = scrubbers
 	return data
 
 /obj/machinery/alarm/proc/get_console_data(mob/user)
 	var/list/data = list()
-	data["name"] = sanitize(name)
+	data["name"] = readd_quote(sanitize(name))
 	data["ref"] = "\ref[src]"
 	data["danger"] = max(danger_level, alarm_area.atmosalm)
 	var/area/A = get_area(src)
-	data["area"] = sanitize(A.name)
+	data["area"] = readd_quote(sanitize(A.name))
 	var/turf/T = get_turf(src)
 	data["x"] = T.x
 	data["y"] = T.y
@@ -842,7 +842,7 @@
 
 	switch(action)
 		if("set_rcon")
-			var/attempted_rcon_setting = text2num(params["rcon"])
+			var/attempted_rcon_setting = params["rcon"]
 			switch(attempted_rcon_setting)
 				if(RCON_NO)
 					rcon_setting = RCON_NO
@@ -871,17 +871,12 @@
 					"scrubbing",
 					"direction")
 					var/val
-					if(params["val"])
-						val=text2num(params["val"])
+					if(!isnull(params["val"]))
+						val=params["val"]
 					else
-						var/newval = input("Enter new value") as num|null
+						var/newval = tgui_input_number(usr, "Enter new value", "New Value", ONE_ATMOSPHERE, 1000 + ONE_ATMOSPHERE, 0, round_value = FALSE)
 						if(isnull(newval))
 							return
-						if(params["cmd"] == "set_external_pressure")
-							if(newval > 1000 + ONE_ATMOSPHERE)
-								newval = 1000 + ONE_ATMOSPHERE
-							if(newval < 0)
-								newval = 0
 						val = newval
 
 					// For those who read this: This radio BS is what makes air alarms take 10 years to update in the UI
@@ -892,7 +887,7 @@
 					var/env = params["env"]
 					var/varname = params["var"]
 					var/datum/tlv/tlv = TLV[env]
-					var/newval = input("Enter [varname] for [env]", "Alarm triggers", tlv.vars[varname]) as num|null
+					var/newval = tgui_input_number(usr, "Enter [varname] for [env]", "Alarm triggers", tlv.vars[varname], round_value = FALSE)
 
 					if(isnull(newval) || ..()) // No setting if you walked away
 						return
@@ -924,7 +919,7 @@
 			if(!is_authenticated(usr, active_ui))
 				return
 
-			mode = text2num(params["mode"])
+			mode = params["mode"]
 			apply_mode()
 
 
@@ -932,7 +927,7 @@
 			if(!is_authenticated(usr, active_ui))
 				return
 
-			preset = text2num(params["preset"])
+			preset = params["preset"]
 			apply_preset()
 
 
@@ -942,7 +937,7 @@
 			var/min_temperature = max(selected.min1, MIN_TEMPERATURE)
 			var/max_temperature_c = max_temperature - T0C
 			var/min_temperature_c = min_temperature - T0C
-			var/input_temperature = input("What temperature would you like the system to maintain? (Capped between [min_temperature_c]C and [max_temperature_c]C)", "Thermostat Controls") as num|null
+			var/input_temperature = tgui_input_number(usr, "What temperature would you like the system to maintain? (Capped between [min_temperature_c]C and [max_temperature_c]C)", "Thermostat Controls", target_temperature - T0C, max_temperature_c, min_temperature_c)
 			if(isnull(input_temperature) || ..()) // No temp setting if you walked away
 				return
 			input_temperature = input_temperature + T0C
@@ -956,9 +951,12 @@
 
 
 /obj/machinery/alarm/ui_state(mob/user)
-	if(isAI(user))
-		var/mob/living/silicon/ai/AI = user
-		if(!AI.lacks_power() || AI.apc_override)
+	if(issilicon(user))
+		if(isAI(user))
+			var/mob/living/silicon/ai/AI = user
+			if(!AI.lacks_power() || AI.apc_override)
+				return GLOB.always_state
+		if(isrobot(user))
 			return GLOB.always_state
 
 	else if(ishuman(user))
@@ -979,49 +977,54 @@
 
 
 /obj/machinery/alarm/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	switch(buildstage)
 		if(AIR_ALARM_READY)
 			if(I.GetID() || is_pda(I)) // trying to unlock the interface
+				add_fingerprint(user)
 				if(stat & (NOPOWER|BROKEN))
 					to_chat(user, span_warning("It does nothing!"))
-					return
+					return ATTACK_CHAIN_PROCEED
 
 				if(allowed(user) && !wires.is_cut(WIRE_IDSCAN))
-					add_fingerprint(user)
 					locked = !locked
 					to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] the Air Alarm interface."))
 					SStgui.update_uis(src)
-				else
-					to_chat(user, span_warning("Access denied."))
-				return
+					return ATTACK_CHAIN_PROCEED
+				to_chat(user, span_warning("Access denied."))
+				return ATTACK_CHAIN_PROCEED
 
 		if(AIR_ALARM_BUILDING)
 			if(iscoil(I))
-				var/obj/item/stack/cable_coil/coil = I
-				if(coil.get_amount() < 5)
-					to_chat(user, span_notice("You need more cable for this!"))
-					return
-
 				add_fingerprint(user)
-				to_chat(user, "You wire \the [src]!")
+				var/obj/item/stack/cable_coil/coil = I
+				if(!coil.use(5))
+					to_chat(user, span_notice("You need more cable for this!"))
+					return ATTACK_CHAIN_PROCEED
+				to_chat(user, "You wire [src]!")
 				playsound(get_turf(src), coil.usesound, 50, TRUE)
-				coil.use(5)
 				buildstage = AIR_ALARM_READY
 				wiresexposed = TRUE
 				update_icon()
 				first_run()
-				return
+				return ATTACK_CHAIN_PROCEED_SUCCESS
 
 		if(AIR_ALARM_FRAME)
 			if(istype(I, /obj/item/airalarm_electronics))
 				add_fingerprint(user)
+				if(!user.drop_transfer_item_to_loc(I, src))
+					return ..()
 				to_chat(user, span_notice("You insert the circuit!"))
-				playsound(get_turf(src), I.usesound, 50, 1)
+				playsound(get_turf(src), I.usesound, 50, TRUE)
 				qdel(I)
 				buildstage = AIR_ALARM_BUILDING
 				update_icon(UPDATE_ICON_STATE)
-				return
+				return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/machinery/alarm/crowbar_act(mob/user, obj/item/I)
 	if(buildstage != AIR_ALARM_BUILDING)

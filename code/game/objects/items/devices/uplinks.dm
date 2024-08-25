@@ -107,11 +107,9 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	if(!uplink_item)
 		return FALSE
 	if(uplink_item.limited_stock == 0)
-		to_chat(buyer, span_warning("You have redeemed this discount already."))
+		to_chat(buyer, span_warning("You have redeemed this offer already."))
 		return FALSE
 	uplink_item.buy(src, buyer)
-	if(uplink_item.limited_stock > 0) // only decrement it if it's actually limited
-		uplink_item.limited_stock--
 	SStgui.update_uis(src)
 	return TRUE
 
@@ -142,18 +140,24 @@ GLOBAL_LIST_EMPTY(world_uplinks)
  */
 /obj/item/uplink/proc/refund(mob/user)
 	var/obj/item/hold_item = user.get_active_hand()
-	if(!hold_item) // Make sure there's actually something in the hand before even bothering to check
+	if(!hold_item || !hold_item.check_uplink_validity()) // Make sure there's actually something in the hand before even bothering to check
 		return FALSE
 
 	for(var/datum/uplink_item/uplink_item as anything in uplink_items)
 		var/path = uplink_item.refund_path || uplink_item.item
-		var/cost = uplink_item.refund_amount || uplink_item.cost
-		if(hold_item.type == path && uplink_item.refundable && hold_item.check_uplink_validity())
-			uses += cost
-			used_TC -= cost
-			to_chat(user, span_notice("[hold_item] refunded."))
-			qdel(hold_item)
-			return
+		if(hold_item.type != path || !uplink_item.refundable)
+			continue
+
+		var/cost =  uplink_item.cost
+
+		if(uplink_item.item_to_refund_cost?[hold_item.UID()])
+			cost = uplink_item.item_to_refund_cost[hold_item.UID()]
+
+		uses += cost
+		used_TC -= cost
+		to_chat(user, span_notice("[hold_item] refunded."))
+		qdel(hold_item)
+		return
 
 	// If we are here, we didnt refund
 	to_chat(user, span_warning("[hold_item] is not refundable."))
@@ -248,10 +252,13 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 	if(contractor)
 		var/list/contractor_data = list(
-			available = uses >= contractor.tc_cost && world.time < contractor.offer_deadline,
+			available = uses >= contractor.tc_cost && world.time < contractor.offer_deadline && \
+			(SSticker?.mode?.contractor_accepted< CONTRACTOR_MAX_ACCEPTED || contractor.is_admin_forced),
 			affordable = uses >= contractor.tc_cost,
 			accepted = !isnull(contractor.contractor_uplink),
 			time_left = contractor.offer_deadline - world.time,
+			available_offers = CONTRACTOR_MAX_ACCEPTED - SSticker?.mode?.contractor_accepted,
+			is_admin_forced = contractor.is_admin_forced,
 		)
 		data["contractor"] = contractor_data
 
@@ -508,6 +515,13 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 /obj/item/radio/uplink/sst/choose_uplink()
 	return UPLINK_TYPE_SST
+
+/obj/item/radio/uplink/sst/get_uses_amount()
+	var/danger = GLOB.player_list.len
+	var/temp_danger = (danger + 9)
+	danger = temp_danger - temp_danger % 10
+	danger *= NUKESCALINGMODIFIER
+	return ..() + round(danger/ NUKERS_COUNT) + danger % NUKERS_COUNT
 
 
 /obj/item/radio/uplink/admin/choose_uplink()

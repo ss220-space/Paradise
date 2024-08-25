@@ -50,8 +50,10 @@
 /obj/item/clothing/mask/facehugger/allowed_for_alien()
 	return TRUE
 
-/obj/item/clothing/mask/facehugger/attackby(obj/item/O, mob/user, params)
-	return O.attack_obj(src, user, params)
+
+/obj/item/clothing/mask/facehugger/attackby(obj/item/I, mob/user, params)
+	return I.attack_obj(src, user, params)
+
 
 /obj/item/clothing/mask/facehugger/attack_alien(mob/user) //can be picked up by aliens
 	return attack_hand(user)
@@ -62,21 +64,24 @@
 			return
 	. = ..()
 
-/obj/item/clothing/mask/facehugger/attack(mob/living/M, mob/user)
-	. = ..()
-	if(user.drop_item_ground(src))
-		Attach(M)
+
+/obj/item/clothing/mask/facehugger/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(user.drop_item_ground(src) && Attach(target))
+		user.do_attack_animation(target, used_item = src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 /obj/item/clothing/mask/facehugger/examine(mob/user)
 	. = ..()
 	if(real)//So that giant red text about probisci doesn't show up for fake ones
 		switch(stat)
 			if(DEAD,UNCONSCIOUS)
-				. += "<span class='boldannounce'>[src] is not moving.</span>"
+				. += span_boldannounceic("[src] is not moving.")
 			if(CONSCIOUS)
-				. += "<span class='boldannounce'>[src] seems to be active!</span>"
+				. += span_boldannounceic("[src] seems to be active!")
 		if(sterile)
-			. += "<span class='boldannounce'>It looks like the proboscis has been removed.</span>"
+			. += span_boldannounceic("It looks like the proboscis has been removed.")
 
 /obj/item/clothing/mask/facehugger/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()

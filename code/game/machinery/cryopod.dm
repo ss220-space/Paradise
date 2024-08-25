@@ -253,8 +253,7 @@
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
-		/obj/item/mmi/robotic_brain,
-		/obj/item/gun/energy/gun/blueshield
+		/obj/item/mmi/robotic_brain
 	)
 
 //////
@@ -497,7 +496,7 @@
 	var/willing = null //We don't want to allow people to be forced into despawning.
 	time_till_despawn = initial(time_till_despawn)
 	if(target.client)
-		if(alert(target, "Would you like to enter long-term storage?",,"Yes","No") == "Yes")
+		if(tgui_alert(target, "Would you like to enter long-term storage?", "Cryosleep", list("Yes", "No")) == "Yes")
 			if(!target || !grabber || grabber.pulling != target || !grabber.Adjacent(src))
 				return .
 			willing = willing_time_divisor
@@ -569,7 +568,7 @@
 	time_till_despawn = initial(time_till_despawn)
 
 	if(L.client)
-		if(alert(L,"Would you like to enter cryosleep?",,"Yes","No") == "Yes")
+		if(tgui_alert(L, "Would you like to enter cryosleep?", "Cryosleep", list("Yes", "No")) == "Yes")
 			if(!L)
 				return
 			willing = willing_time_divisor

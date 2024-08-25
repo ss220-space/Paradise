@@ -49,6 +49,15 @@
 
 	return text
 
+/proc/readd_quote(var/t)
+	var/list/repl_chars = list("&#39;" = "'")
+	for(var/char in repl_chars)
+		var/index = findtext(t, char)
+		while(index)
+			t = copytext(t, 1, index) + repl_chars[char] + copytext(t, index+5)
+			index = findtext(t, char)
+	return t
+
 /proc/readd_quotes(var/t)
 	var/list/repl_chars = list("&#34;" = "\"")
 	for(var/char in repl_chars)
@@ -118,8 +127,6 @@
 
 // Uses client.typing to check if the popup should appear or not
 /proc/typing_input(mob/user, message = "", title = "", default = "")
-	if(user.client.checkTyping()) // Prevent double windows
-		return null
 	var/client/C = user.client // Save it in a var in case the client disconnects from the mob
 	C.typing = TRUE
 	var/msg = input(user, message, title, default) as text|null
@@ -303,6 +310,10 @@
 //Returns a string with reserved characters and spaces before the first word and after the last word removed.
 /proc/trim(text)
 	return trim_reduced(text)
+
+/// Returns a string that does not exceed max_length characters in size
+/proc/trim_length(text, max_length)
+	return copytext_char(text, 1, max_length)
 
 //Returns a string with the first element of the string capitalized.
 /proc/capitalize(var/t as text)

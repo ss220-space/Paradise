@@ -106,7 +106,6 @@
 	overlay = null
 	action_icon_state = "bloodcrawl"
 	action_background_icon_state = "bg_cult"
-	panel = "Demon"
 
 
 /obj/effect/proc_holder/spell/sense_victims/create_new_targeting()

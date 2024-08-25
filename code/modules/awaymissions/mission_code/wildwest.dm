@@ -84,9 +84,10 @@
 			if("Power")
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
 				to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
-				user.mutations.Add(LASEREYES)
-				user.mutations.Add(COLDRES)
-				user.mutations.Add(XRAY)
+				ADD_TRAIT(user, TRAIT_LASEREYES, WISHGRANTER_TRAIT)
+				ADD_TRAIT(user, TRAIT_RESIST_COLD, WISHGRANTER_TRAIT)
+				ADD_TRAIT(user, TRAIT_XRAY, WISHGRANTER_TRAIT)
+				user.update_sight()
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
 					if(!isshadowperson(human))
@@ -112,7 +113,7 @@
 			if("Immortality")
 				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
 				to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
-				user.verbs += /mob/living/carbon/proc/immortality
+				add_verb(user, /mob/living/carbon/proc/immortality)
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
 					if(!isshadowperson(human))
@@ -239,8 +240,7 @@
 			to_chat(user, span_warning("The communicator buzzes, and you hear the voice again: 'Really? I think not. Get them!'"))
 		if(option_threat)
 			to_chat(user, span_warning("The communicator buzzes, and you hear the voice again: 'Oh really now?' You hear a clicking sound. 'Team, get back here. We have trouble.' Then the line goes dead."))
-			for(var/thing in GLOB.landmarks_list)
-				var/obj/effect/landmark/L = thing
+			for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 				if(L.name == "wildwest_syndipod")
 					var/obj/spacepod/syndi/P = new /obj/spacepod/syndi(get_turf(L))
 					P.name = "Syndi Recon Pod"

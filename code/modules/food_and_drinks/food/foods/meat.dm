@@ -13,15 +13,50 @@
 	tastes = list("meat" = 1)
 	foodtype = MEAT
 
-/obj/item/reagent_containers/food/snacks/meat/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/kitchen/knife) || istype(W, /obj/item/scalpel))
-		new /obj/item/reagent_containers/food/snacks/rawcutlet(src)
-		new /obj/item/reagent_containers/food/snacks/rawcutlet(src)
-		new /obj/item/reagent_containers/food/snacks/rawcutlet(src)
-		to_chat(user, "You cut the meat in thin strips.")
-		qdel(src)
+
+/obj/item/reagent_containers/food/snacks/meat/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !is_sharp(I))
+		return .
+
+	if(!isturf(loc))
+		to_chat(user, span_warning("You cannot cut [src] [ismob(loc) ? "in inventory" : "in [loc]"]."))
+		return .
+
+	var/static/list/acceptable_surfaces = typecacheof(list(
+		/obj/structure/table,
+		/obj/machinery/optable,
+		/obj/item/storage/bag/tray,
+	))
+	var/acceptable = FALSE
+	for(var/thing in loc)
+		if(is_type_in_typecache(thing, acceptable_surfaces))
+			acceptable = TRUE
+			break
+	if(!acceptable)
+		to_chat(user, span_warning("You cannot cut [src] here! You need a table or at least a tray to do it."))
+		return .
+
+	. |= ATTACK_CHAIN_BLOCKED_ALL
+	var/strips_amount = 3
+	if(istype(I, /obj/item/kitchen/knife) || istype(I, /obj/item/scalpel))
+		user.visible_message(
+			span_notice("[user] cuts the meat in thin strips."),
+			span_notice("You have cut the meat in thin strips."),
+		)
 	else
-		..()
+		strips_amount = 1
+		user.visible_message(
+			span_notice("[user] crudely cuts the meat in thin strips."),
+			span_notice("You have crudely cut the meat in thin strips."),
+		)
+	for(var/i = 1 to strips_amount)
+		var/obj/item/reagent_containers/food/snacks/rawcutlet/cutlet = new(loc)
+		transfer_fingerprints_to(cutlet)
+		cutlet.add_fingerprint(user)
+	qdel(src)
+
 
 /obj/item/reagent_containers/food/snacks/meat/syntiflesh
 	name = "synthetic meat"
@@ -280,14 +315,50 @@
 	list_reagents = list("protein" = 1)
 	foodtype = MEAT
 
-/obj/item/reagent_containers/food/snacks/rawcutlet/attackby(obj/item/W, mob/user, params)
-	if(istype(W,/obj/item/kitchen/knife))
-		user.visible_message( \
-			"[user] cuts the raw cutlet with the knife!", \
-			"<span class ='notice'>You cut the raw cutlet with your knife!</span>" \
-			)
-		new /obj/item/reagent_containers/food/snacks/raw_bacon(loc)
-		qdel(src)
+
+/obj/item/reagent_containers/food/snacks/rawcutlet/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !is_sharp(I))
+		return .
+
+	if(!isturf(loc))
+		to_chat(user, span_warning("You cannot trim [src] [ismob(loc) ? "in inventory" : "in [loc]"]."))
+		return .
+
+	var/static/list/acceptable_surfaces = typecacheof(list(
+		/obj/structure/table,
+		/obj/machinery/optable,
+		/obj/item/storage/bag/tray,
+	))
+	var/acceptable = FALSE
+	for(var/thing in loc)
+		if(is_type_in_typecache(thing, acceptable_surfaces))
+			acceptable = TRUE
+			break
+	if(!acceptable)
+		to_chat(user, span_warning("You cannot trim [src] here! You need a table or at least a tray to do it."))
+		return .
+
+	. |= ATTACK_CHAIN_BLOCKED_ALL
+	var/bacon_amount = 2
+	if(istype(I, /obj/item/kitchen/knife) || istype(I, /obj/item/scalpel))
+		user.visible_message(
+			span_notice("[user] trims the raw bacon from [src]."),
+			span_notice("You have trimmed the raw bacon from [src]."),
+		)
+	else
+		bacon_amount = 1
+		user.visible_message(
+			span_notice("[user] crudely trims the raw bacon from [src]."),
+			span_notice("You have crudely trimmed the raw bacon from [src]."),
+		)
+	for(var/i = 1 to bacon_amount)
+		var/obj/item/reagent_containers/food/snacks/raw_bacon/bacon = new(loc)
+		transfer_fingerprints_to(bacon)
+		bacon.add_fingerprint(user)
+	qdel(src)
+
 
 //////////////////////////
 //		Monster Meat	//
@@ -415,75 +486,75 @@
 /obj/item/reagent_containers/food/snacks/meatsteak/human
 	name = "human meat steak"
 	icon_state = "meatstake_human"
-	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	list_reagents = list("nutriment" = 3, "vitamin" = 3, "protein" = 3)
 	tastes = list("human meat odor" = 1, "eggplant" = 1)
 
 /obj/item/reagent_containers/food/snacks/meatsteak/vulpkanin
 	name = "vulpkanin meat steak"
 	icon_state = "meatstake_vulp"
-	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	list_reagents = list("nutriment" = 3, "vitamin" = 3, "protein" = 3)
 	tastes = list("vulpkanin meat odor" = 1, "chanterelle" = 1, "lemon" = 1)
 
 /obj/item/reagent_containers/food/snacks/meatsteak/tajaran
 	name = "tajaran meat steak"
 	icon_state = "meatstake_tajara"
-	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	list_reagents = list("nutriment" = 3, "vitamin" = 3, "protein" = 3)
 	tastes = list("tajaran meat odor" = 1, "nettle" = 1, "soda water" = 1)
 
 /obj/item/reagent_containers/food/snacks/meatsteak/unathi
 	name = "unathi meat steak"
 	icon_state = "meatstake_unathi"
-	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	list_reagents = list("nutriment" = 3, "vitamin" = 3, "protein" = 3)
 	tastes = list("unathi meat odor" = 1, "tomato" = 2, "harebell" = 1, "black pepper" = 2, "salt" = 2, "chiken" = 1)
 
 /obj/item/reagent_containers/food/snacks/meatsteak/drask
 	name = "drask meat steak"
 	desc = "A piece of cold spicy meat."
 	icon_state = "meatstake_drask"
-	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	list_reagents = list("nutriment" = 3, "vitamin" = 3, "protein" = 3)
 	tastes = list("drask meat odor" = 1, "garlic" = 1, "chili" = 2, "berries" = 2, "black pepper" = 2)
 
 /obj/item/reagent_containers/food/snacks/meatsteak/grey
 	name = "grey meat steak"
 	icon_state = "meatstake_grey"
-	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	list_reagents = list("nutriment" = 3, "vitamin" = 3, "protein" = 3)
 	tastes = list("grey meat odor" = 1, "garlic" = 1, "cabbage" = 1, "tomato" = 2, "salt" = 2)
 
 /obj/item/reagent_containers/food/snacks/meatsteak/skrell
 	name = "skrell meat steak"
 	icon_state = "meatstake_skrell"
-	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	list_reagents = list("nutriment" = 3, "vitamin" = 3, "protein" = 3)
 	tastes = list("skrell meat odor" = 1, "banana" = 1, "tomato" = 1, "black pepper" = 2)
 
 /obj/item/reagent_containers/food/snacks/meatsteak/vox
 	name = "vox meat steak"
 	icon_state = "meatstake_vox"
-	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	list_reagents = list("nutriment" = 3, "vitamin" = 3, "protein" = 3)
 	tastes = list("vox meat odor" = 1, "garlic" = 1, "herbs" = 1, "chiken" = 1, "sweet potato" = 2)
 
 /obj/item/reagent_containers/food/snacks/meatsteak/slime
 	name = "grilled jelly"
 	desc = "A piece of hot spicy jelly."
 	icon_state = "meatstake_slime"
-	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	list_reagents = list("nutriment" = 3, "vitamin" = 3, "protein" = 3)
 	tastes = list("slime meat odor" = 1, "garlic" = 1, "sugar" = 1, "herbs" = 1, "lemon" = 1, "ambrosia" = 1, "salt" = 2)
 
 /obj/item/reagent_containers/food/snacks/meatsteak/wryn
 	name = "wryn meat steak"
 	icon_state = "meatstake_wryn"
-	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	list_reagents = list("nutriment" = 3, "vitamin" = 3, "protein" = 3)
 	tastes = list("wryn meat odor" = 1, "sweetness" = 1, "potato" = 2, "orange" = 1)
 
 /obj/item/reagent_containers/food/snacks/meatsteak/kidan
 	name = "kidan meat steak"
 	icon_state = "meatstake_kidan"
-	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	list_reagents = list("nutriment" = 3, "vitamin" = 3, "protein" = 3)
 	tastes = list("kidan meat odor" = 1, "bug odor" = 1, "herbs" = 2, "olives" = 2, "salt" = 2)
 
 /obj/item/reagent_containers/food/snacks/meatsteak/nian
 	name = "nian meat steak"
 	icon_state = "meatstake_nian"
-	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	list_reagents = list("nutriment" = 3, "vitamin" = 3, "protein" = 3)
 	tastes = list("nian meat odor" = 1, "bug odor" = 1, "sweetness" = 1, "orange" = 1, "lemon" = 1, "herbs" = 1)
 
 /obj/item/reagent_containers/food/snacks/meatsteak/diona
@@ -491,38 +562,38 @@
 	desc = "Hot spicy asparagus."
 	filling_color = "#548100"
 	icon_state = "meatstake_diona"
-	list_reagents = list("plantmatter" = 4, "vitamins" = 5)
+	list_reagents = list("plantmatter" = 4, "vitamin" = 5)
 	tastes = list("diona odor" = 1, "salt" = 2, "herbs" = 1, "garlic" = 1, "lemon" = 1)
 	foodtype = VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/meatsteak/monkey
 	name = "monkey meat steak"
 	icon_state = "meatstake_monkey"
-	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	list_reagents = list("nutriment" = 3, "vitamin" = 3, "protein" = 3)
 	tastes = list("monkey meat odor" = 1, "salt" = 2, "herbs" = 1, "lemon" = 1, "chili" = 2)
 
 /obj/item/reagent_containers/food/snacks/meatsteak/farwa
 	name = "farwa meat steak"
 	icon_state = "meatstake_farwa"
-	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	list_reagents = list("nutriment" = 3, "vitamin" = 3, "protein" = 3)
 	tastes = list("farwa meat odor" = 1, "poppy" = 2, "grape" = 1)
 
 /obj/item/reagent_containers/food/snacks/meatsteak/wolpin
 	name = "wolpin meat steak"
 	icon_state = "meatstake_wolpin"
-	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	list_reagents = list("nutriment" = 3, "vitamin" = 3, "protein" = 3)
 	tastes = list("wolpin meat odor" = 1, "potato" = 1, "onion" = 2)
 
 /obj/item/reagent_containers/food/snacks/meatsteak/neara
 	name = "neara meat steak"
 	icon_state = "meatstake_neara"
-	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	list_reagents = list("nutriment" = 3, "vitamin" = 3, "protein" = 3)
 	tastes = list("neara meat odor" = 1, "lemon" = 1, "soy" = 2, "herbs" = 1)
 
 /obj/item/reagent_containers/food/snacks/meatsteak/stok
 	name = "stok meat steak"
 	icon_state = "meatstake_stok"
-	list_reagents = list("nutriment" = 3, "vitamins" = 3, "protein" = 3)
+	list_reagents = list("nutriment" = 3, "vitamin" = 3, "protein" = 3)
 	tastes = list("stok meat odor" = 1, "chiken" = 1, "cucumber" = 2, "herbs" = 1, "orange" = 1)
 
 /obj/item/reagent_containers/food/snacks/birdsteak
@@ -746,6 +817,7 @@
 	tastes = list("egg" = 1)
 	foodtype = EGG
 
+
 /obj/item/reagent_containers/food/snacks/egg/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
 	var/turf/T = get_turf(hit_atom)
@@ -754,20 +826,26 @@
 		reagents.reaction(hit_atom, REAGENT_TOUCH)
 	qdel(src)
 
-/obj/item/reagent_containers/food/snacks/egg/attackby(obj/item/W, mob/user, params)
-	if(istype( W, /obj/item/toy/crayon ))
-		var/obj/item/toy/crayon/C = W
-		var/clr = C.colourName
 
-		if(!(clr in list("blue","green","mime","orange","purple","rainbow","red","yellow")))
-			to_chat(usr, "<span class ='notice'>The egg refuses to take on this color!</span>")
-			return
+/obj/item/reagent_containers/food/snacks/egg/update_icon_state()
+	icon_state = "egg[item_color ? "-[item_color]" : ""]"
 
-		to_chat(usr, "<span class ='notice'>You color \the [src] [clr]</span>")
-		icon_state = "egg-[clr]"
-		item_color = clr
-	else
-		..()
+
+/obj/item/reagent_containers/food/snacks/egg/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/toy/crayon))
+		var/obj/item/toy/crayon/crayon = I
+		var/crayon_color = crayon.colourName
+		var/static/list/acceptable_colors = list("blue","green","mime","orange","purple","rainbow","red","yellow")
+		if(!(crayon_color in acceptable_colors))
+			to_chat(user, span_warning("The egg refuses to take on this color!"))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You color [src] [crayon_color]."))
+		item_color = crayon_color
+		update_icon(UPDATE_ICON_STATE)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/item/reagent_containers/food/snacks/egg/blue
 	icon_state = "egg-blue"
@@ -899,7 +977,7 @@
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/pelmeni
-	name = "Pelmeni"
+	name = "pelmeni"
 	desc = "Meat wrapped in thin uneven dough."
 	icon_state = "pelmeni"
 	filling_color = "#d9be29"
@@ -909,7 +987,7 @@
 	foodtype = MEAT | RAW | GRAIN
 
 /obj/item/reagent_containers/food/snacks/boiledpelmeni
-	name = "Boiled pelmeni"
+	name = "boiled pelmeni"
 	desc = "We don't know what was Siberia, but these tasty pelmeni definitely arrived from there."
 	icon_state = "boiledpelmeni"
 	trash = /obj/item/trash/snack_bowl

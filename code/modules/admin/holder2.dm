@@ -1,12 +1,23 @@
 GLOBAL_LIST_EMPTY(admin_datums)
 GLOBAL_PROTECT(admin_datums) // This is protected because we dont want people making their own admin ranks, for obvious reasons
 
+GLOBAL_VAR_INIT(href_token, GenerateToken())
+GLOBAL_PROTECT(href_token)
+
+/proc/GenerateToken()
+	. = ""
+	for(var/I in 1 to 32)
+		. += "[rand(10)]"
+
 /datum/admins
 	var/rank			= "Temporary Admin"
 	var/client/owner	= null
 	var/rights = 0
 	var/fakekey			= null
 	var/big_brother		= 0
+
+	/// Unique-to-session randomly generated token given to each admin to help add detail to logs on admin interactions with hrefs
+	var/href_token
 
 	var/datum/marked_datum
 
@@ -17,7 +28,7 @@ GLOBAL_PROTECT(admin_datums) // This is protected because we dont want people ma
 
 /datum/admins/New(initial_rank = "Temporary Admin", initial_rights = 0, ckey)
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>Admin rank creation blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, span_boldannounceooc("Admin rank creation blocked: Advanced ProcCall detected."))
 		log_and_message_admins("attempted to edit feedback a new admin rank via advanced proc-call")
 		return
 	if(!ckey)
@@ -27,11 +38,12 @@ GLOBAL_PROTECT(admin_datums) // This is protected because we dont want people ma
 	admincaster_signature = "Nanotrasen Officer #[rand(0,9)][rand(0,9)][rand(0,9)]"
 	rank = initial_rank
 	rights = initial_rights
+	href_token = GenerateToken()
 	GLOB.admin_datums[ckey] = src
 
 /datum/admins/Destroy()
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>Admin rank deletion blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, span_boldannounceooc("Admin rank deletion blocked: Advanced ProcCall detected."))
 		log_and_message_admins("attempted to delete an admin rank via advanced proc-call")
 		return
 	..()
@@ -39,25 +51,26 @@ GLOBAL_PROTECT(admin_datums) // This is protected because we dont want people ma
 
 /datum/admins/proc/associate(client/C)
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>Rank association blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, span_boldannounceooc("Rank association blocked: Advanced ProcCall detected."))
 		log_and_message_admins("attempted to associate an admin rank to a new client via advanced proc-call")
 		return
 	if(istype(C))
 		owner = C
 		owner.holder = src
-		owner.on_holder_add()
 		owner.add_admin_verbs()	//TODO
-		owner.verbs -= /client/proc/readmin
+		remove_verb(owner, /client/proc/readmin)
+		owner.init_verbs() //re-initialize the verb list
 		GLOB.admins |= C
 
 /datum/admins/proc/disassociate()
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>Rank disassociation blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, span_boldannounceooc("Rank disassociation blocked: Advanced ProcCall detected."))
 		log_and_message_admins("attempted to disassociate an admin rank from a client via advanced proc-call")
 		return
 	if(owner)
 		GLOB.admins -= owner
-		owner.remove_admin_verbs()
+		owner.hide_verbs()
+		owner.init_verbs()
 		owner.holder = null
 		owner = null
 
@@ -105,7 +118,7 @@ you will have to do something like if(client.holder.rights & R_ADMIN) yourself.
 
 /client/proc/deadmin()
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>Deadmin blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, span_boldannounceooc("Deadmin blocked: Advanced ProcCall detected."))
 		log_and_message_admins("attempted to de-admin a client via advanced proc-call")
 		return
 	GLOB.admin_datums -= ckey

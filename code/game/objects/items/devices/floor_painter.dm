@@ -34,7 +34,7 @@
 		"warnwhitered", "warnwhiteorange", "warnwhiteblue", "warnwhitewhite", "warnwhitecamo", "blackfull", "brownoldfull", "escapefull",
 		"navyblue", "navybluecorners", "navybluefull", "darkgrey", "darkgreycamo", "darkgreynavyblue", "darkgreynavybluecorner")
 
-/obj/item/floor_painter/afterattack(var/atom/A, var/mob/user, proximity, params)
+/obj/item/floor_painter/afterattack(atom/A, mob/user, proximity, params)
 	if(!proximity)
 		return
 

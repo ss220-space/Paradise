@@ -15,6 +15,9 @@
 	var/icon_gib = null	//We only try to show a gibbing animation if this exists.
 	var/flip_on_death = FALSE //Flip the sprite upside down on death. Mostly here for things lacking custom dead sprites.
 
+	/// Whether we can apply unconscious effects on this mob (Sleeping, Paralyse etc.)
+	var/allows_unconscious = FALSE
+
 	var/list/speak = list()
 	var/speak_chance = 0
 	var/list/emote_hear = list()	//Hearable emotes
@@ -77,7 +80,8 @@
 	var/obj/item/clothing/accessory/petcollar/pcollar = null
 	var/collar_type //if the mob has collar sprites, define them.
 	var/unique_pet = FALSE // if the mob can be renamed
-	var/can_collar = FALSE // can add collar to mob or not
+	/// Can add collar to mob or not, use the set_can_collar if you want to change this on runtime
+	var/can_collar = FALSE
 
 	//Hot simple_animal baby making vars
 	var/list/childtype = null
@@ -104,10 +108,18 @@
 
 	var/attacked_sound = "punch"
 
-	var/AIStatus = AI_ON //The Status of our AI, can be set to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever)
-	var/can_have_ai = TRUE //once we have become sentient, we can never go back
-
-	var/shouldwakeup = FALSE //convenience var for forcibly waking up an idling AI on next check.
+	/// The Status of our AI, can be set to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever).
+	var/AIStatus = AI_ON
+	/// Once we have become sentient, we can never go back.
+	var/can_have_ai = TRUE
+	/// Convenience var for forcibly waking up an idling AI on next check.
+	var/shouldwakeup = FALSE
+	/// SSnpcpool will add random delay to the next mob's move or action, taking this var's value into account.
+	/// Lower the delay faster the mob can response.
+	/// Set this to zero for critical mobs, like megafauna.
+	var/AI_delay_max = 3 SECONDS
+	/// Current delay for the next mob's move/action. Used by SSnpcpool and SSidlenpcpool.
+	var/AI_delay_current
 
 	///Domestication.
 	var/tame = FALSE
@@ -122,6 +134,13 @@
 	///What kind of footstep this mob should have. Null if it shouldn't have any.
 	var/footstep_type
 
+	var/AIproc = 0 // determines if the AI loop is activated
+	var/Atkcool = 0 // attack cooldown
+	var/Tempstun = 0 // temporary temperature stuns
+	var/Discipline = 0 // if a slime has been hit with a freeze gun, or wrestled/attacked off a human, they become disciplined and don't attack anymore for a while
+	var/SStun = 0 // stun variable
+
+
 /mob/living/simple_animal/Initialize(mapload)
 	. = ..()
 	GLOB.simple_animals[AIStatus] += src
@@ -132,7 +151,6 @@
 	if(!loc)
 		stack_trace("Simple animal being instantiated in nullspace")
 	update_simplemob_varspeed()
-	verbs -= /mob/verb/observe
 	if(can_hide)
 		var/datum/action/innate/hide/hide = new()
 		hide.Grant(src)
@@ -141,39 +159,24 @@
 		regenerate_icons()
 	if(footstep_type)
 		AddElement(/datum/element/footstep, footstep_type)
-
+	add_strippable_element()
 
 /mob/living/simple_animal/Destroy()
 	QDEL_NULL(pcollar)
 	master_commander = null
 	GLOB.simple_animals[AIStatus] -= src
-	if(SSnpcpool.state == SS_PAUSED && LAZYLEN(SSnpcpool.currentrun))
-		SSnpcpool.currentrun -= src
+	SSnpcpool.currentrun -= src
 
 	if(nest)
 		nest.spawned_mobs -= src
 		nest = null
 
-	var/turf/T = get_turf(src)
-	if (T && AIStatus == AI_Z_OFF)
-		SSidlenpcpool.idle_mobs_by_zlevel[T.z] -= src
+	var/turf/our_turf = get_turf(src)
+	if(our_turf && AIStatus == AI_Z_OFF)
+		SSidlenpcpool.idle_mobs_by_zlevel[our_turf.z] -= src
 
 	return ..()
 
-/mob/living/simple_animal/attackby(obj/item/O, mob/user, params)
-	if(!is_type_in_list(O, food_type))
-		..()
-		return
-	else
-		user.visible_message("<span class='notice'>[user] hand-feeds [O] to [src].</span>", "<span class='notice'>You hand-feed [O] to [src].</span>")
-		qdel(O)
-		if(tame)
-			return
-		if(prob(tame_chance)) //note: lack of feedback message is deliberate, keep them guessing!
-			tame = TRUE
-			tamed(user)
-		else
-			tame_chance += bonus_tame_chance
 
 ///Extra effects to add when the mob is tamed, such as adding a riding or whatever.
 /mob/living/simple_animal/proc/tamed(whomst)
@@ -192,9 +195,10 @@
 	if(IsSleeping())
 		. += "<span class='notice'>Upon closer examination, [p_they()] appear[p_s()] to be asleep.</span>"
 
+
 /mob/living/simple_animal/updatehealth(reason = "none given", should_log = FALSE)
-	..()
-	health = clamp(health, 0, maxHealth)
+	. = ..()
+	set_health(clamp(health, 0, maxHealth))
 	med_hud_set_health()
 
 
@@ -232,9 +236,11 @@
 	if(stat != DEAD)
 		if(health <= 0)
 			death()
+		else if(allows_unconscious && HAS_TRAIT(src, TRAIT_KNOCKEDOUT))
+			set_stat(UNCONSCIOUS)
 		else
 			set_stat(CONSCIOUS)
-	..()
+	return ..()
 
 
 /mob/living/simple_animal/proc/handle_automated_action()
@@ -304,7 +310,7 @@
 
 	var/areatemp = get_temperature(environment)
 
-	if(abs(areatemp - bodytemperature) > 5 && !(BREATHLESS in mutations))
+	if(abs(areatemp - bodytemperature) > 5 && !HAS_TRAIT(src, TRAIT_NO_BREATH))
 		var/diff = areatemp - bodytemperature
 		diff = diff / 5
 		adjust_bodytemperature(diff)
@@ -392,11 +398,10 @@
 
 
 
-/mob/living/simple_animal/Stat()
-	..()
-	if(statpanel("Status"))
-		stat(null, "Health: [round((health / maxHealth) * 100)]%")
-		return TRUE
+/mob/living/simple_animal/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Health:", "[round((health / maxHealth) * 100)]%")
 
 /mob/living/simple_animal/proc/drop_loot()
 	if(loot.len)
@@ -429,7 +434,7 @@
 		ghostize()
 		qdel(src)
 	else
-		health = 0
+		set_health(0)
 		update_icons()
 		if(flip_on_death)
 			transform = transform.Turn(180)
@@ -532,18 +537,6 @@
 		if(target)
 			return new childspawn(target)
 
-/mob/living/simple_animal/show_inv(mob/user)
-	if(!can_collar)
-		return
-
-	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8"><table><tr><td><B>Collar:</B></td><td><A href='?src=[UID()];item=[ITEM_SLOT_NECK]'>[(pcollar && !(pcollar.item_flags & ABSTRACT)) ? pcollar : "<font color=grey>Empty</font>"]</A></td></tr></table>"}
-	dat += "<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>"
-
-	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 250)
-	popup.set_content(dat)
-	popup.open()
-
 /mob/living/simple_animal/get_item_by_slot(slot_id)
 	switch(slot_id)
 		if(ITEM_SLOT_NECK)
@@ -631,22 +624,28 @@
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
+
 /mob/living/simple_animal/proc/toggle_ai(togglestatus)
+	if(AIStatus == togglestatus)
+		return
 	if(!can_have_ai && (togglestatus != AI_OFF))
 		return
-	if(AIStatus != togglestatus)
-		if(togglestatus > 0 && togglestatus < 5)
-			if(togglestatus == AI_Z_OFF || AIStatus == AI_Z_OFF)
-				var/turf/T = get_turf(src)
-				if(AIStatus == AI_Z_OFF)
-					SSidlenpcpool.idle_mobs_by_zlevel[T.z] -= src
-				else
-					SSidlenpcpool.idle_mobs_by_zlevel[T.z] += src
-			GLOB.simple_animals[AIStatus] -= src
-			GLOB.simple_animals[togglestatus] += src
-			AIStatus = togglestatus
+	var/turf/our_turf = get_turf(src)
+	if(QDELETED(src) || !our_turf)
+		return
+	if(togglestatus < AI_ON || togglestatus > AI_Z_OFF)
+		stack_trace("Something attempted to set simple animals AI to an invalid state: [togglestatus]")
+		return
+	if(togglestatus == AI_Z_OFF || AIStatus == AI_Z_OFF)
+		if(AIStatus == AI_Z_OFF)
+			SSidlenpcpool.idle_mobs_by_zlevel[our_turf.z] -= src
 		else
-			stack_trace("Something attempted to set simple animals AI to an invalid state: [togglestatus]")
+			SSidlenpcpool.idle_mobs_by_zlevel[our_turf.z] += src
+	GLOB.simple_animals[AIStatus] -= src
+	GLOB.simple_animals[togglestatus] += src
+	AIStatus = togglestatus
+	AI_delay_current = world.time
+
 
 /mob/living/simple_animal/proc/consider_wakeup()
 	if(pulledby || shouldwakeup)
@@ -655,9 +654,8 @@
 
 /mob/living/simple_animal/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = TRUE)
 	..()
-	if(AIStatus == AI_Z_OFF && old_turf?.z)
+	if(old_turf && AIStatus == AI_Z_OFF)
 		SSidlenpcpool.idle_mobs_by_zlevel[old_turf.z] -= src
-	if(!QDELETED(src))
 		toggle_ai(initial(AIStatus))
 
 
@@ -675,6 +673,20 @@
 		real_name = P.tagname
 	P.equipped(src)
 	return TRUE
+
+/mob/living/simple_animal/proc/remove_collar(atom/new_loc, mob/user)
+	if(!pcollar)
+		return
+
+	var/obj/old_collar = pcollar
+
+	if(!drop_item_ground(pcollar))
+		return
+
+	if(user)
+		user.put_in_hands(old_collar)
+
+	return old_collar
 
 
 /mob/living/simple_animal/regenerate_icons()
@@ -699,10 +711,20 @@
 		playsound(src, pick(talk_sound), 75, TRUE)
 
 
-/mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user)
+/mob/living/simple_animal/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
+	if(I.force && (I.force < force_threshold || I.damtype == STAMINA))
+		visible_message(
+			span_warning("[user] tries to hit [src] with [I], but it bounces harmlessly!"),
+			span_warning("[user] tries to hit you with [I], but it bounces harmlessly!"),
+			ignored_mobs = user,
+		)
+		to_chat(user, span_danger("This weapon is ineffective, it does no damage!"))
+		return ATTACK_CHAIN_BLOCKED
+
 	. = ..()
-	if(. && length(src.damaged_sound))
-		playsound(src, pick(src.damaged_sound), 40, 1)
+	if(ATTACK_CHAIN_SUCCESS_CHECK(.) && I.force && length(damaged_sound))
+		playsound(loc, pick(damaged_sound), 40, TRUE)
+
 
 /mob/living/simple_animal/attack_hand(mob/living/carbon/human/M)
 	. = ..()
@@ -771,3 +793,15 @@
 	else if(glide_size != DEFAULT_GLIDE_SIZE)
 		set_glide_size(DEFAULT_GLIDE_SIZE)
 
+/mob/living/simple_animal/proc/set_can_collar(new_value)
+	can_collar = (new_value ? TRUE : FALSE)
+	if(can_collar)
+		add_strippable_element()
+		return
+	remove_collar(drop_location())
+	RemoveElement(/datum/element/strippable)
+
+/mob/living/simple_animal/proc/add_strippable_element()
+	if(!can_collar)
+		return
+	AddElement(/datum/element/strippable, create_strippable_list(list(/datum/strippable_item/pet_collar)))

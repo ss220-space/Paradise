@@ -33,7 +33,8 @@
 	else if(iscogscarab(speaker))
 		jobname = "Unknown"
 	else if(isrobot(speaker))
-		jobname = JOB_TITLE_CYBORG
+		var/mob/living/silicon/robot/R = speaker
+		jobname = R.mind.role_alt_title ? R.mind.role_alt_title : JOB_TITLE_CYBORG
 	else if(ispAI(speaker))
 		jobname = "Personal AI"
 	else if(isAutoAnnouncer(speaker))
@@ -112,7 +113,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 		to_chat(src, "<span class='warning'>Please wait [round((GLOB.announcing_vox - world.time) / 10)] seconds.</span>")
 		return
 
-	var/message = clean_input("WARNING: Misuse of this verb can result in you being job banned. More help is available in 'Announcement Help'", "Announcement", last_announcement, src)
+	var/message = tgui_input_text(src, "WARNING: Misuse of this verb can result in you being job banned. More help is available in 'Announcement Help'", "Announcement", last_announcement)
 
 	last_announcement = message
 
@@ -191,14 +192,4 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 			only_listener << voice
 		return TRUE
 	return FALSE
-
-
-// VOX sounds moved to /code/defines/vox_sounds.dm
-
-/client/proc/preload_vox()
-	var/list/vox_files = flist(VOX_PATH)
-	for(var/file in vox_files)
-//	to_chat(src, "Downloading [file]")
-		var/sound/S = sound("[VOX_PATH][file]")
-		src << browse_rsc(S)
 

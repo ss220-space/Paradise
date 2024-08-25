@@ -73,7 +73,9 @@
 /turf/space,
 /area/space)
 "x" = (
-/obj/structure/disposalpipe/junction,
+/obj/structure/disposalpipe/junction{
+	dir = 2
+	},
 /turf/space,
 /area/space)
 "y" = (
@@ -124,10 +126,6 @@
 /area/space)
 "K" = (
 /obj/item/shard,
-/turf/space,
-/area/space)
-"N" = (
-/obj/structure/lattice,
 /turf/space,
 /area/space)
 "O" = (
@@ -463,7 +461,7 @@ X
 v
 X
 v
-N
+v
 E
 E
 K

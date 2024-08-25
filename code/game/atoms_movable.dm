@@ -160,6 +160,8 @@
 	if(opacity)
 		RemoveElement(/datum/element/light_blocking)
 
+	invisibility = INVISIBILITY_ABSTRACT
+
 	if(pulledby)
 		pulledby.stop_pulling()
 	if(pulling)
@@ -241,6 +243,8 @@
 
 	return ..()
 
+/atom/movable/proc/moveToNullspace()
+	return doMove(null)
 
 /// Proc to hook user-enacted teleporting behavior and keep logging of the event.
 /atom/movable/proc/admin_teleport(atom/new_location)
@@ -342,7 +346,7 @@
 		return FALSE
 	if(ismob(src))
 		var/mob/mob = src
-		mob.changeNext_move(CLICK_CD_GRABBING)
+		mob.changeNext_move(CLICK_CD_PULLING)
 	return pulling.Move(pull_turf, move_dir, glide_size)
 
 
@@ -361,7 +365,7 @@
 			stop_pulling()
 		else if(pulling.anchored || pulling.move_resist > move_force)
 			stop_pulling()
-	if(!only_pulling && pulledby && moving_diagonally != FIRST_DIAG_STEP && (!in_range(src, pulledby)  || z != pulledby.z)) //separated from our puller and not in the middle of a diagonal move.
+	if(!only_pulling && pulledby && moving_diagonally != FIRST_DIAG_STEP && (!in_range(src, pulledby) || (z != pulledby.z && !z_allowed))) //separated from our puller and not in the middle of a diagonal move.
 		pulledby.stop_pulling()
 
 
@@ -644,7 +648,14 @@
 				var/range_check = grab_state < GRAB_NECK ? !in_range(src, pulling) : pulling.loc != loc
 				if(range_check || target_turf != current_turf || (moving_diagonally != SECOND_DIAG_STEP && ISDIAGONALDIR(pull_dir)))
 					pulling.move_from_pull(src, target_turf, glide_size)
-			check_pulling()
+			if(pulledby)
+				if(pulledby.currently_z_moving)
+					check_pulling(z_allowed = TRUE)
+				//dont call check_pulling() here at all if there is a pulledby that is not currently z moving
+				//because it breaks stair conga lines, for some fucking reason.
+				//it's fine because the pull will be checked when this whole proc is called by the mob doing the pulling anyways
+			else
+				check_pulling()
 
 	// glide_size strangely enough can change mid movement animation and update correctly while the animation is playing
 	// This means that if you don't override it late like this, it will just be set back
@@ -851,6 +862,7 @@
 				if(destarea && old_area != destarea)
 					destarea.Entered(src, old_area)
 
+
 		. = TRUE
 
 	//If no destination, move the atom into nullspace (don't do this unless you know what you're doing)
@@ -920,18 +932,27 @@
 				moved_mov.check_pulling(TRUE)
 	return TRUE
 
+
 /// Returns a list of movables that should also be affected when src moves through zlevels, and src.
 /atom/movable/proc/get_z_move_affected(z_move_flags)
 	. = list(src)
 	if(buckled_mobs)
 		. |= buckled_mobs
 	if(!(z_move_flags & ZMOVE_INCLUDE_PULLED))
-		return
+		return .
 	for(var/mob/living/buckled as anything in buckled_mobs)
 		if(buckled.pulling)
 			. |= buckled.pulling
 	if(pulling)
 		. |= pulling
+		if(pulling.buckled_mobs)
+			. |= pulling.buckled_mobs
+
+		//makes conga lines work with ladders and flying up and down; checks if the guy you are pulling is pulling someone,
+		//then uses recursion to run the same function again
+		if(pulling.pulling)
+			. |= pulling.pulling.get_z_move_affected(z_move_flags)
+
 
 /**
  * Checks if the destination turf is elegible for z movement from the start turf to a given direction and returns it if so.
@@ -960,7 +981,7 @@
 			return FALSE
 	if(z_move_flags & ZMOVE_FALL_CHECKS && (throwing || (movement_type & (FLYING|FLOATING)) || !has_gravity(start)))
 		return FALSE
-	if(z_move_flags & ZMOVE_CAN_FLY_CHECKS && (movement_type & (FLYING|FLOATING)) && has_gravity(start))
+	if(z_move_flags & ZMOVE_CAN_FLY_CHECKS && !(movement_type & (FLYING|FLOATING)) && has_gravity(start))
 		if(z_move_flags & ZMOVE_FEEDBACK)
 			if(rider)
 				to_chat(rider, span_notice("[src] is not capable of flight."))
@@ -1050,7 +1071,7 @@
 /// Only moves the object if it's under no gravity
 /// Accepts the direction to move, if the push should be instant, and an optional parameter to fine tune the start delay
 /atom/movable/proc/newtonian_move(direction, instant = FALSE, start_delay = 0)
-	if(QDELETED(src) || !isturf(loc) || Process_Spacemove(direction, continuous_move = TRUE))
+	if(QDELETED(src) || !isturf(loc) || anchored || Process_Spacemove(direction, continuous_move = TRUE))
 		return FALSE
 
 	if(SEND_SIGNAL(src, COMSIG_MOVABLE_NEWTONIAN_MOVE, direction, start_delay) & COMPONENT_MOVABLE_NEWTONIAN_BLOCK)
@@ -1150,18 +1171,21 @@
 	anchored = TRUE
 	simulated = FALSE
 
-/atom/movable/overlay/New()
+
+/atom/movable/overlay/Initialize(mapload, ...)
 	. = ..()
 	verbs.Cut()
-	return
 
-/atom/movable/overlay/attackby(a, b, c)
-	if(master)
-		return master.attackby(a, b, c)
 
-/atom/movable/overlay/attack_hand(a, b, c)
+/atom/movable/overlay/attackby(obj/item/I, mob/user, params)
 	if(master)
-		return master.attack_hand(a, b, c)
+		I.melee_attack_chain(user, master, params)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
+
+/atom/movable/overlay/attack_hand(mob/user)
+	if(master)
+		return master.attack_hand(user)
 
 
 /atom/movable/proc/handle_buckled_mob_movement(newloc, direct, glide_size_override)
@@ -1402,3 +1426,13 @@
 /// called when a mob gets shoved into an items turf. false means the mob will be shoved backwards normally, true means the mob will not be moved by the disarm proc.
 /atom/movable/proc/shove_impact(mob/living/target, mob/living/attacker)
 	return FALSE
+
+
+/**
+* A wrapper for setDir that should only be able to fail by living mobs.
+*
+* Called from [/atom/movable/proc/keyLoop], this exists to be overwritten by living mobs with a check to see if we're actually alive enough to change directions
+*/
+/atom/movable/proc/keybind_face_direction(direction)
+	setDir(direction)
+

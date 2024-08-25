@@ -24,6 +24,27 @@
 /datum/chemical_reaction/proc/on_reaction(datum/reagents/holder, created_volume)
 	return
 
+/datum/chemical_reaction/proc/make_vaporation(list/reagents, datum/reagents/holder, amount, radius)
+	if(!holder || !holder.my_atom)
+		return
+	var/turf/T = get_turf(holder.my_atom)
+	if(!T)
+		return
+	
+	var/color = mix_color_from_reagents(holder.reagent_list)
+
+	T.visible_message(span_warning("The solution generates a strong vapor!"))
+	new /obj/effect/particle_effect/chem_smoke/small(T, color)
+	playsound(T, 'sound/effects/smoke.ogg', 50, TRUE, -3)
+
+	for(var/mob/living/carbon/carbon in view(radius, T))
+		if(!carbon.can_breathe_gas())
+			continue
+		carbon.emote("gasp")
+		if(amount >= 60)
+			carbon.AdjustLoseBreath(2 SECONDS)
+		for(var/local_reagent in reagents)
+			carbon.reagents.add_reagent(local_reagent, REAGENT_EVAPORATION(amount))
 
 /datum/chemical_reaction/proc/chemical_mob_spawn(datum/reagents/holder, amount_to_spawn, reaction_name, mob_class = HOSTILE_SPAWN, mob_faction = "chemicalsummon", random = TRUE, gold_core_spawn = FALSE)
 	if(holder && holder.my_atom)
@@ -41,7 +62,7 @@
 		message_admins(message)
 		add_game_logs("[reaction_name] chemical mob spawn reaction occuring at [AREACOORD(T)] carried by [key_name_log(M)] with last fingerprint [A.fingerprintslast? A.fingerprintslast : "N/A"]", M)
 
-		playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
+		playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, TRUE)
 
 		for(var/mob/living/carbon/C in viewers(get_turf(holder.my_atom), null))
 			C.flash_eyes()
@@ -57,7 +78,7 @@
 			S.faction |= mob_faction
 			if(prob(50))
 				for(var/j = 1, j <= rand(1, 3), j++)
-					step(S, pick(NORTH,SOUTH,EAST,WEST))
+					step(S, pick(NORTH, SOUTH, EAST, WEST))
 
 /proc/goonchem_vortex(turf/T, setting_type, volume)
 	if(setting_type)

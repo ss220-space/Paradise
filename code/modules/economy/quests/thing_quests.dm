@@ -477,7 +477,7 @@
 		"LISP" = 150,
 		"MUTE" = 150,
 		"RAD" = 150,
-		"FAT" = 150,
+		"OBESITY" = 150,
 		"SWEDE" = 150,
 		"SCRAMBLE" = 150,
 		"WEAK" = 150,
@@ -508,6 +508,7 @@
 		"BREATHLESS" = 250,
 		"COLD" = 200,
 		"HALLUCINATION" = 200,
+		"FARVISION" = 200,
 	)
 	very_hard_items = list(
 		"NOPRINTS" = 250,

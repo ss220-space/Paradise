@@ -43,77 +43,83 @@
 		. += span_notice("It is damaged beyond repair.")
 
 
-/obj/structure/closet/fireaxecabinet/attackby(obj/item/I, mob/living/user)
+/obj/structure/closet/fireaxecabinet/multitool_act(mob/living/user, obj/item/I)
+	if(smashed)
+		return FALSE
+
+	. = TRUE
+	if(locked)
+		to_chat(user, span_warning("Resetting circuitry..."))
+		if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume) || smashed || !locked)
+			return .
+		locked = FALSE
+		to_chat(user, span_caution("You disable the locking modules."))
+		update_icon(UPDATE_ICON_STATE)
+		return .
+
+	if(localopened)
+		add_fingerprint(user)
+		operate_panel()
+		return .
+
+	to_chat(user, span_warning("Resetting circuitry..."))
+	playsound(user, 'sound/machines/lockenable.ogg', 50, TRUE)
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume) || smashed || locked)
+		return .
+
+	locked = TRUE
+	update_icon(UPDATE_ICON_STATE)
+	to_chat(user, span_caution("You re-enable the locking modules."))
+
+
+/obj/structure/closet/fireaxecabinet/attackby(obj/item/I, mob/living/user, params)
+	. = ATTACK_CHAIN_BLOCKED_ALL
 	add_fingerprint(user)
+
 	if(isrobot(user) || locked)
-		if(ismultitool(I))
-			to_chat(user, span_warning("Resetting circuitry..."))
-			playsound(user, 'sound/machines/lockreset.ogg', 50, TRUE)
-			if(!do_after(user, 2 SECONDS * I.toolspeed, src, max_interact_count = 1))
-				return
-
-			locked = FALSE
-			to_chat(user, span_caution("You disable the locking modules."))
-			update_icon(UPDATE_ICON_STATE)
-			return
-
-		user.changeNext_move(CLICK_CD_MELEE)
 		if(smashed || localopened)
 			if(localopened)
 				operate_panel()
-			return
+			return .
 
 		user.do_attack_animation(src)
 		playsound(user, 'sound/effects/glasshit.ogg', 100, TRUE) //We don't want this playing every time
 		if(I.force < 15)
 			to_chat(user, span_notice("The cabinet's protective glass glances off the hit."))
-		else
-			hitstaken++
-			if(hitstaken == 4)
-				playsound(user, 'sound/effects/glassbr3.ogg', 100, TRUE) //Break cabinet, receive goodies. Cabinet's fucked for life after that.
-				smashed = TRUE
-				locked = FALSE
-				localopened = TRUE
+			return .
+
+		hitstaken++
+		if(hitstaken == 4)
+			playsound(user, 'sound/effects/glassbr3.ogg', 100, TRUE) //Break cabinet, receive goodies. Cabinet's fucked for life after that.
+			smashed = TRUE
+			locked = FALSE
+			localopened = TRUE
 		update_icon(UPDATE_ICON_STATE)
-		return
+		return .
 
 	if(istype(I, /obj/item/twohanded/fireaxe) && localopened)
 		if(!fireaxe)
 			var/obj/item/twohanded/fireaxe/placed_axe = I
 			if(HAS_TRAIT(placed_axe, TRAIT_WIELDED))
 				to_chat(user, span_warning("Unwield [placed_axe] first."))
-				return
+				return .
 			if(!user.drop_transfer_item_to_loc(placed_axe, src))
 				to_chat(user, span_warning("[placed_axe] stays stuck to your hands!"))
-				return
+				return .
 			fireaxe = placed_axe
 			has_axe = "full"
 			to_chat(user, span_notice("You place [placed_axe] back in the [name]."))
 			update_icon(UPDATE_ICON_STATE)
-			return
+			return .
 
 		if(smashed)
-			return
+			return .
 
 		operate_panel()
-		return
+		return .
 
 	if(smashed)
-		return
-
-	if(ismultitool(I))
-		if(localopened)
-			operate_panel()
-			return
-
-		to_chat(user, span_warning("Resetting circuitry..."))
-		playsound(user, 'sound/machines/lockenable.ogg', 50, TRUE)
-		if(!do_after(user, 2 SECONDS * I.toolspeed, src, max_interact_count = 1))
-			return
-
-		locked = TRUE
-		to_chat(user, span_caution("You re-enable the locking modules."))
-		return
+		return .
 
 	operate_panel()
 
@@ -223,22 +229,23 @@
 		. += "rod"
 
 
-/obj/structure/fishingrodcabinet/attackby(obj/item/I, mob/living/user)
-	if(!istype(I, /obj/item/twohanded/fishingrod))
+/obj/structure/fishingrodcabinet/attackby(obj/item/I, mob/living/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	var/obj/item/twohanded/fishingrod/rod = I
-	if(HAS_TRAIT(rod, TRAIT_WIELDED))
-		to_chat(user, span_warning("Unwield [rod] first."))
-		return
-	if(!user.drop_transfer_item_to_loc(rod, src))
-		to_chat(user, span_warning("[rod] stays stuck to your hands!"))
-		return
+	if(istype(I, /obj/item/twohanded/fishingrod))
+		var/obj/item/twohanded/fishingrod/rod = I
+		if(HAS_TRAIT(rod, TRAIT_WIELDED))
+			to_chat(user, span_warning("Unwield [rod] first."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(rod, src))
+			return ..()
+		olreliable = rod
+		to_chat(user, span_notice("You place [rod] back in [src]."))
+		update_icon(UPDATE_OVERLAYS)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	olreliable = rod
-	to_chat(user, span_notice("You place [rod] back in [src]."))
-	update_icon(UPDATE_OVERLAYS)
-
+	return ..()
 
 
 /obj/structure/fishingrodcabinet/attack_hand(mob/user)

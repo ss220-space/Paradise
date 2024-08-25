@@ -3,7 +3,6 @@ import { flow } from 'common/fp';
 import { toFixed } from 'common/math';
 import { pureComponentHooks } from 'common/react';
 import { decodeHtmlEntities } from 'common/string';
-
 import { useBackend, useLocalState } from '../backend';
 import {
   Box,
@@ -46,10 +45,6 @@ export const PowerMonitorMainContent = (props, context) => {
 const SelectionView = (props, context) => {
   const { act, data } = useBackend(context);
   const { powermonitors } = data;
-
-  if (!powermonitors) {
-    return 'No working power monitor consoles in this sector detected.';
-  }
 
   return (
     <Section title="Select Power Monitor">
@@ -138,7 +133,7 @@ const DataView = (props, context) => {
             </Section>
           </Flex.Item>
           <Flex.Item grow={1}>
-            <Section position="relative" height="100%">
+            <Section fill ml={1}>
               <Chart.Line
                 fillPositionedParent
                 data={supplyData}

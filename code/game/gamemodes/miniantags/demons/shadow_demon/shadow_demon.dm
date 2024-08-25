@@ -173,7 +173,6 @@
 /obj/effect/proc_holder/spell/fireball/shadow_grapple
 	name = "Shadow Grapple"
 	desc = "Fire one of your hands, if it hits a person it pulls them in. If you hit a structure you get pulled to the structure."
-	panel = "Demon"
 	action_background_icon_state = "shadow_demon_bg"
 	action_icon_state = "shadow_grapple"
 	invocation_type = "none"

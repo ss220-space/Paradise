@@ -297,8 +297,8 @@
 		return
 	//get amount from user
 	var/max = get_amount()
-	var/stackmaterial = round(input(user, "How many sheets do you wish to take out of this stack? (Maximum: [max])") as null|num)
-	if(stackmaterial == null || stackmaterial <= 0 || stackmaterial > get_amount())
+	var/stackmaterial = tgui_input_number(user, "How many sheets do you wish to take out of this stack? (Max: [max])", "Stack Split", max_value = max)
+	if(isnull(stackmaterial) || stackmaterial <= 0 || stackmaterial > get_amount())
 		return
 	if(amount < 1 || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
@@ -335,14 +335,14 @@
 		. = ..()
 
 
-/obj/item/stack/attackby(obj/item/W, mob/user, params)
-	if(can_merge(W, inhand = TRUE))
+/obj/item/stack/attackby(obj/item/stack/I, mob/user, params)
+	if(can_merge(I, inhand = TRUE))
+		add_fingerprint(user)
 		do_pickup_animation(user)
-		var/obj/item/stack/S = W
-		if(merge(S))
-			to_chat(user, span_notice("Your [S.name] stack now contains [S.get_amount()] [S.singular_name]\s."))
-	else
-		. = ..()
+		if(merge(I))
+			to_chat(user, span_notice("Your [I.name] stack now contains [I.get_amount()] [I.singular_name]\s."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 
 
 /obj/item/stack/proc/copy_evidences(obj/item/stack/from)

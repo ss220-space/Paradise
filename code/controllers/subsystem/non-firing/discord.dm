@@ -11,7 +11,7 @@ SUBSYSTEM_DEF(discord)
 /datum/controller/subsystem/discord/Initialize()
 	if(CONFIG_GET(flag/discord_webhooks_enabled))
 		enabled = TRUE
-
+	return SS_INIT_SUCCESS
 
 // This is designed for ease of simplicity for sending quick messages from parts of the code
 /datum/controller/subsystem/discord/proc/send2discord_simple(destination, content)

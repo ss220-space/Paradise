@@ -11,16 +11,15 @@
 	throwforce = 0
 	throw_speed = 4
 	throw_range = 20
-	discrete = 1
+	item_flags = SKIP_ATTACK_MESSAGE
 	var/cleanspeed = 50 //slower than mop
 
 /obj/item/soap/ComponentInitialize()
 	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = (SLIDE|SLIP_WHEN_LYING))
 
-/obj/item/soap/afterattack(atom/target, mob/user, proximity)
-	if(!proximity) return
-	if(try_item_eat(target, user))
-		return FALSE
+/obj/item/soap/afterattack(atom/target, mob/user, proximity, params)
+	if(!proximity)
+		return
 	//I couldn't feasibly  fix the overlay bugs caused by cleaning items we are wearing.
 	//So this is a workaround. This also makes more sense from an IC standpoint. ~Carn
 	if(user.client && (target in user.client.screen))
@@ -52,11 +51,16 @@
 		if(O.is_cleanable())
 			qdel(O)
 
-/obj/item/soap/attack(mob/target as mob, mob/user as mob)
-	if(target && user && ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_selected == "mouth" )
-		user.visible_message("<span class='warning'>\the [user] washes \the [target]'s mouth out with [name]!</span>")
-		return
-	..()
+
+/obj/item/soap/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+		user.visible_message(
+			span_warning("[user] washes [target]'s mouth out with [name]!"),
+			span_notice("You have washed [target]'s mouth out with [name]!"),
+		)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	return ..()
+
 
 /obj/item/soap/nanotrasen
 	desc = "A Nanotrasen brand bar of soap. Smells of plasma."
@@ -181,7 +185,7 @@
 	desc = "A homemade bar of soap. It seems to be gibs and tape..Will this clean anything?"
 	icon_state = "soapgibs"
 
-/obj/item/soap/ducttape/afterattack(atom/target, mob/user as mob, proximity)
+/obj/item/soap/ducttape/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity) return
 
 	if(user.client && (target in user.client.screen))

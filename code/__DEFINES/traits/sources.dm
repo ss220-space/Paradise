@@ -19,6 +19,9 @@
 #define EAR_DAMAGE "ear_damage"
 #define EYE_DAMAGE "eye_damage"
 
+/// Trait sorce for "was recently shocked by something"
+#define WAS_SHOCKED "was_shocked"
+
 /// cannot be removed without admin intervention
 #define ROUNDSTART_TRAIT "roundstart"
 
@@ -53,6 +56,9 @@
 #define AUGMENT_TRAIT "augment"
 #define ANTIDROP_TRAIT "antidrop"
 #define HOLO_CIGAR_TRAIT "holo_cigar"
+
+#define WISHGRANTER_TRAIT "wishgranter"
+#define THUNDERDOME_TRAIT "thunderdome"
 
 /// A trait given by any status effect
 #define STATUS_EFFECT_TRAIT "status-effect"
@@ -115,6 +121,8 @@
 
 #define FULTON_TRAIT "fulton"
 
+#define ANOMALOUS_CRYSTAL_TRAIT "anomalous_crystal"
+
 #define FLOOR_CLUWNE_TRAIT "floor_cluwne"
 
 #define DRAGON_SWOOP_TRAIT "dragon_swoop"
@@ -133,4 +141,10 @@
 #define IMPLANT_JUMP_BOOTS_TRAIT "implant_jump_boots_trait"
 #define SPELL_LEAP_TRAIT "spell_leap_trait"
 #define SPELL_LUNGE_TRAIT "spell_lunge_trait"
+
+// item trait sources
+#define BROODMOTHER_TONGUE_TRAIT "broodmother_tongue"
+#define SCRYING_ORB_TRAIT "scrying_orb"
+#define EVIL_FAX_TRAIT "evil_fax"
+#define CORGI_HARDSUIT_TRAIT "corgi_hardsuit"
 

@@ -9,7 +9,7 @@ const path = require('path');
 const ExtractCssPlugin = require('mini-css-extract-plugin');
 const { createBabelConfig } = require('./babel.config.js');
 
-const createStats = verbose => ({
+const createStats = (verbose) => ({
   assets: verbose,
   builtAt: verbose,
   cached: false,
@@ -32,6 +32,8 @@ module.exports = (env = {}, argv) => {
     target: ['web', 'es5', 'browserslist:ie 11'],
     entry: {
       'tgui': ['./packages/tgui-polyfill', './packages/tgui'],
+      'tgui-panel': ['./packages/tgui-polyfill', './packages/tgui-panel'],
+      'tgui-say': ['./packages/tgui-polyfill', './packages/tgui-say'],
     },
     output: {
       path: argv.useTmpFolder

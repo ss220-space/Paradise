@@ -8,6 +8,7 @@
 	/// List of refs to falling objects -> how many levels deep we've fallen
 	var/static/list/falling_atoms = list()
 	var/static/list/forbidden_types = typecacheof(list(
+		/obj/machinery/bfl_receiver,
 		/obj/singularity,
 		/obj/docking_port,
 		/obj/structure/lattice,
@@ -141,14 +142,14 @@
 			var/mob/living/dropped_living = dropped_mob
 			if(dropped_living.incorporeal_move)
 				return CHASM_NOT_DROPPING
-		if(ishuman(dropped_mob))
-			var/obj/item/wormhole_jaunter/jaunter = locate() in dropped_mob
-			if(jaunter)
-				var/turf/chasm = get_turf(dropped_mob)
-				var/fall_into_chasm = jaunter.chasm_react(dropped_mob)
-				if(!fall_into_chasm)
-					chasm.visible_message(span_boldwarning("[dropped_mob] falls into the [chasm]!")) //To freak out any bystanders
-				return fall_into_chasm ? CHASM_DROPPING : CHASM_NOT_DROPPING
+			if(ishuman(dropped_mob))
+				var/obj/item/wormhole_jaunter/jaunter = locate() in dropped_mob.GetAllContents()
+				if(jaunter)
+					var/turf/chasm = get_turf(dropped_mob)
+					var/fall_into_chasm = jaunter.chasm_react(dropped_mob)
+					if(!fall_into_chasm)
+						chasm.visible_message(span_boldwarning("[dropped_mob] falls into the [chasm]!")) //To freak out any bystanders
+					return fall_into_chasm ? CHASM_DROPPING : CHASM_NOT_DROPPING
 
 	return CHASM_DROPPING
 

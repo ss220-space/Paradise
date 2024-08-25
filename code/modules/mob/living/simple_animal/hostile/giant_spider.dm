@@ -42,6 +42,7 @@
 	var/venom_per_bite = 0 // While the /poison/ type path remains as-is for consistency reasons, we're really talking about venom, not poison.
 	var/busy = 0
 	footstep_type = FOOTSTEP_MOB_CLAW
+	AI_delay_max = 0.5 SECONDS
 
 /mob/living/simple_animal/hostile/poison/giant_spider/AttackingTarget()
 	// This is placed here, NOT on /poison, because the other subtypes of /poison/ already override AttackingTarget() completely, and as such it would do nothing but confuse people there.
@@ -88,17 +89,35 @@
 	venom_per_bite = 10
 	move_to_delay = 5
 
+
 /mob/living/simple_animal/hostile/poison/giant_spider/handle_automated_movement() //Hacky and ugly.
 	. = ..()
-	if(AIStatus == AI_IDLE)
-		//1% chance to skitter madly away
-		if(!busy && prob(1))
-			stop_automated_movement = 1
-			Goto(pick(urange(20, src, 1)), move_to_delay)
-			spawn(50)
-				stop_automated_movement = 0
-				SSmove_manager.stop_looping(src)
-		return 1
+	if(AIStatus != AI_IDLE)
+		return .
+
+	. = TRUE
+
+	//1% chance to skitter madly away
+	if(busy || !prob(1))
+		return .
+
+	var/turf/where
+	for(var/turf/check as anything in RANGE_TURFS(20, src))
+		if(!check.density)
+			where = check
+			break
+	if(!where)
+		return .
+
+	stop_automated_movement = TRUE
+	Goto(where, move_to_delay)
+	addtimer(CALLBACK(src, PROC_REF(start_automated_movement)), 5 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
+
+
+/mob/living/simple_animal/hostile/poison/giant_spider/proc/start_automated_movement()
+	SSmove_manager.stop_looping(src)
+	stop_automated_movement = FALSE
+
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/proc/GiveUp(C)
 	spawn(100)

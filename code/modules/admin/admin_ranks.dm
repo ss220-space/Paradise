@@ -18,10 +18,11 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 		var/list/List = splittext(line,"+")
 		if(!List.len)					continue
 
-		var/rank = List[1]
+		var/rank = trim(List[1])
 		switch(rank)
 			if(null,"")		continue
 			if("Removed")	continue				//Reserved
+			if("Удален")	continue				//Reserved
 
 		var/rights = 0
 		for(var/i=2, i<=List.len, i++)
@@ -58,13 +59,13 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 
 /proc/load_admins(run_async = FALSE)
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, "<span class='boldannounce'>Admin reload blocked: Advanced ProcCall detected.</span>")
+		to_chat(usr, span_boldannounceooc("Admin reload blocked: Advanced ProcCall detected."))
 		log_and_message_admins("attempted to reload admins via advanced proc-call")
 		return
 	//clear the datums references
 	GLOB.admin_datums.Cut()
 	for(var/client/C in GLOB.admins)
-		C.remove_admin_verbs()
+		C.hide_verbs()
 		C.holder = null
 	GLOB.admins.Cut()
 

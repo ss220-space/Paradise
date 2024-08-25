@@ -112,7 +112,7 @@
 				copy = D.Copy()
 			if(!copy)
 				return
-			var/name = stripped_input(usr,"Name:","Name the culture",copy.name,MAX_NAME_LEN)
+			var/name = tgui_input_text(usr, "Name:", "Name the culture", D.name, MAX_NAME_LEN)
 			if(name == null || wait)
 				return
 			var/obj/item/reagent_containers/glass/bottle/B = new(loc)
@@ -143,7 +143,7 @@
 		updateUsrDialog()
 		return
 	else if(href_list["name_disease"])
-		var/new_name = stripped_input(usr, "Name the Disease", "New Name", "", MAX_NAME_LEN)
+		var/new_name = tgui_input_text(usr, "Name the Disease", "New Name", max_length = MAX_NAME_LEN)
 		if(!new_name)
 			return
 		if(..())
@@ -177,7 +177,7 @@
 /obj/machinery/computer/pandemic/proc/print_form(var/datum/disease/virus/advance/D, mob/living/user)
 	D = GLOB.archive_diseases[D.GetDiseaseID()]
 	if(!(printing) && D)
-		var/reason = input(user,"Укажите причину выпуска", "Указать", null) as message
+		var/reason = tgui_input_text(user,"Укажите причину выпуска", "Указать", multiline = TRUE)
 		reason += "<span class=\"paper_field\"></span>"
 		var/english_symptoms = list()
 		for(var/I in D.symptoms)
@@ -187,7 +187,7 @@
 
 
 		var/signature
-		if(alert(user,"Вы хотите подписать этот документ?",,"Да","Нет") == "Да")
+		if(tgui_alert(user, "Вы хотите подписать этот документ?", "Подпись", list("Да","Нет")) == "Да")
 			signature = "<font face=\"[SIGNFONT]\"><i>[user ? user.real_name : "Аноним"]</i></font>"
 		else
 			signature = "<span class=\"paper_field\"></span>"
@@ -322,28 +322,42 @@
 
 
 /obj/machinery/computer/pandemic/attackby(obj/item/I, mob/user, params)
-	if(default_unfasten_wrench(user, I))
-		add_fingerprint(user)
-		power_change()
-		return
-	if(istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER))
-		if(stat & (NOPOWER|BROKEN))
-			return
-		if(beaker)
-			to_chat(user, "<span class='warning'>В машину уже вставлена мензурка!</span>")
-			return
-		if(!user.drop_transfer_item_to_loc(I, src))
-			return
-
-		add_fingerprint(user)
-		beaker =  I
-		to_chat(user, "<span class='notice'>Вы вставили мензурку в машину.</span>")
-		updateUsrDialog()
-		icon_state = "mixer1"
-
-	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
-		if(beaker)
-			add_fingerprint(user)
-			beaker.forceMove(get_turf(src))
-	else
+	if(user.a_intent == INTENT_HARM || (stat & (NOPOWER|BROKEN)))
 		return ..()
+
+	if(istype(I, /obj/item/reagent_containers))
+		add_fingerprint(user)
+		if(!(I.container_type & OPENCONTAINER))
+			to_chat(user, span_warning("The [I.name] is incompatible."))
+			return ATTACK_CHAIN_PROCEED
+		if(beaker)
+			to_chat(user, span_warning("The [name] already has [beaker] loaded."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		beaker = I
+		to_chat(user, span_notice("You have inserted [I] into [src]."))
+		updateUsrDialog()
+		update_icon(UPDATE_ICON_STATE)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
+
+/obj/machinery/computer/pandemic/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!beaker)
+		add_fingerprint(user)
+		to_chat(user, span_warning("There is no beaker installed."))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	beaker.forceMove(drop_location())
+	beaker = null
+	updateUsrDialog()
+	update_icon(UPDATE_ICON_STATE)
+
+
+/obj/machinery/computer/pandemic/wrench_act(mob/living/user, obj/item/I)
+	return default_unfasten_wrench(user, I)
+

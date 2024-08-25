@@ -24,7 +24,8 @@
 	oxy_mod = 1.2  //greys are fragile
 	stamina_mod = 1.2
 
-	toolspeedmod = 0.8 //25% faster
+	toolspeedmod = -0.2 //20% faster
+	surgeryspeedmod = -0.2
 
 	default_genes = list(/datum/dna/gene/basic/grant_spell/remotetalk)
 
@@ -87,7 +88,7 @@
 
 /datum/species/grey/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/translator_pref = H.client.prefs.speciesprefs
-	if(translator_pref || ((ismindshielded(H) || J.is_command || J.supervisors == "the captain") && (WINGDINGS in H.mutations)))
+	if(translator_pref || ((ismindshielded(H) || J.is_command || J.supervisors == "the captain") && HAS_TRAIT(H, TRAIT_WINGDINGS)))
 		if(J.title == JOB_TITLE_MIME)
 			return
 		if(J.title == JOB_TITLE_CLOWN)

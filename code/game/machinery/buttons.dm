@@ -37,7 +37,7 @@
 		set_frequency(frequency)
 
 /obj/machinery/driver_button/Initialize()
-	..()
+	. = ..()
 	set_frequency(frequency)
 
 /obj/machinery/driver_button/set_frequency(new_frequency)
@@ -68,20 +68,21 @@
 	. = TRUE
 	multitool_menu_interact(user, I)
 
+
 /obj/machinery/driver_button/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	playsound(get_turf(src), I.usesound, 50, 1)
-	if(do_after(user, 3 SECONDS * I.toolspeed * gettoolspeedmod(user), src))
-		to_chat(user, span_notice("You detach [src] from the wall."))
-		new/obj/item/mounted/frame/driver_button(get_turf(src))
-		qdel(src)
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
+		return .
+	to_chat(user, span_notice("You detach [src] from the wall."))
+	new /obj/item/mounted/frame/driver_button(loc)
+	qdel(src)
 
-/obj/machinery/driver_button/attackby(obj/item/W, mob/user as mob, params)
 
-	if(istype(W, /obj/item/detective_scanner))
-		return
-
+/obj/machinery/driver_button/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/detective_scanner))
+		return ATTACK_CHAIN_PROCEED
 	return ..()
+
 
 /obj/machinery/driver_button/attack_hand(mob/user as mob)
 

@@ -375,13 +375,16 @@
 		NEUTER = null
 		)
 
-/datum/species/golem/titanium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
-	. = ..()
-	C.weather_immunities |= "ash"
 
-/datum/species/golem/titanium/on_species_loss(mob/living/carbon/C)
+/datum/species/golem/titanium/on_species_gain(mob/living/carbon/owner)
 	. = ..()
-	C.weather_immunities -= "ash"
+	ADD_TRAIT(owner, TRAIT_ASHSTORM_IMMUNE, name)
+
+
+/datum/species/golem/titanium/on_species_loss(mob/living/carbon/owner)
+	. = ..()
+	REMOVE_TRAIT(owner, TRAIT_ASHSTORM_IMMUNE, name)
+
 
 //Even more resistant to burn damage and immune to ashstorms and lava
 /datum/species/golem/plastitanium
@@ -397,15 +400,16 @@
 		NEUTER = null
 		)
 
-/datum/species/golem/plastitanium/on_species_gain(mob/living/carbon/C, datum/species/old_species)
-	. = ..()
-	C.weather_immunities |= "lava"
-	C.weather_immunities |= "ash"
 
-/datum/species/golem/plastitanium/on_species_loss(mob/living/carbon/C)
+/datum/species/golem/plastitanium/on_species_gain(mob/living/carbon/owner)
 	. = ..()
-	C.weather_immunities -= "ash"
-	C.weather_immunities -= "lava"
+	owner.add_traits(list(TRAIT_ASHSTORM_IMMUNE, TRAIT_LAVA_IMMUNE), name)
+
+
+/datum/species/golem/plastitanium/on_species_loss(mob/living/carbon/owner)
+	. = ..()
+	owner.remove_traits(list(TRAIT_ASHSTORM_IMMUNE, TRAIT_LAVA_IMMUNE), name)
+
 
 //Fast and regenerates... but can only speak like an abductor
 /datum/species/golem/alloy
@@ -426,14 +430,17 @@
 	chance_name_male = 80
 	chance_name_female = 30
 
+
 //Regenerates because self-repairing super-advanced alien tech
 /datum/species/golem/alloy/handle_life(mob/living/carbon/human/H)
 	if(H.stat == DEAD)
 		return
-	H.adjustBruteLoss(-2)
-	H.adjustFireLoss(-2)
-	H.adjustToxLoss(-2)
-	H.adjustOxyLoss(-2)
+	var/update = NONE
+	update |= H.heal_overall_damage(2, 2, updating_health = FALSE)
+	update |= H.heal_damages(tox = 2, oxy = 2, updating_health = FALSE)
+	if(update)
+		H.updatehealth()
+
 
 /datum/species/golem/alloy/can_understand(mob/other) //Can understand everyone, but they can only speak over their mindlink
 	return TRUE
@@ -492,10 +499,11 @@
 			if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
 				H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
 		if(light_amount > 0.2 && !H.suiciding) //if there's enough light, heal
-			H.adjustBruteLoss(-1)
-			H.adjustFireLoss(-1)
-			H.adjustToxLoss(-1)
-			H.adjustOxyLoss(-1)
+			var/update = NONE
+			update |= H.heal_overall_damage(1, 1, updating_health = FALSE)
+			update |= H.heal_damages(tox = 1, oxy = 1, updating_health = FALSE)
+			if(update)
+				H.updatehealth()
 
 	if(!is_vamp && H.nutrition < NUTRITION_LEVEL_STARVING + 50)
 		H.adjustBruteLoss(2)
@@ -695,10 +703,12 @@
 	if(world.time > last_teleport + teleport_cooldown && M != H &&  M.a_intent != INTENT_HELP)
 		reactive_teleport(H)
 
-/datum/species/golem/bluespace/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
-	..()
-	if(world.time > last_teleport + teleport_cooldown && user != H)
-		reactive_teleport(H)
+
+/datum/species/golem/bluespace/spec_proceed_attack_results(obj/item/I, mob/living/carbon/human/defender, mob/living/attacker, obj/item/organ/external/affecting)
+	. = ..()
+	if(world.time > last_teleport + teleport_cooldown && defender != attacker && reactive_teleport(defender))
+		. |= ATTACK_CHAIN_NO_AFTERATTACK
+
 
 /datum/species/golem/bluespace/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
 	if(world.time > last_teleport + teleport_cooldown)
@@ -787,6 +797,7 @@
 		NEUTER = null
 		)
 	unarmed_type = /datum/unarmed_attack/golem/bananium
+	default_genes = list(/datum/dna/gene/disability/comic)
 
 	var/last_honk = 0
 	var/honkooldown = 0
@@ -794,14 +805,19 @@
 	var/banana_cooldown = 100
 	var/active = null
 
+
 /datum/species/golem/bananium/on_species_gain(mob/living/carbon/human/H)
 	..()
 	last_banana = world.time
 	last_honk = world.time
-	H.mutations.Add(COMIC)
 	H.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(H), ITEM_SLOT_POCKET_RIGHT)
 	H.equip_to_slot_or_del(new /obj/item/bikehorn(H), ITEM_SLOT_POCKET_LEFT)
 	H.AddElement(/datum/element/waddling)
+
+
+/datum/species/grey/handle_dna(mob/living/carbon/human/H, remove = FALSE)
+	H.force_gene_block(GLOB.comicblock, !remove, TRUE, TRUE)
+
 
 /datum/species/golem/bananium/on_species_loss(mob/living/carbon/C)
 	. = ..()
@@ -818,11 +834,13 @@
 		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
 		last_banana = world.time
 
-/datum/species/golem/bananium/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
-	..()
-	if(world.time > last_banana + banana_cooldown && user != H)
-		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
+
+/datum/species/golem/bananium/spec_proceed_attack_results(obj/item/I, mob/living/carbon/human/defender, mob/living/attacker, obj/item/organ/external/affecting)
+	. = ..()
+	if(world.time > last_banana + banana_cooldown && defender != attacker)
+		new /obj/item/grown/bananapeel/specialpeel(get_turf(defender))
 		last_banana = world.time
+
 
 /datum/species/golem/bananium/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
 	if(world.time > last_banana + banana_cooldown)
