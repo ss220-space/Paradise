@@ -42216,10 +42216,10 @@
 	pixel_x = 1;
 	pixel_y = -1
 	},
-/obj/item/clothing/gloves/color/yellow,
 /obj/item/t_scanner,
 /obj/item/clothing/glasses/meson,
 /obj/item/multitool,
+/obj/item/clothing/gloves/color/fyellow,
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "cCV" = (
