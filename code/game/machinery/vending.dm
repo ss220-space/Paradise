@@ -3613,18 +3613,6 @@
 		/obj/item/mecha_parts/mecha_equipment/wormhole_generator = 10,
 	)
 
-/obj/machinery/vending/custom
-	name = "Торговый автомат с уникальным содержимым"
-	desc = "Fabricator with advanced technology of bluespace transporting of resources."
-
-	resistance_flags = FIRE_PROOF | LAVA_PROOF | FIRE_PROOF | ACID_PROOF | FREEZE_PROOF
-	products = null
-	prices = null
-	var/containtment = list()
-
-	refill_canister = /obj/item/vending_refill/custom
-
-
 #undef FLICK_NONE
 #undef FLICK_VEND
 #undef FLICK_DENY

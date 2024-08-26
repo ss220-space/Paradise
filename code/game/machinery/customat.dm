@@ -20,13 +20,13 @@
 	var/amount = 0
 	var/list/obj/item/containtment = list()
 	var/price = 0  // Price to buy one
-	var/product_icon = ''
+	var/product_icon = "123.dmi"
 	var/product_icon_state = ""
 
 /datum/data/customat_product/New(obj/item/I)
 	name = I.name
-	amound = 1
-	containtment = lisT()
+	amount = 0
+	containtment = list()
 	price = 0
 	product_icon = I.icon
 	product_icon_state = I.icon_state
@@ -114,8 +114,8 @@
 	var/shut_up = FALSE
 	var/last_reply = 0
 	var/last_slogan = 0			//When did we last pitch?
-	var/slogan_delay = 6000		//How long until we can pitch again?
-	var/reply_delay = 200
+	var/slogan_delay = 600 SECONDS		//How long until we can pitch again?
+	var/reply_delay = 20 SECONDS
 
 	//The type of refill canisters used by this machine.
 	var/obj/item/vending_refill/canister = null
@@ -141,24 +141,23 @@
 	// To be filled out at compile time
 	var/list/products = list()
 
+	var/inserted_items_count = 0
+	var/max_items_inside = 50
+
 /obj/machinery/customat/Initialize(mapload)
 	. = ..()
-	var/build_inv = FALSE
-	if(!canister)
-		build_inv = TRUE
-	else
-		component_parts = list()
-		var/obj/item/circuitboard/vendor/V = new
-		V.set_type(replacetext(initial(name), "\improper", ""))
-		component_parts += V
-		component_parts += new canister
-		RefreshParts()
+	component_parts = list()
+	var/obj/item/circuitboard/vendor/V = new
+	V.set_type(replacetext(initial(name), "\improper", ""))
+	component_parts += V
+	component_parts += new canister
+	RefreshParts()
 
 	for(var/datum/data/vending_product/R in (product_records))
 		var/obj/item/I = R.product_path
 		var/pp = path2assetID(R.product_path)
 		imagelist[pp] = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1, FALSE))]"
-	if(LAZYLEN(slogan_list))
+	if(LAZYLEN(ads_list))
 		// So not all machines speak at the exact same time.
 		// The first time this machine says something will be at slogantime + this random value,
 		// so if slogantime is 10 minutes, it will say it at somewhere between 10 and 20 minutes after the machine is created.
@@ -166,9 +165,16 @@
 
 	update_icon(UPDATE_OVERLAYS)
 
+/obj/machinery/customat/proc/eject_all()
+	for (var/datum/data/customat_product/product in products)
+		for (var/obj/item/I in product.containtment)
+			I.forceMove(get_turf(src))
+		product.amount = 0
+		inserted_items_count -= product.containtment.len
+		product.containtment = list()
 
 /obj/machinery/customat/Destroy()
-	QDEL_NULL(inserted_item)
+	eject_all()
 	return ..()
 
 /obj/machinery/customat/RefreshParts()         //Better would be to make constructable child
@@ -176,8 +182,6 @@
 		return
 
 	product_records = list()
-	if(canister)
-		build_inventory(products, product_records, start_empty = TRUE)
 
 
 /obj/machinery/customat/update_icon(updates = ALL)
@@ -300,29 +304,6 @@
 	flickering = FALSE
 
 /**
- *  Build src.produdct_records from the products lists
- *
- *  src.products, src.contraband, src.premium, and src.prices allow specifying
- *  products that the vending machine is to carry without manually populating
- *  src.product_records.
- */
-/obj/machinery/customat/proc/build_inventory(list/productlist, list/recordlist, start_empty = FALSE)
-	for(var/typepath in productlist)
-		var/amount = productlist[typepath]
-		if(isnull(amount))
-			amount = 0
-
-		var/atom/temp = typepath
-		var/datum/data/vending_product/R = new /datum/data/vending_product()
-		R.name = initial(temp.name)
-		R.product_path = typepath
-		if(!start_empty)
-			R.amount = amount
-		R.max_amount = amount
-		R.price = (typepath in prices) ? prices[typepath] : 0
-		recordlist += R
-
-/**
   * Set up a refill canister that matches this machines products
   *
   * This is used when the machine is deconstructed, so the items aren't "lost"
@@ -347,7 +328,6 @@
 		.[record.product_path] += record.amount
 
 /obj/machinery/customat/deconstruct(disassembled = TRUE)
-	eject_item()
 	if(!canister) //the non constructable vendors drop metal instead of a machine frame.
 		new /obj/item/stack/sheet/metal(loc, 3)
 		qdel(src)
@@ -368,16 +348,24 @@
 	return I.name + "_" + cost
 
 /obj/machinery/customat/proc/insert(mob/user, obj/item/I, cost)
+	if (inserted_items_count == max_items_inside)
+		return
 	remembered_costs[I.name] = cost
 	var/key = get_key(I, cost)
-	if (key in products)
-		var/datum/data/customat_product/product = products[key]
-		product.containtment += I
-		product.amount++
-		I.forcemove(src)
-	else
-		products[key] = new /datum/data/customat_product(I)
-		products[key].price = cost
+	if(!user.drop_transfer_item_to_loc(I, src))
+		to_chat(usr, span_warning("Вы не можете положить это внутрь."))
+		return
+	if (!(key in products))
+		var/datum/data/customat_product/product = new /datum/data/customat_product(I)
+		product.price = cost
+		product.product_icon = I.icon
+		product.product_icon_state = I.icon_state
+		products[key] = product
+
+	var/datum/data/customat_product/product = products[key]
+	product.containtment += I
+	product.amount++
+	inserted_items_count++
 
 /obj/machinery/customat/proc/try_insert(mob/user, obj/item/I, from_tube = FALSE)
 	var/cost = 100
@@ -385,9 +373,12 @@
 		if (I.name in remembered_costs)
 			cost = remembered_costs[I.name]
 	else
-		var/new_cost = input("Пожалуйста, выберите цену для этого товара. Цена не может быть ниже 0 и выше 1000000 кредитов.", "Выбор цены", M.s_tone) as null|text
+		var/new_cost = input("Пожалуйста, выберите цену для этого товара. Цена не может быть ниже 0 и выше 1000000 кредитов.", "Выбор цены", 0) as null|text
 		if(new_cost)
 			cost = clamp(new_cost, 0, 1000000)
+	if (get_dist(get_turf(user), get_turf(src)) > 1)
+		to_chat(usr, span_warning("Вы слишком далеко!"))
+		return
 	insert(user, I, cost)
 
 /obj/machinery/customat/attackby(obj/item/I, mob/user, params)
@@ -402,11 +393,8 @@
 			try_insert(user, I)
 			return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(item_slot_check(user, I))
-		add_fingerprint(user)
-		insert_item(user, I)
-		return ATTACK_CHAIN_BLOCKED_ALL
-
+	if(user.a_intent == INTENT_HARM)
+		playsound(src, 'sound/machines/burglar_alarm.ogg', I.force * 5, 0)
 	return ..()
 
 
@@ -414,6 +402,7 @@
 	if(!component_parts)
 		return
 	. = TRUE
+	eject_all()
 	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/customat/screwdriver_act(mob/user, obj/item/I)
@@ -431,15 +420,6 @@
 	if(!I.use_tool(src, user, 0, volume = 0))
 		return
 	default_unfasten_wrench(user, I, time = 60)
-
-//Override this proc to do per-machine checks on the inserted item, but remember to call the parent to handle these generic checks before your logic!
-/obj/machinery/customat/proc/item_slot_check(mob/user, obj/item/I)
-	if(!item_slot)
-		return FALSE
-	if(inserted_item)
-		to_chat(user, span_warning("There is something already inserted!"))
-		return FALSE
-	return TRUE
 
 /obj/machinery/customat/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	if(!istype(W))
@@ -464,29 +444,6 @@
 	update_canister()
 	. = ..()
 
-/obj/machinery/customat/proc/insert_item(mob/user, obj/item/I)
-	if(!item_slot || inserted_item)
-		return
-	if(!user.drop_transfer_item_to_loc(I, src))
-		to_chat(user, span_warning("[I] is stuck to your hand, you can't seem to put it down!"))
-		return
-	inserted_item = I
-	to_chat(user, span_notice("You insert [I] into [src]."))
-	SStgui.update_uis(src)
-
-/obj/machinery/customat/proc/eject_item(mob/user)
-	if(!item_slot || !inserted_item)
-		return
-	var/put_on_turf = TRUE
-	if(user && iscarbon(user) && user.Adjacent(src))
-		inserted_item.forceMove_turf()
-		if(user.put_in_hands(inserted_item, ignore_anim = FALSE))
-			put_on_turf = FALSE
-	if(put_on_turf)
-		var/turf/T = get_turf(src)
-		inserted_item.forceMove(T)
-	inserted_item = null
-	SStgui.update_uis(src)
 
 /obj/machinery/customat/emag_act(mob/user)
 	emagged = TRUE
@@ -512,38 +469,35 @@
 /obj/machinery/customat/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		var/estimated_height = 100 + min(length(product_records) * 34, 500)
-		if(length(prices) > 0)
-			estimated_height += 100 // to account for the "current user" interface
-		ui = new(user, src, "Vending",  name)
+		ui = new(user, src, "Customat",  name)
 		ui.open()
 
 /obj/machinery/customat/ui_data(mob/user)
 	var/list/data = list()
-	var/datum/money_account/A = null
-	data["guestNotice"] = "No valid ID card detected. Wear your ID, or present cash.";
+	var/datum/money_account/account = null
+	data["guestNotice"] = "Идентификационной карты не обнаружено.";
 	data["userMoney"] = 0
 	data["user"] = null
 	if(issilicon(user) && !istype(user, /mob/living/silicon/robot/drone) && !istype(user, /mob/living/silicon/pai))
-		A = get_card_account(user)
+		account = get_card_account(user)
 		data["user"] = list()
-		data["user"]["name"] = A.owner_name
-		data["userMoney"] = A.money
+		data["user"]["name"] = account.owner_name
+		data["userMoney"] = account.money
 		data["user"]["job"] = "Silicon"
 	if(ishuman(user))
-		A = get_card_account(user)
+		account = get_card_account(user)
 		var/mob/living/carbon/human/H = user
 		var/obj/item/stack/spacecash/S = H.get_active_hand()
 		if(istype(S))
 			data["userMoney"] = S.amount
 			data["guestNotice"] = "Accepting Cash. You have: [S.amount] credits."
 		else if(istype(H))
-			var/obj/item/card/id/C = H.get_id_card()
-			if(istype(A))
+			var/obj/item/card/id/idcard = H.get_id_card()
+			if(istype(account))
 				data["user"] = list()
-				data["user"]["name"] = A.owner_name
-				data["userMoney"] = A.money
-				data["user"]["job"] = (istype(C) && C.rank) ? C.rank : "No Job"
+				data["user"]["name"] = account.owner_name
+				data["userMoney"] = account.money
+				data["user"]["job"] = (istype(idcard) && idcard.rank) ? idcard.rank : "No Job"
 			else
 				data["guestNotice"] = "Unlinked ID detected. Present cash to pay.";
 	data["stock"] = list()
@@ -552,21 +506,17 @@
 	data["vend_ready"] = vend_ready
 	data["panel_open"] = panel_open ? TRUE : FALSE
 	data["speaker"] = shut_up ? FALSE : TRUE
-	data["item_slot"] = item_slot // boolean
-	data["inserted_item_name"] = inserted_item ? inserted_item.name : FALSE
 	return data
 
 
 /obj/machinery/customat/ui_static_data(mob/user)
 	var/list/data = list()
-	data["chargesMoney"] = length(prices) > 0 ? TRUE : FALSE
 	data["product_records"] = list()
 	var/i = 1
 	for (var/datum/data/vending_product/R in product_records)
 		var/list/data_pr = list(
 			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
 			name = R.name,
-			price = (R.product_path in prices) ? prices[R.product_path] : 0,
 			max_amount = R.max_amount,
 			is_hidden = FALSE,
 			inum = i
@@ -588,9 +538,6 @@
 			if(panel_open)
 				shut_up = !shut_up
 				. = TRUE
-		if("eject_item")
-			eject_item(usr)
-			. = TRUE
 		if("vend")
 			if(!vend_ready)
 				to_chat(usr, span_warning("The vending machine is busy!"))
@@ -707,17 +654,15 @@
  * when you have a inserted item and remember to include a parent call for this generic handling
  */
 /obj/machinery/customat/proc/do_vend(datum/data/vending_product/R, mob/user)
-	if(!item_slot || !inserted_item)
-		var/put_on_turf = TRUE
-		var/obj/item/vended = new R.product_path(drop_location())
-		if(istype(vended) && user && iscarbon(user) && user.Adjacent(src))
-			if(user.put_in_hands(vended, ignore_anim = FALSE))
-				put_on_turf = FALSE
-		if(put_on_turf)
-			var/turf/T = get_turf(src)
-			vended.forceMove(T)
-		return TRUE
-	return FALSE
+	var/put_on_turf = TRUE
+	var/obj/item/vended = new R.product_path(drop_location())
+	if(istype(vended) && user && iscarbon(user) && user.Adjacent(src))
+		if(user.put_in_hands(vended, ignore_anim = FALSE))
+			put_on_turf = FALSE
+	if(put_on_turf)
+		var/turf/T = get_turf(src)
+		vended.forceMove(T)
+	return TRUE
 
 /obj/machinery/customat/process()
 	if(stat & (BROKEN|NOPOWER))
@@ -727,8 +672,8 @@
 		return
 
 	//Pitch to the people!  Really sell it!
-	if(((last_slogan + src.slogan_delay) <= world.time) && (LAZYLEN(slogan_list)) && (!shut_up) && prob(5))
-		var/slogan = pick(src.slogan_list)
+	if(((last_slogan + src.slogan_delay) <= world.time) && (LAZYLEN(ads_list)) && (!shut_up) && prob(5))
+		var/slogan = pick(src.ads_list)
 		speak(slogan)
 		last_slogan = world.time
 
@@ -771,3 +716,7 @@
 			dump_amount++
 			if(dump_amount >= 16)
 				return
+
+#undef FLICK_NONE
+#undef FLICK_VEND
+#undef FLICK_DENY

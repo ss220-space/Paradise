@@ -191,3 +191,8 @@
 /obj/item/vending_refill/custom
 	machine_name = "Торговый автомат с уникальным содержимым"
 	icon_state = "restock_pai"
+	var/id_number
+
+/obj/item/vending_refill/custom/attack_self(mob/user)
+	var/new_id_number = input("Пожалуйста, введите номер счета, на который будут начисляться кредиты при покупке.", "Выбор счета", id_number) as null|text
+	id_number = new_id_number
