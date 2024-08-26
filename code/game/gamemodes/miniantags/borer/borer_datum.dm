@@ -21,8 +21,8 @@
 	var/mob/living/carbon/human/host // our host
 	var/mob/living/carbon/human/previous_host // previous host, used to del transferable effects from previous host.
 	var/datum/borer_rank/borer_rank
-	var/list/datum/borer_focus/learned_focuses = list()
-	var/datum/borer_misc/change_host_and_scale/scaling = new
+	var/list/learned_focuses = list() // what focuses learned borer
+	var/datum/borer_misc/change_host_and_scale/scaling = new // chemical scaling, gained when acquired unique host
 	var/tick_interval = 1 SECONDS
 
 /datum/antagonist/borer/apply_innate_effects(mob/living/simple_animal/borer/borer)
@@ -54,8 +54,7 @@
 /datum/antagonist/borer/proc/parent_sync()
 	scaling?.parent = src
 	borer_rank.parent = src
-	for(var/datum in typesof(learned_focuses))
-		var/datum/borer_focus/focus = datum
+	for(var/datum/borer_focus/focus as anything in learned_focuses)
 		focus.parent = src
 	return
 
@@ -85,8 +84,7 @@
 	if(QDELETED(user) || QDELETED(host))
 		return
 		
-	for(var/datum in typesof(learned_focuses))
-		var/datum/borer_focus/focus = datum
+	for(var/datum/borer_focus/focus as anything in learned_focuses)
 		if(!focus.movable_granted)
 			focus.movable_granted = TRUE
 			focus.grant_movable_effect()
@@ -99,8 +97,7 @@
 	if(QDELETED(user) || QDELETED(previous_host))
 		return
 
-	for(var/datum in typesof(learned_focuses))
-		var/datum/borer_focus/focus = datum
+	for(var/datum/borer_focus/focus as anything in learned_focuses)
 		if(focus.movable_granted)
 			focus.movable_granted = FALSE
 			focus.remove_movable_effect()
@@ -138,8 +135,7 @@
 		return
 	if(tick_interval != -1 && tick_interval <= world.time)
 		var/tick_length = initial(tick_interval)
-		for(var/datum in typesof(learned_focuses))
-			var/datum/borer_focus/focus = datum
+		for(var/datum/borer_focus/focus as anything in learned_focuses)
 			focus.tick(tick_length / (1 SECONDS))
 		borer_rank.tick(tick_length / (1 SECONDS))
 		tick_interval = world.time + tick_length
