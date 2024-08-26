@@ -78328,9 +78328,7 @@
 	dir = 6
 	},
 /obj/effect/decal/warning_stripes/northwest,
-/obj/item/pipe_meter{
-	anchored = 1
-	},
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating/airless,
 /area/medical/virology/lab)
 "nhs" = (
@@ -120133,12 +120131,6 @@
 	icon_state = "darkbluecorners"
 	},
 /area/construction/hallway)
-"wRB" = (
-/obj/machinery/atmospherics/unary/vent_scrubber,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/medical/virology)
 "wRH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -175852,7 +175844,7 @@ rvd
 fey
 ltW
 wBW
-wRB
+qIo
 qUW
 ltW
 hbD
