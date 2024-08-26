@@ -35,7 +35,7 @@
 /mob/living/carbon/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(.)
-		if((FAT in mutations) && m_intent == MOVE_INTENT_RUN && bodytemperature <= 360)
+		if(HAS_TRAIT(src, TRAIT_FAT) && m_intent == MOVE_INTENT_RUN && bodytemperature <= 360)
 			adjust_bodytemperature(2)
 
 		// Moving around increases germ_level faster
@@ -216,7 +216,7 @@
 				if(prob(30) && ishuman(M)) // 30% chance of burning your hands
 					var/mob/living/carbon/human/H = M
 					var/protected = FALSE // Protected from the fire
-					if((H.gloves?.max_heat_protection_temperature > 360) || (HEATRES in H.mutations))
+					if((H.gloves?.max_heat_protection_temperature > 360) || HAS_TRAIT(H, TRAIT_RESIST_HEAT))
 						protected = TRUE
 					if(!protected)
 						H.apply_damage(5, BURN, def_zone = H.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
@@ -308,7 +308,7 @@
 			to_chat(src, "<span class='info'>Вы полностью истощены.</span>")
 		else
 			to_chat(src, "<span class='info'>Вы чувствуете усталость.</span>")
-	if((isskeleton(H) || (SKELETON in H.mutations)) && (!H.w_uniform) && (!H.wear_suit))
+	if((isskeleton(H) || HAS_TRAIT(H, TRAIT_SKELETON)) && (!H.w_uniform) && (!H.wear_suit))
 		H.play_xylophone()
 
 
@@ -565,11 +565,11 @@
 		frequency_number = 1 - (thrown_item.w_class - 3) / 8
 
 	var/power_throw = 0
-	if(HULK in mutations)
+	if(HAS_TRAIT(src, TRAIT_HULK))
 		power_throw++
-	if(DWARF in mutations)
+	if(HAS_TRAIT(src, TRAIT_DWARF))
 		power_throw--
-	if(throwing_mob && (DWARF in throwing_mob.mutations))
+	if(throwing_mob && HAS_TRAIT(throwing_mob, TRAIT_DWARF))
 		power_throw++
 	if(neckgrab_throw)
 		power_throw++
@@ -765,7 +765,7 @@ so that different stomachs can handle things in different ways VB*/
 
 
 /mob/living/carbon/proc/can_breathe_gas()
-	if(dna && (NO_BREATHE in dna.species.species_traits))
+	if(HAS_TRAIT(src, TRAIT_NO_BREATH))
 		return FALSE
 
 	if(!wear_mask && !head)
@@ -847,7 +847,7 @@ so that different stomachs can handle things in different ways VB*/
 		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
 			return
 
-	if(XRAY in mutations)
+	if(HAS_TRAIT(src, TRAIT_XRAY))
 		add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
@@ -933,3 +933,10 @@ so that different stomachs can handle things in different ways VB*/
 
 	if(should_vomit)
 		fakevomit()
+
+
+/mob/living/carbon/on_no_breath_trait_gain(datum/source)
+	. = ..()
+
+	co2overloadtime = 0
+

@@ -41,7 +41,7 @@
 	return FALSE
 
 /datum/martial_art/throwing/proc/neck_cut(mob/living/carbon/human/defender, mob/living/carbon/human/attacker)
-	if(!neck_cut_in_progress && attacker.pulling && attacker.pulling == defender && attacker.grab_state >= GRAB_NECK && defender.dna && !(NO_BLOOD in defender.dna.species.species_traits))
+	if(!neck_cut_in_progress && attacker.pulling && attacker.pulling == defender && attacker.grab_state >= GRAB_NECK && defender.dna && !HAS_TRAIT(defender, TRAIT_NO_BLOOD))
 		attacker.visible_message(span_danger("[attacker] прикладывает нож к горлу [defender]!"), span_danger("Вы прикладываете нож к горлу [defender]!."))
 		neck_cut_in_progress = TRUE
 		if(do_after(attacker, neck_cut_delay, defender) && attacker.pulling == defender && attacker.grab_state >= GRAB_NECK)

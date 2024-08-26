@@ -89,7 +89,8 @@ const BloodScanMenu = (props, context) => {
                     src={`data:image/jpeg;base64,${vialIcons[i] || noVialIcon}`}
                     style={{
                       'margin-left': '3px',
-                      '-ms-interpolation-mode': 'nearest-neighbor',
+                      '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                      'image-rendering': 'pixelated',
                     }}
                   />
                   <Tooltip

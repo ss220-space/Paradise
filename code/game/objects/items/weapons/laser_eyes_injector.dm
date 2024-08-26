@@ -22,7 +22,7 @@
 	if(!ishuman(target))
 		return .
 
-	if(NO_DNA in target.dna.species.species_traits)
+	if(HAS_TRAIT(target, TRAIT_NO_DNA))
 		to_chat(user, span_warning("Неподходящий геном."))
 		return .
 

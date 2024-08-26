@@ -346,7 +346,8 @@ const QuestItemTask = (properties) => {
           <img
             className={classes(['cargo_quest42x42', task?.image])}
             style={{
-              '-ms-interpolation-mode': 'nearest-neighbor',
+              '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+              'image-rendering': 'pixelated',
               'vertical-align': 'middle',
               width: '42px',
               margin: '0px',

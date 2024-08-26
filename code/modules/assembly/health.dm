@@ -79,7 +79,7 @@
 	if(!secured)
 		user.show_message(span_warning("The [name] is unsecured!"))
 		return FALSE
-	var/dat = {"<meta charset="UTF-8"><TT><B>Health Sensor</B> <A href='?src=[UID()];scanning=1'>[scanning?"On":"Off"]</A>"}
+	var/dat = {"<meta charset="UTF-8"><TT><B>Health Sensor</B> <a href='byond://?src=[UID()];scanning=1'>[scanning?"On":"Off"]</A>"}
 	if(scanning && !isnull(user_health))
 		dat += "<BR>Health: [user_health]"
 	var/datum/browser/popup = new(user, "hscan", name, 400, 400, src)

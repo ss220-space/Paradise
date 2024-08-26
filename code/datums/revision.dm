@@ -13,6 +13,8 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 	var/commit_date
 	// git rev-parse origin/master220
 	var/originmastercommit
+	// repo name
+	var/repo = "ss220-space/Paradise"
 
 /datum/code_revision/New()
 	commit_hash = rustg_git_revparse("HEAD")

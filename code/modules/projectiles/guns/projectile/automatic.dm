@@ -464,7 +464,7 @@
 	actions_types = null
 
 /obj/item/gun/projectile/automatic/lr30/update_icon_state()
-	icon_state = "lr30[magazine ? "-[CEILING(get_ammo(FALSE)/3, 1)*3]" : ""]"
+	icon_state = "lr30[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""]"
 
 //Semi-Machine Gun SFG
 

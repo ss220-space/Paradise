@@ -27,7 +27,7 @@
 	return TRUE
 
 /mob/living/carbon/human/CanContractDisease(datum/disease/D)
-	if((VIRUSIMMUNE in dna.species.species_traits) && !D.ignore_immunity)
+	if(!D.ignore_immunity && HAS_TRAIT(src, TRAIT_VIRUSIMMUNE))
 		return FALSE
 	for(var/thing in D.required_organs)
 		if(!((locate(thing) in bodyparts) || (locate(thing) in internal_organs)))

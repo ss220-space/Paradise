@@ -94,9 +94,11 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 		if(clockwork_mind.assigned_role == JOB_TITLE_CLOWN)
 			to_chat(clockwork_mind.current, "<span class='clockitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
-			clockwork_mind.current.mutations.Remove(CLUMSY)
-			var/datum/action/innate/toggle_clumsy/A = new
-			A.Grant(clockwork_mind.current)
+			clockwork_mind.current.force_gene_block(GLOB.clumsyblock, FALSE)
+			// Don't give them another action if they already have one.
+			if(!(locate(/datum/action/innate/toggle_clumsy) in clockwork_mind.current.actions))
+				var/datum/action/innate/toggle_clumsy/toggle_clumsy = new
+				toggle_clumsy.Grant(clockwork_mind.current)
 
 		add_clock_actions(clockwork_mind)
 		update_clock_icons_added(clockwork_mind)
@@ -191,9 +193,12 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 		if(clock_mind.assigned_role == JOB_TITLE_CLOWN)
 			to_chat(clock_mind.current, "<span class='clockitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
-			clock_mind.current.mutations.Remove(CLUMSY)
-			var/datum/action/innate/toggle_clumsy/A = new
-			A.Grant(clock_mind.current)
+			clock_mind.current.force_gene_block(GLOB.clumsyblock, FALSE)
+			// Don't give them another action if they already have one.
+			if(!(locate(/datum/action/innate/toggle_clumsy) in clock_mind.current.actions))
+				var/datum/action/innate/toggle_clumsy/toggle_clumsy = new
+				toggle_clumsy.Grant(clock_mind.current)
+
 		SEND_SOUND(clock_mind.current, 'sound/ambience/antag/clockcult.ogg')
 		add_conversion_logs(clock_mind.current, "converted to the clockwork cult")
 
@@ -211,6 +216,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 		if(power_reveal)
 			powered(clock_mind.current)
+			powered_borgs(clock_mind.current)
 		if(crew_reveal)
 			clocked(clock_mind.current)
 		check_clock_reveal()
@@ -223,7 +229,10 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	if((GLOB.clockwork_power >= power_reveal_number) && !power_reveal)
 		power_reveal = TRUE
 		for(var/datum/mind/M in clockwork_cult)
-			if(!M.current || !ishuman(M.current))
+			if(!M.current)
+				continue
+			if(!ishuman(M.current))
+				powered_borgs(M.current)
 				continue
 			SEND_SOUND(M.current, 'sound/hallucinations/i_see_you2.ogg')
 			to_chat(M.current, "<span class='clocklarge'>The veil begins to stutter in fear as the power of Ratvar grows, your hands begin to glow...</span>")
@@ -261,6 +270,11 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		var/mob/living/carbon/human/H = clocker
 		H.update_inv_gloves()
 		ADD_TRAIT(H, CLOCK_HANDS, CLOCK_TRAIT)
+
+/datum/game_mode/proc/powered_borgs(clocker)
+	if(isrobot(clocker))
+		var/mob/living/silicon/robot/borg = clocker
+		borg.update_icons()
 
 /datum/game_mode/proc/clocked(clocker)
 	if(ishuman(clocker) && isclocker(clocker))

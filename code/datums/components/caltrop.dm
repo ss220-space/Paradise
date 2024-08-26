@@ -75,7 +75,7 @@
 	if(!ishuman(arrived))
 		return
 
-	if(PIERCEIMMUNE in arrived.dna.species.species_traits)
+	if(HAS_TRAIT(arrived, TRAIT_PIERCEIMMUNE))
 		return
 
 	if(LAZYIN(protected_species, arrived.dna.species.name))

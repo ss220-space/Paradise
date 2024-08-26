@@ -223,7 +223,7 @@
 	if(exchange_parts(user, I))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(I.GetID())
+	if(I.GetID() || is_pda(I))
 		add_fingerprint(user)
 		if(emagged)
 			to_chat(user, span_warning("The lock seems to be broken."))

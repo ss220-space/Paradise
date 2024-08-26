@@ -103,7 +103,7 @@
 		user.take_organ_damage(0, 10)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if((CLUMSY in user.mutations) && prob(50))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, span_warning("The [src] slips out of your hand and hits your head."))
 		add_attack_logs(user, target, "Hit themselves with [src]")
 		user.take_organ_damage(10)

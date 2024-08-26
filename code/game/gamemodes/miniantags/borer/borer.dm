@@ -380,7 +380,7 @@
 	for(var/datum in subtypesof(/datum/reagent))
 		var/datum/reagent/reagent = datum
 		if(LAZYIN(reagent.id, GLOB.borer_reagents) && reagent.name)
-			content += "<tr><td><a class='chem-select' href='?_src_=[UID()];src=[UID()];borer_use_chem=[reagent]'>[reagent.name] ([initial(reagent.chemuse)])</a><p>[reagent.chemdesc ? initial(reagent.chemdesc) : initial(reagent.description)]</p></td></tr>"
+			content += "<tr><td><a class='chem-select' href='byond://?_src_=[UID()];src=[UID()];borer_use_chem=[reagent]'>[reagent.name] ([initial(reagent.chemuse)])</a><p>[reagent.chemdesc ? initial(reagent.chemdesc) : initial(reagent.description)]</p></td></tr>"
 
 	content += "</table>"
 

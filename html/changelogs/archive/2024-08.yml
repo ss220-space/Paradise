@@ -209,6 +209,8 @@
 '2024-08-21':
   Den109G:
   - bugfix: Now AI and his minions doesn't drop blueprints upon deleting (#5763)
+  - bugfix: Anchoring conveyors' switches (#5766)
+  - bugfix: Delete pilot's laser from station orbit (#5764)
   Kray1k:
   - bugfix: some random spawn init fixes (#5746)
   - bugfix: reagents duplication on soda dispencer upgrade (#5756)
@@ -224,3 +226,65 @@
   Zwei:
   - refactor: Attack Chain Rework (#5672)
   - bugfix: Attack Chain Fixes (#5761)
+'2024-08-22':
+  Anorak2020:
+  - bugfix: Hulk regen * 4 (#5776)
+  - bugfix: Hulk regen *4 2.0 (#5779)
+  Aziz Chynaliev:
+  - del: yogstation music system" (#5782)
+  Den109G:
+  - bugfix: Now you can change freeform law without changing position (#5749)
+  NightDawnFox:
+  - bugfix: another roboquest fix (#5781)
+  ROdenFL:
+  - add: yogstation music system (#5758)
+  - bugfix: freeplay minesweeper in dorms and paying for mode changing (#5770)
+  Sheya:
+  - bugfix: LSR-39 needs two hands (#5783)
+  - add: craftable pizza bomb (#5662)
+  Zwei:
+  - bugfix: Attack Chain Fixes N2 (#5777)
+  - bugfix: Pacman Fix (#5778)
+  - bugfix: LR-30 Magazine Sprites Fix (#5780)
+  - bugfix: Attack Chain Fixes N3 (#5787)
+  dageavtobusnick:
+  - unknown: destroyer robot(droidec) tweaks and fixes (#5768)
+'2024-08-23':
+  Zwei:
+  - bugfix: Abductor Optable Construction Fix (#5789)
+  - bugfix: Germs Growth Physiology Based (#5790)
+  - bugfix: Storage Afterattack Fix (#5791)
+  - bugfix: Few Bugs Fixed (#5794)
+'2024-08-24':
+  Aziz Chynaliev:
+  - bugfix: stop lobby music played by tgui panel (#5803)
+  Daeberdir:
+  - tweak: Wallthrow mini-stun. (#5788)
+  ROdenFL:
+  - server: some tg assets prs (#5784)
+  - add: yt-dlp music system (#5792)
+  - server: TGUI 4.5.1-paradise (Inferno 8, eslint 9) (#5801)
+  Sheya:
+  - bugfix: syndicate depo AI gps (#5799)
+  Vesterlim13:
+  - bugfix: Small fix pirate base (#5795)
+  Zwei:
+  - unknown: Mutation Traits To Real Traits (#5793)
+  - bugfix: Attack Chain Fixes N5 (#5796)
+'2024-08-25':
+  ROdenFL:
+  - server: 516 compability (#5753)
+  Shaman:
+  - tweak: replace spellblade with guardian (#5807)
+  Vladisvell:
+  - add: Supermatter explosion now gives random mutation (with 10% chance!) without
+      monkeyfication (#5773)
+  - bugfix: finally fixes table unflipping (#5808)
+  - bugfix: Fixes events firing several times (#5810)
+  WolfLox:
+  - bugfix: lr30 havnt sprites after spawn (#5805)
+  Zwei:
+  - bugfix: Mutate Virus Checks For Reagents Holder (#5804)
+  - refactor: Species Traits Rework (#5806)
+  - bugfix: Old Traits Removal (#5809)
+  - bugfix: Runtimes Fixes N5 (#5811)

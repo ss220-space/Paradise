@@ -4,7 +4,7 @@
 	if(!check_rights(R_SERVER))
 		return
 	if(!SSdbcore.IsConnected())
-		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>", confidential=TRUE)
 		return
 	var/memotask = input(usr,"Choose task.","Memo") in list("Show","Write","Edit","Remove")
 	if(!memotask)
@@ -17,7 +17,7 @@
 	if(!task)
 		return
 	if(!SSdbcore.IsConnected())
-		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
+		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>", confidential=TRUE)
 		return
 	switch(task)
 		if("Write")
@@ -31,7 +31,7 @@
 				return
 
 			if(query_memocheck.NextRow())
-				to_chat(src, "You already have set a memo.")
+				to_chat(src, "You already have set a memo.", confidential=TRUE)
 				qdel(query_memocheck)
 				return
 
@@ -70,7 +70,7 @@
 
 			qdel(query_memolist)
 			if(!length(memolist))
-				to_chat(src, "No memos found in database.")
+				to_chat(src, "No memos found in database.", confidential=TRUE)
 				return
 
 			var/target_ckey = input(src, "Select whose memo to edit", "Select memo") as null|anything in memolist
@@ -132,12 +132,12 @@
 				var/last_editor = query_memoshow.item[4]
 				output += "<span class='memo'>Memo by <span class='prefix'>[ckey]</span> on [timestamp]"
 				if(last_editor)
-					output += "<br><span class='memoedit'>Last edit by [last_editor] <A href='?_src_=holder;memoeditlist=[ckey]'>(Click here to see edit log)</A></span>"
+					output += "<br><span class='memoedit'>Last edit by [last_editor] <a href='byond://?_src_=holder;memoeditlist=[ckey]'>(Click here to see edit log)</A></span>"
 				output += "<br>[memotext]</span><br>"
 			if(output)
-				to_chat(src, output)
+				to_chat(src, output, confidential=TRUE)
 			else if(!silent)
-				to_chat(src, "No memos found in database.")
+				to_chat(src, "No memos found in database.", confidential=TRUE)
 			qdel(query_memoshow)
 
 		if("Remove")
@@ -153,7 +153,7 @@
 
 			qdel(query_memodellist)
 			if(!memolist.len)
-				to_chat(src, "No memos found in database.")
+				to_chat(src, "No memos found in database.", confidential=TRUE)
 				return
 
 			var/target_ckey = input(src, "Select whose memo to delete", "Select memo") as null|anything in memolist

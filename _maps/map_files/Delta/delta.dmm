@@ -74314,9 +74314,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/arcade/minesweeper{
-	freeplay = 1
-	},
+/obj/machinery/arcade/minesweeper,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
 "mlG" = (
@@ -117441,7 +117439,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
 	},
-/obj/item/clothing/gloves/color/yellow,
+/obj/item/clothing/gloves/color/fyellow,
 /obj/item/storage/toolbox/electrical,
 /obj/item/multitool,
 /turf/simulated/floor/plasteel{
@@ -119947,7 +119945,7 @@
 /area/crew_quarters/captain/bedroom)
 "wPi" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/gloves/color/yellow,
+/obj/item/clothing/gloves/color/fyellow,
 /obj/item/storage/toolbox/electrical,
 /obj/item/multitool,
 /turf/simulated/floor/plasteel{

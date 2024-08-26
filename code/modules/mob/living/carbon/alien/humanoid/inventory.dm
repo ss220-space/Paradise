@@ -3,6 +3,9 @@
 	if(!. || !I)
 		return
 
+	//if we actually unequipped an item, this is because we dont want to run this proc twice, once for carbons and once for aliens
+	var/not_handled = FALSE
+
 	if(I == r_store)
 		r_store = null
 		if(!QDELETED(src))
@@ -12,6 +15,14 @@
 		l_store = null
 		if(!QDELETED(src))
 			update_inv_pockets()
+	else
+		not_handled = TRUE
+
+	if(not_handled)
+		return .
+
+	update_equipment_speed_mods()
+
 
 /mob/living/carbon/alien/humanoid/equip_to_slot(obj/item/I, slot, initial)
 	if(!slot)
