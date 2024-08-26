@@ -906,7 +906,7 @@
 		return TRUE
 
 	for(var/obj/item/grown/coconut/C in contents)
-		new /obj/item/reagent_containers/food/snacks/dry_coco(loc)
+		new /obj/item/reagent_containers/food/snacks/grown/dry_coco(loc)
 		item_quants[C.name]--
 		qdel(C)
 		C.forceMove(get_turf(src))

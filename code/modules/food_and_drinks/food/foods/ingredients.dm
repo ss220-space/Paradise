@@ -326,7 +326,7 @@
 	. = ..()
 
 	// Dough + rolling pin = flat dough
-	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !istype(I, /obj/item/reagent_containers/food/snacks/choc_pile))
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
 
 	if(!isturf(loc))
@@ -336,35 +336,21 @@
 	if(!user.drop_transfer_item_to_loc(I, src))
 		return .
 
-	. |= ATTACK_CHAIN_BLOCKED_ALL
-	var/obj/item/reagent_containers/food/snacks/rawcookies/chocochips/chocochips = new(loc)
-	transfer_fingerprints_to(chocochips)
-	chocochips.add_fingerprint(user)
-	to_chat(user, span_notice("You sprinkle [I] all over the cookies."))
+	if(istype(I, /obj/item/reagent_containers/food/snacks/piece_coconut) )
+		var/obj/item/reagent_containers/food/snacks/rawcookies/cocochips/cocochips = new(loc)
+		transfer_fingerprints_to(cocochips)
+		cocochips.add_fingerprint(user)
+		to_chat(user, span_notice("You sprinkle [I] all over the cookies."))
+
+	if(istype(I, /obj/item/reagent_containers/food/snacks/choc_pile))
+		var/obj/item/reagent_containers/food/snacks/rawcookies/chocochips/chocochips = new(loc)
+		transfer_fingerprints_to(chocochips)
+		chocochips.add_fingerprint(user)
+		to_chat(user, span_notice("You sprinkle [I] all over the cookies."))
+
 	qdel(src)
 	qdel(I)
-
-/obj/item/reagent_containers/food/snacks/rawcookies/attackby(obj/item/I, mob/user, params)
-	. = ..()
-
-	// Dough + rolling pin = flat dough
-	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !istype(I, /obj/item/reagent_containers/food/snacks/piece_coconut))
-		return .
-
-	if(!isturf(loc))
-		to_chat(user, span_warning("You need to put [src] on a surface to add [I]."))
-		return .
-
-	if(!user.drop_transfer_item_to_loc(I, src))
-		return .
-
-	. |= ATTACK_CHAIN_BLOCKED_ALL
-	var/obj/item/reagent_containers/food/snacks/rawcookies/cocochips/cocochips = new(loc)
-	transfer_fingerprints_to(cocochips)
-	cocochips.add_fingerprint(user)
-	to_chat(user, span_notice("You sprinkle [I] all over the cookies."))
-	qdel(src)
-	qdel(I)
+	return .|ATTACK_CHAIN_SUCCESS
 
 /obj/item/reagent_containers/food/snacks/rawcookies/chocochips
 	name = "raw cookies"
@@ -380,8 +366,8 @@
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "unbaked_coconut_cookies"
 	item_state = "unbaked_coconut_cookies"
-	list_reagents = list("nutriment" = 5, "sugar" = 5, "shradded_coconut" = 5)
-	tastes = list("dough" = 1, "sugar" = 1, "shradded_coconut" = 1)
+	list_reagents = list("nutriment" = 5, "sugar" = 5, "shredded_coconut" = 5)
+	tastes = list("dough" = 1, "sugar" = 1, "shredded_coconut" = 1)
 
 //////////////////////
 //	Chocolate		//
