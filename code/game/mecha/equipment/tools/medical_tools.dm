@@ -111,7 +111,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/get_module_equip_info()
 	if(patient)
-		return " <br />\[Occupant: [patient] ([patient.stat > 1 ? "*DECEASED*" : "Health: [patient.health]%"])\]<br /><a href='?src=[UID()];view_stats=1'>View stats</a>|<a href='?src=[UID()];eject=1'>Eject</a>"
+		return " <br />\[Occupant: [patient] ([patient.stat > 1 ? "*DECEASED*" : "Health: [patient.health]%"])\]<br /><a href='byond://?src=[UID()];view_stats=1'>View stats</a>|<a href='byond://?src=[UID()];eject=1'>Eject</a>"
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/Topic(href,href_list)
 	..()
@@ -304,7 +304,7 @@
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/get_module_equip_info()
-	return " \[<a href=\"?src=[UID()];toggle_mode=1\">[analyze_mode? "Analyze" : "Launch"]</a>\]<br />\[Syringes: [syringes.len]/[max_syringes] | Reagents: [reagents.total_volume]/[reagents.maximum_volume]\]<br /><a href='?src=[UID()];show_reagents=1'>Reagents list</a>"
+	return " \[<a href=\"?src=[UID()];toggle_mode=1\">[analyze_mode? "Analyze" : "Launch"]</a>\]<br />\[Syringes: [syringes.len]/[max_syringes] | Reagents: [reagents.total_volume]/[reagents.maximum_volume]\]<br /><a href='byond://?src=[UID()];show_reagents=1'>Reagents list</a>"
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/action(atom/movable/target)
 	if(!action_checks(target))

@@ -21,40 +21,40 @@
 		return 1
 
 	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8">"}
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 
 	dat += "<B>Holodeck Control System</B><BR>"
 	dat += "<HR>Current Loaded Programs:<BR>"
 
-	dat += "<A href='?src=[UID()];emptycourt=1'>((Empty Court)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];boxingcourt=1'>((Boxing Court)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];basketball=1'>((Basketball Court)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];thunderdomecourt=1'>((Thunderdome Court)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];beach=1'>((Beach)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];desert=1'>((Desert)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];space=1'>((Space)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];picnicarea=1'>((Picnic Area)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];snowfield=1'>((Snow Field)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];theatre=1'>((Theatre)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];meetinghall=1'>((Meeting Hall)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];knightarena=1'>((Knight Arena)</font>)</A><BR>"
-//		dat += "<A href='?src=[UID()];turnoff=1'>((Shutdown System)</font>)</A><BR>"
+	dat += "<a href='byond://?src=[UID()];emptycourt=1'>((Empty Court)</font>)</A><BR>"
+	dat += "<a href='byond://?src=[UID()];boxingcourt=1'>((Boxing Court)</font>)</A><BR>"
+	dat += "<a href='byond://?src=[UID()];basketball=1'>((Basketball Court)</font>)</A><BR>"
+	dat += "<a href='byond://?src=[UID()];thunderdomecourt=1'>((Thunderdome Court)</font>)</A><BR>"
+	dat += "<a href='byond://?src=[UID()];beach=1'>((Beach)</font>)</A><BR>"
+	dat += "<a href='byond://?src=[UID()];desert=1'>((Desert)</font>)</A><BR>"
+	dat += "<a href='byond://?src=[UID()];space=1'>((Space)</font>)</A><BR>"
+	dat += "<a href='byond://?src=[UID()];picnicarea=1'>((Picnic Area)</font>)</A><BR>"
+	dat += "<a href='byond://?src=[UID()];snowfield=1'>((Snow Field)</font>)</A><BR>"
+	dat += "<a href='byond://?src=[UID()];theatre=1'>((Theatre)</font>)</A><BR>"
+	dat += "<a href='byond://?src=[UID()];meetinghall=1'>((Meeting Hall)</font>)</A><BR>"
+	dat += "<a href='byond://?src=[UID()];knightarena=1'>((Knight Arena)</font>)</A><BR>"
+//		dat += "<a href='byond://?src=[UID()];turnoff=1'>((Shutdown System)</font>)</A><BR>"
 
 	dat += "Please ensure that only holographic weapons are used in the holodeck if a combat simulation has been loaded.<BR>"
 
 	if(emagged)
-/*			dat += "<A href='?src=[UID()];burntest=1'>(<font color=red>Begin Atmospheric Burn Simulation</font>)</A><BR>"
+/*			dat += "<a href='byond://?src=[UID()];burntest=1'>(<font color=red>Begin Atmospheric Burn Simulation</font>)</A><BR>"
 		dat += "Ensure the holodeck is empty before testing.<BR>"
 		dat += "<BR>"*/
-		dat += "<A href='?src=[UID()];wildlifecarp=1'>(<font color=red>Begin Wildlife Simulation</font>)</A><BR>"
+		dat += "<a href='byond://?src=[UID()];wildlifecarp=1'>(<font color=red>Begin Wildlife Simulation</font>)</A><BR>"
 		dat += "Ensure the holodeck is empty before testing.<BR>"
 		dat += "<BR>"
 		if(issilicon(user))
-			dat += "<A href='?src=[UID()];AIoverride=1'>(<font color=green>Re-Enable Safety Protocols?</font>)</A><BR>"
+			dat += "<a href='byond://?src=[UID()];AIoverride=1'>(<font color=green>Re-Enable Safety Protocols?</font>)</A><BR>"
 		dat += "Safety Protocols are <font color=red> DISABLED </font><BR>"
 	else
 		if(issilicon(user))
-			dat += "<A href='?src=[UID()];AIoverride=1'>(<font color=red>Override Safety Protocols?</font>)</A><BR>"
+			dat += "<a href='byond://?src=[UID()];AIoverride=1'>(<font color=red>Override Safety Protocols?</font>)</A><BR>"
 		dat += "<BR>"
 		dat += "Safety Protocols are <font color=green> ENABLED </font><BR>"
 

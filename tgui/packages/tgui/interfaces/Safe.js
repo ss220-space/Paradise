@@ -1,3 +1,4 @@
+import { resolveAsset } from '../assets';
 import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { Box, Button, Icon, Section } from '../components';
@@ -27,7 +28,7 @@ export const Safe = (properties, context) => {
             <Box
               as="img"
               className="Safe--dial"
-              src="safe_dial.png"
+              src={resolveAsset('safe_dial.png')}
               style={{
                 'transform': 'rotate(-' + 3.6 * dial + 'deg)',
                 'z-index': 0,

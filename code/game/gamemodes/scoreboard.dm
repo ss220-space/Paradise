@@ -327,7 +327,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 		crewscore -= 250
 
 	// Generate the score panel
-	var/dat = {"<head><title>Итоги смены №[GLOB.round_id]</title><meta charset='UTF-8'></head>"}
+	var/dat = {"<head><title>Итоги смены №[GLOB.round_id]</title><!DOCTYPE html><meta charset='UTF-8'></head>"}
 	if(SSticker.mode)
 		dat += SSticker.mode.get_scoreboard_stats()
 
@@ -397,7 +397,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 	for(var/mob/mob in GLOB.player_list)
 		if(mob.client)
 			to_chat(mob, "<b>Итоговый результат экипажа:</b>")
-			to_chat(mob, "<b><font size='4'><a href='?src=[mob.UID()];scoreboard=1'>[crewscore]</a></font></b>")
+			to_chat(mob, "<b><font size='4'><a href='byond://?src=[mob.UID()];scoreboard=1'>[crewscore]</a></font></b>")
 			if(!mob.get_preference(PREFTOGGLE_DISABLE_SCOREBOARD))
 				mob << browse(GLOB.scoreboard, "window=roundstats;size=700x900")
 

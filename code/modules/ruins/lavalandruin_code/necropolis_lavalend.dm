@@ -91,6 +91,7 @@
 		icon_state = "necr"
 	else
 		icon_state = "necropen"
+	SSdemo.mark_dirty(src)
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor/try_to_activate_door(mob/user)
  	return

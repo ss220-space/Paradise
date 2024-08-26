@@ -44,7 +44,7 @@
 	if(user.a_intent == INTENT_HARM && table_smacks_left == initial(table_smacks_left)) // so you can't do 2 weak slaps followed by a big slam
 		. = ATTACK_CHAIN_BLOCKED
 		transform = transform.Scale(1.5) // BIG slap
-		if(HULK in user.mutations)
+		if(HAS_TRAIT(user, TRAIT_HULK))
 			transform = transform.Scale(2)
 			color = COLOR_GREEN
 		user.do_attack_animation(the_table)

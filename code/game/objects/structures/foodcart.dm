@@ -89,31 +89,31 @@
 /obj/structure/foodcart/attack_hand(mob/user)
 	add_fingerprint(user)
 	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8">"}
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	if(food_slots[1])
-		dat += "<a href='?src=[UID()];f1=1'>[food_slots[1]]</a><br>"
+		dat += "<a href='byond://?src=[UID()];f1=1'>[food_slots[1]]</a><br>"
 	if(food_slots[2])
-		dat += "<a href='?src=[UID()];f2=1'>[food_slots[2]]</a><br>"
+		dat += "<a href='byond://?src=[UID()];f2=1'>[food_slots[2]]</a><br>"
 	if(food_slots[3])
-		dat += "<a href='?src=[UID()];f3=1'>[food_slots[3]]</a><br>"
+		dat += "<a href='byond://?src=[UID()];f3=1'>[food_slots[3]]</a><br>"
 	if(food_slots[4])
-		dat += "<a href='?src=[UID()];f4=1'>[food_slots[4]]</a><br>"
+		dat += "<a href='byond://?src=[UID()];f4=1'>[food_slots[4]]</a><br>"
 	if(food_slots[5])
-		dat += "<a href='?src=[UID()];f5=1'>[food_slots[5]]</a><br>"
+		dat += "<a href='byond://?src=[UID()];f5=1'>[food_slots[5]]</a><br>"
 	if(food_slots[6])
-		dat += "<a href='?src=[UID()];f6=1'>[food_slots[6]]</a><br>"
+		dat += "<a href='byond://?src=[UID()];f6=1'>[food_slots[6]]</a><br>"
 	if(drink_slots[1])
-		dat += "<a href='?src=[UID()];d1=1'>[drink_slots[1]]</a><br>"
+		dat += "<a href='byond://?src=[UID()];d1=1'>[drink_slots[1]]</a><br>"
 	if(drink_slots[2])
-		dat += "<a href='?src=[UID()];d2=1'>[drink_slots[2]]</a><br>"
+		dat += "<a href='byond://?src=[UID()];d2=1'>[drink_slots[2]]</a><br>"
 	if(drink_slots[3])
-		dat += "<a href='?src=[UID()];d3=1'>[drink_slots[3]]</a><br>"
+		dat += "<a href='byond://?src=[UID()];d3=1'>[drink_slots[3]]</a><br>"
 	if(drink_slots[4])
-		dat += "<a href='?src=[UID()];d4=1'>[drink_slots[4]]</a><br>"
+		dat += "<a href='byond://?src=[UID()];d4=1'>[drink_slots[4]]</a><br>"
 	if(drink_slots[5])
-		dat += "<a href='?src=[UID()];d5=1'>[drink_slots[5]]</a><br>"
+		dat += "<a href='byond://?src=[UID()];d5=1'>[drink_slots[5]]</a><br>"
 	if(drink_slots[6])
-		dat += "<a href='?src=[UID()];d6=1'>[drink_slots[6]]</a><br>"
+		dat += "<a href='byond://?src=[UID()];d6=1'>[drink_slots[6]]</a><br>"
 	var/datum/browser/popup = new(user, "foodcart", name, 240, 160)
 	popup.set_content(dat)
 	popup.open()

@@ -42,7 +42,7 @@
 	if(!user.drop_transfer_item_to_loc(new_gem, src))
 		return .
 	. |= ATTACK_CHAIN_BLOCKED_ALL
-	to_chat(user, span_notice("You carefully insert [new_gem] into [src]."))
+	to_chat(user, span_notice("You have carefully inserted [new_gem] into [src]."))
 	gem = new_gem
 	update_state()
 
@@ -143,6 +143,7 @@
 			set_light_range_power_color(range = 3, power = 2, color = "#7d0692")
 			set_light_on(TRUE)
 		if(/obj/item/gem/amber)
+			dragon_power = TRUE
 			set_light_range_power_color(range = 3, power = 2, color = "#FFBF00")
 			set_light_on(TRUE)
 

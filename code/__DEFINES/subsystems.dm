@@ -67,19 +67,20 @@
 // Subsystems shutdown in the reverse of the order they initialize in
 // The numbers just define the ordering, they are meaningless otherwise.
 #define INIT_ORDER_TITLE 100 // This **MUST** load first or people will se blank lobby screens
-#define INIT_ORDER_SPEECH_CONTROLLER 18
-#define INIT_ORDER_GARBAGE 17
-#define INIT_ORDER_DBCORE 16
-#define INIT_ORDER_BLACKBOX 15
-#define INIT_ORDER_CLEANUP 14
-#define INIT_ORDER_INPUT 13
-#define INIT_ORDER_SOUNDS 12
-#define INIT_ORDER_INSTRUMENTS 11
-#define INIT_ORDER_EVENTS 10
-#define INIT_ORDER_HOLIDAY 9
-#define INIT_ORDER_JOBS 8
-#define INIT_ORDER_TICKER 7
-#define INIT_ORDER_MAPPING 6
+#define INIT_ORDER_SPEECH_CONTROLLER 19
+#define INIT_ORDER_GARBAGE 18
+#define INIT_ORDER_DBCORE 17
+#define INIT_ORDER_BLACKBOX 16
+#define INIT_ORDER_CLEANUP 15
+#define INIT_ORDER_INPUT 14
+#define INIT_ORDER_SOUNDS 13
+#define INIT_ORDER_INSTRUMENTS 12
+#define INIT_ORDER_EVENTS 11
+#define INIT_ORDER_HOLIDAY 10
+#define INIT_ORDER_JOBS 9
+#define INIT_ORDER_TICKER 8
+#define INIT_ORDER_MAPPING 7
+#define INIT_ORDER_EARLY_ASSETS 6
 #define INIT_ORDER_ATOMS 5
 #define INIT_ORDER_MACHINES 4
 #define INIT_ORDER_IDLENPCS 3
@@ -102,6 +103,7 @@
 #define INIT_ORDER_PATH -50
 #define INIT_ORDER_PERSISTENCE -95
 #define INIT_ORDER_STATPANELS -98
+#define INIT_ORDER_DEMO	-99 // To avoid a bunch of changes related to initialization being written, do this last
 #define INIT_ORDER_CHAT -100 // Should be last to ensure chat remains smooth during init.
 
 // Subsystem fire priority, from lowest to highest priority
@@ -128,6 +130,7 @@
 #define FIRE_PRIORITY_DEFAULT		50
 #define FIRE_PRIORITY_PARALLAX		65
 #define FIRE_PRIORITY_MOBS			100
+#define FIRE_PRIORITY_ASSETS 		105
 #define FIRE_PRIORITY_TGUI			110
 #define FIRE_PRIORITY_TICKER		200
 #define FIRE_PRIORITY_STATPANEL		390
@@ -154,3 +157,26 @@
 #define SS_CPUDISPLAY_LOW 1
 #define SS_CPUDISPLAY_DEFAULT 2
 #define SS_CPUDISPLAY_HIGH 3
+
+// Truly disgusting, TG. Truly disgusting.
+//! ## Overlays subsystem
+
+#define POST_OVERLAY_CHANGE(changed_on) \
+	if(length(changed_on.overlays) >= MAX_ATOM_OVERLAYS) { \
+		var/text_lays = overlays2text(changed_on.overlays); \
+		stack_trace("Too many overlays on [changed_on.type] - [length(changed_on.overlays)], refusing to update and cutting.\
+			\n What follows is a printout of all existing overlays at the time of the overflow \n[text_lays]"); \
+		changed_on.overlays.Cut(); \
+		changed_on.add_overlay(mutable_appearance('icons/Testing/greyscale_error.dmi')); \
+	} \
+	if(alternate_appearances) { \
+		for(var/I in changed_on.alternate_appearances){\
+			var/datum/atom_hud/alternate_appearance/AA = changed_on.alternate_appearances[I];\
+			if(AA.transfer_overlays){\
+				AA.copy_overlays(changed_on, TRUE);\
+			}\
+		} \
+	}\
+	if(isturf(changed_on)){SSdemo.mark_turf(changed_on);}\
+	if(isobj(changed_on) || ismob(changed_on)){SSdemo.mark_dirty(changed_on);}\
+

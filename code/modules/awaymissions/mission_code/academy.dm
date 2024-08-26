@@ -64,9 +64,6 @@
 	)
 
 /obj/effect/bump_teleporter/academy_no_mesons/process_special_effects(mob/living/target)
-	if(XRAY in target.mutations)
-		target.mutations.Remove(XRAY)
-		target.update_sight()
 	process_item_removal(target)
 
 /obj/effect/bump_teleporter/academy_no_mesons/proc/process_item_removal(mob/living/target)

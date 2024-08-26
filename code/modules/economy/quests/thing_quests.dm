@@ -477,7 +477,7 @@
 		"LISP" = 150,
 		"MUTE" = 150,
 		"RAD" = 150,
-		"FAT" = 150,
+		"OBESITY" = 150,
 		"SWEDE" = 150,
 		"SCRAMBLE" = 150,
 		"WEAK" = 150,

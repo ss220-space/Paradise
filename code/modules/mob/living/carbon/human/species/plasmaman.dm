@@ -6,7 +6,15 @@
 	dangerous_existence = TRUE //So so much
 	//language = "Clatter"
 
-	species_traits = list(RADIMMUNE, NO_BLOOD, NO_HUNGER, NOTRANSSTING, NO_PAIN, VIRUSIMMUNE, NO_GERMS, NO_DECAY, NOCLONE)
+	inherent_traits = list(
+		TRAIT_NO_BLOOD,
+		TRAIT_NO_PAIN,
+		TRAIT_RADIMMUNE,
+		TRAIT_VIRUSIMMUNE,
+		TRAIT_NO_GERMS,
+		TRAIT_NO_DECAY,
+		TRAIT_NO_HUNGER,
+	)
 	forced_heartattack = TRUE // Plasmamen have no blood, but they should still get heart-attacks
 	skinned_type = /obj/item/stack/sheet/mineral/plasma // We're low on plasma, R&D! *eyes plasmaman co-worker intently*
 	reagent_tag = PROCESS_ORG
@@ -54,13 +62,13 @@
 
 
 /datum/species/plasmaman/on_species_gain(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	add_verb(H, /mob/living/carbon/human/proc/emote_rattle)
 	RegisterSignal(H, COMSIG_CARBON_RECEIVE_FRACTURE, PROC_REF(on_fracture))
 
 
 /datum/species/plasmaman/on_species_loss(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	remove_verb(H, /mob/living/carbon/human/proc/emote_rattle)
 	UnregisterSignal(H, COMSIG_CARBON_RECEIVE_FRACTURE)
 

@@ -99,7 +99,7 @@
 /datum/element/footstep/proc/play_simplestep(mob/living/source, atom/oldloc, direction, forced, list/old_locs, momentum_change)
 	SIGNAL_HANDLER
 
-	if(forced || HAS_TRAIT(source, SILENT_FOOTSTEPS) || !momentum_change)
+	if(forced || HAS_TRAIT(source, TRAIT_SILENT_FOOTSTEPS) || !momentum_change)
 		return
 
 	var/list/prepared_steps = prepare_step(source)
@@ -120,7 +120,7 @@
 /datum/element/footstep/proc/play_humanstep(mob/living/carbon/human/source, atom/oldloc, direction, forced, list/old_locs, momentum_change)
 	SIGNAL_HANDLER
 
-	if(forced || !momentum_change || HAS_TRAIT(source, SILENT_FOOTSTEPS) || source.dna.species.silent_steps)
+	if(forced || !momentum_change || HAS_TRAIT(source, TRAIT_SILENT_FOOTSTEPS) || source.dna.species.silent_steps)
 		return
 
 	var/list/prepared_steps = prepare_step(source)
@@ -163,7 +163,7 @@
 /datum/element/footstep/proc/play_simplestep_machine(atom/movable/source, atom/oldloc, direction, forced, list/old_locs, momentum_change)
 	SIGNAL_HANDLER
 
-	if(forced || HAS_TRAIT(source, SILENT_FOOTSTEPS))
+	if(forced || HAS_TRAIT(source, TRAIT_SILENT_FOOTSTEPS))
 		return
 
 	var/turf/source_loc = get_turf(source)

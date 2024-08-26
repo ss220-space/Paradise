@@ -1,0 +1,207 @@
+## This file is used for customing lobby music playlist
+## Add/remove songs from this list individually, rather than multiple at once. This makes it easier to judge PRs that change the list, since PRs that change it up heavily are less likely to meet broad support
+## Add a comment after the song link in the format [Artist - Name]
+
+#### Classic SS13 Music
+
+## Space Station 13 Music - Endless Space
+LOBBY_MUSIC https://www.youtube.com/watch?v=Ae2N5310MXE
+
+## Space Station 13 Music - Title1 (Flip-Flap)
+LOBBY_MUSIC https://www.youtube.com/watch?v=UaD4AiqYDyA
+
+## Space Station 13 Music - Title3
+LOBBY_MUSIC https://www.youtube.com/watch?v=YKVmXn-Gv0M
+
+## Space Station 13 Music - THUNDERDOME (Sector11)
+LOBBY_MUSIC https://www.youtube.com/watch?v=-K3ztneTQuA
+
+## Space Station 13 Music - clown.wmv
+LOBBY_MUSIC https://www.youtube.com/watch?v=9whQIbNmu9s
+
+## Space Station 14 - Tin Tin On Moon Mark II
+LOBBY_MUSIC https://www.youtube.com/watch?v=d7hc_GrZP4Y
+
+## PILOTPRIEST - Tell Them Now
+LOBBY_MUSIC https://www.youtube.com/watch?v=r4aqBG20ruo
+
+## PILOTPRIEST - Origin One
+LOBBY_MUSIC https://pilotpriest.bandcamp.com/track/origin-one
+
+## PILOTPRIEST - Now Be The Light
+LOBBY_MUSIC https://pilotpriest.bandcamp.com/track/now-be-the-light-2
+
+
+#### Yogstation Music
+
+## Jim Carrey - Cuban Pete
+#LOBBY_MUSIC https://www.youtube.com/watch?v=jA4u5Pur5KA
+
+## Electric Light Orchestra - Mr. Blue Sky
+#LOBBY_MUSIC https://www.youtube.com/watch?v=lIrum6iFz6U
+
+## SolusLunes - Endless Space
+#LOBBY_MUSIC https://www.youtube.com/watch?v=Ae2N5310MXE
+
+## MashedByMachines - Sector11
+#LOBBY_MUSIC https://www.youtube.com/watch?v=UPHmazxB38g
+
+## Jeff Imam - Title - Plasma Attack
+#LOBBY_MUSIC https://soundcloud.com/jeffimam/title-plasma-attack
+
+## David Bowie - Space Oddity (Cover by Chris Hadfield)
+#LOBBY_MUSIC https://www.youtube.com/watch?v=KaOC9danxNo
+
+## X-CEED - Flip-Flap
+#LOBBY_MUSIC https://www.youtube.com/watch?v=UaD4AiqYDyA
+
+## Monster860 - Orion Trail
+#LOBBY_MUSIC https://www.youtube.com/watch?v=a90kqxX3jPg
+
+## Monster860 - Journey to Cygni
+#LOBBY_MUSIC https://www.youtube.com/watch?v=zKxwED8-Hws
+
+## Joseph "Zhaytee" Toscano - Absconditus
+#LOBBY_MUSIC https://www.youtube.com/watch?v=icy4-CQHVh4
+
+## Hiroaki Yoshida, Hitomi Komatsu - Robocop Theme (Remix by Cboyardee)
+#LOBBY_MUSIC https://www.youtube.com/watch?v=dCPWE4WexM8
+
+## Stellardrone - Comet Haley
+#LOBBY_MUSIC https://www.youtube.com/watch?v=3W7mwRpUbqQ
+
+## Jeroen Tel - Tintin on the Moon  (Noisemaker's Remix)
+#LOBBY_MUSIC https://www.youtube.com/watch?v=BY-1SrsLER0
+
+## Jeroen Tel - Tintin on the Moon (Remix by Cuboos)
+#LOBBY_MUSIC https://www.youtube.com/watch?v=YKVmXn-Gv0M
+
+## Chris Remo - Space Asshole
+#LOBBY_MUSIC https://www.youtube.com/watch?v=GISnTECX8Eg
+
+## Ronald Jenkee - Piano Wire
+#LOBBY_MUSIC https://www.youtube.com/watch?v=le1eD6I7k4s
+
+## Kelly Bailey - Nuclear Missile Jam/Something Secret Steers Us (Remix)
+#LOBBY_MUSIC https://www.youtube.com/watch?v=r-eMVfiT8_c
+
+## Wintergatan - Local Cluster
+#LOBBY_MUSIC https://www.youtube.com/watch?v=WcWix770cvQ
+
+## Michael Giacchino - Main Theme (STAR TREK Beyond)
+#LOBBY_MUSIC https://www.youtube.com/watch?v=w5hBQDepXOE
+
+## Admiral Hippie - Clown.wmv
+#LOBBY_MUSIC https://www.youtube.com/watch?v=9whQIbNmu9s
+
+## Chris Christodoulou - Risk of Rain Coalescence
+#LOBBY_MUSIC https://www.youtube.com/watch?v=67BwWgrMlxk
+
+## Star Trek The Motion Picture: Main Theme Album Style Edit
+#LOBBY_MUSIC https://www.youtube.com/watch?v=SQOdPQQf2Uo
+
+## Chris Remo - The Wizard
+#LOBBY_MUSIC https://www.youtube.com/watch?v=jJDAV9vSmYc
+
+## Blue Oyster Cult - Sole Survivor
+#LOBBY_MUSIC https://www.youtube.com/watch?v=nRjLv1L0WF8
+
+## J.G. Thirlwell - In a Spaceage Mood
+#LOBBY_MUSIC https://www.youtube.com/watch?v=xhlH91k-86E
+
+## Carpenter Brut - Escape from Midwich Valley
+#LOBBY_MUSIC https://www.youtube.com/watch?v=ZhhQrFfzFM4
+
+## God Hand "Rock a Bay"
+#LOBBY_MUSIC https://www.youtube.com/watch?v=YGulLVWu-s0
+
+## Streets Of Rogue - 5-1
+#LOBBY_MUSIC https://www.youtube.com/watch?v=IhEqUKBTffU
+
+## Rain World THS - Action Scene
+#LOBBY_MUSIC https://www.youtube.com/watch?v=fXvxnDmwB_I
+
+## The Kinks - Super Sonic Ship
+#LOBBY_MUSIC https://www.youtube.com/watch?v=MPPCNM85eRY
+
+## David Bowie - Starman
+#LOBBY_MUSIC https://www.youtube.com/watch?v=tRcPA7Fzebw
+
+## Dungeons of Dredmor - Diggle Hell
+#LOBBY_MUSIC https://www.youtube.com/watch?v=zquJ6AqvVNw
+
+## Ribbiks - Chasing Suns
+#LOBBY_MUSIC https://www.youtube.com/watch?v=uiPJQgw6M_g
+
+## Ataraxia - Deja Vuzz
+#LOBBY_MUSIC https://www.youtube.com/watch?v=7F_xOzLWy5U
+
+## The Penis (Eek!) - Surasshu
+#LOBBY_MUSIC https://www.youtube.com/watch?v=dxDpdfzwuD4
+
+## Short Circuit - Daft Punk
+#LOBBY_MUSIC https://www.youtube.com/watch?v=TszmdpUtf0A
+
+## Ben Prunty - FTL - Theme Song
+#LOBBY_MUSIC https://www.youtube.com/watch?v=VJ817kvh_DM
+
+## Stuck in the Sound - Let's G
+#LOBBY_MUSIC https://www.youtube.com/watch?v=52Gg9CqhbP8
+
+## HOME - Resonance
+#LOBBY_MUSIC https://www.youtube.com/watch?v=8GW6sLrK40k
+
+## Chris Christodoulou - Dies Irae
+#LOBBY_MUSIC https://www.youtube.com/watch?v=8DNoXUnaQ9k
+
+## Chris Christodoulou - ...con lentitud poderosa
+#LOBBY_MUSIC https://www.youtube.com/watch?v=Nn9trJXUrp0
+
+## Clint Eastwood - Magnum Force Theme
+#LOBBY_MUSIC https://www.youtube.com/watch?v=rkas-NHQnsI
+
+## DM Dokuro - Treasures Within The Abomination
+#LOBBY_MUSIC https://www.youtube.com/watch?v=e3t_dbLaw-M
+
+## Blinch - Loop Hero OST - Loop Blues
+#LOBBY_MUSIC https://www.youtube.com/watch?v=2O4C8J4bcXw
+
+## Blinch - Loop Hero OST - Dark Matter Moon
+#LOBBY_MUSIC https://www.youtube.com/watch?v=4q-La8uR0HU
+
+## Banda Municipal de Manizales - El Pilon
+#LOBBY_MUSIC https://www.youtube.com/watch?v=pP6nEgo9UTs
+
+## Alistair Lindsay - RimWorld OST - Waiting For The Sun
+#LOBBY_MUSIC https://www.youtube.com/watch?v=V52QTyn6e-A
+
+## Pizza Tower OST - Tunnely Shimbers
+#LOBBY_MUSIC https://www.youtube.com/watch?v=0-CLAPJ1PLs
+
+## Jamiroquai - Virtual Insanity
+#LOBBY_MUSIC https://www.youtube.com/watch?v=4JkIs37a2JE
+
+## PilotRedSun - The Grinch's Ultimatum
+#LOBBY_MUSIC https://www.youtube.com/watch?v=z01VlftkqY8
+
+## Nightmargin - IT'S TIME TO FIGHT CRIME
+#LOBBY_MUSIC https://www.youtube.com/watch?v=rcmQefeyPBs
+
+## Bear McCreary - Wander My Friends
+#LOBBY_MUSIC https://www.youtube.com/watch?v=OGcMPp7TNo4
+
+## LEMMiNO - Firecracker - CC BY-SA 4.0
+#LOBBY_MUSIC https://soundcloud.com/lemmino/firecracker
+
+## Bright Primate - Bio-Engineering
+#LOBBY_MUSIC https://www.youtube.com/watch?v=bJNXazHoLkE
+
+## Jeff Imam - The Sadness Club At The Edge Of The Universe
+#LOBBY_MUSIC https://soundcloud.com/jeffimam/the-sadness-club-at-the-edge-of-the-universe
+
+## Jeff Imam - Forest
+#LOBBY_MUSIC https://soundcloud.com/jeffimam/forest
+
+#### Holiday Music
+## If you want to make holidays custom lobby music, you should make new config entry
+## with special holiday music and change holiday's var value

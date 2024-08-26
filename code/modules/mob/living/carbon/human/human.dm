@@ -402,7 +402,7 @@
 //Returns "Unknown" if facially disfigured and real_name if not. Useful for setting name when polyacided or when updating a human's name variable
 /mob/living/carbon/human/proc/get_face_name()
 	var/obj/item/organ/external/head_organ = get_organ(BODY_ZONE_HEAD)
-	if(!head_organ || head_organ.is_disfigured() || cloneloss > 50 || !real_name || (HUSK in mutations))	//disfigured. use id-name if possible
+	if(!head_organ || head_organ.is_disfigured() || cloneloss > 50 || !real_name || HAS_TRAIT(src, TRAIT_HUSK))	//disfigured. use id-name if possible
 		return "Unknown"
 	return real_name
 
@@ -574,7 +574,7 @@
 								to_chat(usr, "<b>Major Crimes:</b> [R.fields["ma_crim"]]")
 								to_chat(usr, "<b>Details:</b> [R.fields["ma_crim_d"]]")
 								to_chat(usr, "<b>Notes:</b> [R.fields["notes"]]")
-								to_chat(usr, "<a href='?src=[UID()];secrecordComment=`'>\[View Comment Log\]</a>")
+								to_chat(usr, "<a href='byond://?src=[UID()];secrecordComment=`'>\[View Comment Log\]</a>")
 								read = 1
 
 			if(!read)
@@ -599,7 +599,7 @@
 								else
 									to_chat(usr, "<span class='warning'>No comments found</span>")
 								if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
-									to_chat(usr, "<a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>")
+									to_chat(usr, "<a href='byond://?src=[UID()];secrecordadd=`'>\[Add comment\]</a>")
 
 			if(!read)
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
@@ -658,7 +658,7 @@
 								to_chat(usr, "<b>Major Disabilities:</b> [R.fields["ma_dis"]]")
 								to_chat(usr, "<b>Details:</b> [R.fields["ma_dis_d"]]")
 								to_chat(usr, "<b>Notes:</b> [R.fields["notes"]]")
-								to_chat(usr, "<a href='?src=[UID()];medrecordComment=`'>\[View Comment Log\]</a>")
+								to_chat(usr, "<a href='byond://?src=[UID()];medrecordComment=`'>\[View Comment Log\]</a>")
 								read = 1
 
 			if(!read)
@@ -682,7 +682,7 @@
 										to_chat(usr, c)
 								else
 									to_chat(usr, "<span class='warning'>No comment found</span>")
-								to_chat(usr, "<a href='?src=[UID()];medrecordadd=`'>\[Add comment\]</a>")
+								to_chat(usr, "<a href='byond://?src=[UID()];medrecordadd=`'>\[Add comment\]</a>")
 
 			if(!read)
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
@@ -805,7 +805,7 @@
 		. = FALSE
 		fail_msg = "That limb is robotic."
 	// affecting.open = ORGAN_ORGANIC_ENCASED_OPEN after scalpel->hemostat->retractor
-	else if((PIERCEIMMUNE in dna.species.species_traits) && !ignore_pierceimmune && affecting.open < ORGAN_ORGANIC_ENCASED_OPEN)
+	else if(!ignore_pierceimmune && affecting.open < ORGAN_ORGANIC_ENCASED_OPEN && HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
 		. = FALSE
 	else if(covered_with_thick_material(target_zone) && !penetrate_thick)
 		. = FALSE
@@ -898,12 +898,14 @@
 	check_and_regenerate_organs() //Regenerate limbs and organs only if they're really missing.
 	surgeries.Cut() //End all surgeries.
 
-	if(!isskeleton(src) && (SKELETON in mutations))
-		mutations.Remove(SKELETON)
-	if(NOCLONE in mutations)
-		mutations.Remove(NOCLONE)
-	if(HUSK in mutations)
-		mutations.Remove(HUSK)
+	var/update_appearance = FALSE
+	if(remove_skeleton(update_appearance = FALSE))
+		update_appearance = TRUE
+	if(cure_husk(update_appearance = FALSE))
+		update_appearance = TRUE
+	if(update_appearance)
+		UpdateAppearance()
+	revive_no_clone_removal()
 
 	if(!client || !key) //Don't boot out anyone already in the mob.
 		for(var/obj/item/organ/internal/brain/H in world)
@@ -933,7 +935,7 @@
 
 
 /mob/living/carbon/human/cuff_resist(obj/item/I, cuff_break = FALSE)
-	if(HULK in mutations)
+	if(HAS_TRAIT(src, TRAIT_HULK))
 		say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		return ..(I, cuff_break = TRUE)
 	return ..()
@@ -1238,10 +1240,9 @@
 
 	dna.real_name = real_name
 
-	update_sight()
-
 	dna.species.handle_dna(src) //Give them whatever special dna business they got.
 
+	update_sight()
 	update_client_colour(0)
 
 	if(!delay_icon_update)
@@ -1354,7 +1355,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(!get_location_accessible(src, BODY_ZONE_PRECISE_EYES))
 		return FALSE
 	// Natural eyeshine, any implants, and XRAY - all give shiny appearance.
-	if((istype(eyes) && eyes.shine()) || istype(eye_implant) || (XRAY in mutations))
+	if((istype(eyes) && eyes.shine()) || istype(eye_implant) || HAS_TRAIT(src, TRAIT_XRAY))
 		return TRUE
 
 	return FALSE
@@ -1547,13 +1548,13 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			return TRUE
 
 /mob/living/carbon/human/selfFeed(obj/item/reagent_containers/food/toEat, fullness)
-	if(!check_has_mouth())
+	if(!istype(toEat, /obj/item/reagent_containers/food/pill/patch) && !check_has_mouth())
 		to_chat(src, "Where do you intend to put [toEat]? You don't have a mouth!")
 		return FALSE
 	return ..()
 
 /mob/living/carbon/human/forceFed(obj/item/reagent_containers/food/toEat, mob/user, fullness)
-	if(!check_has_mouth())
+	if(!istype(toEat, /obj/item/reagent_containers/food/pill/patch) && !check_has_mouth())
 		if(!((istype(toEat, /obj/item/reagent_containers/food/drinks) && (ismachineperson(src)))))
 			to_chat(user, "Where do you intend to put [toEat]? [src] doesn't have a mouth!")
 			return FALSE
@@ -1602,10 +1603,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/can_use_guns(obj/item/gun/check_gun)
 	. = ..()
 
-	if(check_gun.trigger_guard == TRIGGER_GUARD_NORMAL)
-		if((NOGUNS in dna.species.species_traits) || HAS_TRAIT(src, TRAIT_CHUNKYFINGERS))
-			to_chat(src, span_warning("Your fingers don't fit in the trigger guard!"))
-			return FALSE
+	if(check_gun.trigger_guard == TRIGGER_GUARD_NORMAL && HAS_TRAIT(src, TRAIT_NO_GUNS))
+		to_chat(src, span_warning("Your fingers don't fit in the trigger guard!"))
+		return FALSE
 
 	if(mind && mind.martial_art && mind.martial_art.no_guns) //great dishonor to famiry
 		to_chat(src, span_warning("[mind.martial_art.no_guns_message]"))
@@ -1735,15 +1735,16 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	.["Make superhero"] = "?_src_=vars;makesuper=[UID()]"
 	. += "---"
 
-/mob/living/carbon/human/adjust_nutrition(change)
-	if((NO_HUNGER in dna.species.species_traits) && !isvampire(src))
+
+/mob/living/carbon/human/adjust_nutrition(change, forced)
+	if(!forced && HAS_TRAIT(src, TRAIT_NO_HUNGER) && !isvampire(src))
 		return FALSE
 	. = ..()
 	update_hunger_slowdown()
 
 
-/mob/living/carbon/human/set_nutrition(change)
-	if((NO_HUNGER in dna.species.species_traits) && !isvampire(src))
+/mob/living/carbon/human/set_nutrition(change, forced)
+	if(!forced && HAS_TRAIT(src, TRAIT_NO_HUNGER) && !isvampire(src))
 		return FALSE
 	. = ..()
 	update_hunger_slowdown()

@@ -88,20 +88,8 @@
 		gloves.germ_level += 1
 
 
-/mob/living/carbon/human/proc/becomeSlim()
-	to_chat(src, span_notice("[pluralize_ru(src.gender,"Ты","Вы")] снова чувствуе[pluralize_ru(src.gender,"шь","те")] себя в форме!"))
-	mutations.Remove(FAT)
-	update_obesity_slowdown()
-
-
-/mob/living/carbon/human/proc/becomeFat()
-	to_chat(src, span_alert("[pluralize_ru(src.gender,"Ты","Вы")] вдруг чувствуе[pluralize_ru(src.gender,"шь","те")] себя пухлым!"))
-	mutations.Add(FAT)
-	update_obesity_slowdown()
-
-
-/mob/living/carbon/human/proc/update_obesity_slowdown()
-	if(FAT in mutations)
+/mob/living/carbon/human/proc/update_fat_slowdown()
+	if(HAS_TRAIT(src, TRAIT_FAT))
 		add_movespeed_modifier(/datum/movespeed_modifier/obesity)
 		add_movespeed_modifier(/datum/movespeed_modifier/obesity_flying)
 	else

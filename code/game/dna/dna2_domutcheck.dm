@@ -52,7 +52,7 @@
 	if(!our_species)
 		CRASH("Mob [real_name] somehow has a DNA, but no species assigned.")
 
-	if((NO_DNA in our_species.species_traits))
+	if(HAS_TRAIT(src, TRAIT_NO_DNA))
 		return FALSE
 
 	// Is our gene in activation bounds?

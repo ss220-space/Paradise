@@ -1144,7 +1144,7 @@ Standard way to write links -Sayu
 /proc/topic_link(var/datum/D, var/arglist, var/content)
 	if(istype(arglist,/list))
 		arglist = list2params(arglist)
-	return "<a href='?src=[D.UID()];[arglist]'>[content]</a>"
+	return "<a href='byond://?src=[D.UID()];[arglist]'>[content]</a>"
 
 
 // This proc is made to check if we can interact or use (directly or in the other way) the specific bodypart

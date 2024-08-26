@@ -126,7 +126,7 @@
 
 
 /obj/item/paper/proc/rename(mob/user)
-	if((CLUMSY in user.mutations) && prob(50))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, "<span class='warning'>You cut yourself on the paper.</span>")
 		return
 	if(!user.is_literate())
@@ -286,10 +286,10 @@
 /obj/item/paper/proc/updateinfolinks()
 	info_links = info
 	for(var/i in 1 to fields)
-		var/write_1 = "<font face=\"[deffont]\"><a href='?src=[UID()];write=[i]'>write</a></font>"
-		var/write_2 = "<font face=\"[deffont]\"><a href='?src=[UID()];auto_write=[i]'><span style=\"color: #409F47; font-size: 10px\">\[a\]</span></a></font>"
+		var/write_1 = "<font face=\"[deffont]\"><a href='byond://?src=[UID()];write=[i]'>write</a></font>"
+		var/write_2 = "<font face=\"[deffont]\"><a href='byond://?src=[UID()];auto_write=[i]'><span style=\"color: #409F47; font-size: 10px\">\[a\]</span></a></font>"
 		addtofield(i, "[write_1][write_2]", 1)
-	info_links = info_links + "<font face=\"[deffont]\"><a href='?src=[UID()];write=end'>write</a></font>" + "<font face=\"[deffont]\"><a href='?src=[UID()];auto_write=end'><span style=\"color: #409F47; font-size: 10px\">\[A\]</span></a></font>"
+	info_links = info_links + "<font face=\"[deffont]\"><a href='byond://?src=[UID()];write=end'>write</a></font>" + "<font face=\"[deffont]\"><a href='byond://?src=[UID()];auto_write=end'><span style=\"color: #409F47; font-size: 10px\">\[A\]</span></a></font>"
 
 
 /obj/item/paper/proc/clearpaper()
@@ -452,7 +452,7 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 
 		add_fingerprint(user)
-		if((CLUMSY in user.mutations) && prob(10))
+		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message(
 				span_warning("[user] accidentally ignites [user.p_them()]self!"),
 				span_userdanger("You miss the paper and accidentally light yourself on fire!"),
@@ -483,14 +483,14 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/stamp))
-		if(loc != user && !istype(loc, /obj/item/clipboard) && loc.loc != user)
+		if(!Adjacent(user, recurse = 2))
 			return ATTACK_CHAIN_PROCEED
 		add_fingerprint(user)
 		if(istype(I, /obj/item/stamp/clown) && (user.mind && (user.mind.assigned_role != JOB_TITLE_CLOWN)))
 			to_chat(user, span_userdanger("You are totally unable to use the stamp. HONK!"))
 			return ATTACK_CHAIN_PROCEED
 		stamp(I)
-		to_chat(user, span_notice("You stamp the paper with [I]."))
+		to_chat(user, span_notice("You have stamped the paper with [I]."))
 		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, TRUE)
 		return ATTACK_CHAIN_PROCEED
 
@@ -912,7 +912,7 @@
 		target.adjustFireLoss(150) // hard crit, the burning takes care of the rest.
 	else if(myeffect == "Total Brain Death")
 		to_chat(target,"<span class='userdanger'>You see a message appear in front of you in bright red letters: <b>YHWH-3 ACTIVATED. TERMINATION IN 3 SECONDS</b></span>")
-		target.mutations.Add(NOCLONE)
+		ADD_TRAIT(target, TRAIT_NO_CLONE, EVIL_FAX_TRAIT)
 		target.adjustBrainLoss(125)
 	else if(myeffect == "Honk Tumor")
 		if(!target.get_int_organ(/obj/item/organ/internal/honktumor))
