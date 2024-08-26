@@ -355,7 +355,6 @@
 	var/chemdesc // borer special chemical description.
 	var/chemuse = 30
 	var/quantity = 10
-	var/evo_cost = 1
 
 /datum/reagent/capulettium_plus
 	chemdesc = "Silences and masks pulse."
