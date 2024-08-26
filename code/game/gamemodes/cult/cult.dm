@@ -293,13 +293,13 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 /datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)
 	var/datum/atom_hud/antag/culthud = GLOB.huds[ANTAG_HUD_CULT]
-	if(cult_mind.current)
+	if(cult_mind?.current)
 		culthud.join_hud(cult_mind.current)
 		set_antag_hud(cult_mind.current, "hudcultist")
 
 /datum/game_mode/proc/update_cult_icons_removed(datum/mind/cult_mind)
 	var/datum/atom_hud/antag/culthud = GLOB.huds[ANTAG_HUD_CULT]
-	if(cult_mind.current)
+	if(cult_mind?.current)
 		culthud.leave_hud(cult_mind.current)
 		set_antag_hud(cult_mind.current, null)
 
