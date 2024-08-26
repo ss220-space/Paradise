@@ -26,13 +26,17 @@
 
 
 /obj/item/mop/proc/wet_mop(obj/target, mob/user)
-	if(!target.reagents || target.reagents.total_volume < 1)
-		to_chat(user, span_notice("Looks like [target]'s bucket is empty."))
+	if(user.a_intent == INTENT_GRAB)
+		. = FALSE
 		if(istype(target, /obj/structure/mopbucket))
 			. = mopbucket_insert(user, target)
 		else if(istype(target, /obj/structure/janitorialcart))
 			. = janicart_insert(user, target)
 		return .
+
+	if(!target.reagents || target.reagents.total_volume < 1)
+		to_chat(user, span_notice("Looks like [target]'s bucket is empty."))
+		return FALSE
 
 	. = TRUE
 	target.reagents.trans_to(src, 5)
