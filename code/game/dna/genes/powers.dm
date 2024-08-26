@@ -240,6 +240,6 @@
 /datum/dna/gene/basic/farvision/deactivate(mob/living/mutant, flags)
 	. = ..()
 	if(mutant.client)
-		mutant.client.view = mutant.client.prefs.viewrange
+		mutant.client.SetView(mutant.client.prefs.viewrange)
 	mutant.RemoveSpell(/obj/effect/proc_holder/spell/view_range/genetic)
 
