@@ -205,6 +205,16 @@
 	build_path = /obj/item/scalpel/laser/manager
 	category = list("Medical")
 
+/datum/design/item/retractor_laser
+	name = "Advenced Laser Retractor"
+	desc = "test"
+	id = "retractor_laser"
+	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000)
+	build_path = /obj/item/retractor/laser
+	category = list("Medical")
+
 /datum/design/alienscalpel
 	name = "Alien Scalpel"
 	desc = "An advanced scalpel obtained through Abductor technology."
