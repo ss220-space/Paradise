@@ -5,16 +5,21 @@ function replaceContent() {
 	var args = Array.prototype.slice.call(arguments);
 	var id = args\[0\];
 	var content = args\[1\];
+	var type = args\[2\]
 	var callback  = null;
-	if(args\[2\]){
-		callback = args\[2\];
-		if(args\[3\]){
-			args = args.slice(3);
+	if(args\[3\]){
+		callback = args\[3\];
+		if(args\[4\]){
+			args = args.slice(4);
 		}
 	}
 	var parent = document.getElementById(id);
 	if(typeof(parent)!=='undefined' && parent!=null){
+		if(type === 'innerHTML'){
 		parent.innerHTML = content?content:'';
+		} else{
+		parent.src = content?content:'';
+		}
 	}
 	if(callback && window\[callback\]){
 		window\[callback\].apply(null,args);
@@ -36,9 +41,9 @@ Be sure to include required js functions in your page, or it'll raise an excepti
 
 And yes I know this is a proc in a defines file, but its highly relevant so it can be here
 */
-/proc/send_byjax(receiver, control_id, target_element, new_content=null, callback=null, list/callback_args=null)
+/proc/send_byjax(receiver, control_id, target_element, new_content=null, callback=null, list/callback_args=null, update_type = "innerHTML")
 	if(receiver && target_element && control_id) // && winexists(receiver, control_id))
-		var/list/argums = list(target_element, new_content)
+		var/list/argums = list(target_element, new_content, update_type)
 		if(callback)
 			argums += callback
 			if(callback_args)

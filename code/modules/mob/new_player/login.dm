@@ -37,8 +37,6 @@
 	GLOB.player_list |= src
 	GLOB.new_player_mobs |= src
 
-	new_player_panel()
-
 	if(ckey in GLOB.deadmins)
 		add_verb(src, /client/proc/readmin)
 	. = TRUE

@@ -19,15 +19,6 @@
 	GLOB.mob_list += src
 	return INITIALIZE_HINT_NORMAL
 
-/mob/new_player/proc/new_player_panel()
-	set src = usr
-
-	if(client.tos_consent)
-		new_player_panel_proc()
-	else
-		privacy_consent()
-
-
 /mob/new_player/proc/privacy_consent()
 	src << browse(null, "window=playersetup")
 	var/output = {"<!DOCTYPE html><meta charset="UTF-8">"} + GLOB.join_tos
@@ -118,9 +109,6 @@
 		query.warn_execute()
 		qdel(query)
 		src << browse(null, "window=privacy_consent")
-		if(client)
-			client.tos_consent = TRUE
-			new_player_panel_proc()
 	if(href_list["consent_rejected"])
 		client.tos_consent = FALSE
 		to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
@@ -162,15 +150,12 @@
 				client.prefs.ShowChoices(src)
 				return FALSE
 		ready = !ready
-		new_player_panel_proc()
 
 	if(href_list["skip_antag"])
 		client.prefs?.skip_antag = !client.prefs?.skip_antag
-		new_player_panel_proc()
 
 	if(href_list["refresh"])
 		src << browse(null, "window=playersetup") //closes the player setup window
-		new_player_panel_proc()
 
 	if(href_list["observe"])
 		if(!client.tos_consent)
@@ -287,9 +272,6 @@
 	if(!ready && href_list["preference"])
 		if(client)
 			client.prefs.process_link(src, href_list)
-	else if(!href_list["late_join"])
-		if(client)
-			new_player_panel()
 
 /mob/new_player/proc/IsJobAvailable(rank)
 	var/datum/job/job = SSjobs.GetJob(rank)
