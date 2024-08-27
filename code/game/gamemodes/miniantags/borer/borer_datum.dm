@@ -183,20 +183,20 @@
 	return ..()
 
 /datum/borer_rank/proc/update_rank(mob/living/simple_animal/borer/borer)
-	owner = borer
-	if(!owner.borer_rank)
-		return owner.borer_rank = new BORER_RANK_YOUNG()
-	switch(owner.borer_rank)
+	if(!borer.borer_rank)
+		return borer.borer_rank = new BORER_RANK_YOUNG(borer)
+	switch(borer.borer_rank)
 		if(BORER_RANK_YOUNG)
-			owner.borer_rank = new BORER_RANK_MATURE()
+			borer.borer_rank = new BORER_RANK_MATURE(borer)
 		if(BORER_RANK_MATURE)
-			owner.borer_rank = new BORER_RANK_ADULT()
+			borer.borer_rank = new BORER_RANK_ADULT(borer)
 		if(BORER_RANK_ADULT)
-			owner.borer_rank = new BORER_RANK_ELDER()
+			borer.borer_rank = new BORER_RANK_ELDER(borer)
 	return TRUE
 
-/datum/borer_rank/New()
-	parent = owner.mind?.has_antag_datum(/datum/antagonist/borer)
+/datum/borer_rank/New(mob/living/simple_animal/borer/borer)
+	owner = borer
+	parent = borer.mind?.has_antag_datum(/datum/antagonist/borer)
 	on_apply()
 
 /datum/borer_rank/proc/on_apply()
