@@ -21,7 +21,7 @@
 			return say_dead(message)
 		var/mob/living/simple_animal/borer/B = loc
 		to_chat(src, "Вы тихо шепчете, \"[message]\"")
-		to_chat(B.host, "<i><span class='alien'>Пленённый разум [src] шепчет, \"[message]\"</span></i>")
+		to_chat(B.host, span_alien("<i>Пленённый разум [src] шепчет, \"[message]\"</i>"))
 
 		for(var/mob/M in GLOB.mob_list)
 			if(M.mind && isobserver(M))
@@ -189,12 +189,12 @@
 	if(src && !QDELETED(src) && !QDELETED(host))
 		var/say_string = (docile) ? "slurs" :"states"
 		if(host)
-			to_chat(host, "<span class='changeling'><i>[truename] [say_string]:</i> [sended_message]</span>")
+			to_chat(host, span_changeling("<i>[truename] [say_string]:</i> [sended_message]"))
 			add_say_logs(src, sended_message, host, "BORER")
 			for(var/M in GLOB.dead_mob_list)
 				if(isobserver(M))
-					to_chat(M, "<span class='changeling'><i>Borer Communication from <b>[truename]</b> ([ghost_follow_link(src, ghost=M)]): [sended_message]</i>")
-		to_chat(src, "<span class='changeling'><i>[truename] [say_string]:</i> [sended_message]</span>")
+					to_chat(M, span_changeling("<i>Borer Communication from <b>[truename]</b> ([ghost_follow_link(src, ghost=M)]): [sended_message]</i>"))
+		to_chat(src, span_changeling("<i>[truename] [say_string]:</i> [sended_message]"))
 		talk_to_borer_action.Grant(host)
 
 /mob/living/simple_animal/borer/proc/post_reproduce()
@@ -219,7 +219,7 @@
 	return talk_inside_host = TRUE
 
 /mob/living/proc/borer_comm()
-	if(src.stat == DEAD) // This shouldn't appear if host is not alive, but double-check
+	if(stat == DEAD) // This shouldn't appear if host is not alive, but double-check
 		return
 
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
@@ -228,16 +228,16 @@
 	if(!input)
 		return
 
-	to_chat(B, "<span class='changeling'><i>[src] says:</i> [input]</span>")
+	to_chat(B, span_changeling("<i>[src] says:</i> [input]"))
 	add_say_logs(src, input, B, "BORER")
 
 	for(var/M in GLOB.dead_mob_list)
 		if(isobserver(M))
-			to_chat(M, "<span class='changeling'><i>Borer Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
-	to_chat(src, "<span class='changeling'><i>[src] says:</i> [input]</span>")
+			to_chat(M, span_changeling("<i>Borer Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"))
+	to_chat(src, span_changeling("<i>[src] says:</i> [input]"))
 
 /mob/living/proc/trapped_mind_comm()
-	if(src.stat == DEAD)
+	if(stat == DEAD)
 		to_chat(src, span_warning("Мозг жертвы не способен воспринимать вас в этом состоянии!"))
 		return
 
@@ -249,13 +249,13 @@
 	if(!input)
 		return
 
-	to_chat(CB, "<span class='changeling'><i>[B.truename] says:</i> [input]</span>")
+	to_chat(CB, span_changeling("<i>[B.truename] says:</i> [input]"))
 	add_say_logs(B, input, CB, "BORER")
 
 	for(var/M in GLOB.dead_mob_list)
 		if(isobserver(M))
-			to_chat(M, "<span class='changeling'><i>Borer Communication from <b>[B]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
-	to_chat(src, "<span class='changeling'><i>[B.truename] says:</i> [input]</span>")
+			to_chat(M, span_changeling("<i>Borer Communication from <b>[B]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"))
+	to_chat(src, span_changeling("<i>[B.truename] says:</i> [input]"))
 
 /mob/living/simple_animal/borer/Life(seconds, times_fired)
 
