@@ -7,6 +7,8 @@ GLOBAL_LIST_INIT(meteor_shields, list())
 	name = "Station Shield"
 	VAR_PRIVATE/cached_coverage_length
 	var/coverage_goal = 10000
+	min_players = 1
+	max_players = 40
 
 /datum/station_goal/station_shield/get_report()
 	return {"<b>Сооружение щитов станции</b><br>

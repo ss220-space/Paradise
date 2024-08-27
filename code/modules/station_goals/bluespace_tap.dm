@@ -3,6 +3,8 @@
 	name = "Bluespace Harvester"
 	gamemode_blacklist = list("extended")
 	var/goal = 25000
+	min_players = 20
+	max_players = 40
 
 /datum/station_goal/bluespace_tap/get_report()
 	return {"<b>Bluespace Harvester Experiment</b><br>

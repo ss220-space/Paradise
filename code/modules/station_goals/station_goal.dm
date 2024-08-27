@@ -12,6 +12,13 @@
 	var/report_message = "Complete this goal."
 	var/list/obj/item/paper/papers_list = list()
 	var/list/datum/supply_packs/supply_list = list()
+	var/min_players = 0
+	var/max_players = INFINITY
+
+/datum/station_goal/proc/can_start(players = 0, game_mode = "secret")
+    if(game_mode in gamemode_blacklist)
+        return FALSE
+    return ((players <= max_players) && (players >= min_players))
 
 /datum/station_goal/proc/send_report()
 	on_report()
