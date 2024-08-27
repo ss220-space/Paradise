@@ -19,6 +19,53 @@
 	var/emagged = FALSE
 	var/safety_hypo = FALSE
 
+/obj/item/reagent_containers/hypospray/upgraded
+	name = "upgraded medical hypospray"
+	desc = "Improved general-purpose medical hypospray for rapid administration of chemicals. This model has increased capacity."
+	item_state = "upg_hypo"
+	icon_state = "upg_hypo"
+	volume = 60
+	possible_transfer_amounts = list(1,2,5,10,15,20,25,30,40,60)
+	safety_hypo = TRUE
+	var/paint_color
+
+/obj/item/reagent_containers/hypospray/upgraded/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/toy/crayon/spraycan))
+		add_fingerprint(user)
+		var/obj/item/toy/crayon/spraycan/can = I
+		if(can.capped)
+			to_chat(user, span_warning("The cap on [can] is sealed."))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		if(can.uses < 2)
+			to_chat(user, span_warning("There is not enough paint in [can]."))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		to_chat(user, span_notice("You have painted [src]."))
+		playsound(user.loc, 'sound/effects/spray.ogg', 20, TRUE)
+		paint_color = can.colour
+		can.uses -= 2
+		update_state()
+		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
+
+	if(istype(I, /obj/item/soap) && paint_color)
+		add_fingerprint(user)
+		to_chat(user, span_notice("You wash off the paint layer from the hypospray."))
+		paint_color = null
+		update_state()
+		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
+
+	return ..()
+
+/obj/item/reagent_containers/hypospray/upgraded/proc/update_state()
+	update_icon(UPDATE_ICON_STATE)
+	remove_filter("hypospray_handle")
+	if(paint_color)
+		var/icon/hypo_mask = icon('icons/obj/hypo.dmi', "colour_upgradedhypo")
+		add_filter("hypospray_handle", 1, layering_filter(icon = hypo_mask, color = paint_color))
+
+
+/obj/item/reagent_containers/hypospray/upgraded/update_icon_state()
+	icon_state = paint_color ? "upg_hypo_white" : "upg_hypo"
+
 
 /obj/item/reagent_containers/hypospray/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
