@@ -19,6 +19,40 @@
 	var/emagged = FALSE
 	var/safety_hypo = FALSE
 
+/obj/item/reagent_containers/hypospray/upgraded
+	name = "upgraded medical hypospray"
+	desc = "Improved general-purpose medical hypospray for rapid administration of chemicals. This model has increased capacity."
+	item_state = "upg_hypo"
+	icon_state = "upg_hypo"
+	volume = 60
+	possible_transfer_amounts = list(1,2,5,10,15,20,25,30,40,60)
+	safety_hypo = TRUE
+	var/has_paint
+	var/colour
+
+/obj/item/reagent_containers/hypospray/upgraded/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/toy/crayon/spraycan))
+		var/obj/item/toy/crayon/spraycan/spraycan = I
+		if(spraycan.capped)
+			to_chat(user, "<span class='warning'>Take the cap off first!</span>")
+			return
+		if(spraycan.uses < 2)
+			to_chat(user, "<span class ='warning'>There is not enough paint in the can!")
+			return
+		colour = spraycan.colour
+		has_paint = TRUE
+		icon_state = "upg_hypo_white"
+		src.remove_filter("hypospray_handle")
+		var/icon/hypo_mask = icon('icons/obj/hypo.dmi',"colour_upgradedhypo" )
+		src.add_filter("hypospray_handle",1,layering_filter(icon = hypo_mask, color = colour))
+	if(istype(I, /obj/item/soap) && has_paint)
+		to_chat(user, span_notice("You wash off the paint layer from hypospray"))
+		has_paint = FALSE
+		src.remove_filter("hypospray_handle")
+		icon_state = "upg_hypo"
+	..()
+
+
 /obj/item/reagent_containers/hypospray/attack(mob/living/M, mob/user)
 	if(!reagents.total_volume)
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")

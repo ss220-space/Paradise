@@ -1,0 +1,9 @@
+.alloys32x32{display:inline-block;width:32px;height:32px;background:url('%alloys_32x32.png%') no-repeat;}
+.alloys32x32.plasteel{background-position:-0px -0px;}
+.alloys32x32.plastitanium{background-position:-32px -0px;}
+.alloys32x32.plasmaglass{background-position:-64px -0px;}
+.alloys32x32.titaniumglass{background-position:-0px -32px;}
+.alloys32x32.plastitaniumglass{background-position:-32px -32px;}
+.alloys32x32.alienalloy{background-position:-64px -32px;}
+.alloys32x32.alienglass{background-position:-0px -64px;}
+.alloys32x32.rglass{background-position:-32px -64px;}

@@ -1,0 +1,13 @@
+.materials32x32{display:inline-block;width:32px;height:32px;background:url('%materials_32x32.png%') no-repeat;}
+.materials32x32.metal{background-position:-0px -0px;}
+.materials32x32.glass{background-position:-32px -0px;}
+.materials32x32.silver{background-position:-64px -0px;}
+.materials32x32.gold{background-position:-96px -0px;}
+.materials32x32.diamond{background-position:-0px -32px;}
+.materials32x32.uranium{background-position:-32px -32px;}
+.materials32x32.plasma{background-position:-64px -32px;}
+.materials32x32.bluespace{background-position:-96px -32px;}
+.materials32x32.bananium{background-position:-0px -64px;}
+.materials32x32.tranquillite{background-position:-32px -64px;}
+.materials32x32.titanium{background-position:-64px -64px;}
+.materials32x32.plastic{background-position:-96px -64px;}
