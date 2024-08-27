@@ -109,7 +109,7 @@
 				left: 0;
 				width: 20em;
 				height: 100vh;
-				background-color: rgba(22, 22, 22, 0.85);
+				background-color: rgba(239, 238, 238, 0.7);
 				border-right: 1px solid rgba(255, 255, 255, 0.1);
 				box-shadow: 0.5em 0 1.25em rgba(0, 0 ,0, 0.5);
 				transition: transform 0.2s, box-shadow 0.2s;
@@ -119,15 +119,14 @@
 
 			#hide_menu:checked ~ .container_menu {
 				transform: translateX(-100%);
-				box-shadow: none;
+				box-shadow: none
 			}
 
 			.container_logo {
 				display: flex;
 				flex-direction: column;
 				align-items: center;
-				background-color: #191919;
-
+				background-color: rgba(186, 186, 186, 0.7);
 			}
 
 			.logo {
@@ -163,6 +162,15 @@
 				text-align: left;
 				margin: 0;
 				color: #898989;
+			}
+
+			.charPreview {
+				align-items: center;
+				-ms-interpolation-mode: nearest-neighbor; /* TODO: REMOVE AFTER 516*/
+				image-rendering: pixelated;
+				width: 15rem;
+				border: solid #d4dfec;
+				color: #d4dfec;
 			}
 
 			.container_buttons {
@@ -302,13 +310,54 @@
 				transform: rotate(180deg);
 			}
 
-			.charPreview {
-				align-items: center;
-				-ms-interpolation-mode: nearest-neighbor; /* TODO: REMOVE AFTER 516*/
-				image-rendering: pixelated;
-				width: 15rem;
-				border: solid #d4dfec;
+			/**
+			 * MARK: Dark
+			 */
+
+			.dark .container_logo  {
+				background-color: rgba(19, 19, 19, 0.7);
 			}
+
+			.dark .container_menu  {
+				background-color: rgba(33, 32, 32, 0.85);
+			}
+
+			/**
+			 * MARK: NTOS
+			 */
+
+			.ntos .container_logo  {
+				background-color: #121922;
+			}
+
+			.ntos .container_menu  {
+				background-color: rgba(27, 38, 51, 0.85);
+			}
+
+			/**
+			 * MARK: Syndicate
+			 */
+
+			.syndicate .container_logo  {
+				background-color: #2b0101;
+			}
+
+			.syndicate .container_menu  {
+				background-color: rgba(77, 2, 2, 0.7);
+			}
+
+			/**
+			 * MARK: Paradise
+			 */
+
+			.paradise .container_logo  {
+				background-color: #400125;
+			}
+
+			.paradise .container_menu  {
+				background-color: rgba(128, 4, 72, 0.85);
+			}
+
 		</style>
 	</head>
 	<body>

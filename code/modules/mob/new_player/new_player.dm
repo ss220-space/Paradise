@@ -150,6 +150,7 @@
 				client.prefs.ShowChoices(src)
 				return FALSE
 		ready = !ready
+		client << output(ready, "title_browser:ready")
 
 	if(href_list["skip_antag"])
 		client.prefs?.skip_antag = !client.prefs?.skip_antag

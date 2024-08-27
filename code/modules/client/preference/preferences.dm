@@ -305,9 +305,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	update_preview_icon()
 	user << browse_rsc(preview_icon_front, "previewicon.png")
 	user << browse_rsc(preview_icon_side, "previewicon2.png")
-
-	if(SStitle.initialized)
-		SStitle.show_title_screen_to(user.client, TRUE)
+	user << output("", "title_browser:update_char_image")
 
 	var/list/dat = list()
 	dat += {"<meta charset="UTF-8">"}

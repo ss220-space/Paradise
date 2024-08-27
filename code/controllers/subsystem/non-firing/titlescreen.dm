@@ -164,8 +164,9 @@ SUBSYSTEM_DEF(title)
 
 	viewer.prefs.update_preview_icon()
 	viewer << browse_rsc(viewer.prefs.preview_icon_front, "previewicon.png")
+	spawn(1)
+		viewer << output("", "title_browser:update_char_image")
 
-	send_byjax(viewer, "title_browser.browser", "charPreview", "previewicon.png", update_type="src")
 
 /datum/title_screen/proc/show_to(client/viewer, update_character = FALSE)
 	if(!viewer)
@@ -198,10 +199,6 @@ SUBSYSTEM_DEF(title)
 	var/list/html = list(title_html)
 	var/mob/new_player/player = user
 
-	html +={"<script language='javascript' type='text/javascript'>
-				[JS_BYJAX]
-			</script>"}
-
 	html += {"<input type="checkbox" id="hide_menu">"}
 
 	var/screen_image_url = SSassets.transport.get_asset_url(asset_cache_item = screen_image)
@@ -220,11 +217,10 @@ SUBSYSTEM_DEF(title)
 		<div class="container_logo">
 		<img class="logo" src="[SSassets.transport.get_asset_url(asset_name = "logo.png")]">
 			<div class="character_info">
-			<span class="character">На смену прибывает...</span>
+			<span class="character" id="arrival_message">Остается дома...</span>
 			<span class="character" id="character_slot">[viewer.prefs.real_name]</span>
 			</div>
 		</div>
-
 	"}
 
 	html += {"<div class="container_buttons">"}
@@ -262,12 +258,15 @@ SUBSYSTEM_DEF(title)
 		<script language="JavaScript">
 			let ready_int = 0;
 			const readyID = document.getElementById("ready");
+			const arrival_message = document.getElementById("arrival_message");
 			const ready_marks = \[ "Не готов", "Готов" \];
+			const arrival_marks = \[ "Остается дома...", "На смену прибывает..."\];
 			const ready_class = \[ "bad", "good" \];
 			function ready(setReady) {
 				if(setReady) {
 					ready_int = setReady;
-					readyID.innerHTML = ready_marks\[ready_int\];
+					readyID.innerHTML = ready_marks\[ready_int\];;
+					arrival_message.innerHTML = arrival_marks\[ready_int\];
 					readyID.classList.add(ready_class\[ready_int\]);
 					readyID.classList.remove(ready_class\[1 - ready_int\]);
 				} else {
@@ -275,6 +274,7 @@ SUBSYSTEM_DEF(title)
 					if(ready_int === ready_marks.length)
 						ready_int = 0;
 					readyID.innerHTML = ready_marks\[ready_int\];
+					arrival_message.innerHTML = arrival_marks\[ready_int\];
 					readyID.classList.add("good");
 					readyID.classList.remove("bad");
 				}
@@ -299,10 +299,41 @@ SUBSYSTEM_DEF(title)
 				}
 			}
 
+			const charPreview = document.getElementById("charPreview");
+
+			function set_image() {
+				charPreview.src = "previewicon.png";
+			}
+
+			function update_char_image() {
+				charPreview.src = "";
+				setTimeout(set_image, 1); // TODO: change after 516
+			}
+
 			const character_name_slot = document.getElementById("character_slot");
 			function update_current_character(name) {
 				character_name_slot.textContent = name;
 			}
+
+			function set_theme(which) {
+				if (which == 'light') {
+					document.body.className = '';
+					document.documentElement.className = 'light';
+				} else if (which == 'dark') {
+					document.body.className = 'dark';
+					document.documentElement.className = 'dark';
+				} else if (which == 'ntos') {
+					document.body.className = 'ntos';
+					document.documentElement.className = 'ntos';
+				} else if (which == 'paradise') {
+					document.body.className = 'paradise';
+					document.documentElement.className = 'paradise';
+				} else if (which == 'syndicate') {
+					document.body.className = 'syndicate';
+					document.documentElement.className = 'syndicate';
+				}
+			}
+
 		</script>
 		"}
 
