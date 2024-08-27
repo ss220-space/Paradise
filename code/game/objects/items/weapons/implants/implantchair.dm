@@ -56,14 +56,14 @@
 		dat += "<B>Status:</B> [cooldown_timer ? "<FONT color=red>Recharging... For <B>[remaining_time]</B> more seconds</FONT><BR>" : "<FONT color=green><B>READY</B></FONT>"]<BR>"
 	else
 		dat += "<B>Status:</B> [cooldown_timer ? "<FONT color=red>Replenishing... For <B>[remaining_time]</B> more seconds</FONT><BR>" : "<FONT color=green><B>READY</B></FONT>"]<BR>"
-	dat += "<B>Implants:</B> [implants_length ? "[implants_length]<BR>" : cooldown_timer ? "<FONT color=red>0</FONT><BR>" : "<A href='?src=[UID()];replenish=1'>Replenish</A>"]<BR>"
+	dat += "<B>Implants:</B> [implants_length ? "[implants_length]<BR>" : cooldown_timer ? "<FONT color=red>0</FONT><BR>" : "<a href='byond://?src=[UID()];replenish=1'>Replenish</A>"]<BR>"
 	if(occupant)
 		if(locate(/obj/item/implant/mindshield) in occupant)
 			dat += "Occupant is already <FONT color=green>implanted</FONT><BR>"
 		if(!cooldown_timer && implants_length)
-			dat += "<A href='?src=[UID()];implant=1'>Implant</A><BR>"
-		dat += "<A href='?src=[UID()];eject=1'>Eject Occupant</A><BR>"
-	dat += "<A href='?src=[UID()];refresh=1'>Refresh</A>"
+			dat += "<a href='byond://?src=[UID()];implant=1'>Implant</A><BR>"
+		dat += "<a href='byond://?src=[UID()];eject=1'>Eject Occupant</A><BR>"
+	dat += "<a href='byond://?src=[UID()];refresh=1'>Refresh</A>"
 	user.set_machine(src)
 	user << browse(dat, "window=implant")
 	onclose(user, "implant")

@@ -141,6 +141,9 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 	. = ..()
 	recipes = GLOB.sandstone_recipes
 
+/obj/item/stack/sheet/mineral/sandstone/fifty
+	amount = 50
+
 /*
  * Sandbags
  */
@@ -167,17 +170,24 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	icon_state = "sandbag"
 	w_class = WEIGHT_CLASS_TINY
 
+
 /obj/item/emptysandbag/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/ore/glass))
-		var/obj/item/stack/ore/glass/G = I
-		to_chat(user, "<span class='notice'>You fill the sandbag.</span>")
-		var/obj/item/stack/sheet/mineral/sandbags/S = new /obj/item/stack/sheet/mineral/sandbags(drop_location())
+		add_fingerprint(user)
+		var/obj/item/stack/ore/glass/sand = I
+		if(loc == user && !user.can_unEquip(src))
+			return ATTACK_CHAIN_PROCEED
+		if(!sand.use(1))
+			to_chat(user, span_warning("There is not enough sand."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You fill the sandbag."))
+		var/obj/item/stack/sheet/mineral/sandbags/sandbag = new(drop_location())
 		qdel(src)
-		if(Adjacent(user) && !issilicon(user))
-			user.put_in_hands(S, ignore_anim = FALSE)
-		G.use(1)
-	else
-		return ..()
+		user.put_in_hands(sandbag, ignore_anim = FALSE)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/stack/sheet/mineral/diamond
 	name = "diamond"
@@ -212,6 +222,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	. = ..()
 	recipes = GLOB.uranium_recipes
 
+/obj/item/stack/sheet/mineral/uranium/fifty
+	amount = 50
+
 /obj/item/stack/sheet/mineral/plasma
 	name = "solid plasma"
 	icon_state = "sheet-plasma"
@@ -237,11 +250,13 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 		log_and_set_aflame(user, I)
 	return TRUE
 
-/obj/item/stack/sheet/mineral/plasma/attackby(obj/item/I, mob/living/user, params)
+
+/obj/item/stack/sheet/mineral/plasma/attackby(obj/item/I, mob/user, params)
 	if(is_hot(I))
 		log_and_set_aflame(user, I)
-	else
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 /obj/item/stack/sheet/mineral/plasma/proc/log_and_set_aflame(mob/user, obj/item/I)
 	add_attack_logs(user, src, "Ignited [amount] amount, using [I]", ATKLOG_FEW)
@@ -268,6 +283,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	. = ..()
 	recipes = GLOB.gold_recipes
 
+/obj/item/stack/sheet/mineral/gold/fifty
+	amount = 50
+
 /obj/item/stack/sheet/mineral/silver
 	name = "silver"
 	icon_state = "sheet-silver"
@@ -282,6 +300,9 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 /obj/item/stack/sheet/mineral/silver/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
 	recipes = GLOB.silver_recipes
+
+/obj/item/stack/sheet/mineral/silver/fifty
+	amount = 50
 
 /obj/item/stack/sheet/mineral/bananium
 	name = "bananium"

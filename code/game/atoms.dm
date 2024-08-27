@@ -57,8 +57,6 @@
 
 	var/allow_spin = TRUE //Set this to 1 for a _target_ that is being thrown at; if an atom has this set to 1 then atoms thrown AT it will not spin; currently used for the singularity. -Fox
 
-	var/initialized = FALSE
-
 	///overlays managed by [update_overlays][/atom/proc/update_overlays] to prevent removing overlays that weren't added by the same proc. Single items are stored on their own, not in a list.
 	var/list/managed_overlays
 
@@ -117,6 +115,8 @@
 		GLOB._preloader.load(src)
 	. = ..()
 	attempt_init(arglist(args))
+	if(SSdemo?.initialized)
+		SSdemo.mark_new(src)
 
 // This is distinct from /tg/ because of our space management system
 // This is overriden in /atom/movable and the parent isn't called if the SMS wants to deal with it's init
@@ -141,9 +141,11 @@
 
 /atom/proc/Initialize(mapload, ...)
 	SHOULD_CALL_PARENT(TRUE)
-	if(initialized)
+	if(flags & INITIALIZED)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
-	initialized = TRUE
+	flags |= INITIALIZED
+
+	SET_PLANE_IMPLICIT(src, plane)
 
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
@@ -155,8 +157,6 @@
 		loc.InitializedOn(src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
 
 	SETUP_SMOOTHING()
-
-	SET_PLANE_IMPLICIT(src, plane)
 
 	ComponentInitialize()
 
@@ -434,12 +434,12 @@
 	//Detailed description
 	var/descriptions
 	if(get_description_info())
-		descriptions += "<a href='?src=[UID()];description_info=`'>\[Справка\]</a> "
+		descriptions += "<a href='byond://?src=[UID()];description_info=`'>\[Справка\]</a> "
 	if(get_description_antag())
 		if(isAntag(user) || isobserver(user))
-			descriptions += "<a href='?src=[UID()];description_antag=`'>\[Антагонист\]</a> "
+			descriptions += "<a href='byond://?src=[UID()];description_antag=`'>\[Антагонист\]</a> "
 	if(get_description_fluff())
-		descriptions += "<a href='?src=[UID()];description_fluff=`'>\[Забавная информация\]</a>"
+		descriptions += "<a href='byond://?src=[UID()];description_fluff=`'>\[Забавная информация\]</a>"
 
 	if(descriptions)
 		. += descriptions
@@ -563,7 +563,9 @@
 	return
 
 
-/// Updates the overlays of the atom. It has to return a list of overlays if it can't call the parent to create one. The list can contain anything that would be valid for the add_overlay proc: Images, mutable appearances, icon states...
+/// Updates the overlays of the atom. It has to return a list of overlays if it can't call the parent to create one.
+/// The list can contain anything that would be valid for the add_overlay proc: Images, mutable appearances, icon states...
+/// WARNING: if you provide external list to this proc, IT MUST BE A COPY, since ref to this list is saved in var/managed_overlays.
 /atom/proc/update_overlays()
 	RETURN_TYPE(/list)
 	. = list()
@@ -811,7 +813,7 @@
 		add_fibers(M)
 
 		//He has no prints!
-		if(FINGERPRINTS in M.mutations)
+		if(HAS_TRAIT(M, TRAIT_NO_FINGERPRINTS))
 			if(fingerprintslast != M.key)
 				fingerprintshidden += "(Has no fingerprints) Real name: [M.real_name], Key: [M.key]"
 				fingerprintslast = M.key
@@ -1019,12 +1021,12 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		var/obj/item/clothing/gloves/G = gloves
 		G.add_blood(blood_dna, color)
 		G.blood_color = color
-		verbs += /mob/living/carbon/human/proc/bloody_doodle
+		add_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
 	else
 		hand_blood_color = color
 		bloody_hands = rand(2, 4)
 		transfer_blood_dna(blood_dna)
-		verbs += /mob/living/carbon/human/proc/bloody_doodle
+		add_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
 
 	update_inv_gloves()	//handles bloody hands overlays and updating
 	return TRUE
@@ -1434,13 +1436,14 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	Returns: Either null if the renaming was aborted, or the user-provided sanitized string.
  **/
-/atom/proc/rename_interactive(mob/user, obj/implement = null, use_prefix = TRUE,
-		actually_rename = TRUE, prompt = null)
+/atom/proc/rename_interactive(mob/user, obj/implement = null, use_prefix = TRUE, actually_rename = TRUE, prompt = null)
 	// Sanity check that the user can, indeed, rename the thing.
 	// This, sadly, means you can't rename things with a telekinetic pen, but that's
 	// too much of a hassle to make work nicely.
 	if((implement && implement.loc != user) || !in_range(src, user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return null
+
+	add_fingerprint(user)
 
 	var/prefix = ""
 	if(use_prefix)
@@ -1665,3 +1668,35 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/GetTTSVoice()
 	return tts_seed
 
+/// Passes Stat Browser Panel clicks to the game and calls client click on an atom
+/atom/Topic(href, list/href_list)
+	. = ..()
+	if(!usr?.client)
+		return
+
+	if(loc != usr.listed_turf)
+		return
+
+	if(href_list["statpanel_item_click"])
+		var/client/usr_client = usr.client
+		var/list/paramslist = list()
+		switch(href_list["statpanel_item_click"])
+			if("left")
+				paramslist[LEFT_CLICK] = "1"
+			if("right")
+				paramslist[RIGHT_CLICK] = "1"
+			if("middle")
+				paramslist[MIDDLE_CLICK] = "1"
+			else
+				return
+
+		if(href_list["statpanel_item_shiftclick"])
+			paramslist[SHIFT_CLICK] = "1"
+		if(href_list["statpanel_item_ctrlclick"])
+			paramslist[CTRL_CLICK] = "1"
+		if(href_list["statpanel_item_altclick"])
+			paramslist[ALT_CLICK] = "1"
+
+		var/mouseparams = list2params(paramslist)
+		usr_client.Click(src, loc, null, mouseparams)
+		return TRUE

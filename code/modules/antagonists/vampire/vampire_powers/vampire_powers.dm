@@ -48,7 +48,6 @@
 
 
 /obj/effect/proc_holder/spell/vampire
-	panel = "Vampire"
 	school = "vampire"
 	action_background_icon_state = "bg_vampire"
 	human_req = TRUE
@@ -114,10 +113,11 @@
 
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate/proc/heal(mob/living/user, rejuv_bonus)
 	for(var/i in 1 to 5)
-		user.adjustBruteLoss(-2 * rejuv_bonus)
-		user.adjustOxyLoss(-5 * rejuv_bonus)
-		user.adjustToxLoss(-2 * rejuv_bonus)
-		user.adjustFireLoss(-2 * rejuv_bonus)
+		var/update = NONE
+		update |= user.heal_overall_damage(2 * rejuv_bonus, 2 * rejuv_bonus, updating_health = FALSE, affect_robotic = TRUE)
+		update |= user.heal_damages(tox = 2 * rejuv_bonus, oxy = 5 * rejuv_bonus, updating_health = FALSE)
+		if(update)
+			user.updatehealth()
 		for(var/datum/reagent/R in user.reagents.reagent_list)
 			if(!R.harmless)
 				user.reagents.remove_reagent(R.id, 2 * rejuv_bonus)
@@ -260,16 +260,16 @@
 
 		if(deviation == DEVIATION_FULL)
 			target.Confused(6 SECONDS)
-			target.adjustStaminaLoss(30)
+			target.apply_damage(30, STAMINA)
 
 		else if(deviation == DEVIATION_PARTIAL)
 			target.Weaken(4 SECONDS)
 			target.Confused(10 SECONDS)
-			target.adjustStaminaLoss(40)
+			target.apply_damage(40, STAMINA)
 
 		else
 			target.Confused(10 SECONDS)
-			target.adjustStaminaLoss(30)
+			target.apply_damage(30, STAMINA)
 			target.Weaken(2 SECONDS)
 			target.apply_status_effect(STATUS_EFFECT_STAMINADOT)
 			target.AdjustSilence(8 SECONDS)
@@ -351,13 +351,12 @@
 	if(!H.mind)
 		visible_message("[H] looks to be too stupid to understand what is going on.")
 		return
-	if(H.dna && (NO_BLOOD in H.dna.species.species_traits) || H.dna.species.exotic_blood || !H.blood_volume)
+	if(HAS_TRAIT(H, TRAIT_NO_BLOOD) || HAS_TRAIT(H, TRAIT_EXOTIC_BLOOD) || !H.blood_volume)
 		visible_message("[H] looks unfazed!")
 		return
 	if(H.mind.has_antag_datum(/datum/antagonist/vampire) || H.mind.special_role == SPECIAL_ROLE_VAMPIRE || H.mind.special_role == SPECIAL_ROLE_VAMPIRE_THRALL)
 		visible_message(span_notice("[H] looks refreshed!"))
-		H.adjustBruteLoss(-60)
-		H.adjustFireLoss(-60)
+		H.heal_overall_damage(60, 60, affect_robotic = TRUE)
 		for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
 			if(prob(25))
 				bodypart.mend_fracture()
@@ -367,7 +366,7 @@
 	if(H.stat != DEAD)
 		if(H.IsWeakened())
 			visible_message(span_warning("[H] looks to be in pain!"))
-			H.adjustBrainLoss(60)
+			H.apply_damage(60, BRAIN)
 		else
 			visible_message(span_warning("[H] looks to be stunned by the energy!"))
 			H.Weaken(40 SECONDS)

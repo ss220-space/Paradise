@@ -86,14 +86,18 @@
 	return
 
 
-/obj/item/paper_bin/attackby(obj/item/paper/I, mob/user, params)
-	if(istype(I))
-		user.drop_transfer_item_to_loc(I, src)
-		to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
+/obj/item/paper_bin/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/paper))
+		add_fingerprint(user)
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("You have put [I] into [src]."))
 		papers.Add(I)
 		amount++
-	else
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/paper_bin/examine(mob/user)
 	. = ..()

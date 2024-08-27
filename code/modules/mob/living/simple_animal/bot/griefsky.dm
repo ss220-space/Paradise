@@ -298,15 +298,11 @@
 	return ..()
 
 
-/mob/living/simple_animal/bot/secbot/griefsky/attackby(obj/item/W, mob/user, params) //cant touch or attack him while spinning
-	if(src.icon_state == spin_icon)
-		if(prob(block_chance_melee))
-			user.changeNext_move(CLICK_CD_MELEE)
-			user.do_attack_animation(src)
-			visible_message("[src] deflects [user]'s move with his energy swords!")
-			playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
-		else
-			return ..()
-	else
-		return ..()
+/mob/living/simple_animal/bot/secbot/griefsky/attackby(obj/item/I, mob/user, params) //cant touch or attack him while spinning
+	if(icon_state == spin_icon && prob(block_chance_melee))	// FFS! have no time to rework this now
+		user.do_attack_animation(src)
+		visible_message("[src] deflects [user]'s move with his energy swords!")
+		playsound(loc, 'sound/weapons/blade1.ogg', 50, TRUE, -1)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 

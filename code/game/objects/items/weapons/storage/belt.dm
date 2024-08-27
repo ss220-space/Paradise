@@ -56,7 +56,8 @@
 		/obj/item/extinguisher/mini,
 		/obj/item/holosign_creator,
 		/obj/item/radio,
-		/obj/item/robotanalyzer)
+		/obj/item/robotanalyzer,
+		/obj/item/clothing/gloves)
 
 /obj/item/storage/belt/utility/full/populate_contents()
 	new /obj/item/screwdriver(src)
@@ -533,11 +534,13 @@
 /obj/item/storage/belt/lazarus/update_icon_state()
 	icon_state = "[initial(icon_state)]_[length(contents)]"
 
-/obj/item/storage/belt/lazarus/attackby(obj/item/W, mob/user)
+
+/obj/item/storage/belt/lazarus/attackby(obj/item/I, mob/user, params)
 	var/amount = length(contents)
 	. = ..()
 	if(amount != length(contents))
 		update_icon(UPDATE_ICON_STATE)
+
 
 /obj/item/storage/belt/bandolier
 	name = "bandolier"
@@ -569,11 +572,13 @@
 /obj/item/storage/belt/bandolier/update_icon_state()
 	icon_state = "[initial(icon_state)]_[length(contents)]"
 
-/obj/item/storage/belt/bandolier/attackby(obj/item/W, mob/user)
+
+/obj/item/storage/belt/bandolier/attackby(obj/item/I, mob/user, params)
 	var/amount = length(contents)
 	. = ..()
 	if(amount != length(contents))
 		update_icon(UPDATE_ICON_STATE)
+
 
 /obj/item/storage/belt/holster
 	name = "shoulder holster"
@@ -720,6 +725,17 @@
 		item_state = "[item_state]-rapier"
 	update_equipped_item(update_speedmods = FALSE)
 
+/obj/item/storage/belt/rapier/syndie
+	name = "suspicious rapier sheath"
+	desc = "A sinister, thin sheath, suitable for a rapier."
+	icon_state = "syndie_sheath"
+	item_state = "syndie_sheath"
+	can_hold = list(/obj/item/melee/syndie_rapier)
+
+/obj/item/storage/belt/rapier/syndie/populate_contents()
+	new /obj/item/melee/syndie_rapier(src)
+	update_icon()
+
 
 // -------------------------------------
 //     Bluespace Belt
@@ -798,8 +814,10 @@
 				if(H.s_active && H.s_active == src)
 					H.s_active.show_to(H)
 
-/obj/item/storage/belt/bluespace/attack(mob/M as mob, mob/user as mob, def_zone)
-	return
+
+/obj/item/storage/belt/bluespace/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	return ATTACK_CHAIN_PROCEED
+
 
 /obj/item/storage/belt/bluespace/admin
 	name = "Admin's Tool-belt"

@@ -46,7 +46,7 @@ export const Uplink = (props, context) => {
   return (
     <Window width={900} height={600} theme="syndicate">
       <ComplexModal />
-      <Window.Content scrollable>
+      <Window.Content>
         <Stack fill vertical>
           <Stack.Item>
             <Tabs>
@@ -96,8 +96,21 @@ export const Uplink = (props, context) => {
                   icon="suitcase"
                 >
                   Contracting Opportunity
+                  {!data.contractor.is_admin_forced &&
+                  !data.contractor.accepted ? (
+                    data.contractor.available_offers > 0 ? (
+                      <i>[Left:{data.contractor.available_offers}]</i>
+                    ) : (
+                      <i>[Offers over]</i>
+                    )
+                  ) : (
+                    ''
+                  )}
                   {data.contractor.accepted ? (
                     <i>&nbsp;(Accepted)</i>
+                  ) : !data.contractor.is_admin_forced &&
+                    data.contractor.available_offers <= 0 ? (
+                    ''
                   ) : (
                     <Countdown
                       timeLeft={data.contractor.time_left}
@@ -485,28 +498,30 @@ const ExploitableInfoPage = (_properties, context) => {
   return (
     <Section fill title="Exploitable Records">
       <Stack fill>
-        <Stack.Item width="30%">
-          <Input
-            fluid
-            mb={1}
-            placeholder="Search Crew"
-            onInput={(e, value) => setSearchText(value)}
-          />
-          <Tabs vertical>
-            {crew.map((r) => (
-              <Tabs.Tab
-                key={r}
-                selected={r === selectedRecord}
-                onClick={() => setSelectedRecord(r)}
-              >
-                {r.name}
-              </Tabs.Tab>
-            ))}
-          </Tabs>
+        <Stack.Item width="30%" fill>
+          <Section fill scrollable>
+            <Input
+              fluid
+              mb={1}
+              placeholder="Search Crew"
+              onInput={(e, value) => setSearchText(value)}
+            />
+            <Tabs vertical>
+              {crew.map((r) => (
+                <Tabs.Tab
+                  key={r}
+                  selected={r === selectedRecord}
+                  onClick={() => setSelectedRecord(r)}
+                >
+                  {r.name}
+                </Tabs.Tab>
+              ))}
+            </Tabs>
+          </Section>
         </Stack.Item>
         <Divider vertical />
         <Stack.Item grow>
-          <Section fill scrollable title={selectedRecord.name}>
+          <Section fill title={selectedRecord.name} scrollable>
             <LabeledList>
               <LabeledList.Item label="Age">
                 {selectedRecord.age}
@@ -540,8 +555,11 @@ modalRegisterBodyOverride('become_contractor', (modal, context) => {
   const isAvailable = !!data?.contractor?.available;
   const isAffordable = !!data?.contractor?.affordable;
   const isAccepted = !!data?.contractor?.accepted;
+  const { available_offers } = data.contractor || {};
+  const isAdminForced = !!data?.contractor?.is_admin_forced;
   return (
     <Section
+      height="65%"
       level="2"
       m="-1rem"
       pb="1rem"
@@ -571,6 +589,17 @@ modalRegisterBodyOverride('become_contractor', (modal, context) => {
         <br />
         More detailed instructions can be found within your kit, should you
         accept this offer.
+        {!isAdminForced ? (
+          <Box>
+            Hurry up. You are not the only one who received this offer. Their
+            number is limited. If other traitors accept all offers before you,
+            you will not be able to accept one of them.
+            <br />
+            <b>Available offers: {available_offers}</b>
+          </Box>
+        ) : (
+          ''
+        )}
       </Box>
       <Button.Confirm
         disabled={!isAvailable || isAccepted}
@@ -579,20 +608,28 @@ modalRegisterBodyOverride('become_contractor', (modal, context) => {
         icon={isAvailable && !isAccepted && 'check'}
         color="good"
         content={
-          isAccepted
-            ? 'Accepted'
-            : isAvailable
-              ? [
-                  'Accept Offer',
-                  <Countdown
-                    key="countdown"
-                    timeLeft={time_left}
-                    format={(v, f) => ' (' + f + ')'}
-                  />,
-                ]
-              : !isAffordable
-                ? 'Insufficient TC'
-                : 'Offer expired'
+          isAccepted ? (
+            'Accepted'
+          ) : isAvailable ? (
+            [
+              'Accept Offer',
+              <Countdown
+                key="countdown"
+                timeLeft={time_left}
+                format={(v, f) => ' (' + f + ')'}
+              />,
+            ]
+          ) : !isAffordable ? (
+            'Insufficient TC'
+          ) : !data.contractor.is_admin_forced ? (
+            data.contractor.available_offers > 0 ? (
+              <i>[Left:{data.contractor.available_offers}]</i>
+            ) : (
+              <i>[Offers are over]</i>
+            )
+          ) : (
+            'Offer expired'
+          )
         }
         position="absolute"
         right="1rem"

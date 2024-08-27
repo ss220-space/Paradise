@@ -62,10 +62,11 @@
 	item_flags = NOBLUDGEON|NO_MAT_REDEMPTION
 
 
-/obj/item/card/emag/attack()
-	return
+/obj/item/card/emag/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	return ATTACK_CHAIN_PROCEED
 
-/obj/item/card/emag/afterattack(atom/target, mob/user, proximity)
+
+/obj/item/card/emag/afterattack(atom/target, mob/user, proximity, params)
 	var/atom/A = target
 	if(!proximity)
 		return
@@ -83,10 +84,12 @@
 /obj/item/card/cmag/ComponentInitialize()
 	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = (SLIDE|SLIP_WHEN_LYING))
 
-/obj/item/card/cmag/attack()
-	return
 
-/obj/item/card/cmag/afterattack(atom/target, mob/user, proximity)
+/obj/item/card/cmag/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	return ATTACK_CHAIN_PROCEED
+
+
+/obj/item/card/cmag/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 	INVOKE_ASYNC(target, TYPE_PROC_REF(/atom, cmag_act), user)
@@ -125,6 +128,11 @@
 	var/photo
 	var/dat
 	var/stamped = 0
+	var/registered = FALSE
+
+	/// RoboQuest shit
+	var/datum/roboquest/robo_bounty
+	var/bounty_penalty
 
 	var/obj/item/card/id/guest/guest_pass = null // Guest pass attached to the ID
 
@@ -242,45 +250,54 @@
 
 	name = "[(!registered_name)	? "identification card"	: "[registered_name]'s ID Card"][(!assignment) ? "" : " ([assignment])"]"
 
-/obj/item/card/id/attackby(obj/item/W as obj, mob/user as mob, params)
-	..()
 
-	if(istype(W, /obj/item/id_decal/))
-		var/obj/item/id_decal/decal = W
-		to_chat(user, "You apply [decal] to [src].")
+/obj/item/card/id/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/id_decal))
+		add_fingerprint(user)
+		var/obj/item/id_decal/decal = I
+		if(!user.drop_transfer_item_to_loc(decal, src))
+			return ..()
+		to_chat(user, span_notice("You apply [decal] to [src]."))
 		if(decal.override_name)
 			name = decal.decal_name
 		desc = decal.decal_desc
-		icon_state = decal.decal_icon_state
+		icon_state = decal.decal_icon_state	// LATER .\_/.
 		item_state = decal.decal_item_state
 		qdel(decal)
-		qdel(W)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	else if(istype (W,/obj/item/stamp))
-		if(!stamped)
-			dat+="<img src=large_[W.icon_state].png>"
-			stamped = 1
-			to_chat(user, "You stamp the ID card!")
-		else
-			to_chat(user, "This ID has already been stamped!")
+	if(istype(I, /obj/item/stamp))
+		add_fingerprint(user)
+		if(stamped)
+			to_chat(user, span_warning("This ID has already been stamped."))
+			return ATTACK_CHAIN_PROCEED
+		dat += "<img src=large_[I.icon_state].png>"
+		stamped = TRUE
+		to_chat(user, span_notice("You stamp the ID card!"))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	else if(istype(W, /obj/item/card/id/guest))
+	if(istype(I, /obj/item/card/id/guest))
+		add_fingerprint(user)
 		if(istype(src, /obj/item/card/id/guest))
-			return
-		var/obj/item/card/id/guest/G = W
-		if(world.time > G.expiration_time)
-			to_chat(user, "There's no point, the guest pass has expired.")
-			return
+			to_chat(user, span_warning("Applying one guest card to another provides nothing."))
+			return ATTACK_CHAIN_PROCEED
 		if(guest_pass)
-			to_chat(user, "There's already a guest pass attached to this ID.")
-			return
-		if(G.registered_name != registered_name && G.registered_name != "NOT SPECIFIED")
-			to_chat(user, "The guest pass cannot be attached to this ID")
-			return
-		if(!user.drop_transfer_item_to_loc(G, src))
-			return
-		guest_pass = G
+			to_chat(user, span_warning("There's already a guest pass attached to this ID."))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/item/card/id/guest/guest_id = I
+		if(world.time > guest_id.expiration_time)
+			to_chat(user, span_warning("There's no point, the guest pass has expired."))
+			return ATTACK_CHAIN_PROCEED
+		if(guest_id.registered_name != registered_name && guest_id.registered_name != "NOT SPECIFIED")
+			to_chat(user, span_warning("The guest pass cannot be attached to this ID"))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(guest_id, src))
+			return ..()
+		guest_pass = guest_id
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/card/id/verb/remove_guest_pass()
 	set name = "Remove Guest Pass"
@@ -490,7 +507,7 @@
 	item_state = "syndierd-id"
 	rank = "Syndicate Research Director"
 
-/obj/item/card/id/syndicate/afterattack(obj/item/O, mob/user, proximity)
+/obj/item/card/id/syndicate/afterattack(obj/item/O, mob/user, proximity, params)
 	if(!proximity || !istype(O))
 		return
 	if(O.GetID())
@@ -508,7 +525,7 @@
 	. = TRUE
 	switch(action)
 		if("delete_info")
-			var/response = alert(registered_user, "Are you sure you want to delete all card info?","Delete Card Info", "No", "Yes")
+			var/response = tgui_alert(registered_user, "Are you sure you want to delete all information saved on the card?", "Delete Card Information", list("No", "Yes"))
 			if(response == "Yes")
 				name = initial(name)
 				registered_name = initial(registered_name)
@@ -534,7 +551,7 @@
 			clear_slot(params["slot"])
 			to_chat(registered_user, "<span class='notice'>You have successfully cleared slot [params["slot"]].</span>")
 		if("clear_access")
-			var/response = alert(registered_user, "Are you sure you want to reset access saved on the card?","Reset Access", "No", "Yes")
+			var/response = tgui_alert(registered_user, "Are you sure you want to reset access saved on the card?", "Reset Access", list("No", "Yes"))
 			if(response == "Yes")
 				access = initial_access.Copy() // Initial() doesn't work on lists
 				to_chat(registered_user, "<span class='notice'>Card access reset.</span>")
@@ -542,8 +559,8 @@
 			untrackable = !untrackable
 			to_chat(registered_user, "<span class='notice'>This ID card is now [untrackable ? "untrackable" : "trackable"] by the AI's.</span>")
 		if("change_name")
-			var/new_name = reject_bad_name(input(registered_user,"What name would you like to put on this card?","Agent Card Name", ishuman(registered_user) ? registered_user.real_name : registered_user.name), TRUE)
-			if(!Adjacent(registered_user))
+			var/new_name = reject_bad_name(tgui_input_text(registered_user, "What name would you like to use on this card?", "Agent Card name", ishuman(registered_user) ? registered_user.real_name : registered_user.name), TRUE)
+			if(!Adjacent(registered_user) || isnull(new_name))
 				return
 			registered_name = new_name
 			UpdateName()
@@ -560,7 +577,7 @@
 			photo = newphoto
 			to_chat(registered_user, span_notice("Photo changed. Select another occupation and take a new photo if you wish to appear with different clothes."))
 		if("change_appearance")
-			var/choice = input(registered_user, "Select the appearance for this card.", "Agent Card Appearance") in appearances
+			var/choice = tgui_input_list(registered_user, "Select the appearance for this card.", "Agent Card Appearance", appearances)
 			if(!Adjacent(registered_user))
 				return
 			if(!choice)
@@ -587,8 +604,8 @@
 			icon_state = choice
 			to_chat(usr, "<span class='notice'>Appearance changed to [choice].</span>")
 		if("change_sex")
-			var/new_sex = sanitize(stripped_input(registered_user,"What sex would you like to put on this card?","Agent Card Sex", ishuman(registered_user) ? capitalize(registered_user.gender) : "Male", MAX_MESSAGE_LEN))
-			if(!Adjacent(registered_user))
+			var/new_sex = tgui_input_text(registered_user,"What sex would you like to put on this card?", "Agent Card Sex", ishuman(registered_user) ? capitalize(registered_user.gender) : "Male")
+			if(!Adjacent(registered_user) || isnull(new_sex))
 				return
 			sex = new_sex
 			to_chat(registered_user, "<span class='notice'>Sex changed to [new_sex].</span>")
@@ -597,8 +614,8 @@
 			if(ishuman(registered_user))
 				var/mob/living/carbon/human/H = registered_user
 				default = H.age
-			var/new_age = sanitize(input(registered_user,"What age would you like to be written on this card?","Agent Card Age", default) as text)
-			if(!Adjacent(registered_user))
+			var/new_age = tgui_input_number(registered_user, "What age would you like to be written on this card?", "Agent Card Age", default, 300, 17)
+			if(!Adjacent(registered_user) || isnull(new_age))
 				return
 			age = new_age
 			to_chat(registered_user, "<span class='notice'>Age changed to [new_age].</span>")
@@ -615,13 +632,13 @@
 				"Custom",
 			)
 
-			var/department = input(registered_user, "What job would you like to put on this card?\nChoose a department or a custom job title.\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in departments
+			var/department = tgui_input_list(registered_user, "What job would you like to put on this card?\nChoose a department or a custom job title.\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", departments)
 			var/new_job = JOB_TITLE_CIVILIAN
 			var/new_rank = JOB_TITLE_CIVILIAN
 
 			if(department == "Custom")
-				new_job = sanitize(stripped_input(registered_user,"Choose a custom job title:","Agent Card Occupation", "Civilian", MAX_MESSAGE_LEN))
-				var/department_icon = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in departments
+				new_job = tgui_input_text(registered_user, "Choose a custom job title:", "Agent Card Occupation", "Assistant")
+				var/department_icon = tgui_input_list(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", departments)
 				switch(department_icon)
 					if("Engineering")
 						new_rank = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.engineering_positions
@@ -657,7 +674,7 @@
 						new_job = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs() + get_all_special_jobs())
 				new_rank = new_job
 
-			if(!Adjacent(registered_user))
+			if(!Adjacent(registered_user) || isnull(new_job))
 				return
 			assignment = new_job
 			rank = new_rank
@@ -665,8 +682,8 @@
 			UpdateName()
 			registered_user.sec_hud_set_ID()
 		if("change_money_account")
-			var/new_account = input(registered_user,"What money account would you like to link to this card?","Agent Card Account",12345) as num
-			if(!Adjacent(registered_user))
+			var/new_account = tgui_input_number(registered_user, "What money account would you like to link to this card?", "Agent Card Account", 12345, 9999999)
+			if(!Adjacent(registered_user) || !isnull(new_account))
 				return
 			associated_account_number = new_account
 			to_chat(registered_user, "<span class='notice'>Linked money account changed to [new_account].</span>")
@@ -677,8 +694,8 @@
 				if(H.dna)
 					default = H.dna.blood_type
 
-			var/new_blood_type = sanitize(input(registered_user,"What blood type would you like to be written on this card?","Agent Card Blood Type",default) as text)
-			if(!Adjacent(registered_user))
+			var/new_blood_type = tgui_input_text(registered_user, "What blood type would you like to be written on this card?", "Agent Card Blood Type", default)
+			if(!Adjacent(registered_user) || !new_blood_type)
 				return
 			blood_type = new_blood_type
 			to_chat(registered_user, "<span class='notice'>Blood type changed to [new_blood_type].</span>")
@@ -689,8 +706,8 @@
 				if(H.dna)
 					default = H.dna.unique_enzymes
 
-			var/new_dna_hash = sanitize(input(registered_user,"What DNA hash would you like to be written on this card?","Agent Card DNA Hash",default) as text)
-			if(!Adjacent(registered_user))
+			var/new_dna_hash = tgui_input_text(registered_user, "What DNA hash would you like to be written on this card?", "Agent Card DNA Hash", default)
+			if(!Adjacent(registered_user) || !new_dna_hash)
 				return
 			dna_hash = new_dna_hash
 			to_chat(registered_user, "<span class='notice'>DNA hash changed to [new_dna_hash].</span>")
@@ -701,8 +718,8 @@
 				if(H.dna)
 					default = md5(H.dna.uni_identity)
 
-			var/new_fingerprint_hash = sanitize(input(registered_user,"What fingerprint hash would you like to be written on this card?","Agent Card Fingerprint Hash",default) as text)
-			if(!Adjacent(registered_user))
+			var/new_fingerprint_hash = tgui_input_text(registered_user, "What fingerprint hash would you like to be written on this card?", "Agent Card Fingerprint Hash", default)
+			if(!Adjacent(registered_user) || !new_fingerprint_hash)
 				return
 			fingerprint_hash = new_fingerprint_hash
 			to_chat(registered_user, "<span class='notice'>Fingerprint hash changed to [new_fingerprint_hash].</span>")
@@ -752,7 +769,7 @@
 	if(!anyone)
 		if(user != registered_user)
 			return ..()
-	switch(alert("Would you like to display \the [src] or edit it?","Choose","Show","Edit"))
+	switch(tgui_alert(user, "Would you like to display [src] or edit it?", "Choose", list("Show", "Edit")))
 		if("Show")
 			return ..()
 		if("Edit")
@@ -1078,19 +1095,60 @@
 
 /obj/item/card/id/ert/commander
 	icon_state = "ERT_leader"
+
 /obj/item/card/id/ert/security
 	icon_state = "ERT_security"
+
 /obj/item/card/id/ert/engineering
 	icon_state = "ERT_engineering"
+
 /obj/item/card/id/ert/medic
 	icon_state = "ERT_medical"
+
+/obj/item/card/id/ert/registration
+	name = "EDDITABLE ERT ID"
+	icon_state = "ERT_empty"
+	item_state = "ert-id"
+	var/membership
+	access = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_MEDICAL, ACCESS_CENT_SECURITY, ACCESS_CENT_STORAGE, ACCESS_CENT_SPECOPS, ACCESS_SALVAGE_CAPTAIN)
+
+/obj/item/card/id/ert/registration/commander
+	icon_state = "ERT_leader"
+	membership = "Leader"
+
+/obj/item/card/id/ert/registration/security
+	icon_state = "ERT_security"
+	membership = "Officer"
+
+/obj/item/card/id/ert/registration/engineering
+	icon_state = "ERT_engineering"
+	membership = "Engineer"
+
+/obj/item/card/id/ert/registration/medic
+	icon_state = "ERT_medical"
+	membership = "Medic"
+
+/obj/item/card/id/ert/registration/janitor
+	icon_state = "ERT_janitorial"
+	membership = "Janitor"
+
+/obj/item/card/id/ert/registration/attack_self(mob/user as mob)
+	if(!registered && ishuman(user))
+		registered_name = "[pick("Лейтенант", "Капитан", "Майор")] [user.real_name]"
+		SetOwnerInfo(user)
+		assignment = "Emergency Response Team [membership]"
+		RebuildHTML()
+		UpdateName()
+		registered = TRUE
+		to_chat(user, "<span class='notice'>The ID is now registered as yours.</span>")
+	else
+		..()
 
 /obj/item/card/id/golem
 	name = "Free Golem ID"
 	desc = "A card used to claim mining points and buy gear. Use it to mark it as yours."
 	icon_state = "research"
 	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME) //access to robots/mechs
-	var/registered = FALSE
 
 /obj/item/card/id/golem/attack_self(mob/user as mob)
 	if(!registered && ishuman(user))

@@ -55,12 +55,16 @@
 			hud_used.blobpwrdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#82ed00'>[round(src.blob_points)]</font></div>"
 
 
+/mob/camera/blob/memory()
+	SSticker.mode.update_blob_objective()
+	..()
+
 /mob/camera/blob/say(message)
 	if(!message)
 		return
 
 	if(client)
-		if(client.prefs.muted & MUTE_IC)
+		if(check_mute(client.ckey, MUTE_IC))
 			to_chat(src, "You cannot send IC messages (muted).")
 			return
 		if(client.handle_spam_prevention(message, MUTE_IC))
@@ -87,19 +91,19 @@
 		else if(isobserver(M) && !isnewplayer(M))
 			var/rendered_ghost = "<i><span class='blob[blob_reagent_datum.id]'>Blob Telepathy,</span> \
 			<span class='name'>[name](<span class='blob[blob_reagent_datum.id]'>[blob_reagent_datum.name]</span>)</span> \
-			<a href='?src=[M.UID()];follow=[UID()]'>(F)</a> states, <span class='blob[blob_reagent_datum.id]'>\"[message]\"</span></i>"
+			<a href='byond://?src=[M.UID()];follow=[UID()]'>(F)</a> states, <span class='blob[blob_reagent_datum.id]'>\"[message]\"</span></i>"
 			M.show_message(rendered_ghost, 2)
 
 
 /mob/camera/blob/blob_act(obj/structure/blob/B)
 	return
 
-/mob/camera/blob/Stat()
-	..()
-	if(statpanel("Status"))
-		if(blob_core)
-			stat(null, "Core Health: [blob_core.obj_integrity]")
-		stat(null, "Power Stored: [blob_points]/[max_blob_points]")
+/mob/camera/blob/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	if(blob_core)
+		status_tab_data[++status_tab_data.len] = list("Core Health:", "[blob_core.obj_integrity]")
+		status_tab_data[++status_tab_data.len] = list("Power Stored:", "[blob_points]/[max_blob_points]")
 
 /mob/camera/blob/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(world.time < last_movement)

@@ -25,7 +25,7 @@
 	var/intact = /obj/item/inflatable
 
 /obj/structure/inflatable/Initialize(location)
-	..()
+	. = ..()
 	air_update_turf(TRUE)
 
 /obj/structure/inflatable/Destroy()
@@ -36,12 +36,12 @@
 /obj/structure/inflatable/CanAtmosPass(turf/T, vertical)
 	return !density
 
+
 /obj/structure/inflatable/attackby(obj/item/I, mob/living/user, params)
-	if(I.sharp || is_type_in_typecache(I, GLOB.pointed_types))
-		user.do_attack_animation(src, used_item = I)
+	. = ..()
+	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && !QDELETED(src) && (is_sharp(I) || is_pointed(I)))
 		deconstruct(FALSE)
-		return FALSE
-	return ..()
+
 
 /obj/structure/inflatable/attack_hand(mob/user)
 	add_fingerprint(user)

@@ -13,13 +13,13 @@
 
 /mob/new_player/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
-	if(initialized)
+	if(flags & INITIALIZED)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
-	initialized = TRUE
+	flags |= INITIALIZED
 	GLOB.mob_list += src
 	return INITIALIZE_HINT_NORMAL
 
-/mob/new_player/verb/new_player_panel()
+/mob/new_player/proc/new_player_panel()
 	set src = usr
 
 	if(client.tos_consent)
@@ -30,7 +30,7 @@
 
 /mob/new_player/proc/privacy_consent()
 	src << browse(null, "window=playersetup")
-	var/output = {"<meta charset="UTF-8">"} + GLOB.join_tos
+	var/output = {"<!DOCTYPE html><meta charset="UTF-8">"} + GLOB.join_tos
 	output += "<p><a href='byond://?src=[UID()];consent_signed=SIGNED'>I consent</A>"
 	output += "<p><a href='byond://?src=[UID()];consent_rejected=NOTSIGNED'>I DO NOT consent</A>"
 	src << browse(output,"window=privacy_consent;size=500x300")
@@ -84,36 +84,24 @@
 	popup.open(0)
 	return
 
-/mob/new_player/Stat()
-	statpanel("Status")
-
-	..()
-
-	statpanel("Lobby")
-	if(client.statpanel=="Lobby" && SSticker)
-		if(SSticker.hide_mode)
-			stat("Game Mode:", "Secret")
+/mob/new_player/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	if(SSticker)
+		if(!SSticker.hide_mode)
+			status_tab_data[++status_tab_data.len] = list("Game Mode:", "[GLOB.master_mode]")
 		else
-			if(SSticker.hide_mode == 0)
-				stat("Game Mode:", "[GLOB.master_mode]") // Old setting for showing the game mode
-			else
-				stat("Game Mode: ", "Secret")
-
-		if((SSticker.current_state == GAME_STATE_PREGAME) && SSticker.ticker_going)
-			stat("Time To Start:", round(SSticker.pregame_timeleft/10))
-		if((SSticker.current_state == GAME_STATE_PREGAME) && !SSticker.ticker_going)
-			stat("Time To Start:", "DELAYED")
+			status_tab_data[++status_tab_data.len] = list("Game Mode:", "Secret")
 
 		if(SSticker.current_state == GAME_STATE_PREGAME)
-			stat("Players:", "[totalPlayers]")
-			//if(check_rights(R_ADMIN, 0, src))
-			stat("Players Ready:", "[totalPlayersReady]")
-			totalPlayers = 0
+			status_tab_data[++status_tab_data.len] = list("Time To Start:", SSticker.ticker_going ? deciseconds_to_time_stamp(SSticker.pregame_timeleft) : "DELAYED")
+
+		if(SSticker.current_state == GAME_STATE_PREGAME)
+			status_tab_data[++status_tab_data.len] = list("Players Ready:", "[totalPlayersReady]")
 			totalPlayersReady = 0
 			for(var/mob/new_player/player in GLOB.player_list)
 				if(check_rights(R_ADMIN, 0, src))
-					stat("[player.key]", (player.ready)?("(Playing)"):(null))
-				totalPlayers++
+					status_tab_data[++status_tab_data.len] = list("[player.key]", player.ready ? "(Ready)" : "(Not ready)")
 				if(player.ready)
 					totalPlayersReady++
 
@@ -130,8 +118,9 @@
 		query.warn_execute()
 		qdel(query)
 		src << browse(null, "window=privacy_consent")
-		client.tos_consent = TRUE
-		new_player_panel_proc()
+		if(client)
+			client.tos_consent = TRUE
+			new_player_panel_proc()
 	if(href_list["consent_rejected"])
 		client.tos_consent = FALSE
 		to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
@@ -200,13 +189,14 @@
 			to_chat(usr, "<span class='warning'>You must wait for the server to finish starting before you can join!</span>")
 			return FALSE
 
-		if(alert(src,"Are you sure you wish to observe?[(CONFIG_GET(flag/respawn_observer) ? "" : " You cannot normally join the round after doing this!")]","Player Setup","Yes","No") == "Yes")
+		if(tgui_alert(src,"Are you sure you wish to observe?[(CONFIG_GET(flag/respawn_observer) ? "" : " You cannot normally join the round after doing this!")]","Player Setup", list("Yes","No")) == "Yes")
 			if(!client)
 				return 1
 			var/mob/dead/observer/observer = new()
 			src << browse(null, "window=playersetup")
 			spawning = 1
-			stop_sound_channel(CHANNEL_LOBBYMUSIC)
+			// stop_sound_channel(CHANNEL_LOBBYMUSIC)
+			client?.tgui_panel?.stop_music()
 
 
 			observer.started_as_observer = 1
@@ -298,7 +288,8 @@
 		if(client)
 			client.prefs.process_link(src, href_list)
 	else if(!href_list["late_join"])
-		new_player_panel()
+		if(client)
+			new_player_panel()
 
 /mob/new_player/proc/IsJobAvailable(rank)
 	var/datum/job/job = SSjobs.GetJob(rank)
@@ -638,7 +629,8 @@
 		client.prefs.real_name = random_name(client.prefs.gender)
 	client.prefs.copy_to(new_character)
 
-	stop_sound_channel(CHANNEL_LOBBYMUSIC)
+	// stop_sound_channel(CHANNEL_LOBBYMUSIC)
+	client?.tgui_panel?.stop_music()
 
 
 	if(mind)

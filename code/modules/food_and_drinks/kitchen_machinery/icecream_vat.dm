@@ -24,34 +24,40 @@
 	return cone_name
 
 
-/obj/machinery/icemachine/New()
-	..()
+/obj/machinery/icemachine/Initialize(mapload)
+	. = ..()
 	create_reagents(500)
 
+
 /obj/machinery/icemachine/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(istype(I, /obj/item/reagent_containers/glass))
-		if(beaker)
-			to_chat(user, "<span class='notice'>A container is already inside [src].</span>")
-			return
-		if(!user.drop_transfer_item_to_loc(I, src))
-			to_chat(user, "<span class='warning'>\The [I] is stuck to you!</span>")
-			return
 		add_fingerprint(user)
+		if(beaker)
+			to_chat(user, span_warning("The [beaker.name] is already inside [src]."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
 		beaker = I
-		to_chat(user, "<span class='notice'>You add [I] to [src]</span>")
+		to_chat(user, span_notice("You have inserted [I] into [src]."))
 		updateUsrDialog()
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	if(istype(I, /obj/item/reagent_containers/food/snacks/icecream))
-		if(!I.reagents.has_reagent("sprinkles"))
-			add_fingerprint(user)
-			if(I.reagents.total_volume > 29)
-				I.reagents.remove_any(1)
-			I.reagents.add_reagent("sprinkles", 1)
-			I.name += " with sprinkles"
-			I.desc += ". This also has sprinkles."
-		else
-			to_chat(user, "<span class='notice'>This [I] already has sprinkles.</span>")
-		return
+		add_fingerprint(user)
+		if(I.reagents.has_reagent("sprinkles"))
+			to_chat(user, span_warning("The [I.name] already has some sprinkles."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You have added sprinkles to [I]."))
+		if(I.reagents.total_volume > 29)
+			I.reagents.remove_any(1)
+		I.reagents.add_reagent("sprinkles", 1)
+		I.name += " with sprinkles"
+		I.desc += " Flavored with sprinkles."
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
 
 
@@ -189,14 +195,14 @@
 	if(reagents.total_volume <= 500)
 		dat += "<HR>"
 		dat += "<strong>Add fillings:</strong><BR>"
-		dat += "<A href='?src=[UID()];synthcond=1;type=2'>Soda</A><BR>"
-		dat += "<A href='?src=[UID()];synthcond=1;type=3'>Alcohol</A><BR>"
+		dat += "<a href='byond://?src=[UID()];synthcond=1;type=2'>Soda</A><BR>"
+		dat += "<a href='byond://?src=[UID()];synthcond=1;type=3'>Alcohol</A><BR>"
 		dat += "<strong>Finish With:</strong><BR>"
-		dat += "<A href='?src=[UID()];synthcond=1;type=4'>Cream</A><BR>"
-		dat += "<A href='?src=[UID()];synthcond=1;type=5'>Water</A><BR>"
+		dat += "<a href='byond://?src=[UID()];synthcond=1;type=4'>Cream</A><BR>"
+		dat += "<a href='byond://?src=[UID()];synthcond=1;type=5'>Water</A><BR>"
 		dat += "<strong>Dispense in:</strong><BR>"
-		dat += "<A href='?src=[UID()];createcup=1'>Chocolate Cone</A><BR>"
-		dat += "<A href='?src=[UID()];createcone=1'>Cone</A><BR>"
+		dat += "<a href='byond://?src=[UID()];createcup=1'>Chocolate Cone</A><BR>"
+		dat += "<a href='byond://?src=[UID()];createcone=1'>Cone</A><BR>"
 	dat += "</center>"
 	return dat
 
@@ -210,20 +216,20 @@
 		dat += "The container has:<BR>"
 		for(var/datum/reagent/G in R.reagent_list)
 			dat += "[G.volume] unit(s) of [G.name] | "
-			dat += "<A href='?src=[UID()];add=[G.id];amount=5'>(5)</A> "
-			dat += "<A href='?src=[UID()];add=[G.id];amount=10'>(10)</A> "
-			dat += "<A href='?src=[UID()];add=[G.id];amount=15'>(15)</A> "
-			dat += "<A href='?src=[UID()];add=[G.id];amount=[G.volume]'>(All)</A>"
+			dat += "<a href='byond://?src=[UID()];add=[G.id];amount=5'>(5)</A> "
+			dat += "<a href='byond://?src=[UID()];add=[G.id];amount=10'>(10)</A> "
+			dat += "<a href='byond://?src=[UID()];add=[G.id];amount=15'>(15)</A> "
+			dat += "<a href='byond://?src=[UID()];add=[G.id];amount=[G.volume]'>(All)</A>"
 			dat += "<BR>"
 	else if(container == 2)
 		dat += "<BR>The Cream-Master has:<BR>"
 		if(reagents.total_volume)
 			for(var/datum/reagent/N in reagents.reagent_list)
 				dat += "[N.volume] unit(s) of [N.name] | "
-				dat += "<A href='?src=[UID()];remove=[N.id];amount=5'>(5)</A> "
-				dat += "<A href='?src=[UID()];remove=[N.id];amount=10'>(10)</A> "
-				dat += "<A href='?src=[UID()];remove=[N.id];amount=15'>(15)</A> "
-				dat += "<A href='?src=[UID()];remove=[N.id];amount=[N.volume]'>(All)</A>"
+				dat += "<a href='byond://?src=[UID()];remove=[N.id];amount=5'>(5)</A> "
+				dat += "<a href='byond://?src=[UID()];remove=[N.id];amount=10'>(10)</A> "
+				dat += "<a href='byond://?src=[UID()];remove=[N.id];amount=15'>(15)</A> "
+				dat += "<a href='byond://?src=[UID()];remove=[N.id];amount=[N.volume]'>(All)</A>"
 				dat += "<BR>"
 	else
 		dat += "<BR>SOMEONE ENTERED AN INVALID REAGENT CONTAINER; QUICK, BUG REPORT!<BR>"
@@ -233,16 +239,16 @@
 /obj/machinery/icemachine/attack_hand(mob/user)
 	if(..()) return
 	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8">"}
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	if(!beaker)
 		dat += "No container is loaded into the machine, external transfer offline.<BR>"
 		dat += show_reagents(2)
 		dat += show_toppings()
-		dat += "<A href='?src=[UID()];close=1'>Close</A>"
+		dat += "<a href='byond://?src=[UID()];close=1'>Close</A>"
 	else
 		var/obj/item/reagent_containers/glass/A = beaker
 		var/datum/reagents/R = A.reagents
-		dat += "<A href='?src=[UID()];eject=1'>Eject container and end transfer.</A><BR>"
+		dat += "<a href='byond://?src=[UID()];eject=1'>Eject container and end transfer.</A><BR>"
 		if(!R.total_volume)
 			dat += "Container is empty.<BR><HR>"
 		else

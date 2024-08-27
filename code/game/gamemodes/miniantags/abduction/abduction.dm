@@ -211,20 +211,24 @@
 
 /datum/game_mode/proc/auto_declare_completion_abduction()
 	var/text = ""
-	if(abductors.len)
-		text += "<br><span class='big'><b>The abductors were:</b></span><br>"
-		for(var/datum/mind/abductor_mind in abductors)
-			text += printplayer(abductor_mind)
+	if(!length(abductors))
+		return
+
+	text += "<br><span class='big'><b>The abductors were:</b></span><br>"
+	for(var/datum/mind/abductor_mind in abductors)
+		text += printplayer(abductor_mind)
+		text += "<br>"
+		text += printobjectives(abductor_mind)
+		text += "<br>"
+
+	if(abductees.len)
+		text += "<br><span class='big'><b>The abductees were:</b></span><br>"
+		for(var/datum/mind/abductee_mind in abductees)
+			text += printplayer(abductee_mind)
 			text += "<br>"
-			text += printobjectives(abductor_mind)
+			text += printobjectives(abductee_mind)
 			text += "<br>"
-		if(abductees.len)
-			text += "<br><span class='big'><b>The abductees were:</b></span><br>"
-			for(var/datum/mind/abductee_mind in abductees)
-				text += printplayer(abductee_mind)
-				text += "<br>"
-				text += printobjectives(abductee_mind)
-				text += "<br>"
+
 	to_chat(world, text)
 
 //Landmarks

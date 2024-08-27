@@ -145,7 +145,7 @@
 	return
 
 
-/mob/living/simple_animal/hostile/floor_cluwne/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE) //prevents runtimes with machine fuckery
+/mob/living/simple_animal/hostile/floor_cluwne/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS) //prevents runtimes with machine fuckery
 	return FALSE
 
 
@@ -346,7 +346,14 @@
 		visible_message("<span class='danger'>[src] begins dragging [H] under the floor!</span>")
 
 		if(do_after(src, 5 SECONDS, H) && eating)
-			H.BecomeBlind()
+			if(!HAS_TRAIT_FROM(H, TRAIT_BLIND, FLOOR_CLUWNE_TRAIT))
+				ADD_TRAIT(H, TRAIT_BLIND, FLOOR_CLUWNE_TRAIT)
+				if(!HAS_TRAIT_NOT_FROM(H, TRAIT_BLIND, FLOOR_CLUWNE_TRAIT))
+					H.update_blind_effects()
+			if(!HAS_TRAIT_FROM(H, TRAIT_NEARSIGHTED, FLOOR_CLUWNE_TRAIT))
+				ADD_TRAIT(H, TRAIT_NEARSIGHTED, FLOOR_CLUWNE_TRAIT)
+				if(!HAS_TRAIT_NOT_FROM(H, TRAIT_NEARSIGHTED, FLOOR_CLUWNE_TRAIT))
+					H.update_nearsighted_effects()
 			H.layer = GAME_PLANE
 			H.invisibility = INVISIBILITY_MAXIMUM
 			H.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -377,8 +384,7 @@
 		if(prob(50) || smiting)
 			H.makeCluwne()
 
-		H.adjustBruteLoss(30)
-		H.adjustBrainLoss(100)
+		H.apply_damages(brute = 30, brain = 100, spread_damage = TRUE)
 		var/obj/item/organ/external/chest = H.get_organ(BODY_ZONE_CHEST)
 		chest?.drop_organs()
 

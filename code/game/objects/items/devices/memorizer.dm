@@ -30,27 +30,40 @@
 
 
 /obj/item/memorizer/proc/clown_check(mob/user)
-	if(user && (CLUMSY in user.mutations) && prob(50))
+	if(user && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		memorize_carbon(user, user, 15, FALSE)
 		return FALSE
 	return TRUE
 
-/obj/item/memorizer/attackby(obj/item/W, mob/user, params)
+
+/obj/item/memorizer/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
 	if(!can_overcharge)
-		return
-	if(W.tool_behaviour == TOOL_SCREWDRIVER)
-		battery_panel = !battery_panel
-		if(battery_panel)
-			to_chat(user, "<span class='notice'>You open the battery compartment on the [src].</span>")
-		else
-			to_chat(user, "<span class='notice'>You close the battery compartment on the [src].</span>")
-	else if(istype(W, /obj/item/stock_parts/cell))
-		if(!battery_panel || overcharged)
-			return
-		to_chat(user, "<span class='notice'>You jam the cell into battery compartment on the [src].</span>")
-		qdel(W)
-		overcharged = TRUE
-		update_icon(UPDATE_OVERLAYS)
+		to_chat(user, span_warning("This [name] has no panel!"))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	battery_panel = !battery_panel
+	to_chat(user, span_notice("You [battery_panel ? "open" : "close"] the battery compartment on [src]."))
+
+
+/obj/item/memorizer/attackby(obj/item/I, mob/user, params)
+	if(!can_overcharge || !istype(I, /obj/item/stock_parts/cell))
+		return ..()
+	add_fingerprint(user)
+	if(!battery_panel)
+		to_chat(user, span_warning("You need to open the panel first!"))
+		return ATTACK_CHAIN_PROCEED
+	if(overcharged)
+		to_chat(user, span_warning("The [name] is already overcharged!"))
+		return ATTACK_CHAIN_PROCEED
+	if(!user.drop_transfer_item_to_loc(I, src))
+		return ..()
+	. = ATTACK_CHAIN_BLOCKED_ALL
+	to_chat(user,  span_notice("You jam the cell into the battery compartment on [src]."))
+	overcharged = TRUE
+	update_icon(UPDATE_OVERLAYS)
+	qdel(I)
 
 
 /obj/item/memorizer/proc/burn_out() //Made so you can override it if you want to have an invincible flash from R&D or something.
@@ -113,22 +126,24 @@
 	if(fucking_target.flash_eyes())
 		fucking_target.AdjustConfused(power)
 
-/obj/item/memorizer/attack(mob/living/fucking_target, mob/user)
+
+/obj/item/memorizer/attack(mob/living/fucking_target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
 	if(!try_use_flash(user))
-		return FALSE
+		return .
 	if(iscarbon(fucking_target))
 		memorize_carbon(fucking_target, user, 5, TRUE)
 		if(overcharged)
 			fucking_target.adjust_fire_stacks(6)
 			fucking_target.IgniteMob()
 			burn_out()
-		return TRUE
+		return .|ATTACK_CHAIN_SUCCESS
 	else if(issilicon(fucking_target))
 		add_attack_logs(user, fucking_target, "Flashed with [src]")
 		if(fucking_target.flash_eyes(affect_silicon = TRUE))
 			fucking_target.Weaken(rand(10 SECONDS, 20 SECONDS))
 			user.visible_message(span_disarm("[user] overloads [fucking_target]'s sensors with the [name]!"), span_danger("You overload [fucking_target]'s sensors with the [name]!"))
-		return TRUE
+		return .|ATTACK_CHAIN_SUCCESS
 	user.visible_message(span_disarm("[user] fails to blind [fucking_target] with the [name]!"), span_warning("You fail to blind [fucking_target] with the [name]!"))
 
 

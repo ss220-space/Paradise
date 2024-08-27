@@ -4,13 +4,14 @@ SUBSYSTEM_DEF(assets)
 	flags = SS_NO_FIRE
 	ss_id = "assets"
 	/// Contains /datum/asset_cache_item
-	var/list/cache = list()
+	var/list/datum/asset_cache_item/cache = list()
 	var/list/preload = list()
 	var/datum/asset_transport/transport = new()
 
 /datum/controller/subsystem/assets/Initialize(timeofday)
 	apply_configuration()
 	load_assets()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/assets/Recover()
 	cache = SSassets.cache

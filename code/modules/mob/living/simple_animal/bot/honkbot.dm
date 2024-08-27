@@ -93,10 +93,10 @@
 	Behaviour controls are [locked ? "locked" : "unlocked"]<BR>
 	Maintenance panel is [open ? "opened" : "closed"]<BR>"},
 
-	"<A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A>")
+	"<a href='byond://?src=[UID()];power=1'>[on ? "On" : "Off"]</A>")
 
 	if(!locked || issilicon(user) || user.can_admin_interact())
-		dat += "Auto Patrol <A href='?src=[UID()];operation=patrol'>[auto_patrol ? "On" : "Off"]</A><BR>"
+		dat += "Auto Patrol <a href='byond://?src=[UID()];operation=patrol'>[auto_patrol ? "On" : "Off"]</A><BR>"
 
 	return	dat
 
@@ -193,7 +193,7 @@
 			C.AdjustDeaf(10 SECONDS) //far less damage than the H.O.N.K.
 			var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
 			if(istype(ears))
-				ears.receive_damage(5)
+				ears.internal_receive_damage(5)
 			C.Jitter(100 SECONDS)
 			C.Weaken(10 SECONDS)
 			if(client) //prevent spam from players..

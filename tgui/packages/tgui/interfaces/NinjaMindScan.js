@@ -61,7 +61,8 @@ const MindScanMenu = (props, context) => {
                   src={`data:image/jpeg;base64,${occupantIcon}`}
                   style={{
                     'margin-left': '-28px',
-                    '-ms-interpolation-mode': 'nearest-neighbor',
+                    '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                    'image-rendering': 'pixelated',
                   }}
                 />
               </Section>

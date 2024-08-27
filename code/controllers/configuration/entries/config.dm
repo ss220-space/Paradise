@@ -594,10 +594,9 @@
 
 /datum/config_entry/flag/shutdown_on_reboot
 
-/datum/config_entry/flag/disable_karma
+/datum/config_entry/flag/autoreconnect
 
-/datum/config_entry/number/tick_limit_mc_init
-	default = TICK_LIMIT_MC_INIT_DEFAULT
+/datum/config_entry/flag/disable_karma
 
 /datum/config_entry/number/base_mc_tick_rate
 	integer = FALSE
@@ -701,6 +700,9 @@
 
 /datum/config_entry/flag/config_errors_runtime
 
+/// Whether demos are written, if not set demo SS never initializes
+/datum/config_entry/flag/demos_enabled
+
 //Needs proper testing
 /datum/config_entry/keyed_list/probability
 	key_mode = KEY_MODE_TEXT
@@ -773,6 +775,15 @@
 	default = 80
 
 
+/datum/config_entry/number/hard_deletes_overrun_threshold
+	integer = FALSE
+	min_val = 0
+	default = 0.5
+
+/datum/config_entry/number/hard_deletes_overrun_limit
+	default = 0
+	min_val = 0
+
 /datum/config_entry/number/error_cooldown // The "cooldown" time for each occurrence of a unique error
 	default = 600
 	integer = FALSE
@@ -792,3 +803,34 @@
 	default = 50
 	integer = FALSE
 
+
+/datum/config_entry/number/second_topic_limit
+	default = 10
+	min_val = 0
+
+
+/datum/config_entry/number/minute_topic_limit
+	default = 150
+	min_val = 0
+
+
+/datum/config_entry/number/second_click_limit
+	default = 15
+	min_val = 0
+
+
+/datum/config_entry/number/minute_click_limit
+	default = 400
+	min_val = 0
+
+/datum/config_entry/flag/cache_assets
+	default = TRUE
+
+/datum/config_entry/flag/save_spritesheets
+	default = FALSE
+
+
+/datum/config_entry/string/invoke_youtubedl
+	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
+
+/datum/config_entry/str_list/lobby_music

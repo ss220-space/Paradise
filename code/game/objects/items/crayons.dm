@@ -18,7 +18,7 @@
 	var/uses = 30 //0 for unlimited uses
 	var/instant = 0
 	var/colourName = "red" //for updateIcon purposes
-	var/dat = {"<meta charset="UTF-8">"}
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	var/busy = FALSE
 	var/list/validSurfaces = list(/turf/simulated/floor)
 
@@ -35,21 +35,21 @@
 
 /obj/item/toy/crayon/proc/update_window(mob/living/user as mob)
 	dat += "<center><h2>Currently selected: [drawtype]</h2><br>"
-	dat += "<a href='?src=[UID()];type=random_letter'>Random letter</a><a href='?src=[UID()];type=letter'>Pick letter</a>"
+	dat += "<a href='byond://?src=[UID()];type=random_letter'>Random letter</a><a href='byond://?src=[UID()];type=letter'>Pick letter</a>"
 	dat += "<hr>"
 	dat += "<h3>Runes:</h3><br>"
-	dat += "<a href='?src=[UID()];type=random_rune'>Random rune</a>"
+	dat += "<a href='byond://?src=[UID()];type=random_rune'>Random rune</a>"
 	for(var/i = 1; i <= 8; i++)
-		dat += "<a href='?src=[UID()];type=rune[i]'>Rune [i]</a>"
+		dat += "<a href='byond://?src=[UID()];type=rune[i]'>Rune [i]</a>"
 		if(!((i + 1) % 3)) //3 buttons in a row
 			dat += "<br>"
 	dat += "<hr>"
 	graffiti.Find()
 	dat += "<h3>Graffiti:</h3><br>"
-	dat += "<a href='?src=[UID()];type=random_graffiti'>Random graffiti</a>"
+	dat += "<a href='byond://?src=[UID()];type=random_graffiti'>Random graffiti</a>"
 	var/c = 1
 	for(var/T in graffiti)
-		dat += "<a href='?src=[UID()];type=[T]'>[T]</a>"
+		dat += "<a href='byond://?src=[UID()];type=[T]'>[T]</a>"
 		if(!((c + 1) % 3)) //3 buttons in a row
 			dat += "<br>"
 		c++
@@ -77,7 +77,7 @@
 	drawtype = temp
 	update_window(usr)
 
-/obj/item/toy/crayon/afterattack(atom/target, mob/user, proximity)
+/obj/item/toy/crayon/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity) return
 	if(busy) return
 	if(is_type_in_list(target,validSurfaces))
@@ -88,7 +88,7 @@
 			temp = "graffiti"
 		to_chat(user, "<span class='info'>You start drawing a [temp] on the [target.name].</span>")
 		busy = TRUE
-		if(instant || do_after(user, 5 SECONDS * toolspeed * gettoolspeedmod(user), target))
+		if(instant || do_after(user, 5 SECONDS * toolspeed, target, category = DA_CAT_TOOL))
 			var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target,colour,drawtype,temp)
 			C.add_hiddenprint(user)
 			to_chat(user, "<span class='info'>You finish drawing [temp].</span>")
@@ -99,26 +99,34 @@
 					qdel(src)
 		busy = FALSE
 
-/obj/item/toy/crayon/attack(mob/M, mob/user)
-	var/huffable = istype(src,/obj/item/toy/crayon/spraycan)
-	if(M == user)
-		if(ishuman(user))
-			var/mob/living/carbon/human/H = user
-			if(!H.check_has_mouth())
-				to_chat(user, "<span class='warning'>You do not have a mouth!</span>")
-				return
-		playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
-		to_chat(user, "<span class='notice'>You take a [huffable ? "huff" : "bite"] of the [name]. Delicious!</span>")
-		if(!isvampire(user))
-			user.adjust_nutrition(5)
-		if(uses)
-			uses -= 5
-			if(uses <= 0)
-				to_chat(user, "<span class='warning'>There is no more of [huffable ? "paint in " : ""][name] left!</span>")
-				qdel(src)
 
-	else
-		..()
+/obj/item/toy/crayon/attack(mob/living/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
+
+	if(target != user)
+		return ..()
+
+	. = ATTACK_CHAIN_PROCEED
+
+	if(ishuman(user) && !user.check_has_mouth())
+		to_chat(user, span_warning("You do not have a mouth!"))
+		return .
+
+	var/huffable = istype(src, /obj/item/toy/crayon/spraycan)
+	playsound(loc, 'sound/items/eatfood.ogg', 50, FALSE)
+	to_chat(user, span_notice("YYou take a [huffable ? "huff" : "bite"] of the [name]. Delicious!"))
+	if(!isvampire(user))
+		user.adjust_nutrition(5)
+
+	if(!uses)
+		return .
+
+	. |= ATTACK_CHAIN_SUCCESS
+
+	uses -= 5
+	if(uses <= 0)
+		. = ATTACK_CHAIN_BLOCKED_ALL
+		to_chat(user, span_warning("There is no more of [huffable ? "paint in " : ""][name] left!"))
+		qdel(src)
 
 
 /obj/item/toy/crayon/red
@@ -225,7 +233,7 @@
 	update_window(user)
 
 /obj/item/toy/crayon/mime/update_window(mob/living/user as mob)
-	dat += "<center><span style='border:1px solid #161616; background-color: [colour];'>&nbsp;&nbsp;&nbsp;</span><a href='?src=[UID()];color=1'>Change color</a></center>"
+	dat += "<center><span style='border:1px solid #161616; background-color: [colour];'>&nbsp;&nbsp;&nbsp;</span><a href='byond://?src=[UID()];color=1'>Change color</a></center>"
 	..()
 
 /obj/item/toy/crayon/mime/Topic(href,href_list)
@@ -252,7 +260,7 @@
 	update_window(user)
 
 /obj/item/toy/crayon/rainbow/update_window(mob/living/user as mob)
-	dat += "<center><span style='border:1px solid #161616; background-color: [colour];'>&nbsp;&nbsp;&nbsp;</span><a href='?src=[UID()];color=1'>Change color</a></center>"
+	dat += "<center><span style='border:1px solid #161616; background-color: [colour];'>&nbsp;&nbsp;&nbsp;</span><a href='byond://?src=[UID()];color=1'>Change color</a></center>"
 	..()
 
 /obj/item/toy/crayon/rainbow/Topic(href,href_list[])
@@ -269,16 +277,20 @@
 //Spraycan stuff
 
 /obj/item/toy/crayon/spraycan
-	name = "spraycan"
-	icon_state = "spraycan_cap"
+	name = "Nanotrasen-brand Rapid Paint Applicator"
+	icon_state = "spraycan"
 	desc = "A metallic container containing tasty paint."
+	/// Current state of the cap
 	var/capped = 1
+	/// List of icon_state and names for paint welding mask
+	var/list/weld_icons = list("Flame" = "welding_redflame",
+					"Blue Flame" = "welding_blueflame",
+					"White Flame" = "welding_white")
 	instant = 1
 	validSurfaces = list(/turf/simulated/floor,/turf/simulated/wall)
 
-/obj/item/toy/crayon/spraycan/New()
-	..()
-	name = "Nanotrasen-brand Rapid Paint Applicator"
+/obj/item/toy/crayon/spraycan/Initialize(mapload)
+	. = ..()
 	update_icon()
 
 /obj/item/toy/crayon/spraycan/attack_self(mob/living/user as mob)
@@ -294,7 +306,7 @@
 			colour = input(user,"Choose Color") as color
 			update_icon()
 
-/obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user as mob, proximity)
+/obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(capped)
@@ -318,13 +330,46 @@
 			playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
 		..()
 
-
-/obj/item/toy/crayon/spraycan/update_icon_state()
-	icon_state = "spraycan[capped ? "_cap" : ""]"
-
-
 /obj/item/toy/crayon/spraycan/update_overlays()
 	. = ..()
 	var/image/I = image('icons/obj/crayons.dmi', icon_state = "[capped ? "spraycan_cap_colors" : "spraycan_colors"]")
 	I.color = colour
 	. += I
+
+/obj/item/toy/crayon/spraycan/proc/draw_paint(mob/living/user)
+	uses--
+	if(!uses)
+		to_chat(user, span_warning("Вы израсходовали [name]!"))
+		playsound(user.loc, 'sound/effects/spray.ogg', 5, 1, 5)
+		qdel(src)
+
+/obj/item/toy/crayon/spraycan/proc/can_paint(obj/object, mob/living/user)
+	if(capped)
+		to_chat(user, span_warning("Вы не можете раскрасить [object], если крышка баллона краски закрыта!"))
+		return FALSE
+	if(!uses)
+		to_chat(user, span_warning("Не похоже, что бы осталось достаточно краски"))
+		return FALSE
+	return TRUE
+
+/obj/item/toy/crayon/spraycan/paintkit
+	colour = "#ffffff"
+	uses = 1
+	validSurfaces = null
+
+/obj/item/toy/crayon/spraycan/paintkit/attack_self(mob/living/user as mob)
+	to_chat(user, span_notice("Вы [capped ? "сняли" : "вернули"] колпачок [name]"))
+	capped = !capped
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/toy/crayon/spraycan/paintkit/bigbrother
+	name = "Paintkit «Big Brother»"
+	desc = "Баллончик с черно-золотым корпусом. В комплекте идет одноразовый трафарет для покраски сварочного шлема. К нему прикреплена записка, на которой написано: «Eyes everywhere»."
+	icon_state = "spraycan_bigbrother"
+	weld_icons = list("Big Brother" = "welding_bigbrother")
+
+/obj/item/toy/crayon/spraycan/paintkit/slavic
+	name = "Paintkit «Slavic»"
+	desc = "Баллончик с корпусом цвета хаки. В комплекте идет одноразовый трафарет для покраски сварочного шлема. К нему прикреплена записка, на которой написано: «Head, eyes, blyad»."
+	icon_state = "spraycan_slavic"
+	weld_icons = list("Slavic" = "welding_slavic")

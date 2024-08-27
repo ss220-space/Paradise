@@ -215,35 +215,40 @@
 	P.fire()
 	return P
 
-/obj/machinery/power/emitter/attackby(obj/item/W, mob/user, params)
 
-	if(W.GetID() || is_pda(W))
-		if(emagged)
-			to_chat(user, "<span class='warning'>The lock seems to be broken</span>")
-			return
-		if(src.allowed(user))
-			add_fingerprint(usr)
-			if(active)
-				src.locked = !src.locked
-				to_chat(user, "The controls are now [src.locked ? "locked." : "unlocked."]")
-			else
-				src.locked = 0 //just in case it somehow gets locked
-				to_chat(user, "<span class='warning'>The controls can only be locked when the [src] is online</span>")
-		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
-		return
+/obj/machinery/power/emitter/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
-	if(default_deconstruction_screwdriver(user, "emitter_open", "emitter", W))
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(I.GetID() || is_pda(I))
 		add_fingerprint(user)
-		return
-
-	if(exchange_parts(user, W))
-		return
-
-	if(default_deconstruction_crowbar(user, W))
-		return
+		if(emagged)
+			to_chat(user, span_warning("The lock seems to be broken."))
+			return ATTACK_CHAIN_PROCEED
+		if(!allowed(user))
+			to_chat(user, span_warning("Access denied."))
+			return ATTACK_CHAIN_PROCEED
+		if(!active)
+			locked = FALSE //just in case it somehow gets locked
+			to_chat(user, span_warning("The controls can only be locked while [src] is online."))
+			return ATTACK_CHAIN_PROCEED
+		locked = !locked
+		to_chat(user, span_notice("The controls are now [locked ? "locked." : "unlocked."]"))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
+
+
+/obj/machinery/power/emitter/screwdriver_act(mob/living/user, obj/item/I)
+	return default_deconstruction_screwdriver(user, "emitter_open", "emitter", I)
+
+
+/obj/machinery/power/emitter/crowbar_act(mob/living/user, obj/item/I)
+	return default_deconstruction_crowbar(user, I)
+
 
 /obj/machinery/power/emitter/emag_act(mob/user)
 	if(!emagged)

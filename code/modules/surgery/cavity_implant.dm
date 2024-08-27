@@ -206,7 +206,7 @@
 		span_warning("[user]'s hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!"),
 		span_warning("Your hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!")
 	)
-	affected.receive_damage(20)
+	target.apply_damage(20, def_zone = affected)
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/cavity/make_space
@@ -310,8 +310,7 @@
 		span_warning("[user] grabs onto something else by mistake, damaging it!."),
 		span_warning("You grab onto something else inside [target]'s [get_cavity(affected)] cavity by mistake, damaging it!")
 	)
-
-	affected.receive_damage(rand(3,7))
+	target.apply_damage(rand(3,7), def_zone = affected)
 
 	return SURGERY_STEP_INCOMPLETE
 

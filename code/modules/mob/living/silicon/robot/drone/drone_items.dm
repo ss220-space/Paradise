@@ -91,7 +91,7 @@
 
 /obj/item/gripper/service/melee_attack_chain(mob/living/user, atom/target, params)
 	try_shake_up(user, target)
-	..()
+	. = ..()
 
 /obj/item/gripper/cogscarab
 	name = "ancient gripper"
@@ -135,9 +135,9 @@
 
 /obj/item/gripper/tool_act(mob/living/user, obj/item/tool, tool_type)
 	if(!gripped_item)
-		return
-	gripped_item.tool_act(user, tool, tool_type)
-	if (QDELETED(gripped_item)) // if item was dissasembled we need to clear the pointer
+		return FALSE
+	. = gripped_item.tool_act(user, tool, tool_type)
+	if(QDELETED(gripped_item)) // if item was dissasembled we need to clear the pointer
 		drop_gripped_item(TRUE) // silent = TRUE to prevent "You drop X" message from appearing without actually dropping anything
 
 /obj/item/gripper/Click(location,control,params)
@@ -152,12 +152,14 @@
 		return
 	gripped_item ? usr.DblClickOn(gripped_item, params) : usr.ClickOn(src, params)
 
+
 /obj/item/gripper/attackby(obj/item/weapon, mob/user, params)
 	if(!gripped_item)
-		return
-	gripped_item.attackby(weapon, user, params)
-	if (QDELETED(gripped_item)) // if item was dissasembled we need to clear the pointer
+		return ATTACK_CHAIN_PROCEED
+	. = gripped_item.attackby(weapon, user, params)
+	if(QDELETED(gripped_item)) // if item was dissasembled we need to clear the pointer
 		drop_gripped_item(TRUE) // silent = TRUE to prevent "You drop X" message from appearing without actually dropping anything
+
 
 /obj/item/gripper/proc/drop_gripped_item(silent = FALSE)
 	if(!gripped_item)
@@ -167,8 +169,10 @@
 	gripped_item.forceMove(get_turf(src))
 	gripped_item = null
 
-/obj/item/gripper/attack(mob/living/carbon/M, mob/living/carbon/user)
-	return
+
+/obj/item/gripper/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	return ATTACK_CHAIN_PROCEED
+
 
 /// Grippers are snowflakey so this is needed to to prevent forceMoving grippers after `if(!user.drop_from_active_hand())` checks done in certain attackby's.
 /obj/item/gripper/forceMove(atom/destination)
@@ -177,28 +181,28 @@
 /obj/item/gripper/proc/isEmpty()
 	return isnull(gripped_item)
 
-/obj/item/gripper/melee_attack_chain(mob/user, atom/target, params)
-	if(!target) //Target is invalid
-		return FALSE
+
+/obj/item/gripper/melee_attack_chain(mob/user, atom/target, params)	// this shit requires massive refactoring
+	. = ATTACK_CHAIN_PROCEED
 
 	if(gripped_item) //Already have an item.
-
 		//Pass the attack on to the target. This might delete/relocate gripped_item.
-		if(!target.attackby(gripped_item, user, params))
+		. |= target.attackby(gripped_item, user, params)
+		if((. & ATTACK_CHAIN_NO_AFTERATTACK) || QDELETED(src) || QDELETED(gripped_item) || QDELETED(target) || QDELETED(user))
 			// If the attackby didn't resolve or delete the target or gripped_item, afterattack
 			// (Certain things, such as mountable frames, rely on afterattack)
-			gripped_item?.afterattack(target, user, 1, params)
+			gripped_item.afterattack(target, user, TRUE, params)
 
 		//If gripped_item either didn't get deleted, or it failed to be transfered to its target
 		if(!gripped_item && contents.len)
 			gripped_item = contents[1]
-			return FALSE
 		else if(gripped_item && !contents.len)
 			gripped_item = null
 
 	else if(isitem(target)) //Check that we're not pocketing a mob.
 		var/obj/item/I = target
-		if(is_type_in_typecache(I, can_hold) && Adjacent(user, I)) // Make sure the item is something the gripper can hold
+		if(is_type_in_typecache(I, can_hold)) // Make sure the item is something the gripper can hold
+			. |= ATTACK_CHAIN_SUCCESS
 			to_chat(user, span_notice("You collect [I]."))
 			I.forceMove(src)
 			gripped_item = I
@@ -208,11 +212,11 @@
 			RegisterSignal(I, list(COMSIG_ATOM_UPDATED_ICON), PROC_REF(handle_item_icon_update))
 		else
 			to_chat(user, span_warning("Your gripper cannot hold [target]."))
-			return FALSE
+
 	else //We are empty and trying to attack something else
 		target.attack_hand(user)
+		. |= ATTACK_CHAIN_SUCCESS
 
-	return TRUE
 
 /obj/item/gripper/proc/handle_item_moving()
 	SIGNAL_HANDLER
@@ -250,8 +254,10 @@
 		"wood" = 0
 		)
 
-/obj/item/matter_decompiler/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	return
+
+/obj/item/matter_decompiler/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	return ATTACK_CHAIN_PROCEED
+
 
 /obj/item/matter_decompiler/afterattack(atom/target, mob/living/user, proximity, params)
 	if(!proximity) return //Not adjacent.
@@ -285,7 +291,7 @@
 		module = new /obj/item/robot_module/drone(src)
 
 	var/dat = {"<meta charset="UTF-8"><HEAD><TITLE>Drone modules</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n"}
-	dat += {"<A HREF='?src=[UID()];mach_close=robotmod'>Close</A>
+	dat += {"<a href='byond://?src=[UID()];mach_close=robotmod'>Close</A>
 	<BR>
 	<BR>
 	<B>Activated Modules</B>

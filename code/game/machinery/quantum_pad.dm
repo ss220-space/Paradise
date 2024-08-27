@@ -37,15 +37,17 @@
 	E = 0
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		E += M.rating
-	teleport_speed = initial(teleport_speed)
-	teleport_speed -= (E*10)
-	teleport_cooldown = initial(teleport_cooldown)
-	teleport_cooldown -= (E * 100)
+	teleport_speed = max(initial(teleport_speed) - (E*10), 0)
+	teleport_cooldown = max(initial(teleport_cooldown) - (E * 100), 0)
+
 
 /obj/machinery/quantumpad/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 	if(exchange_parts(user, I))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
+
 
 /obj/machinery/quantumpad/crowbar_act(mob/user, obj/item/I)
 	. = TRUE

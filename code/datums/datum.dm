@@ -91,6 +91,11 @@
 	for(var/target in signal_procs)
 		UnregisterSignal(target, signal_procs[target])
 
+/// Return text from this proc to provide extra context to hard deletes that happen to it
+/// Optional, you should use this for cases where replication is difficult and extra context is required
+/// Can be called more then once per object, use harddel_deets_dumped to avoid duplicate calls (I am so sorry)
+/datum/proc/dump_harddel_info()
+	return
 
 /datum/nothing
 	// Placeholder object, used for ispath checks. Has to be defined to prevent errors, but shouldn't ever be created.

@@ -116,9 +116,12 @@
 			to_chat(user, "<span class='notice'>You take the lid off [src].</span>")
 			remove_lid()
 
-/obj/item/reagent_containers/attack(mob/M, mob/user, def_zone)
-	if(user.a_intent == INTENT_HARM)
-		return ..()
+
+/obj/item/reagent_containers/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(user.a_intent != INTENT_HARM)
+		return ATTACK_CHAIN_PROCEED
+	return ..()
+
 
 /obj/item/reagent_containers/wash(mob/user, atom/source)
 	if(is_open_container())

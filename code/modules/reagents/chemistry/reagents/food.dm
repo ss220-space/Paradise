@@ -115,11 +115,12 @@
 		M.reagents.add_reagent("epinephrine", 1.2)
 	return ..() | update_flags
 
-/datum/reagent/consumable/sugar/overdose_start(mob/living/M)
-	to_chat(M, "<span class='danger'>Вы теряете сознание от гипергликемического шока!</span>")
-	M.overlay_fullscreen("hyperglycemia", /atom/movable/screen/fullscreen/impaired, 1)
-	M.emote("faint")
-	M.hunger_drain *= 2
+/datum/reagent/consumable/sugar/overdose_start(mob/living/carbon/human/affected)
+	to_chat(affected, "<span class='danger'>Вы теряете сознание от гипергликемического шока!</span>")
+	affected.overlay_fullscreen("hyperglycemia", /atom/movable/screen/fullscreen/impaired, 1)
+	affected.emote("faint")
+	if(ishuman(affected))
+		affected.physiology.hunger_mod *= 2
 	..()
 
 /datum/reagent/consumable/sugar/overdose_process(mob/living/M, severity)
@@ -140,10 +141,13 @@
 				H.vomit()
 	return ..() | update_flags
 
-/datum/reagent/consumable/sugar/overdose_end(mob/living/M)
-	M.clear_fullscreen("hyperglycemia")
-	M.hunger_drain /= 2
+
+/datum/reagent/consumable/sugar/overdose_end(mob/living/carbon/human/affected)
+	affected.clear_fullscreen("hyperglycemia")
+	if(ishuman(affected))
+		affected.physiology.hunger_mod *= 0.5
 	..()
+
 
 /datum/reagent/consumable/soysauce
 	name = "Soysauce"
@@ -940,7 +944,7 @@
 		if(H.dna.species.taste_sensitivity < TASTE_SENSITIVITY_NO_TASTE) // If you can taste it, then you know how awful it is.
 			H.Weaken(4 SECONDS)
 			to_chat(H, "<span class='danger'>Ugh! Eating that was a terrible idea!</span>")
-		if(NO_HUNGER in H.dna.species.species_traits) //If you don't eat, then you can't get food poisoning
+		if(HAS_TRAIT(H, TRAIT_NO_HUNGER)) //If you don't eat, then you can't get food poisoning
 			return
 		var/datum/disease/food_poisoning/D = new
 		D.Contract(H)

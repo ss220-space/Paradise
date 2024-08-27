@@ -9,6 +9,8 @@
 	layer = LIGHTING_LAYER
 	invisibility = INVISIBILITY_LIGHTING
 	simulated = FALSE
+	light_system = NO_LIGHT_SUPPORT
+	light_range = 0
 
 	var/turf/myturf
 
@@ -109,6 +111,7 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 		)
 
 	affected_turf.luminosity = set_luminosity
+	SSdemo.mark_turf(affected_turf)
 
 
 // Variety of overrides so the overlays don't get affected by weird things.

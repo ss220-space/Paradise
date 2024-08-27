@@ -265,7 +265,7 @@
 	bitesize = 3
 	filling_color = "#5e1706"
 	tastes = list("cherry" = 5, "sweetness" = 1, "chocolate" = 1)
-	list_reagents = list("nutriment" = 10, "sugar" = 35, "coco" = 4)
+	list_reagents = list("nutriment" = 10, "sugar" = 35, "cocoa" = 4)
 	foodtype = SUGAR | FRUIT | GRAIN
 
 /obj/item/reagent_containers/food/snacks/choccherrycakeslice
@@ -285,7 +285,7 @@
 	slices_num = 5
 	filling_color = "#5e1706"
 	tastes = list("chocolate" = 3, "sweetness" = 2, "egg" = 1, "berries" = 2)
-	list_reagents = list("nutriment" = 6, "plantmatter" = 2, "coco" = 2, "cream" = 3, "sugar" = 15, "berryjucie" = 3)
+	list_reagents = list("nutriment" = 6, "plantmatter" = 2, "cocoa" = 2, "cream" = 3, "sugar" = 15, "berryjuice" = 3)
 	foodtype = SUGAR | FRUIT | GRAIN | DAIRY
 
 /obj/item/reagent_containers/food/snacks/noelslice

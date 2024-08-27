@@ -158,10 +158,11 @@
 				if(find_slip && istype(thing,/obj/item/paper/manifest))
 					var/obj/item/paper/manifest/slip = thing
 					// TODO: Check for a signature, too.
-					if(length(slip.stamped)) //yes, the clown stamp will work. clown is the highest authority on the station, it makes sense
+					var/slip_stamped_len = LAZYLEN(slip.stamped)
+					if(slip_stamped_len) //yes, the clown stamp will work. clown is the highest authority on the station, it makes sense
 						// Did they mark it as erroneous?
 						var/denied = FALSE
-						for(var/i in 1 to length(slip.stamped))
+						for(var/i in 1 to slip_stamped_len)
 							if(slip.stamped[i] == /obj/item/stamp/denied)
 								denied = TRUE
 						if(slip.erroneous && denied) // Caught a mistake by Centcom (IDEA: maybe Centcom rarely gets offended by this)
@@ -214,6 +215,26 @@
 							for(var/datum/job_objective/further_research/objective in mob.mind.job_objectives)
 								objective.unit_completed(cost)
 						msg += "[tech.name] - new data.<br>"
+
+		if(istype(MA, /obj/structure/closet/critter/mecha))
+			var/obj/structure/closet/critter/mecha/crate = MA
+			if(crate.console && crate.quest)
+				for(var/category in crate.quest.reward)
+					crate.quest.reward[category] -= crate.penalty
+					if(crate.quest.reward[category] < 0)
+						crate.quest.reward[category] = 0
+					crate.console.points[category] += crate.quest.reward[category]
+				pointsEarned = crate.quest.reward["robo"] * 30
+				SSshuttle.points += pointsEarned
+				if(crate.quest.id)
+					var/datum/money_account/A = get_money_account(crate.quest.id.associated_account_number)
+					if(A)
+						A.money += crate.quest.maximum_cash - round(crate.quest.maximum_cash * crate.penalty / 4)
+				SSshuttle.cargo_money_account.money += crate.quest.maximum_cash - round(crate.quest.maximum_cash * crate.penalty / 4)
+				crate.console.on_quest_complete()
+				msg += "<span class='good'>+[pointsEarned]</span>: Received requested mecha: [crate.quest.name].<br>"
+				crate.quest.id.robo_bounty = null
+				crate.quest = null
 
 		qdel(MA, force = TRUE)
 		SSshuttle.sold_atoms += "."
@@ -456,6 +477,8 @@
 	var/list/categories = list() // meow
 	for(var/category in GLOB.all_supply_groups)
 		categories.Add(list(list("name" = get_supply_group_name(category), "category" = category)))
+	if(!(src.can_order_contraband))
+		categories.Cut(SUPPLY_CONTRABAND) //cutting contraband category
 	data["categories"] = categories
 
 	return data
@@ -469,7 +492,7 @@
 
 	return FALSE
 
-/obj/machinery/computer/supplycomp/ui_act(action, list/params)
+/obj/machinery/computer/supplycomp/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 
@@ -517,15 +540,13 @@
 
 			var/amount = 1
 			if(params["multiple"])
-				var/num_input = input(usr, "Amount", "How many crates? (20 Max)") as null|num
-				if(!num_input || (!is_public && !is_authorized(usr)) || ..()) // Make sure they dont walk away
+				var/num_input = tgui_input_number(ui.user, "Amount", "How many crates?", max_value = 20, min_value = 1)
+				if(isnull(num_input) || (!is_public && !is_authorized(ui.user)) || ..()) // Make sure they dont walk away
 					return
-				amount = clamp(round(num_input), 1, 20)
 
-
-			var/timeout = world.time + 600 // If you dont type the reason within a minute, theres bigger problems here
-			var/reason = input(usr, "Reason", "Why do you require this item?","") as null|text
-			if(world.time > timeout || !reason || (!is_public && !is_authorized(usr)) || ..())
+			var/timeout = world.time + (60 SECONDS) // If you dont type the reason within a minute, theres bigger problems here
+			var/reason = tgui_input_text(ui.user, "Reason", "Why do you require this item?", encode = FALSE, timeout = timeout)
+			if(!reason || (!is_public && !is_authorized(ui.user)) || ..())
 				// Cancel if they take too long, they dont give a reason, they aint authed, or if they walked away
 				return
 			reason = sanitize(copytext_char(reason, 1, 100)) //Preventing tgui overflow

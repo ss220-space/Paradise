@@ -1,8 +1,13 @@
-/turf/simulated/floor/plating/lava
+/turf/simulated/floor/lava
 	name = "lava"
-	icon_state = "lava"
+	icon = 'icons/turf/floors/lava.dmi'
+	icon_state = "unsmooth"
+	base_icon_state = "lava"
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_FLOOR_LAVA
+	smoothing_groups = SMOOTH_GROUP_FLOOR_LAVA
 	gender = PLURAL //"That's some lava."
-	baseturf = /turf/simulated/floor/plating/lava //lava all the way down
+	baseturf = /turf/simulated/floor/lava //lava all the way down
 	slowdown = 2
 	light_range = 2
 	light_power = 0.75
@@ -11,6 +16,7 @@
 	barefootstep = FOOTSTEP_LAVA
 	clawfootstep = FOOTSTEP_LAVA
 	heavyfootstep = FOOTSTEP_LAVA
+	real_layer = PLATING_LAYER
 	/// How much fire damage we deal to living mobs stepping on us
 	var/lava_damage = 20
 	/// How many firestacks we add to living mobs stepping on us
@@ -22,50 +28,49 @@
 	/// Objects with these flags won't burn.
 	var/immunity_resistance_flags = LAVA_PROOF
 
-
-/turf/simulated/floor/plating/lava/ex_act()
+/turf/simulated/floor/lava/ex_act()
 	return
 
-/turf/simulated/floor/plating/lava/acid_act(acidpwr, acid_volume)
+/turf/simulated/floor/lava/acid_act(acidpwr, acid_volume)
 	return
 
-/turf/simulated/floor/plating/lava/rcd_act(mob/user, obj/item/rcd/our_rcd, rcd_mode)
+/turf/simulated/floor/lava/rcd_act(mob/user, obj/item/rcd/our_rcd, rcd_mode)
 	return
 
-/turf/simulated/floor/plating/lava/airless
+/turf/simulated/floor/lava/airless
 	temperature = TCMB
 
-/turf/simulated/floor/plating/lava/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+/turf/simulated/floor/lava/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	if(burn_stuff(arrived))
 		START_PROCESSING(SSprocessing, src)
 
-/turf/simulated/floor/plating/lava/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+/turf/simulated/floor/lava/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(burn_stuff(AM))
 		START_PROCESSING(SSprocessing, src)
 
-/turf/simulated/floor/plating/lava/process()
+/turf/simulated/floor/lava/process()
 	if(!burn_stuff())
 		STOP_PROCESSING(SSprocessing, src)
 
-/turf/simulated/floor/plating/lava/singularity_act()
+/turf/simulated/floor/lava/singularity_act()
 	return
 
-/turf/simulated/floor/plating/lava/singularity_pull(S, current_size)
+/turf/simulated/floor/lava/singularity_pull(S, current_size)
 	return
 
-/turf/simulated/floor/plating/lava/make_plating()
+/turf/simulated/floor/lava/make_plating()
 	return
 
-/turf/simulated/floor/plating/lava/remove_plating()
+/turf/simulated/floor/lava/remove_plating()
 	return
 
-/turf/simulated/floor/plating/lava/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+/turf/simulated/floor/lava/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/floors.dmi'
 	underlay_appearance.icon_state = "basalt"
 	return TRUE
 
-/turf/simulated/floor/plating/lava/is_safe()
+/turf/simulated/floor/lava/is_safe()
 	if(HAS_TRAIT(src, TRAIT_LAVA_STOPPED) && ..())
 		return TRUE
 	return FALSE
@@ -79,7 +84,7 @@
 #define LAVA_BE_BURNING 2
 
 ///Proc that sets on fire something or everything on the turf that's not immune to lava. Returns TRUE to make the turf start processing.
-/turf/simulated/floor/plating/lava/proc/burn_stuff(atom/movable/to_burn)
+/turf/simulated/floor/lava/proc/burn_stuff(atom/movable/to_burn)
 	if(HAS_TRAIT(src, TRAIT_LAVA_STOPPED))
 		return FALSE
 
@@ -96,7 +101,7 @@
 		. = TRUE
 
 
-/turf/simulated/floor/plating/lava/proc/can_burn_stuff(atom/movable/burn_target)
+/turf/simulated/floor/lava/proc/can_burn_stuff(atom/movable/burn_target)
 	if(QDELETED(burn_target))
 		return LAVA_BE_IGNORING
 	if(burn_target.movement_type & MOVETYPES_NOT_TOUCHING_GROUND || !burn_target.has_gravity()) //you're flying over it.
@@ -138,7 +143,7 @@
 #undef LAVA_BE_BURNING
 
 
-/turf/simulated/floor/plating/lava/proc/do_burn(atom/movable/burn_target)
+/turf/simulated/floor/lava/proc/do_burn(atom/movable/burn_target)
 	if(QDELETED(burn_target))
 		return FALSE
 
@@ -159,79 +164,73 @@
 		var/mob/living/burn_living = burn_target
 		burn_living.adjust_fire_stacks(lava_firestacks)
 		burn_living.IgniteMob()
-		burn_living.adjustFireLoss(lava_damage)
+		burn_living.apply_damage(lava_damage, BURN, spread_damage = TRUE)
 		return TRUE
 
 	return FALSE
 
 
-/turf/simulated/floor/plating/lava/attackby(obj/item/C, mob/user, params) //Lava isn't a good foundation to build on
-	if(istype(C, /obj/item/stack/fireproof_rods))
-		var/obj/item/stack/fireproof_rods/R = C
-		var/obj/structure/lattice/fireproof/L = locate(/obj/structure/lattice, src)
-		var/obj/structure/lattice/catwalk/fireproof/W = locate(/obj/structure/lattice/catwalk/fireproof, src)
-		if(W)
+/turf/simulated/floor/lava/can_have_cabling()
+	if(locate(/obj/structure/lattice/catwalk/fireproof, src))
+		return TRUE
+	return FALSE
+
+
+/turf/simulated/floor/lava/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
+
+	if(istype(I, /obj/item/stack/fireproof_rods))
+		var/obj/item/stack/fireproof_rods/rods = I
+		if(locate(/obj/structure/lattice/catwalk/fireproof, src))
 			to_chat(user, span_warning("Здесь уже есть мостик!"))
-			return
-		if(!L)
-			if(R.use(1))
-				to_chat(user, span_notice("Вы установили прочную решётку."))
-				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-				new /obj/structure/lattice/fireproof(src)
-			else
-				to_chat(user, span_warning("Вам нужен один огнеупорный стержень для постройки решётки."))
-			return
-		if(L)
-			if(R.use(2))
-				qdel(L)
-				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-				to_chat(user, span_notice("Вы установили мостик."))
-				new /obj/structure/lattice/catwalk/fireproof(src)
-		else
-			return
-	else if(istype(C, /obj/item/stack/cable_coil))
-		var/obj/structure/lattice/catwalk/fireproof/W = locate(/obj/structure/lattice/catwalk/fireproof, src)
-		if(!W)
-			return
-		else
-			return ..()
-	else return
+			return .
+		var/obj/structure/lattice/fireproof/lattice = locate() in src
+		if(!lattice)
+			if(!rods.use(1))
+				to_chat(user, span_warning("Вам нужен один огнеупорный стержень для постройки решётки!"))
+				return .
+			to_chat(user, span_notice("Вы установили прочную решётку."))
+			playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+			new /obj/structure/lattice/fireproof(src)
+			return .|ATTACK_CHAIN_SUCCESS
+		if(!rods.use(2))
+			to_chat(user, span_warning("Вам нужно два огнеупорных стержня для постройки мостика!"))
+			return .
+		qdel(lattice)
+		playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+		to_chat(user, span_notice("Вы установили огнеупорный мостик."))
+		new /obj/structure/lattice/catwalk/fireproof(src)
+		return .|ATTACK_CHAIN_SUCCESS
 
-/turf/simulated/floor/plating/lava/screwdriver_act()
+
+/turf/simulated/floor/lava/screwdriver_act()
 	return
 
-/turf/simulated/floor/plating/lava/welder_act()
+/turf/simulated/floor/lava/welder_act()
 	return
 
-/turf/simulated/floor/plating/lava/break_tile()
+/turf/simulated/floor/lava/break_tile()
 	return
 
-/turf/simulated/floor/plating/lava/burn_tile()
+/turf/simulated/floor/lava/burn_tile()
 	return
 
-/turf/simulated/floor/plating/lava/smooth
-	name = "lava"
-	baseturf = /turf/simulated/floor/plating/lava/smooth
-	icon = 'icons/turf/floors/lava.dmi'
-	icon_state = "unsmooth"
-	base_icon_state = "lava"
-	smooth = SMOOTH_BITMASK
-	canSmoothWith = SMOOTH_GROUP_FLOOR_LAVA
-	smoothing_groups = SMOOTH_GROUP_FLOOR_LAVA
-
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface
+/turf/simulated/floor/lava/lava_land_surface
 	temperature = 300
 	oxygen = 14
 	nitrogen = 23
 	planetary_atmos = TRUE
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
 
-/turf/simulated/floor/plating/lava/smooth/airless
+/turf/simulated/floor/lava/airless
 	temperature = TCMB
 
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma
+/turf/simulated/floor/lava/lava_land_surface/plasma
 	name = "liquid plasma"
-	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma
+	baseturf = /turf/simulated/floor/lava/lava_land_surface/plasma
 	desc = "A flowing stream of chilled liquid plasma. You probably shouldn't get in."
 	icon = 'icons/turf/floors/liquidplasma.dmi'
 	base_icon_state = "liquidplasma"
@@ -246,20 +245,25 @@
 	var/human_tox_fire_damage = 15
 
 
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma/examine(mob/user)
+/turf/simulated/floor/lava/lava_land_surface/plasma/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>Some <b>liquid plasma<b> could probably be scooped up with a <b>container</b>.</span>"
+	. += span_info("Some <b>liquid plasma<b> could probably be scooped up with a <b>container</b>.")
 
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma/attackby(obj/item/I, mob/user, params)
-	if(!I.is_open_container())
-		return ..()
+
+/turf/simulated/floor/lava/lava_land_surface/plasma/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.is_open_container())
+		return .
+
+	. |= ATTACK_CHAIN_SUCCESS
 	if(!I.reagents.add_reagent("plasma", 10))
-		to_chat(user, "<span class='warning'>[I] is full.</span>")
-		return
-	to_chat(user, "<span class='notice'>You scoop out some plasma from the [src] using [I].</span>")
+		to_chat(user, span_warning("The [I.name] is full."))
+		return .
+	to_chat(user, span_notice("You scoop out some plasma from the [src] using [I]."))
 
 
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma/do_burn(atom/movable/burn_target)
+/turf/simulated/floor/lava/lava_land_surface/plasma/do_burn(atom/movable/burn_target)
 	if(QDELETED(burn_target))
 		return FALSE
 
@@ -277,44 +281,44 @@
 		return TRUE
 
 	if(isliving(burn_target))
+		var/burn_damage = lava_damage
+		var/tox_damage = 0
 		var/mob/living/burn_living = burn_target
 		burn_living.adjust_fire_stacks(lava_firestacks)
 		burn_living.IgniteMob()
-		burn_living.adjustFireLoss(lava_damage)
 		burn_living.adjust_bodytemperature(-rand(50, 65)) //its cold, man
-		if(!ishuman(burn_living) || prob(65))
-			return TRUE
-		var/mob/living/carbon/human/burn_human = burn_living
-		var/datum/species/burn_species = burn_human.dna.species.name
-		if(burn_species == SPECIES_PLASMAMAN || burn_species == SPECIES_MACNINEPERSON) //ignore plasmamen/robotic species.
-			return TRUE
-		burn_human.adjustToxLoss(human_tox_fire_damage) //Cold mutagen is bad for you, more at 11.
-		burn_human.adjustFireLoss(human_tox_fire_damage)
+		if(ishuman(burn_living) && prob(65))
+			var/mob/living/carbon/human/burn_human = burn_living
+			var/datum/species/burn_species = burn_human.dna.species.name
+			if(burn_species != SPECIES_PLASMAMAN && burn_species != SPECIES_MACNINEPERSON) //ignore plasmamen/robotic species.
+				burn_damage += human_tox_fire_damage
+				tox_damage += human_tox_fire_damage
+		burn_living.apply_damages(burn = burn_damage, tox = tox_damage, spread_damage = TRUE)	//Cold mutagen is bad for you, more at 11.
 		return TRUE
 
 	return FALSE
 
 
 // It's not the liquid itself. It's the atmos over it. Don't wanna spend resources on simulating over snow and lava.
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma/cold
+/turf/simulated/floor/lava/lava_land_surface/plasma/cold
 	oxygen = 22
 	nitrogen = 82
 	temperature = 180
 
-/turf/simulated/floor/plating/lava/smooth/mapping_lava
+/turf/simulated/floor/lava/mapping_lava
 	name = "Adaptive lava / chasm / plasma"
 	icon_state = "mappinglava"
-	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
+	baseturf = /turf/simulated/floor/lava/mapping_lava
 	temperature = 300
 	oxygen = 14
 	nitrogen = 23
 	planetary_atmos = TRUE
 
-/turf/simulated/floor/plating/lava/smooth/mapping_lava/Initialize(mapload)
+/turf/simulated/floor/lava/mapping_lava/Initialize(mapload)
 	. = ..()
 	return INITIALIZE_HINT_LATELOAD //Lateload is needed, otherwise atmos does not setup right on the turf roundstart, leading it to be vacume. This is bad.
 
-/turf/simulated/floor/plating/lava/smooth/mapping_lava/LateInitialize()
+/turf/simulated/floor/lava/mapping_lava/LateInitialize()
 	. = ..()
 	if(SSmapping.lavaland_theme?.primary_turf_type)
 		ChangeTurf(SSmapping.lavaland_theme.primary_turf_type, ignore_air = TRUE)

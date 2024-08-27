@@ -19,10 +19,10 @@
 						spawn() alert("You have logged in already with another key this round, please log out of this one NOW or risk being banned!")
 				if(matches)
 					if(M.client)
-						message_admins("<font color='red'><B>Notice: </B><font color='#EB4E00'><A href='?src=[usr.UID()];priv_msg=[src.client.ckey]'>[key_name_admin(src)]</A> has the same [matches] as <A href='?src=[usr.UID()];priv_msg=[M.client.ckey]'>[key_name_admin(M)]</A>.</font>")
+						message_admins("<font color='red'><B>Notice: </B><font color='#EB4E00'><a href='byond://?src=[usr.UID()];priv_msg=[src.client.ckey]'>[key_name_admin(src)]</A> has the same [matches] as <a href='byond://?src=[usr.UID()];priv_msg=[M.client.ckey]'>[key_name_admin(M)]</A>.</font>")
 						log_adminwarn("Notice: [key_name(src)] has the same [matches] as [key_name(M)].")
 					else
-						message_admins("<font color='red'><B>Notice: </B><font color='#EB4E00'><A href='?src=[usr.UID()];priv_msg=[src.client.ckey]'>[key_name_admin(src)]</A> has the same [matches] as [key_name_admin(M)] (no longer logged in). </font>")
+						message_admins("<font color='red'><B>Notice: </B><font color='#EB4E00'><a href='byond://?src=[usr.UID()];priv_msg=[src.client.ckey]'>[key_name_admin(src)]</A> has the same [matches] as [key_name_admin(M)] (no longer logged in). </font>")
 						log_adminwarn("Notice: [key_name(src)] has the same [matches] as [key_name(M)] (no longer logged in).")
 
 /mob/Login()
@@ -30,21 +30,30 @@
 		return FALSE
 	canon_client = client
 	GLOB.player_list |= src
+	GLOB.keyloop_list |= src
 	last_known_ckey = ckey
 	update_Login_details()
 	world.update_status()
 
-	client.images = null				//remove the images such as AIs being unable to see runes
+	client.images = list()				//remove the images such as AIs being unable to see runes
 	client.screen = list()				//remove hud items just in case
 	if(client.click_intercept)
 		client.click_intercept.quit() // Let's not keep any old click_intercepts
 
 	if(!hud_used)
-		create_mob_hud()
+		create_mob_hud()	 // creating a hud will add it to the client's screen, which can process a disconnect
+		if(!client)
+			return FALSE
+
 	if(hud_used)
-		hud_used.show_hud(hud_used.hud_version)
+		hud_used.show_hud(hud_used.hud_version)	// see above, this can process a disconnect
+		if(!client)
+			return FALSE
 
 	next_move = 1
+
+	SSdemo.write_event_line("setmob [client.ckey] \ref[src]")
+
 	add_sight(SEE_SELF)
 
 	// DO NOT CALL PARENT HERE
@@ -63,10 +72,10 @@
 
 
 	if(ckey in GLOB.deadmins)
-		verbs += /client/proc/readmin
+		add_verb(src, /client/proc/readmin)
 
 	//Clear ability list and update from mob.
-	client.verbs -= GLOB.ability_verbs
+	remove_verb(client, GLOB.ability_verbs)
 
 	client.update_active_keybindings()
 
@@ -82,7 +91,9 @@
 
 	update_client_colour(0)
 	update_morgue()
+	client.init_verbs()
 
 	SEND_SIGNAL(src, COMSIG_MOB_CLIENT_LOGIN, client)
 	SEND_SIGNAL(src, COMSIG_MOB_LOGIN)
+	return TRUE
 

@@ -8,6 +8,13 @@
 #define NO_GRAVITY_SPEED (0.15 SECONDS)
 #define GRAVITY_SPEED (0.4 SECONDS)
 
+#define POD_MISC_LOCK_DOOR 		"Lock Doors"
+#define POD_MISC_POD_DOORS 		"Toggle Nearby Pod Doors"
+#define POD_MISC_UNLOAD_CARGO 	"Unload Cargo"
+#define POD_MISC_CHECK_SEAT		"Check under Seat"
+
+#define POD_MISC_SYSTEMS list(POD_MISC_LOCK_DOOR, POD_MISC_POD_DOORS, POD_MISC_CHECK_SEAT, POD_MISC_UNLOAD_CARGO)
+
 /obj/item/pod_paint_bucket
 	name = "space pod paintkit"
 	desc = "Pimp your ride"
@@ -70,6 +77,12 @@
 	COOLDOWN_DECLARE(cooldown_emp)	//Used for disabling movement when hit by an EMP
 	var/datum/effect_system/trail_follow/spacepod/ion_trail
 
+	// Actions
+	var/datum/action/innate/pod/pod_eject/eject_action = new
+	var/datum/action/innate/pod/pod_toggle_internals/internals_action = new
+	var/datum/action/innate/pod/pod_toggle_lights/lights_action = new
+	var/datum/action/innate/pod/pod_fire/fire_action = new
+	var/datum/action/innate/pod/pod_misc/misc_action = new
 
 /obj/spacepod/proc/apply_paint(mob/user)
 	var/part_type
@@ -216,10 +229,12 @@
 
 /obj/spacepod/proc/eject_pilot()
 	pilot.forceMove(get_turf(src))
+	RemoveActions(pilot)
 	pilot = null
 
 /obj/spacepod/proc/eject_passenger(mob/living/passenger)
 	passenger.forceMove(get_turf(src))
+	eject_action.Remove(passenger)
 	passengers -= passenger
 
 /obj/spacepod/attack_animal(mob/living/simple_animal/user)
@@ -330,78 +345,105 @@
 	for(var/mob/M in passengers | pilot)
 		to_chat(M, mymessage)
 
-/obj/spacepod/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/stock_parts/cell))
+
+/obj/spacepod/attackby(obj/item/I, mob/user, params)
+	var/cached_damage = I.force
+	if(user.a_intent == INTENT_HARM)
+		. = ..()
+		if(!ATTACK_CHAIN_CANCEL_CHECK(.))
+			deal_damage(cached_damage)
+		return .
+
+	if(istype(I, /obj/item/stock_parts/cell))
+		add_fingerprint(user)
 		if(!hatch_open)
-			to_chat(user, "<span class='warning'>The maintenance hatch is closed!</span>")
-			return
+			to_chat(user, span_warning("The maintenance hatch is closed."))
+			return ATTACK_CHAIN_PROCEED
 		if(battery)
-			to_chat(user, "<span class='notice'>The pod already has a battery.</span>")
-			return
-		to_chat(user, "<span class='notice'>You insert [W] into the pod.</span>")
-		user.drop_transfer_item_to_loc(W, src)
-		battery = W
-		return
+			to_chat(user, span_warning("The spacepod already has a battery."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		battery = I
+		to_chat(user, span_notice("You have installed a new battery into the spacepod."))
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	else if(istype(W, /obj/item/spacepod_equipment/key) && istype(equipment_system.lock_system, /obj/item/spacepod_equipment/lock/keyed))
-		var/obj/item/spacepod_equipment/key/key = W
-		if(key.id == equipment_system.lock_system.id)
-			lock_pod()
-			return
-		else
-			to_chat(user, "<span class='warning'>This is the wrong key!</span>")
-			return
-
-	else if(istype(W, /obj/item/spacepod_equipment))
-		if(!hatch_open)
-			to_chat(user, "<span class='warning'>The maintenance hatch is closed!</span>")
-			return
+	if(istype(I, /obj/item/spacepod_equipment/key))
+		add_fingerprint(user)
 		if(!equipment_system)
-			to_chat(user, "<span class='warning'>The pod has no equipment datum, yell at the coders</span>")
-			return
-		if(istype(W, /obj/item/spacepod_equipment/weaponry))
-			add_equipment(user, W, "weapon_system")
-			return
-		if(istype(W, /obj/item/spacepod_equipment/misc))
-			add_equipment(user, W, "misc_system")
-			return
-		if(istype(W, /obj/item/spacepod_equipment/cargo))
-			add_equipment(user, W, "cargo_system")
-			return
-		if(istype(W, /obj/item/spacepod_equipment/sec_cargo))
-			add_equipment(user, W, "sec_cargo_system")
-			return
-		if(istype(W, /obj/item/spacepod_equipment/lock))
-			add_equipment(user, W, "lock_system")
-			return
+			to_chat(user, span_warning("The pod has no equipment datum, yell at the coders."))
+			return ATTACK_CHAIN_PROCEED
+		if(!istype(equipment_system.lock_system, /obj/item/spacepod_equipment/lock/keyed))
+			to_chat(user, span_warning("The spacepod has no tumbler lock."))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/item/spacepod_equipment/key/key = I
+		if(key.id != equipment_system.lock_system.id)
+			to_chat(user, span_warning("Wrong key."))
+			return ATTACK_CHAIN_PROCEED
+		lock_pod()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	else if(istype(W, /obj/item/lock_buster))
-		var/obj/item/lock_buster/L = W
-		if(L.on && equipment_system.lock_system)
-			user.visible_message(user, "<span class='warning'>[user] is drilling through the [src]'s lock!</span>",
-				"<span class='notice'>You start drilling through the [src]'s lock!</span>")
-			if(do_after(user, 10 SECONDS * W.toolspeed * gettoolspeedmod(user), src))
-				QDEL_NULL(equipment_system.lock_system)
-				unlocked = TRUE
-				user.visible_message(user, "<span class='warning'>[user] has destroyed the [src]'s lock!</span>",
-					"<span class='notice'>You destroy the [src]'s lock!</span>")
-			else
-				user.visible_message(user, "<span class='warning'>[user] fails to break through the [src]'s lock!</span>",
-				"<span class='notice'>You were unable to break through the [src]'s lock!</span>")
-			return
-		if(L.on && unlocked == FALSE) //The buster is on, we don't have a lock system, and the pod is still somehow locked, unlocking.
+	if(istype(I, /obj/item/spacepod_equipment))
+		add_fingerprint(user)
+		if(!hatch_open)
+			to_chat(user, span_warning("The maintenance hatch is closed."))
+			return ATTACK_CHAIN_PROCEED
+		if(!equipment_system)
+			to_chat(user, span_warning("The pod has no equipment datum, yell at the coders."))
+			return ATTACK_CHAIN_PROCEED
+		var/success = FALSE
+		if(istype(I, /obj/item/spacepod_equipment/weaponry))
+			success = add_equipment(user, I, "weapon_system")
+		else if(istype(I, /obj/item/spacepod_equipment/misc))
+			success = add_equipment(user, I, "misc_system")
+		else if(istype(I, /obj/item/spacepod_equipment/cargo))
+			success = add_equipment(user, I, "cargo_system")
+		else if(istype(I, /obj/item/spacepod_equipment/sec_cargo))
+			success = add_equipment(user, I, "sec_cargo_system")
+		else if(istype(I, /obj/item/spacepod_equipment/lock))
+			success = add_equipment(user, I, "lock_system")
+		else
+			stack_trace("Attempted to install unknown spacepod equipment ([I.type]).")
+		if(!success)
+			return ATTACK_CHAIN_PROCEED
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/lock_buster))
+		var/obj/item/lock_buster/buster = I
+		if(!buster.on)
+			to_chat(user, span_warning("You should turn on [buster]."))
+			return ATTACK_CHAIN_PROCEED
+		if(equipment_system.lock_system)
+			user.visible_message(
+				span_warning("[user] starts drilling through [src]'s lock."),
+				span_notice("You start drilling through [src]'s lock..."),
+			)
+			if(!do_after(user, 10 SECONDS * buster.toolspeed, src, category = DA_CAT_TOOL) || !equipment_system.lock_system)
+				return ATTACK_CHAIN_PROCEED
+			QDEL_NULL(equipment_system.lock_system)
 			unlocked = TRUE
-			user.visible_message(user, "<span class='notice'>[user] repairs [src]'s doors with [L].</span>",
-				"<span class='notice'>You repair [src]'s doors with [L].</span>")
-		to_chat(user, "<span class='notice'>Turn the [L] on first.</span>")
-		return
+			user.visible_message(
+				span_warning("[user] has destroyed [src]'s lock."),
+				span_notice("You have destroyed [src]'s lock."),
+			)
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		if(!unlocked)	// we don't have a lock system, and the pod is still somehow locked, unlocking.
+			unlocked = TRUE
+			user.visible_message(
+				span_notice("[user] has repaired [src]'s doors with [buster]."),
+				span_notice("You have repaired [src]'s doors with [buster]."),
+			)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	else if(cargo_hold.storage_slots > 0 && !hatch_open && unlocked) // must be the last option as all items not listed prior will be stored
-		cargo_hold.attackby(W, user, params)
-	else
-		if(user.a_intent == INTENT_HARM)
-			deal_damage(W.force)
-		return ..()
+	// must be the last option as all items not listed prior will be stored
+	if(cargo_hold && cargo_hold.storage_slots > 0 && !hatch_open && unlocked)
+		cargo_hold.attackby(I, user, params)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	. = ..()
+	if(!ATTACK_CHAIN_CANCEL_CHECK(.))
+		deal_damage(cached_damage)
+
 
 /obj/spacepod/crowbar_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
@@ -414,6 +456,7 @@
 		to_chat(user, "<span class='notice'>You [hatch_open ? "open" : "close"] the maintenance hatch.</span>")
 	else
 		to_chat(user, "<span class='warning'>The hatch is locked shut!</span>")
+
 
 /obj/spacepod/welder_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
@@ -433,20 +476,20 @@
 		to_chat(user, "<span class='notice'>You mend some [pick("dents","bumps","damage")] with [I]</span>")
 
 
-/obj/spacepod/proc/add_equipment(mob/user, var/obj/item/spacepod_equipment/SPE, var/slot)
+/obj/spacepod/proc/add_equipment(mob/user, obj/item/spacepod_equipment/SPE, slot)
 	if(equipment_system.vars[slot])
-		to_chat(user, "<span class='notice'>The pod already has a [slot], remove it first.</span>")
-		return
-	else
-		to_chat(user, "<span class='notice'>You insert [SPE] into the pod.</span>")
-		user.drop_transfer_item_to_loc(SPE, src)
-		equipment_system.vars[slot] = SPE
-		var/obj/item/spacepod_equipment/system = equipment_system.vars[slot]
-		system.my_atom = src
-		equipment_system.installed_modules += SPE
-		max_passengers += SPE.occupant_mod
-		cargo_hold.storage_slots += SPE.storage_mod["slots"]
-		cargo_hold.max_combined_w_class += SPE.storage_mod["w_class"]
+		to_chat(user, span_warning("The spacepod already has a [slot], remove it first."))
+		return FALSE
+	if(SPE.loc == user && !user.drop_transfer_item_to_loc(SPE, src))
+		return FALSE
+	to_chat(user, span_notice("You have installed [SPE] into the spacepod."))
+	equipment_system.vars[slot] = SPE
+	var/obj/item/spacepod_equipment/system = equipment_system.vars[slot]
+	system.my_atom = src
+	equipment_system.installed_modules += SPE
+	max_passengers += SPE.occupant_mod
+	cargo_hold.storage_slots += SPE.storage_mod["slots"]
+	cargo_hold.max_combined_w_class += SPE.storage_mod["w_class"]
 
 
 /obj/spacepod/attack_hand(mob/user)
@@ -577,11 +620,17 @@
 	icon_state = "pod_civ"
 	desc = "A sleek civilian space pod."
 
-/obj/spacepod/civilian/attackby(obj/item/W as obj, mob/user as mob, params)
-	..()
-	if(istype(W, /obj/item/pod_paint_bucket))
+
+/obj/spacepod/civilian/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/pod_paint_bucket))
 		apply_paint(user)
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/spacepod/random
 	icon_state = "pod_civ"
@@ -648,20 +697,23 @@
 			desc = "A rough looking space pod meant for industrial work"
 	update_icons()
 
-/obj/spacepod/verb/toggle_internal_tank()
+/obj/spacepod/verb/toggle_internal_tank(mob/user)
 	set name = "Toggle internal airtank usage"
 	set category = "Spacepod"
 	set src = usr.loc
 	set popup_menu = 0
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(!user)
+		user = usr
+
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
-	if(usr != src.pilot)
-		to_chat(usr, "<span class='notice'>You can't reach the controls from your chair.</span>")
+	if(user != src.pilot)
+		to_chat(user, "<span class='notice'>You can't reach the controls from your chair.</span>")
 		return
 	use_internal_tank = !use_internal_tank
-	to_chat(usr, "<span class='notice'>Now taking air from [use_internal_tank?"internal airtank":"environment"].</span>")
+	to_chat(user, "<span class='notice'>Now taking air from [use_internal_tank?"internal airtank":"environment"].</span>")
 
 /obj/spacepod/proc/add_cabin()
 	cabin_air = new
@@ -807,12 +859,14 @@
 			if(!pilot || pilot == null)
 				pilot = user
 				user.forceMove(src)
+				GrantActions(user)
 				add_fingerprint(user)
 				playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 				return
 			if(passengers.len < max_passengers)
 				passengers += user
 				user.forceMove(src)
+				eject_action.Grant(user, src)
 				add_fingerprint(user)
 				playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 			else
@@ -839,31 +893,34 @@
 				log_debug("##SPACEPOD WARNING: OCCUPANT [M] ESCAPED, TURF [get_turf(src)] | AREA [get_area(src)] | COORDS [x], [y], [z]")
 				passengers -= M
 
-/obj/spacepod/verb/exit_pod()
+/obj/spacepod/verb/exit_pod(mob/user)
 	set name = "Exit pod"
 	set category = "Spacepod"
 	set src = usr.loc
 
-	if(usr.stat != CONSCIOUS) // unconscious people can't let themselves out
+	if(!user)
+		user = usr
+
+	if(user.stat != CONSCIOUS) // unconscious people can't let themselves out
 		return
 
 	occupant_sanity_check()
 
-	if(HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		to_chat(usr, "<span class='notice'>You attempt to stumble out of the [src]. This will take two minutes.</span>")
-		if(pilot && pilot != usr)
-			to_chat(pilot, "<span class='warning'>[usr] is trying to escape the [src].</span>")
-		if(!do_after(usr, 2 MINUTES, src))
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, "<span class='notice'>You attempt to stumble out of the [src]. This will take two minutes.</span>")
+		if(pilot && pilot != user)
+			to_chat(pilot, "<span class='warning'>[user] is trying to escape the [src].</span>")
+		if(!do_after(user, 2 MINUTES, src))
 			return
 
-	if(usr == pilot)
+	if(user == pilot)
 		eject_pilot()
-		to_chat(usr, "<span class='notice'>You climb out of [src].</span>")
-	else if(usr in passengers)
-		eject_passenger(usr)
-		to_chat(usr, "<span class='notice'>You climb out of [src].</span>")
+		to_chat(user, "<span class='notice'>You climb out of [src].</span>")
+	else if(user in passengers)
+		eject_passenger(user)
+		to_chat(user, "<span class='notice'>You climb out of [src].</span>")
 
-/obj/spacepod/verb/lock_pod()
+/obj/spacepod/verb/lock_pod(mob/user)
 	set name = "Lock Doors"
 	set category = "Spacepod"
 	set src = usr.loc
@@ -876,14 +933,14 @@
 		return
 
 	if(!equipment_system.lock_system)
-		to_chat(usr, "<span class='warning'>[src] has no locking mechanism.</span>")
+		to_chat(usr, "<span class='warning'>[src] has no locking podnism.</span>")
 		unlocked = TRUE //Should never be false without a lock, but if it somehow happens, that will force an unlock.
 	else
 		unlocked = !unlocked
 		to_chat(usr, "<span class='warning'>You [unlocked ? "unlock" : "lock"] the doors.</span>")
 
 
-/obj/spacepod/verb/toggleDoors()
+/obj/spacepod/verb/toggleDoors(mob/user)
 	set name = "Toggle Nearby Pod Doors"
 	set category = "Spacepod"
 	set src = usr.loc
@@ -917,50 +974,59 @@
 
 	to_chat(usr, "<span class='warning'>You are not close to any pod doors.</span>")
 
-/obj/spacepod/verb/fireWeapon()
+/obj/spacepod/verb/fireWeapon(mob/user)
 	set name = "Fire Pod Weapons"
 	set desc = "Fire the weapons."
 	set category = "Spacepod"
 	set src = usr.loc
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(!user)
+		user = usr
+
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
-	if(usr != src.pilot)
-		to_chat(usr, "<span class='notice'>You can't reach the controls from your chair.</span>")
+	if(user != src.pilot)
+		to_chat(user, "<span class='notice'>You can't reach the controls from your chair.</span>")
 		return
 	if(!equipment_system.weapon_system)
-		to_chat(usr, "<span class='warning'>[src] has no weapons!</span>")
+		to_chat(user, "<span class='warning'>[src] has no weapons!</span>")
 		return
 	equipment_system.weapon_system.fire_weapons()
 
-/obj/spacepod/verb/unload()
+/obj/spacepod/verb/unload(mob/user)
 	set name = "Unload Cargo"
 	set desc = "Unloads the cargo"
 	set category = "Spacepod"
 	set src = usr.loc
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(!user)
+		user = usr
+
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
-	if(usr != src.pilot)
-		to_chat(usr, "<span class='notice'>You can't reach the controls from your chair.</span>")
+	if(user != src.pilot)
+		to_chat(user, "<span class='notice'>You can't reach the controls from your chair.</span>")
 		return
 	if(!equipment_system.cargo_system)
-		to_chat(usr, "<span class='warning'>[src] has no cargo system!</span>")
+		to_chat(user, "<span class='warning'>[src] has no cargo system!</span>")
 		return
 	equipment_system.cargo_system.unload()
 
-/obj/spacepod/verb/toggleLights()
+/obj/spacepod/verb/toggleLights(mob/user)
 	set name = "Toggle Lights"
 	set category = "Spacepod"
 	set src = usr.loc
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(!user)
+		user = usr
+
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
-	if(usr != src.pilot)
-		to_chat(usr, "<span class='notice'>You can't reach the controls from your chair.</span>")
+	if(user != src.pilot)
+		to_chat(user, "<span class='notice'>You can't reach the controls from your chair.</span>")
 		return
 	lightsToggle()
 
@@ -974,13 +1040,15 @@
 	for(var/mob/M in passengers)
 		to_chat(M, "Lights toggled [lights ? "on" : "off"].")
 
-/obj/spacepod/verb/checkSeat()
+/obj/spacepod/verb/checkSeat(mob/user)
 	set name = "Check under Seat"
 	set category = "Spacepod"
 	set src = usr.loc
-	var/mob/user = usr
 
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+	if(!user)
+		user = usr
+
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	to_chat(user, "<span class='notice'>You start rooting around under the seat for lost items</span>")
@@ -999,8 +1067,95 @@
 	else
 		to_chat(user, "<span class='notice'>You decide against searching the [src]</span>")
 
+/obj/spacepod/proc/GrantActions(mob/living/user)
+	eject_action.Grant(user, src)
+	internals_action.Grant(user, src)
+	lights_action.Grant(user, src)
+	misc_action.Grant(user, src)
+	fire_action.Grant(user, src)
 
-// Fun fact, these procs are just copypastes from mech code
+/obj/spacepod/proc/RemoveActions(mob/living/user)
+	eject_action.Remove(user)
+	internals_action.Remove(user)
+	lights_action.Remove(user)
+	misc_action.Remove(user)
+	fire_action.Remove(user)
+
+/datum/action/innate/pod
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
+	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
+	var/obj/spacepod/pod
+
+/datum/action/innate/pod/Grant(mob/living/L, obj/spacepod/S)
+	if(S)
+		pod = S
+	. = ..()
+
+/datum/action/innate/pod/Destroy()
+	pod = null
+	return ..()
+
+/datum/action/innate/pod/pod_eject
+	name = "Eject From Pod"
+	button_icon_state = "mech_eject"
+
+/datum/action/innate/pod/pod_eject/Activate()
+	pod.exit_pod(owner)
+
+/datum/action/innate/pod/pod_toggle_internals
+	name = "Toggle Internal Airtank Usage"
+	button_icon_state = "mech_internals_on"
+
+/datum/action/innate/pod/pod_toggle_internals/Activate()
+	if(!owner || !pod || pod.pilot != owner)
+		return
+	pod.toggle_internal_tank(owner)
+	button_icon_state = "mech_internals_[pod.use_internal_tank ? "on" : "off"]"
+	UpdateButtonIcon()
+
+/datum/action/innate/pod/pod_toggle_lights
+	name = "Toggle Lights"
+	button_icon_state = "mech_lights_off"
+
+/datum/action/innate/pod/pod_toggle_lights/Activate()
+	if(!owner || !pod || pod.pilot != owner)
+		return
+	pod.toggleLights(owner)
+	button_icon_state = "mech_lights_[pod.lights ? "on" : "off"]"
+	UpdateButtonIcon()
+
+/datum/action/innate/pod/pod_fire
+	name = "Fire Pod Weaponds"
+	button_icon_state = "mech_zoom_off"
+
+/datum/action/innate/pod/pod_fire/Activate()
+	if(!owner || !pod || pod.pilot != owner)
+		return
+	pod.fireWeapon(owner)
+
+/datum/action/innate/pod/pod_misc
+	name = "Misc Pod Systems"
+	button_icon_state = "mech_misc"
+
+/datum/action/innate/pod/pod_misc/Activate()
+	if(!owner || !pod || pod.pilot != owner)
+		return
+	var/misc_system = tgui_input_list(owner, "Choose misc module to use", "Spacepod", POD_MISC_SYSTEMS)
+	if(!misc_system)
+		return
+	if(!owner || !pod || pod.pilot != owner) //we check twice because of input
+		return
+	switch(misc_system)
+		if(POD_MISC_LOCK_DOOR)
+			pod.lock_pod(owner)
+		if(POD_MISC_POD_DOORS)
+			pod.toggleDoors(owner)
+		if(POD_MISC_UNLOAD_CARGO)
+			pod.unload(owner)
+		if(POD_MISC_CHECK_SEAT)
+			pod.checkSeat(owner)
+
+// Fun fact, these procs are just copypastes from pod code
 // And have been for the past 4 years
 // Please send help
 /obj/spacepod/proc/regulate_temp()
@@ -1108,3 +1263,8 @@
 #undef PAINT
 #undef NO_GRAVITY_SPEED
 #undef GRAVITY_SPEED
+#undef POD_MISC_LOCK_DOOR
+#undef POD_MISC_POD_DOORS
+#undef POD_MISC_UNLOAD_CARGO
+#undef POD_MISC_CHECK_SEAT
+#undef POD_MISC_SYSTEMS

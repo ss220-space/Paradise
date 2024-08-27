@@ -105,7 +105,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 
-/obj/item/defibrillator/ui_action_click(mob/user)
+/obj/item/defibrillator/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(!ishuman(user) || !Adjacent(user))
 		return
 
@@ -119,27 +119,28 @@
 	toggle_paddles(user)
 
 
-/obj/item/defibrillator/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stock_parts/cell))
-		var/obj/item/stock_parts/cell/C = W
+/obj/item/defibrillator/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stock_parts/cell))
+		add_fingerprint(user)
+		var/obj/item/stock_parts/cell/new_cell = I
 		if(cell)
-			to_chat(user, span_notice("[src] already has a cell."))
-		else
-			if(C.maxcharge < paddles.revivecost)
-				to_chat(user, span_notice("[src] requires a higher capacity cell."))
-				return
-			if(!user.drop_transfer_item_to_loc(W, src))
-				return
+			to_chat(user, span_warning("The [name] already has a cell."))
+			return ATTACK_CHAIN_PROCEED
+		if(new_cell.maxcharge < paddles.revivecost)
+			to_chat(user, span_warning("The [name] requires a higher capacity cell."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(new_cell, src))
+			return ..()
+		cell = new_cell
+		update_icon(UPDATE_OVERLAYS)
+		to_chat(user, span_notice("You install a cell in [src]."))
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-			cell = W
-			update_icon(UPDATE_OVERLAYS)
-			to_chat(user, span_notice("You install a cell in [src]."))
-
-	else if(W == paddles)
+	if(I == paddles)
 		toggle_paddles(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	else
-		return ..()
+	return ..()
 
 
 /obj/item/defibrillator/screwdriver_act(mob/living/user, obj/item/I)
@@ -240,7 +241,7 @@
 		retrieve_paddles(user)
 
 
-/obj/item/defibrillator/item_action_slot_check(slot, mob/user)
+/obj/item/defibrillator/item_action_slot_check(slot, mob/user, datum/action/action)
 	return slot == ITEM_SLOT_BACK
 
 
@@ -266,7 +267,7 @@
 	origin_tech = "biotech=5"
 	heart_attack_probability = 10
 
-/obj/item/defibrillator/compact/item_action_slot_check(slot, mob/user)
+/obj/item/defibrillator/compact/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_BELT)
 		return TRUE
 
@@ -302,11 +303,6 @@
 	heart_attack_probability = 100
 
 	var/next_emp_message //to prevent spam from the emagging message on the advanced defibrillator
-
-
-/obj/item/defibrillator/compact/advanced/attackby(obj/item/W, mob/user, params)
-	if(W == paddles)
-		toggle_paddles(user)
 
 
 /obj/item/defibrillator/compact/advanced/loaded/Initialize(mapload)

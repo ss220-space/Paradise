@@ -31,18 +31,27 @@
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		power_multiplier += C.rating
 		zap_cooldown -= (C.rating * 20)
+	zap_cooldown = max(zap_cooldown, 10)
 	input_power_multiplier = power_multiplier
 
-/obj/machinery/power/tesla_coil/attackby(obj/item/W, mob/user, params)
-	if(exchange_parts(user, W))
-		return
 
-	else if(issignaler(W) && panel_open)
-		add_fingerprint(user)
-		wires.Interact(user)
-
-	else
+/obj/machinery/power/tesla_coil/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(issignaler(I))
+		add_fingerprint(user)
+		if(!panel_open)
+			to_chat(user, span_warning("You should open the maintenance panel first."))
+			return ATTACK_CHAIN_PROCEED
+		wires.Interact(user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/machinery/power/tesla_coil/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
@@ -57,8 +66,6 @@
 
 /obj/machinery/power/tesla_coil/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
 	default_deconstruction_screwdriver(user, "coil_open[anchored]", "coil[anchored]", I)
 
 /obj/machinery/power/tesla_coil/wirecutter_act(mob/user, obj/item/I)
@@ -118,9 +125,16 @@
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	RefreshParts()
 
-/obj/machinery/power/grounding_rod/attackby(obj/item/W, mob/user, params)
-	if(exchange_parts(user, W))
-		return
+
+/obj/machinery/power/grounding_rod/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/machinery/power/grounding_rod/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

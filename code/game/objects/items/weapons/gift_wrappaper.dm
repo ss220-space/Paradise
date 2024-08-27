@@ -15,46 +15,37 @@
 	item_state = "gift1"
 	resistance_flags = FLAMMABLE
 
-/obj/item/a_gift/New()
-	..()
+
+/obj/item/a_gift/Initialize(mapload)
+	. = ..()
 	pixel_x = rand(-10,10)
 	pixel_y = rand(-10,10)
+	base_pixel_x = pixel_x
+	base_pixel_y = pixel_y
 	if(w_class > 0 && w_class < 4)
 		icon_state = "gift[w_class]"
 	else
 		icon_state = "gift[pick(1, 2, 3)]"
-	return
 
-/obj/item/gift/attack_self(mob/user as mob)
-	user.drop_from_active_hand()
-	if(src.gift)
-		user.put_in_active_hand(gift)
-		src.gift.add_fingerprint(user)
-	else
-		to_chat(user, "<span class='notice'>The gift was empty!</span>")
-	qdel(src)
 
-/obj/effect/spresent/relaymove(mob/user as mob)
+/obj/effect/spresent/relaymove(mob/user)
 	if(user.stat)
 		return
-	to_chat(user, "<span class='notice'>You cant move.</span>")
+	to_chat(user, span_notice("You cannot move."))
 
-/obj/effect/spresent/attackby(obj/item/W as obj, mob/user as mob, params)
-	..()
 
-	if(W.tool_behaviour != TOOL_WIRECUTTER)
-		to_chat(user, "<span class='notice'>I need wirecutters for that.</span>")
-		return
-
-	to_chat(user, "<span class='notice'>You cut open the present.</span>")
-
-	for(var/mob/M in src) //Should only be one but whatever.
-		M.forceMove(loc)
-
+/obj/effect/spresent/wirecutter_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	to_chat(user, span_notice("You cut open the present."))
+	for(var/atom/movable/thing as anything in contents) //Should only be one but whatever.
+		thing.forceMove(loc)
 	qdel(src)
 
-/obj/item/a_gift/attack_self(mob/M as mob)
-	var/gift_type = pick(/obj/item/sord,
+
+/obj/item/a_gift/attack_self(mob/user)
+	var/static/list/gift_types = list(/obj/item/sord,
 		/obj/item/storage/wallet,
 		/obj/item/storage/photo_album,
 		/obj/item/storage/box/snappops,
@@ -112,16 +103,14 @@
 		/obj/item/stack/tile/fakespace/loaded,
 		/obj/item/toy/pet_rock/naughty_coal,
 		/obj/item/reagent_containers/food/snacks/sugar_coal,
-		)
+	)
 
-	if(!ispath(gift_type,/obj/item))	return
-
-	var/obj/item/I = new gift_type(M)
-	M.temporarily_remove_item_from_inventory(src, force = TRUE)
-	M.put_in_hands(I)
-	I.add_fingerprint(M)
+	var/new_gift_type = pick(gift_types)
+	var/obj/item/gift = new new_gift_type(drop_location())
+	gift.add_fingerprint(user)
 	qdel(src)
-	return
+	user.put_in_hands(gift)
+
 
 /*
  * Wrapping Paper

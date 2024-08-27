@@ -96,85 +96,88 @@
 /obj/machinery/biogenerator/crowbar_act(mob/living/user, obj/item/I)
 	return default_deconstruction_crowbar(user, I)
 
-/obj/machinery/biogenerator/attackby(obj/item/O, mob/user, params)
+
+/obj/machinery/biogenerator/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
+
 	if(processing)
-		to_chat(user, "<span class='warning'>[src] is currently processing.</span>")
-		return
-	if(exchange_parts(user, O))
-		return
+		to_chat(user, span_warning("The [name] is currently processing."))
+		return ATTACK_CHAIN_PROCEED
 
-	if(istype(O, /obj/item/reagent_containers/glass))
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	add_fingerprint(user)
+	if(istype(I, /obj/item/reagent_containers/glass))
 		if(panel_open)
-			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
-			return
+			to_chat(user, span_warning("Close the maintenance panel first."))
+			return ATTACK_CHAIN_PROCEED
 		if(container)
-			to_chat(user, "<span class='warning'>A container is already loaded into [src].</span>")
-			return
-		if(!user.drop_transfer_item_to_loc(O, src))
-			return
-
-		add_fingerprint(user)
-		container = O
-		to_chat(user, "<span class='notice'>You add the [container] to [src].</span>")
+			to_chat(user, span_warning("The [name] already has [container] inserted."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		container = I
+		to_chat(user, span_notice("You have inserted [I] into [src]."))
 		update_icon(UPDATE_ICON_STATE)
 		SStgui.update_uis(src)
-		return TRUE
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	else if(istype(O, /obj/item/storage/bag/plants))
+	if(istype(I, /obj/item/storage/bag/plants))
+		var/obj/item/storage/bag/plants/bag = I
 		if(length(stored_plants) >= max_storable_plants)
-			to_chat(user, "<span class='warning'>[src] can't hold any more plants!</span>")
-			return
-
-		add_fingerprint(user)
-		var/obj/item/storage/bag/plants/PB = O
-		for(var/obj/item/reagent_containers/food/snacks/grown/G in PB.contents)
+			to_chat(user, span_warning("The [name] cannot hold any more plants."))
+			return ATTACK_CHAIN_PROCEED
+		for(var/obj/item/reagent_containers/food/snacks/grown/grown in bag.contents)
 			if(length(stored_plants) >= max_storable_plants)
 				break
-			PB.remove_from_storage(G, src)
-			PB.add_fingerprint(user)
-			stored_plants += G
-
+			bag.remove_from_storage(grown, src)
+			grown.add_fingerprint(user)
+			stored_plants += grown
 		if(length(stored_plants) < max_storable_plants)
-			to_chat(user, "<span class='info'>You empty [PB] into [src].</span>")
+			to_chat(user, span_notice("You have emptied [bag] into [src]."))
 		else
-			to_chat(user, "<span class='info'>You fill [src] to its capacity.</span>")
-
+			to_chat(user, span_notice("You have filled [src] to its capacity."))
 		SStgui.update_uis(src)
-		return TRUE
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	else if(istype(O, /obj/item/reagent_containers/food/snacks/grown))
+	if(istype(I, /obj/item/reagent_containers/food/snacks/grown))
 		if(length(stored_plants) >= max_storable_plants)
-			to_chat(user, "<span class='warning'>[src] can't hold any more plants!</span>")
-			return
-		if(!user.drop_transfer_item_to_loc(O, src))
-			return
-
-		add_fingerprint(user)
-		stored_plants += O
-		to_chat(user, "<span class='info'>You put [O] in [src].</span>")
+			to_chat(user, span_warning("The [name] cannot hold any more plants."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		stored_plants += I
+		to_chat(user, span_notice("You have added [I] into [src]."))
 		SStgui.update_uis(src)
-		return TRUE
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	else if(istype(O, /obj/item/disk/design_disk))
-		user.visible_message("[user] begins to load [O] in [src]...",
-			"You begin to load a design from [O]...",
-			"You hear the chatter of a floppy drive.")
+	if(istype(I, /obj/item/disk/design_disk))
+		var/obj/item/disk/design_disk/disk = I
+		user.visible_message(
+			span_notice("[user] starts to load the data from [disk] into [src]."),
+			span_notice("You start to load the data from [disk] into [src]..."),
+			span_italics("You hear the chatter of a floppy drive."),
+		)
 		processing = TRUE
 		SStgui.update_uis(src)
-
-		var/obj/item/disk/design_disk/D = O
-		if(do_after(user, 1 SECONDS, src))
-			files.AddDesign2Known(D.blueprint)
-
-		add_fingerprint(user)
+		if(!do_after(user, 1 SECONDS, src))
+			processing = FALSE
+			SStgui.update_uis(src)
+			return ATTACK_CHAIN_PROCEED
 		processing = FALSE
-		update_ui_product_list()
-		return TRUE
-	else
-		add_fingerprint(user)
-		to_chat(user, "<span class='warning'>You cannot put this in [name]!</span>")
+		if(files.AddDesign2Known(disk.blueprint))
+			to_chat(user, span_notice("You have added new data to [src]'s schematics."))
+			update_ui_product_list()
+		else
+			to_chat(user, span_warning("The data from [disk] is already known by [src]."))
+			SStgui.update_uis(src)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	to_chat(user, span_warning("You cannot put [I] into [src]."))
+	return ATTACK_CHAIN_PROCEED
+
 
 /**
  * Builds/Updates the `product_list` used by the UI.

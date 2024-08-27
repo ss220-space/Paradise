@@ -142,7 +142,7 @@
 
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/get_module_equip_info()
-	return " [mode==1?"([locked||"Nothing"])":null] \[<a href='?src=[UID()];mode=1'>S</a>|<a href='?src=[UID()];mode=2'>P</a>\]"
+	return " [mode==1?"([locked||"Nothing"])":null] \[<a href='byond://?src=[UID()];mode=1'>S</a>|<a href='byond://?src=[UID()];mode=2'>P</a>\]"
 
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/Topic(href, href_list)
 	..()
@@ -219,7 +219,7 @@
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/get_module_equip_info()
-	return " <a href='?src=[UID()];toggle_repairs=1'>[!active_mode?"A":"Dea"]ctivate</a>"
+	return " <a href='byond://?src=[UID()];toggle_repairs=1'>[!active_mode?"A":"Dea"]ctivate</a>"
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid/Topic(href, href_list)
 	..()
@@ -328,7 +328,7 @@
 		log_message("Deactivated.")
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/get_module_equip_info()
-	return " <a href='?src=[UID()];toggle_relay=1'>[equip_ready?"A":"Dea"]ctivate</a>"
+	return " <a href='byond://?src=[UID()];toggle_relay=1'>[equip_ready?"A":"Dea"]ctivate</a>"
 
 
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/process()
@@ -393,7 +393,7 @@
 			log_message("Deactivated.")
 
 /obj/item/mecha_parts/mecha_equipment/generator/get_module_equip_info()
-	return " \[[fuel_name]: [round(fuel_amount,0.1)] cm<sup>3</sup>\] - <a href='?src=[UID()];toggle=1'>[equip_ready?"A":"Dea"]ctivate</a>"
+	return " \[[fuel_name]: [round(fuel_amount,0.1)] cm<sup>3</sup>\] - <a href='byond://?src=[UID()];toggle=1'>[equip_ready?"A":"Dea"]ctivate</a>"
 
 /obj/item/mecha_parts/mecha_equipment/generator/action(target)
 	if(chassis)
@@ -437,8 +437,12 @@
 		occupant_message(span_warning("[fuel_name] traces in target minimal! [I] cannot be used as fuel."))
 		return FALSE
 
-/obj/item/mecha_parts/mecha_equipment/generator/attackby(weapon,mob/user, params)
-	load_fuel(weapon)
+
+/obj/item/mecha_parts/mecha_equipment/generator/attackby(obj/item/I, mob/user, params)
+	if(load_fuel(I))
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 /obj/item/mecha_parts/mecha_equipment/generator/critfail()
 	..()

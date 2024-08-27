@@ -4,7 +4,7 @@
 	dir = 8
 	},
 /obj/structure/stone_tile,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "dJ" = (
 /obj/structure/stone_tile{
@@ -26,14 +26,14 @@
 	dir = 1
 	},
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/unpowered/misc_lavaruin)
 "hk" = (
 /obj/structure/stone_tile/block/cracked,
 /obj/structure/stone_tile{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "iY" = (
 /obj/structure/fluff/drake_statue,
@@ -57,7 +57,7 @@
 	dir = 8
 	},
 /obj/effect/baseturf_helper/lava_land/surface,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/unpowered/misc_lavaruin)
 "md" = (
 /obj/structure/stone_tile{
@@ -66,7 +66,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "mH" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -75,7 +75,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "na" = (
 /obj/structure/stone_tile/surrounding_tile,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "nF" = (
 /obj/structure/stone_tile/block/cracked{
@@ -84,14 +84,14 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "oq" = (
 /obj/structure/stone_tile/block/cracked,
 /obj/structure/stone_tile/block{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/unpowered/misc_lavaruin)
 "oE" = (
 /obj/structure/stone_tile/surrounding_tile{
@@ -111,7 +111,7 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "vg" = (
 /obj/structure/stone_tile{
@@ -145,7 +145,7 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "yq" = (
 /obj/structure/stone_tile/block/cracked{
@@ -155,7 +155,7 @@
 	dir = 1
 	},
 /obj/structure/stone_tile/surrounding_tile,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/unpowered/misc_lavaruin)
 "yy" = (
 /obj/structure/stone_tile/surrounding_tile{
@@ -168,14 +168,14 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "Ak" = (
 /obj/structure/stone_tile/surrounding/cracked{
 	dir = 6
 	},
 /obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/unpowered/misc_lavaruin)
 "Ax" = (
 /obj/structure/stone_tile/block/cracked,
@@ -185,11 +185,11 @@
 /obj/structure/stone_tile{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/unpowered/misc_lavaruin)
 "Bc" = (
 /obj/structure/stone_tile/block,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "Bu" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -211,7 +211,7 @@
 /obj/structure/stone_tile{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "Dp" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -224,17 +224,17 @@
 /obj/structure/stone_tile{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "ET" = (
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "FE" = (
 /obj/structure/stone_tile/block/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "Gr" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -248,7 +248,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/unpowered/misc_lavaruin)
 "Ic" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -267,7 +267,7 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/surrounding_tile,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/unpowered/misc_lavaruin)
 "Iu" = (
 /obj/structure/stone_tile/block{
@@ -306,7 +306,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "LC" = (
 /obj/structure/stone_tile{
@@ -323,7 +323,7 @@
 	dir = 1
 	},
 /obj/structure/stone_tile/block,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/unpowered/misc_lavaruin)
 "NC" = (
 /obj/structure/stone_tile/surrounding_tile{
@@ -334,7 +334,7 @@
 	},
 /obj/structure/stone_tile/surrounding_tile,
 /obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/unpowered/misc_lavaruin)
 "OR" = (
 /obj/structure/stone_tile/block/cracked{
@@ -344,18 +344,18 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/unpowered/misc_lavaruin)
 "Tw" = (
 /obj/structure/stone_tile/slab,
 /obj/structure/world_anvil,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/unpowered/misc_lavaruin)
 "Ub" = (
 /obj/structure/stone_tile/block{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "UY" = (
 /obj/structure/stone_tile,
@@ -363,14 +363,14 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/misc_lavaruin)
 "Wc" = (
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "Yb" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "Yv" = (
 /obj/structure/stone_tile/surrounding_tile,
@@ -386,7 +386,7 @@
 	dir = 8
 	},
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/unpowered/misc_lavaruin)
 
 (1,1,1) = {"

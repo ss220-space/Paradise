@@ -60,7 +60,7 @@
 	clear_holosign()
 	to_chat(user, "<span class='notice'>You clear active hologram.</span>")
 
-/obj/item/signmaker/afterattack(var/atom/target, var/mob/living/user, params)
+/obj/item/signmaker/afterattack(atom/target, mob/living/user, proximity, params)
 	laser_act(target, user, params)
 
 /obj/item/signmaker/process()

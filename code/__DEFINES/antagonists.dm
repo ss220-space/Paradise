@@ -1,1 +1,2 @@
-
+#define NUKESCALINGMODIFIER 6
+#define NUKERS_COUNT 5
