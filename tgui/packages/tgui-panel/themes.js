@@ -61,8 +61,6 @@ export const setClientTheme = (name) => {
     Byond.command(`.output title_browser:set_theme ${name}`);
   }, 1500);
 
-  .output title_browser:set_theme dark
-
   const themeColor = COLORS[name.toUpperCase()];
   if (!themeColor) {
     return;
