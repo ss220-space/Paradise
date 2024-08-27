@@ -336,21 +336,19 @@
 	if(!user.drop_transfer_item_to_loc(I, src))
 		return .
 
-	if(istype(I, /obj/item/reagent_containers/food/snacks/piece_coconut) )
-		var/obj/item/reagent_containers/food/snacks/rawcookies/cocochips/cocochips = new(loc)
-		transfer_fingerprints_to(cocochips)
-		cocochips.add_fingerprint(user)
+	var/rawcookies = istype(I, /obj/item/reagent_containers/food/snacks/choc_pile)
+	if(rawcookies || istype(I, /obj/item/reagent_containers/food/snacks/piece_coconut))
+		var/obj/new_cookies
+		if(rawcookies)
+			new_cookies = new /obj/item/reagent_containers/food/snacks/rawcookies/chocochips(loc)
+		else
+			new_cookies = new /obj/item/reagent_containers/food/snacks/rawcookies/cocochips(loc)
 		to_chat(user, span_notice("You sprinkle [I] all over the cookies."))
-
-	if(istype(I, /obj/item/reagent_containers/food/snacks/choc_pile))
-		var/obj/item/reagent_containers/food/snacks/rawcookies/chocochips/chocochips = new(loc)
-		transfer_fingerprints_to(chocochips)
-		chocochips.add_fingerprint(user)
-		to_chat(user, span_notice("You sprinkle [I] all over the cookies."))
-
-	qdel(src)
-	qdel(I)
-	return .|ATTACK_CHAIN_SUCCESS
+		transfer_fingerprints_to(new_cookies)
+		new_cookies.add_fingerprint(user)
+		qdel(src)
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/item/reagent_containers/food/snacks/rawcookies/chocochips
 	name = "raw cookies"
