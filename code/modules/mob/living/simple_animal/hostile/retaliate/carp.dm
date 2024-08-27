@@ -11,7 +11,7 @@
 	tts_seed = "Peon"
 	turns_per_move = 8
 	response_help = "pets"
-	emote_hear = list("chitters")
+	emote_hear = list("gnashes")
 	maxHealth = 250
 	health = 250
 	harm_intent_damage = 3
