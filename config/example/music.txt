@@ -208,13 +208,3 @@ LOBBY_MUSIC https://pilotpriest.bandcamp.com/track/now-be-the-light-2
 ## If you want to make holidays custom lobby music, you should make new config entry
 ## with special holiday music and change holiday's var value
 
-
-## Config for lobby random phrases
-LOBBY_PHRASE Да это прямо как в книге Д. Оруэлла!
-LOBBY_PHRASE Добро пожаловать в день сурка!
-LOBBY_PHRASE Смешная надпись.
-LOBBY_PHRASE Также известно как SunShine.
-LOBBY_PHRASE ХОНК.
-LOBBY_PHRASE Также попробуйте майнкрафт.
-LOBBY_PHRASE КМ никогда не будет главой!
-LOBBY_PHRASE Как менять руки?

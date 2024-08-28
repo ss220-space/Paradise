@@ -161,7 +161,7 @@ SUBSYSTEM_DEF(title)
 /datum/title_screen/New(title_html, notice, screen_image_file)
 	src.title_html = title_html
 	src.notice = notice
-	var/list/phrases = CONFIG_GET(str_list/lobby_phrase)
+	var/list/phrases = file2list("strings/lobby_phrases.txt")
 	if(LAZYLEN(phrases))
 		random_phrase = pick(phrases)
 	set_screen_image(screen_image_file)
