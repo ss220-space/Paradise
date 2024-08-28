@@ -116,6 +116,11 @@ SUBSYSTEM_DEF(title)
 
 	show_title_screen_to_all_new_players()
 
+/datum/controller/subsystem/title/proc/update_preview(client/viewer)
+	if(viewer.byond_version < 516)
+		viewer << output("", "title_browser:update_preview_515")
+	else
+		viewer << output("", "title_browser:update_preview")
 /**
  * Changes title image to desired
  */
@@ -177,11 +182,11 @@ SUBSYSTEM_DEF(title)
 	viewer.prefs.update_preview_icon()
 	viewer << browse_rsc(viewer.prefs.preview_icon_front, "previewicon.png")
 
-	spawn(1)
-		viewer << output("", "title_browser:update_char_image")
+	spawn(2)
+		SStitle.update_preview(viewer)
 
 /datum/title_screen/proc/update_theme(client/viewer)
-	spawn(1)
+	spawn(2)
 		var/static/list/color2tguitheme = list("#212020" = "dark", "#EFEEEE" = "light", "#1b2633" = "ntos", "#4d0202" = "syndicate", "#800448" = "paradise")
 		viewer << output(color2tguitheme[winget(viewer, "mainwindow", "background-color")], "title_browser:set_theme")
 
@@ -330,13 +335,13 @@ SUBSYSTEM_DEF(title)
 
 			const charPreview = document.getElementById("charPreview");
 
-			function set_image() {
+			function update_preview() {
 				charPreview.src = "previewicon.png";
 			}
 
-			function update_char_image() {
+			function update_preview_515() {
 				charPreview.src = "";
-				setTimeout(set_image, 100); // TODO: change after 516
+				setTimeout(update_preview, 100); // TODO: change after 516
 			}
 
 			const character_name_slot = document.getElementById("character_slot");
