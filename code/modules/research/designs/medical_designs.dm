@@ -207,12 +207,52 @@
 
 /datum/design/item/retractor_laser
 	name = "Advenced Laser Retractor"
-	desc = "test"
+	desc = "A retractor with a laser tip.This one looks to be the pinnacle of precision energy a surgery tools!"
 	id = "retractor_laser"
 	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000)
 	build_path = /obj/item/retractor/laser
+	category = list("Medical")
+
+/datum/design/item/hemostat_laser
+	name = "Advenced Laser Hemostat"
+	desc = "A hemostat with a laser clamp.This one looks to be the pinnacle of precision energy a surgery tools!"
+	id = "hemostat_laser"
+	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000)
+	build_path = /obj/item/hemostat/laser
+	category = list("Medical")
+
+/datum/design/item/surgicaldrill_laser
+	name = "Advenced Laser Surgical Drill"
+	desc = "A surgery drill with a directed laser bit.This one looks to be the pinnacle of precision energy a surgery tools!"
+	id = "surgicaldrill_laser"
+	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000)
+	build_path = /obj/item/surgicaldrill/laser
+	category = list("Medical")
+
+/datum/design/item/circular_laser
+	name = "Advenced Laser Circular Saw"
+	desc = "A saw with a circular laser disk.This one looks to be the pinnacle of precision energy a surgery tools!"
+	id = "circular_laser"
+	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000)
+	build_path = /obj/item/circular_saw/laser
+	category = list("Medical")
+
+/datum/design/item/bonesetter_laser
+	name = "Advenced Laser Bonesetter"
+	desc = "A bone settler with a laser teeth. This one looks to be the pinnacle of precision energy a surgery tools!"
+	id = "bonesetter_laser"
+	req_tech = list("biotech" = 4, "materials" = 6, "magnets" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 1000, MAT_GOLD = 1000)
+	build_path = /obj/item/bonesetter/laser
 	category = list("Medical")
 
 /datum/design/alienscalpel

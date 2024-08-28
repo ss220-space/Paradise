@@ -16,8 +16,9 @@
 
 /obj/item/retractor/laser
 	name = "laser retractor"
-	desc = "test"
-	icon_state = ''
+	desc = "A retractor with a laser tip.This one looks to be the pinnacle of precision energy a surgery tools!"
+	icon_state = "retractor_laser"
+	item_state = "retractor_laser"
 	toolspeed = 0.4
 
 /obj/item/retractor/augment
@@ -44,10 +45,10 @@
 
 /obj/item/hemostat/laser
 	name = "Advenced laser hemostat"
-	desc = "test"
-	icon_state = ''
+	desc = "A hemostat with a laser clamp.This one looks to be the pinnacle of precision energy a surgery tools!"
+	icon_state = "hemostat_laser"
+	item_state = "hemostat_laser"
 	toolspeed = 0.4
-
 
 /obj/item/hemostat/augment
 	desc = "Tiny servos power a pair of pincers to stop bleeding."
@@ -69,12 +70,6 @@
 /obj/item/cautery/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
-
-/obj/item/cautery/laser
-	name = "laser cautery"
-	desc = "test"
-	icon_state = ''
-	toolspeed = 0.4
 
 /obj/item/cautery/augment
 	desc = "A heated element that cauterizes wounds."
@@ -105,10 +100,11 @@
 						span_suicide("[user] is pressing [src] to [user.p_their()] chest and activating it! It looks like [user.p_theyre()] trying to commit suicide.")))
 	return BRUTELOSS
 
-/obj/item/surgicaldrill
+/obj/item/surgicaldrill/laser
 	name = "laser surgicaldrill"
-	desc = "test"
-	icon_state = ''
+	desc = "A surgery drill with a directed laser bit.This one looks to be the pinnacle of precision energy a surgery tools!"
+	icon_state = "drill_laser"
+	item_state = "drill_laser"
 	toolspeed = 0.4
 
 /obj/item/surgicaldrill/augment
@@ -233,9 +229,10 @@
 
 /obj/item/circular_saw/laser
 	name = "laser circular saw"
-	desc = "test"
-	icon_state = ''
-	damtype = "fire"
+	desc = "A saw with a circular laser disk.This one looks to be the pinnacle of precision energy a surgery tools!"
+	icon_state = "saw_laser"
+	item_state = "saw_laser"
+	origin_tech = "biotech=1;material=1"
 	toolspeed = 0.6
 
 /obj/item/circular_saw/augment
@@ -260,12 +257,6 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
-/obj/item/bonegel/laser
-	name = "laser bonegel"
-	desc = "test"
-	icon_state = ''
-	toolspeed = 0.4
-
 /obj/item/bonegel/augment
 	toolspeed = 0.5
 
@@ -283,12 +274,6 @@
 /obj/item/FixOVein/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
-
-/obj/item/FixOVein/laser
-	name = "laser FixOVein"
-	desc = "test"
-	icon_state = ''
-	toolspeed = 0.4
 
 /obj/item/FixOVein/augment
 	toolspeed = 0.5
@@ -313,8 +298,9 @@
 
 /obj/item/bonesetter/laser
 	name = "laser bonesetter"
-	desc = "test"
-	icon_state = ''
+	desc = "A bone settler with a laser teeth.This one looks to be the pinnacle of precision energy a surgery tools!"
+	icon_state = "bonesetter_laser"
+	item_state = "bonesetter_laser"
 	toolspeed = 0.4
 
 /obj/item/bonesetter/augment
