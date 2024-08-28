@@ -250,7 +250,7 @@ SUBSYSTEM_DEF(title)
 			</div>
 			<div class="character_info">
 				<span class="character" id="character_slot">[viewer.prefs.real_name]</span>
-				<span class="character" id="arrival_message">[(player.ready || SSticker.current_state == GAME_STATE_PLAYING) ? "...отправляется на станцию." : "...остается дома"].</span>
+				<span class="character" id="arrival_message">[(player.ready || SSticker.current_state == GAME_STATE_PLAYING) ? "...отправляется на станцию" : "...остается дома"].</span>
 			</div>
 		</div>
 	"}
