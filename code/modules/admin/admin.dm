@@ -1048,19 +1048,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		SEND_SOUND(new_player,  sound('sound/items/bikehorn.ogg'))
 
 /**
- * Reloads the titlescreen if it is bugged for someone.
- */
-/client/verb/fix_title_screen()
-	set name = "Fix Lobby Screen"
-	set desc = "Lobbyscreen broke? Press this."
-	set category = "Special Verbs"
-
-	if(istype(mob, /mob/new_player))
-		SStitle.show_title_screen_to(src)
-	else
-		SStitle.hide_title_screen_from(src)
-
-/**
  * An admin debug command that enables you to change the HTML on the go.
  */
 /client/proc/change_title_screen_html()
