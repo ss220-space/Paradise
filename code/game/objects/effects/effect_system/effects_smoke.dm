@@ -139,6 +139,12 @@
 		return .
 	INVOKE_ASYNC(victim, TYPE_PROC_REF(/mob, emote), "cough")
 
+/obj/effect/particle_effect/smoke/solid/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(istype(mover, /obj/item/projectile/beam))
+		var/obj/item/projectile/beam/beam = mover
+		beam.damage = (beam.damage / 2)
+
 /datum/effect_system/smoke_spread/solid
 	effect_type = /obj/effect/particle_effect/smoke/solid
 	custom_lifetime = 9
