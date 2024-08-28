@@ -12,8 +12,9 @@
 #define POD_MISC_POD_DOORS 		"Toggle Nearby Pod Doors"
 #define POD_MISC_UNLOAD_CARGO 	"Unload Cargo"
 #define POD_MISC_CHECK_SEAT		"Check under Seat"
+#define POD_MISC_LOCATOR_SKAN   "Сканирование сектора"
 
-#define POD_MISC_SYSTEMS list(POD_MISC_LOCK_DOOR, POD_MISC_POD_DOORS, POD_MISC_CHECK_SEAT, POD_MISC_UNLOAD_CARGO)
+#define POD_MISC_SYSTEMS list(POD_MISC_LOCK_DOOR, POD_MISC_POD_DOORS, POD_MISC_CHECK_SEAT, POD_MISC_UNLOAD_CARGO, POD_MISC_LOCATOR_SKAN)
 
 /obj/item/pod_paint_bucket
 	name = "space pod paintkit"
@@ -402,6 +403,8 @@
 			success = add_equipment(user, I, "sec_cargo_system")
 		else if(istype(I, /obj/item/spacepod_equipment/lock))
 			success = add_equipment(user, I, "lock_system")
+		else if(istype(I, /obj/item/spacepod_equipment/locators))
+			success = add_equipment(user, I, "locator_system")
 		else
 			stack_trace("Attempted to install unknown spacepod equipment ([I.type]).")
 		if(!success)
@@ -538,6 +541,8 @@
 		possible.Add("Secondary Cargo System")
 	if(equipment_system.lock_system)
 		possible.Add("Lock System")
+	if(equipment_system.locator_system)
+		possible.Add("Locator System")
 	switch(tgui_input_list(user, "Remove which equipment?", "Equipment",possible))
 		if("Energy Cell")
 			if(user.get_active_hand() && user.get_inactive_hand())
@@ -562,6 +567,8 @@
 			return
 		if("Lock System")
 			remove_equipment(user, equipment_system.lock_system, "lock_system")
+		if("Locator System")
+			remove_equipment(user, equipment_system.locator_system, "locator_system")
 
 
 /obj/spacepod/proc/remove_equipment(mob/user, obj/item/spacepod_equipment/SPE, slot)
@@ -1066,7 +1073,26 @@
 			to_chat(user, "<span class='notice'>You fail to find anything of value.</span>")
 	else
 		to_chat(user, "<span class='notice'>You decide against searching the [src]</span>")
+/obj/spacepod/verb/StartScan(mob/user)
+	set name = "Сканирование сектора"
+	set desc = "Сканирование сектора при помощи локатора"
+	set category = "Spacepod"
+	set src = usr.loc
 
+	if(!user)
+		user = usr
+
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+
+	if(user != src.pilot)
+		to_chat(user, "<span class='notice'>You can't reach the controls from your chair.</span>")
+		return
+	if(!equipment_system.locator_system)
+		to_chat(user, "<span class='warning'>[src] has no locator system!</span>")
+		return
+	
+	equipment_system.locator_system.scan(user)
 /obj/spacepod/proc/GrantActions(mob/living/user)
 	eject_action.Grant(user, src)
 	internals_action.Grant(user, src)
@@ -1154,6 +1180,8 @@
 			pod.unload(owner)
 		if(POD_MISC_CHECK_SEAT)
 			pod.checkSeat(owner)
+		if(POD_MISC_LOCATOR_SKAN)
+			pod.StartScan(owner)
 
 // Fun fact, these procs are just copypastes from pod code
 // And have been for the past 4 years
@@ -1255,6 +1283,7 @@
 	deal_damage(200)
 	update_icon()
 
+
 #undef DAMAGE
 #undef FIRE_OLAY
 #undef WINDOW
@@ -1268,3 +1297,4 @@
 #undef POD_MISC_UNLOAD_CARGO
 #undef POD_MISC_CHECK_SEAT
 #undef POD_MISC_SYSTEMS
+#undef POD_MISC_LOCATOR_SKAN

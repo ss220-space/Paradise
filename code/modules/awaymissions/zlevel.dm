@@ -1,5 +1,5 @@
 GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away_mission_config.txt"))
-
+GLOBAL_LIST_EMPTY(ActiveRuins)
 /proc/empty_rect(low_x,low_y, hi_x,hi_y, z)
 	var/timer = start_watch()
 	log_debug("Emptying region: ([low_x], [low_y]) to ([hi_x], [hi_y]) on z '[z]'")
@@ -93,6 +93,8 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 		if(!valid)
 			continue
 
+		main_turf = central_turf
+
 		log_world("Ruin \"[name]\" placed at ([central_turf.x], [central_turf.y], [central_turf.z])")
 
 		for(var/i in get_affected_turfs(central_turf, 1))
@@ -111,5 +113,6 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 			T.flags |= NO_RUINS
 
 		new /obj/effect/landmark/ruin(central_turf, src)
+		GLOB.ActiveRuins.Add(src)
 		return TRUE
 	return FALSE

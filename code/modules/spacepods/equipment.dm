@@ -59,6 +59,7 @@
 	var/obj/item/spacepod_equipment/cargo/cargo_system // cargo system
 	var/obj/item/spacepod_equipment/cargo/sec_cargo_system // secondary cargo system
 	var/obj/item/spacepod_equipment/lock/lock_system // lock system
+	var/obj/item/spacepod_equipment/locators/locator_system //locator_system
 
 /datum/spacepod/equipment/New(var/obj/spacepod/SP)
 	..()
@@ -291,3 +292,53 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 
 	return ..()
 
+/*
+///////////////////////////////////////
+/////////Locator System///////////////////
+///////////////////////////////////////
+*/
+/obj/item/spacepod_equipment/locators
+	name = "Locator system"
+	desc = "You shouldn't be seeing this"
+	icon = 'icons/goonstation/pods/ship.dmi'
+	icon_state = "blank"
+
+	var/can_found_all = FALSE
+	var/can_ignore_z = FALSE
+
+/obj/item/spacepod_equipment/locators/basic_pod_locator
+    name = "Модуль поиска астероидов"
+    desc = "Сканирующее устройство позволяющее определять координаты астероидов в секторе."
+    icon_state = "pod_locator_sector"
+    origin_tech = "engineering=5;magnets=4"
+
+    can_ignore_z = FALSE
+    can_found_all = FALSE
+
+/obj/item/spacepod_equipment/locators/advanced_pod_locator
+    name = "Улучшеный модуль поиска астероидов"
+    desc = "Улучшеный модуль поиска способный обнаружить любой объект в секторе"
+    icon_state = "pod_locator_sector"
+
+    can_ignore_z = FALSE
+    can_found_all = TRUE
+
+/obj/item/spacepod_equipment/locators/proc/scan(mob/user)
+	var/message_user = ""
+	atom_say("Сканирование сектора...")
+	if(do_after(user, 5 SECONDS, src, ALL))
+		for(var/datum/map_template/ruin/Ruina in GLOB.ActiveRuins)
+			if((user.loc.z == Ruina.main_turf.z || can_ignore_z) && (Ruina.can_found || can_found_all))
+				message_user += "\nX:[Ruina.main_turf.x] Y:[Ruina.main_turf.y] Z:[Ruina.main_turf.z] Размер: [object_size(Ruina.width*Ruina.height)]"
+		if(!message_user)
+			atom_say("Объектов в секторе не обнаружено")
+			return
+		atom_say("Результаты поиска:[message_user]")
+/obj/item/spacepod_equipment/locators/proc/object_size(var/square)
+	if(square <= 500)
+		return "Малый"
+	else if(square <= 900)
+		return "Средний"
+	else if(square <= 3000)
+		return "Большой"   
+	return "Огромный"
