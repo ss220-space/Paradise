@@ -117,7 +117,7 @@
 	if(user.a_intent == INTENT_HARM || (stat & BROKEN))
 		return ..()
 
-	if(I.GetID())
+	if(I.GetID() || is_pda(I))
 		add_fingerprint(user)
 		if(emagged)
 			to_chat(user, span_warning("The turret control is unresponsive."))

@@ -18,7 +18,7 @@
 	var/uses = 30 //0 for unlimited uses
 	var/instant = 0
 	var/colourName = "red" //for updateIcon purposes
-	var/dat = {"<meta charset="UTF-8">"}
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	var/busy = FALSE
 	var/list/validSurfaces = list(/turf/simulated/floor)
 
@@ -35,21 +35,21 @@
 
 /obj/item/toy/crayon/proc/update_window(mob/living/user as mob)
 	dat += "<center><h2>Currently selected: [drawtype]</h2><br>"
-	dat += "<a href='?src=[UID()];type=random_letter'>Random letter</a><a href='?src=[UID()];type=letter'>Pick letter</a>"
+	dat += "<a href='byond://?src=[UID()];type=random_letter'>Random letter</a><a href='byond://?src=[UID()];type=letter'>Pick letter</a>"
 	dat += "<hr>"
 	dat += "<h3>Runes:</h3><br>"
-	dat += "<a href='?src=[UID()];type=random_rune'>Random rune</a>"
+	dat += "<a href='byond://?src=[UID()];type=random_rune'>Random rune</a>"
 	for(var/i = 1; i <= 8; i++)
-		dat += "<a href='?src=[UID()];type=rune[i]'>Rune [i]</a>"
+		dat += "<a href='byond://?src=[UID()];type=rune[i]'>Rune [i]</a>"
 		if(!((i + 1) % 3)) //3 buttons in a row
 			dat += "<br>"
 	dat += "<hr>"
 	graffiti.Find()
 	dat += "<h3>Graffiti:</h3><br>"
-	dat += "<a href='?src=[UID()];type=random_graffiti'>Random graffiti</a>"
+	dat += "<a href='byond://?src=[UID()];type=random_graffiti'>Random graffiti</a>"
 	var/c = 1
 	for(var/T in graffiti)
-		dat += "<a href='?src=[UID()];type=[T]'>[T]</a>"
+		dat += "<a href='byond://?src=[UID()];type=[T]'>[T]</a>"
 		if(!((c + 1) % 3)) //3 buttons in a row
 			dat += "<br>"
 		c++
@@ -233,7 +233,7 @@
 	update_window(user)
 
 /obj/item/toy/crayon/mime/update_window(mob/living/user as mob)
-	dat += "<center><span style='border:1px solid #161616; background-color: [colour];'>&nbsp;&nbsp;&nbsp;</span><a href='?src=[UID()];color=1'>Change color</a></center>"
+	dat += "<center><span style='border:1px solid #161616; background-color: [colour];'>&nbsp;&nbsp;&nbsp;</span><a href='byond://?src=[UID()];color=1'>Change color</a></center>"
 	..()
 
 /obj/item/toy/crayon/mime/Topic(href,href_list)
@@ -260,7 +260,7 @@
 	update_window(user)
 
 /obj/item/toy/crayon/rainbow/update_window(mob/living/user as mob)
-	dat += "<center><span style='border:1px solid #161616; background-color: [colour];'>&nbsp;&nbsp;&nbsp;</span><a href='?src=[UID()];color=1'>Change color</a></center>"
+	dat += "<center><span style='border:1px solid #161616; background-color: [colour];'>&nbsp;&nbsp;&nbsp;</span><a href='byond://?src=[UID()];color=1'>Change color</a></center>"
 	..()
 
 /obj/item/toy/crayon/rainbow/Topic(href,href_list[])

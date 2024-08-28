@@ -70,7 +70,7 @@
 	GLOB.lispblock				= getAssignedBlock("LISP", numsToAssign)
 	GLOB.muteblock				= getAssignedBlock("MUTE", numsToAssign)
 	GLOB.radblock				= getAssignedBlock("RAD", numsToAssign)
-	GLOB.fatblock				= getAssignedBlock("FAT", numsToAssign)
+	GLOB.obesityblock			= getAssignedBlock("OBESITY", numsToAssign)
 	GLOB.swedeblock				= getAssignedBlock("SWEDE", numsToAssign)
 	GLOB.scrambleblock			= getAssignedBlock("SCRAMBLE", numsToAssign)
 	GLOB.weakblock				= getAssignedBlock("WEAK", numsToAssign)

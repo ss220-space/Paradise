@@ -355,7 +355,7 @@
 		var/delay = SSnpcpool.wait / rapid_melee
 		for(var/i in 1 to rapid_melee)
 			addtimer(cb, (i - 1)*delay)
-	else
+	else if(target)
 		AttackingTarget()
 	if(patience)
 		GainPatience()

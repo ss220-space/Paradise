@@ -20,33 +20,50 @@
 /obj/item/proc/melee_attack_chain(mob/user, atom/target, params)
 	. = ATTACK_CHAIN_PROCEED
 
+	var/user_type = "[user.type]"
+	var/item_type = "[type]"
+	var/target_type = "[target.type]"
+
 	var/tool_chain_result = tool_attack_chain(user, target, params)
 	if(!(tool_chain_result & ATTACK_CHAIN_CORE_RETURN_BITFLAGS))
-		CRASH("tool_attack_chain() must return one of the core ATTACK_CHAIN_* bitflags, please consult code/__DEFINES/combat.dm")
+		CRASH("tool_attack_chain() must return one of the core ATTACK_CHAIN_* bitflags, please consult code/__DEFINES/combat.dm; user = [user_type]; item = [item_type]; target = [target_type]")
 
 	. |= tool_chain_result
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		mark_target(target)
 		return .
 
 	var/pre_attackby_result = pre_attackby(target, user, params)
 	if(!(pre_attackby_result & ATTACK_CHAIN_CORE_RETURN_BITFLAGS))
-		CRASH("pre_attackby() must return one of the core ATTACK_CHAIN_* bitflags, please consult code/__DEFINES/combat.dm")
+		mark_target(target)
+		CRASH("pre_attackby() must return one of the core ATTACK_CHAIN_* bitflags, please consult code/__DEFINES/combat.dm; user = [user_type]; item = [item_type]; target = [target_type]")
 
 	. |= pre_attackby_result
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		mark_target(target)
 		return .
 
 	var/attackby_result = target.attackby(src, user, params)
 	if(!(attackby_result & ATTACK_CHAIN_CORE_RETURN_BITFLAGS))
-		CRASH("attackby() must return one of the core ATTACK_CHAIN_* bitflags, please consult code/__DEFINES/combat.dm")
+		mark_target(target)
+		CRASH("attackby() must return one of the core ATTACK_CHAIN_* bitflags, please consult code/__DEFINES/combat.dm; user = [user_type]; item = [item_type]; target = [target_type]")
 
 	. |= attackby_result
 	// yes a lot of QDELETED checks but attackby is a longest spaghetti code in the entire game
 	if((. & ATTACK_CHAIN_NO_AFTERATTACK) || QDELETED(src) || QDELETED(target) || QDELETED(user))
+		mark_target(target)
 		return .
 
 	afterattack(target, user, TRUE, params)
+	mark_target(target)
 
+/// Used to mark a target for the demo system during a melee attack chain, call this before return
+/obj/item/proc/mark_target(atom/target)
+	SSdemo.mark_dirty(src)
+	if(isturf(target))
+		SSdemo.mark_turf(target)
+	else
+		SSdemo.mark_dirty(target)
 
 /**
  * Called on the item to check if it has any of the tool's behavior
@@ -73,6 +90,7 @@
 		return FALSE
 	if(signal_ret & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
+	SSdemo.mark_dirty(src)
 
 
 /obj/item/attack_self_tk(mob/user)
@@ -135,8 +153,7 @@
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
 	if(attempt_harvest(I, user))
-		. |= ATTACK_CHAIN_BLOCKED_ALL
-		return .
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 	user.changeNext_move(I.attack_speed)
 	. |= I.attack(src, user, params, user.zone_selected)
 
@@ -302,4 +319,3 @@
 		ignored_mobs = user,
 	)
 	to_chat(user, span_danger("You have [message_verb] [src] with [I]!"))
-

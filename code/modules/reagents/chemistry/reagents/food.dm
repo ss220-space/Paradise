@@ -944,7 +944,7 @@
 		if(H.dna.species.taste_sensitivity < TASTE_SENSITIVITY_NO_TASTE) // If you can taste it, then you know how awful it is.
 			H.Weaken(4 SECONDS)
 			to_chat(H, "<span class='danger'>Ugh! Eating that was a terrible idea!</span>")
-		if(NO_HUNGER in H.dna.species.species_traits) //If you don't eat, then you can't get food poisoning
+		if(HAS_TRAIT(H, TRAIT_NO_HUNGER)) //If you don't eat, then you can't get food poisoning
 			return
 		var/datum/disease/food_poisoning/D = new
 		D.Contract(H)

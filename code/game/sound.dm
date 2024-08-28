@@ -1,3 +1,4 @@
+GLOBAL_LIST_EMPTY(cached_songs)
 
 ///Default override for echo
 /sound
@@ -184,12 +185,32 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 	S.status = SOUND_UPDATE
 	SEND_SOUND(src, S)
 
+/client/proc/playtitlemusic(vol = 85)
+	set waitfor = FALSE
 
-/client/proc/playtitlemusic()
-	if(!SSticker || !SSticker.login_music || CONFIG_GET(flag/disable_lobby_music))
+	if(!SSticker || CONFIG_GET(flag/disable_lobby_music) || !CONFIG_GET(string/invoke_youtubedl))
 		return
+
+	UNTIL(SSticker.login_music) //wait for SSticker init to set the login music
+	UNTIL(tgui_panel)
+	UNTIL(SSassets.initialized)
+
+	var/url = SSticker.login_music_data["url"]
+	switch(CONFIG_GET(string/asset_transport))
+		if ("webroot")
+			var/datum/asset/music/my_asset
+			var/filepath = SSticker.login_music_data["path"]
+			if(GLOB.cached_songs[filepath])
+				my_asset = GLOB.cached_songs[filepath]
+			else
+				my_asset = new /datum/asset/music(filepath)
+				GLOB.cached_songs[filepath] = my_asset
+
+			url = my_asset.get_url()
+
 	if(prefs.sound & SOUND_LOBBY)
-		SEND_SOUND(src, sound(SSticker.login_music, repeat = 0, wait = 0, volume = 85 * prefs.get_channel_volume(CHANNEL_LOBBYMUSIC), channel = CHANNEL_LOBBYMUSIC)) // MAD JAMS
+		tgui_panel?.play_music(url, SSticker.login_music_data)
+		to_chat(src, span_notice("Сейчас играет: [SSticker.login_music_data["title_link"]]"))
 
 
 /proc/get_rand_frequency()

@@ -687,7 +687,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	if(..() || !possible_target.current.client)
 		return TRUE
 	// If the target is geneless, then it's an invalid target.
-	return has_no_DNA(possible_target.current)
+	return HAS_TRAIT(possible_target.current, TRAIT_NO_DNA)
 
 
 /datum/objective/escape/escape_with_identity/find_target(list/target_blacklist)
@@ -705,7 +705,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/escape/escape_with_identity/proc/special_objective_checking_target(datum/source, datum/mind/possible_target)
 	SIGNAL_HANDLER
-	if(!possible_target.current.client || has_no_DNA(possible_target.current))
+	if(!possible_target.current.client || HAS_TRAIT(possible_target.current, TRAIT_NO_DNA))
 		// Stop our linked special objective from choosing a clientless/geneless target.
 		return OBJECTIVE_INVALID_TARGET
 	return OBJECTIVE_VALID_TARGET
@@ -1002,7 +1002,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 		else if(SSticker.current_state == GAME_STATE_PLAYING)
 			for(var/mob/living/carbon/human/player in GLOB.player_list)
-				if(has_no_DNA(player))
+				if(HAS_TRAIT(player, TRAIT_NO_DNA))
 					continue
 
 				if(player.client && !(player.mind in SSticker.mode.changelings) && !(player.mind in get_owners()))

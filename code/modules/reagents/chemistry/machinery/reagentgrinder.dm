@@ -248,7 +248,7 @@
 		var/is_beaker_ready = 0
 		var/processing_chamber = ""
 		var/beaker_contents = ""
-		var/dat = {"<meta charset="UTF-8">"}
+		var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 
 		if(!operating)
 				for (var/obj/item/O in holdingitems)
@@ -276,12 +276,12 @@
 		[beaker_contents]<hr>
 		"}
 				if (is_beaker_ready && !is_chamber_empty && !(stat & (NOPOWER|BROKEN)))
-						dat += "<A href='?src=[src.UID()];action=grind'>Grind the reagents</a><BR>"
-						dat += "<A href='?src=[src.UID()];action=juice'>Juice the reagents</a><BR><BR>"
+						dat += "<a href='byond://?src=[src.UID()];action=grind'>Grind the reagents</a><BR>"
+						dat += "<a href='byond://?src=[src.UID()];action=juice'>Juice the reagents</a><BR><BR>"
 				if(holdingitems && holdingitems.len > 0)
-						dat += "<A href='?src=[src.UID()];action=eject'>Eject the reagents</a><BR>"
+						dat += "<a href='byond://?src=[src.UID()];action=eject'>Eject the reagents</a><BR>"
 				if (beaker)
-						dat += "<A href='?src=[src.UID()];action=detach'>Detach the beaker</a><BR>"
+						dat += "<a href='byond://?src=[src.UID()];action=detach'>Detach the beaker</a><BR>"
 		else
 				dat += "Please wait..."
 

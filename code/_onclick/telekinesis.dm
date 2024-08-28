@@ -39,11 +39,12 @@
 /obj/item/attack_tk(mob/user)
 	if(user.stat || !isturf(loc))
 		return
-	if((TK in user.mutations) && !user.get_active_hand()) // both should already be true to get here
+	var/telekinesis = HAS_TRAIT(user, TRAIT_TELEKINESIS)
+	if(telekinesis && !user.get_active_hand()) // both should already be true to get here
 		var/obj/item/tk_grab/O = new(src)
 		O.form_grab(user, src)
 	else
-		warning("Strange attack_tk(): TK([TK in user.mutations]) empty hand([!user.get_active_hand()])")
+		warning("Strange attack_tk(): TK([telekinesis]) empty hand([!user.get_active_hand()])")
 
 
 /mob/attack_tk(mob/user)
@@ -111,7 +112,7 @@
 	if(!host || host != user)
 		qdel(src)
 		return
-	if(!(TK in host.mutations))
+	if(!HAS_TRAIT(host, TRAIT_TELEKINESIS))
 		qdel(src)
 		return
 	if(isobj(target) && !isturf(target.loc))

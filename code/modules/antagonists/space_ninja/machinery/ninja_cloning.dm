@@ -124,7 +124,7 @@
 	ninja = null
 
 // Вызываемое костюмом добавление ниндзя в БД клонёрки для будущего оживления
-/obj/machinery/ninja_clonepod/proc/scan_mob(mob/living/carbon/human/subject as mob)
+/obj/machinery/ninja_clonepod/proc/scan_mob(mob/living/carbon/human/subject)
 	// Нет ДНК, либо самого сканируемого, либо он не хуман.
 	if(isnull(subject) || (!(ishuman(subject))) || (!subject.dna))
 		return
@@ -154,7 +154,7 @@
 	var/obj/item/organ/ninja_brain = subject.get_int_organ(/obj/item/organ/internal/brain)
 	ninja_brain.dna.check_integrity()
 	ninja_dna_record.dna = ninja_brain.dna.Clone()
-	if(NO_SCAN in ninja_dna_record.dna.species.species_traits)
+	if(HAS_TRAIT(ninja_brain, TRAIT_NO_SCAN))
 		ninja_dna_record.dna.species = new subject.dna.species.type
 	ninja_dna_record.id = copytext(md5(ninja_brain.dna.real_name), 2, 6)
 	ninja_dna_record.name = ninja_brain.dna.real_name

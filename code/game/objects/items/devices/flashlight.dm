@@ -59,7 +59,7 @@
 	if(!on || user.zone_selected != BODY_ZONE_PRECISE_EYES)
 		return ..()
 
-	if(((CLUMSY in user.mutations) || user.getBrainLoss() >= 60) && prob(50))	//too dumb to use flashlight properly
+	if((HAS_TRAIT(user, TRAIT_CLUMSY) || user.getBrainLoss() >= 60) && prob(50))	//too dumb to use flashlight properly
 		return ..()	//just hit them in the head
 
 	. = ATTACK_CHAIN_PROCEED
@@ -95,9 +95,9 @@
 
 		if(ishuman(target)) //robots and aliens are unaffected
 			var/obj/item/organ/internal/eyes/eyes = human_target.get_int_organ(/obj/item/organ/internal/eyes)
-			if(human_target.stat == DEAD || !eyes || (BLINDNESS in human_target.mutations))	//mob is dead or fully blind
+			if(human_target.stat == DEAD || !eyes || HAS_TRAIT(human_target, TRAIT_BLIND))	//mob is dead or fully blind
 				to_chat(user, span_notice("[human_target]'s pupils are unresponsive to the light!"))
-			else if((XRAY in human_target.mutations) || human_target.nightvision >= 8) //The mob's either got the X-RAY vision or has a tapetum lucidum (extreme nightvision, i.e. Vulp/Tajara with COLOURBLIND & their monkey forms).
+			else if(HAS_TRAIT(human_target, TRAIT_XRAY) || human_target.nightvision >= 8) //The mob's either got the X-RAY vision or has a tapetum lucidum (extreme nightvision, i.e. Vulp/Tajara with COLOURBLIND & their monkey forms).
 				to_chat(user, span_notice("[human_target]'s pupils glow eerily!"))
 			else //they're okay!
 				if(human_target.flash_eyes(visual = TRUE))

@@ -364,10 +364,12 @@
 	var/unscrewed = TRUE
 	var/obj/item/weaponcrafting/revolverbarrel/barrel
 
-/obj/item/gun/projectile/revolver/improvised/New()
-	..()
+
+/obj/item/gun/projectile/revolver/improvised/Initialize(mapload)
+	. = ..()
 	barrel = new	// I just want it to spawn with barrel.
 	update_icon(UPDATE_OVERLAYS)
+
 
 /obj/item/gun/projectile/revolver/improvised/update_overlays()
 	. = ..()
@@ -417,21 +419,26 @@
 	playsound(src, 'sound/items/screwdriver.ogg', 40, 1)
 	update_icon(UPDATE_OVERLAYS)
 
+
 /obj/item/gun/projectile/revolver/improvised/attack_hand(mob/user)
 	if(loc == user && unscrewed)
 		radial_menu(user)
-	else ..()
+		return
+	return ..()
+
 
 /obj/item/gun/projectile/revolver/improvised/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume))
-		return
 	if(!magazine || !barrel)
-		to_chat(user, span_notice("You can't do it without cylinder and barrel, attached to revolver."))
-	else
-		to_chat(user, span_notice("You [unscrewed ? "screwed [magazine] to the place" : "unscrewed [magazine] from [src]"]."))
-		unscrewed = !unscrewed
-		update_icon(UPDATE_OVERLAYS)
+		add_fingerprint(user)
+		to_chat(user, span_notice("You cannot do this without cylinder and barrel, attached to the revolver."))
+		return .
+	to_chat(user, span_notice("You start to [unscrewed ? "assemble" : "disassemble"] the revolver..."))
+	if(!I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume) || !magazine || !barrel)
+		return .
+	unscrewed = !unscrewed
+	to_chat(user, span_notice("You have [unscrewed ? "disassembled" : "assembled"] the revolver."))
+	update_icon(UPDATE_OVERLAYS)
 
 
 /obj/item/gun/projectile/revolver/improvised/attackby(obj/item/I, mob/user, params)
@@ -447,7 +454,7 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return .
 		magazine = I
-		verbs += /obj/item/gun/projectile/revolver/verb/spin
+		verbs |= /obj/item/gun/projectile/revolver/verb/spin
 		update_icon(UPDATE_OVERLAYS)
 		playsound(loc, 'sound/items/screwdriver.ogg', 40, TRUE)
 		return ATTACK_CHAIN_BLOCKED_ALL

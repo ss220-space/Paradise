@@ -451,20 +451,22 @@
 	button_icon_state = "clown"
 
 /datum/action/innate/toggle_clumsy/Activate()
-	var/mob/living/carbon/human/H = owner
-	H.mutations.Add(CLUMSY)
+	var/mob/living/carbon/human/clown = owner
+	if(!clown.force_gene_block(GLOB.clumsyblock, TRUE))
+		return
 	active = TRUE
 	background_icon_state = "bg_spell"
 	UpdateButtonIcon()
-	to_chat(H, "<span class='notice'>You start acting clumsy to throw suspicions off. Focus again before using weapons.</span>")
+	to_chat(clown, span_notice("You start acting clumsy to throw suspicions off. Focus again before using weapons."))
 
 /datum/action/innate/toggle_clumsy/Deactivate()
-	var/mob/living/carbon/human/H = owner
-	H.mutations.Remove(CLUMSY)
+	var/mob/living/carbon/human/clown = owner
+	if(!clown.force_gene_block(GLOB.clumsyblock, FALSE))
+		return
 	active = FALSE
 	background_icon_state = "bg_default"
 	UpdateButtonIcon()
-	to_chat(H, "<span class='notice'>You focus and can now use weapons regularly.</span>")
+	to_chat(clown, span_notice("You focus and can now use weapons regularly."))
 
 /datum/job/mime
 	title = JOB_TITLE_MIME

@@ -242,13 +242,13 @@
 
 /datum/spellbook_entry/sacred_flame/LearnSpell(mob/living/carbon/human/user, obj/item/spellbook/book, obj/effect/proc_holder/spell/newspell)
 	to_chat(user, "<span class='notice'>You feel fireproof.</span>")
-	ADD_TRAIT(user, RESISTHOT, MAGIC_TRAIT)
+	ADD_TRAIT(user, TRAIT_RESIST_HEAT, MAGIC_TRAIT)
 	//ADD_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
 	return ..()
 
 /datum/spellbook_entry/sacred_flame/Refund(mob/living/carbon/human/user, obj/item/spellbook/book)
 	to_chat(user, "<span class='warning'>You no longer feel fireproof.</span>")
-	REMOVE_TRAIT(user, RESISTHOT, MAGIC_TRAIT)
+	REMOVE_TRAIT(user, TRAIT_RESIST_HEAT, MAGIC_TRAIT)
 	//REMOVE_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
 	return ..()
 
@@ -422,12 +422,13 @@
 
 /datum/spellbook_entry/item/scryingorb/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(..())
-		if(!(XRAY in user.mutations))
-			user.mutations.Add(XRAY)
-			user.add_sight(SEE_MOBS|SEE_OBJS|SEE_TURFS)
+		if(!HAS_TRAIT_FROM(user, TRAIT_XRAY, SCRYING_ORB_TRAIT))
+			ADD_TRAIT(user, TRAIT_XRAY, SCRYING_ORB_TRAIT)
 			user.see_in_dark = 8
 			user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-			to_chat(user, "<span class='notice'>The walls suddenly disappear.</span>")
+			user.update_sight()
+			user.update_misc_effects()
+			to_chat(user, span_notice("The walls suddenly disappear."))
 	return TRUE
 
 /datum/spellbook_entry/item/soulstones

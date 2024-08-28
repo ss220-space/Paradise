@@ -201,6 +201,23 @@
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
 	return RCD_ACT_FAILED
 
+
+// Copy of `/turf/hit_by_thrown_carbon()`. A falsewall is just a wall after all.
+/obj/structure/falsewall/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	if(mob_hurt || !density)
+		return
+	playsound(src, 'sound/weapons/punch1.ogg', 35, TRUE)
+	C.visible_message(	span_danger("[C] slams into [src]!"		),
+						span_userdanger("You slam into [src]!"	))
+	C.take_organ_damage(damage)
+	C.Weaken(0.1 SECONDS)
+
+// Copy of `/atom/proc/hitby()`. Falsewalls must use this `hitby` as do regular walls.
+/obj/structure/falsewall/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	if(density && !AM.has_gravity()) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, hitby_react), AM), 0.2 SECONDS)
+
+
 /*
  * False R-Walls
  */

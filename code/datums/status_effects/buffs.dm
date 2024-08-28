@@ -382,7 +382,8 @@
 		update |= owner.heal_damage_type(heal_amount, OXY, FALSE)
 		if(update)
 			owner.updatehealth("fleshmend")
-		owner.blood_volume = min(owner.blood_volume + blood_restore, BLOOD_VOLUME_NORMAL)
+		if(!HAS_TRAIT(owner, TRAIT_NO_BLOOD_RESTORE))
+			owner.blood_volume = min(owner.blood_volume + blood_restore, BLOOD_VOLUME_NORMAL)
 		var/list/expired_instances = list()
 		for(var/i in 1 to length(active_instances))
 			active_instances[i]--
@@ -618,7 +619,7 @@
 
 	var/mob/living/carbon/human/human_owner = owner
 
-	ADD_TRAIT(human_owner, TRAIT_CHUNKYFINGERS, VAMPIRE_TRAIT)
+	ADD_TRAIT(human_owner, TRAIT_NO_GUNS, VAMPIRE_TRAIT)
 
 	human_owner.physiology.brute_mod *= 0.3
 	human_owner.physiology.burn_mod *= 0.6
@@ -639,7 +640,7 @@
 
 	var/mob/living/carbon/human/human_owner = owner
 
-	REMOVE_TRAIT(human_owner, TRAIT_CHUNKYFINGERS, VAMPIRE_TRAIT)
+	REMOVE_TRAIT(human_owner, TRAIT_NO_GUNS, VAMPIRE_TRAIT)
 
 	human_owner.physiology.brute_mod /= 0.3
 	human_owner.physiology.burn_mod /= 0.6
