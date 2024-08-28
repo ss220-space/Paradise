@@ -329,15 +329,16 @@
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
 
-	if(!isturf(loc))
-		to_chat(user, span_warning("You need to put [src] on a surface to add [I]."))
-		return .
-
-	if(!user.drop_transfer_item_to_loc(I, src))
-		return .
-
 	var/rawcookies = istype(I, /obj/item/reagent_containers/food/snacks/choc_pile)
 	if(rawcookies || istype(I, /obj/item/reagent_containers/food/snacks/piece_coconut))
+
+		if(!isturf(loc))
+			to_chat(user, span_warning("You need to put [src] on a surface to add [I]."))
+			return .
+
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return .
+
 		var/obj/new_cookies
 		if(rawcookies)
 			new_cookies = new /obj/item/reagent_containers/food/snacks/rawcookies/chocochips(loc)
