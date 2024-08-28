@@ -182,21 +182,19 @@
 	owner = null
 	return ..()
 
-/datum/borer_rank/proc/update_rank(mob/living/simple_animal/borer/borer)
-	if(!borer.borer_rank)
-		return borer.borer_rank = new BORER_RANK_YOUNG(borer)
-	switch(borer.borer_rank)
+/datum/borer_rank/proc/update_rank()
+	switch(owner.borer_rank)
 		if(BORER_RANK_YOUNG)
-			borer.borer_rank = new BORER_RANK_MATURE(borer)
+			owner.borer_rank = new BORER_RANK_MATURE(owner)
 		if(BORER_RANK_MATURE)
-			borer.borer_rank = new BORER_RANK_ADULT(borer)
+			owner.borer_rank = new BORER_RANK_ADULT(owner)
 		if(BORER_RANK_ADULT)
-			borer.borer_rank = new BORER_RANK_ELDER(borer)
+			owner.borer_rank = new BORER_RANK_ELDER(owner)
 	return TRUE
 
 /datum/borer_rank/New(mob/living/simple_animal/borer/borer)
 	owner = borer
-	parent = borer.mind?.has_antag_datum(/datum/antagonist/borer)
+	parent = borer.antag_datum
 	on_apply()
 
 /datum/borer_rank/proc/on_apply()
@@ -261,7 +259,7 @@
 	var/movable_granted = FALSE
 
 /datum/borer_focus/New(mob/living/simple_animal/borer/borer)
-	parent = borer.mind?.has_antag_datum(/datum/antagonist/borer)
+	parent = borer.antag_datum
 	parent?.pre_grant_movable_effect()
 
 /datum/borer_focus/proc/tick(seconds_between_ticks)

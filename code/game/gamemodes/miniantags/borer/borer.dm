@@ -125,7 +125,7 @@
 	var/datum/action/innate/borer/focus_menu/focus_menu_action = new
 
 /mob/living/simple_animal/borer/New(atom/newloc, var/gen=1)
-	borer_rank.update_rank(src)
+	borer_rank = new BORER_RANK_YOUNG(src)
 	..(newloc)
 	remove_from_all_data_huds()
 	generation = gen
@@ -202,7 +202,7 @@
 	evo_points += 1
 	if(borer_rank?.required_reproductions && reproductions >= borer_rank.required_reproductions)
 		reproductions -= borer_rank.required_reproductions
-		if(host && borer_rank.update_rank(src))
+		if(host && borer_rank.update_rank())
 			to_chat(host, span_notice("Вы эволюционировали. Ваш текущий ранг - [borer_rank.rankname]."))
 	return
 
