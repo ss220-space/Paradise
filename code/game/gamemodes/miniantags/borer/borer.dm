@@ -125,7 +125,7 @@
 	var/datum/action/innate/borer/focus_menu/focus_menu_action = new
 
 /mob/living/simple_animal/borer/New(atom/newloc, var/gen=1)
-	borer_rank = new BORER_RANK_YOUNG(src)
+	borer_rank = new /datum/borer_rank/young(src)
 	..(newloc)
 	remove_from_all_data_huds()
 	generation = gen

@@ -7,7 +7,6 @@
 #define LEGS_FOCUS_COST 10
 #define SCALING_MAX_CHEM 355
 #define SCALING_CHEM_GAIN 15
-//Global borer_rank defines
 #define BORER_RANK_YOUNG /datum/borer_rank/young
 #define BORER_RANK_MATURE /datum/borer_rank/mature
 #define BORER_RANK_ADULT /datum/borer_rank/adult
@@ -562,3 +561,7 @@
 #undef LEGS_FOCUS_COST
 #undef SCALING_MAX_CHEM
 #undef SCALING_CHEM_GAIN
+#undef BORER_RANK_YOUNG
+#undef BORER_RANK_MATURE
+#undef BORER_RANK_ADULT
+#undef BORER_RANK_ELDER
