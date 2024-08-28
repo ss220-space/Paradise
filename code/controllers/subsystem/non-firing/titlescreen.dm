@@ -157,6 +157,7 @@ SUBSYSTEM_DEF(title)
 	var/datum/asset_cache_item/screen_image
 	/// Randow phrase for this round
 	var/random_phrase = "О нет, моя фраза!"
+	var/current_icon = "ss1984.gif"
 
 /datum/title_screen/New(title_html, notice, screen_image_file)
 	src.title_html = title_html
@@ -242,14 +243,14 @@ SUBSYSTEM_DEF(title)
 		<div class="container_logo">
 			<div class="random_title_message">[random_phrase]</div>
 			<div class="logo_and_preview">
-				<img class="logo" src="[SSassets.transport.get_asset_url(asset_name = "logo.png")]">
+				<img class="logo" src="[SSassets.transport.get_asset_url(asset_name = current_icon)]">
 				<div class="preview">
 					<img src="" alt="" id="preview" onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAgAB/IsDkAAAAABJRU5ErkJggg=='">
 				</div>
 			</div>
 			<div class="character_info">
 				<span class="character" id="character_slot">[viewer.prefs.real_name]</span>
-				<span class="character" id="arrival_message">...остается дома.</span>
+				<span class="character" id="arrival_message">[(player.ready || SSticker.current_state == GAME_STATE_PLAYING) ? "...отправляется на станцию." : "...остается дома"].</span>
 			</div>
 		</div>
 	"}
