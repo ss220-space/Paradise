@@ -5,31 +5,7 @@
 #### Classic SS13 Music
 
 ## Space Station 13 Music - Endless Space
-LOBBY_MUSIC https://www.youtube.com/watch?v=Ae2N5310MXE
-
-## Space Station 13 Music - Title1 (Flip-Flap)
-LOBBY_MUSIC https://www.youtube.com/watch?v=UaD4AiqYDyA
-
-## Space Station 13 Music - Title3
-LOBBY_MUSIC https://www.youtube.com/watch?v=YKVmXn-Gv0M
-
-## Space Station 13 Music - THUNDERDOME (Sector11)
-LOBBY_MUSIC https://www.youtube.com/watch?v=-K3ztneTQuA
-
-## Space Station 13 Music - clown.wmv
-LOBBY_MUSIC https://www.youtube.com/watch?v=9whQIbNmu9s
-
-## Space Station 14 - Tin Tin On Moon Mark II
-LOBBY_MUSIC https://www.youtube.com/watch?v=d7hc_GrZP4Y
-
-## PILOTPRIEST - Tell Them Now
-LOBBY_MUSIC https://www.youtube.com/watch?v=r4aqBG20ruo
-
-## PILOTPRIEST - Origin One
-LOBBY_MUSIC https://pilotpriest.bandcamp.com/track/origin-one
-
-## PILOTPRIEST - Now Be The Light
-LOBBY_MUSIC https://pilotpriest.bandcamp.com/track/now-be-the-light-2
+LOBBY_MUSIC https://rutube.ru/video/b2c5ea9094994b41e37422a95e7df7df/
 
 
 #### Yogstation Music
@@ -202,6 +178,17 @@ LOBBY_MUSIC https://pilotpriest.bandcamp.com/track/now-be-the-light-2
 ## Jeff Imam - Forest
 #LOBBY_MUSIC https://soundcloud.com/jeffimam/forest
 
-#### Holiday Music
+
 ## If you want to make holidays custom lobby music, you should make new config entry
 ## with special holiday music and change holiday's var value
+
+
+## Config for lobby random phrases
+LOBBY_PHRASE Да это прямо как в книге Д. Оруэлла!
+LOBBY_PHRASE Добро пожаловать в день сурка!
+LOBBY_PHRASE Смешная надпись.
+LOBBY_PHRASE Также известно как SunShine.
+LOBBY_PHRASE ХОНК.
+LOBBY_PHRASE Также попробуйте майнкрафт.
+LOBBY_PHRASE КМ никогда не будет главой!
+LOBBY_PHRASE Как менять руки?

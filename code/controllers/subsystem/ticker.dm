@@ -372,7 +372,7 @@ SUBSYSTEM_DEF(ticker)
 
 	for(var/mob/new_player/N in GLOB.mob_list)
 		if(N.client)
-			SStitle.show_title_screen_to(N.client, TRUE) // New Title Screen
+			SStitle.show_title_screen_to(N.client) // New Title Screen
 
 	#ifdef UNIT_TESTS
 	// Run map tests first in case unit tests futz with map state
@@ -388,7 +388,8 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/choose_lobby_music()
 	var/list/songs = CONFIG_GET(str_list/lobby_music)
-	selected_lobby_music = pick(songs)
+	if(LAZYLEN(songs))
+		selected_lobby_music = pick(songs)
 
 	if(SSholiday.holidays) // What's this? Events are initialized before tickers? Let's do something with that!
 		for(var/holidayname in SSholiday.holidays)
@@ -396,6 +397,9 @@ SUBSYSTEM_DEF(ticker)
 			if(LAZYLEN(holiday.lobby_music))
 				selected_lobby_music = pick(holiday.lobby_music)
 				break
+
+	if(!selected_lobby_music)
+		return
 
 	var/ytdl = CONFIG_GET(string/invoke_youtubedl)
 	if(!ytdl)

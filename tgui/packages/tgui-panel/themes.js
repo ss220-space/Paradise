@@ -58,7 +58,6 @@ export const setClientTheme = (name) => {
   Byond.command(`.output title_browser:set_theme ${name}`);
   setClientThemeTimer = setTimeout(() => {
     Byond.command(`.output statbrowser:set_theme ${name}`);
-    Byond.command(`.output title_browser:set_theme ${name}`);
   }, 1500);
 
   const themeColor = COLORS[name.toUpperCase()];

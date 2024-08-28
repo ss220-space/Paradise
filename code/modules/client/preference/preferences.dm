@@ -1536,6 +1536,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			switch(href_list["preference"])
 				if("name")
 					real_name = random_name(gender,species)
+					user.client << output(real_name, "title_browser:update_current_character")
 				if("age")
 					age = rand(AGE_MIN, AGE_MAX)
 				if("hair")
@@ -1609,6 +1610,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						var/new_name = reject_bad_name(raw_name, 1)
 						if(new_name)
 							real_name = new_name
+							user.client << output(real_name, "title_browser:update_current_character")
 						else
 							to_chat(user, "<font color='red'>Invalid name. Your name should be at least 2 and at most [MAX_NAME_LEN] characters long. It may only contain the characters A-Z, a-z, -, ' and .</font>")
 
@@ -2556,6 +2558,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						real_name = random_name(gender)
 						save_character(user)
 					close_load_dialog(user)
+					user.client << output(real_name, "title_browser:update_current_character")
 
 				if("tab")
 					if(href_list["tab"])
@@ -2765,8 +2768,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(href_list["toggle"])
 						var/datum/preference_toggle/toggle = locateUID(href_list["toggle"])
 						toggle.set_toggles(user.client)
-
-
 
 	ShowChoices(user)
 	return TRUE

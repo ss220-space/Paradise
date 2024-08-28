@@ -41,6 +41,8 @@
 		add_verb(src, /client/proc/readmin)
 	. = TRUE
 
+	SStitle.show_title_screen_to(client)
+
 	spawn(4 SECONDS)
 		client?.playtitlemusic()
 

@@ -18,7 +18,7 @@ SUBSYSTEM_DEF(title)
 	import_html()
 	fill_title_images_pool()
 	current_title_screen = new(title_html = base_html, screen_image_file = pick_title_image())
-	show_title_screen_to_all_new_players(TRUE)
+	show_title_screen_to_all_new_players()
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/title/Recover()
@@ -57,21 +57,21 @@ SUBSYSTEM_DEF(title)
 /**
  * Show the title screen to all new players.
  */
-/datum/controller/subsystem/title/proc/show_title_screen_to_all_new_players(update_character = FALSE)
+/datum/controller/subsystem/title/proc/show_title_screen_to_all_new_players()
 	if(!current_title_screen)
 		return
 
 	for(var/mob/new_player/viewer in GLOB.player_list)
-		show_title_screen_to(viewer.client, update_character)
+		show_title_screen_to(viewer.client)
 
 /**
  * Show the title screen to specific client.
  */
-/datum/controller/subsystem/title/proc/show_title_screen_to(client/viewer, update_character = FALSE)
+/datum/controller/subsystem/title/proc/show_title_screen_to(client/viewer)
 	if(!viewer || !current_title_screen)
 		return
 
-	INVOKE_ASYNC(current_title_screen, TYPE_PROC_REF(/datum/title_screen, show_to), viewer, update_character)
+	INVOKE_ASYNC(current_title_screen, TYPE_PROC_REF(/datum/title_screen, show_to), viewer)
 
 /**
  * Hide the title screen from specific client.
@@ -96,7 +96,11 @@ SUBSYSTEM_DEF(title)
 	else
 		current_title_screen.notice = new_notice
 
-	show_title_screen_to_all_new_players()
+	if(!current_title_screen)
+		return
+
+	for(var/mob/new_player/viewer in GLOB.player_list)
+		viewer << output("[new_notice]", "title_browser:update_notice")
 
 /**
  * Replaces html of title screen
@@ -136,17 +140,25 @@ SUBSYSTEM_DEF(title)
 	return pick(title_images_pool)
 
 
+/************************
+ *  Title screen datum  *
+ ************************/
 /datum/title_screen
 	/// The preamble html that includes all styling and layout.
 	var/title_html
 	/// The current notice text, or null.
-	var/notice
+	var/notice = ""
 	/// The current title screen being displayed, as `/datum/asset_cache_item`
 	var/datum/asset_cache_item/screen_image
+	/// Randow phrase for this round
+	var/random_phrase = "О нет, моя фраза!"
 
 /datum/title_screen/New(title_html, notice, screen_image_file)
 	src.title_html = title_html
 	src.notice = notice
+	var/list/phrases = CONFIG_GET(str_list/lobby_phrase)
+	if(LAZYLEN(phrases))
+		random_phrase = pick(phrases)
 	set_screen_image(screen_image_file)
 
 /datum/title_screen/proc/set_screen_image(screen_image_file)
@@ -164,16 +176,21 @@ SUBSYSTEM_DEF(title)
 
 	viewer.prefs.update_preview_icon()
 	viewer << browse_rsc(viewer.prefs.preview_icon_front, "previewicon.png")
+
 	spawn(1)
 		viewer << output("", "title_browser:update_char_image")
 
+/datum/title_screen/proc/update_theme(client/viewer)
+	spawn(1)
+		var/static/list/color2tguitheme = list("#212020" = "dark", "#EFEEEE" = "light", "#1b2633" = "ntos", "#4d0202" = "syndicate", "#800448" = "paradise")
+		viewer << output(color2tguitheme[winget(viewer, "mainwindow", "background-color")], "title_browser:set_theme")
 
-/datum/title_screen/proc/show_to(client/viewer, update_character = FALSE)
+/datum/title_screen/proc/show_to(client/viewer)
 	if(!viewer)
 		return
 
 	winset(viewer, "title_browser", "is-disabled=false;is-visible=true")
-	winset(viewer, "paramapwindow.status_bar", "is-visible=false")
+	winset(viewer, "mapwindow.status_bar", "is-visible=false")
 
 	var/datum/asset/lobby_asset = get_asset_datum(/datum/asset/simple/lobby)
 	var/datum/asset/fontawesome = get_asset_datum(/datum/asset/simple/namespaced/fontawesome)
@@ -182,15 +199,16 @@ SUBSYSTEM_DEF(title)
 
 	SSassets.transport.send_assets(viewer, screen_image.name)
 
-	if(update_character)
-		update_character(viewer)
-
 	viewer << browse(get_title_html(viewer, viewer.mob), "window=title_browser")
+
+	update_theme(viewer)
+
+	update_character(viewer)
 
 /datum/title_screen/proc/hide_from(client/viewer)
 	if(viewer?.mob)
 		winset(viewer, "title_browser", "is-disabled=true;is-visible=false")
-		winset(viewer, "paramapwindow.status_bar", "is-visible=true;focus=true")
+		winset(viewer, "mapwindow.status_bar", "is-visible=true;focus=true")
 
 /**
  * Get the HTML of title screen.
@@ -199,26 +217,29 @@ SUBSYSTEM_DEF(title)
 	var/list/html = list(title_html)
 	var/mob/new_player/player = user
 
-	html += {"<input type="checkbox" id="hide_menu">"}
-
 	var/screen_image_url = SSassets.transport.get_asset_url(asset_cache_item = screen_image)
-	if(screen_image_url)
-		html += {"<img src="[screen_image_url]" class="bg" alt="">"}
+
+	html += {"<body style="background-image: [screen_image_url ? "url([screen_image_url])" : "" ];">"}
+
+	html += {"<input type="checkbox" id="hide_menu">"}
 
 	if(notice)
 		html += {"
-		<div class="container_notice">
-			<p class="menu_notice">[notice]</p>
+		<div id="notice_place" class="container_notice">
+			<p id="notice" class="menu_notice">[notice]</p>
 		</div>
-	"}
+		"}
+	else
+		html += {"<div id="notice_place"></div>"}
 
 	html += {"<div class="container_menu">"}
 	html += {"
 		<div class="container_logo">
+		<div class="random_title_message">[random_phrase]</div>
 		<img class="logo" src="[SSassets.transport.get_asset_url(asset_name = "logo.png")]">
 			<div class="character_info">
-			<span class="character" id="arrival_message">Остается дома...</span>
 			<span class="character" id="character_slot">[viewer.prefs.real_name]</span>
+			<span class="character" id="arrival_message">...остается дома.</span>
 			</div>
 		</div>
 	"}
@@ -240,11 +261,20 @@ SUBSYSTEM_DEF(title)
 		<hr>
 		<a class="menu_button good" id="be_antag" href='byond://?src=[player.UID()];skip_antag=1'>[viewer.prefs.skip_antag ? "Антагонисты: Выкл." : "Антагонисты: Вкл."]</a>
 		<a class="menu_button" href='byond://?src=[player.UID()];show_preferences=1'>Настройка персонажа</a>
+		<a class="menu_button" href='byond://?src=[player.UID()];job_preferences=1'>Выбор профессии</a>
 		<a class="menu_button" href='byond://?src=[player.UID()];game_preferences=1'>Настройки игры</a>
 		<hr>
-		<a class="menu_button" href='byond://?src=[player.UID()];swap_server=1'>Сменить сервер</a>
+		<a class="menu_button" href='byond://?src=[player.UID()];sound_options=1'>Настройки громкости</a>
 	"}
+	// html += "<a class="menu_button" href='byond://?src=[player.UID()];swap_server=1'>Сменить сервер</a>" // TODO: add this after regis merge
+	if(!viewer.prefs.discord_id || (viewer.prefs.discord_id && length(viewer.prefs.discord_id) == 32))
+		html += {"<a class="menu_button" href='byond://?src=[player.UID()];connect_discord=1'>Привязка Discord</a>"}
+	if(GLOB.join_tos && !viewer.tos_consent)
+		html += {"<a class="menu_button" href='byond://?src=[player.UID()];tos=1'>Политика конфидициальности</a>"}
 	html += {"</div>"}
+	html += {"</div>"}
+
+	html += {"<label class="hide_button" for="hide_menu"><i class="fas fa-angles-left"></i></label>"}
 	html += {"
 		<div class="container_links">
 			<a class="link_button" href='byond://?src=[player.UID()];wiki=1'><i class="fab fa-wikipedia-w"></i></a>
@@ -253,14 +283,13 @@ SUBSYSTEM_DEF(title)
 		</div>
 	"}
 	html += {"</div>"}
-	html += {"<label class="hide_button" for="hide_menu"><i class="fas fa-angles-left"></i></label>"}
 	html += {"
 		<script language="JavaScript">
 			let ready_int = 0;
 			const readyID = document.getElementById("ready");
 			const arrival_message = document.getElementById("arrival_message");
 			const ready_marks = \[ "Не готов", "Готов" \];
-			const arrival_marks = \[ "Остается дома...", "На смену прибывает..."\];
+			const arrival_marks = \[ "...остается дома.", "...отправляется на станцию."\];
 			const ready_class = \[ "bad", "good" \];
 			function ready(setReady) {
 				if(setReady) {
@@ -307,12 +336,28 @@ SUBSYSTEM_DEF(title)
 
 			function update_char_image() {
 				charPreview.src = "";
-				setTimeout(set_image, 1); // TODO: change after 516
+				setTimeout(set_image, 100); // TODO: change after 516
 			}
 
 			const character_name_slot = document.getElementById("character_slot");
 			function update_current_character(name) {
 				character_name_slot.textContent = name;
+			}
+
+			const notice_place = document.getElementById("notice_place");
+			function update_notice(notice) {
+				let noticeid = document.getElementById("notice");
+				if(noticeid != null){
+					noticeid.textContent = notice;
+				}
+				else{
+					notice_place.classList.add("container_notice");
+					var new_notice = document.createElement("p");
+					new_notice.setAttribute("id", "notice");
+					new_notice.textContent = notice;
+					new_notice.classList.add("menu_notice");
+					notice_place.appendChild(new_notice);
+				}
 			}
 
 			function set_theme(which) {
