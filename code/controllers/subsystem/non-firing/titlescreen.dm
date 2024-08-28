@@ -240,18 +240,21 @@ SUBSYSTEM_DEF(title)
 	html += {"<div class="container_menu">"}
 	html += {"
 		<div class="container_logo">
-		<div class="random_title_message">[random_phrase]</div>
-		<img class="logo" src="[SSassets.transport.get_asset_url(asset_name = "logo.png")]">
+			<div class="random_title_message">[random_phrase]</div>
+			<div class="logo_and_preview">
+				<img class="logo" src="[SSassets.transport.get_asset_url(asset_name = "logo.png")]">
+				<div class="preview">
+					<img src="" alt="" id="preview" onerror="this.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wcAAgAB/IsDkAAAAABJRU5ErkJggg=='">
+				</div>
+			</div>
 			<div class="character_info">
-			<span class="character" id="character_slot">[viewer.prefs.real_name]</span>
-			<span class="character" id="arrival_message">...остается дома.</span>
+				<span class="character" id="character_slot">[viewer.prefs.real_name]</span>
+				<span class="character" id="arrival_message">...остается дома.</span>
 			</div>
 		</div>
 	"}
 
 	html += {"<div class="container_buttons">"}
-
-	html += "<img src='' alt='Загрузка...' id='charPreview' class='charPreview'>"
 
 	if(!SSticker || SSticker.current_state <= GAME_STATE_PREGAME)
 		html += {"<a class="menu_button bad" id="ready" href='byond://?src=[player.UID()];ready=1'>[player.ready ? "Готов" : "Не готов"]</a>"}
@@ -333,7 +336,7 @@ SUBSYSTEM_DEF(title)
 				}
 			}
 
-			const charPreview = document.getElementById("charPreview");
+			const charPreview = document.getElementById("preview");
 
 			function update_preview() {
 				charPreview.src = "previewicon.png";
