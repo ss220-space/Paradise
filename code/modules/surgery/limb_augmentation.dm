@@ -22,7 +22,7 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	if(NO_ROBOPARTS in target.dna.species.species_traits)
+	if(HAS_TRAIT(target, TRAIT_NO_ROBOPARTS))
 		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if(affected.has_fracture()) //The arm has to be in prime condition to augment it.

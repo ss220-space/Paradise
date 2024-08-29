@@ -153,17 +153,17 @@
 /obj/structure/janitorialcart/attack_hand(mob/user)
 	add_fingerprint(user)
 	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8">"}
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	if(mybag)
-		dat += "<a href='?src=[UID()];garbage=1'>[mybag.name]</a><br>"
+		dat += "<a href='byond://?src=[UID()];garbage=1'>[mybag.name]</a><br>"
 	if(mymop)
-		dat += "<a href='?src=[UID()];mop=1'>[mymop.name]</a><br>"
+		dat += "<a href='byond://?src=[UID()];mop=1'>[mymop.name]</a><br>"
 	if(myspray)
-		dat += "<a href='?src=[UID()];spray=1'>[myspray.name]</a><br>"
+		dat += "<a href='byond://?src=[UID()];spray=1'>[myspray.name]</a><br>"
 	if(myreplacer)
-		dat += "<a href='?src=[UID()];replacer=1'>[myreplacer.name]</a><br>"
+		dat += "<a href='byond://?src=[UID()];replacer=1'>[myreplacer.name]</a><br>"
 	if(signs)
-		dat += "<a href='?src=[UID()];sign=1'>[signs] sign\s</a><br>"
+		dat += "<a href='byond://?src=[UID()];sign=1'>[signs] sign\s</a><br>"
 	var/datum/browser/popup = new(user, "janicart", name, 240, 160)
 	popup.set_content(dat)
 	popup.open()

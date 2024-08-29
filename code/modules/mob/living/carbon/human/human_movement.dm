@@ -129,7 +129,7 @@
 		remove_movespeed_modifier(/datum/movespeed_modifier/limbless)
 		remove_movespeed_modifier(/datum/movespeed_modifier/fractures)
 		remove_movespeed_modifier(/datum/movespeed_modifier/hunger)
-		update_obesity_slowdown()
+		update_fat_slowdown()
 
 
 /mob/living/carbon/human/on_movement_type_flag_disabled(datum/source, flag, old_movement_type)
@@ -153,7 +153,7 @@
 
 		update_fractures_slowdown()
 		update_hunger_slowdown()
-		update_obesity_slowdown()
+		update_fat_slowdown()
 
 
 /// Proc used to recalculate traits and slowdowns after species change.

@@ -81,7 +81,7 @@
 	if(target != user || !ishuman(target))
 		return ..()
 
-	if(NO_BLOOD in user.dna.species.species_traits)
+	if(HAS_TRAIT(user, TRAIT_NO_BLOOD))
 		to_chat(user, span_userdanger("The [name] is not compatible with your form!"))
 		return ATTACK_CHAIN_PROCEED
 
@@ -97,7 +97,7 @@
 	if(world.time > (last_pump + pump_delay))
 		if(ishuman(owner) && owner.client) //While this entire item exists to make people suffer, they can't control disconnects.
 			var/mob/living/carbon/human/H = owner
-			if(!(NO_BLOOD in H.dna.species.species_traits))
+			if(!HAS_TRAIT(H, TRAIT_NO_BLOOD))
 				H.blood_volume = max(H.blood_volume - blood_loss, 0)
 				to_chat(H, span_userdanger("You have to keep pumping your blood!"))
 				if(H.client)
@@ -128,17 +128,18 @@
 		to_chat(owner, span_notice("Your heart beats."))
 
 		var/mob/living/carbon/human/H = owner
-		if(istype(H))
-			if(!(NO_BLOOD in H.dna.species.species_traits))
+		if(istype(H) && !HAS_TRAIT(H, TRAIT_NO_BLOOD))
+			if(!HAS_TRAIT(H, TRAIT_NO_BLOOD_RESTORE))
 				H.blood_volume = min(H.blood_volume + cursed_heart.blood_loss * 0.5, BLOOD_VOLUME_NORMAL)
-				if(owner.client)
-					owner.client.color = ""
 
-				var/update = NONE
-				update |= H.heal_overall_damage(cursed_heart.heal_brute, cursed_heart.heal_burn, updating_health = FALSE, affect_robotic = TRUE)
-				update |= H.heal_damage_type(cursed_heart.heal_oxy, OXY, updating_health = FALSE)
-				if(update)
-					H.updatehealth()
+			if(owner.client)
+				owner.client.color = ""
+
+			var/update = NONE
+			update |= H.heal_overall_damage(cursed_heart.heal_brute, cursed_heart.heal_burn, updating_health = FALSE, affect_robotic = TRUE)
+			update |= H.heal_damage_type(cursed_heart.heal_oxy, OXY, updating_health = FALSE)
+			if(update)
+				H.updatehealth()
 
 
 /obj/item/organ/internal/heart/cybernetic

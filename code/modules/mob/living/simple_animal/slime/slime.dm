@@ -159,6 +159,10 @@
 
 /mob/living/simple_animal/slime/updatehealth(reason = "none given", should_log = FALSE)
 	. = ..()
+	update_movespeed_damage_modifiers()
+
+
+/mob/living/simple_animal/slime/update_movespeed_damage_modifiers()
 	var/mod = 0
 	if(!HAS_TRAIT(src, TRAIT_IGNOREDAMAGESLOWDOWN))
 		var/health_deficiency = (maxHealth - health)

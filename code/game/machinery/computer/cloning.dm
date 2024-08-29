@@ -445,15 +445,13 @@
 			set_scan_temp("Subject species is not scannable.", "bad")
 			SStgui.update_uis(src)
 			return
-	if(subject.get_int_organ(/obj/item/organ/internal/brain))
-		var/obj/item/organ/internal/brain/Brn = subject.get_int_organ(/obj/item/organ/internal/brain)
-		if(istype(Brn))
-			if(NO_SCAN in Brn.dna.species.species_traits)
-				set_scan_temp("[Brn.dna.species.name_plural] are not scannable.", "bad")
-				SStgui.update_uis(src)
-				return
-	if(!subject.get_int_organ(/obj/item/organ/internal/brain))
+	var/obj/item/organ/internal/brain/brain = subject.get_int_organ(/obj/item/organ/internal/brain)
+	if(!brain)
 		set_scan_temp("No brain detected in subject.", emagged ? "good" : "bad")
+		SStgui.update_uis(src)
+		return
+	if(HAS_TRAIT(brain, TRAIT_NO_SCAN))
+		set_scan_temp("Subject is not scannable.", "bad")
 		SStgui.update_uis(src)
 		return
 	if(subject.suiciding)
@@ -464,7 +462,7 @@
 		set_scan_temp(emagged ? "Prey's brain is in pristine condition. Further attempts not needed." : "Subject's brain is not responding. Further attempts after a short delay may succeed.", emagged ? "good" : "bad")
 		SStgui.update_uis(src)
 		return
-	if((NOCLONE in subject.mutations) && src.scanner.scan_level < 2)
+	if(HAS_TRAIT(subject, TRAIT_NO_CLONE) && scanner.scan_level < 2)
 		set_scan_temp(emagged ? "Prey has a too perfect body. Cry about it" : "Subject has incompatible genetic mutations.", emagged ? "good" : "bad")
 		SStgui.update_uis(src)
 		return
@@ -485,18 +483,14 @@
 	R.ckey = subject.ckey
 	var/extra_info = ""
 	if(scan_brain)
-		var/obj/item/organ/B = subject.get_int_organ(/obj/item/organ/internal/brain)
-		B.dna.check_integrity()
-		R.dna=B.dna.Clone()
-		if(NO_SCAN in R.dna.species.species_traits)
-			extra_info = "Proper genetic interface not found, defaulting to genetic data of the body."
-			R.dna.species = new subject.dna.species.type
-		R.id= copytext(md5(B.dna.real_name), 2, 6)
-		R.name=B.dna.real_name
+		brain.dna.check_integrity()
+		R.dna = brain.dna.Clone()
+		R.id = copytext(md5(brain.dna.real_name), 2, 6)
+		R.name = brain.dna.real_name
 	else
-		R.dna=subject.dna.Clone()
-		R.id= copytext(md5(subject.real_name), 2, 6)
-		R.name=R.dna.real_name
+		R.dna = subject.dna.Clone()
+		R.id = copytext(md5(subject.real_name), 2, 6)
+		R.name = R.dna.real_name
 
 	R.types=DNA2_BUF_UI|DNA2_BUF_UE|DNA2_BUF_SE
 	R.languages=subject.languages

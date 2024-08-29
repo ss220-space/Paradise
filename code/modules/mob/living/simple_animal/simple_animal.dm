@@ -310,48 +310,49 @@
 
 	var/areatemp = get_temperature(environment)
 
-	if(abs(areatemp - bodytemperature) > 5 && !(BREATHLESS in mutations))
+	if(abs(areatemp - bodytemperature) > 5)
 		var/diff = areatemp - bodytemperature
 		diff = diff / 5
 		adjust_bodytemperature(diff)
 
-	var/tox = environment.toxins
-	var/oxy = environment.oxygen
-	var/n2 = environment.nitrogen
-	var/co2 = environment.carbon_dioxide
+	if(!HAS_TRAIT(src, TRAIT_NO_BREATH))
+		var/tox = environment.toxins
+		var/oxy = environment.oxygen
+		var/n2 = environment.nitrogen
+		var/co2 = environment.carbon_dioxide
 
-	if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
-		atmos_suitable = FALSE
-		throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
-	else if(atmos_requirements["max_oxy"] && oxy > atmos_requirements["max_oxy"])
-		atmos_suitable = FALSE
-		throw_alert("too_much_oxy", /atom/movable/screen/alert/too_much_oxy)
-	else
-		clear_alert("not_enough_oxy")
-		clear_alert("too_much_oxy")
+		if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
+			atmos_suitable = FALSE
+			throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy)
+		else if(atmos_requirements["max_oxy"] && oxy > atmos_requirements["max_oxy"])
+			atmos_suitable = FALSE
+			throw_alert(ALERT_TOO_MUCH_OXYGEN, /atom/movable/screen/alert/too_much_oxy)
+		else
+			clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
+			clear_alert(ALERT_TOO_MUCH_OXYGEN)
 
-	if(atmos_requirements["min_tox"] && tox < atmos_requirements["min_tox"])
-		atmos_suitable = FALSE
-		throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_tox)
-	else if(atmos_requirements["max_tox"] && tox > atmos_requirements["max_tox"])
-		atmos_suitable = FALSE
-		throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_tox)
-	else
-		clear_alert("too_much_tox")
-		clear_alert("not_enough_tox")
+		if(atmos_requirements["min_tox"] && tox < atmos_requirements["min_tox"])
+			atmos_suitable = FALSE
+			throw_alert(ALERT_NOT_ENOUGH_TOX, /atom/movable/screen/alert/not_enough_tox)
+		else if(atmos_requirements["max_tox"] && tox > atmos_requirements["max_tox"])
+			atmos_suitable = FALSE
+			throw_alert(ALERT_TOO_MUCH_TOX, /atom/movable/screen/alert/too_much_tox)
+		else
+			clear_alert(ALERT_TOO_MUCH_TOX)
+			clear_alert(ALERT_NOT_ENOUGH_TOX)
 
-	if(atmos_requirements["min_n2"] && n2 < atmos_requirements["min_n2"])
-		atmos_suitable = FALSE
-	else if(atmos_requirements["max_n2"] && n2 > atmos_requirements["max_n2"])
-		atmos_suitable = FALSE
+		if(atmos_requirements["min_n2"] && n2 < atmos_requirements["min_n2"])
+			atmos_suitable = FALSE
+		else if(atmos_requirements["max_n2"] && n2 > atmos_requirements["max_n2"])
+			atmos_suitable = FALSE
 
-	if(atmos_requirements["min_co2"] && co2 < atmos_requirements["min_co2"])
-		atmos_suitable = FALSE
-	else if(atmos_requirements["max_co2"] && co2 > atmos_requirements["max_co2"])
-		atmos_suitable = FALSE
+		if(atmos_requirements["min_co2"] && co2 < atmos_requirements["min_co2"])
+			atmos_suitable = FALSE
+		else if(atmos_requirements["max_co2"] && co2 > atmos_requirements["max_co2"])
+			atmos_suitable = FALSE
 
-	if(!atmos_suitable)
-		adjustHealth(unsuitable_atmos_damage)
+		if(!atmos_suitable)
+			adjustHealth(unsuitable_atmos_damage)
 
 	handle_temperature_damage()
 

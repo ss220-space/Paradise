@@ -1,6 +1,10 @@
 #define PLANT_LAYER OBJ_LAYER + 0.01
 #define LID_LAYER OBJ_LAYER + 0.02
 
+// Floragun
+/// Maximum value after which GAMMA mode (/energy/floragun) does not work
+#define MAX_MATURATION_SPEED 15
+
 /obj/machinery/hydroponics
 	name = "hydroponics tray"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
@@ -140,10 +144,12 @@
 /obj/machinery/hydroponics/bullet_act(obj/item/projectile/Proj) //Works with the Somatoray to modify plant variables.
 	if(!myseed)
 		return ..()
-	if(istype(Proj ,/obj/item/projectile/energy/floramut))
-		mutate()
-	else if(istype(Proj ,/obj/item/projectile/energy/florayield))
-		return myseed.bullet_act(Proj)
+	if(istype(Proj, /obj/item/projectile/energy/floragamma))
+		make_grow()
+	else if(istype(Proj, /obj/item/projectile/energy/florabeta))
+		myseed.on_floragun_beta_act()
+	else if(istype(Proj, /obj/item/projectile/energy/floraalpha) && !lid_closed)
+		plantdies()
 	else
 		return ..()
 
@@ -425,6 +431,12 @@
 	plant_hud_set_status()
 	visible_message("<span class='warning'>The [oldPlantName] is overtaken by some [myseed.plantname]!</span>")
 
+/obj/machinery/hydroponics/proc/make_grow()
+	if(!myseed || harvest || dead)
+		return
+	if(myseed.maturation < MAX_MATURATION_SPEED)
+		age += myseed.maturation
+		update_state()
 
 /obj/machinery/hydroponics/proc/mutate(lifemut = 2, endmut = 5, productmut = 1, yieldmut = 2, potmut = 25, wrmut = 2, wcmut = 5, traitmut = 0) // Mutates the current seed
 	if(!myseed)
@@ -1128,3 +1140,5 @@
 		return
 	if(user.plant_analyzer)
 		send_plant_details(user)
+
+#undef MAX_MATURATION_SPEED
