@@ -65,7 +65,8 @@
 
 /datum/game_mode/blob/post_setup()
 	for(var/datum/mind/blob in blobs["infected"])
-		var/datum/antagonist/blob_infected/blob_datum = new
+		var/datum_type = blob.get_blob_infected_type()
+		var/datum/antagonist/blob_infected/blob_datum = new datum_type()
 		blob_datum.need_new_blob = TRUE
 		blob_datum.time_to_burst_hight = TIME_TO_BURST_HIGHT
 		blob_datum.time_to_burst_low = TIME_TO_BURST_LOW
@@ -154,7 +155,8 @@
 	count = min(count, candidates.len)
 	for(var/i = 0, i < count, i++)
 		blob = pick(candidates)
-		var/datum/antagonist/blob_infected/blob_datum = new
+		var/datum_type = blob.mind.get_blob_infected_type()
+		var/datum/antagonist/blob_infected/blob_datum = new datum_type()
 		blob_datum.need_new_blob = need_new_blob
 		blob.mind.add_antag_datum(blob_datum)
 		candidates -= blob
@@ -178,7 +180,8 @@
 			var/mob/M = pick(candidates)
 			candidates.Remove(M)
 			B.key = M.key
-			var/datum/antagonist/blob_infected/blob_datum = new
+			var/datum_type = B.mind.get_blob_infected_type()
+			var/datum/antagonist/blob_infected/blob_datum = new datum_type()
 			blob_datum.time_to_burst_hight = TIME_TO_BURST_MOUSE_HIGHT
 			blob_datum.time_to_burst_low = TIME_TO_BURST_MOUSE_LOW
 			B.mind.add_antag_datum(blob_datum)
