@@ -304,7 +304,6 @@
 	activation_message = "Вы чуствуете слабость в своих мышцах."
 	deactivation_message = "Похоже, ваши мышцы снова в норме."
 	instability = -GENE_INSTABILITY_MODERATE
-	mutation = WEAK
 	traits_to_add = list(TRAIT_GENE_WEAK)
 
 
@@ -380,7 +379,8 @@
 	activation_message = "Вы не чуствуете своих ног."
 	deactivation_message = "Вы возвращаете контроль над ногами."
 	instability = -GENE_INSTABILITY_MAJOR
-	mutation = NOLEGS
+	traits_to_add = list(TRAIT_NOLEGS)
+
 
 /datum/dna/gene/disability/legsparalysis/New()
 	..()
