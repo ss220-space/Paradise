@@ -18,6 +18,7 @@
 	name = "generic"
 	///How many of this product we currently have
 	var/amount = 0
+	var/key = "generic_0"
 	var/list/obj/item/containtment = list()
 	var/price = 0  // Price to buy one
 	var/product_icon = "123.dmi"
@@ -87,8 +88,6 @@
 	/// Item currently being bought
 	var/datum/data/customat_product/currently_vending = null
 
-	// List of vending_product items available.
-	var/list/product_records = list()
 	var/list/imagelist = list()
 
 	// Stuff relating vocalizations
@@ -119,6 +118,7 @@
 
 	//The type of refill canisters used by this machine.
 	var/obj/item/vending_refill/canister = null
+	var/obj/item/vending_refill/refill_canister = /obj/item/vending_refill/custom
 
 	// Things that can go wrong
 	/// Allows people to access a vendor that's normally access restricted.
@@ -150,18 +150,12 @@
 	var/obj/item/circuitboard/vendor/V = new
 	V.set_type(replacetext(initial(name), "\improper", ""))
 	component_parts += V
-	component_parts += new canister
+	canister = new /obj/item/vending_refill/custom
+	component_parts += canister
 	RefreshParts()
 
-	for(var/datum/data/vending_product/R in (product_records))
-		var/obj/item/I = R.product_path
-		var/pp = path2assetID(R.product_path)
-		imagelist[pp] = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1, FALSE))]"
-	if(LAZYLEN(ads_list))
-		// So not all machines speak at the exact same time.
-		// The first time this machine says something will be at slogantime + this random value,
-		// so if slogantime is 10 minutes, it will say it at somewhere between 10 and 20 minutes after the machine is created.
-		last_slogan = world.time + rand(0, slogan_delay)
+	for(var/datum/data/customat_product/product in products)
+		imagelist[product.key] = "[icon2base64(icon(initial(product.product_icon), initial(product.product_icon_state), SOUTH, 1, FALSE))]"
 
 	update_icon(UPDATE_OVERLAYS)
 
@@ -176,13 +170,6 @@
 /obj/machinery/customat/Destroy()
 	eject_all()
 	return ..()
-
-/obj/machinery/customat/RefreshParts()         //Better would be to make constructable child
-	if(!component_parts)
-		return
-
-	product_records = list()
-
 
 /obj/machinery/customat/update_icon(updates = ALL)
 	if(skip_non_primary_icon_updates && !(stat & (NOPOWER|BROKEN)))
@@ -303,30 +290,6 @@
 	update_icon(UPDATE_OVERLAYS)
 	flickering = FALSE
 
-/**
-  * Set up a refill canister that matches this machines products
-  *
-  * This is used when the machine is deconstructed, so the items aren't "lost"
-  */
-/obj/machinery/customat/proc/update_canister()
-	if(!component_parts)
-		return
-
-	var/obj/item/vending_refill/R = locate() in component_parts
-	if(!R)
-		CRASH("Constructible vending machine did not have a refill canister")
-
-	R.products = unbuild_inventory(product_records)
-
-/**
-  * Given a record list, go through and and return a list of type -> amount
-  */
-/obj/machinery/customat/proc/unbuild_inventory(list/recordlist)
-	. = list()
-	for(var/R in recordlist)
-		var/datum/data/vending_product/record = R
-		.[record.product_path] += record.amount
-
 /obj/machinery/customat/deconstruct(disassembled = TRUE)
 	if(!canister) //the non constructable vendors drop metal instead of a machine frame.
 		new /obj/item/stack/sheet/metal(loc, 3)
@@ -345,7 +308,7 @@
 		balloon_alert(user, "Карта не подходит.")
 
 /obj/machinery/customat/proc/get_key(obj/item/I, cost)
-	return I.name + "_" + cost
+	return I.name + "_[cost]"
 
 /obj/machinery/customat/proc/insert(mob/user, obj/item/I, cost)
 	if (inserted_items_count == max_items_inside)
@@ -360,6 +323,7 @@
 		product.price = cost
 		product.product_icon = I.icon
 		product.product_icon_state = I.icon_state
+		product.key = key
 		products[key] = product
 
 	var/datum/data/customat_product/product = products[key]
@@ -373,7 +337,7 @@
 		if (I.name in remembered_costs)
 			cost = remembered_costs[I.name]
 	else
-		var/new_cost = input("Пожалуйста, выберите цену для этого товара. Цена не может быть ниже 0 и выше 1000000 кредитов.", "Выбор цены", 0) as null|text
+		var/new_cost = input("Пожалуйста, выберите цену для этого товара. Цена не может быть ниже 0 и выше 1000000 кредитов.", "Выбор цены", 0) as null|num
 		if(new_cost)
 			cost = clamp(new_cost, 0, 1000000)
 	if (get_dist(get_turf(user), get_turf(src)) > 1)
@@ -440,11 +404,6 @@
 		W.play_rped_sound()
 	return TRUE
 
-/obj/machinery/customat/on_deconstruction()
-	update_canister()
-	. = ..()
-
-
 /obj/machinery/customat/emag_act(mob/user)
 	emagged = TRUE
 	if(user)
@@ -477,6 +436,7 @@
 	var/datum/money_account/account = null
 	data["guestNotice"] = "Идентификационной карты не обнаружено.";
 	data["userMoney"] = 0
+	data["products"] = products
 	data["user"] = null
 	if(issilicon(user) && !istype(user, /mob/living/silicon/robot/drone) && !istype(user, /mob/living/silicon/pai))
 		account = get_card_account(user)
@@ -501,8 +461,8 @@
 			else
 				data["guestNotice"] = "Unlinked ID detected. Present cash to pay.";
 	data["stock"] = list()
-	for (var/datum/data/vending_product/R in product_records)
-		data["stock"][R.name] = R.amount
+	for (var/datum/data/vending_product/product in products)
+		data["stock"][product.name] = product.amount
 	data["vend_ready"] = vend_ready
 	data["panel_open"] = panel_open ? TRUE : FALSE
 	data["speaker"] = shut_up ? FALSE : TRUE
@@ -511,17 +471,17 @@
 
 /obj/machinery/customat/ui_static_data(mob/user)
 	var/list/data = list()
-	data["product_records"] = list()
+	data["products"] = list()
 	var/i = 1
-	for (var/datum/data/vending_product/R in product_records)
+	for (var/datum/data/customat_product/product in products)
 		var/list/data_pr = list(
-			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
-			name = R.name,
-			max_amount = R.max_amount,
+			key = product.key,
+			name = product.name,
+			amount = product.amount,
 			is_hidden = FALSE,
 			inum = i
 		)
-		data["product_records"] += list(data_pr)
+		data["products"] += list(data_pr)
 		i++
 	data["imagelist"] = imagelist
 	return data
@@ -546,33 +506,33 @@
 				to_chat(usr, span_warning("The vending machine cannot dispense products while its service panel is open!"))
 				return
 			var/key = text2num(params["inum"])
-			var/list/display_records = product_records
+			var/list/display_records = products
 			if(key < 1 || key > length(display_records))
 				to_chat(usr, span_warning("ERROR: invalid inum passed to vendor. Report this bug."))
 				return
-			var/datum/data/vending_product/R = display_records[key]
-			if(!istype(R))
+			var/datum/data/customat_product/product = display_records[key]
+			if(!istype(product))
 				to_chat(usr, span_warning("ERROR: unknown vending_product record. Report this bug."))
 				return
-			var/list/record_to_check = product_records
-			if(!R || !istype(R) || !R.product_path)
+			var/list/record_to_check = products
+			if(!product || !istype(product) || !product.key)
 				to_chat(usr, span_warning("ERROR: unknown product record. Report this bug."))
 				return
-			else if (!(R in record_to_check))
+			else if (!(product in record_to_check))
 				// Exploit prevention, stop the user
 				message_admins("Vending machine exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
 				return
-			if (R.amount <= 0)
-				to_chat(usr, "Sold out of [R.name].")
+			if (product.amount <= 0)
+				to_chat(usr, "Sold out of [product.name].")
 				flick_vendor_overlay(FLICK_VEND)
 				return
 
 			vend_ready = FALSE // From this point onwards, vendor is locked to performing this transaction only, until it is resolved.
 
-			if(!(ishuman(usr) || issilicon(usr)) || R.price <= 0)
+			if(!(ishuman(usr) || issilicon(usr)) || product.price <= 0)
 				// Either the purchaser is not human nor silicon, or the item is free.
 				// Skip all payment logic.
-				vend(R, usr)
+				vend(product, usr)
 				add_fingerprint(usr)
 				vend_ready = TRUE
 				. = TRUE
@@ -585,7 +545,7 @@
 				vend_ready = TRUE
 				return
 
-			currently_vending = R
+			currently_vending = product
 			var/paid = FALSE
 
 			if(istype(usr.get_active_hand(), /obj/item/stack/spacecash))
@@ -617,21 +577,21 @@
 
 
 
-/obj/machinery/customat/proc/vend(datum/data/vending_product/R, mob/user)
+/obj/machinery/customat/proc/vend(datum/data/vending_product/product, mob/user)
 	if(!allowed(user) && !user.can_admin_interact() && !emagged && scan_id)
 		balloon_alert(user, "Access denied.")
 		flick_vendor_overlay(FLICK_DENY)
 		vend_ready = TRUE
 		return
 
-	if(!R.amount)
+	if(!product.amount)
 		to_chat(user, span_warning("В автомате не осталось содержимого."))
 		vend_ready = TRUE
 		return
 
 	vend_ready = FALSE //One thing at a time!!
 
-	R.amount--
+	product.amount--
 
 	if(((last_reply + (vend_delay + reply_delay)) <= world.time) && vend_reply)
 		speak(pick(src.vend_reply))
@@ -640,11 +600,11 @@
 	use_power(vend_power_usage)	//actuators and stuff
 	flick_vendor_overlay(FLICK_VEND)	//Show the vending animation if needed
 	playsound(get_turf(src), 'sound/machines/machine_vend.ogg', 50, TRUE)
-	addtimer(CALLBACK(src, PROC_REF(delayed_vend), R, user), vend_delay)
+	addtimer(CALLBACK(src, PROC_REF(delayed_vend), product, user), vend_delay)
 
 
-/obj/machinery/customat/proc/delayed_vend(datum/data/vending_product/R, mob/user)
-	do_vend(R, user)
+/obj/machinery/customat/proc/delayed_vend(datum/data/vending_product/product, mob/user)
+	do_vend(product, user)
 	vend_ready = TRUE
 	currently_vending = null
 
@@ -653,9 +613,9 @@
  * Override this proc to add handling for what to do with the vended product
  * when you have a inserted item and remember to include a parent call for this generic handling
  */
-/obj/machinery/customat/proc/do_vend(datum/data/vending_product/R, mob/user)
+/obj/machinery/customat/proc/do_vend(datum/data/vending_product/product, mob/user)
 	var/put_on_turf = TRUE
-	var/obj/item/vended = new R.product_path(drop_location())
+	var/obj/item/vended = new product.product_path(drop_location())
 	if(istype(vended) && user && iscarbon(user) && user.Adjacent(src))
 		if(user.put_in_hands(vended, ignore_anim = FALSE))
 			put_on_turf = FALSE
@@ -693,29 +653,6 @@
 
 	stat |= BROKEN
 	update_icon(UPDATE_OVERLAYS)
-
-	var/dump_amount = 0
-	var/found_anything = TRUE
-	while (found_anything)
-		found_anything = FALSE
-		for(var/record in shuffle(product_records))
-			var/datum/data/vending_product/R = record
-			if(R.amount <= 0) //Try to use a record that actually has something to dump.
-				continue
-			var/dump_path = R.product_path
-			if(!dump_path)
-				continue
-			R.amount--
-			// busting open a vendor will destroy some of the contents
-			if(found_anything && prob(80))
-				continue
-
-			var/obj/O = new dump_path(loc)
-			step(O, pick(GLOB.alldirs))
-			found_anything = TRUE
-			dump_amount++
-			if(dump_amount >= 16)
-				return
 
 #undef FLICK_NONE
 #undef FLICK_VEND

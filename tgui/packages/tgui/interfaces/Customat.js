@@ -11,16 +11,12 @@ const VendingRow = (props, context) => {
     user,
     userMoney,
     vend_ready,
-    coin_name,
     inserted_item_name,
   } = data;
   const free = !chargesMoney || product.price === 0;
   let buttonText = 'ERROR!';
   let rowIcon = '';
-  if (product.req_coin) {
-    buttonText = 'COIN';
-    rowIcon = 'circle';
-  } else if (free) {
+  if (free) {
     buttonText = 'FREE';
     rowIcon = 'arrow-circle-down';
   } else {
@@ -29,7 +25,6 @@ const VendingRow = (props, context) => {
   }
   let buttonDisabled =
     !vend_ready ||
-    (!coin_name && product.req_coin) ||
     productStock === 0 ||
     (!free && product.price > userMoney);
   return (
@@ -50,7 +45,6 @@ const VendingRow = (props, context) => {
         <Box
           color={
             (productStock <= 0 && 'bad') ||
-            (productStock <= product.max_amount / 2 && 'average') ||
             'good'
           }
         >
@@ -75,19 +69,16 @@ const VendingRow = (props, context) => {
   );
 };
 
-export const Vending = (props, context) => {
+export const Customat = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     user,
     guestNotice,
     userMoney,
     chargesMoney,
-    product_records = [],
-    coin_records = [],
-    hidden_records = [],
+    products = [],
     stock,
     vend_ready,
-    coin_name,
     inserted_item_name,
     panel_open,
     speaker,
@@ -95,17 +86,14 @@ export const Vending = (props, context) => {
   } = data;
   let inventory;
 
-  inventory = [...product_records, ...coin_records];
-  if (data.extended_inventory) {
-    inventory = [...inventory, ...hidden_records];
-  }
+  inventory = [...products];
   // Just in case we still have undefined values in the list
   inventory = inventory.filter((item) => !!item);
   return (
     <Window
       width={470}
-      height={100 + Math.min(product_records.length * 38, 500)}
-      title="Vending Machine"
+      height={100 + Math.min(products.length * 38, 500)}
+      title="Customat"
     >
       <Window.Content>
         <Stack fill vertical>
@@ -121,21 +109,6 @@ export const Vending = (props, context) => {
                     Your balance is <b>{userMoney} credits</b>.
                   </Box>
                 )) || <Box color="light-grey">{guestNotice}</Box>}
-              </Section>
-            )}
-            {!!coin_name && (
-              <Section
-                title="Coin"
-                buttons={
-                  <Button
-                    fluid
-                    icon="eject"
-                    content="Remove Coin"
-                    onClick={() => act('remove_coin', {})}
-                  />
-                }
-              >
-                <Box>{coin_name}</Box>
               </Section>
             )}
             {!!inserted_item_name && (
@@ -173,7 +146,7 @@ export const Vending = (props, context) => {
                     key={product.name}
                     product={product}
                     productStock={stock[product.name]}
-                    productImage={imagelist[product.path]}
+                    productImage={imagelist[product.key]}
                   />
                 ))}
               </Table>
