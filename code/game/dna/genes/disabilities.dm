@@ -297,6 +297,7 @@
 	activation_message = "Вы чуствуете слабость в своих мышцах."
 	deactivation_message = "Похоже, ваши мышцы снова в норме."
 	instability = -GENE_INSTABILITY_MODERATE
+	mutation = WEAK
 
 
 /datum/dna/gene/disability/weak/New()
@@ -365,3 +366,17 @@
 			mutant.physiology.punch_damage_low += 2
 			mutant.physiology.punch_damage_high += 3
 
+/datum/dna/gene/disability/legsparalysis
+	name = "Paraplegia"
+	desc = "Парализует мышцы ног."
+	activation_message = "Вы не чуствуете своих ног."
+	deactivation_message = "Вы возвращаете контроль над ногами."
+	instability = -GENE_INSTABILITY_MAJOR
+	mutation = NOLEGS
+
+/datum/dna/gene/disability/legsparalysis/New()
+	..()
+	block = GLOB.legsparalysisblock
+
+/datum/dna/gene/disability/legsparalysis/OnMobLife(mob/living/carbon/human/H)
+	H.Knockdown(2 SECONDS)

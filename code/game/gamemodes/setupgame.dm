@@ -47,7 +47,6 @@
 	GLOB.fakeblock2				= getAssignedBlock("", numsToAssign)
 	GLOB.fakeblock3				= getAssignedBlock("", numsToAssign)
 	GLOB.fakeblock4				= getAssignedBlock("", numsToAssign)
-	GLOB.fakeblock5				= getAssignedBlock("", numsToAssign)
 
 	// Bay muts
 	GLOB.breathlessblock		= getAssignedBlock("BREATHLESS", numsToAssign,		DNA_HARD_BOUNDS,		good = TRUE)
@@ -76,6 +75,7 @@
 	GLOB.weakblock				= getAssignedBlock("WEAK", numsToAssign)
 	GLOB.hornsblock				= getAssignedBlock("HORNS", numsToAssign)
 	GLOB.comicblock				= getAssignedBlock("COMIC", numsToAssign)
+	GLOB.legsparalysisblock		= getAssignedBlock("NOLEGS", numsToAssign)
 
 	// Powers
 	GLOB.soberblock				= getAssignedBlock("SOBER", numsToAssign,									good = TRUE)
