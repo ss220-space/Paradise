@@ -155,7 +155,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/item/gun/projectile/revolver/capgun
 	cost = 75
 
-	/datum/prize_item/codex_gigas
+/datum/prize_item/codex_gigas
 	name = "Toy Codex Gigas"
 	desc = "Книга, которая должна давать имена демонов, но почему-то выдает имена знаменитых космо-клоунов."
 	typepath = /obj/item/toy/codex_gigas/
