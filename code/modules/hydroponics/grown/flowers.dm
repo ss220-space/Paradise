@@ -462,7 +462,7 @@
 
 //Yellow tulp
 /obj/item/seeds/tulp/yellow
-	name = "pack of red yellow tulp seeds"
+	name = "pack of yellow tulp seeds"
 	desc = "These seeds grow into yellow tulp"
 	icon_state = "seed-yellowtulp"
 	species = "yellowtulp"
