@@ -262,13 +262,13 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/item/gun/energy/kinetic_accelerator/crossbow/toy
 	cost = 300
 
-	/datum/prize_item/crossbow
+	/datum/prize_item/enforce
 	name = "Foam Force Enforce"
 	desc = "Точная копия стандартного вооружения службы безопасности НТ."
 	typepath = /obj/item/gun/projectile/shotgun/toy
 	cost = 350
 
-/datum/prize_item/crossbow
+/datum/prize_item/shotgun
 	name = "Foam Force Shotgun"
 	desc = "Донк софт дробовик с быстрой перезарядкой стрельбы."
 	typepath = /obj/item/gun/projectile/shotgun/toy
@@ -280,7 +280,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/vehicle/motorcycle
 	cost = 2500
 
-/datum/prize_item/bike
+/datum/prize_item/speedbike
 	name = "Speed Bike!"
 	desc = "Спорим что ты не сможешь его купить? XD."
 	typepath =/obj/vehicle/space/speedbike/red
