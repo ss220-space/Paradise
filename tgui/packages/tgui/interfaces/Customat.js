@@ -3,17 +3,15 @@ import { useBackend } from '../backend';
 import { Box, Button, Section, Stack, Table } from '../components';
 import { Window } from '../layouts';
 
-const VendingRow = (props, context) => {
+const CustomatRow = (props, context) => {
   const { act, data } = useBackend(context);
   const { product, productStock, productImage } = props;
   const {
-    chargesMoney,
     user,
     userMoney,
     vend_ready,
-    inserted_item_name,
   } = data;
-  const free = !chargesMoney || product.price === 0;
+  const free = product.price === 0;
   let buttonText = 'ERROR!';
   let rowIcon = '';
   if (free) {
@@ -60,7 +58,7 @@ const VendingRow = (props, context) => {
           textAlign="left"
           onClick={() =>
             act('vend', {
-              'inum': product.inum,
+              'key': product.key,
             })
           }
         />
@@ -69,18 +67,17 @@ const VendingRow = (props, context) => {
   );
 };
 
+
 export const Customat = (props, context) => {
   const { act, data } = useBackend(context);
   const {
-    user,
     guestNotice,
     userMoney,
-    chargesMoney,
     products = [],
+    user,
     stock,
     icons,
     vend_ready,
-    inserted_item_name,
     panel_open,
     speaker,
   } = data;
@@ -98,34 +95,6 @@ export const Customat = (props, context) => {
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item>
-            {!!chargesMoney && (
-              <Section title="User">
-                {(user && (
-                  <Box>
-                    Welcome, <b>{user.name}</b>,{' '}
-                    <b>{user.job || 'Unemployed'}</b>
-                    !
-                    <br />
-                    Your balance is <b>{userMoney} credits</b>.
-                  </Box>
-                )) || <Box color="light-grey">{guestNotice}</Box>}
-              </Section>
-            )}
-            {!!inserted_item_name && (
-              <Section
-                title="Item"
-                buttons={
-                  <Button
-                    fluid
-                    icon="eject"
-                    content="Eject Item"
-                    onClick={() => act('eject_item', {})}
-                  />
-                }
-              >
-                <Box>{inserted_item_name}</Box>
-              </Section>
-            )}
             {!!panel_open && (
               <Section title="Maintenance">
                 <Button
@@ -142,7 +111,7 @@ export const Customat = (props, context) => {
             <Section title="Products" fill scrollable>
               <Table>
                 {inventory.map((product) => (
-                  <VendingRow
+                  <CustomatRow
                     key={product.key}
                     product={product}
                     productStock={stock[product.key]}

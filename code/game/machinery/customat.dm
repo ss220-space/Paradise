@@ -471,18 +471,6 @@
 
 /obj/machinery/customat/ui_static_data(mob/user)
 	var/list/data = list()
-	data["products"] = list()
-	var/i = 1
-	for (var/datum/data/customat_product/product in products)
-		var/list/data_pr = list(
-			key = product.key,
-			name = product.name,
-			amount = product.amount,
-			is_hidden = FALSE,
-			inum = i
-		)
-		data["products"] += list(data_pr)
-		i++
 	return data
 
 /obj/machinery/customat/ui_act(action, params)
@@ -504,12 +492,8 @@
 			if(panel_open)
 				to_chat(usr, span_warning("The vending machine cannot dispense products while its service panel is open!"))
 				return
-			var/key = text2num(params["inum"])
-			var/list/display_records = products
-			if(key < 1 || key > length(display_records))
-				to_chat(usr, span_warning("ERROR: invalid inum passed to vendor. Report this bug."))
-				return
-			var/datum/data/customat_product/product = display_records[key]
+			var/key = text2num(params["key"])
+			var/datum/data/customat_product/product = products[key]
 			if(!istype(product))
 				to_chat(usr, span_warning("ERROR: unknown vending_product record. Report this bug."))
 				return
