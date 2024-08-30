@@ -186,7 +186,7 @@ SUBSYSTEM_DEF(title)
 	viewer << browse_rsc(viewer.prefs.preview_icon_front, "previewicon.png")
 
 	// here we hope that our browser already updated. :pepepray:
-	addtimer(CALLBACK(SStitle, TYPE_PROC_REF(/datum/controller/subsystem/title, update_preview), viewer), 1 SECONDS)
+	addtimer(CALLBACK(SStitle, TYPE_PROC_REF(/datum/controller/subsystem/title, update_preview), viewer), 0.5 SECONDS)
 
 /datum/title_screen/proc/show_to(client/viewer)
 	if(!viewer)
