@@ -34,7 +34,7 @@
 
 
 /obj/machinery/customat
-	name = "\improper Castomomat"
+	name = "\improper Customat"
 	desc = "Торговый автомат с кастомным содержимым."
 	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "generic_off"
@@ -88,7 +88,6 @@
 	/// Item currently being bought
 	var/datum/data/customat_product/currently_vending = null
 
-	var/list/imagelist = list()
 
 	// Stuff relating vocalizations
 	/// List of slogans the vendor will say, optional
@@ -153,9 +152,6 @@
 	canister = new /obj/item/vending_refill/custom
 	component_parts += canister
 	RefreshParts()
-
-	for(var/datum/data/customat_product/product in products)
-		imagelist[product.key] = "[icon2base64(icon(initial(product.product_icon), initial(product.product_icon_state), SOUTH, 1, FALSE))]"
 
 	update_icon(UPDATE_OVERLAYS)
 
@@ -461,8 +457,12 @@
 			else
 				data["guestNotice"] = "Unlinked ID detected. Present cash to pay.";
 	data["stock"] = list()
-	for (var/datum/data/vending_product/product in products)
-		data["stock"][product.name] = product.amount
+	for (var/datum/data/customat_product/product in products)
+		data["stock"][product.key] = product.amount
+	data["icons"] = list()
+	for (var/datum/data/customat_product/product in products)
+		var/obj/item/I = product.containtment[1]
+		data["icons"][product.key] = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1, FALSE))]"
 	data["vend_ready"] = vend_ready
 	data["panel_open"] = panel_open ? TRUE : FALSE
 	data["speaker"] = shut_up ? FALSE : TRUE
@@ -483,7 +483,6 @@
 		)
 		data["products"] += list(data_pr)
 		i++
-	data["imagelist"] = imagelist
 	return data
 
 /obj/machinery/customat/ui_act(action, params)
@@ -577,7 +576,7 @@
 
 
 
-/obj/machinery/customat/proc/vend(datum/data/vending_product/product, mob/user)
+/obj/machinery/customat/proc/vend(datum/data/customat_product/product, mob/user)
 	if(!allowed(user) && !user.can_admin_interact() && !emagged && scan_id)
 		balloon_alert(user, "Access denied.")
 		flick_vendor_overlay(FLICK_DENY)
@@ -603,7 +602,7 @@
 	addtimer(CALLBACK(src, PROC_REF(delayed_vend), product, user), vend_delay)
 
 
-/obj/machinery/customat/proc/delayed_vend(datum/data/vending_product/product, mob/user)
+/obj/machinery/customat/proc/delayed_vend(datum/data/customat_product/product, mob/user)
 	do_vend(product, user)
 	vend_ready = TRUE
 	currently_vending = null
@@ -613,15 +612,16 @@
  * Override this proc to add handling for what to do with the vended product
  * when you have a inserted item and remember to include a parent call for this generic handling
  */
-/obj/machinery/customat/proc/do_vend(datum/data/vending_product/product, mob/user)
+/obj/machinery/customat/proc/do_vend(datum/data/customat_product/product, mob/user)
 	var/put_on_turf = TRUE
-	var/obj/item/vended = new product.product_path(drop_location())
+	var/obj/item/vended = product.containtment[1]
 	if(istype(vended) && user && iscarbon(user) && user.Adjacent(src))
 		if(user.put_in_hands(vended, ignore_anim = FALSE))
 			put_on_turf = FALSE
 	if(put_on_turf)
 		var/turf/T = get_turf(src)
 		vended.forceMove(T)
+	product.containtment.Remove(product.containtment[1])
 	return TRUE
 
 /obj/machinery/customat/process()

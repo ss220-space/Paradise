@@ -78,11 +78,11 @@ export const Customat = (props, context) => {
     chargesMoney,
     products = [],
     stock,
+    icons,
     vend_ready,
     inserted_item_name,
     panel_open,
     speaker,
-    imagelist,
   } = data;
   let inventory;
 
@@ -143,10 +143,10 @@ export const Customat = (props, context) => {
               <Table>
                 {inventory.map((product) => (
                   <VendingRow
-                    key={product.name}
+                    key={product.key}
                     product={product}
-                    productStock={stock[product.name]}
-                    productImage={imagelist[product.key]}
+                    productStock={stock[product.key]}
+                    productImage={icons[product.key]}
                   />
                 ))}
               </Table>
