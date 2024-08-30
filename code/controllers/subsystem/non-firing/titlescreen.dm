@@ -179,14 +179,15 @@ SUBSYSTEM_DEF(title)
 	screen_image = SSassets.transport.register_asset("[screen_image_file]", screen_image_file)
 
 /datum/title_screen/proc/update_character(client/viewer)
-	set waitfor = FALSE
 	UNTIL(viewer.prefs)
 
 	viewer.prefs.update_preview_icon()
 	viewer << browse_rsc(viewer.prefs.preview_icon_front, "previewicon.png")
 
+	sleep(1 SECONDS)
+
 	// here we hope that our browser already updated. :pepepray:
-	addtimer(CALLBACK(SStitle, TYPE_PROC_REF(/datum/controller/subsystem/title, update_preview), viewer), 1 SECONDS)
+	SStitle.update_preview(viewer)
 
 /datum/title_screen/proc/show_to(client/viewer)
 	if(!viewer)
@@ -204,7 +205,7 @@ SUBSYSTEM_DEF(title)
 
 	viewer << browse(get_title_html(viewer, viewer.mob), "window=title_browser")
 
-	update_character(viewer)
+	INVOKE_ASYNC(src, PROC_REF(update_character), viewer)
 
 /datum/title_screen/proc/hide_from(client/viewer)
 	if(viewer?.mob)
