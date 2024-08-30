@@ -27,68 +27,6 @@
 #define DISABILITY_FLAG_NICOTINE_ADDICT (1<<15)
 #define DISABILITY_FLAG_NOLEGS 		  (1<<16)
 
-///////////////////////////////////////
-// MUTATIONS
-///////////////////////////////////////
-
-// Generic mutations:
-#define	FARVISION		"far_vision"
-#define	TK				"telekenesis"
-#define COLDRES			"cold_resistance"
-#define XRAY			"xray"
-#define HULK			"hulk"
-#define CLUMSY			"clumsy"
-#define FAT				"fat"
-#define HUSK			"husk"
-#define NOCLONE			"noclone"
-#define LASEREYES		"eyelaser" 			// harm intent - click anywhere to shoot lasers from eyes
-#define WINGDINGS		"wingdings"			// Ayy lmao
-#define SKELETON 		"skeleton"
-#define BREATHLESS		"breathless"		// no breathing
-#define REMOTE_VIEW		"remove_view" 		// remote viewing
-#define REGEN			"regeneration"		// health regen
-#define RUN				"increased_run" 	// no slowdown
-#define REMOTE_TALK		"remote_talk" 		// remote talking
-#define MORPH			"morph" 			// changing appearance
-#define HEATRES			"heat_resistance" 	// heat resistance
-#define HALLUCINATE		"hallucinate" 		// hallucinations
-#define FINGERPRINTS	"no_prints" 		// no fingerprints
-#define NO_SHOCK		"no_shock" 			// insulated hands
-#define DWARF			"dwarf"				// table climbing
-#define OBESITY       	"obesity"			// Decreased metabolism
-#define STRONG        	"strong"			// No slowdown from pull
-#define SOBER         	"sober"				// Increased alcohol metabolism
-#define PSY_RESIST    	"psy_resist"		// Block remoteview
-#define EMPATH			"empathy"			//Read minds
-#define COMIC			"comic_sans"		//Comic Sans
-#define LOUD			"loudness"			// CAUSES INTENSE YELLING
-#define DIZZY			"dizzy"				// Trippy.
-#define LISP			"lisp"
-#define RADIOACTIVE 	"radioactive"
-#define AULD_IMPERIAL	"auld_imperial"
-#define SWEDISH			"swedish"
-#define SCRAMBLED		"scrambled"
-#define HORNS			"horns"
-#define IMMOLATE		"immolate"
-#define CLOAK			"cloak"
-#define CHAMELEON		"chameleon"
-#define CRYO			"cryokinesis"
-#define EATER			"matter_eater"
-#define JUMPY			"jumpy"
-#define POLYMORPH		"polymorph"
-#define SILENT_FOOTSTEPS "silent_footsteps" //makes your footsteps completely silent
-//disabilities
-#define NEARSIGHTED		"nearsighted"
-#define EPILEPSY		"epilepsy"
-#define COUGHING		"coughing"
-#define TOURETTES		"tourettes"
-#define NERVOUS			"nervous"
-#define BLINDNESS		"blind"
-#define COLOURBLIND		"colorblind"
-#define MUTE			"mute"
-#define DEAF			"deaf"
-#define WEAK			"weak"
-#define NOLEGS			"nolegs"
 
 //Nutrition levels for humans. No idea where else to put it
 #define NUTRITION_LEVEL_FAT 600
