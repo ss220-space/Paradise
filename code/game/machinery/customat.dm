@@ -21,16 +21,14 @@
 	var/key = "generic_0"
 	var/list/obj/item/containtment = list()
 	var/price = 0  // Price to buy one
-	var/product_icon = "123.dmi"
-	var/product_icon_state = ""
+	var/icon = ""
 
 /datum/data/customat_product/New(obj/item/I)
 	name = I.name
 	amount = 0
 	containtment = list()
 	price = 0
-	product_icon = I.icon
-	product_icon_state = I.icon_state
+	icon = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1, FALSE))]"
 
 
 /obj/machinery/customat
@@ -317,8 +315,6 @@
 	if (!(key in products))
 		var/datum/data/customat_product/product = new /datum/data/customat_product(I)
 		product.price = cost
-		product.product_icon = I.icon
-		product.product_icon_state = I.icon_state
 		product.key = key
 		products[key] = product
 
@@ -462,7 +458,7 @@
 	data["icons"] = list()
 	for (var/datum/data/customat_product/product in products)
 		var/obj/item/I = product.containtment[1]
-		data["icons"][product.key] = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1, FALSE))]"
+		data["icons"][product.key] = product.icon
 	data["vend_ready"] = vend_ready
 	data["panel_open"] = panel_open ? TRUE : FALSE
 	data["speaker"] = shut_up ? FALSE : TRUE
