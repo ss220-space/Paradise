@@ -71,7 +71,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/cards
 	name = "Deck of Cards"
-	desc = "Кто-нибудь хочет сыграть дурака на 52 карты?"
+	desc = "Кто-нибудь хочет сыграть в дурака на 52 карты?"
 	typepath = /obj/item/deck/cards
 	cost = 25
 
