@@ -30,6 +30,11 @@
 	damage = 50
 	stamina = 33
 
+/obj/item/projectile/beam/laser/shot
+	name = "laser shot beam"
+	icon_state = "lasershot"
+	damage = 15
+
 /obj/item/projectile/beam/practice
 	name = "practice laser"
 	damage = 0
