@@ -159,6 +159,8 @@ SUBSYSTEM_DEF(title)
 	var/random_phrase = "О нет, моя фраза!"
 	var/current_icon = "ss1984.gif"
 
+	var/list/color2tguitheme = list("#212020" = "dark", "#EFEEEE" = "light", "#1b2633" = "ntos", "#4d0202" = "syndicate", "#800448" = "paradise")
+
 /datum/title_screen/New(title_html, notice, screen_image_file)
 	src.title_html = title_html
 	src.notice = notice
@@ -183,13 +185,8 @@ SUBSYSTEM_DEF(title)
 	viewer.prefs.update_preview_icon()
 	viewer << browse_rsc(viewer.prefs.preview_icon_front, "previewicon.png")
 
-	spawn(2)
-		SStitle.update_preview(viewer)
-
-/datum/title_screen/proc/update_theme(client/viewer)
-	spawn(2)
-		var/static/list/color2tguitheme = list("#212020" = "dark", "#EFEEEE" = "light", "#1b2633" = "ntos", "#4d0202" = "syndicate", "#800448" = "paradise")
-		viewer << output(color2tguitheme[winget(viewer, "mainwindow", "background-color")], "title_browser:set_theme")
+	// here we hope that our browser already updated. :pepepray:
+	addtimer(CALLBACK(SStitle, TYPE_PROC_REF(/datum/controller/subsystem/title, update_preview), viewer), 1 SECONDS)
 
 /datum/title_screen/proc/show_to(client/viewer)
 	if(!viewer)
@@ -207,8 +204,6 @@ SUBSYSTEM_DEF(title)
 
 	viewer << browse(get_title_html(viewer, viewer.mob), "window=title_browser")
 
-	update_theme(viewer)
-
 	update_character(viewer)
 
 /datum/title_screen/proc/hide_from(client/viewer)
@@ -225,7 +220,8 @@ SUBSYSTEM_DEF(title)
 
 	var/screen_image_url = SSassets.transport.get_asset_url(asset_cache_item = screen_image)
 
-	html += {"<body style="background-image: [screen_image_url ? "url([screen_image_url])" : "" ];">"}
+	//hope that client won`t use custom theme
+	html += {"<body class="[color2tguitheme[winget(viewer, "mainwindow", "background-color")]]" style="background-image: [screen_image_url ? "url([screen_image_url])" : "" ];">"}
 
 	html += {"<input type="checkbox" id="hide_menu">"}
 
@@ -280,6 +276,14 @@ SUBSYSTEM_DEF(title)
 		html += {"<a class="menu_button" href='byond://?src=[player.UID()];connect_discord=1'>Привязка Discord</a>"}
 	if(GLOB.join_tos && !viewer.tos_consent)
 		html += {"<a class="menu_button" href='byond://?src=[player.UID()];tos=1'>Политика конфидициальности</a>"}
+
+	if(check_rights(R_EVENT, FALSE, player))
+		html += {"
+			<hr>
+			<a class="menu_button admin" href='byond://?src=[player.UID()];change_picture=1'>Изменить изображение</a>
+			<a class="menu_button admin" href='byond://?src=[player.UID()];leave_notice=1'>Оставить уведомление</a>
+		"}
+
 	html += {"</div>"}
 	html += {"</div>"}
 
@@ -387,6 +391,16 @@ SUBSYSTEM_DEF(title)
 					document.documentElement.className = 'syndicate';
 				}
 			}
+
+			/* Return focus to Byond after click */
+			function reFocus() {
+				var focus = new XMLHttpRequest();
+				focus.open("GET", "?src=[player.UID()];focus=1");
+				focus.send();
+			}
+
+			document.addEventListener('mouseup', reFocus);
+			document.addEventListener('keyup', reFocus);
 
 		</script>
 		"}

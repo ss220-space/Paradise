@@ -256,6 +256,18 @@
 		if(client)
 			client.prefs.process_link(src, href_list)
 
+	if(href_list["change_picture"])
+		client.admin_change_title_screen()
+		return
+
+	if(href_list["leave_notice"])
+		client.change_title_screen_notice()
+		return
+
+	if(href_list["focus"])
+		winset(client, "mapwindow.map", "focus=true")
+		return
+
 /mob/new_player/proc/IsJobAvailable(rank)
 	var/datum/job/job = SSjobs.GetJob(rank)
 	if(!job)	return 0

@@ -1014,16 +1014,16 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	log_admin("[key_name(usr)] is changing the title screen.")
 	message_admins("[key_name_admin(usr)] is changing the title screen.")
 
-	switch(alert(usr, "Please select a new title screen.", "Title Screen", "Change", "Reset", "Cancel"))
-		if("Change")
+	switch(tgui_alert(usr, "Изменить изображение в лобби?", "Лобби", list("Сменить", "Сбросить", "Отмена")))
+		if("Сменить")
 			var/file = input(usr) as icon|null
 			if(!file)
 				return
 
 			SStitle.set_title_image(file)
-		if("Reset")
+		if("Сбросить")
 			SStitle.set_title_image()
-		if("Cancel")
+		if("Отмена")
 			return
 
 /**
@@ -1039,12 +1039,13 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	log_admin("[key_name(usr)] is setting the title screen notice.")
 	message_admins("[key_name_admin(usr)] is setting the title screen notice.")
 
-	var/new_notice = input(usr, "Please input a notice to be displayed on the title screen:", "Titlescreen Notice") as text|null
-	SStitle.set_notice(new_notice)
-	if(!new_notice)
+	var/new_notice = tgui_input_text(usr, "Введите новое сообщение для лобби:", "Уведомление в лобби")
+	if(isnull(new_notice))
 		return
+
+	SStitle.set_notice(new_notice)
+
 	for(var/mob/new_player/new_player in GLOB.player_list)
-		to_chat(new_player, span_boldannounceooc("TITLE NOTICE UPDATED: [new_notice]"))
 		SEND_SOUND(new_player,  sound('sound/items/bikehorn.ogg'))
 
 /**
@@ -1060,9 +1061,11 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	log_admin("[key_name(usr)] is setting the title screen HTML.")
 	message_admins("[key_name_admin(usr)] is setting the title screen HTML.")
 
-	var/new_html = input(usr, "Please enter your desired HTML(WARNING: YOU WILL BREAK SHIT)", "DANGER: TITLE HTML EDIT") as message|null
+	var/new_html = tgui_input_text(usr, "Введите нужный HTML (ВНИМАНИЕ: ВЫ СКОРЕЕ ВСЕГО ЧТО-ТО СЛОМАЕТЕ!!!)", "РИСКОВАННО: ИЗМЕНЕНИЕ HTML ЛОББИ", max_length = 99999, multiline = TRUE, encode = FALSE)
+	if(isnull(new_html))
+		return
 
-	if(!new_html)
+	if(tgui_alert(usr, "Всё ли верно? Нигде не ошиблись? Возврата нет!", "Одумайся...", list("Рискнём", "Пожалуй нет...")) != "Рискнём")
 		return
 
 	SStitle.set_title_html(new_html)
