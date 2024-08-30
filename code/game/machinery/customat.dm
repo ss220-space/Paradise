@@ -154,7 +154,8 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/customat/proc/eject_all()
-	for (var/datum/data/customat_product/product in products)
+	for (var/key in products)
+		var/datum/data/customat_product/product = products[key]
 		for (var/obj/item/I in product.containtment)
 			I.forceMove(get_turf(src))
 		product.amount = 0
@@ -453,10 +454,12 @@
 			else
 				data["guestNotice"] = "Unlinked ID detected. Present cash to pay.";
 	data["stock"] = list()
-	for (var/datum/data/customat_product/product in products)
+	for (var/key in products)
+		var/datum/data/customat_product/product = products[key]
 		data["stock"][product.key] = product.amount
 	data["icons"] = list()
-	for (var/datum/data/customat_product/product in products)
+	for (var/key in products)
+		var/datum/data/customat_product/product = products[key]
 		data["icons"][product.key] = product.icon
 	data["vend_ready"] = vend_ready
 	data["panel_open"] = panel_open ? TRUE : FALSE
