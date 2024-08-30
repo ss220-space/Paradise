@@ -457,7 +457,6 @@
 		data["stock"][product.key] = product.amount
 	data["icons"] = list()
 	for (var/datum/data/customat_product/product in products)
-		var/obj/item/I = product.containtment[1]
 		data["icons"][product.key] = product.icon
 	data["vend_ready"] = vend_ready
 	data["panel_open"] = panel_open ? TRUE : FALSE
