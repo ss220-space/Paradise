@@ -137,7 +137,7 @@
 
 /obj/item/contract/attack_self(mob/user as mob)
 	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8">"}
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	if(used)
 		dat += used_contract()
 	else
@@ -309,7 +309,7 @@
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/forcewall/greater(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/repulse(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/sacred_flame(null))
-	ADD_TRAIT(owner, RESISTHOT, MAGIC_TRAIT)	//sacred_flame из-за не совсем верной выдачи, без этого, не выдает защиту от огня.
+	ADD_TRAIT(owner, TRAIT_RESIST_HEAT, MAGIC_TRAIT)	//sacred_flame из-за не совсем верной выдачи, без этого, не выдает защиту от огня.
 
 	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/magusdefender(owner), ITEM_SLOT_CLOTH_OUTER)
 	owner.equip_or_collect(new /obj/item/clothing/head/wizard/magusdefender(owner), ITEM_SLOT_HEAD)
@@ -324,7 +324,7 @@
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/smoke(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/sacred_flame(null))
-	ADD_TRAIT(owner, RESISTHOT, MAGIC_TRAIT)
+	ADD_TRAIT(owner, TRAIT_RESIST_HEAT, MAGIC_TRAIT)
 	owner.equip_or_collect(new /obj/item/clothing/suit/victcoat/red/suit/fire_robe, ITEM_SLOT_CLOTH_OUTER)
 
 /obj/item/clothing/suit/victcoat/red/suit/fire_robe

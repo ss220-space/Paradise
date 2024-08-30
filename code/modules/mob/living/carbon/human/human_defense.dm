@@ -463,8 +463,11 @@ emp_act
 	// if the targeted limb doesn't exist, pick its parent or torso
 	if(!affecting)
 		var/list/species_bodyparts = dna.species.has_limbs[attack_zone]
-		var/obj/item/organ/external/affecting_path = species_bodyparts["path"]
-		affecting = get_organ(initial(affecting_path.parent_organ_zone)) || get_organ(BODY_ZONE_CHEST)
+		if(species_bodyparts)
+			var/obj/item/organ/external/affecting_path = species_bodyparts["path"]
+			affecting = get_organ(initial(affecting_path.parent_organ_zone)) || get_organ(BODY_ZONE_CHEST)
+		else	// has no targeted species bodypart (wings/tail)
+			affecting = get_organ(BODY_ZONE_CHEST)
 		if(!affecting)
 			stack_trace("Human somehow has no chest bodypart.")
 			return ATTACK_CHAIN_BLOCKED_ALL
@@ -624,7 +627,7 @@ emp_act
 		skipcatch = TRUE
 		blocked = TRUE
 
-	else if(I && (((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || I.embedded_ignore_throwspeed_threshold) && can_embed(I) && !(EMBEDIMMUNE in dna.species.species_traits) && prob(I.embed_chance))
+	else if(I && (((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || I.embedded_ignore_throwspeed_threshold) && can_embed(I) && !HAS_TRAIT(src, TRAIT_EMBEDIMMUNE) && prob(I.embed_chance))
 		embed_item_inside(I)
 		hitpush = FALSE
 		skipcatch = TRUE //can't catch the now embedded item

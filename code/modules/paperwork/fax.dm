@@ -32,8 +32,8 @@ GLOBAL_LIST_EMPTY(adminfaxes)
 	return
 
 /datum/admins/proc/fax_panel(var/mob/living/user)
-	var/html = "<A align='right' href='?src=[UID()];refreshfaxpanel=1'>Refresh</A>"
-	html += "<A align='right' href='?src=[UID()];AdminFaxCreate=1;faxtype=Administrator'>Create Fax</A>"
+	var/html = "<A align='right' href='byond://?src=[UID()];refreshfaxpanel=1'>Refresh</A>"
+	html += "<A align='right' href='byond://?src=[UID()];AdminFaxCreate=1;faxtype=Administrator'>Create Fax</A>"
 
 	html += "<div class='block'>"
 	html += "<h2>Admin Faxes</h2>"
@@ -50,19 +50,19 @@ GLOBAL_LIST_EMPTY(adminfaxes)
 			html += "<td>[ADMIN_PP(S,"[S.name]")]</td>"
 		else
 			html += "<td>Unknown</td>"
-		html += "<td><A align='right' href='?src=[UID()];AdminFaxView=\ref[A.message]'>View</A></td>"
+		html += "<td><A align='right' href='byond://?src=[UID()];AdminFaxView=\ref[A.message]'>View</A></td>"
 		if(!A.reply_to)
 			if(A.from_department == "Administrator")
 				html += "<td>N/A</td>"
 			else
-				html += "<td><A align='right' href='?src=[UID()];AdminFaxCreate=\ref[A.sent_by];originfax=\ref[A.origin];faxtype=[A.to_department];replyto=\ref[A.message]'>Reply</A>"
+				html += "<td><A align='right' href='byond://?src=[UID()];AdminFaxCreate=\ref[A.sent_by];originfax=\ref[A.origin];faxtype=[A.to_department];replyto=\ref[A.message]'>Reply</A>"
 				if(A.sent_by)
-					html += "<BR><A align='right' href='?src=[UID()];AdminFaxNotify=\ref[A.sent_by]'>Notify</A>"
+					html += "<BR><A align='right' href='byond://?src=[UID()];AdminFaxNotify=\ref[A.sent_by]'>Notify</A>"
 				html += "</td>"
 			html += "<td>N/A</td>"
 		else
 			html += "<td>N/A</td>"
-			html += "<td><A align='right' href='?src=[UID()];AdminFaxView=\ref[A.reply_to]'>Original</A></td>"
+			html += "<td><A align='right' href='byond://?src=[UID()];AdminFaxView=\ref[A.reply_to]'>Original</A></td>"
 		html += "</tr>"
 	html += "</table>"
 	html += "</div>"
@@ -82,7 +82,7 @@ GLOBAL_LIST_EMPTY(adminfaxes)
 			html += "<td>[ADMIN_PP(S,"[S.name]")]</td>"
 		else
 			html += "<td>Unknown</td>"
-		html += "<td><A align='right' href='?src=[UID()];AdminFaxView=\ref[F.message]'>View</A></td>"
+		html += "<td><A align='right' href='byond://?src=[UID()];AdminFaxView=\ref[F.message]'>View</A></td>"
 		html += "</tr>"
 	html += "</table>"
 	html += "</div>"

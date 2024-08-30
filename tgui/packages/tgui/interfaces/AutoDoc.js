@@ -32,7 +32,8 @@ export const AutoDoc = (props, context) => {
               src={`data:image/jpeg;base64,${TguiIcons['human']}`}
               style={{
                 position: 'absolute',
-                '-ms-interpolation-mode': 'nearest-neighbor',
+                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                'image-rendering': 'pixelated',
               }}
             />
             <img
@@ -41,7 +42,8 @@ export const AutoDoc = (props, context) => {
               src={`data:image/jpeg;base64,${TguiIcons[ChoosenPart]}`}
               style={{
                 position: 'absolute',
-                '-ms-interpolation-mode': 'nearest-neighbor',
+                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                'image-rendering': 'pixelated',
               }}
             />
           </FlexItem>

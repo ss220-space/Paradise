@@ -220,25 +220,25 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 
 	for(var/datum/team/check_team as anything in GLOB.antagonist_teams)
 		content += "<h3>[check_team.name] - [check_team.type]</h3>"
-		content += "<a href='?_src_=holder;team_command=rename_team;team=[check_team.UID()]'>Rename Team</a>"
-		content += "<a href='?_src_=holder;team_command=delete_team;team=[check_team.UID()]'>Delete Team</a>"
-		content += "<a href='?_src_=holder;team_command=communicate;team=[check_team.UID()]'>Message Team</a>"
+		content += "<a href='byond://?_src_=holder;team_command=rename_team;team=[check_team.UID()]'>Rename Team</a>"
+		content += "<a href='byond://?_src_=holder;team_command=delete_team;team=[check_team.UID()]'>Delete Team</a>"
+		content += "<a href='byond://?_src_=holder;team_command=communicate;team=[check_team.UID()]'>Message Team</a>"
 
 		for(var/command in check_team.get_admin_commands())
 			// _src_ is T.UID() so it points to `/datum/team/Topic` instead of `/datum/admins/Topic`.
-			content += "<a href='?_src_=[check_team.UID()];command=[command]'>[command]</a>"
+			content += "<a href='byond://?_src_=[check_team.UID()];command=[command]'>[command]</a>"
 		content += "<br><br>Objectives:<br><ol>"
 
 		for(var/datum/objective/objective as anything in check_team.objectives)
-			content += "<li>[objective.explanation_text] - <a href='?_src_=holder;team_command=remove_objective;team=[check_team.UID()];objective=[objective.UID()]'>Remove</a></li>"
+			content += "<li>[objective.explanation_text] - <a href='byond://?_src_=holder;team_command=remove_objective;team=[check_team.UID()];objective=[objective.UID()]'>Remove</a></li>"
 
-		content += "</ol><a href='?_src_=holder;team_command=add_objective;team=[check_team.UID()]'>Add Objective</a><br><br>"
+		content += "</ol><a href='byond://?_src_=holder;team_command=add_objective;team=[check_team.UID()]'>Add Objective</a><br><br>"
 		content += "Members: <br><ol>"
 
 		for(var/datum/mind/member as anything in check_team.members)
-			content += "<li>[member.name] - <a href='?_src_=holder;team_command=view_member;team=[check_team.UID()];member=[member.UID()]'>Show Player Panel</a>"
-			content += "<a href='?_src_=holder;team_command=remove_member;team=[check_team.UID()];member=[member.UID()]'>Remove Member</a></li>"
-		content += "</ol><a href='?_src_=holder;team_command=admin_add_member;team=[check_team.UID()]'>Add Member</a><hr>"
+			content += "<li>[member.name] - <a href='byond://?_src_=holder;team_command=view_member;team=[check_team.UID()];member=[member.UID()]'>Show Player Panel</a>"
+			content += "<a href='byond://?_src_=holder;team_command=remove_member;team=[check_team.UID()];member=[member.UID()]'>Remove Member</a></li>"
+		content += "</ol><a href='byond://?_src_=holder;team_command=admin_add_member;team=[check_team.UID()]'>Add Member</a><hr>"
 
 	return content.Join()
 

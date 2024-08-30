@@ -95,7 +95,7 @@
 
 
 /obj/item/mixing_bowl/attack_self(mob/user)
-	var/dat = {"<meta charset="UTF-8">"}
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	if(dirty)
 		dat = {"<code>This [src] is dirty!<BR>Please clean it before use!</code>"}
 	else
@@ -143,7 +143,7 @@
 			dat = {"<B>The [src] is empty</B><BR>"}
 		else
 			dat = {"<b>Ingredients:</b><br>[dat]"}
-		dat += {"<HR><BR> <A href='?src=[UID()];action=dispose'>Eject ingredients!</A><BR>"}
+		dat += {"<HR><BR> <a href='byond://?src=[UID()];action=dispose'>Eject ingredients!</A><BR>"}
 
 	var/datum/browser/popup = new(user, "[name][UID()]", "[name]", 400, 400, src)
 	popup.set_content(dat)

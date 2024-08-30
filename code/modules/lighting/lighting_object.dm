@@ -111,6 +111,7 @@ GLOBAL_LIST_EMPTY(default_lighting_underlays_by_z)
 		)
 
 	affected_turf.luminosity = set_luminosity
+	SSdemo.mark_turf(affected_turf)
 
 
 // Variety of overrides so the overlays don't get affected by weird things.

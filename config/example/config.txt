@@ -729,3 +729,6 @@ CACHE_ASSETS 0
 ## or your package manager
 ## The default value assumes yt-dlp is in your system PATH
 # INVOKE_YOUTUBEDL yt-dlp
+
+## Enable the replay demo recording subsystem
+#DEMOS_ENABLED

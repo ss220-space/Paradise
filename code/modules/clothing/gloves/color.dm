@@ -62,17 +62,16 @@
 /obj/item/clothing/gloves/color/fyellow                             //Cheap Chinese Crap
 	desc = "These gloves are cheap copies of the coveted gloves, no way this can end badly."
 	name = "budget insulated gloves"
-	icon_state = "yellow"
+	icon_state = "fyellow"
 	item_state = "ygloves"
+	siemens_coefficient = 0			//Set to a default of 0
 	belt_icon = "ygloves"
-	siemens_coefficient = 1			//Set to a default of 1, gets overridden in New()
 	permeability_coefficient = 0.05
 	item_color="yellow"
 	resistance_flags = NONE
+	toolspeedmod = 0.2
+	clothing_traits = list(TRAIT_NO_GUNS)
 
-/obj/item/clothing/gloves/color/fyellow/New()
-	..()
-	siemens_coefficient = pick(0,0.5,0.5,0.5,0.5,0.75,1.5)
 
 /obj/item/clothing/gloves/color/fyellow/old
 	desc = "Old and worn out insulated gloves, hopefully they still work."

@@ -277,7 +277,7 @@
 
 	var/list/choices = list()
 	for(var/mob/living/carbon/human/H in oview(1,src))
-		if(Adjacent(H) && H.dna && !(NO_BLOOD in H.dna.species.species_traits))
+		if(Adjacent(H) && !HAS_TRAIT(H, TRAIT_NO_BLOOD))
 			choices += H
 
 	if(!choices.len)
@@ -289,7 +289,7 @@
 	if(!M || !src || !(Adjacent(M)) || stat != CONSCIOUS) //input can take a while, so re-validate
 		return FALSE
 
-	if(!M.dna || (NO_BLOOD in M.dna.species.species_traits))
+	if(HAS_TRAIT(M, TRAIT_NO_BLOOD))
 		to_chat(src, "<span class='warning'>That donor has no blood to take.</span>")
 		return FALSE
 
