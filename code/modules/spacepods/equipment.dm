@@ -326,14 +326,13 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 /obj/item/spacepod_equipment/locators/proc/scan(mob/user)
 	var/message_user = ""
 	atom_say("Сканирование сектора...")
-	if(do_after(user, 5 SECONDS, src, ALL))
-		for(var/datum/map_template/ruin/Ruina in GLOB.ActiveRuins)
-			if((user.loc.z == Ruina.main_turf.z || can_ignore_z) && (Ruina.can_found || can_found_all))
-				message_user += "\nX:[Ruina.main_turf.x] Y:[Ruina.main_turf.y] Z:[Ruina.main_turf.z] Размер: [object_size(Ruina.width*Ruina.height)]"
-		if(!message_user)
-			atom_say("Объектов в секторе не обнаружено")
-			return
-		atom_say("Результаты поиска:[message_user]")
+	for(var/obj/effect/landmark/ruin/Ruina in GLOB.ruin_landmarks)
+		if((user.loc.z == Ruina.z || can_ignore_z) && (Ruina.ruin_template.can_found || can_found_all))
+			message_user += "\nX:[Ruina.x] Y:[Ruina.y] Z:[Ruina.z] Размер: [object_size(Ruina.ruin_template.width*Ruina.ruin_template.height)]"
+	if(!message_user)
+		atom_say("Объектов в секторе не обнаружено")
+		return
+	atom_say("Результаты поиска:[message_user]")
 /obj/item/spacepod_equipment/locators/proc/object_size(var/square)
 	if(square <= 500)
 		return "Малый"
