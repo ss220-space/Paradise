@@ -276,7 +276,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/bike
 	name = "Awesome Bike!"
-	desc = "Я прикупил огромный байк...."
+	desc = "Я прикупил огромный байк..."
 	typepath = /obj/vehicle/motorcycle
 	cost = 2500
 
