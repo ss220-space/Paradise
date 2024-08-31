@@ -7,7 +7,6 @@ GLOBAL_LIST_EMPTY(bluespace_rifts_scanner_list)
 // The goal is to research the anomalous bluespace rift.
 /datum/station_goal/bluespace_rift
 	name = "Сканирование блюспейс разлома"
-	gamemode_blacklist = list("extended")
 	var/target_research_points = 25000
 	var/reward_given = FALSE
 	var/datum/bluespace_rift/rift
