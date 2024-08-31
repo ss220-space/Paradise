@@ -1074,14 +1074,11 @@
 			to_chat(user, "<span class='notice'>You fail to find anything of value.</span>")
 	else
 		to_chat(user, "<span class='notice'>You decide against searching the [src]</span>")
-/obj/spacepod/verb/StartScan(mob/user)
+/obj/spacepod/proc/StartScan(mob/user)
 	set name = "Сканирование сектора"
 	set desc = "Сканирование сектора при помощи локатора"
 	set category = "Spacepod"
 	set src = usr.loc
-
-	if(!user)
-		user = usr
 
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
