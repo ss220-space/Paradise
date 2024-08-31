@@ -41,6 +41,14 @@
 
 /datum/antagonist/morph/apply_innate_effects(mob/living/mob_override)
 	. = ..()
+	grant_abilities()
+
+/datum/antagonist/morph/remove_innate_effects(mob/living/mob_override)
+	. = ..()
+	remove_abilities()
+
+/// should be separated to avoid garbage in mind things.
+/datum/antagonist/morph/proc/grant_abilities()
 	owner.AddSpell(mimic_spell)
 	owner.AddSpell(ambush_spell)
 	owner.AddSpell(open_vent_spell)
@@ -49,9 +57,9 @@
 		owner.AddSpell(reproduce_spell)
 	if(morph.is_magical)
 		grant_magic()
+	return
 
-/datum/antagonist/morph/remove_innate_effects(mob/living/mob_override)
-	. = ..()
+/datum/antagonist/morph/proc/remove_abilities()
 	owner.RemoveSpell(mimic_spell)
 	owner.RemoveSpell(ambush_spell)
 	owner.RemoveSpell(open_vent_spell)
@@ -60,6 +68,7 @@
 		owner.RemoveSpell(reproduce_spell)
 	if(morph.is_magical)
 		remove_magic()
+	return
 
 /datum/antagonist/morph/proc/grant_magic()
 	var/obj/effect/proc_holder/spell/smoke/smoke = new

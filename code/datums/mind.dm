@@ -1898,7 +1898,9 @@
 
 			if("handle_ability")
 				var/datum/antagonist/morph/morph = has_antag_datum(/datum/antagonist/morph)
-				morph?.apply_innate_effects()
+				if(LAZYLEN(spell_list))
+					morph.remove_abilities()
+				morph.grant_abilities()
 
 	else if(href_list["nuclear"])
 		var/mob/living/carbon/human/H = current
