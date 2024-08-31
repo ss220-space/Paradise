@@ -173,9 +173,9 @@
 			if(AI.control_disabled || (AI.stat == DEAD))
 				continue
 			if(user.name == "Unknown")
-				to_chat(AI, "<b>[user]</b> holds <a href='?_src_=usr;show_paper=1;'>the [itemname]</a> up to one of your cameras ...")
+				to_chat(AI, "<b>[user]</b> holds <a href='byond://?_src_=usr;show_paper=1;'>the [itemname]</a> up to one of your cameras ...")
 			else
-				to_chat(AI, "<b><a href='?src=[AI.UID()];track=[html_encode(user.name)]'>[user]</a></b> holds <a href='?_src_=usr;show_paper=1;'>the [itemname]</a> up to one of your cameras ...")
+				to_chat(AI, "<b><a href='byond://?src=[AI.UID()];track=[html_encode(user.name)]'>[user]</a></b> holds <a href='byond://?_src_=usr;show_paper=1;'>the [itemname]</a> up to one of your cameras ...")
 			AI.last_paper_seen = {"<HTML><meta charset="UTF-8"><HEAD><TITLE>[itemname]</TITLE></HEAD><BODY><TT>[info]</TT></BODY></HTML>"}
 
 		for(var/obj/machinery/computer/security/console as anything in computers_watched_by)

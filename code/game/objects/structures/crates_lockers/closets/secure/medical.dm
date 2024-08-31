@@ -194,7 +194,7 @@
 /obj/structure/closet/secure_closet/paramedic
 	name = "paramedic EVA gear"
 	desc = "A locker with a Paramedic EVA suit."
-	icon_state = "medical"
+	icon_state = "paramedEVA"
 	req_access = list(ACCESS_PARAMEDIC)
 
 /obj/structure/closet/secure_closet/paramedic/populate_contents()

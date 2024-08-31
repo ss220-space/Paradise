@@ -435,7 +435,7 @@
 
 	layer = initial(layer)
 	flipped = FALSE
-	smooth = initial(smooth)
+	smooth = initial(smooth) | SMOOTH_OBJ
 	flags &= ~ON_BORDER
 	playsound(loc, flip_sound, 100, TRUE)
 	update_flipped_turf()
@@ -446,9 +446,7 @@
 			other_table.unflip()
 
 	dir = initial(dir)
-	update_icon(UPDATE_ICON_STATE)
-	queue_smooth(src)
-	queue_smooth_neighbors(src)
+	update_icon()
 
 	creates_cover = TRUE
 	if(isturf(loc))

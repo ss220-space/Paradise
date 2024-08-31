@@ -185,7 +185,7 @@
 		return FALSE
 	if(!include_dead && victim.stat == DEAD)
 		return FALSE
-	if(blood_required && ishuman(victim) && ((NO_BLOOD in victim.dna?.species?.species_traits) || victim.dna?.species?.exotic_blood))
+	if(blood_required && ishuman(victim) && (HAS_TRAIT(victim, TRAIT_NO_BLOOD) || HAS_TRAIT(victim, TRAIT_EXOTIC_BLOOD)))
 		return FALSE
 	if(issilicon(victim) || isbot(victim) || isswarmer(victim) || isguardian(victim))
 		return FALSE
@@ -828,7 +828,7 @@
 
 		if(t_kidneys > 0 && ishuman(victim))
 			var/mob/living/carbon/human/h_victim = victim
-			if((NO_BLOOD in h_victim.dna?.species?.species_traits))
+			if(HAS_TRAIT(h_victim, TRAIT_NO_BLOOD))
 				continue
 
 			h_victim.bleed(actual_blood_loss)
@@ -836,7 +836,7 @@
 			h_victim.emote("moan")
 			to_chat(h_victim, span_userdanger("You sense a sharp pain inside your body and suddenly feel very weak!"))
 
-			if(h_victim.mind && h_victim.ckey && !h_victim.dna.species.exotic_blood)
+			if(h_victim.mind && h_victim.ckey && !HAS_TRAIT(h_victim, TRAIT_EXOTIC_BLOOD))
 				blood_gained += blood_vamp_get
 				vampire.adjust_blood(h_victim, blood_vamp_get)
 
@@ -1585,7 +1585,8 @@
 		human_vampire.updatehealth()
 
 	// blood
-	human_vampire.blood_volume = clamp(human_vampire.blood_volume + heal_blood, 0, BLOOD_VOLUME_NORMAL)
+	if(!HAS_TRAIT(human_vampire, TRAIT_NO_BLOOD_RESTORE))
+		human_vampire.blood_volume = clamp(human_vampire.blood_volume + heal_blood, 0, BLOOD_VOLUME_NORMAL)
 
 	// internal organs
 	for(var/obj/item/organ/internal/organ as anything in human_vampire.internal_organs)
@@ -1776,10 +1777,10 @@
 		user.visible_message(span_warning("As soon as [user] touches [src], [user.p_their()] body undergoes violent convulsions"), \
 							span_userdanger("Something is shrinking inside you, and you start convulsing!"))
 
-		if(!(NO_BLOOD in user.dna?.species?.species_traits))
+		if(!HAS_TRAIT(user, TRAIT_NO_BLOOD))
 			user.bleed(100)
 			to_chat(human_vampire, span_notice("<i>... [span_userdanger("You feel strange feel of joy and power")] ...</i>"))
-			if(!user.dna.species.exotic_blood)
+			if(!HAS_TRAIT(user, TRAIT_EXOTIC_BLOOD))
 				vampire.bloodusable += 50	// only usable blood, will not affect abilities
 				human_vampire.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, human_vampire.nutrition + 50))
 

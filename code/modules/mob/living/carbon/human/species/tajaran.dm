@@ -24,7 +24,10 @@
 
 	primitive_form = /datum/species/monkey/tajaran
 
-	species_traits = list(LIPS, HAVE_REGENERATION)
+	inherent_traits = list(
+		TRAIT_HAS_LIPS,
+		TRAIT_HAS_REGENERATION,
+	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR | TAIL_WAGGING
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
@@ -85,7 +88,7 @@
 	return ..()
 
 /datum/species/tajaran/on_species_gain(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	add_verb(H, /mob/living/carbon/human/proc/emote_wag)
 	add_verb(H, /mob/living/carbon/human/proc/emote_swag)
 	add_verb(H, /mob/living/carbon/human/proc/emote_purr)
@@ -93,7 +96,7 @@
 	add_verb(H, /mob/living/carbon/human/proc/emote_hiss_tajaran)
 
 /datum/species/tajaran/on_species_loss(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	remove_verb(H, /mob/living/carbon/human/proc/emote_wag)
 	remove_verb(H, /mob/living/carbon/human/proc/emote_swag)
 	remove_verb(H, /mob/living/carbon/human/proc/emote_purr)

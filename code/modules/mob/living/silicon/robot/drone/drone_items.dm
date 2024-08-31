@@ -291,7 +291,7 @@
 		module = new /obj/item/robot_module/drone(src)
 
 	var/dat = {"<meta charset="UTF-8"><HEAD><TITLE>Drone modules</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n"}
-	dat += {"<A HREF='?src=[UID()];mach_close=robotmod'>Close</A>
+	dat += {"<a href='byond://?src=[UID()];mach_close=robotmod'>Close</A>
 	<BR>
 	<BR>
 	<B>Activated Modules</B>

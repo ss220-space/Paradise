@@ -765,7 +765,7 @@ so that different stomachs can handle things in different ways VB*/
 
 
 /mob/living/carbon/proc/can_breathe_gas()
-	if(dna && (NO_BREATHE in dna.species.species_traits))
+	if(HAS_TRAIT(src, TRAIT_NO_BREATH))
 		return FALSE
 
 	if(!wear_mask && !head)
@@ -786,7 +786,9 @@ so that different stomachs can handle things in different ways VB*/
 	if(!GLOB.tinted_weldhelh)
 		return
 	var/tinttotal = get_total_tint()
-	if(tinttotal >= TINT_BLIND)
+	if((sight & (SEE_MOBS|SEE_OBJS|SEE_TURFS)) == (SEE_MOBS|SEE_OBJS|SEE_TURFS))
+		clear_fullscreen("tint", 0)
+	else if(tinttotal >= TINT_BLIND)
 		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/blind)
 	else if(tinttotal >= TINT_IMPAIR)
 		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/impaired, 2)
@@ -933,3 +935,10 @@ so that different stomachs can handle things in different ways VB*/
 
 	if(should_vomit)
 		fakevomit()
+
+
+/mob/living/carbon/on_no_breath_trait_gain(datum/source)
+	. = ..()
+
+	co2overloadtime = 0
+

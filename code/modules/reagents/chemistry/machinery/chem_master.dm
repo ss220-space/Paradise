@@ -601,8 +601,8 @@
 			P.name = "[medicine_name][name_suffix]"
 		P.pixel_x = rand(-7, 7) // Random position
 		P.pixel_y = rand(-7, 7)
-		reagents.trans_to(P, amount_per_item)
 		configure_item(data, reagents, P)
+		reagents.trans_to(P, amount_per_item)
 
 		// Load the items into the bottle if there's one loaded
 		if(istype(S) && S.can_be_inserted(P, TRUE))
@@ -644,7 +644,7 @@
 		chemicals_is_safe = SafetyCheck(R)
 		data["chemicals_is_safe"] = chemicals_is_safe
 
-	if(chemicals_is_safe && data["count"] == 1)
+	if(chemicals_is_safe)
 		P.instant_application = TRUE
 
 /datum/chemical_production_mode/bottles

@@ -30,7 +30,7 @@
 
 /mob/new_player/proc/privacy_consent()
 	src << browse(null, "window=playersetup")
-	var/output = {"<meta charset="UTF-8">"} + GLOB.join_tos
+	var/output = {"<!DOCTYPE html><meta charset="UTF-8">"} + GLOB.join_tos
 	output += "<p><a href='byond://?src=[UID()];consent_signed=SIGNED'>I consent</A>"
 	output += "<p><a href='byond://?src=[UID()];consent_rejected=NOTSIGNED'>I DO NOT consent</A>"
 	src << browse(output,"window=privacy_consent;size=500x300")

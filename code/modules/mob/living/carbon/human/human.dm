@@ -447,6 +447,7 @@
 		return
 
 	dna.species.update_sight(src)
+	update_tint()
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
@@ -574,7 +575,7 @@
 								to_chat(usr, "<b>Major Crimes:</b> [R.fields["ma_crim"]]")
 								to_chat(usr, "<b>Details:</b> [R.fields["ma_crim_d"]]")
 								to_chat(usr, "<b>Notes:</b> [R.fields["notes"]]")
-								to_chat(usr, "<a href='?src=[UID()];secrecordComment=`'>\[View Comment Log\]</a>")
+								to_chat(usr, "<a href='byond://?src=[UID()];secrecordComment=`'>\[View Comment Log\]</a>")
 								read = 1
 
 			if(!read)
@@ -599,7 +600,7 @@
 								else
 									to_chat(usr, "<span class='warning'>No comments found</span>")
 								if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
-									to_chat(usr, "<a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>")
+									to_chat(usr, "<a href='byond://?src=[UID()];secrecordadd=`'>\[Add comment\]</a>")
 
 			if(!read)
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
@@ -658,7 +659,7 @@
 								to_chat(usr, "<b>Major Disabilities:</b> [R.fields["ma_dis"]]")
 								to_chat(usr, "<b>Details:</b> [R.fields["ma_dis_d"]]")
 								to_chat(usr, "<b>Notes:</b> [R.fields["notes"]]")
-								to_chat(usr, "<a href='?src=[UID()];medrecordComment=`'>\[View Comment Log\]</a>")
+								to_chat(usr, "<a href='byond://?src=[UID()];medrecordComment=`'>\[View Comment Log\]</a>")
 								read = 1
 
 			if(!read)
@@ -682,7 +683,7 @@
 										to_chat(usr, c)
 								else
 									to_chat(usr, "<span class='warning'>No comment found</span>")
-								to_chat(usr, "<a href='?src=[UID()];medrecordadd=`'>\[Add comment\]</a>")
+								to_chat(usr, "<a href='byond://?src=[UID()];medrecordadd=`'>\[Add comment\]</a>")
 
 			if(!read)
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
@@ -725,17 +726,22 @@
 ///Returns a number between -1 to 2
 /mob/living/carbon/human/check_eye_prot()
 	var/eye_prot = ..()
+	var/check = (sight & (SEE_MOBS|SEE_OBJS|SEE_TURFS)) == (SEE_MOBS|SEE_OBJS|SEE_TURFS)
 	if(istype(head, /obj/item/clothing/head))			//are they wearing something on their head
 		var/obj/item/clothing/head/HFP = head			//if yes gets the flash protection value from that item
-		eye_prot += HFP.flash_protect
+		if(!check || HFP.flash_protect < 0)
+			eye_prot += HFP.flash_protect
 	if(istype(glasses, /obj/item/clothing/glasses))		//glasses
 		var/obj/item/clothing/glasses/GFP = glasses
-		eye_prot += GFP.flash_protect
+		if(!check || GFP.flash_protect < 0)
+			eye_prot += GFP.flash_protect
 	if(istype(wear_mask, /obj/item/clothing/mask))		//mask
 		var/obj/item/clothing/mask/MFP = wear_mask
-		eye_prot += MFP.flash_protect
+		if(!check || MFP.flash_protect < 0)
+			eye_prot += MFP.flash_protect
 	for(var/obj/item/organ/internal/cyberimp/eyes/EFP in internal_organs)
-		eye_prot += EFP.flash_protect
+		if(!check || EFP.flash_protect < 0)
+			eye_prot += EFP.flash_protect
 	return eye_prot
 
 
@@ -805,7 +811,7 @@
 		. = FALSE
 		fail_msg = "That limb is robotic."
 	// affecting.open = ORGAN_ORGANIC_ENCASED_OPEN after scalpel->hemostat->retractor
-	else if((PIERCEIMMUNE in dna.species.species_traits) && !ignore_pierceimmune && affecting.open < ORGAN_ORGANIC_ENCASED_OPEN)
+	else if(!ignore_pierceimmune && affecting.open < ORGAN_ORGANIC_ENCASED_OPEN && HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
 		. = FALSE
 	else if(covered_with_thick_material(target_zone) && !penetrate_thick)
 		. = FALSE
@@ -1240,10 +1246,9 @@
 
 	dna.real_name = real_name
 
-	update_sight()
-
 	dna.species.handle_dna(src) //Give them whatever special dna business they got.
 
+	update_sight()
 	update_client_colour(0)
 
 	if(!delay_icon_update)
@@ -1604,10 +1609,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/can_use_guns(obj/item/gun/check_gun)
 	. = ..()
 
-	if(check_gun.trigger_guard == TRIGGER_GUARD_NORMAL)
-		if((NOGUNS in dna.species.species_traits) || HAS_TRAIT(src, TRAIT_CHUNKYFINGERS))
-			to_chat(src, span_warning("Your fingers don't fit in the trigger guard!"))
-			return FALSE
+	if(check_gun.trigger_guard == TRIGGER_GUARD_NORMAL && HAS_TRAIT(src, TRAIT_NO_GUNS))
+		to_chat(src, span_warning("Your fingers don't fit in the trigger guard!"))
+		return FALSE
 
 	if(mind && mind.martial_art && mind.martial_art.no_guns) //great dishonor to famiry
 		to_chat(src, span_warning("[mind.martial_art.no_guns_message]"))
@@ -1737,15 +1741,16 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	.["Make superhero"] = "?_src_=vars;makesuper=[UID()]"
 	. += "---"
 
-/mob/living/carbon/human/adjust_nutrition(change)
-	if((NO_HUNGER in dna.species.species_traits) && !isvampire(src))
+
+/mob/living/carbon/human/adjust_nutrition(change, forced)
+	if(!forced && HAS_TRAIT(src, TRAIT_NO_HUNGER) && !isvampire(src))
 		return FALSE
 	. = ..()
 	update_hunger_slowdown()
 
 
-/mob/living/carbon/human/set_nutrition(change)
-	if((NO_HUNGER in dna.species.species_traits) && !isvampire(src))
+/mob/living/carbon/human/set_nutrition(change, forced)
+	if(!forced && HAS_TRAIT(src, TRAIT_NO_HUNGER) && !isvampire(src))
 		return FALSE
 	. = ..()
 	update_hunger_slowdown()

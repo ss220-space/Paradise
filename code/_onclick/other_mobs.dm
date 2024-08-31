@@ -115,7 +115,8 @@
 			changeNext_move(grab_state > GRAB_PASSIVE ? CLICK_CD_GRABBING : CLICK_CD_PULLING)
 			return
 	GiveTarget(A)
-	AttackingTarget()
+	if(target)
+		AttackingTarget()
 
 /atom/proc/attack_animal(mob/user)
 	return
