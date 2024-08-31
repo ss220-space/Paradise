@@ -312,7 +312,7 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 
 	for(var/obj/effect/landmark/ruin/space_ruin in GLOB.ruin_landmarks)
 		if((user.loc.z == space_ruin.z || can_ignore_z) && (space_ruin.ruin_template.can_found || can_found_all))
-			message_user += "\nX:[space_ruin.x] Y:[space_ruin.y] Z:[space_ruin.z] Размер: [object_size(space_ruin.ruin_template.width*Ruina.ruin_template.height)]"
+			message_user += "\nX:[space_ruin.x] Y:[space_ruin.y] Z:[space_ruin.z] Размер: [object_size(space_ruin.ruin_template.width*space_ruin.ruin_template.height)]"
 
 	if(!message_user)
 		atom_say("Объектов в секторе не обнаружено")
