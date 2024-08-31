@@ -414,6 +414,16 @@
 
 	. += _memory_edit_role_enabled(ROLE_CHANGELING)
 
+/datum/mind/proc/memory_edit_morph()
+	. = _memory_edit_header("morph")
+	var/datum/antagonist/morph/antag_datum = has_antag_datum(/datum/antagonist/morph)
+	if(antag_datum)
+		. += "<a href='byond://?src=[UID()];morph=handle_ability'>Re-grant abilities</a>"
+	else
+		if(!ismorph(current))
+			. += "<a href='byond://?src=[UID()];morph=make_morph'>morph</a>|<b>NO</b>"
+
+	. += _memory_edit_role_enabled(ROLE_MORPH)
 
 /datum/mind/proc/memory_edit_goon_vampire(mob/living/carbon/human/H)
 	. = _memory_edit_header("goonvampire")
@@ -727,7 +737,8 @@
 		"ninja",
 		"thief",		//	"traitorthief", "traitorthiefvamp", "traitorthiefchan",
 		"malf_ai",
-		"blob"
+		"blob",
+		"morph"
 	)
 	var/mob/living/carbon/human/H = current
 	if(ishuman(current))
@@ -755,9 +766,14 @@
 		sections["thief"] = memory_edit_thief()
 		/** TRAITOR ***/
 		sections["traitor"] = memory_edit_traitor()
+		/** MORPH ***/
+		sections["morph"] = memory_edit_morph()
 
 	if(isAI(current))
 		sections["malf_ai"] = memory_edit_malf_ai()
+
+	if(ismorph(current))
+		sections["morph"] = memory_edit_morph()
 
 	/** DEVIL ***/
 	var/static/list/devils_typecache = typecacheof(list(/mob/living/carbon/human, /mob/living/carbon/true_devil, /mob/living/silicon/robot))
@@ -1867,6 +1883,22 @@
 					remove_antag_datum(/datum/antagonist/mindslave/goon_thrall)
 					log_admin("[key_name(usr)] has de-vampthralled [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-vampthralled [key_name_admin(current)]")
+	
+	else if(href_list["morph"])
+		switch(href_list["morph"])
+			if("make_morph")
+				var/mob/living/living = current
+				for(var/obj/item/check as anything in living.get_equipped_items(TRUE, TRUE))
+					living.drop_item_ground(check, force = TRUE)
+
+				var/mob/living/simple_animal/hostile/morph/morph = new(living.loc)
+				morph.key = living.key
+				morph.make_morph_antag()
+				qdel(living)
+
+			if("handle_ability")
+				var/datum/antagonist/morph/morph = has_antag_datum(/datum/antagonist/morph)
+				morph?.apply_innate_effects()
 
 	else if(href_list["nuclear"])
 		var/mob/living/carbon/human/H = current
