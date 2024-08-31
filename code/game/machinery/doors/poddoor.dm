@@ -56,7 +56,7 @@
 
 /obj/machinery/door/poddoor/update_icon_state()
 	icon_state = density ? "closed" : "open"
-
+	SSdemo.mark_dirty(src)
 
 /obj/machinery/door/poddoor/try_to_activate_door(mob/user)
  	return

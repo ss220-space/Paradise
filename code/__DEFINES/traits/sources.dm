@@ -69,6 +69,8 @@
 
 #define DNA_TRAIT "dna_trait"
 
+#define FATNESS_TRAIT "fatness"
+
 /// Traits applied to a silicon mob by their model.
 #define ROBOT_TRAIT "robot_trait"
 

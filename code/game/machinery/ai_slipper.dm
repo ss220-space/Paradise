@@ -116,8 +116,8 @@
 		t += "<I>(Swipe ID card to unlock control panel.)</I><BR>"
 	else
 		add_fingerprint(user)
-		t += text("Dispenser [] - <A href='?src=[UID()];toggleOn=1'>[]?</a><br>\n", disabled ? "deactivated" : "activated", disabled ? "Enable" : "Disable")
-		t += text("Uses Left: [uses]. <A href='?src=[UID()];toggleUse=1'>Activate the dispenser?</A><br>\n")
+		t += text("Dispenser [] - <a href='byond://?src=[UID()];toggleOn=1'>[]?</a><br>\n", disabled ? "deactivated" : "activated", disabled ? "Enable" : "Disable")
+		t += text("Uses Left: [uses]. <a href='byond://?src=[UID()];toggleUse=1'>Activate the dispenser?</A><br>\n")
 
 	user << browse(t, "window=computer;size=575x450")
 	onclose(user, "computer")

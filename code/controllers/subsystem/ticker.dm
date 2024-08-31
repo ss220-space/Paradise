@@ -716,7 +716,7 @@ SUBSYSTEM_DEF(ticker)
 
 	for(var/ckey in flagged_antag_rollers)
 		log_admin("[ckey] just got booted back to lobby with no jobs, but antags enabled.")
-		log_text += "<small>- <a href='?priv_msg=[ckey]'>[ckey]</a></small>"
+		log_text += "<small>- <a href='byond://?priv_msg=[ckey]'>[ckey]</a></small>"
 
 	log_text += "Investigation is advised."
 

@@ -98,7 +98,7 @@
 
 		if(istype(E, /datum/stack_recipe_list))
 			var/datum/stack_recipe_list/srl = E
-			t1 += "<a href='?src=[UID()];sublist=[i]'>[srl.title]</a>"
+			t1 += "<a href='byond://?src=[UID()];sublist=[i]'>[srl.title]</a>"
 
 		if(istype(E, /datum/stack_recipe))
 			var/datum/stack_recipe/R = E
@@ -113,7 +113,7 @@
 				title += "[R.title]"
 			title += " ([R.req_amount] [src.singular_name]\s)"
 			if(can_build)
-				t1 += "<A href='?src=[UID()];sublist=[recipes_sublist];make=[i]'>[title]</A>  "
+				t1 += "<a href='byond://?src=[UID()];sublist=[recipes_sublist];make=[i]'>[title]</A>  "
 			else
 				t1 += "[title]"
 				continue
@@ -124,9 +124,9 @@
 				var/list/multipliers = list(5, 10, 25)
 				for(var/n in multipliers)
 					if(max_multiplier >= n)
-						t1 += " <A href='?src=[UID()];sublist=[recipes_sublist];make=[i];multiplier=[n]'>[n * R.res_amount]x</A>"
+						t1 += " <a href='byond://?src=[UID()];sublist=[recipes_sublist];make=[i];multiplier=[n]'>[n * R.res_amount]x</A>"
 				if(!(max_multiplier in multipliers))
-					t1 += " <A href='?src=[UID()];sublist=[recipes_sublist];make=[i];multiplier=[max_multiplier]'>[max_multiplier * R.res_amount]x</A>"
+					t1 += " <a href='byond://?src=[UID()];sublist=[recipes_sublist];make=[i];multiplier=[max_multiplier]'>[max_multiplier * R.res_amount]x</A>"
 
 	var/datum/browser/popup = new(user, "stack", name, recipe_width, recipe_height)
 	popup.set_content(t1)

@@ -68,11 +68,11 @@
 
 	if(do_after(owner, rune ? 4 SECONDS : 10 SECONDS, owner))
 		if(ishuman(owner))
-			var/mob/living/carbon/human/H = owner
-			if(H.dna && (NO_BLOOD in H.dna.species.species_traits))
-				H.cult_self_harm(3 - rune * 2)
+			var/mob/living/carbon/human/human_owner = owner
+			if(HAS_TRAIT(human_owner, TRAIT_NO_BLOOD))
+				human_owner.cult_self_harm(3 - rune * 2)
 			else
-				H.bleed(20 - rune * 12)
+				human_owner.bleed(20 - rune * 12)
 		var/datum/action/innate/cult/blood_spell/new_spell = new BS(owner)
 		spells += new_spell
 		new_spell.Grant(owner, src)
@@ -719,7 +719,7 @@
 					return
 
 				//Blood restoration
-				if(H.dna && !(NO_BLOOD in H.dna.species.species_traits) && H.dna.species.exotic_blood == null  && !isdiona(H))
+				if(!HAS_TRAIT(H, TRAIT_NO_BLOOD) && !HAS_TRAIT(H, TRAIT_NO_BLOOD_RESTORE) && !HAS_TRAIT(H, TRAIT_EXOTIC_BLOOD))
 					if(H.blood_volume < BLOOD_VOLUME_SAFE)
 						var/restore_blood = BLOOD_VOLUME_SAFE - H.blood_volume
 						if(uses * 2 < restore_blood)
@@ -776,7 +776,7 @@
 				if(H.AmountCultSlurring())
 					to_chat(user, "<span class='danger'>[H.p_their(TRUE)] blood has been tainted by an even stronger form of blood magic, it's no use to us like this!</span>")
 					return
-				if(H.dna && !(NO_BLOOD in H.dna.species.species_traits) && H.dna.species.exotic_blood == null)
+				if(!HAS_TRAIT(H, TRAIT_NO_BLOOD) && !HAS_TRAIT(H, TRAIT_EXOTIC_BLOOD))
 					if(H.blood_volume > BLOOD_VOLUME_SAFE)
 						H.blood_volume -= 100
 						uses += 50

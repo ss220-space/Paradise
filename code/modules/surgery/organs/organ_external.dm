@@ -892,11 +892,12 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 /obj/item/organ/external/proc/internal_bleeding(silent = FALSE)
-	if(owner?.status_flags & GODMODE)
-		return FALSE
+	if(owner)
+		if(owner.status_flags & GODMODE)
+			return FALSE
+		if(HAS_TRAIT(owner, TRAIT_NO_BLOOD))
+			return FALSE
 	if(is_robotic())
-		return FALSE
-	if(dna && (NO_BLOOD in dna.species.species_traits))
 		return FALSE
 	if(has_internal_bleeding() || cannot_internal_bleed)
 		return FALSE
@@ -914,9 +915,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 /obj/item/organ/external/proc/stop_internal_bleeding()
-	if(is_robotic())
+	if(owner && HAS_TRAIT(owner, TRAIT_NO_BLOOD))
 		return FALSE
-	if(dna && (NO_BLOOD in dna.species.species_traits))
+	if(is_robotic())
 		return FALSE
 	if(!has_internal_bleeding())
 		return FALSE
@@ -924,6 +925,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	status &= ~ORGAN_INT_BLEED
 
 	return TRUE
+
 
 /obj/item/organ/external/proc/fracture(silent = FALSE)
 	if(!CONFIG_GET(flag/bones_can_break))

@@ -40,7 +40,6 @@
 
 /obj/structure/closet/secure_closet/engineering_electrical/populate_contents()
 	new /obj/item/clothing/gloves/color/yellow(src)
-	new /obj/item/clothing/gloves/color/yellow(src)
 	new /obj/item/storage/toolbox/electrical(src)
 	new /obj/item/storage/toolbox/electrical(src)
 	new /obj/item/storage/toolbox/electrical(src)
@@ -85,6 +84,7 @@
 	new /obj/item/clothing/suit/storage/hazardvest(src)
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/clothing/glasses/meson(src)
+	new /obj/item/clothing/gloves/color/fyellow(src)
 	new /obj/item/cartridge/engineering(src)
 	new /obj/item/clothing/head/beret/eng(src)
 	new /obj/item/clothing/head/hardhat/orange(src)

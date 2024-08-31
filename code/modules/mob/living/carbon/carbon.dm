@@ -765,7 +765,7 @@ so that different stomachs can handle things in different ways VB*/
 
 
 /mob/living/carbon/proc/can_breathe_gas()
-	if(dna && (NO_BREATHE in dna.species.species_traits))
+	if(HAS_TRAIT(src, TRAIT_NO_BREATH))
 		return FALSE
 
 	if(!wear_mask && !head)
@@ -933,3 +933,10 @@ so that different stomachs can handle things in different ways VB*/
 
 	if(should_vomit)
 		fakevomit()
+
+
+/mob/living/carbon/on_no_breath_trait_gain(datum/source)
+	. = ..()
+
+	co2overloadtime = 0
+

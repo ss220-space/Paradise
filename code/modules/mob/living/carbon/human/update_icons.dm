@@ -1293,7 +1293,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	else
 		. += "#000000"
 
-	if(lip_color && (LIPS in dna.species.species_traits))
+	if(lip_color && HAS_TRAIT(src, TRAIT_HAS_LIPS))
 		. += "[lip_color]"
 	else
 		. += "#000000"

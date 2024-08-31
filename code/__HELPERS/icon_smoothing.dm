@@ -197,6 +197,8 @@ GLOBAL_LIST_INIT(adjacent_direction_lookup, generate_adjacent_directions())
 
 	else if(A.smooth & SMOOTH_BITMASK)
 		A.bitmask_smooth()
+	if(isturf(A))
+		SSdemo.mark_turf(A)
 
 /atom/proc/bitmask_smooth()
 	var/new_junction = NONE
