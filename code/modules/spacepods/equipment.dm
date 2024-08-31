@@ -309,13 +309,20 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 	var/message_user = ""
 
 	for(var/obj/effect/landmark/ruin/Ruina in GLOB.ruin_landmarks)
+<<<<<<< HEAD
 		if((user.loc.z == Ruina.z || can_ignore_z))
+=======
+		if((user.loc.z == Ruina.z || can_ignore_z) && (Ruina.ruin_template.can_found || can_found_all))
+>>>>>>> 3cfa11d1e15dff3b00d17a691a52af6b495e2c38
 			message_user += "\nX:[Ruina.x] Y:[Ruina.y] Z:[Ruina.z] Размер: [object_size(Ruina.ruin_template.width*Ruina.ruin_template.height)]"
 	if(!message_user)
 		atom_say("Объектов в секторе не обнаружено")
 		return
 	atom_say("Результаты поиска:[message_user]")
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3cfa11d1e15dff3b00d17a691a52af6b495e2c38
 /obj/item/spacepod_equipment/locators/proc/object_size(var/square)
 	if(square <= 500)
 		return "Малый"

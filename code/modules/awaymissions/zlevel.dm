@@ -110,6 +110,9 @@ GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away
 			T.flags |= NO_RUINS
 
 		new /obj/effect/landmark/ruin(central_turf, src)
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3cfa11d1e15dff3b00d17a691a52af6b495e2c38
 		return TRUE
 	return FALSE

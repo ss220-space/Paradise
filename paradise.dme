@@ -185,6 +185,7 @@
 #include "code\__HELPERS\russian.dm"
 #include "code\__HELPERS\sanitize_values.dm"
 #include "code\__HELPERS\shell.dm"
+#include "code\__HELPERS\space.dm"
 #include "code\__HELPERS\stat_tracking.dm"
 #include "code\__HELPERS\string_assoc_lists.dm"
 #include "code\__HELPERS\string_lists.dm"

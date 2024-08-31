@@ -80,6 +80,7 @@
 
 	// Actions
 	var/datum/action/innate/pod/pod_eject/eject_action = new
+	var/datum/action/innate/pod/pod_eject/passanger_eject = new
 	var/datum/action/innate/pod/pod_toggle_internals/internals_action = new
 	var/datum/action/innate/pod/pod_toggle_lights/lights_action = new
 	var/datum/action/innate/pod/pod_fire/fire_action = new
@@ -235,7 +236,7 @@
 
 /obj/spacepod/proc/eject_passenger(mob/living/passenger)
 	passenger.forceMove(get_turf(src))
-	eject_action.Remove(passenger)
+	passanger_eject.Remove(passenger)
 	passengers -= passenger
 
 /obj/spacepod/attack_animal(mob/living/simple_animal/user)
@@ -873,7 +874,7 @@
 			if(passengers.len < max_passengers)
 				passengers += user
 				user.forceMove(src)
-				eject_action.Grant(user, src)
+				passanger_eject.Grant(user, src)
 				add_fingerprint(user)
 				playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 			else
@@ -1091,12 +1092,20 @@
 	if(!equipment_system.locator_system)
 		to_chat(user, "<span class='warning'>[src] has no locator system!</span>")
 		return
+<<<<<<< HEAD
 		
 	atom_say("Сканирование сектора...")
 	if(do_after(user, 4 SECONDS, src))
 		equipment_system.locator_system.scan(user)
 	else
 		atom_say("Ошибка сканирования. Сохраняйте неподвижность.")
+=======
+	equipment_system.locator_system.atom_say("Сканирование сектора...")
+	if(do_after(user, 5 SECONDS, src))
+		equipment_system.locator_system.scan(user)
+	else
+		equipment_system.locator_system.atom_say("Ошибка сканирования. Сохраняйте неподвижность.")
+>>>>>>> 3cfa11d1e15dff3b00d17a691a52af6b495e2c38
 /obj/spacepod/proc/GrantActions(mob/living/user)
 	eject_action.Grant(user, src)
 	internals_action.Grant(user, src)
