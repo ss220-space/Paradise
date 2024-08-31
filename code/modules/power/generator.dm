@@ -37,7 +37,7 @@
 		disconnect_from_network()
 
 /obj/machinery/power/generator/Initialize()
-	..()
+	. = ..()
 	connect()
 
 /obj/machinery/power/generator/proc/connect()
@@ -198,7 +198,7 @@
 	var/t = ""
 	if(!powernet)
 		t += "<span class='bad'>Unable to connect to the power network!</span>"
-		t += "<BR><A href='?src=[UID()];check=1'>Retry</A>"
+		t += "<BR><a href='byond://?src=[UID()];check=1'>Retry</A>"
 	else if(cold_circ && hot_circ)
 		var/datum/gas_mixture/cold_circ_air1 = cold_circ.get_outlet_air()
 		var/datum/gas_mixture/cold_circ_air2 = cold_circ.get_inlet_air()
@@ -222,9 +222,9 @@
 		t += "</div>"
 	else
 		t += "<span class='bad'>Unable to locate all parts!</span>"
-		t += "<BR><A href='?src=[UID()];check=1'>Retry</A>"
+		t += "<BR><a href='byond://?src=[UID()];check=1'>Retry</A>"
 	if(include_link)
-		t += "<BR><A href='?src=[UID()];close=1'>Close</A>"
+		t += "<BR><a href='byond://?src=[UID()];close=1'>Close</A>"
 
 	return t
 

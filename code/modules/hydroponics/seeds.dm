@@ -1,3 +1,10 @@
+// Floragun
+/// The amount by which a plant's characteristics increase when hit_act to BETA mode (/energy/floragun)
+#define FLORAGUN_POTENCY 50
+#define FLORAGUN_YIELD 2
+#define FLORAGUN_PRODUCTION -1
+#define FLORAGUN_ENDURANCE 10
+
 // ********************************************************
 // Here's all the seeds (plants) that can be used in hydro
 // ********************************************************
@@ -122,16 +129,8 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 
 
 /obj/item/seeds/bullet_act(obj/item/projectile/Proj) //Works with the Somatoray to modify plant variables.
-	if(istype(Proj, /obj/item/projectile/energy/florayield))
-		var/rating = 1
-		if(istype(loc, /obj/machinery/hydroponics))
-			var/obj/machinery/hydroponics/H = loc
-			rating = H.rating
-
-		if(yield == 0)//Oh god don't divide by zero you'll doom us all.
-			adjust_yield(1 * rating)
-		else if(prob(1/(yield * yield) * 100))//This formula gives you diminishing returns based on yield. 100% with 1 yield, decreasing to 25%, 11%, 6, 4, 2...
-			adjust_yield(1 * rating)
+	if(istype(Proj, /obj/item/projectile/energy/florabeta))
+		on_floragun_beta_act()
 	else
 		return ..()
 
@@ -322,18 +321,27 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 /obj/item/seeds/proc/on_chem_reaction(datum/reagents/S)  //in case seeds have some special interaction with special chems
 	return
 
-/obj/item/seeds/attackby(obj/item/O, mob/user, params)
-	if (istype(O, /obj/item/plant_analyzer))
-		to_chat(user, "<span class='info'>This is \a <span class='name'>[src].</span></span>")
-		var/text = get_analyzer_text()
-		if(text)
-			to_chat(user, "<span class='notice'>[text]</span>")
+/obj/item/seeds/proc/on_floragun_beta_act()
+	adjust_potency(FLORAGUN_POTENCY)
+	adjust_yield(FLORAGUN_YIELD)
+	adjust_production(FLORAGUN_PRODUCTION)
+	adjust_endurance(FLORAGUN_ENDURANCE)
 
-		return
-	if(is_pen(O))
+/obj/item/seeds/attackby(obj/item/I, mob/user, params)
+	if(is_pen(I))
+		add_fingerprint(user)
 		variant_prompt(user)
-		return
-	..() // Fallthrough to item/attackby() so that bags can pick seeds up
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/plant_analyzer))
+		add_fingerprint(user)
+		to_chat(user, "[span_info("This is the ")][span_name("[name]")]")
+		var/advanced_info = get_analyzer_text()
+		if(advanced_info)
+			to_chat(user, span_info("[advanced_info]"))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
 
 
 /obj/item/seeds/proc/variant_prompt(mob/user, obj/item/container = null)
@@ -444,3 +452,8 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 		return
 	if(user.plant_analyzer)
 		to_chat(user, get_analyzer_text())
+
+#undef FLORAGUN_POTENCY
+#undef FLORAGUN_YIELD
+#undef FLORAGUN_PRODUCTION
+#undef FLORAGUN_ENDURANCE

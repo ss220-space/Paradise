@@ -274,9 +274,9 @@
 	var/dat = {"<meta charset="UTF-8"><B>Magnetic Control Console</B><BR><BR>"}
 	if(!autolink)
 		dat += {"
-		Frequency: <a href='?src=[UID()];operation=setfreq'>[frequency]</a><br>
-		Code: <a href='?src=[UID()];operation=setfreq'>[code]</a><br>
-		<a href='?src=[UID()];operation=probe'>Probe Generators</a><br>
+		Frequency: <a href='byond://?src=[UID()];operation=setfreq'>[frequency]</a><br>
+		Code: <a href='byond://?src=[UID()];operation=setfreq'>[code]</a><br>
+		<a href='byond://?src=[UID()];operation=probe'>Probe Generators</a><br>
 		"}
 
 	if(length(magnets))
@@ -285,12 +285,12 @@
 		var/i = 0
 		for(var/obj/machinery/magnetic_module/module as anything in magnets)
 			i++
-			dat += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;< \[[i]\] (<a href='?src=[UID()];radio-op=togglepower'>[module.on ? "On":"Off"]</a>) | Electricity level: <a href='?src=[UID()];radio-op=minuselec'>-</a> [module.electricity_level] <a href='?src=[UID()];radio-op=pluselec'>+</a>; Magnetic field: <a href='?src=[UID()];radio-op=minusmag'>-</a> [module.magnetic_field] <a href='?src=[UID()];radio-op=plusmag'>+</a><br>"
+			dat += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;< \[[i]\] (<a href='byond://?src=[UID()];radio-op=togglepower'>[module.on ? "On":"Off"]</a>) | Electricity level: <a href='byond://?src=[UID()];radio-op=minuselec'>-</a> [module.electricity_level] <a href='byond://?src=[UID()];radio-op=pluselec'>+</a>; Magnetic field: <a href='byond://?src=[UID()];radio-op=minusmag'>-</a> [module.magnetic_field] <a href='byond://?src=[UID()];radio-op=plusmag'>+</a><br>"
 
 	add_fingerprint(user)
-	dat += "<br>Speed: <a href='?src=[UID()];operation=minusspeed'>-</a> [speed] <a href='?src=[UID()];operation=plusspeed'>+</a><br>"
-	dat += "Path: {<a href='?src=[UID()];operation=setpath'>[path]</a>}<br>"
-	dat += "Moving: <a href='?src=[UID()];operation=togglemoving'>[moving ? "Enabled":"Disabled"]</a>"
+	dat += "<br>Speed: <a href='byond://?src=[UID()];operation=minusspeed'>-</a> [speed] <a href='byond://?src=[UID()];operation=plusspeed'>+</a><br>"
+	dat += "Path: {<a href='byond://?src=[UID()];operation=setpath'>[path]</a>}<br>"
+	dat += "Moving: <a href='byond://?src=[UID()];operation=togglemoving'>[moving ? "Enabled":"Disabled"]</a>"
 
 
 	user << browse(dat, "window=magnet;size=400x500")

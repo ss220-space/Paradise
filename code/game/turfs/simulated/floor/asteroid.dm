@@ -52,9 +52,6 @@
 			icon_state =  initial(icon_state)
 
 
-/turf/simulated/floor/plating/asteroid/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
-	return
-
 /turf/simulated/floor/plating/asteroid/burn_tile()
 	return
 
@@ -79,51 +76,51 @@
 		if(1)
 			getDug()
 
+
+/turf/simulated/floor/plating/asteroid/can_have_cabling()
+	return FALSE
+
+
+/turf/simulated/floor/plating/asteroid/try_replace_tile(obj/item/stack/tile/tile, mob/user, params)
+	if(!tile.use(1))
+		return
+	if(istype(tile, /obj/item/stack/tile/plasteel)) // Turn asteroid floors into plating by default
+		ChangeTurf(/turf/simulated/floor/plating, keep_icon = FALSE)
+	else
+		ChangeTurf(tile.turf_type, keep_icon = FALSE)
+	playsound(src, 'sound/weapons/Genhit.ogg', 50, TRUE)
+
+
 /turf/simulated/floor/plating/asteroid/attackby(obj/item/I, mob/user, params)
-	//note that this proc does not call ..()
-	if(!I|| !user)
-		return FALSE
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
 
 	if((istype(I, /obj/item/shovel) || istype(I, /obj/item/pickaxe)))
 		if(!can_dig(user))
-			return TRUE
-
-		var/turf/T = get_turf(user)
-		if(!istype(T))
-			return
-
+			return .
+		I.play_tool_sound()
 		to_chat(user, span_notice("You start digging..."))
-
-		playsound(src, I.usesound, 50, TRUE)
-		if(do_after(user, 4 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
-			if(!istype(src, /turf/simulated/floor/plating/asteroid))
-				return TRUE //Turf has been changed in process, prevents can_dig() runtime
-			if(!can_dig(user))
-				return TRUE
-			to_chat(user, span_notice("You dig a hole."))
-			if(user.a_intent == INTENT_DISARM)
-				new /obj/structure/pit(src)
-				dug = TRUE
-			else
-				getDug()
-			return TRUE
-
-	else if(istype(I, /obj/item/storage/bag/ore))
-		var/obj/item/storage/bag/ore/S = I
-		if(S.pickup_all_on_tile)
-			for(var/obj/item/stack/ore/O in contents)
-				O.attackby(I, user)
-				return
-
-	else if(istype(I, /obj/item/stack/tile))
-		var/obj/item/stack/tile/Z = I
-		if(!Z.use(1))
-			return
-		if(istype(Z, /obj/item/stack/tile/plasteel)) // Turn asteroid floors into plating by default
-			ChangeTurf(/turf/simulated/floor/plating, keep_icon = FALSE)
+		if(!do_after(user, 4 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || !istype(src, /turf/simulated/floor/plating/asteroid) || !can_dig(user))
+			return .
+		I.play_tool_sound()
+		to_chat(user, span_notice("You have dug a hole."))
+		if(user.a_intent == INTENT_DISARM)
+			new /obj/structure/pit(src)
+			dug = TRUE
 		else
-			ChangeTurf(Z.turf_type, keep_icon = FALSE)
-		playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
+			getDug()
+		return .|ATTACK_CHAIN_SUCCESS
+
+	if(istype(I, /obj/item/storage/bag/ore))
+		var/obj/item/storage/bag/ore/bag = I
+		if(!bag.pickup_all_on_tile)
+			return .
+		for(var/obj/item/stack/ore/ore in contents)
+			ore.attackby(bag, user, params)
+		return .|ATTACK_CHAIN_SUCCESS
+
 
 /turf/simulated/floor/plating/asteroid/welder_act(mob/user, obj/item/I)
 	return

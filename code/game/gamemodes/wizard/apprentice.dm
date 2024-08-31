@@ -137,7 +137,7 @@
 
 /obj/item/contract/attack_self(mob/user as mob)
 	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8">"}
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	if(used)
 		dat += used_contract()
 	else
@@ -309,7 +309,7 @@
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/forcewall/greater(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/repulse(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/sacred_flame(null))
-	ADD_TRAIT(owner, RESISTHOT, MAGIC_TRAIT)	//sacred_flame из-за не совсем верной выдачи, без этого, не выдает защиту от огня.
+	ADD_TRAIT(owner, TRAIT_RESIST_HEAT, MAGIC_TRAIT)	//sacred_flame из-за не совсем верной выдачи, без этого, не выдает защиту от огня.
 
 	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/magusdefender(owner), ITEM_SLOT_CLOTH_OUTER)
 	owner.equip_or_collect(new /obj/item/clothing/head/wizard/magusdefender(owner), ITEM_SLOT_HEAD)
@@ -324,7 +324,7 @@
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/smoke(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball(null))
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/sacred_flame(null))
-	ADD_TRAIT(owner, RESISTHOT, MAGIC_TRAIT)
+	ADD_TRAIT(owner, TRAIT_RESIST_HEAT, MAGIC_TRAIT)
 	owner.equip_or_collect(new /obj/item/clothing/suit/victcoat/red/suit/fire_robe, ITEM_SLOT_CLOTH_OUTER)
 
 /obj/item/clothing/suit/victcoat/red/suit/fire_robe
@@ -423,13 +423,13 @@
 /datum/magick_school/vision/kit()
 	owner.mind.AddSpell(new /obj/effect/proc_holder/spell/trigger/blind(null))
 	owner.equip_or_collect(new /obj/item/scrying(owner), ITEM_SLOT_HAND_RIGHT)
-	//Выдаем трейты ОРБа
-	if(!(XRAY in owner.mutations))
-		owner.mutations.Add(XRAY)
-		owner.add_sight(SEE_MOBS|SEE_OBJS|SEE_TURFS)
-		owner.nightvision = 8
+	if(!HAS_TRAIT_FROM(owner, TRAIT_XRAY, SCRYING_ORB_TRAIT))
+		ADD_TRAIT(owner, TRAIT_XRAY, SCRYING_ORB_TRAIT)
+		owner.see_in_dark = 8
 		owner.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-		to_chat(owner, "<span class='notice'>The walls suddenly disappear.</span>")
+		owner.update_sight()
+		owner.update_misc_effects()
+		to_chat(owner, span_notice("The walls suddenly disappear."))
 
 	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/visionmage(owner), ITEM_SLOT_CLOTH_OUTER)
 	owner.equip_or_collect(new /obj/item/clothing/head/wizard/visionmage(owner), ITEM_SLOT_HEAD)

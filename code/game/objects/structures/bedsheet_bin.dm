@@ -37,7 +37,7 @@ LINEN BINS
 
 
 
-/obj/item/bedsheet/attack_self(mob/user as mob)
+/obj/item/bedsheet/attack_self(mob/user)
 	user.drop_from_active_hand()
 	if(layer == initial(layer))
 		layer = 5
@@ -46,15 +46,20 @@ LINEN BINS
 	add_fingerprint(user)
 	return
 
+
 /obj/item/bedsheet/attackby(obj/item/I, mob/user, params)
-	if(I.sharp)
-		var/obj/item/stack/sheet/cloth/C = new (get_turf(src), 3)
-		transfer_fingerprints_to(C)
-		C.add_fingerprint(user)
+	if(is_sharp(I))
+		if(loc == user && !user.can_unEquip(src))
+			add_fingerprint(user)
+			return ATTACK_CHAIN_PROCEED
+		var/obj/item/stack/sheet/cloth/cloth = new(drop_location(), 3)
+		transfer_fingerprints_to(cloth)
+		cloth.add_fingerprint(user)
+		to_chat(user, span_notice("You tear [src] up."))
 		qdel(src)
-		to_chat(user, "<span class='notice'>You tear [src] up.</span>")
-	else
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 /obj/item/bedsheet/blue
 	icon_state = "sheetblue"
@@ -284,22 +289,30 @@ LINEN BINS
 	extinguish()
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/bedsheetbin/attackby(obj/item/I as obj, mob/user as mob, params)
+
+/obj/structure/bedsheetbin/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/bedsheet))
 		add_fingerprint(user)
-		user.drop_transfer_item_to_loc(I, src)
-		sheets.Add(I)
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		sheets += I
 		amount++
-		to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
-	else if(amount && !hidden && I.w_class < WEIGHT_CLASS_BULKY)	//make sure there's sheets to hide it among, make sure nothing else is hidden in there.
+		to_chat(user, span_notice("You put [I] into [src]."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	//make sure there's sheets to hide it among, make sure nothing else is hidden in there.
+	if(user.a_intent != INTENT_HARM && amount && !hidden && I.w_class < WEIGHT_CLASS_BULKY)
 		add_fingerprint(user)
-		user.drop_transfer_item_to_loc(I, src)
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
 		hidden = I
-		to_chat(user, "<span class='notice'>You hide [I] among the sheets.</span>")
+		to_chat(user, span_notice("You hide [I] among the sheets."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
-
-/obj/structure/bedsheetbin/attack_hand(mob/user as mob)
+/obj/structure/bedsheetbin/attack_hand(mob/user)
 	if(amount >= 1)
 		amount--
 
@@ -316,7 +329,7 @@ LINEN BINS
 		to_chat(user, "<span class='notice'>You take [B] out of [src].</span>")
 
 		if(hidden)
-			hidden.loc = user.loc
+			hidden.forceMove_turf()
 			to_chat(user, "<span class='notice'>[hidden] falls out of [B]!</span>")
 			hidden = null
 

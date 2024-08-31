@@ -212,37 +212,45 @@
 	icon_state = "guest"
 	icon_screen = "pass"
 	var/list/access_to_give = list(ACCESS_AWAY01)
-	var/beenused = 0
+	var/beenused = FALSE
 	var/door_to_open = "UO71_Start"
 
+
 /obj/machinery/computer/id_upgrader/attackby(obj/item/I, mob/user, params)
-	if(I.GetID())
-		var/obj/item/card/id/D = I.GetID()
-		if(!access_to_give.len)
-			to_chat(user, "<span class='notice'>This machine appears to be configured incorrectly.</span>")
-			return
-		var/did_upgrade = 0
-		var/list/id_access = D.GetAccess()
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	var/obj/item/card/id/id = I.GetID()
+	if(id)
+		add_fingerprint(user)
+		if(!length(access_to_give))
+			to_chat(user, span_warning("This machine appears to be configured incorrectly."))
+			return ATTACK_CHAIN_PROCEED
+		var/did_upgrade = FALSE
+		var/list/id_access = id.GetAccess()
 		for(var/this_access in access_to_give)
 			if(!(this_access in id_access))
 				// don't have it - add it
-				D.access |= this_access
-				did_upgrade = 1
+				id.access |= this_access
+				did_upgrade = TRUE
 		if(did_upgrade)
-			add_fingerprint(user)
-			to_chat(user, "<span class='notice'>An access type was added to your ID card.</span>")
-			if(beenused)
-				return
-			spawn(1)
-				beenused = 1
-				var/unlocked_something = 0
-				for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
-					if(P.density && P.id_tag == door_to_open && P.z == z)
-						P.open()
-						unlocked_something = 1
-				if(unlocked_something)
-					to_chat(user, "<span class='danger'>Activating the machine has unlocked a way forward!</span>")
+			to_chat(user, span_notice("An access type was added to your ID card."))
 		else
-			to_chat(user, "<span class='notice'>Your ID card already has all the access this machine can give.</span>")
-		return
+			to_chat(user, span_warning("Your ID card already has all the access this machine can give."))
+		if(!beenused)
+			to_chat(user, span_danger("Activating the machine has unlocked a way forward!"))
+			unlock_doors()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
+
+
+/// Unlocks some blast doors on the gate level
+/obj/machinery/computer/id_upgrader/proc/unlock_doors()
+	set waitfor = FALSE
+
+	beenused = TRUE
+	for(var/obj/machinery/door/poddoor/poddoor in GLOB.airlocks)
+		if(poddoor.density && poddoor.id_tag == door_to_open && poddoor.z == z)
+			poddoor.open()
+

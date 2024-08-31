@@ -341,7 +341,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_layer)
 
 
 /atom/movable/screen/parallax_layer/random/space_gas/Initialize(mapload, datum/hud/hud_owner)
-	..()
+	. = ..()
 	add_atom_colour(SSparallax.random_parallax_color, ADMIN_COLOUR_PRIORITY)
 
 

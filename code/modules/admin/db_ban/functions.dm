@@ -5,7 +5,7 @@
 	if(!check_rights(R_BAN))	return
 
 	if(!SSdbcore.IsConnected())
-		to_chat(usr, span_boldannounceooc("Database connection failure when attempting to make DB ban. Please freeze them and write their ckey in notepad, so they can be banned when the DB returns."))
+		to_chat(usr, span_boldannounceooc("Database connection failure when attempting to make DB ban. Please freeze them and write their ckey in notepad, so they can be banned when the DB returns."), confidential=TRUE)
 		return
 
 	var/serverip = "[world.internet_address]:[world.port]"
@@ -113,7 +113,7 @@
 
 	if(blockselfban)
 		if(a_ckey == ckey)
-			to_chat(usr, "<span class='danger'>You cannot apply this ban type on yourself.</span>")
+			to_chat(usr, "<span class='danger'>You cannot apply this ban type on yourself.</span>", confidential=TRUE)
 			return
 
 	var/who
@@ -140,7 +140,7 @@
 		if(adm_query.NextRow())
 			var/adm_bans = text2num(adm_query.item[1])
 			if(adm_bans >= MAX_ADMIN_BANS_PER_ADMIN)
-				to_chat(usr, "<span class='danger'>You already logged [MAX_ADMIN_BANS_PER_ADMIN] admin ban(s) or more. Do not abuse this function!</span>")
+				to_chat(usr, "<span class='danger'>You already logged [MAX_ADMIN_BANS_PER_ADMIN] admin ban(s) or more. Do not abuse this function!</span>", confidential=TRUE)
 				qdel(adm_query)
 				return
 		qdel(adm_query)
@@ -170,7 +170,7 @@
 		return
 
 	qdel(query_insert)
-	to_chat(usr, "<span class='notice'>Ban saved to database.</span>")
+	to_chat(usr, "<span class='notice'>Ban saved to database.</span>", confidential=TRUE)
 	message_admins("[key_name_admin(usr)] has added a [bantype_str] for [ckey] [(job)?"([job])":""] [(duration > 0)?"([duration] minutes)":""] with the reason: \"[reason]\" to the ban database.")
 
 	if(announce_in_discord)
@@ -190,7 +190,7 @@
 	if(!check_rights(R_BAN))	return
 
 	if(!SSdbcore.IsConnected())
-		to_chat(usr, span_boldannounceooc("Database connection failure when attempting to remove DB ban. Please remember to unban them at a later date!."))
+		to_chat(usr, span_boldannounceooc("Database connection failure when attempting to remove DB ban. Please remember to unban them at a later date!."), confidential=TRUE)
 		return
 
 	var/bantype_str
@@ -255,17 +255,17 @@
 	qdel(query)
 
 	if(ban_number == 0)
-		to_chat(usr, "<span class='warning'>Database update failed due to no bans fitting the search criteria. If this is not a legacy ban you should contact the database admin.</span>")
+		to_chat(usr, "<span class='warning'>Database update failed due to no bans fitting the search criteria. If this is not a legacy ban you should contact the database admin.</span>", confidential=TRUE)
 		return
 
 	if(ban_number > 1)
-		to_chat(usr, "<span class='warning'>Database update failed due to multiple bans fitting the search criteria. Note down the ckey, job and current time and contact the database admin.</span>")
+		to_chat(usr, "<span class='warning'>Database update failed due to multiple bans fitting the search criteria. Note down the ckey, job and current time and contact the database admin.</span>", confidential=TRUE)
 		return
 
 	if(istext(ban_id))
 		ban_id = text2num(ban_id)
 	if(!isnum(ban_id))
-		to_chat(usr, "<span class='warning'>Database update failed due to a ban ID mismatch. Contact the database admin.</span>")
+		to_chat(usr, "<span class='warning'>Database update failed due to a ban ID mismatch. Contact the database admin.</span>", confidential=TRUE)
 		return
 
 	DB_ban_unban_by_id(ban_id)
@@ -279,7 +279,7 @@
 	if(!check_rights(R_BAN))	return
 
 	if(!isnum(banid) || !istext(param))
-		to_chat(usr, "Cancelled")
+		to_chat(usr, "Cancelled", confidential=TRUE)
 		return
 
 	var/datum/db_query/query = SSdbcore.NewQuery("SELECT ckey, duration, reason, job FROM [CONFIG_GET(string/utility_database)].[format_table_name("ban")] WHERE id=:banid", list(
@@ -301,7 +301,7 @@
 		reason = query.item[3]
 		job = query.item[4]
 	else
-		to_chat(usr, "Invalid ban id. Contact the database admin")
+		to_chat(usr, "Invalid ban id. Contact the database admin", confidential=TRUE)
 		qdel(query)
 		return
 
@@ -313,7 +313,7 @@
 			if(!value)
 				value = input("Insert the new reason for [pckey]'s ban", "New Reason", "[reason]", null) as null|text
 				if(!value)
-					to_chat(usr, "Cancelled")
+					to_chat(usr, "Cancelled", confidential=TRUE)
 					return
 
 			var/edit_reason = "- [eckey] changed ban reason from <cite><b>\\\"[reason]\\\"</b></cite> to <cite><b>\\\"[value]\\\"</b></cite><BR>"
@@ -332,7 +332,7 @@
 			if(!value)
 				value = input("Insert the new duration (in minutes) for [pckey]'s ban", "New Duration", "[duration]", null) as null|num
 				if(!isnum(value) || !value)
-					to_chat(usr, "Cancelled")
+					to_chat(usr, "Cancelled", confidential=TRUE)
 					return
 
 			var/edittext = "- [eckey] changed ban duration from [duration] to [value]<br>"
@@ -354,10 +354,10 @@
 					jobban_unban_client(pckey, job)
 				return
 			else
-				to_chat(usr, "Cancelled")
+				to_chat(usr, "Cancelled", confidential=TRUE)
 				return
 		else
-			to_chat(usr, "Cancelled")
+			to_chat(usr, "Cancelled", confidential=TRUE)
 			return
 
 /datum/admins/proc/DB_ban_unban_by_id(var/id)
@@ -366,7 +366,7 @@
 		return
 
 	if(!SSdbcore.IsConnected())
-		to_chat(usr, span_boldannounceooc("Database connection failure when attempting to remove DB ban. Please remember to unban them at a later date!"))
+		to_chat(usr, span_boldannounceooc("Database connection failure when attempting to remove DB ban. Please remember to unban them at a later date!"), confidential=TRUE)
 		return
 
 	var/ban_number = 0 //failsafe
@@ -385,11 +385,11 @@
 	qdel(query)
 
 	if(ban_number == 0)
-		to_chat(usr, "<span class='warning'>Database update failed due to a ban id not being present in the database.</span>")
+		to_chat(usr, "<span class='warning'>Database update failed due to a ban id not being present in the database.</span>", confidential=TRUE)
 		return
 
 	if(ban_number > 1)
-		to_chat(usr, "<span class='warning'>Database update failed due to multiple bans having the same ID. Contact the database admin.</span>")
+		to_chat(usr, "<span class='warning'>Database update failed due to multiple bans having the same ID. Contact the database admin.</span>", confidential=TRUE)
 		return
 
 	if(!src.owner || !isclient(src.owner))
@@ -435,7 +435,7 @@
 		return
 
 	if(!SSdbcore.IsConnected())
-		to_chat(usr, "<span class='warning'>Failed to establish database connection</span>")
+		to_chat(usr, "<span class='warning'>Failed to establish database connection</span>", confidential=TRUE)
 		return
 
 	var/output = {"<meta charset="UTF-8"><div align='center'><table width='90%'><tr>"}

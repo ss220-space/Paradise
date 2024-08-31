@@ -113,7 +113,8 @@ const StylesPreview = (properties, context) => {
               src={`data:image/jpeg;base64,${allStylesPreview[style_preview_icon_state]}`}
               style={{
                 'margin-left': '0px',
-                '-ms-interpolation-mode': 'nearest-neighbor',
+                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                'image-rendering': 'pixelated',
               }}
             />
           </Section>
@@ -332,7 +333,8 @@ const Helpers = (properties, context) => {
               src={`data:image/jpeg;base64,${allActionsPreview['ninja_teleport']}`}
               style={{
                 'margin-left': '-6px',
-                '-ms-interpolation-mode': 'nearest-neighbor',
+                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                'image-rendering': 'pixelated',
               }}
             />
             <Tooltip
@@ -355,7 +357,8 @@ const Helpers = (properties, context) => {
               src={`data:image/jpeg;base64,${allActionsPreview['headset_green']}`}
               style={{
                 'margin-left': '-6px',
-                '-ms-interpolation-mode': 'nearest-neighbor',
+                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                'image-rendering': 'pixelated',
               }}
             />
             <Tooltip
@@ -378,7 +381,8 @@ const Helpers = (properties, context) => {
               src={`data:image/jpeg;base64,${allActionsPreview['ninja_sleeper']}`}
               style={{
                 'margin-left': '-6px',
-                '-ms-interpolation-mode': 'nearest-neighbor',
+                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                'image-rendering': 'pixelated',
               }}
             />
             <Tooltip
@@ -400,7 +404,8 @@ const Helpers = (properties, context) => {
               src={`data:image/jpeg;base64,${allActionsPreview['ai_face']}`}
               style={{
                 'margin-left': '-6px',
-                '-ms-interpolation-mode': 'nearest-neighbor',
+                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                'image-rendering': 'pixelated',
               }}
             />
             <Tooltip
@@ -421,7 +426,8 @@ const Helpers = (properties, context) => {
               src={`data:image/jpeg;base64,${allActionsPreview['ninja_borg']}`}
               style={{
                 'margin-left': '-6px',
-                '-ms-interpolation-mode': 'nearest-neighbor',
+                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                'image-rendering': 'pixelated',
               }}
             />
             <Tooltip
@@ -444,7 +450,8 @@ const Helpers = (properties, context) => {
               src={`data:image/jpeg;base64,${allActionsPreview['server']}`}
               style={{
                 'margin-left': '-6px',
-                '-ms-interpolation-mode': 'nearest-neighbor',
+                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                'image-rendering': 'pixelated',
               }}
             />
             <Tooltip
@@ -467,7 +474,8 @@ const Helpers = (properties, context) => {
               src={`data:image/jpeg;base64,${allActionsPreview['buckler']}`}
               style={{
                 'margin-left': '-6px',
-                '-ms-interpolation-mode': 'nearest-neighbor',
+                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                'image-rendering': 'pixelated',
               }}
             />
             <Tooltip
@@ -491,7 +499,8 @@ const Helpers = (properties, context) => {
               src={`data:image/jpeg;base64,${allActionsPreview['cash']}`}
               style={{
                 'margin-left': '-6px',
-                '-ms-interpolation-mode': 'nearest-neighbor',
+                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                'image-rendering': 'pixelated',
               }}
             />
             <Tooltip
@@ -513,7 +522,8 @@ const Helpers = (properties, context) => {
               src={`data:image/jpeg;base64,${allActionsPreview['handcuff']}`}
               style={{
                 'margin-left': '-6px',
-                '-ms-interpolation-mode': 'nearest-neighbor',
+                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                'image-rendering': 'pixelated',
               }}
             />
             <Tooltip
@@ -536,7 +546,8 @@ const Helpers = (properties, context) => {
               src={`data:image/jpeg;base64,${allActionsPreview['spider_charge']}`}
               style={{
                 'margin-left': '-6px',
-                '-ms-interpolation-mode': 'nearest-neighbor',
+                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                'image-rendering': 'pixelated',
               }}
             />
             <Tooltip
@@ -559,7 +570,8 @@ const Helpers = (properties, context) => {
               src={`data:image/jpeg;base64,${allActionsPreview['BSM']}`}
               style={{
                 'margin-left': '-6px',
-                '-ms-interpolation-mode': 'nearest-neighbor',
+                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                'image-rendering': 'pixelated',
               }}
             />
             <Tooltip
@@ -582,7 +594,8 @@ const Helpers = (properties, context) => {
               src={`data:image/jpeg;base64,${allActionsPreview['changeling']}`}
               style={{
                 'margin-left': '-6px',
-                '-ms-interpolation-mode': 'nearest-neighbor',
+                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                'image-rendering': 'pixelated',
               }}
             />
             <Tooltip
@@ -606,7 +619,8 @@ const Helpers = (properties, context) => {
               src={`data:image/jpeg;base64,${allActionsPreview['vampire']}`}
               style={{
                 'margin-left': '-6px',
-                '-ms-interpolation-mode': 'nearest-neighbor',
+                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                'image-rendering': 'pixelated',
               }}
             />
             <Tooltip
@@ -629,7 +643,8 @@ const Helpers = (properties, context) => {
               src={`data:image/jpeg;base64,${allActionsPreview['syndicate']}`}
               style={{
                 'margin-left': '-6px',
-                '-ms-interpolation-mode': 'nearest-neighbor',
+                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                'image-rendering': 'pixelated',
               }}
             />
             <Tooltip
@@ -720,7 +735,8 @@ const ActionBuyPanel = (properties, context) => {
                 src={`data:image/jpeg;base64,${allActionsPreview['smoke']}`}
                 style={{
                   'margin-left': '-6px',
-                  '-ms-interpolation-mode': 'nearest-neighbor',
+                  '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                  'image-rendering': 'pixelated',
                 }}
               />
               <Tooltip
@@ -756,7 +772,8 @@ const ActionBuyPanel = (properties, context) => {
                 src={`data:image/jpeg;base64,${allActionsPreview['ninja_cloak']}`}
                 style={{
                   'margin-left': '-6px',
-                  '-ms-interpolation-mode': 'nearest-neighbor',
+                  '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                  'image-rendering': 'pixelated',
                 }}
               />
               <Tooltip
@@ -791,7 +808,8 @@ const ActionBuyPanel = (properties, context) => {
                 src={`data:image/jpeg;base64,${allActionsPreview['ninja_clones']}`}
                 style={{
                   'margin-left': '-6px',
-                  '-ms-interpolation-mode': 'nearest-neighbor',
+                  '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                  'image-rendering': 'pixelated',
                 }}
               />
               <Tooltip
@@ -826,7 +844,8 @@ const ActionBuyPanel = (properties, context) => {
                 src={`data:image/jpeg;base64,${allActionsPreview['chameleon']}`}
                 style={{
                   'margin-left': '-6px',
-                  '-ms-interpolation-mode': 'nearest-neighbor',
+                  '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                  'image-rendering': 'pixelated',
                 }}
               />
               <Tooltip
@@ -862,7 +881,8 @@ const ActionBuyPanel = (properties, context) => {
                 src={`data:image/jpeg;base64,${allActionsPreview['ninja_spirit_form']}`}
                 style={{
                   'margin-left': '-6px',
-                  '-ms-interpolation-mode': 'nearest-neighbor',
+                  '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                  'image-rendering': 'pixelated',
                 }}
               />
               <Tooltip
@@ -916,7 +936,8 @@ const ActionBuyPanel = (properties, context) => {
                 src={`data:image/jpeg;base64,${allActionsPreview['kunai']}`}
                 style={{
                   'margin-left': '-6px',
-                  '-ms-interpolation-mode': 'nearest-neighbor',
+                  '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                  'image-rendering': 'pixelated',
                 }}
               />
               <Tooltip
@@ -951,7 +972,8 @@ const ActionBuyPanel = (properties, context) => {
                 src={`data:image/jpeg;base64,${allActionsPreview['chem_injector']}`}
                 style={{
                   'margin-left': '-6px',
-                  '-ms-interpolation-mode': 'nearest-neighbor',
+                  '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                  'image-rendering': 'pixelated',
                 }}
               />
               <Tooltip
@@ -985,7 +1007,8 @@ const ActionBuyPanel = (properties, context) => {
                 src={`data:image/jpeg;base64,${allActionsPreview['emergency_blink']}`}
                 style={{
                   'margin-left': '-6px',
-                  '-ms-interpolation-mode': 'nearest-neighbor',
+                  '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                  'image-rendering': 'pixelated',
                 }}
               />
               <Tooltip
@@ -1018,7 +1041,8 @@ const ActionBuyPanel = (properties, context) => {
                 src={`data:image/jpeg;base64,${allActionsPreview['caltrop']}`}
                 style={{
                   'margin-left': '-6px',
-                  '-ms-interpolation-mode': 'nearest-neighbor',
+                  '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                  'image-rendering': 'pixelated',
                 }}
               />
               <Tooltip
@@ -1054,7 +1078,8 @@ const ActionBuyPanel = (properties, context) => {
                 src={`data:image/jpeg;base64,${allActionsPreview['cloning']}`}
                 style={{
                   'margin-left': '-6px',
-                  '-ms-interpolation-mode': 'nearest-neighbor',
+                  '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                  'image-rendering': 'pixelated',
                 }}
               />
               <Tooltip
@@ -1112,7 +1137,8 @@ const ActionBuyPanel = (properties, context) => {
                 src={`data:image/jpeg;base64,${allActionsPreview['shuriken']}`}
                 style={{
                   'margin-left': '-6px',
-                  '-ms-interpolation-mode': 'nearest-neighbor',
+                  '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                  'image-rendering': 'pixelated',
                 }}
               />
               <Tooltip
@@ -1144,7 +1170,8 @@ const ActionBuyPanel = (properties, context) => {
                 src={`data:image/jpeg;base64,${allActionsPreview['adrenal']}`}
                 style={{
                   'margin-left': '-6px',
-                  '-ms-interpolation-mode': 'nearest-neighbor',
+                  '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                  'image-rendering': 'pixelated',
                 }}
               />
               <Tooltip
@@ -1172,7 +1199,8 @@ const ActionBuyPanel = (properties, context) => {
                 src={`data:image/jpeg;base64,${allActionsPreview['emp']}`}
                 style={{
                   'margin-left': '-6px',
-                  '-ms-interpolation-mode': 'nearest-neighbor',
+                  '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                  'image-rendering': 'pixelated',
                 }}
               />
               <Tooltip
@@ -1205,7 +1233,8 @@ const ActionBuyPanel = (properties, context) => {
                 src={`data:image/jpeg;base64,${allActionsPreview['energynet']}`}
                 style={{
                   'margin-left': '-6px',
-                  '-ms-interpolation-mode': 'nearest-neighbor',
+                  '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                  'image-rendering': 'pixelated',
                 }}
               />
               <Tooltip
@@ -1240,7 +1269,8 @@ const ActionBuyPanel = (properties, context) => {
                 src={`data:image/jpeg;base64,${allActionsPreview['spider_red']}`}
                 style={{
                   'margin-left': '-6px',
-                  '-ms-interpolation-mode': 'nearest-neighbor',
+                  '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                  'image-rendering': 'pixelated',
                 }}
               />
               <Tooltip
@@ -1351,7 +1381,8 @@ const FakeLoadBar = (properties, context) => {
               src={`data:image/jpeg;base64,${allActionsPreview['spider_' + color_choice]}`}
               style={{
                 'margin-left': '-6px',
-                '-ms-interpolation-mode': 'nearest-neighbor',
+                '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
+                'image-rendering': 'pixelated',
               }}
             />
             <br />

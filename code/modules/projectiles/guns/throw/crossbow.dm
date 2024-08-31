@@ -22,8 +22,6 @@
 	var/obj/item/stock_parts/cell/cell = null    // Used for firing superheated rods.
 	var/list/possible_tensions = list(XBOW_TENSION_20, XBOW_TENSION_40, XBOW_TENSION_60, XBOW_TENSION_80, XBOW_TENSION_FULL)
 
-/obj/item/gun/throw/crossbow/notify_ammo_count()
-	return ""
 
 /obj/item/gun/throw/crossbow/get_cell()
 	return cell
@@ -116,18 +114,22 @@
 	else
 		user.visible_message("[usr] struggles to draws back the string of [src]!","[src] string is too tense to draw manually!")
 
+
 /obj/item/gun/throw/crossbow/attackby(obj/item/I, mob/user, params)
-	if(!istype(I, /obj/item/stock_parts/cell))
-		return ..()
+	if(istype(I, /obj/item/stock_parts/cell))
+		add_fingerprint(user)
+		if(cell)
+			balloon_alert(user, "уже установлено!")
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		cell = I
+		balloon_alert(user, "установлено")
+		process_chamber()
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(cell)
-		balloon_alert(user, "уже установлено!")
-		return
+	return ..()
 
-	user.drop_transfer_item_to_loc(I, src)
-	cell = I
-	balloon_alert(user, "установлено")
-	process_chamber()
 
 /obj/item/gun/throw/crossbow/screwdriver_act(mob/user, obj/item/I)
 	. = ..()
@@ -264,10 +266,12 @@
 	embedded_ignore_throwspeed_threshold = TRUE
 	superheated = 1
 
+
 /obj/item/arrow/rod/fire/attackby(obj/item/I, mob/user, params)
 	. = ..()
-	if(istype(I, /obj/item/lighter) || I.tool_behaviour == TOOL_WELDER)
+	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && is_hot(I))
 		fire_up()
+
 
 /obj/item/arrow/rod/fire/proc/fire_up(mob/user)
 	icon_state = "flame_rod_act"

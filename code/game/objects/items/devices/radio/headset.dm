@@ -33,7 +33,7 @@
 	internal_channels.Cut()
 
 /obj/item/radio/headset/Initialize()
-	..()
+	. = ..()
 
 	if(ks1type)
 		keyslot1 = new ks1type(src)
@@ -438,27 +438,28 @@
 	freqlock = TRUE
 */
 
-/obj/item/radio/headset/attackby(obj/item/W, mob/user)
-	if(istype(W, /obj/item/encryptionkey))
-		if(ishuman(user) && loc == user)
-			var/mob/living/carbon/human/H_user = user
-			if(H_user.check_obscured_slots() & H_user.get_slot_by_item(src))
-				to_chat(user, span_warning("Your equipment prevents you from doing this!"))
-				return
+
+/obj/item/radio/headset/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/encryptionkey))
+		if(loc == user && (user.check_obscured_slots() & user.get_slot_by_item(src)))
+			to_chat(user, span_warning("Your equipment prevents you from doing this!"))
+			return ATTACK_CHAIN_PROCEED
+		add_fingerprint(user)
 		user.set_machine(src)
 		if(keyslot1 && keyslot2)
-			to_chat(user, "The headset can't hold another key!")
-			return
-
-		if(!keyslot1)
-			user.drop_transfer_item_to_loc(W, src)
-			keyslot1 = W
+			to_chat(user, span_warning("The headset can't hold another key!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		if(keyslot1)
+			keyslot2 = I
 		else
-			user.drop_transfer_item_to_loc(W, src)
-			keyslot2 = W
+			keyslot1 = I
 		recalculateChannels()
-	else
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/radio/headset/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

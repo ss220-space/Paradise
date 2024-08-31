@@ -27,12 +27,11 @@
 
 /datum/design/flora_gun
 	name = "Floral Somatoray"
-	desc = "A tool that discharges controlled radiation which induces mutation in plant cells. Harmless to other organic life."
+	desc = "A tool that discharges controlled radiation which induces mutation in plant cells. Can be harmful in the wrong hands."
 	id = "flora_gun"
-	req_tech = list("materials" = 2, "biotech" = 4)
+	req_tech = list("powerstorage" = 7, "biotech" = 7, "engineering" = 6, "materials" = 5)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 2000, MAT_GLASS = 500)
-	reagents_list = list("radium" = 20)
+	materials = list(MAT_GOLD = 2000, MAT_BLUESPACE = 1500, MAT_DIAMOND = 800, MAT_URANIUM = 500, MAT_GLASS = 500)
 	build_path = /obj/item/gun/energy/floragun
 	category = list("Weapons")
 
@@ -201,7 +200,7 @@
 	id = "lmag"
 	build_type = PROTOLATHE
 	req_tech = list("combat" = 4, "powerstorage" = 4)
-	materials = list(MAT_METAL = 8000, MAT_GLASS = 2500, MAT_PLASMA = 3000)
+	materials = list(MAT_METAL = 8000, MAT_GLASS = 2500)
 	build_path = /obj/item/ammo_box/magazine/lr30mag
 	category = list("Weapons")
 

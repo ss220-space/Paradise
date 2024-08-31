@@ -726,3 +726,13 @@
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 1000, MAT_SILVER = 500, MAT_GLASS = 500, MAT_DIAMOND = 200)
 	category = list("Medical")
+
+/datum/design/modified_medical_gloves
+	name = "modified medical gloves"
+	desc = "They are very soft and light to the touch and do not hinder movement at all."
+	id = "modified_medical_gloves"
+	req_tech = list("magnets" = 7, "materials" = 7, "programming" = 5, "biotech" = 5)
+	build_path = /obj/item/clothing/gloves/color/latex/modified
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 1000, MAT_SILVER = 800, MAT_GLASS = 800, MAT_DIAMOND = 600, MAT_GOLD = 400)
+	category = list("Medical")

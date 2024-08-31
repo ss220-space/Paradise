@@ -10,6 +10,8 @@
 	desc = "Just your average condiment container."
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "emptycondiment"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	container_type = OPENCONTAINER
 	possible_transfer_amounts = list(1, 5)
 	visible_transfer_rate = TRUE
@@ -39,37 +41,47 @@
 	set hidden = FALSE
 	..()
 
-/obj/item/reagent_containers/food/condiment/attack(mob/M, mob/user, def_zone)
+
+/obj/item/reagent_containers/food/condiment/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(!iscarbon(target))
+		return ..()
+
+	. = ATTACK_CHAIN_PROCEED
 
 	if(!reagents || !reagents.total_volume)
-		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
-		return 0
+		to_chat(user, span_warning("None of [src] left, oh no!"))
+		return .
 
-	if(!get_location_accessible(M, BODY_ZONE_PRECISE_MOUTH))
-		if(M == user)
-			to_chat(user, "<span class='warning'>Your face is obscured, so you cant eat.</span>")
+	if(!get_location_accessible(target, BODY_ZONE_PRECISE_MOUTH))
+		if(target == user)
+			to_chat(user, span_warning("Your face is obscured."))
 		else
-			to_chat(user, "<span class='warning'>[M]'s face is obscured, so[M.p_they()] cant eat.</span>")
-		return FALSE
+			to_chat(user, span_warning("[target]'s face is obscured."))
+		return .
 
-	if(M == user)
-		to_chat(M, "<span class='notice'>You swallow some of contents of \the [src].</span>")
+	if(target == user)
+		to_chat(target, span_notice("You swallow some of [src] contents."))
 	else
-		user.visible_message("<span class='warning'>[user] attempts to feed [M] from [src].</span>")
-		if(!do_after(user, 3 SECONDS, M, NONE))
-			return
-		if(!reagents || !reagents.total_volume)
-			return // The condiment might be empty after the delay.
-		user.visible_message("<span class='warning'>[user] feeds [M] from [src].</span>")
-		add_attack_logs(user, M, "Fed [src] containing [reagents.log_list()]", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
+		user.visible_message(
+			span_warning("[user] attempts to feed [target] from [src]."),
+			span_notice("You attempt to feed [target] from [src]..."),
+		)
+		if(!do_after(user, 3 SECONDS, target, NONE) || !get_location_accessible(target, BODY_ZONE_PRECISE_MOUTH) || !reagents || !reagents.total_volume)
+			return .
+		user.visible_message(
+			span_warning("[user] feeds [target] from [src]."),
+			span_notice("You have fed [target] from [src]."),
+		)
+		add_attack_logs(user, target, "Fed [src] containing [reagents.log_list()]", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
 	var/fraction = min(10/reagents.total_volume, 1)
-	reagents.reaction(M, REAGENT_INGEST, fraction)
-	reagents.trans_to(M, 10)
-	playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
-	return 1
+	reagents.reaction(target, REAGENT_INGEST, fraction)
+	reagents.trans_to(target, 10)
+	playsound(target.loc,'sound/items/drink.ogg', rand(10,50), TRUE)
+	return .|ATTACK_CHAIN_SUCCESS
 
-/obj/item/reagent_containers/food/condiment/afterattack(obj/target, mob/user , proximity)
+
+/obj/item/reagent_containers/food/condiment/afterattack(obj/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
@@ -283,11 +295,14 @@
 	 "sugar" = list("condi_sugar", "Sugar", "Tasty spacey sugar!")
 	)
 
-/obj/item/reagent_containers/food/condiment/pack/attack(mob/M, mob/user, def_zone) //Can't feed these to people directly.
-	return
 
-/obj/item/reagent_containers/food/condiment/pack/afterattack(obj/target, mob/user , proximity)
-	if(!proximity) return
+/obj/item/reagent_containers/food/condiment/pack/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	return ATTACK_CHAIN_PROCEED	// Can't feed these to people directly.
+
+
+/obj/item/reagent_containers/food/condiment/pack/afterattack(obj/target, mob/user, proximity, params)
+	if(!proximity)
+		return
 
 	//You can tear the bag open above food to put the condiments on it, obviously.
 	if(istype(target, /obj/item/reagent_containers/food/snacks))

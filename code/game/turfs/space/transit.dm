@@ -15,9 +15,10 @@
 /turf/space/transit/west
 	dir = WEST
 
-//Overwrite because we dont want people building rods in space.
-/turf/space/transit/attackby(obj/O as obj, mob/user as mob, params)
-	return
+
+/turf/space/transit/attackby(obj/item/I, mob/user, params)
+	//Overwrite because we dont want people building rods in space.
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 
 /turf/space/transit/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
@@ -57,9 +58,6 @@
 /turf/space/transit/rcd_act()
 	return RCD_NO_ACT
 
-//Overwrite because we dont want people building rods in space.
-/turf/space/transit/attackby()
-	return
 
 /turf/space/transit/Initialize(mapload)
 	. = ..()

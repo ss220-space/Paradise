@@ -14,7 +14,7 @@
 /obj/structure/closet/crate/necropolis/tendril/populate_contents()
 	switch(rand(1, 32))
 		if(1)
-			new /obj/item/shared_storage/red(src)
+			new /obj/item/shared_storage(src)
 		if(2)
 			new /obj/item/clothing/head/helmet/space/cult(src)
 			new /obj/item/clothing/suit/space/cult(src)
@@ -293,7 +293,7 @@
 	playsound(T, 'sound/effects/splat.ogg', 80, 5, -1)
 	next_summon = world.time + COOLDOWN_SUMMON
 
-/obj/item/eflowers/afterattack(atom/target, mob/user, proximity)
+/obj/item/eflowers/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 	var/mob/living/simple_animal/M = target
@@ -446,14 +446,14 @@
 	. = ..()
 	. += drew_blood ? ("<span class='notice'>It's sated... for now.</span>") : ("<span class='danger'>It will not be sated until it tastes blood.</span>")
 
-/obj/item/cursed_katana/attack(mob/living/target, mob/user, def_zone)
-	var/add_melee_cooldown = TRUE
+
+/obj/item/cursed_katana/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(can_combo_attack(user, target))
 		drew_blood = TRUE
 		if(ishostile(target))
 			user.changeNext_move(CLICK_CD_RAPID)
-			add_melee_cooldown = FALSE
-	return ..(target, user, def_zone, add_melee_cooldown)
+	return ..()
+
 
 /obj/item/cursed_katana/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)

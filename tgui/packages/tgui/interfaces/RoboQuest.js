@@ -46,7 +46,7 @@ export const RoboQuest = (props, context) => {
   };
 
   return (
-    <Window theme={style} width={940} height={540}>
+    <Window theme={style} width={1000} height={540}>
       <Window.Content>
         <Stack fill>
           <Stack.Item basis={40}>
@@ -301,22 +301,25 @@ export const RoboQuest = (props, context) => {
                 {shopItems.robo.map(
                   (i) =>
                     (!i.emagOnly || style === 'syndicate') && (
-                      <Section
+                      <ImageButton
                         key={i.name}
-                        title={i.name}
-                        buttons={
-                          <Button
-                            content={'Buy (' + i.cost.robo + 'P)'}
-                            onClick={() =>
-                              act('buyItem', {
-                                item: i.path,
-                              })
-                            }
-                          />
+                        asset
+                        color="purple"
+                        image={i.icon}
+                        imageAsset="roboquest64x64"
+                        title={
+                          <Box nowrap inline>
+                            {i.name}{' '}
+                            <b style={{ color: 'purple' }}>{i.cost.robo}</b>
+                          </Box>
                         }
-                      >
-                        <Box italic>{i.desc}</Box>
-                      </Section>
+                        content={i.desc}
+                        onClick={() =>
+                          act('buyItem', {
+                            item: i.path,
+                          })
+                        }
+                      />
                     )
                 )}
               </Section>

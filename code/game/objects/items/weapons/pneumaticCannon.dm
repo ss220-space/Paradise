@@ -49,14 +49,20 @@
 		for(var/obj/item/I in loadedItems)
 			. += span_notice("[bicon(I)] It has \a [I] loaded.")
 
+
 /obj/item/pneumatic_cannon/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	if(tank)
-		updateTank(tank, 1, user)
-	else
-		to_chat(user, span_notice("There is no tank inside!"))
+	if(!tank)
+		to_chat(user, span_warning("There is no tank inside."))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	to_chat(user, span_notice("You detach [tank] from [src]."))
+	tank.forceMove(drop_location())
+	user.put_in_hands(tank, ignore_anim = FALSE)
+	tank = null
+	update_icon(UPDATE_OVERLAYS)
+
 
 /obj/item/pneumatic_cannon/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -65,47 +71,66 @@
 	pressure_setting = pressure_setting >= HIGH_PRESSURE ? LOW_PRESSURE : pressure_setting + 1
 	to_chat(user, span_notice("You tweak pressure output to [pressure_setting_to_text(pressure_setting)]."))
 
+
 /obj/item/pneumatic_cannon/return_analyzable_air()
 	if(tank)
 		return tank.return_analyzable_air()
 
+
 /obj/item/pneumatic_cannon/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/analyzer))
-		return
-	if(istype(I, /obj/item/tank/internals) && !tank)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/tank/internals))
+		add_fingerprint(user)
+		if(tank)
+			to_chat(user, span_warning("There is already [tank] installed."))
+			return ATTACK_CHAIN_PROCEED
 		if(istype(I, /obj/item/tank/internals/emergency_oxygen))
-			to_chat(user, span_warning("[I] is too small for [src]."))
-			return
-		updateTank(I, 0, user)
-		return
+			to_chat(user, span_warning("The [I.name] is too small for [src]."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("You hook [I] up to [src]."))
+		tank = I
+		update_icon(UPDATE_OVERLAYS)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	if(I.type == type)
 		to_chat(user, span_warning("You're fairly certain that putting a pneumatic cannon inside another pneumatic cannon would cause a spacetime disruption"))
-		return
+		return ATTACK_CHAIN_PROCEED
+
 	if(loadedWeightClass >= maxWeightClass)
-		to_chat(user, span_warning("[src] can't hold any more items!"))
-		return
+		to_chat(user, span_warning("The [name] cannot hold any more items!"))
+		return ATTACK_CHAIN_PROCEED
+
 	if((loadedWeightClass + I.w_class) > maxWeightClass)
-		to_chat(user, span_warning("[I] won't fit into [src]!"))
-		return
-	if(I.w_class > src.w_class)
-		to_chat(user, span_warning("[I] is too large to fit into [src]!"))
-		return
+		to_chat(user, span_warning("The [I.name] won't fit into [src]!"))
+		return ATTACK_CHAIN_PROCEED
+
+	if(I.w_class > w_class)
+		to_chat(user, span_warning("The [I.name] is too large to fit into [src]!"))
+		return ATTACK_CHAIN_PROCEED
+
 	if(!user.drop_transfer_item_to_loc(I, src))
-		return
-	to_chat(user, span_notice("You load [I] into [src]"))
-	loadedItems.Add(I)
+		return ..()
+
+	to_chat(user, span_notice("You load [I.name] into [src]"))
+	loadedItems += I
 	loadedWeightClass += I.w_class
+	return ATTACK_CHAIN_BLOCKED_ALL
+
 
 /obj/item/pneumatic_cannon/afterattack(atom/target, mob/living/carbon/human/user, flag, params)
 	. = ..()
 	if(flag && user.a_intent == INTENT_HARM) // Melee attack
-		return ..()
+		return .
 	if(!istype(user))
-		return ..()
-	if(!(loc == user))
-		return ..()
+		return .
+	if(loc != user)
+		return .
 	Fire(user, target)
-	return TRUE
+
 
 /obj/item/pneumatic_cannon/proc/Fire(var/mob/living/carbon/human/user, var/atom/target)
 	if(!istype(user) && !target)
@@ -123,7 +148,7 @@
 	if(tank && !tank.air_contents.remove(gasPerThrow * pressure_setting))
 		to_chat(user, span_warning("[src] lets out a weak hiss and doesn't react!"))
 		return
-	if(user && (CLUMSY in user.mutations) && prob(75))
+	if(user && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(75))
 		user.visible_message(span_warning("[user] loses [user.p_their()] grip on [src], causing it to go off!"), span_userdanger("[src] slips out of your hands and goes off!"))
 		user.drop_from_active_hand()
 		if(prob(10))
@@ -165,24 +190,6 @@
 	time = 300
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
-
-/obj/item/pneumatic_cannon/proc/updateTank(obj/item/tank/thetank, removing = 0, mob/living/carbon/human/user)
-	if(removing)
-		if(!tank)
-			return
-		to_chat(user, span_notice("You detach [thetank] from [src]."))
-		tank.forceMove_turf()
-		user.put_in_hands(tank, ignore_anim = FALSE)
-		tank = null
-	if(!removing)
-		if(tank)
-			to_chat(user, span_warning("[src] already has a tank."))
-			return
-		if(!user.drop_transfer_item_to_loc(thetank, src))
-			return
-		to_chat(user, span_notice("You hook [thetank] up to [src]."))
-		tank = thetank
-	update_icon(UPDATE_OVERLAYS)
 
 
 /obj/item/pneumatic_cannon/update_overlays()

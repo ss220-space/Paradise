@@ -379,7 +379,7 @@
 	dangerous = TRUE
 
 /datum/plant_gene/trait/teleport/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target, mob/thrower)
-	if(isliving(target))
+	if(isliving(target) && get_dist(get_turf(G), get_turf(target)) < 2) // Anti tk teleportation
 		var/mob/living/living_target = target
 		//squash_trait already has "do_after", no need to double it here
 		var/teleport_radius = max(round(G.seed.potency / 10), 1)

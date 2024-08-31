@@ -134,6 +134,7 @@ export const CameraConsoleMapContent = (props, context) => {
                 icon={'box'}
                 tooltip={cm.name}
                 color={cm.status ? 'blue' : 'red'}
+                bordered
                 onClick={() =>
                   act('switch_camera', {
                     name: cm.name,

@@ -18,7 +18,7 @@
 	var/uses = 30 //0 for unlimited uses
 	var/instant = 0
 	var/colourName = "red" //for updateIcon purposes
-	var/dat = {"<meta charset="UTF-8">"}
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	var/busy = FALSE
 	var/list/validSurfaces = list(/turf/simulated/floor)
 
@@ -35,21 +35,21 @@
 
 /obj/item/toy/crayon/proc/update_window(mob/living/user as mob)
 	dat += "<center><h2>Currently selected: [drawtype]</h2><br>"
-	dat += "<a href='?src=[UID()];type=random_letter'>Random letter</a><a href='?src=[UID()];type=letter'>Pick letter</a>"
+	dat += "<a href='byond://?src=[UID()];type=random_letter'>Random letter</a><a href='byond://?src=[UID()];type=letter'>Pick letter</a>"
 	dat += "<hr>"
 	dat += "<h3>Runes:</h3><br>"
-	dat += "<a href='?src=[UID()];type=random_rune'>Random rune</a>"
+	dat += "<a href='byond://?src=[UID()];type=random_rune'>Random rune</a>"
 	for(var/i = 1; i <= 8; i++)
-		dat += "<a href='?src=[UID()];type=rune[i]'>Rune [i]</a>"
+		dat += "<a href='byond://?src=[UID()];type=rune[i]'>Rune [i]</a>"
 		if(!((i + 1) % 3)) //3 buttons in a row
 			dat += "<br>"
 	dat += "<hr>"
 	graffiti.Find()
 	dat += "<h3>Graffiti:</h3><br>"
-	dat += "<a href='?src=[UID()];type=random_graffiti'>Random graffiti</a>"
+	dat += "<a href='byond://?src=[UID()];type=random_graffiti'>Random graffiti</a>"
 	var/c = 1
 	for(var/T in graffiti)
-		dat += "<a href='?src=[UID()];type=[T]'>[T]</a>"
+		dat += "<a href='byond://?src=[UID()];type=[T]'>[T]</a>"
 		if(!((c + 1) % 3)) //3 buttons in a row
 			dat += "<br>"
 		c++
@@ -77,7 +77,7 @@
 	drawtype = temp
 	update_window(usr)
 
-/obj/item/toy/crayon/afterattack(atom/target, mob/user, proximity)
+/obj/item/toy/crayon/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity) return
 	if(busy) return
 	if(is_type_in_list(target,validSurfaces))
@@ -99,26 +99,34 @@
 					qdel(src)
 		busy = FALSE
 
-/obj/item/toy/crayon/attack(mob/M, mob/user)
-	var/huffable = istype(src,/obj/item/toy/crayon/spraycan)
-	if(M == user)
-		if(ishuman(user))
-			var/mob/living/carbon/human/H = user
-			if(!H.check_has_mouth())
-				to_chat(user, "<span class='warning'>You do not have a mouth!</span>")
-				return
-		playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
-		to_chat(user, "<span class='notice'>You take a [huffable ? "huff" : "bite"] of the [name]. Delicious!</span>")
-		if(!isvampire(user))
-			user.adjust_nutrition(5)
-		if(uses)
-			uses -= 5
-			if(uses <= 0)
-				to_chat(user, "<span class='warning'>There is no more of [huffable ? "paint in " : ""][name] left!</span>")
-				qdel(src)
 
-	else
-		..()
+/obj/item/toy/crayon/attack(mob/living/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
+
+	if(target != user)
+		return ..()
+
+	. = ATTACK_CHAIN_PROCEED
+
+	if(ishuman(user) && !user.check_has_mouth())
+		to_chat(user, span_warning("You do not have a mouth!"))
+		return .
+
+	var/huffable = istype(src, /obj/item/toy/crayon/spraycan)
+	playsound(loc, 'sound/items/eatfood.ogg', 50, FALSE)
+	to_chat(user, span_notice("YYou take a [huffable ? "huff" : "bite"] of the [name]. Delicious!"))
+	if(!isvampire(user))
+		user.adjust_nutrition(5)
+
+	if(!uses)
+		return .
+
+	. |= ATTACK_CHAIN_SUCCESS
+
+	uses -= 5
+	if(uses <= 0)
+		. = ATTACK_CHAIN_BLOCKED_ALL
+		to_chat(user, span_warning("There is no more of [huffable ? "paint in " : ""][name] left!"))
+		qdel(src)
 
 
 /obj/item/toy/crayon/red
@@ -225,7 +233,7 @@
 	update_window(user)
 
 /obj/item/toy/crayon/mime/update_window(mob/living/user as mob)
-	dat += "<center><span style='border:1px solid #161616; background-color: [colour];'>&nbsp;&nbsp;&nbsp;</span><a href='?src=[UID()];color=1'>Change color</a></center>"
+	dat += "<center><span style='border:1px solid #161616; background-color: [colour];'>&nbsp;&nbsp;&nbsp;</span><a href='byond://?src=[UID()];color=1'>Change color</a></center>"
 	..()
 
 /obj/item/toy/crayon/mime/Topic(href,href_list)
@@ -252,7 +260,7 @@
 	update_window(user)
 
 /obj/item/toy/crayon/rainbow/update_window(mob/living/user as mob)
-	dat += "<center><span style='border:1px solid #161616; background-color: [colour];'>&nbsp;&nbsp;&nbsp;</span><a href='?src=[UID()];color=1'>Change color</a></center>"
+	dat += "<center><span style='border:1px solid #161616; background-color: [colour];'>&nbsp;&nbsp;&nbsp;</span><a href='byond://?src=[UID()];color=1'>Change color</a></center>"
 	..()
 
 /obj/item/toy/crayon/rainbow/Topic(href,href_list[])
@@ -298,7 +306,7 @@
 			colour = input(user,"Choose Color") as color
 			update_icon()
 
-/obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user as mob, proximity)
+/obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(capped)

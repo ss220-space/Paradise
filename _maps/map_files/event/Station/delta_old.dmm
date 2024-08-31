@@ -41175,6 +41175,14 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/item/storage/belt/utility,
+/obj/item/extinguisher,
+/obj/item/secbot_assembly{
+	created_name = "Officer Podsky";
+	desc = "Ты не узнаешь ценность чего-либо, пока не потеряешь это...";
+	name = "Обломки офицера Подски";
+	pixel_y = 21
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -47615,6 +47623,10 @@
 "fMt" = (
 /turf/simulated/wall/r_wall,
 /area/maintenance/starboardsolar)
+"fMu" = (
+/obj/structure/closet/secure_closet/pilot_sniper,
+/turf/space,
+/area/space)
 "fMD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -71209,15 +71221,8 @@
 	},
 /area/engine/break_room)
 "mop" = (
-/obj/structure/table,
-/obj/item/storage/belt/utility,
-/obj/item/extinguisher,
-/obj/item/secbot_assembly{
-	created_name = "Officer Podsky";
-	desc = "Ты не узнаешь ценность чего-либо, пока не потеряешь это...";
-	name = "Обломки офицера Подски";
-	pixel_y = 21
-	},
+/obj/effect/decal/warning_stripes/red/hollow,
+/obj/structure/closet/secure_closet/pilot_sniper,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -123104,7 +123109,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+fMu
 aaa
 aaa
 aaa

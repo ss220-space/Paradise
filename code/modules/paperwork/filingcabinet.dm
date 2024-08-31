@@ -32,7 +32,7 @@
 
 
 /obj/structure/filingcabinet/Initialize(mapload)
-	..()
+	. = ..()
 	for(var/obj/item/I in loc)
 		if(istype(I, /obj/item/paper) || istype(I, /obj/item/folder) || istype(I, /obj/item/photo))
 			I.loc = src
@@ -42,21 +42,33 @@
 	icon_state = "[initial(icon_state)][opened ? "-open" : ""]"
 
 
-/obj/structure/filingcabinet/attackby(obj/item/P, mob/user, params)
-	if(istype(P, /obj/item/paper) || istype(P, /obj/item/folder) || istype(P, /obj/item/photo) || istype(P, /obj/item/paper_bundle) || istype(P, /obj/item/documents))
-		add_fingerprint(user)
-		to_chat(user, "<span class='notice'>You put [P] in [src].</span>")
-		user.drop_transfer_item_to_loc(P, src)
+/obj/structure/filingcabinet/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	add_fingerprint(user)
+	var/static/list/allowed_to_store = typecacheof(list(
+		/obj/item/paper,
+		/obj/item/folder,
+		/obj/item/photo,
+		/obj/item/paper_bundle,
+		/obj/item/documents,
+	))
+	if(is_type_in_typecache(I, allowed_to_store))
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("You put [I] into [src]."))
 		opened = TRUE
 		update_icon(UPDATE_ICON_STATE)
-		sleep(5)
+		sleep(0.5 SECONDS)
 		opened = FALSE
 		update_icon(UPDATE_ICON_STATE)
 		updateUsrDialog()
-	else if(user.a_intent != INTENT_HARM)
-		to_chat(user, "<span class='warning'>You can't put [P] in [src]!</span>")
-	else
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	to_chat(user, span_warning("You cannot put [I] into [src]!"))
+	return ATTACK_CHAIN_PROCEED
+
 
 /obj/structure/filingcabinet/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -78,7 +90,7 @@
 	user.set_machine(src)
 	var/dat = {"<meta charset="UTF-8"><center><table>"}
 	for(var/obj/item/P in src)
-		dat += "<tr><td><a href='?src=[UID()];retrieve=\ref[P]'>[P.name]</a></td></tr>"
+		dat += "<tr><td><a href='byond://?src=[UID()];retrieve=\ref[P]'>[P.name]</a></td></tr>"
 	dat += "</table></center>"
 	var/datum/browser/popup = new(user, "filingcabinet", name, 350, 300)
 	popup.set_content(dat)

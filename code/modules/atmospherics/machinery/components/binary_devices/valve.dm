@@ -5,7 +5,7 @@
 	name = "manual valve"
 	desc = "A pipe valve."
 
-	can_unwrench = 1
+	can_unwrench = TRUE
 
 	var/open = FALSE
 	var/animating = FALSE

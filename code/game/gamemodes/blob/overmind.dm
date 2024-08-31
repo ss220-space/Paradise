@@ -64,7 +64,7 @@
 		return
 
 	if(client)
-		if(client.prefs.muted & MUTE_IC)
+		if(check_mute(client.ckey, MUTE_IC))
 			to_chat(src, "You cannot send IC messages (muted).")
 			return
 		if(client.handle_spam_prevention(message, MUTE_IC))
@@ -91,7 +91,7 @@
 		else if(isobserver(M) && !isnewplayer(M))
 			var/rendered_ghost = "<i><span class='blob[blob_reagent_datum.id]'>Blob Telepathy,</span> \
 			<span class='name'>[name](<span class='blob[blob_reagent_datum.id]'>[blob_reagent_datum.name]</span>)</span> \
-			<a href='?src=[M.UID()];follow=[UID()]'>(F)</a> states, <span class='blob[blob_reagent_datum.id]'>\"[message]\"</span></i>"
+			<a href='byond://?src=[M.UID()];follow=[UID()]'>(F)</a> states, <span class='blob[blob_reagent_datum.id]'>\"[message]\"</span></i>"
 			M.show_message(rendered_ghost, 2)
 
 

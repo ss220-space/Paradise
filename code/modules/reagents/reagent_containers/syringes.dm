@@ -47,14 +47,12 @@
 	..()
 	update_icon()
 
-/obj/item/reagent_containers/syringe/attack(mob/living/M, mob/living/user, def_zone)
-	return
 
-/obj/item/reagent_containers/syringe/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/storage/bag))
-		..()
+/obj/item/reagent_containers/syringe/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	return ATTACK_CHAIN_PROCEED
 
-/obj/item/reagent_containers/syringe/afterattack(atom/target, mob/user , proximity)
+
+/obj/item/reagent_containers/syringe/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(!target.reagents)

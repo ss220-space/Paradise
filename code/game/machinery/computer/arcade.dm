@@ -11,15 +11,14 @@
 /obj/machinery/computer/arcade/proc/Reset()
 	return
 
-/obj/machinery/computer/arcade/New()
-	..()
+/obj/machinery/computer/arcade/Initialize(mapload)
+	. = ..()
 	if(!circuit)
 		var/choice = pick(/obj/machinery/computer/arcade/battle, /obj/machinery/computer/arcade/orion_trail)
 		new choice(loc)
-		qdel(src)
-		return
-	Reset()
+		return INITIALIZE_HINT_QDEL
 
+	Reset()
 
 /obj/machinery/computer/arcade/proc/prizevend(var/score)
 	if(!contents.len)
@@ -356,7 +355,7 @@
 		gameover = 1
 		event = null
 	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8">"}
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	if(gameover)
 		dat = "<center><h1>Game Over</h1></center>"
 		dat += "Like many before you, your crew never made it to Orion, lost to space... <br><b>Forever</b>."

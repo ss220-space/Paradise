@@ -126,7 +126,7 @@
 
 
 /obj/item/paper/proc/rename(mob/user)
-	if((CLUMSY in user.mutations) && prob(50))
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, "<span class='warning'>You cut yourself on the paper.</span>")
 		return
 	if(!user.is_literate())
@@ -162,37 +162,43 @@
 		show_content(user, forcestars = TRUE)
 
 
-/obj/item/paper/attack(mob/living/carbon/human/target, mob/living/user, def_zone)
-	if(!ishuman(target))
-		return ..()
+/obj/item/paper/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !ishuman(target))
+		return .
 
-	if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
-		user.visible_message("<span class='warning'>[user] is trying to show the paper to you. </span>", \
-			"<span class='notice'>You hold up a paper and try to show it to [target]. </span>")
-
-		if(do_after(user, 0.7 SECONDS, target, NONE))
-			user.visible_message("<span class='notice'>[user] shows the paper to you. </span>", \
-				"<span class='notice'>You hold up a paper and show it to [target]. </span>")
+	switch(user.zone_selected)
+		if(BODY_ZONE_PRECISE_EYES)
+			user.visible_message(
+				span_warning("[user] is trying to show the paper to you."),
+				span_notice("You hold up a paper and try to show it to [target]."),
+			)
+			if(!do_after(user, 0.7 SECONDS, target, NONE))
+				to_chat(user, span_warning("You fail to show the paper to [target]."))
+				return .
+			user.visible_message(
+				span_notice("[user] shows the paper to you."),
+				span_notice("You hold up a paper and show it to [target]."),
+			)
 			target.examinate(src)
-		else
-			to_chat(user, span_warning("You fail to show the paper to [target]."))
 
-	else if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
-		if(target == user)
-			to_chat(user, "<span class='notice'>You wipe off your face with [src].</span>")
-		else
-			user.visible_message("<span class='warning'>[user] begins to wipe [target]'s face clean with \the [src].</span>",
-								"<span class='notice'>You begin to wipe off [target]'s face.</span>")
-			if(!do_after(user, 1 SECONDS, target) || !do_after(target, 1 SECONDS, timed_action_flags = DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM)) // user needs to keep their active hand, target does not.
-				return
-			user.visible_message("<span class='notice'>[user] wipes [target]'s face clean with \the [src].</span>",
-				"<span class='notice'>You wipe off [target]'s face.</span>")
-
-		target.lip_style = null
-		target.lip_color = null
-		target.update_body()
-	else
-		return ..()
+		if(BODY_ZONE_PRECISE_MOUTH)
+			if(target == user)
+				to_chat(user, span_notice("You wipe off your face with [src]."))
+			else
+				user.visible_message(
+					span_warning("[user] starts to wipe [target]'s face clean with [src]."),
+					span_notice("You start to wipe off [target]'s face."),
+				)
+				if(!do_after(user, 1 SECONDS, target))
+					return .
+				user.visible_message(
+					span_notice("[user] wipes [target]'s face clean with [src]."),
+					span_notice("You wipe off [target]'s face."),
+				)
+			target.lip_style = null
+			target.lip_color = null
+			target.update_body()
 
 
 /obj/item/paper/attack_animal(mob/living/simple_animal/pet/dog/doggo)
@@ -280,10 +286,10 @@
 /obj/item/paper/proc/updateinfolinks()
 	info_links = info
 	for(var/i in 1 to fields)
-		var/write_1 = "<font face=\"[deffont]\"><a href='?src=[UID()];write=[i]'>write</a></font>"
-		var/write_2 = "<font face=\"[deffont]\"><a href='?src=[UID()];auto_write=[i]'><span style=\"color: #409F47; font-size: 10px\">\[a\]</span></a></font>"
+		var/write_1 = "<font face=\"[deffont]\"><a href='byond://?src=[UID()];write=[i]'>write</a></font>"
+		var/write_2 = "<font face=\"[deffont]\"><a href='byond://?src=[UID()];auto_write=[i]'><span style=\"color: #409F47; font-size: 10px\">\[a\]</span></a></font>"
 		addtofield(i, "[write_1][write_2]", 1)
-	info_links = info_links + "<font face=\"[deffont]\"><a href='?src=[UID()];write=end'>write</a></font>" + "<font face=\"[deffont]\"><a href='?src=[UID()];auto_write=end'><span style=\"color: #409F47; font-size: 10px\">\[A\]</span></a></font>"
+	info_links = info_links + "<font face=\"[deffont]\"><a href='byond://?src=[UID()];write=end'>write</a></font>" + "<font face=\"[deffont]\"><a href='byond://?src=[UID()];auto_write=end'><span style=\"color: #409F47; font-size: 10px\">\[A\]</span></a></font>"
 
 
 /obj/item/paper/proc/clearpaper()
@@ -336,15 +342,18 @@
 	</BODY></HTML>"}, "window=paper_help")
 
 
-/obj/item/paper/proc/topic_href_write(id, input_element)
-	var/obj/item/item_write = usr.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
-	add_hiddenprint(usr) // No more forging nasty documents as someone else, you jerks
+/obj/item/paper/proc/topic_href_write(mob/user, id, input_element)
+	var/obj/item/item_write = user.get_active_hand() // Check to see if he still got that darn pen, also check if he's using a crayon or pen.
+	add_hiddenprint(user) // No more forging nasty documents as someone else, you jerks
 	if(!is_pen(item_write) && !istype(item_write, /obj/item/toy/crayon))
 		return
-	if(loc != usr && !Adjacent(usr) && !((istype(loc, /obj/item/clipboard) || istype(loc, /obj/item/folder)) && (loc.loc == usr || loc.Adjacent(usr))))
-		return // If paper is not in usr, then it must be near them, or in a clipboard or folder, which must be in or near usr
+	if(loc != user && !Adjacent(user, recurse = 2) && !loc.Adjacent(user))
+		return // If paper is not in usr, then it must be near them
 
-	input_element = parsepencode(input_element, item_write, usr) // Encode everything from pencode to html
+	input_element = parsepencode(input_element, item_write, user) // Encode everything from pencode to html
+
+	if(QDELETED(src) || !loc || (loc != user && !Adjacent(user, recurse = 2) && !loc.Adjacent(user)))
+		return
 
 	if(id != "end")
 		addtofield(text2num(id), input_element) // He wants to edit a field, let him.
@@ -353,8 +362,8 @@
 
 	populatefields()
 	updateinfolinks()
-	item_write.on_write(src, usr)
-	show_content(usr, forceshow = TRUE, infolinks = TRUE)
+	item_write.on_write(src, user)
+	show_content(user, forceshow = TRUE, infolinks = TRUE)
 	update_icon()
 
 
@@ -425,115 +434,110 @@
 			if(species_text)
 				input_element = usr.dna.species
 
-		topic_href_write(id, input_element)
+		topic_href_write(usr, id, input_element)
 
 	if(href_list["write"] )
 		var/id = href_list["write"]
 		var/input_element = input("Enter what you want to write:", "Write") as message
 
-		topic_href_write(id, input_element)
+		topic_href_write(usr, id, input_element)
 
 
-/obj/item/paper/attackby(obj/item/P, mob/living/user, params)
-	. = ..()
-
+/obj/item/paper/attackby(obj/item/I, mob/living/user, params)
 	if(resistance_flags & ON_FIRE)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	var/clown = user.mind && (user.mind.assigned_role == JOB_TITLE_CLOWN)
+	if(is_hot(I))
+		if(!Adjacent(user)) //to prevent issues as a result of telepathically lighting a paper
+			return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(P, /obj/item/paper) || istype(P, /obj/item/photo))
-		if(istype(P, /obj/item/paper/carbon))
-			var/obj/item/paper/carbon/C = P
-			if(!C.iscopy && !C.copied)
-				to_chat(user, "<span class='notice'>Take off the carbon copy first.</span>")
-				add_fingerprint(user)
-				return
-		var/obj/item/paper_bundle/B = new(src.loc, default_papers = FALSE)
-		if(name != "paper")
-			B.name = name
-		else if(P.name != "paper" && P.name != "photo")
-			B.name = P.name
-		user.drop_item_ground(P)
-		if(ishuman(user))
-			var/mob/living/carbon/human/h_user = user
-			if(h_user.r_hand == src)
-				h_user.drop_item_ground(src)
-				h_user.put_in_r_hand(B, ignore_anim = FALSE)
-			else if(h_user.l_hand == src)
-				h_user.drop_item_ground(src)
-				h_user.put_in_l_hand(B, ignore_anim = FALSE)
-			else if(h_user.l_store == src)
-				h_user.drop_item_ground(src)
-				B.loc = h_user
-				B.layer = ABOVE_HUD_LAYER
-				SET_PLANE_EXPLICIT(B, ABOVE_HUD_PLANE, src)
-				h_user.l_store = B
-				h_user.update_inv_pockets()
-			else if(h_user.r_store == src)
-				h_user.drop_item_ground(src)
-				B.loc = h_user
-				B.layer = ABOVE_HUD_LAYER
-				SET_PLANE_EXPLICIT(B, ABOVE_HUD_PLANE, src)
-				h_user.r_store = B
-				h_user.update_inv_pockets()
-			else if(h_user.head == src)
-				h_user.drop_item_ground(src)
-				h_user.put_in_hands(B, ignore_anim = FALSE)
-			else if(!istype(src.loc, /turf))
-				src.loc = get_turf(h_user)
-				if(h_user.client)
-					h_user.client.screen -= src
-				h_user.put_in_hands(B, ignore_anim = FALSE)
-		to_chat(user, "<span class='notice'>You clip the [P.name] to [(src.name == "paper") ? "the paper" : src.name].</span>")
-		src.loc = B
-		P.loc = B
-		B.amount++
-		B.update_appearance(UPDATE_ICON|UPDATE_DESC)
-
-	else if(is_pen(P) || istype(P, /obj/item/toy/crayon))
-		if(user.is_literate())
-			var/obj/item/pen/multi/robopen/RP = P
-			if(istype(P, /obj/item/pen/multi/robopen) && RP.mode == 2)
-				RP.RenamePaper(user,src)
-			else
-				show_content(user, infolinks = 1)
-			//openhelp(user)
-			return
-		else
-			to_chat(user, "<span class='warning'>You don't know how to write!</span>")
-
-	else if(istype(P, /obj/item/stamp))
-		if((!in_range(src, usr) && loc != user && !( istype(loc, /obj/item/clipboard) ) && loc.loc != user && user.get_active_hand() != P))
-			return
-
-		if(istype(P, /obj/item/stamp/clown))
-			if(!clown)
-				to_chat(user, "<span class='notice'>You are totally unable to use the stamp. HONK!</span>")
-				return
-
-		stamp(P)
-
-		to_chat(user, "<span class='notice'>You stamp the paper with your rubber stamp.</span>")
-		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
-
-	if(is_hot(P))
-		if((CLUMSY in user.mutations) && prob(10))
-			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
-								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
-			user.drop_item_ground(P)
+		add_fingerprint(user)
+		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
+			user.visible_message(
+				span_warning("[user] accidentally ignites [user.p_them()]self!"),
+				span_userdanger("You miss the paper and accidentally light yourself on fire!"),
+			)
+			user.drop_item_ground(I)
 			user.adjust_fire_stacks(1)
 			user.IgniteMob()
-			return
-
-		if(!Adjacent(user)) //to prevent issues as a result of telepathically lighting a paper
-			return
+			return ATTACK_CHAIN_BLOCKED_ALL
 
 		user.drop_item_ground(src)
-		user.visible_message("<span class='danger'>[user] lights [src] ablaze with [P]!</span>", "<span class='danger'>You light [src] on fire!</span>")
+		user.visible_message(
+			span_danger("[user] lights [src] ablaze with [I]!"),
+			span_danger("You light [src] on fire!"),
+		)
 		fire_act()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(is_pen(I) || istype(I, /obj/item/toy/crayon))
+		add_fingerprint(user)
+		if(!user.is_literate())
+			to_chat(user, span_warning("You don't know how to write!"))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/item/pen/multi/robopen/robopen = I
+		if(istype(I, /obj/item/pen/multi/robopen) && robopen.mode == 2)
+			robopen.RenamePaper(user,src)
+		else
+			show_content(user, infolinks = TRUE)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/stamp))
+		if(!Adjacent(user, recurse = 2))
+			return ATTACK_CHAIN_PROCEED
+		add_fingerprint(user)
+		if(istype(I, /obj/item/stamp/clown) && (user.mind && (user.mind.assigned_role != JOB_TITLE_CLOWN)))
+			to_chat(user, span_userdanger("You are totally unable to use the stamp. HONK!"))
+			return ATTACK_CHAIN_PROCEED
+		stamp(I)
+		to_chat(user, span_notice("You have stamped the paper with [I]."))
+		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, TRUE)
+		return ATTACK_CHAIN_PROCEED
+
+	if(!istype(I, /obj/item/paper) && !istype(I, /obj/item/photo))
+		return ..()
 
 	add_fingerprint(user)
+
+	if(istype(I, /obj/item/paper/carbon))
+		var/obj/item/paper/carbon/carbon_paper = I
+		if(!carbon_paper.iscopy && !carbon_paper.copied)
+			to_chat(user, span_notice("Take off the carbon copy first."))
+			return .
+
+	if(loc == user && !user.can_unEquip(src))
+		return ATTACK_CHAIN_PROCEED
+
+	if(!user.drop_transfer_item_to_loc(I, src))
+		return ATTACK_CHAIN_PROCEED
+
+	. = ATTACK_CHAIN_BLOCKED_ALL
+
+	var/obj/item/paper_bundle/bundle = new(drop_location(), FALSE)
+	transfer_fingerprints_to(bundle)
+	bundle.add_fingerprint(user)
+
+	if(name != "paper")
+		bundle.name = name
+	else if(I.name != "paper" && I.name != "photo")
+		bundle.name = I.name
+
+	to_chat(user, span_notice("You clip the [I.name] to [(name == "paper") ? "the paper" : name]."))
+
+	if(loc == user)
+		user.transfer_item_to_loc(src, bundle, silent = TRUE)
+		user.put_in_hands(bundle)
+	else
+		bundle.pixel_x = pixel_x
+		bundle.pixel_y = pixel_y
+		forceMove(bundle)
+
+	user << browse("", "window=[istype(I, /obj/item/paper) ? "Paper" : "Photo"][I.UID()]")
+	user << browse("", "window=Paper[UID()]")
+	bundle.papers += src
+	bundle.papers += I
+	bundle.amount++
+	bundle.update_appearance(UPDATE_ICON|UPDATE_DESC)
 
 
 /obj/item/paper/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
@@ -908,7 +912,7 @@
 		target.adjustFireLoss(150) // hard crit, the burning takes care of the rest.
 	else if(myeffect == "Total Brain Death")
 		to_chat(target,"<span class='userdanger'>You see a message appear in front of you in bright red letters: <b>YHWH-3 ACTIVATED. TERMINATION IN 3 SECONDS</b></span>")
-		target.mutations.Add(NOCLONE)
+		ADD_TRAIT(target, TRAIT_NO_CLONE, EVIL_FAX_TRAIT)
 		target.adjustBrainLoss(125)
 	else if(myeffect == "Honk Tumor")
 		if(!target.get_int_organ(/obj/item/organ/internal/honktumor))

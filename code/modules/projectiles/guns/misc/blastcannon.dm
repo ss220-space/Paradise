@@ -50,20 +50,28 @@
 		icon_state = initial(icon_state)
 
 
-/obj/item/gun/blastcannon/attackby(obj/O, mob/user)
-	if(istype(O, /obj/item/transfer_valve))
-		var/obj/item/transfer_valve/T = O
-		if(!T.tank_one || !T.tank_two)
-			to_chat(user, "<span class='warning'>What good would an incomplete bomb do?</span>")
-			return FALSE
-		if(!user.drop_transfer_item_to_loc(T, src))
-			to_chat(user, "<span class='warning'>[T] seems to be stuck to your hand!</span>")
-			return FALSE
-		user.visible_message("<span class='warning'>[user] attaches [T] to [src]!</span>")
-		bomb = T
+/obj/item/gun/blastcannon/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/transfer_valve))
+		add_fingerprint(user)
+		var/obj/item/transfer_valve/valve = I
+		if(bomb)
+			to_chat(user, span_warning("The [name] already has [bomb] attached."))
+			return ATTACK_CHAIN_PROCEED
+		if(!valve.tank_one || !valve.tank_two)
+			to_chat(user, span_warning("What good would an incomplete bomb do?"))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(valve, src))
+			return ..()
+		user.visible_message(
+			span_warning("[user] has attached [valve] to [src]."),
+			span_notice("You have attached [valve] to [src]."),
+		)
+		bomb = valve
 		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
-		return TRUE
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/item/gun/blastcannon/proc/calculate_bomb()
 	if(!istype(bomb)||!istype(bomb.tank_one)||!istype(bomb.tank_two))

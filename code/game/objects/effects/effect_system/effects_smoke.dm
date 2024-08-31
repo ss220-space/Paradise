@@ -124,6 +124,55 @@
 		S.process()
 
 /////////////////////////////////////////////
+// Solid chem smoke
+/////////////////////////////////////////////
+
+/obj/effect/particle_effect/smoke/solid/process()
+	if(..())
+		for(var/mob/living/carbon/M in range(1,src))
+			smoke_mob(M)
+
+
+/obj/effect/particle_effect/smoke/solid/smoke_mob(mob/living/carbon/victim)
+	. = ..()
+	if(!.)
+		return .
+	INVOKE_ASYNC(victim, TYPE_PROC_REF(/mob, emote), "cough")
+
+/datum/effect_system/smoke_spread/solid
+	effect_type = /obj/effect/particle_effect/smoke/solid
+	custom_lifetime = 9
+	var/effect_range
+
+/datum/effect_system/smoke_spread/solid/set_up(n = 5, c = 0, loca, direct, range = 0)
+	..()
+	effect_range = range
+
+/datum/effect_system/smoke_spread/solid/start()
+	set waitfor = FALSE
+
+	INVOKE_ASYNC(src, PROC_REF(SmokeEm))
+
+/datum/effect_system/smoke_spread/solid/proc/SmokeEm()
+	for(var/turf/T in view(effect_range, get_turf(location)))
+		for(var/i = 0, i < number, i++)
+			location = get_turf(T)
+			var/obj/effect/particle_effect/smoke/S = new effect_type(location)
+			if(custom_lifetime)
+				S.lifetime = rand(custom_lifetime - 3, custom_lifetime)
+			if(color)
+				S.color = color
+			if(!direction)
+				if(cardinals)
+					S.direction = pick(GLOB.cardinal)
+				else
+					S.direction = pick(GLOB.alldirs)
+			else
+				S.direction = direction
+			S.steps = pick(0,1,1,1,2,2,2,3)
+			S.process()
+
+/////////////////////////////////////////////
 // Bad smoke
 /////////////////////////////////////////////
 

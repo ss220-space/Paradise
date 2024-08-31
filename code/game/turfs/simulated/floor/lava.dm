@@ -16,6 +16,7 @@
 	barefootstep = FOOTSTEP_LAVA
 	clawfootstep = FOOTSTEP_LAVA
 	heavyfootstep = FOOTSTEP_LAVA
+	real_layer = PLATING_LAYER
 	/// How much fire damage we deal to living mobs stepping on us
 	var/lava_damage = 20
 	/// How many firestacks we add to living mobs stepping on us
@@ -169,37 +170,41 @@
 	return FALSE
 
 
-/turf/simulated/floor/lava/attackby(obj/item/C, mob/user, params) //Lava isn't a good foundation to build on
-	if(istype(C, /obj/item/stack/fireproof_rods))
-		var/obj/item/stack/fireproof_rods/R = C
-		var/obj/structure/lattice/fireproof/L = locate(/obj/structure/lattice, src)
-		var/obj/structure/lattice/catwalk/fireproof/W = locate(/obj/structure/lattice/catwalk/fireproof, src)
-		if(W)
+/turf/simulated/floor/lava/can_have_cabling()
+	if(locate(/obj/structure/lattice/catwalk/fireproof, src))
+		return TRUE
+	return FALSE
+
+
+/turf/simulated/floor/lava/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
+
+	if(istype(I, /obj/item/stack/fireproof_rods))
+		var/obj/item/stack/fireproof_rods/rods = I
+		if(locate(/obj/structure/lattice/catwalk/fireproof, src))
 			to_chat(user, span_warning("Здесь уже есть мостик!"))
-			return
-		if(!L)
-			if(R.use(1))
-				to_chat(user, span_notice("Вы установили прочную решётку."))
-				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-				new /obj/structure/lattice/fireproof(src)
-			else
-				to_chat(user, span_warning("Вам нужен один огнеупорный стержень для постройки решётки."))
-			return
-		if(L)
-			if(R.use(2))
-				qdel(L)
-				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-				to_chat(user, span_notice("Вы установили мостик."))
-				new /obj/structure/lattice/catwalk/fireproof(src)
-		else
-			return
-	else if(istype(C, /obj/item/stack/cable_coil))
-		var/obj/structure/lattice/catwalk/fireproof/W = locate(/obj/structure/lattice/catwalk/fireproof, src)
-		if(!W)
-			return
-		else
-			return ..()
-	else return
+			return .
+		var/obj/structure/lattice/fireproof/lattice = locate() in src
+		if(!lattice)
+			if(!rods.use(1))
+				to_chat(user, span_warning("Вам нужен один огнеупорный стержень для постройки решётки!"))
+				return .
+			to_chat(user, span_notice("Вы установили прочную решётку."))
+			playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+			new /obj/structure/lattice/fireproof(src)
+			return .|ATTACK_CHAIN_SUCCESS
+		if(!rods.use(2))
+			to_chat(user, span_warning("Вам нужно два огнеупорных стержня для постройки мостика!"))
+			return .
+		qdel(lattice)
+		playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+		to_chat(user, span_notice("Вы установили огнеупорный мостик."))
+		new /obj/structure/lattice/catwalk/fireproof(src)
+		return .|ATTACK_CHAIN_SUCCESS
+
 
 /turf/simulated/floor/lava/screwdriver_act()
 	return
@@ -242,15 +247,20 @@
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>Some <b>liquid plasma<b> could probably be scooped up with a <b>container</b>.</span>"
+	. += span_info("Some <b>liquid plasma<b> could probably be scooped up with a <b>container</b>.")
+
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/attackby(obj/item/I, mob/user, params)
-	if(!I.is_open_container())
-		return ..()
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.is_open_container())
+		return .
+
+	. |= ATTACK_CHAIN_SUCCESS
 	if(!I.reagents.add_reagent("plasma", 10))
-		to_chat(user, "<span class='warning'>[I] is full.</span>")
-		return
-	to_chat(user, "<span class='notice'>You scoop out some plasma from the [src] using [I].</span>")
+		to_chat(user, span_warning("The [I.name] is full."))
+		return .
+	to_chat(user, span_notice("You scoop out some plasma from the [src] using [I]."))
 
 
 /turf/simulated/floor/lava/lava_land_surface/plasma/do_burn(atom/movable/burn_target)

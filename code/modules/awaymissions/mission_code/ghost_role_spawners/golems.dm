@@ -13,8 +13,18 @@
 	name = "incomplete servant golem shell"
 	shell_type = /obj/effect/mob_spawn/human/golem/servant
 
+
 /obj/item/golem_shell/attackby(obj/item/I, mob/user, params)
-	..()
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !isstack(I))
+		return .
+
+	add_fingerprint(user)
+	if(!isturf(loc))
+		to_chat(user, span_warning("You should place a shell on the ground to finish a golem."))
+		return .
+
 	var/static/list/golem_shell_species_types = list(
 		/obj/item/stack/sheet/metal					= /datum/species/golem,
 		/obj/item/stack/sheet/glass					= /datum/species/golem/glass,
@@ -35,20 +45,22 @@
 		/obj/item/stack/sheet/bluespace_crystal		= /datum/species/golem/bluespace,
 		/obj/item/stack/sheet/mineral/adamantine	= /datum/species/golem/adamantine,
 		/obj/item/stack/sheet/plastic				= /datum/species/golem/plastic,
-		/obj/item/stack/sheet/brass					= /datum/species/golem/clockwork)
+		/obj/item/stack/sheet/brass					= /datum/species/golem/clockwork,
+	)
 
-	if(isstack(I))
-		var/obj/item/stack/O = I
-		var/species = golem_shell_species_types[O.merge_type]
-		if(species)
-			if(O.use(10))
-				to_chat(user, "You finish up the golem shell with ten sheets of [O].")
-				new shell_type(get_turf(src), species, user)
-				qdel(src)
-			else
-				to_chat(user, "You need at least ten sheets to finish a golem.")
-		else
-			to_chat(user, "You can't build a golem out of this kind of material.")
+	var/obj/item/stack/stack = I
+	var/species = golem_shell_species_types[stack.merge_type]
+	if(!species)
+		to_chat(user, span_warning("You can't build a golem out of this kind of material."))
+		return .
+	if(!stack.use(10))
+		to_chat(user, span_warning("You need at least ten sheets of [stack] to finish a golem."))
+		return .
+	to_chat(user, span_notice("You have finished the golem shell with ten sheets of [stack]."))
+	new shell_type(loc, species, user)
+	qdel(src)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
 
 /obj/effect/mob_spawn/human/golem
 	name = "inert free golem shell"

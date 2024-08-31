@@ -107,7 +107,7 @@
 
 /obj/machinery/sparker/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/detective_scanner))
-		return
+		return ATTACK_CHAIN_PROCEED
 	return ..()
 
 

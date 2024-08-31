@@ -40,7 +40,7 @@
 	power_monitor = new(src)
 
 /obj/machinery/computer/monitor/Initialize()
-	..()
+	. = ..()
 	if(!is_secret_monitor && !(stat & (NOPOWER|BROKEN)))
 		GLOB.powermonitor_repository.add_to_cache(src)
 	powernet = find_powernet()

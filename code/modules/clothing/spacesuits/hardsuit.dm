@@ -170,6 +170,45 @@
 	..()
 
 
+/obj/item/clothing/suit/space/hardsuit/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
+
+	if(istype(I, /obj/item/hardsuit_taser_proof))
+		add_fingerprint(user)
+		var/obj/item/hardsuit_taser_proof/new_taser_proof = I
+		if(user.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER) == src)
+			to_chat(user, span_warning("You cannot install the upgrade into [src] while wearing it."))
+			return .
+		if(taser_proof)
+			to_chat(user, span_warning("The [name] already has a taser proof upfrage installed."))
+			return .
+		if(!user.drop_transfer_item_to_loc(new_taser_proof, src))
+			return .
+		to_chat(user, span_notice("You have successfully installed the taser proof upgrade into [src]."))
+		taser_proof = new_taser_proof
+		taser_proof.hardsuit = src
+		return .|ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/hardsuit_shield))
+		add_fingerprint(user)
+		var/obj/item/hardsuit_shield/new_shield = I
+		if(user.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER) == src)
+			to_chat(user, span_warning("You cannot install the upgrade into [src] while wearing it."))
+			return .
+		var/datum/component/shielded/shielded = GetComponent(/datum/component/shielded)
+		if(istype(shielded))
+			to_chat(user, span_warning("The [name] already has a shield installed."))
+			return .
+		if(!user.drop_transfer_item_to_loc(new_shield, src))
+			return .
+		to_chat(user, span_notice("You have successfully installed the shield upgrade into [src]."))
+		new_shield.attach_to_suit(src)
+		return .|ATTACK_CHAIN_BLOCKED_ALL
+
+
 /obj/item/clothing/suit/space/hardsuit/proc/ToggleHelmet()
 	if(suit_adjusted)
 		return RemoveHelmet()

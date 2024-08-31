@@ -37,11 +37,18 @@
 		return
 	return ..()
 
-/obj/structure/closet/secure_closet/syndicate/depot/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/rcs))
-		to_chat(user, "<span class='warning'>Bluespace interference prevents the [W] from locking onto [src]!</span>")
-		return
+
+/obj/structure/closet/secure_closet/syndicate/depot/attackby(obj/item/I, mob/user, params)
+	if(opened)
+		return ..()
+
+	if(istype(I, /obj/item/rcs))
+		add_fingerprint(user)
+		to_chat(user, span_warning("Bluespace interference prevents [I] from locking onto [src]!"))
+		return ATTACK_CHAIN_PROCEED
+
 	return ..()
+
 
 /obj/structure/closet/secure_closet/syndicate/depot/emp_act(severity)
 	return
