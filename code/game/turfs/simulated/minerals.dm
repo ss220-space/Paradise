@@ -86,7 +86,8 @@
 	I.play_tool_sound(src)
 	to_chat(user, span_notice("You start picking..."))
 	if(!do_after(user, mine_time * I.toolspeed, src, category = DA_CAT_TOOL))
-		COOLDOWN_RESET(src, last_act)
+		if(istype(src, /turf/simulated/mineral))
+			COOLDOWN_RESET(src, last_act)
 		return .
 
 	to_chat(user, span_notice("You finish cutting into the rock."))

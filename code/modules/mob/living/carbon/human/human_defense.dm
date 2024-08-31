@@ -463,8 +463,11 @@ emp_act
 	// if the targeted limb doesn't exist, pick its parent or torso
 	if(!affecting)
 		var/list/species_bodyparts = dna.species.has_limbs[attack_zone]
-		var/obj/item/organ/external/affecting_path = species_bodyparts["path"]
-		affecting = get_organ(initial(affecting_path.parent_organ_zone)) || get_organ(BODY_ZONE_CHEST)
+		if(species_bodyparts)
+			var/obj/item/organ/external/affecting_path = species_bodyparts["path"]
+			affecting = get_organ(initial(affecting_path.parent_organ_zone)) || get_organ(BODY_ZONE_CHEST)
+		else	// has no targeted species bodypart (wings/tail)
+			affecting = get_organ(BODY_ZONE_CHEST)
 		if(!affecting)
 			stack_trace("Human somehow has no chest bodypart.")
 			return ATTACK_CHAIN_BLOCKED_ALL
