@@ -230,7 +230,7 @@
 	. = ..()
 	var/obj/effect/proc_holder/spell/touch/healtouch/healtouch = locate() in owner.mob_spell_list
 	if(!healtouch)
-		owner.AddSpell(new healtouch)
+		owner.AddSpell(new /obj/effect/proc_holder/spell/touch/healtouch)
 	var/datum/action/innate/anvil_finder/finder = locate() in owner.actions
 	if(!finder)
 		finder = new
