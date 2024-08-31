@@ -253,7 +253,7 @@
 /obj/machinery/kitchen_machine/interact(mob/user) // The microwave Menu
 	if(panel_open || !anchored)
 		return
-	var/dat = {"<meta charset="UTF-8">"}
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	if(broken)
 		dat = {"<code>Bzzzzttttt</code>"}
 	else if(operating)
@@ -306,8 +306,8 @@
 		else
 			dat = {"<b>Ingredients:</b><br>[dat]"}
 		dat += {"<HR><BR>\
-<A href='?src=[UID()];action=cook'>Turn on!</A><BR>\
-<A href='?src=[UID()];action=dispose'>Eject ingredients!</A><BR>\
+<a href='byond://?src=[UID()];action=cook'>Turn on!</A><BR>\
+<a href='byond://?src=[UID()];action=dispose'>Eject ingredients!</A><BR>\
 "}
 
 	var/datum/browser/popup = new(user, name, name, 400, 400)

@@ -50,13 +50,13 @@
 	var/hidden_pain = FALSE
 
 
-/obj/item/organ/New(mob/living/carbon/holder)
+/obj/item/organ/New(mob/living/carbon/human/holder)
 	..(holder)
 
 	if(!max_damage)
 		max_damage = min_broken_damage * 2
 
-	if(iscarbon(holder))
+	if(ishuman(holder))
 		update_DNA(holder.dna)
 		return
 
@@ -115,7 +115,7 @@
 
 
 /obj/item/organ/proc/update_blood()
-	if(!dna || (NO_BLOOD in dna.species.species_traits))
+	if(!dna || (TRAIT_NO_BLOOD in dna.species.inherent_traits))
 		return
 	LAZYSET(blood_DNA, dna.unique_enzymes, dna.blood_type)
 
@@ -175,7 +175,7 @@
 		return
 
 	//Process infections
-	if(is_robotic() || sterile || (owner && (NO_GERMS in owner.dna.species.species_traits)))
+	if(is_robotic() || sterile || (owner && HAS_TRAIT(owner, TRAIT_NO_GERMS)))
 		germ_level = 0
 		return
 

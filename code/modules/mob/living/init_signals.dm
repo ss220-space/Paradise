@@ -33,6 +33,10 @@
 	RegisterSignal(src, COMSIG_MOVETYPE_FLAG_ENABLED, PROC_REF(on_movement_type_flag_enabled))
 	RegisterSignal(src, COMSIG_MOVETYPE_FLAG_DISABLED, PROC_REF(on_movement_type_flag_disabled))
 
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_NO_BREATH), PROC_REF(on_no_breath_trait_gain))
+
+	RegisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_IGNOREDAMAGESLOWDOWN), SIGNAL_REMOVETRAIT(TRAIT_IGNOREDAMAGESLOWDOWN)), PROC_REF(on_ignore_damage_slowdown))
+
 	RegisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_UNDENSE), SIGNAL_REMOVETRAIT(TRAIT_UNDENSE)), PROC_REF(undense_changed))
 
 	RegisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_NEGATES_GRAVITY), SIGNAL_REMOVETRAIT(TRAIT_NEGATES_GRAVITY)), PROC_REF(on_negate_gravity))
@@ -239,4 +243,32 @@
 		set_density(FALSE)
 	else
 		set_density(TRUE)
+
+
+/// Called when [TRAIT_NO_BREATH] is gained or lost
+/mob/living/proc/on_no_breath_trait_gain(datum/source)
+	SIGNAL_HANDLER
+
+	setOxyLoss(0)
+
+	clear_alert(ALERT_TOO_MUCH_OXYGEN)
+	clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
+
+	clear_alert(ALERT_TOO_MUCH_TOX)
+	clear_alert(ALERT_NOT_ENOUGH_TOX)
+
+	clear_alert(ALERT_TOO_MUCH_NITRO)
+	clear_alert(ALERT_NOT_ENOUGH_NITRO)
+
+	clear_alert(ALERT_TOO_MUCH_CO2)
+	clear_alert(ALERT_NOT_ENOUGH_CO2)
+
+	clear_alert(ALERT_TOO_MUCH_N2O)
+	clear_alert(ALERT_NOT_ENOUGH_N2O)
+
+
+/// Called when [TRAIT_IGNOREDAMAGESLOWDOWN] is gained or lost
+/mob/living/proc/on_ignore_damage_slowdown(datum/source)
+	SIGNAL_HANDLER
+	update_movespeed_damage_modifiers()
 

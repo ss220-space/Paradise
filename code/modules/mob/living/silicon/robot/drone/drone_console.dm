@@ -34,21 +34,21 @@
 /obj/machinery/computer/drone_control/interact(mob/user)
 
 	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8">"}
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	dat += "<B>Maintenance Units</B><BR>"
 
 	for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
 		dat += "<BR>[D.real_name] ([D.stat == 2 ? "<font color='red'>INACTIVE" : "<font color='green'>ACTIVE"]</FONT>)"
 		dat += "<font dize = 9><BR>Cell charge: [D.cell.charge]/[D.cell.maxcharge]."
 		dat += "<BR>Currently located in: [get_area(D)]."
-		dat += "<BR><A href='?src=[UID()];resync=\ref[D]'>Resync</A> | <A href='?src=[UID()];shutdown=\ref[D]'>Shutdown</A></font>"
+		dat += "<BR><a href='byond://?src=[UID()];resync=\ref[D]'>Resync</A> | <a href='byond://?src=[UID()];shutdown=\ref[D]'>Shutdown</A></font>"
 
-	dat += "<BR><B><A href='?src=[UID()];request_help=1'>Request a new drone</A></B>"
+	dat += "<BR><B><a href='byond://?src=[UID()];request_help=1'>Request a new drone</A></B>"
 
-	dat += "<BR><BR><B>Request drone presence in area:</B> <A href='?src=[UID()];setarea=1'>[drone_call_area]</A> (<A href='?src=[UID()];ping=1'>Send ping</A>)"
+	dat += "<BR><BR><B>Request drone presence in area:</B> <a href='byond://?src=[UID()];setarea=1'>[drone_call_area]</A> (<a href='byond://?src=[UID()];ping=1'>Send ping</A>)"
 
 	dat += "<BR><BR><B>Drone fabricator</B>: "
-	dat += "[dronefab ? "<A href='?src=[UID()];toggle_fab=1'>[(dronefab.produce_drones && !(dronefab.stat & NOPOWER)) ? "ACTIVE" : "INACTIVE"]</A>" : "<font color='red'><b>FABRICATOR NOT DETECTED.</b></font> (<A href='?src=[UID()];search_fab=1'>search</a>)"]"
+	dat += "[dronefab ? "<a href='byond://?src=[UID()];toggle_fab=1'>[(dronefab.produce_drones && !(dronefab.stat & NOPOWER)) ? "ACTIVE" : "INACTIVE"]</A>" : "<font color='red'><b>FABRICATOR NOT DETECTED.</b></font> (<a href='byond://?src=[UID()];search_fab=1'>search</a>)"]"
 	user << browse(dat, "window=computer;size=400x500")
 	onclose(user, "computer")
 	return
