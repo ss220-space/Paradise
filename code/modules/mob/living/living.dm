@@ -140,7 +140,7 @@
 	if(((istajaran(src) && functional_legs) || cat) && body_position != LYING_DOWN && can_help_themselves)
 		. |= ZIMPACT_NO_MESSAGE|ZIMPACT_NO_SPIN
 		skip_weaken = TRUE
-		if(cat || (DWARF in mutations)) // lil' bounce kittens
+		if(cat || HAS_TRAIT(src, TRAIT_DWARF)) // lil' bounce kittens
 			visible_message(
 				span_notice("[src] makes a hard landing on [impacted_turf], but lands safely on [p_their()] feet!"),
 				span_notice("You make a hard landing on [impacted_turf], but land safely on your feet!"),
@@ -906,11 +906,12 @@
 						else
 							TH.color = "#A10808"
 
-/mob/living/carbon/human/makeTrail(turf/T)
 
-	if((NO_BLOOD in dna.species.species_traits) || dna.species.exotic_blood || !bleed_rate || bleedsuppress)
+/mob/living/carbon/human/makeTrail(turf/T)
+	if(HAS_TRAIT(src, TRAIT_NO_BLOOD) || !bleed_rate || bleedsuppress)
 		return
 	..()
+
 
 /mob/living/proc/getTrail()
 	if(getBruteLoss() < 300)
@@ -1249,7 +1250,7 @@
 /mob/living/proc/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash)
 	if(status_flags & GODMODE)
 		return FALSE
-	if(check_eye_prot() < intensity && (override_blindness_check || !(BLINDNESS in mutations)))
+	if(check_eye_prot() < intensity && (override_blindness_check || !HAS_TRAIT(src, TRAIT_BLIND)))
 		overlay_fullscreen("flash", type)
 		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 25), 25)
 		return TRUE
@@ -2279,11 +2280,8 @@
 		return
 
 	if(!isnull(final_words))
-		create_log(MISC_LOG, "gave their final words, [last_words]")
 		last_words = final_words
 		whisper(final_words)
-
-	add_attack_logs(src, src, "[src] has [!isnull(final_words) ? "whispered [p_their()] final words" : "succumbed to death"] with [round(health, 0.1)] points of health!")
 
 	create_log(MISC_LOG, "has succumbed to death with [round(health, 0.1)] points of health")
 	adjustOxyLoss(max(health - HEALTH_THRESHOLD_DEAD, 0))
@@ -2300,3 +2298,8 @@
 		death()
 	to_chat(src, span_notice("You have given up life and succumbed to death."))
 	apply_status_effect(STATUS_EFFECT_RECENTLY_SUCCUMBED)
+
+/// Updates damage slowdown accordingly to the current health
+/mob/living/proc/update_movespeed_damage_modifiers()
+	return
+

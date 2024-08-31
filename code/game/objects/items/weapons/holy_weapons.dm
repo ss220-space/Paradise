@@ -477,26 +477,34 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	var/mob/living/carbon/wielder
 
-/obj/item/nullrod/tribal_knife/New()
-	..()
+
+/obj/item/nullrod/tribal_knife/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
+
 
 /obj/item/nullrod/tribal_knife/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	wielder = null
 	return ..()
 
+
 /obj/item/nullrod/tribal_knife/process()
 	slowdown = rand(-2, 2)
-	if(iscarbon(loc))
-		wielder = loc
-		if(wielder.is_in_hands(src))
-			wielder.update_equipment_speed_mods()
+	wielder?.update_equipment_speed_mods()
+
+
+/obj/item/nullrod/tribal_knife/equipped(mob/user, slot, initial = FALSE)
+	. = ..()
+	if(slot & ITEM_SLOT_HANDS)
+		wielder = user
+
 
 /obj/item/nullrod/tribal_knife/dropped(mob/user, slot, silent = FALSE)
 	slowdown = 0
-	user.update_equipment_speed_mods()
-	. = ..()
+	wielder = null
+	return ..()
+
 
 /obj/item/nullrod/pitchfork
 	name = "unholy pitchfork"

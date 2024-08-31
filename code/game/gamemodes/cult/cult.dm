@@ -93,9 +93,11 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 		if(cult_mind.assigned_role == JOB_TITLE_CLOWN)
 			to_chat(cult_mind.current, "<span class='cultitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
-			cult_mind.current.mutations.Remove(CLUMSY)
-			var/datum/action/innate/toggle_clumsy/A = new
-			A.Grant(cult_mind.current)
+			cult_mind.current.force_gene_block(GLOB.clumsyblock, FALSE)
+			// Don't give them another action if they already have one.
+			if(!(locate(/datum/action/innate/toggle_clumsy) in cult_mind.current.actions))
+				var/datum/action/innate/toggle_clumsy/toggle_clumsy = new
+				toggle_clumsy.Grant(cult_mind.current)
 
 		add_cult_actions(cult_mind)
 		update_cult_icons_added(cult_mind)
@@ -189,9 +191,12 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 		if(cult_mind.assigned_role == JOB_TITLE_CLOWN)
 			to_chat(cult_mind.current, "<span class='cultitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
-			cult_mind.current.mutations.Remove(CLUMSY)
-			var/datum/action/innate/toggle_clumsy/A = new
-			A.Grant(cult_mind.current)
+			cult_mind.current.force_gene_block(GLOB.clumsyblock, FALSE)
+			// Don't give them another action if they already have one.
+			if(!(locate(/datum/action/innate/toggle_clumsy) in cult_mind.current.actions))
+				var/datum/action/innate/toggle_clumsy/toggle_clumsy = new
+				toggle_clumsy.Grant(cult_mind.current)
+
 		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
 		add_conversion_logs(cult_mind.current, "converted to the blood cult")
 
@@ -288,13 +293,13 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 /datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)
 	var/datum/atom_hud/antag/culthud = GLOB.huds[ANTAG_HUD_CULT]
-	if(cult_mind.current)
+	if(cult_mind?.current)
 		culthud.join_hud(cult_mind.current)
 		set_antag_hud(cult_mind.current, "hudcultist")
 
 /datum/game_mode/proc/update_cult_icons_removed(datum/mind/cult_mind)
 	var/datum/atom_hud/antag/culthud = GLOB.huds[ANTAG_HUD_CULT]
-	if(cult_mind.current)
+	if(cult_mind?.current)
 		culthud.leave_hud(cult_mind.current)
 		set_antag_hud(cult_mind.current, null)
 

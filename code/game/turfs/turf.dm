@@ -389,6 +389,7 @@
 		var/area/our_area = W.loc
 		if(our_area.lighting_effects)
 			W.add_overlay(our_area.lighting_effects[SSmapping.z_level_to_plane_offset[z] + 1])
+	SSdemo.mark_turf(W)
 
 	return W
 
@@ -755,7 +756,7 @@
 	C.visible_message(span_danger("[C] slams into [src]!"),
 					span_userdanger("You slam into [src]!"))
 	C.take_organ_damage(damage)
-	C.Weaken(3 SECONDS)
+	C.Weaken(0.1 SECONDS)
 
 
 /**

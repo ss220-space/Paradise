@@ -7,9 +7,9 @@
 	var/name
 	var/desc
 	var/class
-	var/list/default_genes = list(REGEN, BREATHLESS, COLDRES)
 	var/list/default_spells = list()
 	var/activated = FALSE //for wishgranters to not give an option if someone already has it.
+
 
 /datum/superheroes/proc/create(var/mob/living/carbon/human/H)
 	assign_genes(H)
@@ -30,11 +30,12 @@
 		ADD_TRAIT(W, TRAIT_NODROP, SUPERHERO_TRAIT)
 
 
-/datum/superheroes/proc/assign_genes(var/mob/living/carbon/human/H)
-	if(default_genes.len)
-		for(var/gene in default_genes)
-			H.mutations |= gene
-		H.update_mutations()
+/datum/superheroes/proc/assign_genes(mob/living/carbon/human/H)
+	H.force_gene_block(GLOB.regenerateblock, TRUE)
+	H.force_gene_block(GLOB.breathlessblock, TRUE)
+	H.force_gene_block(GLOB.coldblock, TRUE)
+	H.gene_stability = 100
+
 
 /datum/superheroes/proc/assign_spells(var/mob/living/carbon/human/H)
 	if(default_spells.len)

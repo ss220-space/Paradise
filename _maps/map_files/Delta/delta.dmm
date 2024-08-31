@@ -16274,10 +16274,10 @@
 	pixel_y = -22
 	},
 /obj/machinery/light/small,
-/obj/structure/closet/crate,
 /obj/item/storage/belt/champion/wrestling/true,
 /obj/item/stack/sheet/mineral/gold,
 /obj/item/stack/sheet/mineral/gold,
+/obj/structure/closet/crate/vault,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -74314,9 +74314,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/arcade/minesweeper{
-	freeplay = 1
-	},
+/obj/machinery/arcade/minesweeper,
 /turf/simulated/floor/carpet/arcade,
 /area/crew_quarters/fitness)
 "mlG" = (
@@ -78330,9 +78328,7 @@
 	dir = 6
 	},
 /obj/effect/decal/warning_stripes/northwest,
-/obj/item/pipe_meter{
-	anchored = 1
-	},
+/obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating/airless,
 /area/medical/virology/lab)
 "nhs" = (
@@ -82261,7 +82257,6 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/closet/crate,
 /obj/item/coin/silver,
 /obj/item/coin/silver,
 /obj/item/coin/silver,
@@ -82270,6 +82265,7 @@
 /obj/item/radio/intercom{
 	pixel_y = 28
 	},
+/obj/structure/closet/crate/vault,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -82372,7 +82368,7 @@
 /obj/structure/closet/fireaxecabinet{
 	pixel_y = 32
 	},
-/obj/structure/closet/secure_closet/freezer/money,
+/obj/structure/closet/secure_closet/freezer/vault,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -117441,7 +117437,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
 	},
-/obj/item/clothing/gloves/color/yellow,
+/obj/item/clothing/gloves/color/fyellow,
 /obj/item/storage/toolbox/electrical,
 /obj/item/multitool,
 /turf/simulated/floor/plasteel{
@@ -119947,7 +119943,7 @@
 /area/crew_quarters/captain/bedroom)
 "wPi" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/gloves/color/yellow,
+/obj/item/clothing/gloves/color/fyellow,
 /obj/item/storage/toolbox/electrical,
 /obj/item/multitool,
 /turf/simulated/floor/plasteel{
@@ -120135,12 +120131,6 @@
 	icon_state = "darkbluecorners"
 	},
 /area/construction/hallway)
-"wRB" = (
-/obj/machinery/atmospherics/unary/vent_scrubber,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/medical/virology)
 "wRH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -153595,7 +153585,7 @@ yhg
 yhg
 yhg
 yhg
-plO
+yhg
 yhg
 yhg
 yhg
@@ -175854,7 +175844,7 @@ rvd
 fey
 ltW
 wBW
-wRB
+qIo
 qUW
 ltW
 hbD

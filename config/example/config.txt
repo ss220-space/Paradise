@@ -709,3 +709,26 @@ MINUTE_TOPIC_LIMIT 150
 ## Set to 0 to disable.
 SECOND_CLICK_LIMIT 15
 MINUTE_CLICK_LIMIT 400
+
+## Assets can opt-in to caching their results into `cache/`.
+## This is important, as preferences assets take upwards of 30 seconds (without sleeps) to collect.
+## The cache is assumed to be cleared by TGS recompiling, which deletes `cache/`.
+## This should be disabled (through `CACHE_ASSETS 0`) on development,
+## but enabled on production (the default).
+CACHE_ASSETS 0
+
+## If this is uncommented, we will save all associated spritesheet PNGs and CSS files to a folder in the round-specific logs folder.
+## Useful for developers to debug potential spritesheet issues to determine where the issue is cropping up (either in DM-side sprite generation or in the TGUI-side display of said spritesheet).
+## Will only seek to waste disk space if ran on production.
+#SAVE_SPRITESHEETS
+
+## System command that invokes yt-dlp, used by Play Internet Sound.
+## You can install yt-dlp with
+## "pip install yt-dlp" if you have pip installed
+## from https://github.com/yt-dlp/yt-dlp/releases
+## or your package manager
+## The default value assumes yt-dlp is in your system PATH
+# INVOKE_YOUTUBEDL yt-dlp
+
+## Enable the replay demo recording subsystem
+#DEMOS_ENABLED

@@ -1,6 +1,8 @@
 #define DEBUG
 //#define TESTING
 
+// If defined, we will NOT defer asset generation till later in the game, and will instead do it all at once, during initiialize
+//#define DO_NOT_DEFER_ASSETS
 // Uncomment the following line to compile unit tests.
 // #define UNIT_TESTS
 
@@ -16,6 +18,8 @@
 ///Run a lookup on things hard deleting by default.
 //#define GC_FAILURE_HARD_LOOKUP
 #ifdef GC_FAILURE_HARD_LOOKUP
+//Ensures all early assets can actually load early
+#define DO_NOT_DEFER_ASSETS
 #warn Lookup on things hard deleted is enabled
 ///Don't stop when searching, go till you're totally done
 #define FIND_REF_NO_CHECK_TICK

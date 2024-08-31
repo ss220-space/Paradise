@@ -27,6 +27,8 @@ SUBSYSTEM_DEF(ticker)
 	var/datum/game_mode/mode = null
 	/// The current pick of lobby music played in the lobby
 	var/login_music
+	var/login_music_data
+	var/selected_lobby_music
 	/// List of all minds in the game. Used for objective tracking
 	var/list/datum/mind/minds = list()
 	/// icon_state the chaplain has chosen for his bible
@@ -75,17 +77,14 @@ SUBSYSTEM_DEF(ticker)
 	var/list/randomtips = list()
 	var/list/memetips = list()
 
+	var/music_available = 0
 
 /datum/controller/subsystem/ticker/Initialize()
-	login_music = pick(\
-	'sound/music/thunderdome.ogg',\
-	'sound/music/space.ogg',\
-	'sound/music/pilotpriest-origin-one.ogg',\
-	'sound/music/pilotpriest-tell-them-now.ogg',\
-	'sound/music/pilotpriest-now-be-the-light.ogg',\
-	'sound/music/title1.ogg',\
-	'sound/music/title2.ogg',\
-	'sound/music/title3.ogg',)
+	login_music_data = list()
+	login_music = choose_lobby_music()
+
+	if(!login_music)
+		to_chat(world, span_boldwarning("Could not load lobby music.")) //yogs end
 
 	randomtips = file2list("strings/tips.txt")
 	memetips = file2list("strings/sillytips.txt")
@@ -390,6 +389,50 @@ SUBSYSTEM_DEF(ticker)
 	//addtimer(VARSET_CALLBACK(SStime_track, update_gliding, TRUE), 1 MINUTES)
 	return TRUE
 
+/datum/controller/subsystem/ticker/proc/choose_lobby_music()
+	var/list/songs = CONFIG_GET(str_list/lobby_music)
+	selected_lobby_music = pick(songs)
+
+	if(SSholiday.holidays) // What's this? Events are initialized before tickers? Let's do something with that!
+		for(var/holidayname in SSholiday.holidays)
+			var/datum/holiday/holiday = SSholiday.holidays[holidayname]
+			if(LAZYLEN(holiday.lobby_music))
+				selected_lobby_music = pick(holiday.lobby_music)
+				break
+
+	var/ytdl = CONFIG_GET(string/invoke_youtubedl)
+	if(!ytdl)
+		to_chat(world, span_boldwarning("yt-dlp was not configured."))
+		log_world("Could not play lobby song because yt-dlp is not configured properly, check the config.")
+		return
+
+	var/list/output = world.shelleo("[ytdl] -x --audio-format mp3 --audio-quality 0 --geo-bypass --no-playlist -o \"cache/songs/%(id)s.%(ext)s\" --dump-single-json --no-simulate \"[selected_lobby_music]\"")
+	var/errorlevel = output[SHELLEO_ERRORLEVEL]
+	var/stdout = output[SHELLEO_STDOUT]
+	var/stderr = output[SHELLEO_STDERR]
+
+	if(!errorlevel)
+		var/list/data
+		try
+			data = json_decode(stdout)
+		catch(var/exception/e)
+			to_chat(world, span_boldwarning("yt-dlp JSON parsing FAILED."))
+			log_world(span_boldwarning("yt-dlp JSON parsing FAILED:"))
+			log_world(span_warning("[e]: [stdout]"))
+			return
+		if(data["title"])
+			login_music_data["title"] = data["title"]
+			login_music_data["url"] = data["url"]
+			login_music_data["link"] = data["webpage_url"]
+			login_music_data["path"] = "cache/songs/[data["id"]].mp3"
+			login_music_data["title_link"] = data["webpage_url"] ? "<a href=\"[data["webpage_url"]]\">[data["title"]]</a>" : data["title"]
+
+	if(errorlevel)
+		to_chat(world, span_boldwarning("yt-dlp failed."))
+		log_world("Could not play lobby song [selected_lobby_music]: [stderr]")
+		return
+	return stdout
+
 
 /datum/controller/subsystem/ticker/proc/station_explosion_cinematic(station_missed = 0, override = null)
 
@@ -673,7 +716,7 @@ SUBSYSTEM_DEF(ticker)
 
 	for(var/ckey in flagged_antag_rollers)
 		log_admin("[ckey] just got booted back to lobby with no jobs, but antags enabled.")
-		log_text += "<small>- <a href='?priv_msg=[ckey]'>[ckey]</a></small>"
+		log_text += "<small>- <a href='byond://?priv_msg=[ckey]'>[ckey]</a></small>"
 
 	log_text += "Investigation is advised."
 

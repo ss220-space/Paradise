@@ -217,12 +217,12 @@
 				for(var/datum/reagent/R in B.reagents.reagent_list)
 					dat += "<br>    [R.volume] units of [R.name], "
 				if(check_beaker_mixing(B))
-					dat += text("<A href='?src=[UID()];stop_mix=[i]'><font color='green'>Mixing</font></A> ")
+					dat += text("<a href='byond://?src=[UID()];stop_mix=[i]'><font color='green'>Mixing</font></A> ")
 				else
-					dat += text("<A href='?src=[UID()];mix=[i]'><font color='red'>Not mixing</font></A> ")
+					dat += text("<a href='byond://?src=[UID()];mix=[i]'><font color='red'>Not mixing</font></A> ")
 			else
 				dat += "nothing."
-			dat += " \[<A href='?src=[UID()];eject=[i]'>Eject</A>\]<br>"
+			dat += " \[<a href='byond://?src=[UID()];eject=[i]'>Eject</A>\]<br>"
 			i++
 	else
 		dat += "There are no beakers inserted!<br><br>"
@@ -232,7 +232,7 @@
 			dat += "The dart cartridge has [cartridge.darts] shots remaining."
 		else
 			dat += "<font color='red'>The dart cartridge is empty!</font>"
-		dat += " \[<A href='?src=[UID()];eject_cart=1'>Eject</A>\]"
+		dat += " \[<a href='byond://?src=[UID()];eject_cart=1'>Eject</A>\]"
 
 	user << browse(dat, "window=dartgun")
 	onclose(user, "dartgun", src)

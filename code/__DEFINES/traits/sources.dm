@@ -57,6 +57,9 @@
 #define ANTIDROP_TRAIT "antidrop"
 #define HOLO_CIGAR_TRAIT "holo_cigar"
 
+#define WISHGRANTER_TRAIT "wishgranter"
+#define THUNDERDOME_TRAIT "thunderdome"
+
 /// A trait given by any status effect
 #define STATUS_EFFECT_TRAIT "status-effect"
 
@@ -65,6 +68,8 @@
 #define CLOTHING_TRAIT "clothing"
 
 #define DNA_TRAIT "dna_trait"
+
+#define FATNESS_TRAIT "fatness"
 
 /// Traits applied to a silicon mob by their model.
 #define ROBOT_TRAIT "robot_trait"
@@ -118,6 +123,8 @@
 
 #define FULTON_TRAIT "fulton"
 
+#define ANOMALOUS_CRYSTAL_TRAIT "anomalous_crystal"
+
 #define FLOOR_CLUWNE_TRAIT "floor_cluwne"
 
 #define DRAGON_SWOOP_TRAIT "dragon_swoop"
@@ -139,4 +146,7 @@
 
 // item trait sources
 #define BROODMOTHER_TONGUE_TRAIT "broodmother_tongue"
+#define SCRYING_ORB_TRAIT "scrying_orb"
+#define EVIL_FAX_TRAIT "evil_fax"
+#define CORGI_HARDSUIT_TRAIT "corgi_hardsuit"
 

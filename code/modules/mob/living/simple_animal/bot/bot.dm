@@ -405,7 +405,7 @@
 	if(user.a_intent == INTENT_HARM)	// NOT IN COMBAT
 		return ..()
 
-	if(I.GetID())
+	if(I.GetID() || is_pda(I))
 		add_fingerprint(user)
 		if(emagged)
 			to_chat(user, span_danger("ERROR##?"))
@@ -1036,7 +1036,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 /mob/living/simple_animal/bot/proc/show_controls(mob/user)
 	users |= user
-	var/dat = {"<meta charset="UTF-8">"}
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	dat += get_controls(user)
 	var/datum/browser/popup = new(user, window_id, window_name, 350, 600, src)
 	popup.set_content(dat)
@@ -1159,9 +1159,9 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	var/hack
 	if(issilicon(user) || user.can_admin_interact()) //Allows silicons or admins to toggle the emag status of a bot.
 		hack += "[emagged == 2 ? "Software compromised! Unit may exhibit dangerous or erratic behavior." : "Unit operating normally. Release safety lock?"]<BR>"
-		hack += "Harm Prevention Safety System: <A href='?src=[UID()];operation=hack'>[emagged ? "<span class='bad'>DANGER</span>" : "Engaged"]</A><BR>"
+		hack += "Harm Prevention Safety System: <a href='byond://?src=[UID()];operation=hack'>[emagged ? "<span class='bad'>DANGER</span>" : "Engaged"]</A><BR>"
 	else if(!locked) //Humans with access can use this option to hide a bot from the AI's remote control panel and PDA control.
-		hack += "Remote network control radio: <A href='?src=[UID()];operation=remote'>[remote_disabled ? "Disconnected" : "Connected"]</A><BR>"
+		hack += "Remote network control radio: <a href='byond://?src=[UID()];operation=remote'>[remote_disabled ? "Disconnected" : "Connected"]</A><BR>"
 	return hack
 
 
@@ -1172,9 +1172,9 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 			eject += "Personality card status: "
 			if(paicard)
 				if(client)
-					eject += "<A href='?src=[UID()];operation=ejectpai'>Active</A>"
+					eject += "<a href='byond://?src=[UID()];operation=ejectpai'>Active</A>"
 				else
-					eject += "<A href='?src=[UID()];operation=ejectpai'>Inactive</A>"
+					eject += "<a href='byond://?src=[UID()];operation=ejectpai'>Inactive</A>"
 			else if(!allow_pai || key)
 				eject += "Unavailable"
 			else

@@ -375,7 +375,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 
 /obj/machinery/porta_turret/attackby(obj/item/I, mob/user, params)
-	if(I.GetID())
+	if(I.GetID() || is_pda(I))
 		add_fingerprint(user)
 		if(HasController())
 			to_chat(user, span_notice("Turrets regulated by a nearby turret controller are not unlockable."))

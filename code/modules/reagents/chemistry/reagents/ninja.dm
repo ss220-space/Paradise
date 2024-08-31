@@ -101,12 +101,11 @@
 					var/datum/disease/our_disease = thing
 					our_disease.cure(0)
 				//Genes(resets them like mutadone)
-				var/needs_update = mob_human.mutations.len > 0
-				if(needs_update)
-					for(var/block = 1; block<=DNA_SE_LENGTH; block++)
-						if(!LAZYIN(mob_human.dna.default_blocks, block))
-							mob_human.force_gene_block(block, FALSE)
-					mob_human.dna.struc_enzymes = mob_human.dna.struc_enzymes_original
+				for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
+					if(!LAZYIN(mob_human.dna.default_blocks, gene.block))
+						mob_human.force_gene_block(gene.block, FALSE)
+				mob_human.dna.struc_enzymes = mob_human.dna.struc_enzymes_original
+
 		if(40 to INFINITY)
 			if(ishuman(our_mob))
 				var/mob/living/carbon/human/mob_human = our_mob

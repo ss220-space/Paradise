@@ -25,8 +25,7 @@
 
 		if(1)
 			if(stage_message == 1)
-				var/datum/species/mob = H.dna.species
-				mob.species_traits |= NO_SCAN
+				ADD_TRAIT(H, TRAIT_NO_SCAN, name)
 				stage_message++
 
 		if(2)
@@ -52,9 +51,10 @@
 			H.AdjustJitter(2 SECONDS)
 			if(stage_message == 4)
 				to_chat(H, span_boldnotice("The pain has gone away.."))
-				var/datum/species/mob = H.dna.species
-				mob.species_traits |= NO_PAIN_FEEL
-				mob.species_traits |= NO_PAIN
+				ADD_TRAIT(H, TRAIT_NO_PAIN, name)
+				ADD_TRAIT(H, TRAIT_NO_PAIN_HUD, name)
+				H.update_damage_hud()
+				H.update_health_hud()
 				stage_message++
 			if(prob(1.5))
 				destiny(H, TRUE)

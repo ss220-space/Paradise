@@ -44,7 +44,7 @@
 	mech_type = /obj/mecha/working/ripley/firefighter
 	mech_class = WORKING_MECH
 	mech_icon = "firefighter-open"
-	max_modules = 6
+	max_modules = 5
 	cash_reward = 700
 	wanted_modules = list(
 		/obj/item/mecha_parts/mecha_equipment/drill,
