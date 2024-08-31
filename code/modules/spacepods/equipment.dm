@@ -304,6 +304,7 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 	icon_state = "blank"
 	
 	var/can_ignore_z = FALSE
+	var/can_found_all = FALSE
 
 /obj/item/spacepod_equipment/locators/proc/scan(mob/user)
 	var/message_user = ""
@@ -331,6 +332,7 @@ GLOBAL_LIST_EMPTY(pod_trackers)
     icon_state = "pod_locator_sector"
     origin_tech = "engineering=5;magnets=4"
 
+	can_found_all = FALSE
     can_ignore_z = FALSE
 
 /obj/item/spacepod_equipment/locators/advanced_pod_locator
@@ -338,5 +340,6 @@ GLOBAL_LIST_EMPTY(pod_trackers)
     desc = "Улучшеный модуль поиска способный обнаружить любой объект в секторе"
     icon_state = "pod_locator_sector"
 
+	can_found_all = TRUE
     can_ignore_z = FALSE
 
