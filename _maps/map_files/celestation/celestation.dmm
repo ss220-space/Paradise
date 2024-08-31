@@ -56516,9 +56516,7 @@
 	pixel_x = 5;
 	pixel_y = -8
 	},
-/obj/structure/closet/crate{
-	name = "Silver Crate"
-	},
+/obj/structure/closet/crate/vault,
 /turf/simulated/floor/plasteel{
 	icon_state = "bcircuit"
 	},
@@ -85951,7 +85949,7 @@
 	},
 /area/toxins/mixing)
 "pgS" = (
-/obj/structure/closet/secure_closet/freezer/money,
+/obj/structure/closet/secure_closet/freezer/vault,
 /turf/simulated/floor/plasteel{
 	icon_state = "bcircuit"
 	},
@@ -91661,9 +91659,6 @@
 	},
 /area/engine/engineering)
 "qks" = (
-/obj/structure/closet/crate{
-	name = "Silver Crate"
-	},
 /obj/item/storage/belt/champion/wrestling/true,
 /obj/item/stack/sheet/mineral/gold{
 	pixel_y = 2
@@ -91672,6 +91667,7 @@
 	pixel_x = -1;
 	pixel_y = 5
 	},
+/obj/structure/closet/crate/vault,
 /turf/simulated/floor/plasteel{
 	icon_state = "bcircuit"
 	},
