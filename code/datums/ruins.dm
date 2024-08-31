@@ -18,7 +18,6 @@
 	var/suffix = null
 
 	var/can_found = FALSE //Can the ruin be found by the locator
-	var/turf/main_turf = null 
 
 /datum/map_template/ruin/New()
 	if(!name && id)
