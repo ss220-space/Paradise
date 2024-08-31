@@ -319,6 +319,13 @@
 /obj/item/radio/intercom,
 /turf/simulated/wall/r_wall,
 /area/security/seceqstorage)
+"acU" = (
+/obj/machinery/computer/roboquest,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteyellow"
+	},
+/area/assembly/chargebay)
 "acX" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -38769,10 +38776,7 @@
 /turf/simulated/floor/glass,
 /area/hallway/primary/central)
 "fYK" = (
-/obj/structure/table,
-/obj/item/clipboard,
-/obj/item/paper_bin,
-/obj/item/pen,
+/obj/structure/closet/secure_closet/pilot_sniper,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -52605,6 +52609,13 @@
 	icon_state = "solarpanel"
 	},
 /area/solar/port)
+"iHH" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/machinery/arcade/minesweeper,
+/turf/simulated/floor/carpet/arcade,
+/area/crew_quarters/dorms)
 "iHJ" = (
 /obj/structure/railing{
 	dir = 8
@@ -67861,6 +67872,14 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/glass,
 /area/security/brig)
+"lFK" = (
+/obj/machinery/roboquest_pad,
+/obj/effect/decal/warning_stripes/yellow,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteyellow"
+	},
+/area/assembly/chargebay)
 "lFN" = (
 /obj/machinery/photocopier,
 /obj/structure/cable/orange{
@@ -78233,6 +78252,10 @@
 /obj/effect/landmark/event/lightsout,
 /turf/simulated/floor/wood/fancy/light,
 /area/library/game_zone)
+"nHQ" = (
+/obj/machinery/computer/arcade/orion_trail,
+/turf/simulated/floor/carpet/arcade,
+/area/crew_quarters/dorms)
 "nHS" = (
 /obj/machinery/door/airlock{
 	name = "Unisex Restrooms"
@@ -78861,6 +78884,8 @@
 /obj/machinery/newscaster/security_unit{
 	pixel_y = -32
 	},
+/obj/item/clipboard,
+/obj/item/paper_bin,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -80228,15 +80253,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/civilian/vacantoffice)
-"ocV" = (
-/obj/machinery/computer/arcade/battle{
-	dir = 8
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/carpet/arcade,
-/area/crew_quarters/dorms)
 "ocZ" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
@@ -101050,7 +101066,7 @@
 "sdv" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/electrical,
-/obj/item/clothing/gloves/color/yellow,
+/obj/item/clothing/gloves/color/fyellow,
 /obj/item/t_scanner,
 /obj/item/multitool,
 /turf/simulated/floor/plating,
@@ -210909,7 +210925,7 @@ tCP
 tCP
 uAK
 aKT
-bct
+nHQ
 fHV
 hUy
 oQP
@@ -211423,7 +211439,7 @@ iYA
 ggw
 ktd
 aKT
-ocV
+iHH
 fHV
 byv
 oQP
@@ -217397,7 +217413,7 @@ orm
 oqZ
 oqZ
 wkh
-kve
+lFK
 mbL
 pFw
 pcf
@@ -217654,7 +217670,7 @@ orm
 orm
 oqZ
 wkh
-kve
+acU
 dYd
 rqm
 jwy

@@ -105,7 +105,7 @@
 	switch(choice)
 		if("cable restraints (15)")
 			if(get_amount() < 15)
-				to_chat(user, span_warning("You don't have enough [src] to make cable restraints!</span>"))
+				to_chat(user, span_warning("You don't have enough [src] to make cable restraints!"))
 			if(use(15))
 				var/obj/item/restraints/handcuffs/cable/cablecuff = new(T)
 				var/text_color
@@ -133,11 +133,11 @@
 				to_chat(user, span_warning("You need to remove floor plating."))
 				return
 			if(get_amount() < 10)
-				to_chat(user, span_warning("You don't have enough [src] to make cable restraints!</span>"))
+				to_chat(user, span_warning("You don't have enough [src] to make cable restraints!"))
 				return
 			if(do_after(user, 2 SECONDS, user))
 				if(!use(10))
-					to_chat(user, span_warning("You don't have enough [src] to make cable restraints!</span>"))
+					to_chat(user, span_warning("You don't have enough [src] to make cable restraints!"))
 					return
 				playsound(T, usesound, 50, 1)
 				to_chat(user, span_notice("You place hub cable onto the floor."))
@@ -152,7 +152,7 @@
 	return TRUE
 
 //you can use wires to heal robotics
-/obj/item/stack/cable_coil/attack(mob/living/carbon/human/target, mob/user)
+/obj/item/stack/cable_coil/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!ishuman(target))
 		return ..()
 
@@ -160,17 +160,20 @@
 	if(!target_organ || !target_organ.is_robotic() || user.a_intent != INTENT_HELP || target_organ.open == ORGAN_SYNTHETIC_OPEN)
 		return ..()
 
+	. = ATTACK_CHAIN_PROCEED
+
 	if(target_organ.burn_dam > ROBOLIMB_SELF_REPAIR_CAP)
 		to_chat(user, span_danger("The damage is far too severe to patch over externally."))
-		return FALSE
+		return .
 
 	if(!target_organ.burn_dam)
 		to_chat(user, span_notice("Nothing to fix!"))
-		return FALSE
+		return .
 
-	if(target == user)
-		if(!do_after(user, 1 SECONDS, target, NONE))
-			return FALSE
+	if(target == user && !do_after(user, 1 SECONDS, target, NONE))
+		return .
+
+	. |= ATTACK_CHAIN_SUCCESS
 
 	var/cable_used = 0
 	var/list/childlist = LAZYLEN(target_organ.children) ? target_organ.children.Copy() : null
@@ -204,32 +207,17 @@
 		target.updatehealth("cable repair")
 	if(update_damage_icon)
 		target.UpdateDamageIcon()
-	return TRUE
 
 
-// Items usable on a cable coil :
-//   - Wirecutters : cut them duh !
-//   - Cable coil : merge cables
-/obj/item/stack/cable_coil/attackby(obj/item/W, mob/user)
-	. = ..()
-	if(is_cyborg)
-		return
-	if(istype(W, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/C = W
-		// Cable merging is handled by parent proc
-		if(C.amount >= MAXCOIL)
-			to_chat(user, span_warning("The coil is as long as it will get."))
-			return
-		if(C.amount + amount <= MAXCOIL)
-			to_chat(user, span_notice("You join the cable coils together."))
-			return
-		else
-			to_chat(user, span_notice("You transfer cables from one coil to the other."))
-			return
+/obj/item/stack/cable_coil/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/toy/crayon))
+		add_fingerprint(user)
+		var/obj/item/toy/crayon/crayon = I
+		cable_color(crayon.colourName)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(istype(W, /obj/item/toy/crayon))
-		var/obj/item/toy/crayon/C = W
-		cable_color(C.colourName)
+	return ..()
+
 
 ///////////////////////////////////////////////
 // Cable laying procedures
@@ -246,7 +234,7 @@
 	if(!isturf(user.loc))
 		return
 
-	if(!isturf(T) || T.intact || !T.can_have_cabling())
+	if(!isturf(T) || !T.can_lay_cable())
 		to_chat(user, "<span class='warning'>You can only lay cables on catwalks and plating!</span>")
 		return
 
@@ -254,7 +242,7 @@
 		to_chat(user, "<span class='warning'>There is no cable left!</span>")
 		return
 
-	if(get_dist(T,user) > 1) // Too far
+	if(get_dist(T,user.loc) > 1) // Too far
 		to_chat(user, "<span class='warning'>You can't lay cable at a place that far away!</span>")
 		return
 

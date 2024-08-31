@@ -18,15 +18,12 @@
 
 // Takes care blood loss and regeneration
 /mob/living/carbon/human/handle_blood()
-	if(NO_BLOOD in dna.species.species_traits)
-		bleed_rate = 0
-		return
-	if(status_flags & GODMODE)
+	if((status_flags & GODMODE) || HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		bleed_rate = 0
 		return
 
-	if(bodytemperature >= TCRYO && !(NOCLONE in mutations)) //cryosleep or husked people do not pump the blood.
-		if(blood_volume < BLOOD_VOLUME_NORMAL)
+	if(bodytemperature >= TCRYO && !HAS_TRAIT(src, TRAIT_NO_CLONE)) //cryosleep or husked people do not pump the blood.
+		if(!HAS_TRAIT(src, TRAIT_NO_BLOOD_RESTORE) && blood_volume < BLOOD_VOLUME_NORMAL)
 			blood_volume += 0.1 // regenerate blood VERY slowly
 
 
@@ -98,19 +95,16 @@
 
 
 /mob/living/carbon/human/bleed(amt)
-	if(NO_BLOOD in dna.species.species_traits)
+	if(HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		return FALSE
 	amt *= physiology.bleed_mod
 	. = ..()
-	if(!. || !dna.species.exotic_blood)
+	if(!. || !HAS_TRAIT(src, TRAIT_EXOTIC_BLOOD))
 		return .
-	var/datum/reagent/R = GLOB.chemical_reagents_list[get_blood_id()]
-	if(!istype(R) || !isturf(loc))
+	var/datum/reagent/blood_reagent = GLOB.chemical_reagents_list[get_blood_id()]
+	if(!istype(blood_reagent) || !isturf(loc))
 		return .
-	if(EXOTIC_COLOR in dna.species.species_traits)
-		R.reaction_turf(loc, amt * EXOTIC_BLEED_MULTIPLIER, dna.species.blood_color)
-	else
-		R.reaction_turf(loc, amt * EXOTIC_BLEED_MULTIPLIER)
+	blood_reagent.reaction_turf(loc, amt * EXOTIC_BLEED_MULTIPLIER, dna.species.blood_color)
 
 
 /mob/living/carbon/proc/bleed_internal(amt)
@@ -129,19 +123,16 @@
 
 
 /mob/living/carbon/human/bleed_internal(amt)
-	if(NO_BLOOD in dna.species.species_traits)
+	if(HAS_TRAIT(src, TRAIT_NO_BLOOD))
 		return FALSE
 	amt *= physiology.bleed_mod
 	. = ..()
-	if(!. || !dna.species.exotic_blood) // Do we have exotic blood, and have we left any on the ground?
+	if(!. || !HAS_TRAIT(src, TRAIT_EXOTIC_BLOOD))
 		return .
-	var/datum/reagent/R = GLOB.chemical_reagents_list[get_blood_id()]
-	if(!istype(R) || !isturf(loc))
+	var/datum/reagent/blood_reagent = GLOB.chemical_reagents_list[get_blood_id()]
+	if(!istype(blood_reagent) || !isturf(loc))
 		return .
-	if(EXOTIC_COLOR in dna.species.species_traits)
-		R.reaction_turf(loc, amt * EXOTIC_BLEED_MULTIPLIER, dna.species.blood_color)
-	else
-		R.reaction_turf(loc, amt * EXOTIC_BLEED_MULTIPLIER)
+	blood_reagent.reaction_turf(loc, amt * EXOTIC_BLEED_MULTIPLIER, dna.species.blood_color)
 
 
 /mob/living/proc/restore_blood()
@@ -180,7 +171,7 @@
 				if(V.spread_flags < BLOOD)
 					continue
 				V.Contract(C)
-		if(blood_id == C.get_blood_id())//both mobs have the same blood substance
+		if(blood_id == C.get_blood_id() && !HAS_TRAIT(C, TRAIT_NO_BLOOD_RESTORE))//both mobs have the same blood substance
 			if(blood_id == "blood") //normal blood
 				if(!(blood_data["blood_type"] in get_safe_blood(C.dna.blood_type)) || !(blood_data["blood_species"] == C.dna.species.blood_species))
 					C.reagents.add_reagent("toxin", amount * 0.5)
@@ -217,7 +208,7 @@
 				blood_data["mind"] = mind
 			if(ckey)
 				blood_data["ckey"] = ckey
-			if(!suiciding)
+			if(!suiciding && !HAS_TRAIT(src, TRAIT_NO_SCAN))
 				blood_data["cloneable"] = 1
 			blood_data["blood_type"] = copytext(src.dna.blood_type, 1, 0)
 			blood_data["blood_species"] = dna.species.blood_species
@@ -236,20 +227,25 @@
 
 	return blood_data
 
+
 //get the id of the substance this mob use as blood.
 /mob/proc/get_blood_id()
-	return
+	return ""
+
 
 /mob/living/simple_animal/get_blood_id()
 	if(blood_volume)
 		return "blood"
+	return ""
+
 
 /mob/living/carbon/human/get_blood_id()
-	if(dna.species.exotic_blood)//some races may bleed water..or kethcup..
+	if(HAS_TRAIT(src, TRAIT_NO_BLOOD))
+		return ""
+	if(HAS_TRAIT(src, TRAIT_EXOTIC_BLOOD))	//some races may bleed water..or kethcup..
 		return dna.species.exotic_blood
-	else if((NO_BLOOD in dna.species.species_traits) || (NOCLONE in mutations))
-		return
 	return "blood"
+
 
 // This is has more potential uses, and is probably faster than the old proc.
 /proc/get_safe_blood(bloodtype)
@@ -282,7 +278,7 @@
 		return
 	if(!T)
 		T = get_turf(src)
-	if(density || isopenspaceturf(T) && !GET_TURF_BELOW(T))
+	if(!T || T.density || isopenspaceturf(T) && !GET_TURF_BELOW(T))
 		return
 
 	var/list/temp_blood_DNA
@@ -329,9 +325,6 @@
 		B.off_floor = TRUE
 		B.layer = BELOW_MOB_LAYER //So the blood lands ontop of things like posters, windows, etc.
 
-/mob/living/carbon/human/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
-	if(!(NO_BLOOD in dna.species.species_traits))
-		..()
 
 /mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
 	if(!T)

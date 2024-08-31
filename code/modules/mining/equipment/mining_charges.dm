@@ -31,7 +31,7 @@
 	if(nadeassembly)
 		nadeassembly.attack_self(user)
 
-/obj/item/grenade/plastic/miningcharge/afterattack(atom/movable/AM, mob/user, flag)
+/obj/item/grenade/plastic/miningcharge/afterattack(atom/movable/AM, mob/user, flag, params)
 	if(ismineralturf(AM) || hacked)
 		if(isancientturf(AM) && !hacked)
 			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
@@ -55,18 +55,23 @@
 			return
 		..()
 
+
 /obj/item/grenade/plastic/miningcharge/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/detonator))
+		add_fingerprint(user)
 		var/obj/item/detonator/detonator = I
-		if(!(src in detonator.bombs) && !timer_off)
-			detonator.bombs += src
-			timer_off = TRUE
-			balloon_alert(user, "синхронизировано")
-			playsound(src, 'sound/machines/twobeep.ogg', 50)
-		else
+		if((src in detonator.bombs) || timer_off)
 			balloon_alert(user, "уже синхронизировано!")
-		detonator.update_icon()
-	..()
+			return ATTACK_CHAIN_PROCEED
+		detonator.bombs += src
+		timer_off = TRUE
+		balloon_alert(user, "синхронизировано")
+		playsound(loc, 'sound/machines/twobeep.ogg', 50)
+		detonator.update_icon(UPDATE_ICON_STATE)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/item/grenade/plastic/miningcharge/proc/detonate()
 	addtimer(CALLBACK(src, PROC_REF(prime)), 3 SECONDS)

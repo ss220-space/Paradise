@@ -166,6 +166,11 @@
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "pwindow"
 
+
+/obj/structure/window/reinforced/survival_pod/unhittable
+	obj_flags = IGNORE_HITS
+
+
 //Floors
 /turf/simulated/floor/pod
 	name = "pod floor"
@@ -230,9 +235,7 @@
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/sleeper/survival(null)
-	var/obj/item/stock_parts/matter_bin/B = new(null)
-	B.rating = initial_bin_rating
-	component_parts += B
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/sheet/glass(null)
@@ -345,7 +348,7 @@
 	var/buildstackamount = 5
 
 /obj/structure/fans/Initialize(loc)
-	..()
+	. = ..()
 	air_update_turf(1)
 
 /obj/structure/fans/Destroy()

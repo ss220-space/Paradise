@@ -231,7 +231,7 @@
 				occupant_message("Switched RCD to Construct Firelock.")
 
 /obj/item/mecha_parts/mecha_equipment/rcd/get_module_equip_info()
-	return " \[<a href='?src=[UID()];mode=[RCD_MODE_DECON]'>D</a>|<a href='?src=[UID()];mode=[RCD_MODE_TURF]'>C</a>|<a href='?src=[UID()];mode=[RCD_MODE_AIRLOCK]'>A</a>|<a href='?src=[UID()];mode=[RCD_MODE_WINDOW]'>W</a>|<a href='?src=[UID()];mode=[RCD_MODE_FIRELOCK]'>F</a>\]"
+	return " \[<a href='byond://?src=[UID()];mode=[RCD_MODE_DECON]'>D</a>|<a href='byond://?src=[UID()];mode=[RCD_MODE_TURF]'>C</a>|<a href='byond://?src=[UID()];mode=[RCD_MODE_AIRLOCK]'>A</a>|<a href='byond://?src=[UID()];mode=[RCD_MODE_WINDOW]'>W</a>|<a href='byond://?src=[UID()];mode=[RCD_MODE_FIRELOCK]'>F</a>\]"
 
 /obj/item/mecha_parts/mecha_equipment/mimercd
 	name = "mounted MRCD"
@@ -341,7 +341,7 @@
 		if(module == targeted_module)
 			. += "<dd> [module.name] [module.get_module_equip_info()]</dd>"
 		else
-			. += "<dd><a href='?src=[UID()];module=[module.UID()]'>Select [module.name]</a> [module.get_module_equip_info()]</dd>"
+			. += "<dd><a href='byond://?src=[UID()];module=[module.UID()]'>Select [module.name]</a> [module.get_module_equip_info()]</dd>"
 
 /obj/item/mecha_parts/mecha_equipment/multimodule/Topic(href, href_list)
 	..()
@@ -350,13 +350,16 @@
 		update_equip_info()
 		occupant_message("Switched to [targeted_module]")
 
+
 /obj/item/mecha_parts/mecha_equipment/multimodule/attackby(obj/item/I, mob/user, params)
-	. = ..()
 	if(istype(I, /obj/item/storage/bible))
 		var/obj/item/mecha_parts/mecha_equipment/extinguisher/extinguisher = locate() in src
 		if(extinguisher?.reagents && user.mind?.isholy)
 			var/obj/item/storage/bible/bible = I
 			bible.add_holy_water(user, extinguisher)
+			return ATTACK_CHAIN_PROCEED
+	return ..()
+
 
 /obj/item/mecha_parts/mecha_equipment/multimodule/atmos_module
 	name = "ATMOS module"
@@ -438,7 +441,7 @@
 	return
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/get_module_equip_info()
-	return " \[Cable: [cable ? cable.amount : 0] m\][(cable && cable.amount) ? "- <a href='?src=[UID()];toggle=1'>[!equip_ready?"Dea":"A"]ctivate</a>|<a href='?src=[UID()];cut=1'>Cut</a>" : null]"
+	return " \[Cable: [cable ? cable.amount : 0] m\][(cable && cable.amount) ? "- <a href='byond://?src=[UID()];toggle=1'>[!equip_ready?"Dea":"A"]ctivate</a>|<a href='byond://?src=[UID()];cut=1'>Cut</a>" : null]"
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/proc/use_cable(amount)
 	if(!cable || cable.amount<1)
@@ -619,7 +622,7 @@
 				start_cooldown()
 
 /obj/item/mecha_parts/mecha_equipment/holowall/get_module_equip_info()
-	return " \[Holobarriers left: [max_barriers - length(barriers)]|<a href='?src=[UID()];remove_all=1'>Return all barriers</a>\]"
+	return " \[Holobarriers left: [max_barriers - length(barriers)]|<a href='byond://?src=[UID()];remove_all=1'>Return all barriers</a>\]"
 
 /obj/item/mecha_parts/mecha_equipment/holowall/Topic(href,href_list)
 	..()
@@ -675,7 +678,7 @@
 		if(item == selected_item)
 			. += "|<b>[short_name]</b> "
 		else
-			. += "|<a href='?src=[UID()];select=[item.UID()]'>[short_name]</a>"
+			. += "|<a href='byond://?src=[UID()];select=[item.UID()]'>[short_name]</a>"
 	. += "|"
 
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/Topic(href,href_list)

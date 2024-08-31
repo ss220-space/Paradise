@@ -219,12 +219,12 @@
 	if(..())
 		return
 	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8">"}
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	if(temp_html)
-		dat += "[temp_html]<BR><BR><A href='?src=[UID()];clear=1'>Главное меню</A>"
+		dat += "[temp_html]<BR><BR><a href='byond://?src=[UID()];clear=1'>Главное меню</A>"
 	else if(!beaker)
 		dat += "Пожалуйста, вставьте мензурку.<BR>"
-		dat += "<A href='?src=[user.UID()];mach_close=pandemic'>Закрыть</A>"
+		dat += "<a href='byond://?src=[user.UID()];mach_close=pandemic'>Закрыть</A>"
 	else
 		var/datum/reagents/R = beaker.reagents
 		var/datum/reagent/Blood = null
@@ -261,16 +261,16 @@
 							D = GLOB.archive_diseases[A.GetDiseaseID()]
 							if(D)
 								if(D.name == "Unknown")
-									dat += "<b><a href='?src=[UID()];name_disease=[i]'>Назвать вирус</a></b><BR>"
+									dat += "<b><a href='byond://?src=[UID()];name_disease=[i]'>Назвать вирус</a></b><BR>"
 								else
-									dat += "[D.name] <b><a href='?src=[UID()];print_form=[i]'>Напечатать форму выпуска</a></b><BR>"
+									dat += "[D.name] <b><a href='byond://?src=[UID()];print_form=[i]'>Напечатать форму выпуска</a></b><BR>"
 						else
 							dat += "[D.name]<BR>"
 
 						if(!D)
 							CRASH("We weren't able to get the advance disease from the archive.")
 
-						dat += "<b>Болезнетворный агент:</b> [D?"[D.agent] — <A href='?src=[UID()];create_disease_culture=[i]'>Создать образец</A>":"нет"]<BR>"
+						dat += "<b>Болезнетворный агент:</b> [D?"[D.agent] — <a href='byond://?src=[UID()];create_disease_culture=[i]'>Создать образец</A>":"нет"]<BR>"
 						dat += "<b>Описание: </b> [(D.desc||"нет")]<BR>"
 						dat += "<b>Путь передачи:</b> [(D.additional_info||"нет")]<BR>"
 						dat += "<b>Возможное лекарство:</b> [(D.cure_text||"нет")]<BR>"
@@ -306,14 +306,14 @@
 							var/datum/disease/D = new type()
 							disease_name = D.name
 
-						dat += "<li>[disease_name] - <A href='?src=[UID()];create_vaccine=[i]'>Создать бутылёк с вакциной</A></li>"
+						dat += "<li>[disease_name] - <a href='byond://?src=[UID()];create_vaccine=[i]'>Создать бутылёк с вакциной</A></li>"
 					dat += "</ul><BR>"
 				else
 					dat += "<BR><b>Не содержит антител</b><BR>"
 			else
 				dat += "<BR><b>Не содержит антител</b><BR>"
-		dat += "<BR><A href='?src=[UID()];eject=1'>Извлечь мензурку</A>[((R.total_volume&&R.reagent_list.len) ? "-- <A href='?src=[UID()];empty_beaker=1'>Очистить и извлечь мензурку</A>":"")]<BR>"
-		dat += "<A href='?src=[user.UID()];mach_close=pandemic'>Закрыть</A>"
+		dat += "<BR><a href='byond://?src=[UID()];eject=1'>Извлечь мензурку</A>[((R.total_volume&&R.reagent_list.len) ? "-- <a href='byond://?src=[UID()];empty_beaker=1'>Очистить и извлечь мензурку</A>":"")]<BR>"
+		dat += "<a href='byond://?src=[user.UID()];mach_close=pandemic'>Закрыть</A>"
 
 	var/datum/browser/popup = new(user, "pandemic", name, 575, 480)
 	popup.set_content(dat)
@@ -322,28 +322,42 @@
 
 
 /obj/machinery/computer/pandemic/attackby(obj/item/I, mob/user, params)
-	if(default_unfasten_wrench(user, I))
-		add_fingerprint(user)
-		power_change()
-		return
-	if(istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER))
-		if(stat & (NOPOWER|BROKEN))
-			return
-		if(beaker)
-			to_chat(user, "<span class='warning'>В машину уже вставлена мензурка!</span>")
-			return
-		if(!user.drop_transfer_item_to_loc(I, src))
-			return
-
-		add_fingerprint(user)
-		beaker =  I
-		to_chat(user, "<span class='notice'>Вы вставили мензурку в машину.</span>")
-		updateUsrDialog()
-		icon_state = "mixer1"
-
-	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
-		if(beaker)
-			add_fingerprint(user)
-			beaker.forceMove(get_turf(src))
-	else
+	if(user.a_intent == INTENT_HARM || (stat & (NOPOWER|BROKEN)))
 		return ..()
+
+	if(istype(I, /obj/item/reagent_containers))
+		add_fingerprint(user)
+		if(!(I.container_type & OPENCONTAINER))
+			to_chat(user, span_warning("The [I.name] is incompatible."))
+			return ATTACK_CHAIN_PROCEED
+		if(beaker)
+			to_chat(user, span_warning("The [name] already has [beaker] loaded."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		beaker = I
+		to_chat(user, span_notice("You have inserted [I] into [src]."))
+		updateUsrDialog()
+		update_icon(UPDATE_ICON_STATE)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
+
+/obj/machinery/computer/pandemic/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!beaker)
+		add_fingerprint(user)
+		to_chat(user, span_warning("There is no beaker installed."))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	beaker.forceMove(drop_location())
+	beaker = null
+	updateUsrDialog()
+	update_icon(UPDATE_ICON_STATE)
+
+
+/obj/machinery/computer/pandemic/wrench_act(mob/living/user, obj/item/I)
+	return default_unfasten_wrench(user, I)
+

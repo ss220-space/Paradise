@@ -36,24 +36,29 @@
 
 /obj/item/melee/baton/telescopic/contractor/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/baton_upgrade))
+		add_fingerprint(user)
 		add_upgrade(I, user)
-	else if(istype(I, /obj/item/restraints/handcuffs))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/restraints/handcuffs))
+		add_fingerprint(user)
 		if(!has_upgrade(UPGRADE_CUFFS))
 			balloon_alert(user, "модуль стяжек не установлен!")
-			return
+			return ATTACK_CHAIN_PROCEED
 		if(!istype(I, /obj/item/restraints/handcuffs/cable))
 			balloon_alert(user, "подойдут только стяжки!")
-			return
+			return ATTACK_CHAIN_PROCEED
 		if(cuffs_amount >= 3)
 			balloon_alert(user, "больше не поместится!")
-			return
+			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
-			return
+			return ..()
 		cuffs_amount++
 		balloon_alert(user, "хранилище стяжек пополнено")
 		qdel(I)
-	else
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/item/melee/baton/telescopic/contractor/get_wait_description()

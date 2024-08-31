@@ -65,13 +65,6 @@
 
 /obj/item/storage/bag/trash/cyborg
 
-/obj/item/storage/bag/trash/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
-	J.put_in_cart(src, user)
-	J.mybag=src
-	J.update_icon()
-
-/obj/item/storage/bag/trash/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
-	return
 
 /obj/item/storage/bag/trash/bluespace
 	name = "trash bag of holding"
@@ -453,8 +446,16 @@
 	materials = list(MAT_METAL=3000)
 	cant_hold = list(/obj/item/disk/nuclear) // Prevents some cheesing
 
-/obj/item/storage/bag/tray/attack(mob/living/M, mob/living/user)
-	..()
+
+/obj/item/storage/bag/tray/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
+		return .
+
+	playsound(target, pick('sound/items/trayhit1.ogg', 'sound/items/trayhit2.ogg'), 50, TRUE)
+	if(ishuman(target) && prob(10))
+		target.Knockdown(4 SECONDS)
+
 	// Drop all the things. All of them.
 	var/list/obj/item/oldContents = contents.Copy()
 	drop_inventory(user)
@@ -466,15 +467,6 @@
 				if(I)
 					step(I, pick(NORTH,SOUTH,EAST,WEST))
 					sleep(rand(2,4))
-
-	if(prob(50))
-		playsound(M, 'sound/items/trayhit1.ogg', 50, 1)
-	else
-		playsound(M, 'sound/items/trayhit2.ogg', 50, 1)
-
-	if(ishuman(M))
-		if(prob(10))
-			M.Weaken(4 SECONDS)
 
 
 /obj/item/storage/bag/tray/update_overlays()
@@ -559,8 +551,16 @@
 	flags = CONDUCT
 	materials = list(MAT_METAL=3000)
 
-/obj/item/storage/bag/dangertray/attack(mob/living/M, mob/living/user)
-	..()
+
+/obj/item/storage/bag/dangertray/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
+		return .
+
+	playsound(target, pick('sound/items/trayhit1.ogg', 'sound/items/trayhit2.ogg'), 50, TRUE)
+	if(ishuman(target) && prob(10))
+		target.Knockdown(4 SECONDS)
+
 	// Drop all the things. All of them.
 	var/list/obj/item/oldContents = contents.Copy()
 	drop_inventory(user)
@@ -572,15 +572,6 @@
 				if(I)
 					step(I, pick(NORTH,SOUTH,EAST,WEST))
 					sleep(rand(2,4))
-
-	if(prob(50))
-		playsound(M, 'sound/items/trayhit1.ogg', 50, 1)
-	else
-		playsound(M, 'sound/items/trayhit2.ogg', 50, 1)
-
-	if(ishuman(M))
-		if(prob(10))
-			M.Weaken(4 SECONDS)
 
 
 /obj/item/storage/bag/dangertray/update_overlays()

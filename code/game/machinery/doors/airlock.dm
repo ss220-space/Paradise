@@ -123,6 +123,8 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/New()
 	..()
 	wires = new(src)
+	if(SSradio)
+		set_frequency(frequency)
 
 /*
  * reimp, imitate an access denied event.
@@ -131,25 +133,34 @@ About the new airlock wires panel:
 	if(density && !operating && arePowerSystemsOn())
 		INVOKE_ASYNC(src, PROC_REF(do_animate), "deny")
 		return TRUE
+
 	return FALSE
 
 /obj/machinery/door/airlock/Initialize(mapload)
 	. = ..()
+	if(frequency)
+		set_frequency(frequency)
+
 	if(mapload && id_tag && !(id_tag in GLOB.restricted_door_tags))
 		// Players won't be allowed to create new buttons that open roundstart doors
 		GLOB.restricted_door_tags += id_tag
+
 	if(closeOtherId)
 		addtimer(CALLBACK(src, PROC_REF(update_other_id)), 0.5 SECONDS)
+
 	if(glass)
 		airlock_material = "glass"
+
 	if(security_level > AIRLOCK_SECURITY_METAL)
 		obj_integrity = normal_integrity * AIRLOCK_INTEGRITY_MULTIPLIER
 		max_integrity = normal_integrity * AIRLOCK_INTEGRITY_MULTIPLIER
 	else
 		obj_integrity = normal_integrity
 		max_integrity = normal_integrity
+
 	if(damage_deflection == AIRLOCK_DAMAGE_DEFLECTION_N && security_level > AIRLOCK_SECURITY_METAL)
 		damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_R
+
 	update_icon()
 
 // Remove shielding to prevent metal/plasteel duplication
@@ -333,7 +344,7 @@ About the new airlock wires panel:
 	. = ..(UPDATE_ICON_STATE) // Sent after the icon_state is changed
 
 	set_airlock_overlays(state)
-
+	SSdemo.mark_dirty(src)
 
 /obj/machinery/door/airlock/update_icon_state()
 	return
@@ -985,62 +996,86 @@ About the new airlock wires panel:
 		to_chat(user, span_notice("Emergency access has been disabled."))
 	update_icon()
 
-/obj/machinery/door/airlock/attackby(obj/item/C, mob/user, params)
-	add_fingerprint(user)
-	if(!headbutt_shock_check(user))
-		return
-	if(panel_open)
-		switch(security_level)
-			if(AIRLOCK_SECURITY_NONE)
-				if(istype(C, /obj/item/stack/sheet/metal))
-					var/obj/item/stack/sheet/metal/S = C
-					if(S.get_amount() < 2)
-						to_chat(user, span_warning("You need at least 2 metal sheets to reinforce [src]."))
-						return
-					to_chat(user, span_notice("You start reinforcing [src]..."))
-					if(do_after(user, 2 SECONDS, src))
-						if(!panel_open || !S.use(2))
-							return
-						user.visible_message(span_notice("[user] reinforces \the [src] with metal."),
-											span_notice("You reinforce \the [src] with metal."))
-						security_level = AIRLOCK_SECURITY_METAL
-						update_icon()
-					return
-				else if(istype(C, /obj/item/stack/sheet/plasteel))
-					var/obj/item/stack/sheet/plasteel/S = C
-					if(S.get_amount() < 2)
-						to_chat(user, span_warning("You need at least 2 plasteel sheets to reinforce [src]."))
-						return
-					to_chat(user, span_notice("You start reinforcing [src]..."))
-					if(do_after(user, 2 SECONDS, src))
-						if(!panel_open || !S.use(2))
-							return
-						user.visible_message(span_notice("[user] reinforces \the [src] with plasteel."),
-											span_notice("You reinforce \the [src] with plasteel."))
-						security_level = AIRLOCK_SECURITY_PLASTEEL
-						modify_max_integrity(normal_integrity * AIRLOCK_INTEGRITY_MULTIPLIER)
-						damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_R
-						update_icon()
-					return
 
-	if(issignaler(C))
-		return interact_with_panel(user)
-	else if(istype(C, /obj/item/paper) || istype(C, /obj/item/photo))
+/obj/machinery/door/airlock/attackby(obj/item/I, mob/user, params)
+	if(!headbutt_shock_check(user))
+		add_fingerprint(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(panel_open && security_level == AIRLOCK_SECURITY_NONE)
+		if(istype(I, /obj/item/stack/sheet/metal))
+			add_fingerprint(user)
+			var/obj/item/stack/sheet/metal/metal = I
+			if(metal.get_amount() < 2)
+				to_chat(user, span_warning("You need at least two metal sheets to reinforce [src]."))
+				return ATTACK_CHAIN_PROCEED
+			to_chat(user, span_notice("You start reinforcing [src]..."))
+			if(!do_after(user, 2 SECONDS * metal.toolspeed, src, category = DA_CAT_TOOL) || security_level != AIRLOCK_SECURITY_NONE || !panel_open || QDELETED(metal))
+				return ATTACK_CHAIN_PROCEED
+			if(!metal.use(2))
+				to_chat(user, span_warning("At some point during construction you lost some metal. Make sure you have two metal sheets before trying again."))
+				return ATTACK_CHAIN_PROCEED
+			user.visible_message(
+				span_notice("[user] reinforces [src] with metal."),
+				span_notice("You reinforce [src] with metal."),
+			)
+			security_level = AIRLOCK_SECURITY_METAL
+			update_icon()
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+
+		if(istype(I, /obj/item/stack/sheet/plasteel))
+			add_fingerprint(user)
+			var/obj/item/stack/sheet/plasteel/plasteel = I
+			if(plasteel.get_amount() < 2)
+				to_chat(user, span_warning("You need at least two plasteel sheets to reinforce [src]."))
+				return ATTACK_CHAIN_PROCEED
+			to_chat(user, span_notice("You start reinforcing [src]..."))
+			if(!do_after(user, 2 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || security_level != AIRLOCK_SECURITY_NONE || !panel_open || QDELETED(plasteel))
+				return ATTACK_CHAIN_PROCEED
+			if(!plasteel.use(2))
+				to_chat(user, span_warning("At some point during construction you lost some plasteel. Make sure you have two plasteel sheets before trying again."))
+				return ATTACK_CHAIN_PROCEED
+			user.visible_message(
+				span_notice("[user] reinforces [src] with plasteel."),
+				span_notice("You reinforce [src] with plasteel."),
+			)
+			security_level = AIRLOCK_SECURITY_PLASTEEL
+			modify_max_integrity(normal_integrity * AIRLOCK_INTEGRITY_MULTIPLIER)
+			damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_R
+			update_icon()
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(issignaler(I))
+		add_fingerprint(user)
+		interact_with_panel(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo))
+		add_fingerprint(user)
 		if(note)
 			to_chat(user, span_warning("There's already something pinned to this airlock! Use wirecutters or your hands to remove it."))
-			return
-		if(!user.drop_transfer_item_to_loc(C, src))
-			to_chat(user, span_warning("For some reason, you can't attach [C]!"))
-			return
-		C.add_fingerprint(user)
-		add_misc_logs(user, "put [C] on", src)
-		user.visible_message(span_notice("[user] pins [C] to [src]."), span_notice("You pin [C] to [src]."))
-		note = C
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		add_misc_logs(user, "put [I] on", src)
+		user.visible_message(
+			span_notice("[user] pins [I] to [src]."),
+			span_notice("You pin [I] to [src]."),
+		)
+		note = I
 		update_icon()
-	else if(istype(C, /obj/item/airlock_painter))
-		change_paintjob(C, user)
-	else
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/airlock_painter))
+		add_fingerprint(user)
+		change_paintjob(I, user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/machinery/door/airlock/screwdriver_act(mob/user, obj/item/I)
 	if(!headbutt_shock_check(user))

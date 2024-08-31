@@ -52,7 +52,7 @@ GLOBAL_LIST_EMPTY(overflow_whitelist)
 	InitEntries()
 
 	//Note: `$include`s are supported. Feel free to use them.
-	var/list/configs = list("game_options.txt", "dbconfig.txt", "config.txt", "emojis.txt", "resources.txt")
+	var/list/configs = list("game_options.txt", "dbconfig.txt", "config.txt", "emojis.txt", "resources.txt", "music.txt")
 	for(var/I in configs)
 		if(fexists("[directory]/[I]"))
 			for(var/J in configs)

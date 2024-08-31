@@ -40,13 +40,17 @@
 	if(A1.secured || A2.secured)
 		return FALSE
 	if(!A1.remove_item_from_storage(src))
-		if(user)
-			user.drop_transfer_item_to_loc(A1, src)
-		A1.forceMove(src)
+		if(user && A1.loc == user && !user.can_unEquip(A1))
+			return FALSE
 	if(!A2.remove_item_from_storage(src))
-		if(user)
-			user.drop_transfer_item_to_loc(A2, src)
-		A2.forceMove(src)
+		if(user && A2.loc == user && !user.can_unEquip(A2))
+			return FALSE
+	if(A1.loc == user)
+		user.temporarily_remove_item_from_inventory(A1)
+	if(A2.loc == user)
+		user.temporarily_remove_item_from_inventory(A2)
+	A1.forceMove(src)
+	A2.forceMove(src)
 	A1.holder = src
 	A2.holder = src
 	a_left = A1

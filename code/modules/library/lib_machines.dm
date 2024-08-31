@@ -146,22 +146,28 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	density = TRUE
 	var/obj/item/book/cache		// Last scanned book
 
-/obj/machinery/libraryscanner/attackby(obj/item/I, mob/user)
-	if(default_unfasten_wrench(user, I))
-		add_fingerprint(user)
-		power_change()
-		return
-	if(istype(I, /obj/item/book))
-		// NT with those pesky DRM schemes
-		var/obj/item/book/B = I
-		if(B.has_drm)
-			atom_say("Copyrighted material detected. Scanner is unable to copy book to memory.")
-			return FALSE
-		add_fingerprint(user)
-		user.drop_transfer_item_to_loc(I, src)
-		return 1
-	else
+
+/obj/machinery/libraryscanner/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(istype(I, /obj/item/book))
+		add_fingerprint(user)
+		// NT with those pesky DRM schemes
+		var/obj/item/book/book = I
+		if(book.has_drm)
+			atom_say("Copyrighted material detected. Scanner is unable to copy book to memory.")
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(book, src))
+			return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
+
+/obj/machinery/libraryscanner/wrench_act(mob/living/user, obj/item/I)
+	return default_unfasten_wrench(user, I)
+
 
 /obj/machinery/libraryscanner/attack_hand(mob/user)
 	if(istype(user,/mob/dead))
@@ -174,9 +180,9 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 		dat += "<FONT color=#005500>Data stored in memory.</FONT><BR>"
 	else
 		dat += "No data stored in memory.<BR>"
-	dat += "<A href='?src=[UID()];scan=1'>\[Scan\]</A>"
+	dat += "<a href='byond://?src=[UID()];scan=1'>\[Scan\]</A>"
 	if(cache)
-		dat += "       <A href='?src=[UID()];clear=1'>\[Clear Memory\]</A><BR><BR><A href='?src=[UID()];eject=1'>\[Remove Book\]</A>"
+		dat += "       <a href='byond://?src=[UID()];clear=1'>\[Clear Memory\]</A><BR><BR><a href='byond://?src=[UID()];eject=1'>\[Remove Book\]</A>"
 	else
 		dat += "<BR>"
 	user << browse(dat, "window=scanner")
@@ -212,24 +218,38 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	anchored = TRUE
 	density = TRUE
 
-/obj/machinery/bookbinder/attackby(obj/item/I, mob/user)
-	var/obj/item/paper/P = I
-	if(default_unfasten_wrench(user, I))
-		add_fingerprint(user)
-		power_change()
-		return
-	if(istype(P))
-		add_fingerprint(user)
-		user.drop_transfer_item_to_loc(P, src)
-		user.visible_message("[user] loads some paper into [src].", "You load some paper into [src].")
-		src.visible_message("[src] begins to hum as it warms up its printing drums.")
-		sleep(rand(200,400))
-		src.visible_message("[src] whirs as it prints and binds a new book.")
-		var/obj/item/book/b = new(loc)
-		b.dat = P.info
-		b.name = "Print Job #[rand(100, 999)]"
-		b.icon_state = "book[rand(1,16)]"
-		qdel(P)
-		return 1
-	else
+
+/obj/machinery/bookbinder/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(istype(I, /obj/item/paper))
+		add_fingerprint(user)
+		var/obj/item/paper/paper = I
+		if(!user.drop_transfer_item_to_loc(paper, src))
+			return ..()
+		user.visible_message(
+			span_notice("[user] has loaded some paper into [src]. The machine begins to hum as it warms up its printing drums."),
+			span_notice("You have loaded some paper into [src]. The machine begins to hum as it warms up its printing drums"),
+		)
+		atom_say("Imprinting the new book...")
+		addtimer(CALLBACK(src, PROC_REF(finalize_printing), paper), rand(20 SECONDS, 40 SECONDS))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
+
+/obj/machinery/bookbinder/proc/finalize_printing(obj/item/paper/paper)
+	if(QDELETED(paper) || paper.loc != src)
+		return
+	var/obj/item/book/new_book = new(loc)
+	new_book.dat = paper.info
+	new_book.name = "Print Job #[rand(100, 999)]"
+	new_book.icon_state = "book[rand(1,16)]"
+	atom_say("A new book has been printed.")
+	qdel(paper)
+
+
+/obj/machinery/libraryscanner/wrench_act(mob/living/user, obj/item/I)
+	return default_unfasten_wrench(user, I)
+

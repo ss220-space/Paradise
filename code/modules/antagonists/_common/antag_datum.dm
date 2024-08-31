@@ -284,14 +284,14 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 	// Remove clumsy and give them an action to toggle it on and off.
 	if(granting_datum)
-		clown.mutations.Remove(CLUMSY)
+		clown.force_gene_block(GLOB.clumsyblock, FALSE)
 		// Don't give them another action if they already have one.
 		if(!(locate(/datum/action/innate/toggle_clumsy) in clown.actions))
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(clown)
 	// Give them back the clumsy gene and remove their toggle action, but ONLY if they don't have any other antag datums.
 	else if(LAZYLEN(owner.antag_datums) <= 1)
-		clown.mutations.Add(CLUMSY)
+		clown.force_gene_block(GLOB.clumsyblock, TRUE)
 		if(locate(/datum/action/innate/toggle_clumsy) in clown.actions)
 			var/datum/action/innate/toggle_clumsy/A = locate() in clown.actions
 			A.Remove(clown)

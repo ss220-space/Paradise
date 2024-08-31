@@ -19,7 +19,7 @@ Thus, the two variables affect pump operation are set in New():
 	name = "gas pump"
 	desc = "A pump"
 
-	can_unwrench = 1
+	can_unwrench = TRUE
 
 	on = FALSE
 	var/target_pressure = ONE_ATMOSPHERE
@@ -230,13 +230,13 @@ Thus, the two variables affect pump operation are set in New():
 		return
 	update_icon()
 
-/obj/machinery/atmospherics/binary/pump/attackby(obj/item/W, mob/user, params)
-	if(is_pen(W))
-		rename_interactive(user, W)
-		return
-	else if(W.tool_behaviour != TOOL_WRENCH)
-		return ..()
-	if(!(stat & NOPOWER) && on)
-		to_chat(user, span_alert("You cannot unwrench this [src], turn it off first."))
-		return 1
-	return ..()
+
+/obj/machinery/atmospherics/binary/pump/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
+
+	. |= ATTACK_CHAIN_SUCCESS
+	rename_interactive(user, I)
+

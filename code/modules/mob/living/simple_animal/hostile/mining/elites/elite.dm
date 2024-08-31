@@ -188,7 +188,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	if(timeleft == 0)
 		button.maptext = ""
 	else
-		button.maptext = "<b class='maptext'>[round(timeleft/10, 0.1)]</b>"
+		button.maptext = MAPTEXT("[round(timeleft/10, 0.1)]")
 
 /datum/action/innate/elite_attack/Grant(mob/living/L)
 	if(istype(L, /mob/living/simple_animal/hostile/asteroid/elite))
@@ -297,7 +297,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		mychild.sentience_act()
 		notify_ghosts("\A [mychild] has been awakened in \the [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 		log_game("[mychild.key] has become [mychild] from lavaland elite tumor.")
-	icon_state = "tumor_popped"
+	update_icon(UPDATE_ICON_STATE)
 	INVOKE_ASYNC(src, PROC_REF(arena_checks))
 
 /obj/structure/elite_tumor/proc/return_elite()
@@ -351,16 +351,33 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			var/obj/effect/temp_visual/heal/H = new(get_turf(mychild))
 			H.color = "#FF0000"
 
-/obj/structure/elite_tumor/attackby(obj/item/attacking_item, mob/user, params)
-	. = ..()
-	if(istype(attacking_item, /obj/item/organ/internal/regenerative_core) && activity == TUMOR_INACTIVE && !boosted)
-		var/obj/item/organ/internal/regenerative_core/core = attacking_item
-		visible_message("<span class='warning'>As [user] drops the core into [src], [src] appears to swell.</span>")
-		icon_state = "advanced_tumor"
-		boosted = TRUE
+
+/obj/structure/elite_tumor/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/organ/internal/regenerative_core))
+		add_fingerprint(user)
+		if(activity != TUMOR_INACTIVE || boosted)
+			to_chat(user, span_warning("The core cannot be used right now."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		visible_message(span_warning("As [user] drops the core into [src], it appears to swell."))
+		update_icon(UPDATE_ICON_STATE)
 		set_light(6, l_on = TRUE)
-		qdel(core)
-		return TRUE
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
+
+/obj/structure/elite_tumor/update_icon_state()
+	if(mychild)
+		icon_state = "tumor_popped"
+		return
+	icon_state = boosted ? "advanced_tumor" : "tumor"
+
 
 /obj/structure/elite_tumor/examine(mob/user)
 	. = ..()
@@ -448,7 +465,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	var/obj/structure/elite_tumor/copy = new(loc)
 	if(boosted)
 		copy.boosted = TRUE
-		copy.icon_state = "advanced_tumor"
+		copy.update_icon(UPDATE_ICON_STATE)
 		SSblackbox.record_feedback("tally", "Player controlled Elite win", 1, mychild.name)
 		times_won++
 	else
@@ -465,7 +482,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	throw_speed = 3
 	throw_range = 5
 
-/obj/item/tumor_shard/afterattack(atom/target, mob/user, proximity_flag)
+/obj/item/tumor_shard/afterattack(atom/target, mob/user, proximity_flag, params)
 	. = ..()
 	if(istype(target, /mob/living/simple_animal/hostile/asteroid/elite) && proximity_flag)
 		var/mob/living/simple_animal/hostile/asteroid/elite/E = target

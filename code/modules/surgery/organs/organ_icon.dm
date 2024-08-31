@@ -101,7 +101,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 			mob_icon.Blend(eyes_icon, ICON_OVERLAY) //This is required since update_icons.dm relies on this proc to render non-shining eyes.
 			add_overlay(eyes_icon)
 
-	if(owner.lip_style && (LIPS in dna.species.species_traits))
+	if(owner.lip_style && HAS_TRAIT(owner, TRAIT_HAS_LIPS))
 		var/icon/lips_icon = new('icons/mob/human_face.dmi', "lips_[owner.lip_style]_s")
 		lips_icon.Blend(owner.lip_color, ICON_MULTIPLY)
 		mob_icon.Blend(lips_icon, ICON_OVERLAY)

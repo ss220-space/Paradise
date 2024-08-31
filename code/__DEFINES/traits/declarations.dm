@@ -26,6 +26,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CHASM_STOPPER "chasm_stopper"
 /// `do_teleport` will not allow this atom to teleport
 #define TRAIT_NO_TELEPORT "no-teleport"
+#define TRAIT_SILENT_FOOTSTEPS "silent_footsteps"
 
 //turf traits
 /// Prevent mobs on the turf from being affected by anything below that turf, such as a pulse demon going under it. Added by a /obj/structure with creates_cover set to TRUE
@@ -57,13 +58,19 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_SHOCKIMMUNE "shock_immunity"
 /// Are we immune to specifically tesla / SM shocks?
 #define TRAIT_TESLA_SHOCKIMMUNE "tesla_shock_immunity"
-#define TRAIT_CHUNKYFINGERS "chunkyfingers"	//means that you can't use weapons with normal trigger guards.
+/// Means that you can't use weapons with normal trigger guards.
+#define TRAIT_NO_GUNS "no_guns"
 #define TRAIT_FORCE_DOORS "force_doors"
 #define TRAIT_EMOTE_MUTE "emote_mute"
 #define TRAIT_IGNORESLOWDOWN "ignoreslow"
 #define TRAIT_IGNOREDAMAGESLOWDOWN "ignoredamageslowdown"
 #define TRAIT_STRONG_GRABBER "strong_grabber"
 #define TRAIT_PUSHIMMUNE "push_immunity"
+/// Not a genetic obesity but just a mob who overate
+#define	TRAIT_FAT "trait_fat"
+#define TRAIT_HUSK "husk"
+#define TRAIT_SKELETON "skeleton"
+#define TRAIT_NO_CLONE "no_clone"
 
 /// "Magic" trait that blocks the mob from moving or interacting with anything. Used for transient stuff like mob transformations or incorporality in special cases.
 /// Will block movement, `Life()` (!!!), and other stuff based on the mob.
@@ -167,4 +174,82 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MOVE_UPSIDE_DOWN "move_upside_down"
 /// Disables the floating animation. See above.
 #define TRAIT_NO_FLOATING_ANIM "no-floating-animation"
+
+// old mutation traits
+#define	TRAIT_TELEKINESIS "telekinesis"
+#define TRAIT_RESIST_COLD "cold_resistance"
+#define TRAIT_RESIST_HEAT "heat_resistance"
+#define TRAIT_XRAY "xray"
+#define TRAIT_HULK "hulk"
+#define TRAIT_CLUMSY "clumsy"
+#define TRAIT_OBESITY "obesity"
+#define TRAIT_NO_BREATH "no_breath"
+#define TRAIT_WINGDINGS "wingdings"
+#define TRAIT_NO_FINGERPRINTS "no_fingerprints"
+#define TRAIT_DWARF "dwarf"
+#define TRAIT_GENE_STRONG "gene_strong"
+#define TRAIT_GENE_WEAK "gene_weak"
+#define TRAIT_SOBER "sober"
+#define TRAIT_PSY_RESIST "psy_resist"	// block remoteview
+#define TRAIT_OPEN_MIND "open_mind"	// allows to remote view this mob
+#define TRAIT_EMPATHY "empathy"	// allows to see when someone reads your mind
+#define TRAIT_COMIC "comic_sans"
+#define TRAIT_NEARSIGHTED "nearsighted"
+#define TRAIT_BLIND "blind"
+#define TRAIT_COLORBLIND "colorblind"
+
+// old species traits
+/// This human mob doesn't bleed
+#define TRAIT_NO_BLOOD "no_blood"
+/// This human mob will only regenerate blood through the transfusion
+#define TRAIT_NO_BLOOD_RESTORE "no_blood_restore"
+/// This human mob has non-blood reagent in their veins
+#define TRAIT_EXOTIC_BLOOD "exotic_blood"
+/// This human mob has lips
+#define TRAIT_HAS_LIPS "has_lips"
+/// This human mob can passively regenerate small amount of brute and burn damage (0.1, 0.1)
+#define TRAIT_HAS_REGENERATION "has_regeneration"
+/// This human mob acts like it has no DNA, but it actually has
+/// Its dumb I know, we should switch to biotypes already
+#define TRAIT_NO_DNA "no_dna"
+/// This human cannot be scanned via cloning machine, also stops replica pod cloning
+/// Actually it applies the same trait to the human's brain
+#define TRAIT_NO_SCAN "no_scan"
+/// This human mob will not visually and vocally react to the damage consequences
+/// Also allows surgeries without anesthetics
+#define TRAIT_NO_PAIN "no_pain"
+/// This human mob will not feedback user about the damage done via HUD alerts
+#define TRAIT_NO_PAIN_HUD "no_pain_hud"
+/// Another biotype thing
+#define TRAIT_PLANT_ORIGIN "plant_origin"
+/// Another damn biotype
+#define TRAIT_NO_INTORGANS "no_internal_organs"
+/// This mob is completely immune to the radiation damage and effects
+#define TRAIT_RADIMMUNE "rad_immunity"
+/// This mob is completely immune to viruses and diseases, unless they ignore us
+#define TRAIT_VIRUSIMMUNE "virus_immunity"
+/// This human mob will not show its species on examine
+#define TRAIT_NO_SPECIES_EXAMINE "no_examine"
+/// This human mob will never become fat, does not affect genetic obesity
+#define TRAIT_NO_FAT "no_fat"
+/// This human mob's internal organs will not accumulate germs
+#define TRAIT_NO_GERMS "no_germs"
+/// This human mob's internal organs will not decay after death
+#define TRAIT_NO_DECAY "no_decay"
+/// This human mob will not be affected by piercing, such as caltrops, prickles, needles etc.
+#define TRAIT_PIERCEIMMUNE "pierce_immunity"
+/// This human mob will not be affected by embedding of the thrown items
+#define TRAIT_EMBEDIMMUNE "embed_immunity"
+/// This human mob will never suffer from the malnutrition
+#define TRAIT_NO_HUNGER "no_hunger"
+/// This human mob can repats surgeris attempts indefinitely
+#define TRAIT_MASTER_SURGEON "master_surgeon"
+/// Prohibits the installation of robotic limbs, cybernetic organs, augments
+#define TRAIT_NO_ROBOPARTS "no_roboparts"
+/// Prohibits the injection of all the biochips, except mindslave and mindshield
+#define TRAIT_NO_BIOCHIPS "no_biochips"
+/// Prohibits the installation of cybernetic implants
+#define TRAIT_NO_CYBERIMPLANTS "no_cyberimplants"
+/// Prohibits the installation of the limbs, which do not belong to our species
+#define TRAIT_SPECIES_LIMBS "only_species_limbs"
 

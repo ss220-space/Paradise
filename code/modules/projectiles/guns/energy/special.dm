@@ -1,3 +1,6 @@
+#define PLASMA_CHARGE_USE_PER_SECOND 2.5
+#define PLASMA_DISCHARGE_LIMIT 5
+
 // Ion Rifles //
 /obj/item/gun/energy/ionrifle
 	name = "ion rifle"
@@ -51,7 +54,6 @@
 	if(cell.charge > shot.e_cost)
 		. += "decloner_spin"
 
-
 // Flora Gun //
 /obj/item/gun/energy/floragun
 	name = "floral somatoray"
@@ -59,11 +61,22 @@
 	icon_state = "flora"
 	item_state = "gun"
 	fire_sound = 'sound/effects/stealthoff.ogg'
-	ammo_type = list(/obj/item/ammo_casing/energy/flora/yield, /obj/item/ammo_casing/energy/flora/mut)
-	origin_tech = "materials=2;biotech=4"
+	materials = list(MAT_GOLD = 2000, MAT_BLUESPACE = 1500, MAT_DIAMOND = 800, MAT_URANIUM = 500, MAT_GLASS = 500)
+	origin_tech = "materials=5;biotech=6;powerstorage=6;engineering=5"
+	ammo_type = list(/obj/item/ammo_casing/energy/flora/alpha, /obj/item/ammo_casing/energy/flora/beta, /obj/item/ammo_casing/energy/flora/gamma)
 	modifystate = TRUE
 	ammo_x_offset = 1
+	can_charge = FALSE
 	selfcharge = TRUE
+
+/obj/item/gun/energy/floragun/emag_act(mob/user)
+	. = ..()
+	ammo_type = list(/obj/item/ammo_casing/energy/flora/alpha/emag, /obj/item/ammo_casing/energy/flora/beta, /obj/item/ammo_casing/energy/flora/gamma)
+	update_ammo_types()
+
+/obj/item/gun/energy/floragun/examine(mob/user)
+	. = ..()
+	. += span_notice("Mode: [ammo_type[select]]\nCharge: [cell.percent()]%")
 
 // Meteor Gun //
 /obj/item/gun/energy/meteorgun
@@ -159,35 +172,48 @@
 	sharp = 1
 	can_charge = FALSE
 
+
 /obj/item/gun/energy/plasmacutter/examine(mob/user)
 	. = ..()
 	if(cell)
 		. += "<span class='notice'>[src] is [round(cell.percent())]% charged.</span>"
 
-/obj/item/gun/energy/plasmacutter/attackby(obj/item/A, mob/user)
-	if(istype(A, /obj/item/stack/sheet/mineral/plasma))
+
+/obj/item/gun/energy/plasmacutter/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/sheet/mineral/plasma))
+		add_fingerprint(user)
+		var/obj/item/stack/sheet/mineral/plasma/plasma = I
 		if(cell.charge >= cell.maxcharge)
-			balloon_alert(user, "уже заряжено!")
-			return
-		var/obj/item/stack/sheet/S = A
-		S.use(1)
+			balloon_alert(user, "заряд на максимуме!")
+			return ATTACK_CHAIN_PROCEED
+		if(!plasma.use(1))
+			balloon_alert(user, "недостаточно плазмы!")
+			return ATTACK_CHAIN_PROCEED
+		balloon_alert(user, "заряд увеличен")
 		cell.give(1000)
 		on_recharge()
-		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
-	else if(istype(A, /obj/item/stack/ore/plasma))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/stack/ore/plasma))
+		add_fingerprint(user)
+		var/obj/item/stack/ore/plasma/plasma = I
 		if(cell.charge >= cell.maxcharge)
-			balloon_alert(user, "уже заряжено!")
-			return
-		var/obj/item/stack/ore/S = A
-		S.use(1)
+			balloon_alert(user, "заряд на максимуме!")
+			return ATTACK_CHAIN_PROCEED
+		if(!plasma.use(1))
+			balloon_alert(user, "недостаточно плазмы!")
+			return ATTACK_CHAIN_PROCEED
+		balloon_alert(user, "заряд увеличен")
 		cell.give(500)
 		on_recharge()
-		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
-	else
-		return ..()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/item/gun/energy/plasmacutter/update_overlays()
 	return list()
+
 
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
@@ -328,7 +354,7 @@
 	ammo_x_offset = 3
 
 /obj/item/gun/energy/toxgun
-	name = "plasma pistol"
+	name = "toxin pistol"
 	desc = "A specialized firearm designed to fire lethal bolts of toxins."
 	icon_state = "toxgun"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -351,6 +377,25 @@
 	zoomable = TRUE
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	shaded_charge = TRUE
+
+/obj/item/gun/energy/sniperrifle/pod_pilot
+	name = "LSR-39 Queen blade"
+	desc = "Прототип компактной лазерной снайперской винтовки с парализующим и летальным режимом стрельбы, оснащена большим оптическим прицелом для эффективной работы в открытом космосе."
+	icon_state = "LSR-39"
+	ammo_type = list(
+		/obj/item/ammo_casing/energy/podsniper/disabler,
+		/obj/item/ammo_casing/energy/podsniper/laser
+	)
+	item_state = null
+	weapon_weight = WEAPON_MEDIUM
+	slot_flags = ITEM_SLOT_BACK
+	w_class = WEIGHT_CLASS_BULKY
+	charge_sections = 3
+	can_holster = FALSE
+	zoomable = TRUE
+	zoom_amt = 7
+	shaded_charge = TRUE
+	modifystate = TRUE
 
 /obj/item/gun/energy/bsg
 	name = "\improper Б.С.П"
@@ -380,30 +425,37 @@
 	else
 		. += "<span class='warning'>Не хватает ядра аномалии потока и БС кристалла для работы.</span>"
 
-/obj/item/gun/energy/bsg/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/stack/ore/bluespace_crystal))
+
+/obj/item/gun/energy/bsg/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/ore/bluespace_crystal))
+		add_fingerprint(user)
+		var/obj/item/stack/ore/bluespace_crystal/crystal = I
 		if(has_bluespace_crystal)
 			balloon_alert(user, "уже установлено!")
-			return
-		var/obj/item/stack/S = O
-		if(!loc || !S || S.get_amount() < 1)
-			return
+			return ATTACK_CHAIN_PROCEED
+		if(!crystal.use(1))
+			balloon_alert(user, "недостаточно кристаллов!")
+			return ATTACK_CHAIN_PROCEED
 		balloon_alert(user, "установлено")
-		S.use(1)
 		has_bluespace_crystal = TRUE
 		update_icon(UPDATE_ICON_STATE)
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(istype(O, /obj/item/assembly/signaler/anomaly/flux))
+	if(istype(I, /obj/item/assembly/signaler/anomaly/flux))
+		add_fingerprint(user)
 		if(has_core)
 			balloon_alert(user, "уже установлено!")
-			return
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
 		balloon_alert(user, "установлено")
 		has_core = TRUE
-		qdel(O)
+		qdel(I)
 		update_icon(UPDATE_ICON_STATE)
-	else
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/gun/energy/bsg/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	if(!has_bluespace_crystal)
@@ -579,13 +631,13 @@
 		dat += "<FONT color=blue><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
 	dat += "<BR>"
 	dat += "Target output temperature: "	//might be string idiocy, but at least it's easy to read
-	dat += "<A href='?src=[UID()];temp=-100'>-</A> "
-	dat += "<A href='?src=[UID()];temp=-10'>-</A> "
-	dat += "<A href='?src=[UID()];temp=-1'>-</A> "
+	dat += "<a href='byond://?src=[UID()];temp=-100'>-</A> "
+	dat += "<a href='byond://?src=[UID()];temp=-10'>-</A> "
+	dat += "<a href='byond://?src=[UID()];temp=-1'>-</A> "
 	dat += "[target_temperature] "
-	dat += "<A href='?src=[UID()];temp=1'>+</A> "
-	dat += "<A href='?src=[UID()];temp=10'>+</A> "
-	dat += "<A href='?src=[UID()];temp=100'>+</A>"
+	dat += "<a href='byond://?src=[UID()];temp=1'>+</A> "
+	dat += "<a href='byond://?src=[UID()];temp=10'>+</A> "
+	dat += "<a href='byond://?src=[UID()];temp=100'>+</A>"
 	dat += "<BR>"
 	dat += "Power cost: "
 	dat += "<FONT color=[powercostcolor]><B>[powercost]</B></FONT>"
@@ -749,3 +801,159 @@
 	cell_type = /obj/item/stock_parts/cell/emittergun
 	ammo_type = list(/obj/item/ammo_casing/energy/emittergun)
 	can_charge = TRUE
+
+// Shield breaker //
+
+/obj/item/gun/energy/plasma_pistol
+	name = "plasma pistol"
+	desc = "A specialized firearm designed to fire heated bolts of plasma. Can be overloaded for a high damage shield breaking shot."
+	icon_state = "plasmagun"
+	item_state = "plasmagun"
+	w_class = WEIGHT_CLASS_NORMAL
+	origin_tech = "combat=4;magnets=4;powerstorage=3"
+	ammo_type = list(/obj/item/ammo_casing/energy/weak_plasma, /obj/item/ammo_casing/energy/charged_plasma)
+	shaded_charge = 1
+	can_holster = TRUE
+	atom_say_verb = "beeps"
+	bubble_icon = "swarmer"
+	light_color = "#89078E"
+	light_power = 4
+	var/overloaded = FALSE
+	var/warned = FALSE
+	var/charging = FALSE
+	var/mob/living/carbon/holder = null
+
+/obj/item/gun/energy/plasma_pistol/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSfastprocess, src)
+
+/obj/item/gun/energy/plasma_pistol/Destroy()
+	STOP_PROCESSING(SSfastprocess, src)
+	holder = null
+	return ..()
+
+/obj/item/gun/energy/plasma_pistol/process()
+	..()
+	if(overloaded)
+		cell.charge -= PLASMA_CHARGE_USE_PER_SECOND / 5 //2.5 per second, 25 every 10 seconds
+		if(cell.charge <= PLASMA_CHARGE_USE_PER_SECOND * 10 && !warned)
+			warned = TRUE
+			playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 75, 1)
+			atom_say("Caution, charge low. Forced discharge in under 10 seconds.")
+		if(cell.charge <= PLASMA_DISCHARGE_LIMIT)
+			discharge()
+
+/obj/item/gun/energy/plasma_pistol/attack_self(mob/living/user)
+	if(overloaded)
+		to_chat(user, span_warning("[src] is already overloaded!"))
+		return
+	if(cell.charge <= 140) //at least 6 seconds of charge time
+		to_chat(user, span_warning("[src] does not have enough charge to be overloaded."))
+		return
+	if(charging)
+		to_chat(user, span_warning("[src] is already charging!"))
+		return
+	to_chat(user, "<span class='notice'>You begin to overload [src].</span>")
+	charging = TRUE
+	if(do_after(user, 2 SECONDS, user, DA_IGNORE_USER_LOC_CHANGE|DA_IGNORE_LYING, max_interact_count = 1))
+		overload()
+	else
+		charging = FALSE
+		atom_say("Overloading failure.")
+		playsound(loc, 'sound/machines/buzz-sigh.ogg', 75, 1)
+
+/obj/item/gun/energy/plasma_pistol/proc/overload()
+	if(ishuman(loc))
+		var/mob/living/carbon/C = loc
+		select_fire(C)
+		overloaded = TRUE
+		cell.charge -= 125
+		playsound(loc, 'sound/machines/terminal_prompt_confirm.ogg', 75, 1)
+		cell.use(125)
+		playsound(C.loc, 'sound/machines/terminal_prompt_confirm.ogg', 75, 1)
+		atom_say("Overloading successful.")
+		set_light(3) //extra visual effect to make it more noticable to user and victims alike
+		holder = C
+		RegisterSignal(holder, COMSIG_MOB_SWAPPING_HANDS, PROC_REF(discharge))
+	else
+		atom_say("Overloading failure.")
+		playsound(loc, 'sound/machines/buzz-sigh.ogg', 75, 1)
+	charging = FALSE
+
+/obj/item/gun/energy/plasma_pistol/proc/reset_overloaded()
+	select_fire()
+	set_light(0)
+	overloaded = FALSE
+	warned = FALSE
+	UnregisterSignal(holder, COMSIG_MOB_SWAPPING_HANDS)
+	holder = null
+
+/obj/item/gun/energy/plasma_pistol/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
+	if(charging)
+		return
+	return ..()
+
+/obj/item/gun/energy/plasma_pistol/process_chamber()
+	if(overloaded)
+		do_sparks(2, 1, src)
+		reset_overloaded()
+	..()
+	update_icon()
+
+/obj/item/gun/energy/plasma_pistol/emp_act(severity)
+	..()
+	if(prob(100 / severity) && overloaded)
+		discharge()
+
+/obj/item/gun/energy/plasma_pistol/dropped(mob/user)
+	. = ..()
+	if(overloaded)
+		discharge()
+
+/obj/item/gun/energy/plasma_pistol/equipped(mob/user, slot, initial)
+	. = ..()
+	if(overloaded)
+		discharge()
+
+/obj/item/gun/energy/plasma_pistol/proc/discharge() //25% of the time, plasma leak. Otherwise, shoot at a random mob / turf nearby. If no proper mob is found when mob is picked, fire at a turf instead
+	SIGNAL_HANDLER
+	reset_overloaded()
+	do_sparks(2, 1, src)
+	update_icon()
+	if(prob(40))
+		visible_message("<span class='danger'>[src] vents heated plasma!</span>")
+		var/turf/simulated/T = get_turf(src)
+		if(istype(T))
+			T.atmos_spawn_air(LINDA_SPAWN_TOXINS|LINDA_SPAWN_20C,15)
+		return
+	if(prob(50))
+		var/list/mob_targets = list()
+		for(var/mob/living/M in oview(get_turf(src), 7))
+			mob_targets += M
+		if(length(mob_targets))
+			var/mob/living/target = pick(mob_targets)
+			shootAt(target)
+			visible_message("<span class='danger'>[src] discharges a plasma bolt!</span>")
+			return
+	visible_message("<span class='danger'>[src] discharges a plasma bolt!</span>")
+	var/list/turf_targets = list()
+	for(var/turf/T in orange(get_turf(src), 7))
+		turf_targets += T
+	if(length(turf_targets))
+		var/turf/target = pick(turf_targets)
+		shootAt(target)
+
+/obj/item/gun/energy/plasma_pistol/proc/shootAt(atom/movable/target)
+	var/turf/T = get_turf(src)
+	var/turf/U = get_turf(target)
+	if(!T || !U)
+		return
+	var/obj/item/projectile/energy/charged_plasma/O = new /obj/item/projectile/energy/charged_plasma(T)
+	playsound(get_turf(src), 'sound/weapons/marauder.ogg', 75, 1)
+	O.current = T
+	O.yo = U.y - T.y
+	O.xo = U.x - T.x
+	O.fire()
+
+#undef PLASMA_CHARGE_USE_PER_SECOND
+#undef PLASMA_DISCHARGE_LIMIT

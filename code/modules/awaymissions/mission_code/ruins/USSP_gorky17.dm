@@ -233,7 +233,7 @@
 /obj/effect/spawner/lootdrop/randomsafe
 	name = "Secret or data documents safe spawner"
 	icon_state = "floorsafe-open"
-	lootdoubles = 0
+	lootdoubles = FALSE
 	loot = list(
 				/obj/structure/safe/floor/random_documents,
 				/obj/structure/safe/floor/random_researchnotes_MatBioProg
@@ -277,27 +277,34 @@
 	var/cardrank
 	var/possiblerank = list("Советский турист", "Товарищ") // addition before name
 
+
 /obj/machinery/computer/id_upgrader/ussp/attackby(obj/item/I, mob/user, params)
-	if(I.GetID())
-		var/obj/item/card/id/D = I.GetID()
-		if(!access_to_give.len)
-			to_chat(user, "<span class='notice'>This machine appears to be configured incorrectly.</span>")
-			return
-		var/did_upgrade = 0
-		var/list/id_access = D.GetAccess()
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	var/obj/item/card/id/id = I.GetID()
+	if(id)
+		add_fingerprint(user)
+		if(!length(access_to_give))
+			to_chat(user, span_warning("This machine appears to be configured incorrectly."))
+			return ATTACK_CHAIN_PROCEED
+		var/did_upgrade = FALSE
+		var/list/id_access = id.GetAccess()
 		for(var/this_access in access_to_give)
 			if(!(this_access in id_access))
 				// don't have it - add it
-				D.access |= this_access
-				did_upgrade = 1
-		if(did_upgrade)
-			giverank(D)
-			to_chat(user, "<span class='notice'>New rank has been assigned to comrade.</span>")
-			playsound(src, 'sound/machines/chime.ogg', 30, 0)
-		else
-			to_chat(user, "<span class='notice'>This ID card already has all the access this machine can give.</span>")
-		return
+				id.access |= this_access
+				did_upgrade = TRUE
+		if(!did_upgrade)
+			to_chat(user, span_warning("This ID card already has all the access this machine can give."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("New rank has been assigned to comrade."))
+		playsound(src, 'sound/machines/chime.ogg', 30, FALSE)
+		giverank(id)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
+
 
 /obj/machinery/computer/id_upgrader/ussp/proc/giverank(obj/item/card/id/D)
 	if(!cardholdername||!cardrank)

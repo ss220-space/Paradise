@@ -278,19 +278,22 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(in_pda_usage)
 		if(id)
 			remove_id(user)
-		else
-			var/obj/item/I = user.get_active_hand()
-			if(istype(I, /obj/item/card/id) && user.drop_transfer_item_to_loc(I, src))
-				id = I
-				update_icon(UPDATE_OVERLAYS)
-	else
-		var/obj/item/card/I = user.get_active_hand()
-		if(istype(I, /obj/item/card/id) && I:registered_name && user.drop_transfer_item_to_loc(I, src))
-			if(id)
-				id.forceMove_turf()
-				user.put_in_hands(id)
+			return TRUE
+		var/obj/item/I = user.get_active_hand()
+		if(istype(I, /obj/item/card/id) && user.drop_transfer_item_to_loc(I, src))
 			id = I
 			update_icon(UPDATE_OVERLAYS)
+			return TRUE
+		return FALSE
+	var/obj/item/card/id/I = user.get_active_hand()
+	if(istype(I, /obj/item/card/id) && I.registered_name && user.drop_transfer_item_to_loc(I, src))
+		if(id)
+			id.forceMove_turf()
+			user.put_in_hands(id)
+		id = I
+		update_icon(UPDATE_OVERLAYS)
+		return TRUE
+	return FALSE
 
 
 /obj/item/pda/update_name(updates = ALL)
@@ -371,73 +374,91 @@ GLOBAL_LIST_EMPTY(PDAs)
 		. += pda_light_overlay
 
 
-/obj/item/pda/attackby(obj/item/C, mob/user, params)
-	if(istype(C, /obj/item/pda_case))
+/obj/item/pda/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/pda_case))
+		add_fingerprint(user)
 		if(current_case)
-			if(alert("There is already [current_case.name] installed, [C.name] will replace it.", "Are you sure?", "Yes", "No") != "Yes")
-				return
-			remove_pda_case()
+			if(alert("There is already [current_case.name] installed, [I.name] will replace it.", "Are you sure?", "Yes", "No") != "Yes")
+				return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ATTACK_CHAIN_PROCEED
+		remove_pda_case()
+		apply_pda_case(I)
+		to_chat(user, span_notice("You have put [I] onto the PDA."))
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-		if(!user.drop_transfer_item_to_loc(C, src))
-			return
-
-		apply_pda_case(C)
-		to_chat(user, "<span class='notice'>You put [C] on [src].</span>")
-
-	else if(istype(C, /obj/item/cartridge) && !cartridge)
-		if(!user.drop_transfer_item_to_loc(C, src))
-			return
-		cartridge = C
+	if(istype(I, /obj/item/cartridge))
+		add_fingerprint(user)
+		if(cartridge)
+			to_chat(user, span_warning("The PDA is already holding another cartridge."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		cartridge = I
 		cartridge.update_programs(src)
 		update_shortcuts()
-		to_chat(user, "<span class='notice'>You insert [cartridge] into [src].</span>")
+		to_chat(user, span_notice("You have inserted [I] into the PDA."))
 		SStgui.update_uis(src)
 		if(cartridge.radio)
 			cartridge.radio.hostpda = src
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	else if(istype(C, /obj/item/card/id))
-		var/obj/item/card/id/idcard = C
-		if(!idcard.registered_name)
-			to_chat(user, "<span class='notice'>\The [src] rejects the ID.</span>")
-			return
+	if(istype(I, /obj/item/card/id))
+		add_fingerprint(user)
+		var/obj/item/card/id/id_card = I
+		if(!id_card.registered_name)
+			to_chat(user, span_warning("The PDA rejects empty ID card."))
+			return ATTACK_CHAIN_PROCEED
 		if(!owner)
-			owner = idcard.registered_name
-			ownjob = idcard.assignment
-			ownrank = idcard.rank
+			owner = id_card.registered_name
+			ownjob = id_card.assignment
+			ownrank = id_card.rank
 			update_appearance(UPDATE_NAME)
-			to_chat(user, "<span class='notice'>Card scanned.</span>")
+			to_chat(user, span_notice("The ID card has been scanned."))
 			SStgui.update_uis(src)
-		else
-			//Basic safety check. If either both objects are held by user or PDA is on ground and card is in hand.
-			if(((src in user.contents) && (C in user.contents)) || (istype(loc, /turf) && in_range(src, user) && (C in user.contents)) )
-				if( can_use(user) )//If they can still act.
-					id_check(user, in_pda_usage = FALSE)
-					to_chat(user, "<span class='notice'>You put the ID into \the [src]'s slot.<br>You can remove it with ALT click.</span>")
-					SStgui.update_uis(src)
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		if(!can_use(user))
+			return ATTACK_CHAIN_PROCEED
+		if(id_check(user, in_pda_usage = FALSE))
+			to_chat(user, span_notice("You have put the ID card into the PDA.<br>You can remove it with <b>ALT-click</b>."))
+			SStgui.update_uis(src)
+			return ATTACK_CHAIN_BLOCKED_ALL
+		return ATTACK_CHAIN_PROCEED
 
-	else if(istype(C, /obj/item/paicard) && !src.pai)
-		user.drop_transfer_item_to_loc(C, src)
-		pai = C
-		to_chat(user, "<span class='notice'>You slot \the [C] into [src].</span>")
+	if(istype(I, /obj/item/paicard))
+		add_fingerprint(user)
+		if(pai)
+			to_chat(user, span_warning("The PDA is already holding another pAI card."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		pai = I
+		to_chat(user, span_notice("You have inserted the pAI card into the PDA."))
 		SStgui.update_uis(src)
-	else if(is_pen(C))
-		var/obj/item/pen/O = locate() in src
-		if(O)
-			to_chat(user, "<span class='notice'>There is already a pen in \the [src].</span>")
-		else
-			user.drop_transfer_item_to_loc(C, src)
-			to_chat(user, "<span class='notice'>You slide \the [C] into \the [src].</span>")
-	else
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/item/pda/attack(mob/living/C as mob, mob/living/user as mob)
-	if(iscarbon(C) && scanmode)
-		scanmode.scan_mob(C, user)
+	if(is_pen(I))
+		add_fingerprint(user)
+		var/obj/item/pen/holded_pen = locate() in src
+		if(holded_pen)
+			to_chat(user, span_warning("The PDA is already holding another pen.<br>You can remove it with <b>Ctrl-click</b>."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("You have slided [I] into the PDA.<br>You can remove it with <b>Ctrl-click</b>."))
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/item/pda/afterattack(atom/A as mob|obj|turf|area, mob/user as mob, proximity)
-	if(try_item_eat(A, user))
-		return FALSE
+	return ..()
 
+
+/obj/item/pda/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
+	if(scanmode && iscarbon(target))
+		. |= ATTACK_CHAIN_SUCCESS
+		scanmode.scan_mob(target, user)
+
+
+/obj/item/pda/afterattack(atom/A, mob/user, proximity, params)
 	if(proximity && scanmode)
 		scanmode.scan_atom(A, user)
 

@@ -23,8 +23,6 @@
 	var/starting_water = TRUE
 	/// Cooldown between uses.
 	var/last_use = 1
-	/// Can we refill this at a water tank?
-	var/refilling = FALSE
 	/// Can we actually fire currently?
 	var/safety = TRUE
 	/// Maximum distance launched water will travel.
@@ -78,12 +76,10 @@
 	to_chat(user, "The safety is [safety ? "on" : "off"].")
 
 
-/obj/item/extinguisher/attack_obj(obj/O, mob/living/user, params)
-	if(AttemptRefill(O, user))
-		refilling = TRUE
-		return FALSE
-	else
-		return ..()
+/obj/item/extinguisher/attack_obj(obj/object, mob/living/user, params)
+	if(AttemptRefill(object, user))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	return ..()
 
 
 /obj/item/extinguisher/proc/AttemptRefill(atom/target, mob/user)
@@ -99,7 +95,7 @@
 		if(transferred > 0)
 			to_chat(user, span_notice("[src] has been refilled by [transferred] units."))
 			playsound(loc, 'sound/effects/refill.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-			for(var/datum/reagent/water/reagent as anything in reagents.reagent_list)
+			for(var/datum/reagent/water/reagent in reagents.reagent_list)
 				reagent.cooling_temperature = cooling_power
 		else
 			to_chat(user, span_notice("[watertank] is empty!"))
@@ -108,14 +104,10 @@
 	return FALSE
 
 
-/obj/item/extinguisher/afterattack(atom/target, mob/user , flag)
+/obj/item/extinguisher/afterattack(atom/target, mob/user, flag, params)
 	. = ..()
 	//TODO; Add support for reagents in water.
 	if(target.loc == user)//No more spraying yourself when putting your extinguisher away
-		return
-
-	if(refilling)
-		refilling = FALSE
 		return
 
 	if(safety)

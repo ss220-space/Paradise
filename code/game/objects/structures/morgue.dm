@@ -128,13 +128,9 @@
 /obj/structure/morgue/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
 		var/rename = rename_interactive(user, I)
-
-		if(isnull(rename))
-			return
-
-		update_icon(UPDATE_OVERLAYS)
-		add_fingerprint(user)
-		return
+		if(!isnull(rename))
+			update_icon(UPDATE_OVERLAYS)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
 
@@ -288,7 +284,10 @@
 
 
 /obj/structure/m_tray/attackby(obj/item/I, mob/user, params)
-	user.drop_transfer_item_to_loc(I, loc)
+	if(user.a_intent == INTENT_HARM || !user.drop_transfer_item_to_loc(I, loc))
+		return ..()
+	add_fingerprint(user)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 
 /obj/structure/m_tray/MouseDrop_T(atom/movable/dropping, mob/living/user, params)
@@ -417,10 +416,12 @@ GLOBAL_LIST_EMPTY(crematoriums)
 /obj/machinery/crematorium/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
 		rename_interactive(user, I)
-		add_fingerprint(user)
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	if(cremating)
 		flame_spread(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
 
 
@@ -714,7 +715,10 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 
 /obj/structure/c_tray/attackby(obj/item/I, mob/user, params)
-	user.drop_transfer_item_to_loc(I, loc)
+	if(user.a_intent == INTENT_HARM || !user.drop_transfer_item_to_loc(I, loc))
+		return ..()
+	add_fingerprint(user)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 
 /obj/structure/c_tray/MouseDrop_T(atom/movable/dropping, mob/living/user, params)

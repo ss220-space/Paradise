@@ -84,7 +84,7 @@
 	if(disabled)
 		class = "linkOff"
 		topic = ""
-	return "<a class=\"[class]\" id='[id]' href='?src=[UID()];[topic]'>[label]</a>"
+	return "<a class=\"[class]\" id='[id]' href='byond://?src=[UID()];[topic]'>[label]</a>"
 
 /datum/async_input/Topic(href, href_list)
 	if(href_list["submit"] || href_list["close"])
@@ -157,7 +157,7 @@
 
 	for(var/i=1, i <= choices.len, i++)
 		var/C = choices[choices[i]]
-		choices[i] = url_encode(choices[i], TRUE)
+		choices[i] = url_encode(choices[i])
 		choices[choices[i]] = C
 
 /datum/async_input/autocomplete/render_prompt()
@@ -181,8 +181,8 @@
 		// Entering an invalid choice is the same as canceling
 		if(href_list["submit"] in choices)
 			result = href_list["submit"]
-		else if(url_encode(href_list["submit"], TRUE) in choices)
-			result = url_encode(href_list["submit"], TRUE)
+		else if(url_encode(href_list["submit"]) in choices)
+			result = url_encode(href_list["submit"])
 		close()
 		return
 

@@ -18,7 +18,7 @@
 	var/dummy_active = FALSE
 	var/dummy_timer
 
-/obj/item/chameleon_counterfeiter/afterattack(obj/item/target, mob/user, proximity)
+/obj/item/chameleon_counterfeiter/afterattack(obj/item/target, mob/user, proximity, params)
 	if(!proximity || !check_sprite(target) || target.alpha < 255 || target.invisibility != 0)
 		return
 	if(dummy_active || !isitem(target))

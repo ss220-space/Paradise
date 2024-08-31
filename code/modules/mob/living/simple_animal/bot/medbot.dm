@@ -139,7 +139,7 @@
 
 
 /mob/living/simple_animal/bot/medbot/Initialize(mapload, new_skin)
-	..()
+	. = ..()
 	var/datum/job/doctor/J = new /datum/job/doctor
 	access_card.access += J.get_access()
 	prev_access = access_card.access
@@ -182,37 +182,37 @@
 	dat += hack(user)
 	dat += showpai(user)
 	dat += "<TT><B>Medical Unit Controls v1.1</B></TT><BR><BR>"
-	dat += "Status: <A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A><BR>"
+	dat += "Status: <a href='byond://?src=[UID()];power=1'>[on ? "On" : "Off"]</A><BR>"
 	dat += "Maintenance panel panel is [open ? "opened" : "closed"]<BR>"
 	dat += "Beaker: "
 	if(reagent_glass)
-		dat += "<A href='?src=[UID()];eject=1'>Loaded \[[reagent_glass.reagents.total_volume]/[reagent_glass.reagents.maximum_volume]\]</a>"
+		dat += "<a href='byond://?src=[UID()];eject=1'>Loaded \[[reagent_glass.reagents.total_volume]/[reagent_glass.reagents.maximum_volume]\]</a>"
 	else
 		dat += "None Loaded"
 	dat += "<br>Behaviour controls are [locked ? "locked" : "unlocked"]<hr>"
 	if(!locked || issilicon(user) || user.can_admin_interact())
 		dat += "<TT>Healing Threshold: "
-		dat += "<a href='?src=[UID()];adj_threshold=-10'>--</a> "
-		dat += "<a href='?src=[UID()];adj_threshold=-5'>-</a> "
+		dat += "<a href='byond://?src=[UID()];adj_threshold=-10'>--</a> "
+		dat += "<a href='byond://?src=[UID()];adj_threshold=-5'>-</a> "
 		dat += "[heal_threshold] "
-		dat += "<a href='?src=[UID()];adj_threshold=5'>+</a> "
-		dat += "<a href='?src=[UID()];adj_threshold=10'>++</a>"
+		dat += "<a href='byond://?src=[UID()];adj_threshold=5'>+</a> "
+		dat += "<a href='byond://?src=[UID()];adj_threshold=10'>++</a>"
 		dat += "</TT><br>"
 
 		dat += "<TT>Injection Level: "
-		dat += "<a href='?src=[UID()];adj_inject=-5'>-</a> "
+		dat += "<a href='byond://?src=[UID()];adj_inject=-5'>-</a> "
 		dat += "[injection_amount] "
-		dat += "<a href='?src=[UID()];adj_inject=5'>+</a> "
+		dat += "<a href='byond://?src=[UID()];adj_inject=5'>+</a> "
 		dat += "</TT><br>"
 
 		dat += "Reagent Source: "
-		dat += "<a href='?src=[UID()];use_beaker=1'>[use_beaker ? "Loaded Beaker (When available)" : "Internal Synthesizer"]</a><br>"
+		dat += "<a href='byond://?src=[UID()];use_beaker=1'>[use_beaker ? "Loaded Beaker (When available)" : "Internal Synthesizer"]</a><br>"
 
-		dat += "Treat Viral Infections: <a href='?src=[UID()];virus=1'>[treat_virus ? "Yes" : "No"]</a><br>"
-		dat += "The speaker switch is [shut_up ? "off" : "on"]. <a href='?src=[UID()];togglevoice=[1]'>Toggle</a><br>"
-		dat += "Critical Patient Alerts: <a href='?src=[UID()];critalerts=1'>[declare_crit ? "Yes" : "No"]</a><br>"
-		dat += "Patrol Station: <a href='?src=[UID()];operation=patrol'>[auto_patrol ? "Yes" : "No"]</a><br>"
-		dat += "Stationary Mode: <a href='?src=[UID()];stationary=1'>[stationary_mode ? "Yes" : "No"]</a><br>"
+		dat += "Treat Viral Infections: <a href='byond://?src=[UID()];virus=1'>[treat_virus ? "Yes" : "No"]</a><br>"
+		dat += "The speaker switch is [shut_up ? "off" : "on"]. <a href='byond://?src=[UID()];togglevoice=[1]'>Toggle</a><br>"
+		dat += "Critical Patient Alerts: <a href='byond://?src=[UID()];critalerts=1'>[declare_crit ? "Yes" : "No"]</a><br>"
+		dat += "Patrol Station: <a href='byond://?src=[UID()];operation=patrol'>[auto_patrol ? "Yes" : "No"]</a><br>"
+		dat += "Stationary Mode: <a href='byond://?src=[UID()];stationary=1'>[stationary_mode ? "Yes" : "No"]</a><br>"
 
 	return dat
 
@@ -261,27 +261,36 @@
 	update_controls()
 
 
-/mob/living/simple_animal/bot/medbot/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/reagent_containers/glass))
-		. = TRUE //no afterattack
+/mob/living/simple_animal/bot/medbot/attackby(obj/item/I, mob/user, params)
+	var/current_health = health
+	if(user.a_intent == INTENT_HARM)
+		current_health = health
+		. = ..()
+		if(ATTACK_CHAIN_CANCEL_CHECK(.) || health >= current_health)
+			return .
+		step_to(src, (get_step_away(src, user)))	//if medbot took some damage
+		return .
+
+	if(istype(I, /obj/item/reagent_containers/glass))
+		add_fingerprint(user)
 		if(locked)
 			to_chat(user, span_warning("You cannot insert a beaker because the panel is locked!"))
-			return
-		if(!isnull(reagent_glass))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		if(reagent_glass)
 			to_chat(user, span_warning("There is already a beaker loaded!"))
-			return
-		if(!user.drop_transfer_item_to_loc(W, src))
-			return
-
-		reagent_glass = W
-		to_chat(user, span_notice("You insert [W]."))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..() | ATTACK_CHAIN_NO_AFTERATTACK
+		reagent_glass = I
+		to_chat(user, span_notice("You insert [I]."))
 		show_controls(user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
 
-	else
-		var/current_health = health
-		..()
-		if(health < current_health) //if medbot took some damage
-			step_to(src, (get_step_away(src,user)))
+	current_health = health
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || health >= current_health)
+		return .
+	step_to(src, (get_step_away(src, user)))	//if medbot took some damage
 
 
 /mob/living/simple_animal/bot/medbot/emag_act(mob/user)

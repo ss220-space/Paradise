@@ -529,59 +529,64 @@
 	icon_state = "bostaff[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 
-/obj/item/twohanded/bostaff/attack(mob/target, mob/living/user)
-	add_fingerprint(user)
-	if((CLUMSY in user.mutations) && prob(50))
-		to_chat(user, "<span class ='warning'>You club yourself over the head with [src].</span>")
-		user.Weaken(6 SECONDS)
+/obj/item/twohanded/bostaff/attack(mob/living/carbon/human/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+		to_chat(user, span_warning("You club yourself over the head with [src]."))
+		user.Knockdown(6 SECONDS)
 		if(ishuman(user))
-			var/mob/living/carbon/human/H = user
-			H.apply_damage(2*force, BRUTE, BODY_ZONE_HEAD)
+			user.apply_damage(2 * force, BRUTE, BODY_ZONE_HEAD)
 		else
-			user.take_organ_damage(2*force)
-		return
-	if(isrobot(target))
+			user.take_organ_damage(2 * force)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(isrobot(target) || !ishuman(target) || user.a_intent != INTENT_DISARM || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return ..()
-	if(!isliving(target))
-		return ..()
-	var/mob/living/carbon/C = target
-	if(C.stat)
-		to_chat(user, "<span class='warning'>It would be dishonorable to attack a foe while [C.p_they()] cannot retaliate.</span>")
-		return
-	if(HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You feel violence is not the answer.</span>")
-		return
-	switch(user.a_intent)
-		if(INTENT_DISARM)
-			if(!HAS_TRAIT(src, TRAIT_WIELDED))
-				return ..()
-			if(!ishuman(target))
-				return ..()
-			var/mob/living/carbon/human/H = target
-			var/list/fluffmessages = list("[user] clubs [H] with [src]!", \
-										  "[user] smacks [H] with the butt of [src]!", \
-										  "[user] broadsides [H] with [src]!", \
-										  "[user] smashes [H]'s head with [src]!", \
-										  "[user] beats [H] with front of [src]!", \
-										  "[user] twirls and slams [H] with [src]!")
-			H.visible_message("<span class='warning'>[pick(fluffmessages)]</span>", \
-								   "<span class='userdanger'>[pick(fluffmessages)]</span>")
-			playsound(get_turf(user), 'sound/effects/woodhit.ogg', 75, 1, -1)
-			H.apply_damage(rand(13,20), STAMINA)
-			if(prob(10))
-				H.visible_message("<span class='warning'>[H] collapses!</span>", \
-									   "<span class='userdanger'>Your legs give out!</span>")
-				H.Weaken(8 SECONDS)
-			if(H.staminaloss && !H.IsSleeping())
-				var/total_health = (H.health - H.staminaloss)
-				if(total_health <= HEALTH_THRESHOLD_CRIT && !H.stat)
-					H.visible_message("<span class='warning'>[user] delivers a heavy hit to [H]'s head, knocking [H.p_them()] out cold!</span>", \
-										   "<span class='userdanger'>[user] knocks you unconscious!</span>")
-					H.SetSleeping(60 SECONDS)
-					H.apply_damage(25, BRAIN)
-			return
-		else
-			return ..()
+
+	. = ATTACK_CHAIN_PROCEED
+
+	if(target.stat)
+		to_chat(user, span_warning("It would be dishonorable to attack a foe while [target.p_they()] cannot retaliate."))
+		return .
+
+	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
+		to_chat(user, span_warning("You feel violence is not the answer."))
+		return .
+
+	. |= ATTACK_CHAIN_SUCCESS
+
+	var/list/fluffmessages = list(
+		"[user] clubs [target] with [src]!",
+		"[user] smacks [target] with the butt of [src]!",
+		"[user] broadsides [target] with [src]!",
+		"[user] smashes [target]'s head with [src]!",
+		"[user] beats [target] with front of [src]!",
+		"[user] twirls and slams [target] with [src]!",
+	)
+
+	target.visible_message(
+		span_warning("[pick(fluffmessages)]"),
+		span_userdanger("[pick(fluffmessages)]"),
+	)
+	playsound(loc, 'sound/effects/woodhit.ogg', 75, TRUE, -1)
+	target.apply_damage(rand(13, 20), STAMINA)
+
+	if(prob(10))
+		target.visible_message(
+			span_warning("[target] collapses!"),
+			span_userdanger("Your legs give out!"),
+		)
+		target.Knockdown(8 SECONDS)
+
+	else if(target.staminaloss && !target.IsSleeping())
+		var/total_health = (target.health - target.staminaloss)
+		if(total_health <= HEALTH_THRESHOLD_CRIT && !target.stat)
+			target.visible_message(
+				span_warning("[user] delivers a heavy hit to [target]'s head, knocking [target.p_them()] out cold!"),
+				span_userdanger("[user] knocks you unconscious!"),
+			)
+			target.SetSleeping(60 SECONDS)
+			target.apply_damage(25, BRAIN)
+
 
 /obj/item/twohanded/bostaff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(HAS_TRAIT(src, TRAIT_WIELDED))

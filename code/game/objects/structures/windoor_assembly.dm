@@ -110,77 +110,94 @@
 		return
 	. = ..()
 
-/obj/structure/windoor_assembly/attackby(obj/item/W, mob/user, params)
+
+/obj/structure/windoor_assembly/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	//I really should have spread this out across more states but thin little windoors are hard to sprite.
 	switch(state)
 		if("01")
 			//Adding plasteel makes the assembly a secure windoor assembly. Step 2 (optional) complete.
-			if(istype(W, /obj/item/stack/sheet/plasteel) && !secure)
-				var/obj/item/stack/sheet/plasteel/P = W
-				if(P.get_amount() < 2)
-					to_chat(user, "<span class='warning'>You need more [P] to do this!</span>")
-					return
-				to_chat(user, "<span class='notice'>You start to reinforce [src] with [P]...</span>")
-				if(do_after(user, 4 SECONDS * P.toolspeed, src, category = DA_CAT_TOOL))
-					if(!src || secure || P.get_amount() < 2)
-						return
-					add_fingerprint(user)
-					playsound(loc, P.usesound, 100, 1)
-					P.use(2)
-					to_chat(user, "<span class='notice'>You reinforce [src].</span>")
-					secure = TRUE
-					name = "secure [(src.anchored) ? "anchored" : ""] windoor assembly"
+			if(istype(I, /obj/item/stack/sheet/plasteel))
+				var/obj/item/stack/sheet/plasteel/plasteel = I
+				add_fingerprint(user)
+				if(secure)
+					to_chat(user, span_warning("The [name] is already reinforced."))
+					return ATTACK_CHAIN_PROCEED
+				if(plasteel.get_amount() < 2)
+					to_chat(user, span_warning("You need at least two sheets of [plasteel.name] to do this."))
+					return ATTACK_CHAIN_PROCEED
+				var/cached_sound = plasteel.usesound
+				playsound(loc, cached_sound, 100, TRUE)
+				to_chat(user, span_notice("You start to reinforce [src] with [plasteel]..."))
+				if(!do_after(user, 4 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || state != "01" || secure || QDELETED(plasteel) || !plasteel.use(2))
+					return ATTACK_CHAIN_PROCEED
+				playsound(loc, cached_sound, 100, TRUE)
+				to_chat(user, span_notice("You have reinforced [src]."))
+				secure = TRUE
+				name = "secure [(anchored) ? "anchored" : ""] windoor assembly"
+				update_icon(UPDATE_ICON_STATE)
+				return ATTACK_CHAIN_PROCEED_SUCCESS
 
 			//Adding cable to the assembly. Step 5 complete.
-			else if(iscoil(W) && anchored)
-				user.visible_message("<span class='notice'>[user] wires [src]...</span>", "<span class='notice'>You start to wire [src]...</span>")
-				if(do_after(user, 4 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
-					if(!src || !anchored || state != "01")
-						return
-					add_fingerprint(user)
-					var/obj/item/stack/cable_coil/CC = W
-					CC.use(1)
-					to_chat(user, "<span class='notice'>You wire [src].</span>")
-					playsound(loc, CC.usesound, 100, 1)
-					state = "02"
-					name = "[(src.secure) ? "secure" : ""] wired windoor assembly"
-			else
-				return ..()
+			if(iscoil(I))
+				var/obj/item/stack/cable_coil/coil = I
+				add_fingerprint(user)
+				if(!anchored)
+					to_chat(user, span_warning("You should anchor [src] first."))
+					return ATTACK_CHAIN_PROCEED
+				if(coil.get_amount() < 1)
+					to_chat(user, span_warning("You need at least one length of cable to do this."))
+					return ATTACK_CHAIN_PROCEED
+				var/cached_sound = coil.usesound
+				playsound(loc, cached_sound, 100, TRUE)
+				to_chat(user, span_notice("You start to wire [src]..."))
+				if(!do_after(user, 4 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || state != "01" || !anchored || QDELETED(coil) || !coil.use(1))
+					return ATTACK_CHAIN_PROCEED
+				playsound(loc, cached_sound, 100, TRUE)
+				to_chat(user, span_notice("You have wired [src]."))
+				state = "02"
+				name = "[(secure) ? "secure" : ""] wired windoor assembly"
+				update_icon(UPDATE_ICON_STATE)
+				return ATTACK_CHAIN_PROCEED
 
 		if("02")
-			//Adding airlock electronics for access. Step 6 complete.
-			if(istype(W, /obj/item/access_control))
-				var/obj/item/access_control/control = W
-				if(control.emagged)
-					return
-				if(electronics)
-					to_chat(user, "<span class='notice'>There's already [electronics] inside!")
-					return
-				playsound(loc, W.usesound, 100, 1)
-				user.visible_message("<span class='notice'>[user] installs [W] into [src]...</span>", "<span class='notice'>You start to install [W.name] into [src]...</span>")
-				if(do_after(user, 4 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
-					if(!src || electronics)
-						return
-					add_fingerprint(user)
-					user.drop_transfer_item_to_loc(W, src)
-					to_chat(user, "<span class='notice'>You install [W].</span>")
-					electronics = W
-					state = "03"
-					name = "[(src.secure) ? "secure" : ""] near finished windoor assembly"
-			else if(is_pen(W))
-				var/t = rename_interactive(user, W)
-				if(!isnull(t))
-					add_fingerprint(user)
-					created_name = t
-				return
-			else
-				return ..()
-		if("03")
-			return ..()
+			if(is_pen(I))
+				add_fingerprint(user)
+				var/new_name = rename_interactive(user, I)
+				if(!isnull(new_name))
+					created_name = new_name
+				return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	add_fingerprint(user)
-	//Update to reflect changes(if applicable)
-	update_icon(UPDATE_ICON_STATE)
+			//Adding airlock electronics for access. Step 6 complete.
+			if(istype(I, /obj/item/access_control))
+				add_fingerprint(user)
+				var/obj/item/access_control/control = I
+				if(electronics)
+					to_chat(user, span_warning("The windoor assembly already has [electronics] installed."))
+					return ATTACK_CHAIN_PROCEED
+				if(control.emagged)
+					to_chat(user, span_warning("The [control.name] is broken."))
+					return ATTACK_CHAIN_PROCEED
+				control.play_tool_sound(src)
+				user.visible_message(
+					span_notice("[user] installs the access control electronics into the windoor assembly."),
+					span_notice("You start to install the access control electronics into the windoor assembly..."),
+				)
+				if(!do_after(user, 4 SECONDS * control.toolspeed, src, category = DA_CAT_TOOL) || state != "02" || electronics || control.emagged)
+					return ATTACK_CHAIN_PROCEED
+				if(!user.drop_transfer_item_to_loc(control, src))
+					return ..()
+				to_chat(user, span_notice("You install the access control electronics."))
+				electronics = control
+				state = "03"
+				name = "[(secure) ? "secure" : ""] near finished windoor assembly"
+				update_icon(UPDATE_ICON_STATE)
+				return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/structure/windoor_assembly/crowbar_act(mob/user, obj/item/I)	//Crowbar to complete the assembly, Step 7 complete.
 	if(state != "03")

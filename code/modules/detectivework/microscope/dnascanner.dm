@@ -20,20 +20,25 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 
-/obj/machinery/dnaforensics/attackby(obj/item/W as obj, mob/user as mob)
 
-	if(swab)
-		to_chat(user, "<span class='warning'>Внутри сканера уже есть пробирка.</span>")
-		return
+/obj/machinery/dnaforensics/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
-	if(istype(W, /obj/item/forensics/swab))
+	if(istype(I, /obj/item/forensics/swab))
 		add_fingerprint(user)
-		to_chat(user, "<span class='notice'>Вы вставляете \the [W] в ДНК анализатор.</span>")
-		user.drop_transfer_item_to_loc(W, src)
-		swab = W
+		if(swab)
+			to_chat(user, span_warning("Внутри сканера уже есть пробирка."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("Вы вставляете пробирку в ДНК анализатор."))
+		swab = I
 		update_icon(UPDATE_ICON_STATE)
-		return
-	..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/machinery/dnaforensics/attack_hand(mob/user)
 

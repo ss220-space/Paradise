@@ -58,15 +58,18 @@
  *
  * TL;DR: [/baton_attack()] -> [/finalize_baton_attack()] -> [/baton_effect()] -> [/set_batoned()]
  */
-/obj/item/melee/baton/attack(mob/living/target, mob/living/user, def_zone, add_melee_cooldown = TRUE, skip_attack_anim = TRUE)
+/obj/item/melee/baton/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	add_fingerprint(user)
 	switch(baton_attack(target, user))
+		if(BATON_ATTACK_DONE)
+			return ATTACK_CHAIN_PROCEED
 		if(BATON_DO_NORMAL_ATTACK)
 			return ..()
 		if(BATON_ATTACKING)
 			finalize_baton_attack(target, user)
 			if(!skip_harm_attack && user.a_intent == INTENT_HARM)
-				return ..()
+				return ..(target, user, params, def_zone, stun_animation)
+			return ATTACK_CHAIN_PROCEED_SUCCESS
 
 
 /obj/item/melee/baton/proc/baton_attack(mob/living/target, mob/living/user)
@@ -176,7 +179,7 @@
 
 
 /obj/item/melee/baton/proc/clumsy_check(mob/living/user, mob/living/intented_target)
-	if(!active || !(CLUMSY in user.mutations) || prob(50))
+	if(!active || !HAS_TRAIT(user, TRAIT_CLUMSY) || prob(50))
 		return FALSE
 	user.visible_message(
 		span_danger("[user] accidentally hits [user.p_them()]self over the head with [src]! What a doofus!"),

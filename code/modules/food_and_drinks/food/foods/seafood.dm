@@ -413,12 +413,14 @@
 	COOLDOWN_DECLARE(pinch_cooldown)
 
 
-/obj/item/reagent_containers/food/snacks/crayfish_raw/attack(mob/living/target, mob/user, def_zone)
+/obj/item/reagent_containers/food/snacks/crayfish_raw/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!COOLDOWN_FINISHED(src, pinch_cooldown))
 		return ..()
 
-	. = FALSE
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	COOLDOWN_START(src, pinch_cooldown, 5 SECONDS)
+
+	user.do_attack_animation(target)
 
 	target.visible_message(
 		span_warning("Crayfish furiously claws at [target], while [target.p_they()] tried to eat it!"),

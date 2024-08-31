@@ -21,40 +21,40 @@
 		return 1
 
 	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8">"}
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 
 	dat += "<B>Holodeck Control System</B><BR>"
 	dat += "<HR>Current Loaded Programs:<BR>"
 
-	dat += "<A href='?src=[UID()];emptycourt=1'>((Empty Court)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];boxingcourt=1'>((Boxing Court)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];basketball=1'>((Basketball Court)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];thunderdomecourt=1'>((Thunderdome Court)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];beach=1'>((Beach)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];desert=1'>((Desert)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];space=1'>((Space)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];picnicarea=1'>((Picnic Area)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];snowfield=1'>((Snow Field)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];theatre=1'>((Theatre)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];meetinghall=1'>((Meeting Hall)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];knightarena=1'>((Knight Arena)</font>)</A><BR>"
-//		dat += "<A href='?src=[UID()];turnoff=1'>((Shutdown System)</font>)</A><BR>"
+	dat += "<a href='byond://?src=[UID()];emptycourt=1'>((Empty Court)</font>)</A><BR>"
+	dat += "<a href='byond://?src=[UID()];boxingcourt=1'>((Boxing Court)</font>)</A><BR>"
+	dat += "<a href='byond://?src=[UID()];basketball=1'>((Basketball Court)</font>)</A><BR>"
+	dat += "<a href='byond://?src=[UID()];thunderdomecourt=1'>((Thunderdome Court)</font>)</A><BR>"
+	dat += "<a href='byond://?src=[UID()];beach=1'>((Beach)</font>)</A><BR>"
+	dat += "<a href='byond://?src=[UID()];desert=1'>((Desert)</font>)</A><BR>"
+	dat += "<a href='byond://?src=[UID()];space=1'>((Space)</font>)</A><BR>"
+	dat += "<a href='byond://?src=[UID()];picnicarea=1'>((Picnic Area)</font>)</A><BR>"
+	dat += "<a href='byond://?src=[UID()];snowfield=1'>((Snow Field)</font>)</A><BR>"
+	dat += "<a href='byond://?src=[UID()];theatre=1'>((Theatre)</font>)</A><BR>"
+	dat += "<a href='byond://?src=[UID()];meetinghall=1'>((Meeting Hall)</font>)</A><BR>"
+	dat += "<a href='byond://?src=[UID()];knightarena=1'>((Knight Arena)</font>)</A><BR>"
+//		dat += "<a href='byond://?src=[UID()];turnoff=1'>((Shutdown System)</font>)</A><BR>"
 
 	dat += "Please ensure that only holographic weapons are used in the holodeck if a combat simulation has been loaded.<BR>"
 
 	if(emagged)
-/*			dat += "<A href='?src=[UID()];burntest=1'>(<font color=red>Begin Atmospheric Burn Simulation</font>)</A><BR>"
+/*			dat += "<a href='byond://?src=[UID()];burntest=1'>(<font color=red>Begin Atmospheric Burn Simulation</font>)</A><BR>"
 		dat += "Ensure the holodeck is empty before testing.<BR>"
 		dat += "<BR>"*/
-		dat += "<A href='?src=[UID()];wildlifecarp=1'>(<font color=red>Begin Wildlife Simulation</font>)</A><BR>"
+		dat += "<a href='byond://?src=[UID()];wildlifecarp=1'>(<font color=red>Begin Wildlife Simulation</font>)</A><BR>"
 		dat += "Ensure the holodeck is empty before testing.<BR>"
 		dat += "<BR>"
 		if(issilicon(user))
-			dat += "<A href='?src=[UID()];AIoverride=1'>(<font color=green>Re-Enable Safety Protocols?</font>)</A><BR>"
+			dat += "<a href='byond://?src=[UID()];AIoverride=1'>(<font color=green>Re-Enable Safety Protocols?</font>)</A><BR>"
 		dat += "Safety Protocols are <font color=red> DISABLED </font><BR>"
 	else
 		if(issilicon(user))
-			dat += "<A href='?src=[UID()];AIoverride=1'>(<font color=red>Override Safety Protocols?</font>)</A><BR>"
+			dat += "<a href='byond://?src=[UID()];AIoverride=1'>(<font color=red>Override Safety Protocols?</font>)</A><BR>"
 		dat += "<BR>"
 		dat += "Safety Protocols are <font color=green> ENABLED </font><BR>"
 
@@ -159,8 +159,10 @@
 	updateUsrDialog()
 	return
 
-/obj/machinery/computer/HolodeckControl/attackby(var/obj/item/D as obj, var/mob/user as mob, params)
-	return
+
+/obj/machinery/computer/HolodeckControl/attackby(obj/item/I, mob/user, params)
+	return ATTACK_CHAIN_BLOCKED
+
 
 /obj/machinery/computer/HolodeckControl/emag_act(mob/user)
 	if(!emagged)
@@ -340,9 +342,11 @@
 	if(!(icon_state in list("grass1", "grass2", "grass3", "grass4", "sand")))
 		icon_state = "grass[pick("1","2","3","4")]"
 
-/turf/simulated/floor/holofloor/attackby(obj/item/W as obj, mob/user as mob, params)
-	return
+
+/turf/simulated/floor/holofloor/attackby(obj/item/I, mob/user, params)
+	return ATTACK_CHAIN_BLOCKED
 	// HOLOFLOOR DOES NOT GIVE A FUCK
+
 
 /turf/simulated/floor/holofloor/space
 	name = "\proper space"
@@ -527,10 +531,10 @@
 	target.Weaken(10 SECONDS)
 
 
-/obj/structure/holohoop/attackby(obj/item/W, mob/user, params)
-	if(isitem(W) && get_dist(src,user)<2)
-		user.drop_from_active_hand(src)
-		visible_message(span_notice("[user] dunks [W] into the [src]!"))
+/obj/structure/holohoop/attackby(obj/item/I, mob/user, params)
+	if(user.drop_transfer_item_to_loc(I, src))
+		visible_message(span_notice("[user] dunks [I] into [src]!"))
+	return ATTACK_CHAIN_BLOCKED
 
 
 /obj/structure/holohoop/has_prints()
@@ -579,9 +583,12 @@
 	to_chat(user, "The station AI is not to interact with these devices.")
 	return
 
-/obj/machinery/readybutton/attackby(obj/item/W as obj, mob/user as mob, params)
+
+/obj/machinery/readybutton/attackby(obj/item/I, mob/user, params)
 	add_fingerprint(user)
 	to_chat(user, "The device is a solid button, there's nothing you can do with it!")
+	return ATTACK_CHAIN_BLOCKED
+
 
 /obj/machinery/readybutton/attack_hand(mob/user as mob)
 	if(user.stat || stat & (BROKEN))

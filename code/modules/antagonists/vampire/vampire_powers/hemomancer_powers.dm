@@ -56,6 +56,7 @@
 	force_wielded = 15
 	armour_penetration = 40
 	sharp = TRUE
+	attack_speed = 0.4 SECONDS
 	attack_effect_override = ATTACK_EFFECT_CLAW
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut", "savaged", "clawed")
@@ -80,7 +81,7 @@
 	return ..()
 
 
-/obj/item/twohanded/required/vamp_claws/afterattack(atom/target, mob/user, proximity)
+/obj/item/twohanded/required/vamp_claws/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 
@@ -93,12 +94,12 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
 		// no parameter in [affects_vampire()] so holy always protects
-		if(C.ckey && C.stat != DEAD && C.affects_vampire() && !(NO_BLOOD in C.dna?.species?.species_traits))
+		if(C.ckey && C.stat != DEAD && C.affects_vampire() && !HAS_TRAIT(C, TRAIT_NO_BLOOD))
 			C.bleed(blood_drain_amount)
 			attacker.adjustStaminaLoss(-20) // security is dead
 			attacker.heal_overall_damage(4, 4) // the station is full
-			attacker.AdjustWeakened(-1 SECONDS) // blood is fuel
-			if(!C.dna.species.exotic_blood)
+			attacker.AdjustKnockdown(-1 SECONDS) // blood is fuel
+			if(!HAS_TRAIT(C, TRAIT_EXOTIC_BLOOD))
 				V.adjust_blood(C, blood_absorbed_amount)
 
 	if(!V.get_ability(/datum/vampire_passive/blood_spill))
@@ -106,12 +107,6 @@
 		if(durability <= 0)
 			qdel(src)
 			to_chat(user, span_warning("Your claws shatter!"))
-
-
-/obj/item/twohanded/required/vamp_claws/melee_attack_chain(mob/user, atom/target, params)
-	..()
-	if(wielded)
-		user.changeNext_move(CLICK_CD_MELEE * 0.5)
 
 
 /obj/item/twohanded/required/vamp_claws/attack_self(mob/user)
@@ -466,7 +461,7 @@
 	var/beam_number = 0
 	var/datum/antagonist/vampire/V = owner.mind.has_antag_datum(/datum/antagonist/vampire)
 	for(var/mob/living/carbon/human/H in view(7, owner))
-		if(NO_BLOOD in H.dna.species.species_traits)
+		if(HAS_TRAIT(H, TRAIT_NO_BLOOD))
 			continue
 
 		if(!H.affects_vampire(owner) || H.stat)

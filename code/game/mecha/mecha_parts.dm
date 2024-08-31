@@ -21,9 +21,13 @@
 	QDEL_NULL(construct)
 	return ..()
 
-/obj/item/mecha_parts/chassis/attackby(obj/item/W, mob/user, params)
-	if(!construct || !construct.action(W, user))
-		return ..()
+
+/obj/item/mecha_parts/chassis/attackby(obj/item/I, mob/user, params)
+	if(construct?.action(I, user))
+		add_fingerprint(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 /obj/item/mecha_parts/chassis/attack_hand()
 	return
@@ -394,10 +398,12 @@
 	..()
 	construct = new /datum/construction/mecha/phazon_chassis(src)
 
+
 /obj/item/mecha_parts/chassis/phazon/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(istype(I, /obj/item/assembly/signaler/anomaly) && !istype(I, /obj/item/assembly/signaler/anomaly/bluespace))
-		to_chat(user, "<span class='warning'>The anomaly core socket only accepts bluespace anomaly cores!</span>")
+		to_chat(user, span_warning("The anomaly core socket only accepts bluespace anomaly cores!"))
+
 
 /obj/item/mecha_parts/part/phazon_torso
 	name="Phazon Torso"

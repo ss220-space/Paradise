@@ -41,6 +41,8 @@
 
 //Start of a breath chain, calls breathe()
 /mob/living/carbon/handle_breathing(times_fired)
+	if(HAS_TRAIT(src, TRAIT_NO_BREATH))
+		return
 	if(times_fired % 2 == 1)
 		breathe() //Breathe every other tick, unless suffocating
 	else
@@ -112,7 +114,7 @@
 	//CRIT
 	if(!breath || (breath.total_moles() == 0) || !lungs)
 		adjustOxyLoss(1)
-		throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
+		throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy)
 		return FALSE
 
 	var/safe_oxy_min = 16
@@ -138,12 +140,12 @@
 			oxygen_used = breath.oxygen*ratio
 		else
 			adjustOxyLoss(3)
-		throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
+		throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy)
 
 	else //Enough oxygen
 		adjustOxyLoss(-5)
 		oxygen_used = breath.oxygen
-		clear_alert("not_enough_oxy")
+		clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
 
 	breath.oxygen -= oxygen_used
 	breath.carbon_dioxide += oxygen_used
@@ -168,9 +170,9 @@
 	if(Toxins_partialpressure > safe_tox_max)
 		var/ratio = (breath.toxins/safe_tox_max) * 10
 		adjustToxLoss(clamp(ratio, MIN_TOXIC_GAS_DAMAGE, MAX_TOXIC_GAS_DAMAGE))
-		throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_tox)
+		throw_alert(ALERT_TOO_MUCH_TOX, /atom/movable/screen/alert/too_much_tox)
 	else
-		clear_alert("too_much_tox")
+		clear_alert(ALERT_TOO_MUCH_TOX)
 
 	//TRACE GASES
 	if(breath.sleeping_agent)
@@ -300,12 +302,16 @@
 		else
 			healths.icon_state = "health7"
 
+
 /mob/living/carbon/update_damage_hud()
 	if(!client)
 		return
-	var/shock_reduction = shock_reduction()
-	if(NO_PAIN_FEEL in dna?.species?.species_traits)
+
+	var/shock_reduction = 0
+	if(HAS_TRAIT(src, TRAIT_NO_PAIN_HUD))
 		shock_reduction = INFINITY
+	else
+		shock_reduction = shock_reduction()
 
 	if(stat == UNCONSCIOUS && health <= HEALTH_THRESHOLD_CRIT)
 		if(check_death_method())

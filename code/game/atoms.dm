@@ -115,6 +115,8 @@
 		GLOB._preloader.load(src)
 	. = ..()
 	attempt_init(arglist(args))
+	if(SSdemo?.initialized)
+		SSdemo.mark_new(src)
 
 // This is distinct from /tg/ because of our space management system
 // This is overriden in /atom/movable and the parent isn't called if the SMS wants to deal with it's init
@@ -432,12 +434,12 @@
 	//Detailed description
 	var/descriptions
 	if(get_description_info())
-		descriptions += "<a href='?src=[UID()];description_info=`'>\[Справка\]</a> "
+		descriptions += "<a href='byond://?src=[UID()];description_info=`'>\[Справка\]</a> "
 	if(get_description_antag())
 		if(isAntag(user) || isobserver(user))
-			descriptions += "<a href='?src=[UID()];description_antag=`'>\[Антагонист\]</a> "
+			descriptions += "<a href='byond://?src=[UID()];description_antag=`'>\[Антагонист\]</a> "
 	if(get_description_fluff())
-		descriptions += "<a href='?src=[UID()];description_fluff=`'>\[Забавная информация\]</a>"
+		descriptions += "<a href='byond://?src=[UID()];description_fluff=`'>\[Забавная информация\]</a>"
 
 	if(descriptions)
 		. += descriptions
@@ -811,7 +813,7 @@
 		add_fibers(M)
 
 		//He has no prints!
-		if(FINGERPRINTS in M.mutations)
+		if(HAS_TRAIT(M, TRAIT_NO_FINGERPRINTS))
 			if(fingerprintslast != M.key)
 				fingerprintshidden += "(Has no fingerprints) Real name: [M.real_name], Key: [M.key]"
 				fingerprintslast = M.key
@@ -1434,13 +1436,14 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	Returns: Either null if the renaming was aborted, or the user-provided sanitized string.
  **/
-/atom/proc/rename_interactive(mob/user, obj/implement = null, use_prefix = TRUE,
-		actually_rename = TRUE, prompt = null)
+/atom/proc/rename_interactive(mob/user, obj/implement = null, use_prefix = TRUE, actually_rename = TRUE, prompt = null)
 	// Sanity check that the user can, indeed, rename the thing.
 	// This, sadly, means you can't rename things with a telekinetic pen, but that's
 	// too much of a hassle to make work nicely.
 	if((implement && implement.loc != user) || !in_range(src, user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return null
+
+	add_fingerprint(user)
 
 	var/prefix = ""
 	if(use_prefix)

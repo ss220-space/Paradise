@@ -20,6 +20,37 @@
 		return DNA_DEFAULT_BOUNDS
 	return BOUNDS
 
+/proc/GetInjectorTechs(obj/item/dnainjector/I)
+	var/id = I.block
+	var/list/BOUNDS = GetDNABounds(id)
+	if (I.buf.dna.SE[id] < BOUNDS[DNA_ON_LOWERBOUND])
+		return I.origin_tech
+	if (id == GLOB.hulkblock)
+		return "combat=6"
+	if (id == GLOB.xrayblock)
+		return "biotech=6"
+	if (id == GLOB.teleblock)
+		return "magnets=5"
+	if (id == GLOB.breathlessblock)
+		return "biotech=5"
+	if (id == GLOB.shadowblock)
+		return "biotech=6"
+	if (id == GLOB.chameleonblock)
+		return "biotech=6"
+	return I.origin_tech
+
+///Gives random mutation
+/proc/randmut(mob/living/M, include_monkey = TRUE)
+	if(!M || !M.dna)
+		return
+	M.dna.check_integrity()
+	var/possible_mutations = GLOB.bad_blocks + GLOB.good_blocks
+	if(include_monkey)
+		possible_mutations += GLOB.monkeyblock
+
+	var/block = pick(possible_mutations)
+	M.dna.SetSEState(block, 1)
+
 // Give Random Bad Mutation to M
 /proc/randmutb(mob/living/M)
 	if(!M || !M.dna)

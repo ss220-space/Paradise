@@ -37,17 +37,22 @@
 			new /obj/effect/particle_effect/water(get_turf(H))
 	return FALSE
 
-/obj/item/clothing/under/plasmaman/attackby(obj/item/E, mob/user, params)
-	if (istype(E, /obj/item/extinguisher_refill))
-		if (extinguishes_left == 5)
-			to_chat(user, "<span class='notice'>The inbuilt extinguisher is full.</span>")
-			return
-		else
-			extinguishes_left = 5
-			to_chat(user, "<span class='notice'>You refill the suit's built-in extinguisher, using up the cartridge.</span>")
-			qdel(E)
-	else
-		return ..()
+
+/obj/item/clothing/under/plasmaman/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/extinguisher_refill))
+		add_fingerprint(user)
+		if(extinguishes_left >= 5)
+			to_chat(user, span_warning("The inbuilt extinguisher is full."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		extinguishes_left = 5
+		to_chat(user, span_notice("You refill the suit's built-in extinguisher, using up the cartridge"))
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/extinguisher_refill
 	name = "envirosuit extinguisher cartridge"

@@ -509,11 +509,15 @@
 		// dunno how you got here but okay
 		return SURGERY_BEGINSTEP_SKIP
 
+	if(istype(organ, /obj/item/organ/internal/wryn/hivenode) && !iswryn(target)) // If they make more "unique" organs, I'll make some vars and a separate proc, but now..
+		to_chat(user, span_warning("Данное существо не способно принять этот орган!"))
+		return SURGERY_BEGINSTEP_SKIP
+
 	if(target_zone != organ.parent_organ_zone || target.get_organ_slot(organ.slot))
 		to_chat(user, span_notice("There is no room for [organ] in [target]'s [parse_zone(target_zone)]!"))
 		return SURGERY_BEGINSTEP_SKIP
 
-	if((RUNIC_MIND in target.dna.species.species_traits) && istype(organ, /obj/item/organ/internal/brain) && !istype(organ, /obj/item/organ/internal/brain/golem))
+	if(isskeleton(target) && istype(organ, /obj/item/organ/internal/brain) && !istype(organ, /obj/item/organ/internal/brain/golem))
 		to_chat(user, span_notice("There is no room for [organ] in [target]'s [parse_zone(target_zone)]!"))
 		return SURGERY_BEGINSTEP_SKIP
 
@@ -525,11 +529,11 @@
 		to_chat(user, span_warning("[target] already has [organ]."))
 		return SURGERY_BEGINSTEP_SKIP
 
-	if((istype(organ, /obj/item/organ/internal/cyberimp)) && (NO_CYBERIMPS in target.dna.species.species_traits))
+	if((istype(organ, /obj/item/organ/internal/cyberimp)) && HAS_TRAIT(target, TRAIT_NO_CYBERIMPLANTS))
 		to_chat(user, span_notice("Cyberimplants won't take root in the [target]."))
 		return SURGERY_BEGINSTEP_SKIP
 
-	if((organ.status == ORGAN_ROBOT) && (NO_ROBOPARTS in target.dna.species.species_traits))
+	if((organ.status == ORGAN_ROBOT) && HAS_TRAIT(target, TRAIT_NO_ROBOPARTS))
 		to_chat(user, span_notice("You can't install cybernetic organs into the [target]."))
 		return SURGERY_BEGINSTEP_SKIP
 

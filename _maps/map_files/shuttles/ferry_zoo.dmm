@@ -15,10 +15,9 @@
 /mob/living/simple_animal/pet/dog/corgi/narsie{
 	faction = list("neutral")
 	},
-/obj/structure/window/reinforced/survival_pod{
+/obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 8;
 	pixel_x = -4;
-	can_be_hit = 0;
 	damage_deflection = 100
 	},
 /turf/simulated/floor{
@@ -32,10 +31,9 @@
 	req_access = list(104,106,63,19)
 	},
 /mob/living/simple_animal/hulk/zilla,
-/obj/structure/window/reinforced/survival_pod{
+/obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 8;
 	pixel_x = -4;
-	can_be_hit = 0;
 	damage_deflection = 100
 	},
 /turf/simulated/floor{
@@ -86,10 +84,9 @@
 /mob/living/simple_animal/hostile/creature{
 	faction = list("neutral")
 	},
-/obj/structure/window/reinforced/survival_pod{
+/obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 8;
 	pixel_x = -4;
-	can_be_hit = 0;
 	damage_deflection = 100
 	},
 /turf/simulated/floor{
@@ -106,10 +103,9 @@
 /mob/living/simple_animal/hostile/netherworld/migo{
 	faction = list("neutral")
 	},
-/obj/structure/window/reinforced/survival_pod{
+/obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 8;
 	pixel_x = -4;
-	can_be_hit = 0;
 	damage_deflection = 100
 	},
 /turf/simulated/floor{
@@ -177,10 +173,9 @@
 /mob/living/simple_animal/hostile/hellhound{
 	faction = list("neutral")
 	},
-/obj/structure/window/reinforced/survival_pod{
+/obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 8;
 	pixel_x = -4;
-	can_be_hit = 0;
 	damage_deflection = 100
 	},
 /turf/simulated/floor{
@@ -208,10 +203,9 @@
 	dir = 1;
 	tag = "icon-tube1 (NORTH)"
 	},
-/obj/structure/window/reinforced/survival_pod{
+/obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 8;
 	pixel_x = -4;
-	can_be_hit = 0;
 	damage_deflection = 100
 	},
 /turf/simulated/floor/noslip{
@@ -251,10 +245,9 @@
 /obj/item/reagent_containers/food/snacks/grown/banana,
 /obj/item/reagent_containers/food/snacks/grown/banana,
 /obj/machinery/light/spot,
-/obj/structure/window/reinforced/survival_pod{
+/obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 8;
 	pixel_x = -4;
-	can_be_hit = 0;
 	damage_deflection = 100
 	},
 /turf/simulated/floor/noslip{
@@ -268,10 +261,9 @@
 	layer = 3;
 	req_access = list(104,106,63,19)
 	},
-/obj/structure/window/reinforced/survival_pod{
+/obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 8;
 	pixel_x = -4;
-	can_be_hit = 0;
 	damage_deflection = 100
 	},
 /turf/simulated/floor{
@@ -284,10 +276,9 @@
 	layer = 3;
 	req_access = list(104,106,63,19)
 	},
-/obj/structure/window/reinforced/survival_pod{
+/obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 8;
 	pixel_x = -4;
-	can_be_hit = 0;
 	damage_deflection = 100
 	},
 /turf/simulated/floor{
@@ -304,10 +295,9 @@
 /mob/living/simple_animal/pet/penguin/emperor{
 	faction = list("neutral")
 	},
-/obj/structure/window/reinforced/survival_pod{
+/obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 8;
 	pixel_x = -4;
-	can_be_hit = 0;
 	damage_deflection = 100
 	},
 /turf/simulated/floor{

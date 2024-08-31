@@ -306,6 +306,9 @@
 	board_name = "RD Console - Public"
 	build_path = /obj/machinery/computer/rdconsole/public
 
+/obj/item/circuitboard/roboquest
+	board_name = "Robotics Request Console"
+	build_path = /obj/machinery/computer/roboquest
 
 /obj/item/circuitboard/mecha_control
 	board_name = "Exosuit Control Console"
@@ -488,36 +491,45 @@
 	contraband_enabled = !contraband_enabled
 	playsound(src, 'sound/effects/pop.ogg', 50)
 
-/obj/item/circuitboard/rdconsole/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card/id) || is_pda(I))
-		if(allowed(user))
-			user.visible_message(span_notice("\the [user] waves [user.p_their()] ID past the [src]'s access protocol scanner."), span_notice("You swipe your ID past the [src]'s access protocol scanner."))
-			var/console_choice = tgui_input_list(user, "What do you want to configure the access to?", "Access Modification", access_types)
-			if(!console_choice)
-				return
-			switch(console_choice)
-				if("R&D Core")
-					board_name = "RD Console"
-					build_path = /obj/machinery/computer/rdconsole/core
-				if("Robotics")
-					board_name = "RD Console - Robotics"
-					build_path = /obj/machinery/computer/rdconsole/robotics
-				if("E.X.P.E.R.I-MENTOR")
-					board_name = "RD Console - E.X.P.E.R.I-MENTOR"
-					build_path = /obj/machinery/computer/rdconsole/experiment
-				if("Mechanics")
-					board_name = "RD Console - Mechanics"
-					build_path = /obj/machinery/computer/rdconsole/mechanics
-				if("Public")
-					board_name = "RD Console - Public"
-					build_path = /obj/machinery/computer/rdconsole/public
 
-			format_board_name()
-			to_chat(user, span_notice("Access protocols set to [console_choice]."))
-		else
+/obj/item/circuitboard/rdconsole/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(I.GetID() || is_pda(I))
+		add_fingerprint(user)
+		if(!allowed(user))
 			to_chat(user, span_warning("Access Denied"))
-		return
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] waves [user.p_their()] ID past [src]'s access protocol scanner."),
+			span_notice("You swipe your ID past [src]'s access protocol scanner."),
+		)
+		var/console_choice = tgui_input_list(user, "What do you want to configure the access to?", "Access Modification", access_types)
+		if(!console_choice || !Adjacent(user) || QDELETED(I) || I.loc != user)
+			return ATTACK_CHAIN_BLOCKED_ALL
+		switch(console_choice)
+			if("R&D Core")
+				board_name = "RD Console"
+				build_path = /obj/machinery/computer/rdconsole/core
+			if("Robotics")
+				board_name = "RD Console - Robotics"
+				build_path = /obj/machinery/computer/rdconsole/robotics
+			if("E.X.P.E.R.I-MENTOR")
+				board_name = "RD Console - E.X.P.E.R.I-MENTOR"
+				build_path = /obj/machinery/computer/rdconsole/experiment
+			if("Mechanics")
+				board_name = "RD Console - Mechanics"
+				build_path = /obj/machinery/computer/rdconsole/mechanics
+			if("Public")
+				board_name = "RD Console - Public"
+				build_path = /obj/machinery/computer/rdconsole/public
+		format_board_name()
+		to_chat(user, span_notice("Access protocols set to '[console_choice]'."))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
+
 
 // Construction | Deconstruction
 #define STATE_EMPTY 	 1 // Add a circuitboard		   | Weld to destroy
@@ -587,73 +599,73 @@
 	if(state == STATE_GLASS)
 		new /obj/item/stack/sheet/glass(location, 2)
 
+
 /obj/structure/computerframe/update_icon_state()
 	icon_state = "comp_frame_[state]"
 
+
 /obj/structure/computerframe/welder_act(mob/user, obj/item/I)
 	if(state != STATE_EMPTY)
-		return
+		return FALSE
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
-		return
+		return .
 	WELDER_ATTEMPT_SLICING_MESSAGE
-	if(I.use_tool(src, user, 50, volume = I.tool_volume))
-		WELDER_SLICING_SUCCESS_MESSAGE
-		deconstruct(TRUE)
+	if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
+		return .
+	WELDER_SLICING_SUCCESS_MESSAGE
+	deconstruct(TRUE)
 
 
 /obj/structure/computerframe/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
-		return
+		return .
+	set_anchored(!anchored)
+	to_chat(user, span_notice("You [anchored ? "fasten the frame into place" : "unfasten the frame"]."))
 
-	if(anchored)
-		to_chat(user, span_notice("You unfasten the frame."))
-		set_anchored(FALSE)
-	else
-		to_chat(user, span_notice("You wrench the frame into place."))
-		set_anchored(TRUE)
 
 /obj/structure/computerframe/crowbar_act(mob/living/user, obj/item/I)
+	if(state != STATE_CIRCUIT && state != STATE_GLASS)
+		return FALSE
 	. = TRUE
-	if(!I.use_tool(src, user))
-		return
 
-	if(state == STATE_CIRCUIT)
-		to_chat(user, span_notice("You remove the circuit board."))
-		state = STATE_EMPTY
-		name = initial(name)
-		circuit.forceMove(drop_location())
-		circuit = null
-	else if(state == STATE_GLASS)
-		to_chat(user, span_notice("You remove the glass panel."))
-		state = STATE_WIRES
-		new /obj/item/stack/sheet/glass(drop_location(), 2)
-	else
-		return
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
 
-	I.play_tool_sound(src)
-	update_icon(UPDATE_ICON_STATE)
+	switch(state)
+		if(STATE_CIRCUIT)
+			to_chat(user, span_notice("You remove the circuit board."))
+			state = STATE_EMPTY
+			name = initial(name)
+			circuit.forceMove_turf()
+			circuit = null
+			update_icon(UPDATE_ICON_STATE)
+		if(STATE_GLASS)
+			to_chat(user, span_notice("You remove the glass panel."))
+			state = STATE_WIRES
+			new /obj/item/stack/sheet/glass(drop_location(), 2)
+			update_icon(UPDATE_ICON_STATE)
+
 
 /obj/structure/computerframe/screwdriver_act(mob/living/user, obj/item/I)
+	if(state != STATE_CIRCUIT && state != STATE_NOWIRES && state != STATE_GLASS)
+		return FALSE
 	. = TRUE
-	if(!I.use_tool(src, user))
-		return
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
 
 	switch(state)
 		if(STATE_CIRCUIT)
 			to_chat(user, span_notice("You screw the circuit board into place."))
 			state = STATE_NOWIRES
-			I.play_tool_sound(src)
 			update_icon(UPDATE_ICON_STATE)
 		if(STATE_NOWIRES)
 			to_chat(user, span_notice("You unfasten the circuit board."))
 			state = STATE_CIRCUIT
-			I.play_tool_sound(src)
 			update_icon(UPDATE_ICON_STATE)
 		if(STATE_GLASS)
 			to_chat(user, span_notice("You connect the monitor."))
-			I.play_tool_sound(src)
 			var/B = new circuit.build_path(loc)
 			if(istype(circuit, /obj/item/circuitboard/supplycomp))
 				var/obj/machinery/computer/supplycomp/SC = B
@@ -663,84 +675,83 @@
 
 
 /obj/structure/computerframe/wirecutter_act(mob/living/user, obj/item/I)
+	if(state != STATE_WIRES)
+		return FALSE
 	. = TRUE
-	if(!I.use_tool(src, user))
-		return
-
-	if(state == STATE_WIRES)
-		to_chat(user, span_notice("You remove the cables."))
-		new /obj/item/stack/cable_coil(drop_location(), 5)
-		state = STATE_NOWIRES
-		I.play_tool_sound(src)
-		update_icon(UPDATE_ICON_STATE)
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	to_chat(user, span_notice("You remove the cables."))
+	new /obj/item/stack/cable_coil(drop_location(), 5)
+	state = STATE_NOWIRES
+	update_icon(UPDATE_ICON_STATE)
 
 
 /obj/structure/computerframe/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	switch(state)
 		if(STATE_EMPTY)
 			if(!istype(I, /obj/item/circuitboard))
 				return ..()
-
+			add_fingerprint(user)
 			if(istype(I, /obj/item/circuitboard/HONKputer) && !istype(src, /obj/structure/computerframe/HONKputer))
-				return ..()
-
-			var/obj/item/circuitboard/B = I
-			if(B.board_type != "computer")
 				to_chat(user, span_warning("[src] does not accept circuit boards of this type!"))
-				return
-
-			B.play_tool_sound(src)
-			to_chat(user, span_notice("You place [B] inside [src]."))
-			name += " ([B.board_name])"
+				return ATTACK_CHAIN_PROCEED
+			var/obj/item/circuitboard/new_circuit = I
+			if(new_circuit.board_type != "computer")
+				to_chat(user, span_warning("[src] does not accept circuit boards of this type!"))
+				return ATTACK_CHAIN_PROCEED
+			if(!user.drop_transfer_item_to_loc(new_circuit, src))
+				return ..()
+			new_circuit.play_tool_sound(src)
+			to_chat(user, span_notice("You place [new_circuit] inside [src]."))
+			name += " ([new_circuit.board_name])"
 			state = STATE_CIRCUIT
-			user.drop_transfer_item_to_loc(B, src)
-			circuit = B
+			circuit = new_circuit
 			update_icon(UPDATE_ICON_STATE)
-			return
+			return ATTACK_CHAIN_BLOCKED_ALL
 
 		if(STATE_NOWIRES)
-			if(!istype(I, /obj/item/stack/cable_coil))
+			if(!iscoil(I))
 				return ..()
-
-			var/obj/item/stack/cable_coil/C = I
-			if(C.get_amount() < 5)
+			add_fingerprint(user)
+			var/obj/item/stack/cable_coil/coil = I
+			if(coil.get_amount() < 5)
 				to_chat(user, span_warning("You need five lengths of cable to wire the frame."))
-				return
-
-			C.play_tool_sound(src)
-			to_chat(user, span_notice("You start to add cables to the frame."))
-			if(!do_after(user, 2 SECONDS * C.toolspeed, src, category = DA_CAT_TOOL))
-				return
-			if(C.get_amount() < 5 || !C.use(5))
+				return ATTACK_CHAIN_PROCEED
+			coil.play_tool_sound(src)
+			to_chat(user, span_notice("You start to add cables to the frame..."))
+			if(!do_after(user, 2 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || state != STATE_NOWIRES || QDELETED(coil))
+				return ATTACK_CHAIN_PROCEED
+			if(!coil.use(5))
 				to_chat(user, span_warning("At some point during construction you lost some cable. Make sure you have five lengths before trying again."))
-				return
-
-			to_chat(user, span_notice("You add cables to the frame."))
+				return ATTACK_CHAIN_PROCEED
 			state = STATE_WIRES
 			update_icon(UPDATE_ICON_STATE)
-			return
+			to_chat(user, span_notice("You add cables to the frame."))
+			return ATTACK_CHAIN_PROCEED_SUCCESS
 
 		if(STATE_WIRES)
 			if(!istype(I, /obj/item/stack/sheet/glass))
 				return ..()
-
-			var/obj/item/stack/sheet/glass/G = I
-			if(G.get_amount() < 2)
+			add_fingerprint(user)
+			var/obj/item/stack/sheet/glass/glass = I
+			if(glass.get_amount() < 2)
 				to_chat(user, span_warning("You need two sheets of glass for this."))
-				return
-
-			G.play_tool_sound(src)
-			to_chat(user, span_notice("You start to add the glass panel to the frame."))
-			if(!do_after(user, 2 SECONDS * G.toolspeed, src, category = DA_CAT_TOOL))
-				return
-			if(G.get_amount() < 2 || !G.use(2))
+				return ATTACK_CHAIN_PROCEED
+			glass.play_tool_sound(src)
+			to_chat(user, span_notice("You start to add the glass panel to the frame..."))
+			if(!do_after(user, 2 SECONDS * glass.toolspeed, src, category = DA_CAT_TOOL) || state != STATE_WIRES || QDELETED(glass))
+				return ATTACK_CHAIN_PROCEED
+			if(!glass.use(2))
 				to_chat(user, span_warning("At some point during construction you lost some glass. Make sure you have two sheets before trying again."))
-				return
-
+				return ATTACK_CHAIN_PROCEED
 			to_chat(user, span_notice("You put in the glass panel."))
 			state = STATE_GLASS
 			update_icon(UPDATE_ICON_STATE)
-			return
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
 
 
@@ -748,12 +759,6 @@
 	name = "Bananium Computer-frame"
 	icon = 'icons/obj/machines/HONKputer.dmi'
 
-/obj/structure/computerframe/HONKputer/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/circuitboard))
-		if(istype(I, /obj/item/circuitboard/HONKputer))
-			return ..()
-	else
-		return ..()
 
 /obj/structure/computerframe/abductor
 	icon_state = "comp_frame_alien1"
