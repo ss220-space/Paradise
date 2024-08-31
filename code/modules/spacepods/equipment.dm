@@ -303,7 +303,7 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 	desc = "You shouldn't be seeing this"
 	icon = 'icons/spacepods_paradise/locator.dmi'
 	icon_state = "blank"
-	
+
 	var/can_ignore_z = FALSE
 	var/can_found_all = FALSE
 
@@ -325,13 +325,13 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 	else if(square <= 900)
 		return "Средний"
 	else if(square <= 3000)
-		return "Большой"   
+		return "Большой"
 	return "Огромный"
 
 /obj/item/spacepod_equipment/locators/basic_pod_locator
 	name = "Модуль поиска астероидов"
 	desc = "Сканирующее устройство позволяющее определять координаты астероидов в секторе."
-	icon_state = "pod_locator_sector"
+	icon_state = "pod_locator"
 	origin_tech = "engineering=5;magnets=4"
 	can_found_all = FALSE
 	can_ignore_z = FALSE
@@ -339,7 +339,7 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 /obj/item/spacepod_equipment/locators/advanced_pod_locator
 	name = "Улучшеный модуль поиска астероидов"
 	desc = "Улучшеный модуль поиска способный обнаружить любой объект в секторе"
-	icon_state = "pod_locator_sector"
+	icon_state = "pod_locator"
 	can_found_all = TRUE
 	can_ignore_z = FALSE
 
