@@ -79,17 +79,25 @@
 		return
 	toggle_light(!on)
 
-/turf/simulated/floor/light/attackby(obj/item/C, mob/user, params)
-	if(istype(C, /obj/item/light/bulb)) //only for light tiles
-		if(!state)
-			qdel(C)
-			state = LIGHTFLOOR_ON
-			update_icon()
-			to_chat(user, span_notice("You replace the light bulb."))
-		else
+
+/turf/simulated/floor/light/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
+
+	if(istype(I, /obj/item/light/bulb)) //only for light tiles
+		if(state)
 			to_chat(user, span_notice("The light bulb seems fine, no need to replace it."))
-	else
-		return ..()
+			return .
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return .
+		qdel(I)
+		state = LIGHTFLOOR_ON
+		update_icon()
+		to_chat(user, span_notice("You replace the light bulb."))
+		return .|ATTACK_CHAIN_BLOCKED_ALL
+
 
 /turf/simulated/floor/light/multitool_act(mob/user, obj/item/I)
 	. = TRUE

@@ -73,7 +73,7 @@
 		return
 
 	// injection_limb.open = ORGAN_ORGANIC_ENCASED_OPEN after scalpel->hemostat->retractor
-	if((PIERCEIMMUNE in injection_target.dna.species.species_traits) && injection_limb.open < ORGAN_ORGANIC_ENCASED_OPEN)
+	if(injection_limb.open < ORGAN_ORGANIC_ENCASED_OPEN && HAS_TRAIT(injection_target, TRAIT_PIERCEIMMUNE))
 		end_processing()
 		return
 
@@ -90,41 +90,75 @@
 				injection_target.reagents.trans_to(src, amount_per_transfer_from_this/10)
 			update_icon(UPDATE_OVERLAYS)
 
-/obj/item/reagent_containers/iv_bag/attack(mob/living/target, mob/living/user, def_zone)
-	if(!target.reagents || !isliving(target))
-		return
 
-	var/mob/living/L = target
-	if(injection_target) // Removing the needle
-		if(L != injection_target)
-			to_chat(user, "<span class='notice'>[src] is already inserted into [injection_target]'s arm!")
-			return
-		if(L != user)
-			L.visible_message("<span class='danger'>[user] is trying to remove [src]'s needle from [L]'s arm!</span>", \
-							"<span class='userdanger'>[user] is trying to remove [src]'s needle from [L]'s arm!</span>")
-			if(!do_after(user, 3 SECONDS, L, NONE))
-				return
-		L.visible_message("<span class='danger'>[user] removes [src]'s needle from [L]'s arm!</span>", \
-							"<span class='userdanger'>[user] removes [src]'s needle from [L]'s arm!</span>")
+/obj/item/reagent_containers/iv_bag/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
+
+	if(!iscarbon(target) || !target.reagents)
+		return .
+
+	// Removing the needle
+	if(injection_target)
+		if(target != injection_target)
+			to_chat(user, span_warning("[src] is already inserted into [injection_target]'s arm!"))
+			return .
+		if(target != user)
+			target.visible_message(
+				span_danger("[user] is trying to remove [src]'s needle from [target]'s arm!"),
+				span_userdanger("[user] is trying to remove [src]'s needle from [target]'s arm!"),
+				ignored_mobs = user,
+			)
+			to_chat(user, span_notice("You are removing [src]'s needle from [target]'s arm..."))
+			if(!do_after(user, 3 SECONDS, target, NONE) || !injection_target)
+				return .
+			target.visible_message(
+				span_danger("[user] has removed [src]'s needle from [target]'s arm!"),
+				span_userdanger("[user] has removed [src]'s needle from your arm!"),
+				ignored_mobs = user,
+			)
+			to_chat(user, span_notice("You have removed [src]'s needle from [target]'s arm."))
+		else
+			user.visible_message(
+				span_warning("[user] has removed [src]'s needle from [p_their()] arm!"),
+				span_notice("You have removed [src]'s needle from your arm."),
+			)
 		end_processing()
-	else // Inserting the needle
-		if(!L.can_inject(user, TRUE, def_zone))
-			return
-		if(amount_per_transfer_from_this > 10) // We only want to be able to transfer 1, 5, or 10 units to people. Higher numbers are for transfering to other containers
-			to_chat(user, "<span class='warning'>The IV bag can only be used on someone with a transfer amount of 1, 5 or 10.</span>")
-			return
-		if(L != user)
-			L.visible_message("<span class='danger'>[user] is trying to insert [src]'s needle into [L]'s arm!</span>", \
-								"<span class='userdanger'>[user] is trying to insert [src]'s needle into [L]'s arm!</span>")
-			if(!do_after(user, 3 SECONDS, L, NONE))
-				return
-		L.visible_message("<span class='danger'>[user] inserts [src]'s needle into [L]'s arm!</span>", \
-								"<span class='userdanger'>[user] inserts [src]'s needle into [L]'s arm!</span>")
-		add_attack_logs(user, target, "Inserted [name](mode: [mode == IV_INJECT ? "Injecting" : "Drawing"]) containing ([reagents.log_list()]), transfering [amount_per_transfer_from_this] units", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
+		return .|ATTACK_CHAIN_SUCCESS
 
-		begin_processing(L, def_zone)
+	// Inserting the needle
+	if(!target.can_inject(user, TRUE, def_zone))
+		return .
 
-/obj/item/reagent_containers/iv_bag/afterattack(atom/target, mob/user, proximity)
+	if(amount_per_transfer_from_this > 10) // We only want to be able to transfer 1, 5, or 10 units to people. Higher numbers are for transfering to other containers
+		to_chat(user, span_warning("The IV bag can only be used on someone with a transfer amount of 1, 5 or 10."))
+		return .
+
+	if(target != user)
+		target.visible_message(
+			span_danger("[user] is trying to insert [src]'s needle into [target]'s arm!"),
+			span_userdanger("[user] is trying to insert [src]'s needle into [target]'s arm!"),
+			ignored_mobs = user,
+		)
+		to_chat(user, span_notice("You are inserting [src]'s needle into [target]'s arm..."))
+		if(!do_after(user, 3 SECONDS, target, NONE) || injection_target)
+			return .
+		target.visible_message(
+			span_danger("[user] has inserted [src]'s needle into [target]'s arm!"),
+			span_userdanger("[user] has inserted [src]'s needle into your arm!"),
+			ignored_mobs = user,
+		)
+		to_chat(user, span_notice("You have inserted [src]'s needle into [target]'s arm."))
+	else
+		user.visible_message(
+			span_warning("[user] has inserted [src]'s needle into [p_their()] arm!"),
+			span_notice("You have inserted [src]'s needle into your arm."),
+		)
+	add_attack_logs(user, target, "Inserted [name](mode: [mode == IV_INJECT ? "Injecting" : "Drawing"]) containing ([reagents.log_list()]), transfering [amount_per_transfer_from_this] units", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
+	begin_processing(target, def_zone)
+	return .|ATTACK_CHAIN_SUCCESS
+
+
+/obj/item/reagent_containers/iv_bag/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(target.is_refillable() && is_drainable()) // Transferring from IV bag to other containers
@@ -163,6 +197,9 @@
 /obj/item/reagent_containers/iv_bag/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I) || istype(I, /obj/item/flashlight/pen))
 		rename_interactive(user, I)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	return ..()
+
 
 // PRE-FILLED IV BAGS BELOW
 

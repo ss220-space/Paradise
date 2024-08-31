@@ -83,21 +83,34 @@
 	var/folded = /obj/item/roller
 
 
-/obj/structure/bed/roller/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/roller_holder))
-		if(has_buckled_mobs())
+/obj/structure/bed/roller/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/roller_holder))
+		var/buckled_mobs = has_buckled_mobs()
+		if(buckled_mobs)
 			add_fingerprint(user)
-			if(buckled_mobs.len > 1)
+			if(buckled_mobs > 1)
 				unbuckle_all_mobs()
-				user.visible_message("<span class='notice'>[user] unbuckles all creatures from [src].</span>")
+				user.visible_message(
+					span_notice("[user] unbuckles all creatures from [src]."),
+					span_notice("You unbuckle all creatures from [src]."),
+				)
 			else
 				user_unbuckle_mob(buckled_mobs[1], user)
-		else
-			user.visible_message("<span class='notice'>[user] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
-			new folded(get_turf(src))
-			qdel(src)
-	else
-		return ..()
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		user.visible_message(
+			span_notice("[user] collapses [src]."),
+			span_notice("You collapse [src]."),
+		)
+		var/obj/item/folded_item = new folded(drop_location())
+		transfer_fingerprints_to(folded_item)
+		folded_item.add_fingerprint(user)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/structure/bed/roller/update_icon_state()
@@ -128,21 +141,44 @@
 	desc = "A collapsed roller bed that can be carried around."
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "folded"
+	/// Whether it can be picked up by roller holder
+	var/collectable = TRUE
 	var/extended = /obj/structure/bed/roller
 	w_class = WEIGHT_CLASS_BULKY // Can't be put in backpacks.
 
+
 /obj/item/roller/attack_self(mob/user)
-	var/obj/structure/bed/roller/R = new extended(user.loc)
+	var/obj/structure/bed/roller/R = new extended(drop_location())
 	R.add_fingerprint(user)
 	qdel(src)
 
-/obj/item/roller/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/roller_holder))
-		var/obj/item/roller_holder/RH = W
-		if(!RH.held)
-			user.visible_message("<span class='notice'>[user] collects \the [name].</span>", "<span class='notice'>You collect \the [name].</span>")
-			forceMove(RH)
-			RH.held = src
+
+/obj/item/roller/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/roller_holder))
+		var/obj/item/roller_holder/roller = I
+		if(roller.held)
+			to_chat(user, span_warning("The [roller.name] already contains [roller.held]."))
+			return ATTACK_CHAIN_PROCEED
+		if(!collectable)
+			to_chat(user, span_warning("You cannot collect this type of roller."))
+			return ATTACK_CHAIN_PROCEED
+		if(loc == user && !user.can_unEquip(src))
+			return ..()
+		user.visible_message(
+			span_notice("[user] collects [src]."),
+			span_notice("You collect [src]."),
+		)
+		if(loc == user)
+			user.transfer_item_to_loc(src, roller)
+		else
+			forceMove(roller)
+		roller.held = src
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/structure/bed/roller/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
@@ -151,7 +187,8 @@
 			span_notice("[usr] collapses [src]."),
 			span_notice("You collapse [src]."),
 		)
-		new folded(get_turf(src))
+		var/obj/item/folded_item = new folded(drop_location())
+		folded_item.add_fingerprint(usr)
 		qdel(src)
 		return FALSE
 	return ..()
@@ -164,30 +201,39 @@
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "magnets=3;biotech=4;powerstorage=3"
 	extended = /obj/structure/bed/roller/holo
+	collectable = FALSE
 
-/obj/item/roller/holo/attackby(obj/item/W, mob/user, params)
-	return
 
 /obj/item/roller_holder
 	name = "roller bed rack"
 	desc = "A rack for carrying a collapsed roller bed."
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "folded"
-	var/obj/item/roller/held
+	var/obj/item/roller/held = /obj/item/roller
 
-/obj/item/roller_holder/New()
-	..()
-	held = new /obj/item/roller(src)
 
-/obj/item/roller_holder/attack_self(mob/user as mob)
+/obj/item/roller_holder/Initialize(mapload)
+	. = ..()
+	if(ispath(held, /obj/item/roller))
+		held = new held(src)
+
+
+/obj/item/roller_holder/Destroy()
+	QDEL_NULL(held)
+	return ..()
+
+
+/obj/item/roller_holder/attack_self(mob/user)
 	if(!held)
-		to_chat(user, "<span class='info'> The rack is empty.</span>")
+		to_chat(user, span_warning("The rack is empty."))
 		return
 
-	to_chat(user, "<span class='notice'>You deploy the roller bed.</span>")
-	var/obj/structure/bed/roller/R = new /obj/structure/bed/roller(user.loc)
-	R.add_fingerprint(user)
+	to_chat(user, span_notice("You deploy the roller bed."))
+	var/obj/structure/bed/roller/roller = new held.extended(drop_location())
+	roller.add_fingerprint(user)
 	QDEL_NULL(held)
+
+
 
 /*
  * Dog beds

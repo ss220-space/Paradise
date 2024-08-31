@@ -15,6 +15,7 @@
 
 /mob/proc/changeNext_move(num)
 	next_move = world.time + ((num+next_move_adjust)*next_move_modifier)
+	//to_chat(world, "[__FILE__][__LINE__] = [num]")
 
 // 1 decisecond click delay (above and beyond mob/next_move)
 //This is mainly modified by click code, to modify click delays elsewhere, use next_move and changeNext_move()
@@ -56,8 +57,7 @@
 	is recieving it.
 	The most common are:
 	* mob/UnarmedAttack(atom,adjacent) - used here only when adjacent, with no item in hand; in the case of humans, checks gloves
-	* atom/attackby(item,user) - used only when adjacent
-	* item/afterattack(atom,user,adjacent,params) - used both ranged and adjacent
+	* obj/item/melee_attack_chain(user, atom, params) - used only when atom is adjacent adn was clicked byt in hand item
 	* mob/RangedAttack(atom,params) - used only ranged, only used for tk and laser eyes but could be changed
 */
 /mob/proc/ClickOn(atom/A, params)
@@ -179,7 +179,7 @@
 		else // non-adjacent click
 			beforeRangedClick(A, params)
 			if(W)
-				W.afterattack(A,src,0,params) // 0: not Adjacent
+				W.afterattack(A, src, FALSE, params)
 			else
 				RangedAttack(A, params)
 

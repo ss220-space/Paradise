@@ -30,6 +30,11 @@
 	damage = 50
 	stamina = 33
 
+/obj/item/projectile/beam/laser/shot
+	name = "laser shot beam"
+	icon_state = "lasershot"
+	damage = 15
+
 /obj/item/projectile/beam/practice
 	name = "practice laser"
 	damage = 0
@@ -176,7 +181,6 @@
 	eyeblur = 4 SECONDS
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	light_color = LIGHT_COLOR_DARKRED
-	forcedodge = 2
 
 /obj/item/projectile/beam/immolator
 	name = "immolation beam"

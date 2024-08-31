@@ -89,8 +89,8 @@
 	taste_description = "mint"
 
 /datum/reagent/minttoxin/on_mob_life(mob/living/M)
-	if(FAT in M.mutations)
-		M.gib()
+	if(HAS_TRAIT(M, TRAIT_FAT) && M.gib())
+		return STATUS_UPDATE_NONE
 	return ..()
 
 /datum/reagent/slimejelly
@@ -131,7 +131,7 @@
 
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(C.get_blood_id() == id)
+		if(C.get_blood_id() == id && !HAS_TRAIT(C, TRAIT_NO_BLOOD_RESTORE))
 			C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
 			C.reagents.del_reagent(id)
 
@@ -1118,20 +1118,19 @@
 		var/obj/structure/spacevine/SV = O
 		SV.on_chem_effect(src)
 
+
 /datum/reagent/glyphosate/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(!C.wear_mask) // If not wearing a mask
 			C.adjustToxLoss(lethality)
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(IS_PLANT in H.dna.species.species_traits) //plantmen take extra damage
-				H.adjustToxLoss(3)
-				..()
+		if(HAS_TRAIT(C, TRAIT_PLANT_ORIGIN))	//plantmen take extra damage
+			C.adjustToxLoss(3)
+			..()
 	else if(istype(M, /mob/living/simple_animal/diona)) //nymphs take EVEN MORE damage
-		var/mob/living/simple_animal/diona/D = M
-		D.adjustHealth(100)
+		M.apply_damage(100)
 		..()
+
 
 /datum/reagent/glyphosate/atrazine
 	name = "Atrazine"

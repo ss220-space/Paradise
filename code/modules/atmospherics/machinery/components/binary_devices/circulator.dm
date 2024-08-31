@@ -14,7 +14,7 @@
 	anchored = TRUE
 	density = TRUE
 
-	can_unwrench = 1
+	can_unwrench = TRUE
 	var/side_inverted = 0
 
 // Creating a custom circulator pipe subtype to be delivered through cargo

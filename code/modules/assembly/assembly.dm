@@ -110,19 +110,30 @@
 /// Called when an assembly is attacked by another
 /obj/item/assembly/proc/attach_assembly(obj/item/assembly/assembly, mob/user)
 	holder = new /obj/item/assembly_holder(drop_location())
-	user?.put_in_hands(holder, ignore_anim = FALSE)
 	if(holder.attach(assembly, src, user))
 		to_chat(user, span_notice("You attach [assembly] to [src]!"))
+		user?.put_in_hands(holder, ignore_anim = FALSE)
 		return TRUE
+	QDEL_NULL(holder)
 	return FALSE
 
 
-/obj/item/assembly/attackby(obj/item/W, mob/user, params)
-	if(isassembly(W))
-		var/obj/item/assembly/A = W
-		if(!A.secured && !secured)
-			attach_assembly(A, user)
-		return
+/obj/item/assembly/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(isassembly(I))
+		add_fingerprint(user)
+		var/obj/item/assembly/assembly = I
+		if(assembly.secured)
+			to_chat(user, span_warning("The [assembly.name] should not be secured."))
+			return ATTACK_CHAIN_PROCEED
+		if(secured)
+			to_chat(user, span_warning("The [name] should not be secured."))
+			return ATTACK_CHAIN_PROCEED
+		attach_assembly(assembly, user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
 
 

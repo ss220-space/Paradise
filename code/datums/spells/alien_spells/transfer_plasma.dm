@@ -62,7 +62,7 @@
 	return ..()
 
 
-/obj/item/melee/touch_attack/alien/transfer_plasma/afterattack(atom/target, mob/living/carbon/user, proximity)
+/obj/item/melee/touch_attack/alien/transfer_plasma/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	if(target == user)
 		return ..()
 

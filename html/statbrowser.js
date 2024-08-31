@@ -42,7 +42,6 @@ var imageFirstRetryDelay = 50;
 var imageRetryDelay = 500;
 var imageRetryLimit = 50;
 var menu = document.getElementById('menu');
-var under_menu = document.getElementById('under_menu');
 var statcontentdiv = document.getElementById('statcontent');
 var split_admin_tabs = false;
 
@@ -65,23 +64,26 @@ function createStatusTab(name) {
 	if (!verb_tabs.includes(name) && !permanent_tabs.includes(name)) {
 		return;
 	}
-	var B = document.createElement('BUTTON');
-	B.onclick = function () {
+	var button = document.createElement('DIV');
+	var button_text = document.createElement('DIV');
+	button.onclick = function () {
 		tab_change(name);
 		this.blur();
+		statcontentdiv.focus();
 	};
-	B.id = name;
-	B.textContent = name;
-	B.className = 'button';
+	button.id = name;
+	button.className = 'button';
+	button_text.textContent = name;
+	button_text.className = 'button-text';
 	//ORDERING ALPHABETICALLY
-	B.style.order = name.charCodeAt(0);
+	button.style.order = name.charCodeAt(0);
 	if (name == 'Status' || name == 'MC') {
-		B.style.order = name == 'Status' ? 1 : 2;
+		button.style.order = name == 'Status' ? 1 : 2;
 	}
 	//END ORDERING
-	menu.appendChild(B);
+	button.appendChild(button_text);
+	menu.appendChild(button);
 	SendTabToByond(name);
-	under_menu.style.height = menu.clientHeight + 'px';
 }
 
 function removeStatusTab(name) {
@@ -95,7 +97,6 @@ function removeStatusTab(name) {
 	}
 	menu.removeChild(document.getElementById(name));
 	TakeTabFromByond(name);
-	under_menu.style.height = menu.clientHeight + 'px';
 }
 
 function sortVerbs() {
@@ -109,10 +110,6 @@ function sortVerbs() {
 		return 0;
 	});
 }
-
-window.onresize = function () {
-	under_menu.style.height = menu.clientHeight + 'px';
-};
 
 function addPermanentTab(name) {
 	if (!permanent_tabs.includes(name)) {
@@ -409,9 +406,6 @@ function draw_sdql2() {
 
 function listedturf_add_row(table, table_index, true_index) {
 	let row = table.insertRow(table_index);
-	row.style.height = turf_row_inner_height + 'px';
-	row.style.padding = '0px';
-	row.style.margin = '0px';
 	turf_rows[true_index] = row;
 	turf_incomplete_rows[true_index] = true_index + 1;
 }
@@ -423,9 +417,6 @@ function listedturf_fill_row(row, item_index) {
 	}
 
 	let cell = document.createElement('td');
-	cell.style.height = turf_row_inner_height + 'px';
-	cell.style.padding = '0px';
-	cell.style.margin = '0px';
 	row.appendChild(cell);
 
 	var button = document.createElement('div');
@@ -437,7 +428,7 @@ function listedturf_fill_row(row, item_index) {
 		// of the last entry.
 		return function (e) {
 			e.preventDefault();
-			clickcatcher = '?src=' + object_info[1];
+			clickcatcher = 'byond://?src=' + object_info[1];
 			switch (e.button) {
 				case 1:
 					clickcatcher += ';statpanel_item_click=middle';
@@ -466,6 +457,8 @@ function listedturf_fill_row(row, item_index) {
 	img.id = object_info[1];
 	img.src = object_info[2];
 	img.style.verticalAlign = 'middle';
+	img.style.width = '2.66em';
+	img.style.height = '2.66em';
 	img.onerror = (function (object_info) {
 		return function () {
 			let delay = imageRetryDelay;
@@ -489,7 +482,7 @@ function listedturf_fill_row(row, item_index) {
 	button.appendChild(img);
 
 	var label = document.createElement('span');
-	label.style.marginLeft = '5px';
+	label.style.marginLeft = '0.5em';
 	label.textContent = object_info[0];
 	button.appendChild(label);
 
@@ -754,19 +747,50 @@ function draw_verbs(cat) {
 function set_theme(which) {
 	if (which == 'light') {
 		document.body.className = '';
+		document.documentElement.className = 'light';
 		set_style_sheet('chat_panel_white');
 	} else if (which == 'dark') {
 		document.body.className = 'dark';
+		document.documentElement.className = 'dark';
 		set_style_sheet('chat_panel');
 	} else if (which == 'ntos') {
 		document.body.className = 'ntos';
+		document.documentElement.className = 'ntos';
 		set_style_sheet('chat_panel_ntos');
 	} else if (which == 'paradise') {
 		document.body.className = 'paradise';
+		document.documentElement.className = 'paradise';
 		set_style_sheet('chat_panel_paradise');
 	} else if (which == 'syndicate') {
 		document.body.className = 'syndicate';
+		document.documentElement.className = 'syndicate';
 		set_style_sheet('chat_panel_syndicate');
+	}
+}
+
+function set_font_size(fontSize) {
+	document.body.style.setProperty('font-size', fontSize);
+}
+
+function set_font_style(fontFamily) {
+	/* Yes, null is a string here. Live with that. */
+	if (fontFamily !== 'null') {
+		document.body.style.setProperty('font-family', fontFamily);
+	} else {
+		document.body.style.removeProperty('font-family');
+	}
+}
+
+function set_tabs_style(style) {
+	if (style == 'default') {
+		menu.classList.add('menu-wrap');
+		menu.classList.remove('tabs-classic');
+	} else if (style == 'classic') {
+		menu.classList.add('menu-wrap');
+		menu.classList.add('tabs-classic');
+	} else if (style == 'scrollable') {
+		menu.classList.remove('menu-wrap');
+		menu.classList.remove('tabs-classic');
 	}
 }
 

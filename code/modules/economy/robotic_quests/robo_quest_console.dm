@@ -71,26 +71,44 @@
 	currentID = null
 	. = ..()
 
-/obj/machinery/computer/roboquest/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/card/id))
-		user.drop_item_ground(O)
+
+/obj/machinery/computer/roboquest/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/card/id))
+		add_fingerprint(user)
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
 		if(currentID)
-			currentID.forceMove(loc)
-			user.put_in_any_hand_if_possible(currentID)
-		currentID = O
-		O.forceMove(src)
+			currentID.forceMove(drop_location())
+			user.put_in_hands(currentID, ignore_anim = FALSE)
+		currentID = I
 		SStgui.try_update_ui(user, src)
-	if(istype(O, /obj/item/multitool))
-		var/obj/item/multitool/M = O
-		if(M.buffer)
-			add_fingerprint(user)
-			if(istype(M.buffer, /obj/machinery/roboquest_pad))
-				pad = M.buffer
-				if(pad.console && pad.console != src)
-					pad.console.pad = null
-				pad.console = src
-				canCheck = TRUE
-				M.buffer = null
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
+
+/obj/machinery/computer/roboquest/multitool_act(mob/living/user, obj/item/I)
+	if(!istype(I, /obj/item/multitool))
+		return FALSE
+	. = TRUE
+	var/obj/item/multitool/multitool = I
+	if(!istype(multitool.buffer, /obj/machinery/roboquest_pad))
+		add_fingerprint(user)
+		to_chat(user, span_warning("The [multitool.name]'s buffer has no valid information."))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	pad = multitool.buffer
+	if(pad.console && pad.console != src)
+		pad.console.pad = null
+	pad.console = src
+	canCheck = TRUE
+	multitool.buffer = null
+	to_chat(user, span_notice("You have uploaded the data from [multitool]'s buffer."))
+
 
 /obj/machinery/computer/roboquest/emag_act(mob/user)
 	if(!emagged)

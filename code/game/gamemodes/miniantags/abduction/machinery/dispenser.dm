@@ -82,16 +82,22 @@
 		return
 	ui_interact(user)
 
-/obj/machinery/abductor/gland_dispenser/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/organ/internal/heart/gland))
-		if(!user.drop_item_ground(W))
-			return
-		W.forceMove(src)
-		for(var/i in 1 to length(gland_colors))
-			if(gland_types[i] == W.type)
-				amounts[i]++
-	else
+
+/obj/machinery/abductor/gland_dispenser/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(istype(I, /obj/item/organ/internal/heart/gland))
+		add_fingerprint(user)
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		for(var/i in 1 to length(gland_colors))
+			if(gland_types[i] == I.type)
+				amounts[i]++
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/machinery/abductor/gland_dispenser/proc/Dispense(count)
 	if(amounts[count]>0)

@@ -525,7 +525,7 @@ SUBSYSTEM_DEF(jobs)
 		job.after_spawn(H)
 
 		//Gives glasses to the vision impaired
-		if(NEARSIGHTED in H.mutations)
+		if(HAS_TRAIT(H, TRAIT_NEARSIGHTED))
 			var/equipped = H.equip_to_slot_or_del(new /obj/item/clothing/glasses/regular(H), ITEM_SLOT_EYES)
 			if(equipped != 1)
 				var/obj/item/clothing/glasses/G = H.glasses

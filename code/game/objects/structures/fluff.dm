@@ -10,17 +10,25 @@
 	opacity = FALSE
 	var/deconstructible = TRUE
 
-/obj/structure/fluff/attackby(obj/item/I, mob/living/user, params)
-	if(I.tool_behaviour == TOOL_WRENCH && deconstructible)
-		user.visible_message("<span class='notice'>[user] starts disassembling [src]...</span>", "<span class='notice'>You start disassembling [src]...</span>")
-		playsound(loc, I.usesound, 50, 1)
-		if(do_after(src, 5 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
-			user.visible_message("<span class='notice'>[user] disassembles [src]!</span>", "<span class='notice'>You break down [src] into scrap metal.</span>")
-			playsound(user, 'sound/items/deconstruct.ogg', 50, 1)
-			new/obj/item/stack/sheet/metal(drop_location())
-			qdel(src)
-		return
-	return ..()
+
+/obj/structure/fluff/wrench_act(mob/living/user, obj/item/I)
+	if(!deconstructible)
+		return FALSE
+	. = TRUE
+	user.visible_message(
+		span_notice("[user] starts disassembling [src]."),
+		span_notice("You start disassembling [src]..."),
+	)
+	if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
+		return .
+	var/obj/item/stack/sheet/metal/metal = new(drop_location())
+	metal.add_fingerprint(user)
+	user.visible_message(
+		span_notice("[user] disassembles [src]."),
+		span_notice("You break down [src] into scrap metal."),
+	)
+	qdel(src)
+
 
 /obj/structure/fluff/empty_terrarium //Empty terrariums are created when a preserved terrarium in a lavaland seed vault is activated.
 	name = "empty terrarium"

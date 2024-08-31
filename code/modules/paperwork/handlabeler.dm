@@ -8,7 +8,7 @@
 	var/labels_left = 30
 	var/mode = FALSE
 
-/obj/item/hand_labeler/afterattack(atom/A, mob/user, proximity)
+/obj/item/hand_labeler/afterattack(atom/A, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(!mode)	//if it's off, give up.
@@ -53,14 +53,19 @@
 	else
 		to_chat(user, "<span class='notice'>You turn off \the [src].</span>")
 
+
 /obj/item/hand_labeler/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/hand_labeler_refill))
-		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
-		user.temporarily_remove_item_from_inventory(I)
-		qdel(I)
+		add_fingerprint(user)
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("You have refilled [src]."))
 		labels_left = initial(labels_left)	//Yes, it's capped at its initial value
-	else
-		return ..()
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/hand_labeler_refill
 	name = "hand labeler paper roll"

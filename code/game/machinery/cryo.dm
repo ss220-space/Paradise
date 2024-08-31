@@ -309,24 +309,30 @@
 
 	add_fingerprint(usr)
 
-/obj/machinery/atmospherics/unary/cryo_cell/attackby(var/obj/item/G, var/mob/user, params)
-	if(istype(G, /obj/item/reagent_containers/glass))
-		var/obj/item/reagent_containers/B = G
+
+/obj/machinery/atmospherics/unary/cryo_cell/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/reagent_containers/glass))
+		add_fingerprint(user)
+		var/obj/item/reagent_containers/glass/glass = I
 		if(beaker)
 			to_chat(user, span_warning("В криокапсулу уже загружена другая ёмкость."))
-			return
-		if(!user.drop_transfer_item_to_loc(B, src))
-			to_chat(user, "Вы не можете бросить [B]!")
-			return
-		add_fingerprint(user)
-		beaker =  B
-		add_attack_logs(user, null, "Added [B] containing [B.reagents.log_list()] to a cryo cell at [COORD(src)]")
-		user.visible_message("[user] загружа[pluralize_ru(user.gender,"ет","ют")] [B] в криокапсулу!", "Вы загружаете [B] в криокапсулу!")
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(glass, src))
+			return ..()
+		beaker = glass
+		add_attack_logs(user, null, "Added [glass] containing [glass.reagents.log_list()] to a cryo cell at [COORD(src)]")
+		user.visible_message(
+			span_notice("[user] загружа[pluralize_ru(user.gender,"ет","ют")] [glass] в криокапсулу!"),
+			span_notice("Вы загружаете [glass] в криокапсулу!"),
+		)
 		SStgui.update_uis(src)
-		return
-
-	if(exchange_parts(user, G))
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
 

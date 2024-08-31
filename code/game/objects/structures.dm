@@ -67,10 +67,12 @@
 		add_fingerprint(user)
 	return ..()
 
-/obj/structure/attackby(obj/item/P, mob/user, params)
-	if(has_prints() && Adjacent(user) && !(istype(P, /obj/item/detective_scanner)))
+
+/obj/structure/attackby(obj/item/I, mob/user, params)
+	if(has_prints() && !(istype(I, /obj/item/detective_scanner)))
 		add_fingerprint(user)
 	return ..()
+
 
 /obj/structure/proc/climb_on()
 

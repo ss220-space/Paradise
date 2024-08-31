@@ -51,29 +51,43 @@ GLOBAL_LIST_INIT(glass_recipes, list(
 	. = ..()
 	recipes = GLOB.glass_recipes
 
-/obj/item/stack/sheet/glass/attackby(obj/item/W, mob/user, params)
-	if(istype(W,/obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/CC = W
-		if(CC.get_amount() < 5)
-			to_chat(user, "<b>There is not enough wire in this coil. You need 5 lengths.</b>")
-			return
-		CC.use(5)
-		to_chat(user, "<span class='notice'>You attach wire to the [name].</span>")
-		new /obj/item/stack/light_w(user.loc)
-		src.use(1)
-	else if(istype(W, /obj/item/stack/rods))
-		var/obj/item/stack/rods/V  = W
-		var/obj/item/stack/sheet/rglass/RG = new (user.loc)
-		RG.add_fingerprint(user)
-		V.use(1)
-		var/obj/item/stack/sheet/glass/G = src
-		src = null
-		var/replace = (user.get_inactive_hand()==G)
-		G.use(1)
-		if(!G && !RG && replace)
-			user.put_in_hands(RG)
-	else
-		return ..()
+
+/obj/item/stack/sheet/glass/attackby(obj/item/I, mob/user, params)
+	if(iscoil(I))
+		add_fingerprint(user)
+		var/obj/item/stack/cable_coil/coil = I
+		if(coil.get_amount() < 5)
+			to_chat(user, span_warning("There is not enough wire in this coil. You need five lengths."))
+			return ATTACK_CHAIN_PROCEED
+		if(get_amount() < 1)
+			to_chat(user, span_warning("There is not enough [name] sheets."))
+			return ATTACK_CHAIN_PROCEED
+		coil.use(5)
+		to_chat(user, span_notice("You attach wire to [src]."))
+		var/obj/item/stack/light_w/light = new(drop_location())
+		light.add_fingerprint(user)
+		use(1)
+		user.put_in_hands(light, ignore_anim = FALSE)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/stack/rods))
+		add_fingerprint(user)
+		var/obj/item/stack/rods/rods = I
+		if(rods.get_amount() < 1)
+			to_chat(user, span_warning("There is not enough rods."))
+			return ATTACK_CHAIN_PROCEED
+		if(get_amount() < 1)
+			to_chat(user, span_warning("There is not enough glass sheets."))
+			return ATTACK_CHAIN_PROCEED
+		rods.use(1)
+		to_chat(user, span_notice("You attach rods to [src]."))
+		var/obj/item/stack/sheet/rglass/rglass = new(drop_location())
+		rglass.add_fingerprint(user)
+		use(1)
+		user.put_in_hands(rglass, ignore_anim = FALSE)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
 
 
 /*
@@ -149,20 +163,27 @@ GLOBAL_LIST_INIT(pglass_recipes, list ( \
 	. = ..()
 	recipes = GLOB.pglass_recipes
 
-/obj/item/stack/sheet/plasmaglass/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stack/rods))
-		var/obj/item/stack/rods/V  = W
-		var/obj/item/stack/sheet/plasmarglass/RG = new (user.loc)
-		RG.add_fingerprint(user)
-		V.use(1)
-		var/obj/item/stack/sheet/glass/G = src
-		src = null
-		var/replace = (user.get_inactive_hand()==G)
-		G.use(1)
-		if(!G && !RG && replace)
-			user.put_in_hands(RG)
-	else
-		return ..()
+
+/obj/item/stack/sheet/plasmaglass/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/rods))
+		add_fingerprint(user)
+		var/obj/item/stack/rods/rods = I
+		if(rods.get_amount() < 1)
+			to_chat(user, span_warning("There is not enough rods."))
+			return ATTACK_CHAIN_PROCEED
+		if(get_amount() < 1)
+			to_chat(user, span_warning("There is not enough [name] sheets."))
+			return ATTACK_CHAIN_PROCEED
+		rods.use(1)
+		to_chat(user, span_notice("You attach rods to [src]."))
+		var/obj/item/stack/sheet/plasmarglass/rglass = new(drop_location())
+		rglass.add_fingerprint(user)
+		use(1)
+		user.put_in_hands(rglass, ignore_anim = FALSE)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /*
  * Reinforced plasma glass sheets

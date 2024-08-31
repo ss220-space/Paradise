@@ -208,6 +208,7 @@
 	w_class = WEIGHT_CLASS_NORMAL //thats the rocket!
 	icon_state = "84mm-he"
 	projectile_type = /obj/item/projectile/bullet/a84mm_he
+	casing_drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'	// better than default casing but not ideal
 
 /obj/item/ammo_casing/caseless/rocket/hedp
 	name = "\improper PM-9HEDP"
@@ -265,13 +266,13 @@
 	projectile_type = /obj/item/projectile/bullet/dart
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+	can_be_box_inserted = FALSE
 
-/obj/item/ammo_casing/shotgun/dart/New()
-	..()
+
+/obj/item/ammo_casing/shotgun/dart/Initialize(mapload)
+	. = ..()
 	create_reagents(30)
 
-/obj/item/ammo_casing/shotgun/dart/attackby()
-	return
 
 /obj/item/ammo_casing/shotgun/beanbag
 	name = "beanbag slug"
@@ -361,6 +362,17 @@
 	desc = "An advanced shotgun shell that uses a micro laser to replicate the effects of a laser weapon in a ballistic package."
 	icon_state = "laserslugshell"
 	projectile_type = /obj/item/projectile/beam/laser/slug
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+	muzzle_flash_color = LIGHT_COLOR_DARKRED
+
+/obj/item/ammo_casing/shotgun/lasershot
+	name = "laser shot"
+	desc = "An advanced shotgun shell that uses a micro lasers to replicate the effects of a buckshot in laser appearance."
+	icon_state = "lasershotshell"
+	projectile_type = /obj/item/projectile/beam/laser/shot
+	pellets = 6
+	variance = 17
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = LIGHT_COLOR_DARKRED
@@ -505,23 +517,49 @@
 	desc = modified ? "Its nerf or nothing! ... Although, this one doesn't look too safe." : initial(desc)
 
 
-/obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/A, mob/user, params)
-	..()
-	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB
-	if(A.tool_behaviour == TOOL_SCREWDRIVER && !modified)
-		modified = TRUE
-		FD.damage_type = BRUTE
-		update_icon()
-	else if((is_pen(A)) && modified && !FD.pen)
-		if(!user.drop_transfer_item_to_loc(A, FD))
-			return
+/obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/I, mob/user, params)
+	if(is_pen(I))
+		add_fingerprint(user)
+		var/obj/item/projectile/bullet/reusable/foam_dart/bullet = BB
+		if(!bullet)
+			to_chat(user, span_warning("The [name] has no bullet."))
+			return ATTACK_CHAIN_PROCEED
+		if(!modified)
+			to_chat(user, span_warning("The [name] should be modified first."))
+			return ATTACK_CHAIN_PROCEED
+		if(bullet.pen)
+			to_chat(user, span_warning("The [name] already has a pen inserted."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
 		harmful = TRUE
-		FD.log_override = FALSE
-		FD.pen = A
-		FD.damage = 5
-		FD.nodamage = FALSE
-		to_chat(user, span_notice("You insert [A] into [src]."))
-	return
+		I.forceMove(bullet)
+		bullet.log_override = FALSE
+		bullet.pen = I
+		bullet.damage = 5
+		bullet.nodamage = FALSE
+		to_chat(user, span_notice("You have inserted [I] into [src]."))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
+
+/obj/item/ammo_casing/caseless/foam_dart/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!BB)
+		add_fingerprint(user)
+		to_chat(user, span_warning("The [name] has no bullet."))
+		return .
+	if(modified)
+		add_fingerprint(user)
+		to_chat(user, span_warning("The [name] is already modified."))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	modified = TRUE
+	BB.damage_type = BRUTE
+	update_icon()
+
 
 /obj/item/ammo_casing/caseless/foam_dart/attack_self(mob/living/user)
 	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB

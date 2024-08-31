@@ -34,7 +34,12 @@
 	name = "Shelf for ashes"
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = "case-0"
-	allowed_books = list(/obj/item/storage/funeral_urn)
+
+
+/obj/structure/bookcase/ashframe/generate_allowed_books()
+	allowed_books = typecacheof(list(
+		/obj/item/storage/funeral_urn,
+	))
 
 
 /obj/structure/bookcase/ashframe/update_icon_state()
@@ -43,11 +48,14 @@
 
 /obj/structure/bookcase/ashframe/random
 
+
 /obj/structure/bookcase/ashframe/random/Initialize(mapload)
 	var/number = rand(1,4)
-	for(var/i = 0, i < number, i++)
+	for(var/i = 1 to number)
 		new /obj/item/storage/funeral_urn/random(src)
-	. = ..()
+	update_icon(UPDATE_ICON_STATE)
+	return ..()
+
 
 /obj/item/storage/funeral_urn
 	name = "Funeral urn"
@@ -66,7 +74,6 @@
 	)
 	allow_quick_gather = TRUE
 	use_to_pickup = TRUE
-	can_be_hit = FALSE
 	storage_slots = 3
 	max_combined_w_class = 3
 	display_contents_with_number = FALSE
@@ -75,13 +82,15 @@
 	throw_speed = 3
 	throw_range = 4
 
+
 /obj/item/storage/funeral_urn/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
 		rename_interactive(user, I)
-	else
-		return ..()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	return ..()
 
-/obj/item/storage/funeral_urn/afterattack(atom/A, mob/user as mob, proximity)
+
+/obj/item/storage/funeral_urn/afterattack(atom/A, mob/user, proximity, params)
 	if(istype(A,/obj/effect/decal/cleanable/ash))
 		if(src.contents.len < storage_slots)
 			var/obj/effect/decal/cleanable/ash/ash = A

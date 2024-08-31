@@ -47,26 +47,31 @@
 		bag = null
 		update_icon(UPDATE_OVERLAYS)
 
+
 /obj/machinery/iv_drip/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(istype(I, /obj/item/reagent_containers/iv_bag))
+		add_fingerprint(user)
 		if(bag)
 			to_chat(user, span_warning("[src] already has an IV bag!"))
-			return
+			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
-			return
-
-		add_fingerprint(user)
+			return ..()
 		bag = I
 		to_chat(user, span_notice("You attach [I] to [src]."))
 		update_icon(UPDATE_OVERLAYS)
 		START_PROCESSING(SSmachines, src)
-	else if (bag && istype(I, /obj/item/reagent_containers))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(bag && istype(I, /obj/item/reagent_containers))
 		add_fingerprint(user)
-		bag.attackby(I)
-		I.afterattack(bag, usr, TRUE)
-		update_icon(UPDATE_OVERLAYS)
-	else
-		return ..()
+		I.melee_attack_chain(user, bag, params)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/machinery/iv_drip/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))

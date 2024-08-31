@@ -6,6 +6,17 @@
 	desc = "Somehow, it's in two places at once."
 	max_combined_w_class = 60
 	max_w_class = WEIGHT_CLASS_NORMAL
+	cant_hold = list(/obj/item/storage/backpack/shared)
+
+
+/obj/item/storage/backpack/shared/can_be_inserted(obj/item/shared_storage/I, stop_messages = FALSE)
+	// basically we cannot put one bag in the storage if another one is already there
+	if(istype(I) && I.bag && I.bag == src && I.twin_storage && I.twin_storage.loc == src)
+		if(!stop_messages)
+			to_chat(usr, span_warning("Yo dawg, and how are you going to do it?"))
+		return FALSE
+	return ..()
+
 
 //External
 /obj/item/shared_storage
@@ -15,33 +26,63 @@
 	icon_state = "cultpack"
 	slot_flags = ITEM_SLOT_BACK
 	resistance_flags = INDESTRUCTIBLE
+	/// Our shared inventory space
 	var/obj/item/storage/backpack/shared/bag
+	/// Our evil clone
+	var/obj/item/shared_storage/twin_storage
 
-/obj/item/shared_storage/red
-	name = "paradox bag"
-	desc = "Somehow, it's in two places at once."
 
-/obj/item/shared_storage/red/Initialize(mapload)
+/obj/item/shared_storage/Initialize(mapload, twin_storage_init = FALSE)
 	. = ..()
+	if(twin_storage_init)
+		return .
+	bag = new(src)
+	twin_storage = new(loc, TRUE)
+	twin_storage.bag = bag
+	twin_storage.twin_storage = src	// ~Xzibit
+
+
+/obj/item/shared_storage/Destroy()
+	if(!QDELETED(twin_storage))
+		bag = null
+		twin_storage.twin_storage = null
+	else
+		QDEL_NULL(bag)
+	twin_storage = null
+	return ..()
+
+
+/obj/item/shared_storage/attackby(obj/item/I, mob/user, params)
+	add_fingerprint(user)
 	if(!bag)
-		var/obj/item/storage/backpack/shared/shared_storage = new(src)
-		var/obj/item/shared_storage/blue = new(loc)
-		bag = shared_storage
-		blue.bag = shared_storage
+		return ATTACK_CHAIN_PROCEED
+	if(loc != user)
+		if(user.s_active == bag)
+			user.s_active.close(user)
+		return ATTACK_CHAIN_PROCEED
+	if(bag.loc != user)
+		bag.forceMove(user)
+	bag.attackby(I, user, params)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 
-/obj/item/shared_storage/attackby(obj/item/W, mob/user, params)
-	if(bag)
-		bag.loc = user
-		bag.attackby(W, user, params)
-		add_fingerprint(user)
+/obj/item/shared_storage/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	if(user.s_active == bag)
+		user.s_active.close(user)
 
 
 /obj/item/shared_storage/proc/open_bag(mob/user)
-	if(bag)
-		bag.loc = user
-		bag.attack_hand(user)
-		add_fingerprint(user)
+	add_fingerprint(user)
+	if(!bag)
+		return
+	if(loc != user || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		if(user.s_active == bag)
+			user.s_active.close(user)
+		return
+	if(bag.loc != user)
+		bag.forceMove(user)
+	bag.attack_hand(user)
 
 
 /obj/item/shared_storage/attack_self(mob/living/carbon/user)
@@ -52,7 +93,7 @@
 
 
 /obj/item/shared_storage/AltClick(mob/user)
-	if(!bag || !iscarbon(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+	if(!bag || !iscarbon(user) || loc != user)
 		return ..()
 
 	open_bag(user)
@@ -60,7 +101,7 @@
 
 
 /obj/item/shared_storage/attack_hand(mob/living/carbon/user)
-	if(!iscarbon(user) || !bag || loc != user || !user.back || user.back != src)
+	if(!iscarbon(user) || !bag || loc != user)
 		return ..()
 
 	open_bag(user)
@@ -485,8 +526,8 @@
 	var/can_destroy = FALSE
 
 
-/obj/effect/immortality_talisman/attackby()
-	return
+/obj/effect/immortality_talisman/attackby(obj/item/I, mob/user, params)
+	return ATTACK_CHAIN_PROCEED
 
 
 /obj/effect/immortality_talisman/ex_act()

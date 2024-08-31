@@ -36,6 +36,17 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/pizza_bomb
+	name = "Pizza Bomb"
+	result = /obj/item/pizza_bomb
+	reqs = list(/obj/item/stack/cable_coil = 30,
+				/obj/item/assembly/timer = 1,
+				/obj/item/bombcore/chemical =  1,
+				/obj/item/pizzabox = 1)
+	time = 6
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
 /datum/crafting_recipe/molotov
 	name = "Molotov"
 	result = /obj/item/reagent_containers/food/drinks/bottle/molotov
@@ -300,6 +311,17 @@
 				/obj/item/stock_parts/micro_laser/high = 1)
 	tools = list(TOOL_SCREWDRIVER)
 	time = 5
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+
+/datum/crafting_recipe/lasershot
+	name = "Laser Shot Shell"
+	result = /obj/item/ammo_casing/shotgun/lasershot
+	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
+				/obj/item/stock_parts/capacitor/adv = 1,
+				/obj/item/stock_parts/micro_laser/high = 6)
+	tools = list(TOOL_SCREWDRIVER)
+	time = 1
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 

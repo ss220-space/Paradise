@@ -401,82 +401,97 @@
 	show_controls(user)
 
 
-/mob/living/simple_animal/bot/attackby(obj/item/W, mob/user, params)
-	if(W.GetID() || is_pda(W))
-		if(bot_core.allowed(user) && !open && !emagged)
-			locked = !locked
-			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")
-		else
-			if(emagged)
-				to_chat(user, span_danger("ERROR"))
-			if(open)
-				to_chat(user, span_warning("Please close the access panel before locking it."))
-			else
-				to_chat(user, span_warning("Access denied."))
-
-	else if(istype(W, /obj/item/paicard))
-		var/obj/item/paicard/card = W
-		if(paicard)
-			to_chat(user, span_warning("A [paicard] is already inserted!"))
-
-		else if((allow_pai || card.pai?.syndipai) && !key)
-			if(!locked && !open && !hijacked)
-				if(card.pai && card.pai.mind)
-					if(!card.pai.ckey || jobban_isbanned(card.pai, ROLE_SENTIENT))
-						to_chat(user, span_warning("[W] is unable to establish a connection to [src]."))
-						return
-					if(!user.drop_transfer_item_to_loc(W, src))
-						return
-					paicard = card
-					user.visible_message("[user] inserts [W] into [src]!",
-										span_notice("You insert [W] into [src]."))
-					paicard.pai.mind.transfer_to(src)
-					to_chat(src, span_notice("You sense your form change as you are uploaded into [src]."))
-					bot_name = name
-					name = paicard.pai.name
-					faction = user.faction
-					tts_seed = paicard.pai.tts_seed
-					add_attack_logs(user, paicard.pai, "Uploaded to [src.bot_name]")
-				else
-					to_chat(user, span_warning("[W] is inactive."))
-			else
-				to_chat(user, span_warning("The personality slot is locked."))
-		else
-			to_chat(user, span_warning("[src] is not compatible with [W]."))
-
-	else if(istype(W, /obj/item/hemostat) && paicard)
-		if(open)
-			to_chat(user, span_warning("Close the access panel before manipulating the personality slot!"))
-		else
-			to_chat(user, span_notice("You attempt to pull [paicard] free..."))
-			if(do_after(user, 3 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
-				if(paicard)
-					user.visible_message(span_notice("[user] uses [W] to pull [paicard] out of [bot_name]!"),
-										span_notice("You pull [paicard] out of [bot_name] with [W]."))
-					ejectpai(user)
-	else
+/mob/living/simple_animal/bot/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)	// NOT IN COMBAT
 		return ..()
+
+	if(I.GetID() || is_pda(I))
+		add_fingerprint(user)
+		if(emagged)
+			to_chat(user, span_danger("ERROR##?"))
+			return ATTACK_CHAIN_PROCEED
+		if(open)
+			to_chat(user, span_warning("Please close the access panel before locking it."))
+			return ATTACK_CHAIN_PROCEED
+		if(!bot_core.allowed(user))
+			to_chat(user, span_warning("Access denied."))
+			return ATTACK_CHAIN_PROCEED
+		locked = !locked
+		to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/paicard))
+		add_fingerprint(user)
+		var/obj/item/paicard/card = I
+		if(locked || open || hijacked)
+			to_chat(user, span_warning("The personality slot is locked."))
+			return ATTACK_CHAIN_PROCEED
+		if(paicard)
+			to_chat(user, span_warning("The [paicard.name] is already inserted."))
+			return ATTACK_CHAIN_PROCEED
+		if(!card.pai || !card.pai.mind)
+			to_chat(user, span_warning("The [card.name] is inactive]."))
+			return ATTACK_CHAIN_PROCEED
+		if(key || (!allow_pai && !card.pai.syndipai))
+			to_chat(user, span_warning("The [name] is not compatible with [card]."))
+			return ATTACK_CHAIN_PROCEED
+		if(!card.pai.ckey || jobban_isbanned(card.pai, ROLE_SENTIENT))
+			to_chat(user, span_warning("The [card.name] is unable to establish a connection to [src]."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(card, src))
+			return ..()
+		paicard = card
+		user.visible_message(
+			span_notice("[user] has inserted [card] into [src]."),
+			span_notice("You have inserted [card] into [src]."),
+		)
+		paicard.pai.mind.transfer_to(src)
+		to_chat(src, span_notice("You sense your form change as you are uploaded into [src]."))
+		bot_name = name
+		name = paicard.pai.name
+		faction = user.faction
+		tts_seed = paicard.pai.tts_seed
+		add_attack_logs(user, paicard.pai, "Uploaded to [bot_name]")
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/hemostat))
+		if(open)
+			to_chat(user, span_warning("Please close the access panel before manipulating with the personality slot."))
+			return ATTACK_CHAIN_PROCEED
+		if(!paicard)
+			to_chat(user, span_warning("The [name] has no personality card installed."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You attempt to pull [paicard] free..."))
+		if(!do_after(user, 3 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || open || !paicard)
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] has pulled [paicard] out of [bot_name]!"),
+			span_notice("You have pulled [paicard] out of [bot_name]."),
+		)
+		ejectpai(user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
 
 
 /mob/living/simple_animal/bot/screwdriver_act(mob/living/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
-		return ..()
+		return FALSE
+	. = TRUE
 	if(locked)
 		to_chat(user, span_warning("The maintenance panel is locked."))
-		return TRUE // must be true or we attempt to stab the bot
-
+		return . // must be true or we attempt to stab the bot
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
 	open = !open
-	I.play_tool_sound(src)
 	to_chat(user, span_notice("The maintenance panel is now [open ? "opened" : "closed"]."))
-	return TRUE
 
 
 /mob/living/simple_animal/bot/welder_act(mob/user, obj/item/I)
-	. = FALSE
-	if(user.a_intent != INTENT_HELP)
-		return
+	if(user.a_intent == INTENT_HARM)
+		return FALSE
 	if(user == src) //No self-repair dummy
-		return
+		return FALSE
 	. = TRUE
 	if(health >= maxHealth)
 		to_chat(user, span_warning("[src] does not need a repair!"))
@@ -1021,7 +1036,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 /mob/living/simple_animal/bot/proc/show_controls(mob/user)
 	users |= user
-	var/dat = {"<meta charset="UTF-8">"}
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	dat += get_controls(user)
 	var/datum/browser/popup = new(user, window_id, window_name, 350, 600, src)
 	popup.set_content(dat)
@@ -1144,9 +1159,9 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	var/hack
 	if(issilicon(user) || user.can_admin_interact()) //Allows silicons or admins to toggle the emag status of a bot.
 		hack += "[emagged == 2 ? "Software compromised! Unit may exhibit dangerous or erratic behavior." : "Unit operating normally. Release safety lock?"]<BR>"
-		hack += "Harm Prevention Safety System: <A href='?src=[UID()];operation=hack'>[emagged ? "<span class='bad'>DANGER</span>" : "Engaged"]</A><BR>"
+		hack += "Harm Prevention Safety System: <a href='byond://?src=[UID()];operation=hack'>[emagged ? "<span class='bad'>DANGER</span>" : "Engaged"]</A><BR>"
 	else if(!locked) //Humans with access can use this option to hide a bot from the AI's remote control panel and PDA control.
-		hack += "Remote network control radio: <A href='?src=[UID()];operation=remote'>[remote_disabled ? "Disconnected" : "Connected"]</A><BR>"
+		hack += "Remote network control radio: <a href='byond://?src=[UID()];operation=remote'>[remote_disabled ? "Disconnected" : "Connected"]</A><BR>"
 	return hack
 
 
@@ -1157,9 +1172,9 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 			eject += "Personality card status: "
 			if(paicard)
 				if(client)
-					eject += "<A href='?src=[UID()];operation=ejectpai'>Active</A>"
+					eject += "<a href='byond://?src=[UID()];operation=ejectpai'>Active</A>"
 				else
-					eject += "<A href='?src=[UID()];operation=ejectpai'>Inactive</A>"
+					eject += "<a href='byond://?src=[UID()];operation=ejectpai'>Inactive</A>"
 			else if(!allow_pai || key)
 				eject += "Unavailable"
 			else

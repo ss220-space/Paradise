@@ -45,9 +45,13 @@ Bonus
 				M.EyeBlurry(60 SECONDS)
 				eyes.internal_receive_damage(5)
 				if(eyes.damage >= 10)
-					M.BecomeNearsighted()
-					if(prob(eyes.damage - 10 + 1))
-						if(!(BLINDNESS in M.mutations))
-							M.mutations |= BLINDNESS
+					if(!HAS_TRAIT_FROM(M, TRAIT_NEARSIGHTED, name))
+						ADD_TRAIT(M, TRAIT_NEARSIGHTED, name)
+						if(!HAS_TRAIT_NOT_FROM(M, TRAIT_NEARSIGHTED, name))
+							M.update_nearsighted_effects()
+					if(prob(eyes.damage - 10 + 1) && !HAS_TRAIT_FROM(M, TRAIT_BLIND, name))
+						ADD_TRAIT(M, TRAIT_BLIND, name)
+						if(!HAS_TRAIT_NOT_FROM(M, TRAIT_BLIND, name))
 							M.update_blind_effects()
 							to_chat(M, span_userdanger("You go blind!"))
+

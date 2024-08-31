@@ -8654,10 +8654,9 @@
 /area/centcom/supply)
 "dZu" = (
 /obj/effect/turf_decal/caution/stand_clear/white,
-/obj/machinery/door/poddoor/impassable{
+/obj/machinery/door/poddoor/impassable/unhittable{
 	id_tag = "CC_Players_In";
-	name = "Blast Door";
-	can_be_hit = 0
+	name = "Blast Door"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -40390,10 +40389,9 @@
 /area/centcom/zone2)
 "sFQ" = (
 /obj/effect/turf_decal/caution/stand_clear/white,
-/obj/machinery/door/poddoor/impassable{
+/obj/machinery/door/poddoor/impassable/unhittable{
 	id_tag = "CC_Players_In";
-	name = "Blast Door";
-	can_be_hit = 0
+	name = "Blast Door"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

@@ -108,10 +108,11 @@
 		dna.species.update_sight(src)
 
 
-/mob/living/carbon/human/proc/makeSkeleton()
-	if(SKELETON in mutations)
-		return
+/mob/living/carbon/human/proc/makeSkeleton(update_appearance = TRUE)
+	if(isskeleton(src) || HAS_TRAIT_FROM(src, TRAIT_SKELETON, GENERIC_TRAIT))
+		return FALSE
 
+	. = TRUE
 	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
 	if(head_organ)
 		head_organ.disfigure()
@@ -126,19 +127,32 @@
 			head_organ.handle_alt_icon()
 	m_styles = DEFAULT_MARKING_STYLES
 
-	mutations.Add(SKELETON)
-	mutations.Add(NOCLONE)
-	UpdateAppearance()
+	ADD_TRAIT(src, TRAIT_SKELETON, GENERIC_TRAIT)
+	ADD_TRAIT(src, TRAIT_NO_CLONE, TRAIT_SKELETON)
+	if(update_appearance)
+		UpdateAppearance()
 
 
-/mob/living/carbon/human/proc/ChangeToHusk()
+/mob/living/carbon/human/proc/remove_skeleton(update_appearance = TRUE)
+	if(isskeleton(src) || !HAS_TRAIT_FROM(src, TRAIT_SKELETON, GENERIC_TRAIT))
+		return FALSE
+	. = TRUE
+	REMOVE_TRAIT(src, TRAIT_SKELETON, GENERIC_TRAIT)
+	REMOVE_TRAIT(src, TRAIT_NO_CLONE, TRAIT_SKELETON)
+	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
+	head_organ?.undisfigure()
+	if(update_appearance)
+		UpdateAppearance()
 
+
+/mob/living/carbon/human/proc/ChangeToHusk(update_appearance = TRUE)
 	// If the target has no DNA to begin with, its DNA can't be damaged beyond repair.
-	if(NO_DNA in dna.species.species_traits)
-		return
-	if(HUSK in mutations)
-		return
+	if(HAS_TRAIT(src, TRAIT_NO_DNA))
+		return FALSE
+	if(HAS_TRAIT_FROM(src, TRAIT_HUSK, GENERIC_TRAIT))
+		return FALSE
 
+	. = TRUE
 	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
 	if(head_organ)
 		head_organ.disfigure()	//makes them unknown without fucking up other stuff like admintools
@@ -147,18 +161,29 @@
 		if(head_organ.h_style)
 			head_organ.h_style = "Bald"
 
-	mutations.Add(HUSK)
-	UpdateAppearance()
+	ADD_TRAIT(src, TRAIT_HUSK, GENERIC_TRAIT)
+	if(update_appearance)
+		UpdateAppearance()
 
 
 /mob/living/carbon/human/proc/Drain()
-	ChangeToHusk()
-	mutations |= NOCLONE
+	if(ChangeToHusk())
+		ADD_TRAIT(src, TRAIT_NO_CLONE, TRAIT_HUSK)
 
 
-/mob/living/carbon/human/proc/cure_husk()
-	mutations.Remove(HUSK)
+/mob/living/carbon/human/proc/cure_husk(update_appearance = TRUE)
+	if(!HAS_TRAIT_FROM(src, TRAIT_HUSK, GENERIC_TRAIT))
+		return FALSE
+	. = TRUE
+	REMOVE_TRAIT(src, TRAIT_HUSK, GENERIC_TRAIT)
 	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
-	head_organ?.disfigure()
-	UpdateAppearance() // reset hair from DNA
+	head_organ?.undisfigure()
+	REMOVE_TRAIT(src, TRAIT_NO_CLONE, TRAIT_HUSK)
+	if(update_appearance)
+		UpdateAppearance() // reset hair from DNA
+
+
+/mob/living/carbon/human/proc/revive_no_clone_removal()
+	for(var/trait_source in GET_TRAIT_SOURCES(src, TRAIT_NO_CLONE))
+		REMOVE_TRAIT(src, TRAIT_NO_CLONE, trait_source)
 

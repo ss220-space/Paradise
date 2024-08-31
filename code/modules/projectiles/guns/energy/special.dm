@@ -54,7 +54,6 @@
 	if(cell.charge > shot.e_cost)
 		. += "decloner_spin"
 
-
 // Flora Gun //
 /obj/item/gun/energy/floragun
 	name = "floral somatoray"
@@ -62,11 +61,22 @@
 	icon_state = "flora"
 	item_state = "gun"
 	fire_sound = 'sound/effects/stealthoff.ogg'
-	ammo_type = list(/obj/item/ammo_casing/energy/flora/yield, /obj/item/ammo_casing/energy/flora/mut)
-	origin_tech = "materials=2;biotech=4"
+	materials = list(MAT_GOLD = 2000, MAT_BLUESPACE = 1500, MAT_DIAMOND = 800, MAT_URANIUM = 500, MAT_GLASS = 500)
+	origin_tech = "materials=5;biotech=6;powerstorage=6;engineering=5"
+	ammo_type = list(/obj/item/ammo_casing/energy/flora/alpha, /obj/item/ammo_casing/energy/flora/beta, /obj/item/ammo_casing/energy/flora/gamma)
 	modifystate = TRUE
 	ammo_x_offset = 1
+	can_charge = FALSE
 	selfcharge = TRUE
+
+/obj/item/gun/energy/floragun/emag_act(mob/user)
+	. = ..()
+	ammo_type = list(/obj/item/ammo_casing/energy/flora/alpha/emag, /obj/item/ammo_casing/energy/flora/beta, /obj/item/ammo_casing/energy/flora/gamma)
+	update_ammo_types()
+
+/obj/item/gun/energy/floragun/examine(mob/user)
+	. = ..()
+	. += span_notice("Mode: [ammo_type[select]]\nCharge: [cell.percent()]%")
 
 // Meteor Gun //
 /obj/item/gun/energy/meteorgun
@@ -162,35 +172,48 @@
 	sharp = 1
 	can_charge = FALSE
 
+
 /obj/item/gun/energy/plasmacutter/examine(mob/user)
 	. = ..()
 	if(cell)
 		. += "<span class='notice'>[src] is [round(cell.percent())]% charged.</span>"
 
-/obj/item/gun/energy/plasmacutter/attackby(obj/item/A, mob/user)
-	if(istype(A, /obj/item/stack/sheet/mineral/plasma))
+
+/obj/item/gun/energy/plasmacutter/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/sheet/mineral/plasma))
+		add_fingerprint(user)
+		var/obj/item/stack/sheet/mineral/plasma/plasma = I
 		if(cell.charge >= cell.maxcharge)
-			balloon_alert(user, "уже заряжено!")
-			return
-		var/obj/item/stack/sheet/S = A
-		S.use(1)
+			balloon_alert(user, "заряд на максимуме!")
+			return ATTACK_CHAIN_PROCEED
+		if(!plasma.use(1))
+			balloon_alert(user, "недостаточно плазмы!")
+			return ATTACK_CHAIN_PROCEED
+		balloon_alert(user, "заряд увеличен")
 		cell.give(1000)
 		on_recharge()
-		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
-	else if(istype(A, /obj/item/stack/ore/plasma))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/stack/ore/plasma))
+		add_fingerprint(user)
+		var/obj/item/stack/ore/plasma/plasma = I
 		if(cell.charge >= cell.maxcharge)
-			balloon_alert(user, "уже заряжено!")
-			return
-		var/obj/item/stack/ore/S = A
-		S.use(1)
+			balloon_alert(user, "заряд на максимуме!")
+			return ATTACK_CHAIN_PROCEED
+		if(!plasma.use(1))
+			balloon_alert(user, "недостаточно плазмы!")
+			return ATTACK_CHAIN_PROCEED
+		balloon_alert(user, "заряд увеличен")
 		cell.give(500)
 		on_recharge()
-		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
-	else
-		return ..()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/item/gun/energy/plasmacutter/update_overlays()
 	return list()
+
 
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
@@ -364,7 +387,7 @@
 		/obj/item/ammo_casing/energy/podsniper/laser
 	)
 	item_state = null
-	weapon_weight = WEAPON_HEAVY
+	weapon_weight = WEAPON_MEDIUM
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	charge_sections = 3
@@ -402,30 +425,37 @@
 	else
 		. += "<span class='warning'>Не хватает ядра аномалии потока и БС кристалла для работы.</span>"
 
-/obj/item/gun/energy/bsg/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/stack/ore/bluespace_crystal))
+
+/obj/item/gun/energy/bsg/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/ore/bluespace_crystal))
+		add_fingerprint(user)
+		var/obj/item/stack/ore/bluespace_crystal/crystal = I
 		if(has_bluespace_crystal)
 			balloon_alert(user, "уже установлено!")
-			return
-		var/obj/item/stack/S = O
-		if(!loc || !S || S.get_amount() < 1)
-			return
+			return ATTACK_CHAIN_PROCEED
+		if(!crystal.use(1))
+			balloon_alert(user, "недостаточно кристаллов!")
+			return ATTACK_CHAIN_PROCEED
 		balloon_alert(user, "установлено")
-		S.use(1)
 		has_bluespace_crystal = TRUE
 		update_icon(UPDATE_ICON_STATE)
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(istype(O, /obj/item/assembly/signaler/anomaly/flux))
+	if(istype(I, /obj/item/assembly/signaler/anomaly/flux))
+		add_fingerprint(user)
 		if(has_core)
 			balloon_alert(user, "уже установлено!")
-			return
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
 		balloon_alert(user, "установлено")
 		has_core = TRUE
-		qdel(O)
+		qdel(I)
 		update_icon(UPDATE_ICON_STATE)
-	else
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/gun/energy/bsg/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	if(!has_bluespace_crystal)
@@ -601,13 +631,13 @@
 		dat += "<FONT color=blue><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
 	dat += "<BR>"
 	dat += "Target output temperature: "	//might be string idiocy, but at least it's easy to read
-	dat += "<A href='?src=[UID()];temp=-100'>-</A> "
-	dat += "<A href='?src=[UID()];temp=-10'>-</A> "
-	dat += "<A href='?src=[UID()];temp=-1'>-</A> "
+	dat += "<a href='byond://?src=[UID()];temp=-100'>-</A> "
+	dat += "<a href='byond://?src=[UID()];temp=-10'>-</A> "
+	dat += "<a href='byond://?src=[UID()];temp=-1'>-</A> "
 	dat += "[target_temperature] "
-	dat += "<A href='?src=[UID()];temp=1'>+</A> "
-	dat += "<A href='?src=[UID()];temp=10'>+</A> "
-	dat += "<A href='?src=[UID()];temp=100'>+</A>"
+	dat += "<a href='byond://?src=[UID()];temp=1'>+</A> "
+	dat += "<a href='byond://?src=[UID()];temp=10'>+</A> "
+	dat += "<a href='byond://?src=[UID()];temp=100'>+</A>"
 	dat += "<BR>"
 	dat += "Power cost: "
 	dat += "<FONT color=[powercostcolor]><B>[powercost]</B></FONT>"

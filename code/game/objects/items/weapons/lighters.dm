@@ -86,26 +86,39 @@
 		playsound(src, 'sound/items/lighter/plastic_close.ogg', 25, TRUE)
 		next_off_message = world.time + 5 SECONDS
 
-/obj/item/lighter/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	if(!isliving(M))
-		return
-	M.IgniteMob()
-	if(!istype(M, /mob))
-		return
 
-	if(istype(M.wear_mask, /obj/item/clothing/mask/cigarette) && user.zone_selected == "mouth" && lit)
-		var/obj/item/clothing/mask/cigarette/cig = M.wear_mask
-		if(M == user)
-			cig.attackby(src, user)
-		else
-			if(istype(src, /obj/item/lighter/zippo))
-				cig.light("<span class='rose'>[user] whips the [name] out and holds it for [M]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] light[user.p_s()] \the [cig] with.</span>")
-			else
-				cig.light("<span class='notice'>[user] holds the [name] out for [M], and lights the [cig.name].</span>")
-			playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
-			M.update_inv_wear_mask()
+/obj/item/lighter/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(!lit)
+		return ..()
+
+	var/return_flags = ATTACK_CHAIN_PROCEED
+
+	if(target.IgniteMob())
+		return_flags |= ATTACK_CHAIN_SUCCESS
+		add_attack_logs(user, target, "set on fire", ATKLOG_FEW)
+
+	if(user.zone_selected != BODY_ZONE_PRECISE_MOUTH || !istype(target.wear_mask, /obj/item/clothing/mask/cigarette))
+		return ..() | return_flags
+
+	var/obj/item/clothing/mask/cigarette/cig = target.wear_mask
+	if(cig.lit)
+		to_chat(user, span_notice("The [cig.name] is already lit."))
+		return return_flags
+
+	if(target == user)
+		return cig.attackby(src, user, params) | return_flags
+
+	return_flags |= ATTACK_CHAIN_SUCCESS
+	. = return_flags
+
+	if(istype(src, /obj/item/lighter/zippo))
+		cig.light(span_rose("[user] whips the [name] out and holds it for [target]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] light[user.p_s()] [cig] with."))
 	else
-		..()
+		cig.light(span_notice("[user] holds the [name] out for [target], and lights the [cig.name]."))
+
+	playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
+	target.update_inv_wear_mask()
+
 
 /obj/item/lighter/process()
 	var/turf/location = get_turf(src)
@@ -350,31 +363,41 @@
 	. = ..()
 
 
-/obj/item/match/attack(mob/living/carbon/M, mob/living/carbon/user)
-	if(!isliving(M))
+/obj/item/match/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(!lit)
 		return ..()
-	if(lit && M.IgniteMob())
-		add_attack_logs(user, M, "set on fire", ATKLOG_FEW)
-	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(M)
-	if(lit && cig && user.a_intent == INTENT_HELP)
-		if(cig.lit)
-			to_chat(user, "<span class='notice'>[cig] is already lit.</span>")
-		if(M == user)
-			cig.attackby(src, user)
+
+	var/return_flags = ATTACK_CHAIN_PROCEED
+
+	if(target.IgniteMob())
+		return_flags |= ATTACK_CHAIN_SUCCESS
+		add_attack_logs(user, target, "set on fire", ATKLOG_FEW)
+
+	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(target)
+	if(!cig || user.zone_selected != BODY_ZONE_PRECISE_MOUTH)
+		return ..() | return_flags
+
+	if(cig.lit)
+		to_chat(user, span_notice("The [cig.name] is already lit."))
+		return return_flags
+
+	if(target == user)
+		return cig.attackby(src, user, params) | return_flags
+
+	return_flags |= ATTACK_CHAIN_SUCCESS
+	. = return_flags
+
+	if(istype(src, /obj/item/match/unathi))
+		if(prob(50))
+			cig.light(span_rose("[user] spits fire at [target], lighting [cig] and nearly burning [user.p_their()] face!"))
+			matchburnout()
 		else
-			if(istype(src, /obj/item/match/unathi))
-				if(prob(50))
-					cig.light("<span class='rose'>[user] spits fire at [M], lighting [cig] and nearly burning [user.p_their()] face!</span>")
-					matchburnout()
-				else
-					cig.light("<span class='rose'>[user] spits fire at [M], burning [user.p_their()] face and lighting [cig] in the process.</span>")
-					M.apply_damage(5, BURN, def_zone = BODY_ZONE_HEAD)
-				playsound(user.loc, 'sound/effects/unathiignite.ogg', 40, FALSE)
-			else
-				cig.light("<span class='notice'>[user] holds [src] out for [M], and lights [cig].</span>")
-				playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
+			cig.light(span_rose("[user] spits fire at [target], burning [user.p_their()] face and lighting [cig] in the process."))
+			target.apply_damage(5, BURN, def_zone = BODY_ZONE_HEAD)
+			playsound(src, 'sound/effects/unathiignite.ogg', 40, FALSE)
 	else
-		..()
+		cig.light(span_notice("[user] holds [src] out for [target], and lights [cig]."))
+		playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 
 
 /obj/item/match/decompile_act(obj/item/matter_decompiler/C, mob/user)

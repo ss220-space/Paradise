@@ -87,57 +87,76 @@
 	god_punishment = max(0, god_punishment - round((world.time - last_used) / (30 SECONDS))) //forgive 1 sin every 30 seconds
 	last_used = world.time
 
-/obj/item/storage/bible/attack(mob/living/M, mob/living/user)
-	add_attack_logs(user, M, "Hit with [src]")
-	god_forgive() //god forgives everyone
-	if(!iscarbon(user))
-		M.LAssailant = null
-	else
-		M.LAssailant = user
+
+/obj/item/storage/bible/attack(mob/living/carbon/human/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
 
 	if(!ishuman(user) || is_monkeybasic(user))
-		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
-		return
-	if(!user.mind || !user.mind.isholy)
-		to_chat(user, "<span class='warning'>The book sizzles in your hands.</span>")
-		user.take_organ_damage(0, 10)
-		return
+		to_chat(user, span_warning("You don't have the dexterity to do this!"))
+		return .
 
-	if((CLUMSY in user.mutations) && prob(50))
-		to_chat(user, "<span class='warning'>The [src] slips out of your hand and hits your head.</span>")
+	god_forgive()
+
+	if(!user.mind || !user.mind.isholy)
+		to_chat(user, span_warning("The book sizzles in your hands."))
+		add_attack_logs(user, target, "Hit themselves with [src]")
+		user.take_organ_damage(0, 10)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+		to_chat(user, span_warning("The [src] slips out of your hand and hits your head."))
+		add_attack_logs(user, target, "Hit themselves with [src]")
 		user.take_organ_damage(10)
 		user.Paralyse(40 SECONDS)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(M.stat != DEAD && ishuman(M))
-		var/mob/living/carbon/human/H = M
-		var/mob/living/carbon/human/chaplain = user
-		if(prob(60))
-			bless(H)
-			H.visible_message("<span class='danger>[user] heals [H == user ? "[user.p_them()]self" : "[H]"] with the power of [deity_name]!</span>",
-				"<span class='danger'>May the power of [deity_name] compel you to be healed!</span>")
-			playsound(loc, "punch", 25, 1, -1)
-		else
-			if(!istype(H.head, /obj/item/clothing/head/helmet))
-				M.apply_damage(10, BRAIN)
-				to_chat(M, "<span class='warning'>You feel dumber.</span>")
-			H.visible_message("<span class='danger'>[user] beats [H == user ? "[user.p_them()]self" : "[H]"] over the head with [src]!</span>")
-			playsound(src.loc, "punch", 25, 1, -1)
-		if(H == chaplain)
-			god_punishment++
+	add_attack_logs(user, target, "Hit with [src]")
 
-		if(god_punishment == 5)
-			to_chat(chaplain, "<h1><span class='danger'>Вы злоупотребляете покровительством бога [deity_name], остановитесь и подумайте.</span></h1>")
-		else if(god_punishment > 5) //lets apply punishment AFTER heal
-			chaplain.electrocute_act(5, "молнии", flags = SHOCK_NOGLOVES)
-			playsound(get_turf(chaplain), 'sound/magic/lightningshock.ogg', 50, 1, -1)
-			chaplain.adjustFireLoss(65)
-			chaplain.Weaken(10 SECONDS)
-			to_chat(chaplain, "<span class='userdanger'>Вы злоупотребили волей бога и за что были наказаны!</span>")
-
+	if(iscarbon(user))
+		target.LAssailant = user
 	else
-		M.visible_message("<span class='danger'>[user] smacks [M]'s lifeless corpse with [src].</span>")
-		playsound(src.loc, "punch", 25, 1, -1)
+		target.LAssailant = null
+
+	if(target.stat == DEAD)
+		target.visible_message(
+			span_danger("[user] smacks [target]'s lifeless corpse with [src]."),
+			span_warning("You smacks [target]'s lifeless corpse."),
+		)
+		playsound(loc, "punch", 25, TRUE, -1)
+		return .|ATTACK_CHAIN_SUCCESS
+
+	if(!ishuman(target))
+		return .
+
+	. |= ATTACK_CHAIN_SUCCESS
+
+	if(prob(60))
+		bless(target)
+		target.visible_message(
+			span_danger("[user] heals [target == user ? "[user.p_them()]self" : "[target]"] with the power of [deity_name]!"),
+			span_danger("May the power of [deity_name] compel you to be healed!"),
+		)
+		playsound(loc, "punch", 25, TRUE, -1)
+	else
+		if(!istype(target.head, /obj/item/clothing/head/helmet))
+			target.apply_damage(10, BRAIN)
+			to_chat(target, span_warning("You feel dumber."))
+		target.visible_message(
+			span_danger("[user] beats [target == user ? "[user.p_them()]self" : "[target]"] over the head with [src]!"),
+			span_danger("You beat [target == user ? "yourself" : "[target]"] over the head!"),
+		)
+		playsound(src.loc, "punch", 25, TRUE, -1)
+
+	if(target == user)
+		god_punishment++
+
+	if(god_punishment == 5)
+		to_chat(user, span_danger("<h1>Вы злоупотребляете покровительством бога [deity_name], остановитесь и подумайте.</h1>"))
+	else if(god_punishment > 5) //lets apply punishment AFTER heal
+		user.electrocute_act(5, "молнии", flags = SHOCK_NOGLOVES)
+		user.apply_damage(65, BURN)
+		user.Knockdown(10 SECONDS)
+		to_chat(user, span_userdanger("Вы злоупотребили волей бога и были за это наказаны!"))
 
 
 /obj/item/storage/bible/afterattack(atom/target, mob/user, proximity, params)
