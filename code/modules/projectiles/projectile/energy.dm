@@ -90,7 +90,7 @@
 	name = "bolttoy"
 	icon_state = "cbbolttoy"
 	hitsound = 'sound/weapons/pierce.ogg'
-	damage_type = TOX
+	damage_type = STAMINA
 	damage = 0
 	weaken = 0.1 SECONDS
 	stamina = 0
