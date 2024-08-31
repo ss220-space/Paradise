@@ -149,6 +149,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/item/toy/AI
 	cost = 75
 
+/datum/prize_item/mech_toy
+	name = "Random Mecha"
+	desc = "Случайная фигурка мехов!"
+	typepath = /obj/item/toy/prizeball/mech
+	cost = 75
+
 /datum/prize_item/capgun
 	name = "Capgun Revolver"
 	desc = "Ты, наверно, думаешь, что тебе выпало .357 карат невезения?"
@@ -171,6 +177,18 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	desc = "Реплика скафандра синдиката. Не пригоден для использования в космосе."
 	typepath = /obj/item/storage/box/fakesyndiesuit
 	cost = 90
+
+/datum/prize_item/owl
+	name = "Owl Action Figure"
+	desc = "Помните: Герои не становятся ГИФонами!"
+	typepath = /obj/item/toy/owl
+	cost = 100
+
+/datum/prize_item/griffin
+	name = "Griffin Action Figure"
+	desc = "Если ты не можешь быть лучшим, ты всегда можешь быть ХУДШИМ."
+	typepath = /obj/item/toy/griffin
+	cost = 100
 
 /datum/prize_item/fakespell
 	name = "Fake Spellbook"
