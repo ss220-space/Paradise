@@ -5127,3 +5127,178 @@
 	category = TTS_CATEGORY_WARCRAFT3
 	gender = TTS_GENDER_MALE
 	donator_level = 1
+
+/datum/tts_seed/silero/cyberpunk_male_v
+	name = "Male_v"
+	value = "Cyberpunk_male_v"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/cyberpunk_johny
+	name = "Johny"
+	value = "Cyberpunk_johny"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/cyberpunk_takemura
+	name = "Takemura"
+	value = "Cyberpunk_takemura"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/cyberpunk_sobchak
+	name = "Sobchak"
+	value = "Cyberpunk_sobchak"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/cyberpunk_jackie
+	name = "Jackie"
+	value = "Cyberpunk_jackie"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/cyberpunk_kerry
+	name = "Kerry"
+	value = "Cyberpunk_kerry"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/cyberpunk_mitch
+	name = "Mitch"
+	value = "Cyberpunk_mitch"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/cyberpunk_saul
+	name = "Saul"
+	value = "Cyberpunk_saul"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/cyberpunk_haru
+	name = "Haru"
+	value = "Cyberpunk_haru"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/cyberpunk_victor
+	name = "Victor"
+	value = "Cyberpunk_victor"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/cyberpunk_placide
+	name = "Placide"
+	value = "Cyberpunk_placide"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/cyberpunk_dexter
+	name = "Dexter"
+	value = "Cyberpunk_dexter"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/cyberpunk_sebastian
+	name = "Sebastian"
+	value = "Cyberpunk_sebastian"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/cyberpunk_jefferson
+	name = "Jefferson"
+	value = "Cyberpunk_jefferson"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/cyberpunk_joshua
+	name = "Joshua"
+	value = "Cyberpunk_joshua"
+	category = TTS_CATEGORY_CYBERPUNK
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/tlou_ellie
+	name = "Ellie"
+	value = "tlou_ellie"
+	category = TTS_CATEGORY_TLOU
+	gender = TTS_GENDER_FEMALE
+	donator_level = 1
+
+/datum/tts_seed/silero/tlou_joel
+	name = "Joel"
+	value = "tlou_joel"
+	category = TTS_CATEGORY_TLOU
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/tlou_tess
+	name = "Tess"
+	value = "tlou_tess"
+	category = TTS_CATEGORY_TLOU
+	gender = TTS_GENDER_FEMALE
+	donator_level = 1
+
+/datum/tts_seed/silero/drg_mission_control
+	name = "Mission_control"
+	value = "Deep_rock_galactic_mission_control"
+	category = TTS_CATEGORY_DEEP_ROCK_GALACTIC
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/drg_dwarves
+	name = "Dwarves"
+	value = "Deep_rock_galactic_dwarves"
+	category = TTS_CATEGORY_DEEP_ROCK_GALACTIC
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/aag_inner
+	name = "Sunboy_inner"
+	value = "an_alt_girl_inner"
+	category = TTS_CATEGORY_ALTGIRL
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/aag_sunboy_s
+	name = "Sunboy_sad"
+	value = "an_alt_girl_sunboy_s"
+	category = TTS_CATEGORY_ALTGIRL
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/aag_sunboy_n
+	name = "Sunboy_mannered"
+	value = "an_alt_girl_dlc_sunboy_n"
+	category = TTS_CATEGORY_ALTGIRL
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/aag_sunboy_k
+	name = "Sunboy_kalm"
+	value = "an_alt_girl_dlc_sunboy_k"
+	category = TTS_CATEGORY_ALTGIRL
+	gender = TTS_GENDER_MALE
+	donator_level = 1
+
+/datum/tts_seed/silero/last_years_snow_narrator
+	name = "last_years_snow_narrator"
+	value = "last_years_snow_narrator"
+	category = TTS_CATEGORY_OTHER
+	gender = TTS_GENDER_MALE
+	donator_level = 1

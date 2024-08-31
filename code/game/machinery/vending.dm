@@ -1641,7 +1641,14 @@
 					/obj/item/seeds/wheat = 3,
 					/obj/item/seeds/soya/olive = 3,
 					/obj/item/seeds/whitebeet = 3,
-					/obj/item/seeds/shavel = 3)
+					/obj/item/seeds/shavel = 3,
+					/obj/item/seeds/redflower = 3,
+					/obj/item/seeds/flowerlamp = 3,
+					/obj/item/seeds/carnation = 3,
+					/obj/item/seeds/tulp = 3,
+					/obj/item/seeds/chamomile = 3,
+					/obj/item/seeds/rose = 3
+					)
 	contraband = list(/obj/item/seeds/cannabis = 3,
 					  /obj/item/seeds/amanita = 2,
 					  /obj/item/seeds/fungus = 3,
