@@ -15,7 +15,7 @@
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/retractor/laser
-	name = "laser retractor"
+	name = "Advanced Laser Retractors"
 	desc = "A retractor with a laser tip.This one looks to be the pinnacle of precision energy a surgery tools!"
 	icon_state = "retractor_laser"
 	item_state = "retractor_laser"
@@ -44,7 +44,7 @@
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/hemostat/laser
-	name = "Advenced laser hemostat"
+	name = "Advanced Laser Hemostat"
 	desc = "A hemostat with a laser clamp.This one looks to be the pinnacle of precision energy a surgery tools!"
 	icon_state = "hemostat_laser"
 	item_state = "hemostat_laser"
@@ -101,7 +101,7 @@
 	return BRUTELOSS
 
 /obj/item/surgicaldrill/laser
-	name = "laser surgicaldrill"
+	name = "Advanced Laser Surgical Drill"
 	desc = "A surgery drill with a directed laser bit.This one looks to be the pinnacle of precision energy a surgery tools!"
 	icon_state = "drill_laser"
 	item_state = "drill_laser"
@@ -228,7 +228,7 @@
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/circular_saw/laser
-	name = "laser circular saw"
+	name = "Advanced Laser Circular Saw"
 	desc = "A saw with a circular laser disk.This one looks to be the pinnacle of precision energy a surgery tools!"
 	icon_state = "saw_laser"
 	item_state = "saw_laser"
@@ -297,7 +297,7 @@
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
 
 /obj/item/bonesetter/laser
-	name = "laser bonesetter"
+	name = "Advanced Laser Bone Setter"
 	desc = "A bone settler with a laser teeth.This one looks to be the pinnacle of precision energy a surgery tools!"
 	icon_state = "bonesetter_laser"
 	item_state = "bonesetter_laser"
