@@ -419,9 +419,9 @@
 	var/datum/antagonist/morph/antag_datum = has_antag_datum(/datum/antagonist/morph)
 	if(antag_datum)
 		. += "<a href='byond://?src=[UID()];morph=handle_ability'>Re-grant abilities</a>"
-	else
-		if(!ismorph(current))
-			. += "<a href='byond://?src=[UID()];morph=make_morph'>morph</a>|<b>NO</b>"
+
+	else if(!ismorph(current))
+		. += "<a href='byond://?src=[UID()];morph=make_morph'>Tranform into morph</a>"
 
 	. += _memory_edit_role_enabled(ROLE_MORPH)
 
