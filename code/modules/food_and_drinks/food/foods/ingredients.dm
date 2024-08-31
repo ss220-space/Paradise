@@ -331,13 +331,14 @@
 
 	var/rawcookies = istype(I, /obj/item/reagent_containers/food/snacks/choc_pile)
 	if(rawcookies || istype(I, /obj/item/reagent_containers/food/snacks/piece_coconut))
+		return .
 
 		if(!isturf(loc))
 			to_chat(user, span_warning("You need to put [src] on a surface to add [I]."))
 			return .
 
 		if(!user.drop_transfer_item_to_loc(I, src))
-			return .
+			return .|ATTACK_CHAIN_SUCCESS
 
 		var/obj/new_cookies
 		if(rawcookies)
