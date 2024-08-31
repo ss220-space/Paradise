@@ -1074,6 +1074,7 @@
 			to_chat(user, "<span class='notice'>You fail to find anything of value.</span>")
 	else
 		to_chat(user, "<span class='notice'>You decide against searching the [src]</span>")
+
 /obj/spacepod/proc/StartScan(mob/user)
 
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
