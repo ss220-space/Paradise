@@ -314,6 +314,9 @@
   endipe:
   - bugfix: floral somatoray disassembly technology & safe mode chem master (#5815)
 '2024-08-31':
+  Aziz Chynaliev:
+  - add: new 25 TTS voices from Cyberpunk 2077 (15), TLoU (3), Deep Rock Galactic
+      (2), Альтушка для скуфа (4), etc (1) (#5839)
   FanTik-Ratge:
   - imageadd: inhand-harvestSprite by Kisik (#5833)
   Kray1k:
