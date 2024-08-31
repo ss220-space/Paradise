@@ -300,29 +300,22 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 /obj/item/spacepod_equipment/locators
 	name = "Locator system"
 	desc = "You shouldn't be seeing this"
-	icon = 'icons/goonstation/pods/ship.dmi'
+	icon = 'icons/spacepods_paradise/locator.dmi'
 	icon_state = "blank"
-
+	
 	var/can_ignore_z = FALSE
 
 /obj/item/spacepod_equipment/locators/proc/scan(mob/user)
 	var/message_user = ""
 
 	for(var/obj/effect/landmark/ruin/Ruina in GLOB.ruin_landmarks)
-<<<<<<< HEAD
-		if((user.loc.z == Ruina.z || can_ignore_z))
-=======
-		if((user.loc.z == Ruina.z || can_ignore_z) && (Ruina.ruin_template.can_found || can_found_all))
->>>>>>> 3cfa11d1e15dff3b00d17a691a52af6b495e2c38
+		if((user.loc.z == Ruina.z || can_ignore_z) && (Ruina.ruin_template.can_found || can_found_all))38
 			message_user += "\nX:[Ruina.x] Y:[Ruina.y] Z:[Ruina.z] Размер: [object_size(Ruina.ruin_template.width*Ruina.ruin_template.height)]"
 	if(!message_user)
 		atom_say("Объектов в секторе не обнаружено")
 		return
 	atom_say("Результаты поиска:[message_user]")
-<<<<<<< HEAD
 
-=======
->>>>>>> 3cfa11d1e15dff3b00d17a691a52af6b495e2c38
 /obj/item/spacepod_equipment/locators/proc/object_size(var/square)
 	if(square <= 500)
 		return "Малый"
@@ -339,22 +332,6 @@ GLOBAL_LIST_EMPTY(pod_trackers)
     origin_tech = "engineering=5;magnets=4"
 
     can_ignore_z = FALSE
-
-/obj/item/spacepod_equipment/locators/basic_pod_locator/scan(mob/user)
-	var/message_user = ""
-
-	for(var/obj/effect/landmark/ruin/Ruina in GLOB.ruin_landmarks)
-		if((user.loc.z == Ruina.z || can_ignore_z))
-			for(var/turf in range(max(Ruina.ruin_template.width, Ruina.ruin_template.height), Ruina))
-				if(istype(turf,/turf/simulated/mineral))
-					message_user += "\nX:[Ruina.x] Y:[Ruina.y] Z:[Ruina.z] Размер: [object_size(Ruina.ruin_template.width*Ruina.ruin_template.height)]"
-					break
-
-	if(!message_user)
-		atom_say("Объектов в секторе не обнаружено")
-		return
-	atom_say("Результаты поиска:[message_user]")
-
 
 /obj/item/spacepod_equipment/locators/advanced_pod_locator
     name = "Улучшеный модуль поиска астероидов"
