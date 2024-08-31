@@ -1092,20 +1092,13 @@
 	if(!equipment_system.locator_system)
 		to_chat(user, "<span class='warning'>[src] has no locator system!</span>")
 		return
-<<<<<<< HEAD
-		
-	atom_say("Сканирование сектора...")
-	if(do_after(user, 4 SECONDS, src))
-		equipment_system.locator_system.scan(user)
-	else
-		atom_say("Ошибка сканирования. Сохраняйте неподвижность.")
-=======
+
 	equipment_system.locator_system.atom_say("Сканирование сектора...")
 	if(do_after(user, 5 SECONDS, src))
 		equipment_system.locator_system.scan(user)
 	else
 		equipment_system.locator_system.atom_say("Ошибка сканирования. Сохраняйте неподвижность.")
->>>>>>> 3cfa11d1e15dff3b00d17a691a52af6b495e2c38
+
 /obj/spacepod/proc/GrantActions(mob/living/user)
 	eject_action.Grant(user, src)
 	internals_action.Grant(user, src)
