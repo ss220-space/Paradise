@@ -795,29 +795,38 @@ Difficulty: Hard
 /obj/effect/hierophant/ex_act()
 	return
 
+
+/obj/effect/hierophant/has_prints()
+	return TRUE
+
+
 /obj/effect/hierophant/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/hierophant_club))
-		var/obj/item/hierophant_club/H = I
-		if(H.timer > world.time)
-			return
-		if(H.beacon == src)
-			to_chat(user, "<span class='notice'>You start removing your hierophant beacon...</span>")
-			H.timer = world.time + 51
-			INVOKE_ASYNC(H, TYPE_PROC_REF(/obj/item/hierophant_club, prepare_icon_update))
-			if(do_after(user, 5 SECONDS, src))
-				playsound(src,'sound/magic/blind.ogg', 200, TRUE, -4)
-				new /obj/effect/temp_visual/hierophant/telegraph/teleport(get_turf(src), user)
-				to_chat(user, "<span class='hierophant_warning'>You collect [src], reattaching it to the club!</span>")
-				H.beacon = null
-				user.update_action_buttons_icon()
-				qdel(src)
-			else
-				H.timer = world.time
-				INVOKE_ASYNC(H, TYPE_PROC_REF(/obj/item/hierophant_club, prepare_icon_update))
-		else
-			to_chat(user, "<span class='hierophant_warning'>You touch the beacon with the club, but nothing happens.</span>")
-	else
-		return ..()
+		add_fingerprint(user)
+		var/obj/item/hierophant_club/club = I
+		if(club.timer > world.time)
+			to_chat(user, span_hierophant_warning("The club is recharging."))
+			return ATTACK_CHAIN_PROCEED
+		if(club.beacon != src)
+			to_chat(user, span_hierophant_warning("You touch the beacon with the club, but nothing happens."))
+			return ATTACK_CHAIN_PROCEED
+		club.timer = world.time + 5.1 SECONDS
+		to_chat(user, span_notice("You start removing the hierophant beacon..."))
+		INVOKE_ASYNC(club, TYPE_PROC_REF(/obj/item/hierophant_club, prepare_icon_update))
+		if(!do_after(user, 5 SECONDS, src))
+			club.timer = world.time
+			INVOKE_ASYNC(club, TYPE_PROC_REF(/obj/item/hierophant_club, prepare_icon_update))
+			return ATTACK_CHAIN_PROCEED
+		playsound(loc, 'sound/magic/blind.ogg', 200, TRUE, -4)
+		new /obj/effect/temp_visual/hierophant/telegraph/teleport(loc, user)
+		to_chat(user, span_hierophant_warning("You collect [src], reattaching it to the club!"))
+		club.beacon = null
+		user.update_action_buttons_icon()
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/item/gps/internal/hierophant
 	icon_state = null

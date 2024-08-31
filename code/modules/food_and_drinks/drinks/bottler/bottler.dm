@@ -40,54 +40,68 @@
 			else
 				qdel(recipe)
 
-/obj/machinery/bottler/attackby(obj/item/O, mob/user, params)
-	if(!user.can_unEquip(O))
-		to_chat(user, "<span class='warning'>[O] is stuck to your hand, you can't seem to put it down!</span>")
-		return 0
-	if(is_type_in_list(O,acceptable_items))
-		if(istype(O, /obj/item/reagent_containers/food/snacks))
-			add_fingerprint(user)
-			var/obj/item/reagent_containers/food/snacks/S = O
-			user.drop_item_ground(S)
-			if(S.reagents && !S.reagents.total_volume)		//This prevents us from using empty foods, should one occur due to some sort of error
-				to_chat(user, "<span class='warning'>[S] is gone, oh no!</span>")
-				qdel(S)			//Delete the food object because it is useless even as food due to the lack of reagents
+
+/obj/machinery/bottler/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(is_type_in_list(I, acceptable_items))
+		add_fingerprint(user)
+		if(istype(I, /obj/item/reagent_containers/food/snacks))
+			var/obj/item/reagent_containers/food/snacks/snack = I
+			//This prevents us from using empty foods, should one occur due to some sort of error
+			if(snack.reagents && !snack.reagents.total_volume)
+				to_chat(user, span_warning("The [snack.name] is incompatible."))
+				return ATTACK_CHAIN_BLOCKED_ALL
+			if(!user.drop_transfer_item_to_loc(snack, src))
+				return ..()
+			insert_item(snack, user)
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+		if(istype(I, /obj/item/reagent_containers/food/drinks/cans))
+			var/obj/item/reagent_containers/food/drinks/cans/can = I
+			if(!can.reagents)
+				to_chat(user, span_warning("The [can.name] is incompatible."))
+				return ATTACK_CHAIN_PROCEED
+			//This prevents us from using opened cans that still have something in them
+			if(can.canopened && can.reagents.total_volume)
+				to_chat(user, span_warning("Only unopened cans and bottles can be processed to ensure product integrity."))
+				return ATTACK_CHAIN_PROCEED
+			if(!user.drop_transfer_item_to_loc(can, src))
+				return ..()
+			if(can.reagents.total_volume)
+				//Full cans that are unopened get inserted for processing as ingredients
+				insert_item(can, user)
 			else
-				insert_item(S, user)
-			return 1
-		else if(istype(O, /obj/item/reagent_containers/food/drinks/cans))
-			var/obj/item/reagent_containers/food/drinks/cans/C = O
-			if(C.reagents)
-				if(C.canopened && C.reagents.total_volume)		//This prevents us from using opened cans that still have something in them
-					to_chat(user, "<span class='warning'>Only unopened cans and bottles can be processed to ensure product integrity.</span>")
-					return 0
-				add_fingerprint(user)
-				user.drop_item_ground(C)
-				if(!C.reagents.total_volume)		//Empty cans get recycled, even if they have somehow remained unopened due to some sort of error
-					recycle_container(C)
-				else								//Full cans that are unopened get inserted for processing as ingredients
-					insert_item(C, user)
-			return 1
-		else
-			add_fingerprint(user)
-			user.drop_item_ground(O)
-			insert_item(O, user)
-			return 1
-	else if(istype(O, /obj/item/trash/can))			//Crushed cans (and bottles) are returnable still
+				//Empty cans get recycled, even if they have somehow remained unopened due to some sort of error
+				recycle_container(can)
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		insert_item(I, user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	//Crushed cans (and bottles) are returnable still
+	if(istype(I, /obj/item/trash/can))
 		add_fingerprint(user)
-		var/obj/item/trash/can/C = O
-		user.drop_item_ground(C)
-		recycle_container(C)
-		return 1
-	else if(istype(O, /obj/item/stack/sheet))		//Sheets of materials can replenish the machine's supply of drink containers (when people inevitably don't return them)
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		recycle_container(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	//Sheets of materials can replenish the machine's supply of drink containers (when people inevitably don't return them)
+	if(istype(I, /obj/item/stack/sheet))
 		add_fingerprint(user)
-		var/obj/item/stack/sheet/S = O
-		user.drop_item_ground(S)
-		process_sheets(S)
-		return 1
-	else		//If it doesn't qualify in the above checks, we don't want it. Inform the person so they (ideally) stop trying to put the nuke disc in.
-		to_chat(user, "<span class='warning'>You aren't sure this is able to be processed by the machine.</span>")
-		return 0
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		process_sheets(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	//If it doesn't qualify in the above checks, we don't want it. Inform the person so they (ideally) stop trying to put the nuke disc in.
+	to_chat(user, span_warning("You aren't sure this is able to be processed by the machine."))
+	return ATTACK_CHAIN_PROCEED
+
 
 /obj/machinery/bottler/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -318,7 +332,7 @@
 /obj/machinery/bottler/interact(mob/user)
 	user.set_machine(src)
 	//html ahoy
-	var/dat = {"<meta charset="UTF-8">"}
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	if(bottling)
 		dat = "<h2>Bottling in process, please wait...</h2>"
 	else
@@ -333,15 +347,15 @@
 		dat += "</tr>"
 		dat += "<tr>"
 		if(containers["glass bottle"])
-			dat += "<td><A href='?src=[UID()];dispense=1'>Dispense</a></td>"
+			dat += "<td><a href='byond://?src=[UID()];dispense=1'>Dispense</a></td>"
 		else
 			dat += "<td>Out of stock</td>"
 		if(containers["plastic bottle"])
-			dat += "<td><A href='?src=[UID()];dispense=2'>Dispense</a></td>"
+			dat += "<td><a href='byond://?src=[UID()];dispense=2'>Dispense</a></td>"
 		else
 			dat += "<td>Out of stock</td>"
 		if(containers["metal can"])
-			dat += "<td><A href='?src=[UID()];dispense=3'>Dispense</a></td>"
+			dat += "<td><a href='byond://?src=[UID()];dispense=3'>Dispense</a></td>"
 		else
 			dat += "<td>Out of stock</td>"
 		dat += "</tr>"
@@ -361,7 +375,7 @@
 				dat += "<td>Tray Empty</td>"
 
 		if(slots[1] && slots[2] && slots[3])
-			dat += "<td><A href='?src=[UID()];process=1'>Process Ingredients</a></td>"
+			dat += "<td><a href='byond://?src=[UID()];process=1'>Process Ingredients</a></td>"
 		else
 			dat += "<td>Insufficient Ingredients</td>"
 		dat += "</tr>"
@@ -369,10 +383,10 @@
 		dat += "<tr>"
 		for(var/i = 1, i <= slots.len, i++)
 			if(slots[i])
-				dat += "<td><A href='?src=[UID()];eject=[i]'>Eject</a></td>"
+				dat += "<td><a href='byond://?src=[UID()];eject=[i]'>Eject</a></td>"
 			else
 				dat += "<td>N/A</td>"
-		dat += "<td><A href='?src=[UID()];eject=0'>Eject All</a></td>"
+		dat += "<td><a href='byond://?src=[UID()];eject=0'>Eject All</a></td>"
 		dat += "</tr>"
 		dat += "</table>"
 		dat += "<hr>"

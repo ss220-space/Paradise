@@ -977,49 +977,54 @@
 
 
 /obj/machinery/alarm/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	switch(buildstage)
 		if(AIR_ALARM_READY)
 			if(I.GetID() || is_pda(I)) // trying to unlock the interface
+				add_fingerprint(user)
 				if(stat & (NOPOWER|BROKEN))
 					to_chat(user, span_warning("It does nothing!"))
-					return
+					return ATTACK_CHAIN_PROCEED
 
 				if(allowed(user) && !wires.is_cut(WIRE_IDSCAN))
-					add_fingerprint(user)
 					locked = !locked
 					to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] the Air Alarm interface."))
 					SStgui.update_uis(src)
-				else
-					to_chat(user, span_warning("Access denied."))
-				return
+					return ATTACK_CHAIN_PROCEED
+				to_chat(user, span_warning("Access denied."))
+				return ATTACK_CHAIN_PROCEED
 
 		if(AIR_ALARM_BUILDING)
 			if(iscoil(I))
-				var/obj/item/stack/cable_coil/coil = I
-				if(coil.get_amount() < 5)
-					to_chat(user, span_notice("You need more cable for this!"))
-					return
-
 				add_fingerprint(user)
-				to_chat(user, "You wire \the [src]!")
+				var/obj/item/stack/cable_coil/coil = I
+				if(!coil.use(5))
+					to_chat(user, span_notice("You need more cable for this!"))
+					return ATTACK_CHAIN_PROCEED
+				to_chat(user, "You wire [src]!")
 				playsound(get_turf(src), coil.usesound, 50, TRUE)
-				coil.use(5)
 				buildstage = AIR_ALARM_READY
 				wiresexposed = TRUE
 				update_icon()
 				first_run()
-				return
+				return ATTACK_CHAIN_PROCEED_SUCCESS
 
 		if(AIR_ALARM_FRAME)
 			if(istype(I, /obj/item/airalarm_electronics))
 				add_fingerprint(user)
+				if(!user.drop_transfer_item_to_loc(I, src))
+					return ..()
 				to_chat(user, span_notice("You insert the circuit!"))
-				playsound(get_turf(src), I.usesound, 50, 1)
+				playsound(get_turf(src), I.usesound, 50, TRUE)
 				qdel(I)
 				buildstage = AIR_ALARM_BUILDING
 				update_icon(UPDATE_ICON_STATE)
-				return
+				return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/machinery/alarm/crowbar_act(mob/user, obj/item/I)
 	if(buildstage != AIR_ALARM_BUILDING)

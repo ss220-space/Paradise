@@ -76,22 +76,28 @@
 	var/heal_burn = 0
 	var/heal_oxy = 0
 
-/obj/item/organ/internal/heart/cursed/attack(mob/living/carbon/human/H, mob/living/carbon/human/user, obj/target)
-	if(H == user && istype(H))
-		if(NO_BLOOD in H.dna.species.species_traits)
-			to_chat(H, span_userdanger("[src] is not compatible with your form!"))
-			return
-		playsound(user,'sound/effects/singlebeat.ogg', 40, 1)
-		user.drop_item_ground(src)
-		insert(user)
-	else
+
+/obj/item/organ/internal/heart/cursed/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(target != user || !ishuman(target))
 		return ..()
+
+	if(HAS_TRAIT(user, TRAIT_NO_BLOOD))
+		to_chat(user, span_userdanger("The [name] is not compatible with your form!"))
+		return ATTACK_CHAIN_PROCEED
+
+	if(!user.temporarily_remove_item_from_inventory(src))
+		return .
+
+	playsound(user, 'sound/effects/singlebeat.ogg', 40, TRUE)
+	insert(user)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
 
 /obj/item/organ/internal/heart/cursed/on_life()
 	if(world.time > (last_pump + pump_delay))
 		if(ishuman(owner) && owner.client) //While this entire item exists to make people suffer, they can't control disconnects.
 			var/mob/living/carbon/human/H = owner
-			if(!(NO_BLOOD in H.dna.species.species_traits))
+			if(!HAS_TRAIT(H, TRAIT_NO_BLOOD))
 				H.blood_volume = max(H.blood_volume - blood_loss, 0)
 				to_chat(H, span_userdanger("You have to keep pumping your blood!"))
 				if(H.client)
@@ -100,7 +106,7 @@
 			last_pump = world.time //lets be extra fair *sigh*
 
 /obj/item/organ/internal/heart/cursed/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
-	..()
+	. = ..()
 	if(owner)
 		to_chat(owner, span_userdanger("Your heart has been replaced with a cursed one, you have to pump this one manually otherwise you'll die!"))
 
@@ -114,25 +120,26 @@
 		var/obj/item/organ/internal/heart/cursed/cursed_heart = target
 
 		if(world.time < (cursed_heart.last_pump + (cursed_heart.pump_delay - 10))) //no spam
-			to_chat(owner, span_userdanger("Too soon!"))
+			owner.balloon_alert(owner, "слишком рано")
 			return
 
 		cursed_heart.last_pump = world.time
 		playsound(owner,'sound/effects/singlebeat.ogg',40,1)
-		to_chat(owner, span_notice("Your heart beats."))
+		owner.balloon_alert(owner, "твоё сердце бьется")
 
 		var/mob/living/carbon/human/H = owner
-		if(istype(H))
-			if(!(NO_BLOOD in H.dna.species.species_traits))
+		if(istype(H) && !HAS_TRAIT(H, TRAIT_NO_BLOOD))
+			if(!HAS_TRAIT(H, TRAIT_NO_BLOOD_RESTORE))
 				H.blood_volume = min(H.blood_volume + cursed_heart.blood_loss * 0.5, BLOOD_VOLUME_NORMAL)
-				if(owner.client)
-					owner.client.color = ""
 
-				var/update = NONE
-				update |= H.heal_overall_damage(cursed_heart.heal_brute, cursed_heart.heal_burn, updating_health = FALSE, affect_robotic = TRUE)
-				update |= H.heal_damage_type(cursed_heart.heal_oxy, OXY, updating_health = FALSE)
-				if(update)
-					H.updatehealth()
+			if(owner.client)
+				owner.client.color = ""
+
+			var/update = NONE
+			update |= H.heal_overall_damage(cursed_heart.heal_brute, cursed_heart.heal_burn, updating_health = FALSE, affect_robotic = TRUE)
+			update |= H.heal_damage_type(cursed_heart.heal_oxy, OXY, updating_health = FALSE)
+			if(update)
+				H.updatehealth()
 
 
 /obj/item/organ/internal/heart/cybernetic

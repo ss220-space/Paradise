@@ -48,7 +48,7 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 
-/obj/item/shard/afterattack(atom/movable/AM, mob/user, proximity)
+/obj/item/shard/afterattack(atom/movable/AM, mob/user, proximity, params)
 	if(!proximity || !(src in user))
 		return
 	if(isturf(AM))
@@ -57,7 +57,7 @@
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(!H.gloves && !(PIERCEIMMUNE in H.dna.species.species_traits))
+		if(!H.gloves && !HAS_TRAIT(H, TRAIT_PIERCEIMMUNE))
 			var/obj/item/organ/external/affecting = H.get_organ(H.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 			if(!affecting || affecting.is_robotic())
 				return
@@ -67,18 +67,30 @@
 
 /obj/item/shard/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/lightreplacer))
-		I.attackby(src, user)
-		return
+		I.attackby(src, user, params)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	if(istype(I, /obj/item/stack/sheet/cloth))
-		var/obj/item/stack/sheet/cloth/CL = I
-		CL.use(1)
-		to_chat(user, "<span class='notice'>You wrap the [name] with some cloth.</span>")
+		add_fingerprint(user)
+		var/obj/item/stack/sheet/cloth/cloth = I
+		if(loc == user && !user.can_unEquip(src))
+			return ATTACK_CHAIN_PROCEED
+		if(!cloth.use(1))
+			to_chat(user, span_warning("There is not enough [cloth.name]."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You wrap the [name] with some [cloth.name]."))
+		var/obj/item/kitchen/knife/glassshiv/shiv
 		if(istype(src, /obj/item/shard/plasma))
-			new /obj/item/kitchen/knife/glassshiv/plasma(user.loc, src)
+			shiv = new /obj/item/kitchen/knife/glassshiv/plasma(drop_location(), src)
 		else
-			new /obj/item/kitchen/knife/glassshiv(user.loc, src)
+			shiv = new /obj/item/kitchen/knife/glassshiv(drop_location(), src)
+		shiv.add_fingerprint(user)
+		user.put_in_hands(shiv, ignore_anim = FALSE)
 		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/item/shard/welder_act(mob/user, obj/item/I)
 	. = TRUE

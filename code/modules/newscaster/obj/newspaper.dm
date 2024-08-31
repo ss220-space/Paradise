@@ -15,6 +15,8 @@
 	item_state = "newspaper"
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("bapped")
+	drop_sound = 'sound/items/handling/paper_drop.ogg'
+	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
 	/// The current screen to display.
 	var/screen = 0
 	/// The number of pages.
@@ -55,7 +57,7 @@
 		to_chat(user, "<span class='warning'>Unroll it first!</span>")
 		return
 	if(user.is_literate())
-		var/dat = {"<meta charset="UTF-8">"}
+		var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 		pages = 0
 		switch(screen)
 			if(SCREEN_COVER) //Cover
@@ -79,7 +81,7 @@
 					dat += "</ul>"
 				if(scribble_page==curr_page)
 					dat += "<br><i>There is a small scribble near the end of this page... It reads: \"[scribble]\"</i>"
-				dat+= "<hr><div style='float:right;'><a href='?src=[UID()];next_page=1'>Next Page</a></div> <div style='float:left;'><a href='?src=[user.UID()];mach_close=newspaper_main'>Done reading</a></div>"
+				dat+= "<hr><div style='float:right;'><a href='byond://?src=[UID()];next_page=1'>Next Page</a></div> <div style='float:left;'><a href='byond://?src=[user.UID()];mach_close=newspaper_main'>Done reading</a></div>"
 			if(SCREEN_PAGE_INNER) // X channel pages inbetween.
 				for(var/datum/feed_channel/NP in news_content)
 					pages++ //Let's get it right again.
@@ -106,7 +108,7 @@
 						dat += "</ul>"
 				if(scribble_page==curr_page)
 					dat += "<br><i>There is a small scribble near the end of this page... It reads: \"[scribble]\"</i>"
-				dat+= "<br><hr><div style='float:left;'><a href='?src=[UID()];prev_page=1'>Previous Page</a></div> <div style='float:right;'><a href='?src=[UID()];next_page=1'>Next Page</a></div>"
+				dat+= "<br><hr><div style='float:left;'><a href='byond://?src=[UID()];prev_page=1'>Previous Page</a></div> <div style='float:right;'><a href='byond://?src=[UID()];next_page=1'>Next Page</a></div>"
 			if(SCREEN_PAGE_LAST) //Last page
 				for(var/datum/feed_channel/NP in news_content)
 					pages++
@@ -124,7 +126,7 @@
 					dat += "<i>Apart from some uninteresting Classified ads, there's nothing on this page...</i>"
 				if(scribble_page==curr_page)
 					dat += "<br><i>There is a small scribble near the end of this page... It reads: \"[scribble]\"</i>"
-				dat+= "<hr><div style='float:left;'><a href='?src=[UID()];prev_page=1'>Previous Page</a></div>"
+				dat+= "<hr><div style='float:left;'><a href='byond://?src=[UID()];prev_page=1'>Previous Page</a></div>"
 			else
 				dat += "i'm sorry to break your immersion. This shit's bugged. Report this bug to Agouri, polyxenitopalidou@gmail.com"
 
@@ -161,24 +163,30 @@
 		playsound(loc, "pageturn", 50, TRUE)
 		attack_self(usr)
 
-/obj/item/newspaper/attackby(obj/item/W, mob/user, params)
-	if(is_pen(W))
+
+/obj/item/newspaper/attackby(obj/item/I, mob/user, params)
+	if(is_pen(I))
+		add_fingerprint(user)
 		if(rolled)
-			to_chat(user, "<span class='warning'>Unroll it first!</span>")
-			return
+			to_chat(user, span_warning("Unroll it first!"))
+			return ATTACK_CHAIN_PROCEED
 		if(scribble_page == curr_page)
-			to_chat(user, "<span class='notice'>There's already a scribble in this page... You wouldn't want to make things too cluttered, would you?</span>")
-		else
-			var/s = tgui_input_text(user, "Write something", "Newspaper")
-			if(!s || !Adjacent(user))
-				return
-			scribble_page = curr_page
-			scribble = s
-			user.visible_message("<span class='notice'>[user] scribbles something on [src].</span>",\
-								 "<span class='notice'>You scribble on page number [curr_page] of [src].</span>")
-			attack_self(user)
-		return
+			to_chat(user, span_notice("There's already a scribble on this page... You wouldn't want to make things too cluttered, would you?"))
+			return ATTACK_CHAIN_PROCEED
+		var/new_scribble = tgui_input_text(user, "Write something", "Newspaper")
+		if(!new_scribble || !Adjacent(user))
+			return ATTACK_CHAIN_PROCEED
+		scribble_page = curr_page
+		scribble = new_scribble
+		user.visible_message(
+			span_notice("[user] has scribbled something on [src]."),
+			span_notice("You have scribbled a note on page number [curr_page] of [src]."),
+		)
+		attack_self(user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
+
 
 /obj/item/newspaper/AltClick(mob/user)
 	if(ishuman(user) && Adjacent(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))

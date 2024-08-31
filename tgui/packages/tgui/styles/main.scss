@@ -53,6 +53,7 @@
 @include meta.load-css('./interfaces/Contractor.scss');
 @include meta.load-css('./interfaces/ExosuitFabricator.scss');
 @include meta.load-css('./interfaces/ListInput.scss');
+@include meta.load-css('./interfaces/Minesweeper.scss');
 @include meta.load-css('./interfaces/Newscaster.scss');
 @include meta.load-css('./interfaces/NuclearBomb.scss');
 @include meta.load-css('./interfaces/OreRedemption.scss');
@@ -76,7 +77,7 @@
 .Layout__content {
   // From 'packages/tgui/assets/bg-nanotrasen.svg', converted to base64 manually to stop webpack exploding
   background-image: url('../assets/bg-nanotrasen.svg');
-  background-size: 70%;
+  background-size: 70% 70%;
   background-position: center;
   background-repeat: no-repeat;
 }

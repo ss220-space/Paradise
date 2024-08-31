@@ -519,24 +519,27 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	ui_interact(user)
 	return
 
-/obj/machinery/computer/syndie_supplycomp/attackby(obj/item/I, mob/user, params)
-	if(!powered())
-		add_fingerprint(user)
-		return 0
+
+/obj/machinery/computer/syndie_supplycomp/attackby(obj/item/I, mob/living/carbon/human/user, params)
+	if(user.a_intent == INTENT_HARM || !powered() || !ishuman(user))
+		return ..()
+
 	if(istype(I, /obj/item/stack/spacecash))
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
 		add_fingerprint(user)
 		//consume the money
-		var/obj/item/stack/spacecash/C = I
+		var/obj/item/stack/spacecash/cash = I
 		playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)
-		data_storage.cash += C.amount
-		to_chat(user, span_info("You insert [C] into [src]."))
-		var/mob/living/carbon/human/H = user
-		var/name = H.get_authentification_name()
-		data_storage.blackmarket_message += "[span_good("+[C.amount]")]: [name] adds credits to the console.<br>"
+		data_storage.cash += cash.amount
+		to_chat(user, span_info("You insert [cash] into [src]."))
+		data_storage.blackmarket_message += "[span_good("+[cash.amount]")]: [user.get_authentification_name()] adds credits to the console.<br>"
 		SStgui.update_uis(src)
-		C.use(C.amount)
-		return 1
+		qdel(cash)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/machinery/computer/syndie_supplycomp/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)

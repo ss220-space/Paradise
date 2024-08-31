@@ -27,16 +27,20 @@
 	update_icon(UPDATE_ICON_STATE)
 
 
-/obj/machinery/ai_slipper/attackby(obj/item/W, mob/user, params)
-	add_fingerprint(user)
-	if(stat & (NOPOWER|BROKEN))
-		return
-	if(issilicon(user))
-		return attack_hand(user)
-	if(!allowed(user)) // trying to unlock the interface
-		to_chat(user, span_warning("Access denied."))
+/obj/machinery/ai_slipper/attackby(obj/item/I, mob/user, params)
+	if(stat & (NOPOWER|BROKEN) || user.a_intent == INTENT_HARM)
 		return ..()
 
+	if(issilicon(user))
+		attack_hand(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	add_fingerprint(user)
+	if(!allowed(user)) // trying to unlock the interface
+		to_chat(user, span_warning("Access denied."))
+		return ATTACK_CHAIN_PROCEED
+
+	. = ATTACK_CHAIN_BLOCKED_ALL
 	locked = !locked
 	to_chat(user, span_notice("You [locked ? "lock" : "unlock"] the device."))
 	if(locked)
@@ -112,8 +116,8 @@
 		t += "<I>(Swipe ID card to unlock control panel.)</I><BR>"
 	else
 		add_fingerprint(user)
-		t += text("Dispenser [] - <A href='?src=[UID()];toggleOn=1'>[]?</a><br>\n", disabled ? "deactivated" : "activated", disabled ? "Enable" : "Disable")
-		t += text("Uses Left: [uses]. <A href='?src=[UID()];toggleUse=1'>Activate the dispenser?</A><br>\n")
+		t += text("Dispenser [] - <a href='byond://?src=[UID()];toggleOn=1'>[]?</a><br>\n", disabled ? "deactivated" : "activated", disabled ? "Enable" : "Disable")
+		t += text("Uses Left: [uses]. <a href='byond://?src=[UID()];toggleUse=1'>Activate the dispenser?</A><br>\n")
 
 	user << browse(t, "window=computer;size=575x450")
 	onclose(user, "computer")

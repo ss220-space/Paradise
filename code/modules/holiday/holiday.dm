@@ -7,6 +7,7 @@
 	var/end_day = 0 // Default of 0 means the holiday lasts a single day
 	var/end_month = 0
 	var/eventChance = 0
+	var/list/lobby_music = null // list of youtube URLs for lobby music to use during this holiday
 
 /**
  * NOTE FOR EVERYONE TRYING TO DO STUFF WHICH REQUIRES MAPPING, PLACING OBJECTS, ETC:

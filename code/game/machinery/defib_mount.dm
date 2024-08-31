@@ -90,14 +90,16 @@
 
 
 /obj/machinery/defibrillator_mount/attackby(obj/item/I, mob/living/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(istype(I, /obj/item/defibrillator))
+		add_fingerprint(user)
 		if(defib)
 			to_chat(user, span_warning("There's already a defibrillator in [src]!"))
-			return
+			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
-			to_chat(user, span_warning("[I] is stuck to your hand!"))
-			return
-		add_fingerprint(user)
+			return ..()
 		user.visible_message(
 			span_notice("[user] hooks up [I] to [src]!"),
 			span_notice("You press [I] into the mount, and it clicks into place."),
@@ -105,26 +107,25 @@
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 		defib = I
 		update_icon(UPDATE_OVERLAYS)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(defib && I == defib.paddles)
 		add_fingerprint(user)
 		user.drop_item_ground(I)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	var/obj/item/card/id = I.GetID()
-	if(id)
-		if(check_access(id) || GLOB.security_level >= SEC_LEVEL_RED) //anyone can toggle the clamps in red alert!
+	if(I.GetID())
+		add_fingerprint(user)
+		if(check_access(I) || GLOB.security_level >= SEC_LEVEL_RED) //anyone can toggle the clamps in red alert!
 			if(!defib)
 				to_chat(user, span_warning("You can't engage the clamps on a defibrillator that isn't there."))
-				return
-			add_fingerprint(user)
+				return ATTACK_CHAIN_PROCEED
 			clamps_locked = !clamps_locked
 			to_chat(user, span_notice("Clamps [clamps_locked ? "" : "dis"]engaged."))
 			update_icon(UPDATE_OVERLAYS)
-		else
-			to_chat(user, span_warning("Insufficient access."))
-		return
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		to_chat(user, span_warning("Insufficient access."))
+		return ATTACK_CHAIN_PROCEED
 
 	return ..()
 

@@ -30,6 +30,8 @@ import './styles/themes/security.scss';
 import './styles/themes/spider_clan.scss';
 import './styles/themes/syndicate.scss';
 import './styles/themes/nologo.scss';
+import './styles/themes/spider_clan.scss';
+import './styles/themes/ntOS95.scss';
 
 import { perf } from 'common/perf';
 import { setupHotReloading } from 'tgui-dev-server/link/client.cjs';

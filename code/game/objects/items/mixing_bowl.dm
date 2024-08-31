@@ -11,67 +11,91 @@
 	var/dirty_icon = "mixing_bowl_dirty"
 	var/is_GUI_opened = FALSE
 
-/obj/item/mixing_bowl/New()
-	..()
+
+/obj/item/mixing_bowl/Initialize(mapload)
+	. = ..()
 	create_reagents(100)
 
-/obj/item/mixing_bowl/attackby(obj/item/I, mob/user, params)
-	if(dirty)
-		if(istype(I, /obj/item/soap))
-			user.visible_message("<span class='notice'>[user] starts to scrub [src].</span>", "<span class='notice'>You start to scrub [src].</span>")
-			if(do_after(user, 2 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
-				clean()
-				user.visible_message("<span class='notice'>[user] has scrubbed [src] clean.</span>", "<span class='notice'>You have scrubbed [src] clean.</span>")
-				update_dialog(user)
-			return 0
-		else
-			to_chat(user, "<span class='warning'>You should clean [src] before you use it for food prep.</span>")
-			return 1
-	if(is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_MICROWAVE]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_GRILL]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_OVEN]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_CANDY]))
-		if(contents.len>=max_n_of_items)
-			to_chat(user, "<span class='alert'>This [src] is full of ingredients, you cannot put more.</span>")
-			return 1
-		if(isstack(I))
-			var/obj/item/stack/S = I
-			if(S.get_amount() > 1)
-				var/obj/item/stack/to_add = S.split_stack(user, 1)
-				to_add.forceMove(src)
-				user.visible_message("<span class='notice'>[user] adds one of [S] to [src].</span>", "<span class='notice'>You add one of [S] to [src].</span>")
-				update_dialog(user)
-				return 0
-			else
-				return add_item(S, user)
-		else
-			return add_item(I, user)
-	else if(is_type_in_list(I, list(/obj/item/reagent_containers/glass, /obj/item/reagent_containers/food/drinks, /obj/item/reagent_containers/food/condiment)))
-		if(!I.reagents)
-			return 1
-		for(var/datum/reagent/R in I.reagents.reagent_list)
-			if(!(R.id in GLOB.cooking_reagents[RECIPE_MICROWAVE]) && !(R.id in GLOB.cooking_reagents[RECIPE_GRILL]) && !(R.id in GLOB.cooking_reagents[RECIPE_OVEN]) && !(R.id in GLOB.cooking_reagents[RECIPE_CANDY]))
-				to_chat(user, "<span class='alert'>Your [I] contains components unsuitable for cookery.</span>")
-				return 1
-		var/obj/item/reagent_containers/I_container = I
-		var/IS = "[I]"
-		var/transfered_amount = I_container.reagents.trans_to(src, I_container.amount_per_transfer_from_this)
-		user.visible_message("<span class='notice'>[user] transfer some solution from [IS] to [src].</span>", "<span class='notice'>You transfer [transfered_amount] units of the solution to [src].</span>")
-		update_dialog(user)
-		return 0
-	else
-		to_chat(user, "<span class='alert'>You have no idea what you can cook with [I].</span>")
-		return 1
 
-/obj/item/mixing_bowl/proc/add_item(obj/item/I, mob/user)
-	if(!user.drop_transfer_item_to_loc(I, src))
-		to_chat(user, "<span class='notice'>\The [I] is stuck to your hand, you cannot put it in [src]</span>")
-		return 1
-	else
-		I.forceMove(src)
-		user.visible_message("<span class='notice'>[user] adds [I] to [src].</span>", "<span class='notice'>You add [I] to [src].</span>")
+/obj/item/mixing_bowl/attackby(obj/item/stack/I, mob/user, params)
+	if(istype(I, /obj/item/soap))
+		add_fingerprint(user)
+		if(!dirty)
+			to_chat(user, span_warning("The [name] is not dirty!"))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] starts to scrub [src]."),
+			span_notice("You start to scrub [src]."),
+		)
+		if(!do_after(user, 2 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || !dirty)
+			return ATTACK_CHAIN_PROCEED
+		clean()
+		user.visible_message(
+			span_notice("[user] has scrubbed [src] clean."),
+			span_notice("You have scrubbed [src] clean."),
+		)
 		update_dialog(user)
-		return 0
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_MICROWAVE]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_GRILL]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_OVEN]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_CANDY]))
+		add_fingerprint(user)
+		if(dirty)
+			to_chat(user, span_warning("You should clean [src] before you use it for food prep."))
+			return ATTACK_CHAIN_PROCEED
+		if(length(contents) >= max_n_of_items)
+			to_chat(user, span_warning("This [name] is full of ingredients, you cannot put more."))
+			return ATTACK_CHAIN_PROCEED
+		if(isstack(I) && I.get_amount() > 1)
+			var/obj/item/stack/to_add = I.split_stack(user, 1)
+			to_add.forceMove(src)
+			user.visible_message(
+				span_notice("[user] adds one of [I] to [src]."),
+				span_notice("You add one of [I] to [src]."),
+			)
+			update_dialog(user)
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		user.visible_message(
+			span_notice("[user] adds [I] to [src]."),
+			span_notice("You add [I] to [src]."),
+		)
+		update_dialog(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	var/static/list/containers = list(
+		/obj/item/reagent_containers/glass,
+		/obj/item/reagent_containers/food/drinks,
+		/obj/item/reagent_containers/food/condiment,
+	)
+	if(is_type_in_list(I, containers))
+		add_fingerprint(user)
+		if(dirty)
+			to_chat(user, span_warning("You should clean [src] before you use it for food prep."))
+			return ATTACK_CHAIN_PROCEED
+		if(!I.reagents)
+			to_chat(user, span_warning("The [I.name] is empty!"))
+			return ATTACK_CHAIN_PROCEED
+		for(var/datum/reagent/reagent as anything in I.reagents.reagent_list)
+			if(!(reagent.id in GLOB.cooking_reagents[RECIPE_MICROWAVE]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_GRILL]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_OVEN]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_CANDY]))
+				to_chat(user, span_warning("Your [I.name] contains components unsuitable for cookery."))
+				return ATTACK_CHAIN_PROCEED
+		var/obj/item/reagent_containers/container = I
+		var/cached_name = "[container]"
+		var/transfered_amount = container.reagents.trans_to(src, container.amount_per_transfer_from_this)
+		user.visible_message(
+			span_notice("[user] transfer some solution from [cached_name] to [src]."),
+			span_notice("You transfer [transfered_amount] units of the solution to [src]."),
+		)
+		update_dialog(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	to_chat(user, span_warning("You have no idea what you can cook with [I]."))
+	return ..()
+
 
 /obj/item/mixing_bowl/attack_self(mob/user)
-	var/dat = {"<meta charset="UTF-8">"}
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	if(dirty)
 		dat = {"<code>This [src] is dirty!<BR>Please clean it before use!</code>"}
 	else
@@ -119,7 +143,7 @@
 			dat = {"<B>The [src] is empty</B><BR>"}
 		else
 			dat = {"<b>Ingredients:</b><br>[dat]"}
-		dat += {"<HR><BR> <A href='?src=[UID()];action=dispose'>Eject ingredients!</A><BR>"}
+		dat += {"<HR><BR> <a href='byond://?src=[UID()];action=dispose'>Eject ingredients!</A><BR>"}
 
 	var/datum/browser/popup = new(user, "[name][UID()]", "[name]", 400, 400, src)
 	popup.set_content(dat)

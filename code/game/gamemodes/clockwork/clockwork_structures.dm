@@ -100,35 +100,36 @@
 
 /obj/structure/clockwork/functional/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
+		add_fingerprint(user)
 		if(I.enchant_type == HIDE_SPELL && canbehidden)
 			var/choice
 			if(!hidden)
 				choice = show_radial_menu(user, src, choosable_items, require_near = TRUE)
 				if(I.enchant_type != HIDE_SPELL || !choice || !Adjacent(user) || user.incapacitated())
-					return TRUE
+					return ATTACK_CHAIN_BLOCKED_ALL
 			toggle_hide(choice)
-			to_chat(user, "<span class='notice'>You [hidden ? null : "un"]disguise [src].</span>")
+			to_chat(user, span_notice("You [hidden ? null : "un"]disguise [src]."))
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 			I.deplete_spell()
-			return TRUE
+			return ATTACK_CHAIN_BLOCKED_ALL
 		if(hidden)
 			toggle_hide(null)
-			return TRUE
+			return ATTACK_CHAIN_BLOCKED_ALL
 		if(!anchored && !isfloorturf(loc))
-			to_chat(usr, "<span class='warning'>A floor must be present to secure [src]!</span>")
-			return TRUE
+			to_chat(user, span_warning("A floor must be present to secure [src]!"))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		if(locate(/obj/structure/clockwork) in (loc.contents-src))
-			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
-			return TRUE
+			to_chat(user, span_warning("There is a structure here!"))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		if(locate(/obj/structure/falsewall) in loc)
-			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
-			return TRUE
-		add_fingerprint(user)
+			to_chat(user, span_warning("There is a structure here!"))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		set_anchored(!anchored)
-		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
+		to_chat(user, span_notice("You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor."))
 		update_icon(UPDATE_ICON_STATE)
-		return TRUE
+		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
+
 
 /obj/structure/clockwork/functional/obj_destruction()
 	visible_message(death_message)
@@ -204,8 +205,9 @@
 				if(M.health < M.maxHealth)
 					M.adjustHealth(-8)
 
-			if(ishuman(L) && L.blood_volume < BLOOD_VOLUME_NORMAL && !isdiona(L))
+			if(ishuman(L) && !HAS_TRAIT(L, TRAIT_NO_BLOOD_RESTORE) && L.blood_volume < BLOOD_VOLUME_NORMAL)
 				L.blood_volume += 1
+
 
 /obj/structure/clockwork/functional/beacon/Destroy()
 	GLOB.clockwork_beacons -= src
@@ -216,8 +218,9 @@
 
 /obj/structure/clockwork/functional/beacon/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
-		to_chat(user, "<span class='danger'>You try to unsecure [src], but it's secures himself back tightly!</span>")
-		return TRUE
+		add_fingerprint(user)
+		to_chat(user, span_danger("You try to unsecure [src], but it's secures himself back tightly!"))
+		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
 /obj/structure/clockwork/functional/altar
@@ -319,19 +322,20 @@
 
 /obj/structure/clockwork/functional/altar/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
+		add_fingerprint(user)
 		if(hidden)
 			toggle_hide(null)
 			if(anchored)
 				START_PROCESSING(SSprocessing, src)
-			to_chat(user, "<span class='notice'>You undisguise [src].</span>")
+			to_chat(user, span_notice("You undisguise [src]."))
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-			return TRUE
-		else if(I.enchant_type == HIDE_SPELL && canbehidden)
+			return ATTACK_CHAIN_BLOCKED_ALL
+		if(I.enchant_type == HIDE_SPELL && canbehidden)
 			var/choice
 			if(!hidden)
 				choice = show_radial_menu(user, src, choosable_items, require_near = TRUE)
 				if(I.enchant_type != HIDE_SPELL || !choice || !Adjacent(user) || user.incapacitated())
-					return FALSE
+					return ATTACK_CHAIN_BLOCKED_ALL
 			toggle_hide(choice)//cuz we sure its unhidden
 			if(isprocessing)
 				STOP_PROCESSING(SSprocessing, src)
@@ -341,28 +345,28 @@
 				second_stage = FALSE
 				convert_timer = 0
 				converting = null
-			to_chat(user, "<span class='notice'>You disguise [src].</span>")
+			to_chat(user, span_notice("You disguise [src]."))
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			I.deplete_spell()
-			return TRUE
+			return ATTACK_CHAIN_BLOCKED_ALL
 		if(!anchored && !isfloorturf(loc))
-			to_chat(usr, "<span class='warning'>A floor must be present to secure [src]!</span>")
-			return TRUE
+			to_chat(user, span_warning("A floor must be present to secure [src]!"))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		if(!anchored && locate(/obj/structure/clockwork) in (loc.contents-src))
-			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
-			return FALSE
+			to_chat(user, span_warning("There is a structure here!"))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		if(locate(/obj/structure/falsewall) in loc)
-			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
-			return TRUE
+			to_chat(user, span_warning("There is a structure here!"))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		set_anchored(!anchored)
 		update_icon(UPDATE_ICON_STATE)
-		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
+		to_chat(user, span_notice("You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor."))
 		if(!anchored)
 			stop_convert(TRUE)
 			STOP_PROCESSING(SSprocessing, src)
 		else
 			START_PROCESSING(SSprocessing, src)
-		return TRUE
+		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
 
@@ -436,22 +440,28 @@
 	if(!silent)
 		visible_message("<span class='warning'>[src] slowly stops glowing!</span>")
 
+
 /obj/structure/clockwork/functional/altar/attackby(obj/item/I, mob/user, params)
-	. = ..()
 	if(istype(I, /obj/item/clockwork/shard))
+		add_fingerprint(user)
 		if(!ishuman(user))
-			to_chat(user, "<span class='warning'>You are too weak to push the shard inside!</span>")
-			return
-		var/area/A = get_area(src)
+			to_chat(user, span_warning("You are too weak to push the shard inside!"))
+			return ATTACK_CHAIN_PROCEED
 		if(!anchored)
-			to_chat(user, "<span class='warning'>It has to be anchored before you can start!</span>")
+			to_chat(user, span_warning("It has to be anchored before you can start!"))
+			return ATTACK_CHAIN_PROCEED
+		var/area/A = get_area(src)
 		if(!double_check(user, A))
-			return
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ATTACK_CHAIN_PROCEED
 		GLOB.command_announcement.Announce("Была обнаружена аномально высокая концентрация энергии в [A.map_name]. Источник энергии указывает на попытку вызвать потустороннего бога по имени Ратвар. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/spanomalies.ogg')
-		visible_message("<span class='biggerdanger'>[user] ominously presses [I] into [src] as the mechanism inside starts to shine!</span>")
-		user.temporarily_remove_item_from_inventory(I)
+		visible_message(span_dangerbigger("[user] ominously presses [I] into [src] as the mechanism inside starts to shine!"))
 		qdel(I)
 		begin_the_ritual()
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 /obj/structure/clockwork/functional/altar/proc/double_check(mob/living/user, area/A)
 	var/datum/game_mode/gamemode = SSticker.mode
@@ -529,22 +539,22 @@
 	if(!timer_fabrictor)
 		timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
 
+
 /obj/structure/clockwork/functional/cogscarab_fabricator/attackby(obj/item/I, mob/user, params)
-	. = ..()
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user) && I.enchant_type != HIDE_SPELL && !hidden)
-		if(!anchored && !isfloorturf(loc))
-			to_chat(usr, "<span class='warning'>A floor must be present to secure [src]!</span>")
-			return TRUE
-		if(locate(/obj/structure/clockwork) in (loc.contents-src))
-			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
-			return TRUE
-		if(locate(/obj/structure/falsewall) in loc)
-			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
-			return TRUE
 		add_fingerprint(user)
+		if(!anchored && !isfloorturf(loc))
+			to_chat(user, span_warning("A floor must be present to secure [src]!"))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		if(locate(/obj/structure/clockwork) in (loc.contents-src))
+			to_chat(user, span_warning("There is a structure here!"))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		if(locate(/obj/structure/falsewall) in loc)
+			to_chat(user, span_warning("There is a structure here!"))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		set_anchored(!anchored)
 		update_icon(UPDATE_ICON_STATE)
-		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
+		to_chat(user, span_notice("You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor."))
 		if(!anchored)
 			if(timer_fabrictor)
 				deltimer(timer_fabrictor)
@@ -552,7 +562,9 @@
 		else
 			if(cog_slots < MAX_COGSCRAB_PER_FABRICATOR)
 				timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
-		return TRUE
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 /obj/structure/clockwork/functional/cogscarab_fabricator/toggle_hide(chosen_type)
 	. = ..()

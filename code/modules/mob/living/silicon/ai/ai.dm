@@ -251,7 +251,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/proc/ai_alerts()
 	var/list/dat = list("<HEAD><TITLE>Current Station Alerts</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n")
-	dat += "<A HREF='?src=[UID()];mach_close=aialerts'>Close</A><BR><BR>"
+	dat += "<a href='byond://?src=[UID()];mach_close=aialerts'>Close</A><BR><BR>"
 	var/list/list/temp_alarm_list = SSalarm.alarms.Copy()
 	for(var/cat in temp_alarm_list)
 		if(!(cat in alarms_listend_for))
@@ -437,6 +437,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		"Catamari",
 		"Anonymous",
 		"Hippy",
+		"AMAI",
 		)
 	if(custom_sprite)
 		display_choices += "Custom"
@@ -547,6 +548,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			icon_state = "ai-hippy"
 		if("Anonymous")
 			icon_state = "ai-anon"
+		if("AMAI")
+			icon_state = "ai-am"
 		else
 			icon_state = "ai"
 	//else
@@ -1265,26 +1268,21 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		lit_cameras |= C
 
 
-/mob/living/silicon/ai/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_WRENCH)
-		if(anchored)
-			user.visible_message("<span class='notice'>\The [user] starts to unbolt \the [src] from the plating...</span>")
-			if(!do_after(user, 4 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
-				user.visible_message("<span class='notice'>\The [user] decides not to unbolt \the [src].</span>")
-				return
-			user.visible_message("<span class='notice'>\The [user] finishes unfastening \the [src]!</span>")
-			set_anchored(FALSE)
-			return
-		else
-			user.visible_message("<span class='notice'>\The [user] starts to bolt \the [src] to the plating...</span>")
-			if(!do_after(user, 4 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
-				user.visible_message("<span class='notice'>\The [user] decides not to bolt \the [src].</span>")
-				return
-			user.visible_message("<span class='notice'>\The [user] finishes fastening down \the [src]!</span>")
-			set_anchored(TRUE)
-			return
-	else
-		return ..()
+/mob/living/silicon/ai/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	var/prev_state = anchored
+	user.visible_message(
+		span_notice("[user] starts to [prev_state ? "unbolt" : "bolt"] [src]."),
+		span_notice("You start to [prev_state ? "unbolt" : "bolt"] [src]..."),
+	)
+	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume) || anchored != prev_state)
+		return .
+	set_anchored(!anchored)
+	user.visible_message(
+		span_notice("[user] has finished to [prev_state ? "unbolt" : "bolt"] [src]."),
+		span_notice("You have finished to [prev_state ? "unbolt" : "bolt"] [src]."),
+	)
+
 
 /mob/living/silicon/ai/welder_act()
 	return

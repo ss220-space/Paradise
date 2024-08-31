@@ -2,7 +2,7 @@
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/mixer.dmi'
 	icon_state = "map"
 
-	can_unwrench = 1
+	can_unwrench = TRUE
 
 	name = "gas mixer"
 
@@ -229,9 +229,13 @@
 	if(.)
 		investigate_log("was set to [target_pressure] kPa by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 
-/obj/machinery/atmospherics/trinary/mixer/attackby(obj/item/W, mob/user, params)
-	if(is_pen(W))
-		rename_interactive(user, W)
-		return
-	else
-		return ..()
+
+/obj/machinery/atmospherics/trinary/mixer/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
+
+	. |= ATTACK_CHAIN_SUCCESS
+	rename_interactive(user, I)
+

@@ -135,11 +135,12 @@
 
 
 /obj/machinery/recharge_station/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
-		return
-
-	else
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	return ..()
+
 
 /obj/machinery/recharge_station/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))

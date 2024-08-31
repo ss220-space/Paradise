@@ -33,20 +33,24 @@
 
 
 /obj/item/grenade/plastic/attackby(obj/item/I, mob/user, params)
-	if(!nadeassembly && istype(I, /obj/item/assembly_holder))
+	if(istype(I, /obj/item/assembly_holder))
+		add_fingerprint(user)
+		if(nadeassembly)
+			to_chat(user, span_warning("There is [nadeassembly] already installed!"))
+			return ATTACK_CHAIN_PROCEED
 		var/obj/item/assembly_holder/assembly_holder = I
 		if(!assembly_holder.secured)
-			to_chat(user, span_warning("[assembly_holder] must be secured first!"))
-			return
-		if(!user.drop_transfer_item_to_loc(I, src))
+			to_chat(user, span_warning("The [assembly_holder.name] must be secured first!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(assembly_holder, src))
 			return ..()
 		nadeassembly = assembly_holder
 		assembly_holder.master = src
 		assemblyattacher = user.ckey
 		to_chat(user, span_notice("You add [assembly_holder] to the [name]."))
-		playsound(src, 'sound/weapons/tap.ogg', 20, 1)
+		playsound(src, 'sound/weapons/tap.ogg', 20, TRUE)
 		update_icon(UPDATE_ICON_STATE)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
 
@@ -95,7 +99,7 @@
 	to_chat(user, "Timer set for [newtime / 10] seconds.")
 
 
-/obj/item/grenade/plastic/afterattack(atom/movable/AM, mob/user, flag)
+/obj/item/grenade/plastic/afterattack(atom/movable/AM, mob/user, flag, params)
 	if(!flag)
 		return
 	if(iscarbon(AM))
@@ -229,7 +233,7 @@
 		M.gib()
 	qdel(src)
 
-/obj/item/grenade/plastic/x4/afterattack(atom/movable/AM, mob/user, flag)
+/obj/item/grenade/plastic/x4/afterattack(atom/movable/AM, mob/user, flag, params)
 	aim_dir = get_dir(user,AM)
 	..()
 
@@ -261,7 +265,7 @@
 		M.gib()
 	qdel(src)
 
-/obj/item/grenade/plastic/c4_shaped/afterattack(atom/movable/AM, mob/user, flag)
+/obj/item/grenade/plastic/c4_shaped/afterattack(atom/movable/AM, mob/user, flag, params)
 	aim_dir = get_dir(user,AM)
 	..()
 

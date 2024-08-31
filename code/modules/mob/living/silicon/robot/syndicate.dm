@@ -160,10 +160,11 @@
 
 	return
 
-/mob/living/silicon/robot/syndicate/saboteur/attackby()
-	if(cham_proj)
-		cham_proj.disrupt(src)
-	..()
+
+/mob/living/silicon/robot/syndicate/saboteur/attackby(obj/item/I, mob/user, params)
+	cham_proj?.disrupt(src)
+	return ..()
+
 
 /mob/living/silicon/robot/syndicate/saboteur/attack_hand()
 	if(cham_proj)
@@ -185,7 +186,3 @@
 		cham_proj.disrupt(src)
 	..()
 
-/mob/living/silicon/robot/syndicate/saboteur/attackby()
-	if(cham_proj)
-		cham_proj.disrupt(src)
-	..()

@@ -9,7 +9,15 @@
 	blood_color = "#555555"
 	flesh_color = "#222222"
 
-	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE, NOGUNS, NO_HUNGER, NO_EXAMINE, VIRUSIMMUNE) //Can't use guns due to muzzle flash
+	inherent_traits = list(
+		TRAIT_NO_BLOOD,
+		TRAIT_NO_BREATH,
+		TRAIT_RADIMMUNE,
+		TRAIT_NO_GUNS,	// can't use guns due to muzzle flash	// yeah totally not a balance reason
+		TRAIT_VIRUSIMMUNE,
+		TRAIT_NO_SPECIES_EXAMINE,
+		TRAIT_NO_HUNGER,
+	)
 	burn_mod = 1.25
 	heatmod = 1.5
 
@@ -76,7 +84,13 @@
 	blood_color = "#CCCCCC"
 	flesh_color = "#AAAAAA"
 
-	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE, NO_HUNGER, NO_EXAMINE)
+	inherent_traits = list(
+		TRAIT_NO_BLOOD,
+		TRAIT_NO_BREATH,
+		TRAIT_RADIMMUNE,
+		TRAIT_NO_SPECIES_EXAMINE,
+		TRAIT_NO_HUNGER,
+	)
 	burn_mod = 1.1
 	heatmod = 1.1
 

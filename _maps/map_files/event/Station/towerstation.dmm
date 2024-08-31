@@ -5688,7 +5688,7 @@
 /area/atmos)
 "dOo" = (
 /obj/effect/turf_decal/delivery,
-/obj/structure/closet/secure_closet/freezer/money,
+/obj/structure/closet/secure_closet/freezer/vault,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -19013,9 +19013,6 @@
 /turf/simulated/floor/grass,
 /area/hallway/secondary/exit)
 "mkM" = (
-/obj/structure/closet/crate{
-	name = "Gold Crate"
-	},
 /obj/item/stack/sheet/mineral/gold{
 	pixel_x = -1;
 	pixel_y = 5
@@ -19028,6 +19025,7 @@
 	pixel_y = -2
 	},
 /obj/effect/turf_decal/delivery,
+/obj/structure/closet/crate/vault,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -28724,13 +28722,13 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "sBp" = (
-/obj/structure/closet/crate,
 /obj/item/coin/silver,
 /obj/item/coin/silver,
 /obj/item/coin/silver,
 /obj/item/coin/silver,
 /obj/item/coin/silver,
 /obj/effect/turf_decal/delivery,
+/obj/structure/closet/crate/vault,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -30132,15 +30130,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/table,
-/obj/item/storage/belt/utility,
-/obj/item/secbot_assembly{
-	created_name = "Officer Podsky";
-	desc = "Ты не узнаешь ценность чего-либо, пока не потеряешь это...";
-	name = "Обломки офицера Подски";
-	pixel_y = 14;
-	pixel_x = -5
-	},
+/obj/structure/closet/secure_closet/pilot_sniper,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -30210,6 +30200,14 @@
 /obj/item/gps,
 /obj/item/radio/intercom{
 	pixel_y = 24
+	},
+/obj/item/storage/belt/utility,
+/obj/item/secbot_assembly{
+	created_name = "Officer Podsky";
+	desc = "Ты не узнаешь ценность чего-либо, пока не потеряешь это...";
+	name = "Обломки офицера Подски";
+	pixel_y = 14;
+	pixel_x = -5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;

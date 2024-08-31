@@ -356,7 +356,7 @@
 	SetLoseBreath(max(AmountLoseBreath(), amount))
 
 /mob/living/proc/SetLoseBreath(amount)
-	if(BREATHLESS in mutations)
+	if(HAS_TRAIT(src, TRAIT_NO_BREATH))
 		return
 	if(status_flags & GODMODE)
 		return
@@ -859,83 +859,51 @@
 
 // Blind
 
-/mob/living/proc/BecomeBlind(updating = TRUE)
-	var/val_change = !(BLINDNESS in mutations)
-	. = val_change ? STATUS_UPDATE_BLIND : STATUS_UPDATE_NONE
-	mutations |= BLINDNESS
-	EyeBlind(2 SECONDS)
-	if(val_change && updating)
-		update_blind_effects()
-
 /mob/living/proc/CureBlind(updating = TRUE)
-	var/val_change = !!(BLINDNESS in mutations)
-	. = val_change ? STATUS_UPDATE_BLIND : STATUS_UPDATE_NONE
-	mutations -= BLINDNESS
-	if(val_change && updating)
+	. = STATUS_UPDATE_NONE
+	for(var/trait_source in GET_TRAIT_SOURCES(src, TRAIT_BLIND))
+		REMOVE_TRAIT(src, TRAIT_BLIND, trait_source)
+		. |= STATUS_UPDATE_BLIND
+	if(. && updating)
 		CureIfHasDisability(GLOB.blindblock)
 		update_blind_effects()
 
 // Coughing
 
-/mob/living/proc/BecomeCoughing()
-	mutations |= COUGHING
-
 /mob/living/proc/CureCoughing()
-	mutations -= COUGHING
 	CureIfHasDisability(GLOB.coughblock)
 
 // Epilepsy
 
-/mob/living/proc/BecomeEpilepsy()
-	mutations |= EPILEPSY
-
 /mob/living/proc/CureEpilepsy()
-	mutations -= EPILEPSY
 	CureIfHasDisability(GLOB.epilepsyblock)
 
 // Mute
 
-/mob/living/proc/BecomeMute()
-	mutations |= MUTE
-
 /mob/living/proc/CureMute()
-	mutations -= MUTE
 	CureIfHasDisability(GLOB.muteblock)
 
 // Nearsighted
 
-/mob/living/proc/BecomeNearsighted(updating = TRUE)
-	var/val_change = !(NEARSIGHTED in mutations)
-	. = val_change ? STATUS_UPDATE_NEARSIGHTED : STATUS_UPDATE_NONE
-	mutations |= NEARSIGHTED
-	if(val_change && updating)
-		update_nearsighted_effects()
-
 /mob/living/proc/CureNearsighted(updating = TRUE)
-	var/val_change = !!(NEARSIGHTED in mutations)
-	. = val_change ? STATUS_UPDATE_NEARSIGHTED : STATUS_UPDATE_NONE
-	mutations -= NEARSIGHTED
-	if(val_change && updating)
+	. = STATUS_UPDATE_NONE
+	for(var/trait_source in GET_TRAIT_SOURCES(src, TRAIT_NEARSIGHTED))
+		REMOVE_TRAIT(src, TRAIT_NEARSIGHTED, trait_source)
+		. |= STATUS_UPDATE_NEARSIGHTED
+	if(. && updating)
 		CureIfHasDisability(GLOB.glassesblock)
 		update_nearsighted_effects()
 
 // Nervous
 
-/mob/living/proc/BecomeNervous()
-	mutations |= NERVOUS
-
 /mob/living/proc/CureNervous()
-	mutations -= NERVOUS
 	CureIfHasDisability(GLOB.nervousblock)
 
 // Tourettes
 
-/mob/living/proc/BecomeTourettes()
-	mutations |= TOURETTES
-
 /mob/living/proc/CureTourettes()
-	mutations -= TOURETTES
 	CureIfHasDisability(GLOB.twitchblock)
+
 
 /mob/living/proc/CureIfHasDisability(block)
 	if(dna?.GetSEState(block))

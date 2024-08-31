@@ -66,18 +66,22 @@
 
 /obj/structure/closet/body_bag/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
-		var/t = rename_interactive(user, I)
-		if(isnull(t))
-			return
-		if(t)
+		var/new_name = rename_interactive(user, I)
+		if(new_name)
 			update_icon(UPDATE_OVERLAYS)
-		return
-	if(I.tool_behaviour == TOOL_WIRECUTTER)
-		to_chat(user, "<span class='notice'>You cut the tag off the bodybag.</span>")
-		name = initial(name)
-		update_icon(UPDATE_OVERLAYS)
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
+
+
+/obj/structure/closet/body_bag/wirecutter_act(mob/living/user, obj/item/I)
+	if(name == initial(name))
+		return FALSE
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	to_chat(user, span_notice("You cut the tag off the bodybag."))
+	name = initial(name)
+	update_icon(UPDATE_OVERLAYS)
 
 
 /obj/structure/closet/body_bag/open()
@@ -249,19 +253,18 @@
 
 	return TRUE
 
+
 /obj/structure/closet/body_bag/bluespace/perform_fold(mob/living/carbon/human/the_folder)
 	visible_message(span_notice("[the_folder] folds up [src]."))
 	var/obj/item/bodybag/folding_bodybag = new foldedbag_path
 	var/max_weight_of_contents = initial(folding_bodybag.w_class)
-	for(var/atom/movable/content in contents)
+	for(var/atom/movable/content as anything in contents)
 		content.forceMove(folding_bodybag)
 		if(isliving(content))
 			to_chat(content, span_userdanger("You're suddenly forced into a tiny, compressed space!"))
-		if(ishuman(content))
-			var/mob/living/carbon/human/mob = content
-			if(DWARF in mob.mutations)
-				max_weight_of_contents = max(WEIGHT_CLASS_NORMAL, max_weight_of_contents)
-				continue
+		if(HAS_TRAIT(content, TRAIT_DWARF))
+			max_weight_of_contents = max(WEIGHT_CLASS_NORMAL, max_weight_of_contents)
+			continue
 		if(!isitem(content))
 			max_weight_of_contents = max(WEIGHT_CLASS_BULKY, max_weight_of_contents)
 			continue

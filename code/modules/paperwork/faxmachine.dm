@@ -90,15 +90,28 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 /obj/machinery/photocopier/faxmachine/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/photocopier/faxmachine/attackby(obj/item/item, mob/user, params)
-	if(istype(item,/obj/item/card/id) && !scan)
-		add_fingerprint(user)
-		scan(item)
-	else if(istype(item, /obj/item/paper) || istype(item, /obj/item/photo) || istype(item, /obj/item/paper_bundle))
-		..()
-		SStgui.update_uis(src)
-	else
+
+/obj/machinery/photocopier/faxmachine/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(istype(I, /obj/item/card/id))
+		add_fingerprint(user)
+		if(scan)
+			to_chat(user, span_warning("The [name] is already holding another ID-card."))
+			return ATTACK_CHAIN_PROCEED
+		if(!scan(I))
+			return ..()
+		to_chat(user, span_notice("You have inserted [I] into [src]."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/paper_bundle))
+		. = ..()
+		SStgui.update_uis(src)
+		return .
+
+	return ..()
+
 
 /obj/machinery/photocopier/faxmachine/emag_act(mob/user)
 	if(!emagged)
@@ -266,26 +279,39 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	if(.)
 		add_fingerprint(usr)
 
-/obj/machinery/photocopier/faxmachine/proc/scan(var/obj/item/card/id/card = null)
+
+/obj/machinery/photocopier/faxmachine/proc/scan(obj/item/card/id/card)
 	if(scan) // Card is in machine
 		if(ishuman(usr))
-			scan.forceMove(get_turf(src))
+			scan.forceMove(drop_location())
 			if(Adjacent(usr))
 				usr.put_in_hands(scan, ignore_anim = FALSE)
 			scan = null
-		else
-			scan.forceMove(get_turf(src))
-			scan = null
-	else if(Adjacent(usr))
-		if(!card)
-			var/obj/item/I = usr.get_active_hand()
-			if(istype(I, /obj/item/card/id))
-				usr.drop_transfer_item_to_loc(I, src)
-				scan = I
-		else if(istype(card))
-			usr.drop_transfer_item_to_loc(card, src)
-			scan = card
+			SStgui.update_uis(src)
+			return TRUE
+		scan.forceMove(drop_location())
+		scan = null
+		SStgui.update_uis(src)
+		return TRUE
+	if(!usr || !Adjacent(usr))
+		return FALSE
+	if(!card)
+		var/obj/item/I = usr.get_active_hand()
+		if(!istype(I, /obj/item/card/id))
+			return FALSE
+		if(!usr.drop_transfer_item_to_loc(I, src))
+			return FALSE
+		scan = I
+		SStgui.update_uis(src)
+		return TRUE
+	if(!istype(card))
+		return FALSE
+	if(!usr.drop_transfer_item_to_loc(card, src))
+		return FALSE
+	scan = card
 	SStgui.update_uis(src)
+	return TRUE
+
 
 /obj/machinery/photocopier/faxmachine/verb/eject_id()
 	set name = "Eject ID Card"
@@ -384,7 +410,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	return round((sendcooldown - world.time) / 10)
 
 /obj/machinery/photocopier/faxmachine/proc/message_admins(var/mob/sender, var/faxname, var/faxtype, var/obj/item/sent, font_colour="#9A04D1")
-	var/msg = "<span class='boldnotice'><font color='[font_colour]'>[faxname]: </font> [key_name_admin(sender)] | REPLY: (<A HREF='?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : ""]=[sender.UID()][faxname == "USSP FAX" ? "USSPReply" : ""]=[sender.UID()][faxname == "CENTCOM FAX" ? "CentcommReply" : ""]=[sender.UID()]'>RADIO</A>) (<a href='?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<A HREF='?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=\ref[src]'>TEMPLATE</A>) ([ADMIN_BSA(sender,"BSA")]) (<A HREF='?_src_=holder;EvilFax=[sender.UID()];originfax=\ref[src]'>EVILFAX</A>) </span>: Receiving '[sent.name]' via secure connection... <a href='?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
+	var/msg = "<span class='boldnotice'><font color='[font_colour]'>[faxname]: </font> [key_name_admin(sender)] | REPLY: (<a href='byond://?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : ""]=[sender.UID()][faxname == "USSP FAX" ? "USSPReply" : ""]=[sender.UID()][faxname == "CENTCOM FAX" ? "CentcommReply" : ""]=[sender.UID()]'>RADIO</A>) (<a href='byond://?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<a href='byond://?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=\ref[src]'>TEMPLATE</A>) ([ADMIN_BSA(sender,"BSA")]) (<a href='byond://?_src_=holder;EvilFax=[sender.UID()];originfax=\ref[src]'>EVILFAX</A>) </span>: Receiving '[sent.name]' via secure connection... <a href='byond://?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_EVENT, 0, C.mob))
 			to_chat(C, msg)

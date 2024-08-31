@@ -827,111 +827,123 @@
 ////// AttackBy //////
 //////////////////////
 
-/obj/mecha/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/mmi))
-		if(mmi_move_inside(W,user))
-			to_chat(user, "[src]-MMI interface initialized successfuly")
-		else
-			to_chat(user, "[src]-MMI interface initialization failed.")
-		return
+/obj/mecha/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		if(I.force)
+			add_attack_logs(user, OCCUPANT_LOGGING, "attacked mech '[name]' using [I]")
+		return ..()
 
-	if(istype(W, /obj/item/mecha_parts/mecha_equipment))
-		var/obj/item/mecha_parts/mecha_equipment/E = W
-		if(E.can_attach(src))
-			if(!user.drop_from_active_hand())
-				return
-			E.attach(src)
-			user.visible_message("[user] attaches [W] to [src].", span_notice("You attach [W] to [src]."))
-		else
-			to_chat(user, span_warning("You were unable to attach [W] to [src]!"))
-		return
+	if(istype(I, /obj/item/mmi))
+		add_fingerprint(user)
+		if(!mmi_move_inside(I, user))
+			to_chat(user, "[name]-MMI interface initialization failed.")
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, "[name]-MMI interface initialized successfuly")
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(W.GetID())
-		if(add_req_access || maint_access)
-			if(internals_access_allowed(usr))
-				var/obj/item/card/id/id_card = W.GetID()
-				output_maintenance_dialog(id_card, user)
-				return
-			else
-				to_chat(user, span_warning("Invalid ID: Access denied."))
-		else
+	if(istype(I, /obj/item/mecha_parts/mecha_equipment))
+		add_fingerprint(user)
+		var/obj/item/mecha_parts/mecha_equipment/equipment = I
+		if(!equipment.can_attach(src))
+			to_chat(user, span_warning("You were unable to attach [I] to [src]!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		equipment.attach(src)
+		user.visible_message(
+			span_notice("[user] attaches [I] to [src]."),
+			span_notice("You attach [I] to [src]."),
+		)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/card/id))
+		add_fingerprint(user)
+		if(!add_req_access && !maint_access)
 			to_chat(user, span_warning("Maintenance protocols disabled by operator."))
+			return ATTACK_CHAIN_PROCEED
+		if(!internals_access_allowed(user))
+			to_chat(user, span_warning("Invalid ID: Access denied."))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/item/card/id/id_card = I
+		output_maintenance_dialog(id_card, user)
+		return ATTACK_CHAIN_PROCEED
 
-	else if(istype(W, /obj/item/stack/cable_coil))
-		if(state == 3 && hasInternalDamage(MECHA_INT_SHORT_CIRCUIT))
-			var/obj/item/stack/cable_coil/CC = W
-			if(CC.use(2))
-				clearInternalDamage(MECHA_INT_SHORT_CIRCUIT)
-				to_chat(user, "You replace the fused wires.")
-			else
-				to_chat(user, "There's not enough wire to finish the task.")
-		return
+	if(iscoil(I) && state == 3 && hasInternalDamage(MECHA_INT_SHORT_CIRCUIT))
+		add_fingerprint(user)
+		var/obj/item/stack/cable_coil/coil = I
+		if(!coil.use(2))
+			to_chat(user, span_warning("There's not enough wire to finish the task."))
+			return ATTACK_CHAIN_PROCEED
+		clearInternalDamage(MECHA_INT_SHORT_CIRCUIT)
+		to_chat(user, span_notice("You replace the fused wires."))
+		return ATTACK_CHAIN_PROCEED
 
-	else if(istype(W, /obj/item/stock_parts/cell))
-		if(state==4)
-			if(!cell)
-				if(!user.drop_transfer_item_to_loc(W, src))
-					return
-				to_chat(user, span_notice("You install the powercell."))
-				cell = W
-				log_message("Powercell installed")
-			else
-				to_chat(user, span_notice("There's already a powercell installed."))
-		return
+	if(istype(I, /obj/item/stock_parts/cell) && state == 4)
+		add_fingerprint(user)
+		if(cell)
+			to_chat(user, span_warning("There's already a powercell installed."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("You install the powercell."))
+		cell = I
+		log_message("Powercell installed")
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	else if(istype(W, /obj/item/mecha_parts/mecha_tracking))
-		if(!user.drop_transfer_item_to_loc(W, src))
-			to_chat(user, span_notice("\the [W] is stuck to your hand, you cannot put it in \the [src]."))
-			return
-		trackers += W
-		user.visible_message("[user] attaches [W] to [src].", span_notice("You attach [W] to [src]."))
+	if(istype(I, /obj/item/mecha_parts/mecha_tracking))
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		add_fingerprint(user)
+		trackers += I
+		user.visible_message(
+			span_notice("[user] attaches [I] to [src]."),
+			span_notice("You attach [I] to [src]."),
+		)
 		diag_hud_set_mechtracking()
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	else if(istype(W, /obj/item/paintkit))
+	if(istype(I, /obj/item/paintkit))
+		add_fingerprint(user)
 		if(occupant)
-			to_chat(user, "You can't customize a mech while someone is piloting it - that would be unsafe!")
-			return
-
-		var/obj/item/paintkit/P = W
-		var/found = null
-
-		for(var/type in P.allowed_types)
+			to_chat(user, span_warning("You can't customize a mech while someone is piloting it - that would be unsafe!"))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/item/paintkit/paintkit = I
+		var/found = FALSE
+		for(var/type in paintkit.allowed_types)
 			if(type == initial_icon)
 				found = TRUE
 				break
-
 		if(!found)
-			to_chat(user, "That kit isn't meant for use on this class of exosuit.")
-			return
-
-		user.visible_message("[user] opens [P] and spends some quality time customising [src].")
-
-		if(P.new_prefix)
-			initial_icon = "[P.new_prefix][initial_icon]"
+			to_chat(user, span_warning("This paintkit isn't meant for use on this class of exosuit."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(paintkit, src))
+			return ..()
+		user.visible_message(span_notice("[user] opens [paintkit] and spends some quality time customising [name]."))
+		if(paintkit.new_prefix)
+			initial_icon = "[paintkit.new_prefix][initial_icon]"
 		else
-			initial_icon = P.new_icon
-		name = P.new_name
-		desc = P.new_desc
+			initial_icon = paintkit.new_icon
+		name = paintkit.new_name
+		desc = paintkit.new_desc
 		update_icon(UPDATE_ICON_STATE)
+		qdel(paintkit)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-		user.temporarily_remove_item_from_inventory(P)
-		qdel(P)
-
-	else if(istype(W, /obj/item/mecha_modkit))
+	if(istype(I, /obj/item/mecha_modkit))
+		add_fingerprint(user)
 		if(occupant)
-			to_chat(user, span_notice("You can't access the mech's modification port while it is occupied."))
-			return
-		var/obj/item/mecha_modkit/M = W
-		if(do_after(user, M.install_time, src, max_interact_count = 1))
-			M.install(src, user)
-		else
-			to_chat(user, span_notice("You stop installing [M]."))
+			to_chat(user, span_warning("You can't access the mech's modification port while it is occupied."))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/item/mecha_modkit/modkit = I
+		if(!do_after(user, modkit.install_time, src, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("You stop installing [modkit]."), category = DA_CAT_TOOL))
+			return ATTACK_CHAIN_PROCEED
+		modkit.install(src, user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	else
-		if(W.force)
-			add_attack_logs(user, OCCUPANT_LOGGING, "attacked mech '[src]' using [W]")
-		return ..()
+	if(I.force)
+		add_attack_logs(user, OCCUPANT_LOGGING, "attacked mech '[name]' using [I]")
+
+	return ..()
 
 
 /obj/mecha/crowbar_act(mob/user, obj/item/I)
@@ -1050,7 +1062,7 @@
 			to_chat(user, "[B.get_mecha_info_text()]")
 			break
 		//Nothing like a big, red link to make the player feel powerful!
-		to_chat(user, "<a href='?src=[user.UID()];ai_take_control=\ref[src]'>[span_userdanger("ASSUME DIRECT CONTROL?")]</a><br>")
+		to_chat(user, "<a href='byond://?src=[user.UID()];ai_take_control=\ref[src]'>[span_userdanger("ASSUME DIRECT CONTROL?")]</a><br>")
 	else
 		examine(user)
 		if(occupant)
@@ -1065,7 +1077,7 @@
 		if(!can_control_mech)
 			to_chat(user, span_warning("You cannot control exosuits without AI control beacons installed."))
 			return
-		to_chat(user, "<a href='?src=[user.UID()];ai_take_control=\ref[src]'>[span_boldnotice("Take control of exosuit?")]</a><br>")
+		to_chat(user, "<a href='byond://?src=[user.UID()];ai_take_control=\ref[src]'>[span_boldnotice("Take control of exosuit?")]</a><br>")
 
 /obj/mecha/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(!..())
@@ -1338,7 +1350,7 @@
 		else if(mmi_as_oc.brainmob.stat)
 			to_chat(user, "Beta-rhythm below acceptable level.")
 			return FALSE
-		if(!user.drop_item_ground(mmi_as_oc))
+		if(!user.drop_transfer_item_to_loc(mmi_as_oc, src))
 			to_chat(user, span_notice("\the [mmi_as_oc] is stuck to your hand, you cannot put it in \the [src]."))
 			return FALSE
 		var/mob/living/carbon/brain/brainmob = mmi_as_oc.brainmob
@@ -1349,7 +1361,6 @@
 			var/obj/item/mmi/robotic_brain/R = mmi_as_oc
 			if(R.imprinted_master)
 				to_chat(brainmob, span_notice("Your imprint to [R.imprinted_master] has been temporarily disabled. You should help the crew and not commit harm."))
-		mmi_as_oc.loc = src
 		mmi_as_oc.mecha = src
 		Entered(mmi_as_oc)
 		Move(loc)

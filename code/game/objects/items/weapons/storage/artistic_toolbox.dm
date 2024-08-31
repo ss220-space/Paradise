@@ -75,9 +75,33 @@
 	return FALSE
 
 
+/obj/item/storage/toolbox/green/memetic/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/holder))
+		add_fingerprint(user)
+		var/mob/living/victim = locate() in I.contents
+		if(!activated || !victim)
+			return ..()
+		if(!user.HasDisease(/datum/disease/memetic_madness))
+			to_chat(user, span_warning("You can't seem to find the latch to open this."))
+			return ATTACK_CHAIN_PROCEED
+		if(!victim.stat)
+			to_chat(user, span_warning("They're moving too much to feed to His Grace!"))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(span_userdanger("[user] is trying to feed [victim] to [src]!"))
+		if(!do_after(user, 3 SECONDS, I, NONE) || !user.HasDisease(/datum/disease/memetic_madness) || !victim.stat || victim.loc != I)
+			return ATTACK_CHAIN_PROCEED
+		qdel(I)
+		user.visible_message(span_userdanger("[user] has fed [victim] to [src]!"))
+		to_chat(user, "<i><b><font face = Tempus Sans ITC>You have done well...</font></b></i>")
+		consume(victim)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
+
 /obj/item/storage/toolbox/green/memetic/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
-	if(grabber.grab_state < GRAB_AGGRESSIVE || !activated || !isliving(grabbed_thing))
+	if(!activated || !isliving(grabbed_thing))
 		return .
 	var/mob/living/victim = grabbed_thing
 	if(!grabber.HasDisease(/datum/disease/memetic_madness))
@@ -96,8 +120,6 @@
 	grabber.visible_message(span_userdanger("[grabber] has fed [victim] to [src]!"))
 	to_chat(grabber, "<i><b><font face = Tempus Sans ITC>You have done well...</font></b></i>")
 	consume(victim)
-	force += 5
-	throwforce += 5
 
 
 /obj/item/storage/toolbox/green/memetic/proc/consume(mob/living/L)
@@ -132,7 +154,10 @@
 		fake_toolbox.desc = "It looks a lot duller than it used to."
 		qdel(src)
 	else
+		force += 5
+		throwforce += 5
 		qdel(L)
+
 
 /obj/item/storage/toolbox/green/memetic/Destroy()
 	for(var/datum/disease/memetic_madness/D in servantlinks)

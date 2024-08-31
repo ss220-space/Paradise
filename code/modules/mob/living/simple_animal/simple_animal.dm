@@ -177,20 +177,6 @@
 
 	return ..()
 
-/mob/living/simple_animal/attackby(obj/item/O, mob/user, params)
-	if(!is_type_in_list(O, food_type))
-		..()
-		return
-	else
-		user.visible_message("<span class='notice'>[user] hand-feeds [O] to [src].</span>", "<span class='notice'>You hand-feed [O] to [src].</span>")
-		qdel(O)
-		if(tame)
-			return
-		if(prob(tame_chance)) //note: lack of feedback message is deliberate, keep them guessing!
-			tame = TRUE
-			tamed(user)
-		else
-			tame_chance += bonus_tame_chance
 
 ///Extra effects to add when the mob is tamed, such as adding a riding or whatever.
 /mob/living/simple_animal/proc/tamed(whomst)
@@ -324,48 +310,49 @@
 
 	var/areatemp = get_temperature(environment)
 
-	if(abs(areatemp - bodytemperature) > 5 && !(BREATHLESS in mutations))
+	if(abs(areatemp - bodytemperature) > 5)
 		var/diff = areatemp - bodytemperature
 		diff = diff / 5
 		adjust_bodytemperature(diff)
 
-	var/tox = environment.toxins
-	var/oxy = environment.oxygen
-	var/n2 = environment.nitrogen
-	var/co2 = environment.carbon_dioxide
+	if(!HAS_TRAIT(src, TRAIT_NO_BREATH))
+		var/tox = environment.toxins
+		var/oxy = environment.oxygen
+		var/n2 = environment.nitrogen
+		var/co2 = environment.carbon_dioxide
 
-	if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
-		atmos_suitable = FALSE
-		throw_alert("not_enough_oxy", /atom/movable/screen/alert/not_enough_oxy)
-	else if(atmos_requirements["max_oxy"] && oxy > atmos_requirements["max_oxy"])
-		atmos_suitable = FALSE
-		throw_alert("too_much_oxy", /atom/movable/screen/alert/too_much_oxy)
-	else
-		clear_alert("not_enough_oxy")
-		clear_alert("too_much_oxy")
+		if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
+			atmos_suitable = FALSE
+			throw_alert(ALERT_NOT_ENOUGH_OXYGEN, /atom/movable/screen/alert/not_enough_oxy)
+		else if(atmos_requirements["max_oxy"] && oxy > atmos_requirements["max_oxy"])
+			atmos_suitable = FALSE
+			throw_alert(ALERT_TOO_MUCH_OXYGEN, /atom/movable/screen/alert/too_much_oxy)
+		else
+			clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
+			clear_alert(ALERT_TOO_MUCH_OXYGEN)
 
-	if(atmos_requirements["min_tox"] && tox < atmos_requirements["min_tox"])
-		atmos_suitable = FALSE
-		throw_alert("not_enough_tox", /atom/movable/screen/alert/not_enough_tox)
-	else if(atmos_requirements["max_tox"] && tox > atmos_requirements["max_tox"])
-		atmos_suitable = FALSE
-		throw_alert("too_much_tox", /atom/movable/screen/alert/too_much_tox)
-	else
-		clear_alert("too_much_tox")
-		clear_alert("not_enough_tox")
+		if(atmos_requirements["min_tox"] && tox < atmos_requirements["min_tox"])
+			atmos_suitable = FALSE
+			throw_alert(ALERT_NOT_ENOUGH_TOX, /atom/movable/screen/alert/not_enough_tox)
+		else if(atmos_requirements["max_tox"] && tox > atmos_requirements["max_tox"])
+			atmos_suitable = FALSE
+			throw_alert(ALERT_TOO_MUCH_TOX, /atom/movable/screen/alert/too_much_tox)
+		else
+			clear_alert(ALERT_TOO_MUCH_TOX)
+			clear_alert(ALERT_NOT_ENOUGH_TOX)
 
-	if(atmos_requirements["min_n2"] && n2 < atmos_requirements["min_n2"])
-		atmos_suitable = FALSE
-	else if(atmos_requirements["max_n2"] && n2 > atmos_requirements["max_n2"])
-		atmos_suitable = FALSE
+		if(atmos_requirements["min_n2"] && n2 < atmos_requirements["min_n2"])
+			atmos_suitable = FALSE
+		else if(atmos_requirements["max_n2"] && n2 > atmos_requirements["max_n2"])
+			atmos_suitable = FALSE
 
-	if(atmos_requirements["min_co2"] && co2 < atmos_requirements["min_co2"])
-		atmos_suitable = FALSE
-	else if(atmos_requirements["max_co2"] && co2 > atmos_requirements["max_co2"])
-		atmos_suitable = FALSE
+		if(atmos_requirements["min_co2"] && co2 < atmos_requirements["min_co2"])
+			atmos_suitable = FALSE
+		else if(atmos_requirements["max_co2"] && co2 > atmos_requirements["max_co2"])
+			atmos_suitable = FALSE
 
-	if(!atmos_suitable)
-		adjustHealth(unsuitable_atmos_damage)
+		if(!atmos_suitable)
+			adjustHealth(unsuitable_atmos_damage)
 
 	handle_temperature_damage()
 
@@ -725,10 +712,20 @@
 		playsound(src, pick(talk_sound), 75, TRUE)
 
 
-/mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user)
+/mob/living/simple_animal/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
+	if(I.force && (I.force < force_threshold || I.damtype == STAMINA))
+		visible_message(
+			span_warning("[user] tries to hit [src] with [I], but it bounces harmlessly!"),
+			span_warning("[user] tries to hit you with [I], but it bounces harmlessly!"),
+			ignored_mobs = user,
+		)
+		to_chat(user, span_danger("This weapon is ineffective, it does no damage!"))
+		return ATTACK_CHAIN_BLOCKED
+
 	. = ..()
-	if(. && length(src.damaged_sound))
-		playsound(src, pick(src.damaged_sound), 40, 1)
+	if(ATTACK_CHAIN_SUCCESS_CHECK(.) && I.force && length(damaged_sound))
+		playsound(loc, pick(damaged_sound), 40, TRUE)
+
 
 /mob/living/simple_animal/attack_hand(mob/living/carbon/human/M)
 	. = ..()

@@ -345,78 +345,105 @@
 	for(var/mob/M in passengers | pilot)
 		to_chat(M, mymessage)
 
-/obj/spacepod/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/stock_parts/cell))
+
+/obj/spacepod/attackby(obj/item/I, mob/user, params)
+	var/cached_damage = I.force
+	if(user.a_intent == INTENT_HARM)
+		. = ..()
+		if(!ATTACK_CHAIN_CANCEL_CHECK(.))
+			deal_damage(cached_damage)
+		return .
+
+	if(istype(I, /obj/item/stock_parts/cell))
+		add_fingerprint(user)
 		if(!hatch_open)
-			to_chat(user, "<span class='warning'>The maintenance hatch is closed!</span>")
-			return
+			to_chat(user, span_warning("The maintenance hatch is closed."))
+			return ATTACK_CHAIN_PROCEED
 		if(battery)
-			to_chat(user, "<span class='notice'>The pod already has a battery.</span>")
-			return
-		to_chat(user, "<span class='notice'>You insert [W] into the pod.</span>")
-		user.drop_transfer_item_to_loc(W, src)
-		battery = W
-		return
+			to_chat(user, span_warning("The spacepod already has a battery."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		battery = I
+		to_chat(user, span_notice("You have installed a new battery into the spacepod."))
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	else if(istype(W, /obj/item/spacepod_equipment/key) && istype(equipment_system.lock_system, /obj/item/spacepod_equipment/lock/keyed))
-		var/obj/item/spacepod_equipment/key/key = W
-		if(key.id == equipment_system.lock_system.id)
-			lock_pod()
-			return
-		else
-			to_chat(user, "<span class='warning'>This is the wrong key!</span>")
-			return
-
-	else if(istype(W, /obj/item/spacepod_equipment))
-		if(!hatch_open)
-			to_chat(user, "<span class='warning'>The maintenance hatch is closed!</span>")
-			return
+	if(istype(I, /obj/item/spacepod_equipment/key))
+		add_fingerprint(user)
 		if(!equipment_system)
-			to_chat(user, "<span class='warning'>The pod has no equipment datum, yell at the coders</span>")
-			return
-		if(istype(W, /obj/item/spacepod_equipment/weaponry))
-			add_equipment(user, W, "weapon_system")
-			return
-		if(istype(W, /obj/item/spacepod_equipment/misc))
-			add_equipment(user, W, "misc_system")
-			return
-		if(istype(W, /obj/item/spacepod_equipment/cargo))
-			add_equipment(user, W, "cargo_system")
-			return
-		if(istype(W, /obj/item/spacepod_equipment/sec_cargo))
-			add_equipment(user, W, "sec_cargo_system")
-			return
-		if(istype(W, /obj/item/spacepod_equipment/lock))
-			add_equipment(user, W, "lock_system")
-			return
+			to_chat(user, span_warning("The pod has no equipment datum, yell at the coders."))
+			return ATTACK_CHAIN_PROCEED
+		if(!istype(equipment_system.lock_system, /obj/item/spacepod_equipment/lock/keyed))
+			to_chat(user, span_warning("The spacepod has no tumbler lock."))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/item/spacepod_equipment/key/key = I
+		if(key.id != equipment_system.lock_system.id)
+			to_chat(user, span_warning("Wrong key."))
+			return ATTACK_CHAIN_PROCEED
+		lock_pod()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	else if(istype(W, /obj/item/lock_buster))
-		var/obj/item/lock_buster/L = W
-		if(L.on && equipment_system.lock_system)
-			user.visible_message(user, "<span class='warning'>[user] is drilling through the [src]'s lock!</span>",
-				"<span class='notice'>You start drilling through the [src]'s lock!</span>")
-			if(do_after(user, 10 SECONDS * W.toolspeed, src, category = DA_CAT_TOOL))
-				QDEL_NULL(equipment_system.lock_system)
-				unlocked = TRUE
-				user.visible_message(user, "<span class='warning'>[user] has destroyed the [src]'s lock!</span>",
-					"<span class='notice'>You destroy the [src]'s lock!</span>")
-			else
-				user.visible_message(user, "<span class='warning'>[user] fails to break through the [src]'s lock!</span>",
-				"<span class='notice'>You were unable to break through the [src]'s lock!</span>")
-			return
-		if(L.on && unlocked == FALSE) //The buster is on, we don't have a lock system, and the pod is still somehow locked, unlocking.
+	if(istype(I, /obj/item/spacepod_equipment))
+		add_fingerprint(user)
+		if(!hatch_open)
+			to_chat(user, span_warning("The maintenance hatch is closed."))
+			return ATTACK_CHAIN_PROCEED
+		if(!equipment_system)
+			to_chat(user, span_warning("The pod has no equipment datum, yell at the coders."))
+			return ATTACK_CHAIN_PROCEED
+		var/success = FALSE
+		if(istype(I, /obj/item/spacepod_equipment/weaponry))
+			success = add_equipment(user, I, "weapon_system")
+		else if(istype(I, /obj/item/spacepod_equipment/misc))
+			success = add_equipment(user, I, "misc_system")
+		else if(istype(I, /obj/item/spacepod_equipment/cargo))
+			success = add_equipment(user, I, "cargo_system")
+		else if(istype(I, /obj/item/spacepod_equipment/sec_cargo))
+			success = add_equipment(user, I, "sec_cargo_system")
+		else if(istype(I, /obj/item/spacepod_equipment/lock))
+			success = add_equipment(user, I, "lock_system")
+		else
+			stack_trace("Attempted to install unknown spacepod equipment ([I.type]).")
+		if(!success)
+			return ATTACK_CHAIN_PROCEED
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/lock_buster))
+		var/obj/item/lock_buster/buster = I
+		if(!buster.on)
+			to_chat(user, span_warning("You should turn on [buster]."))
+			return ATTACK_CHAIN_PROCEED
+		if(equipment_system.lock_system)
+			user.visible_message(
+				span_warning("[user] starts drilling through [src]'s lock."),
+				span_notice("You start drilling through [src]'s lock..."),
+			)
+			if(!do_after(user, 10 SECONDS * buster.toolspeed, src, category = DA_CAT_TOOL) || !equipment_system.lock_system)
+				return ATTACK_CHAIN_PROCEED
+			QDEL_NULL(equipment_system.lock_system)
 			unlocked = TRUE
-			user.visible_message(user, "<span class='notice'>[user] repairs [src]'s doors with [L].</span>",
-				"<span class='notice'>You repair [src]'s doors with [L].</span>")
-		to_chat(user, "<span class='notice'>Turn the [L] on first.</span>")
-		return
+			user.visible_message(
+				span_warning("[user] has destroyed [src]'s lock."),
+				span_notice("You have destroyed [src]'s lock."),
+			)
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		if(!unlocked)	// we don't have a lock system, and the pod is still somehow locked, unlocking.
+			unlocked = TRUE
+			user.visible_message(
+				span_notice("[user] has repaired [src]'s doors with [buster]."),
+				span_notice("You have repaired [src]'s doors with [buster]."),
+			)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	else if(cargo_hold.storage_slots > 0 && !hatch_open && unlocked) // must be the last option as all items not listed prior will be stored
-		cargo_hold.attackby(W, user, params)
-	else
-		if(user.a_intent == INTENT_HARM)
-			deal_damage(W.force)
-		return ..()
+	// must be the last option as all items not listed prior will be stored
+	if(cargo_hold && cargo_hold.storage_slots > 0 && !hatch_open && unlocked)
+		cargo_hold.attackby(I, user, params)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	. = ..()
+	if(!ATTACK_CHAIN_CANCEL_CHECK(.))
+		deal_damage(cached_damage)
+
 
 /obj/spacepod/crowbar_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
@@ -429,6 +456,7 @@
 		to_chat(user, "<span class='notice'>You [hatch_open ? "open" : "close"] the maintenance hatch.</span>")
 	else
 		to_chat(user, "<span class='warning'>The hatch is locked shut!</span>")
+
 
 /obj/spacepod/welder_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
@@ -448,20 +476,20 @@
 		to_chat(user, "<span class='notice'>You mend some [pick("dents","bumps","damage")] with [I]</span>")
 
 
-/obj/spacepod/proc/add_equipment(mob/user, var/obj/item/spacepod_equipment/SPE, var/slot)
+/obj/spacepod/proc/add_equipment(mob/user, obj/item/spacepod_equipment/SPE, slot)
 	if(equipment_system.vars[slot])
-		to_chat(user, "<span class='notice'>The pod already has a [slot], remove it first.</span>")
-		return
-	else
-		to_chat(user, "<span class='notice'>You insert [SPE] into the pod.</span>")
-		user.drop_transfer_item_to_loc(SPE, src)
-		equipment_system.vars[slot] = SPE
-		var/obj/item/spacepod_equipment/system = equipment_system.vars[slot]
-		system.my_atom = src
-		equipment_system.installed_modules += SPE
-		max_passengers += SPE.occupant_mod
-		cargo_hold.storage_slots += SPE.storage_mod["slots"]
-		cargo_hold.max_combined_w_class += SPE.storage_mod["w_class"]
+		to_chat(user, span_warning("The spacepod already has a [slot], remove it first."))
+		return FALSE
+	if(SPE.loc == user && !user.drop_transfer_item_to_loc(SPE, src))
+		return FALSE
+	to_chat(user, span_notice("You have installed [SPE] into the spacepod."))
+	equipment_system.vars[slot] = SPE
+	var/obj/item/spacepod_equipment/system = equipment_system.vars[slot]
+	system.my_atom = src
+	equipment_system.installed_modules += SPE
+	max_passengers += SPE.occupant_mod
+	cargo_hold.storage_slots += SPE.storage_mod["slots"]
+	cargo_hold.max_combined_w_class += SPE.storage_mod["w_class"]
 
 
 /obj/spacepod/attack_hand(mob/user)
@@ -592,11 +620,17 @@
 	icon_state = "pod_civ"
 	desc = "A sleek civilian space pod."
 
-/obj/spacepod/civilian/attackby(obj/item/W as obj, mob/user as mob, params)
-	..()
-	if(istype(W, /obj/item/pod_paint_bucket))
+
+/obj/spacepod/civilian/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/pod_paint_bucket))
 		apply_paint(user)
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/spacepod/random
 	icon_state = "pod_civ"

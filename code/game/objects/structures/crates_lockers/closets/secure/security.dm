@@ -100,10 +100,18 @@
 	new /obj/item/security_voucher(src)
 	new /obj/item/security_voucher(src)
 
+/obj/structure/closet/secure_closet/pilot_sniper
+	name = "sniper gun cabinet"
+	req_access = list(ACCESS_PILOT)
+	icon_state = "sniper"
+
+/obj/structure/closet/secure_closet/pilot_sniper/populate_contents()
+	new /obj/item/gun/energy/sniperrifle/pod_pilot(src)
+
 /obj/structure/closet/secure_closet/security
 	name = "security officer's locker"
 	req_access = list(ACCESS_SECURITY)
-	icon_state = "sec"
+	icon_state = "secward"
 
 /obj/structure/closet/secure_closet/security/populate_contents()
 	if(prob(50))
@@ -124,7 +132,7 @@
 /obj/structure/closet/secure_closet/brigdoc
 	name = "brig physician's locker"
 	req_access = list(ACCESS_BRIG)
-	icon_state = "med"
+	icon_state = "brigmed"
 
 /obj/structure/closet/secure_closet/brigdoc/populate_contents()
 	if(prob(50))

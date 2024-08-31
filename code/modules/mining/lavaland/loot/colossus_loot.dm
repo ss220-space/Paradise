@@ -48,9 +48,17 @@
 	..()
 	ActivationReaction(user,"touch")
 
+
 /obj/machinery/anomalous_crystal/attackby(obj/item/I, mob/user, params)
-	ActivationReaction(user,"weapon")
-	return ..()
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
+
+	if(ActivationReaction(user, "weapon"))
+		return .|ATTACK_CHAIN_SUCCESS
+
+
 
 /obj/machinery/anomalous_crystal/bullet_act(obj/item/projectile/P, def_zone)
 	..()
@@ -219,8 +227,10 @@
 				if(H.stat == DEAD)
 					H.set_species(/datum/species/shadow)
 					H.revive()
-					H.mutations |= NOCLONE //Free revives, but significantly limits your options for reviving except via the crystal
+					//Free revives, but significantly limits your options for reviving except via the crystal
+					ADD_TRAIT(H, TRAIT_NO_CLONE, ANOMALOUS_CRYSTAL_TRAIT)
 					H.grab_ghost(force = TRUE)
+
 
 /obj/machinery/anomalous_crystal/helpers //Lets ghost spawn as helpful creatures that can only heal people slightly. Incredibly fragile and they can't converse with humans
 	activation_method = "touch"
@@ -373,19 +383,17 @@
 	. = ..()
 	if(isliving(arrived) && holder_animal)
 		var/mob/living/mob = arrived
-		ADD_TRAIT(mob, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-		mob.mutations |= MUTE
+		mob.add_traits(list(TRAIT_MUTE, TRAIT_NO_TRANSFORM), UNIQUE_TRAIT_SOURCE(src))
 		mob.status_flags |= GODMODE
 		mob.mind.transfer_to(holder_animal)
 		holder_animal.mind.AddSpell(new /obj/effect/proc_holder/spell/exit_possession)
 
 
-/obj/structure/closet/stasis/dump_contents(var/kill = 1)
+/obj/structure/closet/stasis/dump_contents(kill = TRUE)
 	STOP_PROCESSING(SSobj, src)
 	for(var/mob/living/L in src)
-		L.mutations -=MUTE
 		L.status_flags &= ~GODMODE
-		REMOVE_TRAIT(L, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+		L.remove_traits(list(TRAIT_MUTE, TRAIT_NO_TRANSFORM), UNIQUE_TRAIT_SOURCE(src))
 		if(holder_animal)
 			holder_animal.mind.transfer_to(L)
 			L.mind.RemoveSpell(/obj/effect/proc_holder/spell/exit_possession)

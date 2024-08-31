@@ -100,11 +100,12 @@ effective or pretty fucking useless.
 	icon_state = used ? "health1" : "health2"
 
 
-/obj/item/rad_laser/attack(mob/living/target, mob/living/user)
+/obj/item/rad_laser/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(used)
 		to_chat(user, span_warning("The radioactive microlaser is still recharging."))
-		return
+		return ATTACK_CHAIN_PROCEED
 
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	add_attack_logs(user, target, "Irradiated by [src]")
 	user.visible_message(span_notice("[user] analyzes [target]'s vitals."))
 	var/cooldown = round(max(100,(((intensity*8)-(wavelength/2))+(intensity*2))*10))
@@ -137,8 +138,8 @@ effective or pretty fucking useless.
 
 	var/cooldown = round(max(10,((intensity*8)-(wavelength/2))+(intensity*2)))
 	var/dat = {"<meta charset="UTF-8">
-	Radiation Intensity: <A href='?src=[UID()];radint=-5'>-</A><A href='?src=[UID()];radint=-1'>-</A> [intensity] <A href='?src=[UID()];radint=1'>+</A><A href='?src=[UID()];radint=5'>+</A><BR>
-	Radiation Wavelength: <A href='?src=[UID()];radwav=-5'>-</A><A href='?src=[UID()];radwav=-1'>-</A> [(wavelength+(intensity*4))] <A href='?src=[UID()];radwav=1'>+</A><A href='?src=[UID()];radwav=5'>+</A><BR>
+	Radiation Intensity: <a href='byond://?src=[UID()];radint=-5'>-</A><a href='byond://?src=[UID()];radint=-1'>-</A> [intensity] <a href='byond://?src=[UID()];radint=1'>+</A><a href='byond://?src=[UID()];radint=5'>+</A><BR>
+	Radiation Wavelength: <a href='byond://?src=[UID()];radwav=-5'>-</A><a href='byond://?src=[UID()];radwav=-1'>-</A> [(wavelength+(intensity*4))] <a href='byond://?src=[UID()];radwav=1'>+</A><a href='byond://?src=[UID()];radwav=5'>+</A><BR>
 	Laser Cooldown: [cooldown] Seconds<BR>
 	"}
 
@@ -229,6 +230,8 @@ effective or pretty fucking useless.
 /obj/item/teleporter/attack_self(mob/user)
 	attempt_teleport(user, FALSE)
 
+/obj/item/teleporter/attack_self_tk(mob/user)
+	return
 
 /obj/item/teleporter/process()
 	if(charges >= max_charges)
@@ -433,10 +436,14 @@ effective or pretty fucking useless.
 
 
 /obj/item/teleporter/admin
-	desc = "A strange syndicate version of a cult veil shifter. \n This one seems EMP proof, and with much better saftey protocols."
+	desc = "A strange syndicate version of a cult veil shifter. \n This one seems EMP proof, and with much better safety protocols."
 	charges = 8
 	max_charges = 8
 	flawless = TRUE
+
+
+/obj/item/teleporter/admin/update_icon_state()
+	icon_state = "[base_icon_state]-[CEILING(charges / 2, 1)]"
 
 
 #define ION_CALLER_AI_TARGETING		"AI targeting"

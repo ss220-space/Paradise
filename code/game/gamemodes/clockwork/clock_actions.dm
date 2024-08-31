@@ -46,7 +46,7 @@
 		if(isclocker(M))
 			to_chat(M, my_message)
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
-			to_chat(M, "<span class='clockspeech'> <a href='?src=[M.UID()];follow=[user.UID()]'>(F)</a> [my_message] </span>")
+			to_chat(M, "<span class='clockspeech'> <a href='byond://?src=[M.UID()];follow=[user.UID()]'>(F)</a> [my_message] </span>")
 
 	add_say_logs(user, message, language = "CLOCKCULT")
 
