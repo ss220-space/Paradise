@@ -244,6 +244,16 @@
 	icon_screen = length(GLOB.active_video_cameras) ? icon_screen_on : initial(icon_screen)
 	return ..()
 
+/obj/machinery/computer/security/telescreen/entertainment/Adjacent(atom/neighbor, atom/target, atom/movable/mover)
+	. = ..()
+	var/turf/T0 = get_turf(neighbor)
+
+	if(T0 == src)
+		return TRUE
+
+	if(get_dist(src, T0) > 6 || z != T0.z)
+		return FALSE
+	return TRUE
 
 /obj/machinery/computer/security/telescreen/singularity
 	name = "Singularity Engine Telescreen"

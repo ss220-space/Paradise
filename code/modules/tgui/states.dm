@@ -115,6 +115,17 @@
  * return UI_state The state of the UI.
  */
 /mob/living/proc/shared_living_ui_distance(atom/movable/src_object, viewcheck = TRUE)
+	//Only for TV
+	if(istype(src_object, /obj/machinery/computer/security/telescreen/entertainment))
+		if(viewcheck && !(src_object in view(src)))
+			return UI_CLOSE
+		var/dist = get_dist(src_object, src)
+		if(dist <= 1)
+			return UI_INTERACTIVE
+		else if(dist <= 6)
+			return UI_UPDATE
+		return UI_CLOSE
+
 	// If the object is obscured, close it.
 	if(viewcheck && !(src_object in view(src)))
 		return UI_CLOSE
