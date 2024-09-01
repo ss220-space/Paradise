@@ -245,7 +245,6 @@
 	return ..()
 
 /obj/machinery/computer/security/telescreen/entertainment/Adjacent(atom/neighbor, atom/target, atom/movable/mover)
-	. = ..()
 	var/turf/T0 = get_turf(neighbor)
 
 	if(T0 == src)
