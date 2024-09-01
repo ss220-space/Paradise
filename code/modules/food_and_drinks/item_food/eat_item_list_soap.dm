@@ -5,6 +5,7 @@
 	max_bites = 6
 	nutritional_value = 15
 	is_only_grab_intent = TRUE
+	is_eatable = TRUE
 
 /obj/item/soap/homemade
 	nutritional_value = 30
