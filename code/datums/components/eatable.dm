@@ -40,7 +40,6 @@
 	return text
 
 /datum/component/eatable/proc/try_eat_item(datum/source, mob/living/carbon/human/target, mob/user)
-	SIGNAL_HANDLER
 
 	var/obj/item/item = parent
 	var/chat_message_to_user = "Вы кормите [target] [item.name]."
