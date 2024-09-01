@@ -386,5 +386,10 @@
 	..()
 	block = GLOB.legsparalysisblock
 
-/datum/dna/gene/disability/legsparalysis/OnMobLife(mob/living/carbon/human/H)
-	H.Knockdown(2 SECONDS)
+/datum/dna/gene/disability/legsparalysis/activate(mob/living/carbon/human/H)
+	. = ..()
+	ADD_TRAIT(H, TRAIT_FLOORED, TRAIT_NOLEGS)
+
+/datum/dna/gene/disability/legsparalysis/deactivate(mob/living/carbon/human/H)
+	. = ..()
+	REMOVE_TRAIT(H, TRAIT_FLOORED, TRAIT_NOLEGS)
