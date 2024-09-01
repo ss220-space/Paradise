@@ -193,6 +193,9 @@
 	return TRUE
 
 /datum/borer_rank/New(mob/living/simple_animal/borer/borer)
+	Initialize(borer)
+
+/datum/borer_rank/proc/Initialize(mob/living/simple_animal/borer/borer)
 	owner = borer
 	parent = borer.antag_datum
 	on_apply()
@@ -259,6 +262,9 @@
 	var/movable_granted = FALSE
 
 /datum/borer_focus/New(mob/living/simple_animal/borer/borer)
+	Initialize(borer)
+
+/datum/borer_focus/proc/Initialize(mob/living/simple_animal/borer/borer)
 	parent = borer.antag_datum
 	parent?.pre_grant_movable_effect()
 
