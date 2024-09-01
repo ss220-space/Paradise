@@ -2869,7 +2869,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	// Wheelchair necessary?
 	var/obj/item/organ/external/l_foot = character.get_organ(BODY_ZONE_PRECISE_L_FOOT)
 	var/obj/item/organ/external/r_foot = character.get_organ(BODY_ZONE_PRECISE_R_FOOT)
-	if(!l_foot && !r_foot || (disabilities & DISABILITY_FLAG_NOLEGS))
+	if(!l_foot && !r_foot || (disabilities & DISABILITY_FLAG_NOLEGS) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_NOLEGS)))
 		var/obj/structure/chair/wheelchair/W = new /obj/structure/chair/wheelchair(character.loc)
 		W.buckle_mob(character, TRUE)
 
