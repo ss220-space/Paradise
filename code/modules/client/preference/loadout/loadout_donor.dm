@@ -366,6 +366,6 @@
 	donator_tier = 2
 	cost = 1
 	display_name = "Short maid costume"
-	path = /obj/item/clothing/under/maid
+	path = /obj/item/clothing/under/maid/short
 
 
