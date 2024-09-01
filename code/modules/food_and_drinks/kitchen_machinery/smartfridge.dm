@@ -800,6 +800,7 @@
 	accepted_items_typecache = typecacheof(list(
 		/obj/item/reagent_containers/food/snacks,
 		/obj/item/stack/sheet/wetleather,
+		/obj/item/grown/coconut,
 	))
 
 /obj/machinery/smartfridge/drying_rack/on_deconstruction()
@@ -896,10 +897,19 @@
 			qdel(S)
 			SStgui.update_uis(src)
 		return TRUE
+
 	for(var/obj/item/stack/sheet/wetleather/WL in contents)
 		new /obj/item/stack/sheet/leather(loc, WL.amount)
 		item_quants[WL.name]--
 		qdel(WL)
+		SStgui.update_uis(src)
+		return TRUE
+
+	for(var/obj/item/grown/coconut/C in contents)
+		new /obj/item/reagent_containers/food/snacks/grown/dry_coco(loc)
+		item_quants[C.name]--
+		qdel(C)
+		C.forceMove(get_turf(src))
 		SStgui.update_uis(src)
 		return TRUE
 	return FALSE

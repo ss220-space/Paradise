@@ -32,6 +32,7 @@
 			/obj/item/stack/sheet/mineral/gold = list("gold" = 20),
 			/obj/item/grown/nettle/basic = list("sacid" = 0),
 			/obj/item/grown/nettle/death = list("facid" = 0, "sacid" = 0),
+			/obj/item/grown/coconut = list("shredded_coconut" = 0, "coconut_water" = 0),
 			/obj/item/grown/novaflower = list("capsaicin" = 0, "condensedcapsaicin" = 0),
 			/obj/item/stack/sheet/cheese = list("milk" = 20),
 

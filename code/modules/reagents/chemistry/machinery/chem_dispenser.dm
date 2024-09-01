@@ -368,7 +368,7 @@
 	dispensable_reagents = list("water", "ice", "soymilk", "coffee", "tea", "hot_coco", "cola", "spacemountainwind", "dr_gibb", "space_up",
 	"tonic", "sodawater", "lemon_lime", "grapejuice", "sugar", "orangejuice", "lemonjuice", "limejuice", "tomatojuice", "banana",
 	"watermelonjuice", "carrotjuice", "potato", "berryjuice")
-	upgrade_reagents = list("bananahonk", "milkshake", "cafe_latte", "cafe_mocha", "triple_citrus", "icecoffe","icetea")
+	upgrade_reagents = list("bananahonk", "milkshake", "cafe_latte", "cafe_mocha", "triple_citrus", "icecoffe","icetea", "coconut_water")
 	hacked_reagents = list("thirteenloko")
 	var/list/hackedupgrade_reagents = list("zaza")
 	hack_message = "You change the mode from 'McNano' to 'Pizza King'."

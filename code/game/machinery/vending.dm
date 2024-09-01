@@ -1642,6 +1642,7 @@
 					/obj/item/seeds/soya/olive = 3,
 					/obj/item/seeds/whitebeet = 3,
 					/obj/item/seeds/shavel = 3,
+					/obj/item/seeds/coconut = 3,
 					/obj/item/seeds/redflower = 3,
 					/obj/item/seeds/flowerlamp = 3,
 					/obj/item/seeds/carnation = 3,

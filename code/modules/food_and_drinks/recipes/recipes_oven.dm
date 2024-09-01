@@ -322,6 +322,12 @@
 	)
 	result = /obj/item/storage/bag/tray/cookies_tray
 
+/datum/recipe/oven/cocochips
+	items = list(
+		/obj/item/reagent_containers/food/snacks/rawcookies/cocochips,
+	)
+	result = /obj/item/storage/bag/tray/cookies_tray/cocochips
+
 /datum/recipe/oven/sugarcookies
 	items = list(
 		/obj/item/reagent_containers/food/snacks/rawcookies,

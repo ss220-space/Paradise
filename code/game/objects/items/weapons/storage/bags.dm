@@ -533,6 +533,9 @@
 /obj/item/storage/bag/tray/cookies_tray/sugarcookie
 	cookie = /obj/item/reagent_containers/food/snacks/sugarcookie
 
+/obj/item/storage/bag/tray/cookies_tray/cocochips
+	cookie = /obj/item/reagent_containers/food/snacks/cocochips
+
 /*
  *	Antag Tray
  */

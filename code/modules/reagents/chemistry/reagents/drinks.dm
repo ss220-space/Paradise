@@ -557,3 +557,30 @@
 		M.emote(pick("laugh", "giggle", "smile"))
 	else if(prob(2))
 		M.say(pick(list("Ха-ха!", "Хе-хе")))
+
+/datum/reagent/consumable/drink/coconut_water
+	name = "Coconut water"
+	id = "coconut_water"
+	color = "#daf5f8"
+	drink_name = "Coconut water"
+	taste_description = "It tastes like coconut water, you know what it tastes like, right? Exactly?"
+
+/datum/reagent/consumable/drink/coconut_drink
+	name = "Coconut drink"
+	id = "coconut_drink"
+	description = "This is a fresh coconut, in which a hole was made and an umbrella and a straw were inserted."
+	adj_temp_hot = 0
+	adj_temp_cool = 5
+	drink_icon = "coconut_drink"
+	drink_name = "Coconut drink"
+	drink_desc = "This is a fresh coconut, in which a hole was made and an umbrella and a straw were inserted."
+	taste_description = "It tastes sweet and delicate with nutty notes. Teeth are cold."
+
+/datum/reagent/consumable/drink/coconut_milk
+	name = "Coconut milk"
+	id = "coconut_milk"
+	description = "A pleasant beverage inside a coconut shell."
+	drink_icon = "coconut_milk"
+	drink_name = "Coconut milk"
+	drink_desc = "A pleasant beverage inside a coconut shell."
+	taste_description = "Tastes like a slight breeze on a sunny beach."

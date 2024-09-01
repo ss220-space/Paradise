@@ -1163,3 +1163,10 @@
 		if(prob(2))
 			to_chat(M, span_warning("Yuack! What a terrible taste!"))
 	return ..() | update_flags
+
+/datum/reagent/consumable/shredded_coconut
+	name = "shredded_coconut"
+	id = "shredded_coconut"
+	color = "#ded6cd"
+	nutriment_factor = 3 * REAGENTS_METABOLISM
+	taste_description = "It tastes like a tasteless mush..."

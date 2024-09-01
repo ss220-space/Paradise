@@ -326,24 +326,31 @@
 	. = ..()
 
 	// Dough + rolling pin = flat dough
-	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !istype(I, /obj/item/reagent_containers/food/snacks/choc_pile))
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
 
-	if(!isturf(loc))
-		to_chat(user, span_warning("You need to put [src] on a surface to add [I]."))
+	var/rawcookies = istype(I, /obj/item/reagent_containers/food/snacks/choc_pile)
+	if(rawcookies || istype(I, /obj/item/reagent_containers/food/snacks/piece_coconut))
 		return .
 
-	if(!user.drop_transfer_item_to_loc(I, src))
-		return .
+		if(!isturf(loc))
+			to_chat(user, span_warning("You need to put [src] on a surface to add [I]."))
+			return .
 
-	. |= ATTACK_CHAIN_BLOCKED_ALL
-	var/obj/item/reagent_containers/food/snacks/rawcookies/chocochips/chocochips = new(loc)
-	transfer_fingerprints_to(chocochips)
-	chocochips.add_fingerprint(user)
-	to_chat(user, span_notice("You sprinkle [I] all over the cookies."))
-	qdel(src)
-	qdel(I)
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return .|ATTACK_CHAIN_SUCCESS
 
+		var/obj/new_cookies
+		if(rawcookies)
+			new_cookies = new /obj/item/reagent_containers/food/snacks/rawcookies/chocochips(loc)
+		else
+			new_cookies = new /obj/item/reagent_containers/food/snacks/rawcookies/cocochips(loc)
+		to_chat(user, span_notice("You sprinkle [I] all over the cookies."))
+		transfer_fingerprints_to(new_cookies)
+		new_cookies.add_fingerprint(user)
+		qdel(src)
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/item/reagent_containers/food/snacks/rawcookies/chocochips
 	name = "raw cookies"
@@ -352,6 +359,15 @@
 	icon_state = "unbaked_cookies_choco"
 	list_reagents = list("nutriment" = 5, "sugar" = 5, "chocolate" = 5)
 	tastes = list("dough" = 1, "sugar" = 1, "chocolate" = 1)
+
+/obj/item/reagent_containers/food/snacks/rawcookies/cocochips
+	name = "raw coconut cookies"
+	desc = "A tray with raw coconut cookies"
+	icon = 'icons/obj/food/food_ingredients.dmi'
+	icon_state = "unbaked_coconut_cookies"
+	item_state = "unbaked_coconut_cookies"
+	list_reagents = list("nutriment" = 5, "sugar" = 5, "shredded_coconut" = 5)
+	tastes = list("dough" = 1, "sugar" = 1, "shredded_coconut" = 1)
 
 //////////////////////
 //	Chocolate		//
