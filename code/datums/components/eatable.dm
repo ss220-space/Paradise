@@ -30,13 +30,13 @@
 	var/text
 	var/bites_split = item.max_bites > 3 ? round(item.max_bites / 4) : 1
 	if(item.current_bites >= 1 && item.current_bites <= bites_split)
-		text == "Выглядит покусанным..."
+		text = "Выглядит покусанным..."
 	else if(item.current_bites >= bites_split && item.current_bites <= (bites_split * 2))
-		text == "Видны оторванные части..."
+		text = "Видны оторванные части..."
 	else if((item.current_bites >= bites_split * 2) && item.current_bites <= (bites_split * 3))
-		text == "Видна внутренняя часть..."
+		text = "Видна внутренняя часть..."
 	else if((item.current_bites >= bites_split * 3))
-		text == "Осталась одна труха..."
+		text = "Осталась одна труха..."
 	return text
 
 /datum/component/eatable/proc/try_eat_item(datum/source, mob/living/carbon/human/target, mob/user)
@@ -85,10 +85,10 @@
 			qdel(item)
 	else
 		var/obj/item/stack/stack = item
-		if(item.amount == 1)
-			qdel(item)
+		if(stack.amount == 1)
+			qdel(stack)
 		to_chat(user, span_notice("[target == user ? "Вы доели" : "[target] доел"] [item.name]."))
-		item.amount--
+		stack.amount--
 
 	SSticker.score.score_food_eaten++
 
