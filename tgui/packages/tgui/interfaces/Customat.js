@@ -5,26 +5,26 @@ import { Window } from '../layouts';
 
 const CustomatRow = (props, context) => {
   const { act, data } = useBackend(context);
-  const { product, productStock, productImage } = props;
+  const { key, productStock, productImage, productPrice, productName } = props;
   const {
     user,
     userMoney,
     vend_ready,
   } = data;
-  const free = product.price === 0;
+  const free = productPrice === 0;
   let buttonText = 'ERROR!';
   let rowIcon = '';
   if (free) {
     buttonText = 'FREE';
     rowIcon = 'arrow-circle-down';
   } else {
-    buttonText = product.price;
+    buttonText = productPrice;
     rowIcon = 'shopping-cart';
   }
   let buttonDisabled =
     !vend_ready ||
     productStock === 0 ||
-    (!free && product.price > userMoney);
+    (!free && productPrice > userMoney);
   return (
     <Table.Row>
       <Table.Cell collapsing>
@@ -38,7 +38,7 @@ const CustomatRow = (props, context) => {
           }}
         />
       </Table.Cell>
-      <Table.Cell bold>{product.name}</Table.Cell>
+      <Table.Cell bold>{productName}</Table.Cell>
       <Table.Cell collapsing textAlign="center">
         <Box
           color={
@@ -58,7 +58,7 @@ const CustomatRow = (props, context) => {
           textAlign="left"
           onClick={() =>
             act('vend', {
-              'key': product.key,
+              'key': key,
             })
           }
         />
@@ -77,6 +77,8 @@ export const Customat = (props, context) => {
     user,
     stock,
     icons,
+    prices,
+    names,
     vend_ready,
     panel_open,
     speaker,
@@ -112,10 +114,11 @@ export const Customat = (props, context) => {
               <Table>
                 {inventory.map((product) => (
                   <CustomatRow
-                    key={product.key}
-                    product={product}
-                    productStock={stock[product.key]}
-                    productImage={icons[product.key]}
+                    key={product}
+                    productStock={stock[product]}
+                    productImage={icons[product]}
+                    productPrice={prices[product]}
+                    productName={names[product]}
                   />
                 ))}
               </Table>

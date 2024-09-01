@@ -461,6 +461,14 @@
 	for (var/key in products)
 		var/datum/data/customat_product/product = products[key]
 		data["icons"][product.key] = product.icon
+	data["prices"] = list()
+	for (var/key in products)
+		var/datum/data/customat_product/product = products[key]
+		data["prices"][product.key] = product.price
+	data["names"] = list()
+	for (var/key in products)
+		var/datum/data/customat_product/product = products[key]
+		data["names"][product.key] = product.name
 	data["vend_ready"] = vend_ready
 	data["panel_open"] = panel_open ? TRUE : FALSE
 	data["speaker"] = shut_up ? FALSE : TRUE
