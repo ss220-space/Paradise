@@ -41,6 +41,9 @@
 /datum/component/eatable/proc/try_eat_item(datum/source, mob/living/carbon/human/target, mob/user)
 
 	var/obj/item/item = parent
+	if(!(item.material_type & target.dna.species.special_diet))
+		return NONE
+
 	var/chat_message_to_user = "Вы кормите [target] [item.name]."
 	var/chat_message_to_target = "[user] покормил вас [item.name]."
 
