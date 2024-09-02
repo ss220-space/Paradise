@@ -5728,7 +5728,7 @@
 /area/security/main)
 "aWi" = (
 /obj/effect/decal/warning_stripes/northeastsouth,
-/obj/vehicle/ambulance{
+/obj/vehicle/ridden/ambulance{
 	dir = 4
 	},
 /obj/machinery/light{
@@ -39561,7 +39561,7 @@
 /turf/simulated/floor/plating,
 /area/hallway/primary/fore/west)
 "hzm" = (
-/obj/vehicle/ambulance{
+/obj/vehicle/ridden/ambulance{
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/northeastsouth,

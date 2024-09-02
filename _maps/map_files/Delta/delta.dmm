@@ -30989,7 +30989,7 @@
 /area/medical/paramedic)
 "djT" = (
 /obj/effect/decal/warning_stripes/northeastsouth,
-/obj/vehicle/ambulance{
+/obj/vehicle/ridden/ambulance{
 	dir = 4
 	},
 /obj/machinery/light{

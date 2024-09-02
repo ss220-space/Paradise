@@ -38,7 +38,7 @@
 	if(inserted_key) //just in case there's an invalid key
 		inserted_key.forceMove(drop_location())
 	inserted_key = I
-	return ATTACK_CHAIN_SUCCESS
+	return ATTACK_CHAIN_PROCEED
 
 /obj/vehicle/ridden/AltClick(mob/user)
 	if(!inserted_key)

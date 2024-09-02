@@ -19833,7 +19833,7 @@
 /obj/effect/turf_decal/stripes/end{
 	dir = 4
 	},
-/obj/vehicle/ambulance{
+/obj/vehicle/ridden/ambulance{
 	dir = 4
 	},
 /obj/machinery/light,
@@ -102994,7 +102994,7 @@
 /turf/simulated/floor/grass,
 /area/hallway/spacebridge/scidock)
 "syE" = (
-/obj/vehicle/ambulance{
+/obj/vehicle/ridden/ambulance{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/end{

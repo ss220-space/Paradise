@@ -8,3 +8,8 @@
 /obj/item/key/atv
 	name = "ATV key"
 	desc = "A small grey key for starting and operating ATVs."
+
+/obj/item/key/ambulance
+	name = "ambulance key"
+	desc = "A keyring with a small steel key, and tag with a red cross on it."
+	icon_state = "keydoc"

@@ -105,7 +105,7 @@
 		/obj/vehicle/ridden/atv = 30,
 		/obj/vehicle/motorcycle = 20,
 		/obj/vehicle/janicart = 15,
-		/obj/vehicle/ambulance = 15,
+		/obj/vehicle/ridden/ambulance = 15,
 		/obj/vehicle/snowmobile = 15,
 		/obj/vehicle/space/speedbike/red = 10,
 		/obj/vehicle/space/speedbike = 10,

@@ -30518,7 +30518,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "bTG" = (
-/obj/vehicle/ambulance,
+/obj/vehicle/ridden/ambulance,
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/decal/warning_stripes/east,
