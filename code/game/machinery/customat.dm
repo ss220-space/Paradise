@@ -35,7 +35,7 @@
 	name = "\improper Customat"
 	desc = "Торговый автомат с кастомным содержимым."
 	icon = 'icons/obj/machines/customat.dmi'
-	icon_state = "generic_off"
+	icon_state = "custommate"
 	layer = BELOW_OBJ_LAYER
 	anchored = TRUE
 	density = TRUE
@@ -172,6 +172,7 @@
 	return ..()
 
 /obj/machinery/customat/update_icon(updates = ALL)
+	update_icon(UPDATE_OVERLAYS)
 	if(skip_non_primary_icon_updates && !(stat & (NOPOWER|BROKEN)) && COOLDOWN_FINISHED(src, emp_cooldown))
 		return ..(NONE)
 	return ..()
@@ -345,8 +346,11 @@
 	if(user.a_intent == INTENT_HARM || !COOLDOWN_FINISHED(src, emp_cooldown))
 		return ..()
 
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	if (panel_open)
-		if (istype(I, /obj/item/card/id))
+		if (istype(I, /obj/item/card/id) && !istype())
 			idcard_act(user, I)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		else

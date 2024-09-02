@@ -145,7 +145,7 @@
 /datum/design/customat_canister
 	name = "Customat Canister"
 	desc = "Канистра для Кастомата."
-	id = "design_disk"
+	id = "customat_canister"
 	req_tech = list("programming" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 800, MAT_GLASS = 600)

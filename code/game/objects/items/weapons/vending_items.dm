@@ -223,8 +223,8 @@
 		balloon_alert(user, "лимит привязки достигнут")
 		return
 
-	var/new_acc_number = input("Пожалуйста, введите номер счета, который вы хотите привязать.", "Выбор счета", GLOB.station_account.account_number) as num
-	if (new_acc_number < 1000000 || new_acc_number > 999999)
+	var/new_acc_number = input("Пожалуйста, введите номер счета, который вы хотите привязать.", "Выбор счета", (user.mind && user.mind.initial_account) ? user.mind.initial_account.account_number : 999999) as num
+	if (new_acc_number < 100000 || new_acc_number > 999999)
 		balloon_alert(user, "введен некорректный номер счета")
 		return
 
@@ -273,9 +273,12 @@
 			correct = try_add_account(user)
 		if (2)
 			correct = try_add_station_account(user)
-		else
+		if (-INFINITY to -1)
 			correct = FALSE
-			to_chat(usr, span_warning("некорректное значение"))
+			balloon_alert(user, "значение должно быть больше 0")
+		if (3 to INFINITY)
+			correct = FALSE
+			balloon_alert(user, "значение должно быть меньше 3")
 
 	if (correct)
 		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 30, 0)
