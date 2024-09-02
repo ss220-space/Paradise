@@ -190,9 +190,106 @@
 
 /obj/item/vending_refill/custom
 	machine_name = "Торговый автомат с уникальным содержимым"
-	icon_state = "restock_pai"
-	var/id_number
+	icon = 'icons/obj/machines/customat.dmi'
+	icon_state = "custommate-refill"
+	var/list/datum/money_account/linked_accounts = list()
+	var/list/datum/money_account/accounts_weights = list()
+	var/sum_of_weigths = 0
 
-/obj/item/vending_refill/custom/attack_self(mob/user)
-	var/new_id_number = input("Пожалуйста, введите номер счета, на который будут начисляться кредиты при покупке.", "Выбор счета", id_number) as null|text
-	id_number = new_id_number
+/obj/item/vending_refill/custom/Initialize()
+	linked_accounts = list(GLOB.station_account)
+	accounts_weights = list(100)
+	sum_of_weigths = 100
+	. = ..()
+
+
+
+/obj/item/vending_refill/custom/proc/add_account(datum/money_account/new_account, weight)
+	linked_accounts += new_account
+	accounts_weights += weight
+	sum_of_weigths += weight
+
+
+/obj/item/vending_refill/custom/proc/clear_accounts(mob/user)
+	linked_accounts = list()
+	accounts_weights = list()
+	sum_of_weigths = 0
+	balloon_alert(user, "всё сохраненные счета удалены")
+
+
+/obj/item/vending_refill/custom/proc/try_add_account(mob/user)
+	. = FALSE
+	if (linked_accounts.len >= 150) // better to do it
+		balloon_alert(user, "лимит привязки достигнут")
+		return
+
+	var/new_acc_number = input("Пожалуйста, введите номер счета, который вы хотите привязать.", "Выбор счета", GLOB.station_account.account_number) as num
+	if (new_acc_number < 1000000 || new_acc_number > 999999)
+		balloon_alert(user, "введен некорректный номер счета")
+		return
+
+	var/weight = input("Пожалуйста, введите вес введеного ранее счета от 1 до 1000000.", "Выбор получаемой доли", 100) as num
+	if (weight < 1 || weight > 1000000)
+		balloon_alert(user, "введен некорректный вес")
+		return
+
+	var/new_account = attempt_account_access(new_acc_number, pin_needed = FALSE)
+	if (!new_account)
+		balloon_alert(user, "указанный аккаунт не существует")
+		return
+
+	if (new_account in linked_accounts)
+		balloon_alert(user, "указанный аккаунт уже привязан")
+		return
+
+	add_account(new_account, weight)
+	balloon_alert(user, "новый счет добавлен")
+	return TRUE
+
+
+/obj/item/vending_refill/custom/proc/try_add_station_account(mob/user)
+	. = FALSE
+	var/weight = input("Пожалуйста, введите вес для счета станции от 1 до 1000000.", "Выбор получаемой доли", 100) as num
+	if (weight < 1 || weight > 1000000)
+		balloon_alert(user, "введен некорректный вес")
+		return
+
+	if (GLOB.station_account in linked_accounts)
+		balloon_alert(user, "аккаунт станции уже привязан")
+		return
+
+	add_account(GLOB.station_account, weight)
+	balloon_alert(user, "счет станции привязан")
+	return TRUE
+
+
+/obj/item/vending_refill/custom/attack_self(mob/user) // It works this way not because I'm lazy, but for better immersion.
+	var/accounts_amount = input("Введите 0 чтобы сбросить список сохраненных счетов, 1 чтобы добавить новый счет в список получателей, 2 чтобы добавить счет станции.", "Настройка привязанных счетов.", 0) as num
+	var/correct = TRUE
+	switch (accounts_amount)
+		if (0)
+			correct = clear_accounts(user)
+		if (1)
+			correct = try_add_account(user)
+		if (2)
+			correct = try_add_station_account(user)
+		else
+			correct = FALSE
+			to_chat(usr, span_warning("некорректное значение"))
+
+	if (correct)
+		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 30, 0)
+	else
+		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 1)
+
+
+/obj/item/vending_refill/custom/examine(mob/user)
+	. = ..()
+	if(in_range(user, src))
+		if (!linked_accounts.len)
+			. += span_notice("К этой канистре не привязанно ни одного счета.")
+		else
+			. += span_notice("К этой канистре привязанны следующее счета:")
+			for (var/i = 1; i <= linked_accounts.len; ++i)
+				. += span_notice("Владелец: " + linked_accounts[i].owner_name + ", вес: [accounts_weights[i]], доля: [round(accounts_weights[i]/sum_of_weigths, 0.01)].")
+

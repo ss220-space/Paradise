@@ -34,7 +34,7 @@
 /obj/machinery/customat
 	name = "\improper Customat"
 	desc = "Торговый автомат с кастомным содержимым."
-	icon = 'icons/obj/machines/vending.dmi'
+	icon = 'icons/obj/machines/customat.dmi'
 	icon_state = "generic_off"
 	layer = BELOW_OBJ_LAYER
 	anchored = TRUE
@@ -45,13 +45,13 @@
 
 	// All the overlay controlling variables
 	/// Overlay of vendor maintenance panel.
-	var/panel_overlay = ""
+	var/panel_overlay = "custommate-panel"
 	/// Overlay of a vendor screen, will not apply of stat is NOPOWER.
-	var/screen_overlay = ""
+	var/screen_overlay = "custommate-off"
 	/// Lightmask used when vendor is working properly.
 	var/lightmask_overlay = ""
 	/// Damage overlay applied if vendor is damaged enough.
-	var/broken_overlay = ""
+	var/broken_overlay = "custommate-broken"
 	/// Special lightmask for broken overlay. If vendor is BROKEN, but not dePOWERED we will see this, instead of `lightmask_overlay`.
 	var/broken_lightmask_overlay = ""
 	/// Overlay applied when machine is vending goods.
@@ -69,7 +69,7 @@
 	/// Flags used to correctly manipulate with vend/deny sequences.
 	var/flick_sequence = FLICK_NONE
 	/// If `TRUE` machine will only react to BROKEN/NOPOWER stat, when updating overlays.
-	var/skip_non_primary_icon_updates = FALSE
+	var/skip_non_primary_icon_updates = TRUE
 
 	// Power
 	use_power = IDLE_POWER_USE
@@ -115,6 +115,7 @@
 
 	//The type of refill canisters used by this machine.
 	var/obj/item/vending_refill/canister = null
+	var/datum/money_account/linked_account
 	var/obj/item/vending_refill/refill_canister = /obj/item/vending_refill/custom
 
 	// Things that can go wrong
@@ -133,13 +134,17 @@
 
 	var/list/remembered_costs = list("akula plushie" = 666) // Why not?
 	var/obj/item/card/id/connected_id = null
-	var/fast_insert = FALSE
+	var/fast_insert = TRUE
 
 	// To be filled out at compile time
 	var/list/products = list()
 
 	var/inserted_items_count = 0
 	var/max_items_inside = 50
+
+	COOLDOWN_DECLARE(emp_cooldown)
+	var/weak_emp_cooldown = 60 SECONDS
+	var/strong_emp_cooldown = 180 SECONDS
 
 /obj/machinery/customat/Initialize(mapload)
 	. = ..()
@@ -167,7 +172,7 @@
 	return ..()
 
 /obj/machinery/customat/update_icon(updates = ALL)
-	if(skip_non_primary_icon_updates && !(stat & (NOPOWER|BROKEN)))
+	if(skip_non_primary_icon_updates && !(stat & (NOPOWER|BROKEN)) && COOLDOWN_FINISHED(src, emp_cooldown))
 		return ..(NONE)
 	return ..()
 
@@ -177,7 +182,7 @@
 
 	underlays.Cut()
 
-	if((stat & NOPOWER) || force_no_power_icon_state)
+	if((stat & NOPOWER) || force_no_power_icon_state || !COOLDOWN_FINISHED(src, emp_cooldown))
 		if(broken_overlay && (stat & BROKEN))
 			. += broken_overlay
 
@@ -260,7 +265,7 @@
 	if(flickering)
 		return FALSE
 
-	if(stat & (BROKEN|NOPOWER))
+	if((stat & (BROKEN|NOPOWER)) || !COOLDOWN_FINISHED(src, emp_cooldown))
 		return FALSE
 
 	flickering = TRUE
@@ -293,14 +298,14 @@
 		..()
 
 /obj/machinery/customat/proc/idcard_act(mob/user, obj/item/I)
-	if (!connected_id)
+	if (!isLocked())
 		connected_id = I
-		balloon_alert(user, "Автомат заблокирован.")
+		balloon_alert(user, "[src] is locked")
 	else if (connected_id == I)
 		connected_id = null
-		balloon_alert(user, "Автомат разблокирован.")
+		balloon_alert(user, "[src] is unlocked")
 	else
-		balloon_alert(user, "Карта не подходит.")
+		balloon_alert(user, "карта не подходит")
 
 /obj/machinery/customat/proc/get_key(obj/item/I, cost)
 	return I.name + "_[cost]"
@@ -315,7 +320,7 @@
 		return
 	if (!(key in products))
 		var/datum/data/customat_product/product = new /datum/data/customat_product(I)
-		product.price = cost
+		product.price = !emagged ? cost : 0
 		product.key = key
 		products[key] = product
 
@@ -326,9 +331,8 @@
 
 /obj/machinery/customat/proc/try_insert(mob/user, obj/item/I, from_tube = FALSE)
 	var/cost = 100
-	if (fast_insert || from_tube)
-		if (I.name in remembered_costs)
-			cost = remembered_costs[I.name]
+	if ((fast_insert || from_tube) && (I.name in remembered_costs))
+		cost = remembered_costs[I.name]
 	else
 		var/new_cost = input("Пожалуйста, выберите цену для этого товара. Цена не может быть ниже 0 и выше 1000000 кредитов.", "Выбор цены", 0) as num
 		cost = clamp(new_cost, 0, 1000000)
@@ -338,7 +342,7 @@
 	insert(user, I, cost)
 
 /obj/machinery/customat/attackby(obj/item/I, mob/user, params)
-	if(user.a_intent == INTENT_HARM)
+	if(user.a_intent == INTENT_HARM || !COOLDOWN_FINISHED(src, emp_cooldown))
 		return ..()
 
 	if (panel_open)
@@ -356,6 +360,9 @@
 
 /obj/machinery/customat/crowbar_act(mob/user, obj/item/I)
 	if(!component_parts)
+		return
+	if (isLocked())
+		to_chat(usr, span_warning("[src] is locked."))
 		return
 	. = TRUE
 	eject_all()
@@ -398,6 +405,10 @@
 
 /obj/machinery/customat/emag_act(mob/user)
 	emagged = TRUE
+	for (var/key in products)
+		var/datum/data/customat_product/product = products[key]
+		product.price = 0
+		products[key] = product
 	if(user)
 		to_chat(user, "You short out the product lock on [src]")
 
@@ -408,7 +419,7 @@
 	return attack_hand(user)
 
 /obj/machinery/customat/attack_hand(mob/user)
-	if(stat & (BROKEN|NOPOWER))
+	if((stat & (BROKEN|NOPOWER)) || !COOLDOWN_FINISHED(src, emp_cooldown))
 		return
 
 	if(..())
@@ -491,18 +502,13 @@
 			if(panel_open)
 				to_chat(usr, span_warning("The vending machine cannot dispense products while its service panel is open!"))
 				return
-			var/key = text2num(params["Key"])
+			var/key = params["Key"]
 			var/datum/data/customat_product/product = products[key]
 			if(!istype(product))
 				to_chat(usr, span_warning("ERROR: unknown vending_product record. Report this bug."))
 				return
-			var/list/record_to_check = products
 			if(!product || !istype(product) || !product.key)
 				to_chat(usr, span_warning("ERROR: unknown product record. Report this bug."))
-				return
-			else if (!(product in record_to_check))
-				// Exploit prevention, stop the user
-				message_admins("Vending machine exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
 				return
 			if (product.amount <= 0)
 				to_chat(usr, "Sold out of [product.name].")
@@ -532,12 +538,12 @@
 
 			if(istype(usr.get_active_hand(), /obj/item/stack/spacecash))
 				var/obj/item/stack/spacecash/S = usr.get_active_hand()
-				paid = pay_with_cash(S, usr, currently_vending.price, currently_vending.name)
+				paid = pay_with_cash(S, usr, currently_vending.price, currently_vending.name, linked_account)
 			else if(get_card_account(usr))
 				// Because this uses H.get_id_card(), it will attempt to use:
 				// active hand, inactive hand, wear_id, pda, and then w_uniform ID in that order
 				// this is important because it lets people buy stuff with someone else's ID by holding it while using the vendor
-				paid = pay_with_card(usr, currently_vending.price, currently_vending.name)
+				paid = pay_with_card(usr, currently_vending.price, currently_vending.name, linked_account)
 			else if(usr.can_advanced_admin_interact())
 				to_chat(usr, span_notice("Vending object due to admin interaction."))
 				paid = TRUE
@@ -556,16 +562,10 @@
 	if(.)
 		add_fingerprint(usr)
 
-
-
+/obj/machinery/customat/proc/isLocked()
+	return connected_id != null
 
 /obj/machinery/customat/proc/vend(datum/data/customat_product/product, mob/user)
-	if(!allowed(user) && !user.can_admin_interact() && !emagged && scan_id)
-		balloon_alert(user, "Access denied.")
-		flick_vendor_overlay(FLICK_DENY)
-		vend_ready = TRUE
-		return
-
 	if(!product.amount)
 		to_chat(user, span_warning("В автомате не осталось содержимого."))
 		vend_ready = TRUE
@@ -589,6 +589,7 @@
 	do_vend(product, user)
 	vend_ready = TRUE
 	currently_vending = null
+	inserted_items_count--
 
 
 /**
@@ -608,7 +609,7 @@
 	return TRUE
 
 /obj/machinery/customat/process()
-	if(stat & (BROKEN|NOPOWER))
+	if((stat & (BROKEN|NOPOWER)) || !COOLDOWN_FINISHED(src, emp_cooldown))
 		return
 
 	if(!active)
@@ -629,13 +630,30 @@
 
 	atom_say(message)
 
-
 /obj/machinery/customat/obj_break(damage_flag)
 	if(stat & BROKEN)
 		return
 
 	stat |= BROKEN
 	update_icon(UPDATE_OVERLAYS)
+
+/obj/machinery/customat/AltClick(atom/movable/A)
+	if (!panel_open)
+		balloon_alert(A, "панель закрыта")
+		return
+	if (isLocked())
+		balloon_alert(A, "автомат заблокирован")
+		return
+
+	balloon_alert(A, "быстрый режим " + (fast_insert ? "отключен" : "включен"))
+	fast_insert = !fast_insert
+
+/obj/machinery/customat/emp_act(severity)
+	switch(severity)
+		if(1)
+			COOLDOWN_START(src, emp_cooldown, weak_emp_cooldown)
+		if(2)
+			COOLDOWN_START(src, emp_cooldown, strong_emp_cooldown)
 
 #undef FLICK_NONE
 #undef FLICK_VEND
