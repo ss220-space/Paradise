@@ -70,25 +70,25 @@
 
 /datum/component/eatable/proc/eat(mob/target, mob/user)
 	var/obj/item/item = parent
+	
 	playsound(target.loc, 'sound/items/eatfood.ogg', 50, 0)
 	if(!isvampire(target)) //Dont give nutrition to vampires
 		target.adjust_nutrition(item.nutritional_value)
+	SSticker.score.score_food_eaten++
 
-	if(!isstack(item))
+	if(isstack(item))
+		var/obj/item/stack/stack = item
+		to_chat(user, span_notice("[target == user ? "Вы съели" : "[target] съел"] [item.name]."))
+		if(stack.amount == 1)
+			qdel(stack)
+		stack.amount--
+	else
 		item.current_bites++
 		item.obj_integrity = max(item.obj_integrity - item.integrity_bite, 0)
 		item.add_atom_colour(get_colour(), FIXED_COLOUR_PRIORITY)
 		if(item.current_bites >= item.max_bites)
 			to_chat(user, span_notice("[target == user ? "Вы доели" : "[target] доел"] [item.name]."))
 			qdel(item)
-	else
-		var/obj/item/stack/stack = item
-		if(stack.amount == 1)
-			qdel(stack)
-		to_chat(user, span_notice("[target == user ? "Вы доели" : "[target] доел"] [item.name]."))
-		stack.amount--
-
-	SSticker.score.score_food_eaten++
 
 /datum/component/eatable/proc/forceFed(mob/living/carbon/target, mob/user, var/instant_application = FALSE)
 	var/obj/item/item = parent
