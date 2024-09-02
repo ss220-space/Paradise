@@ -310,7 +310,7 @@
 	null_linked_refs()
 	linked = null
 	var/turf/our_turf = get_turf(src)
-	v/obj/machinery/customat/customat = locate() in our_turf
+	var/obj/machinery/customat/customat = locate() in our_turf
 	if(customat)
 		set_linked(customat)
 	var/obj/machinery/disposal/disposal = locate() in our_turf

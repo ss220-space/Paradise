@@ -327,7 +327,10 @@
 
 /obj/machinery/customat/proc/try_insert(mob/user, obj/item/I, from_tube = FALSE)
 	var/cost = 100
-	if ((fast_insert || from_tube) && (I.name in remembered_costs))
+	if (from_tube)
+		if (I.name in remembered_costs)
+			cost = remembered_costs[I.name]
+	else if (fast_insert && (I.name in remembered_costs))
 		cost = remembered_costs[I.name]
 	else
 		var/new_cost = input("Пожалуйста, выберите цену для этого товара. Цена не может быть ниже 0 и выше 1000000 кредитов.", "Выбор цены", 0) as num
@@ -532,11 +535,11 @@
 			if(istype(usr.get_active_hand(), /obj/item/stack/spacecash))
 				var/obj/item/stack/spacecash/S = usr.get_active_hand()
 				paid = TRUE
-				for (var/ind = 1; ind < canister.linked_accounts.len; ++ind)
+				for (var/ind = 1; ind <= canister.linked_accounts.len; ++ind)
 					paid = paid || pay_with_cash(S, usr, currently_vending.price * canister.accounts_weights[ind] / canister.sum_of_weigths, currently_vending.name, canister.linked_accounts[ind])
 			else if(get_card_account(usr))
 				paid = TRUE
-				for (var/ind = 1; ind < canister.linked_accounts.len; ++ind)
+				for (var/ind = 1; ind <= canister.linked_accounts.len; ++ind)
 					paid = paid || pay_with_card(usr, currently_vending.price * canister.accounts_weights[ind] / canister.sum_of_weigths, currently_vending.name, canister.linked_accounts[ind])
 			else if(usr.can_advanced_admin_interact())
 				to_chat(usr, span_notice("Vending object due to admin interaction."))
@@ -652,10 +655,10 @@
 /obj/machinery/customat/proc/expel(obj/structure/disposalholder/holder)
 	var/list/contents = holder.contents
 	for (var/content in contents)
-		if (istype(content, obj/item))
-			try_insert()
-
-	holder.vent_gas(loc)
+		if (istype(content, /obj/item))
+			try_insert(null, content, TRUE)
+			contents.Remove(content)
+	pipe_eject(holder)
 	qdel(holder)
 
 #undef FLICK_NONE
