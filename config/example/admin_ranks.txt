@@ -25,6 +25,8 @@
 # +MODERATOR = the ability to view notes and bans, and regulate the game.
 # +MENTOR = Access only to the Question's Ahelp and has little way of metagaming the game.
 # +VIEWRUNTIMES = Allows a player to view the runtimes of the server, but not use other debug verbs
+# +DEV = Allows a player to view the dev chat.
+# +R_PEPELOPMENT = Allows a player to have access to different admin verbs, which could help with development and in-game debug.
 # +EVERYTHING (or +HOST or +ALL) = Simply gives you everything without having to type every flag
 
 # Admin Ranks
