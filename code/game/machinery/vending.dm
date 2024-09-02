@@ -510,6 +510,10 @@
 		insert_item(user, I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
+	try_tilt(I, user)
+	return ..()
+
+/obj/machinery/vending/proc/try_tilt(obj/item/I, mob/user)
 	if(tiltable && !tilted && I.force)
 		if(resistance_flags & INDESTRUCTIBLE)
 			// no goodies, but also no tilts
@@ -533,7 +537,6 @@
 				tilt(user)
 			if(91 to 100)
 				tilt(user, crit = TRUE)
-	return ..()
 
 /obj/machinery/vending/proc/freebie(mob/user, num_freebies)
 	visible_message(span_notice("[num_freebies] free goodie\s tumble[num_freebies > 1 ? "" : "s"] out of [src]!"))

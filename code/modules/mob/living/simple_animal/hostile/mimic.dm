@@ -324,6 +324,8 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	if(!QDELETED(orig_vendor))
 		orig_vendor.forceMove(get_turf(src))
 		// tilt over in place
+		orig_vendor.tilted = TRUE
+		orig_vendor.set_anchored(FALSE)
 		orig_vendor.tilt_over()
 		if(prob(70))
 			orig_vendor.obj_break()
