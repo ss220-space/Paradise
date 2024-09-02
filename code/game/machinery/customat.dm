@@ -7,9 +7,6 @@
 #define FLICK_DENY 2
 
 
-// !! Не забыть поудалять старые комментарии и сделать свои
-// ! Добавить звуки и сообщения разным взаимодействиям с автоматом
-
 
 /**
  *  Datum used to hold information about a product in a vending machine
@@ -109,20 +106,19 @@
 	/// If true, prevent saying sales pitches
 	var/shut_up = FALSE
 	var/last_reply = 0
+	var/reply_delay = 20 SECONDS
+	COOLDOWN_DECLARE(reply_cooldown)
 	var/last_slogan = 0			//When did we last pitch?
 	var/slogan_delay = 600 SECONDS		//How long until we can pitch again?
-	var/reply_delay = 20 SECONDS
+	COOLDOWN_DECLARE(slogan_cooldown)
 
 	//The type of refill canisters used by this machine.
-	var/obj/item/vending_refill/canister = null
-	var/datum/money_account/linked_account
-	var/obj/item/vending_refill/refill_canister = /obj/item/vending_refill/custom
+	var/obj/item/vending_refill/custom/canister = null
+	var/obj/item/vending_refill/refill_canister = /obj/item/vending_refill/custom // we need it for req_components of vendomat circuitboard
 
 	// Things that can go wrong
-	/// Allows people to access a vendor that's normally access restricted.
+	/// Makes all prices 0
 	emagged = 0
-
-	var/scan_id = TRUE
 
 	/// blocks further flickering while true
 	var/flickering = FALSE
@@ -133,8 +129,8 @@
 	var/light_power_on = 0.5
 
 	var/list/remembered_costs = list("akula plushie" = 666) // Why not?
-	var/obj/item/card/id/connected_id = null
-	var/fast_insert = TRUE
+	var/obj/item/card/id/connected_id = null // Id that was used to block src
+	var/fast_insert = TRUE // If true, new price of inserted item will be equal previous price of the same item
 
 	// To be filled out at compile time
 	var/list/products = list()
@@ -172,7 +168,6 @@
 	return ..()
 
 /obj/machinery/customat/update_icon(updates = ALL)
-	update_icon(UPDATE_OVERLAYS)
 	if(skip_non_primary_icon_updates && !(stat & (NOPOWER|BROKEN)) && COOLDOWN_FINISHED(src, emp_cooldown))
 		return ..(NONE)
 	return ..()
@@ -337,7 +332,7 @@
 	else
 		var/new_cost = input("Пожалуйста, выберите цену для этого товара. Цена не может быть ниже 0 и выше 1000000 кредитов.", "Выбор цены", 0) as num
 		cost = clamp(new_cost, 0, 1000000)
-	if (get_dist(get_turf(user), get_turf(src)) > 1)
+	if (user && get_dist(get_turf(user), get_turf(src)) > 1)
 		to_chat(usr, span_warning("Вы слишком далеко!"))
 		return
 	insert(user, I, cost)
@@ -346,11 +341,11 @@
 	if(user.a_intent == INTENT_HARM || !COOLDOWN_FINISHED(src, emp_cooldown))
 		return ..()
 
-	if(exchange_parts(user, I))
+	if(istype(I, /obj/item/crowbar) || istype(I, /obj/item/wrench))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if (panel_open)
-		if (istype(I, /obj/item/card/id) && !istype())
+		if (istype(I, /obj/item/card/id))
 			idcard_act(user, I)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		else
@@ -508,12 +503,6 @@
 				return
 			var/key = params["Key"]
 			var/datum/data/customat_product/product = products[key]
-			if(!istype(product))
-				to_chat(usr, span_warning("ERROR: unknown vending_product record. Report this bug."))
-				return
-			if(!product || !istype(product) || !product.key)
-				to_chat(usr, span_warning("ERROR: unknown product record. Report this bug."))
-				return
 			if (product.amount <= 0)
 				to_chat(usr, "Sold out of [product.name].")
 				flick_vendor_overlay(FLICK_VEND)
@@ -542,12 +531,13 @@
 
 			if(istype(usr.get_active_hand(), /obj/item/stack/spacecash))
 				var/obj/item/stack/spacecash/S = usr.get_active_hand()
-				paid = pay_with_cash(S, usr, currently_vending.price, currently_vending.name, linked_account)
+				paid = TRUE
+				for (var/ind = 1; ind < canister.linked_accounts.len; ++ind)
+					paid = paid || pay_with_cash(S, usr, currently_vending.price * canister.accounts_weights[ind] / canister.sum_of_weigths, currently_vending.name, canister.linked_accounts[ind])
 			else if(get_card_account(usr))
-				// Because this uses H.get_id_card(), it will attempt to use:
-				// active hand, inactive hand, wear_id, pda, and then w_uniform ID in that order
-				// this is important because it lets people buy stuff with someone else's ID by holding it while using the vendor
-				paid = pay_with_card(usr, currently_vending.price, currently_vending.name, linked_account)
+				paid = TRUE
+				for (var/ind = 1; ind < canister.linked_accounts.len; ++ind)
+					paid = paid || pay_with_card(usr, currently_vending.price * canister.accounts_weights[ind] / canister.sum_of_weigths, currently_vending.name, canister.linked_accounts[ind])
 			else if(usr.can_advanced_admin_interact())
 				to_chat(usr, span_notice("Vending object due to admin interaction."))
 				paid = TRUE
@@ -579,9 +569,9 @@
 
 	product.amount--
 
-	if(((last_reply + (vend_delay + reply_delay)) <= world.time) && vend_reply)
+	if(COOLDOWN_FINISHED(src, reply_cooldown) && vend_reply)
 		speak(pick(src.vend_reply))
-		last_reply = world.time
+		COOLDOWN_START(src, reply_cooldown, reply_delay)
 
 	use_power(vend_power_usage)	//actuators and stuff
 	flick_vendor_overlay(FLICK_VEND)	//Show the vending animation if needed
@@ -620,10 +610,10 @@
 		return
 
 	//Pitch to the people!  Really sell it!
-	if(((last_slogan + src.slogan_delay) <= world.time) && (LAZYLEN(ads_list)) && (!shut_up) && prob(5))
+	if(COOLDOWN_FINISHED(src, slogan_cooldown) && (LAZYLEN(ads_list)) && (!shut_up) && prob(5))
 		var/slogan = pick(src.ads_list)
 		speak(slogan)
-		last_slogan = world.time
+		COOLDOWN_START(src, slogan_cooldown, slogan_delay)
 
 
 /obj/machinery/customat/proc/speak(message)
@@ -658,6 +648,15 @@
 			COOLDOWN_START(src, emp_cooldown, weak_emp_cooldown)
 		if(2)
 			COOLDOWN_START(src, emp_cooldown, strong_emp_cooldown)
+
+/obj/machinery/customat/proc/expel(obj/structure/disposalholder/holder)
+	var/list/contents = holder.contents
+	for (var/content in contents)
+		if (istype(content, obj/item))
+			try_insert()
+
+	holder.vent_gas(loc)
+	qdel(holder)
 
 #undef FLICK_NONE
 #undef FLICK_VEND
