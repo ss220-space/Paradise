@@ -14793,9 +14793,6 @@
 	c_tag = "Vault";
 	dir = 4
 	},
-/obj/structure/closet/crate{
-	name = "Gold Crate"
-	},
 /obj/item/stack/sheet/mineral/gold{
 	pixel_x = -1;
 	pixel_y = 5
@@ -14812,6 +14809,7 @@
 	pixel_x = -28
 	},
 /obj/item/storage/belt/champion/wrestling/true,
+/obj/structure/closet/crate/vault,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
@@ -14838,9 +14836,7 @@
 	pixel_x = 5;
 	pixel_y = -8
 	},
-/obj/structure/closet/crate{
-	name = "Silver Crate"
-	},
+/obj/structure/closet/crate/vault,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "vault"
@@ -39316,10 +39312,10 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/garden)
 "cum" = (
-/obj/structure/closet/secure_closet/freezer/money,
 /obj/machinery/ai_status_display{
 	pixel_y = 32
 	},
+/obj/structure/closet/secure_closet/freezer/vault,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
