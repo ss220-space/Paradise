@@ -15,6 +15,7 @@
 	var/steps = 0
 	var/lifetime = 5
 	var/direction
+	var/beam_resistance
 
 
 /obj/effect/particle_effect/smoke/Initialize(mapload)
@@ -66,6 +67,7 @@
 	SIGNAL_HANDLER
 
 	smoke_mob(arrived)
+	smoke_beam(arrived)
 
 
 /obj/effect/particle_effect/smoke/proc/smoke_mob(mob/living/carbon/victim)
@@ -80,6 +82,14 @@
 	victim.smoke_delay++
 	addtimer(CALLBACK(src, PROC_REF(remove_smoke_delay), victim), 1 SECONDS)
 	return TRUE
+
+
+/obj/effect/particle_effect/smoke/proc/smoke_beam(obj/item/projectile/beam/mover)
+	if(!beam_resistance)
+		return FALSE
+	if(istype(mover))
+		var/obj/item/projectile/beam/beam = mover
+		beam.damage = (beam.damage / beam_resistance)
 
 
 /obj/effect/particle_effect/smoke/proc/remove_smoke_delay(mob/living/carbon/victim)
@@ -139,16 +149,16 @@
 		return .
 	INVOKE_ASYNC(victim, TYPE_PROC_REF(/mob, emote), "cough")
 
-/obj/effect/particle_effect/smoke/solid/CanAllowThrough(atom/movable/mover, border_dir)
-	. = ..()
-	if(istype(mover, /obj/item/projectile/beam))
-		var/obj/item/projectile/beam/beam = mover
-		beam.damage = (beam.damage / 2)
 
 /datum/effect_system/smoke_spread/solid
 	effect_type = /obj/effect/particle_effect/smoke/solid
 	custom_lifetime = 9
 	var/effect_range
+
+
+/obj/effect/particle_effect/smoke/solid
+	beam_resistance = 2
+
 
 /datum/effect_system/smoke_spread/solid/set_up(n = 5, c = 0, loca, direct, range = 0)
 	..()
@@ -184,6 +194,8 @@
 
 /obj/effect/particle_effect/smoke/bad
 	lifetime = 8
+	beam_resistance = 2
+
 
 /obj/effect/particle_effect/smoke/bad/process()
 	if(..())
@@ -198,13 +210,6 @@
 	victim.drop_from_active_hand()
 	victim.adjustOxyLoss(1)
 	INVOKE_ASYNC(victim, TYPE_PROC_REF(/mob, emote), "cough")
-
-
-/obj/effect/particle_effect/smoke/bad/CanAllowThrough(atom/movable/mover, border_dir)
-	. = ..()
-	if(istype(mover, /obj/item/projectile/beam))
-		var/obj/item/projectile/beam/beam = mover
-		beam.damage = (beam.damage / 2)
 
 
 /datum/effect_system/smoke_spread/bad
