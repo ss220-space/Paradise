@@ -330,9 +330,8 @@
 		if (I.name in remembered_costs)
 			cost = remembered_costs[I.name]
 	else
-		var/new_cost = input("Пожалуйста, выберите цену для этого товара. Цена не может быть ниже 0 и выше 1000000 кредитов.", "Выбор цены", 0) as null|num
-		if(new_cost)
-			cost = clamp(new_cost, 0, 1000000)
+		var/new_cost = input("Пожалуйста, выберите цену для этого товара. Цена не может быть ниже 0 и выше 1000000 кредитов.", "Выбор цены", 0) as num
+		cost = clamp(new_cost, 0, 1000000)
 	if (get_dist(get_turf(user), get_turf(src)) > 1)
 		to_chat(usr, span_warning("Вы слишком далеко!"))
 		return
@@ -429,7 +428,6 @@
 	var/datum/money_account/account = null
 	data["guestNotice"] = "Идентификационной карты не обнаружено.";
 	data["userMoney"] = 0
-	data["products"] = products
 	data["user"] = null
 	if(issilicon(user) && !istype(user, /mob/living/silicon/robot/drone) && !istype(user, /mob/living/silicon/pai))
 		account = get_card_account(user)
@@ -453,22 +451,17 @@
 				data["user"]["job"] = (istype(idcard) && idcard.rank) ? idcard.rank : "No Job"
 			else
 				data["guestNotice"] = "Unlinked ID detected. Present cash to pay.";
-	data["stock"] = list()
+	data["products"] = list()
 	for (var/key in products)
 		var/datum/data/customat_product/product = products[key]
-		data["stock"][product.key] = product.amount
-	data["icons"] = list()
-	for (var/key in products)
-		var/datum/data/customat_product/product = products[key]
-		data["icons"][product.key] = product.icon
-	data["prices"] = list()
-	for (var/key in products)
-		var/datum/data/customat_product/product = products[key]
-		data["prices"][product.key] = product.price
-	data["names"] = list()
-	for (var/key in products)
-		var/datum/data/customat_product/product = products[key]
-		data["names"][product.key] = product.name
+		var/list/data_pr = list(
+			name = product.name,
+			price = product.price,
+			stock = product.amount,
+			icon = product.icon,
+			Key = product.key
+		)
+		data["products"] += list(data_pr)
 	data["vend_ready"] = vend_ready
 	data["panel_open"] = panel_open ? TRUE : FALSE
 	data["speaker"] = shut_up ? FALSE : TRUE
@@ -498,7 +491,7 @@
 			if(panel_open)
 				to_chat(usr, span_warning("The vending machine cannot dispense products while its service panel is open!"))
 				return
-			var/key = text2num(params["key"])
+			var/key = text2num(params["Key"])
 			var/datum/data/customat_product/product = products[key]
 			if(!istype(product))
 				to_chat(usr, span_warning("ERROR: unknown vending_product record. Report this bug."))

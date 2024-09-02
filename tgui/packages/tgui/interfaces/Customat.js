@@ -5,31 +5,25 @@ import { Window } from '../layouts';
 
 const CustomatRow = (props, context) => {
   const { act, data } = useBackend(context);
-  const { key, productStock, productImage, productPrice, productName } = props;
-  const {
-    user,
-    userMoney,
-    vend_ready,
-  } = data;
-  const free = productPrice === 0;
+  const { product } = props;
+  const { user, userMoney, vend_ready } = data;
+  const free = product.price === 0;
   let buttonText = 'ERROR!';
   let rowIcon = '';
   if (free) {
     buttonText = 'FREE';
     rowIcon = 'arrow-circle-down';
   } else {
-    buttonText = productPrice;
+    buttonText = product.price;
     rowIcon = 'shopping-cart';
   }
   let buttonDisabled =
-    !vend_ready ||
-    productStock === 0 ||
-    (!free && productPrice > userMoney);
+    !vend_ready || product.stock === 0 || (!free && product.price > userMoney);
   return (
     <Table.Row>
       <Table.Cell collapsing>
         <img
-          src={`data:image/jpeg;base64,${productImage}`}
+          src={`data:image/jpeg;base64,${product.icon}`}
           style={{
             'vertical-align': 'middle',
             width: '32px',
@@ -38,15 +32,10 @@ const CustomatRow = (props, context) => {
           }}
         />
       </Table.Cell>
-      <Table.Cell bold>{productName}</Table.Cell>
+      <Table.Cell bold>{product.name}</Table.Cell>
       <Table.Cell collapsing textAlign="center">
-        <Box
-          color={
-            (productStock <= 0 && 'bad') ||
-            'good'
-          }
-        >
-          {productStock} in stock
+        <Box color={(product.stock <= 0 && 'bad') || 'good'}>
+          {product.stock} in stock
         </Box>
       </Table.Cell>
       <Table.Cell collapsing textAlign="center">
@@ -58,7 +47,7 @@ const CustomatRow = (props, context) => {
           textAlign="left"
           onClick={() =>
             act('vend', {
-              'key': key,
+              'Key': product.Key,
             })
           }
         />
@@ -67,27 +56,18 @@ const CustomatRow = (props, context) => {
   );
 };
 
-
 export const Customat = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     guestNotice,
     userMoney,
-    products = [],
     user,
-    stock,
-    icons,
-    prices,
-    names,
+    products,
     vend_ready,
     panel_open,
     speaker,
   } = data;
-  let inventory;
 
-  inventory = [...products];
-  // Just in case we still have undefined values in the list
-  inventory = inventory.filter((item) => !!item);
   return (
     <Window
       width={470}
@@ -112,13 +92,11 @@ export const Customat = (props, context) => {
           <Stack.Item grow>
             <Section title="Products" fill scrollable>
               <Table>
-                {inventory.map((product) => (
+                {products.map((product) => (
                   <CustomatRow
-                    key={product}
-                    productStock={stock[product]}
-                    productImage={icons[product]}
-                    productPrice={prices[product]}
-                    productName={names[product]}
+                    key={product.name}
+                    product={product}
+                    productStock={product.stock}
                   />
                 ))}
               </Table>
