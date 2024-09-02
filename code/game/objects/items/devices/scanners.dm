@@ -289,7 +289,10 @@ REAGENT SCANNER
 
 
 /obj/item/healthanalyzer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, target, user, params, def_zone)
 	add_fingerprint(user)
+	if(try_item_eat(target, user))
+		. |= ATTACK_CHAIN_BLOCKED_ALL
 	scan_title = "Сканирование: [target]"
 	scan_data = medical_scan_action(user, target, src, mode, advanced)
 	show_results(user)
@@ -777,6 +780,9 @@ REAGENT SCANNER
 
 /obj/item/slime_scanner/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
+	SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, target, user, params, def_zone)
+	if(try_item_eat(target, user))
+		. |= ATTACK_CHAIN_BLOCKED_ALL
 	if(user.incapacitated() || user.AmountBlinded())
 		return .
 	if(!isslime(target))

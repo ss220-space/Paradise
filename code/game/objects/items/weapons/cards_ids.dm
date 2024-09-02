@@ -63,6 +63,9 @@
 
 
 /obj/item/card/emag/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, target, user, params, def_zone)
+	if(try_item_eat(target, user))
+		. |= ATTACK_CHAIN_BLOCKED_ALL
 	return ATTACK_CHAIN_PROCEED
 
 

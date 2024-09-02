@@ -453,6 +453,9 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/pda/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
+	SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, target, user, params, def_zone)
+	if(try_item_eat(target, user))
+		. |= ATTACK_CHAIN_BLOCKED_ALL
 	if(scanmode && iscarbon(target))
 		. |= ATTACK_CHAIN_SUCCESS
 		scanmode.scan_mob(target, user)
