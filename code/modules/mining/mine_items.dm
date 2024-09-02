@@ -39,7 +39,7 @@
 
 /obj/structure/closet/secure_closet/miner
 	name = "miner's equipment"
-	icon_state = "mining"
+	icon_state = "mine_pers"
 	req_access = list(ACCESS_MINING)
 
 /obj/structure/closet/secure_closet/miner/populate_contents()

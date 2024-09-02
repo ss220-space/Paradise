@@ -39,6 +39,10 @@
 #define TTS_CATEGORY_HOGWARTS_LEGACY "Hogwarts Legacy"
 #define TTS_CATEGORY_HALFLIFE_ALYX "Half-Life: Alyx"
 #define TTS_CATEGORY_STRONGHOLD_CRUSADER "Stronghold Crusader"
+#define TTS_CATEGORY_CYBERPUNK "Cyberpunk 2077"
+#define TTS_CATEGORY_TLOU "The Last of Us"
+#define TTS_CATEGORY_DEEP_ROCK_GALACTIC "Deep Rock Galactic"
+#define TTS_CATEGORY_ALTGIRL "Альтушка для скуфа"
 
 #define TTS_GENDER_ANY "Любой"
 #define TTS_GENDER_MALE "Мужской"

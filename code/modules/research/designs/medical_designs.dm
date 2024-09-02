@@ -165,6 +165,16 @@
 	build_path = /obj/item/reagent_scanner
 	category = list("Medical")
 
+/datum/design/upgraded_hypospray
+	name = "upgraded medical hypospray"
+	desc = "A device for identifying chemicals."
+	id = "upgraded_hypospray"
+	req_tech = list("plasmatech" = 4, "biotech" = 6, "materials" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 800, MAT_SILVER = 400, MAT_GOLD = 600)
+	build_path = /obj/item/reagent_containers/hypospray/safety/upgraded
+	category = list("Medical")
+
 /datum/design/item/scalpel_laser1
 	name = "Basic Laser Scalpel"
 	desc = "A scalpel augmented with a directed laser, for more precise cutting without blood entering the field. This one looks basic and could be improved."
