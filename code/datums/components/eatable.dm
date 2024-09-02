@@ -2,8 +2,7 @@
 /datum/component/eatable
 	
 /datum/component/eatable/Initialize()
-	var/obj/item/item = parent
-	if(!item)
+	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
 /datum/component/eatable/RegisterWithParent()
@@ -49,7 +48,7 @@
 		if(INTENT_HELP, INTENT_GRAB)
 			if(target.nutrition >= NUTRITION_LEVEL_FULL)
 				chat_message_to_user = "В [target == user ? "вас" : target] больше не лезет [item.name]. [target == user ? "Вы" : target] наел[target == user ? "ись" : genderize_ru(target.gender,"ся","ась","ось","ись")]!"
-				return FALSE
+				return NONE
 			else if (target == user && !isstack(item))
 				chat_message_to_user = "Вы откусили от [item.name]. Вкуснятина!"
 		if(INTENT_HARM)
@@ -62,7 +61,7 @@
 
 	if(target != user)
 		if(!forceFed(target, user, FALSE, NONE))
-			return FALSE
+			return NONE
 		to_chat(target, span_notice("[chat_message_to_target]"))
 		add_attack_logs(user, item, "Force Fed [target], item [item]")
 
