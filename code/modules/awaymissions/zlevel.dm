@@ -1,5 +1,4 @@
 GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away_mission_config.txt"))
-
 /proc/empty_rect(low_x,low_y, hi_x,hi_y, z)
 	var/timer = start_watch()
 	log_debug("Emptying region: ([low_x], [low_y]) to ([hi_x], [hi_y]) on z '[z]'")

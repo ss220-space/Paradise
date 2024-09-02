@@ -447,6 +447,7 @@
 		return
 
 	dna.species.update_sight(src)
+	update_tint()
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
@@ -725,17 +726,22 @@
 ///Returns a number between -1 to 2
 /mob/living/carbon/human/check_eye_prot()
 	var/eye_prot = ..()
+	var/check = (sight & (SEE_MOBS|SEE_OBJS|SEE_TURFS)) == (SEE_MOBS|SEE_OBJS|SEE_TURFS)
 	if(istype(head, /obj/item/clothing/head))			//are they wearing something on their head
 		var/obj/item/clothing/head/HFP = head			//if yes gets the flash protection value from that item
-		eye_prot += HFP.flash_protect
+		if(!check || HFP.flash_protect < 0)
+			eye_prot += HFP.flash_protect
 	if(istype(glasses, /obj/item/clothing/glasses))		//glasses
 		var/obj/item/clothing/glasses/GFP = glasses
-		eye_prot += GFP.flash_protect
+		if(!check || GFP.flash_protect < 0)
+			eye_prot += GFP.flash_protect
 	if(istype(wear_mask, /obj/item/clothing/mask))		//mask
 		var/obj/item/clothing/mask/MFP = wear_mask
-		eye_prot += MFP.flash_protect
+		if(!check || MFP.flash_protect < 0)
+			eye_prot += MFP.flash_protect
 	for(var/obj/item/organ/internal/cyberimp/eyes/EFP in internal_organs)
-		eye_prot += EFP.flash_protect
+		if(!check || EFP.flash_protect < 0)
+			eye_prot += EFP.flash_protect
 	return eye_prot
 
 

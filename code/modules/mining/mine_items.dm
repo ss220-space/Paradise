@@ -21,8 +21,7 @@
 
 /obj/structure/closet/wardrobe/miner
 	name = "mining wardrobe"
-	icon_state = "closed"
-	custom_door_overlay = "mixed"
+	icon_state = "mine_ward"
 
 /obj/structure/closet/wardrobe/miner/populate_contents()
 	new /obj/item/storage/backpack/duffel(src)
@@ -40,7 +39,7 @@
 
 /obj/structure/closet/secure_closet/miner
 	name = "miner's equipment"
-	icon_state = "mining"
+	icon_state = "mine_pers"
 	req_access = list(ACCESS_MINING)
 
 /obj/structure/closet/secure_closet/miner/populate_contents()

@@ -62,7 +62,7 @@
 	item_state = "gun"
 	fire_sound = 'sound/effects/stealthoff.ogg'
 	materials = list(MAT_GOLD = 2000, MAT_BLUESPACE = 1500, MAT_DIAMOND = 800, MAT_URANIUM = 500, MAT_GLASS = 500)
-	origin_tech = "materials=5;biotech=6;powerstorage=6;enginerring=5"
+	origin_tech = "materials=5;biotech=6;powerstorage=6;engineering=5"
 	ammo_type = list(/obj/item/ammo_casing/energy/flora/alpha, /obj/item/ammo_casing/energy/flora/beta, /obj/item/ammo_casing/energy/flora/gamma)
 	modifystate = TRUE
 	ammo_x_offset = 1
