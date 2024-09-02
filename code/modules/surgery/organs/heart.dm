@@ -120,12 +120,12 @@
 		var/obj/item/organ/internal/heart/cursed/cursed_heart = target
 
 		if(world.time < (cursed_heart.last_pump + (cursed_heart.pump_delay - 10))) //no spam
-			to_chat(owner, span_userdanger("Too soon!"))
+			owner.balloon_alert(owner, "слишком рано")
 			return
 
 		cursed_heart.last_pump = world.time
 		playsound(owner,'sound/effects/singlebeat.ogg',40,1)
-		to_chat(owner, span_notice("Your heart beats."))
+		owner.balloon_alert(owner, "твоё сердце бьется")
 
 		var/mob/living/carbon/human/H = owner
 		if(istype(H) && !HAS_TRAIT(H, TRAIT_NO_BLOOD))

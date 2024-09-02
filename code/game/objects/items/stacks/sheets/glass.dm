@@ -176,7 +176,7 @@ GLOBAL_LIST_INIT(pglass_recipes, list ( \
 			return ATTACK_CHAIN_PROCEED
 		rods.use(1)
 		to_chat(user, span_notice("You attach rods to [src]."))
-		var/obj/item/stack/sheet/rglass/rglass = new(drop_location())
+		var/obj/item/stack/sheet/plasmarglass/rglass = new(drop_location())
 		rglass.add_fingerprint(user)
 		use(1)
 		user.put_in_hands(rglass, ignore_anim = FALSE)

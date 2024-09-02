@@ -366,6 +366,17 @@
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = LIGHT_COLOR_DARKRED
 
+/obj/item/ammo_casing/shotgun/lasershot
+	name = "laser shot"
+	desc = "An advanced shotgun shell that uses a micro lasers to replicate the effects of a buckshot in laser appearance."
+	icon_state = "lasershotshell"
+	projectile_type = /obj/item/projectile/beam/laser/shot
+	pellets = 6
+	variance = 17
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+	muzzle_flash_color = LIGHT_COLOR_DARKRED
+
 /obj/item/ammo_casing/shotgun/bioterror
 	name = "bioterror shell"
 	desc = "A shotgun shell filled with deadly toxins."
