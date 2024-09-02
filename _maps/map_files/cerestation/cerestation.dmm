@@ -36587,7 +36587,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/obj/vehicle/janicart,
+/obj/vehicle/ridden/janicart,
 /obj/machinery/alarm{
 	pixel_y = 24
 	},
@@ -36622,7 +36622,7 @@
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "gJx" = (
-/obj/vehicle/janicart,
+/obj/vehicle/ridden/janicart,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},

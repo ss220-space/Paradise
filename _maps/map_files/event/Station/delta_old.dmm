@@ -15620,7 +15620,7 @@
 	pixel_x = -28;
 	pixel_y = 2
 	},
-/obj/vehicle/janicart{
+/obj/vehicle/ridden/janicart{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{

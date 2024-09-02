@@ -25168,7 +25168,7 @@
 	dir = 8;
 	pixel_x = -28
 	},
-/obj/vehicle/janicart,
+/obj/vehicle/ridden/janicart,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "duG" = (
@@ -78242,7 +78242,7 @@
 	},
 /area/medical/research)
 "nHI" = (
-/obj/vehicle/janicart,
+/obj/vehicle/ridden/janicart,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "nHL" = (

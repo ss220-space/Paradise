@@ -104,7 +104,7 @@
 		/obj/vehicle/secway = 60,
 		/obj/vehicle/ridden/atv = 30,
 		/obj/vehicle/motorcycle = 20,
-		/obj/vehicle/janicart = 15,
+		/obj/vehicle/ridden/janicart = 15,
 		/obj/vehicle/ridden/ambulance = 15,
 		/obj/vehicle/snowmobile = 15,
 		/obj/vehicle/space/speedbike/red = 10,

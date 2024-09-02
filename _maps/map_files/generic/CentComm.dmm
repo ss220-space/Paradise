@@ -21942,7 +21942,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom/zone1)
 "kqc" = (
-/obj/vehicle/janicart{
+/obj/vehicle/ridden/janicart{
 	dir = 4
 	},
 /obj/item/key/janitor,
@@ -24997,7 +24997,7 @@
 /turf/simulated/floor/indestructible/abductor,
 /area/abductor_ship)
 "lLd" = (
-/obj/vehicle/janicart{
+/obj/vehicle/ridden/janicart{
 	dir = 4
 	},
 /obj/item/key/janitor,

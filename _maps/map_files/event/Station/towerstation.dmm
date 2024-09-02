@@ -15187,7 +15187,7 @@
 /turf/simulated/floor/plating,
 /area/medical/sleeper)
 "jMJ" = (
-/obj/vehicle/janicart{
+/obj/vehicle/ridden/janicart{
 	dir = 4
 	},
 /obj/item/key/janitor,
