@@ -130,9 +130,9 @@
 	switch(current_bites)
 		if(1 to bites_split)
 			colour = "#d9e0e7ff"
-   		if(bites_split to bites_split * 2)
+		if(bites_split to bites_split * 2)
 			colour = "#b7c3ccff"
-   		if(bites_split to bites_split * 3)
+		if(bites_split to bites_split * 3)
 			colour = "#929eabff"
 		if(bites_split * 3 to INFINITY)
 			colour = "#697581ff"
