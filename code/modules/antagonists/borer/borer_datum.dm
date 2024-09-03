@@ -318,7 +318,7 @@
 
 /datum/borer_focus/torso/tick(seconds_between_ticks)
 	if(parent.host?.stat != DEAD)
-		linked_organ = parent.host?.get_int_organ(linked_organ)
+		linked_organ = parent.host?.get_int_organ(/obj/item/organ/internal/heart)
 		if(linked_organ)
 			parent.host?.set_heartattack(FALSE)
 
