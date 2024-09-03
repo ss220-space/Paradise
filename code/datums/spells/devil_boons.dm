@@ -52,9 +52,10 @@
 		action.owner.client.change_view(action.owner.client.prefs.viewrange)
 	return ..()
 
-/obj/effect/proc_holder/spell/view_range/proc/make_view_normal()
-	if(!QDELETED(action.owner) && action.owner.client)
-		action.owner.client.change_view(action.owner.client.prefs.viewrange)
+/obj/effect/proc_holder/spell/view_range/proc/make_view_normal(mob/user)
+	SIGNAL_HANDLER
+	if(!QDELETED(user) && user.client)
+		user.client.change_view(user.client.prefs.viewrange)
 
 /obj/effect/proc_holder/spell/view_range/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -66,7 +67,7 @@
 	return ..()
 
 /obj/effect/proc_holder/spell/view_range/on_spell_gain(mob/user = usr)
-	RegisterSignal(action.owner, COMSIG_LIVING_DEATH, TYPE_PROC_REF(/obj/effect/proc_holder/spell/view_range, make_view_normal))
+	RegisterSignal(user, COMSIG_LIVING_DEATH, TYPE_PROC_REF(/obj/effect/proc_holder/spell/view_range, make_view_normal))
 
 /obj/effect/proc_holder/spell/view_range/cast(list/targets, mob/user = usr)
 	var/new_view = tgui_input_list(user, "Select view range:", "View", view_ranges, "default")
