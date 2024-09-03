@@ -342,6 +342,7 @@
 
 /obj/machinery/customat/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || !COOLDOWN_FINISHED(src, emp_cooldown))
+		playsound(src, 'sound/machines/burglar_alarm.ogg', I.force * 5, 0)
 		return ..()
 
 	if(istype(I, /obj/item/crowbar) || istype(I, /obj/item/wrench))
@@ -351,12 +352,13 @@
 		if (istype(I, /obj/item/card/id))
 			idcard_act(user, I)
 			return ATTACK_CHAIN_BLOCKED_ALL
-		else
+		else if (!isLocked())
 			try_insert(user, I)
 			return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(user.a_intent == INTENT_HARM)
+	if (!istype(I, /obj/item/stack/nanopaste) && !istype(I, /obj/item/detective_scanner)) // enything else will damage customat
 		playsound(src, 'sound/machines/burglar_alarm.ogg', I.force * 5, 0)
+
 	return ..()
 
 
