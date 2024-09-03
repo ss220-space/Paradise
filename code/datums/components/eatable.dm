@@ -1,11 +1,13 @@
 /// If our item has material type and this type included in special_diet (species) it can be eaten.
 /datum/component/eatable
 	var/current_bites = 0
+	var/is_only_grab_intent
 
-/datum/component/eatable/Initialize()
+/datum/component/eatable/Initialize(only_grab_intent = FALSE)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
-
+	is_only_grab_intent = only_grab_intent
+	
 /datum/component/eatable/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_PRE_ATTACKBY, PROC_REF(try_eat_item))
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
@@ -13,14 +15,16 @@
 /datum/component/eatable/UnregisterFromParent()
 	UnregisterSignal(parent, list(COMSIG_ITEM_PRE_ATTACKBY, COMSIG_PARENT_EXAMINE))
 
-/datum/component/eatable/proc/on_examine(datum/source, mob/user, list/examine_list)
+/datum/component/eatable/proc/on_examine(datum/source, mob/living/carbon/human/human, list/examine_list)
 	SIGNAL_HANDLER
 
+	if(!istype(human))
+		return NONE
+
 	var/obj/item/item = parent
-	var/mob/living/carbon/human/human = user
 
 	if(item.material_type & human.dna.species.special_diet)
-		examine_list += "Вкуснятина! [item.is_only_grab_intent ? "\nНужно аккуратно есть." : ""]"
+		examine_list += "Вкуснятина! [is_only_grab_intent ? "\nНужно аккуратно есть." : ""]"
 
 	if(!isstack(item))
 		examine_list += get_bite_info()
@@ -45,7 +49,7 @@
 
 	if(!(item.material_type & target.dna.species.special_diet))
 		return NONE
-	if(item.is_only_grab_intent && user.a_intent != INTENT_GRAB)
+	if(is_only_grab_intent && user.a_intent != INTENT_GRAB)
 		return NONE
 
 	var/chat_message_to_user = "Вы кормите [target] [item.name]."
