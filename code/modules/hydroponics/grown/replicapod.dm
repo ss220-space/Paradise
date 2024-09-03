@@ -40,8 +40,7 @@
 			to_chat(user, span_warning("The [syringe.name] should be in inject mode."))
 			return ATTACK_CHAIN_PROCEED
 		for(var/datum/reagent/blood/sample in syringe.reagents.reagent_list)
-			var/datum/dna/dna = sample.data["dna"]
-			if(!dna || !sample.data["mind"] || !sample.data["cloneable"] || (NO_SCAN in dna.species.species_traits))
+			if(!sample.data["mind"] || !sample.data["cloneable"])
 				continue
 			var/datum/mind/tempmind = sample.data["mind"]
 			if(!tempmind.is_revivable())

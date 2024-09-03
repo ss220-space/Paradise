@@ -5,7 +5,10 @@
 	deform = 'icons/mob/human_races/r_def_human.dmi'
 	primitive_form = /datum/species/monkey
 	language = LANGUAGE_SOL_COMMON
-	species_traits = list(LIPS, HAVE_REGENERATION)
+	inherent_traits = list(
+		TRAIT_HAS_LIPS,
+		TRAIT_HAS_REGENERATION,
+	)
 	skinned_type = /obj/item/stack/sheet/animalhide/human
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_TONE | HAS_BODY_MARKINGS

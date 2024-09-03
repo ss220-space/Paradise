@@ -393,10 +393,12 @@
 
 /obj/item/organ/internal/handle_germs()
 	..()
-	if(germ_level >= INFECTION_LEVEL_TWO)
-		if(prob(3 * owner.dna.species.germs_growth_rate))
-			// big message from every 1 damage is not good. If germs growth rate is big, it will spam the chat.
-			internal_receive_damage(1, silent = prob(30*owner.dna.species.germs_growth_rate))
+	if(!ishuman(owner))
+		return
+	var/germs_mod = owner.dna.species.germs_growth_mod * owner.physiology.germs_growth_mod
+	if(germ_level >= INFECTION_LEVEL_TWO && prob(3 * germs_mod))
+		// big message from every 1 damage is not good. If germs growth rate is big, it will spam the chat.
+		internal_receive_damage(1, silent = prob(30 * germs_mod))
 
 
 /mob/living/carbon/human/proc/check_infections()

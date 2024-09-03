@@ -63,7 +63,7 @@
 	return I
 
 /obj/machinery/abductor/experiment/proc/experimentUI(mob/user)
-	var/dat = {"<meta charset="UTF-8">"}
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	dat += "<h3> Experiment </h3>"
 	if(occupant)
 		var/icon/H = icon(dissection_icon(occupant), dir = SOUTH)
@@ -74,9 +74,9 @@
 			dat += "</td><td>"
 		else
 			dat += "ERR: Unable to retrieve image data for occupant."
-		dat += "<a href='?src=[UID()];experiment=1'>Probe</a><br>"
-		dat += "<a href='?src=[UID()];experiment=2'>Dissect</a><br>"
-		dat += "<a href='?src=[UID()];experiment=3'>Analyze</a><br>"
+		dat += "<a href='byond://?src=[UID()];experiment=1'>Probe</a><br>"
+		dat += "<a href='byond://?src=[UID()];experiment=2'>Dissect</a><br>"
+		dat += "<a href='byond://?src=[UID()];experiment=3'>Analyze</a><br>"
 		dat += "</td></tr></table>"
 	else
 		dat += "<span class='linkOff'>Experiment </span>"
@@ -96,8 +96,8 @@
 	dat += "<br>"
 	dat += "[flash]"
 	dat += "<br>"
-	dat += "<a href='?src=[UID()];refresh=1'>Scan</a>"
-	dat += "<a href='?src=[UID()];[occupant ? "eject=1'>Eject Occupant</a>" : "unoccupied=1'>Unoccupied</a>"]"
+	dat += "<a href='byond://?src=[UID()];refresh=1'>Scan</a>"
+	dat += "<a href='byond://?src=[UID()];[occupant ? "eject=1'>Eject Occupant</a>" : "unoccupied=1'>Unoccupied</a>"]"
 	var/datum/browser/popup = new(user, "experiment", "Probing Console", 300, 300)
 	popup.set_content(dat)
 	popup.open()

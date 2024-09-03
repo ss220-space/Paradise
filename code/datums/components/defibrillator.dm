@@ -252,7 +252,7 @@
 		else
 			user.visible_message(span_boldnotice("[defib_ref] buzzes: Resuscitation failed - Patient's brain is unresponsive. Further attempts may succeed."))
 		defib_success = FALSE
-	else if((NOCLONE in target.mutations) || !target.mind || !(target.mind.is_revivable()) || HAS_TRAIT(target, TRAIT_FAKEDEATH) || target.suiciding)  // these are a bit more arbitrary
+	else if(HAS_TRAIT(target, TRAIT_NO_CLONE) || !target.mind || !(target.mind.is_revivable()) || HAS_TRAIT(target, TRAIT_FAKEDEATH) || target.suiciding)  // these are a bit more arbitrary
 		user.visible_message(span_boldnotice("[defib_ref] buzzes: Resuscitation failed."))
 		defib_success = FALSE
 

@@ -314,6 +314,17 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 
+/datum/crafting_recipe/lasershot
+	name = "Laser Shot Shell"
+	result = /obj/item/ammo_casing/shotgun/lasershot
+	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
+				/obj/item/stock_parts/capacitor/adv = 1,
+				/obj/item/stock_parts/micro_laser/high = 6)
+	tools = list(TOOL_SCREWDRIVER)
+	time = 1
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+
 /datum/crafting_recipe/ishotgun
 	name = "Improvised Shotgun"
 	result = /obj/item/gun/projectile/revolver/doublebarrel/improvised

@@ -267,7 +267,7 @@
 	owner.visible_message(span_boldwarning("Black tendrils burst from [owner]'s flesh, covering them in amorphous flesh!"))
 	var/mob/living/simple_animal/hostile/asteroid/hivelord/legion/L
 
-	if((DWARF in owner.mutations)) //dwarf legions aren't just fluff!
+	if(HAS_TRAIT(owner, TRAIT_DWARF)) //dwarf legions aren't just fluff!
 		L = new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf(owner.loc)
 	else
 		L = new(owner.loc)

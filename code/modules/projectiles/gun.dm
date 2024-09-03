@@ -231,16 +231,13 @@
 				handle_suicide(user, target, params)
 			return
 
-
 	//Exclude lasertag guns from the CLUMSY check.
-	if(clumsy_check)
-		if(istype(user))
-			if((CLUMSY in user.mutations) && prob(40))
-				to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with \the [src]!</span>")
-				var/shot_leg = pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
-				process_fire(user, user, 0, params, zone_override = shot_leg)
-				user.drop_from_active_hand()
-				return
+	if(clumsy_check && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
+		to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with \the [src]!</span>")
+		var/shot_leg = pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
+		process_fire(user, user, 0, params, zone_override = shot_leg)
+		user.drop_from_active_hand()
+		return
 
 	if(weapon_weight == WEAPON_HEAVY && (user.get_inactive_hand() || !user.has_inactive_hand() || (user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)))
 		to_chat(user, "<span class='userdanger'>You need both hands free to fire \the [src]!</span>")

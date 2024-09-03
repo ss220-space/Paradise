@@ -251,7 +251,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/proc/ai_alerts()
 	var/list/dat = list("<HEAD><TITLE>Current Station Alerts</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n")
-	dat += "<A HREF='?src=[UID()];mach_close=aialerts'>Close</A><BR><BR>"
+	dat += "<a href='byond://?src=[UID()];mach_close=aialerts'>Close</A><BR><BR>"
 	var/list/list/temp_alarm_list = SSalarm.alarms.Copy()
 	for(var/cat in temp_alarm_list)
 		if(!(cat in alarms_listend_for))
@@ -437,6 +437,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		"Catamari",
 		"Anonymous",
 		"Hippy",
+		"AMAI",
 		)
 	if(custom_sprite)
 		display_choices += "Custom"
@@ -547,6 +548,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			icon_state = "ai-hippy"
 		if("Anonymous")
 			icon_state = "ai-anon"
+		if("AMAI")
+			icon_state = "ai-am"
 		else
 			icon_state = "ai"
 	//else

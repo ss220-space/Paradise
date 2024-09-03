@@ -235,6 +235,15 @@
 	icon_state = "explosionfast"
 	duration = 4
 
+/obj/effect/temp_visual/explosion/florawave
+	icon_state = "florawave"
+	duration = 4
+
+/obj/effect/temp_visual/removing_flora
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "greenshatter2"
+	duration = 2
+
 /obj/effect/temp_visual/heart
 	name = "heart"
 	icon = 'icons/mob/animal.dmi'

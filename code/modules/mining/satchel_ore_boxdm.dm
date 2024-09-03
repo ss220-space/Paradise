@@ -70,7 +70,7 @@
 		var/obj/item/stack/ore/O = type
 		dat += "[initial(O.name)] - [assembled[type]]<br>"
 
-	dat += text("<br><br><A href='?src=[UID()];removeall=1'>Empty box</A>")
+	dat += text("<br><br><a href='byond://?src=[UID()];removeall=1'>Empty box</A>")
 	var/datum/browser/popup = new(user, "orebox", name, 400, 400)
 	popup.set_content(dat)
 	popup.open(0)

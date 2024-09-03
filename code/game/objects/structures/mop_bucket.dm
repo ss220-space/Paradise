@@ -25,7 +25,7 @@
 /obj/structure/mopbucket/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		. += "<span class='notice'>[bicon(src)] [src] contains [reagents.total_volume] units of water left.</span>"
+		. += span_info("[bicon(src)] [src] contains [reagents.total_volume] units of water left.")
 
 
 /obj/structure/mopbucket/attackby(obj/item/I, mob/user, params)

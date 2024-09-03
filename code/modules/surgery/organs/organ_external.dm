@@ -573,6 +573,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(germ_level < INFECTION_LEVEL_TWO)
 		return ..()
 
+	var/germs_amount = 1 * (owner.dna.species.germs_growth_mod * owner.physiology.germs_growth_mod)
+
 	if(germ_level >= INFECTION_LEVEL_TWO)
 		//spread the infection to internal organs
 		var/obj/item/organ/internal/target_organ = null	//make internal organs become infected one at a time instead of all at once
@@ -590,19 +592,19 @@ Note that amputating the affected organ does in fact remove the infection from t
 			target_organ = safepick(candidate_organs)
 
 		if(target_organ)
-			target_organ.germ_level += owner.dna.species.germs_growth_rate
+			target_organ.germ_level += germs_amount
 
 		//spread the infection to child and parent organs
 		for(var/obj/item/organ/external/childpart as anything in children)
 			if(childpart.germ_level < germ_level && !childpart.is_robotic() && (childpart.germ_level < INFECTION_LEVEL_ONE * 2 || prob(30)))
-				childpart.germ_level += owner.dna.species.germs_growth_rate
+				childpart.germ_level += germs_amount
 
 		if(parent && parent.germ_level < germ_level && !parent.is_robotic() && (parent.germ_level < INFECTION_LEVEL_ONE * 2 || prob(30)))
-			parent.germ_level += owner.dna.species.germs_growth_rate
+			parent.germ_level += germs_amount
 
 	if(germ_level >= INFECTION_LEVEL_THREE)
 		necrotize()
-		germ_level += owner.dna.species.germs_growth_rate
+		germ_level += germs_amount
 		owner.adjustToxLoss(1)
 
 
@@ -890,11 +892,12 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 /obj/item/organ/external/proc/internal_bleeding(silent = FALSE)
-	if(owner?.status_flags & GODMODE)
-		return FALSE
+	if(owner)
+		if(owner.status_flags & GODMODE)
+			return FALSE
+		if(HAS_TRAIT(owner, TRAIT_NO_BLOOD))
+			return FALSE
 	if(is_robotic())
-		return FALSE
-	if(dna && (NO_BLOOD in dna.species.species_traits))
 		return FALSE
 	if(has_internal_bleeding() || cannot_internal_bleed)
 		return FALSE
@@ -912,9 +915,9 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 
 /obj/item/organ/external/proc/stop_internal_bleeding()
-	if(is_robotic())
+	if(owner && HAS_TRAIT(owner, TRAIT_NO_BLOOD))
 		return FALSE
-	if(dna && (NO_BLOOD in dna.species.species_traits))
+	if(is_robotic())
 		return FALSE
 	if(!has_internal_bleeding())
 		return FALSE
@@ -922,6 +925,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	status &= ~ORGAN_INT_BLEED
 
 	return TRUE
+
 
 /obj/item/organ/external/proc/fracture(silent = FALSE)
 	if(!CONFIG_GET(flag/bones_can_break))

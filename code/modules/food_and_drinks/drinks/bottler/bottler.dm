@@ -332,7 +332,7 @@
 /obj/machinery/bottler/interact(mob/user)
 	user.set_machine(src)
 	//html ahoy
-	var/dat = {"<meta charset="UTF-8">"}
+	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 	if(bottling)
 		dat = "<h2>Bottling in process, please wait...</h2>"
 	else
@@ -347,15 +347,15 @@
 		dat += "</tr>"
 		dat += "<tr>"
 		if(containers["glass bottle"])
-			dat += "<td><A href='?src=[UID()];dispense=1'>Dispense</a></td>"
+			dat += "<td><a href='byond://?src=[UID()];dispense=1'>Dispense</a></td>"
 		else
 			dat += "<td>Out of stock</td>"
 		if(containers["plastic bottle"])
-			dat += "<td><A href='?src=[UID()];dispense=2'>Dispense</a></td>"
+			dat += "<td><a href='byond://?src=[UID()];dispense=2'>Dispense</a></td>"
 		else
 			dat += "<td>Out of stock</td>"
 		if(containers["metal can"])
-			dat += "<td><A href='?src=[UID()];dispense=3'>Dispense</a></td>"
+			dat += "<td><a href='byond://?src=[UID()];dispense=3'>Dispense</a></td>"
 		else
 			dat += "<td>Out of stock</td>"
 		dat += "</tr>"
@@ -375,7 +375,7 @@
 				dat += "<td>Tray Empty</td>"
 
 		if(slots[1] && slots[2] && slots[3])
-			dat += "<td><A href='?src=[UID()];process=1'>Process Ingredients</a></td>"
+			dat += "<td><a href='byond://?src=[UID()];process=1'>Process Ingredients</a></td>"
 		else
 			dat += "<td>Insufficient Ingredients</td>"
 		dat += "</tr>"
@@ -383,10 +383,10 @@
 		dat += "<tr>"
 		for(var/i = 1, i <= slots.len, i++)
 			if(slots[i])
-				dat += "<td><A href='?src=[UID()];eject=[i]'>Eject</a></td>"
+				dat += "<td><a href='byond://?src=[UID()];eject=[i]'>Eject</a></td>"
 			else
 				dat += "<td>N/A</td>"
-		dat += "<td><A href='?src=[UID()];eject=0'>Eject All</a></td>"
+		dat += "<td><a href='byond://?src=[UID()];eject=0'>Eject All</a></td>"
 		dat += "</tr>"
 		dat += "</table>"
 		dat += "<hr>"

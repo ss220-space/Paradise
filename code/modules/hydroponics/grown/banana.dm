@@ -19,7 +19,6 @@
 	name = "banana"
 	desc = "It's an excellent prop for a clown."
 	icon_state = "banana"
-	item_state = "banana"
 	trash = /obj/item/grown/bananapeel
 	filling_color = "#FFFF00"
 	bitesize = 5
