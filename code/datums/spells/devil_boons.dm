@@ -52,7 +52,7 @@
 		action.owner.client.change_view(action.owner.client.prefs.viewrange)
 	return ..()
 
-/obj/effect/proc_holder/spell/view_range/proc/make_vision_normal()
+/obj/effect/proc_holder/spell/view_range/proc/make_view_normal()
 	if(!QDELETED(action.owner) && action.owner.client)
 		action.owner.client.change_view(action.owner.client.prefs.viewrange)
 
@@ -67,7 +67,7 @@
 
 
 /obj/effect/proc_holder/spell/view_range/cast(list/targets, mob/user = usr)
-	RegisterSignal(action.owner, COMSIG_LIVING_DEATH, PROC_REF(make_vision_normal))
+	RegisterSignal(action.owner, COMSIG_LIVING_DEATH, TYPE_PROC_REF(/obj/effect/proc_holder/spell/view_range, make_view_normal))
 	var/new_view = tgui_input_list(user, "Select view range:", "View", view_ranges, "default")
 	if(isnull(new_view) || !user.client)
 		return
