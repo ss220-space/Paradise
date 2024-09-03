@@ -65,9 +65,10 @@
 		return FALSE
 	return ..()
 
+/obj/effect/proc_holder/spell/view_range/on_spell_gain(mob/user = usr)
+	RegisterSignal(action.owner, COMSIG_LIVING_DEATH, TYPE_PROC_REF(/obj/effect/proc_holder/spell/view_range, make_view_normal))
 
 /obj/effect/proc_holder/spell/view_range/cast(list/targets, mob/user = usr)
-	RegisterSignal(action.owner, COMSIG_LIVING_DEATH, TYPE_PROC_REF(/obj/effect/proc_holder/spell/view_range, make_view_normal))
 	var/new_view = tgui_input_list(user, "Select view range:", "View", view_ranges, "default")
 	if(isnull(new_view) || !user.client)
 		return
