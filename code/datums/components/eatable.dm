@@ -56,11 +56,11 @@
 
 /datum/component/eatable/proc/try_eat_item(datum/source, mob/living/carbon/human/target, mob/user)
 	if(!istype(target))
-		return NONE
+		return FALSE
 	if(!(material_type & target.dna.species.special_diet))
-		return NONE
+		return FALSE
 	if(is_only_grab_intent && user.a_intent != INTENT_GRAB)
-		return NONE
+		return FALSE
 
 	var/obj/item/item = parent
 
@@ -71,7 +71,7 @@
 		if(INTENT_HELP, INTENT_GRAB)
 			if(target.nutrition >= NUTRITION_LEVEL_FULL)
 				chat_message_to_user = "В [target == user ? "вас" : target] больше не лезет [item.name]. [target == user ? "Вы" : target] наел[target == user ? "ись" : genderize_ru(target.gender,"ся","ась","ось","ись")]!"
-				return NONE
+				return FALSE
 			else if (target == user && !isstack(item))
 				chat_message_to_user = "Вы откусили от [item.name]. Вкуснятина!"
 		if(INTENT_HARM)
@@ -84,7 +84,7 @@
 
 	if(target != user)
 		if(!forceFed(target, user, FALSE, NONE))
-			return NONE
+			return FALSE
 		to_chat(target, span_notice("[chat_message_to_target]"))
 		add_attack_logs(user, item, "Force Fed [target], item [item]")
 
