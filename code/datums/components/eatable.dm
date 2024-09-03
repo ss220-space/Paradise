@@ -33,7 +33,7 @@
 	SIGNAL_HANDLER
 
 	if(!istype(human))
-		return NONE
+		return
 
 	if(material_type & human.dna.species.special_diet)
 		examine_list += "Вкуснятина! [is_only_grab_intent ? "\nНужно аккуратно есть." : ""]"
