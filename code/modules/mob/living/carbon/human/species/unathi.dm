@@ -176,7 +176,7 @@
 		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/unathi,
 		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/unathi,
 		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
-		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/unathi,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/unathi/ash_walker,
 		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
 	)
 

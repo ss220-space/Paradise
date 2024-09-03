@@ -45,3 +45,9 @@
 /obj/item/organ/internal/lungs/unathi/ash_walker
 	name = "ash walker lungs"
 	safe_oxygen_min = 8 // can breathe on lavaland
+
+/obj/item/organ/internal/eyes/unathi/ash_walker
+	name = "ash walker eyes"
+	vision_flags = SEE_TURFS
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	see_in_dark = 3
