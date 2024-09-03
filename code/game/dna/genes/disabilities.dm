@@ -379,17 +379,8 @@
 	activation_message = "Вы не чуствуете своих ног."
 	deactivation_message = "Вы возвращаете контроль над ногами."
 	instability = -GENE_INSTABILITY_MAJOR
-	traits_to_add = list(TRAIT_NOLEGS)
-
+	traits_to_add = list(TRAIT_FLOORED)
 
 /datum/dna/gene/disability/legsparalysis/New()
 	..()
 	block = GLOB.legsparalysisblock
-
-/datum/dna/gene/disability/legsparalysis/activate(mob/living/carbon/human/H)
-	. = ..()
-	ADD_TRAIT(H, TRAIT_FLOORED, TRAIT_NOLEGS)
-
-/datum/dna/gene/disability/legsparalysis/deactivate(mob/living/carbon/human/H)
-	. = ..()
-	REMOVE_TRAIT(H, TRAIT_FLOORED, TRAIT_NOLEGS)
