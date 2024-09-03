@@ -296,10 +296,10 @@
 /obj/machinery/customat/proc/idcard_act(mob/user, obj/item/I)
 	if (!isLocked())
 		connected_id = I
-		balloon_alert(user, "[src] is locked")
+		balloon_alert(user, "заблокировано")
 	else if (connected_id == I)
 		connected_id = null
-		balloon_alert(user, "[src] is unlocked")
+		balloon_alert(user, "заблокировано")
 	else
 		balloon_alert(user, "карта не подходит")
 
