@@ -297,10 +297,16 @@
 		restore_form()
 
 /mob/living/simple_animal/hostile/morph/proc/make_morph_antag(grant_objectives = TRUE)
+	if(!mind)
+		return // It can be called by gluttony blessing on mindless mob.
 	antag_datum = new
 	if(!grant_objectives)
 		antag_datum.give_objectives = FALSE
 	mind.add_antag_datum(antag_datum)
+
+/mob/living/simple_animal/hostile/morph/sentience_act()
+	..()
+	make_morph_antag(FALSE)
 
 /mob/living/simple_animal/hostile/morph/get_examine_time()
 	return morphed ? antag_datum.mimic_spell.selected_form.examine_time : ..()

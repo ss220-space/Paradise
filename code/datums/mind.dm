@@ -1888,6 +1888,9 @@
 		switch(href_list["morph"])
 			if("make_morph")
 				var/mob/living/living = current
+				if(!isturf(living.loc))
+					return
+					
 				for(var/obj/item/check as anything in living.get_equipped_items(TRUE, TRUE))
 					living.drop_item_ground(check, force = TRUE)
 
