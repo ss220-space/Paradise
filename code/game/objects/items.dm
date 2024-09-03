@@ -201,7 +201,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/integrity_bite = 10		// Integrity used
 	var/nutritional_value = 20 	// How much nutrition add
 	var/is_only_grab_intent = FALSE	//Grab if help_intent was used
-	var/is_eatable = FALSE // If true - it will grant element/eatable in Initialize() and make item eatable.
+	var/is_eatable = FALSE // If true - it will grant component/eatable in Initialize() and make item eatable.
 
 	///In deciseconds, how long an item takes to equip/unequip; counts only for normal clothing slots, not pockets, hands etc.
 	var/equip_delay_self = 0 SECONDS
@@ -231,7 +231,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(damtype == "brute")
 			hitsound = "swing_hit"
 	if(is_eatable)
-		AddElement(/datum/element/eatable)
+		AddComponent(/datum/element/eatable)
 
 
 /obj/item/proc/determine_move_resist()
