@@ -127,12 +127,13 @@
 /datum/component/eatable/proc/get_colour()
 	var/bites_split = max_bites > 3 ? round(max_bites / 4) : 1
 	var/colour
-	if(current_bites >= 1 && current_bites <= bites_split)
-		colour = "#d9e0e7ff"
-	else if(current_bites >= bites_split && current_bites <= (bites_split * 2))
-		colour = "#b7c3ccff"
-	else if((current_bites >= bites_split * 2) && current_bites <= (bites_split * 3))
-		colour = "#929eabff"
-	else if((current_bites >= bites_split * 3))
-		colour = "#697581ff"
+	switch(current_bites)
+		if(1 to bites_split)
+			colour = "#d9e0e7ff"
+   		if(bites_split to bites_split * 2)
+			colour = "#b7c3ccff"
+   		if(bites_split to bites_split * 3)
+			colour = "#929eabff"
+		if(bites_split * 3 to INFINITY)
+			colour = "#697581ff"
 	return colour
