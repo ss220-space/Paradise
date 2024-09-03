@@ -44,7 +44,9 @@
 	return text
 
 /datum/component/eatable/proc/try_eat_item(datum/source, mob/living/carbon/human/target, mob/user)
-
+	if(!istype(target))
+		return NONE
+		
 	var/obj/item/item = parent
 
 	if(!(item.material_type & target.dna.species.special_diet))
