@@ -15,6 +15,7 @@
 	var/steps = 0
 	var/lifetime = 5
 	var/direction
+	///Responsible for the damage of the laser passing through the smoke. If 0, damage is not calculated.
 	var/beam_resistance
 
 
