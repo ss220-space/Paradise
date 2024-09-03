@@ -306,7 +306,7 @@
 	if(husk)
 		H.ChangeToHusk()
 	else //Because for some reason I can't track down, things are getting turned into husks even if husk = false. It's in some damage proc somewhere.
-		H.mutations.Remove(HUSK)
+		H.cure_husk()
 	H.underwear = "Nude"
 	H.undershirt = "Nude"
 	H.socks = "Nude"
@@ -394,7 +394,7 @@
 		W.update_label()
 
 /obj/effect/mob_spawn/human/special(mob/living/carbon/human/H)
-	if(!(NO_DNA in H.dna.species.species_traits))
+	if(!HAS_TRAIT(H, TRAIT_NO_DNA))
 		H.dna.blood_type = pick("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-") //Чтобы им всем подряд не требовалась кровь одного типа
 		var/datum/dna/D = H.dna
 		if(!D.species.is_monkeybasic)

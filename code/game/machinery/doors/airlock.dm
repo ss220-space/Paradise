@@ -344,7 +344,7 @@ About the new airlock wires panel:
 	. = ..(UPDATE_ICON_STATE) // Sent after the icon_state is changed
 
 	set_airlock_overlays(state)
-
+	SSdemo.mark_dirty(src)
 
 /obj/machinery/door/airlock/update_icon_state()
 	return

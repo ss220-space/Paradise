@@ -9,9 +9,10 @@
 				if((health >= (HEALTH_THRESHOLD_DEAD + HEALTH_THRESHOLD_CRIT) * 0.5) && getBrainLoss() < 120)
 					update_revive()
 
+
 /mob/living/carbon/human/update_nearsighted_effects()
-	var/obj/item/clothing/glasses/G = glasses
-	if((NEARSIGHTED in mutations) && (!istype(G) || !G.prescription))
+	var/obj/item/clothing/glasses/our_glasses = glasses
+	if(HAS_TRAIT(src, TRAIT_NEARSIGHTED) && (!istype(our_glasses) || !our_glasses.prescription))
 		overlay_fullscreen("nearsighted", /atom/movable/screen/fullscreen/impaired, 1)
 	else
 		clear_fullscreen("nearsighted")

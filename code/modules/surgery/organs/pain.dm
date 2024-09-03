@@ -20,7 +20,7 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	if(dna?.species && (NO_PAIN in dna.species.species_traits))
+	if(HAS_TRAIT(src, TRAIT_NO_PAIN))
 		return FALSE
 	if(shock_reduction() >= MIN_SHOCK_REDUCTION)
 		return FALSE

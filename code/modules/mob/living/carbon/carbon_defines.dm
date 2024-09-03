@@ -30,8 +30,6 @@
 	var/co2overloadtime = null
 	var/dreaming = 0 //How many dream images we have left to send
 	var/nightmare = 0
-	///Made to slide properly. When we are done with the movement, we should remove it.
-	var/slide_distance = 0
 
 	/// Used for wishgranter see wildwest.dm
 	var/revival_in_progress = FALSE

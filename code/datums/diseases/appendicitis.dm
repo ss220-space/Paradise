@@ -34,11 +34,12 @@
 	if(!ruptured && (A.germ_level >= INFECTION_LEVEL_THREE || A.is_dead()))
 		rupture(H, A)
 
+	var/germs_mod = H.dna.species.germs_growth_mod * H.physiology.germs_growth_mod
 	switch(stage)
 		if(2)
 			if(A.germ_level < INFECTION_LEVEL_ONE)
 				A.germ_level = INFECTION_LEVEL_ONE
-			A.germ_level += rand(1, 4) * H.dna.species.germs_growth_rate
+			A.germ_level += rand(1, 4) * germs_mod
 
 			if(prob(2))
 				H.vomit()
@@ -49,7 +50,7 @@
 		if(3)
 			if(A.germ_level < INFECTION_LEVEL_ONE)
 				A.germ_level = INFECTION_LEVEL_ONE
-			A.germ_level += rand(2, 6) * H.dna.species.germs_growth_rate
+			A.germ_level += rand(2, 6) * germs_mod
 
 			if(prob(10))
 				A.internal_receive_damage(1, silent = prob(45))
@@ -70,7 +71,7 @@
 
 			if(A.germ_level < INFECTION_LEVEL_TWO)
 				A.germ_level = INFECTION_LEVEL_TWO
-			A.germ_level += rand(4, 10) * H.dna.species.germs_growth_rate
+			A.germ_level += rand(4, 10) * germs_mod
 
 			if(prob(10))
 				A.internal_receive_damage(2)
@@ -90,7 +91,7 @@
 		if(5)
 			if(A.germ_level < INFECTION_LEVEL_TWO)
 				A.germ_level = INFECTION_LEVEL_TWO
-			A.germ_level += rand(6, 12) * H.dna.species.germs_growth_rate
+			A.germ_level += rand(6, 12) * germs_mod
 
 			H.adjustToxLoss(0.5)
 			if(H.IsSlowed())
