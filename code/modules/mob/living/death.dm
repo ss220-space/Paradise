@@ -50,6 +50,9 @@
 		// Whew! Good thing I'm indestructible! (or already dead)
 		return FALSE
 
+	if(client)
+		client.SetView(client.prefs.viewrange)
+
 	set_stat(DEAD)
 	..()
 	INVOKE_ASYNC(src, PROC_REF(burst_blob_on_die))

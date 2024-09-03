@@ -88,8 +88,6 @@
 
 	set_heartattack(FALSE)
 	SSmobs.cubemonkeys -= src
-	if(client)
-		client.SetView(client.prefs.viewrange)
 	if(dna.species)
 		//Handle species-specific deaths.
 		dna.species.handle_death(gibbed, src)
