@@ -7,15 +7,20 @@
 	var/nutritional_value // How much nutrition add
 	var/is_only_grab_intent //Grab if help_intent was used
 
-/datum/component/eatable/Initialize()
+/datum/component/eatable/Initialize(
+	material_type,
+	max_bites,
+	integrity_bite,
+	nutritional_value,
+	is_only_grab_intent
+)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
-	var/obj/item/item = parent
-	material_type = item.material_type
-	max_bites = item.max_bites
-	integrity_bite = item.integrity_bite
-	nutritional_value = item.nutritional_value
-	is_only_grab_intent = item.is_only_grab_intent
+	src.material_type = material_type
+	src.max_bites = max_bites
+	src.integrity_bite = integrity_bite
+	src.nutritional_value = nutritional_value
+	src.is_only_grab_intent = is_only_grab_intent
 	
 /datum/component/eatable/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_PRE_ATTACKBY, PROC_REF(try_eat_item))
