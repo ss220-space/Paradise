@@ -155,9 +155,6 @@
 
 
 /obj/item/autopsy_scanner/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	if(try_item_eat(target, user))
-		return ATTACK_CHAIN_BLOCKED_ALL
-
 	if(!ishuman(target) || !on_operable_surface(target))
 		return ATTACK_CHAIN_PROCEED
 

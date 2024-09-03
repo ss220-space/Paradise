@@ -42,7 +42,10 @@
 /datum/component/eatable/proc/try_eat_item(datum/source, mob/living/carbon/human/target, mob/user)
 
 	var/obj/item/item = parent
+
 	if(!(item.material_type & target.dna.species.special_diet))
+		return NONE
+	if(item.is_only_grab_intent && user.a_intent != INTENT_GRAB)
 		return NONE
 
 	var/chat_message_to_user = "Вы кормите [target] [item.name]."
@@ -71,6 +74,7 @@
 
 	to_chat(user, span_notice("[chat_message_to_user]"))
 	eat(target, user)
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /datum/component/eatable/proc/eat(mob/target, mob/user)
 	var/obj/item/item = parent
