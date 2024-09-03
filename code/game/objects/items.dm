@@ -231,7 +231,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(damtype == "brute")
 			hitsound = "swing_hit"
 	if(is_eatable)
-		AddComponent(/datum/component/eatable, is_only_grab_intent)
+		AddComponent(/datum/component/eatable)
 
 
 /obj/item/proc/determine_move_resist()
