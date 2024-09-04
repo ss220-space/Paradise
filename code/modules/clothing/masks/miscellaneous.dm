@@ -613,6 +613,8 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
+/// Original cursed mask which will turn you into cluwne after you equip it
+/obj/item/clothing/mask/cursedclown/tumor
 
 /obj/item/clothing/mask/cursedclown/tumor/equipped(mob/living/carbon/human/human, slot, initial)
 	. = ..()
@@ -640,6 +642,10 @@
 		to_chat(human, span_danger("[src] grips your face!"))
 		if(human.mind?.assigned_role != "Cluwne")
 			cluwne_mask.transform(human)	
+
+/obj/item/clothing/mask/cursedclown/fake/Destroy(force)
+	QDEL_NULL(cluwne_mask) // will dust cluwne
+	return ..()
 
 //voice modulator
 
