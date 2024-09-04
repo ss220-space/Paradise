@@ -90,7 +90,7 @@
 		if(/obj/item/bikehorn)
 			if(bikehorn)
 				return
-			if(!(slot & SLOT_HUD_LEFT_HAND) || (!slot & SLOT_HUD_RIGHT_HAND))
+			if(!(slot & ITEM_SLOT_HAND_LEFT) || (!slot & ITEM_SLOT_HAND_RIGHT))
 				return
 			bikehorn = item
 			init_bikehorn_signals()
