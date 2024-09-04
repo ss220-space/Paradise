@@ -145,6 +145,8 @@
 
 	if(!COOLDOWN_FINISHED(src, global_cooldown))
 		return
+	if(!istype(victim))
+		return
 	if(victim != cluwne)
 		var/applied_damage = CLUWNE_PDA_SLIP_DAMAGE + (victim.health / 10)
 		victim.apply_damage(applied_damage, TOX)
