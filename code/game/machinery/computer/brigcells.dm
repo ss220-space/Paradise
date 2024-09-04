@@ -38,7 +38,7 @@
 	var/list/timers = list()
 	for(var/obj/machinery/door_timer/T in GLOB.celltimers_list)
 		var/timer = list()
-		timer["Номер камеры"] = T.name
+		timer["Камера"] = T.name
 		timer["Заключённый"] = T.occupant
 		timer["Обвинения"] = T.crimes
 		timer["Сотрудник"] = T.officer
