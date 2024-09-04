@@ -1,4 +1,4 @@
-// Vendor flick sequence bitflags
+// customat flick sequence bitflags
 /// Machine is not using vending/denying overlays
 #define FLICK_NONE 0
 /// Machine is currently vending wares, and will not update its icon, unless its stat change.
@@ -15,9 +15,13 @@
 	name = "generic"
 	///How many of this product we currently have
 	var/amount = 0
+	///The key by which the object is pushed into the machine's row
 	var/key = "generic_0"
+	///List of items in row
 	var/list/obj/item/containtment = list()
-	var/price = 0  // Price to buy one
+	/// Price to buy one
+	var/price = 0
+	///Icon in tgui
 	var/icon = ""
 
 /datum/data/customat_product/New(obj/item/I)
@@ -41,15 +45,15 @@
 	resistance_flags = FIRE_PROOF
 
 	// All the overlay controlling variables
-	/// Overlay of vendor maintenance panel.
+	/// Overlay of customat maintenance panel.
 	var/panel_overlay = "custommate-panel"
-	/// Overlay of a vendor screen, will not apply of stat is NOPOWER.
+	/// Overlay of a customat screen, will not apply of stat is NOPOWER.
 	var/screen_overlay = "custommate-off"
-	/// Lightmask used when vendor is working properly.
+	/// Lightmask used when customat is working properly.
 	var/lightmask_overlay = ""
-	/// Damage overlay applied if vendor is damaged enough.
+	/// Damage overlay applied if customat is damaged enough.
 	var/broken_overlay = "custommate-broken"
-	/// Special lightmask for broken overlay. If vendor is BROKEN, but not dePOWERED we will see this, instead of `lightmask_overlay`.
+	/// Special lightmask for broken overlay. If customat is BROKEN, but not dePOWERED we will see this, instead of `lightmask_overlay`.
 	var/broken_lightmask_overlay = ""
 	/// Overlay applied when machine is vending goods.
 	var/vend_overlay = ""
@@ -71,21 +75,22 @@
 	// Power
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
+	/// Power used for one vend
 	var/vend_power_usage = 150
 
 	// Vending-related
 	/// No sales pitches if off
 	var/active = TRUE
-	/// If off, vendor is busy and unusable until current action finishes
+	/// If off, customat is busy and unusable until current action finishes
 	var/vend_ready = TRUE
-	/// How long vendor takes to vend one item.
+	/// How long customat takes to vend one item.
 	var/vend_delay = 1 SECONDS
 	/// Item currently being bought
 	var/datum/data/customat_product/currently_vending = null
 
 
 	// Stuff relating vocalizations
-	/// List of slogans the vendor will say, optional
+	/// List of slogans the customat will say, optional
 	var/list/ads_list = list("Купи самый дорогой предмет из моего содержимого! Не пожалеешь!",
 	"Мое содержимое разнообразней чем вся твоя жизнь!",
 	"У меня богатый внутренний мир.",
@@ -97,6 +102,7 @@
 	"Не нравится мое содержимое? Создай свой кастомат, со своим уникальным содержимым!",
 	"Каждый раз, когда вы что-то покупаете, где-то в мире радуется один ассистент!")
 
+	/// List of replies the customat will say after vends
 	var/list/vend_reply	= list("Спасибо за покупку, приходите еще!",
 	"Вы купили что-то, а разнообразие моего содержимого не уменьшилось!",
 	"Ваши кредиты пойдут на разработку новых уникальных товаров!",
@@ -112,8 +118,9 @@
 	var/slogan_delay = 600 SECONDS		//How long until we can pitch again?
 	COOLDOWN_DECLARE(slogan_cooldown)
 
-	//The type of refill canisters used by this machine.
+	///The type of refill canisters used by this machine.
 	var/obj/item/vending_refill/custom/canister = null
+	/// Type of canister used to build it
 	var/obj/item/vending_refill/refill_canister = /obj/item/vending_refill/custom // we need it for req_components of vendomat circuitboard
 
 	// Things that can go wrong
@@ -128,11 +135,14 @@
 	var/light_range_on = 1
 	var/light_power_on = 0.5
 
+	/// Last costs of inserted types of items
 	var/list/remembered_costs = list("akula plushie" = 666) // Why not?
+	/// ID that was used to block customat
 	var/obj/item/card/id/connected_id = null // Id that was used to block src
+	// If true, price will be equal last prict of the same item
 	var/fast_insert = TRUE // If true, new price of inserted item will be equal previous price of the same item
 
-	// To be filled out at compile time
+	/// Map of {key; customat_product}
 	var/list/products = list()
 
 	var/inserted_items_count = 0
@@ -287,7 +297,7 @@
 	flickering = FALSE
 
 /obj/machinery/customat/deconstruct(disassembled = TRUE)
-	if(!canister) //the non constructable vendors drop metal instead of a machine frame.
+	if(!canister) //the non constructable customats drop metal instead of a machine frame.
 		new /obj/item/stack/sheet/metal(loc, 3)
 		qdel(src)
 	else
@@ -512,7 +522,7 @@
 				flick_vendor_overlay(FLICK_VEND)
 				return
 
-			vend_ready = FALSE // From this point onwards, vendor is locked to performing this transaction only, until it is resolved.
+			vend_ready = FALSE // From this point onwards, customat is locked to performing this transaction only, until it is resolved.
 
 			if(!(ishuman(usr) || issilicon(usr)) || product.price <= 0)
 				// Either the purchaser is not human nor silicon, or the item is free.
