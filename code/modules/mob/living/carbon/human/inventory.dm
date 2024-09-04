@@ -424,7 +424,7 @@
 
 		else
 			to_chat(src, span_warning("You are trying to equip this item to an unsupported inventory slot. Report this to a coder!"))
-
+	SEND_SIGNAL(src, COMSIG_HUMAN_EQUIPPED_ITEM, I, slot, initial)
 	return I.equipped(src, slot, initial)
 
 

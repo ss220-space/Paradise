@@ -1,13 +1,10 @@
 #define CLUWNE_PDA_SLIP_DAMAGE 10
-#define CLUWNE_PDA_SLIP_GLOBALCOOLDOWN 10 (SECONDS)
 
 #define CLUWNE_BIKEHORN_KNOCKDOWN_TIME 4 (SECONDS)
-#define CLUWNE_BIKEHORN_GLOBALCOOLDOWN 6 (SECONDS)
 
 #define CLUWNE_UNARMED_ATTACK_BLIND_TIME 2 (SECONDS)
 #define CLUWNE_UNARMED_ATTACK_HALLUCINATION_TIME 30 (SECONDS)
 #define CLUWNE_UNARMED_ATTACK_MAX_HALLUCINATION_TIME 90 (SECONDS)
-#define CLUWNE_UNARMED_ATTACK_GLOBALCOOLDOWN 6 (SECONDS)
 
 /datum/cluwne_mask
 	/// Type of mob which we will transform into fake cluwne
@@ -25,12 +22,13 @@
 	if(!human.mind)
 		return
 	cluwne = human
+	pda = human.wear_pda
 	init_cluwne()
 	
 /datum/cluwne_mask/proc/init_cluwne(
 	should_transform = TRUE,
 	should_gain_effects = TRUE
-)
+	)
 	
 	if(should_transform)
 		transform_cluwne()
@@ -40,7 +38,7 @@
 		init_bikehorn_signals()
 
 /datum/cluwne_mask/proc/init_cluwne_signals()
-	RegisterSignal(cluwne, COMSIG_HUMAN_EQUIPPED, PROC_REF(on_equip))
+	RegisterSignal(cluwne, COMSIG_HUMAN_EQUIPPED_ITEM, PROC_REF(on_equip))
 	RegisterSignal(cluwne, COMSIG_HUMAN_MELEE_UNARMED_ATTACK, PROC_REF(unarmed_attack))
 
 /datum/cluwne_mask/proc/transform_cluwne()
@@ -72,10 +70,18 @@
 	RegisterSignal(bikehorn, COMSIG_ITEM_AFTERATTACK, PROC_REF(after_attack_bikehorn))
 
 /datum/cluwne_mask/Destroy(force)
+	UnregisterSignal(cluwne, COMSIG_HUMAN_EQUIPPED_ITEM)
+	UnregisterSignal(cluwne, COMSIG_HUMAN_MELEE_UNARMED_ATTACK)
 	cluwne.dust() // This is your new curse
 	cluwne = null
-	bikehorn = null
-	pda = null
+	if(bikehorn)
+		UnregisterSignal(bikehorn, COMSIG_ITEM_UNEQUIP)
+		UnregisterSignal(bikehorn, COMSIG_ITEM_AFTERATTACK)
+		bikehorn = null
+	if(pda)
+		UnregisterSignal(pda, COMSIG_ITEM_QDELETED)
+		UnregisterSignal(pda, COMSIG_COMPONENT_PARENT_SLIP)
+		pda = null
 	
 /datum/cluwne_mask/proc/on_equip(obj/item/item, slot, initial)
 	SIGNAL_HANDLER
@@ -89,12 +95,14 @@
 			bikehorn = item
 			init_bikehorn_signals()
 		if(/obj/item/pda)
-			if(pda) // we link that only once.
+			if(pda) // we link that only once. And re-link only when pda was destroyed
 				return
 			pda = item
 			init_pda_signals()
 
 /datum/cluwne_mask/proc/unarmed_attack(mob/living/carbon/human/target, proximity)
+	SIGNAL_HANDLER
+
 	if(!COOLDOWN_FINISHED(src, global_cooldown))
 		return
 	if(!istype(target))
@@ -105,7 +113,9 @@
 	send_honk(target)
 	COOLDOWN_START(src, global_cooldown, CLUWNE_UNARMED_ATTACK_GLOBALCOOLDOWN)
 	
-/datum/cluwne_mask/proc/after_attack_bikehorn((obj/item/item, mob/living/carbon/human/target, mob/user, proximity, params)
+/datum/cluwne_mask/proc/after_attack_bikehorn(obj/item/item, mob/living/carbon/human/target, mob/user, proximity, params)
+	SIGNAL_HANDLER
+
 	if(!COOLDOWN_FINISHED(src, global_cooldown))
 		return
 	if(!istype(target))
@@ -116,17 +126,23 @@
 	COOLDOWN_START(src, global_cooldown, CLUWNE_BIKEHORN_GLOBALCOOLDOWN)
 	
 /datum/cluwne_mask/proc/on_pda_delete()
+	SIGNAL_HANDLER
+
 	UnregisterSignal(pda, COMSIG_ITEM_QDELETED)
 	UnregisterSignal(pda, COMSIG_COMPONENT_PARENT_SLIP)
 	pda = null
 	
 /// Signals was registered when you took bikehorn in hands slot, so we don't need extra checks
 /datum/cluwne_mask/proc/bikehorn_unequip()
+	SIGNAL_HANDLER
+
 	UnregisterSignal(bikehorn, COMSIG_ITEM_UNEQUIP)
 	UnregisterSignal(bikehorn, COMSIG_ITEM_AFTERATTACK)
 	bikehorn = null
 
-/datum/cluwne_mask/proc/on_pda_slip(mob/living/carbon/human/victim)	
+/datum/cluwne_mask/proc/on_pda_slip(mob/living/carbon/human/victim, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
 	if(!COOLDOWN_FINISHED(src, global_cooldown))
 		return
 	if(victim != cluwne)
@@ -141,11 +157,8 @@
 	SEND_SOUND(target, sound('sound/items/airhorn.ogg'))
 
 #undef CLUWNE_PDA_SLIP_DAMAGE
-#undef CLUWNE_PDA_SLIP_GLOBALCOOLDOWN
 #undef CLUWNE_BIKEHORN_KNOCKDOWN_TIME
-#undef CLUWNE_BIKEHORN_GLOBALCOOLDOWN
 #undef CLUWNE_UNARMED_ATTACK_BLIND_TIME
 #undef CLUWNE_UNARMED_ATTACK_HALLUCINATION_TIME
 #undef CLUWNE_UNARMED_ATTACK_MAX_HALLUCINATION_TIME
-#undef CLUWNE_UNARMED_ATTACK_GLOBALCOOLDOWN
                                               
