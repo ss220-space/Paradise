@@ -1,6 +1,6 @@
 /obj/machinery/computer/brigcells
     name = "cell management computer"
-    desc = "Used to manage prison cells."
+    desc = "Используется для дистанционного управления камерами заключённых."
     icon_keyboard = "security_key"
     icon_screen = "cell_monitor"
     use_power = IDLE_POWER_USE
@@ -38,12 +38,12 @@
 	var/list/timers = list()
 	for(var/obj/machinery/door_timer/T in GLOB.celltimers_list)
 		var/timer = list()
-		timer["cell_id"] = T.name
-		timer["occupant"] = T.occupant
-		timer["crimes"] = T.crimes
-		timer["brigged_by"] = T.officer
-		timer["time_set_seconds"] = round(T.timetoset / 10, 1)
-		timer["time_left_seconds"] = round(T.timeleft(), 1)
+		timer["Номер камеры"] = T.name
+		timer["Заключённый"] = T.occupant
+		timer["Обвинения"] = T.crimes
+		timer["Сотрудник"] = T.officer
+		timer["Срок"] = round(T.timetoset / 10, 1)
+		timer["Осталось"] = round(T.timeleft(), 1)
 		timer["ref"] = "\ref[T]"
 		timers[++timers.len] += timer
 	timers = sortByKey(timers, "cell_id")
@@ -64,7 +64,7 @@
 		var/obj/machinery/door_timer/T = locate(ref)
 		if (T)
 			T.timer_end()
-			T.Radio.autosay("Timer stopped manually from a cell management console.", T.name, "Security", list(z))
+			T.Radio.autosay("Таймер был вручную остановлен через консоль.", T.name, "Security", list(z))
 		return TRUE
 
 	return FALSE

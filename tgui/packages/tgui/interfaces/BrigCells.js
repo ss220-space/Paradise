@@ -48,13 +48,13 @@ const BrigCellsTableRow = (properties, context) => {
 const BrigCellsTable = ({ cells }) => (
   <Table className="BrigCells__list">
     <Table.Row>
-      <Table.Cell header>Cell</Table.Cell>
-      <Table.Cell header>Occupant</Table.Cell>
-      <Table.Cell header>Crimes</Table.Cell>
-      <Table.Cell header>Brigged By</Table.Cell>
-      <Table.Cell header>Time Brigged For</Table.Cell>
-      <Table.Cell header>Time Left</Table.Cell>
-      <Table.Cell header>Release</Table.Cell>
+      <Table.Cell header>Камера</Table.Cell>
+      <Table.Cell header>Заключённый</Table.Cell>
+      <Table.Cell header>Обвинения</Table.Cell>
+      <Table.Cell header>Сотрудник</Table.Cell>
+      <Table.Cell header>Срок</Table.Cell>
+      <Table.Cell header>Осталось</Table.Cell>
+      <Table.Cell header>Выпустить</Table.Cell>
     </Table.Row>
     {cells.map((cell) => (
       <BrigCellsTableRow key={cell.ref} cell={cell} />

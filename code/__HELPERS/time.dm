@@ -125,7 +125,21 @@
 /proc/seconds_to_time(var/seconds as num)
 	var/numSeconds = seconds % 60
 	var/numMinutes = (seconds - numSeconds) / 60
-	return "[numMinutes] [numMinutes > 1 ? "minutes" : "minute"] and [numSeconds] seconds"
+
+	var/sufM = .
+
+	var/list/nums1 = list(1, 21, 31, 41, 51)
+	var/list/nums2 = list(2, 3, 4, 22, 23, 24, 32, 33, 34, 42, 43, 44, 52, 53, 54)
+	var/list/nums3 = list(5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 25, 26, 27, 28, 29, 30, 35, 36, 37, 38, 39, 40, 45, 46, 47, 48, 49, 50, 55, 56, 57, 58, 59, 60)
+
+	if(numMinutes in nums1)
+		sufM = "минуту"
+	if (numMinutes in nums2)
+		sufM = "минуты"
+	if (numMinutes in nums3)
+		sufM = "минут"
+
+	return "[numMinutes] [sufM]"
 
 //Take a value in seconds and makes it display like a clock
 /proc/seconds_to_clock(var/seconds as num)
@@ -141,8 +155,7 @@
 	var/hour = null
 	var/day = null
 
-	if(!second)
-		return "0 seconds"
+
 	if(second >= 60)
 		minute = round_down(second / 60)
 		second = round(second - (minute * 60), 0.1)
