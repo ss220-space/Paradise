@@ -143,7 +143,7 @@
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "deliverycrateSmall"
 	item_state = "deliverypackage"
-	var/obj/item/wrapped = null
+	var/obj/item/wrapped
 	var/giftwrapped = FALSE
 	var/sortTag = 0
 
@@ -180,8 +180,8 @@
 
 /obj/item/smallDelivery/attack_self(mob/user)
 	if(wrapped) //sometimes items can disappear. For example, bombs. --rastaf0
-		// wrapped.forceMove(drop_location())
-		user.put_in_any_hand_if_possible(wrapped, TRUE) // drops the item if fails
+		wrapped.forceMove(drop_location())
+		user.put_in_hands(wrapped)
 		wrapped = null
 	playsound(loc, 'sound/items/poster_ripped.ogg', 50, TRUE)
 	qdel(src)
