@@ -223,15 +223,9 @@
 		balloon_alert(user, "лимит привязки достигнут")
 		return
 
-	var/new_acc_number = input("Пожалуйста, введите номер счета, который вы хотите привязать.", "Выбор счета", (user.mind && user.mind.initial_account) ? user.mind.initial_account.account_number : 999999) as num
-	if (new_acc_number < 100000 || new_acc_number > 999999)
-		balloon_alert(user, "введен некорректный номер счета")
-		return
+	var/new_acc_number = tgui_input_number("Пожалуйста, введите номер счета, который вы хотите привязать.", "Выбор счета", (user.mind && user.mind.initial_account) ? user.mind.initial_account.account_number : 999999, 999999, 100000)
 
-	var/weight = input("Пожалуйста, введите вес введеного ранее счета от 1 до 1000000.", "Выбор получаемой доли", 100) as num
-	if (weight < 1 || weight > 1000000)
-		balloon_alert(user, "введен некорректный вес")
-		return
+	var/weight = tgui_input_number("Пожалуйста, введите вес счета от 1 до 1000000.", "Выбор получаемой доли", 100, 1000000, 1)
 
 	var/new_account = attempt_account_access(new_acc_number, pin_needed = FALSE)
 	if (!new_account)
@@ -249,10 +243,7 @@
 
 /obj/item/vending_refill/custom/proc/try_add_station_account(mob/user)
 	. = FALSE
-	var/weight = input("Пожалуйста, введите вес для счета станции от 1 до 1000000.", "Выбор получаемой доли", 100) as num
-	if (weight < 1 || weight > 1000000)
-		balloon_alert(user, "введен некорректный вес")
-		return
+	var/weight = tgui_input_number("Пожалуйста, введите вес для счета станции от 1 до 1000000.", "Выбор получаемой доли", 100, 1000000, 1)
 
 	if (GLOB.station_account in linked_accounts)
 		balloon_alert(user, "аккаунт станции уже привязан")
@@ -264,7 +255,7 @@
 
 
 /obj/item/vending_refill/custom/attack_self(mob/user) // It works this way not because I'm lazy, but for better immersion.
-	var/accounts_amount = input("Введите 0 чтобы сбросить список сохраненных счетов, 1 чтобы добавить новый счет в список получателей, 2 чтобы добавить счет станции.", "Настройка привязанных счетов.", 0) as num
+	var/accounts_amount = tgui_input_number("Введите 0 чтобы сбросить список сохраненных счетов, 1 чтобы добавить новый счет в список получателей, 2 чтобы добавить счет станции.", "Настройка привязанных счетов.", 0, 2, 0)
 	var/correct = TRUE
 	switch (accounts_amount)
 		if (0)
