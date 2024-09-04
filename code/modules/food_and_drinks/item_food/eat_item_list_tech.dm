@@ -438,7 +438,6 @@
 	)
 
 /obj/item/implanter
-	nutritional_value = 15
 	is_eatable = TRUE
 
 /obj/item/implanter/add_eatable_component()
@@ -740,4 +739,11 @@
 	material_type = src.material_type, \
 	max_bites = 1000, \
 	nutritional_value = 1, \
+	)
+
+/obj/item/access_control/add_eatable_component()
+	AddComponent( \
+	/datum/component/eatable, \
+	material_type = src.material_type, \
+	nutritional_value = 10, \
 	)

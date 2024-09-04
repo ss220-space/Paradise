@@ -12,8 +12,6 @@
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 	material_type = MATERIAL_CLASS_TECH
-	max_bites = 1
-	nutritional_value = 10
 
 	/// List of accesses currently set
 	var/list/selected_accesses = list()
