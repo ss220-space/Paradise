@@ -333,7 +333,7 @@
 	else if (fast_insert && (I.name in remembered_costs))
 		cost = remembered_costs[I.name]
 	else
-		cost = input("Пожалуйста, выберите цену для этого товара. Цена не может быть ниже 0 и выше 1000000 кредитов.", "Выбор цены", 0, 1000000, 0) as num
+		cost = tgui_input_number(user, "Пожалуйста, выберите цену для этого товара. Цена не может быть ниже 0 и выше 1000000 кредитов.", "Выбор цены", 0, 1000000, 0)
 	if (user && get_dist(get_turf(user), get_turf(src)) > 1)
 		to_chat(usr, span_warning("Вы слишком далеко!"))
 		return
