@@ -225,7 +225,15 @@
 
 	var/new_acc_number = tgui_input_number("Пожалуйста, введите номер счета, который вы хотите привязать.", "Выбор счета", (user.mind && user.mind.initial_account) ? user.mind.initial_account.account_number : 999999, 999999, 100000)
 
+	if (isnull(new_acc_number))
+		balloon_alert(user, "номер не введен")
+		return
+
 	var/weight = tgui_input_number("Пожалуйста, введите вес счета от 1 до 1000000.", "Выбор получаемой доли", 100, 1000000, 1)
+
+	if (isnull(weight))
+		balloon_alert(user, "вес не введен")
+		return
 
 	var/new_account = attempt_account_access(new_acc_number, pin_needed = FALSE)
 	if (!new_account)
@@ -245,6 +253,10 @@
 	. = FALSE
 	var/weight = tgui_input_number("Пожалуйста, введите вес для счета станции от 1 до 1000000.", "Выбор получаемой доли", 100, 1000000, 1)
 
+	if (isnull(weight))
+		balloon_alert(user, "вес не введен")
+		return
+
 	if (GLOB.station_account in linked_accounts)
 		balloon_alert(user, "аккаунт станции уже привязан")
 		return
@@ -255,9 +267,16 @@
 
 
 /obj/item/vending_refill/custom/attack_self(mob/user) // It works this way not because I'm lazy, but for better immersion.
-	var/accounts_amount = tgui_input_number("Введите 0 чтобы сбросить список сохраненных счетов, 1 чтобы добавить новый счет в список получателей, 2 чтобы добавить счет станции.", "Настройка привязанных счетов.", 0, 2, 0)
+	var/operation = tgui_input_number("Введите 0 чтобы сбросить список сохраненных счетов, 1 чтобы добавить новый счет в список получателей, 2 чтобы добавить счет станции.", "Настройка привязанных счетов.", 0, 2, 0)
+
+	if (isnull(operation))
+		balloon_alert(user, "значение не введено")
+		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 1)
+		return
+
+
 	var/correct = TRUE
-	switch (accounts_amount)
+	switch (operation)
 		if (0)
 			correct = clear_accounts(user)
 		if (1)
