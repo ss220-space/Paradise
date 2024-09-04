@@ -28,7 +28,7 @@
 /datum/cluwne_mask/proc/init_cluwne(
 	should_transform = TRUE,
 	should_gain_effects = TRUE
-	)
+)
 	
 	if(should_transform)
 		transform_cluwne()
@@ -108,8 +108,8 @@
 	if(!istype(target))
 		return
 
+	target.AdjustHallucinate(CLUWNE_UNARMED_ATTACK_HALLUCINATION_TIME, bound_upper = CLUWNE_UNARMED_ATTACK_MAX_HALLUCINATION_TIME)
 	target.EyeBlind(CLUWNE_UNARMED_ATTACK_BLIND_TIME)
-	target.AdjustHallucinate(CLUWNE_HALLUCINATION_TIME, bound_upper = CLUWNE_UNARMED_ATTACK_MAX_HALLUCINATION_TIME)
 	send_honk(target)
 	COOLDOWN_START(src, global_cooldown, CLUWNE_UNARMED_ATTACK_GLOBALCOOLDOWN)
 	
