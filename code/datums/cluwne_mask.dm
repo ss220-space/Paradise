@@ -91,8 +91,6 @@
 		if(/obj/item/bikehorn)
 			if(bikehorn)
 				return
-			if(!(slot & ITEM_SLOT_HANDS))
-				return
 			bikehorn = item
 			init_bikehorn_signals()
 		if(/obj/item/pda)
