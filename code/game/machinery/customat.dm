@@ -29,7 +29,7 @@
 	amount = 0
 	containtment = list()
 	price = 0
-	icon = "[icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1, FALSE))]"
+	icon = icon2base64(icon(initial(I.icon), initial(I.icon_state), SOUTH, 1, FALSE))
 
 
 /obj/machinery/customat
