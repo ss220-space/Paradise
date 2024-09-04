@@ -36,9 +36,7 @@ export const BrigTimer = (props, context) => {
             <LabeledList.Item label="Сотрудник">
               {data.brigged_by}
             </LabeledList.Item>
-            <LabeledList.Item label="Срок">
-              {data.time_set}
-            </LabeledList.Item>
+            <LabeledList.Item label="Срок">{data.time_set}</LabeledList.Item>
             <LabeledList.Item label="Осталось">
               {data.time_left}
             </LabeledList.Item>
