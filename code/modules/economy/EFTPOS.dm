@@ -227,8 +227,6 @@
 				return
 			transaction_amount = try_num
 		if("toggle_lock")
-			//in general, these are three different buttons, ideally, they should be divided into three events
-			//but for this you need to edit eftpos.js, and at the same time convert all input to tgui
 			if(transaction_locked && !transaction_paid)
 				//exit from card payment mode or if code 0 (priority exit)
 				var/list/access = user.get_access()
