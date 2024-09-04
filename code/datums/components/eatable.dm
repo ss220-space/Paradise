@@ -1,21 +1,29 @@
 /// If our item has material type and this type included in special_diet (species) it can be eaten.
 /datum/component/eatable
-	var/current_bites = 0
-	var/material_type // our item material type
-	var/max_bites // //The maximum amount of bites before item is depleted
+	/// How many bites did
+	var/current_bites
+	/// our item material type
+	var/material_type
+	/// The maximum amount of bites before item is depleted
+	var/max_bites
+	/// integrity spend after bite
 	var/integrity_bite // integrity spend after bite
-	var/nutritional_value // How much nutrition add
-	var/is_only_grab_intent //Grab if help_intent was used
+	/// How much nutrition add
+	var/nutritional_value 
+	/// Grab if help_intent was used
+	var/is_only_grab_intent
 
 /datum/component/eatable/Initialize(
-	material_type,
-	max_bites,
-	integrity_bite,
-	nutritional_value,
-	is_only_grab_intent
+	current_bites = 0,
+	material_type = MATERIAL_CLASS_NONE,
+	max_bites = 1,
+	integrity_bite = 10,
+	nutritional_value = 20,
+	is_only_grab_intent = FALSE
 )
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
+	src.current_bites = current_bites
 	src.material_type = material_type
 	src.max_bites = max_bites
 	src.integrity_bite = integrity_bite
