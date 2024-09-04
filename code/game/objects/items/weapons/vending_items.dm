@@ -223,13 +223,13 @@
 		balloon_alert(user, "лимит привязки достигнут")
 		return
 
-	var/new_acc_number = tgui_input_number("Пожалуйста, введите номер счета, который вы хотите привязать.", "Выбор счета", (user.mind && user.mind.initial_account) ? user.mind.initial_account.account_number : 999999, 999999, 100000)
+	var/new_acc_number = tgui_input_number(user, "Пожалуйста, введите номер счета, который вы хотите привязать.", "Выбор счета", (user.mind && user.mind.initial_account) ? user.mind.initial_account.account_number : 999999, 999999, 100000)
 
 	if (isnull(new_acc_number))
 		balloon_alert(user, "номер не введен")
 		return
 
-	var/weight = tgui_input_number("Пожалуйста, введите вес счета от 1 до 1000000.", "Выбор получаемой доли", 100, 1000000, 1)
+	var/weight = tgui_input_number(user, "Пожалуйста, введите вес счета от 1 до 1000000.", "Выбор получаемой доли", 100, 1000000, 1)
 
 	if (isnull(weight))
 		balloon_alert(user, "вес не введен")
@@ -251,7 +251,7 @@
 
 /obj/item/vending_refill/custom/proc/try_add_station_account(mob/user)
 	. = FALSE
-	var/weight = tgui_input_number("Пожалуйста, введите вес для счета станции от 1 до 1000000.", "Выбор получаемой доли", 100, 1000000, 1)
+	var/weight = tgui_input_number(user, "Пожалуйста, введите вес для счета станции от 1 до 1000000.", "Выбор получаемой доли", 100, 1000000, 1)
 
 	if (isnull(weight))
 		balloon_alert(user, "вес не введен")
@@ -267,7 +267,7 @@
 
 
 /obj/item/vending_refill/custom/attack_self(mob/user) // It works this way not because I'm lazy, but for better immersion.
-	var/operation = tgui_input_number("Введите 0 чтобы сбросить список сохраненных счетов, 1 чтобы добавить новый счет в список получателей, 2 чтобы добавить счет станции.", "Настройка привязанных счетов.", 0, 2, 0)
+	var/operation = tgui_input_number(user, "Введите 0 чтобы сбросить список сохраненных счетов, 1 чтобы добавить новый счет в список получателей, 2 чтобы добавить счет станции.", "Настройка привязанных счетов.", 0, 2, 0)
 
 	if (isnull(operation))
 		balloon_alert(user, "значение не введено")
