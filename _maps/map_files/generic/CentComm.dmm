@@ -16557,8 +16557,8 @@
 	dir = 4;
 	dwidth = 4;
 	height = 6;
-	id = "gamma_transit";
-	name = "gamma in transit. IT SHOULD NOT BE IN TRANSIT";
+	id = "gamma_shuttle_transit";
+	name = "gamma in transit";
 	pixel_x = -32;
 	turf_type = /turf/space/transit/south;
 	width = 7
@@ -33179,6 +33179,19 @@
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
+"pse" = (
+/obj/machinery/door_control{
+	pixel_x = 23;
+	pixel_y = 32;
+	id = "gamma shuttle";
+	ai_control = 0;
+	req_access = list(114)
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellowaltstrip"
+	},
+/area/centcom/supply)
 "psf" = (
 /turf/space/transit/east{
 	icon_state = "speedspace_ew_1"
@@ -50862,6 +50875,14 @@
 	req_access = list(114)
 	},
 /obj/structure/fans/tiny,
+/obj/machinery/door/poddoor/shutters/invincible{
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	dir = 2;
+	id_tag = "gamma shuttle";
+	layer = 5;
+	locked = 1;
+	name = "CentCom SOO Briefing"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -105688,7 +105709,7 @@ qix
 fqL
 fqL
 fqL
-ifZ
+pse
 tgA
 tyO
 nAN
