@@ -631,7 +631,7 @@
 
 /obj/item/clothing/mask/cursedclown/fake
 	/// Datum, used to transform human into special cluwne.
-	var/datum/cursed_mask/cursed_mask
+	var/datum/cursed_mask/cursed_mask = new
 
 /obj/item/clothing/mask/cursedclown/fake/equipped(mob/living/carbon/human/human, slot, initial)
 	. = ..()

@@ -72,8 +72,6 @@
 /datum/cluwne_mask/Destroy(force)
 	UnregisterSignal(cluwne, COMSIG_HUMAN_EQUIPPED_ITEM)
 	UnregisterSignal(cluwne, COMSIG_HUMAN_MELEE_UNARMED_ATTACK)
-	cluwne.dust() // This is your new curse
-	cluwne = null
 	if(bikehorn)
 		UnregisterSignal(bikehorn, COMSIG_ITEM_UNEQUIP)
 		UnregisterSignal(bikehorn, COMSIG_ITEM_AFTERATTACK)
@@ -82,6 +80,8 @@
 		UnregisterSignal(pda, COMSIG_ITEM_QDELETED)
 		UnregisterSignal(pda, COMSIG_COMPONENT_PARENT_SLIP)
 		pda = null
+	cluwne.dust() // This is your new curse
+	cluwne = null
 	
 /datum/cluwne_mask/proc/on_equip(obj/item/item, slot, initial)
 	SIGNAL_HANDLER
