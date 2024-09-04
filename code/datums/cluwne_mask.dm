@@ -108,7 +108,6 @@
 	if(!istype(target))
 		return
 
-	target.AdjustHallucinate(CLUWNE_UNARMED_ATTACK_HALLUCINATION_TIME, bound_upper = CLUWNE_UNARMED_ATTACK_MAX_HALLUCINATION_TIME)
 	target.EyeBlind(CLUWNE_UNARMED_ATTACK_BLIND_TIME)
 	send_honk(target)
 	COOLDOWN_START(src, global_cooldown, CLUWNE_UNARMED_ATTACK_GLOBALCOOLDOWN)
