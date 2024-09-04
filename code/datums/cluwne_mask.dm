@@ -14,7 +14,7 @@
 	/// Linked bikehorn, we will use him to give various effects to target.
 	var/obj/item/bikehorn/bikehorn
 	/// Global cooldown of our actions. If true - your abilities won't work.
-	DECLARE_COOLDOWN(global_cooldown)
+	COOLDOWN_DECLARE(global_cooldown)
 	
 /datum/cluwne_mask/proc/transform(mob/living/carbon/human/human)
 	if(!istype(human))
@@ -56,7 +56,7 @@
 	if(!pda)
 		return
 		
-	RegisterSignal(pda, COMSIG_ITEM_QDELETED, PROC_REF(on_pda_delete))
+	RegisterSignal(pda, COMSIG_QDELETING, PROC_REF(on_pda_delete))
 	RegisterSignal(pda, COMSIG_COMPONENT_PARENT_SLIP, PROC_REF(on_pda_slip))
 	
 	if(!pda.GetComponent(/datum/component/slippery))
@@ -66,18 +66,18 @@
 	if(!bikehorn)
 		return
 		
-	RegisterSignal(bikehorn, COMSIG_ITEM_UNEQUIP, PROC_REF(bikehorn_unequip))
+	RegisterSignal(bikehorn, COMSIG_ITEM_DROPPED, PROC_REF(bikehorn_unequip))
 	RegisterSignal(bikehorn, COMSIG_ITEM_AFTERATTACK, PROC_REF(after_attack_bikehorn))
 
 /datum/cluwne_mask/Destroy(force)
 	UnregisterSignal(cluwne, COMSIG_HUMAN_EQUIPPED_ITEM)
 	UnregisterSignal(cluwne, COMSIG_HUMAN_MELEE_UNARMED_ATTACK)
 	if(bikehorn)
-		UnregisterSignal(bikehorn, COMSIG_ITEM_UNEQUIP)
+		UnregisterSignal(bikehorn, COMSIG_ITEM_DROPPED)
 		UnregisterSignal(bikehorn, COMSIG_ITEM_AFTERATTACK)
 		bikehorn = null
 	if(pda)
-		UnregisterSignal(pda, COMSIG_ITEM_QDELETED)
+		UnregisterSignal(pda, COMSIG_QDELETING)
 		UnregisterSignal(pda, COMSIG_COMPONENT_PARENT_SLIP)
 		pda = null
 	cluwne.dust() // This is your new curse
@@ -90,7 +90,7 @@
 		if(/obj/item/bikehorn)
 			if(bikehorn)
 				return
-			if(slot != SLOT_HUD_LEFT_HAND || slot != SLOT_HUD_RIGHT_HAND)
+			if(slot !& ITEM_SLOT_HANDS)
 				return
 			bikehorn = item
 			init_bikehorn_signals()
@@ -120,22 +120,21 @@
 	if(!istype(target))
 		return
 		
-	target.setKnockdown(CLUWNE_BIKEHORN_KNOCKDOWN_TIME)
+	target.SetKnockdown(CLUWNE_BIKEHORN_KNOCKDOWN_TIME)
 	send_honk(target)
 	COOLDOWN_START(src, global_cooldown, CLUWNE_BIKEHORN_GLOBALCOOLDOWN)
 	
 /datum/cluwne_mask/proc/on_pda_delete()
 	SIGNAL_HANDLER
 
-	UnregisterSignal(pda, COMSIG_ITEM_QDELETED)
+	UnregisterSignal(pda, COMSIG_QDELETING)
 	UnregisterSignal(pda, COMSIG_COMPONENT_PARENT_SLIP)
 	pda = null
 	
-/// Signals was registered when you took bikehorn in hands slot, so we don't need extra checks
 /datum/cluwne_mask/proc/bikehorn_unequip()
 	SIGNAL_HANDLER
 
-	UnregisterSignal(bikehorn, COMSIG_ITEM_UNEQUIP)
+	UnregisterSignal(bikehorn, COMSIG_ITEM_DROPPED)
 	UnregisterSignal(bikehorn, COMSIG_ITEM_AFTERATTACK)
 	bikehorn = null
 
