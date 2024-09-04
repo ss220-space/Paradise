@@ -299,7 +299,7 @@
 		balloon_alert(user, "заблокировано")
 	else if (connected_id == I)
 		connected_id = null
-		balloon_alert(user, "заблокировано")
+		balloon_alert(user, "разблокировано")
 	else
 		balloon_alert(user, "карта не подходит")
 
@@ -333,8 +333,7 @@
 	else if (fast_insert && (I.name in remembered_costs))
 		cost = remembered_costs[I.name]
 	else
-		var/new_cost = input("Пожалуйста, выберите цену для этого товара. Цена не может быть ниже 0 и выше 1000000 кредитов.", "Выбор цены", 0) as num
-		cost = clamp(new_cost, 0, 1000000)
+		cost = input("Пожалуйста, выберите цену для этого товара. Цена не может быть ниже 0 и выше 1000000 кредитов.", "Выбор цены", 0, 1000000, 0) as num
 	if (user && get_dist(get_turf(user), get_turf(src)) > 1)
 		to_chat(usr, span_warning("Вы слишком далеко!"))
 		return
