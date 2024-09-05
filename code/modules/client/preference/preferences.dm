@@ -1184,8 +1184,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		HTML += ShowDisabilityState(user, DISABILITY_FLAG_COFFEE_ADDICT, "Coffee addict")
 	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_ALCOHOLE_ADDICT))
 		HTML += ShowDisabilityState(user, DISABILITY_FLAG_ALCOHOLE_ADDICT, "Alcohole addict")
-	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_NOLEGS))
-		HTML += ShowDisabilityState(user, DISABILITY_FLAG_NOLEGS, "Legs paralysis")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_LEGSPARALYSIS))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_LEGSPARALYSIS, "Legs paralysis")
 
 	HTML += {"</ul>
 		<a href=\"?_src_=prefs;task=close;preference=disabilities\">\[Done\]</a>
@@ -2959,7 +2959,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	if((disabilities & DISABILITY_FLAG_WINGDINGS) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_WINGDINGS))
 		character.force_gene_block(GLOB.wingdingsblock, TRUE, TRUE)
 
-	if((disabilities & DISABILITY_FLAG_NOLEGS) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_NOLEGS))
+	if((disabilities & DISABILITY_FLAG_LEGSPARALYSIS) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_LEGSPARALYSIS))
 		character.force_gene_block(GLOB.legsparalysisblock, TRUE, TRUE)
 
 	character.dna.species.handle_dna(character)
