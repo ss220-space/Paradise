@@ -23,6 +23,7 @@
 		return
 	cluwne = human
 	pda = human.wear_pda
+	bikehorn = human.find_item(/obj/item/bikehorn)
 	init_cluwne()
 	
 /datum/cluwne_mask/proc/init_cluwne(
