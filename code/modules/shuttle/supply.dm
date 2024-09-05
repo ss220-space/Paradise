@@ -130,6 +130,7 @@
 	var/intel_count = 0
 	var/crate_count = 0
 	var/quest_reward
+	var/intel_reward
 
 	var/msg = "<center>---[station_time_timestamp()]---</center><br>"
 	var/pointsEarned
