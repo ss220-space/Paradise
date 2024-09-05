@@ -1,0 +1,78 @@
+"a" = (/turf/simulated/wall/mineral/uranium,/area/ruin/space/cluwne_ruin/altair)
+"b" = (/turf/space,/area/space)
+"c" = (/obj/structure/table/wood/fancy/green,/obj/item/flashlight/lamp/bananalamp{base_pixel_y = 10; pixel_y = 10; light_on = 1},/turf/simulated/floor/noslip,/area/ruin/space/cluwne_ruin)
+"d" = (/obj/item/flag/species/unathi,/turf/simulated/floor/noslip,/area/ruin/space/cluwne_ruin)
+"e" = (/obj/structure/statue/bananium/clown,/turf/simulated/floor/mineral/bananium,/area/ruin/space/cluwne_ruin)
+"f" = (/turf/simulated/floor/noslip,/area/ruin/space/cluwne_ruin)
+"g" = (/obj/structure/table/wood/fancy/orange,/turf/simulated/floor/noslip,/area/ruin/space/cluwne_ruin)
+"h" = (/turf/simulated/wall/rust,/area/ruin/space/cluwne_ruin)
+"i" = (/obj/structure/table/wood/fancy/green,/obj/item/clothing/mask/gas/clown_hat/sexy,/turf/simulated/floor/noslip,/area/ruin/space/cluwne_ruin)
+"j" = (/obj/effect/decal/cleanable/confetti,/turf/simulated/floor/mineral/gold/fancy,/area/ruin/space/cluwne_ruin)
+"k" = (/obj/item/flag/species/greys,/turf/simulated/floor/noslip,/area/ruin/space/cluwne_ruin)
+"l" = (/obj/item/flag/clown,/turf/simulated/floor/noslip,/area/ruin/space/cluwne_ruin)
+"m" = (/obj/structure/table/wood/fancy/black,/turf/simulated/floor/noslip,/area/ruin/space/cluwne_ruin)
+"n" = (/mob/living/simple_animal/hostile/retaliate/clown/goblin,/turf/simulated/floor/mineral/gold/fancy,/area/ruin/space/cluwne_ruin)
+"o" = (/obj/effect/decal/cleanable/confetti,/turf/simulated/floor/noslip,/area/ruin/space/cluwne_ruin)
+"r" = (/obj/structure/sacrificealtar,/obj/item/clothing/mask/cursedclown,/turf/simulated/floor/mineral/uranium,/area/ruin/space/cluwne_ruin/altair)
+"s" = (/obj/structure/mineral_door/uranium,/turf/simulated/floor/mineral/uranium,/area/ruin/space/cluwne_ruin/altair)
+"t" = (/obj/effect/decal/cleanable/confetti,/mob/living/simple_animal/hostile/retaliate/clown/goblin,/turf/simulated/floor/noslip,/area/ruin/space/cluwne_ruin)
+"u" = (/obj/structure/fans/tiny,/turf/simulated/floor/mineral/gold/fancy,/area/ruin/space/cluwne_ruin)
+"v" = (/obj/structure/table/wood/fancy/black,/obj/item/flashlight/lamp/bananalamp{base_pixel_y = 10; pixel_y = 10; light_on = 1},/turf/simulated/floor/noslip,/area/ruin/space/cluwne_ruin)
+"w" = (/mob/living/simple_animal/hostile/retaliate/clown,/turf/simulated/floor/noslip,/area/ruin/space/cluwne_ruin)
+"y" = (/obj/item/flag/species/human,/turf/simulated/floor/noslip,/area/ruin/space/cluwne_ruin)
+"z" = (/obj/structure/window/reinforced/tinted{dir = 4},/turf/simulated/floor/mineral/gold/fancy,/area/ruin/space/cluwne_ruin)
+"A" = (/obj/structure/window/reinforced/tinted{dir = 8},/turf/simulated/floor/mineral/gold/fancy,/area/ruin/space/cluwne_ruin)
+"C" = (/obj/structure/table/wood/fancy/green,/obj/item/scalpel{pixel_y = 10},/turf/simulated/floor/noslip,/area/ruin/space/cluwne_ruin)
+"D" = (/obj/structure/table/wood/fancy/orange,/obj/item/clothing/mask/gas/clown_hat,/turf/simulated/floor/noslip,/area/ruin/space/cluwne_ruin)
+"G" = (/obj/structure/table/wood/fancy/cyan,/obj/item/clothing/mask/gas/clown_hat,/turf/simulated/floor/noslip,/area/ruin/space/cluwne_ruin)
+"H" = (/obj/structure/table/wood/fancy/cyan,/obj/item/bikehorn/golden{pixel_y = 10},/turf/simulated/floor/noslip,/area/ruin/space/cluwne_ruin)
+"I" = (/obj/structure/window/reinforced/tinted{dir = 1},/turf/simulated/floor/mineral/gold/fancy,/area/ruin/space/cluwne_ruin)
+"J" = (/obj/item/candle/eternal{start_lit = 1},/turf/simulated/floor/noslip,/area/ruin/space/cluwne_ruin)
+"K" = (/obj/structure/table/wood/fancy/orange,/obj/item/toy/figure/clown,/turf/simulated/floor/noslip,/area/ruin/space/cluwne_ruin)
+"L" = (/obj/structure/window/reinforced/tinted,/mob/living/simple_animal/hostile/retaliate/clown/goblin,/turf/simulated/floor/mineral/gold/fancy,/area/ruin/space/cluwne_ruin)
+"M" = (/turf/simulated/floor/mineral/gold/fancy,/area/ruin/space/cluwne_ruin)
+"N" = (/turf/simulated/floor/mineral/uranium,/area/ruin/space/cluwne_ruin/altair)
+"O" = (/obj/structure/table/wood/fancy/green,/turf/simulated/floor/noslip,/area/ruin/space/cluwne_ruin)
+"P" = (/obj/structure/window/reinforced/tinted,/turf/simulated/floor/mineral/gold/fancy,/area/ruin/space/cluwne_ruin)
+"Q" = (/obj/structure/table/wood/fancy/black,/obj/item/retractor{pixel_y = 10},/turf/simulated/floor/noslip,/area/ruin/space/cluwne_ruin)
+"R" = (/obj/item/flag/species/nian,/turf/simulated/floor/noslip,/area/ruin/space/cluwne_ruin)
+"S" = (/mob/living/simple_animal/hostile/retaliate/clown/goblin,/turf/simulated/floor/noslip,/area/ruin/space/cluwne_ruin)
+"T" = (/obj/structure/table/wood/fancy/cyan,/obj/item/flashlight/lamp/bananalamp{base_pixel_y = 10; pixel_y = 10; light_on = 1},/turf/simulated/floor/noslip,/area/ruin/space/cluwne_ruin)
+"U" = (/obj/structure/table/wood/fancy/black,/obj/item/clothing/mask/gas/clown_hat/joker,/turf/simulated/floor/noslip,/area/ruin/space/cluwne_ruin)
+"V" = (/obj/structure/table/wood/fancy/orange,/obj/item/reagent_containers/food/snacks/bananacakeslice,/turf/simulated/floor/noslip,/area/ruin/space/cluwne_ruin)
+"W" = (/obj/item/candle/eternal{start_lit = 1},/turf/simulated/floor/mineral/uranium,/area/ruin/space/cluwne_ruin/altair)
+"Y" = (/obj/structure/table/wood/fancy/orange,/obj/item/flashlight/lamp/bananalamp{base_pixel_y = 10; pixel_y = 10; light_on = 1},/turf/simulated/floor/noslip,/area/ruin/space/cluwne_ruin)
+"Z" = (/obj/structure/table/wood/fancy/cyan,/turf/simulated/floor/noslip,/area/ruin/space/cluwne_ruin)
+
+(1,1,1) = {"
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+bbbbbbbhhhbbbbbbbbbbbhhhbbbbbb
+bbbbbbbhRJhhhhuuuhhhhJyhbbbbbb
+bbbbbbbhJoffffMjMfffwfJhbbbbbb
+bbbbbbbbhfYVgfMPMfmUvfhbbbbbbb
+bbbbbbbbhwDlffzeAfSlQfhbbbbbbb
+bbbbbbbbhfKffMMIMMofmfhbbbbbbb
+bbbbbbbbhfffnaasaaMfffhbbbbbbb
+bbbbbbbbhMMPMaNWNaMLMfhbbbbbbb
+bbbbbbbbuMzeAsWrWszeAMubbbbbbb
+bbbbbbbbhMMIMaNWNaMIMfhbbbbbbb
+bbbbbbbbhftfMaasaaMfofhbbbbbbb
+bbbbbbbbhfZffMMPMMSfOfhbbbbbbb
+bbbbbbbbhfGlffzeAoflcfhbbbbbbb
+bbbbbbbbhwTHZfMIMfOCifhbbbbbbb
+bbbbbbbhJfffffMMMfffwfJhbbbbbb
+bbbbbbbhdJhhhhuuuhhhhJkhbbbbbb
+bbbbbbbhhhbbbbbbbbbbbhhhbbbbbb
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+"}
