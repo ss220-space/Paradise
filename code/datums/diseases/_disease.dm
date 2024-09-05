@@ -69,8 +69,6 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	var/can_progress_in_dead = FALSE
 	/// If TRUE, disease can contract dead mobs
 	var/can_contract_dead = FALSE
-	/// Disease can contract others, if carrier is dead with this chance. Set to 0, if can't. Must be in [0, 100].
-	var/spread_from_dead_prob = 0
 	/// Infectable mob types, that can only be carriers
 	var/list/carrier_mobtypes = list()
 

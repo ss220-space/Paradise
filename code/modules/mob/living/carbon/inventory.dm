@@ -375,7 +375,7 @@
 	update_limbless_slowdown()	// in case we get crutches
 
 
-
+/// returns the ability of a mask or other object to pass gases
 /mob/living/carbon/proc/has_airtight_items()
 	if(get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
 		return 1
@@ -387,16 +387,14 @@
 
 
 /mob/living/carbon/proc/is_closed_breathing_system()
-	if(!isclothing(head))
+	if(!isclothing(head) || !isclothing(wear_suit))
 		return FALSE
 	var/obj/item/clothing/cloth = head
-	if(!(cloth.clothing_flags & BLOCK_GASES))
+	if(!(cloth?.clothing_flags & BLOCK_GASES))
 		return FALSE
 
-	if(!isclothing(wear_suit))
-		return FALSE
 	cloth = wear_suit
-	if(!(cloth.clothing_flags & BLOCK_GASES))
+	if(!(cloth?.clothing_flags & BLOCK_GASES))
 		return FALSE
 
 	return TRUE

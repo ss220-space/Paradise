@@ -103,17 +103,6 @@
 	force_adjust_mask()
 
 
-/obj/item/clothing/mask/gas/explorer/folded/proc/force_adjust_mask()
-	up = !up
-	update_icon(UPDATE_ICON_STATE)
-	gas_transfer_coefficient = 0
-	permeability_coefficient = 1
-	flags_cover &= ~MASKCOVERSMOUTH
-	flags_inv &= ~HIDENAME
-	clothing_flags &= ~AIRTIGHT
-	w_class = WEIGHT_CLASS_SMALL
-
-
 //Bane gas mask
 /obj/item/clothing/mask/banemask
 	name = "bane mask"

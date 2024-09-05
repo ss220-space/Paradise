@@ -1,7 +1,6 @@
 /datum/disease/virus
 	form = "Вирус"
 	carrier_mobtypes = list(/mob/living/simple_animal/mouse)
-	spread_from_dead_prob = 25
 
 	/// If TRUE, host not affected by virus, but can spread it (mostly for viruses)
 	var/carrier = FALSE
@@ -11,6 +10,8 @@
 	var/infectivity = 65
 	///affects how well the virus will pass through the protection. The more the better. In range (0-2]
 	var/permeability_mod = 1
+	/// Virus can contract others, if carrier is dead with this chance. Set to 0, if can't. Must be in [0, 100].
+	var/spread_from_dead_prob = 25
 
 /datum/disease/virus/New()
 	..()

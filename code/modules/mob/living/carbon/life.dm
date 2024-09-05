@@ -39,14 +39,14 @@
 // BREATHING //
 ///////////////
 
-//Start of a breath chain, calls breathe()
+//Start of a breath chain
 /mob/living/carbon/handle_breathing(times_fired)
 	if(HAS_TRAIT(src, TRAIT_NO_BREATH))
 		return
 	if(times_fired % 2 == 1)
 		breathe() //Breathe every other tick, unless suffocating
 
-//Second link in a breath chain, calls check_breath()
+
 /mob/living/carbon/proc/breathe()
 	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 		return
@@ -64,31 +64,6 @@
 	else
 		breath = get_breath()
 
-	if(!breath)
-		breath = new
-		var/percentage_from_internal = 0
-		var/percentage_from_loc = 1
-		//Breathe from internal
-		if(internal)
-			if(is_closed_breathing_system())
-				percentage_from_internal = 1
-				percentage_from_loc = 0
-			else
-				percentage_from_internal = has_airtight_items()
-				percentage_from_loc = 1 - percentage_from_internal
-			breath = get_breath_from_internal(BREATH_VOLUME * percentage_from_internal)
-
-		if(isobj(loc)) //Breathe from loc as object
-			var/obj/loc_as_obj = loc
-			breath.merge(loc_as_obj.handle_internal_lifeform(src, BREATH_VOLUME * percentage_from_loc))
-
-		else if(isturf(loc)) //Breathe from loc as turf
-			var/breath_moles = 0
-			if(environment)
-				breath_moles = environment.total_moles() * BREATH_PERCENTAGE * percentage_from_loc
-
-			breath.merge(loc.remove_air(breath_moles))
-
 	check_breath(breath)
 
 	if(breath)
@@ -98,21 +73,36 @@
 			new /obj/effect/frosty_breath(loc, src)
 
 /mob/living/carbon/proc/get_breath()
+	var/datum/gas_mixture/breath = new
+	var/datum/gas_mixture/breath_from_loc
+	var/percentage_from_internal = 0
+	var/percentage_from_loc = 1
+
 	if(internal)	//Breath from internal
 		if(internal.loc != src || !has_airtight_items())
 			internal = null
 			update_action_buttons_icon()
 			return null
-		return internal.remove_air_volume(BREATH_VOLUME)
+
+		percentage_from_internal = has_airtight_items()
+		percentage_from_loc = 1 - percentage_from_internal
+		breath.merge(internal.remove_air_volume(BREATH_VOLUME * percentage_from_internal))
+
+	if(is_closed_breathing_system())
+		breath_from_loc = SEND_SIGNAL(src, COMSIG_AIR_SUPPLY_GET_BREATH)
 
 	if(isobj(loc))	//Breathe from loc as object
 		var/obj/loc_as_obj = loc
-		return loc_as_obj.handle_internal_lifeform(src, BREATH_VOLUME)
+		breath_from_loc = loc_as_obj.handle_internal_lifeform(src, BREATH_VOLUME * percentage_from_loc)
 
 	if(isturf(loc))	//Breathe from loc as turf
 		var/datum/gas_mixture/environment = loc.return_air()
 		if(environment)
-			return loc.remove_air(environment.total_moles()*BREATH_PERCENTAGE)
+			breath_from_loc = loc.remove_air(environment.total_moles()*BREATH_PERCENTAGE * percentage_from_loc)
+
+	breath.merge(breath_from_loc)
+
+	return breath
 
 /mob/living/carbon/proc/check_breath(datum/gas_mixture/breath)
 	if(status_flags & GODMODE)
