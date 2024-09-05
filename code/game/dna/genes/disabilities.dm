@@ -373,7 +373,7 @@
 			mutant.physiology.punch_damage_low += 2
 			mutant.physiology.punch_damage_high += 3
 
-/datum/dna/gene/disability/legsparalysis
+/datum/dna/gene/disability/paraplegia
 	name = "Paraplegia"
 	desc = "Парализует мышцы ног."
 	activation_message = "Вы не чуствуете своих ног."
@@ -381,6 +381,6 @@
 	instability = -GENE_INSTABILITY_MAJOR
 	traits_to_add = list(TRAIT_FLOORED)
 
-/datum/dna/gene/disability/legsparalysis/New()
+/datum/dna/gene/disability/paraplegia/New()
 	..()
-	block = GLOB.legsparalysisblock
+	block = GLOB.paraplegiablock

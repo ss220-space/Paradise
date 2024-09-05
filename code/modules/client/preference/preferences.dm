@@ -2960,7 +2960,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		character.force_gene_block(GLOB.wingdingsblock, TRUE, TRUE)
 
 	if((disabilities & DISABILITY_FLAG_PARAPLEGIA) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_PARAPLEGIA))
-		character.force_gene_block(GLOB.legsparalysisblock, TRUE, TRUE)
+		character.force_gene_block(GLOB.paraplegiablock, TRUE, TRUE)
 
 	character.dna.species.handle_dna(character)
 
