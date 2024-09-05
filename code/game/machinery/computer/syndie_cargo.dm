@@ -332,7 +332,6 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	var/crate_count = 0
 
 	var/msg = "<center>---[station_time_timestamp()]---</center><br>"
-	var/cash4Intel
 	var/cashEarned
 	var/list/sellArea = list()
 
@@ -424,7 +423,9 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 						var/obj/item/documents/docs = thing
 						if((docs.sell_interest & INTEREST_SYNDICATE) || (docs.sell_interest & INTEREST_ANYONE))
 							++intel_count
-							cash4Intel = round(data_storage.cash_per_intel * docs.sell_multiplier)
+							msg += "[span_good("+[cashEarned]")]: Received [intel_count] article(s) of enemy intelligence.<br>"
+							data_storage.cash += cashEarned
+							cashEarned = round(data_storage.cash_per_intel * docs.sell_multiplier)
 
 					// Sell tech levels
 					if(istype(thing, /obj/item/disk/tech_disk))
@@ -486,8 +487,8 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 		data_storage.cash += cashEarned
 
 	if(intel_count > 0)
-		msg += "[span_good("+[cash4Intel]")]: Received [intel_count] article(s) of enemy intelligence.<br>"
-		data_storage.cash += cash4Intel
+		msg += "[span_good("+[cashEarned]")]: Received [intel_count] article(s) of enemy intelligence.<br>"
+		data_storage.cash += cashEarned
 
 	if(crate_count > 0)
 		cashEarned = round(crate_count * data_storage.cash_per_crate)
@@ -522,27 +523,24 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	ui_interact(user)
 	return
 
-
-/obj/machinery/computer/syndie_supplycomp/attackby(obj/item/I, mob/living/carbon/human/user, params)
-	if(user.a_intent == INTENT_HARM || !powered() || !ishuman(user))
-		return ..()
-
+/obj/machinery/computer/syndie_supplycomp/attackby(obj/item/I, mob/user, params)
+	if(!powered())
+		add_fingerprint(user)
+		return 0
 	if(istype(I, /obj/item/stack/spacecash))
-		if(!user.drop_transfer_item_to_loc(I, src))
-			return ..()
 		add_fingerprint(user)
 		//consume the money
-		var/obj/item/stack/spacecash/cash = I
+		var/obj/item/stack/spacecash/C = I
 		playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)
-		data_storage.cash += cash.amount
-		to_chat(user, span_info("You insert [cash] into [src]."))
-		data_storage.blackmarket_message += "[span_good("+[cash.amount]")]: [user.get_authentification_name()] adds credits to the console.<br>"
+		data_storage.cash += C.amount
+		to_chat(user, span_info("You insert [C] into [src]."))
+		var/mob/living/carbon/human/H = user
+		var/name = H.get_authentification_name()
+		data_storage.blackmarket_message += "[span_good("+[C.amount]")]: [name] adds credits to the console.<br>"
 		SStgui.update_uis(src)
-		qdel(cash)
-		return ATTACK_CHAIN_BLOCKED_ALL
-
+		C.use(C.amount)
+		return 1
 	return ..()
-
 
 /obj/machinery/computer/syndie_supplycomp/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
