@@ -111,7 +111,7 @@
 	return
 /obj/item/clothing/gloves/color/latex/add_eatable_component()
 	return
-/obj/item/clothing/gloves/color/captain/add_eatable_component
+/obj/item/clothing/gloves/color/captain/add_eatable_component()
 	return
 /obj/item/clothing/gloves/color/black/krav_maga/add_eatable_component()
 	return
