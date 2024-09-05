@@ -422,8 +422,8 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 						var/obj/item/documents/docs = thing
 						if((docs.sell_interest & INTEREST_SYNDICATE) || (docs.sell_interest & INTEREST_ANYONE))
 							msg += "[span_good("+[cashEarned]")]: Received article of enemy intelligence.<br>"
-							data_storage.cash += cashEarned
 							cashEarned = round(data_storage.cash_per_intel * docs.sell_multiplier)
+							data_storage.cash += cashEarned
 
 					// Sell tech levels
 					if(istype(thing, /obj/item/disk/tech_disk))
