@@ -55,7 +55,7 @@
 /obj/effect/proc_holder/spell/view_range/proc/make_view_normal(mob/user)
 	SIGNAL_HANDLER
 	if(!QDELETED(user) && user.client)
-		user.client.change_view(user.client.prefs.viewrange)
+		INVOKE_ASYNC(user.client, TYPE_PROC_REF(/client, change_view), user.client.prefs.viewrange)
 
 /obj/effect/proc_holder/spell/view_range/create_new_targeting()
 	return new /datum/spell_targeting/self
