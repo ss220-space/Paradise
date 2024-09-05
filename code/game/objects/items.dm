@@ -197,7 +197,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	//eat_items.dm
 	var/material_type = MATERIAL_CLASS_NONE
-	var/is_eatable = FALSE // If true - it will grant component/eatable in Initialize() and make item eatable.
 
 	///In deciseconds, how long an item takes to equip/unequip; counts only for normal clothing slots, not pockets, hands etc.
 	var/equip_delay_self = 0 SECONDS
@@ -226,8 +225,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			hitsound = 'sound/items/welder.ogg'
 		if(damtype == "brute")
 			hitsound = "swing_hit"
-	if(is_eatable)
-		add_eatable_component()
+	add_eatable_component()
 
 /obj/item/proc/add_eatable_component()
 	AddComponent(/datum/component/eatable) // Base values are defined in component initialization.

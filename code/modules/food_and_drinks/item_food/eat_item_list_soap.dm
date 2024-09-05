@@ -1,7 +1,5 @@
 //===== Drask food =====
 //Soap
-/obj/item/soap
-	is_eatable = TRUE
 
 /obj/item/soap/add_eatable_component()
 	AddComponent( \

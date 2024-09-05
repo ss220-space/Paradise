@@ -1,7 +1,6 @@
 //==== =Moth-Nian-Tkach food =====
 /obj/item/bedsheet
 	material_type = MATERIAL_CLASS_CLOTH
-	is_eatable = TRUE
 
 /obj/item/clothing/bedsheet/add_eatable_component()
 	AddComponent( \
@@ -10,10 +9,6 @@
 	max_bites = 10, \
 	nutritional_value = 15, \
 	)
-
-/obj/item/clothing
-	material_type = MATERIAL_CLASS_NONE
-	is_eatable = TRUE
 
 /obj/item/clothing/add_eatable_component()
 	AddComponent( \
@@ -27,7 +22,6 @@
 //UNDER
 /obj/item/clothing/under
 	material_type = MATERIAL_CLASS_CLOTH
-	is_eatable = TRUE
 
 /obj/item/clothing/under/add_eatable_component()
 	AddComponent( \
@@ -38,20 +32,20 @@
 	nutritional_value = 10, \
 	)
 
-/obj/item/clothing/under/solgov
-	is_eatable = FALSE
-/obj/item/clothing/under/rank/centcom/blueshield
-	is_eatable = FALSE
-/obj/item/clothing/under/rank/centcom/officer
-	is_eatable = FALSE
-/obj/item/clothing/under/rank/centcom_commander
-	is_eatable = FALSE
-/obj/item/clothing/under/space
-	is_eatable = FALSE
-/obj/item/clothing/under/cursedclown
-	is_eatable = FALSE
-/obj/item/clothing/under/acj
-	is_eatable = FALSE
+/obj/item/clothing/under/solgov/add_eatable_component()
+	return
+/obj/item/clothing/under/rank/centcom/blueshield/add_eatable_component()
+	return
+/obj/item/clothing/under/rank/centcom/officer/add_eatable_component()
+	return
+/obj/item/clothing/under/rank/centcom_commander/add_eatable_component()
+	return
+/obj/item/clothing/under/space/add_eatable_component()
+	return
+/obj/item/clothing/under/cursedclown/add_eatable_component()
+	return
+/obj/item/clothing/under/acj/add_eatable_component()
+	return
 
 
 //NECK
@@ -82,16 +76,17 @@
 	is_only_grab_intent = TRUE, \
 	)
 
-/obj/item/clothing/accessory/holobadge
-	is_eatable = FALSE
-/obj/item/clothing/accessory/head_strip/lawyers_badge
-	is_eatable = FALSE
-/obj/item/clothing/accessory/necklace
-	is_eatable = FALSE
-/obj/item/clothing/accessory/medal
-	is_eatable = FALSE
-/obj/item/clothing/accessory/stethoscope
-	is_eatable = FALSE
+/obj/item/clothing/accessory/holobadge/add_eatable_component()
+	return
+/obj/item/clothing/accessory/head_strip/add_eatable_component()
+	return
+/obj/item/clothing/accessory/necklace/add_eatable_component()
+	return
+/obj/item/clothing/accessory/medal/add_eatable_component()
+	return
+/obj/item/clothing/accessory/stethoscope/add_eatable_component()
+	return
+	
 
 
 
@@ -108,18 +103,18 @@
 	nutritional_value = 10, \
 	)
 
-/obj/item/clothing/gloves/color/yellow
-	is_eatable = FALSE
-/obj/item/clothing/gloves/color/red/insulated
-	is_eatable = FALSE
-/obj/item/clothing/gloves/color/red/insulated
-	is_eatable = FALSE
-/obj/item/clothing/gloves/color/latex
-	is_eatable = FALSE
-/obj/item/clothing/gloves/color/captain
-	is_eatable = FALSE
-/obj/item/clothing/gloves/color/black/krav_maga
-	is_eatable = FALSE
+/obj/item/clothing/gloves/color/yellow/add_eatable_component()
+	return
+/obj/item/clothing/gloves/color/red/insulated/add_eatable_component()
+	return
+/obj/item/clothing/gloves/color/red/insulated/add_eatable_component()
+	return
+/obj/item/clothing/gloves/color/latex/add_eatable_component()
+	return
+/obj/item/clothing/gloves/color/captain/add_eatable_component
+	return
+/obj/item/clothing/gloves/color/black/krav_maga/add_eatable_component()
+	return
 
 
 //MASK
@@ -149,34 +144,34 @@
 	nutritional_value = 10, \
 	)
 
-/obj/item/clothing/head/helmet
-	is_eatable = FALSE
-/obj/item/clothing/head/helmet/space
-	is_eatable = FALSE
-/obj/item/clothing/head/collectable
-	is_eatable = FALSE
-/obj/item/clothing/head/caphat
-	is_eatable = FALSE
-/obj/item/clothing/head/det_hat
-	is_eatable = FALSE
-/obj/item/clothing/head/beret
-	is_eatable = FALSE
-/obj/item/clothing/head/HoS
-	is_eatable = FALSE
-/obj/item/clothing/head/warden
-	is_eatable = FALSE
-/obj/item/clothing/head/officer
-	is_eatable = FALSE
-/obj/item/clothing/head/surgery
-	is_eatable = FALSE
-/obj/item/clothing/head/welding
-	is_eatable = FALSE
-/obj/item/clothing/head/cakehat
-	is_eatable = FALSE
-/obj/item/clothing/head/kitty	//Нет. Нельзя.
-	is_eatable = FALSE
-/obj/item/clothing/head/headmirror
-	is_eatable = FALSE
+/obj/item/clothing/head/helmet/add_eatable_component()
+	return
+/obj/item/clothing/head/helmet/space/add_eatable_component()
+	return
+/obj/item/clothing/head/collectable/add_eatable_component()
+	return
+/obj/item/clothing/head/caphat/add_eatable_component()
+	return
+/obj/item/clothing/head/det_hat/add_eatable_component()
+	return
+/obj/item/clothing/head/beret/add_eatable_component()
+	return
+/obj/item/clothing/head/HoS/add_eatable_component()
+	return
+/obj/item/clothing/head/warden/add_eatable_component()
+	return
+/obj/item/clothing/head/officer/add_eatable_component()
+	return
+/obj/item/clothing/head/surgery/add_eatable_component()
+	return
+/obj/item/clothing/head/welding/add_eatable_component()
+	return
+/obj/item/clothing/head/cakehat/add_eatable_component()
+	return
+/obj/item/clothing/head/kitty/add_eatable_component()	//Нет. Нельзя.
+	return
+/obj/item/clothing/head/headmirror/add_eatable_component()
+	return
 
 
 
@@ -255,56 +250,56 @@
 	is_only_grab_intent = TRUE, \
 	)
 
-/obj/item/clothing/suit/chameleon
-	is_eatable = FALSE
-/obj/item/clothing/suit/space
-	is_eatable = FALSE
-/obj/item/clothing/suit/armor
-	is_eatable = FALSE
-/obj/item/clothing/suit/storage		//jacket e.t.c.
-	is_eatable = FALSE
-/obj/item/clothing/suit/fire
-	is_eatable = FALSE
+/obj/item/clothing/suit/chameleon/add_eatable_component()
+	return
+/obj/item/clothing/suit/space/add_eatable_component()
+	return
+/obj/item/clothing/suit/armor/add_eatable_component()
+	return
+/obj/item/clothing/suit/storage/add_eatable_component()		//jacket e.t.c.
+	return
+/obj/item/clothing/suit/fire/add_eatable_component()
+	return
 
 
 
 //Full Costume
-/obj/item/clothing/head/cardborg
-	is_eatable = FALSE
-/obj/item/clothing/suit/cardborg
-	is_eatable = FALSE
+/obj/item/clothing/head/cardborg/add_eatable_component()
+	return
+/obj/item/clothing/suit/cardborg/add_eatable_component()
+	return
 
-/obj/item/clothing/head/bio_hood
-	is_eatable = FALSE
-/obj/item/clothing/suit/bio_suit
-	is_eatable = FALSE
+/obj/item/clothing/head/bio_hood/add_eatable_component()
+	return
+/obj/item/clothing/suit/bio_suit/add_eatable_component()
+	return
 
-/obj/item/clothing/head/bomb_hood
-	is_eatable = FALSE
-/obj/item/clothing/suit/bomb_suit
-	is_eatable = FALSE
+/obj/item/clothing/head/bomb_hood/add_eatable_component()
+	return
+/obj/item/clothing/suit/bomb_suit/add_eatable_component()
+	return
 
-/obj/item/clothing/head/radiation
-	is_eatable = FALSE
-/obj/item/clothing/suit/radiation
-	is_eatable = FALSE
+/obj/item/clothing/head/radiation/add_eatable_component()
+	return
+/obj/item/clothing/suit/radiation/add_eatable_component()
+	return
 
-/obj/item/clothing/head/wizard
-	is_eatable = FALSE
-/obj/item/clothing/suit/wizrobe
-	is_eatable = FALSE
+/obj/item/clothing/head/wizard/add_eatable_component()
+	return
+/obj/item/clothing/suit/wizrobe/add_eatable_component()
+	return
 
-/obj/item/clothing/head/beekeeper_head
-	is_eatable = FALSE
-/obj/item/clothing/suit/beekeeper_suit
-	is_eatable = FALSE
+/obj/item/clothing/head/beekeeper_head/add_eatable_component()
+	return
+/obj/item/clothing/suit/beekeeper_suit/add_eatable_component()
+	return
 
-/obj/item/clothing/suit/hooded/explorer
-	is_eatable = FALSE
-/obj/item/clothing/head/hooded/explorer
-	is_eatable = FALSE
+/obj/item/clothing/suit/hooded/explorer/add_eatable_component()
+	return
+/obj/item/clothing/head/hooded/explorer/add_eatable_component()
+	return
 
-/obj/item/clothing/head/beanie/durathread
-	is_eatable = FALSE
-/obj/item/clothing/under/misc/durathread
-	is_eatable = FALSE
+/obj/item/clothing/head/beanie/durathread/add_eatable_component()
+	return
+/obj/item/clothing/under/misc/durathread/add_eatable_component()
+	return

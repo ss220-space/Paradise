@@ -2,7 +2,6 @@
 //Bad tech
 /obj/item/flashlight
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/flashlight/add_eatable_component()
 	AddComponent( \
@@ -15,7 +14,6 @@
 
 /obj/item/clothing/head/hardhat
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/clothing/head/hardhat/add_eatable_component()
 	AddComponent( \
@@ -27,7 +25,6 @@
 
 /obj/item/holosign_creator
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/holosign_creator/add_eatable_component()
 	AddComponent( \
@@ -39,7 +36,6 @@
 
 /obj/item/signmaker
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/signmaker/add_eatable_component()
 	AddComponent( \
@@ -51,7 +47,6 @@
 
 /obj/item/pipe_painter
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/pipe_painter/add_eatable_component()
 	AddComponent( \
@@ -63,7 +58,6 @@
 
 /obj/item/airlock_painter
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/airlock_painter/add_eatable_component()
 	AddComponent( \
@@ -75,7 +69,6 @@
 
 /obj/item/laser_pointer
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/laser_pointer/add_eatable_component()
 	AddComponent( \
@@ -87,7 +80,6 @@
 
 /obj/item/radio
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/radio/add_eatable_component()
 	AddComponent( \
@@ -99,7 +91,6 @@
 
 /obj/item/gps
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/gps/add_eatable_component()
 	AddComponent( \
@@ -113,7 +104,6 @@
 //Medium tech
 /obj/item/t_scanner
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/t_scanner/add_eatable_component()
 	AddComponent( \
@@ -124,7 +114,6 @@
 
 /obj/item/slime_scanner
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/slime_scanner/add_eatable_component()
 	AddComponent( \
@@ -135,7 +124,6 @@
 
 /obj/item/sensor_device
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/sensor_device/add_eatable_component()
 	AddComponent( \
@@ -146,7 +134,6 @@
 
 /obj/item/mining_scanner
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/mining_scanner/add_eatable_component()
 	AddComponent( \
@@ -158,7 +145,6 @@
 
 /obj/item/pinpointer
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/pinpointer/add_eatable_component()
 	AddComponent( \
@@ -170,7 +156,6 @@
 //Используемые на карбонах
 /obj/item/healthanalyzer
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/healthanalyzer/add_eatable_component()
 	AddComponent( \
@@ -183,7 +168,6 @@
 
 /obj/item/bodyanalyzer
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/bodyanalyzer/add_eatable_component()
 	AddComponent( \
@@ -204,7 +188,6 @@
 
 /obj/item/plant_analyzer
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/plant_analyzer/add_eatable_component()
 	AddComponent( \
@@ -216,7 +199,6 @@
 
 /obj/item/autopsy_scanner
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/autopsy_scanner/add_eatable_component()
 	AddComponent( \
@@ -228,7 +210,6 @@
 
 /obj/item/reagent_scanner
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/reagent_scanner/add_eatable_component()
 	AddComponent( \
@@ -250,7 +231,6 @@
 
 /obj/item/analyzer
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/analyzer/add_eatable_component()
 	AddComponent( \
@@ -262,7 +242,6 @@
 
 /obj/item/melee/baton/security
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/melee/baton/security/add_eatable_component()
 	AddComponent( \
@@ -287,7 +266,6 @@
 //Good tech
 /obj/item/circuitboard
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/circuitboard/add_eatable_component()
 	AddComponent( \
@@ -298,7 +276,6 @@
 
 /obj/item/borg/upgrade
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/borg/upgrade/add_eatable_component()
 	AddComponent( \
@@ -309,7 +286,6 @@
 
 /obj/item/multitool
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/multitool/add_eatable_component()
 	AddComponent( \
@@ -337,7 +313,6 @@
 
 /obj/item/radio/headset
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/radio/headset/add_eatable_component()
 	AddComponent( \
@@ -352,7 +327,6 @@
 	light_system = MOVABLE_LIGHT_DIRECTIONAL
 	light_range = 2
 	light_power = 1
-	is_eatable = TRUE
 
 /obj/item/pda/add_eatable_component()
 	AddComponent( \
@@ -365,7 +339,6 @@
 
 /obj/item/paicard
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/paicard/add_eatable_component()
 	AddComponent( \
@@ -377,7 +350,6 @@
 
 /obj/item/machineprototype
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/machineprototype/add_eatable_component()
 	AddComponent( \
@@ -389,7 +361,6 @@
 
 /obj/item/mobcapsule //lazarus
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/mobcapsule/add_eatable_component()
 	AddComponent( \
@@ -401,7 +372,6 @@
 
 /obj/item/camera_bug	//Hakuna matata
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/camera_bug/add_eatable_component()
 	AddComponent( \
@@ -414,7 +384,6 @@
 
 /obj/item/door_remote
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/door_remote/add_eatable_component()
 	AddComponent( \
@@ -427,7 +396,6 @@
 
 /obj/item/encryptionkey
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/encryptionkey/add_eatable_component()
 	AddComponent( \
@@ -435,9 +403,6 @@
 	material_type = src.material_type, \
 	nutritional_value = 30, \
 	)
-
-/obj/item/implanter
-	is_eatable = TRUE
 
 /obj/item/implanter/add_eatable_component()
 	AddComponent( \
@@ -448,7 +413,6 @@
 
 /obj/item/radio/beacon
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/radio/beacon/add_eatable_component()
 	AddComponent( \
@@ -459,7 +423,6 @@
 
 /obj/item/aicard	//тяжело жуется
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/aicard/add_eatable_component()
 	AddComponent( \
@@ -471,7 +434,6 @@
 
 /obj/item/holder/drone
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/holder/drone/add_eatable_component()
 	AddComponent( \
@@ -484,7 +446,6 @@
 //Parts
 /obj/item/pod_parts/core
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/pod_parts/core/add_eatable_component()
 	AddComponent( \
@@ -496,7 +457,6 @@
 
 /obj/item/airlock_electronics
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/airlock_electronics/add_eatable_component()
 	AddComponent( \
@@ -507,7 +467,6 @@
 
 /obj/item/airalarm_electronics
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/airalarm_electronics/add_eatable_component()
 	AddComponent( \
@@ -518,7 +477,6 @@
 
 /obj/item/apc_electronics
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/apc_electronics/add_eatable_component()
 	AddComponent( \
@@ -528,7 +486,6 @@
 
 /obj/item/assembly
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/assembly/add_eatable_component()
 	AddComponent( \
@@ -538,7 +495,6 @@
 
 /obj/item/stock_parts
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/stock_parts/add_eatable_component()
 	AddComponent( \
@@ -655,7 +611,6 @@
 //Syndie devices
 /obj/item/rad_laser	//health analyzer с радиацией. Смаковать таким одно удовольствие. Если конечно найдут.
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/rad_laser/add_eatable_component()
 	AddComponent( \
@@ -668,7 +623,6 @@
 
 /obj/item/jammer
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/jammer/add_eatable_component()
 	AddComponent( \
@@ -680,7 +634,6 @@
 
 /obj/item/teleporter	//Нет, это не хайриск, это синди-телепортер
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/teleporter/add_eatable_component()
 	AddComponent( \
@@ -692,7 +645,6 @@
 
 /obj/item/batterer
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/batterer/add_eatable_component()
 	AddComponent( \
@@ -705,7 +657,6 @@
 
 /obj/item/card/emag		//Каждый кусочек по ощущениям растекается словно мед по твоим воксовым кубам...
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/card/emag/add_eatable_component()
 	AddComponent( \
@@ -718,7 +669,6 @@
 
 /obj/item/card/emag_broken
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/card/emag_broken/add_eatable_component()
 	AddComponent( \
@@ -730,7 +680,6 @@
 
 /obj/item/card/data/clown
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/card/data/clown/add_eatable_component()
 	AddComponent( \
@@ -742,7 +691,6 @@
 
 /obj/item/access_control
 	material_type = MATERIAL_CLASS_TECH
-	is_eatable = TRUE
 
 /obj/item/access_control/add_eatable_component()
 	AddComponent( \
