@@ -3130,3 +3130,51 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 /area/ruin/space/pirate_base/black_market
 	name = "Black Market"
 	icon_state = "awaycontent23"
+
+/// Cluwne ruin
+
+/area/ruin/space/cluwne_ruin
+	name = "Cluwne ruin"
+	icon_state = "dk_yellow"
+	there_can_be_many = TRUE
+	
+/area/ruin/space/cluwne_ruin/playroom
+	name = "Cluwne playroom"
+	icon_state = "dk_yellow"
+	
+/area/ruin/space/cluwne_ruin/altair
+	name = "Cluwne altair"
+	icon_state = "dk_yellow"
+	/// Used to avoid of sending HONK on humans who earlier entered area.
+	var/used_UIDs = list()
+
+/area/ruin/space/cluwne_ruin/altair/Entered(atom/movable/arrived, area/old_area)
+	. = ..()
+	if(!ishuman(arrived))
+		return
+	if((!arrived.mind) || (LAZYIN(used_UIDs, arrived.UID())))
+		return
+
+	var/mob/living/carbon/human/human = arrived
+	var/obj/item/clothing/mask/cursedclown/fake/mask = locate() in contents
+	to_chat(human, "<font color='red' size='7'>HONK</font>")
+	SEND_SOUND(human, sound('sound/items/airhorn.ogg'))
+	human.SetKnockdown(4 SECONDS)
+	mask?.atom_say("Надень меня... [human.name]")
+	LAZYADD(used_UIDs, human.UID())
+	
+/area/ruin/space/cluwne_ruin/botany
+	name = "Cluwne botany"
+	icon_state = "dk_yellow"
+	
+/area/ruin/space/cluwne_ruin/kitchen
+	name = "Cluwne kitchen"
+	icon_state = "dk_yellow"
+	
+/area/ruin/space/cluwne_ruin/wardrobe
+	name = "Cluwne wardrobe"
+	icon_state = "dk_yellow"
+	
+area/ruin/space/cluwne_ruin/hallway
+	name = "Cluwne hallway"
+	icon_state = "dk_yellow"
