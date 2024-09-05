@@ -6415,6 +6415,25 @@
 	},
 /obj/item/pen,
 /obj/item/hand_labeler,
+/obj/item/storage/pill_bottle/patch_pack{
+	pixel_y = 16
+	},
+/obj/item/storage/pill_bottle/patch_pack{
+	pixel_y = 16;
+	pixel_x = -2
+	},
+/obj/item/storage/pill_bottle/patch_pack{
+	pixel_y = 16;
+	pixel_x = -4
+	},
+/obj/item/storage/pill_bottle/patch_pack{
+	pixel_y = 16;
+	pixel_x = -6
+	},
+/obj/item/storage/pill_bottle/patch_pack{
+	pixel_y = 16;
+	pixel_x = -8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -10637,6 +10656,10 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering/storage)
+"jHV" = (
+/obj/item/stack/tape_roll/thick,
+/turf/space,
+/area/space)
 "jIH" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
@@ -13637,6 +13660,9 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/item/stack/tape_roll/thick,
+/obj/item/stack/tape_roll/thick,
+/obj/item/stack/tape_roll/thick,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -52196,8 +52222,8 @@ mEC
 mEC
 mEC
 mEC
-mEC
-mEC
+jHV
+jHV
 mEC
 mEC
 mEC
