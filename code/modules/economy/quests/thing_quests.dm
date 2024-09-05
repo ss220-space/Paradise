@@ -483,7 +483,7 @@
 		"WEAK" = 150,
 		"HORNS" = 150,
 		"COMIC" = 150,
-		"NOLEGS" = 150,
+		"PARAPLEGIA" = 150,
 	)
 
 	hard_items = list(
