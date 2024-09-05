@@ -3152,10 +3152,10 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	. = ..()
 	if(!ishuman(arrived))
 		return
-	if((!arrived.mind) || (LAZYIN(used_UIDs, arrived.UID())))
+	var/mob/living/carbon/human/human = arrived
+	if((!human.mind) || (LAZYIN(used_UIDs, human.UID())))
 		return
 
-	var/mob/living/carbon/human/human = arrived
 	var/obj/item/clothing/mask/cursedclown/fake/mask = locate() in contents
 	to_chat(human, "<font color='red' size='7'>HONK</font>")
 	SEND_SOUND(human, sound('sound/items/airhorn.ogg'))
