@@ -29,7 +29,7 @@
 	material_type = MATERIAL_CLASS_CLOTH
 	is_eatable = TRUE
 
-/obj/item/clothing/neck/add_eatable_component()
+/obj/item/clothing/under/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = src.material_type, \
@@ -63,6 +63,7 @@
 	/datum/component/eatable, \
 	material_type = src.material_type, \
 	max_bites = 8, \
+	integrity_bite = 20, \
 	nutritional_value = 10, \
 	)
 

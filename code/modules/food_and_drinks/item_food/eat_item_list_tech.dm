@@ -81,7 +81,6 @@
 	AddComponent( \
 	/datum/component/eatable, \
 	material_type = src.material_type, \
-	max_bites = 1, \
 	nutritional_value = 15, \
 	is_only_grab_intent = TRUE, \
 	)
@@ -740,6 +739,10 @@
 	max_bites = 1000, \
 	nutritional_value = 1, \
 	)
+
+/obj/item/access_control
+	material_type = MATERIAL_CLASS_TECH
+	is_eatable = TRUE
 
 /obj/item/access_control/add_eatable_component()
 	AddComponent( \

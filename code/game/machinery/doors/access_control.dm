@@ -11,7 +11,6 @@
 	req_access = list(ACCESS_ENGINE)
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
-	material_type = MATERIAL_CLASS_TECH
 
 	/// List of accesses currently set
 	var/list/selected_accesses = list()
