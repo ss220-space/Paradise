@@ -3175,6 +3175,6 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	name = "Cluwne wardrobe"
 	icon_state = "dk_yellow"
 	
-area/ruin/space/cluwne_ruin/hallway
+/area/ruin/space/cluwne_ruin/hallway
 	name = "Cluwne hallway"
 	icon_state = "dk_yellow"
