@@ -38,12 +38,12 @@
 	var/list/timers = list()
 	for(var/obj/machinery/door_timer/T in GLOB.celltimers_list)
 		var/timer = list()
-		timer["Камера"] = T.name
-		timer["Заключённый"] = T.occupant
-		timer["Обвинения"] = T.crimes
-		timer["Сотрудник"] = T.officer
-		timer["Срок"] = round(T.timetoset / 10, 1)
-		timer["Осталось"] = round(T.timeleft(), 1)
+		timer["cell_id"] = T.name
+		timer["occupant"] = T.occupant
+		timer["crimes"] = T.crimes
+		timer["brigged_by"] = T.officer
+		timer["time_set_seconds"] = round(T.timetoset / 10, 1)
+		timer["time_left_seconds"] = round(T.timeleft(), 1)
 		timer["ref"] = "\ref[T]"
 		timers[++timers.len] += timer
 	timers = sortByKey(timers, "cell_id")
