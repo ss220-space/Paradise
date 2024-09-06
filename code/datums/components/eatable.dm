@@ -31,7 +31,7 @@
 	src.is_only_grab_intent = is_only_grab_intent
 	
 /datum/component/eatable/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_ITEM_PRE_ATTACKBY, PROC_REF(try_eat_item))
+	RegisterSignal(parent, COMSIG_ITEM_PRE_ATTACKBY, PROC_REF(pre_try_eat_item))
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 
 /datum/component/eatable/UnregisterFromParent()
@@ -62,7 +62,12 @@
 		text = "Осталась одна труха..."
 	return text
 
-/datum/component/eatable/proc/try_eat_item(datum/source, mob/living/carbon/human/target, mob/user)
+/datum/component/eatable/proc/pre_try_eat_item(datum/source, mob/living/carbon/human/target, mob/user)
+	SIGNAL_HANDLER
+
+	INVOKE_ASYNC(src, PROC_REF(try_eat_item), target, user)
+
+/datum/component/eatable/proc/try_eat_item(mob/living/carbon/human/target, mob/user)
 	if(!istype(target))
 		return FALSE
 	if(!(material_type & target.dna.species.special_diet))
