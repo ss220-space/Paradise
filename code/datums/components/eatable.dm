@@ -64,16 +64,16 @@
 
 /datum/component/eatable/proc/pre_try_eat_item(datum/source, mob/living/carbon/human/target, mob/user)
 	SIGNAL_HANDLER
-
-	INVOKE_ASYNC(src, PROC_REF(try_eat_item), target, user)
-
-/datum/component/eatable/proc/try_eat_item(mob/living/carbon/human/target, mob/user)
+	
 	if(!istype(target))
 		return FALSE
 	if(!(material_type & target.dna.species.special_diet))
 		return FALSE
 	if(is_only_grab_intent && user.a_intent != INTENT_GRAB)
 		return FALSE
+	INVOKE_ASYNC(src, PROC_REF(try_eat_item), target, user)
+
+/datum/component/eatable/proc/try_eat_item(mob/living/carbon/human/target, mob/user)
 
 	var/obj/item/item = parent
 
