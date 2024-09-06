@@ -114,6 +114,8 @@
 		/obj/item/organ/internal/heart/slime = 210,
 		/obj/item/organ/internal/liver/diona = 300,
 		/obj/item/organ/internal/lungs/unathi/ash_walker = 325,
+		/obj/item/organ/internal/eyes/unathi/ash_walker = 350,
+		/obj/item/organ/internal/eyes/unathi/ash_walker_shaman = 350,
 		/obj/item/organ/internal/lantern = 400
 	)
 	very_hard_items = list(
