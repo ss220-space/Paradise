@@ -1200,6 +1200,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		to_chat(usr, "<span class='warning'>You cannot lock your cover yourself. Find a robotocist.</span>")
 		return
 	if(tgui_alert(usr, "You cannnot lock your own cover again. Are you sure?\nYou will need a roboticist to re-lock you.", "Unlock Own Cover", list("Yes", "No")) == "Yes")
+		locked = FALSE
 		update_icons()
 		to_chat(usr, "<span class='notice'>You unlock your cover.</span>")
 
