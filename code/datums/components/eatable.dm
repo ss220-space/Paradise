@@ -42,10 +42,8 @@
 
 	if(!istype(human))
 		return
-
 	if(material_type & human.dna.species.special_diet)
 		examine_list += "Вкуснятина! [is_only_grab_intent ? "\nНужно аккуратно есть." : ""]"
-
 	if(!isstack(parent))
 		examine_list += get_bite_info()
 
@@ -64,19 +62,18 @@
 
 /datum/component/eatable/proc/pre_try_eat_item(datum/source, mob/living/carbon/human/target, mob/user)
 	SIGNAL_HANDLER
-	
+
 	if(!istype(target))
 		return FALSE
 	if(!(material_type & target.dna.species.special_diet))
 		return FALSE
 	if(is_only_grab_intent && user.a_intent != INTENT_GRAB)
 		return FALSE
+
 	INVOKE_ASYNC(src, PROC_REF(try_eat_item), target, user)
 
 /datum/component/eatable/proc/try_eat_item(mob/living/carbon/human/target, mob/user)
-
 	var/obj/item/item = parent
-
 	var/chat_message_to_user = "Вы кормите [target] [item.name]."
 	var/chat_message_to_target = "[user] покормил вас [item.name]."
 
@@ -127,14 +124,14 @@
 			to_chat(user, span_notice("[target == user ? "Вы доели" : "[target] доел"] [item.name]."))
 			qdel(item)
 
-/datum/component/eatable/proc/forceFed(mob/living/carbon/target, mob/user, var/instant_application = FALSE)
+/datum/component/eatable/proc/forceFed(mob/living/carbon/human/target, mob/user, var/instant_application = FALSE)
 	var/obj/item/item = parent
-	if(!instant_application)
-		item.visible_message(span_warning("[user] пытается накормить [target], запихивая в рот [item.name]."))
 
 	if(!instant_application)
+		item.visible_message(span_warning("[user] пытается накормить [target], запихивая в рот [item.name]."))
 		if(!do_after(user, target, 2 SECONDS, NONE))
 			return FALSE
+			
 	return TRUE
 
 /datum/component/eatable/proc/get_colour()
