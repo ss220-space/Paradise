@@ -1,6 +1,9 @@
 //===== Drask food =====
 //Soap
 
+/obj/item/soap
+	material_type = MATERIAL_CLASS_SOAP
+
 /obj/item/soap/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
