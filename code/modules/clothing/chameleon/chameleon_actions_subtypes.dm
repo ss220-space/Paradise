@@ -9,6 +9,10 @@
 	chameleon_name = "Stamp"
 	chameleon_type = /obj/item/stamp
 
+/datum/action/item_action/chameleon/change/stamp/initialize_blacklist()
+	. = ..()
+	chameleon_blacklist |= typecacheof(list(/obj/item/stamp/syndicate/taipan), only_root_path = TRUE)
+
 
 // PDA
 /datum/action/item_action/chameleon/change/pda
