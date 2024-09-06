@@ -143,7 +143,7 @@
 		return TRUE
 	return FALSE
 
-/datum/job/proc/character_race_notright(client/C)
+/datum/job/proc/species_in_blacklist(client/C)
 	if(!C)
 		return FALSE
 	if(C.prefs.species in blocked_race_for_job)

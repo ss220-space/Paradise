@@ -94,7 +94,7 @@ SUBSYSTEM_DEF(jobs)
 			return 0
 		if(!job.character_old_enough(player.client))
 			return 0
-		if(!job.character_race_notright(player.client))
+		if(!job.species_in_blacklist(player.client))
 			return 0
 
 		var/position_limit = job.total_positions
@@ -160,7 +160,7 @@ SUBSYSTEM_DEF(jobs)
 		if(player.mind && (job.title in player.mind.restricted_roles))
 			Debug("FOC incompatbile with antagonist role, Player: [player]")
 			continue
-		if(job.character_race_notright(player.client))
+		if(job.species_in_blacklist(player.client))
 			Debug("FOC player character race isn't right for job, Player: [player]")
 		if(player.client.prefs.GetJobDepartment(job, level) & job.flag)
 			Debug("FOC pass, Player: [player], Level:[level]")
@@ -213,7 +213,7 @@ SUBSYSTEM_DEF(jobs)
 			Debug("GRJ incompatible with antagonist role, Player: [player], Job: [job.title]")
 			continue
 
-		if(job.character_race_notright(player.client))
+		if(job.species_in_blacklist(player.client))
 			Debug("GRJ player character race rendering them ineligible for job, Player: [player]")
 			continue
 
@@ -388,7 +388,7 @@ SUBSYSTEM_DEF(jobs)
 				if(player.mind && (job.title in player.mind.restricted_roles))
 					Debug("DO incompatible with antagonist role, Player: [player], Job:[job.title]")
 					continue
-				if(job.character_race_notright(player.client))
+				if(job.species_in_blacklist(player.client))
 					Debug("DO player character race rendering them ineligible for job, Player: [player]")
 					continue
 

@@ -389,7 +389,7 @@
 		alert(msg)
 		return FALSE
 
-	if(thisjob.character_race_notright(client))
+	if(thisjob.species_in_blacklist(client))
 		var/msg = "Должность [rank] недоступна для данной расы. Выберите другую."
 		to_chat(src, msg)
 		alert(msg)
