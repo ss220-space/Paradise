@@ -6415,25 +6415,7 @@
 	},
 /obj/item/pen,
 /obj/item/hand_labeler,
-/obj/item/storage/pill_bottle/patch_pack{
-	pixel_y = 16
-	},
-/obj/item/storage/pill_bottle/patch_pack{
-	pixel_y = 16;
-	pixel_x = -2
-	},
-/obj/item/storage/pill_bottle/patch_pack{
-	pixel_y = 16;
-	pixel_x = -4
-	},
-/obj/item/storage/pill_bottle/patch_pack{
-	pixel_y = 16;
-	pixel_x = -6
-	},
-/obj/item/storage/pill_bottle/patch_pack{
-	pixel_y = 16;
-	pixel_x = -8
-	},
+/obj/item/storage/box/patch_packs,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -10255,7 +10237,7 @@
 	dir = 1;
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/main/west_arrivals)
+/area/space)
 "jta" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -13656,9 +13638,9 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/item/stack/tape_roll/thick,
-/obj/item/stack/tape_roll/thick,
-/obj/item/stack/tape_roll/thick,
+/obj/item/stack/tape_roll/thick{
+	amount = 120
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -25014,7 +24996,7 @@
 	dir = 1;
 	icon_state = "dark"
 	},
-/area/syndicate/unpowered/syndicate_space_base/medbay)
+/area/space)
 "uOc" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -29396,7 +29378,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/syndicate/unpowered/syndicate_space_base/cargo)
+/area/space)
 "xHx" = (
 /obj/effect/spawner/random_spawners/syndicate/turret/external{
 	use_power = 1
