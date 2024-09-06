@@ -6,8 +6,7 @@
 
 // Mutable appearances erase template vars on new, because they accept an appearance to copy as an arg
 // If we have nothin to copy, we set the float plane
-/mutable_appearance/New(mutable_appearance/to_copy)
-	..()
+/mutable_appearance/proc/New(mutable_appearance/to_copy)
 	if(!to_copy)
 		plane = FLOAT_PLANE
 
