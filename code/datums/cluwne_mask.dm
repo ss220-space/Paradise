@@ -16,7 +16,7 @@
 	/// Global cooldown of our actions. If true - your abilities won't work.
 	COOLDOWN_DECLARE(global_cooldown)
 	
-/datum/cluwne_mask/proc/transform(mob/living/carbon/human/human)
+/datum/cluwne_mask/proc/pre_transform(mob/living/carbon/human/human, list/arguments)
 	if(!istype(human))
 		return
 	if(!human.mind)
@@ -24,7 +24,7 @@
 	cluwne = human
 	pda = human.wear_pda
 	bikehorn = human.find_item(/obj/item/bikehorn)
-	init_cluwne()
+	init_cluwne(arglist(arguments))
 	
 /datum/cluwne_mask/proc/init_cluwne(
 	should_transform = TRUE,

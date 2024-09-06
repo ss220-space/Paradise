@@ -641,7 +641,7 @@
 	if(istype(human) && slot == ITEM_SLOT_MASK)
 		to_chat(human, span_danger("[src] grips your face!"))
 		if(human.mind?.assigned_role != "Cluwne")
-			cluwne_mask.transform(human)	
+			cluwne_mask.pre_transform(human)	
 
 /obj/item/clothing/mask/cursedclown/fake/Destroy(force)
 	QDEL_NULL(cluwne_mask) // will dust cluwne
