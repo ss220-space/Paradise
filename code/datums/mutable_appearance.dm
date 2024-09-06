@@ -13,7 +13,7 @@
 		plane = FLOAT_PLANE
 #else
 /mutable_appearance/New(mutable_appearance/to_copy)
-	. = ..()
+	..()
 	if(!to_copy)
 		plane = FLOAT_PLANE
 #endif
