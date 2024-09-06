@@ -94,6 +94,8 @@ SUBSYSTEM_DEF(jobs)
 			return 0
 		if(!job.character_old_enough(player.client))
 			return 0
+		if(!job.character_race_notright(player.client))
+			return 0
 
 		var/position_limit = job.total_positions
 		if(!latejoin)
@@ -158,6 +160,8 @@ SUBSYSTEM_DEF(jobs)
 		if(player.mind && (job.title in player.mind.restricted_roles))
 			Debug("FOC incompatbile with antagonist role, Player: [player]")
 			continue
+		if(job.character_race_notright(player.client))
+			Debug("FOC player character race isn't right for job, Player: [player]")
 		if(player.client.prefs.GetJobDepartment(job, level) & job.flag)
 			Debug("FOC pass, Player: [player], Level:[level]")
 			candidates += player
@@ -207,6 +211,10 @@ SUBSYSTEM_DEF(jobs)
 
 		if(player.mind && (job.title in player.mind.restricted_roles))
 			Debug("GRJ incompatible with antagonist role, Player: [player], Job: [job.title]")
+			continue
+
+		if(job.character_race_notright(player.client))
+			Debug("GRJ player character race rendering them ineligible for job, Player: [player]")
 			continue
 
 		if((job.current_positions < job.spawn_positions) || job.spawn_positions == -1)
@@ -379,6 +387,9 @@ SUBSYSTEM_DEF(jobs)
 
 				if(player.mind && (job.title in player.mind.restricted_roles))
 					Debug("DO incompatible with antagonist role, Player: [player], Job:[job.title]")
+					continue
+				if(job.character_race_notright(player.client))
+					Debug("DO player character race rendering them ineligible for job, Player: [player]")
 					continue
 
 				// If the player wants that job on this level, then try give it to him.
