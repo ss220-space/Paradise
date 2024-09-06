@@ -3138,15 +3138,11 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "dk_yellow"
 	there_can_be_many = TRUE
 	
-/area/ruin/space/cluwne_ruin/playroom
-	name = "Cluwne playroom"
-	icon_state = "dk_yellow"
-	
 /area/ruin/space/cluwne_ruin/altair
 	name = "Cluwne altair"
-	icon_state = "dk_yellow"
+	icon_state = "green"
 	/// Used to avoid of sending HONK on humans who earlier entered area.
-	var/used_UIDs = list()
+	var/list/used_UIDs = list()
 
 /area/ruin/space/cluwne_ruin/altair/Entered(atom/movable/arrived, area/old_area)
 	. = ..()
@@ -3162,19 +3158,3 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	human.SetKnockdown(4 SECONDS)
 	mask?.atom_say("Надень меня... [human.name]")
 	LAZYADD(used_UIDs, human.UID())
-	
-/area/ruin/space/cluwne_ruin/botany
-	name = "Cluwne botany"
-	icon_state = "dk_yellow"
-	
-/area/ruin/space/cluwne_ruin/kitchen
-	name = "Cluwne kitchen"
-	icon_state = "dk_yellow"
-	
-/area/ruin/space/cluwne_ruin/wardrobe
-	name = "Cluwne wardrobe"
-	icon_state = "dk_yellow"
-	
-/area/ruin/space/cluwne_ruin/hallway
-	name = "Cluwne hallway"
-	icon_state = "dk_yellow"
