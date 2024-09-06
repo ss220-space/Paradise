@@ -17607,7 +17607,6 @@
 "cAH" = (
 /obj/structure/spirit_board,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -42018,8 +42017,6 @@
 	pixel_y = 2
 	},
 /obj/item/toy/figure/roboticist,
-/obj/item/storage/belt/utility,
-/obj/item/storage/belt/utility,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple";
@@ -83201,32 +83198,9 @@
 "mCJ" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/wardrobe/robotics_black,
-/obj/item/clothing/head/welding{
-	pixel_x = -3;
-	pixel_y = 5
-	},
 /obj/item/storage/belt/utility,
-/obj/item/clothing/head/welding{
-	pixel_x = -3;
-	pixel_y = 5
-	},
 /obj/item/clothing/glasses/welding,
 /obj/item/clothing/glasses/welding,
-/obj/item/clothing/glasses/hud/diagnostic{
-	pixel_x = 2;
-	pixel_y = 5
-	},
-/obj/item/clothing/glasses/hud/diagnostic{
-	pixel_x = 2;
-	pixel_y = 5
-	},
-/obj/item/clothing/glasses/hud/diagnostic{
-	pixel_x = 2;
-	pixel_y = 5
-	},
-/obj/item/radio/headset/headset_sci{
-	pixel_x = -3
-	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple";
@@ -113716,8 +113690,30 @@
 /turf/simulated/floor/plating,
 /area/medical/virology/lab)
 "rfF" = (
-/obj/machinery/computer/roboquest,
 /obj/effect/decal/warning_stripes/northeast,
+/obj/structure/closet/crate/sci,
+/obj/item/storage/belt/utility,
+/obj/item/storage/belt/utility,
+/obj/item/clothing/head/welding{
+	pixel_x = -3;
+	pixel_y = 5
+	},
+/obj/item/clothing/head/welding{
+	pixel_x = -3;
+	pixel_y = 5
+	},
+/obj/item/clothing/glasses/hud/diagnostic{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/obj/item/clothing/glasses/hud/diagnostic{
+	pixel_x = 2;
+	pixel_y = 5
+	},
+/obj/item/clothing/glasses/hud/diagnostic{
+	pixel_x = 2;
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -149849,6 +149845,7 @@
 	dir = 1;
 	in_use = 1
 	},
+/mob/living/simple_animal/hostile/retaliate/luu,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -154039,9 +154036,6 @@
 "xfe" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/secure_closet/roboticist,
-/obj/item/radio/headset/headset_sci{
-	pixel_x = -3
-	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple";
