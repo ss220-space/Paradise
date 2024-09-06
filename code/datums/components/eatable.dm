@@ -63,8 +63,6 @@
 	return text
 
 /datum/component/eatable/proc/try_eat_item(datum/source, mob/living/carbon/human/target, mob/user)
-	SIGNAL_HANDLER
-	
 	if(!istype(target))
 		return FALSE
 	if(!(material_type & target.dna.species.special_diet))
