@@ -44,10 +44,11 @@
 /datum/component/eatable/proc/on_examine(datum/source, mob/living/carbon/human/human, list/examine_list)
 	SIGNAL_HANDLER
 
+	examine_list += item_string_material()
+	
 	if(!istype(human))
 		return
 	
-	examine_list += item_string_material()
 	if(material_type & human.dna.species.special_diet)
 		examine_list += "Вкуснятина! [is_only_grab_intent ? "\nНужно аккуратно есть." : ""]"
 	if(!isstack(parent))
