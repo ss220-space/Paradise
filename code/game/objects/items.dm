@@ -195,9 +195,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/enchant_type = NO_SPELL // What's the type on enchantment on it? 0
 	var/list/enchants = null // List(datum)
 
-	//eat_items.dm
-	var/material_type = MATERIAL_CLASS_NONE
-
 	///In deciseconds, how long an item takes to equip/unequip; counts only for normal clothing slots, not pockets, hands etc.
 	var/equip_delay_self = 0 SECONDS
 
@@ -292,7 +289,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(WEIGHT_CLASS_GIGANTIC)
 			size = "gigantic"
 
-	. = ..(user, "", "It is a [size] item. [item_string_material()]")
+	. = ..(user, "", "It is a [size] item.")
 
 	if(user.research_scanner) //Mob has a research scanner active.
 		var/msg = "*--------* <BR>"

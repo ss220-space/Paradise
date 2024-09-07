@@ -42,6 +42,8 @@
 
 	if(!istype(human))
 		return
+	
+	examine_list += item_string_material()
 	if(material_type & human.dna.species.special_diet)
 		examine_list += "Вкуснятина! [is_only_grab_intent ? "\nНужно аккуратно есть." : ""]"
 	if(!isstack(parent))
@@ -59,6 +61,19 @@
 	else if((current_bites >= bites_split * 3))
 		text = "Осталась одна труха..."
 	return text
+
+/datum/component/eatable/proc/item_string_material()
+	var/material_string
+	switch(material_type)
+		if(MATERIAL_CLASS_NONE)
+			return
+		if(MATERIAL_CLASS_CLOTH)
+			material_string = "\nТканевый предмет."
+		if(MATERIAL_CLASS_TECH)
+			material_string = "\nТехнологичный предмет."
+		if(MATERIAL_CLASS_SOAP)
+			material_string = "\nМыльный предмет."
+	return material_string
 
 /datum/component/eatable/proc/pre_try_eat_item(datum/source, mob/living/carbon/human/target, mob/user)
 	SIGNAL_HANDLER

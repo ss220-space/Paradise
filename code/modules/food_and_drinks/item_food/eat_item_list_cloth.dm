@@ -1,11 +1,8 @@
 //==== =Moth-Nian-Tkach food =====
-/obj/item/bedsheet
-	material_type = MATERIAL_CLASS_CLOTH
-
 /obj/item/clothing/bedsheet/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
-	material_type = src.material_type, \
+	material_type = MATERIAL_CLASS_CLOTH, \
 	max_bites = 10, \
 	nutritional_value = 15, \
 	)
@@ -13,20 +10,17 @@
 /obj/item/clothing/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
-	material_type = src.material_type, \
+	material_type = MATERIAL_CLASS_CLOTH, \
 	max_bites = 10, \
 	integrity_bite = 20, \
 	nutritional_value = 5, \
 	)
 
 //UNDER
-/obj/item/clothing/under
-	material_type = MATERIAL_CLASS_CLOTH
-
 /obj/item/clothing/under/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
-	material_type = src.material_type, \
+	material_type = MATERIAL_CLASS_CLOTH, \
 	max_bites = 10, \
 	integrity_bite = 40, \
 	nutritional_value = 10, \
@@ -49,13 +43,10 @@
 
 
 //NECK
-/obj/item/clothing/neck
-	material_type = MATERIAL_CLASS_CLOTH
-
 /obj/item/clothing/neck/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
-	material_type = src.material_type, \
+	material_type = MATERIAL_CLASS_CLOTH, \
 	max_bites = 8, \
 	integrity_bite = 20, \
 	nutritional_value = 10, \
@@ -63,13 +54,10 @@
 
 
 //ACCESSORY
-/obj/item/clothing/accessory
-	material_type = MATERIAL_CLASS_CLOTH
-
 /obj/item/clothing/accessory/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
-	material_type = src.material_type, \
+	material_type = MATERIAL_CLASS_CLOTH, \
 	max_bites = 10, \
 	integrity_bite = 20, \
 	nutritional_value = 5, \
@@ -91,13 +79,10 @@
 
 
 //GLOVES
-/obj/item/clothing/gloves
-	material_type = MATERIAL_CLASS_CLOTH
-
 /obj/item/clothing/gloves/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
-	material_type = src.material_type, \
+	material_type = MATERIAL_CLASS_CLOTH, \
 	max_bites = 2, \
 	integrity_bite = 20, \
 	nutritional_value = 10, \
@@ -118,13 +103,10 @@
 
 
 //MASK
-/obj/item/clothing/mask/bandana
-	material_type = MATERIAL_CLASS_CLOTH
-
 /obj/item/clothing/mask/bandana/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
-	material_type = src.material_type, \
+	material_type = MATERIAL_CLASS_CLOTH, \
 	max_bites = 4, \
 	integrity_bite = 20, \
 	nutritional_value = 10, \
@@ -132,13 +114,11 @@
 
 
 //HEAD
-/obj/item/clothing/head
-	material_type = MATERIAL_CLASS_CLOTH
 
 /obj/item/clothing/head/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
-	material_type = src.material_type, \
+	material_type = MATERIAL_CLASS_CLOTH, \
 	max_bites = 6, \
 	integrity_bite = 20, \
 	nutritional_value = 10, \
@@ -176,25 +156,20 @@
 
 
 //SUIT
-/obj/item/clothing/suit
-	material_type = MATERIAL_CLASS_CLOTH
 
 /obj/item/clothing/suit/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
-	material_type = src.material_type, \
+	material_type = MATERIAL_CLASS_CLOTH, \
 	max_bites = 16, \
 	integrity_bite = 20, \
 	nutritional_value = 10, \
 	)
 
-/obj/item/clothing/suit/hooded
-	material_type = MATERIAL_CLASS_CLOTH
-
 /obj/item/clothing/suit/hooded/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
-	material_type = src.material_type, \
+	material_type = MATERIAL_CLASS_CLOTH, \
 	max_bites = 20, \
 	integrity_bite = 20, \
 	nutritional_value = 10, \
@@ -206,7 +181,7 @@
 /obj/item/clothing/suit/chef/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
-	material_type = src.material_type, \
+	material_type = MATERIAL_CLASS_CLOTH, \
 	max_bites = 8, \
 	integrity_bite = 20, \
 	nutritional_value = 10, \
@@ -218,7 +193,7 @@
 /obj/item/clothing/suit/apron/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
-	material_type = src.material_type, \
+	material_type = MATERIAL_CLASS_CLOTH, \
 	max_bites = 8, \
 	integrity_bite = 20, \
 	nutritional_value = 10, \
@@ -230,7 +205,7 @@
 /obj/item/clothing/suit/towel/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
-	material_type = src.material_type, \
+	material_type = MATERIAL_CLASS_CLOTH, \
 	max_bites = 12, \
 	nutritional_value = 10, \
 	integrity_bite = 20, \
@@ -243,7 +218,7 @@
 /obj/item/clothing/suit/towel/short/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
-	material_type = src.material_type, \
+	material_type = MATERIAL_CLASS_CLOTH, \
 	max_bites = 8, \
 	nutritional_value = 10, \
 	integrity_bite = 20, \

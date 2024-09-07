@@ -19,6 +19,11 @@ GLOBAL_LIST_EMPTY(PDAs)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	origin_tech = "programming=2"
 
+	light_on = FALSE
+	light_system = MOVABLE_LIGHT_DIRECTIONAL
+	light_range = 2
+	light_power = 1
+
 	//Main variables
 	var/owner = null
 	var/default_cartridge = null // Access level defined by cartridge
