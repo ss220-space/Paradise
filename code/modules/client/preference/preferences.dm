@@ -1184,6 +1184,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		HTML += ShowDisabilityState(user, DISABILITY_FLAG_COFFEE_ADDICT, "Coffee addict")
 	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_ALCOHOLE_ADDICT))
 		HTML += ShowDisabilityState(user, DISABILITY_FLAG_ALCOHOLE_ADDICT, "Alcohole addict")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_PARAPLEGIA))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_PARAPLEGIA, "Paraplegia")
 
 	HTML += {"</ul>
 		<a href=\"?_src_=prefs;task=close;preference=disabilities\">\[Done\]</a>
@@ -2867,7 +2869,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	// Wheelchair necessary?
 	var/obj/item/organ/external/l_foot = character.get_organ(BODY_ZONE_PRECISE_L_FOOT)
 	var/obj/item/organ/external/r_foot = character.get_organ(BODY_ZONE_PRECISE_R_FOOT)
-	if(!l_foot && !r_foot)
+	if(!l_foot && !r_foot || HAS_TRAIT_FROM(character, TRAIT_FLOORED, DNA_TRAIT))
 		var/obj/structure/chair/wheelchair/W = new /obj/structure/chair/wheelchair(character.loc)
 		W.buckle_mob(character, TRUE)
 
@@ -2956,6 +2958,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	if((disabilities & DISABILITY_FLAG_WINGDINGS) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_WINGDINGS))
 		character.force_gene_block(GLOB.wingdingsblock, TRUE, TRUE)
+
+	if((disabilities & DISABILITY_FLAG_PARAPLEGIA) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_PARAPLEGIA))
+		character.force_gene_block(GLOB.paraplegiablock, TRUE, TRUE)
 
 	character.dna.species.handle_dna(character)
 
