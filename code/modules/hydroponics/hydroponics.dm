@@ -40,6 +40,12 @@
 	var/self_sustaining = FALSE //If the tray generates nutrients and water on its own
 	var/weed_pulling = FALSE
 	hud_possible = list (PLANT_NUTRIENT_HUD, PLANT_WATER_HUD, PLANT_STATUS_HUD, PLANT_HEALTH_HUD, PLANT_TOXIN_HUD, PLANT_PEST_HUD, PLANT_WEED_HUD)
+	var/mob/living/simple_animal/hostile/plant/connected_simplemob = null
+
+/obj/machinery/hydroponics/proc/on_connected_simplemob_death()
+	SIGNAL_HANDLER
+	connected_simplemob = null
+	plantdies()
 
 /obj/machinery/hydroponics/New()
 	..()
@@ -53,6 +59,17 @@
 	plant_hud_set_toxin()
 	plant_hud_set_pest()
 	plant_hud_set_weed()
+
+/obj/machinery/hydroponics/proc/kill_simplemob()
+	if (connected_simplemob)
+		if (!QDELETED(connected_simplemob))
+			connected_simplemob.death()
+		connected_simplemob = null
+
+/obj/machinery/hydroponics/Move(atom/newloc, direct, glide_size_override = 0, update_dir = TRUE)
+	. = ..(newloc, direct, glide_size_override, update_dir)
+	if (connected_simplemob && !QDELETED(connected_simplemob))
+		connected_simplemob.forceMove(src.loc)
 
 /obj/machinery/hydroponics/constructable
 	name = "hydroponics tray"
@@ -85,6 +102,7 @@
 /obj/machinery/hydroponics/Destroy()
 	remove_from_all_data_huds()
 	QDEL_NULL(myseed)
+	kill_simplemob()
 	return ..()
 
 
@@ -251,6 +269,7 @@
 				if(myseed && myseed.yield != -1) // Unharvestable shouldn't be harvested
 					harvest = 1
 					plant_hud_set_status()
+					myseed.on_grow(src)
 				else
 					lastproduce = age
 			if(prob(5))  // On each tick, there's a 5 percent chance the pest population will increase
@@ -505,8 +524,7 @@
 		update_state()
 	plant_hud_set_health()
 	plant_hud_set_status()
-
-
+	kill_simplemob()
 
 /obj/machinery/hydroponics/proc/mutatepest(mob/user)
 	if(pestlevel > 5)
@@ -765,6 +783,17 @@
 			else
 				to_chat(user, "<span class='warning'>Nothing happens...</span>")
 
+/obj/machinery/hydroponics/proc/dig_out()
+	if(myseed) //Could be that they're just using it as a de-weeder
+		age = 0
+		plant_health = 0
+		if(harvest)
+			harvest = FALSE //To make sure they can't just put in another seed and insta-harvest it
+		qdel(myseed)
+		myseed = null
+		plant_hud_set_health()
+		plant_hud_set_status()
+		kill_simplemob()
 
 /obj/machinery/hydroponics/attackby(obj/item/I, mob/user, params)
 	var/is_reagent_container = istype(I, /obj/item/reagent_containers)
@@ -935,15 +964,7 @@
 			span_notice("[user] has dug out all the plants in [src]."),
 			span_notice("You have dug out all the plants in [src]."),
 		)
-		if(myseed) //Could be that they're just using it as a de-weeder
-			age = 0
-			plant_health = 0
-			if(harvest)
-				harvest = FALSE //To make sure they can't just put in another seed and insta-harvest it
-			qdel(myseed)
-			myseed = null
-			plant_hud_set_health()
-			plant_hud_set_status()
+		dig_out()
 		adjustWeeds(-10) //Has a side effect of cleaning up those nasty weeds
 		update_state()
 		return ATTACK_CHAIN_PROCEED_SUCCESS

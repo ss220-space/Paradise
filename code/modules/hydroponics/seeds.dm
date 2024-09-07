@@ -453,6 +453,9 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 	if(user.plant_analyzer)
 		to_chat(user, get_analyzer_text())
 
+/obj/item/seeds/proc/on_grow()
+	return
+
 #undef FLORAGUN_POTENCY
 #undef FLORAGUN_YIELD
 #undef FLORAGUN_PRODUCTION
