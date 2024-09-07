@@ -140,7 +140,6 @@
 /obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 8;
 	pixel_x = -4;
-	can_be_hit = 0;
 	damage_deflection = 100
 	},
 /turf/simulated/floor/mech_bay_recharge_floor,
@@ -168,7 +167,6 @@
 /obj/structure/window/reinforced/survival_pod/unhittable{
 	dir = 8;
 	pixel_x = -4;
-	can_be_hit = 0;
 	damage_deflection = 100
 	},
 /turf/simulated/floor/plasteel{
