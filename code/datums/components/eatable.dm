@@ -12,6 +12,8 @@
 	var/nutritional_value 
 	/// Grab if help_intent was used
 	var/is_only_grab_intent
+	/// If true - your item can be eaten without special diet check.
+	var/always_eatable
 
 /datum/component/eatable/Initialize(
 	current_bites = 0,
@@ -19,7 +21,8 @@
 	max_bites = 1,
 	integrity_bite = 10,
 	nutritional_value = 20,
-	is_only_grab_intent = FALSE
+	is_only_grab_intent = FALSE,
+	is_always_eatable = FALSE
 )
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -29,6 +32,7 @@
 	src.integrity_bite = integrity_bite
 	src.nutritional_value = nutritional_value
 	src.is_only_grab_intent = is_only_grab_intent
+	src.is_always_eatable = is_always_eatable
 	
 /datum/component/eatable/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_PRE_ATTACKBY, PROC_REF(pre_try_eat_item))
@@ -80,7 +84,7 @@
 
 	if(!istype(target))
 		return FALSE
-	if(!(material_type & target.dna.species.special_diet))
+	if(!(material_type & target.dna.species.special_diet) && !always_eatable)
 		return FALSE
 	if(is_only_grab_intent && user.a_intent != INTENT_GRAB)
 		return FALSE
