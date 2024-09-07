@@ -137,7 +137,7 @@
 	return TRUE
 
 /obj/effect/mob_spawn/proc/use_prefs_prompt(mob/user, mob_use_prefs)
-	return
+	return TRUE
 
 /obj/effect/mob_spawn/proc/species_prompt()
 	return TRUE
