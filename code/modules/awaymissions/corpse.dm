@@ -52,16 +52,16 @@
 	if(SSticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
 		return
 	if(!uses)
-		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
+		to_chat(user, span_warning("This spawner is out of charges!"))
 		return
 	if(jobban_isbanned(user, banType))
-		to_chat(user, "<span class='warning'>You are jobanned!</span>")
+		to_chat(user, span_warning("You are jobanned!"))
 		return
 	if(cannotPossess(user))
-		to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+		to_chat(user, span_warning("Upon using the antagHUD you forfeited the ability to join the round."))
 		return
 	if(!O.can_reenter_corpse)
-		to_chat(user, "<span class='warning'>You have forfeited the right to respawn.</span>")
+		to_chat(user, span_warning("You have forfeited the right to respawn."))
 		return
 	var/deathtime = world.time - O.timeofdeath
 	if(respawn_cooldown && deathtime < respawn_cooldown && O.started_as_observer == 0)
@@ -75,11 +75,11 @@
 			pluralcheck = " [deathtimeminutes] minutes and"
 		var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10,1)
 		to_chat(usr, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
-		to_chat(usr, "<span class='warning'>You must wait [respawn_cooldown / 600] minutes to respawn as [mob_name]!</span>")
+		to_chat(usr, span_warning("You must wait [respawn_cooldown / 600] minutes to respawn as [mob_name]!"))
 		return
 	if(CONFIG_GET(flag/use_exp_restrictions) && min_hours)
 		if(user.client.get_exp_type_num(exp_type) < min_hours * 60 && !check_rights(R_ADMIN|R_MOD, 0, usr))
-			to_chat(user, "<span class='warning'>У вас недостаточно часов для игры на этой роли. Требуется набрать [min_hours] часов типа [exp_type] для доступа к ней.</span>")
+			to_chat(user, span_warning("У вас недостаточно часов для игры на этой роли. Требуется набрать [min_hours] часов типа [exp_type] для доступа к ней."))
 			return
 	var/ghost_role = tgui_alert(user, "Become [mob_name]? (Warning, You can no longer be cloned!)", "Respawn", list("Yes","No"))
 	if(ghost_role != "Yes")
@@ -94,7 +94,7 @@
 
 	if(!mob_use_prefs)
 		if(allow_prefs_prompt)
-			var/randomize_alert = alert("Your character will be randomized for this role, continue?",,"Yes","No")
+			var/randomize_alert = tgui_alert(user, "Your character will be randomized for this role, continue?", "Character Selection", list("Yes","No"))
 			if(randomize_alert != "Yes")
 				return
 		if(allow_species_pick)
@@ -109,7 +109,7 @@
 			var/datum/species/S = GLOB.all_species[_mob_species]
 			_mob_species = S.type
 	if(!loc || !uses || QDELETED(src) || QDELETED(user))
-		to_chat(user, "<span class='warning'>The [name] is no longer usable!</span>")
+		to_chat(user, span_warning("The [name] is no longer usable!"))
 		return
 	if(id_job == null)
 		add_game_logs("[user.ckey] became [mob_name]", user)
@@ -270,7 +270,7 @@
 	if(!user.client)
 		return
 
-	. = alert("Would you like to play as the character you currently have selected in slot?",, "Yes","No")
+	. = tgui_alert(user, "Would you like to play as the character you currently have selected in slot?", "Character Selection", list("Yes", "No"))
 	if(. == "Yes")
 		if(user.client.prefs.real_name in GLOB.human_names_list)
 			to_chat(user, span_warning("You have already entered the round with this name, choose another slot."))
@@ -285,22 +285,22 @@
 
 
 /obj/effect/mob_spawn/human/species_prompt()
-	var/selected_species = input("Select a species", "Species Selection") as null|anything in pickable_species
+	var/selected_species = tgui_input_list(usr, "Select a species: ", "Species Selection", pickable_species)
 	if(!selected_species)
-		to_chat(usr, "<span class='warning'>Spawning stopped.</span>")
+		to_chat(usr, span_warning("Spawning stopped."))
 		return FALSE	// You didn't pick, abort
 	skin_tone = rand(-25, 0)
 	return selected_species
 
 /obj/effect/mob_spawn/human/gender_prompt()
-	var/new_gender = alert("Please select gender.",, "Male","Female")
+	var/new_gender = tgui_alert(usr, "Please select gender.", "Gender Selection", list("Male","Female"))
 	if(new_gender == "Male")
 		return MALE
 	else
 		return FEMALE
 
 /obj/effect/mob_spawn/human/name_prompt(_mob_gender, _mob_species)
-	var/new_name = input("Enter your name:") as text
+	var/new_name = tgui_input_text(usr, "Enter your name:", "Name Selection")
 	if(!new_name)
 		new_name = random_name(_mob_gender, _mob_species)
 	return new_name
@@ -661,7 +661,7 @@
 
 /obj/effect/mob_spawn/human/beach/alive/lifeguard
 	flavour_text = "You're a spunky lifeguard! It's up to you to make sure nobody drowns or gets eaten by sharks and stuff. Then suddenly your entire beach was transported to this strange hell.\
-	 You aren't trained for this, but you'll still keep your guests alive!"
+					You aren't trained for this, but you'll still keep your guests alive!"
 	description = "Try to survive on lavaland with the pitiful equipment of a lifeguard. Or hide in your biodome."
 	mob_gender = FEMALE
 	name = "lifeguard sleeper"
