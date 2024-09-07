@@ -44365,26 +44365,6 @@
 	tag = "icon-whitepurple (WEST)"
 	},
 /area/medical/research/nhallway)
-"gyV" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/medical/research)
 "gzg" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -47460,10 +47440,6 @@
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
-	},
-/obj/structure/marker_beacon{
-	icon_state = "markerteal-on";
-	initialized = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/space)
@@ -80190,10 +80166,6 @@
 	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
-	},
-/obj/structure/marker_beacon{
-	icon_state = "markerteal-on";
-	initialized = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/space)
@@ -154478,12 +154450,25 @@
 	},
 /area/maintenance/trading)
 "xik" = (
-/obj/structure/marker_beacon{
-	icon_state = "markerburgundy-on";
-	initialized = 1
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/turf/simulated/floor/plating/airless,
-/area/space)
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/medical/research)
 "xin" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -198708,7 +198693,7 @@ ier
 ier
 oPj
 knz
-gyV
+xik
 xUC
 hLj
 peH
@@ -271250,11 +271235,11 @@ vTB
 bkc
 wQZ
 uYE
-xik
+bsg
 jEB
 bsg
 gfy
-xik
+bsg
 kQf
 wQZ
 ngN
