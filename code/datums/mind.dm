@@ -3045,7 +3045,7 @@
 		return
 	LAZYADD(spell_list, spell)
 	spell.action.Grant(current)
-
+	spell.on_spell_gain(current)
 
 /datum/mind/proc/RemoveSpell(obj/effect/proc_holder/spell/instance_or_path) //To remove a specific spell from a mind
 	if(!ispath(instance_or_path))

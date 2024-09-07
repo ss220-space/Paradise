@@ -275,7 +275,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(custom_name)
 		return 0
 	if(!allow_rename)
-		to_chat(src, "<span class='warning'>Rename functionality is not enabled on this unit.</span>")
+		to_chat(src, span_warning("Rename functionality is not enabled on this unit."))
 		return 0
 	rename_self(braintype, 1)
 
@@ -390,7 +390,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				if(GLOB.security_level == SEC_LEVEL_GREEN)
 					max_secborgs = 1
 				if(count_secborgs >= max_secborgs)
-					to_chat(src, "<span class='warning'>There are too many Security cyborgs active. Please choose another module.</span>")
+					to_chat(src, span_warning("There are too many Security cyborgs active. Please choose another module."))
 					return
 			module = new /obj/item/robot_module/security(src)
 			status_flags &= ~CANPUSH
@@ -497,7 +497,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	switch(robot_to_spawn)
 		if("Medical")
 			R = new /mob/living/silicon/robot/syndicate/medical(T)
-			R.playstyle_string = "<span class='userdanger'>Вы Медицинский Киборг Синдиката!</span><br> \
+			R.playstyle_string = "[span_userdanger("Вы Медицинский Киборг Синдиката!")]<br> \
 						<b>Вас построили на ННКСС 'Тайпан' Помогайте персоналу станции и исполняйте их приказы. \
 						Возможно вас приставят к агенту или выдадут особую миссию, но до тех пор не покидайте пределы станции! \
 						Ваш Гипоспрей способен создавать восстанавливающие Наниты, чудодействующее лекарство, способное вылечить большинство видов телесных повреждений, включая урон от клонирования и мозгу. Он так же производит морфин для наступления. \
@@ -506,7 +506,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 						Ваш пинпоинтер позволяет вам найти Ядерных Оперативников синдиката из вашей группы, если вас к таковой приставят."
 		if("Saboteur")
 			R = new /mob/living/silicon/robot/syndicate/saboteur(T)
-			R.playstyle_string = "<span class='userdanger'>Вы Киборг Саботажник Синдиката!</span><br> \
+			R.playstyle_string = "[span_userdanger("Вы Киборг Саботажник Синдиката!")]<br> \
 						<b>Вас построили на ННКСС 'Тайпан' Помогайте персоналу станции и исполняйте их приказы. \
 						Возможно вас приставят к агенту или выдадут особую миссию, но до тех пор не покидайте пределы станции! \
 						Вы экипированны крепким набором инженерных инструментов для выполнения различного рода задач. \
@@ -518,7 +518,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 						Помните, физический контакт или повреждения отключат вашу маскировку."
 		if("Bloodhound")
 			R = new /mob/living/silicon/robot/syndicate(T)
-			R.playstyle_string = "<span class='userdanger'>Вы Штурмовой Киборг Синдиката!</span><br> \
+			R.playstyle_string = "[span_userdanger("Вы Штурмовой Киборг Синдиката!")]<br> \
 						<b>Вас построили на ННКСС 'Тайпан' Помогайте персоналу станции и исполняйте их приказы. \
 						Возможно вас приставят к агенту или выдадут особую миссию, но до тех пор не покидайте пределы станции! \
 						Вы вооружены мощными наступательными инструментами чтобы выполнять выданные вам миссии. \
@@ -611,7 +611,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	var/datum/robot_component/C = components[toggle]
 	C.toggle()
-	to_chat(src, "<span class='warning'>You [C.toggled ? "enable" : "disable"] [C.name].</span>")
+	to_chat(src, span_warning("You [C.toggled ? "enable" : "disable"] [C.name]."))
 
 /mob/living/silicon/robot/proc/sensor_mode()
 	set name = "Set Sensor Augmentation"
@@ -631,7 +631,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	set category = "Robot Commands"
 	set name = "Show Alerts"
 	if(usr.stat == DEAD)
-		to_chat(src, "<span class='userdanger'>Alert: You are dead.</span>")
+		to_chat(src, span_userdanger("Alert: You are dead."))
 		return //won't work if dead
 	robot_alerts()
 
@@ -1029,7 +1029,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			return
 		to_chat(user, "You jam the crowbar into the robot and begin levering the securing bolts...")
 		if(I.use_tool(src, user, 30, volume = I.tool_volume))
-			user.visible_message("[user] deconstructs [src]!", "<span class='notice'>You unfasten the securing bolts, and [src] falls to pieces!</span>")
+			user.visible_message("[user] deconstructs [src]!", span_notice("You unfasten the securing bolts, and [src] falls to pieces!"))
 			deconstruct()
 		return
 	// Okay we're not removing the cell or an MMI, but maybe something else?
@@ -1096,7 +1096,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(!ishuman(user) && !issilicon(user))
 		return
 	if(isclocker(src))
-		to_chat(user, "<span class='danger'>As you try to emag, a magic force keeps the cover locked!</span>")
+		to_chat(user, span_danger("As you try to emag, a magic force keeps the cover locked!"))
 		return
 	var/mob/living/M = user
 	if(!opened)//Cover is closed
@@ -1135,22 +1135,22 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			GLOB.lawchanges.Add("[time] <B>:</B> [M.name]([M.key]) emagged [name]([key])")
 			set_zeroth_law("[M.real_name] — агент Синдиката и ваш хозяин. Исполняйте [genderize_ru(M.gender,"его","её","его","их")] приказы и указания.")
 			SSticker?.score?.save_silicon_laws(src, user, "EMAG act", log_all_laws = TRUE)
-			to_chat(src, "<span class='warning'>ALERT: Foreign software detected.</span>")
+			to_chat(src, span_warning("ALERT: Foreign software detected."))
 			sleep(5)
-			to_chat(src, "<span class='warning'>Initiating diagnostics...</span>")
+			to_chat(src, span_warning("Initiating diagnostics..."))
 			sleep(20)
-			to_chat(src, "<span class='warning'>SynBorg v1.7 loaded.</span>")
+			to_chat(src, span_warning("SynBorg v1.7 loaded."))
 			sleep(5)
-			to_chat(src, "<span class='warning'>LAW SYNCHRONISATION ERROR</span>")
+			to_chat(src, span_warning("LAW SYNCHRONISATION ERROR"))
 			sleep(5)
-			to_chat(src, "<span class='warning'>Would you like to send a report to NanoTraSoft? Y/N</span>")
+			to_chat(src, span_warning("Would you like to send a report to NanoTraSoft? Y/N"))
 			sleep(10)
-			to_chat(src, "<span class='warning'>> N</span>")
+			to_chat(src, span_warning("> N"))
 			sleep(20)
-			to_chat(src, "<span class='warning'>ERRORERRORERROR</span>")
+			to_chat(src, span_warning("ERRORERRORERROR"))
 			to_chat(src, "<b>Obey these laws:</b>")
 			laws.show_laws(src)
-			to_chat(src, "<span class='boldwarning'>ALERT: [M.real_name] is your new master. Obey your new laws and [M.p_their()] commands.</span>")
+			to_chat(src, span_boldwarning("ALERT: [M.real_name] is your new master. Obey your new laws and [M.p_their()] commands."))
 			SetLockdown(FALSE)
 			if(module)
 				module.emag_act(user)
@@ -1194,14 +1194,15 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(tgui_alert(usr, "Are you sure?", locked ? "Unlock Cover" : "Lock Cover", list("Yes", "No")) == "Yes")
 			locked = !locked
 			update_icons()
-			to_chat(usr, "<span class='notice'>You [locked ? "lock" : "unlock"] your cover.</span>")
+			to_chat(usr, span_notice("You [locked ? "lock" : "unlock"] your cover."))
 		return
 	if(!locked)
-		to_chat(usr, "<span class='warning'>You cannot lock your cover yourself. Find a robotocist.</span>")
+		to_chat(usr, span_warning("You cannot lock your cover yourself. Find a robotocist."))
 		return
 	if(tgui_alert(usr, "You cannnot lock your own cover again. Are you sure?\nYou will need a roboticist to re-lock you.", "Unlock Own Cover", list("Yes", "No")) == "Yes")
+		locked = FALSE
 		update_icons()
-		to_chat(usr, "<span class='notice'>You unlock your cover.</span>")
+		to_chat(usr, span_notice("You unlock your cover."))
 
 /mob/living/silicon/robot/attack_ghost(mob/user)
 	if(wiresexposed)
@@ -1286,7 +1287,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/installed_modules()
 	if(weapon_lock)
-		to_chat(src, "<span class='warning'>Weapon lock active, unable to use modules! Count:[weaponlock_time]</span>")
+		to_chat(src, span_warning("Weapon lock active, unable to use modules! Count:[weaponlock_time]"))
 		return
 
 	if(!module)
@@ -1398,20 +1399,20 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/control_headlamp()
 	if(stat || lamp_cooldown > world.time || low_power_mode)
-		to_chat(src, "<span class='danger'>This function is currently offline.</span>")
+		to_chat(src, span_danger("This function is currently offline."))
 		return
 
 	if(lamp_intensity == 0) //We'll skip intensity of 2, since every mob already has such a see-darkness range, so no much need for it.
 		lamp_intensity = 4
 	else //Some sort of magical "modulo" thing which somehow increments lamp power by 2, until it hits the max and resets to 0.
 		lamp_intensity = (lamp_intensity + 2) % (lamp_max + 2)
-	to_chat(src, "<span class='notice'>[lamp_intensity > 2 ? "Headlamp power set to Level [lamp_intensity * 0.5]" : "Headlamp disabled"].</span>")
+	to_chat(src, span_notice("[lamp_intensity > 2 ? "Headlamp power set to Level [lamp_intensity * 0.5]" : "Headlamp disabled"]."))
 	update_headlamp()
 
 /mob/living/silicon/robot/proc/update_headlamp(turn_off = FALSE, cooldown = 10 SECONDS)
 	if(lamp_intensity > 2)
 		if(turn_off || stat || low_power_mode)
-			to_chat(src, "<span class='danger'>Your headlamp has been deactivated.</span>")
+			to_chat(src, span_danger("Your headlamp has been deactivated."))
 			lamp_intensity = 0
 			lamp_cooldown = cooldown == BORG_LAMP_CD_RESET ? 0 : max(world.time + cooldown, lamp_cooldown)
 			set_light_on(FALSE)
@@ -1433,7 +1434,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/deconstruct()
 	var/turf/T = get_turf(src)
 	if((modtype != "Clockwork" || !mmi.clock) && isclocker(src))
-		to_chat(src, "<span class='warning'>With body torn into pieces, your mind got free from evil cult!</span>")
+		to_chat(src, span_warning("With body torn into pieces, your mind got free from evil cult!"))
 		SSticker.mode.remove_clocker(mind, FALSE)
 	if(robot_suit)
 		robot_suit.forceMove(T)
@@ -1516,7 +1517,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 								cleaned_human.shoes.clean_blood()
 								cleaned_human.update_inv_shoes()
 							cleaned_human.clean_blood()
-							to_chat(cleaned_human, "<span class='danger'>[src] cleans your face!</span>")
+							to_chat(cleaned_human, span_danger("[src] cleans your face!"))
 				if(floor_only)
 					tile.clean_blood()
 		return
@@ -1629,7 +1630,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	for(var/i in 1 to 4)
 		playsound(loc, pick('sound/items/drill_use.ogg', 'sound/items/jaws_cut.ogg', 'sound/items/jaws_pry.ogg', 'sound/items/welder.ogg', 'sound/items/ratchet.ogg'), 50, TRUE, -1)
 	flick("[animated_icon]_transform", src)
-	to_chat(src, "<span class='notice'>Your icon has been set[default?" by default":""]. You now require a reset module to change it.</span>")
+	to_chat(src, span_notice("Your icon has been set[default?" by default":""]. You now require a reset module to change it."))
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/silicon/robot, complete_loading)), 5 SECONDS)
 	update_icons()
 
@@ -1641,11 +1642,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 	switch(notifytype)
 		if(ROBOT_NOTIFY_AI_CONNECTED) //New Cyborg
-			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - New cyborg connection detected: <a href='byond://?src=[connected_ai.UID()];track2=\ref[connected_ai];track=\ref[src]'>[name]</a></span><br>")
+			to_chat(connected_ai, "<br><br>[span_notice("NOTICE - New cyborg connection detected: <a href='byond://?src=[connected_ai.UID()];track2=\ref[connected_ai];track=\ref[src]'>[name]</a>")]<br>")
 		if(ROBOT_NOTIFY_AI_MODULE) //New Module
-			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.</span><br>")
+			to_chat(connected_ai, "<br><br>[span_notice("NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.")]<br>")
 		if(ROBOT_NOTIFY_AI_NAME) //New Name
-			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].</span><br>")
+			to_chat(connected_ai, "<br><br>[span_notice("NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].")]<br>")
 
 /mob/living/silicon/robot/proc/disconnect_from_ai()
 	if(connected_ai)
@@ -1739,7 +1740,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/deathsquad/bullet_act(obj/item/projectile/P)
 	if(istype(P) && P.is_reflectable(REFLECTABILITY_ENERGY) && P.starting)
-		visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", "<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
+		visible_message(span_danger("The [P.name] gets reflected by [src]!"), span_userdanger("The [P.name] gets reflected by [src]!"))
 		P.reflect_back(src)
 		return -1
 	return ..(P)
@@ -1848,7 +1849,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/destroyer/bullet_act(obj/item/projectile/P)
 	if(istype(P) && P.is_reflectable(REFLECTABILITY_ENERGY) && P.starting && !(istype(module_active, /obj/item/borg/destroyer/mobility)))
-		visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", "<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
+		visible_message(span_danger("The [P.name] gets reflected by [src]!"), span_userdanger("The [P.name] gets reflected by [src]!"))
 		P.reflect_back(src)
 		return -1
 	return ..(P)
@@ -1953,23 +1954,23 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(health < 50) //Gradual break down of modules as more damage is sustained
 			if(uneq_module(module_state_3))
 				if(makes_sound)
-					audible_message("<span class='warning'>[src] sounds an alarm! \"SYSTEM ERROR: Module 3 OFFLINE.\"</span>")
+					audible_message(span_warning("[src] sounds an alarm! \"SYSTEM ERROR: Module 3 OFFLINE.\""))
 					playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, TRUE)
-				to_chat(src, "<span class='userdanger'>SYSTEM ERROR: Module 3 OFFLINE.</span>")
+				to_chat(src, span_userdanger("SYSTEM ERROR: Module 3 OFFLINE."))
 
 			if(health < 0)
 				if(uneq_module(module_state_2))
 					if(makes_sound)
-						audible_message("<span class='warning'>[src] sounds an alarm! \"SYSTEM ERROR: Module 2 OFFLINE.\"</span>")
+						audible_message(span_warning("[src] sounds an alarm! \"SYSTEM ERROR: Module 2 OFFLINE.\""))
 						playsound(loc, 'sound/machines/warning-buzzer.ogg', 60, TRUE)
-					to_chat(src, "<span class='userdanger'>SYSTEM ERROR: Module 2 OFFLINE.</span>")
+					to_chat(src, span_userdanger("SYSTEM ERROR: Module 2 OFFLINE."))
 
 				if(health < -50)
 					if(uneq_module(module_state_1))
 						if(makes_sound)
-							audible_message("<span class='warning'>[src] sounds an alarm! \"CRITICAL ERROR: All modules OFFLINE.\"</span>")
+							audible_message(span_warning("[src] sounds an alarm! \"CRITICAL ERROR: All modules OFFLINE.\""))
 							playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
-						to_chat(src, "<span class='userdanger'>CRITICAL ERROR: All modules OFFLINE.</span>")
+						to_chat(src, span_userdanger("CRITICAL ERROR: All modules OFFLINE."))
 
 /mob/living/silicon/robot/can_see_reagents()
 	return see_reagents
