@@ -175,9 +175,6 @@
 	nutritional_value = 10, \
 	)
 
-/obj/item/clothing/suit/chef
-	material_type = MATERIAL_CLASS_CLOTH
-
 /obj/item/clothing/suit/chef/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
@@ -186,9 +183,6 @@
 	integrity_bite = 20, \
 	nutritional_value = 10, \
 	)
-
-/obj/item/clothing/suit/apron
-	material_type = MATERIAL_CLASS_CLOTH
 
 /obj/item/clothing/suit/apron/add_eatable_component()
 	AddComponent( \
@@ -199,9 +193,6 @@
 	nutritional_value = 10, \
 	)
 
-/obj/item/clothing/suit/towel
-	material_type = MATERIAL_CLASS_CLOTH
-
 /obj/item/clothing/suit/towel/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
@@ -211,9 +202,6 @@
 	integrity_bite = 20, \
 	is_only_grab_intent = TRUE, \
 	)
-
-/obj/item/clothing/suit/towel/short
-	material_type = MATERIAL_CLASS_CLOTH
 
 /obj/item/clothing/suit/towel/short/add_eatable_component()
 	AddComponent( \

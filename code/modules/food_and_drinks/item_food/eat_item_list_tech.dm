@@ -106,9 +106,6 @@
 	nutritional_value = 15, \
 	)
 
-/obj/item/pinpointer
-	material_type = MATERIAL_CLASS_TECH
-
 /obj/item/pinpointer/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
@@ -544,9 +541,6 @@
 	max_bites = 1000, \
 	nutritional_value = 1, \
 	)
-
-/obj/item/access_control
-	material_type = MATERIAL_CLASS_TECH
 
 /obj/item/access_control/add_eatable_component()
 	AddComponent( \

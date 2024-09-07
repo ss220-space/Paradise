@@ -139,7 +139,7 @@
 			to_chat(user, span_notice("[target == user ? "Вы доели" : "[target] доел"] [item.name]."))
 			qdel(item)
 
-/datum/component/eatable/proc/forceFed(mob/living/carbon/human/target, mob/user, var/instant_application = FALSE)
+/datum/component/eatable/proc/forceFed(mob/target, mob/user, var/instant_application = FALSE)
 	var/obj/item/item = parent
 
 	if(!instant_application)
