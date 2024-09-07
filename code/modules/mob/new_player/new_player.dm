@@ -435,10 +435,6 @@
 			join_message = "прибыл на станцию"
 
 	character.lastarea = get_area(loc)
-	// Moving wheelchair if they have one
-	if(character.buckled && istype(character.buckled, /obj/structure/chair/wheelchair))
-		character.buckled.forceMove(character.loc)
-		character.buckled.dir = character.dir
 
 	character = SSjobs.EquipRank(character, rank, 1)					//equips the human
 	EquipCustomItems(character)
