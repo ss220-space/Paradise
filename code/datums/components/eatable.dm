@@ -90,6 +90,7 @@
 		return FALSE
 
 	INVOKE_ASYNC(src, PROC_REF(try_eat_item), target, user)
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /datum/component/eatable/proc/try_eat_item(mob/living/carbon/human/target, mob/user)
 	var/obj/item/item = parent
@@ -119,7 +120,7 @@
 
 	to_chat(user, span_notice("[chat_message_to_user]"))
 	eat(target, user)
-	return COMPONENT_CANCEL_ATTACK_CHAIN
+	return
 
 /datum/component/eatable/proc/eat(mob/target, mob/user)
 	var/obj/item/item = parent
@@ -142,6 +143,7 @@
 		if(current_bites >= max_bites)
 			to_chat(user, span_notice("[target == user ? "Вы доели" : "[target] доел"] [item.name]."))
 			qdel(item)
+	return
 
 /datum/component/eatable/proc/forceFed(mob/target, mob/user, var/instant_application = FALSE)
 	var/obj/item/item = parent
