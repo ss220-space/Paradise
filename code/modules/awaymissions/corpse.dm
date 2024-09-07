@@ -293,11 +293,12 @@
 	return selected_species
 
 /obj/effect/mob_spawn/human/gender_prompt()
-	var/new_gender = tgui_alert(usr, "Please select gender.", "Gender Selection", list("Male","Female"))
-	if(new_gender == "Male")
-		return MALE
-	else
-		return FEMALE
+	var/new_gender = tgui_alert(usr, "Please select gender.", "Gender Selection", list("Male", "Female"))
+	switch(new_gender)
+		if("Male")
+			return MALE
+		if("Female")
+			return FEMALE
 
 /obj/effect/mob_spawn/human/name_prompt(_mob_gender, _mob_species)
 	var/new_name = tgui_input_text(usr, "Enter your name:", "Name Selection")
