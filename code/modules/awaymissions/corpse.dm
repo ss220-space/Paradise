@@ -88,12 +88,14 @@
 	var/_mob_species = FALSE
 	var/_mob_gender = FALSE
 	var/_mob_name = FALSE
-	if(use_prefs_prompt(user))
-		mob_use_prefs = TRUE
-	else
+
+	if(!use_prefs_prompt(user, &mob_use_prefs))
+		return
+
+	if(!mob_use_prefs)
 		if(allow_prefs_prompt)
 			var/randomize_alert = alert("Your character will be randomized for this role, continue?",,"Yes","No")
-			if(randomize_alert == "No")
+			if(randomize_alert != "Yes")
 				return
 		if(allow_species_pick)
 			_mob_species = species_prompt()
@@ -134,7 +136,7 @@
 /obj/effect/mob_spawn/is_mob_spawnable()
 	return TRUE
 
-/obj/effect/mob_spawn/proc/use_prefs_prompt(mob/user)
+/obj/effect/mob_spawn/proc/use_prefs_prompt(mob/user, mob_use_prefs)
 	return
 
 /obj/effect/mob_spawn/proc/species_prompt()
@@ -258,23 +260,31 @@
 		mob_name = id_job
 	return ..()
 
-/obj/effect/mob_spawn/human/use_prefs_prompt(mob/user)
-	if(allow_prefs_prompt)
-		if(!(user.client))
-			return FALSE
-		var/get_slot = alert("Would you like to play as the character you currently have selected in slot?",, "Yes","No")
-		if(get_slot == "Yes")
-			for(var/C in GLOB.human_names_list)
-				var/char_name = user.client.prefs.real_name
-				if(char_name == C)
-					to_chat(user, "<span class='warning'>You have already entered the round with this name, choose another slot.</span>")
-					return FALSE
-			var/char_species = user.client.prefs.species
-			if(!(char_species in pickable_species))
-				to_chat(user, "<span class='warning'>Your character's current species is not suitable for this role.</span>")
-				return FALSE
-			return TRUE
-	return FALSE
+
+/obj/effect/mob_spawn/human/use_prefs_prompt(mob/user, mob_use_prefs)
+	. = FALSE
+
+	if(!allow_prefs_prompt)
+		return
+
+	if(!(user.client))
+		return
+
+	. = alert("Would you like to play as the character you currently have selected in slot?",, "Yes","No")
+	if(. == "Yes")
+		for(var/C in GLOB.human_names_list)
+			var/char_name = user.client.prefs.real_name
+			if(char_name == C)
+				to_chat(user, span_warning("You have already entered the round with this name, choose another slot."))
+				return
+
+		var/char_species = user.client.prefs.species
+		if(!(char_species in pickable_species))
+			to_chat(user, span_warning("Your character's current species is not suitable for this role."))
+			return
+
+		*mob_use_prefs = TRUE
+
 
 /obj/effect/mob_spawn/human/species_prompt()
 	var/selected_species = input("Select a species", "Species Selection") as null|anything in pickable_species
