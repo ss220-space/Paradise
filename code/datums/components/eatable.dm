@@ -107,7 +107,7 @@
 			if(target.nutrition >= NUTRITION_LEVEL_FULL)
 				chat_message_to_user = "В [target == user ? "вас" : target] больше не лезет [item.name]. [target == user ? "Вы" : target] наел[target == user ? "ись" : genderize_ru(target.gender,"ся","ась","ось","ись")]!"
 				return FALSE
-			else if (target == user && !isstack(item))
+			else if (target == user)
 				chat_message_to_user = "Вы откусили от [item.name]. Вкуснятина!"
 		if(INTENT_HARM)
 			chat_message_to_user = "В [target == user ? "вас" : target] больше не лезет. Но [target == user ? "вы" : user] насильно запихива[target == user ? "ете" : pluralize_ru(user.gender,"ет","ют")] [item.name] в рот!"
@@ -122,8 +122,9 @@
 			return FALSE
 		to_chat(target, span_notice("[chat_message_to_target]"))
 		add_attack_logs(user, item, "Force Fed [target], item [item]")
-
-	to_chat(user, span_notice("[chat_message_to_user]"))
+		
+	if(!isstack(item))
+		to_chat(user, span_notice("[chat_message_to_user]"))
 	eat(target, user)
 	return
 
@@ -137,14 +138,14 @@
 
 	if(isstack(item))
 		var/obj/item/stack/stack = item
-		to_chat(user, span_notice("[target == user ? "Вы съели" : "[target] съел"] [stack.name]."))
+		target.visible_message(span_notice("[target] съел [stack.name]."))
 		stack.use(stack_use)
 	else
 		current_bites++
 		item.obj_integrity = max(item.obj_integrity - integrity_bite, 0)
 		item.add_atom_colour(get_colour(), FIXED_COLOUR_PRIORITY)
 		if(current_bites >= max_bites)
-			to_chat(user, span_notice("[target == user ? "Вы доели" : "[target] доел"] [item.name]."))
+			target.visible_message(span_notice("[target] доел [item.name]."))
 			qdel(item)
 	return
 
