@@ -182,6 +182,7 @@
 	if(wrapped) //sometimes items can disappear. For example, bombs. --rastaf0
 		wrapped.forceMove(drop_location())
 		user.put_in_hands(wrapped)
+		wrapped = null
 	playsound(loc, 'sound/items/poster_ripped.ogg', 50, TRUE)
 	qdel(src)
 

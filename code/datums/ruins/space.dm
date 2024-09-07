@@ -18,12 +18,14 @@
 	suffix = "asteroid1.dmm"
 	name = "Asteroid 1"
 	description = "I-spy with my little eye, something beginning with R."
+	can_found = TRUE
 
 /datum/map_template/ruin/space/asteroid2
 	id = "asteroid2"
 	suffix = "asteroid2.dmm"
 	name = "Asteroid 2"
 	description = "Oh my god, a giant rock!"
+	can_found = TRUE
 
 /datum/map_template/ruin/space/asteroid3
 	id = "asteroid3"
@@ -32,6 +34,7 @@
 	description = "This asteroid floating in space has no official \
 		designation, because the scientist that discovered it deemed it \
 		'super dull'."
+	can_found = TRUE
 
 /datum/map_template/ruin/space/asteroid4
 	id = "asteroid4"
@@ -41,12 +44,14 @@
 		99%* customer satisfaction rate. *Please note that these statistics, \
 		are taken from pods that have successfully docked with a recovery \
 		vessel."
+	can_found = TRUE
 
 /datum/map_template/ruin/space/asteroid5
 	id = "asteroid5"
 	suffix = "asteroid5.dmm"
 	name = "Asteroid 5"
 	description = "Oh my god, another giant rock!"
+	can_found = TRUE
 
 /datum/map_template/ruin/space/deep_storage
 	id = "deep-storage"
@@ -58,6 +63,7 @@
 		evidence of construction, hook it covertly into the \
 		telecommunications network and hope for the best."
 	cost = 2
+	can_found = TRUE
 
 /datum/map_template/ruin/space/derelict1
 	id = "derelict1"
@@ -90,6 +96,7 @@
 		there is no current investigation into a crashed ferry, and we \
 		will not let Internal Affairs trample over high security information \
 		in the name of this baseless witchhunt."
+	can_found = TRUE
 
 /datum/map_template/ruin/space/derelict5
 	id = "derelict5"
@@ -98,6 +105,7 @@
 	description = "The plan is, we put a whole bunch of crates full of \
 		treasure in this disused warehouse, launch it into space, and then \
 		ignore it. Forever."
+	can_found = TRUE
 
 /datum/map_template/ruin/space/lonely_pod
 	id = "lonely-pod"
@@ -112,6 +120,7 @@
 	name = "Syndie Listening Post"
 	description = "What happens to Nuclear Operatives that fail in their mission? \
 		Certainly not assignment to a backwater listening post..."
+	can_found = TRUE
 
 /datum/map_template/ruin/space/empty_shell
 	id = "empty-shell"
@@ -128,6 +137,7 @@
 		Will require renewed supplies of 'carpet' before the end of the \
 		quarter."
 	allow_duplicates = FALSE
+	can_found = TRUE
 
 /datum/map_template/ruin/space/intact_empty_ship
 	id = "intact-empty-ship"
@@ -174,6 +184,7 @@
 	name = "Crashed Wizard Shuttle"
 	description = "A shuttle of the Wizard Federation, sent out to crush some wandless scum. Unfortunately, the pilot suffered a magic-related accident and the shuttle crashed into a nearby asteroid."
 	cost = 2
+	can_found = TRUE
 
 /datum/map_template/ruin/space/abandonedtele
 	id = "abandonedtele"
@@ -194,12 +205,14 @@
 	suffix = "clownmime.dmm"
 	name = "Clown & Mime Mineral Deposits"
 	description = "A crash site of two opposing factions, both trying to complete mining trips for their own valuable minerals. While all the crew have long perished, the minerals are likely intact."
+	can_found = TRUE
 
 /datum/map_template/ruin/space/druglab
 	id = "druglab"
 	suffix = "druglab.dmm"
 	name = "Drug Lab"
 	description = "An old abandoned \"Chemistry\" site, which has a strong aura of amphetamines around it."
+	can_found = TRUE
 
 /datum/map_template/ruin/space/syndiedepot
 	id = "syndiedepot"
@@ -209,6 +222,7 @@
 	allow_duplicates = FALSE // One of these is enough
 	always_place = TRUE // This is on the always spawn list because of the shielding chance
 	cost = 0 // Force spawned so shouldnt have a cost
+	can_found = TRUE
 
 /datum/map_template/ruin/space/ussp_tele
 	id = "ussp_tele"
@@ -233,6 +247,7 @@
 	allow_duplicates = FALSE
 	always_place = TRUE
 	cost = 0
+	can_found = TRUE
 
 /datum/map_template/ruin/space/syndiecakesfactory
 	id = "Syndiecakes Factory"
@@ -267,6 +282,7 @@
 	description = "A decript station of seemingly russian origin. The last contact had with this station was a distress signal, and the rest was dark."
 	allow_duplicates = FALSE // One of these has enough loot
 	cost = 5 // This ruin is 100x100 tiles, so we dont want it to be treated like a 10x10 meteor
+	can_found = TRUE
 
 /datum/map_template/ruin/space/dj // edited for shuttle to ussp station
 	id = "dj"
@@ -283,6 +299,7 @@
 	hivebots. Can the surviving crew overcome the odds and survive and rebuild, or will the cold embrace of the stars become their new home?"
 	allow_duplicates = FALSE
 	cost = 4 // fair cost for large structure
+	can_found = TRUE
 
 /datum/map_template/ruin/space/spacehotelv1 // new map, duplicated and edited partialy from other ss13 builds
 	id = "spacehotelv1"
@@ -301,6 +318,7 @@
 		No tabs. No violence in the inside areas. That's it. Welcome to the \
 		Rampant Golem and Yellow Hound. Can I take your order?"
 	allow_duplicates = FALSE // many space bars with the same name and same pods on it and etc. is bad idea from the start. if the build had radmozier only then it wouldn't be a problem
+	can_found = TRUE
 
 /datum/map_template/ruin/space/punishment // new map, ideologically combined of one of asteroid on the other ss13 build and idea of kidnapping by syndicate
 	id = "punishment"
@@ -308,6 +326,7 @@
 	name = "Punishment"
 	description = "Here lying Atmos Tech, he worked too well. And now he will not. The end."
 	allow_duplicates = FALSE // certian story of certian event, shouldn't be many in space
+	can_found = TRUE
 
 /datum/map_template/ruin/space/vacation // new map, duplicated from an other ss13 build
 	id = "vacation"
@@ -315,6 +334,7 @@
 	name = "Vacation"
 	description = "Whoever doesn't wish to have their own paradise corner in space! \
 		Wait, where did I put spray tan?.."
+	can_found = TRUE
 
 /datum/map_template/ruin/space/crashedipcship
 	id = "crashed_ipc_ship"
@@ -324,6 +344,7 @@
 		After long wanderings over space, the ghost ship collided with an asteroid..."
 	cost = 3 // 65x50 Space ship with few asteroids, carps and headcrabs in positions
 	allow_duplicates = FALSE
+	can_found = TRUE
 
 /datum/map_template/ruin/space/ussp_laboratory
 	id = "ussp_laboratory"
@@ -332,6 +353,7 @@
 	description = "Tovarish! U nas chto-to proisoshlo! Ksenosi!"
 	allow_duplicates = FALSE
 	cost = 2
+	can_found = TRUE
 
 /datum/map_template/ruin/space/anomalyship
 	id = "anomalyship"
@@ -340,12 +362,14 @@
 	description = "The trading and mining shuttle was flying to sell goods, but it fell into the field of the bluespace anomaly"
 	allow_duplicates = FALSE
 	cost = 3 // 76x76 space ship
+	can_found = TRUE
 
 /datum/map_template/ruin/space/blood_ship
 	id = "blood_ship"
 	suffix = "space_bloodship.dmm"
 	name = "Space bloodship "
 	description = "This shuttle was a regular transport vessel until it was captured by cultists who made their bloody sacrifice."
+	can_found = TRUE
 
 /*
 /datum/map_template/ruin/space/USSP_gorky17
@@ -366,6 +390,7 @@
 	Immediately after the described events, the 'fortress' protocol was activated at the facility"
 	cost = 6 // 200x200 station in asteroid belt, has self destruct system and may spawn secret documents or 8 lvl tech
 	allow_duplicates = FALSE
+	can_found = TRUE
 
 /datum/map_template/ruin/space/magestavern
 	id = "magestavern"
@@ -376,6 +401,7 @@
 	Well, apparently, something went wrong, since the tavern was closed forever. What will you learn by getting into it?"
 	cost = 3
 	allow_duplicates = FALSE
+	can_found = TRUE
 
 /datum/map_template/ruin/space/graveyard
 	id = "graveyard"
@@ -393,6 +419,7 @@
 	description = "Its old space USSP Banya.... She looks very abandoned."
 	cost = 2
 	allow_duplicates = FALSE
+	can_found = TRUE
 
 
 /datum/map_template/ruin/space/spacebotany
@@ -403,4 +430,3 @@
 	However, it seems that hardly anyone is left on it now.. Or not?"
 	allow_duplicates = FALSE
 	cost = 2
-

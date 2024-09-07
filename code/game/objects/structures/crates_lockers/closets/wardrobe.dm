@@ -20,7 +20,7 @@
 
 /obj/structure/closet/wardrobe/red
 	name = "security wardrobe"
-	custom_door_overlay = "red"
+	icon_state = "secward"
 
 /obj/structure/closet/wardrobe/red/populate_contents()
 	new /obj/item/storage/backpack/duffel/security(src)
