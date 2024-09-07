@@ -410,6 +410,9 @@
 	invisibility = INVISIBILITY_ABSTRACT
 	tracking = FALSE
 
+/obj/item/gps/internal/pai_gps/ui_state(mob/user)
+	return GLOB.self_state
+
 /datum/pai_software/gps/ui_act(action, list/params)
 	if(..())
 		return
