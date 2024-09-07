@@ -267,16 +267,14 @@
 	if(!allow_prefs_prompt)
 		return
 
-	if(!(user.client))
+	if(!user.client)
 		return
 
 	. = alert("Would you like to play as the character you currently have selected in slot?",, "Yes","No")
 	if(. == "Yes")
-		for(var/C in GLOB.human_names_list)
-			var/char_name = user.client.prefs.real_name
-			if(char_name == C)
-				to_chat(user, span_warning("You have already entered the round with this name, choose another slot."))
-				return
+		if(user.client.prefs.real_name in GLOB.human_names_list)
+			to_chat(user, span_warning("You have already entered the round with this name, choose another slot."))
+			return
 
 		var/char_species = user.client.prefs.species
 		if(!(char_species in pickable_species))
