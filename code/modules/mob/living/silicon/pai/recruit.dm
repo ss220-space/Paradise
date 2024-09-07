@@ -46,6 +46,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 
 			pai_candidates -= candidate
 			usr << browse(null, "window=findPai")
+			usr << browse(null, "window=paicard")
 		return
 
 	if("signup" in href_list)
@@ -56,7 +57,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 				return
 
 		if(!(O in GLOB.respawnable_list))
-			to_chat(O, "You've given up your ability to respawn!")
+			to_chat(O, span_notice("Вы отказались от возможности возрождения!"))
 			return
 		if(!check_recruit(O))
 			return

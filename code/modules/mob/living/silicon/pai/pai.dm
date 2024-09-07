@@ -186,7 +186,6 @@
 	SStgui.close_user_uis(src)
 	reset_memory()
 
-
 /mob/living/silicon/pai/proc/reset_memory()
 	// Handle RAM
 	var/total_memory = initial(ram)
@@ -207,9 +206,11 @@
 
 // this function shows the information about being silenced as a pAI in the Status panel
 /mob/living/silicon/pai/proc/show_silenced()
+	if(QDELETED(src) || stat == DEAD)
+		return
 	if(silence_time)
 		var/timeleft = round((silence_time - world.timeofday)/10 ,1)
-		return list("Перезагрузка систем связи через::", "-[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
+		return list("Перезагрузка систем связи через:", "[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
 
 
 /mob/living/silicon/pai/get_status_tab_items()
@@ -231,12 +232,13 @@
 		// 33% chance to unbind
 		// 33% chance to change prime directive (based on severity)
 		// 33% chance of no additional effect
+	if(QDELETED(src) || stat == DEAD)
+		return
 
 	silence_time = world.timeofday + 120 * 10		// Silence for 2 minutes
 	to_chat(src, span_danger("Системы связи перегружены! Инициирована перезагрузка повреждённых систем. Все модули общения недоступны на время перезагрузки."))
 	if(prob(20))
-		visible_message(span_warning("[name] выходит из строя, испуская фонтан искр!"), \
-		blind_message = span_warning("Вы чувствуете запах гари и слышите шипение искр."))
+		to_chat(viewers(src), span_warning("[name] выходит из строя, испуская фонтан искр!"))
 		return death(0)
 
 	switch(pick(1, 2 ,3))
@@ -423,7 +425,7 @@
 	set name = "pAI Suicide"
 	set desc = "Kill yourself and become a ghost (You will recieve a confirmation prompt.)"
 
-	if(alert("ДЕЙСТВИТЕЛЬНО хочешь убить себя? Это действие нельзя отменить.", "Suicide", "No", "Suicide") == "Suicide")
+	if(tgui_alert(src, "ДЕЙСТВИТЕЛЬНО хотите убить себя? Это действие нельзя отменить.", "Suicide", list("Suicide", "No")) == "Suicide")
 		do_suicide()
 
 	else
@@ -628,7 +630,7 @@
 	if(!ishuman(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return ..()
 	if(usr == src)
-		switch(tgui_alert(user, "[src] хочет, что-бы вы его подобрали. Подобрать?", "Забрать", list("Нет", "Да")))
+		switch(tgui_alert(user, "[src] хочет, что-бы вы его подобрали. Подобрать?", "Подбор", list("Да", "Нет")))
 			if("Да")
 				if(Adjacent(user))
 					get_scooped(user)

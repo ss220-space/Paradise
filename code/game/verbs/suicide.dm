@@ -86,7 +86,7 @@
 	if(mobility_flags & MOBILITY_MOVE)
 		close_up()
 	card.removePersonality()
-	visible_message(span_notice("[src] flashes a message across its screen, \"Wiping core files. Please acquire a new personality to continue using pAI device functions.\""), blind_message = span_notice("[src] bleeps electronically."))
+	card.visible_message(span_notice("[name] выводит сообщение на экран: \"Стирание файлов личности. Чтобы продолжить использование устройства пИИ, загрузите новую личность.\""))
 	death(gibbed = FALSE, cleanWipe = TRUE)
 
 

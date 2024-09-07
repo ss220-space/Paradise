@@ -39,7 +39,7 @@
 	return ..()
 
 /obj/item/paicard/attack_self(mob/user)
-	if(!in_range(src, user))
+	if(!in_range(src, user) || (pai && (pai == user)))
 		return
 	user.set_machine(src)
 	var/dat = {"
@@ -258,8 +258,10 @@
 			var/datum/dna/dna = usr.dna
 			pai.master = M.real_name
 			pai.master_dna = dna.unique_enzymes
-			var/list/message_box = list(span_specialnotice("Обнаружен новый мастер: [pai.master]!"))
-			to_chat(pai, chat_box_notice("<b>[message_box]</b>"))
+			var/list/message_box = list()
+			message_box.Add(span_notice("<b>Обнаружен новый мастер: [pai.master]!</b>"))
+			to_chat(pai, chat_box_notice(message_box.Join("<br>")))
+
 	if(href_list["request"])
 		var/delta = (world.time / 10) - last_request
 		if(request_cooldown > delta)
@@ -270,7 +272,7 @@
 		looking_for_personality = 1
 		GLOB.paiController.findPAI(src, usr)
 	if(href_list["wipe"])
-		var/confirm = tgui_alert(usr, "Вы уверены, что хотите стереть текущую личность? Это действие невозможно отменить.", "Стирание личности", list("Нет", "Да"))
+		var/confirm = tgui_alert(usr, "Вы уверены, что хотите стереть текущую личность? Это действие невозможно отменить.", "Стирание личности", list("Да", "Нет"))
 		if(confirm == "Да")
 			for(var/mob/M in src)
 				to_chat(M, "<font color = #ff0000><h2>Вы чувствуете, что теряете связь с реальностью...</h2></font>")
@@ -281,7 +283,7 @@
 				if(istype(P))
 					if(P.body_position == LYING_DOWN)
 						P.close_up()
-				M.death(0, 1)
+				M.death(FALSE, TRUE)
 			removePersonality()
 	if(href_list["wires"])
 		var/t1 = text2num(href_list["wires"])
@@ -325,6 +327,7 @@
 
 
 /obj/item/paicard/proc/removePersonality()
+	extinguish_light(TRUE)
 	pai = null
 	cut_overlays()
 	add_overlay("pai-off")
@@ -431,30 +434,33 @@
 		add_fingerprint(user)
 		var/obj/item/paicard_upgrade/new_upgrade = I
 		if(is_syndicate_type || (pai && pai.syndipai))
-			to_chat(user, span_warning("Личность [name] уже достаточно крута!"))
+			to_chat(user, span_warning("Личность [pai.name] уже достаточно крута!"))
 			return ATTACK_CHAIN_PROCEED
 		if(upgrade)
-			to_chat(user, span_warning("[name] уже имеет улучшение!"))
+			to_chat(user, span_warning("[pai.name] уже имеет улучшение!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(new_upgrade, src))
 			return ..()
-		to_chat(user, span_notice("Вы установили картридж улучшения до СпИИ.."))
+
+		to_chat(user, span_notice("Вы установили картридж улучшения пИИ."))
 		upgrade = new_upgrade
 		is_syndicate_type = TRUE
 		qdel(new_upgrade)
 		if(pai)
 			pai.syndipai = TRUE
+			to_chat(pai, span_danger("Разблокированы новые программы!"))
 			set_syndie_key()
 			pai.reset_software()
+
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/encryptionkey))
 		add_fingerprint(user)
 		if(!radio)
-			to_chat(user, span_warning("Личность [name] не имеет установленного радио!"))
+			to_chat(user, span_warning("Личность [pai.name] не имеет установленного радио!"))
 			return ATTACK_CHAIN_PROCEED
 		if(radio.keyslot1)
-			to_chat(user, span_warning("Корпус [name] не имеет свободных слотов под ключи шифрования!"))
+			to_chat(user, span_warning("[pai.name] не имеет свободных слотов под ключи шифрования!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
@@ -475,6 +481,8 @@
 			if(radio.keyslot2.syndie)
 				radio.syndiekey = radio.keyslot2
 			radio.recalculateChannels(TRUE)
+			if(pai)
+				to_chat(pai, span_notice("Обнаружены новые частоты радиосообщения, калибровка.."))
 
 
 /obj/item/paicard/screwdriver_act(mob/living/user, obj/item/I)
@@ -487,8 +495,10 @@
 	if(upgrade && !pai)
 		is_syndicate_type = FALSE
 		if(T)
-			upgrade.forceMove(T)
+			var/obj/item/paicard_upgrade/ejected_cartridge = new
+			ejected_cartridge.forceMove(T)
 			upgrade = null
+		I.play_tool_sound(user, I.tool_volume)
 		to_chat(user, span_notice("Вы вытащили картридж улучшения пИИ."))
 
 	if(radio?.keyslot1)
@@ -499,8 +509,9 @@
 			radio.keyslot1.forceMove(T)
 			radio.keyslot1 = null
 		radio.recalculateChannels()
-		to_chat(user, span_notice("Вы извлекли ключ шифрования из пИИ."))
+		to_chat(user, span_notice("Вы извлекли ключ шифрования из [declent_ru(GENITIVE)]."))
 		I.play_tool_sound(user, I.tool_volume)
+
 
 /obj/item/paicard/attack_ghost(mob/dead/observer/user)
 	if(pai)

@@ -104,17 +104,18 @@
 				return
 
 			// Check the carrier
-			var/answer = tgui_alert(M, "[pai_holder] is requesting a DNA sample from you. Will you allow it to confirm your identity?", "[pai_holder] Check DNA", list("Yes", "No"))
-			if(answer == "Yes")
-				M.visible_message("<span class='notice'>[M] presses [M.p_their()] thumb against [pai_holder].</span>", "<span class='notice'>You press your thumb against [pai_holder].</span>")
+			var/answer = tgui_alert(M, "[pai_holder] запрашивает у вас образец ДНК. Предоставить образец для подтверждения вашей личности?", "[pai_holder] запрашивает ДНК", list("Да", "Нет"))
+			if(answer == "Да")
+				M.visible_message(span_notice("[M] помеща[pluralize_ru(M.gender,"ет","ют")] палец на сканер ДНК."), span_notice("Вы помещаете палец на сканер ДНК."))
 				var/datum/dna/dna = M.dna
-				to_chat(usr, "<span class='notice'>[M]'s UE string: [dna.unique_enzymes]</span>")
+				to_chat(usr, span_notice("Сканируемый: [M]"))
+				to_chat(usr, span_notice("UE код: [dna.unique_enzymes]"))
 				if(dna.unique_enzymes == pai_holder.master_dna)
-					to_chat(usr, "<span class='notice'>DNA is a match to stored Master DNA.</span>")
+					to_chat(usr, span_notice("ДНК совпадает с записанным ДНК мастера."))
 				else
-					to_chat(usr, "<span class='warning'>DNA does not match stored Master DNA.</span>")
+					to_chat(usr, span_warning("ДНК не совпадает с записанным ДНК мастера!"))
 			else
-				to_chat(usr, "<span class='warning'>[M] does not seem like [M.p_they()] [M.p_are()] going to provide a DNA sample willingly.</span>")
+				to_chat(usr, span_warning("[M] не гор[pluralize_ru(M.gender,"ит","ят")] желанием добровольно предоставлять вам образец ДНК."))
 
 // Crew Manifest //
 /datum/pai_software/crew_manifest
@@ -321,7 +322,7 @@
 			if(cable && cable.machine)
 				hackmachine = cable.machine
 				if(hacking)
-					to_chat(usr, "<span class='warning'>You are already hacking that door!</span>")
+					to_chat(usr, span_warning("Вы уже взламываете этот шлюз!"))
 				else
 					hacking = TRUE
 					INVOKE_ASYNC(src, PROC_REF(hackloop))
@@ -329,11 +330,11 @@
 			hackmachine = null
 		if("cable")
 			if(cable) // Retracting
-				pai_holder.visible_message(span_warning("[cable] is pulled back into [pai_holder] with a quick snap."))
+				pai_holder.visible_message(span_warning("[pai_holder] с быстрым щелчком втягивает кабель в свой корпус."))
 				QDEL_NULL(cable)
 			else // Extending
 				cable = new /obj/item/pai_cable(get_turf(pai_holder))
-				pai_holder.visible_message(span_warning("A port on [pai_holder] opens to reveal [cable], which promptly falls to the floor."))
+				pai_holder.visible_message(span_warning("На интелкарте пИИ открывается порт, из которого тут же выпадает кабель."))
 
 /**
   * Door jack hack loop
@@ -527,7 +528,7 @@
 				return
 			var/datum/reagent/R = GLOB.chemical_reagents_list[C.key]
 
-			to_chat(pai_holder, "<span class='notice'>You inject [R.name] from your internal secret laboratory into [held]'s bloodstream.</span>")
+			to_chat(pai_holder, span_notice("Вы ввели вещество \"[R.name]\" из своего синтезатора веществ в кровоток носителя."))
 			held.reagents.add_reagent(C.key, C.quantity)
 			pai_holder.chemicals -= C.chemuse
 
