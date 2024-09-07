@@ -255,7 +255,7 @@
 	var/disliked_food = GROSS
 	var/liked_food = FRIED | JUNKFOOD | SUGAR
 	/// Here are going material types. If material type in your diet, and item has eatable component - you will eat it.
-	var/special_diet = null
+	var/special_diet = NONE
 
 	var/list/autohiss_basic_map = null
 	var/list/autohiss_extra_map = null

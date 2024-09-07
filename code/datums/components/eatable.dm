@@ -14,6 +14,8 @@
 	var/is_only_grab_intent
 	/// If true - your item can be eaten without special diet check.
 	var/is_always_eatable
+	/// Amount of stack which will be spend on bite.
+	var/stack_use
 
 /datum/component/eatable/Initialize(
 	current_bites = 0,
@@ -22,7 +24,8 @@
 	integrity_bite = 10,
 	nutritional_value = 20,
 	is_only_grab_intent = FALSE,
-	is_always_eatable = FALSE
+	is_always_eatable = FALSE,
+	stack_use = 1
 )
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -33,6 +36,7 @@
 	src.nutritional_value = nutritional_value
 	src.is_only_grab_intent = is_only_grab_intent
 	src.is_always_eatable = is_always_eatable
+	src.stack_use = stack_use
 	
 /datum/component/eatable/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ITEM_PRE_ATTACKBY, PROC_REF(pre_try_eat_item))
@@ -45,7 +49,7 @@
 	SIGNAL_HANDLER
 
 	examine_list += item_string_material()
-	
+
 	if(!istype(human))
 		return
 	
@@ -126,7 +130,7 @@
 /datum/component/eatable/proc/eat(mob/target, mob/user)
 	var/obj/item/item = parent
 
-	playsound(target.loc, 'sound/items/eatfood.ogg', 50, 0)
+	playsound(target.loc, 'sound/items/eatfood.ogg', 50, FALSE)
 	if(!isvampire(target)) //Dont give nutrition to vampires
 		target.adjust_nutrition(nutritional_value)
 	SSticker.score.score_food_eaten++
@@ -134,9 +138,7 @@
 	if(isstack(item))
 		var/obj/item/stack/stack = item
 		to_chat(user, span_notice("[target == user ? "Вы съели" : "[target] съел"] [stack.name]."))
-		if(stack.amount == 1)
-			qdel(stack)
-		stack.amount--
+		stack.use(stack_use)
 	else
 		current_bites++
 		item.obj_integrity = max(item.obj_integrity - integrity_bite, 0)
