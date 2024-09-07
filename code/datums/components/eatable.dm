@@ -13,7 +13,7 @@
 	/// Grab if help_intent was used
 	var/is_only_grab_intent
 	/// If true - your item can be eaten without special diet check.
-	var/always_eatable
+	var/is_always_eatable
 
 /datum/component/eatable/Initialize(
 	current_bites = 0,
@@ -84,7 +84,7 @@
 
 	if(!istype(target))
 		return FALSE
-	if(!(material_type & target.dna.species.special_diet) && !always_eatable)
+	if(!(material_type & target.dna.species.special_diet) && !is_always_eatable)
 		return FALSE
 	if(is_only_grab_intent && user.a_intent != INTENT_GRAB)
 		return FALSE
