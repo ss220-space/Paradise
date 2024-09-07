@@ -147,7 +147,5 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 		return FALSE
 	if(incapacitated() || grab_state < GRAB_AGGRESSIVE || stat != CONSCIOUS)
 		return FALSE
-	if(get_dir(src, target) != dir) // Gotta face em 4head
-		return FALSE
 	return TRUE
 
