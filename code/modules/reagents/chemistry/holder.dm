@@ -599,9 +599,16 @@
 				var/check = reaction_check(A, R)
 				if(!check)
 					continue
-				R.reaction_mob(A, method, R.volume * volume_modifier, show_message)
+
+				var/protection = 0
+				var/mob/living/L = A
+				protection = L.get_permeability_protection()
+
+				R.reaction_mob(A, method, R.volume * volume_modifier * (1 - protection), show_message)
+
 			if("TURF")
 				R.reaction_turf(A, R.volume * volume_modifier, R.color)
+
 			if("OBJ")
 				R.reaction_obj(A, R.volume * volume_modifier)
 
