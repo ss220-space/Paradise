@@ -541,7 +541,7 @@
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "dangertray"
 	desc = "A metal tray to lay food on. The edges are razor sharp"
-	force = 25
+	force = 5
 	throwforce = 25.0
 	throw_speed = 3
 	throw_range = 7
