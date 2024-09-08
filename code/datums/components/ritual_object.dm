@@ -24,7 +24,7 @@
 	return
 
 /datum/component/ritual_object/Destroy(force)
-	ritual_object = null
+	attacking_item_type = null
 	return ..()
 	
 /datum/component/ritual_object/proc/attackby(obj/obj, mob/user, params)
