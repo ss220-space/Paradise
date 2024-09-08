@@ -361,6 +361,7 @@
 #include "code\controllers\subsystem\tickets\mentor_tickets.dm"
 #include "code\controllers\subsystem\tickets\tickets.dm"
 #include "code\datums\action.dm"
+#include "code\datums\ritual_object.dm"
 #include "code\datums\ai_law_sets.dm"
 #include "code\datums\ai_laws.dm"
 #include "code\datums\armor.dm"
