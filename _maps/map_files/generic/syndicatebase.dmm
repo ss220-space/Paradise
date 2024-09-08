@@ -11211,9 +11211,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay/virology)
-"ksR" = (
-/turf/space,
-/area/ruin/unpowered)
 "kva" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
@@ -23065,7 +23062,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/junction{
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -23872,13 +23869,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
-"uhB" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "uhH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -24420,28 +24410,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/restroom)
-"uyQ" = (
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
-/obj/structure/sign/directions/medical{
-	dir = 8;
-	pixel_x = -32;
-	pixel_y = 6
-	},
-/obj/structure/sign/directions/science{
-	pixel_x = -32
-	},
-/obj/structure/sign/directions/cargo{
-	pixel_x = -32;
-	pixel_y = -6
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "uyR" = (
 /obj/machinery/light,
 /obj/structure/reagent_dispensers/fueltank/chem{
@@ -25405,7 +25373,7 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "uZl" = (
-/obj/structure/chair/stool,
+/obj/machinery/vending/crittercare/free,
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "vab" = (
@@ -25974,13 +25942,18 @@
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "vvk" = (
-/obj/structure/window/reinforced{
-	color = "red";
-	dir = 4;
-	layer = 2.9
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
-/obj/machinery/vending/crittercare/free,
-/turf/simulated/floor/carpet/arcade,
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "vvA" = (
 /obj/structure/table,
@@ -26558,14 +26531,12 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "vXh" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -27066,15 +27037,6 @@
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "wnD" = (
 /obj/structure/chair/comfy/black,
-/turf/simulated/floor/carpet/arcade,
-/area/syndicate/unpowered/syndicate_space_base/main/central_s)
-"wnJ" = (
-/obj/machinery/computer/arcade/battle,
-/obj/structure/window/reinforced{
-	color = "red";
-	dir = 4;
-	layer = 2.9
-	},
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "wnM" = (
@@ -28087,6 +28049,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "wQh" = (
+/obj/machinery/arcade/minesweeper,
 /obj/structure/window/reinforced{
 	color = "red";
 	dir = 4;
@@ -28096,7 +28059,6 @@
 	color = "red";
 	layer = 2.9
 	},
-/obj/machinery/arcade/minesweeper,
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "wRV" = (
@@ -29375,8 +29337,14 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "xHx" = (
-/turf/simulated/mineral,
-/area/space)
+/obj/structure/window/reinforced{
+	color = "red";
+	dir = 4;
+	layer = 2.9
+	},
+/obj/machinery/computer/arcade/battle,
+/turf/simulated/floor/carpet/arcade,
+/area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "xHM" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -43191,7 +43159,7 @@ pdd
 jbN
 tJo
 jbN
-jbN
+pdd
 pdd
 pdd
 pdd
@@ -43709,7 +43677,7 @@ jbN
 jbN
 jbN
 jbN
-jbN
+pdd
 abT
 jbN
 jbN
@@ -50955,7 +50923,7 @@ mEC
 jbN
 jbN
 pdd
-jbN
+pdd
 xiM
 jbN
 jbN
@@ -51864,7 +51832,7 @@ jbN
 jbN
 aTW
 aTW
-jbN
+pdd
 aTW
 pdd
 pdd
@@ -54438,7 +54406,7 @@ pdd
 pdd
 pdd
 pdd
-jbN
+pdd
 jbN
 mEC
 mEC
@@ -54948,7 +54916,7 @@ mEC
 mEC
 mEC
 mEC
-jbN
+pdd
 pdd
 pdd
 pdd
@@ -56541,7 +56509,7 @@ jbN
 jbN
 aTW
 pdd
-xHx
+aTW
 mEC
 mEC
 mEC
@@ -61663,7 +61631,7 @@ pdd
 aTW
 jbN
 jbN
-pdd
+jbN
 mEC
 mEC
 mEC
@@ -64732,7 +64700,7 @@ aTW
 aTW
 jbN
 abT
-ksR
+jbN
 jbN
 mEC
 mEC
@@ -65055,10 +65023,10 @@ sfw
 sLQ
 okS
 tHo
-uhB
-uyQ
+oLs
 uUA
 vtz
+uZl
 vQV
 wnD
 wCh
@@ -65313,11 +65281,11 @@ sMs
 okS
 tHJ
 oLs
-oLs
 uUH
 vvf
-uZl
-uZl
+vvf
+vvf
+vvf
 vvf
 wPz
 ybK
@@ -65570,11 +65538,11 @@ sNt
 okS
 tIT
 oLs
-oLs
 uVo
-vvk
+ldT
 vRL
-wnJ
+xHx
+ldT
 ldT
 wQh
 ybK
@@ -65828,9 +65796,9 @@ okS
 tIX
 oLs
 oLs
-oLs
 vvR
 vTr
+oLs
 wnM
 wCB
 wRV
@@ -66086,8 +66054,8 @@ tJw
 oLs
 oLs
 oLs
-oLs
 vUI
+oLs
 wnU
 oLs
 wSo
@@ -66343,7 +66311,7 @@ tJZ
 uhH
 uza
 uVq
-uVq
+vvk
 vXh
 wnX
 aOE
@@ -83487,7 +83455,7 @@ jbN
 jbN
 jbN
 abT
-pdd
+jbN
 jbN
 aTW
 aTW
@@ -85942,7 +85910,7 @@ pdd
 pdd
 pdd
 jbN
-pdd
+jbN
 aak
 aak
 pdd
