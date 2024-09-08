@@ -398,15 +398,15 @@
 	if(istype(I, /obj/item/pai_cartridge))
 		add_fingerprint(user)
 		if(!pai)
-			to_chat(user, span_warning("Для установки картриджа необходима активная личность."))
+			user.balloon_alert(user, "необходима активная личность.")
 			return ATTACK_CHAIN_PROCEED
 		for(var/obj/item/pai_cartridge/cartridge in upgrades)
 			if(istype(I, cartridge))
-				to_chat(user, span_warning("Картридж уже установлен."))
+				user.balloon_alert(user, "картридж уже установлен!")
 				return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		to_chat(user, span_notice("Вы установили картридж."))
+		user.balloon_alert(user, "картридж установлен!")
 		switch(I.type)
 			if(/obj/item/pai_cartridge/reset)
 				pai.reset_software()
@@ -437,18 +437,18 @@
 			to_chat(user, span_warning("Личность [pai.name] уже достаточно крута!"))
 			return ATTACK_CHAIN_PROCEED
 		if(upgrade)
-			to_chat(user, span_warning("[pai.name] уже имеет улучшение!"))
+			user.balloon_alert(user, "уже установлено!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(new_upgrade, src))
 			return ..()
 
-		to_chat(user, span_notice("Вы установили картридж улучшения пИИ."))
+		user.balloon_alert(user, "вы установили картридж!")
 		upgrade = new_upgrade
 		is_syndicate_type = TRUE
 		qdel(new_upgrade)
 		if(pai)
 			pai.syndipai = TRUE
-			to_chat(pai, span_danger("Разблокированы новые программы!"))
+			pai.balloon_alert(pai, "разблокированы новые программы!")
 			set_syndie_key()
 			pai.reset_software()
 
