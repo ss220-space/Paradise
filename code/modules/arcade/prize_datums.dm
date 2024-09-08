@@ -95,7 +95,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/id_sticker
 	name = "Prisoner ID Sticker"
-	desc = "Наклейка которое сделает любую ID карту похожей на ID заключенного."
+	desc = "Наклейка, которая сделает любую ID-карту похожую на ID-карту заключенного."
 	typepath = /obj/item/id_decal/prisoner
 	cost = 50
 
@@ -106,12 +106,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/id_sticker/gold
 	name = "Gold ID Sticker"
-	desc = "Наклейка которое сделает любую ID золотой."
+	desc = "Наклейка, которая сделает любую ID золотой."
 	typepath = /obj/item/id_decal/gold
 
 /datum/prize_item/id_sticker/centcom
 	name = "Centcomm ID Sticker"
-	desc = "Наклейка которое сделает любую ID карту похожим на ID Центрального командования."
+	desc = "Наклейка, которое сделает любую ID карту похожим на ID Центрального командования."
 	typepath = /obj/item/id_decal/centcom
 
 /datum/prize_item/id_sticker/emag
