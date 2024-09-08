@@ -17,14 +17,14 @@
 	UnregisterSignal(parent, COMSIG_PARENT_ATTACKBY)
 
 /datum/component/ritual_object/proc/get_rituals()
-	LAZYREINITLIST(rituals)
+	LAZYCLEARLIST(rituals)
 	for(var/datum/ritual/ritual as anything in subtypesof(/datum/ritual))
 		rituals += new ritual
 		ritual.link_object(parent)
 	return
 
 /datum/component/ritual_object/Destroy(force)
-	attacking_item_type = null
+	LAZYNULL(rituals)
 	return ..()
 	
 /datum/component/ritual_object/proc/attackby(obj/obj, mob/user, params)
