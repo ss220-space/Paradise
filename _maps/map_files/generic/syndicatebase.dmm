@@ -25227,6 +25227,18 @@
 	dir = 1;
 	layer = 2.9
 	},
+/obj/structure/sign/directions/medical{
+	dir = 8;
+	pixel_x = -32;
+	pixel_y = 6
+	},
+/obj/structure/sign/directions/science{
+	pixel_x = -32
+	},
+/obj/structure/sign/directions/cargo{
+	pixel_x = -32;
+	pixel_y = -6
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "uUH" = (
