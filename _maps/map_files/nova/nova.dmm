@@ -77819,10 +77819,6 @@
 	},
 /area/maintenance/trading)
 "lMB" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = -28
-	},
 /obj/machinery/bodyscanner{
 	dir = 4
 	},
@@ -137091,6 +137087,10 @@
 /obj/machinery/iv_drip,
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -247558,8 +247558,8 @@ lhh
 onQ
 dlD
 vvd
-vvd
 eZt
+vvd
 aBQ
 vvd
 brw
