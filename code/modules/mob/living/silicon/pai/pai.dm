@@ -469,10 +469,10 @@
 	if(istype(I, /obj/item/stack/nanopaste))
 		var/obj/item/stack/nanopaste/nanopaste = I
 		if(stat == DEAD)
-			user.balloon_alert(user, "[name] не подлежит ремонту..")
+			user.balloon_alert(user, "пИИ не подлежит ремонту..")
 			return ATTACK_CHAIN_PROCEED
 		if(!getBruteLoss() && !getFireLoss())
-			user.balloon_alert(user, "[name] в полном порядке.")
+			user.balloon_alert(user, "пИИ в полном порядке.")
 			return ATTACK_CHAIN_PROCEED
 		if(!nanopaste.use(1))
 			user.balloon_alert(user, "нанопаста закончилась!")
@@ -482,7 +482,7 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(I, /obj/item/paicard_upgrade) || istype(I, /obj/item/pai_cartridge))
-		to_chat(user, span_warning("Личность должна быть в компактной форме."))
+		to_chat(user, span_warning("пИИ должен быть в компактной форме."))
 		return ATTACK_CHAIN_PROCEED
 
 	user.do_attack_animation(src)
