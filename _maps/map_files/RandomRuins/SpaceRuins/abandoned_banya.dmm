@@ -301,7 +301,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
 "nD" = (
-/turf/simulated/mineral/random,
+/turf/simulated/mineral/random/high_chance,
 /area/space)
 "nH" = (
 /obj/structure/extinguisher_cabinet,
@@ -1303,8 +1303,8 @@ Nd
 Nd
 Nd
 Nd
-dr
-dr
+nD
+nD
 Nd
 Nd
 Nd
@@ -1330,10 +1330,10 @@ Nd
 Nd
 nD
 nD
-dr
 nD
 nD
-dr
+nD
+nD
 Nd
 Nd
 Nd
@@ -1358,8 +1358,8 @@ Dd
 Dd
 Dd
 Dd
-dr
-dr
+nD
+nD
 Nd
 Nd
 Nd
@@ -1399,8 +1399,8 @@ Nd
 Nd
 Nd
 Nd
-dr
-dr
+nD
+nD
 nD
 xP
 Dd
@@ -1421,11 +1421,11 @@ Nd
 Nd
 Nd
 Nd
-dr
 nD
 nD
 nD
-dr
+nD
+nD
 nD
 Dd
 Dd
@@ -1434,8 +1434,8 @@ Bn
 AC
 Dd
 Dd
-dr
-dr
+nD
+nD
 Nd
 Nd
 Nj
@@ -1445,7 +1445,7 @@ Nj
 Nd
 Nd
 Nd
-dr
+nD
 nD
 nD
 Dd
@@ -1459,7 +1459,7 @@ bq
 PV
 Dd
 nD
-dr
+nD
 Nd
 Nd
 Nd
@@ -1483,7 +1483,7 @@ DE
 ro
 Dd
 Dd
-dr
+nD
 Nd
 Nd
 Nd
@@ -1494,7 +1494,7 @@ Nj
 Nj
 Nd
 Nd
-dr
+nD
 nD
 Dd
 RY
@@ -1507,7 +1507,7 @@ DE
 bq
 fc
 Dd
-dr
+nD
 Nd
 Nd
 Nd
@@ -1519,7 +1519,7 @@ Nj
 Nj
 Nd
 Nd
-dr
+nD
 nD
 Dd
 tB
@@ -1533,7 +1533,7 @@ Dd
 Dd
 Dd
 nD
-dr
+nD
 Nd
 Nd
 Nd
@@ -1595,7 +1595,7 @@ Nj
 Nd
 Nd
 Nd
-dr
+nD
 Dd
 Dd
 uN
@@ -1609,7 +1609,7 @@ Ep
 Re
 Dd
 nD
-dr
+nD
 Nd
 Nd
 Nd
@@ -1621,7 +1621,7 @@ Nd
 Nd
 Nd
 Nd
-dr
+nD
 Dd
 Dd
 Bq
@@ -1633,7 +1633,7 @@ dX
 rn
 wd
 Dd
-dr
+nD
 Nd
 Nd
 Nd
@@ -1646,7 +1646,7 @@ Nd
 Nd
 Nd
 Nd
-dr
+nD
 nD
 Dd
 Dd
@@ -1658,7 +1658,7 @@ NX
 Ep
 JI
 Dd
-dr
+nD
 Nd
 Nd
 Nd
@@ -1709,7 +1709,7 @@ vI
 vE
 Dd
 nD
-dr
+nD
 Nd
 Nd
 Nd
@@ -1734,7 +1734,7 @@ Uf
 AU
 Dd
 nD
-dr
+nD
 Nd
 Nd
 Nd
@@ -1760,7 +1760,7 @@ Dd
 Dd
 Dd
 nD
-dr
+nD
 Nd
 Nd
 Nj
@@ -1785,7 +1785,7 @@ ZL
 UY
 Dd
 nD
-dr
+nD
 Nd
 Nd
 Nj
@@ -1794,7 +1794,7 @@ Nj
 Nj
 Nd
 Nd
-dr
+nD
 nD
 Dd
 Dd
@@ -1810,7 +1810,7 @@ cq
 OH
 Dd
 nD
-dr
+nD
 Nd
 Nd
 Nj
@@ -1819,7 +1819,7 @@ Nj
 Nj
 Nd
 Nd
-dr
+nD
 nD
 nD
 Dd
@@ -1845,7 +1845,7 @@ Nj
 Nd
 Nd
 Nd
-dr
+nD
 nD
 nD
 Dd
@@ -1859,7 +1859,7 @@ BO
 GZ
 jZ
 Dd
-dr
+nD
 Nd
 Nd
 Nd
@@ -1884,8 +1884,8 @@ Dd
 Dd
 Dd
 nD
-dr
-dr
+nD
+nD
 Nd
 Nd
 Nj
@@ -1910,7 +1910,7 @@ aQ
 Dd
 Dd
 nD
-dr
+nD
 Nd
 Nd
 Nj
@@ -1919,7 +1919,7 @@ Nj
 Nj
 Nd
 Nd
-dr
+nD
 nD
 Dd
 op
@@ -1935,7 +1935,7 @@ ar
 Jl
 Dd
 nD
-dr
+nD
 Nd
 Nd
 Nj
@@ -1944,7 +1944,7 @@ Nj
 Nj
 Nd
 Nd
-dr
+nD
 nD
 Dd
 zB
@@ -2019,7 +2019,7 @@ Nj
 Nj
 Nd
 Nd
-dr
+nD
 nD
 nD
 Dd
@@ -2033,8 +2033,8 @@ Dd
 CV
 Dd
 Dd
-dr
-dr
+nD
+nD
 Nd
 Nd
 Nd
@@ -2045,8 +2045,8 @@ Nj
 Nd
 Nd
 Nd
-dr
-dr
+nD
+nD
 nD
 Dd
 Dd
@@ -2058,7 +2058,7 @@ nD
 tH
 nD
 nD
-dr
+nD
 Nd
 Nd
 Nd
@@ -2071,18 +2071,18 @@ Nd
 Nd
 Nd
 Nd
-dr
-dr
 nD
 nD
 nD
 nD
 nD
-dr
+nD
+nD
+nD
 dr
 dr
 Nd
-dr
+nD
 Nd
 Nd
 Nd
@@ -2101,8 +2101,8 @@ Nd
 Nd
 Nd
 Nd
-dr
-dr
+nD
+nD
 Nd
 Nd
 Nd
