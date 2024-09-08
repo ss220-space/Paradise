@@ -45,7 +45,7 @@
 	if(!tgui_menu)
 		return
 		
-	for(var/datum/ritual/ritual as anything in subtypesof(/datum/ritual))
+	for(var/datum/ritual/ritual as anything in rituals)
 		if(tgui_menu == ritual.name)
 			ritual.pre_ritual_check(obj, human)
 			break
