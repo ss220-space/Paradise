@@ -1,5 +1,5 @@
 #define DEFAULT_RITUAL_RANGE_FIND 1
-
+#define DEFAULT_RITUAL_COOLDOWN (10 SECONDS)
 #define RITUAL_SUCCESSFUL						(1<<0)
 /// Invocation checks, should not be used in extra checks.
 #define RITUAL_FAILED_INVALID_SPECIES			(1<<1)
@@ -29,6 +29,10 @@
 	var/shaman_required_message = "Данный ритуал должен выполнять шаман."
 	var/extra_shaman_required_message = "Для выполнения данного ритуала требуется больше шаманов."
 	var/extra_invokers_message = "Для выполнения данного ритуала требуется больше участников."
+	/// Cooldown for one ritual
+	COOLDOWN_DECLARE(ritual_cooldown)
+	/// Our cooldown after we casted ritual.
+	var/cooldown_after_cast = DEFAULT_RITUAL_COOLDOWN
 	
 /datum/ritual/proc/link_object(obj/obj)
 	src.ritual_object = obj
@@ -53,7 +57,7 @@
 /datum/ritual/proc/open_ritual_ui(obj/obj, mob/living/carbon/human/human)
 	var/list/rituals_list = list()
 	for(var/datum/ritual/ritual as anything in subtypesof(/datum/ritual))
-		if(!ritual.ritual_completed)
+		if(!ritual.ritual_completed && COOLDOWN_FINISHED(ritual, ritual_cooldown))
 			LAZYADD(rituals_list, ritual.name)
 	if(!LAZYLEN(rituals_list))
 		to_chat(human, "Не имеется доступных для исполнения ритуалов.")
@@ -97,6 +101,7 @@
 			message = extra_shaman_required_message
 		if(RITUAL_SUCCESSFUL)
 			do_ritual(obj, invoker)
+			COOLDOWN_START(src, ritual_cooldown, cooldown_after_cast)
 			
 	if(message)
 		to_chat(invoker, message)
@@ -129,4 +134,3 @@
 
 /datum/ritual/proc/do_ritual(obj/obj, mob/living/carbon/human/invoker) // Do ritual stuff.
 	return
-
