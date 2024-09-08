@@ -7,67 +7,6 @@
 #define RITUAL_FAILED_REQUIRED_EXTRA_SHAMAN		(1<<3)
 #define RITUAL_FAILED_EXTRA_INVOKERS			(1<<4)
 
-/datum/ritual_object // give it to object.
-	/// Linked object
-	var/obj/ritual_object
-	/// If type != attacking item type it will not open UI
-	var/attacking_item_type
-
-/datum/ritual_object/proc/link_obj(obj/obj)
-	src.ritual_object = obj
-	init_obj_signals()
-	
-/datum/ritual_object/proc/init_obj_signals()
-	if(!ritual_object)
-		return
-	RegisterSignal(ritual_object, COMSIG_PARENT_ATTACKBY, PROC_REF(attackby))
-
-/datum/ritual_object/Destroy(force)
-	UnregisterSignal(ritual_object, COMSIG_PARENT_ATTACKBY)
-	ritual_object = null
-	return ..()
-	
-/datum/ritual_object/proc/attackby(obj/obj, mob/user, params)
-	SIGNAL_HANDLER
-	
-	INVOKE_ASYNC(src, PROC_REF(pre_open_ritual_ui), obj, user)
-	return COMPONENT_CANCEL_ATTACK_CHAIN // The reason not to give that datum to every object.
-
-/datum/ritual_object/proc/open_ritual_ui(obj/obj, mob/living/carbon/human/human)
-	var/list/rituals_list = list()
-	for(var/datum/ritual/ritual as anything in subtypesof(/datum/ritual))
-		if(!ritual.ritual_completed && COOLDOWN_FINISHED(ritual, ritual_cooldown))
-			LAZYADD(rituals_list, ritual.name)
-	if(!LAZYLEN(rituals_list))
-		to_chat(human, "Не имеется доступных для исполнения ритуалов.")
-		
-	var/tgui_menu = tgui_input_list(src, "выберите ритуал", "Ритуалы", rituals_list)
-	if(!tgui_menu)
-		return
-		
-	for(var/datum/ritual/ritual as anything in subtypesof(/datum/ritual))
-		if(tgui_menu == ritual.name)
-			ritual.link_object(ritual_object)
-			ritual.pre_ritual_check(obj, human)
-			break
-	return
-
-/datum/ritual_object/proc/pre_open_ritual_ui(obj/obj, mob/user)
-	if(!ishuman(user))
-		return
-	var/mob/living/carbon/human/human = user
-	if(!isashwalker(human))
-		return
-	if(attacking_item_type && !istype(obj, attacking_item_type))
-		return
-	
-	if(open_ritual_ui_check(obj, human))
-		open_ritual_ui(obj, human)
-	return
-
-/datum/ritual_object/proc/open_ritual_ui_check(obj/obj, mob/living/carbon/human/human) // Your custom checks are going here
-	return TRUE
-
 /datum/ritual
 	/// Linked object
 	var/obj/ritual_object
