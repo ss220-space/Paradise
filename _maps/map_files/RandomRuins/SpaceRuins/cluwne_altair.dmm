@@ -2,8 +2,16 @@
 "ai" = (
 /turf/simulated/floor/mineral/gold/fancy,
 /area/ruin/space/cluwne_ruin)
+"cQ" = (
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/mineral/gold/fancy,
+/area/ruin/space/cluwne_ruin)
 "df" = (
 /obj/machinery/portable_atmospherics/canister/air,
+/obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/noslip,
 /area/ruin/space/cluwne_ruin)
 "dy" = (
@@ -33,7 +41,8 @@
 /turf/simulated/floor/noslip,
 /area/ruin/space/cluwne_ruin)
 "gV" = (
-/obj/structure/window/reinforced/tinted,
+/obj/effect/decal/cleanable/glass,
+/obj/item/shard,
 /turf/simulated/floor/mineral/silver/fancy,
 /area/ruin/space/cluwne_ruin)
 "he" = (
@@ -116,6 +125,7 @@
 /area/ruin/space/cluwne_ruin)
 "qE" = (
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
+/obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/noslip,
 /area/ruin/space/cluwne_ruin)
 "qS" = (
@@ -131,17 +141,25 @@
 "uS" = (
 /turf/simulated/mineral/volcanic,
 /area/asteroid)
+"vs" = (
+/obj/effect/decal/cleanable/confetti,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"vH" = (
+/mob/living/simple_animal/hostile/retaliate/clown/goblin,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
 "wk" = (
 /obj/structure/closet/fireaxecabinet,
 /turf/simulated/wall/rust,
 /area/ruin/space/cluwne_ruin)
 "wF" = (
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
 /obj/item/chair/stool/bar/dark{
 	dir = 1
 	},
+/obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/mineral/gold/fancy,
 /area/ruin/space/cluwne_ruin)
 "wL" = (
@@ -156,6 +174,8 @@
 /obj/item/book/manual/random{
 	pixel_y = 5
 	},
+/obj/effect/decal/ants,
+/obj/effect/decal/ants,
 /turf/simulated/floor/noslip,
 /area/ruin/space/cluwne_ruin)
 "xa" = (
@@ -225,6 +245,10 @@
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/mineral/silver/fancy,
 /area/ruin/space/cluwne_ruin)
+"HS" = (
+/obj/item/cigbutt/cigarbutt,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
 "HW" = (
 /obj/structure/window/reinforced/tinted,
 /turf/simulated/floor/mineral/gold/fancy,
@@ -276,6 +300,11 @@
 /obj/effect/decal/cleanable/confetti,
 /turf/simulated/floor/mineral/silver/fancy,
 /area/ruin/space/cluwne_ruin)
+"Nf" = (
+/obj/effect/decal/cleanable/dust,
+/obj/item/shard,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
 "Nr" = (
 /turf/simulated/wall/rust,
 /area/ruin/space/cluwne_ruin)
@@ -286,6 +315,7 @@
 "Or" = (
 /obj/effect/spawner/lootdrop/crate_spawner,
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
+/obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/noslip,
 /area/ruin/space/cluwne_ruin)
 "OO" = (
@@ -327,6 +357,10 @@
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/asteroid)
+"Qx" = (
+/obj/effect/decal/ants,
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
 "QT" = (
 /obj/structure/table/wood/fancy/orange,
 /obj/item/flashlight/lamp/bananalamp{
@@ -341,6 +375,10 @@
 /obj/item/flag/species/unathi{
 	pixel_y = 10
 	},
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"Sn" = (
+/obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/noslip,
 /area/ruin/space/cluwne_ruin)
 "SO" = (
@@ -369,11 +407,16 @@
 /area/ruin/space/cluwne_ruin)
 "Xb" = (
 /obj/structure/table_frame/wood,
+/obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/noslip,
 /area/ruin/space/cluwne_ruin)
 "Yw" = (
 /obj/structure/extinguisher_cabinet/empty,
 /turf/simulated/wall/rust,
+/area/ruin/space/cluwne_ruin)
+"Za" = (
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/mineral/silver/fancy,
 /area/ruin/space/cluwne_ruin)
 
 (1,1,1) = {"
@@ -687,7 +730,7 @@ VQ
 na
 na
 Ls
-na
+Qx
 Do
 Nr
 Kv
@@ -739,7 +782,7 @@ Kv
 Kv
 Kv
 Nr
-na
+Qx
 mZ
 JH
 na
@@ -773,11 +816,11 @@ Kv
 Nr
 na
 wO
-na
+Qx
 SO
 oD
 ai
-Im
+cQ
 ai
 ai
 na
@@ -900,7 +943,7 @@ Kv
 Kv
 HP
 Kb
-Kb
+Za
 wF
 ai
 Aa
@@ -933,7 +976,7 @@ Kv
 Nr
 qE
 Xb
-na
+Nf
 ai
 Aa
 Aa
@@ -965,8 +1008,8 @@ Kv
 uS
 uS
 uS
-Ex
-kV
+vH
+vs
 ai
 ai
 iI
@@ -999,7 +1042,7 @@ uS
 uS
 uS
 df
-na
+Sn
 jP
 Pi
 ii
@@ -1031,7 +1074,7 @@ uS
 uS
 uS
 uS
-na
+Sn
 Kb
 Qa
 Kb
@@ -1071,7 +1114,7 @@ na
 na
 na
 na
-na
+HS
 TU
 Nr
 Kv
