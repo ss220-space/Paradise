@@ -66,7 +66,7 @@
 		
 	for(var/datum/ritual/ritual as anything in subtypesof(/datum/ritual))
 		if(tgui_menu == ritual.name)
-			ritual.pre_ritual_check(human, obj)
+			ritual.pre_ritual_check(obj, human)
 			break
 
 /datum/ritual/proc/pre_open_ritual_ui(obj/obj, mob/user)
@@ -74,7 +74,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/human = user
-	if(!istype(human.dna.species, /datum/species/unathi/ashwalker))
+	if(!isashwalker(human))
 		message = invalid_species_message
 	if(attacking_item_type && !istype(obj, attacking_item_type))
 		message = invalid_attacking_item_type_message
@@ -82,12 +82,18 @@
 	if(message)
 		to_chat(human, message)
 		return
+
+	if(open_ritual_ui_check(obj, human))
+		open_ritual_ui(obj, human)
+
+	return
+
+/datum/ritual/proc/open_ritual_ui_check(obj/obj, mob/living/carbon/human/invoker) // Your custom checks are going here
+	return TRUE
 		
-	open_ritual_ui(obj, human)
-		
-/datum/ritual/proc/pre_ritual_check(mob/living/carbon/human/invoker, obj/obj)
+/datum/ritual/proc/pre_ritual_check(obj/obj, mob/living/carbon/human/invoker)
 	var/message
-	switch(ritual_invoke_check(invoker))
+	switch(ritual_invoke_check(obj, invoker))
 		if(RITUAL_FAILED_INVALID_SPECIES)
 			message = invalid_species_message
 		if(RITUAL_FAILED_REQUIRED_SHAMAN_INVOKE)
@@ -97,25 +103,25 @@
 		if(RITUAL_FAILED_REQUIRED_EXTRA_SHAMAN)
 			message = extra_shaman_required_message
 		if(RITUAL_SUCCESSFUL)
-			do_ritual(invoker, obj)
+			do_ritual(obj, invoker)
 			
 	if(message)
 		to_chat(invoker, message)
 
 	return
 		
-/datum/ritual/proc/ritual_invoke_check(mob/living/carbon/human/invoker, obj/obj)
-	if(!istype(invoker.dna.species, /datum/species/unathi/ashwalker)) // double check to avoid funny situations
+/datum/ritual/proc/ritual_invoke_check(obj/obj, mob/living/carbon/human/invoker)
+	if(!isashwalker(invoker)) // double check to avoid funny situations
 		return RITUAL_FAILED_INVALID_SPECIES
-	if(shaman_only && !istype(invoker.dna.species, /datum/species/unathi/ashwalker/shaman))
+	if(shaman_only && !isashwalkershaman(invoker))
 		return RITUAL_FAILED_REQUIRED_SHAMAN_INVOKE
 	if(extra_invokers || extra_shaman_invokers)
 		var/list/invokers = list()
 		var/list/shaman_invokers = list()
 		for(var/mob/living/carbon/human/human in range(finding_range, obj))
-			if(istype(human.dna.species, /datum/species/unathi/ashwalker))
+			if(isashwalker(human))
 				invokers += human
-			if(istype(human.dna.species, /datum/species/unathi/ashwalker/shaman))
+			if(isashwalkershaman(human))
 				shaman_invokers += human
 				
 		if(LAZYLEN(invokers) < extra_invokers)
@@ -123,11 +129,11 @@
 		if(LAZYLEN(shaman_invokers) < extra_shaman_invokers)
 			return RITUAL_FAILED_REQUIRED_EXTRA_SHAMAN
 			
-	return ritual_check(invoker, obj/obj)
+	return ritual_check(obj, invoker)
 	
-/datum/ritual/proc/ritual_check(mob/living/carbon/human/invoker, obj/obj) // After extra checks we should return RITUAL_SUCCESSFUL.
+/datum/ritual/proc/ritual_check(obj/obj, mob/living/carbon/human/invoker) // After extra checks we should return RITUAL_SUCCESSFUL.
 	return RITUAL_SUCCESSFUL
 
-/datum/ritual/proc/do_ritual(mob/living/carbon/human/invoker, obj/obj) // Do ritual stuff.
+/datum/ritual/proc/do_ritual(obj/obj, mob/living/carbon/human/invoker) // Do ritual stuff.
 	return
 	
