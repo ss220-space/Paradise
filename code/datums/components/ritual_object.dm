@@ -65,4 +65,4 @@
 
 /datum/component/ritual_object/proc/open_ritual_ui_check(obj/obj, mob/living/carbon/human/human) // Your custom checks are going here
 	return TRUE
-  
+
