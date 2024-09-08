@@ -108,9 +108,9 @@
 		return RITUAL_FAILED_INVALID_SPECIES
 	if(shaman_only && !isashwalkershaman(invoker))
 		return RITUAL_FAILED_REQUIRED_SHAMAN_INVOKE
+	var/list/invokers = list()
+	var/list/shaman_invokers = list()
 	if(extra_invokers || extra_shaman_invokers)
-		var/list/invokers = list()
-		var/list/shaman_invokers = list()
 		for(var/mob/living/carbon/human/human in range(finding_range, obj))
 			if(isashwalker(human))
 				LAZYADD(invokers, human)
@@ -122,9 +122,9 @@
 		if(LAZYLEN(shaman_invokers) < extra_shaman_invokers)
 			return RITUAL_FAILED_REQUIRED_EXTRA_SHAMAN
 			
-	return ritual_check(obj, invoker)
+	return ritual_check(obj, invoker, invokers, shaman_invokers)
 	
-/datum/ritual/proc/ritual_check(obj/obj, mob/living/carbon/human/invoker) // After extra checks we should return RITUAL_SUCCESSFUL.
+/datum/ritual/proc/ritual_check(obj/obj, mob/living/carbon/human/invoker, list/invokers, list/shaman_invokers) // After extra checks we should return RITUAL_SUCCESSFUL.
 	return RITUAL_SUCCESSFUL
 
 /datum/ritual/proc/do_ritual(obj/obj, mob/living/carbon/human/invoker) // Do ritual stuff.
