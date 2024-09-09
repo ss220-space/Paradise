@@ -197,7 +197,7 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	for(mob/living/carbon/human/human as anything in invokers)
+	for(var/mob/living/carbon/human/human as anything in invokers)
 		if(!human.fire_stacks)
 			return FALSE
 	return TRUE
