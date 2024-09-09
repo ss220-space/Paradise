@@ -54,7 +54,7 @@
 /datum/ritual/proc/ritual_invoke_check(obj/obj, mob/living/carbon/human/invoker)
 	if(ritual_completed)
 		return // should not have message
-	if(allowed_species && !is_type_in_typecache(human.dna.species, allowed_species)) // double check to avoid funny situations
+	if(allowed_species && !is_type_in_typecache(invoker.dna.species, allowed_species)) // double check to avoid funny situations
 		return RITUAL_FAILED_INVALID_SPECIES
 	var/list/invokers = list()
 	if(extra_invokers)
@@ -79,7 +79,7 @@
 	var/extra_shaman_invokers = 0
 	/// If ritual can be invoked only by shaman
 	var/shaman_only = FALSE
-	allowed_species = typecacheof(/datum/dna/species/ashwalker)
+	allowed_species = typecacheof(/datum/species/ashwalker)
 
 /datum/ritual/ashwalker/ritual_check(obj/obj, mob/living/carbon/human/invoker, list/invokers)
 	if(shaman_only && !isashwalkershaman(invoker))
