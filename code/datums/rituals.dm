@@ -40,6 +40,7 @@
 		
 /datum/ritual/proc/pre_ritual_check(obj/obj, mob/living/carbon/human/invoker)
 	var/message
+	var/cause_disaster = FALSE
 	switch(ritual_invoke_check(obj, invoker))
 		if(RITUAL_SUCCESSFUL)
 			COOLDOWN_START(src, ritual_cooldown, cooldown_after_cast)
@@ -84,7 +85,7 @@
 
 /datum/ritual/proc/disaster(obj/obj, mob/living/carbon/human/invoker)
 	return
-	
+
 /datum/ritual/ashwalker
 	/// If ritual requires extra shaman invokers
 	var/extra_shaman_invokers = 0
