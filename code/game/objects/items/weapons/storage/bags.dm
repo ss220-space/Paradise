@@ -566,7 +566,8 @@
 	playsound(target, pick('sound/items/trayhit1.ogg', 'sound/items/trayhit2.ogg'), 50, TRUE)
 	if(target == user)
 		if(prob(15))
-			user.get_organ(active_hand_zone).droplimb(FALSE, DROPLIMB_SHARP)
+			var/L = user.get_organ(active_hand_zone)
+			L.droplimb(FALSE, DROPLIMB_SHARP)
 		user.apply_damage(25, BRUTE, active_hand_zone, 0, FALSE, /obj/item/storage/bag/dangertray)
 
 	if(ishuman(target) && prob(10))
@@ -593,7 +594,8 @@
 			var/zone = pick(BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_L_LEG, BODY_ZONE_PRECISE_L_FOOT)
 			H.apply_damage(25, BRUTE, zone, 0, FALSE, /obj/item/storage/bag/dangertray)
 			if(prob(15))
-				H.get_organ(zone).droplimb(FALSE, DROPLIMB_SHARP)
+				var/L = H.get_organ(zone)
+				L.droplimb(FALSE, DROPLIMB_SHARP)
 		else // head, chest, groin
 			var/zone = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN)
 			H.apply_damage(25, BRUTE, zone, 0, FALSE, /obj/item/storage/bag/dangertray)
