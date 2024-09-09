@@ -149,6 +149,9 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
+"kl" = (
+/turf/simulated/mineral/random/high_chance,
+/area/space)
 "kQ" = (
 /obj/structure/cable{
 	icon_state = "4-8";
@@ -230,7 +233,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "nX" = (
-/turf/simulated/mineral,
+/turf/simulated/mineral/random/high_chance,
 /area/ruin/unpowered)
 "oh" = (
 /obj/structure/alien/resin/wall,
@@ -1185,8 +1188,8 @@ RV
 RV
 iK
 iK
-iK
-iK
+kl
+kl
 Wq
 Wq
 Wq
@@ -1210,7 +1213,7 @@ RV
 iK
 iK
 iK
-iK
+kl
 yp
 Ja
 ZT
@@ -1297,7 +1300,7 @@ VN
 Wq
 Wq
 Wq
-iK
+kl
 iK
 RV
 "}
@@ -1319,10 +1322,10 @@ Wq
 Wq
 Wq
 Wq
-iK
-iK
-iK
-iK
+kl
+kl
+kl
+kl
 RV
 "}
 (15,1,1) = {"

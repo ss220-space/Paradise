@@ -1202,13 +1202,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/medbay)
-"eK" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/mineral/random/high_chance,
-/area/ruin/space/USSP_gorky17/solars)
 "eL" = (
 /obj/structure/cable,
 /obj/structure/cable{
@@ -11245,6 +11238,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/solmaintsouth)
+"OF" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/mineral/random/high_chance,
+/area/ruin/space/USSP_gorky17/solars)
 "OH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -39204,7 +39204,7 @@ hL
 fB
 fB
 fB
-eK
+OF
 fB
 yI
 fB
