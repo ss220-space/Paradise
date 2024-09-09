@@ -3,7 +3,8 @@
 #define RITUAL_SUCCESSFUL						(1<<0)
 /// Invocation checks, should not be used in extra checks.
 #define RITUAL_FAILED_INVALID_SPECIES			(1<<1)
-#define RITUAL_FAILED_EXTRA_INVOKERS			(1<<4)
+#define RITUAL_FAILED_EXTRA_INVOKERS			(1<<2)
+#define RITUAL_FAILED_ON_PROCEED				(1<<3)
 
 /datum/ritual
 	/// Linked object
@@ -27,6 +28,8 @@
 	COOLDOWN_DECLARE(ritual_cooldown)
 	/// Our cooldown after we casted ritual.
 	var/cooldown_after_cast = DEFAULT_RITUAL_COOLDOWN
+	/// If our ritual failed on proceed - we'll try to cause disaster.
+	var/disaster_prob = 0
 	
 /datum/ritual/proc/link_object(obj/obj)
 	src.ritual_object = obj
@@ -38,16 +41,20 @@
 /datum/ritual/proc/pre_ritual_check(obj/obj, mob/living/carbon/human/invoker)
 	var/message
 	switch(ritual_invoke_check(obj, invoker))
+		if(RITUAL_SUCCESSFUL)
+			COOLDOWN_START(src, ritual_cooldown, cooldown_after_cast)
 		if(RITUAL_FAILED_INVALID_SPECIES)
 			message = invalid_species_message
 		if(RITUAL_FAILED_EXTRA_INVOKERS)
 			message = extra_invokers_message
-		if(RITUAL_SUCCESSFUL)
-			do_ritual(obj, invoker)
-			COOLDOWN_START(src, ritual_cooldown, cooldown_after_cast)
+		if(RITUAL_FAILED_ON_PROCEED)
+			cause_disaster = TRUE
 			
 	if(message)
 		to_chat(invoker, message)
+
+	if(cause_disaster && prob(disaster_prob))
+		disaster(obj, invoker)
 
 	return
 		
@@ -67,14 +74,17 @@
 			return RITUAL_FAILED_EXTRA_INVOKERS
 			
 	if(ritual_check(obj, invoker, invokers))
-		return RITUAL_SUCCESSFUL
+		return do_ritual(obj, invoker, invokers)
 	
-/datum/ritual/proc/ritual_check(obj/obj, mob/living/carbon/human/invoker, list/invokers) // After extra checks we should return RITUAL_SUCCESSFUL.
+/datum/ritual/proc/ritual_check(obj/obj, mob/living/carbon/human/invoker, list/invokers) // Additional pre-ritual checks
 	return TRUE
 
-/datum/ritual/proc/do_ritual(obj/obj, mob/living/carbon/human/invoker) // Do ritual stuff.
-	return
+/datum/ritual/proc/do_ritual(obj/obj, mob/living/carbon/human/invoker, list/invokers) // Do ritual stuff.
+	return RITUAL_SUCCESSFUL
 
+/datum/ritual/proc/disaster(obj/obj, mob/living/carbon/human/invoker)
+	return
+	
 /datum/ritual/ashwalker
 	/// If ritual requires extra shaman invokers
 	var/extra_shaman_invokers = 0

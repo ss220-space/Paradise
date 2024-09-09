@@ -3,11 +3,14 @@
 	var/attacking_item_type
 	/// Pre-defined rituals list
 	var/list/rituals = list()
+	/// We define rituals from this.
+	var/list/allowed_categories
 
-/datum/component/ritual_object/Initialize(attacking_item_type)
+/datum/component/ritual_object/Initialize(attacking_item_type, allowed_categories = /datum/ritual)
 	if(!isobj(parent))
 		return COMPONENT_INCOMPATIBLE
 	src.attacking_item_type = attacking_item_type
+	src.allowed_categories = allowed_categories
 	get_rituals()
 
 /datum/component/ritual_object/RegisterWithParent()
@@ -18,7 +21,7 @@
 
 /datum/component/ritual_object/proc/get_rituals()
 	LAZYCLEARLIST(rituals)
-	for(var/datum/ritual/ritual as anything in subtypesof(/datum/ritual))
+	for(var/datum/ritual/ritual as anything in typecacheof(allowed_categories))
 		if(ritual.name)
 			rituals += new ritual
 			ritual.link_object(parent)
