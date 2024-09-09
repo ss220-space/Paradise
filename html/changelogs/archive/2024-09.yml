@@ -1,0 +1,51 @@
+'2024-09-01':
+  Den109G:
+  - bugfix: short maid dress now is diffrent dress (#5841)
+  MstrKabach:
+  - add: upgraded hypospray (#5822)
+  Pelmenik123:
+  - add: locator_pod (#5824)
+  Sheya:
+  - bugfix: lockers (#5840)
+'2024-09-02':
+  Den109G:
+  - bugfix: Now mine checks for both legs, not just left ones (#5845)
+  Mahimka42:
+  - add: Anti-epidemic equipment crate (#5842)
+  Sheya:
+  - bugfix: lockers 2 (#5847)
+  Valtor:
+  - bugfix: vox passive health regen (#5846)
+'2024-09-06':
+  Daeberdir:
+  - tweak: wallet can hold keys. (#5859)
+  - tweak: un-**loud**-ing shadowling's hatch. (#5858)
+  LiquidPotroh:
+  - bugfix: Xenomorphs can't devour (#5862)
+  Mahimka42:
+  - bugfix: Flowers and implants are correctly provided in hand (#5853)
+  MeowEmiya:
+  - server: Ashwalkers eyes (#5851)
+  NuSanya:
+  - bugfix: small delivery packages deleting the wrapped item (#5854)
+  SHODAN:
+  - bugfix: Laser damage in solid smoke (#5823)
+  Sheya:
+  - tweak: ninja rad armor (#5852)
+  SyndiCat:
+  - tweak: chameleon taipan stamp  (#5864)
+  - tweak: lower price from 50 to 30 for emag (#5861)
+'2024-09-07':
+  Anorak2020:
+  - bugfix: farvision after death (#5850)
+  - add: Leg paralysis (#5827)
+  Kray1k:
+  - bugfix: pod key now lock/unlock pods & cargo orders now can be multiple & borgos
+      now can unlock himself (#5868)
+  Mahimka42:
+  - tweak: add patch boxes and thick tape roll to the taipan (#5863)
+  NuSanya:
+  - bugfix: haloperidol being harmless (#5869)
+  SyndiCat:
+  - add: gamma shuttle transition (#5860)
+  - imageadd: charcoal olives (#5867)

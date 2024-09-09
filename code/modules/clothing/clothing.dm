@@ -4,7 +4,6 @@
 	integrity_failure = 80
 	resistance_flags = FLAMMABLE
 	var/list/species_restricted = null //Only these species can wear this kit.
-	var/scan_reagents = 0 //Can the wearer see reagents while it's equipped?
 	var/gunshot_residue //Used by forensics.
 	var/obj/item/slimepotion/clothing/applied_slime_potion = null
 	var/list/faction_restricted = null
@@ -224,6 +223,8 @@
 	var/invis_view = SEE_INVISIBLE_LIVING
 	var/invis_override = 0
 	var/lighting_alpha
+	/// List of things added to examine text, like security or medical records.
+	var/examine_extensions = EXAMINE_HUD_NONE
 
 	var/emagged = FALSE
 	var/list/color_view = null//overrides client.color while worn
@@ -242,6 +243,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi'
 		)
+
 /*
 SEE_SELF  // can see self, no matter what
 SEE_MOBS  // can see all mobs, no matter what
@@ -294,9 +296,15 @@ BLIND     // can't see anything
 	attack_verb = list("challenged")
 	clothing_flags = FINGERS_COVERED
 	var/transfer_prints = FALSE
-	var/pickpocket = 0 //Master pickpocket?
-	var/clipped = 0
+	var/pickpocket = FALSE //Master pickpocket?
+	var/clipped = FALSE
 	var/extra_knock_chance = 0 //extra chance to knock down target when disarming
+	/// Flat bonus to various tool handling
+	/// Value of 0.1 adds 10% time delay to all performed actions in tool's category, -0.1 vice versa
+	/// READ ONLY!
+	var/surgeryspeedmod = 0
+	/// Same as above, used for surgery modifiers
+	var/toolspeedmod = 0
 	strip_delay = 20
 	put_on_delay = 40
 
@@ -305,22 +313,48 @@ BLIND     // can't see anything
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi'
 		)
 
+
+/obj/item/clothing/gloves/equipped(mob/living/carbon/human/user, slot, initial)
+	. = ..()
+	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
+		return .
+	if(surgeryspeedmod)
+		user.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/surgical_gloves, multiplicative_slowdown = surgeryspeedmod)
+	if(toolspeedmod)
+		user.add_or_update_variable_actionspeed_modifier(/datum/actionspeed_modifier/work_gloves, multiplicative_slowdown = toolspeedmod)
+
+
+/obj/item/clothing/gloves/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
+	. = ..()
+	if(!ishuman(user) || slot != ITEM_SLOT_GLOVES)
+		return .
+	if(surgeryspeedmod)
+		user.remove_actionspeed_modifier(/datum/actionspeed_modifier/surgical_gloves)
+	if(toolspeedmod)
+		user.remove_actionspeed_modifier(/datum/actionspeed_modifier/work_gloves)
+
+
 // Called just before an attack_hand(), in mob/UnarmedAttack()
 /obj/item/clothing/gloves/proc/Touch(atom/A, proximity)
-	return 0 // return 1 to cancel attack_hand()
+	return FALSE // return TRUE to cancel attack_hand()
 
-/obj/item/clothing/gloves/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_WIRECUTTER)
-		if(!clipped)
-			playsound(src.loc, W.usesound, 100, 1)
-			user.visible_message("<span class='warning'>[user] snips the fingertips off [src].</span>","<span class='warning'>You snip the fingertips off [src].</span>")
-			clipped = TRUE
-			update_appearance()
-		else
-			to_chat(user, "<span class='notice'>[src] have already been clipped!</span>")
-		return
-	else
-		return ..()
+
+/obj/item/clothing/gloves/wirecutter_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(clipped)
+		to_chat(user, span_warning("The [name] have already been clipped!"))
+		return .
+	if(loc == user)
+		to_chat(user, span_warning("You cannot clip [src] while wearing it!"))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	user.visible_message(
+		span_warning("[user] snips the fingertips off [src]."),
+		span_warning("You snip the fingertips off [src]."),
+	)
+	clipped = TRUE
+	update_appearance()
 
 
 /obj/item/clothing/gloves/update_name(updates = ALL)
@@ -616,34 +650,57 @@ BLIND     // can't see anything
 		)
 
 
+/obj/item/clothing/shoes/wirecutter_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!can_cut_open)
+		to_chat(user, span_warning("You cannot cut open [src]!"))
+		return .
+	if(cut_open)
+		to_chat(user, span_warning("The [name] have already had [p_their()] toes cut open!"))
+		return .
+	if(loc == user)
+		to_chat(user, span_warning("You cannot cut open [src] while wearing it!"))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	user.visible_message(
+		span_warning("[user] cuts open the toes of [src]."),
+		span_warning("You cut open the toes of [src]."),
+	)
+	cut_open = TRUE
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
+
+
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/tape_roll) && !silence_steps)
-		var/obj/item/stack/tape_roll/TR = I
-		if((!silence_steps) && TR.use(4))
-			silence_steps = TRUE
-			GetComponent(/datum/component/jackboots)?.ClearFromParent()
-			to_chat(user, "You tape the soles of [src] to silence your footsteps.")
+		add_fingerprint(user)
+		var/obj/item/stack/tape_roll/tape = I
+		if(!tape.use(4))
+			to_chat(user, span_warning("You need at least four lengths of tape to cover [src]!"))
+			return ATTACK_CHAIN_PROCEED
+		silence_steps = TRUE
+		GetComponent(/datum/component/jackboots)?.ClearFromParent()
+		to_chat(user, span_notice("You tape the soles of [src] to silence your footsteps."))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	else if(istype(I, /obj/item/match) && src.loc == user)
-		var/obj/item/match/M = I
-		if(M.matchignite()) // Match isn't lit, but isn't burnt.
-			user.visible_message("<span class='warning'>[user] strikes a [M] on the bottom of [src], lighting it.</span>","<span class='warning'>You strike the [M] on the bottom of [src] to light it.</span>")
-			playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
-		else
-			user.visible_message("<span class='warning'>[user] crushes the [M] into the bottom of [src], extinguishing it.</span>","<span class='warning'>You crush the [M] into the bottom of [src], extinguishing it.</span>")
-			user.drop_item_ground(I)
+	if(istype(I, /obj/item/match) && loc == user)
+		add_fingerprint(user)
+		var/obj/item/match/match = I
+		if(match.matchignite()) // Match isn't lit, but isn't burnt.
+			playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, TRUE)
+			user.visible_message(
+				span_warning("[user] strikes [match] on the bottom of [src], lighting it."),
+				span_warning("You have striked [match] on the bottom of [src] to light it."),
+			)
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		user.visible_message(
+				span_warning("[user] crushes [match] into the bottom of [src], extinguishing it."),
+				span_warning("You have crushed [match] into the bottom of [src], extinguishing it."),
+			)
+		user.drop_item_ground(match, force = TRUE)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	else if(I.tool_behaviour == TOOL_WIRECUTTER)
-		if(can_cut_open)
-			if(!cut_open)
-				playsound(src.loc, I.usesound, 100, 1)
-				user.visible_message("<span class='warning'>[user] cuts open the toes of [src].</span>","<span class='warning'>You cut open the toes of [src].</span>")
-				cut_open = TRUE
-				update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
-			else
-				to_chat(user, "<span class='notice'>[src] have already had [p_their()] toes cut open!</span>")
-	else
-		return ..()
+	return ..()
 
 
 /obj/item/clothing/shoes/update_name()
@@ -726,7 +783,7 @@ BLIND     // can't see anything
 	if(user.incapacitated())
 		return
 
-	if((HULK in user.mutations))
+	if(HAS_TRAIT(user, TRAIT_HULK))
 		if(user.can_unEquip(src)) //Checks to see if the item can be unequipped. If so, lets shred. Otherwise, struggle and fail.
 			for(var/obj/item/thing in src) //AVOIDING ITEM LOSS. Check through everything that's stored in the jacket and see if one of the items is a pocket.
 				if(istype(thing, /obj/item/storage/internal)) //If it's a pocket...
@@ -820,6 +877,8 @@ BLIND     // can't see anything
 	put_on_delay = 50
 	resistance_flags = NONE
 	dog_fashion = null
+	/// List of things added to examine text, like security or medical records.
+	var/examine_extensions = EXAMINE_HUD_NONE
 
 
 /obj/item/clothing/suit/space
@@ -897,21 +956,23 @@ BLIND     // can't see anything
 
 /obj/item/clothing/suit/space/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/tank/jetpack/suit))
+		add_fingerprint(user)
 		if(!jetpack_upgradable)
-			to_chat(user, span_warning("There is no slot for jetpack upgrade in [src]"))
-			return
+			to_chat(user, span_warning("There is no slot for the jetpack upgrade in [src]"))
+			return ATTACK_CHAIN_PROCEED
 		if(jetpack)
-			to_chat(user, span_warning("[src] already has a jetpack installed."))
-			return
+			to_chat(user, span_warning("The [name] already has [jetpack] installed."))
+			return ATTACK_CHAIN_PROCEED
 		if(src == user.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER)) //Make sure the player is not wearing the suit before applying the upgrade.
 			to_chat(user, span_warning("You cannot install the upgrade to [src] while wearing it."))
-			return
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		jetpack = I
+		jetpack.our_suit = src
+		to_chat(user, span_notice("You successfully install the jetpack into [src]."))
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-		if(user.drop_transfer_item_to_loc(I, src))
-			jetpack = I
-			jetpack.our_suit = src
-			to_chat(user, span_notice("You successfully install the jetpack into [src]."))
-			return
 	return ..()
 
 
@@ -1030,12 +1091,13 @@ BLIND     // can't see anything
 /obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/accessory))
 		if(attach_accessory(I, user, unequip = TRUE))
-			return TRUE
+			return ATTACK_CHAIN_BLOCKED_ALL
 
 	else if(LAZYLEN(accessories))
+		add_fingerprint(user)
 		for(var/obj/item/clothing/accessory/accessory as anything in accessories)
 			accessory.attackby(I, user, params)
-		return TRUE
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
 
@@ -1045,12 +1107,12 @@ BLIND     // can't see anything
 		if(user)
 			to_chat(user, span_notice("You cannot attach more accessories of this type to [src]."))
 		return FALSE
-	if(unequip && user && !user.drop_item_ground(accessory, ignore_pixel_shift = TRUE)) // Make absolutely sure this accessory is removed from hands
+	if(unequip && user && !user.drop_transfer_item_to_loc(accessory, src)) // Make absolutely sure this accessory is removed from hands
 		return FALSE
 	accessory.on_attached(src, user)
 	if(user)
 		accessory.add_fingerprint(user)
-		to_chat(user, span_notice("You attach [accessory] to [src]."))
+		to_chat(user, span_notice("You have attached [accessory] to [src]."))
 	return TRUE
 
 

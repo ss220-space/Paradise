@@ -245,12 +245,16 @@
 	if(.)
 		investigate_log("was set to [target_pressure] kPa by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 
-/obj/machinery/atmospherics/trinary/filter/attackby(obj/item/W, mob/user, params)
-	if(is_pen(W))
-		rename_interactive(user, W)
-		return
-	else
-		return ..()
+
+/obj/machinery/atmospherics/trinary/filter/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
+
+	. |= ATTACK_CHAIN_SUCCESS
+	rename_interactive(user, I)
+
 
 #undef FILTER_NOTHING
 #undef FILTER_TOXINS

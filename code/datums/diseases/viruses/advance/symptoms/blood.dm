@@ -22,21 +22,19 @@ Bonus
 	stage_speed = -4
 	transmittable = -1
 	level = 5
-	var/check = FALSE
 
-/datum/symptom/blood/Activate(datum/disease/virus/advance/A)
-	..()
-	var/mob/living/M = A.affected_mob
-	if(prob(SYMPTOM_ACTIVATION_PROB))
-		switch(A.stage)
-			if(3,4)
-				to_chat(M, span_notice("You feel hungry"))
-			if(5)
-				if(prob(10))
-					to_chat(M, span_notice("You can hear own heartbeat"))
-				check = TRUE
-	if(check == TRUE && (M.blood_volume < BLOOD_VOLUME_NORMAL) && !(NO_BLOOD in M.dna.species.species_traits) && !isdiona(M))
-		M.blood_volume += 0.4
-		M.adjust_nutrition(-2)
-	return
+
+/datum/symptom/blood/Activate(datum/disease/virus/advance/virus)
+	if(!prob(SYMPTOM_ACTIVATION_PROB))
+		return
+	var/mob/living/affected = virus.affected_mob
+	switch(virus.stage)
+		if(3, 4)
+			to_chat(affected, span_notice("You feel hungry"))
+		if(5)
+			if(prob(10))
+				to_chat(affected, span_notice("You can hear own heartbeat"))
+			if(!HAS_TRAIT(affected, TRAIT_NO_BLOOD) && !HAS_TRAIT(affected, TRAIT_NO_BLOOD_RESTORE) && affected.blood_volume < BLOOD_VOLUME_NORMAL)
+				affected.blood_volume += 0.4
+				affected.adjust_nutrition(-2)
 

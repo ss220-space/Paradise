@@ -270,6 +270,8 @@
 		if(PARALYZE)
 			Paralyse(effect * blocked)
 		if(IRRADIATE)
+			if(HAS_TRAIT(src, TRAIT_RADIMMUNE))
+				return FALSE
 			var/rad_damage = effect
 			if(!negate_armor) // Setting negate_armor overrides radiation armor checks, which are automatic otherwise
 				rad_damage = max(effect * ((100-run_armor_check(null, "rad", "Your clothes feel warm.", "Your clothes feel warm."))/100),0)
@@ -451,7 +453,7 @@
 	forced = FALSE,
 	used_weapon = null,
 )
-	if((status_flags & GODMODE) || (BREATHLESS in mutations))
+	if((status_flags & GODMODE) || HAS_TRAIT(src, TRAIT_NO_BREATH))
 		var/old_oxyloss = getOxyLoss()
 		oxyloss = 0
 		if(old_oxyloss != 0)
@@ -483,7 +485,7 @@
  * Returns STATUS_UPDATE_HEALTH if any changes were made, STATUS_UPDATE_NONE otherwise
  */
 /mob/living/proc/setOxyLoss(amount = 0, updating_health = TRUE)
-	if((status_flags & GODMODE) || (BREATHLESS in mutations))
+	if((status_flags & GODMODE) || HAS_TRAIT(src, TRAIT_NO_BREATH))
 		var/old_oxyloss = getOxyLoss()
 		oxyloss = 0
 		if(old_oxyloss != 0)

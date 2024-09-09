@@ -22,6 +22,7 @@
 
 /obj/structure/closet/secure_closet/personal/mining
 	name = "personal miner's locker"
+	icon_state = "mine_pers"
 
 /obj/structure/closet/secure_closet/personal/mining/populate_contents()
 	new /obj/item/stack/sheet/cardboard(src)
@@ -41,35 +42,45 @@
 	open_sound_volume = 25
 	close_sound_volume = 50
 
+
 /obj/structure/closet/secure_closet/personal/cabinet/populate_contents()
 	new /obj/item/storage/backpack/satchel/withwallet(src)
 	new /obj/item/radio/headset(src)
 
-/obj/structure/closet/secure_closet/personal/attackby(obj/item/W, mob/user, params)
-	if(opened || !W.GetID())
+
+/obj/structure/closet/secure_closet/personal/update_desc(updates = ALL)
+	. = ..()
+	desc = registered_name ? "Owned by [registered_name]." : initial(desc)
+
+
+/obj/structure/closet/secure_closet/personal/attackby(obj/item/I, mob/user, params)
+	if(opened)
 		return ..()
 
-	if(broken)
-		to_chat(user, span_warning("It appears to be broken."))
-		return
-
-	var/obj/item/card/id/I = W.GetID()
-	if(!I || !I.registered_name)
-		return
-
-	if(src == user.loc)
-		to_chat(user, span_notice("You can't reach the lock from inside."))
-
-	else if(allowed(user) || !registered_name || (istype(I) && (registered_name == I.registered_name)))
+	var/obj/item/card/id/id = I.GetID()
+	if(id)
+		add_fingerprint(user)
+		if(broken)
+			to_chat(user, span_warning("It appears to be broken."))
+			return ATTACK_CHAIN_PROCEED
+		if(!id.registered_name)
+			to_chat(user, span_warning("This ID is blank."))
+			return ATTACK_CHAIN_PROCEED
+		if(src == user.loc)
+			to_chat(user, span_notice("You can't reach the lock from inside."))
+			return ATTACK_CHAIN_PROCEED
 		//they can open all lockers, or nobody owns this, or they own this locker
+		if(!allowed(user) && registered_name && registered_name != id.registered_name)
+			to_chat(user, span_warning("Access Denied."))
+			return ATTACK_CHAIN_PROCEED
 		locked = !locked
-		if(!locked)
+		if(locked)
+			if(!registered_name)
+				registered_name = id.registered_name
+		else
 			registered_name = null
-			desc = initial(desc)
+		update_appearance(UPDATE_ICON|UPDATE_DESC)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-		update_icon()
-		if(!registered_name && locked)
-			registered_name = I.registered_name
-			desc = "Owned by [I.registered_name]."
-	else
-		to_chat(user, span_warning("Access Denied."))
+	return ..()
+

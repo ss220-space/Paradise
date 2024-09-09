@@ -84,6 +84,9 @@ GLOBAL_LIST_EMPTY(all_money_accounts)
 		var/obj/item/paper/R = new /obj/item/paper(P)
 		playsound(source_db.loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 		P.wrapped = R
+		P.w_class = R.w_class
+		P.update_icon(UPDATE_ICON_STATE)
+
 		R.name = "Account information: [M.owner_name]"
 
 		var/overseer = "Unknown"

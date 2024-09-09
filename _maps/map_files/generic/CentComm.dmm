@@ -6023,13 +6023,12 @@
 	dir = 8;
 	id_tag = "CC_supply_internal";
 	layer = 5;
-	locked = 1;
-	name = "Central Command Supply Internal Shutter"
+	locked = 1
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door_control/secure{
 	id = "CC_supply_internal";
-	name = "Central Command Supply Internal Shutter";
+	name = "Supply External Shutters";
 	pixel_y = 24;
 	req_access = list(114)
 	},
@@ -6739,7 +6738,7 @@
 	},
 /obj/machinery/door_control/secure{
 	id = "Drop";
-	name = "Central Command Mass Driver Shutte";
+	name = "Massdriver Shutters";
 	pixel_y = 24;
 	req_access = list(114)
 	},
@@ -8654,10 +8653,9 @@
 /area/centcom/supply)
 "dZu" = (
 /obj/effect/turf_decal/caution/stand_clear/white,
-/obj/machinery/door/poddoor/impassable{
+/obj/machinery/door/poddoor/impassable/unhittable{
 	id_tag = "CC_Players_In";
-	name = "Blast Door";
-	can_be_hit = 0
+	name = "Blast Door"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -9046,7 +9044,7 @@
 	dir = 4;
 	icon_state = "darkyellowalt"
 	},
-/area/centcom/specops)
+/area/centcom/supply)
 "eji" = (
 /obj/structure/chair/sofa{
 	dir = 8
@@ -11076,12 +11074,6 @@
 	},
 /turf/simulated/floor/carpet/green,
 /area/ninja/outpost)
-"fjr" = (
-/obj/effect/turf_decal/bot,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/specops)
 "fjw" = (
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -14387,8 +14379,7 @@
 	dir = 8;
 	id_tag = "CC_supply_internal";
 	layer = 5;
-	locked = 1;
-	name = "Central Command Supply Internal Shutter"
+	locked = 1
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -16558,8 +16549,8 @@
 	dir = 4;
 	dwidth = 4;
 	height = 6;
-	id = "gamma_transit";
-	name = "gamma in transit. IT SHOULD NOT BE IN TRANSIT";
+	id = "gamma_shuttle_transit";
+	name = "gamma in transit";
 	pixel_x = -32;
 	turf_type = /turf/space/transit/south;
 	width = 7
@@ -17064,12 +17055,6 @@
 	icon_state = "sepia"
 	},
 /area/ninja/outpost)
-"icG" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkyellowalt"
-	},
-/area/centcom/specops)
 "icT" = (
 /obj/effect/turf_decal{
 	dir = 10;
@@ -19263,8 +19248,7 @@
 	dir = 2;
 	id_tag = "CC_supply_external2";
 	layer = 5;
-	locked = 1;
-	name = "Central Command Supply External Shutte"
+	locked = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -21176,7 +21160,7 @@
 "jWN" = (
 /obj/machinery/door_control/secure{
 	id = "CC_Armory_Grenade";
-	name = "Grebades";
+	name = "Grenades";
 	pixel_x = 24;
 	pixel_y = -24;
 	req_access = list(114)
@@ -27257,14 +27241,13 @@
 	dir = 2;
 	id_tag = "CC_supply_internal2";
 	layer = 5;
-	locked = 1;
-	name = "Central Command Supply Internal Shutter"
+	locked = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkyellowalt"
 	},
-/area/centcom/specops)
+/area/centcom/supply)
 "mNh" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/latex/nitrile,
@@ -30223,8 +30206,7 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/poddoor/shutters/invincible{
 	dir = 2;
-	id_tag = "Drop";
-	name = "Central Command Supply Massdriver Shutte"
+	id_tag = "Drop"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -33180,6 +33162,19 @@
 	icon_state = "floor13"
 	},
 /area/shuttle/ninja)
+"pse" = (
+/obj/machinery/door_control/secure{
+	id = "gamma shuttle";
+	name = "Gamma Armory Shutters";
+	req_access = list(114);
+	pixel_x = 24;
+	pixel_y = 26
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkyellowaltstrip"
+	},
+/area/centcom/supply)
 "psf" = (
 /turf/space/transit/east{
 	icon_state = "speedspace_ew_1"
@@ -34030,19 +34025,15 @@
 	dir = 2;
 	id_tag = "CC_supply_external2";
 	layer = 5;
-	locked = 1;
-	name = "Central Command Supply External Shutte"
+	locked = 1
 	},
 /obj/machinery/door_control/secure{
 	id = "CC_supply_external2";
-	name = "Central Command Supply External Shutte";
+	name = "Supply Internal Shutters";
 	req_access = list(114);
 	pixel_x = -24
 	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkyellowalt"
-	},
+/turf/simulated/wall/indestructible/reinforced,
 /area/centcom/supply)
 "pLm" = (
 /obj/machinery/light{
@@ -34658,12 +34649,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "navyblue"
-	},
-/area/centcom/specops)
-"pYg" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkyellowaltstrip"
 	},
 /area/centcom/specops)
 "pYo" = (
@@ -35565,8 +35550,7 @@
 	dir = 8;
 	id_tag = "CC_supply_external";
 	layer = 5;
-	locked = 1;
-	name = "Central Command Supply External Shutte"
+	locked = 1
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -38556,12 +38540,11 @@
 	dir = 2;
 	id_tag = "CC_supply_internal2";
 	layer = 5;
-	locked = 1;
-	name = "Central Command Supply Internal Shutter"
+	locked = 1
 	},
 /obj/machinery/door_control/secure{
 	id = "CC_supply_internal2";
-	name = "Central Command Supply Internal Shutter";
+	name = "Supply External Shutters";
 	req_access = list(114);
 	pixel_x = -24
 	},
@@ -38569,7 +38552,7 @@
 	dir = 8;
 	icon_state = "darkyellowalt"
 	},
-/area/centcom/specops)
+/area/centcom/supply)
 "rLX" = (
 /obj/effect/decal/warning_stripes/northwestsouth,
 /obj/machinery/door/poddoor/shutters/invincible{
@@ -40390,10 +40373,9 @@
 /area/centcom/zone2)
 "sFQ" = (
 /obj/effect/turf_decal/caution/stand_clear/white,
-/obj/machinery/door/poddoor/impassable{
+/obj/machinery/door/poddoor/impassable/unhittable{
 	id_tag = "CC_Players_In";
-	name = "Blast Door";
-	can_be_hit = 0
+	name = "Blast Door"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -49679,13 +49661,6 @@
 /obj/structure/flora/ausbushes/sunnybush,
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
-"wRr" = (
-/obj/effect/turf_decal/arrows,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkyellowaltstrip"
-	},
-/area/centcom/specops)
 "wRu" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -50792,13 +50767,12 @@
 	dir = 8;
 	id_tag = "CC_supply_external";
 	layer = 5;
-	locked = 1;
-	name = "Central Command Supply External Shutte"
+	locked = 1
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door_control/secure{
 	id = "CC_supply_external";
-	name = "Central Command Supply External Shutte";
+	name = "Supply Internal Shutters";
 	pixel_y = 24;
 	req_access = list(114)
 	},
@@ -50864,6 +50838,13 @@
 	req_access = list(114)
 	},
 /obj/structure/fans/tiny,
+/obj/machinery/door/poddoor/shutters/invincible{
+	armor = list("melee"=100,"bullet"=100,"laser"=100,"energy"=100,"bomb"=100,"bio"=100,"rad"=100,"fire"=100,"acid"=100);
+	dir = 2;
+	id_tag = "gamma shuttle";
+	layer = 5;
+	locked = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -103894,9 +103875,9 @@ afP
 uab
 afP
 afP
-nAN
-nAN
-nAN
+afP
+afP
+afP
 nAN
 aFB
 wEo
@@ -104151,9 +104132,9 @@ hOx
 lzS
 lzS
 afP
-fjr
-fjr
-nAN
+lzS
+lzS
+afP
 nNb
 ric
 qgi
@@ -104408,8 +104389,8 @@ rgL
 rgL
 coX
 pKM
-pYg
-wRr
+rgL
+coX
 rLT
 mpv
 hTD
@@ -104665,7 +104646,7 @@ ofy
 fon
 jCz
 jgl
-icG
+fqL
 eiV
 mMp
 aWp
@@ -105690,7 +105671,7 @@ qix
 fqL
 fqL
 fqL
-ifZ
+pse
 tgA
 tyO
 nAN

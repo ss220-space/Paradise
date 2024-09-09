@@ -139,11 +139,13 @@
 			span_notice("You open [src]."))
 		open(auto_close = FALSE)
 
-/obj/machinery/door/firedoor/attackby(obj/item/C, mob/user, params)
+
+/obj/machinery/door/firedoor/attackby(obj/item/I, mob/user, params)
 	if(operating)
 		add_fingerprint(user)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
+
 
 /obj/machinery/door/firedoor/try_to_activate_door(mob/user)
 	return
@@ -233,7 +235,7 @@
 
 /obj/machinery/door/firedoor/update_icon_state()
 	icon_state = "door_[density ? "closed" : "open"]"
-
+	SSdemo.mark_dirty(src)
 
 /obj/machinery/door/firedoor/update_overlays()
 	. = ..()
@@ -243,6 +245,7 @@
 		if(light_on)
 			. += emissive_appearance('icons/obj/doors/doorfire.dmi', "alarmlights_lightmask", src)
 		. += image('icons/obj/doors/doorfire.dmi', "alarmlights")
+	SSdemo.mark_dirty(src)
 
 
 /obj/machinery/door/firedoor/proc/activate_alarm()
@@ -421,69 +424,95 @@
 /obj/structure/firelock_frame/update_icon_state()
 	icon_state = "frame[constructionStep]"
 
-/obj/structure/firelock_frame/attackby(obj/item/C, mob/user)
+
+/obj/structure/firelock_frame/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	switch(constructionStep)
 		if(CONSTRUCTION_PANEL_OPEN)
-			if(istype(C, /obj/item/stack/sheet/plasteel))
-				var/obj/item/stack/sheet/plasteel/P = C
-				if(reinforced)
-					to_chat(user, span_warning("[src] is already reinforced."))
-					return
-				if(P.get_amount() < 2)
-					to_chat(user, span_warning("You need more plasteel to reinforce [src]."))
-					return
-				user.visible_message(span_notice("[user] begins reinforcing [src]..."), \
-									 span_notice("You begin reinforcing [src]..."))
-				playsound(get_turf(src), C.usesound, 50, 1)
-				if(do_after(user, 6 SECONDS * C.toolspeed, src, category = DA_CAT_TOOL))
-					if(constructionStep != CONSTRUCTION_PANEL_OPEN || reinforced || P.get_amount() < 2 || !P)
-						return
-					add_fingerprint(user)
-					user.visible_message(span_notice("[user] reinforces [src]."), \
-										 span_notice("You reinforce [src]."))
-					playsound(get_turf(src), C.usesound, 50, 1)
-					P.use(2)
-					reinforced = 1
-				return
+			if(!istype(I, /obj/item/stack/sheet/plasteel))
+				return ..()
+			add_fingerprint(user)
+			if(reinforced)
+				to_chat(user, span_warning("[src] is already reinforced."))
+				return ATTACK_CHAIN_PROCEED
+			var/obj/item/stack/sheet/plasteel/plasteel = I
+			if(plasteel.get_amount() < 2)
+				to_chat(user, span_warning("You need at least two plasteel sheets to reinforce [src]."))
+				return ATTACK_CHAIN_PROCEED
+			var/plasteel_use_sound = plasteel.usesound
+			playsound(loc, plasteel_use_sound, 50, TRUE)
+			user.visible_message(
+				span_notice("[user] starts reinforcing [src]..."),
+				span_notice("You start reinforcing [src]..."),
+			)
+			if(!do_after(user, 6 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || constructionStep != CONSTRUCTION_PANEL_OPEN || reinforced || QDELETED(plasteel))
+				return ATTACK_CHAIN_PROCEED
+			if(!plasteel.use(2))
+				to_chat(user, span_warning("At some point during construction you lost some plasteel. Make sure you have two plasteel sheets before trying again."))
+				return ATTACK_CHAIN_PROCEED
+			user.visible_message(
+				span_notice("[user] reinforces [src] with plasteel."),
+				span_notice("You reinforce [src] with plasteel."),
+			)
+			playsound(loc, plasteel_use_sound, 50, TRUE)
+			reinforced = TRUE
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+
 		if(CONSTRUCTION_GUTTED)
-			if(iscoil(C))
-				var/obj/item/stack/cable_coil/B = C
-				if(B.get_amount() < 5)
-					to_chat(user, span_warning("You need more wires to add wiring to [src]."))
-					return
-				user.visible_message(span_notice("[user] begins wiring [src]..."), \
-									 span_notice("You begin adding wires to [src]..."))
-				playsound(get_turf(src), B.usesound, 50, 1)
-				if(do_after(user, 6 SECONDS * B.toolspeed, src, category = DA_CAT_TOOL))
-					if(constructionStep != CONSTRUCTION_GUTTED || B.get_amount() < 5 || !B)
-						return
-					add_fingerprint(user)
-					user.visible_message(span_notice("[user] adds wires to [src]."), \
-										 span_notice("You wire [src]."))
-					playsound(get_turf(src), B.usesound, 50, 1)
-					B.use(5)
-					constructionStep = CONSTRUCTION_WIRES_EXPOSED
-					update_icon(UPDATE_ICON_STATE)
-				return
+			if(!iscoil(I))
+				return ..()
+			add_fingerprint(user)
+			var/obj/item/stack/cable_coil/coil = I
+			if(coil.get_amount() < 5)
+				to_chat(user, span_warning("You need five lengths of cable to wire the frame."))
+				return ATTACK_CHAIN_PROCEED
+			var/coil_use_sound = coil.usesound
+			playsound(loc, coil_use_sound, 50, TRUE)
+			user.visible_message(
+				span_notice("[user] starts wiring [src]..."),
+				span_notice("You start adding wires to [src]..."),
+			)
+			if(!do_after(user, 6 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || constructionStep != CONSTRUCTION_GUTTED || QDELETED(coil))
+				return ATTACK_CHAIN_PROCEED
+			if(!coil.use(5))
+				to_chat(user, span_warning("At some point during construction you lost some cable. Make sure you have five lengths before trying again."))
+				return ATTACK_CHAIN_PROCEED
+			user.visible_message(
+				span_notice("[user] adds wires to [src]."),
+				span_notice("You wire [src]."),
+			)
+			playsound(loc, coil_use_sound, 50, TRUE)
+			constructionStep = CONSTRUCTION_WIRES_EXPOSED
+			update_icon(UPDATE_ICON_STATE)
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+
 		if(CONSTRUCTION_NOCIRCUIT)
-			if(istype(C, /obj/item/firelock_electronics))
-				user.visible_message(span_notice("[user] starts adding [C] to [src]..."), \
-									 span_notice("You begin adding a circuit board to [src]..."))
-				playsound(get_turf(src), C.usesound, 50, 1)
-				if(!do_after(user, 4 SECONDS * C.toolspeed, src, category = DA_CAT_TOOL))
-					return
-				if(constructionStep != CONSTRUCTION_NOCIRCUIT)
-					return
-				add_fingerprint(user)
-				user.drop_transfer_item_to_loc(C, src)
-				qdel(C)
-				user.visible_message(span_notice("[user] adds a circuit to [src]."), \
-									 span_notice("You insert and secure [C]."))
-				playsound(get_turf(src), C.usesound, 50, 1)
-				constructionStep = CONSTRUCTION_GUTTED
-				update_icon(UPDATE_ICON_STATE)
-				return
+			if(!istype(I, /obj/item/firelock_electronics))
+				return ..()
+			add_fingerprint(user)
+			user.visible_message(
+				span_notice("[user] starts adding [I] to [src]..."),
+				span_notice("You start adding a circuit board to [src]..."),
+			)
+			playsound(loc, I.usesound, 50, TRUE)
+			if(!do_after(user, 4 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || constructionStep != CONSTRUCTION_NOCIRCUIT)
+				return ATTACK_CHAIN_PROCEED
+			if(!user.drop_transfer_item_to_loc(I, src))
+				return ATTACK_CHAIN_PROCEED
+			user.visible_message(
+				span_notice("[user] adds a circuit to [src]."),
+				span_notice("You insert and secure [I]."),
+			)
+			playsound(loc, I.usesound, 50, TRUE)
+			constructionStep = CONSTRUCTION_GUTTED
+			update_icon(UPDATE_ICON_STATE)
+			qdel(I)
+			return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/structure/firelock_frame/crowbar_act(mob/user, obj/item/I)
 	if(!(constructionStep in list(CONSTRUCTION_WIRES_EXPOSED, CONSTRUCTION_PANEL_OPEN, CONSTRUCTION_GUTTED)))

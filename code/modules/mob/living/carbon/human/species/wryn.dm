@@ -4,7 +4,6 @@
 	icobase = 'icons/mob/human_races/r_wryn.dmi'
 	deform = 'icons/mob/human_races/r_wryn.dmi'
 	blacklisted = TRUE
-	language = LANGUAGE_WRYN
 	tail = "wryntail"
 	punchdamagelow = 0
 	punchdamagehigh = 1
@@ -54,7 +53,12 @@
 		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/wryn),
 	)
 
-	species_traits = list(LIPS, NO_BREATHE, NO_SCAN, HIVEMIND, HAVE_REGENERATION)
+	inherent_traits = list(
+		TRAIT_HAS_LIPS,
+		TRAIT_HAS_REGENERATION,
+		TRAIT_NO_BREATH,
+		TRAIT_NO_SCAN,
+	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR
 
@@ -69,17 +73,27 @@
 	default_hair = "Antennae"
 
 /datum/species/wryn/on_species_gain(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	var/datum/action/innate/wryn_sting/wryn_sting = locate() in H.actions
 	if(!wryn_sting)
 		wryn_sting = new
 		wryn_sting.Grant(H)
 
 /datum/species/wryn/on_species_loss(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	var/datum/action/innate/wryn_sting/wryn_sting = locate() in H.actions
-	if(wryn_sting)
-		wryn_sting.Remove(H)
+	wryn_sting?.Remove(H)
+
+/datum/species/wryn/after_equip_job(datum/job/J, mob/living/carbon/human/H)
+	var/comb_deafness = H.client.prefs.speciesprefs
+	if(comb_deafness)
+		var/obj/item/organ/internal/wryn/hivenode/node = H.get_int_organ(/obj/item/organ/internal/wryn/hivenode)
+		node.remove(H)
+		qdel(node)
+	else
+		var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
+		head_organ.h_style = "Antennae"
+		H.update_hair()
 
 /* Wryn Sting Action Begin */
 
@@ -167,6 +181,9 @@
 /* Wryn Sting Action End */
 
 /datum/species/wryn/handle_death(gibbed, mob/living/carbon/human/H)
+	if(!(H.get_int_organ(/obj/item/organ/internal/wryn/hivenode)))
+		return
+
 	for(var/mob/living/carbon/C in GLOB.alive_mob_list)
 		if(C.get_int_organ(/obj/item/organ/internal/wryn/hivenode))
 			to_chat(C, "<span class='danger'><B>Ваши усики дрожат, когда вас одолевает боль...</B></span>")
@@ -180,15 +197,11 @@
 				user.visible_message("<span class='notice'>[user] начина[pluralize_ru(user.gender,"ет","ют")] яростно отрывать усики [target].</span>")
 				to_chat(target, "<span class='danger'><B>[user] схватил[genderize_ru(user.gender,"","а","о","и")] ваши усики и яростно тян[pluralize_ru(user.gender,"ет","ут")] их!<B></span>")
 				if(do_after(user, 25 SECONDS, target, NONE))
-					target.remove_language(LANGUAGE_WRYN)
 					node.remove(target)
 					node.forceMove(get_turf(target))
 					to_chat(user, "<span class='notice'>Вы слышите громкий хруст, когда безжалостно отрываете усики [target].</span>")
 					to_chat(target, "<span class='danger'>Вы слышите невыносимый хруст, когда [user] вырыва[pluralize_ru(user.gender,"ет","ют")] усики из вашей головы.</span>")
 					to_chat(target, "<span class='danger'><B>Стало так тихо...</B></span>")
-					var/obj/item/organ/external/head/head_organ = target.get_organ(BODY_ZONE_HEAD)
-					head_organ.h_style = "Bald"
-					target.update_hair()
 
 					add_attack_logs(user, target, "Antennae removed")
 				return 0

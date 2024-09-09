@@ -60,11 +60,11 @@
 
 /obj/structure/alien/resin/Initialize()
 	air_update_turf(1)
-	..()
+	. = ..()
 
 /obj/structure/alien/resin/Destroy()
 	var/turf/T = get_turf(src)
-	playsound(T, 'sound/creatures/alien/xeno_resin_break.ogg', 80, TRUE)
+	playdestroysound(T)
 	. = ..()
 	T.air_update_turf(TRUE)
 
@@ -76,6 +76,11 @@
 /obj/structure/alien/resin/CanAtmosPass(turf/T, vertical)
 	return !density
 
+
+/obj/structure/alien/resin/proc/playdestroysound(source)
+	playsound(source, 'sound/creatures/alien/xeno_resin_break.ogg', 80, TRUE)
+
+
 /obj/structure/alien/resin/wall
 	name = "resin wall"
 	desc = "Thick resin solidified into a wall."
@@ -86,10 +91,16 @@
 /obj/structure/alien/resin/wall/BlockSuperconductivity()
 	return 1
 
+
 /obj/structure/alien/resin/wall/shadowling //For chrysalis
 	name = "chrysalis wall"
 	desc = "Some sort of purple substance in an egglike shape. It pulses and throbs from within and seems impenetrable."
 	max_integrity = INFINITY
+
+
+/obj/structure/alien/resin/wall/shadowling/playdestroysound(source)
+	playsound(source, 'sound/effects/splat.ogg', 30, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+
 
 /obj/structure/alien/resin/membrane
 	name = "resin membrane"

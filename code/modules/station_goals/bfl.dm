@@ -2,7 +2,6 @@
 
 /datum/station_goal/bfl
 	name = "BFL Mining laser"
-	gamemode_blacklist = list("extended")
 
 /datum/station_goal/bfl/get_report()
 	return {"<b>Mining laser construcion</b><br>
@@ -531,14 +530,14 @@
 //everything else
 /obj/bfl_crack
 	name = "rich plasma deposit"
-	can_be_hit = FALSE
 	anchored = TRUE
 	icon = 'icons/obj/machines/BFL_Mission/Hole.dmi'
 	icon_state = "Crack"
 	pixel_x = -32
 	pixel_y = -32
 	layer = HIGH_TURF_LAYER
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|ACID_PROOF
+	obj_flags = IGNORE_HITS
 
 	//space for gps tracker
 	var/obj/item/tank/internal

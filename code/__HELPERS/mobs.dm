@@ -46,9 +46,18 @@
 
 	return pick(valid_picks)
 
-/proc/random_hair_style(var/gender, species = SPECIES_HUMAN, var/datum/robolimb/robohead)
+/proc/random_hair_style(var/gender, species = SPECIES_HUMAN, var/datum/robolimb/robohead, var/mob/living/carbon/human/H)
 	var/h_style = "Bald"
 	var/list/valid_hairstyles = list()
+
+	if(species == SPECIES_WRYN) // wryns antennaes now bound to hivenode, no need to change them
+		if(H)
+			var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
+			if(head_organ?.h_style)
+				return head_organ.h_style
+		else
+			return "Antennae"
+
 	for(var/hairstyle in GLOB.hair_styles_public_list)
 		var/datum/sprite_accessory/S = GLOB.hair_styles_public_list[hairstyle]
 
@@ -497,7 +506,7 @@
 	to_chat(user, "Name = <b>[M.name]</b>; Real_name = [M.real_name]; Mind_name = [M.mind?"[M.mind.name]":""]; Key = <b>[M.key]</b>;")
 	to_chat(user, "Location = [location_description];")
 	to_chat(user, "[special_role_description]")
-	to_chat(user, "(<a href='?src=[usr.UID()];priv_msg=[M.client?.ckey]'>PM</a>) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) ([ADMIN_FLW(M,"FLW")])")
+	to_chat(user, "(<a href='byond://?src=[usr.UID()];priv_msg=[M.client?.ckey]'>PM</a>) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) ([ADMIN_FLW(M,"FLW")])")
 
 // Gets the first mob contained in an atom, and warns the user if there's not exactly one
 /proc/get_mob_in_atom_with_warning(atom/A, mob/user = usr)
@@ -525,8 +534,6 @@
 
 	return locate(/mob) in A
 
-// Suppress the mouse macros
-/client/var/next_mouse_macro_warning
 /mob/proc/LogMouseMacro(verbused, params)
 	if(!client)
 		return

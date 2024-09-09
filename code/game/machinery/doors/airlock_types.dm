@@ -193,14 +193,18 @@
 	DA.update_name()
 	qdel(src)
 
-/obj/machinery/door/airlock/plasma/attackby(obj/C, mob/user, params)
-	if(is_hot(C) > 300)
+
+/obj/machinery/door/airlock/plasma/attackby(obj/item/I, mob/user, params)
+	var/heat_temp = is_hot(I)
+	if(heat_temp > 300)
 		add_fingerprint(user)
-		add_attack_logs(user, src, "ignited using [C]", ATKLOG_FEW)
+		add_attack_logs(user, src, "ignited using [I]", ATKLOG_FEW)
 		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name_log(user)]", INVESTIGATE_ATMOS)
-		ignite(is_hot(C))
-	else
-		return ..()
+		ignite(heat_temp)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/machinery/door/airlock/plasma/BlockSuperconductivity() //we don't stop the heat~
 	return 0
@@ -375,29 +379,33 @@
 
 /obj/machinery/door/airlock/hatch/gamma
 	name = "gamma level hatch"
+	id_tag = "gamma_home"
 	hackProof = TRUE
 	aiControlDisabled = AICONTROLDISABLED_ON
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	is_special = TRUE
 
-/obj/machinery/door/airlock/hatch/gamma/attackby(obj/C, mob/user, params)
-	if(!issilicon(user))
-		if(isElectrified())
-			if(shock(user, 75))
-				add_fingerprint(user)
-				return
-	if(istype(C, /obj/item/detective_scanner))
-		return
 
-	if(istype(C, /obj/item/grenade/plastic/c4))
-		to_chat(user, "The hatch is coated with a product that prevents the shaped charge from sticking!")
-		return
+/obj/machinery/door/airlock/hatch/gamma/attackby(obj/item/I, mob/user, params)
+	if(!issilicon(user) && isElectrified() && shock(user, 75))
+		add_fingerprint(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(C, /obj/item/mecha_parts/mecha_equipment/rcd) || istype(C, /obj/item/rcd))
-		to_chat(user, "The hatch is made of an advanced compound that cannot be deconstructed using an RCD.")
-		return
+	if(istype(I, /obj/item/detective_scanner))
+		return ATTACK_CHAIN_PROCEED
 
-	add_fingerprint(user)
+	if(istype(I, /obj/item/grenade/plastic/c4))
+		add_fingerprint(user)
+		to_chat(user, span_warning("The hatch is coated with a product that prevents the shaped charge from sticking!"))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/mecha_parts/mecha_equipment/rcd) || istype(I, /obj/item/rcd))
+		add_fingerprint(user)
+		to_chat(user, span_warning("The hatch is made of an advanced compound that cannot be deconstructed using an RCD."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/machinery/door/airlock/hatch/gamma/welder_act(mob/user, obj/item/I)
 	if(shock_user(user, 75))
@@ -447,16 +455,16 @@
 	hackProof = TRUE
 	aiControlDisabled = AICONTROLDISABLED_ON
 
-/obj/machinery/door/airlock/highsecurity/red/attackby(obj/C, mob/user, params)
-	if(!issilicon(user))
-		if(isElectrified())
-			if(shock(user, 75))
-				add_fingerprint(user)
-				return
-	if(istype(C, /obj/item/detective_scanner))
-		return
 
-	add_fingerprint(user)
+/obj/machinery/door/airlock/highsecurity/red/attackby(obj/item/I, mob/user, params)
+	if(!issilicon(user) && isElectrified() && shock(user, 75))
+		add_fingerprint(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/detective_scanner))
+		return ATTACK_CHAIN_PROCEED
+
+	return ..()
 
 
 /obj/machinery/door/airlock/highsecurity/red/welder_act(mob/user, obj/item/I)

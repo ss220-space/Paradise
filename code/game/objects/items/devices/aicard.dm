@@ -10,7 +10,7 @@
 	origin_tech = "programming=3;materials=3"
 
 
-/obj/item/aicard/afterattack(atom/target, mob/user, proximity)
+/obj/item/aicard/afterattack(atom/target, mob/user, proximity, params)
 	..()
 	if(!proximity || !target)
 		return

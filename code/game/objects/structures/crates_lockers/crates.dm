@@ -91,10 +91,11 @@
 	return TRUE
 
 
-/obj/structure/closet/crate/attackby(obj/item/W, mob/user, params)
-	if(!opened && try_rig(W, user))
-		return
+/obj/structure/closet/crate/attackby(obj/item/I, mob/user, params)
+	if(!opened && try_rig(I, user))
+		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
+
 
 /obj/structure/closet/crate/toggle(mob/user, by_hand = FALSE)
 	if(!(opened ? close() : open(by_hand)))
@@ -556,6 +557,12 @@
 		if(user)
 			to_chat(user, span_notice("Отличная попытка, но нет!"))
 		playsound(src.loc, "sound/misc/sadtrombone.ogg", 60, 1)
+
+
+/obj/structure/closet/crate/vault
+	desc = "A vault crate."
+	name = "vault crate"
+	icon_state = "vaultcrate"
 
 /obj/structure/closet/crate/secure/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()

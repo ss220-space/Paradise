@@ -121,7 +121,7 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 		equip_to_slot_or_del(new /obj/item/gun/energy/clown(src), ITEM_SLOT_BACKPACK)
 	else
 		equip_to_slot_or_del(new /obj/item/gun/throw/piecannon(src), ITEM_SLOT_BACKPACK)
-	src.mutations.Add(CLUMSY)
+	force_gene_block(GLOB.clumsyblock, TRUE, TRUE)
 	grant_mimicking()
 	var/obj/item/implant/sad_trombone/S = new/obj/item/implant/sad_trombone(src)
 	S.implant(src)

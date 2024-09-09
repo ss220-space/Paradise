@@ -141,32 +141,42 @@
 				env.merge(removed)
 				air_update_turf()
 
-/obj/machinery/r_n_d/server/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(disabled)
+
+/obj/machinery/r_n_d/server/attackby(obj/item/I, mob/user, params)
+	if(shocked && shock(user, 50))
 		add_fingerprint(user)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(shocked)
-		add_fingerprint(user)
-		shock(user,50)
-
-	if(O.tool_behaviour == TOOL_SCREWDRIVER)
-		add_fingerprint(user)
-		default_deconstruction_screwdriver(user, "[base_icon_state]_o", base_icon_state, O)
-		return 1
-
-	if(exchange_parts(user, O))
-		return 1
-
-	if(panel_open)
-		if(O.tool_behaviour == TOOL_CROWBAR)
-			griefProtection()
-			default_deconstruction_crowbar(user, O)
-			return 1
-	else
+	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-/obj/machinery/r_n_d/server/attack_hand(mob/user as mob)
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
+
+/obj/machinery/r_n_d/server/screwdriver_act(mob/living/user, obj/item/I)
+	if(shocked && shock(user, 50))
+		add_fingerprint(user)
+		return TRUE
+	. = default_deconstruction_screwdriver(user, "[base_icon_state]_o", base_icon_state, I)
+
+
+/obj/machinery/r_n_d/server/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(shocked && shock(user, 50))
+		add_fingerprint(user)
+		return .
+	if(!panel_open)
+		add_fingerprint(user)
+		to_chat(user, span_warning("Open the maintenance panel first."))
+		return .
+	griefProtection()
+	default_deconstruction_crowbar(user, I)
+
+
+/obj/machinery/r_n_d/server/attack_hand(mob/user)
 	if(..())
 		return TRUE
 
@@ -215,7 +225,7 @@
 	server_id = -1
 
 /obj/machinery/r_n_d/server/centcom/Initialize()
-	..()
+	. = ..()
 	var/list/no_id_servers = list()
 	var/list/server_ids = list()
 	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
@@ -359,11 +369,11 @@
 				if(S.syndicate != syndicate) // Флаг в действии
 					continue
 				dat += "[S.name] || "
-				dat += "<A href='?src=[UID()];access=[S.server_id]'>Access Rights</A> | "
-				dat += "<A href='?src=[UID()];data=[S.server_id]'>Data Management</A> | "
-				dat += "<A href='?src=[UID()];logs=[S.server_id]'>Logs</A>"
+				dat += "<a href='byond://?src=[UID()];access=[S.server_id]'>Access Rights</A> | "
+				dat += "<a href='byond://?src=[UID()];data=[S.server_id]'>Data Management</A> | "
+				dat += "<a href='byond://?src=[UID()];logs=[S.server_id]'>Logs</A>"
 				if(badmin)
-					dat += " | <A href='?src=[UID()];transfer=[S.server_id]'>Server-to-Server Transfer</A>"
+					dat += " | <a href='byond://?src=[UID()];transfer=[S.server_id]'>Server-to-Server Transfer</A>"
 				dat += "<BR>"
 
 		if(1) //Access rights menu
@@ -373,7 +383,7 @@
 				if(C.syndicate != syndicate) // Флаг в действии 2
 					continue
 				var/turf/console_turf = get_turf(C)
-				dat += "* <A href='?src=[UID()];upload_toggle=[C.id]'>[console_turf.loc]" //FYI, these are all numeric ids, eventually.
+				dat += "* <a href='byond://?src=[UID()];upload_toggle=[C.id]'>[console_turf.loc]" //FYI, these are all numeric ids, eventually.
 				if(C.id in temp_server.id_with_upload)
 					dat += " (Remove)</A><BR>"
 				else
@@ -383,12 +393,12 @@
 				if(C.syndicate != syndicate) // Флаг в действии 3
 					continue
 				var/turf/console_turf = get_turf(C)
-				dat += "* <A href='?src=[UID()];download_toggle=[C.id]'>[console_turf.loc]"
+				dat += "* <a href='byond://?src=[UID()];download_toggle=[C.id]'>[console_turf.loc]"
 				if(C.id in temp_server.id_with_download)
 					dat += " (Remove)</A><BR>"
 				else
 					dat += " (Add)</A><BR>"
-			dat += "<HR><A href='?src=[UID()];main=1'>Main Menu</A>"
+			dat += "<HR><a href='byond://?src=[UID()];main=1'>Main Menu</A>"
 
 		if(2) //Data Management menu
 			dat += "[temp_server.name] Data Management<BR><BR>"
@@ -398,13 +408,13 @@
 				if(T.level <= 0)
 					continue
 				dat += "* [T.name] "
-				dat += "<A href='?src=[UID()];reset_tech=[T.id]'>(Reset)</A><BR>" //FYI, these are all strings.
+				dat += "<a href='byond://?src=[UID()];reset_tech=[T.id]'>(Reset)</A><BR>" //FYI, these are all strings.
 			dat += "Known Designs<BR>"
 			for(var/I in temp_server.files.known_designs)
 				var/datum/design/D = temp_server.files.known_designs[I]
 				dat += "* [D.name] "
-				dat += "<A href='?src=[UID()];reset_design=[D.id]'>(Delete)</A><BR>"
-			dat += "<HR><A href='?src=[UID()];main=1'>Main Menu</A>"
+				dat += "<a href='byond://?src=[UID()];reset_design=[D.id]'>(Delete)</A><BR>"
+			dat += "<HR><a href='byond://?src=[UID()];main=1'>Main Menu</A>"
 
 		if(3) //Logs menu
 			dat += "[temp_server.name] Logs viewing<br><br>"
@@ -422,15 +432,15 @@
 				var/machine_name = use_log[5]
 				dat += "[log_time]: [user_name] ([user_job]) printed [blueprint_printed] using [machine_name]<BR>"
 
-			dat += "<BR><HR><A href='?src=[UID()];clear_logs=1'>Clear Logs</A>"
-			dat += "<BR><HR><A href='?src=[UID()];main=1'>Main Menu</A>"
+			dat += "<BR><HR><a href='byond://?src=[UID()];clear_logs=1'>Clear Logs</A>"
+			dat += "<BR><HR><a href='byond://?src=[UID()];main=1'>Main Menu</A>"
 
 		if(4) //Server Data Transfer
 			dat += "[temp_server.name] Server to Server Transfer<BR><BR>"
 			dat += "Send Data to what server?<BR>"
 			for(var/obj/machinery/r_n_d/server/S in servers)
-				dat += "[S.name] <A href='?src=[UID()];send_to=[S.server_id]'> (Transfer)</A><BR>"
-			dat += "<HR><A href='?src=[UID()];main=1'>Main Menu</A>"
+				dat += "[S.name] <a href='byond://?src=[UID()];send_to=[S.server_id]'> (Transfer)</A><BR>"
+			dat += "<HR><a href='byond://?src=[UID()];main=1'>Main Menu</A>"
 	user << browse({"<meta charset="UTF-8"><TITLE>R&D Server Control</TITLE><HR>[dat]"}, "window=server_control;size=575x400")
 	onclose(user, "server_control")
 	return

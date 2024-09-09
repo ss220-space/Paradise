@@ -575,165 +575,221 @@
 
 	return TRUE
 
-//attack with an item - open/close cover, insert cell, or (un)lock interface
-/obj/machinery/power/apc/attackby(obj/item/W, mob/living/user, params)
 
+/obj/machinery/power/apc/attackby(obj/item/I, mob/living/user, params)
 	if(issilicon(user) && get_dist(src, user) > 1)
-		return attack_hand(user)
+		attack_hand(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	else if	(istype(W, /obj/item/stock_parts/cell) && opened)	// trying to put a cell inside
-		if(cell)
-			to_chat(user, "<span class='warning'>There is a power cell already installed!</span>")
-			return
-		else
-			if(stat & MAINT)
-				to_chat(user, "<span class='warning'>There is no connector for your power cell!</span>")
-				return
-			if(!user.drop_transfer_item_to_loc(W, src))
-				return
-			add_fingerprint(user)
-			cell = W
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
-			for(var/mob/living/simple_animal/demon/pulse_demon/demon in cell)
-				demon.forceMove(src)
-				demon.current_power = src
-				if(!being_hijacked) // first come first serve
-					demon.try_hijack_apc(src)
-			if(being_hijacked)
-				cell.rigged = FALSE // don't blow the demon up
-
-			user.visible_message(\
-				"[user.name] has inserted the power cell to [name]!",\
-				"<span class='notice'>You insert the power cell.</span>")
-			chargecount = 0
-			update_icon()
-
-	else if(W.GetID() || is_pda(W))			// trying to unlock the interface with an ID card
+	if(istype(I, /obj/item/stock_parts/cell))	// trying to put a cell inside
 		add_fingerprint(user)
-		togglelock(user)
+		if(opened == APC_CLOSED)
+			to_chat(user, span_warning("You should open the APC cover to insert a power cell."))
+			return ATTACK_CHAIN_PROCEED
+		if(cell)
+			to_chat(user, span_warning("There is already a power cell installed."))
+			return ATTACK_CHAIN_PROCEED
+		if(stat & MAINT)
+			to_chat(user, span_warning("There is no connector for the power cell."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		cell = I
+		for(var/mob/living/simple_animal/demon/pulse_demon/demon in cell)
+			demon.forceMove(src)
+			demon.current_power = src
+			if(!being_hijacked) // first come first serve
+				demon.try_hijack_apc(src)
+		if(being_hijacked)
+			cell.rigged = FALSE // don't blow the demon up
+		user.visible_message(
+			span_notice("[user.name] has inserted the power cell to [src]!"),
+			span_notice("You have inserted the power cell."),
+		)
+		chargecount = 0
+		update_icon()
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	else if(istype(W, /obj/item/stack/cable_coil) && opened)
+	if(I.GetID() || is_pda(I))	// trying to unlock the interface with an ID card
+		add_fingerprint(user)
+		if(togglelock(user))
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		return ATTACK_CHAIN_PROCEED
+
+	if(iscoil(I))	// cable terminal
+		add_fingerprint(user)
+		var/obj/item/stack/cable_coil/coil = I
+		if(opened == APC_CLOSED)
+			to_chat(user, span_warning("You should open the APC cover to attach the cables."))
+			return ATTACK_CHAIN_PROCEED
+		if(terminal) // it already have terminal
+			to_chat(user, span_warning("This APC is already wired."))
+			return ATTACK_CHAIN_PROCEED
 		var/turf/host_turf = get_turf(src)
 		if(!host_turf)
 			throw EXCEPTION("attackby on APC when it's not on a turf")
-			return
-		if(host_turf.intact)
-			to_chat(user, "<span class='warning'>You must remove the floor plating in front of the APC first!</span>")
-			return
-		else if(terminal) // it already have terminal
-			to_chat(user, "<span class='warning'>This APC is already wired!</span>")
-			return
-		else if(!has_electronics())
-			to_chat(user, "<span class='warning'>There is nothing to wire!</span>")
-			return
+			return ATTACK_CHAIN_PROCEED
+		if(!host_turf.can_have_cabling() || host_turf.intact)
+			to_chat(user, span_warning("You should remove the floor plating in front of the APC first."))
+			return ATTACK_CHAIN_PROCEED
+		if(!has_electronics())
+			to_chat(user, span_warning("There is nothing to wire. You should install the electronics first."))
+			return ATTACK_CHAIN_PROCEED
+		if(coil.get_amount() < 10)
+			to_chat(user, span_warning("You need at least ten lengths of cable to wire the APC."))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user.name] starts to construct the cable terminal beneath the APC frame."),
+			span_notice("You start to construct the cable terminal beneath the APC frame..."),
+		)
+		coil.play_tool_sound(src)
+		if(!do_after(user, 2 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || opened == APC_CLOSED || terminal || !host_turf.can_have_cabling() || host_turf.intact || !has_electronics() || QDELETED(coil))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/structure/cable/node = host_turf.get_cable_node()
+		if(prob(50) && electrocute_mob(user, node, node, 1, TRUE))
+			do_sparks(5, TRUE, src)
+			return ATTACK_CHAIN_BLOCKED_ALL
+		if(!coil.use(10))
+			to_chat(user, span_warning("At some point during construction you lost some cable. Make sure you have ten lengths before trying again."))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user.name] has finished the construction of the cable terminal beneath the APC."),
+			span_notice("You have finished the construction of the cable terminal beneath the APC."),
+		)
+		make_terminal()
+		terminal.connect_to_network()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-		var/obj/item/stack/cable_coil/C = W
-		if(C.get_amount() < 10)
-			to_chat(user, "<span class='warning'>You need ten lengths of cable for APC!</span>")
-			return
-		user.visible_message("[user.name] adds cables to the APC frame.", \
-							"<span class='notice'>You start adding cables to the APC frame...</span>")
-		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
-		if(do_after(user, 2 SECONDS, src))
-			if(C.get_amount() < 10 || !C)
-				return
-			if(C.get_amount() >= 10 && !terminal && opened && has_electronics())
-				add_fingerprint(user)
-				var/turf/T = get_turf(src)
-				var/obj/structure/cable/N = T.get_cable_node()
-				if(prob(50) && electrocute_mob(usr, N, N, 1, TRUE))
-					do_sparks(5, TRUE, src)
-					return
-				C.use(10)
-				to_chat(user, "<span class='notice'>You add cables to the APC frame.</span>")
-				make_terminal()
-				terminal.connect_to_network()
-
-	else if(istype(W, /obj/item/apc_electronics) && opened)
+	if(istype(I, /obj/item/apc_electronics))
+		add_fingerprint(user)
+		if(opened == APC_CLOSED)
+			to_chat(user, span_warning("You should open the APC cover to insert the electronics."))
+			return ATTACK_CHAIN_PROCEED
 		if(has_electronics()) // there are already electronicks inside
-			to_chat(user, "<span class='warning'>You cannot put the board inside, there already is one!</span>")
-			return
-		else if(stat & BROKEN)
-			to_chat(user, "<span class='warning'>You cannot put the board inside, the frame is damaged!</span>")
-			return
-
-		user.visible_message("[user.name] inserts the power control board into [src].", \
-							"<span class='notice'>You start to insert the power control board into the frame...</span>")
+			to_chat(user, span_warning("The APC already has an electronics installed."))
+			return ATTACK_CHAIN_PROCEED
+		if(stat & BROKEN)
+			to_chat(user, span_warning("The APC cannot hold an electronics, its too damaged."))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user.name] starts to insert the power control board into the APC."),
+			span_notice("You start to insert the power control board into the APC..."),
+		)
 		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
-		if(do_after(user, 1 SECONDS, src))
-			if(!has_electronics())
-				add_fingerprint(user)
-				electronics_state = APC_ELECTRONICS_INSTALLED
-				locked = FALSE
-				to_chat(user, "<span class='notice'>You place the power control board inside the frame.</span>")
-				qdel(W)
+		if(!do_after(user, 1 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || opened == APC_CLOSED || has_electronics() || (stat & BROKEN))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user.name] has inserted the power control board into the APC."),
+			span_notice("You have inserted the power control board into the APC."),
+		)
+		electronics_state = APC_ELECTRONICS_INSTALLED
+		locked = FALSE
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	else if(istype(W, /obj/item/mounted/frame/apc_frame) && opened)
-		if(!(stat & BROKEN || opened== APC_COVER_OFF || obj_integrity < max_integrity)) // There is nothing to repair
-			to_chat(user, "<span class='warning'>You found no reason for repairing this APC.</span>")
-			return
-		if(!(stat & BROKEN) && opened== APC_COVER_OFF) // Cover is the only thing broken, we do not need to remove elctronicks to replace cover
-			user.visible_message("[user.name] replaces missing APC's cover.",\
-							"<span class='notice'>You begin to replace APC's cover...</span>")
-			if(do_after(user, 2 SECONDS, src)) // replacing cover is quicker than replacing whole frame
-				add_fingerprint(user)
-				to_chat(user, "<span class='notice'>You replace missing APC's cover.</span>")
-				qdel(W)
-				opened = APC_OPENED
-				update_icon()
-			return
-		if(has_electronics())
-			to_chat(user, "<span class='warning'>You cannot repair this APC until you remove the electronics still inside!</span>")
-			return
-		user.visible_message("[user.name] replaces the damaged APC frame with a new one.",\
-							"<span class='notice'>You begin to replace the damaged APC frame...</span>")
-		if(do_after(user, 5 SECONDS, src))
-			add_fingerprint(user)
-			to_chat(user, "<span class='notice'>You replace the damaged APC frame with a new one.</span>")
-			qdel(W)
-			stat &= ~BROKEN
-			obj_integrity = max_integrity
-			if(opened== APC_COVER_OFF)
-				opened = APC_OPENED
-			update_icon()
-	else if(istype(W, /obj/item/clockwork/integration_cog))
-		if(!isclocker(user))
-			to_chat(user, "<span class='warning'>You fiddle around with [src], to no avail.</span>")
-			return
-		if(cog)
-			to_chat(user, "<span class='warning'>This APC already has a cog!</span>")
-			return
-		if(!opened)
-			playsound(src, 'sound/items/crowbar.ogg', 50, TRUE)
-			user.visible_message("[user] starts slicing [src]'s cover lock.", \
-			"<span class='notice'>You start slicing [src]'s cover lock apart with [W].</span>")
-			if(!do_after(user, 4 SECONDS, src))
-				return
-			add_fingerprint(user)
-			user.visible_message("<span class='warning'>[user] slices [src]'s cover lock, and it swings wide open!</span>", \
-			"<span class='clock'>You slice [src]'s cover lock apart with [W], and the cover swings open.</span>")
+	if(istype(I, /obj/item/mounted/frame/apc_frame))	// frame repair
+		add_fingerprint(user)
+		if(opened == APC_CLOSED)
+			to_chat(user, span_warning("You should open the APC cover to repair it."))
+			return ATTACK_CHAIN_PROCEED
+		if(!(stat & BROKEN || opened == APC_COVER_OFF || obj_integrity < max_integrity)) // There is nothing to repair
+			to_chat(user, span_warning("The APC looks completely intact."))
+			return ATTACK_CHAIN_PROCEED
+		if(!(stat & BROKEN) && opened == APC_COVER_OFF) // Cover is the only thing broken, we do not need to remove elctronicks to replace cover
+			user.visible_message(
+				span_notice("[user.name] starts to replace the missing APC's cover."),
+				span_notice("You start to to replace the missing APC's cover..."),
+			)
+			playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
+			// replacing cover is quicker than replacing whole frame
+			if(!do_after(user, 2 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || (stat & BROKEN) || opened != APC_COVER_OFF)
+				return ATTACK_CHAIN_PROCEED
+			if(!user.drop_transfer_item_to_loc(I, src))
+				return ATTACK_CHAIN_PROCEED
+			user.visible_message(
+				span_notice("[user.name] has replaced the missing APC's cover."),
+				span_notice("You have replaced the missing APC's cover."),
+			)
 			opened = APC_OPENED
 			update_icon()
-		else
-			user.visible_message("<span class='warning'>[user] presses [W] into [src]!</span>", \
-			"<span class='clock'>You hold [W] in place within [src], and it slowly begins to warm up...</span>")
-			playsound(src, 'sound/machines/click.ogg', 50, TRUE)
-			if(!do_after(user, 7 SECONDS, src))
-				return
-			add_fingerprint(user)
-			user.visible_message("<span class='warning'>[user] installs [W] in [src]!</span>", \
-			"<span class='clock'>Replicant alloy rapidly covers the APC's innards, replacing the machinery.</span><br>\
-			<span class='clockitalic'>This APC will now passively provide power for the cult!</span>")
-			playsound(user, 'sound/machines/clockcult/integration_cog_install.ogg', 50, TRUE)
-			user.drop_transfer_item_to_loc(W, src, force = TRUE)
-			qdel(W)
-			cog = new(src)
-			opened = APC_CLOSED
-			locked = FALSE
+			qdel(I)
+			return ATTACK_CHAIN_BLOCKED_ALL
+		if(has_electronics())
+			to_chat(user, span_warning("You cannot repair this APC until you remove the electronics."))
+			return ATTACK_CHAIN_PROCEED
+		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
+		user.visible_message(
+			span_notice("[user.name] starts to replace the damaged APC frame with a new one."),
+			span_notice("You start to to replace damaged APC frame with a new one..."),
+		)
+		if(!do_after(user, 5 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || !(stat & BROKEN || opened == APC_COVER_OFF || obj_integrity < max_integrity) || has_electronics())
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ATTACK_CHAIN_PROCEED
+		playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
+		user.visible_message(
+			span_notice("[user.name] has replaced the damaged APC frame with a new one."),
+			span_notice("You have replaced the damaged APC frame with a new one."),
+		)
+		stat &= ~BROKEN
+		obj_integrity = max_integrity
+		if(opened == APC_COVER_OFF)
+			opened = APC_OPENED
+		update_icon()
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/clockwork/integration_cog))
+		add_fingerprint(user)
+		if(!isclocker(user))
+			to_chat(user, span_warning("You fiddle around with the APC, to no avail."))
+			return ATTACK_CHAIN_PROCEED
+		if(cog)
+			to_chat(user, span_warning("This APC already has a cog."))
+			return ATTACK_CHAIN_PROCEED
+		if(opened == APC_CLOSED)
+			playsound(loc, 'sound/items/crowbar.ogg', 50, TRUE)
+			user.visible_message(
+				span_warning("[user.name] starts slicing the APC's cover lock."),
+				span_clock("You start slicing the APC's cover lock..."),
+			)
+			if(!do_after(user, 4 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || !isclocker(user) || cog || opened != APC_CLOSED)
+				return ATTACK_CHAIN_PROCEED
+			user.visible_message(
+				span_warning("[user.name] has sliced the APC's cover lock, and it swings wide open."),
+				span_clock("You have sliced the APC's cover lock apart, and it swings wide open."),
+			)
+			opened = APC_OPENED
 			update_icon()
-		return
-	else
-		return ..()
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
+		user.visible_message(
+			span_warning("[user.name] starts pressing [I] into the APC's internals."),
+			span_clock("You hold [I] in place within the APC, and it starts to slowly warm up..."),
+		)
+		if(!do_after(user, 7 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || !isclocker(user) || cog)
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ATTACK_CHAIN_PROCEED
+		playsound(user, 'sound/machines/clockcult/integration_cog_install.ogg', 50, TRUE)
+		user.visible_message(
+			span_warning("[user.name] has installed [I] into the APC's internals."),
+			"[span_clock("Replicant alloy rapidly covers the APC's innards, replacing the machinery.<br>")][span_clockitalic("This APC will now passively provide power to the cult.")]",
+		)
+		cog = new(src)
+		opened = APC_CLOSED
+		locked = FALSE
+		update_icon()
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
 
 /obj/machinery/power/apc/AltClick(mob/user)
 	var/mob/living/carbon/human/human = user
@@ -872,22 +928,28 @@
 	if(panel_open && !opened)
 		wires.Interact(user)
 
+
 /obj/machinery/power/apc/proc/togglelock(mob/living/user)
 	if(emagged)
-		to_chat(user, "<span class='warning'>The interface is broken!</span>")
-	else if(opened)
-		to_chat(user, "<span class='warning'>You must close the cover to swipe an ID card!</span>")
-	else if(panel_open)
-		to_chat(user, "<span class='warning'>You must close the panel!</span>")
-	else if(stat & (BROKEN|MAINT))
-		to_chat(user, "<span class='warning'>Nothing happens!</span>")
-	else
-		if(allowed(usr) && !wires.is_cut(WIRE_IDSCAN) && !malfhack)
-			locked = !locked
-			to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] the APC interface.</span>")
-			update_icon()
-		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, span_warning("The interface is broken!"))
+		return FALSE
+	if(opened)
+		to_chat(user, span_warning("You must close the cover to swipe an ID card!"))
+		return FALSE
+	if(panel_open)
+		to_chat(user, span_warning("You must close the panel!"))
+		return FALSE
+	if(stat & (BROKEN|MAINT))
+		to_chat(user, span_warning("Nothing happens!"))
+		return FALSE
+	if(!allowed(user) || wires.is_cut(WIRE_IDSCAN) || malfhack)
+		to_chat(user, span_warning("Access denied."))
+		return FALSE
+	locked = !locked
+	to_chat(user, span_notice("You have [ locked ? "locked" : "unlocked"] the APC interface."))
+	update_icon()
+	return TRUE
+
 
 /obj/machinery/power/apc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(stat & BROKEN)

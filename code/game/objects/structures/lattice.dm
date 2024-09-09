@@ -54,15 +54,14 @@
 		C.deconstruct()
 	..()
 
-/obj/structure/lattice/attackby(obj/item/C, mob/user, params)
-	if(resistance_flags & INDESTRUCTIBLE)
-		return
-	else
-		add_fingerprint(user)
-		var/turf/T = get_turf(src)
-		if(!T)
-			return
-		return T.attackby(C, user) //hand this off to the turf instead (for building plating, catwalks, etc)
+
+/obj/structure/lattice/attackby(obj/item/I, mob/user, params)
+	if((resistance_flags & INDESTRUCTIBLE) || !isturf(loc))
+		return ATTACK_CHAIN_BLOCKED_ALL
+	add_fingerprint(user)
+	I.melee_attack_chain(user, loc, params)	// hand this off to the turf instead (for building plating, catwalks, etc)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
 
 /obj/structure/lattice/ratvar_act()
 	new /obj/structure/lattice/clockwork(loc)

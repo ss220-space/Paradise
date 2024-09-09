@@ -35,7 +35,7 @@
 /mob/living/carbon/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(.)
-		if((FAT in mutations) && m_intent == MOVE_INTENT_RUN && bodytemperature <= 360)
+		if(HAS_TRAIT(src, TRAIT_FAT) && m_intent == MOVE_INTENT_RUN && bodytemperature <= 360)
 			adjust_bodytemperature(2)
 
 		// Moving around increases germ_level faster
@@ -216,7 +216,7 @@
 				if(prob(30) && ishuman(M)) // 30% chance of burning your hands
 					var/mob/living/carbon/human/H = M
 					var/protected = FALSE // Protected from the fire
-					if((H.gloves?.max_heat_protection_temperature > 360) || (HEATRES in H.mutations))
+					if((H.gloves?.max_heat_protection_temperature > 360) || HAS_TRAIT(H, TRAIT_RESIST_HEAT))
 						protected = TRUE
 					if(!protected)
 						H.apply_damage(5, BURN, def_zone = H.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
@@ -308,7 +308,7 @@
 			to_chat(src, "<span class='info'>Вы полностью истощены.</span>")
 		else
 			to_chat(src, "<span class='info'>Вы чувствуете усталость.</span>")
-	if((isskeleton(H) || (SKELETON in H.mutations)) && (!H.w_uniform) && (!H.wear_suit))
+	if((isskeleton(H) || HAS_TRAIT(H, TRAIT_SKELETON)) && (!H.w_uniform) && (!H.wear_suit))
 		H.play_xylophone()
 
 
@@ -565,11 +565,11 @@
 		frequency_number = 1 - (thrown_item.w_class - 3) / 8
 
 	var/power_throw = 0
-	if(HULK in mutations)
+	if(HAS_TRAIT(src, TRAIT_HULK))
 		power_throw++
-	if(DWARF in mutations)
+	if(HAS_TRAIT(src, TRAIT_DWARF))
 		power_throw--
-	if(throwing_mob && (DWARF in throwing_mob.mutations))
+	if(throwing_mob && HAS_TRAIT(throwing_mob, TRAIT_DWARF))
 		power_throw++
 	if(neckgrab_throw)
 		power_throw++
@@ -678,9 +678,9 @@
 	return loc.handle_slip(src, weaken, slipped_on, lube_flags, tilesSlipped)
 
 
-/mob/living/carbon/proc/eat(var/obj/item/reagent_containers/food/toEat, mob/user, var/bitesize_override)
+/mob/living/carbon/proc/eat(obj/item/reagent_containers/food/toEat, mob/user, bitesize_override)
 	if(!istype(toEat))
-		return 0
+		return FALSE
 	var/fullness = nutrition + 10
 	if(istype(toEat, /obj/item/reagent_containers/food/snacks))
 		for(var/datum/reagent/consumable/C in reagents.reagent_list) //we add the nutrition value of what we're currently digesting
@@ -688,30 +688,30 @@
 	if(user == src)
 		if(istype(toEat, /obj/item/reagent_containers/food/drinks))
 			if(!selfDrink(toEat))
-				return 0
+				return FALSE
 		else
 			if(!selfFeed(toEat, fullness))
-				return 0
+				return FALSE
 		if(toEat.log_eating)
 			var/this_bite = bitesize_override ? bitesize_override : toEat.bitesize
 			add_game_logs("Ate [toEat](bite volume: [this_bite*toEat.transfer_efficiency]) containing [toEat.reagents.log_list()]", src)
 	else
 		if(!forceFed(toEat, user, fullness))
-			return 0
+			return FALSE
 		var/this_bite = bitesize_override ? bitesize_override : toEat.bitesize
 		add_attack_logs(user, src, "Force Fed [toEat](bite volume: [this_bite*toEat.transfer_efficiency]u) containing [toEat.reagents.log_list()]")
 	consume(toEat, bitesize_override, can_taste_container = toEat.can_taste)
 	SSticker.score.score_food_eaten++
-	return 1
+	return TRUE
 
 
-/mob/living/carbon/proc/selfFeed(var/obj/item/reagent_containers/food/toEat, fullness)
+/mob/living/carbon/proc/selfFeed(obj/item/reagent_containers/food/toEat, fullness)
 	if(ispill(toEat))
 		to_chat(src, "<span class='notify'>You [toEat.apply_method] [toEat].</span>")
 	else
 		if(toEat.junkiness && satiety < -150 && nutrition > NUTRITION_LEVEL_STARVING + 50 )
 			to_chat(src, "<span class='notice'>You don't feel like eating any more junk food at the moment.</span>")
-			return 0
+			return FALSE
 		if(fullness <= 50)
 			to_chat(src, "<span class='warning'>You hungrily chew out a piece of [toEat] and gobble it!</span>")
 		else if(fullness > 50 && fullness < 150)
@@ -722,15 +722,15 @@
 			to_chat(src, "<span class='notice'>You unwillingly chew a bit of [toEat].</span>")
 		else if(fullness > (600 * (1 + overeatduration / 2000)))	// The more you eat - the more you can eat
 			to_chat(src, "<span class='warning'>You cannot force any more of [toEat] to go down your throat.</span>")
-			return 0
-	return 1
+			return FALSE
+	return TRUE
 
 
-/mob/living/carbon/proc/selfDrink(var/obj/item/reagent_containers/food/drinks/toDrink, mob/user)
-	return 1
+/mob/living/carbon/proc/selfDrink(obj/item/reagent_containers/food/drinks/toDrink, mob/user)
+	return TRUE
 
 
-/mob/living/carbon/proc/forceFed(var/obj/item/reagent_containers/food/toEat, mob/user, fullness)
+/mob/living/carbon/proc/forceFed(obj/item/reagent_containers/food/toEat, mob/user, fullness)
 	if(ispill(toEat) || fullness <= (600 * (1 + overeatduration / 1000)))
 		if(!toEat.instant_application)
 			visible_message("<span class='warning'>[user] attempts to force [src] to [toEat.apply_method] [toEat].</span>")
@@ -765,7 +765,7 @@ so that different stomachs can handle things in different ways VB*/
 
 
 /mob/living/carbon/proc/can_breathe_gas()
-	if(dna && (NO_BREATHE in dna.species.species_traits))
+	if(HAS_TRAIT(src, TRAIT_NO_BREATH))
 		return FALSE
 
 	if(!wear_mask && !head)
@@ -786,7 +786,9 @@ so that different stomachs can handle things in different ways VB*/
 	if(!GLOB.tinted_weldhelh)
 		return
 	var/tinttotal = get_total_tint()
-	if(tinttotal >= TINT_BLIND)
+	if((sight & (SEE_MOBS|SEE_OBJS|SEE_TURFS)) == (SEE_MOBS|SEE_OBJS|SEE_TURFS))
+		clear_fullscreen("tint", 0)
+	else if(tinttotal >= TINT_BLIND)
 		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/blind)
 	else if(tinttotal >= TINT_IMPAIR)
 		overlay_fullscreen("tint", /atom/movable/screen/fullscreen/impaired, 2)
@@ -847,7 +849,7 @@ so that different stomachs can handle things in different ways VB*/
 		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
 			return
 
-	if(XRAY in mutations)
+	if(HAS_TRAIT(src, TRAIT_XRAY))
 		add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
@@ -933,3 +935,10 @@ so that different stomachs can handle things in different ways VB*/
 
 	if(should_vomit)
 		fakevomit()
+
+
+/mob/living/carbon/on_no_breath_trait_gain(datum/source)
+	. = ..()
+
+	co2overloadtime = 0
+

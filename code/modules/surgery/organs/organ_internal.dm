@@ -166,17 +166,19 @@
 	list_reagents = list("nutriment" = 5)
 
 
-/obj/item/organ/internal/attack(mob/living/carbon/M, mob/user)
-	if(M == user && ishuman(user))
-		var/mob/living/carbon/human/H = user
-		var/obj/item/reagent_containers/food/snacks/S = prepare_eat()
-		if(S)
-			H.drop_from_active_hand()
-			H.put_in_active_hand(S)
-			S.attack(H, H)
-			qdel(src)
-	else
-		..()
+/obj/item/organ/internal/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(target != user || !ishuman(target) || !user.can_unEquip(src))
+		return ..()
+
+	var/obj/item/reagent_containers/food/snacks/snack = prepare_eat()
+	if(!snack)
+		return ATTACK_CHAIN_PROCEED
+
+	user.temporarily_remove_item_from_inventory(src)
+	target.put_in_active_hand(snack, silent = TRUE)
+	snack.attack(target, target, params)
+	qdel(src)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 
 /****************************************************
@@ -391,10 +393,12 @@
 
 /obj/item/organ/internal/handle_germs()
 	..()
-	if(germ_level >= INFECTION_LEVEL_TWO)
-		if(prob(3 * owner.dna.species.germs_growth_rate))
-			// big message from every 1 damage is not good. If germs growth rate is big, it will spam the chat.
-			internal_receive_damage(1, silent = prob(30*owner.dna.species.germs_growth_rate))
+	if(!ishuman(owner))
+		return
+	var/germs_mod = owner.dna.species.germs_growth_mod * owner.physiology.germs_growth_mod
+	if(germ_level >= INFECTION_LEVEL_TWO && prob(3 * germs_mod))
+		// big message from every 1 damage is not good. If germs growth rate is big, it will spam the chat.
+		internal_receive_damage(1, silent = prob(30 * germs_mod))
 
 
 /mob/living/carbon/human/proc/check_infections()

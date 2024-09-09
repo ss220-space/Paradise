@@ -8,86 +8,25 @@
 /// Allows to modify species default genes
 #define MUTCHK_IGNORE_DEFAULT (1<<1)
 
-// mob/var/list/mutations
-
 // Used in preferences.
-#define DISABILITY_FLAG_NEARSIGHTED   (1<<0)
-#define DISABILITY_FLAG_FAT           (1<<1)
-#define DISABILITY_FLAG_BLIND         (1<<2)
-#define DISABILITY_FLAG_MUTE          (1<<3)
-#define DISABILITY_FLAG_COLOURBLIND   (1<<4)
-#define DISABILITY_FLAG_WINGDINGS     (1<<5)
-#define DISABILITY_FLAG_NERVOUS       (1<<6)
-#define DISABILITY_FLAG_SWEDISH       (1<<7)
-#define DISABILITY_FLAG_LISP          (1<<8)
-#define DISABILITY_FLAG_DIZZY         (1<<9)
+#define DISABILITY_FLAG_NEARSIGHTED (1<<0)
+#define DISABILITY_FLAG_OBESITY (1<<1)
+#define DISABILITY_FLAG_BLIND (1<<2)
+#define DISABILITY_FLAG_MUTE (1<<3)
+#define DISABILITY_FLAG_COLOURBLIND (1<<4)
+#define DISABILITY_FLAG_WINGDINGS (1<<5)
+#define DISABILITY_FLAG_NERVOUS (1<<6)
+#define DISABILITY_FLAG_SWEDISH (1<<7)
+#define DISABILITY_FLAG_LISP (1<<8)
+#define DISABILITY_FLAG_DIZZY (1<<9)
 #define DISABILITY_FLAG_AULD_IMPERIAL (1<<10)
-#define DISABILITY_FLAG_DEAF          (1<<11)
+#define DISABILITY_FLAG_DEAF (1<<11)
 #define DISABILITY_FLAG_COFFEE_ADDICT (1<<12)
-#define DISABILITY_FLAG_TEA_ADDICT    (1<<13)
+#define DISABILITY_FLAG_TEA_ADDICT (1<<13)
 #define DISABILITY_FLAG_ALCOHOLE_ADDICT (1<<14)
 #define DISABILITY_FLAG_NICOTINE_ADDICT (1<<15)
+#define DISABILITY_FLAG_PARAPLEGIA 		  (1<<16)
 
-///////////////////////////////////////
-// MUTATIONS
-///////////////////////////////////////
-
-// Generic mutations:
-#define	TK				"telekenesis"
-#define COLDRES			"cold_resistance"
-#define XRAY			"xray"
-#define HULK			"hulk"
-#define CLUMSY			"clumsy"
-#define FAT				"fat"
-#define HUSK			"husk"
-#define NOCLONE			"noclone"
-#define LASEREYES		"eyelaser" 			// harm intent - click anywhere to shoot lasers from eyes
-#define WINGDINGS		"wingdings"			// Ayy lmao
-#define SKELETON 		"skeleton"
-#define BREATHLESS		"breathless"		// no breathing
-#define REMOTE_VIEW		"remove_view" 		// remote viewing
-#define REGEN			"regeneration"		// health regen
-#define RUN				"increased_run" 	// no slowdown
-#define REMOTE_TALK		"remote_talk" 		// remote talking
-#define MORPH			"morph" 			// changing appearance
-#define HEATRES			"heat_resistance" 	// heat resistance
-#define HALLUCINATE		"hallucinate" 		// hallucinations
-#define FINGERPRINTS	"no_prints" 		// no fingerprints
-#define NO_SHOCK		"no_shock" 			// insulated hands
-#define DWARF			"dwarf"				// table climbing
-#define OBESITY       	"obesity"			// Decreased metabolism
-#define STRONG        	"strong"			// No slowdown from pull
-#define SOBER         	"sober"				// Increased alcohol metabolism
-#define PSY_RESIST    	"psy_resist"		// Block remoteview
-#define EMPATH			"empathy"			//Read minds
-#define COMIC			"comic_sans"		//Comic Sans
-#define LOUD			"loudness"			// CAUSES INTENSE YELLING
-#define DIZZY			"dizzy"				// Trippy.
-#define LISP			"lisp"
-#define RADIOACTIVE 	"radioactive"
-#define AULD_IMPERIAL	"auld_imperial"
-#define SWEDISH			"swedish"
-#define SCRAMBLED		"scrambled"
-#define HORNS			"horns"
-#define IMMOLATE		"immolate"
-#define CLOAK			"cloak"
-#define CHAMELEON		"chameleon"
-#define CRYO			"cryokinesis"
-#define EATER			"matter_eater"
-#define JUMPY			"jumpy"
-#define POLYMORPH		"polymorph"
-#define SILENT_FOOTSTEPS "silent_footsteps" //makes your footsteps completely silent
-//disabilities
-#define NEARSIGHTED		"nearsighted"
-#define EPILEPSY		"epilepsy"
-#define COUGHING		"coughing"
-#define TOURETTES		"tourettes"
-#define NERVOUS			"nervous"
-#define BLINDNESS		"blind"
-#define COLOURBLIND		"colorblind"
-#define MUTE			"mute"
-#define DEAF			"deaf"
-#define WEAK			"weak"
 
 //Nutrition levels for humans. No idea where else to put it
 #define NUTRITION_LEVEL_FAT 600
@@ -131,37 +70,3 @@
 #define CLONER_FRESH_CLONE "fresh"
 #define CLONER_MATURE_CLONE "mature"
 
-//Species traits.
-
-#define LIPS			"lips"
-#define NO_BLOOD		"no_blood"
-#define NO_BREATHE 		"no_breathe"
-#define NO_DNA			"no_dna"
-#define NO_SCAN 		"no_scan"
-#define NO_PAIN 		"no_pain"
-#define NO_PAIN_FEEL	"no_pain_feel"
-#define IS_PLANT 		"is_plant"
-#define NO_INTORGANS	"no_internal_organs"
-#define RADIMMUNE		"rad_immunity"
-#define NOGUNS			"no_guns"
-#define NOTRANSSTING	"no_trans_sting"
-#define VIRUSIMMUNE		"virus_immunity"
-#define NOCRITDAMAGE	"no_crit"
-#define RESISTHOT		"resist_heat"
-#define RESISTCOLD		"resist_cold"
-#define NO_EXAMINE		"no_examine"
-#define CAN_WINGDINGS	"can_wingdings"
-#define NO_GERMS		"no_germs"
-#define NO_DECAY		"no_decay"
-#define PIERCEIMMUNE	"pierce_immunity"
-#define EMBEDIMMUNE		"embed_immunity"
-#define NO_HUNGER		"no_hunger"
-#define EXOTIC_COLOR	"exotic_blood_colour"
-#define NO_OBESITY		"no_obesity"
-#define RUNIC_MIND		"runic_mind"
-#define REPEATSURGERY	"repeat_syrgery"
-#define HAVE_REGENERATION "have_regeneration"
-#define NO_ROBOPARTS 	"no_roboparts" // запрещает ставить робо-конечности, киберорганы(лёгкие, сердце, etc), аугменты
-#define ONLY_SPECIES_LIMBS "only_species_limbs" // запрещает ставить органические части тела, не относящиеся к виду(species) пациента
-#define NO_BIOCHIPS "no_biochips"  // запрещает ставить био-чипы(adrenaline, storage), не затрагивает "mindshield", "traitor" в угоду балансу
-#define NO_CYBERIMPS "no_cyberimps" // запрещает ставить киберимпланты(toolset, CNS Rebooter, etc), но не киберорганы

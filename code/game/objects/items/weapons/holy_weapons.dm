@@ -40,14 +40,17 @@
 	return BRUTELOSS|FIRELOSS
 
 
-/obj/item/nullrod/attack(mob/target, mob/living/carbon/user)
-	..()
+/obj/item/nullrod/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
+		return .
 
 	var/datum/antagonist/vampire/vamp = target.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(ishuman(user) && vamp && !vamp.get_ability(/datum/vampire_passive/full) && user.mind.isholy)
 		to_chat(target, span_warning("The nullrod's power interferes with your own!"))
 		vamp.adjust_nullification(30 + sanctify_force, 15 + sanctify_force)
-		return
+		return .
 
 	var/datum/antagonist/goon_vampire/g_vamp = target.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
 	if(ishuman(user) && g_vamp && !g_vamp.get_ability(/datum/goon_vampire_passive/full))
@@ -122,7 +125,7 @@
 		return FALSE
 	return TRUE
 
-/obj/item/nullrod/afterattack(atom/movable/AM, mob/user, proximity)
+/obj/item/nullrod/afterattack(atom/movable/AM, mob/user, proximity, params)
 	. = ..()
 
 	if(!proximity || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !sanctify_force)
@@ -388,7 +391,7 @@
 	..()
 	desc = "What a terrible night to be on the [station_name()]."
 
-/obj/item/nullrod/whip/afterattack(atom/movable/AM, mob/user, proximity)
+/obj/item/nullrod/whip/afterattack(atom/movable/AM, mob/user, proximity, params)
 	if(!proximity)
 		return
 	if(ishuman(AM))
@@ -474,26 +477,34 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	var/mob/living/carbon/wielder
 
-/obj/item/nullrod/tribal_knife/New()
-	..()
+
+/obj/item/nullrod/tribal_knife/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
+
 
 /obj/item/nullrod/tribal_knife/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	wielder = null
 	return ..()
 
+
 /obj/item/nullrod/tribal_knife/process()
 	slowdown = rand(-2, 2)
-	if(iscarbon(loc))
-		wielder = loc
-		if(wielder.is_in_hands(src))
-			wielder.update_equipment_speed_mods()
+	wielder?.update_equipment_speed_mods()
+
+
+/obj/item/nullrod/tribal_knife/equipped(mob/user, slot, initial = FALSE)
+	. = ..()
+	if(slot & ITEM_SLOT_HANDS)
+		wielder = user
+
 
 /obj/item/nullrod/tribal_knife/dropped(mob/user, slot, silent = FALSE)
 	slowdown = 0
-	user.update_equipment_speed_mods()
-	. = ..()
+	wielder = null
+	return ..()
+
 
 /obj/item/nullrod/pitchfork
 	name = "unholy pitchfork"
@@ -522,63 +533,68 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/nullrod/rosary/attack(mob/living/carbon/M, mob/living/carbon/user)
-	if(!iscarbon(M))
+
+/obj/item/nullrod/rosary/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(!ishuman(target))
 		return ..()
 
+	. = ATTACK_CHAIN_PROCEED
 	if(!user.mind || !user.mind.isholy)
-		to_chat(user, "<span class='notice'>You are not close enough with [SSticker.Bible_deity_name] to use [src].</span>")
-		return
+		to_chat(user, span_notice("You are not close enough with [SSticker.Bible_deity_name] to use [src]."))
+		return .
 
 	if(praying)
-		to_chat(user, "<span class='notice'>You are already using [src].</span>")
-		return
+		to_chat(user, span_notice("You are already using [src]."))
+		return .
 
-	user.visible_message("<span class='info'>[user] kneels[M == user ? null : " next to [M]"] and begins to utter a prayer to [SSticker.Bible_deity_name].</span>",
-		"<span class='info'>You kneel[M == user ? null : " next to [M]"] and begin a prayer to [SSticker.Bible_deity_name].</span>")
+	user.visible_message(
+		span_info("[user] kneels[target == user ? null : " next to [target]"] and begins to utter a prayer to [SSticker.Bible_deity_name]."),
+		span_info("You kneel[target == user ? null : " next to [target]"] and begin a prayer to [SSticker.Bible_deity_name]."),
+	)
 
 	praying = TRUE
-	if(do_after(user, 15 SECONDS, M))
-		if(ishuman(M))
-			var/mob/living/carbon/human/target = M
-
-			if(target.mind)
-				if(iscultist(target))
-					SSticker.mode.remove_cultist(target.mind) // This proc will handle message generation.
-					praying = FALSE
-					return
-				if(isclocker(target))
-					SSticker.mode.remove_clocker(target.mind)
-					praying = FALSE
-					return
-
-				var/datum/antagonist/vampire/vamp = M.mind?.has_antag_datum(/datum/antagonist/vampire)
-				if(vamp && !vamp.get_ability(/datum/vampire_passive/full)) // Getting a full prayer off on a vampire will interrupt their powers for a large duration.
-					vamp.adjust_nullification(120, 50)
-					to_chat(target, "<span class='userdanger'>[user]'s prayer to [SSticker.Bible_deity_name] has interfered with your power!</span>")
-					praying = FALSE
-					return
-
-				var/datum/antagonist/goon_vampire/g_vamp = M.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
-				if(g_vamp && !g_vamp.get_ability(/datum/goon_vampire_passive/full))
-					g_vamp.nullified = max(120, g_vamp.nullified + 120)
-					to_chat(target, "<span class='userdanger'>[user]'s prayer to [SSticker.Bible_deity_name] has interfered with your power!</span>")
-					praying = FALSE
-					return
-
-			if(prob(25))
-				to_chat(target, "<span class='notice'>[user]'s prayer to [SSticker.Bible_deity_name] has eased your pain!</span>")
-				var/update = NONE
-				update |= target.heal_overall_damage(5, 5, updating_health = FALSE)
-				update |= target.heal_damages(tox = 5, oxy = 5, updating_health = FALSE)
-				if(update)
-					target.updatehealth()
-
-			praying = FALSE
-
-	else
-		to_chat(user, "<span class='notice'>Your prayer to [SSticker.Bible_deity_name] was interrupted.</span>")
+	if(!do_after(user, 15 SECONDS, target))
+		to_chat(user, span_notice("Your prayer to [SSticker.Bible_deity_name] was interrupted."))
 		praying = FALSE
+		return .
+
+	if(iscultist(target))
+		SSticker.mode.remove_cultist(target.mind) // This proc will handle message generation.
+		praying = FALSE
+		return .|ATTACK_CHAIN_SUCCESS
+
+	if(isclocker(target))
+		SSticker.mode.remove_clocker(target.mind)
+		praying = FALSE
+		return .|ATTACK_CHAIN_SUCCESS
+
+	var/datum/antagonist/vampire/vamp = target.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(vamp && !vamp.get_ability(/datum/vampire_passive/full)) // Getting a full prayer off on a vampire will interrupt their powers for a large duration.
+		vamp.adjust_nullification(120, 50)
+		to_chat(target, span_userdanger("[user]'s prayer to [SSticker.Bible_deity_name] has interfered with your power!"))
+		praying = FALSE
+		return .|ATTACK_CHAIN_SUCCESS
+
+	var/datum/antagonist/goon_vampire/g_vamp = target.mind?.has_antag_datum(/datum/antagonist/goon_vampire)
+	if(g_vamp && !g_vamp.get_ability(/datum/goon_vampire_passive/full))
+		g_vamp.nullified = max(120, g_vamp.nullified + 120)
+		to_chat(target, span_userdanger("[user]'s prayer to [SSticker.Bible_deity_name] has interfered with your power!"))
+		praying = FALSE
+		return .|ATTACK_CHAIN_SUCCESS
+
+	if(!prob(25))
+		praying = FALSE
+		return .
+
+	to_chat(target, span_notice("[user]'s prayer to [SSticker.Bible_deity_name] has eased your pain!"))
+	var/update = NONE
+	update |= target.heal_overall_damage(5, 5, updating_health = FALSE)
+	update |= target.heal_damages(tox = 5, oxy = 5, updating_health = FALSE)
+	if(update)
+		target.updatehealth()
+	praying = FALSE
+	return .|ATTACK_CHAIN_SUCCESS
+
 
 /obj/item/nullrod/rosary/process()
 	if(!ishuman(loc))

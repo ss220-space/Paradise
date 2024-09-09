@@ -19,38 +19,40 @@
 	var/emagged = FALSE
 	var/safety_hypo = FALSE
 
-/obj/item/reagent_containers/hypospray/attack(mob/living/M, mob/user)
-	if(!reagents.total_volume)
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
-		return
-	if(!iscarbon(M))
-		return
+/obj/item/reagent_containers/hypospray/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
 
-	if(reagents.total_volume && (ignore_flags || M.can_inject(user, TRUE))) // Ignore flag should be checked first or there will be an error message.
-		to_chat(M, "<span class='warning'>You feel a tiny prick!</span>")
-		to_chat(user, "<span class='notice'>You inject [M] with [src].</span>")
+	if(!iscarbon(target) || !target.reagents)
+		return .
 
-		if(M.reagents)
-			var/list/injected = list()
-			for(var/datum/reagent/R in reagents.reagent_list)
-				injected += R.name
+	if(!reagents || !reagents.total_volume)
+		to_chat(user, span_warning("The [name] is empty!"))
+		return .
 
-			var/primary_reagent_name = reagents.get_master_reagent_name()
-			var/fraction = min(amount_per_transfer_from_this / reagents.total_volume, 1)
-			reagents.reaction(M, REAGENT_INGEST, fraction)
-			var/trans = reagents.trans_to(M, amount_per_transfer_from_this)
+	if(!ignore_flags && !target.can_inject(user, TRUE))
+		return .
 
-			if(safety_hypo)
-				visible_message("<span class='warning'>[user] injects [M] with [trans] units of [primary_reagent_name].</span>")
-				playsound(loc, 'sound/goonstation/items/hypo.ogg', 80, 0)
+	. |= ATTACK_CHAIN_SUCCESS
 
-			to_chat(user, "<span class='notice'>[trans] unit\s injected.  [reagents.total_volume] unit\s remaining in [src].</span>")
+	to_chat(target, span_warning("You feel a tiny prick!"))
+	to_chat(user, span_notice("You inject [target] with [src]."))
 
-			var/contained = english_list(injected)
+	var/list/injected = list()
+	for(var/datum/reagent/reagent as anything in reagents.reagent_list)
+		injected += reagent.name
 
-			add_attack_logs(user, M, "Injected with [src] containing ([contained])", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
+	var/primary_reagent_name = reagents.get_master_reagent_name()
+	var/fraction = min(amount_per_transfer_from_this / reagents.total_volume, 1)
+	reagents.reaction(target, REAGENT_INGEST, fraction)
+	var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
 
-		return TRUE
+	if(safety_hypo)
+		visible_message(span_warning("[user] injects [target] with [trans] units of [primary_reagent_name]."))
+		playsound(loc, 'sound/goonstation/items/hypo.ogg', 80)
+
+	to_chat(user, span_notice("Injected [trans] unit\s. The [name] holds [reagents.total_volume] unit\s."))
+	add_attack_logs(user, target, "Injected with [src] containing ([english_list(injected)])", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
+
 
 /obj/item/reagent_containers/hypospray/on_reagent_change()
 	if(safety_hypo && !emagged)
@@ -80,31 +82,61 @@
 	icon_state = "medivend_hypo"
 	belt_icon = "medical_hypospray"
 	safety_hypo = TRUE
-	var/has_paint
-	var/colour
+	var/paint_color
+	var/color_overlay = "colour_hypo"
+
+
+/obj/item/reagent_containers/hypospray/safety/proc/update_state()
+	update_icon(UPDATE_ICON_STATE)
+	remove_filter("hypospray_handle")
+	if(paint_color)
+		var/icon/hypo_mask = icon('icons/obj/hypo.dmi', color_overlay)
+		add_filter("hypospray_handle", 1, layering_filter(icon = hypo_mask, color = paint_color))
+
+
+/obj/item/reagent_containers/hypospray/safety/update_icon_state()
+	icon_state = paint_color ? "whitehypo" : "medivend_hypo"
 
 /obj/item/reagent_containers/hypospray/safety/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/toy/crayon/spraycan))
-		var/obj/item/toy/crayon/spraycan/spraycan = I
-		if(spraycan.capped)
-			to_chat(user, "<span class='warning'>Take the cap off first!</span>")
-			return
-		if(spraycan.uses < 2)
-			to_chat(user, "<span class ='warning'>There is not enough paint in the can!")
-			return
-		colour = spraycan.colour
-		has_paint = TRUE
-		icon_state = "whitehypo"
-		src.remove_filter("hypospray_handle")
-		var/icon/hypo_mask = icon('icons/obj/hypo.dmi',"colour_hypo" )
-		src.add_filter("hypospray_handle",1,layering_filter(icon = hypo_mask, color = colour))
-	if(istype(I, /obj/item/soap) && has_paint)
-		to_chat(user, span_notice("You wash off the paint layer from hypospray"))
-		has_paint = FALSE
-		src.remove_filter("hypospray_handle")
-		icon_state = "medivend_hypo"
-	..()
+		add_fingerprint(user)
+		var/obj/item/toy/crayon/spraycan/can = I
+		if(can.capped)
+			to_chat(user, span_warning("The cap on [can] is sealed."))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		if(can.uses < 2)
+			to_chat(user, span_warning("There is not enough paint in [can]."))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		to_chat(user, span_notice("You have painted [src]."))
+		playsound(user.loc, 'sound/effects/spray.ogg', 20, TRUE)
+		paint_color = can.colour
+		can.uses -= 2
+		update_state()
+		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
 
+	if(istype(I, /obj/item/soap) && paint_color)
+		add_fingerprint(user)
+		to_chat(user, span_notice("You wash off the paint layer from the hypospray."))
+		paint_color = null
+		update_state()
+		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
+
+	return ..()
+
+/obj/item/reagent_containers/hypospray/safety/upgraded
+	name = "upgraded medical hypospray"
+	desc = "Improved general-purpose medical hypospray for rapid administration of chemicals. This model has increased capacity."
+	item_state = "upg_hypo"
+	icon_state = "upg_hypo"
+	volume = 60
+	possible_transfer_amounts = list(1,2,5,10,15,20,25,30,40,60)
+	color_overlay = "colour_upgradedhypo"
+
+/obj/item/reagent_containers/hypospray/safety/upgraded/update_icon_state()
+	icon_state = paint_color ? "upg_hypo_white" : "upg_hypo"
+
+/obj/item/reagent_containers/hypospray/safety/upgraded/emag_act(mob/user)
+	return
 
 /obj/item/reagent_containers/hypospray/safety/ert
 	name = "medical hypospray (Omnizine)"
@@ -199,85 +231,109 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = null
 	volume = 10
-	var/only_self = FALSE //is it usable only on yourself
-	var/spent = FALSE
 	ignore_flags = TRUE //so you can medipen through hardsuits
 	container_type = DRAWABLE
 	flags = null
 	list_reagents = list("epinephrine" = 10)
+	/// Whether we can rename and repaint source
 	var/reskin_allowed = FALSE
-	//for radial menu
-	var/list/skinslist = list(
-		"Completely Blue" = "ablueinjector",
-		"Blue" = "blueinjector",
-		"Completely Red" = "redinjector",
-		"Red" = "lepopen",
-		"Golden" = "goldinjector",
-		"Completely Green" = "greeninjector",
-		"Green" = "autoinjector",
-		"Gray" = "stimpen",
-	)
+	/// Currently selected skin
+	var/current_skin
+	/// Is it usable only on yourself?
+	var/only_self = FALSE
+	/// Is it used?
+	var/spent = FALSE
 
-/obj/item/reagent_containers/hypospray/autoinjector/attackby(obj/item/W, mob/user)
-	if(reskin_allowed)
-		if(is_pen(W))
-			var/t = clean_input("Введите желаемое название для инжектора.", "Переименовывание", "")
-			if(!t)
-				return
-			if(length(t) > 15)
-				to_chat(user, "<span class = 'warning'>Название слишком длинное, и не помещается на инжекторе! Нужно другое.</span>")
-			name = t
-		if(istype(W, /obj/item/toy/crayon/spraycan))
-			var/obj/item/toy/crayon/spraycan/C = W
-			if(C.capped)
-				to_chat(user, "<span class = 'warning'>Вам стоит снять крышку, прежде чем пытаться раскрасить [src]!</span>")
-				return
-			var/list/injector_icons = list("Completely Blue" = image(icon = src.icon, icon_state = "ablueinjector"),
-											"Blue" = image(icon = src.icon, icon_state = "blueinjector"),
-											"Completely Red" = image(icon = src.icon, icon_state = "redinjector"),
-											"Red" = image(icon = src.icon, icon_state = "lepopen"),
-											"Golden" = image(icon = src.icon, icon_state = "goldinjector"),
-											"Completely Green" = image(icon = src.icon, icon_state = "greeninjector"),
-											"Green" = image(icon = src.icon, icon_state = "autoinjector"),
-											"Gray" = image(icon = src.icon, icon_state = "stimpen"))
-			var/choice = show_radial_menu(user, src, injector_icons, custom_check = CALLBACK(src, PROC_REF(check_reskin), user))
-			if(!choice || W.loc != user || src.loc != user)
-				return
-			if(C.uses <= 0)
-				to_chat(user, "<span class = 'warning'>Не похоже что бы осталось достаточно краски.</span>")
-				return
-			icon_state = skinslist[choice]
-			C.uses--
-			update_icon()
-	else
+
+/obj/item/reagent_containers/hypospray/autoinjector/update_icon_state()
+	var/base_state
+	switch(current_skin)
+		if("Completely Blue")
+			base_state = "ablueinjector"
+		if("Blue")
+			base_state = "blueinjector"
+		if("Completely Red")
+			base_state = "redinjector"
+		if("Red")
+			base_state = "lepopen"
+		if("Golden")
+			base_state = "goldinjector"
+		if("Completely Green")
+			base_state = "greeninjector"
+		if("Green")
+			base_state = "autoinjector"
+		if("Gray")
+			base_state = "stimpen"
+		else
+			base_state = initial(icon_state)
+
+	icon_state = "[base_state][spent ? "0" : ""]"
+
+
+/obj/item/reagent_containers/hypospray/autoinjector/attackby(obj/item/I, mob/user, params)
+	if(!reskin_allowed)
 		return ..()
+
+	if(is_pen(I) || istype(I, /obj/item/flashlight/pen))
+		rename_interactive(user, I)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/toy/crayon/spraycan))
+		add_fingerprint(user)
+		var/obj/item/toy/crayon/spraycan/can = I
+		if(can.capped)
+			to_chat(user, span_warning("The cap on [can] is sealed."))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		if(can.uses <= 0)
+			to_chat(user, span_warning("There is not enough paint in [can]."))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		var/static/list/injector_icons = list(
+			"Completely Blue" = image('icons/obj/hypo.dmi', "ablueinjector"),
+			"Blue" = image('icons/obj/hypo.dmi', "blueinjector"),
+			"Completely Red" = image('icons/obj/hypo.dmi', "redinjector"),
+			"Red" = image('icons/obj/hypo.dmi', "lepopen"),
+			"Golden" = image('icons/obj/hypo.dmi', "goldinjector"),
+			"Completely Green" = image('icons/obj/hypo.dmi', "greeninjector"),
+			"Green" = image('icons/obj/hypo.dmi', "autoinjector"),
+			"Gray" = image('icons/obj/hypo.dmi', "stimpen")
+		)
+		var/choice = show_radial_menu(user, user, injector_icons, radius = 48, custom_check = CALLBACK(src, PROC_REF(check_reskin), user))
+		if(!choice || loc != user || can.loc != user || !can.uses || user.incapacitated())
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		to_chat(user, span_notice("You have painted [src]."))
+		playsound(user.loc, 'sound/effects/spray.ogg', 20, TRUE)
+		current_skin = choice
+		can.uses--
+		update_icon(UPDATE_ICON_STATE)
+		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
+
+	return ..()
+
 
 /obj/item/reagent_containers/hypospray/autoinjector/proc/check_reskin(mob/living/user)
 	if(user.incapacitated())
-		return
+		return FALSE
 	if(loc != user)
-		return
+		return FALSE
 	return TRUE
+
 
 /obj/item/reagent_containers/hypospray/autoinjector/empty()
 	set hidden = TRUE
 
-/obj/item/reagent_containers/hypospray/autoinjector/attack(mob/M, mob/user)
+
+/obj/item/reagent_containers/hypospray/autoinjector/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!reagents.total_volume || spent)
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
-		return
-	if(only_self && (M != user))
-		to_chat(user, "<span class='warning'>Не похоже что вы сможете уколоть [src] кому-либо, кроме себя!</span>")
-		return
-	..()
-	spent = TRUE
-	update_icon(UPDATE_ICON_STATE)
-	return TRUE
-
-
-/obj/item/reagent_containers/hypospray/autoinjector/update_icon_state()
-	var/real_state = replacetext(icon_state, "0", "")	// we need to do this since customization is available
-	icon_state = "[real_state][spent ? "0" : ""]"
+		to_chat(user, span_warning("The [name] is empty!"))
+		return ATTACK_CHAIN_PROCEED
+	if(only_self && target != user)
+		to_chat(user, span_warning("The [name] can only be used on yourself."))
+		return ATTACK_CHAIN_PROCEED
+	. = ..()
+	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
+		spent = TRUE
+		update_icon(UPDATE_ICON_STATE)
+		playsound(loc, 'sound/effects/stimpak.ogg', 35, TRUE)
 
 
 /obj/item/reagent_containers/hypospray/autoinjector/examine()
@@ -287,9 +343,6 @@
 	else
 		. += "<span class='notice'>It is spent.</span>"
 
-/obj/item/reagent_containers/hypospray/autoinjector/attack(mob/living/M, mob/user)
-	if(..())
-		playsound(loc, 'sound/effects/stimpak.ogg', 35, 1)
 
 /obj/item/reagent_containers/hypospray/autoinjector/teporone //basilisks
 	name = "teporone autoinjector"
@@ -330,17 +383,19 @@
 	amount_per_transfer_from_this = 40
 	list_reagents = list("salbutamol" = 10, "adv_lava_extract" = 10, "teporone" = 10, "hydrocodone" = 10)
 
-/obj/item/reagent_containers/hypospray/autoinjector/survival/luxury/attack(mob/living/M, mob/user)
+
+/obj/item/reagent_containers/hypospray/autoinjector/survival/luxury/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(lavaland_equipment_pressure_check(get_turf(user)))
 		amount_per_transfer_from_this = initial(amount_per_transfer_from_this)
 		return ..()
 
-	to_chat(user,span_notice("You start manually releasing the low-pressure gauge..."))
-	if(!do_after(user, 5 SECONDS, target = M)) //5 seconds release and...
-		return
+	to_chat(user, span_notice("You start manually releasing the low-pressure gauge..."))
+	if(!do_after(user, 5 SECONDS, target)) //5 seconds release and...
+		return ATTACK_CHAIN_PROCEED
 
 	amount_per_transfer_from_this = initial(amount_per_transfer_from_this) * 0.3 //1/3 of the reagents
 	return ..()
+
 
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium
 	name = "protoype nanite autoinjector"
@@ -350,9 +405,12 @@
 	volume = 15
 	list_reagents = list("nanocalcium" = 15)
 
-/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/attack(mob/living/M, mob/user)
-	if(..())
-		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, 1)
+
+/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
+		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 20, TRUE)
+
 
 /obj/item/reagent_containers/hypospray/autoinjector/selfmade
 	name = "autoinjector"
@@ -364,9 +422,12 @@
 	reskin_allowed = TRUE
 	container_type = OPENCONTAINER
 
-/obj/item/reagent_containers/hypospray/autoinjector/selfmade/attack(mob/living/M, mob/user)
-	..()
-	container_type = DRAINABLE
+
+/obj/item/reagent_containers/hypospray/autoinjector/selfmade/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
+		container_type = DRAINABLE
+
 
 /obj/item/reagent_containers/hypospray/autoinjector/salbutamol
 	name = "Salbutamol autoinjector"

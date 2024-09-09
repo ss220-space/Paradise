@@ -5,6 +5,7 @@
 	has_unlimited_silicon_privilege = 1
 	weather_immunities = list(TRAIT_WEATHER_IMMUNE)
 	var/syndicate = 0
+	var/obj/item/gps/cyborg/gps = new
 	var/const/MAIN_CHANNEL = "Main Frequency"
 	var/lawchannel = MAIN_CHANNEL // Default channel on which to state laws
 	var/list/stating_laws = list()// Channels laws are currently being stated on
@@ -62,6 +63,8 @@
 	QDEL_NULL(crew_monitor)
 	QDEL_NULL(law_manager)
 	QDEL_NULL(power_monitor)
+	QDEL_NULL(gps)
+	QDEL_NULL(blueprints)
 	return ..()
 
 /mob/living/silicon/proc/alarm_triggered(src, class, area/A, list/O, obj/alarmsource)
@@ -199,25 +202,6 @@
 		drop_hat(drop_on_turf = TRUE)
 		if(message)
 			ventcrawl_target.visible_message("<b>[name] опрокинул шляпу при залезании в вентиляцию!</b>")
-
-
-/mob/living/silicon/robot/welder_act(mob/user, obj/item/I)
-	if(user.a_intent != INTENT_HELP)
-		return
-	if(user == src) //No self-repair dummy
-		return
-	. = TRUE
-	if(!getBruteLoss())
-		to_chat(user, "<span class='notice'>Nothing to fix!</span>")
-		return
-	else if(!getBruteLoss(TRUE))
-		to_chat(user, "<span class='warning'>The damaged components are beyond saving!</span>")
-		return
-	if(!I.use_tool(src, user, volume = I.tool_volume))
-		return
-	adjustBruteLoss(-30)
-	add_fingerprint(user)
-	user.visible_message("<span class='alert'>[user] patches some dents on [src] with [I].</span>")
 
 
 /mob/living/silicon/bullet_act(var/obj/item/projectile/Proj)

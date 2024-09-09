@@ -6,63 +6,65 @@
 	var/auth_need = 3
 	var/list/authorized = list()
 
-/obj/machinery/computer/emergency_shuttle/attackby(obj/item/W, mob/user, params)
-	if(stat & (BROKEN|NOPOWER))
-		return
-	if(SSshuttle.emergency.mode != SHUTTLE_DOCKED)
-		return
-	if(!user)
-		return
-	if(SSshuttle.emergency.timeLeft() < 11)
-		return
-	if(W.GetID())
-		var/obj/item/card/id/id = W.GetID()
-		if(!id.access) //no access
-			to_chat(user, "Уровень доступа карты [id.registered_name] недостаточно высок. ")
-			return
 
-		var/list/cardaccess = id.access
-		if(!istype(cardaccess, /list) || !cardaccess.len) //no access
-			to_chat(user, "Уровень доступа карты [id.registered_name] недостаточно высок. ")
-			return
+/obj/machinery/computer/emergency_shuttle/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
-		if(!(ACCESS_HEADS in id.access)) //doesn't have this access
-			to_chat(user, "Уровень доступа карты [id.registered_name] недостаточно высок. ")
-			return 0
+	var/obj/item/card/id/id_card = I.GetID()
+	if(id_card)
+		add_fingerprint(user)
+		if(stat & (NOPOWER|BROKEN))
+			to_chat(user, span_warning("Консоль сломана или обесточена."))
+			return ATTACK_CHAIN_PROCEED
+		if(SSshuttle.emergency.mode != SHUTTLE_DOCKED)
+			to_chat(user, span_warning("В настоящее время шаттл находится в пути."))
+			return ATTACK_CHAIN_PROCEED
+		if(SSshuttle.emergency.timeLeft() <= 10)
+			to_chat(user, span_warning("Шаттл сейчас недоступен."))
+			return ATTACK_CHAIN_PROCEED
+		if(!islist(id_card.access) || !length(id_card.access)) //no access
+			to_chat(user, span_warning("Недостаточный уровень доступа."))
+			return ATTACK_CHAIN_PROCEED
+		if(!(ACCESS_HEADS in id_card.access)) //doesn't have this access
+			to_chat(user, span_warning("Недостаточный уровень доступа."))
+			return ATTACK_CHAIN_PROCEED
 
 		var/choice = tgui_alert(user, "Вы хотите (де)авторизовать досрочный запуск? [auth_need - length(authorized)] авторизация(-и) всё ещё необходима. Используйте команду 'Abort', чтобы отозвать все авторизации.", "Shuttle Launch", list("Authorize", "Repeal", "Abort"))
-		if(SSshuttle.emergency.mode != SHUTTLE_DOCKED || user.get_active_hand() != W)
-			return 0
+		if(!choice || !Adjacent(user) || QDELETED(id_card) || id_card.loc != user || SSshuttle.emergency.mode != SHUTTLE_DOCKED)
+			return ATTACK_CHAIN_PROCEED
 
-		var/seconds = SSshuttle.emergency.timeLeft()
-		if(seconds <= 10)
-			return 0
+		var/seconds_left = SSshuttle.emergency.timeLeft()
+		if(seconds_left <= 10)
+			return ATTACK_CHAIN_PROCEED
 
 		switch(choice)
 			if("Authorize")
-				if(!authorized.Find(id.registered_name))
-					add_fingerprint(user)
-					authorized += id.registered_name
-					if(auth_need - authorized.len > 0)
+				if(!authorized.Find(id_card.registered_name))
+					authorized += id_card.registered_name
+					if(auth_need - length(authorized) > 0)
 						message_admins("[key_name_admin(user)] has authorized early shuttle launch.")
 						add_game_logs("has authorized early shuttle launch in [COORD(src)]", user)
 						GLOB.minor_announcement.Announce("Осталось получить [auth_need - authorized.len] авторизацию(-й) для досрочного запуска шаттла.")
 					else
-						message_admins("[key_name_admin(user)] has launched the emergency shuttle [seconds] seconds before launch.")
-						add_game_logs("has launched the emergency shuttle in [COORD(src)] [seconds] seconds before launch.", user)
+						message_admins("[key_name_admin(user)] has launched the emergency shuttle [seconds_left] seconds before launch.")
+						add_game_logs("has launched the emergency shuttle in [COORD(src)] [seconds_left] seconds before launch.", user)
 						GLOB.minor_announcement.Announce("До запуска эвакуационного шаттла осталось 10 секунд.")
 						SSshuttle.emergency.setTimer(100)
 
 			if("Repeal")
-				if(authorized.Remove(id.registered_name))
-					add_fingerprint(user)
-					GLOB.minor_announcement.Announce("Для досрочного запуска шаттла необходимо получить [auth_need - authorized.len] авторизацию(-й).")
+				if(authorized.Remove(id_card.registered_name))
+					GLOB.minor_announcement.Announce("Для досрочного запуска шаттла необходимо получить [auth_need - length(authorized)] авторизацию(-й).")
 
 			if("Abort")
 				if(authorized.len)
-					add_fingerprint(user)
 					GLOB.minor_announcement.Announce("Все авторизации на досрочный запуск шаттла были отозваны.")
 					authorized.Cut()
+
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/machinery/computer/emergency_shuttle/emag_act(mob/user)
 	if(!emagged && SSshuttle.emergency.mode == SHUTTLE_DOCKED && user)

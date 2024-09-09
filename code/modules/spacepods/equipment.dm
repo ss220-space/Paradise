@@ -59,6 +59,7 @@
 	var/obj/item/spacepod_equipment/cargo/cargo_system // cargo system
 	var/obj/item/spacepod_equipment/cargo/sec_cargo_system // secondary cargo system
 	var/obj/item/spacepod_equipment/lock/lock_system // lock system
+	var/obj/item/spacepod_equipment/locators/locator_system //locator_system
 
 /datum/spacepod/equipment/New(var/obj/spacepod/SP)
 	..()
@@ -276,14 +277,69 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 	w_class = WEIGHT_CLASS_TINY
 	var/id = 0
 
+
 // Key - Lock Interactions
-/obj/item/spacepod_equipment/lock/keyed/attackby(obj/item/I as obj, mob/user as mob, params)
+/obj/item/spacepod_equipment/lock/keyed/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/spacepod_equipment/key))
+		add_fingerprint(user)
 		var/obj/item/spacepod_equipment/key/key = I
-		if(!key.id)
-			key.id = id
-			to_chat(user, "<span class='notice'>You grind the blank key to fit the lock.</span>")
-		else
-			to_chat(user, "<span class='warning'>This key is already ground!</span>")
-	else
-		return ..()
+		if(key.id)
+			to_chat(user, span_warning("This key is already ground."))
+			return ATTACK_CHAIN_PROCEED
+		key.id = id
+		to_chat(user, span_notice("You have ground the blank key to fit the lock."))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
+/*
+///////////////////////////////////////
+/////////Locator System///////////////////
+///////////////////////////////////////
+*/
+
+/obj/item/spacepod_equipment/locators
+	name = "Locator system"
+	desc = "You shouldn't be seeing this"
+	icon = 'icons/spacepods_paradise/locator.dmi'
+	icon_state = "blank"
+
+	var/can_ignore_z = FALSE
+	var/can_found_all = FALSE
+
+/obj/item/spacepod_equipment/locators/proc/scan(mob/user)
+	var/message_user = ""
+
+	for(var/obj/effect/landmark/ruin/space_ruin in GLOB.ruin_landmarks)
+		if((user.loc.z == space_ruin.z || can_ignore_z) && (space_ruin.ruin_template.can_found || can_found_all))
+			message_user += "\nX:[space_ruin.x] Y:[space_ruin.y] Z:[space_ruin.z] Размер: [object_size(space_ruin.ruin_template.width*space_ruin.ruin_template.height)]"
+
+	if(!message_user)
+		atom_say("Объектов в секторе не обнаружено")
+		return
+	atom_say("Результаты поиска:[message_user]")
+
+/obj/item/spacepod_equipment/locators/proc/object_size(var/square)
+	if(square <= 500)
+		return "Малый"
+	else if(square <= 900)
+		return "Средний"
+	else if(square <= 3000)
+		return "Большой"
+	return "Огромный"
+
+/obj/item/spacepod_equipment/locators/basic_pod_locator
+	name = "Модуль поиска астероидов"
+	desc = "Сканирующее устройство позволяющее определять координаты астероидов в секторе."
+	icon_state = "pod_locator"
+	origin_tech = "engineering=5;magnets=4"
+	can_found_all = FALSE
+	can_ignore_z = FALSE
+
+/obj/item/spacepod_equipment/locators/advanced_pod_locator
+	name = "Улучшеный модуль поиска астероидов"
+	desc = "Улучшеный модуль поиска способный обнаружить любой объект в секторе"
+	icon_state = "pod_locator"
+	can_found_all = TRUE
+	can_ignore_z = FALSE
+

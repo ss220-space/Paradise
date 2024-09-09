@@ -167,33 +167,34 @@
 	blade_status = GUILLOTINE_BLADE_DROPPED
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/guillotine/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/whetstone))
-		if(blade_status == GUILLOTINE_BLADE_SHARPENING)
-			return
 
-		if(blade_status == GUILLOTINE_BLADE_RAISED)
-			if(blade_sharpness < GUILLOTINE_BLADE_MAX_SHARP)
-				blade_status = GUILLOTINE_BLADE_SHARPENING
-				add_fingerprint(user)
-				if(do_after(user, 0.7 SECONDS, src))
-					blade_status = GUILLOTINE_BLADE_RAISED
-					user.visible_message("<span class='notice'>[user] sharpens the large blade of the guillotine.</span>",
-						                 "<span class='notice'>You sharpen the large blade of the guillotine.</span>")
-					blade_sharpness += 1
-					playsound(src, 'sound/items/screwdriver.ogg', 100, 1)
-					return
-				else
-					blade_status = GUILLOTINE_BLADE_RAISED
-					return
-			else
-				to_chat(user, "<span class='warning'>The blade is sharp enough!</span>")
-				return
-		else
-			to_chat(user, "<span class='warning'>You need to raise the blade in order to sharpen it!</span>")
-			return
-	else
-		return ..()
+/obj/structure/guillotine/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/whetstone))
+		add_fingerprint(user)
+		if(blade_status == GUILLOTINE_BLADE_SHARPENING)
+			to_chat(user, span_warning("The blade is already sharpening by someone else."))
+			return ATTACK_CHAIN_PROCEED
+		if(blade_status != GUILLOTINE_BLADE_RAISED)
+			to_chat(user, span_warning("You need to raise the blade in order to sharpen it."))
+			return ATTACK_CHAIN_PROCEED
+		if(blade_sharpness >= GUILLOTINE_BLADE_MAX_SHARP)
+			to_chat(user, span_warning("The blade is sharp enough."))
+			return ATTACK_CHAIN_PROCEED
+		blade_status = GUILLOTINE_BLADE_SHARPENING
+		if(!do_after(user, 0.7 SECONDS, src, category = DA_CAT_TOOL) || blade_status != GUILLOTINE_BLADE_SHARPENING)
+			blade_status = GUILLOTINE_BLADE_RAISED
+			return ATTACK_CHAIN_PROCEED
+		blade_status = GUILLOTINE_BLADE_RAISED
+		blade_sharpness++
+		playsound(loc, 'sound/items/screwdriver.ogg', 100, TRUE)
+		user.visible_message(
+			span_notice("[user] sharpens the large blade of the guillotine."),
+			span_notice("You sharpen the large blade of the guillotine."),
+		)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/structure/guillotine/wrench_act(mob/user, obj/item/I)
 	if(current_action)

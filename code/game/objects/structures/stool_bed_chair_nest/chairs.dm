@@ -32,22 +32,33 @@
 	. = ..()
 	handle_rotation()
 
-/obj/structure/chair/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/assembly/shock_kit))
-		var/obj/item/assembly/shock_kit/SK = W
-		if(!SK.status)
-			to_chat(user, span_notice("[SK] is not ready to be attached!"))
-			return
-		user.drop_from_active_hand()
-		var/obj/structure/chair/e_chair/E = new /obj/structure/chair/e_chair(get_turf(src), SK)
-		E.add_fingerprint(user)
-		playsound(src.loc, W.usesound, 50, 1)
-		E.dir = dir
-		SK.loc = E
-		SK.master = E
+
+/obj/structure/chair/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/assembly/shock_kit))
+		var/obj/item/assembly/shock_kit/shock_kit = I
+		if(!shock_kit.status)
+			to_chat(user, span_notice("The [shock_kit.name] is not ready to be attached!"))
+			return ATTACK_CHAIN_PROCEED
+		if((loc == user && !user.can_unEquip(src)) || (I.loc == user && !user.can_unEquip(I)))
+			return ..()
+		if(loc == user)
+			user.temporarily_remove_item_from_inventory(src)
+		user.drop_transfer_item_to_loc(shock_kit, src)
+		var/obj/structure/chair/e_chair/chair = new(loc, shock_kit)
+		transfer_fingerprints_to(chair)
+		chair.add_fingerprint(user)
+		I.play_tool_sound(src)
+		chair.setDir(dir)
+		shock_kit.forceMove(chair)
+		shock_kit.master = chair
 		qdel(src)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/structure/chair/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -435,7 +446,8 @@
 /obj/item/chair/proc/smash()
 	var/stack_type = initial(origin_type.buildstacktype)
 	if(!stack_type)
-		return
+		return FALSE
+	. = TRUE
 	var/remaining_mats = initial(origin_type.buildstackamount)
 	remaining_mats-- //Part of the chair was rendered completely unusable. It magically dissapears. Maybe make some dirt?
 	if(remaining_mats)
@@ -449,23 +461,28 @@
 		return TRUE
 	return FALSE
 
-/obj/item/chair/attack(mob/M, mob/user)
-	if(..() && prob(break_chance))
-		user.visible_message(span_combatdanger("[user] smashes \the [src] to pieces against \the [M]."))
-		if(iscarbon(M))
-			var/mob/living/carbon/C = M
-			if(C.health < C.maxHealth*0.5)
-				C.Weaken(12 SECONDS)
-				C.Stuttering(12 SECONDS)
-				playsound(loc, 'sound/weapons/punch1.ogg', 50, TRUE, -1)
-		smash()
-		return TRUE
 
-/obj/item/chair/attack_obj(obj/O, mob/living/user, params)
-	..()
-	if(prob(break_chance))
-		user.visible_message(span_danger("[user] smashes \the [src] to pieces against \the [O]."))
-		smash()
+/obj/item/chair/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !prob(break_chance))
+		return .
+	user.visible_message(span_combatdanger("[user] smashes [src] to pieces against [target]."))
+	if(iscarbon(target) && target.health < target.maxHealth * 0.5)
+		target.Knockdown(8 SECONDS)
+		target.Stuttering(12 SECONDS)
+		playsound(loc, 'sound/weapons/punch1.ogg', 50, TRUE, -1)
+	if(smash())
+		. |= ATTACK_CHAIN_BLOCKED_ALL
+
+
+/obj/item/chair/attack_obj(obj/object, mob/living/user, params)
+	. = ..()
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !prob(break_chance))
+		return .
+	user.visible_message(span_danger("[user] smashes [src] to pieces against [object]."))
+	if(smash())
+		. |= ATTACK_CHAIN_BLOCKED_ALL
+
 
 /obj/item/chair/wood
 	name = "wooden chair"

@@ -6,7 +6,7 @@
 
 /mob/living/captive_brain/say(message)
 	if(client)
-		if(client.prefs.muted & MUTE_IC)
+		if(check_mute(client.ckey, MUTE_IC))
 			to_chat(src, span_warning("Вы не можете говорить в IC (muted)."))
 			return
 		if(client.handle_spam_prevention(message,MUTE_IC))
@@ -397,7 +397,7 @@
 		var/cname = initial(C.chemname)
 		var/datum/reagent/R = GLOB.chemical_reagents_list[cname]
 		if(cname)
-			content += "<tr><td><a class='chem-select' href='?_src_=[UID()];src=[UID()];borer_use_chem=[cname]'>[R.name] ([initial(C.chemuse)])</a><p>[initial(C.chemdesc)]</p></td></tr>"
+			content += "<tr><td><a class='chem-select' href='byond://?_src_=[UID()];src=[UID()];borer_use_chem=[cname]'>[R.name] ([initial(C.chemuse)])</a><p>[initial(C.chemdesc)]</p></td></tr>"
 
 	content += "</table>"
 

@@ -178,7 +178,7 @@
 
 /datum/reagent/consumable/drink/banana/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if((ishuman(M) && (COMIC in M.mutations)) || is_monkeybasic(M))
+	if(HAS_TRAIT(M, TRAIT_COMIC) || is_monkeybasic(M))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
@@ -413,7 +413,7 @@
 
 /datum/reagent/consumable/drink/bananahonk/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if((ishuman(M) && (COMIC in M.mutations)) || is_monkeybasic(M))
+	if(HAS_TRAIT(src, TRAIT_COMIC) || is_monkeybasic(M))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags

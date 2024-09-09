@@ -399,44 +399,54 @@
 	else
 		..()
 
+
 /obj/machinery/vending/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(istype(I, /obj/item/coin))
-		if(!premium.len)
-			to_chat(user, "<span class='warning'>[src] does not accept coins.</span>")
-			return
+		add_fingerprint(user)
+		if(!length(premium))
+			to_chat(user, span_warning("[src] does not accept coins."))
+			return ATTACK_CHAIN_PROCEED
 		if(coin)
-			to_chat(user, "<span class='warning'>There is already a coin in this machine!</span>")
-			return
+			to_chat(user, span_warning("There is already a coin in this machine!"))
+			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
-			return
-		add_fingerprint(user)
+			return ..()
 		coin = I
-		to_chat(user, "<span class='notice'>You insert [I] into the [src]</span>")
+		to_chat(user, span_notice("You insert [I] into [src]."))
 		SStgui.update_uis(src)
-		return
-	if(refill_canister && istype(I, refill_canister))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, refill_canister))
 		add_fingerprint(user)
+		if(stat & (BROKEN|NOPOWER))
+			to_chat(user, span_notice("[src] does not respond."))
+			return ATTACK_CHAIN_PROCEED
 		if(!panel_open)
-			to_chat(user, "<span class='warning'>You should probably unscrew the service panel first!</span>")
-		else if (stat & (BROKEN|NOPOWER))
-			to_chat(user, "<span class='notice'>[src] does not respond.</span>")
-		else
-			//if the panel is open we attempt to refill the machine
-			var/obj/item/vending_refill/canister = I
-			if(canister.get_part_rating() == 0)
-				to_chat(user, "<span class='warning'>[canister] is empty!</span>")
-			else
-				// instantiate canister if needed
-				var/transferred = restock(canister)
-				if(transferred)
-					to_chat(user, "<span class='notice'>You loaded [transferred] items in [src].</span>")
-				else
-					to_chat(user, "<span class='warning'>There's nothing to restock!</span>")
-		return
+			to_chat(user, span_warning("You should probably unscrew the service panel first!"))
+			return ATTACK_CHAIN_PROCEED
+
+		var/obj/item/vending_refill/canister = I
+		if(canister.get_part_rating() == 0)
+			to_chat(user, span_warning("The [canister.name] is empty!"))
+			return ATTACK_CHAIN_PROCEED
+
+		// instantiate canister if needed
+		var/transferred = restock(canister)
+		if(transferred)
+			to_chat(user, span_notice("You loaded [transferred] items in [src]."))
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+
+		to_chat(user, span_warning("There's nothing to restock!"))
+		return ATTACK_CHAIN_PROCEED
+
 	if(item_slot_check(user, I))
 		add_fingerprint(user)
 		insert_item(user, I)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
 
 
@@ -1463,7 +1473,7 @@
 	name = "\improper SyndiWallMed"
 	desc = "<b>EVIL</b> wall-mounted Medical Equipment dispenser."
 
-	icon_state = "syndimed_off"
+	icon_state = "wallmed_off"
 	panel_overlay = "wallmed_panel"
 	screen_overlay = "syndimed"
 	lightmask_overlay = "wallmed_lightmask"
@@ -1494,10 +1504,10 @@
 	req_access = list(ACCESS_SECURITY)
 	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
 					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
-					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4, /obj/item/storage/belt/security/webbing = 2,
+					/obj/item/clothing/mask/muzzle/safety = 4, /obj/item/storage/box/swabs = 6, /obj/item/storage/box/fingerprints = 6, /obj/item/eftpos/sec = 4, /obj/item/storage/belt/security/webbing = 2, /obj/item/grenade/smokebomb = 8,
 					)
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
-	prices = list(/obj/item/storage/belt/security/webbing = 2000,)
+	prices = list(/obj/item/storage/belt/security/webbing = 2000,/obj/item/grenade/smokebomb = 250)
 	refill_canister = /obj/item/vending_refill/security
 
 /obj/machinery/vending/security/training
@@ -1519,27 +1529,32 @@
 	contraband = list(/obj/item/toy/figure/secofficer = 1)
 	refill_canister = /obj/item/vending_refill/security
 
+
 /obj/machinery/vending/security/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM || !powered())
+		return ..()
+
 	if(istype(I, /obj/item/security_voucher))
-		if(!powered())
-			return
 		add_fingerprint(user)
-		var/list/available_kits = list("Dominator Kit" = /obj/item/storage/box/dominator_kit,
-										"Enforcer Kit" = /obj/item/storage/box/enforcer_kit)
+		var/static/list/available_kits = list(
+			"Dominator Kit" = /obj/item/storage/box/dominator_kit,
+			"Enforcer Kit" = /obj/item/storage/box/enforcer_kit,
+		)
 		var/weapon_kit = tgui_input_list(user, "Select a weaponary kit:", "Weapon kits", available_kits)
-		if(!weapon_kit)
-			return
-		if(!Adjacent(user) || QDELETED(I) || I.loc != user)
-			return
+		if(!weapon_kit || !Adjacent(user) || QDELETED(I) || I.loc != user)
+			return ATTACK_CHAIN_BLOCKED_ALL
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ATTACK_CHAIN_BLOCKED_ALL
 		qdel(I)
 		sleep(0.5 SECONDS)
-		playsound(get_turf(src), 'sound/machines/machine_vend.ogg', 50, TRUE)
+		playsound(loc, 'sound/machines/machine_vend.ogg', 50, TRUE)
 		var/path = available_kits[weapon_kit]
-		var/obj/item/box = new path(get_turf(src))
+		var/obj/item/box = new path(loc)
 		if(Adjacent(user))
 			user.put_in_hands(box, ignore_anim = FALSE)
-		return
-	. = ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 /obj/item/security_voucher
@@ -1626,7 +1641,14 @@
 					/obj/item/seeds/wheat = 3,
 					/obj/item/seeds/soya/olive = 3,
 					/obj/item/seeds/whitebeet = 3,
-					/obj/item/seeds/shavel = 3)
+					/obj/item/seeds/shavel = 3,
+					/obj/item/seeds/redflower = 3,
+					/obj/item/seeds/flowerlamp = 3,
+					/obj/item/seeds/carnation = 3,
+					/obj/item/seeds/tulp = 3,
+					/obj/item/seeds/chamomile = 3,
+					/obj/item/seeds/rose = 3
+					)
 	contraband = list(/obj/item/seeds/cannabis = 3,
 					  /obj/item/seeds/amanita = 2,
 					  /obj/item/seeds/fungus = 3,
@@ -2542,6 +2564,7 @@
 	req_access = list(ACCESS_MEDICAL)
 	products = list(
 		/obj/item/clothing/head/beret/med  			= 10,
+		/obj/item/clothing/head/soft/paramedic		= 5,
 		/obj/item/clothing/head/surgery/purple 		= 10,
 		/obj/item/clothing/head/surgery/blue 		= 10,
 		/obj/item/clothing/head/surgery/green 		= 10,
@@ -2563,6 +2586,8 @@
 		/obj/item/clothing/under/rank/nursesuit				= 10,
 		/obj/item/clothing/under/rank/nurse					= 10,
 		/obj/item/clothing/under/rank/orderly				= 10,
+		/obj/item/clothing/under/rank/medical/paramedic		= 5,
+		/obj/item/clothing/under/rank/medical/paramedic/skirt			= 5,
 
 		/obj/item/clothing/suit/storage/labcoat 	= 10,
 		/obj/item/clothing/suit/storage/suragi_jacket/medic = 10,
@@ -2846,6 +2871,7 @@
 		/obj/item/clothing/accessory/blue 		= 10,
 		/obj/item/clothing/accessory/red 		= 10,
 		/obj/item/clothing/accessory/black 		= 10,
+		/obj/item/clothing/accessory/waistcoat	= 5,
 
 		/obj/item/storage/backpack/satchel 	= 10,
 		/obj/item/storage/briefcase			= 5,

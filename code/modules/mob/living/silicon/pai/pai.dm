@@ -136,7 +136,16 @@
 
 	var/datum/action/innate/pai_soft/P = new
 	P.Grant(src)
-
+	var/datum/action/innate/pai_soft/pai_choose_chassis/pai_choose_chassis_action = new
+	pai_choose_chassis_action.Grant(src)
+	var/datum/action/innate/pai_soft/pai_fold_out/pai_fold_out_action = new
+	pai_fold_out_action.Grant(src)
+	var/datum/action/innate/pai_soft/pai_fold_up/pai_fold_up_action = new
+	pai_fold_up_action.Grant(src)
+	var/datum/action/innate/pai_soft/pai_change_voice/pai_change_voice_action = new
+	pai_change_voice_action.Grant(src)
+	var/datum/action/innate/pai/pai_suicide/pai_suicide_action = new
+	pai_suicide_action.Grant(src)
 	//PDA
 	pda = new(src)
 	pda.ownjob = "Personal Assistant"
@@ -266,11 +275,11 @@
 		return
 
 	if(loc != card)
-		to_chat(src, "<span class='warning'>You are already in your mobile form!</span>")
+		balloon_alert(src, "<span class='warning'>вы уже встали на шасси!</span>")
 		return
 
 	if(world.time <= last_special)
-		to_chat(src, "<span class='warning'>You must wait before folding your chassis out again!</span>")
+		balloon_alert(src, "<span class='warning'>необходимо подождать!</span>")
 		return
 
 	last_special = world.time + 200
@@ -301,11 +310,11 @@
 		return
 
 	if(loc == card)
-		to_chat(src, "<span class='warning'>You are already in your card form!</span>")
+		balloon_alert(src, "<span class='warning'>вы уже в компактной форме!</span>")
 		return
 
 	if(world.time <= last_special)
-		to_chat(src, "<span class='warning'>You must wait before returning to your card form!</span>")
+		balloon_alert(src, "<span class='warning'>необходимо подождать</span>")
 		return
 
 	close_up()
@@ -346,7 +355,7 @@
 			my_choices["Custom"] = "[ckey]-pai"
 
 	if(loc == card)		//don't let them continue in card form, since they won't be able to actually see their new mobile form sprite.
-		to_chat(src, "<span class='warning'>You must be in your mobile form to reconfigure your chassis.</span>")
+		balloon_alert(src, "<span class='warning'>вы должны быть в мобильной форме.</span>")
 		return
 
 	while(finalized == "No" && client)
@@ -400,11 +409,11 @@
 	set name = "pAI Suicide"
 	set desc = "Kill yourself and become a ghost (You will recieve a confirmation prompt.)"
 
-	if(alert("REALLY kill yourself? This action can't be undone.", "Suicide", "No", "Suicide") == "Suicide")
+	if(alert("ДЕЙСТВИТЕЛЬНО хочешь убить себя? Это действие нельзя отменить.", "Suicide", "No", "Suicide") == "Suicide")
 		do_suicide()
 
 	else
-		to_chat(src, "Aborting suicide attempt.")
+		balloon_alert(src, "протокол самоуничтожения отменен.")
 
 /mob/living/silicon/pai/update_sight()
 	if(!client)
@@ -440,38 +449,61 @@
 
 
 //Overriding this will stop a number of headaches down the track.
-/mob/living/silicon/pai/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stack/nanopaste))
-		var/obj/item/stack/nanopaste/N = W
+/mob/living/silicon/pai/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/nanopaste))
+		var/obj/item/stack/nanopaste/nanopaste = I
 		if(stat == DEAD)
-			to_chat(user, "<span class='danger'>\The [src] is beyond help, at this point.</span>")
-		else if(getBruteLoss() || getFireLoss())
-			heal_overall_damage(15, 15)
-			N.use(1)
-			user.visible_message("<span class='notice'>[user.name] applied some [W] at [src]'s damaged areas.</span>",\
-				"<span class='notice'>You apply some [W] at [name]'s damaged areas.</span>")
-		else
-			to_chat(user, "<span class='notice'>All [name]'s systems are nominal.</span>")
-		return
+			to_chat(user, span_warning("The [name] is beyond help, at this point."))
+			return ATTACK_CHAIN_PROCEED
+		if(!getBruteLoss() && !getFireLoss())
+			to_chat(user, span_warning("All [name]'s systems are nominal."))
+			return ATTACK_CHAIN_PROCEED
+		if(!nanopaste.use(1))
+			to_chat(user, span_warning("You need at least one unit of [nanopaste] to proceed."))
+			return ATTACK_CHAIN_PROCEED
+		heal_overall_damage(15, 15)
+		user.visible_message(
+			span_notice("[user] has applied some [nanopaste.name] at [src]'s damaged areas."),
+			span_notice("You have applied some [nanopaste.name] at [src]'s damaged areas."),
+		)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	else if(istype(W, /obj/item/paicard_upgrade) || istype(W, /obj/item/pai_cartridge))
-		to_chat(user, "<span class='warning'>[src] must be in card form.</span>")
-		return
+	if(istype(I, /obj/item/paicard_upgrade) || istype(I, /obj/item/pai_cartridge))
+		to_chat(user, span_warning("The [name] must be in card form."))
+		return ATTACK_CHAIN_PROCEED
 
-	else if(W.force)
-		visible_message("<span class='danger'>[user.name] attacks [src] with [W]!</span>")
-		adjustBruteLoss(W.force)
-	else
-		visible_message("<span class='warning'>[user.name] bonks [src] harmlessly with [W].</span>")
-	spawn(1)
+	user.do_attack_animation(src)
+
+	if(!I.force)
+		playsound(loc, 'sound/weapons/tap.ogg', I.get_clamped_volume(), TRUE, -1)
+		visible_message(
+			span_warning("[user] bonks [src] harmlessly with [I]."),
+			span_warning("[user] bonks you harmlessly with [I]."),
+		)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	if(I.hitsound)
+		playsound(loc, I.hitsound, I.get_clamped_volume(), TRUE, -1)
+	add_attack_logs(user, src, "Attacked with [I.name] ([uppertext(user.a_intent)]) ([uppertext(I.damtype)]), DMG: [I.force])", (ckey && I.force > 0 && I.damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
+	visible_message(
+		span_danger("[user] attacks [src] with [I]!"),
+		span_userdanger("[user] attacks you with [I]!"),
+	)
+	var/damage_type = I.damtype
+	if(damage_type != BRUTE && damage_type != BURN)
+		damage_type = BRUTE
+	apply_damage(I.force, damage_type)
+
+	spawn(1)	// thats dumb
 		if(stat != DEAD)
 			close_up()
-	return
+	return ATTACK_CHAIN_PROCEED_SUCCESS
+
+
 
 /mob/living/silicon/pai/welder_act()
 	return
 
-/mob/living/silicon/pai/attack_hand(mob/user as mob)
+/mob/living/silicon/pai/attack_hand(mob/user)
 	if(stat == DEAD)
 		return
 	if(user.a_intent == INTENT_HELP)
@@ -612,7 +644,7 @@
 
 /datum/action/innate/pai_soft
 	name = "Pai Sowtware"
-	desc = "Activation of your internal application interface."
+	desc = "Активация вашего внутреннего интерфейса для выбора программ."
 	icon_icon = 'icons/obj/aicards.dmi'
 	button_icon_state = "pai-action"
 	check_flags = AB_CHECK_CONSCIOUS
@@ -620,3 +652,50 @@
 /datum/action/innate/pai_soft/Activate()
 	var/mob/living/silicon/pai/P = owner
 	P.ui_interact(P)
+
+/datum/action/innate/pai_soft/pai_choose_chassis
+	name = "Choose chassis"
+	desc = "Выбор внешности голографического каркаса"
+	button_icon_state = "pai-action3"
+	check_flags = AB_CHECK_CONSCIOUS
+
+/datum/action/innate/pai_soft/pai_choose_chassis/Activate()
+	var/mob/living/silicon/pai/pai = owner
+	pai.choose_chassis()
+
+/datum/action/innate/pai_soft/pai_fold_out
+	name = "Unfold Chassis"
+	desc = "Смена мобильной формы на форму голографического каркаса"
+	button_icon_state = "pai-action2"
+
+/datum/action/innate/pai_soft/pai_fold_out/Activate()
+	var/mob/living/silicon/pai/pai = owner
+	pai.fold_out()
+
+/datum/action/innate/pai_soft/pai_fold_up
+	name = "Collapse Chassis"
+	desc = "Возврат в мобильную форму с каркаса"
+	button_icon_state = "pai-action5"
+
+/datum/action/innate/pai_soft/pai_fold_up/Activate()
+	var/mob/living/silicon/pai/pai = owner
+	pai.fold_up()
+
+/datum/action/innate/pai_soft/pai_change_voice
+	name = "Collapse Chassis"
+	desc = "Изменение звука голосового модуля"
+	button_icon_state = "pai-action4"
+
+/datum/action/innate/pai_soft/pai_change_voice/Activate()
+	var/mob/living/silicon/pai/pai = owner
+	pai.pai_change_voice()
+
+/datum/action/innate/pai/pai_suicide
+	name = "Pai suicide"
+	desc = "Активация протокола самоуничтожения"
+	button_icon_state = "pai-action6"
+	check_flags = AB_CHECK_CONSCIOUS
+
+/datum/action/innate/pai/pai_suicide/Activate()
+	var/mob/living/silicon/pai/pai = owner
+	pai.pAI_suicide()

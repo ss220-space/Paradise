@@ -103,6 +103,11 @@
 	icon_state = "laserslugbox"
 	ammo_type = /obj/item/ammo_casing/shotgun/laserslug
 
+/obj/item/ammo_box/shotgun/lasershot
+	name = "ammunition box (laser shots)"
+	icon_state = "laserslugbox"
+	ammo_type = /obj/item/ammo_casing/shotgun/lasershot
+
 /obj/item/ammo_box/shotgun/bioterror
 	name = "ammunition box (bioterror shells)"
 	icon_state = "bioterrorbox"
@@ -362,7 +367,7 @@
 	ammo_type = null
 	w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/ammo_box/speedloader/shotgun/New()
+/obj/item/ammo_box/speedloader/shotgun/Initialize(mapload)
 	. = ..()
 	name = "shotgun speedloader"
 
@@ -436,6 +441,11 @@
 	name = "shotgun speedloader (laserslug)"
 	icon_state = "laserslugloader"
 	ammo_type = /obj/item/ammo_casing/shotgun/laserslug
+
+/obj/item/ammo_box/speedloader/shotgun/lasershot
+	name = "shotgun speedloader (lasershot)"
+	icon_state = "lasershotloader"
+	ammo_type = /obj/item/ammo_casing/shotgun/lasershot
 
 /obj/item/ammo_box/speedloader/shotgun/tranquilizer
 	name = "shotgun speedloader (tranquilizer)"

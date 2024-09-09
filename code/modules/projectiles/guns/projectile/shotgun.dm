@@ -11,41 +11,42 @@
 	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot
 	fire_sound = 'sound/weapons/gunshots/1shotgun_old.ogg'
-	var/recentpump = 0 // to prevent spammage
 	weapon_weight = WEAPON_HEAVY
 	pb_knockback = 2
+	COOLDOWN_DECLARE(last_pump)	// to prevent spammage
 
-/obj/item/gun/projectile/shotgun/attackby(obj/item/A, mob/user, params)
-	. = ..()
-	if(.)
-		return
-	if(istype(A, /obj/item/ammo_box/speedloader) || istype(A, /obj/item/ammo_casing))
-		var/num_loaded = magazine.attackby(A, user, params, 1)
+
+/obj/item/gun/projectile/shotgun/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/ammo_box/speedloader) || istype(I, /obj/item/ammo_casing))
+		add_fingerprint(user)
+		var/num_loaded = magazine.reload(I, user)
 		if(num_loaded)
-			balloon_alert(user, "[declension_ru(num_loaded, "заряжен [num_loaded] патрон",  "заряжено [num_loaded] патрона",  "заряжено [num_loaded] патронов")]")
-			A.update_icon()
-			update_icon()
+			update_appearance()
+			return ATTACK_CHAIN_BLOCKED_ALL
+		return ATTACK_CHAIN_PROCEED
+
+	return ..()
 
 
-/obj/item/gun/projectile/shotgun/process_chamber()
+/obj/item/gun/projectile/shotgun/process_chamber(eject_casing = TRUE, empty_chamber = TRUE)
 	return ..(FALSE, FALSE)
+
 
 /obj/item/gun/projectile/shotgun/chamber_round()
 	return
+
 
 /obj/item/gun/projectile/shotgun/can_shoot(mob/user)
 	if(!chambered)
 		return FALSE
 	return (chambered.BB ? TRUE : FALSE)
 
+
 /obj/item/gun/projectile/shotgun/attack_self(mob/living/user)
-	if(recentpump)
+	if(!COOLDOWN_FINISHED(src, last_pump))
 		return
+	COOLDOWN_START(src, last_pump, 1 SECONDS)
 	pump(user)
-	recentpump = 1
-	spawn(10)
-		recentpump = 0
-	return
 
 
 /obj/item/gun/projectile/shotgun/proc/pump(mob/M)
@@ -87,17 +88,29 @@
 	sawn_state = SAWN_INTACT
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
 
-/obj/item/gun/projectile/shotgun/riot/attackby(obj/item/A, mob/user, params)
-	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))
-		sawoff(user)
-	if(istype(A, /obj/item/melee/energy))
-		var/obj/item/melee/energy/W = A
-		if(W.active)
-			sawoff(user)
-	if(istype(A, /obj/item/pipe))
-		unsaw(A, user)
-	else
-		return ..()
+
+/obj/item/gun/projectile/shotgun/riot/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/circular_saw) || istype(I, /obj/item/gun/energy/plasmacutter))
+		add_fingerprint(user)
+		if(sawoff(user))
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		return ATTACK_CHAIN_PROCEED
+
+	if(istype(I, /obj/item/melee/energy))
+		add_fingerprint(user)
+		var/obj/item/melee/energy/sword = I
+		if(sword.active && sawoff(user))
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		return ATTACK_CHAIN_PROCEED
+
+	if(istype(I, /obj/item/pipe))
+		add_fingerprint(user)
+		if(unsaw(I, user))
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		return ATTACK_CHAIN_PROCEED
+
+	return ..()
+
 
 /obj/item/gun/projectile/shotgun/riot/sawoff(mob/user)
 	if(sawn_state == SAWN_OFF)
@@ -240,11 +253,14 @@
 		process_fire(user, user,0)
 		. = 1
 
-/obj/item/gun/projectile/shotgun/boltaction/attackby(obj/item/A, mob/user, params)
+
+/obj/item/gun/projectile/shotgun/boltaction/attackby(obj/item/I, mob/user, params)
 	if(!bolt_open)
+		add_fingerprint(user)
 		balloon_alert(user, "затвор закрыт!")
-		return
-	. = ..()
+		return ATTACK_CHAIN_PROCEED
+	return ..()
+
 
 /obj/item/gun/projectile/shotgun/boltaction/examine(mob/user)
 	. = ..()

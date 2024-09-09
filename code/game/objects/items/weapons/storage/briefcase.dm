@@ -46,24 +46,25 @@
 		var/obj/item/gun/stored_gun = stored_item
 		stored_gun.afterattack(A, user, flag, params)
 
-/obj/item/storage/briefcase/false_bottomed/attackby(var/obj/item/I, mob/user)
-	if(bottom_open)
-		if(stored_item)
-			to_chat(user, "<span class='warning'>There's already something in the false bottom!</span>")
-			return
-		if(I.w_class > WEIGHT_CLASS_NORMAL)
-			to_chat(user, "<span class='warning'>The [I] is too big to fit in the false bottom!</span>")
-			return
-		if(!user.drop_from_active_hand())
-			user << "<span class='warning'>The [I] is stuck to your hands!</span>"
-			return
 
+/obj/item/storage/briefcase/false_bottomed/attackby(obj/item/I, mob/user, params)
+	if(bottom_open)
+		add_fingerprint(user)
+		if(stored_item)
+			to_chat(user, span_warning("There's already something in the false bottom!"))
+			return ATTACK_CHAIN_PROCEED
+		if(I.w_class > WEIGHT_CLASS_NORMAL)
+			to_chat(user, span_warning("The [I.name] is too big to fit in the false bottom!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
 		stored_item = I
 		max_w_class = WEIGHT_CLASS_NORMAL - stored_item.w_class
 		I.move_to_null_space() //null space here we go - to stop it showing up in the briefcase
-		to_chat(user, "You place the [I] into the false bottom of the briefcase.")
-	else
-		return ..()
+		to_chat(user, span_notice("You place the [I] into the false bottom of the briefcase."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 /obj/item/storage/briefcase/false_bottomed/screwdriver_act(mob/user, obj/item/I)
 	if(!bottom_open && busy_hunting)
@@ -101,7 +102,6 @@
 	force = 8
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	can_be_hit = FALSE
 	w_class = WEIGHT_CLASS_BULKY
 	var/opened = FALSE
 

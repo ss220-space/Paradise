@@ -109,3 +109,227 @@
   - tweak: A new hint (#5691)
   SAAD:
   - tweak: T-Admin/Mods gets more in-game rights (#5677)
+  - bugfix: Mentors, Moders and A-Tickets (#5698)
+  - bugfix: returns ai sec bot (#5699)
+'2024-08-13':
+  Den109G:
+  - tweak: Change sucumb's and suicides' logs to attack logs (#5708)
+  Dimach:
+  - bugfix: proper admin tickets panel rights handling (#5707)
+  Vladisvell:
+  - bugfix: Makes stamp limit for paper (#5711)
+  endipe:
+  - bugfix: grey helmet sprite (#5706)
+  - bugfix: arrhythmic knife speed (#5695)
+'2024-08-15':
+  PiotrTheTchaikowsky:
+  - add: New sprites for paramedic new skirt and cap (#5709)
+'2024-08-17':
+  Aziz Chynaliev:
+  - add: override url_encode and url_decode procs with rust-g ones
+  - bugfix: dsay for moderators
+  - bugfix: destory bubbles effect for mop via qdel instead of destroy proc
+  BoshyG:
+  - imageadd: Storage resprite (#5697)
+  FlitchTime:
+  - qol: Alert for Fleshmend (#5723)
+  Kray1k:
+  - bugfix: improper adjacent turfs check at area creation/expanding (#5721)
+  Mahimka42:
+  - imageadd: new implant icons (#5718)
+  - add: new space ninja poster (#5720)
+  MstrKabach:
+  - add: New barsign (#5692)
+  NightDawnFox:
+  - bugfix: fixes some critical bugs in roboquests (#5728)
+  ROdenFL:
+  - add: RoboQuest (#5185)
+  - refactor: prettier maptext fonts (#5724)
+  - unknown: tgui say (#5605)
+  - bugfix: icons and runtime in roboquest + prettier store (#5729)
+  SHODAN:
+  - add: mopping_effect (#5309)
+  Sheya:
+  - add: beanies to loadout (#5719)
+  Valtor:
+  - add: wryn hivemind and hair is now bound to hivenode (#4986)
+  Vladisvell:
+  - bugfix: fixes broken assets for safe and stamps (#5725)
+  - bugfix: Fixes templar shields invisible states (#5716)
+  - bugfix: Fixes a lot of bad Initialize calls (#5726)
+  endipe:
+  - add: science HUD implant (#5653)
+  - add: modified medical gloves (#5693)
+  pilygun:
+  - add: smokebomb in Sec-vend (#5713)
+  - tweak: Delete spy_kit (#5714)
+'2024-08-18':
+  FlitchTime:
+  - bugfix: Icon states for items (#5732)
+  - qol: Change Mixer Category (#5734)
+  - bugfix: lattice layer fix (#5737)
+  NightDawnFox:
+  - bugfix: little bug with robo modules (#5736)
+  Vladisvell:
+  - bugfix: lava layer fix, catwalks on lava are now visible (#5739)
+  endipe:
+  - bugfix: correct removal of gloves (#5735)
+'2024-08-20':
+  Anorak2020:
+  - add: Laser eyes injector (#5717)
+  - add: Techs for genetics block injectors (#5704)
+  - add: '"Far vision" gene (#5700)'
+  - add: Telekenesis attack_self_tk = attack_self (#5685)
+  Aziz Chynaliev:
+  - server: tweak default deployment targets
+  Dreamer3-3:
+  - balance: mantis blades buff (#5710)
+  Etrnlmelancholy:
+  - balance: 2.5 bruteburn regen (#5743)
+  FanTik-Ratge:
+  - imageadd: Initialization of the merge conflict (#5751)
+  Kray1k:
+  - bugfix: crematorium content check fix (#5748)
+  Mahimka42:
+  - tweak: LR-30 buff (#5738)
+  ROdenFL:
+  - bugfix: nanomap bordered and not, air alarm state, patch safe reagents (#5745)
+  SHODAN:
+  - add: solid smoke (#5747)
+  Sheya:
+  - add: cyborg update (#5656)
+  - add: new weapon for pod pilot (#5661)
+  - add: syndicate rapier in uplink (#5681)
+  endipe:
+  - add: new inhand dmi for foods (#5689)
+  mrWhiteFox365:
+  - tweak: add waistcoat to loadout and law's clothesmate (#5742)
+  pilygun:
+  - qol: Pai soft update (#5712)
+'2024-08-21':
+  Den109G:
+  - bugfix: Now AI and his minions doesn't drop blueprints upon deleting (#5763)
+  - bugfix: Anchoring conveyors' switches (#5766)
+  - bugfix: Delete pilot's laser from station orbit (#5764)
+  Kray1k:
+  - bugfix: some random spawn init fixes (#5746)
+  - bugfix: reagents duplication on soda dispencer upgrade (#5756)
+  NightDawnFox:
+  - tweak: new spawn button location in game panel (#5760)
+  ROdenFL:
+  - bugfix: ochki serdechki (#5757)
+  - add: minesweeper (#5205)
+  SHODAN:
+  - bugfix: solid smoke runtime (#5755)
+  Sheya:
+  - bugfix: LSR-39 pierces two objects (#5752)
+  Zwei:
+  - refactor: Attack Chain Rework (#5672)
+  - bugfix: Attack Chain Fixes (#5761)
+'2024-08-22':
+  Anorak2020:
+  - bugfix: Hulk regen * 4 (#5776)
+  - bugfix: Hulk regen *4 2.0 (#5779)
+  Aziz Chynaliev:
+  - del: yogstation music system" (#5782)
+  Den109G:
+  - bugfix: Now you can change freeform law without changing position (#5749)
+  NightDawnFox:
+  - bugfix: another roboquest fix (#5781)
+  ROdenFL:
+  - add: yogstation music system (#5758)
+  - bugfix: freeplay minesweeper in dorms and paying for mode changing (#5770)
+  Sheya:
+  - bugfix: LSR-39 needs two hands (#5783)
+  - add: craftable pizza bomb (#5662)
+  Zwei:
+  - bugfix: Attack Chain Fixes N2 (#5777)
+  - bugfix: Pacman Fix (#5778)
+  - bugfix: LR-30 Magazine Sprites Fix (#5780)
+  - bugfix: Attack Chain Fixes N3 (#5787)
+  dageavtobusnick:
+  - unknown: destroyer robot(droidec) tweaks and fixes (#5768)
+'2024-08-23':
+  Zwei:
+  - bugfix: Abductor Optable Construction Fix (#5789)
+  - bugfix: Germs Growth Physiology Based (#5790)
+  - bugfix: Storage Afterattack Fix (#5791)
+  - bugfix: Few Bugs Fixed (#5794)
+'2024-08-24':
+  Aziz Chynaliev:
+  - bugfix: stop lobby music played by tgui panel (#5803)
+  Daeberdir:
+  - tweak: Wallthrow mini-stun. (#5788)
+  ROdenFL:
+  - server: some tg assets prs (#5784)
+  - add: yt-dlp music system (#5792)
+  - server: TGUI 4.5.1-paradise (Inferno 8, eslint 9) (#5801)
+  Sheya:
+  - bugfix: syndicate depo AI gps (#5799)
+  Vesterlim13:
+  - bugfix: Small fix pirate base (#5795)
+  Zwei:
+  - unknown: Mutation Traits To Real Traits (#5793)
+  - bugfix: Attack Chain Fixes N5 (#5796)
+'2024-08-25':
+  Aziz Chynaliev:
+  - bugfix: forgotten utf-8 charset meta tags
+  MstrKabach:
+  - add: new budget gloves mechanic (#5767)
+  ROdenFL:
+  - server: 516 compability (#5753)
+  - add: Replays v1 (#5731)
+  Shaman:
+  - tweak: replace spellblade with guardian (#5807)
+  Vladisvell:
+  - add: Supermatter explosion now gives random mutation (with 10% chance!) without
+      monkeyfication (#5773)
+  - bugfix: finally fixes table unflipping (#5808)
+  - bugfix: Fixes events firing several times (#5810)
+  WolfLox:
+  - bugfix: lr30 havnt sprites after spawn (#5805)
+  Zwei:
+  - bugfix: Mutate Virus Checks For Reagents Holder (#5804)
+  - refactor: Species Traits Rework (#5806)
+  - bugfix: Old Traits Removal (#5809)
+  - bugfix: Runtimes Fixes N5 (#5811)
+  - bugfix: Attack Chain Fixes N6 (#5812)
+  endipe:
+  - add: rework floral somatoray [bounty] (#5786)
+'2024-08-26':
+  Anorak2020:
+  - bugfix: Farvision deactivate (#5814)
+  Zwei:
+  - bugfix: Washing Machine / Mop / Paradox Bag Fixes (#5813)
+'2024-08-27':
+  SAAD:
+  - bugfix: Extra syndie port del (#5820)
+  Zwei:
+  - bugfix: Correct Far Vision Fix (#5818)
+  littleboobs:
+  - bugfix: fixed virology (#5816)
+'2024-08-30':
+  Honker9999999:
+  - add: lasershot [bounty] (#5817)
+  endipe:
+  - bugfix: floral somatoray disassembly technology & safe mode chem master (#5815)
+'2024-08-31':
+  Aziz Chynaliev:
+  - add: new 25 TTS voices from Cyberpunk 2077 (15), TLoU (3), Deep Rock Galactic
+      (2), Альтушка для скуфа (4), etc (1) (#5839)
+  FanTik-Ratge:
+  - imageadd: inhand-harvestSprite by Kisik (#5833)
+  Kray1k:
+  - tweak: all goals in extended mode (#5831)
+  Mahimka42:
+  - tweak: Adds a fork to the ashwalkers base (#5826)
+  - add: new flowers & new seed icons (#5825)
+  ROdenFL:
+  - server: better PR tempelate (#5838)
+  Sheya:
+  - add: new sprites for lockers and vault crate (#5828)
+  - add: xray removes tint and eyeprot (#5632)
+  endipe:
+  - qol: balloon_alert for cursed heart (#5834)
+  pilygun:
+  - add: AM-AI Экран для ИИ (#5832)

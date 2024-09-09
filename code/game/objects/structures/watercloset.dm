@@ -102,25 +102,32 @@
 		victim.adjustBruteLoss(5)
 
 
-/obj/structure/toilet/attackby(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/reagent_containers))
-		if(!open)
-			return
-		var/obj/item/reagent_containers/RG = I
-		if(RG.is_refillable())
-			if(RG.reagents.holder_full())
-				to_chat(user, "<span class='warning'>[RG] is full.</span>")
-			else
-				add_fingerprint(user)
-				RG.reagents.add_reagent("toiletwater", min(RG.volume - RG.reagents.total_volume, RG.amount_per_transfer_from_this))
-				to_chat(user, "<span class='notice'>You fill [RG] from [src]. Gross.</span>")
+/obj/structure/toilet/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
-	else if(cistern)
+	if(istype(I, /obj/item/reagent_containers))
+		add_fingerprint(user)
+		if(!open)
+			to_chat(user, span_warning("You cannot fill [I] from [src] while its closed."))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/item/reagent_containers/container = I
+		if(!container.is_refillable())
+			to_chat(user, span_warning("The [container.name] is not refillable."))
+			return ATTACK_CHAIN_PROCEED
+		if(container.reagents.holder_full())
+			to_chat(user, span_warning("The [container.name] is full.."))
+			return ATTACK_CHAIN_PROCEED
+		container.reagents.add_reagent("toiletwater", min(container.volume - container.reagents.total_volume, container.amount_per_transfer_from_this))
+		to_chat(user, span_notice("You fill [container] from [src]. Gross."))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(cistern)
 		add_fingerprint(user)
 		stash_goods(I, user)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	else
-		return ..()
+	return ..()
 
 
 /obj/structure/toilet/crowbar_act(mob/user, obj/item/I)
@@ -305,7 +312,7 @@
 
 
 /obj/machinery/shower/Initialize(mapload, newdir = SOUTH, building = FALSE)
-	..()
+	. = ..()
 	soundloop = new(list(src), FALSE)
 	if(building)
 		setDir(newdir)
@@ -357,10 +364,11 @@
 			source_turf.MakeSlippery(TURF_WET_WATER, min_wet_time = 5 SECONDS, wet_time_to_add = 1 SECONDS)
 
 
-/obj/machinery/shower/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(I.type == /obj/item/analyzer)
+/obj/machinery/shower/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/analyzer))
 		add_fingerprint(user)
 		to_chat(user, span_notice("The water temperature seems to be [current_temperature]."))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
 
@@ -586,25 +594,27 @@
 		user.clean_blood()
 
 
-/obj/structure/sink/attackby(obj/item/O, mob/user, params)
-	if(busy)
-		to_chat(user, "<span class='warning'>Someone's already washing here!</span>")
-		return
+/obj/structure/sink/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
-	if(!(istype(O)))
-		return
+	add_fingerprint(user)
 
 	if(!anchored)
-		to_chat(user, "<span class='warning'>[src] isn't connected, wrench it into position first!</span>")
-		return
+		to_chat(user, span_warning("The [name] isn't connected, wrench it into position first."))
+		return ATTACK_CHAIN_PROCEED
 
-	busy = 1
-	var/wateract = 0
-	wateract = (O.wash(user, src))
-	busy = 0
+	if(busy)
+		to_chat(user, span_warning("Someone's already washing here."))
+		return ATTACK_CHAIN_PROCEED
+
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
+	busy = TRUE
+	var/wateract = I.wash(user, src)
+	busy = FALSE
 	if(wateract)
-		add_fingerprint(user)
-		O.water_act(20, COLD_WATER_TEMPERATURE, src)
+		I.water_act(20, COLD_WATER_TEMPERATURE, src)
+
 
 /obj/structure/sink/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -688,20 +698,34 @@
 	can_rotate = 0
 	resistance_flags = UNACIDABLE
 
-/obj/structure/sink/puddle/attack_hand(mob/M)
-	icon_state = "puddle-splash"
-	..()
-	icon_state = "puddle"
 
-/obj/structure/sink/puddle/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/shovel) && user.a_intent == INTENT_HARM)
-		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
-		if(do_after(user, 5 SECONDS, src))
-			Destroy()
-			return
-	icon_state = "puddle-splash"
-	..()
-	icon_state = "puddle"
+/obj/structure/sink/puddle/attack_hand(mob/user)
+	flick("puddle-splash", src)
+	return ..()
+
+
+/obj/structure/sink/puddle/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/shovel))
+		user.visible_message(
+			span_notice("[user] starts to remove [src] with [I]."),
+			span_notice("You start to remove [src]..."),
+		)
+		I.play_tool_sound(src, 100)
+		flick("puddle-splash", src)
+		if(!do_after(user, 5 SECONDS, src, category = DA_CAT_TOOL))
+			return ATTACK_CHAIN_PROCEED
+		I.play_tool_sound(src, 100)
+		user.visible_message(
+			span_notice("[user] removed [src] with [I]."),
+			span_notice("You removed [src]."),
+		)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 
 //////////////////////////////////

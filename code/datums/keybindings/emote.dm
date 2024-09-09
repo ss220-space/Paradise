@@ -512,8 +512,8 @@
 /**
  * Vox
  */
-/datum/keybinding/emote/carbon/human/quill
-	linked_emote ="quill"
+/datum/keybinding/emote/carbon/human/vox/quill
+	linked_emote = /datum/emote/living/carbon/human/vox/quill
 	name = "Шуршать перьями (воксы)"
 
 

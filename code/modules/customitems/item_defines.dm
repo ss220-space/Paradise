@@ -32,52 +32,62 @@
 	toolspeed = 1
 	usesound = 'sound/items/welder2.ogg'
 
-/obj/item/fluff/tattoo_gun/attack(mob/living/carbon/M, mob/user)
+
+/obj/item/fluff/tattoo_gun/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
 	if(user.a_intent == INTENT_HARM)
-		user.visible_message("<span class='warning'>[user] stabs [M] with the [src]!</span>", "<span class='warning'>You stab [M] with the [src]!</span>")
-		to_chat(M, "<span class='userdanger'>[user] stabs you with the [src]!<br></span><span class = 'warning'>You feel a tiny prick!</span>")
-		return
+		user.visible_message(
+			span_warning("[user] stabs [target] with the [src]!"),
+			span_warning("You stab [target] with the [src]!"),
+			ignored_mobs = target,
+		)
+		to_chat(target, span_warning("You feel a tiny prick!"))
+		return .
 
 	if(used)
-		to_chat(user, "<span class= 'notice'>The [src] is out of ink.</span>")
-		return
+		to_chat(user, span_notice("The [src] is out of ink."))
+		return .
 
-	if(!ishuman(M))
-		to_chat(user, "<span class= 'notice'>You don't think tattooing [M] is the best idea.</span>")
-		return
-
-	var/mob/living/carbon/human/target = M
+	if(!ishuman(target))
+		to_chat(user, span_notice("You don't think tattooing [target] is the best idea."))
+		return .
 
 	if(ismachineperson(target))
-		to_chat(user, "<span class= 'notice'>[target] has no skin, how do you expect to tattoo [target.p_them()]?</span>")
-		return
+		to_chat(user, span_notice("[target] has no skin, how do you expect to tattoo [target.p_them()]?"))
+		return .
 
 	if(target.m_styles["body"] != "None")
-		to_chat(user, "<span class= 'notice'>[target] already has body markings, any more would look silly!</span>")
-		return
+		to_chat(user, span_notice("[target] already has body markings, any more would look silly!"))
+		return .
 
 	var/datum/sprite_accessory/body_markings/tattoo/temp_tatt = GLOB.marking_styles_list[tattoo_icon]
 	if(!(target.dna.species.name in temp_tatt.species_allowed))
-		to_chat(user, "<span class= 'notice'>You can't think of a way to make the [tattoo_name] design work on [target == user ? "your" : "[target]'s"] body type.</span>")
-		return
+		to_chat(user, span_notice("You can't think of a way to make the [tattoo_name] design work on [target == user ? "your" : "[target]'s"] body type."))
+		return .
+
+	. |= ATTACK_CHAIN_SUCCESS
 
 	if(target == user)
-		to_chat(user, "<span class= 'notice'>You use the [src] to apply a [tattoo_name] to yourself!</span>")
-
+		to_chat(user, span_notice("You use [src] to apply a [tattoo_name] to yourself!"))
 	else
-		user.visible_message("<span class='notice'>[user] begins to apply a [tattoo_name] [target] with the [src].</span>", "<span class='notice'>You begin to tattoo [target] with the [src]!</span>")
-		if(!do_after(user, 3 SECONDS * toolspeed, M, category = DA_CAT_TOOL))
-			return
-		user.visible_message("<span class='notice'>[user] finishes the [tattoo_name] on [target].</span>", "<span class='notice'>You finish the [tattoo_name].</span>")
+		user.visible_message(
+			span_notice("[user] begins to apply a [tattoo_name] [target] with the [src]."),
+			span_notice("You begin to tattoo [target] with the [src]!"),
+		)
+		if(!do_after(user, 3 SECONDS * toolspeed, target, category = DA_CAT_TOOL))
+			return .
+		if(used || ismachineperson(target) || target.m_styles["body"] != "None" || !(target.dna.species.name in temp_tatt.species_allowed))
+			return .
+		user.visible_message(
+			span_notice("[user] finishes the [tattoo_name] on [target]."),
+			span_notice("You finish the [tattoo_name]."),
+		)
 
-	if(!used) // No exploiting do_after to tattoo multiple folks.
-		target.change_markings(tattoo_icon, "body")
-		target.change_marking_color(rgb(tattoo_r, tattoo_g, tattoo_b), "body")
-
-		playsound(src.loc, usesound, 20, 1)
-		used = 1
-		update_icon(UPDATE_OVERLAYS)
-
+	target.change_markings(tattoo_icon, "body")
+	target.change_marking_color(rgb(tattoo_r, tattoo_g, tattoo_b), "body")
+	playsound(loc, usesound, 20, TRUE)
+	used = TRUE
+	update_icon(UPDATE_OVERLAYS)
 
 
 /obj/item/fluff/tattoo_gun/update_overlays()
@@ -192,8 +202,7 @@
 	var/new_name = "vox wheelchair"
 	var/new_desc = "A luxurious Vox Wheelchair, weathered from use."
 
-
-/obj/item/fluff/rapid_wheelchair_kit/afterattack(obj/structure/chair/wheelchair/target, mob/user, proximity)
+/obj/item/fluff/rapid_wheelchair_kit/afterattack(obj/structure/chair/wheelchair/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -301,7 +310,7 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/desolate_coat_kit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/desolate_coat_kit/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -333,7 +342,7 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/fei_gasmask_kit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/fei_gasmask_kit/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -365,7 +374,7 @@
 	icon_state = "scifikit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/desolate_baton_kit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/desolate_baton_kit/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -392,7 +401,7 @@
 	force = 0
 	throwforce = 0
 
-/obj/item/fluff/cardgage_helmet_kit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/cardgage_helmet_kit/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -414,7 +423,7 @@
 	force = 0
 	throwforce = 0
 
-/obj/item/fluff/merchant_sallet_modkit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/merchant_sallet_modkit/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -457,7 +466,7 @@
 	force = 0
 	throwforce = 0
 
-/obj/item/fluff/k3_webbing_modkit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/k3_webbing_modkit/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -480,7 +489,7 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/pyro_wintersec_kit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/pyro_wintersec_kit/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 	var/mob/living/carbon/human/H = user
@@ -533,7 +542,7 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 
-/obj/item/fluff/sylus_conversion_kit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/sylus_conversion_kit/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 	var/mob/living/carbon/human/H = user
@@ -1513,7 +1522,7 @@
 	desc = "a kit on tools and a blueprint detailing how to reconfigure a spacepod"
 	icon_state = "modkit"
 
-/obj/item/fluff/decemviri_spacepod_kit/afterattack(atom/target, mob/user, proximity)
+/obj/item/fluff/decemviri_spacepod_kit/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -1657,9 +1666,6 @@
 	fluff_material = TRUE
 
 /obj/item/clothing/gloves/ring/fluff/update_icon_state()
-	return
-
-/obj/item/clothing/gloves/ring/fluff/attackby(obj/item/I, mob/user, params)
 	return
 
 

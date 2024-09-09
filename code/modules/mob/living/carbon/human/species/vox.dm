@@ -23,7 +23,12 @@
 
 	eyes = "vox_eyes_s"
 
-	species_traits = list(NO_SCAN, NO_GERMS, NO_DECAY, NOTRANSSTING)
+	inherent_traits = list(
+		TRAIT_NO_SCAN,
+		TRAIT_NO_GERMS,
+		TRAIT_NO_DECAY,
+		TRAIT_HAS_REGENERATION,
+	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS //Species-fitted 'em all.
 	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS | HAS_SKIN_COLOR
 
@@ -101,13 +106,13 @@
 	H.stop_tail_wagging()
 
 /datum/species/vox/on_species_gain(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	add_verb(H, /mob/living/carbon/human/proc/emote_wag)
 	add_verb(H, /mob/living/carbon/human/proc/emote_swag)
 	add_verb(H, /mob/living/carbon/human/proc/emote_quill)
 
 /datum/species/vox/on_species_loss(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	remove_verb(H, /mob/living/carbon/human/proc/emote_wag)
 	remove_verb(H, /mob/living/carbon/human/proc/emote_swag)
 	remove_verb(H, /mob/living/carbon/human/proc/emote_quill)
@@ -133,9 +138,9 @@
 	H.update_action_buttons_icon()
 
 /datum/species/vox/on_species_gain(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	updatespeciescolor(H)
-	H.update_icons()
+	H.regenerate_icons()
 
 /datum/species/vox/updatespeciescolor(mob/living/carbon/human/H, owner_sensitive = 1) //Handling species-specific skin-tones for the Vox race.
 	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE) //Making sure we don't break Armalis.
@@ -200,7 +205,13 @@
 
 	eyes = "blank_eyes"
 
-	species_traits = list(NO_SCAN, NO_GERMS, NO_DECAY, NO_BLOOD, NO_PAIN, HAVE_REGENERATION)
+	inherent_traits = list(
+		TRAIT_NO_BLOOD,
+		TRAIT_NO_SCAN,
+		TRAIT_NO_PAIN,
+		TRAIT_NO_GERMS,
+		TRAIT_NO_DECAY,
+	)
 	clothing_flags = 0 //IDK if you've ever seen underwear on an Armalis, but it ain't pretty.
 	bodyflags = HAS_TAIL
 	dies_at_threshold = TRUE
@@ -234,13 +245,13 @@
 	return TRUE
 
 /datum/species/vox/armalis/on_species_gain(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	if(/mob/living/carbon/human/proc/emote_wag in H.verbs)
 		remove_verb(H, /mob/living/carbon/human/proc/emote_wag)
 	if(/mob/living/carbon/human/proc/emote_swag in H.verbs)
 		remove_verb(H, /mob/living/carbon/human/proc/emote_swag)
 
 /datum/species/vox/armalis/on_species_loss(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	if(/mob/living/carbon/human/proc/emote_quill in H.verbs)
 		remove_verb(H, /mob/living/carbon/human/proc/emote_quill)

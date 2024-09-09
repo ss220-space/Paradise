@@ -151,7 +151,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		if(S.speaking && S.speaking.flags & NO_STUTTER)
 			continue
 
-		if((HULK in mutations) && health >= 25)
+		if(HAS_TRAIT(src, TRAIT_HULK) && health >= 25)
 			S.message = "[uppertext(S.message)]!!!"
 			verb = pick("yells", "roars", "hollers")
 
@@ -202,7 +202,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 /mob/living/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	if(client)
 		client.check_say_flood(5)
-		if(client?.prefs.muted & MUTE_IC)
+		if(check_mute(client.ckey, MUTE_IC))
 			to_chat(src, span_danger("You cannot speak in IC (Muted)."))
 			return FALSE
 
@@ -439,7 +439,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 
 /mob/living/whisper_say(list/message_pieces, verb = "whispers")
-	if(client?.prefs.muted & MUTE_IC)
+	if(client && check_mute(client.ckey, MUTE_IC))
 		to_chat(src, span_danger("You cannot speak in IC (Muted)."))
 		return
 

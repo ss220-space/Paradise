@@ -89,7 +89,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	//non-preference stuff
 	var/warns = 0
-	var/muted = 0
 	var/last_ip
 	var/last_id
 
@@ -310,11 +309,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/list/dat = list()
 	dat += {"<meta charset="UTF-8">"}
 	dat += "<center>"
-	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_CHAR]' [current_tab == TAB_CHAR ? "class='linkOn'" : ""]>Character Settings</a>"
-	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_GAME]' [current_tab == TAB_GAME ? "class='linkOn'" : ""]>Game Preferences</a>"
-	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_SPEC]' [current_tab == TAB_SPEC ? "class='linkOn'" : ""]>Special Roles</a>"
-	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_GEAR]' [current_tab == TAB_GEAR ? "class='linkOn'" : ""]>Loadout</a>"
-	dat += "<a href='?_src_=prefs;preference=tab;tab=[TAB_KEYS]' [current_tab == TAB_KEYS ? "class='linkOn'" : ""]>Key Bindings</a>"
+	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_CHAR]' [current_tab == TAB_CHAR ? "class='linkOn'" : ""]>Character Settings</a>"
+	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_GAME]' [current_tab == TAB_GAME ? "class='linkOn'" : ""]>Game Preferences</a>"
+	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_SPEC]' [current_tab == TAB_SPEC ? "class='linkOn'" : ""]>Special Roles</a>"
+	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_GEAR]' [current_tab == TAB_GEAR ? "class='linkOn'" : ""]>Loadout</a>"
+	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_KEYS]' [current_tab == TAB_KEYS ? "class='linkOn'" : ""]>Key Bindings</a>"
 	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_TOGGLES]' [current_tab == TAB_TOGGLES ? "class='linkOn'" : ""]>General Preferences</a>"
 	dat += "</center>"
 	dat += "<HR>"
@@ -329,9 +328,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<div class='statusDisplay' style='max-width: 128px; position: absolute; left: 150px; top: 150px'><img src=previewicon.png class='charPreview'><img src=previewicon2.png class='charPreview'></div>"
 			dat += "<table width='100%'><tr><td width='405px' height='25px' valign='top'>"
 			dat += "<b>Name: </b>"
-			dat += "<a href='?_src_=prefs;preference=name;task=input'><b>[real_name]</b></a>"
-			dat += "<a href='?_src_=prefs;preference=name;task=random'>(Randomize)</a>"
-			dat += "<a href='?_src_=prefs;preference=name'><span class='[be_random_name ? "good" : "bad"]'>(Always&nbsp;Randomize)</span></a><br>"
+			dat += "<a href='byond://?_src_=prefs;preference=name;task=input'><b>[real_name]</b></a>"
+			dat += "<a href='byond://?_src_=prefs;preference=name;task=random'>(Randomize)</a>"
+			dat += "<a href='byond://?_src_=prefs;preference=name'><span class='[be_random_name ? "good" : "bad"]'>(Always&nbsp;Randomize)</span></a><br>"
 			dat += "</td><td width='405px' height='25px' valign='left'>"
 			dat += "<center>"
 			dat += "Slot <b>[default_slot][saved ? "" : " (empty)"]</b><br>"
@@ -348,26 +347,29 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				dat += "<b>You are banned from using custom names and appearances. \
 				You can continue to adjust your characters, but you will be randomised once you join the game.\
 				</b><br>"
-			dat += "<b>Gender:</b> <a href='?_src_=prefs;preference=gender'>[gender == MALE ? "Male" : (gender == FEMALE ? "Female" : "Genderless")]</a>"
+			dat += "<b>Gender:</b> <a href='byond://?_src_=prefs;preference=gender'>[gender == MALE ? "Male" : (gender == FEMALE ? "Female" : "Genderless")]</a>"
 			dat += "<br>"
-			dat += "<b>Age:</b> <a href='?_src_=prefs;preference=age;task=input'>[age]</a><br>"
-			dat += "<b>Body:</b> <a href='?_src_=prefs;preference=all;task=random'>(&reg;)</a><br>"
-			dat += "<b>Species:</b> <a href='?_src_=prefs;preference=species;task=input'>[species]</a><br>"
-			if(species == SPECIES_VOX)
-				dat += "<b>N2 Tank:</b> <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Large N2 Tank" : "Specialized N2 Tank"]</a><br>"
-			if(species == SPECIES_GREY)
-				dat += "<b>Wingdings:</b> Set in disabilities<br>"
-				dat += "<b>Voice Translator:</b> <a href ='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Yes" : "No"]</a><br>"
-			if(species == SPECIES_MACNINEPERSON)
-				dat += "<b>Synthetic Shell:</b> <a href='?_src_=prefs;preference=ipcloadouts;task=input'>Selections</a><br>"
-			dat += "<b>Secondary Language:</b> <a href='?_src_=prefs;preference=language;task=input'>[language]</a><br>"
+			dat += "<b>Age:</b> <a href='byond://?_src_=prefs;preference=age;task=input'>[age]</a><br>"
+			dat += "<b>Body:</b> <a href='byond://?_src_=prefs;preference=all;task=random'>(&reg;)</a><br>"
+			dat += "<b>Species:</b> <a href='byond://?_src_=prefs;preference=species;task=input'>[species]</a><br>"
+			switch(species)
+				if(SPECIES_VOX)
+					dat += "<b>N2 Tank:</b> <a href='byond://?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Large N2 Tank" : "Specialized N2 Tank"]</a><br>"
+				if(SPECIES_GREY)
+					dat += "<b>Wingdings:</b> Set in disabilities<br>"
+					dat += "<b>Voice Translator:</b> <a href='byond://?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Yes" : "No"]</a><br>"
+				if(SPECIES_MACNINEPERSON)
+					dat += "<b>Synthetic Shell:</b> <a href='byond://?_src_=prefs;preference=ipcloadouts;task=input'>Selections</a><br>"
+				if(SPECIES_WRYN)
+					dat += "<b>Comb Deafness:</b> <a href='byond://?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Yes" : "No"]</a><br>"
+			dat += "<b>Secondary Language:</b> <a href='byond://?_src_=prefs;preference=language;task=input'>[language]</a><br>"
 			if(S.autohiss_basic_map)
-				dat += "<b>Auto-accent:</b> <a href='?_src_=prefs;preference=autohiss_mode;task=input'>[autohiss_mode == AUTOHISS_FULL ? "Full" : (autohiss_mode == AUTOHISS_BASIC ? "Basic" : "Off")]</a><br>"
-			dat += "<b>Blood Type:</b> <a href='?_src_=prefs;preference=b_type;task=input'>[b_type]</a><br>"
+				dat += "<b>Auto-accent:</b> <a href='byond://?_src_=prefs;preference=autohiss_mode;task=input'>[autohiss_mode == AUTOHISS_FULL ? "Full" : (autohiss_mode == AUTOHISS_BASIC ? "Basic" : "Off")]</a><br>"
+			dat += "<b>Blood Type:</b> <a href='byond://?_src_=prefs;preference=b_type;task=input'>[b_type]</a><br>"
 			if(S.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
-				dat += "<b>Skin Tone:</b> <a href='?_src_=prefs;preference=s_tone;task=input'>[S.bodyflags & HAS_ICON_SKIN_TONE ? "[s_tone]" : "[-s_tone + 35]/220"]</a><br>"
-			dat += "<b>Disabilities:</b> <a href='?_src_=prefs;preference=disabilities'>\[Set\]</a><br>"
-			dat += "<b>Nanotrasen Relation:</b> <a href ='?_src_=prefs;preference=nt_relation;task=input'>[nanotrasen_relation]</a><br>"
+				dat += "<b>Skin Tone:</b> <a href='byond://?_src_=prefs;preference=s_tone;task=input'>[S.bodyflags & HAS_ICON_SKIN_TONE ? "[s_tone]" : "[-s_tone + 35]/220"]</a><br>"
+			dat += "<b>Disabilities:</b> <a href='byond://?_src_=prefs;preference=disabilities'>\[Set\]</a><br>"
+			dat += "<b>Nanotrasen Relation:</b> <a href='byond://?_src_=prefs;preference=nt_relation;task=input'>[nanotrasen_relation]</a><br>"
 			dat += "<a href='byond://?_src_=prefs;preference=flavor_text;task=input'>Set Flavor Text</a><br>"
 			dat += "[TextPreview(flavor_text)]<br>"
 
@@ -378,81 +380,81 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if(species == SPECIES_UNATHI)
 					headaccessoryname = "Horns: "
 				dat += "<b>[headaccessoryname]</b>"
-				dat += "<a href='?_src_=prefs;preference=ha_style;task=input'>[ha_style]</a> "
-				dat += "<a href='?_src_=prefs;preference=headaccessory;task=input'>Color</a> [color_square(hacc_colour)]<br>"
+				dat += "<a href='byond://?_src_=prefs;preference=ha_style;task=input'>[ha_style]</a> "
+				dat += "<a href='byond://?_src_=prefs;preference=headaccessory;task=input'>Color</a> [color_square(hacc_colour)]<br>"
 
 			if(S.bodyflags & HAS_HEAD_MARKINGS) //Species with head markings.
 				dat += "<b>Head Markings:</b> "
-				dat += "<a href='?_src_=prefs;preference=m_style_head;task=input'>[m_styles["head"]]</a>"
-				dat += "<a href='?_src_=prefs;preference=m_head_colour;task=input'>Color</a> [color_square(m_colours["head"])]<br>"
+				dat += "<a href='byond://?_src_=prefs;preference=m_style_head;task=input'>[m_styles["head"]]</a>"
+				dat += "<a href='byond://?_src_=prefs;preference=m_head_colour;task=input'>Color</a> [color_square(m_colours["head"])]<br>"
 			if(S.bodyflags & HAS_BODY_MARKINGS) //Species with body markings/tattoos.
 				dat += "<b>Body Markings:</b> "
-				dat += "<a href='?_src_=prefs;preference=m_style_body;task=input'>[m_styles["body"]]</a>"
-				dat += "<a href='?_src_=prefs;preference=m_body_colour;task=input'>Color</a> [color_square(m_colours["body"])]<br>"
+				dat += "<a href='byond://?_src_=prefs;preference=m_style_body;task=input'>[m_styles["body"]]</a>"
+				dat += "<a href='byond://?_src_=prefs;preference=m_body_colour;task=input'>Color</a> [color_square(m_colours["body"])]<br>"
 			if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
 				dat += "<b>Tail Markings:</b> "
-				dat += "<a href='?_src_=prefs;preference=m_style_tail;task=input'>[m_styles["tail"]]</a>"
-				dat += "<a href='?_src_=prefs;preference=m_tail_colour;task=input'>Color</a> [color_square(m_colours["tail"])]<br>"
+				dat += "<a href='byond://?_src_=prefs;preference=m_style_tail;task=input'>[m_styles["tail"]]</a>"
+				dat += "<a href='byond://?_src_=prefs;preference=m_tail_colour;task=input'>Color</a> [color_square(m_colours["tail"])]<br>"
 
 			dat += "<b>Hair:</b> "
-			dat += "<a href='?_src_=prefs;preference=h_style;task=input'>[h_style]</a>"
-			dat += "<a href='?_src_=prefs;preference=hair;task=input'>Color</a> [color_square(h_colour)]"
+			dat += "<a href='byond://?_src_=prefs;preference=h_style;task=input'>[h_style]</a>"
+			dat += "<a href='byond://?_src_=prefs;preference=hair;task=input'>Color</a> [color_square(h_colour)]"
 			var/datum/sprite_accessory/temp_hair_style = GLOB.hair_styles_public_list[h_style]
 			if(temp_hair_style && temp_hair_style.secondary_theme && !temp_hair_style.no_sec_colour)
-				dat += " <a href='?_src_=prefs;preference=secondary_hair;task=input'>Color #2</a> [color_square(h_sec_colour)]"
+				dat += " <a href='byond://?_src_=prefs;preference=secondary_hair;task=input'>Color #2</a> [color_square(h_sec_colour)]"
 				// Hair gradient
 			dat += "<br>"
 			dat += "- <b>Gradient:</b>"
-			dat += " <a href='?_src_=prefs;preference=h_grad_style;task=input'>[h_grad_style]</a>"
-			dat += " <a href='?_src_=prefs;preference=h_grad_colour;task=input'>Color</a> [color_square(h_grad_colour)]"
-			dat += " <a href='?_src_=prefs;preference=h_grad_alpha;task=input'>[h_grad_alpha]</a>"
+			dat += " <a href='byond://?_src_=prefs;preference=h_grad_style;task=input'>[h_grad_style]</a>"
+			dat += " <a href='byond://?_src_=prefs;preference=h_grad_colour;task=input'>Color</a> [color_square(h_grad_colour)]"
+			dat += " <a href='byond://?_src_=prefs;preference=h_grad_alpha;task=input'>[h_grad_alpha]</a>"
 			dat += "<br>"
-			dat += "- <b>Gradient Offset:</b> <a href='?_src_=prefs;preference=h_grad_offset;task=input'>[h_grad_offset_x],[h_grad_offset_y]</a>"
+			dat += "- <b>Gradient Offset:</b> <a href='byond://?_src_=prefs;preference=h_grad_offset;task=input'>[h_grad_offset_x],[h_grad_offset_y]</a>"
 			dat += "<br>"
 
 			dat += "<b>Facial Hair:</b> "
-			dat += "<a href='?_src_=prefs;preference=f_style;task=input'>[f_style ? "[f_style]" : "Shaved"]</a>"
-			dat += "<a href='?_src_=prefs;preference=facial;task=input'>Color</a> [color_square(f_colour)]"
+			dat += "<a href='byond://?_src_=prefs;preference=f_style;task=input'>[f_style ? "[f_style]" : "Shaved"]</a>"
+			dat += "<a href='byond://?_src_=prefs;preference=facial;task=input'>Color</a> [color_square(f_colour)]"
 			var/datum/sprite_accessory/temp_facial_hair_style = GLOB.facial_hair_styles_list[f_style]
 			if(temp_facial_hair_style && temp_facial_hair_style.secondary_theme && !temp_facial_hair_style.no_sec_colour)
-				dat += " <a href='?_src_=prefs;preference=secondary_facial;task=input'>Color #2</a> [color_square(f_sec_colour)]"
+				dat += " <a href='byond://?_src_=prefs;preference=secondary_facial;task=input'>Color #2</a> [color_square(f_sec_colour)]"
 			dat += "<br>"
 
 
 			if(!(S.bodyflags & ALL_RPARTS))
 				dat += "<b>Eyes:</b> "
-				dat += "<a href='?_src_=prefs;preference=eyes;task=input'>Color</a> [color_square(e_colour)]<br>"
+				dat += "<a href='byond://?_src_=prefs;preference=eyes;task=input'>Color</a> [color_square(e_colour)]<br>"
 
 			if((S.bodyflags & HAS_SKIN_COLOR) || ((S.bodyflags & HAS_BODYACC_COLOR) && GLOB.body_accessory_by_species[species]) || check_rights(R_ADMIN, 0, user))
 				dat += "<b>Body Color:</b> "
-				dat += "<a href='?_src_=prefs;preference=skin;task=input'>Color</a> [color_square(s_colour)]<br>"
+				dat += "<a href='byond://?_src_=prefs;preference=skin;task=input'>Color</a> [color_square(s_colour)]<br>"
 
 			if(GLOB.body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user))
 				dat += "<b>Body Accessory:</b> "
-				dat += "<a href='?_src_=prefs;preference=body_accessory;task=input'>[body_accessory ? "[body_accessory]" : "None"]</a><br>"
+				dat += "<a href='byond://?_src_=prefs;preference=body_accessory;task=input'>[body_accessory ? "[body_accessory]" : "None"]</a><br>"
 
 			dat += "</td><td width='405px' height='200px' valign='top'>"
 			dat += "<h2>Occupation Choices</h2>"
-			dat += "<a href='?_src_=prefs;preference=job;task=menu'>Set Occupation Preferences</a><br>"
+			dat += "<a href='byond://?_src_=prefs;preference=job;task=menu'>Set Occupation Preferences</a><br>"
 			if(jobban_isbanned(user, "Records"))
 				dat += "<b>You are banned from using character records.</b><br>"
 			else
 				dat += "<a href=\"byond://?_src_=prefs;preference=records;record=1\">Character Records</a><br>"
 
 			dat += "<h2>Special Role</h2>"
-			dat += "<b>Uplink Location:</b> <a href='?_src_=prefs;preference=uplink_pref;task=input'>[uplink_pref]</a><br>"
+			dat += "<b>Uplink Location:</b> <a href='byond://?_src_=prefs;preference=uplink_pref;task=input'>[uplink_pref]</a><br>"
 
 			if(CONFIG_GET(flag/tts_enabled))
 				dat += "<h2>Text-to-Speech</h2>"
-				dat += "<b>Выбор голоса:</b> <a href='?_src_=prefs;preference=tts_seed;task=input'>Эксплорер TTS голосов</a><br>"
+				dat += "<b>Выбор голоса:</b> <a href='byond://?_src_=prefs;preference=tts_seed;task=input'>Эксплорер TTS голосов</a><br>"
 
 			dat += "<h2>Limbs</h2>"
 			if(S.bodyflags & HAS_ALT_HEADS) //Species with alt heads.
 				dat += "<b>Alternate Head:</b> "
-				dat += "<a href='?_src_=prefs;preference=alt_head;task=input'>[alt_head]</a><br>"
-			dat += "<b>Limbs and Parts:</b> <a href='?_src_=prefs;preference=limbs;task=input'>Adjust</a><br>"
+				dat += "<a href='byond://?_src_=prefs;preference=alt_head;task=input'>[alt_head]</a><br>"
+			dat += "<b>Limbs and Parts:</b> <a href='byond://?_src_=prefs;preference=limbs;task=input'>Adjust</a><br>"
 			if(species != SPECIES_SLIMEPERSON && species != SPECIES_MACNINEPERSON)
-				dat += "<b>Internal Organs:</b> <a href='?_src_=prefs;preference=organs;task=input'>Adjust</a><br>"
+				dat += "<b>Internal Organs:</b> <a href='byond://?_src_=prefs;preference=organs;task=input'>Adjust</a><br>"
 
 			//display limbs below
 			var/ind = 0
@@ -518,18 +520,18 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 			dat += "<h2>Clothing</h2>"
 			if(S.clothing_flags & HAS_UNDERWEAR)
-				dat += "<b>Underwear:</b> <a href ='?_src_=prefs;preference=underwear;task=input'>[underwear]</a><BR>"
+				dat += "<b>Underwear:</b> <a href='byond://?_src_=prefs;preference=underwear;task=input'>[underwear]</a><BR>"
 				var/datum/sprite_accessory/underwear/uwear = GLOB.underwear_list[underwear]
 				if(uwear?.allow_change_color)
-					dat += "<b>Underwear Color:</b> <a href ='?_src_=prefs;preference=underwear_color;task=input'>Color</a> [color_square(underwear_color)]<BR>"
+					dat += "<b>Underwear Color:</b> <a href='byond://?_src_=prefs;preference=underwear_color;task=input'>Color</a> [color_square(underwear_color)]<BR>"
 			if(S.clothing_flags & HAS_UNDERSHIRT)
-				dat += "<b>Undershirt:</b> <a href ='?_src_=prefs;preference=undershirt;task=input'>[undershirt]</a><BR>"
+				dat += "<b>Undershirt:</b> <a href='byond://?_src_=prefs;preference=undershirt;task=input'>[undershirt]</a><BR>"
 				var/datum/sprite_accessory/undershirt/ushirt = GLOB.undershirt_list[undershirt]
 				if(ushirt?.allow_change_color)
-					dat += "<b>Undershirt Color:</b> <a href ='?_src_=prefs;preference=undershirt_color;task=input'>Color</a> [color_square(undershirt_color)]<BR>"
+					dat += "<b>Undershirt Color:</b> <a href='byond://?_src_=prefs;preference=undershirt_color;task=input'>Color</a> [color_square(undershirt_color)]<BR>"
 			if(S.clothing_flags & HAS_SOCKS)
-				dat += "<b>Socks:</b> <a href ='?_src_=prefs;preference=socks;task=input'>[socks]</a><BR>"
-			dat += "<b>Backpack Type:</b> <a href ='?_src_=prefs;preference=bag;task=input'>[backbag]</a><br>"
+				dat += "<b>Socks:</b> <a href='byond://?_src_=prefs;preference=socks;task=input'>[socks]</a><BR>"
+			dat += "<b>Backpack Type:</b> <a href='byond://?_src_=prefs;preference=bag;task=input'>[backbag]</a><br>"
 
 			dat += "</td></tr></table>"
 
@@ -538,28 +540,28 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<table><tr><td width='405px' height='300px' valign='top'>"
 			dat += "<h2>Game Settings</h2>"
 			if(user.client.holder)
-				dat += "<b>Adminhelp sound:</b> <a href='?_src_=prefs;preference=hear_adminhelps'><b>[(sound & SOUND_ADMINHELP)?"On":"Off"]</b></a><br>"
-			dat += "<b>AFK Cryoing:</b> <a href='?_src_=prefs;preference=afk_watch'>[(toggles2 & PREFTOGGLE_2_AFKWATCH) ? "Yes" : "No"]</a><br>"
-			dat += "<b>Ambient Occlusion:</b> <a href='?_src_=prefs;preference=ambientocclusion'><b>[toggles & PREFTOGGLE_AMBIENT_OCCLUSION ? "Enabled" : "Disabled"]</b></a><br>"
-			dat += "<b>Attack Animations:</b> <a href='?_src_=prefs;preference=ghost_att_anim'>[(toggles2 & PREFTOGGLE_2_ITEMATTACK) ? "Yes" : "No"]</a><br>"
+				dat += "<b>Adminhelp sound:</b> <a href='byond://?_src_=prefs;preference=hear_adminhelps'><b>[(sound & SOUND_ADMINHELP)?"On":"Off"]</b></a><br>"
+			dat += "<b>AFK Cryoing:</b> <a href='byond://?_src_=prefs;preference=afk_watch'>[(toggles2 & PREFTOGGLE_2_AFKWATCH) ? "Yes" : "No"]</a><br>"
+			dat += "<b>Ambient Occlusion:</b> <a href='byond://?_src_=prefs;preference=ambientocclusion'><b>[toggles & PREFTOGGLE_AMBIENT_OCCLUSION ? "Enabled" : "Disabled"]</b></a><br>"
+			dat += "<b>Attack Animations:</b> <a href='byond://?_src_=prefs;preference=ghost_att_anim'>[(toggles2 & PREFTOGGLE_2_ITEMATTACK) ? "Yes" : "No"]</a><br>"
 			if(unlock_content)
-				dat += "<b>BYOND Membership Publicity:</b> <a href='?_src_=prefs;preference=publicity'><b>[(toggles & PREFTOGGLE_MEMBER_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
-			dat += "<b>Show Runechat Chat Bubbles:</b> <a href='?_src_=prefs;preference=chat_on_map'>[toggles2 & PREFTOGGLE_2_RUNECHAT ? "Enabled" : "Disabled"]</a><br>"
-			dat += "<b>CKEY Anonymity:</b> <a href='?_src_=prefs;preference=anonmode'><b>[toggles2 & PREFTOGGLE_2_ANON ? "Anonymous" : "Not Anonymous"]</b></a><br>"
+				dat += "<b>BYOND Membership Publicity:</b> <a href='byond://?_src_=prefs;preference=publicity'><b>[(toggles & PREFTOGGLE_MEMBER_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
+			dat += "<b>Show Runechat Chat Bubbles:</b> <a href='byond://?_src_=prefs;preference=chat_on_map'>[toggles2 & PREFTOGGLE_2_RUNECHAT ? "Enabled" : "Disabled"]</a><br>"
+			dat += "<b>CKEY Anonymity:</b> <a href='byond://?_src_=prefs;preference=anonmode'><b>[toggles2 & PREFTOGGLE_2_ANON ? "Anonymous" : "Not Anonymous"]</b></a><br>"
 			if(user.client.donator_level > 0)
-				dat += "<b>Donator Publicity:</b> <a href='?_src_=prefs;preference=donor_public'><b>[(toggles & PREFTOGGLE_DONATOR_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
-			dat += "<b>Vote Popups:</b> <a href='?_src_=prefs;preference=vote_popup'>[(toggles2 & PREFTOGGLE_2_DISABLE_VOTE_POPUPS) ? "No" : "Yes"]</a><br>"
-			dat += "<b>FPS:</b>	 <a href='?_src_=prefs;preference=clientfps;task=input'>[clientfps]</a><br>"
-			dat += "<b>Ghost Ears:</b> <a href='?_src_=prefs;preference=ghost_ears'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTEARS) ? "All Speech" : "Nearest Creatures"]</b></a><br>"
-			dat += "<b>Ghost Radio:</b> <a href='?_src_=prefs;preference=ghost_radio'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTRADIO) ? "All Chatter" : "Nearest Speakers"]</b></a><br>"
-			dat += "<b>Ghost Sight:</b> <a href='?_src_=prefs;preference=ghost_sight'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTSIGHT) ? "All Emotes" : "Nearest Creatures"]</b></a><br>"
-			dat += "<b>Ghost PDA:</b> <a href='?_src_=prefs;preference=ghost_pda'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTPDA) ? "All PDA Messages" : "No PDA Messages"]</b></a><br>"
-			dat += "<b>Item Outlines:</b> <a href='?_src_=prefs;preference=item_outlines'><b>[(toggles2 & PREFTOGGLE_2_SEE_ITEM_OUTLINES) ? "Yes" : "No"]</b></a><br>"
+				dat += "<b>Donator Publicity:</b> <a href='byond://?_src_=prefs;preference=donor_public'><b>[(toggles & PREFTOGGLE_DONATOR_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
+			dat += "<b>Vote Popups:</b> <a href='byond://?_src_=prefs;preference=vote_popup'>[(toggles2 & PREFTOGGLE_2_DISABLE_VOTE_POPUPS) ? "No" : "Yes"]</a><br>"
+			dat += "<b>FPS:</b>	 <a href='byond://?_src_=prefs;preference=clientfps;task=input'>[clientfps]</a><br>"
+			dat += "<b>Ghost Ears:</b> <a href='byond://?_src_=prefs;preference=ghost_ears'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTEARS) ? "All Speech" : "Nearest Creatures"]</b></a><br>"
+			dat += "<b>Ghost Radio:</b> <a href='byond://?_src_=prefs;preference=ghost_radio'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTRADIO) ? "All Chatter" : "Nearest Speakers"]</b></a><br>"
+			dat += "<b>Ghost Sight:</b> <a href='byond://?_src_=prefs;preference=ghost_sight'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTSIGHT) ? "All Emotes" : "Nearest Creatures"]</b></a><br>"
+			dat += "<b>Ghost PDA:</b> <a href='byond://?_src_=prefs;preference=ghost_pda'><b>[(toggles & PREFTOGGLE_CHAT_GHOSTPDA) ? "All PDA Messages" : "No PDA Messages"]</b></a><br>"
+			dat += "<b>Item Outlines:</b> <a href='byond://?_src_=prefs;preference=item_outlines'><b>[(toggles2 & PREFTOGGLE_2_SEE_ITEM_OUTLINES) ? "Yes" : "No"]</b></a><br>"
 			if(check_rights(R_ADMIN,0))
-				dat += "<b>OOC Color:</b> <span style='border: 1px solid #161616; background-color: [ooccolor ? ooccolor : GLOB.normal_ooc_colour];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=ooccolor;task=input'><b>Change</b></a><br>"
+				dat += "<b>OOC Color:</b> <span style='border: 1px solid #161616; background-color: [ooccolor ? ooccolor : GLOB.normal_ooc_colour];'>&nbsp;&nbsp;&nbsp;</span> <a href='byond://?_src_=prefs;preference=ooccolor;task=input'><b>Change</b></a><br>"
 			if(CONFIG_GET(flag/allow_metadata))
-				dat += "<b>OOC Notes:</b> <a href='?_src_=prefs;preference=metadata;task=input'><b>Edit</b></a><br>"
-			dat += "<b>Parallax (Fancy Space):</b> <a href='?_src_=prefs;preference=parallax'>"
+				dat += "<b>OOC Notes:</b> <a href='byond://?_src_=prefs;preference=metadata;task=input'><b>Edit</b></a><br>"
+			dat += "<b>Parallax (Fancy Space):</b> <a href='byond://?_src_=prefs;preference=parallax'>"
 			switch (parallax)
 				if(PARALLAX_LOW)
 					dat += "Low"
@@ -572,8 +574,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				else
 					dat += "High"
 			dat += "</a><br>"
-			dat += "<b>Parallax Multi-Z (3D effect):</b> <a href='?_src_=prefs;preference=parallax_multiz'>[toggles2 & PREFTOGGLE_2_PARALLAX_MULTIZ ? "Enabled" : "Disabled"]</a><br>"
-			dat += "<b>Multi-Z Detail:</b> <a href='?_src_=prefs;preference=multiz_detail'>"
+			dat += "<b>Parallax Multi-Z (3D effect):</b> <a href='byond://?_src_=prefs;preference=parallax_multiz'>[toggles2 & PREFTOGGLE_2_PARALLAX_MULTIZ ? "Enabled" : "Disabled"]</a><br>"
+			dat += "<b>Multi-Z Detail:</b> <a href='byond://?_src_=prefs;preference=multiz_detail'>"
 			switch (multiz_detail)
 				if(MULTIZ_DETAIL_DEFAULT)
 					dat += "Default"
@@ -586,23 +588,24 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				else
 					dat += "ERROR"
 			dat += "</a><br>"
-			dat += "<b>Play Admin MIDIs:</b> <a href='?_src_=prefs;preference=hear_midis'><b>[(sound & SOUND_MIDI) ? "Yes" : "No"]</b></a><br>"
-			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'><b>[(sound & SOUND_LOBBY) ? "Yes" : "No"]</b></a><br>"
-			dat += "<b>Randomized Character Slot:</b> <a href='?_src_=prefs;preference=randomslot'><b>[toggles2 & PREFTOGGLE_2_RANDOMSLOT ? "Yes" : "No"]</b></a><br>"
-			dat += "<b>View Range:</b> <a href='?_src_=prefs;preference=setviewrange'>[viewrange]</a><br>"
-			dat += "<b>Window Flashing:</b> <a href='?_src_=prefs;preference=winflash'>[(toggles2 & PREFTOGGLE_2_WINDOWFLASHING) ? "Yes" : "No"]</a><br>"
+			dat += "<b>Play Admin MIDIs:</b> <a href='byond://?_src_=prefs;preference=hear_midis'><b>[(sound & SOUND_MIDI) ? "Yes" : "No"]</b></a><br>"
+			dat += "<b>Play Lobby Music:</b> <a href='byond://?_src_=prefs;preference=lobby_music'><b>[(sound & SOUND_LOBBY) ? "Yes" : "No"]</b></a><br>"
+			dat += "<b>Randomized Character Slot:</b> <a href='byond://?_src_=prefs;preference=randomslot'><b>[toggles2 & PREFTOGGLE_2_RANDOMSLOT ? "Yes" : "No"]</b></a><br>"
+			dat += "<b>View Range:</b> <a href='byond://?_src_=prefs;preference=setviewrange'>[viewrange]</a><br>"
+			dat += "<b>Window Flashing:</b> <a href='byond://?_src_=prefs;preference=winflash'>[(toggles2 & PREFTOGGLE_2_WINDOWFLASHING) ? "Yes" : "No"]</a><br>"
 			// RIGHT SIDE OF THE PAGE
 			dat += "</td><td width='405px' height='300px' valign='top'>"
 			dat += "<h2>Interface Settings</h2>"
 			dat += "<b>Custom UI settings:</b><br>"
-			dat += " - <b>Alpha (transparency):</b> <a href='?_src_=prefs;preference=UIalpha'><b>[UI_style_alpha]</b></a><br>"
-			dat += " - <b>Color:</b> <a href='?_src_=prefs;preference=UIcolor'><b>[UI_style_color]</b></a> <span style='border: 1px solid #161616; background-color: [UI_style_color];'>&nbsp;&nbsp;&nbsp;</span><br>"
-			dat += " - <b>UI Style:</b> <a href='?_src_=prefs;preference=ui'><b>[UI_style]</b></a><br>"
-			dat += "<b>Fancy TGUI:</b> <a href='?_src_=prefs;preference=tgui'>[(toggles2 & PREFTOGGLE_2_FANCYUI) ? "Yes" : "No"]</a><br>"
-			dat += "<b>TGUI strip menu size:</b> <a href='byond://?_src_=prefs;preference=tgui_strip_menu'>[toggles2 & PREFTOGGLE_2_BIG_STRIP_MENU ? "Full-size" : "Miniature"]</a><br>"
-			dat += "<b> - TGUI Input:</b> <a href='?_src_=prefs;preference=tgui_input'>[(toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT) ? "No" : "Yes"]</a><br>"
-			dat += "<b> - TGUI Input - Large Buttons:</b> <a href='?_src_=prefs;preference=tgui_input_large'>[(toggles2 & PREFTOGGLE_2_LARGE_INPUT_BUTTONS) ? "Yes" : "No"]</a><br>"
-			dat += "<b> - TGUI Input - Swap Buttons:</b> <a href='?_src_=prefs;preference=tgui_input_swap'>[(toggles2 & PREFTOGGLE_2_SWAP_INPUT_BUTTONS) ? "Yes" : "No"]</a><br>"
+			dat += " - <b>Alpha (transparency):</b> <a href='byond://?_src_=prefs;preference=UIalpha'><b>[UI_style_alpha]</b></a><br>"
+			dat += " - <b>Color:</b> <a href='byond://?_src_=prefs;preference=UIcolor'><b>[UI_style_color]</b></a> <span style='border: 1px solid #161616; background-color: [UI_style_color];'>&nbsp;&nbsp;&nbsp;</span><br>"
+			dat += " - <b>UI Style:</b> <a href='byond://?_src_=prefs;preference=ui'><b>[UI_style]</b></a><br>"
+			dat += "<b>Fancy TGUI:</b> <a href='byond://?_src_=prefs;preference=tgui'>[(toggles2 & PREFTOGGLE_2_FANCYUI) ? "Yes" : "No"]</a><br>"
+			dat += "<b> - TGUI strip menu size:</b> <a href='byond://?_src_=prefs;preference=tgui_strip_menu'>[toggles2 & PREFTOGGLE_2_BIG_STRIP_MENU ? "Full-size" : "Miniature"]</a><br>"
+			dat += "<b> - TGUI Say Theme:</b> <a href='byond://?_src_=prefs;preference=tgui_say_light_mode'>[(toggles2 & PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE) ? "Light" : "Dark"]</a><br>"
+			dat += "<b> - TGUI Input:</b> <a href='byond://?_src_=prefs;preference=tgui_input'>[(toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT) ? "No" : "Yes"]</a><br>"
+			dat += "<b> - TGUI Input - Large Buttons:</b> <a href='byond://?_src_=prefs;preference=tgui_input_large'>[(toggles2 & PREFTOGGLE_2_LARGE_INPUT_BUTTONS) ? "Yes" : "No"]</a><br>"
+			dat += "<b> - TGUI Input - Swap Buttons:</b> <a href='byond://?_src_=prefs;preference=tgui_input_swap'>[(toggles2 & PREFTOGGLE_2_SWAP_INPUT_BUTTONS) ? "Yes" : "No"]</a><br>"
 			dat += "</td></tr></table>"
 
 		if(TAB_SPEC) // Antagonist's Preferences
@@ -627,7 +630,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							dat += "<b>Be [capitalize(i)]:</b> <font color=red><b> \[ERROR]</b></font><br>"
 					else
 						var/is_special = (i in src.be_special)
-						dat += "<b>Be [capitalize(i)]:</b><a href='?_src_=prefs;preference=be_special;role=[i]' style='background-color: [is_special ? "#3b7502" : "#bd0802"]'<b>[(is_special) ? "Yes" : "No"]</b></a><br>"
+						dat += "<b>Be [capitalize(i)]:</b><a href='byond://?_src_=prefs;preference=be_special;role=[i]' style='background-color: [is_special ? "#3b7502" : "#bd0802"]'<b>[(is_special) ? "Yes" : "No"]</b></a><br>"
 					if(GLOB.special_roles[last_left] == i)
 						dat += "<h2>Total Playtime:</h2>"
 						if(!CONFIG_GET(flag/use_exp_tracking))
@@ -654,7 +657,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(total_cost < max_gear_slots)
 				fcolor = "#E67300"
 			dat += "<table align='center' width='100%' border='4px solid' >"
-			dat += "<tr><td colspan=4><center><b><font color='[fcolor]'>[total_cost]/[max_gear_slots]</font> loadout points spent.</b> \[<a href='?_src_=prefs;preference=gear;clear_loadout=1'>Clear Loadout</a>\]</center></td></tr>"
+			dat += "<tr><td colspan=4><center><b><font color='[fcolor]'>[total_cost]/[max_gear_slots]</font> loadout points spent.</b> \[<a href='byond://?_src_=prefs;preference=gear;clear_loadout=1'>Clear Loadout</a>\]</center></td></tr>"
 			dat += "<tr><td colspan=4><center><b>"
 
 			var/firstcat = 1
@@ -670,7 +673,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if(category == gear_tab)
 					dat += " <span class='linkOff'>[category]</span> "
 				else
-					dat += " <a style=[category == choosen.category ? "'background: steelblue'" : "''"] href='?_src_=prefs;preference=gear;select_category=[category]'>[category]</a> "
+					dat += " <a style=[category == choosen.category ? "'background: steelblue'" : "''"] href='byond://?_src_=prefs;preference=gear;select_category=[category]'>[category]</a> "
 			dat += "</b></center></td></tr>"
 
 			var/datum/loadout_category/LC = own_categories[gear_tab]
@@ -678,10 +681,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			for(var/gear_name in LC.gear)
 				var/datum/gear/G = LC.gear[gear_name]
 				var/datum/gear/ticked = choosen_gears[G.display_name]
-				dat += "<tr align='center' style='vertical-align:top;'><td width=15%><a style='white-space:normal;vertical-align:middle' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>[G.display_name]</a><br/><img src=data:image/jpeg;base64,[ticked ? ticked.base64icon : G.base64icon] class='loadoutPreview'>"
+				dat += "<tr align='center' style='vertical-align:top;'><td width=15%><a style='white-space:normal;vertical-align:middle' [ticked ? "class='linkOn' " : ""]href='byond://?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>[G.display_name]</a><br/><img src=data:image/jpeg;base64,[ticked ? ticked.base64icon : G.base64icon] class='loadoutPreview'>"
 				if(ticked)
 					for(var/datum/gear_tweak/tweak in ticked.gear_tweaks)
-						dat += "<br/><a href='?_src_=prefs;preference=gear;gear=[ticked.display_name];tweak=\ref[tweak]'>[tweak.get_contents(get_tweak_metadata(ticked, tweak))]</a>"
+						dat += "<br/><a href='byond://?_src_=prefs;preference=gear;gear=[ticked.display_name];tweak=\ref[tweak]'>[tweak.get_contents(get_tweak_metadata(ticked, tweak))]</a>"
 				dat += "</td><td width = 5% align='center' style='vertical-align:middle'><b>[G.cost]</b></td><td style='vertical-align:middle'>"
 				if(G.allowed_roles)
 					dat += "<font size=2>Restrictions: "
@@ -693,8 +696,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "</table>"
 		if(TAB_KEYS)
 			dat += "<div align='center'><b>All Key Bindings:&nbsp;</b>"
-			dat += "<a href='?_src_=prefs;preference=keybindings;all=reset'>Reset to Default</a>&nbsp;"
-			dat += "<a href='?_src_=prefs;preference=keybindings;all=clear'>Clear</a><br /></div>"
+			dat += "<a href='byond://?_src_=prefs;preference=keybindings;all=reset'>Reset to Default</a>&nbsp;"
+			dat += "<a href='byond://?_src_=prefs;preference=keybindings;all=clear'>Clear</a><br /></div>"
 			dat += "<tr><td colspan=4><hr></td></tr>"
 			dat += "<tr><td colspan=4><div align='center'><b>Пожалуйста, обратите внимание, что некоторые привязки клавиш переопределяются другими категориями.</b></div></td></tr>"
 			dat += "<tr><td colspan=4><div align='center'><b>Убедитесь, что вы привязали их все или тот конкретный, который вам нужен.</b></div></td></tr>"
@@ -724,11 +727,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						var/disp_key = key
 						if(override_keys)
 							disp_key = "<b>[disp_key]</b>"
-						keys_buttons += "<a href='?_src_=prefs;preference=keybindings;set=[kb_uid];old=[url_encode(key)];'>[disp_key]</a>&nbsp;"
+						keys_buttons += "<a href='byond://?_src_=prefs;preference=keybindings;set=[kb_uid];old=[url_encode(key)];'>[disp_key]</a>&nbsp;"
 					dat += "<tr>"
 					dat += "<td style='width: 25%'>[KB.name]</td>"
-					dat += "<td style='width: 45%'>[keys_buttons][(length(keys) < 5) ? "<a href='?_src_=prefs;preference=keybindings;set=[kb_uid];'><span class='good'>+</span></a></td>" : "</td>"]"
-					dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=keybindings;reset=[kb_uid]'>Reset to Default</a> <a href='?_src_=prefs;preference=keybindings;clear=[kb_uid]'>Clear</a></td>"
+					dat += "<td style='width: 45%'>[keys_buttons][(length(keys) < 5) ? "<a href='byond://?_src_=prefs;preference=keybindings;set=[kb_uid];'><span class='good'>+</span></a></td>" : "</td>"]"
+					dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=keybindings;reset=[kb_uid]'>Reset to Default</a> <a href='byond://?_src_=prefs;preference=keybindings;clear=[kb_uid]'>Clear</a></td>"
 					if(KB.category == KB_CATEGORY_EMOTE_CUSTOM)
 						var/datum/keybinding/custom/custom_emote_keybind = kb
 						if(custom_emote_keybind.donor_exclusive && !((user.client.donator_level >= 2) || user.client.holder || unlock_content))
@@ -744,8 +747,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							dat += "<td style='width: 25%'>[custom_emote_keybind.default_emote_text]</td>"
 						else
 							dat += "<td style='width: 25%'><i>\"[user.client.prefs.real_name] [emote_text]\"</i></td>"
-						dat += "<td style='width: 45%'><a href='?_src_=prefs;preference=keybindings;custom_emote_set=[kb_uid];'>Change Text</a></td>"
-						dat += "<td style='width: 20%'><a href='?_src_=prefs;preference=keybindings;custom_emote_reset=[kb_uid];'>Reset to Default</a></td>"
+						dat += "<td style='width: 45%'><a href='byond://?_src_=prefs;preference=keybindings;custom_emote_set=[kb_uid];'>Change Text</a></td>"
+						dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=keybindings;custom_emote_reset=[kb_uid];'>Reset to Default</a></td>"
 						dat += "<tr><td colspan=4><br></td></tr>"
 					dat += "</tr>"
 				dat += "<tr><td colspan=4><br></td></tr>"
@@ -790,10 +793,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	dat += "<hr><center>"
 	if(!IsGuestKey(user.key))
-		dat += "<a href='?_src_=prefs;preference=load'>Undo</a> - "
-		dat += "<a href='?_src_=prefs;preference=save'>Save Setup</a> - "
+		dat += "<a href='byond://?_src_=prefs;preference=load'>Undo</a> - "
+		dat += "<a href='byond://?_src_=prefs;preference=save'>Save Setup</a> - "
 
-	dat += "<a href='?_src_=prefs;preference=reset_all'>Reset Setup</a>"
+	dat += "<a href='byond://?_src_=prefs;preference=reset_all'>Reset Setup</a>"
 	dat += "</center>"
 
 	var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 820, 770)
@@ -835,13 +838,13 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	html += "<body>"
 	if(!length(SSjobs.occupations))
 		html += "Подсистема вакансий ещё не успела создать вакансии, пожалуйста, повторите попытку позже"
-		html += "<center><a href='?_src_=prefs;preference=job;task=close'>Принять</a></center><br>" // Easier to press up here.
+		html += "<center><a href='byond://?_src_=prefs;preference=job;task=close'>Принять</a></center><br>" // Easier to press up here.
 	else
 		html += "<tt><center>"
 		html += "<b>Выберите предпочитаемые должности</b><br>Определите приоритет на получение желаемой работы.<br><br>"
-		html += "<center><a href='?_src_=prefs;preference=job;task=close'>Сохранить</a></center><br>" // Easier to press up here.
+		html += "<center><a href='byond://?_src_=prefs;preference=job;task=close'>Сохранить</a></center><br>" // Easier to press up here.
 		html += "<div align='center'>Левый клик - для повышения предпочтения профессии, правый - для понижения.<br></div>"
-		html += "<script type='text/javascript'>function setJobPrefRedirect(level, rank) { window.location.href='?_src_=prefs;preference=job;task=setJobLevel;level=' + level + ';text=' + encodeURIComponent(rank); return false; }</script>"
+		html += "<script type='text/javascript'>function setJobPrefRedirect(level, rank) { window.location.href='byond://?_src_=prefs;preference=job;task=setJobLevel;level=' + level + ';text=' + encodeURIComponent(rank); return false; }</script>"
 		html += "<table width='100%' cellpadding='1' cellspacing='0'><tr><td width='20%'>" // Table within a table for alignment, also allows you to easily add more colomns.
 		html += "<table width='100%' cellpadding='1' cellspacing='0'>"
 		var/index = -1
@@ -941,7 +944,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				prefLowerLevel = 1
 
 
-			html += "<a class='nobg' href='?_src_=prefs;preference=job;task=setJobLevel;level=[prefUpperLevel];text=[job.title]' oncontextmenu='javascript:return setJobPrefRedirect([prefLowerLevel], \"[job.title]\");'>"
+			html += "<a class='nobg' href='byond://?_src_=prefs;preference=job;task=setJobLevel;level=[prefUpperLevel];text=[job.title]' oncontextmenu='javascript:return setJobPrefRedirect([prefLowerLevel], \"[job.title]\");'>"
 
 			if(job.title == "Civilian")//Civilian is special
 				if(job_support_low & JOB_FLAG_CIVILIAN)
@@ -969,14 +972,14 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 		switch(alternate_option)
 			if(GET_RANDOM_JOB)
-				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'>Получить случайную работу, если предпочитаемая работа недоступна</a></u></center><br>"
+				html += "<center><br><u><a href='byond://?_src_=prefs;preference=job;task=random'>Получить случайную работу, если предпочитаемая работа недоступна</a></u></center><br>"
 			if(BE_ASSISTANT)
-				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'>Стать гражданским, если предпочитаемая работа недоступна</a></u></center><br>"
+				html += "<center><br><u><a href='byond://?_src_=prefs;preference=job;task=random'>Стать гражданским, если предпочитаемая работа недоступна</a></u></center><br>"
 			if(RETURN_TO_LOBBY)
-				html += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'>Вернуться в лобби, если предпочитаемая работа недоступна</a></u></center><br>"
+				html += "<center><br><u><a href='byond://?_src_=prefs;preference=job;task=random'>Вернуться в лобби, если предпочитаемая работа недоступна</a></u></center><br>"
 
-		html += "<center><a href='?_src_=prefs;preference=job;task=reset'>Сброс</a></center>"
-		html += "<center><br><a href='?_src_=prefs;preference=job;task=learnaboutselection'>Узнать о \"Выборе должности\"</a></center>"
+		html += "<center><a href='byond://?_src_=prefs;preference=job;task=reset'>Сброс</a></center>"
+		html += "<center><br><a href='byond://?_src_=prefs;preference=job;task=learnaboutselection'>Узнать о \"Выборе должности\"</a></center>"
 		html += "</tt>"
 
 	user << browse(null, "window=preferences")
@@ -1149,25 +1152,40 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/HTML = "<body>"
 	HTML += "<tt><center>"
 
-	if(CAN_WINGDINGS in S.species_traits)
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_WINGDINGS))
 		HTML += ShowDisabilityState(user, DISABILITY_FLAG_WINGDINGS, "Speak in Wingdings")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_NEARSIGHTED, "Nearsighted")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_COLOURBLIND, "Colourblind")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_BLIND, "Blind")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_DEAF, "Deaf")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_MUTE, "Mute")
-	if(!(NO_OBESITY in S.species_traits))
-		HTML += ShowDisabilityState(user, DISABILITY_FLAG_FAT, "Obese")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_NERVOUS, "Stutter")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_SWEDISH, "Swedish accent")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_AULD_IMPERIAL, "Староимпѣрская рѣчь")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_LISP, "Lisp")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_DIZZY, "Dizziness")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_NICOTINE_ADDICT, "Nicotine addict")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_TEA_ADDICT, "Tea addict")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_COFFEE_ADDICT, "Coffee addict")
-	HTML += ShowDisabilityState(user, DISABILITY_FLAG_ALCOHOLE_ADDICT, "Alcohole addict")
-
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_NEARSIGHTED))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_NEARSIGHTED, "Nearsighted")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_COLOURBLIND))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_COLOURBLIND, "Colourblind")
+	if(!(S.blacklisted_disabilities &  DISABILITY_FLAG_BLIND))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_BLIND, "Blind")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_DEAF))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_DEAF, "Deaf")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_MUTE))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_MUTE, "Mute")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_OBESITY))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_OBESITY, "Obese")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_NERVOUS))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_NERVOUS, "Stutter")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_SWEDISH))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_SWEDISH, "Swedish accent")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_AULD_IMPERIAL))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_AULD_IMPERIAL, "Староимпѣрская рѣчь")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_LISP))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_LISP, "Lisp")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_DIZZY))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_DIZZY, "Dizziness")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_NICOTINE_ADDICT))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_NICOTINE_ADDICT, "Nicotine addict")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_TEA_ADDICT))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_TEA_ADDICT, "Tea addict")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_COFFEE_ADDICT))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_COFFEE_ADDICT, "Coffee addict")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_ALCOHOLE_ADDICT))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_ALCOHOLE_ADDICT, "Alcohole addict")
+	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_PARAPLEGIA))
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_PARAPLEGIA, "Paraplegia")
 
 	HTML += {"</ul>
 		<a href=\"?_src_=prefs;task=close;preference=disabilities\">\[Done\]</a>
@@ -2236,7 +2254,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 					if(!no_amputate)	// I don't want this in my menu if it's not an option, heck.
 						valid_limb_states += "Amputated"
-					if(NO_ROBOPARTS in S.species_traits)
+					if(TRAIT_NO_ROBOPARTS in S.inherent_traits)
 						valid_limb_states -= "Prosthesis"
 
 					var/new_state = tgui_input_list(user, "What state do you wish the limb to be in?", "[limb_name]", valid_limb_states)
@@ -2331,7 +2349,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							organ = INTERNAL_ORGAN_KIDNEYS
 
 					var/list/allowed_organs_type = list("Normal", "Cybernetic")
-					if(NO_ROBOPARTS in S.species_traits)
+					if(TRAIT_NO_ROBOPARTS in S.inherent_traits)
 						allowed_organs_type -= "Cybernetic"
 					var/new_state = tgui_input_list(user, "What state do you wish the organ to be in?", "[organ_name]", allowed_organs_type)
 					if(!new_state) return
@@ -2424,6 +2442,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("vote_popup")
 					toggles2 ^= PREFTOGGLE_2_DISABLE_VOTE_POPUPS
 
+				if("tgui_say_light_mode")
+					toggles2 ^= PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE
+					user?.client?.tgui_say?.load()
+
 				if("ghost_att_anim")
 					toggles2 ^= PREFTOGGLE_2_ITEMATTACK
 
@@ -2496,7 +2518,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if((sound & SOUND_LOBBY) && user.client)
 						user.client.playtitlemusic()
 					else
-						user.stop_sound_channel(CHANNEL_LOBBYMUSIC)
+						// user.stop_sound_channel(CHANNEL_LOBBYMUSIC)
+						user.client?.tgui_panel?.stop_music()
 
 				if("ghost_ears")
 					toggles ^= PREFTOGGLE_CHAT_GHOSTEARS
@@ -2846,7 +2869,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	// Wheelchair necessary?
 	var/obj/item/organ/external/l_foot = character.get_organ(BODY_ZONE_PRECISE_L_FOOT)
 	var/obj/item/organ/external/r_foot = character.get_organ(BODY_ZONE_PRECISE_R_FOOT)
-	if(!l_foot && !r_foot)
+	if(!l_foot && !r_foot || HAS_TRAIT_FROM(character, TRAIT_FLOORED, DNA_TRAIT))
 		var/obj/structure/chair/wheelchair/W = new /obj/structure/chair/wheelchair(character.loc)
 		W.buckle_mob(character, TRUE)
 
@@ -2877,62 +2900,67 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	character.change_eye_color(e_colour)
 	character.original_eye_color = e_colour
 
-	if(disabilities & DISABILITY_FLAG_COFFEE_ADDICT)
+	var/datum/species/new_species = character.dna.species
+
+	if((disabilities & DISABILITY_FLAG_COFFEE_ADDICT) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_COFFEE_ADDICT))
 		var/datum/reagent/new_reagent = new /datum/reagent/consumable/drink/coffee()
 		new_reagent.last_addiction_dose = world.timeofday
 		character.reagents.addiction_list.Add(new_reagent)
 
-	if(disabilities & DISABILITY_FLAG_TEA_ADDICT)
+	if((disabilities & DISABILITY_FLAG_TEA_ADDICT) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_TEA_ADDICT))
 		var/datum/reagent/new_reagent = new /datum/reagent/consumable/drink/tea()
 		new_reagent.last_addiction_dose = world.timeofday
 		character.reagents.addiction_list.Add(new_reagent)
 
-	if(disabilities & DISABILITY_FLAG_NICOTINE_ADDICT)
+	if((disabilities & DISABILITY_FLAG_NICOTINE_ADDICT) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_NICOTINE_ADDICT))
 		var/datum/reagent/new_reagent = new /datum/reagent/nicotine()
 		new_reagent.last_addiction_dose = world.timeofday
 		character.reagents.addiction_list.Add(new_reagent)
 
-	if(disabilities & DISABILITY_FLAG_ALCOHOLE_ADDICT)
+	if((disabilities & DISABILITY_FLAG_ALCOHOLE_ADDICT) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_ALCOHOLE_ADDICT))
 		var/datum/reagent/new_reagent = new /datum/reagent/consumable/ethanol()
 		new_reagent.last_addiction_dose = world.timeofday
 		character.reagents.addiction_list.Add(new_reagent)
 
-	if(disabilities & DISABILITY_FLAG_FAT)
-		character.force_gene_block(GLOB.fatblock, TRUE, TRUE)
+	if((disabilities & DISABILITY_FLAG_OBESITY) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_OBESITY))
+		character.force_gene_block(GLOB.obesityblock, TRUE, TRUE)
 		character.overeatduration = 600
 
-	if(disabilities & DISABILITY_FLAG_NEARSIGHTED)
+	if((disabilities & DISABILITY_FLAG_NEARSIGHTED) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_NEARSIGHTED))
 		character.force_gene_block(GLOB.glassesblock, TRUE, TRUE)
 
-	if(disabilities & DISABILITY_FLAG_BLIND)
+	if((disabilities & DISABILITY_FLAG_BLIND) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_BLIND))
 		character.force_gene_block(GLOB.blindblock, TRUE, TRUE)
 
-	if(disabilities & DISABILITY_FLAG_DEAF)
+	if((disabilities & DISABILITY_FLAG_DEAF) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_DEAF))
 		character.force_gene_block(GLOB.deafblock, TRUE, TRUE)
 
-	if(disabilities & DISABILITY_FLAG_COLOURBLIND)
+	if((disabilities & DISABILITY_FLAG_COLOURBLIND) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_COLOURBLIND))
 		character.force_gene_block(GLOB.colourblindblock, TRUE, TRUE)
 
-	if(disabilities & DISABILITY_FLAG_MUTE)
+	if((disabilities & DISABILITY_FLAG_MUTE) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_MUTE))
 		character.force_gene_block(GLOB.muteblock, TRUE, TRUE)
 
-	if(disabilities & DISABILITY_FLAG_NERVOUS)
+	if((disabilities & DISABILITY_FLAG_NERVOUS) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_NERVOUS))
 		character.force_gene_block(GLOB.nervousblock, TRUE, TRUE)
 
-	if(disabilities & DISABILITY_FLAG_SWEDISH)
+	if((disabilities & DISABILITY_FLAG_SWEDISH) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_SWEDISH))
 		character.force_gene_block(GLOB.swedeblock, TRUE, TRUE)
 
-	if(disabilities & DISABILITY_FLAG_AULD_IMPERIAL)
+	if((disabilities & DISABILITY_FLAG_AULD_IMPERIAL) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_AULD_IMPERIAL))
 		character.force_gene_block(GLOB.auld_imperial_block, TRUE, TRUE)
 
-	if(disabilities & DISABILITY_FLAG_LISP)
+	if((disabilities & DISABILITY_FLAG_LISP) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_LISP))
 		character.force_gene_block(GLOB.lispblock, TRUE, TRUE)
 
-	if(disabilities & DISABILITY_FLAG_DIZZY)
+	if((disabilities & DISABILITY_FLAG_DIZZY) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_DIZZY))
 		character.force_gene_block(GLOB.dizzyblock, TRUE, TRUE)
 
-	if(disabilities & DISABILITY_FLAG_WINGDINGS && (CAN_WINGDINGS in character.dna.species.species_traits))
+	if((disabilities & DISABILITY_FLAG_WINGDINGS) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_WINGDINGS))
 		character.force_gene_block(GLOB.wingdingsblock, TRUE, TRUE)
+
+	if((disabilities & DISABILITY_FLAG_PARAPLEGIA) && !(new_species.blacklisted_disabilities & DISABILITY_FLAG_PARAPLEGIA))
+		character.force_gene_block(GLOB.paraplegiablock, TRUE, TRUE)
 
 	character.dna.species.handle_dna(character)
 
@@ -2970,7 +2998,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		name = slotnames[i] || "Character [i]"
 		if(i == default_slot)
 			name = "<b>[name]</b>"
-		dat += "<a href='?_src_=prefs;preference=changeslot;num=[i];'>[name]</a><br>"
+		dat += "<a href='byond://?_src_=prefs;preference=changeslot;num=[i];'>[name]</a><br>"
 
 	dat += "<hr>"
 	dat += "<a href='byond://?_src_=prefs;preference=close_load_dialog'>Close</a><br>"

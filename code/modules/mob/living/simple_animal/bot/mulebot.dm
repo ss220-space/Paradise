@@ -103,52 +103,122 @@
 
 
 /mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/user, params)
-	if(istype(I,/obj/item/stock_parts/cell) && open && !cell)
+	if(user.a_intent == INTENT_HARM)
+		var/atom/cached_load = load
+		. = ..()
+		if(!ATTACK_CHAIN_CANCEL_CHECK(.) && knock_off(1 + I.force * 2))
+			user.visible_message(
+				span_danger("[user] has knocked [cached_load] off [src]!"),
+				span_danger("You have knocked [cached_load] off [src]!"),
+			)
+		return .
+
+	if(istype(I,/obj/item/stock_parts/cell))
+		add_fingerprint(user)
+		if(!open)
+			to_chat(user, span_warning("You should open the maintenance panel first."))
+			return ATTACK_CHAIN_PROCEED
+		if(cell)
+			to_chat(user, span_warning("The [name] already has a power cell installed."))
+			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
-			return
-		var/obj/item/stock_parts/cell/C = I
-		cell = C
-		visible_message("[user] inserts a cell into [src].",
-						span_notice("You insert the new cell into [src]."))
+			return ..()
+		cell = I
+		user.visible_message(
+			span_notice("[user] has inserted a cell into [src]."),
+			span_notice("You have inserted the new cell into [src]."),
+		)
 		update_controls()
-	else if(I.tool_behaviour == TOOL_CROWBAR && open && cell)
-		cell.add_fingerprint(usr)
-		cell.forceMove(loc)
-		cell = null
-		visible_message("[user] crowbars out the power cell from [src].",
-						span_notice("You pry the powercell out of [src]."))
-		update_controls()
-	else if(I.tool_behaviour == TOOL_WRENCH)
-		if(health < maxHealth)
-			adjustBruteLoss(-25)
-			user.visible_message(span_notice("[user] repairs [src]!"),
-								span_notice("You repair [src]!"))
-		else
-			to_chat(user, span_notice("[src] does not need a repair!"))
-	else if((I.tool_behaviour == TOOL_MULTITOOL || I.tool_behaviour == TOOL_WIRECUTTER) && open)
-		return attack_hand(user)
-	else if(load && ismob(load))  // chance to knock off rider
-		if(prob(1 + I.force * 2))
-			unload(0)
-			user.visible_message(span_danger("[user] knocks [load] off [src] with \the [I]!"),
-								span_danger("You knock [load] off [src] with \the [I]!"))
-		else
-			to_chat(user, span_warning("You hit [src] with \the [I] but to no effect!"))
-			..()
-	else
-		..()
-	update_icon()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	var/atom/cached_load = load
+	. = ..()
+	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && knock_off(1 + I.force * 2))
+		user.visible_message(
+			span_danger("[user] has knocked off [cached_load] from [src]!"),
+			span_danger("You have knocked off [cached_load] from [src]!"),
+		)
+
+
+/// Chance to knock off the rider
+/mob/living/simple_animal/bot/mulebot/proc/knock_off(probability)
+	if(!ismob(load) || !prob(probability))
+		return FALSE
+	unload(NONE)
+	return TRUE
 
 
 /mob/living/simple_animal/bot/mulebot/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
 	if(!.)
-		return
+		return .
 
 	if(open)
 		on = FALSE
 	update_controls()
 	update_icon()
+
+
+/mob/living/simple_animal/bot/mulebot/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(health >= maxHealth)
+		add_fingerprint(user)
+		to_chat(user, span_warning("[src] does not need a repair!"))
+		return .
+	user.visible_message(
+		span_notice("[user] starts to repair [src]."),
+		span_notice("You start to repair [src]..."),
+	)
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume) || health >= maxHealth)
+		return .
+	heal_damage_type(25, BRUTE)
+	user.visible_message(
+		span_notice("[user] has repaired [src]."),
+		span_notice("You have repaired [src]."),
+	)
+
+
+/mob/living/simple_animal/bot/mulebot/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!open)
+		add_fingerprint(user)
+		to_chat(user, span_warning("You should open the maintenance panel first."))
+		return .
+	if(!cell)
+		add_fingerprint(user)
+		to_chat(user, span_warning("The [name] has no power cell installed."))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	user.visible_message(
+		span_notice("[user] has removed the power cell from [src]."),
+		span_notice("You have removed the power cell from [src]."),
+	)
+	cell.add_fingerprint(user)
+	cell.forceMove(drop_location())
+	cell = null
+
+
+/mob/living/simple_animal/bot/mulebot/wirecutter_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!open)
+		add_fingerprint(user)
+		to_chat(user, span_warning("You should open the maintenance panel first."))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	attack_hand(user)
+
+
+/mob/living/simple_animal/bot/mulebot/multitool_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!open)
+		add_fingerprint(user)
+		to_chat(user, span_warning("You should open the maintenance panel first."))
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	attack_hand(user)
 
 
 /mob/living/simple_animal/bot/mulebot/emag_act(mob/user)
@@ -319,31 +389,31 @@
 		dat += "<b>Power level:</b> [cell ? cell.percent() : 0]%"
 
 		if(locked && !ai && !user.can_admin_interact())
-			dat += "&nbsp;<br /><div class='notice'>Controls are locked</div><A href='?src=[UID()];op=unlock'>Unlock Controls</A>"
+			dat += "&nbsp;<br /><div class='notice'>Controls are locked</div><a href='byond://?src=[UID()];op=unlock'>Unlock Controls</A>"
 		else
-			dat += "&nbsp;<br /><div class='notice'>Controls are unlocked</div><A href='?src=[UID()];op=lock'>Lock Controls</A><BR><BR>"
+			dat += "&nbsp;<br /><div class='notice'>Controls are unlocked</div><a href='byond://?src=[UID()];op=lock'>Lock Controls</A><BR><BR>"
 
-			dat += "<A href='?src=[UID()];op=power'>Toggle Power</A><BR>"
-			dat += "<A href='?src=[UID()];op=stop'>Stop</A><BR>"
-			dat += "<A href='?src=[UID()];op=go'>Proceed</A><BR>"
-			dat += "<A href='?src=[UID()];op=home'>Return to Home</A><BR>"
-			dat += "<A href='?src=[UID()];op=destination'>Set Destination</A><BR>"
-			dat += "<A href='?src=[UID()];op=setid'>Set Bot ID</A><BR>"
-			dat += "<A href='?src=[UID()];op=sethome'>Set Home</A><BR>"
-			dat += "<A href='?src=[UID()];op=autoret'>Toggle Auto Return Home</A> ([auto_return ? "On":"Off"])<BR>"
-			dat += "<A href='?src=[UID()];op=autopick'>Toggle Auto Pickup Crate</A> ([auto_pickup ? "On":"Off"])<BR>"
-			dat += "<A href='?src=[UID()];op=report'>Toggle Delivery Reporting</A> ([report_delivery ? "On" : "Off"])<BR>"
+			dat += "<a href='byond://?src=[UID()];op=power'>Toggle Power</A><BR>"
+			dat += "<a href='byond://?src=[UID()];op=stop'>Stop</A><BR>"
+			dat += "<a href='byond://?src=[UID()];op=go'>Proceed</A><BR>"
+			dat += "<a href='byond://?src=[UID()];op=home'>Return to Home</A><BR>"
+			dat += "<a href='byond://?src=[UID()];op=destination'>Set Destination</A><BR>"
+			dat += "<a href='byond://?src=[UID()];op=setid'>Set Bot ID</A><BR>"
+			dat += "<a href='byond://?src=[UID()];op=sethome'>Set Home</A><BR>"
+			dat += "<a href='byond://?src=[UID()];op=autoret'>Toggle Auto Return Home</A> ([auto_return ? "On":"Off"])<BR>"
+			dat += "<a href='byond://?src=[UID()];op=autopick'>Toggle Auto Pickup Crate</A> ([auto_pickup ? "On":"Off"])<BR>"
+			dat += "<a href='byond://?src=[UID()];op=report'>Toggle Delivery Reporting</A> ([report_delivery ? "On" : "Off"])<BR>"
 			if(load)
-				dat += "<A href='?src=[UID()];op=unload'>Unload Now</A><BR>"
+				dat += "<a href='byond://?src=[UID()];op=unload'>Unload Now</A><BR>"
 			dat += "<div class='notice'>The maintenance hatch is closed.</div>"
 	else
 		if(!ai)
 			dat += "<div class='notice'>The maintenance hatch is open.</div><BR>"
 			dat += "<b>Power cell:</b> "
 			if(cell)
-				dat += "<A href='?src=[UID()];op=cellremove'>Installed</A><BR>"
+				dat += "<a href='byond://?src=[UID()];op=cellremove'>Installed</A><BR>"
 			else
-				dat += "<A href='?src=[UID()];op=cellinsert'>Removed</A><BR>"
+				dat += "<a href='byond://?src=[UID()];op=cellinsert'>Removed</A><BR>"
 
 			wires.Interact(user)
 		else
@@ -418,7 +488,7 @@
 
 	load = AM
 	mode = BOT_IDLE
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 
 /mob/living/simple_animal/bot/mulebot/proc/load_mob(mob/living/M)
@@ -452,17 +522,14 @@
 
 	mode = BOT_IDLE
 
-	unbuckle_all_mobs()
+	unbuckle_all_mobs(force = TRUE)
 
 	if(load)
-		load.forceMove(loc)
-		load.pixel_y = initial(load.pixel_y)
-		load.layer = initial(load.layer)
-		SET_PLANE_EXPLICIT(load, initial(load.plane), src)
+		if(!ismob(load))	// already unbuckled otherwise
+			load.forceMove(loc)
 		if(dirn)
-			var/turf/T = loc
-			var/turf/newT = get_step(T,dirn)
-			if(load.CanPass(load, get_dir(newT, src))) //Can't get off onto anything that wouldn't let you pass normally
+			var/turf/newT = get_step(load.loc, dirn)
+			if(newT.CanPass(load, get_dir(newT, src))) //Can't get off onto anything that wouldn't let you pass normally
 				step(load, dirn)
 		load = null
 
@@ -472,14 +539,11 @@
 	// this seems to happen sometimes due to race conditions
 	// with items dropping as mobs are loaded
 
-	for(var/atom/movable/AM in src)
-		if(AM == cell || AM == access_card || AM == Radio || AM == paicard || AM == bot_core || ispulsedemon(AM))
+	for(var/atom/movable/thing as anything in src)
+		if(thing == cell || thing == access_card || thing == Radio || thing == paicard || thing == bot_core || ispulsedemon(thing))
 			continue
+		thing.forceMove(loc)
 
-		AM.forceMove(loc)
-		AM.layer = initial(AM.layer)
-		AM.pixel_y = initial(AM.pixel_y)
-		AM.plane = initial(AM.plane)
 
 
 /mob/living/simple_animal/bot/mulebot/call_bot()
@@ -750,7 +814,7 @@
 	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_L_ARM, run_armor_check(BODY_ZONE_L_ARM, MELEE))
 	H.apply_damage(0.5*damage, BRUTE, BODY_ZONE_R_ARM, run_armor_check(BODY_ZONE_R_ARM, MELEE))
 
-	if(NO_BLOOD in H.dna.species.species_traits)//Does the run over mob have blood?
+	if(HAS_TRAIT(H, TRAIT_NO_BLOOD))//Does the run over mob have blood?
 		return//If it doesn't it shouldn't bleed (Though a check should be made eventually for things with liquid in them, like slime people.)
 
 	var/turf/T = get_turf(src)//Where are we?

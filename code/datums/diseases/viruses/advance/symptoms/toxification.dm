@@ -22,7 +22,7 @@ Toxification syndrome
 	var/mob/living/carbon/human/H = A.affected_mob
 	if(istype(H))
 		germs_multiplier = 6 + sqrtor0(25 + A.totalTransmittable()) //~~10 on average
-		H.dna.species.germs_growth_rate *= germs_multiplier
+		H.physiology.germs_growth_mod *= germs_multiplier
 
 /datum/symptom/infection/Activate(datum/disease/virus/advance/A)
 	..()
@@ -47,4 +47,5 @@ Toxification syndrome
 /datum/symptom/infection/End(datum/disease/virus/advance/A)
 	var/mob/living/carbon/human/H = A.affected_mob
 	if(germs_multiplier)
-		H.dna.species.germs_growth_rate /= germs_multiplier
+		H.physiology.germs_growth_mod /= germs_multiplier
+

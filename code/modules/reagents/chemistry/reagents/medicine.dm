@@ -140,7 +140,7 @@
 
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(C.get_blood_id() == id)
+		if(C.get_blood_id() == id && !HAS_TRAIT(C, TRAIT_NO_BLOOD_RESTORE))
 			C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
 			C.reagents.del_reagent(id)
 
@@ -293,9 +293,9 @@
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	if(ishuman(M) && prob(33))
 		var/mob/living/carbon/human/H = M
-		if(!(NO_BLOOD in H.dna.species.species_traits))//do not restore blood on things with no blood by nature.
-			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
-				H.blood_volume += 1
+		//do not restore blood on things with no blood by nature.
+		if(!HAS_TRAIT(H, TRAIT_NO_BLOOD) && !HAS_TRAIT(H, TRAIT_NO_BLOOD_RESTORE) && H.blood_volume < BLOOD_VOLUME_NORMAL)
+			H.blood_volume += 1
 	return ..() | update_flags
 
 /datum/reagent/medicine/synthflesh
@@ -335,7 +335,7 @@
 	to_chat(M, "<span class='notice'>Вы чуствуете чесотку.</span>")
 	update_flags |= M.adjustFireLoss(-1.5, FALSE)
 	if(volume > 1.9)
-		if((HUSK) in M.mutations)
+		if(HAS_TRAIT(M, TRAIT_HUSK))
 			var/mob/living/carbon/human/H = M
 			H.cure_husk()
 			to_chat(M, "<span class='warning'>Ваша обугленная кожа отпадает!</span>")
@@ -348,7 +348,7 @@
 	update |= M.heal_damage_type(6, BURN, updating_health = FALSE)
 	if(update)
 		M.updatehealth()
-	if(prob(25) && !((NO_BLOOD) in M.mutations))
+	if(prob(25) && ishuman(M) && !HAS_TRAIT(M, TRAIT_NO_BLOOD))
 		var/mob/living/carbon/human/H = M
 		H.bleed(20)
 	return ..()
@@ -838,7 +838,7 @@
 				if(!M.ghost_can_reenter())
 					M.visible_message("<span class='warning'>[M] twitches slightly, but is otherwise unresponsive!</span>")
 					return
-				if(!M.suiciding && !(NOCLONE in M.mutations) && (!M.mind || M.mind?.is_revivable()))
+				if(!M.suiciding && !HAS_TRAIT(M, TRAIT_NO_CLONE) && (!M.mind || M.mind?.is_revivable()))
 					var/time_dead = world.time - M.timeofdeath
 					M.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
 					var/update = NONE
@@ -897,21 +897,24 @@
 	color = "#5096C8"
 	taste_description = "cleanliness"
 
+
 /datum/reagent/medicine/mutadone/on_mob_life(mob/living/carbon/human/M)
 	if(M.mind && M.mind.assigned_role == "Cluwne") // HUNKE
-		..()
-		return
+		return ..()
+
 	M.SetJitter(0)
-	var/needs_update = M.mutations.len > 0
 
-	if(needs_update)
-		for(var/block = 1; block<=DNA_SE_LENGTH; block++)
-			if(!LAZYIN(M.dna.default_blocks, block))
-				M.force_gene_block(block, FALSE)
+	if(!ishuman(M))
+		return ..()
 
-		M.dna.struc_enzymes = M.dna.struc_enzymes_original
+	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
+		if(!LAZYIN(M.dna.default_blocks, gene.block))
+			M.force_gene_block(gene.block, FALSE)
+
+	M.dna.struc_enzymes = M.dna.struc_enzymes_original
 
 	return ..()
+
 
 /datum/reagent/medicine/antihol
 	name = "Antihol"
@@ -1096,6 +1099,7 @@
 	reagent_state = LIQUID
 	color = "#FFDCFF"
 	taste_description = "stability"
+	harmless = FALSE
 	var/list/drug_list = list("crank","methamphetamine","space_drugs","psilocybin","ephedrine","epinephrine","stimulants","bath_salts","lsd","thc")
 
 /datum/reagent/medicine/haloperidol/on_mob_life(mob/living/M)
@@ -1423,7 +1427,7 @@
 					var/mob/living/carbon/human/H = M
 					for(var/obj/item/organ/internal/I as anything in M.internal_organs) // 56 healing to all internal organs.
 						I.heal_internal_damage(8)
-					if(H.blood_volume < BLOOD_VOLUME_NORMAL * 0.9 && !isdiona(H))// If below 90% blood, regenerate 210 units total
+					if(!HAS_TRAIT(H, TRAIT_NO_BLOOD_RESTORE) && H.blood_volume < BLOOD_VOLUME_NORMAL * 0.9)// If below 90% blood, regenerate 210 units total
 						H.blood_volume += 30
 					for(var/datum/disease/critical/heart_failure/HF in H.diseases)
 						HF.cure() //Won't fix a stopped heart, but it will sure fix a critical one. Shock is not fixed as healing will fix it

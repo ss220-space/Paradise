@@ -50,11 +50,17 @@ GLOBAL_VAR(current_date_string)
 		<hr>
 	"}
 
-/obj/machinery/computer/account_database/attackby(obj/O, mob/user, params)
-	if(ui_login_attackby(O, user))
+
+/obj/machinery/computer/account_database/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(ui_login_attackby(I, user))
 		add_fingerprint(user)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
+
 
 /obj/machinery/computer/account_database/attack_hand(mob/user)
 	if(..())

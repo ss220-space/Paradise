@@ -20,7 +20,7 @@
 
 /obj/structure/closet/wardrobe/red
 	name = "security wardrobe"
-	custom_door_overlay = "red"
+	icon_state = "secward"
 
 /obj/structure/closet/wardrobe/red/populate_contents()
 	new /obj/item/storage/backpack/duffel/security(src)
@@ -333,7 +333,7 @@
 
 /obj/structure/closet/wardrobe/robotics_black
 	name = "robotics wardrobe"
-	custom_door_overlay = "black"
+	icon_state = "robo"
 
 /obj/structure/closet/wardrobe/robotics_black/populate_contents()
 	new /obj/item/clothing/under/rank/roboticist(src)
@@ -350,7 +350,7 @@
 
 /obj/structure/closet/wardrobe/chemistry_white
 	name = "chemistry wardrobe"
-	custom_door_overlay = "white"
+	icon_state = "chem"
 
 /obj/structure/closet/wardrobe/chemistry_white/populate_contents()
 	new /obj/item/clothing/under/rank/chemist(src)
@@ -390,7 +390,7 @@
 
 /obj/structure/closet/wardrobe/virology_white
 	name = "virology wardrobe"
-	custom_door_overlay = "white"
+	icon_state = "vir"
 
 /obj/structure/closet/wardrobe/virology_white/populate_contents()
 	new /obj/item/clothing/under/rank/virologist(src)
@@ -506,7 +506,7 @@
 
 /obj/structure/closet/wardrobe/coroner
 	name = "coroner wardrobe"
-	custom_door_overlay = "black"
+	icon_state = "coroner"
 
 /obj/structure/closet/wardrobe/coroner/populate_contents()
 	if(prob(50))

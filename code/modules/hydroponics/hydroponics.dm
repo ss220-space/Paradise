@@ -1,6 +1,10 @@
 #define PLANT_LAYER OBJ_LAYER + 0.01
 #define LID_LAYER OBJ_LAYER + 0.02
 
+// Floragun
+/// Maximum value after which GAMMA mode (/energy/floragun) does not work
+#define MAX_MATURATION_SPEED 15
+
 /obj/machinery/hydroponics
 	name = "hydroponics tray"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
@@ -19,7 +23,7 @@
 	var/mutmod = 1			//Nutriment's effect on mutations
 	var/toxic = 0			//Toxicity in the tray?
 	var/age = 0				//Current age
-	var/dead = 0			//Is it dead?
+	var/dead = FALSE		//Is it dead?
 	var/plant_health		//Its health
 	var/lastproduce = 0		//Last time it was harvested
 	var/lastcycle = 0		//Used for timing of cycles.
@@ -71,8 +75,8 @@
 		tmp_capacity += M.rating
 	for (var/obj/item/stock_parts/manipulator/M in component_parts)
 		rating = M.rating
-	maxwater = tmp_capacity * 50 // Up to 300
-	maxnutri = tmp_capacity * 5 // Up to 30
+	maxwater = tmp_capacity * 50 // Up to 500
+	maxnutri = tmp_capacity * 5 // Up to 50
 	waterlevel = maxwater
 	nutrilevel = 3
 	plant_hud_set_nutrient()
@@ -83,16 +87,18 @@
 	QDEL_NULL(myseed)
 	return ..()
 
+
 /obj/machinery/hydroponics/constructable/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "hydrotray3", "hydrotray3", I))
-		add_fingerprint(user)
-		return
-
-	if(exchange_parts(user, I))
-		return
-
-	else
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	return ..()
+
+
+/obj/machinery/hydroponics/constructable/screwdriver_act(mob/living/user, obj/item/I)
+	return default_deconstruction_screwdriver(user, "hydrotray3", "hydrotray3", I)
+
 
 /obj/machinery/hydroponics/constructable/crowbar_act(mob/user, obj/item/I)
 
@@ -138,10 +144,12 @@
 /obj/machinery/hydroponics/bullet_act(obj/item/projectile/Proj) //Works with the Somatoray to modify plant variables.
 	if(!myseed)
 		return ..()
-	if(istype(Proj ,/obj/item/projectile/energy/floramut))
-		mutate()
-	else if(istype(Proj ,/obj/item/projectile/energy/florayield))
-		return myseed.bullet_act(Proj)
+	if(istype(Proj, /obj/item/projectile/energy/floragamma))
+		make_grow()
+	else if(istype(Proj, /obj/item/projectile/energy/florabeta))
+		myseed.on_floragun_beta_act()
+	else if(istype(Proj, /obj/item/projectile/energy/floraalpha) && !lid_closed)
+		plantdies()
 	else
 		return ..()
 
@@ -423,6 +431,12 @@
 	plant_hud_set_status()
 	visible_message("<span class='warning'>The [oldPlantName] is overtaken by some [myseed.plantname]!</span>")
 
+/obj/machinery/hydroponics/proc/make_grow()
+	if(!myseed || harvest || dead)
+		return
+	if(myseed.maturation < MAX_MATURATION_SPEED)
+		age += myseed.maturation
+		update_state()
 
 /obj/machinery/hydroponics/proc/mutate(lifemut = 2, endmut = 5, productmut = 1, yieldmut = 2, potmut = 25, wrmut = 2, wcmut = 5, traitmut = 0) // Mutates the current seed
 	if(!myseed)
@@ -751,149 +765,176 @@
 			else
 				to_chat(user, "<span class='warning'>Nothing happens...</span>")
 
-/obj/machinery/hydroponics/attackby(obj/item/O, mob/user, params)
-	//Called when mob user "attacks" it with object O
-	if(istype(O, /obj/item/reagent_containers))  // Syringe stuff (and other reagent containers now too)
-		var/obj/item/reagent_containers/reagent_source = O
 
-		if(istype(reagent_source, /obj/item/reagent_containers/syringe))
-			var/obj/item/reagent_containers/syringe/syr = reagent_source
-			if(syr.mode != 1)
-				to_chat(user, "<span class='warning'>You can't get any extract out of this plant.</span>")		//That. Gives me an idea...
-				return
+/obj/machinery/hydroponics/attackby(obj/item/I, mob/user, params)
+	var/is_reagent_container = istype(I, /obj/item/reagent_containers)
+	if(user.a_intent == INTENT_HARM)
+		if(is_reagent_container)
+			return ..() | ATTACK_CHAIN_NO_AFTERATTACK
+		return ..()
+
+	if(istype(I, /obj/item/reagent_containers))  // Syringe stuff (and other reagent containers now too)
+		add_fingerprint(user)
+		var/obj/item/reagent_containers/reagent_source = I
+		var/is_syringe = istype(reagent_source, /obj/item/reagent_containers/syringe)
+		if(is_syringe)
+			var/obj/item/reagent_containers/syringe/syringe = reagent_source
+			if(syringe.mode != 1)
+				to_chat(user, span_warning("You cannot get any extract out of this plant."))		//That. Gives me an idea...
+				return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 
 		if(!reagent_source.reagents.total_volume)
-			to_chat(user, "<span class='notice'>[reagent_source] is empty.</span>")
-			return 1
+			to_chat(user, span_warning("The [reagent_source.name] is empty."))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 
 		if(reagent_source.has_lid && !reagent_source.is_drainable()) //if theres a LID then cannot transfer reagents.
-			to_chat(user, "<span class='warning'>You need to open [O] first!</span>")
-			return TRUE
-
-		add_fingerprint(user)
+			to_chat(user, span_warning("You need to open [reagent_source] first."))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 
 		var/list/trays = list(src)//makes the list just this in cases of syringes and compost etc
-		var/target = myseed ? myseed.plantname : src
+		var/target = myseed ? myseed.plantname : name
 		var/visi_msg = ""
-		var/irrigate = 0	//How am I supposed to irrigate pill contents?
+		var/irrigate = FALSE	//How am I supposed to irrigate pill contents?
 		var/transfer_amount
 
-		if(istype(reagent_source, /obj/item/reagent_containers/food/snacks) || ispill(reagent_source))
-			visi_msg="[user] composts [reagent_source], spreading it through [target]"
+		var/is_snack = istype(reagent_source, /obj/item/reagent_containers/food/snacks)
+		var/is_pill = ispill(reagent_source)
+		if(is_snack || is_pill)
+			visi_msg = "[user] composts [reagent_source], spreading it through the [target]"
 			transfer_amount = reagent_source.reagents.total_volume
 		else
 			transfer_amount = reagent_source.amount_per_transfer_from_this
-			if(istype(reagent_source, /obj/item/reagent_containers/syringe/))
-				var/obj/item/reagent_containers/syringe/syr = reagent_source
-				visi_msg="[user] injects [target] with [syr]"
-				if(syr.reagents.total_volume <= syr.amount_per_transfer_from_this)
-					syr.mode = 0
-			else if(istype(reagent_source, /obj/item/reagent_containers/spray/))
-				visi_msg="[user] sprays [target] with [reagent_source]"
-				playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
-				irrigate = 1
+			if(is_syringe)
+				var/obj/item/reagent_containers/syringe/syringe = reagent_source
+				visi_msg = "[user] injects the [target] with [syringe]"
+				if(syringe.reagents.total_volume <= syringe.amount_per_transfer_from_this)
+					syringe.mode = 0
+			else if(istype(reagent_source, /obj/item/reagent_containers/spray))
+				visi_msg = "[user] sprays the [target] with [reagent_source]"
+				playsound(loc, 'sound/effects/spray3.ogg', 50, TRUE, -6)
+				irrigate = TRUE
 			else if(transfer_amount) // Droppers, cans, beakers, what have you.
-				visi_msg="[user] uses [reagent_source] on [target]"
-				irrigate = 1
+				visi_msg = "[user] uses [reagent_source] on the [target]"
+				irrigate = TRUE
 			// Beakers, bottles, buckets, etc.
 			if(reagent_source.is_drainable())
-				playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
+				playsound(loc, 'sound/effects/slosh.ogg', 25, TRUE)
 
 		if(irrigate && transfer_amount > 30 && reagent_source.reagents.total_volume >= 30 && using_irrigation)
 			trays = FindConnected()
-			if (trays.len > 1)
+			if(length(trays) > 1)
 				visi_msg += ", setting off the irrigation system"
 
 		if(visi_msg)
-			visible_message("<span class='notice'>[visi_msg].</span>")
+			visible_message(span_notice("[visi_msg]."))
 
-		var/split = round(transfer_amount/trays.len)
+		var/split = round(transfer_amount / length(trays))
 
-		for(var/obj/machinery/hydroponics/H in trays)
+		for(var/obj/machinery/hydroponics/hydroponics in trays)
 		//cause I don't want to feel like im juggling 15 tamagotchis and I can get to my real work of ripping flooring apart in hopes of validating my life choices of becoming a space-gardener
 
-			var/datum/reagents/S = new /datum/reagents() //This is a strange way, but I don't know of a better one so I can't fix it at the moment...
-			S.maximum_volume = reagent_source.reagents.maximum_volume
-			S.my_atom = H
+			//This is a strange way, but I don't know of a better one so I can't fix it at the moment...
+			var/datum/reagents/temp_holder = new(reagent_source.reagents.maximum_volume)
+			temp_holder.my_atom = hydroponics
 
-			reagent_source.reagents.trans_to(S,split)
-			if(istype(reagent_source, /obj/item/reagent_containers/food/snacks) || ispill(reagent_source))
+			reagent_source.reagents.trans_to(temp_holder, split)
+			if(is_snack || is_pill)
 				qdel(reagent_source)
 
-			H.applyChemicals(S, user)
+			hydroponics.applyChemicals(temp_holder, user)
 
-			S.clear_reagents()
-			qdel(S)
-			H.update_state()
-		if(reagent_source) // If the source wasn't composted and destroyed
+			temp_holder.clear_reagents()
+			qdel(temp_holder)
+			hydroponics.update_state()
+
+		if(!QDELETED(reagent_source)) // If the source wasn't composted and destroyed
 			reagent_source.update_icon()
-		return 1
 
-	else if(istype(O, /obj/item/seeds) && !istype(O, /obj/item/seeds/sample))
-		if(!myseed)
-			add_fingerprint(user)
-			if(istype(O, /obj/item/seeds/kudzu))
-				investigate_log("had Kudzu <span class='warning'>planted</span> in it by [key_name_log(user)]", INVESTIGATE_BOTANY)
-			user.drop_transfer_item_to_loc(O, src)
-			to_chat(user, "<span class='notice'>You plant [O].</span>")
-			dead = 0
-			myseed = O
-			age = 1
-			plant_health = myseed.endurance
-			plant_hud_set_health()
-			plant_hud_set_status()
-			lastcycle = world.time
-			update_state()
-		else
-			to_chat(user, "<span class='warning'>[src] already has seeds in it!</span>")
+		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
 
-	else if(istype(O, /obj/item/plant_analyzer))
+	if(istype(I, /obj/item/seeds) && !istype(I, /obj/item/seeds/sample))
+		add_fingerprint(user)
+		if(myseed)
+			to_chat(user, span_warning("The [name] already has [myseed] inside."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		if(istype(I, /obj/item/seeds/kudzu))
+			investigate_log("had Kudzu <span class='warning'>planted</span> in it by [key_name_log(user)]", INVESTIGATE_BOTANY)
+		to_chat(user, span_notice("You have planted [I] into [src]."))
+		dead = FALSE
+		myseed = I
+		age = 1
+		plant_health = myseed.endurance
+		plant_hud_set_health()
+		plant_hud_set_status()
+		lastcycle = world.time
+		update_state()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/plant_analyzer))
 		add_fingerprint(user)
 		send_plant_details(user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	else if(istype(O, /obj/item/cultivator))
-		if(weed_pulling)
-			to_chat(user, span_warning("[src] is busy."))
-			return TRUE
-		if(weedlevel > 0)
-			add_fingerprint(user)
-			weed_pulling = TRUE
-			user.visible_message(span_notice("[user] uproots the weeds from [src]."), span_notice("You remove the weeds from [src]."))
-			while(weedlevel > 0)
-				if(do_after(user, 2 SECONDS * O.toolspeed, src, category = DA_CAT_TOOL))
-					if(!istype(src, /obj/machinery/hydroponics))
-						return TRUE
-					adjustWeeds(-2)
-				else
-					break
-			if(weedlevel > 0)
-				to_chat(user, span_warning("You have stopped pulling weeds."))
-			else
-				to_chat(user, span_notice("You have finished pulling weeds."))
-			weed_pulling = FALSE
-			update_state()
-		else
-			to_chat(user, span_warning("This plot is completely devoid of weeds! It doesn't need uprooting."))
-
-	else if(istype(O, /obj/item/storage/bag/plants))
-		attempt_harvest(user)
-		var/obj/item/storage/bag/plants/S = O
-		for(var/obj/item/reagent_containers/food/snacks/grown/G in locate(user.x,user.y,user.z))
-			if(!S.can_be_inserted(G))
-				return
-			S.handle_item_insertion(G, 1)
-
-	else if(istype(O, /obj/item/shovel/spade))
-		if(!myseed && !weedlevel)
-			to_chat(user, "<span class='warning'>[src] doesn't have any plants or weeds!</span>")
-			return
-		user.visible_message("<span class='notice'>[user] starts digging out [src]'s plants...</span>", "<span class='notice'>You start digging out [src]'s plants...</span>")
-		playsound(src, O.usesound, 50, 1)
-		if(!do_after(user, 2.5 SECONDS * O.toolspeed, src, category = DA_CAT_TOOL) || (!myseed && !weedlevel))
-			return
+	if(istype(I, /obj/item/cultivator))
 		add_fingerprint(user)
-		user.visible_message("<span class='notice'>[user] digs out the plants in [src]!</span>", "<span class='notice'>You dig out all of [src]'s plants!</span>")
-		playsound(src, O.usesound, 50, 1)
+		if(weed_pulling)
+			to_chat(user, span_warning("Someone is already uprooting the weeds."))
+			return ATTACK_CHAIN_PROCEED
+		if(weedlevel <= 0)
+			to_chat(user, span_warning("The [name] is completely devoid of weeds! It doesn't need uprooting."))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] starts to uproot the weeds from [src]."),
+			span_notice("You start to uproot the weeds..."),
+		)
+		weed_pulling = TRUE
+		while(do_after(user, 2 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
+			if(weedlevel <= 0)
+				break
+			adjustWeeds(-2)
+		weed_pulling = FALSE
+		if(weedlevel > 0)
+			user.visible_message(
+				span_notice("[user] has stopped uprooting the weeds from [src]."),
+				span_notice("You have stopped uprooting the weeds."),
+			)
+		else
+			user.visible_message(
+				span_notice("[user] has finished uprooting the weeds from [src]."),
+				span_notice("You have finished uprooting the weeds."),
+			)
+		update_state()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/storage/bag/plants))
+		add_fingerprint(user)
+		attempt_harvest(user)
+		var/obj/item/storage/bag/plants/bag = I
+		for(var/obj/item/reagent_containers/food/snacks/grown/grown in user.loc)
+			if(!bag.can_be_inserted(grown))
+				continue
+			bag.handle_item_insertion(grown, TRUE)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/shovel/spade))
+		add_fingerprint(user)
+		if(!myseed && !weedlevel)
+			to_chat(user, span_warning("The [name] is completely empty."))
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] starts digging out [src]'s plants."),
+			span_notice("You start digging out [src]'s plants..."),
+		)
+		I.play_tool_sound(src)
+		if(!do_after(user, 2.5 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || (!myseed && !weedlevel))
+			return ATTACK_CHAIN_PROCEED
+		I.play_tool_sound(src)
+		user.visible_message(
+			span_notice("[user] has dug out all the plants in [src]."),
+			span_notice("You have dug out all the plants in [src]."),
+		)
 		if(myseed) //Could be that they're just using it as a de-weeder
 			age = 0
 			plant_health = 0
@@ -905,11 +946,15 @@
 			plant_hud_set_status()
 		adjustWeeds(-10) //Has a side effect of cleaning up those nasty weeds
 		update_state()
-	else if(is_pen(O) && myseed)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(is_pen(I) && myseed)
 		add_fingerprint(user)
 		myseed.variant_prompt(user, src)
-	else
-		return ..()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
 
 /obj/machinery/hydroponics/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
@@ -1060,12 +1105,15 @@
 /obj/machinery/hydroponics/soil/update_icon_lights()
 	return // Has no lights
 
-/obj/machinery/hydroponics/soil/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/shovel) && !istype(O, /obj/item/shovel/spade)) //Doesn't include spades because of uprooting plants
-		to_chat(user, "<span class='notice'>You clear up [src]!</span>")
+
+/obj/machinery/hydroponics/soil/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/shovel) && !istype(I, /obj/item/shovel/spade)) //Doesn't include spades because of uprooting plants
+		I.play_tool_sound(src)
+		to_chat(user, span_notice("You have cleared up [src]."))
 		qdel(src)
-	else
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
 
 #undef PLANT_LAYER
 #undef LID_LAYER
@@ -1092,3 +1140,5 @@
 		return
 	if(user.plant_analyzer)
 		send_plant_details(user)
+
+#undef MAX_MATURATION_SPEED
