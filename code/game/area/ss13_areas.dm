@@ -3130,7 +3130,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 /area/ruin/space/pirate_base/black_market
 	name = "Black Market"
 	icon_state = "awaycontent23"
-	
+
 //Abandoned Storage
 /area/ruin/space/abandoned_storage
 	name = "Abandoned Storage"
@@ -3139,8 +3139,6 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	power_equip = FALSE
 	power_light = FALSE
 	power_environ = FALSE
-	always_unpowered = FALSE
-	has_gravity = STANDARD_GRAVITY
 
 /area/ruin/space/abandoned_storage/abandoned_storage_shuttle
 	name = "Abandoned Shuttle"
@@ -3148,5 +3146,5 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	has_gravity = FALSE
 
 /area/ruin/space/abandoned_storage_asteroid
-	name = "abandoned Storage Asteroid"
+	name = "Abandoned Storage Asteroid"
 	icon_state = "abandoned_storage_asteroid"

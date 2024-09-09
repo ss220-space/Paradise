@@ -434,6 +434,7 @@
 /datum/map_template/ruin/space/abandoned_storage
 	id = "abandoned_storage"
 	suffix = "abandoned_storage.dmm"
-	name = "abandoned Storage"
+	name = "Abandoned Storage"
+	description = "Just an old and abandoned place, previously used for storing various supplies."
 	allow_duplicates = FALSE
 	cost = 2

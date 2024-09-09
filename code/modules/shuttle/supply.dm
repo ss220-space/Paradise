@@ -127,10 +127,8 @@
 	if(z != level_name_to_num(CENTCOMM))		//we only sell when we are -at- centcomm
 		return TRUE
 
-	var/intel_count = 0
 	var/crate_count = 0
 	var/quest_reward
-	var/intel_reward
 
 	var/msg = "<center>---[station_time_timestamp()]---</center><br>"
 	var/pointsEarned
@@ -200,9 +198,10 @@
 				// Sell intel
 				if(istype(thing, /obj/item/documents))
 					var/obj/item/documents/docs = thing
-					if((docs.sell_interest & INTEREST_NANOTRASEN) || (docs.sell_interest & INTEREST_ANYONE))
-						++intel_count
-						intel_reward += round(SSshuttle.points_per_intel * docs.sell_multiplier)
+					if(INTEREST_NANOTRASEN & docs.sell_interest)
+						pointsEarned = round(SSshuttle.points_per_intel * docs.sell_multiplier)
+						SSshuttle.points += pointsEarned
+						msg += "[span_good("+[pointsEarned]")]: Received important intelligence.<br>"
 
 				// Send tech levels
 				if(istype(thing, /obj/item/disk/tech_disk))
@@ -242,11 +241,6 @@
 
 		qdel(MA, force = TRUE)
 		SSshuttle.sold_atoms += "."
-
-
-	if(intel_count > 0)
-		msg += "[span_good("+[intel_reward]")]: Received [intel_count] article(s) of enemy intelligence.<br>"
-		SSshuttle.points += intel_reward
 
 	if(quest_reward > 0)
 		msg += "[span_good("+[quest_reward]")]: Received reward points for quests.<br>"
