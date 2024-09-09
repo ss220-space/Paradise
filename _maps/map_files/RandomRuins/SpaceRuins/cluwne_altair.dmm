@@ -16,11 +16,16 @@
 /area/ruin/space/cluwne_ruin)
 "dy" = (
 /obj/structure/table/wood/fancy/cyan,
-/obj/item/clothing/mask/gas/clown_hat,
+/obj/item/clothing/mask/gas/clown_hat{
+	pixel_y = 4
+	},
 /turf/simulated/floor/noslip,
 /area/ruin/space/cluwne_ruin)
 "dM" = (
-/obj/effect/spawner/random_spawners/cobweb_left_frequent,
+/obj/effect/spawner/random_spawners/cobweb_left_frequent{
+	pixel_y = 3;
+	pixel_x = -3
+	},
 /obj/effect/turf_decal/sand/plating,
 /obj/structure/table/socle,
 /obj/item/candle/eternal{
@@ -51,14 +56,25 @@
 	},
 /turf/simulated/floor/mineral/silver/fancy,
 /area/ruin/space/cluwne_ruin)
+"hF" = (
+/obj/structure/closet/fireaxecabinet{
+	pixel_x = -32
+	},
+/turf/simulated/floor/mineral/silver/fancy,
+/area/ruin/space/cluwne_ruin)
 "hH" = (
 /obj/structure/table/wood/fancy/orange,
-/obj/item/clothing/mask/gas/clown_hat,
+/obj/item/clothing/mask/gas/clown_hat{
+	pixel_y = 4
+	},
 /turf/simulated/floor/noslip,
 /area/ruin/space/cluwne_ruin)
 "ih" = (
 /obj/item/flag/species/nian,
-/obj/effect/spawner/random_spawners/cobweb_left_frequent,
+/obj/effect/spawner/random_spawners/cobweb_left_frequent{
+	pixel_y = 2;
+	pixel_x = -3
+	},
 /turf/simulated/floor/noslip,
 /area/ruin/space/cluwne_ruin)
 "ii" = (
@@ -124,7 +140,10 @@
 /turf/simulated/floor/noslip,
 /area/ruin/space/cluwne_ruin)
 "qE" = (
-/obj/effect/spawner/random_spawners/cobweb_right_frequent,
+/obj/effect/spawner/random_spawners/cobweb_right_frequent{
+	pixel_y = 2;
+	pixel_x = 2
+	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/noslip,
 /area/ruin/space/cluwne_ruin)
@@ -135,7 +154,16 @@
 	pixel_y = 10;
 	light_on = 1
 	},
-/obj/effect/spawner/random_spawners/cobweb_right_frequent,
+/obj/effect/spawner/random_spawners/cobweb_right_frequent{
+	pixel_y = 3;
+	pixel_x = 1
+	},
+/turf/simulated/floor/noslip,
+/area/ruin/space/cluwne_ruin)
+"sn" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = -32
+	},
 /turf/simulated/floor/noslip,
 /area/ruin/space/cluwne_ruin)
 "uS" = (
@@ -152,8 +180,10 @@
 /turf/simulated/floor/noslip,
 /area/ruin/space/cluwne_ruin)
 "wk" = (
-/obj/structure/closet/fireaxecabinet,
-/turf/simulated/wall/rust,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -32
+	},
+/turf/simulated/floor/noslip,
 /area/ruin/space/cluwne_ruin)
 "wF" = (
 /obj/item/chair/stool/bar/dark{
@@ -216,6 +246,10 @@
 /area/asteroid)
 "Ep" = (
 /obj/structure/table/wood/fancy/cyan,
+/obj/item/gps{
+	pixel_y = 5;
+	gpstag = "ALTAIR"
+	},
 /turf/simulated/floor/noslip,
 /area/ruin/space/cluwne_ruin)
 "Ex" = (
@@ -228,7 +262,10 @@
 /area/ruin/space/cluwne_ruin)
 "FY" = (
 /obj/structure/table/wood/fancy/green,
-/obj/item/clothing/mask/gas/clown_hat/sexy,
+/obj/item/clothing/mask/gas/clown_hat/sexy{
+	pixel_y = 2;
+	pixel_x = 1
+	},
 /turf/simulated/floor/noslip,
 /area/ruin/space/cluwne_ruin)
 "He" = (
@@ -279,7 +316,8 @@
 "KJ" = (
 /obj/structure/table/wood/fancy/cyan,
 /obj/item/hatchet/unathiknife{
-	pixel_y = 10
+	pixel_y = 8;
+	pixel_x = 3
 	},
 /turf/simulated/floor/noslip,
 /area/ruin/space/cluwne_ruin)
@@ -314,7 +352,10 @@
 /area/asteroid)
 "Or" = (
 /obj/effect/spawner/lootdrop/crate_spawner,
-/obj/effect/spawner/random_spawners/cobweb_right_frequent,
+/obj/effect/spawner/random_spawners/cobweb_right_frequent{
+	pixel_y = 3;
+	pixel_x = 1
+	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/noslip,
 /area/ruin/space/cluwne_ruin)
@@ -344,7 +385,9 @@
 /area/ruin/space/cluwne_ruin)
 "Pw" = (
 /obj/structure/table/wood/fancy/orange,
-/obj/item/toy/figure/clown,
+/obj/item/toy/figure/clown{
+	pixel_y = 6
+	},
 /turf/simulated/floor/noslip,
 /area/ruin/space/cluwne_ruin)
 "Qa" = (
@@ -411,8 +454,10 @@
 /turf/simulated/floor/noslip,
 /area/ruin/space/cluwne_ruin)
 "Yw" = (
-/obj/structure/extinguisher_cabinet/empty,
-/turf/simulated/wall/rust,
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/turf/simulated/floor/mineral/gold/fancy,
 /area/ruin/space/cluwne_ruin)
 "Za" = (
 /obj/effect/decal/cleanable/glass,
@@ -655,7 +700,7 @@ Kv
 Nr
 Nr
 Nr
-Kv
+Nr
 Kv
 Kv
 Kv
@@ -665,7 +710,7 @@ Kv
 DC
 Kv
 BP
-Kv
+Nr
 Nr
 Nr
 Nr
@@ -690,7 +735,7 @@ na
 Nr
 Nr
 Nr
-wk
+Nr
 Nr
 HP
 Nr
@@ -722,8 +767,8 @@ kV
 na
 Ls
 na
-na
-Kb
+wk
+hF
 Kb
 LM
 VQ
@@ -748,7 +793,7 @@ za
 Kv
 Kv
 Kv
-Kv
+Nr
 Nr
 na
 QT
@@ -764,7 +809,7 @@ dy
 LL
 na
 Nr
-Kv
+Nr
 Kv
 Kv
 Kv
@@ -826,7 +871,7 @@ ai
 na
 na
 Rb
-na
+sn
 Nr
 Kv
 Kv
@@ -855,7 +900,7 @@ Aa
 wL
 Aa
 Aa
-ai
+Yw
 na
 na
 kV
@@ -1084,7 +1129,7 @@ pA
 FY
 Ls
 Nr
-Kv
+Nr
 Kv
 BP
 za
@@ -1143,7 +1188,7 @@ Nr
 HP
 Nr
 Nr
-Yw
+Nr
 Nr
 Nr
 qS
@@ -1177,7 +1222,7 @@ Kv
 Kv
 BP
 Kv
-Qh
+Nr
 Nr
 Nr
 Nr
