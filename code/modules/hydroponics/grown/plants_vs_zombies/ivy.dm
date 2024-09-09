@@ -70,6 +70,9 @@
 	clawfootstep = FOOTSTEP_GRASS
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 
+	var/mob/living/simple_animal/hostile/plant/potato_mine/mine_mob = null
+	var/has_ready_mine = FALSE
+
 	var/generation = 1
 	/// If we fail to spread this many times we stop trying to spread
 	var/max_failed_spreads = 5
@@ -79,6 +82,22 @@
 		/turf/simulated/floor/chasm,
 		/turf/simulated/floor/beach/water,
 		/turf/simulated/floor/indestructible/beach/water))
+
+/turf/simulated/floor/ivy/Enter(mob/living/mover)
+	. = ..(mover)
+
+	if ("terraformers" in mover.faction)
+		return
+
+	if (has_ready_mine)
+		mover.gib()
+		playsound(mover, pick('sound/effects/explosion1.ogg', 'sound/effects/explosion2.ogg'), CHANNEL_BUZZ)
+		has_ready_mine = FALSE
+
+/turf/simulated/floor/ivy/Destroy()
+	if (mine_mob)
+		mine_mob.death()
+	. = ..()
 
 /turf/simulated/floor/ivy/broken_states()
 	return list("sand")
