@@ -4,7 +4,8 @@
 /// Invocation checks, should not be used in extra checks.
 #define RITUAL_FAILED_INVALID_SPECIES			(1<<1)
 #define RITUAL_FAILED_EXTRA_INVOKERS			(1<<2)
-#define RITUAL_FAILED_ON_PROCEED				(1<<3)
+#define RITUAL_FAILED_MISSED_REQUIREMENTS		(1<<3)
+#define RITUAL_FAILED_ON_PROCEED				(1<<4)
 
 /datum/ritual
 	/// Linked object
@@ -15,6 +16,8 @@
 	var/extra_invokers = 0
 	/// If invoker species isn't in allowed - he won't do ritual.
 	var/list/allowed_species
+	/// Required to ritual invoke things are located here
+	var/required_things[] = list()
 	/// If true - only whitelisted species will be added as invokers
 	var/require_allowed_species = TRUE
 	/// We search for ashwalkers in that radius
@@ -24,6 +27,7 @@
 	/// Messages on failed invocation.
 	var/invalid_species_message = "Вы не можете понять, как с этим работать."
 	var/extra_invokers_message = "Для выполнения данного ритуала требуется больше участников."
+	var/missed_reqs_message = "Для выполнения данного ритуала требуется удовлетворить его требования."
 	/// Cooldown for one ritual
 	COOLDOWN_DECLARE(ritual_cooldown)
 	/// Our cooldown after we casted ritual.
@@ -48,6 +52,8 @@
 			message = invalid_species_message
 		if(RITUAL_FAILED_EXTRA_INVOKERS)
 			message = extra_invokers_message
+		if(RITUAL_FAILED_MISSED_REQUIREMENTS)
+			message = missed_reqs_message
 		if(RITUAL_FAILED_ON_PROCEED)
 			cause_disaster = TRUE
 			
@@ -73,10 +79,30 @@
 				
 		if(LAZYLEN(invokers) < extra_invokers)
 			return RITUAL_FAILED_EXTRA_INVOKERS
+	
+	if(required_things && !check_contents())
+		return RITUAL_FAILED_MISSED_REQUIREMENTS
 			
 	if(ritual_check(obj, invoker, invokers))
 		return do_ritual(obj, invoker, invokers)
-	
+
+/datum/ritual/proc/check_contents()
+    for(var/thing in required_things)
+        var/needed_amount = required_things[thing]
+        var/current_amount = 0
+
+        for(var/obj in range(finding_range, ritual_object))
+            if(ispath(obj, thing))
+                current_amount++
+
+            if(current_amount >= needed_amount)
+                break
+
+        if(current_amount < needed_amount)
+            return FALSE
+
+    return TRUE
+
 /datum/ritual/proc/ritual_check(obj/obj, mob/living/carbon/human/invoker, list/invokers) // Additional pre-ritual checks
 	return TRUE
 
