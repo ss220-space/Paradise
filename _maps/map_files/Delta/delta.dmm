@@ -5807,7 +5807,8 @@
 /area/engine/controlroom)
 "aSH" = (
 /obj/machinery/atmospherics/air_sensor{
-	id_tag = "air_sensor"
+	id_tag = "air_sensor";
+	output = 23
 	},
 /turf/simulated/floor/engine/air,
 /area/atmos)
@@ -51491,7 +51492,8 @@
 /area/crew_quarters/kitchen)
 "gCu" = (
 /obj/machinery/atmospherics/air_sensor{
-	id_tag = "mix_sensor"
+	id_tag = "mix_sensor";
+	output = 127
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/atmos)

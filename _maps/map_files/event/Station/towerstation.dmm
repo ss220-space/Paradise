@@ -13238,7 +13238,8 @@
 /area/crew_quarters/bar/atrium)
 "izH" = (
 /obj/machinery/atmospherics/air_sensor{
-	id_tag = "mix_sensor"
+	id_tag = "mix_sensor";
+	output = 127
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/atmos)
@@ -14350,7 +14351,8 @@
 /area/medical/medbay)
 "jlk" = (
 /obj/machinery/atmospherics/air_sensor{
-	id_tag = "air_sensor"
+	id_tag = "air_sensor";
+	output = 23
 	},
 /turf/simulated/floor/engine/air,
 /area/atmos)
