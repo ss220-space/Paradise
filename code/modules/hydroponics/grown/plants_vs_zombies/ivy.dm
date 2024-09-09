@@ -40,13 +40,11 @@
 /obj/item/ivy/barbed
 	name = "barbed ivy"
 	desc = "Постепенно разростающийся плющ. Ранит находящихся на нем не Дион."
-	plantname = "Barbed ivy"
 	spawn_turf = /turf/simulated/floor/ivy/barbed
 
 /obj/item/ivy/venomous
 	name = "venomous ivy"
 	desc = "Постепенно разростающийся плющ. Отравляет находящихся на нем не Дион."
-	plantname = "Venomous ivy"
 	spawn_turf = /turf/simulated/floor/ivy/venomous
 
 

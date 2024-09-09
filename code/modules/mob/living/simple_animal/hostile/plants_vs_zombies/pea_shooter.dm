@@ -35,11 +35,11 @@
 	STOP_PROCESSING(SSprocessing, src)
 	. = ..(TRUE)
 
-/mob/living/simple_animal/hostile/plant/pea_shooter/proc/find_target()
+/mob/living/simple_animal/hostile/plant/proc/find_target(range)
 	. = null
 
-	var/best_dist = 11
-	for(var/mob/living/target in view(10, src))
+	var/best_dist = range + 1
+	for(var/mob/living/target in view(range, src))
 		if ("terraformers" in target.faction)
 			continue
 		if (target.is_dead())
@@ -120,6 +120,7 @@
 	desc = "Выглядит как живой и слегка разумный горох."
 	var/obj/item/ammo_casing/chambered = null
 	var/bullet_type = /obj/item/ammo_casing/pea
+	var/range = 10
 
 /mob/living/simple_animal/hostile/plant/pea_shooter/Initialize()
 	. = ..()
@@ -135,7 +136,7 @@
 	if (HAS_TRAIT(src, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
 		return
 
-	var/mob/living/target = find_target()
+	var/mob/living/target = find_target(range)
 	fire(target)
 
 /mob/living/simple_animal/hostile/plant/pea_shooter/double
@@ -148,7 +149,7 @@
 	if (HAS_TRAIT(src, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
 		return
 
-	var/mob/living/target = find_target()
+	var/mob/living/target = find_target(range)
 	fire(target)
 	sleep(2)
 	fire(target)
@@ -163,7 +164,7 @@
 	if (HAS_TRAIT(src, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
 		return
 
-	var/mob/living/target = find_target()
+	var/mob/living/target = find_target(range)
 	fire(target)
 	sleep(2)
 	fire(target)
