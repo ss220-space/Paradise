@@ -13,7 +13,7 @@
 	/// If ritual requires more than one ashwalker
 	var/extra_invokers = 0
 	/// If invoker species isn't in allowed - he won't do ritual.
-	var/allowed_species
+	var/static/list/allowed_species
 	/// If true - only whitelisted species will be added as invokers
 	var/require_allowed_species = TRUE
 	/// We search for ashwalkers in that radius

@@ -19,8 +19,9 @@
 /datum/component/ritual_object/proc/get_rituals()
 	LAZYCLEARLIST(rituals)
 	for(var/datum/ritual/ritual as anything in subtypesof(/datum/ritual))
-		rituals += new ritual
-		ritual.link_object(parent)
+		if(ritual.name)
+			rituals += new ritual
+			ritual.link_object(parent)
 	return
 
 /datum/component/ritual_object/Destroy(force)
@@ -36,7 +37,7 @@
 /datum/component/ritual_object/proc/open_ritual_ui(obj/obj, mob/living/carbon/human/human)
 	var/list/rituals_list = list()
 	for(var/datum/ritual/ritual as anything in rituals)
-		if(ritual.ritual_completed || !ritual.name)
+		if(ritual.ritual_completed)
 			continue
 		if(!COOLDOWN_FINISHED(ritual, ritual_cooldown))
 			continue
