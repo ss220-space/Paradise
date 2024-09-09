@@ -13,7 +13,7 @@
 	/// If ritual requires more than one ashwalker
 	var/extra_invokers = 0
 	/// If invoker species isn't in allowed - he won't do ritual.
-	var/static/list/allowed_species
+	var/list/allowed_species
 	/// If true - only whitelisted species will be added as invokers
 	var/require_allowed_species = TRUE
 	/// We search for ashwalkers in that radius
@@ -66,10 +66,11 @@
 		if(LAZYLEN(invokers) < extra_invokers)
 			return RITUAL_FAILED_EXTRA_INVOKERS
 			
-	return ritual_check(obj, invoker, invokers)
+	if(ritual_check(obj, invoker, invokers))
+		return RITUAL_SUCCESSFUL
 	
 /datum/ritual/proc/ritual_check(obj/obj, mob/living/carbon/human/invoker, list/invokers) // After extra checks we should return RITUAL_SUCCESSFUL.
-	return RITUAL_SUCCESSFUL
+	return TRUE
 
 /datum/ritual/proc/do_ritual(obj/obj, mob/living/carbon/human/invoker) // Do ritual stuff.
 	return
@@ -79,11 +80,13 @@
 	var/extra_shaman_invokers = 0
 	/// If ritual can be invoked only by shaman
 	var/shaman_only = FALSE
+
+/datum/ritual/ashwalker/New()
 	allowed_species = typecacheof(/datum/species/unathi/ashwalker)
 
 /datum/ritual/ashwalker/ritual_check(obj/obj, mob/living/carbon/human/invoker, list/invokers)
 	if(shaman_only && !isashwalkershaman(invoker))
-		return 
+		return FALSE
 
 	var/list/shaman_invokers = list()
 	if(extra_shaman_invokers)
@@ -92,7 +95,7 @@
 				LAZYADD(shaman_invokers, human)
 				
 		if(LAZYLEN(shaman_invokers) < extra_shaman_invokers)
-			return
+			return FALSE
 
-	return RITUAL_SUCCESSFUL
+	return TRUE
 
