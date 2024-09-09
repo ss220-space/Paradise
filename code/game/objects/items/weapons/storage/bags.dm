@@ -541,8 +541,8 @@
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "dangertray"
 	desc = "A metal tray to lay food on. The edges are razor sharp"
-	force = 5
-	throwforce = 0 // throwimpact rewrite
+	force = 25
+	throwforce = 25.0
 	throw_speed = 3
 	throw_range = 7
 	armour_penetration = 15
@@ -551,25 +551,13 @@
 	flags = CONDUCT
 	materials = list(MAT_METAL=3000)
 
-	var/active_hand_zone
 
 /obj/item/storage/bag/dangertray/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
 		return .
 
-	if(user.hand == ACTIVE_HAND_RIGHT)
-		active_hand_zone = BODY_ZONE_PRECISE_R_HAND
-	else
-		active_hand_zone = BODY_ZONE_PRECISE_L_HAND
-
 	playsound(target, pick('sound/items/trayhit1.ogg', 'sound/items/trayhit2.ogg'), 50, TRUE)
-	if(target == user)
-		user.apply_damage(25, BRUTE, active_hand_zone, 0, FALSE, src)
-		if(prob(15))
-			var/obj/item/organ/external/L = user.get_organ(active_hand_zone)
-			L.droplimb(FALSE, DROPLIMB_SHARP)
-
 	if(ishuman(target) && prob(10))
 		target.Knockdown(4 SECONDS)
 
@@ -584,25 +572,6 @@
 				if(I)
 					step(I, pick(NORTH,SOUTH,EAST,WEST))
 					sleep(rand(2,4))
-
-/obj/item/storage/bag/dangertray/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	..()
-	if(ishuman(hit_atom))
-		var/mob/living/carbon/human/H = hit_atom
-		playsound(H, pick('sound/items/trayhit1.ogg', 'sound/items/trayhit2.ogg'), 50, TRUE)
-		if(prob(80)) // pick limbs, except for the head, also have a chance to cut them off
-			var/zone = pick(BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_R_ARM, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_L_LEG, BODY_ZONE_PRECISE_L_FOOT)
-			H.apply_damage(25, BRUTE, zone, 0, FALSE, src)
-			if(prob(15))
-				var/obj/item/organ/external/L = H.get_organ(zone)
-				L.droplimb(FALSE, DROPLIMB_SHARP)
-		else // head, chest, groin
-			var/zone = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN)
-			H.apply_damage(25, BRUTE, zone, 0, FALSE, src)
-	if(isobj(hit_atom))
-		var/obj/H = hit_atom
-		playsound(H, pick('sound/items/trayhit1.ogg', 'sound/items/trayhit2.ogg'), 50, TRUE)
-		H.take_damage(25, BRUTE, "melee")
 
 
 /obj/item/storage/bag/dangertray/update_overlays()
