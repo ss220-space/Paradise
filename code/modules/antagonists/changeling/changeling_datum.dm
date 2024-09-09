@@ -205,6 +205,10 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	absorb.owner = owner
 	objectives += absorb
 
+	if(prob(50))
+		add_objective(/datum/objective/protect)
+		add_objective(/datum/objective/pain_hunter)
+
 	if(prob(60))
 		add_objective(/datum/objective/steal)
 	else
