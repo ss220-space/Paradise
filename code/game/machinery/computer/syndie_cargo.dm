@@ -420,10 +420,10 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 					// Sell intel
 					if(istype(thing, /obj/item/documents))
 						var/obj/item/documents/docs = thing
-						if((docs.sell_interest & INTEREST_SYNDICATE) || (docs.sell_interest & INTEREST_ANYONE))
-							msg += "[span_good("+[cashEarned]")]: Received article of enemy intelligence.<br>"
+						if(INTEREST_SYNDICATE & docs.sell_interest)
 							cashEarned = round(data_storage.cash_per_intel * docs.sell_multiplier)
 							data_storage.cash += cashEarned
+							msg += "[span_good("+[cashEarned]")]: Received enemy intelligence.<br>"
 
 					// Sell tech levels
 					if(istype(thing, /obj/item/disk/tech_disk))
