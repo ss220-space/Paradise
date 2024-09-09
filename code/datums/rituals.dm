@@ -118,19 +118,19 @@
 	return TRUE
 
 /datum/ritual/proc/check_contents()
-    for(var/thing in required_things)
-        var/needed_amount = required_things[thing]
-        var/current_amount = 0
+	for(var/thing in required_things)
+ 		var/needed_amount = required_things[thing]
+ 		var/current_amount = 0
 
-        for(var/obj in range(finding_range, ritual_object))
-            if(ispath(obj, thing))
-                current_amount++
+ 		for(var/obj in range(finding_range, ritual_object))
+ 			if(ispath(obj, thing))
+ 				current_amount++
 				LAZYADD(used_things, obj)
 
-        if(current_amount < needed_amount)
-            return FALSE
+ 		if(current_amount < needed_amount)
+ 			return FALSE
 
-    return TRUE
+ 	return TRUE
 
 /datum/ritual/proc/ritual_check(obj/obj, mob/living/carbon/human/invoker) // Additional pre-ritual checks
 	return TRUE
