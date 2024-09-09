@@ -3,29 +3,25 @@
 #define RITUAL_SUCCESSFUL						(1<<0)
 /// Invocation checks, should not be used in extra checks.
 #define RITUAL_FAILED_INVALID_SPECIES			(1<<1)
-#define RITUAL_FAILED_REQUIRED_SHAMAN_INVOKE	(1<<2)
-#define RITUAL_FAILED_REQUIRED_EXTRA_SHAMAN		(1<<3)
 #define RITUAL_FAILED_EXTRA_INVOKERS			(1<<4)
 
 /datum/ritual
 	/// Linked object
 	var/obj/ritual_object
 	/// Name of our ritual
-	var/name = "Hello, I'm useless ritual"
-	/// If ritual can be invoked only by shaman
-	var/shaman_only = FALSE
+	var/name
 	/// If ritual requires more than one ashwalker
 	var/extra_invokers = 0
-	/// If ritual requires extra shaman invokers
-	var/extra_shaman_invokers = 0
+	/// If invoker species isn't in allowed - he won't do ritual.
+	var/allowed_species
+	/// If true - only whitelisted species will be added as invokers
+	var/require_allowed_species = TRUE
 	/// We search for ashwalkers in that radius
 	var/finding_range = DEFAULT_RITUAL_RANGE_FIND
 	/// Single rituals. If true - it cannot be choosen.
 	var/ritual_completed = FALSE
 	/// Messages on failed invocation.
 	var/invalid_species_message = "Вы не можете понять, как с этим работать."
-	var/shaman_required_message = "Данный ритуал должен выполнять шаман."
-	var/extra_shaman_required_message = "Для выполнения данного ритуала требуется больше шаманов."
 	var/extra_invokers_message = "Для выполнения данного ритуала требуется больше участников."
 	/// Cooldown for one ritual
 	COOLDOWN_DECLARE(ritual_cooldown)
@@ -44,12 +40,8 @@
 	switch(ritual_invoke_check(obj, invoker))
 		if(RITUAL_FAILED_INVALID_SPECIES)
 			message = invalid_species_message
-		if(RITUAL_FAILED_REQUIRED_SHAMAN_INVOKE)
-			message = shaman_required_message
 		if(RITUAL_FAILED_EXTRA_INVOKERS)
 			message = extra_invokers_message
-		if(RITUAL_FAILED_REQUIRED_EXTRA_SHAMAN)
-			message = extra_shaman_required_message
 		if(RITUAL_SUCCESSFUL)
 			do_ritual(obj, invoker)
 			COOLDOWN_START(src, ritual_cooldown, cooldown_after_cast)
@@ -60,28 +52,47 @@
 	return
 		
 /datum/ritual/proc/ritual_invoke_check(obj/obj, mob/living/carbon/human/invoker)
-	if(!isashwalker(invoker)) // double check to avoid funny situations
+	if(ritual_completed)
+		return // should not have message
+	if(allowed_species && !is_type_in_typecache(human.dna.species, allowed_species)) // double check to avoid funny situations
 		return RITUAL_FAILED_INVALID_SPECIES
-	if(shaman_only && !isashwalkershaman(invoker))
-		return RITUAL_FAILED_REQUIRED_SHAMAN_INVOKE
 	var/list/invokers = list()
-	var/list/shaman_invokers = list()
-	if(extra_invokers || extra_shaman_invokers)
-		for(var/mob/living/carbon/human/human in range(finding_range, obj))
-			if(isashwalker(human))
-				LAZYADD(invokers, human)
-			if(isashwalkershaman(human))
-				LAZYADD(shaman_invokers, human)
+	if(extra_invokers)
+		for(var/mob/living/carbon/human/human in range(finding_range, ritual_object))
+			if(require_allowed_species && !is_type_in_typecache(human.dna.species, allowed_species))
+				continue
+			LAZYADD(invokers, human)
 				
 		if(LAZYLEN(invokers) < extra_invokers)
 			return RITUAL_FAILED_EXTRA_INVOKERS
-		if(LAZYLEN(shaman_invokers) < extra_shaman_invokers)
-			return RITUAL_FAILED_REQUIRED_EXTRA_SHAMAN
 			
-	return ritual_check(obj, invoker, invokers, shaman_invokers)
+	return ritual_check(obj, invoker, invokers)
 	
-/datum/ritual/proc/ritual_check(obj/obj, mob/living/carbon/human/invoker, list/invokers, list/shaman_invokers) // After extra checks we should return RITUAL_SUCCESSFUL.
+/datum/ritual/proc/ritual_check(obj/obj, mob/living/carbon/human/invoker, list/invokers) // After extra checks we should return RITUAL_SUCCESSFUL.
 	return RITUAL_SUCCESSFUL
 
 /datum/ritual/proc/do_ritual(obj/obj, mob/living/carbon/human/invoker) // Do ritual stuff.
 	return
+
+/datum/ritual/ashwalker
+	/// If ritual requires extra shaman invokers
+	var/extra_shaman_invokers = 0
+	/// If ritual can be invoked only by shaman
+	var/shaman_only = FALSE
+	allowed_species = typecacheof(/datum/dna/species/ashwalker)
+
+/datum/ritual/ashwalker/ritual_check(obj/obj, mob/living/carbon/human/invoker, list/invokers)
+	if(shaman_only && !isashwalkershaman(invoker))
+		return 
+
+	var/list/shaman_invokers = list()
+	if(extra_shaman_invokers)
+		for(var/mob/living/carbon/human/human as anything in invokers)
+			if(isashwalkershaman(human))
+				LAZYADD(shaman_invokers, human)
+				
+		if(LAZYLEN(shaman_invokers) < extra_shaman_invokers)
+			return
+
+	return RITUAL_SUCCESSFUL
+

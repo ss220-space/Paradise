@@ -36,11 +36,18 @@
 /datum/component/ritual_object/proc/open_ritual_ui(obj/obj, mob/living/carbon/human/human)
 	var/list/rituals_list = list()
 	for(var/datum/ritual/ritual as anything in rituals)
-		if(!ritual.ritual_completed && COOLDOWN_FINISHED(ritual, ritual_cooldown))
-			LAZYADD(rituals_list, ritual.name)
+		if(ritual.ritual_completed)
+			continue
+		if(!COOLDOWN_FINISHED(ritual, ritual_cooldown))
+			continue
+		if(ritual.allowed_species && !is_type_in_typecache(human.dna.species, ritual.allowed_species))
+			continue
+		LAZYADD(rituals_list, ritual.name)
+
 	if(!LAZYLEN(rituals_list))
 		to_chat(human, "Не имеется доступных для исполнения ритуалов.")
-		
+		return
+
 	var/tgui_menu = tgui_input_list(src, "выберите ритуал", "Ритуалы", rituals_list)
 	if(!tgui_menu)
 		return
@@ -55,8 +62,6 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/human = user
-	if(!isashwalker(human))
-		return
 	if(attacking_item_type && !istype(obj, attacking_item_type))
 		return
 	if(open_ritual_ui_check(obj, human))
