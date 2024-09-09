@@ -79,7 +79,7 @@
 	var/extra_shaman_invokers = 0
 	/// If ritual can be invoked only by shaman
 	var/shaman_only = FALSE
-	allowed_species = typecacheof(/datum/species/ashwalker)
+	allowed_species = typecacheof(/datum/species/unathi/ashwalker)
 
 /datum/ritual/ashwalker/ritual_check(obj/obj, mob/living/carbon/human/invoker, list/invokers)
 	if(shaman_only && !isashwalkershaman(invoker))

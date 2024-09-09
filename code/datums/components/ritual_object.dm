@@ -36,7 +36,7 @@
 /datum/component/ritual_object/proc/open_ritual_ui(obj/obj, mob/living/carbon/human/human)
 	var/list/rituals_list = list()
 	for(var/datum/ritual/ritual as anything in rituals)
-		if(ritual.ritual_completed)
+		if(ritual.ritual_completed || !ritual.name)
 			continue
 		if(!COOLDOWN_FINISHED(ritual, ritual_cooldown))
 			continue
