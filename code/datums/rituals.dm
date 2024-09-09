@@ -125,7 +125,7 @@
         for(var/obj in range(finding_range, ritual_object))
             if(ispath(obj, thing))
                 current_amount++
-				used_things += obj
+				LAZYADD(used_things, obj)
 
         if(current_amount < needed_amount)
             return FALSE
