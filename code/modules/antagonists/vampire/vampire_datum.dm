@@ -68,6 +68,8 @@
 
 /datum/antagonist/vampire/give_objectives()
 	add_objective(/datum/objective/blood)
+	add_objective(/datum/objective/destroy)
+	add_objective(/datum/objective/debrain)
 	add_objective(/datum/objective/maroon)
 	add_objective(/datum/objective/steal)
 
