@@ -126,10 +126,9 @@
             if(ispath(obj, thing))
                 current_amount++
 				used_things += obj
-
 			if(current_amount >= needed_amount)
 				break
-				
+
         if(current_amount < needed_amount)
             return FALSE
 
