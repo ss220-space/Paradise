@@ -30,6 +30,7 @@
 	. = ..()
 	status_flags &= ~CANPUSH
 	move_resist = MOVE_FORCE_OVERPOWERING
+	src.pixel_y += 10
 
 /mob/living/simple_animal/hostile/plant/pea_shooter/death(gibbed)
 	STOP_PROCESSING(SSprocessing, src)
@@ -52,13 +53,14 @@
 
 /obj/item/projectile/pea
 	name = "pea"
-	icon_state = "bullet"
+	icon = 'icons/obj/hydroponics/plants_vs_zombies/peagun.dmi'
+	icon_state = "pea-bullet"
 	damage = 20
 	damage_type = BRUTE
 	flag = "bullet"
 	hitsound = "bullet"
 	hitsound_wall = "ricochet"
-	impact_effect_type = /obj/effect/temp_visual/impact_effect
+	impact_effect_type = /obj/effect/temp_visual/pea_destroy
 	/// Count of passed torchwoods
 	var/fired = 0
 
@@ -118,6 +120,10 @@
 /mob/living/simple_animal/hostile/plant/pea_shooter
 	name = "pea shooter"
 	desc = "Выглядит как живой и слегка разумный горох."
+	icon = 'icons/obj/hydroponics/plants_vs_zombies/peagun.dmi'
+	icon_state = "peagun-static"
+	icon_living = "peagun-static"
+	icon_dead = "peagun-dead"
 	var/obj/item/ammo_casing/chambered = null
 	var/bullet_type = /obj/item/ammo_casing/pea
 	var/range = 10
@@ -127,10 +133,19 @@
 	chambered = new bullet_type()
 	START_PROCESSING(SSprocessing, src)
 
+/mob/living/simple_animal/hostile/plant/pea_shooter/proc/rotate_to(mob/living/target)
+	setDir(get_dir(src, target))
+
 /mob/living/simple_animal/hostile/plant/pea_shooter/proc/fire(mob/living/target)
+	if (!target)
+		return
 	SEND_SIGNAL(src, COMSIG_GUN_FIRED, src, target)
+	rotate_to(target)
+	icon_state = "peagun-attack"
 	chambered.fire(target = target, user = src, firer_source_atom = src)
 	chambered = new bullet_type()
+	sleep(4)
+	icon_state = "peagun-static"
 
 /mob/living/simple_animal/hostile/plant/pea_shooter/process()
 	if (HAS_TRAIT(src, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)

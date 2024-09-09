@@ -43,6 +43,7 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 	var/weed_rate = 1 //If the chance below passes, then this many weeds sprout during growth
 	var/weed_chance = 5 //Percentage chance per tray update to grow weeds
 	var/nogenes = FALSE
+	var/can_harvest = TRUE
 
 /obj/item/seeds/New(loc, nogenes = FALSE)
 	..()

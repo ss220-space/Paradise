@@ -1016,6 +1016,9 @@
 									"<span class='notice'>You unwrench [src].</span>")
 
 /obj/machinery/hydroponics/proc/attempt_harvest(mob/user)
+	if (!myseed.can_harvest)
+		to_chat(user, span_warning("С этого вида растений нельзя собрать урожай."))
+		return
 	if(lid_closed)
 		to_chat(user, "<span class='warning'>You can't reach the plant through the cover.</span>")
 		return

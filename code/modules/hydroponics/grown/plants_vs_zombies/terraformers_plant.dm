@@ -12,6 +12,8 @@
 	icon_grow = "apple-grow"
 	icon_dead = "apple-dead"
 	var/mob/living/simple_animal/hostile/plant/connected_simplemob = /mob/living/simple_animal/hostile/bread_monster // I believe that this will never happen.
+	nogenes = TRUE
+	can_harvest = FALSE
 
 /obj/item/seeds/terraformers_plant/on_grow(obj/machinery/hydroponics/tray)
 	tray.connected_simplemob = new connected_simplemob(tray.loc)

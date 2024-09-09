@@ -1,16 +1,17 @@
 /obj/item/seeds/terraformers_plant/pea_shooter
 	name = "pack of pea shooter seeds"
 	desc = "Эти семена выростут в Горохострел"
-	icon_state = "seed-apple"
-	species = "apple"
+	icon = 'icons/obj/hydroponics/plants_vs_zombies/peagun.dmi'
+	growing_icon = 'icons/obj/hydroponics/plants_vs_zombies/peagun.dmi'
+	icon_state = "seed-peagun"
+	species = "peagun"
 	plantname = "Pea shooter"
-	product = /obj/item/reagent_containers/food/snacks/grown/apple
 	lifespan = 55
 	endurance = 35
 	yield = 0
-	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
-	icon_grow = "apple-grow"
-	icon_dead = "apple-dead"
+	growing_icon = 'icons/obj/hydroponics/plants_vs_zombies/peagun.dmi'
+	icon_grow = "peagun-grow"
+	icon_dead = "peagun-dead"
 	mutatelist = list(/obj/item/seeds/terraformers_plant/pea_shooter/double, /obj/item/seeds/terraformers_plant/pea_shooter/frost)
 	connected_simplemob = /mob/living/simple_animal/hostile/plant/pea_shooter
 
