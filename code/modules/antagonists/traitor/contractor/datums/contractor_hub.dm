@@ -29,7 +29,7 @@
 		/datum/rep_purchase/item/baton,
 		/datum/rep_purchase/item/baton_cuffup,
 		/datum/rep_purchase/item/baton_muteup,
-		//datum/rep_purchase/item/baton_focusup,
+		/datum/rep_purchase/item/baton_focusup,
 		/datum/rep_purchase/item/baton_antidropup,
 		/datum/rep_purchase/item/fulton,
 		/datum/rep_purchase/blackout,
