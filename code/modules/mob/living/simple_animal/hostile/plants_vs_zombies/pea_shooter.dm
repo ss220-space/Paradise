@@ -134,17 +134,38 @@
 	START_PROCESSING(SSprocessing, src)
 
 /mob/living/simple_animal/hostile/plant/pea_shooter/proc/rotate_to(mob/living/target)
-	setDir(get_dir(src, target))
+	var/dx = target.x - x
+	var/dy = target.y - y
+	var/bigger_X = abs(dx) >= abs(dy) * 2.5
+	var/bigger_Y = abs(dy) >= abs(dx) * 2.5
+	if (dx > 0 && bigger_X)
+		setDir(EAST)
+	else if (dy > 0 && bigger_Y)
+		setDir(NORTH)
+	else if (dx < 0 && bigger_X)
+		setDir(WEST)
+	else if (dy < 0 && bigger_Y)
+		setDir(SOUTH)
+	else if (dx > 0 && dy > 0)
+		setDir(NORTHEAST)
+	else if (dx < 0 && dy > 0)
+		setDir(NORTHWEST)
+	else if (dx < 0 && dy < 0)
+		setDir(SOUTHWEST)
+	else
+		setDir(SOUTHEAST)
 
 /mob/living/simple_animal/hostile/plant/pea_shooter/proc/fire(mob/living/target)
 	if (!target)
 		return
-	SEND_SIGNAL(src, COMSIG_GUN_FIRED, src, target)
 	rotate_to(target)
 	icon_state = "peagun-attack"
-	chambered.fire(target = target, user = src, firer_source_atom = src)
+	sleep(2)
+	SEND_SIGNAL(src, COMSIG_GUN_FIRED, src, target)
+	chambered.fire(target = target, user = src, firer_source_atom = src, params = "y_of_shot=0.6")
 	chambered = new bullet_type()
-	sleep(4)
+	sleep(2)
+	rotate_to(target)
 	icon_state = "peagun-static"
 
 /mob/living/simple_animal/hostile/plant/pea_shooter/process()
