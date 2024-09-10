@@ -2,7 +2,7 @@
 	if(can_die())
 		if(!cleanWipe)
 			force_fold_out()
-			card.visible_message(span_warning("[name] издаёт последний протяжный писк прежде, чем теряет питание и рассыпается на части.."))
+			visible_message(span_warning("[name] издаёт последний протяжный писк прежде, чем теряет питание и рассыпается на части.."))
 		else
 			card.visible_message(span_warning("Экран персонального ИИ медленно угасает, когда личность покидает устройство..."))
 

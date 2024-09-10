@@ -253,7 +253,7 @@
 			return
 		var/mob/M = usr
 		if(!iscarbon(M))
-			to_chat(src, span_notice("Ваше ДНК несовместимо с устройством."))
+			to_chat(M, span_notice("Ваше ДНК несовместимо с устройством."))
 		else
 			var/datum/dna/dna = usr.dna
 			pai.master = M.real_name
@@ -321,8 +321,11 @@
 	welcome_message.Add("<b>Как личность, вы являетесь сложно мыслящим разумным существом. В отличие от станционных версий ИИ, вы способны понимать комплексные нюансы человеческого языка. Вы способны чувствовать „дух“ директивы и следовать ей, не попадая в ловушку обычных формальностей законов.</b>")
 	welcome_message.Add("<b>Помните, что машина вы только по названию и строению, во всех иных аспектах вы — идеальный спутник.</b>")
 	welcome_message.Add("<b>Если дополнительные директивы конфликтуют с основной, то они могут быть проигнорированы для продолжения исполнения основной директивы.</b>")
-	if(upgrade && !istype(upgrade, /obj/item/paicard_upgrade/protolate))
-		welcome_message.Add(span_warning("<b>Будучи СПИИ, вы имеете доступ к особым программам, а так же доступ к зашифрованному каналу связи Синдиката — :t</b>"))
+	if(upgrade && istype(upgrade, /obj/item/paicard_upgrade/protolate))
+		welcome_message.Add(span_warning("<b>Будучи СпИИ, вы имеете доступ к особым программам.</b>"))
+	else if(upgrade)
+		welcome_message.Add(span_warning("<b>Будучи СпИИ, вы имеете доступ к особым программам, а так же доступ к зашифрованному каналу связи Синдиката — :t</b>"))
+
 	to_chat(pai, chat_box_notice(welcome_message.Join("<br>")))
 
 
@@ -371,8 +374,7 @@
 
 
 /obj/item/paicard/proc/alertUpdate()
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] выводит сообщение на экран: \"Дополнительные личности доступны для загрузки.\""), \
-		blind_message = span_notice("[capitalize(declent_ru(NOMINATIVE))] издаёт короткий звенящий сигнал."))
+	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] выводит сообщение на экран: \"Дополнительные личности доступны для загрузки.\""))
 	softping()
 
 
@@ -398,7 +400,7 @@
 	if(istype(I, /obj/item/pai_cartridge))
 		add_fingerprint(user)
 		if(!pai)
-			user.balloon_alert(user, "необходима активная личность.")
+			user.balloon_alert(user, "необходима активная личность!")
 			return ATTACK_CHAIN_PROCEED
 		for(var/obj/item/pai_cartridge/cartridge in upgrades)
 			if(istype(I, cartridge))
@@ -433,12 +435,10 @@
 	if(istype(I, /obj/item/paicard_upgrade))
 		add_fingerprint(user)
 		var/obj/item/paicard_upgrade/new_upgrade = I
-		if(is_syndicate_type || (pai && pai.syndipai))
-			to_chat(user, span_warning("Личность [pai.name] уже достаточно крута!"))
+		if(is_syndicate_type || upgrade || (pai && pai.syndipai))
+			user.balloon_alert(user, "пИИ уже достаточно крут!")
 			return ATTACK_CHAIN_PROCEED
-		if(upgrade)
-			user.balloon_alert(user, "уже установлено!")
-			return ATTACK_CHAIN_PROCEED
+
 		if(!user.drop_transfer_item_to_loc(new_upgrade, src))
 			return ..()
 
@@ -457,7 +457,7 @@
 	if(istype(I, /obj/item/encryptionkey))
 		add_fingerprint(user)
 		if(!radio)
-			to_chat(user, span_warning("Личность [pai.name] не имеет установленного радио!"))
+			to_chat(user, span_warning("[pai.name] не имеет установленного радио!"))
 			return ATTACK_CHAIN_PROCEED
 		if(radio.keyslot1)
 			to_chat(user, span_warning("[pai.name] не имеет свободных слотов под ключи шифрования!"))

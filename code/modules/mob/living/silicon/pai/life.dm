@@ -2,6 +2,9 @@
 
 /mob/living/silicon/pai/Life(seconds, times_fired)
 	. = ..()
+	if(QDELETED(src) || stat == DEAD)
+		return
+
 	if(silence_time)
 		if(world.timeofday >= silence_time)
 			silence_time = null
