@@ -423,7 +423,7 @@
 /obj/structure/sign/poster/contraband/Enlist_Gorlex
 	name = "Enlist"
 	desc = "Enlist with the Gorlex Marauders today! See the galaxy, kill corpos, get paid!"
-	icon_state = "gposter42"
+	icon_state = "poster42"
 
 //official posters
 /obj/structure/sign/poster/official
