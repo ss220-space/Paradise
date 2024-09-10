@@ -34033,7 +34033,10 @@
 	req_access = list(114);
 	pixel_x = -24
 	},
-/turf/simulated/wall/indestructible/reinforced,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkyellowalt"
+	},
 /area/centcom/supply)
 "pLm" = (
 /obj/machinery/light{
