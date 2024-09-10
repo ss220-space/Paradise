@@ -453,7 +453,8 @@
 	if(evo_points >= focus.cost)
 		evo_points -= focus.cost
 		to_chat(src, span_notice("Вы успешно приобрели [focus.bodypartname]"))
-		return antag_datum.learned_focuses += new focus(src)
+		antag_datum.learned_focuses += new focus(src)
+		return
 	to_chat(src, span_notice("Вам требуется еще [focus.cost - evo_points] очков эволюции для получения [focus.bodypartname]."))
 	return 
 
@@ -461,11 +462,13 @@
 	if(!hiding)
 		layer = TURF_LAYER+0.2
 		to_chat(src, span_notice("Вы прячетесь."))
-		return hiding = TRUE
+		hiding = TRUE
+		return
 		
 	layer = MOB_LAYER
 	to_chat(src, span_notice("Вы перестали прятаться."))
-	return hiding = FALSE
+	hiding = FALSE
+	return
 
 /obj/effect/proc_holder/spell/borer_dominate
 	name = "Dominate Victim"

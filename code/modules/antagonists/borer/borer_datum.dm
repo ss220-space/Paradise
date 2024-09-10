@@ -87,6 +87,8 @@
 	for(var/datum/borer_focus/focus as anything in learned_focuses)
 		if(!focus.movable_granted)
 			focus.movable_granted = TRUE
+			if(!host.ckey)
+				focus.is_catathonic = TRUE
 			focus.grant_movable_effect()
 
 	scaling?.grant_movable_effect()
@@ -101,6 +103,7 @@
 		if(focus.movable_granted)
 			focus.movable_granted = FALSE
 			focus.remove_movable_effect()
+			focus.is_catathonic = FALSE // now we can set it manually without checks.
 
 	return
 
@@ -257,6 +260,7 @@
 	var/cost = 0
 	var/datum/antagonist/borer/parent
 	var/movable_granted = FALSE
+	var/is_catathonic = FALSE // Ckey isn't a constant value. So, check only on this.
 
 /datum/borer_focus/New(mob/living/simple_animal/borer/borer)
 	parent = borer.antag_datum
@@ -293,12 +297,22 @@
 	cost = LEGS_FOCUS_COST
 	
 /datum/borer_focus/head/grant_movable_effect()
+	if(!is_catathonic)
+		parent.host.physiology.brain_mod *= 0.85
+		parent.host.physiology.hunger_mod *= 0.75
+		parent.host.stam_regen_start_modifier *= 0.875
+		return TRUE
 	parent.host.physiology.brain_mod *= 0.7
-	parent.host.physiology.hunger_mod *= 0.3
+	parent.host.physiology.hunger_mod *= 0.5
 	parent.host.stam_regen_start_modifier *= 0.75
 	return TRUE
 
 /datum/borer_focus/head/remove_movable_effect()
+	if(!is_catathonic)
+		parent.host.physiology.brain_mod /= 0.85
+		parent.host.physiology.hunger_mod /= 0.75
+		parent.host.stam_regen_start_modifier /= 0.875
+		return TRUE
 	parent.previous_host.physiology.brain_mod /= 0.7
 	parent.previous_host.physiology.hunger_mod /= 0.3
 	parent.previous_host.stam_regen_start_modifier /= 0.75
@@ -309,10 +323,16 @@
 		parent.host?.adjustBrainLoss(-1)
 			
 /datum/borer_focus/torso/grant_movable_effect()
+	if(!is_catathonic)
+		parent.host.physiology.brute_mod *= 0.9
+		return TRUE
 	parent.host.physiology.brute_mod *= 0.8
 	return TRUE
 
 /datum/borer_focus/torso/remove_movable_effect()
+	if(!is_catathonic)
+		parent.host.physiology.brute_mod /= 0.9
+		return TRUE
 	parent.previous_host.physiology.brute_mod /= 0.8
 	return TRUE
 
@@ -341,10 +361,16 @@
 	return TRUE
 	
 /datum/borer_focus/legs/grant_movable_effect()
+	if(!is_catathonic)
+		parent.host.add_movespeed_modifier(/datum/movespeed_modifier/borer_leg_focus/lesser)
+		return TRUE
 	parent.host.add_movespeed_modifier(/datum/movespeed_modifier/borer_leg_focus)
 	return TRUE
 
 /datum/borer_focus/legs/remove_movable_effect()
+	if(!is_catathonic)
+		parent.previous_host.remove_movespeed_modifier(/datum/movespeed_modifier/borer_leg_focus/lesser)
+		return TRUE
 	parent.previous_host.remove_movespeed_modifier(/datum/movespeed_modifier/borer_leg_focus)
 	return TRUE
 
