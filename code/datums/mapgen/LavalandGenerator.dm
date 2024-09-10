@@ -26,7 +26,8 @@
 		/obj/structure/flora/ash/stem_shroom = 2,
 		/obj/structure/flora/ash/cacti = 1,
 		/obj/structure/flora/ash/tall_shroom = 2,
-		/obj/structure/flora/ash/fireblossom = 2
+		/obj/structure/flora/ash/fireblossom = 2,
+		/obj/structure/flora/ash/coaltree = 1
 	)
 
 	smoothing_iterations = 50

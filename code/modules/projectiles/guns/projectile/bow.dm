@@ -111,6 +111,24 @@
 	range = 10
 	damage = 25
 	damage_type = BRUTE
+	var/faction_bonus_damage = 13
+	var/nemesis_factions = list("mining", "boss")
+	var/nemesis_faction = FALSE
+
+/obj/item/projectile/bullet/reusable/arrow/prehit(atom/target)
+	var/mob/living/H = target
+	if(LAZYLEN(nemesis_factions))
+		for(var/faction in H.faction)
+			if(faction in nemesis_factions)
+				nemesis_faction = TRUE
+				damage += faction_bonus_damage
+				break
+	. = ..()
+
+//obj/item/projectile/bullet/reusable/arrow/on_hit(atom/target)
+//	if(nemesis_faction)
+//		damage -= faction_bonus_damage
+
 
 /obj/item/projectile/bullet/reusable/arrow/bone //A fully upgraded normal arrow; it's got the stats to show. Still *less* damage than a slug, slower, and with negative AP. Only for bone bow!
 	name = "bone-tipped arrow"
@@ -119,6 +137,7 @@
 	range = 12
 	damage = 45
 	armour_penetration = -10
+	faction_bonus_damage = 23
 
 /obj/item/ammo_casing/caseless/arrow
 	name = "arrow"

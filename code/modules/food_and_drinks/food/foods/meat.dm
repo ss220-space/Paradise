@@ -57,6 +57,19 @@
 		cutlet.add_fingerprint(user)
 	qdel(src)
 
+/obj/item/reagent_containers/food/snacks/meat/burn()
+	visible_message("<span class='notice'>[src] finishes cooking!</span>")
+	new /obj/item/reagent_containers/food/snacks/roasted_meat(loc)
+	qdel(src)
+
+/obj/item/reagent_containers/food/snacks/roasted_meat
+	name = "roasted meat"
+	desc = "Потом"
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	icon_state = "roasted_meat"
+	list_reagents = list("protein" = 4, "vitamin" = 1)
+	tastes = list("meat" = 1)
+	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/meat/syntiflesh
 	name = "synthetic meat"
@@ -420,6 +433,11 @@
 	list_reagents = list("protein" = 2, "toxin" = 2)
 	tastes = list("cobwebs" = 1, "creepy motion" = 1)
 
+/obj/item/reagent_containers/food/snacks/monstermeat/spiderleg/burn()
+	visible_message("<span class='notice'>[src] finishes cooking!</span>")
+	new /obj/item/reagent_containers/food/snacks/roasted_spiderleg(loc)
+	qdel(src)
+
 /obj/item/reagent_containers/food/snacks/raw_bacon
 	name = "raw bacon"
 	desc = "God's gift to man in uncooked form."
@@ -698,6 +716,15 @@
 	trash = null
 	list_reagents = list("protein" = 6, "vitamin" = 2)
 	tastes = list("meat" = 1)
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/roasted_spiderleg
+	name = "roasted spider leg"
+	desc = "Потом"
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	icon_state = "roasted_spiderleg"
+	list_reagents = list("protein" = 4, "vitamin" = 1)
+	tastes = list("cobwebs" = 1, "meat" = 1)
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/goldgrubmeat

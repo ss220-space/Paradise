@@ -18,7 +18,7 @@
 	desc = "Grey gloves without fingertips made from the hide of a dead arachnid found on lavaland. Makes wearer stronger in disarming ability."
 	icon_state = "weaver_chitin"
 	item_state = "weaver_chitin"
-	extra_knock_chance = 5
+	extra_knock_chance = 20
 
 /obj/item/clothing/gloves/cyborg
 	desc = "beep boop borp"

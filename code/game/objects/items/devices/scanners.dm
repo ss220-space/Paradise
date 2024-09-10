@@ -679,6 +679,18 @@ REAGENT SCANNER
 	origin_tech = "magnets=2;biotech=2"
 	usesound = 'sound/items/deconstruct.ogg'
 
+/obj/item/healthanalyzer/gem_analyzer
+	name = "eye of health"
+	icon = 'icons/obj/device.dmi'
+	icon_state = "Gem_analyzer"
+	item_state = "gem_analyzer"
+	desc = "Потом."
+	origin_tech = null
+
+/obj/item/healthanalyzer/healtheye/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/healthupgrade))
+		to_chat(user, span_notice("Установить невозможно."))
+
 /obj/item/reagent_scanner
 	name = "reagent scanner"
 	desc = "A hand-held reagent scanner which identifies chemical agents and blood types."
