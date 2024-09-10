@@ -42,11 +42,6 @@
 	hud_possible = list (PLANT_NUTRIENT_HUD, PLANT_WATER_HUD, PLANT_STATUS_HUD, PLANT_HEALTH_HUD, PLANT_TOXIN_HUD, PLANT_PEST_HUD, PLANT_WEED_HUD)
 	var/mob/living/simple_animal/hostile/plant/connected_simplemob = null
 
-/obj/machinery/hydroponics/proc/on_connected_simplemob_death()
-	SIGNAL_HANDLER
-	connected_simplemob = null
-	plantdies()
-
 /obj/machinery/hydroponics/New()
 	..()
 	var/datum/atom_hud/data/hydroponic/hydro_hud = GLOB.huds[DATA_HUD_HYDROPONIC]
@@ -1016,13 +1011,13 @@
 									"<span class='notice'>You unwrench [src].</span>")
 
 /obj/machinery/hydroponics/proc/attempt_harvest(mob/user)
-	if (!myseed.can_harvest)
-		to_chat(user, span_warning("С этого вида растений нельзя собрать урожай."))
-		return
 	if(lid_closed)
 		to_chat(user, "<span class='warning'>You can't reach the plant through the cover.</span>")
 		return
 	if(harvest)
+		if (!myseed.can_harvest)
+			to_chat(user, span_warning("С этого вида растений нельзя собрать урожай."))
+			return
 		add_fingerprint(user)
 		myseed.harvest(user)
 	else if(dead)

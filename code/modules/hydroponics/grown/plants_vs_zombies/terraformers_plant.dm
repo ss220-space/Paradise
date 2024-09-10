@@ -18,4 +18,5 @@
 
 /obj/item/seeds/terraformers_plant/on_grow(obj/machinery/hydroponics/tray)
 	tray.connected_simplemob = new connected_simplemob(tray.loc)
-	tray.RegisterSignal(tray.connected_simplemob, COMSIG_MOB_DEATH, TYPE_PROC_REF(/obj/machinery/hydroponics, on_connected_simplemob_death))
+	tray.connected_simplemob.our_tray = tray
+	tray.RegisterSignal(tray.connected_simplemob, COMSIG_MOB_DEATH, PROC_REF(on_connected_simplemob_death))

@@ -25,6 +25,12 @@
 	AI_delay_max = 0.5 SECONDS
 	AIStatus = AI_OFF
 	dodging = FALSE
+	var/obj/machinery/hydroponics/our_tray = null
+
+/mob/living/simple_animal/hostile/plant/proc/on_connected_simplemob_death()
+	SIGNAL_HANDLER
+	our_tray.connected_simplemob = null
+	our_tray.plantdies()
 
 /mob/living/simple_animal/hostile/plant/Initialize(mapload)
 	. = ..()
@@ -162,7 +168,7 @@
 	icon_state = "peagun-attack"
 	sleep(2)
 	SEND_SIGNAL(src, COMSIG_GUN_FIRED, src, target)
-	chambered.fire(target = target, user = src, firer_source_atom = src, params = "y_of_shot=0.6")
+	chambered.fire(target = target, user = src, firer_source_atom = src)
 	chambered = new bullet_type()
 	sleep(2)
 	rotate_to(target)
