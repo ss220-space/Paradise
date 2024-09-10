@@ -10587,14 +10587,6 @@
 /turf/simulated/floor/plasteel/airless,
 /area/space)
 "bAu" = (
-/obj/structure/window/reinforced{
-	color = "red";
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	color = "red";
-	dir = 1
-	},
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -10602,6 +10594,14 @@
 	icon_state = "2-8"
 	},
 /obj/structure/grille,
+/obj/structure/window/plasmareinforced{
+	color = "#d70000";
+	dir = 4
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "bAv" = (
@@ -10683,14 +10683,6 @@
 	},
 /area/engine/break_room)
 "bBe" = (
-/obj/structure/window/reinforced{
-	color = "red";
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	color = "red";
-	dir = 1
-	},
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
@@ -10698,6 +10690,14 @@
 	icon_state = "0-4"
 	},
 /obj/structure/grille,
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 1
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "bBf" = (
@@ -14598,9 +14598,6 @@
 	},
 /area/medical/medbay)
 "cdl" = (
-/obj/machinery/status_display{
-	pixel_x = 32
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/light{
 	dir = 4
@@ -16775,13 +16772,10 @@
 /turf/space/openspace,
 /area/space)
 "cub" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/brown{
 	dir = 5
 	},
-/turf/simulated/floor/light{
-	icon_state = "light_on-p";
-	state = 7
-	},
+/turf/simulated/floor/glass,
 /area/crew_quarters/bar/atrium)
 "cuf" = (
 /obj/machinery/light{
@@ -22870,13 +22864,10 @@
 	},
 /area/hallway/primary/central/nw)
 "dqP" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/brown{
 	dir = 9
 	},
-/turf/simulated/floor/light{
-	icon_state = "light_on-p";
-	state = 7
-	},
+/turf/simulated/floor/glass,
 /area/crew_quarters/bar/atrium)
 "dqZ" = (
 /turf/simulated/wall,
@@ -24607,6 +24598,9 @@
 	pixel_x = 12
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/alarm{
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/toilet)
 "dEc" = (
@@ -26299,14 +26293,14 @@
 	},
 /area/ntrep)
 "dRi" = (
-/obj/machinery/alarm{
-	dir = 8;
-	pixel_x = 24
-	},
 /obj/structure/urinal{
 	pixel_y = 32
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_x = 28
+	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/toilet)
 "dRk" = (
@@ -31425,7 +31419,7 @@
 	dir = 8
 	},
 /obj/item/radio/intercom{
-	pixel_x = -30;
+	pixel_x = -26;
 	pixel_y = -4
 	},
 /turf/simulated/floor/plasteel{
@@ -36418,12 +36412,15 @@
 	},
 /area/hallway/primary/central/east)
 "fqL" = (
-/obj/machinery/firealarm{
+/obj/machinery/alarm{
 	dir = 1;
-	pixel_x = -28
+	pixel_y = -22
 	},
-/turf/simulated/floor/plasteel,
-/area/crew_quarters/toilet)
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "neutral"
+	},
+/area/crew_quarters/fitness)
 "fqN" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/chair/wood/wings{
@@ -48360,6 +48357,15 @@
 	icon_state = "whitehall"
 	},
 /area/toxins/xenobiology)
+"heV" = (
+/obj/structure/sign/directions/floor/alt{
+	dir = 8;
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/crew_quarters/fitness)
 "heY" = (
 /obj/structure/window/reinforced{
 	color = "red";
@@ -60982,10 +60988,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/livingcomplex)
 "jer" = (
-/obj/structure/window/reinforced{
-	color = "red";
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -60993,6 +60995,10 @@
 	icon_state = "1-2"
 	},
 /obj/structure/grille,
+/obj/structure/window/plasmareinforced{
+	color = "#d70000";
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "jex" = (
@@ -88322,15 +88328,15 @@
 	},
 /area/crew_quarters/courtroom)
 "noh" = (
-/obj/structure/window/reinforced{
-	color = "red";
-	dir = 8
-	},
 /obj/structure/cable,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/structure/grille,
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "noH" = (
@@ -103022,10 +103028,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "pAb" = (
-/obj/structure/window/reinforced{
-	color = "red";
-	dir = 1
-	},
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
@@ -103033,6 +103035,10 @@
 	icon_state = "4-8"
 	},
 /obj/structure/grille,
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "pAe" = (
@@ -108165,6 +108171,8 @@
 	dir = 4;
 	pixel_x = -22
 	},
+/obj/item/clipboard,
+/obj/item/stack/sheet/cloth/ten,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -110873,13 +110881,6 @@
 	},
 /area/crew_quarters/kitchen)
 "qIq" = (
-/obj/structure/window/reinforced{
-	color = "red"
-	},
-/obj/structure/window/reinforced{
-	color = "red";
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -110887,6 +110888,13 @@
 	icon_state = "1-8"
 	},
 /obj/structure/grille,
+/obj/structure/window/plasmareinforced{
+	color = "#d70000"
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#d70000";
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "qIv" = (
@@ -113716,14 +113724,10 @@
 /turf/simulated/floor/plasteel,
 /area/medical/virology/lab)
 "rge" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 6;
-	do_not_delete_me = 1
+/obj/effect/turf_decal/siding/brown{
+	dir = 6
 	},
-/turf/simulated/floor/light{
-	icon_state = "light_on-p";
-	state = 7
-	},
+/turf/simulated/floor/glass,
 /area/crew_quarters/bar/atrium)
 "rgh" = (
 /obj/structure/cable{
@@ -115426,6 +115430,9 @@
 "rtK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
+	},
+/obj/machinery/status_display{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -118857,18 +118864,18 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "rRS" = (
-/obj/structure/window/reinforced{
-	color = "red";
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	color = "red"
-	},
 /obj/structure/cable,
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
 /obj/structure/grille,
+/obj/structure/window/plasmareinforced{
+	color = "#d70000"
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "rRW" = (
@@ -124544,9 +124551,6 @@
 	},
 /area/medical/cryo)
 "sJt" = (
-/obj/structure/window/reinforced{
-	color = "red"
-	},
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -124554,6 +124558,9 @@
 	icon_state = "4-8"
 	},
 /obj/structure/grille,
+/obj/structure/window/plasmareinforced{
+	color = "#d70000"
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "sJu" = (
@@ -134088,14 +134095,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "uaO" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 10;
-	do_not_delete_me = 1
+/obj/effect/turf_decal/siding/brown{
+	dir = 10
 	},
-/turf/simulated/floor/light{
-	icon_state = "light_on-p";
-	state = 7
-	},
+/turf/simulated/floor/glass,
 /area/crew_quarters/bar/atrium)
 "uaP" = (
 /obj/machinery/hydroponics/constructable,
@@ -137073,13 +137076,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
 "uzN" = (
-/obj/effect/turf_decal/siding/wood{
+/obj/effect/turf_decal/siding/brown{
 	dir = 4
 	},
-/turf/simulated/floor/light{
-	icon_state = "light_on-p";
-	state = 7
-	},
+/turf/simulated/floor/glass,
 /area/crew_quarters/bar/atrium)
 "uAc" = (
 /obj/effect/decal/warning_stripes/blue/hollow,
@@ -143234,6 +143234,10 @@
 	icon_state = "dark"
 	},
 /area/engine/gravitygenerator)
+"vxM" = (
+/obj/machinery/door/airlock/maintenance,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
 "vxR" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -144417,14 +144421,10 @@
 	},
 /area/medical/virology/lab)
 "vHI" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 8;
-	do_not_delete_me = 1
+/obj/effect/turf_decal/siding/brown{
+	dir = 8
 	},
-/turf/simulated/floor/light{
-	icon_state = "light_on-p";
-	state = 7
-	},
+/turf/simulated/floor/glass,
 /area/crew_quarters/bar/atrium)
 "vHM" = (
 /turf/simulated/wall/rust,
@@ -153058,10 +153058,6 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningstorage)
 "wXx" = (
-/obj/structure/sign/directions/floor/alt{
-	dir = 8;
-	pixel_y = -32
-	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "neutral"
@@ -184530,7 +184526,7 @@ tkq
 sbq
 mqd
 xRx
-sbq
+ucR
 ucR
 gxN
 gxN
@@ -184787,7 +184783,7 @@ tkq
 kjL
 roz
 rOn
-sbq
+ucR
 qwm
 qwm
 qwm
@@ -185044,13 +185040,13 @@ eIe
 kjL
 ndp
 ivi
-sbq
+ucR
 qwm
 qwm
 qwm
 qwm
 qwm
-qwm
+vxM
 dRA
 qZi
 qZi
@@ -185301,7 +185297,7 @@ tkq
 kjL
 ndp
 ivi
-sbq
+ucR
 qwm
 qwm
 qwm
@@ -200323,7 +200319,7 @@ bNw
 bNw
 qAS
 fTi
-fqL
+ish
 gSu
 wef
 bNw
@@ -202899,7 +202895,7 @@ pqO
 pqO
 pqO
 dMq
-xMZ
+fqL
 pWK
 rDH
 rDH
@@ -203413,7 +203409,7 @@ pWK
 pWK
 iXZ
 gOU
-gvK
+heV
 pWK
 eIe
 rSe
@@ -203926,7 +203922,7 @@ xoT
 tkq
 pWK
 pWK
-pWK
+xXx
 pWK
 pWK
 eIe
