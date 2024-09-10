@@ -146,7 +146,7 @@
 	var/list/products = list()
 
 	var/inserted_items_count = 0
-	var/max_items_inside = 50
+	var/max_items_inside = 30
 
 	COOLDOWN_DECLARE(emp_cooldown)
 	var/weak_emp_cooldown = 60 SECONDS
@@ -343,7 +343,11 @@
 	else if (fast_insert && (I.name in remembered_costs))
 		cost = remembered_costs[I.name]
 	else
-		cost = tgui_input_number(user, "Пожалуйста, выберите цену для этого товара. Цена не может быть ниже 0 и выше 1000000 кредитов.", "Выбор цены", 0, 1000000, 0)
+		var/input_cost = tgui_input_number(user, "Пожалуйста, выберите цену для этого товара. Цена не может быть ниже 0 и выше 1000000 кредитов.", "Выбор цены", 0, 1000000, 0)
+		if (!input_cost)
+			to_chat(usr, span_warning("Цена не указанна!"))
+			return
+		cost = input_cost
 	if (user && get_dist(get_turf(user), get_turf(src)) > 1)
 		to_chat(usr, span_warning("Вы слишком далеко!"))
 		return
@@ -545,13 +549,13 @@
 
 			if(istype(usr.get_active_hand(), /obj/item/stack/spacecash))
 				var/obj/item/stack/spacecash/S = usr.get_active_hand()
-				paid = TRUE
+				paid = FALSE
 				for (var/ind = 1; ind <= canister.linked_accounts.len; ++ind)
-					paid = paid || pay_with_cash(S, usr, currently_vending.price * canister.accounts_weights[ind] / canister.sum_of_weigths, currently_vending.name, canister.linked_accounts[ind])
+					paid = pay_with_cash(S, usr, currently_vending.price * canister.accounts_weights[ind] / canister.sum_of_weigths, currently_vending.name, canister.linked_accounts[ind]) || paid
 			else if(get_card_account(usr))
-				paid = TRUE
+				paid = FALSE
 				for (var/ind = 1; ind <= canister.linked_accounts.len; ++ind)
-					paid = paid || pay_with_card(usr, currently_vending.price * canister.accounts_weights[ind] / canister.sum_of_weigths, currently_vending.name, canister.linked_accounts[ind])
+					paid = pay_with_card(usr, currently_vending.price * canister.accounts_weights[ind] / canister.sum_of_weigths, currently_vending.name, canister.linked_accounts[ind]) || paid
 			else if(usr.can_advanced_admin_interact())
 				to_chat(usr, span_notice("Vending object due to admin interaction."))
 				paid = TRUE
