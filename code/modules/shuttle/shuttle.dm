@@ -333,7 +333,7 @@
 /obj/docking_port/mobile/proc/request(obj/docking_port/stationary/S)
 
 	if(!check_dock(S))
-		return
+		return TRUE
 
 	switch(mode)
 		if(SHUTTLE_CALL)
@@ -354,6 +354,7 @@
 			destination = S
 			mode = SHUTTLE_IGNITING
 			setTimer(ignitionTime)
+	return FALSE
 
 //recall the shuttle to where it was previously
 /obj/docking_port/mobile/proc/cancel()

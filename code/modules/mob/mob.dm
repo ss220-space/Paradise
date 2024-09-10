@@ -749,7 +749,7 @@
 		return
 	LAZYADD(mob_spell_list, spell)
 	spell.action.Grant(src)
-
+	spell.on_spell_gain(src)
 
 /mob/proc/RemoveSpell(obj/effect/proc_holder/spell/instance_or_path)
 	if(!ispath(instance_or_path))
