@@ -114,7 +114,7 @@
 		if(RITUAL_ENDED)
 			. = RITUAL_ENDED
 			if(!silent)
-				playsound(ritual_object.loc, 'sound/effects/phaseout.ogg', 50, TRUE)
+				playsound(ritual_object.loc, 'sound/effects/phasein.ogg', 50, TRUE)
 		if(RITUAL_FAILED)
 			. = RITUAL_FAILED
 			if(!silent)
@@ -284,7 +284,7 @@
 		return RITUAL_FAILED_ON_PROCEED // Your punishment
 	var/obj/effect/proc_holder/spell/mind_transfer/transfer = new
 	if(transfer.cast(human, invoker))
-		message_admins("[key_name(human)] accomplished mindtransfer ritual on [key_name(target)]")
+		message_admins("[key_name(human)] accomplished mindtransfer ritual on [key_name(invoker)]")
 	return RITUAL_SUCCESSFUL
 
 /datum/ritual/ashwalker/mind_transfer/disaster(obj/obj, mob/living/carbon/human/invoker)
