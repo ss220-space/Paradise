@@ -54,7 +54,7 @@
 		to_chat(human, "Не имеется доступных для исполнения ритуалов.")
 		return
 
-	var/tgui_menu = tgui_input_list(src, "выберите ритуал", "Ритуалы", rituals_list)
+	var/tgui_menu = tgui_input_list(human, "выберите ритуал", "Ритуалы", rituals_list)
 	if(!tgui_menu)
 		active_ui = FALSE
 		return
